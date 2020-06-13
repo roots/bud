@@ -15,11 +15,7 @@
     "lint:prettier": "prettier --write ."
   },
   "bin": "./bin/budpack.js",
-  "files": [
-    "src/cli",
-    "src/build",
-    "bin"
-  ],
+  "files": ["src/cli", "src/build", "bin"],
   "licenses": [
     {
       "type": "MIT",
@@ -27,12 +23,12 @@
     }
   ],
   "dependencies": {
-		"import-jsx": "^4.0.0",
-		"ink": "^2.7.1",
-		"meow": "^7.0.1",
-		"prop-types": "^15.7.2",
-		"react": "^16.13.1"
-	},
+    "import-jsx": "^4.0.0",
+    "ink": "^2.7.1",
+    "meow": "^7.0.1",
+    "prop-types": "^15.7.2",
+    "react": "^16.13.1"
+  },
   "devDependencies": {
     "@babel/cli": "^7.10.1",
     "@babel/core": "^7.10.2",
@@ -79,7 +75,5 @@
     "webpackbar": "^4.0.0",
     "write-file-webpack-plugin": "^4.5.1"
   },
-  "browserslist": [
-    "extends @wordpress/browserslist-config"
-  ]
+  "browserslist": ["extends @wordpress/browserslist-config"]
 }

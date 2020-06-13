@@ -2,7 +2,7 @@
   "name": "roots/bud-support",
   "type": "library",
   "license": "MIT",
-  "description": "Supporting the wp-plugin preset.",
+  "description": "Supporting scripts for bud-cli",
   "homepage": "https://roots.io/bud",
   "authors": [
     {
@@ -10,7 +10,6 @@
       "email": "kelly@roots.io"
     }
   ],
-  "keywords": ["wordpress"],
   "autoload": {
     "psr-4": {
       "Roots\\Bud\\": ["src/lib/"]
@@ -25,8 +24,6 @@
     "tightenco/collect": "^7.12"
   },
   "scripts": {
-    "lint": [
-      "phpcs --ignore=vendor,dist --extensions=php --standard=PSR12 ."
-    ]
+    "lint": ["phpcs --ignore=vendor,dist --extensions=php --standard=PSR12 ."]
   }
 }
