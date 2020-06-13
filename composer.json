@@ -1,0 +1,32 @@
+{
+  "name": "roots/bud-support",
+  "type": "library",
+  "license": "MIT",
+  "description": "Supporting the wp-plugin preset.",
+  "homepage": "https://roots.io/bud",
+  "authors": [
+    {
+      "name": "Kelly Mears",
+      "email": "kelly@roots.io"
+    }
+  ],
+  "keywords": ["wordpress"],
+  "autoload": {
+    "psr-4": {
+      "Roots\\Bud\\": ["src/lib/"]
+    }
+  },
+  "require": {
+    "php": "^7.2",
+    "eftec/bladeone": "^3.45",
+    "roots/support": "^1.0",
+    "php-di/php-di": "^6.2",
+    "ocramius/proxy-manager": "^2.8",
+    "tightenco/collect": "^7.12"
+  },
+  "scripts": {
+    "lint": [
+      "phpcs --ignore=vendor,dist --extensions=php --standard=PSR12 ."
+    ]
+  }
+}
