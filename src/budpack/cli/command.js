@@ -20,20 +20,4 @@ const command = meow(`
       ↪️  build for production
 `)
 
-if (command?.input?.[0] == 'dev') {
-  process.env.BABEL_ENV = 'development'
-  process.env.NODE_ENV = 'development'
-}
-
-if (command?.input?.[0] == 'dev') {
-  process.env.BABEL_ENV = 'production'
-  process.env.NODE_ENV = 'production'
-}
-
-process.on('unhandledRejection', err => {
-  console.error(err)
-
-  process.exit()
-})
-
 export default command

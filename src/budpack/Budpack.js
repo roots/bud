@@ -1,35 +1,37 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, useMemo} from 'react'
 import PropTypes from 'prop-types'
 import {Text, Box, Color} from 'ink'
+import Spinner from 'ink-spinner'
 
 import Banner from './components/Banner'
+
+const useWebpack = ({compiler, mode}) => {
+  const [errors, setErrors] = useState(null)
+  const [stats, setStats] = useState(null)
+  const cb = (errors, stats) => {
+    errors && setErrors(errors)
+    stats && setStats(stats)
+  }
+
+  useMemo(() => mode == 'dev'
+    ? compiler.watch(null, cb)
+    : compiler.run(cb),
+    [mode, compiler],
+  )
+
+  return [stats, errors]
+}
 
 /**
  * Budpack CLI interface
  *
- * @prop {object} cli
+ * @prop {object} compiler webpack compiler
+ * @prop {string} mode watch or run
  */
-const Budpack = ({compiler, cli}) => {
-  const [mode, setMode] = useState(null)
-  useEffect(() => {
-    cli?.input?.[0] && setMode(cli.input[0])
-  }, [cli])
-
-  const [stats, setStats] = useState(null)
-  const [error, setError] = useState(null)
-  useEffect(() => {
-    const callback = (err, stats) => {
-      stats && setStats(stats)
-      err && setError(err)
-    }
-
-    if (mode) {
-      mode == 'build' && compiler.run(callback)
-      mode == 'dev' && compiler.watch(null, callback)
-    }
-  }, [mode])
-
-  const [assets, setAssets] = useState([])
+const Budpack = props => {
+  const [mode] = useState(props.mode)
+  const [stats, errors] = useWebpack(props)
+  const [assets, setAssets] = useState(null)
   useEffect(() => {
     stats?.compilation?.assets && setAssets(
       Object.keys(stats.compilation.assets)
@@ -37,30 +39,32 @@ const Budpack = ({compiler, cli}) => {
   }, [stats])
 
   return (
-    <Box flexDirection="column" marginTop={1}>
+    <Box flexDirection="column">
       <Banner />
 
       {assets && assets.map((asset, id) => (
-        <Box key={id}>
-          <Text>{asset}</Text>
-        </Box>
+        <Text key={id}>{asset}</Text>
       ))}
 
-      {error && (
-        <Text>{error}</Text>
-      )}
-
-      {mode == 'dev' && (
-        <Box marginTop={2} marginBottom={2}>
-          <Color green>Watching the days go by...</Color>
-        </Box>
-      )}
+      <Box marginTop={1} marginBottom={1}>
+        <Color green>
+          {assets && (
+            mode == 'dev' ? (
+              <Text><Spinner /> Watching the days go by...</Text>
+            ) : (
+              <Text>Finished.</Text>
+            )
+          )}
+        </Color>
+      </Box>
     </Box>
   )
 }
 
 Budpack.propTypes = {
-  cli: PropTypes.object,
+  stats: PropTypes.object,
+  errors: PropTypes.object,
+  mode: PropTypes.string,
 }
 
 module.exports = Budpack
