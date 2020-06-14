@@ -1,5 +1,3 @@
-const {globber} = require('./util')
-
 /**
  * Webpack Entrypoints
  */

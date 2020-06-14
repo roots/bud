@@ -1,12 +1,15 @@
 #!/usr/bin/env node
-const path = require('path')
-const rootPath = path.join(__dirname, '..')
 
-require('@babel/register')({
+const {join} = require('path')
+const register = require('@babel/register')
+const rootPath = join(__dirname, '..')
+
+register({
   root: rootPath,
   ignore: [/node_modules/],
   only: [rootPath],
 })
 
-require = require('esm')(module)
-module.exports = require('./../src')
+module.exports = require('esm')(module)(
+  './../src/budpack/index.js'
+)

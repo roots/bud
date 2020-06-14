@@ -3,7 +3,7 @@ const meow = require('meow')
 /**
  * CLI
  */
-const cli = meow(`
+const signature = meow(`
   Usage
     $ budpack dev
     $ budpack build
@@ -20,12 +20,12 @@ const cli = meow(`
       ↪️  build for production
 `)
 
-if (cli.input && cli.input[0] && cli.input[0] == 'dev') {
+if (signature.input && signature.input[0] && signature.input[0] == 'dev') {
   process.env.BABEL_ENV = 'development'
   process.env.NODE_ENV = 'development'
 }
 
-if (cli.input && cli.input[0] && cli.input[0] == 'dev') {
+if (signature.input && signature.input[0] && signature.input[0] == 'dev') {
   process.env.BABEL_ENV = 'production'
   process.env.NODE_ENV = 'production'
 }
@@ -35,4 +35,4 @@ process.on('unhandledRejection', err => {
   process.exit()
 })
 
-module.exports = cli
+export default signature

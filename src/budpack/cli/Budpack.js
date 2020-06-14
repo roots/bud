@@ -1,13 +1,13 @@
-const React = require('react')
-const {useEffect, useState} = React
-const PropTypes = require('prop-types')
-const {Text, Box, Color} = require('ink')
+import React, {useEffect, useState} from 'react'
+import PropTypes from 'prop-types'
+import {Text, Box, Color} from 'ink'
 
-const webpack = require('webpack')
-const build = require('./../build').webpack
-const compiler = webpack(build())
+import webpack from 'webpack'
+import budConfig from './../config'
 
 import Banner from './Banner'
+
+const compiler = webpack(budConfig())
 
 /**
  * Budpack CLI interface
@@ -69,4 +69,4 @@ Budpack.propTypes = {
   cli: PropTypes.object,
 }
 
-module.exports = Budpack
+export default Budpack

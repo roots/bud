@@ -1,18 +1,18 @@
-const devServer = require('./devServer')
-const entry = require('./entry')
-const optimization = require('./optimization')
-const output = require('./output')
-const options = require('./options')
-const plugins = require('./plugins')
-const resolve = require('./resolve')
-const loaders = require('./loaders')
+import devServer from './devServer'
+import entry from './entry'
+import optimization from './optimization'
+import output from './output'
+import options from './options'
+import plugins from './plugins'
+import resolve from './resolve'
+import loaders from './loaders'
 
 /**
  * Default config
  *
  * @type {object} default webpack configuration
  */
-const DEFAULT_CONFIG = {
+const config = {
   entry: {},
   loaders: [],
   plugins: [],
@@ -30,7 +30,7 @@ const DEFAULT_CONFIG = {
  * @param  {object} config overrides
  * @return {object} final webpack configuration
  */
-const webpack = (config = DEFAULT_CONFIG) => ({
+const budpackConfig = () => ({
   ...entry({
     entry: config.entry,
   }),
@@ -58,7 +58,4 @@ const webpack = (config = DEFAULT_CONFIG) => ({
   }),
 })
 
-module.exports = {
-  webpack,
-  defaults: DEFAULT_CONFIG,
-}
+export default budpackConfig

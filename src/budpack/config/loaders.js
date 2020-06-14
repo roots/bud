@@ -1,10 +1,10 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const {projectPath} = require('./util')
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import {projectPath} from './util'
 
 /**
  * Webpack loaders
  */
-const loaders = ({loaders}) => ({
+const loaders = () => ({
   module: {
     strictExportPresence: true,
     rules: [
@@ -48,4 +48,4 @@ const loaders = ({loaders}) => ({
   },
 })
 
-module.exports = loaders
+export default loaders

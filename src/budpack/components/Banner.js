@@ -3,7 +3,7 @@ import {Box, Color, Text} from 'ink'
 import Gradient from 'ink-gradient'
 import BigText from 'ink-big-text'
 
-import pkg from './../../package.json'
+import pkg from '../../../package.json'
 
 const Banner = () => (
   <Box flexDirection="row" alignItems="center" marginBottom={0} paddingBottom={0}>
