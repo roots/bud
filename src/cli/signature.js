@@ -9,9 +9,6 @@ const cli = meow(`
     $ budpack build
     $ budpack build:production
 
-  Options
-    --production
-
   Examples
     $ budpack dev
       ↪️  build with hmr and watch enabled
@@ -19,7 +16,7 @@ const cli = meow(`
     $ budpack build
       ↪️  build with watch enabled
 
-    $ budpack build:production
+    $ budpack production
       ↪️  build for production
 `)
 

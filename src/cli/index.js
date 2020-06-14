@@ -2,9 +2,12 @@ const React = require('react')
 const {useEffect, useState} = React
 const PropTypes = require('prop-types')
 const {Text, Box, Color} = require('ink')
+
 const webpack = require('webpack')
 const build = require('./../build').webpack
 const compiler = webpack(build())
+
+import Banner from './Banner'
 
 /**
  * Budpack CLI interface
@@ -19,10 +22,11 @@ const Budpack = ({cli}) => {
 
   const [stats, setStats] = useState(null)
   const [error, setError] = useState(null)
+
   useEffect(() => {
     const callback = (err, stats) => {
-      ;(err || stats.hasErrors()) && setError(err)
-      setStats(stats)
+      const hasErr = err || stats.hasErrors()
+      hasErr ? setError(err) : setStats(stats)
     }
 
     if (mode) {
@@ -41,12 +45,7 @@ const Budpack = ({cli}) => {
 
   return (
     <Box flexDirection="column" marginTop={1}>
-      <Box flexDirection="column">
-        <Text>
-          <Color green>Budpack</Color>
-        </Text>
-        {mode && <Text>Target: {mode}</Text>}
-      </Box>
+      <Banner />
 
       {assets &&
         assets.map((asset, id) => (
@@ -57,7 +56,7 @@ const Budpack = ({cli}) => {
 
       {assets && mode == 'dev' && (
         <Box marginTop={2} marginBottom={2}>
-          👀 Watching the days go by.
+          <Color green>Watching they days go by...</Color>
         </Box>
       )}
 

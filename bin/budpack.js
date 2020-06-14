@@ -1,9 +1,12 @@
 #!/usr/bin/env node
-const cli = require('./../src/cli/signature')
+const path = require('path')
+const rootPath = path.join(__dirname, '..')
 
-const React = require('react')
-const importJsx = require('import-jsx')
-const {render} = require('ink')
-const Budpack = importJsx('./../src/cli')
+require('@babel/register')({
+  root: rootPath,
+  ignore: [/node_modules/],
+  only: [rootPath],
+})
 
-render(React.createElement(Budpack, {cli}))
+require = require('esm')(module)
+module.exports = require('./../src')

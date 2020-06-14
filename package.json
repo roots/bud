@@ -1,6 +1,6 @@
 {
   "name": "@roots/budpack",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "repository": {
     "type": "git",
     "url": "git://github.com/roots/bud-support.git"
@@ -15,7 +15,11 @@
     "lint:prettier": "prettier --write ."
   },
   "bin": "./bin/budpack.js",
-  "files": ["src/cli", "src/build", "bin"],
+  "files": [
+    "src/cli",
+    "src/build",
+    "bin"
+  ],
   "licenses": [
     {
       "type": "MIT",
@@ -23,8 +27,16 @@
     }
   ],
   "dependencies": {
+    "@babel/parser": "^7.3.4",
+    "@babel/register": "^7.10.1",
+    "@babel/traverse": "^7.3.4",
+    "@babel/types": "^7.3.4",
+    "esm": "^3.2.25",
     "import-jsx": "^4.0.0",
     "ink": "^2.7.1",
+    "ink-big-text": "^1.1.0",
+    "ink-gradient": "^1.0.0",
+    "ink-spinner": "^3.0.1",
     "meow": "^7.0.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1"
@@ -75,5 +87,20 @@
     "webpackbar": "^4.0.0",
     "write-file-webpack-plugin": "^4.5.1"
   },
-  "browserslist": ["extends @wordpress/browserslist-config"]
+  "browserslist": [
+    "extends @wordpress/browserslist-config"
+  ],
+  "babel": {
+    "presets": [
+      "@babel/preset-react",
+      [
+        "@babel/preset-env",
+        {
+          "targets": {
+            "node": true
+          }
+        }
+      ]
+    ]
+  }
 }
