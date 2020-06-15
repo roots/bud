@@ -30,10 +30,8 @@ const config = {
  * @param  {object} config overrides
  * @return {object} final webpack configuration
  */
-const budpackConfig = () => ({
-  ...entry({
-    entry: config.entry,
-  }),
+const budpackConfig = {
+  ...entry,
   ...resolve({
     aliases: config.aliases,
   }),
@@ -50,12 +48,10 @@ const budpackConfig = () => ({
   ...output({
     dev: config.dev,
   }),
-  ...loaders({
-    loaders: config.loaders,
-  }),
+  ...loaders,
   ...options({
     options: config.options,
   }),
-})
+}
 
 export default budpackConfig

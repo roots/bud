@@ -36,6 +36,7 @@
     "ink-big-text": "^1.1.0",
     "ink-gradient": "^1.0.0",
     "ink-spinner": "^3.0.1",
+    "ink-use-stdout-dimensions": "^1.0.5",
     "meow": "^7.0.1",
     "prop-types": "^15.7.2",
     "react": "^16.13.1"

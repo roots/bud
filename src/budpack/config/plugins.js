@@ -13,7 +13,9 @@ const {isProduction} = require('./util')
  */
 const plugins = ({dev}) => ({
   plugins: [
-    new FixStyleOnlyEntriesPlugin(),
+    new FixStyleOnlyEntriesPlugin({
+      silent: true,
+    }),
     new MiniCssExtractPlugin({
       filename: `[name].[chunkhash].css`,
     }),

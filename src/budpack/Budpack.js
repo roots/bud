@@ -1,26 +1,13 @@
-import React, {useEffect, useState, useMemo} from 'react'
+import React, {useState, useEffect} from 'react'
 import PropTypes from 'prop-types'
 import {Text, Box, Color} from 'ink'
 import Spinner from 'ink-spinner'
+import useStdoutDimensions from 'ink-use-stdout-dimensions'
 
+import useWebpack from './hooks/useWebpack'
+import Assets from './components/Assets'
 import Banner from './components/Banner'
-
-const useWebpack = ({compiler, mode}) => {
-  const [errors, setErrors] = useState(null)
-  const [stats, setStats] = useState(null)
-  const cb = (errors, stats) => {
-    errors && setErrors(errors)
-    stats && setStats(stats)
-  }
-
-  useMemo(() => mode == 'dev'
-    ? compiler.watch(null, cb)
-    : compiler.run(cb),
-    [mode, compiler],
-  )
-
-  return [stats, errors]
-}
+import pkg from '../../package.json'
 
 /**
  * Budpack CLI interface
@@ -29,42 +16,51 @@ const useWebpack = ({compiler, mode}) => {
  * @prop {string} mode watch or run
  */
 const Budpack = props => {
+  const [columns, rows] = useStdoutDimensions()
   const [mode] = useState(props.mode)
-  const [stats, errors] = useWebpack(props)
-  const [assets, setAssets] = useState(null)
-  useEffect(() => {
-    stats?.compilation?.assets && setAssets(
-      Object.keys(stats.compilation.assets)
-    )
-  }, [stats])
+  const {assets} = useWebpack(props)
+  const padding = 4
 
   return (
-    <Box flexDirection="column">
-      <Banner />
+    <Box
+      paddingLeft={2}
+      paddingRight={2}
+      height={rows-padding}
+      flexDirection="column"
+      justifyContent="space-between">
+      <Box flexDirection="column">
+        <Banner />
+        <Assets
+          width={columns-padding}
+          assets={assets}
+        />
+      </Box>
 
-      {assets && assets.map((asset, id) => (
-        <Text key={id}>{asset}</Text>
-      ))}
+      <Box
+        width={columns-padding}
+        flexDirection="row"
+        justifyContent="space-between"
+        marginTop={1}
+        marginBottom={0}
+        paddingBottom={0}
+        paddingTop={0}>
+        <Box>
+          {assets.length == 0
+            ? <Color green><Spinner /> Compiling project assets</Color>
+            : mode == 'dev' && <Color green><Spinner /> Watching files</Color>
+          }
+        </Box>
 
-      <Box marginTop={1} marginBottom={1}>
-        <Color green>
-          {assets && (
-            mode == 'dev' ? (
-              <Text><Spinner /> Watching the days go by...</Text>
-            ) : (
-              <Text>Finished.</Text>
-            )
-          )}
-        </Color>
+        <Box>
+          <Text bold>
+            <Color green>
+              ⚡️ {pkg.name} [{pkg.version}]
+            </Color>
+          </Text>
+        </Box>
       </Box>
     </Box>
   )
-}
-
-Budpack.propTypes = {
-  stats: PropTypes.object,
-  errors: PropTypes.object,
-  mode: PropTypes.string,
 }
 
 module.exports = Budpack

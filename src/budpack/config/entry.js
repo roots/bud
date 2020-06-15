@@ -1,9 +1,9 @@
-const {globber} = require('./util')
+import {globber} from './util'
 
 /**
  * Webpack Entrypoints
  */
-const entry = ({entry}) => ({
+const entry = {
   entry: {
     ...globber([
       {
@@ -21,8 +21,7 @@ const entry = ({entry}) => ({
         ],
       },
     ]),
-    ...entry,
   },
-})
+}
 
-module.exports = entry
+export default entry

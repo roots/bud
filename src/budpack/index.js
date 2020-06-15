@@ -21,9 +21,11 @@ process.on('unhandledRejection', err => {
   process.exit()
 })
 
+const compiler = webpack(budpackConfig)
+
 render(
   React.createElement(Budpack, {
-    compiler: webpack(budpackConfig()),
+    compiler,
     mode,
   })
 )

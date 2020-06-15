@@ -1,22 +1,32 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import {projectPath} from './util'
 
+const babel = {
+  test: /\.(js|jsx)$/,
+  include: projectPath('src'),
+  exclude: /node_modules/,
+  loader: 'babel-loader',
+}
+
+const eslint = {
+  test: /\.(js|jsx)$/,
+  include: projectPath('src'),
+  exclude: /node_modules/,
+  loader: 'eslint-loader',
+  options: {
+    formatter: 'json',
+  },
+}
+
 /**
  * Webpack loaders
  */
-const loaders = () => ({
+const loaders = {
   module: {
     strictExportPresence: true,
     rules: [
-      {
-        test: /\.(js|jsx)$/,
-        include: projectPath('src'),
-        exclude: /node_modules/,
-        use: [
-          {loader: 'babel-loader'},
-          {loader: 'eslint-loader'},
-        ],
-      },
+      eslint,
+      babel,
       {
         test: /\.css$/,
         include: projectPath('src'),
@@ -46,6 +56,6 @@ const loaders = () => ({
       },
     ],
   },
-})
+}
 
 export default loaders
