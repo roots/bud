@@ -1,7 +1,7 @@
 import {join} from 'path'
 import React from 'react'
 import {render} from 'ink'
-import Budpack from './Budpack'
+import importJsx from 'import-jsx'
 import webpack from 'webpack'
 import config from './config'
 
@@ -14,6 +14,7 @@ process.on('unhandledRejection', err => {
   process.exit()
 })
 
+const Budpack = importJsx('./Budpack')
 const project = require(join(process.cwd(), 'bud.config.js'))
 const compiler = webpack(config(project))
 
