@@ -1,61 +1,98 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
-import {projectPath} from './util'
 
-const babel = {
+/**
+ * Babel loader
+ */
+const babel = ({babel, project}) => ({
   test: /\.(js|jsx)$/,
-  include: projectPath('src'),
+  include: project,
   exclude: /node_modules/,
-  loader: 'babel-loader',
-}
+  loader: require.resolve('babel-loader'),
+  options: {
+    ...babel,
+  },
+})
 
-const eslint = {
+/**
+ * Eslint loader
+ */
+const eslint = ({project, eslint}) => ({
   test: /\.(js|jsx)$/,
-  include: projectPath('src'),
+  include: project,
   exclude: /node_modules/,
-  loader: 'eslint-loader',
+  loader: require.resolve('eslint-loader'),
   options: {
     formatter: 'json',
+    configFile: eslint.configFile,
   },
+})
+
+const post = configFile => ({
+  loader: require.resolve('postcss-loader'),
+  options: {
+    config: {
+      path: configFile,
+    },
+  },
+})
+
+/**
+ * CSS Loader
+ */
+const css = ({project, postcss}) => {
+  const use = [
+    MiniCssExtractPlugin.loader,
+    {loader: require.resolve('css-loader')},
+  ]
+  postcss.enabled && use.push(post(postcss.configFile))
+
+  return {
+    test: /\.css$/,
+    include: project,
+    use,
+  }
 }
+
+/**
+ * Static loader
+ */
+const images = () => ({
+  test: /\.jpe?g$|\.gif$|\.png$/i,
+  use: [
+    {
+      loader: require.resolve('file-loader'),
+      options: {
+        name: '[path][name].[ext]',
+      },
+    },
+  ],
+})
+
+/**
+ * SVG loader
+ */
+const svg = () => ({
+  test: /\.svg$/,
+  use: [
+    '@svgr/webpack',
+    'url-loader',
+  ],
+})
 
 /**
  * Webpack loaders
  */
-const loaders = {
+const loaders = ({options}) => ({
   module: {
     strictExportPresence: true,
     rules: [
-      eslint,
-      babel,
-      {
-        test: /\.css$/,
-        include: projectPath('src'),
-        use: [
-          MiniCssExtractPlugin.loader,
-          {loader: 'css-loader'},
-          {loader: 'postcss-loader'},
-        ],
-      },
-      {
-        test: /\.jpe?g$|\.gif$|\.png$/i,
-        use: [
-          {
-            loader: 'file-loader',
-            options: {
-              name: '[path][name].[ext]',
-            },
-          },
-        ],
-      },
-      {
-        test: /\.svg$/,
-        use: [
-          '@svgr/webpack',
-          'url-loader',
-        ],
-      },
+      (options.eslint.enabled ? eslint(options) : {}),
+      babel(options),
+      css(options),
+      images(),
+      svg(),
     ],
   },
-}
+})
 
 export default loaders

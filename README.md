@@ -2,13 +2,6 @@
   <img alt="Bud" src="https://cdn.roots.io/app/uploads/logo-bud.svg" height="100">
 </p>
 
-<p align="center">
-  <img alt="MIT License" src="https://img.shields.io/github/license/?color=%23525ddc&style=flat-square">
-  <a href="https://twitter.com/rootswp">
-    <img alt="Follow Roots" src="https://img.shields.io/twitter/follow/rootswp.svg?style=flat-square&color=1da1f2" />
-  </a>
-</p>
-
 <h1 align="center">
   <strong>@roots/bud-support</strong>
 </h1>
@@ -16,6 +9,54 @@
 ## Overview
 
 This repository provides supporting client and server-side utilities to the main Bud CLI and the output it generates. [You may be looking for the main repository](https://github.com/roots/bud).
+
+## Budpack example
+
+```js
+const bud = require('@roots/budpack/src/budpack/bud')
+
+bud.project(__dirname) // default process.cwd
+bud.dist('compiled') // default dist
+
+.dev({
+  host: 'example.com', // default localhost
+  port: 7000, // default 3000
+})
+.watchTimeout(5000) // default 3000
+
+.alias({
+  '@blocks': bud.resolve('src/blocks'),
+  '@components': bud.resolve('src/components'),
+  '@hooks': bud.resolve('src/hooks'),
+})
+
+.babel({
+  react: true, // default false
+  dynamicImport: false, // default true
+  transformRuntime: false, // default true
+  cacheDirectory: false, // default true
+})
+
+.entry('editor', [
+  bud.resolve('/src/editor.js'),
+  bud.resolve('/src/editor.css')
+])
+
+.eslint({enabled: false}) // default true
+.postcss({enabled: false}) // default true
+
+.hash(false) // default inProduction
+.maps(false) // default inProduction
+.mini(false) // default !inProduction
+.hot(false) // default inDevelopment
+.watch(false) // default inDevelopment
+
+.wpManifest({
+  outputFormat: 'php', // default json
+})
+
+module.exports = bud
+```
 
 ## Contributing
 

@@ -1,16 +1,13 @@
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
-const {isProduction} = require('./util')
-
 /**
  * Webpack optimization
  */
-const optimization = ({optimization}) => ({
+const optimization = ({options}) => ({
   optimization: {
-    minimize: true,
-    noEmitOnErrors: isProduction,
-    minimizer: isProduction ? [new UglifyJsPlugin()] : [],
-    ...optimization,
+    minimize: options.minified,
+    noEmitOnErrors: true,
+    minimizer: options.minified ? [new UglifyJsPlugin()] : [],
   },
 })
 

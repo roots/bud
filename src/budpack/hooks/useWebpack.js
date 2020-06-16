@@ -3,7 +3,7 @@ import {useState, useMemo, useEffect} from 'react'
 /**
  * Hook: useWebpack
  * @prop {compiler} compiler webpack.compiler
- * @prop {string}   mode     'dev' or 'build'
+ * @prop {string}   mode     'development' or 'build'
  */
 const useWebpack = ({compiler, mode}) => {
   const [buildStats, setBuildStats] = useState({})
@@ -26,41 +26,30 @@ const useWebpack = ({compiler, mode}) => {
       }))
     }
 
-    mode == 'dev'
-      ? compiler.watch({}, cb)
-      : compiler.run(cb)
+    mode == 'development' ? compiler.watch({}, cb) : compiler.run(cb)
   }, [mode, compiler])
 
   const [assets, setAssets] = useState([])
-  const [hasAssets, setHasAssets] = useState(false)
   const [warnings, setWarnings] = useState([])
-  const [hasWarnings, setHasWarnings] = useState(false)
   const [errors, setErrors] = useState([])
-  const [hasErrors, setHasErrors] = useState(false)
   useEffect(() => {
     buildStats?.assets?.length > 1 && (() => {
-      setHasAssets(true)
       setAssets(buildStats.assets)
     })()
 
     buildStats?.errors?.length > 1 && (() => {
-      setHasErrors(true)
       setErrors(buildStats.errors)
     })()
 
     buildStats?.warnings?.length > 1 && (() => {
-      setHasWarnings(true)
       setWarnings(buildStats.warnings)
     })()
   }, [buildStats])
 
   return {
     assets,
-    hasAssets,
     errors,
-    hasErrors,
     warnings,
-    hasWarnings,
     buildErrors,
   }
 }
