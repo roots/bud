@@ -1,13 +1,91 @@
-import React, {useState, useEffect} from 'react'
-import PropTypes from 'prop-types'
+import React, {useState} from 'react'
 import {Text, Box, Color} from 'ink'
 import Spinner from 'ink-spinner'
-import useStdoutDimensions from 'ink-use-stdout-dimensions'
 
 import useWebpack from './hooks/useWebpack'
+import useView from './hooks/useView'
+
 import Assets from './components/Assets'
 import Banner from './components/Banner'
 import pkg from '../../package.json'
+
+/**
+ * Build status
+ *
+ * @prop {object} assets
+ * @prop {string} mode
+ */
+const Status = ({assets, mode}) => (
+  <Box>
+    {assets.length == 0
+      ? <Color green><Spinner /> Compiling project assets</Color>
+      : mode == 'dev' && <Color green><Spinner /> Watching files</Color>
+    }
+  </Box>
+)
+
+/**
+ * Budpack info
+ *
+ * @prop {string} name
+ * @prop {string} version
+ */
+const Info = ({name, version}) => (
+  <Box>
+    <Text bold>
+      <Color green>
+        ⚡️ {name} [{version}]
+      </Color>
+    </Text>
+  </Box>
+)
+
+/**
+ * Footer
+ *
+ * @prop {object} assets
+ * @prop {string} mode
+ */
+const Footer = ({assets, mode}) => {
+  const [width] = useView()
+
+  return (
+    <Box
+      width={width}
+      flexDirection="row"
+      justifyContent="space-between"
+      marginTop={1}>
+      <Status
+        assets={assets}
+        mode={mode}
+      />
+
+      <Info
+        name={pkg.name}
+        version={pkg.version}
+      />
+    </Box>
+  )
+}
+
+const App = ({children}) => {
+  const [width, height] = useView()
+
+  return (
+    <Box
+      paddingLeft={2}
+      paddingRight={2}
+      height={height}
+      flexDirection="column"
+      justifyContent="space-between">
+      <Box flexDirection="column">
+        <Banner />
+
+        {children}
+      </Box>
+    </Box>
+  )
+}
 
 /**
  * Budpack CLI interface
@@ -16,50 +94,20 @@ import pkg from '../../package.json'
  * @prop {string} mode watch or run
  */
 const Budpack = props => {
-  const [columns, rows] = useStdoutDimensions()
   const [mode] = useState(props.mode)
   const {assets} = useWebpack(props)
-  const padding = 4
 
   return (
-    <Box
-      paddingLeft={2}
-      paddingRight={2}
-      height={rows-padding}
-      flexDirection="column"
-      justifyContent="space-between">
+    <App>
       <Box flexDirection="column">
         <Banner />
-        <Assets
-          width={columns-padding}
-          assets={assets}
-        />
+        <Assets assets={assets} />
       </Box>
-
-      <Box
-        width={columns-padding}
-        flexDirection="row"
-        justifyContent="space-between"
-        marginTop={1}
-        marginBottom={0}
-        paddingBottom={0}
-        paddingTop={0}>
-        <Box>
-          {assets.length == 0
-            ? <Color green><Spinner /> Compiling project assets</Color>
-            : mode == 'dev' && <Color green><Spinner /> Watching files</Color>
-          }
-        </Box>
-
-        <Box>
-          <Text bold>
-            <Color green>
-              ⚡️ {pkg.name} [{pkg.version}]
-            </Color>
-          </Text>
-        </Box>
-      </Box>
-    </Box>
+      <Footer
+        mode={mode}
+        assets={assets}
+      />
+    </App>
   )
 }
 

@@ -18,7 +18,7 @@ const useWebpack = ({compiler, mode}) => {
         version: false,
         hash: false,
         time: false,
-        filteredMOdules: false,
+        filteredModules: false,
         outputPath: false,
         assetsByChunkName: false,
         chunks: false,
@@ -32,35 +32,27 @@ const useWebpack = ({compiler, mode}) => {
   }, [mode, compiler])
 
   const [assets, setAssets] = useState([])
-  const [hasAssets, setHasAssets] = useState(false)
   const [warnings, setWarnings] = useState([])
-  const [hasWarnings, setHasWarnings] = useState(false)
   const [errors, setErrors] = useState([])
-  const [hasErrors, setHasErrors] = useState(false)
   useEffect(() => {
     buildStats?.assets?.length > 1 && (() => {
-      setHasAssets(true)
       setAssets(buildStats.assets)
     })()
 
     buildStats?.errors?.length > 1 && (() => {
-      setHasErrors(true)
       setErrors(buildStats.errors)
     })()
 
     buildStats?.warnings?.length > 1 && (() => {
-      setHasWarnings(true)
       setWarnings(buildStats.warnings)
     })()
   }, [buildStats])
 
   return {
     assets,
-    hasAssets,
     errors,
-    hasErrors,
     warnings,
-    hasWarnings,
+    buildStats,
     buildErrors,
   }
 }
