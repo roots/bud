@@ -60,7 +60,7 @@ const babel = ({
   react = false,
   dynamicImport = true,
   cacheDirectory = true,
-  transformRuntime = true,
+  transformRuntime = false,
   config = {},
 }) => ({
   ...baseConfig({

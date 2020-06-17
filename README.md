@@ -13,46 +13,73 @@ This repository provides supporting client and server-side utilities to the main
 ## Budpack example
 
 ```js
-const bud = require('@roots/budpack/src/budpack/bud')
+/**
+ * Budpack configuration [bud.config.js]
+ *
+ * Default values noted below.
+ *
+ * If no additional configuration is needed
+ * then you need only utilize bud.entry to have a
+ * working config.
+ *
+ * Any deviation from default is only intended to
+ * more clearly demonstrate the API and these deviations
+ * are flagged with an inline comment.
+ */
 
-bud.project(__dirname) // default process.cwd
-bud.dist('compiled') // default dist
+const bud = require('@roots/budpack/build/budpack/bud');
+
+bud.project(__dirname)
+
+.dist('dist')
 
 .dev({
-  host: 'example.com', // default localhost
-  port: 7000, // default 3000
+  host: 'localhost',
+  port: 3000,
+  headers: {
+    'Access-Control-Allow-Origin': '*',
+  },
+  disableHostCheck: true,
 })
-.watchTimeout(5000) // default 3000
 
-.alias({
-  '@blocks': bud.resolve('src/blocks'),
-  '@components': bud.resolve('src/components'),
-  '@hooks': bud.resolve('src/hooks'),
+.watchTimeout(300)
+
+.entry('app', [
+  bud.resolve('resources/assets/scripts/app.js'),
+]) // default: no entrypoints
+
+// @see @wordpress/dependency-extraction-manifest-plugin
+.wpManifest({
+  useDefaults: true,
+  injectPolyfill: false,
+  outputFormat: 'json',
 })
 
 .babel({
-  react: true, // default false
-  dynamicImport: false, // default true
-  transformRuntime: false, // default true
-  cacheDirectory: false, // default true
+  react: false,
+  dynamicImport: true,
+  cacheDirectory: true,
+  transformRuntime: false,
 })
 
-.entry('editor', [
-  bud.resolve('/src/editor.js'),
-  bud.resolve('/src/editor.css')
-])
+.eslint({enabled: true})
+.postcss({enabled: true})
 
-.eslint({enabled: false}) // default true
-.postcss({enabled: false}) // default true
+.vendor(true)
+.splitting(true)
+.maxChunks(3) // default void
 
-.hash(false) // default inProduction
-.maps(false) // default inProduction
-.mini(false) // default !inProduction
-.hot(false) // default inDevelopment
-.watch(false) // default inDevelopment
+.hash(bud.inProduction)
+.maps(! bud.inProduction)
+.mini(bud.inProduction)
+.hot(! bud.inProduction)
+.watch(! bud.inProduction)
 
-.wpManifest({
-  outputFormat: 'php', // default json
+.svg({
+  use: [
+    '@svgr/webpack',
+    'url-loader',
+  ],
 })
 
 module.exports = bud
