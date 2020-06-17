@@ -1,8 +1,8 @@
-const output = bud => ({
+const output = ({options, resolve}) => ({
   output: {
-    path: bud.resolve(bud.options.dist),
-    publicPath: bud.options.inProduction ? `/${bud.options.dist}` : `//${bud.options.dev.host}:${bud.options.dev.port}/${bud.options.dist}/`,
-    filename: bud.options.hashed ? '[name].[hash].js' : '[name].js',
+    path: resolve(options.dist),
+    publicPath: options.inProduction ? `/${options.dist}` : `//${options.dev.host}:${options.dev.port}/${options.dist}/`,
+    filename: options.hashed ? '[name].[hash].js' : '[name].js',
   },
 })
 

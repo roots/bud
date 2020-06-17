@@ -12,7 +12,6 @@ const api = require('./api')
  * Env settings
  */
 const inProduction = true
-const inDevelopment = false
 
 /**
  * Produce an absolute path from a project relative path
@@ -121,7 +120,7 @@ const entry = (chunk, entries) => {
  * @prop   {bool}   enabled
  * @return {object} bud
  */
-const postcss = ({enabled = bud.options.postcss}) => {
+const postcss = ({enabled}) => {
   bud.options.postcss = api.postcss({
     budpack: bud.options.budpack,
     project: bud.options.project,
@@ -137,7 +136,7 @@ const postcss = ({enabled = bud.options.postcss}) => {
  * @prop   {bool}   enabled
  * @return {object} bud
  */
-const eslint = ({enabled = bud.options.eslint}) => {
+const eslint = ({enabled}) => {
   bud.options.eslint = api.eslint({
     budpack: bud.options.budpack,
     project: bud.options.project,
@@ -160,6 +159,40 @@ const wpManifest = settings => {
   }
 
   return bud
+}
+
+/**
+ * Set vendor options
+ *
+ * @param  {bool}   state
+ * @return {object} bud
+ */
+const vendor = state => {
+  bud.options.vendor.disabled = state
+
+  return bud
+}
+
+/**
+ * Set maxChunks for code splitting
+ *
+ * @param  {bool}   state
+ * @return {object} bud
+ */
+const maxChunks = chunkCount => {
+  bud.options.splitting.maxChunks = chunkCount
+
+  return bud
+}
+
+/**
+ * Set code splitting options
+ *
+ * @param  {bool}   state
+ * @return {object} bud
+ */
+const splitting = state => {
+  bud.options.splitting.disabled = state
 }
 
 /**
@@ -206,6 +239,7 @@ const mini = state => {
  */
 const hot = state => {
   bud.options.hot = state
+
   return bud
 }
 
@@ -217,6 +251,7 @@ const hot = state => {
  */
 const watch = state => {
   bud.options.watching = state
+
   return bud
 }
 
@@ -234,6 +269,12 @@ const paths = {
  */
 const options = {
   ...paths,
+  babel: api.babel({
+    react: false,
+    dynamicImport: true,
+    cacheDirectory: true,
+    transformRuntime: true,
+  }),
   dev: {
     host: 'localhost',
     port: 3000,
@@ -255,17 +296,29 @@ const options = {
     ...paths,
     enabled: true,
   }),
+  splitting: {
+    disabled: false,
+    maxChunks: null,
+  },
+  svg: {
+    use: [
+      require.resolve('@svgr/webpack'),
+      require.resolve('url-loader'),
+    ],
+  },
+  vendor: {
+    disabled: false,
+  },
   wpManifest: {
     useDefaults: true,
     injectPolyfill: false,
     outputFormat: 'json',
   },
   inProduction,
-  inDevelopment,
-  watching: inDevelopment,
-  hot: inDevelopment,
-  mapped: inProduction,
-  hashed: inProduction,
+  watching: !inProduction,
+  hot: !inProduction,
+  mapped: !inProduction,
+  hashed: !inProduction,
   minified: inProduction,
 }
 
@@ -282,7 +335,6 @@ const bud = {
    * Statuses
    */
   inProduction,
-  inDevelopment,
 
   /**
    * Public methods
@@ -296,10 +348,13 @@ const bud = {
   hash,
   hot,
   maps,
+  maxChunks,
   mini,
   postcss,
   project,
   resolve,
+  splitting,
+  vendor,
   watch,
   watchTimeout,
   wpManifest,

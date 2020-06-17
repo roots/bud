@@ -1,12 +1,19 @@
 /**
  * Webpack resolves.
  */
-const resolve = bud => ({
-  resolve: {
-    alias: (bud.options.alias ? bud.options.alias : {}),
-    extensions: ['.js','.json','.jsx','.css'],
-    modules: [bud.resolve('node_modules')],
-  },
-})
+const resolve = ({options, resolve}) => {
+  const config = {
+    resolve: {
+      extensions: ['.js','.json','.jsx','.css'],
+      modules: [resolve('node_modules')],
+    },
+  }
+
+  if (options.alias) {
+    config.resolve.alias = options.alias
+  }
+
+  return config
+}
 
 module.exports = resolve

@@ -4,6 +4,7 @@ import options from './options'
 import plugins from './plugins'
 import loaders from './loaders'
 import resolve from './resolve'
+import devServer from './devServer'
 
 /**
  * Webpack config
@@ -19,7 +20,7 @@ const budpackConfig = bud => ({
   ...loaders(bud),
   ...options(bud),
   ...resolve(bud),
-  devServer: ! bud.inProduction ? bud.options.dev : {},
+  ...devServer(bud),
 })
 
 export default budpackConfig

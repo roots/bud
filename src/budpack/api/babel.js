@@ -23,7 +23,7 @@ const babelPlugins = {
 /**
  * Baseline babel configuration
  */
-const baseConfig = ({react = false, dynamicImport = true, cacheDirectory = true, transformRuntime = true}) => {
+const baseConfig = ({react, dynamicImport, cacheDirectory, transformRuntime}) => {
   const presets = [presetEnv]
   react && presets.push(presetReact)
 
@@ -56,8 +56,19 @@ const projectConfigValues = () => {
  * @prop   {object} api bud.config
  * @return {object}
  */
-const babel = ({react, dynamicImport, cacheDirectory, transformRuntime, ...config}) => ({
-  ...baseConfig({react, dynamicImport, cacheDirectory, transformRuntime}),
+const babel = ({
+  react = false,
+  dynamicImport = true,
+  cacheDirectory = true,
+  transformRuntime = true,
+  config = {},
+}) => ({
+  ...baseConfig({
+    react,
+    dynamicImport,
+    cacheDirectory,
+    transformRuntime,
+  }),
   ...projectConfigValues,
   ...config,
 })

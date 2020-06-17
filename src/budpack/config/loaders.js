@@ -44,6 +44,7 @@ const css = ({project, postcss}) => {
     MiniCssExtractPlugin.loader,
     {loader: require.resolve('css-loader')},
   ]
+
   postcss.enabled && use.push(post(postcss.configFile))
 
   return {
@@ -71,28 +72,31 @@ const images = () => ({
 /**
  * SVG loader
  */
-const svg = () => ({
+const svg = ({svg}) => ({
   test: /\.svg$/,
-  use: [
-    '@svgr/webpack',
-    'url-loader',
-  ],
+  use: svg.use,
 })
 
 /**
  * Webpack loaders
  */
-const loaders = ({options}) => ({
-  module: {
-    strictExportPresence: true,
-    rules: [
-      (options.eslint.enabled ? eslint(options) : {}),
-      babel(options),
-      css(options),
-      images(),
-      svg(),
-    ],
-  },
-})
+const loaders = ({options}) => {
+  const config = {
+    module: {
+      strictExportPresence: true,
+      rules: [
+        babel(options),
+        css(options),
+        images(),
+        svg(options),
+      ],
+    },
+  }
+
+  options.eslint.enabled
+    && config.module.rules.unshift(eslint(options))
+
+  return config
+}
 
 export default loaders

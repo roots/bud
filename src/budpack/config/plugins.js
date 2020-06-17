@@ -4,35 +4,53 @@ const DependencyExtractionPlugin = require('@wordpress/dependency-extraction-web
 const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const {HotModuleReplacementPlugin, NoEmitOnErrorsPlugin} = require('webpack')
+const {LimitChunkCountPlugin, HotModuleReplacementPlugin, NoEmitOnErrorsPlugin} = require('webpack')
 const WriteFilePlugin = require('write-file-webpack-plugin')
 
 /**
  * Webpack plugins.
  */
-const plugins = ({options, inProduction}) => ({
-  plugins: [
-    new FixStyleOnlyEntriesPlugin({
-      silent: true,
-    }),
-    new MiniCssExtractPlugin({
-      filename: options.hashed ? `[name].[chunkhash].css` : '[name].css',
-    }),
-    new CleanWebpackPlugin(),
-    new DependencyExtractionPlugin({
-      ...options.wpManifest,
-    }),
-    new ManifestPlugin({
-      fileName: 'manifest.json',
-			writeToFileEmit: true,
-			publicPath: inProduction ? `/dist/` : `//${options.dev.host}:${options.dev.port}/dist/`,
-    }),
-    ...(!inProduction ? [
-      new NoEmitOnErrorsPlugin(),
-      new WriteFilePlugin(),
-      ...(options.hot ? [new HotModuleReplacementPlugin()] : []),
-    ]:[]),
-  ],
-})
+const plugins = ({options}) => {
+  const config = {
+    plugins: [
+      new FixStyleOnlyEntriesPlugin({
+        silent: true,
+      }),
+      new MiniCssExtractPlugin({
+        filename: options.hashed ? `[name].[chunkhash].css` : '[name].css',
+      }),
+      new CleanWebpackPlugin(),
+      new DependencyExtractionPlugin({
+        ...options.wpManifest,
+      }),
+      new ManifestPlugin({
+        fileName: 'manifest.json',
+        writeToFileEmit: true,
+        publicPath: options.inProduction ? `/dist/` : `//${options.dev.host}:${options.dev.port}/dist/`,
+      }),
+    ],
+  }
+
+  options.splitting.disabled && config.plugins.push(
+    new LimitChunkCountPlugin({maxChunks: 1})
+  )
+
+  !options.splitting.disabled
+    && options.splitting.maxChunks
+    && config.plugins.push(
+      new LimitChunkCountPlugin({
+        maxChunks: options.splitting.maxChunks,
+      })
+    )
+
+  options.hot && config.plugins.push(new HotModuleReplacementPlugin())
+
+  !options.inProduction && (() => {
+    config.plugins.push(new NoEmitOnErrorsPlugin())
+    config.plugins.push(new WriteFilePlugin())
+  })()
+
+  return config
+}
 
 module.exports = plugins

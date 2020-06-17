@@ -1,10 +1,15 @@
-const options = ({inProduction, options}) => ({
-  context: options.project,
-  mode: inProduction ? 'production' : 'development',
-  devtool: (
-    options.mapped ? 'cheap-module-source-map' : false
-  ),
-  watch: options.watching,
-})
+const options = ({options}) => {
+  const config = {
+    context: options.project,
+    mode: options.inProduction ? 'production' : 'development',
+    watch: options.watching,
+  }
+
+  if (options.mapped) {
+    config.devtool = 'cheap-module-source-map'
+  }
+
+  return config
+}
 
 module.exports = options

@@ -41,6 +41,7 @@
     "@babel/runtime": "^7.2.0",
     "@babel/traverse": "^7.3.4",
     "@babel/types": "^7.3.4",
+    "@svgr/webpack": "^5.4.0",
     "@wordpress/browserslist-config": "^2.6.0",
     "@wordpress/dependency-extraction-webpack-plugin": "^2.7.0",
     "autoprefixer": "^9.8.0",

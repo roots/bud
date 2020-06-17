@@ -9,12 +9,12 @@ import BudpackCLI from './cli'
 /**
  * Process handling
  */
-const mode = 'development'
+const mode = 'production'
+
 process.env.BABEL_ENV = mode
 process.env.NODE_ENV = mode
 process.on('unhandledRejection', err => {
   console.error(err)
-
   process.exit()
 })
 
