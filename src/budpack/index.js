@@ -1,31 +1,21 @@
+import {join} from 'path'
 import React from 'react'
 import {render} from 'ink'
+import importJsx from 'import-jsx'
 import webpack from 'webpack'
+import config from './config'
 
-import command from './cli/command'
-import Budpack from './Budpack'
-import budpackConfig from './config'
+const mode = 'development'
 
-const mode = command?.input?.[0]
-
-process.env.BABEL_ENV = mode == 'dev'
-  ? 'development'
-  : 'production'
-
-process.env.NODE_ENV = mode == 'dev'
-  ? 'development'
-  : 'production'
-
+process.env.BABEL_ENV = mode
+process.env.NODE_ENV = mode
 process.on('unhandledRejection', err => {
   console.error(err)
   process.exit()
 })
 
-const compiler = webpack(budpackConfig)
+const Budpack = importJsx('./Budpack')
+const project = require(join(process.cwd(), 'bud.config.js'))
+const compiler = webpack(config(project))
 
-render(
-  React.createElement(Budpack, {
-    compiler,
-    mode,
-  })
-)
+render(React.createElement(Budpack, {compiler, mode}))

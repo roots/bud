@@ -1,10 +1,8 @@
-const {projectPath, isProduction} = require('./util')
-
-const output = ({dev}) => ({
+const output = bud => ({
   output: {
-    path: projectPath('dist/'),
-    publicPath: isProduction ? `/dist` : `//${dev.host}:${dev.port}/dist/`,
-    filename: '[name].[hash].js',
+    path: bud.resolve(bud.options.dist),
+    publicPath: bud.options.inProduction ? `/${bud.options.dist}` : `//${bud.options.dev.host}:${bud.options.dev.port}/${bud.options.dist}/`,
+    filename: bud.options.hashed ? '[name].[hash].js' : '[name].js',
   },
 })
 

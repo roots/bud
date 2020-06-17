@@ -1,28 +1,9 @@
-import devServer from './devServer'
-import entry from './entry'
 import optimization from './optimization'
 import output from './output'
 import options from './options'
 import plugins from './plugins'
-import resolve from './resolve'
 import loaders from './loaders'
-
-/**
- * Default config
- *
- * @type {object} default webpack configuration
- */
-const config = {
-  entry: {},
-  loaders: [],
-  plugins: [],
-  aliases: {},
-  optimization: {},
-  dev: {
-    host: 'localhost',
-    port: 3030,
-  },
-}
+import resolve from './resolve'
 
 /**
  * Webpack config
@@ -30,28 +11,15 @@ const config = {
  * @param  {object} config overrides
  * @return {object} final webpack configuration
  */
-const budpackConfig = {
-  ...entry,
-  ...resolve({
-    aliases: config.aliases,
-  }),
-  ...optimization({
-    optimization: config.optimization,
-  }),
-  ...plugins({
-    dev: config.dev,
-    plugins: config.plugins,
-  }),
-  ...devServer({
-    devServer: config.dev,
-  }),
-  ...output({
-    dev: config.dev,
-  }),
-  ...loaders,
-  ...options({
-    options: config.options,
-  }),
-}
+const budpackConfig = bud => ({
+  entry: bud.options.entry,
+  ...optimization(bud),
+  ...plugins(bud),
+  ...output(bud),
+  ...loaders(bud),
+  ...options(bud),
+  ...resolve(bud),
+  devServer: ! bud.inProduction ? bud.options.dev : {},
+})
 
 export default budpackConfig

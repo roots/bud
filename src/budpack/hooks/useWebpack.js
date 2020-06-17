@@ -3,7 +3,7 @@ import {useState, useMemo, useEffect} from 'react'
 /**
  * Hook: useWebpack
  * @prop {compiler} compiler webpack.compiler
- * @prop {string}   mode     'dev' or 'build'
+ * @prop {string}   mode     'development' or 'build'
  */
 const useWebpack = ({compiler, mode}) => {
   const [buildStats, setBuildStats] = useState({})
@@ -26,9 +26,7 @@ const useWebpack = ({compiler, mode}) => {
       }))
     }
 
-    mode == 'dev'
-      ? compiler.watch({}, cb)
-      : compiler.run(cb)
+    mode == 'development' ? compiler.watch({}, cb) : compiler.run(cb)
   }, [mode, compiler])
 
   const [assets, setAssets] = useState([])

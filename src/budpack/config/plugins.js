@@ -6,34 +6,31 @@ const ManifestPlugin = require('webpack-manifest-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const {HotModuleReplacementPlugin, NoEmitOnErrorsPlugin} = require('webpack')
 const WriteFilePlugin = require('write-file-webpack-plugin')
-const {isProduction} = require('./util')
 
 /**
  * Webpack plugins.
  */
-const plugins = ({dev}) => ({
+const plugins = ({options, inProduction}) => ({
   plugins: [
     new FixStyleOnlyEntriesPlugin({
       silent: true,
     }),
     new MiniCssExtractPlugin({
-      filename: `[name].[chunkhash].css`,
+      filename: options.hashed ? `[name].[chunkhash].css` : '[name].css',
     }),
     new CleanWebpackPlugin(),
     new DependencyExtractionPlugin({
-      useDefaults: true,
-      injectPolyfill: false,
-      outputFormat: 'json',
+      ...options.wpManifest,
     }),
     new ManifestPlugin({
       fileName: 'manifest.json',
 			writeToFileEmit: true,
-			publicPath: isProduction ? `/dist/` : `//${dev.host}:${dev.port}/dist/`,
+			publicPath: inProduction ? `/dist/` : `//${options.dev.host}:${options.dev.port}/dist/`,
     }),
-    ...(!isProduction ? [
-      new HotModuleReplacementPlugin(),
+    ...(!inProduction ? [
       new NoEmitOnErrorsPlugin(),
       new WriteFilePlugin(),
+      ...(options.hot ? [new HotModuleReplacementPlugin()] : []),
     ]:[]),
   ],
 })
