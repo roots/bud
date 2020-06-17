@@ -1,8 +1,6 @@
 import React from 'react'
 import {Box, Color, Text} from 'ink'
 
-import useView from './../hooks/useView'
-
 /**
  * Asset
  */
@@ -10,10 +8,12 @@ const Asset = ({name, size, width}) =>
   <Box
     height={1}
     textWrap="truncate"
-    width={width}
     flexDirection="row"
-    justifyContent="space-between">
-    <Box textWrap="truncate" height={1}>
+    justifyContent="space-between"
+    width={width}
+    paddingLeft={1}
+    paddingRight={2}>
+    <Box textWrap="truncate" width={width}>
       <Text><Color white>{name}</Color></Text>
     </Box>
 
@@ -25,15 +25,13 @@ const Asset = ({name, size, width}) =>
 /**
  * Assets
  */
-const Assets = ({assets}) => {
-  const [width] = useView()
-
+const Assets = ({assets, width}) => {
   return assets.map((asset, id) => (
     <Asset
-      width={width}
       key={id}
       name={asset.name}
       size={asset.size}
+      width={width}
     />
   ))
 }

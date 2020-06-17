@@ -32,6 +32,7 @@ const useWebpack = ({compiler, mode}) => {
   const [assets, setAssets] = useState([])
   const [warnings, setWarnings] = useState([])
   const [errors, setErrors] = useState([])
+
   useEffect(() => {
     buildStats?.assets?.length > 1 && (() => {
       setAssets(buildStats.assets)
