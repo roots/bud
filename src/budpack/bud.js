@@ -5,13 +5,77 @@
  * the end result is exported from bud.config.js for use in the main build process
  */
 
-const path = require('path')
 const api = require('./api')
+const { join, resolve } = require('path')
 
 /**
- * Env settings
+ * Mode
  */
 const inProduction = true
+
+/**
+ * Redefine path to compiled assets
+ *
+ * @param  {string} path
+ * @return {object} bud
+ */
+const distPath = rel => {
+  bud.options.dist = join(bud.options.project, rel)
+
+  return bud
+}
+
+/**
+ * Redfine path to src assets
+ */
+const srcPath = rel => {
+  bud.options.src = join(bud.options.project, rel)
+
+  return bud
+}
+
+/**
+ * Redefine project context
+ *
+ * @param  {string} path
+ * @return {object} bud
+ */
+const projectPath = rel => {
+  bud.options.project = rel
+
+  return bud
+}
+
+const publicPath = rel => {
+  bud.options.public = rel
+
+  return bud
+}
+
+/**
+ * Absolute path from a dist relative path.
+ *
+ * @param  {string} path
+ * @return {object} bud
+ */
+const dist = rel => join(bud.options.dist, rel)
+
+
+/**
+ * Absolute path from a project relative path.
+ *
+ * @param  {string} path
+ * @return {object} bud
+ */
+const project = rel => join(bud.options.project, rel)
+
+/**
+ * Absolute path from a project relative path.
+ *
+ * @param  {string} path
+ * @return {object} bud
+ */
+const src = rel => join(bud.options.src, rel)
 
 /**
  * Produce an absolute path from a project relative path
@@ -19,9 +83,14 @@ const inProduction = true
  * @param  {string} relPath
  * @return {string}
  */
-const resolve = relPath => relPath
-  ? path.join(bud.options.project, relPath)
-  : bud.options.project
+const copy = assetsPath => {
+  bud.options.copy.patterns.push({
+    from: assetsPath,
+    to: bud.options.dist,
+  })
+
+  return bud
+}
 
 /**
  * Define webpack aliases.
@@ -46,30 +115,6 @@ const dev = options => {
     ...bud.options.dev,
     ...options,
   }
-
-  return bud
-}
-
-/**
- * Redefine path to compiled assets
- *
- * @param  {string} path
- * @return {object} bud
- */
-const dist = path => {
-  bud.options.dist = path
-
-  return bud
-}
-
-/**
- * Redefine project context
- *
- * @param  {string} path
- * @return {object} bud
- */
-const project = path => {
-  bud.options.project = path
 
   return bud
 }
@@ -193,6 +238,8 @@ const maxChunks = chunkCount => {
  */
 const splitting = state => {
   bud.options.splitting.disabled = state
+
+  return bud
 }
 
 /**
@@ -259,9 +306,12 @@ const watch = state => {
  * Default paths
  */
 const paths = {
-  budpack: path.resolve(__dirname, './../..'),
+  budpack: resolve(__dirname, './../..'),
   project: process.cwd(),
-  dist: 'dist',
+  assets: 'resources/assets',
+  src: join(process.cwd(), 'src'),
+  dist: join(process.cwd(), 'dist'),
+  public: 'dist'
 }
 
 /**
@@ -275,6 +325,9 @@ const options = {
     cacheDirectory: true,
     transformRuntime: true,
   }),
+  copy: {
+    patterns: [],
+  },
   dev: {
     host: 'localhost',
     port: 3000,
@@ -318,7 +371,7 @@ const options = {
   watching: !inProduction,
   hot: !inProduction,
   mapped: !inProduction,
-  hashed: !inProduction,
+  hashed: inProduction,
   minified: inProduction,
 }
 
@@ -326,23 +379,26 @@ const options = {
  * The exported configuration tool.
  */
 const bud = {
-  /**
-   * A container for the options
-   */
+  /** Options container */
   options,
 
-  /**
-   * Statuses
-   */
+  /** Statuses */
   inProduction,
 
-  /**
-   * Public methods
-   */
+  /** Pathing */
+  project,
+  projectPath,
+  src,
+  srcPath,
+  dist,
+  distPath,
+  publicPath,
+
+  /** API */
   alias,
   babel,
+  copy,
   dev,
-  dist,
   entry,
   eslint,
   hash,
@@ -351,8 +407,6 @@ const bud = {
   maxChunks,
   mini,
   postcss,
-  project,
-  resolve,
   splitting,
   vendor,
   watch,

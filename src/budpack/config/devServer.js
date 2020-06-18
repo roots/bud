@@ -7,7 +7,9 @@ const devServer = ({options}) => {
   }
 
   return {
-    devServer: { ...options.dev },
+    devServer: {
+      ...options.dev,
+    },
   }
 }
 

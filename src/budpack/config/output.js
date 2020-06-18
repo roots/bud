@@ -1,7 +1,10 @@
-const output = ({options, resolve}) => ({
+/**
+ * Webpack output.
+ */
+const output = ({options}) => ({
   output: {
-    path: resolve(options.dist),
-    publicPath: options.inProduction ? `/${options.dist}` : `//${options.dev.host}:${options.dev.port}/${options.dist}/`,
+    path: options.distPath,
+    publicPath: options.inProduction ? options.public : `//${options.dev.host}:${options.dev.port}/${options.public}/`,
     filename: options.hashed ? '[name].[hash].js' : '[name].js',
   },
 })

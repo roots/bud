@@ -6,6 +6,7 @@ const ManifestPlugin = require('webpack-manifest-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const {LimitChunkCountPlugin, HotModuleReplacementPlugin, NoEmitOnErrorsPlugin} = require('webpack')
 const WriteFilePlugin = require('write-file-webpack-plugin')
+const CopyPlugin = require('copy-webpack-plugin');
 
 /**
  * Webpack plugins.
@@ -26,10 +27,16 @@ const plugins = ({options}) => {
       new ManifestPlugin({
         fileName: 'manifest.json',
         writeToFileEmit: true,
-        publicPath: options.inProduction ? `/dist/` : `//${options.dev.host}:${options.dev.port}/dist/`,
+        publicPath: options.inProduction ? `/${options.public}/` : `//${options.dev.host}:${options.dev.port}/${options.public}`,
       }),
     ],
   }
+
+  options.copy.patterns.length > 0 && config.plugins.push(
+    new CopyPlugin({
+      patterns: options.copy.patterns,
+    }),
+  )
 
   options.splitting.disabled && config.plugins.push(
     new LimitChunkCountPlugin({maxChunks: 1})

@@ -1,3 +1,6 @@
+/**
+ * General webpackery.
+ */
 const options = ({options}) => {
   const config = {
     context: options.project,

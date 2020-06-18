@@ -53,6 +53,7 @@
     "clean-webpack-plugin": "^3.0.0",
     "collect.js": "^4.12.8",
     "concat": "^1.0.3",
+    "copy-webpack-plugin": "^6.0.2",
     "cross-env": "^7.0.2",
     "css-loader": "^3.6.0",
     "cssnano": "^4.1.10",

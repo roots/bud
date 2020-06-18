@@ -29,9 +29,10 @@ This repository provides supporting client and server-side utilities to the main
 
 const bud = require('@roots/budpack/build/budpack/bud');
 
-bud.project(__dirname)
-
-.dist('dist')
+bud.projectPath(__dirname)
+.publicPath('app/plugins/demo')
+.srcPath('resources/assets')
+.distPath('dist')
 
 .dev({
   host: 'localhost',
@@ -44,9 +45,16 @@ bud.project(__dirname)
 
 .watchTimeout(300)
 
+.alias({
+  '@scripts': bud.project('resources/assets/scripts')
+})
+
 .entry('app', [
-  bud.resolve('resources/assets/scripts/app.js'),
+  bud.src('scripts/app.js'),
+  bud.src('styles/app.css'),
 ]) // default: no entrypoints
+
+.copy('resources/assets/images'),
 
 // @see @wordpress/dependency-extraction-manifest-plugin
 .wpManifest({

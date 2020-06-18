@@ -1,11 +1,13 @@
+const path = require('path')
+
 /**
  * Webpack resolves.
  */
-const resolve = ({options, resolve}) => {
+const resolve = ({options}) => {
   const config = {
     resolve: {
       extensions: ['.js','.json','.jsx','.css'],
-      modules: [resolve('node_modules')],
+      modules: [path.resolve(options.project, 'node_modules')],
     },
   }
 

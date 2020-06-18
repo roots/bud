@@ -17,7 +17,7 @@ const optimization = ({options}) => {
         commons: {
           test: /[\\/]node_modules[\\/]/,
           name: 'vendor',
-          chunks: 'initial',
+          chunks: 'all',
         },
       },
     }
@@ -25,7 +25,24 @@ const optimization = ({options}) => {
 
   if (options.minified) {
     config.optimization.minimizer = [
-      new UglifyJsPlugin(),
+      new UglifyJsPlugin({
+        cache: true,
+        chunkFilter: ({name}) => name === 'vendor',
+        extractComments: true,
+        parallel: true,
+        uglifyOptions: {
+          output: {
+            beautify: false,
+          },
+          compress: {
+            dev: false,
+            production: false,
+          },
+          mangle: {
+            toplevel: true,
+          },
+        },
+      }),
     ]
   }
 

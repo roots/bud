@@ -3,9 +3,9 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 /**
  * Babel loader
  */
-const babel = ({babel, project}) => ({
+const babel = ({babel, src}) => ({
   test: /\.(js|jsx)$/,
-  include: project,
+  include: src,
   exclude: /node_modules/,
   loader: require.resolve('babel-loader'),
   options: {
@@ -16,9 +16,9 @@ const babel = ({babel, project}) => ({
 /**
  * Eslint loader
  */
-const eslint = ({project, eslint}) => ({
+const eslint = ({src, eslint}) => ({
   test: /\.(js|jsx)$/,
-  include: project,
+  include: src,
   exclude: /node_modules/,
   loader: require.resolve('eslint-loader'),
   options: {
@@ -39,7 +39,7 @@ const post = configFile => ({
 /**
  * CSS Loader
  */
-const css = ({project, postcss}) => {
+const css = ({src, postcss}) => {
   const use = [
     MiniCssExtractPlugin.loader,
     {loader: require.resolve('css-loader')},
@@ -49,7 +49,7 @@ const css = ({project, postcss}) => {
 
   return {
     test: /\.css$/,
-    include: project,
+    include: src,
     use,
   }
 }
