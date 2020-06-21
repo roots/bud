@@ -11,8 +11,6 @@ use Roots\Bud\Services\Contracts\ServiceProviderInterface;
 /**
  * Bud bootstrap.
  *
- * This class
- *
  * @package Roots\Bud
  * @author  Kelly Mears <kelly@roots.io>
  */

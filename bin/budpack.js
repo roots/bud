@@ -10,4 +10,6 @@ register({
   only: [rootPath],
 })
 
-module.exports = require('esm')(module)('./../build/budpack')
+module.exports = require('esm')(module)(
+  './../build/budpack',
+)
