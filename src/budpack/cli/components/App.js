@@ -16,19 +16,13 @@ const App = ({assets, height, mode, width, children}) => {
       height={height}
       flexDirection="column"
       justifyContent="space-between">
-      <Box
-        flexDirection="column"
-        width={width}>
+      <Box flexDirection="column" width={width}>
         <Banner />
 
         {children}
       </Box>
 
-      <Status
-        assets={assets}
-        mode={mode}
-        width={width}
-      />
+      <Status assets={assets} mode={mode} width={width} />
     </Box>
   )
 }

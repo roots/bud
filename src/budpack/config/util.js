@@ -17,8 +17,12 @@ const projectPath = path => resolve(projectDir, path)
  * @return {array}
  */
 const dirs = parentDir =>
-  readdirSync(resolve(projectDir, join('src', parentDir))).filter(file =>
-    statSync(resolve(projectDir, join('src', parentDir, file))).isDirectory(),
+  readdirSync(
+    resolve(projectDir, join('src', parentDir)),
+  ).filter(file =>
+    statSync(
+      resolve(projectDir, join('src', parentDir, file)),
+    ).isDirectory(),
   )
 
 /**
@@ -28,31 +32,32 @@ const globber = groups => ({
   /** src/[group]/... */
   ...groups.reduce(
     (acc, group, index) => ({
-      ...index > 0 ? acc : [],
+      ...(index > 0 ? acc : []),
 
       /** src[group]/[dir] */
       ...dirs(group.from).reduce(
         (acc, asset, index) => ({
-          ...index > 0 ? acc: [],
+          ...(index > 0 ? acc : []),
 
           /** src/[group]/[dir]/[entrypoint] */
-          ...group.entries.reduce(
-            (acc, entry, index) => {
-              const accumulated = index > 0
-                ? acc
-                : []
+          ...group.entries.reduce((acc, entry, index) => {
+            const accumulated = index > 0 ? acc : []
 
-              const file = join(projectDir, 'src', group.from, asset, entry[1])
-              const chunk = join(group.from, asset, entry[0])
-              const exists = existsSync(file)
+            const file = join(
+              projectDir,
+              'src',
+              group.from,
+              asset,
+              entry[1],
+            )
+            const chunk = join(group.from, asset, entry[0])
+            const exists = existsSync(file)
 
-              return {
-                ...accumulated,
-                ...(exists ? {[chunk]: file} : {}),
-              }
-            },
-            group.entries[0],
-          ),
+            return {
+              ...accumulated,
+              ...(exists ? {[chunk]: file} : {}),
+            }
+          }, group.entries[0]),
         }),
         dirs(group.from)[0],
       ),

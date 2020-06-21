@@ -9,11 +9,7 @@ const configFiles = ({project, budpack}) => ({
 /**
  * Eslint config
  */
-const eslint = ({
-  enabled = true,
-  project,
-  budpack,
-}) => {
+const eslint = ({enabled = true, project, budpack}) => {
   const configs = configFiles({
     project,
     budpack,

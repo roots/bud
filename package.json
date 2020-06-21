@@ -22,10 +22,7 @@
     "lint:prettier": "prettier --write ."
   },
   "bin": "./bin/budpack.js",
-  "files": [
-    "bin",
-    "build"
-  ],
+  "files": ["bin", "build"],
   "dependencies": {
     "@babel/cli": "^7.10.1",
     "@babel/core": "^7.10.2",

@@ -4,7 +4,9 @@
 const options = ({options}) => {
   const config = {
     context: options.project,
-    mode: options.inProduction ? 'production' : 'development',
+    mode: options.inProduction
+      ? 'production'
+      : 'development',
     watch: options.watching,
   }
 

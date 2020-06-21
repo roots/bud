@@ -4,7 +4,7 @@ import {Box, Color, Text} from 'ink'
 /**
  * Asset
  */
-const Asset = ({name, size, width}) =>
+const Asset = ({name, size, width}) => (
   <Box
     height={1}
     textWrap="truncate"
@@ -14,13 +14,18 @@ const Asset = ({name, size, width}) =>
     paddingLeft={1}
     paddingRight={2}>
     <Box textWrap="truncate" width={width}>
-      <Text><Color white>{name}</Color></Text>
+      <Text>
+        <Color white>{name}</Color>
+      </Text>
     </Box>
 
     <Box>
-      <Text><Color dim>{size/1000}kb</Color></Text>
+      <Text>
+        <Color dim>{size / 1000}kb</Color>
+      </Text>
     </Box>
   </Box>
+)
 
 /**
  * Assets

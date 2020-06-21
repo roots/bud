@@ -5,9 +5,12 @@ namespace Roots\Bud\Block;
 use Roots\Bud\Block\Base\AbstractBlock;
 
 /**
- * Block class.
+ * Block.
+ *
+ * @package Roots\Bud
+ * @author  Kelly Mears <kelly@roots.io>
  */
 class Block extends AbstractBlock
 {
-    // This class is intentionally blank.
+    // --
 }

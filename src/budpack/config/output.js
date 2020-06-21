@@ -4,8 +4,12 @@
 const output = ({options}) => ({
   output: {
     path: options.distPath,
-    publicPath: options.inProduction ? options.public : `//${options.dev.host}:${options.dev.port}/${options.public}/`,
-    filename: options.hashed ? '[name].[hash].js' : '[name].js',
+    publicPath: options.inProduction
+      ? options.public
+      : `//${options.dev.host}:${options.dev.port}/${options.public}/`,
+    filename: options.hashed
+      ? '[name].[hash].js'
+      : '[name].js',
   },
 })
 

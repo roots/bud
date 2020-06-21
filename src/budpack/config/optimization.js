@@ -11,7 +11,7 @@ const optimization = ({options}) => {
     },
   }
 
-  if (! options.vendor.disabled) {
+  if (!options.vendor.disabled) {
     config.optimization.splitChunks = {
       cacheGroups: {
         commons: {

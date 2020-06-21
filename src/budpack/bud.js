@@ -6,7 +6,7 @@
  */
 
 const api = require('./api')
-const { join, resolve } = require('path')
+const {join, resolve} = require('path')
 
 /**
  * Mode
@@ -59,7 +59,6 @@ const publicPath = rel => {
  * @return {object} bud
  */
 const dist = rel => join(bud.options.dist, rel)
-
 
 /**
  * Absolute path from a project relative path.
@@ -311,7 +310,7 @@ const paths = {
   assets: 'resources/assets',
   src: join(process.cwd(), 'src'),
   dist: join(process.cwd(), 'dist'),
-  public: 'dist'
+  public: 'dist',
 }
 
 /**

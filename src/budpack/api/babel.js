@@ -11,10 +11,15 @@ const presetEnv = [
 ]
 
 const babelPlugins = {
-  dynamicImport: require.resolve('@babel/plugin-syntax-dynamic-import'),
-  objectRestSpread: require.resolve('@babel/plugin-proposal-object-rest-spread'),
+  dynamicImport: require.resolve(
+    '@babel/plugin-syntax-dynamic-import',
+  ),
+  objectRestSpread: require.resolve(
+    '@babel/plugin-proposal-object-rest-spread',
+  ),
   transformRuntime: [
-    require.resolve('@babel/plugin-transform-runtime'), {
+    require.resolve('@babel/plugin-transform-runtime'),
+    {
       helpers: false,
     },
   ],
@@ -23,13 +28,19 @@ const babelPlugins = {
 /**
  * Baseline babel configuration
  */
-const baseConfig = ({react, dynamicImport, cacheDirectory, transformRuntime}) => {
+const baseConfig = ({
+  react,
+  dynamicImport,
+  cacheDirectory,
+  transformRuntime,
+}) => {
   const presets = [presetEnv]
   react && presets.push(presetReact)
 
   const plugins = []
   dynamicImport && plugins.push(babelPlugins.dynamicImport)
-  transformRuntime && plugins.push(babelPlugins.transformRuntime)
+  transformRuntime &&
+    plugins.push(babelPlugins.transformRuntime)
 
   return {
     cacheDirectory,

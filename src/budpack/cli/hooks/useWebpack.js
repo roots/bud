@@ -11,22 +11,12 @@ const useWebpack = ({compiler, mode}) => {
   useMemo(() => {
     const cb = (buildErrors, buildStats) => {
       setBuildErrors(buildErrors)
-      setBuildStats(buildStats.toJson({
-        assets: true,
-        errors: true,
-        warnings: true,
-        version: false,
-        hash: false,
-        time: false,
-        filteredModules: false,
-        outputPath: false,
-        assetsByChunkName: false,
-        chunks: false,
-        modules: false,
-      }))
+      setBuildStats(buildStats.toJson({all: true}))
     }
 
-    mode == 'development' ? compiler.watch({}, cb) : compiler.run(cb)
+    mode == 'development'
+      ? compiler.watch({}, cb)
+      : compiler.run(cb)
   }, [mode, compiler])
 
   const [assets, setAssets] = useState([])
@@ -34,17 +24,20 @@ const useWebpack = ({compiler, mode}) => {
   const [errors, setErrors] = useState([])
 
   useEffect(() => {
-    buildStats?.assets?.length > 1 && (() => {
-      setAssets(buildStats.assets)
-    })()
+    buildStats?.assets?.length > 1 &&
+      (() => {
+        setAssets(buildStats.assets)
+      })()
 
-    buildStats?.errors?.length > 1 && (() => {
-      setErrors(buildStats.errors)
-    })()
+    buildStats?.errors?.length > 1 &&
+      (() => {
+        setErrors(buildStats.errors)
+      })()
 
-    buildStats?.warnings?.length > 1 && (() => {
-      setWarnings(buildStats.warnings)
-    })()
+    buildStats?.warnings?.length > 1 &&
+      (() => {
+        setWarnings(buildStats.warnings)
+      })()
   }, [buildStats])
 
   return {

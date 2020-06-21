@@ -3,55 +3,50 @@
 namespace Roots\Bud\Block\Base;
 
 use \WP_Block_Type;
-use Illuminate\Support\Collection;
 use Psr\Container\ContainerInterface;
-use Roots\Bud\Block\Contract\BlockInterface;
-use Roots\Bud\Block\Contract\RenderableInterface;
-use Roots\Bud\Block\Partial\BladeRenderable;
 
 /**
- * Block class.
+ * Abstract block.
+ *
+ * @package Roots\Bud
+ * @author  Kelly Mears <kelly@roots.io>
  */
-abstract class AbstractBlock extends WP_Block_Type implements
-    BlockInterface,
-    ContainerInterface,
-    RenderableInterface
+abstract class AbstractBlock extends WP_Block_Type implements ContainerInterface
 {
-    use BladeRenderable;
-
-    /** @var string */
+    /**
+     * The block name
+     *
+     * @var string
+     */
     public $name = null;
 
-    /** @var string */
+    /**
+     * The public script
+     *
+     * @var string
+     */
     public $script = null;
 
-    /** @var string */
+    /**
+     * The public style
+     *
+     * @var string
+     */
     public $style = null;
 
-    /** @var string */
+    /**
+     * The editor script
+     *
+     * @var string
+     */
     public $editor_script = null;
 
-    /** @var string */
-    public $editor_style = null;
-
-    /** @var \WP_Block_Type\render_callback */
-    public $render_callback;
-
     /**
-     * Constructor.
+     * The editor style.
      *
-     * @param Collection
-     * @param ContainerInterface
+     * @var string
      */
-    public function __construct(
-        ContainerInterface $bud,
-        string $name
-    ) {
-        $this->bud = $bud;
-        $this->name = $name;
-
-        $this->hasView() && $this->setView();
-    }
+    public $editor_style = null;
 
     /**
      * Get a block property.

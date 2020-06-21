@@ -12,14 +12,17 @@ import pkg from './../../../../package.json'
  */
 const Message = ({assets, mode}) => (
   <Box>
-    {assets.length == 0
-      ? <Color blue><Spinner /> Compiling project assets</Color>
-      : mode == 'dev' ? (
-        <Color green><Spinner /> Watching files</Color>
-      ) : (
-        <Color green>Finished.</Color>
-      )
-    }
+    {assets.length == 0 ? (
+      <Color blue>
+        <Spinner /> Compiling project assets
+      </Color>
+    ) : mode == 'dev' ? (
+      <Color green>
+        <Spinner /> Watching files
+      </Color>
+    ) : (
+      <Color green>Finished.</Color>
+    )}
   </Box>
 )
 
@@ -53,15 +56,9 @@ const Status = ({assets, mode, width}) => {
       justifyContent="space-between"
       marginTop={1}
       paddingLeft={1}>
-      <Message
-        assets={assets}
-        mode={mode}
-      />
+      <Message assets={assets} mode={mode} />
 
-      <Info
-        name={pkg.name}
-        version={pkg.version}
-      />
+      <Info name={pkg.name} version={pkg.version} />
     </Box>
   )
 }

@@ -16,14 +16,14 @@
     }
   },
   "require": {
-    "php": "^7.2",
-    "eftec/bladeone": "^3.45",
-    "roots/support": "^1.0",
-    "php-di/php-di": "^6.2",
-    "ocramius/proxy-manager": "^2.8",
-    "tightenco/collect": "^7.12"
+    "php": "^7.2"
   },
   "scripts": {
-    "lint": ["phpcs --ignore=vendor,dist --extensions=php --standard=PSR12 ."]
+    "lint": [
+      "phpcs --ignore=vendor,dist --extensions=php --standard=PSR12 ."
+    ]
+  },
+  "require-dev": {
+    "squizlabs/php_codesniffer": "^3.5"
   }
 }

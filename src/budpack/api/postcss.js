@@ -9,11 +9,7 @@ const configFiles = ({project, budpack}) => ({
 /**
  * Postcss config
  */
-const postcss = ({
-  enabled = true,
-  project,
-  budpack,
-}) => {
+const postcss = ({enabled = true, project, budpack}) => {
   const configs = configFiles({
     project,
     budpack,

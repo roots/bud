@@ -93,8 +93,8 @@ const loaders = ({options}) => {
     },
   }
 
-  options.eslint.enabled
-    && config.module.rules.unshift(eslint(options))
+  options.eslint.enabled &&
+    config.module.rules.unshift(eslint(options))
 
   return config
 }

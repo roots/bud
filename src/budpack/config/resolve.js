@@ -6,8 +6,10 @@ const path = require('path')
 const resolve = ({options}) => {
   const config = {
     resolve: {
-      extensions: ['.js','.json','.jsx','.css'],
-      modules: [path.resolve(options.project, 'node_modules')],
+      extensions: ['.js', '.json', '.jsx', '.css'],
+      modules: [
+        path.resolve(options.project, 'node_modules'),
+      ],
     },
   }
 

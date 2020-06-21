@@ -22,10 +22,7 @@ const BudpackCLI = ({compiler, mode}) => {
       height={height}
       mode={mode}
       width={width}>
-      <Assets
-        assets={assets}
-        width={width}
-      />
+      <Assets assets={assets} width={width} />
     </App>
   )
 }

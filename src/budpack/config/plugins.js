@@ -4,9 +4,13 @@ const DependencyExtractionPlugin = require('@wordpress/dependency-extraction-web
 const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const {LimitChunkCountPlugin, HotModuleReplacementPlugin, NoEmitOnErrorsPlugin} = require('webpack')
+const {
+  LimitChunkCountPlugin,
+  HotModuleReplacementPlugin,
+  NoEmitOnErrorsPlugin,
+} = require('webpack')
 const WriteFilePlugin = require('write-file-webpack-plugin')
-const CopyPlugin = require('copy-webpack-plugin');
+const CopyPlugin = require('copy-webpack-plugin')
 
 /**
  * Webpack plugins.
@@ -18,7 +22,9 @@ const plugins = ({options}) => {
         silent: true,
       }),
       new MiniCssExtractPlugin({
-        filename: options.hashed ? `[name].[chunkhash].css` : '[name].css',
+        filename: options.hashed
+          ? `[name].[chunkhash].css`
+          : '[name].css',
       }),
       new CleanWebpackPlugin(),
       new DependencyExtractionPlugin({
@@ -27,35 +33,41 @@ const plugins = ({options}) => {
       new ManifestPlugin({
         fileName: 'manifest.json',
         writeToFileEmit: true,
-        publicPath: options.inProduction ? `/${options.public}/` : `//${options.dev.host}:${options.dev.port}/${options.public}`,
+        publicPath: options.inProduction
+          ? `/${options.public}/`
+          : `//${options.dev.host}:${options.dev.port}/${options.public}`,
       }),
     ],
   }
 
-  options.copy.patterns.length > 0 && config.plugins.push(
-    new CopyPlugin({
-      patterns: options.copy.patterns,
-    }),
-  )
-
-  options.splitting.disabled && config.plugins.push(
-    new LimitChunkCountPlugin({maxChunks: 1})
-  )
-
-  !options.splitting.disabled
-    && options.splitting.maxChunks
-    && config.plugins.push(
-      new LimitChunkCountPlugin({
-        maxChunks: options.splitting.maxChunks,
-      })
+  options.copy.patterns.length > 0 &&
+    config.plugins.push(
+      new CopyPlugin({
+        patterns: options.copy.patterns,
+      }),
     )
 
-  options.hot && config.plugins.push(new HotModuleReplacementPlugin())
+  options.splitting.disabled &&
+    config.plugins.push(
+      new LimitChunkCountPlugin({maxChunks: 1}),
+    )
 
-  !options.inProduction && (() => {
-    config.plugins.push(new NoEmitOnErrorsPlugin())
-    config.plugins.push(new WriteFilePlugin())
-  })()
+  !options.splitting.disabled &&
+    options.splitting.maxChunks &&
+    config.plugins.push(
+      new LimitChunkCountPlugin({
+        maxChunks: options.splitting.maxChunks,
+      }),
+    )
+
+  options.hot &&
+    config.plugins.push(new HotModuleReplacementPlugin())
+
+  !options.inProduction &&
+    (() => {
+      config.plugins.push(new NoEmitOnErrorsPlugin())
+      config.plugins.push(new WriteFilePlugin())
+    })()
 
   return config
 }

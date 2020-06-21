@@ -3,7 +3,10 @@
 namespace Roots\Bud\Block\Contract;
 
 /**
- * Block class interface.
+ * Block interface.
+ *
+ * @package Roots\Bud
+ * @author  Kelly Mears <kelly@roots.io>
  */
 interface BlockInterface
 {
