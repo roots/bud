@@ -16,7 +16,8 @@
     }
   },
   "require": {
-    "php": "^7.2"
+    "php": "^7.2",
+    "psr/container": "^1.0"
   },
   "scripts": {
     "lint": [
