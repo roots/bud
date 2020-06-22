@@ -1,8 +1,8 @@
 /**
- * bud public api
+ * Budpack: Public API
  *
- * imported by project bud.config.js to be configured
- * the end result is exported from bud.config.js for use in the main build process
+ * The bud object is imported by the the project configuration file
+ * before being re-imported during by the build command.
  */
 
 const api = require('./api')

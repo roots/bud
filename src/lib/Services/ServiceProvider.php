@@ -23,8 +23,7 @@ class ServiceProvider implements ServiceProviderInterface
         $this->bud = $bud;
 
         $this->bud['hooks']->each(function($method, $hook) {
-            method_exists($this, $method)
-                && add_action($hook, [$this, $method]);
+            method_exists($this, $method) && add_action($hook, [$this, $method]);
         });
     }
 
@@ -46,17 +45,6 @@ class ServiceProvider implements ServiceProviderInterface
     public function boot()
     {
         // --
-    }
-
-    /**
-     * Plugin path.
-     *
-     * @param  string $path
-     * @return string
-     */
-    public function pluginPath(string $path): string
-    {
-        return join('/', [$this->bud['directories']->plugin, $path]);
     }
 
     /**

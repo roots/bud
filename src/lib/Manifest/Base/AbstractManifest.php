@@ -3,6 +3,7 @@
 namespace Roots\Bud\Manifest\Base;
 
 use Roots\Bud\Collection\Collection;
+use Roots\Bud\Asset\Asset;
 use Roots\Bud\Services\ServiceProvider;
 
 /**
@@ -13,6 +14,8 @@ use Roots\Bud\Services\ServiceProvider;
  */
 abstract class AbstractManifest extends ServiceProvider
 {
+    public $entries;
+
     /**
      * Register the plugin service.
      *
@@ -20,21 +23,38 @@ abstract class AbstractManifest extends ServiceProvider
      */
     public function register(): void
     {
-        $this->entries = $this->collectFromJson($this->bud['files']->manifest)
-            ->mapWithKeys(function ($dist, $src) {
-                return (object) [$src => $this->bud['url'] . $dist];
+        $this->entries = Collection::make([]);
+
+        $this->collectFromJson($this->bud['files']->manifest)
+            ->each(function ($value, $id) {
+                $this->set($id, $value);
             });
+    }
+
+    /**
+     * Set a specific manifest entry.
+     *
+     * @param  string $id
+     * @param  string $value
+     *
+     * @return void
+     */
+    public function set(string $id, string $value): void
+    {
+        $asset = new $this->bud['asset']($this->bud, $id, $value);
+
+        $this->entries->put($id, $asset);
     }
 
     /**
      * Get a specific manifest entry.
      *
      * @param  string $id
-     * @return mixed
+     * @return Asset
      */
-    public function get(string $id)
+    public function asset(string $filename): Asset
     {
-        return $this->entries[$id];
+        return $this->entries[$filename];
     }
 
     /**
@@ -45,6 +65,6 @@ abstract class AbstractManifest extends ServiceProvider
      */
     protected function collectFromJson(string $path)
     {
-        return Collection::make(json_decode(file_get_contents($path)));
+        return Collection::make(json_decode(file_get_contents($path), true));
     }
 }

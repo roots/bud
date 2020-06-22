@@ -149,6 +149,6 @@ class Bud
      */
     protected function pluginPath(string $path): string
     {
-        return realpath(join('/', [$this->dir, $path]));
+        return join('/', [$this->dir, $path]);
     }
 }
