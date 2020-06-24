@@ -9,6 +9,7 @@ const resolve = ({options}) => {
       extensions: ['.js', '.json', '.jsx', '.css'],
       modules: [
         path.resolve(options.project, 'node_modules'),
+        path.resolve(options.budpack, 'node_modules'),
       ],
     },
   }

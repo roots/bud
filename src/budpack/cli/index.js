@@ -1,5 +1,5 @@
 import React from 'react'
-
+import {Text} from 'ink'
 import useView from './hooks/useView'
 import useWebpack from './hooks/useWebpack'
 
@@ -14,15 +14,18 @@ import App from './components/App'
  */
 const BudpackCLI = ({compiler, mode}) => {
   const {height, width} = useView()
-  const {assets} = useWebpack({compiler, mode})
+  const build = useWebpack({compiler, mode})
 
   return (
     <App
-      assets={assets}
+      assets={build?.assets}
       height={height}
       mode={mode}
       width={width}>
-      <Assets assets={assets} width={width} />
+      <Assets assets={build?.assets} width={width} />
+      {build?.errors && (
+        <Text>{JSON.stringify(build.errors)}</Text>
+      )}
     </App>
   )
 }

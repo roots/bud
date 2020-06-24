@@ -1,6 +1,8 @@
 module.exports = {
-  root: true,
-  extends: ['eslint:recommended', 'plugin:react/recommended'],
+  extends: [
+    'eslint:recommended',
+    'plugin:react/recommended',
+  ],
   plugins: ['react', 'react-hooks'],
   globals: {
     wp: true,
@@ -8,19 +10,17 @@ module.exports = {
     document: true,
     React: true,
   },
-  env: {
-    node: true,
-    es6: true,
-    browser: true,
-    amd: true,
-  },
   parser: 'babel-eslint',
   parserOptions: {
-    ecmaVersion: 7,
+    ecmaVersion: 2020,
     ecmaFeatures: {
       jsx: true,
     },
     sourceType: 'module',
+  },
+  env: {
+    browser: true,
+    node: true,
   },
   rules: {
     strict: 0,
@@ -29,14 +29,6 @@ module.exports = {
     'react/react-in-jsx-scope': 0,
     'react-hooks/rules-of-hooks': 'error',
     'no-extra-semi': 0,
-    quotes: [
-      'error',
-      'single',
-      {
-        allowTemplateLiterals: true,
-        avoidEscape: true,
-      },
-    ],
     'comma-dangle': [
       'error',
       {

@@ -31,6 +31,8 @@ abstract class AbstractAsset extends Collection
         $this->id = $id;
 
         $this->value = $value;
+
+        $this->url = $this->bud['url'];
     }
 
     /**
@@ -50,7 +52,7 @@ abstract class AbstractAsset extends Collection
      */
     public function url()
     {
-        return $this->bud['url'] . $this->value;
+        return join('/', [$this->url, $this->value]);
     }
 
     /**

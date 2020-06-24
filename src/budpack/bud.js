@@ -1,3 +1,7 @@
+import {existsSync} from 'fs-extra'
+import {argv} from 'yargs'
+import {join, resolve} from 'path'
+
 /**
  * Budpack: Public API
  *
@@ -5,13 +9,11 @@
  * before being re-imported during by the build command.
  */
 
-const api = require('./api')
-const {join, resolve} = require('path')
-
 /**
  * Mode
  */
-const inProduction = true
+const inProduction =
+  argv?.env !== 'development' ? true : false
 
 /**
  * Redefine path to compiled assets
@@ -40,8 +42,8 @@ const srcPath = rel => {
  * @param  {string} path
  * @return {object} bud
  */
-const projectPath = rel => {
-  bud.options.project = rel
+const projectPath = path => {
+  bud.options.project = path
 
   return bud
 }
@@ -119,6 +121,23 @@ const dev = options => {
 }
 
 /**
+ * Browsersync
+ *
+ * @param  {object} options
+ * @return {object} bud
+ */
+const browserSync = options => {
+  bud.options.browserSync = {
+    enabled: options?.enabled ? options.enabled : true,
+    host: options?.host ? options.host : 'localhost',
+    port: options?.port ? options.port : 3000,
+    proxy: options?.proxy ? options.proxy : null,
+  }
+
+  return bud
+}
+
+/**
  * Watch mode timeout
  *
  * @param  {number} timeout in ms
@@ -126,18 +145,6 @@ const dev = options => {
  */
 const watchTimeout = timeout => {
   bud.options.dev.watchOptions.aggregateTimeout = timeout
-
-  return bud
-}
-
-/**
- * Babel options
- *
- * @param  {object} options
- * @return {object} bud
- */
-const babel = options => {
-  bud.options.babel = api.babel(options)
 
   return bud
 }
@@ -154,38 +161,6 @@ const entry = (chunk, entries) => {
     ...bud.options.entry,
     [`${chunk}`]: entries,
   }
-
-  return bud
-}
-
-/**
- * PostCSS options
- *
- * @prop   {bool}   enabled
- * @return {object} bud
- */
-const postcss = ({enabled}) => {
-  bud.options.postcss = api.postcss({
-    budpack: bud.options.budpack,
-    project: bud.options.project,
-    enabled: enabled,
-  })
-
-  return bud
-}
-
-/**
- * Eslint options
- *
- * @prop   {bool}   enabled
- * @return {object} bud
- */
-const eslint = ({enabled}) => {
-  bud.options.eslint = api.eslint({
-    budpack: bud.options.budpack,
-    project: bud.options.project,
-    enabled: enabled,
-  })
 
   return bud
 }
@@ -310,7 +285,7 @@ const paths = {
   assets: 'resources/assets',
   src: join(process.cwd(), 'src'),
   dist: join(process.cwd(), 'dist'),
-  public: 'dist',
+  public: `dist`,
 }
 
 /**
@@ -318,36 +293,52 @@ const paths = {
  */
 const options = {
   ...paths,
-  babel: api.babel({
-    react: false,
-    dynamicImport: true,
-    cacheDirectory: true,
-    transformRuntime: true,
-  }),
-  copy: {
-    patterns: [],
+  babel: {
+    enabled: existsSync(
+      join(paths.project, 'babel.config.js'),
+    ),
+    configFile:
+      existsSync(join(paths.project, 'babel.config.js')) &&
+      join(paths.project, '.eslintrc.js'),
+  },
+  eslint: {
+    enabled: existsSync(
+      join(paths.project, '.eslintrc.js'),
+    ),
+    configFile:
+      existsSync(join(paths.project, '.eslintrc.js')) &&
+      join(paths.project, '.eslintrc.js'),
+  },
+  postcss: {
+    enabled: existsSync(
+      join(paths.project, 'postcss.config.js'),
+    ),
+    configFile:
+      existsSync(
+        join(paths.project, 'postcss.config.js'),
+      ) && join(paths.project, 'postcss.config.js'),
+  },
+  browserSync: {
+    enabled: false,
+    host: 'localhost',
+    port: '3000',
+    proxy: '',
   },
   dev: {
-    host: 'localhost',
-    port: 3000,
+    disableHostCheck: true,
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
-    disableHostCheck: true,
-    hot,
+    hot: true,
     watchOptions: {
       aggregateTimeout: 300,
     },
   },
+  mode: argv.development ? 'development' : 'production',
+  copy: {
+    patterns: [],
+  },
   entry: {},
-  eslint: api.eslint({
-    ...paths,
-    enabled: true,
-  }),
-  postcss: api.postcss({
-    ...paths,
-    enabled: true,
-  }),
   splitting: {
     disabled: false,
     maxChunks: null,
@@ -395,17 +386,15 @@ const bud = {
 
   /** API */
   alias,
-  babel,
+  browserSync,
   copy,
   dev,
   entry,
-  eslint,
   hash,
   hot,
   maps,
   maxChunks,
   mini,
-  postcss,
   splitting,
   vendor,
   watch,

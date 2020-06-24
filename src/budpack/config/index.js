@@ -1,3 +1,4 @@
+import externals from './externals'
 import optimization from './optimization'
 import output from './output'
 import options from './options'
@@ -20,6 +21,7 @@ const budpackConfig = bud => ({
   ...loaders(bud),
   ...options(bud),
   ...resolve(bud),
+  ...externals(bud),
   ...devServer(bud),
 })
 

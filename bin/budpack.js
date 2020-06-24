@@ -1,15 +1,6 @@
 #!/usr/bin/env node
+const yargs = require('yargs').argv
 
-const {join} = require('path')
-const register = require('@babel/register')
-const rootPath = join(__dirname, '..')
-
-register({
-  root: rootPath,
-  ignore: [/node_modules/],
-  only: [rootPath],
-})
-
-module.exports = require('esm')(module)(
-  './../build/budpack',
-)
+yargs.preflight
+  ? require('esm')(module)('./../build/budpack/preflight')
+  : require('esm')(module)('./../build/budpack')

@@ -32,12 +32,14 @@ const Asset = ({name, size, width}) => (
  */
 const Assets = ({assets, width}) => {
   return assets.map((asset, id) => (
-    <Asset
-      key={id}
-      name={asset.name}
-      size={asset.size}
-      width={width}
-    />
+    <>
+      <Asset
+        key={id}
+        name={asset.name}
+        size={asset.size}
+        width={width}
+      />
+    </>
   ))
 }
 

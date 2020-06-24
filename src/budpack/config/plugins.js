@@ -11,6 +11,7 @@ const {
 } = require('webpack')
 const WriteFilePlugin = require('write-file-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 
 /**
  * Webpack plugins.
@@ -33,9 +34,7 @@ const plugins = ({options}) => {
       new ManifestPlugin({
         fileName: 'manifest.json',
         writeToFileEmit: true,
-        publicPath: options.inProduction
-          ? `/${options.public}/`
-          : `//${options.dev.host}:${options.dev.port}/${options.public}`,
+        publicPath: `${options.public}/`,
       }),
     ],
   }
@@ -60,8 +59,16 @@ const plugins = ({options}) => {
       }),
     )
 
-  options.hot &&
+  options.dev?.hot &&
     config.plugins.push(new HotModuleReplacementPlugin())
+  options.browserSync.enabled &&
+    config.plugins.push(
+      new BrowserSyncPlugin({
+        host: options.browserSync.host,
+        port: options.browserSync.port,
+        proxy: options.browserSync.proxy,
+      }),
+    )
 
   !options.inProduction &&
     (() => {

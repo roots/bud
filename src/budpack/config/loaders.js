@@ -3,14 +3,11 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 /**
  * Babel loader
  */
-const babel = ({babel, src}) => ({
+const babel = ({src}) => ({
   test: /\.(js|jsx)$/,
   include: src,
   exclude: /node_modules/,
   loader: require.resolve('babel-loader'),
-  options: {
-    ...babel,
-  },
 })
 
 /**
@@ -39,20 +36,16 @@ const post = configFile => ({
 /**
  * CSS Loader
  */
-const css = ({src, postcss}) => {
-  const use = [
+const css = ({src, postcss}) => ({
+  test: /\.css$/,
+  include: src,
+  use: [
     MiniCssExtractPlugin.loader,
     {loader: require.resolve('css-loader')},
-  ]
-
-  postcss.enabled && use.push(post(postcss.configFile))
-
-  return {
-    test: /\.css$/,
-    include: src,
-    use,
-  }
-}
+    ...(postcss.enabled ? [post(postcss.configFile)] : []),
+    {loader: 'sass-loader'},
+  ],
+})
 
 /**
  * Static loader
@@ -85,16 +78,14 @@ const loaders = ({options}) => {
     module: {
       strictExportPresence: true,
       rules: [
-        babel(options),
+        options.babel.enabled && babel(options),
+        options.eslint.enabled && eslint(options),
         css(options),
         images(),
         svg(options),
       ],
     },
   }
-
-  options.eslint.enabled &&
-    config.module.rules.unshift(eslint(options))
 
   return config
 }

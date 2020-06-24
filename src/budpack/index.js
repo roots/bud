@@ -1,18 +1,21 @@
 import {join} from 'path'
+import {argv} from 'yargs'
+
 import React from 'react'
 import {render} from 'ink'
-import webpack from 'webpack'
 
+import webpack from 'webpack'
 import config from './config'
 import BudpackCLI from './cli'
 
 /**
  * Process handling
  */
-const mode = 'production'
+const mode = argv?.env ? argv.env : 'production'
 
 process.env.BABEL_ENV = mode
 process.env.NODE_ENV = mode
+
 process.on('unhandledRejection', err => {
   console.error(err)
   process.exit()
