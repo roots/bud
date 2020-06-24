@@ -23,7 +23,10 @@
     "lint:prettier": "prettier --write ."
   },
   "bin": "./bin/budpack.js",
-  "files": ["bin", "build"],
+  "files": [
+    "bin",
+    "build"
+  ],
   "dependencies": {
     "@babel/cli": "^7.10.1",
     "@babel/core": "^7.10.2",
@@ -56,7 +59,7 @@
     "eslint": "^7.2.0",
     "eslint-loader": "^4.0.2",
     "eslint-plugin-import": "^2.21.2",
-    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^4.0.4",
     "esm": "^3.2.25",
