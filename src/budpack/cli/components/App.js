@@ -1,28 +1,19 @@
 import React from 'react'
 import {Box} from 'ink'
-
-import Banner from './Banner'
-import Status from './Status'
+import useStdoutDimensions from 'ink-use-stdout-dimensions'
 
 /**
  * App frame
  *
  * @prop {React.Element} children
  */
-const App = ({assets, height, mode, width, children}) => {
+const App = ({children}) => {
   return (
     <Box
-      width={width}
-      height={height}
       flexDirection="column"
-      justifyContent="space-between">
-      <Box flexDirection="column" width={width}>
-        <Banner />
-
-        {children}
-      </Box>
-
-      <Status assets={assets} mode={mode} width={width} />
+      marginRight={1}
+      marginLeft={1}>
+      {children}
     </Box>
   )
 }

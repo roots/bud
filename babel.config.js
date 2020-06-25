@@ -5,5 +5,5 @@
  */
 
 module.exports = {
-  presets: ['./babel-preset-bud'],
+  presets: ['./src/babel-preset-bud'],
 }

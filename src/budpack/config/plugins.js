@@ -1,7 +1,6 @@
 /** Build modules */
 const {CleanWebpackPlugin} = require('clean-webpack-plugin')
 const DependencyExtractionPlugin = require('@wordpress/dependency-extraction-webpack-plugin')
-const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries')
 const ManifestPlugin = require('webpack-manifest-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const {
@@ -19,9 +18,6 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 const plugins = ({options}) => {
   const config = {
     plugins: [
-      new FixStyleOnlyEntriesPlugin({
-        silent: true,
-      }),
       new MiniCssExtractPlugin({
         filename: options.hashed
           ? `[name].[chunkhash].css`
@@ -59,7 +55,7 @@ const plugins = ({options}) => {
       }),
     )
 
-  options.dev?.hot &&
+  options.hot &&
     config.plugins.push(new HotModuleReplacementPlugin())
   options.browserSync.enabled &&
     config.plugins.push(

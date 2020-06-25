@@ -3,12 +3,7 @@ module.exports = {
     'eslint:recommended',
     'plugin:react/recommended',
   ],
-  plugins: [
-    'jsx-a11y',
-    'plugin-import',
-    'react',
-    'react-hooks',
-  ],
+  plugins: ['jsx-a11y', 'import', 'react', 'react-hooks'],
   globals: {
     wp: true,
     window: true,
@@ -22,6 +17,11 @@ module.exports = {
       jsx: true,
     },
     sourceType: 'module',
+  },
+  settings: {
+    react: {
+      version: 'detect',
+    },
   },
   env: {
     browser: true,

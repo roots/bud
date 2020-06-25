@@ -282,7 +282,6 @@ const watch = state => {
 const paths = {
   budpack: resolve(__dirname, './../..'),
   project: process.cwd(),
-  assets: 'resources/assets',
   src: join(process.cwd(), 'src'),
   dist: join(process.cwd(), 'dist'),
   public: `dist`,
@@ -299,7 +298,7 @@ const options = {
     ),
     configFile:
       existsSync(join(paths.project, 'babel.config.js')) &&
-      join(paths.project, '.eslintrc.js'),
+      join(paths.project, 'babel.config.js'),
   },
   eslint: {
     enabled: existsSync(
@@ -329,12 +328,13 @@ const options = {
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
+    quiet: true,
     hot: true,
     watchOptions: {
       aggregateTimeout: 300,
     },
   },
-  mode: argv.development ? 'development' : 'production',
+  mode: argv.env,
   copy: {
     patterns: [],
   },
@@ -343,6 +343,7 @@ const options = {
     disabled: false,
     maxChunks: null,
   },
+  stats: 'none',
   svg: {
     use: [
       require.resolve('@svgr/webpack'),

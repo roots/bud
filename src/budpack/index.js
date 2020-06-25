@@ -18,6 +18,7 @@ process.env.NODE_ENV = mode
 
 process.on('unhandledRejection', err => {
   console.error(err)
+
   process.exit()
 })
 
