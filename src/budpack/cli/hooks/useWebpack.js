@@ -1,4 +1,4 @@
-import {useState, useEffect, useMemo} from 'react'
+import {useState, useEffect} from 'react'
 import webpack from 'webpack'
 
 const useProgress = () => {
@@ -72,10 +72,8 @@ const useWebpack = ({compiler, mode}) => {
   useEffect(() => {
     buildStats?.assets?.length > 1 &&
       setAssets(buildStats.assets)
-
     buildStats?.errors?.length > 1 &&
       setErrors(buildStats.errors)
-
     buildStats?.warnings?.length > 1 &&
       setWarnings(buildStats.warnings)
   }, [buildStats])

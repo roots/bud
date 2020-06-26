@@ -1,4 +1,4 @@
 module.exports = {
   root: true,
-  extends: ['./src/eslint-config-bud'],
+  extends: ['./config/eslint'],
 }

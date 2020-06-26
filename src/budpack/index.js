@@ -16,9 +16,7 @@ const mode = argv?.env ? argv.env : 'production'
 process.env.BABEL_ENV = mode
 process.env.NODE_ENV = mode
 
-process.on('unhandledRejection', err => {
-  console.error(err)
-
+process.on('unhandledRejection', () => {
   process.exit()
 })
 

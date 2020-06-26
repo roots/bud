@@ -2,48 +2,16 @@ import React, {useEffect, useState} from 'react'
 import {Color, Box, Text} from 'ink'
 import ProgressBar from 'ink-progress-bar'
 import Spinner from 'ink-spinner'
+import Gradient from 'ink-gradient'
 
 import useStdOutDimensions from 'ink-use-stdout-dimensions'
 import useWebpack from './hooks/useWebpack'
 
-import notifier from 'node-notifier'
-
+import Error from './components/Error'
 import Assets from './components/Assets'
+import App from './components/App'
 
-console.log = () => null
-console.error = () => null
-console.dir = () => null
-
-const Error = ({error}) => {
-  const lines = error.split('\n').splice(0, 2)
-  const file = lines[0]
-  const message = lines[1]
-  const [noticeSet, setNoticeSet] = useState(null)
-
-  useEffect(() => {
-    message &&
-      !noticeSet &&
-      notifier.notify({
-        title: 'Build error',
-        message: message,
-        subtitle: 'There was a problem with your build',
-      })
-  }, [noticeSet, message])
-
-  return (
-    <Box marginTop={1} flexDirection="column">
-      <Box marginRight={2} textWrap="truncate">
-        <Text textWrap="truncate">
-          <Color red>
-            ⚠️{'  '}
-            {file}
-          </Color>
-        </Text>
-      </Box>
-      <Box textWrap="truncate">{message}</Box>
-    </Box>
-  )
-}
+import notifier from 'node-notifier'
 
 /**
  * Budpack build status display
@@ -52,17 +20,17 @@ const Error = ({error}) => {
  * @prop {string} mode watch or run
  */
 const BudpackCLI = ({compiler, mode}) => {
-  const [width, height] = useStdOutDimensions()
+  const [width] = useStdOutDimensions()
   const build = useWebpack({compiler, mode})
   const [errors, setErrors] = useState(null)
   useEffect(() => {
-    build?.buildStats && setErrors(build.buildStats.errors)
+    build?.buildStats?.errors &&
+      setErrors(build.buildStats.errors)
   }, [build])
 
   useEffect(() => {
-    build?.percentage &&
-      !errors?.length > 0 &&
-      build.percentage == 1 &&
+    !errors?.length > 0 &&
+      build?.percentage == 1 &&
       notifier.notify({
         title: 'Build complete',
         message: 'Project assets have been live reloaded.',
@@ -70,52 +38,101 @@ const BudpackCLI = ({compiler, mode}) => {
   }, [build?.percentage, errors])
 
   return (
-    <Box
-      flexDirection="column"
-      height={height - 1}
-      padding={1}>
-      <Color green>⚡️ @roots/bud</Color>
-
-      <Box flexDirection="row" marginTop={1}>
-        <Box minWidth={13} marginRight={3}>
-          {Math.round(build?.percentage * 100)}% complete
+    <App>
+      <Box flexDirection="row" marginBottom={1}>
+        <Box marginRight={1}>
+          <Text>
+            <Color hex={'#545DD7'}>⚡️ @roots/bud</Color>
+          </Text>
         </Box>
 
-        <Box>
-          <Color blue>
-            <ProgressBar
-              maxWidth={width - 2}
-              left={18}
-              percent={build?.percentage ?? 0.01}
-            />
-          </Color>
+        {build?.percentage == 0 && (
+          <Box flexDirection="row" marginRight={1}>
+            <Color gray>Reticulating splines</Color>
+          </Box>
+        )}
+
+        {build?.percentage == 1 && build?.buildStats?.hash && (
+          <Box flexDirection="row">
+            {errors?.length > 0 && (
+              <Text>
+                <Color hex="#dc3545">Errors </Color>
+              </Text>
+            )}
+            {errors?.length == 0 && (
+              <Text>
+                <Color hex="#28a745">Success </Color>
+              </Text>
+            )}
+            <Text>
+              <Color hex="#6C758F">
+                Build {build?.buildStats?.hash}. Finished in{' '}
+                {build.buildStats.time / 1000}s
+              </Color>
+            </Text>
+          </Box>
+        )}
+
+        {build?.percentage > 0 && build.percentage < 1 && (
+          <Box
+            maxWidth={width - 8}
+            textWrap="truncate"
+            flexDirection="row">
+            <Color bgHex={'#171c56'}>
+              <Text width={6}>
+                {' '}
+                {Math.round(build?.percentage * 100)}%
+                {build?.percentage < 1 ? '  ' : ' '}
+              </Text>
+            </Color>
+            <Gradient colors={['#545DD7', '#323fd6']}>
+              <ProgressBar
+                character="█"
+                left={10}
+                right={8}
+                percent={build?.percentage ?? 0.01}
+              />
+            </Gradient>
+          </Box>
+        )}
+      </Box>
+
+      {errors?.length > 0 && (
+        <Box flexDirection="column" marginBottom={1}>
+          {errors?.map((error, id) => (
+            <Error error={error} key={id} />
+          ))}
         </Box>
-      </Box>
+      )}
 
-      {errors?.map((error, id) => (
-        <Error error={error} key={id} />
-      ))}
-
-      <Box
-        maxWidth={width - 2}
-        width={width - 2}
-        marginTop={1}
-        marginBottom={1}>
-        <Assets width={width - 2} assets={build?.assets} />
-      </Box>
+      {build?.assets?.length > 0 && (
+        <Box marginBottom={1} flexDirection="column">
+          <Assets
+            errors={errors}
+            width={width - 2}
+            assets={build?.assets}
+          />
+        </Box>
+      )}
 
       <Text>
         {mode == 'development' && (
-          <Color green>
-            {build?.percentage == 1 && (
-              <>
-                <Spinner /> Watching files
-              </>
+          <Color hex="#28a745">
+            {errors?.length > 0 ? (
+              <Color hex="#dc3545">
+                <Spinner /> Watching for fixes
+              </Color>
+            ) : (
+              build?.percentage == 1 && (
+                <>
+                  <Spinner /> Watching for changes
+                </>
+              )
             )}
           </Color>
         )}
       </Text>
-    </Box>
+    </App>
   )
 }
 

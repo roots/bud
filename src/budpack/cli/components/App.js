@@ -1,6 +1,6 @@
 import React from 'react'
 import {Box} from 'ink'
-import useStdoutDimensions from 'ink-use-stdout-dimensions'
+import useStdOutDimensions from 'ink-use-stdout-dimensions'
 
 /**
  * App frame
@@ -8,11 +8,13 @@ import useStdoutDimensions from 'ink-use-stdout-dimensions'
  * @prop {React.Element} children
  */
 const App = ({children}) => {
+  const [, height] = useStdOutDimensions()
+
   return (
     <Box
       flexDirection="column"
-      marginRight={1}
-      marginLeft={1}>
+      height={height - 1}
+      padding={1}>
       {children}
     </Box>
   )

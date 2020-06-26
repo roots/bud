@@ -1,6 +1,6 @@
 {
   "name": "@roots/budpack",
-  "version": "0.0.9",
+  "version": "0.0.10",
   "repository": {
     "type": "git",
     "url": "git://github.com/roots/bud-support.git"
@@ -23,7 +23,7 @@
     "lint:prettier": "prettier --write ."
   },
   "bin": "./bin/budpack.js",
-  "files": ["bin", "build"],
+  "files": ["bin", "build", "config"],
   "dependencies": {
     "@babel/cli": "^7.10.1",
     "@babel/core": "^7.10.2",

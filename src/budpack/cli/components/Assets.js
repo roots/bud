@@ -4,26 +4,38 @@ import {Box, Color} from 'ink'
 /**
  * Assets
  */
-const Assets = ({assets, width}) => {
+const Assets = ({assets, errors, width}) => {
   return (
     <Box width={width} flexDirection="column">
-      {assets.map((asset, id) => (
-        <Box
-          width={width}
-          justifyContent="space-between"
-          key={id}>
-          <Box>
-            <Color
-              keyword={asset.emitted ? 'green' : 'yellow'}>
-              ⦿
-            </Color>{' '}
-            {asset.name}
+      {assets
+        .filter(asset => !asset.name.includes('.map'))
+        .filter(asset => !asset.name.includes('.json'))
+        .map((asset, id) => (
+          <Box
+            width={width}
+            justifyContent="space-between"
+            key={id}>
+            <Box>
+              <Color
+                hex={
+                  asset.emitted
+                    ? '#545DD7'
+                    : errors?.length > 0
+                    ? '#dc3545'
+                    : '#6C758F'
+                }>
+                ⦿
+              </Color>{' '}
+              <Color
+                keyword={asset.emitted ? 'white' : 'gray'}>
+                {asset.name}
+              </Color>
+            </Box>
+            <Box>
+              <Color dim>{asset.size / 1000}kb</Color>
+            </Box>
           </Box>
-          <Box>
-            <Color dim>{asset.size / 1000}kb</Color>
-          </Box>
-        </Box>
-      ))}
+        ))}
     </Box>
   )
 }
