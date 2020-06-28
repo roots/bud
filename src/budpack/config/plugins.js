@@ -55,8 +55,7 @@ const plugins = ({options}) => {
       }),
     )
 
-  options.hot &&
-    config.plugins.push(new HotModuleReplacementPlugin())
+  options.hot && config.plugins.push(new HotModuleReplacementPlugin())
   options.browserSync.enabled &&
     config.plugins.push(
       new BrowserSyncPlugin({

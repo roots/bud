@@ -19,8 +19,8 @@ const eslint = ({src, eslint}) => ({
   exclude: /node_modules/,
   loader: require.resolve('eslint-loader'),
   options: {
-    formatter: 'json',
     configFile: eslint.configFile,
+    format: 'codeframe',
   },
 })
 

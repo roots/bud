@@ -1,5 +1,6 @@
 import {useState, useEffect} from 'react'
 import webpack from 'webpack'
+import formatWebpackMessages from './../util/formatWebpackMessages'
 
 const useProgress = () => {
   const [progressPlugin, setProgressPlugin] = useState()
@@ -44,25 +45,27 @@ const useWebpack = ({compiler, mode}) => {
         progressPlugin.apply(compiler)
         setProgressPluginApplied(true)
       })()
+
   }, [progressPlugin, compiler])
 
   const [buildStats, setBuildStats] = useState({})
   const [buildErrors, setBuildErrors] = useState([])
+  const [webpackRunning, setWebpackRunning] = useState(null)
   useEffect(() => {
     const cb = (err, stats) => {
       setBuildErrors(err)
-      setBuildStats(
-        stats?.toJson({
-          all: true,
-          colors: false,
-          errors: true,
-        }),
-      )
+      setBuildStats(stats.toJson())
     }
 
-    mode == 'development'
-      ? compiler.watch({}, cb)
-      : compiler.run(cb)
+   if (progressPluginApplied) {
+     if (! webpackRunning) {
+       setWebpackRunning(true)
+
+       progressPluginApplied && mode == 'development'
+          ? compiler.watch({}, cb)
+          : compiler.run(cb)
+      }
+    }
   }, [progressPluginApplied, mode, compiler])
 
   const [assets, setAssets] = useState([])
@@ -70,12 +73,9 @@ const useWebpack = ({compiler, mode}) => {
   const [errors, setErrors] = useState([])
 
   useEffect(() => {
-    buildStats?.assets?.length > 1 &&
-      setAssets(buildStats.assets)
-    buildStats?.errors?.length > 1 &&
-      setErrors(buildStats.errors)
-    buildStats?.warnings?.length > 1 &&
-      setWarnings(buildStats.warnings)
+    setAssets(buildStats?.assets)
+    setWarnings(buildStats?.warnings)
+    setErrors(buildStats?.errors)
   }, [buildStats])
 
   return {

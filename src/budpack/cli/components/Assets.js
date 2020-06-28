@@ -1,41 +1,47 @@
-import React from 'react'
-import {Box, Color} from 'ink'
+import React, {useState, useEffect} from 'react'
+import {Box, Spacer, Text, useFocus} from 'ink'
 
 /**
  * Assets
  */
-const Assets = ({assets, errors, width}) => {
+const Assets = ({build, actions}) => {
+  const {isFocused} = useFocus({autoFocus: true})
+  useEffect(() => {
+    actions.setFocus({assets: isFocused})
+  }, [isFocused])
+
+  const [assets, setAssets] = useState([])
+  useEffect(() => {
+    setAssets(build?.assets)
+  }, [build?.assets])
+
   return (
-    <Box width={width} flexDirection="column">
-      {assets
-        .filter(asset => !asset.name.includes('.map'))
-        .filter(asset => !asset.name.includes('.json'))
-        .map((asset, id) => (
-          <Box
-            width={width}
-            justifyContent="space-between"
-            key={id}>
-            <Box>
-              <Color
-                hex={
-                  asset.emitted
-                    ? '#545DD7'
-                    : errors?.length > 0
-                    ? '#dc3545'
-                    : '#6C758F'
-                }>
-                ⦿
-              </Color>{' '}
-              <Color
-                keyword={asset.emitted ? 'white' : 'gray'}>
-                {asset.name}
-              </Color>
-            </Box>
-            <Box>
-              <Color dim>{asset.size / 1000}kb</Color>
-            </Box>
+    <Box
+      display={isFocused ? 'flex' : 'none'}
+      flexDirection="column">
+      {assets?.map((asset, id) => (
+        <Box
+          flexDirection="row"
+          justifyContent="space-between"
+          key={id}>
+          <Box>
+            <Text
+              color={asset.emitted ? '#545DD7' : '#6C758F'}>
+              ⦿{' '}
+            </Text>
+            <Text color={asset.emitted ? 'white' : 'gray'}>
+              {asset.name}
+            </Text>
           </Box>
-        ))}
+          <Spacer />
+          <Box>
+            <Text dimColor="white">
+              {asset.size / 1000}kb
+            </Text>
+          </Box>
+        </Box>
+      ))}
+      {assets?.length == 0 && <Text>Loading</Text>}
     </Box>
   )
 }
