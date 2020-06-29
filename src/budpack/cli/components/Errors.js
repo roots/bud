@@ -22,8 +22,12 @@ const Errors = ({errors, actions}) => {
       paddingRight={1}
       display={display ? 'flex' : 'none'}
       flexDirection="column">
-      {errors?.map((err, i) => <Error error={err} key={i} />)}
-      {errors?.length == 0 && <Text>Nothing to see here.</Text>}
+      {errors?.map((err, i) => (
+        <Error error={err} key={i} />
+      ))}
+      {errors?.length == 0 && (
+        <Text>Nothing to see here.</Text>
+      )}
     </Box>
   )
 }

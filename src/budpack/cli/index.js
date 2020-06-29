@@ -24,16 +24,21 @@ const BudpackCLI = ({compiler, mode}) => {
   }, [build])
 
   useEffect(() => {
-    !errors?.length > 0 &&
+    ! errors?.length > 0 &&
       build?.percentage == 1 &&
+      build?.assets?.length > 0 &&
       notifier.notify({
         title: 'Build complete',
-        message: build?.assets?.length > 0 ? `${build?.assets?.length} assets built.` : `Assets built.`,
+        message: `${build.assets.length} assets built.`,
       })
   }, [build?.percentage, errors])
 
   return (
-    <App build={build} errors={errors} state={state} mode={mode}>
+    <App
+      build={build}
+      errors={errors}
+      state={state}
+      mode={mode}>
       <Assets actions={actions} build={build} />
       <Errors actions={actions} errors={errors} />
       <BrowserSync actions={actions} />

@@ -4,7 +4,9 @@ import Spinner from 'ink-spinner'
 import ProgressBar from 'ink-progress-bar'
 import useStdOutDimensions from 'ink-use-stdout-dimensions'
 
-const Bullet = ({active}) => <Text>{active ? '◉' : ' '}</Text>
+const Bullet = ({active}) => (
+  <Text>{active ? '◉' : ' '}</Text>
+)
 
 /**
  * App frame
@@ -20,9 +22,7 @@ const App = ({children, state, build, mode}) => {
   }, [state])
 
   return (
-    <Box
-      padding={1}
-      flexDirection="column">
+    <Box padding={1} flexDirection="column">
       <Box
         flexDirection="row"
         justifyContent="space-between">
@@ -41,9 +41,17 @@ const App = ({children, state, build, mode}) => {
         <Spacer />
         <Box>
           <Text
-            color={build?.errors?.length > 0 ? '#dc3545' : focused?.errors ? 'white' : '#6C758F'}>
+            color={
+              build?.errors?.length > 0
+                ? '#dc3545'
+                : focused?.errors
+                ? 'white'
+                : '#6C758F'
+            }>
             <Bullet active={focused?.errors} /> Errors
-            {build?.errors?.length > 0 ? ` [${build?.errors.length}]` : `  `}
+            {build?.errors?.length > 0
+              ? ` [${build?.errors.length}]`
+              : `  `}
           </Text>
         </Box>
         <Spacer />
@@ -52,7 +60,8 @@ const App = ({children, state, build, mode}) => {
             color={
               focused?.browserSync ? 'white' : '#6C758F'
             }>
-            <Bullet active={focused.browserSync} /> BrowserSync{' '}
+            <Bullet active={focused.browserSync} />{' '}
+            BrowserSync{' '}
           </Text>
         </Box>
       </Box>

@@ -14,12 +14,13 @@ const Error = ({error}) => {
       })
   }, [error])
 
-  return ! error ? [] : (
+  return !error ? (
+    []
+  ) : (
     <Box
       paddingLeft={1}
       paddingRight={1}
-      flexDirection="column"
-    >
+      flexDirection="column">
       <Text wrap="wrap">{error}</Text>
     </Box>
   )

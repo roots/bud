@@ -45,7 +45,6 @@ const useWebpack = ({compiler, mode}) => {
         progressPlugin.apply(compiler)
         setProgressPluginApplied(true)
       })()
-
   }, [progressPlugin, compiler])
 
   const [buildStats, setBuildStats] = useState({})
@@ -57,11 +56,11 @@ const useWebpack = ({compiler, mode}) => {
       setBuildStats(stats.toJson())
     }
 
-   if (progressPluginApplied) {
-     if (! webpackRunning) {
-       setWebpackRunning(true)
+    if (progressPluginApplied) {
+      if (!webpackRunning) {
+        setWebpackRunning(true)
 
-       progressPluginApplied && mode == 'development'
+        progressPluginApplied && mode == 'development'
           ? compiler.watch({}, cb)
           : compiler.run(cb)
       }
