@@ -32,6 +32,17 @@ abstract class AbstractManifest extends ServiceProvider
     }
 
     /**
+     * Has manifest entry.
+     *
+     * @param  string $key
+     * @return bool
+     */
+    public function has(string $key): bool
+    {
+        return $this->entries->has($key);
+    }
+
+    /**
      * Set a specific manifest entry.
      *
      * @param  string $id
