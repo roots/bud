@@ -1,20 +1,20 @@
 import React, {useEffect, useState} from 'react'
 import {Box, Text, useFocus} from 'ink'
-import Error from './Error'
+import Warning from './Warning'
 
 /**
- * Error
+ * Warnings
  */
-const Errors = ({build, actions}) => {
+const Warnings = ({build, actions}) => {
   const {isFocused} = useFocus({autoFocus: true})
   useEffect(() => {
-    actions.setFocus({errors: isFocused})
+    actions.setFocus({warnings: isFocused})
   }, [isFocused])
 
   const [display, setDisplay] = useState(null)
   useEffect(() => {
     setDisplay(isFocused)
-  }, [isFocused, build?.errors])
+  }, [isFocused, build?.warnings])
 
   return (
     <Box
@@ -22,16 +22,16 @@ const Errors = ({build, actions}) => {
       paddingRight={1}
       display={display ? 'flex' : 'none'}
       flexDirection="column">
-      {build?.errors?.length > 0 &&
-        build?.errors?.map((err, i) => (
-          <Error message={err} key={i} />
+      {build?.warnings?.length > 0 &&
+        build?.warnings?.map((warning, i) => (
+          <Warning message={warning} key={i} />
         ))}
 
-      {build?.errors?.length == 0 && (
+      {build?.warnings?.length == 0 && (
         <Text>Nothing to see here.</Text>
       )}
     </Box>
   )
 }
 
-export default Errors
+export default Warnings

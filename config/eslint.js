@@ -3,20 +3,15 @@ module.exports = {
     'eslint:recommended',
     'plugin:react/recommended',
   ],
-  plugins: ['jsx-a11y', 'import', 'react', 'react-hooks'],
+  plugins: ['jsx-a11y', 'react', 'react-hooks'],
   globals: {
     wp: true,
     window: true,
     document: true,
-    React: true,
   },
   parser: 'babel-eslint',
   parserOptions: {
-    ecmaVersion: 2020,
-    ecmaFeatures: {
-      jsx: true,
-    },
-    sourceType: 'module',
+    ecmaVersion: 2018,
   },
   settings: {
     react: {
@@ -30,9 +25,9 @@ module.exports = {
   rules: {
     strict: 0,
     'no-console': 0,
-    'react/prop-types': 0,
+    'react/prop-types': 1,
     'react/react-in-jsx-scope': 0,
-    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/rules-of-hooks': 1,
     'no-extra-semi': 0,
     'comma-dangle': [
       'error',

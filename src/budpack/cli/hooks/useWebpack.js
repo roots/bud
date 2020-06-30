@@ -1,6 +1,5 @@
 import {useState, useEffect} from 'react'
 import webpack from 'webpack'
-import formatWebpackMessages from './../util/formatWebpackMessages'
 
 const useProgress = () => {
   const [progressPlugin, setProgressPlugin] = useState()
@@ -34,6 +33,7 @@ const useWebpack = ({compiler, mode}) => {
     percentage,
     message,
   } = useProgress()
+
   const [
     progressPluginApplied,
     setProgressPluginApplied,
@@ -70,19 +70,19 @@ const useWebpack = ({compiler, mode}) => {
   const [assets, setAssets] = useState([])
   const [warnings, setWarnings] = useState([])
   const [errors, setErrors] = useState([])
-
   useEffect(() => {
     setAssets(buildStats?.assets)
-    setWarnings(buildStats?.warnings)
-    setErrors(buildStats?.errors)
-  }, [buildStats])
+    setWarnings(buildStats?.warnings ?? [])
+    setErrors([
+      ...(buildErrors ?? []),
+      ...(buildStats?.errors ?? []),
+    ])
+  }, [buildStats, buildErrors])
 
   return {
     assets,
     errors,
     warnings,
-    buildStats,
-    buildErrors,
     percentage,
     message,
   }

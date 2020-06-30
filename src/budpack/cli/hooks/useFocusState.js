@@ -7,10 +7,14 @@ const useFocusState = globalState(
     assets: true,
     errors: false,
     browserSync: false,
+    warnings: false,
   },
   {
     setFocus: (store, value) => {
-      store.setState({...store.state, ...value})
+      store.setState({
+        ...store.state,
+        ...value,
+      })
     },
   },
 )

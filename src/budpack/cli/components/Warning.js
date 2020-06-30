@@ -3,15 +3,15 @@ import React, {useEffect} from 'react'
 import {Box, Text} from 'ink'
 
 /**
- * Error
+ * Warning
  *
  * @prop {object} error
  */
-const Error = ({message}) => {
+const Warning = ({message}) => {
   useEffect(() => {
     message &&
       notifier.notify({
-        title: 'Build error',
+        title: 'Warning',
         message,
       })
   }, [message])
@@ -28,4 +28,4 @@ const Error = ({message}) => {
   )
 }
 
-export default Error
+export default Warning
