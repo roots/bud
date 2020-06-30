@@ -343,21 +343,30 @@ const options = {
     disabled: false,
     maxChunks: null,
   },
-  stats: 'none',
+  stats: 'all',
   svg: {
     use: [
       require.resolve('@svgr/webpack'),
       require.resolve('url-loader'),
     ],
   },
-  vendor: {
-    disabled: false,
-  },
   wpManifest: {
     useDefaults: true,
     injectPolyfill: false,
     outputFormat: 'json',
   },
+
+  /**
+   * Disabled
+   * @todo
+   */
+  vendor: {
+    disabled: true,
+  },
+
+  /**
+   * Config flags
+   */
   inProduction,
   watching: !inProduction,
   hot: !inProduction,

@@ -58,6 +58,22 @@ const App = ({children, state, build, mode}) => {
         <Box>
           <Text
             color={
+              build?.warnings?.length > 0
+                ? '#fd7e14'
+                : focused?.warnings
+                ? 'white'
+                : '#6C758F'
+            }>
+            <Bullet active={focused?.warnings} /> Warnings
+            {build?.warnings?.length > 0
+              ? ` [${build?.warnings.length}]`
+              : `  `}
+          </Text>
+        </Box>
+        <Spacer />
+        <Box>
+          <Text
+            color={
               focused?.browserSync ? 'white' : '#6C758F'
             }>
             <Bullet active={focused.browserSync} />{' '}

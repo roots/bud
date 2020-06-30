@@ -6,6 +6,7 @@ import useFocusState from './hooks/useFocusState'
 
 import BrowserSync from './components/BrowserSync'
 import Errors from './components/Errors'
+import Warnings from './components/Warnings'
 import Assets from './components/Assets'
 import App from './components/App'
 
@@ -18,29 +19,22 @@ import App from './components/App'
 const BudpackCLI = ({compiler, mode}) => {
   const [state, actions] = useFocusState()
   const build = useWebpack({compiler, mode})
-  const [errors, setErrors] = useState(null)
-  useEffect(() => {
-    build?.errors && setErrors(build.errors)
-  }, [build])
 
   useEffect(() => {
-    ! errors?.length > 0 &&
+    !build?.errors?.length > 0 &&
       build?.percentage == 1 &&
       build?.assets?.length > 0 &&
       notifier.notify({
         title: 'Build complete',
         message: `${build.assets.length} assets built.`,
       })
-  }, [build?.percentage, errors])
+  }, [build?.percentage])
 
   return (
-    <App
-      build={build}
-      errors={errors}
-      state={state}
-      mode={mode}>
+    <App build={build} state={state} mode={mode}>
       <Assets actions={actions} build={build} />
-      <Errors actions={actions} errors={errors} />
+      <Errors actions={actions} build={build} />
+      <Warnings actions={actions} build={build} />
       <BrowserSync actions={actions} />
     </App>
   )
