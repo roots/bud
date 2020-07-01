@@ -1,28 +1,24 @@
-import React, {useState, useEffect} from 'react'
+import React, {useEffect} from 'react'
 import {Box, Spacer, Text, useFocus} from 'ink'
 
 /**
  * Assets
  */
-const Assets = ({build, actions}) => {
+const Assets = ({build, actions, width}) => {
   const {isFocused} = useFocus({autoFocus: true})
   useEffect(() => {
-    actions?.setFocus({assets: isFocused})
+    actions.setFocus({assets: isFocused})
   }, [isFocused])
-
-  const [assets, setAssets] = useState([])
-  useEffect(() => {
-    setAssets(build?.assets)
-  }, [build?.assets])
 
   return (
     <Box
       display={isFocused ? 'flex' : 'none'}
       flexDirection="column">
-      {assets?.map((asset, id) => (
+      {build?.assets?.map((asset, id) => (
         <Box
           flexDirection="row"
           justifyContent="space-between"
+          maxWidth={width}
           key={id}>
           <Box>
             <Text
@@ -41,7 +37,7 @@ const Assets = ({build, actions}) => {
           </Box>
         </Box>
       ))}
-      {assets?.length == 0 && <Text>Loading</Text>}
+      {build?.assets?.length == 0 && <Text>Loading</Text>}
     </Box>
   )
 }

@@ -1,8 +1,8 @@
 import React, {useEffect} from 'react'
-import {Box, useApp, useInput} from 'ink'
+import {useApp, useInput} from 'ink'
 import PropTypes from 'prop-types'
 import notifier from 'node-notifier'
-import useStdoutDimensions from 'ink-use-stdout-dimensions'
+import useStdOutDimensions from 'ink-use-stdout-dimensions'
 
 import useWebpack from './hooks/useWebpack'
 import useFocusState from './hooks/useFocusState'
@@ -27,11 +27,14 @@ const successfulBuild = build =>
  * @prop {object} options  project options
  */
 const BudpackCLI = ({compiler, config, options}) => {
+  const [width] = useStdOutDimensions()
   const [state, actions] = useFocusState()
-  const [, rows] = useStdoutDimensions()
   const {exit} = useApp()
   useInput(input => {
-    input == 'q' && exit()
+    if (input == 'q') {
+      exit()
+      process.exit()
+    }
   })
 
   const build = useWebpack({compiler, options})
@@ -44,23 +47,30 @@ const BudpackCLI = ({compiler, config, options}) => {
   }, [build?.percentage])
 
   return (
-    <Box minHeight={rows} flexDirection="column">
-      <App build={build} state={state} options={options}>
-        <Assets actions={actions} build={build} />
-        <Errors actions={actions} build={build} />
-        <Warnings actions={actions} build={build} />
-        {!options.debug && options.browserSync.enabled && (
-          <BrowserSync actions={actions} />
-        )}
-        {options.debug && (
-          <Debug
-            actions={actions}
-            config={config}
-            options={options}
-          />
-        )}
-      </App>
-    </Box>
+    <App
+      width={width}
+      build={build}
+      state={state}
+      options={options}>
+      <Assets
+        width={width}
+        actions={actions}
+        build={build}
+      />
+      <Errors actions={actions} build={build} />
+      <Warnings actions={actions} build={build} />
+      {!options.debug && options.browserSync.enabled && (
+        <BrowserSync actions={actions} />
+      )}
+
+      {options.debug && (
+        <Debug
+          actions={actions}
+          config={config}
+          options={options}
+        />
+      )}
+    </App>
   )
 }
 
