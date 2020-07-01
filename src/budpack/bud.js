@@ -126,6 +126,18 @@ const alias = alias => {
 }
 
 /**
+ * Autoload (ProvidePlugin)
+ *
+ * @param  {object} autoload
+ * @return {object}
+ */
+const auto = auto => {
+  bud.options.auto = auto
+
+  return bud
+}
+
+/**
  * Browsersync
  *
  * @param  {object} options
@@ -291,7 +303,7 @@ const splitting = state => {
  * @return {object}
  */
 const vendor = state => {
-  bud.options.vendor.disabled = state
+  bud.options.vendor = state
 
   return bud
 }
@@ -380,6 +392,7 @@ const options = {
   /**
    * Additional config
    */
+  auto: null,
   browserSync: {
     enabled: false,
     host: 'localhost',
@@ -415,14 +428,7 @@ const options = {
     injectPolyfill: false,
     outputFormat: 'json',
   },
-
-  /**
-   * Disabled
-   * @todo
-   */
-  vendor: {
-    disabled: true,
-  },
+  vendor: true,
 }
 
 /**
@@ -446,6 +452,7 @@ const bud = {
 
   /** Config API */
   alias,
+  auto,
   browserSync,
   copy,
   debug,

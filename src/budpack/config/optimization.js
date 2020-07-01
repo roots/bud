@@ -34,10 +34,7 @@ const optimization = options => {
           output: {
             beautify: false,
           },
-          compress: {
-            dev: false,
-            production: false,
-          },
+          compress: false,
           mangle: {
             toplevel: true,
           },

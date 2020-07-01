@@ -7,6 +7,7 @@ const {
   LimitChunkCountPlugin,
   HotModuleReplacementPlugin,
   NoEmitOnErrorsPlugin,
+  ProvidePlugin,
 } = require('webpack')
 const WriteFilePlugin = require('write-file-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
@@ -54,6 +55,9 @@ const plugins = options => {
         maxChunks: options.splitting.maxChunks,
       }),
     )
+
+  options.auto &&
+    config.plugins.push(new ProvidePlugin(options.auto))
 
   options.hot &&
     config.plugins.push(new HotModuleReplacementPlugin())

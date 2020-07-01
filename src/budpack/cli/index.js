@@ -36,6 +36,12 @@ const BudpackCLI = ({compiler, config, options}) => {
       process.exit()
     }
   })
+  useEffect(() => {
+    !options?.watching &&
+      build?.assets &&
+      build?.percentage &&
+      exit()
+  })
 
   const build = useWebpack({compiler, options})
   useEffect(() => {
@@ -45,6 +51,11 @@ const BudpackCLI = ({compiler, config, options}) => {
         message: `${build.assets.length} assets built.`,
       })
   }, [build?.percentage])
+
+  const showBrowserSync =
+    !options.debug &&
+    options.browserSync.enabled &&
+    !options.inProduction
 
   return (
     <App
@@ -59,10 +70,7 @@ const BudpackCLI = ({compiler, config, options}) => {
       />
       <Errors actions={actions} build={build} />
       <Warnings actions={actions} build={build} />
-      {!options.debug && options.browserSync.enabled && (
-        <BrowserSync actions={actions} />
-      )}
-
+      {showBrowserSync && <BrowserSync actions={actions} />}
       {options.debug && (
         <Debug
           actions={actions}

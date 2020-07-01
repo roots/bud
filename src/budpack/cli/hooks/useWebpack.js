@@ -56,7 +56,11 @@ const useWebpack = ({compiler, options}) => {
   useEffect(() => {
     const webpackCallback = (err, stats) => {
       setBuildErrors(err)
-      setBuildStats(stats.toJson())
+      setBuildStats(
+        stats.toJson({
+          all: true,
+        }),
+      )
     }
 
     if (progressPluginApplied) {
@@ -86,6 +90,8 @@ const useWebpack = ({compiler, options}) => {
   return {
     assets,
     errors,
+    hash: buildStats?.hash,
+    time: buildStats?.time,
     warnings,
     percentage,
     message,

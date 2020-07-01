@@ -1,5 +1,12 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
+const loaders = {
+  babel: require.resolve('babel-loader'),
+  css: require.resolve('css-loader'),
+  eslint: require.resolve('eslint-loader'),
+  postcss: require.resolve('postcss-loader'),
+}
+
 /**
  * Babel loader
  */
@@ -7,25 +14,27 @@ const babel = ({src}) => ({
   test: /\.(js|jsx)$/,
   include: src,
   exclude: /node_modules/,
-  loader: require.resolve('babel-loader'),
+  loader: loaders.babel,
 })
 
 /**
  * Eslint loader
  */
 const eslint = ({src, eslint}) => ({
-  test: /\.(js|jsx)$/,
+  enforce: 'pre',
+  test: /\.(js|js)$/,
   include: src,
   exclude: /node_modules/,
-  loader: require.resolve('eslint-loader'),
+  loader: loaders.eslint,
   options: {
     configFile: eslint.configFile,
-    format: 'codeframe',
+    formatter: 'codeframe',
+    failOnError: true,
   },
 })
 
 const post = configFile => ({
-  loader: require.resolve('postcss-loader'),
+  loader: loaders.postcss,
   options: {
     config: {
       path: configFile,
@@ -37,11 +46,11 @@ const post = configFile => ({
  * CSS Loader
  */
 const css = ({src, postcss}) => ({
-  test: /\.css$/,
+  test: /\.s?css$/,
   include: src,
   use: [
     MiniCssExtractPlugin.loader,
-    {loader: require.resolve('css-loader')},
+    {loader: loaders.css, options: {url: false}},
     ...(postcss.enabled ? [post(postcss.configFile)] : []),
     {loader: 'sass-loader'},
   ],
@@ -73,21 +82,25 @@ const svg = ({svg}) => ({
 /**
  * Webpack loaders
  */
-const loaders = options => {
+const webpackModules = options => {
   const config = {
     module: {
       strictExportPresence: true,
-      rules: [
-        options.babel.enabled && babel(options),
-        options.eslint.enabled && eslint(options),
-        css(options),
-        images(),
-        svg(options),
-      ],
+      rules: [],
     },
   }
+
+  options.babel.enabled &&
+    config.module.rules.push(babel(options))
+
+  options.eslint.enabled &&
+    config.module.rules.push(eslint(options))
+
+  config.module.rules.push(css(options))
+  config.module.rules.push(images())
+  config.module.rules.push(svg(options))
 
   return config
 }
 
-export default loaders
+export default webpackModules

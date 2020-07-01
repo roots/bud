@@ -88,14 +88,16 @@ const App = ({children, state, build, options, width}) => {
       {children}
       <Spacer />
       <Box flexDirection="column" paddingTop={1}>
-        {build?.percentage == 1 && build?.buildStats?.hash && (
+        {build?.percentage == 1 && build?.hash && (
           <Text color="#6C758F" marginTop={1}>
-            Build {build?.buildStats?.hash}. Finished in{' '}
-            {build?.buildStats?.time / 1000}s
+            Build {build?.hash}. Finished in{' '}
+            {build?.time / 1000}s.
           </Text>
         )}
         <Loading build={build} width={width} />
-        <Watching options={options} build={build} />
+        {options.watching && (
+          <Watching options={options} build={build} />
+        )}
       </Box>
     </Box>
   )
