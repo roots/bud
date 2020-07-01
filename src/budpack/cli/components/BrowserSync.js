@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 import patchConsole from 'patch-console'
 
 const BrowserSync = ({actions}) => {
-  const {isFocused} = useFocus({autoFocus: true})
+  const {isFocused} = useFocus({autoFocus: false})
   useEffect(() => {
-    actions.setFocus({browserSync: isFocused})
+    actions?.setFocus({browserSync: isFocused})
   }, [isFocused])
 
   const [lastConsole, setLastConsole] = useState(null)

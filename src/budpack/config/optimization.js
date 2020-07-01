@@ -3,7 +3,7 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 /**
  * Webpack optimization
  */
-const optimization = ({options}) => {
+const optimization = options => {
   const config = {
     optimization: {
       minimize: options.minified,

@@ -1,19 +1,17 @@
 import React, {useState, useEffect} from 'react'
-import {Box, Spacer, Text} from 'ink'
+import {Box, Text} from 'ink'
 import Spinner from 'ink-spinner'
 import ProgressBar from 'ink-progress-bar'
 import useStdOutDimensions from 'ink-use-stdout-dimensions'
 
-const Bullet = ({active}) => (
-  <Text>{active ? '◉' : ' '}</Text>
-)
+import Nav from './Nav'
 
 /**
  * App frame
  *
  * @prop {React.Element} children
  */
-const App = ({children, state, build, mode}) => {
+const App = ({children, state, build, options}) => {
   const [width] = useStdOutDimensions()
 
   const [focused, setFocused] = useState({})
@@ -23,70 +21,11 @@ const App = ({children, state, build, mode}) => {
 
   return (
     <Box padding={1} flexDirection="column">
-      <Box
-        flexDirection="row"
-        justifyContent="space-between">
-        <Box>
-          <Text color={'#545DD7'}>@roots/bud</Text>
-        </Box>
-        <Spacer />
-        <Spacer />
-        <Spacer />
-        <Box>
-          <Text
-            color={focused?.assets ? 'white' : '#6C758F'}>
-            <Bullet active={focused.assets} /> Assets
-          </Text>
-        </Box>
-        <Spacer />
-        <Box>
-          <Text
-            color={
-              build?.errors?.length > 0
-                ? '#dc3545'
-                : focused?.errors
-                ? 'white'
-                : '#6C758F'
-            }>
-            <Bullet active={focused?.errors} /> Errors
-            {build?.errors?.length > 0
-              ? ` [${build?.errors.length}]`
-              : `  `}
-          </Text>
-        </Box>
-        <Spacer />
-        <Box>
-          <Text
-            color={
-              build?.warnings?.length > 0
-                ? '#fd7e14'
-                : focused?.warnings
-                ? 'white'
-                : '#6C758F'
-            }>
-            <Bullet active={focused?.warnings} /> Warnings
-            {build?.warnings?.length > 0
-              ? ` [${build?.warnings.length}]`
-              : `  `}
-          </Text>
-        </Box>
-        <Spacer />
-        <Box>
-          <Text
-            color={
-              focused?.browserSync ? 'white' : '#6C758F'
-            }>
-            <Bullet active={focused.browserSync} />{' '}
-            BrowserSync{' '}
-          </Text>
-        </Box>
-      </Box>
+      <Nav build={build} focused={focused} options={options} />
+
       {build?.assets?.length > 0 && (
         <Box
-          padding={1}
-          flexDirection="column"
-          borderColor="#6C758F"
-          borderStyle="round">
+          flexDirection="column">
           {children}
         </Box>
       )}
@@ -127,7 +66,7 @@ const App = ({children, state, build, mode}) => {
         )}
       </Box>
 
-      {mode == 'development' &&
+      {options?.mode == 'development' &&
         (build?.errors?.length > 0 ? (
           <Text color="#dc3545">
             <Text>

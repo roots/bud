@@ -1,33 +1,30 @@
 import {join} from 'path'
-import {argv} from 'yargs'
-
+import webpack from 'webpack'
 import React from 'react'
 import {render} from 'ink'
 
-import webpack from 'webpack'
-import config from './config'
+import budpackConfig from './config'
 import BudpackCLI from './cli'
 
-/**
- * Process handling
- */
-const mode = argv?.env ? argv.env : 'production'
-
-process.env.BABEL_ENV = mode
-process.env.NODE_ENV = mode
+const CWD = process.cwd()
 
 process.on('unhandledRejection', () => {
   process.exit()
 })
 
 /**
- * Build webpack compiler
+ * Build budpack compiler
  */
-const projectConfig = join(process.cwd(), 'bud.config.js')
+const projectConfig = join(CWD, 'bud.config.js')
 const project = require(projectConfig)
-const compiler = webpack(config(project))
+const config = budpackConfig(project.options)
+const compiler = webpack(config)
 
 /**
  * Render the BudpackCLI
  */
-render(React.createElement(BudpackCLI, {compiler, mode}))
+render(React.createElement(BudpackCLI, {
+  compiler,
+  config,
+  options: project.options,
+}))

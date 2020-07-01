@@ -8,7 +8,7 @@ import Error from './Error'
 const Errors = ({build, actions}) => {
   const {isFocused} = useFocus({autoFocus: true})
   useEffect(() => {
-    actions.setFocus({errors: isFocused})
+    actions?.setFocus({errors: isFocused})
   }, [isFocused])
 
   const [display, setDisplay] = useState(null)
@@ -18,8 +18,6 @@ const Errors = ({build, actions}) => {
 
   return (
     <Box
-      paddingLeft={1}
-      paddingRight={1}
       display={display ? 'flex' : 'none'}
       flexDirection="column">
       {build?.errors?.length > 0 &&

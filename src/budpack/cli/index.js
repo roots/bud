@@ -1,43 +1,64 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect} from 'react'
+import {Box, useApp, useInput} from 'ink'
+import PropTypes from 'prop-types'
 import notifier from 'node-notifier'
+import useStdoutDimensions from 'ink-use-stdout-dimensions'
 
 import useWebpack from './hooks/useWebpack'
 import useFocusState from './hooks/useFocusState'
 
+import App from './components/App'
+import Assets from './components/Assets'
 import BrowserSync from './components/BrowserSync'
+import Debug from './components/Debug'
 import Errors from './components/Errors'
 import Warnings from './components/Warnings'
-import Assets from './components/Assets'
-import App from './components/App'
+
+const successfulBuild = build =>
+  !build?.errors?.length > 0 &&
+  build?.percentage == 1 &&
+  build?.assets?.length > 0
 
 /**
  * Budpack build status display
  *
  * @prop {object} compiler webpack compiler
- * @prop {string} mode watch or run
+ * @prop {string} config   webpack compiler config
+ * @prop {object} options  project options
  */
-const BudpackCLI = ({compiler, mode}) => {
+const BudpackCLI = ({compiler, config, options}) => {
   const [state, actions] = useFocusState()
-  const build = useWebpack({compiler, mode})
+  const [columns, rows] = useStdoutDimensions();
+  const {exit} = useApp()
+  useInput((input) => {
+		input == 'q' && exit()
+  })
 
+  const build = useWebpack({compiler, options})
   useEffect(() => {
-    !build?.errors?.length > 0 &&
-      build?.percentage == 1 &&
-      build?.assets?.length > 0 &&
-      notifier.notify({
-        title: 'Build complete',
-        message: `${build.assets.length} assets built.`,
-      })
+    successfulBuild(build) && notifier.notify({
+      title: 'Build complete',
+      message: `${build.assets.length} assets built.`,
+    })
   }, [build?.percentage])
 
   return (
-    <App build={build} state={state} mode={mode}>
-      <Assets actions={actions} build={build} />
-      <Errors actions={actions} build={build} />
-      <Warnings actions={actions} build={build} />
-      <BrowserSync actions={actions} />
-    </App>
+    <Box minHeight={rows} flexDirection="column">
+      <App build={build} state={state} options={options}>
+        <Assets actions={actions} build={build} />
+        <Errors actions={actions} build={build} />
+        <Warnings actions={actions} build={build} />
+        {!options.debug && options.browserSync.enabled && <BrowserSync actions={actions} />}
+        {options.debug && <Debug actions={actions} config={config} options={options} />}
+      </App>
+    </Box>
   )
+}
+
+BudpackCLI.propTypes = {
+  compiler: PropTypes.object,
+  config: PropTypes.object,
+  options: PropTypes.object,
 }
 
 export default BudpackCLI

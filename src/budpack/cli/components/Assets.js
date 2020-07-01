@@ -7,7 +7,7 @@ import {Box, Spacer, Text, useFocus} from 'ink'
 const Assets = ({build, actions}) => {
   const {isFocused} = useFocus({autoFocus: true})
   useEffect(() => {
-    actions.setFocus({assets: isFocused})
+    actions?.setFocus({assets: isFocused})
   }, [isFocused])
 
   const [assets, setAssets] = useState([])

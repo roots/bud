@@ -3,7 +3,7 @@ const path = require('path')
 /**
  * Webpack resolves.
  */
-const resolve = ({options}) => {
+const resolve = options => {
   const config = {
     resolve: {
       extensions: ['.js', '.json', '.jsx', '.css'],

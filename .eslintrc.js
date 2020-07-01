@@ -1,4 +1,6 @@
 module.exports = {
-  root: true,
-  extends: ['./config/eslint'],
+  root: false,
+  extends: [
+    './config/eslint',
+  ],
 }

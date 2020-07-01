@@ -1,14 +1,15 @@
 import React, {useEffect, useState} from 'react'
 import {Box, Text, useFocus} from 'ink'
 import Warning from './Warning'
+import PropTypes from 'prop-types'
 
 /**
  * Warnings
  */
 const Warnings = ({build, actions}) => {
-  const {isFocused} = useFocus({autoFocus: true})
+  const {isFocused} = useFocus({autoFocus: false})
   useEffect(() => {
-    actions.setFocus({warnings: isFocused})
+    actions?.setFocus({warnings: isFocused})
   }, [isFocused])
 
   const [display, setDisplay] = useState(null)
@@ -18,8 +19,6 @@ const Warnings = ({build, actions}) => {
 
   return (
     <Box
-      paddingLeft={1}
-      paddingRight={1}
       display={display ? 'flex' : 'none'}
       flexDirection="column">
       {build?.warnings?.length > 0 &&
@@ -32,6 +31,11 @@ const Warnings = ({build, actions}) => {
       )}
     </Box>
   )
+}
+
+Warnings.propTypes = {
+  build: PropTypes.object,
+  actions: PropTypes.object,
 }
 
 export default Warnings

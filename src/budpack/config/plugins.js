@@ -15,7 +15,7 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 /**
  * Webpack plugins.
  */
-const plugins = ({options}) => {
+const plugins = options => {
   const config = {
     plugins: [
       new MiniCssExtractPlugin({
@@ -57,7 +57,9 @@ const plugins = ({options}) => {
 
   options.hot &&
     config.plugins.push(new HotModuleReplacementPlugin())
-  options.browserSync.enabled &&
+
+  options.browserSync.enabled == true &&
+  options.debug == false &&
     config.plugins.push(
       new BrowserSyncPlugin({
         host: options.browserSync.host,

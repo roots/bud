@@ -73,7 +73,7 @@ const svg = ({svg}) => ({
 /**
  * Webpack loaders
  */
-const loaders = ({options}) => {
+const loaders = options => {
   const config = {
     module: {
       strictExportPresence: true,

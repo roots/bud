@@ -13,16 +13,16 @@ import devServer from './devServer'
  * @param  {object} config overrides
  * @return {object} final webpack configuration
  */
-const budpackConfig = bud => ({
-  entry: bud.options.entry,
-  ...optimization(bud),
-  ...plugins(bud),
-  ...output(bud),
-  ...loaders(bud),
-  ...options(bud),
-  ...resolve(bud),
-  ...externals(bud),
-  ...devServer(bud),
+const budpackConfig = project => ({
+  entry: project.entry,
+  ...optimization(project),
+  ...plugins(project),
+  ...output(project),
+  ...loaders(project),
+  ...options(project),
+  ...resolve(project),
+  ...externals(project),
+  ...devServer(project),
 })
 
 export default budpackConfig

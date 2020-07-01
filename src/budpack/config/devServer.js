@@ -1,9 +1,9 @@
 /**
  * Dev server
  */
-const devServer = ({options}) => ({
+const devServer = ({dev}) => ({
   devServer: {
-    ...options.dev,
+    ...dev,
   },
 })
 
