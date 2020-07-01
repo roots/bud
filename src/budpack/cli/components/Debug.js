@@ -11,9 +11,15 @@ const Debug = ({actions, config, options}) => {
 
   return (
     <Box
-      display={isFocused && options?.debug ? 'flex' : 'none'}
+      display={
+        isFocused && options?.debug ? 'flex' : 'none'
+      }
       flexDirection="column">
-      <Text>{highlight(JSON.stringify({config, options}, null, 4))}</Text>
+      <Text>
+        {highlight(
+          JSON.stringify({config, options}, null, 4),
+        )}
+      </Text>
     </Box>
   )
 }

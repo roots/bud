@@ -23,8 +23,10 @@ const compiler = webpack(config)
 /**
  * Render the BudpackCLI
  */
-render(React.createElement(BudpackCLI, {
-  compiler,
-  config,
-  options: project.options,
-}))
+render(
+  React.createElement(BudpackCLI, {
+    compiler,
+    config,
+    options: project.options,
+  }),
+)

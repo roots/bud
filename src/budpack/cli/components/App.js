@@ -21,13 +21,14 @@ const App = ({children, state, build, options}) => {
 
   return (
     <Box padding={1} flexDirection="column">
-      <Nav build={build} focused={focused} options={options} />
+      <Nav
+        build={build}
+        focused={focused}
+        options={options}
+      />
 
       {build?.assets?.length > 0 && (
-        <Box
-          flexDirection="column">
-          {children}
-        </Box>
+        <Box flexDirection="column">{children}</Box>
       )}
 
       {build?.percentage == 1 && build?.buildStats?.hash && (

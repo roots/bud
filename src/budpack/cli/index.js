@@ -28,18 +28,19 @@ const successfulBuild = build =>
  */
 const BudpackCLI = ({compiler, config, options}) => {
   const [state, actions] = useFocusState()
-  const [columns, rows] = useStdoutDimensions();
+  const [, rows] = useStdoutDimensions()
   const {exit} = useApp()
-  useInput((input) => {
-		input == 'q' && exit()
+  useInput(input => {
+    input == 'q' && exit()
   })
 
   const build = useWebpack({compiler, options})
   useEffect(() => {
-    successfulBuild(build) && notifier.notify({
-      title: 'Build complete',
-      message: `${build.assets.length} assets built.`,
-    })
+    successfulBuild(build) &&
+      notifier.notify({
+        title: 'Build complete',
+        message: `${build.assets.length} assets built.`,
+      })
   }, [build?.percentage])
 
   return (
@@ -48,8 +49,16 @@ const BudpackCLI = ({compiler, config, options}) => {
         <Assets actions={actions} build={build} />
         <Errors actions={actions} build={build} />
         <Warnings actions={actions} build={build} />
-        {!options.debug && options.browserSync.enabled && <BrowserSync actions={actions} />}
-        {options.debug && <Debug actions={actions} config={config} options={options} />}
+        {!options.debug && options.browserSync.enabled && (
+          <BrowserSync actions={actions} />
+        )}
+        {options.debug && (
+          <Debug
+            actions={actions}
+            config={config}
+            options={options}
+          />
+        )}
       </App>
     </Box>
   )

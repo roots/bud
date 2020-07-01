@@ -63,7 +63,8 @@ const useWebpack = ({compiler, options}) => {
       if (!webpackRunning) {
         setWebpackRunning(true)
 
-        options?.mode == 'development' && !options?.debug == true
+        options?.mode == 'development' &&
+        !options?.debug == true
           ? compiler.watch({}, webpackCallback)
           : compiler.run(webpackCallback)
       }

@@ -59,7 +59,7 @@ const plugins = options => {
     config.plugins.push(new HotModuleReplacementPlugin())
 
   options.browserSync.enabled == true &&
-  options.debug == false &&
+    options.debug == false &&
     config.plugins.push(
       new BrowserSyncPlugin({
         host: options.browserSync.host,

@@ -20,8 +20,7 @@ const Nav = ({build, focused, options}) => (
     <Spacer />
     <Spacer />
     <Box>
-      <Text
-        color={focused?.assets ? 'white' : '#6C758F'}>
+      <Text color={focused?.assets ? 'white' : '#6C758F'}>
         <Bullet active={focused?.assets} /> Assets
       </Text>
     </Box>
@@ -78,11 +77,8 @@ const Nav = ({build, focused, options}) => (
         <Spacer />
         <Box>
           <Text
-            color={
-              focused?.debug ? '#ffc107' : '#ffe598'
-            }>
-            <Bullet active={focused?.debug} />{' '}
-            Debug
+            color={focused?.debug ? '#ffc107' : '#ffe598'}>
+            <Bullet active={focused?.debug} /> Debug
           </Text>
         </Box>
       </>
