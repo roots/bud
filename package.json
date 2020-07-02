@@ -1,6 +1,6 @@
 {
   "name": "@roots/budpack",
-  "version": "0.0.17",
+  "version": "0.0.18",
   "repository": {
     "type": "git",
     "url": "git://github.com/roots/bud-support.git"
@@ -41,6 +41,7 @@
     "@babel/register": "^7.10.4",
     "@babel/runtime": "^7.10.4",
     "@babel/traverse": "^7.10.4",
+    "@fullhuman/postcss-purgecss": "^2.3.0",
     "@svgr/webpack": "^5.4.0",
     "@wordpress/babel-plugin-makepot": "^3.7.0",
     "@wordpress/browserslist-config": "^2.7.0",
@@ -88,6 +89,7 @@
     "postcss-preset-env": "^6.7.0",
     "prettier": "^2.0.5",
     "prop-types": "^15.7.2",
+    "purgecss-with-wordpress": "^2.3.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
     "sass": "^1.26.9",

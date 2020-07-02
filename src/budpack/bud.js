@@ -90,7 +90,7 @@ const options = {
   /**
    * Additional config
    */
-  auto: null,
+  auto: {},
   browserSync: {
     enabled: false,
     host: 'localhost',
@@ -235,7 +235,14 @@ const alias = alias => {
  * @return {object}
  */
 const auto = auto => {
-  bud.options.auto = auto
+  Object.entries(auto).forEach(([key, value]) => {
+    value.forEach(handle => {
+      bud.options.auto = {
+        ...bud.options.auto,
+        [handle]: key,
+      }
+    })
+  })
 
   return bud
 }
@@ -448,6 +455,24 @@ const postcss = config => {
 }
 
 /**
+ * Purge
+ *
+ * @param  {object} config babel config
+ * @return {object}
+ */
+const purge = config => {
+  bud.options.postcss.options = {
+    ...bud.options.postcss.options,
+    plugins: [
+      ...bud.options.postcss.options.plugins,
+      require('@fullhuman/postcss-purgecss')({...config}),
+    ],
+  }
+
+  return bud
+}
+
+/**
  * Babel
  *
  * @param  {object} config babel config
@@ -588,6 +613,7 @@ const bud = {
   maxChunks,
   mini,
   postcss,
+  purge,
   share,
   splitting,
   translate,
