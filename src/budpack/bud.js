@@ -206,7 +206,7 @@ const project = rel => join(bud.options.project, rel)
  * @param  {string} path
  * @return {object}
  */
-const preset = rel => join(bud.options.budpack, 'config', rel)
+const preset = rel => require(join(bud.options.budpack, 'config', rel))
 
 /**
  * Absolute path from a project relative path.

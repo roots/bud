@@ -46,7 +46,7 @@ const css = ({src, postcss}) => ({
       loader: loaders.css,
       options: {url: false},
     },
-    ...(postcss.enabled ? [{
+    ...(postcss.options ? [{
       loader: loaders.postcss,
       options: {
         ...postcss.options,
