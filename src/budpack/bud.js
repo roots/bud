@@ -35,7 +35,102 @@ const features = {
   mapped: !inProduction,
   hashed: inProduction,
   minified: inProduction,
+  wpManifest: true,
 }
+
+/**
+ * Config files
+ */
+const configs = {
+  babel: existsSync(join(paths.project, 'babel.config.js'))
+    ? join(paths.project, 'babel.config.js')
+    : null,
+  eslint: existsSync(join(paths.project, '.eslintrc.js'))
+    ? join(paths.project, '.eslintrc.js')
+    : null,
+  postcss: existsSync(join(paths.project, 'postcss.config.js'))
+    ? join(paths.project, 'postcss.config.js')
+    : null,
+}
+
+/**
+ * Default options
+ */
+const options = {
+  ...paths,
+  ...features,
+
+  /**
+   * Loaders
+   */
+  babel: {
+    configFile: configs.babel,
+    options: configs.babel
+      ? require(configs.babel)
+      : {presets: [], plugins: []},
+  },
+  eslint: {
+    enabled: configs.eslint ? true : false,
+    configFile: configs.eslint,
+    options: {},
+  },
+  postcss: {
+    configFile: configs.postcss,
+    options: configs.postcss
+      ? require(configs.postcss)
+      : {plugins: []},
+  },
+  svg: {
+    use: [
+      require.resolve('@svgr/webpack'),
+      require.resolve('url-loader'),
+    ],
+  },
+
+  /**
+   * Additional config
+   */
+  auto: null,
+  browserSync: {
+    enabled: false,
+    host: 'localhost',
+    port: '3000',
+    proxy: '',
+  },
+
+  /** Copy Webpack Plugin globs */
+  copy: {
+    patterns: [],
+  },
+
+  /** WDS */
+  dev: {
+    disableHostCheck: true,
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+    },
+    hot: true,
+    watchOptions: {
+      aggregateTimeout: 300,
+    },
+  },
+  devtool: 'cheap-module-source-map',
+  entry: {},
+  groups: [],
+  share: {},
+  splitting: {
+    disabled: false,
+    maxChunks: null,
+  },
+  /** @see WebpackDependencyManifestPlugin */
+  wpManifest: {
+    useDefaults: true,
+    injectPolyfill: false,
+    outputFormat: 'json',
+  },
+  vendor: true,
+}
+
 
 /**
  * Budpack: Public API
@@ -106,6 +201,14 @@ const dist = rel => join(bud.options.dist, rel)
 const project = rel => join(bud.options.project, rel)
 
 /**
+ * Absolute path from a project relative path to a budpack file
+ *
+ * @param  {string} path
+ * @return {object}
+ */
+const preset = rel => join(bud.options.budpack, 'config', rel)
+
+/**
  * Absolute path from a project relative path.
  *
  * @param  {string} path
@@ -138,6 +241,28 @@ const auto = auto => {
 }
 
 /**
+ * Babel
+ *
+ * @param  {object} config babel config
+ * @return {object}
+ */
+const babel = config => {
+  bud.options.babel.options = {
+    ...bud.options.babel.options,
+    presets: [
+      ...bud.options.babel.options.presets,
+      ...(config.presets ? config.presets : []),
+    ],
+    plugins: [
+      ...bud.options.babel.options.plugins,
+      ...(config.plugins ? config.plugins : []),
+    ],
+  }
+
+  return bud
+}
+
+/**
  * Browsersync
  *
  * @param  {object} options
@@ -155,15 +280,50 @@ const browserSync = ({proxy, port, host}) => {
 }
 
 /**
- * Produce an absolute path from a project relative path
+ * Bundle
+ *
+ * @param  {string} chunk
+ * @param  {array}  entries
+ * @return {object}
+ */
+const bundle = (to, from) => {
+  const assets = from.map(asset => src(asset))
+
+  bud.options.entry = {
+    ...bud.options.entry,
+    [`${to}`]: assets,
+  }
+
+  return bud
+}
+
+/**
+ * Copy a file
  *
  * @param  {string} relPath
  * @return {string}
  */
-const copy = assetsPath => {
+const copy = (from, to = null) => {
+  bud.options.copy.patterns.push({from, to})
+
+  return bud
+}
+
+/**
+ * Copy all files within a dir
+ *
+ * @param  {string} relPath
+ * @return {string}
+ */
+const copyAll = (from, to = null) => {
   bud.options.copy.patterns.push({
-    from: assetsPath,
-    to: bud.options.dist,
+    from: '**/*',
+    context: src(from),
+    to: to ? dist(to) : bud.options.dist,
+    globOptions: {
+      ignore: '.*',
+    },
+    noErrorOnMissing: true,
   })
 
   return bud
@@ -204,22 +364,6 @@ const dev = options => {
  */
 const devtool = devtool => {
   bud.options.devtool = devtool
-
-  return bud
-}
-
-/**
- * Entrypoints
- *
- * @param  {string} chunk
- * @param  {array}  entries
- * @return {object}
- */
-const entry = (chunk, entries) => {
-  bud.options.entry = {
-    ...bud.options.entry,
-    [`${chunk}`]: entries,
-  }
 
   return bud
 }
@@ -285,6 +429,40 @@ const mini = state => {
 }
 
 /**
+ * Babel
+ *
+ * @param  {object} config babel config
+ * @return {object}
+ */
+const postcss = config => {
+  bud.options.postcss.options = {
+    ...bud.options.postcss.options,
+    ...(config ? config : []),
+    plugins: [
+      ...bud.options.postcss.options.plugins,
+      ...(config.plugins ? config.plugins : []),
+    ],
+  }
+
+  return bud
+}
+
+/**
+ * Babel
+ *
+ * @param  {object} config babel config
+ * @return {object}
+ */
+const share = config => {
+  bud.options.share = {
+    ...bud.options.share,
+    ...config,
+  }
+
+  return bud
+}
+
+/**
  * Set code splitting options
  *
  * @param  {bool}   state
@@ -292,6 +470,26 @@ const mini = state => {
  */
 const splitting = state => {
   bud.options.splitting.disabled = state
+
+  return bud
+}
+
+/**
+ * Babel
+ *
+ * @param  {object} config babel config
+ * @return {object}
+ */
+const translate = translation => {
+  bud.options.babel.options = {
+    ...bud.options.babel.options,
+    plugins: [
+      ...bud.options.babel.options.plugins,
+      [require('@wordpress/babel-plugin-makepot'),
+        {output: bud.project(translation)},
+      ],
+    ],
+  }
 
   return bud
 }
@@ -339,96 +537,14 @@ const watchTimeout = timeout => {
  * @return {object}
  */
 const wpManifest = settings => {
-  bud.options.wpManifest = {
-    ...bud.options.wpManifest,
-    ...settings,
-  }
+  settings !== false
+    ? bud.options.wpManifest = {
+      ...bud.options.wpManifest,
+      ...settings,
+    }
+    : bud.options.wpManifest.enabled == false
 
   return bud
-}
-
-/**
- * Default options
- */
-const options = {
-  ...paths,
-  ...features,
-
-  /**
-   * Loaders
-   */
-  babel: {
-    enabled: existsSync(
-      join(paths.project, 'babel.config.js'),
-    ),
-    configFile:
-      existsSync(join(paths.project, 'babel.config.js')) &&
-      join(paths.project, 'babel.config.js'),
-  },
-  eslint: {
-    enabled: existsSync(
-      join(paths.project, '.eslintrc.js'),
-    ),
-    configFile:
-      existsSync(join(paths.project, '.eslintrc.js')) &&
-      join(paths.project, '.eslintrc.js'),
-  },
-  postcss: {
-    enabled: existsSync(
-      join(paths.project, 'postcss.config.js'),
-    ),
-    configFile:
-      existsSync(
-        join(paths.project, 'postcss.config.js'),
-      ) && join(paths.project, 'postcss.config.js'),
-  },
-  svg: {
-    use: [
-      require.resolve('@svgr/webpack'),
-      require.resolve('url-loader'),
-    ],
-  },
-
-  /**
-   * Additional config
-   */
-  auto: null,
-  browserSync: {
-    enabled: false,
-    host: 'localhost',
-    port: '3000',
-    proxy: '',
-  },
-
-  /** Copy Webpack Plugin globs */
-  copy: {
-    patterns: [],
-  },
-
-  /** WDS */
-  dev: {
-    disableHostCheck: true,
-    headers: {
-      'Access-Control-Allow-Origin': '*',
-    },
-    hot: true,
-    watchOptions: {
-      aggregateTimeout: 300,
-    },
-  },
-  devtool: 'cheap-module-source-map',
-  entry: {},
-  splitting: {
-    disabled: false,
-    maxChunks: null,
-  },
-  /** @see WebpackDependencyManifestPlugin */
-  wpManifest: {
-    useDefaults: true,
-    injectPolyfill: false,
-    outputFormat: 'json',
-  },
-  vendor: true,
 }
 
 /**
@@ -441,30 +557,40 @@ const bud = {
   /** Statuses */
   inProduction,
 
-  /** Pathing API */
+  /** Paths */
+  paths,
+  /** Getters */
   project,
-  projectPath,
   src,
-  srcPath,
   dist,
+  preset,
+
+  /** Setters */
+  projectPath,
+  srcPath,
   distPath,
   publicPath,
 
   /** Config API */
   alias,
   auto,
+  babel,
   browserSync,
+  bundle,
   copy,
+  copyAll,
   debug,
   dev,
   devtool,
-  entry,
   hash,
   hot,
   maps,
   maxChunks,
   mini,
+  postcss,
+  share,
   splitting,
+  translate,
   vendor,
   watch,
   watchTimeout,

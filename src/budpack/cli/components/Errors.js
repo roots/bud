@@ -1,5 +1,5 @@
 import React, {useEffect, useState} from 'react'
-import {Box, Text, useFocus} from 'ink'
+import {Box, useFocus} from 'ink'
 import Error from './Error'
 
 /**
@@ -24,10 +24,6 @@ const Errors = ({build, actions}) => {
         build?.errors?.map((err, i) => (
           <Error message={err} key={i} />
         ))}
-
-      {build?.errors?.length == 0 && (
-        <Text>Nothing to see here.</Text>
-      )}
     </Box>
   )
 }

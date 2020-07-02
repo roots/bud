@@ -10,11 +10,12 @@ const loaders = {
 /**
  * Babel loader
  */
-const babel = ({src}) => ({
-  test: /\.(js|jsx)$/,
+const babel = ({src, babel}) => ({
+  test: /\.js$/,
   include: src,
   exclude: /node_modules/,
   loader: loaders.babel,
+  options: babel.options,
 })
 
 /**
@@ -22,7 +23,7 @@ const babel = ({src}) => ({
  */
 const eslint = ({src, eslint}) => ({
   enforce: 'pre',
-  test: /\.(js|js)$/,
+  test: /\.js$/,
   include: src,
   exclude: /node_modules/,
   loader: loaders.eslint,
@@ -30,15 +31,6 @@ const eslint = ({src, eslint}) => ({
     configFile: eslint.configFile,
     formatter: 'codeframe',
     failOnError: true,
-  },
-})
-
-const post = configFile => ({
-  loader: loaders.postcss,
-  options: {
-    config: {
-      path: configFile,
-    },
   },
 })
 
@@ -50,8 +42,17 @@ const css = ({src, postcss}) => ({
   include: src,
   use: [
     MiniCssExtractPlugin.loader,
-    {loader: loaders.css, options: {url: false}},
-    ...(postcss.enabled ? [post(postcss.configFile)] : []),
+    {
+      loader: loaders.css,
+      options: {url: false},
+    },
+    ...(postcss.enabled ? [{
+      loader: loaders.postcss,
+      options: {
+        ...postcss.options,
+        importLoaders: 1,
+      },
+    }] : []),
     {loader: 'sass-loader'},
   ],
 })
@@ -90,7 +91,7 @@ const webpackModules = options => {
     },
   }
 
-  options.babel.enabled &&
+  options.babel.options &&
     config.module.rules.push(babel(options))
 
   options.eslint.enabled &&

@@ -58,7 +58,12 @@ const useWebpack = ({compiler, options}) => {
       setBuildErrors(err)
       setBuildStats(
         stats.toJson({
-          all: true,
+          version: true,
+          hash: true,
+          time: true,
+          assets: true,
+          errors: true,
+          warnings: true,
         }),
       )
     }

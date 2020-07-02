@@ -18,11 +18,11 @@ process.on('unhandledRejection', () => {
 const projectConfig = join(CWD, 'bud.config.js')
 const project = require(projectConfig)
 const config = budpackConfig(project.options)
-const compiler = webpack(config)
 
 /**
  * Render the BudpackCLI
  */
+const compiler = webpack(config)
 render(
   React.createElement(BudpackCLI, {
     compiler,

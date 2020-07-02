@@ -1,11 +1,11 @@
 /**
  * Webpack output.
  */
-const output = options => ({
+const output = (dist, hashed) => ({
   output: {
-    path: options.dist,
-    publicPath: `${options.dist}/`,
-    filename: options.hashed
+    path: dist,
+    publicPath: `${dist}/`,
+    filename: hashed
       ? '[name].[hash].js'
       : '[name].js',
   },

@@ -5,5 +5,5 @@
  */
 
 module.exports = {
-  presets: ['./config/babel'],
+  presets: ['./config/babel/preset-react'],
 }

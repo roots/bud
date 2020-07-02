@@ -7,10 +7,7 @@ module.exports = {
     require('postcss-import'),
     require('autoprefixer'),
     require('cssnano')({
-      preset: [
-        'default',
-        {discardComments: {removeAll: true}},
-      ],
+      preset: ['default'],
     }),
   ],
 }

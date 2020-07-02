@@ -1,7 +1,7 @@
 import externals from './externals'
 import optimization from './optimization'
 import output from './output'
-import options from './options'
+import general from './general'
 import plugins from './plugins'
 import loaders from './loaders'
 import resolve from './resolve'
@@ -13,16 +13,16 @@ import devServer from './devServer'
  * @param  {object} config overrides
  * @return {object} final webpack configuration
  */
-const budpackConfig = project => ({
-  entry: project.entry,
-  ...optimization(project),
-  ...plugins(project),
-  ...output(project),
-  ...loaders(project),
-  ...options(project),
-  ...resolve(project),
-  ...externals(project),
-  ...devServer(project),
+const budpackConfig = options => ({
+    entry: options.entry,
+    ...output(options.dist, options.hashed),
+    ...loaders(options),
+    ...general(options),
+    ...optimization(options),
+    ...plugins(options),
+    ...resolve(options),
+    ...externals(options),
+    ...devServer(options),
 })
 
 export default budpackConfig

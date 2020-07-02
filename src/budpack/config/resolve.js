@@ -6,10 +6,9 @@ const path = require('path')
 const resolve = options => {
   const config = {
     resolve: {
-      extensions: ['.js', '.json', '.jsx', '.css'],
+      extensions: ['.js', '.css', '.scss', '.sass'],
       modules: [
         path.resolve(options.project, 'node_modules'),
-        path.resolve(options.budpack, 'node_modules'),
       ],
     },
   }

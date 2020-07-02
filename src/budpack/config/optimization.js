@@ -8,10 +8,12 @@ const optimization = options => {
     optimization: {
       minimize: options.minified,
       noEmitOnErrors: true,
+      removeAvailableModules: false,
+      removeEmptyChunks: false,
     },
   }
 
-  if (!options.vendor.disabled) {
+  if (options.vendor) {
     config.optimization.splitChunks = {
       cacheGroups: {
         commons: {
@@ -28,7 +30,7 @@ const optimization = options => {
       new UglifyJsPlugin({
         cache: true,
         chunkFilter: ({name}) => name === 'vendor',
-        extractComments: true,
+        extractComments: false,
         parallel: true,
         uglifyOptions: {
           output: {

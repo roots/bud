@@ -12,6 +12,7 @@ const {
 const WriteFilePlugin = require('write-file-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
+const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries')
 
 /**
  * Webpack plugins.
@@ -19,15 +20,15 @@ const BrowserSyncPlugin = require('browser-sync-webpack-plugin')
 const plugins = options => {
   const config = {
     plugins: [
+      new FixStyleOnlyEntriesPlugin({
+        silent: true,
+      }),
       new MiniCssExtractPlugin({
         filename: options.hashed
           ? `[name].[chunkhash].css`
           : '[name].css',
       }),
       new CleanWebpackPlugin(),
-      new DependencyExtractionPlugin({
-        ...options.wpManifest,
-      }),
       new ManifestPlugin({
         fileName: 'manifest.json',
         writeToFileEmit: true,
@@ -35,6 +36,12 @@ const plugins = options => {
       }),
     ],
   }
+
+  config.plugins.push(
+    new DependencyExtractionPlugin({
+      ...options.wpManifest,
+    }),
+  )
 
   options.copy.patterns.length > 0 &&
     config.plugins.push(

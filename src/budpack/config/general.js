@@ -1,7 +1,7 @@
 /**
  * General webpackery.
  */
-const options = ({
+const general = ({
   project,
   inProduction,
   watching,
@@ -9,9 +9,10 @@ const options = ({
   devtool,
 }) => ({
   context: project,
-  mode: inProduction ? 'production' : 'development',
-  watch: watching,
   devtool: mapped ? devtool : false,
+  mode: inProduction ? 'production' : 'development',
+  target: 'web',
+  watch: watching,
 })
 
-module.exports = options
+export default general
