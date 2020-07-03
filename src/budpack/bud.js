@@ -1,19 +1,50 @@
+/**
+ *  @overview The Bud Asset Management API
+ *
+ *  @author   Kelly Mears <kelly@roots.io>
+ *
+ *  @requires NPM:fs-extra
+ *  @requires NPM:yargs
+ *  @requires NPM:@svgr/webpack
+ *  @requires NPM:url-loader
+ *  @requires NPM:@fullhuman/postcss-purgecss
+ *  @requires NPM:@wordpress/babel-plugin-makepot
+ *  @requires path/to/file:your_module_2
+ */
+
 import {existsSync} from 'fs-extra'
 import {argv} from 'yargs'
 import {join, resolve} from 'path'
 
+/**
+ * Current working dir.
+ * @type {string}
+ */
 const CWD = process.cwd()
 
 /**
- * Process handling
+ * Build mode
+ * @type {string}
  */
 const mode = argv?.env ? argv.env : 'production'
+
+/**
+ * @typedef {boolean.<inProduction>}
+ * @description rue if production mode enabled.
+ */
 const inProduction = mode == 'production'
+
 process.env.BABEL_ENV = mode
 process.env.NODE_ENV = mode
 
 /**
- * Default paths
+ * Paths
+ * @typedef  {Object.<paths>}
+ * @property {string} budpack - module root path
+ * @property {string} project - project root path
+ * @property {string} src     - project src path
+ * @property {string} dist    - project dist path
+ * @property {string} public  - project public path
  */
 const paths = {
   budpack: resolve(__dirname, './../..'),
@@ -24,7 +55,16 @@ const paths = {
 }
 
 /**
- * Default features
+ * Default features.
+ * @typedef  {Object.<features>}
+ * @property {boolean.<inProduction>}
+ * @property {string}  mode - current environment (development, production)
+ * @property {boolean} debug - true if debug enabled
+ * @property {boolean} watching - true if watch mode enabled
+ * @property {boolean} hot - true if HMR enabled
+ * @property {boolean} hashed - true if file hashing enabled
+ * @property {boolean} minified - true if minification enabled
+ * @property {boolean} wpManifest - true if @wordpress/webpack-dependency-extraction-plugin enabled
  */
 const features = {
   inProduction,
@@ -39,7 +79,12 @@ const features = {
 }
 
 /**
- * Config files
+ * Project config files.
+ *
+ * @typedef  {Object.<configs>}
+ * @property {string|null} babel - project babel.config.js
+ * @property {string|null} eslint - project .eslintrc.js
+ * @property {string|null} postcss - project postcss.config.js
  */
 const configs = {
   babel: existsSync(join(paths.project, 'babel.config.js'))
@@ -54,15 +99,18 @@ const configs = {
 }
 
 /**
- * Default options
+ * Default options.
+ *
+ * @typedef  {Object.<options>}
+ * @property {Object.<paths>}
+ * @property {Object.<features>}
+ * @property {Object}  babel - babel configuration
+ * @property {Objecct} eslint - eslint configuration
  */
 const options = {
   ...paths,
   ...features,
 
-  /**
-   * Loaders
-   */
   babel: {
     configFile: configs.babel,
     options: configs.babel
@@ -117,12 +165,10 @@ const options = {
   devtool: 'cheap-module-source-map',
   entry: {},
   groups: [],
-  share: {},
   splitting: {
     disabled: false,
     maxChunks: null,
   },
-  /** @see WebpackDependencyManifestPlugin */
   wpManifest: {
     useDefaults: true,
     injectPolyfill: false,
@@ -131,476 +177,472 @@ const options = {
   vendor: true,
 }
 
-
 /**
- * Budpack: Public API
+ * Set directory containing compiled assets.
  *
- * The bud object is imported by the the project configuration file
- * before being re-imported during by the build command.
- */
-
-/**
- * Redefine path to compiled assets
- *
- * @param  {string} path
- * @return {object}
+ * @typedef     {func.<distPath>} distPath
+ * @param       {string} dir
+ * @return      {Object.<Bud>} bud
  */
 const distPath = rel => {
-  bud.options.dist = join(bud.options.project, rel)
+  Bud.options.dist = join(Bud.options.project, rel)
 
-  return bud
+  return Bud
 }
 
 /**
- * Redfine path to src assets
+ * @typedef     {func.<srcPath>}
+ * @description Set directory containing source assets.
+ * @param       {string} dir
+ * @return      {Object.<Bud>} Bud instance
  */
-const srcPath = rel => {
-  bud.options.src = join(bud.options.project, rel)
+const srcPath = dir => {
+  Bud.options.src = join(Bud.options.project, dir)
 
-  return bud
+  return Bud
 }
 
 /**
- * Redefine project context
- *
- * @param  {string} path
- * @return {object}
+ * @typedef     {func.<projectPath>}
+ * @description Set the project root directory.
+ * @param       {string} dir
+ * @return      {Object.<Bud>} Bud instance
  */
-const projectPath = path => {
-  bud.options.project = path
+const projectPath = dir => {
+  Bud.options.project = dir
 
-  return bud
+  return Bud
 }
 
 /**
- * Redefine project public path.
- *
- * @param  {string} rel
- * @return {object}
+ * @typedef     {func.<publicPath}
+ * @description Set the project public path.
+ * @param       {string} dir - relative
+ * @return      {Object.<Bud>} Bud instance
  */
-const publicPath = rel => {
-  bud.options.public = rel
+const publicPath = dir => {
+  Bud.options.public = dir
 
-  return bud
+  return Bud
 }
 
 /**
- * Absolute path from a dist relative path.
- *
- * @param  {string} path
- * @return {object}
+ * Retrieve the absolute path using a dist relative path.
+ * @typedef     {func.<dist>} dist
+ * @param       {string} dir - relative path from dist directory
+ * @return      {string} absolutePath
  */
-const dist = rel => join(bud.options.dist, rel)
+const dist = dir => join(Bud.options.dist, dir)
 
 /**
- * Absolute path from a project relative path.
- *
- * @param  {string} path
- * @return {object}
+ * Retrieve the absolute path from a project relative path.
+ * @typedef {func.<project>} project
+ * @param   {string}         path - relative path from project root
+ * @return  {string}         absolutePath
  */
-const project = rel => join(bud.options.project, rel)
+const project = rel => join(Bud.options.project, rel)
 
 /**
- * Absolute path from a project relative path to a budpack file
- *
- * @param  {string} path
- * @return {object}
+ * Path to a preset configuration provided for developer convenience.
+ * @see @roots/bud-support/config
+ * @typedef {func.<preset>} preset
+ * @param   {string} path - a bud preset config file
+ * @return  {string} absolutePath
  */
-const preset = rel => require(join(bud.options.budpack, 'config', rel))
+const preset = rel => require(join(Bud.options.budpack, 'config', rel))
 
 /**
- * Absolute path from a project relative path.
- *
+ * Retrieve the absolute path from a src relative path.
+ * @typedef {func.<src>} src
  * @param  {string} path
- * @return {object}
+ * @return {string}
  */
-const src = rel => join(bud.options.src, rel)
+const src = rel => join(Bud.options.src, rel)
 
 /**
  * Define webpack aliases.
- *
+ * @typedef {func.<alias>} alias
  * @param  {object} alias
- * @return {object}
+ * @return {Object.<Bud>} Bud instance
  */
 const alias = alias => {
-  bud.options.alias = alias
+  Bud.options.alias = alias
 
-  return bud
+  return Bud
 }
 
 /**
- * Autoload (ProvidePlugin)
- *
- * @param  {object} autoload
- * @return {object}
+ * Automatically load modules instead of needing to import them.
+ * @typedef {func.<auto>}            auto
+ * @param   {Object.<string, array>} identifier - modules
+ * @return  {Object.<Bud>}           Bud instance
  */
 const auto = auto => {
   Object.entries(auto).forEach(([key, value]) => {
     value.forEach(handle => {
-      bud.options.auto = {
-        ...bud.options.auto,
+      Bud.options.auto = {
+        ...Bud.options.auto,
         [handle]: key,
       }
     })
   })
 
-  return bud
+  return Bud
 }
 
 /**
- * Babel
+ * Configure Babel.
  *
- * @param  {object} config babel config
- * @return {object}
+ * If you prefer, you may utilize a babel.config.js file in the project root,
+ * either alongside or in lieue of this configuration.
+ *
+ * Conflicts between supplied configs will be resolved in favor of bud.config.js.
+ *
+ * @typedef {func.<babel>}          babel
+ * @param   {Object.<array, array>} {@link https://babeljs.io/docs/en/configuration}
+ * @return  {Object.<Bud>}          Bud instance
  */
 const babel = config => {
-  bud.options.babel.options = {
-    ...bud.options.babel.options,
+  Bud.options.babel.options = {
+    ...Bud.options.babel.options,
     presets: [
-      ...bud.options.babel.options.presets,
+      ...Bud.options.babel.options.presets,
       ...(config.presets ? config.presets : []),
     ],
     plugins: [
-      ...bud.options.babel.options.plugins,
+      ...Bud.options.babel.options.plugins,
       ...(config.plugins ? config.plugins : []),
     ],
   }
 
-  return bud
+  return Bud
 }
 
 /**
- * Browsersync
+ * Configure BrowserSync live reload.
  *
- * @param  {object} options
- * @return {object}
+ * @typedef  {func.<sync>} sync
+ * @param    {string}  [host='localhost']
+ * @param    {number}  [port=3000]
+ * @param    {boolean} [enabled=!bud.inProduction]
+ * @param    {string}  [proxy='']
+ * @return   {Object.<Bud>} Bud instance
  */
-const browserSync = ({proxy, port, host}) => {
-  bud.options.browserSync = {
-    enabled: !bud.inProduction,
+const sync = ({proxy, port, host}) => {
+  Bud.options.browserSync = {
+    enabled: !Bud.inProduction,
     host: host ? host : 'localhost',
     port: port ? port : 3000,
     proxy: proxy ? proxy : null,
   }
 
-  return bud
+  return Bud
 }
 
 /**
- * Bundle
+ * Bundle assets
  *
- * @param  {string} chunk
- * @param  {array}  entries
- * @return {object}
+ * @typedef {func.<bundle>} bundle
+ * @param  {string}         name    - output name.
+ * @param  {array}          entries - array of src assets to include in the bundle.
+ * @return {Object.<Bud>}   Bud instance
  */
 const bundle = (to, from) => {
   const assets = from.map(asset => src(asset))
 
-  bud.options.entry = {
-    ...bud.options.entry,
+  Bud.options.entry = {
+    ...Bud.options.entry,
     [`${to}`]: assets,
   }
 
-  return bud
+  return Bud
 }
 
 /**
- * Copy a file
- *
- * @param  {string} relPath
- * @return {string}
+ * Copy a file from a src to dist.
+ * @typedef {func.<copy>}  copy
+ * @param   {string}       src - copy from
+ * @param   {string}       dist - copy to
+ * @return  {Object.<Bud>} Bud instance
  */
 const copy = (from, to = null) => {
-  bud.options.copy.patterns.push({from, to})
+  Bud.options.copy.patterns.push({from, to})
 
-  return bud
+  return Bud
 }
 
 /**
- * Copy all files within a dir
- *
- * @param  {string} relPath
- * @return {string}
+ * Copy all files within a source directory to a dist directory.
+ * @typedef {func.<copyAll>} copyAll
+ * @param   {string}         src  - copy from
+ * @param   {string}         dist - copy to
+ * @return  {Object.<Bud>}   Bud instance
  */
 const copyAll = (from, to = null) => {
-  bud.options.copy.patterns.push({
+  Bud.options.copy.patterns.push({
     from: '**/*',
     context: src(from),
-    to: to ? dist(to) : bud.options.dist,
+    to: to ? dist(to) : Bud.options.dist,
     globOptions: {
       ignore: '.*',
     },
     noErrorOnMissing: true,
   })
 
-  return bud
+  return Bud
 }
 
 /**
  * Debug mode
- *
- * @param  {bool} true to enable
- * @return {object}
+ * @typedef {func.<debug>} debug
+ * @param   {boolean}      enabled - true to enable debug mode
+ * @return  {Object.<Bud>} Bud instance
  */
 const debug = debug => {
-  bud.options.debug = debug
+  Bud.options.debug = debug
 
-  return bud
+  return Bud
 }
 
 /**
  * Development mode
- *
- * @param  {object} options
- * @return {object}
+ * @typedef {func.<dev>}   dev
+ * @param   {Object}       options
+ * @return  {Object.<Bud>} Bud instance
  */
 const dev = options => {
-  bud.options.dev = {
-    ...bud.options.dev,
+  Bud.options.dev = {
+    ...Bud.options.dev,
     ...options,
   }
 
-  return bud
+  return Bud
 }
 
 /**
- * Specify a devtool to use
- *
- * @param  {string} devtool
- * @return {object}
+ * Specify webpack devtool
+ * @typedef {func.<devtool>} devtool
+ * @param   {string}         devtool - webpack devtool to utilize
+ * @return  {Object.<Bud>}   Bud instance
  */
 const devtool = devtool => {
-  bud.options.devtool = devtool
+  Bud.options.devtool = devtool
 
-  return bud
+  return Bud
 }
 
 /**
- * Enable or dispable hashing
- *
- * @param  {bool}   state
- * @return {object}
+ * Enable or disable filename hashing on compiled assets.
+ * @typedef {func.<hash>}  hash
+ * @param   {boolean}      hashingEnabled - true to enable filename hashing. default: !Bud.inProduction.
+ * @return  {Object.<Bud>} Bud instance
  */
-const hash = state => {
-  bud.options.hashed = state
+const hash = hashingEnabled => {
+  Bud.options.hashed = hashingEnabled
 
-  return bud
+  return Bud
 }
 
 /**
- * Enable or dispable hot module reloading
- *
- * @param  {bool}   state
- * @return {object}
+ * Enable or disable hot module reloading
+ * @typedef {func.<hot>}   hot
+ * @param   {boolean}      hmrEnabled - true to enable hot module reloading. default: !Bud.inProduction.
+ * @return  {Object.<Bud>} Bud instance
  */
-const hot = state => {
-  bud.options.hot = state
+const hot = hmrEnabled => {
+  Bud.options.hot = hmrEnabled
 
-  return bud
+  return Bud
 }
 
 /**
- * Enable or dispable source-maps
- *
- * @param  {bool}   state
- * @return {object}
+ * Enable or disable source-maps
+ * @typedef {func.<maps>}  maps
+ * @param   {boolean}      mapsEnabled - true to enable source-maps. default: !Bud.inProduction.
+ * @return  {Object.<Bud>} Bud instance
  */
-const maps = state => {
-  bud.options.mapped = state
+const maps = enabled => {
+  Bud.options.mapped = enabled
 
-  return bud
+  return Bud
 }
 
 /**
  * Set maxChunks for code splitting
- *
- * @param  {bool}   state
- * @return {object}
+ * @typedef {func.<maxChunks>} maxChunks
+ * @param   {number|string}    chunkCount - maximum number of chunks. default: 'Infinity'.
+ * @return  {Object.<Bud>}     Bud instance
  */
 const maxChunks = chunkCount => {
-  bud.options.splitting.maxChunks = chunkCount
+  Bud.options.splitting.maxChunks = chunkCount
 
-  return bud
+  return Bud
 }
 
 /**
- * Enable or dispable minification
+ * Enable or disable minification
  *
- * @param  {bool}   state
- * @return {object}
+ * @param  {bool} [Bud.inProduction] true to enable CSS/JS minification.
+ * @return {Object.<Bud>} Bud instance
  */
-const mini = state => {
-  bud.options.minified = state
+const mini = enable => {
+  Bud.options.minified = enable
 
-  return bud
+  return Bud
 }
 
 /**
- * Babel
+ * Configure PostCSS.
  *
- * @param  {object} config babel config
- * @return {object}
+ * If you prefer, you may utilize a postcss.config.js file in the project root,
+ * either alongside or in lieue of this configuration.
+ *
+ * Conflicts between supplied configs will be resolved in favor of bud.config.js.
+ *
+ * @param  {Object.<array, array>} {@link https://github.com/postcss/postcss#options}
+ * @return {Object.<Bud>} Bud instance
  */
 const postcss = config => {
-  bud.options.postcss.options = {
-    ...bud.options.postcss.options,
+  Bud.options.postcss.options = {
+    ...Bud.options.postcss.options,
     ...(config ? config : []),
     plugins: [
-      ...bud.options.postcss.options.plugins,
+      ...Bud.options.postcss.options.plugins,
       ...(config.plugins ? config.plugins : []),
     ],
   }
 
-  return bud
+  return Bud
 }
 
 /**
- * Purge
+ * Purge unused CSS from bundles.
  *
- * @param  {object} config babel config
- * @return {object}
+ * @see   {@link https://purgecss.com/guides/wordpress.html}
+ * @param {Object} - purgecss config {@link https://purgecss.com/configuration.html}
+ * @return {Object.<Bud>} Bud instance
  */
 const purge = config => {
-  bud.options.postcss.options = {
-    ...bud.options.postcss.options,
+  Bud.options.postcss.options = {
+    ...Bud.options.postcss.options,
     plugins: [
-      ...bud.options.postcss.options.plugins,
+      ...Bud.options.postcss.options.plugins,
       require('@fullhuman/postcss-purgecss')({...config}),
     ],
   }
 
-  return bud
+  return Bud
 }
 
 /**
- * Babel
+ * Enable or disable code splitting.
  *
- * @param  {object} config babel config
- * @return {object}
+ * @param  {bool} [true]  enabled
+ * @return {Object.<Bud>} Bud instance
  */
-const share = config => {
-  bud.options.share = {
-    ...bud.options.share,
-    ...config,
-  }
+const splitting = enabled => {
+  Bud.options.splitting.disabled = enabled
 
-  return bud
+  return Bud
 }
 
 /**
- * Set code splitting options
+ * Process @wordpress/i18n strings from JS source assets.
  *
- * @param  {bool}   state
- * @return {object}
- */
-const splitting = state => {
-  bud.options.splitting.disabled = state
-
-  return bud
-}
-
-/**
- * Babel
+ * If you are already translating strings with `yarn translate` then
+ * there is no reason to run this separately.
  *
- * @param  {object} config babel config
- * @return {object}
+ * @param {string} file - project relative path to translation .pot file
+ * @return {Object.<Bud>} Bud instance
  */
+
 const translate = translation => {
-  bud.options.babel.options = {
-    ...bud.options.babel.options,
+  Bud.options.babel.options = {
+    ...Bud.options.babel.options,
     plugins: [
-      ...bud.options.babel.options.plugins,
+      ...Bud.options.babel.options.plugins,
       [require('@wordpress/babel-plugin-makepot'),
-        {output: bud.project(translation)},
+        {output: Bud.project(translation)},
       ],
     ],
   }
 
-  return bud
+  return Bud
 }
 
 /**
- * Set vendor options
+ * Enable or disable vendor bundles.
  *
- * @param  {bool}   state
- * @return {object}
+ * @param  {bool}  [true] true if enabled
+ * @return {Object.<Bud>} Bud instance
  */
-const vendor = state => {
-  bud.options.vendor = state
+const vendor = enabled => {
+  Bud.options.vendor = enabled
 
-  return bud
+  return Bud
 }
 
 /**
- * Enable or dispable watch mode
- *
- * @param  {bool}   state
- * @return {object}
+ * Enable or disable watch mode.
+ * @typedef {func.<watch>} watch
+ * @param   {bool}         true - if enabled
+ * @return  {Object.<Bud>} Bud instance
  */
-const watch = state => {
-  bud.options.watching = state
+const watch = enabled => {
+  Bud.options.watching = enabled
 
-  return bud
+  return Bud
 }
 
 /**
  * Watch mode timeout
- *
- * @param  {number} timeout in ms
- * @return {object}
+ * @typedef {func.<watchTimeout} watchTimeout
+ * @param   {number}             timeout - in ms
+ * @return  {Object.<Bud>}       Bud instance
  */
 const watchTimeout = timeout => {
-  bud.options.dev.watchOptions.aggregateTimeout = timeout
+  Bud.options.dev.watchOptions.aggregateTimeout = timeout
 
-  return bud
+  return Bud
 }
 
 /**
  * Configure @wordpress/dependency-extraction-webpack-plugin
- *
- * @param  {object} settings
- * @return {object}
+ * @typedef {func.<wpManifest>} wpManifest
+ * @param   {object} settings
+ * @return  {Object.<Bud>} Bud instance
  */
 const wpManifest = settings => {
   settings !== false
-    ? bud.options.wpManifest = {
-      ...bud.options.wpManifest,
+    ? Bud.options.wpManifest = {
+      ...Bud.options.wpManifest,
       ...settings,
     }
-    : bud.options.wpManifest.enabled == false
+    : Bud.options.wpManifest.enabled == false
 
-  return bud
+  return Bud
 }
 
 /**
- * The exported configuration tool.
+ * Bud - asset compilation framework.
+ * @typedef {Object.<Bud>} Bud
  */
-const bud = {
-  /** Options container */
+const Bud = {
   options,
-
-  /** Statuses */
   inProduction,
-
-  /** Paths */
   paths,
-  /** Getters */
   project,
   src,
   dist,
   preset,
-
-  /** Setters */
   projectPath,
   srcPath,
   distPath,
   publicPath,
-
-  /** Config API */
   alias,
   auto,
   babel,
-  browserSync,
+  sync,
   bundle,
   copy,
   copyAll,
@@ -614,7 +656,6 @@ const bud = {
   mini,
   postcss,
   purge,
-  share,
   splitting,
   translate,
   vendor,
@@ -623,4 +664,8 @@ const bud = {
   wpManifest,
 }
 
-module.exports = bud
+/**
+ * Bud asset manager.
+ * @module Bud
+ */
+module.exports = Bud

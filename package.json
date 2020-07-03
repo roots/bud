@@ -1,6 +1,6 @@
 {
   "name": "@roots/budpack",
-  "version": "0.0.18",
+  "version": "0.0.19",
   "repository": {
     "type": "git",
     "url": "git://github.com/roots/bud-support.git"
@@ -29,9 +29,7 @@
     "config"
   ],
   "dependencies": {
-    "@babel/cli": "^7.10.4",
     "@babel/core": "^7.10.4",
-    "@babel/parser": "^7.10.4",
     "@babel/plugin-proposal-object-rest-spread": "^7.10.4",
     "@babel/plugin-proposal-optional-chaining": "^7.10.4",
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
@@ -61,6 +59,7 @@
     "cssnano": "^4.1.10",
     "eslint": "^7.2.0",
     "eslint-loader": "^4.0.2",
+    "eslint-plugin-import": "^2.22.0",
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-react": "^7.20.3",
     "eslint-plugin-react-hooks": "^4.0.5",
@@ -81,6 +80,7 @@
     "lodash": "^4.17.15",
     "mini-css-extract-plugin": "^0.9.0",
     "node-notifier": "^7.0.1",
+    "node-sass": "^4.14.1",
     "npm-run-all": "^4.1.5",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "parallel-webpack": "^2.6.0",
@@ -92,7 +92,7 @@
     "purgecss-with-wordpress": "^2.3.0",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
-    "sass": "^1.26.9",
+    "resolve-url-loader": "^3.1.1",
     "sass-loader": "^8.0.2",
     "style-loader": "^1.2.1",
     "stylelint": "^13.6.0",
@@ -106,5 +106,8 @@
     "webpack-manifest-plugin": "^2.2.0",
     "write-file-webpack-plugin": "^4.5.1",
     "yargs": "^15.3.1"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.10.4"
   }
 }

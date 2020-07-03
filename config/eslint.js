@@ -3,11 +3,9 @@ module.exports = {
     'eslint:recommended',
     'plugin:react/recommended',
   ],
-  plugins: ['jsx-a11y', 'react', 'react-hooks'],
+  plugins: ['plugin-import', 'jsx-a11y', 'react', 'react-hooks'],
   globals: {
     wp: true,
-    window: true,
-    document: true,
   },
   parser: 'babel-eslint',
   parserOptions: {

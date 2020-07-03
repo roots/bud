@@ -8,6 +8,7 @@ const {
   HotModuleReplacementPlugin,
   NoEmitOnErrorsPlugin,
   ProvidePlugin,
+  optimize,
 } = require('webpack')
 const WriteFilePlugin = require('write-file-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
@@ -20,6 +21,9 @@ const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries')
 const plugins = options => {
   const config = {
     plugins: [
+      new DependencyExtractionPlugin({
+        ...options.wpManifest,
+      }),
       new FixStyleOnlyEntriesPlugin({
         silent: true,
       }),
@@ -36,12 +40,6 @@ const plugins = options => {
       }),
     ],
   }
-
-  config.plugins.push(
-    new DependencyExtractionPlugin({
-      ...options.wpManifest,
-    }),
-  )
 
   options.copy.patterns.length > 0 &&
     config.plugins.push(

@@ -6,6 +6,9 @@ const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 const optimization = options => {
   const config = {
     optimization: {
+      runtimeChunk: {
+        name: 'runtime',
+      },
       minimize: options.minified,
       noEmitOnErrors: true,
       removeAvailableModules: false,
@@ -16,12 +19,15 @@ const optimization = options => {
   if (options.vendor) {
     config.optimization.splitChunks = {
       cacheGroups: {
-        commons: {
+        vendor: {
           test: /[\\/]node_modules[\\/]/,
           name: 'vendor',
           chunks: 'all',
         },
       },
+      chunks (chunk) {
+        return chunk.name !== 'editor';
+      }
     }
   }
 

@@ -38,7 +38,7 @@ const eslint = ({src, eslint}) => ({
  * CSS Loader
  */
 const css = ({src, postcss}) => ({
-  test: /\.s?css$/,
+  test: /\.s[ac]ss$/i,
   include: src,
   use: [
     MiniCssExtractPlugin.loader,
@@ -53,7 +53,20 @@ const css = ({src, postcss}) => ({
         importLoaders: 1,
       },
     }] : []),
-    {loader: 'sass-loader'},
+    {
+      loader: require.resolve('resolve-url-loader'),
+      options: {
+        engine: 'postcss',
+        sourceMap: false,
+        debug: true,
+      },
+    },
+    {
+      loader: require.resolve('sass-loader'),
+      options: {
+        sourceMap: true,
+      },
+    },
   ],
 })
 

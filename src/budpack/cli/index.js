@@ -68,8 +68,8 @@ const BudpackCLI = ({compiler, config, options}) => {
         actions={actions}
         build={build}
       />
-      <Warnings actions={actions} build={build} />
       <Errors actions={actions} build={build} />
+      <Warnings actions={actions} build={build} />
       {showBrowserSync && <BrowserSync actions={actions} />}
       {options.debug && (
         <Debug
