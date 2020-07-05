@@ -3,7 +3,7 @@ import {Box, Text, useFocus} from 'ink'
 import PropTypes from 'prop-types'
 import highlight from 'cli-highlight'
 
-const Debug = ({actions, config, options}) => {
+const Debug = ({actions, config}) => {
   const {isFocused} = useFocus({autoFocus: false})
   useEffect(() => {
     actions?.setFocus({debug: isFocused})
@@ -12,12 +12,12 @@ const Debug = ({actions, config, options}) => {
   return (
     <Box
       display={
-        isFocused && options?.debug ? 'flex' : 'none'
+        isFocused && config?.features?.debug ? 'flex' : 'none'
       }
       flexDirection="column">
       <Text>
         {highlight(
-          JSON.stringify({config, options}, null, 4),
+          JSON.stringify({config}, null, 4),
         )}
       </Text>
     </Box>
@@ -27,7 +27,6 @@ const Debug = ({actions, config, options}) => {
 Debug.propTypes = {
   actions: PropTypes.object,
   config: PropTypes.object,
-  options: PropTypes.object,
 }
 
 export default Debug

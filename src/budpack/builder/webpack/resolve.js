@@ -3,12 +3,12 @@ const path = require('path')
 /**
  * Webpack resolves.
  */
-const resolve = options => {
+const resolve = ({options, paths})=> {
   const config = {
     resolve: {
       extensions: ['.js', '.json', '.vue', '.jsx'],
       modules: [
-        path.resolve(options.project, 'node_modules'),
+        path.resolve(paths.project, 'node_modules'),
       ],
     },
   }

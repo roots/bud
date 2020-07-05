@@ -67,7 +67,7 @@ const Watching = ({options, build}) => (
  * @prop {object}        options
  * @prop {number}        width
  */
-const App = ({children, state, build, options, width}) => {
+const App = ({children, state, build, config, width}) => {
   const [focused, setFocused] = useState({})
   useEffect(() => {
     setFocused(state)
@@ -83,7 +83,7 @@ const App = ({children, state, build, options, width}) => {
       <Nav
         build={build}
         focused={focused}
-        options={options}
+        config={config}
       />
       {children}
       <Spacer />
@@ -95,8 +95,8 @@ const App = ({children, state, build, options, width}) => {
           </Text>
         )}
         <Loading build={build} width={width} />
-        {options.watching && (
-          <Watching options={options} build={build} />
+        {config?.features?.watching && (
+          <Watching config={config} build={build} />
         )}
       </Box>
     </Box>

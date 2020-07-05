@@ -18,12 +18,9 @@ const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries')
 /**
  * Webpack plugins.
  */
-const plugins = options => {
+const plugins = ({options, features, paths}) => {
   const config = {
     plugins: [
-      new DependencyExtractionPlugin({
-        ...options.wpManifest,
-      }),
       new FixStyleOnlyEntriesPlugin({
         silent: true,
       }),
@@ -36,10 +33,17 @@ const plugins = options => {
       new ManifestPlugin({
         fileName: 'manifest.json',
         writeToFileEmit: true,
-        publicPath: `${options.public}/`,
+        publicPath: `${paths.public}/`,
       }),
     ],
   }
+
+  features.dependencyManifest
+    && config.plugins.push(
+      new DependencyExtractionPlugin({
+        ...options.dependencyManifest,
+      })
+    )
 
   options.copy.patterns.length > 0 &&
     config.plugins.push(
@@ -64,11 +68,11 @@ const plugins = options => {
   options.auto &&
     config.plugins.push(new ProvidePlugin(options.auto))
 
-  options.hot &&
+  features.hot &&
     config.plugins.push(new HotModuleReplacementPlugin())
 
-  options.browserSync.enabled == true &&
-    options.debug == false &&
+  features.browserSync == true &&
+    features.debug == false &&
     config.plugins.push(
       new BrowserSyncPlugin({
         host: options.browserSync.host,
@@ -77,7 +81,7 @@ const plugins = options => {
       }),
     )
 
-  !options.inProduction &&
+  ! options.inProduction &&
     (() => {
       config.plugins.push(new NoEmitOnErrorsPlugin())
       config.plugins.push(new WriteFilePlugin())

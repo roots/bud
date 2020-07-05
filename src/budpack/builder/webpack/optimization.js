@@ -1,22 +1,22 @@
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+import UglifyJsPlugin from 'uglifyjs-webpack-plugin'
 
 /**
  * Webpack optimization
  */
-const optimization = options => {
+const optimization = ({features, options}) => {
   const config = {
     optimization: {
       runtimeChunk: {
         name: 'runtime',
       },
-      minimize: options.minified,
+      minimize: features.minified,
       noEmitOnErrors: true,
       removeAvailableModules: false,
       removeEmptyChunks: false,
     },
   }
 
-  if (options.vendor) {
+  if (features.vendor) {
     config.optimization.splitChunks = {
       cacheGroups: {
         vendor: {
@@ -24,14 +24,11 @@ const optimization = options => {
           name: 'vendor',
           chunks: 'all',
         },
-      },
-      chunks (chunk) {
-        return chunk.name !== 'editor';
       }
     }
   }
 
-  if (options.minified) {
+  if (features.minified) {
     config.optimization.minimizer = [
       new UglifyJsPlugin({
         cache: true,
@@ -54,4 +51,4 @@ const optimization = options => {
   return config
 }
 
-module.exports = optimization
+export {optimization}

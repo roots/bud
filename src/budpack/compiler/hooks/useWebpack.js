@@ -30,7 +30,7 @@ const useProgress = () => {
  * @prop {compiler} compiler webpack.compiler
  * @prop {string}   options  project options
  */
-const useWebpack = ({compiler, options}) => {
+const useWebpack = ({compiler, config}) => {
   const {
     progressPlugin,
     percentage,
@@ -72,13 +72,13 @@ const useWebpack = ({compiler, options}) => {
       if (!webpackRunning) {
         setWebpackRunning(true)
 
-        options?.mode == 'development' &&
-        !options?.debug == true
+        config?.mode == 'development' &&
+        !config?.features?.debug == true
           ? compiler.watch({}, webpackCallback)
           : compiler.run(webpackCallback)
       }
     }
-  }, [progressPluginApplied, options?.mode, compiler])
+  }, [progressPluginApplied, config?.mode, compiler])
 
   const [assets, setAssets] = useState([])
   const [warnings, setWarnings] = useState([])

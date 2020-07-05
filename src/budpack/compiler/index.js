@@ -26,7 +26,7 @@ const successfulBuild = build =>
  * @prop {string} config   webpack compiler config
  * @prop {object} options  project options
  */
-const BudpackCLI = ({compiler, config, options}) => {
+const Runner = ({compiler, webpackConfig, config}) => {
   const [width] = useStdOutDimensions()
   const [state, actions] = useFocusState()
   const {exit} = useApp()
@@ -36,14 +36,15 @@ const BudpackCLI = ({compiler, config, options}) => {
       process.exit()
     }
   })
+
   useEffect(() => {
-    !options?.watching &&
+    !config?.features?.watch &&
       build?.assets &&
       build?.percentage &&
       exit()
   })
 
-  const build = useWebpack({compiler, options})
+  const build = useWebpack({compiler, config})
   useEffect(() => {
     successfulBuild(build) &&
       notifier.notify({
@@ -53,16 +54,15 @@ const BudpackCLI = ({compiler, config, options}) => {
   }, [build?.percentage])
 
   const showBrowserSync =
-    !options.debug &&
-    options.browserSync.enabled &&
-    !options.inProduction
+    !config?.features?.debug &&
+    config?.features?.browserSync
 
   return (
     <App
       width={width}
       build={build}
       state={state}
-      options={options}>
+      config={config}>
       <Assets
         width={width}
         actions={actions}
@@ -71,21 +71,14 @@ const BudpackCLI = ({compiler, config, options}) => {
       <Errors actions={actions} build={build} />
       <Warnings actions={actions} build={build} />
       {showBrowserSync && <BrowserSync actions={actions} />}
-      {options.debug && (
-        <Debug
-          actions={actions}
-          config={config}
-          options={options}
-        />
-      )}
     </App>
   )
 }
 
-BudpackCLI.propTypes = {
+Runner.propTypes = {
   compiler: PropTypes.object,
   config: PropTypes.object,
-  options: PropTypes.object,
+  webpackConfig: PropTypes.object,
 }
 
-export default BudpackCLI
+export {Runner}

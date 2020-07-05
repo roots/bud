@@ -8,7 +8,7 @@ const Bullet = ({active}) => (
 /**
  * Nav
  */
-const Nav = ({build, focused, options}) => (
+const Nav = ({build, focused, config}) => (
   <Box
     flexDirection="row"
     justifyContent="space-between"
@@ -57,7 +57,7 @@ const Nav = ({build, focused, options}) => (
       </Text>
     </Box>
 
-    {!options?.debug && options?.browserSync?.enabled && (
+    {!config?.features?.debug && config?.features?.browserSync?.enabled && (
       <>
         <Spacer />
         <Box>
@@ -72,7 +72,7 @@ const Nav = ({build, focused, options}) => (
       </>
     )}
 
-    {options?.debug && (
+    {config?.features?.debug && (
       <>
         <Spacer />
         <Box>

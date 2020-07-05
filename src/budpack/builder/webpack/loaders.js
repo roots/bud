@@ -1,10 +1,12 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
-const loaders = {
+const loaderModules = {
   babel: require.resolve('babel-loader'),
   css: require.resolve('css-loader'),
   eslint: require.resolve('eslint-loader'),
+  file: require.resolve('file-loader'),
   postcss: require.resolve('postcss-loader'),
+  resolveUrl: require.resolve('resolve-url-loader'),
 }
 
 /**
@@ -14,7 +16,7 @@ const babel = ({src, babel}) => ({
   test: /\.js$/,
   include: src,
   exclude: /node_modules/,
-  loader: loaders.babel,
+  loader: loaderModules.babel,
   options: babel.options,
 })
 
@@ -26,9 +28,9 @@ const eslint = ({src, eslint}) => ({
   test: /\.js$/,
   include: src,
   exclude: /node_modules/,
-  loader: loaders.eslint,
+  loader: loaderModules.eslint,
   options: {
-    configFile: eslint.configFile,
+    configFile: eslint.config,
     formatter: 'codeframe',
     failOnError: true,
   },
@@ -37,24 +39,24 @@ const eslint = ({src, eslint}) => ({
 /**
  * CSS Loader
  */
-const css = ({src, postcss}) => ({
+const css = ({src, postCss}, features) => ({
   test: /\.s[ac]ss$/i,
   include: src,
   use: [
     MiniCssExtractPlugin.loader,
     {
-      loader: loaders.css,
+      loader: loaderModules.css,
       options: {url: false},
     },
-    ...(postcss.options ? [{
-      loader: loaders.postcss,
+    ...(features.postCss && postCss.options ? [{
+      loader: loaderModules.postcss,
       options: {
-        ...postcss.options,
+        ...postCss.options,
         importLoaders: 1,
       },
     }] : []),
     {
-      loader: require.resolve('resolve-url-loader'),
+      loader: loaderModules.resolveUrl,
       options: {
         engine: 'postcss',
         sourceMap: false,
@@ -77,7 +79,7 @@ const images = () => ({
   test: /\.jpe?g$|\.gif$|\.png$/i,
   use: [
     {
-      loader: require.resolve('file-loader'),
+      loader: loaderModules.file,
       options: {
         name: '[path][name].[ext]',
       },
@@ -96,25 +98,17 @@ const svg = ({svg}) => ({
 /**
  * Webpack loaders
  */
-const webpackModules = options => {
-  const config = {
-    module: {
-      strictExportPresence: true,
-      rules: [],
-    },
-  }
+const loaders = ({features, options, configs}) => ({
+  module: {
+    strictExportPresence: true,
+    rules: [
+      ...(features.eslint && configs.eslint ? [eslint(configs)] : []),
+      ...(features.babel && options.babel ? [babel(options)] : []),
+      css(options, features),
+      images(),
+      svg(options),
+    ],
+  },
+})
 
-  options.babel.options &&
-    config.module.rules.push(babel(options))
-
-  options.eslint.enabled &&
-    config.module.rules.push(eslint(options))
-
-  config.module.rules.push(css(options))
-  config.module.rules.push(images())
-  config.module.rules.push(svg(options))
-
-  return config
-}
-
-export default webpackModules
+export {loaders}

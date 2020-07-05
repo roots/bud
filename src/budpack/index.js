@@ -2,31 +2,46 @@ import {join} from 'path'
 import webpack from 'webpack'
 import React from 'react'
 import {render} from 'ink'
+import patchConsole from 'patch-console'
 
-import budpackConfig from './config'
-import BudpackCLI from './cli'
+import {makeWebpackConfig} from './builder/webpack'
+import {Runner} from './compiler'
 
-const CWD = process.cwd()
+/**
+ * Make the webpack options object from the project export.
+ */
+const config = require(join(process.cwd(), 'bud.config.js'))
+const webpackConfig = makeWebpackConfig(config)
 
+/**
+ * Set env
+ */
+process.env.BABEL_ENV = config.options.mode
+process.env.NODE_ENV = config.options.mode
+
+/**
+ * Runner props
+ * @typedef  {object.<props>}
+ * @property {object.<options>} options
+ * @property {object} config - webpack config
+ * @property {object} compiler - webpack compiler
+ */
+const runnerProps = {
+  config,
+  webpackConfig,
+  compiler: webpack(webpackConfig),
+}
+
+/**
+ * Run the compiler.
+ */
+const app = render(
+  React.createElement(Runner, runnerProps)
+)
+
+/**
+ * Kill the application on unhandled rejections.
+ */
 process.on('unhandledRejection', () => {
   process.exit()
 })
-
-/**
- * Build budpack compiler
- */
-const projectConfig = join(CWD, 'bud.config.js')
-const project = require(projectConfig)
-const config = budpackConfig(project.options)
-
-/**
- * Render the BudpackCLI
- */
-const compiler = webpack(config)
-render(
-  React.createElement(BudpackCLI, {
-    compiler,
-    config,
-    options: project.options,
-  }),
-)
