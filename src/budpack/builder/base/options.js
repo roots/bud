@@ -28,6 +28,9 @@ const options = {
   devtool: 'cheap-module-source-map',
   entry: {},
   groups: [],
+  inlineManifest: {
+    name: 'runtime',
+  },
   splitting: {
     maxChunks: null,
   },

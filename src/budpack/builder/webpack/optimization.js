@@ -6,14 +6,17 @@ import UglifyJsPlugin from 'uglifyjs-webpack-plugin'
 const optimization = ({features, options}) => {
   const config = {
     optimization: {
-      runtimeChunk: {
-        name: 'runtime',
-      },
       minimize: features.minified,
       noEmitOnErrors: true,
       removeAvailableModules: false,
       removeEmptyChunks: false,
     },
+  }
+
+  if (features.inlineManifest) {
+    config.optimization.runtimeChunk = {
+      name: options.inlineManifest.name,
+    }
   }
 
   if (features.vendor) {

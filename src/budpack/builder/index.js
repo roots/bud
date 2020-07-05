@@ -42,6 +42,7 @@ const bind = (object, fn) => {
  * @property {func.<distPath>}
  * @property {func.<hash>}
  * @property {func.<hot>}
+ * @property {func.<inlineManifest>}
  * @property {func.<postCss>}
  * @property {func.<preset>}
  * @property {func.<project>}

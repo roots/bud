@@ -20,6 +20,7 @@ import {inProduction} from '../mode'
   eslint: true,
   hash: inProduction,
   hot: !inProduction,
+  inlineManifest: false,
   minified: inProduction,
   postCss: true,
   purge: inProduction,

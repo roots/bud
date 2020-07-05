@@ -20,6 +20,7 @@ import {makeCopyAll} from './copyAll'
 import {makeDependencyManifest} from './dependencyManifest'
 import {makeHash} from './hash'
 import {makeHot} from './hot'
+import {makeInlineManifest} from './inlineManifest'
 import {makePostCss} from './postcss'
 import {makePurge} from './purge'
 import {makeSync} from './sync'
@@ -46,6 +47,7 @@ const generators = [
   makeDependencyManifest,
   makeHash,
   makeHot,
+  makeInlineManifest,
   makePostCss,
   makePurge,
   makeSync,
