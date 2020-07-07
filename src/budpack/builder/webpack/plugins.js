@@ -38,11 +38,11 @@ const plugins = ({options, features, paths}) => {
     ],
   }
 
-  features.dependencyManifest
-    && config.plugins.push(
+  features.dependencyManifest &&
+    config.plugins.push(
       new DependencyExtractionPlugin({
         ...options.dependencyManifest,
-      })
+      }),
     )
 
   options.copy.patterns.length > 0 &&
@@ -81,7 +81,7 @@ const plugins = ({options, features, paths}) => {
       }),
     )
 
-  ! options.inProduction &&
+  !options.inProduction &&
     (() => {
       config.plugins.push(new NoEmitOnErrorsPlugin())
       config.plugins.push(new WriteFilePlugin())

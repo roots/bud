@@ -1,32 +1,21 @@
 /**
- * Make API: auto
- *
- * @type   {func.<makeAuto>}
- * @param  {object.<bud>}
- * @return {func.<auto>}
+ * Automatically load modules instead of needing to import them.
+ * @example bud.auto({jquery: ['$', 'window.jQuery']})
+ * @typedef {function ({[key: string]: {modules: string[]}}) => {bud: import('./../index')}} auto
+ * @param   {{[key: string]: {modules: string[]}}} options
+ * @return  {import('./../index')} bud
  */
-const makeAuto = bud => {
-  /**
-   * Automatically load modules instead of needing to import them.
-   *
-   * @typedef {func.<auto>}            auto
-   * @param   {object.<string, array>} identifier - modules
-   * @return  {object.<bud>}           bud instance
-   */
-  const auto = auto => {
-    Object.entries(auto).forEach(([key, value]) => {
-      value.forEach(handle => {
-        bud.options.auto = {
-          ...bud.options.auto,
-          [handle]: key,
-        }
-      })
+const auto = function (options) {
+  Object.entries(options).forEach(([key, modules]) => {
+    modules.forEach(handle => {
+      this.options.auto = {
+        ...this.options.auto,
+        [handle]: key,
+      }
     })
+  })
 
-    return bud
-  }
-
-  return auto
+  return this
 }
 
-export {makeAuto}
+export {auto}

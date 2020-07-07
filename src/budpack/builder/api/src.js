@@ -1,19 +1,14 @@
 import {join} from 'path'
 
 /**
- * makeSrc
- * @param   {object.<bud>}
- * @return  {void}
+ * Yield an absolute path from a path relative to the src dir.
+ * @example bud.src('scripts/app.js') // absolute path to the source file
+ * @typedef {function (relativePath: string) => {absolutePath: string}} src
+ * @param   {string} relativePath - relative path
+ * @return  {string} absolutePath
  */
-const makeSrc = bud => {
-  /**
-   * Construct an absolute path from a src relative path.
-   * @param   {string} relativePath - relative path
-   * @return  {string} absolute path
-   */
-  const src = relativePath => join(bud.paths.src, relativePath)
-
-  return src
+const src = function (relativePath) {
+  return join(this.paths.src, relativePath)
 }
 
-export {makeSrc}
+export {src}

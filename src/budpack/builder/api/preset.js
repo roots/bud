@@ -1,19 +1,15 @@
 import {join} from 'path'
 
 /**
- * makePreset
- * @param   {object.<bud>}
- * @return  {void}
+ * Retrieve a Bud framework preset
+ * @example bud.preset('babel/postcss')
+ * @example bud.preset('babel/preset-react')
+ * @typedef {function (relativePath: string) => {absolutePath: string}} preset
+ * @param  {string} relativePath - relative path
+ * @return {string} absolutePath
  */
-const makePreset = bud => {
-  /**
-   * Construct an absolute path from a preset relative path.
-   * @param   {string} relativePath - relative path
-   * @return  {string} absolute path
-   */
-  const preset = relativePath => join(bud.paths.framework, 'config', relativePath)
-
-  return preset
+const preset = function (relativePath) {
+  return join(this.paths.framework, 'config', relativePath)
 }
 
-export {makePreset}
+export {preset}

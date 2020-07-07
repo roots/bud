@@ -2,7 +2,6 @@ import {join} from 'path'
 
 /**
  * Set directory containing compiled assets.
- *
  * @typedef {func.<makeProjectPath>} makeProjectPath
  * @param   {Object.<Bud>} bud - Builder instance
  * @return  {func.<projectPath>}
@@ -10,7 +9,6 @@ import {join} from 'path'
 const makeProjectPath = bud => {
   /**
    * Set the project base path.
-   *
    * @typedef {func.<projectPath>}
    * @param   {string} dir - absolute path of project
    * @return  {Object.<Bud>}

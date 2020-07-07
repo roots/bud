@@ -1,19 +1,14 @@
 import {join} from 'path'
 
 /**
- * makeDist
- * @param   {object.<bud>}
- * @return  {void}
+ * Yield an absolute path from a path relative to the dist dir.
+ * @example bud.dist('scripts/app.js') // returns the absolute path to the compiled app.js
+ * @typedef {function (relativePath: {string}) => {absolutePath: {string}}} dist
+ * @param   {string} relativePath - relative path
+ * @return  {string} absolute path
  */
-const makeDist = bud => {
-  /**
-   * Construct an absolute path from a dist relative path.
-   * @param   {string} relativePath - relative path
-   * @return  {string} absolute path
-   */
-  const dist = relativePath => join(bud.paths.dist, relativePath)
-
-  return dist
+const dist = function (relativePath) {
+  return join(this.paths.dist, relativePath)
 }
 
-export {makeDist}
+export {dist}

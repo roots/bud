@@ -1,36 +1,26 @@
 import {join} from 'path'
 
 /**
- * API builder: makeCopyAll
- *
- * @type   {func.<makeCopyAll>}
- * @param  {object.<bud>}
- * @return {void}
+ * Copy all files from a specified source to a specified destination.
+ * @namespace bud
+ * @example   bud.copyAll(bud.src('images'), bud.dist('images'))
+ * @typedef   {function (src: {string}, dest: {string}) => {bud: import('./../index')}} copyAll
+ * @param     {string} src  - origin dir
+ * @param     {string} dest - destination dir
+ * @return    {import('./../index')} bud
  */
-const makeCopyAll = bud => {
-/**
- * Copy all files within a source directory to a dist directory.
- *
- * @typedef {func.<copyAll>} copyAll
- * @param   {string} from - copy from
- * @param   {string} [to=bud.paths.dist] copy to
- * @return  {object.<bud>}   bud instance
- */
-const copyAll = (from, to = null) => {
-  bud.options.copy.patterns.push({
+const copyAll = function (src, dest) {
+  this.options.copy.patterns.push({
     from: '**/*',
-    context: from,
-    to: to ? to : join(bud.options.dist, from),
+    context: src,
+    to: dest ? dest : join(this.options.dist, src),
     globOptions: {
       ignore: '.*',
     },
     noErrorOnMissing: true,
   })
 
-  return bud
+  return this
 }
 
-  return copyAll
-}
-
-export {makeCopyAll}
+export {copyAll}

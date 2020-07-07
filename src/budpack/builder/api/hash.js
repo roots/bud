@@ -1,25 +1,14 @@
 /**
- * Make API: hash
- *
- * @type   {func.<makeHash>}
- * @param  {object.<bud>}
- * @return {void}
+ * Enable or disable filename hashing of built assets. Unless specified, filename hashes will be created when running production builds.
+ * @example bud.hash(true) // enable
+ * @typedef {function (enabled: {boolean}) => {bud: {import('./../index')}} hash
+ * @param   {boolean} enabled - true to enable filename hashing.
+ * @return  {import('./../index')} bud
  */
-const makeHash = bud => {
-  /**
-   * Enable or disable filename hashing on compiled assets.
-   *
-   * @typedef {func.<hash>}
-   * @param   {boolean} enabled - true to enable filename hashing.
-   * @return  {object.<bud>}
-   */
-  const hash = enabled => {
-    bud.features.hash = enabled
+const hash = function (enabled) {
+  this.features.hash = enabled
 
-    return bud
-  }
-
-  return hash
+  return this
 }
 
-export {makeHash}
+export {hash}

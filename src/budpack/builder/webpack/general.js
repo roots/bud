@@ -1,12 +1,7 @@
 /**
  * General webpackery.
  */
-const general = ({
-  paths,
-  mode,
-  features,
-  options,
-}) => ({
+const general = ({paths, mode, features, options}) => ({
   context: paths.project,
   devtool: features.sourceMap ? options.devtool : false,
   mode,

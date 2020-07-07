@@ -1,4 +1,4 @@
-import {loaders} from './../loaders'
+import {loaders} from './loaders'
 
 /**
  * Options container.

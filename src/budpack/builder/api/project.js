@@ -1,21 +1,14 @@
 import {join} from 'path'
 
 /**
- * @typedef {func.<makeProject>} makeProject
- * @param   {object.<bud>} bud - Builder instance
- * @return  {void}
+ * Yield an absolute path from a path relative to the project dir.
+ * @example bud.project('package.json') // absolute path to package.json
+ * @typedef {function (relativePath: string) => {absolutePath: string}} project
+ * @param   {string} relativePath - relative path
+ * @return  {string} absolutePath
  */
-const makeProject = bud => {
-  /**
-   * Construct an absolute path from a project relative path.
-   *
-   * @typedef {func.<project>}
-   * @param   {string} relativePath - relative path
-   * @return  {string} absolute path
-   */
-  const project = relativePath => join(bud.paths.project, relativePath)
-
-  return project
+const project = function (relativePath) {
+  return join(this.paths.project, relativePath)
 }
 
-export {makeProject}
+export {project}

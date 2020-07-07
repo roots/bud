@@ -1,25 +1,16 @@
 /**
- * API builder: makeAlias
- *
- * @type   {func.<makeAlias>}
- * @param  {object.<bud>}
- * @return {void}
+ * Resolve modules through webpack aliases. Useful for situations that may otherwise require brittle relative paths.
+ * @example
+ *  bud.alias({'scripts': bud.src('scripts')})
+ *  ↪️ import 'scripts/myScript'
+ * @typedef {function ({[key: string]: {directory: string}[]}) => {bud: import('./../index')}} alias
+ * @param   {{[key: string]: {directory: string}}} options
+ * @return  {import('./../index')}
  */
-const makeAlias = bud => {
-  /**
-   * Define webpack aliases.
-   *
-   * @type   {func.<alias>}
-   * @param  {object} alias
-   * @return {object.<bud>}
-   */
-  const alias = alias => {
-    bud.options.alias = alias
+const alias = function (options) {
+  this.options.alias = options
 
-    return bud
-  }
-
-  return alias
+  return this
 }
 
-export {makeAlias}
+export {alias}

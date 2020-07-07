@@ -1,27 +1,16 @@
 import {join} from 'path'
 
 /**
- * Set directory containing source assets.
- *
- * @typedef {func.<makeSrcPath>}
- * @param   {Object.<Bud>}
- * @return  {void}
+ * Set the project's src directory.
+ * @example bud.srcPath('src') // default unless specified
+ * @typedef {function (dir: string) => {bud: import('./../index')}} srcPath
+ * @param   {string} dir - path of src directory relative to the project root.
+ * @return  {import('./../index')} bud
  */
-const makeSrcPath = bud => {
-  /**
-   * Construct an absolute path from a path segment that is relative to dist.
-   *
-   * @typedef {func.<srcPath>}
-   * @param   {string} src - path of asset relative to src path.
-   * @return  {Object.<Bud>}
-   */
-  const srcPath = src => {
-    bud.paths.src = join(bud.paths.project, src)
+const srcPath = function (src) {
+  this.paths.src = join(this.paths.project, src)
 
-    return bud
-  }
-
-  return srcPath
+  return this
 }
 
-export {makeSrcPath}
+export {srcPath}

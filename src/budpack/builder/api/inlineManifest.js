@@ -1,32 +1,27 @@
 /**
- * Make API: inlineManifest
+ * Make a chunk to be inlined directly on the page for optimal code splitting.
  *
- * @type   {func.<makeInlineManifest>}
- * @param  {object.<bud>}
- * @return {void}
+ * @type {function({enabled: boolean, name: string}): {bud: import('./../index')}} inlineManifest
+ * @param {{enabled: boolean, name: string}} options
+ * @param {boolean} enabled
+ * @param {string} name
+ * @return {import('./../index')} bud
  */
-const makeInlineManifest = bud => {
-  /**
-   * Make a manifest of @wordpress dependencies utilized by entrypoints.
-   *
-   * @typedef {func.<inlineManifest>} inlineManifest
-   * @param   {object} settings
-   * @return  {object.<bud>} bud instance
-   */
-  const inlineManifest = ({enabled = true, name = 'runtime'}) => {
-    bud.features.inlineManifest = enabled
+const inlineManifest = function ({
+  enabled = true,
+  name = 'runtime',
+}) {
+  this.features.inlineManifest = enabled
 
-    bud.features.inlineManifest && (() => {
-      bud.options.inlineManifest = {
-        ...bud.options.inlineManifest,
+  this.features.inlineManifest &&
+    (() => {
+      this.options.inlineManifest = {
+        ...this.options.inlineManifest,
         name,
       }
     })()
 
-    return bud
-  }
-
-  return inlineManifest
+  return this
 }
 
-export {makeInlineManifest}
+export {inlineManifest}

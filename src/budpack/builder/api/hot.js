@@ -1,25 +1,14 @@
 /**
- * API builder: makeHot
- *
- * @type   {func.<makeHot>}
- * @param  {object.<bud>}
- * @return {void}
+ * Enable or disable hot module reloading
+ * @example bud.hot(true) // enable HMR
+ * @typedef {function (enabled: {boolean}) => {bud: import('./../index')}} hot
+ * @param   {boolean} enabled - true to enable hot module reloading. default: !bud.inProduction.
+ * @return  {import('./../index')} bud
  */
-const makeHot = bud => {
-  /**
-   * Enable or disable hot module reloading
-   *
-   * @typedef {func.<hot>}   hot
-   * @param   {boolean}      enabled - true to enable hot module reloading. default: !bud.inProduction.
-   * @return  {object.<bud>} bud instance
-   */
-  const hot = enabled => {
-    bud.features.hot = enabled
+const hot = enabled => {
+  this.features.hot = enabled
 
-    return bud
-  }
-
-  return hot
+  return this
 }
 
-export {makeHot}
+export {hot}

@@ -3,10 +3,6 @@
  */
 
 module.exports = () => ({
-  plugins: [
-    require('babel-plugin-emotion'),
-  ],
-  presets: [
-    require('./preset-react'),
-  ],
+  plugins: [require('babel-plugin-emotion')],
+  presets: [require('./preset-react')],
 })

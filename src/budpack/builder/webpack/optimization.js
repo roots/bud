@@ -27,7 +27,7 @@ const optimization = ({features, options}) => {
           name: 'vendor',
           chunks: 'all',
         },
-      }
+      },
     }
   }
 

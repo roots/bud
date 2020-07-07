@@ -1,38 +1,31 @@
 /**
- * Make API: postcss
+ * Configure PostCSS.
  *
- * @type   {func.<makePostCss>}
- * @param  {object.<bud>}
- * @return {void}
+ * If you prefer, you may utilize a postcss.config.js file in the project root,
+ * either alongside or in lieue of this configuration.
+ *
+ * Conflicts between supplied configs will be resolved in favor of bud.config.js.
+ *
+ * @typedef {function ({enabled: boolean, plugins: array}) => {bud: import('./../index')}} postCss
+ * @param   {{enabled: boolean, plugins: array}} options
+ * @param   {boolean}  options.enabled
+ * @param   {array}    options.plugins
+ * @return  {import('./../index')} bud
  */
-const makePostCss = bud => {
-  /**
-   * Configure PostCSS.
-   *
-   * If you prefer, you may utilize a postcss.config.js file in the project root,
-   * either alongside or in lieue of this configuration.
-   *
-   * Conflicts between supplied configs will be resolved in favor of bud.config.js.
-   *
-   * @param  {object.<array, array>} {@link https://github.com/postcss/postcss#options}
-   * @return {object.<bud>} bud instance
-   */
-  const postCss = ({enabled = true, ...config}) => {
-    ! enabled
-      ? bud.features.postCss = enabled
-      : bud.options.postCss = {
-          ...bud.options.postCss,
-          ...(config ? config : []),
-          plugins: [
-            ...bud.options.postCss.plugins,
-            ...(config.plugins ? config.plugins : []),
-          ],
-        }
+const postCss = function (options) {
+  this.features.postCss = options.enabled
+    ? options.enabled
+    : true
+  this.features.postCss &&
+    Object.assign(this.options.postCss, {
+      ...this.options.postCss,
+      plugins: [
+        ...this.options.postCss.plugins,
+        ...(options.plugins ? options.plugins : []),
+      ],
+    })
 
-    return bud
-  }
-
-  return postCss
+  return this
 }
 
-export {makePostCss}
+export {postCss}

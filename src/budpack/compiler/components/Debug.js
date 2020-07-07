@@ -12,13 +12,13 @@ const Debug = ({actions, config}) => {
   return (
     <Box
       display={
-        isFocused && config?.features?.debug ? 'flex' : 'none'
+        isFocused && config?.features?.debug
+          ? 'flex'
+          : 'none'
       }
       flexDirection="column">
       <Text>
-        {highlight(
-          JSON.stringify({config}, null, 4),
-        )}
+        {highlight(JSON.stringify({config}, null, 4))}
       </Text>
     </Box>
   )

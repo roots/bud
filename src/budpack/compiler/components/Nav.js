@@ -57,20 +57,21 @@ const Nav = ({build, focused, config}) => (
       </Text>
     </Box>
 
-    {!config?.features?.debug && config?.features?.browserSync?.enabled && (
-      <>
-        <Spacer />
-        <Box>
-          <Text
-            color={
-              focused?.browserSync ? 'white' : '#6C758F'
-            }>
-            <Bullet active={focused?.browserSync} />{' '}
-            BrowserSync
-          </Text>
-        </Box>
-      </>
-    )}
+    {!config?.features?.debug &&
+      config?.features?.browserSync?.enabled && (
+        <>
+          <Spacer />
+          <Box>
+            <Text
+              color={
+                focused?.browserSync ? 'white' : '#6C758F'
+              }>
+              <Bullet active={focused?.browserSync} />{' '}
+              BrowserSync
+            </Text>
+          </Box>
+        </>
+      )}
 
     {config?.features?.debug && (
       <>

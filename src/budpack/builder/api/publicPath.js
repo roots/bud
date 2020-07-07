@@ -1,27 +1,17 @@
 import {join} from 'path'
 
 /**
- * Set project public dir.
+ * Set the project public path.
  *
- * @typedef {func.<makePublicPath>}
- * @param   {object.<bud>}
- * @return  {void}
+ * @typedef {function} publicPath
+ * @this    {bud}
+ * @param   {string} dir - public path of project
+ * @return  {bud}
  */
-const makePublicPath = bud => {
-  /**
-   * Set the project public path.
-   *
-   * @typedef {func.<publicPath>}
-   * @param   {string} dir - public path of project
-   * @return  {object.<bud>}
-   */
-  const publicPath = dir => {
-    bud.paths.public = dir
+const publicPath = dir => {
+  this.paths.public = dir
 
-    return bud
-  }
-
-  return publicPath
+  return this
 }
 
-export {makePublicPath}
+export {publicPath}

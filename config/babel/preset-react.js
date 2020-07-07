@@ -4,7 +4,7 @@
 
 module.exports = () => ({
   presets: [
-		require('./preset-standard'),
+    require('./preset-standard'),
     require('@babel/preset-react'),
   ],
 })

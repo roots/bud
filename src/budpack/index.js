@@ -35,9 +35,7 @@ const runnerProps = {
 /**
  * Run the compiler.
  */
-const app = render(
-  React.createElement(Runner, runnerProps)
-)
+const app = render(React.createElement(Runner, runnerProps))
 
 /**
  * Kill the application on unhandled rejections.

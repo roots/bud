@@ -1,25 +1,16 @@
 import {join} from 'path'
 
 /**
- * @typedef {func.<makeDistPath>} makeDistPath
- * @param   {Object.<Bud>} bud - Builder instance
- * @return  {void}
+ * Set the project's dist directory.
+ * @example bud.distPath('dist') // default unless specified
+ * @typedef {function (dir: {string}) => {bud: import('./../index')}} distPath
+ * @param   {string} dir - path of dist directory relative to the project root.
+ * @return  {import('./../index')} bud
  */
-const makeDistPath = bud => {
-  /**
-   * Construct an absolute path from a path segment that is relative to dist.
-   *
-   * @typedef {func.<distPath>}
-   * @param   {string} dir - path of asset relative to dist dir.
-   * @return  {Object.<Bud>}
-   */
-  const distPath = dir => {
-    bud.paths.dist = join(bud.paths.project, dir)
+const distPath = dir => {
+  this.paths.dist = join(this.paths.project, dir)
 
-    return bud
-  }
-
-  return distPath
+  return this
 }
 
-export {makeDistPath}
+export {distPath}

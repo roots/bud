@@ -1,29 +1,18 @@
 /**
- * API builder: bundle
- *
- * @type   {func.<makeBundle>}
- * @param  {object.<bud>}
- * @return {func.<bundle>}
+ * Compile a group of assets.
+ * @example bud.bundle('app', [bud.src('app.js'), bud.src('app.css')])
+ * @typedef {function (name: {string}, entries: {string}[]) => {bud: import('./../index')}} bundle
+ * @param   {string} name - output name.
+ * @param   {array}  entries - array of src assets to include in the bundle.
+ * @return  {import('./../index')} bud
  */
-const makeBundle = bud => {
-  /**
-   * Bundle assets
-   *
-   * @typedef {func.<bundle>}
-   * @param  {string} name - output name.
-   * @param  {array}  entries - array of src assets to include in the bundle.
-   * @return {object.<bud>}
-   */
-  const bundle = (to, from) => {
-    bud.options.entry = {
-      ...bud.options.entry,
-      [`${to}`]: from,
-    }
-
-    return bud
+const bundle = function (name, entries) {
+  this.options.entry = {
+    ...this.options.entry,
+    [`${name}`]: entries,
   }
 
-  return bundle
+  return this
 }
 
-export {makeBundle}
+export {bundle}

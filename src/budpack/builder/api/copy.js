@@ -1,25 +1,16 @@
 /**
- * API builder: makeCopy
- *
- * @type   {func.<makeCopy>}
- * @param  {object.<bud>}
- * @return {void}
+ * Copy a file.
+ * @namespace bud
+ * @example   bud.copy(bud.src('images/image.png'), bud.dist('image.png'))
+ * @typedef   {function (from: {string}, to: {string}) => {bud: import('./../index.js')}} copy
+ * @param     {string} src - path to copy from
+ * @param     {string} dist - path to copy to
+ * @return    {import('./../index.js')} bud
  */
-const makeCopy = bud => {
-  /**
-   * Copy a file from a src to dist.
-   * @typedef {func.<copy>}  copy
-   * @param   {string}       src - copy from
-   * @param   {string}       dist - copy to
-   * @return  {object.<bud>} bud instance
-   */
-  const copy = (from, to = null) => {
-    bud.options.copy.patterns.push({from, to})
+const copy = (from, to) => {
+  this.options.copy.patterns.push({from, to})
 
-    return bud
-  }
-
-  return copy
+  return this
 }
 
-export {makeCopy}
+export {copy}

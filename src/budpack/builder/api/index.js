@@ -1,57 +1,62 @@
 /** Path setters */
-import {makeProjectPath} from './projectPath'
-import {makeDistPath} from './distPath'
-import {makeSrcPath} from './srcPath'
-import {makePublicPath} from './publicPath'
+import {projectPath} from './projectPath'
+import {distPath} from './distPath'
+import {publicPath} from './publicPath'
+import {srcPath} from './srcPath'
 
 /** Path helpers */
-import {makeDist} from './dist'
-import {makeProject} from './project'
-import {makeSrc} from './src'
-import {makePreset} from './preset'
+import {dist} from './dist'
+import {project} from './project'
+import {preset} from './preset'
+import {src} from './src'
 
 /** Options */
-import {makeAlias} from './alias'
-import {makeAuto} from './auto'
-import {makeBabel} from './babel'
-import {makeBundle} from './bundle'
-import {makeCopy} from './copy'
-import {makeCopyAll} from './copyAll'
-import {makeDependencyManifest} from './dependencyManifest'
-import {makeHash} from './hash'
-import {makeHot} from './hot'
-import {makeInlineManifest} from './inlineManifest'
-import {makePostCss} from './postcss'
-import {makePurge} from './purge'
-import {makeSync} from './sync'
-import {makeTranslate} from './translate'
+import {alias} from './alias'
+import {auto} from './auto'
+import {babel} from './babel'
+import {bundle} from './bundle'
+import {copy} from './copy'
+import {copyAll} from './copyAll'
+import {dependencyManifest} from './dependencyManifest'
+import {hash} from './hash'
+import {hot} from './hot'
+import {inlineManifest} from './inlineManifest'
+import {postCss} from './postcss'
+import {purge} from './purge'
+import {sync} from './sync'
+import {translate} from './translate'
 
 /**
- * Bud API builder methods
+ * Bud API methods
+ *
+ * @property {alias} alias
+ * @property {auto} auto
+ * @property {babel} babel
+ * @property {bundle} bundle
+ * @property {projectPath} projectPath
  */
-const generators = [
-  makeProjectPath,
-  makeDistPath,
-  makeSrcPath,
-  makePublicPath,
-  makeDist,
-  makeProject,
-  makeSrc,
-  makePreset,
-  makeAlias,
-  makeAuto,
-  makeBabel,
-  makeBundle,
-  makeCopy,
-  makeCopyAll,
-  makeDependencyManifest,
-  makeHash,
-  makeHot,
-  makeInlineManifest,
-  makePostCss,
-  makePurge,
-  makeSync,
-  makeTranslate,
+const api = [
+  projectPath,
+  distPath,
+  publicPath,
+  srcPath,
+  dist,
+  project,
+  src,
+  preset,
+  auto,
+  babel,
+  bundle,
+  copy,
+  copyAll,
+  dependencyManifest,
+  hash,
+  hot,
+  inlineManifest,
+  postCss,
+  purge,
+  sync,
+  translate,
 ]
 
-export default generators
+export {api}

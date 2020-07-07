@@ -2,27 +2,24 @@ import {join, resolve} from 'path'
 
 /**
  * Current working dir.
- *
- * @type {string}
+ * @typedef {string} projectDir
  */
 const projectDir = process.cwd()
 
 /**
  * Framework dir.
- *
- * @type {string}
+ * @typedef {string} frameworkDir
  */
 const frameworkDir = resolve(__dirname, './../../../..')
 
 /**
  * Paths
- *
- * @typedef  {Object.<paths>}
+ * @typedef  {object} paths
  * @property {string} framework - project root path
- * @property {string} project   - module root path
- * @property {string} src       - project src path
- * @property {string} dist      - project dist path
- * @property {string} public    - project public path
+ * @property {string} project - module root path
+ * @property {string} src - project src path
+ * @property {string} dist - project dist path
+ * @property {string} public - project public path
  */
 const paths = {
   project: projectDir,

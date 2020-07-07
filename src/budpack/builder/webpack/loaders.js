@@ -48,13 +48,17 @@ const css = ({src, postCss}, features) => ({
       loader: loaderModules.css,
       options: {url: false},
     },
-    ...(features.postCss && postCss.options ? [{
-      loader: loaderModules.postcss,
-      options: {
-        ...postCss.options,
-        importLoaders: 1,
-      },
-    }] : []),
+    ...(features.postCss && postCss.options
+      ? [
+          {
+            loader: loaderModules.postcss,
+            options: {
+              ...postCss.options,
+              importLoaders: 1,
+            },
+          },
+        ]
+      : []),
     {
       loader: loaderModules.resolveUrl,
       options: {
@@ -102,8 +106,12 @@ const loaders = ({features, options, configs}) => ({
   module: {
     strictExportPresence: true,
     rules: [
-      ...(features.eslint && configs.eslint ? [eslint(configs)] : []),
-      ...(features.babel && options.babel ? [babel(options)] : []),
+      ...(features.eslint && configs.eslint
+        ? [eslint(configs)]
+        : []),
+      ...(features.babel && options.babel
+        ? [babel(options)]
+        : []),
       css(options, features),
       images(),
       svg(options),
