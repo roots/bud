@@ -31,6 +31,8 @@ import {env} from './api/env'
 import {hash} from './api/hash'
 import {hot} from './api/hot'
 import {inlineManifest} from './api/inlineManifest'
+import {maps} from './api/maps'
+import {mini} from './api/mini'
 import {postCss} from './api/postcss'
 import {preset} from './api/preset'
 import {project} from './api/project'
@@ -46,7 +48,6 @@ import {vendor} from './api/vendor'
 import {watch} from './api/watch'
 
 /**
- * @type {Object} Bud
  * @constructor
  */
 const Bud = function () {
@@ -72,12 +73,14 @@ Bud.prototype.env = env
 Bud.prototype.hash = hash
 Bud.prototype.hot = hot
 Bud.prototype.inlineManifest = inlineManifest
+Bud.prototype.maps = maps
+Bud.prototype.mini = mini
 Bud.prototype.postCss = postCss
 Bud.prototype.preset = preset
-Bud.prototype.purge = purge
 Bud.prototype.project = project
 Bud.prototype.projectPath = projectPath
 Bud.prototype.publicPath = publicPath
+Bud.prototype.purge = purge
 Bud.prototype.setEnv = setEnv
 Bud.prototype.src = src
 Bud.prototype.srcPath = srcPath
@@ -90,8 +93,8 @@ Bud.prototype.watch = watch
  * @typedef  {object}  bud
  * @property {configs} configs
  * @property {features} features
- * @property {mode.inProduction} inProduction
- * @property {mode.mode} mode
+ * @property {inProduction} inProduction
+ * @property {mode} mode
  * @property {options} options
  * @property {paths} paths
  * @property {alias} alias
@@ -105,9 +108,11 @@ Bud.prototype.watch = watch
  * @property {dist} dist
  * @property {distPath} distPath
  * @property {env} env
- * @property {hash} hash
+ * @property {typeof import('./api/hash')} hash
  * @property {hot} hot
  * @property {inlineManifest} inlineManifest
+ * @property {maps} maps
+ * @property {mini} mini
  * @property {postCss} postCss
  * @property {preset} preset
  * @property {project} project
@@ -122,12 +127,10 @@ Bud.prototype.watch = watch
  * @property {vendor} vendor
  * @property {watch} watch
  */
-
 const bud = new Bud
 
 /**
  * Bud - Asset management framework
  * @exports {Bud} bud
  */
-
 module.exports = bud

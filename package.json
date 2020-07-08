@@ -18,14 +18,18 @@
   "scripts": {
     "ts": "tsc",
     "build": "babel src --out-dir=build",
-    "docs:api": "typedoc --out docs/ src/budpack/builder/api/ --mode file",
+    "docs:api": "typedoc src/budpack/builder/api/ --out docs/docs  --mode file --includeDeclarations --excludeExternals  --theme docusaurus2",
     "docs:readme": "bud generate readme",
     "lint": "npm-run-all -c lint:*",
     "lint:eslint": "eslint .",
     "lint:prettier": "prettier --write ."
   },
   "bin": "./bin/budpack.js",
-  "files": ["bin", "build", "config"],
+  "files": [
+    "bin",
+    "build",
+    "config"
+  ],
   "dependencies": {
     "@babel/core": "^7.10.4",
     "@babel/plugin-proposal-object-rest-spread": "^7.10.4",
@@ -115,6 +119,7 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.10.4",
-    "typedoc": "^0.17.8"
+    "typedoc": "^0.17.8",
+    "typedoc-plugin-markdown": "^2.3.1"
   }
 }

@@ -3,11 +3,9 @@
  * @example
  *  bud.alias({'scripts': bud.src('scripts')})
  *  ↪️ import 'scripts/myScript'
- * @memberof {typeof import('./../index')} Bud
  * @typedef {function ({[key: string]: directory: string[]}) => {bud: typeof import('./../index')}} alias
  * @param   {{[key: string]: {directory: string}}} options
- * @return  {typeof import('./../index')} Bud
- */
+ * @return  {typeof import('./../index')} bud */
 const alias = function (options) {
   this.options.alias = options
 

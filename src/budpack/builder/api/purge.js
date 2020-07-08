@@ -1,5 +1,4 @@
 import {isBoolean} from 'lodash'
-import {object} from 'prop-types'
 
 /**
  * Purge unused CSS from compiled stylesheets.
