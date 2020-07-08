@@ -32,6 +32,7 @@ import {project} from './api/project'
 import {projectPath} from './api/projectPath'
 import {publicPath} from './api/publicPath'
 import {purge} from './api/purge'
+import {setEnv} from './api/setEnv'
 import {src} from './api/src'
 import {srcPath} from './api/srcPath'
 import {sync} from './api/sync'
@@ -58,6 +59,7 @@ bud.prototype.copyAll = copyAll
 bud.prototype.dependencyManifest = dependencyManifest
 bud.prototype.dist = dist
 bud.prototype.distPath = distPath
+bud.prototype.env = env
 bud.prototype.hash = hash
 bud.prototype.hot = hot
 bud.prototype.inlineManifest = inlineManifest
@@ -65,6 +67,7 @@ bud.prototype.postCss = postCss
 bud.prototype.preset = preset
 bud.prototype.purge = purge
 bud.prototype.project = project
+bud.prototype.setEnv = setEnv
 bud.prototype.src = src
 bud.prototype.srcPath = srcPath
 bud.prototype.sync = sync

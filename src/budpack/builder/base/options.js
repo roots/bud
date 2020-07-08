@@ -1,8 +1,18 @@
+import {join} from 'path'
+import dotenv from 'dotenv'
+
+import {paths} from './paths'
 import {loaders} from './loaders'
 
 /**
+ * Environment variables container.
+ * @typedef {Object} env
+ */
+const env = dotenv.config({path: join(paths.project, '.env')})
+
+/**
  * Options container.
- * @typedef  {Object.<options>}
+ * @typedef {Object} options
  */
 const options = {
   ...loaders,
@@ -27,7 +37,7 @@ const options = {
   },
   devtool: 'cheap-module-source-map',
   entry: {},
-  groups: [],
+  env: env.parsed,
   inlineManifest: {
     name: 'runtime',
   },

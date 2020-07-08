@@ -4,11 +4,11 @@ const DependencyExtractionPlugin = require('@wordpress/dependency-extraction-web
 const ManifestPlugin = require('webpack-manifest-plugin')
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const {
+  DefinePlugin,
   LimitChunkCountPlugin,
   HotModuleReplacementPlugin,
   NoEmitOnErrorsPlugin,
   ProvidePlugin,
-  optimize,
 } = require('webpack')
 const WriteFilePlugin = require('write-file-webpack-plugin')
 const CopyPlugin = require('copy-webpack-plugin')
@@ -35,6 +35,7 @@ const plugins = ({options, features, paths}) => {
         writeToFileEmit: true,
         publicPath: `${paths.public}/`,
       }),
+      ...(options.env ? [new DefinePlugin(options.env)] : []),
     ],
   }
 
