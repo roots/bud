@@ -6,16 +6,16 @@ export type copyAll = (arg0: any, arg1: {
 }, arg2: any, arg3: {
     string;
 }) => {
-    bud: import('./../index');
+    bud: typeof import('./../index');
 };
 /**
  * Copy all files from a specified source to a specified destination.
  * @namespace bud
  * @example   bud.copyAll(bud.src('images'), bud.dist('images'))
- * @typedef   {function (src: {string}, dest: {string}) => {bud: import('./../index')}} copyAll
+ * @typedef   {function (src: {string}, dest: {string}) => {bud: typeof import('./../index')}} copyAll
  * @param     {string} src  - origin dir
  * @param     {string} dest - destination dir
- * @return    {import('./../index')} bud
+ * @return    {typeof import('./../index')} bud
  */
-export function copyAll(src: string, dest: string): import('./../index');
+export function copyAll(src: string, dest: string): typeof import('./../index');
 //# sourceMappingURL=copyAll.d.ts.map

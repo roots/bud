@@ -18,7 +18,7 @@
   "scripts": {
     "ts": "tsc",
     "build": "babel src --out-dir=build",
-    "docs:api": "typedoc --out docs/ src/budpack/builder/ --mode file",
+    "docs:api": "typedoc --out docs/ src/budpack/builder/api/ --mode file",
     "docs:readme": "bud generate readme",
     "lint": "npm-run-all -c lint:*",
     "lint:eslint": "eslint .",

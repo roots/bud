@@ -2,7 +2,7 @@
  * Debug mode
  * @typedef {func.<debug>} debug
  * @param   {boolean}      enabled - true to enable debug mode
- * @return  {object.<bud>} bud instance
+ * @return  {typeof import('./../index')} bud
  */
 const debug = debug => {
   bud.options.debug = debug
@@ -14,7 +14,7 @@ const debug = debug => {
  * Development mode
  * @typedef {func.<dev>}   dev
  * @param   {Object}       options
- * @return  {object.<bud>} bud instance
+ * @return  {typeof import('./../index')} bud
  */
 const dev = options => {
   bud.options.dev = {
@@ -26,22 +26,10 @@ const dev = options => {
 }
 
 /**
- * Specify webpack devtool
- * @typedef {func.<devtool>} devtool
- * @param   {string}         devtool - webpack devtool to utilize
- * @return  {object.<bud>}   bud instance
- */
-const devtool = devtool => {
-  bud.options.devtool = devtool
-
-  return bud
-}
-
-/**
  * Enable or disable source-maps
  * @typedef {func.<maps>}  maps
  * @param   {boolean}      mapsEnabled - true to enable source-maps. default: !bud.inProduction.
- * @return  {object.<bud>} bud instance
+ * @return  {typeof import('./../index')} bud
  */
 const maps = enabled => {
   bud.options.mapped = enabled
@@ -53,7 +41,7 @@ const maps = enabled => {
  * Set maxChunks for code splitting
  * @typedef {func.<maxChunks>} maxChunks
  * @param   {number|string}    chunkCount - maximum number of chunks. default: 'Infinity'.
- * @return  {object.<bud>}     bud instance
+ * @return  {typeof import('./../index')}     bud
  */
 const maxChunks = chunkCount => {
   bud.options.splitting.maxChunks = chunkCount
@@ -65,7 +53,7 @@ const maxChunks = chunkCount => {
  * Enable or disable minification
  *
  * @param  {bool} [bud.inProduction] true to enable CSS/JS minification.
- * @return {object.<bud>} bud instance
+ * @return {typeof import('./../index')} bud
  */
 const mini = enable => {
   bud.options.minified = enable
@@ -77,7 +65,7 @@ const mini = enable => {
  * Enable or disable code splitting.
  *
  * @param  {bool} [true]  enabled
- * @return {object.<bud>} bud instance
+ * @return {typeof import('./../index')} bud
  */
 const splitting = enabled => {
   bud.options.splitting.disabled = enabled
@@ -89,7 +77,7 @@ const splitting = enabled => {
  * Enable or disable vendor bundles.
  *
  * @param  {bool}  [true] true if enabled
- * @return {object.<bud>} bud instance
+ * @return {typeof import('./../index')} bud
  */
 const vendor = enabled => {
   bud.options.vendor = enabled
@@ -101,7 +89,7 @@ const vendor = enabled => {
  * Enable or disable watch mode.
  * @typedef {func.<watch>} watch
  * @param   {bool}         true - if enabled
- * @return  {object.<bud>} bud instance
+ * @return  {typeof import('./../index')} bud
  */
 const watch = enabled => {
   bud.options.watching = enabled
@@ -113,7 +101,7 @@ const watch = enabled => {
  * Watch mode timeout
  * @typedef {func.<watchTimeout} watchTimeout
  * @param   {number}             timeout - in ms
- * @return  {object.<bud>}       bud instance
+ * @return  {typeof import('./../index')}       bud
  */
 const watchTimeout = timeout => {
   bud.options.dev.watchOptions.aggregateTimeout = timeout

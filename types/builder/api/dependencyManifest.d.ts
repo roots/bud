@@ -11,13 +11,13 @@ export type dependencyManifest = (arg0: {
     requestToExternal: Function;
     requestToHandle: Function;
 }) => {
-    bud: import('./../index');
+    bud: typeof import('./../index');
 };
 /**
  * Make a manifest of @wordpress dependencies utilized by entrypoints.
  * @see     https://git.io/JJLxM
  * @example bud.dependencyManifest({outputFormat: 'js', injectPolyfill: false})
- * @typedef {function ({enabled?: boolean, outputFormat: string, combineAssets: boolean, combinedOutputFile: string, useDefaults: boolean, injectPolyfill: boolean, requestToExternal: Function, requestToHandle: Function}) => {bud: import('./../index')}} dependencyManifest
+ * @typedef {function ({enabled?: boolean, outputFormat: string, combineAssets: boolean, combinedOutputFile: string, useDefaults: boolean, injectPolyfill: boolean, requestToExternal: Function, requestToHandle: Function}) => {bud: typeof import('./../index')}} dependencyManifest
  * @param   {{enabled?: boolean, outputFormat: string, combineAssets: boolean, combinedOutputFile: string, useDefaults: boolean, injectPolyfill: boolean, requestToExternal: Function, requestToHandle: Function}} settings
  * @param   {boolean} settings.enabled - true to enable manifest generation
  * @param   {string}  settings.outputFormat - either 'php' or 'js'
@@ -27,7 +27,7 @@ export type dependencyManifest = (arg0: {
  * @param   {boolean} settings.injectPolyfill - Force @wordpress/polyfill to be included in each entry point's dependency list.
  * @param   {Function} settings.requestToExternal - requestToExternal provided via configuration has precedence over default external handling.
  * @param   {Function} settings.requestToHandle - requestToHandle allows the script handle included in the dependency list to be customized.
- * @return  {import('./../index')} bud
+ * @return  {typeof import('./../index')} bud
  */
 export function dependencyManifest(settings?: {
     enabled?: boolean;
@@ -38,5 +38,5 @@ export function dependencyManifest(settings?: {
     injectPolyfill: boolean;
     requestToExternal: Function;
     requestToHandle: Function;
-}): import('./../index');
+}): typeof import('./../index');
 //# sourceMappingURL=dependencyManifest.d.ts.map

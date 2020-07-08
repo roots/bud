@@ -18,7 +18,7 @@ export type purge = (arg0: {
     whitelistPatterns?: RegExp[];
     whitelistPatternsChildren?: RegExp[];
 }) => {
-    bud: import('./../index');
+    bud: typeof import('./../index');
 };
 /**
  * Purge unused CSS from compiled stylesheets.
@@ -31,7 +31,7 @@ export type purge = (arg0: {
  *   allow: require('purgecss-with-wordpress').whitelist,
  *   allowPatterns: require('purgecss-with-wordpress').whitelistPatterns,
  * })
- * @typedef {function ({enabled: boolean, content: Object, css: Object, defaultExtractor?: Function, extractors?: array, fontFace: boolean, keyframes: boolean, output: string, rejected: boolean, stdin?: boolean, stdout?: boolean, variables?: boolean, whitelist?: string[], whitelistPatterns?: RegExp[], whitelistPatternsChildren?: RegExp[] }) => {bud: import('./../index')}} purge
+ * @typedef {function ({enabled: boolean, content: Object, css: Object, defaultExtractor?: Function, extractors?: array, fontFace: boolean, keyframes: boolean, output: string, rejected: boolean, stdin?: boolean, stdout?: boolean, variables?: boolean, whitelist?: string[], whitelistPatterns?: RegExp[], whitelistPatternsChildren?: RegExp[] }) => {bud: typeof import('./../index')}} purge
  * @param   {{enabled: boolean, content: Object, css: Object, defaultExtractor?: Function, extractors?: array, fontFace: boolean, keyframes: boolean, output: string, rejected: boolean, stdin?: boolean, stdout?: boolean, variables?: boolean, whitelist?: string[], whitelistPatterns?: RegExp[], whitelistPatternsChildren?: RegExp[] }} options - purge options
  * @param   {boolean}  options.enabled - true to enable purgecss
  * @param   {Object}   options.content
@@ -48,7 +48,7 @@ export type purge = (arg0: {
  * @param   {string}   options.whitelist
  * @param   {RegExp[]} options.whitelistPatterns
  * @param   {RegExp[]} options.whitelistPatternsChildren
- * @return  {import('./../index')} bud
+ * @return  {typeof import('./../index')} bud
  */
 export function purge(options: {
     enabled: boolean;
@@ -66,5 +66,5 @@ export function purge(options: {
     whitelist?: string[];
     whitelistPatterns?: RegExp[];
     whitelistPatternsChildren?: RegExp[];
-}): import('./../index');
+}): typeof import('./../index');
 //# sourceMappingURL=purge.d.ts.map

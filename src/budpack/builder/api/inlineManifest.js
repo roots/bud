@@ -1,13 +1,13 @@
 /**
  * Make a chunk to be inlined directly on the page for optimal code splitting.
  *
- * @typedef {function({enabled: boolean, name: string}): {bud: import('./../index')}} inlineManifest
+ * @typedef {function({enabled: boolean, name: string}): {bud: typeof import('./../index')}} inlineManifest
  * @example bud.inlineManifest({name: 'runtime'})
  * @example bud.inlineManifest() // defaults: enabled, runtime
  * @param {{enabled: boolean, name: string}} options
  * @param {boolean} enabled
  * @param {string} name
- * @return {import('./../index')} bud
+ * @return {typeof import('./../index')} bud
  */
 const inlineManifest = function ({
   enabled = true,

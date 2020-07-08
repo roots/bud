@@ -2,10 +2,13 @@
  * Bud - Asset Management Framework
  */
 export type bud = {
-    configs: configs;
+    /**
+     * : typeof import('./base/configs')} configs
+     */
+    "": configs;
     features: features;
-    inProduction: inProduction;
-    mode: mode;
+    inProduction: any;
+    mode: any;
     options: options;
     paths: paths;
     alias: alias;
@@ -15,10 +18,11 @@ export type bud = {
     copy: copy;
     copyAll: copyAll;
     dependencyManifest: dependencyManifest;
+    devtool: any;
     dist: dist;
     distPath: distPath;
     env: env;
-    hash: hash;
+    hash: (enabled: boolean) => typeof import(".");
     hot: hot;
     inlineManifest: inlineManifest;
     postCss: postCss;
@@ -33,8 +37,6 @@ export type bud = {
 };
 import { configs } from "./base/configs";
 import { features } from "./base/features";
-import { inProduction } from "./base/mode";
-import { mode } from "./base/mode";
 import { options } from "./base/options";
 import { paths } from "./base/paths";
 import { alias } from "./api/alias";
@@ -47,7 +49,7 @@ import { dependencyManifest } from "./api/dependencyManifest";
 import { dist } from "./api/dist";
 import { distPath } from "./api/distPath";
 import { env } from "./api/env";
-import { hash } from "./api/hash";
+declare namespace ___Users_kellymears_code_projects_cli_bud_bud_support_src_budpack_builder_index_ { }
 import { hot } from "./api/hot";
 import { inlineManifest } from "./api/inlineManifest";
 import { postCss } from "./api/postcss";
@@ -59,4 +61,5 @@ import { src } from "./api/src";
 import { srcPath } from "./api/srcPath";
 import { sync } from "./api/sync";
 import { translate } from "./api/translate";
+export {};
 //# sourceMappingURL=index.d.ts.map

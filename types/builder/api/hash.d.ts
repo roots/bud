@@ -1,19 +1,9 @@
 /**
  * Enable or disable filename hashing of built assets. Unless specified, filename hashes will be created when running production builds.
- */
-export type hash = (arg0: any, arg1: {
-    boolean;
-}) => {
-    bud: {
-        import();
-    };
-};
-/**
- * Enable or disable filename hashing of built assets. Unless specified, filename hashes will be created when running production builds.
  * @example bud.hash(true) // enable
- * @typedef {function (enabled: {boolean}) => {bud: {import('./../index')}} hash
+ * @typedef {function (enabled: {boolean}) => {bud: {typeof import('./../index')}} hash
  * @param   {boolean} enabled - true to enable filename hashing.
- * @return  {import('./../index')} bud
+ * @return  {typeof import('./../index')} bud
  */
-export function hash(enabled: boolean): import('./../index');
+export function hash(enabled: boolean): typeof import('./../index');
 //# sourceMappingURL=hash.d.ts.map

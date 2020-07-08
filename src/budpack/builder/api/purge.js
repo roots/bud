@@ -12,7 +12,7 @@ import {object} from 'prop-types'
  *   allow: require('purgecss-with-wordpress').whitelist,
  *   allowPatterns: require('purgecss-with-wordpress').whitelistPatterns,
  * })
- * @typedef {function ({enabled: boolean, content: Object, css: Object, defaultExtractor?: Function, extractors?: array, fontFace: boolean, keyframes: boolean, output: string, rejected: boolean, stdin?: boolean, stdout?: boolean, variables?: boolean, whitelist?: string[], whitelistPatterns?: RegExp[], whitelistPatternsChildren?: RegExp[] }) => {bud: import('./../index')}} purge
+ * @typedef {function ({enabled: boolean, content: Object, css: Object, defaultExtractor?: Function, extractors?: array, fontFace: boolean, keyframes: boolean, output: string, rejected: boolean, stdin?: boolean, stdout?: boolean, variables?: boolean, whitelist?: string[], whitelistPatterns?: RegExp[], whitelistPatternsChildren?: RegExp[] }) => {bud: typeof import('./../index')}} purge
  * @param   {{enabled: boolean, content: Object, css: Object, defaultExtractor?: Function, extractors?: array, fontFace: boolean, keyframes: boolean, output: string, rejected: boolean, stdin?: boolean, stdout?: boolean, variables?: boolean, whitelist?: string[], whitelistPatterns?: RegExp[], whitelistPatternsChildren?: RegExp[] }} options - purge options
  * @param   {boolean}  options.enabled - true to enable purgecss
  * @param   {Object}   options.content
@@ -29,7 +29,7 @@ import {object} from 'prop-types'
  * @param   {string}   options.whitelist
  * @param   {RegExp[]} options.whitelistPatterns
  * @param   {RegExp[]} options.whitelistPatternsChildren
- * @return  {import('./../index')} bud
+ * @return  {typeof import('./../index')} bud
  */
 const purge = function (options) {
   isBoolean(options.enabled) &&

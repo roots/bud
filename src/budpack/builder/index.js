@@ -21,6 +21,7 @@ import {babel} from './api/babel'
 import {bundle} from './api/bundle'
 import {copy} from './api/copy'
 import {copyAll} from './api/copyAll'
+import {devtool} from './api/devtool'
 import {dist} from './api/dist'
 import {distPath} from './api/distPath'
 import {dependencyManifest} from './api/dependencyManifest'
@@ -44,19 +45,20 @@ import {translate} from './api/translate'
  * Bud - Asset Management Framework
  *
  * @typedef  {object} bud
- * @property {configs} configs
- * @property {features} features
- * @property {inProduction} inProduction
- * @property {mode} mode
- * @property {options} options
- * @property {paths} paths
- * @property {alias} alias
+ * @property {typeof import('./base/configs')} configs
+ * @property {typeof import('./base/features')} features
+ * @property {typeof import('./base/mode').inProduction} inProduction
+ * @property {typeof import('./base/mode').mode} mode
+ * @property {typeof import('./base/options')} options
+ * @property {typeof import('./base/paths')} paths
+ * @property {typeof import('./api/alias')} alias
  * @property {auto} auto
  * @property {babel} babel
  * @property {bundle} bundle
  * @property {copy} copy
  * @property {copyAll} copyAll
  * @property {dependencyManifest} dependencyManifest
+ * @property {devtool} devtool
  * @property {dist} dist
  * @property {distPath} distPath
  * @property {env} env
@@ -93,6 +95,7 @@ bud.prototype.bundle = bundle
 bud.prototype.copy = copy
 bud.prototype.copyAll = copyAll
 bud.prototype.dependencyManifest = dependencyManifest
+bud.prototype.devtool = devtool
 bud.prototype.dist = dist
 bud.prototype.distPath = distPath
 bud.prototype.env = env

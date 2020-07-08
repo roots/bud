@@ -1,20 +1,20 @@
 /**
- * - true if build is running in production mode
+ * : boolean} inProduction - true if build is running in production mode
  */
-export type inProduction = boolean;
+export type inProduction = any;
 /**
- * Build mode
+ * : string} mode - 'production'|'development'
  */
-export type mode = string;
+export type mode = any;
 import { argv } from "yargs";
 /**
  * inProduction
- * @typedef {boolean} inProduction - true if build is running in production mode
+ * @typedef {inProduction: boolean} inProduction - true if build is running in production mode
  */
 export const inProduction: boolean;
 /**
  * Build mode
- * @typedef {string} mode
+ * @typedef {mode: string} mode - 'production'|'development'
  */
 export const mode: unknown;
 export { argv };

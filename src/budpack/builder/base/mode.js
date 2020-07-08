@@ -2,13 +2,13 @@ import {argv} from 'yargs'
 
 /**
  * Build mode
- * @typedef {string} mode
+ * @typedef {mode: string} mode - 'production'|'development'
  */
 const mode = argv?.env ? argv.env : 'production'
 
 /**
  * inProduction
- * @typedef {boolean} inProduction - true if build is running in production mode
+ * @typedef {inProduction: boolean} inProduction - true if build is running in production mode
  */
 const inProduction = mode == 'production'
 

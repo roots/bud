@@ -11,7 +11,7 @@ export type babel = (arg0: {
     presets: any[];
     plugins: any[];
 }) => {
-    bud: import('./../index');
+    bud: typeof import('./../index');
 };
 /**
  * Configure Babel.
@@ -23,16 +23,16 @@ export type babel = (arg0: {
  *
  * @see https://babeljs.io/docs/en/configuration
  *
- * @typedef {function ({enabled: boolean, presets: any[], plugins: any[]}) => {bud: import('./../index')}} babel
+ * @typedef {function ({enabled: boolean, presets: any[], plugins: any[]}) => {bud: typeof import('./../index')}} babel
  * @param   {{enabled: boolean, presets: any[], plugins: any[]}} options
  * @param   {boolean}  options.enabled
  * @param   {any[]}    options.plugins
  * @param   {any[]}    options.presets
- * @return  {import('./../index')}
+ * @return  {typeof import('./../index')} bud
  */
 export function babel(options: {
     enabled: boolean;
     presets: any[];
     plugins: any[];
-}): import('./../index');
+}): typeof import('./../index');
 //# sourceMappingURL=babel.d.ts.map
