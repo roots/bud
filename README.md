@@ -2,6 +2,13 @@
   <img alt="Bud" src="https://cdn.roots.io/app/uploads/logo-bud.svg" height="100">
 </p>
 
+<p align="center">
+  <img alt="MIT License" src="https://img.shields.io/github/license/?color=%23525ddc&style=flat-square">
+  <a href="https://twitter.com/rootswp">
+    <img alt="Follow Roots" src="https://img.shields.io/twitter/follow/rootswp.svg?style=flat-square&color=1da1f2" />
+  </a>
+</p>
+
 <h1 align="center">
   <strong>@roots/bud-support</strong>
 </h1>
@@ -9,89 +16,6 @@
 ## Overview
 
 This repository provides supporting client and server-side utilities to the main Bud CLI and the output it generates. [You may be looking for the main repository](https://github.com/roots/bud).
-
-## Budpack example
-
-```js
-/**
- * Budpack configuration [bud.config.js]
- *
- * Default values noted below.
- *
- * If no additional configuration is needed
- * then you need only utilize bud.entry to have a
- * working config.
- *
- * Any deviation from default is only intended to
- * more clearly demonstrate the API and these deviations
- * are flagged with an inline comment.
- */
-
-const bud = require('@roots/budpack/build/budpack/bud');
-
-bud.projectPath(__dirname)
-.publicPath('app/plugins/demo')
-.srcPath('resources/assets')
-.distPath('dist')
-
-.dev({
-  host: 'localhost',
-  port: 3000,
-  headers: {
-    'Access-Control-Allow-Origin': '*',
-  },
-  disableHostCheck: true,
-})
-
-.watchTimeout(300)
-
-.alias({
-  '@scripts': bud.project('resources/assets/scripts')
-})
-
-.entry('app', [
-  bud.src('scripts/app.js'),
-  bud.src('styles/app.css'),
-]) // default: no entrypoints
-
-.copy('resources/assets/images'),
-
-// @see @wordpress/dependency-extraction-manifest-plugin
-.wpManifest({
-  useDefaults: true,
-  injectPolyfill: false,
-  outputFormat: 'json',
-})
-
-.babel({
-  react: false,
-  dynamicImport: true,
-  cacheDirectory: true,
-  transformRuntime: false,
-})
-
-.eslint({enabled: true})
-.postcss({enabled: true})
-
-.vendor(true)
-.splitting(true)
-.maxChunks(3) // default void
-
-.hash(bud.inProduction)
-.maps(! bud.inProduction)
-.mini(bud.inProduction)
-.hot(! bud.inProduction)
-.watch(! bud.inProduction)
-
-.svg({
-  use: [
-    '@svgr/webpack',
-    'url-loader',
-  ],
-})
-
-module.exports = bud
-```
 
 ## Contributing
 
