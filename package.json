@@ -1,6 +1,6 @@
 {
   "name": "@roots/budpack",
-  "version": "0.0.19",
+  "version": "0.0.20",
   "repository": {
     "type": "git",
     "url": "git://github.com/roots/bud-support.git"
@@ -14,8 +14,9 @@
   "engines": {
     "node": ">=12"
   },
-  "main": "build/budpack/bud.js",
+  "main": "build/budpack/builder",
   "scripts": {
+    "ts": "tsc",
     "build": "babel src --out-dir=build",
     "docs": "bud generate readme",
     "lint": "npm-run-all -c lint:*",
@@ -41,10 +42,15 @@
     "@babel/traverse": "^7.10.4",
     "@fullhuman/postcss-purgecss": "^2.3.0",
     "@svgr/webpack": "^5.4.0",
+    "@types/jest": "^26.0.3",
+    "@types/node": "^14.0.14",
+    "@types/react": "^16.9.41",
+    "@types/react-dom": "^16.9.8",
     "@wordpress/babel-plugin-makepot": "^3.7.0",
     "@wordpress/browserslist-config": "^2.7.0",
     "@wordpress/dependency-extraction-webpack-plugin": "^2.8.0",
     "autoprefixer": "^9.8.0",
+    "awesome-typescript-loader": "^5.2.1",
     "babel-eslint": "^10.1.0",
     "babel-loader": "^8.1.0",
     "babel-plugin-emotion": "^10.0.33",
@@ -57,6 +63,7 @@
     "cross-env": "^7.0.2",
     "css-loader": "^3.6.0",
     "cssnano": "^4.1.10",
+    "dotenv": "^8.2.0",
     "eslint": "^7.2.0",
     "eslint-loader": "^4.0.2",
     "eslint-plugin-import": "^2.22.0",
@@ -94,9 +101,11 @@
     "react-dom": "^16.13.1",
     "resolve-url-loader": "^3.1.1",
     "sass-loader": "^8.0.2",
+    "source-map-loader": "^1.0.1",
     "style-loader": "^1.2.1",
     "stylelint": "^13.6.0",
     "stylelint-config-standard": "^20.0.0",
+    "typescript": "^3.9.6",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "url-loader": "^4.1.0",
     "use-global-hook": "^0.1.12",
@@ -108,6 +117,7 @@
     "yargs": "^15.3.1"
   },
   "devDependencies": {
-    "@babel/cli": "^7.10.4"
+    "@babel/cli": "^7.10.4",
+    "typedoc": "^0.17.8"
   }
 }
