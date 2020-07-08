@@ -10,7 +10,6 @@ import useFocusState from './hooks/useFocusState'
 import App from './components/App'
 import Assets from './components/Assets'
 import BrowserSync from './components/BrowserSync'
-import Debug from './components/Debug'
 import Errors from './components/Errors'
 import Warnings from './components/Warnings'
 
@@ -26,7 +25,7 @@ const successfulBuild = build =>
  * @prop {string} config   webpack compiler config
  * @prop {object} options  project options
  */
-const Runner = ({compiler, webpackConfig, config}) => {
+const Runner = ({compiler, config}) => {
   const [width] = useStdOutDimensions()
   const [state, actions] = useFocusState()
   const {exit} = useApp()

@@ -2,7 +2,6 @@ import {join} from 'path'
 import webpack from 'webpack'
 import React from 'react'
 import {render} from 'ink'
-import patchConsole from 'patch-console'
 
 import {makeWebpackConfig} from './builder/webpack'
 import {Runner} from './compiler'
@@ -35,7 +34,7 @@ const runnerProps = {
 /**
  * Run the compiler.
  */
-const app = render(React.createElement(Runner, runnerProps))
+render(React.createElement(Runner, runnerProps))
 
 /**
  * Kill the application on unhandled rejections.

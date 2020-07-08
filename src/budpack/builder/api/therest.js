@@ -74,18 +74,6 @@ const splitting = enabled => {
 }
 
 /**
- * Enable or disable vendor bundles.
- *
- * @param  {bool}  [true] true if enabled
- * @return {typeof import('./../index')} bud
- */
-const vendor = enabled => {
-  bud.options.vendor = enabled
-
-  return bud
-}
-
-/**
  * Enable or disable watch mode.
  * @typedef {func.<watch>} watch
  * @param   {bool}         true - if enabled

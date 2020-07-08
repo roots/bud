@@ -7,5 +7,5 @@
  * @property {bundle} bundle
  * @property {projectPath} projectPath
  */
-export const api: any[];
+export const api: any[]
 //# sourceMappingURL=index.d.ts.map

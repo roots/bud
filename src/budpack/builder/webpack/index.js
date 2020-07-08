@@ -19,7 +19,6 @@ import resolve from './resolve'
  * @return {object}
  */
 const makeWebpackConfig = ({
-  inProduction,
   mode,
   configs,
   options,

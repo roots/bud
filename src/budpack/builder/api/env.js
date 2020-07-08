@@ -6,7 +6,9 @@
  * @return  {string}
  */
 const env = function (key) {
-  return this.options.env[key] ? this.options.env[key] : null
+  return this.options.env[key]
+    ? this.options.env[key]
+    : null
 }
 
 export {env}

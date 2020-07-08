@@ -57,13 +57,6 @@ declare function mini(enable: any): typeof import('./../index');
  */
 declare function splitting(enabled: any): typeof import('./../index');
 /**
- * Enable or disable vendor bundles.
- *
- * @param  {bool}  [true] true if enabled
- * @return {typeof import('./../index')} bud
- */
-declare function vendor(enabled: any): typeof import('./../index');
-/**
  * Enable or disable watch mode.
  */
 type watch = any;

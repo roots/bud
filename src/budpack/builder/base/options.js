@@ -8,7 +8,9 @@ import {loaders} from './loaders'
  * Environment variables container.
  * @typedef {Object} env
  */
-const env = dotenv.config({path: join(paths.project, '.env')})
+const env = dotenv.config({
+  path: join(paths.project, '.env'),
+})
 
 /**
  * Options container.

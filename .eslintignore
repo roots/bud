@@ -2,3 +2,5 @@ build
 templates
 bud-plugin
 vendor
+docs
+types

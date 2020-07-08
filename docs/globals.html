@@ -138,10 +138,10 @@
 				<section class="tsd-panel tsd-member tsd-kind-variable tsd-is-external">
 					<a name="bud" class="tsd-anchor"></a>
 					<h3><span class="tsd-flag ts-flagConst">Const</span> bud</h3>
-					<div class="tsd-signature tsd-kind-icon">bud<span class="tsd-signature-symbol">:</span> <a href="globals.html#bud" class="tsd-signature-type">Bud</a><span class="tsd-signature-symbol"> = new Bud</span></div>
+					<div class="tsd-signature tsd-kind-icon">bud<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = new Bud</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/index.js#L151">index.js:151</a></li>
+							<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/index.js#L126">index.js:126</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -216,6 +216,12 @@
 							<dd><p>{project} project</p>
 							</dd>
 							<dt>property</dt>
+							<dd><p>{projectPath} projectPath</p>
+							</dd>
+							<dt>property</dt>
+							<dd><p>{publicPath} publicPath</p>
+							</dd>
+							<dt>property</dt>
 							<dd><p>{purge} purge</p>
 							</dd>
 							<dt>property</dt>
@@ -236,6 +242,9 @@
 							<dt>property</dt>
 							<dd><p>{vendor} vendor</p>
 							</dd>
+							<dt>property</dt>
+							<dd><p>{watch} watch</p>
+							</dd>
 						</dl>
 					</div>
 				</section>
@@ -245,7 +254,7 @@
 					<div class="tsd-signature tsd-kind-icon">framework<wbr>Dir<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = resolve(__dirname, &#x27;./../../../..&#x27;)</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/paths.js#L13">base/paths.js:13</a></li>
+							<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/paths.js#L13">base/paths.js:13</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -260,7 +269,7 @@
 					<div class="tsd-signature tsd-kind-icon">in<wbr>Production<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = mode &#x3D;&#x3D; &#x27;production&#x27;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/mode.js#L13">base/mode.js:13</a></li>
+							<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/mode.js#L13">base/mode.js:13</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -275,7 +284,7 @@
 					<div class="tsd-signature tsd-kind-icon">mode<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">unknown</span><span class="tsd-signature-symbol"> = argv?.env ? argv.env : &#x27;production&#x27;</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/mode.js#L7">base/mode.js:7</a></li>
+							<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/mode.js#L7">base/mode.js:7</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -290,7 +299,7 @@
 					<div class="tsd-signature tsd-kind-icon">project<wbr>Dir<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = process.cwd()</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/paths.js#L7">base/paths.js:7</a></li>
+							<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/paths.js#L7">base/paths.js:7</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -312,13 +321,10 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/index.js#L55">index.js:55</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/index.js#L52">index.js:52</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
-								<div class="lead">
-									<p>Bud - asset management framework</p>
-								</div>
 							</div>
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">void</span></h4>
 						</li>
@@ -334,7 +340,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/api/alias.js#L11">api/alias.js:11</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/api/alias.js#L11">api/alias.js:11</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -382,7 +388,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/api/auto.js#L8">api/auto.js:8</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/api/auto.js#L8">api/auto.js:8</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -426,7 +432,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/api/babel.js#L18">api/babel.js:18</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/api/babel.js#L18">api/babel.js:18</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -474,7 +480,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/api/bundle.js#L9">api/bundle.js:9</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/api/bundle.js#L9">api/bundle.js:9</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -521,7 +527,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/configs.js#L11">base/configs.js:11</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/configs.js#L11">base/configs.js:11</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -555,7 +561,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/api/copy.js#L10">api/copy.js:10</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/api/copy.js#L10">api/copy.js:10</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -595,7 +601,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/api/copyAll.js#L11">api/copyAll.js:11</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/api/copyAll.js#L11">api/copyAll.js:11</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -642,7 +648,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/api/therest.js#L7">api/therest.js:7</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/api/therest.js#L7">api/therest.js:7</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -671,7 +677,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/api/dependencyManifest.js#L17">api/dependencyManifest.js:17</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/api/dependencyManifest.js#L17">api/dependencyManifest.js:17</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -734,7 +740,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/api/therest.js#L19">api/therest.js:19</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/api/therest.js#L19">api/therest.js:19</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -763,7 +769,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/api/devtool.js#L7">api/devtool.js:7</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/api/devtool.js#L7">api/devtool.js:7</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -793,7 +799,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/api/dist.js#L10">api/dist.js:10</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/api/dist.js#L10">api/dist.js:10</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -832,7 +838,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/api/distPath.js#L10">api/distPath.js:10</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/api/distPath.js#L10">api/distPath.js:10</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -871,7 +877,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/api/env.js#L8">api/env.js:8</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/api/env.js#L8">api/env.js:8</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -905,7 +911,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/configs.js#L20">base/configs.js:20</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/configs.js#L20">base/configs.js:20</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -939,7 +945,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/api/hash.js#L8">api/hash.js:8</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/api/hash.js#L8">api/hash.js:8</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -978,7 +984,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/api/hot.js#L8">api/hot.js:8</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/api/hot.js#L8">api/hot.js:8</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1017,7 +1023,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/api/inlineManifest.js#L12">api/inlineManifest.js:12</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/api/inlineManifest.js#L12">api/inlineManifest.js:12</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1062,7 +1068,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/api/projectPath.js#L9">api/projectPath.js:9</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/api/projectPath.js#L9">api/projectPath.js:9</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1095,7 +1101,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/api/therest.js#L34">api/therest.js:34</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/api/therest.js#L34">api/therest.js:34</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1124,7 +1130,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/api/therest.js#L46">api/therest.js:46</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/api/therest.js#L46">api/therest.js:46</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1158,7 +1164,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/api/therest.js#L58">api/therest.js:58</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/api/therest.js#L58">api/therest.js:58</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1187,7 +1193,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/api/postcss.js#L15">api/postcss.js:15</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/api/postcss.js#L15">api/postcss.js:15</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1227,7 +1233,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/api/preset.js#L11">api/preset.js:11</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/api/preset.js#L11">api/preset.js:11</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1269,7 +1275,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/api/project.js#L10">api/project.js:10</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/api/project.js#L10">api/project.js:10</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1308,7 +1314,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/api/publicPath.js#L10">api/publicPath.js:10</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/api/publicPath.js#L10">api/publicPath.js:10</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1342,7 +1348,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/api/purge.js#L34">api/purge.js:34</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/api/purge.js#L34">api/purge.js:34</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1439,7 +1445,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/api/setEnv.js#L8">api/setEnv.js:8</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/api/setEnv.js#L8">api/setEnv.js:8</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1482,7 +1488,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/api/therest.js#L70">api/therest.js:70</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/api/therest.js#L70">api/therest.js:70</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1511,7 +1517,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/api/src.js#L10">api/src.js:10</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/api/src.js#L10">api/src.js:10</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1550,7 +1556,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/api/srcPath.js#L10">api/srcPath.js:10</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/api/srcPath.js#L10">api/srcPath.js:10</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1584,7 +1590,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/api/sync.js#L20">api/sync.js:20</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/api/sync.js#L18">api/sync.js:18</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1657,7 +1663,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/api/translate.js#L12">api/translate.js:12</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/api/translate.js#L12">api/translate.js:12</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1693,19 +1699,17 @@
 					<h3><span class="tsd-flag ts-flagConst">Const</span> vendor</h3>
 					<ul class="tsd-signatures tsd-kind-function">
 						<li class="tsd-signature tsd-kind-icon">vendor<span class="tsd-signature-symbol">(</span>enabled<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span></li>
-						<li class="tsd-signature tsd-kind-icon">vendor<span class="tsd-signature-symbol">(</span>enabled<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">&quot;/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index&quot;</span></li>
 					</ul>
 					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/api/vendor.js#L9">api/vendor.js:9</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/api/vendor.js#L9">api/vendor.js:9</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Enable or disable vendor bundles.
-									Enable or disable vendor bundles.</p>
+									<p>Enable or disable vendor bundles.</p>
 								</div>
 								<dl class="tsd-comment-tags">
 									<dt>example</dt>
@@ -1727,22 +1731,27 @@
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">any</span></h4>
 							<p>bud</p>
 						</li>
+					</ul>
+				</section>
+				<section class="tsd-panel tsd-member tsd-kind-function">
+					<a name="watch" class="tsd-anchor"></a>
+					<h3><span class="tsd-flag ts-flagConst">Const</span> watch</h3>
+					<ul class="tsd-signatures tsd-kind-function">
+						<li class="tsd-signature tsd-kind-icon">watch<span class="tsd-signature-symbol">(</span>enabled<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">&quot;/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index&quot;</span></li>
+						<li class="tsd-signature tsd-kind-icon">watch<span class="tsd-signature-symbol">(</span>enabled<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">&quot;/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index&quot;</span></li>
+					</ul>
+					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/api/therest.js#L82">api/therest.js:82</a></li>
+									<li>Defined in api/watch.js:7</li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Enable or disable vendor bundles.
-									Enable or disable vendor bundles.</p>
+									<p>Enable or disable watch mode.
+									Enable or disable watch mode.</p>
 								</div>
-								<dl class="tsd-comment-tags">
-									<dt>example</dt>
-									<dd><p>bud.hash(true) // enable</p>
-									</dd>
-								</dl>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
 							<ul class="tsd-parameters">
@@ -1753,24 +1762,16 @@
 							<h4 class="tsd-returns-title">Returns <span class="tsd-signature-type">&quot;/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index&quot;</span></h4>
 							<p>bud</p>
 						</li>
-					</ul>
-				</section>
-				<section class="tsd-panel tsd-member tsd-kind-function">
-					<a name="watch" class="tsd-anchor"></a>
-					<h3><span class="tsd-flag ts-flagConst">Const</span> watch</h3>
-					<ul class="tsd-signatures tsd-kind-function">
-						<li class="tsd-signature tsd-kind-icon">watch<span class="tsd-signature-symbol">(</span>enabled<span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">any</span><span class="tsd-signature-symbol">)</span><span class="tsd-signature-symbol">: </span><span class="tsd-signature-type">&quot;/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index&quot;</span></li>
-					</ul>
-					<ul class="tsd-descriptions">
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/api/therest.js#L94">api/therest.js:94</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/api/therest.js#L82">api/therest.js:82</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
 								<div class="lead">
-									<p>Enable or disable watch mode.</p>
+									<p>Enable or disable watch mode.
+									Enable or disable watch mode.</p>
 								</div>
 							</div>
 							<h4 class="tsd-parameters-title">Parameters</h4>
@@ -1794,7 +1795,7 @@
 						<li class="tsd-description">
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/api/therest.js#L106">api/therest.js:106</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/api/therest.js#L94">api/therest.js:94</a></li>
 								</ul>
 							</aside>
 							<div class="tsd-comment tsd-typography">
@@ -1827,7 +1828,7 @@
 					<div class="tsd-signature tsd-kind-icon">configs<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/configs.js#L29">base/configs.js:29</a></li>
+							<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/configs.js#L29">base/configs.js:29</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1852,7 +1853,7 @@
 						<div class="tsd-signature tsd-kind-icon">babel<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol"> = hasConfig(&#x27;babel.config.js&#x27;)? config(&#x27;babel.config.js&#x27;): false</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/configs.js#L30">base/configs.js:30</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/configs.js#L30">base/configs.js:30</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -1862,7 +1863,7 @@
 						<div class="tsd-signature tsd-kind-icon">eslint<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol"> = hasConfig(&#x27;.eslintrc.js&#x27;)? config(&#x27;.eslintrc.js&#x27;): false</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/configs.js#L33">base/configs.js:33</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/configs.js#L33">base/configs.js:33</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -1872,7 +1873,7 @@
 						<div class="tsd-signature tsd-kind-icon">post<wbr>Css<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">false</span><span class="tsd-signature-symbol"> | </span><span class="tsd-signature-type">true</span><span class="tsd-signature-symbol"> = hasConfig(&#x27;postcss.config.js&#x27;)? config(&#x27;postcss.config.js&#x27;): false</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/configs.js#L36">base/configs.js:36</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/configs.js#L36">base/configs.js:36</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -1883,7 +1884,7 @@
 					<div class="tsd-signature tsd-kind-icon">features<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/features.js#L23">base/features.js:23</a></li>
+							<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/features.js#L23">base/features.js:23</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -1941,7 +1942,7 @@
 						<div class="tsd-signature tsd-kind-icon">babel<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = true</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/features.js#L24">base/features.js:24</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/features.js#L24">base/features.js:24</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -1951,7 +1952,7 @@
 						<div class="tsd-signature tsd-kind-icon">browser<wbr>Sync<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = !inProduction</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/features.js#L25">base/features.js:25</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/features.js#L25">base/features.js:25</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -1961,7 +1962,7 @@
 						<div class="tsd-signature tsd-kind-icon">debug<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/features.js#L26">base/features.js:26</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/features.js#L26">base/features.js:26</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -1971,7 +1972,7 @@
 						<div class="tsd-signature tsd-kind-icon">dependency<wbr>Manifest<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = true</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/features.js#L27">base/features.js:27</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/features.js#L27">base/features.js:27</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -1981,7 +1982,7 @@
 						<div class="tsd-signature tsd-kind-icon">eslint<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = true</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/features.js#L28">base/features.js:28</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/features.js#L28">base/features.js:28</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -1991,7 +1992,7 @@
 						<div class="tsd-signature tsd-kind-icon">hash<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = inProduction</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/features.js#L29">base/features.js:29</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/features.js#L29">base/features.js:29</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -2001,7 +2002,7 @@
 						<div class="tsd-signature tsd-kind-icon">hot<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = !inProduction</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/features.js#L30">base/features.js:30</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/features.js#L30">base/features.js:30</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -2011,7 +2012,7 @@
 						<div class="tsd-signature tsd-kind-icon">inline<wbr>Manifest<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/features.js#L31">base/features.js:31</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/features.js#L31">base/features.js:31</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -2021,7 +2022,7 @@
 						<div class="tsd-signature tsd-kind-icon">minified<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = inProduction</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/features.js#L32">base/features.js:32</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/features.js#L32">base/features.js:32</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -2031,7 +2032,7 @@
 						<div class="tsd-signature tsd-kind-icon">post<wbr>Css<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = true</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/features.js#L33">base/features.js:33</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/features.js#L33">base/features.js:33</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -2041,7 +2042,7 @@
 						<div class="tsd-signature tsd-kind-icon">purge<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = inProduction</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/features.js#L34">base/features.js:34</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/features.js#L34">base/features.js:34</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -2051,7 +2052,7 @@
 						<div class="tsd-signature tsd-kind-icon">source<wbr>Map<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = !inProduction</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/features.js#L35">base/features.js:35</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/features.js#L35">base/features.js:35</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -2061,7 +2062,7 @@
 						<div class="tsd-signature tsd-kind-icon">splitting<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = true</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/features.js#L36">base/features.js:36</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/features.js#L36">base/features.js:36</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -2071,7 +2072,7 @@
 						<div class="tsd-signature tsd-kind-icon">translate<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/features.js#L37">base/features.js:37</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/features.js#L37">base/features.js:37</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -2081,7 +2082,7 @@
 						<div class="tsd-signature tsd-kind-icon">vendor<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = true</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/features.js#L38">base/features.js:38</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/features.js#L38">base/features.js:38</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -2091,7 +2092,7 @@
 						<div class="tsd-signature tsd-kind-icon">watch<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = !inProduction</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/features.js#L39">base/features.js:39</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/features.js#L39">base/features.js:39</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -2102,7 +2103,7 @@
 					<div class="tsd-signature tsd-kind-icon">loaders<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/loaders.js#L12">base/loaders.js:12</a></li>
+							<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/loaders.js#L12">base/loaders.js:12</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -2116,7 +2117,7 @@
 						<div class="tsd-signature tsd-kind-icon">babel<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = babel ? require(babel) : schema.babel</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/loaders.js#L13">base/loaders.js:13</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/loaders.js#L13">base/loaders.js:13</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -2126,7 +2127,7 @@
 						<div class="tsd-signature tsd-kind-icon">post<wbr>Css<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">any</span><span class="tsd-signature-symbol"> = postCss ? require(postCss) : schema.postCss</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/loaders.js#L14">base/loaders.js:14</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/loaders.js#L14">base/loaders.js:14</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -2136,7 +2137,7 @@
 						<div class="tsd-signature tsd-kind-icon">svg<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/loaders.js#L15">base/loaders.js:15</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/loaders.js#L15">base/loaders.js:15</a></li>
 							</ul>
 						</aside>
 						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-external">
@@ -2145,7 +2146,7 @@
 							<div class="tsd-signature tsd-kind-icon">use<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = [require.resolve(&#x27;@svgr/webpack&#x27;),require.resolve(&#x27;url-loader&#x27;),]</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/loaders.js#L16">base/loaders.js:16</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/loaders.js#L16">base/loaders.js:16</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -2157,7 +2158,7 @@
 					<div class="tsd-signature tsd-kind-icon">options<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/options.js#L17">base/options.js:17</a></li>
+							<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/options.js#L19">base/options.js:19</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -2171,7 +2172,7 @@
 						<div class="tsd-signature tsd-kind-icon">auto<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{}</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/options.js#L19">base/options.js:19</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/options.js#L21">base/options.js:21</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-type-declaration">
@@ -2186,7 +2187,7 @@
 						<div class="tsd-signature tsd-kind-icon">devtool<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;cheap-module-source-map&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/options.js#L38">base/options.js:38</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/options.js#L40">base/options.js:40</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -2196,7 +2197,7 @@
 						<div class="tsd-signature tsd-kind-icon">entry<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{}</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/options.js#L39">base/options.js:39</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/options.js#L41">base/options.js:41</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-type-declaration">
@@ -2211,7 +2212,7 @@
 						<div class="tsd-signature tsd-kind-icon">env<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">DotenvParseOutput</span><span class="tsd-signature-symbol"> = env.parsed</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/options.js#L40">base/options.js:40</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/options.js#L42">base/options.js:42</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -2221,7 +2222,7 @@
 						<div class="tsd-signature tsd-kind-icon">browser<wbr>Sync<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/options.js#L20">base/options.js:20</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/options.js#L22">base/options.js:22</a></li>
 							</ul>
 						</aside>
 						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-external">
@@ -2230,7 +2231,7 @@
 							<div class="tsd-signature tsd-kind-icon">host<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;localhost&quot;</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/options.js#L21">base/options.js:21</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/options.js#L23">base/options.js:23</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -2240,7 +2241,7 @@
 							<div class="tsd-signature tsd-kind-icon">port<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;3000&quot;</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/options.js#L22">base/options.js:22</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/options.js#L24">base/options.js:24</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -2250,7 +2251,7 @@
 							<div class="tsd-signature tsd-kind-icon">proxy<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;&quot;</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/options.js#L23">base/options.js:23</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/options.js#L25">base/options.js:25</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -2261,7 +2262,7 @@
 						<div class="tsd-signature tsd-kind-icon">copy<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/options.js#L25">base/options.js:25</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/options.js#L27">base/options.js:27</a></li>
 							</ul>
 						</aside>
 						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-external">
@@ -2270,7 +2271,7 @@
 							<div class="tsd-signature tsd-kind-icon">patterns<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/options.js#L26">base/options.js:26</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/options.js#L28">base/options.js:28</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -2281,7 +2282,7 @@
 						<div class="tsd-signature tsd-kind-icon">dependency<wbr>Manifest<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/options.js#L47">base/options.js:47</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/options.js#L49">base/options.js:49</a></li>
 							</ul>
 						</aside>
 						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-external">
@@ -2290,7 +2291,7 @@
 							<div class="tsd-signature tsd-kind-icon">inject<wbr>Polyfill<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = false</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/options.js#L49">base/options.js:49</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/options.js#L51">base/options.js:51</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -2300,7 +2301,7 @@
 							<div class="tsd-signature tsd-kind-icon">output<wbr>Format<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;json&quot;</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/options.js#L50">base/options.js:50</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/options.js#L52">base/options.js:52</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -2310,7 +2311,7 @@
 							<div class="tsd-signature tsd-kind-icon">use<wbr>Defaults<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = true</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/options.js#L48">base/options.js:48</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/options.js#L50">base/options.js:50</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -2321,7 +2322,7 @@
 						<div class="tsd-signature tsd-kind-icon">dev<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/options.js#L28">base/options.js:28</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/options.js#L30">base/options.js:30</a></li>
 							</ul>
 						</aside>
 						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-external">
@@ -2330,7 +2331,7 @@
 							<div class="tsd-signature tsd-kind-icon">disable<wbr>Host<wbr>Check<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = true</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/options.js#L29">base/options.js:29</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/options.js#L31">base/options.js:31</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -2340,7 +2341,7 @@
 							<div class="tsd-signature tsd-kind-icon">hot<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">boolean</span><span class="tsd-signature-symbol"> = true</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/options.js#L33">base/options.js:33</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/options.js#L35">base/options.js:35</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -2350,7 +2351,7 @@
 							<div class="tsd-signature tsd-kind-icon">headers<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/options.js#L30">base/options.js:30</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/options.js#L32">base/options.js:32</a></li>
 								</ul>
 							</aside>
 							<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-external">
@@ -2359,7 +2360,7 @@
 								<div class="tsd-signature tsd-kind-icon">Access-<wbr><wbr>Control-<wbr><wbr>Allow-<wbr><wbr>Origin<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;*&quot;</span></div>
 								<aside class="tsd-sources">
 									<ul>
-										<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/options.js#L31">base/options.js:31</a></li>
+										<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/options.js#L33">base/options.js:33</a></li>
 									</ul>
 								</aside>
 							</section>
@@ -2370,7 +2371,7 @@
 							<div class="tsd-signature tsd-kind-icon">watch<wbr>Options<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/options.js#L34">base/options.js:34</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/options.js#L36">base/options.js:36</a></li>
 								</ul>
 							</aside>
 							<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-external">
@@ -2379,7 +2380,7 @@
 								<div class="tsd-signature tsd-kind-icon">aggregate<wbr>Timeout<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">number</span><span class="tsd-signature-symbol"> = 300</span></div>
 								<aside class="tsd-sources">
 									<ul>
-										<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/options.js#L35">base/options.js:35</a></li>
+										<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/options.js#L37">base/options.js:37</a></li>
 									</ul>
 								</aside>
 							</section>
@@ -2391,7 +2392,7 @@
 						<div class="tsd-signature tsd-kind-icon">inline<wbr>Manifest<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/options.js#L41">base/options.js:41</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/options.js#L43">base/options.js:43</a></li>
 							</ul>
 						</aside>
 						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-external">
@@ -2400,7 +2401,7 @@
 							<div class="tsd-signature tsd-kind-icon">name<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;runtime&quot;</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/options.js#L42">base/options.js:42</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/options.js#L44">base/options.js:44</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -2411,7 +2412,7 @@
 						<div class="tsd-signature tsd-kind-icon">splitting<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/options.js#L44">base/options.js:44</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/options.js#L46">base/options.js:46</a></li>
 							</ul>
 						</aside>
 						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-external">
@@ -2420,7 +2421,7 @@
 							<div class="tsd-signature tsd-kind-icon">max<wbr>Chunks<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">null</span><span class="tsd-signature-symbol"> = null</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/options.js#L45">base/options.js:45</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/options.js#L47">base/options.js:47</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -2432,7 +2433,7 @@
 					<div class="tsd-signature tsd-kind-icon">paths<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/paths.js#L24">base/paths.js:24</a></li>
+							<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/paths.js#L24">base/paths.js:24</a></li>
 						</ul>
 					</aside>
 					<div class="tsd-comment tsd-typography">
@@ -2463,7 +2464,7 @@
 						<div class="tsd-signature tsd-kind-icon">dist<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = join(projectDir, &#x27;dist&#x27;)</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/paths.js#L28">base/paths.js:28</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/paths.js#L28">base/paths.js:28</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -2473,7 +2474,7 @@
 						<div class="tsd-signature tsd-kind-icon">framework<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = frameworkDir</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/paths.js#L26">base/paths.js:26</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/paths.js#L26">base/paths.js:26</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -2483,7 +2484,7 @@
 						<div class="tsd-signature tsd-kind-icon">project<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = projectDir</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/paths.js#L25">base/paths.js:25</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/paths.js#L25">base/paths.js:25</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -2493,7 +2494,7 @@
 						<div class="tsd-signature tsd-kind-icon">public<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = &quot;dist&quot;</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/paths.js#L29">base/paths.js:29</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/paths.js#L29">base/paths.js:29</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -2503,7 +2504,7 @@
 						<div class="tsd-signature tsd-kind-icon">src<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">string</span><span class="tsd-signature-symbol"> = join(projectDir, &#x27;src&#x27;)</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/paths.js#L27">base/paths.js:27</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/paths.js#L27">base/paths.js:27</a></li>
 							</ul>
 						</aside>
 					</section>
@@ -2514,7 +2515,7 @@
 					<div class="tsd-signature tsd-kind-icon">schema<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 					<aside class="tsd-sources">
 						<ul>
-							<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/loaders.js#L3">base/loaders.js:3</a></li>
+							<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/loaders.js#L3">base/loaders.js:3</a></li>
 						</ul>
 					</aside>
 					<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-external">
@@ -2523,7 +2524,7 @@
 						<div class="tsd-signature tsd-kind-icon">eslint<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-symbol">{}</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/loaders.js#L5">base/loaders.js:5</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/loaders.js#L5">base/loaders.js:5</a></li>
 							</ul>
 						</aside>
 						<div class="tsd-type-declaration">
@@ -2538,7 +2539,7 @@
 						<div class="tsd-signature tsd-kind-icon">babel<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/loaders.js#L4">base/loaders.js:4</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/loaders.js#L4">base/loaders.js:4</a></li>
 							</ul>
 						</aside>
 						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-external">
@@ -2547,7 +2548,7 @@
 							<div class="tsd-signature tsd-kind-icon">plugins<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/loaders.js#L4">base/loaders.js:4</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/loaders.js#L4">base/loaders.js:4</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -2557,7 +2558,7 @@
 							<div class="tsd-signature tsd-kind-icon">presets<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/loaders.js#L4">base/loaders.js:4</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/loaders.js#L4">base/loaders.js:4</a></li>
 								</ul>
 							</aside>
 						</section>
@@ -2568,7 +2569,7 @@
 						<div class="tsd-signature tsd-kind-icon">post<wbr>Css<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">object</span></div>
 						<aside class="tsd-sources">
 							<ul>
-								<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/loaders.js#L6">base/loaders.js:6</a></li>
+								<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/loaders.js#L6">base/loaders.js:6</a></li>
 							</ul>
 						</aside>
 						<section class="tsd-panel tsd-member tsd-kind-variable tsd-parent-kind-object-literal tsd-is-external">
@@ -2577,7 +2578,7 @@
 							<div class="tsd-signature tsd-kind-icon">plugins<span class="tsd-signature-symbol">:</span> <span class="tsd-signature-type">undefined</span><span class="tsd-signature-symbol">[]</span><span class="tsd-signature-symbol"> = []</span></div>
 							<aside class="tsd-sources">
 								<ul>
-									<li>Defined in <a href="https://github.com/roots/bud-support/blob/2829147/src/budpack/builder/base/loaders.js#L6">base/loaders.js:6</a></li>
+									<li>Defined in <a href="https://github.com/roots/bud-support/blob/55da77a/src/budpack/builder/base/loaders.js#L6">base/loaders.js:6</a></li>
 								</ul>
 							</aside>
 						</section>

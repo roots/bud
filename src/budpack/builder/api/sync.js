@@ -1,5 +1,3 @@
-import {inProduction} from './../mode'
-
 /**
  * Configure BrowserSync.
  * @example

@@ -46,15 +46,22 @@ const basePlugins = (paths, options) => [
  * @return {array}
  */
 const devPlugins = (options, features) => [
-  ...(features.hot ? [new HotModuleReplacementPlugin()] : []),
-  ...(!options.inProduction ? [new NoEmitOnErrorsPlugin(), new WriteFilePlugin()] : []),
-  ...(features.browserSync == true && features.debug == false ? [
-    new BrowserSyncPlugin({
-      host: options.browserSync.host,
-      port: options.browserSync.port,
-      proxy: options.browserSync.proxy,
-    }),
-  ] : []),
+  ...(features.hot
+    ? [new HotModuleReplacementPlugin()]
+    : []),
+  ...(!options.inProduction
+    ? [new NoEmitOnErrorsPlugin(), new WriteFilePlugin()]
+    : []),
+  ...(features.browserSync == true &&
+  features.debug == false
+    ? [
+        new BrowserSyncPlugin({
+          host: options.browserSync.host,
+          port: options.browserSync.port,
+          proxy: options.browserSync.proxy,
+        }),
+      ]
+    : []),
 ]
 
 /**
@@ -65,14 +72,31 @@ const devPlugins = (options, features) => [
  * @return {array}
  */
 const conditionalPlugins = (options, features) => [
-  ...(options.auto ? [new ProvidePlugin(options.auto)] : []),
+  ...(options.auto
+    ? [new ProvidePlugin(options.auto)]
+    : []),
   ...(options.env ? [new DefinePlugin(options.env)] : []),
-  ...(features.dependencyManifest ? [new DependencyExtractionPlugin(options.dependencyManifest)] : []),
-  ...(options.copy.patterns.length > 0 ? [new CopyPlugin({patterns: options.copy.patterns})] : []),
-  ...(options.splitting.disabled ? new LimitChunkCountPlugin({maxChunks: 1}) : []),
-  ...(!options.splitting.disabled && options.splitting.maxChunks ? [
-    new LimitChunkCountPlugin({maxChunks: options.splitting.maxChunks})
-  ]: []),
+  ...(features.dependencyManifest
+    ? [
+        new DependencyExtractionPlugin(
+          options.dependencyManifest,
+        ),
+      ]
+    : []),
+  ...(options.copy.patterns.length > 0
+    ? [new CopyPlugin({patterns: options.copy.patterns})]
+    : []),
+  ...(options.splitting.disabled
+    ? new LimitChunkCountPlugin({maxChunks: 1})
+    : []),
+  ...(!options.splitting.disabled &&
+  options.splitting.maxChunks
+    ? [
+        new LimitChunkCountPlugin({
+          maxChunks: options.splitting.maxChunks,
+        }),
+      ]
+    : []),
 ]
 
 /**
