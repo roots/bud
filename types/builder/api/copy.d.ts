@@ -1,18 +1,13 @@
 /**
  * Copy a file.
  */
-export type copy = (
-  arg0: any,
-  arg1: {
-    string
-  },
-  arg2: any,
-  arg3: {
-    string
-  },
-) => {
-  bud: import('./../index.js')
-}
+export type copy = (arg0: any, arg1: {
+    string;
+}, arg2: any, arg3: {
+    string;
+}) => {
+    bud: import('./../index.js');
+};
 /**
  * Copy a file.
  * @namespace bud
@@ -22,8 +17,5 @@ export type copy = (
  * @param     {string} dist - path to copy to
  * @return    {import('./../index.js')} bud
  */
-export function copy(
-  from: any,
-  to: any,
-): import('./../index.js')
+export function copy(from: any, to: any): import('./../index.js');
 //# sourceMappingURL=copy.d.ts.map

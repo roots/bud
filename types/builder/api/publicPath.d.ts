@@ -1,7 +1,7 @@
 /**
  * Set the project public path.
  */
-export type publicPath = Function
+export type publicPath = Function;
 /**
  * Set the project public path.
  *
@@ -10,5 +10,5 @@ export type publicPath = Function
  * @param   {string} dir - public path of project
  * @return  {bud}
  */
-export function publicPath(dir: string): any
+export function publicPath(dir: string): any;
 //# sourceMappingURL=publicPath.d.ts.map

@@ -7,12 +7,12 @@
  * Conflicts between supplied configs will be resolved in favor of bud.config.js.
  */
 export type babel = (arg0: {
-  enabled: boolean
-  presets: any[]
-  plugins: any[]
+    enabled: boolean;
+    presets: any[];
+    plugins: any[];
 }) => {
-  bud: import('./../index')
-}
+    bud: import('./../index');
+};
 /**
  * Configure Babel.
  *
@@ -31,8 +31,8 @@ export type babel = (arg0: {
  * @return  {import('./../index')}
  */
 export function babel(options: {
-  enabled: boolean
-  presets: any[]
-  plugins: any[]
-}): import('./../index')
+    enabled: boolean;
+    presets: any[];
+    plugins: any[];
+}): import('./../index');
 //# sourceMappingURL=babel.d.ts.map

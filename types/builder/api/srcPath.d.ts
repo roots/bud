@@ -1,12 +1,9 @@
 /**
  * Set the project's src directory.
  */
-export type srcPath = (
-  arg0: any,
-  arg1: string,
-) => {
-  bud: import('./../index')
-}
+export type srcPath = (arg0: any, arg1: string) => {
+    bud: import('./../index');
+};
 /**
  * Set the project's src directory.
  * @example bud.srcPath('src') // default unless specified
@@ -14,5 +11,5 @@ export type srcPath = (
  * @param   {string} dir - path of src directory relative to the project root.
  * @return  {import('./../index')} bud
  */
-export function srcPath(src: any): import('./../index')
+export function srcPath(src: any): import('./../index');
 //# sourceMappingURL=srcPath.d.ts.map

@@ -9,6 +9,7 @@ import {existsSync} from 'fs-extra'
 import {join, resolve} from 'path'
 
 import {mode, inProduction} from './base/mode'
+
 import {configs} from './base/configs'
 import {features} from './base/features'
 import {options} from './base/options'
@@ -23,6 +24,7 @@ import {copyAll} from './api/copyAll'
 import {dist} from './api/dist'
 import {distPath} from './api/distPath'
 import {dependencyManifest} from './api/dependencyManifest'
+import {env} from './api/env'
 import {hash} from './api/hash'
 import {hot} from './api/hot'
 import {inlineManifest} from './api/inlineManifest'
@@ -39,6 +41,40 @@ import {sync} from './api/sync'
 import {translate} from './api/translate'
 
 /**
+ * Bud - Asset Management Framework
+ *
+ * @typedef  {object} bud
+ * @property {configs} configs
+ * @property {features} features
+ * @property {inProduction} inProduction
+ * @property {mode} mode
+ * @property {options} options
+ * @property {paths} paths
+ * @property {alias} alias
+ * @property {auto} auto
+ * @property {babel} babel
+ * @property {bundle} bundle
+ * @property {copy} copy
+ * @property {copyAll} copyAll
+ * @property {dependencyManifest} dependencyManifest
+ * @property {dist} dist
+ * @property {distPath} distPath
+ * @property {env} env
+ * @property {hash} hash
+ * @property {hot} hot
+ * @property {inlineManifest} inlineManifest
+ * @property {postCss} postCss
+ * @property {preset} preset
+ * @property {project} project
+ * @property {purge} purge
+ * @property {setEnv} setEnv
+ * @property {src} src
+ * @property {srcPath} srcPath
+ * @property {sync} sync
+ * @property {translate} translate
+ */
+
+/**
  * @constructor
  */
 const bud = function () {
@@ -49,7 +85,6 @@ const bud = function () {
   this.options = options
   this.paths = paths
 }
-
 bud.prototype.alias = alias
 bud.prototype.auto = auto
 bud.prototype.babel = babel
@@ -74,34 +109,6 @@ bud.prototype.sync = sync
 bud.prototype.translate = translate
 
 /**
- * Bud - Asset Management Framework
- *
- * @typedef  {object} bud
- * @property {configs} configs
- * @property {features} features
- * @property {inProduction} inProduction
- * @property {mode} mode
- * @property {options} options
- * @property {paths} paths
- * @property {alias} alias
- * @property {auto} auto
- * @property {babel} babel
- * @property {bundle} bundle
- * @property {copy} copy
- * @property {copyAll} copyAll
- * @property {dependencyManifest} dependencyManifest
- * @property {dist} dist
- * @property {distPath} distPath
- * @property {hash} hash
- * @property {hot} hot
- * @property {inlineManifest} inlineManifest
- * @property {postCss} postCss
- * @property {preset} preset
- * @property {project} project
- * @property {purge} purge
- * @property {src} src
- * @property {srcPath} srcPath
- * @property {sync} sync
- * @property {translate} translate
+ * @exports {bud}
  */
 module.exports = new bud()

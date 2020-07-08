@@ -1,5 +1,5 @@
 /**
  * Runner props
  */
-export type runnerProps = any
+export type runnerProps = any;
 //# sourceMappingURL=index.d.ts.map

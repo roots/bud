@@ -2,17 +2,17 @@
  * Make a manifest of @wordpress dependencies utilized by entrypoints.
  */
 export type dependencyManifest = (arg0: {
-  enabled?: boolean
-  outputFormat: string
-  combineAssets: boolean
-  combinedOutputFile: string
-  useDefaults: boolean
-  injectPolyfill: boolean
-  requestToExternal: Function
-  requestToHandle: Function
+    enabled?: boolean;
+    outputFormat: string;
+    combineAssets: boolean;
+    combinedOutputFile: string;
+    useDefaults: boolean;
+    injectPolyfill: boolean;
+    requestToExternal: Function;
+    requestToHandle: Function;
 }) => {
-  bud: import('./../index')
-}
+    bud: import('./../index');
+};
 /**
  * Make a manifest of @wordpress dependencies utilized by entrypoints.
  * @see     https://git.io/JJLxM
@@ -30,13 +30,13 @@ export type dependencyManifest = (arg0: {
  * @return  {import('./../index')} bud
  */
 export function dependencyManifest(settings?: {
-  enabled?: boolean
-  outputFormat: string
-  combineAssets: boolean
-  combinedOutputFile: string
-  useDefaults: boolean
-  injectPolyfill: boolean
-  requestToExternal: Function
-  requestToHandle: Function
-}): import('./../index')
+    enabled?: boolean;
+    outputFormat: string;
+    combineAssets: boolean;
+    combinedOutputFile: string;
+    useDefaults: boolean;
+    injectPolyfill: boolean;
+    requestToExternal: Function;
+    requestToHandle: Function;
+}): import('./../index');
 //# sourceMappingURL=dependencyManifest.d.ts.map

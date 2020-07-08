@@ -2,24 +2,24 @@
  * Purge unused CSS from compiled stylesheets.
  */
 export type purge = (arg0: {
-  enabled: boolean
-  content: any
-  css: any
-  defaultExtractor?: Function
-  extractors?: any[]
-  fontFace: boolean
-  keyframes: boolean
-  output: string
-  rejected: boolean
-  stdin?: boolean
-  stdout?: boolean
-  variables?: boolean
-  whitelist?: string[]
-  whitelistPatterns?: RegExp[]
-  whitelistPatternsChildren?: RegExp[]
+    enabled: boolean;
+    content: any;
+    css: any;
+    defaultExtractor?: Function;
+    extractors?: any[];
+    fontFace: boolean;
+    keyframes: boolean;
+    output: string;
+    rejected: boolean;
+    stdin?: boolean;
+    stdout?: boolean;
+    variables?: boolean;
+    whitelist?: string[];
+    whitelistPatterns?: RegExp[];
+    whitelistPatternsChildren?: RegExp[];
 }) => {
-  bud: import('./../index')
-}
+    bud: import('./../index');
+};
 /**
  * Purge unused CSS from compiled stylesheets.
  * @see https://purgecss.com/guides/wordpress.html
@@ -51,20 +51,20 @@ export type purge = (arg0: {
  * @return  {import('./../index')} bud
  */
 export function purge(options: {
-  enabled: boolean
-  content: any
-  css: any
-  defaultExtractor?: Function
-  extractors?: any[]
-  fontFace: boolean
-  keyframes: boolean
-  output: string
-  rejected: boolean
-  stdin?: boolean
-  stdout?: boolean
-  variables?: boolean
-  whitelist?: string[]
-  whitelistPatterns?: RegExp[]
-  whitelistPatternsChildren?: RegExp[]
-}): import('./../index')
+    enabled: boolean;
+    content: any;
+    css: any;
+    defaultExtractor?: Function;
+    extractors?: any[];
+    fontFace: boolean;
+    keyframes: boolean;
+    output: string;
+    rejected: boolean;
+    stdin?: boolean;
+    stdout?: boolean;
+    variables?: boolean;
+    whitelist?: string[];
+    whitelistPatterns?: RegExp[];
+    whitelistPatternsChildren?: RegExp[];
+}): import('./../index');
 //# sourceMappingURL=purge.d.ts.map
