@@ -85,6 +85,7 @@ const bud = function () {
   this.options = options
   this.paths = paths
 }
+
 bud.prototype.alias = alias
 bud.prototype.auto = auto
 bud.prototype.babel = babel
