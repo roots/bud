@@ -87,8 +87,8 @@ const conditionalPlugins = (options, features) => [
 const plugins = ({options, features, paths}) => ({
   plugins: [
     ...basePlugins(paths, options),
-    ...devPlugins(options, eatures),
-    ...conditionalPlugins(),
+    ...devPlugins(options, features),
+    ...conditionalPlugins(options, features),
   ],
 })
 

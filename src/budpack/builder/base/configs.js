@@ -4,7 +4,7 @@ import {paths} from './paths'
 
 /**
  * Returns absolute path to a project config file
- * @typedef {function (relativePath: {string}) => {filePath: {string}}} config
+ * @typedef {function (relativePath: string) => {filePath: string}} config
  * @param   {string} relativePath - relative path (from project root)
  * @return  {string} filePath
  */
@@ -13,9 +13,9 @@ const config = relativePath =>
 
 /**
  * Returns a boolean representing if a file can be located in the project root.
- * @typedef {function (file: string) => {boolean}} hasConfig
+ * @typedef {function (file: string) => boolean} hasConfig
  * @param   {string} file - file path (relative to project root)
- * @return  {boolean}
+ * @return  {boolean} true if file exists
  */
 const hasConfig = file => existsSync(config(file))
 
@@ -38,4 +38,4 @@ const configs = {
     : false,
 }
 
-export {configs}
+export {config, hasConfig, configs}

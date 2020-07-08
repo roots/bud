@@ -10,7 +10,6 @@ export type copyAll = (arg0: any, arg1: {
 };
 /**
  * Copy all files from a specified source to a specified destination.
- * @namespace bud
  * @example   bud.copyAll(bud.src('images'), bud.dist('images'))
  * @typedef   {function (src: {string}, dest: {string}) => {bud: typeof import('./../index')}} copyAll
  * @param     {string} src  - origin dir

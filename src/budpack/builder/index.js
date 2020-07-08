@@ -1,20 +1,25 @@
 /**
  * Bud - asset management framework.
  *
- * @exports {bud} bud - build tool
+ * @exports {Bud} bud - build tool
  * @author  Kelly Mears <kelly@roots.io>
  */
 
 import {existsSync} from 'fs-extra'
 import {join, resolve} from 'path'
 
+/**
+ * Default properties
+ */
 import {mode, inProduction} from './base/mode'
-
-import {configs} from './base/configs'
+import {config, configs, hasConfig} from './base/configs'
 import {features} from './base/features'
 import {options} from './base/options'
 import {paths} from './base/paths'
 
+/**
+ * API methods
+ */
 import {alias} from './api/alias'
 import {auto} from './api/auto'
 import {babel} from './api/babel'
@@ -40,18 +45,84 @@ import {src} from './api/src'
 import {srcPath} from './api/srcPath'
 import {sync} from './api/sync'
 import {translate} from './api/translate'
+import {vendor} from './api/vendor'
 
 /**
- * Bud - Asset Management Framework
+ * Bud - asset management framework
  *
- * @typedef  {object} bud
- * @property {typeof import('./base/configs')} configs
- * @property {typeof import('./base/features')} features
- * @property {typeof import('./base/mode').inProduction} inProduction
- * @property {typeof import('./base/mode').mode} mode
- * @property {typeof import('./base/options')} options
- * @property {typeof import('./base/paths')} paths
- * @property {typeof import('./api/alias')} alias
+ * @constructor
+ */
+const Bud = function () {
+  /**
+   * @name Bud#configs
+   * @typedef {typeof import('./base/configs')}
+   */
+  this.configs = configs
+
+  /**
+   * @name Bud#features
+   * @typedef {typeof import('./base/features')}
+   */
+  this.features = features
+
+  /**
+   * @name Bud#mode
+   * @typedef {typeof import('./base/mode').mode}
+    */
+  this.mode = mode
+
+  /**
+   * @name Bud#inProduction
+   * @typedef {typeof import('./base/mode').inProduction}
+   */
+  this.inProduction = inProduction
+
+  /**
+   * @name Bud#options
+   * @typedef {typeof import('./base/options)}
+   */
+  this.options = options
+
+  /**
+   * @name Bud#paths
+   * @typedef {typeof import('./base/paths)}
+   */
+  this.paths = paths
+}
+
+Bud.prototype.alias = alias
+Bud.prototype.auto = auto
+Bud.prototype.babel = babel
+Bud.prototype.bundle = bundle
+Bud.prototype.copy = copy
+Bud.prototype.copyAll = copyAll
+Bud.prototype.dependencyManifest = dependencyManifest
+Bud.prototype.devtool = devtool
+Bud.prototype.dist = dist
+Bud.prototype.distPath = distPath
+Bud.prototype.env = env
+Bud.prototype.hash = hash
+Bud.prototype.hot = hot
+Bud.prototype.inlineManifest = inlineManifest
+Bud.prototype.postCss = postCss
+Bud.prototype.preset = preset
+Bud.prototype.purge = purge
+Bud.prototype.project = project
+Bud.prototype.setEnv = setEnv
+Bud.prototype.src = src
+Bud.prototype.srcPath = srcPath
+Bud.prototype.sync = sync
+Bud.prototype.translate = translate
+
+/**
+ * @typedef  {{configs: configs, features: features, inProduction: mode.inProduction, mode: mode.mode, options: options, paths: paths, alias: alias, auto: auto, babel: babel, bundle: bundle, copy: copy, copyAll: copyAll, dependencyManifest: dependencyManifest, devtool: devtool, dist: dist, distPath: distPath, env: env, hash: hash, hot: hot, inlineManifest: inlineManifest, postCss: postCss, project: project, purge: purge, steEnv: setEnv, src: src, srcPath: srcPath, sync: sync, translate: translate, vendor: vendor}} bud
+ * @property {configs} configs
+ * @property {features} features
+ * @property {mode.inProduction} inProduction
+ * @property {mode.mode} mode
+ * @property {options} options
+ * @property {paths} paths
+ * @property {alias} alias
  * @property {auto} auto
  * @property {babel} babel
  * @property {bundle} bundle
@@ -74,45 +145,14 @@ import {translate} from './api/translate'
  * @property {srcPath} srcPath
  * @property {sync} sync
  * @property {translate} translate
+ * @property {vendor} vendor
  */
+
+const bud = new Bud
 
 /**
- * @constructor
+ * Bud - Asset management framework
+ * @exports {Bud} bud
  */
-const bud = function () {
-  this.configs = configs
-  this.features = features
-  this.mode = mode
-  this.inProduction = inProduction
-  this.options = options
-  this.paths = paths
-}
 
-bud.prototype.alias = alias
-bud.prototype.auto = auto
-bud.prototype.babel = babel
-bud.prototype.bundle = bundle
-bud.prototype.copy = copy
-bud.prototype.copyAll = copyAll
-bud.prototype.dependencyManifest = dependencyManifest
-bud.prototype.devtool = devtool
-bud.prototype.dist = dist
-bud.prototype.distPath = distPath
-bud.prototype.env = env
-bud.prototype.hash = hash
-bud.prototype.hot = hot
-bud.prototype.inlineManifest = inlineManifest
-bud.prototype.postCss = postCss
-bud.prototype.preset = preset
-bud.prototype.purge = purge
-bud.prototype.project = project
-bud.prototype.setEnv = setEnv
-bud.prototype.src = src
-bud.prototype.srcPath = srcPath
-bud.prototype.sync = sync
-bud.prototype.translate = translate
-
-/**
- * @exports {bud}
- */
-module.exports = new bud()
+module.exports = bud

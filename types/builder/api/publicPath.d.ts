@@ -1,14 +1,15 @@
 /**
  * Set the project public path.
  */
-export type publicPath = Function;
+export type publicPath = (arg0: any, arg1: string) => {
+    bud: import('./../index');
+};
 /**
  * Set the project public path.
  *
- * @typedef {function} publicPath
- * @this    {bud}
+ * @typedef {function (dir: string) => {bud: import('./../index')}} publicPath
  * @param   {string} dir - public path of project
- * @return  {bud}
+ * @return  {typeof import('./../index')} bud
  */
-export function publicPath(dir: string): any;
+export function publicPath(dir: string): typeof import('./../index');
 //# sourceMappingURL=publicPath.d.ts.map

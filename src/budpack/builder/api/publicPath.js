@@ -3,10 +3,9 @@ import {join} from 'path'
 /**
  * Set the project public path.
  *
- * @typedef {function} publicPath
- * @this    {bud}
+ * @typedef {function (dir: string) => {bud: import('./../index')}} publicPath
  * @param   {string} dir - public path of project
- * @return  {bud}
+ * @return  {typeof import('./../index')} bud
  */
 const publicPath = dir => {
   this.paths.public = dir

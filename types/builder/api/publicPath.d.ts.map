@@ -1,1 +1,1 @@
-{"version":3,"file":"publicPath.d.ts","sourceRoot":"","sources":["../../../src/budpack/builder/api/publicPath.js"],"names":[],"mappings":";;;;AAEA;;;;;;;GAOG;AACH,gCAHa,MAAM,OAOlB"}
+{"version":3,"file":"publicPath.d.ts","sourceRoot":"","sources":["../../../src/budpack/builder/api/publicPath.js"],"names":[],"mappings":";;;2CAK4B,MAAM,KAAK;IAAC,GAAG,EAAE,OAAO,YAAY,CAAC,CAAA;CAAC;AAHlE;;;;;;GAMG;AACH,gCAHa,MAAM,GACN,cAAc,YAAY,CAAC,CAMvC"}

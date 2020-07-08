@@ -1,11 +1,5 @@
-/**
- * Bud - Asset Management Framework
- */
 export type bud = {
-    /**
-     * : typeof import('./base/configs')} configs
-     */
-    "": configs;
+    configs: configs;
     features: features;
     inProduction: any;
     mode: any;
@@ -26,14 +20,14 @@ export type bud = {
     hot: hot;
     inlineManifest: inlineManifest;
     postCss: postCss;
-    preset: preset;
     project: project;
     purge: purge;
-    setEnv: setEnv;
+    steEnv: setEnv;
     src: src;
     srcPath: srcPath;
     sync: sync;
     translate: translate;
+    vendor: vendor;
 };
 import { configs } from "./base/configs";
 import { features } from "./base/features";
@@ -53,7 +47,6 @@ declare namespace ___Users_kellymears_code_projects_cli_bud_bud_support_src_budp
 import { hot } from "./api/hot";
 import { inlineManifest } from "./api/inlineManifest";
 import { postCss } from "./api/postcss";
-import { preset } from "./api/preset";
 import { project } from "./api/project";
 import { purge } from "./api/purge";
 import { setEnv } from "./api/setEnv";
@@ -61,5 +54,6 @@ import { src } from "./api/src";
 import { srcPath } from "./api/srcPath";
 import { sync } from "./api/sync";
 import { translate } from "./api/translate";
+import { vendor } from "./api/vendor";
 export {};
 //# sourceMappingURL=index.d.ts.map

@@ -1,1 +1,1 @@
-{"version":3,"file":"alias.d.ts","sourceRoot":"","sources":["../../../src/budpack/builder/api/alias.js"],"names":[],"mappings":";;;;;SAKkD,MAAM,EAAE,KAAM;IAAC,GAAG,EAAE,cAAc,YAAY,CAAC,CAAA;CAAC;AALlG;;;;;;;;GAQG;AACH;;mBAHyC,MAAM;;IAClC,cAAc,YAAY,CAAC,CAMvC"}
+{"version":3,"file":"alias.d.ts","sourceRoot":"","sources":["../../../src/budpack/builder/api/alias.js"],"names":[],"mappings":";;;;;SAMkD,MAAM,EAAE,KAAM;IAAC,GAAG,EAAE,cAAc,YAAY,CAAC,CAAA;CAAC;AANlG;;;;;;;;;GASG;AACH;;mBAHyC,MAAM;;IAClC,cAAc,YAAY,CAAC,CAMvC"}
