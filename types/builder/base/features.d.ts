@@ -70,7 +70,7 @@ export namespace features {
     export const inlineManifest: boolean;
     export { inProduction as minified };
     export const postCss: boolean;
-    export { inProduction as purge };
+    export const purge: boolean;
     export const sourceMap: boolean;
     export const splitting: boolean;
     export const translate: boolean;

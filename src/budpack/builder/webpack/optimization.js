@@ -24,7 +24,7 @@ const optimization = ({features, options}) => {
       cacheGroups: {
         vendor: {
           test: /[\\/]node_modules[\\/]/,
-          name: 'vendor',
+          name: options.vendor.name,
           chunks: 'all',
         },
       },

@@ -10,7 +10,7 @@ export function general({ paths, mode, features, options }: {
     context: any;
     devtool: any;
     mode: any;
-    target: string;
+    target: any;
     watch: any;
 };
 //# sourceMappingURL=general.d.ts.map

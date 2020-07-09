@@ -41,6 +41,7 @@ import {setEnv} from './api/setEnv'
 import {src} from './api/src'
 import {srcPath} from './api/srcPath'
 import {sync} from './api/sync'
+import {target} from './api/target'
 import {translate} from './api/translate'
 import {vendor} from './api/vendor'
 import {watch} from './api/watch'
@@ -85,6 +86,7 @@ Bud.prototype.setEnv = setEnv
 Bud.prototype.src = src
 Bud.prototype.srcPath = srcPath
 Bud.prototype.sync = sync
+Bud.prototype.targete = target
 Bud.prototype.translate = translate
 Bud.prototype.vendor = vendor
 Bud.prototype.watch = watch
@@ -125,6 +127,7 @@ Bud.prototype.watch = watch
  * @property {src} src
  * @property {srcPath} srcPath
  * @property {sync} sync
+ * @property {target} target
  * @property {translate} translate
  * @property {vendor} vendor
  * @property {watch} watch

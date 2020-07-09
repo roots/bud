@@ -1,18 +1,18 @@
 /**
  * Enable or disable vendor bundles.
  */
-export type vendor = (arg0: any, arg1: {
-    boolean;
+export type vendor = (arg0: never | null, arg1: string, arg2: {
+    enabled?: boolean;
 }) => {
     bud: typeof import('./../index');
 };
 /**
  * Enable or disable vendor bundles.
  *
- * @example bud.hash(true) // enable
- * @typedef {function (enabled: {boolean}) => {bud: typeof import('./../index')} vendor
- * @param   {boolean} enabled - true to enable vendor bundle.
+ * @example bud.vendor('vendor') // default is 'vendor'.
+ * @typedef {function (name?: string, {enabled?: boolean}) => {bud: typeof import('./../index')} vendor
+ * @param   {string} name - name of vendor output file
  * @return  {bud: typeof import('./../index')} bud
  */
-export function vendor(enabled: boolean): any;
+export function vendor(name?: string, vendors?: any[]): any;
 //# sourceMappingURL=vendor.d.ts.map

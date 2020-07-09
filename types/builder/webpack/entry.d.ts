@@ -1,5 +1,4 @@
-export default entry;
-declare function entry({ entry }: {
+export function entry({ entry }: {
     entry: any;
 }): {
     entry: any;

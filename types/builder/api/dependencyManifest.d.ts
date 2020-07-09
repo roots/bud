@@ -19,7 +19,6 @@ export type dependencyManifest = (arg0: {
  * @example bud.dependencyManifest({outputFormat: 'js', injectPolyfill: false})
  * @typedef {function ({enabled?: boolean, outputFormat: string, combineAssets: boolean, combinedOutputFile: string, useDefaults: boolean, injectPolyfill: boolean, requestToExternal: Function, requestToHandle: Function}) => {bud: typeof import('./../index')}} dependencyManifest
  * @param   {{enabled?: boolean, outputFormat: string, combineAssets: boolean, combinedOutputFile: string, useDefaults: boolean, injectPolyfill: boolean, requestToExternal: Function, requestToHandle: Function}} settings
- * @param   {boolean} settings.enabled - true to enable manifest generation
  * @param   {string}  settings.outputFormat - either 'php' or 'js'
  * @param   {boolean} settings.combineAssets - By default, one manifest is created for each entry point. When this flag is set to true, all information about assets is combined into a single manifest.
  * @param   {string}  settings.combinedOutputFile - This option is useful only when the combineAssets option is enabled. It allows providing a custom output file for the generated manifest.
@@ -29,7 +28,7 @@ export type dependencyManifest = (arg0: {
  * @param   {Function} settings.requestToHandle - requestToHandle allows the script handle included in the dependency list to be customized.
  * @return  {typeof import('./../index')} bud
  */
-export function dependencyManifest(settings?: {
+export function dependencyManifest({ ...settings }: {
     enabled?: boolean;
     outputFormat: string;
     combineAssets: boolean;

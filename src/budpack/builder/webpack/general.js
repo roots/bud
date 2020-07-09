@@ -5,7 +5,7 @@ const general = ({paths, mode, features, options}) => ({
   context: paths.project,
   devtool: features.sourceMap ? options.devtool : false,
   mode,
-  target: 'web',
+  target: options.target,
   watch: features.watch,
 })
 

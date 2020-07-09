@@ -14,6 +14,9 @@ use Roots\Bud\Services\ServiceProvider;
  */
 abstract class AbstractManifest extends ServiceProvider
 {
+    /**
+     * @var Roots\Bud\Collection\Collection
+     */
     public $entries;
 
     /**
@@ -47,7 +50,6 @@ abstract class AbstractManifest extends ServiceProvider
      *
      * @param  string $id
      * @param  string $value
-     *
      * @return void
      */
     public function set(string $id, string $value): void

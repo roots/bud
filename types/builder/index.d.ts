@@ -33,6 +33,7 @@ export type bud = {
     src: src;
     srcPath: srcPath;
     sync: sync;
+    target: target;
     translate: translate;
     vendor: vendor;
     watch: watch;
@@ -69,6 +70,7 @@ import { setEnv } from "./api/setEnv";
 import { src } from "./api/src";
 import { srcPath } from "./api/srcPath";
 import { sync } from "./api/sync";
+import { target } from "./api/target";
 import { translate } from "./api/translate";
 import { vendor } from "./api/vendor";
 import { watch } from "./api/watch";

@@ -14,8 +14,9 @@ import { argv } from "yargs";
 export const inProduction: boolean;
 /**
  * Build mode
+ * In order of precedence: CLI args, env file, fallback ('production')
  * @typedef {mode: string} mode - 'production'|'development'
  */
-export const mode: unknown;
+export const mode: any;
 export { argv };
 //# sourceMappingURL=mode.d.ts.map

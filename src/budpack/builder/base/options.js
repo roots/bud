@@ -1,28 +1,24 @@
-import {join} from 'path'
-import dotenv from 'dotenv'
-
-import {paths} from './paths'
-import {loaders} from './loaders'
-
-/**
- * Environment variables container.
- * @typedef {Object} env
- */
-const env = dotenv.config({
-  path: join(paths.project, '.env'),
-})
+import {env} from './env'
+import {babel, postCss} from './configs'
 
 /**
  * Options container.
  * @typedef {Object} options
  */
 const options = {
-  ...loaders,
+  babel: babel ? require(babel) : {presets: [], plugins: []},
+  postCss: postCss ? require(postCss) :{plugins: []},
+  svg: {
+    use: [
+      require.resolve('@svgr/webpack'),
+      require.resolve('url-loader'),
+    ],
+  },
   auto: {},
   browserSync: {
-    host: 'localhost',
-    port: '3000',
-    proxy: '',
+    host: env?.BROWSERSYNC_HOST ? env.BROWSERSYNC_HOST : 'localhost',
+    port: env?.BROWSERSYNC_PORT ? env.BROWSERSYNC_PORT :  3000,
+    proxy: env?.BROWSERSYNC_PROXY ? env.BROWSERSYNC_PROXY : '',
   },
   copy: {
     patterns: [],
@@ -39,15 +35,20 @@ const options = {
   },
   devtool: 'cheap-module-source-map',
   entry: {},
-  env: env.parsed,
+  env: env,
   inlineManifest: {
     name: 'runtime',
   },
   splitting: {
     maxChunks: null,
   },
+  vendor: {
+    name: 'vendor',
+    vendors: [],
+  },
   dependencyManifest: {
-    useDefaults: true,
+    combineAssets: true,
+    combinedOutputFile: 'dependencies.json',
     injectPolyfill: false,
     outputFormat: 'json',
   },

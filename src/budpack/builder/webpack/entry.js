@@ -1,3 +1,7 @@
-const entry = ({entry}) => ({entry})
+const entry = ({entry}) => ({
+  entry: {
+    ...entry,
+  },
+})
 
-export default entry
+export {entry}

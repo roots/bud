@@ -1,4 +1,5 @@
 import devServer from './devServer'
+import {entry} from './entry'
 import externals from './externals'
 import {general} from './general'
 import {loaders} from './loaders'
@@ -25,7 +26,7 @@ const makeWebpackConfig = ({
   features,
   paths,
 }) => ({
-  entry: options.entry,
+  ...entry(options),
   ...output({paths, features}),
   ...loaders({options, features, configs}),
   ...optimization({options, features}),
