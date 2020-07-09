@@ -1,15 +1,4 @@
 /**
- * Debug mode
- */
-type debug = any;
-/**
- * Debug mode
- * @typedef {func.<debug>} debug
- * @param   {boolean}      enabled - true to enable debug mode
- * @return  {typeof import('./../index')} TouchList
- */
-declare function debug(debug: any): typeof import('./../index');
-/**
  * Development mode
  */
 type dev = any;
@@ -17,7 +6,7 @@ type dev = any;
  * Development mode
  * @typedef {func.<dev>}   dev
  * @param   {Object}       options
- * @return  {typeof import('./../index')} TouchList
+ * @return  {typeof import('./../index')} bud
  */
 declare function dev(options: any): typeof import('./../index');
 /**
@@ -27,15 +16,15 @@ type maxChunks = any;
 /**
  * Set maxChunks for code splitting
  * @typedef {func.<maxChunks>} maxChunks
- * @param   {number|string}    chunkCount - maximum number of chunks. default: 'Infinity'.
- * @return  {typeof import('./../index')}     TouchList
+ * @param   {(number|string)} chunkCount - maximum number of chunks. default: 'Infinity'.
+ * @return  {typeof import('./../index')} bud
  */
-declare function maxChunks(chunkCount: number | string): typeof import('./../index');
+declare function maxChunks(chunkCount: (number | string)): typeof import('./../index');
 /**
  * Enable or disable code splitting.
  *
  * @param  {bool} [true]  enabled
- * @return {typeof import('./../index')} TouchList
+ * @return {typeof import('./../index')} bud
  */
 declare function splitting(enabled: any): typeof import('./../index');
 /**
@@ -46,7 +35,7 @@ type watchTimeout = any;
  * Watch mode timeout
  * @typedef {func.<watchTimeout} watchTimeout
  * @param   {number}             timeout - in ms
- * @return  {typeof import('./../index')}       TouchList
+ * @return  {typeof import('./../index')}       this
  */
 declare function watchTimeout(timeout: number): typeof import('./../index');
 //# sourceMappingURL=therest.d.ts.map

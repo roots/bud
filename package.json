@@ -1,6 +1,6 @@
 {
   "name": "@roots/budpack",
-  "version": "0.0.21",
+  "version": "0.0.22",
   "repository": {
     "type": "git",
     "url": "git://github.com/roots/bud-support.git"
@@ -18,7 +18,7 @@
   "scripts": {
     "ts": "tsc",
     "build": "babel src --out-dir=build",
-    "docs:api": "typedoc src/budpack/builder/api/ --out docs/ --mode modules --includeDeclarations --excludeExternals",
+    "docs:api": "typedoc src/budpack/builder/api/ --out docs/ --mode file --includeDeclarations --excludeExternals",
     "docs:readme": "bud generate readme",
     "lint": "npm-run-all -c lint:*",
     "lint:eslint": "eslint .",

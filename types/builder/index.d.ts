@@ -11,12 +11,14 @@ export type bud = {
     bundle: bundle;
     copy: copy;
     copyAll: copyAll;
+    debug: (enabled: boolean) => typeof import(".");
     dependencyManifest: dependencyManifest;
+    dev: dev;
     devtool: devtool;
     dist: dist;
     distPath: distPath;
     env: env;
-    hash: typeof import('./api/hash');
+    hash: hash;
     hot: hot;
     inlineManifest: inlineManifest;
     maps: maps;
@@ -45,11 +47,14 @@ import { babel } from "./api/babel";
 import { bundle } from "./api/bundle";
 import { copy } from "./api/copy";
 import { copyAll } from "./api/copyAll";
+declare namespace ___Users_kellymears_code_projects_cli_bud_bud_support_src_budpack_builder_index_ { }
 import { dependencyManifest } from "./api/dependencyManifest";
+import { dev } from "./api/dev";
 import { devtool } from "./api/devtool";
 import { dist } from "./api/dist";
 import { distPath } from "./api/distPath";
 import { env } from "./api/env";
+import { hash } from "./api/hash";
 import { hot } from "./api/hot";
 import { inlineManifest } from "./api/inlineManifest";
 import { maps } from "./api/maps";
@@ -67,4 +72,5 @@ import { sync } from "./api/sync";
 import { translate } from "./api/translate";
 import { vendor } from "./api/vendor";
 import { watch } from "./api/watch";
+export {};
 //# sourceMappingURL=index.d.ts.map

@@ -5,24 +5,22 @@
  * @author  Kelly Mears <kelly@roots.io>
  */
 
-/**
- * Default properties
- */
+/** Constructor props */
 import {mode, inProduction} from './base/mode'
 import {configs} from './base/configs'
 import {features} from './base/features'
 import {options} from './base/options'
 import {paths} from './base/paths'
 
-/**
- * API methods
- */
+/** Prototypal methods */
 import {alias} from './api/alias'
 import {auto} from './api/auto'
 import {babel} from './api/babel'
 import {bundle} from './api/bundle'
 import {copy} from './api/copy'
 import {copyAll} from './api/copyAll'
+import {debug} from './api/debug'
+import {dev} from './api/dev'
 import {devtool} from './api/devtool'
 import {dist} from './api/dist'
 import {distPath} from './api/distPath'
@@ -65,7 +63,9 @@ Bud.prototype.babel = babel
 Bud.prototype.bundle = bundle
 Bud.prototype.copy = copy
 Bud.prototype.copyAll = copyAll
+Bud.prototype.debug = debug
 Bud.prototype.dependencyManifest = dependencyManifest
+Bud.prototype.dev = dev
 Bud.prototype.devtool = devtool
 Bud.prototype.dist = dist
 Bud.prototype.distPath = distPath
@@ -103,12 +103,14 @@ Bud.prototype.watch = watch
  * @property {bundle} bundle
  * @property {copy} copy
  * @property {copyAll} copyAll
+ * @property {debug} debug
  * @property {dependencyManifest} dependencyManifest
+ * @property {dev} dev
  * @property {devtool} devtool
  * @property {dist} dist
  * @property {distPath} distPath
  * @property {env} env
- * @property {typeof import('./api/hash')} hash
+ * @property {hash} hash
  * @property {hot} hot
  * @property {inlineManifest} inlineManifest
  * @property {maps} maps
