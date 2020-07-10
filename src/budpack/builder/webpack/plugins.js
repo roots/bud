@@ -16,18 +16,18 @@ const FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries')
 
 /**
  * Base plugins
- * @typedef {function (paths: bud.paths, options: bud.options) => {array}} basePlugins
+ * @typedef {function (paths: bud.paths, features: bud.features) => {array}} basePlugins
  * @param {paths} paths
  * @param {options} options
  * @return {array}
  */
-const basePlugins = (paths, options) => [
+const basePlugins = (paths, features) => [
   new FixStyleOnlyEntriesPlugin({
     silent: true,
   }),
   new MiniCssExtractPlugin({
-    filename: options.hashed
-      ? `[name].[chunkhash].css`
+    filename: features.hash
+      ? `[name].[hash:8].css`
       : '[name].css',
   }),
   new CleanWebpackPlugin(),
@@ -110,7 +110,7 @@ const conditionalPlugins = (options, features) => [
  */
 const plugins = ({options, features, paths}) => ({
   plugins: [
-    ...basePlugins(paths, options),
+    ...basePlugins(paths, features),
     ...devPlugins(options, features),
     ...conditionalPlugins(options, features),
   ],

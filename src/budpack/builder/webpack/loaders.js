@@ -17,7 +17,7 @@ const babel = ({src, babel}) => ({
   include: src,
   exclude: /node_modules/,
   loader: loaderModules.babel,
-  options: babel.options,
+  options: babel,
 })
 
 /**
@@ -48,12 +48,12 @@ const css = ({src, postCss}, features) => ({
       loader: loaderModules.css,
       options: {url: false},
     },
-    ...(features.postCss && postCss.options
+    ...(features.postCss
       ? [
           {
             loader: loaderModules.postcss,
             options: {
-              ...postCss.options,
+              ...postCss,
               importLoaders: 1,
             },
           },
@@ -63,7 +63,7 @@ const css = ({src, postCss}, features) => ({
       loader: loaderModules.resolveUrl,
       options: {
         engine: 'postcss',
-        sourceMap: false,
+        sourceMap: features.map,
         debug: true,
       },
     },

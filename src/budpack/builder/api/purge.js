@@ -1,5 +1,3 @@
-import {isBoolean} from 'lodash'
-
 /**
  * Purge unused CSS from compiled stylesheets.
  * @see https://purgecss.com/guides/wordpress.html
@@ -30,21 +28,14 @@ import {isBoolean} from 'lodash'
  * @param   {RegExp[]} options.whitelistPatternsChildren
  * @return  {typeof import('./../index')} bud
  */
-const purge = function (options) {
-  this.features.purge = options.enabled
+const purge = function ({enabled = true, ...options}) {
+  if (enabled) {
+    this.options.postCss.plugins = [
+      ...this.options.postCss.plugins,
+      require('@fullhuman/postcss-purgecss')(options),
+    ]
 
-  if (options.enabled) {
-    delete(options.enabled)
-
-    this.options.postCss = {
-      ...this.options.postCss,
-      plugins: [
-        ...this.options.postCss.plugins,
-        require('@fullhuman/postcss-purgecss')({
-          ...options,
-        }),
-      ],
-    }
+    console.log(options, this.options.postCss.plugins)
   }
 
   return this

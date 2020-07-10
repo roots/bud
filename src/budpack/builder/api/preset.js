@@ -9,7 +9,9 @@ import {join} from 'path'
  * @return {string} absolutePath
  */
 const preset = function (relativePath) {
-  return join(this.paths.framework, 'config', relativePath)
+  const presetConfig = join(this.paths.framework, 'config', relativePath)
+
+  return require(presetConfig)
 }
 
 export {preset}

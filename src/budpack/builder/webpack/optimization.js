@@ -15,7 +15,9 @@ const optimization = ({features, options}) => {
   }
 
   if (features.inlineManifest) {
-    config.optimization.runtimeChunk = true
+    config.optimization.runtimeChunk = {
+      name: entrypoint => `runtime/${entrypoint.name}`,
+    }
   }
 
   if (features.vendor) {

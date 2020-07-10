@@ -6,7 +6,7 @@ const output = ({paths, features}) => ({
     path: paths.dist,
     publicPath: paths.public,
     filename: features.hash
-      ? '[name].[hash:8].chunk.js'
+      ? '[name].[hash:8].js'
       : '[name].js',
   },
 })

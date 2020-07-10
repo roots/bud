@@ -2,7 +2,7 @@
  * @roots/babel-preset-wp
  */
 
-module.exports = () => ({
+module.exports = {
   presets: [
     require('@babel/preset-env', {
       modules: false,
@@ -21,4 +21,4 @@ module.exports = () => ({
     ],
     require('babel-plugin-macros'),
   ],
-})
+}

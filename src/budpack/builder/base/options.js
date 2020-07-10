@@ -1,13 +1,17 @@
 import {env} from './env'
-import {babel, postCss} from './configs'
+import {configs} from './configs'
 
 /**
  * Options container.
  * @typedef {Object} options
  */
 const options = {
-  babel: babel ? require(babel) : {presets: [], plugins: []},
-  postCss: postCss ? require(postCss) : {plugins: []},
+  babel: configs.babel
+    ? require(configs.babel)
+    : ({presets: [], plugins: []}),
+  postCss: configs.postCss
+    ? require(configs.postCss)
+    : ({plugins: []}),
   svg: {
     use: [
       require.resolve('@svgr/webpack'),

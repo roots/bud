@@ -10,13 +10,12 @@
  *
  * @typedef {function ({enabled: boolean, presets: any[], plugins: any[]}) => {bud: typeof import('./../index')}} babel
  * @param   {{enabled: boolean, presets: any[], plugins: any[]}} options
- * @param   {boolean}  options.enabled
  * @param   {any[]}    options.plugins
  * @param   {any[]}    options.presets
  * @return  {typeof import('./../index')} bud
  */
 const babel = function (options) {
-  this.features.babel = options.enabled
+  this.features.babel = true
 
   this.options.babel = {
     ...this.options.babel,

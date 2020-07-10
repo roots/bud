@@ -29,13 +29,13 @@ const hasConfig = file => existsSync(config(file))
 const configs = {
   babel: hasConfig('babel.config.js')
     ? config('babel.config.js')
-    : false,
+    : null,
   eslint: hasConfig('.eslintrc.js')
     ? config('.eslintrc.js')
-    : false,
+    : null,
   postCss: hasConfig('postcss.config.js')
     ? config('postcss.config.js')
-    : false,
+    : null,
 }
 
 export {config, hasConfig, configs}
