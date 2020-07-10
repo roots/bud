@@ -2,7 +2,7 @@
  * @roots/babel-preset-wp
  */
 
-module.exports = ({translation}) => ({
+module.exports = () => ({
   presets: [
     require('@babel/preset-env', {
       modules: false,

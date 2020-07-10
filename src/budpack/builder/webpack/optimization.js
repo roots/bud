@@ -10,13 +10,12 @@ const optimization = ({features, options}) => {
       noEmitOnErrors: true,
       removeAvailableModules: false,
       removeEmptyChunks: false,
+      moduleIds: 'hashed',
     },
   }
 
   if (features.inlineManifest) {
-    config.optimization.runtimeChunk = {
-      name: options.inlineManifest.name,
-    }
+    config.optimization.runtimeChunk = true
   }
 
   if (features.vendor) {
@@ -26,6 +25,7 @@ const optimization = ({features, options}) => {
           test: /[\\/]node_modules[\\/]/,
           name: options.vendor.name,
           chunks: 'all',
+          priority: -20,
         },
       },
     }

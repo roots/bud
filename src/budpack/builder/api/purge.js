@@ -31,22 +31,21 @@ import {isBoolean} from 'lodash'
  * @return  {typeof import('./../index')} bud
  */
 const purge = function (options) {
-  isBoolean(options.enabled) &&
-    delete options.enabled &&
-    Object.assign(this.features.purge, options.enabled)
+  this.features.purge = options.enabled
 
-  this.features.purge &&
-    (() => {
-      this.options.postCss = {
-        ...this.options.postCss,
-        plugins: [
-          ...this.options.postCss.plugins,
-          require('@fullhuman/postcss-purgecss')({
-            ...options,
-          }),
-        ],
-      }
-    })()
+  if (options.enabled) {
+    delete(options.enabled)
+
+    this.options.postCss = {
+      ...this.options.postCss,
+      plugins: [
+        ...this.options.postCss.plugins,
+        require('@fullhuman/postcss-purgecss')({
+          ...options,
+        }),
+      ],
+    }
+  }
 
   return this
 }

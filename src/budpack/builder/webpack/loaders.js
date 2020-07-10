@@ -106,6 +106,7 @@ const loaders = ({features, options, configs}) => ({
   module: {
     strictExportPresence: true,
     rules: [
+      {parser: {requireEnsure: false}},
       ...(features.eslint && configs.eslint
         ? [eslint(configs)]
         : []),

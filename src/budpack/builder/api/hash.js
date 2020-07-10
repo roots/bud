@@ -5,7 +5,7 @@
  * @param   {boolean} enabled - true to enable filename hashing.
  * @return  {typeof import('./../index')} bud
  */
-const hash = function (enabled) {
+const hash = function (enabled = true) {
   this.features.hash = enabled
 
   return this

@@ -5,7 +5,7 @@
  * @param   {string} dir - public path of project
  * @return  {typeof import('./../index')} bud
  */
-const publicPath = dir => {
+const publicPath = function (dir) {
   this.paths.public = dir
 
   return this

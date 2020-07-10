@@ -7,7 +7,7 @@ import {join} from 'path'
  * @param   {string} dir - path of dist directory relative to the project root.
  * @return  {typeof import('./../index')} bud
  */
-const distPath = dir => {
+const distPath = function (dir) {
   this.paths.dist = join(this.paths.project, dir)
 
   return this

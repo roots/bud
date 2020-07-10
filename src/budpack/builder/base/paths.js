@@ -24,9 +24,9 @@ const frameworkDir = resolve(__dirname, './../../../..')
 const paths = {
   project: projectDir,
   framework: frameworkDir,
-  src: join(projectDir, 'src'),
-  dist: join(projectDir, 'dist'),
-  public: 'dist',
+  src: join(projectDir, ''),
+  dist: join(projectDir, ''),
+  public: '',
 }
 
 export {paths}

@@ -7,7 +7,7 @@ import {babel, postCss} from './configs'
  */
 const options = {
   babel: babel ? require(babel) : {presets: [], plugins: []},
-  postCss: postCss ? require(postCss) :{plugins: []},
+  postCss: postCss ? require(postCss) : {plugins: []},
   svg: {
     use: [
       require.resolve('@svgr/webpack'),
@@ -47,8 +47,7 @@ const options = {
     vendors: [],
   },
   dependencyManifest: {
-    combineAssets: true,
-    combinedOutputFile: 'dependencies.json',
+    combineAssets: false,
     injectPolyfill: false,
     outputFormat: 'json',
   },

@@ -12,18 +12,18 @@
  * @param   {array}    options.plugins
  * @return  {typeof import('./../index')} bud
  */
-const postCss = function (options) {
-  this.features.postCss = options.enabled
-    ? options.enabled
-    : true
-  this.features.postCss &&
-    Object.assign(this.options.postCss, {
+const postCss = function ({enabled = true, ...options}) {
+  this.features.postCss = enabled
+
+  if (this.features.postCss) {
+    this.options.postCss = {
       ...this.options.postCss,
       plugins: [
         ...this.options.postCss.plugins,
         ...(options.plugins ? options.plugins : []),
       ],
-    })
+    }
+  }
 
   return this
 }
