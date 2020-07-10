@@ -34,8 +34,6 @@ const purge = function ({enabled = true, ...options}) {
       ...this.options.postCss.plugins,
       require('@fullhuman/postcss-purgecss')(options),
     ]
-
-    console.log(options, this.options.postCss.plugins)
   }
 
   return this
