@@ -3,7 +3,7 @@
 namespace Roots\Bud\Asset\Base;
 
 use Roots\Bud\Collection\Collection;
-use Roots\Bud\Services\ServiceProvider;
+use Roots\Bud\Container\Container;
 
 /**
  * Abstract asset.
@@ -13,31 +13,32 @@ use Roots\Bud\Services\ServiceProvider;
  */
 abstract class AbstractAsset extends Collection
 {
+    /**
+     * @var string
+     */
     public $id;
 
+    /**
+     * @var string
+     */
     public $value;
 
     /**
      * Construct.
-     *
      * @param  Roots\Bud\Container\Container $bud
      * @param  string                        $id
      * @param  string                        $value
      */
-    public function __construct($bud, $id, $value)
+    public function __construct(Container $bud, string $id, string $value)
     {
         $this->bud = $bud;
 
         $this->id = $id;
-
         $this->value = $value;
-
-        $this->url = $this->bud['url'];
     }
 
     /**
      * Asset dependencies.
-     *
      * @return array
      */
     public function dependencies(): array
@@ -47,21 +48,37 @@ abstract class AbstractAsset extends Collection
 
     /**
      * Asset url.
-     *
      * @return string
      */
-    public function url()
+    public function url(): string
     {
-        return join('/', [$this->url, $this->value]);
+        return join('/', [$this->bud['url'], $this->bud['directories']->dist . $this->value]);
+    }
+
+    /**
+     * Asset contents.
+     * @return string
+     */
+    public function contents(): string
+    {
+        return file_get_contents($this->path());
+    }
+
+    /**
+     * Asset JSON.
+     * @return object
+     */
+    public function json(): object
+    {
+        return json_decode($this->contents());
     }
 
     /**
      * Asset path.
-     *
      * @return string
      */
-    public function path()
+    public function path(): string
     {
-        return join('/', [$this->bud['directories']->base, $this->value]);
+        return join('/', [$this->bud['directories']->base, $this->bud['directories']->dist . $this->value]);
     }
 }
