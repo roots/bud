@@ -1,7 +1,7 @@
 /**
  * Enable or disable watch mode.
- * @typedef {function (enabled: boolean) => {bud: typeof import('./../index')}} watch
- * @param   {bool} true - if enabled
+ * @typedef {function (enabled: boolean) => {bud: typeof import('./../index')} vendor
+ * @param   {bool} enabled - true if enabled
  * @return  {typeof import('./../index')} bud
  */
 const watch = enabled => {

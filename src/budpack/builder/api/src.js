@@ -1,8 +1,15 @@
 import {join} from 'path'
 
 /**
- * Yield an absolute path from a path relative to the src dir.
- * @example bud.src('scripts/app.js') // absolute path to the source file
+ * ## bud.src
+ *
+ * Return an absolute path from a given path relative to the directory assigned by `bud.srcPath`.
+ *
+ * ### Example
+ *
+ * ```js
+ * bud.src('scripts/app.js') // absolute path to the source file
+ * ```
  * @typedef {function (relativePath: string) => {absolutePath: string}} src
  * @param   {string} relativePath - relative path
  * @return  {string} absolutePath

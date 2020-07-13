@@ -1,16 +1,23 @@
 /**
- * Purge unused CSS from compiled stylesheets.
+ * ## bud.purge
+ *
+ * Purge unused CSS from compiled stylesheets
+ *
  * @see https://purgecss.com/guides/wordpress.html
  * @see https://purgecss.com/configuration.html
- * @example
+ *
+ * ### Example
+ *
+ * ```js
  * bud.purge({
  *   enabled: bud.inProduction,
  *   content: [bud.project('resources/views/**')],
  *   allow: require('purgecss-with-wordpress').whitelist,
  *   allowPatterns: require('purgecss-with-wordpress').whitelistPatterns,
  * })
- * @typedef {function ({enabled: boolean, content: Object, css: Object, defaultExtractor?: Function, extractors?: array, fontFace: boolean, keyframes: boolean, output: string, rejected: boolean, stdin?: boolean, stdout?: boolean, variables?: boolean, whitelist?: string[], whitelistPatterns?: RegExp[], whitelistPatternsChildren?: RegExp[] }) => {bud: typeof import('./../index')}} purge
- * @param   {{enabled: boolean, content: Object, css: Object, defaultExtractor?: Function, extractors?: array, fontFace: boolean, keyframes: boolean, output: string, rejected: boolean, stdin?: boolean, stdout?: boolean, variables?: boolean, whitelist?: string[], whitelistPatterns?: RegExp[], whitelistPatternsChildren?: RegExp[] }} options - purge options
+ * ```
+ *
+ * @typedef {function (options: {enabled: boolean, content: Object, css: Object, defaultExtractor?: Function, extractors?: array, fontFace: boolean, keyframes: boolean, output: string, rejected: boolean, stdin?: boolean, stdout?: boolean, variables?: boolean, whitelist?: string[], whitelistPatterns?: RegExp[], whitelistPatternsChildren?: RegExp[] }) => {bud: typeof import('./../index')}} purge
  * @param   {boolean}  options.enabled - true to enable purgecss
  * @param   {Object}   options.content
  * @param   {Object}   options.css

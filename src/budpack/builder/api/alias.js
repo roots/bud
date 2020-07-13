@@ -1,8 +1,20 @@
 /**
+ * ## bud.alias
+ *
  * Resolve modules through webpack aliases. Useful for situations that may otherwise require brittle relative paths.
- * @example
- *  bud.alias({'scripts': bud.src('scripts')})
- *  ↪️ import 'scripts/myScript'
+ *
+ * Having defined this alias:
+ *
+ * ```js
+ * bud.alias({'scripts': bud.src('scripts')})
+ * ```
+ *
+ * You can now reference scripts against that alias in your import statements:
+ *
+ * ```js
+ * import 'scripts/myScript' // replacing '../../myScript'
+ * ```
+ *
  * @typedef {function ([key: string]: {directory: string}[]) => {bud: typeof import('./../index')}} alias
  * @param   {[key: string]: {directory: string}} options
  * @return  {typeof import('./../index')} bud

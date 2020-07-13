@@ -1,5 +1,13 @@
 /**
+ * ## bud.publicPath
+ *
  * Set the project public path.
+ *
+ * ### Example
+ *
+ * ```js
+ * bud.publicPath('dist')
+ * ```
  *
  * @typedef {function (dir: string) => {bud: typeof import('./../index')}} publicPath
  * @param   {string} dir - public path of project
