@@ -1,5 +1,12 @@
 /**
- * General webpackery.
+ * General webpack options
+ *
+ * @typedef {function (options: object) => {object}} general
+ * @param {bud}    bud
+ * @param {object} bud.paths
+ * @param {string} bud.mode
+ * @param {object} bud.features
+ * @param {object} bud.options
  */
 const general = ({paths, mode, features, options}) => ({
   context: paths.project,

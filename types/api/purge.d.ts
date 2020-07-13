@@ -41,8 +41,7 @@ export type purge = (arg0: any, arg1: {
  * })
  * ```
  *
- * @typedef {function (parameters: {enabled: boolean, content: Object, css: Object, defaultExtractor?: Function, extractors?: array, fontFace: boolean, keyframes: boolean, output: string, rejected: boolean, stdin?: boolean, stdout?: boolean, variables?: boolean, whitelist?: string[], whitelistPatterns?: RegExp[], whitelistPatternsChildren?: RegExp[] }) => {bud: typeof import('./../index')}} purge
- * @param   {parameters: {enabled: boolean, content: Object, css: Object, defaultExtractor?: Function, extractors?: array, fontFace: boolean, keyframes: boolean, output: string, rejected: boolean, stdin?: boolean, stdout?: boolean, variables?: boolean, whitelist?: string[], whitelistPatterns?: RegExp[], whitelistPatternsChildren?: RegExp[] }} options - purge options
+ * @typedef {function (options: {enabled: boolean, content: Object, css: Object, defaultExtractor?: Function, extractors?: array, fontFace: boolean, keyframes: boolean, output: string, rejected: boolean, stdin?: boolean, stdout?: boolean, variables?: boolean, whitelist?: string[], whitelistPatterns?: RegExp[], whitelistPatternsChildren?: RegExp[] }) => {bud: typeof import('./../index')}} purge
  * @param   {boolean}  options.enabled - true to enable purgecss
  * @param   {Object}   options.content
  * @param   {Object}   options.css
@@ -60,5 +59,5 @@ export type purge = (arg0: any, arg1: {
  * @param   {RegExp[]} options.whitelistPatternsChildren
  * @return  {typeof import('./../index')} bud
  */
-export function purge({ enabled, ...options }: any): typeof import('./../index');
+export function purge({ enabled, ...options }: boolean): typeof import('./../index');
 //# sourceMappingURL=purge.d.ts.map

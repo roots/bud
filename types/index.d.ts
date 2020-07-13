@@ -36,7 +36,7 @@ export type bud = {
     target: target;
     translate: translate;
     vendor: vendor;
-    watch: (enabled: any) => typeof import(".");
+    watch: watch;
 };
 import { configs } from "./base/configs";
 import { features } from "./base/features";
@@ -73,6 +73,5 @@ import { sync } from "./api/sync";
 import { target } from "./api/target";
 import { translate } from "./api/translate";
 import { vendor } from "./api/vendor";
-declare namespace ___Users_kellymears_code_projects_cli_bud_bud_support_src_budpack_builder_index_ { }
-export {};
+import { watch } from "./api/watch";
 //# sourceMappingURL=index.d.ts.map

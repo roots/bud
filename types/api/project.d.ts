@@ -1,13 +1,28 @@
 /**
- * Yield an absolute path from a path relative to the project dir.
+ * ## bud.project
+ *
+ * Yield an absolute path from a path relative to the `bud.projectPath`.
+ *
+ * ### Example
+ *
+ * ```js
+ * bud.project('package.json') // absolute path to package.json
+ * ```
  */
 export type project = (arg0: any, arg1: string) => {
     absolutePath: string;
 };
 /**
- * Yield an absolute path from a path relative to the project dir.
+ * ## bud.project
  *
- * @example bud.project('package.json') // absolute path to package.json
+ * Yield an absolute path from a path relative to the `bud.projectPath`.
+ *
+ * ### Example
+ *
+ * ```js
+ * bud.project('package.json') // absolute path to package.json
+ * ```
+ *
  * @typedef {function (relativePath: string) => {absolutePath: string}} project
  * @param   {string} relativePath - relative path
  * @return  {string} absolutePath

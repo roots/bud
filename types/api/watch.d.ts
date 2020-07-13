@@ -1,12 +1,25 @@
 /**
+ * ## bud.watch
+ *
  * Enable or disable watch mode.
+ *
+ * ```js
+ * bud.watch(true)
+ * ```
  */
-export type vendor = (arg0: any, arg1: boolean) => {
+export type watch = (arg0: any, arg1: boolean) => {
     bud: typeof import('./../index');
 };
 /**
+ * ## bud.watch
+ *
  * Enable or disable watch mode.
- * @typedef {function (enabled: boolean) => {bud: typeof import('./../index')} vendor
+ *
+ * ```js
+ * bud.watch(true)
+ * ```
+ *
+ * @typedef {function (enabled: boolean) => {bud: typeof import('./../index')} watch
  * @param   {bool} enabled - true if enabled
  * @return  {typeof import('./../index')} bud
  */

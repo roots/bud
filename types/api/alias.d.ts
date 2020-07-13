@@ -9,8 +9,10 @@
  * bud.alias({'scripts': bud.src('scripts')})
  * ```
  *
+ * You can now reference scripts against that alias in your import statements:
+ *
  * ```js
- * import 'scripts/myScript'
+ * import 'scripts/myScript' // replacing '../../myScript'
  * ```
  */
 export type alias = (arg0: [any, string], arg1: {
@@ -29,8 +31,10 @@ export type alias = (arg0: [any, string], arg1: {
  * bud.alias({'scripts': bud.src('scripts')})
  * ```
  *
+ * You can now reference scripts against that alias in your import statements:
+ *
  * ```js
- * import 'scripts/myScript'
+ * import 'scripts/myScript' // replacing '../../myScript'
  * ```
  *
  * @typedef {function ([key: string]: {directory: string}[]) => {bud: typeof import('./../index')}} alias
