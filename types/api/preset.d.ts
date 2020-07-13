@@ -13,9 +13,12 @@
  * bud.preset('babel/preset-react')
  * ```
  */
-export type preset = (arg0: any, arg1: string) => {
-    absolutePath: string;
-};
+export type preset = (
+  arg0: any,
+  arg1: string,
+) => {
+  absolutePath: string
+}
 /**
  * ## bud.preset
  *
@@ -35,5 +38,5 @@ export type preset = (arg0: any, arg1: string) => {
  * @param  {string} relativePath - relative path
  * @return {string} absolutePath
  */
-export function preset(relativePath: string): string;
+export function preset(relativePath: string): string
 //# sourceMappingURL=preset.d.ts.map

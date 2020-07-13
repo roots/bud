@@ -30,6 +30,7 @@ const features = {
   hot: !inProduction,
   inlineManifest: false,
   minified: inProduction,
+  overlay: true,
   postCss: true,
   purge: false,
   sourceMap: !inProduction,

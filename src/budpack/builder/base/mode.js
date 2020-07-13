@@ -2,8 +2,16 @@ import {argv} from 'yargs'
 import {env} from './env'
 
 /**
- * Build mode
- * In order of precedence: CLI args, env file, fallback ('production')
+ * bud.mode
+ *
+ * Webpack mode ('development'|'production')
+ *
+ * Determined by the first match, in order of precedence:
+ *
+ *  - CLI args
+ *  - env file
+ *  - fallback ('production')
+ *
  * @typedef {mode: string} mode - 'production'|'development'
  */
 const mode = argv?.env

@@ -2,17 +2,17 @@
  * Make a manifest of @wordpress dependencies utilized by entrypoints.
  */
 export type dependencyManifest = (arg0: {
-    enabled?: boolean;
-    outputFormat: string;
-    combineAssets: boolean;
-    combinedOutputFile: string;
-    useDefaults: boolean;
-    injectPolyfill: boolean;
-    requestToExternal: Function;
-    requestToHandle: Function;
+  enabled?: boolean
+  outputFormat: string
+  combineAssets: boolean
+  combinedOutputFile: string
+  useDefaults: boolean
+  injectPolyfill: boolean
+  requestToExternal: Function
+  requestToHandle: Function
 }) => {
-    bud: typeof import('./../index');
-};
+  bud: typeof import('./../index')
+}
 /**
  * Make a manifest of @wordpress dependencies utilized by entrypoints.
  * @see     https://git.io/JJLxM
@@ -28,14 +28,16 @@ export type dependencyManifest = (arg0: {
  * @param   {Function} settings.requestToHandle - requestToHandle allows the script handle included in the dependency list to be customized.
  * @return  {typeof import('./../index')} bud
  */
-export function dependencyManifest({ ...settings }: {
-    enabled?: boolean;
-    outputFormat: string;
-    combineAssets: boolean;
-    combinedOutputFile: string;
-    useDefaults: boolean;
-    injectPolyfill: boolean;
-    requestToExternal: Function;
-    requestToHandle: Function;
-}): typeof import('./../index');
+export function dependencyManifest({
+  ...settings
+}: {
+  enabled?: boolean
+  outputFormat: string
+  combineAssets: boolean
+  combinedOutputFile: string
+  useDefaults: boolean
+  injectPolyfill: boolean
+  requestToExternal: Function
+  requestToHandle: Function
+}): typeof import('./../index')
 //# sourceMappingURL=dependencyManifest.d.ts.map

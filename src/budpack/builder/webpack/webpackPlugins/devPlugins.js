@@ -1,6 +1,6 @@
+import BrowserSyncPlugin from 'browser-sync-webpack-plugin'
 import {HotModuleReplacementPlugin} from 'webpack'
 import WriteFilePlugin from 'write-file-webpack-plugin'
-import BrowserSyncPlugin from 'browser-sync-webpack-plugin'
 
 /**
  * Development plugins

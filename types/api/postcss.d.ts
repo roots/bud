@@ -7,11 +7,11 @@
  * Conflicts between supplied configs will be resolved in favor of bud.config.js.
  */
 export type postCss = (arg0: {
-    enabled: boolean;
-    plugins: any[];
+  enabled: boolean
+  plugins: any[]
 }) => {
-    bud: typeof import('./../index');
-};
+  bud: typeof import('./../index')
+}
 /**
  * Configure PostCSS.
  *
@@ -26,8 +26,11 @@ export type postCss = (arg0: {
  * @param   {array}    options.plugins
  * @return  {typeof import('./../index')} bud
  */
-export function postCss({ enabled, ...options }: {
-    enabled: boolean;
-    plugins: any[];
-}): typeof import('./../index');
+export function postCss({
+  enabled,
+  ...options
+}: {
+  enabled: boolean
+  plugins: any[]
+}): typeof import('./../index')
 //# sourceMappingURL=postcss.d.ts.map

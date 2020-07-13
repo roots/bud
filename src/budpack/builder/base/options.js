@@ -38,6 +38,7 @@ const options = {
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
+    historyApiFallback: true,
     hotOnly: true,
     injectHot: true,
     open: false,
