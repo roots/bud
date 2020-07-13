@@ -7,9 +7,7 @@
  * @param {string} name
  * @return {typeof import('./../index')} bud
  */
-const inlineManifest = function (
-  name = 'runtime',
-) {
+const inlineManifest = function (name = 'runtime') {
   this.features.inlineManifest = true
 
   if (this.features.inlineManifest) {

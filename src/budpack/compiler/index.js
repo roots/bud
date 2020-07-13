@@ -4,15 +4,21 @@ import PropTypes from 'prop-types'
 import notifier from 'node-notifier'
 import useStdOutDimensions from 'ink-use-stdout-dimensions'
 
-import useWebpack from './hooks/useWebpack'
-import useFocusState from './hooks/useFocusState'
+import {useWebpack} from './hooks/useWebpack'
+import {useFocusState} from './hooks/useFocusState'
 
-import App from './components/App'
-import Assets from './components/Assets'
-import BrowserSync from './components/BrowserSync'
-import Errors from './components/Errors'
-import Warnings from './components/Warnings'
+import {App} from './components/App'
+import {Assets} from './components/Assets'
+import {BrowserSync} from './components/BrowserSync'
+import {Errors} from './components/Errors/index'
+import {Warnings} from './components/Warnings/index'
 
+/**
+ * Successful build
+ *
+ * @prop {object} build
+ * @return {boolean}
+ */
 const successfulBuild = build =>
   !build?.errors?.length > 0 &&
   build?.percentage == 1 &&
@@ -22,13 +28,13 @@ const successfulBuild = build =>
  * Budpack build status display
  *
  * @prop {object} compiler webpack compiler
- * @prop {string} config   webpack compiler config
- * @prop {object} options  project options
+ * @prop {object} config   webpack compiler config
  */
 const Runner = ({compiler, config}) => {
-  const [width] = useStdOutDimensions()
+  const [width, height] = useStdOutDimensions()
   const [state, actions] = useFocusState()
   const {exit} = useApp()
+
   useInput(input => {
     if (input == 'q') {
       exit()
@@ -59,6 +65,7 @@ const Runner = ({compiler, config}) => {
   return (
     <App
       width={width}
+      height={height}
       build={build}
       state={state}
       config={config}>
@@ -77,7 +84,6 @@ const Runner = ({compiler, config}) => {
 Runner.propTypes = {
   compiler: PropTypes.object,
   config: PropTypes.object,
-  webpackConfig: PropTypes.object,
 }
 
 export {Runner}

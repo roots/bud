@@ -1,9 +1,11 @@
-const path = require('path')
+import path from 'path'
 
 /**
- * Webpack resolves.
+ * Webpack resolvers.
+ *
+ * @param {ob}
  */
-const resolve = ({options, paths}) => {
+const webpackResolve = ({options, paths}) => {
   const config = {
     resolve: {
       extensions: ['.js', '.json', '.vue', '.jsx'],
@@ -20,4 +22,4 @@ const resolve = ({options, paths}) => {
   return config
 }
 
-module.exports = resolve
+export {webpackResolve}

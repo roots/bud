@@ -3,16 +3,17 @@ import {existsSync} from 'fs-extra'
 import {paths} from './paths'
 
 /**
- * Returns absolute path to a project config file
+ * Config
+ *
  * @typedef {function (relativePath: string) => {filePath: string}} config
  * @param   {string} relativePath - relative path (from project root)
  * @return  {string} filePath
  */
-const config = relativePath =>
-  join(paths.project, relativePath)
+const config = file => join(paths.project, file)
 
 /**
- * Returns a boolean representing if a file can be located in the project root.
+ * Has config
+ *
  * @typedef {function (file: string) => boolean} hasConfig
  * @param   {string} file - file path (relative to project root)
  * @return  {boolean} true if file exists
@@ -20,22 +21,25 @@ const config = relativePath =>
 const hasConfig = file => existsSync(config(file))
 
 /**
+ * Maybe config
+ * @typedef {function (file: string) => (boolean|string)} maybeConfig
+ * @param {string} file -file path (relative to project root)
+ */
+const maybeConfig = file =>
+  hasConfig(file) ? config(file) : null
+
+/**
  * Project configuration files.
+ *
  * @typedef  {{babel: (boolean|string), eslint: (boolean|string), postCss: (boolean|string)}} configs
  * @property {(string|boolean)} babel   - project babel.config.js
  * @property {(string|boolean)} eslint  - project .eslintrc.js
  * @property {(string|boolean)} postcss - project postcss.config.js
  */
 const configs = {
-  babel: hasConfig('babel.config.js')
-    ? config('babel.config.js')
-    : null,
-  eslint: hasConfig('.eslintrc.js')
-    ? config('.eslintrc.js')
-    : null,
-  postCss: hasConfig('postcss.config.js')
-    ? config('postcss.config.js')
-    : null,
+  babel: maybeConfig('babel.config.js'),
+  eslint: maybeConfig('.eslintrc.js'),
+  postCss: maybeConfig('postcss.config.js'),
 }
 
-export {config, hasConfig, configs}
+export {config, hasConfig, maybeConfig, configs}

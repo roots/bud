@@ -132,7 +132,7 @@ Bud.prototype.watch = watch
  * @property {vendor} vendor
  * @property {watch} watch
  */
-const bud = new Bud
+const bud = new Bud()
 
 /**
  * Bud - Asset management framework

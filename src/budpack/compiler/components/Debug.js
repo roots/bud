@@ -29,4 +29,4 @@ Debug.propTypes = {
   config: PropTypes.object,
 }
 
-export default Debug
+export {Debug}

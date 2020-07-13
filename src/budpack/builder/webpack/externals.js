@@ -8,4 +8,4 @@ const externals = () => ({
   },
 })
 
-export default externals
+export {externals}

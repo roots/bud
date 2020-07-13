@@ -19,4 +19,4 @@ const useFocusState = globalState(
   },
 )
 
-export default useFocusState
+export {useFocusState}

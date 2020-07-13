@@ -1,8 +1,14 @@
 import React, {useEffect} from 'react'
 import {Box, Spacer, Text, useFocus} from 'ink'
+import PropTypes from 'prop-types'
 
 /**
  * Assets
+ *
+ * @prop {object} build
+ * @prop {object} actions
+ * @prop {number} width
+ * @return {PropTypes.ReactComponentLike}
  */
 const Assets = ({build, actions, width}) => {
   const {isFocused} = useFocus({autoFocus: true})
@@ -42,4 +48,10 @@ const Assets = ({build, actions, width}) => {
   )
 }
 
-export default Assets
+Assets.propTypes = {
+  build: PropTypes.object,
+  actions: PropTypes.object,
+  width: PropTypes.number,
+}
+
+export {Assets}

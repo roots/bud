@@ -1,10 +1,15 @@
 import React, {useEffect, useState} from 'react'
 import {Box, Text, useFocus} from 'ink'
-import Warning from './Warning'
 import PropTypes from 'prop-types'
+
+import {Warning} from './Warning'
 
 /**
  * Warnings
+ *
+ * @prop {object} build
+ * @prop {object} actions
+ * @return {PropTypes.ReactComponentLike}
  */
 const Warnings = ({build, actions}) => {
   const {isFocused} = useFocus({autoFocus: false})
@@ -38,4 +43,4 @@ Warnings.propTypes = {
   actions: PropTypes.object,
 }
 
-export default Warnings
+export {Warnings}

@@ -1,17 +1,19 @@
 import notifier from 'node-notifier'
 import React, {useEffect} from 'react'
 import {Box, Text} from 'ink'
+import PropTypes from 'prop-types'
 
 /**
- * Warning
+ * Error
  *
- * @prop {object} error
+ * @prop {string} message
+ * @return {PropTypes.ReactComponentLike}
  */
-const Warning = ({message}) => {
+const Error = ({message}) => {
   useEffect(() => {
     message &&
       notifier.notify({
-        title: 'Warning',
+        title: 'Build error',
         message,
       })
   }, [message])
@@ -28,4 +30,8 @@ const Warning = ({message}) => {
   )
 }
 
-export default Warning
+Error.propTypes = {
+  message: PropTypes.string,
+}
+
+export {Error}

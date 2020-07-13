@@ -7,19 +7,27 @@ import {makeWebpackConfig} from './builder/webpack'
 import {Runner} from './compiler'
 
 /**
- * Make the webpack options object from the project export.
+ * Get the project config export.
  */
 const config = require(join(process.cwd(), 'bud.config.js'))
+
+/**
+ * Fashion config into a proper webpack config object
+ */
 const webpackConfig = makeWebpackConfig(config)
 
 /**
- * Set env
+ * Set babel env
  */
 process.env.BABEL_ENV = config.options.mode
+/**
+ * Set node env
+ */
 process.env.NODE_ENV = config.options.mode
 
 /**
  * Runner props
+ *
  * @typedef  {object.<props>}
  * @property {object.<options>} options
  * @property {object} config - webpack config

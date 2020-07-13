@@ -11,4 +11,4 @@ const output = ({paths, features}) => ({
   },
 })
 
-module.exports = output
+export {output}

@@ -1,6 +1,6 @@
 /**
  * Debug mode
- * @typedef {function (enabled: boolean) => {typeof import('./../index')}} debug
+ * @typedef {function (enabled: boolean) => {bud: typeof import('./../index')}} debug
  * @param   {boolean} enabled - true to enable debug mode
  * @return  {typeof import('./../index')} debug
  */

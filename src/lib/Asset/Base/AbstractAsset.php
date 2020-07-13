@@ -32,7 +32,6 @@ abstract class AbstractAsset extends Collection
     public function __construct(Container $bud, string $id, string $value)
     {
         $this->bud = $bud;
-
         $this->id = $id;
         $this->value = $value;
     }

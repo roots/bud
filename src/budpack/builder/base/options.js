@@ -8,10 +8,10 @@ import {configs} from './configs'
 const options = {
   babel: configs.babel
     ? require(configs.babel)
-    : ({presets: [], plugins: []}),
+    : {presets: [], plugins: []},
   postCss: configs.postCss
     ? require(configs.postCss)
-    : ({plugins: []}),
+    : {plugins: []},
   svg: {
     use: [
       require.resolve('@svgr/webpack'),
@@ -20,9 +20,15 @@ const options = {
   },
   auto: {},
   browserSync: {
-    host: env?.BROWSERSYNC_HOST ? env.BROWSERSYNC_HOST : 'localhost',
-    port: env?.BROWSERSYNC_PORT ? env.BROWSERSYNC_PORT :  3000,
-    proxy: env?.BROWSERSYNC_PROXY ? env.BROWSERSYNC_PROXY : '',
+    host: env?.BROWSERSYNC_HOST
+      ? env.BROWSERSYNC_HOST
+      : 'localhost',
+    port: env?.BROWSERSYNC_PORT
+      ? env.BROWSERSYNC_PORT
+      : 3000,
+    proxy: env?.BROWSERSYNC_PROXY
+      ? env.BROWSERSYNC_PROXY
+      : '',
   },
   copy: {
     patterns: [],
@@ -32,7 +38,10 @@ const options = {
     headers: {
       'Access-Control-Allow-Origin': '*',
     },
-    hot: true,
+    hotOnly: true,
+    injectHot: true,
+    open: false,
+    overlay: true,
     watchOptions: {
       aggregateTimeout: 300,
     },

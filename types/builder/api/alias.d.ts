@@ -1,11 +1,14 @@
 /**
  * Resolve modules through webpack aliases. Useful for situations that may otherwise require brittle relative paths.
  */
-export type alias = (arg0: {
-    [key: string]: any;
-}, arg1: string[]) => {
-    bud: typeof import('./../index');
-};
+export type alias = (
+  arg0: {
+    [key: string]: any
+  },
+  arg1: string[],
+) => {
+  bud: typeof import('./../index')
+}
 /**
  * Resolve modules through webpack aliases. Useful for situations that may otherwise require brittle relative paths.
  * @example
@@ -15,8 +18,8 @@ export type alias = (arg0: {
  * @param   {{[key: string]: {directory: string}}} options
  * @return  {typeof import('./../index')} bud */
 export function alias(options: {
-    [key: string]: {
-        directory: string;
-    };
-}): typeof import('./../index');
+  [key: string]: {
+    directory: string
+  }
+}): typeof import('./../index')
 //# sourceMappingURL=alias.d.ts.map

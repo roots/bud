@@ -1,73 +1,32 @@
+/** Modules */
 import React, {useState, useEffect} from 'react'
 import {Box, Text, Spacer} from 'ink'
-import Spinner from 'ink-spinner'
-import ProgressBar from 'ink-progress-bar'
+import PropTypes from 'prop-types'
 
-import Nav from './Nav'
-
-/**
- * Loading (Progress Plugin)
- */
-const Loading = ({build, width}) =>
-  build?.percentage > 0 && build?.percentage < 1 ? (
-    <Box
-      maxWidth={width}
-      textWrap="truncate"
-      flexDirection="row">
-      <Text bgcolor={'#171c56'}>
-        <Text width={6}>
-          {Math.round(build?.percentage * 100)}%
-          {build?.percentage < 1 ? '  ' : ' '}
-        </Text>
-      </Text>
-
-      <Text color={'#545DD7'}>
-        <ProgressBar
-          character="█"
-          percent={build?.percentage ?? 0.01}
-        />
-      </Text>
-    </Box>
-  ) : (
-    []
-  )
+/** Application components */
+import {Nav} from './Nav'
+import {Loading} from './Loading'
+import {Watching} from './Watching'
 
 /**
- * Watch mode indicator
- */
-const Watching = ({options, build}) => (
-  <Box flexDirection="row">
-    {options?.mode == 'development' &&
-    build?.errors?.length > 0 ? (
-      <Text color="#dc3545">
-        <Text>
-          <Spinner type="dots" />
-        </Text>
-        {' Watching for fixes'}
-      </Text>
-    ) : build?.percentage == 1 ? (
-      <Text color="#28a745">
-        <Text>
-          <Spinner type="dots" />
-        </Text>
-        {' Watching for changes'}
-      </Text>
-    ) : (
-      []
-    )}
-  </Box>
-)
-
-/**
- * App frame
+ * App: CLI Webpack Compiler
  *
- * @prop {React.Element} children
+ * @prop {React.Component[]} children
  * @prop {object}        state
  * @prop {object}        build
  * @prop {object}        options
  * @prop {number}        width
+ * @prop {number}        height
+ * @prop {React.Component}
  */
-const App = ({children, state, build, config, width}) => {
+const App = ({
+  children,
+  state,
+  build,
+  config,
+  width,
+  height,
+}) => {
   const [focused, setFocused] = useState({})
   useEffect(() => {
     setFocused(state)
@@ -75,6 +34,9 @@ const App = ({children, state, build, config, width}) => {
 
   return (
     <Box
+      width={width}
+      maxWidth={width}
+      minHeight={height}
       textWrap="truncate"
       paddingRight={1}
       paddingBottom={1}
@@ -82,7 +44,7 @@ const App = ({children, state, build, config, width}) => {
       flexDirection="column">
       <Nav
         build={build}
-        focused={focused}
+        focused={focused || {}}
         config={config}
       />
       {children}
@@ -94,6 +56,7 @@ const App = ({children, state, build, config, width}) => {
             {build?.time / 1000}s.
           </Text>
         )}
+
         <Loading build={build} width={width} />
         {config?.features?.watching && (
           <Watching config={config} build={build} />
@@ -103,4 +66,13 @@ const App = ({children, state, build, config, width}) => {
   )
 }
 
-export default App
+App.propTypes = {
+  children: PropTypes.array,
+  state: PropTypes.object,
+  build: PropTypes.object,
+  config: PropTypes.object,
+  width: PropTypes.number,
+  height: PropTypes.number,
+}
+
+export {App}

@@ -1,74 +1,73 @@
-
 # @roots/budpack
 
 # @roots/budpack
 
-* [bud.alias](README.md#const-alias)
-* [bud.auto](README.md#const-auto)
-* [bud.babel](README.md#const-babel)
-* [bud.bundle](README.md#const-bundle)
-* [bud.copy](README.md#const-copy)
-* [bud.copyAll](README.md#const-copyall)
-* [bud.debug](README.md#const-debug)
-* [bud.dependencyManifest](README.md#const-dependencymanifest)
-* [bud.dev](README.md#const-dev)
-* [bud.devtool](README.md#const-devtool)
-* [bud.dist](README.md#const-dist)
-* [bud.distPath](README.md#const-distpath)
-* [bud.env](README.md#const-env)
-* [bud.hash](README.md#const-hash)
-* [bud.hot](README.md#const-hot)
-* [bud.inlineManifest](README.md#const-inlinemanifest)
-* [bud.maps](README.md#const-maps)
-* [bud.mini](README.md#const-mini)
-* [bud.postCss](README.md#const-postcss)
-* [bud.preset](README.md#const-preset)
-* [bud.project](README.md#const-project)
-* [bud.projectPath](README.md#const-projectpath)
-* [bud.publicPath](README.md#const-publicpath)
-* [bud.purge](README.md#const-purge)
-* [bud.setEnv](README.md#const-setenv)
-* [bud.src](README.md#const-src)
-* [bud.srcPath](README.md#const-srcpath)
-* [bud.sync](README.md#const-sync)
-* [bud.translate](README.md#const-translate)
-* [bud.vendor](README.md#const-vendor)
-* [bud.watch](README.md#const-watch)
+- [bud.alias](README.md#const-alias)
+- [bud.auto](README.md#const-auto)
+- [bud.babel](README.md#const-babel)
+- [bud.bundle](README.md#const-bundle)
+- [bud.copy](README.md#const-copy)
+- [bud.copyAll](README.md#const-copyall)
+- [bud.debug](README.md#const-debug)
+- [bud.dependencyManifest](README.md#const-dependencymanifest)
+- [bud.dev](README.md#const-dev)
+- [bud.devtool](README.md#const-devtool)
+- [bud.dist](README.md#const-dist)
+- [bud.distPath](README.md#const-distpath)
+- [bud.env](README.md#const-env)
+- [bud.hash](README.md#const-hash)
+- [bud.hot](README.md#const-hot)
+- [bud.inlineManifest](README.md#const-inlinemanifest)
+- [bud.maps](README.md#const-maps)
+- [bud.mini](README.md#const-mini)
+- [bud.postCss](README.md#const-postcss)
+- [bud.preset](README.md#const-preset)
+- [bud.project](README.md#const-project)
+- [bud.projectPath](README.md#const-projectpath)
+- [bud.publicPath](README.md#const-publicpath)
+- [bud.purge](README.md#const-purge)
+- [bud.setEnv](README.md#const-setenv)
+- [bud.src](README.md#const-src)
+- [bud.srcPath](README.md#const-srcpath)
+- [bud.sync](README.md#const-sync)
+- [bud.translate](README.md#const-translate)
+- [bud.vendor](README.md#const-vendor)
+- [bud.watch](README.md#const-watch)
 
 ## Functions
 
 ### `Const` bud.alias
 
-▸ **alias**(`options`: object): *bud*
+▸ **alias**(`options`: object): _bud_
 
-*Defined in [alias.js:9](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/alias.js#L9)*
+_Defined in [alias.js:9](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/alias.js#L9)_
 
 Resolve modules through webpack aliases. Useful for situations that may otherwise require brittle relative paths.
 
 **`example`**
 
 ```js
- // with this alias set:
- bud.alias({'scripts': bud.src('scripts')})
- // now you can import like this:
- import 'scripts/myScript'
+// with this alias set:
+bud.alias({scripts: bud.src('scripts')})
+// now you can import like this:
+import 'scripts/myScript'
 ```
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`options` | object |
+| Name      | Type   |
+| --------- | ------ |
+| `options` | object |
 
-**Returns:** *bud*
+**Returns:** _bud_
 
 ---
 
 ### `Const` bud.auto
 
-▸ **auto**(`options`: object): *bud*
+▸ **auto**(`options`: object): _bud_
 
-*Defined in [auto.js:7](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/auto.js#L7)*
+_Defined in [auto.js:7](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/auto.js#L7)_
 
 Automatically load modules instead of needing to import them.
 
@@ -80,19 +79,19 @@ bud.auto({jquery: ['$', 'window.jQuery']})
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`options` | object |
+| Name      | Type   |
+| --------- | ------ |
+| `options` | object |
 
-**Returns:** *bud*
+**Returns:** _bud_
 
 ---
 
 ### `Const` bud.babel
 
-▸ **babel**(`options`: object): *bud*
+▸ **babel**(`options`: object): _bud_
 
-*Defined in [babel.js:18](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/babel.js#L18)*
+_Defined in [babel.js:18](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/babel.js#L18)_
 
 Configure Babel.
 
@@ -105,23 +104,23 @@ Conflicts between supplied configs will be resolved in favor of bud.config.js.
 
 **Parameters:**
 
-▪ **options**: *object*
+▪ **options**: _object_
 
-Name | Type |
------- | ------ |
-`enabled` | boolean |
-`plugins` | any[] |
-`presets` | any[] |
+| Name      | Type    |
+| --------- | ------- |
+| `enabled` | boolean |
+| `plugins` | any[]   |
+| `presets` | any[]   |
 
-**Returns:** *bud*
+**Returns:** _bud_
 
 ---
 
 ### `Const` bud.bundle
 
-▸ **bundle**(`name`: string, `entries`: any[]): *bud*
+▸ **bundle**(`name`: string, `entries`: any[]): _bud_
 
-*Defined in [bundle.js:9](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/bundle.js#L9)*
+_Defined in [bundle.js:9](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/bundle.js#L9)_
 
 Compile a group of assets.
 
@@ -133,20 +132,20 @@ bud.bundle('app', [bud.src('app.js'), bud.src('app.css')])
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`name` | string | output name. |
-`entries` | any[] | array of src assets to include in the bundle. |
+| Name      | Type   | Description                                   |
+| --------- | ------ | --------------------------------------------- |
+| `name`    | string | output name.                                  |
+| `entries` | any[]  | array of src assets to include in the bundle. |
 
-**Returns:** *bud*
+**Returns:** _bud_
 
 ---
 
 ### `Const` bud.copy
 
-▸ **copy**(`from`: any, `to`: any): *bud*
+▸ **copy**(`from`: any, `to`: any): _bud_
 
-*Defined in [copy.js:10](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/copy.js#L10)*
+_Defined in [copy.js:10](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/copy.js#L10)_
 
 Copy a file.
 
@@ -160,20 +159,20 @@ bud.copy(bud.src('images/image.png'), bud.dist('image.png'))
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`from` | any |
-`to` | any |
+| Name   | Type |
+| ------ | ---- |
+| `from` | any  |
+| `to`   | any  |
 
-**Returns:** *bud*
+**Returns:** _bud_
 
 ---
 
 ### `Const` bud.copyAll
 
-▸ **copyAll**(`src`: string, `dest`: string): *bud*
+▸ **copyAll**(`src`: string, `dest`: string): _bud_
 
-*Defined in [copyAll.js:11](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/copyAll.js#L11)*
+_Defined in [copyAll.js:11](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/copyAll.js#L11)_
 
 Copy all files from a specified source to a specified destination.
 
@@ -185,18 +184,18 @@ bud.copyAll(bud.src('images'), bud.dist('images'))
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`src` | string | origin dir |
-`dest` | string | destination dir |
+| Name   | Type   | Description     |
+| ------ | ------ | --------------- |
+| `src`  | string | origin dir      |
+| `dest` | string | destination dir |
 
-**Returns:** *bud*
+**Returns:** _bud_
 
 ---
 
 ### `Const` bud.debug
 
-▸ **debug**(`enabled`: boolean): *bud*
+▸ **debug**(`enabled`: boolean): _bud_
 
 Defined in debug.js:7
 
@@ -204,19 +203,19 @@ Debug mode
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`enabled` | boolean | true to enable debug mode |
+| Name      | Type    | Description               |
+| --------- | ------- | ------------------------- |
+| `enabled` | boolean | true to enable debug mode |
 
-**Returns:** *bud*
+**Returns:** _bud_
 
-___
+---
 
 ### `Const` bud.dependencyManifest
 
-▸ **dependencyManifest**(`settings`: object): *bud*
+▸ **dependencyManifest**(`settings`: object): _bud_
 
-*Defined in [dependencyManifest.js:17](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/dependencyManifest.js#L17)*
+_Defined in [dependencyManifest.js:17](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/dependencyManifest.js#L17)_
 
 Make a manifest of @wordpress dependencies utilized by entrypoints.
 
@@ -225,31 +224,34 @@ Make a manifest of @wordpress dependencies utilized by entrypoints.
 **`example`**
 
 ```js
-bud.dependencyManifest({outputFormat: 'js', injectPolyfill: false})
+bud.dependencyManifest({
+  outputFormat: 'js',
+  injectPolyfill: false,
+})
 ```
 
 **Parameters:**
 
-▪`Default value`  **settings**: *object*= {enabled: true}
+▪`Default value` **settings**: _object_= {enabled: true}
 
-Name | Type |
------- | ------ |
-`combineAssets` | boolean |
-`combinedOutputFile` | string |
-`enabled?` | boolean |
-`injectPolyfill` | boolean |
-`outputFormat` | string |
-`requestToExternal` | Function |
-`requestToHandle` | Function |
-`useDefaults` | boolean |
+| Name                 | Type     |
+| -------------------- | -------- |
+| `combineAssets`      | boolean  |
+| `combinedOutputFile` | string   |
+| `enabled?`           | boolean  |
+| `injectPolyfill`     | boolean  |
+| `outputFormat`       | string   |
+| `requestToExternal`  | Function |
+| `requestToHandle`    | Function |
+| `useDefaults`        | boolean  |
 
-**Returns:** *bud*
+**Returns:** _bud_
 
 ---
 
 ### `Const` bud.dev
 
-▸ **dev**(`options`: any): *bud*
+▸ **dev**(`options`: any): _bud_
 
 Defined in dev.js:7
 
@@ -257,37 +259,37 @@ Development server settings
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`options` | any |
+| Name      | Type |
+| --------- | ---- |
+| `options` | any  |
 
-**Returns:** *bud*
+**Returns:** _bud_
 
 ---
 
 ### `Const` bud.devtool
 
-▸ **devtool**(`devtool`: string): *bud*
+▸ **devtool**(`devtool`: string): _bud_
 
-*Defined in [devtool.js:7](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/devtool.js#L7)*
+_Defined in [devtool.js:7](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/devtool.js#L7)_
 
 Specify webpack devtool to utilize.
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`devtool` | string |
+| Name      | Type   |
+| --------- | ------ |
+| `devtool` | string |
 
-**Returns:** *bud*
+**Returns:** _bud_
 
 ---
 
 ### `Const` bud.dist
 
-▸ **dist**(`relativePath`: string): *string*
+▸ **dist**(`relativePath`: string): _string_
 
-*Defined in [dist.js:10](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/dist.js#L10)*
+_Defined in [dist.js:10](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/dist.js#L10)_
 
 Yield an absolute path from a path relative to the dist dir.
 
@@ -299,21 +301,21 @@ bud.dist('scripts/app.js') // returns the absolute path to the compiled app.js
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`relativePath` | string | relative path |
+| Name           | Type   | Description   |
+| -------------- | ------ | ------------- |
+| `relativePath` | string | relative path |
 
-**Returns:** *string*
+**Returns:** _string_
 
 absolute path
 
-___
+---
 
 ### `Const` bud.distPath
 
-▸ **distPath**(`dir`: string): *bud*
+▸ **distPath**(`dir`: string): _bud_
 
-*Defined in [distPath.js:10](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/distPath.js#L10)*
+_Defined in [distPath.js:10](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/distPath.js#L10)_
 
 Set the project's dist directory.
 
@@ -325,19 +327,19 @@ bud.distPath('dist') // default unless specified
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`dir` | string | path of dist directory relative to the project root. |
+| Name  | Type   | Description                                          |
+| ----- | ------ | ---------------------------------------------------- |
+| `dir` | string | path of dist directory relative to the project root. |
 
-**Returns:** *bud*
+**Returns:** _bud_
 
 ---
 
 ### `Const` bud.env
 
-▸ **env**(`key`: string): *string*
+▸ **env**(`key`: string): _string_
 
-*Defined in [env.js:8](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/env.js#L8)*
+_Defined in [env.js:8](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/env.js#L8)_
 
 Get environment variable value.
 
@@ -349,65 +351,67 @@ bud.env('APP_NAME')
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`key` | string |
+| Name  | Type   |
+| ----- | ------ |
+| `key` | string |
 
-**Returns:** *string*
+**Returns:** _string_
 
-___
+---
 
 ### `Const` bud.hash
 
-▸ **hash**(`enabled`: boolean): *bud*
+▸ **hash**(`enabled`: boolean): _bud_
 
-*Defined in [hash.js:8](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/hash.js#L8)*
+_Defined in [hash.js:8](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/hash.js#L8)_
 
 Enable or disable filename hashing of built assets. Unless specified, filename hashes will be created when running production builds.
 
 **`example`**
+
 ```js
 bud.hash(true) // enable
 ```
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`enabled` | boolean | true to enable filename hashing. |
+| Name      | Type    | Description                      |
+| --------- | ------- | -------------------------------- |
+| `enabled` | boolean | true to enable filename hashing. |
 
-**Returns:** *bud*
+**Returns:** _bud_
 
 ---
 
 ### `Const` bud.hot
 
-▸ **hot**(`enabled`: boolean): *bud*
+▸ **hot**(`enabled`: boolean): _bud_
 
-*Defined in [hot.js:8](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/hot.js#L8)*
+_Defined in [hot.js:8](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/hot.js#L8)_
 
 Enable or disable hot module reloading
 
 **`example`**
+
 ```js
 bud.hot(true) // enable HMR
 ```
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`enabled` | boolean | true to enable hot module reloading. default: !bud.inProduction. |
+| Name      | Type    | Description                                                      |
+| --------- | ------- | ---------------------------------------------------------------- |
+| `enabled` | boolean | true to enable hot module reloading. default: !bud.inProduction. |
 
-**Returns:** *bud*
+**Returns:** _bud_
 
 ---
 
 ### `Const` bud.inlineManifest
 
-▸ **inlineManifest**(`__namedParameters`: object): *bud*
+▸ **inlineManifest**(`__namedParameters`: object): _bud_
 
-*Defined in [inlineManifest.js:12](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/inlineManifest.js#L12)*
+_Defined in [inlineManifest.js:12](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/inlineManifest.js#L12)_
 
 Make a chunk to be inlined directly on the page for optimal code splitting.
 
@@ -425,58 +429,58 @@ bud.inlineManifest() // defaults: enabled, runtime
 
 **Parameters:**
 
-▪ **__namedParameters**: *object*
+▪ **\_\_namedParameters**: _object_
 
-Name | Type | Default |
------- | ------ | ------ |
-`enabled` | boolean | true |
-`name` | string | "runtime" |
+| Name      | Type    | Default   |
+| --------- | ------- | --------- |
+| `enabled` | boolean | true      |
+| `name`    | string  | "runtime" |
 
-**Returns:** *bud*
+**Returns:** _bud_
 
 ---
 
 ### `Const` bud.maps
 
-▸ **maps**(`enabled`: any): *bud*
+▸ **maps**(`enabled`: any): _bud_
 
-*Defined in [maps.js:7](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/maps.js#L7)*
+_Defined in [maps.js:7](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/maps.js#L7)_
 
 Enable or disable source-maps
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`enabled` | any |
+| Name      | Type |
+| --------- | ---- |
+| `enabled` | any  |
 
-**Returns:** *bud*
+**Returns:** _bud_
 
 ---
 
 ### `Const` bud.mini
 
-▸ **mini**(`enable`: boolean): *bud*
+▸ **mini**(`enable`: boolean): _bud_
 
-*Defined in [mini.js:7](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/mini.js#L7)*
+_Defined in [mini.js:7](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/mini.js#L7)_
 
 Enable or disable minification
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`enable` | boolean | true to enable CSS/JS minification. |
+| Name     | Type    | Description                         |
+| -------- | ------- | ----------------------------------- |
+| `enable` | boolean | true to enable CSS/JS minification. |
 
-**Returns:** *bud*
+**Returns:** _bud_
 
 ---
 
 ### `Const` bud.postCss
 
-▸ **postCss**(`options`: object): *bud*
+▸ **postCss**(`options`: object): _bud_
 
-*Defined in [postcss.js:15](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/postcss.js#L15)*
+_Defined in [postcss.js:15](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/postcss.js#L15)_
 
 Configure PostCSS.
 
@@ -487,22 +491,22 @@ Conflicts between supplied configs will be resolved in favor of bud.config.js.
 
 **Parameters:**
 
-▪ **options**: *object*
+▪ **options**: _object_
 
-Name | Type |
------- | ------ |
-`enabled` | boolean |
-`plugins` | array |
+| Name      | Type    |
+| --------- | ------- |
+| `enabled` | boolean |
+| `plugins` | array   |
 
-**Returns:** *bud*
+**Returns:** _bud_
 
 ---
 
 ### `Const` bud.preset
 
-▸ **preset**(`relativePath`: string): *string*
+▸ **preset**(`relativePath`: string): _string_
 
-*Defined in [preset.js:11](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/preset.js#L11)*
+_Defined in [preset.js:11](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/preset.js#L11)_
 
 Retrieve a Bud framework preset
 
@@ -520,21 +524,21 @@ bud.preset('babel/preset-react')
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`relativePath` | string | relative path |
+| Name           | Type   | Description   |
+| -------------- | ------ | ------------- |
+| `relativePath` | string | relative path |
 
-**Returns:** *string*
+**Returns:** _string_
 
 absolutePath
 
-___
+---
 
 ### `Const` bud.project
 
-▸ **project**(`relativePath`: string): *string*
+▸ **project**(`relativePath`: string): _string_
 
-*Defined in [project.js:10](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/project.js#L10)*
+_Defined in [project.js:10](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/project.js#L10)_
 
 Yield an absolute path from a path relative to the project dir.
 
@@ -546,57 +550,57 @@ bud.project('package.json') // absolute path to package.json
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`relativePath` | string | relative path |
+| Name           | Type   | Description   |
+| -------------- | ------ | ------------- |
+| `relativePath` | string | relative path |
 
-**Returns:** *string*
+**Returns:** _string_
 
 absolutePath
 
-___
+---
 
 ### `Const` bud.projectPath
 
-▸ **projectPath**(`dir`: string): *bud*
+▸ **projectPath**(`dir`: string): _bud_
 
-*Defined in [projectPath.js:7](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/projectPath.js#L7)*
+_Defined in [projectPath.js:7](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/projectPath.js#L7)_
 
 Set the project base path.
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`dir` | string | absolute path of project |
+| Name  | Type   | Description              |
+| ----- | ------ | ------------------------ |
+| `dir` | string | absolute path of project |
 
-**Returns:** *bud*
+**Returns:** _bud_
 
 ---
 
 ### `Const` bud.publicPath
 
-▸ **publicPath**(`dir`: string): *bud*
+▸ **publicPath**(`dir`: string): _bud_
 
-*Defined in [publicPath.js:8](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/publicPath.js#L8)*
+_Defined in [publicPath.js:8](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/publicPath.js#L8)_
 
 Set the project public path.
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`dir` | string | public path of project |
+| Name  | Type   | Description            |
+| ----- | ------ | ---------------------- |
+| `dir` | string | public path of project |
 
-**Returns:** *bud*
+**Returns:** _bud_
 
 ---
 
 ### `Const` bud.purge
 
-▸ **purge**(`options`: object): *bud*
+▸ **purge**(`options`: object): _bud_
 
-*Defined in [purge.js:33](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/purge.js#L33)*
+_Defined in [purge.js:33](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/purge.js#L33)_
 
 Purge unused CSS from compiled stylesheets.
 
@@ -611,43 +615,44 @@ bud.purge({
   enabled: bud.inProduction,
   content: [bud.project('resources/views/**')],
   allow: require('purgecss-with-wordpress').whitelist,
-  allowPatterns: require('purgecss-with-wordpress').whitelistPatterns,
+  allowPatterns: require('purgecss-with-wordpress')
+    .whitelistPatterns,
 })
 ```
 
 **Parameters:**
 
-▪ **options**: *object*
+▪ **options**: _object_
 
 purge options
 
-Name | Type |
------- | ------ |
-`content` | Object |
-`css` | Object |
-`defaultExtractor?` | Function |
-`enabled` | boolean |
-`extractors?` | array |
-`fontFace` | boolean |
-`keyframes` | boolean |
-`output` | string |
-`rejected` | boolean |
-`stdin?` | boolean |
-`stdout?` | boolean |
-`variables?` | boolean |
-`whitelist?` | string[] |
-`whitelistPatterns?` | RegExp[] |
-`whitelistPatternsChildren?` | RegExp[] |
+| Name                         | Type     |
+| ---------------------------- | -------- |
+| `content`                    | Object   |
+| `css`                        | Object   |
+| `defaultExtractor?`          | Function |
+| `enabled`                    | boolean  |
+| `extractors?`                | array    |
+| `fontFace`                   | boolean  |
+| `keyframes`                  | boolean  |
+| `output`                     | string   |
+| `rejected`                   | boolean  |
+| `stdin?`                     | boolean  |
+| `stdout?`                    | boolean  |
+| `variables?`                 | boolean  |
+| `whitelist?`                 | string[] |
+| `whitelistPatterns?`         | RegExp[] |
+| `whitelistPatternsChildren?` | RegExp[] |
 
-**Returns:** *bud*
+**Returns:** _bud_
 
 ---
 
 ### `Const` bud.setEnv
 
-▸ **setEnv**(`options`: object): *bud*
+▸ **setEnv**(`options`: object): _bud_
 
-*Defined in [setEnv.js:8](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/setEnv.js#L8)*
+_Defined in [setEnv.js:8](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/setEnv.js#L8)_
 
 Set environment variables.
 
@@ -659,19 +664,19 @@ bud.setEnv({APP_NAME: 'sage'})
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`options` | object |
+| Name      | Type   |
+| --------- | ------ |
+| `options` | object |
 
-**Returns:** *bud*
+**Returns:** _bud_
 
-___
+---
 
 ### `Const` bud.src
 
-▸ **src**(`relativePath`: string): *string*
+▸ **src**(`relativePath`: string): _string_
 
-*Defined in [src.js:10](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/src.js#L10)*
+_Defined in [src.js:10](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/src.js#L10)_
 
 Yield an absolute path from a path relative to the src dir.
 
@@ -683,21 +688,21 @@ bud.src('scripts/app.js') // absolute path to the source file
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`relativePath` | string | relative path |
+| Name           | Type   | Description   |
+| -------------- | ------ | ------------- |
+| `relativePath` | string | relative path |
 
-**Returns:** *string*
+**Returns:** _string_
 
 absolutePath
 
-___
+---
 
 ### `Const` bud.srcPath
 
-▸ **srcPath**(`src`: any): *bud*
+▸ **srcPath**(`src`: any): _bud_
 
-*Defined in [srcPath.js:10](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/srcPath.js#L10)*
+_Defined in [srcPath.js:10](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/srcPath.js#L10)_
 
 Set the project's src directory.
 
@@ -709,19 +714,19 @@ bud.srcPath('src') // default unless specified
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`src` | any |
+| Name  | Type |
+| ----- | ---- |
+| `src` | any  |
 
-**Returns:** *bud*
+**Returns:** _bud_
 
 ---
 
 ### `Const` bud.sync
 
-▸ **sync**(`options`: object): *bud*
+▸ **sync**(`options`: object): _bud_
 
-*Defined in [sync.js:18](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/sync.js#L18)*
+_Defined in [sync.js:18](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/sync.js#L18)_
 
 Configure BrowserSync.
 
@@ -738,24 +743,24 @@ bud.sync({
 
 **Parameters:**
 
-▪ **options**: *object*
+▪ **options**: _object_
 
-Name | Type |
------- | ------ |
-`enabled` | object |
-`host` | object |
-`port` | object |
-`proxy` | object |
+| Name      | Type   |
+| --------- | ------ |
+| `enabled` | object |
+| `host`    | object |
+| `port`    | object |
+| `proxy`   | object |
 
-**Returns:** *bud*
+**Returns:** _bud_
 
 ---
 
 ### `Const` bud.translate
 
-▸ **translate**(`output`: string): *bud*
+▸ **translate**(`output`: string): _bud_
 
-*Defined in [translate.js:12](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/translate.js#L12)*
+_Defined in [translate.js:12](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/translate.js#L12)_
 
 Process @wordpress/i18n strings from JS source assets.
 
@@ -770,19 +775,19 @@ bud.translate('resources/languages/sage.pot')
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`output` | string | output makepot |
+| Name     | Type   | Description    |
+| -------- | ------ | -------------- |
+| `output` | string | output makepot |
 
-**Returns:** *bud*
+**Returns:** _bud_
 
 ---
 
 ### `Const` bud.vendor
 
-▸ **vendor**(`enabled`: boolean): *any*
+▸ **vendor**(`enabled`: boolean): _any_
 
-*Defined in [vendor.js:9](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/vendor.js#L9)*
+_Defined in [vendor.js:9](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/vendor.js#L9)_
 
 Enable or disable vendor bundles.
 
@@ -794,98 +799,98 @@ bud.hash(true) // enable
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`enabled` | boolean | true to enable vendor bundle. |
+| Name      | Type    | Description                   |
+| --------- | ------- | ----------------------------- |
+| `enabled` | boolean | true to enable vendor bundle. |
 
-**Returns:** *any*
+**Returns:** _any_
 
 ---
 
 ### `Const` bud.watch
 
-▸ **watch**(`enabled`: any): *bud*
+▸ **watch**(`enabled`: any): _bud_
 
-*Defined in [watch.js:7](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/watch.js#L7)*
+_Defined in [watch.js:7](https://github.com/roots/bud-support/blob/424afa0/src/budpack/builder/api/watch.js#L7)_
 
 Enable or disable watch mode.
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`enabled` | any |
+| Name      | Type |
+| --------- | ---- |
+| `enabled` | any  |
 
-**Returns:** *bud*
+**Returns:** _bud_
 
 ## Index
 
 ### Functions
 
-* [alias](README.md#const-alias)
-* [auto](README.md#const-auto)
-* [babel](README.md#const-babel)
-* [bundle](README.md#const-bundle)
-* [copy](README.md#const-copy)
-* [copyAll](README.md#const-copyall)
-* [debug](README.md#const-debug)
-* [dependencyManifest](README.md#const-dependencymanifest)
-* [dev](README.md#const-dev)
-* [devtool](README.md#const-devtool)
-* [dist](README.md#const-dist)
-* [distPath](README.md#const-distpath)
-* [env](README.md#const-env)
-* [hash](README.md#const-hash)
-* [hot](README.md#const-hot)
-* [inlineManifest](README.md#const-inlinemanifest)
-* [maps](README.md#const-maps)
-* [mini](README.md#const-mini)
-* [postCss](README.md#const-postcss)
-* [preset](README.md#const-preset)
-* [project](README.md#const-project)
-* [projectPath](README.md#const-projectpath)
-* [publicPath](README.md#const-publicpath)
-* [purge](README.md#const-purge)
-* [setEnv](README.md#const-setenv)
-* [src](README.md#const-src)
-* [srcPath](README.md#const-srcpath)
-* [sync](README.md#const-sync)
-* [target](README.md#const-target)
-* [translate](README.md#const-translate)
-* [vendor](README.md#const-vendor)
-* [watch](README.md#const-watch)
+- [alias](README.md#const-alias)
+- [auto](README.md#const-auto)
+- [babel](README.md#const-babel)
+- [bundle](README.md#const-bundle)
+- [copy](README.md#const-copy)
+- [copyAll](README.md#const-copyall)
+- [debug](README.md#const-debug)
+- [dependencyManifest](README.md#const-dependencymanifest)
+- [dev](README.md#const-dev)
+- [devtool](README.md#const-devtool)
+- [dist](README.md#const-dist)
+- [distPath](README.md#const-distpath)
+- [env](README.md#const-env)
+- [hash](README.md#const-hash)
+- [hot](README.md#const-hot)
+- [inlineManifest](README.md#const-inlinemanifest)
+- [maps](README.md#const-maps)
+- [mini](README.md#const-mini)
+- [postCss](README.md#const-postcss)
+- [preset](README.md#const-preset)
+- [project](README.md#const-project)
+- [projectPath](README.md#const-projectpath)
+- [publicPath](README.md#const-publicpath)
+- [purge](README.md#const-purge)
+- [setEnv](README.md#const-setenv)
+- [src](README.md#const-src)
+- [srcPath](README.md#const-srcpath)
+- [sync](README.md#const-sync)
+- [target](README.md#const-target)
+- [translate](README.md#const-translate)
+- [vendor](README.md#const-vendor)
+- [watch](README.md#const-watch)
 
 ## Functions
 
 ### `Const` alias
 
-▸ **alias**(`options`: object): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+▸ **alias**(`options`: any): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
-*Defined in [alias.js:9](https://github.com/roots/bud-support/blob/81eadcb/src/budpack/builder/api/alias.js#L9)*
+_Defined in [alias.js:10](https://github.com/roots/bud-support/blob/8f5f741/src/budpack/builder/api/alias.js#L10)_
 
 Resolve modules through webpack aliases. Useful for situations that may otherwise require brittle relative paths.
 
-**`example`** 
- bud.alias({'scripts': bud.src('scripts')})
- ↪️ import 'scripts/myScript'
+**`example`**
+bud.alias({'scripts': bud.src('scripts')})
+↪️ import 'scripts/myScript'
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`options` | object |
+| Name      | Type |
+| --------- | ---- |
+| `options` | any  |
 
-**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
 bud
 
-___
+---
 
 ### `Const` auto
 
-▸ **auto**(`options`: object): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+▸ **auto**(`options`: object): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
-*Defined in [auto.js:7](https://github.com/roots/bud-support/blob/81eadcb/src/budpack/builder/api/auto.js#L7)*
+_Defined in [auto.js:7](https://github.com/roots/bud-support/blob/8f5f741/src/budpack/builder/api/auto.js#L7)_
 
 Automatically load modules instead of needing to import them.
 
@@ -893,21 +898,21 @@ Automatically load modules instead of needing to import them.
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`options` | object |
+| Name      | Type   |
+| --------- | ------ |
+| `options` | object |
 
-**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
 bud
 
-___
+---
 
 ### `Const` babel
 
-▸ **babel**(`options`: object): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+▸ **babel**(`options`: object): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
-*Defined in [babel.js:18](https://github.com/roots/bud-support/blob/81eadcb/src/budpack/builder/api/babel.js#L18)*
+_Defined in [babel.js:17](https://github.com/roots/bud-support/blob/8f5f741/src/budpack/builder/api/babel.js#L17)_
 
 Configure Babel.
 
@@ -920,25 +925,25 @@ Conflicts between supplied configs will be resolved in favor of bud.config.js.
 
 **Parameters:**
 
-▪ **options**: *object*
+▪ **options**: _object_
 
-Name | Type |
------- | ------ |
-`enabled` | boolean |
-`plugins` | any[] |
-`presets` | any[] |
+| Name      | Type    |
+| --------- | ------- |
+| `enabled` | boolean |
+| `plugins` | any[]   |
+| `presets` | any[]   |
 
-**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
 bud
 
-___
+---
 
 ### `Const` bundle
 
-▸ **bundle**(`name`: string, `entries`: any[]): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+▸ **bundle**(`name`: string, `entries`: any[]): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
-*Defined in [bundle.js:9](https://github.com/roots/bud-support/blob/81eadcb/src/budpack/builder/api/bundle.js#L9)*
+_Defined in [bundle.js:9](https://github.com/roots/bud-support/blob/8f5f741/src/budpack/builder/api/bundle.js#L9)_
 
 Compile a group of assets.
 
@@ -946,22 +951,22 @@ Compile a group of assets.
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`name` | string | output name. |
-`entries` | any[] | array of src assets to include in the bundle. |
+| Name      | Type   | Description                                   |
+| --------- | ------ | --------------------------------------------- |
+| `name`    | string | output name.                                  |
+| `entries` | any[]  | array of src assets to include in the bundle. |
 
-**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
 bud
 
-___
+---
 
 ### `Const` copy
 
-▸ **copy**(`from`: any, `to`: any): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+▸ **copy**(`from`: any, `to`: any): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
-*Defined in [copy.js:10](https://github.com/roots/bud-support/blob/81eadcb/src/budpack/builder/api/copy.js#L10)*
+_Defined in [copy.js:10](https://github.com/roots/bud-support/blob/8f5f741/src/budpack/builder/api/copy.js#L10)_
 
 Copy a file.
 
@@ -971,22 +976,22 @@ Copy a file.
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`from` | any |
-`to` | any |
+| Name   | Type |
+| ------ | ---- |
+| `from` | any  |
+| `to`   | any  |
 
-**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
 bud
 
-___
+---
 
 ### `Const` copyAll
 
-▸ **copyAll**(`src`: string, `dest`: string): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+▸ **copyAll**(`src`: string, `dest`: string): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
-*Defined in [copyAll.js:11](https://github.com/roots/bud-support/blob/81eadcb/src/budpack/builder/api/copyAll.js#L11)*
+_Defined in [copyAll.js:11](https://github.com/roots/bud-support/blob/8f5f741/src/budpack/builder/api/copyAll.js#L11)_
 
 Copy all files from a specified source to a specified destination.
 
@@ -994,42 +999,42 @@ Copy all files from a specified source to a specified destination.
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`src` | string | origin dir |
-`dest` | string | destination dir |
+| Name   | Type   | Description     |
+| ------ | ------ | --------------- |
+| `src`  | string | origin dir      |
+| `dest` | string | destination dir |
 
-**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
 bud
 
-___
+---
 
 ### `Const` debug
 
-▸ **debug**(`enabled`: boolean): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+▸ **debug**(`enabled`: boolean): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
-*Defined in [debug.js:7](https://github.com/roots/bud-support/blob/81eadcb/src/budpack/builder/api/debug.js#L7)*
+_Defined in [debug.js:7](https://github.com/roots/bud-support/blob/8f5f741/src/budpack/builder/api/debug.js#L7)_
 
 Debug mode
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`enabled` | boolean | true to enable debug mode |
+| Name      | Type    | Description               |
+| --------- | ------- | ------------------------- |
+| `enabled` | boolean | true to enable debug mode |
 
-**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
 debug
 
-___
+---
 
 ### `Const` dependencyManifest
 
-▸ **dependencyManifest**(`__namedParameters`: object): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+▸ **dependencyManifest**(`__namedParameters`: object): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
-*Defined in [dependencyManifest.js:17](https://github.com/roots/bud-support/blob/81eadcb/src/budpack/builder/api/dependencyManifest.js#L17)*
+_Defined in [dependencyManifest.js:16](https://github.com/roots/bud-support/blob/8f5f741/src/budpack/builder/api/dependencyManifest.js#L16)_
 
 Make a manifest of @wordpress dependencies utilized by entrypoints.
 
@@ -1039,44 +1044,43 @@ Make a manifest of @wordpress dependencies utilized by entrypoints.
 
 **Parameters:**
 
-▪ **__namedParameters**: *object*
+▪ **\_\_namedParameters**: _object_
 
-Name | Type | Default |
------- | ------ | ------ |
-`enabled` | boolean | true |
-`settings` | settings | - |
+| Name       | Type     |
+| ---------- | -------- |
+| `settings` | settings |
 
-**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
 bud
 
-___
+---
 
 ### `Const` dev
 
-▸ **dev**(`options`: any): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+▸ **dev**(`options`: any): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
-*Defined in [dev.js:7](https://github.com/roots/bud-support/blob/81eadcb/src/budpack/builder/api/dev.js#L7)*
+_Defined in [dev.js:7](https://github.com/roots/bud-support/blob/8f5f741/src/budpack/builder/api/dev.js#L7)_
 
 Development server settings
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`options` | any |
+| Name      | Type |
+| --------- | ---- |
+| `options` | any  |
 
-**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
 bud
 
-___
+---
 
 ### `Const` devtool
 
-▸ **devtool**(`devtool`: string): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+▸ **devtool**(`devtool`: string): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
-*Defined in [devtool.js:7](https://github.com/roots/bud-support/blob/81eadcb/src/budpack/builder/api/devtool.js#L7)*
+_Defined in [devtool.js:7](https://github.com/roots/bud-support/blob/8f5f741/src/budpack/builder/api/devtool.js#L7)_
 
 Specify webpack devtool
 
@@ -1084,21 +1088,21 @@ webpack devtool to utilize
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`devtool` | string |
+| Name      | Type   |
+| --------- | ------ |
+| `devtool` | string |
 
-**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
 bud
 
-___
+---
 
 ### `Const` dist
 
-▸ **dist**(`relativePath`: string): *string*
+▸ **dist**(`relativePath`: string): _string_
 
-*Defined in [dist.js:10](https://github.com/roots/bud-support/blob/81eadcb/src/budpack/builder/api/dist.js#L10)*
+_Defined in [dist.js:10](https://github.com/roots/bud-support/blob/8f5f741/src/budpack/builder/api/dist.js#L10)_
 
 Yield an absolute path from a path relative to the dist dir.
 
@@ -1106,21 +1110,21 @@ Yield an absolute path from a path relative to the dist dir.
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`relativePath` | string | relative path |
+| Name           | Type   | Description   |
+| -------------- | ------ | ------------- |
+| `relativePath` | string | relative path |
 
-**Returns:** *string*
+**Returns:** _string_
 
 absolute path
 
-___
+---
 
 ### `Const` distPath
 
-▸ **distPath**(`dir`: string): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+▸ **distPath**(`dir`: string): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
-*Defined in [distPath.js:10](https://github.com/roots/bud-support/blob/81eadcb/src/budpack/builder/api/distPath.js#L10)*
+_Defined in [distPath.js:10](https://github.com/roots/bud-support/blob/8f5f741/src/budpack/builder/api/distPath.js#L10)_
 
 Set the project's dist directory.
 
@@ -1128,21 +1132,21 @@ Set the project's dist directory.
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`dir` | string | path of dist directory relative to the project root. |
+| Name  | Type   | Description                                          |
+| ----- | ------ | ---------------------------------------------------- |
+| `dir` | string | path of dist directory relative to the project root. |
 
-**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
 bud
 
-___
+---
 
 ### `Const` env
 
-▸ **env**(`key`: string): *string*
+▸ **env**(`key`: string): _string_
 
-*Defined in [env.js:8](https://github.com/roots/bud-support/blob/81eadcb/src/budpack/builder/api/env.js#L8)*
+_Defined in [env.js:8](https://github.com/roots/bud-support/blob/8f5f741/src/budpack/builder/api/env.js#L8)_
 
 Get environment variable value.
 
@@ -1150,19 +1154,19 @@ Get environment variable value.
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`key` | string |
+| Name  | Type   |
+| ----- | ------ |
+| `key` | string |
 
-**Returns:** *string*
+**Returns:** _string_
 
-___
+---
 
 ### `Const` hash
 
-▸ **hash**(`enabled`: boolean): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+▸ **hash**(`enabled`: boolean): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
-*Defined in [hash.js:8](https://github.com/roots/bud-support/blob/81eadcb/src/budpack/builder/api/hash.js#L8)*
+_Defined in [hash.js:8](https://github.com/roots/bud-support/blob/8f5f741/src/budpack/builder/api/hash.js#L8)_
 
 Enable or disable filename hashing of built assets. Unless specified, filename hashes will be created when running production builds.
 
@@ -1170,21 +1174,21 @@ Enable or disable filename hashing of built assets. Unless specified, filename h
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`enabled` | boolean | true to enable filename hashing. |
+| Name      | Type    | Default | Description                      |
+| --------- | ------- | ------- | -------------------------------- |
+| `enabled` | boolean | true    | true to enable filename hashing. |
 
-**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
 bud
 
-___
+---
 
 ### `Const` hot
 
-▸ **hot**(`enabled`: boolean): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+▸ **hot**(`enabled`: boolean): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
-*Defined in [hot.js:8](https://github.com/roots/bud-support/blob/81eadcb/src/budpack/builder/api/hot.js#L8)*
+_Defined in [hot.js:8](https://github.com/roots/bud-support/blob/8f5f741/src/budpack/builder/api/hot.js#L8)_
 
 Enable or disable hot module reloading
 
@@ -1192,21 +1196,21 @@ Enable or disable hot module reloading
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`enabled` | boolean | true to enable hot module reloading. default: !bud.inProduction. |
+| Name      | Type    | Description                                                      |
+| --------- | ------- | ---------------------------------------------------------------- |
+| `enabled` | boolean | true to enable hot module reloading. default: !bud.inProduction. |
 
-**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
 bud
 
-___
+---
 
 ### `Const` inlineManifest
 
-▸ **inlineManifest**(`name`: string, `__namedParameters`: object): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+▸ **inlineManifest**(`name`: string): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
-*Defined in [inlineManifest.js:12](https://github.com/roots/bud-support/blob/81eadcb/src/budpack/builder/api/inlineManifest.js#L12)*
+_Defined in [inlineManifest.js:10](https://github.com/roots/bud-support/blob/8f5f741/src/budpack/builder/api/inlineManifest.js#L10)_
 
 Make a chunk to be inlined directly on the page for optimal code splitting.
 
@@ -1216,65 +1220,61 @@ Make a chunk to be inlined directly on the page for optimal code splitting.
 
 **Parameters:**
 
-▪`Default value`  **name**: *string*= "runtime"
+| Name   | Type   | Default   |
+| ------ | ------ | --------- |
+| `name` | string | "runtime" |
 
-▪ **__namedParameters**: *object*
-
-Name | Type | Default |
------- | ------ | ------ |
-`enabled` | boolean | true |
-
-**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
 bud
 
-___
+---
 
 ### `Const` maps
 
-▸ **maps**(`enabled`: any): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+▸ **maps**(`enabled`: any): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
-*Defined in [maps.js:7](https://github.com/roots/bud-support/blob/81eadcb/src/budpack/builder/api/maps.js#L7)*
+_Defined in [maps.js:7](https://github.com/roots/bud-support/blob/8f5f741/src/budpack/builder/api/maps.js#L7)_
 
 Enable or disable source-maps
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`enabled` | any |
+| Name      | Type |
+| --------- | ---- |
+| `enabled` | any  |
 
-**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
 bud
 
-___
+---
 
 ### `Const` mini
 
-▸ **mini**(`enable`: boolean): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+▸ **mini**(`enable`: boolean): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
-*Defined in [mini.js:7](https://github.com/roots/bud-support/blob/81eadcb/src/budpack/builder/api/mini.js#L7)*
+_Defined in [mini.js:7](https://github.com/roots/bud-support/blob/8f5f741/src/budpack/builder/api/mini.js#L7)_
 
 Enable or disable minification
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`enable` | boolean | true to enable CSS/JS minification. |
+| Name     | Type    | Description                         |
+| -------- | ------- | ----------------------------------- |
+| `enable` | boolean | true to enable CSS/JS minification. |
 
-**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
 bud
 
-___
+---
 
 ### `Const` postCss
 
-▸ **postCss**(`options`: object): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+▸ **postCss**(`__namedParameters`: object): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
-*Defined in [postcss.js:15](https://github.com/roots/bud-support/blob/81eadcb/src/budpack/builder/api/postcss.js#L15)*
+_Defined in [postcss.js:15](https://github.com/roots/bud-support/blob/8f5f741/src/budpack/builder/api/postcss.js#L15)_
 
 Configure PostCSS.
 
@@ -1285,24 +1285,24 @@ Conflicts between supplied configs will be resolved in favor of bud.config.js.
 
 **Parameters:**
 
-▪ **options**: *object*
+▪ **\_\_namedParameters**: _object_
 
-Name | Type |
------- | ------ |
-`enabled` | boolean |
-`plugins` | array |
+| Name      | Type    | Default |
+| --------- | ------- | ------- |
+| `enabled` | boolean | true    |
+| `options` | options | -       |
 
-**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
 bud
 
-___
+---
 
 ### `Const` preset
 
-▸ **preset**(`relativePath`: string): *string*
+▸ **preset**(`relativePath`: string): _string_
 
-*Defined in [preset.js:11](https://github.com/roots/bud-support/blob/81eadcb/src/budpack/builder/api/preset.js#L11)*
+_Defined in [preset.js:11](https://github.com/roots/bud-support/blob/8f5f741/src/budpack/builder/api/preset.js#L11)_
 
 Retrieve a Bud framework preset
 
@@ -1312,21 +1312,21 @@ Retrieve a Bud framework preset
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`relativePath` | string | relative path |
+| Name           | Type   | Description   |
+| -------------- | ------ | ------------- |
+| `relativePath` | string | relative path |
 
-**Returns:** *string*
+**Returns:** _string_
 
 absolutePath
 
-___
+---
 
 ### `Const` project
 
-▸ **project**(`relativePath`: string): *string*
+▸ **project**(`relativePath`: string): _string_
 
-*Defined in [project.js:10](https://github.com/roots/bud-support/blob/81eadcb/src/budpack/builder/api/project.js#L10)*
+_Defined in [project.js:10](https://github.com/roots/bud-support/blob/8f5f741/src/budpack/builder/api/project.js#L10)_
 
 Yield an absolute path from a path relative to the project dir.
 
@@ -1334,61 +1334,61 @@ Yield an absolute path from a path relative to the project dir.
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`relativePath` | string | relative path |
+| Name           | Type   | Description   |
+| -------------- | ------ | ------------- |
+| `relativePath` | string | relative path |
 
-**Returns:** *string*
+**Returns:** _string_
 
 absolutePath
 
-___
+---
 
 ### `Const` projectPath
 
-▸ **projectPath**(`dir`: string): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+▸ **projectPath**(`dir`: string): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
-*Defined in [projectPath.js:7](https://github.com/roots/bud-support/blob/81eadcb/src/budpack/builder/api/projectPath.js#L7)*
+_Defined in [projectPath.js:7](https://github.com/roots/bud-support/blob/8f5f741/src/budpack/builder/api/projectPath.js#L7)_
 
 Set the project base path.
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`dir` | string | absolute path of project |
+| Name  | Type   | Description              |
+| ----- | ------ | ------------------------ |
+| `dir` | string | absolute path of project |
 
-**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
 bud
 
-___
+---
 
 ### `Const` publicPath
 
-▸ **publicPath**(`dir`: string): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+▸ **publicPath**(`dir`: string): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
-*Defined in [publicPath.js:8](https://github.com/roots/bud-support/blob/81eadcb/src/budpack/builder/api/publicPath.js#L8)*
+_Defined in [publicPath.js:8](https://github.com/roots/bud-support/blob/8f5f741/src/budpack/builder/api/publicPath.js#L8)_
 
 Set the project public path.
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`dir` | string | public path of project |
+| Name  | Type   | Description            |
+| ----- | ------ | ---------------------- |
+| `dir` | string | public path of project |
 
-**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
 bud
 
-___
+---
 
 ### `Const` purge
 
-▸ **purge**(`options`: object): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+▸ **purge**(`__namedParameters`: object): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
-*Defined in [purge.js:33](https://github.com/roots/bud-support/blob/81eadcb/src/budpack/builder/api/purge.js#L33)*
+_Defined in [purge.js:31](https://github.com/roots/bud-support/blob/8f5f741/src/budpack/builder/api/purge.js#L31)_
 
 Purge unused CSS from compiled stylesheets.
 
@@ -1396,49 +1396,34 @@ Purge unused CSS from compiled stylesheets.
 
 **`see`** https://purgecss.com/configuration.html
 
-**`example`** 
+**`example`**
 bud.purge({
-  enabled: bud.inProduction,
-  content: [bud.project('resources/views/**')],
-  allow: require('purgecss-with-wordpress').whitelist,
-  allowPatterns: require('purgecss-with-wordpress').whitelistPatterns,
+enabled: bud.inProduction,
+content: [bud.project('resources/views/**')],
+allow: require('purgecss-with-wordpress').whitelist,
+allowPatterns: require('purgecss-with-wordpress').whitelistPatterns,
 })
 
 **Parameters:**
 
-▪ **options**: *object*
+▪ **\_\_namedParameters**: _object_
 
-purge options
+| Name      | Type    | Default |
+| --------- | ------- | ------- |
+| `enabled` | boolean | true    |
+| `options` | options | -       |
 
-Name | Type |
------- | ------ |
-`content` | Object |
-`css` | Object |
-`defaultExtractor?` | Function |
-`enabled` | boolean |
-`extractors?` | array |
-`fontFace` | boolean |
-`keyframes` | boolean |
-`output` | string |
-`rejected` | boolean |
-`stdin?` | boolean |
-`stdout?` | boolean |
-`variables?` | boolean |
-`whitelist?` | string[] |
-`whitelistPatterns?` | RegExp[] |
-`whitelistPatternsChildren?` | RegExp[] |
-
-**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
 bud
 
-___
+---
 
 ### `Const` setEnv
 
-▸ **setEnv**(`options`: object): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+▸ **setEnv**(`options`: object): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
-*Defined in [setEnv.js:8](https://github.com/roots/bud-support/blob/81eadcb/src/budpack/builder/api/setEnv.js#L8)*
+_Defined in [setEnv.js:8](https://github.com/roots/bud-support/blob/8f5f741/src/budpack/builder/api/setEnv.js#L8)_
 
 Set environment variables.
 
@@ -1446,19 +1431,19 @@ Set environment variables.
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`options` | object |
+| Name      | Type   |
+| --------- | ------ |
+| `options` | object |
 
-**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
-___
+---
 
 ### `Const` src
 
-▸ **src**(`relativePath`: string): *string*
+▸ **src**(`relativePath`: string): _string_
 
-*Defined in [src.js:10](https://github.com/roots/bud-support/blob/81eadcb/src/budpack/builder/api/src.js#L10)*
+_Defined in [src.js:10](https://github.com/roots/bud-support/blob/8f5f741/src/budpack/builder/api/src.js#L10)_
 
 Yield an absolute path from a path relative to the src dir.
 
@@ -1466,21 +1451,21 @@ Yield an absolute path from a path relative to the src dir.
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`relativePath` | string | relative path |
+| Name           | Type   | Description   |
+| -------------- | ------ | ------------- |
+| `relativePath` | string | relative path |
 
-**Returns:** *string*
+**Returns:** _string_
 
 absolutePath
 
-___
+---
 
 ### `Const` srcPath
 
-▸ **srcPath**(`src`: any): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+▸ **srcPath**(`src`: any): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
-*Defined in [srcPath.js:10](https://github.com/roots/bud-support/blob/81eadcb/src/budpack/builder/api/srcPath.js#L10)*
+_Defined in [srcPath.js:10](https://github.com/roots/bud-support/blob/8f5f741/src/budpack/builder/api/srcPath.js#L10)_
 
 Set the project's src directory.
 
@@ -1488,54 +1473,54 @@ Set the project's src directory.
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`src` | any |
+| Name  | Type |
+| ----- | ---- |
+| `src` | any  |
 
-**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
 bud
 
-___
+---
 
 ### `Const` sync
 
-▸ **sync**(`options`: object): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+▸ **sync**(`options`: object): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
-*Defined in [sync.js:18](https://github.com/roots/bud-support/blob/81eadcb/src/budpack/builder/api/sync.js#L18)*
+_Defined in [sync.js:18](https://github.com/roots/bud-support/blob/8f5f741/src/budpack/builder/api/sync.js#L18)_
 
 Configure BrowserSync.
 
-**`example`** 
+**`example`**
 bud.sync({
-  enabled: !bud.inProduction,
-  proxy: 'http://bud.test',
-  host: 'localhost',
-  port: 3000,
+enabled: !bud.inProduction,
+proxy: 'http://bud.test',
+host: 'localhost',
+port: 3000,
 })
 
 **Parameters:**
 
-▪ **options**: *object*
+▪ **options**: _object_
 
-Name | Type |
------- | ------ |
-`enabled` | object |
-`host` | object |
-`port` | object |
-`proxy` | object |
+| Name      | Type   |
+| --------- | ------ |
+| `enabled` | object |
+| `host`    | object |
+| `port`    | object |
+| `proxy`   | object |
 
-**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
 bud
 
-___
+---
 
 ### `Const` target
 
-▸ **target**(`target`: any): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+▸ **target**(`target`: any): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
-Defined in target.js:8
+_Defined in [target.js:8](https://github.com/roots/bud-support/blob/8f5f741/src/budpack/builder/api/target.js#L8)_
 
 Set the build target.
 
@@ -1543,21 +1528,21 @@ Set the build target.
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`target` | any |
+| Name     | Type |
+| -------- | ---- |
+| `target` | any  |
 
-**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
 bud
 
-___
+---
 
 ### `Const` translate
 
-▸ **translate**(`output`: string): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+▸ **translate**(`output`: string): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
-*Defined in [translate.js:12](https://github.com/roots/bud-support/blob/81eadcb/src/budpack/builder/api/translate.js#L12)*
+_Defined in [translate.js:12](https://github.com/roots/bud-support/blob/8f5f741/src/budpack/builder/api/translate.js#L12)_
 
 Process @wordpress/i18n strings from JS source assets.
 
@@ -1568,21 +1553,21 @@ there is no reason to run this separately.
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`output` | string | output makepot |
+| Name     | Type   | Description    |
+| -------- | ------ | -------------- |
+| `output` | string | output makepot |
 
-**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
 bud
 
-___
+---
 
 ### `Const` vendor
 
-▸ **vendor**(`name`: string, `__namedParameters`: object): *any*
+▸ **vendor**(`name`: string): _any_
 
-*Defined in [vendor.js:11](https://github.com/roots/bud-support/blob/81eadcb/src/budpack/builder/api/vendor.js#L11)*
+_Defined in [vendor.js:9](https://github.com/roots/bud-support/blob/8f5f741/src/budpack/builder/api/vendor.js#L9)_
 
 Enable or disable vendor bundles.
 
@@ -1590,36 +1575,30 @@ Enable or disable vendor bundles.
 
 **Parameters:**
 
-▪`Default value`  **name**: *string*= "vendor"
+| Name   | Type   | Default  | Description                |
+| ------ | ------ | -------- | -------------------------- |
+| `name` | string | "vendor" | name of vendor output file |
 
-name of vendor output file
-
-▪ **__namedParameters**: *object*
-
-Name | Type | Default |
------- | ------ | ------ |
-`enabled` | boolean | true |
-
-**Returns:** *any*
+**Returns:** _any_
 
 bud
 
-___
+---
 
 ### `Const` watch
 
-▸ **watch**(`enabled`: any): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+▸ **watch**(`enabled`: any): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
-*Defined in [watch.js:7](https://github.com/roots/bud-support/blob/81eadcb/src/budpack/builder/api/watch.js#L7)*
+_Defined in [watch.js:7](https://github.com/roots/bud-support/blob/8f5f741/src/budpack/builder/api/watch.js#L7)_
 
 Enable or disable watch mode.
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`enabled` | any |
+| Name      | Type |
+| --------- | ---- |
+| `enabled` | any  |
 
-**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
 
 bud

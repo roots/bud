@@ -1,12 +1,12 @@
-import devServer from './devServer'
+import {devServer} from './devServer'
 import {entry} from './entry'
-import externals from './externals'
+import {externals} from './externals'
 import {general} from './general'
 import {loaders} from './loaders'
 import {optimization} from './optimization'
-import output from './output'
-import plugins from './plugins'
-import resolve from './resolve'
+import {output} from './output'
+import {webpackResolve} from './webpackResolve'
+import {webpackPlugins} from './webpackPlugins'
 
 /**
  * Make Webpack Config
@@ -30,8 +30,8 @@ const makeWebpackConfig = ({
   ...output({paths, features}),
   ...loaders({options, features, configs}),
   ...optimization({options, features}),
-  ...plugins({options, features, paths}),
-  ...resolve({options, paths}),
+  ...webpackPlugins({options, features, paths}),
+  ...webpackResolve({options, paths}),
   ...externals(options),
   ...devServer(options),
   ...general({paths, mode, features, options}),

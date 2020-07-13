@@ -7,7 +7,6 @@ const optimization = ({features, options}) => {
   const config = {
     optimization: {
       minimize: features.minified,
-      noEmitOnErrors: true,
       removeAvailableModules: false,
       removeEmptyChunks: false,
       moduleIds: 'hashed',

@@ -3,6 +3,7 @@ import {ProgressPlugin} from 'webpack'
 
 /**
  * useProgress: Webpack ProgressPlugin
+ * @return {object}
  */
 const useProgress = () => {
   const [progressPlugin, setProgressPlugin] = useState()
@@ -83,6 +84,7 @@ const useWebpack = ({compiler, config}) => {
   const [assets, setAssets] = useState([])
   const [warnings, setWarnings] = useState([])
   const [errors, setErrors] = useState([])
+
   useEffect(() => {
     setAssets(buildStats?.assets)
     setWarnings(buildStats?.warnings ?? [])
@@ -103,4 +105,4 @@ const useWebpack = ({compiler, config}) => {
   }
 }
 
-export default useWebpack
+export {useWebpack}

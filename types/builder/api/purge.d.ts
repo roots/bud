@@ -2,24 +2,24 @@
  * Purge unused CSS from compiled stylesheets.
  */
 export type purge = (arg0: {
-    enabled: boolean;
-    content: any;
-    css: any;
-    defaultExtractor?: Function;
-    extractors?: any[];
-    fontFace: boolean;
-    keyframes: boolean;
-    output: string;
-    rejected: boolean;
-    stdin?: boolean;
-    stdout?: boolean;
-    variables?: boolean;
-    whitelist?: string[];
-    whitelistPatterns?: RegExp[];
-    whitelistPatternsChildren?: RegExp[];
+  enabled: boolean
+  content: any
+  css: any
+  defaultExtractor?: Function
+  extractors?: any[]
+  fontFace: boolean
+  keyframes: boolean
+  output: string
+  rejected: boolean
+  stdin?: boolean
+  stdout?: boolean
+  variables?: boolean
+  whitelist?: string[]
+  whitelistPatterns?: RegExp[]
+  whitelistPatternsChildren?: RegExp[]
 }) => {
-    bud: typeof import('./../index');
-};
+  bud: typeof import('./../index')
+}
 /**
  * Purge unused CSS from compiled stylesheets.
  * @see https://purgecss.com/guides/wordpress.html
@@ -50,21 +50,24 @@ export type purge = (arg0: {
  * @param   {RegExp[]} options.whitelistPatternsChildren
  * @return  {typeof import('./../index')} bud
  */
-export function purge(options: {
-    enabled: boolean;
-    content: any;
-    css: any;
-    defaultExtractor?: Function;
-    extractors?: any[];
-    fontFace: boolean;
-    keyframes: boolean;
-    output: string;
-    rejected: boolean;
-    stdin?: boolean;
-    stdout?: boolean;
-    variables?: boolean;
-    whitelist?: string[];
-    whitelistPatterns?: RegExp[];
-    whitelistPatternsChildren?: RegExp[];
-}): typeof import('./../index');
+export function purge({
+  enabled,
+  ...options
+}: {
+  enabled: boolean
+  content: any
+  css: any
+  defaultExtractor?: Function
+  extractors?: any[]
+  fontFace: boolean
+  keyframes: boolean
+  output: string
+  rejected: boolean
+  stdin?: boolean
+  stdout?: boolean
+  variables?: boolean
+  whitelist?: string[]
+  whitelistPatterns?: RegExp[]
+  whitelistPatternsChildren?: RegExp[]
+}): typeof import('./../index')
 //# sourceMappingURL=purge.d.ts.map

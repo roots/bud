@@ -6,9 +6,7 @@
  * @param   {string} name - name of vendor output file
  * @return  {bud: typeof import('./../index')} bud
  */
-const vendor = function (
-  name = 'vendor',
-) {
+const vendor = function (name = 'vendor') {
   this.features.vendor = true
   this.options.vendor.name = name
 

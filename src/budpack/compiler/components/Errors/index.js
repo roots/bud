@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from 'react'
-import {Box, useFocus} from 'ink'
-import Error from './Error'
+import {Box, Text, useFocus} from 'ink'
+import PropTypes from 'prop-types'
+
+import {Error} from './Error'
 
 /**
  * Error
@@ -24,8 +26,17 @@ const Errors = ({build, actions}) => {
         build?.errors?.map((err, i) => (
           <Error message={err} key={i} />
         ))}
+
+      {build?.warnings?.length == 0 && (
+        <Text>Nothing to see here.</Text>
+      )}
     </Box>
   )
 }
 
-export default Errors
+Errors.propTypes = {
+  build: PropTypes.object,
+  actions: PropTypes.object,
+}
+
+export {Errors}

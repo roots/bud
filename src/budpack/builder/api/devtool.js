@@ -11,4 +11,3 @@ const devtool = devtool => {
 }
 
 export {devtool}
-

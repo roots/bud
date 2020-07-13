@@ -1,4 +1,4 @@
-export = plugins;
+export = plugins
 /**
  * Webpack plugins.
  * @typedef {function (config: {options: bud.options, features: bud.features, paths: bud.paths}) => {object}} plugins
@@ -8,40 +8,67 @@ export = plugins;
  * @param   {paths: bud.paths} config.paths
  * @returns {object}
  */
-declare function plugins({ options, features, paths }: {
-    options: any;
-    features: any;
-    paths: any;
-}): object;
+declare function plugins({
+  options,
+  features,
+  paths,
+}: {
+  options: any
+  features: any
+  paths: any
+}): object
 declare namespace plugins {
-    export { basePlugins, devPlugins, conditionalPlugins, plugins };
+  export {
+    basePlugins,
+    devPlugins,
+    conditionalPlugins,
+    plugins,
+  }
 }
 /**
  * Base plugins
  */
-type basePlugins = (arg0: any, arg1: any, arg2: any, arg3: any) => {
-    array;
-};
+type basePlugins = (
+  arg0: any,
+  arg1: any,
+  arg2: any,
+  arg3: any,
+) => {
+  array
+}
 /**
  * Development plugins
  */
-type devPlugins = (arg0: any, arg1: any, arg2: any, arg3: any) => {
-    array;
-};
+type devPlugins = (
+  arg0: any,
+  arg1: any,
+  arg2: any,
+  arg3: any,
+) => {
+  array
+}
 /**
  * Conditional plugins
  */
-type conditionalPlugins = (arg0: any, arg1: any, arg2: any, arg3: any) => {
-    array;
-};
+type conditionalPlugins = (
+  arg0: any,
+  arg1: any,
+  arg2: any,
+  arg3: any,
+) => {
+  array
+}
 /**
  * Webpack plugins.
  */
-type plugins = (arg0: any, arg1: {
-    options: any;
-    features: any;
-    paths: any;
-}) => {
-    object;
-};
+type plugins = (
+  arg0: any,
+  arg1: {
+    options: any
+    features: any
+    paths: any
+  },
+) => {
+  object
+}
 //# sourceMappingURL=plugins.d.ts.map

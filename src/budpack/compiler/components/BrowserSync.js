@@ -3,6 +3,12 @@ import {Box, Text, useFocus} from 'ink'
 import PropTypes from 'prop-types'
 import patchConsole from 'patch-console'
 
+/**
+ * BrowserSync
+ *
+ * @prop {object} actions
+ * @return {PropTypes.ReactComponentLike}
+ */
 const BrowserSync = ({actions}) => {
   const {isFocused} = useFocus({autoFocus: false})
   useEffect(() => {
@@ -29,11 +35,7 @@ const BrowserSync = ({actions}) => {
 }
 
 BrowserSync.propTypes = {
-  display: PropTypes.bool,
+  actions: PropTypes.object,
 }
 
-BrowserSync.defaultProps = {
-  display: false,
-}
-
-export default BrowserSync
+export {BrowserSync}

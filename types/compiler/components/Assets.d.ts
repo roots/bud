@@ -1,10 +1,26 @@
-export default Assets;
 /**
  * Assets
+ *
+ * @prop {object} build
+ * @prop {object} actions
+ * @prop {number} width
+ * @return {PropTypes.ReactComponentLike}
  */
-declare function Assets({ build, actions, width }: {
-    build: any;
-    actions: any;
-    width: any;
-}): JSX.Element;
+export function Assets({
+  build,
+  actions,
+  width,
+}: {
+  build: any
+  actions: any
+  width: any
+}): PropTypes.ReactComponentLike
+export namespace Assets {
+  export namespace propTypes {
+    export const build: PropTypes.Requireable<object>
+    export const actions: PropTypes.Requireable<object>
+    export const width: PropTypes.Requireable<number>
+  }
+}
+import PropTypes from 'prop-types'
 //# sourceMappingURL=Assets.d.ts.map

@@ -9,5 +9,11 @@
  * @param  {import('./../base/paths')} paths
  * @return {object}
  */
-export function makeWebpackConfig({ mode, configs, options, features, paths, }: any): object;
+export function makeWebpackConfig({
+  mode,
+  configs,
+  options,
+  features,
+  paths,
+}: any): object
 //# sourceMappingURL=index.d.ts.map

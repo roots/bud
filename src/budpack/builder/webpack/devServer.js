@@ -7,4 +7,4 @@ const devServer = ({dev}) => ({
   },
 })
 
-module.exports = devServer
+export {devServer}

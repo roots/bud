@@ -1,12 +1,25 @@
 import React from 'react'
 import {Box, Spacer, Text} from 'ink'
+import PropTypes from 'prop-types'
 
+/**
+ * List item indicator
+ * @prop {boolean} active
+ */
 const Bullet = ({active}) => (
   <Text>{active ? '◉' : ' '}</Text>
 )
 
+Bullet.propTypes = {
+  active: PropTypes.bool,
+}
+
 /**
  * Nav
+ *
+ * @prop {object} build
+ * @prop {boolean} focused
+ * @prop {object} config
  */
 const Nav = ({build, focused, config}) => (
   <Box
@@ -34,7 +47,7 @@ const Nav = ({build, focused, config}) => (
             ? 'white'
             : '#6C758F'
         }>
-        <Bullet active={focused?.errors} /> Errors
+        <Bullet active={focused?.errors || false} /> Errors
         {build?.errors?.length > 0
           ? ` [${build?.errors.length}]`
           : `  `}
@@ -50,7 +63,8 @@ const Nav = ({build, focused, config}) => (
             ? 'white'
             : '#6C758F'
         }>
-        <Bullet active={focused?.warnings} /> Warnings
+        <Bullet active={focused?.warnings || false} />{' '}
+        Warnings
         {build?.warnings?.length > 0
           ? ` [${build?.warnings.length}]`
           : `  `}
@@ -58,7 +72,7 @@ const Nav = ({build, focused, config}) => (
     </Box>
 
     {!config?.features?.debug &&
-      config?.features?.browserSync?.enabled && (
+      config?.features?.browserSync && (
         <>
           <Spacer />
           <Box>
@@ -79,7 +93,8 @@ const Nav = ({build, focused, config}) => (
         <Box>
           <Text
             color={focused?.debug ? '#ffc107' : '#ffe598'}>
-            <Bullet active={focused?.debug} /> Debug
+            <Bullet active={focused?.debug || false} />{' '}
+            Debug
           </Text>
         </Box>
       </>
@@ -87,4 +102,10 @@ const Nav = ({build, focused, config}) => (
   </Box>
 )
 
-export default Nav
+Nav.propTypes = {
+  build: PropTypes.object,
+  focused: PropTypes.object,
+  config: PropTypes.object,
+}
+
+export {Nav}
