@@ -18,14 +18,12 @@ const Error = ({message}) => {
       })
   }, [message])
 
-  return !message ? (
-    []
-  ) : (
+  return (
     <Box
       paddingLeft={1}
       paddingRight={1}
       flexDirection="column">
-      <Text wrap="wrap">{message}</Text>
+      <Text wrap="wrap">{message || ''}</Text>
     </Box>
   )
 }

@@ -34,6 +34,8 @@ const options = {
     patterns: [],
   },
   dev: {
+    clientLogLevel: 'none',
+    compress: true,
     disableHostCheck: true,
     headers: {
       'Access-Control-Allow-Origin': '*',
@@ -56,6 +58,7 @@ const options = {
   splitting: {
     maxChunks: null,
   },
+  target: 'web',
   vendor: {
     name: 'vendor',
     vendors: [],

@@ -28,7 +28,7 @@ const makeWebpackConfig = ({
 }) => ({
   ...entry(options),
   ...output({paths, features}),
-  ...loaders({options, features, configs}),
+  ...loaders({options, features, configs, paths}),
   ...optimization({options, features}),
   ...webpackPlugins({options, features, paths}),
   ...webpackResolve({options, paths}),

@@ -1,24 +1,24 @@
 /** Modules */
 import React, {useState, useEffect} from 'react'
-import {Box, Text, Spacer} from 'ink'
+import {Box, Spacer} from 'ink'
 import PropTypes from 'prop-types'
 
 /** Application components */
 import {Nav} from './Nav'
-import {Loading} from './Loading'
-import {Watching} from './Watching'
+import {BuildInfo} from './BuildInfo'
 
 /**
- * App: CLI Webpack Compiler
+ * App
  *
  * @prop {React.Component[]} children
- * @prop {object}        state
- * @prop {object}        build
- * @prop {object}        options
- * @prop {number}        width
- * @prop {number}        height
- * @prop {React.Component}
+ * @prop {object} state
+ * @prop {object} build
+ * @prop {object} options
+ * @prop {number} width
+ * @prop {number} height
+ * @return {PropTypes.Component}
  */
+
 const App = ({
   children,
   state,
@@ -28,6 +28,7 @@ const App = ({
   height,
 }) => {
   const [focused, setFocused] = useState({})
+
   useEffect(() => {
     setFocused(state)
   }, [state])
@@ -49,19 +50,11 @@ const App = ({
       />
       {children}
       <Spacer />
-      <Box flexDirection="column" paddingTop={1}>
-        {build?.percentage == 1 && build?.hash && (
-          <Text color="#6C758F" marginTop={1}>
-            Build {build?.hash}. Finished in{' '}
-            {build?.time / 1000}s.
-          </Text>
-        )}
-
-        <Loading build={build} width={width} />
-        {config?.features?.watching && (
-          <Watching config={config} build={build} />
-        )}
-      </Box>
+      <BuildInfo
+        build={build}
+        config={config}
+        width={width}
+      />
     </Box>
   )
 }

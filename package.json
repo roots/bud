@@ -89,6 +89,7 @@
     "parallel-webpack": "^2.6.0",
     "postcss-import": "^12.0.1",
     "postcss-loader": "^3.0.0",
+    "postcss-normalize": "^9.0.0",
     "postcss-preset-env": "^6.7.0",
     "prettier": "^2.0.5",
     "prop-types": "^15.7.2",

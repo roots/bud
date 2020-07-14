@@ -1,6 +1,5 @@
 /**
  * Bud - asset management framework.
- *
  * @exports {Bud} bud - build tool
  * @author  Kelly Mears <kelly@roots.io>
  */
@@ -19,6 +18,7 @@ import {babel} from './api/babel'
 import {bundle} from './api/bundle'
 import {copy} from './api/copy'
 import {copyAll} from './api/copyAll'
+import {dashboard} from './api/dashboard'
 import {debug} from './api/debug'
 import {dev} from './api/dev'
 import {devtool} from './api/devtool'
@@ -64,6 +64,7 @@ Bud.prototype.babel = babel
 Bud.prototype.bundle = bundle
 Bud.prototype.copy = copy
 Bud.prototype.copyAll = copyAll
+Bud.prototype.dashboard = dashboard
 Bud.prototype.debug = debug
 Bud.prototype.dependencyManifest = dependencyManifest
 Bud.prototype.dev = dev
@@ -105,6 +106,7 @@ Bud.prototype.watch = watch
  * @property {bundle} bundle
  * @property {copy} copy
  * @property {copyAll} copyAll
+ * @property {dashboard} dashboard
  * @property {debug} debug
  * @property {dependencyManifest} dependencyManifest
  * @property {dev} dev

@@ -11,6 +11,10 @@ export type features = {
    */
   browserSync: boolean
   /**
+   * - dashboard enabled
+   */
+  dashboard: boolean
+  /**
    * - debug enabled
    */
   debug: boolean
@@ -63,6 +67,7 @@ export namespace features {
   export const babel: boolean
   export const browserSync: boolean
   export const debug: boolean
+  export const dashboard: boolean
   export const dependencyManifest: boolean
   export const eslint: boolean
   export {inProduction as hash}

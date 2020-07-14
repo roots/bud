@@ -1,48 +1,15 @@
 import {join} from 'path'
-import webpack from 'webpack'
-import React from 'react'
-import {render} from 'ink'
-
 import {makeWebpackConfig} from './builder/webpack'
-import {Runner} from './compiler'
+import {compile} from './compile'
+import {compileSafeMode} from './compileSafeMode'
 
 /**
- * Get the project config export.
+ * Project config => webpack config
  */
 const config = require(join(process.cwd(), 'bud.config.js'))
-
-/**
- * Fashion config into a proper webpack config object
- */
-const webpackConfig = makeWebpackConfig(config)
-
-/**
- * Set babel env
- */
 process.env.BABEL_ENV = config.options.mode
-/**
- * Set node env
- */
 process.env.NODE_ENV = config.options.mode
-
-/**
- * Runner props
- *
- * @typedef  {object.<props>}
- * @property {object.<options>} options
- * @property {object} config - webpack config
- * @property {object} compiler - webpack compiler
- */
-const runnerProps = {
-  config,
-  webpackConfig,
-  compiler: webpack(webpackConfig),
-}
-
-/**
- * Run the compiler.
- */
-render(React.createElement(Runner, runnerProps))
+const webpackConfig = makeWebpackConfig(config)
 
 /**
  * Kill the application on unhandled rejections.
@@ -50,3 +17,12 @@ render(React.createElement(Runner, runnerProps))
 process.on('unhandledRejection', () => {
   process.exit()
 })
+
+/**
+ * Run compiler.
+ *
+ * @description If config.features.dashboard is disabled then utilize "safe mode".
+ */
+config.features.dashboard
+  ? compile(config, webpackConfig) // standard bud compiler
+  : compileSafeMode(config, webpackConfig) // standard webpack stats output

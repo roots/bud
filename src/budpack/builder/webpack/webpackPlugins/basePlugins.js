@@ -2,6 +2,7 @@ import {CleanWebpackPlugin} from 'clean-webpack-plugin'
 import ManifestPlugin from 'webpack-manifest-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import FixStyleOnlyEntriesPlugin from 'webpack-fix-style-only-entries'
+import ModuleNotFoundPlugin from 'react-dev-utils/ModuleNotFoundPlugin'
 
 /**
  * Base plugins
@@ -12,6 +13,7 @@ import FixStyleOnlyEntriesPlugin from 'webpack-fix-style-only-entries'
  * @return {array}
  */
 const basePlugins = (paths, features) => [
+  new ModuleNotFoundPlugin(paths.project),
   new FixStyleOnlyEntriesPlugin({
     silent: true,
   }),

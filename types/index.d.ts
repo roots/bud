@@ -11,6 +11,7 @@ export type bud = {
   bundle: bundle
   copy: copy
   copyAll: copyAll
+  dashboard: dashboard
   debug: debug
   dependencyManifest: dependencyManifest
   dev: dev
@@ -48,6 +49,7 @@ import {babel} from './api/babel'
 import {bundle} from './api/bundle'
 import {copy} from './api/copy'
 import {copyAll} from './api/copyAll'
+import {dashboard} from './api/dashboard'
 import {debug} from './api/debug'
 import {dependencyManifest} from './api/dependencyManifest'
 import {dev} from './api/dev'
