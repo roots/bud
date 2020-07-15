@@ -6225,7 +6225,7 @@ ink-use-stdout-dimensions@^1.0.5:
   resolved "https://registry.yarnpkg.com/ink-use-stdout-dimensions/-/ink-use-stdout-dimensions-1.0.5.tgz#7739876c00284840601c4150aa84eb7adc143de2"
   integrity sha512-rVsqnw4tQEAJUoknU09+zHdDf30GJdkumkHr0iz/TOYMYEZJkYqziQSGJAM+Z+M603EDfO89+Nxyn/Ko2Zknfw==
 
-ink@^3.0.0-4:
+ink@^3.0.0-6:
   version "3.0.0-6"
   resolved "https://registry.yarnpkg.com/ink/-/ink-3.0.0-6.tgz#881fa3331bb6b7b9a39b97cc737614ae24925fa9"
   integrity sha512-DhLTErRxGlsV1dVmooFu5DGHSA2b52QwssrWB76CPGm7jV3PGTNzxDhMW/NatkE70JQJ38kRhKW8PePenPqsig==
