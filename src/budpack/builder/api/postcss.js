@@ -17,9 +17,9 @@ const postCss = function ({enabled = true, ...options}) {
 
   if (this.features.postCss) {
     this.options.postCss = {
-      ...this.options.postCss,
+      ...(this.options.postCss ? this.options.postCss : []),
       plugins: [
-        ...this.options.postCss.plugins,
+        ...(this.options.postCss.plugins ? this.options.postCss.plugins : []),
         ...(options.plugins ? options.plugins : []),
       ],
     }

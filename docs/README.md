@@ -1,4 +1,3 @@
-# @roots/budpack
 
 # @roots/budpack
 
@@ -894,48 +893,47 @@ bud
 
 ### Functions
 
-- [alias](README.md#const-alias)
-- [auto](README.md#const-auto)
-- [babel](README.md#const-babel)
-- [bundle](README.md#const-bundle)
-- [copy](README.md#const-copy)
-- [copyAll](README.md#const-copyall)
-- [dashboard](README.md#const-dashboard)
-- [debug](README.md#const-debug)
-- [dependencyManifest](README.md#const-dependencymanifest)
-- [dev](README.md#const-dev)
-- [devtool](README.md#const-devtool)
-- [dist](README.md#const-dist)
-- [distPath](README.md#const-distpath)
-- [env](README.md#const-env)
-- [hash](README.md#const-hash)
-- [hot](README.md#const-hot)
-- [inlineManifest](README.md#const-inlinemanifest)
-- [maps](README.md#const-maps)
-- [mini](README.md#const-mini)
-- [postCss](README.md#const-postcss)
-- [preset](README.md#const-preset)
-- [project](README.md#const-project)
-- [projectPath](README.md#const-projectpath)
-- [publicPath](README.md#const-publicpath)
-- [purge](README.md#const-purge)
-- [setEnv](README.md#const-setenv)
-- [src](README.md#const-src)
-- [srcPath](README.md#const-srcpath)
-- [sync](README.md#const-sync)
-- [target](README.md#const-target)
-- [translate](README.md#const-translate)
-- [typescript](README.md#const-typescript)
-- [vendor](README.md#const-vendor)
-- [watch](README.md#const-watch)
+* [alias](README.md#const-alias)
+* [auto](README.md#const-auto)
+* [babel](README.md#const-babel)
+* [bundle](README.md#const-bundle)
+* [copy](README.md#const-copy)
+* [copyAll](README.md#const-copyall)
+* [dashboard](README.md#const-dashboard)
+* [debug](README.md#const-debug)
+* [dependencyManifest](README.md#const-dependencymanifest)
+* [dev](README.md#const-dev)
+* [devtool](README.md#const-devtool)
+* [dist](README.md#const-dist)
+* [distPath](README.md#const-distpath)
+* [env](README.md#const-env)
+* [hash](README.md#const-hash)
+* [hot](README.md#const-hot)
+* [inlineManifest](README.md#const-inlinemanifest)
+* [maps](README.md#const-maps)
+* [mini](README.md#const-mini)
+* [postCss](README.md#const-postcss)
+* [preset](README.md#const-preset)
+* [project](README.md#const-project)
+* [projectPath](README.md#const-projectpath)
+* [publicPath](README.md#const-publicpath)
+* [purge](README.md#const-purge)
+* [setEnv](README.md#const-setenv)
+* [src](README.md#const-src)
+* [srcPath](README.md#const-srcpath)
+* [sync](README.md#const-sync)
+* [target](README.md#const-target)
+* [translate](README.md#const-translate)
+* [vendor](README.md#const-vendor)
+* [watch](README.md#const-watch)
 
 ## Functions
 
 ### `Const` alias
 
-▸ **alias**(`options`: any): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+▸ **alias**(`options`: any): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-_Defined in [alias.js:22](https://github.com/roots/bud-support/blob/ecdb24b/src/budpack/builder/api/alias.js#L22)_
+*Defined in [alias.js:22](https://github.com/roots/bud-support/blob/edaa90b/src/budpack/builder/api/alias.js#L22)*
 
 ## bud.alias
 
@@ -944,7 +942,7 @@ Resolve modules through webpack aliases. Useful for situations that may otherwis
 Having defined this alias:
 
 ```js
-bud.alias({scripts: bud.src('scripts')})
+bud.alias({'scripts': bud.src('scripts')})
 ```
 
 You can now reference scripts against that alias in your import statements:
@@ -955,21 +953,21 @@ import 'scripts/myScript' // replacing '../../myScript'
 
 **Parameters:**
 
-| Name      | Type |
-| --------- | ---- |
-| `options` | any  |
+Name | Type |
+------ | ------ |
+`options` | any |
 
-**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
 bud
 
----
+___
 
 ### `Const` auto
 
-▸ **auto**(`options`: object): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+▸ **auto**(`options`: object): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-_Defined in [auto.js:7](https://github.com/roots/bud-support/blob/ecdb24b/src/budpack/builder/api/auto.js#L7)_
+*Defined in [auto.js:7](https://github.com/roots/bud-support/blob/edaa90b/src/budpack/builder/api/auto.js#L7)*
 
 Automatically load modules instead of needing to import them.
 
@@ -977,21 +975,21 @@ Automatically load modules instead of needing to import them.
 
 **Parameters:**
 
-| Name      | Type   |
-| --------- | ------ |
-| `options` | object |
+Name | Type |
+------ | ------ |
+`options` | object |
 
-**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
 bud
 
----
+___
 
 ### `Const` babel
 
-▸ **babel**(`options`: object): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+▸ **babel**(`options`: object): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-_Defined in [babel.js:17](https://github.com/roots/bud-support/blob/ecdb24b/src/budpack/builder/api/babel.js#L17)_
+*Defined in [babel.js:17](https://github.com/roots/bud-support/blob/edaa90b/src/budpack/builder/api/babel.js#L17)*
 
 Configure Babel.
 
@@ -1004,79 +1002,85 @@ Conflicts between supplied configs will be resolved in favor of bud.config.js.
 
 **Parameters:**
 
-▪ **options**: _object_
+▪ **options**: *object*
 
-| Name      | Type    |
-| --------- | ------- |
-| `enabled` | boolean |
-| `plugins` | any[]   |
-| `presets` | any[]   |
+Name | Type |
+------ | ------ |
+`enabled` | boolean |
+`plugins` | any[] |
+`presets` | any[] |
 
-**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
 bud
 
----
+___
 
 ### `Const` bundle
 
-▸ **bundle**(`name`: string, `entries`: any[]): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+▸ **bundle**(`name`: string, `entries`: any[]): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-_Defined in [bundle.js:18](https://github.com/roots/bud-support/blob/ecdb24b/src/budpack/builder/api/bundle.js#L18)_
+*Defined in [bundle.js:18](https://github.com/roots/bud-support/blob/edaa90b/src/budpack/builder/api/bundle.js#L18)*
 
 ## bud.bundle
 
 Compile a group of assets.
 
 ```js
-bud.bundle('app', [bud.src('app.js'), bud.src('app.css')])
+bud.bundle('app', [
+  bud.src('app.js'),
+  bud.src('app.css'),
+])
 ```
 
 **Parameters:**
 
-| Name      | Type   | Description                                   |
-| --------- | ------ | --------------------------------------------- |
-| `name`    | string | output name.                                  |
-| `entries` | any[]  | array of src assets to include in the bundle. |
+Name | Type | Description |
+------ | ------ | ------ |
+`name` | string | output name. |
+`entries` | any[] | array of src assets to include in the bundle. |
 
-**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
 bud
 
----
+___
 
 ### `Const` copy
 
-▸ **copy**(`from`: any, `to`: any): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+▸ **copy**(`from`: any, `to`: any): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-_Defined in [copy.js:18](https://github.com/roots/bud-support/blob/ecdb24b/src/budpack/builder/api/copy.js#L18)_
+*Defined in [copy.js:18](https://github.com/roots/bud-support/blob/edaa90b/src/budpack/builder/api/copy.js#L18)*
 
 ## bud.copy
 
 Copy a file.
 
 ```js
-bud.copy(bud.src('images/image.png'), bud.dist('image.png'))
+bud.copy(
+  bud.src('images/image.png'),
+  bud.dist('image.png'),
+)
 ```
 
 **Parameters:**
 
-| Name   | Type |
-| ------ | ---- |
-| `from` | any  |
-| `to`   | any  |
+Name | Type |
+------ | ------ |
+`from` | any |
+`to` | any |
 
-**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
 bud
 
----
+___
 
 ### `Const` copyAll
 
-▸ **copyAll**(`src`: string, `dest`: string): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+▸ **copyAll**(`src`: string, `dest`: string): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-_Defined in [copyAll.js:11](https://github.com/roots/bud-support/blob/ecdb24b/src/budpack/builder/api/copyAll.js#L11)_
+*Defined in [copyAll.js:11](https://github.com/roots/bud-support/blob/edaa90b/src/budpack/builder/api/copyAll.js#L11)*
 
 Copy all files from a specified source to a specified destination.
 
@@ -1084,22 +1088,22 @@ Copy all files from a specified source to a specified destination.
 
 **Parameters:**
 
-| Name   | Type   | Description     |
-| ------ | ------ | --------------- |
-| `src`  | string | origin dir      |
-| `dest` | string | destination dir |
+Name | Type | Description |
+------ | ------ | ------ |
+`src` | string | origin dir |
+`dest` | string | destination dir |
 
-**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
 bud
 
----
+___
 
 ### `Const` dashboard
 
-▸ **dashboard**(`enabled`: boolean): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+▸ **dashboard**(`enabled`: boolean): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-_Defined in [dashboard.js:16](https://github.com/roots/bud-support/blob/ecdb24b/src/budpack/builder/api/dashboard.js#L16)_
+*Defined in [dashboard.js:16](https://github.com/roots/bud-support/blob/edaa90b/src/budpack/builder/api/dashboard.js#L16)*
 
 ## bud.dashboard
 
@@ -1113,41 +1117,41 @@ bud.dashboard(false) // disable dashboard
 
 **Parameters:**
 
-| Name      | Type    | Description               |
-| --------- | ------- | ------------------------- |
-| `enabled` | boolean | true to enable debug mode |
+Name | Type | Description |
+------ | ------ | ------ |
+`enabled` | boolean | true to enable debug mode |
 
-**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
 bud
 
----
+___
 
 ### `Const` debug
 
-▸ **debug**(`enabled`: boolean): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+▸ **debug**(`enabled`: boolean): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-_Defined in [debug.js:7](https://github.com/roots/bud-support/blob/ecdb24b/src/budpack/builder/api/debug.js#L7)_
+*Defined in [debug.js:7](https://github.com/roots/bud-support/blob/edaa90b/src/budpack/builder/api/debug.js#L7)*
 
 Debug mode
 
 **Parameters:**
 
-| Name      | Type    | Description               |
-| --------- | ------- | ------------------------- |
-| `enabled` | boolean | true to enable debug mode |
+Name | Type | Description |
+------ | ------ | ------ |
+`enabled` | boolean | true to enable debug mode |
 
-**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
 debug
 
----
+___
 
 ### `Const` dependencyManifest
 
-▸ **dependencyManifest**(`__namedParameters`: object): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+▸ **dependencyManifest**(`__namedParameters`: object): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-_Defined in [dependencyManifest.js:16](https://github.com/roots/bud-support/blob/ecdb24b/src/budpack/builder/api/dependencyManifest.js#L16)_
+*Defined in [dependencyManifest.js:16](https://github.com/roots/bud-support/blob/edaa90b/src/budpack/builder/api/dependencyManifest.js#L16)*
 
 Make a manifest of @wordpress dependencies utilized by entrypoints.
 
@@ -1157,43 +1161,43 @@ Make a manifest of @wordpress dependencies utilized by entrypoints.
 
 **Parameters:**
 
-▪ **\_\_namedParameters**: _object_
+▪ **__namedParameters**: *object*
 
-| Name       | Type     |
-| ---------- | -------- |
-| `settings` | settings |
+Name | Type |
+------ | ------ |
+`settings` | settings |
 
-**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
 bud
 
----
+___
 
 ### `Const` dev
 
-▸ **dev**(`options`: any): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+▸ **dev**(`options`: any): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-_Defined in [dev.js:7](https://github.com/roots/bud-support/blob/ecdb24b/src/budpack/builder/api/dev.js#L7)_
+*Defined in [dev.js:7](https://github.com/roots/bud-support/blob/edaa90b/src/budpack/builder/api/dev.js#L7)*
 
 Development server settings
 
 **Parameters:**
 
-| Name      | Type |
-| --------- | ---- |
-| `options` | any  |
+Name | Type |
+------ | ------ |
+`options` | any |
 
-**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
 bud
 
----
+___
 
 ### `Const` devtool
 
-▸ **devtool**(`devtool`: string): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+▸ **devtool**(`devtool`: string): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-_Defined in [devtool.js:7](https://github.com/roots/bud-support/blob/ecdb24b/src/budpack/builder/api/devtool.js#L7)_
+*Defined in [devtool.js:7](https://github.com/roots/bud-support/blob/edaa90b/src/budpack/builder/api/devtool.js#L7)*
 
 Specify webpack devtool
 
@@ -1201,21 +1205,21 @@ webpack devtool to utilize
 
 **Parameters:**
 
-| Name      | Type   |
-| --------- | ------ |
-| `devtool` | string |
+Name | Type |
+------ | ------ |
+`devtool` | string |
 
-**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
 bud
 
----
+___
 
 ### `Const` dist
 
-▸ **dist**(`relativePath`: string): _string_
+▸ **dist**(`relativePath`: string): *string*
 
-_Defined in [dist.js:10](https://github.com/roots/bud-support/blob/ecdb24b/src/budpack/builder/api/dist.js#L10)_
+*Defined in [dist.js:10](https://github.com/roots/bud-support/blob/edaa90b/src/budpack/builder/api/dist.js#L10)*
 
 Yield an absolute path from a path relative to the dist dir.
 
@@ -1223,21 +1227,21 @@ Yield an absolute path from a path relative to the dist dir.
 
 **Parameters:**
 
-| Name           | Type   | Description   |
-| -------------- | ------ | ------------- |
-| `relativePath` | string | relative path |
+Name | Type | Description |
+------ | ------ | ------ |
+`relativePath` | string | relative path |
 
-**Returns:** _string_
+**Returns:** *string*
 
 absolute path
 
----
+___
 
 ### `Const` distPath
 
-▸ **distPath**(`dir`: string): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+▸ **distPath**(`dir`: string): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-_Defined in [distPath.js:10](https://github.com/roots/bud-support/blob/ecdb24b/src/budpack/builder/api/distPath.js#L10)_
+*Defined in [distPath.js:10](https://github.com/roots/bud-support/blob/edaa90b/src/budpack/builder/api/distPath.js#L10)*
 
 Set the project's dist directory.
 
@@ -1245,21 +1249,21 @@ Set the project's dist directory.
 
 **Parameters:**
 
-| Name  | Type   | Description                                          |
-| ----- | ------ | ---------------------------------------------------- |
-| `dir` | string | path of dist directory relative to the project root. |
+Name | Type | Description |
+------ | ------ | ------ |
+`dir` | string | path of dist directory relative to the project root. |
 
-**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
 bud
 
----
+___
 
 ### `Const` env
 
-▸ **env**(`key`: string): _string_
+▸ **env**(`key`: string): *string*
 
-_Defined in [env.js:8](https://github.com/roots/bud-support/blob/ecdb24b/src/budpack/builder/api/env.js#L8)_
+*Defined in [env.js:8](https://github.com/roots/bud-support/blob/edaa90b/src/budpack/builder/api/env.js#L8)*
 
 Get environment variable value.
 
@@ -1267,19 +1271,19 @@ Get environment variable value.
 
 **Parameters:**
 
-| Name  | Type   |
-| ----- | ------ |
-| `key` | string |
+Name | Type |
+------ | ------ |
+`key` | string |
 
-**Returns:** _string_
+**Returns:** *string*
 
----
+___
 
 ### `Const` hash
 
-▸ **hash**(`enabled`: boolean): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+▸ **hash**(`enabled`: boolean): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-_Defined in [hash.js:8](https://github.com/roots/bud-support/blob/ecdb24b/src/budpack/builder/api/hash.js#L8)_
+*Defined in [hash.js:8](https://github.com/roots/bud-support/blob/edaa90b/src/budpack/builder/api/hash.js#L8)*
 
 Enable or disable filename hashing of built assets. Unless specified, filename hashes will be created when running production builds.
 
@@ -1287,21 +1291,21 @@ Enable or disable filename hashing of built assets. Unless specified, filename h
 
 **Parameters:**
 
-| Name      | Type    | Default | Description                      |
-| --------- | ------- | ------- | -------------------------------- |
-| `enabled` | boolean | true    | true to enable filename hashing. |
+Name | Type | Default | Description |
+------ | ------ | ------ | ------ |
+`enabled` | boolean | true | true to enable filename hashing. |
 
-**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
 bud
 
----
+___
 
 ### `Const` hot
 
-▸ **hot**(`enabled`: boolean): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+▸ **hot**(`enabled`: boolean): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-_Defined in [hot.js:8](https://github.com/roots/bud-support/blob/ecdb24b/src/budpack/builder/api/hot.js#L8)_
+*Defined in [hot.js:8](https://github.com/roots/bud-support/blob/edaa90b/src/budpack/builder/api/hot.js#L8)*
 
 Enable or disable hot module reloading
 
@@ -1309,21 +1313,21 @@ Enable or disable hot module reloading
 
 **Parameters:**
 
-| Name      | Type    | Description                                                      |
-| --------- | ------- | ---------------------------------------------------------------- |
-| `enabled` | boolean | true to enable hot module reloading. default: !bud.inProduction. |
+Name | Type | Description |
+------ | ------ | ------ |
+`enabled` | boolean | true to enable hot module reloading. default: !bud.inProduction. |
 
-**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
 bud
 
----
+___
 
 ### `Const` inlineManifest
 
-▸ **inlineManifest**(`name`: string): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+▸ **inlineManifest**(`name`: string): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-_Defined in [inlineManifest.js:10](https://github.com/roots/bud-support/blob/ecdb24b/src/budpack/builder/api/inlineManifest.js#L10)_
+*Defined in [inlineManifest.js:10](https://github.com/roots/bud-support/blob/edaa90b/src/budpack/builder/api/inlineManifest.js#L10)*
 
 Make a chunk to be inlined directly on the page for optimal code splitting.
 
@@ -1333,21 +1337,21 @@ Make a chunk to be inlined directly on the page for optimal code splitting.
 
 **Parameters:**
 
-| Name   | Type   | Default   |
-| ------ | ------ | --------- |
-| `name` | string | "runtime" |
+Name | Type | Default |
+------ | ------ | ------ |
+`name` | string | "runtime" |
 
-**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
 bud
 
----
+___
 
 ### `Const` maps
 
-▸ **maps**(`enabled`: any): _any_
+▸ **maps**(`enabled`: any): *any*
 
-_Defined in [maps.js:16](https://github.com/roots/bud-support/blob/ecdb24b/src/budpack/builder/api/maps.js#L16)_
+*Defined in [maps.js:16](https://github.com/roots/bud-support/blob/edaa90b/src/budpack/builder/api/maps.js#L16)*
 
 ## bud.map
 
@@ -1361,41 +1365,41 @@ bud.map(true)
 
 **Parameters:**
 
-| Name      | Type |
-| --------- | ---- |
-| `enabled` | any  |
+Name | Type |
+------ | ------ |
+`enabled` | any |
 
-**Returns:** _any_
+**Returns:** *any*
 
 bud
 
----
+___
 
 ### `Const` mini
 
-▸ **mini**(`enable`: boolean): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+▸ **mini**(`enable`: boolean): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-_Defined in [mini.js:8](https://github.com/roots/bud-support/blob/ecdb24b/src/budpack/builder/api/mini.js#L8)_
+*Defined in [mini.js:8](https://github.com/roots/bud-support/blob/edaa90b/src/budpack/builder/api/mini.js#L8)*
 
 Enable or disable minification
 
 **Parameters:**
 
-| Name     | Type    | Description                         |
-| -------- | ------- | ----------------------------------- |
-| `enable` | boolean | true to enable CSS/JS minification. |
+Name | Type | Description |
+------ | ------ | ------ |
+`enable` | boolean | true to enable CSS/JS minification. |
 
-**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
 bud
 
----
+___
 
 ### `Const` postCss
 
-▸ **postCss**(`__namedParameters`: object): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+▸ **postCss**(`__namedParameters`: object): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-_Defined in [postcss.js:15](https://github.com/roots/bud-support/blob/ecdb24b/src/budpack/builder/api/postcss.js#L15)_
+*Defined in [postcss.js:15](https://github.com/roots/bud-support/blob/edaa90b/src/budpack/builder/api/postcss.js#L15)*
 
 Configure PostCSS.
 
@@ -1406,24 +1410,24 @@ Conflicts between supplied configs will be resolved in favor of bud.config.js.
 
 **Parameters:**
 
-▪ **\_\_namedParameters**: _object_
+▪ **__namedParameters**: *object*
 
-| Name      | Type    | Default |
-| --------- | ------- | ------- |
-| `enabled` | boolean | true    |
-| `options` | options | -       |
+Name | Type | Default |
+------ | ------ | ------ |
+`enabled` | boolean | true |
+`options` | options | - |
 
-**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
 bud
 
----
+___
 
 ### `Const` preset
 
-▸ **preset**(`relativePath`: string): _string_
+▸ **preset**(`relativePath`: string): *string*
 
-_Defined in [preset.js:26](https://github.com/roots/bud-support/blob/ecdb24b/src/budpack/builder/api/preset.js#L26)_
+*Defined in [preset.js:26](https://github.com/roots/bud-support/blob/edaa90b/src/budpack/builder/api/preset.js#L26)*
 
 ## bud.preset
 
@@ -1445,21 +1449,21 @@ bud.preset('tsconfig')
 
 **Parameters:**
 
-| Name           | Type   | Description   |
-| -------------- | ------ | ------------- |
-| `relativePath` | string | relative path |
+Name | Type | Description |
+------ | ------ | ------ |
+`relativePath` | string | relative path |
 
-**Returns:** _string_
+**Returns:** *string*
 
 absolutePath
 
----
+___
 
 ### `Const` project
 
-▸ **project**(`relativePath`: string): _string_
+▸ **project**(`relativePath`: string): *string*
 
-_Defined in [project.js:18](https://github.com/roots/bud-support/blob/ecdb24b/src/budpack/builder/api/project.js#L18)_
+*Defined in [project.js:18](https://github.com/roots/bud-support/blob/edaa90b/src/budpack/builder/api/project.js#L18)*
 
 ## bud.project
 
@@ -1473,41 +1477,41 @@ bud.project('package.json') // absolute path to package.json
 
 **Parameters:**
 
-| Name           | Type   | Description   |
-| -------------- | ------ | ------------- |
-| `relativePath` | string | relative path |
+Name | Type | Description |
+------ | ------ | ------ |
+`relativePath` | string | relative path |
 
-**Returns:** _string_
+**Returns:** *string*
 
 absolutePath
 
----
+___
 
 ### `Const` projectPath
 
-▸ **projectPath**(`dir`: string): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+▸ **projectPath**(`dir`: string): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-_Defined in [projectPath.js:8](https://github.com/roots/bud-support/blob/ecdb24b/src/budpack/builder/api/projectPath.js#L8)_
+*Defined in [projectPath.js:8](https://github.com/roots/bud-support/blob/edaa90b/src/budpack/builder/api/projectPath.js#L8)*
 
 Set the project base path.
 
 **Parameters:**
 
-| Name  | Type   | Description              |
-| ----- | ------ | ------------------------ |
-| `dir` | string | absolute path of project |
+Name | Type | Description |
+------ | ------ | ------ |
+`dir` | string | absolute path of project |
 
-**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
 bud
 
----
+___
 
 ### `Const` publicPath
 
-▸ **publicPath**(`dir`: string): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+▸ **publicPath**(`dir`: string): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-_Defined in [publicPath.js:16](https://github.com/roots/bud-support/blob/ecdb24b/src/budpack/builder/api/publicPath.js#L16)_
+*Defined in [publicPath.js:16](https://github.com/roots/bud-support/blob/edaa90b/src/budpack/builder/api/publicPath.js#L16)*
 
 ## bud.publicPath
 
@@ -1521,21 +1525,21 @@ bud.publicPath('dist')
 
 **Parameters:**
 
-| Name  | Type   | Description            |
-| ----- | ------ | ---------------------- |
-| `dir` | string | public path of project |
+Name | Type | Description |
+------ | ------ | ------ |
+`dir` | string | public path of project |
 
-**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
 bud
 
----
+___
 
 ### `Const` purge
 
-▸ **purge**(`__namedParameters`: object): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+▸ **purge**(`__namedParameters`: object): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-_Defined in [purge.js:38](https://github.com/roots/bud-support/blob/ecdb24b/src/budpack/builder/api/purge.js#L38)_
+*Defined in [purge.js:38](https://github.com/roots/bud-support/blob/edaa90b/src/budpack/builder/api/purge.js#L38)*
 
 ## bud.purge
 
@@ -1552,31 +1556,30 @@ bud.purge({
   enabled: bud.inProduction,
   content: [bud.project('resources/views/**')],
   allow: require('purgecss-with-wordpress').whitelist,
-  allowPatterns: require('purgecss-with-wordpress')
-    .whitelistPatterns,
+  allowPatterns: require('purgecss-with-wordpress').whitelistPatterns,
 })
 ```
 
 **Parameters:**
 
-▪ **\_\_namedParameters**: _object_
+▪ **__namedParameters**: *object*
 
-| Name      | Type | Default |
-| --------- | ---- | ------- |
-| `enabled` | any  | true    |
-| `options` | any  | -       |
+Name | Type | Default |
+------ | ------ | ------ |
+`enabled` | any | true |
+`options` | any | - |
 
-**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
 bud
 
----
+___
 
 ### `Const` setEnv
 
-▸ **setEnv**(`options`: object): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+▸ **setEnv**(`options`: object): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-_Defined in [setEnv.js:17](https://github.com/roots/bud-support/blob/ecdb24b/src/budpack/builder/api/setEnv.js#L17)_
+*Defined in [setEnv.js:17](https://github.com/roots/bud-support/blob/edaa90b/src/budpack/builder/api/setEnv.js#L17)*
 
 ## bud.setEnv
 
@@ -1584,26 +1587,26 @@ Set environment variables.
 
 ```js
 bud.setEnv({
-  APP_NAME: 'sage',
-  //...,
+ APP_NAME: 'sage',
+ //...,
 })
 ```
 
 **Parameters:**
 
-| Name      | Type   |
-| --------- | ------ |
-| `options` | object |
+Name | Type |
+------ | ------ |
+`options` | object |
 
-**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
----
+___
 
 ### `Const` src
 
-▸ **src**(`relativePath`: string): _string_
+▸ **src**(`relativePath`: string): *string*
 
-_Defined in [src.js:17](https://github.com/roots/bud-support/blob/ecdb24b/src/budpack/builder/api/src.js#L17)_
+*Defined in [src.js:17](https://github.com/roots/bud-support/blob/edaa90b/src/budpack/builder/api/src.js#L17)*
 
 ## bud.src
 
@@ -1617,21 +1620,21 @@ bud.src('scripts/app.js') // absolute path to the source file
 
 **Parameters:**
 
-| Name           | Type   | Description   |
-| -------------- | ------ | ------------- |
-| `relativePath` | string | relative path |
+Name | Type | Description |
+------ | ------ | ------ |
+`relativePath` | string | relative path |
 
-**Returns:** _string_
+**Returns:** *string*
 
 absolutePath
 
----
+___
 
 ### `Const` srcPath
 
-▸ **srcPath**(`src`: any): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+▸ **srcPath**(`src`: any): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-_Defined in [srcPath.js:10](https://github.com/roots/bud-support/blob/ecdb24b/src/budpack/builder/api/srcPath.js#L10)_
+*Defined in [srcPath.js:10](https://github.com/roots/bud-support/blob/edaa90b/src/budpack/builder/api/srcPath.js#L10)*
 
 Set the project's src directory.
 
@@ -1639,54 +1642,54 @@ Set the project's src directory.
 
 **Parameters:**
 
-| Name  | Type |
-| ----- | ---- |
-| `src` | any  |
+Name | Type |
+------ | ------ |
+`src` | any |
 
-**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
 bud
 
----
+___
 
 ### `Const` sync
 
-▸ **sync**(`options`: object): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+▸ **sync**(`options`: object): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-_Defined in [sync.js:18](https://github.com/roots/bud-support/blob/ecdb24b/src/budpack/builder/api/sync.js#L18)_
+*Defined in [sync.js:18](https://github.com/roots/bud-support/blob/edaa90b/src/budpack/builder/api/sync.js#L18)*
 
 Configure BrowserSync.
 
 **`example`**
 bud.sync({
-enabled: !bud.inProduction,
-proxy: 'http://bud.test',
-host: 'localhost',
-port: 3000,
+  enabled: !bud.inProduction,
+  proxy: 'http://bud.test',
+  host: 'localhost',
+  port: 3000,
 })
 
 **Parameters:**
 
-▪ **options**: _object_
+▪ **options**: *object*
 
-| Name      | Type   |
-| --------- | ------ |
-| `enabled` | object |
-| `host`    | object |
-| `port`    | object |
-| `proxy`   | object |
+Name | Type |
+------ | ------ |
+`enabled` | object |
+`host` | object |
+`port` | object |
+`proxy` | object |
 
-**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
 bud
 
----
+___
 
 ### `Const` target
 
-▸ **target**(`target`: any): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+▸ **target**(`target`: any): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-_Defined in [target.js:8](https://github.com/roots/bud-support/blob/ecdb24b/src/budpack/builder/api/target.js#L8)_
+*Defined in [target.js:8](https://github.com/roots/bud-support/blob/edaa90b/src/budpack/builder/api/target.js#L8)*
 
 Set the build target.
 
@@ -1694,21 +1697,21 @@ Set the build target.
 
 **Parameters:**
 
-| Name     | Type |
-| -------- | ---- |
-| `target` | any  |
+Name | Type |
+------ | ------ |
+`target` | any |
 
-**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
 bud
 
----
+___
 
 ### `Const` translate
 
-▸ **translate**(`output`: string): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+▸ **translate**(`output`: string): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-_Defined in [translate.js:12](https://github.com/roots/bud-support/blob/ecdb24b/src/budpack/builder/api/translate.js#L12)_
+*Defined in [translate.js:12](https://github.com/roots/bud-support/blob/edaa90b/src/budpack/builder/api/translate.js#L12)*
 
 Process @wordpress/i18n strings from JS source assets.
 
@@ -1719,49 +1722,21 @@ there is no reason to run this separately.
 
 **Parameters:**
 
-| Name     | Type   | Description    |
-| -------- | ------ | -------------- |
-| `output` | string | output makepot |
+Name | Type | Description |
+------ | ------ | ------ |
+`output` | string | output makepot |
 
-**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
-
-bud
-
----
-
-### `Const` typescript
-
-▸ **typescript**(`options`: object): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
-
-Defined in typescript.js:15
-
-Configure Typescript.
-
-If you prefer, you may utilize a tsconfig.js file in the project root,
-either alongside or in lieue of this configuration.
-
-Conflicts between supplied configs will be resolved in favor of bud.config.js.
-
-**Parameters:**
-
-▪ **options**: _object_
-
-| Name      | Type    |
-| --------- | ------- |
-| `config`  | any     |
-| `enabled` | boolean |
-
-**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
 bud
 
----
+___
 
 ### `Const` vendor
 
-▸ **vendor**(`name`: string): _any_
+▸ **vendor**(`name`: string): *any*
 
-_Defined in [vendor.js:14](https://github.com/roots/bud-support/blob/ecdb24b/src/budpack/builder/api/vendor.js#L14)_
+*Defined in [vendor.js:14](https://github.com/roots/bud-support/blob/edaa90b/src/budpack/builder/api/vendor.js#L14)*
 
 ## bud.vendor
 
@@ -1773,21 +1748,21 @@ bud.vendor('vendor')
 
 **Parameters:**
 
-| Name   | Type   | Default  | Description                |
-| ------ | ------ | -------- | -------------------------- |
-| `name` | string | "vendor" | name of vendor output file |
+Name | Type | Default | Description |
+------ | ------ | ------ | ------ |
+`name` | string | "vendor" | name of vendor output file |
 
-**Returns:** _any_
+**Returns:** *any*
 
 bud
 
----
+___
 
 ### `Const` watch
 
-▸ **watch**(`enabled`: any): _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+▸ **watch**(`enabled`: any): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-_Defined in [watch.js:14](https://github.com/roots/bud-support/blob/ecdb24b/src/budpack/builder/api/watch.js#L14)_
+*Defined in [watch.js:14](https://github.com/roots/bud-support/blob/edaa90b/src/budpack/builder/api/watch.js#L14)*
 
 ## bud.watch
 
@@ -1799,10 +1774,10 @@ bud.watch(true)
 
 **Parameters:**
 
-| Name      | Type | Description     |
-| --------- | ---- | --------------- |
-| `enabled` | any  | true if enabled |
+Name | Type | Description |
+------ | ------ | ------ |
+`enabled` | any | true if enabled |
 
-**Returns:** _"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"_
+**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
 bud
