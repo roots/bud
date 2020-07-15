@@ -5,12 +5,12 @@ import WriteFilePlugin from 'write-file-webpack-plugin'
 /**
  * Development plugins
  *
- * @typedef {function (options: bud.options, features: bud.features) => {array}} devPlugins
+ * @typedef {function (options: bud.options, features: bud.features) => {array}} dev
  * @param {options} options
  * @param {features} features
  * @return {array}
  */
-const devPlugins = (options, features) => [
+const dev = (options, features) => [
   ...(features.hot
     ? [new HotModuleReplacementPlugin()]
     : []),
@@ -27,4 +27,4 @@ const devPlugins = (options, features) => [
     : []),
 ]
 
-export {devPlugins}
+export {dev}

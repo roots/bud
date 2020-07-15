@@ -2,8 +2,8 @@
  * Get environment variable value.
  */
 export type env = () => {
-  string
-}
+    string;
+};
 /**
  * Get environment variable value.
  * @example bud.env('APP_NAME')
@@ -11,5 +11,5 @@ export type env = () => {
  * @param   {string} key
  * @return  {string}
  */
-export function env(key: string): string
+export function env(key: string): string;
 //# sourceMappingURL=env.d.ts.map

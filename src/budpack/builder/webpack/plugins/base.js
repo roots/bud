@@ -6,12 +6,12 @@ import FixStyleOnlyEntriesPlugin from 'webpack-fix-style-only-entries'
 /**
  * Base plugins
  *
- * @typedef {function (paths: bud.paths, features: bud.features) => {array}} basePlugins
+ * @typedef {function (paths: bud.paths, features: bud.features) => {array}} base
  * @param {paths} paths
  * @param {options} options
  * @return {array}
  */
-const basePlugins = (paths, features) => [
+const base = (paths, features) => [
   new FixStyleOnlyEntriesPlugin({
     silent: true,
   }),
@@ -28,4 +28,4 @@ const basePlugins = (paths, features) => [
   }),
 ]
 
-export {basePlugins}
+export {base}

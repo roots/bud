@@ -3,33 +3,23 @@ import path from 'path'
 /**
  * Webpack resolvers.
  *
- * @param {ob}
+ * @param {object}
  */
-const webpackResolve = ({options, paths}) => {
-  const config = {
-    resolve: {
-      extensions: [
-        '.js',
-        '.json',
-        '.vue',
-        '.jsx',
-        '.ts',
-        '.tsx',
-        '.css',
-        '.scss',
-        '.sass',
-      ],
-      modules: [
-        path.resolve(paths.project, 'node_modules'),
-      ],
-    },
-  }
-
-  if (options.alias) {
-    config.resolve.alias = options.alias
-  }
-
-  return config
-}
+const webpackResolve = ({options, paths}) => ({
+  resolve: {
+    extensions: [
+      '.js',
+      '.json',
+      '.vue',
+      '.jsx',
+      '.ts',
+      '.tsx',
+    ],
+    modules: [
+      path.resolve(paths.project, 'node_modules'),
+    ],
+    ...(options.alias ? {alias: options.alias} : []),
+  },
+})
 
 export {webpackResolve}

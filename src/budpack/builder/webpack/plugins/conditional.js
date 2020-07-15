@@ -9,12 +9,12 @@ import CopyPlugin from 'copy-webpack-plugin'
 /**
  * Conditional plugins
  *
- * @typedef {function (options: bud.options, features: bud.features) => {array}} conditionalPlugins
+ * @typedef {function (options: bud.options, features: bud.features) => {array}} conditional
  * @param {options} options
  * @param {features} features
  * @return {array}
  */
-const conditionalPlugins = (options, features) => [
+const conditional = (options, features) => [
   ...(options.auto
     ? [new ProvidePlugin(options.auto)]
     : []),
@@ -41,4 +41,4 @@ const conditionalPlugins = (options, features) => [
     : []),
 ]
 
-export {conditionalPlugins}
+export {conditional}

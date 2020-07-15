@@ -2,21 +2,21 @@
  * Configure BrowserSync.
  */
 export type sync = (arg0: {
-  enabled: {
-    boolean
-  }
-  proxy: {
-    string
-  }
-  port: {
-    number
-  }
-  host: {
-    string
-  }
+    enabled: {
+        boolean;
+    };
+    proxy: {
+        string;
+    };
+    port: {
+        number;
+    };
+    host: {
+        string;
+    };
 }) => {
-  bud: typeof import('./../index')
-}
+    bud: typeof import('./../index');
+};
 /**
  * Configure BrowserSync.
  * @example
@@ -35,17 +35,17 @@ export type sync = (arg0: {
  * @return  {typeof import('./../index')} bud
  */
 export function sync(options: {
-  enabled: {
-    boolean
-  }
-  proxy: {
-    string
-  }
-  port: {
-    number
-  }
-  host: {
-    string
-  }
-}): typeof import('./../index')
+    enabled: {
+        boolean;
+    };
+    proxy: {
+        string;
+    };
+    port: {
+        number;
+    };
+    host: {
+        string;
+    };
+}): typeof import('./../index');
 //# sourceMappingURL=sync.d.ts.map

@@ -6,7 +6,7 @@ import {loaders} from './loaders/loaders'
 import {optimization} from './optimization'
 import {output} from './output'
 import {webpackResolve} from './webpackResolve'
-import {webpackPlugins} from './webpackPlugins'
+import {plugins} from './plugins/index'
 
 /**
  * Make Webpack Config
@@ -30,7 +30,7 @@ const makeWebpackConfig = ({
   ...output({paths, features}),
   ...loaders({options, features, configs, paths}),
   ...optimization({options, features}),
-  ...webpackPlugins({options, features, paths}),
+  ...plugins({options, features, paths}),
   ...webpackResolve({options, paths}),
   ...externals(options),
   ...devServer(options),

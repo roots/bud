@@ -15,14 +15,11 @@
  * import 'scripts/myScript' // replacing '../../myScript'
  * ```
  */
-export type alias = (
-  arg0: [any, string],
-  arg1: {
-    directory: string
-  }[],
-) => {
-  bud: typeof import('./../index')
-}
+export type alias = (arg0: [any, string], arg1: {
+    directory: string;
+}[]) => {
+    bud: typeof import('./../index');
+};
 /**
  * ## bud.alias
  *
@@ -44,7 +41,5 @@ export type alias = (
  * @param   {[key: string]: {directory: string}} options
  * @return  {typeof import('./../index')} bud
  **/
-export function alias(
-  options: any,
-): typeof import('./../index')
+export function alias(options: any): typeof import('./../index');
 //# sourceMappingURL=alias.d.ts.map

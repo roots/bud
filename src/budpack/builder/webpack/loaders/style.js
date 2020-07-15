@@ -1,11 +1,13 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
-const patterns = {
-  stylesheet: /\.(scss|sass|css)$/,
-  stylesheetModule: /\.module\.(scss|sass|css)$/,
+const pattern = {
+  sass: /\.(scss|sass)$/,
+  sassModule: /\.module\.(scss|sass)$/,
+  css: /\.css$/,
+  cssModule: /\.module\.css$/,
 }
 
-const loaders = {
+const loader = {
   css: require.resolve('css-loader'),
   postCss: require.resolve('postcss-loader'),
   resolveUrl: require.resolve('resolve-url-loader'),
@@ -13,56 +15,52 @@ const loaders = {
   style: require.resolve('style-loader'),
 }
 
-const moduleLoader = (features, postCss) => ({
-  test: patterns.stylesheetModule,
+const cssModule = (features, postCss) => ({
+  test: pattern.cssModule,
   use: [
     MiniCssExtractPlugin.loader,
     {
-      loader: loaders.css,
+      loader: loader.css,
       options: {
         modules: true,
         onlyLocals: false,
       },
     },
+    {
+      loader: loader.resolveUrl,
+      options: {
+        engine: 'postcss',
+        sourceMap: features.map,
+        debug: true,
+      },
+    },
     ...(!features.postCss
       ? []
       : [
           {
-            loader: loaders.postCss,
+            loader: loader.postCss,
             options: {
               ...postCss,
               ident: 'postcss',
-              importLoaders: 1,
             },
           },
         ]),
-    {
-      loader: loaders.sass,
-      options: {
-        sourceMap: true,
-      },
-    },
   ],
 })
 
-const globalLoader = (features, postCss) => ({
+const sassModule = (features) => ({
+  test: pattern.sassModule,
   use: [
     MiniCssExtractPlugin.loader,
-    loaders.css,
-    ...(!features.postCss
-      ? []
-      : [
-          {
-            loader: loaders.postCss,
-            options: {
-              ...postCss,
-              ident: 'postcss',
-              importLoaders: 1,
-            },
-          },
-        ]),
     {
-      loader: loaders.resolveUrl,
+      loader: loader.css,
+      options: {
+        modules: true,
+        onlyLocals: false,
+      },
+    },
+    {
+      loader: loader.resolveUrl,
       options: {
         engine: 'postcss',
         sourceMap: features.map,
@@ -70,7 +68,7 @@ const globalLoader = (features, postCss) => ({
       },
     },
     {
-      loader: loaders.sass,
+      loader: loader.sass,
       options: {
         sourceMap: true,
       },
@@ -78,13 +76,64 @@ const globalLoader = (features, postCss) => ({
   ],
 })
 
-const style = ({postCss}, features, paths) => ({
-  test: patterns.stylesheet,
-  include: paths.src,
-  oneOf: [
-    moduleLoader(features, postCss),
-    globalLoader(features, postCss),
+const css = (features, postCss) => ({
+  test: pattern.css,
+  use: [
+    MiniCssExtractPlugin.loader,
+    {
+      loader: loader.css,
+    },
+    {
+      loader: loader.resolveUrl,
+      options: {
+        sourceMap: features.sourceMap,
+        debug: true,
+      },
+    },
+    ...(!features.postCss
+      ? []
+      : [
+          {
+            loader: loader.postCss,
+            options: {
+              ...postCss,
+              ident: 'postcss',
+            },
+          },
+        ]),
   ],
 })
+
+const sass = (features, postCss) => ({
+  test: pattern.sass,
+  use: [
+    MiniCssExtractPlugin.loader,
+    {loader: loader.css},
+    ...(!features.postCss
+      ? []
+      : [
+          {
+            loader: loader.postCss,
+            options: {
+              ...postCss,
+              ident: 'postcss',
+            },
+          },
+        ]),
+    {
+      loader: loader.sass,
+      options: {
+        sourceMap: true,
+      },
+    },
+  ],
+})
+
+const style = ({postCss}, features) => [
+  sass(features, postCss),
+  css(features, postCss),
+  sassModule(features, postCss),
+  cssModule(features, postCss),
+]
 
 export {style}

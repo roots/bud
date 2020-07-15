@@ -7,12 +7,9 @@
  * bud.watch(true)
  * ```
  */
-export type watch = (
-  arg0: any,
-  arg1: boolean,
-) => {
-  bud: typeof import('./../index')
-}
+export type watch = (arg0: any, arg1: boolean) => {
+    bud: typeof import('./../index');
+};
 /**
  * ## bud.watch
  *
@@ -26,7 +23,5 @@ export type watch = (
  * @param   {bool} enabled - true if enabled
  * @return  {typeof import('./../index')} bud
  */
-export function watch(
-  enabled: any,
-): typeof import('./../index')
+export function watch(enabled: any): typeof import('./../index');
 //# sourceMappingURL=watch.d.ts.map
