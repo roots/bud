@@ -4,19 +4,20 @@ import {compile} from './compile'
 import {compileSafeMode} from './compileSafeMode'
 
 /**
- * Project config => webpack config
+ * Load project config.
  */
 const config = require(join(process.cwd(), 'bud.config.js'))
-process.env.BABEL_ENV = config.options.mode
-process.env.NODE_ENV = config.options.mode
-const webpackConfig = makeWebpackConfig(config)
 
 /**
- * Kill the application on unhandled rejections.
+ * Set env.
  */
-process.on('unhandledRejection', () => {
-  process.exit()
-})
+process.env.BABEL_ENV = config.options.mode
+process.env.NODE_ENV = config.options.mode
+
+/**
+ * Project config => webpack config
+ */
+const webpackConfig = makeWebpackConfig(config)
 
 /**
  * Run compiler.
@@ -26,3 +27,10 @@ process.on('unhandledRejection', () => {
 config.features.dashboard
   ? compile(config, webpackConfig) // standard bud compiler
   : compileSafeMode(config, webpackConfig) // standard webpack stats output
+
+/**
+ * Kill the application on unhandled rejections.
+ */
+process.on('unhandledRejection', () => {
+  process.exit()
+})

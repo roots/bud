@@ -7,31 +7,60 @@ const patterns = {
 
 const loaders = {
   css: require.resolve('css-loader'),
-  postcss: require.resolve('postcss-loader'),
+  postCss: require.resolve('postcss-loader'),
   resolveUrl: require.resolve('resolve-url-loader'),
   sass: require.resolve('sass-loader'),
   style: require.resolve('style-loader'),
 }
 
-const stylesheet = ({postCss}, features, src) => ({
-  test: patterns.stylesheet,
-  include: src,
+const moduleLoader = (features, postCss) => ({
+  test: patterns.stylesheetModule,
   use: [
     MiniCssExtractPlugin.loader,
-    {loader: loaders.style},
-    {loader: loaders.css},
-    ...(features.postCss
-      ? [
+    {
+      loader: loaders.css,
+      options: {
+        modules: true,
+        onlyLocals: false,
+      },
+    },
+    ...(!features.postCss
+      ? []
+      : [
           {
-            loader: loaders.postcss,
+            loader: loaders.postCss,
             options: {
               ...postCss,
               ident: 'postcss',
               importLoaders: 1,
             },
           },
-        ]
-      : []),
+        ]),
+    {
+      loader: loaders.sass,
+      options: {
+        sourceMap: true,
+      },
+    },
+  ],
+})
+
+const globalLoader = (features, postCss) => ({
+  use: [
+    MiniCssExtractPlugin.loader,
+    {loader: loaders.css},
+    ...(!features.postCss
+      ? []
+      : [
+          {
+            loader: loaders.postCss,
+            options: {
+              ...postCss,
+              ident: 'postcss',
+              importLoaders: 1,
+            },
+          },
+        ]),
     {
       loader: loaders.resolveUrl,
       options: {
@@ -49,23 +78,12 @@ const stylesheet = ({postCss}, features, src) => ({
   ],
 })
 
-const stylesheetModule = (features, postCss, src) => ({
-  test: patterns.stylesheetModule,
+const styles = ({postCss}, features, src) => ({
+  test: patterns.stylesheet,
   include: src,
-  use: [
-    MiniCssExtractPlugin.loader,
-    {loader: loaders.css},
-    ...(!features.postCss
-      ? []
-      : [
-          {
-            loader: loaders.postcss,
-            options: {
-              ...postCss,
-              importLoaders: 3,
-            },
-          },
-        ]),
+  oneOf: [
+    moduleLoader(features, postCss),
+    globalLoader(features, postCss),
   ],
 })
 
@@ -73,8 +91,7 @@ const stylesheetModule = (features, postCss, src) => ({
  * Style loaders
  */
 const styleLoaders = (options, features, paths) => [
-  stylesheet(features, options.postCss, paths.src),
-  stylesheetModule(features, options.postCss, paths.src),
+  styles(features, options.postCss, paths.src),
 ]
 
 export {styleLoaders}

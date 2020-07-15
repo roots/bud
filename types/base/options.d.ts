@@ -18,6 +18,8 @@ export namespace options {
     export const patterns: any[]
   }
   export namespace dev {
+    export const clientLogLevel: string
+    export const compress: boolean
     export const disableHostCheck: boolean
     export const headers: {
       'Access-Control-Allow-Origin': string
@@ -40,6 +42,7 @@ export namespace options {
   export namespace splitting {
     export const maxChunks: any
   }
+  export const target: string
   export namespace vendor {
     const name_1: string
     export {name_1 as name}

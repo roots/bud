@@ -1,4 +1,4 @@
-import styleLoaders from './styleLoaders'
+import {styleLoaders} from './styleLoaders'
 
 const loaderModules = {
   babel: require.resolve('babel-loader'),
@@ -28,7 +28,7 @@ const eslint = ({eslint}, paths) => ({
   exclude: /node_modules/,
   loader: loaderModules.eslint,
   options: {
-    configFile: eslint.config,
+    configFile: eslint,
     formatter: 'codeframe',
     failOnError: true,
   },
