@@ -25,11 +25,12 @@ import {devtool} from './api/devtool'
 import {dist} from './api/dist'
 import {distPath} from './api/distPath'
 import {dependencyManifest} from './api/dependencyManifest'
+import {dump} from './api/dump'
 import {env} from './api/env'
 import {hash} from './api/hash'
 import {hot} from './api/hot'
 import {inlineManifest} from './api/inlineManifest'
-import {maps} from './api/maps'
+import {map} from './api/map'
 import {mini} from './api/mini'
 import {postCss} from './api/postcss'
 import {preset} from './api/preset'
@@ -71,11 +72,12 @@ Bud.prototype.dev = dev
 Bud.prototype.devtool = devtool
 Bud.prototype.dist = dist
 Bud.prototype.distPath = distPath
+Bud.prototype.dump = dump
 Bud.prototype.env = env
 Bud.prototype.hash = hash
 Bud.prototype.hot = hot
 Bud.prototype.inlineManifest = inlineManifest
-Bud.prototype.maps = maps
+Bud.prototype.map = map
 Bud.prototype.mini = mini
 Bud.prototype.postCss = postCss
 Bud.prototype.preset = preset
@@ -113,11 +115,12 @@ Bud.prototype.watch = watch
  * @property {devtool} devtool
  * @property {dist} dist
  * @property {distPath} distPath
+ * @property {dump} dump
  * @property {env} env
  * @property {hash} hash
  * @property {hot} hot
  * @property {inlineManifest} inlineManifest
- * @property {maps} maps
+ * @property {map} map
  * @property {mini} mini
  * @property {postCss} postCss
  * @property {preset} preset

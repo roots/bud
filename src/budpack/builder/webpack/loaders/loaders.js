@@ -13,7 +13,7 @@ const loaders = ({features, options, configs, paths}) => ({
       ...(configs.eslint ? [eslint(configs, paths)] : []),
       ...(features.babel && options.babel ? [babel(options, paths, configs)] : []),
       ...style(options, features, paths),
-      ...resources(options),
+      ...resources,
     ],
   },
 })

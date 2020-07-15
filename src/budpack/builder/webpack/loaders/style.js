@@ -15,6 +15,20 @@ const loader = {
   style: require.resolve('style-loader'),
 }
 
+/**
+ * resolve whether to use dart-sass or node-sass
+ */
+const implementation = (() => {
+  try {
+    return require.resolve('sass') ? require('sass') : require('node-sass')
+  } catch {
+    return require('node-sass')
+  }
+})()
+
+/**
+ * CSS modules
+ */
 const cssModule = (features, postCss) => ({
   test: pattern.cssModule,
   use: [
@@ -48,7 +62,10 @@ const cssModule = (features, postCss) => ({
   ],
 })
 
-const sassModule = (features) => ({
+/**
+ * Sass modules
+ */
+const sassModule = (features, postCss) => ({
   test: pattern.sassModule,
   use: [
     MiniCssExtractPlugin.loader,
@@ -67,15 +84,30 @@ const sassModule = (features) => ({
         debug: true,
       },
     },
+    ...(!features.postCss
+      ? []
+      : [
+          {
+            loader: loader.postCss,
+            options: {
+              ...postCss,
+              ident: 'postcss',
+            },
+          },
+        ]),
     {
       loader: loader.sass,
       options: {
         sourceMap: true,
+        implementation,
       },
     },
   ],
 })
 
+/**
+ * Css
+ */
 const css = (features, postCss) => ({
   test: pattern.css,
   use: [
@@ -104,6 +136,9 @@ const css = (features, postCss) => ({
   ],
 })
 
+/**
+ * Sass
+ */
 const sass = (features, postCss) => ({
   test: pattern.sass,
   use: [
@@ -124,11 +159,15 @@ const sass = (features, postCss) => ({
       loader: loader.sass,
       options: {
         sourceMap: true,
+        implementation,
       },
     },
   ],
 })
 
+/**
+ * Style loaders
+ */
 const style = ({postCss}, features) => [
   sass(features, postCss),
   css(features, postCss),

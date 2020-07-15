@@ -27,6 +27,7 @@ const features = {
   debug: false,
   dashboard: true,
   dependencyManifest: false,
+  dump: false,
   eslint: true,
   hash: inProduction,
   hot: !inProduction,
