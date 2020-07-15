@@ -15,6 +15,9 @@ const webpackResolve = ({options, paths}) => {
         '.jsx',
         '.ts',
         '.tsx',
+        '.css',
+        '.scss',
+        '.sass',
       ],
       modules: [
         path.resolve(paths.project, 'node_modules'),

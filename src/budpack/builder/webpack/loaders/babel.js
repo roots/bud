@@ -1,21 +1,35 @@
-const loader = require.resolve('babel-loader'),
-  test = /\.(js|mjs|jsx|ts|tsx)$/,
+const loader = {
+  babel: require.resolve('babel-loader'),
+  ts: require.resolve('ts-loader'),
+}
+
+const test = /\.(js|mjs|jsx|ts|tsx)$/,
   exclude = /node_modules/
 
 /**
  * Babel loader
  */
-const babel = ({babel}, paths) => ({
+const babel = ({babel}, paths, configs) => ({
   test,
   include: paths.src,
   exclude,
-  loader,
-  options: {
-    ...babel,
-    cacheDirectory: true,
-    cacheCompression: false,
-    compact: process.env.NODE_ENV == 'production',
-  },
+  use: [
+    {
+      loader: loader.babel,
+      options: {
+        ...babel,
+        cacheDirectory: true,
+        cacheCompression: false,
+        compact: process.env.NODE_ENV == 'production',
+      },
+    },
+    ...(configs.typescript ? [{
+      loader: loader.ts,
+      options: {
+        configFile: configs.typescript,
+      },
+    }] : []),
+  ],
 })
 
 export {babel}

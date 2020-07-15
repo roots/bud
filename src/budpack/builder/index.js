@@ -43,7 +43,6 @@ import {srcPath} from './api/srcPath'
 import {sync} from './api/sync'
 import {target} from './api/target'
 import {translate} from './api/translate'
-import {typescript} from './api/typescript'
 import {vendor} from './api/vendor'
 import {watch} from './api/watch'
 
@@ -90,7 +89,6 @@ Bud.prototype.srcPath = srcPath
 Bud.prototype.sync = sync
 Bud.prototype.targete = target
 Bud.prototype.translate = translate
-Bud.prototype.typescript = typescript
 Bud.prototype.vendor = vendor
 Bud.prototype.watch = watch
 
@@ -133,7 +131,6 @@ Bud.prototype.watch = watch
  * @property {sync} sync
  * @property {target} target
  * @property {translate} translate
- * @property {typescript} typescript
  * @property {vendor} vendor
  * @property {watch} watch
  */

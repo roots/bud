@@ -23,10 +23,11 @@ const hasConfig = file => existsSync(config(file))
 /**
  * Maybe config
  * @typedef {function (file: string) => (boolean|string)} maybeConfig
- * @param {string} file -file path (relative to project root)
+ * @param {string} file - file path (relative to project root)
+ * @param {string} file - fallback config file path
  */
-const maybeConfig = file =>
-  hasConfig(file) ? config(file) : null
+const maybeConfig = (file, fallback = null) =>
+  hasConfig(file) ? config(file) : fallback
 
 /**
  * Project configuration files.
@@ -40,7 +41,7 @@ const configs = {
   babel: maybeConfig('babel.config.js'),
   eslint: maybeConfig('.eslintrc.js'),
   postCss: maybeConfig('postcss.config.js'),
-  typescript: maybeConfig('tsconfig.js'),
+  typescript: maybeConfig('tsconfig.json'),
 }
 
 export {config, hasConfig, maybeConfig, configs}

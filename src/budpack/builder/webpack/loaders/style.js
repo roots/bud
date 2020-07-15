@@ -48,7 +48,7 @@ const moduleLoader = (features, postCss) => ({
 const globalLoader = (features, postCss) => ({
   use: [
     MiniCssExtractPlugin.loader,
-    {loader: loaders.css},
+    loaders.css,
     ...(!features.postCss
       ? []
       : [
