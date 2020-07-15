@@ -23,12 +23,16 @@ const babel = ({babel}, paths, configs) => ({
         compact: process.env.NODE_ENV == 'production',
       },
     },
-    ...(configs.typescript ? [{
-      loader: loader.ts,
-      options: {
-        configFile: configs.typescript,
-      },
-    }] : []),
+    ...(configs.typescript
+      ? [
+          {
+            loader: loader.ts,
+            options: {
+              configFile: configs.typescript,
+            },
+          },
+        ]
+      : []),
   ],
 })
 
