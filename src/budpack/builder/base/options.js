@@ -12,6 +12,9 @@ const options = {
   postCss: configs.postCss
     ? require(configs.postCss)
     : {plugins: []},
+  typescript: configs.typescript
+    ? require(configs.typescript)
+    : {},
   svg: {
     use: [
       require.resolve('@svgr/webpack'),

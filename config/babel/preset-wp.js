@@ -8,6 +8,7 @@ module.exports = {
       modules: false,
       forceAllTransforms: true,
     }),
+    require('@babel/preset-typescript'),
     require('@babel/preset-react'),
   ],
   plugins: [

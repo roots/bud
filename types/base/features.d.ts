@@ -80,6 +80,7 @@ export namespace features {
   export const sourceMap: boolean
   export const splitting: boolean
   export const translate: boolean
+  export const typescript: boolean
   export const vendor: boolean
   export const watch: boolean
 }

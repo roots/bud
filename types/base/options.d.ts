@@ -5,6 +5,7 @@ export type options = any
 export namespace options {
   export const babel: any
   export const postCss: any
+  export const typescript: any
   export namespace svg {
     export const use: string[]
   }

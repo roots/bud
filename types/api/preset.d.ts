@@ -12,6 +12,10 @@
  * ```js
  * bud.preset('babel/preset-react')
  * ```
+ *
+ * ```js
+ * bud.preset('tsconfig')
+ * ```
  */
 export type preset = (
   arg0: any,
@@ -32,6 +36,10 @@ export type preset = (
  *
  * ```js
  * bud.preset('babel/preset-react')
+ * ```
+ *
+ * ```js
+ * bud.preset('tsconfig')
  * ```
  *
  * @typedef {function (relativePath: string) => {absolutePath: string}} preset

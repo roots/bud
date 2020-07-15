@@ -8,7 +8,14 @@ import path from 'path'
 const webpackResolve = ({options, paths}) => {
   const config = {
     resolve: {
-      extensions: ['.js', '.json', '.vue', '.jsx'],
+      extensions: [
+        '.js',
+        '.json',
+        '.vue',
+        '.jsx',
+        '.ts',
+        '.tsx',
+      ],
       modules: [
         path.resolve(paths.project, 'node_modules'),
       ],

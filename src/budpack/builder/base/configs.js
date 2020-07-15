@@ -40,6 +40,7 @@ const configs = {
   babel: maybeConfig('babel.config.js'),
   eslint: maybeConfig('.eslintrc.js'),
   postCss: maybeConfig('postcss.config.js'),
+  typescript: maybeConfig('tsconfig.js'),
 }
 
 export {config, hasConfig, maybeConfig, configs}

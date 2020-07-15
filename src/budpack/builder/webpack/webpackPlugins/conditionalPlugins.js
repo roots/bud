@@ -29,11 +29,10 @@ const conditionalPlugins = (options, features) => [
   ...(options.copy.patterns.length > 0
     ? [new CopyPlugin({patterns: options.copy.patterns})]
     : []),
-  ...(options.splitting.disabled
+  ...(!features.splitting
     ? new LimitChunkCountPlugin({maxChunks: 1})
     : []),
-  ...(!options.splitting.disabled &&
-  options.splitting.maxChunks
+  ...(features.splitting && options.splitting.maxChunks
     ? [
         new LimitChunkCountPlugin({
           maxChunks: options.splitting.maxChunks,

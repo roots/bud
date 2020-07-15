@@ -15,6 +15,10 @@ import {join} from 'path'
  * bud.preset('babel/preset-react')
  * ```
  *
+ * ```js
+ * bud.preset('tsconfig')
+ * ```
+ *
  * @typedef {function (relativePath: string) => {absolutePath: string}} preset
  * @param  {string} relativePath - relative path
  * @return {string} absolutePath

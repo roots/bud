@@ -19,5 +19,6 @@ module.exports = () => ({
       modules: false,
       forceAllTransforms: true,
     }),
+    require('@babel/preset-typescript'),
   ],
 })

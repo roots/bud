@@ -52,5 +52,6 @@ export namespace configs {
   export const babel: string
   export const eslint: string
   export const postCss: string
+  export const typescript: string
 }
 //# sourceMappingURL=configs.d.ts.map

@@ -78,20 +78,13 @@ const globalLoader = (features, postCss) => ({
   ],
 })
 
-const styles = ({postCss}, features, src) => ({
+const style = ({postCss}, features, paths) => ({
   test: patterns.stylesheet,
-  include: src,
+  include: paths.src,
   oneOf: [
     moduleLoader(features, postCss),
     globalLoader(features, postCss),
   ],
 })
 
-/**
- * Style loaders
- */
-const styleLoaders = (options, features, paths) => [
-  styles(features, options.postCss, paths.src),
-]
-
-export {styleLoaders}
+export {style}

@@ -38,6 +38,7 @@ const features = {
   sourceMap: !inProduction,
   splitting: true,
   translate: false,
+  typescript: true,
   vendor: false,
   watch: !inProduction,
 }

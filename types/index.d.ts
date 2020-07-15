@@ -36,6 +36,7 @@ export type bud = {
   sync: sync
   target: target
   translate: translate
+  typescript: typescript
   vendor: vendor
   watch: watch
 }
@@ -74,6 +75,7 @@ import {srcPath} from './api/srcPath'
 import {sync} from './api/sync'
 import {target} from './api/target'
 import {translate} from './api/translate'
+import {typescript} from './api/typescript'
 import {vendor} from './api/vendor'
 import {watch} from './api/watch'
 //# sourceMappingURL=index.d.ts.map
