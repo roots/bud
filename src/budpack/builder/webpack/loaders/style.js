@@ -90,8 +90,10 @@ const sassModule = (features, postCss) => ({
           {
             loader: loader.postCss,
             options: {
-              ...postCss,
               ident: 'postcss',
+              plugins: [
+                ...postCss.plugins,
+              ],
             },
           },
         ]),
@@ -128,8 +130,10 @@ const css = (features, postCss) => ({
           {
             loader: loader.postCss,
             options: {
-              ...postCss,
               ident: 'postcss',
+              plugins: [
+                ...postCss.plugins,
+              ],
             },
           },
         ]),

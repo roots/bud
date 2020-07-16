@@ -18,14 +18,14 @@ const babel = function (options) {
   this.features.babel = true
 
   this.options.babel = {
-    ...(this.options.babel ? this.options.babel : []),
+    ...(this.options.babel ? this.options.babel : {}),
     presets: [
-      ...(this.options.babel.presets ? this.options.babel.presets : []),
-      ...(options.presets ? options.presets : []),
+      ...(this.options.babel.presets ? this.options.babel.presets : {}),
+      ...(options.presets ? options.presets : {}),
     ],
     plugins: [
-      ...(this.options.babel.plugins ? this.options.babel.plugins : []),
-      ...(options.plugins ? options.plugins : []),
+      ...(this.options.babel.plugins ? this.options.babel.plugins : {}),
+      ...(options.plugins ? options.plugins : {}),
     ],
   }
 

@@ -3,8 +3,8 @@ const loader = {
   ts: require.resolve('ts-loader'),
 }
 
-const test = /\.(js|mjs|jsx|ts|tsx)$/,
-  exclude = /node_modules/
+const test = /\.(js|jsx|mjs|ts|tsx)$/,
+  exclude = /(node_modules|bower_components)/
 
 /**
  * Babel loader
