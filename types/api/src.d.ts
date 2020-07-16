@@ -9,12 +9,9 @@
  * bud.src('scripts/app.js') // absolute path to the source file
  * ```
  */
-export type src = (
-  arg0: any,
-  arg1: string,
-) => {
-  absolutePath: string
-}
+export type src = (arg0: any, arg1: string) => {
+    absolutePath: string;
+};
 /**
  * ## bud.src
  *
@@ -29,5 +26,5 @@ export type src = (
  * @param   {string} relativePath - relative path
  * @return  {string} absolutePath
  */
-export function src(relativePath: string): string
+export function src(relativePath: string): string;
 //# sourceMappingURL=src.d.ts.map

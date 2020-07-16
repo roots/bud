@@ -9,12 +9,9 @@
  * bud.dashboard(false) // disable dashboard
  * ```
  */
-export type dashboard = (
-  arg0: any,
-  arg1: boolean,
-) => {
-  bud: typeof import('./../index')
-}
+export type dashboard = (arg0: any, arg1: boolean) => {
+    bud: typeof import('./../index');
+};
 /**
  * ## bud.dashboard
  *
@@ -30,7 +27,5 @@ export type dashboard = (
  * @param   {boolean} enabled - true to enable debug mode
  * @return  {typeof import('./../index')} bud
  */
-export function dashboard(
-  enabled: boolean,
-): typeof import('./../index')
+export function dashboard(enabled: boolean): typeof import('./../index');
 //# sourceMappingURL=dashboard.d.ts.map

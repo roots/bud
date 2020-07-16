@@ -3,28 +3,25 @@
  *
  * Purge unused CSS from compiled stylesheets
  */
-export type purge = (
-  arg0: any,
-  arg1: {
-    enabled: boolean
-    content: any
-    css: any
-    defaultExtractor?: Function
-    extractors?: any[]
-    fontFace: boolean
-    keyframes: boolean
-    output: string
-    rejected: boolean
-    stdin?: boolean
-    stdout?: boolean
-    variables?: boolean
-    whitelist?: string[]
-    whitelistPatterns?: RegExp[]
-    whitelistPatternsChildren?: RegExp[]
-  },
-) => {
-  bud: typeof import('./../index')
-}
+export type purge = (arg0: any, arg1: {
+    enabled: boolean;
+    content: any;
+    css: any;
+    defaultExtractor?: Function;
+    extractors?: any[];
+    fontFace: boolean;
+    keyframes: boolean;
+    output: string;
+    rejected: boolean;
+    stdin?: boolean;
+    stdout?: boolean;
+    variables?: boolean;
+    whitelist?: string[];
+    whitelistPatterns?: RegExp[];
+    whitelistPatternsChildren?: RegExp[];
+}) => {
+    bud: typeof import('./../index');
+};
 /**
  * ## bud.purge
  *
@@ -62,8 +59,5 @@ export type purge = (
  * @param   {RegExp[]} options.whitelistPatternsChildren
  * @return  {typeof import('./../index')} bud
  */
-export function purge({
-  enabled,
-  ...options
-}: boolean): typeof import('./../index')
+export function purge({ enabled, ...options }: boolean): typeof import('./../index');
 //# sourceMappingURL=purge.d.ts.map
