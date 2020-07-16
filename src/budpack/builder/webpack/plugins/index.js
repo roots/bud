@@ -5,18 +5,18 @@ import {dev} from './dev'
 /**
  * Webpack plugins
  *
- * @typedef {function (config: {options: bud.options, features: bud.features, paths: bud.paths}) => {object}} plugins
+ * @typedef {function (bud: object) => {object}} plugins
  * @param   {{options: bud.options, features: bud.features, paths: bud.paths}} config
  * @param   {options: bud.options} config.options
  * @param   {features: bud.features} config.features
  * @param   {paths: bud.paths} config.paths
  * @returns {object}
  */
-const plugins = ({options, features, paths}) => ({
+const plugins = bud => ({
   plugins: [
-    ...base(paths, features),
-    ...dev(options, features),
-    ...conditional(options, features),
+    ...base(bud.paths, bud.features),
+    ...dev(bud.options, bud.features),
+    ...conditional(bud.options, bud.features),
   ],
 })
 

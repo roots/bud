@@ -8,6 +8,7 @@
 import {mode, inProduction} from './base/mode'
 import {configs} from './base/configs'
 import {features} from './base/features'
+import {hooks} from './base/hooks'
 import {options} from './base/options'
 import {paths} from './base/paths'
 
@@ -51,6 +52,7 @@ import {watch} from './api/watch'
  * @constructor
  */
 const Bud = function () {
+  this.hooks = hooks.init()
   this.configs = configs
   this.features = features
   this.mode = mode
@@ -98,6 +100,7 @@ Bud.prototype.watch = watch
  * @typedef  {object}  bud
  * @property {configs} configs
  * @property {features} features
+ * @property {hooks} hooks
  * @property {inProduction} inProduction
  * @property {mode} mode
  * @property {options} options

@@ -12,29 +12,23 @@ import {plugins} from './plugins/index'
  * Make Webpack Config
  *
  * @param  {import('./../base/mode').inProduction} inProduction
- * @param  {import('./../base/mode').mode} mode
- * @param  {import('./../base/configs')} configs
- * @param  {import('./../base/options')} options
- * @param  {import('./../base/features')} features
- * @param  {import('./../base/paths')} paths
  * @return {object}
  */
-const makeWebpackConfig = ({
-  mode,
-  configs,
-  options,
-  features,
-  paths,
-}) => ({
-  ...entry(options),
-  ...output({paths, features}),
-  ...loaders({options, features, configs, paths}),
-  ...optimization({options, features}),
-  ...plugins({options, features, paths}),
-  ...webpackResolve({options, paths}),
-  ...externals(options),
-  ...devServer(options),
-  ...general({paths, mode, features, options}),
+const webpackConfig = bud => ({
+  bud,
+  compile: function () {
+    return {
+      ...entry(this.bud),
+      ...output(this.bud),
+      ...loaders(this.bud).compile(),
+      ...optimization(this.bud),
+      ...plugins(this.bud),
+      ...webpackResolve(this.bud),
+      ...externals(this.bud),
+      ...devServer(this.bud),
+      ...general(this.bud),
+    }
+  },
 })
 
-export {makeWebpackConfig}
+export {webpackConfig}

@@ -9,9 +9,12 @@
  * bud.map(true)
  * ```
  */
-export type maps = (arg0: any, arg1: boolean) => {
-    bud: import('./../index');
-};
+export type maps = (
+  arg0: any,
+  arg1: boolean,
+) => {
+  bud: import('./../index')
+}
 /**
  * ## bud.map
  *
@@ -27,5 +30,5 @@ export type maps = (arg0: any, arg1: boolean) => {
  * @param   {boolean} mapsEnabled - true to enable source-maps. default: !bud.inProduction.
  * @return  {bud} bud
  */
-export function maps(enabled: any): any;
+export function maps(enabled: any): any
 //# sourceMappingURL=maps.d.ts.map

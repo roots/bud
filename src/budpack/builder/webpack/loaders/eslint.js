@@ -3,19 +3,32 @@ const loaders = {
 }
 
 /**
+ * Compile
+ * @typedef {function} compile
+ */
+const compile = function () {
+  return this.bud.configs.eslint
+    ? {
+        enforce: 'pre',
+        test: /\.js$/,
+        include: this.bud.paths.src,
+        exclude: /node_modules/,
+        loader: loaders.eslint,
+        options: {
+          configFile: this.bud.configs.eslint,
+          formatter: 'codeframe',
+          failOnError: true,
+        },
+      }
+    : {}
+}
+
+/**
  * Eslint loader
  */
-const eslint = ({eslint}, paths) => ({
-  enforce: 'pre',
-  test: /\.js$/,
-  include: paths.src,
-  exclude: /node_modules/,
-  loader: loaders.eslint,
-  options: {
-    configFile: eslint,
-    formatter: 'codeframe',
-    failOnError: true,
-  },
+const eslint = bud => ({
+  bud,
+  compile,
 })
 
 export {eslint}

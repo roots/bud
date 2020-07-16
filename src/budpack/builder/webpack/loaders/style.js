@@ -1,20 +1,5 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
-const pattern = {
-  sass: /\.(scss|sass)$/,
-  sassModule: /\.module\.(scss|sass)$/,
-  css: /\.css$/,
-  cssModule: /\.module\.css$/,
-}
-
-const loader = {
-  css: require.resolve('css-loader'),
-  postCss: require.resolve('postcss-loader'),
-  resolveUrl: require.resolve('resolve-url-loader'),
-  sass: require.resolve('sass-loader'),
-  style: require.resolve('style-loader'),
-}
-
 /**
  * resolve whether to use dart-sass or node-sass
  */
@@ -27,156 +12,203 @@ const implementation = (() => {
 })()
 
 /**
- * CSS modules
+ * loader test regex patterns
+ *
+ * @typedef {object} pattern
+ * @prop {RegExp} sass
+ * @prop {RegExp} sassModule
+ * @prop {RegExp} css
+ * @prop {cssModule} cssModule
  */
-const cssModule = (features, postCss) => ({
-  test: pattern.cssModule,
-  use: [
-    MiniCssExtractPlugin.loader,
-    {
-      loader: loader.css,
-      options: {
-        modules: true,
-        onlyLocals: false,
+const pattern = {
+  sass: /\.scss$/,
+  sassModule: /\.module\.(scss|sass)$/,
+  css: /\.css$/,
+  cssModule: /\.module\.css$/,
+}
+
+/**
+ * Style loaders
+ *
+ * @typedef {object} loader
+ * @prop {string} css
+ * @prop {string} postCss
+ * @prop {string} resolveUrl
+ * @prop {string} sass
+ * @prop {string} style
+ */
+const loader = {
+  css: require.resolve('css-loader'),
+  postCss: require.resolve('postcss-loader'),
+  resolveUrl: require.resolve('resolve-url-loader'),
+  sass: require.resolve('sass-loader'),
+  style: require.resolve('style-loader'),
+}
+
+/**
+ * CSS modules
+ * @typedef {function} cssModule
+ * @return {object}
+ */
+const cssModule = function (bud) {
+  return {
+    test: pattern.cssModule,
+    use: [
+      MiniCssExtractPlugin.loader,
+      {
+        loader: loader.css,
+        options: {
+          modules: true,
+          onlyLocals: false,
+        },
       },
-    },
-    {
-      loader: loader.resolveUrl,
-      options: {
-        engine: 'postcss',
-        sourceMap: features.map,
-        debug: true,
+      {
+        loader: loader.resolveUrl,
+        options: {
+          engine: 'postcss',
+          sourceMap: bud.features.map,
+          debug: true,
+        },
       },
-    },
-    ...(!features.postCss
-      ? []
-      : [
-          {
-            loader: loader.postCss,
-            options: {
-              ...postCss,
-              ident: 'postcss',
-            },
-          },
-        ]),
-  ],
-})
+      ...this.maybePostCss(bud),
+    ],
+  }
+}
 
 /**
  * Sass modules
+ * @typedef {function} sassModule
+ * @return {object}
  */
-const sassModule = (features, postCss) => ({
-  test: pattern.sassModule,
-  use: [
-    MiniCssExtractPlugin.loader,
-    {
-      loader: loader.css,
-      options: {
-        modules: true,
-        onlyLocals: false,
+const sassModule = function (bud) {
+  return {
+    test: pattern.sassModule,
+    use: [
+      MiniCssExtractPlugin.loader,
+      {
+        loader: loader.css,
+        options: {
+          modules: true,
+          onlyLocals: false,
+        },
       },
-    },
-    {
-      loader: loader.resolveUrl,
-      options: {
-        engine: 'postcss',
-        sourceMap: features.map,
-        debug: true,
+      {
+        loader: loader.resolveUrl,
+        options: {
+          engine: 'postcss',
+          sourceMap: bud.features.map,
+          debug: true,
+        },
       },
-    },
-    ...(!features.postCss
-      ? []
-      : [
-          {
-            loader: loader.postCss,
-            options: {
-              ident: 'postcss',
-              plugins: [
-                ...postCss.plugins,
-              ],
-            },
-          },
-        ]),
-    {
-      loader: loader.sass,
-      options: {
-        sourceMap: true,
-        implementation,
+      ...maybePostCss(bud),
+      {
+        loader: loader.sass,
+        options: {
+          sourceMap: true,
+          implementation,
+        },
       },
-    },
-  ],
-})
+    ],
+  }
+}
 
 /**
  * Css
+ * @typedef {function} css
+ * @return {object}
  */
-const css = (features, postCss) => ({
-  test: pattern.css,
-  use: [
-    MiniCssExtractPlugin.loader,
-    {
-      loader: loader.css,
-    },
-    {
-      loader: loader.resolveUrl,
-      options: {
-        sourceMap: features.sourceMap,
-        debug: true,
+const css = function (bud) {
+  return {
+    test: pattern.css,
+    use: [
+      MiniCssExtractPlugin.loader,
+      loader.css,
+      {
+        loader: loader.resolveUrl,
+        options: {
+          sourceMap: bud.features.map,
+          debug: true,
+        },
       },
-    },
-    ...(!features.postCss
-      ? []
-      : [
-          {
-            loader: loader.postCss,
-            options: {
-              ident: 'postcss',
-              plugins: [
-                ...postCss.plugins,
-              ],
-            },
-          },
-        ]),
-  ],
-})
+      ...this.maybePostCss(bud),
+    ],
+  }
+}
 
 /**
  * Sass
+ * @typedef {function} sass
+ * @return {object}
  */
-const sass = (features, postCss) => ({
-  test: pattern.sass,
-  use: [
-    MiniCssExtractPlugin.loader,
-    {loader: loader.css},
-    ...(!features.postCss
-      ? []
-      : [
-          {
-            loader: loader.postCss,
-            options: {
-              ...postCss,
-              ident: 'postcss',
-            },
-          },
-        ]),
-    {
-      loader: loader.sass,
-      options: {
-        sourceMap: true,
-        implementation,
+const sass = function (bud) {
+  return {
+    test: pattern.sass,
+    use: [
+      MiniCssExtractPlugin.loader,
+      loader.css,
+      {
+        loader: loader.resolveUrl,
+        options: {
+          engine: 'postcss',
+          sourceMap: bud.features.map,
+          debug: true,
+        },
       },
-    },
-  ],
-})
+      ...this.maybePostCss(bud),
+      {
+        loader: loader.sass,
+        options: {
+          sourceMap: true,
+          implementation,
+        },
+      },
+    ],
+  }
+}
+
+/**
+ * Maybe PostCSS
+ * @typedef {function} maybePostCss
+ * @return {object}
+ */
+const maybePostCss = function (bud) {
+  return bud.features.postCss
+    ? [
+        {
+          loader: loader.postCss,
+          options: {
+            ident: 'postcss',
+            parser: 'postcss-scss',
+            plugins: [...bud.options.postCss.plugins],
+          },
+        },
+      ]
+    : []
+}
+
+/**
+ * Compile
+ */
+const compile = function () {
+  return [
+    this.sass(this.bud),
+    this.css(this.bud),
+    this.sassModule(this.bud),
+    this.cssModule(this.bud),
+  ]
+}
 
 /**
  * Style loaders
  */
-const style = ({postCss}, features) => [
-  sass(features, postCss),
-  css(features, postCss),
-  sassModule(features, postCss),
-  cssModule(features, postCss),
-]
+const style = bud => ({
+  bud,
+  maybePostCss,
+  sass,
+  css,
+  sassModule,
+  cssModule,
+  compile,
+})
 
 export {style}

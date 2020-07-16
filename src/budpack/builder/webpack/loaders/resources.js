@@ -5,33 +5,25 @@ const loader = {
 }
 
 const pattern = {
-  font: /\.(ttf|otf|eot|woff2?|png|jpe?g|gif|svg|ico)$/,
+  font: /\.(ttf|otf|eot|woff2?|png|jpe?g|gif|ico)$/,
   image: /\.jpe?g$|\.gif$|\.png$/i,
   svg: /\.svg$/,
   module: /node_modules/,
 }
 
-const moduleFont = ({
+const font = {
   test: pattern.font,
-  include: pattern.module,
-  loader: loader.url,
-  options: {
-    limit: 4096,
-    outputPath: 'vendor/',
-    name: '[path][name].[ext]',
-  },
-})
+  use: [
+    {
+      loader: loader.url,
+      options: {
+        name: '[path][name].[ext]',
+      },
+    },
+  ],
+}
 
-const font = ({
-  test: pattern.font,
-  loader: loader.url,
-  options: {
-    limit: 4096,
-    name: '[path][name].[ext]',
-  },
-})
-
-const image = ({
+const image = {
   test: pattern.image,
   use: [
     {
@@ -41,18 +33,20 @@ const image = ({
       },
     },
   ],
-})
+}
 
-const svg = ({
+const svg = {
   test: pattern.svg,
   use: [loader.svgr, loader.url],
-})
+}
 
-const resources = [
-  moduleFont,
-  font,
-  image,
-  svg,
-]
+/**
+ * Resources
+ */
+const resources = () => ({
+  ...font,
+  ...image,
+  ...svg,
+})
 
 export {resources}

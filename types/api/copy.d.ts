@@ -10,13 +10,18 @@
  * )
  * ```
  */
-export type copy = (arg0: any, arg1: {
-    string;
-}, arg2: any, arg3: {
-    string;
-}) => {
-    bud: typeof import('./../index');
-};
+export type copy = (
+  arg0: any,
+  arg1: {
+    string
+  },
+  arg2: any,
+  arg3: {
+    string
+  },
+) => {
+  bud: typeof import('./../index')
+}
 /**
  * ## bud.copy
  *
@@ -34,5 +39,8 @@ export type copy = (arg0: any, arg1: {
  * @param     {string} dist - path to copy to
  * @return    {typeof import('./../index')} bud
  */
-export function copy(from: any, to: any): typeof import('./../index');
+export function copy(
+  from: any,
+  to: any,
+): typeof import('./../index')
 //# sourceMappingURL=copy.d.ts.map

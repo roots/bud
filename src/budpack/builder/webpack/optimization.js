@@ -3,28 +3,28 @@ import UglifyJsPlugin from 'uglifyjs-webpack-plugin'
 /**
  * Webpack optimization
  */
-const optimization = ({features, options}) => {
+const optimization = bud => {
   const config = {
     optimization: {
-      minimize: features.minified,
+      minimize: bud.features.minified,
       removeAvailableModules: false,
       removeEmptyChunks: false,
       moduleIds: 'hashed',
     },
   }
 
-  if (features.inlineManifest) {
+  if (bud.features.inlineManifest) {
     config.optimization.runtimeChunk = {
       name: entrypoint => `runtime/${entrypoint.name}`,
     }
   }
 
-  if (features.vendor) {
+  if (bud.features.vendor) {
     config.optimization.splitChunks = {
       cacheGroups: {
         vendor: {
           test: /[\\/]node_modules[\\/]/,
-          name: options.vendor.name,
+          name: bud.options.vendor.name,
           chunks: 'all',
           priority: -20,
         },
@@ -32,7 +32,7 @@ const optimization = ({features, options}) => {
     }
   }
 
-  if (features.minified) {
+  if (bud.features.minified) {
     config.optimization.minimizer = [
       new UglifyJsPlugin({
         cache: true,

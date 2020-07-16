@@ -1,11 +1,9 @@
-import path from 'path'
-
 /**
  * Webpack resolvers.
  *
  * @param {object}
  */
-const webpackResolve = ({options, paths}) => ({
+const webpackResolve = bud => ({
   resolve: {
     extensions: [
       '.js',
@@ -15,10 +13,10 @@ const webpackResolve = ({options, paths}) => ({
       '.ts',
       '.tsx',
     ],
-    modules: [
-      path.resolve(paths.project, 'node_modules'),
-    ],
-    ...(options.alias ? {alias: options.alias} : []),
+    modules: [bud.project('node_modules')],
+    ...(bud.options.alias
+      ? {alias: bud.options.alias}
+      : []),
   },
 })
 

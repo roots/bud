@@ -1,11 +1,11 @@
 /**
  * Webpack output.
  */
-const output = ({paths, features}) => ({
+const output = bud => ({
   output: {
-    path: paths.dist,
-    publicPath: paths.public,
-    filename: features.hash
+    path: bud.paths.dist,
+    publicPath: bud.paths.public,
+    filename: bud.features.hash
       ? '[name].[hash:8].js'
       : '[name].js',
   },

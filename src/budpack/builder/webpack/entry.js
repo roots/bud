@@ -4,9 +4,9 @@
  * @param {object} entry
  * @return {typeof import('webpack').entry} entry
  */
-const entry = ({entry}) => ({
+const entry = bud => ({
   entry: {
-    ...entry,
+    ...bud.options.entry,
   },
 })
 

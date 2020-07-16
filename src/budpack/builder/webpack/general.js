@@ -1,17 +1,15 @@
 /**
  * General webpack options
  *
- * @typedef {function (options: object) => {object}} general
- * @param {bud}    bud
- * @param {object} bud.paths
- * @param {string} bud.mode
- * @param {object} bud.features
- * @param {object} bud.options
+ * @typedef {function () => {object}} general
+ * @this {bud}
  */
-const general = ({paths, mode, features, options}) => ({
-  context: paths.project,
-  devtool: features.sourceMap ? options.devtool : false,
-  mode,
+const general = bud => ({
+  context: bud.paths.project,
+  devtool: bud.features.sourceMap
+    ? bud.options.devtool
+    : false,
+  mode: bud.mode,
   node: {
     module: 'empty',
     dgram: 'empty',
@@ -22,8 +20,8 @@ const general = ({paths, mode, features, options}) => ({
     tls: 'empty',
     child_process: 'empty',
   },
-  target: options.target,
-  watch: features.watch,
+  target: bud.options.target,
+  watch: bud.features.watch,
 })
 
 export {general}

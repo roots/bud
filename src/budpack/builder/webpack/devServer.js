@@ -1,9 +1,9 @@
 /**
  * Dev server
  */
-const devServer = ({dev}) => ({
+const devServer = bud => ({
   devServer: {
-    ...dev,
+    ...bud.options.dev,
   },
 })
 

@@ -10,13 +10,18 @@
  * ])
  * ```
  */
-export type bundle = (arg0: never, arg1: {
-    string;
-}, arg2: any, arg3: {
-    string;
-}[]) => {
-    bud: typeof import('./../index');
-};
+export type bundle = (
+  arg0: never,
+  arg1: {
+    string
+  },
+  arg2: any,
+  arg3: {
+    string
+  }[],
+) => {
+  bud: typeof import('./../index')
+}
 /**
  * ## bud.bundle
  *
@@ -34,5 +39,8 @@ export type bundle = (arg0: never, arg1: {
  * @param   {array}  entries - array of src assets to include in the bundle.
  * @return  {typeof import('./../index')} bud
  */
-export function bundle(name: string, entries: any[]): typeof import('./../index');
+export function bundle(
+  name: string,
+  entries: any[],
+): typeof import('./../index')
 //# sourceMappingURL=bundle.d.ts.map

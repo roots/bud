@@ -20,11 +20,15 @@ const babel = function (options) {
   this.options.babel = {
     ...(this.options.babel ? this.options.babel : {}),
     presets: [
-      ...(this.options.babel.presets ? this.options.babel.presets : {}),
+      ...(this.options.babel.presets
+        ? this.options.babel.presets
+        : {}),
       ...(options.presets ? options.presets : {}),
     ],
     plugins: [
-      ...(this.options.babel.plugins ? this.options.babel.plugins : {}),
+      ...(this.options.babel.plugins
+        ? this.options.babel.plugins
+        : {}),
       ...(options.plugins ? options.plugins : {}),
     ],
   }
