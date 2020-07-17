@@ -25,14 +25,16 @@ const eslint = builder => ({
   make: function () {
     this.pre()
 
-    this.output = this.enabled ? {
-      enforce: this.enforce,
-      test: this.test,
-      include: this.include,
-      exclude: this.exclude,
-      loader: this.loader,
-      options: this.options,
-    } : {}
+    this.output = this.enabled
+      ? {
+          enforce: this.enforce,
+          test: this.test,
+          include: this.include,
+          exclude: this.exclude,
+          loader: this.loader,
+          options: this.options,
+        }
+      : {}
 
     this.post()
 

@@ -2,77 +2,36 @@ import {join} from 'path'
 import {webpackConfig} from './builder/webpack'
 import {compile} from './compile'
 import {compileSafeMode} from './compileSafeMode'
-import {format} from 'prettier'
-import {highlight} from 'cli-highlight'
+import {dump} from './dump'
 
 /**
  * Load project config.
  */
-const budExport = require(join(
-  process.cwd(),
-  'bud.config.js',
-))
+const bud = require(join(process.cwd(), 'bud.config.js'))
 
 /**
- * Set env.
+ * Process
  */
-process.env.BABEL_ENV = budExport.options.mode
-process.env.NODE_ENV = budExport.options.mode
+process.env.BABEL_ENV = bud.options.mode
+process.env.NODE_ENV = bud.options.mode
+process.on('unhandledRejection', error => {
+  bud.hooks.call('compile_error', {bud, error})
+  process.exit()
+})
 
 /**
  * Project config => webpack config
  */
-const compiledConfig = webpackConfig(budExport).compile()
-
-/**
- * Dump generated config (bud.dump)
- */
-const dump = () => {
-  const circularReplacer = () => {
-    const seen = new WeakSet()
-
-    return (key, value) => {
-      if (typeof value === 'object' && value !== null) {
-        if (seen.has(value) || key == 'UI') {
-          return
-        }
-
-        seen.add(value)
-      }
-
-      return value
-    }
-  }
-
-  const normalizedConfigString = JSON.stringify(
-    compiledConfig,
-    circularReplacer(),
-  )
-  const prettifiedConfigString = format(
-    normalizedConfigString,
-    {parser: 'json'},
-  )
-  const highlightedConfigString = highlight(
-    prettifiedConfigString,
-  )
-
-  console.log(highlightedConfigString)
-  process.exit()
-}
-budExport.features.dump && dump()
+bud.hooks.call('pre_config', bud)
+const compiledConfig = webpackConfig(bud).compile()
+bud.hooks.call('post_config', compiledConfig)
+bud.features.dump && dump(compiledConfig)
 
 /**
  * Run compiler.
  *
  * @description If config.features.dashboard is disabled then utilize "safe mode".
  */
-budExport.features.dashboard
-  ? compile(budExport, compiledConfig) // standard bud compiler
-  : compileSafeMode(budExport, compiledConfig) // standard webpack stats output
-
-/**
- * Kill the application on unhandled rejections.
- */
-process.on('unhandledRejection', () => {
-  process.exit()
-})
+bud.features.dashboard
+  ? compile(bud, compiledConfig) // bud compiler
+  : compileSafeMode(bud, compiledConfig) // standard webpack stats output

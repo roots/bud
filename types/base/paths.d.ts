@@ -2,35 +2,35 @@
  * Path references.
  */
 export type paths = {
-    /**
-     * - project root path
-     */
-    framework: string;
-    /**
-     * - module root path
-     */
-    project: string;
-    /**
-     * - project src path
-     */
-    src: string;
-    /**
-     * - project dist path
-     */
-    dist: string;
-    /**
-     * - project public path
-     */
-    public: string;
-};
+  /**
+   * - project root path
+   */
+  framework: string
+  /**
+   * - module root path
+   */
+  project: string
+  /**
+   * - project src path
+   */
+  src: string
+  /**
+   * - project dist path
+   */
+  dist: string
+  /**
+   * - project public path
+   */
+  public: string
+}
 /**
  * Current working dir.
  */
-export type projectDir = string;
+export type projectDir = string
 /**
  * Bud framework dir.
  */
-export type frameworkDir = string;
+export type frameworkDir = string
 /**
  * Path references.
  *
@@ -42,10 +42,10 @@ export type frameworkDir = string;
  * @property {string} public - project public path
  */
 export const paths: {
-    project: string;
-    framework: string;
-    src: string;
-    dist: string;
-    public: string;
-};
+  project: string
+  framework: string
+  src: string
+  dist: string
+  public: string
+}
 //# sourceMappingURL=paths.d.ts.map

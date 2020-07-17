@@ -18,7 +18,9 @@ const postCss = builder => ({
   output: {},
   make: function () {
     this.builder.bud.hooks.call('pre_postcss', this)
-    this.output = this.builder.bud.features.postCss ? this.config : {}
+    this.output = this.builder.bud.features.postCss
+      ? this.config
+      : {}
     this.builder.bud.hooks.call('post_postcss', this.output)
 
     return this.output

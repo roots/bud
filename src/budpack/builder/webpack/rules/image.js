@@ -12,10 +12,14 @@ const image = builder => ({
   output: {},
 
   test: patterns.image,
-  loader: loaders.file,
-  options: {
-    name: '[path][name].[ext]',
-  },
+  use: [
+    {
+      loader: loaders.file,
+      options: {
+        name: '[path][name].[ext]',
+      },
+    },
+  ],
 
   /**
    * Make image rules
@@ -25,12 +29,7 @@ const image = builder => ({
 
     this.output = {
       test: this.test,
-      use: [
-        {
-          loader: this.loader,
-          options: this.options,
-        },
-      ],
+      use: this.use,
     }
 
     this.post()
@@ -54,4 +53,3 @@ const image = builder => ({
 })
 
 export {image}
-

@@ -1,6 +1,7 @@
 import {loaders} from '../util/loaders'
 import {patterns} from '../util/patterns'
 import {postCss} from '../use/postCss'
+import {resolveUrl} from './../use/resolveUrl'
 
 /**
  * Css
@@ -16,13 +17,7 @@ const css = builder => ({
     this.use = [
       loaders.miniCss,
       loaders.css,
-      {
-        loader: loaders.resolveUrl,
-        options: {
-          sourceMap: this.builder.bud.features.map,
-          debug: true,
-        },
-      },
+      resolveUrl(this.builder).make(),
       {...postCss(this.builder).make()},
     ]
 
@@ -32,9 +27,9 @@ const css = builder => ({
       use: this.use,
     }
 
-    this.builder.bud.hooks.call('post_css', ({
+    this.builder.bud.hooks.call('post_css', {
       output: this.output,
-    }))
+    })
 
     return this.output
   },

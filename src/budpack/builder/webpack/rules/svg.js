@@ -11,10 +11,7 @@ const svg = builder => ({
   builder,
   output: {},
   test: patterns.svg,
-  loaders: [
-    loaders.svgr,
-    loaders.url,
-  ],
+  loaders: [loaders.svgr, loaders.url],
 
   /**
    * Make svg rules

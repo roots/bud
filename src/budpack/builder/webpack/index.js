@@ -23,7 +23,7 @@ const webpackConfig = bud => ({
       ...rules(this.bud).make(),
       ...optimization(this.bud),
       ...plugins(this.bud),
-      ...webpackResolve(this.bud),
+      ...webpackResolve(this.bud).make(),
       ...externals(this.bud).init().make(),
       ...devServer(this.bud).init().make(),
       ...general(this.bud).make(),

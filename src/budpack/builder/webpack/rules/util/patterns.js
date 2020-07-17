@@ -16,7 +16,7 @@ const patterns = {
   svg: /\.svg$/,
   font: /\.(ttf|otf|eot|woff2?|png|jpe?g|gif|ico)$/,
   vendor: /(node_modules|bower_components)/,
-  image:  /\.(png|svg|jpg|gif)$/,
+  image: /\.(png|svg|jpg|gif)$/,
 }
 
 export {patterns}

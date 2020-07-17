@@ -25,9 +25,10 @@ const babel = builder => ({
 
     this.output = this.enabled
       ? {
-        loader: this.loader,
-        options: this.options,
-      } : {}
+          loader: this.loader,
+          options: this.options,
+        }
+      : {}
 
     this.post()
 

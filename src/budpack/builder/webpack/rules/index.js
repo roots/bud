@@ -1,4 +1,3 @@
-
 import {eslint} from './js/eslint'
 import {babel} from './js/babel'
 import {typescript} from './js/typescript'
@@ -19,6 +18,7 @@ import {svg} from './svg'
 const rules = bud => ({
   bud,
   postCss,
+
   output: {},
   options: {
     module: {
@@ -50,8 +50,9 @@ const rules = bud => ({
       },
     }
 
-  this.output.module.rules =
-    this.output.module.rules.filter(type => type !== null)
+    this.output.module.rules = this.output.module.rules.filter(
+      type => type !== null,
+    )
 
     this.post()
 
@@ -59,17 +60,17 @@ const rules = bud => ({
   },
 
   /**
-   * Hook: pre_loaders
+   * Hook: pre_modules
    */
   pre: function () {
-    this.bud.hooks.call('pre_loaders', this)
+    this.bud.hooks.call('pre_module', this)
   },
 
   /**
-   * Hook post_loaders
+   * Hook post_modules
    */
   post: function () {
-    this.bud.hooks.call('post_loaders', this.output)
+    this.bud.hooks.call('post_module', this.output)
   },
 })
 

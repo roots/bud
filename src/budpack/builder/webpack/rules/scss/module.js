@@ -1,6 +1,7 @@
 import {loaders} from '../util/loaders'
 import {patterns} from '../util/patterns'
 import {postCss} from '../use/postCss'
+import {resolveUrl} from './../use/resolveUrl'
 import {implementation} from './implementation'
 
 /**
@@ -20,17 +21,8 @@ const module = builder => ({
       onlyLocals: false,
     },
   },
-  resolveUrl: {
-    loader: loaders.resolveUrl,
-    options: {
-      engine: 'postcss',
-      sourceMap: builder.bud.features.map,
-      debug: true,
-    },
-  },
-  postCss: {
-    ...postCss(builder).make(),
-  },
+  resolveUrl: resolveUrl(builder).make(),
+  postCss: postCss(builder).make(),
   scss: {
     loader: loaders.scss,
     options: {
@@ -72,7 +64,10 @@ const module = builder => ({
    * hook: post_scss_module
    */
   post: function () {
-    this.builder.bud.hooks.call('post_scss_module', this.output)
+    this.builder.bud.hooks.call(
+      'post_scss_module',
+      this.output,
+    )
   },
 })
 

@@ -16,14 +16,15 @@ const typescript = builder => ({
   /**
    * Make typescript rules.
    */
-  make: function() {
+  make: function () {
     this.pre()
 
-    this.output =
-      this.enabled ? {
-        loader: this.loader,
-        options: this.options,
-      } : null
+    this.output = this.enabled
+      ? {
+          loader: this.loader,
+          options: this.options,
+        }
+      : null
 
     this.post()
 
@@ -41,7 +42,10 @@ const typescript = builder => ({
    * Hook: post_typescript
    */
   post: function () {
-    this.builder.bud.hooks.call('post_typescript', this.output)
+    this.builder.bud.hooks.call(
+      'post_typescript',
+      this.output,
+    )
   },
 })
 
