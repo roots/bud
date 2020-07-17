@@ -55,6 +55,13 @@ const options = {
   devtool: 'cheap-module-source-map',
   entry: {},
   env: env,
+  externals: {
+    jquery: 'jQuery',
+    lodash: 'lodash',
+    moment: 'moment',
+    react: 'React',
+    'react-dom': 'ReactDOM',
+  },
   inlineManifest: {
     name: 'runtime',
   },

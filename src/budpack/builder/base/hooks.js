@@ -1,9 +1,21 @@
 const hooks = {
   core: [
+    'pre_config_compile',
+    'post_config_compile',
     'pre_compile',
     'post_compile',
+    'pre_script',
+    'post_script',
+    'pre_loaders',
+    'post_loaders',
     'pre_babel',
     'post_babel',
+    'pre_typescript',
+    'post_typescript',
+    'pre_devserver',
+    'post_devserver',
+    'pre_entry',
+    'post_entry',
   ],
 
   /**
@@ -27,7 +39,7 @@ const hooks = {
    *
    * @typedef {function (name: string, callback: function): void} add
    */
-  on: function (name, callback) {
+  on: function(name, callback) {
     if (!this[name]) {
       this[name] = []
     }
@@ -42,11 +54,10 @@ const hooks = {
    *
    * @typedef {function (name: string, callback: function): void} call
    */
-  call: function (name, ...params) {
+  call: function(name, ...params) {
     if (this[name])  {
-      this[name].forEach(hook => {
+      this[name].forEach(function(hook) {
         hook.fn(...params)
-
         hook.fired = true
       });
     }
