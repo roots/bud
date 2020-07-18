@@ -52,7 +52,9 @@ const plugins = bud => ({
   make: function () {
     this.pre()
     this.plugins = this.plugins
-      .map(plugin => webpackPluginFactory(plugin, this.bud).build())
+      .map(plugin =>
+        webpackPluginFactory(plugin, this.bud).build(),
+      )
       .filter(plugin => plugin !== undefined)
 
     this.post()
@@ -73,7 +75,10 @@ const plugins = bud => ({
    * post webpack plugins hook
    */
   post: function () {
-    this.bud.hooks.call('post_webpack_plugins', this.plugins)
+    this.bud.hooks.call(
+      'post_webpack_plugins',
+      this.plugins,
+    )
   },
 })
 

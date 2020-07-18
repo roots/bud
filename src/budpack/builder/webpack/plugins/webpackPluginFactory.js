@@ -71,7 +71,7 @@ const webpackPluginFactory = ([name, plugin], bud) => ({
    * @param    {any} fallback - fallback value
    * @return   {void}
    */
-  ensurePluginProp: function(prop, fallback) {
+  ensurePluginProp: function (prop, fallback) {
     this.plugin[prop] = this.plugin[prop] || fallback
   },
 
@@ -104,7 +104,7 @@ const webpackPluginFactory = ([name, plugin], bud) => ({
       this.plugin.options = this.boundValue
     }
 
-    delete(this.boundValue)
+    delete this.boundValue
 
     this.doPluginHook('post_options')
   },
@@ -129,7 +129,7 @@ const webpackPluginFactory = ([name, plugin], bud) => ({
       }
     }
 
-    delete(this.boundValue)
+    delete this.boundValue
 
     this.doPluginHook('post_merge')
   },
@@ -159,7 +159,11 @@ const webpackPluginFactory = ([name, plugin], bud) => ({
    * @return   {void}
    */
   doPluginHook: function (hook, ...params) {
-    this.bud.hooks.call(`${hook}_${this.name}`, this.plugin, ...params)
+    this.bud.hooks.call(
+      `${hook}_${this.name}`,
+      this.plugin,
+      ...params,
+    )
   },
 })
 
