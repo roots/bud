@@ -1,14 +1,10 @@
 import ManifestPlugin from 'webpack-manifest-plugin'
 
-const manifest = () => ({
+const manifest = bud => ({
   options: {
+    publicPath: `${bud.paths.public}`,
     filename: 'manifest.json',
     writeToFileEmit: true,
-  },
-  setOptions: function () {
-    return {
-      publicPath: `${this.bud.paths.public}/`,
-    }
   },
   make: function () {
     return new ManifestPlugin(this.options)
