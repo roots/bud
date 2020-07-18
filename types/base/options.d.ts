@@ -37,6 +37,13 @@ export namespace options {
   export const devtool: string
   export const entry: {}
   export {env}
+  export const externals: {
+    jquery: string
+    lodash: string
+    moment: string
+    react: string
+    'react-dom': string
+  }
   export namespace inlineManifest {
     export const name: string
   }

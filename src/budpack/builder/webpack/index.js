@@ -17,17 +17,23 @@ import {plugins} from './plugins/index'
 const webpackConfig = bud => ({
   bud,
   compile: function () {
-    return {
+    this.bud.hooks.call('pre_webpack_config', this)
+
+    this.config = {
       ...entry(this.bud).init().make(),
       ...output(this.bud).init().make(),
       ...rules(this.bud).make(),
       ...optimization(this.bud),
-      ...plugins(this.bud),
+      ...plugins(this.bud).make(),
       ...webpackResolve(this.bud).make(),
       ...externals(this.bud).init().make(),
       ...devServer(this.bud).init().make(),
       ...general(this.bud).make(),
     }
+
+    this.bud.hooks.call('post_webpack_config', this.config)
+
+    return this.config
   },
 })
 

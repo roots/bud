@@ -16,12 +16,10 @@ const webpackResolve = bud => ({
       '.tsx',
     ],
     modules: [bud.project('node_modules')],
-    ...(bud.options.alias
-      ? {alias: bud.options.alias}
-      : []),
+    alias: bud.options.alias || {},
   },
   make: function () {
-    bud.hooks.call('pre_resolve', this)
+    bud.hooks.call('pre_resolve', this.resolve)
     this.output.resolve = this.resolve
     bud.hooks.call('post_resolve', this.output)
 

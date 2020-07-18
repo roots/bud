@@ -1,31 +1,10 @@
 const hooks = {
-  core: [
-    'pre_config_compile',
-    'post_config_compile',
-    'pre_compile',
-    'post_compile',
-    'pre_script',
-    'post_script',
-    'pre_loaders',
-    'post_loaders',
-    'pre_babel',
-    'post_babel',
-    'pre_typescript',
-    'post_typescript',
-    'pre_devserver',
-    'post_devserver',
-    'pre_entry',
-    'post_entry',
-  ],
+  core: [],
 
   /**
    * Init
    */
   init: function () {
-    this.core.map(name => {
-      this[name] = []
-    })
-
     return this
   },
 
