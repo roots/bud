@@ -3,37 +3,32 @@
  */
 const output = bud => ({
   bud,
-  options: {
-    output: {},
-  },
 
-  init: function () {
-    this.options.output = {
-      path: this.bud.paths.dist,
-      publicPath: this.bud.paths.public,
-      filename: this.bud.features.hash
+  options: {
+    output: {
+      path: bud.paths.dist,
+      publicPath: bud.paths.public,
+      filename: bud.features.hash
         ? '[name].[hash:8].js'
         : '[name].js',
-    }
-
-    return this
+    },
   },
 
   make: function () {
-    this.pre()
-    this.post()
+    this.preHook()
+    this.postHook()
 
     return this.options
   },
 
-  pre: function () {
+  preHook: function () {
     this.bud.hooks.call('pre_output', {
       options: this.options,
       bud: this.bud,
     })
   },
 
-  post: function () {
+  postHook: function () {
     this.bud.hooks.call('post_output', {
       options: this.options,
       bud: this.bud,

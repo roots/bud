@@ -9,7 +9,6 @@ import {budPluginFactory} from '../plugin/budPluginFactory'
  * bud.register('myPlugin', myPlugin)
  * ```
  *
- * @typedef {function (name: string, plugin: function) => {bud: typeof import('./../index')}} register
  * @param   {boolean} enabled - true to enable hot module reloading. default: !bud.inProduction.
  * @return  {typeof import('./../index')} bud
  */

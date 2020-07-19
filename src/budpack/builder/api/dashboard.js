@@ -9,7 +9,6 @@
  * bud.dashboard(false) // disable dashboard
  * ```
  *
- * @typedef {function (enabled: boolean) => {bud: typeof import('./../index')}} dashboard
  * @param   {boolean} enabled - true to enable debug mode
  * @return  {typeof import('./../index')} bud
  */

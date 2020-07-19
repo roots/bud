@@ -3,30 +3,25 @@
  */
 const devServer = bud => ({
   bud,
-  options: {},
-  init: function () {
-    this.options = {
-      devServer: this.bud.options.dev,
-    }
-
-    return this
+  options: {
+    devServer: bud.options.dev,
   },
 
   make: function () {
-    this.pre()
-    this.post()
+    this.preHook()
+    this.postHook()
 
     return this.options
   },
 
-  pre: function () {
+  preHook: function () {
     this.bud.hooks.call('pre_devserver', {
       options: this.options,
       bud: this.bud,
     })
   },
 
-  post: function () {
+  postHook: function () {
     this.bud.hooks.call('post_devserver', {
       options: this.options,
       bud: this.bud,

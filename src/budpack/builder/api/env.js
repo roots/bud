@@ -1,7 +1,6 @@
 /**
  * Get environment variable value.
  * @example bud.env('APP_NAME')
- * @typedef {function () => {string} env
  * @param   {string} key
  * @return  {string}
  */

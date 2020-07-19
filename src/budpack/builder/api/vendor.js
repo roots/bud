@@ -7,7 +7,6 @@
  * bud.vendor('vendor')
  * ```
  *
- * @typedef {function (name?: string) => {bud: typeof import('./../index')} vendor
  * @param   {string} name - name of vendor output file
  * @return  {bud: typeof import('./../index')} bud
  */

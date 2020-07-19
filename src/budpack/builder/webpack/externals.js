@@ -5,14 +5,9 @@
  */
 const externals = bud => ({
   bud,
+
   options: {
     externals: bud.options.externals,
-  },
-
-  init: function () {
-    this.options.externals = this.bud.options.externals
-
-    return this
   },
 
   make: function () {

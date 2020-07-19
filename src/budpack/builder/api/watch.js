@@ -7,7 +7,6 @@
  * bud.watch(true)
  * ```
  *
- * @typedef {function (enabled: boolean) => {bud: typeof import('./../index')} watch
  * @param   {bool} enabled - true if enabled
  * @return  {typeof import('./../index')} bud
  */

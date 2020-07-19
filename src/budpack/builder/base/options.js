@@ -1,17 +1,25 @@
 import {env} from './env'
 import {configs} from './configs'
 
+const babelFallback = {
+  presets: [],
+  plugins: [],
+}
+
+const postCssFallback = {
+  plugins: [],
+}
+
 /**
  * Options container.
- * @typedef {Object} options
  */
 const options = {
   babel: configs.babel
     ? require(configs.babel)
-    : {presets: [], plugins: []},
+    : babelFallback,
   postCss: configs.postCss
     ? require(configs.postCss)
-    : {plugins: []},
+    : postCssFallback,
   typescript: configs.typescript
     ? require(configs.typescript)
     : {},
@@ -31,7 +39,7 @@ const options = {
       : 3000,
     proxy: env?.BROWSERSYNC_PROXY
       ? env.BROWSERSYNC_PROXY
-      : '',
+      : null,
   },
   copy: {
     patterns: [],
@@ -69,6 +77,21 @@ const options = {
     maxChunks: null,
   },
   target: 'web',
+  uglify: {
+    cache: true,
+    chunkFilter: ({name}) => name === 'vendor',
+    extractComments: false,
+    parallel: true,
+    uglifyOptions: {
+      output: {
+        beautify: false,
+      },
+      compress: false,
+      mangle: {
+        toplevel: true,
+      },
+    },
+  },
   vendor: {
     name: 'vendor',
     vendors: [],

@@ -28,6 +28,7 @@ const dump = obj => {
  * Prevents circular references in JSON from looping
  */
 const shortCircuit = () => {
+  // eslint-disable-next-line no-undef
   const seen = new WeakSet()
 
   return (key, value) => {

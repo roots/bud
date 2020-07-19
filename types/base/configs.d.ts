@@ -1,61 +1,35 @@
 /**
  * Config
- */
-export type config = (
-  arg0: any,
-  arg1: string,
-) => {
-  filePath: string
-}
-/**
- * Has config
- */
-export type hasConfig = (arg0: any, arg1: string) => boolean
-/**
- * Maybe config
- */
-export type maybeConfig = (
-  arg0: any,
-  arg1: string,
-) => boolean | string
-/**
- * Project configuration files.
- */
-export type configs = {
-  babel: boolean | string
-  eslint: boolean | string
-  postCss: boolean | string
-}
-/**
- * Config
- *
- * @typedef {function (relativePath: string) => {filePath: string}} config
  * @param   {string} relativePath - relative path (from project root)
  * @return  {string} filePath
  */
-export function config(file: any): string
+declare const config: (file: any) => string;
 /**
  * Has config
  *
- * @typedef {function (file: string) => boolean} hasConfig
  * @param   {string} file - file path (relative to project root)
  * @return  {boolean} true if file exists
  */
-export function hasConfig(file: string): boolean
+declare const hasConfig: (file: any) => any;
 /**
  * Maybe config
- * @typedef {function (file: string) => (boolean|string)} maybeConfig
+ *
  * @param {string} file - file path (relative to project root)
  * @param {string} file - fallback config file path
  */
-export function maybeConfig(
-  file: string,
-  fallback?: any,
-): any
-export namespace configs {
-  export const babel: any
-  export const eslint: any
-  export const postCss: any
-  export const typescript: any
-}
-//# sourceMappingURL=configs.d.ts.map
+declare const maybeConfig: (file: any, fallback?: any) => any;
+/**
+ * Project configuration files.
+ *
+ * @property {(string|boolean)} babel   - project babel.config.js
+ * @property {(string|boolean)} eslint  - project .eslintrc.js
+ * @property {(string|boolean)} postcss - project postcss.config.js
+ */
+export declare type Configs = {
+    babel: (string | null);
+    eslint: (string | null);
+    postCss: (string | null);
+    typescript: (string | null);
+};
+declare const configs: Configs;
+export { config, hasConfig, maybeConfig, configs };

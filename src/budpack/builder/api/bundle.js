@@ -10,7 +10,6 @@
  * ])
  * ```
  *
- * @typedef {function (name: {string}, entries: {string}[]) => {bud: typeof import('./../index')}} bundle
  * @param   {string} name - output name.
  * @param   {array}  entries - array of src assets to include in the bundle.
  * @return  {typeof import('./../index')} bud

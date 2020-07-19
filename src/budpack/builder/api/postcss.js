@@ -15,7 +15,6 @@
  *   ],
  * })
  *
- * @typedef {function ({enabled: boolean, plugins: array}) => {bud: typeof import('./../index')}} postCss
  * @param   {{enabled: boolean, plugins: array}} options
  * @param   {boolean}  options.enabled
  * @param   {array}    options.plugins

@@ -7,30 +7,22 @@
 const entry = bud => ({
   bud,
   options: {
-    entry: {},
-  },
-  output: {},
-
-  init: function () {
-    this.options.entry = this.bud.options.entry
-
-    return this
+    entry: bud.options.entry,
   },
 
   make: function () {
-    this.pre()
-    this.output = this.options
-    this.post()
+    this.preHook()
+    this.postHook()
 
     return this.options
   },
 
-  pre: function () {
-    this.bud.hooks.call('pre_entry', this)
+  preHook: function () {
+    this.bud.hooks.call('pre_entry', this.options)
   },
 
-  post: function () {
-    this.bud.hooks.call('post_entry', this.output)
+  postHook: function () {
+    this.bud.hooks.call('post_entry', this.options)
   },
 })
 

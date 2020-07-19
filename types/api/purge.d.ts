@@ -2,33 +2,6 @@
  * ## bud.purge
  *
  * Purge unused CSS from compiled stylesheets
- */
-export type purge = (
-  arg0: any,
-  arg1: {
-    enabled: boolean
-    content: any
-    css: any
-    defaultExtractor?: Function
-    extractors?: any[]
-    fontFace: boolean
-    keyframes: boolean
-    output: string
-    rejected: boolean
-    stdin?: boolean
-    stdout?: boolean
-    variables?: boolean
-    whitelist?: string[]
-    whitelistPatterns?: RegExp[]
-    whitelistPatternsChildren?: RegExp[]
-  },
-) => {
-  bud: typeof import('./../index')
-}
-/**
- * ## bud.purge
- *
- * Purge unused CSS from compiled stylesheets
  *
  * @see https://purgecss.com/guides/wordpress.html
  * @see https://purgecss.com/configuration.html
@@ -44,7 +17,6 @@ export type purge = (
  * })
  * ```
  *
- * @typedef {function (options: {enabled: boolean, content: Object, css: Object, defaultExtractor?: Function, extractors?: array, fontFace: boolean, keyframes: boolean, output: string, rejected: boolean, stdin?: boolean, stdout?: boolean, variables?: boolean, whitelist?: string[], whitelistPatterns?: RegExp[], whitelistPatternsChildren?: RegExp[] }) => {bud: typeof import('./../index')}} purge
  * @param   {boolean}  options.enabled - true to enable purgecss
  * @param   {Object}   options.content
  * @param   {Object}   options.css
@@ -62,8 +34,4 @@ export type purge = (
  * @param   {RegExp[]} options.whitelistPatternsChildren
  * @return  {typeof import('./../index')} bud
  */
-export function purge({
-  enabled,
-  ...options
-}: boolean): typeof import('./../index')
-//# sourceMappingURL=purge.d.ts.map
+export function purge({ enabled, ...options }: boolean): typeof import('./../index');

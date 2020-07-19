@@ -17,7 +17,6 @@
  * })
  * ```
  *
- * @typedef {function (options: {enabled: boolean, content: Object, css: Object, defaultExtractor?: Function, extractors?: array, fontFace: boolean, keyframes: boolean, output: string, rejected: boolean, stdin?: boolean, stdout?: boolean, variables?: boolean, whitelist?: string[], whitelistPatterns?: RegExp[], whitelistPatternsChildren?: RegExp[] }) => {bud: typeof import('./../index')}} purge
  * @param   {boolean}  options.enabled - true to enable purgecss
  * @param   {Object}   options.content
  * @param   {Object}   options.css

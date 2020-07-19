@@ -11,8 +11,6 @@ import {env} from './env'
  *  - CLI args
  *  - env file
  *  - fallback ('production')
- *
- * @typedef {mode: string} mode - 'production'|'development'
  */
 const mode = argv?.env
   ? argv.env
@@ -22,7 +20,6 @@ const mode = argv?.env
 
 /**
  * inProduction
- * @typedef {inProduction: boolean} inProduction - true if build is running in production mode
  */
 const inProduction = mode == 'production'
 

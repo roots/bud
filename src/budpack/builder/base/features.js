@@ -3,7 +3,6 @@ import {inProduction} from './mode'
 /**
  * Features
  *
- * @typedef  {object}  features
  * @property {boolean} features.babel - babel enabled
  * @property {boolean} features.browserSync    - browserSync enabled
  * @property {boolean} features.dashboard      - dashboard enabled

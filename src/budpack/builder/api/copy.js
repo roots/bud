@@ -10,7 +10,6 @@
  * )
  * ```
  *
- * @typedef   {function (from: {string}, to: {string}) => {bud: typeof import('./../index')}} copy
  * @param     {string} src - path to copy from
  * @param     {string} dist - path to copy to
  * @return    {typeof import('./../index')} bud

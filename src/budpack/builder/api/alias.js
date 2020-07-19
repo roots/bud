@@ -14,8 +14,6 @@
  * ```js
  * import 'scripts/myScript' // replacing '../../myScript'
  * ```
- *
- * @typedef {function ([key: string]: {directory: string}[]) => {bud: typeof import('./../index')}} alias
  * @param   {[key: string]: {directory: string}} options
  * @return  {typeof import('./../index')} bud
  **/

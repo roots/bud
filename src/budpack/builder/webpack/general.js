@@ -6,7 +6,6 @@
  */
 const general = bud => ({
   bud,
-  output: {},
   options: {
     context: bud.paths.project,
     devtool: bud.features.sourceMap
@@ -28,14 +27,18 @@ const general = bud => ({
   },
 
   make: function () {
-    this.output = this.options
-    this.hook()
+    this.preHook()
+    this.postHook()
 
-    return this.output
+    return this.options
   },
 
-  hook: function () {
-    this.bud.hooks.call('options', this.output)
+  preHook: function () {
+    this.bud.hooks.call('pre_options', this.output)
+  },
+
+  postHook: function () {
+    this.bud.hooks.call('post_options', this.output)
   },
 })
 

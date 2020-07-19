@@ -1,0 +1,98 @@
+"use strict";
+exports.__esModule = true;
+/** Constructor props */
+var mode_1 = require("./base/mode");
+var configs_1 = require("./base/configs");
+var features_1 = require("./base/features");
+var hooks_1 = require("./base/hooks");
+var options_1 = require("./base/options");
+var paths_1 = require("./base/paths");
+var webpackPlugins_1 = require("./base/webpackPlugins");
+/** Prototypal methods */
+var alias_1 = require("./api/alias");
+var auto_1 = require("./api/auto");
+var babel_1 = require("./api/babel");
+var bundle_1 = require("./api/bundle");
+var copy_1 = require("./api/copy");
+var copyAll_1 = require("./api/copyAll");
+var dashboard_1 = require("./api/dashboard");
+var debug_1 = require("./api/debug");
+var dev_1 = require("./api/dev");
+var devtool_1 = require("./api/devtool");
+var dist_1 = require("./api/dist");
+var distPath_1 = require("./api/distPath");
+var dependencyManifest_1 = require("./api/dependencyManifest");
+var dump_1 = require("./api/dump");
+var env_1 = require("./api/env");
+var hash_1 = require("./api/hash");
+var hot_1 = require("./api/hot");
+var inlineManifest_1 = require("./api/inlineManifest");
+var map_1 = require("./api/map");
+var mini_1 = require("./api/mini");
+var postcss_1 = require("./api/postcss");
+var preset_1 = require("./api/preset");
+var project_1 = require("./api/project");
+var projectPath_1 = require("./api/projectPath");
+var publicPath_1 = require("./api/publicPath");
+var purge_1 = require("./api/purge");
+var register_1 = require("./api/register");
+var setEnv_1 = require("./api/setEnv");
+var src_1 = require("./api/src");
+var srcPath_1 = require("./api/srcPath");
+var sync_1 = require("./api/sync");
+var target_1 = require("./api/target");
+var translate_1 = require("./api/translate");
+var vendor_1 = require("./api/vendor");
+var watch_1 = require("./api/watch");
+var Bud = function () {
+    this.hooks = hooks_1.hooks;
+    this.configs = configs_1.configs;
+    this.features = features_1.features;
+    this.mode = mode_1.mode;
+    this.inProduction = mode_1.inProduction;
+    this.options = options_1.options;
+    this.paths = paths_1.paths;
+    this.webpackPlugins = webpackPlugins_1.webpackPlugins;
+};
+Bud.prototype.alias = alias_1.alias;
+Bud.prototype.auto = auto_1.auto;
+Bud.prototype.babel = babel_1.babel;
+Bud.prototype.bundle = bundle_1.bundle;
+Bud.prototype.copy = copy_1.copy;
+Bud.prototype.copyAll = copyAll_1.copyAll;
+Bud.prototype.dashboard = dashboard_1.dashboard;
+Bud.prototype.debug = debug_1.debug;
+Bud.prototype.dependencyManifest = dependencyManifest_1.dependencyManifest;
+Bud.prototype.dev = dev_1.dev;
+Bud.prototype.devtool = devtool_1.devtool;
+Bud.prototype.dist = dist_1.dist;
+Bud.prototype.distPath = distPath_1.distPath;
+Bud.prototype.dump = dump_1.dump;
+Bud.prototype.env = env_1.env;
+Bud.prototype.hash = hash_1.hash;
+Bud.prototype.hot = hot_1.hot;
+Bud.prototype.inlineManifest = inlineManifest_1.inlineManifest;
+Bud.prototype.map = map_1.map;
+Bud.prototype.mini = mini_1.mini;
+Bud.prototype.postCss = postcss_1.postCss;
+Bud.prototype.preset = preset_1.preset;
+Bud.prototype.project = project_1.project;
+Bud.prototype.projectPath = projectPath_1.projectPath;
+Bud.prototype.publicPath = publicPath_1.publicPath;
+Bud.prototype.purge = purge_1.purge;
+Bud.prototype.register = register_1.register;
+Bud.prototype.setEnv = setEnv_1.setEnv;
+Bud.prototype.src = src_1.src;
+Bud.prototype.srcPath = srcPath_1.srcPath;
+Bud.prototype.sync = sync_1.sync;
+Bud.prototype.targete = target_1.target;
+Bud.prototype.translate = translate_1.translate;
+Bud.prototype.vendor = vendor_1.vendor;
+Bud.prototype.watch = watch_1.watch;
+/**
+ * Bud - Asset management framework
+ *
+ * @type {bud} instance
+ */
+var instance = new Bud();
+module.exports = instance;

@@ -1,7 +1,10 @@
-import camel from 'camelcase'
-
 /**
  * Util
+ * @typedef  {fab: { false: {function () => {boolean}} }} fab
+ * @property {function () => {boolean}} false
+ * @property {function () => {boolean}} true
+ * @property {function () => {undefined}} undefined
+ * @property {function () => {null}} null
  */
 const fab = {
   false: () => false,
@@ -13,136 +16,159 @@ const fab = {
 /**
  * Bud plugin factory.
  *
- * @typedef {function} budPluginFactory
- * @param   {array}    registrant
- * @param   {string}   registrant.name
- * @param   {function} registrant.plugin
+ * @typedef {function () => {object}} budPluginFactory
  * @param   {bud}      bud
+ * @return  {factory}
  */
-const budPluginFactory = bud => ({
-  bud: bud,
-
+const budPluginFactory = bud => {
   /**
-   * Init plugin factory
-   * @property {function} init
-   */
-  new: function (name, plugin) {
-    this.name = name
-    this.plugin = plugin
-
-    return this
-  },
-
-  /**
-   * Build plugin.
+   * Bud plugin factory.
    *
-   * @property {function} build
-   * @return   {Object}
+   * @typedef  {object} factory
+   * @property {bud} bud
+   * @property {new} new
+   * @property {build} build
+   * @property {bindPluginProps} bindPluginProps
+   * @property {ensurePluginProp} ensurePluginProp
+   * @property {instantiatePlugin} instantiatePlugin
    */
-  build: function () {
-    this.initPlugin()
-    this.bindPluginProps()
-    this.mergePluginOptions()
-    this.register()
-  },
+  const factory = {
+    /**
+     * @property {bud} bud - bud container
+     */
+    bud,
 
-  /**
-   * Bind plugin props.
-   *
-   * @property {function} bindPluginProps
-   * @return   {void}
-   */
-  bindPluginProps: function () {
-    this.doPluginHook('pre_bind')
+    /**
+     * Init plugin factory
+     *
+     * @typedef {function (name: string, plugin: object) => {factory}} new
+     * @param   {string}  name
+     * @param   {object}  plugin
+     * @return  {factory} factory
+     */
+    new: function (name, plugin) {
+      this.name = name
+      this.plugin = plugin
 
-    this.ensurePluginProp('bud', this.bud)
-    this.ensurePluginProp('on', (name, fn) =>
-      this.bud.hooks.on(name, fn),
-    )
-    this.ensurePluginProp('call', (name, params) =>
-      this.bud.hooks.call(name, params),
-    )
-    this.ensurePluginProp('options', fab.undefined())
-    this.ensurePluginProp('mergeOptions', fab.undefined)
+      return this
+    },
 
-    this.doPluginHook('post_bind')
-  },
+    /**
+     * Build plugin.
+     *
+     * @typedef  {function () => void} build
+     * @return   {void} void
+     */
+    build: function () {
+      this.instantiatePlugin()
+      this.bindPluginProps()
+      this.mergePluginOptions()
+      this.register()
+    },
 
-  /**
-   * Ensure plugin prop is set.
-   *
-   * @property {function} ensurePluginProp
-   * @param    {string} prop - plugin property
-   * @param    {any} fallback - fallback value
-   * @return   {void}
-   */
-  ensurePluginProp: function (prop, fallback) {
-    this.plugin[prop] = this.plugin[prop] || fallback
-  },
+    /**
+     * Bind plugin props.
+     *
+     * @typedef {function () => {void}} bindPluginProps
+     * @return   {void} void
+     */
+    bindPluginProps: function () {
+      this.doPluginHook('pre_bind')
 
-  /**
-   * Initialize plugin.
-   *
-   * @property {function} initPlugin
-   * @return   {void}
-   */
-  initPlugin: function () {
-    this.doPluginHook('pre_init')
+      this.ensurePluginProp('bud', this.bud)
+      this.ensurePluginProp('on', (name, fn) =>
+        this.bud.hooks.on(name, fn),
+      )
+      this.ensurePluginProp('call', (name, params) =>
+        this.bud.hooks.call(name, params),
+      )
+      this.ensurePluginProp('options', fab.undefined())
+      this.ensurePluginProp('mergeOptions', fab.undefined)
 
-    this.plugin = this.plugin(this.bud)
+      this.doPluginHook('post_bind')
+    },
 
-    this.doPluginHook('post_init')
-  },
+    /**
+     * Ensure plugin prop is set.
+     *
+     * @typedef {function (pluginProp: string, fallback: {any}) => {void}} ensurePluginProp
+     * @param   {string} pluginProp - plugin property
+     * @param   {any}    fallback - fallback value
+     * @return  {void}
+     */
+    ensurePluginProp: function (pluginProp, fallback) {
+      this.plugin[pluginProp] =
+        this.plugin[pluginProp] || fallback
+    },
 
-  /**
-   * Register plugin callbacks.
-   */
-  register: function () {
-    this.doPluginHook('pre_register')
+    /**
+     * Instantiate plugin.
+     *
+     * @typedef {function () => {void}} instantiatePlugin
+     * @return  {void}
+     */
+    instantiatePlugin: function () {
+      this.doPluginHook('pre_init')
 
-    this.plugin.register && this.plugin.register()
+      this.plugin = this.plugin(this.bud)
 
-    this.doPluginHook('post_register')
-  },
+      this.doPluginHook('post_init')
+    },
 
-  /**
-   * Set plugin options.
-   *
-   * @property {function} setPluginOptions
-   * @return   {void}
-   */
-  mergePluginOptions: function () {
-    this.doPluginHook('pre_merge')
+    /**
+     * Register plugin callbacks.
+     *
+     * @typedef {function () => {void}} register
+     */
+    register: function () {
+      this.doPluginHook('pre_register')
 
-    this.boundValue = this.plugin.mergeOptions()
+      this.plugin.register && this.plugin.register()
 
-    if (this.boundValue) {
-      this.doPluginHook('merge', this.boundValue)
+      this.doPluginHook('post_register')
+    },
 
-      this.plugin.options = {
-        ...this.plugin.options,
-        ...this.boundValue,
+    /**
+     * Merge plugin options.
+     *
+     * @typedef {function () => {void}} mergePluginOptions
+     * @return  {void}
+     */
+    mergePluginOptions: function () {
+      this.doPluginHook('pre_merge')
+
+      this.boundValue = this.plugin.mergeOptions()
+
+      if (this.boundValue) {
+        this.doPluginHook('merge', this.boundValue)
+
+        this.plugin.options = {
+          ...this.plugin.options,
+          ...this.boundValue,
+        }
       }
-    }
 
-    delete this.boundValue
+      delete this.boundValue
 
-    this.doPluginHook('post_merge')
-  },
+      this.doPluginHook('post_merge')
+    },
 
-  /**
-   * Do plugin hook.
-   *
-   * @property {function} doPluginHook
-   * @return   {void}
-   */
-  doPluginHook: function (hook, ...params) {
-    this.bud.hooks.call(
-      `${hook}_bud_plugin_${this.name}`,
-      this.plugin,
-      ...params,
-    )
-  },
-})
+    /**
+     * Do plugin hook.
+     *
+     * @property {function} doPluginHook
+     * @return   {void}
+     */
+    doPluginHook: function (hook, ...params) {
+      this.bud.hooks.call(
+        `${hook}_bud_plugin_${this.name}`,
+        this.plugin,
+        ...params,
+      )
+    },
+  }
+
+  return factory
+}
 
 export {budPluginFactory}

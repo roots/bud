@@ -11,7 +11,6 @@ import {join} from 'path'
  * bud.project('package.json') // absolute path to package.json
  * ```
  *
- * @typedef {function (relativePath: string) => {absolutePath: string}} project
  * @param   {string} relativePath - relative path
  * @return  {string} absolutePath
  */

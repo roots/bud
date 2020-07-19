@@ -2,7 +2,6 @@
  * Make a manifest of @wordpress dependencies utilized by entrypoints.
  * @see     https://git.io/JJLxM
  * @example bud.dependencyManifest({outputFormat: 'js', injectPolyfill: false})
- * @typedef {function ({enabled?: boolean, outputFormat: string, combineAssets: boolean, combinedOutputFile: string, useDefaults: boolean, injectPolyfill: boolean, requestToExternal: Function, requestToHandle: Function}) => {bud: typeof import('./../index')}} dependencyManifest
  * @param   {{enabled?: boolean, outputFormat: string, combineAssets: boolean, combinedOutputFile: string, useDefaults: boolean, injectPolyfill: boolean, requestToExternal: Function, requestToHandle: Function}} settings
  * @param   {string}  settings.outputFormat - either 'php' or 'js'
  * @param   {boolean} settings.combineAssets - By default, one manifest is created for each entry point. When this flag is set to true, all information about assets is combined into a single manifest.

@@ -1,1 +1,0 @@
-{"version":3,"file":"postcss.d.ts","sourceRoot":"","sources":["../../src/budpack/builder/api/postcss.js"],"names":[],"mappings":";;;;;;;;;;;;;;;;;6BAiBuB;IAAC,OAAO,EAAE,OAAO,CAAC;IAAC,OAAO,QAAO;CAAC,KAAK;IAAC,GAAG,EAAE,cAAc,YAAY,CAAC,CAAA;CAAC;AAjBhG;;;;;;;;;;;;;;;;;;;;;;GAsBG;AACH,iDALa;IAAC,OAAO,EAAE,OAAO,CAAC;IAAC,OAAO,QAAO;CAAC,GAGlC,cAAc,YAAY,CAAC,CAkBvC"}

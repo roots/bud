@@ -4,7 +4,6 @@
  * If you are already translating strings with `yarn translate` then
  * there is no reason to run this separately.
  *
- * @typedef {function (output: string) => {bud: typeof import('./../index')} translate
  * @example bud.translate('resources/languages/sage.pot')
  * @param   {string} output - output makepot
  * @return  {typeof import('./../index')} bud

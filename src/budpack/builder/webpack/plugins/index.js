@@ -1,20 +1,6 @@
 /** webpack plugin factory */
 import {webpackPluginFactory} from './webpackPluginFactory'
 
-/** bud webpack plugin imports */
-import {browserSync} from './plugins/browserSync'
-import {cleanWebpack} from './plugins/cleanWebpack'
-import {copy} from './plugins/copy'
-import {define} from './plugins/define'
-import {dependencyExtraction} from './plugins/dependencyExtraction'
-import {fixStyleOnlyEntries} from './plugins/fixStyleOnlyEntries'
-import {hotModuleReplacement} from './plugins/hotModuleReplacement'
-import {limitChunkCount} from './plugins/limitChunkCount'
-import {miniCssExtract} from './plugins/miniCssExtract'
-import {manifest} from './plugins/manifest'
-import {provide} from './plugins/provide'
-import {writeFile} from './plugins/writeFile'
-
 /**
  * Webpack plugins.
  *
@@ -30,23 +16,10 @@ const plugins = bud => ({
   bud,
 
   /**
-   * Core webpack plugins.
-   * @property {array<string, function>} plugins
+   * Webpack plugins
+   * @property {array} pluginQueue
    */
-  plugins: [
-    ['browser_sync_plugin', browserSync],
-    ['clean_webpack_plugin', cleanWebpack],
-    ['copy_plugin', copy],
-    ['define_plugin', define],
-    ['dependency_extraction_plugin', dependencyExtraction],
-    ['fix_style_only_entries_plugin', fixStyleOnlyEntries],
-    ['hot_module_replacement_plugin', hotModuleReplacement],
-    ['manifest_plugin', manifest],
-    ['mini_css_extract_plugin', miniCssExtract],
-    ['provide_plugin', provide],
-    ['write_file_plugin', writeFile],
-    ['limit_chunk_count', limitChunkCount],
-  ],
+  pluginQueue: bud.webpackPlugins,
 
   /**
    * Make plugins.
@@ -57,7 +30,7 @@ const plugins = bud => ({
   make: function () {
     this.doHook('pre')
 
-    this.plugins = this.plugins
+    this.plugins = this.pluginQueue
       .map(plugin =>
         webpackPluginFactory(plugin, this.bud).build(),
       )

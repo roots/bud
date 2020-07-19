@@ -9,7 +9,7 @@ const fab = {
 /**
  * Plugin controller
  *
- * @typedef {function} webpackPluginFactory
+ * @type    {function} webpackPluginFactory
  * @param   {array}
  */
 const webpackPluginFactory = ([name, plugin], bud) => ({

@@ -6,7 +6,6 @@ import {css} from './css/css'
 import {module as cssModule} from './css/module'
 import {scss} from './scss/scss'
 import {module as scssModule} from './scss/module'
-import {postCss} from './postCss'
 
 import {font} from './font'
 import {image} from './image'
@@ -17,7 +16,6 @@ import {svg} from './svg'
  */
 const rules = bud => ({
   bud,
-  postCss,
 
   output: {},
   options: {

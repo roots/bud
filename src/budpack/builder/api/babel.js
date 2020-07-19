@@ -8,7 +8,6 @@
  *
  * @see https://babeljs.io/docs/en/configuration
  *
- * @typedef {function ({enabled: boolean, presets: any[], plugins: any[]}) => {bud: typeof import('./../index')}} babel
  * @param   {{enabled: boolean, presets: any[], plugins: any[]}} options
  * @param   {any[]}    options.plugins
  * @param   {any[]}    options.presets

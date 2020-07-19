@@ -19,7 +19,6 @@ import {join} from 'path'
  * bud.preset('tsconfig')
  * ```
  *
- * @typedef {function (relativePath: string) => {absolutePath: string}} preset
  * @param  {string} relativePath - relative path
  * @return {string} absolutePath
  */

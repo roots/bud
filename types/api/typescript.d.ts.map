@@ -1,1 +1,0 @@
-{"version":3,"file":"typescript.d.ts","sourceRoot":"","sources":["../../src/budpack/builder/api/typescript.js"],"names":[],"mappings":";;;;;;;;gCAQuB;IAAC,OAAO,EAAE,OAAO,CAAC;IAAC,MAAM,EAAE,MAAM,CAAA;CAAC,KAAK;IAAC,GAAG,EAAE,cAAc,YAAY,CAAC,CAAA;CAAC;AARhG;;;;;;;;;;;;;GAaG;AACH,oCALa;IAAC,OAAO,EAAE,OAAO,CAAC;IAAC,MAAM,EAAE,MAAM,CAAA;CAAC,GAGlC,cAAc,YAAY,CAAC,CAavC"}

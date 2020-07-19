@@ -10,7 +10,6 @@ import {join} from 'path'
  * ```js
  * bud.src('scripts/app.js') // absolute path to the source file
  * ```
- * @typedef {function (relativePath: string) => {absolutePath: string}} src
  * @param   {string} relativePath - relative path
  * @return  {string} absolutePath
  */
