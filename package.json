@@ -25,11 +25,7 @@
     "lint:prettier": "prettier --write ."
   },
   "bin": "./bin/budpack.js",
-  "files": [
-    "bin",
-    "build",
-    "config"
-  ],
+  "files": ["bin", "build", "config"],
   "dependencies": {
     "@babel/core": "^7.10.5",
     "@babel/plugin-proposal-object-rest-spread": "^7.10.4",

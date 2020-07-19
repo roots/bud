@@ -56,8 +56,12 @@ const budPluginFactory = bud => ({
     this.doPluginHook('pre_bind')
 
     this.ensurePluginProp('bud', this.bud)
-    this.ensurePluginProp('on', (name, fn) => this.bud.hooks.on(name, fn))
-    this.ensurePluginProp('call', (name, params) => this.bud.hooks.call(name, params))
+    this.ensurePluginProp('on', (name, fn) =>
+      this.bud.hooks.on(name, fn),
+    )
+    this.ensurePluginProp('call', (name, params) =>
+      this.bud.hooks.call(name, params),
+    )
     this.ensurePluginProp('options', fab.undefined())
     this.ensurePluginProp('mergeOptions', fab.undefined)
 
