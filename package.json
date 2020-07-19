@@ -1,6 +1,6 @@
 {
   "name": "@roots/budpack",
-  "version": "0.0.38.1",
+  "version": "0.0.39",
   "repository": {
     "type": "git",
     "url": "git://github.com/roots/bud-support.git"
@@ -25,7 +25,11 @@
     "lint:prettier": "prettier --write ."
   },
   "bin": "./bin/budpack.js",
-  "files": ["bin", "build", "config"],
+  "files": [
+    "bin",
+    "build",
+    "config"
+  ],
   "dependencies": {
     "@babel/core": "^7.10.5",
     "@babel/plugin-proposal-object-rest-spread": "^7.10.4",
@@ -54,6 +58,7 @@
     "babel-plugin-macros": "^2.8.0",
     "browser-sync": "^2.26.7",
     "browser-sync-webpack-plugin": "^2.2.2",
+    "camelcase": "^6.0.0",
     "clean-webpack-plugin": "^3.0.0",
     "cli-highlight": "^2.1.4",
     "copy-webpack-plugin": "^6.0.3",

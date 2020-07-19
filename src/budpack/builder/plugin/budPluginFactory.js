@@ -1,4 +1,8 @@
-/** */
+import camel from 'camelcase'
+
+/**
+ * Util
+ */
 const fab = {
   false: () => false,
   true: () => true,
@@ -7,29 +11,27 @@ const fab = {
 }
 
 /**
- * Plugin controller
+ * Bud plugin factory.
  *
- * @typedef {function} webpackPluginFactory
- * @param   {array}
+ * @typedef {function} budPluginFactory
+ * @param   {array}    registrant
+ * @param   {string}   registrant.name
+ * @param   {function} registrant.plugin
+ * @param   {bud}      bud
  */
-const webpackPluginFactory = ([name, plugin], bud) => ({
-  /**
-   * Bud container.
-   * @property {bud} bud
-   */
-  bud,
+const budPluginFactory = bud => ({
+  bud: bud,
 
   /**
-   * Plugin name.
-   * @property {string} name
+   * Init plugin factory
+   * @property {function} init
    */
-  name,
+  new: function (name, plugin) {
+    this.name = name
+    this.plugin = plugin
 
-  /**
-   * Plugin instance.
-   * @property {object} plugin
-   */
-  plugin,
+    return this
+  },
 
   /**
    * Build plugin.
@@ -40,10 +42,8 @@ const webpackPluginFactory = ([name, plugin], bud) => ({
   build: function () {
     this.initPlugin()
     this.bindPluginProps()
-    this.setPluginOptions()
     this.mergePluginOptions()
-
-    return this.makePlugin()
+    this.register()
   },
 
   /**
@@ -56,10 +56,10 @@ const webpackPluginFactory = ([name, plugin], bud) => ({
     this.doPluginHook('pre_bind')
 
     this.ensurePluginProp('bud', this.bud)
+    this.ensurePluginProp('on', (name, fn) => this.bud.hooks.on(name, fn))
+    this.ensurePluginProp('call', (name, params) => this.bud.hooks.call(name, params))
     this.ensurePluginProp('options', fab.undefined())
-    this.ensurePluginProp('setOptions', fab.undefined)
     this.ensurePluginProp('mergeOptions', fab.undefined)
-    this.ensurePluginProp('when', fab.true)
 
     this.doPluginHook('post_bind')
   },
@@ -84,30 +84,21 @@ const webpackPluginFactory = ([name, plugin], bud) => ({
    */
   initPlugin: function () {
     this.doPluginHook('pre_init')
+
     this.plugin = this.plugin(this.bud)
+
     this.doPluginHook('post_init')
   },
 
   /**
-   * Set plugin options.
-   *
-   * @property {function} setPluginOptions
-   * @return   {void}
+   * Register plugin callbacks.
    */
-  setPluginOptions: function () {
-    this.doPluginHook('pre_options')
+  register: function () {
+    this.doPluginHook('pre_register')
 
-    this.boundValue = this.plugin.setOptions()
+    this.plugin.register && this.plugin.register()
 
-    if (this.boundValue) {
-      this.doPluginHook('options', this.boundValue)
-
-      this.plugin.options = this.boundValue
-    }
-
-    delete this.boundValue
-
-    this.doPluginHook('post_options')
+    this.doPluginHook('post_register')
   },
 
   /**
@@ -136,24 +127,6 @@ const webpackPluginFactory = ([name, plugin], bud) => ({
   },
 
   /**
-   * Make plugin.
-   *
-   * @property {function} makePlugin
-   * @return   {object} constructed webpack plugin
-   */
-  makePlugin: function () {
-    this.doPluginHook('pre')
-
-    this.plugin = this.plugin.when()
-      ? this.plugin.make()
-      : fab.undefined()
-
-    this.doPluginHook('post')
-
-    return this.plugin
-  },
-
-  /**
    * Do plugin hook.
    *
    * @property {function} doPluginHook
@@ -161,11 +134,11 @@ const webpackPluginFactory = ([name, plugin], bud) => ({
    */
   doPluginHook: function (hook, ...params) {
     this.bud.hooks.call(
-      `${hook}_${this.name}`,
+      `${hook}_bud_plugin_${this.name}`,
       this.plugin,
       ...params,
     )
   },
 })
 
-export {webpackPluginFactory}
+export {budPluginFactory}

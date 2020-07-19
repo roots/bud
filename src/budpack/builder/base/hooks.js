@@ -1,10 +1,11 @@
 const hooks = {
-  core: [],
+  registered: {},
 
   /**
    * Init
    */
   init: function () {
+    this.registered = {}
     return this
   },
 
@@ -13,17 +14,21 @@ const hooks = {
    */
   make: (fn = () => null) => ({fn, fired: false}),
 
+  getAll: function () {
+    return Object.entries(this.registered)
+  },
+
   /**
    * On
    *
    * @typedef {function (name: string, callback: function): void} add
    */
   on: function (name, callback) {
-    if (!this[name]) {
-      this[name] = []
+    if (!this.registered[name]) {
+      this.registered[name] = []
     }
 
-    this[name].push(this.make(callback))
+    this.registered[name].push(this.make(callback))
 
     return this
   },
@@ -34,8 +39,8 @@ const hooks = {
    * @typedef {function (name: string, callback: function): void} call
    */
   call: function (name, ...params) {
-    if (this[name]) {
-      this[name].forEach(function (hook) {
+    if (this.registered[name]) {
+      this.registered[name].forEach(function (hook) {
         hook.fn(...params)
         hook.fired = true
       })

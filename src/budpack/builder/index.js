@@ -39,6 +39,7 @@ import {project} from './api/project'
 import {projectPath} from './api/projectPath'
 import {publicPath} from './api/publicPath'
 import {purge} from './api/purge'
+import {register} from './api/register'
 import {setEnv} from './api/setEnv'
 import {src} from './api/src'
 import {srcPath} from './api/srcPath'
@@ -87,6 +88,7 @@ Bud.prototype.project = project
 Bud.prototype.projectPath = projectPath
 Bud.prototype.publicPath = publicPath
 Bud.prototype.purge = purge
+Bud.prototype.register = register
 Bud.prototype.setEnv = setEnv
 Bud.prototype.src = src
 Bud.prototype.srcPath = srcPath
@@ -125,12 +127,14 @@ Bud.prototype.watch = watch
  * @property {inlineManifest} inlineManifest
  * @property {map} map
  * @property {mini} mini
+ * @property {plugins} plugins
  * @property {postCss} postCss
  * @property {preset} preset
  * @property {project} project
  * @property {projectPath} projectPath
  * @property {publicPath} publicPath
  * @property {purge} purge
+ * @property {register} register
  * @property {setEnv} setEnv
  * @property {src} src
  * @property {srcPath} srcPath

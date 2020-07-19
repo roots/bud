@@ -1,21 +1,25 @@
+/** webpack plugin factory */
 import {webpackPluginFactory} from './webpackPluginFactory'
+
+/** bud webpack plugin imports */
+import {browserSync} from './plugins/browserSync'
 import {cleanWebpack} from './plugins/cleanWebpack'
+import {copy} from './plugins/copy'
+import {define} from './plugins/define'
+import {dependencyExtraction} from './plugins/dependencyExtraction'
+import {fixStyleOnlyEntries} from './plugins/fixStyleOnlyEntries'
+import {hotModuleReplacement} from './plugins/hotModuleReplacement'
+import {limitChunkCount} from './plugins/limitChunkCount'
 import {miniCssExtract} from './plugins/miniCssExtract'
 import {manifest} from './plugins/manifest'
-import {fixStyleOnlyEntries} from './plugins/fixStyleOnlyEntries'
-import {dependencyExtraction} from './plugins/dependencyExtraction'
-import {browserSync} from './plugins/browserSync'
-import {hotModuleReplacement} from './plugins/hotModuleReplacement'
-import {writeFile} from './plugins/writeFile'
 import {provide} from './plugins/provide'
-import {define} from './plugins/define'
-import {copy} from './plugins/copy'
-import {limitChunkCount} from './plugins/limitChunkCount'
+import {writeFile} from './plugins/writeFile'
 
 /**
  * Webpack plugins.
  *
- * @typedef {function (bud: object) => {object}} plugins
+ * @constructor
+ * @typedef {function (bud) => {object}} plugins
  * @returns {object}
  */
 const plugins = bud => ({
@@ -27,7 +31,7 @@ const plugins = bud => ({
 
   /**
    * Core webpack plugins.
-   * @property {array} plugins
+   * @property {array<string, function>} plugins
    */
   plugins: [
     ['browser_sync_plugin', browserSync],
@@ -46,18 +50,20 @@ const plugins = bud => ({
 
   /**
    * Make plugins.
+   *
    * @property {function} make
    * @return   {Object}
    */
   make: function () {
-    this.pre()
+    this.doHook('pre')
+
     this.plugins = this.plugins
       .map(plugin =>
         webpackPluginFactory(plugin, this.bud).build(),
       )
       .filter(plugin => plugin !== undefined)
 
-    this.post()
+    this.doHook('post')
 
     return {
       plugins: this.plugins,
@@ -65,19 +71,17 @@ const plugins = bud => ({
   },
 
   /**
-   * pre webpack plugins hook
+   * Call a bud hook
+   *
+   * @property {function} doPreHook
+   * @param    {string} name
+   * @return   {void}
    */
-  pre: function () {
-    this.bud.hooks.call('pre_webpack_plugins', this.plugins)
-  },
-
-  /**
-   * post webpack plugins hook
-   */
-  post: function () {
+  doHook: function (name) {
     this.bud.hooks.call(
-      'post_webpack_plugins',
+      `${name}_webpack_plugins`,
       this.plugins,
+      this.bud,
     )
   },
 })

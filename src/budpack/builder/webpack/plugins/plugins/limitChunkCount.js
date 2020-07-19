@@ -6,7 +6,9 @@ const limitChunkCount = () => ({
     const chunks = this.bud.options.splitting.maxChunks
 
     if (!enabled) {
-      return {maxChunks: 1}
+      return {
+        maxChunks: 1,
+      }
     }
 
     if (chunks) {
