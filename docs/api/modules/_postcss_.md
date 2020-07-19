@@ -4,17 +4,43 @@
 
 ## Index
 
+### Interfaces
+
+* [PostCssInterface](../interfaces/_postcss_.postcssinterface.md)
+
+### Type aliases
+
+* [PostCss](_postcss_.md#postcss)
+
 ### Functions
 
 * [postCss](_postcss_.md#const-postcss)
+
+## Type aliases
+
+###  PostCss
+
+Ƭ **PostCss**: *function*
+
+Defined in postcss.ts:43
+
+#### Type declaration:
+
+▸ (`PostCssInterface`: any): *bud*
+
+**Parameters:**
+
+Name | Type |
+------ | ------ |
+`PostCssInterface` | any |
 
 ## Functions
 
 ### `Const` postCss
 
-▸ **postCss**(`__namedParameters`: object): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+▸ **postCss**(`__namedParameters`: object): *any*
 
-*Defined in [postcss.js:23](https://github.com/roots/bud-support/blob/a7a0906/src/budpack/builder/api/postcss.js#L23)*
+Defined in postcss.ts:19
 
 ## bud.postCss
 
@@ -31,11 +57,7 @@ bud.postCss({
    require('astroturf'),
   ],
 })
-
-@param   {{enabled: boolean, plugins: array}} options
-@param   {boolean}  options.enabled
-@param   {array}    options.plugins
-@return  {typeof import('./../index')} bud
+```
 
 **Parameters:**
 
@@ -43,7 +65,7 @@ bud.postCss({
 
 Name | Type | Default |
 ------ | ------ | ------ |
-`enabled` | boolean | true |
-`options` | options | - |
+`enabled` | any | true |
+`options` | any | - |
 
-**Returns:** *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
+**Returns:** *any*

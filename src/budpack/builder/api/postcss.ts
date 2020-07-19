@@ -14,24 +14,15 @@
  *    require('astroturf'),
  *   ],
  * })
- *
- * @param   {{enabled: boolean, plugins: array}} options
- * @param   {boolean}  options.enabled
- * @param   {array}    options.plugins
- * @return  {typeof import('./../index')} bud
+ * ```
  */
-const postCss = function ({enabled = true, ...options}) {
+const postCss: PostCss = function ({enabled = true, ...options}) {
   this.features.postCss = enabled
 
   if (this.features.postCss) {
     this.options.postCss = {
-      ...(this.options.postCss ? this.options.postCss : {}),
-      plugins: [
-        ...(this.options.postCss.plugins
-          ? this.options.postCss.plugins
-          : []),
-        ...(options.plugins ? options.plugins : []),
-      ],
+      ...this.options.postCss,
+      ...options,
     }
   }
 
@@ -39,3 +30,14 @@ const postCss = function ({enabled = true, ...options}) {
 }
 
 export {postCss}
+
+import type {bud} from '../'
+
+export interface PostCssInterface {
+  options?: {
+    enabled?: boolean,
+    plugins?: any[],
+  }
+}
+
+export type PostCss = (PostCssInterface) => bud;

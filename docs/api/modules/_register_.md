@@ -14,7 +14,7 @@
 
 ▸ **register**(`name`: any, `plugin`: any): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-*Defined in [register.js:15](https://github.com/roots/bud-support/blob/a7a0906/src/budpack/builder/api/register.js#L15)*
+*Defined in [register.js:15](https://github.com/roots/bud-support/blob/91a13d1/src/budpack/builder/api/register.js#L15)*
 
 ## bud.register
 

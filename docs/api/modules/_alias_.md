@@ -14,7 +14,7 @@
 
 ▸ **alias**(`options`: any): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-*Defined in [alias.js:20](https://github.com/roots/bud-support/blob/a7a0906/src/budpack/builder/api/alias.js#L20)*
+*Defined in [alias.js:20](https://github.com/roots/bud-support/blob/91a13d1/src/budpack/builder/api/alias.js#L20)*
 
 ## bud.alias
 

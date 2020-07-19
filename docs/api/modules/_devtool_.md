@@ -14,7 +14,7 @@
 
 ▸ **devtool**(`devtool`: string): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-*Defined in [devtool.js:6](https://github.com/roots/bud-support/blob/a7a0906/src/budpack/builder/api/devtool.js#L6)*
+*Defined in [devtool.js:6](https://github.com/roots/bud-support/blob/91a13d1/src/budpack/builder/api/devtool.js#L6)*
 
 Specify webpack devtool
 

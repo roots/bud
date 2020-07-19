@@ -14,7 +14,7 @@
 
 ▸ **vendor**(`name`: string): *any*
 
-*Defined in [vendor.js:13](https://github.com/roots/bud-support/blob/a7a0906/src/budpack/builder/api/vendor.js#L13)*
+*Defined in [vendor.js:13](https://github.com/roots/bud-support/blob/91a13d1/src/budpack/builder/api/vendor.js#L13)*
 
 ## bud.vendor
 

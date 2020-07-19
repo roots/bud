@@ -5,6 +5,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 exports.__esModule = true;
 exports.browserSync = void 0;
 var browser_sync_webpack_plugin_1 = __importDefault(require("browser-sync-webpack-plugin"));
+/**
+ * BrowserSync plugin adapter.
+ */
 var browserSync = function () { return ({
     mergeOptions: function () {
         return this.bud.options.browserSync;

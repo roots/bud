@@ -14,7 +14,7 @@
 
 ▸ **distPath**(`dir`: string): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-*Defined in [distPath.js:9](https://github.com/roots/bud-support/blob/a7a0906/src/budpack/builder/api/distPath.js#L9)*
+*Defined in [distPath.js:9](https://github.com/roots/bud-support/blob/91a13d1/src/budpack/builder/api/distPath.js#L9)*
 
 Set the project's dist directory.
 

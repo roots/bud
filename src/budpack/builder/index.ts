@@ -1,4 +1,4 @@
-import {bud} from './bud'
+import type {bud} from './index.d'
 
 /** Constructor props */
 import {mode, inProduction} from './base/mode'
@@ -100,3 +100,6 @@ Bud.prototype.watch = watch
  */
 const instance: bud = new Bud()
 module.exports = instance
+
+export type {bud}
+

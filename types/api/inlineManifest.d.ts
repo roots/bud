@@ -1,10 +1,5 @@
-import { bud } from '../bud';
-interface inlineManifestInterface {
-    (name?: string): bud;
-}
-declare type InlineManifest = inlineManifestInterface;
 /**
- * Make a chunk to be inlined directly on the page for optimal code splitting.
+ * Inline commons scripts.
  *
  * ```js
  * bud.inlineManifest({name: 'runtime'})
@@ -12,3 +7,8 @@ declare type InlineManifest = inlineManifestInterface;
  */
 declare const inlineManifest: InlineManifest;
 export { inlineManifest };
+import type { bud } from '../index.d';
+export interface InlineManifestOptions {
+    name?: string;
+}
+export declare type InlineManifest = (InlineManifestOptions: any) => bud;

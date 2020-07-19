@@ -14,7 +14,7 @@
 
 ▸ **srcPath**(`src`: any): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-*Defined in [srcPath.js:9](https://github.com/roots/bud-support/blob/a7a0906/src/budpack/builder/api/srcPath.js#L9)*
+*Defined in [srcPath.js:9](https://github.com/roots/bud-support/blob/91a13d1/src/budpack/builder/api/srcPath.js#L9)*
 
 Set the project's src directory.
 

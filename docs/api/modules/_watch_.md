@@ -14,7 +14,7 @@
 
 ▸ **watch**(`enabled`: any): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-*Defined in [watch.js:13](https://github.com/roots/bud-support/blob/a7a0906/src/budpack/builder/api/watch.js#L13)*
+*Defined in [watch.js:13](https://github.com/roots/bud-support/blob/91a13d1/src/budpack/builder/api/watch.js#L13)*
 
 ## bud.watch
 

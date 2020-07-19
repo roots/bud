@@ -14,7 +14,7 @@
 
 ▸ **implementation**(): *any*
 
-*Defined in [rules/scss/implementation.js:4](https://github.com/roots/bud-support/blob/a7a0906/src/budpack/builder/webpack/rules/scss/implementation.js#L4)*
+*Defined in [rules/scss/implementation.js:4](https://github.com/roots/bud-support/blob/91a13d1/src/budpack/builder/webpack/rules/scss/implementation.js#L4)*
 
 resolve whether to use dart-sass or node-sass
 

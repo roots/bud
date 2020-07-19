@@ -14,7 +14,7 @@
 
 ▸ **babel**(`options`: object): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-*Defined in [babel.js:16](https://github.com/roots/bud-support/blob/a7a0906/src/budpack/builder/api/babel.js#L16)*
+*Defined in [babel.js:16](https://github.com/roots/bud-support/blob/91a13d1/src/budpack/builder/api/babel.js#L16)*
 
 Configure Babel.
 

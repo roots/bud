@@ -13,16 +13,17 @@ var __assign = (this && this.__assign) || function () {
 exports.__esModule = true;
 exports.inlineManifest = void 0;
 /**
- * Make a chunk to be inlined directly on the page for optimal code splitting.
+ * Inline commons scripts.
  *
  * ```js
  * bud.inlineManifest({name: 'runtime'})
  * ```
  */
-var inlineManifest = function (name) {
+var inlineManifest = function (options) {
+    var name = (options === null || options === void 0 ? void 0 : options.name) || 'runtime';
     this.features.inlineManifest = true;
     if (this.features.inlineManifest) {
-        this.options.inlineManifest = __assign(__assign({}, this.options.inlineManifest), { name: name || 'runtime' });
+        this.options.inlineManifest = __assign(__assign({}, this.options.inlineManifest), { name: name });
     }
     return this;
 };

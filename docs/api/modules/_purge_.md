@@ -14,7 +14,7 @@
 
 ▸ **purge**(`__namedParameters`: object): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-*Defined in [purge.js:37](https://github.com/roots/bud-support/blob/a7a0906/src/budpack/builder/api/purge.js#L37)*
+*Defined in [purge.js:37](https://github.com/roots/bud-support/blob/91a13d1/src/budpack/builder/api/purge.js#L37)*
 
 ## bud.purge
 

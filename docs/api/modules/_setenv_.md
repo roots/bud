@@ -14,7 +14,7 @@
 
 ▸ **setEnv**(`options`: object): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-*Defined in [setEnv.js:16](https://github.com/roots/bud-support/blob/a7a0906/src/budpack/builder/api/setEnv.js#L16)*
+*Defined in [setEnv.js:16](https://github.com/roots/bud-support/blob/91a13d1/src/budpack/builder/api/setEnv.js#L16)*
 
 ## bud.setEnv
 

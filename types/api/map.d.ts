@@ -1,8 +1,3 @@
-import { bud } from '../bud';
-interface mapInterface {
-    (enabled: boolean): bud;
-}
-declare type Map = mapInterface;
 /**
  * ## bud.map
  *
@@ -16,3 +11,8 @@ declare type Map = mapInterface;
  */
 declare const map: Map;
 export { map };
+import type { bud } from '../';
+export interface MapInterface {
+    enabled: boolean;
+}
+export declare type Map = (MapInterface: any) => bud;

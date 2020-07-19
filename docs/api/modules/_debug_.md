@@ -14,7 +14,7 @@
 
 ▸ **debug**(`enabled`: boolean): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-*Defined in [debug.js:7](https://github.com/roots/bud-support/blob/a7a0906/src/budpack/builder/api/debug.js#L7)*
+*Defined in [debug.js:7](https://github.com/roots/bud-support/blob/91a13d1/src/budpack/builder/api/debug.js#L7)*
 
 Debug mode
 

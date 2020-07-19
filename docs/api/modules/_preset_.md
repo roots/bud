@@ -14,7 +14,7 @@
 
 ▸ **preset**(`relativePath`: string): *string*
 
-*Defined in [preset.js:25](https://github.com/roots/bud-support/blob/a7a0906/src/budpack/builder/api/preset.js#L25)*
+*Defined in [preset.js:25](https://github.com/roots/bud-support/blob/91a13d1/src/budpack/builder/api/preset.js#L25)*
 
 ## bud.preset
 

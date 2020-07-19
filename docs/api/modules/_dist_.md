@@ -14,7 +14,7 @@
 
 ▸ **dist**(`relativePath`: string): *string*
 
-*Defined in [dist.js:9](https://github.com/roots/bud-support/blob/a7a0906/src/budpack/builder/api/dist.js#L9)*
+*Defined in [dist.js:9](https://github.com/roots/bud-support/blob/91a13d1/src/budpack/builder/api/dist.js#L9)*
 
 Yield an absolute path from a path relative to the dist dir.
 

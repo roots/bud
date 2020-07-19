@@ -14,13 +14,15 @@
  *    require('astroturf'),
  *   ],
  * })
- *
- * @param   {{enabled: boolean, plugins: array}} options
- * @param   {boolean}  options.enabled
- * @param   {array}    options.plugins
- * @return  {typeof import('./../index')} bud
+ * ```
  */
-export function postCss({ enabled, ...options }: {
-    enabled: boolean;
-    plugins: any[];
-}): typeof import('./../index');
+declare const postCss: PostCss;
+export { postCss };
+import type { bud } from '../';
+export interface PostCssInterface {
+    options?: {
+        enabled?: boolean;
+        plugins?: any[];
+    };
+}
+export declare type PostCss = (PostCssInterface: any) => bud;

@@ -14,7 +14,7 @@
 
 ▸ **hot**(`enabled`: boolean): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-*Defined in [hot.js:13](https://github.com/roots/bud-support/blob/a7a0906/src/budpack/builder/api/hot.js#L13)*
+*Defined in [hot.js:13](https://github.com/roots/bud-support/blob/91a13d1/src/budpack/builder/api/hot.js#L13)*
 
 ## bud.hot
 

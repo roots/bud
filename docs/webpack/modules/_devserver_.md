@@ -14,7 +14,7 @@
 
 ▸ **devServer**(`bud`: any): *object*
 
-*Defined in [devServer.js:4](https://github.com/roots/bud-support/blob/a7a0906/src/budpack/builder/webpack/devServer.js#L4)*
+*Defined in [devServer.js:4](https://github.com/roots/bud-support/blob/91a13d1/src/budpack/builder/webpack/devServer.js#L4)*
 
 Dev server
 

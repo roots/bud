@@ -14,7 +14,7 @@
 
 ▸ **dashboard**(`enabled`: boolean): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-*Defined in [dashboard.js:15](https://github.com/roots/bud-support/blob/a7a0906/src/budpack/builder/api/dashboard.js#L15)*
+*Defined in [dashboard.js:15](https://github.com/roots/bud-support/blob/91a13d1/src/budpack/builder/api/dashboard.js#L15)*
 
 ## bud.dashboard
 

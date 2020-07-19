@@ -14,7 +14,7 @@
 
 ▸ **target**(`target`: any): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-*Defined in [target.js:7](https://github.com/roots/bud-support/blob/a7a0906/src/budpack/builder/api/target.js#L7)*
+*Defined in [target.js:7](https://github.com/roots/bud-support/blob/91a13d1/src/budpack/builder/api/target.js#L7)*
 
 Set the build target.
 

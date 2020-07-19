@@ -1,11 +1,3 @@
-import {bud} from '../bud'
-
-interface mapInterface {
-  (enabled: boolean): bud;
-}
-
-type Map = mapInterface;
-
 /**
  * ## bud.map
  *
@@ -24,3 +16,11 @@ const map: Map = function (enabled: boolean): bud {
 }
 
 export {map}
+
+import type {bud} from '../'
+
+export interface MapInterface {
+  enabled: boolean,
+}
+
+export type Map = (MapInterface) => bud;

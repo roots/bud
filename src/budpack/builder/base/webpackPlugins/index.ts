@@ -1,5 +1,3 @@
-import {budWebpackPlugin} from './budWebpackPlugin'
-
 import {browserSync} from './browserSync'
 import {cleanWebpack} from './cleanWebpack'
 import {copy} from './copy'
@@ -13,13 +11,11 @@ import {manifest} from './manifest'
 import {provide} from './provide'
 import {writeFile} from './writeFile'
 
-type PluginTuple = [string, budWebpackPlugin];
-
 /**
  * ## bud.webpackPlugins
  * Webpack plugins written for usage with the bud framework.
  */
-const webpackPlugins: Array<PluginTuple> = [
+const webpackPlugins: Array<WebpackAdapterTuple> = [
   ['browser_sync_plugin', browserSync],
   ['clean_webpack_plugin', cleanWebpack],
   ['copy_plugin', copy],
@@ -35,3 +31,15 @@ const webpackPlugins: Array<PluginTuple> = [
 ]
 
 export {webpackPlugins}
+
+export type WebpackAdapterTuple = [string, WebpackPluginAdapter];
+
+export interface BudWebpackPlugin {
+  setOptions?: Function;
+  mergeOptions?: Function;
+  make: Function;
+  when?: Function;
+}
+
+export type WebpackPluginAdapter = () => BudWebpackPlugin;
+

@@ -1,3 +1,6 @@
-import { budWebpackPlugin } from './budWebpackPlugin';
-declare const browserSync: budWebpackPlugin;
+/**
+ * BrowserSync plugin adapter.
+ */
+declare const browserSync: WebpackPluginAdapter;
 export { browserSync };
+import type { WebpackPluginAdapter } from './';

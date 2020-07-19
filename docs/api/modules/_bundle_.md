@@ -14,7 +14,7 @@
 
 ▸ **bundle**(`name`: string, `entries`: any[]): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-*Defined in [bundle.js:17](https://github.com/roots/bud-support/blob/a7a0906/src/budpack/builder/api/bundle.js#L17)*
+*Defined in [bundle.js:17](https://github.com/roots/bud-support/blob/91a13d1/src/budpack/builder/api/bundle.js#L17)*
 
 ## bud.bundle
 

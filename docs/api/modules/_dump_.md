@@ -14,7 +14,7 @@
 
 ▸ **dump**(`enabled`: boolean): *"/Users/kellymears/code/projects/cli/bud/bud-support/src/budpack/builder/index"*
 
-*Defined in [dump.js:8](https://github.com/roots/bud-support/blob/a7a0906/src/budpack/builder/api/dump.js#L8)*
+*Defined in [dump.js:8](https://github.com/roots/bud-support/blob/91a13d1/src/budpack/builder/api/dump.js#L8)*
 
 Dump generated webpack config for debugging
 

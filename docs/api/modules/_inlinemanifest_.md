@@ -6,7 +6,7 @@
 
 ### Interfaces
 
-* [inlineManifestInterface](../interfaces/_inlinemanifest_.inlinemanifestinterface.md)
+* [InlineManifestOptions](../interfaces/_inlinemanifest_.inlinemanifestoptions.md)
 
 ### Type aliases
 
@@ -20,19 +20,29 @@
 
 ###  InlineManifest
 
-Ƭ **InlineManifest**: *[inlineManifestInterface](../interfaces/_inlinemanifest_.inlinemanifestinterface.md)*
+Ƭ **InlineManifest**: *function*
 
-*Defined in [inlineManifest.ts:7](https://github.com/roots/bud-support/blob/a7a0906/src/budpack/builder/api/inlineManifest.ts#L7)*
+*Defined in [inlineManifest.ts:31](https://github.com/roots/bud-support/blob/91a13d1/src/budpack/builder/api/inlineManifest.ts#L31)*
+
+#### Type declaration:
+
+▸ (`InlineManifestOptions`: any): *bud*
+
+**Parameters:**
+
+Name | Type |
+------ | ------ |
+`InlineManifestOptions` | any |
 
 ## Functions
 
 ### `Const` inlineManifest
 
-▸ **inlineManifest**(`name?`: string): *bud*
+▸ **inlineManifest**(`options`: object): *bud*
 
-*Defined in [inlineManifest.ts:16](https://github.com/roots/bud-support/blob/a7a0906/src/budpack/builder/api/inlineManifest.ts#L16)*
+*Defined in [inlineManifest.ts:8](https://github.com/roots/bud-support/blob/91a13d1/src/budpack/builder/api/inlineManifest.ts#L8)*
 
-Make a chunk to be inlined directly on the page for optimal code splitting.
+Inline commons scripts.
 
 ```js
 bud.inlineManifest({name: 'runtime'})
@@ -40,8 +50,10 @@ bud.inlineManifest({name: 'runtime'})
 
 **Parameters:**
 
+▪ **options**: *object*
+
 Name | Type |
 ------ | ------ |
-`name?` | string |
+`name` | string |
 
 **Returns:** *bud*

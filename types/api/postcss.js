@@ -21,13 +21,6 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
-};
 exports.__esModule = true;
 exports.postCss = void 0;
 /**
@@ -46,19 +39,13 @@ exports.postCss = void 0;
  *    require('astroturf'),
  *   ],
  * })
- *
- * @param   {{enabled: boolean, plugins: array}} options
- * @param   {boolean}  options.enabled
- * @param   {array}    options.plugins
- * @return  {typeof import('./../index')} bud
+ * ```
  */
 var postCss = function (_a) {
     var _b = _a.enabled, enabled = _b === void 0 ? true : _b, options = __rest(_a, ["enabled"]);
     this.features.postCss = enabled;
     if (this.features.postCss) {
-        this.options.postCss = __assign(__assign({}, (this.options.postCss ? this.options.postCss : {})), { plugins: __spreadArrays((this.options.postCss.plugins
-                ? this.options.postCss.plugins
-                : []), (options.plugins ? options.plugins : [])) });
+        this.options.postCss = __assign(__assign({}, this.options.postCss), options);
     }
     return this;
 };

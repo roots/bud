@@ -1,21 +1,21 @@
-[@roots/budpack](../README.md) › [Globals](../globals.md) › ["map"](../modules/_map_.md) › [mapInterface](_map_.mapinterface.md)
+[@roots/budpack](../README.md) › [Globals](../globals.md) › ["map"](../modules/_map_.md) › [MapInterface](_map_.mapinterface.md)
 
-# Interface: mapInterface
+# Interface: MapInterface
 
 ## Hierarchy
 
-* **mapInterface**
+* **MapInterface**
 
-## Callable
+## Index
 
-▸ (`enabled`: boolean): *bud*
+### Properties
 
-*Defined in [map.ts:3](https://github.com/roots/bud-support/blob/a7a0906/src/budpack/builder/api/map.ts#L3)*
+* [enabled](_map_.mapinterface.md#enabled)
 
-**Parameters:**
+## Properties
 
-Name | Type |
------- | ------ |
-`enabled` | boolean |
+###  enabled
 
-**Returns:** *bud*
+• **enabled**: *boolean*
+
+*Defined in [map.ts:23](https://github.com/roots/bud-support/blob/91a13d1/src/budpack/builder/api/map.ts#L23)*
