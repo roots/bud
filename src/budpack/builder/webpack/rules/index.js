@@ -13,6 +13,7 @@ import {svg} from './svg'
 
 /**
  * Webpack loaders
+ * @type {function} rules
  */
 const rules = bud => ({
   bud,

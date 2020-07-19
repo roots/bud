@@ -5,7 +5,6 @@ import {resolveUrl} from './../use/resolveUrl'
 
 /**
  * Css
- * @typedef {function} css
  * @return {object}
  */
 const css = builder => ({

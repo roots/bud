@@ -1,5 +1,8 @@
 import {loaders} from './../util/loaders'
 
+/**
+ * @type {function} resolveUrl
+ */
 const resolveUrl = builder => ({
   builder,
   loader: loaders.resolveUrl,

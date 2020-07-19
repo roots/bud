@@ -42,8 +42,8 @@ import { watch } from "./api/watch";
 export type bud = {
   configs: Configs;
   features: typeof features;
-  inProduction: any;
-  mode: any;
+  inProduction: boolean;
+  mode: string;
   options: typeof options;
   hooks: Hooks;
   paths: typeof paths;

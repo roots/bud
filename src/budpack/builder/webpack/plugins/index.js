@@ -5,7 +5,7 @@ import {webpackPluginFactory} from './webpackPluginFactory'
  * Webpack plugins.
  *
  * @constructor
- * @typedef {function (bud) => {object}} plugins
+ * @type {function (bud) => {object}} plugins
  * @returns {object}
  */
 const plugins = bud => ({

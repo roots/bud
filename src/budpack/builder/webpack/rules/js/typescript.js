@@ -2,7 +2,7 @@ import {loaders} from './../util/loaders'
 
 /**
  * Typescript
- * @typedef {function}
+ * @type {function}
  */
 const typescript = builder => ({
   builder,

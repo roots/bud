@@ -17,6 +17,11 @@
 
 This repository provides supporting client and server-side utilities to the main Bud CLI and the output it generates. [You may be looking for the main repository](https://github.com/roots/bud).
 
+## Documentation
+
+- [bud public API](https://github.com/roots/bud-support/tree/master/docs/api)
+- [bud webpack API](https://github.com/roots/bud-support/tree/master/docs/api)
+
 ## Contributing
 
 Contributions are welcome from everyone.

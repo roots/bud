@@ -18,7 +18,8 @@
   "scripts": {
     "ts": "tsc",
     "build": "tsc && babel src --out-dir=build --extensions '.ts,.js'",
-    "docs:api": "typedoc src/budpack/builder/api/ --out docs/ --mode file --includeDeclarations --excludeExternals",
+    "docs:api": "typedoc src/budpack/builder/api/ --out docs/api --mode modules --includeDeclarations --excludeExternals",
+    "docs:webpack": "typedoc src/budpack/builder/webpack/ --out docs/webpack --mode modules --includeDeclarations --excludeExternals",
     "docs:readme": "bud generate readme",
     "lint": "npm-run-all -c lint:*",
     "lint:eslint": "eslint .",

@@ -2,6 +2,7 @@ import UglifyJsPlugin from 'uglifyjs-webpack-plugin'
 
 /**
  * Webpack optimization
+ * @type {function} optimization
  */
 const optimization = bud => ({
   bud,

@@ -3,7 +3,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 /**
  * Style loaders
  *
- * @typedef {object} loaders
+ * @type {object} loaders
  */
 const loaders = {
   babel: require.resolve('babel-loader'),

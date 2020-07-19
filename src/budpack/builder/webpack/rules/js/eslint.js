@@ -3,6 +3,7 @@ import {patterns} from '../util/patterns'
 
 /**
  * Eslint
+ * @type {function} eslint
  */
 const eslint = builder => ({
   builder,
@@ -21,6 +22,7 @@ const eslint = builder => ({
 
   /**
    * Make: eslint rules
+   * @property {function} make
    */
   make: function () {
     this.pre()

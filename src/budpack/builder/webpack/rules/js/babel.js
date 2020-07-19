@@ -3,7 +3,7 @@ import {loaders} from './../util/loaders'
 /**
  * Babel
  *
- * @typedef {function} babel
+ * @type {function} babel
  * @return {object}
  */
 const babel = builder => ({

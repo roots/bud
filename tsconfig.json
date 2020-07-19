@@ -1,5 +1,5 @@
 {
-  "include": ["src/budpack/builder/api/"],
+  "include": ["src/budpack/builder/"],
   "compilerOptions": {
     "allowJs": true,
     "declaration": true,
