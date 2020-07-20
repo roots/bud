@@ -22,7 +22,7 @@ const inlineManifest: InlineManifest = function (options: {name: string}): bud {
 
 export {inlineManifest}
 
-import type {bud} from '../index.d'
+import type {bud} from '../'
 
 export interface InlineManifestOptions {
   name?: string,

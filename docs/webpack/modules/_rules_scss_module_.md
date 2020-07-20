@@ -14,7 +14,7 @@
 
 ▸ **module**(`builder`: any): *any*
 
-*Defined in [rules/scss/module.js:12](https://github.com/roots/bud-support/blob/91a13d1/src/budpack/builder/webpack/rules/scss/module.js#L12)*
+*Defined in [rules/scss/module.js:12](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/webpack/rules/scss/module.js#L12)*
 
 SCSS modules
 

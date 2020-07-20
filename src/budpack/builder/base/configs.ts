@@ -33,13 +33,6 @@ const maybeConfig = (file, fallback = null) =>
  * @property {(string|boolean)} eslint  - project .eslintrc.js
  * @property {(string|boolean)} postcss - project postcss.config.js
  */
-export type Configs = {
-  babel: (string | null),
-  eslint: (string | null),
-  postCss: (string | null),
-  typescript: (string | null),
-}
-
 const configs: Configs = {
   babel: maybeConfig('babel.config.js'),
   eslint: maybeConfig('.eslintrc.js'),
@@ -53,3 +46,11 @@ export {
   maybeConfig,
   configs
 }
+
+export type Configs = {
+  babel: (string | null),
+  eslint: (string | null),
+  postCss: (string | null),
+  typescript: (string | null),
+}
+

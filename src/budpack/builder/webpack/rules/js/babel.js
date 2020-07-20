@@ -1,4 +1,4 @@
-import {loaders} from './../util/loaders'
+import {loaders} from '../util/loaders'
 
 /**
  * Babel

@@ -14,7 +14,7 @@
 
 ▸ **externals**(`bud`: any): *object*
 
-*Defined in [externals.js:6](https://github.com/roots/bud-support/blob/91a13d1/src/budpack/builder/webpack/externals.js#L6)*
+*Defined in [externals.js:6](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/webpack/externals.js#L6)*
 
 Externals
 

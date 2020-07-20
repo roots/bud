@@ -18,9 +18,10 @@
   "scripts": {
     "ts": "tsc",
     "build": "tsc && babel src --out-dir=build --extensions '.ts,.js'",
-    "docs:api": "typedoc src/budpack/builder/api/ --out docs/api --mode modules --includeDeclarations --excludeExternals",
+    "docs": "npm-run-all -c docs:*",
+    "docs:builder": "typedoc src/budpack/builder/ --out docs/builder --mode modules --includeDeclarations --excludeExternals",
+    "docs:api": "typedoc src/budpack/builder/api/ --out docs/api --mode file --includeDeclarations --excludeExternals",
     "docs:webpack": "typedoc src/budpack/builder/webpack/ --out docs/webpack --mode modules --includeDeclarations --excludeExternals",
-    "docs:readme": "bud generate readme",
     "lint": "npm-run-all -c lint:*",
     "lint:eslint": "eslint .",
     "lint:prettier": "prettier --write ."
@@ -46,6 +47,7 @@
     "@babel/traverse": "^7.10.5",
     "@fullhuman/postcss-purgecss": "^2.3.0",
     "@svgr/webpack": "^5.4.0",
+    "@types/browser-sync-webpack-plugin": "^2.2.0",
     "@types/jest": "^26.0.4",
     "@types/node": "^14.0.23",
     "@types/react": "^16.9.43",

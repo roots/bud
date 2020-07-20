@@ -14,7 +14,7 @@
 
 ▸ **entry**(`bud`: any): *any*
 
-*Defined in [entry.js:7](https://github.com/roots/bud-support/blob/91a13d1/src/budpack/builder/webpack/entry.js#L7)*
+*Defined in [entry.js:7](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/webpack/entry.js#L7)*
 
 Entrypoints
 

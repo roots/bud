@@ -1,5 +1,3 @@
-import type {bud} from './index.d'
-
 /** Constructor props */
 import {mode, inProduction} from './base/mode'
 import {configs} from './base/configs'
@@ -95,11 +93,71 @@ Bud.prototype.watch = watch
 
 /**
  * Bud - Asset management framework
- *
- * @type {bud} instance
  */
 const instance: bud = new Bud()
+
 module.exports = instance
 
-export type {bud}
+/**
+ * Typings
+ */
+import type {
+  WebpackAdapterTuple,
+  WebpackPluginAdapter,
+} from './base/webpackPlugins'
+
+import type {Configs} from './base/configs'
+import type {Hooks} from './base/hooks'
+
+export type {
+  Hooks,
+  WebpackAdapterTuple,
+  WebpackPluginAdapter,
+}
+
+export type bud = {
+  configs: Configs;
+  features: typeof features;
+  inProduction: boolean;
+  mode: string;
+  options: typeof options;
+  hooks: Hooks;
+  paths: typeof paths;
+  alias: typeof alias;
+  auto: typeof auto;
+  babel: typeof babel;
+  bundle: typeof bundle;
+  copy: typeof copy;
+  copyAll: typeof copyAll;
+  dashboard: typeof dashboard;
+  debug: typeof debug;
+  dependencyManifest: typeof dependencyManifest;
+  dev: typeof dev;
+  devtool: typeof devtool;
+  dist: typeof dist;
+  distPath: typeof distPath;
+  dump: typeof dump;
+  env: typeof env;
+  hash: typeof hash;
+  hot: typeof hot;
+  inlineManifest: typeof inlineManifest;
+  map: typeof map;
+  mini: typeof mini;
+  plugins: any;
+  postCss: typeof postCss;
+  preset: typeof preset;
+  project: typeof project;
+  projectPath: typeof projectPath;
+  publicPath: typeof publicPath;
+  purge: typeof purge;
+  register: typeof register;
+  setEnv: typeof setEnv;
+  src: typeof src;
+  srcPath: typeof srcPath;
+  sync: typeof sync;
+  target: typeof target;
+  translate: typeof translate;
+  vendor: typeof vendor;
+  watch: typeof watch;
+}
 

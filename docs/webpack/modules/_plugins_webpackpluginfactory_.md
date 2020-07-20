@@ -18,7 +18,7 @@
 
 ▸ **webpackPluginFactory**(`__namedParameters`: [any, any], `bud`: any): *object*
 
-*Defined in [plugins/webpackPluginFactory.js:15](https://github.com/roots/bud-support/blob/91a13d1/src/budpack/builder/webpack/plugins/webpackPluginFactory.js#L15)*
+*Defined in [plugins/webpackPluginFactory.js:15](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/webpack/plugins/webpackPluginFactory.js#L15)*
 
 Plugin controller
 
@@ -59,13 +59,13 @@ Name | Type |
 
 ### ▪ **fab**: *object*
 
-*Defined in [plugins/webpackPluginFactory.js:2](https://github.com/roots/bud-support/blob/91a13d1/src/budpack/builder/webpack/plugins/webpackPluginFactory.js#L2)*
+*Defined in [plugins/webpackPluginFactory.js:2](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/webpack/plugins/webpackPluginFactory.js#L2)*
 
 ###  false
 
 ▸ **false**(): *boolean*
 
-*Defined in [plugins/webpackPluginFactory.js:3](https://github.com/roots/bud-support/blob/91a13d1/src/budpack/builder/webpack/plugins/webpackPluginFactory.js#L3)*
+*Defined in [plugins/webpackPluginFactory.js:3](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/webpack/plugins/webpackPluginFactory.js#L3)*
 
 **Returns:** *boolean*
 
@@ -73,7 +73,7 @@ Name | Type |
 
 ▸ **null**(): *any*
 
-*Defined in [plugins/webpackPluginFactory.js:6](https://github.com/roots/bud-support/blob/91a13d1/src/budpack/builder/webpack/plugins/webpackPluginFactory.js#L6)*
+*Defined in [plugins/webpackPluginFactory.js:6](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/webpack/plugins/webpackPluginFactory.js#L6)*
 
 **Returns:** *any*
 
@@ -81,7 +81,7 @@ Name | Type |
 
 ▸ **true**(): *boolean*
 
-*Defined in [plugins/webpackPluginFactory.js:4](https://github.com/roots/bud-support/blob/91a13d1/src/budpack/builder/webpack/plugins/webpackPluginFactory.js#L4)*
+*Defined in [plugins/webpackPluginFactory.js:4](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/webpack/plugins/webpackPluginFactory.js#L4)*
 
 **Returns:** *boolean*
 
@@ -89,6 +89,6 @@ Name | Type |
 
 ▸ **undefined**(): *any*
 
-*Defined in [plugins/webpackPluginFactory.js:5](https://github.com/roots/bud-support/blob/91a13d1/src/budpack/builder/webpack/plugins/webpackPluginFactory.js#L5)*
+*Defined in [plugins/webpackPluginFactory.js:5](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/webpack/plugins/webpackPluginFactory.js#L5)*
 
 **Returns:** *any*

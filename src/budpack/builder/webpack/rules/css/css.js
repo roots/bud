@@ -1,7 +1,7 @@
 import {loaders} from '../util/loaders'
 import {patterns} from '../util/patterns'
 import {postCss} from '../use/postCss'
-import {resolveUrl} from './../use/resolveUrl'
+import {resolveUrl} from '../use/resolveUrl'
 
 /**
  * Css

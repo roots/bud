@@ -14,7 +14,7 @@
 
 ▸ **webpackResolve**(`bud`: any): *object*
 
-*Defined in [webpackResolve.js:6](https://github.com/roots/bud-support/blob/91a13d1/src/budpack/builder/webpack/webpackResolve.js#L6)*
+*Defined in [webpackResolve.js:6](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/webpack/webpackResolve.js#L6)*
 
 Webpack resolvers.
 

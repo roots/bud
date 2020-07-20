@@ -22,7 +22,7 @@ var index_2 = require("./plugins/index");
 /**
  * Make Webpack Config
  *
- * @param  {import('./../index')} bud
+ * @param  {import('../index')} bud
  * @return {object}
  */
 var webpackConfig = function (bud) { return ({

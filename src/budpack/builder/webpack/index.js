@@ -11,7 +11,7 @@ import {plugins} from './plugins/index'
 /**
  * Make Webpack Config
  *
- * @param  {import('./../index')} bud
+ * @param  {import('../index')} bud
  * @return {object}
  */
 const webpackConfig = bud => ({

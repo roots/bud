@@ -14,7 +14,7 @@
 
 ▸ **typescript**(`builder`: any): *object*
 
-*Defined in [rules/js/typescript.js:7](https://github.com/roots/bud-support/blob/91a13d1/src/budpack/builder/webpack/rules/js/typescript.js#L7)*
+*Defined in [rules/js/typescript.js:7](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/webpack/rules/js/typescript.js#L7)*
 
 Typescript
 
