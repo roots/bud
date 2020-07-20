@@ -14,7 +14,7 @@
 
 ▸ **purge**(`__namedParameters`: object): *["index"](_index_.md)*
 
-*Defined in [api/purge.js:37](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/api/purge.js#L37)*
+*Defined in [api/purge.js:37](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/api/purge.js#L37)*
 
 ## bud.purge
 

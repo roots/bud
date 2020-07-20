@@ -14,7 +14,7 @@
 
 ### ▪ **features**: *object*
 
-*Defined in [base/features.js:23](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/features.js#L23)*
+*Defined in [base/features.js:23](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/features.js#L23)*
 
 Features
 
@@ -52,118 +52,118 @@ Features
 
 • **babel**: *boolean* = true
 
-*Defined in [base/features.js:24](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/features.js#L24)*
+*Defined in [base/features.js:24](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/features.js#L24)*
 
 ###  browserSync
 
 • **browserSync**: *boolean* = !inProduction
 
-*Defined in [base/features.js:25](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/features.js#L25)*
+*Defined in [base/features.js:25](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/features.js#L25)*
 
 ###  dashboard
 
 • **dashboard**: *boolean* = true
 
-*Defined in [base/features.js:27](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/features.js#L27)*
+*Defined in [base/features.js:27](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/features.js#L27)*
 
 ###  debug
 
 • **debug**: *boolean* = false
 
-*Defined in [base/features.js:26](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/features.js#L26)*
+*Defined in [base/features.js:26](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/features.js#L26)*
 
 ###  dependencyManifest
 
 • **dependencyManifest**: *boolean* = false
 
-*Defined in [base/features.js:28](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/features.js#L28)*
+*Defined in [base/features.js:28](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/features.js#L28)*
 
 ###  dump
 
 • **dump**: *boolean* = false
 
-*Defined in [base/features.js:29](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/features.js#L29)*
+*Defined in [base/features.js:29](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/features.js#L29)*
 
 ###  eslint
 
 • **eslint**: *boolean* = true
 
-*Defined in [base/features.js:30](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/features.js#L30)*
+*Defined in [base/features.js:30](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/features.js#L30)*
 
 ###  hash
 
 • **hash**: *boolean* = inProduction
 
-*Defined in [base/features.js:31](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/features.js#L31)*
+*Defined in [base/features.js:31](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/features.js#L31)*
 
 ###  hot
 
 • **hot**: *boolean* = !inProduction
 
-*Defined in [base/features.js:32](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/features.js#L32)*
+*Defined in [base/features.js:32](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/features.js#L32)*
 
 ###  inlineManifest
 
 • **inlineManifest**: *boolean* = false
 
-*Defined in [base/features.js:33](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/features.js#L33)*
+*Defined in [base/features.js:33](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/features.js#L33)*
 
 ###  minified
 
 • **minified**: *boolean* = inProduction
 
-*Defined in [base/features.js:34](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/features.js#L34)*
+*Defined in [base/features.js:34](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/features.js#L34)*
 
 ###  overlay
 
 • **overlay**: *boolean* = true
 
-*Defined in [base/features.js:35](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/features.js#L35)*
+*Defined in [base/features.js:35](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/features.js#L35)*
 
 ###  postCss
 
 • **postCss**: *boolean* = true
 
-*Defined in [base/features.js:36](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/features.js#L36)*
+*Defined in [base/features.js:36](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/features.js#L36)*
 
 ###  purge
 
 • **purge**: *boolean* = false
 
-*Defined in [base/features.js:37](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/features.js#L37)*
+*Defined in [base/features.js:37](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/features.js#L37)*
 
 ###  sourceMap
 
 • **sourceMap**: *boolean* = !inProduction
 
-*Defined in [base/features.js:38](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/features.js#L38)*
+*Defined in [base/features.js:38](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/features.js#L38)*
 
 ###  splitting
 
 • **splitting**: *boolean* = true
 
-*Defined in [base/features.js:39](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/features.js#L39)*
+*Defined in [base/features.js:39](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/features.js#L39)*
 
 ###  translate
 
 • **translate**: *boolean* = false
 
-*Defined in [base/features.js:40](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/features.js#L40)*
+*Defined in [base/features.js:40](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/features.js#L40)*
 
 ###  typescript
 
 • **typescript**: *boolean* = true
 
-*Defined in [base/features.js:41](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/features.js#L41)*
+*Defined in [base/features.js:41](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/features.js#L41)*
 
 ###  vendor
 
 • **vendor**: *boolean* = false
 
-*Defined in [base/features.js:42](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/features.js#L42)*
+*Defined in [base/features.js:42](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/features.js#L42)*
 
 ###  watch
 
 • **watch**: *boolean* = !inProduction
 
-*Defined in [base/features.js:43](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/features.js#L43)*
+*Defined in [base/features.js:43](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/features.js#L43)*

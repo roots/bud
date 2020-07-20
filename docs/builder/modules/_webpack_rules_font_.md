@@ -14,7 +14,7 @@
 
 ▸ **font**(`builder`: any): *any*
 
-*Defined in [webpack/rules/font.js:10](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/webpack/rules/font.js#L10)*
+*Defined in [webpack/rules/font.js:10](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/webpack/rules/font.js#L10)*
 
 Font module rules
 

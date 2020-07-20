@@ -14,7 +14,7 @@
 
 ▸ **svg**(`builder`: any): *any*
 
-*Defined in [webpack/rules/svg.js:10](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/webpack/rules/svg.js#L10)*
+*Defined in [webpack/rules/svg.js:10](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/webpack/rules/svg.js#L10)*
 
 SVG module rules
 

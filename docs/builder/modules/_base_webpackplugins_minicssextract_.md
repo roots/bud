@@ -14,7 +14,7 @@
 
 ▸ **miniCssExtract**(`bud`: any): *object*
 
-*Defined in [base/webpackPlugins/miniCssExtract.js:3](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/webpackPlugins/miniCssExtract.js#L3)*
+*Defined in [base/webpackPlugins/miniCssExtract.js:3](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/webpackPlugins/miniCssExtract.js#L3)*
 
 **Parameters:**
 

@@ -19,8 +19,4 @@ export {map}
 
 import type {bud} from '../'
 
-export interface MapInterface {
-  enabled: boolean,
-}
-
-export type Map = (MapInterface) => bud;
+export type Map = (enabled: boolean) => bud;

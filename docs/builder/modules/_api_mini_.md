@@ -14,7 +14,7 @@
 
 ▸ **mini**(`enable`: boolean): *["index"](_index_.md)*
 
-*Defined in [api/mini.js:7](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/api/mini.js#L7)*
+*Defined in [api/mini.js:7](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/api/mini.js#L7)*
 
 Enable or disable minification
 

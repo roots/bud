@@ -14,7 +14,7 @@
 
 ▸ **eslint**(`builder`: any): *object*
 
-*Defined in [webpack/rules/js/eslint.js:8](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/webpack/rules/js/eslint.js#L8)*
+*Defined in [webpack/rules/js/eslint.js:8](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/webpack/rules/js/eslint.js#L8)*
 
 Eslint
 

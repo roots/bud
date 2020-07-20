@@ -14,7 +14,7 @@
 
 ▸ **resolveUrl**(`builder`: any): *object*
 
-*Defined in [webpack/rules/use/resolveUrl.js:6](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/webpack/rules/use/resolveUrl.js#L6)*
+*Defined in [webpack/rules/use/resolveUrl.js:6](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/webpack/rules/use/resolveUrl.js#L6)*
 
 **Parameters:**
 

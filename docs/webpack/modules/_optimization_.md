@@ -14,7 +14,7 @@
 
 ▸ **optimization**(`bud`: any): *object*
 
-*Defined in [optimization.js:7](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/webpack/optimization.js#L7)*
+*Defined in [optimization.js:7](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/webpack/optimization.js#L7)*
 
 Webpack optimization
 

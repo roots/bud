@@ -15,7 +15,7 @@
 
 • **inProduction**: *boolean* = mode == 'production'
 
-*Defined in [base/mode.js:24](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/mode.js#L24)*
+*Defined in [base/mode.js:24](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/mode.js#L24)*
 
 inProduction
 
@@ -29,7 +29,7 @@ ___
   ? env.APP_ENV
   : 'production'
 
-*Defined in [base/mode.js:15](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/mode.js#L15)*
+*Defined in [base/mode.js:15](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/mode.js#L15)*
 
 bud.mode
 

@@ -14,7 +14,7 @@
 
 ▸ **sync**(`options`: object): *["index"](_index_.md)*
 
-*Defined in [api/sync.js:17](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/api/sync.js#L17)*
+*Defined in [api/sync.js:17](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/api/sync.js#L17)*
 
 Configure BrowserSync.
 

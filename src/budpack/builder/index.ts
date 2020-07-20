@@ -94,20 +94,18 @@ Bud.prototype.watch = watch
 /**
  * Bud - Asset management framework
  */
-const instance: bud = new Bud()
-
-module.exports = instance
+module.exports = new Bud
 
 /**
  * Typings
  */
-import type {
-  WebpackAdapterTuple,
-  WebpackPluginAdapter,
-} from './base/webpackPlugins'
-
 import type {Configs} from './base/configs'
 import type {Hooks} from './base/hooks'
+import type {WebpackAdapterTuple, WebpackPluginAdapter} from './base/webpackPlugins'
+
+import type {InlineManifest} from './api/inlineManifest'
+import type {Map} from './api/map'
+import type {Register} from './api/register'
 
 export type {
   Hooks,
@@ -140,8 +138,8 @@ export type bud = {
   env: typeof env;
   hash: typeof hash;
   hot: typeof hot;
-  inlineManifest: typeof inlineManifest;
-  map: typeof map;
+  inlineManifest: InlineManifest;
+  map: Map;
   mini: typeof mini;
   plugins: any;
   postCss: typeof postCss;
@@ -150,7 +148,7 @@ export type bud = {
   projectPath: typeof projectPath;
   publicPath: typeof publicPath;
   purge: typeof purge;
-  register: typeof register;
+  register: Register;
   setEnv: typeof setEnv;
   src: typeof src;
   srcPath: typeof srcPath;
@@ -161,3 +159,4 @@ export type bud = {
   watch: typeof watch;
 }
 
+export type BudConstructor = (bud: bud) => any

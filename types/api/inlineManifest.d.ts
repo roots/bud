@@ -6,9 +6,8 @@
  * ```
  */
 declare const inlineManifest: InlineManifest;
-export { inlineManifest };
 import type { bud } from '../';
-export interface InlineManifestOptions {
+export declare type InlineManifest = (options: {
     name?: string;
-}
-export declare type InlineManifest = (InlineManifestOptions: any) => bud;
+}) => bud;
+export { inlineManifest };

@@ -23,7 +23,7 @@
 
 Ƭ **WebpackAdapterTuple**: *[string, [WebpackPluginAdapter](_base_webpackplugins_index_.md#webpackpluginadapter)]*
 
-*Defined in [base/webpackPlugins/index.ts:35](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/webpackPlugins/index.ts#L35)*
+*Defined in [base/webpackPlugins/index.ts:35](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/webpackPlugins/index.ts#L35)*
 
 ___
 
@@ -31,7 +31,7 @@ ___
 
 Ƭ **WebpackPluginAdapter**: *function*
 
-*Defined in [base/webpackPlugins/index.ts:44](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/webpackPlugins/index.ts#L44)*
+*Defined in [base/webpackPlugins/index.ts:44](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/webpackPlugins/index.ts#L44)*
 
 #### Type declaration:
 
@@ -56,7 +56,7 @@ ___
   ['limit_chunk_count', limitChunkCount],
 ]
 
-*Defined in [base/webpackPlugins/index.ts:18](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/webpackPlugins/index.ts#L18)*
+*Defined in [base/webpackPlugins/index.ts:18](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/webpackPlugins/index.ts#L18)*
 
 ## bud.webpackPlugins
 Webpack plugins written for usage with the bud framework.

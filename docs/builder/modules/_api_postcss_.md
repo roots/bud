@@ -4,10 +4,6 @@
 
 ## Index
 
-### Interfaces
-
-* [PostCssInterface](../interfaces/_api_postcss_.postcssinterface.md)
-
 ### Type aliases
 
 * [PostCss](_api_postcss_.md#postcss)
@@ -22,17 +18,20 @@
 
 Ƭ **PostCss**: *function*
 
-*Defined in [api/postcss.ts:43](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/api/postcss.ts#L43)*
+*Defined in [api/postcss.ts:36](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/api/postcss.ts#L36)*
 
 #### Type declaration:
 
-▸ (`PostCssInterface`: any): *bud*
+▸ (`options?`: object): *bud*
 
 **Parameters:**
 
+▪`Optional`  **options**: *object*
+
 Name | Type |
 ------ | ------ |
-`PostCssInterface` | any |
+`enabled?` | boolean |
+`plugins?` | any[] |
 
 ## Functions
 
@@ -40,7 +39,7 @@ Name | Type |
 
 ▸ **postCss**(`__namedParameters`: object): *any*
 
-*Defined in [api/postcss.ts:19](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/api/postcss.ts#L19)*
+*Defined in [api/postcss.ts:19](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/api/postcss.ts#L19)*
 
 ## bud.postCss
 
@@ -65,7 +64,7 @@ bud.postCss({
 
 Name | Type | Default |
 ------ | ------ | ------ |
-`enabled` | any | true |
-`options` | any | - |
+`enabled` | boolean | true |
+`options` | [options](_base_options_.md#const-options) | - |
 
 **Returns:** *any*

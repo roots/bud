@@ -20,7 +20,7 @@
 
 Ƭ **ImageRulesFactory**: *function*
 
-*Defined in [rules/image.ts:21](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/webpack/rules/image.ts#L21)*
+*Defined in [rules/image.ts:21](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/webpack/rules/image.ts#L21)*
 
 #### Type declaration:
 
@@ -38,7 +38,7 @@ ___
 
 Ƭ **imageLoaderInterface**: *object*
 
-*Defined in [rules/image.ts:14](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/webpack/rules/image.ts#L14)*
+*Defined in [rules/image.ts:14](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/webpack/rules/image.ts#L14)*
 
 #### Type declaration:
 
@@ -60,7 +60,7 @@ ___
 
 Ƭ **imageLoaderOptions**: *object*
 
-*Defined in [rules/image.ts:4](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/webpack/rules/image.ts#L4)*
+*Defined in [rules/image.ts:4](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/webpack/rules/image.ts#L4)*
 
 #### Type declaration:
 
@@ -74,7 +74,7 @@ ___
 
 ▸ **image**(`builder`: object): *[imageLoaderInterface](_rules_image_.md#imageloaderinterface)*
 
-*Defined in [rules/image.ts:30](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/webpack/rules/image.ts#L30)*
+*Defined in [rules/image.ts:30](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/webpack/rules/image.ts#L30)*
 
 Image module rules
 

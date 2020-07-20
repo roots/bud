@@ -7,7 +7,11 @@
  * bud.register('myPlugin', myPlugin)
  * ```
  *
- * @param   {boolean} enabled - true to enable hot module reloading. default: !bud.inProduction.
- * @return  {typeof import('./../index')} bud
+ * @type  {Register}
+ * @param {string} name - The plugin name
+ * @param {any} plugin  - The plugin object
  */
-export function register(name: any, plugin: any): typeof import('./../index');
+declare const register: Register;
+export { register };
+import type { bud } from '../';
+export declare type Register = (name: string, plugin: any) => bud;

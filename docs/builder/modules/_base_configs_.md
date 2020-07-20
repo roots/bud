@@ -24,7 +24,7 @@
 
 Ƭ **Configs**: *object*
 
-*Defined in [base/configs.ts:50](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/configs.ts#L50)*
+*Defined in [base/configs.ts:52](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/configs.ts#L52)*
 
 #### Type declaration:
 
@@ -42,7 +42,7 @@
 
 ▸ **config**(`file`: any): *string*
 
-*Defined in [base/configs.ts:10](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/configs.ts#L10)*
+*Defined in [base/configs.ts:11](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/configs.ts#L11)*
 
 Config
 
@@ -62,7 +62,7 @@ ___
 
 ▸ **hasConfig**(`file`: any): *any*
 
-*Defined in [base/configs.ts:18](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/configs.ts#L18)*
+*Defined in [base/configs.ts:19](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/configs.ts#L19)*
 
 Has config
 
@@ -82,7 +82,7 @@ ___
 
 ▸ **maybeConfig**(`file`: any, `fallback`: any): *any*
 
-*Defined in [base/configs.ts:26](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/configs.ts#L26)*
+*Defined in [base/configs.ts:27](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/configs.ts#L27)*
 
 Maybe config
 
@@ -101,7 +101,7 @@ Name | Type | Default | Description |
 
 ### ▪ **configs**: *object*
 
-*Defined in [base/configs.ts:36](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/configs.ts#L36)*
+*Defined in [base/configs.ts:38](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/configs.ts#L38)*
 
 Project configuration files.
 
@@ -111,26 +111,28 @@ Project configuration files.
 
 **`property`** {(string|boolean)} postcss - project postcss.config.js
 
+**`property`** {(string|boolean)} typescript - project tsconfig.json
+
 ###  babel
 
 • **babel**: *any* = maybeConfig('babel.config.js')
 
-*Defined in [base/configs.ts:37](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/configs.ts#L37)*
+*Defined in [base/configs.ts:39](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/configs.ts#L39)*
 
 ###  eslint
 
 • **eslint**: *any* = maybeConfig('.eslintrc.js')
 
-*Defined in [base/configs.ts:38](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/configs.ts#L38)*
+*Defined in [base/configs.ts:40](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/configs.ts#L40)*
 
 ###  postCss
 
 • **postCss**: *any* = maybeConfig('postcss.config.js')
 
-*Defined in [base/configs.ts:39](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/configs.ts#L39)*
+*Defined in [base/configs.ts:41](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/configs.ts#L41)*
 
 ###  typescript
 
 • **typescript**: *any* = maybeConfig('tsconfig.json')
 
-*Defined in [base/configs.ts:40](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/configs.ts#L40)*
+*Defined in [base/configs.ts:42](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/configs.ts#L42)*

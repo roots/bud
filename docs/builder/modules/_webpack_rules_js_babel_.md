@@ -14,7 +14,7 @@
 
 ▸ **babel**(`builder`: any): *any*
 
-*Defined in [webpack/rules/js/babel.js:9](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/webpack/rules/js/babel.js#L9)*
+*Defined in [webpack/rules/js/babel.js:9](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/webpack/rules/js/babel.js#L9)*
 
 Babel
 

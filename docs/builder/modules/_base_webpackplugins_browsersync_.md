@@ -14,7 +14,7 @@
 
 ▸ **browserSync**(): *object*
 
-*Defined in [base/webpackPlugins/browserSync.ts:6](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/webpackPlugins/browserSync.ts#L6)*
+*Defined in [base/webpackPlugins/browserSync.ts:6](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/webpackPlugins/browserSync.ts#L6)*
 
 BrowserSync plugin adapter.
 

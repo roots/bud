@@ -6,11 +6,8 @@
 
 ### Type aliases
 
+* [BudConstructor](_index_.md#budconstructor)
 * [bud](_index_.md#bud)
-
-### Variables
-
-* [instance](_index_.md#const-instance)
 
 ### Functions
 
@@ -18,11 +15,29 @@
 
 ## Type aliases
 
+###  BudConstructor
+
+Ƭ **BudConstructor**: *function*
+
+*Defined in [index.ts:162](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/index.ts#L162)*
+
+#### Type declaration:
+
+▸ (`bud`: bud): *any*
+
+**Parameters:**
+
+Name | Type |
+------ | ------ |
+`bud` | bud |
+
+___
+
 ###  bud
 
 Ƭ **bud**: *object*
 
-*Defined in [index.ts:118](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/index.ts#L118)*
+*Defined in [index.ts:116](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/index.ts#L116)*
 
 #### Type declaration:
 
@@ -68,9 +83,9 @@
 
 * **inProduction**: *boolean*
 
-* **inlineManifest**: *typeof inlineManifest*
+* **inlineManifest**: *[InlineManifest](_api_inlinemanifest_.md#inlinemanifest)*
 
-* **map**: *typeof map*
+* **map**: *[Map](_api_map_.md#map)*
 
 * **mini**: *typeof mini*
 
@@ -94,7 +109,7 @@
 
 * **purge**: *typeof purge*
 
-* **register**: *typeof register*
+* **register**: *[Register](_api_register_.md#register)*
 
 * **setEnv**: *typeof setEnv*
 
@@ -112,22 +127,12 @@
 
 * **watch**: *typeof watch*
 
-## Variables
-
-### `Const` instance
-
-• **instance**: *[bud](_index_.md#bud)* = new Bud()
-
-*Defined in [index.ts:97](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/index.ts#L97)*
-
-Bud - Asset management framework
-
 ## Functions
 
 ### `Const` Bud
 
 ▸ **Bud**(): *void*
 
-*Defined in [index.ts:47](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/index.ts#L47)*
+*Defined in [index.ts:47](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/index.ts#L47)*
 
 **Returns:** *void*

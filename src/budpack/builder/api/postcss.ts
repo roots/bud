@@ -33,11 +33,7 @@ export {postCss}
 
 import type {bud} from '../'
 
-export interface PostCssInterface {
-  options?: {
-    enabled?: boolean,
-    plugins?: any[],
-  }
-}
-
-export type PostCss = (PostCssInterface) => bud;
+export type PostCss = (options?: {
+  enabled?: boolean,
+  plugins?: any[],
+}) => bud;

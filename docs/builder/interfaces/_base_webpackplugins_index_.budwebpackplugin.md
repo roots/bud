@@ -21,7 +21,7 @@
 
 • **make**: *Function*
 
-*Defined in [base/webpackPlugins/index.ts:40](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/webpackPlugins/index.ts#L40)*
+*Defined in [base/webpackPlugins/index.ts:40](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/webpackPlugins/index.ts#L40)*
 
 ___
 
@@ -29,7 +29,7 @@ ___
 
 • **mergeOptions**? : *Function*
 
-*Defined in [base/webpackPlugins/index.ts:39](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/webpackPlugins/index.ts#L39)*
+*Defined in [base/webpackPlugins/index.ts:39](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/webpackPlugins/index.ts#L39)*
 
 ___
 
@@ -37,7 +37,7 @@ ___
 
 • **setOptions**? : *Function*
 
-*Defined in [base/webpackPlugins/index.ts:38](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/webpackPlugins/index.ts#L38)*
+*Defined in [base/webpackPlugins/index.ts:38](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/webpackPlugins/index.ts#L38)*
 
 ___
 
@@ -45,4 +45,4 @@ ___
 
 • **when**? : *Function*
 
-*Defined in [base/webpackPlugins/index.ts:41](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/webpackPlugins/index.ts#L41)*
+*Defined in [base/webpackPlugins/index.ts:41](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/webpackPlugins/index.ts#L41)*

@@ -19,7 +19,7 @@
 
 • **frameworkDir**: *string* = resolve(__dirname, './../../../..')
 
-*Defined in [base/paths.js:11](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/paths.js#L11)*
+*Defined in [base/paths.js:11](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/paths.js#L11)*
 
 Bud framework dir.
 
@@ -29,7 +29,7 @@ ___
 
 • **projectDir**: *string* = process.cwd()
 
-*Defined in [base/paths.js:6](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/paths.js#L6)*
+*Defined in [base/paths.js:6](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/paths.js#L6)*
 
 Current working dir.
 
@@ -39,7 +39,7 @@ Current working dir.
 
 ### ▪ **paths**: *object*
 
-*Defined in [base/paths.js:22](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/paths.js#L22)*
+*Defined in [base/paths.js:22](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/paths.js#L22)*
 
 Path references.
 
@@ -57,28 +57,28 @@ Path references.
 
 • **dist**: *string* = join(projectDir, '')
 
-*Defined in [base/paths.js:26](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/paths.js#L26)*
+*Defined in [base/paths.js:26](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/paths.js#L26)*
 
 ###  framework
 
 • **framework**: *string* = frameworkDir
 
-*Defined in [base/paths.js:24](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/paths.js#L24)*
+*Defined in [base/paths.js:24](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/paths.js#L24)*
 
 ###  project
 
 • **project**: *string* = projectDir
 
-*Defined in [base/paths.js:23](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/paths.js#L23)*
+*Defined in [base/paths.js:23](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/paths.js#L23)*
 
 ###  public
 
 • **public**: *string* = ""
 
-*Defined in [base/paths.js:27](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/paths.js#L27)*
+*Defined in [base/paths.js:27](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/paths.js#L27)*
 
 ###  src
 
 • **src**: *string* = join(projectDir, '')
 
-*Defined in [base/paths.js:25](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/paths.js#L25)*
+*Defined in [base/paths.js:25](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/paths.js#L25)*

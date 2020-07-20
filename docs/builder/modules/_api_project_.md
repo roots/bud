@@ -14,7 +14,7 @@
 
 ▸ **project**(`relativePath`: string): *string*
 
-*Defined in [api/project.js:17](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/api/project.js#L17)*
+*Defined in [api/project.js:17](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/api/project.js#L17)*
 
 ## bud.project
 

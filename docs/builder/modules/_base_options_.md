@@ -16,19 +16,19 @@
 
 ### ▪ **babelFallback**: *object*
 
-*Defined in [base/options.js:4](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/options.js#L4)*
+*Defined in [base/options.js:4](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/options.js#L4)*
 
 ###  plugins
 
 • **plugins**: *undefined[]* = []
 
-*Defined in [base/options.js:6](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/options.js#L6)*
+*Defined in [base/options.js:6](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/options.js#L6)*
 
 ###  presets
 
 • **presets**: *undefined[]* = []
 
-*Defined in [base/options.js:5](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/options.js#L5)*
+*Defined in [base/options.js:5](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/options.js#L5)*
 
 ___
 
@@ -36,7 +36,7 @@ ___
 
 ### ▪ **options**: *object*
 
-*Defined in [base/options.js:16](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/options.js#L16)*
+*Defined in [base/options.js:16](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/options.js#L16)*
 
 Options container.
 
@@ -44,7 +44,7 @@ Options container.
 
 • **auto**: *object*
 
-*Defined in [base/options.js:32](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/options.js#L32)*
+*Defined in [base/options.js:32](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/options.js#L32)*
 
 #### Type declaration:
 
@@ -54,19 +54,19 @@ Options container.
     ? require(configs.babel)
     : babelFallback
 
-*Defined in [base/options.js:17](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/options.js#L17)*
+*Defined in [base/options.js:17](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/options.js#L17)*
 
 ###  devtool
 
 • **devtool**: *string* = "cheap-module-source-map"
 
-*Defined in [base/options.js:63](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/options.js#L63)*
+*Defined in [base/options.js:63](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/options.js#L63)*
 
 ###  entry
 
 • **entry**: *object*
 
-*Defined in [base/options.js:64](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/options.js#L64)*
+*Defined in [base/options.js:64](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/options.js#L64)*
 
 #### Type declaration:
 
@@ -74,7 +74,7 @@ Options container.
 
 • **env**: *object* = env
 
-*Defined in [base/options.js:65](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/options.js#L65)*
+*Defined in [base/options.js:65](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/options.js#L65)*
 
 #### Type declaration:
 
@@ -84,13 +84,13 @@ Options container.
     ? require(configs.postCss)
     : postCssFallback
 
-*Defined in [base/options.js:20](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/options.js#L20)*
+*Defined in [base/options.js:20](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/options.js#L20)*
 
 ###  target
 
 • **target**: *string* = "web"
 
-*Defined in [base/options.js:79](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/options.js#L79)*
+*Defined in [base/options.js:79](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/options.js#L79)*
 
 ###  typescript
 
@@ -98,11 +98,11 @@ Options container.
     ? require(configs.typescript)
     : {}
 
-*Defined in [base/options.js:23](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/options.js#L23)*
+*Defined in [base/options.js:23](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/options.js#L23)*
 
 ▪ **browserSync**: *object*
 
-*Defined in [base/options.js:33](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/options.js#L33)*
+*Defined in [base/options.js:33](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/options.js#L33)*
 
 * **host**: *any* = env?.BROWSERSYNC_HOST
       ? env.BROWSERSYNC_HOST
@@ -118,13 +118,13 @@ Options container.
 
 ▪ **copy**: *object*
 
-*Defined in [base/options.js:44](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/options.js#L44)*
+*Defined in [base/options.js:44](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/options.js#L44)*
 
 * **patterns**: *undefined[]* = []
 
 ▪ **dependencyManifest**: *object*
 
-*Defined in [base/options.js:99](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/options.js#L99)*
+*Defined in [base/options.js:99](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/options.js#L99)*
 
 * **combineAssets**: *boolean* = false
 
@@ -134,7 +134,7 @@ Options container.
 
 ▪ **dev**: *object*
 
-*Defined in [base/options.js:47](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/options.js#L47)*
+*Defined in [base/options.js:47](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/options.js#L47)*
 
 * **clientLogLevel**: *string* = "none"
 
@@ -162,7 +162,7 @@ Options container.
 
 ▪ **externals**: *object*
 
-*Defined in [base/options.js:66](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/options.js#L66)*
+*Defined in [base/options.js:66](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/options.js#L66)*
 
 * **jquery**: *string* = "jQuery"
 
@@ -176,19 +176,19 @@ Options container.
 
 ▪ **inlineManifest**: *object*
 
-*Defined in [base/options.js:73](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/options.js#L73)*
+*Defined in [base/options.js:73](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/options.js#L73)*
 
 * **name**: *string* = "runtime"
 
 ▪ **splitting**: *object*
 
-*Defined in [base/options.js:76](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/options.js#L76)*
+*Defined in [base/options.js:76](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/options.js#L76)*
 
 * **maxChunks**: *null* = null
 
 ▪ **svg**: *object*
 
-*Defined in [base/options.js:26](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/options.js#L26)*
+*Defined in [base/options.js:26](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/options.js#L26)*
 
 * **use**: *string[]* = [
       require.resolve('@svgr/webpack'),
@@ -197,7 +197,7 @@ Options container.
 
 ▪ **uglify**: *object*
 
-*Defined in [base/options.js:80](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/options.js#L80)*
+*Defined in [base/options.js:80](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/options.js#L80)*
 
 * **cache**: *boolean* = true
 
@@ -221,7 +221,7 @@ Options container.
 
 ▪ **vendor**: *object*
 
-*Defined in [base/options.js:95](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/options.js#L95)*
+*Defined in [base/options.js:95](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/options.js#L95)*
 
 * **name**: *string* = "vendor"
 
@@ -233,10 +233,10 @@ ___
 
 ### ▪ **postCssFallback**: *object*
 
-*Defined in [base/options.js:9](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/options.js#L9)*
+*Defined in [base/options.js:9](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/options.js#L9)*
 
 ###  plugins
 
 • **plugins**: *undefined[]* = []
 
-*Defined in [base/options.js:10](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/options.js#L10)*
+*Defined in [base/options.js:10](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/options.js#L10)*

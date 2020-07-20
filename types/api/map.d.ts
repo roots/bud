@@ -12,7 +12,4 @@
 declare const map: Map;
 export { map };
 import type { bud } from '../';
-export interface MapInterface {
-    enabled: boolean;
-}
-export declare type Map = (MapInterface: any) => bud;
+export declare type Map = (enabled: boolean) => bud;

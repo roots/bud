@@ -14,7 +14,7 @@
 
 ▸ **env**(`key`: string): *string*
 
-*Defined in [api/env.js:7](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/api/env.js#L7)*
+*Defined in [api/env.js:7](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/api/env.js#L7)*
 
 Get environment variable value.
 

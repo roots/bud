@@ -18,7 +18,7 @@
 
 ▸ **envRaw**(): *DotenvConfigOutput*
 
-*Defined in [base/env.js:8](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/env.js#L8)*
+*Defined in [base/env.js:8](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/env.js#L8)*
 
 Environment variables container.
 
@@ -30,4 +30,4 @@ Environment variables container.
 
 ### ▪ **env**: *object*
 
-*Defined in [base/env.js:13](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/env.js#L13)*
+*Defined in [base/env.js:13](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/env.js#L13)*

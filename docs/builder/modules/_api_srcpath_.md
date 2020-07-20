@@ -14,7 +14,7 @@
 
 ▸ **srcPath**(`src`: any): *["index"](_index_.md)*
 
-*Defined in [api/srcPath.js:9](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/api/srcPath.js#L9)*
+*Defined in [api/srcPath.js:9](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/api/srcPath.js#L9)*
 
 Set the project's src directory.
 

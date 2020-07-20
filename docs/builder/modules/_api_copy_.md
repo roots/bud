@@ -14,7 +14,7 @@
 
 ▸ **copy**(`from`: any, `to`: any): *["index"](_index_.md)*
 
-*Defined in [api/copy.js:17](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/api/copy.js#L17)*
+*Defined in [api/copy.js:17](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/api/copy.js#L17)*
 
 ## bud.copy
 

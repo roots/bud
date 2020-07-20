@@ -4,10 +4,6 @@
 
 ## Index
 
-### Interfaces
-
-* [InlineManifestOptions](../interfaces/_api_inlinemanifest_.inlinemanifestoptions.md)
-
 ### Type aliases
 
 * [InlineManifest](_api_inlinemanifest_.md#inlinemanifest)
@@ -22,17 +18,19 @@
 
 Ƭ **InlineManifest**: *function*
 
-*Defined in [api/inlineManifest.ts:31](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/api/inlineManifest.ts#L31)*
+*Defined in [api/inlineManifest.ts:23](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/api/inlineManifest.ts#L23)*
 
 #### Type declaration:
 
-▸ (`InlineManifestOptions`: any): *bud*
+▸ (`options`: object): *bud*
 
 **Parameters:**
 
+▪ **options**: *object*
+
 Name | Type |
 ------ | ------ |
-`InlineManifestOptions` | any |
+`name?` | string |
 
 ## Functions
 
@@ -40,7 +38,7 @@ Name | Type |
 
 ▸ **inlineManifest**(`options`: object): *bud*
 
-*Defined in [api/inlineManifest.ts:8](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/api/inlineManifest.ts#L8)*
+*Defined in [api/inlineManifest.ts:8](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/api/inlineManifest.ts#L8)*
 
 Inline commons scripts.
 
@@ -54,6 +52,6 @@ bud.inlineManifest({name: 'runtime'})
 
 Name | Type |
 ------ | ------ |
-`name` | string |
+`name?` | string |
 
 **Returns:** *bud*

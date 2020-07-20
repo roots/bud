@@ -4,21 +4,25 @@
 
 ## Index
 
+### Type aliases
+
+* [Auto](_api_auto_.md#auto)
+
 ### Functions
 
 * [auto](_api_auto_.md#const-auto)
 
-## Functions
+## Type aliases
 
-### `Const` auto
+###  Auto
 
-▸ **auto**(`options`: object): *["index"](_index_.md)*
+Ƭ **Auto**: *function*
 
-*Defined in [api/auto.js:6](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/api/auto.js#L6)*
+Defined in api/auto.ts:27
 
-Automatically load modules instead of needing to import them.
+#### Type declaration:
 
-**`example`** bud.auto({jquery: ['$', 'window.jQuery']})
+▸ (`options`: object): *bud*
 
 **Parameters:**
 
@@ -26,6 +30,26 @@ Name | Type |
 ------ | ------ |
 `options` | object |
 
-**Returns:** *["index"](_index_.md)*
+## Functions
 
-bud
+### `Const` auto
+
+▸ **auto**(`options`: object): *bud*
+
+Defined in api/auto.ts:10
+
+## bud.auto
+
+Automatically load modules instead of needing to import them.
+
+```js
+bud.auto({jquery: ['$', 'window.jQuery']})
+```
+
+**Parameters:**
+
+Name | Type |
+------ | ------ |
+`options` | object |
+
+**Returns:** *bud*

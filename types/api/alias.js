@@ -17,8 +17,6 @@ exports.alias = void 0;
  * ```js
  * import 'scripts/myScript' // replacing '../../myScript'
  * ```
- * @param   {[key: string]: {directory: string}} options
- * @return  {typeof import('./../index')} bud
  **/
 var alias = function (options) {
     this.options.alias = options;

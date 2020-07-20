@@ -4,6 +4,7 @@ import {paths} from './paths'
 
 /**
  * Config
+ *
  * @param   {string} relativePath - relative path (from project root)
  * @return  {string} filePath
  */
@@ -32,6 +33,7 @@ const maybeConfig = (file, fallback = null) =>
  * @property {(string|boolean)} babel   - project babel.config.js
  * @property {(string|boolean)} eslint  - project .eslintrc.js
  * @property {(string|boolean)} postcss - project postcss.config.js
+ * @property {(string|boolean)} typescript - project tsconfig.json
  */
 const configs: Configs = {
   babel: maybeConfig('babel.config.js'),

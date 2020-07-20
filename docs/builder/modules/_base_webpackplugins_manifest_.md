@@ -14,7 +14,7 @@
 
 ▸ **manifest**(`bud`: any): *object*
 
-*Defined in [base/webpackPlugins/manifest.js:3](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/webpackPlugins/manifest.js#L3)*
+*Defined in [base/webpackPlugins/manifest.js:3](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/webpackPlugins/manifest.js#L3)*
 
 **Parameters:**
 

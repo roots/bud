@@ -14,7 +14,7 @@
 
 ▸ **debug**(`enabled`: boolean): *["index"](_index_.md)*
 
-*Defined in [api/debug.js:7](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/api/debug.js#L7)*
+*Defined in [api/debug.js:7](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/api/debug.js#L7)*
 
 Debug mode
 

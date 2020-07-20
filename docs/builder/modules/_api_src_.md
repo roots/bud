@@ -14,7 +14,7 @@
 
 ▸ **src**(`relativePath`: string): *string*
 
-*Defined in [api/src.js:16](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/api/src.js#L16)*
+*Defined in [api/src.js:16](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/api/src.js#L16)*
 
 ## bud.src
 

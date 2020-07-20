@@ -14,7 +14,7 @@
 
 ▸ **translate**(`output`: string): *["index"](_index_.md)*
 
-*Defined in [api/translate.js:11](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/api/translate.js#L11)*
+*Defined in [api/translate.js:11](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/api/translate.js#L11)*
 
 Process @wordpress/i18n strings from JS source assets.
 

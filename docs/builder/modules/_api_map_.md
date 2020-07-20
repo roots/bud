@@ -4,10 +4,6 @@
 
 ## Index
 
-### Interfaces
-
-* [MapInterface](../interfaces/_api_map_.mapinterface.md)
-
 ### Type aliases
 
 * [Map](_api_map_.md#map)
@@ -22,17 +18,17 @@
 
 Ƭ **Map**: *function*
 
-*Defined in [api/map.ts:26](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/api/map.ts#L26)*
+*Defined in [api/map.ts:22](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/api/map.ts#L22)*
 
 #### Type declaration:
 
-▸ (`MapInterface`: any): *bud*
+▸ (`enabled`: boolean): *bud*
 
 **Parameters:**
 
 Name | Type |
 ------ | ------ |
-`MapInterface` | any |
+`enabled` | boolean |
 
 ## Functions
 
@@ -40,7 +36,7 @@ Name | Type |
 
 ▸ **map**(`enabled`: boolean): *bud*
 
-*Defined in [api/map.ts:12](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/api/map.ts#L12)*
+*Defined in [api/map.ts:12](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/api/map.ts#L12)*
 
 ## bud.map
 

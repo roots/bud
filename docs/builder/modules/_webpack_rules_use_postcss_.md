@@ -14,7 +14,7 @@
 
 ▸ **postCss**(`builder`: any): *any*
 
-*Defined in [webpack/rules/use/postCss.js:8](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/webpack/rules/use/postCss.js#L8)*
+*Defined in [webpack/rules/use/postCss.js:8](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/webpack/rules/use/postCss.js#L8)*
 
 PostCSS
 

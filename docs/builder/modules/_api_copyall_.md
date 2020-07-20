@@ -14,7 +14,7 @@
 
 ▸ **copyAll**(`src`: string, `dest`: string): *["index"](_index_.md)*
 
-*Defined in [api/copyAll.js:10](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/api/copyAll.js#L10)*
+*Defined in [api/copyAll.js:10](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/api/copyAll.js#L10)*
 
 Copy all files from a specified source to a specified destination.
 

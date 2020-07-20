@@ -4,17 +4,39 @@
 
 ## Index
 
+### Type aliases
+
+* [Alias](_api_alias_.md#alias)
+
 ### Functions
 
 * [alias](_api_alias_.md#const-alias)
+
+## Type aliases
+
+###  Alias
+
+Ƭ **Alias**: *function*
+
+Defined in api/alias.ts:28
+
+#### Type declaration:
+
+▸ (`options`: object): *bud*
+
+**Parameters:**
+
+Name | Type |
+------ | ------ |
+`options` | object |
 
 ## Functions
 
 ### `Const` alias
 
-▸ **alias**(`options`: any): *["index"](_index_.md)*
+▸ **alias**(`options`: object): *bud*
 
-*Defined in [api/alias.js:20](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/api/alias.js#L20)*
+Defined in api/alias.ts:18
 
 ## bud.alias
 
@@ -36,8 +58,6 @@ import 'scripts/myScript' // replacing '../../myScript'
 
 Name | Type |
 ------ | ------ |
-`options` | any |
+`options` | object |
 
-**Returns:** *["index"](_index_.md)*
-
-bud
+**Returns:** *bud*

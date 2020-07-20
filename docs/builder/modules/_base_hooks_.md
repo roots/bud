@@ -18,7 +18,7 @@
 
 Ƭ **Hooks**: *object*
 
-*Defined in [base/hooks.ts:1](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/hooks.ts#L1)*
+*Defined in [base/hooks.ts:76](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/hooks.ts#L76)*
 
 #### Type declaration:
 
@@ -42,15 +42,43 @@
 
 ### ▪ **hooks**: *object*
 
-*Defined in [base/hooks.ts:12](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/hooks.ts#L12)*
+*Defined in [base/hooks.ts:25](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/hooks.ts#L25)*
 
-Hooks
+## bud.hooks
+
+Register callback.
+
+```js
+bud.hooks.on('hookName', function(value) {
+  doSomething(value)
+})}
+```
+
+Invoke registered callback(s)
+
+```js
+bud.hooks.call('hookName', value)
+```
+
+**`property`** {Hooks.registered} registered
+
+**`property`** {Hooks.make} make - make a hook
+
+**`property`** {Hooks.getAll} getAll - return all hooks
+
+**`property`** {Hooks.on} on - Register hook
+
+**`property`** {Hooks.call} call - Call a hook
 
 ###  registered
 
 • **registered**: *object*
 
-*Defined in [base/hooks.ts:13](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/hooks.ts#L13)*
+*Defined in [base/hooks.ts:30](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/hooks.ts#L30)*
+
+Registered hooks.
+
+**`property`** {Hooks.registered} registered
 
 #### Type declaration:
 
@@ -58,9 +86,11 @@ Hooks
 
 ▸ **call**(`name`: string, ...`params`: [any]): *void*
 
-*Defined in [base/hooks.ts:47](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/hooks.ts#L47)*
+*Defined in [base/hooks.ts:64](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/hooks.ts#L64)*
 
 Call
+
+**`property`** {Hooks.call} call
 
 **Parameters:**
 
@@ -75,11 +105,11 @@ Name | Type |
 
 ▸ **getAll**(): *[string, unknown][]*
 
-*Defined in [base/hooks.ts:25](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/hooks.ts#L25)*
+*Defined in [base/hooks.ts:42](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/hooks.ts#L42)*
 
 Get all
 
-**`property`** {function} getAll
+**`property`** {Hooks.getAll} getAll
 
 **Returns:** *[string, unknown][]*
 
@@ -87,11 +117,11 @@ Get all
 
 ▸ **make**(`fn`: (Anonymous function)): *object*
 
-*Defined in [base/hooks.ts:19](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/hooks.ts#L19)*
+*Defined in [base/hooks.ts:36](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/hooks.ts#L36)*
 
 Make
 
-**`property`** {function} make
+**`property`** {Hooks.make} make
 
 **Parameters:**
 
@@ -109,9 +139,11 @@ Name | Type | Default |
 
 ▸ **on**(`name`: string, `callback`: Function): *any*
 
-*Defined in [base/hooks.ts:33](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/base/hooks.ts#L33)*
+*Defined in [base/hooks.ts:50](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/base/hooks.ts#L50)*
 
 On
+
+**`property`** {Hooks.on} on
 
 **Parameters:**
 

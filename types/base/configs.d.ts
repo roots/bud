@@ -1,5 +1,6 @@
 /**
  * Config
+ *
  * @param   {string} relativePath - relative path (from project root)
  * @return  {string} filePath
  */
@@ -24,6 +25,7 @@ declare const maybeConfig: (file: any, fallback?: any) => any;
  * @property {(string|boolean)} babel   - project babel.config.js
  * @property {(string|boolean)} eslint  - project .eslintrc.js
  * @property {(string|boolean)} postcss - project postcss.config.js
+ * @property {(string|boolean)} typescript - project tsconfig.json
  */
 declare const configs: Configs;
 export { config, hasConfig, maybeConfig, configs };

@@ -14,7 +14,7 @@
 
 ▸ **output**(`bud`: any): *object*
 
-*Defined in [webpack/output.js:4](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/webpack/output.js#L4)*
+*Defined in [webpack/output.js:4](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/webpack/output.js#L4)*
 
 Webpack output.
 

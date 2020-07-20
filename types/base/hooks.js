@@ -2,13 +2,38 @@
 exports.__esModule = true;
 exports.hooks = void 0;
 /**
- * Hooks
+ * ## bud.hooks
+ *
+ * Register callback.
+ *
+ * ```js
+ * bud.hooks.on('hookName', function(value) {
+ *   doSomething(value)
+ * })}
+ * ```
+ *
+ * Invoke registered callback(s)
+ *
+ * ```js
+ * bud.hooks.call('hookName', value)
+ * ```
+ *
+ * @type {Hooks}
+ * @property {Hooks.registered} registered
+ * @property {Hooks.make} make - make a hook
+ * @property {Hooks.getAll} getAll - return all hooks
+ * @property {Hooks.on} on - Register hook
+ * @property {Hooks.call} call - Call a hook
  */
 var hooks = {
+    /**
+     * Registered hooks.
+     * @property {Hooks.registered} registered
+     */
     registered: {},
     /**
      * Make
-     * @property {function} make
+     * @property {Hooks.make} make
      */
     make: function (fn) {
         if (fn === void 0) { fn = function () { return null; }; }
@@ -16,14 +41,14 @@ var hooks = {
     },
     /**
      * Get all
-     * @property {function} getAll
+     * @property {Hooks.getAll} getAll
      */
     getAll: function () {
         return Object.entries(this.registered);
     },
     /**
      * On
-     * @typedef {function (name: string, callback: function): void} add
+     * @property {Hooks.on} on
      */
     on: function (name, callback) {
         if (!this.registered[name]) {
@@ -34,7 +59,7 @@ var hooks = {
     },
     /**
      * Call
-     * @typedef {function (name: string, callback: function): void} call
+     * @property {Hooks.call} call
      */
     call: function (name) {
         var params = [];

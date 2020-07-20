@@ -14,7 +14,7 @@
 
 ▸ **plugins**(`bud`: any): *any*
 
-*Defined in [webpack/plugins/index.js:11](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/webpack/plugins/index.js#L11)*
+*Defined in [webpack/plugins/index.js:11](https://github.com/roots/bud-support/blob/5f43850/src/budpack/builder/webpack/plugins/index.js#L11)*
 
 Webpack plugins.
 

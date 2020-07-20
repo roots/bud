@@ -14,13 +14,15 @@
  * ```js
  * import 'scripts/myScript' // replacing '../../myScript'
  * ```
- * @param   {[key: string]: {directory: string}} options
- * @return  {typeof import('./../index')} bud
  **/
-const alias = function (options) {
+const alias: Alias = function (options: object): bud {
   this.options.alias = options
 
   return this
 }
 
 export {alias}
+
+import type {bud} from '../'
+
+export type Alias = (options: object) => bud;

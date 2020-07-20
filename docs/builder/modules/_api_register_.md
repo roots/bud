@@ -4,17 +4,40 @@
 
 ## Index
 
+### Type aliases
+
+* [Register](_api_register_.md#register)
+
 ### Functions
 
 * [register](_api_register_.md#const-register)
+
+## Type aliases
+
+###  Register
+
+Ƭ **Register**: *function*
+
+Defined in api/register.ts:25
+
+#### Type declaration:
+
+▸ (`name`: string, `plugin`: any): *bud*
+
+**Parameters:**
+
+Name | Type |
+------ | ------ |
+`name` | string |
+`plugin` | any |
 
 ## Functions
 
 ### `Const` register
 
-▸ **register**(`name`: any, `plugin`: any): *["index"](_index_.md)*
+▸ **register**(`name`: string, `plugin`: any): *any*
 
-*Defined in [api/register.js:15](https://github.com/roots/bud-support/blob/bc9161d/src/budpack/builder/api/register.js#L15)*
+Defined in api/register.ts:16
 
 ## bud.register
 
@@ -26,11 +49,9 @@ bud.register('myPlugin', myPlugin)
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`name` | any |
-`plugin` | any |
+Name | Type | Description |
+------ | ------ | ------ |
+`name` | string | The plugin name |
+`plugin` | any | The plugin object  |
 
-**Returns:** *["index"](_index_.md)*
-
-bud
+**Returns:** *any*
