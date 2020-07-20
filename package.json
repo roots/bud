@@ -1,5 +1,5 @@
 {
-  "name": "@roots/budpack",
+  "name": "@roots/bud",
   "version": "0.0.39",
   "repository": {
     "type": "git",
@@ -14,7 +14,7 @@
   "engines": {
     "node": ">=12"
   },
-  "main": "build/budpack/builder",
+  "main": "build/builder",
   "scripts": {
     "ts": "tsc",
     "build": "tsc && babel src --out-dir=build --extensions '.ts,.js'",
@@ -23,7 +23,7 @@
     "lint:eslint": "eslint .",
     "lint:prettier": "prettier --write ."
   },
-  "bin": "./bin/budpack.js",
+  "bin": "./bin/bud.js",
   "files": ["bin", "build", "config"],
   "dependencies": {
     "@babel/core": "^7.10.5",
