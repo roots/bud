@@ -20,10 +20,9 @@ exports.inlineManifest = void 0;
  * ```
  */
 var inlineManifest = function (options) {
-    var name = (options === null || options === void 0 ? void 0 : options.name) || 'runtime';
     this.features.inlineManifest = true;
     if (this.features.inlineManifest) {
-        this.options.inlineManifest = __assign(__assign({}, this.options.inlineManifest), { name: name });
+        this.options.inlineManifest = __assign(__assign({}, this.options.inlineManifest), { name: (options === null || options === void 0 ? void 0 : options.name) || 'runtime' });
     }
     return this;
 };

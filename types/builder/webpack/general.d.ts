@@ -1,13 +1,6 @@
 /**
  * General webpack options
- */
-export type general = () => {
-    object;
-};
-/**
- * General webpack options
  *
- * @typedef {function () => {object}} general
  * @this {bud}
  */
 export function general(bud: any): {

@@ -1,7 +1,19 @@
 /**
- * Make Webpack Config
+ * Constructs WebpackBuilder object
  *
- * @param  {import('../../index')} bud
- * @return {object}
+ * @constructor
+ * @param {bud} bud
+ * @return {WebpackBuilder}
  */
-export function webpackConfig(bud: import('../../index')): object;
+declare const webpackConfig: WebpackBuilderConstructor;
+export { webpackConfig };
+import type { bud } from '../index';
+import type { Configuration } from 'webpack';
+export declare type WebpackBuilderConstructor = (bud: bud) => WebpackBuilder;
+export declare type WebpackBuilder = {
+    bud: bud;
+    options: Object;
+    mergeConfig: (configValues: Object) => void;
+    compile: () => Configuration;
+    doHook: (string: any, any: any) => void;
+};

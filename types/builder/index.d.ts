@@ -19,8 +19,6 @@ import { dump } from './api/dump';
 import { env } from './api/env';
 import { hash } from './api/hash';
 import { hot } from './api/hot';
-import { inlineManifest } from './api/inlineManifest';
-import { map } from './api/map';
 import { mini } from './api/mini';
 import { postCss } from './api/postcss';
 import { preset } from './api/preset';
@@ -28,7 +26,6 @@ import { project } from './api/project';
 import { projectPath } from './api/projectPath';
 import { publicPath } from './api/publicPath';
 import { purge } from './api/purge';
-import { register } from './api/register';
 import { setEnv } from './api/setEnv';
 import { src } from './api/src';
 import { srcPath } from './api/srcPath';
@@ -40,10 +37,13 @@ import { watch } from './api/watch';
 /**
  * Typings
  */
-import type { WebpackAdapterTuple, WebpackPluginAdapter } from './base/webpackPlugins';
 import type { Configs } from './base/configs';
 import type { Hooks } from './base/hooks';
-export type { WebpackAdapterTuple, WebpackPluginAdapter, };
+import type { WebpackAdapterTuple, WebpackPluginAdapter } from './base/webpackPlugins';
+import type { InlineManifest } from './api/inlineManifest';
+import type { Map } from './api/map';
+import type { Register } from './api/register';
+export type { Hooks, WebpackAdapterTuple, WebpackPluginAdapter, };
 export declare type bud = {
     configs: Configs;
     features: typeof features;
@@ -69,8 +69,8 @@ export declare type bud = {
     env: typeof env;
     hash: typeof hash;
     hot: typeof hot;
-    inlineManifest: typeof inlineManifest;
-    map: typeof map;
+    inlineManifest: InlineManifest;
+    map: Map;
     mini: typeof mini;
     plugins: any;
     postCss: typeof postCss;
@@ -79,7 +79,7 @@ export declare type bud = {
     projectPath: typeof projectPath;
     publicPath: typeof publicPath;
     purge: typeof purge;
-    register: typeof register;
+    register: Register;
     setEnv: typeof setEnv;
     src: typeof src;
     srcPath: typeof srcPath;
@@ -89,3 +89,4 @@ export declare type bud = {
     vendor: typeof vendor;
     watch: typeof watch;
 };
+export declare type BudConstructor = (bud: bud) => any;

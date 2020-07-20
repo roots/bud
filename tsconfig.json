@@ -1,5 +1,5 @@
 {
-  "include": ["src/budpack/builder/"],
+  "include": ["src/"],
   "compilerOptions": {
     "allowJs": true,
     "declaration": true,

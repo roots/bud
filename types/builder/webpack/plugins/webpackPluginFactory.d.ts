@@ -4,4 +4,4 @@
  * @type    {function} webpackPluginFactory
  * @param   {array}
  */
-export const webpackPluginFactory: Function;
+export const webpackPluginFactory: Function

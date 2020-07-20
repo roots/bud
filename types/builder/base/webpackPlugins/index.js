@@ -15,7 +15,10 @@ var provide_1 = require("./provide");
 var writeFile_1 = require("./writeFile");
 /**
  * ## bud.webpackPlugins
+ *
  * Webpack plugins written for usage with the bud framework.
+ *
+ * @type {Array<WebpackAdapterTuple> webpackPlugins}
  */
 var webpackPlugins = [
     ['browser_sync_plugin', browserSync_1.browserSync],

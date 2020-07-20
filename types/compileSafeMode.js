@@ -16,7 +16,7 @@ var chalk_1 = __importDefault(require("chalk"));
  */
 var displayStats = function (stats) {
     console.log(chalk_1["default"].bgWhite.black('\n Build results \n'));
-    console.log(stats.toString({
+    var statsOptions = {
         all: false,
         assets: true,
         errors: true,
@@ -24,7 +24,8 @@ var displayStats = function (stats) {
         colors: {
             green: '\u001b[38;5;63m'
         }
-    }));
+    };
+    console.log(stats.toString(statsOptions));
     console.log('\n');
 };
 /**

@@ -6,8 +6,8 @@
 
 module.exports = {
   presets: [
-      require('@babel/preset-typescript'),
-      require('@babel/preset-react'),
+    require('@babel/preset-typescript'),
+    require('@babel/preset-react'),
   ],
   plugins: [
     require('@babel/plugin-proposal-nullish-coalescing-operator'),

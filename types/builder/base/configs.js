@@ -6,6 +6,7 @@ var fs_extra_1 = require("fs-extra");
 var paths_1 = require("./paths");
 /**
  * Config
+ *
  * @param   {string} relativePath - relative path (from project root)
  * @return  {string} filePath
  */
@@ -36,6 +37,7 @@ exports.maybeConfig = maybeConfig;
  * @property {(string|boolean)} babel   - project babel.config.js
  * @property {(string|boolean)} eslint  - project .eslintrc.js
  * @property {(string|boolean)} postcss - project postcss.config.js
+ * @property {(string|boolean)} typescript - project tsconfig.json
  */
 var configs = {
     babel: maybeConfig('babel.config.js'),

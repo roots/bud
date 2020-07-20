@@ -1,4 +1,5 @@
 /**
  * Safe mode
  */
-export function compileSafeMode(config: any, webpackConfig: any): void;
+declare const compileSafeMode: (config: any, webpackConfig: any) => void;
+export { compileSafeMode };

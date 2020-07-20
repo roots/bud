@@ -3,8 +3,6 @@ exports.__esModule = true;
 exports.externals = void 0;
 /**
  * Externals
- *
- * @typedef {function(bud: bud): object} externals
  */
 var externals = function (bud) { return ({
     bud: bud,

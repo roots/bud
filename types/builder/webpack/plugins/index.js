@@ -1,8 +1,8 @@
-"use strict";
-exports.__esModule = true;
-exports.plugins = void 0;
+'use strict'
+exports.__esModule = true
+exports.plugins = void 0
 /** webpack plugin factory */
-var webpackPluginFactory_1 = require("./webpackPluginFactory");
+var webpackPluginControllerFactory_1 = require('../../../plugins/webpackPluginControllerFactory')
 /**
  * Webpack plugins.
  *
@@ -10,7 +10,8 @@ var webpackPluginFactory_1 = require("./webpackPluginFactory");
  * @type {function (bud) => {object}} plugins
  * @returns {object}
  */
-var plugins = function (bud) { return ({
+var plugins = function (bud) {
+  return {
     /**
      * Bud container.
      * @property {bud} bud
@@ -28,17 +29,21 @@ var plugins = function (bud) { return ({
      * @return   {Object}
      */
     make: function () {
-        var _this = this;
-        this.doHook('pre');
-        this.plugins = this.pluginQueue
-            .map(function (plugin) {
-            return webpackPluginFactory_1.webpackPluginFactory(plugin, _this.bud).build();
+      var _this = this
+      this.doHook('pre')
+      this.plugins = this.pluginQueue
+        .map(function (plugin) {
+          return webpackPluginControllerFactory_1
+            .webpackPluginFactory(plugin, _this.bud)
+            .build()
         })
-            .filter(function (plugin) { return plugin !== undefined; });
-        this.doHook('post');
-        return {
-            plugins: this.plugins
-        };
+        .filter(function (plugin) {
+          return plugin !== undefined
+        })
+      this.doHook('post')
+      return {
+        plugins: this.plugins,
+      }
     },
     /**
      * Call a bud hook
@@ -48,7 +53,12 @@ var plugins = function (bud) { return ({
      * @return   {void}
      */
     doHook: function (name) {
-        this.bud.hooks.call(name + "_webpack_plugins", this.plugins, this.bud);
-    }
-}); };
-exports.plugins = plugins;
+      this.bud.hooks.call(
+        name + '_webpack_plugins',
+        this.plugins,
+        this.bud,
+      )
+    },
+  }
+}
+exports.plugins = plugins

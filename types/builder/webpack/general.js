@@ -4,7 +4,6 @@ exports.general = void 0;
 /**
  * General webpack options
  *
- * @typedef {function () => {object}} general
  * @this {bud}
  */
 var general = function (bud) { return ({

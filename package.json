@@ -18,20 +18,13 @@
   "scripts": {
     "ts": "tsc",
     "build": "tsc && babel src --out-dir=build --extensions '.ts,.js'",
-    "docs": "npm-run-all -c docs:*",
-    "docs:builder": "typedoc src/budpack/builder/ --out docs/builder --mode modules  --excludeExternals",
-    "docs:api": "typedoc src/budpack/builder/api/ --out docs/api --mode modules  --excludeExternals",
-    "docs:webpack": "typedoc src/budpack/builder/webpack/ --out docs/webpack --mode modules  --excludeExternals",
+    "docs": "typedoc src/ --out docs --mode modules  --excludeExternals",
     "lint": "npm-run-all -c lint:*",
     "lint:eslint": "eslint .",
     "lint:prettier": "prettier --write ."
   },
   "bin": "./bin/budpack.js",
-  "files": [
-    "bin",
-    "build",
-    "config"
-  ],
+  "files": ["bin", "build", "config"],
   "dependencies": {
     "@babel/core": "^7.10.5",
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.10.4",

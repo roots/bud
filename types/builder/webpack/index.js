@@ -14,29 +14,35 @@ exports.__esModule = true;
 exports.webpackConfig = void 0;
 var devServer_1 = require("./devServer");
 var entry_1 = require("./entry");
+var externals_1 = require("./externals");
+var general_1 = require("./general");
 var index_1 = require("./rules/index");
 var optimization_1 = require("./optimization");
 var output_1 = require("./output");
 var webpackResolve_1 = require("./webpackResolve");
-var index_2 = require("./plugins/index");
+var plugins_1 = require("./plugins");
 /**
- * Make Webpack Config
+ * Constructs WebpackBuilder object
  *
- * @param  {import('../../index')} bud
- * @return {object}
+ * @constructor
+ * @param {bud} bud
+ * @return {WebpackBuilder}
  */
 var webpackConfig = function (bud) { return ({
+    /**
+     * @property {bud} bud
+     */
     bud: bud,
     options: {
         entry: entry_1.entry(bud),
         output: output_1.output(bud),
         rules: index_1.rules(bud),
         optimization: optimization_1.optimization(bud),
-        plugins: index_2.plugins(bud),
+        plugins: plugins_1.plugins(bud),
         resolve: webpackResolve_1.webpackResolve(bud),
-        externals: externals(bud),
+        externals: externals_1.externals(bud),
         devServer: devServer_1.devServer(bud),
-        general: general(bud)
+        general: general_1.general(bud)
     },
     mergeConfig: function (configValues) {
         this.config = __assign(__assign({}, this.config), configValues);

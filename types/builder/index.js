@@ -92,5 +92,4 @@ Bud.prototype.watch = watch_1.watch;
 /**
  * Bud - Asset management framework
  */
-var instance = new Bud();
-module.exports = instance;
+module.exports = new Bud();

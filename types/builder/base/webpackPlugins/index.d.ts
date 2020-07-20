@@ -1,6 +1,9 @@
 /**
  * ## bud.webpackPlugins
+ *
  * Webpack plugins written for usage with the bud framework.
+ *
+ * @type {Array<WebpackAdapterTuple> webpackPlugins}
  */
 declare const webpackPlugins: Array<WebpackAdapterTuple>;
 export { webpackPlugins };

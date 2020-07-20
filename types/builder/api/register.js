@@ -1,6 +1,7 @@
 "use strict";
 exports.__esModule = true;
 exports.register = void 0;
+var budPluginControllerFactory_1 = require("../../plugins/budPluginControllerFactory");
 /**
  * ## bud.register
  *
@@ -10,11 +11,12 @@ exports.register = void 0;
  * bud.register('myPlugin', myPlugin)
  * ```
  *
- * @param   {boolean} enabled - true to enable hot module reloading. default: !bud.inProduction.
- * @return  {typeof import('./../index')} bud
+ * @type  {Register}
+ * @param {string} name - The plugin name
+ * @param {any} plugin  - The plugin object
  */
 var register = function (name, plugin) {
-    budPluginFactory(this)["new"](name, plugin).build();
+    budPluginControllerFactory_1.pluginControllerFactory(this)["new"](name, plugin).build();
     return this;
 };
 exports.register = register;

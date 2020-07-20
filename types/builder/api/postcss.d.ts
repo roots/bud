@@ -19,10 +19,7 @@
 declare const postCss: PostCss;
 export { postCss };
 import type { bud } from '../';
-export interface PostCssInterface {
-    options?: {
-        enabled?: boolean;
-        plugins?: any[];
-    };
-}
-export declare type PostCss = (PostCssInterface: any) => bud;
+export declare type PostCss = (options?: {
+    enabled?: boolean;
+    plugins?: any[];
+}) => bud;
