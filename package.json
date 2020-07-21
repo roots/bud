@@ -1,9 +1,9 @@
 {
   "name": "@roots/bud",
-  "version": "0.0.39",
+  "version": "2.0.0",
   "repository": {
     "type": "git",
-    "url": "git://github.com/roots/bud-support.git"
+    "url": "git://github.com/roots/bud.git"
   },
   "licenses": [
     {
@@ -14,17 +14,22 @@
   "engines": {
     "node": ">=12"
   },
-  "main": "build/builder",
+  "main": "build/bud/index.js",
+  "types": "src/bud/index.d.ts",
   "scripts": {
     "ts": "tsc",
-    "build": "tsc && babel src --out-dir=build --extensions '.ts,.js'",
-    "docs": "typedoc src/ --out docs --mode modules  --excludeExternals",
+    "build": "tsc && babel src/ --out-dir=build --extensions '.js, .ts'",
+    "docs": "typedoc --out ./docs ./src/bud/api --excludeExternals",
     "lint": "npm-run-all -c lint:*",
     "lint:eslint": "eslint .",
     "lint:prettier": "prettier --write ."
   },
   "bin": "./bin/bud.js",
-  "files": ["bin", "build", "config"],
+  "files": [
+    "bin",
+    "build",
+    "config"
+  ],
   "dependencies": {
     "@babel/core": "^7.10.5",
     "@babel/plugin-proposal-nullish-coalescing-operator": "^7.10.4",
@@ -40,11 +45,19 @@
     "@babel/traverse": "^7.10.5",
     "@fullhuman/postcss-purgecss": "^2.3.0",
     "@svgr/webpack": "^5.4.0",
+    "@types/autoprefixer": "^9.7.2",
+    "@types/babel-core": "^6.25.6",
+    "@types/babel-plugin-macros": "^2.8.2",
     "@types/browser-sync-webpack-plugin": "^2.2.0",
-    "@types/jest": "^26.0.4",
+    "@types/dotenv": "^8.2.0",
+    "@types/eslint": "^7.2.0",
+    "@types/lodash": "^4.14.157",
     "@types/node": "^14.0.23",
+    "@types/node-sass": "^4.11.1",
+    "@types/prettier": "^2.0.2",
     "@types/react": "^16.9.43",
     "@types/react-dom": "^16.9.8",
+    "@types/uglifyjs-webpack-plugin": "^1.1.0",
     "@wordpress/babel-plugin-makepot": "^3.7.0",
     "@wordpress/browserslist-config": "^2.7.0",
     "@wordpress/dependency-extraction-webpack-plugin": "^2.8.0",
@@ -53,16 +66,15 @@
     "babel-loader": "^8.1.0",
     "babel-plugin-emotion": "^10.0.33",
     "babel-plugin-macros": "^2.8.0",
+    "blacklist": "^1.1.4",
     "browser-sync": "^2.26.7",
     "browser-sync-webpack-plugin": "^2.2.2",
-    "camelcase": "^6.0.0",
     "clean-webpack-plugin": "^3.0.0",
     "cli-highlight": "^2.1.4",
     "copy-webpack-plugin": "^6.0.3",
     "cross-env": "^7.0.2",
     "css-loader": "^3.6.0",
     "cssnano": "^4.1.10",
-    "cycle": "^1.0.3",
     "dotenv": "^8.2.0",
     "eslint": "^7.4.0",
     "eslint-loader": "^4.0.2",
@@ -70,19 +82,15 @@
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-react": "^7.20.3",
     "eslint-plugin-react-hooks": "^4.0.8",
-    "esm": "^3.2.25",
-    "extract-loader": "^5.1.0",
-    "extract-text-webpack-plugin": "v4.0.0-beta.0",
     "file-loader": "^6.0.0",
-    "flatted": "^3.0.4",
     "fs-extra": "^9.0.0",
     "imagemin": "^7.0.1",
     "img-loader": "^3.0.0",
     "import-all.macro": "^3.0.0",
+    "import-jsx": "^4.0.0",
     "ink": "^3.0.0-6",
     "ink-gradient": "^1.0.0",
     "ink-link": "^1.1.0",
-    "ink-progress-bar": "^3.0.0",
     "ink-spinner": "^4.0.0-0",
     "ink-use-stdout-dimensions": "^1.0.5",
     "lodash": "^4.17.19",
@@ -121,7 +129,6 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
-    "typedoc": "^0.17.8",
-    "typedoc-plugin-markdown": "^2.3.1"
+    "typedoc": "^0.17.8"
   }
 }

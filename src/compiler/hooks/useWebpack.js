@@ -1,5 +1,5 @@
-import {useState, useEffect} from 'react'
-import {ProgressPlugin} from 'webpack'
+const {useState, useEffect} = require('react')
+const {ProgressPlugin} = require('webpack')
 
 /**
  * useProgress: Webpack ProgressPlugin
@@ -105,4 +105,4 @@ const useWebpack = ({compiler, config}) => {
   }
 }
 
-export {useWebpack}
+module.exports = {useWebpack}

@@ -1,6 +1,6 @@
-import {Box, Text} from 'ink'
-import Spinner from 'ink-spinner'
-import PropTypes from 'prop-types'
+const {Box, Text} = require('ink')
+const Spinner = require('ink-spinner')
+const PropTypes = require('prop-types')
 
 /**
  * Watch mode indicator
@@ -36,4 +36,4 @@ Watching.propTypes = {
   build: PropTypes.object,
 }
 
-export {Watching}
+module.exports = {Watching}

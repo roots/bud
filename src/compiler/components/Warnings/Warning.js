@@ -1,7 +1,8 @@
-import notifier from 'node-notifier'
-import React, {useEffect} from 'react'
-import {Box, Text} from 'ink'
-import PropTypes from 'prop-types'
+const notifier = require('node-notifier')
+const React = require('react')
+const {useEffect} = React
+const {Box, Text} = require('ink')
+const PropTypes = require('prop-types')
 
 /**
  * Warning (single)
@@ -34,4 +35,4 @@ Warning.propTypes = {
   message: PropTypes.string,
 }
 
-export {Warning}
+module.exports = {Warning}

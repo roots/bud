@@ -1,8 +1,8 @@
-import React, {useEffect, useState} from 'react'
-import {Box, Text, useFocus} from 'ink'
-import PropTypes from 'prop-types'
-
-import {Warning} from './Warning'
+const React = require('React')
+const {useEffect, useState} = require('react')
+const {Box, Text, useFocus} = require('ink')
+const PropTypes = require('prop-types')
+const {Warning} = require('./Warning')
 
 /**
  * Warnings
@@ -43,4 +43,4 @@ Warnings.propTypes = {
   actions: PropTypes.object,
 }
 
-export {Warnings}
+module.exports = {Warnings}

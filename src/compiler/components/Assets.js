@@ -1,6 +1,7 @@
-import React, {useEffect} from 'react'
-import {Box, Spacer, Text, useFocus} from 'ink'
-import PropTypes from 'prop-types'
+const React = require('react')
+const {useEffect} = React
+const {Box, Spacer, Text, useFocus} = require('ink')
+const PropTypes = require('prop-types')
 
 /**
  * Indicator
@@ -81,4 +82,4 @@ Assets.propTypes = {
   width: PropTypes.number,
 }
 
-export {Assets}
+module.exports = {Assets}

@@ -1,8 +1,12 @@
-import React, {useEffect} from 'react'
-import {Box, Text, useFocus} from 'ink'
-import PropTypes from 'prop-types'
-import highlight from 'cli-highlight'
+const React = require('react')
+const {useEffect} = React
+const {Box, Text, useFocus} = require('ink')
+const PropTypes = require('prop-types')
+const highlight = require('cli-highlight')
 
+/**
+ * Debug display
+ */
 const Debug = ({actions, config}) => {
   const {isFocused} = useFocus({autoFocus: false})
   useEffect(() => {
@@ -29,4 +33,4 @@ Debug.propTypes = {
   config: PropTypes.object,
 }
 
-export {Debug}
+module.exports = {Debug}

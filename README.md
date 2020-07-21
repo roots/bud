@@ -10,17 +10,16 @@
 </p>
 
 <h1 align="center">
-  <strong>@roots/bud-support</strong>
+  <strong>@roots/bud</strong>
 </h1>
 
 ## Overview
 
-This repository provides supporting client and server-side utilities to the main Bud CLI and the output it generates. [You may be looking for the main repository](https://github.com/roots/bud).
+This repository provides supporting client and server-side utilities to the Bud compiler and configuration toolset.
 
 ## Documentation
 
-- [bud public API](https://github.com/roots/bud-support/tree/master/docs/api)
-- [bud webpack API](https://github.com/roots/bud-support/tree/master/docs/api)
+- [API documentation](https://github.com/roots/bud/tree/master/docs/globals.md)
 
 ## Contributing
 

@@ -1,7 +1,8 @@
-import React, {useState, useEffect} from 'react'
-import {Box, Text, useFocus} from 'ink'
-import PropTypes from 'prop-types'
-import patchConsole from 'patch-console'
+const React = require('react')
+const {useEffect, useState} = React
+const {Box, Text, useFocus} = require('ink')
+const PropTypes = require('prop-types')
+const patchConsole = require('patch-console')
 
 /**
  * BrowserSync info
@@ -49,4 +50,4 @@ BrowserSync.propTypes = {
   actions: PropTypes.object,
 }
 
-export {BrowserSync}
+module.exports = {BrowserSync}

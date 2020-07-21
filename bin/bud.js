@@ -1,2 +1,2 @@
 #!/usr/bin/env node
-require('esm')(module)('./../build/bud')
+require('./../build/init')

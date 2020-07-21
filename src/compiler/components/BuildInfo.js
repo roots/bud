@@ -1,11 +1,11 @@
 /** Modules */
-import React from 'react'
-import {Box, Text} from 'ink'
-import PropTypes from 'prop-types'
+const React = require('react')
+const {Box, Text} = require('ink')
+const PropTypes = require('prop-types')
 
 /** Application components */
-import {Loading} from './Loading'
-import {Watching} from './Watching'
+const {Loading} = require('./Loading')
+const {Watching} = require('./Watching')
 
 /**
  * Build Info
@@ -32,4 +32,4 @@ BuildInfo.propTypes = {
   width: PropTypes.number,
 }
 
-export {BuildInfo}
+module.exports = {BuildInfo}

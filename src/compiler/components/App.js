@@ -1,11 +1,10 @@
-/** Modules */
-import React, {useState, useEffect} from 'react'
-import {Box, Spacer} from 'ink'
-import PropTypes from 'prop-types'
+const React = require('react')
+const {useEffect, useState} = React
+const {Box, Spacer} = require('ink')
+const PropTypes = require('prop-types')
 
-/** Application components */
-import {Nav} from './Nav'
-import {BuildInfo} from './BuildInfo'
+const {Nav} = require('./Nav')
+const {BuildInfo} = require('./BuildInfo')
 
 /**
  * App
@@ -18,7 +17,6 @@ import {BuildInfo} from './BuildInfo'
  * @prop {number} height
  * @return {PropTypes.Component}
  */
-
 const App = ({
   children,
   state,
@@ -68,4 +66,4 @@ App.propTypes = {
   height: PropTypes.number,
 }
 
-export {App}
+module.exports = {App}

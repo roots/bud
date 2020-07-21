@@ -1,7 +1,7 @@
-import React from 'react'
-import {Box, Text} from 'ink'
-import ProgressBar from 'ink-progress-bar'
-import PropTypes from 'prop-types'
+const React = require('react')
+const {Box, Text} = require('ink')
+const ProgressBar = require('./LoadingBar')
+const PropTypes = require('prop-types')
 
 /**
  * Loading (Progress Plugin)
@@ -35,4 +35,4 @@ Loading.propTypes = {
   width: PropTypes.number,
 }
 
-export {Loading}
+module.exports = {Loading}

@@ -1,6 +1,6 @@
-import React from 'react'
-import {Box, Spacer, Text} from 'ink'
-import PropTypes from 'prop-types'
+const React = require('react')
+const {Box, Spacer, Text} = require('ink')
+const PropTypes = require('prop-types')
 
 /**
  * List item indicator
@@ -108,4 +108,4 @@ Nav.propTypes = {
   config: PropTypes.object,
 }
 
-export {Nav}
+module.exports = {Nav}

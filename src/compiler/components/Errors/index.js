@@ -1,8 +1,9 @@
-import React, {useEffect, useState} from 'react'
-import {Box, Text, useFocus} from 'ink'
-import PropTypes from 'prop-types'
+const React = require('react')
+const {useEffect, useState} = React
+const {Box, Text, useFocus} = require('ink')
+const PropTypes = require('prop-types')
 
-import {Error} from './Error'
+const {Error} = require('./Error')
 
 /**
  * Error
@@ -39,4 +40,4 @@ Errors.propTypes = {
   actions: PropTypes.object,
 }
 
-export {Errors}
+module.exports = {Errors}

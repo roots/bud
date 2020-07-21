@@ -1,5 +1,5 @@
-import React from 'react'
-import globalState from 'use-global-hook'
+const React = require('react')
+const globalState = require('./useStore')
 
 const useFocusState = globalState(
   React,
@@ -19,4 +19,4 @@ const useFocusState = globalState(
   },
 )
 
-export {useFocusState}
+module.exports = {useFocusState}
