@@ -16,6 +16,7 @@ import type {
   Babel,
   Bundle,
   Copy,
+  CopyAll,
   Src,
   SrcPath,
   Sync,
@@ -23,16 +24,17 @@ import type {
 } from './api'
 
 export type Bud = {
-  hooks: Hooks
-  util: Util
-  plugin: Plugin
-  mode: Mode
-  state: State | undefined
-  alias: Alias
-  auto: Auto
-  babel: Babel
-  bundle: Bundle
-  copy: Copy
+  hooks: Hooks,
+  util: Util,
+  plugin: Plugin,
+  mode: Mode,
+  state: State | undefined,
+  alias: Alias,
+  auto: Auto,
+  babel: Babel,
+  bundle: Bundle,
+  copy: Copy,
+  copyAll: CopyAll,
   src: Src,
   srcPath: SrcPath
   sync: Sync
@@ -45,6 +47,7 @@ export const bud: Bud = {
   babel: api.babel,
   bundle: api.bundle,
   copy: api.copy,
+  copyAll: api.copyAll,
   src: api.src,
   srcPath: api.srcPath,
   sync: api.sync,

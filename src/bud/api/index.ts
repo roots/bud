@@ -3,6 +3,7 @@ import {auto} from './auto'
 import {babel} from './babel'
 import {bundle} from './bundle'
 import {copy} from './copy'
+import {copyAll} from './copyAll'
 import {src} from './src'
 import {srcPath} from './srcPath'
 import {sync} from './sync'
@@ -17,6 +18,7 @@ export const api = {
   babel,
   bundle,
   copy,
+  copyAll,
   src,
   srcPath,
   sync,
@@ -29,6 +31,7 @@ export type Api = {
   babel: Babel,
   bundle: Bundle,
   copy: Copy,
+  copyAll: CopyAll,
   src: Src,
   srcPath: SrcPath,
   sync: Sync,
@@ -48,6 +51,7 @@ export type Auto = (options: {[key: string]: string[]}) => Bud
 export type Babel = (arg0: BabelOptions) => Bud
 export type Bundle = (name: string, entries: Object) => Bud
 export type Copy = (from: string, to: string) => Bud
+export type CopyAll = (from: string, to: string) => Bud
 export type Debug = (enabled: boolean) => any
 export type Src = (relativePath: string) => string
 export type SrcPath = (src: string) => Bud
