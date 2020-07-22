@@ -3,7 +3,7 @@ import type { Mode } from './mode';
 import type { Plugin } from './plugin';
 import type { Util } from './util';
 import type { State } from './state';
-import type { Alias, Auto, Babel, Bundle, Copy, Src, SrcPath, Sync, Watch } from './api';
+import type { Alias, Auto, Babel, Bundle, Copy, CopyAll, Src, SrcPath, Sync, Watch } from './api';
 export declare type Bud = {
     hooks: Hooks;
     util: Util;
@@ -15,6 +15,7 @@ export declare type Bud = {
     babel: Babel;
     bundle: Bundle;
     copy: Copy;
+    copyAll: CopyAll;
     src: Src;
     srcPath: SrcPath;
     sync: Sync;

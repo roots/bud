@@ -7,6 +7,7 @@ export declare const api: {
     babel: Babel;
     bundle: Bundle;
     copy: Copy;
+    copyAll: CopyAll;
     src: Src;
     srcPath: SrcPath;
     sync: Sync;
@@ -18,6 +19,7 @@ export declare type Api = {
     babel: Babel;
     bundle: Bundle;
     copy: Copy;
+    copyAll: CopyAll;
     src: Src;
     srcPath: SrcPath;
     sync: Sync;
@@ -36,6 +38,7 @@ export declare type Auto = (options: {
 export declare type Babel = (arg0: BabelOptions) => Bud;
 export declare type Bundle = (name: string, entries: Object) => Bud;
 export declare type Copy = (from: string, to: string) => Bud;
+export declare type CopyAll = (from: string, to: string) => Bud;
 export declare type Debug = (enabled: boolean) => any;
 export declare type Src = (relativePath: string) => string;
 export declare type SrcPath = (src: string) => Bud;
