@@ -19,7 +19,7 @@
   "scripts": {
     "ts": "tsc",
     "build": "tsc && babel src/ --out-dir=build --extensions '.js'",
-    "docs": "typedoc --out ./docs ./src/bud/base/plugins --excludeExternals",
+    "docs": "typedoc --out ./docs ./src/bud --excludeExternals",
     "lint": "npm-run-all -c lint:*",
     "lint:eslint": "eslint .",
     "lint:prettier": "prettier --write ."
