@@ -12,11 +12,9 @@
  * })
  * ```
  */
-const sync = function (options): bud {
-  this.features.browserSync = options.enabled
-    ? options.enabled
-    : !this.inProduction
-  this.options.browserSync = {
+const sync: Sync = function ({enabled, options}): Bud {
+  this.state.features.browserSync = enabled || !this.inProduction
+  this.state.options.browserSync = {
     host: options.host ? options.host : 'localhost',
     port: options.port ? options.port : 3000,
     proxy: options.proxy ? options.proxy : null,
@@ -26,4 +24,5 @@ const sync = function (options): bud {
 }
 
 export {sync}
-import type {bud} from './..'
+
+import type {Bud, Sync} from '.'

@@ -10,9 +10,9 @@
  * })
  * ```
  */
-const setEnv = function (options: any): bud {
-  this.options.env = {
-    ...this.options.env,
+const setEnv = function (options: any): Bud {
+  this.state.options.env = {
+    ...this.state.options.env,
     ...options,
   }
 
@@ -20,4 +20,4 @@ const setEnv = function (options: any): bud {
 }
 
 export {setEnv}
-import type {bud} from '..'
+import type {Bud} from '..'

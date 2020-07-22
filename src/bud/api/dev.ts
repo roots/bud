@@ -1,9 +1,9 @@
 /**
  * Development server settings
  */
-const dev = function (options: object): bud {
-  this.options.dev = {
-    ...this.options.dev,
+const dev = function (options: object): Bud {
+  this.state.options.dev = {
+    ...this.state.options.dev,
     ...options,
   }
 
@@ -12,4 +12,4 @@ const dev = function (options: object): bud {
 
 export {dev}
 
-import type {bud} from '..'
+import type {Bud} from '..'

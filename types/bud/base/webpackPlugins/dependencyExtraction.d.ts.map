@@ -1,0 +1,1 @@
+{"version":3,"file":"dependencyExtraction.d.ts","sourceRoot":"","sources":["../../../../src/bud/base/webpackPlugins/dependencyExtraction.ts"],"names":[],"mappings":"AAEA,QAAA,MAAM,oBAAoB,EAAE,oBAU1B,CAAA;AAEF,OAAO,EAAC,oBAAoB,EAAC,CAAA;AAE7B,OAAO,KAAK,EAAC,oBAAoB,EAAC,MAAM,GAAG,CAAA"}

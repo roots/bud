@@ -1,11 +1,11 @@
 /**
  * Specify webpack devtool
  */
-const devtool = function (devtool: string): bud {
-  this.options.devtool = devtool
+const devtool = function (devtool: string): Bud {
+  this.state.options.devtool = devtool
 
   return this
 }
 
 export {devtool}
-import type {bud} from '..'
+import type {Bud} from '..'

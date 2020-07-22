@@ -1,0 +1,1 @@
+{"version":3,"file":"inlineManifest.d.ts","sourceRoot":"","sources":["../../../src/bud/api/inlineManifest.ts"],"names":[],"mappings":"AAAA;;;;;;GAMG;AACH,QAAA,MAAM,cAAc,EAAE,cAarB,CAAA;AAED,OAAO,KAAK,EAAC,GAAG,EAAC,MAAM,IAAI,CAAA;AAC3B,oBAAY,cAAc,GAAG,CAAC,OAAO,CAAC,EAAE;IACtC,IAAI,CAAC,EAAE,MAAM,CAAA;CACd,KAAK,GAAG,CAAA;AAET,OAAO,EAAC,cAAc,EAAC,CAAA"}

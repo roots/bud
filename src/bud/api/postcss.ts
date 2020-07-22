@@ -20,11 +20,11 @@ const postCss: PostCss = function ({
   enabled = true,
   ...options
 }) {
-  this.features.postCss = enabled
+  this.state.features.postCss = enabled
 
-  if (this.features.postCss) {
-    this.options.postCss = {
-      ...this.options.postCss,
+  if (this.state.features.postCss) {
+    this.state.options.postCss = {
+      ...this.state.options.postCss,
       ...options,
     }
   }
@@ -34,9 +34,8 @@ const postCss: PostCss = function ({
 
 export {postCss}
 
-import type {bud} from '..'
-
+import type {Bud} from '..'
 export type PostCss = (options?: {
   enabled?: boolean
   plugins?: any[]
-}) => bud
+}) => Bud

@@ -10,7 +10,7 @@ import {join} from 'path'
  * ```
  */
 const project = function (relativePath: string): string {
-  return join(this.paths.project, relativePath)
+  return join(this.state.paths.project, relativePath)
 }
 
 export {project}

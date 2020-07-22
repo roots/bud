@@ -7,11 +7,11 @@
  * bud.watch(true)
  * ```
  */
-const watch = function (enabled: boolean): bud {
-  this.features.watch = enabled
+const watch: Watch = function (enabled: boolean): Bud {
+  this.state.features.watch = enabled
 
   return this
 }
 
 export {watch}
-import type {bud} from '..'
+import type {Bud, Watch} from '.'

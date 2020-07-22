@@ -13,9 +13,9 @@
 const bundle: Bundle = function (
   name: string,
   entries: object,
-): bud {
-  this.options.entry = {
-    ...this.options.entry,
+): Bud {
+  this.state.options.entry = {
+    ...this.state.options.entry,
     [`${name}`]: entries,
   }
 
@@ -23,5 +23,5 @@ const bundle: Bundle = function (
 }
 
 export {bundle}
-import {bud} from '..'
-export type Bundle = (name: string, entries: Object) => bud
+
+import type {Bud, Bundle} from '.'

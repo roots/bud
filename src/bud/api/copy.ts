@@ -13,13 +13,11 @@
 const copy: Copy = function (
   from: string,
   to: string,
-): bud {
-  this.options.copy.patterns.push({from, to})
+): Bud {
+  this.state.options.copy.patterns.push({from, to})
 
   return this
 }
 
 export {copy}
-
-import {bud} from '..'
-export type Copy = (from: string, to: string) => bud
+import type {Bud, Copy} from '.'

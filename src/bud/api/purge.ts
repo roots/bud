@@ -15,10 +15,10 @@
  * })
  * ```
  */
-const purge = function ({enabled = true, ...options}): bud {
+const purge = function ({enabled = true, ...options}): Bud {
   if (enabled) {
-    this.options.postCss.plugins = [
-      ...this.options.postCss.plugins,
+    this.state.options.postCss.plugins = [
+      ...this.state.options.postCss.plugins,
       require('@fullhuman/postcss-purgecss')(options),
     ]
   }
@@ -27,4 +27,4 @@ const purge = function ({enabled = true, ...options}): bud {
 }
 
 export {purge}
-import type {bud} from '..'
+import type {Bud} from '..'

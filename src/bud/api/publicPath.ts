@@ -9,11 +9,11 @@
  * bud.publicPath('dist')
  * ```
  */
-const publicPath = function (dir: string): bud {
-  this.paths.public = dir
+const publicPath = function (dir: string): Bud {
+  this.state.paths.public = dir
 
   return this
 }
 
 export {publicPath}
-import type {bud} from '..'
+import type {Bud} from '..'

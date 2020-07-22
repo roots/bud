@@ -7,7 +7,7 @@ import {Runner} from './Runner'
  * Webpack compilation dashboard renderer.
  */
 const renderCompilerDashboard: BudRenderer = (
-  bud: bud,
+  bud: Bud,
   webpackConfig: Configuration,
 ): void => {
   /**
@@ -34,7 +34,7 @@ export {renderCompilerDashboard}
  * Typings
  */
 import type {Configuration, Compiler} from 'webpack'
-import type {bud} from '../bud'
+import type {Bud} from '../bud'
 
 /**
  * Runner Props
@@ -59,6 +59,6 @@ export interface RunnerProps {
  * @return {void}
  */
 export type BudRenderer = (
-  config: bud,
+  config: Bud,
   webpackConfig: Configuration,
 ) => void

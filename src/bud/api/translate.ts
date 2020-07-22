@@ -10,15 +10,15 @@
  * bud.translate('resources/languages/sage.pot')
  * ```
  */
-const translate = function (output: string): bud {
-  this.features.translate = output ? true : false
+const translate: Translate = function (output: string): Bud {
+  this.state.features.translate = output ? true : false
 
-  this.features.translate &&
+  this.state.features.translate &&
     (() => {
-      this.options.babel = {
-        ...this.options.babel,
+      this.state.options.babel = {
+        ...this.state.options.babel,
         plugins: [
-          ...this.options.babel.plugins,
+          ...this.state.options.babel.plugins,
           [
             require('@wordpress/babel-plugin-makepot'),
             {output},
@@ -31,4 +31,5 @@ const translate = function (output: string): bud {
 }
 
 export {translate}
-import {bud} from '..'
+export type Translate = (output: string) => Bud
+import type {Bud} from '..'

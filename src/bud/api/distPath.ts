@@ -7,11 +7,11 @@ import {join} from 'path'
  * bud.distPath('dist')
  * ```
  */
-const distPath = function (dir: string): bud {
-  this.paths.dist = join(this.paths.project, dir)
+const distPath = function (dir: string): Bud {
+  this.state.paths.dist = join(this.state.paths.project, dir)
 
   return this
 }
 
 export {distPath}
-import type {bud} from '..'
+import type {Bud} from '..'

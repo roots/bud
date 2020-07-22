@@ -7,7 +7,7 @@
 const entry = bud => ({
   bud,
   options: {
-    entry: bud.options.entry,
+    entry: bud.state.options.entry,
   },
 
   make: function () {

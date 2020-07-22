@@ -9,14 +9,13 @@
  * bud.map(true)
  * ```
  */
-const map: Map = function (enabled: boolean): bud {
-  this.features.map = enabled
+const map: Map = function (enabled: boolean): Bud {
+  this.state.features.map = enabled
 
   return this
 }
 
 export {map}
 
-import type {bud} from '..'
-
-export type Map = (enabled: boolean) => bud
+import type {Bud} from '..'
+export type Map = (enabled: boolean) => Bud

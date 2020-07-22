@@ -21,7 +21,7 @@ import {join} from 'path'
  */
 const preset: Preset = function (relativePath): any {
   const presetConfig = join(
-    this.paths.framework,
+    this.state.paths.framework,
     'preset',
     relativePath,
   )

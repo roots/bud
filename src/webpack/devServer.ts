@@ -1,10 +1,11 @@
 /**
  * Dev server
  */
-const devServer = bud => ({
+const devServer = (bud: Bud) => ({
   bud,
+
   options: {
-    devServer: bud.options.dev,
+    devServer: bud.state.options.dev,
   },
 
   make: function () {
@@ -30,3 +31,4 @@ const devServer = bud => ({
 })
 
 export {devServer}
+import {Bud} from './../bud'

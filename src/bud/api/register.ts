@@ -1,5 +1,3 @@
-import {pluginControllerFactory} from '../base/plugins/budPluginControllerFactory'
-
 /**
  * ## bud.register
  *
@@ -8,21 +6,22 @@ import {pluginControllerFactory} from '../base/plugins/budPluginControllerFactor
  * ```js
  * bud.register('myPlugin', myPlugin)
  * ```
- *
- * @type  {Register}
- * @param {string} name - The plugin name
- * @param {any} plugin  - The plugin object
  */
 const register: Register = function (
   name: string,
   plugin: any,
-) {
-  pluginControllerFactory(this).new(name, plugin).build()
+): Bud {
+  const bud: Bud = this
+
+  const registeredPlugin: RegisteredPlugin = [name, plugin]
+
+  bud.plugin.controller(this).initController(registeredPlugin).buildPlugin()
 
   return this
 }
 
 export {register}
 
-import type {bud} from '..'
-export type Register = (name: string, plugin: any) => bud
+import type {Bud} from '..'
+import type {RegisteredPlugin} from '../plugin'
+export type Register = (name: string, plugin: any) => Bud

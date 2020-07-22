@@ -7,12 +7,12 @@
  * bud.vendor('vendor')
  * ```
  */
-const vendor = function (name: string = 'vendor'): bud {
-  this.features.vendor = true
-  this.options.vendor.name = name
+const vendor = function (name: string = 'vendor'): Bud {
+  this.state.features.vendor = true
+  this.state.options.vendor.name = name
 
   return this
 }
 
 export {vendor}
-import type {bud} from '..'
+import type {Bud} from '..'

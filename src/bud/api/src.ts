@@ -9,8 +9,9 @@ import {join} from 'path'
  * bud.src('scripts/app.js') // absolute path to the source file
  * ```
  */
-const src = function (relativePath: string): string {
-  return join(this.paths.src, relativePath)
+const src: Src = function (relativePath: string): string {
+  return join(this.state.paths.src, relativePath)
 }
 
 export {src}
+import type {Src} from '.'

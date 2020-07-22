@@ -1,11 +1,11 @@
 /**
  * Externals
  */
-const externals = bud => ({
+const externals = (bud: Bud) => ({
   bud,
 
   options: {
-    externals: bud.options.externals,
+    externals: bud.state.options.externals,
   },
 
   make: function () {
@@ -31,3 +31,5 @@ const externals = bud => ({
 })
 
 export {externals}
+
+import type {Bud} from '../bud'

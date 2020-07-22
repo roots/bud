@@ -7,13 +7,13 @@
  * bud.auto({jquery: ['$', 'window.jQuery']})
  * ```
  */
-const auto: Auto = function (options: {
-  [key: string]: [string]
-}): bud {
+const auto: Auto = function (
+  options: {[key: string]: string[]}
+): Bud {
   Object.entries(options).forEach(([key, modules]) => {
     modules.forEach(handle => {
-      this.options.auto = {
-        ...this.options.auto,
+      this.state.options.auto = {
+        ...this.state.options.auto,
         [handle]: key,
       }
     })
@@ -23,9 +23,4 @@ const auto: Auto = function (options: {
 }
 
 export {auto}
-
-import type {bud} from '..'
-
-export type Auto = (options: {
-  [key: string]: [string]
-}) => bud
+import {Bud, Auto} from '.'

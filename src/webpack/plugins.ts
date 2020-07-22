@@ -1,38 +1,17 @@
-/** webpack plugin factory */
-import {webpackPluginFactory} from '../bud/base/plugins/webpackPluginControllerFactory'
-
 /**
  * Webpack plugins.
- *
- * @constructor
- * @type {function (bud) => {object}} plugins
- * @returns {object}
  */
-const plugins = bud => ({
-  /**
-   * Bud container.
-   * @property {bud} bud
-   */
+const plugins = (bud: Bud) => ({
   bud,
 
-  /**
-   * Webpack plugins
-   * @property {array} pluginQueue
-   */
-  pluginQueue: bud.webpackPlugins,
+  pluginQueue: bud.plugin.webpackAdapters,
 
-  /**
-   * Make plugins.
-   *
-   * @property {function} make
-   * @return   {Object}
-   */
   make: function () {
     this.doHook('pre')
 
     this.plugins = this.pluginQueue
-      .map(plugin =>
-        webpackPluginFactory(plugin, this.bud).build(),
+      .map((plugin: RegisteredPlugin) =>
+        this.bud.plugin.controller(this.bud).initController(plugin).buildPlugin(),
       )
       .filter(plugin => plugin !== undefined)
 
@@ -43,13 +22,6 @@ const plugins = bud => ({
     }
   },
 
-  /**
-   * Call a bud hook
-   *
-   * @property {function} doPreHook
-   * @param    {string} name
-   * @return   {void}
-   */
   doHook: function (name) {
     this.bud.hooks.call(
       `${name}_webpack_plugins`,
@@ -60,3 +32,6 @@ const plugins = bud => ({
 })
 
 export {plugins}
+
+import type {Bud} from '../bud'
+import type {RegisteredPlugin} from '../bud/plugin'

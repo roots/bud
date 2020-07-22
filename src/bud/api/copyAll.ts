@@ -9,11 +9,11 @@ import {join} from 'path'
  * bud.copyAll(bud.src('images'), bud.dist('images'))
  * ```
  */
-const copyAll = function (from: string, to: any): bud {
-  this.options.copy.patterns.push({
+const copyAll = function (from: string, to: any): Bud {
+  this.state.options.copy.patterns.push({
     from: '**/*',
     context: from,
-    to: to ? to : join(this.options.dist, from),
+    to: to ? to : join(this.state.options.dist, from),
     globOptions: {
       ignore: '.*',
     },
@@ -25,5 +25,5 @@ const copyAll = function (from: string, to: any): bud {
 
 export {copyAll}
 
-import {bud} from '..'
-export type CopyAll = (from: string, to: string) => bud
+import type {Bud} from '..'
+export type CopyAll = (from: string, to: string) => Bud

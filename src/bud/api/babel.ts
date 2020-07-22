@@ -10,22 +10,11 @@
  *
  * @see https://babeljs.io/docs/en/configuration
  */
-const babel: Babel = function (options): bud {
-  this.features.babel = true
-
-  this.options.babel = {
-    presets: [
-      ...(this.options.babel.presets
-        ? this.options.babel.presets
-        : {}),
-      ...(options.presets ? options.presets : {}),
-    ],
-    plugins: [
-      ...(this.options.babel.plugins
-        ? this.options.babel.plugins
-        : {}),
-      ...(options.plugins ? options.plugins : {}),
-    ],
+const babel: Babel = function (options: BabelOptions): Bud {
+  this.state.features.babel = true
+  this.state.options.babel = {
+    ...this.state.options.babel,
+    ...options,
   }
 
   return this
@@ -33,12 +22,4 @@ const babel: Babel = function (options): bud {
 
 export {babel}
 
-import type {bud} from '..'
-
-interface BabelOptionsInterface {
-  presets: []
-  plugins: []
-}
-
-export type Babel = (BabelOptionsInterface) => bud
-export {BabelOptionsInterface}
+import {Bud, Babel, BabelOptions} from './'

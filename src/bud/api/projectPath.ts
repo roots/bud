@@ -7,11 +7,11 @@
  * bud.projectPath(__dirname)
  * ```
  */
-const projectPath = function (dir: string): bud {
-  this.paths.project = dir
+const projectPath = function (dir: string): Bud {
+  this.state.paths.project = dir
 
   return this
 }
 
 export {projectPath}
-import type {bud} from '..'
+import type {Bud} from '..'

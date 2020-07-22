@@ -5,6 +5,9 @@
     "allowJs": true,
     "esModuleInterop": true,
     "declaration": true,
+    "declarationDir": "types",
+    "declarationMap": true,
+    "module": "commonjs",
     "outDir": "build",
     "moduleResolution": "node"
   }

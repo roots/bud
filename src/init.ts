@@ -2,12 +2,11 @@ import {join} from 'path'
 import {webpackBuilder} from './webpack'
 import {renderCompilerDashboard} from './compiler/renderCompilerDashboard'
 import {compileSafeMode} from './compileSafeMode'
-import {dump} from './bud/base/util/dump'
 
 /**
  * Bud container object
  */
-const budInstance: bud = require(join(
+const budInstance: Bud = require(join(
   process.cwd(),
   'bud.config.js',
 ))
@@ -15,18 +14,18 @@ const budInstance: bud = require(join(
 /**
  * Webpack configuraton mode
  */
-const mode: bud['mode'] = budInstance.mode
+const mode: Bud['mode'] = budInstance.mode
 
 /**
  * Use bud's default dashboard when enabled
  */
 const dashboardEnabled: boolean =
-  budInstance.features.dashboard
+  budInstance.state.features.dashboard
 
 /**
  * Dump config to stdout close process before build when enabled
  */
-const dumpEnabled: boolean = budInstance.features.dump
+const dumpEnabled: boolean = budInstance.state.features.dump
 
 /**
  * Process handling
@@ -62,7 +61,7 @@ budInstance.hooks.call('post_config', compiledConfig)
 /**
  * Dump if dumpEnabled conditional check is true
  */
-dumpEnabled && dump(compiledConfig)
+dumpEnabled && budInstance.util.dump(compiledConfig)
 
 /**
  * Run compiler.
@@ -74,8 +73,8 @@ dashboardEnabled
 /**
  * Typings
  */
-import type {bud} from './bud'
+import type {Bud} from './bud'
 import type {Configuration} from 'webpack'
 
-export type {bud}
+export type {Bud}
 export type {BudRenderer} from './compiler/renderCompilerDashboard'

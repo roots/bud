@@ -11,14 +11,12 @@
  * bud.debug(false) // debug disabled
  * ```
  */
-const debug: Debug = function (enabled: boolean): bud {
-  this.features.debug = enabled
+const debug: Debug = function (enabled: boolean): Bud {
+  this.state.features.debug = enabled
 
   return this
 }
 
-export {debug}
+export default debug
 
-import type {bud} from '..'
-
-export type Debug = (enabled: boolean) => bud
+import type {Bud, Debug} from '.'

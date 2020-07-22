@@ -1,18 +1,20 @@
 /**
  * ## bud.dependencyManifest
- * Make a manifest of @wordpress dependencies utilized by entrypoints.
+ *
  * @see     https://git.io/JJLxM
- * @example bud.dependencyManifest({outputFormat: 'js', injectPolyfill: false})
+ *
+ * ```js
+ * bud.dependencyManifest({outputFormat: 'js', injectPolyfill: false})
+ * ```
  */
 const dependencyManifest: DependencyManifest = function (
   settings,
 ) {
-  this.features.dependencyManifest = true
+  this.state.features.dependencyManifest = true
 
-  this.features.dependencyManifest &&
-    settings &&
-    Object.assign(this.options.dependencyManifest, {
-      ...this.options.dependencyManifest,
+  this.state.features.dependencyManifest && settings &&
+    Object.assign(this.state.options.dependencyManifest, {
+      ...this.state.options.dependencyManifest,
       ...(settings ? settings : {}),
     })
 
@@ -20,5 +22,5 @@ const dependencyManifest: DependencyManifest = function (
 }
 
 export {dependencyManifest}
-import type {bud} from '..'
-export type DependencyManifest = (object) => bud
+import type {Bud} from '..'
+export type DependencyManifest = (settings?: object) => Bud

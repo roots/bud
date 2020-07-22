@@ -4,21 +4,21 @@
 
 module.exports = {
   presets: [
-    require.resolve('@babel/preset-env'),
-    require.resolve('@babel/preset-typescript'),
-    require.resolve('@babel/preset-react'),
+    require('@babel/preset-env'),
+    require('@babel/preset-typescript'),
+    require('@babel/preset-react'),
   ],
   plugins: [
-    require.resolve('@babel/plugin-syntax-dynamic-import'),
-    require.resolve(
+    require('@babel/plugin-syntax-dynamic-import'),
+    require(
       '@babel/plugin-proposal-object-rest-spread',
     ),
     [
-      require.resolve('@babel/plugin-transform-runtime'),
+      require('@babel/plugin-transform-runtime'),
       {
         helpers: false,
       },
     ],
-    require.resolve('babel-plugin-macros'),
+    require('babel-plugin-macros'),
   ],
 }

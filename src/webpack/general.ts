@@ -3,12 +3,12 @@
  *
  * @this {bud}
  */
-const general = bud => ({
+const general = (bud: Bud) => ({
   bud,
   options: {
-    context: bud.paths.project,
-    devtool: bud.features.sourceMap
-      ? bud.options.devtool
+    context: bud.state.paths.project,
+    devtool: bud.state.features.sourceMap
+      ? bud.state.options.devtool
       : false,
     mode: bud.mode,
     node: {
@@ -21,8 +21,8 @@ const general = bud => ({
       tls: 'empty',
       child_process: 'empty',
     },
-    target: bud.options.target,
-    watch: bud.features.watch,
+    target: bud.state.options.target,
+    watch: bud.state.features.watch,
   },
 
   make: function () {
@@ -42,3 +42,4 @@ const general = bud => ({
 })
 
 export {general}
+import type {Bud} from '../bud'

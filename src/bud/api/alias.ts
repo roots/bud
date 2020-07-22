@@ -14,14 +14,14 @@
  * ```js
  * import 'scripts/myScript' // replacing '../../myScript'
  * ```
+ *
  **/
-const alias: Alias = function (options: object): bud {
-  this.options.alias = options
+const alias: Alias = function (options: object): Bud {
+  this.bud.state.options.alias = options
 
   return this
 }
 
 export {alias}
 
-import type {bud} from '..'
-export type Alias = (options: object) => bud
+import type {Bud, Alias} from './'

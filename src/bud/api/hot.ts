@@ -7,11 +7,11 @@
  * bud.hot(true) // enable HMR
  * ```
  */
-const hot = function (enabled: boolean = true): bud {
-  this.features.hot = enabled
+const hot = function (enabled: boolean = true): Bud {
+  this.state.features.hot = enabled
 
   return this
 }
 
 export {hot}
-import type {bud} from '..'
+import type {Bud} from '..'

@@ -11,11 +11,12 @@
  * bud.hot(false) // disable
  * ```
  */
-const mini = function (enable: boolean = true): bud {
-  this.features.minified = enable
+const mini: Mini = function (enable: boolean = true): Bud {
+  this.state.features.minified = enable
 
   return this
 }
 
 export {mini}
-import type {bud} from '..'
+import type {Bud} from '..'
+export type Mini = (enabled?: boolean) => Bud

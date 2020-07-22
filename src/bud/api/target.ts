@@ -7,11 +7,11 @@
  * bud.target('web') // default
  * ```
  */
-const target = function (target: string): bud {
-  this.options.target = target
+const target = function (target: string): Bud {
+  this.state.options.target = target
 
   return this
 }
 
 export {target}
-import type {bud} from '..'
+import type {Bud} from '..'

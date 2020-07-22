@@ -1,16 +1,16 @@
 import {loaders} from '../util/loaders'
 
-/**
- * @type {function} resolveUrl
- */
 const resolveUrl = builder => ({
   builder,
+
   loader: loaders.resolveUrl,
+
   options: {
     engine: 'postcss',
     sourceMap: builder.bud.features.map,
     debug: true,
   },
+
   make: function () {
     this.builder.bud.hooks.call('pre_resolveurl', this)
     this.output = {

@@ -9,11 +9,11 @@ import {join} from 'path'
  * bud.srcPath('src') // default unless specified
  * ```
  */
-const srcPath = function (src: string): bud {
-  this.paths.src = join(this.paths.project, src)
+const srcPath: SrcPath = function (src: string): Bud {
+  this.state.paths.src = join(this.state.paths.project, src)
 
   return this
 }
 
 export {srcPath}
-import type {bud} from '..'
+import type {Bud, SrcPath} from '.'

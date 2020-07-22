@@ -5,8 +5,8 @@
  * @return  {string}
  */
 const env = function (key): any {
-  return this.options.env[key]
-    ? this.options.env[key]
+  return this.state.options.env[key]
+    ? this.state.options.env[key]
     : null
 }
 

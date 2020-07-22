@@ -1,0 +1,13 @@
+/**
+ * ## bud.src
+ *
+ * Return an absolute path from a given path relative to the directory assigned by `bud.srcPath`.
+ *
+ * ```js
+ * bud.src('scripts/app.js') // absolute path to the source file
+ * ```
+ */
+declare const src: Src;
+export { src };
+import type { Src } from '.';
+//# sourceMappingURL=src.d.ts.map

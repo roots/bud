@@ -5,7 +5,7 @@
  * @return  {typeof import('../index')} bud
  */
 const hash = function (enabled = true) {
-  this.features.hash = enabled
+  this.state.features.hash = enabled
 
   return this
 }

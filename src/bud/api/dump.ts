@@ -5,11 +5,11 @@
  * bud.dump(true)
  * ```
  */
-const dump = function (enabled: boolean = true): bud {
-  this.features.dump = enabled
+const dump = function (enabled: boolean = true): Bud {
+  this.state.features.dump = enabled
 
   return this
 }
 
-export {dump}
-import type {bud} from '..'
+export = dump
+import type {Bud} from '..'

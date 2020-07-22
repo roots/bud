@@ -15,12 +15,9 @@ import {plugins} from './plugins'
  * @param {bud} bud
  * @return {WebpackBuilder}
  */
-const webpackBuilder: WebpackConstructor = (
-  bud: bud,
+const webpackBuilder = (
+  bud: Bud,
 ): WebpackBuilder => ({
-  /**
-   * @property {WebpackBuilder.bud} bud
-   */
   bud,
 
   /**
@@ -52,17 +49,17 @@ const webpackBuilder: WebpackConstructor = (
    * @property {WebpackBuilder.compile} compile
    */
   compile: function () {
-    this.doHook('pre', this.options)
+    this.doHook('pre', this.state.options)
 
-    this.mergeConfig(this.options.entry.make())
-    this.mergeConfig(this.options.output.make())
-    this.mergeConfig(this.options.rules.make())
-    this.mergeConfig(this.options.optimization.make())
-    this.mergeConfig(this.options.plugins.make())
-    this.mergeConfig(this.options.resolve.make())
-    this.mergeConfig(this.options.externals.make())
-    this.mergeConfig(this.options.devServer.make())
-    this.mergeConfig(this.options.general.make())
+    this.mergeConfig(this.state.options.entry.make())
+    this.mergeConfig(this.state.options.output.make())
+    this.mergeConfig(this.state.options.rules.make())
+    this.mergeConfig(this.state.options.optimization.make())
+    this.mergeConfig(this.state.options.plugins.make())
+    this.mergeConfig(this.state.options.resolve.make())
+    this.mergeConfig(this.state.options.externals.make())
+    this.mergeConfig(this.state.options.devServer.make())
+    this.mergeConfig(this.state.options.general.make())
 
     this.doHook('post', this.config)
 
@@ -79,15 +76,10 @@ const webpackBuilder: WebpackConstructor = (
 
 export {webpackBuilder}
 
-import type {bud} from '../bud'
+import type {Bud} from '../bud'
 import type {Configuration} from 'webpack'
-
-export type WebpackConstructor = (
-  bud: bud,
-) => WebpackBuilder
-
 export type WebpackBuilder = {
-  bud: bud
+  bud: Bud
   options: Object
   mergeConfig: (configValues: Object) => void
   compile: () => Configuration

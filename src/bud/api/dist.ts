@@ -7,7 +7,7 @@ import {join} from 'path'
  * ```
  */
 const dist = function (relativePath: string): string {
-  return join(this.paths.dist, relativePath)
+  return join(this.state.paths.dist, relativePath)
 }
 
 export {dist}

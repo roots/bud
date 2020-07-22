@@ -15,11 +15,11 @@
     "node": ">=12"
   },
   "main": "build/bud/index.js",
-  "types": "src/bud/index.d.ts",
+  "types": "types",
   "scripts": {
     "ts": "tsc",
-    "build": "tsc && babel src/ --out-dir=build --extensions '.js, .ts'",
-    "docs": "typedoc --out ./docs ./src/bud/api --excludeExternals",
+    "build": "tsc && babel src/ --out-dir=build --extensions '.js'",
+    "docs": "typedoc --out ./docs ./src/bud/base/plugins --excludeExternals",
     "lint": "npm-run-all -c lint:*",
     "lint:eslint": "eslint .",
     "lint:prettier": "prettier --write ."
@@ -130,5 +130,8 @@
   "devDependencies": {
     "@babel/cli": "^7.10.5",
     "typedoc": "^0.17.8"
-  }
+  },
+  "browserslist": [
+    "extends @wordpress/browserslist-config"
+  ]
 }

@@ -7,12 +7,12 @@
  */
 const inlineManifest: InlineManifest = function (
   options,
-): bud {
-  this.features.inlineManifest = true
+): Bud {
+  this.state.features.inlineManifest = true
 
-  if (this.features.inlineManifest) {
-    this.options.inlineManifest = {
-      ...this.options.inlineManifest,
+  if (this.state.features.inlineManifest) {
+    this.state.options.inlineManifest = {
+      ...this.state.options.inlineManifest,
       name: options?.name || 'runtime',
     }
   }
@@ -20,10 +20,9 @@ const inlineManifest: InlineManifest = function (
   return this
 }
 
-import type {bud} from '..'
-
-export type InlineManifest = (options: {
+import type {Bud} from '..'
+export type InlineManifest = (options?: {
   name?: string
-}) => bud
+}) => Bud
 
 export {inlineManifest}

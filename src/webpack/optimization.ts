@@ -4,18 +4,18 @@ import UglifyJsPlugin from 'uglifyjs-webpack-plugin'
  * Webpack optimization
  * @type {function} optimization
  */
-const optimization = bud => ({
+const optimization = (bud: Bud) => ({
   bud,
 
   supports: {
-    minification: bud.features.minified,
-    runtimeChunk: bud.features.inlineManifest,
-    vendor: bud.features.vendor,
+    minification: bud.state.features.minified,
+    runtimeChunk: bud.state.features.inlineManifest,
+    vendor: bud.state.features.vendor,
   },
 
   options: {
     optimization: {
-      minimize: bud.features.minified,
+      minimize: bud.state.features.minified,
       removeAvailableModules: false,
       removeEmptyChunks: false,
       moduleIds: 'hashed',
@@ -26,7 +26,7 @@ const optimization = bud => ({
     cacheGroups: {
       vendor: {
         test: /[\\/]node_modules[\\/]/,
-        name: bud.options.vendor.name,
+        name: bud.state.options.vendor.name,
         chunks: 'all',
         priority: -20,
       },
@@ -37,7 +37,7 @@ const optimization = bud => ({
     name: entrypoint => `runtime/${entrypoint.name}`,
   },
 
-  uglifyOptions: bud.options.uglify,
+  uglifyOptions: bud.state.options.uglify,
 
   make: function () {
     this.preHook()
@@ -56,19 +56,19 @@ const optimization = bud => ({
 
   setRuntimeChunk: function () {
     this.doHook('pre_runtimechunk')
-    this.options.optimization.runtimeChunk = this.runtimeChunkOptions
+    this.bud.state.options.optimization.runtimeChunk = this.runtimeChunkOptions
     this.doHook('post_runtimechunk')
   },
 
   setSplitChunks: function () {
     this.doHook('pre_splitchunks')
-    this.options.optimization.splitChunks = this.splitChunksOptions
+    this.bud.state.options.optimization.splitChunks = this.splitChunksOptions
     this.doHook('post_splitchunks')
   },
 
   setMinimizer: function () {
     this.doHook('pre_minimizer', this)
-    this.options.optimization.minimizer = [this.uglify()]
+    this.bud.state.options.optimization.minimizer = [this.uglify()]
     this.doHook('post_minimizer', this)
   },
 
@@ -88,7 +88,7 @@ const optimization = bud => ({
     this.bud.hooks.call(`post_webpack_optimization`, this)
   },
 
-  doHook: function (name, ...params) {
+  doHook: function (name: any, ...params: any) {
     this.bud.hooks.call(
       `webpack_optimization_${name}`,
       this,
@@ -98,3 +98,4 @@ const optimization = bud => ({
 })
 
 export {optimization}
+import type {Bud} from './../bud'
