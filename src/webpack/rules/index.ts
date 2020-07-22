@@ -29,7 +29,6 @@ const rules = bud => ({
    * Make webpack rules
    */
   make: function () {
-    this.pre()
     this.output = {
       ...this.options,
       module: {
@@ -50,10 +49,8 @@ const rules = bud => ({
     }
 
     this.output.module.rules = this.output.module.rules.filter(
-      type => type !== null,
+      (type: any) => type !== null,
     )
-
-    this.post()
 
     return this.output
   },
@@ -61,14 +58,14 @@ const rules = bud => ({
   /**
    * Hook: pre_modules
    */
-  pre: function () {
+  preHook: function () {
     this.bud.hooks.call('pre_module', this)
   },
 
   /**
    * Hook post_modules
    */
-  post: function () {
+  postHook: function () {
     this.bud.hooks.call('post_module', this.output)
   },
 })

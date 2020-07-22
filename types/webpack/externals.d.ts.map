@@ -1,1 +1,1 @@
-{"version":3,"file":"externals.d.ts","sourceRoot":"","sources":["../../src/webpack/externals.ts"],"names":[],"mappings":"AAAA;;GAEG;AACH,QAAA,MAAM,SAAS;;;;;;;;CA2Bb,CAAA;AAEF,OAAO,EAAC,SAAS,EAAC,CAAA"}
+{"version":3,"file":"externals.d.ts","sourceRoot":"","sources":["../../src/webpack/externals.ts"],"names":[],"mappings":";AAAA;;GAEG;AACH,QAAA,MAAM,SAAS,QAAS,GAAG;;;;;;CAQzB,CAAA;AAEF,OAAO,EAAC,SAAS,EAAC,CAAA;AAElB,OAAO,KAAK,EAAC,GAAG,EAAC,MAAM,QAAQ,CAAA"}

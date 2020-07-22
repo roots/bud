@@ -26,18 +26,7 @@ const general = (bud: Bud) => ({
   },
 
   make: function () {
-    this.preHook()
-    this.postHook()
-
     return this.options
-  },
-
-  preHook: function () {
-    this.bud.hooks.call('pre_options', this.output)
-  },
-
-  postHook: function () {
-    this.bud.hooks.call('post_options', this.output)
   },
 })
 

@@ -20,8 +20,5 @@ export declare type Bud = {
     sync: Sync;
     watch: Watch;
 };
-/**
- * Bud - asset management framework
- */
 export declare const bud: Bud;
 //# sourceMappingURL=index.d.ts.map

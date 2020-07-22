@@ -7,7 +7,6 @@ declare const plugins: (bud: Bud) => {
     make: () => {
         plugins: any;
     };
-    doHook: (name: any) => void;
 };
 export { plugins };
 import type { Bud } from '../bud';

@@ -13,8 +13,6 @@ declare const webpackResolve: (bud: any) => {
         };
     };
     make: () => any;
-    preHook: () => void;
-    postHook: () => void;
 };
 export { webpackResolve };
 //# sourceMappingURL=webpackResolve.d.ts.map

@@ -11,8 +11,6 @@ declare const output: (bud: any) => {
         };
     };
     make: () => any;
-    preHook: () => void;
-    postHook: () => void;
 };
 export { output };
 //# sourceMappingURL=output.d.ts.map

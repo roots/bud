@@ -1,1 +1,1 @@
-{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../src/webpack/rules/index.ts"],"names":[],"mappings":"AAaA;;;GAGG;AACH,QAAA,MAAM,KAAK;;;;;;;;IAUT;;OAEG;;IA+BH;;OAEG;;IAKH;;OAEG;;CAIH,CAAA;AAEF,OAAO,EAAC,KAAK,EAAC,CAAA"}
+{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../src/webpack/rules/index.ts"],"names":[],"mappings":"AAaA;;;GAGG;AACH,QAAA,MAAM,KAAK;;;;;;;;IAUT;;OAEG;;IA4BH;;OAEG;;IAKH;;OAEG;;CAIH,CAAA;AAEF,OAAO,EAAC,KAAK,EAAC,CAAA"}

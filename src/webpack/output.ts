@@ -15,24 +15,7 @@ const output = bud => ({
   },
 
   make: function () {
-    this.preHook()
-    this.postHook()
-
     return this.options
-  },
-
-  preHook: function () {
-    this.bud.hooks.call('pre_output', {
-      options: this.options,
-      bud: this.bud,
-    })
-  },
-
-  postHook: function () {
-    this.bud.hooks.call('post_output', {
-      options: this.options,
-      bud: this.bud,
-    })
   },
 })
 

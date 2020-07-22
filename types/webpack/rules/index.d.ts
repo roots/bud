@@ -17,11 +17,11 @@ declare const rules: (bud: any) => {
     /**
      * Hook: pre_modules
      */
-    pre: () => void;
+    preHook: () => void;
     /**
      * Hook post_modules
      */
-    post: () => void;
+    postHook: () => void;
 };
 export { rules };
 //# sourceMappingURL=index.d.ts.map

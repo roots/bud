@@ -21,14 +21,6 @@ const plugins = (bud: Bud) => ({
       plugins: this.plugins,
     }
   },
-
-  doHook: function (name) {
-    this.bud.hooks.call(
-      `${name}_webpack_plugins`,
-      this.plugins,
-      this.bud,
-    )
-  },
 })
 
 export {plugins}

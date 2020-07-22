@@ -38,8 +38,6 @@ declare const optimization: (bud: Bud) => {
     setSplitChunks: () => void;
     setMinimizer: () => void;
     uglify: () => UglifyJsPlugin;
-    preHook: () => void;
-    postHook: () => void;
     doHook: (name: any, ...params: any) => void;
 };
 export { optimization };

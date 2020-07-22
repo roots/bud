@@ -1,1 +1,1 @@
-{"version":3,"file":"entry.d.ts","sourceRoot":"","sources":["../../src/webpack/entry.ts"],"names":[],"mappings":"AAAA;;;;;GAKG;AACH,QAAA,MAAM,KAAK;;;;;;;;CAoBT,CAAA;AAEF,OAAO,EAAC,KAAK,EAAC,CAAA"}
+{"version":3,"file":"entry.d.ts","sourceRoot":"","sources":["../../src/webpack/entry.ts"],"names":[],"mappings":"AAAA;;GAEG;AACH,QAAA,MAAM,KAAK,EAAE,kBAQX,CAAA;AAEF,OAAO,EAAC,KAAK,EAAC,CAAA;AAGd,OAAO,KAAK,EAAC,kBAAkB,EAAC,MAAM,GAAG,CAAA"}

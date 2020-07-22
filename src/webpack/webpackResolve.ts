@@ -16,23 +16,12 @@ const webpackResolve = bud => ({
         '.tsx',
       ],
       modules: [bud.project('node_modules')],
-      alias: bud.options.alias || {},
+      alias: bud.stateoptions.alias || {},
     },
   },
 
   make: function () {
-    this.preHook()
-    this.postHook()
-
     return this.options
-  },
-
-  preHook: function () {
-    this.bud.hooks.call('pre_resolve', this.options)
-  },
-
-  postHook: function () {
-    this.bud.hooks.call('post_resolve', this.options)
   },
 })
 

@@ -40,13 +40,9 @@ const optimization = (bud: Bud) => ({
   uglifyOptions: bud.state.options.uglify,
 
   make: function () {
-    this.preHook()
-
     this.whenSupported('runtimeChunk', this.setRuntimeChunk)
     this.whenSupported('vendor', this.setSplitChunks)
     this.whenSupported('minimize', this.setMinimizer)
-
-    this.postHook()
   },
 
   whenSupported: function (feature, callback) {
@@ -78,14 +74,6 @@ const optimization = (bud: Bud) => ({
     this.doHook('post_uglify', this)
 
     return uglify
-  },
-
-  preHook: function () {
-    this.bud.hooks.call(`pre_webpack_optimization`, this)
-  },
-
-  postHook: function () {
-    this.bud.hooks.call(`post_webpack_optimization`, this)
   },
 
   doHook: function (name: any, ...params: any) {

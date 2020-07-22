@@ -3,12 +3,12 @@
  *
  * @this {bud}
  */
-declare const general: (bud: any) => {
-    bud: any;
+declare const general: (bud: Bud) => {
+    bud: Bud;
     options: {
-        context: any;
+        context: string;
         devtool: any;
-        mode: any;
+        mode: "none" | "development" | "production";
         node: {
             module: string;
             dgram: string;
@@ -19,12 +19,11 @@ declare const general: (bud: any) => {
             tls: string;
             child_process: string;
         };
-        target: any;
-        watch: any;
+        target: "node" | "web" | "webworker" | "async-node" | "node-webkit" | "atom" | "electron" | "electron-renderer" | "electron-preload" | "electron-main" | ((compiler?: any) => void);
+        watch: boolean;
     };
     make: () => any;
-    preHook: () => void;
-    postHook: () => void;
 };
 export { general };
+import type { Bud } from '../bud';
 //# sourceMappingURL=general.d.ts.map
