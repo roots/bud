@@ -13,7 +13,8 @@
  * ```
  */
 const sync: Sync = function ({enabled, options}): Bud {
-  this.state.features.browserSync = enabled || !this.inProduction
+  this.state.features.browserSync =
+    enabled || !this.inProduction
   this.state.options.browserSync = {
     host: options.host ? options.host : 'localhost',
     port: options.port ? options.port : 3000,

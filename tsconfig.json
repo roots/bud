@@ -1,11 +1,10 @@
 {
-  "include": ["src/**/*"],
-  "exclude": ["node_modules/**/*"],
+  "include": ["./src"],
   "compilerOptions": {
     "allowJs": true,
     "esModuleInterop": true,
     "declaration": true,
-    "declarationDir": "types",
+    "declarationDir": "build",
     "declarationMap": true,
     "module": "commonjs",
     "outDir": "build",

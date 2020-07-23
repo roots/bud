@@ -9,7 +9,7 @@ import {shortCircuit} from './shortCircuit'
  * @type {Dump}
  * @param {Object} obj - object to inspect
  */
-const dump: Dump= (obj: Object) => {
+const dump: Dump = (obj: Object) => {
   const normalizedConfigString: string = JSON.stringify(
     obj,
     shortCircuit(),

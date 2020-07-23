@@ -15,7 +15,10 @@ const register: Register = function (
 
   const registeredPlugin: RegisteredPlugin = [name, plugin]
 
-  bud.plugin.controller(this).initController(registeredPlugin).buildPlugin()
+  bud.plugin
+    .controller(this)
+    .initController(registeredPlugin)
+    .buildPlugin()
 
   return this
 }

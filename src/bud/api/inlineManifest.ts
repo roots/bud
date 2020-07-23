@@ -6,23 +6,19 @@
  * ```
  */
 const inlineManifest: InlineManifest = function (
-  options,
+  name: string,
 ): Bud {
   this.state.features.inlineManifest = true
 
   if (this.state.features.inlineManifest) {
     this.state.options.inlineManifest = {
       ...this.state.options.inlineManifest,
-      name: options?.name || 'runtime',
+      name: name || 'runtime',
     }
   }
 
   return this
 }
 
-import type {Bud} from '..'
-export type InlineManifest = (options?: {
-  name?: string
-}) => Bud
-
+import type {InlineManifest, Bud} from '.'
 export {inlineManifest}

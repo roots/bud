@@ -1,3 +1,5 @@
+import {Bud, Auto} from '.'
+
 /**
  * ## bud.auto
  *
@@ -8,7 +10,10 @@
  * ```
  */
 const auto: Auto = function (
-  options: {[key: string]: string[]}
+  this: Bud,
+  options: {
+    [key: string]: string[]
+  },
 ): Bud {
   Object.entries(options).forEach(([key, modules]) => {
     modules.forEach(handle => {
@@ -23,4 +28,3 @@ const auto: Auto = function (
 }
 
 export {auto}
-import {Bud, Auto} from '.'

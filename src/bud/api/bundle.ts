@@ -11,6 +11,7 @@
  * ```
  */
 const bundle: Bundle = function (
+  this: Bud,
   name: string,
   entries: object,
 ): Bud {

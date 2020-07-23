@@ -10,7 +10,8 @@
  * )
  * ```
  */
-const copy: Copy = function (
+const copy = function (
+  this: Bud,
   from: string,
   to: string,
 ): Bud {
@@ -20,4 +21,4 @@ const copy: Copy = function (
 }
 
 export {copy}
-import type {Bud, Copy} from '.'
+import {Bud} from '.'

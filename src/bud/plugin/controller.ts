@@ -48,9 +48,18 @@ const controller = (bud: Bud): Controller => ({
     this.doPluginHook('pre_bind')
 
     this.ensurePluginProp('bud', this.bud)
-    this.ensurePluginProp('options', this.bud.util.fab.undefined())
-    this.ensurePluginProp('setOptions', this.bud.util.fab.undefined)
-    this.ensurePluginProp('mergeOptions', this.bud.util.fab.undefined)
+    this.ensurePluginProp(
+      'options',
+      this.bud.util.fab.undefined(),
+    )
+    this.ensurePluginProp(
+      'setOptions',
+      this.bud.util.fab.undefined,
+    )
+    this.ensurePluginProp(
+      'mergeOptions',
+      this.bud.util.fab.undefined,
+    )
     this.ensurePluginProp('when', this.bud.util.fab.true)
 
     this.doPluginHook('post_bind')
@@ -120,9 +129,10 @@ const controller = (bud: Bud): Controller => ({
   makePlugin: function () {
     this.doPluginHook('pre')
 
-    this.plugin = this.plugin.when() && this.plugin.make
-      ? this.plugin.make()
-      : this.bud.util.fab.undefined()
+    this.plugin =
+      this.plugin.when() && this.plugin.make
+        ? this.plugin.make()
+        : this.bud.util.fab.undefined()
 
     this.doPluginHook('post')
 

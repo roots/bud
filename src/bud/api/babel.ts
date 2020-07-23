@@ -10,7 +10,10 @@
  *
  * @see https://babeljs.io/docs/en/configuration
  */
-const babel: Babel = function (options: BabelOptions): Bud {
+const babel: Babel = function (
+  this: Bud,
+  options: BabelProperties,
+): Bud {
   this.state.features.babel = true
   this.state.options.babel = {
     ...this.state.options.babel,
@@ -22,4 +25,4 @@ const babel: Babel = function (options: BabelOptions): Bud {
 
 export {babel}
 
-import {Bud, Babel, BabelOptions} from './'
+import {Bud, Babel, BabelProperties} from './'

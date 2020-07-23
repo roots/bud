@@ -1,3 +1,5 @@
+import type {Bud, Alias} from './'
+
 /**
  * ## bud.alias
  *
@@ -16,12 +18,13 @@
  * ```
  *
  **/
-const alias: Alias = function (options: object): Bud {
-  this.bud.state.options.alias = options
+const alias: Alias = function (
+  this: Bud,
+  options: object,
+): Bud {
+  this.state.options.alias = options
 
   return this
 }
 
 export {alias}
-
-import type {Bud, Alias} from './'

@@ -1,4 +1,5 @@
 import {inProduction} from './../mode'
+import type {Features} from '.'
 
 /**
  * Features
@@ -27,4 +28,3 @@ const features: Features = {
 }
 
 export {features}
-import type {Features} from '.'

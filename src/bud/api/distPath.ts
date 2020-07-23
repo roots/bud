@@ -8,7 +8,10 @@ import {join} from 'path'
  * ```
  */
 const distPath = function (dir: string): Bud {
-  this.state.paths.dist = join(this.state.paths.project, dir)
+  this.state.paths.dist = join(
+    this.state.paths.project,
+    dir,
+  )
 
   return this
 }

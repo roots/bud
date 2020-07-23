@@ -3,6 +3,10 @@ import {features} from './features'
 import {options} from './options'
 import {paths} from './paths'
 
+import type {Configuration as WebpackConfiguration} from 'webpack'
+import type {Options as DependencyExtractionOptions} from '@wordpress/dependency-extraction-webpack-plugin/build-types'
+import type {Options as BrowserSyncOptions} from 'browser-sync-webpack-plugin'
+
 /**
  * bud.state
  */
@@ -17,10 +21,10 @@ export const state: State = {
  * Mitch, all together.
  */
 export type State = {
-  configs: Configs,
-  features: Features,
-  options: Options,
-  paths: Paths,
+  configs: Configs
+  features: Features
+  options: Options
+  paths: Paths
 }
 
 /**
@@ -38,10 +42,8 @@ export type Paths = {
 /**
  * Options
  */
-import type {Configuration as WebpackConfiguration} from 'webpack'
-import type {Options as DependencyExtractionOptions} from '@wordpress/dependency-extraction-webpack-plugin/build-types'
-import type {Options as BrowserSyncOptions} from 'browser-sync-webpack-plugin'
 export type Options = {
+  alias: any
   auto: any
   babel: BabelConfiguration
   copy: Copy
@@ -67,7 +69,7 @@ export type BabelConfiguration = {
 }
 export type BrowserSync = BrowserSyncOptions
 export type Copy = {
-  patterns: []
+  patterns: object[]
 }
 export {DependencyExtractionOptions as WordPressDependenciesOptions}
 export type Dev = any

@@ -7,12 +7,14 @@
  * bud.dashboard(false) // disable dashboard
  * ```
  */
-const dashboard = function (enabled: boolean): Bud {
+const dashboard: Dashboard = function (
+  this: Bud,
+  enabled: boolean,
+) {
   this.state.features.dashboard = enabled
 
   return this
 }
 
 export {dashboard}
-export type Dashboard = (enabled: boolean) => Bud
-import type {Bud} from '..'
+import type {Bud, Dashboard} from '.'
