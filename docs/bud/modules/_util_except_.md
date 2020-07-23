@@ -2,25 +2,25 @@
 
 ## Variables
 
-###  lodash_1
+### lodash_1
 
-• **lodash_1**: *LoDashStatic* = require("lodash")
+• **lodash_1**: _LoDashStatic_ = require("lodash")
 
 Defined in util/except.js:4
 
 ## Functions
 
-###  except
+### except
 
-▸ **except**(`target`: any, `properties`: any): *any*
+▸ **except**(`target`: any, `properties`: any): _any_
 
 Defined in util/except.js:5
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`target` | any |
-`properties` | any |
+| Name         | Type |
+| ------------ | ---- |
+| `target`     | any  |
+| `properties` | any  |
 
-**Returns:** *any*
+**Returns:** _any_

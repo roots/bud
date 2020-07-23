@@ -2,9 +2,9 @@
 
 ## Functions
 
-###  watch
+### watch
 
-▸ **watch**(`enabled`: any): *any*
+▸ **watch**(`enabled`: any): _any_
 
 Defined in api/watch.js:13
 
@@ -18,8 +18,8 @@ bud.watch(true)
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`enabled` | any |
+| Name      | Type |
+| --------- | ---- |
+| `enabled` | any  |
 
-**Returns:** *any*
+**Returns:** _any_

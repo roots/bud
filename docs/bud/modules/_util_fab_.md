@@ -2,42 +2,42 @@
 
 ## Object literals
 
-###  fab
+### fab
 
-### ▪ **fab**: *object*
+### ▪ **fab**: _object_
 
 Defined in util/fab.js:7
 
 Fabs: like noop but fab.
 
-###  false
+### false
 
-▸ **false**(): *boolean*
+▸ **false**(): _boolean_
 
 Defined in util/fab.js:8
 
-**Returns:** *boolean*
+**Returns:** _boolean_
 
-###  null
+### null
 
-▸ **null**(): *any*
+▸ **null**(): _any_
 
 Defined in util/fab.js:11
 
-**Returns:** *any*
+**Returns:** _any_
 
-###  true
+### true
 
-▸ **true**(): *boolean*
+▸ **true**(): _boolean_
 
 Defined in util/fab.js:9
 
-**Returns:** *boolean*
+**Returns:** _boolean_
 
-###  undefined
+### undefined
 
-▸ **undefined**(): *any*
+▸ **undefined**(): _any_
 
 Defined in util/fab.js:10
 
-**Returns:** *any*
+**Returns:** _any_

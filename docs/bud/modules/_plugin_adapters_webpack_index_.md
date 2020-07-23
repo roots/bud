@@ -2,248 +2,248 @@
 
 ## Variables
 
-###  browserSyncAdapter
+### browserSyncAdapter
 
-• **browserSyncAdapter**: *string | function[]* = [
-    'browser_sync_plugin',
-    browserSync_1.browserSync,
+• **browserSyncAdapter**: _string | function[]_ = [
+'browser_sync_plugin',
+browserSync_1.browserSync,
 ]
 
 Defined in plugin/adapters/webpack/index.js:16
 
-___
+---
 
-###  browserSync_1
+### browserSync_1
 
-• **browserSync_1**: *["plugin/adapters/webpack/browserSync"](_plugin_adapters_webpack_browsersync_.md)* = require("./browserSync")
+• **browserSync_1**: _["plugin/adapters/webpack/browserSync"](_plugin_adapters_webpack_browsersync_.md)_ = require("./browserSync")
 
 Defined in plugin/adapters/webpack/index.js:4
 
-___
+---
 
-###  cleanAdapter
+### cleanAdapter
 
-• **cleanAdapter**: *string | function[]* = [
-    'clean_webpack_plugin',
-    cleanWebpack_1.cleanWebpack,
+• **cleanAdapter**: _string | function[]_ = [
+'clean_webpack_plugin',
+cleanWebpack_1.cleanWebpack,
 ]
 
 Defined in plugin/adapters/webpack/index.js:20
 
-___
+---
 
-###  cleanWebpack_1
+### cleanWebpack_1
 
-• **cleanWebpack_1**: *["plugin/adapters/webpack/cleanWebpack"](_plugin_adapters_webpack_cleanwebpack_.md)* = require("./cleanWebpack")
+• **cleanWebpack_1**: _["plugin/adapters/webpack/cleanWebpack"](_plugin_adapters_webpack_cleanwebpack_.md)_ = require("./cleanWebpack")
 
 Defined in plugin/adapters/webpack/index.js:5
 
-___
+---
 
-###  copyAdapter
+### copyAdapter
 
-• **copyAdapter**: *string | function[]* = ['copy_plugin', copy_1.copy]
+• **copyAdapter**: _string | function[]_ = ['copy_plugin', copy_1.copy]
 
 Defined in plugin/adapters/webpack/index.js:24
 
-___
+---
 
-###  copy_1
+### copy_1
 
-• **copy_1**: *["plugin/adapters/webpack/copy"](_plugin_adapters_webpack_copy_.md)* = require("./copy")
+• **copy_1**: _["plugin/adapters/webpack/copy"](_plugin_adapters_webpack_copy_.md)_ = require("./copy")
 
 Defined in plugin/adapters/webpack/index.js:6
 
-___
+---
 
-###  defineAdapter
+### defineAdapter
 
-• **defineAdapter**: *string | function[]* = [
-    'define_plugin',
-    define_1.define,
+• **defineAdapter**: _string | function[]_ = [
+'define_plugin',
+define_1.define,
 ]
 
 Defined in plugin/adapters/webpack/index.js:25
 
-___
+---
 
-###  define_1
+### define_1
 
-• **define_1**: *["plugin/adapters/webpack/define"](_plugin_adapters_webpack_define_.md)* = require("./define")
+• **define_1**: _["plugin/adapters/webpack/define"](_plugin_adapters_webpack_define_.md)_ = require("./define")
 
 Defined in plugin/adapters/webpack/index.js:7
 
-___
+---
 
-###  dependencyExtractionAdapter
+### dependencyExtractionAdapter
 
-• **dependencyExtractionAdapter**: *string | function[]* = [
-    'dependency_extraction_plugin',
-    dependencyExtraction_1.dependencyExtraction,
+• **dependencyExtractionAdapter**: _string | function[]_ = [
+'dependency_extraction_plugin',
+dependencyExtraction_1.dependencyExtraction,
 ]
 
 Defined in plugin/adapters/webpack/index.js:29
 
-___
+---
 
-###  dependencyExtraction_1
+### dependencyExtraction_1
 
-• **dependencyExtraction_1**: *["plugin/adapters/webpack/dependencyExtraction"](_plugin_adapters_webpack_dependencyextraction_.md)* = require("./dependencyExtraction")
+• **dependencyExtraction_1**: _["plugin/adapters/webpack/dependencyExtraction"](_plugin_adapters_webpack_dependencyextraction_.md)_ = require("./dependencyExtraction")
 
 Defined in plugin/adapters/webpack/index.js:8
 
-___
+---
 
-###  fixStyleAdapter
+### fixStyleAdapter
 
-• **fixStyleAdapter**: *string | function[]* = [
-    'fix_style_only_entries_plugin',
-    fixStyleOnlyEntries_1.fixStyleOnlyEntries,
+• **fixStyleAdapter**: _string | function[]_ = [
+'fix_style_only_entries_plugin',
+fixStyleOnlyEntries_1.fixStyleOnlyEntries,
 ]
 
 Defined in plugin/adapters/webpack/index.js:33
 
-___
+---
 
-###  fixStyleOnlyEntries_1
+### fixStyleOnlyEntries_1
 
-• **fixStyleOnlyEntries_1**: *["plugin/adapters/webpack/fixStyleOnlyEntries"](_plugin_adapters_webpack_fixstyleonlyentries_.md)* = require("./fixStyleOnlyEntries")
+• **fixStyleOnlyEntries_1**: _["plugin/adapters/webpack/fixStyleOnlyEntries"](_plugin_adapters_webpack_fixstyleonlyentries_.md)_ = require("./fixStyleOnlyEntries")
 
 Defined in plugin/adapters/webpack/index.js:9
 
-___
+---
 
-###  hmrAdapter
+### hmrAdapter
 
-• **hmrAdapter**: *string | function[]* = [
-    'hot_module_replacement_plugin',
-    hotModuleReplacement_1.hotModuleReplacement,
+• **hmrAdapter**: _string | function[]_ = [
+'hot_module_replacement_plugin',
+hotModuleReplacement_1.hotModuleReplacement,
 ]
 
 Defined in plugin/adapters/webpack/index.js:37
 
-___
+---
 
-###  hotModuleReplacement_1
+### hotModuleReplacement_1
 
-• **hotModuleReplacement_1**: *["plugin/adapters/webpack/hotModuleReplacement"](_plugin_adapters_webpack_hotmodulereplacement_.md)* = require("./hotModuleReplacement")
+• **hotModuleReplacement_1**: _["plugin/adapters/webpack/hotModuleReplacement"](_plugin_adapters_webpack_hotmodulereplacement_.md)_ = require("./hotModuleReplacement")
 
 Defined in plugin/adapters/webpack/index.js:10
 
-___
+---
 
-###  limitChunkAdapter
+### limitChunkAdapter
 
-• **limitChunkAdapter**: *string | function[]* = [
-    'limit_chunk_count',
-    limitChunkCount_1.limitChunkCount,
+• **limitChunkAdapter**: _string | function[]_ = [
+'limit_chunk_count',
+limitChunkCount_1.limitChunkCount,
 ]
 
 Defined in plugin/adapters/webpack/index.js:57
 
-___
+---
 
-###  limitChunkCount_1
+### limitChunkCount_1
 
-• **limitChunkCount_1**: *["plugin/adapters/webpack/limitChunkCount"](_plugin_adapters_webpack_limitchunkcount_.md)* = require("./limitChunkCount")
+• **limitChunkCount_1**: _["plugin/adapters/webpack/limitChunkCount"](_plugin_adapters_webpack_limitchunkcount_.md)_ = require("./limitChunkCount")
 
 Defined in plugin/adapters/webpack/index.js:11
 
-___
+---
 
-###  manifestAdapter
+### manifestAdapter
 
-• **manifestAdapter**: *string | function[]* = [
-    'manifest_plugin',
-    manifest_1.manifest,
+• **manifestAdapter**: _string | function[]_ = [
+'manifest_plugin',
+manifest_1.manifest,
 ]
 
 Defined in plugin/adapters/webpack/index.js:41
 
-___
+---
 
-###  manifest_1
+### manifest_1
 
-• **manifest_1**: *["plugin/adapters/webpack/manifest"](_plugin_adapters_webpack_manifest_.md)* = require("./manifest")
+• **manifest_1**: _["plugin/adapters/webpack/manifest"](_plugin_adapters_webpack_manifest_.md)_ = require("./manifest")
 
 Defined in plugin/adapters/webpack/index.js:13
 
-___
+---
 
-###  miniCssAdapter
+### miniCssAdapter
 
-• **miniCssAdapter**: *string | function[]* = [
-    'mini_css_extract_plugin',
-    miniCssExtract_1.miniCssExtract,
+• **miniCssAdapter**: _string | function[]_ = [
+'mini_css_extract_plugin',
+miniCssExtract_1.miniCssExtract,
 ]
 
 Defined in plugin/adapters/webpack/index.js:45
 
-___
+---
 
-###  miniCssExtract_1
+### miniCssExtract_1
 
-• **miniCssExtract_1**: *["plugin/adapters/webpack/miniCssExtract"](_plugin_adapters_webpack_minicssextract_.md)* = require("./miniCssExtract")
+• **miniCssExtract_1**: _["plugin/adapters/webpack/miniCssExtract"](_plugin_adapters_webpack_minicssextract_.md)_ = require("./miniCssExtract")
 
 Defined in plugin/adapters/webpack/index.js:12
 
-___
+---
 
-###  provideAdapter
+### provideAdapter
 
-• **provideAdapter**: *string | function[]* = [
-    'provide_plugin',
-    provide_1.provide,
+• **provideAdapter**: _string | function[]_ = [
+'provide_plugin',
+provide_1.provide,
 ]
 
 Defined in plugin/adapters/webpack/index.js:49
 
-___
+---
 
-###  provide_1
+### provide_1
 
-• **provide_1**: *["plugin/adapters/webpack/provide"](_plugin_adapters_webpack_provide_.md)* = require("./provide")
+• **provide_1**: _["plugin/adapters/webpack/provide"](_plugin_adapters_webpack_provide_.md)_ = require("./provide")
 
 Defined in plugin/adapters/webpack/index.js:14
 
-___
+---
 
-###  webpackAdapters
+### webpackAdapters
 
-• **webpackAdapters**: *string | function[][]* = [
-    browserSyncAdapter,
-    cleanAdapter,
-    copyAdapter,
-    defineAdapter,
-    dependencyExtractionAdapter,
-    fixStyleAdapter,
-    hmrAdapter,
-    manifestAdapter,
-    miniCssAdapter,
-    ,
-    provideAdapter,
-    ,
-    writeFileAdapter,
-    limitChunkAdapter,
+• **webpackAdapters**: _string | function[][]_ = [
+browserSyncAdapter,
+cleanAdapter,
+copyAdapter,
+defineAdapter,
+dependencyExtractionAdapter,
+fixStyleAdapter,
+hmrAdapter,
+manifestAdapter,
+miniCssAdapter,
+,
+provideAdapter,
+,
+writeFileAdapter,
+limitChunkAdapter,
 ]
 
 Defined in plugin/adapters/webpack/index.js:61
 
-___
+---
 
-###  writeFileAdapter
+### writeFileAdapter
 
-• **writeFileAdapter**: *string | function[]* = [
-    'write_file_plugin',
-    writeFile_1.writeFile,
+• **writeFileAdapter**: _string | function[]_ = [
+'write_file_plugin',
+writeFile_1.writeFile,
 ]
 
 Defined in plugin/adapters/webpack/index.js:53
 
-___
+---
 
-###  writeFile_1
+### writeFile_1
 
-• **writeFile_1**: *["plugin/adapters/webpack/writeFile"](_plugin_adapters_webpack_writefile_.md)* = require("./writeFile")
+• **writeFile_1**: _["plugin/adapters/webpack/writeFile"](_plugin_adapters_webpack_writefile_.md)_ = require("./writeFile")
 
 Defined in plugin/adapters/webpack/index.js:15

@@ -44,8 +44,8 @@ export type Api = {
   copyAll: Copy
   dashboard: Dashboard
   debug: Debug
-  dependencyManifest: DependencyManifest,
-  resolve: Resolve,
+  dependencyManifest: DependencyManifest
+  resolve: Resolve
   src: Src
   srcPath: SrcPath
   sync: Sync

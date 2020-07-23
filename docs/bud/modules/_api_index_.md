@@ -2,104 +2,104 @@
 
 ## Variables
 
-###  alias_1
+### alias_1
 
-• **alias_1**: *["api/alias"](_api_alias_.md)* = require("./alias")
+• **alias_1**: _["api/alias"](_api_alias_.md)_ = require("./alias")
 
 Defined in api/index.js:4
 
-___
+---
 
-###  auto_1
+### auto_1
 
-• **auto_1**: *["api/auto"](_api_auto_.md)* = require("./auto")
+• **auto_1**: _["api/auto"](_api_auto_.md)_ = require("./auto")
 
 Defined in api/index.js:5
 
-___
+---
 
-###  babel_1
+### babel_1
 
-• **babel_1**: *["api/babel"](_api_babel_.md)* = require("./babel")
+• **babel_1**: _["api/babel"](_api_babel_.md)_ = require("./babel")
 
 Defined in api/index.js:6
 
-___
+---
 
-###  bundle_1
+### bundle_1
 
-• **bundle_1**: *["api/bundle"](_api_bundle_.md)* = require("./bundle")
+• **bundle_1**: _["api/bundle"](_api_bundle_.md)_ = require("./bundle")
 
 Defined in api/index.js:7
 
-___
+---
 
-###  copyAll_1
+### copyAll_1
 
-• **copyAll_1**: *["api/copyAll"](_api_copyall_.md)* = require("./copyAll")
+• **copyAll_1**: _["api/copyAll"](_api_copyall_.md)_ = require("./copyAll")
 
 Defined in api/index.js:9
 
-___
+---
 
-###  copy_1
+### copy_1
 
-• **copy_1**: *["api/copy"](_api_copy_.md)* = require("./copy")
+• **copy_1**: _["api/copy"](_api_copy_.md)_ = require("./copy")
 
 Defined in api/index.js:8
 
-___
+---
 
-###  dashboard_1
+### dashboard_1
 
-• **dashboard_1**: *["api/dashboard"](_api_dashboard_.md)* = require("./dashboard")
+• **dashboard_1**: _["api/dashboard"](_api_dashboard_.md)_ = require("./dashboard")
 
 Defined in api/index.js:10
 
-___
+---
 
-###  debug_1
+### debug_1
 
-• **debug_1**: *["api/debug"](_api_debug_.md)* = require("./debug")
+• **debug_1**: _["api/debug"](_api_debug_.md)_ = require("./debug")
 
 Defined in api/index.js:11
 
-___
+---
 
-###  srcPath_1
+### srcPath_1
 
-• **srcPath_1**: *["api/srcPath"](_api_srcpath_.md)* = require("./srcPath")
+• **srcPath_1**: _["api/srcPath"](_api_srcpath_.md)_ = require("./srcPath")
 
 Defined in api/index.js:13
 
-___
+---
 
-###  src_1
+### src_1
 
-• **src_1**: *["api/src"](_api_src_.md)* = require("./src")
+• **src_1**: _["api/src"](_api_src_.md)_ = require("./src")
 
 Defined in api/index.js:12
 
-___
+---
 
-###  sync_1
+### sync_1
 
-• **sync_1**: *["api/sync"](_api_sync_.md)* = require("./sync")
+• **sync_1**: _["api/sync"](_api_sync_.md)_ = require("./sync")
 
 Defined in api/index.js:14
 
-___
+---
 
-###  vendor_1
+### vendor_1
 
-• **vendor_1**: *["api/vendor"](_api_vendor_.md)* = require("./vendor")
+• **vendor_1**: _["api/vendor"](_api_vendor_.md)_ = require("./vendor")
 
 Defined in api/index.js:15
 
-___
+---
 
-###  watch_1
+### watch_1
 
-• **watch_1**: *["api/watch"](_api_watch_.md)* = require("./watch")
+• **watch_1**: _["api/watch"](_api_watch_.md)_ = require("./watch")
 
 Defined in api/index.js:16

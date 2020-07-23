@@ -2,138 +2,138 @@
 
 ## Variables
 
-###  mode_1
+### mode_1
 
-• **mode_1**: *["mode"](_mode_.md)* = require("./../mode")
+• **mode_1**: _["mode"](_mode_.md)_ = require("./../mode")
 
 Defined in state/features.js:4
 
 ## Object literals
 
-###  features
+### features
 
-### ▪ **features**: *object*
+### ▪ **features**: _object_
 
 Defined in state/features.js:8
 
 Features
 
-###  babel
+### babel
 
-• **babel**: *boolean* = true
+• **babel**: _boolean_ = true
 
 Defined in state/features.js:9
 
-###  browserSync
+### browserSync
 
-• **browserSync**: *boolean* = !mode_1.inProduction
+• **browserSync**: _boolean_ = !mode_1.inProduction
 
 Defined in state/features.js:10
 
-###  dashboard
+### dashboard
 
-• **dashboard**: *boolean* = true
+• **dashboard**: _boolean_ = true
 
 Defined in state/features.js:12
 
-###  debug
+### debug
 
-• **debug**: *boolean* = false
+• **debug**: _boolean_ = false
 
 Defined in state/features.js:11
 
-###  dependencyManifest
+### dependencyManifest
 
-• **dependencyManifest**: *boolean* = false
+• **dependencyManifest**: _boolean_ = false
 
 Defined in state/features.js:13
 
-###  dump
+### dump
 
-• **dump**: *boolean* = false
+• **dump**: _boolean_ = false
 
 Defined in state/features.js:14
 
-###  eslint
+### eslint
 
-• **eslint**: *boolean* = true
+• **eslint**: _boolean_ = true
 
 Defined in state/features.js:15
 
-###  hash
+### hash
 
-• **hash**: *boolean* = mode_1.inProduction
+• **hash**: _boolean_ = mode_1.inProduction
 
 Defined in state/features.js:16
 
-###  hot
+### hot
 
-• **hot**: *boolean* = !mode_1.inProduction
+• **hot**: _boolean_ = !mode_1.inProduction
 
 Defined in state/features.js:17
 
-###  inlineManifest
+### inlineManifest
 
-• **inlineManifest**: *boolean* = false
+• **inlineManifest**: _boolean_ = false
 
 Defined in state/features.js:18
 
-###  minified
+### minified
 
-• **minified**: *boolean* = mode_1.inProduction
+• **minified**: _boolean_ = mode_1.inProduction
 
 Defined in state/features.js:19
 
-###  overlay
+### overlay
 
-• **overlay**: *boolean* = true
+• **overlay**: _boolean_ = true
 
 Defined in state/features.js:20
 
-###  postCss
+### postCss
 
-• **postCss**: *boolean* = true
+• **postCss**: _boolean_ = true
 
 Defined in state/features.js:21
 
-###  purge
+### purge
 
-• **purge**: *boolean* = false
+• **purge**: _boolean_ = false
 
 Defined in state/features.js:22
 
-###  sourceMap
+### sourceMap
 
-• **sourceMap**: *boolean* = !mode_1.inProduction
+• **sourceMap**: _boolean_ = !mode_1.inProduction
 
 Defined in state/features.js:23
 
-###  splitting
+### splitting
 
-• **splitting**: *boolean* = true
+• **splitting**: _boolean_ = true
 
 Defined in state/features.js:24
 
-###  translate
+### translate
 
-• **translate**: *boolean* = false
+• **translate**: _boolean_ = false
 
 Defined in state/features.js:25
 
-###  typescript
+### typescript
 
-• **typescript**: *boolean* = true
+• **typescript**: _boolean_ = true
 
 Defined in state/features.js:26
 
-###  vendor
+### vendor
 
-• **vendor**: *boolean* = false
+• **vendor**: _boolean_ = false
 
 Defined in state/features.js:27
 
-###  watch
+### watch
 
-• **watch**: *boolean* = !mode_1.inProduction
+• **watch**: _boolean_ = !mode_1.inProduction
 
 Defined in state/features.js:28

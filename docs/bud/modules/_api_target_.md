@@ -2,9 +2,9 @@
 
 ## Functions
 
-###  target
+### target
 
-▸ **target**(`target`: any): *any*
+▸ **target**(`target`: any): _any_
 
 Defined in api/target.js:13
 
@@ -18,8 +18,8 @@ bud.target('web') // default
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`target` | any |
+| Name     | Type |
+| -------- | ---- |
+| `target` | any  |
 
-**Returns:** *any*
+**Returns:** _any_

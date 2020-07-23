@@ -25,6 +25,6 @@ export type Util = {
   dump: Dump
   except: Except
   shortCircuit: ShortCircuit
-  fab: Fab,
-  terminate: (any) => void,
+  fab: Fab
+  terminate: (any) => void
 }

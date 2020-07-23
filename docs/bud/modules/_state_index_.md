@@ -2,32 +2,32 @@
 
 ## Variables
 
-###  configs_1
+### configs_1
 
-• **configs_1**: *["state/configs"](_state_configs_.md)* = require("./configs")
+• **configs_1**: _["state/configs"](_state_configs_.md)_ = require("./configs")
 
 Defined in state/index.js:4
 
-___
+---
 
-###  features_1
+### features_1
 
-• **features_1**: *["state/features"](_state_features_.md)* = require("./features")
+• **features_1**: _["state/features"](_state_features_.md)_ = require("./features")
 
 Defined in state/index.js:5
 
-___
+---
 
-###  options_1
+### options_1
 
-• **options_1**: *["state/options"](_state_options_.md)* = require("./options")
+• **options_1**: _["state/options"](_state_options_.md)_ = require("./options")
 
 Defined in state/index.js:6
 
-___
+---
 
-###  paths_1
+### paths_1
 
-• **paths_1**: *["state/paths"](_state_paths_.md)* = require("./paths")
+• **paths_1**: _["state/paths"](_state_paths_.md)_ = require("./paths")
 
 Defined in state/index.js:7

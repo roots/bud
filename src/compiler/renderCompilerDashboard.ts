@@ -2,13 +2,19 @@ import webpack from 'webpack'
 import React from 'react'
 import {render} from 'ink'
 import {Runner} from './Runner'
+import type {
+  Bud,
+  BudRenderer,
+  RunnerProps,
+  WebpackConfig,
+} from './types'
 
 /**
  * Webpack compilation dashboard renderer.
  */
 const renderCompilerDashboard: BudRenderer = (
   bud: Bud,
-  webpackConfig: Configuration,
+  webpackConfig: WebpackConfig,
 ): void => {
   /**
    * Runner props
@@ -29,36 +35,3 @@ const renderCompilerDashboard: BudRenderer = (
 }
 
 export {renderCompilerDashboard}
-
-/**
- * Typings
- */
-import type {Configuration, Compiler} from 'webpack'
-import type {Bud} from '../bud'
-
-/**
- * Runner Props
- *
- * @interface
- * @property {bud} config - bud container
- * @property {Configuration} webpackConfig - webpack configuration object
- * @property {Compiler} compiler - webpack compiler
- */
-export interface RunnerProps {
-  config: object
-  webpackConfig: Configuration
-  compiler: Compiler
-}
-
-/**
- * BudRenderer
- *
- * @typedef {BudRenderer}
- * @param {bud} bud
- * @param {Configuration} webpackConfig
- * @return {void}
- */
-export type BudRenderer = (
-  config: Bud,
-  webpackConfig: Configuration,
-) => void

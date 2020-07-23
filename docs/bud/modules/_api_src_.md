@@ -2,17 +2,17 @@
 
 ## Variables
 
-###  path_1
+### path_1
 
-• **path_1**: *PlatformPath* = require("path")
+• **path_1**: _PlatformPath_ = require("path")
 
 Defined in api/src.js:4
 
 ## Functions
 
-###  src
+### src
 
-▸ **src**(`relativePath`: any): *string*
+▸ **src**(`relativePath`: any): _string_
 
 Defined in api/src.js:14
 
@@ -26,8 +26,8 @@ bud.src('scripts/app.js') // absolute path to the source file
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`relativePath` | any |
+| Name           | Type |
+| -------------- | ---- |
+| `relativePath` | any  |
 
-**Returns:** *string*
+**Returns:** _string_

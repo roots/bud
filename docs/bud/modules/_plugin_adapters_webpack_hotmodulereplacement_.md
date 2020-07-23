@@ -2,24 +2,24 @@
 
 ## Variables
 
-###  webpack_1
+### webpack_1
 
-• **webpack_1**: *webpack* = require("webpack")
+• **webpack_1**: _webpack_ = require("webpack")
 
 Defined in plugin/adapters/webpack/hotModuleReplacement.js:4
 
 ## Functions
 
-###  hotModuleReplacement
+### hotModuleReplacement
 
-▸ **hotModuleReplacement**(): *object*
+▸ **hotModuleReplacement**(): _object_
 
 Defined in plugin/adapters/webpack/hotModuleReplacement.js:5
 
-**Returns:** *object*
+**Returns:** _object_
 
-* **make**(): *HotModuleReplacementPlugin‹›*
+- **make**(): _HotModuleReplacementPlugin‹›_
 
-* **setOptions**(): *any*
+- **setOptions**(): _any_
 
-* **when**(): *any*
+- **when**(): _any_

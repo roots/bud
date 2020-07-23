@@ -2,34 +2,34 @@
 
 ## Variables
 
-###  __importDefault
+### \_\_importDefault
 
-• **__importDefault**: *any* = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
+• **\_\_importDefault**: _any_ = (this && this.**importDefault) || function (mod) {
+return (mod && mod.**esModule) ? mod : { "default": mod };
 }
 
 Defined in plugin/adapters/webpack/dependencyExtraction.js:2
 
-___
+---
 
-###  dependency_extraction_webpack_plugin_1
+### dependency_extraction_webpack_plugin_1
 
-• **dependency_extraction_webpack_plugin_1**: *any* = __importDefault(require("@wordpress/dependency-extraction-webpack-plugin"))
+• **dependency_extraction_webpack_plugin_1**: _any_ = \_\_importDefault(require("@wordpress/dependency-extraction-webpack-plugin"))
 
 Defined in plugin/adapters/webpack/dependencyExtraction.js:7
 
 ## Functions
 
-###  dependencyExtraction
+### dependencyExtraction
 
-▸ **dependencyExtraction**(): *object*
+▸ **dependencyExtraction**(): _object_
 
 Defined in plugin/adapters/webpack/dependencyExtraction.js:8
 
-**Returns:** *object*
+**Returns:** _object_
 
-* **make**(): *any*
+- **make**(): _any_
 
-* **setOptions**(): *any*
+- **setOptions**(): _any_
 
-* **when**(): *any*
+- **when**(): _any_

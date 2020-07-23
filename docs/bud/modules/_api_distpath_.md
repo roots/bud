@@ -2,17 +2,17 @@
 
 ## Variables
 
-###  path_1
+### path_1
 
-• **path_1**: *PlatformPath* = require("path")
+• **path_1**: _PlatformPath_ = require("path")
 
 Defined in api/distPath.js:4
 
 ## Functions
 
-###  distPath
+### distPath
 
-▸ **distPath**(`dir`: any): *any*
+▸ **distPath**(`dir`: any): _any_
 
 Defined in api/distPath.js:12
 
@@ -24,8 +24,8 @@ bud.distPath('dist')
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`dir` | any |
+| Name  | Type |
+| ----- | ---- |
+| `dir` | any  |
 
-**Returns:** *any*
+**Returns:** _any_

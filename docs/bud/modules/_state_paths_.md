@@ -2,27 +2,27 @@
 
 ## Variables
 
-###  frameworkDir
+### frameworkDir
 
-• **frameworkDir**: *string* = path_1.resolve(__dirname, './../../../')
+• **frameworkDir**: _string_ = path_1.resolve(\_\_dirname, './../../../')
 
 Defined in state/paths.js:12
 
 Bud framework dir.
 
-___
+---
 
-###  path_1
+### path_1
 
-• **path_1**: *PlatformPath* = require("path")
+• **path_1**: _PlatformPath_ = require("path")
 
 Defined in state/paths.js:4
 
-___
+---
 
-###  projectDir
+### projectDir
 
-• **projectDir**: *string* = process.cwd()
+• **projectDir**: _string_ = process.cwd()
 
 Defined in state/paths.js:8
 
@@ -30,40 +30,40 @@ Current working dir.
 
 ## Object literals
 
-###  paths
+### paths
 
-### ▪ **paths**: *object*
+### ▪ **paths**: _object_
 
 Defined in state/paths.js:16
 
 Path references.
 
-###  dist
+### dist
 
-• **dist**: *string* = path_1.join(projectDir, '')
+• **dist**: _string_ = path_1.join(projectDir, '')
 
 Defined in state/paths.js:20
 
-###  framework
+### framework
 
-• **framework**: *string* = frameworkDir
+• **framework**: _string_ = frameworkDir
 
 Defined in state/paths.js:18
 
-###  project
+### project
 
-• **project**: *string* = projectDir
+• **project**: _string_ = projectDir
 
 Defined in state/paths.js:17
 
-###  public
+### public
 
-• **public**: *string* = ""
+• **public**: _string_ = ""
 
 Defined in state/paths.js:21
 
-###  src
+### src
 
-• **src**: *string* = path_1.join(projectDir, '')
+• **src**: _string_ = path_1.join(projectDir, '')
 
 Defined in state/paths.js:19

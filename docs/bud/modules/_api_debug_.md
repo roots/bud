@@ -2,9 +2,9 @@
 
 ## Functions
 
-###  debug
+### debug
 
-▸ **debug**(`enabled`: any): *any*
+▸ **debug**(`enabled`: any): _any_
 
 Defined in api/debug.js:17
 
@@ -22,8 +22,8 @@ bud.debug(false) // debug disabled
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`enabled` | any |
+| Name      | Type |
+| --------- | ---- |
+| `enabled` | any  |
 
-**Returns:** *any*
+**Returns:** _any_

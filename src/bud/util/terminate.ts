@@ -11,7 +11,7 @@ const terminate = (
     options.dump ? process.abort() : process.exit(code)
   }
 
-  return (code: number) => (err) => {
+  return (code: number) => err => {
     if (err && err instanceof Error) {
       console.log(err.message, err.stack)
     }

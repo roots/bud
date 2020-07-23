@@ -2,9 +2,9 @@
 
 ## Functions
 
-###  hot
+### hot
 
-▸ **hot**(`enabled`: any): *any*
+▸ **hot**(`enabled`: any): _any_
 
 Defined in api/hot.js:13
 
@@ -18,8 +18,8 @@ bud.hot(true) // enable HMR
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`enabled` | any |
+| Name      | Type |
+| --------- | ---- |
+| `enabled` | any  |
 
-**Returns:** *any*
+**Returns:** _any_

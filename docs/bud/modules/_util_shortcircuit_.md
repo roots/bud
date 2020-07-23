@@ -2,9 +2,9 @@
 
 ## Functions
 
-###  shortCircuit
+### shortCircuit
 
-▸ **shortCircuit**(): *(Anonymous function)*
+▸ **shortCircuit**(): _(Anonymous function)_
 
 Defined in util/shortCircuit.js:9
 
@@ -12,4 +12,4 @@ JSON.stringify replacement function
 
 Prevents circular references in JSON from looping
 
-**Returns:** *(Anonymous function)*
+**Returns:** _(Anonymous function)_

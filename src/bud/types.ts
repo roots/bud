@@ -1,4 +1,5 @@
 import type {Configuration} from 'webpack'
+
 export type Mode = Configuration['mode']
 export type Production = boolean
 

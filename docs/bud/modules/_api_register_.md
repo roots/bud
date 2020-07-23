@@ -2,9 +2,9 @@
 
 ## Functions
 
-###  register
+### register
 
-▸ **register**(`name`: any, `plugin`: any): *any*
+▸ **register**(`name`: any, `plugin`: any): _any_
 
 Defined in api/register.js:13
 
@@ -18,9 +18,9 @@ bud.register('myPlugin', myPlugin)
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`name` | any |
-`plugin` | any |
+| Name     | Type |
+| -------- | ---- |
+| `name`   | any  |
+| `plugin` | any  |
 
-**Returns:** *any*
+**Returns:** _any_

@@ -2,17 +2,17 @@
 
 ## Variables
 
-###  path_1
+### path_1
 
-• **path_1**: *PlatformPath* = require("path")
+• **path_1**: _PlatformPath_ = require("path")
 
 Defined in api/copyAll.js:4
 
 ## Functions
 
-###  copyAll
+### copyAll
 
-▸ **copyAll**(`from`: any, `to`: any): *any*
+▸ **copyAll**(`from`: any, `to`: any): _any_
 
 Defined in api/copyAll.js:14
 
@@ -26,9 +26,9 @@ bud.copyAll(bud.src('images'), bud.dist('images'))
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`from` | any |
-`to` | any |
+| Name   | Type |
+| ------ | ---- |
+| `from` | any  |
+| `to`   | any  |
 
-**Returns:** *any*
+**Returns:** _any_

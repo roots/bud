@@ -2,32 +2,32 @@
 
 ## Variables
 
-###  __importDefault
+### \_\_importDefault
 
-• **__importDefault**: *any* = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
+• **\_\_importDefault**: _any_ = (this && this.**importDefault) || function (mod) {
+return (mod && mod.**esModule) ? mod : { "default": mod };
 }
 
 Defined in plugin/adapters/webpack/writeFile.js:2
 
-___
+---
 
-###  write_file_webpack_plugin_1
+### write_file_webpack_plugin_1
 
-• **write_file_webpack_plugin_1**: *any* = __importDefault(require("write-file-webpack-plugin"))
+• **write_file_webpack_plugin_1**: _any_ = \_\_importDefault(require("write-file-webpack-plugin"))
 
 Defined in plugin/adapters/webpack/writeFile.js:7
 
 ## Functions
 
-###  writeFile
+### writeFile
 
-▸ **writeFile**(): *object*
+▸ **writeFile**(): _object_
 
 Defined in plugin/adapters/webpack/writeFile.js:8
 
-**Returns:** *object*
+**Returns:** _object_
 
-* **make**(): *any*
+- **make**(): _any_
 
-* **when**(): *boolean*
+- **when**(): _boolean_

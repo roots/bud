@@ -2,17 +2,17 @@
 
 ## Variables
 
-###  path_1
+### path_1
 
-• **path_1**: *PlatformPath* = require("path")
+• **path_1**: _PlatformPath_ = require("path")
 
 Defined in api/project.js:4
 
 ## Functions
 
-###  project
+### project
 
-▸ **project**(`relativePath`: any): *string*
+▸ **project**(`relativePath`: any): _string_
 
 Defined in api/project.js:14
 
@@ -26,8 +26,8 @@ bud.project('package.json') // absolute path to package.json
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`relativePath` | any |
+| Name           | Type |
+| -------------- | ---- |
+| `relativePath` | any  |
 
-**Returns:** *string*
+**Returns:** _string_

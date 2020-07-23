@@ -2,9 +2,9 @@
 
 ## Functions
 
-###  vendor
+### vendor
 
-▸ **vendor**(`name`: any): *any*
+▸ **vendor**(`name`: any): _any_
 
 Defined in api/vendor.js:13
 
@@ -18,8 +18,8 @@ bud.vendor('vendor')
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`name` | any |
+| Name   | Type |
+| ------ | ---- |
+| `name` | any  |
 
-**Returns:** *any*
+**Returns:** _any_

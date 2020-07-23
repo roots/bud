@@ -2,9 +2,9 @@
 
 ## Functions
 
-###  dump
+### dump
 
-▸ **dump**(`enabled`: any): *any*
+▸ **dump**(`enabled`: any): _any_
 
 Defined in api/dump.js:9
 
@@ -16,8 +16,8 @@ bud.dump(true)
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`enabled` | any |
+| Name      | Type |
+| --------- | ---- |
+| `enabled` | any  |
 
-**Returns:** *any*
+**Returns:** _any_

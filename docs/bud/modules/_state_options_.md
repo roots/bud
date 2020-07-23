@@ -2,471 +2,471 @@
 
 ## Variables
 
-###  auto
+### auto
 
-• **auto**: *[auto](_api_auto_.md#auto)*
+• **auto**: _[auto](_api_auto_.md#auto)_
 
 Defined in state/options.js:6
 
-___
+---
 
-###  babel
+### babel
 
-• **babel**: *any* = configs_1.configs.babel
-    ? require(configs_1.configs.babel)
-    : babelFallback
+• **babel**: _any_ = configs_1.configs.babel
+? require(configs_1.configs.babel)
+: babelFallback
 
 Defined in state/options.js:11
 
-___
+---
 
-###  configs_1
+### configs_1
 
-• **configs_1**: *["state/configs"](_state_configs_.md)* = require("./configs")
+• **configs_1**: _["state/configs"](_state_configs_.md)_ = require("./configs")
 
 Defined in state/options.js:5
 
-___
+---
 
-###  env_1
+### env_1
 
-• **env_1**: *["state/env"](_state_env_.md)* = require("./env")
+• **env_1**: _["state/env"](_state_env_.md)_ = require("./env")
 
 Defined in state/options.js:4
 
-___
+---
 
-###  externals
+### externals
 
-• **externals**: *[externals](_state_options_.md#externals)*
+• **externals**: _[externals](_state_options_.md#externals)_
 
 Defined in state/options.js:45
 
-___
+---
 
-###  postCss
+### postCss
 
-• **postCss**: *any* = configs_1.configs.postCss
-    ? require(configs_1.configs.postCss)
-    : postCssFallback
+• **postCss**: _any_ = configs_1.configs.postCss
+? require(configs_1.configs.postCss)
+: postCssFallback
 
 Defined in state/options.js:49
 
-___
+---
 
-###  target
+### target
 
-• **target**: *string* = "web"
+• **target**: _string_ = "web"
 
 Defined in state/options.js:52
 
-___
+---
 
-###  typescript
+### typescript
 
-• **typescript**: *any* = configs_1.configs.typescript
-    ? require(configs_1.configs.typescript)
-    : {}
+• **typescript**: _any_ = configs_1.configs.typescript
+? require(configs_1.configs.typescript)
+: {}
 
 Defined in state/options.js:53
 
 ## Object literals
 
-###  babelFallback
+### babelFallback
 
-### ▪ **babelFallback**: *object*
+### ▪ **babelFallback**: _object_
 
 Defined in state/options.js:7
 
-###  plugins
+### plugins
 
-• **plugins**: *undefined[]* = []
+• **plugins**: _undefined[]_ = []
 
 Defined in state/options.js:9
 
-###  presets
+### presets
 
-• **presets**: *undefined[]* = []
+• **presets**: _undefined[]_ = []
 
 Defined in state/options.js:8
 
-___
+---
 
-###  browserSync
+### browserSync
 
-### ▪ **browserSync**: *object*
+### ▪ **browserSync**: _object_
 
 Defined in state/options.js:14
 
-###  host
+### host
 
-• **host**: *any* = (env_1.env === null || env_1.env === void 0 ? void 0 : env_1.env.BROWSERSYNC_HOST) ? env_1.env.BROWSERSYNC_HOST
-        : 'localhost'
+• **host**: _any_ = (env_1.env === null || env_1.env === void 0 ? void 0 : env_1.env.BROWSERSYNC_HOST) ? env_1.env.BROWSERSYNC_HOST
+: 'localhost'
 
 Defined in state/options.js:15
 
-###  port
+### port
 
-• **port**: *any* = (env_1.env === null || env_1.env === void 0 ? void 0 : env_1.env.BROWSERSYNC_PORT) ? env_1.env.BROWSERSYNC_PORT : 3000
+• **port**: _any_ = (env_1.env === null || env_1.env === void 0 ? void 0 : env_1.env.BROWSERSYNC_PORT) ? env_1.env.BROWSERSYNC_PORT : 3000
 
 Defined in state/options.js:17
 
-###  proxy
+### proxy
 
-• **proxy**: *any* = (env_1.env === null || env_1.env === void 0 ? void 0 : env_1.env.BROWSERSYNC_PROXY) ? env_1.env.BROWSERSYNC_PROXY
-        : null
+• **proxy**: _any_ = (env_1.env === null || env_1.env === void 0 ? void 0 : env_1.env.BROWSERSYNC_PROXY) ? env_1.env.BROWSERSYNC_PROXY
+: null
 
 Defined in state/options.js:18
 
-___
+---
 
-###  copy
+### copy
 
-### ▪ **copy**: *object*
-
-Defined in state/options.js:21
-
-###  patterns
-
-• **patterns**: *undefined[]* = []
+### ▪ **copy**: _object_
 
 Defined in state/options.js:21
 
-___
+### patterns
 
-###  dependencyManifest
+• **patterns**: _undefined[]_ = []
 
-### ▪ **dependencyManifest**: *object*
+Defined in state/options.js:21
+
+---
+
+### dependencyManifest
+
+### ▪ **dependencyManifest**: _object_
 
 Defined in state/options.js:22
 
-###  combineAssets
+### combineAssets
 
-• **combineAssets**: *undefined* = undefined
+• **combineAssets**: _undefined_ = undefined
 
 Defined in state/options.js:23
 
-###  combinedOutputFile
+### combinedOutputFile
 
-• **combinedOutputFile**: *undefined* = undefined
+• **combinedOutputFile**: _undefined_ = undefined
 
 Defined in state/options.js:24
 
-###  injectPolyfill
+### injectPolyfill
 
-• **injectPolyfill**: *boolean* = false
+• **injectPolyfill**: _boolean_ = false
 
 Defined in state/options.js:25
 
-###  outputFormat
+### outputFormat
 
-• **outputFormat**: *string* = "json"
+• **outputFormat**: _string_ = "json"
 
 Defined in state/options.js:26
 
-###  useDefaults
+### useDefaults
 
-• **useDefaults**: *boolean* = true
+• **useDefaults**: _boolean_ = true
 
 Defined in state/options.js:27
 
-___
+---
 
-###  dev
+### dev
 
-### ▪ **dev**: *object*
+### ▪ **dev**: _object_
 
 Defined in state/options.js:29
 
-###  clientLogLevel
+### clientLogLevel
 
-• **clientLogLevel**: *string* = "none"
+• **clientLogLevel**: _string_ = "none"
 
 Defined in state/options.js:30
 
-###  compress
+### compress
 
-• **compress**: *boolean* = true
+• **compress**: _boolean_ = true
 
 Defined in state/options.js:31
 
-###  disableHostCheck
+### disableHostCheck
 
-• **disableHostCheck**: *boolean* = true
+• **disableHostCheck**: _boolean_ = true
 
 Defined in state/options.js:32
 
-###  historyApiFallback
+### historyApiFallback
 
-• **historyApiFallback**: *boolean* = true
+• **historyApiFallback**: _boolean_ = true
 
 Defined in state/options.js:36
 
-###  hotOnly
+### hotOnly
 
-• **hotOnly**: *boolean* = true
+• **hotOnly**: _boolean_ = true
 
 Defined in state/options.js:37
 
-###  injectHot
+### injectHot
 
-• **injectHot**: *boolean* = true
+• **injectHot**: _boolean_ = true
 
 Defined in state/options.js:38
 
-###  open
+### open
 
-• **open**: *boolean* = false
+• **open**: _boolean_ = false
 
 Defined in state/options.js:39
 
-###  overlay
+### overlay
 
-• **overlay**: *boolean* = true
+• **overlay**: _boolean_ = true
 
 Defined in state/options.js:40
 
-▪ **headers**: *object*
+▪ **headers**: _object_
 
 Defined in state/options.js:33
 
-* **Access-Control-Allow-Origin**: *string* = "*"
+- **Access-Control-Allow-Origin**: _string_ = "\*"
 
-▪ **watchOptions**: *object*
+▪ **watchOptions**: _object_
 
 Defined in state/options.js:41
 
-* **aggregateTimeout**: *number* = 300
+- **aggregateTimeout**: _number_ = 300
 
-___
+---
 
-###  options
+### options
 
-### ▪ **options**: *object*
+### ▪ **options**: _object_
 
 Defined in state/options.js:60
 
 Options container.
 
-###  alias
+### alias
 
-• **alias**: *object*
+• **alias**: _object_
 
 Defined in state/options.js:61
 
 #### Type declaration:
 
-###  auto
+### auto
 
-• **auto**: *[auto](_api_auto_.md#auto)* = auto
+• **auto**: _[auto](_api_auto_.md#auto)_ = auto
 
 Defined in state/options.js:71
 
-###  babel
+### babel
 
-• **babel**: *any* = babel
+• **babel**: _any_ = babel
 
 Defined in state/options.js:62
 
-###  browserSync
+### browserSync
 
-• **browserSync**: *object* = browserSync
+• **browserSync**: _object_ = browserSync
 
 Defined in state/options.js:72
 
 #### Type declaration:
 
-* **host**: *any* = (env_1.env === null || env_1.env === void 0 ? void 0 : env_1.env.BROWSERSYNC_HOST) ? env_1.env.BROWSERSYNC_HOST
-        : 'localhost'
+- **host**: _any_ = (env_1.env === null || env_1.env === void 0 ? void 0 : env_1.env.BROWSERSYNC_HOST) ? env_1.env.BROWSERSYNC_HOST
+  : 'localhost'
 
-* **port**: *any* = (env_1.env === null || env_1.env === void 0 ? void 0 : env_1.env.BROWSERSYNC_PORT) ? env_1.env.BROWSERSYNC_PORT : 3000
+- **port**: _any_ = (env_1.env === null || env_1.env === void 0 ? void 0 : env_1.env.BROWSERSYNC_PORT) ? env_1.env.BROWSERSYNC_PORT : 3000
 
-* **proxy**: *any* = (env_1.env === null || env_1.env === void 0 ? void 0 : env_1.env.BROWSERSYNC_PROXY) ? env_1.env.BROWSERSYNC_PROXY
-        : null
+- **proxy**: _any_ = (env_1.env === null || env_1.env === void 0 ? void 0 : env_1.env.BROWSERSYNC_PROXY) ? env_1.env.BROWSERSYNC_PROXY
+  : null
 
-###  copy
+### copy
 
-• **copy**: *object* = copy
+• **copy**: _object_ = copy
 
 Defined in state/options.js:73
 
 #### Type declaration:
 
-* **patterns**: *undefined[]* = []
+- **patterns**: _undefined[]_ = []
 
-###  dependencyManifest
+### dependencyManifest
 
-• **dependencyManifest**: *object* = dependencyManifest
+• **dependencyManifest**: _object_ = dependencyManifest
 
 Defined in state/options.js:75
 
 #### Type declaration:
 
-* **combineAssets**: *undefined* = undefined
+- **combineAssets**: _undefined_ = undefined
 
-* **combinedOutputFile**: *undefined* = undefined
+- **combinedOutputFile**: _undefined_ = undefined
 
-* **injectPolyfill**: *boolean* = false
+- **injectPolyfill**: _boolean_ = false
 
-* **outputFormat**: *string* = "json"
+- **outputFormat**: _string_ = "json"
 
-* **useDefaults**: *boolean* = true
+- **useDefaults**: _boolean_ = true
 
-###  dev
+### dev
 
-• **dev**: *object* = dev
+• **dev**: _object_ = dev
 
 Defined in state/options.js:74
 
 #### Type declaration:
 
-* **clientLogLevel**: *string* = "none"
+- **clientLogLevel**: _string_ = "none"
 
-* **compress**: *boolean* = true
+- **compress**: _boolean_ = true
 
-* **disableHostCheck**: *boolean* = true
+- **disableHostCheck**: _boolean_ = true
 
-* **historyApiFallback**: *boolean* = true
+- **historyApiFallback**: _boolean_ = true
 
-* **hotOnly**: *boolean* = true
+- **hotOnly**: _boolean_ = true
 
-* **injectHot**: *boolean* = true
+- **injectHot**: _boolean_ = true
 
-* **open**: *boolean* = false
+- **open**: _boolean_ = false
 
-* **overlay**: *boolean* = true
+- **overlay**: _boolean_ = true
 
-* ### **headers**: *object*
+- ### **headers**: _object_
 
-  * **Access-Control-Allow-Origin**: *string* = "*"
+  - **Access-Control-Allow-Origin**: _string_ = "\*"
 
-* ### **watchOptions**: *object*
+- ### **watchOptions**: _object_
 
-  * **aggregateTimeout**: *number* = 300
+  - **aggregateTimeout**: _number_ = 300
 
-###  devtool
+### devtool
 
-• **devtool**: *string* = "cheap-module-source-map"
+• **devtool**: _string_ = "cheap-module-source-map"
 
 Defined in state/options.js:76
 
-###  entry
+### entry
 
-• **entry**: *object*
+• **entry**: _object_
 
 Defined in state/options.js:77
 
 #### Type declaration:
 
-###  env
+### env
 
-• **env**: *any* = env_1.env
+• **env**: _any_ = env_1.env
 
 Defined in state/options.js:78
 
-###  externals
+### externals
 
-• **externals**: *[externals](_state_options_.md#externals)* = externals
+• **externals**: _[externals](_state_options_.md#externals)_ = externals
 
 Defined in state/options.js:79
 
-###  postCss
+### postCss
 
-• **postCss**: *any* = postCss
+• **postCss**: _any_ = postCss
 
 Defined in state/options.js:63
 
-###  target
+### target
 
-• **target**: *string* = target
+• **target**: _string_ = target
 
 Defined in state/options.js:86
 
-###  typescript
+### typescript
 
-• **typescript**: *any* = typescript
+• **typescript**: _any_ = typescript
 
 Defined in state/options.js:64
 
-###  vendor
+### vendor
 
-• **vendor**: *object* = vendor
+• **vendor**: _object_ = vendor
 
 Defined in state/options.js:105
 
 #### Type declaration:
 
-* **name**: *string* = "vendor"
+- **name**: _string_ = "vendor"
 
-▪ **inlineManifest**: *object*
+▪ **inlineManifest**: _object_
 
 Defined in state/options.js:80
 
-* **name**: *string* = "runtime"
+- **name**: _string_ = "runtime"
 
-▪ **splitting**: *object*
+▪ **splitting**: _object_
 
 Defined in state/options.js:83
 
-* **maxChunks**: *null* = null
+- **maxChunks**: _null_ = null
 
-▪ **svg**: *object*
+▪ **svg**: _object_
 
 Defined in state/options.js:65
 
-* **use**: *string[]* = [
-            require.resolve('@svgr/webpack'),
-            require.resolve('url-loader'),
-        ]
+- **use**: _string[]_ = [
+  require.resolve('@svgr/webpack'),
+  require.resolve('url-loader'),
+  ]
 
-▪ **uglify**: *object*
+▪ **uglify**: _object_
 
 Defined in state/options.js:87
 
-* **cache**: *boolean* = true
+- **cache**: _boolean_ = true
 
-* **extractComments**: *boolean* = false
+- **extractComments**: _boolean_ = false
 
-* **parallel**: *boolean* = true
+- **parallel**: _boolean_ = true
 
-* **chunkFilter**(`_a`: any): *boolean*
+- **chunkFilter**(`_a`: any): _boolean_
 
-* **uglifyOptions**: *object*
+- **uglifyOptions**: _object_
 
-  * **compress**: *boolean* = false
+  - **compress**: _boolean_ = false
 
-  * **mangle**: *object*
+  - **mangle**: _object_
 
-    * **toplevel**: *boolean* = true
+    - **toplevel**: _boolean_ = true
 
-  * **output**: *object*
+  - **output**: _object_
 
-    * **beautify**: *boolean* = false
+    - **beautify**: _boolean_ = false
 
-___
+---
 
-###  postCssFallback
+### postCssFallback
 
-### ▪ **postCssFallback**: *object*
+### ▪ **postCssFallback**: _object_
 
 Defined in state/options.js:46
 
-###  plugins
+### plugins
 
-• **plugins**: *undefined[]* = []
+• **plugins**: _undefined[]_ = []
 
 Defined in state/options.js:47
 
-___
+---
 
-###  vendor
+### vendor
 
-### ▪ **vendor**: *object*
+### ▪ **vendor**: _object_
 
 Defined in state/options.js:56
 
-###  name
+### name
 
-• **name**: *string* = "vendor"
+• **name**: _string_ = "vendor"
 
 Defined in state/options.js:56

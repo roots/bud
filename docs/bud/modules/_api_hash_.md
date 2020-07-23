@@ -2,9 +2,9 @@
 
 ## Functions
 
-###  hash
+### hash
 
-▸ **hash**(`enabled`: boolean): *["index"](_index_.md)*
+▸ **hash**(`enabled`: boolean): _["index"](_index_.md)_
 
 Defined in api/hash.js:10
 
@@ -14,10 +14,10 @@ Enable or disable filename hashing of built assets. Unless specified, filename h
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`enabled` | boolean | true to enable filename hashing. |
+| Name      | Type    | Description                      |
+| --------- | ------- | -------------------------------- |
+| `enabled` | boolean | true to enable filename hashing. |
 
-**Returns:** *["index"](_index_.md)*
+**Returns:** _["index"](_index_.md)_
 
 bud

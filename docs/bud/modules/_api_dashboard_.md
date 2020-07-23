@@ -2,9 +2,9 @@
 
 ## Functions
 
-###  dashboard
+### dashboard
 
-▸ **dashboard**(`enabled`: any): *any*
+▸ **dashboard**(`enabled`: any): _any_
 
 Defined in api/dashboard.js:13
 
@@ -18,8 +18,8 @@ bud.dashboard(false) // disable dashboard
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`enabled` | any |
+| Name      | Type |
+| --------- | ---- |
+| `enabled` | any  |
 
-**Returns:** *any*
+**Returns:** _any_

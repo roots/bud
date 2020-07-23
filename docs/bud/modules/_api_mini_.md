@@ -2,9 +2,9 @@
 
 ## Functions
 
-###  mini
+### mini
 
-▸ **mini**(`enable`: any): *any*
+▸ **mini**(`enable`: any): _any_
 
 Defined in api/mini.js:17
 
@@ -22,8 +22,8 @@ bud.hot(false) // disable
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`enable` | any |
+| Name     | Type |
+| -------- | ---- |
+| `enable` | any  |
 
-**Returns:** *any*
+**Returns:** _any_

@@ -2,34 +2,34 @@
 
 ## Variables
 
-###  __importDefault
+### \_\_importDefault
 
-• **__importDefault**: *any* = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
+• **\_\_importDefault**: _any_ = (this && this.**importDefault) || function (mod) {
+return (mod && mod.**esModule) ? mod : { "default": mod };
 }
 
 Defined in plugin/adapters/webpack/fixStyleOnlyEntries.js:2
 
-___
+---
 
-###  webpack_fix_style_only_entries_1
+### webpack_fix_style_only_entries_1
 
-• **webpack_fix_style_only_entries_1**: *any* = __importDefault(require("webpack-fix-style-only-entries"))
+• **webpack_fix_style_only_entries_1**: _any_ = \_\_importDefault(require("webpack-fix-style-only-entries"))
 
 Defined in plugin/adapters/webpack/fixStyleOnlyEntries.js:7
 
 ## Functions
 
-###  fixStyleOnlyEntries
+### fixStyleOnlyEntries
 
-▸ **fixStyleOnlyEntries**(): *object*
+▸ **fixStyleOnlyEntries**(): _object_
 
 Defined in plugin/adapters/webpack/fixStyleOnlyEntries.js:8
 
-**Returns:** *object*
+**Returns:** _object_
 
-* **make**(): *any*
+- **make**(): _any_
 
-* ### **options**: *object*
+- ### **options**: _object_
 
-  * **silent**: *boolean* = true
+  - **silent**: _boolean_ = true

@@ -2,38 +2,38 @@
 
 ## Variables
 
-###  __importDefault
+### \_\_importDefault
 
-• **__importDefault**: *any* = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
+• **\_\_importDefault**: _any_ = (this && this.**importDefault) || function (mod) {
+return (mod && mod.**esModule) ? mod : { "default": mod };
 }
 
 Defined in plugin/adapters/webpack/manifest.js:2
 
-___
+---
 
-###  webpack_manifest_plugin_1
+### webpack_manifest_plugin_1
 
-• **webpack_manifest_plugin_1**: *any* = __importDefault(require("webpack-manifest-plugin"))
+• **webpack_manifest_plugin_1**: _any_ = \_\_importDefault(require("webpack-manifest-plugin"))
 
 Defined in plugin/adapters/webpack/manifest.js:7
 
 ## Functions
 
-###  manifest
+### manifest
 
-▸ **manifest**(): *object*
+▸ **manifest**(): _object_
 
 Defined in plugin/adapters/webpack/manifest.js:8
 
-**Returns:** *object*
+**Returns:** _object_
 
-* **make**(): *any*
+- **make**(): _any_
 
-* **setOptions**(): *object*
+- **setOptions**(): _object_
 
-  * **filename**: *string* = "manifest.json"
+  - **filename**: _string_ = "manifest.json"
 
-  * **publicPath**: *any* = this.bud.paths.public
+  - **publicPath**: _any_ = this.bud.paths.public
 
-  * **writeToFileEmit**: *boolean* = true
+  - **writeToFileEmit**: _boolean_ = true

@@ -2,17 +2,17 @@
 
 ## Variables
 
-###  path_1
+### path_1
 
-• **path_1**: *PlatformPath* = require("path")
+• **path_1**: _PlatformPath_ = require("path")
 
 Defined in api/preset.js:4
 
 ## Functions
 
-###  preset
+### preset
 
-▸ **preset**(`relativePath`: any): *any*
+▸ **preset**(`relativePath`: any): _any_
 
 Defined in api/preset.js:24
 
@@ -36,8 +36,8 @@ bud.preset('tsconfig')
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`relativePath` | any |
+| Name           | Type |
+| -------------- | ---- |
+| `relativePath` | any  |
 
-**Returns:** *any*
+**Returns:** _any_

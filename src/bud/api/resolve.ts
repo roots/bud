@@ -10,7 +10,13 @@ import {join} from 'path'
  * ```
  */
 const resolve = function (moduleName: string): string {
-  return require.resolve(join(this.state.paths.framework, 'node_modules', moduleName))
+  return require.resolve(
+    join(
+      this.state.paths.framework,
+      'node_modules',
+      moduleName,
+    ),
+  )
 }
 
 export {resolve}

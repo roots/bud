@@ -2,33 +2,33 @@
 
 ## Variables
 
-###  cli_highlight_1
+### cli_highlight_1
 
-• **cli_highlight_1**: *"/Users/kellymears/code/projects/cli/bud/bud/node_modules/cli-highlight/dist/index"* = require("cli-highlight")
+• **cli_highlight_1**: _"/Users/kellymears/code/projects/cli/bud/bud/node_modules/cli-highlight/dist/index"_ = require("cli-highlight")
 
 Defined in util/dump.js:5
 
-___
+---
 
-###  prettier_1
+### prettier_1
 
-• **prettier_1**: *"/Users/kellymears/code/projects/cli/bud/bud/node_modules/@types/prettier/index"* = require("prettier")
+• **prettier_1**: _"/Users/kellymears/code/projects/cli/bud/bud/node_modules/@types/prettier/index"_ = require("prettier")
 
 Defined in util/dump.js:4
 
-___
+---
 
-###  shortCircuit_1
+### shortCircuit_1
 
-• **shortCircuit_1**: *["util/shortCircuit"](_util_shortcircuit_.md)* = require("./shortCircuit")
+• **shortCircuit_1**: _["util/shortCircuit"](_util_shortcircuit_.md)_ = require("./shortCircuit")
 
 Defined in util/dump.js:6
 
 ## Functions
 
-###  dump
+### dump
 
-▸ **dump**(`obj`: any): *never*
+▸ **dump**(`obj`: any): _never_
 
 Defined in util/dump.js:13
 
@@ -36,8 +36,8 @@ Dump a prettified, syntax-highlighted object
 
 **Parameters:**
 
-Name | Type | Description |
------- | ------ | ------ |
-`obj` | any | object to inspect  |
+| Name  | Type | Description       |
+| ----- | ---- | ----------------- |
+| `obj` | any  | object to inspect |
 
-**Returns:** *never*
+**Returns:** _never_

@@ -2,9 +2,9 @@
 
 ## Functions
 
-###  sync
+### sync
 
-▸ **sync**(`_a`: any): *any*
+▸ **sync**(`_a`: any): _any_
 
 Defined in api/sync.js:18
 
@@ -23,8 +23,8 @@ bud.sync({
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`_a` | any |
+| Name | Type |
+| ---- | ---- |
+| `_a` | any  |
 
-**Returns:** *any*
+**Returns:** _any_

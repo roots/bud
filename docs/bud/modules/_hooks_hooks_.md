@@ -2,9 +2,9 @@
 
 ## Object literals
 
-###  hooks
+### hooks
 
-### ▪ **hooks**: *object*
+### ▪ **hooks**: _object_
 
 Defined in hooks/hooks.js:21
 
@@ -24,9 +24,9 @@ Invoke registered callback(s)
 bud.hooks.call('hookName', value)
 ```
 
-###  registered
+### registered
 
-• **registered**: *object*
+• **registered**: _object_
 
 Defined in hooks/hooks.js:25
 
@@ -34,9 +34,9 @@ Registered hooks.
 
 #### Type declaration:
 
-###  call
+### call
 
-▸ **call**(`name`: any): *void*
+▸ **call**(`name`: any): _void_
 
 Defined in hooks/hooks.js:52
 
@@ -44,25 +44,25 @@ Call a bud hook.
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`name` | any |
+| Name   | Type |
+| ------ | ---- |
+| `name` | any  |
 
-**Returns:** *void*
+**Returns:** _void_
 
-###  getAll
+### getAll
 
-▸ **getAll**(): *[string, any][]*
+▸ **getAll**(): _[string, any][]_
 
 Defined in hooks/hooks.js:36
 
 Get all bud hook entries.
 
-**Returns:** *[string, any][]*
+**Returns:** _[string, any][]_
 
-###  make
+### make
 
-▸ **make**(`fn`: any): *object*
+▸ **make**(`fn`: any): _object_
 
 Defined in hooks/hooks.js:29
 
@@ -70,19 +70,19 @@ Make a bud hook
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`fn` | any |
+| Name | Type |
+| ---- | ---- |
+| `fn` | any  |
 
-**Returns:** *object*
+**Returns:** _object_
 
-* **fired**: *boolean* = false
+- **fired**: _boolean_ = false
 
-* **fn**: *any* = fn
+- **fn**: _any_ = fn
 
-###  on
+### on
 
-▸ **on**(`name`: any, `callback`: any): *[hooks](_hooks_hooks_.md#hooks)*
+▸ **on**(`name`: any, `callback`: any): _[hooks](_hooks_hooks_.md#hooks)_
 
 Defined in hooks/hooks.js:42
 
@@ -90,9 +90,9 @@ Register a function as a bud hook.
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`name` | any |
-`callback` | any |
+| Name       | Type |
+| ---------- | ---- |
+| `name`     | any  |
+| `callback` | any  |
 
-**Returns:** *[hooks](_hooks_hooks_.md#hooks)*
+**Returns:** _[hooks](_hooks_hooks_.md#hooks)_

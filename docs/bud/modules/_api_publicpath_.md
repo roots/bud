@@ -2,9 +2,9 @@
 
 ## Functions
 
-###  publicPath
+### publicPath
 
-▸ **publicPath**(`dir`: any): *any*
+▸ **publicPath**(`dir`: any): _any_
 
 Defined in api/publicPath.js:15
 
@@ -20,8 +20,8 @@ bud.publicPath('dist')
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`dir` | any |
+| Name  | Type |
+| ----- | ---- |
+| `dir` | any  |
 
-**Returns:** *any*
+**Returns:** _any_

@@ -2,34 +2,34 @@
 
 ## Variables
 
-###  __importDefault
+### \_\_importDefault
 
-• **__importDefault**: *any* = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
+• **\_\_importDefault**: _any_ = (this && this.**importDefault) || function (mod) {
+return (mod && mod.**esModule) ? mod : { "default": mod };
 }
 
 Defined in plugin/adapters/webpack/copy.js:2
 
-___
+---
 
-###  copy_webpack_plugin_1
+### copy_webpack_plugin_1
 
-• **copy_webpack_plugin_1**: *any* = __importDefault(require("copy-webpack-plugin"))
+• **copy_webpack_plugin_1**: _any_ = \_\_importDefault(require("copy-webpack-plugin"))
 
 Defined in plugin/adapters/webpack/copy.js:7
 
 ## Functions
 
-###  copy
+### copy
 
-▸ **copy**(): *object*
+▸ **copy**(): _object_
 
 Defined in plugin/adapters/webpack/copy.js:8
 
-**Returns:** *object*
+**Returns:** _object_
 
-* **make**(): *any*
+- **make**(): _any_
 
-* **setOptions**(): *any*
+- **setOptions**(): _any_
 
-* **when**(): *any*
+- **when**(): _any_

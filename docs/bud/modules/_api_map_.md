@@ -2,9 +2,9 @@
 
 ## Functions
 
-###  map
+### map
 
-▸ **map**(`enabled`: any): *any*
+▸ **map**(`enabled`: any): _any_
 
 Defined in api/map.js:15
 
@@ -20,8 +20,8 @@ bud.map(true)
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`enabled` | any |
+| Name      | Type |
+| --------- | ---- |
+| `enabled` | any  |
 
-**Returns:** *any*
+**Returns:** _any_

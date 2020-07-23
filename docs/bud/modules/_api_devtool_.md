@@ -2,9 +2,9 @@
 
 ## Functions
 
-###  devtool
+### devtool
 
-▸ **devtool**(`devtool`: any): *any*
+▸ **devtool**(`devtool`: any): _any_
 
 Defined in api/devtool.js:7
 
@@ -12,8 +12,8 @@ Specify webpack devtool
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`devtool` | any |
+| Name      | Type |
+| --------- | ---- |
+| `devtool` | any  |
 
-**Returns:** *any*
+**Returns:** _any_

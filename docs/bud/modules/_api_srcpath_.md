@@ -2,17 +2,17 @@
 
 ## Variables
 
-###  path_1
+### path_1
 
-• **path_1**: *PlatformPath* = require("path")
+• **path_1**: _PlatformPath_ = require("path")
 
 Defined in api/srcPath.js:4
 
 ## Functions
 
-###  srcPath
+### srcPath
 
-▸ **srcPath**(`src`: any): *any*
+▸ **srcPath**(`src`: any): _any_
 
 Defined in api/srcPath.js:14
 
@@ -20,14 +20,14 @@ Defined in api/srcPath.js:14
 
 Set the project's src directory.
 
- ```js
+```js
 bud.srcPath('src') // default unless specified
 ```
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`src` | any |
+| Name  | Type |
+| ----- | ---- |
+| `src` | any  |
 
-**Returns:** *any*
+**Returns:** _any_

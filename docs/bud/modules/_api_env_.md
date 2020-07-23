@@ -2,9 +2,9 @@
 
 ## Functions
 
-###  env
+### env
 
-▸ **env**(`key`: string): *string*
+▸ **env**(`key`: string): _string_
 
 Defined in api/env.js:10
 
@@ -14,8 +14,8 @@ Get environment variable value.
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`key` | string |
+| Name  | Type   |
+| ----- | ------ |
+| `key` | string |
 
-**Returns:** *string*
+**Returns:** _string_

@@ -2,9 +2,9 @@
 
 ## Functions
 
-###  copy
+### copy
 
-▸ **copy**(`from`: any, `to`: any): *any*
+▸ **copy**(`from`: any, `to`: any): _any_
 
 Defined in api/copy.js:16
 
@@ -13,17 +13,14 @@ Defined in api/copy.js:16
 Copy a file.
 
 ```js
-bud.copy(
-  bud.src('images/image.png'),
-  bud.dist('image.png'),
-)
+bud.copy(bud.src('images/image.png'), bud.dist('image.png'))
 ```
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`from` | any |
-`to` | any |
+| Name   | Type |
+| ------ | ---- |
+| `from` | any  |
+| `to`   | any  |
 
-**Returns:** *any*
+**Returns:** _any_

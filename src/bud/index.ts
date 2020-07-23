@@ -4,7 +4,6 @@ import {util} from './util'
 import {plugin} from './plugin'
 import {state} from './state'
 import {mode} from './mode'
-
 import type {
   Mode,
   Hooks,
@@ -53,12 +52,12 @@ export type Bud = {
 }
 
 const bud: Bud = {
- ...api,
- hooks,
- util,
- plugin,
- state,
- mode,
+  ...api,
+  hooks,
+  util,
+  plugin,
+  state,
+  mode,
 }
 
 export {bud}

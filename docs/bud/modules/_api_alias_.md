@@ -2,9 +2,9 @@
 
 ## Functions
 
-###  alias
+### alias
 
-▸ **alias**(`options`: any): *any*
+▸ **alias**(`options`: any): _any_
 
 Defined in api/alias.js:22
 
@@ -15,7 +15,7 @@ Resolve modules through webpack aliases. Useful for situations that may otherwis
 Having defined this alias:
 
 ```js
-bud.alias({'scripts': bud.src('scripts')})
+bud.alias({scripts: bud.src('scripts')})
 ```
 
 You can now reference scripts against that alias in your import statements:
@@ -26,8 +26,8 @@ import 'scripts/myScript' // replacing '../../myScript'
 
 **Parameters:**
 
-Name | Type |
------- | ------ |
-`options` | any |
+| Name      | Type |
+| --------- | ---- |
+| `options` | any  |
 
-**Returns:** *any*
+**Returns:** _any_

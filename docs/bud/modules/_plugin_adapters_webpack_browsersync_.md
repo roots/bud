@@ -2,36 +2,36 @@
 
 ## Variables
 
-###  __importDefault
+### \_\_importDefault
 
-• **__importDefault**: *any* = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
+• **\_\_importDefault**: _any_ = (this && this.**importDefault) || function (mod) {
+return (mod && mod.**esModule) ? mod : { "default": mod };
 }
 
 Defined in plugin/adapters/webpack/browserSync.js:2
 
-___
+---
 
-###  browser_sync_webpack_plugin_1
+### browser_sync_webpack_plugin_1
 
-• **browser_sync_webpack_plugin_1**: *any* = __importDefault(require("browser-sync-webpack-plugin"))
+• **browser_sync_webpack_plugin_1**: _any_ = \_\_importDefault(require("browser-sync-webpack-plugin"))
 
 Defined in plugin/adapters/webpack/browserSync.js:7
 
 ## Functions
 
-###  browserSync
+### browserSync
 
-▸ **browserSync**(): *object*
+▸ **browserSync**(): _object_
 
 Defined in plugin/adapters/webpack/browserSync.js:11
 
 BrowserSync plugin adapter.
 
-**Returns:** *object*
+**Returns:** _object_
 
-* **make**(): *any*
+- **make**(): _any_
 
-* **mergeOptions**(): *any*
+- **mergeOptions**(): _any_
 
-* **when**(): *any*
+- **when**(): _any_
