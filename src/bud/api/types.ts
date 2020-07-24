@@ -1,6 +1,6 @@
-import {Bud} from '../Types'
-export {Bud} from '../Types'
-export {RegisteredPlugin} from './../plugin/types'
+import {Bud} from '../types'
+export {Bud} from '../types'
+export {RegisteredPlugin} from '../plugin/types'
 import type {Options as BrowserSyncOptions} from 'browser-sync'
 
 export type Alias = (arg0: object) => Bud

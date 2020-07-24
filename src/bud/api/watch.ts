@@ -1,4 +1,4 @@
-import type {Bud, Watch} from './Types'
+import type {Bud, Watch} from './types'
 
 /**
  * ## bud.watch
@@ -9,7 +9,10 @@ import type {Bud, Watch} from './Types'
  * bud.watch(true)
  * ```
  */
-const watch: Watch = function (enabled: boolean): Bud {
+const watch: Watch = function (
+  this: Bud,
+  enabled: boolean,
+): Bud {
   this.state.features.watch = enabled
 
   return this

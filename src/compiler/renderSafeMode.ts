@@ -1,5 +1,10 @@
 import webpack from 'webpack'
 import chalk from 'chalk'
+import type {
+  Bud,
+  WebpackStats,
+  WebpackConfig,
+} from './types'
 
 /**
  * Display stats.
@@ -9,7 +14,7 @@ import chalk from 'chalk'
  * @param  {object} stats - webpack stats object
  * @return {void}
  */
-const displayStats = stats => {
+const displayStats = (stats: WebpackStats) => {
   console.log(chalk.bgWhite.black('\n Build results \n'))
 
   const statsOptions: Object = {
@@ -30,8 +35,14 @@ const displayStats = stats => {
 /**
  * Safe mode
  */
-const compileSafeMode = (config, webpackConfig) => {
-  const webpackCallback = (err, stats) => {
+const compileSafeMode = (
+  config: any,
+  webpackConfig: WebpackConfig,
+) => {
+  const webpackCallback = (
+    err: any,
+    stats: WebpackStats,
+  ) => {
     if (err) {
       console.error(err.stack || err)
 
@@ -49,7 +60,7 @@ const compileSafeMode = (config, webpackConfig) => {
     }
   }
 
-  if (!config.isProduction) {
+  if (!config.inProduction) {
     webpack(webpackConfig).watch({}, webpackCallback)
   } else {
     webpack(webpackConfig).run(webpackCallback)

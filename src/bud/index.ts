@@ -3,7 +3,7 @@ import {hooks} from './hooks'
 import {util} from './util'
 import {plugin} from './plugin'
 import {state} from './state'
-import {mode} from './mode'
+import {inProduction, mode} from './mode'
 
 import type {Bud} from './types'
 
@@ -20,6 +20,7 @@ const bud: Bud = {
   plugin,
   state,
   mode,
+  inProduction,
 }
 
 export {bud}

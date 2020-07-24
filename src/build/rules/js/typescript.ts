@@ -1,22 +1,14 @@
 import {loaders} from '../util/loaders'
-import { bud } from '../../../bud'
+import type {Bud} from './../../types'
 
-/**
- * Typescript
- * @type {function}
- */
-const typescript = bud => ({
+const typescript: Function = (bud: Bud): any => ({
   bud,
-  output: {},
-  enabled: bud.state.configs.typescript,
+  enabled: bud?.state?.configs.typescript,
   loader: loaders.ts,
   options: {
-    configFile: bud.state.configs.typescript,
+    configFile: bud?.state?.configs.typescript,
   },
 
-  /**
-   * Make typescript rules.
-   */
   make: function () {
     this.pre()
 

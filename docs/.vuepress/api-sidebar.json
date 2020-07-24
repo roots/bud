@@ -1,9 +1,18 @@
 [
   {
+    "title": "Classes",
+    "children": [
+      "classes/bar"
+    ]
+  },
+  {
     "title": "Interfaces",
     "children": [
       "interfaces/babelproperties",
       "interfaces/budplugin",
+      "interfaces/builder",
+      "interfaces/entrybuilder",
+      "interfaces/runnerprops",
       "interfaces/syncoptions"
     ]
   }

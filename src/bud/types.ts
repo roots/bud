@@ -20,14 +20,15 @@ import type {
   Watch,
 } from './api/types'
 
-export declare type Mode = Configuration['mode']
-export declare type Production = boolean
-export declare type Bud = {
+export type Mode = Configuration['mode']
+export type Production = boolean
+export type Bud = {
   hooks: Hooks
   util: Util
   plugin: Plugin
   mode: Mode
-  state: State | undefined
+  inProduction: Production
+  state: State
   alias: Alias
   auto: Auto
   babel: Babel

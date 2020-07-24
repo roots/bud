@@ -1,11 +1,11 @@
-import type {Bud} from '../types'
-
+import type {Bud} from '../util/types'
 export type {Bud}
 
 export type Plugin = {
   webpackAdapters: WebpackAdapters
   controller: (bud: Bud) => Controller
 }
+
 export type RegisteredPlugin = [string, WebpackAdapter]
 export type WebpackAdapter = () => any
 export type WebpackAdapters = RegisteredPlugin[]

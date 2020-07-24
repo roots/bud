@@ -1,4 +1,4 @@
-import type {Vendor} from './Types'
+import type {Bud, Vendor} from './Types'
 
 /**
  * ## bud.vendor
@@ -9,9 +9,17 @@ import type {Vendor} from './Types'
  * bud.vendor('vendor')
  * ```
  */
-const vendor: Vendor = function (name: string = 'vendor') {
-  this.state.features.vendor = true
-  this.state.options.vendor.name = name
+const vendor: Vendor = function (
+  this: Bud,
+  name: string = 'vendor',
+) {
+  if (this.state?.features?.vendor) {
+    this.state.features.vendor = true
+  }
+
+  if (this.state?.options?.vendor) {
+    this.state.options.vendor.name = name
+  }
 
   return this
 }

@@ -1,5 +1,5 @@
 import {loaders} from '../util/loaders'
-import { bud } from '../../../bud'
+import type {Bud} from './../../types'
 
 /**
  * Babel
@@ -7,15 +7,15 @@ import { bud } from '../../../bud'
  * @type {function} babel
  * @return {object}
  */
-const babel = bud => ({
+const babel = (bud: Bud): any => ({
   bud,
   output: {},
-  enabled: bud.state.features.babel,
+  enabled: bud?.state?.features.babel,
   loader: loaders.babel,
   options: {
-    ...bud.state.options.babel,
+    ...bud?.state?.options.babel,
     cacheDirectory: true,
-    cacheCompression: bud.inProduction,
+    cacheCompression: bud?.inProduction,
   },
 
   /**

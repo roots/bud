@@ -1,11 +1,14 @@
 /**
  * Typings
  */
-import type {Configuration, Compiler} from 'webpack'
+import type {Configuration, Compiler, Stats} from 'webpack'
 import type {Bud} from '../bud/types'
 
-export type {Bud}
-export type {Configuration as WebpackConfig}
+export type {
+  Bud,
+  Configuration as WebpackConfig,
+  Stats as WebpackStats,
+}
 
 /**
  * Runner Props
