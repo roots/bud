@@ -6,7 +6,7 @@ const {
 } = require('ink');
 
 const {
-  ProgressBar
+  Bar
 } = require('./LoadingBar');
 
 const PropTypes = require('prop-types');
@@ -31,7 +31,7 @@ const Loading = ({
     width: 6
   }, Math.round((build === null || build === void 0 ? void 0 : build.percentage) * 100), "%", (build === null || build === void 0 ? void 0 : build.percentage) < 1 ? '  ' : ' ')), /*#__PURE__*/React.createElement(Text, {
     color: '#545DD7'
-  }, /*#__PURE__*/React.createElement(ProgressBar, {
+  }, /*#__PURE__*/React.createElement(Bar, {
     character: "\u2588",
     percent: (_build$percentage = build === null || build === void 0 ? void 0 : build.percentage) !== null && _build$percentage !== void 0 ? _build$percentage : 0.01
   }))) : [];

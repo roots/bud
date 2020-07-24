@@ -1,6 +1,6 @@
 const React = require('react')
 const {Box, Text} = require('ink')
-const {ProgressBar} = require('./LoadingBar')
+const {Bar} = require('./LoadingBar')
 const PropTypes = require('prop-types')
 
 /**
@@ -20,7 +20,7 @@ const Loading = ({build, width}) =>
       </Text>
 
       <Text color={'#545DD7'}>
-        <ProgressBar
+        <Bar
           character="█"
           percent={build?.percentage ?? 0.01}
         />
