@@ -2,54 +2,44 @@
  * Bud.Bud export
  */
 export declare const api: {
-    alias: Alias;
-    auto: Auto;
-    babel: Babel;
-    bundle: Bundle;
-    copy: Copy;
-    copyAll: CopyAll;
-    src: Src;
-    srcPath: SrcPath;
-    sync: Sync;
-    watch: Watch;
+    alias: import("./types").Alias;
+    auto: import("./types").Auto;
+    babel: import("./types").Babel;
+    bundle: import("./types").Bundle;
+    copy: import("./types").Copy;
+    copyAll: import("./types").Copy;
+    dashboard: import("./types").Dashboard;
+    debug: import("./types").Debug;
+    dependencyManifest: import("./types").DependencyManifest;
+    dev: import("./types").Dev;
+    devtool: import("./types").Devtool;
+    dist: (relativePath: string) => string;
+    distPath: (dir: string) => import("./types").Bud;
+    dump: (enabled?: boolean) => import("./types").Bud;
+    env: (key: string | number) => any;
+    hash: (enabled?: boolean) => any;
+    hot: (enabled?: boolean) => import("./types").Bud;
+    inlineManifest: import("./types").InlineManifest;
+    map: import("./types").SourceMap;
+    mini: import("./types").Mini;
+    postCss: import("./types").PostCss;
+    preset: import("./types").Preset;
+    project: (relativePath: string) => string;
+    projectPath: (dir: string) => import("./types").Bud;
+    publicPath: (dir: string) => import("./types").Bud;
+    purge: ({ enabled, ...options }: {
+        [x: string]: any;
+        enabled?: boolean;
+    }) => import("./types").Bud;
+    register: import("./types").Register;
+    resolve: import("./types").Resolve;
+    setEnv: (options: any) => import("./types").Bud;
+    src: import("./types").Src;
+    srcPath: import("./types").SrcPath;
+    sync: import("./types").Sync;
+    target: import("./types").Target;
+    translate: import("./types").Translate;
+    vendor: import("./types").Vendor;
+    watch: import("./types").Watch;
 };
-export declare type Api = {
-    alias: Alias;
-    auto: Auto;
-    babel: Babel;
-    bundle: Bundle;
-    copy: Copy;
-    copyAll: CopyAll;
-    src: Src;
-    srcPath: SrcPath;
-    sync: Sync;
-    watch: Watch;
-};
-/**
- * bud.Bud typings
- */
-import { Bud } from '..';
-export { Bud } from '..';
-import type { Options as BrowserSyncOptions } from 'browser-sync';
-export declare type Alias = (object: any) => Bud;
-export declare type Auto = (options: {
-    [key: string]: string[];
-}) => Bud;
-export declare type Babel = (arg0: BabelOptions) => Bud;
-export declare type Bundle = (name: string, entries: Object) => Bud;
-export declare type Copy = (from: string, to: string) => Bud;
-export declare type CopyAll = (from: string, to: string) => Bud;
-export declare type Debug = (enabled: boolean) => any;
-export declare type Src = (relativePath: string) => string;
-export declare type SrcPath = (src: string) => Bud;
-export declare type Sync = (arg0: SyncOptions) => Bud;
-export declare type Watch = (enabled: boolean) => Bud;
-export interface BabelOptions {
-    presets: [];
-    plugins: [];
-}
-export interface SyncOptions {
-    enabled?: boolean;
-    options: BrowserSyncOptions;
-}
 //# sourceMappingURL=index.d.ts.map

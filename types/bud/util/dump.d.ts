@@ -1,3 +1,4 @@
+import type { Dump } from './types';
 /**
  * Dump a prettified, syntax-highlighted object
  *
@@ -6,8 +7,4 @@
  */
 declare const dump: Dump;
 export { dump };
-/**
- * Typings
- */
-import type { Dump } from './';
 //# sourceMappingURL=dump.d.ts.map

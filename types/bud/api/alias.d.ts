@@ -1,3 +1,4 @@
+import type { Alias } from './types';
 /**
  * ## bud.alias
  *
@@ -18,5 +19,4 @@
  **/
 declare const alias: Alias;
 export { alias };
-import type { Alias } from './';
 //# sourceMappingURL=alias.d.ts.map

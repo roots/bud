@@ -1,3 +1,4 @@
+import type { Translate } from './Types';
 /**
  * ## bud.translate
  *
@@ -12,6 +13,4 @@
  */
 declare const translate: Translate;
 export { translate };
-export declare type Translate = (output: string) => Bud;
-import type { Bud } from '..';
 //# sourceMappingURL=translate.d.ts.map

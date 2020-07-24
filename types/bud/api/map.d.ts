@@ -1,3 +1,4 @@
+import type { SourceMap } from './types';
 /**
  * ## bud.map
  *
@@ -9,8 +10,6 @@
  * bud.map(true)
  * ```
  */
-declare const map: Map;
+declare const map: SourceMap;
 export { map };
-import type { Bud } from '..';
-export declare type Map = (enabled: boolean) => Bud;
 //# sourceMappingURL=map.d.ts.map

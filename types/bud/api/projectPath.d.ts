@@ -1,3 +1,4 @@
+import type { Bud } from './Types';
 /**
  * ## bud.projectPath
  *
@@ -9,5 +10,4 @@
  */
 declare const projectPath: (dir: string) => Bud;
 export { projectPath };
-import type { Bud } from '..';
 //# sourceMappingURL=projectPath.d.ts.map

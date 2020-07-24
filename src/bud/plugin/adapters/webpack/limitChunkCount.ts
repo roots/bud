@@ -1,10 +1,12 @@
 import {optimize} from 'webpack'
 const {LimitChunkCountPlugin} = optimize
+import type {WebpackAdapter} from './types'
 
 const limitChunkCount: WebpackAdapter = () => ({
   setOptions: function () {
-    const enabled = this.bud.features.splitting
-    const chunks = this.bud.options.splitting.maxChunks
+    const enabled = this.bud.state.features.splitting
+    const chunks = this.bud.state.options.splitting
+      .maxChunks
 
     if (!enabled) {
       return {
@@ -27,4 +29,3 @@ const limitChunkCount: WebpackAdapter = () => ({
 })
 
 export {limitChunkCount}
-import type {WebpackAdapter} from '../..'

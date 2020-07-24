@@ -1,1 +1,1 @@
-{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../src/bud/hooks/index.ts"],"names":[],"mappings":"AAAA,OAAO,EAAC,KAAK,EAAC,MAAM,SAAS,CAAA;AAE7B,oBAAY,KAAK,GAAG;IAClB,UAAU,EAAE,MAAM,CAAA;IAClB,IAAI,EAAE,QAAQ,CAAA;IACd,MAAM,EAAE,QAAQ,CAAA;IAChB,EAAE,EAAE,CAAC,IAAI,EAAE,MAAM,EAAE,QAAQ,EAAE,QAAQ,KAAK,IAAI,CAAA;IAC9C,IAAI,EAAE,CAAC,IAAI,EAAE,MAAM,EAAE,MAAM,EAAE,GAAG,KAAK,IAAI,CAAA;CAC1C,CAAA"}
+{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../src/bud/hooks/index.ts"],"names":[],"mappings":"AAAA,OAAO,EAAC,KAAK,EAAC,MAAM,SAAS,CAAA"}

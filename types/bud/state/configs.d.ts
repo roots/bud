@@ -1,3 +1,4 @@
+import type { Configs } from './types';
 /**
  * Config
  *
@@ -29,5 +30,4 @@ declare const maybeConfig: (file: any, fallback?: any) => any;
  */
 declare const configs: Configs;
 export { config, hasConfig, maybeConfig, configs };
-import type { Configs } from '.';
 //# sourceMappingURL=configs.d.ts.map

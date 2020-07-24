@@ -1,3 +1,4 @@
+import type { Target } from './Types';
 /**
  * bud.target
  *
@@ -7,7 +8,6 @@
  * bud.target('web') // default
  * ```
  */
-declare const target: (target: string) => Bud;
+declare const target: Target;
 export { target };
-import type { Bud } from '..';
 //# sourceMappingURL=target.d.ts.map

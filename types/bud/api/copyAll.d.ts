@@ -1,3 +1,4 @@
+import type { Copy } from './types';
 /**
  * ## bud.copyAll
  *
@@ -7,7 +8,6 @@
  * bud.copyAll(bud.src('images'), bud.dist('images'))
  * ```
  */
-declare const copyAll: CopyAll;
+declare const copyAll: Copy;
 export { copyAll };
-import type { CopyAll } from '.';
 //# sourceMappingURL=copyAll.d.ts.map

@@ -1,3 +1,5 @@
+import type {Bud, Watch} from './Types'
+
 /**
  * ## bud.watch
  *
@@ -14,4 +16,3 @@ const watch: Watch = function (enabled: boolean): Bud {
 }
 
 export {watch}
-import type {Bud, Watch} from '.'

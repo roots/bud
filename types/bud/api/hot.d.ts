@@ -1,3 +1,4 @@
+import type { Bud } from './types';
 /**
  * ## bud.hot
  *
@@ -9,5 +10,4 @@
  */
 declare const hot: (enabled?: boolean) => Bud;
 export { hot };
-import type { Bud } from '..';
 //# sourceMappingURL=hot.d.ts.map

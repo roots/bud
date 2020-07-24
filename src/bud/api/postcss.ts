@@ -1,3 +1,5 @@
+import type {Bud, PostCss} from './types'
+
 /**
  * ## bud.postCss
  *
@@ -19,7 +21,7 @@
 const postCss: PostCss = function ({
   enabled = true,
   ...options
-}) {
+}): Bud {
   this.state.features.postCss = enabled
 
   if (this.state.features.postCss) {
@@ -33,9 +35,3 @@ const postCss: PostCss = function ({
 }
 
 export {postCss}
-
-import type {Bud} from '..'
-export type PostCss = (options?: {
-  enabled?: boolean
-  plugins?: any[]
-}) => Bud

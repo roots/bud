@@ -1,3 +1,4 @@
+import type { Bud } from './Types';
 /**
  * ## bud.setEnv
  *
@@ -12,5 +13,4 @@
  */
 declare const setEnv: (options: any) => Bud;
 export { setEnv };
-import type { Bud } from '..';
 //# sourceMappingURL=setEnv.d.ts.map

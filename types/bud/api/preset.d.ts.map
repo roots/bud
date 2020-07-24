@@ -1,1 +1,1 @@
-{"version":3,"file":"preset.d.ts","sourceRoot":"","sources":["../../../src/bud/api/preset.ts"],"names":[],"mappings":"AAEA;;;;;;;;;;;;;;;;;;GAkBG;AACH,QAAA,MAAM,MAAM,EAAE,MAQb,CAAA;AAED,OAAO,EAAC,MAAM,EAAC,CAAA;AAEf,oBAAY,MAAM,GAAG,CAAC,YAAY,EAAE,MAAM,KAAK,GAAG,CAAA"}
+{"version":3,"file":"preset.d.ts","sourceRoot":"","sources":["../../../src/bud/api/preset.ts"],"names":[],"mappings":"AACA,OAAO,KAAK,EAAC,MAAM,EAAC,MAAM,SAAS,CAAA;AAEnC;;;;;;;;;;;;;;;;;;GAkBG;AACH,QAAA,MAAM,MAAM,EAAE,MAQb,CAAA;AAED,OAAO,EAAC,MAAM,EAAC,CAAA"}

@@ -1,3 +1,4 @@
+import type { Sync } from './Types';
 /**
  * ## bud.sync
  *
@@ -14,5 +15,4 @@
  */
 declare const sync: Sync;
 export { sync };
-import type { Sync } from '.';
 //# sourceMappingURL=sync.d.ts.map

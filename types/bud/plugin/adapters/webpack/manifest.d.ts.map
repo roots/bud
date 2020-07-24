@@ -1,1 +1,1 @@
-{"version":3,"file":"manifest.d.ts","sourceRoot":"","sources":["../../../../../src/bud/plugin/adapters/webpack/manifest.ts"],"names":[],"mappings":"AAEA,QAAA,MAAM,QAAQ,EAAE,cAWd,CAAA;AAEF,OAAO,EAAC,QAAQ,EAAC,CAAA;AACjB,OAAO,KAAK,EAAC,cAAc,EAAC,MAAM,OAAO,CAAA"}
+{"version":3,"file":"manifest.d.ts","sourceRoot":"","sources":["../../../../../src/bud/plugin/adapters/webpack/manifest.ts"],"names":[],"mappings":"AACA,OAAO,KAAK,EAAC,cAAc,EAAC,MAAM,SAAS,CAAA;AAE3C,QAAA,MAAM,QAAQ,EAAE,cAWd,CAAA;AAEF,OAAO,EAAC,QAAQ,EAAC,CAAA"}

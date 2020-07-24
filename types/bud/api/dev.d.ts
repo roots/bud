@@ -1,7 +1,7 @@
+import type { Dev } from './types';
 /**
  * Development server settings
  */
-declare const dev: (options: object) => Bud;
+declare const dev: Dev;
 export { dev };
-import type { Bud } from '..';
 //# sourceMappingURL=dev.d.ts.map

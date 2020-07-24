@@ -1,4 +1,5 @@
 import FixStyleOnlyEntriesPlugin from 'webpack-fix-style-only-entries'
+import type {WebpackAdapter} from './types'
 
 const fixStyleOnlyEntries: WebpackAdapter = () => ({
   options: {
@@ -10,4 +11,3 @@ const fixStyleOnlyEntries: WebpackAdapter = () => ({
 })
 
 export {fixStyleOnlyEntries}
-import type {WebpackAdapter} from '../..'

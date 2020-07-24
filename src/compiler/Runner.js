@@ -42,7 +42,7 @@ const Runner = ({compiler, config}) => {
   })
 
   useEffect(() => {
-    !config?.features?.watch &&
+    !config?.state?.features?.watch &&
       build?.assets &&
       build?.percentage &&
       exit()
@@ -58,8 +58,8 @@ const Runner = ({compiler, config}) => {
   }, [build?.percentage])
 
   const showBrowserSync =
-    !config?.features?.debug &&
-    config?.features?.browserSync
+    !config?.state?.features?.debug &&
+    config?.state?.features?.browserSync
 
   return (
     <App

@@ -1,1 +1,1 @@
-{"version":3,"file":"register.d.ts","sourceRoot":"","sources":["../../../src/bud/api/register.ts"],"names":[],"mappings":"AAAA;;;;;;;;GAQG;AACH,QAAA,MAAM,QAAQ,EAAE,QAWf,CAAA;AAED,OAAO,EAAC,QAAQ,EAAC,CAAA;AAEjB,OAAO,KAAK,EAAC,GAAG,EAAC,MAAM,IAAI,CAAA;AAE3B,oBAAY,QAAQ,GAAG,CAAC,IAAI,EAAE,MAAM,EAAE,MAAM,EAAE,GAAG,KAAK,GAAG,CAAA"}
+{"version":3,"file":"register.d.ts","sourceRoot":"","sources":["../../../src/bud/api/register.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAM,QAAQ,EAAmB,MAAM,SAAS,CAAA;AAE5D;;;;;;;;GAQG;AACH,QAAA,MAAM,QAAQ,EAAE,QAcf,CAAA;AAED,OAAO,EAAC,QAAQ,EAAC,CAAA"}

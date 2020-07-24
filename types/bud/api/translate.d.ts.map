@@ -1,1 +1,1 @@
-{"version":3,"file":"translate.d.ts","sourceRoot":"","sources":["../../../src/bud/api/translate.ts"],"names":[],"mappings":"AAAA;;;;;;;;;;;GAWG;AACH,QAAA,MAAM,SAAS,EAAE,SAkBhB,CAAA;AAED,OAAO,EAAC,SAAS,EAAC,CAAA;AAClB,oBAAY,SAAS,GAAG,CAAC,MAAM,EAAE,MAAM,KAAK,GAAG,CAAA;AAC/C,OAAO,KAAK,EAAC,GAAG,EAAC,MAAM,IAAI,CAAA"}
+{"version":3,"file":"translate.d.ts","sourceRoot":"","sources":["../../../src/bud/api/translate.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAM,SAAS,EAAC,MAAM,SAAS,CAAA;AAE3C;;;;;;;;;;;GAWG;AACH,QAAA,MAAM,SAAS,EAAE,SAoBhB,CAAA;AAED,OAAO,EAAC,SAAS,EAAC,CAAA"}

@@ -1,3 +1,4 @@
+import { Babel } from './types';
 /**
  * ## bud.babel
  *
@@ -12,5 +13,4 @@
  */
 declare const babel: Babel;
 export { babel };
-import { Babel } from './';
 //# sourceMappingURL=babel.d.ts.map

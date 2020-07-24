@@ -1,1 +1,1 @@
-{"version":3,"file":"hotModuleReplacement.d.ts","sourceRoot":"","sources":["../../../../../src/bud/plugin/adapters/webpack/hotModuleReplacement.ts"],"names":[],"mappings":"AAEA,QAAA,MAAM,oBAAoB,EAAE,cAU1B,CAAA;AAEF,OAAO,EAAC,oBAAoB,EAAC,CAAA;AAC7B,OAAO,KAAK,EAAC,cAAc,EAAC,MAAM,OAAO,CAAA"}
+{"version":3,"file":"hotModuleReplacement.d.ts","sourceRoot":"","sources":["../../../../../src/bud/plugin/adapters/webpack/hotModuleReplacement.ts"],"names":[],"mappings":"AACA,OAAO,KAAK,EAAC,cAAc,EAAC,MAAM,SAAS,CAAA;AAE3C,QAAA,MAAM,oBAAoB,EAAE,cAU1B,CAAA;AAEF,OAAO,EAAC,oBAAoB,EAAC,CAAA"}

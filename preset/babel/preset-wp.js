@@ -10,9 +10,7 @@ module.exports = {
   ],
   plugins: [
     require('@babel/plugin-syntax-dynamic-import'),
-    require(
-      '@babel/plugin-proposal-object-rest-spread',
-    ),
+    require('@babel/plugin-proposal-object-rest-spread'),
     [
       require('@babel/plugin-transform-runtime'),
       {

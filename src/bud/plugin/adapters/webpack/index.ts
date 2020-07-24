@@ -10,19 +10,56 @@ import {miniCssExtract} from './miniCssExtract'
 import {manifest} from './manifest'
 import {provide} from './provide'
 import {writeFile} from './writeFile'
+import type {
+  RegisteredPlugin,
+  WebpackAdapters,
+} from './types'
 
-const browserSyncAdapter: RegisteredPlugin = ['browser_sync_plugin', browserSync]
-const cleanAdapter: RegisteredPlugin = ['clean_webpack_plugin', cleanWebpack]
+const browserSyncAdapter: RegisteredPlugin = [
+  'browser_sync_plugin',
+  browserSync,
+]
+const cleanAdapter: RegisteredPlugin = [
+  'clean_webpack_plugin',
+  cleanWebpack,
+]
 const copyAdapter: RegisteredPlugin = ['copy_plugin', copy]
-const defineAdapter: RegisteredPlugin = ['define_plugin', define]
-const dependencyExtractionAdapter: RegisteredPlugin = ['dependency_extraction_plugin', dependencyExtraction]
-const fixStyleAdapter: RegisteredPlugin = ['fix_style_only_entries_plugin', fixStyleOnlyEntries]
-const hmrAdapter: RegisteredPlugin = ['hot_module_replacement_plugin', hotModuleReplacement]
-const manifestAdapter: RegisteredPlugin = ['manifest_plugin', manifest]
-const miniCssAdapter: RegisteredPlugin = ['mini_css_extract_plugin', miniCssExtract]
-const provideAdapter: RegisteredPlugin = ['provide_plugin', provide]
-const writeFileAdapter: RegisteredPlugin = ['write_file_plugin', writeFile]
-const limitChunkAdapter: RegisteredPlugin = ['limit_chunk_count', limitChunkCount]
+const defineAdapter: RegisteredPlugin = [
+  'define_plugin',
+  define,
+]
+const dependencyExtractionAdapter: RegisteredPlugin = [
+  'dependency_extraction_plugin',
+  dependencyExtraction,
+]
+const fixStyleAdapter: RegisteredPlugin = [
+  'fix_style_only_entries_plugin',
+  fixStyleOnlyEntries,
+]
+const hmrAdapter: RegisteredPlugin = [
+  'hot_module_replacement_plugin',
+  hotModuleReplacement,
+]
+const manifestAdapter: RegisteredPlugin = [
+  'manifest_plugin',
+  manifest,
+]
+const miniCssAdapter: RegisteredPlugin = [
+  'mini_css_extract_plugin',
+  miniCssExtract,
+]
+const provideAdapter: RegisteredPlugin = [
+  'provide_plugin',
+  provide,
+]
+const writeFileAdapter: RegisteredPlugin = [
+  'write_file_plugin',
+  writeFile,
+]
+const limitChunkAdapter: RegisteredPlugin = [
+  'limit_chunk_count',
+  limitChunkCount,
+]
 
 const webpackAdapters: WebpackAdapters = [
   browserSyncAdapter,
@@ -33,11 +70,10 @@ const webpackAdapters: WebpackAdapters = [
   fixStyleAdapter,
   hmrAdapter,
   manifestAdapter,
-  miniCssAdapter,,
-  provideAdapter,,
+  miniCssAdapter,
+  provideAdapter,
   writeFileAdapter,
   limitChunkAdapter,
 ]
 
 export {webpackAdapters}
-import type {RegisteredPlugin, WebpackAdapters} from '../..'

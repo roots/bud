@@ -1,9 +1,10 @@
 import CopyWebpackPlugin from 'copy-webpack-plugin'
+import type {WebpackAdapter} from './types'
 
 const copy: WebpackAdapter = () => ({
   setOptions: function () {
-    if (this.bud.options.copy.patterns.length > 0) {
-      return this.bud.options.copy
+    if (this.bud.state.options.copy.patterns.length > 0) {
+      return this.bud.state.options.copy
     }
   },
   make: function () {
@@ -15,4 +16,3 @@ const copy: WebpackAdapter = () => ({
 })
 
 export {copy}
-import type {WebpackAdapter} from '../..'

@@ -1,3 +1,4 @@
+import { Copy } from './types';
 /**
  * ## bud.copy
  *
@@ -12,5 +13,4 @@
  */
 declare const copy: Copy;
 export { copy };
-import type { Copy } from '.';
 //# sourceMappingURL=copy.d.ts.map

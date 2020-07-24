@@ -1,3 +1,5 @@
+import type {Vendor} from './Types'
+
 /**
  * ## bud.vendor
  *
@@ -7,7 +9,7 @@
  * bud.vendor('vendor')
  * ```
  */
-const vendor = function (name: string = 'vendor'): Bud {
+const vendor: Vendor = function (name: string = 'vendor') {
   this.state.features.vendor = true
   this.state.options.vendor.name = name
 
@@ -15,4 +17,3 @@ const vendor = function (name: string = 'vendor'): Bud {
 }
 
 export {vendor}
-import type {Bud} from '..'

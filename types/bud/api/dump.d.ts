@@ -1,3 +1,4 @@
+import type { Bud } from './types';
 /**
  * Dump generated webpack config for debugging
  *
@@ -6,6 +7,5 @@
  * ```
  */
 declare const dump: (enabled?: boolean) => Bud;
-export = dump;
-import type { Bud } from '..';
+export { dump };
 //# sourceMappingURL=dump.d.ts.map

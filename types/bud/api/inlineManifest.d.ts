@@ -1,3 +1,4 @@
+import type { InlineManifest } from './types';
 /**
  * Inline common scripts.
  *
@@ -6,9 +7,5 @@
  * ```
  */
 declare const inlineManifest: InlineManifest;
-import type { Bud } from '..';
-export declare type InlineManifest = (options?: {
-    name?: string;
-}) => Bud;
 export { inlineManifest };
 //# sourceMappingURL=inlineManifest.d.ts.map

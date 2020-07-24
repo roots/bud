@@ -1,3 +1,4 @@
+import { Auto } from './types';
 /**
  * ## bud.auto
  *
@@ -9,5 +10,4 @@
  */
 declare const auto: Auto;
 export { auto };
-import { Auto } from '.';
 //# sourceMappingURL=auto.d.ts.map

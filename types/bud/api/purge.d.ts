@@ -1,3 +1,4 @@
+import type { Bud } from './types';
 /**
  * ## bud.purge
  *
@@ -20,5 +21,4 @@ declare const purge: ({ enabled, ...options }: {
     enabled?: boolean;
 }) => Bud;
 export { purge };
-import type { Bud } from '..';
 //# sourceMappingURL=purge.d.ts.map

@@ -1,4 +1,5 @@
 import WriteFilePlugin from 'write-file-webpack-plugin'
+import type {WebpackAdapter} from './types'
 
 const writeFile: WebpackAdapter = () => ({
   make: function () {
@@ -10,4 +11,3 @@ const writeFile: WebpackAdapter = () => ({
 })
 
 export {writeFile}
-import type {WebpackAdapter} from '../..'

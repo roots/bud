@@ -1,3 +1,4 @@
+import type { Preset } from './types';
 /**
  * ## bud.preset
  *
@@ -19,5 +20,4 @@
  */
 declare const preset: Preset;
 export { preset };
-export declare type Preset = (relativePath: string) => any;
 //# sourceMappingURL=preset.d.ts.map

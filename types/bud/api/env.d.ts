@@ -4,6 +4,6 @@
  * @param   {string} key
  * @return  {string}
  */
-declare const env: (key: any) => any;
+declare const env: (key: string | number) => any;
 export { env };
 //# sourceMappingURL=env.d.ts.map

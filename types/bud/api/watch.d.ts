@@ -1,3 +1,4 @@
+import type { Watch } from './Types';
 /**
  * ## bud.watch
  *
@@ -9,5 +10,4 @@
  */
 declare const watch: Watch;
 export { watch };
-import type { Watch } from '.';
 //# sourceMappingURL=watch.d.ts.map

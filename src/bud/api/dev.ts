@@ -1,7 +1,9 @@
+import type {Bud, Dev} from './types'
+
 /**
  * Development server settings
  */
-const dev = function (options: object): Bud {
+const dev: Dev = function (options: object): Bud {
   this.state.options.dev = {
     ...this.state.options.dev,
     ...options,
@@ -11,5 +13,3 @@ const dev = function (options: object): Bud {
 }
 
 export {dev}
-
-import type {Bud} from '..'

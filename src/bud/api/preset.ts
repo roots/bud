@@ -1,4 +1,5 @@
 import {join} from 'path'
+import type {Preset} from './types'
 
 /**
  * ## bud.preset
@@ -30,5 +31,3 @@ const preset: Preset = function (relativePath): any {
 }
 
 export {preset}
-
-export type Preset = (relativePath: string) => any

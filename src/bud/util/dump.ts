@@ -1,6 +1,6 @@
+import type {Dump} from './types'
 import {format} from 'prettier'
 import {highlight} from 'cli-highlight'
-
 import {shortCircuit} from './shortCircuit'
 
 /**
@@ -9,7 +9,7 @@ import {shortCircuit} from './shortCircuit'
  * @type {Dump}
  * @param {Object} obj - object to inspect
  */
-const dump: Dump= (obj: Object) => {
+const dump: Dump = (obj: Object) => {
   const normalizedConfigString: string = JSON.stringify(
     obj,
     shortCircuit(),
@@ -29,8 +29,3 @@ const dump: Dump= (obj: Object) => {
 }
 
 export {dump}
-
-/**
- * Typings
- */
-import type {Dump} from './'

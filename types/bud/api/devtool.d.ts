@@ -1,7 +1,7 @@
+import type { Devtool } from './types';
 /**
  * Specify webpack devtool
  */
-declare const devtool: (devtool: string) => Bud;
+declare const devtool: Devtool;
 export { devtool };
-import type { Bud } from '..';
 //# sourceMappingURL=devtool.d.ts.map

@@ -17,5 +17,5 @@
  */
 declare const hooks: Hooks;
 export { hooks };
-import type { Hooks } from '.';
+import type { Hooks } from './types';
 //# sourceMappingURL=hooks.d.ts.map

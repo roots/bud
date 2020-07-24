@@ -1,9 +1,10 @@
 import ManifestPlugin from 'webpack-manifest-plugin'
+import type {WebpackAdapter} from './types'
 
 const manifest: WebpackAdapter = () => ({
   setOptions: function () {
     return {
-      publicPath: this.bud.paths.public,
+      publicPath: this.bud.state.paths.public,
       filename: 'manifest.json',
       writeToFileEmit: true,
     }
@@ -14,4 +15,3 @@ const manifest: WebpackAdapter = () => ({
 })
 
 export {manifest}
-import type {WebpackAdapter} from '../..'

@@ -1,3 +1,4 @@
+import type { Vendor } from './Types';
 /**
  * ## bud.vendor
  *
@@ -7,7 +8,6 @@
  * bud.vendor('vendor')
  * ```
  */
-declare const vendor: (name?: string) => Bud;
+declare const vendor: Vendor;
 export { vendor };
-import type { Bud } from '..';
 //# sourceMappingURL=vendor.d.ts.map

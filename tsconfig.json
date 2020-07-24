@@ -1,14 +1,16 @@
 {
-  "include": ["src/**/*"],
-  "exclude": ["node_modules/**/*"],
+  "include": ["./src/*", "./src/**/*"],
+  "exclude": ["node_modules/**"],
   "compilerOptions": {
     "allowJs": true,
+    "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "declaration": true,
     "declarationDir": "types",
     "declarationMap": true,
-    "module": "commonjs",
+    "sourceMap": true,
+    "module": "CommonJS",
     "outDir": "build",
-    "moduleResolution": "node"
+    "jsx": "preserve"
   }
 }

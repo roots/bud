@@ -1,6 +1,16 @@
 import {env} from './env'
 import {configs} from './configs'
-
+import type {
+  BabelConfiguration,
+  Copy,
+  Dev,
+  Externals,
+  PostCssConfiguration,
+  Target,
+  Vendor,
+  WordPressDependenciesOptions,
+  Options,
+} from './types'
 
 const auto: Object = {}
 
@@ -8,14 +18,19 @@ const babelFallback: BabelConfiguration = {
   presets: [],
   plugins: [],
 }
+
 const babel: BabelConfiguration = configs.babel
   ? require(configs.babel)
   : babelFallback
 
 const browserSync: Object = {
-  host: env?.BROWSERSYNC_HOST ? env.BROWSERSYNC_HOST : 'localhost',
+  host: env?.BROWSERSYNC_HOST
+    ? env.BROWSERSYNC_HOST
+    : 'localhost',
   port: env?.BROWSERSYNC_PORT ? env.BROWSERSYNC_PORT : 3000,
-  proxy: env?.BROWSERSYNC_PROXY ? env.BROWSERSYNC_PROXY : null,
+  proxy: env?.BROWSERSYNC_PROXY
+    ? env.BROWSERSYNC_PROXY
+    : null,
 }
 
 const copy: Copy = {patterns: []}
@@ -66,6 +81,7 @@ const vendor: Vendor = {name: 'vendor'}
  * Options container.
  */
 const options: Options = {
+  alias: {},
   babel,
   postCss,
   typescript,
@@ -110,15 +126,3 @@ const options: Options = {
 }
 
 export {options}
-
-import type {
-  BabelConfiguration,
-  Copy,
-  Dev,
-  Externals,
-  PostCssConfiguration,
-  Target,
-  Vendor,
-  WordPressDependenciesOptions,
-  Options,
-} from '.'

@@ -1,3 +1,4 @@
+import type { Register } from './types';
 /**
  * ## bud.register
  *
@@ -9,6 +10,4 @@
  */
 declare const register: Register;
 export { register };
-import type { Bud } from '..';
-export declare type Register = (name: string, plugin: any) => Bud;
 //# sourceMappingURL=register.d.ts.map

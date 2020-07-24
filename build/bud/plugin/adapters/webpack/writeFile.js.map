@@ -1,0 +1,1 @@
+{"version":3,"file":"writeFile.js","sourceRoot":"","sources":["../../../../../src/bud/plugin/adapters/webpack/writeFile.ts"],"names":[],"mappings":";;;;;;AAAA,wFAAuD;AAGvD,IAAM,SAAS,GAAmB,cAAM,OAAA,CAAC;IACvC,IAAI,EAAE;QACJ,OAAO,IAAI,sCAAe,EAAE,CAAA;IAC9B,CAAC;IACD,IAAI,EAAE;QACJ,OAAO,CAAC,IAAI,CAAC,GAAG,CAAC,YAAY,CAAA;IAC/B,CAAC;CACF,CAAC,EAPsC,CAOtC,CAAA;AAEM,8BAAS"}

@@ -1,3 +1,4 @@
+import type { Mini } from './types';
 /**
  * ## bud.hot
  *
@@ -13,6 +14,4 @@
  */
 declare const mini: Mini;
 export { mini };
-import type { Bud } from '..';
-export declare type Mini = (enabled?: boolean) => Bud;
 //# sourceMappingURL=mini.d.ts.map

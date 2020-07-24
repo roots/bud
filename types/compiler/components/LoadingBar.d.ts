@@ -1,11 +1,10 @@
-export = Bar;
 declare const Bar_base: typeof globalThis.React.Component;
-declare class Bar extends Bar_base {
+export class Bar extends Bar_base {
     constructor(props: Readonly<any>);
     constructor(props: any, context?: any);
     getString(): any;
 }
-declare namespace Bar {
+export namespace Bar {
     export namespace defaultProps {
         export const columns: number;
         export const percent: number;
@@ -29,4 +28,5 @@ declare namespace Bar {
         export { rightPad_1 as rightPad };
     }
 }
+export {};
 //# sourceMappingURL=LoadingBar.d.ts.map

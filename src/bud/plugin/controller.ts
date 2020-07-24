@@ -1,3 +1,5 @@
+import type {Bud, Controller} from './types'
+
 /**
  * Plugin controller
  * @this {Bud}
@@ -48,9 +50,18 @@ const controller = (bud: Bud): Controller => ({
     this.doPluginHook('pre_bind')
 
     this.ensurePluginProp('bud', this.bud)
-    this.ensurePluginProp('options', this.bud.util.fab.undefined())
-    this.ensurePluginProp('setOptions', this.bud.util.fab.undefined)
-    this.ensurePluginProp('mergeOptions', this.bud.util.fab.undefined)
+    this.ensurePluginProp(
+      'options',
+      this.bud.util.fab.undefined(),
+    )
+    this.ensurePluginProp(
+      'setOptions',
+      this.bud.util.fab.undefined,
+    )
+    this.ensurePluginProp(
+      'mergeOptions',
+      this.bud.util.fab.undefined,
+    )
     this.ensurePluginProp('when', this.bud.util.fab.true)
 
     this.doPluginHook('post_bind')
@@ -117,12 +128,13 @@ const controller = (bud: Bud): Controller => ({
    * @property {function} makePlugin
    * @return   {object} constructed webpack plugin
    */
-  makePlugin: function () {
+  makePlugin: function (): object {
     this.doPluginHook('pre')
 
-    this.plugin = this.plugin.when() && this.plugin.make
-      ? this.plugin.make()
-      : this.bud.util.fab.undefined()
+    this.plugin =
+      this.plugin.when() && this.plugin.make
+        ? this.plugin.make()
+        : this.bud.util.fab.undefined()
 
     this.doPluginHook('post')
 
@@ -144,6 +156,3 @@ const controller = (bud: Bud): Controller => ({
 })
 
 export {controller}
-
-import type {Bud, Controller} from '.'
-export type {Controller, RegisteredPlugin} from '.'

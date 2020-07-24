@@ -1,3 +1,4 @@
+import type { PostCss } from './types';
 /**
  * ## bud.postCss
  *
@@ -18,9 +19,4 @@
  */
 declare const postCss: PostCss;
 export { postCss };
-import type { Bud } from '..';
-export declare type PostCss = (options?: {
-    enabled?: boolean;
-    plugins?: any[];
-}) => Bud;
 //# sourceMappingURL=postcss.d.ts.map

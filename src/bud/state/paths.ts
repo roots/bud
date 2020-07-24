@@ -1,4 +1,5 @@
 import {join, resolve} from 'path'
+import type {Directory, Paths} from './types'
 
 /**
  * Current working dir.
@@ -25,13 +26,3 @@ const paths: Paths = {
 }
 
 export {paths}
-
-type Directory = string
-
-export type Paths = {
-  project: Directory
-  framework: Directory
-  src: Directory
-  dist: Directory
-  public: Directory
-}

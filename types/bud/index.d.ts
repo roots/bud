@@ -1,25 +1,10 @@
-import type { Hooks } from './hooks';
-import type { Mode } from './mode';
-import type { Plugin } from './plugin';
-import type { Util } from './util';
-import type { State } from './state';
-import type { Alias, Auto, Babel, Bundle, Copy, CopyAll, Src, SrcPath, Sync, Watch } from './api';
-export declare type Bud = {
-    hooks: Hooks;
-    util: Util;
-    plugin: Plugin;
-    mode: Mode;
-    state: State | undefined;
-    alias: Alias;
-    auto: Auto;
-    babel: Babel;
-    bundle: Bundle;
-    copy: Copy;
-    copyAll: CopyAll;
-    src: Src;
-    srcPath: SrcPath;
-    sync: Sync;
-    watch: Watch;
-};
-export declare const bud: Bud;
+import type { Bud } from './types';
+/**
+ * Bud - asset management framework.
+ *
+ * @see {@link https://roots.io/bud}
+ * @copyright Roots {@link https://roots.io}
+ */
+declare const bud: Bud;
+export { bud };
 //# sourceMappingURL=index.d.ts.map

@@ -1,3 +1,5 @@
+import type {Bud, Register, RegisteredPlugin} from './types'
+
 /**
  * ## bud.register
  *
@@ -15,13 +17,12 @@ const register: Register = function (
 
   const registeredPlugin: RegisteredPlugin = [name, plugin]
 
-  bud.plugin.controller(this).initController(registeredPlugin).buildPlugin()
+  bud.plugin
+    .controller(this)
+    .initController(registeredPlugin)
+    .buildPlugin()
 
   return this
 }
 
 export {register}
-
-import type {Bud} from '..'
-import type {RegisteredPlugin} from '../plugin'
-export type Register = (name: string, plugin: any) => Bud

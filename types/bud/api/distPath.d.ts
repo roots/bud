@@ -1,3 +1,4 @@
+import type { Bud } from './types';
 /**
  * Set the project's dist directory.
  *
@@ -7,5 +8,4 @@
  */
 declare const distPath: (dir: string) => Bud;
 export { distPath };
-import type { Bud } from '..';
 //# sourceMappingURL=distPath.d.ts.map

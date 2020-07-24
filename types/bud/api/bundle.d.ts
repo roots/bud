@@ -1,3 +1,4 @@
+import type { Bundle } from './types';
 /**
  * ## bud.bundle
  *
@@ -12,5 +13,4 @@
  */
 declare const bundle: Bundle;
 export { bundle };
-import type { Bundle } from '.';
 //# sourceMappingURL=bundle.d.ts.map

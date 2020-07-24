@@ -1,3 +1,4 @@
+import type { Src } from './types';
 /**
  * ## bud.src
  *
@@ -9,5 +10,4 @@
  */
 declare const src: Src;
 export { src };
-import type { Src } from '.';
 //# sourceMappingURL=src.d.ts.map

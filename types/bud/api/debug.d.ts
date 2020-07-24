@@ -1,3 +1,4 @@
+import type { Debug } from './types';
 /**
  * ## bud.debug
  *
@@ -12,6 +13,5 @@
  * ```
  */
 declare const debug: Debug;
-export default debug;
-import type { Debug } from '.';
+export { debug };
 //# sourceMappingURL=debug.d.ts.map

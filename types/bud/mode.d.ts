@@ -1,4 +1,5 @@
 import { argv } from 'yargs';
+import type { Mode, Production } from './types';
 /**
  * ## bud.mode
  *
@@ -13,14 +14,10 @@ import { argv } from 'yargs';
  */
 declare const mode: Mode;
 /**
- * inProduction
+ * ## bud.inProduction
+ *
+ * True if bud.mode is strictly equal to "production"
  */
 declare const inProduction: Production;
 export { argv as arguments, inProduction, mode };
-/**
- * Typings
- */
-import type { Configuration } from 'webpack';
-export declare type Mode = Configuration['mode'];
-export declare type Production = boolean;
 //# sourceMappingURL=mode.d.ts.map

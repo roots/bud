@@ -1,3 +1,4 @@
+import type { Dashboard } from './types';
 /**
  * ## bud.dashboard
  *
@@ -7,8 +8,6 @@
  * bud.dashboard(false) // disable dashboard
  * ```
  */
-declare const dashboard: (enabled: boolean) => Bud;
+declare const dashboard: Dashboard;
 export { dashboard };
-export declare type Dashboard = (enabled: boolean) => Bud;
-import type { Bud } from '..';
 //# sourceMappingURL=dashboard.d.ts.map

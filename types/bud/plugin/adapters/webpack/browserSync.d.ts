@@ -1,7 +1,7 @@
+import type { WebpackAdapter } from './types';
 /**
  * BrowserSync plugin adapter.
  */
 declare const browserSync: WebpackAdapter;
 export { browserSync };
-import type { WebpackAdapter } from '../..';
 //# sourceMappingURL=browserSync.d.ts.map

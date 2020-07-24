@@ -1,3 +1,5 @@
+import type {Bud, Translate} from './Types'
+
 /**
  * ## bud.translate
  *
@@ -10,7 +12,9 @@
  * bud.translate('resources/languages/sage.pot')
  * ```
  */
-const translate: Translate = function (output: string): Bud {
+const translate: Translate = function (
+  output: string,
+): Bud {
   this.state.features.translate = output ? true : false
 
   this.state.features.translate &&
@@ -31,5 +35,3 @@ const translate: Translate = function (output: string): Bud {
 }
 
 export {translate}
-export type Translate = (output: string) => Bud
-import type {Bud} from '..'
