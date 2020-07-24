@@ -1,9 +1,10 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import type {WebpackAdapter} from './types'
 
 const miniCssExtract: WebpackAdapter = () => ({
   setOptions: function () {
     return {
-      filename: this.bud.features.hash
+      filename: this.bud.state.features.hash
         ? `[name].[hash:8].css`
         : '[name].css',
     }
@@ -14,4 +15,3 @@ const miniCssExtract: WebpackAdapter = () => ({
 })
 
 export {miniCssExtract}
-import type {WebpackAdapter} from '../..'

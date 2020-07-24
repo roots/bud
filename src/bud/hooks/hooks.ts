@@ -61,4 +61,4 @@ const hooks: Hooks = {
 
 export {hooks}
 
-import type {Hooks} from '.'
+import type {Hooks} from './types'

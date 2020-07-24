@@ -1,3 +1,5 @@
+import type {Bud, Dashboard} from './types'
+
 /**
  * ## bud.dashboard
  *
@@ -17,4 +19,3 @@ const dashboard: Dashboard = function (
 }
 
 export {dashboard}
-import type {Bud, Dashboard} from '.'

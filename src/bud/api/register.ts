@@ -1,3 +1,5 @@
+import type {Bud, Register, RegisteredPlugin} from './types'
+
 /**
  * ## bud.register
  *
@@ -24,7 +26,3 @@ const register: Register = function (
 }
 
 export {register}
-
-import type {Bud} from '..'
-import type {RegisteredPlugin} from '../plugin'
-export type Register = (name: string, plugin: any) => Bud

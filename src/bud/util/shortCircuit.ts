@@ -1,3 +1,5 @@
+import type {ShortCircuit} from './types'
+
 /**
  * JSON.stringify replacement function
  *
@@ -21,5 +23,3 @@ const shortCircuit: ShortCircuit = (): any => {
 }
 
 export {shortCircuit}
-
-import type {ShortCircuit} from './'

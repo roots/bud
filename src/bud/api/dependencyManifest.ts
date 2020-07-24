@@ -1,4 +1,4 @@
-import type {Bud, DependencyManifest} from '.'
+import type {Bud, DependencyManifest} from './types'
 
 /**
  * ## bud.dependencyManifest

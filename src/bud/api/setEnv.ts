@@ -1,3 +1,5 @@
+import type {Bud} from './Types'
+
 /**
  * ## bud.setEnv
  *
@@ -20,4 +22,3 @@ const setEnv = function (options: any): Bud {
 }
 
 export {setEnv}
-import type {Bud} from '..'

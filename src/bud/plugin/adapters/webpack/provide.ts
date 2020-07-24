@@ -1,8 +1,9 @@
 import {ProvidePlugin} from 'webpack'
+import type {WebpackAdapter} from './types'
 
 const provide: WebpackAdapter = () => ({
   setOptions: function () {
-    return this.bud.options.auto
+    return this.bud.state.options.auto
   },
   make: function () {
     return new ProvidePlugin(this.options)
@@ -13,4 +14,3 @@ const provide: WebpackAdapter = () => ({
 })
 
 export {provide}
-import type {WebpackAdapter} from '../..'

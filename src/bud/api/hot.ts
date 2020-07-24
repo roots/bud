@@ -1,3 +1,5 @@
+import type {Bud} from './types'
+
 /**
  * ## bud.hot
  *
@@ -14,4 +16,3 @@ const hot = function (enabled: boolean = true): Bud {
 }
 
 export {hot}
-import type {Bud} from '..'

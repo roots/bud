@@ -1,3 +1,5 @@
+import type {Vendor} from './Types'
+
 /**
  * ## bud.vendor
  *
@@ -15,4 +17,3 @@ const vendor: Vendor = function (name: string = 'vendor') {
 }
 
 export {vendor}
-import type {Vendor} from '.'

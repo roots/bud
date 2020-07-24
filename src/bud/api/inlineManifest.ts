@@ -1,3 +1,5 @@
+import type {InlineManifest, Bud} from './types'
+
 /**
  * Inline common scripts.
  *
@@ -20,5 +22,4 @@ const inlineManifest: InlineManifest = function (
   return this
 }
 
-import type {InlineManifest, Bud} from '.'
 export {inlineManifest}

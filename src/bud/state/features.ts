@@ -1,5 +1,5 @@
 import {inProduction} from './../mode'
-import type {Features} from '.'
+import type {Features} from './types'
 
 /**
  * Features

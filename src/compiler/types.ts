@@ -2,7 +2,7 @@
  * Typings
  */
 import type {Configuration, Compiler} from 'webpack'
-import type {Bud} from '../bud'
+import type {Bud} from '../bud/types'
 
 export type {Bud}
 export type {Configuration as WebpackConfig}

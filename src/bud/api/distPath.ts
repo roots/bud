@@ -1,4 +1,5 @@
 import {join} from 'path'
+import type {Bud} from './types'
 
 /**
  * Set the project's dist directory.
@@ -17,4 +18,3 @@ const distPath = function (dir: string): Bud {
 }
 
 export {distPath}
-import type {Bud} from '..'

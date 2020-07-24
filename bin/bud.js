@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 const {join} = require('path')
-const compiler = require('../build/compiler')
+const {compiler} = require('../build/compiler')
 
 /** Get Bud container exported from project config. */
 const projectDir = process.cwd()

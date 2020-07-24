@@ -1,6 +1,6 @@
+import type {Dump} from './types'
 import {format} from 'prettier'
 import {highlight} from 'cli-highlight'
-
 import {shortCircuit} from './shortCircuit'
 
 /**
@@ -29,8 +29,3 @@ const dump: Dump = (obj: Object) => {
 }
 
 export {dump}
-
-/**
- * Typings
- */
-import type {Dump} from './'

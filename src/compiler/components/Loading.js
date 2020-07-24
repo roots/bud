@@ -1,6 +1,6 @@
 const React = require('react')
 const {Box, Text} = require('ink')
-const ProgressBar = require('./LoadingBar')
+const {ProgressBar} = require('./LoadingBar')
 const PropTypes = require('prop-types')
 
 /**

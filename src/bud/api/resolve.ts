@@ -1,4 +1,5 @@
 import {join} from 'path'
+import type {Resolve} from './types'
 
 /**
  * ## bud.resolve
@@ -9,7 +10,9 @@ import {join} from 'path'
  * bud.resolve('scripts/app.js')
  * ```
  */
-const resolve = function (moduleName: string): string {
+const resolve: Resolve = function (
+  moduleName: string,
+): string {
   return require.resolve(
     join(
       this.state.paths.framework,

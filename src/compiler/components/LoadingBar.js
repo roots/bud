@@ -59,4 +59,4 @@ Bar.propTypes = {
   rightPad: PropTypes.bool,
 }
 
-module.exports = Bar
+module.exports = {Bar}

@@ -1,3 +1,5 @@
+import type {Bud, Debug} from './types'
+
 /**
  * ## bud.debug
  *
@@ -21,5 +23,3 @@ const debug: Debug = function (
 }
 
 export {debug}
-
-import type {Bud, Debug} from '.'

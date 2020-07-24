@@ -10,6 +10,10 @@ import {miniCssExtract} from './miniCssExtract'
 import {manifest} from './manifest'
 import {provide} from './provide'
 import {writeFile} from './writeFile'
+import type {
+  RegisteredPlugin,
+  WebpackAdapters,
+} from './types'
 
 const browserSyncAdapter: RegisteredPlugin = [
   'browser_sync_plugin',
@@ -67,12 +71,9 @@ const webpackAdapters: WebpackAdapters = [
   hmrAdapter,
   manifestAdapter,
   miniCssAdapter,
-  ,
   provideAdapter,
-  ,
   writeFileAdapter,
   limitChunkAdapter,
 ]
 
 export {webpackAdapters}
-import type {RegisteredPlugin, WebpackAdapters} from '../..'

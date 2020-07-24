@@ -1,7 +1,7 @@
 import {join} from 'path'
 import {existsSync} from 'fs-extra'
 import {paths} from './paths'
-import type {Configs} from '.'
+import type {Configs} from './types'
 
 /**
  * Config

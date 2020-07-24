@@ -1,8 +1,9 @@
 import {DefinePlugin} from 'webpack'
+import type {WebpackAdapter} from './types'
 
 const define: WebpackAdapter = () => ({
   mergeOptions: function () {
-    return this.bud.options.env
+    return this.bud.state.options.env
   },
   make: function () {
     return new DefinePlugin(this.options)
@@ -13,4 +14,3 @@ const define: WebpackAdapter = () => ({
 })
 
 export {define}
-import type {WebpackAdapter} from '../..'

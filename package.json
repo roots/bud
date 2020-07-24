@@ -17,12 +17,11 @@
   "main": "build/index.js",
   "types": "types",
   "scripts": {
-    "ts": "tsc",
     "build": "tsc && babel src/ --out-dir=build --extensions '.js'",
     "docs": "yarn docs:build",
     "docs:dev": "npm-run-all -s docs:generate docs:vuepress:dev",
     "docs:build": "npm-run-all -s docs:generate docs:vuepress:build",
-    "docs:generate": "typedoc --out ./docs/bud ./src --theme vuepress",
+    "docs:generate": "typedoc --tsconfig tsconfig.json --mode file --out docs src/bud/api --theme vuepress ",
     "docs:vuepress:dev": "vuepress dev docs",
     "docs:vuepress:build": "vuepress build docs",
     "lint": "npm-run-all -c lint:*",

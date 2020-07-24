@@ -10,7 +10,7 @@ import type {
   Vendor,
   WordPressDependenciesOptions,
   Options,
-} from '.'
+} from './types'
 
 const auto: Object = {}
 

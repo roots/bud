@@ -1,14 +1,9 @@
 import type {Configuration} from 'webpack'
-
-export type Mode = Configuration['mode']
-export type Production = boolean
-
-export type {Hooks} from './hooks'
-export type {Plugin} from './plugin'
-export type {State} from './state'
-export type {Util} from './util'
-
-export type {
+import type {Hooks} from './hooks/types'
+import type {Plugin} from './plugin/types'
+import type {State} from './state/types'
+import type {Util} from './util/types'
+import type {
   Alias,
   Auto,
   Babel,
@@ -16,9 +11,36 @@ export type {
   Copy,
   Debug,
   DependencyManifest,
+  Dev,
+  Devtool,
   Src,
   SrcPath,
   Sync,
   Vendor,
   Watch,
-} from './api'
+} from './api/types'
+
+export declare type Mode = Configuration['mode']
+export declare type Production = boolean
+export declare type Bud = {
+  hooks: Hooks
+  util: Util
+  plugin: Plugin
+  mode: Mode
+  state: State | undefined
+  alias: Alias
+  auto: Auto
+  babel: Babel
+  bundle: Bundle
+  copy: Copy
+  copyAll: Copy
+  debug: Debug
+  dependencyManifest: DependencyManifest
+  dev: Dev
+  devtool: Devtool
+  src: Src
+  srcPath: SrcPath
+  sync: Sync
+  vendor: Vendor
+  watch: Watch
+}

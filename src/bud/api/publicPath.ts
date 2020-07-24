@@ -1,3 +1,5 @@
+import type {Bud} from './Types'
+
 /**
  * ## bud.publicPath
  *
@@ -16,4 +18,3 @@ const publicPath = function (dir: string): Bud {
 }
 
 export {publicPath}
-import type {Bud} from '..'

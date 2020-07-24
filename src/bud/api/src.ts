@@ -1,4 +1,5 @@
 import {join} from 'path'
+import type {Src} from './types'
 
 /**
  * ## bud.src
@@ -14,4 +15,3 @@ const src: Src = function (relativePath: string): string {
 }
 
 export {src}
-import type {Src} from '.'

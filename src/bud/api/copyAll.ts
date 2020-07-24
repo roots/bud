@@ -1,4 +1,5 @@
 import {join} from 'path'
+import type {Bud, Copy} from './types'
 
 /**
  * ## bud.copyAll
@@ -9,7 +10,7 @@ import {join} from 'path'
  * bud.copyAll(bud.src('images'), bud.dist('images'))
  * ```
  */
-const copyAll = function (
+const copyAll: Copy = function (
   this: Bud,
   from: string,
   to: any,
@@ -28,5 +29,3 @@ const copyAll = function (
 }
 
 export {copyAll}
-
-import type {Bud, Copy} from '.'

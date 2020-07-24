@@ -1,4 +1,8 @@
 import {CleanWebpackPlugin as Plugin} from 'clean-webpack-plugin'
+import type {
+  WebpackAdapter,
+  CleanWebpackPlugin,
+} from './types'
 
 const cleanWebpack: WebpackAdapter = () => ({
   make: function (): CleanWebpackPlugin {
@@ -7,6 +11,3 @@ const cleanWebpack: WebpackAdapter = () => ({
 })
 
 export {cleanWebpack}
-
-import type {WebpackAdapter} from '../..'
-import type {CleanWebpackPlugin} from 'clean-webpack-plugin'

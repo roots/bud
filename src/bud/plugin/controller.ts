@@ -1,3 +1,5 @@
+import type {Bud, Controller} from './types'
+
 /**
  * Plugin controller
  * @this {Bud}
@@ -126,7 +128,7 @@ const controller = (bud: Bud): Controller => ({
    * @property {function} makePlugin
    * @return   {object} constructed webpack plugin
    */
-  makePlugin: function () {
+  makePlugin: function (): object {
     this.doPluginHook('pre')
 
     this.plugin =
@@ -154,6 +156,3 @@ const controller = (bud: Bud): Controller => ({
 })
 
 export {controller}
-
-import type {Bud, Controller} from '.'
-export type {Controller, RegisteredPlugin} from '.'

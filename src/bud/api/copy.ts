@@ -1,3 +1,5 @@
+import {Bud, Copy} from './types'
+
 /**
  * ## bud.copy
  *
@@ -10,7 +12,7 @@
  * )
  * ```
  */
-const copy = function (
+const copy: Copy = function (
   this: Bud,
   from: string,
   to: string,
@@ -21,4 +23,3 @@ const copy = function (
 }
 
 export {copy}
-import {Bud} from '.'

@@ -1,3 +1,5 @@
+import {Bud, Babel, BabelProperties} from './types'
+
 /**
  * ## bud.babel
  *
@@ -24,5 +26,3 @@ const babel: Babel = function (
 }
 
 export {babel}
-
-import {Bud, Babel, BabelProperties} from './'

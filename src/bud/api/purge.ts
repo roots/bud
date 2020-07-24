@@ -1,3 +1,5 @@
+import type {Bud} from './types'
+
 /**
  * ## bud.purge
  *
@@ -27,4 +29,3 @@ const purge = function ({enabled = true, ...options}): Bud {
 }
 
 export {purge}
-import type {Bud} from '..'

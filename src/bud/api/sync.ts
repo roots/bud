@@ -1,3 +1,5 @@
+import type {Bud, Sync} from './Types'
+
 /**
  * ## bud.sync
  *
@@ -25,5 +27,3 @@ const sync: Sync = function ({enabled, options}): Bud {
 }
 
 export {sync}
-
-import type {Bud, Sync} from '.'

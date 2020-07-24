@@ -1,3 +1,5 @@
+import type {Bud, Bundle} from './types'
+
 /**
  * ## bud.bundle
  *
@@ -24,5 +26,3 @@ const bundle: Bundle = function (
 }
 
 export {bundle}
-
-import type {Bud, Bundle} from '.'

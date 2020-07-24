@@ -1,4 +1,4 @@
-import {Bud, Auto} from '.'
+import {Bud, Auto} from './types'
 
 /**
  * ## bud.auto

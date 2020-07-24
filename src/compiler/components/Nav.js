@@ -71,8 +71,8 @@ const Nav = ({build, focused, config}) => (
       </Text>
     </Box>
 
-    {!config?.features?.debug &&
-      config?.features?.browserSync && (
+    {!config?.state?.features?.debug &&
+      config?.state?.features?.browserSync && (
         <>
           <Spacer />
           <Box>
@@ -87,7 +87,7 @@ const Nav = ({build, focused, config}) => (
         </>
       )}
 
-    {config?.features?.debug && (
+    {config?.state?.features?.debug && (
       <>
         <Spacer />
         <Box>

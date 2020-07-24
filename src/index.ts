@@ -1,2 +1,5 @@
-export {bud} from './bud'
-export type {Bud} from './bud'
+import {bud} from './bud'
+import type {Bud} from './bud/types'
+
+export {bud}
+export type {Bud}

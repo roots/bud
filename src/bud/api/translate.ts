@@ -1,3 +1,5 @@
+import type {Bud, Translate} from './Types'
+
 /**
  * ## bud.translate
  *
@@ -33,5 +35,3 @@ const translate: Translate = function (
 }
 
 export {translate}
-export type Translate = (output: string) => Bud
-import type {Bud} from '..'

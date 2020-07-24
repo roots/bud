@@ -1,3 +1,5 @@
+import type {Except} from './types'
+
 import {cloneDeep} from 'lodash'
 
 const except: Except = (
@@ -13,5 +15,3 @@ const except: Except = (
 }
 
 export {except}
-
-import type {Except} from '.'

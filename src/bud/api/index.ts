@@ -7,10 +7,31 @@ import {copyAll} from './copyAll'
 import {dashboard} from './dashboard'
 import {debug} from './debug'
 import {dependencyManifest} from './dependencyManifest'
+import {dist} from './dist'
+import {distPath} from './distPath'
+import {dev} from './dev'
+import {devtool} from './devtool'
+import {dump} from './dump'
+import {env} from './env'
+import {hash} from './hash'
+import {hot} from './hot'
+import {inlineManifest} from './inlineManifest'
+import {map} from './map'
+import {mini} from './mini'
+import {postCss} from './postcss'
+import {preset} from './preset'
+import {project} from './project'
+import {projectPath} from './projectPath'
+import {publicPath} from './publicPath'
+import {purge} from './purge'
+import {register} from './register'
 import {resolve} from './resolve'
+import {setEnv} from './setEnv'
 import {src} from './src'
 import {srcPath} from './srcPath'
 import {sync} from './sync'
+import {target} from './target'
+import {translate} from './translate'
 import {vendor} from './vendor'
 import {watch} from './watch'
 
@@ -27,64 +48,31 @@ export const api = {
   dashboard,
   debug,
   dependencyManifest,
+  dev,
+  devtool,
+  dist,
+  distPath,
+  dump,
+  env,
+  hash,
+  hot,
+  inlineManifest,
+  map,
+  mini,
+  postCss,
+  preset,
+  project,
+  projectPath,
+  publicPath,
+  purge,
+  register,
   resolve,
+  setEnv,
   src,
   srcPath,
   sync,
+  target,
+  translate,
   vendor,
   watch,
-}
-
-export type Api = {
-  alias: Alias
-  auto: Auto
-  babel: Babel
-  bundle: Bundle
-  copy: Copy
-  copyAll: Copy
-  dashboard: Dashboard
-  debug: Debug
-  dependencyManifest: DependencyManifest
-  resolve: Resolve
-  src: Src
-  srcPath: SrcPath
-  sync: Sync
-  vendor: Vendor
-  watch: Watch
-}
-
-/**
- * bud.Bud typings
- */
-import {Bud} from '..'
-export {Bud} from '..'
-
-import type {Options as BrowserSyncOptions} from 'browser-sync'
-
-export type Alias = (arg0: object) => Bud
-export type Auto = (options: {
-  [key: string]: string[]
-}) => Bud
-export type Babel = (arg0: BabelProperties) => Bud
-export type Bundle = (name: string, entries: Object) => Bud
-export type Copy = (from: string, to: string) => Bud
-export type Dashboard = (enabled: boolean) => Bud
-export type Debug = (enabled: boolean) => any
-export type DependencyManifest = (settings?: object) => Bud
-export type InlineManifest = (name?: string) => Bud
-export type Resolve = (moduleName: string) => string
-export type Src = (relativePath: string) => string
-export type SrcPath = (src: string) => Bud
-export type Sync = (arg0: SyncOptions) => Bud
-export type Watch = (enabled: boolean) => Bud
-export type Vendor = (name: string) => Bud
-
-export interface BabelProperties {
-  presets: []
-  plugins: []
-}
-
-export interface SyncOptions {
-  enabled?: boolean
-  options: BrowserSyncOptions
 }

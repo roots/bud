@@ -1,3 +1,5 @@
+import type {Bud} from './Types'
+
 /**
  * ## bud.projectPath
  *
@@ -14,4 +16,3 @@ const projectPath = function (dir: string): Bud {
 }
 
 export {projectPath}
-import type {Bud} from '..'

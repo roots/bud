@@ -1,4 +1,4 @@
-import type {Bud, Alias} from './'
+import type {Bud, Alias} from './types'
 
 /**
  * ## bud.alias

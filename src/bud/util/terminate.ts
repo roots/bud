@@ -1,4 +1,4 @@
-import type {Bud} from '..'
+import type {Bud} from './types'
 
 const terminate = (
   bud: Bud,
@@ -20,4 +20,4 @@ const terminate = (
   }
 }
 
-export default terminate
+export {terminate}
