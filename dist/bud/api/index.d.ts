@@ -13,8 +13,8 @@ export declare const api: {
     dependencyManifest: import("./types").DependencyManifest;
     dev: import("./types").Dev;
     devtool: import("./types").Devtool;
-    dist: (relativePath: string) => string;
-    distPath: (dir: string) => import("./types").Bud;
+    dist: import("./types").Dist;
+    distPath: import("./types").DistPath;
     dump: (enabled?: boolean) => import("./types").Bud;
     env: (key: string | number) => any;
     hash: (enabled?: boolean) => any;
@@ -27,10 +27,7 @@ export declare const api: {
     project: (relativePath: string) => string;
     projectPath: (dir: string) => import("./types").Bud;
     publicPath: (dir: string) => import("./types").Bud;
-    purge: ({ enabled, ...options }: {
-        [x: string]: any;
-        enabled?: boolean;
-    }) => import("./types").Bud;
+    purge: import("./types").Purge;
     register: import("./types").Register;
     resolve: import("./types").Resolve;
     setEnv: (options: any) => import("./types").Bud;

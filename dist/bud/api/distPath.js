@@ -9,8 +9,8 @@ var path_1 = require("path");
  * bud.distPath('dist')
  * ```
  */
-var distPath = function (dir) {
-    this.state.paths.dist = path_1.join(this.state.paths.project, dir);
+var distPath = function (relativePath) {
+    this.state.paths.dist = path_1.join(this.state.paths.project, relativePath);
     return this;
 };
 exports.distPath = distPath;

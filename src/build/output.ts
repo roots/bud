@@ -1,7 +1,10 @@
-/**
- * Webpack output.
- */
-const output = bud => ({
+import type {
+  Bud,
+  BuilderConstructor,
+  OutputBuilder,
+} from './types'
+
+const output: BuilderConstructor = (bud: Bud): OutputBuilder => ({
   bud,
 
   options: {

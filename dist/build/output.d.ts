@@ -1,16 +1,4 @@
-/**
- * Webpack output.
- */
-declare const output: (bud: any) => {
-    bud: any;
-    options: {
-        output: {
-            path: any;
-            publicPath: any;
-            filename: string;
-        };
-    };
-    make: () => any;
-};
+import type { BuilderConstructor } from './types';
+declare const output: BuilderConstructor;
 export { output };
 //# sourceMappingURL=output.d.ts.map

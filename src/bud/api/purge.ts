@@ -1,4 +1,4 @@
-import type {Bud} from './types'
+import type {Bud, Purge} from './types'
 
 /**
  * ## bud.purge
@@ -17,7 +17,7 @@ import type {Bud} from './types'
  * })
  * ```
  */
-const purge = function ({enabled = true, ...options}): Bud {
+const purge: Purge = function ({enabled = true, ...options}): Bud {
   if (enabled) {
     this.state.options.postCss.plugins = [
       ...this.state.options.postCss.plugins,

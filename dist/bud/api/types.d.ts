@@ -14,6 +14,8 @@ export declare type Debug = (enabled: boolean) => any;
 export declare type DependencyManifest = (settings?: object) => Bud;
 export declare type Dev = (options: object) => Bud;
 export declare type Devtool = (devtool: string) => Bud;
+export declare type Dist = (relativePath: string) => string;
+export declare type DistPath = (src: string) => Bud;
 export declare type InlineManifest = (name?: string) => Bud;
 export declare type Mini = (enabled?: boolean) => Bud;
 export declare type PostCss = (options?: {
@@ -21,16 +23,27 @@ export declare type PostCss = (options?: {
     plugins?: any[];
 }) => Bud;
 export declare type Preset = (relativePath: string) => any;
+export declare type Project = (relativePath: string) => string;
+export declare type Purge = (any: any) => Bud;
 export declare type Resolve = (moduleName: string) => string;
 export declare type Register = (name: string, plugin: any) => Bud;
 export declare type SourceMap = (enabled: boolean) => Bud;
 export declare type Src = (relativePath: string) => string;
+/**
+ * ## bud.srcPath
+ *
+ * Set the project's src directory.
+ *
+ *  ```js
+ * bud.srcPath('src') // default unless specified
+ * ```
+ */
 export declare type SrcPath = (src: string) => Bud;
 export declare type Sync = (arg0: SyncOptions) => Bud;
 export declare type Target = (target: string) => Bud;
 export declare type Translate = (output: string) => Bud;
 export declare type Watch = (enabled: boolean) => Bud;
-export declare type Vendor = (name: string) => Bud;
+export declare type Vendor = (name?: string) => Bud;
 export declare type Api = {
     alias: Alias;
     auto: Auto;

@@ -1,4 +1,5 @@
 import {join} from 'path'
+import type {Dist} from './types'
 
 /**
  * ## bud.dist
@@ -9,7 +10,7 @@ import {join} from 'path'
  * bud.dist('scripts/app.js')
  * ```
  */
-const dist = function (relativePath: string): string {
+const dist: Dist = function (relativePath: string): string {
   return join(this.state.paths.dist, relativePath)
 }
 

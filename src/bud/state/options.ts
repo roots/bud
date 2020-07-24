@@ -103,6 +103,16 @@ const options: Options = {
   inlineManifest: {
     name: 'runtime',
   },
+  node: {
+    module: 'empty',
+    dgram: 'empty',
+    dns: 'mock',
+    fs: 'empty',
+    http2: 'empty',
+    net: 'empty',
+    tls: 'empty',
+    child_process: 'empty',
+  },
   splitting: {
     maxChunks: null,
   },

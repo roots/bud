@@ -10,16 +10,7 @@ declare const general: (bud: Bud) => {
         context: string;
         devtool: any;
         mode: "none" | "development" | "production";
-        node: {
-            module: string;
-            dgram: string;
-            dns: string;
-            fs: string;
-            http2: string;
-            net: string;
-            tls: string;
-            child_process: string;
-        };
+        node: any;
         target: "node" | "web" | "webworker" | "async-node" | "node-webkit" | "atom" | "electron" | "electron-renderer" | "electron-preload" | "electron-main" | ((compiler?: any) => void);
         watch: boolean;
     };

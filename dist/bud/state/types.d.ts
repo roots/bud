@@ -33,10 +33,11 @@ export declare type Options = {
     devtool: any;
     entry: any;
     env: any;
-    inlineManifest: Object;
-    splitting: Object;
-    uglify: Object;
-    browserSync: Object;
+    inlineManifest: any;
+    node: any;
+    splitting: any;
+    uglify: any;
+    browserSync: any;
     externals: Externals;
     postCss: PostCssConfiguration;
     svg: Svg;

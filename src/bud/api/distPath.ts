@@ -1,5 +1,5 @@
 import {join} from 'path'
-import type {Bud} from './types'
+import type {Bud, DistPath} from './types'
 
 /**
  * Set the project's dist directory.
@@ -8,10 +8,10 @@ import type {Bud} from './types'
  * bud.distPath('dist')
  * ```
  */
-const distPath = function (dir: string): Bud {
+const distPath: DistPath = function (relativePath: string): Bud {
   this.state.paths.dist = join(
     this.state.paths.project,
-    dir,
+    relativePath,
   )
 
   return this

@@ -1,9 +1,6 @@
 "use strict";
 exports.__esModule = true;
 exports.output = void 0;
-/**
- * Webpack output.
- */
 var output = function (bud) { return ({
     bud: bud,
     options: {

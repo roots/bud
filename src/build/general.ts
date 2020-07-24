@@ -13,16 +13,7 @@ const general = (bud: Bud) => ({
       ? bud.state.options.devtool
       : false,
     mode: bud.mode,
-    node: {
-      module: 'empty',
-      dgram: 'empty',
-      dns: 'mock',
-      fs: 'empty',
-      http2: 'empty',
-      net: 'empty',
-      tls: 'empty',
-      child_process: 'empty',
-    },
+    node: bud.state.options.node,
     target: bud.state.options.target,
     watch: bud.state.features.watch,
   },

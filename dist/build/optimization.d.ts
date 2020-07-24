@@ -32,7 +32,7 @@ declare const optimization: (bud: Bud) => {
     runtimeChunkOptions: {
         name: (entrypoint: any) => string;
     };
-    uglifyOptions: Object;
+    uglifyOptions: any;
     make: () => void;
     whenSupported: (feature: any, callback: any) => void;
     setRuntimeChunk: () => void;

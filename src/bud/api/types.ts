@@ -15,6 +15,8 @@ export type Debug = (enabled: boolean) => any
 export type DependencyManifest = (settings?: object) => Bud
 export type Dev = (options: object) => Bud
 export type Devtool = (devtool: string) => Bud
+export type Dist = (relativePath: string) => string
+export type DistPath = (src: string) => Bud
 export type InlineManifest = (name?: string) => Bud
 export type Mini = (enabled?: boolean) => Bud
 export type PostCss = (options?: {
@@ -22,16 +24,29 @@ export type PostCss = (options?: {
   plugins?: any[]
 }) => Bud
 export type Preset = (relativePath: string) => any
+export type Project = (relativePath: string) => string
+export type Purge = (any) => Bud
 export type Resolve = (moduleName: string) => string
 export type Register = (name: string, plugin: any) => Bud
 export type SourceMap = (enabled: boolean) => Bud
 export type Src = (relativePath: string) => string
+
+/**
+ * ## bud.srcPath
+ *
+ * Set the project's src directory.
+ *
+ *  ```js
+ * bud.srcPath('src') // default unless specified
+ * ```
+ */
 export type SrcPath = (src: string) => Bud
+
 export type Sync = (arg0: SyncOptions) => Bud
 export type Target = (target: string) => Bud
 export type Translate = (output: string) => Bud
 export type Watch = (enabled: boolean) => Bud
-export type Vendor = (name: string) => Bud
+export type Vendor = (name?: string) => Bud
 export type Api = {
   alias: Alias
   auto: Auto
