@@ -5,18 +5,10 @@
  */
 declare const module: (bud: any) => {
     bud: any;
-    output: {};
-    test: RegExp;
-    miniCss: string;
-    css: {
-        loader: string;
-        options: {
-            modules: boolean;
-            onlyLocals: boolean;
-        };
+    rule: {
+        test: RegExp;
+        use: any[];
     };
-    resolveUrl: any;
-    postCss: any;
     /**
      * Make CSS Modules object
      */

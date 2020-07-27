@@ -8,7 +8,8 @@
  * @prop {cssModule} cssModule
  */
 const patterns = {
-  js: /\.(js|jsx|mjs|ts|tsx)$/,
+  js: /\.(js|jsx)$/,
+  ts: /\.(ts|tsx)$/,
   scss: /\.scss$/,
   scssModule: /\.module\.(scss|sass)$/,
   css: /\.css$/,

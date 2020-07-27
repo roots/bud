@@ -4,7 +4,7 @@ import type { Bud } from './types';
  */
 declare const plugins: (bud: Bud) => {
     bud: Bud;
-    pluginQueue: import("../bud/plugin/types").WebpackAdapters;
+    pluginQueue: any;
     make: () => {
         plugins: any;
     };

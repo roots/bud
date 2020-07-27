@@ -6,7 +6,7 @@ const writeFile: WebpackAdapter = () => ({
     return new WriteFilePlugin()
   },
   when: function () {
-    return !this.bud.inProduction
+    return true
   },
 })
 

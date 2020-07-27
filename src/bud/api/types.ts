@@ -25,6 +25,7 @@ export type PostCss = (options?: {
 }) => Bud
 export type Preset = (relativePath: string) => any
 export type Project = (relativePath: string) => string
+export type ProjectPath = (relativePath: string) => Bud
 export type Purge = (any) => Bud
 export type Resolve = (moduleName: string) => string
 export type Register = (name: string, plugin: any) => Bud
@@ -45,7 +46,7 @@ export type SrcPath = (src: string) => Bud
 export type Sync = (arg0: SyncOptions) => Bud
 export type Target = (target: string) => Bud
 export type Translate = (output: string) => Bud
-export type Watch = (enabled: boolean) => Bud
+export type Watch = (watchlist: [string], enabled: boolean) => Bud
 export type Vendor = (name?: string) => Bud
 export type Api = {
   alias: Alias
@@ -59,11 +60,13 @@ export type Api = {
   dependencyManifest: DependencyManifest
   dev: Dev
   devtool: Devtool
+  features: any
   inlineManifest: InlineManifest
   map: SourceMap
   mini: Mini
   postCss: PostCss
   preset: Preset
+  projectPath: ProjectPath
   resolve: Resolve
   register: Register
   src: Src

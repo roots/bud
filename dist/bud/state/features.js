@@ -1,31 +1,36 @@
 "use strict";
 exports.__esModule = true;
 exports.features = void 0;
-var mode_1 = require("./../mode");
 /**
  * Features
  */
 var features = {
-    babel: true,
-    browserSync: !mode_1.inProduction,
+    babel: false,
+    browserSync: false,
     debug: false,
     dashboard: true,
     dependencyManifest: false,
     dump: false,
-    eslint: true,
-    hash: mode_1.inProduction,
-    hot: !mode_1.inProduction,
+    eslint: false,
+    hash: false,
+    hot: false,
     inlineManifest: false,
-    minified: mode_1.inProduction,
-    overlay: true,
-    postCss: true,
+    minify: false,
+    overlay: false,
+    css: false,
+    postCss: false,
+    scss: false,
+    cssModules: false,
+    scssModules: false,
     purge: false,
-    sourceMap: !mode_1.inProduction,
-    splitting: true,
+    sourceMap: false,
+    splitting: false,
+    terser: false,
     translate: false,
-    typescript: true,
+    typescript: false,
+    uglify: false,
     vendor: false,
-    watch: !mode_1.inProduction
+    watch: false
 };
 exports.features = features;
 //# sourceMappingURL=features.js.map

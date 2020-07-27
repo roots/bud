@@ -7,7 +7,6 @@ declare const module: (bud: any) => {
     bud: any;
     output: {};
     test: RegExp;
-    miniCss: string;
     css: {
         loader: string;
         options: {

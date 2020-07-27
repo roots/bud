@@ -2,8 +2,18 @@ import type {Bud} from '../util/types'
 export type {Bud}
 
 export type Plugin = {
-  webpackAdapters: WebpackAdapters
+  adapters: WebpackAdapters
   controller: (bud: Bud) => Controller
+  register: any,
+  deregister: any,
+  get: any,
+  all: any,
+  webpack: {
+    register: any,
+    deregister: any,
+    get: any,
+    all: any,
+  },
 }
 
 export type RegisteredPlugin = [string, WebpackAdapter]

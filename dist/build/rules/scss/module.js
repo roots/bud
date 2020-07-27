@@ -15,7 +15,6 @@ var module = function (bud) { return ({
     bud: bud,
     output: {},
     test: patterns_1.patterns.scssModule,
-    miniCss: loaders_1.loaders.miniCss,
     css: {
         loader: loaders_1.loaders.css,
         options: {
@@ -40,7 +39,7 @@ var module = function (bud) { return ({
         this.output = {
             test: this.test,
             use: Object.values([
-                this.miniCss,
+                loaders_1.loaders.miniCss(this.bud.featureEnabled('hot')), ,
                 this.css,
                 this.resolveUrl,
                 this.postCss,

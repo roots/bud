@@ -1,4 +1,3 @@
-import {devServer} from './devServer'
 import {entry} from './entry'
 import {externals} from './externals'
 import {general} from './general'
@@ -22,7 +21,6 @@ const build = (bud: Bud): BuilderController => ({
     ['plugins', plugins],
     ['resolve', webpackResolve],
     ['externals', externals],
-    ['devServer', devServer],
     ['general', general],
   ],
 

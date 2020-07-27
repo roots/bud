@@ -10,7 +10,7 @@ var writeFile = function () { return ({
         return new write_file_webpack_plugin_1["default"]();
     },
     when: function () {
-        return !this.bud.inProduction;
+        return true;
     }
 }); };
 exports.writeFile = writeFile;

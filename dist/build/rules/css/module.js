@@ -12,34 +12,30 @@ var resolveUrl_1 = require("../use/resolveUrl");
  */
 var module = function (bud) { return ({
     bud: bud,
-    output: {},
-    test: patterns_1.patterns.cssModule,
-    miniCss: loaders_1.loaders.miniCss,
-    css: {
-        loader: loaders_1.loaders.css,
-        options: {
-            modules: true,
-            onlyLocals: false
-        }
+    rule: {
+        test: patterns_1.patterns.cssModule,
+        use: [
+            loaders_1.loaders.miniCss(bud.featureEnabled('hot')),
+            {
+                loader: loaders_1.loaders.css,
+                options: {
+                    modules: true,
+                    onlyLocals: false
+                }
+            },
+            resolveUrl_1.resolveUrl(bud).make()
+        ]
     },
-    resolveUrl: resolveUrl_1.resolveUrl(bud).make(),
-    postCss: postCss_1.postCss(bud).make(),
     /**
      * Make CSS Modules object
      */
     make: function () {
         this.pre();
-        this.output = {
-            test: this.test,
-            use: Object.values([
-                this.miniCss,
-                this.css,
-                this.resolveUrl,
-                this.postCss,
-            ])
-        };
+        if (this.bud.featureEnabled('postCss')) {
+            this.use.push(postCss_1.postCss(this.bud).make());
+        }
         this.post();
-        return this.output;
+        return this.rule;
     },
     /**
      * hook: pre_css_module

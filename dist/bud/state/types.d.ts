@@ -1,6 +1,8 @@
+/// <reference types="webpack-dev-server" />
 import type { Configuration as WebpackConfiguration } from 'webpack';
 import type { Options as DependencyExtractionOptions } from '@wordpress/dependency-extraction-webpack-plugin/build-types';
 import type { Options as BrowserSyncOptions } from 'browser-sync-webpack-plugin';
+import type { TerserPluginOptions as TerserOptions } from 'terser-webpack-plugin';
 /**
  * Mitch, all together.
  */
@@ -9,6 +11,7 @@ export declare type State = {
     features: Features;
     options: Options;
     paths: Paths;
+    plugins: any;
 };
 /**
  * Paths
@@ -30,6 +33,7 @@ export declare type Options = {
     babel: BabelConfiguration;
     copy: Copy;
     dev: any;
+    devWatch: any;
     devtool: any;
     entry: any;
     env: any;
@@ -40,8 +44,8 @@ export declare type Options = {
     browserSync: any;
     externals: Externals;
     postCss: PostCssConfiguration;
-    svg: Svg;
     target: WebpackConfiguration['target'];
+    terser: TerserOptions;
     typescript: Typescript;
     dependencyManifest: DependencyExtractionOptions;
     vendor: Vendor;
@@ -60,7 +64,6 @@ export declare type Externals = WebpackConfiguration['externals'];
 export declare type PostCssConfiguration = {
     plugins: [];
 };
-export declare type Svg = any;
 export declare type Target = WebpackConfiguration['target'];
 export declare type Typescript = Object;
 export declare type Vendor = {
@@ -72,6 +75,8 @@ export declare type Vendor = {
 export declare type Features = {
     babel: boolean;
     browserSync: boolean;
+    css: boolean;
+    cssModules: boolean;
     debug: boolean;
     dashboard: boolean;
     dependencyManifest: boolean;
@@ -80,9 +85,13 @@ export declare type Features = {
     hash: boolean;
     hot: boolean;
     inlineManifest: boolean;
-    minified: boolean;
+    minify: boolean;
     overlay: boolean;
     postCss: boolean;
+    scss: boolean;
+    scssModules: boolean;
+    terser: boolean;
+    uglify: boolean;
     purge: boolean;
     sourceMap: boolean;
     splitting: boolean;

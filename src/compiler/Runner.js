@@ -29,7 +29,7 @@ const successfulBuild = build =>
  * @prop {object} compiler webpack compiler
  * @prop {object} config   webpack compiler config
  */
-const Runner = ({compiler, config}) => {
+const Runner = ({compiler, webpackConfig, config}) => {
   const [width, height] = useStdOutDimensions()
   const [state, actions] = useFocusState()
   const {exit} = useApp()
@@ -48,7 +48,7 @@ const Runner = ({compiler, config}) => {
       exit()
   })
 
-  const build = useWebpack({compiler, config})
+  const build = useWebpack({compiler, webpackConfig, config})
   useEffect(() => {
     successfulBuild(build) &&
       notifier.notify({

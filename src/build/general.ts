@@ -8,7 +8,7 @@ import type {Bud} from './types'
 const general = (bud: Bud) => ({
   bud,
   options: {
-    context: bud.state.paths.project,
+    context: bud.state.paths.src,
     devtool: bud.state.features.sourceMap
       ? bud.state.options.devtool
       : false,

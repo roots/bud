@@ -8,7 +8,9 @@ declare const loaders: {
     css: string;
     file: string;
     eslint: string;
-    miniCss: string;
+    miniCss: (hot: any) => {
+        loader: string;
+    };
     postCss: string;
     resolveUrl: string;
     scss: string;

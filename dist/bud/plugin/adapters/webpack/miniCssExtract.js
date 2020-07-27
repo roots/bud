@@ -15,6 +15,13 @@ var miniCssExtract = function () { return ({
     },
     make: function () {
         return new mini_css_extract_plugin_1["default"](this.options);
+    },
+    when: function () {
+        return this.bud.featureEnabled('css') ||
+            this.bud.featureEnabled('scss') ||
+            this.bud.featureEnabled('postcss') ||
+            this.bud.featureEnabled('scssModules') ||
+            this.bud.featureEnabled('cssModules');
     }
 }); };
 exports.miniCssExtract = miniCssExtract;

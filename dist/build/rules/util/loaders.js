@@ -15,7 +15,9 @@ var loaders = {
     css: require.resolve('css-loader'),
     file: require.resolve('file-loader'),
     eslint: require.resolve('eslint-loader'),
-    miniCss: mini_css_extract_plugin_1["default"].loader,
+    miniCss: function (hot) { return ({
+        loader: mini_css_extract_plugin_1["default"].loader
+    }); },
     postCss: require.resolve('postcss-loader'),
     resolveUrl: require.resolve('resolve-url-loader'),
     scss: require.resolve('sass-loader'),

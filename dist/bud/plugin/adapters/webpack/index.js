@@ -12,6 +12,7 @@ var limitChunkCount_1 = require("./limitChunkCount");
 var miniCssExtract_1 = require("./miniCssExtract");
 var manifest_1 = require("./manifest");
 var provide_1 = require("./provide");
+var terser_1 = require("./terser");
 var writeFile_1 = require("./writeFile");
 var browserSyncAdapter = [
     'browser_sync_plugin',
@@ -58,8 +59,13 @@ var limitChunkAdapter = [
     'limit_chunk_count',
     limitChunkCount_1.limitChunkCount,
 ];
+var terserAdapter = [
+    'terser',
+    terser_1.terser,
+];
 var webpackAdapters = [
-    browserSyncAdapter,
+    writeFileAdapter,
+    // browserSyncAdapter,
     cleanAdapter,
     copyAdapter,
     defineAdapter,
@@ -69,7 +75,7 @@ var webpackAdapters = [
     manifestAdapter,
     miniCssAdapter,
     provideAdapter,
-    writeFileAdapter,
+    terserAdapter,
     limitChunkAdapter,
 ];
 exports.webpackAdapters = webpackAdapters;

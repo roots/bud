@@ -12,6 +12,7 @@ var path_1 = require("path");
  * ```
  */
 var src = function (relativePath) {
+    if (relativePath === void 0) { relativePath = ''; }
     return path_1.join(this.state.paths.src, relativePath);
 };
 exports.src = src;

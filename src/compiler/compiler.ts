@@ -11,8 +11,7 @@ const compiler = (bud: Bud): void => {
   /**
    * Use bud's default dashboard when enabled
    */
-  const dashboardEnabled: boolean =
-    bud.state.features.dashboard
+  const dashboardEnabled: boolean = bud.state.features.dashboard
 
   /**
    * Dump config to stdout close process before build when enabled

@@ -65,6 +65,7 @@ const successfulBuild = build => {
 
 const Runner = ({
   compiler,
+  webpackConfig,
   config
 }) => {
   var _config$state2, _config$state2$featur, _config$state3, _config$state3$featur;
@@ -87,6 +88,7 @@ const Runner = ({
   });
   const build = useWebpack({
     compiler,
+    webpackConfig,
     config
   });
   useEffect(() => {

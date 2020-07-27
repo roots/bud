@@ -6,16 +6,13 @@ exports.plugins = void 0;
  */
 var plugins = function (bud) { return ({
     bud: bud,
-    pluginQueue: bud.plugin.webpackAdapters,
+    pluginQueue: bud.state.plugins.adapters,
     make: function () {
         var _this = this;
         this.doHook('pre');
         this.plugins = this.pluginQueue
             .map(function (plugin) {
-            return _this.bud.plugin
-                .controller(_this.bud)
-                .initController(plugin)
-                .buildPlugin();
+            return _this.bud.plugin.controller.initController(plugin).buildPlugin();
         })
             .filter(function (plugin) { return plugin !== undefined; });
         this.doHook('post');

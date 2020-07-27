@@ -9,7 +9,9 @@ import {limitChunkCount} from './limitChunkCount'
 import {miniCssExtract} from './miniCssExtract'
 import {manifest} from './manifest'
 import {provide} from './provide'
+import {terser} from './terser'
 import {writeFile} from './writeFile'
+
 import type {
   RegisteredPlugin,
   WebpackAdapters,
@@ -61,8 +63,14 @@ const limitChunkAdapter: RegisteredPlugin = [
   limitChunkCount,
 ]
 
+const terserAdapter: RegisteredPlugin = [
+  'terser',
+  terser,
+]
+
 const webpackAdapters: WebpackAdapters = [
-  browserSyncAdapter,
+  writeFileAdapter,
+  // browserSyncAdapter,
   cleanAdapter,
   copyAdapter,
   defineAdapter,
@@ -72,7 +80,7 @@ const webpackAdapters: WebpackAdapters = [
   manifestAdapter,
   miniCssAdapter,
   provideAdapter,
-  writeFileAdapter,
+  terserAdapter,
   limitChunkAdapter,
 ]
 

@@ -4,8 +4,9 @@
  * @prop {object} compiler webpack compiler
  * @prop {object} config   webpack compiler config
  */
-export function Runner({ compiler, config }: {
+export function Runner({ compiler, webpackConfig, config }: {
     compiler: any;
+    webpackConfig: any;
     config: any;
 }): JSX.Element;
 export namespace Runner {

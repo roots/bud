@@ -1,30 +1,35 @@
-import {inProduction} from './../mode'
 import type {Features} from './types'
 
 /**
  * Features
  */
 const features: Features = {
-  babel: true,
-  browserSync: !inProduction,
+  babel: false,
+  browserSync: false,
   debug: false,
   dashboard: true,
   dependencyManifest: false,
   dump: false,
-  eslint: true,
-  hash: inProduction,
-  hot: !inProduction,
+  eslint: false,
+  hash: false,
+  hot: false,
   inlineManifest: false,
-  minified: inProduction,
-  overlay: true,
-  postCss: true,
+  minify: false,
+  overlay: false,
+  css: false,
+  postCss: false,
+  scss: false,
+  cssModules: false,
+  scssModules: false,
   purge: false,
-  sourceMap: !inProduction,
-  splitting: true,
+  sourceMap: false,
+  splitting: false,
+  terser: false,
   translate: false,
-  typescript: true,
+  typescript: false,
+  uglify: false,
   vendor: false,
-  watch: !inProduction,
+  watch: false,
 }
 
 export {features}

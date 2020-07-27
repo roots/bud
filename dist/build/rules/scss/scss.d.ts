@@ -5,8 +5,6 @@ declare const scss: (bud: any) => {
     bud: any;
     output: {};
     test: RegExp;
-    miniCss: string;
-    css: string;
     resolveUrl: any;
     postCss: any;
     scss: {

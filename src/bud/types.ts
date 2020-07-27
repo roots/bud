@@ -1,6 +1,5 @@
 import type {Configuration} from 'webpack'
 import type {Hooks} from './hooks/types'
-import type {Plugin} from './plugin/types'
 import type {State} from './state/types'
 import type {Util} from './util/types'
 import type * as Api from './api/types'
@@ -10,7 +9,7 @@ export type Production = boolean
 export type Bud = {
   hooks: Hooks
   util: Util
-  plugin: Plugin
+  plugin: any
   mode: Mode
   inProduction: Production
   state: State
@@ -27,16 +26,22 @@ export type Bud = {
   devtool: Api.Devtool
   dist: Api.Dist
   distPath: Api.DistPath
+  dump: any
   env: any
+  featureEnabled: any
+  features: any
   hash: any
+  hot: any
   inlineManifest: Api.InlineManifest
   map: Api.SourceMap
   mini: Api.Mini
   postCss: Api.PostCss
   preset: Api.Preset
   project: Api.Project
+  projectPath: Api.ProjectPath
+  proxy: any
+  publicPath: any
   purge: Api.Purge
-  register: Api.Register
   resolve: any
   src: Api.Src
   srcPath: Api.SrcPath
@@ -46,5 +51,3 @@ export type Bud = {
   vendor: Api.Vendor
   watch: Api.Watch
 }
-
-export type {Api}

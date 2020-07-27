@@ -7,7 +7,7 @@ import type { Bud } from './types';
 declare const optimization: (bud: Bud) => {
     bud: Bud;
     supports: {
-        minification: boolean;
+        minify: boolean;
         runtimeChunk: boolean;
         vendor: boolean;
     };
@@ -33,7 +33,7 @@ declare const optimization: (bud: Bud) => {
         name: (entrypoint: any) => string;
     };
     uglifyOptions: any;
-    make: () => void;
+    make: () => any;
     whenSupported: (feature: any, callback: any) => void;
     setRuntimeChunk: () => void;
     setSplitChunks: () => void;

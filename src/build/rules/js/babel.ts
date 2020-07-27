@@ -1,4 +1,5 @@
 import {loaders} from '../util/loaders'
+import {patterns} from '../util/patterns'
 import type {Bud} from './../../types'
 
 /**
@@ -9,14 +10,8 @@ import type {Bud} from './../../types'
  */
 const babel = (bud: Bud): any => ({
   bud,
-  output: {},
-  enabled: bud?.state?.features.babel,
-  loader: loaders.babel,
-  options: {
-    ...bud?.state?.options.babel,
-    cacheDirectory: true,
-    cacheCompression: bud?.inProduction,
-  },
+
+  rule: {},
 
   /**
    * Make babel rules
@@ -24,16 +19,23 @@ const babel = (bud: Bud): any => ({
   make: function () {
     this.pre()
 
-    this.output = this.enabled
-      ? {
-          loader: this.loader,
-          options: this.options,
-        }
-      : {}
+    this.rule = {
+      test: patterns.js,
+      use: [
+        {
+          loader: loaders.babel,
+          options: {
+            ...this.bud.state.options.babel,
+            cacheDirectory: true,
+            cacheCompression: this.bud.inProduction,
+          },
+        },
+      ],
+    }
 
     this.post()
 
-    return this.output
+    return this.rule
   },
 
   /**
@@ -47,7 +49,7 @@ const babel = (bud: Bud): any => ({
    * Hook: post_babel
    */
   post: function () {
-    this.bud.hooks.call('post_babel', this.output)
+    this.bud.hooks.call('post_babel', this.rule)
   },
 })
 

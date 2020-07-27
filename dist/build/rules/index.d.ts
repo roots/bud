@@ -4,12 +4,7 @@
  */
 declare const rules: (bud: any) => {
     bud: any;
-    output: {};
-    options: {
-        module: {
-            strictExportPresence: boolean;
-        };
-    };
+    options: {};
     /**
      * Make webpack rules
      */

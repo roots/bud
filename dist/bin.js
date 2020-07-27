@@ -21,9 +21,9 @@ var setProcess = function (bud) {
         });
     });
 };
-var bud = require(getProjectConfig());
 /** 🚀 */
 exports.run = function () {
+    var bud = require(getProjectConfig());
     setProcess(bud);
     compiler_1.compiler(bud);
 };

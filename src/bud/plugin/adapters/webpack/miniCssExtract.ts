@@ -12,6 +12,13 @@ const miniCssExtract: WebpackAdapter = () => ({
   make: function () {
     return new MiniCssExtractPlugin(this.options)
   },
+  when: function () {
+    return this.bud.featureEnabled('css') ||
+      this.bud.featureEnabled('scss') ||
+      this.bud.featureEnabled('postcss') ||
+      this.bud.featureEnabled('scssModules') ||
+      this.bud.featureEnabled('cssModules')
+  }
 })
 
 export {miniCssExtract}

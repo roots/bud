@@ -13,6 +13,8 @@ import {dev} from './dev'
 import {devtool} from './devtool'
 import {dump} from './dump'
 import {env} from './env'
+import {featureEnabled} from './featureEnabled'
+import {features} from './features'
 import {hash} from './hash'
 import {hot} from './hot'
 import {inlineManifest} from './inlineManifest'
@@ -22,9 +24,9 @@ import {postCss} from './postcss'
 import {preset} from './preset'
 import {project} from './project'
 import {projectPath} from './projectPath'
+import {proxy} from './proxy'
 import {publicPath} from './publicPath'
 import {purge} from './purge'
-import {register} from './register'
 import {resolve} from './resolve'
 import {setEnv} from './setEnv'
 import {src} from './src'
@@ -54,6 +56,8 @@ export const api = {
   distPath,
   dump,
   env,
+  featureEnabled,
+  features,
   hash,
   hot,
   inlineManifest,
@@ -63,9 +67,9 @@ export const api = {
   preset,
   project,
   projectPath,
+  proxy,
   publicPath,
   purge,
-  register,
   resolve,
   setEnv,
   src,

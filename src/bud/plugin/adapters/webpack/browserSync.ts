@@ -12,6 +12,12 @@ const browserSync: WebpackAdapter = () => ({
     return this.bud.state.options.browserSync
   },
   make: function (): BrowserSyncPlugin {
+    if (this.bud.state.features.hot) {
+      this.options = {
+        ...this.options,
+      }
+    }
+
     return new BrowserSyncWebpackPlugin(this.options)
   },
   when: function (): boolean {

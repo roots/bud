@@ -43,6 +43,7 @@ const useProgress = () => {
 
 const useWebpack = ({
   compiler,
+  webpackConfig,
   config
 }) => {
   const {
@@ -63,7 +64,7 @@ const useWebpack = ({
   useEffect(() => {
     const webpackCallback = (err, stats) => {
       setBuildErrors(err);
-      setBuildStats(stats.toJson({
+      setBuildStats(stats === null || stats === void 0 ? void 0 : stats.toJson({
         version: true,
         hash: true,
         time: true,
@@ -86,11 +87,9 @@ const useWebpack = ({
   const [warnings, setWarnings] = useState([]);
   const [errors, setErrors] = useState([]);
   useEffect(() => {
-    var _buildStats$warnings, _buildStats$errors;
-
-    setAssets(buildStats === null || buildStats === void 0 ? void 0 : buildStats.assets);
-    setWarnings((_buildStats$warnings = buildStats === null || buildStats === void 0 ? void 0 : buildStats.warnings) !== null && _buildStats$warnings !== void 0 ? _buildStats$warnings : []);
-    setErrors([...(buildErrors !== null && buildErrors !== void 0 ? buildErrors : []), ...((_buildStats$errors = buildStats === null || buildStats === void 0 ? void 0 : buildStats.errors) !== null && _buildStats$errors !== void 0 ? _buildStats$errors : [])]);
+    (buildStats === null || buildStats === void 0 ? void 0 : buildStats.assets) && setAssets(buildStats.assets);
+    (buildStats === null || buildStats === void 0 ? void 0 : buildStats.warnings) && setWarnings(buildStats.warnings);
+    (buildStats === null || buildStats === void 0 ? void 0 : buildStats.errors) && setErrors([buildStats === null || buildStats === void 0 ? void 0 : buildStats.errors]);
   }, [buildStats, buildErrors]);
   return {
     assets,

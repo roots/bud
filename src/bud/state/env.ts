@@ -6,12 +6,8 @@ import type {Environment} from './types'
 /**
  * Environment variables container.
  */
-const envRaw = dotenv.config({
+const env: Environment = dotenv.config({
   path: join(paths.project, '.env'),
 }).parsed
-
-const env: Environment = {
-  ...envRaw,
-}
 
 export {env}

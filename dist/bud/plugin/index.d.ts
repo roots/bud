@@ -1,6 +1,16 @@
-import type { Plugin } from './types';
+import { Bud } from './types';
+/**
+ * ## plugin
+ *
+ * ```
+ * js.plugin
+ * ```
+ */
+declare const plugin: {
+    init: (bud: Bud) => void;
+};
 /**
  * bud.plugin export
  */
-export declare const plugin: Plugin;
+export { plugin };
 //# sourceMappingURL=index.d.ts.map

@@ -3,8 +3,9 @@
  * @prop {compiler} compiler webpack.compiler
  * @prop {string}   options  project options
  */
-export function useWebpack({ compiler, config }: {
+export function useWebpack({ compiler, webpackConfig, config }: {
     compiler: any;
+    webpackConfig: any;
     config: any;
 }): {
     assets: any[];

@@ -12,6 +12,8 @@ import type {
   Options,
 } from './types'
 
+import chokidar from 'chokidar'
+
 const auto: Object = {}
 
 const babelFallback: BabelConfiguration = {
@@ -24,13 +26,11 @@ const babel: BabelConfiguration = configs.babel
   : babelFallback
 
 const browserSync: Object = {
-  host: env?.BROWSERSYNC_HOST
-    ? env.BROWSERSYNC_HOST
-    : 'localhost',
+  host: env?.BROWSERSYNC_HOST ? env.BROWSERSYNC_HOST : 'localhost',
   port: env?.BROWSERSYNC_PORT ? env.BROWSERSYNC_PORT : 3000,
-  proxy: env?.BROWSERSYNC_PROXY
-    ? env.BROWSERSYNC_PROXY
-    : null,
+  proxy: env?.BROWSERSYNC_PROXY ? env.BROWSERSYNC_PROXY : null,
+  online: false,
+  open: false,
 }
 
 const copy: Copy = {patterns: []}
@@ -43,20 +43,17 @@ const dependencyManifest: WordPressDependenciesOptions = {
   useDefaults: true,
 }
 
+const watchList: [string] = [
+  './resources/views/**/*.blade.php'
+]
+
 const dev: Dev = {
-  clientLogLevel: 'none',
-  compress: true,
   disableHostCheck: true,
-  headers: {
-    'Access-Control-Allow-Origin': '*',
-  },
-  historyApiFallback: true,
-  hotOnly: true,
-  injectHot: true,
-  open: false,
-  overlay: true,
-  watchOptions: {
-    aggregateTimeout: 300,
+  host: 'localhost',
+  headers: {},
+  proxy: {},
+  stats: {
+    colors: true,
   },
 }
 
@@ -65,6 +62,7 @@ const externals: Externals = {}
 const postCssFallback: PostCssConfiguration = {
   plugins: [],
 }
+
 const postCss: PostCssConfiguration = configs.postCss
   ? require(configs.postCss)
   : postCssFallback
@@ -85,20 +83,15 @@ const options: Options = {
   babel,
   postCss,
   typescript,
-  svg: {
-    use: [
-      require.resolve('@svgr/webpack'),
-      require.resolve('url-loader'),
-    ],
-  },
   auto,
   browserSync,
   copy,
+  devWatch: [],
   dev,
   dependencyManifest,
-  devtool: 'cheap-module-source-map',
+  devtool: 'source-map',
   entry: {},
-  env: env,
+  env,
   externals,
   inlineManifest: {
     name: 'runtime',
@@ -117,6 +110,30 @@ const options: Options = {
     maxChunks: null,
   },
   target,
+  terser: {
+    terserOptions: {
+      parse: {
+        ecma: 8
+      },
+      compress: {
+        ecma       : 5,
+        warnings   : false,
+        comparisons: false,
+        inline     : 2
+      },
+      mangle: {
+        safari10: true
+      },
+      output: {
+        ecma      : 5,
+        comments  : false,
+        ascii_only: true
+      }
+    },
+    cache: true,
+    parallel: true,
+    sourceMap: true, // Must be set to true if using source-maps in production
+  },
   uglify: {
     cache: true,
     chunkFilter: ({name}) => name === 'vendor',

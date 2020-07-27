@@ -10,8 +10,10 @@ exports.watch = void 0;
  * bud.watch(true)
  * ```
  */
-var watch = function (enabled) {
-    this.state.features.watch = enabled;
+var watch = function (watchlist, enabled) {
+    if (enabled === void 0) { enabled = true; }
+    this.state.features.watch = enabled !== null && enabled !== void 0 ? enabled : true;
+    this.state.options.devWatch = watchlist;
     return this;
 };
 exports.watch = watch;

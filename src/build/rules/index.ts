@@ -18,41 +18,69 @@ import {svg} from './svg'
 const rules = bud => ({
   bud,
 
-  output: {},
-  options: {
-    module: {
-      strictExportPresence: true,
-    },
-  },
+  options: {},
 
   /**
    * Make webpack rules
    */
   make: function () {
-    this.output = {
-      ...this.options,
+    this.options = {
       module: {
-        ...this.options.module,
-        rules: [
-          eslint(this.bud).make(),
-          babel(this.bud).make(),
-          typescript(this.bud).make(),
-          css(this.bud).make(),
-          cssModule(this.bud).make(),
-          scss(this.bud).make(),
-          scssModule(this.bud).make(),
-          font(this.bud).make(),
-          image(this.bud).make(),
-          svg(this.bud).make(),
-        ],
+        rules: [],
       },
     }
 
-    this.output.module.rules = this.output.module.rules.filter(
-      (type: any) => type !== null,
-    )
+    this.bud.featureEnabled('eslint')
+      && this.options.module.rules.push(
+        eslint(this.bud).make()
+      )
 
-    return this.output
+    this.bud.featureEnabled('typescript')
+      && this.options.module.rules.push(
+        typescript(this.bud).make()
+      )
+
+    this.bud.featureEnabled('babel')
+      && this.options.module.rules.push(
+        babel(this.bud).make()
+      )
+
+    this.bud.featureEnabled('css')
+      && this.options.module.rules.push(
+        css(this.bud).make(),
+      )
+
+    this.bud.featureEnabled('cssModules')
+      && this.options.module.rules.push(
+        cssModule(this.bud).make(),
+      )
+
+    this.bud.featureEnabled('scss')
+      && this.options.module.rules.push(
+        scss(this.bud).make(),
+      )
+
+    this.bud.featureEnabled('scssModules')
+      && this.options.module.rules.push(
+        scssModule(this.bud).make(),
+      )
+
+    this.bud.featureEnabled('font')
+      && this.options.module.rules.push(
+        font(this.bud).make(),
+      )
+
+    this.bud.featureEnabled('image')
+      && this.options.module.rules.push(
+        image(this.bud).make()
+      )
+
+    this.bud.featureEnabled('svg')
+      && this.options.module.rules.push(
+        svg(this.bud).make()
+      )
+
+    return this.options
   },
 })
 

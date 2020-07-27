@@ -1,4 +1,5 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import { bud } from '../../../bud'
 
 /**
  * Style loaders
@@ -10,7 +11,9 @@ const loaders = {
   css: require.resolve('css-loader'),
   file: require.resolve('file-loader'),
   eslint: require.resolve('eslint-loader'),
-  miniCss: MiniCssExtractPlugin.loader,
+  miniCss: hot => ({
+    loader: MiniCssExtractPlugin.loader,
+  }),
   postCss: require.resolve('postcss-loader'),
   resolveUrl: require.resolve('resolve-url-loader'),
   scss: require.resolve('sass-loader'),

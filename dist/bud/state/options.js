@@ -12,11 +12,11 @@ var babel = configs_1.configs.babel
     ? require(configs_1.configs.babel)
     : babelFallback;
 var browserSync = {
-    host: (env_1.env === null || env_1.env === void 0 ? void 0 : env_1.env.BROWSERSYNC_HOST) ? env_1.env.BROWSERSYNC_HOST
-        : 'localhost',
+    host: (env_1.env === null || env_1.env === void 0 ? void 0 : env_1.env.BROWSERSYNC_HOST) ? env_1.env.BROWSERSYNC_HOST : 'localhost',
     port: (env_1.env === null || env_1.env === void 0 ? void 0 : env_1.env.BROWSERSYNC_PORT) ? env_1.env.BROWSERSYNC_PORT : 3000,
-    proxy: (env_1.env === null || env_1.env === void 0 ? void 0 : env_1.env.BROWSERSYNC_PROXY) ? env_1.env.BROWSERSYNC_PROXY
-        : null
+    proxy: (env_1.env === null || env_1.env === void 0 ? void 0 : env_1.env.BROWSERSYNC_PROXY) ? env_1.env.BROWSERSYNC_PROXY : null,
+    online: false,
+    open: false
 };
 var copy = { patterns: [] };
 var dependencyManifest = {
@@ -26,20 +26,16 @@ var dependencyManifest = {
     outputFormat: 'json',
     useDefaults: true
 };
+var watchList = [
+    './resources/views/**/*.blade.php'
+];
 var dev = {
-    clientLogLevel: 'none',
-    compress: true,
     disableHostCheck: true,
-    headers: {
-        'Access-Control-Allow-Origin': '*'
-    },
-    historyApiFallback: true,
-    hotOnly: true,
-    injectHot: true,
-    open: false,
-    overlay: true,
-    watchOptions: {
-        aggregateTimeout: 300
+    host: 'localhost',
+    headers: {},
+    proxy: {},
+    stats: {
+        colors: true
     }
 };
 var externals = {};
@@ -62,18 +58,13 @@ var options = {
     babel: babel,
     postCss: postCss,
     typescript: typescript,
-    svg: {
-        use: [
-            require.resolve('@svgr/webpack'),
-            require.resolve('url-loader'),
-        ]
-    },
     auto: auto,
     browserSync: browserSync,
     copy: copy,
+    devWatch: [],
     dev: dev,
     dependencyManifest: dependencyManifest,
-    devtool: 'cheap-module-source-map',
+    devtool: 'source-map',
     entry: {},
     env: env_1.env,
     externals: externals,
@@ -94,6 +85,30 @@ var options = {
         maxChunks: null
     },
     target: target,
+    terser: {
+        terserOptions: {
+            parse: {
+                ecma: 8
+            },
+            compress: {
+                ecma: 5,
+                warnings: false,
+                comparisons: false,
+                inline: 2
+            },
+            mangle: {
+                safari10: true
+            },
+            output: {
+                ecma: 5,
+                comments: false,
+                ascii_only: true
+            }
+        },
+        cache: true,
+        parallel: true,
+        sourceMap: true
+    },
     uglify: {
         cache: true,
         chunkFilter: function (_a) {

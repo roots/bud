@@ -1,11 +1,11 @@
 module.exports = {
   presets: [
-    require('@babel/preset-typescript'),
-    require('@babel/preset-react'),
+    '@babel/preset-typescript',
+    '@babel/preset-react',
   ],
   plugins: [
-    require('@babel/plugin-proposal-nullish-coalescing-operator'),
-    require('@babel/plugin-proposal-optional-chaining'),
-    require('@babel/plugin-proposal-object-rest-spread'),
+    '@babel/plugin-proposal-nullish-coalescing-operator',
+    '@babel/plugin-proposal-optional-chaining',
+    '@babel/plugin-proposal-object-rest-spread',
   ],
 }

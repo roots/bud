@@ -13,7 +13,6 @@ const module = bud => ({
   bud,
   output: {},
   test: patterns.scssModule,
-  miniCss: loaders.miniCss,
   css: {
     loader: loaders.css,
     options: {
@@ -40,7 +39,7 @@ const module = bud => ({
     this.output = {
       test: this.test,
       use: Object.values([
-        this.miniCss,
+        loaders.miniCss(this.bud.featureEnabled('hot')),,
         this.css,
         this.resolveUrl,
         this.postCss,

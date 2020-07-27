@@ -12,13 +12,13 @@ var uglifyjs_webpack_plugin_1 = __importDefault(require("uglifyjs-webpack-plugin
 var optimization = function (bud) { return ({
     bud: bud,
     supports: {
-        minification: bud.state.features.minified,
+        minify: bud.state.features.minify,
         runtimeChunk: bud.state.features.inlineManifest,
         vendor: bud.state.features.vendor
     },
     options: {
         optimization: {
-            minimize: bud.state.features.minified,
+            minimize: bud.state.features.minify,
             removeAvailableModules: false,
             removeEmptyChunks: false,
             moduleIds: 'hashed'
@@ -41,7 +41,8 @@ var optimization = function (bud) { return ({
     make: function () {
         this.whenSupported('runtimeChunk', this.setRuntimeChunk);
         this.whenSupported('vendor', this.setSplitChunks);
-        this.whenSupported('minimize', this.setMinimizer);
+        this.whenSupported('minify', this.setMinimizer);
+        return this.options;
     },
     whenSupported: function (feature, callback) {
         this.currentCallback = callback;
@@ -59,9 +60,11 @@ var optimization = function (bud) { return ({
     },
     setMinimizer: function () {
         this.doHook('pre_minimizer', this);
-        this.options.optimization.minimizer = [
-            this.uglify(),
-        ];
+        if (!this.bud.featureEnabled('terser')) {
+            this.options.optimization.minimizer = [
+                this.uglify(),
+            ];
+        }
         this.doHook('post_minimizer', this);
     },
     uglify: function () {

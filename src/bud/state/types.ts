@@ -1,7 +1,7 @@
 import type {Configuration as WebpackConfiguration} from 'webpack'
 import type {Options as DependencyExtractionOptions} from '@wordpress/dependency-extraction-webpack-plugin/build-types'
 import type {Options as BrowserSyncOptions} from 'browser-sync-webpack-plugin'
-
+import type {TerserPluginOptions as TerserOptions} from 'terser-webpack-plugin'
 /**
  * Mitch, all together.
  */
@@ -10,6 +10,7 @@ export type State = {
   features: Features
   options: Options
   paths: Paths
+  plugins: any
 }
 
 /**
@@ -33,6 +34,7 @@ export type Options = {
   babel: BabelConfiguration
   copy: Copy
   dev: any
+  devWatch: any
   devtool: any
   entry: any
   env: any
@@ -43,8 +45,8 @@ export type Options = {
   browserSync: any
   externals: Externals
   postCss: PostCssConfiguration
-  svg: Svg
   target: WebpackConfiguration['target']
+  terser: TerserOptions
   typescript: Typescript
   dependencyManifest: DependencyExtractionOptions
   vendor: Vendor
@@ -63,7 +65,6 @@ export type Externals = WebpackConfiguration['externals']
 export type PostCssConfiguration = {
   plugins: []
 }
-export type Svg = any
 export type Target = WebpackConfiguration['target']
 export type Typescript = Object
 export type Vendor = {
@@ -76,6 +77,8 @@ export type Vendor = {
 export type Features = {
   babel: boolean
   browserSync: boolean
+  css: boolean
+  cssModules: boolean
   debug: boolean
   dashboard: boolean
   dependencyManifest: boolean
@@ -84,9 +87,13 @@ export type Features = {
   hash: boolean
   hot: boolean
   inlineManifest: boolean
-  minified: boolean
+  minify: boolean
   overlay: boolean
   postCss: boolean
+  scss: boolean
+  scssModules: boolean
+  terser: boolean
+  uglify: boolean
   purge: boolean
   sourceMap: boolean
   splitting: boolean

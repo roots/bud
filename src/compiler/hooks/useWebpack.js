@@ -31,7 +31,7 @@ const useProgress = () => {
  * @prop {compiler} compiler webpack.compiler
  * @prop {string}   options  project options
  */
-const useWebpack = ({compiler, config}) => {
+const useWebpack = ({compiler, webpackConfig, config}) => {
   const {
     progressPlugin,
     percentage,
@@ -58,7 +58,7 @@ const useWebpack = ({compiler, config}) => {
     const webpackCallback = (err, stats) => {
       setBuildErrors(err)
       setBuildStats(
-        stats.toJson({
+        stats?.toJson({
           version: true,
           hash: true,
           time: true,
@@ -86,12 +86,9 @@ const useWebpack = ({compiler, config}) => {
   const [errors, setErrors] = useState([])
 
   useEffect(() => {
-    setAssets(buildStats?.assets)
-    setWarnings(buildStats?.warnings ?? [])
-    setErrors([
-      ...(buildErrors ?? []),
-      ...(buildStats?.errors ?? []),
-    ])
+    buildStats?.assets && setAssets(buildStats.assets)
+    buildStats?.warnings && setWarnings(buildStats.warnings)
+    buildStats?.errors && setErrors([buildStats?.errors])
   }, [buildStats, buildErrors])
 
   return {

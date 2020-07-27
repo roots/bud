@@ -1,27 +1,30 @@
 import {loaders} from '../util/loaders'
+import {patterns} from '../util/patterns'
 import type {Bud} from './../../types'
 
 const typescript: Function = (bud: Bud): any => ({
   bud,
-  enabled: bud?.state?.configs.typescript,
-  loader: loaders.ts,
-  options: {
-    configFile: bud?.state?.configs.typescript,
-  },
+
+  rule: {},
 
   make: function () {
     this.pre()
 
-    this.output = this.enabled
-      ? {
-          loader: this.loader,
-          options: this.options,
-        }
-      : null
+    this.rule = {
+      test: patterns.ts,
+      use: [
+        {
+          loader: loaders.ts,
+          options: {
+            configFile: bud.state.configs.typescript,
+          },
+        },
+      ],
+    }
 
     this.post()
 
-    return this.output
+    return this.rule
   },
 
   /**
@@ -35,10 +38,7 @@ const typescript: Function = (bud: Bud): any => ({
    * Hook: post_typescript
    */
   post: function () {
-    this.bud.hooks.call(
-      'post_typescript',
-      this.output,
-    )
+    this.bud.hooks.call('post_typescript', this.rule)
   },
 })
 

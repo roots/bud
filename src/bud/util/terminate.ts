@@ -1,7 +1,6 @@
 import type {Bud} from './types'
 
 const terminate = (
-  bud: Bud,
   options = {
     dump: false,
     timeout: 500,
@@ -11,7 +10,7 @@ const terminate = (
     options.dump ? process.abort() : process.exit(code)
   }
 
-  return (code: number) => err => {
+  return () => err => {
     if (err && err instanceof Error) {
       console.log(err.message, err.stack)
     }

@@ -10,18 +10,20 @@ import {resolveUrl} from '../use/resolveUrl'
  */
 const module = bud => ({
   bud,
-  output: {},
-  test: patterns.cssModule,
-  miniCss: loaders.miniCss,
-  css: {
-    loader: loaders.css,
-    options: {
-      modules: true,
-      onlyLocals: false,
-    },
+  rule: {
+    test: patterns.cssModule,
+    use: [
+      loaders.miniCss(bud.featureEnabled('hot')),
+      {
+        loader: loaders.css,
+        options: {
+          modules: true,
+          onlyLocals: false,
+        },
+      },
+      resolveUrl(bud).make()
+    ]
   },
-  resolveUrl: resolveUrl(bud).make(),
-  postCss: postCss(bud).make(),
 
   /**
    * Make CSS Modules object
@@ -29,19 +31,13 @@ const module = bud => ({
   make: function () {
     this.pre()
 
-    this.output = {
-      test: this.test,
-      use: Object.values([
-        this.miniCss,
-        this.css,
-        this.resolveUrl,
-        this.postCss,
-      ]),
+    if (this.bud.featureEnabled('postCss')) {
+      this.use.push(postCss(this.bud).make())
     }
 
     this.post()
 
-    return this.output
+    return this.rule
   },
 
   /**

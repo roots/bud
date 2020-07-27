@@ -14,13 +14,11 @@ import type {Bud, Sync} from './Types'
  * })
  * ```
  */
-const sync: Sync = function ({enabled, options}): Bud {
-  this.state.features.browserSync =
-    enabled || !this.inProduction
+const sync: Sync = function ({enabled = true, options}): Bud {
+  this.state.features.browserSync = enabled
   this.state.options.browserSync = {
-    host: options.host ? options.host : 'localhost',
-    port: options.port ? options.port : 3000,
-    proxy: options.proxy ? options.proxy : null,
+    ...this.state.options.browserSync,
+    ...options,
   }
 
   return this

@@ -28,7 +28,10 @@ var hooks = {
      */
     make: function (fn) {
         if (fn === void 0) { fn = function () { return null; }; }
-        return ({ fn: fn, fired: false });
+        return ({
+            fn: fn,
+            fired: false
+        });
     },
     /**
      * Get all bud hook entries.

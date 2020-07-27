@@ -11,7 +11,8 @@ exports.patterns = void 0;
  * @prop {cssModule} cssModule
  */
 var patterns = {
-    js: /\.(js|jsx|mjs|ts|tsx)$/,
+    js: /\.(js|jsx)$/,
+    ts: /\.(ts|tsx)$/,
     scss: /\.scss$/,
     scssModule: /\.module\.(scss|sass)$/,
     css: /\.css$/,

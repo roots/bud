@@ -17,8 +17,15 @@ export declare const api: {
     distPath: import("./types").DistPath;
     dump: (enabled?: boolean) => import("./types").Bud;
     env: (key: string | number) => any;
+    featureEnabled: (this: import("./types").Bud, feature: string) => boolean;
+    features: (this: import("./types").Bud, features: any) => import("./types").Bud;
     hash: (enabled?: boolean) => any;
-    hot: (enabled?: boolean) => import("./types").Bud;
+    hot: (this: import("./types").Bud, options: {
+        enabled: boolean;
+        target: string;
+        port?: number;
+        watch?: string[];
+    }) => import("./types").Bud;
     inlineManifest: import("./types").InlineManifest;
     map: import("./types").SourceMap;
     mini: import("./types").Mini;
@@ -26,9 +33,12 @@ export declare const api: {
     preset: import("./types").Preset;
     project: (relativePath: string) => string;
     projectPath: (dir: string) => import("./types").Bud;
+    proxy: (this: import("./types").Bud, { host, ssl }: {
+        host: any;
+        ssl?: boolean;
+    }) => import("./types").Bud;
     publicPath: (dir: string) => import("./types").Bud;
     purge: import("./types").Purge;
-    register: import("./types").Register;
     resolve: import("./types").Resolve;
     setEnv: (options: any) => import("./types").Bud;
     src: import("./types").Src;

@@ -12,7 +12,9 @@ const entry: BuilderConstructor = (
 ): EntryBuilder => ({
   bud,
   options: {
-    entry: bud.state.options.entry,
+    entry: {
+      ...bud.state.options.entry,
+    },
   },
   make: function () {
     return this.options

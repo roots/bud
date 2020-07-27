@@ -9,6 +9,7 @@
  */
 declare const patterns: {
     js: RegExp;
+    ts: RegExp;
     scss: RegExp;
     scssModule: RegExp;
     css: RegExp;

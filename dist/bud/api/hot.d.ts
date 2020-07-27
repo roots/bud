@@ -8,6 +8,11 @@ import type { Bud } from './types';
  * bud.hot(true) // enable HMR
  * ```
  */
-declare const hot: (enabled?: boolean) => Bud;
+declare const hot: (this: Bud, options: {
+    enabled: boolean;
+    target: string;
+    port?: number;
+    watch?: string[];
+}) => Bud;
 export { hot };
 //# sourceMappingURL=hot.d.ts.map

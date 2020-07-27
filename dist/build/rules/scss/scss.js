@@ -13,8 +13,6 @@ var scss = function (bud) { return ({
     bud: bud,
     output: {},
     test: patterns_1.patterns.scss,
-    miniCss: loaders_1.loaders.miniCss,
-    css: loaders_1.loaders.css,
     resolveUrl: resolveUrl_1.resolveUrl(bud).make(),
     postCss: postCss_1.postCss(bud).make(),
     scss: {
@@ -32,8 +30,8 @@ var scss = function (bud) { return ({
         this.output = {
             test: this.test,
             use: Object.values([
-                this.miniCss,
-                this.css,
+                loaders_1.loaders.miniCss(this.bud.featureEnabled('hot')),
+                loaders_1.loaders.css,
                 this.resolveUrl,
                 this.postCss,
                 this.scss,

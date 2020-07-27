@@ -12,7 +12,6 @@ var __assign = (this && this.__assign) || function () {
 };
 exports.__esModule = true;
 exports.build = void 0;
-var devServer_1 = require("./devServer");
 var entry_1 = require("./entry");
 var externals_1 = require("./externals");
 var general_1 = require("./general");
@@ -32,7 +31,6 @@ var build = function (bud) { return ({
         ['plugins', plugins_1.plugins],
         ['resolve', webpackResolve_1.webpackResolve],
         ['externals', externals_1.externals],
-        ['devServer', devServer_1.devServer],
         ['general', general_1.general],
     ],
     mergeConfig: function (configValues) {

@@ -10,15 +10,18 @@ import {resolveUrl} from '../use/resolveUrl'
 const css = bud => ({
   bud,
   test: patterns.css,
-  sourceMap: bud.state.features.map,
+  sourceMap: bud.featureEnabled('map'),
 
   make: function () {
     this.use = [
-      loaders.miniCss,
+      loaders.miniCss(this.bud.featureEnabled('hot')),
       loaders.css,
       resolveUrl(this.bud).make(),
-      {...postCss(this.bud).make()},
     ]
+
+    if (this.bud.featureEnabled('postCss')) {
+      this.use.push({...postCss(this.bud).make()})
+    }
 
     this.bud.hooks.call('pre_css', this)
     this.output = {

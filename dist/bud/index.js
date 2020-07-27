@@ -13,9 +13,9 @@ var mode_1 = require("./mode");
 var bud = {
     hooks: hooks_1.hooks,
     util: util_1.util,
-    plugin: plugin_1.plugin,
     state: state_1.state,
     mode: mode_1.mode,
+    plugin: plugin_1.plugin,
     inProduction: mode_1.inProduction,
     alias: api_1.api.alias,
     auto: api_1.api.auto,
@@ -30,17 +30,23 @@ var bud = {
     dependencyManifest: api_1.api.dependencyManifest,
     dev: api_1.api.dev,
     devtool: api_1.api.devtool,
+    dump: api_1.api.dump,
     env: api_1.api.env,
+    featureEnabled: api_1.api.featureEnabled,
+    features: api_1.api.features,
     hash: api_1.api.hash,
+    hot: api_1.api.hot,
     inlineManifest: api_1.api.inlineManifest,
     map: api_1.api.map,
     mini: api_1.api.mini,
     postCss: api_1.api.postCss,
     preset: api_1.api.preset,
     project: api_1.api.project,
+    projectPath: api_1.api.projectPath,
+    proxy: api_1.api.proxy,
+    publicPath: api_1.api.publicPath,
     purge: api_1.api.purge,
     resolve: api_1.api.resolve,
-    register: api_1.api.register,
     src: api_1.api.src,
     srcPath: api_1.api.srcPath,
     sync: api_1.api.sync,
@@ -50,4 +56,5 @@ var bud = {
     watch: api_1.api.watch
 };
 exports.bud = bud;
+bud.plugin.init(bud);
 //# sourceMappingURL=index.js.map

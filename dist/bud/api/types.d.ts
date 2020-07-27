@@ -24,6 +24,7 @@ export declare type PostCss = (options?: {
 }) => Bud;
 export declare type Preset = (relativePath: string) => any;
 export declare type Project = (relativePath: string) => string;
+export declare type ProjectPath = (relativePath: string) => Bud;
 export declare type Purge = (any: any) => Bud;
 export declare type Resolve = (moduleName: string) => string;
 export declare type Register = (name: string, plugin: any) => Bud;
@@ -42,7 +43,7 @@ export declare type SrcPath = (src: string) => Bud;
 export declare type Sync = (arg0: SyncOptions) => Bud;
 export declare type Target = (target: string) => Bud;
 export declare type Translate = (output: string) => Bud;
-export declare type Watch = (enabled: boolean) => Bud;
+export declare type Watch = (watchlist: [string], enabled: boolean) => Bud;
 export declare type Vendor = (name?: string) => Bud;
 export declare type Api = {
     alias: Alias;
@@ -56,11 +57,13 @@ export declare type Api = {
     dependencyManifest: DependencyManifest;
     dev: Dev;
     devtool: Devtool;
+    features: any;
     inlineManifest: InlineManifest;
     map: SourceMap;
     mini: Mini;
     postCss: PostCss;
     preset: Preset;
+    projectPath: ProjectPath;
     resolve: Resolve;
     register: Register;
     src: Src;

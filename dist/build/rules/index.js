@@ -1,15 +1,4 @@
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 exports.__esModule = true;
 exports.rules = void 0;
 var eslint_1 = require("./js/eslint");
@@ -28,30 +17,37 @@ var svg_1 = require("./svg");
  */
 var rules = function (bud) { return ({
     bud: bud,
-    output: {},
-    options: {
-        module: {
-            strictExportPresence: true
-        }
-    },
+    options: {},
     /**
      * Make webpack rules
      */
     make: function () {
-        this.output = __assign(__assign({}, this.options), { module: __assign(__assign({}, this.options.module), { rules: [
-                    eslint_1.eslint(this.bud).make(),
-                    babel_1.babel(this.bud).make(),
-                    typescript_1.typescript(this.bud).make(),
-                    css_1.css(this.bud).make(),
-                    module_1.module(this.bud).make(),
-                    scss_1.scss(this.bud).make(),
-                    module_2.module(this.bud).make(),
-                    font_1.font(this.bud).make(),
-                    image_1.image(this.bud).make(),
-                    svg_1.svg(this.bud).make(),
-                ] }) });
-        this.output.module.rules = this.output.module.rules.filter(function (type) { return type !== null; });
-        return this.output;
+        this.options = {
+            module: {
+                rules: []
+            }
+        };
+        this.bud.featureEnabled('eslint')
+            && this.options.module.rules.push(eslint_1.eslint(this.bud).make());
+        this.bud.featureEnabled('typescript')
+            && this.options.module.rules.push(typescript_1.typescript(this.bud).make());
+        this.bud.featureEnabled('babel')
+            && this.options.module.rules.push(babel_1.babel(this.bud).make());
+        this.bud.featureEnabled('css')
+            && this.options.module.rules.push(css_1.css(this.bud).make());
+        this.bud.featureEnabled('cssModules')
+            && this.options.module.rules.push(module_1.module(this.bud).make());
+        this.bud.featureEnabled('scss')
+            && this.options.module.rules.push(scss_1.scss(this.bud).make());
+        this.bud.featureEnabled('scssModules')
+            && this.options.module.rules.push(module_2.module(this.bud).make());
+        this.bud.featureEnabled('font')
+            && this.options.module.rules.push(font_1.font(this.bud).make());
+        this.bud.featureEnabled('image')
+            && this.options.module.rules.push(image_1.image(this.bud).make());
+        this.bud.featureEnabled('svg')
+            && this.options.module.rules.push(svg_1.svg(this.bud).make());
+        return this.options;
     }
 }); };
 exports.rules = rules;
