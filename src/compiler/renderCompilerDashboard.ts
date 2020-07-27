@@ -12,6 +12,21 @@ import type {
 import browserSync from 'browser-sync'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
+import { bud } from '../bud'
+
+const makeMiddleware = (webpackConfig, compiler) => [
+  webpackDevMiddleware(compiler, {
+    headers: bud.state.options.dev.headers,
+    logLevel: 'silent',
+    publicPath: bud.state.paths.public || '/',
+    stats: {
+      all: false,
+    }
+  }),
+  webpackHotMiddleware(compiler, {
+    log: () => {},
+  }),
+]
 
 const injectHot = (webpackConfig: WebpackConfig) => {
   const client = 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true&overlay=true';
@@ -23,7 +38,7 @@ const injectHot = (webpackConfig: WebpackConfig) => {
   return webpackConfig
 }
 
-const makeBsServer = (
+const hotSyncServer = (
   bud: Bud,
   webpackConfig: WebpackConfig,
   compiler
@@ -44,15 +59,7 @@ const makeBsServer = (
     ui: {
       port: 3000,
     },
-    middleware: [
-      webpackDevMiddleware(compiler, {
-        publicPath: webpackConfig.output.publicPath || '/',
-        stats: false,
-      }),
-      webpackHotMiddleware(compiler, {
-        log: () => {},
-      }),
-    ],
+    middleware: makeMiddleware(webpackConfig, compiler),
     injectChanges: true,
     watchOptions: {
       ignoreInitial: true
@@ -77,7 +84,7 @@ const renderCompilerDashboard: BudRenderer = (
     ? webpack(injectHot(webpackConfig))
     : webpack(webpackConfig)
 
-  bud.featureEnabled('hot') && makeBsServer(bud, webpackConfig, compiler)
+  bud.featureEnabled('hot') && hotSyncServer(bud, webpackConfig, compiler)
 
   const runnerProps: RunnerProps = {
     config: bud,

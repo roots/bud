@@ -11,8 +11,8 @@ import type {Bud, SourceMap} from './types'
  * bud.map(true)
  * ```
  */
-const map: SourceMap = function (enabled: boolean): Bud {
-  this.state.features.map = enabled
+const map: SourceMap = function (enabled: boolean = true): Bud {
+  this.state.features.sourceMap = enabled ?? true
 
   return this
 }

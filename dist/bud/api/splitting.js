@@ -11,7 +11,7 @@ exports.splitting = void 0;
  * ```
  */
 var splitting = function (enabled) {
-    this.state.features.splitting = enabled;
+    this.state.features.splitting = enabled !== null && enabled !== void 0 ? enabled : true;
     return this;
 };
 exports.splitting = splitting;

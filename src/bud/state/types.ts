@@ -34,7 +34,6 @@ export type Options = {
   babel: BabelConfiguration
   copy: Copy
   dev: any
-  devWatch: any
   devtool: any
   entry: any
   env: any
@@ -50,7 +49,9 @@ export type Options = {
   typescript: Typescript
   dependencyManifest: DependencyExtractionOptions
   vendor: Vendor
+  watch: any
 }
+
 export type BabelConfiguration = {
   plugins: []
   presets: []
@@ -84,14 +85,19 @@ export type Features = {
   dependencyManifest: boolean
   dump: boolean
   eslint: boolean
+  font: boolean
   hash: boolean
+  image: boolean
   hot: boolean
   inlineManifest: boolean
+  js: boolean
+  manifest: boolean
   minify: boolean
   overlay: boolean
   postCss: boolean
   scss: boolean
   scssModules: boolean
+  svg: boolean
   terser: boolean
   uglify: boolean
   purge: boolean

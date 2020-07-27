@@ -1,9 +1,7 @@
 import type { Bud } from "./types";
 
 const proxy = function (this: Bud, {host, ssl = false}): Bud {
-  const qualified = ssl
-    ? `https://${host}`
-    : `http://${host}`
+  const qualified = ssl ? `https://${host}` : `http://${host}`
 
   this.state.options.dev = {
     ...this.state.options.dev,

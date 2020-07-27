@@ -13,7 +13,7 @@ const splitting: Function = function (
   this: Bud,
   enabled: boolean,
 ): Bud {
-  this.state.features.splitting = enabled
+  this.state.features.splitting = enabled ?? true
 
   return this
 }

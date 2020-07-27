@@ -30,7 +30,8 @@ var browserSync = function () { return ({
         return new browser_sync_webpack_plugin_1["default"](this.options);
     },
     when: function () {
-        return this.bud.state.features.browserSync;
+        return this.bud.state.features.browserSync
+            && !this.bud.state.features.hot;
     }
 }); };
 exports.browserSync = browserSync;

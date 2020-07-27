@@ -11,6 +11,20 @@ var Runner_1 = require("./Runner");
 var browser_sync_1 = __importDefault(require("browser-sync"));
 var webpack_dev_middleware_1 = __importDefault(require("webpack-dev-middleware"));
 var webpack_hot_middleware_1 = __importDefault(require("webpack-hot-middleware"));
+var bud_1 = require("../bud");
+var makeMiddleware = function (webpackConfig, compiler) { return [
+    webpack_dev_middleware_1["default"](compiler, {
+        headers: bud_1.bud.state.options.dev.headers,
+        logLevel: 'silent',
+        publicPath: bud_1.bud.state.paths.public || '/',
+        stats: {
+            all: false
+        }
+    }),
+    webpack_hot_middleware_1["default"](compiler, {
+        log: function () { }
+    }),
+]; };
 var injectHot = function (webpackConfig) {
     var client = 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true&overlay=true';
     Object.keys(webpackConfig.entry).forEach(function (entry) {
@@ -18,7 +32,7 @@ var injectHot = function (webpackConfig) {
     });
     return webpackConfig;
 };
-var makeBsServer = function (bud, webpackConfig, compiler) {
+var hotSyncServer = function (bud, webpackConfig, compiler) {
     browser_sync_1["default"].init({
         proxy: {
             target: 'bud-sandbox.valet',
@@ -35,15 +49,7 @@ var makeBsServer = function (bud, webpackConfig, compiler) {
         ui: {
             port: 3000
         },
-        middleware: [
-            webpack_dev_middleware_1["default"](compiler, {
-                publicPath: webpackConfig.output.publicPath || '/',
-                stats: false
-            }),
-            webpack_hot_middleware_1["default"](compiler, {
-                log: function () { }
-            }),
-        ],
+        middleware: makeMiddleware(webpackConfig, compiler),
         injectChanges: true,
         watchOptions: {
             ignoreInitial: true
@@ -63,7 +69,7 @@ var renderCompilerDashboard = function (bud, webpackConfig) {
     var compiler = bud.featureEnabled('hot')
         ? webpack_1["default"](injectHot(webpackConfig))
         : webpack_1["default"](webpackConfig);
-    bud.featureEnabled('hot') && makeBsServer(bud, webpackConfig, compiler);
+    bud.featureEnabled('hot') && hotSyncServer(bud, webpackConfig, compiler);
     var runnerProps = {
         config: bud,
         webpackConfig: webpackConfig,

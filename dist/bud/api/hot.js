@@ -26,7 +26,7 @@ var chokidar_1 = __importDefault(require("chokidar"));
  * ```
  */
 var hot = function (options) {
-    var _a, _b;
+    var _a, _b, _c;
     this.state.features.hot = (_a = options.enabled) !== null && _a !== void 0 ? _a : true;
     if (this.state.features.hot) {
         this.state.options.dev = __assign(__assign({}, this.state.options.dev), { before: function (app, server) {
@@ -35,11 +35,11 @@ var hot = function (options) {
                     server.sockWrite(server.sockets, 'content-changed');
                 });
             }, proxy: __assign(__assign({}, this.state.options.dev.proxy), { '**': {
-                    target: options.target,
-                    secure: false,
+                    target: options.host || 'localhost',
+                    secure: options.secure || false,
                     changeOrigin: true,
                     port: (_b = options.port) !== null && _b !== void 0 ? _b : 3020
-                } }), headers: __assign(__assign({}, this.state.options.dev.headers), { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS', 'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization' }), hot: true, overlay: true, historyApiFallback: true, open: true });
+                } }), headers: __assign(__assign(__assign({}, this.state.options.dev.headers), { 'Access-Control-Allow-Origin': '*', 'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS', 'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization' }), (options.headers || {})), hot: true, overlay: true, historyApiFallback: true, open: (_c = options.open) !== null && _c !== void 0 ? _c : false });
     }
     return this;
 };

@@ -3,15 +3,14 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 exports.__esModule = true;
+exports.makeDevServer = void 0;
 var webpack_1 = __importDefault(require("webpack"));
 var chokidar_1 = __importDefault(require("chokidar"));
 var webpack_dev_server_1 = __importDefault(require("webpack-dev-server"));
 var makeDevServer = function (bud, webpackConfig) {
     var wdsOptions = {
         before: function (app, server) {
-            chokidar_1["default"].watch([
-                './**/*.blade.php',
-            ]).on('all', function () {
+            chokidar_1["default"].watch(bud.state.options.watch).on('all', function () {
                 server.sockWrite(server.sockets, 'content-changed');
             });
         },
@@ -41,4 +40,5 @@ var makeDevServer = function (bud, webpackConfig) {
     webpack_dev_server_1["default"].addDevServerEntrypoints(webpackConfig, wdsOptions);
     return new webpack_dev_server_1["default"](webpack_1["default"](webpackConfig), wdsOptions);
 };
+exports.makeDevServer = makeDevServer;
 //# sourceMappingURL=devServer.js.map

@@ -26,17 +26,12 @@ var dependencyManifest = {
     outputFormat: 'json',
     useDefaults: true
 };
-var watchList = [
-    './resources/views/**/*.blade.php'
-];
+var watch = [];
 var dev = {
     disableHostCheck: true,
     host: 'localhost',
     headers: {},
-    proxy: {},
-    stats: {
-        colors: true
-    }
+    proxy: {}
 };
 var externals = {};
 var postCssFallback = {
@@ -61,7 +56,6 @@ var options = {
     auto: auto,
     browserSync: browserSync,
     copy: copy,
-    devWatch: [],
     dev: dev,
     dependencyManifest: dependencyManifest,
     devtool: 'source-map',
@@ -85,30 +79,7 @@ var options = {
         maxChunks: null
     },
     target: target,
-    terser: {
-        terserOptions: {
-            parse: {
-                ecma: 8
-            },
-            compress: {
-                ecma: 5,
-                warnings: false,
-                comparisons: false,
-                inline: 2
-            },
-            mangle: {
-                safari10: true
-            },
-            output: {
-                ecma: 5,
-                comments: false,
-                ascii_only: true
-            }
-        },
-        cache: true,
-        parallel: true,
-        sourceMap: true
-    },
+    terser: {},
     uglify: {
         cache: true,
         chunkFilter: function (_a) {
@@ -127,7 +98,8 @@ var options = {
             }
         }
     },
-    vendor: vendor
+    vendor: vendor,
+    watch: watch
 };
 exports.options = options;
 //# sourceMappingURL=options.js.map

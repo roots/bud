@@ -28,7 +28,7 @@ export declare type ProjectPath = (relativePath: string) => Bud;
 export declare type Purge = (any: any) => Bud;
 export declare type Resolve = (moduleName: string) => string;
 export declare type Register = (name: string, plugin: any) => Bud;
-export declare type SourceMap = (enabled: boolean) => Bud;
+export declare type SourceMap = (enabled?: boolean) => Bud;
 export declare type Src = (relativePath: string) => string;
 /**
  * ## bud.srcPath
@@ -43,7 +43,10 @@ export declare type SrcPath = (src: string) => Bud;
 export declare type Sync = (arg0: SyncOptions) => Bud;
 export declare type Target = (target: string) => Bud;
 export declare type Translate = (output: string) => Bud;
-export declare type Watch = (watchlist: [string], enabled: boolean) => Bud;
+export declare type Watch = (options: {
+    paths: string[];
+    enabled: boolean;
+}) => Bud;
 export declare type Vendor = (name?: string) => Bud;
 export declare type Api = {
     alias: Alias;
@@ -66,6 +69,7 @@ export declare type Api = {
     projectPath: ProjectPath;
     resolve: Resolve;
     register: Register;
+    scss: any;
     src: Src;
     srcPath: SrcPath;
     sync: Sync;

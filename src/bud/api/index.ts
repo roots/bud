@@ -20,6 +20,7 @@ import {hot} from './hot'
 import {inlineManifest} from './inlineManifest'
 import {map} from './map'
 import {mini} from './mini'
+import {option} from './option'
 import {postCss} from './postcss'
 import {preset} from './preset'
 import {project} from './project'
@@ -29,10 +30,13 @@ import {publicPath} from './publicPath'
 import {purge} from './purge'
 import {resolve} from './resolve'
 import {setEnv} from './setEnv'
+import {splitting} from './splitting'
 import {src} from './src'
 import {srcPath} from './srcPath'
+import {scss} from './scss'
 import {sync} from './sync'
 import {target} from './target'
+import {terser} from './terser'
 import {translate} from './translate'
 import {vendor} from './vendor'
 import {watch} from './watch'
@@ -63,6 +67,7 @@ export const api = {
   inlineManifest,
   map,
   mini,
+  option,
   postCss,
   preset,
   project,
@@ -71,11 +76,14 @@ export const api = {
   publicPath,
   purge,
   resolve,
+  scss,
   setEnv,
+  splitting,
   src,
   srcPath,
   sync,
   target,
+  terser,
   translate,
   vendor,
   watch,

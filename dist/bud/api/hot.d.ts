@@ -10,9 +10,12 @@ import type { Bud } from './types';
  */
 declare const hot: (this: Bud, options: {
     enabled: boolean;
-    target: string;
+    host: string;
     port?: number;
     watch?: string[];
+    open?: boolean;
+    headers?: object;
+    secure?: boolean;
 }) => Bud;
 export { hot };
 //# sourceMappingURL=hot.d.ts.map

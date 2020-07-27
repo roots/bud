@@ -70,7 +70,7 @@ const terserAdapter: RegisteredPlugin = [
 
 const webpackAdapters: WebpackAdapters = [
   writeFileAdapter,
-  // browserSyncAdapter,
+  browserSyncAdapter,
   cleanAdapter,
   copyAdapter,
   defineAdapter,

@@ -29,7 +29,7 @@ export type ProjectPath = (relativePath: string) => Bud
 export type Purge = (any) => Bud
 export type Resolve = (moduleName: string) => string
 export type Register = (name: string, plugin: any) => Bud
-export type SourceMap = (enabled: boolean) => Bud
+export type SourceMap = (enabled?: boolean) => Bud
 export type Src = (relativePath: string) => string
 
 /**
@@ -46,7 +46,7 @@ export type SrcPath = (src: string) => Bud
 export type Sync = (arg0: SyncOptions) => Bud
 export type Target = (target: string) => Bud
 export type Translate = (output: string) => Bud
-export type Watch = (watchlist: [string], enabled: boolean) => Bud
+export type Watch = (options: {paths: string[], enabled: boolean}) => Bud
 export type Vendor = (name?: string) => Bud
 export type Api = {
   alias: Alias
@@ -69,6 +69,7 @@ export type Api = {
   projectPath: ProjectPath
   resolve: Resolve
   register: Register
+  scss: any
   src: Src
   srcPath: SrcPath
   sync: Sync

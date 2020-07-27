@@ -35,6 +35,7 @@ export type Bud = {
   inlineManifest: Api.InlineManifest
   map: Api.SourceMap
   mini: Api.Mini
+  option: any
   postCss: Api.PostCss
   preset: Api.Preset
   project: Api.Project
@@ -43,10 +44,13 @@ export type Bud = {
   publicPath: any
   purge: Api.Purge
   resolve: any
+  scss: any
+  splitting: any
   src: Api.Src
   srcPath: Api.SrcPath
   sync: Api.Sync
   target: Api.Target
+  terser: any
   translate: Api.Translate
   vendor: Api.Vendor
   watch: Api.Watch

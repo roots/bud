@@ -6,12 +6,14 @@ import type {
 import chokidar from 'chokidar'
 import WDS from 'webpack-dev-server'
 
-const makeDevServer = (bud: Bud, webpackConfig: WebpackConfig) => {
+
+const makeDevServer = (
+  bud: Bud,
+  webpackConfig: WebpackConfig
+) => {
   const wdsOptions = {
     before(app, server) {
-      chokidar.watch([
-        './**/*.blade.php',
-      ]).on( 'all', function() {
+      chokidar.watch(bud.state.options.watch).on( 'all', function() {
         server.sockWrite(server.sockets, 'content-changed');
       })
     },
@@ -49,3 +51,6 @@ const makeDevServer = (bud: Bud, webpackConfig: WebpackConfig) => {
     wdsOptions,
   )
 }
+
+export {makeDevServer}
+
