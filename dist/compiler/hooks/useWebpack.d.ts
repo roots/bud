@@ -3,12 +3,12 @@
  * @prop {compiler} compiler webpack.compiler
  * @prop {string}   options  project options
  */
-export function useWebpack({ compiler, webpackConfig, config }: {
+export function useWebpack({ compiler, bud }: {
     compiler: any;
-    webpackConfig: any;
-    config: any;
+    bud: any;
 }): {
     assets: any[];
+    devServer: any;
     errors: any[];
     hash: any;
     time: any;

@@ -1,4 +1,4 @@
-import type {Bud} from './Types'
+import type { Bud } from "./Types";
 
 /**
  * ## bud.publicPath
@@ -12,9 +12,9 @@ import type {Bud} from './Types'
  * ```
  */
 const publicPath = function (dir: string): Bud {
-  this.state.paths.public = dir
+  this.state.paths.public = dir;
 
-  return this
-}
+  return this;
+};
 
-export {publicPath}
+export { publicPath };

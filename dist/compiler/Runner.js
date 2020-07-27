@@ -6,7 +6,8 @@ const {
 
 const {
   useApp,
-  useInput
+  useInput,
+  Text
 } = require('ink');
 
 const PropTypes = require('prop-types');
@@ -42,6 +43,10 @@ const {
 const {
   Warnings
 } = require('./components/Warnings/index');
+
+const {
+  DevServer
+} = require('./components/DevServer');
 /**
  * Successful build
  *
@@ -65,10 +70,9 @@ const successfulBuild = build => {
 
 const Runner = ({
   compiler,
-  webpackConfig,
-  config
+  bud
 }) => {
-  var _config$state2, _config$state2$featur, _config$state3, _config$state3$featur;
+  var _bud$state2, _bud$state2$features, _bud$state3, _bud$state3$features;
 
   const [width, height] = useStdOutDimensions();
   const [state, actions] = useFocusState();
@@ -82,14 +86,13 @@ const Runner = ({
     }
   });
   useEffect(() => {
-    var _config$state, _config$state$feature;
+    var _bud$state, _bud$state$features;
 
-    !(config === null || config === void 0 ? void 0 : (_config$state = config.state) === null || _config$state === void 0 ? void 0 : (_config$state$feature = _config$state.features) === null || _config$state$feature === void 0 ? void 0 : _config$state$feature.watch) && (build === null || build === void 0 ? void 0 : build.assets) && (build === null || build === void 0 ? void 0 : build.percentage) && exit();
+    !((_bud$state = bud.state) === null || _bud$state === void 0 ? void 0 : (_bud$state$features = _bud$state.features) === null || _bud$state$features === void 0 ? void 0 : _bud$state$features.watch) && (build === null || build === void 0 ? void 0 : build.assets) && (build === null || build === void 0 ? void 0 : build.percentage) && exit();
   });
   const build = useWebpack({
     compiler,
-    webpackConfig,
-    config
+    bud
   });
   useEffect(() => {
     successfulBuild(build) && notifier.notify({
@@ -97,13 +100,13 @@ const Runner = ({
       message: `${build.assets.length} assets built.`
     });
   }, [build === null || build === void 0 ? void 0 : build.percentage]);
-  const showBrowserSync = !(config === null || config === void 0 ? void 0 : (_config$state2 = config.state) === null || _config$state2 === void 0 ? void 0 : (_config$state2$featur = _config$state2.features) === null || _config$state2$featur === void 0 ? void 0 : _config$state2$featur.debug) && (config === null || config === void 0 ? void 0 : (_config$state3 = config.state) === null || _config$state3 === void 0 ? void 0 : (_config$state3$featur = _config$state3.features) === null || _config$state3$featur === void 0 ? void 0 : _config$state3$featur.browserSync);
+  const showBrowserSync = !((_bud$state2 = bud.state) === null || _bud$state2 === void 0 ? void 0 : (_bud$state2$features = _bud$state2.features) === null || _bud$state2$features === void 0 ? void 0 : _bud$state2$features.debug) && ((_bud$state3 = bud.state) === null || _bud$state3 === void 0 ? void 0 : (_bud$state3$features = _bud$state3.features) === null || _bud$state3$features === void 0 ? void 0 : _bud$state3$features.browserSync);
   return /*#__PURE__*/React.createElement(App, {
     width: width,
     height: height,
     build: build,
     state: state,
-    config: config
+    bud: bud
   }, /*#__PURE__*/React.createElement(Assets, {
     width: width,
     actions: actions,
@@ -116,12 +119,15 @@ const Runner = ({
     build: build
   }), showBrowserSync && /*#__PURE__*/React.createElement(BrowserSync, {
     actions: actions
+  }), /*#__PURE__*/React.createElement(DevServer, {
+    actions: actions,
+    build: build
   }));
 };
 
 Runner.propTypes = {
   compiler: PropTypes.object,
-  config: PropTypes.object
+  bud: PropTypes.object
 };
 module.exports = {
   Runner

@@ -1,4 +1,4 @@
-import type {Bud} from './types'
+import type { Bud } from "./types";
 
 /**
  * ## bud.featureEnabled
@@ -10,11 +10,8 @@ import type {Bud} from './types'
  * // returns true if eslint enabled
  * ```
  */
-const featureEnabled = function (
-  this: Bud,
-  feature: string,
-): boolean {
-    return this.state.features[feature] ? true : false
-}
+const featureEnabled = function (this: Bud, feature: string): boolean {
+  return this.state.features[feature] ? true : false;
+};
 
-export {featureEnabled}
+export { featureEnabled };

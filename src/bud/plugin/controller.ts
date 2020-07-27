@@ -1,4 +1,4 @@
-import type {Bud, Controller} from './types'
+import type { Bud, Controller } from "./types";
 
 /**
  * Plugin controller
@@ -13,22 +13,22 @@ const controller = function (bud: Bud): Controller {
      * @property {Controller.initController}
      */
     initController: function ([name, plugin]): Controller {
-      this.name = name
-      this.plugin = plugin
+      this.name = name;
+      this.plugin = plugin;
 
-      return this
+      return this;
     },
 
     /**
      * Build plugin.
      */
     buildPlugin: function () {
-      this.initPlugin()
-      this.bindPluginProps()
-      this.setPluginOptions()
-      this.mergePluginOptions()
+      this.initPlugin();
+      this.bindPluginProps();
+      this.setPluginOptions();
+      this.mergePluginOptions();
 
-      return this.makePlugin()
+      return this.makePlugin();
     },
 
     /**
@@ -37,9 +37,9 @@ const controller = function (bud: Bud): Controller {
      * @return   {void}
      */
     initPlugin: function (): void {
-      this.doPluginHook('pre_init')
-      this.plugin = this.plugin(this.bud)
-      this.doPluginHook('post_init')
+      this.doPluginHook("pre_init");
+      this.plugin = this.plugin(this.bud);
+      this.doPluginHook("post_init");
     },
 
     /**
@@ -48,24 +48,15 @@ const controller = function (bud: Bud): Controller {
      * @return   {void}
      */
     bindPluginProps: function (): void {
-      this.doPluginHook('pre_bind')
+      this.doPluginHook("pre_bind");
 
-      this.ensurePluginProp('bud', this.bud)
-      this.ensurePluginProp(
-        'options',
-        this.bud.util.fab.undefined(),
-      )
-      this.ensurePluginProp(
-        'setOptions',
-        this.bud.util.fab.undefined,
-      )
-      this.ensurePluginProp(
-        'mergeOptions',
-        this.bud.util.fab.undefined,
-      )
-      this.ensurePluginProp('when', this.bud.util.fab.true)
+      this.ensurePluginProp("bud", this.bud);
+      this.ensurePluginProp("options", this.bud.util.fab.undefined());
+      this.ensurePluginProp("setOptions", this.bud.util.fab.undefined);
+      this.ensurePluginProp("mergeOptions", this.bud.util.fab.undefined);
+      this.ensurePluginProp("when", this.bud.util.fab.true);
 
-      this.doPluginHook('post_bind')
+      this.doPluginHook("post_bind");
     },
 
     /**
@@ -76,7 +67,7 @@ const controller = function (bud: Bud): Controller {
      * @return   {void}
      */
     ensurePluginProp: function (prop, fallback): void {
-      this.plugin[prop] = this.plugin[prop] || fallback
+      this.plugin[prop] = this.plugin[prop] || fallback;
     },
 
     /**
@@ -85,19 +76,19 @@ const controller = function (bud: Bud): Controller {
      * @return   {void}
      */
     setPluginOptions: function (): void {
-      this.doPluginHook('pre_options')
+      this.doPluginHook("pre_options");
 
-      this.boundValue = this.plugin.setOptions()
+      this.boundValue = this.plugin.setOptions();
 
       if (this.boundValue) {
-        this.doPluginHook('options', this.boundValue)
+        this.doPluginHook("options", this.boundValue);
 
-        this.plugin.options = this.boundValue
+        this.plugin.options = this.boundValue;
       }
 
-      delete this.boundValue
+      delete this.boundValue;
 
-      this.doPluginHook('post_options')
+      this.doPluginHook("post_options");
     },
 
     /**
@@ -106,22 +97,22 @@ const controller = function (bud: Bud): Controller {
      * @return   {void}
      */
     mergePluginOptions: function (): void {
-      this.doPluginHook('pre_merge')
+      this.doPluginHook("pre_merge");
 
-      this.boundValue = this.plugin.mergeOptions()
+      this.boundValue = this.plugin.mergeOptions();
 
       if (this.boundValue) {
-        this.doPluginHook('merge', this.boundValue)
+        this.doPluginHook("merge", this.boundValue);
 
         this.plugin.options = {
           ...this.plugin.options,
           ...this.boundValue,
-        }
+        };
       }
 
-      delete this.boundValue
+      delete this.boundValue;
 
-      this.doPluginHook('post_merge')
+      this.doPluginHook("post_merge");
     },
 
     /**
@@ -130,16 +121,16 @@ const controller = function (bud: Bud): Controller {
      * @return   {object} constructed webpack plugin
      */
     makePlugin: function (): object {
-      this.doPluginHook('pre')
+      this.doPluginHook("pre");
 
       this.plugin =
         this.plugin.when() && this.plugin.make
           ? this.plugin.make()
-          : this.bud.util.fab.undefined()
+          : this.bud.util.fab.undefined();
 
-      this.doPluginHook('post')
+      this.doPluginHook("post");
 
-      return this.plugin
+      return this.plugin;
     },
 
     /**
@@ -148,13 +139,9 @@ const controller = function (bud: Bud): Controller {
      * @return   {void}
      */
     doPluginHook: function (hook, ...params): void {
-      this.bud.hooks.call(
-        `${hook}_${this.name}`,
-        this.plugin,
-        ...params,
-      )
+      this.bud.hooks.call(`${hook}_${this.name}`, this.plugin, ...params);
     },
-  }
-}
+  };
+};
 
-export {controller}
+export { controller };

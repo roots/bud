@@ -36,7 +36,7 @@ const App = ({
   children,
   state,
   build,
-  config,
+  bud,
   width,
   height
 }) => {
@@ -56,10 +56,10 @@ const App = ({
   }, /*#__PURE__*/React.createElement(Nav, {
     build: build,
     focused: focused || {},
-    config: config
+    bud: bud
   }), children, /*#__PURE__*/React.createElement(Spacer, null), /*#__PURE__*/React.createElement(BuildInfo, {
     build: build,
-    config: config,
+    bud: bud,
     width: width
   }));
 };

@@ -1,8 +1,8 @@
-const React = require('react')
-const {useEffect, useState} = React
-const {Box, Text, useFocus} = require('ink')
-const PropTypes = require('prop-types')
-const patchConsole = require('patch-console')
+const React = require("react");
+const { useEffect, useState } = React;
+const { Box, Text, useFocus } = require("ink");
+const PropTypes = require("prop-types");
+const patchConsole = require("patch-console");
 
 /**
  * BrowserSync info
@@ -10,11 +10,11 @@ const patchConsole = require('patch-console')
  * @prop {object} actions
  * @return {PropTypes.ReactComponentLike}
  */
-const BrowserSync = ({actions}) => {
-  const {isFocused} = useFocus({autoFocus: false})
+const BrowserSync = ({ actions }) => {
+  const { isFocused } = useFocus({ autoFocus: false });
   useEffect(() => {
-    actions?.setFocus({browserSync: isFocused})
-  }, [isFocused])
+    actions?.setFocus({ browserSync: isFocused });
+  }, [isFocused]);
 
   /**
    * Capture BrowserSync console out using `patch-console`. This
@@ -27,27 +27,24 @@ const BrowserSync = ({actions}) => {
    * Discard it if they are a match so we don't just repeat that message
    * ad nauseum.
    */
-  const [lastConsole, setLastConsole] = useState(null)
-  const [consoleOut, setConsoleOut] = useState('')
+  const [lastConsole, setLastConsole] = useState(null);
+  const [consoleOut, setConsoleOut] = useState("");
   patchConsole((stream, data) => {
-    setLastConsole(data)
+    setLastConsole(data);
 
-    const frameOut =
-      lastConsole !== data ? consoleOut + data : consoleOut
-    setConsoleOut(frameOut)
-  })
+    const frameOut = lastConsole !== data ? consoleOut + data : consoleOut;
+    setConsoleOut(frameOut);
+  });
 
   return (
-    <Box
-      display={isFocused ? 'flex' : 'none'}
-      flexDirection="column">
+    <Box display={isFocused ? "flex" : "none"} flexDirection="column">
       <Text>{consoleOut}</Text>
     </Box>
-  )
-}
+  );
+};
 
 BrowserSync.propTypes = {
   actions: PropTypes.object,
-}
+};
 
-module.exports = {BrowserSync}
+module.exports = { BrowserSync };

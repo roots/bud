@@ -1,4 +1,4 @@
-import type {Bud} from './types'
+import type { Bud } from "./types";
 
 /**
  * Dump generated webpack config for debugging
@@ -8,9 +8,9 @@ import type {Bud} from './types'
  * ```
  */
 const dump = function (enabled: boolean = true): Bud {
-  this.state.features.dump = enabled
+  this.state.features.dump = enabled;
 
-  return this
-}
+  return this;
+};
 
-export {dump}
+export { dump };

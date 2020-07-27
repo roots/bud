@@ -1,4 +1,4 @@
-import type {Bud, Mini} from './types'
+import type { Bud, Mini } from "./types";
 
 /**
  * ## bud.hot
@@ -14,9 +14,9 @@ import type {Bud, Mini} from './types'
  * ```
  */
 const mini: Mini = function (enable: boolean = true): Bud {
-  this.state.features.minify = enable
+  this.state.features.minify = enable;
 
-  return this
-}
+  return this;
+};
 
-export {mini}
+export { mini };

@@ -1,4 +1,4 @@
-import type {Bud, Watch} from './types'
+import type { Bud, Watch } from "./types";
 
 /**
  * ## bud.splitting
@@ -9,13 +9,10 @@ import type {Bud, Watch} from './types'
  * bud.splitting(false)
  * ```
  */
-const splitting: Function = function (
-  this: Bud,
-  enabled: boolean,
-): Bud {
-  this.state.features.splitting = enabled ?? true
+const splitting: Function = function (this: Bud, enabled: boolean): Bud {
+  this.state.features.splitting = enabled ?? true;
 
-  return this
-}
+  return this;
+};
 
-export {splitting}
+export { splitting };

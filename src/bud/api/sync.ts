@@ -1,4 +1,4 @@
-import type {Bud, Sync} from './Types'
+import type { Bud, Sync } from "./Types";
 
 /**
  * ## bud.sync
@@ -14,14 +14,14 @@ import type {Bud, Sync} from './Types'
  * })
  * ```
  */
-const sync: Sync = function ({enabled = true, options}): Bud {
-  this.state.features.browserSync = enabled
+const sync: Sync = function ({ enabled = true, options }): Bud {
+  this.state.features.browserSync = enabled;
   this.state.options.browserSync = {
     ...this.state.options.browserSync,
     ...options,
-  }
+  };
 
-  return this
-}
+  return this;
+};
 
-export {sync}
+export { sync };

@@ -1,39 +1,22 @@
-const {Box, Text} = require('ink')
-const Spinner = require('ink-spinner')
-const PropTypes = require('prop-types')
+const React = require("react");
+const { Box, Text } = require("ink");
+const Spinner = require("ink-spinner");
 
 /**
  * Watch mode indicator
- * @prop {object} options
+ * @prop {object} bud
  * @prop {object} build
  * @return {PropTypes.ReactElementLike}
  */
-const Watching = ({options, build}) => (
+const Watching = () => (
   <Box flexDirection="row">
-    {options?.mode == 'development' &&
-    build?.errors?.length > 0 ? (
-      <Text color="#dc3545">
-        <Text>
-          <Spinner type="dots" />
-        </Text>
-        {' Watching for fixes'}
+    <Text color="#28a745">
+      <Text>
+        <Spinner type="dots" />
       </Text>
-    ) : build?.percentage == 1 ? (
-      <Text color="#28a745">
-        <Text>
-          <Spinner type="dots" />
-        </Text>
-        {' Watching for changes'}
-      </Text>
-    ) : (
-      []
-    )}
+      {" Watching"}
+    </Text>
   </Box>
-)
+);
 
-Watching.propTypes = {
-  options: PropTypes.object,
-  build: PropTypes.object,
-}
-
-module.exports = {Watching}
+module.exports = { Watching };

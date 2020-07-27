@@ -18,6 +18,6 @@ const patterns = {
   font: /\.(ttf|otf|eot|woff2?|png|jpe?g|gif|ico)$/,
   vendor: /(node_modules|bower_components)/,
   image: /\.(png|svg|jpg|gif)$/,
-}
+};
 
-export {patterns}
+export { patterns };

@@ -1,16 +1,16 @@
-import DependencyExtractionPlugin from '@wordpress/dependency-extraction-webpack-plugin'
-import type {WebpackAdapter} from './types'
+import DependencyExtractionPlugin from "@wordpress/dependency-extraction-webpack-plugin";
+import type { WebpackAdapter } from "./types";
 
 const dependencyExtraction: WebpackAdapter = () => ({
   mergeOptions: function () {
-    return this.bud.state.options.dependencyManifest
+    return this.bud.state.options.dependencyManifest;
   },
   make: function () {
-    return new DependencyExtractionPlugin(this.options)
+    return new DependencyExtractionPlugin(this.options);
   },
   when: function () {
-    return this.bud.state.features.dependencyManifest
+    return this.bud.state.features.dependencyManifest;
   },
-})
+});
 
-export {dependencyExtraction}
+export { dependencyExtraction };

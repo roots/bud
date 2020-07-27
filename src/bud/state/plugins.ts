@@ -1,8 +1,8 @@
-import {webpackAdapters} from './../plugin/adapters/webpack'
+import { webpackAdapters } from "./../plugin/adapters/webpack";
 
 const plugins = {
   adapters: webpackAdapters,
   registered: {},
-}
+};
 
-export {plugins}
+export { plugins };

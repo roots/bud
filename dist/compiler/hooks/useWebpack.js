@@ -1,11 +1,54 @@
 const {
   useState,
-  useEffect
+  useEffect,
+  useMemo
 } = require('react');
 
 const {
   ProgressPlugin
 } = require('webpack');
+
+const browserSync = require('browser-sync');
+
+const webpackDevMiddleware = require('webpack-dev-middleware');
+
+const webpackHotMiddleware = require('webpack-hot-middleware');
+
+const makeMiddleware = (compiler, bud) => [webpackDevMiddleware(compiler, {
+  headers: bud.state.options.dev.headers,
+  publicPath: bud.state.paths.public || '/',
+  stats: {
+    version: true,
+    hash: true,
+    time: true,
+    assets: true,
+    errors: true,
+    warnings: true
+  }
+}), webpackHotMiddleware(compiler, {
+  log: msg => {
+    console.log(msg);
+  }
+})];
+
+const hotSyncServer = (bud, compiler, callback) => {
+  return browserSync.init({
+    proxy: {
+      target: 'bud-sandbox.valet',
+      ws: true
+    },
+    logLevel: 'silent',
+    reloadOnRestart: true,
+    injectFileTypes: ['js', 'css'],
+    open: true,
+    middleware: makeMiddleware(compiler, bud),
+    injectChanges: true,
+    watchOptions: {
+      ignoreInitial: true
+    },
+    files: [bud.src('**/*.js'), bud.src('**/*.js'), bud.src('*.css'), bud.src('**/*.css')]
+  }, callback);
+};
 /**
  * useProgress: Webpack ProgressPlugin
  * @return {object}
@@ -43,8 +86,7 @@ const useProgress = () => {
 
 const useWebpack = ({
   compiler,
-  webpackConfig,
-  config
+  bud
 }) => {
   const {
     progressPlugin,
@@ -61,6 +103,7 @@ const useWebpack = ({
   const [buildStats, setBuildStats] = useState({});
   const [buildErrors, setBuildErrors] = useState([]);
   const [webpackRunning, setWebpackRunning] = useState(null);
+  const [devServer, setDevServer] = useState(null);
   useEffect(() => {
     const webpackCallback = (err, stats) => {
       setBuildErrors(err);
@@ -76,23 +119,29 @@ const useWebpack = ({
 
     if (progressPluginApplied) {
       if (!webpackRunning) {
-        var _config$features;
-
         setWebpackRunning(true);
-        (config === null || config === void 0 ? void 0 : config.mode) == 'development' && !(config === null || config === void 0 ? void 0 : (_config$features = config.features) === null || _config$features === void 0 ? void 0 : _config$features.debug) == true ? compiler.watch({}, webpackCallback) : compiler.run(webpackCallback);
+        bud.featureEnabled('watch') ? compiler.watch({}, webpackCallback) : compiler.run(webpackCallback);
       }
     }
-  }, [progressPluginApplied, config === null || config === void 0 ? void 0 : config.mode, compiler]);
+  }, [progressPluginApplied, bud, compiler]);
   const [assets, setAssets] = useState([]);
   const [warnings, setWarnings] = useState([]);
   const [errors, setErrors] = useState([]);
   useEffect(() => {
     (buildStats === null || buildStats === void 0 ? void 0 : buildStats.assets) && setAssets(buildStats.assets);
     (buildStats === null || buildStats === void 0 ? void 0 : buildStats.warnings) && setWarnings(buildStats.warnings);
-    (buildStats === null || buildStats === void 0 ? void 0 : buildStats.errors) && setErrors([buildStats === null || buildStats === void 0 ? void 0 : buildStats.errors]);
+    (buildStats === null || buildStats === void 0 ? void 0 : buildStats.errors) && setErrors(buildStats === null || buildStats === void 0 ? void 0 : buildStats.errors);
   }, [buildStats, buildErrors]);
+  useMemo(() => {
+    if (webpackRunning && bud.featureEnabled('hot') && !devServer && (buildStats || buildErrors)) {
+      hotSyncServer(bud, compiler, (err, bs) => {
+        setDevServer(bs.name);
+      });
+    }
+  }, [webpackRunning, devServer]);
   return {
     assets,
+    devServer,
     errors,
     hash: buildStats === null || buildStats === void 0 ? void 0 : buildStats.hash,
     time: buildStats === null || buildStats === void 0 ? void 0 : buildStats.time,

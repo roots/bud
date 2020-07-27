@@ -9,11 +9,11 @@
  * @prop {number} height
  * @return {PropTypes.Component}
  */
-export function App({ children, state, build, config, width, height, }: {
+export function App({ children, state, build, bud, width, height, }: {
     children: any;
     state: any;
     build: any;
-    config: any;
+    bud: any;
     width: any;
     height: any;
 }): any;

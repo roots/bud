@@ -1,4 +1,4 @@
-import type {Bud, DependencyManifest} from './types'
+import type { Bud, DependencyManifest } from "./types";
 
 /**
  * ## bud.dependencyManifest
@@ -11,18 +11,18 @@ import type {Bud, DependencyManifest} from './types'
  */
 const dependencyManifest: DependencyManifest = function (
   this: Bud,
-  settings,
+  settings
 ): Bud {
-  this.state.features.dependencyManifest = true
+  this.state.features.dependencyManifest = true;
 
   this.state.features.dependencyManifest &&
     settings &&
     Object.assign(this.state.options.dependencyManifest, {
       ...this.state.options.dependencyManifest,
       ...(settings ? settings : {}),
-    })
+    });
 
-  return this
-}
+  return this;
+};
 
-export {dependencyManifest}
+export { dependencyManifest };

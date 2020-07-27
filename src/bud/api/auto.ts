@@ -1,4 +1,4 @@
-import {Bud, Auto} from './types'
+import { Bud, Auto } from "./types";
 
 /**
  * ## bud.auto
@@ -12,19 +12,19 @@ import {Bud, Auto} from './types'
 const auto: Auto = function (
   this: Bud,
   options: {
-    [key: string]: string[]
-  },
+    [key: string]: string[];
+  }
 ): Bud {
   Object.entries(options).forEach(([key, modules]) => {
-    modules.forEach(handle => {
+    modules.forEach((handle) => {
       this.state.options.auto = {
         ...this.state.options.auto,
         [handle]: key,
-      }
-    })
-  })
+      };
+    });
+  });
 
-  return this
-}
+  return this;
+};
 
-export {auto}
+export { auto };

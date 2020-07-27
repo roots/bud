@@ -1,5 +1,5 @@
-import {env} from './env'
-import {configs} from './configs'
+import { env } from "./env";
+import { configs } from "./configs";
 import type {
   BabelConfiguration,
   Copy,
@@ -10,65 +10,63 @@ import type {
   Vendor,
   WordPressDependenciesOptions,
   Options,
-} from './types'
+} from "./types";
 
-import chokidar from 'chokidar'
+import chokidar from "chokidar";
 
-const auto: Object = {}
+const auto: Object = {};
 
 const babelFallback: BabelConfiguration = {
   presets: [],
   plugins: [],
-}
+};
 
 const babel: BabelConfiguration = configs.babel
   ? require(configs.babel)
-  : babelFallback
+  : babelFallback;
 
 const browserSync: Object = {
-  host: env?.BROWSERSYNC_HOST ? env.BROWSERSYNC_HOST : 'localhost',
+  host: env?.BROWSERSYNC_HOST ? env.BROWSERSYNC_HOST : "localhost",
   port: env?.BROWSERSYNC_PORT ? env.BROWSERSYNC_PORT : 3000,
   proxy: env?.BROWSERSYNC_PROXY ? env.BROWSERSYNC_PROXY : null,
   online: false,
   open: false,
-}
+};
 
-const copy: Copy = {patterns: []}
+const copy: Copy = { patterns: [] };
 
 const dependencyManifest: WordPressDependenciesOptions = {
   combineAssets: undefined,
   combinedOutputFile: undefined,
   injectPolyfill: false,
-  outputFormat: 'json',
+  outputFormat: "json",
   useDefaults: true,
-}
+};
 
-const watch: string[]  = []
+const watch: string[] = [];
 
 const dev: Dev = {
   disableHostCheck: true,
-  host: 'localhost',
+  host: "localhost",
   headers: {},
   proxy: {},
-}
+};
 
-const externals: Externals = {}
+const externals: Externals = {};
 
 const postCssFallback: PostCssConfiguration = {
   plugins: [],
-}
+};
 
 const postCss: PostCssConfiguration = configs.postCss
   ? require(configs.postCss)
-  : postCssFallback
+  : postCssFallback;
 
-const target: Target = 'web'
+const target: Target = "web";
 
-const typescript = configs.typescript
-  ? require(configs.typescript)
-  : {}
+const typescript = configs.typescript ? require(configs.typescript) : {};
 
-const vendor: Vendor = {name: 'vendor'}
+const vendor: Vendor = { name: "vendor" };
 
 /**
  * Options container.
@@ -83,22 +81,22 @@ const options: Options = {
   copy,
   dev,
   dependencyManifest,
-  devtool: 'source-map',
+  devtool: "source-map",
   entry: {},
   env,
   externals,
   inlineManifest: {
-    name: 'runtime',
+    name: "runtime",
   },
   node: {
-    module: 'empty',
-    dgram: 'empty',
-    dns: 'mock',
-    fs: 'empty',
-    http2: 'empty',
-    net: 'empty',
-    tls: 'empty',
-    child_process: 'empty',
+    module: "empty",
+    dgram: "empty",
+    dns: "mock",
+    fs: "empty",
+    http2: "empty",
+    net: "empty",
+    tls: "empty",
+    child_process: "empty",
   },
   splitting: {
     maxChunks: null,
@@ -107,7 +105,7 @@ const options: Options = {
   terser: {},
   uglify: {
     cache: true,
-    chunkFilter: ({name}) => name === 'vendor',
+    chunkFilter: ({ name }) => name === "vendor",
     extractComments: false,
     parallel: true,
     uglifyOptions: {
@@ -122,6 +120,6 @@ const options: Options = {
   },
   vendor,
   watch,
-}
+};
 
-export {options}
+export { options };

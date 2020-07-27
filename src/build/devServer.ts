@@ -1,4 +1,4 @@
-import type {Bud} from './types'
+import type { Bud } from "./types";
 
 /**
  * Dev server
@@ -9,8 +9,8 @@ const devServer = (bud: Bud) => ({
     devServer: bud.state.options.dev,
   },
   make: function () {
-    return this.options
+    return this.options;
   },
-})
+});
 
-export {devServer}
+export { devServer };

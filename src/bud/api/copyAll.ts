@@ -1,5 +1,5 @@
-import {join} from 'path'
-import type {Bud, Copy} from './types'
+import { join } from "path";
+import type { Bud, Copy } from "./types";
 
 /**
  * ## bud.copyAll
@@ -10,22 +10,18 @@ import type {Bud, Copy} from './types'
  * bud.copyAll(bud.src('images'), bud.dist('images'))
  * ```
  */
-const copyAll: Copy = function (
-  this: Bud,
-  from: string,
-  to: any,
-): Bud {
+const copyAll: Copy = function (this: Bud, from: string, to: any): Bud {
   this.state.options.copy.patterns.push({
-    from: '**/*',
+    from: "**/*",
     context: from,
     to: to ? to : join(this.state.paths.dist, from),
     globOptions: {
-      ignore: '.*',
+      ignore: ".*",
     },
     noErrorOnMissing: true,
-  })
+  });
 
-  return this
-}
+  return this;
+};
 
-export {copyAll}
+export { copyAll };

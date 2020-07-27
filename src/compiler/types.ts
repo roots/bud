@@ -1,17 +1,16 @@
 /**
  * Typings
  */
-import type {Configuration, Compiler, Stats} from 'webpack'
-import type {Bud} from '../bud/types'
-import type WebpackDevServer from 'webpack-dev-server'
-
+import type { Configuration, Compiler, Stats } from "webpack";
+import type { Bud } from "../bud/types";
+import type WebpackDevServer from "webpack-dev-server";
 
 export type {
   Bud,
   Configuration as WebpackConfig,
   Stats as WebpackStats,
   WebpackDevServer,
-}
+};
 
 /**
  * Runner Props
@@ -22,9 +21,8 @@ export type {
  * @property {Compiler} compiler - webpack compiler
  */
 export interface RunnerProps {
-  config: object
-  webpackConfig: Configuration
-  compiler: Compiler
+  bud: Bud;
+  compiler: Compiler;
 }
 
 /**
@@ -35,7 +33,4 @@ export interface RunnerProps {
  * @param {Configuration} webpackConfig
  * @return {void}
  */
-export type BudRenderer = (
-  config: Bud,
-  webpackConfig: Configuration,
-) => void
+export type BudRenderer = (config: Bud, webpackConfig: Configuration) => void;

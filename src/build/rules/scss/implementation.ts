@@ -3,12 +3,10 @@
  */
 const implementation = () => {
   try {
-    return require.resolve('sass')
-      ? require('sass')
-      : require('node-sass')
+    return require.resolve("sass") ? require("sass") : require("node-sass");
   } catch {
-    return require('node-sass')
+    return require("node-sass");
   }
-}
+};
 
-export {implementation}
+export { implementation };

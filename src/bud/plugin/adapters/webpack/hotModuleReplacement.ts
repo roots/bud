@@ -1,16 +1,16 @@
-import {HotModuleReplacementPlugin} from 'webpack'
-import type {WebpackAdapter} from './types'
+import { HotModuleReplacementPlugin } from "webpack";
+import type { WebpackAdapter } from "./types";
 
 const hotModuleReplacement: WebpackAdapter = () => ({
   setOptions: function () {
-    return this.bud.state.options.hotModuleReplacement
+    return this.bud.state.options.hotModuleReplacement;
   },
   make: function () {
-    return new HotModuleReplacementPlugin()
+    return new HotModuleReplacementPlugin();
   },
   when: function () {
-    return this.bud.state.features.hot
+    return this.bud.state.features.hot;
   },
-})
+});
 
-export {hotModuleReplacement}
+export { hotModuleReplacement };

@@ -14,8 +14,7 @@ export type { Bud, Configuration as WebpackConfig, Stats as WebpackStats, Webpac
  * @property {Compiler} compiler - webpack compiler
  */
 export interface RunnerProps {
-    config: object;
-    webpackConfig: Configuration;
+    bud: Bud;
     compiler: Compiler;
 }
 /**

@@ -1,4 +1,4 @@
-import type {Bud} from './types'
+import type { Bud } from "./types";
 
 /**
  * General webpack options
@@ -9,9 +9,7 @@ const general = (bud: Bud) => ({
   bud,
   options: {
     context: bud.state.paths.src,
-    devtool: bud.state.features.sourceMap
-      ? bud.state.options.devtool
-      : false,
+    devtool: bud.state.features.sourceMap ? bud.state.options.devtool : false,
     mode: bud.mode,
     node: bud.state.options.node,
     target: bud.state.options.target,
@@ -19,8 +17,8 @@ const general = (bud: Bud) => ({
   },
 
   make: function () {
-    return this.options
+    return this.options;
   },
-})
+});
 
-export {general}
+export { general };

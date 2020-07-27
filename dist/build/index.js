@@ -13,6 +13,7 @@ var __assign = (this && this.__assign) || function () {
 exports.__esModule = true;
 exports.build = void 0;
 var entry_1 = require("./entry");
+var devServer_1 = require("./devServer");
 var externals_1 = require("./externals");
 var general_1 = require("./general");
 var index_1 = require("./rules/index");
@@ -27,6 +28,7 @@ var build = function (bud) { return ({
         ['entry', entry_1.entry],
         ['output', output_1.output],
         ['rules', index_1.rules],
+        ['devServer', devServer_1.devServer],
         ['optimization', optimization_1.optimization],
         ['plugins', plugins_1.plugins],
         ['resolve', webpackResolve_1.webpackResolve],

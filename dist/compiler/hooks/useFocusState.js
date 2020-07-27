@@ -11,6 +11,7 @@ const globalState = require('./useStore');
 const useFocusState = globalState(React, {
   assets: true,
   debug: false,
+  devServer: false,
   errors: false,
   warnings: false
 }, {

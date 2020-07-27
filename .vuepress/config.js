@@ -1,40 +1,37 @@
-const {description} = require('../package')
+const { description } = require("../package");
 
 module.exports = {
-  title: '@roots/bud',
+  title: "@roots/bud",
   description: description,
   head: [
-    ['meta', { name: 'theme-color', content: '#3eaf7c' }],
-    ['meta', { name: 'apple-mobile-web-app-capable', content: 'yes' }],
-    ['meta', { name: 'apple-mobile-web-app-status-bar-style', content: 'black' }]
+    ["meta", { name: "theme-color", content: "#3eaf7c" }],
+    ["meta", { name: "apple-mobile-web-app-capable", content: "yes" }],
+    [
+      "meta",
+      { name: "apple-mobile-web-app-status-bar-style", content: "black" },
+    ],
   ],
   themeConfig: {
-    repo: 'roots/bud-support',
+    repo: "roots/bud-support",
     editLinks: false,
-    docsDir: 'bud/docs',
-    editLinkText: '',
+    docsDir: "bud/docs",
+    editLinkText: "",
     lastUpdated: false,
     nav: [
       {
-        text: 'API',
-        link: '/bud/docs/globals'
+        text: "API",
+        link: "/bud/docs/globals",
       },
     ],
     sidebar: {
-      '/docs/globals/': [
+      "/docs/globals/": [
         {
-          title: 'Guide',
+          title: "Guide",
           collapsable: false,
-          children: [
-            '',
-            'using-vue',
-          ]
-        }
+          children: ["", "using-vue"],
+        },
       ],
-    }
+    },
   },
-  plugins: [
-    '@vuepress/plugin-back-to-top',
-    '@vuepress/plugin-medium-zoom',
-  ]
-}
+  plugins: ["@vuepress/plugin-back-to-top", "@vuepress/plugin-medium-zoom"],
+};

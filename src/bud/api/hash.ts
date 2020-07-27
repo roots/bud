@@ -1,13 +1,19 @@
 /**
+ * ## bud.hash
+ *
  * Enable or disable filename hashing of built assets. Unless specified, filename hashes will be created when running production builds.
- * @example bud.hash(true) // enable
+ *
+ * ```js
+ * bud.hash(true)
+ * ```
+ *
  * @param   {boolean} enabled - true to enable filename hashing.
  * @return  {typeof import('../index')} bud
  */
 const hash = function (enabled = true) {
-  this.state.features.hash = enabled
+  this.state.features.hash = enabled;
 
-  return this
-}
+  return this;
+};
 
-export {hash}
+export { hash };

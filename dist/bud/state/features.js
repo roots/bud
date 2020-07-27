@@ -17,6 +17,7 @@ var features = {
     js: true,
     manifest: true,
     svg: true,
+    terser: true,
     /**
      * Enabled by config presence
      */
@@ -41,7 +42,6 @@ var features = {
     purge: false,
     sourceMap: false,
     splitting: false,
-    terser: false,
     translate: false,
     uglify: false,
     vendor: false,

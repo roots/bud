@@ -1,41 +1,62 @@
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+const browserSync = require('browser-sync');
 
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+const webpackDevMiddleware = require('webpack-dev-middleware');
 
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+const webpackHotMiddleware = require('webpack-hot-middleware');
 
-const {
-  useEffect,
-  useState
-} = require('react');
+const makeMiddleware = (compiler, bud) => [webpackDevMiddleware(compiler, {
+  headers: bud.state.options.dev.headers,
+  logLevel: 'silent',
+  publicPath: bud.state.paths.public || '/',
+  stats: {
+    all: false
+  }
+}), webpackHotMiddleware(compiler, {
+  log: () => {}
+})];
 
-const WDS = require('webpack-dev-server');
+const injectHot = webpackConfig => {
+  const client = 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true&overlay=true';
+  Object.keys(webpackConfig.entry).forEach(entry => {
+    webpackConfig.entry[entry] = [client].concat(webpackConfig.entry[entry]);
+  });
+  return webpackConfig;
+};
 
-const chokidar = require('chokidar');
+const hotSyncServer = (bud, webpackConfig, compiler) => {
+  browserSync.init({
+    proxy: {
+      target: 'bud-sandbox.valet',
+      ws: true
+    },
+    logLevel: 'info',
+    reloadOnRestart: true,
+    injectFileTypes: ['js', 'css'],
+    ghostMode: {
+      clicks: true,
+      forms: true,
+      scroll: false
+    },
+    open: true,
+    ui: {
+      port: 3000
+    },
+    middleware: makeMiddleware(compiler, bud),
+    injectChanges: true,
+    watchOptions: {
+      ignoreInitial: true
+    },
+    files: [bud.src('**/*.js'), bud.src('**/*.js'), bud.src('*.css'), bud.src('**/*.css')]
+  });
+};
 
-const useDevServer = (compiler, webpackConfig, config) => {
-  const [devServer, setDevServer] = useState(null);
-  useEffect(() => {
-    if (!devServer && compiler && (config === null || config === void 0 ? void 0 : config.mode) == 'development') {
-      const options = _objectSpread({
-        inline: true,
-
-        before(app, server) {
-          chokidar.watch(config.state.options.devWatch[0]).on('all', function () {
-            server.sockWrite(server.sockets, 'content-changed');
-          });
-        }
-
-      }, config.state.options.dev);
-
-      WebpackDevServer.addDevServerEntrypoints(config, options);
-      const devServer = new WebpackDevServer(compiler, options);
-      setDevServer(devServer.listen(5000, 'localhost', () => {
-        console.log('dev server listening on port 5000');
-      }));
-    }
-  }, [devServer, setDevServer]);
-  return [devServer];
+const useDevServer = ({
+  bud,
+  webpackConfig,
+  compiler
+}) => {
+  const out = hotSyncServer(bud, webpackConfig, compiler);
+  console.log(out);
 };
 
 module.exports = {

@@ -1,5 +1,5 @@
-import TerserPlugin from 'terser-webpack-plugin'
-import type {WebpackAdapter} from './types'
+import TerserPlugin from "terser-webpack-plugin";
+import type { WebpackAdapter } from "./types";
 
 const terser: WebpackAdapter = () => ({
   setOptions: function () {
@@ -8,15 +8,16 @@ const terser: WebpackAdapter = () => ({
       terserOptions: {
         ecma: 6,
       },
-    }
+    };
   },
   make: function () {
-    return new TerserPlugin(this.options)
+    return new TerserPlugin(this.options);
   },
   when: function () {
-    return this.bud.featureEnabled('terser') &&
-      this.bud.featureEnabled('minify')
+    return (
+      this.bud.featureEnabled("terser") && this.bud.featureEnabled("minify")
+    );
   },
-})
+});
 
-export {terser}
+export { terser };

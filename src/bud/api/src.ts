@@ -1,5 +1,5 @@
-import {join} from 'path'
-import type {Src} from './types'
+import { join } from "path";
+import type { Src } from "./types";
 
 /**
  * ## bud.src
@@ -10,8 +10,8 @@ import type {Src} from './types'
  * bud.src('scripts/app.js') // absolute path to the source file
  * ```
  */
-const src: Src = function (relativePath: string = ''): string {
-  return join(this.state.paths.src, relativePath)
-}
+const src: Src = function (relativePath: string = ""): string {
+  return join(this.state.paths.src, relativePath);
+};
 
-export {src}
+export { src };

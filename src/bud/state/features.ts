@@ -1,5 +1,5 @@
-import type {Features} from './types'
-import {configs} from './configs'
+import type { Features } from "./types";
+import { configs } from "./configs";
 
 /**
  * Features
@@ -16,6 +16,7 @@ const features: Features = {
   js: true,
   manifest: true,
   svg: true,
+  terser: true,
 
   /**
    * Enabled by config presence
@@ -42,11 +43,10 @@ const features: Features = {
   purge: false,
   sourceMap: false,
   splitting: false,
-  terser: false,
   translate: false,
   uglify: false,
   vendor: false,
   watch: false,
-}
+};
 
-export {features}
+export { features };

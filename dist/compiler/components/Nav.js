@@ -25,15 +25,15 @@ Bullet.propTypes = {
  *
  * @prop {object} build
  * @prop {boolean} focused
- * @prop {object} config
+ * @prop {object} bud
  */
 
 const Nav = ({
   build,
   focused,
-  config
+  bud
 }) => {
-  var _build$errors, _build$errors2, _build$warnings, _build$warnings2, _config$state, _config$state$feature, _config$state2, _config$state2$featur, _config$state3, _config$state3$featur;
+  var _build$errors, _build$errors2, _build$warnings, _build$warnings2;
 
   return /*#__PURE__*/React.createElement(Box, {
     flexDirection: "row",
@@ -49,15 +49,19 @@ const Nav = ({
     color: (build === null || build === void 0 ? void 0 : (_build$errors = build.errors) === null || _build$errors === void 0 ? void 0 : _build$errors.length) > 0 ? '#dc3545' : (focused === null || focused === void 0 ? void 0 : focused.errors) ? 'white' : '#6C758F'
   }, /*#__PURE__*/React.createElement(Bullet, {
     active: (focused === null || focused === void 0 ? void 0 : focused.errors) || false
-  }), " Errors", (build === null || build === void 0 ? void 0 : (_build$errors2 = build.errors) === null || _build$errors2 === void 0 ? void 0 : _build$errors2.length) > 0 ? ` [${build === null || build === void 0 ? void 0 : build.errors.length}]` : `  `)), /*#__PURE__*/React.createElement(Spacer, null), /*#__PURE__*/React.createElement(Box, null, /*#__PURE__*/React.createElement(Text, {
+  }), " Errors", (build === null || build === void 0 ? void 0 : (_build$errors2 = build.errors) === null || _build$errors2 === void 0 ? void 0 : _build$errors2.length) > 0 && build.errors[0] ? ` [${build === null || build === void 0 ? void 0 : build.errors.length}]` : `  `)), /*#__PURE__*/React.createElement(Text, null, build.errors[0]), /*#__PURE__*/React.createElement(Spacer, null), /*#__PURE__*/React.createElement(Box, null, /*#__PURE__*/React.createElement(Text, {
     color: (build === null || build === void 0 ? void 0 : (_build$warnings = build.warnings) === null || _build$warnings === void 0 ? void 0 : _build$warnings.length) > 0 ? '#fd7e14' : (focused === null || focused === void 0 ? void 0 : focused.warnings) ? 'white' : '#6C758F'
   }, /*#__PURE__*/React.createElement(Bullet, {
     active: (focused === null || focused === void 0 ? void 0 : focused.warnings) || false
-  }), ' ', "Warnings", (build === null || build === void 0 ? void 0 : (_build$warnings2 = build.warnings) === null || _build$warnings2 === void 0 ? void 0 : _build$warnings2.length) > 0 ? ` [${build === null || build === void 0 ? void 0 : build.warnings.length}]` : `  `)), !(config === null || config === void 0 ? void 0 : (_config$state = config.state) === null || _config$state === void 0 ? void 0 : (_config$state$feature = _config$state.features) === null || _config$state$feature === void 0 ? void 0 : _config$state$feature.debug) && (config === null || config === void 0 ? void 0 : (_config$state2 = config.state) === null || _config$state2 === void 0 ? void 0 : (_config$state2$featur = _config$state2.features) === null || _config$state2$featur === void 0 ? void 0 : _config$state2$featur.browserSync) && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Spacer, null), /*#__PURE__*/React.createElement(Box, null, /*#__PURE__*/React.createElement(Text, {
+  }), ' ', "Warnings", (build === null || build === void 0 ? void 0 : (_build$warnings2 = build.warnings) === null || _build$warnings2 === void 0 ? void 0 : _build$warnings2.length) > 0 ? ` [${build === null || build === void 0 ? void 0 : build.warnings.length}]` : `  `)), bud.featureEnabled('hot') && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Spacer, null), /*#__PURE__*/React.createElement(Box, null, /*#__PURE__*/React.createElement(Text, {
+    color: (focused === null || focused === void 0 ? void 0 : focused.devServer) ? 'white' : '#6C758F'
+  }, /*#__PURE__*/React.createElement(Bullet, {
+    active: focused === null || focused === void 0 ? void 0 : focused.devServer
+  }), ' ', "Dev server"))), bud.featureEnabled('browserSync') && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Spacer, null), /*#__PURE__*/React.createElement(Box, null, /*#__PURE__*/React.createElement(Text, {
     color: (focused === null || focused === void 0 ? void 0 : focused.browserSync) ? 'white' : '#6C758F'
   }, /*#__PURE__*/React.createElement(Bullet, {
     active: focused === null || focused === void 0 ? void 0 : focused.browserSync
-  }), ' ', "BrowserSync"))), (config === null || config === void 0 ? void 0 : (_config$state3 = config.state) === null || _config$state3 === void 0 ? void 0 : (_config$state3$featur = _config$state3.features) === null || _config$state3$featur === void 0 ? void 0 : _config$state3$featur.debug) && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Spacer, null), /*#__PURE__*/React.createElement(Box, null, /*#__PURE__*/React.createElement(Text, {
+  }), ' ', "BrowserSync"))), bud.featureEnabled('debug') && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(Spacer, null), /*#__PURE__*/React.createElement(Box, null, /*#__PURE__*/React.createElement(Text, {
     color: (focused === null || focused === void 0 ? void 0 : focused.debug) ? '#ffc107' : '#ffe598'
   }, /*#__PURE__*/React.createElement(Bullet, {
     active: (focused === null || focused === void 0 ? void 0 : focused.debug) || false
@@ -67,7 +71,7 @@ const Nav = ({
 Nav.propTypes = {
   build: PropTypes.object,
   focused: PropTypes.object,
-  config: PropTypes.object
+  bud: PropTypes.object
 };
 module.exports = {
   Nav

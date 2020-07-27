@@ -65,7 +65,7 @@ var terserAdapter = [
 ];
 var webpackAdapters = [
     writeFileAdapter,
-    browserSyncAdapter,
+    // browserSyncAdapter,
     cleanAdapter,
     copyAdapter,
     defineAdapter,

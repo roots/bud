@@ -1,4 +1,4 @@
-import type {Bud} from './Types'
+import type { Bud } from "./Types";
 
 /**
  * ## bud.setEnv
@@ -16,9 +16,9 @@ const setEnv = function (options: any): Bud {
   this.state.options.env = {
     ...this.state.options.env,
     ...options,
-  }
+  };
 
-  return this
-}
+  return this;
+};
 
-export {setEnv}
+export { setEnv };

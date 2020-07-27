@@ -1,4 +1,4 @@
-import type {Bud, Alias} from './types'
+import type { Bud, Alias } from "./types";
 
 /**
  * ## bud.alias
@@ -18,13 +18,10 @@ import type {Bud, Alias} from './types'
  * ```
  *
  **/
-const alias: Alias = function (
-  this: Bud,
-  options: object,
-): Bud {
-  this.state.options.alias = options
+const alias: Alias = function (this: Bud, options: object): Bud {
+  this.state.options.alias = options;
 
-  return this
-}
+  return this;
+};
 
-export {alias}
+export { alias };

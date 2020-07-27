@@ -1,4 +1,4 @@
-import {Bud, Babel, BabelProperties} from './types'
+import { Bud, Babel, BabelProperties } from "./types";
 
 /**
  * ## bud.babel
@@ -12,17 +12,14 @@ import {Bud, Babel, BabelProperties} from './types'
  *
  * @see https://babeljs.io/docs/en/configuration
  */
-const babel: Babel = function (
-  this: Bud,
-  options: BabelProperties,
-): Bud {
-  this.state.features.babel = true
+const babel: Babel = function (this: Bud, options: BabelProperties): Bud {
+  this.state.features.babel = true;
   this.state.options.babel = {
     ...this.state.options.babel,
     ...options,
-  }
+  };
 
-  return this
-}
+  return this;
+};
 
-export {babel}
+export { babel };
