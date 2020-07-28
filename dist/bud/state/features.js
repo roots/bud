@@ -10,14 +10,8 @@ var features = {
      * Enabled by default
      */
     babel: true,
-    css: true,
     dashboard: true,
-    font: true,
-    image: true,
     js: true,
-    manifest: true,
-    svg: true,
-    terser: true,
     /**
      * Enabled by config presence
      */
@@ -28,9 +22,15 @@ var features = {
      * Opt-in
      */
     browserSync: false,
+    css: false,
     debug: false,
     dependencyManifest: false,
     dump: false,
+    font: false,
+    image: false,
+    manifest: false,
+    svg: false,
+    terser: false,
     hash: false,
     hot: false,
     inlineManifest: false,

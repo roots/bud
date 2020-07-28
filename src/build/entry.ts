@@ -1,4 +1,4 @@
-import type { Bud, BuilderConstructor, EntryBuilder } from "./types";
+import type {Bud, BuilderConstructor, EntryBuilder} from './types'
 
 /**
  * Entrypoints
@@ -11,8 +11,8 @@ const entry: BuilderConstructor = (bud: Bud): EntryBuilder => ({
     },
   },
   make: function () {
-    return this.options;
+    return this.options
   },
-});
+})
 
-export { entry };
+export {entry}

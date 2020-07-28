@@ -117,10 +117,9 @@ var controller = function (bud) {
          */
         makePlugin: function () {
             this.doPluginHook('pre');
-            this.plugin =
-                this.plugin.when() && this.plugin.make
-                    ? this.plugin.make()
-                    : this.bud.util.fab.undefined();
+            this.plugin = this.plugin.when() && this.plugin.make
+                ? this.plugin.make()
+                : this.bud.util.fab.undefined();
             this.doPluginHook('post');
             return this.plugin;
         },

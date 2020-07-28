@@ -1,4 +1,4 @@
-import type { Bud } from './../../types';
+import type { Bud } from '../../types';
 /**
  * Babel
  *

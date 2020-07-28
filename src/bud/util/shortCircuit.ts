@@ -1,4 +1,4 @@
-import type { ShortCircuit } from "./types";
+import type {ShortCircuit} from './types'
 
 /**
  * JSON.stringify replacement function
@@ -7,19 +7,19 @@ import type { ShortCircuit } from "./types";
  */
 const shortCircuit: ShortCircuit = (): any => {
   // eslint-disable-next-line no-undef
-  const seen = new WeakSet();
+  const seen = new WeakSet()
 
   return (key, value) => {
-    if (typeof value === "object" && value !== null) {
-      if (seen.has(value) || key == "UI") {
-        return;
+    if (typeof value === 'object' && value !== null) {
+      if (seen.has(value) || key == 'UI') {
+        return
       }
 
-      seen.add(value);
+      seen.add(value)
     }
 
-    return value;
-  };
-};
+    return value
+  }
+}
 
-export { shortCircuit };
+export {shortCircuit}

@@ -61,9 +61,7 @@ var optimization = function (bud) { return ({
     setMinimizer: function () {
         this.doHook('pre_minimizer', this);
         if (!this.bud.featureEnabled('terser')) {
-            this.options.optimization.minimizer = [
-                this.uglify(),
-            ];
+            this.options.optimization.minimizer = [this.uglify()];
         }
         this.doHook('post_minimizer', this);
     },

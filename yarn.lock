@@ -8411,6 +8411,14 @@ node-libs-browser@^2.2.1:
     util "^0.11.0"
     vm-browserify "^1.0.1"
 
+node-loader@^1.0.0:
+  version "1.0.0"
+  resolved "https://registry.yarnpkg.com/node-loader/-/node-loader-1.0.0.tgz#efe5adbcc68d34b97af201106b94531095ee8ca8"
+  integrity sha512-4EdARSBpLsdapqp2Wbu0S9YwFF0dimoaMYdn01u28lUvT6qx/3+KR2MIprSMBWzqX7+i7OjdMS72QAhc+qrJ8w==
+  dependencies:
+    loader-utils "^2.0.0"
+    schema-utils "^2.7.0"
+
 node-modules-regexp@^1.0.0:
   version "1.0.0"
   resolved "https://registry.yarnpkg.com/node-modules-regexp/-/node-modules-regexp-1.0.0.tgz#8d9dbe28964a4ac5712e9131642107c71e90ec40"
@@ -11176,6 +11184,11 @@ shebang-command@^2.0.0:
   integrity sha512-kHxr2zZpYtdmrN1qDjrrX/Z1rR1kG8Dx+gkpK1G4eXmvXswmcE1hTWBWYUzlraYw1/yZp6YuDY77YtvbN0dmDA==
   dependencies:
     shebang-regex "^3.0.0"
+
+shebang-loader@^0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/shebang-loader/-/shebang-loader-0.0.1.tgz#a4000495d44cceefbec63435e7b1698569fa52ec"
+  integrity sha1-pAAEldRMzu++xjQ157FphWn6Uuw=
 
 shebang-regex@^1.0.0:
   version "1.0.0"

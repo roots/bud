@@ -10,6 +10,7 @@ var typescript = function (bud) { return ({
         this.pre();
         this.rule = {
             test: patterns_1.patterns.ts,
+            exclude: patterns_1.patterns.vendor,
             use: [
                 {
                     loader: loaders_1.loaders.ts,
@@ -19,6 +20,8 @@ var typescript = function (bud) { return ({
                 },
             ]
         };
+        this.bud.state.options.target == 'node'
+            && this.rule.use.push(loaders_1.loaders.shebang);
         this.post();
         return this.rule;
     },

@@ -1,5 +1,5 @@
-import { controller } from "./controller";
-import { Bud } from "./types";
+import {controller} from './controller'
+import {Bud} from './types'
 
 /**
  * ## plugin.register
@@ -11,11 +11,11 @@ import { Bud } from "./types";
  * ```
  */
 const register = function (name: string, plugin: any) {
-  const registeredPlugin = [name, plugin];
-  this.repo.push(registeredPlugin);
+  const registeredPlugin = [name, plugin]
+  this.repo.push(registeredPlugin)
 
-  return this.bud;
-};
+  return this.bud
+}
 
 /**
  * ## plugin.deregister
@@ -27,9 +27,9 @@ const register = function (name: string, plugin: any) {
  * ```
  */
 const deregister = function (name: string) {
-  delete this.repo[0][name];
-  return this.bud;
-};
+  delete this.repo[0][name]
+  return this.bud
+}
 
 /**
  * ## plugin.all
@@ -41,8 +41,8 @@ const deregister = function (name: string) {
  * ```
  */
 const all = function () {
-  return this.repo;
-};
+  return this.repo
+}
 
 /**
  * ## plugin.get
@@ -54,8 +54,8 @@ const all = function () {
  * ```
  */
 const get = function (name: string) {
-  return this.repo[name];
-};
+  return this.repo[name]
+}
 
 const makePluginApi = (bud, repo) => ({
   repo,
@@ -63,7 +63,7 @@ const makePluginApi = (bud, repo) => ({
   deregister,
   get,
   all,
-});
+})
 
 /**
  * ## plugin
@@ -74,13 +74,13 @@ const makePluginApi = (bud, repo) => ({
  */
 const plugin = {
   init: function (bud: Bud) {
-    this.bud = bud;
-    this.controller = controller(bud);
-    this.core = makePluginApi(bud, this.bud.state.plugins.registered);
-    this.webpack = makePluginApi(bud, this.bud.state.plugins.adapters);
+    this.bud = bud
+    this.controller = controller(bud)
+    this.core = makePluginApi(bud, this.bud.state.plugins.registered)
+    this.webpack = makePluginApi(bud, this.bud.state.plugins.adapters)
   },
-};
+}
 /**
  * bud.plugin export
  */
-export { plugin };
+export {plugin}

@@ -1,10 +1,10 @@
-const React = require("react");
-const { useEffect, useState } = React;
-const { Box, Spacer } = require("ink");
-const PropTypes = require("prop-types");
+const React = require('react')
+const {useEffect, useState} = React
+const {Box, Spacer} = require('ink')
+const PropTypes = require('prop-types')
 
-const { Nav } = require("./Nav");
-const { BuildInfo } = require("./BuildInfo");
+const {Nav} = require('./Nav')
+const {BuildInfo} = require('./BuildInfo')
 
 /**
  * App
@@ -17,12 +17,12 @@ const { BuildInfo } = require("./BuildInfo");
  * @prop {number} height
  * @return {PropTypes.Component}
  */
-const App = ({ children, state, build, bud, width, height }) => {
-  const [focused, setFocused] = useState({});
+const App = ({children, state, build, bud, width, height}) => {
+  const [focused, setFocused] = useState({})
 
   useEffect(() => {
-    setFocused(state);
-  }, [state]);
+    setFocused(state)
+  }, [state])
 
   return (
     <Box
@@ -33,23 +33,22 @@ const App = ({ children, state, build, bud, width, height }) => {
       paddingRight={1}
       paddingBottom={1}
       paddingTop={1}
-      flexDirection="column"
-    >
+      flexDirection="column">
       <Nav build={build} focused={focused || {}} bud={bud} />
       {children}
       <Spacer />
-      <BuildInfo build={build} bud={bud} width={width} />
+      <BuildInfo build={build} width={width} />
     </Box>
-  );
-};
+  )
+}
 
 App.propTypes = {
   children: PropTypes.array,
   state: PropTypes.object,
   build: PropTypes.object,
-  config: PropTypes.object,
+  bud: PropTypes.object,
   width: PropTypes.number,
   height: PropTypes.number,
-};
+}
 
-module.exports = { App };
+module.exports = {App}

@@ -1,1 +1,1 @@
-{"version":3,"file":"proxy.d.ts","sourceRoot":"","sources":["../../../src/bud/api/proxy.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAE,GAAG,EAAE,MAAM,SAAS,CAAC;AAEnC,QAAA,MAAM,KAAK,SAAmB,GAAG;;;MAAwB,GA+BxD,CAAA;AAED,OAAO,EAAC,KAAK,EAAC,CAAA"}
+{"version":3,"file":"proxy.d.ts","sourceRoot":"","sources":["../../../src/bud/api/proxy.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAC,GAAG,EAAC,MAAM,SAAS,CAAA;AAEhC,QAAA,MAAM,KAAK,SAAmB,GAAG;;;MAAwB,GA+BxD,CAAA;AAED,OAAO,EAAC,KAAK,EAAC,CAAA"}

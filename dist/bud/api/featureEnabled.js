@@ -12,7 +12,7 @@ exports.featureEnabled = void 0;
  * ```
  */
 var featureEnabled = function (feature) {
-    return this.state.features[feature] ? true : false;
+    return this.state.features[feature] === true;
 };
 exports.featureEnabled = featureEnabled;
 //# sourceMappingURL=featureEnabled.js.map

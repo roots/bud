@@ -33,7 +33,7 @@ var dev = {
     headers: {},
     proxy: {}
 };
-var externals = {};
+var externals = null;
 var postCssFallback = {
     plugins: []
 };
@@ -49,7 +49,7 @@ var vendor = { name: 'vendor' };
  * Options container.
  */
 var options = {
-    alias: {},
+    alias: null,
     babel: babel,
     postCss: postCss,
     typescript: typescript,
@@ -73,7 +73,8 @@ var options = {
         http2: 'empty',
         net: 'empty',
         tls: 'empty',
-        child_process: 'empty'
+        child_process: 'empty',
+        __dirname: false
     },
     splitting: {
         maxChunks: null

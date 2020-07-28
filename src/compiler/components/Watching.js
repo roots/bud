@@ -1,6 +1,6 @@
-const React = require("react");
-const { Box, Text } = require("ink");
-const Spinner = require("ink-spinner");
+const React = require('react')
+const {Box, Text} = require('ink')
+const Spinner = require('ink-spinner')
 
 /**
  * Watch mode indicator
@@ -14,9 +14,9 @@ const Watching = () => (
       <Text>
         <Spinner type="dots" />
       </Text>
-      {" Watching"}
+      {' Watching'}
     </Text>
   </Box>
-);
+)
 
-module.exports = { Watching };
+module.exports = {Watching}

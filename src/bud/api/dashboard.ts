@@ -1,4 +1,4 @@
-import type { Bud, Dashboard } from "./types";
+import type {Bud, Dashboard} from './types'
 
 /**
  * ## bud.dashboard
@@ -10,9 +10,9 @@ import type { Bud, Dashboard } from "./types";
  * ```
  */
 const dashboard: Dashboard = function (this: Bud, enabled: boolean) {
-  this.state.features.dashboard = enabled;
+  this.state.features.dashboard = enabled
 
-  return this;
-};
+  return this
+}
 
-export { dashboard };
+export {dashboard}

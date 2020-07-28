@@ -59,7 +59,6 @@ const App = ({
     bud: bud
   }), children, /*#__PURE__*/React.createElement(Spacer, null), /*#__PURE__*/React.createElement(BuildInfo, {
     build: build,
-    bud: bud,
     width: width
   }));
 };
@@ -68,7 +67,7 @@ App.propTypes = {
   children: PropTypes.array,
   state: PropTypes.object,
   build: PropTypes.object,
-  config: PropTypes.object,
+  bud: PropTypes.object,
   width: PropTypes.number,
   height: PropTypes.number
 };

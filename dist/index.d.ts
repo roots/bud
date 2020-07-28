@@ -1,2 +1,3 @@
-export { bud } from './bud';
+import { bud } from './bud';
+export { bud };
 //# sourceMappingURL=index.d.ts.map

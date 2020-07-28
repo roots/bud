@@ -1,5 +1,5 @@
-import type { Features } from "./types";
-import { configs } from "./configs";
+import type {Features} from './types'
+import {configs} from './configs'
 
 /**
  * Features
@@ -9,14 +9,8 @@ const features: Features = {
    * Enabled by default
    */
   babel: true,
-  css: true,
   dashboard: true,
-  font: true,
-  image: true,
   js: true,
-  manifest: true,
-  svg: true,
-  terser: true,
 
   /**
    * Enabled by config presence
@@ -29,9 +23,15 @@ const features: Features = {
    * Opt-in
    */
   browserSync: false,
+  css: false,
   debug: false,
   dependencyManifest: false,
   dump: false,
+  font: false,
+  image: false,
+  manifest: false,
+  svg: false,
+  terser: false,
   hash: false,
   hot: false,
   inlineManifest: false,
@@ -47,6 +47,6 @@ const features: Features = {
   uglify: false,
   vendor: false,
   watch: false,
-};
+}
 
-export { features };
+export {features}

@@ -11,14 +11,17 @@ var eslint = function (bud) { return ({
         this.rule = {
             enforce: 'pre',
             test: patterns_1.patterns.js,
-            include: bud.state.paths.src,
             exclude: patterns_1.patterns.vendor,
-            loader: loaders_1.loaders.eslint,
-            options: {
-                configFile: bud.state.configs.eslint,
-                formatter: 'codeframe',
-                failOnError: true
-            }
+            use: [
+                {
+                    loader: loaders_1.loaders.eslint,
+                    options: {
+                        configFile: bud.state.configs.eslint,
+                        formatter: 'codeframe',
+                        failOnError: true
+                    }
+                },
+            ]
         };
         this.post();
         return this.rule;

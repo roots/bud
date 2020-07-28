@@ -18,13 +18,15 @@ var loaders = {
     miniCss: function (hot) { return ({
         loader: mini_css_extract_plugin_1["default"].loader
     }); },
+    node: require.resolve('node-loader'),
     postCss: require.resolve('postcss-loader'),
     resolveUrl: require.resolve('resolve-url-loader'),
     scss: require.resolve('sass-loader'),
     style: require.resolve('style-loader'),
     svgr: require.resolve('@svgr/webpack'),
     url: require.resolve('url-loader'),
-    ts: require.resolve('ts-loader')
+    ts: require.resolve('ts-loader'),
+    shebang: require.resolve('shebang-loader')
 };
 exports.loaders = loaders;
 //# sourceMappingURL=loaders.js.map

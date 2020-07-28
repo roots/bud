@@ -23,10 +23,7 @@ var cleanAdapter = [
     cleanWebpack_1.cleanWebpack,
 ];
 var copyAdapter = ['copy_plugin', copy_1.copy];
-var defineAdapter = [
-    'define_plugin',
-    define_1.define,
-];
+var defineAdapter = ['define_plugin', define_1.define];
 var dependencyExtractionAdapter = [
     'dependency_extraction_plugin',
     dependencyExtraction_1.dependencyExtraction,
@@ -47,10 +44,7 @@ var miniCssAdapter = [
     'mini_css_extract_plugin',
     miniCssExtract_1.miniCssExtract,
 ];
-var provideAdapter = [
-    'provide_plugin',
-    provide_1.provide,
-];
+var provideAdapter = ['provide_plugin', provide_1.provide];
 var writeFileAdapter = [
     'write_file_plugin',
     writeFile_1.writeFile,
@@ -59,13 +53,10 @@ var limitChunkAdapter = [
     'limit_chunk_count',
     limitChunkCount_1.limitChunkCount,
 ];
-var terserAdapter = [
-    'terser',
-    terser_1.terser,
-];
+var terserAdapter = ['terser', terser_1.terser];
 var webpackAdapters = [
     writeFileAdapter,
-    // browserSyncAdapter,
+    browserSyncAdapter,
     cleanAdapter,
     copyAdapter,
     defineAdapter,

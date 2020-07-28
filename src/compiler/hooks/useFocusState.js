@@ -1,5 +1,5 @@
-const React = require("react");
-const globalState = require("./useStore");
+const React = require('react')
+const globalState = require('./useStore')
 
 const useFocusState = globalState(
   React,
@@ -15,9 +15,9 @@ const useFocusState = globalState(
       store.setState({
         ...store.state,
         ...value,
-      });
+      })
     },
-  }
-);
+  },
+)
 
-module.exports = { useFocusState };
+module.exports = {useFocusState}

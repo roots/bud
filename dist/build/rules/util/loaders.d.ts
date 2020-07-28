@@ -11,6 +11,7 @@ declare const loaders: {
     miniCss: (hot: any) => {
         loader: string;
     };
+    node: string;
     postCss: string;
     resolveUrl: string;
     scss: string;
@@ -18,6 +19,7 @@ declare const loaders: {
     svgr: string;
     url: string;
     ts: string;
+    shebang: string;
 };
 export { loaders };
 //# sourceMappingURL=loaders.d.ts.map

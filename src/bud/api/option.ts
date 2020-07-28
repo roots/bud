@@ -1,4 +1,4 @@
-import type { Bud } from "./types";
+import type {Bud} from './types'
 
 /**
  * ## bud.option
@@ -12,7 +12,7 @@ import type { Bud } from "./types";
  * ```
  */
 const option: Function = function (key: string): any {
-  return this.state.options[key];
-};
+  return this.state.options[key]
+}
 
-export { option };
+export {option}

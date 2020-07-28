@@ -1,8 +1,8 @@
-const React = require("react");
-const { useEffect, useState } = React;
-const { Box, Text, useFocus } = require("ink");
-const PropTypes = require("prop-types");
-const patchConsole = require("patch-console");
+const React = require('react')
+const {useEffect, useState} = React
+const {Box, Text, useFocus} = require('ink')
+const PropTypes = require('prop-types')
+const patchConsole = require('patch-console')
 
 /**
  * DevServer info
@@ -10,11 +10,11 @@ const patchConsole = require("patch-console");
  * @prop {object} actions
  * @return {PropTypes.ReactComponentLike}
  */
-const DevServer = ({ build, actions }) => {
-  const { isFocused } = useFocus({ autoFocus: false });
+const DevServer = ({build, actions}) => {
+  const {isFocused} = useFocus({autoFocus: false})
   useEffect(() => {
-    actions?.setFocus({ devServer: isFocused });
-  }, [isFocused]);
+    actions?.setFocus({devServer: isFocused})
+  }, [isFocused])
 
   /**
    * Capture DevServer console out using `patch-console`. This
@@ -27,25 +27,26 @@ const DevServer = ({ build, actions }) => {
    * Discard it if they are a match so we don't just repeat that message
    * ad nauseum.
    */
-  const [lastConsole, setLastConsole] = useState(null);
-  const [consoleOut, setConsoleOut] = useState("");
+  const [lastConsole, setLastConsole] = useState(null)
+  const [consoleOut, setConsoleOut] = useState('')
   patchConsole((stream, data) => {
-    setLastConsole(data);
+    setLastConsole(data)
 
-    const frameOut = lastConsole !== data ? consoleOut + data : consoleOut;
-    setConsoleOut(frameOut);
-  });
+    const frameOut =
+      lastConsole !== data ? consoleOut + data : consoleOut
+    setConsoleOut(frameOut)
+  })
 
   return (
-    <Box display={isFocused ? "flex" : "none"} flexDirection="column">
+    <Box display={isFocused ? 'flex' : 'none'} flexDirection="column">
       <Text>{build?.devServer}</Text>
     </Box>
-  );
-};
+  )
+}
 
 DevServer.propTypes = {
   build: PropTypes.object,
   actions: PropTypes.object,
-};
+}
 
-module.exports = { DevServer };
+module.exports = {DevServer}

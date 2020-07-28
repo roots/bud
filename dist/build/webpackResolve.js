@@ -11,22 +11,25 @@ var webpackResolve = function (bud) { return ({
     bud: bud,
     options: {
         resolve: {
-            extensions: [
-                '.js',
-                '.json',
-            ],
+            extensions: ['.js', '.json'],
             modules: [
-                bud.src(''),
                 bud.project('node_modules'),
+                bud.state.paths.src,
                 path_1.join(bud.state.paths.framework, '/node_modules'),
-            ],
-            alias: bud.state.options.alias || {}
+            ]
         }
     },
     make: function () {
-        this.bud.state.features.jsx && this.options.resolve.extensions.push('jsx');
-        this.bud.state.features.ts && this.options.resolve.extensions.push('ts');
-        this.bud.state.features.tsx && this.options.resolve.extensions.push('tsx');
+        if (this.bud.state.features.jsx) {
+            this.options.resolve.extensions.push('.jsx');
+        }
+        if (this.bud.state.features.typescript) {
+            this.options.resolve.extensions.push('.ts');
+            this.options.resolve.extensions.push('.tsx');
+        }
+        if (this.bud.state.options.alias) {
+            this.options.resolve.alias = this.bud.state.options.alias;
+        }
         return this.options;
     }
 }); };

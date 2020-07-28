@@ -1,9 +1,8 @@
 /**
  * Build Info
  */
-export function BuildInfo({ build, bud, width }: {
+export function BuildInfo({ build, width }: {
     build: any;
-    bud: any;
     width: any;
 }): JSX.Element;
 export namespace BuildInfo {

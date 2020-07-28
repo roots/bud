@@ -1,4 +1,4 @@
-import { Bud, Copy } from "./types";
+import {Bud, Copy} from './types'
 
 /**
  * ## bud.copy
@@ -12,10 +12,14 @@ import { Bud, Copy } from "./types";
  * )
  * ```
  */
-const copy: Copy = function (this: Bud, from: string, to: string): Bud {
-  this.state.options.copy.patterns.push({ from, to });
+const copy: Copy = function (
+  this: Bud,
+  from: string,
+  to: string,
+): Bud {
+  this.state.options.copy.patterns.push({from, to})
 
-  return this;
-};
+  return this
+}
 
-export { copy };
+export {copy}

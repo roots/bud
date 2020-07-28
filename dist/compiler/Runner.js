@@ -6,8 +6,7 @@ const {
 
 const {
   useApp,
-  useInput,
-  Text
+  useInput
 } = require('ink');
 
 const PropTypes = require('prop-types');

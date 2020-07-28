@@ -1,5 +1,5 @@
-import { loaders } from "./util/loaders";
-import { patterns } from "./util/patterns";
+import {loaders} from './util/loaders'
+import {patterns} from './util/patterns'
 
 /**
  * Font module rules
@@ -7,7 +7,7 @@ import { patterns } from "./util/patterns";
  * @typedef {function} font
  * @return {object}
  */
-const font = (builder) => ({
+const font = builder => ({
   builder,
   make: function () {
     return {
@@ -16,12 +16,12 @@ const font = (builder) => ({
         {
           loader: loaders.url,
           options: {
-            name: "[path][name].[ext]",
+            name: '[path][name].[ext]',
           },
         },
       ],
-    };
+    }
   },
-});
+})
 
-export { font };
+export {font}

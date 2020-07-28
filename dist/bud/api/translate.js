@@ -37,10 +37,7 @@ var translate = function (output) {
     this.state.features.translate &&
         (function () {
             _this.state.options.babel = __assign(__assign({}, _this.state.options.babel), { plugins: __spreadArrays(_this.state.options.babel.plugins, [
-                    [
-                        require('@wordpress/babel-plugin-makepot'),
-                        { output: output },
-                    ],
+                    [require('@wordpress/babel-plugin-makepot'), { output: output }],
                 ]) });
         })();
     return this;

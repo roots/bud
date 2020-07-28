@@ -12,7 +12,9 @@ var plugins = function (bud) { return ({
         this.doHook('pre');
         this.plugins = this.pluginQueue
             .map(function (plugin) {
-            return _this.bud.plugin.controller.initController(plugin).buildPlugin();
+            return _this.bud.plugin.controller
+                .initController(plugin)
+                .buildPlugin();
         })
             .filter(function (plugin) { return plugin !== undefined; });
         this.doHook('post');

@@ -13,10 +13,6 @@ const PropTypes = require('prop-types');
 const {
   Loading
 } = require('./Loading');
-
-const {
-  Watching
-} = require('./Watching');
 /**
  * Build Info
  */
@@ -24,7 +20,6 @@ const {
 
 const BuildInfo = ({
   build,
-  bud,
   width
 }) => /*#__PURE__*/React.createElement(Box, {
   flexDirection: "column",
@@ -32,7 +27,7 @@ const BuildInfo = ({
 }, (build === null || build === void 0 ? void 0 : build.percentage) == 1 && (build === null || build === void 0 ? void 0 : build.hash) && /*#__PURE__*/React.createElement(Text, {
   color: "#6C758F",
   marginTop: 1
-}, "Build ", build === null || build === void 0 ? void 0 : build.hash, ". Finished in", ' ', (build === null || build === void 0 ? void 0 : build.time) / 1000, "s."), /*#__PURE__*/React.createElement(Loading, {
+}, "Build ", build === null || build === void 0 ? void 0 : build.hash, ". Finished in ", (build === null || build === void 0 ? void 0 : build.time) / 1000, "s."), /*#__PURE__*/React.createElement(Loading, {
   build: build,
   width: width
 }));

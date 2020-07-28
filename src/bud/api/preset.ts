@@ -1,5 +1,5 @@
-import { join } from "path";
-import type { Preset } from "./types";
+import {join} from 'path'
+import type {Preset} from './types'
 
 /**
  * ## bud.preset
@@ -21,9 +21,13 @@ import type { Preset } from "./types";
  * ```
  */
 const preset: Preset = function (relativePath): any {
-  const presetConfig = join(this.state.paths.framework, "preset", relativePath);
+  const presetConfig = join(
+    this.state.paths.framework,
+    'preset',
+    relativePath,
+  )
 
-  return require(presetConfig);
-};
+  return require(presetConfig)
+}
 
-export { preset };
+export {preset}

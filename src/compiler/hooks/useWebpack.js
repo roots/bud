@@ -1,13 +1,13 @@
-const { useState, useEffect, useMemo } = require("react");
-const { ProgressPlugin } = require("webpack");
-const browserSync = require("browser-sync");
-const webpackDevMiddleware = require("webpack-dev-middleware");
-const webpackHotMiddleware = require("webpack-hot-middleware");
+const {useState, useEffect, useMemo} = require('react')
+const {ProgressPlugin} = require('webpack')
+const browserSync = require('browser-sync')
+const webpackDevMiddleware = require('webpack-dev-middleware')
+const webpackHotMiddleware = require('webpack-hot-middleware')
 
 const makeMiddleware = (compiler, bud) => [
   webpackDevMiddleware(compiler, {
     headers: bud.state.options.dev.headers,
-    publicPath: bud.state.paths.public || "/",
+    publicPath: bud.state.paths.public || '/',
     stats: {
       version: true,
       hash: true,
@@ -18,22 +18,22 @@ const makeMiddleware = (compiler, bud) => [
     },
   }),
   webpackHotMiddleware(compiler, {
-    log: (msg) => {
-      console.log(msg);
+    log: msg => {
+      console.log(msg)
     },
   }),
-];
+]
 
 const hotSyncServer = (bud, compiler, callback) => {
   return browserSync.init(
     {
       proxy: {
-        target: "bud-sandbox.valet",
+        target: 'bud-sandbox.valet',
         ws: true,
       },
-      logLevel: "silent",
+      logLevel: 'silent',
       reloadOnRestart: true,
-      injectFileTypes: ["js", "css"],
+      injectFileTypes: ['js', 'css'],
       open: true,
       middleware: makeMiddleware(compiler, bud),
       injectChanges: true,
@@ -41,24 +41,24 @@ const hotSyncServer = (bud, compiler, callback) => {
         ignoreInitial: true,
       },
       files: [
-        bud.src("**/*.js"),
-        bud.src("**/*.js"),
-        bud.src("*.css"),
-        bud.src("**/*.css"),
+        bud.src('**/*.js'),
+        bud.src('**/*.js'),
+        bud.src('*.css'),
+        bud.src('**/*.css'),
       ],
     },
-    callback
-  );
-};
+    callback,
+  )
+}
 
 /**
  * useProgress: Webpack ProgressPlugin
  * @return {object}
  */
 const useProgress = () => {
-  const [progressPlugin, setProgressPlugin] = useState();
-  const [percentage, setPercentage] = useState(0);
-  const [message, setMessage] = useState(null);
+  const [progressPlugin, setProgressPlugin] = useState()
+  const [percentage, setPercentage] = useState(0)
+  const [message, setMessage] = useState(null)
   useEffect(() => {
     !progressPlugin &&
       setProgressPlugin(
@@ -66,41 +66,43 @@ const useProgress = () => {
           activeModules: true,
           modules: true,
           handler(percentage, message) {
-            setPercentage(percentage);
-            setMessage(message);
+            setPercentage(percentage)
+            setMessage(message)
           },
-        })
-      );
-  }, []);
+        }),
+      )
+  }, [])
 
-  return { progressPlugin, percentage, message };
-};
+  return {progressPlugin, percentage, message}
+}
 
 /**
  * Hook: useWebpack
  * @prop {compiler} compiler webpack.compiler
  * @prop {string}   options  project options
  */
-const useWebpack = ({ compiler, bud }) => {
-  const { progressPlugin, percentage, message } = useProgress();
+const useWebpack = ({compiler, bud}) => {
+  const {progressPlugin, percentage, message} = useProgress()
 
-  const [progressPluginApplied, setProgressPluginApplied] = useState(null);
+  const [progressPluginApplied, setProgressPluginApplied] = useState(
+    null,
+  )
 
   useEffect(() => {
     if (progressPlugin) {
-      progressPlugin.apply(compiler);
+      progressPlugin.apply(compiler)
 
-      setProgressPluginApplied(true);
+      setProgressPluginApplied(true)
     }
-  }, [progressPlugin, compiler]);
+  }, [progressPlugin, compiler])
 
-  const [buildStats, setBuildStats] = useState({});
-  const [buildErrors, setBuildErrors] = useState([]);
-  const [webpackRunning, setWebpackRunning] = useState(null);
-  const [devServer, setDevServer] = useState(null);
+  const [buildStats, setBuildStats] = useState({})
+  const [buildErrors, setBuildErrors] = useState([])
+  const [webpackRunning, setWebpackRunning] = useState(null)
+  const [devServer, setDevServer] = useState(null)
   useEffect(() => {
     const webpackCallback = (err, stats) => {
-      setBuildErrors(err);
+      setBuildErrors(err)
       setBuildStats(
         stats?.toJson({
           version: true,
@@ -109,43 +111,43 @@ const useWebpack = ({ compiler, bud }) => {
           assets: true,
           errors: true,
           warnings: true,
-        })
-      );
-    };
+        }),
+      )
+    }
 
     if (progressPluginApplied) {
       if (!webpackRunning) {
-        setWebpackRunning(true);
+        setWebpackRunning(true)
 
-        bud.featureEnabled("watch")
+        bud.featureEnabled('watch')
           ? compiler.watch({}, webpackCallback)
-          : compiler.run(webpackCallback);
+          : compiler.run(webpackCallback)
       }
     }
-  }, [progressPluginApplied, bud, compiler]);
+  }, [progressPluginApplied, bud, compiler])
 
-  const [assets, setAssets] = useState([]);
-  const [warnings, setWarnings] = useState([]);
-  const [errors, setErrors] = useState([]);
+  const [assets, setAssets] = useState([])
+  const [warnings, setWarnings] = useState([])
+  const [errors, setErrors] = useState([])
 
   useEffect(() => {
-    buildStats?.assets && setAssets(buildStats.assets);
-    buildStats?.warnings && setWarnings(buildStats.warnings);
-    buildStats?.errors && setErrors(buildStats?.errors);
-  }, [buildStats, buildErrors]);
+    buildStats?.assets && setAssets(buildStats.assets)
+    buildStats?.warnings && setWarnings(buildStats.warnings)
+    buildStats?.errors && setErrors(buildStats?.errors)
+  }, [buildStats, buildErrors])
 
   useMemo(() => {
     if (
       webpackRunning &&
-      bud.featureEnabled("hot") &&
+      bud.featureEnabled('hot') &&
       !devServer &&
       (buildStats || buildErrors)
     ) {
       hotSyncServer(bud, compiler, (err, bs) => {
-        setDevServer(bs.name);
-      });
+        setDevServer(bs.name)
+      })
     }
-  }, [webpackRunning, devServer]);
+  }, [webpackRunning, devServer])
 
   return {
     assets,
@@ -156,7 +158,7 @@ const useWebpack = ({ compiler, bud }) => {
     warnings,
     percentage,
     message,
-  };
-};
+  }
+}
 
-module.exports = { useWebpack };
+module.exports = {useWebpack}

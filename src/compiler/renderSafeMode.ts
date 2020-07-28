@@ -1,6 +1,6 @@
-import webpack from "webpack";
-import chalk from "chalk";
-import type { Bud, WebpackStats, WebpackConfig } from "./types";
+import webpack from 'webpack'
+import chalk from 'chalk'
+import type {Bud, WebpackStats, WebpackConfig} from './types'
 
 /**
  * Display stats.
@@ -11,7 +11,7 @@ import type { Bud, WebpackStats, WebpackConfig } from "./types";
  * @return {void}
  */
 const displayStats = (stats: WebpackStats) => {
-  console.log(chalk.bgWhite.black("\n Build results \n"));
+  console.log(chalk.bgWhite.black('\n Build results \n'))
 
   const statsOptions: Object = {
     all: false,
@@ -19,42 +19,45 @@ const displayStats = (stats: WebpackStats) => {
     errors: true,
     warnings: true,
     colors: {
-      green: "\u001b[38;5;63m",
+      green: '\u001b[38;5;63m',
     },
-  };
+  }
 
-  console.log(stats.toString(statsOptions));
+  console.log(stats.toString(statsOptions))
 
-  console.log("\n");
-};
+  console.log('\n')
+}
 
 /**
  * Safe mode
  */
-const compileSafeMode = (config: any, webpackConfig: WebpackConfig) => {
+const compileSafeMode = (
+  config: any,
+  webpackConfig: WebpackConfig,
+) => {
   const webpackCallback = (err: any, stats: WebpackStats) => {
     if (err) {
-      console.error(err.stack || err);
+      console.error(err.stack || err)
 
       if (err.details) {
-        console.error(err.details);
+        console.error(err.details)
       }
 
-      return;
+      return
     }
 
-    displayStats(stats);
+    displayStats(stats)
 
     if (config.inProduction) {
-      process.exit(0);
+      process.exit(0)
     }
-  };
+  }
 
   if (!config.inProduction) {
-    webpack(webpackConfig).watch({}, webpackCallback);
+    webpack(webpackConfig).watch({}, webpackCallback)
   } else {
-    webpack(webpackConfig).run(webpackCallback);
+    webpack(webpackConfig).run(webpackCallback)
   }
-};
+}
 
-export { compileSafeMode };
+export {compileSafeMode}

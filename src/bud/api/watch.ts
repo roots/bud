@@ -1,4 +1,4 @@
-import type { Bud, Watch } from "./types";
+import type {Bud, Watch} from './types'
 
 /**
  * ## bud.watch
@@ -12,14 +12,14 @@ import type { Bud, Watch } from "./types";
 const watch: Watch = function (
   this: Bud,
   options: {
-    paths: string[];
-    enabled: boolean;
-  }
+    paths: string[]
+    enabled: boolean
+  },
 ): Bud {
-  this.state.features.watch = options.enabled ?? true;
-  this.state.options.watch = options.paths ?? [];
+  this.state.features.watch = options.enabled ?? true
+  this.state.options.watch = options.paths ?? []
 
-  return this;
-};
+  return this
+}
 
-export { watch };
+export {watch}

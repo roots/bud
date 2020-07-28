@@ -1,4 +1,4 @@
-import type { Bud } from "./types";
+import type {Bud} from './types'
 
 /**
  * ## bud.terser
@@ -13,8 +13,11 @@ import type { Bud } from "./types";
  * bud.hot(false) // disable
  * ```
  */
-const terser = function (options: { enable: boolean; terser: object }): Bud {
-  this.state.features.terser = options?.enable ?? true;
+const terser = function (options: {
+  enable: boolean
+  terser: object
+}): Bud {
+  this.state.features.terser = options?.enable ?? true
 
   this.state.options.terser = {
     terserOptions: options?.terser ?? {
@@ -39,9 +42,9 @@ const terser = function (options: { enable: boolean; terser: object }): Bud {
     cache: true,
     parallel: true,
     sourceMap: this.state.features.sourceMap,
-  };
+  }
 
-  return this;
-};
+  return this
+}
 
-export { terser };
+export {terser}

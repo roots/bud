@@ -19,7 +19,7 @@ var proxy = function (_a) {
     this.state.options.browserSync = __assign(__assign({}, this.state.options.browserSync), { proxy: __assign(__assign({}, this.state.options.browserSync.proxy), { target: qualified, ws: true, proxyReq: [
                 function (proxyReq) {
                     proxyReq.setHeader('X-Bud-Proxy', host);
-                }
+                },
             ] }) });
     return this;
 };

@@ -9,7 +9,6 @@ declare const webpackResolve: (bud: any) => {
         resolve: {
             extensions: string[];
             modules: any[];
-            alias: any;
         };
     };
     make: () => any;

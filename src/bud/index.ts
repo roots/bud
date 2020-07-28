@@ -1,10 +1,10 @@
-import { api } from "./api";
-import { hooks } from "./hooks";
-import { util } from "./util";
-import { plugin } from "./plugin";
-import { state } from "./state";
-import { inProduction, mode } from "./mode";
-import type { Bud } from "./types";
+import {api} from './api'
+import {hooks} from './hooks'
+import {util} from './util'
+import {plugin} from './plugin'
+import {state} from './state'
+import {inProduction, mode} from './mode'
+import type {Bud} from './types'
 
 /**
  * Bud - asset management framework.
@@ -57,8 +57,8 @@ const bud: Bud = {
   translate: api.translate,
   vendor: api.vendor,
   watch: api.watch,
-};
+}
 
-bud.plugin.init(bud);
+bud.plugin.init(bud)
 
-export { bud };
+export {bud}

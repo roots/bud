@@ -1,4 +1,4 @@
-import type { Hook, Hooks } from "./types";
+import type {Hook, Hooks} from './types'
 
 /**
  * ## bud.hooks
@@ -35,7 +35,7 @@ const hooks: Hooks = {
    * Get all bud hook entries.
    */
   getAll: function () {
-    return Object.entries(this.registered);
+    return Object.entries(this.registered)
   },
 
   /**
@@ -43,12 +43,12 @@ const hooks: Hooks = {
    */
   on: function (name, callback) {
     if (!this.registered[name]) {
-      this.registered[name] = [];
+      this.registered[name] = []
     }
 
-    this.registered[name].push(this.make(callback));
+    this.registered[name].push(this.make(callback))
 
-    return this;
+    return this
   },
 
   /**
@@ -57,11 +57,11 @@ const hooks: Hooks = {
   call: function (name, ...params) {
     if (this.registered[name]) {
       this.registered[name].forEach(function (hook) {
-        hook.fn(...params);
-        hook.fired = true;
-      });
+        hook.fn(...params)
+        hook.fired = true
+      })
     }
   },
-};
+}
 
-export { hooks };
+export {hooks}

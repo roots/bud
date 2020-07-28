@@ -23,7 +23,7 @@ var module = function (bud) { return ({
                     onlyLocals: false
                 }
             },
-            resolveUrl_1.resolveUrl(bud).make()
+            resolveUrl_1.resolveUrl(bud).make(),
         ]
     },
     /**

@@ -1,4 +1,4 @@
-import type { Bud, Debug } from "./types";
+import type {Bud, Debug} from './types'
 
 /**
  * ## bud.debug
@@ -14,9 +14,9 @@ import type { Bud, Debug } from "./types";
  * ```
  */
 const debug: Debug = function (this: Bud, enabled: boolean): Bud {
-  this.state.features.debug = enabled;
+  this.state.features.debug = enabled
 
-  return this;
-};
+  return this
+}
 
-export { debug };
+export {debug}

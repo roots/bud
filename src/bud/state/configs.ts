@@ -1,7 +1,7 @@
-import { join } from "path";
-import { existsSync } from "fs-extra";
-import { paths } from "./paths";
-import type { Configs } from "./types";
+import {join} from 'path'
+import {existsSync} from 'fs-extra'
+import {paths} from './paths'
+import type {Configs} from './types'
 
 /**
  * Config
@@ -9,7 +9,7 @@ import type { Configs } from "./types";
  * @param   {string} relativePath - relative path (from project root)
  * @return  {string} filePath
  */
-const config = (file) => join(paths.project, file);
+const config = file => join(paths.project, file)
 
 /**
  * Has config
@@ -17,7 +17,7 @@ const config = (file) => join(paths.project, file);
  * @param   {string} file - file path (relative to project root)
  * @return  {boolean} true if file exists
  */
-const hasConfig = (file) => existsSync(config(file));
+const hasConfig = file => existsSync(config(file))
 
 /**
  * Maybe config
@@ -26,7 +26,7 @@ const hasConfig = (file) => existsSync(config(file));
  * @param {string} file - fallback config file path
  */
 const maybeConfig = (file, fallback = null) =>
-  hasConfig(file) ? config(file) : fallback;
+  hasConfig(file) ? config(file) : fallback
 
 /**
  * Project configuration files.
@@ -37,10 +37,10 @@ const maybeConfig = (file, fallback = null) =>
  * @property {(string|boolean)} typescript - project tsconfig.json
  */
 const configs: Configs = {
-  babel: maybeConfig("babel.config.js"),
-  eslint: maybeConfig(".eslintrc.js"),
-  postCss: maybeConfig("postcss.config.js"),
-  typescript: maybeConfig("tsconfig.json"),
-};
+  babel: maybeConfig('babel.config.js'),
+  eslint: maybeConfig('.eslintrc.js'),
+  postCss: maybeConfig('postcss.config.js'),
+  typescript: maybeConfig('tsconfig.json'),
+}
 
-export { config, hasConfig, maybeConfig, configs };
+export {config, hasConfig, maybeConfig, configs}

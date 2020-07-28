@@ -27,9 +27,7 @@ var postCss = function (bud) { return ({
     output: {},
     make: function () {
         this.bud.hooks.call('pre_postcss', this);
-        this.output = this.bud.state.features.postCss
-            ? this.config
-            : {};
+        this.output = this.bud.state.features.postCss ? this.config : {};
         this.bud.hooks.call('post_postcss', this.output);
         return this.output;
     }

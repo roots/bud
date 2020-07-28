@@ -1,5 +1,5 @@
-import { join } from "path";
-import type { Bud, SrcPath } from "./types";
+import {join} from 'path'
+import type {Bud, SrcPath} from './types'
 
 /**
  * ## bud.srcPath
@@ -11,9 +11,9 @@ import type { Bud, SrcPath } from "./types";
  * ```
  */
 const srcPath: SrcPath = function (src: string): Bud {
-  this.state.paths.src = join(this.state.paths.project, src);
+  this.state.paths.src = join(this.state.paths.project, src)
 
-  return this;
-};
+  return this
+}
 
-export { srcPath };
+export {srcPath}

@@ -13,11 +13,11 @@ var fixStyleOnlyEntries = function () { return ({
         return new webpack_fix_style_only_entries_1["default"](this.options);
     },
     when: function () {
-        return this.bud.featureEnabled('css') ||
+        return (this.bud.featureEnabled('css') ||
             this.bud.featureEnabled('scss') ||
             this.bud.featureEnabled('postcss') ||
             this.bud.featureEnabled('scssModules') ||
-            this.bud.featureEnabled('cssModules');
+            this.bud.featureEnabled('cssModules'));
     }
 }); };
 exports.fixStyleOnlyEntries = fixStyleOnlyEntries;

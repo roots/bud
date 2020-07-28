@@ -26,7 +26,7 @@ var register = function (name, plugin) {
  * ```
  */
 var deregister = function (name) {
-    delete (this.repo[0][name]);
+    delete this.repo[0][name];
     return this.bud;
 };
 /**

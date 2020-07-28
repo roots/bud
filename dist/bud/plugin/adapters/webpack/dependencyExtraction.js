@@ -13,7 +13,7 @@ var dependencyExtraction = function () { return ({
         return new dependency_extraction_webpack_plugin_1["default"](this.options);
     },
     when: function () {
-        return this.bud.state.features.dependencyManifest;
+        return this.bud.featureEnabled('dependencyManifest');
     }
 }); };
 exports.dependencyExtraction = dependencyExtraction;

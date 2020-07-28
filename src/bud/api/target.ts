@@ -1,4 +1,4 @@
-import type { Bud, Target } from "./Types";
+import type {Bud, Target} from './Types'
 
 /**
  * bud.target
@@ -10,9 +10,9 @@ import type { Bud, Target } from "./Types";
  * ```
  */
 const target: Target = function (target: string): Bud {
-  this.state.options.target = target;
+  this.state.options.target = target
 
-  return this;
-};
+  return this
+}
 
-export { target };
+export {target}

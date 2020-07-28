@@ -11,9 +11,9 @@
  * @return  {typeof import('../index')} bud
  */
 const hash = function (enabled = true) {
-  this.state.features.hash = enabled;
+  this.state.features.hash = enabled
 
-  return this;
-};
+  return this
+}
 
-export { hash };
+export {hash}

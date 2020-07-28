@@ -1,1 +1,1 @@
-{"version":3,"file":"fixStyleOnlyEntries.d.ts","sourceRoot":"","sources":["../../../../../src/bud/plugin/adapters/webpack/fixStyleOnlyEntries.ts"],"names":[],"mappings":"AACA,OAAO,KAAK,EAAC,cAAc,EAAC,MAAM,SAAS,CAAA;AAE3C,QAAA,MAAM,mBAAmB,EAAE,cAczB,CAAA;AAEF,OAAO,EAAC,mBAAmB,EAAC,CAAA"}
+{"version":3,"file":"fixStyleOnlyEntries.d.ts","sourceRoot":"","sources":["../../../../../src/bud/plugin/adapters/webpack/fixStyleOnlyEntries.ts"],"names":[],"mappings":"AACA,OAAO,KAAK,EAAC,cAAc,EAAC,MAAM,SAAS,CAAA;AAE3C,QAAA,MAAM,mBAAmB,EAAE,cAgBzB,CAAA;AAEF,OAAO,EAAC,mBAAmB,EAAC,CAAA"}

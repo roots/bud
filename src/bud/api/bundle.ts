@@ -1,4 +1,4 @@
-import type { Bud, Bundle } from "./types";
+import type {Bud, Bundle} from './types'
 
 /**
  * ## bud.bundle
@@ -15,14 +15,14 @@ import type { Bud, Bundle } from "./types";
 const bundle: Bundle = function (
   this: Bud,
   name: string,
-  entries: object
+  entries: object,
 ): Bud {
   this.state.options.entry = {
     ...this.state.options.entry,
     [`${name}`]: entries,
-  };
+  }
 
-  return this;
-};
+  return this
+}
 
-export { bundle };
+export {bundle}

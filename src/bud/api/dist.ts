@@ -1,5 +1,5 @@
-import { join } from "path";
-import type { Dist } from "./types";
+import {join} from 'path'
+import type {Dist} from './types'
 
 /**
  * ## bud.dist
@@ -11,7 +11,7 @@ import type { Dist } from "./types";
  * ```
  */
 const dist: Dist = function (relativePath: string): string {
-  return join(this.state.paths.dist, relativePath);
-};
+  return join(this.state.paths.dist, relativePath)
+}
 
-export { dist };
+export {dist}

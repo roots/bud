@@ -1,4 +1,4 @@
-import type { Bud, SourceMap } from "./types";
+import type {Bud, SourceMap} from './types'
 
 /**
  * ## bud.map
@@ -12,9 +12,9 @@ import type { Bud, SourceMap } from "./types";
  * ```
  */
 const map: SourceMap = function (enabled: boolean = true): Bud {
-  this.state.features.sourceMap = enabled ?? true;
+  this.state.features.sourceMap = enabled ?? true
 
-  return this;
-};
+  return this
+}
 
-export { map };
+export {map}

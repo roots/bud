@@ -30,6 +30,7 @@ var babel = function (bud) { return ({
         this.pre();
         this.rule = {
             test: patterns_1.patterns.js,
+            exclude: patterns_1.patterns.vendor,
             use: [
                 {
                     loader: loaders_1.loaders.babel,
@@ -37,6 +38,9 @@ var babel = function (bud) { return ({
                 },
             ]
         };
+        this.bud.state.options.target == 'node' && this.rule.use.push({
+            loader: loaders_1.loaders.shebang
+        });
         this.post();
         return this.rule;
     },
