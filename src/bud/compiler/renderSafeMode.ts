@@ -3,9 +3,7 @@ import chalk from 'chalk'
 import type {WebpackStats, WebpackConfig} from './types'
 
 /**
- * Display stats.
- *
- * Normal-ish webpack stdout.
+ * Normal-ish webpack stdout. Used when `dashboard` feature flag is set to false.
  *
  * @param  {object} stats - webpack stats object
  * @return {void}

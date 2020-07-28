@@ -3,7 +3,8 @@ import {join} from 'path'
 /**
  * Webpack resolvers.
  *
- * @param {object}
+ * @param {Bud} bud
+ * @return {object}
  */
 const webpackResolve = bud => ({
   bud,

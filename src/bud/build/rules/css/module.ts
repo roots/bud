@@ -5,7 +5,7 @@ import {resolveUrl} from '../use/resolveUrl'
 
 /**
  * CSS modules
- *
+ * @param {Bud} bud
  * @return {object}
  */
 const module = bud => ({

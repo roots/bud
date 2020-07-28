@@ -2,6 +2,7 @@ import type {Bud} from './types'
 
 /**
  * Dev server
+ * @param {Bud} bud
  */
 const devServer = (bud: Bud) => ({
   bud,

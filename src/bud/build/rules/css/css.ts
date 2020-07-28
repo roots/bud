@@ -5,6 +5,7 @@ import {resolveUrl} from '../use/resolveUrl'
 
 /**
  * Css
+ * @param {Bud} bud
  * @return {object}
  */
 const css = bud => ({

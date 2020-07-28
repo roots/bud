@@ -1,5 +1,11 @@
 import type {Bud, BuilderConstructor, OutputBuilder} from './types'
 
+/**
+ * Webpack output
+ *
+ * @param {Bud} bud
+ * @return {OutputBuilder}
+ */
 const output: BuilderConstructor = (bud: Bud): OutputBuilder => ({
   bud,
 

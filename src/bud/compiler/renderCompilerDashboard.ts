@@ -9,6 +9,9 @@ import type {
   WebpackConfig,
 } from './types'
 
+/**
+ * Inject webpack middleware on all entrypoints.
+ */
 const injectHot = (webpackConfig: WebpackConfig) => {
   const client =
     'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true&overlay=true'

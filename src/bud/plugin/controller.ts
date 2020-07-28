@@ -1,7 +1,10 @@
 import type {Bud, Controller} from './types'
 
 /**
- * Plugin controller
+ * Plugin controller.
+ *
+ * @param {Bud} bud
+ * @return {Controller}
  * @this {Bud}
  */
 const controller = function (bud: Bud): Controller {
