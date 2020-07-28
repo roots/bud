@@ -12,7 +12,9 @@ var shortCircuit_1 = require("./shortCircuit");
  */
 var dump = function (obj) {
     var normalizedConfigString = JSON.stringify(obj, shortCircuit_1.shortCircuit());
-    var prettifiedConfigString = prettier_1.format(normalizedConfigString, { parser: 'json' });
+    var prettifiedConfigString = prettier_1.format(normalizedConfigString, {
+        parser: 'json'
+    });
     var highlightedConfigString = cli_highlight_1.highlight(prettifiedConfigString);
     console.log(highlightedConfigString);
     process.exit();

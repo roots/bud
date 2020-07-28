@@ -1,8 +1,0 @@
-.*
-*.log
-*.lock
-node_modules
-build
-templates
-**/*.hbs
-vendor

@@ -1,30 +1,54 @@
-import {inProduction} from './../mode'
 import type {Features} from './types'
+import {configs} from './configs'
 
 /**
  * Features
  */
 const features: Features = {
-  babel: true,
-  browserSync: !inProduction,
-  debug: false,
+  /**
+   * Enabled by default
+   */
   dashboard: true,
+  clean: true,
+  css: true,
+  svg: true,
+  image: true,
+  font: true,
+  js: true,
+  manifest: true,
+  optimize: true,
+  terser: true,
+  vendor: true,
+  splitting: true,
+
+  /**
+   * Enabled by config presence
+   */
+  babel: configs.babel ? true : false,
+  eslint: configs.eslint ? true : false,
+  postCss: configs.postCss ? true : false,
+  typescript: configs.typescript ? true : false,
+
+  /**
+   * Opt-in
+   */
+  browserSync: false,
+  debug: false,
   dependencyManifest: false,
   dump: false,
-  eslint: true,
-  hash: inProduction,
-  hot: !inProduction,
+  hash: false,
+  hot: false,
   inlineManifest: false,
-  minified: inProduction,
-  overlay: true,
-  postCss: true,
+  minify: false,
+  overlay: false,
+  scss: false,
+  cssModules: false,
+  scssModules: false,
   purge: false,
-  sourceMap: !inProduction,
-  splitting: true,
+  sourceMap: false,
   translate: false,
-  typescript: true,
-  vendor: false,
-  watch: !inProduction,
+  uglify: false,
+  watch: false,
 }
 
 export {features}

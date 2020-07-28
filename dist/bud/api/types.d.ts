@@ -14,7 +14,7 @@ export declare type Debug = (enabled: boolean) => any;
 export declare type DependencyManifest = (settings?: object) => Bud;
 export declare type Dev = (options: object) => Bud;
 export declare type Devtool = (devtool: string) => Bud;
-export declare type Dist = (relativePath: string) => string;
+export declare type Dist = (path?: string) => string;
 export declare type DistPath = (src: string) => Bud;
 export declare type InlineManifest = (name?: string) => Bud;
 export declare type Mini = (enabled?: boolean) => Bud;
@@ -22,13 +22,14 @@ export declare type PostCss = (options?: {
     enabled?: boolean;
     plugins?: any[];
 }) => Bud;
-export declare type Preset = (relativePath: string) => any;
-export declare type Project = (relativePath: string) => string;
+export declare type Preset = (path?: string) => any;
+export declare type Project = (path?: string) => string;
+export declare type ProjectPath = (path: string) => Bud;
 export declare type Purge = (any: any) => Bud;
 export declare type Resolve = (moduleName: string) => string;
 export declare type Register = (name: string, plugin: any) => Bud;
-export declare type SourceMap = (enabled: boolean) => Bud;
-export declare type Src = (relativePath: string) => string;
+export declare type SourceMap = (enabled?: boolean) => Bud;
+export declare type Src = (path?: string) => string;
 /**
  * ## bud.srcPath
  *
@@ -42,13 +43,17 @@ export declare type SrcPath = (src: string) => Bud;
 export declare type Sync = (arg0: SyncOptions) => Bud;
 export declare type Target = (target: string) => Bud;
 export declare type Translate = (output: string) => Bud;
-export declare type Watch = (enabled: boolean) => Bud;
+export declare type Watch = (options: {
+    paths: string[];
+    enabled: boolean;
+}) => Bud;
 export declare type Vendor = (name?: string) => Bud;
 export declare type Api = {
     alias: Alias;
     auto: Auto;
     babel: Babel;
     bundle: Bundle;
+    compile: any;
     copy: Copy;
     copyAll: Copy;
     dashboard: Dashboard;
@@ -56,13 +61,16 @@ export declare type Api = {
     dependencyManifest: DependencyManifest;
     dev: Dev;
     devtool: Devtool;
+    features: any;
     inlineManifest: InlineManifest;
     map: SourceMap;
     mini: Mini;
     postCss: PostCss;
     preset: Preset;
+    projectPath: ProjectPath;
     resolve: Resolve;
     register: Register;
+    scss: any;
     src: Src;
     srcPath: SrcPath;
     sync: Sync;

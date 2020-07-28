@@ -9,11 +9,10 @@ import {limitChunkCount} from './limitChunkCount'
 import {miniCssExtract} from './miniCssExtract'
 import {manifest} from './manifest'
 import {provide} from './provide'
+import {terser} from './terser'
 import {writeFile} from './writeFile'
-import type {
-  RegisteredPlugin,
-  WebpackAdapters,
-} from './types'
+
+import type {RegisteredPlugin, WebpackAdapters} from './types'
 
 const browserSyncAdapter: RegisteredPlugin = [
   'browser_sync_plugin',
@@ -24,10 +23,7 @@ const cleanAdapter: RegisteredPlugin = [
   cleanWebpack,
 ]
 const copyAdapter: RegisteredPlugin = ['copy_plugin', copy]
-const defineAdapter: RegisteredPlugin = [
-  'define_plugin',
-  define,
-]
+const defineAdapter: RegisteredPlugin = ['define_plugin', define]
 const dependencyExtractionAdapter: RegisteredPlugin = [
   'dependency_extraction_plugin',
   dependencyExtraction,
@@ -48,10 +44,7 @@ const miniCssAdapter: RegisteredPlugin = [
   'mini_css_extract_plugin',
   miniCssExtract,
 ]
-const provideAdapter: RegisteredPlugin = [
-  'provide_plugin',
-  provide,
-]
+const provideAdapter: RegisteredPlugin = ['provide_plugin', provide]
 const writeFileAdapter: RegisteredPlugin = [
   'write_file_plugin',
   writeFile,
@@ -61,7 +54,10 @@ const limitChunkAdapter: RegisteredPlugin = [
   limitChunkCount,
 ]
 
+const terserAdapter: RegisteredPlugin = ['terser', terser]
+
 const webpackAdapters: WebpackAdapters = [
+  writeFileAdapter,
   browserSyncAdapter,
   cleanAdapter,
   copyAdapter,
@@ -72,7 +68,7 @@ const webpackAdapters: WebpackAdapters = [
   manifestAdapter,
   miniCssAdapter,
   provideAdapter,
-  writeFileAdapter,
+  terserAdapter,
   limitChunkAdapter,
 ]
 

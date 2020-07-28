@@ -1,3 +1,4 @@
+/// <reference types="webpack-dev-server" />
 import type { Configuration as WebpackConfig } from 'webpack';
 import type { Bud } from '../bud/types';
 export type { RegisteredPlugin } from '../bud/plugin/types';

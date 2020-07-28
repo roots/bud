@@ -24,13 +24,11 @@ const babel: BabelConfiguration = configs.babel
   : babelFallback
 
 const browserSync: Object = {
-  host: env?.BROWSERSYNC_HOST
-    ? env.BROWSERSYNC_HOST
-    : 'localhost',
+  host: env?.BROWSERSYNC_HOST ? env.BROWSERSYNC_HOST : 'localhost',
   port: env?.BROWSERSYNC_PORT ? env.BROWSERSYNC_PORT : 3000,
-  proxy: env?.BROWSERSYNC_PROXY
-    ? env.BROWSERSYNC_PROXY
-    : null,
+  proxy: env?.BROWSERSYNC_PROXY ? env.BROWSERSYNC_PROXY : null,
+  online: false,
+  open: false,
 }
 
 const copy: Copy = {patterns: []}
@@ -43,28 +41,21 @@ const dependencyManifest: WordPressDependenciesOptions = {
   useDefaults: true,
 }
 
+const watch: string[] = []
+
 const dev: Dev = {
-  clientLogLevel: 'none',
-  compress: true,
   disableHostCheck: true,
-  headers: {
-    'Access-Control-Allow-Origin': '*',
-  },
-  historyApiFallback: true,
-  hotOnly: true,
-  injectHot: true,
-  open: false,
-  overlay: true,
-  watchOptions: {
-    aggregateTimeout: 300,
-  },
+  host: 'localhost',
+  headers: {},
+  proxy: {},
 }
 
-const externals: Externals = {}
+const externals: Externals = null
 
 const postCssFallback: PostCssConfiguration = {
   plugins: [],
 }
+
 const postCss: PostCssConfiguration = configs.postCss
   ? require(configs.postCss)
   : postCssFallback
@@ -81,42 +72,28 @@ const vendor: Vendor = {name: 'vendor'}
  * Options container.
  */
 const options: Options = {
-  alias: {},
+  alias: null,
   babel,
   postCss,
   typescript,
-  svg: {
-    use: [
-      require.resolve('@svgr/webpack'),
-      require.resolve('url-loader'),
-    ],
-  },
   auto,
   browserSync,
   copy,
   dev,
   dependencyManifest,
-  devtool: 'cheap-module-source-map',
+  devtool: 'source-map',
   entry: {},
-  env: env,
+  env,
   externals,
   inlineManifest: {
     name: 'runtime',
   },
-  node: {
-    module: 'empty',
-    dgram: 'empty',
-    dns: 'mock',
-    fs: 'empty',
-    http2: 'empty',
-    net: 'empty',
-    tls: 'empty',
-    child_process: 'empty',
-  },
+  node: {},
   splitting: {
     maxChunks: null,
   },
   target,
+  terser: {},
   uglify: {
     cache: true,
     chunkFilter: ({name}) => name === 'vendor',
@@ -133,6 +110,7 @@ const options: Options = {
     },
   },
   vendor,
+  watch,
 }
 
 export {options}

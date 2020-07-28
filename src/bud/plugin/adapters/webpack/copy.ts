@@ -2,7 +2,7 @@ import CopyWebpackPlugin from 'copy-webpack-plugin'
 import type {WebpackAdapter} from './types'
 
 const copy: WebpackAdapter = () => ({
-  setOptions: function () {
+  mergeOptions: function () {
     if (this.bud.state.options.copy.patterns.length > 0) {
       return this.bud.state.options.copy
     }

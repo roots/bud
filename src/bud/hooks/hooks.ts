@@ -1,3 +1,5 @@
+import type {Hook, Hooks} from './types'
+
 /**
  * ## bud.hooks
  *
@@ -24,7 +26,10 @@ const hooks: Hooks = {
   /**
    * Make a bud hook
    */
-  make: (fn = () => null) => ({fn, fired: false}),
+  make: (fn = () => null): Hook => ({
+    fn,
+    fired: false,
+  }),
 
   /**
    * Get all bud hook entries.
@@ -60,5 +65,3 @@ const hooks: Hooks = {
 }
 
 export {hooks}
-
-import type {Hooks} from './types'

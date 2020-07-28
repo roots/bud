@@ -12,9 +12,7 @@ import type {Bud, Translate} from './Types'
  * bud.translate('resources/languages/sage.pot')
  * ```
  */
-const translate: Translate = function (
-  output: string,
-): Bud {
+const translate: Translate = function (output: string): Bud {
   this.state.features.translate = output ? true : false
 
   this.state.features.translate &&
@@ -23,10 +21,7 @@ const translate: Translate = function (
         ...this.state.options.babel,
         plugins: [
           ...this.state.options.babel.plugins,
-          [
-            require('@wordpress/babel-plugin-makepot'),
-            {output},
-          ],
+          [require('@wordpress/babel-plugin-makepot'), {output}],
         ],
       }
     })()

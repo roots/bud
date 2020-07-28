@@ -9,17 +9,9 @@ import type {Bud, Vendor} from './Types'
  * bud.vendor('vendor')
  * ```
  */
-const vendor: Vendor = function (
-  this: Bud,
-  name: string = 'vendor',
-) {
-  if (this.state?.features?.vendor) {
-    this.state.features.vendor = true
-  }
-
-  if (this.state?.options?.vendor) {
-    this.state.options.vendor.name = name
-  }
+const vendor: Vendor = function (this: Bud, name: string) {
+  this.state.features.vendor = true
+  this.state.options.vendor.name = name ?? 'vendor'
 
   return this
 }

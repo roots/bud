@@ -10,8 +10,10 @@ import type {Dist} from './types'
  * bud.dist('scripts/app.js')
  * ```
  */
-const dist: Dist = function (relativePath: string): string {
-  return join(this.state.paths.dist, relativePath)
+const dist: Dist = function (path?: string): string {
+  return path
+    ? join(this.state.paths.dist, path)
+    : this.state.paths.dist
 }
 
 export {dist}

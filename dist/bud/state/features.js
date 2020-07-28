@@ -1,31 +1,53 @@
 "use strict";
 exports.__esModule = true;
 exports.features = void 0;
-var mode_1 = require("./../mode");
+var configs_1 = require("./configs");
 /**
  * Features
  */
 var features = {
-    babel: true,
-    browserSync: !mode_1.inProduction,
-    debug: false,
+    /**
+     * Enabled by default
+     */
     dashboard: true,
+    clean: true,
+    css: true,
+    svg: true,
+    image: true,
+    font: true,
+    js: true,
+    manifest: true,
+    optimize: true,
+    terser: true,
+    vendor: true,
+    splitting: true,
+    /**
+     * Enabled by config presence
+     */
+    babel: configs_1.configs.babel ? true : false,
+    eslint: configs_1.configs.eslint ? true : false,
+    postCss: configs_1.configs.postCss ? true : false,
+    typescript: configs_1.configs.typescript ? true : false,
+    /**
+     * Opt-in
+     */
+    browserSync: false,
+    debug: false,
     dependencyManifest: false,
     dump: false,
-    eslint: true,
-    hash: mode_1.inProduction,
-    hot: !mode_1.inProduction,
+    hash: false,
+    hot: false,
     inlineManifest: false,
-    minified: mode_1.inProduction,
-    overlay: true,
-    postCss: true,
+    minify: false,
+    overlay: false,
+    scss: false,
+    cssModules: false,
+    scssModules: false,
     purge: false,
-    sourceMap: !mode_1.inProduction,
-    splitting: true,
+    sourceMap: false,
     translate: false,
-    typescript: true,
-    vendor: false,
-    watch: !mode_1.inProduction
+    uglify: false,
+    watch: false
 };
 exports.features = features;
 //# sourceMappingURL=features.js.map

@@ -8,6 +8,15 @@ const fixStyleOnlyEntries: WebpackAdapter = () => ({
   make: function () {
     return new FixStyleOnlyEntriesPlugin(this.options)
   },
+  when: function () {
+    return (
+      this.bud.featureEnabled('css') ||
+      this.bud.featureEnabled('scss') ||
+      this.bud.featureEnabled('postcss') ||
+      this.bud.featureEnabled('scssModules') ||
+      this.bud.featureEnabled('cssModules')
+    )
+  },
 })
 
 export {fixStyleOnlyEntries}

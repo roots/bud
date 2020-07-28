@@ -11,9 +11,13 @@ import type {Bud, Watch} from './types'
  */
 const watch: Watch = function (
   this: Bud,
-  enabled: boolean,
+  options: {
+    paths: string[]
+    enabled: boolean
+  },
 ): Bud {
-  this.state.features.watch = enabled
+  this.state.features.watch = options.enabled ?? true
+  this.state.options.watch = options.paths ?? []
 
   return this
 }

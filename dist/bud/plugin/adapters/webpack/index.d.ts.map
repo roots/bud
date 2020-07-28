@@ -1,1 +1,1 @@
-{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../../../src/bud/plugin/adapters/webpack/index.ts"],"names":[],"mappings":"AAYA,OAAO,KAAK,EAEV,eAAe,EAChB,MAAM,SAAS,CAAA;AAgDhB,QAAA,MAAM,eAAe,EAAE,eAatB,CAAA;AAED,OAAO,EAAC,eAAe,EAAC,CAAA"}
+{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../../../src/bud/plugin/adapters/webpack/index.ts"],"names":[],"mappings":"AAcA,OAAO,KAAK,EAAmB,eAAe,EAAC,MAAM,SAAS,CAAA;AA4C9D,QAAA,MAAM,eAAe,EAAE,eActB,CAAA;AAED,OAAO,EAAC,eAAe,EAAC,CAAA"}

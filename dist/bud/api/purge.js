@@ -39,6 +39,8 @@ exports.purge = void 0;
 var purge = function (_a) {
     var _b = _a.enabled, enabled = _b === void 0 ? true : _b, options = __rest(_a, ["enabled"]);
     if (enabled) {
+        this.state.features.purge = true;
+        this.state.features.postCss = true;
         this.state.options.postCss.plugins = __spreadArrays(this.state.options.postCss.plugins, [
             require('@fullhuman/postcss-purgecss')(options),
         ]);

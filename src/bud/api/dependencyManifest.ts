@@ -10,6 +10,7 @@ import type {Bud, DependencyManifest} from './types'
  * ```
  */
 const dependencyManifest: DependencyManifest = function (
+  this: Bud,
   settings,
 ): Bud {
   this.state.features.dependencyManifest = true

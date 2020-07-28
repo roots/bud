@@ -7,9 +7,7 @@ import type {InlineManifest, Bud} from './types'
  * bud.inlineManifest({name: 'runtime'})
  * ```
  */
-const inlineManifest: InlineManifest = function (
-  name: string,
-): Bud {
+const inlineManifest: InlineManifest = function (name: string): Bud {
   this.state.features.inlineManifest = true
 
   if (this.state.features.inlineManifest) {

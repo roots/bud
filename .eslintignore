@@ -1,4 +1,4 @@
 dist
-templates
 docs
-types
+node_modules
+.vuepress

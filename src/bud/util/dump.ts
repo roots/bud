@@ -17,7 +17,9 @@ const dump: Dump = (obj: Object) => {
 
   const prettifiedConfigString: string = format(
     normalizedConfigString,
-    {parser: 'json'},
+    {
+      parser: 'json',
+    },
   )
 
   const highlightedConfigString: string = highlight(

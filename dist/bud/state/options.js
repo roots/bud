@@ -12,11 +12,11 @@ var babel = configs_1.configs.babel
     ? require(configs_1.configs.babel)
     : babelFallback;
 var browserSync = {
-    host: (env_1.env === null || env_1.env === void 0 ? void 0 : env_1.env.BROWSERSYNC_HOST) ? env_1.env.BROWSERSYNC_HOST
-        : 'localhost',
+    host: (env_1.env === null || env_1.env === void 0 ? void 0 : env_1.env.BROWSERSYNC_HOST) ? env_1.env.BROWSERSYNC_HOST : 'localhost',
     port: (env_1.env === null || env_1.env === void 0 ? void 0 : env_1.env.BROWSERSYNC_PORT) ? env_1.env.BROWSERSYNC_PORT : 3000,
-    proxy: (env_1.env === null || env_1.env === void 0 ? void 0 : env_1.env.BROWSERSYNC_PROXY) ? env_1.env.BROWSERSYNC_PROXY
-        : null
+    proxy: (env_1.env === null || env_1.env === void 0 ? void 0 : env_1.env.BROWSERSYNC_PROXY) ? env_1.env.BROWSERSYNC_PROXY : null,
+    online: false,
+    open: false
 };
 var copy = { patterns: [] };
 var dependencyManifest = {
@@ -26,23 +26,14 @@ var dependencyManifest = {
     outputFormat: 'json',
     useDefaults: true
 };
+var watch = [];
 var dev = {
-    clientLogLevel: 'none',
-    compress: true,
     disableHostCheck: true,
-    headers: {
-        'Access-Control-Allow-Origin': '*'
-    },
-    historyApiFallback: true,
-    hotOnly: true,
-    injectHot: true,
-    open: false,
-    overlay: true,
-    watchOptions: {
-        aggregateTimeout: 300
-    }
+    host: 'localhost',
+    headers: {},
+    proxy: {}
 };
-var externals = {};
+var externals = null;
 var postCssFallback = {
     plugins: []
 };
@@ -58,42 +49,28 @@ var vendor = { name: 'vendor' };
  * Options container.
  */
 var options = {
-    alias: {},
+    alias: null,
     babel: babel,
     postCss: postCss,
     typescript: typescript,
-    svg: {
-        use: [
-            require.resolve('@svgr/webpack'),
-            require.resolve('url-loader'),
-        ]
-    },
     auto: auto,
     browserSync: browserSync,
     copy: copy,
     dev: dev,
     dependencyManifest: dependencyManifest,
-    devtool: 'cheap-module-source-map',
+    devtool: 'source-map',
     entry: {},
     env: env_1.env,
     externals: externals,
     inlineManifest: {
         name: 'runtime'
     },
-    node: {
-        module: 'empty',
-        dgram: 'empty',
-        dns: 'mock',
-        fs: 'empty',
-        http2: 'empty',
-        net: 'empty',
-        tls: 'empty',
-        child_process: 'empty'
-    },
+    node: {},
     splitting: {
         maxChunks: null
     },
     target: target,
+    terser: {},
     uglify: {
         cache: true,
         chunkFilter: function (_a) {
@@ -112,7 +89,8 @@ var options = {
             }
         }
     },
-    vendor: vendor
+    vendor: vendor,
+    watch: watch
 };
 exports.options = options;
 //# sourceMappingURL=options.js.map

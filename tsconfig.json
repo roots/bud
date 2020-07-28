@@ -8,9 +8,8 @@
     "declarationMap": true,
     "sourceMap": true,
     "module": "commonjs",
-    "outDir": "dist",
-    "jsx": "preserve"
+    "outDir": "dist"
   },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist", "test", "preset"]
+  "include": ["src/*.ts", "src/**/*.ts"],
+  "exclude": ["node_modules"]
 }

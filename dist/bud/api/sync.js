@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 exports.__esModule = true;
 exports.sync = void 0;
 /**
@@ -16,14 +27,9 @@ exports.sync = void 0;
  * ```
  */
 var sync = function (_a) {
-    var enabled = _a.enabled, options = _a.options;
-    this.state.features.browserSync =
-        enabled || !this.inProduction;
-    this.state.options.browserSync = {
-        host: options.host ? options.host : 'localhost',
-        port: options.port ? options.port : 3000,
-        proxy: options.proxy ? options.proxy : null
-    };
+    var _b = _a.enabled, enabled = _b === void 0 ? true : _b, options = _a.options;
+    this.state.features.browserSync = enabled;
+    this.state.options.browserSync = __assign(__assign({}, this.state.options.browserSync), options);
     return this;
 };
 exports.sync = sync;

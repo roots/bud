@@ -6,7 +6,7 @@ exports.__esModule = true;
 exports.copy = void 0;
 var copy_webpack_plugin_1 = __importDefault(require("copy-webpack-plugin"));
 var copy = function () { return ({
-    setOptions: function () {
+    mergeOptions: function () {
         if (this.bud.state.options.copy.patterns.length > 0) {
             return this.bud.state.options.copy;
         }

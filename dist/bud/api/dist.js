@@ -11,8 +11,10 @@ var path_1 = require("path");
  * bud.dist('scripts/app.js')
  * ```
  */
-var dist = function (relativePath) {
-    return path_1.join(this.state.paths.dist, relativePath);
+var dist = function (path) {
+    return path
+        ? path_1.join(this.state.paths.dist, path)
+        : this.state.paths.dist;
 };
 exports.dist = dist;
 //# sourceMappingURL=dist.js.map

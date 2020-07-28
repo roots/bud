@@ -9,10 +9,7 @@ const projectDir: Directory = process.cwd()
 /**
  * Bud framework dir.
  */
-const frameworkDir: Directory = resolve(
-  __dirname,
-  './../../../',
-)
+const frameworkDir: Directory = resolve(__dirname, './../../../')
 
 /**
  * Path references.

@@ -1,4 +1,5 @@
-export { Bud } from './../types';
+import { Bud } from './../types';
+export type { Bud };
 export declare type Dump = (obj: Object) => void;
 export declare type Except = Function;
 export declare type ShortCircuit = () => any;
@@ -14,5 +15,6 @@ export declare type Util = {
     shortCircuit: ShortCircuit;
     fab: Fab;
     terminate: (any: any) => void;
+    setProcess: (bud: Bud) => void;
 };
 //# sourceMappingURL=types.d.ts.map

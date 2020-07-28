@@ -2,14 +2,14 @@ import DependencyExtractionPlugin from '@wordpress/dependency-extraction-webpack
 import type {WebpackAdapter} from './types'
 
 const dependencyExtraction: WebpackAdapter = () => ({
-  setOptions: function () {
+  mergeOptions: function () {
     return this.bud.state.options.dependencyManifest
   },
   make: function () {
     return new DependencyExtractionPlugin(this.options)
   },
   when: function () {
-    return this.bud.state.features.dependencyManifest
+    return this.bud.featureEnabled('dependencyManifest')
   },
 })
 

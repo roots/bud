@@ -9,10 +9,7 @@ import type {Bud, Dashboard} from './types'
  * bud.dashboard(false) // disable dashboard
  * ```
  */
-const dashboard: Dashboard = function (
-  this: Bud,
-  enabled: boolean,
-) {
+const dashboard: Dashboard = function (this: Bud, enabled: boolean) {
   this.state.features.dashboard = enabled
 
   return this
