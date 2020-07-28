@@ -5,6 +5,7 @@ import WDS from 'webpack-dev-server'
 
 /**
  * Dev server (for HMR / live reload)
+ *
  * @todo this is not currently implemented. Instead we're passing
  * the dev server middleware to BrowserSync. Finish implementing.
  */

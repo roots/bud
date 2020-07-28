@@ -11,13 +11,53 @@ import type {Bud} from './types'
  * Bud - asset management framework.
  */
 const bud: Bud = {
+  /**
+   * hooks
+   * @property {Hooks} hooks
+   */
   hooks,
+
+  /**
+   * util
+   * @property {Util} util
+   */
   util,
+
+  /**
+   * State
+   * @property {State} state
+   */
   state,
+
+  /**
+   * Mode
+   * @property {Mode} mode
+   */
   mode,
-  plugin,
+
+  /**
+   * inProduction
+   * True when mode is equal to "production"
+   * @property {inProduction} inProduction
+   */
   inProduction,
+
+  /**
+   * Plugin
+   * @property {Plugin} plugin
+   */
+  plugin,
+
+  /**
+   * Compiler
+   * @property {Compiler} compiler
+   */
   compiler,
+
+  /**
+   * Bud.Api methods
+   */
+
   alias: api.alias,
   auto: api.auto,
   babel: api.babel,

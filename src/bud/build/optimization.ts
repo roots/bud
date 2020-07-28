@@ -50,8 +50,13 @@ const optimization = (bud: Bud) => ({
 
   /**
    * Executes a callback if a given feature is enabled.
+   *
+   * @property {Function} whenSupported
+   * @parameter {string} bud.state.feature key
+   * @parameter {Function} callback
+   * @return {void}
    */
-  whenSupported: function (feature, callback) {
+  whenSupported: function (feature: string, callback: any): void {
     this.currentCallback = callback
     this.supports[feature] && this.currentCallback()
   },
