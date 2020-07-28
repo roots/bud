@@ -1,19 +1,12 @@
 "use strict";
+var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
+}) : (function(o, m, k, k2) {
+    if (k2 === undefined) k2 = k;
+    o[k2] = m[k];
+}));
 exports.__esModule = true;
-exports.bud = void 0;
 var bud_1 = require("./bud");
-exports.bud = bud_1.bud;
-bud_1.bud.features({
-    css: true,
-    scss: true,
-    image: false,
-    js: true,
-    manifest: true,
-    svg: true,
-    terser: true,
-    dependencyManifest: true,
-    inlineManifest: true,
-    vendor: true,
-    splitting: true
-});
+__createBinding(exports, bud_1, "bud");
 //# sourceMappingURL=index.js.map

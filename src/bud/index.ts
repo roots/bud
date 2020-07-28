@@ -4,6 +4,7 @@ import {util} from './util'
 import {plugin} from './plugin'
 import {state} from './state'
 import {inProduction, mode} from './mode'
+import {compiler} from './compiler'
 import type {Bud} from './types'
 
 /**
@@ -16,10 +17,12 @@ const bud: Bud = {
   mode,
   plugin,
   inProduction,
+  compiler,
   alias: api.alias,
   auto: api.auto,
   babel: api.babel,
   bundle: api.bundle,
+  compile: api.compile,
   copy: api.copy,
   copyAll: api.copyAll,
   dashboard: api.dashboard,
@@ -33,6 +36,7 @@ const bud: Bud = {
   env: api.env,
   featureEnabled: api.featureEnabled,
   features: api.features,
+  glob: api.glob,
   hash: api.hash,
   hot: api.hot,
   inlineManifest: api.inlineManifest,

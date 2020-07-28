@@ -25,7 +25,7 @@ const limitChunkCount: WebpackAdapter = () => ({
     return new LimitChunkCountPlugin(this.options)
   },
   when: function () {
-    return this.options
+    return this.bud.featureEnabled('optimize') && this.options
   },
 })
 

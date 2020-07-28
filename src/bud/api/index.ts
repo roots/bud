@@ -2,6 +2,7 @@ import {alias} from './alias'
 import {auto} from './auto'
 import {babel} from './babel'
 import {bundle} from './bundle'
+import {compile} from './compile'
 import {copy} from './copy'
 import {copyAll} from './copyAll'
 import {dashboard} from './dashboard'
@@ -15,6 +16,7 @@ import {dump} from './dump'
 import {env} from './env'
 import {featureEnabled} from './featureEnabled'
 import {features} from './features'
+import {glob} from './glob'
 import {hash} from './hash'
 import {hot} from './hot'
 import {inlineManifest} from './inlineManifest'
@@ -49,6 +51,7 @@ export const api = {
   auto,
   babel,
   bundle,
+  compile,
   copy,
   copyAll,
   dashboard,
@@ -62,6 +65,7 @@ export const api = {
   env,
   featureEnabled,
   features,
+  glob,
   hash,
   hot,
   inlineManifest,

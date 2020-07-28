@@ -7,6 +7,7 @@ var util_1 = require("./util");
 var plugin_1 = require("./plugin");
 var state_1 = require("./state");
 var mode_1 = require("./mode");
+var compiler_1 = require("./compiler");
 /**
  * Bud - asset management framework.
  */
@@ -17,10 +18,12 @@ var bud = {
     mode: mode_1.mode,
     plugin: plugin_1.plugin,
     inProduction: mode_1.inProduction,
+    compiler: compiler_1.compiler,
     alias: api_1.api.alias,
     auto: api_1.api.auto,
     babel: api_1.api.babel,
     bundle: api_1.api.bundle,
+    compile: api_1.api.compile,
     copy: api_1.api.copy,
     copyAll: api_1.api.copyAll,
     dashboard: api_1.api.dashboard,
@@ -34,6 +37,7 @@ var bud = {
     env: api_1.api.env,
     featureEnabled: api_1.api.featureEnabled,
     features: api_1.api.features,
+    glob: api_1.api.glob,
     hash: api_1.api.hash,
     hot: api_1.api.hot,
     inlineManifest: api_1.api.inlineManifest,

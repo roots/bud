@@ -6,6 +6,7 @@ export declare const api: {
     auto: import("./types").Auto;
     babel: import("./types").Babel;
     bundle: import("./types").Bundle;
+    compile: (this: import("./types").Bud) => void;
     copy: import("./types").Copy;
     copyAll: import("./types").Copy;
     dashboard: import("./types").Dashboard;
@@ -19,6 +20,7 @@ export declare const api: {
     env: (key: string | number) => any;
     featureEnabled: (this: import("./types").Bud, feature: string) => boolean;
     features: (this: import("./types").Bud, features: any) => import("./types").Bud;
+    glob: import("./types").Bundle;
     hash: (enabled?: boolean) => any;
     hot: (this: import("./types").Bud, options: {
         enabled: boolean;

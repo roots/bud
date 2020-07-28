@@ -3,6 +3,7 @@ import {except} from './except'
 import {fab} from './fab'
 import {shortCircuit} from './shortCircuit'
 import {terminate} from './terminate'
+import {setProcess} from './setProcess'
 import type {Util} from './types'
 
 export const util: Util = {
@@ -10,5 +11,6 @@ export const util: Util = {
   except,
   shortCircuit,
   fab,
+  setProcess,
   terminate,
 }

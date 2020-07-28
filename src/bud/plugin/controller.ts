@@ -126,9 +126,10 @@ const controller = function (bud: Bud): Controller {
     makePlugin: function (): object {
       this.doPluginHook('pre')
 
-      this.plugin = this.plugin.when() && this.plugin.make
-        ? this.plugin.make()
-        : this.bud.util.fab.undefined()
+      this.plugin =
+        this.plugin.when() && this.plugin.make
+          ? this.plugin.make()
+          : this.bud.util.fab.undefined()
 
       this.doPluginHook('post')
 

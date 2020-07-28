@@ -1,4 +1,6 @@
-export {Bud} from './../types'
+import {Bud} from './../types'
+
+export type {Bud}
 export type Dump = (obj: Object) => void
 export type Except = Function
 export type ShortCircuit = () => any
@@ -14,4 +16,5 @@ export type Util = {
   shortCircuit: ShortCircuit
   fab: Fab
   terminate: (any) => void
+  setProcess: (bud: Bud) => void
 }

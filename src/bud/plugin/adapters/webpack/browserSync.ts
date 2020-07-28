@@ -13,7 +13,8 @@ const browserSync: WebpackAdapter = () => ({
   },
   when: function (): boolean {
     return (
-      this.bud.featureEnabled('browserSync') && !this.bud.featureEnabled('hot')
+      this.bud.featureEnabled('browserSync') &&
+      !this.bud.featureEnabled('hot')
     )
   },
 })

@@ -65,17 +65,7 @@ var options = {
     inlineManifest: {
         name: 'runtime'
     },
-    node: {
-        module: 'empty',
-        dgram: 'empty',
-        dns: 'mock',
-        fs: 'empty',
-        http2: 'empty',
-        net: 'empty',
-        tls: 'empty',
-        child_process: 'empty',
-        __dirname: false
-    },
+    node: {},
     splitting: {
         maxChunks: null
     },

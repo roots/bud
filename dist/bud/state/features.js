@@ -9,12 +9,22 @@ var features = {
     /**
      * Enabled by default
      */
-    babel: true,
     dashboard: true,
+    clean: true,
+    css: true,
+    svg: true,
+    image: true,
+    font: true,
     js: true,
+    manifest: true,
+    optimize: true,
+    terser: true,
+    vendor: true,
+    splitting: true,
     /**
      * Enabled by config presence
      */
+    babel: configs_1.configs.babel ? true : false,
     eslint: configs_1.configs.eslint ? true : false,
     postCss: configs_1.configs.postCss ? true : false,
     typescript: configs_1.configs.typescript ? true : false,
@@ -22,15 +32,9 @@ var features = {
      * Opt-in
      */
     browserSync: false,
-    css: false,
     debug: false,
     dependencyManifest: false,
     dump: false,
-    font: false,
-    image: false,
-    manifest: false,
-    svg: false,
-    terser: false,
     hash: false,
     hot: false,
     inlineManifest: false,
@@ -41,10 +45,8 @@ var features = {
     scssModules: false,
     purge: false,
     sourceMap: false,
-    splitting: false,
     translate: false,
     uglify: false,
-    vendor: false,
     watch: false
 };
 exports.features = features;

@@ -8,13 +8,23 @@ const features: Features = {
   /**
    * Enabled by default
    */
-  babel: true,
   dashboard: true,
+  clean: true,
+  css: true,
+  svg: true,
+  image: true,
+  font: true,
   js: true,
+  manifest: true,
+  optimize: true,
+  terser: true,
+  vendor: true,
+  splitting: true,
 
   /**
    * Enabled by config presence
    */
+  babel: configs.babel ? true : false,
   eslint: configs.eslint ? true : false,
   postCss: configs.postCss ? true : false,
   typescript: configs.typescript ? true : false,
@@ -23,15 +33,9 @@ const features: Features = {
    * Opt-in
    */
   browserSync: false,
-  css: false,
   debug: false,
   dependencyManifest: false,
   dump: false,
-  font: false,
-  image: false,
-  manifest: false,
-  svg: false,
-  terser: false,
   hash: false,
   hot: false,
   inlineManifest: false,
@@ -42,10 +46,8 @@ const features: Features = {
   scssModules: false,
   purge: false,
   sourceMap: false,
-  splitting: false,
   translate: false,
   uglify: false,
-  vendor: false,
   watch: false,
 }
 

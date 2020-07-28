@@ -78,6 +78,7 @@ export type Vendor = {
 export type Features = {
   babel: boolean
   browserSync: boolean
+  clean: boolean
   css: boolean
   cssModules: boolean
   debug: boolean
@@ -93,6 +94,7 @@ export type Features = {
   js: boolean
   manifest: boolean
   minify: boolean
+  optimize: boolean
   overlay: boolean
   postCss: boolean
   scss: boolean

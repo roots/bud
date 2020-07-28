@@ -13,10 +13,12 @@ export declare type Bud = {
     mode: Mode;
     inProduction: Production;
     state: State;
+    compiler: any;
     alias: Api.Alias;
     auto: Api.Auto;
     babel: Api.Babel;
     bundle: Api.Bundle;
+    compile: any;
     copy: Api.Copy;
     copyAll: Api.Copy;
     dashboard: Api.Dashboard;
@@ -30,6 +32,7 @@ export declare type Bud = {
     env: any;
     featureEnabled: any;
     features: any;
+    glob: any;
     hash: any;
     hot: any;
     inlineManifest: Api.InlineManifest;

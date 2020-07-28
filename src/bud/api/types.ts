@@ -13,7 +13,7 @@ export type Debug = (enabled: boolean) => any
 export type DependencyManifest = (settings?: object) => Bud
 export type Dev = (options: object) => Bud
 export type Devtool = (devtool: string) => Bud
-export type Dist = (relativePath: string) => string
+export type Dist = (path?: string) => string
 export type DistPath = (src: string) => Bud
 export type InlineManifest = (name?: string) => Bud
 export type Mini = (enabled?: boolean) => Bud
@@ -21,14 +21,14 @@ export type PostCss = (options?: {
   enabled?: boolean
   plugins?: any[]
 }) => Bud
-export type Preset = (relativePath: string) => any
-export type Project = (relativePath: string) => string
-export type ProjectPath = (relativePath: string) => Bud
+export type Preset = (path?: string) => any
+export type Project = (path?: string) => string
+export type ProjectPath = (path: string) => Bud
 export type Purge = (any) => Bud
 export type Resolve = (moduleName: string) => string
 export type Register = (name: string, plugin: any) => Bud
 export type SourceMap = (enabled?: boolean) => Bud
-export type Src = (relativePath: string) => string
+export type Src = (path?: string) => string
 
 /**
  * ## bud.srcPath
@@ -54,6 +54,7 @@ export type Api = {
   auto: Auto
   babel: Babel
   bundle: Bundle
+  compile: any
   copy: Copy
   copyAll: Copy
   dashboard: Dashboard

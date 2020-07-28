@@ -11,9 +11,10 @@ var path_1 = require("path");
  * bud.src('scripts/app.js') // absolute path to the source file
  * ```
  */
-var src = function (relativePath) {
-    if (relativePath === void 0) { relativePath = ''; }
-    return path_1.join(this.state.paths.src, relativePath);
+var src = function (path) {
+    return path
+        ? path_1.join(this.state.paths.src, path)
+        : this.state.paths.src;
 };
 exports.src = src;
 //# sourceMappingURL=src.js.map

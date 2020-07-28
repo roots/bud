@@ -75,6 +75,7 @@ export declare type Vendor = {
 export declare type Features = {
     babel: boolean;
     browserSync: boolean;
+    clean: boolean;
     css: boolean;
     cssModules: boolean;
     debug: boolean;
@@ -90,6 +91,7 @@ export declare type Features = {
     js: boolean;
     manifest: boolean;
     minify: boolean;
+    optimize: boolean;
     overlay: boolean;
     postCss: boolean;
     scss: boolean;

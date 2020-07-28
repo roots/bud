@@ -5,6 +5,7 @@ var alias_1 = require("./alias");
 var auto_1 = require("./auto");
 var babel_1 = require("./babel");
 var bundle_1 = require("./bundle");
+var compile_1 = require("./compile");
 var copy_1 = require("./copy");
 var copyAll_1 = require("./copyAll");
 var dashboard_1 = require("./dashboard");
@@ -18,6 +19,7 @@ var dump_1 = require("./dump");
 var env_1 = require("./env");
 var featureEnabled_1 = require("./featureEnabled");
 var features_1 = require("./features");
+var glob_1 = require("./glob");
 var hash_1 = require("./hash");
 var hot_1 = require("./hot");
 var inlineManifest_1 = require("./inlineManifest");
@@ -51,6 +53,7 @@ exports.api = {
     auto: auto_1.auto,
     babel: babel_1.babel,
     bundle: bundle_1.bundle,
+    compile: compile_1.compile,
     copy: copy_1.copy,
     copyAll: copyAll_1.copyAll,
     dashboard: dashboard_1.dashboard,
@@ -64,6 +67,7 @@ exports.api = {
     env: env_1.env,
     featureEnabled: featureEnabled_1.featureEnabled,
     features: features_1.features,
+    glob: glob_1.glob,
     hash: hash_1.hash,
     hot: hot_1.hot,
     inlineManifest: inlineManifest_1.inlineManifest,
