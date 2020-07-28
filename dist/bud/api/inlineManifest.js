@@ -12,13 +12,6 @@ var __assign = (this && this.__assign) || function () {
 };
 exports.__esModule = true;
 exports.inlineManifest = void 0;
-/**
- * Inline common scripts.
- *
- * ```js
- * bud.inlineManifest({name: 'runtime'})
- * ```
- */
 var inlineManifest = function (name) {
     this.state.features.inlineManifest = true;
     if (this.state.features.inlineManifest) {

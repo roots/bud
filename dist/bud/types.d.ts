@@ -202,7 +202,6 @@ declare type Bud = {
      * @property {Api.Dashboard} dashboard
      */
     dashboard: Api.Dashboard;
-    debug: Api.Debug;
     dependencyManifest: Api.DependencyManifest;
     dev: Api.Dev;
     devtool: Api.Devtool;
@@ -261,8 +260,44 @@ declare type Bud = {
      * @property {Api.Hash} hash
      */
     hash: Api.Hash;
-    hot: any;
+    /**
+     * ## bud.hot
+     *
+     * Enable or disable hot module reloading
+     *
+     * ```js
+     * bud.hot({
+     *  enabled: !bud.inProduction,
+     *  host: 'bud-sandbox.valet',
+     *  open: true,
+     *  secure: false,
+     * })
+     * ```
+     *
+     * @property {Api.Hot} hot
+     */
+    hot: Api.Hot;
+    /**
+     * Inline common scripts.
+     *
+     * ```js
+     * bud.inlineManifest({name: 'runtime'})
+     * ```
+     *
+     * @property {Api.InlineManifest} inlineManifest
+     */
     inlineManifest: Api.InlineManifest;
+    /**
+      * ## bud.map
+      *
+      * Enable or disable source-maps
+      *
+      * ```js
+      * bud.map(true)
+      * ```
+      *
+      * @property {Api.SourceMap} map
+      */
     map: Api.SourceMap;
     mini: Api.Mini;
     option: any;
@@ -300,12 +335,59 @@ declare type Bud = {
      * @property {Api.SrcPath} srcPath
      */
     srcPath: Api.SrcPath;
+    /**
+     * ## bud.sync
+     *
+     * Configure BrowserSync.
+     *
+     * ```js
+     * bud.sync({
+     *   enabled: !bud.inProduction,
+     *   proxy: 'http://bud.test',
+     *   host: 'localhost',
+     *   port: 3000,
+     * })
+     * ```
+     *
+     * @property {Api.Sync} sync
+     */
     sync: Api.Sync;
     target: Api.Target;
     terser: any;
     translate: Api.Translate;
     vendor: Api.Vendor;
+    /**
+     * ## bud.watch
+     *
+     * Enable or disable watch mode.
+     *
+     * ```js
+     * bud.watch(
+     *  paths: [bud.src('assets/images')],
+     * )
+     * ```
+     *
+     * @property {Api.Watch} watch
+     */
     watch: Api.Watch;
+    /**
+     * ## bud.debug
+     *
+     * Enable or disable debug mode.
+     *
+     * ```js
+     * bud.debug()
+     * bud.debug(true)
+     * ```
+     *
+     * ```js
+     * bud.debug(false) // debug disabled
+     * ```
+     *
+     * @property {Api.Debug}
+     * @deprecated
+     */
+    debug: Api.Debug;
 };
 export { Bud };
 //# sourceMappingURL=types.d.ts.map

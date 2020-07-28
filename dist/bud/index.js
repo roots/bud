@@ -11,70 +11,16 @@ var compiler_1 = require("./compiler");
 /**
  * Bud - asset management framework.
  *
- * @type {Bud} bud
+ * @type {Bud}
  */
 var bud = {
-    /**
-     * hooks
-     *
-     * @property {Hooks} hooks
-     */
     hooks: hooks_1.hooks,
-    /**
-     * util
-     *
-     * @property {Util} util
-     */
     util: util_1.util,
-    /**
-     * State
-     *
-     * @property {State} state
-     */
     state: state_1.state,
-    /**
-     * Mode
-     *
-     * @property {Mode} mode
-     */
     mode: flags_1.mode,
-    /**
-     * inProduction
-     * True when mode is equal to "production"
-     *
-     * @property {inProduction} inProduction
-     */
     inProduction: flags_1.inProduction,
-    /**
-     * Plugin
-     *
-     * @property {Plugin} plugin
-     */
     plugin: plugin_1.plugin,
-    /**
-     * Compiler
-     *
-     * @property {Compiler} compiler
-     */
     compiler: compiler_1.compiler,
-    /**
-     * ## bud.alias
-     *
-     * Resolve modules through webpack aliases. Useful for situations that may otherwise require brittle relative paths.
-     *
-     * Having defined this alias:
-     *
-     * ```js
-     * bud.alias({'scripts': bud.src('scripts')})
-     * ```
-     *
-     * You can now reference scripts against that alias in your import statements:
-     *
-     * ```js
-     * import 'scripts/myScript' // replacing '../../myScript'
-     * ```
-     *
-     **/
     alias: api_1.api.alias,
     auto: api_1.api.auto,
     babel: api_1.api.babel,

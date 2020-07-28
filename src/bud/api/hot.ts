@@ -1,16 +1,7 @@
-import type {Bud} from './types'
+import type {Bud, Hot} from './types'
 import chokidar from 'chokidar'
 
-/**
- * ## bud.hot
- *
- * Enable or disable hot module reloading
- *
- * ```js
- * bud.hot(true) // enable HMR
- * ```
- */
-const hot = function (
+const hot: Hot = function (
   this: Bud,
   options: {
     enabled: boolean

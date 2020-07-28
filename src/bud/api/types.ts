@@ -9,14 +9,22 @@ export type Babel = (arg0: BabelProperties) => Bud
 export type Bundle = (name: string, entries: string[]) => Bud
 export type Copy = (from: string, to: string) => Bud
 export type Dashboard = (enabled: boolean) => Bud
-export type Debug = (enabled: boolean) => any
+export type Debug = (enabled?: boolean) => any
 export type DependencyManifest = (settings?: object) => Bud
 export type Dev = (options: object) => Bud
 export type Devtool = (devtool: string) => Bud
 export type Dist = (path?: string) => string
 export type DistPath = (src: string) => Bud
 export type Hash = (this: Bud, enabled?: boolean) => Bud
-
+export type Hot = (this: Bud, options: {
+  enabled: boolean
+  host: string
+  port?: number
+  watch?: string[]
+  open?: boolean
+  headers?: object
+  secure?: boolean
+}) => Bud
 export type InlineManifest = (name?: string) => Bud
 export type Mini = (enabled?: boolean) => Bud
 export type PostCss = (options?: {
@@ -30,20 +38,11 @@ export type Purge = (any) => Bud
 export type Resolve = (moduleName: string) => string
 export type Register = (name: string, plugin: any) => Bud
 export type SourceMap = (enabled?: boolean) => Bud
-export type Src = (path?: string) => string
 
-/**
- * ## bud.srcPath
- *
- * Set the project's src directory.
- *
- *  ```js
- * bud.srcPath('src') // default unless specified
- * ```
- */
+export type Src = (path?: string) => string
 export type SrcPath = (src: string) => Bud
 
-export type Sync = (arg0: SyncOptions) => Bud
+export type Sync = (options: SyncOptions) => Bud
 export type Target = (target: string) => Bud
 export type Translate = (output: string) => Bud
 export type Watch = (options: {
@@ -51,6 +50,7 @@ export type Watch = (options: {
   enabled: boolean
 }) => Bud
 export type Vendor = (name?: string) => Bud
+
 export type Api = {
   alias: Alias
   auto: Auto

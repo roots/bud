@@ -22,15 +22,7 @@ export declare const api: {
     features: (this: import("../types").Bud, features: any) => import("../types").Bud;
     glob: (this: import("../types").Bud, output: string, files: string) => import("../types").Bud;
     hash: import("./types").Hash;
-    hot: (this: import("../types").Bud, options: {
-        enabled: boolean;
-        host: string;
-        port?: number;
-        watch?: string[];
-        open?: boolean;
-        headers?: object;
-        secure?: boolean;
-    }) => import("../types").Bud;
+    hot: import("./types").Hot;
     inlineManifest: import("./types").InlineManifest;
     map: import("./types").SourceMap;
     mini: import("./types").Mini;

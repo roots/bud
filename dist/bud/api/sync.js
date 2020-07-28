@@ -12,20 +12,6 @@ var __assign = (this && this.__assign) || function () {
 };
 exports.__esModule = true;
 exports.sync = void 0;
-/**
- * ## bud.sync
- *
- * Configure BrowserSync.
- *
- * ```js
- * bud.sync({
- *   enabled: !bud.inProduction,
- *   proxy: 'http://bud.test',
- *   host: 'localhost',
- *   port: 3000,
- * })
- * ```
- */
 var sync = function (_a) {
     var _b = _a.enabled, enabled = _b === void 0 ? true : _b, options = _a.options;
     this.state.features.browserSync = enabled;

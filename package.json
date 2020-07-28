@@ -14,8 +14,12 @@
   "engines": {
     "node": ">=12"
   },
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "type": "module",
+  "exports": {
+    "bud": "./dist/index.js"
+  },
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "scripts": {
     "build": "tsc && babel src/ --out-dir=dist --extensions '.js'",
     "docs": "yarn docs:build",

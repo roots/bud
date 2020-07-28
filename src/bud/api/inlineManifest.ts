@@ -1,12 +1,5 @@
 import type {InlineManifest, Bud} from './types'
 
-/**
- * Inline common scripts.
- *
- * ```js
- * bud.inlineManifest({name: 'runtime'})
- * ```
- */
 const inlineManifest: InlineManifest = function (name: string): Bud {
   this.state.features.inlineManifest = true
 

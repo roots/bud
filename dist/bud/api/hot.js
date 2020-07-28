@@ -16,15 +16,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 exports.__esModule = true;
 exports.hot = void 0;
 var chokidar_1 = __importDefault(require("chokidar"));
-/**
- * ## bud.hot
- *
- * Enable or disable hot module reloading
- *
- * ```js
- * bud.hot(true) // enable HMR
- * ```
- */
 var hot = function (options) {
     var _a, _b, _c;
     this.state.features.hot = (_a = options.enabled) !== null && _a !== void 0 ? _a : true;

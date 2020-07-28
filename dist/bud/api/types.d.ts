@@ -10,13 +10,22 @@ export declare type Babel = (arg0: BabelProperties) => Bud;
 export declare type Bundle = (name: string, entries: string[]) => Bud;
 export declare type Copy = (from: string, to: string) => Bud;
 export declare type Dashboard = (enabled: boolean) => Bud;
-export declare type Debug = (enabled: boolean) => any;
+export declare type Debug = (enabled?: boolean) => any;
 export declare type DependencyManifest = (settings?: object) => Bud;
 export declare type Dev = (options: object) => Bud;
 export declare type Devtool = (devtool: string) => Bud;
 export declare type Dist = (path?: string) => string;
 export declare type DistPath = (src: string) => Bud;
 export declare type Hash = (this: Bud, enabled?: boolean) => Bud;
+export declare type Hot = (this: Bud, options: {
+    enabled: boolean;
+    host: string;
+    port?: number;
+    watch?: string[];
+    open?: boolean;
+    headers?: object;
+    secure?: boolean;
+}) => Bud;
 export declare type InlineManifest = (name?: string) => Bud;
 export declare type Mini = (enabled?: boolean) => Bud;
 export declare type PostCss = (options?: {
@@ -31,17 +40,8 @@ export declare type Resolve = (moduleName: string) => string;
 export declare type Register = (name: string, plugin: any) => Bud;
 export declare type SourceMap = (enabled?: boolean) => Bud;
 export declare type Src = (path?: string) => string;
-/**
- * ## bud.srcPath
- *
- * Set the project's src directory.
- *
- *  ```js
- * bud.srcPath('src') // default unless specified
- * ```
- */
 export declare type SrcPath = (src: string) => Bud;
-export declare type Sync = (arg0: SyncOptions) => Bud;
+export declare type Sync = (options: SyncOptions) => Bud;
 export declare type Target = (target: string) => Bud;
 export declare type Translate = (output: string) => Bud;
 export declare type Watch = (options: {
