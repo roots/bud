@@ -3,13 +3,18 @@ exports.__esModule = true;
 exports.plugin = void 0;
 var controller_1 = require("./controller");
 /**
- * ## plugin.register
+ * @todo this is duplicative and competes with bud.state.plugin.
+ * Only one is needed.
  *
- * Register a plugin
+ * The nice thing about this system is it separates webpack
+ * plugins from bud plugins, but also ensures that they keep
+ * the same API.
  *
- * ```js
- * bud.plugin.register('myPlugin', myPlugin)
- * ```
+ * I think the best thing to do is implement or import this system
+ * in the bud.state.plugin obj.
+ */
+/**
+ * Register a plugin.
  */
 var register = function (name, plugin) {
     var registeredPlugin = [name, plugin];
@@ -17,38 +22,20 @@ var register = function (name, plugin) {
     return this.bud;
 };
 /**
- * ## plugin.deregister
- *
  * Deregister a plugin
- *
- * ```js
- * bud.plugin.deregister('myPlugin')
- * ```
  */
 var deregister = function (name) {
     delete this.repo[0][name];
     return this.bud;
 };
 /**
- * ## plugin.all
- *
  * Get all registered plugins
- *
- * ```js
- * bud.plugin.all()
- * ```
  */
 var all = function () {
     return this.repo;
 };
 /**
- * ## plugin.get
- *
- * Get a plugin
- *
- * ```js
- * bud.plugin.get('myPlugin')
- * ```
+ * get plugin
  */
 var get = function (name) {
     return this.repo[name];
@@ -62,9 +49,10 @@ var makePluginApi = function (bud, repo) { return ({
 }); };
 /**
  * ## plugin
+ * @constructor
  *
- * ```
- * js.plugin
+ * ```js
+ * bud.plugin.init
  * ```
  */
 var plugin = {

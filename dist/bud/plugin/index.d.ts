@@ -1,9 +1,10 @@
 import { Bud } from './types';
 /**
  * ## plugin
+ * @constructor
  *
- * ```
- * js.plugin
+ * ```js
+ * bud.plugin.init
  * ```
  */
 declare const plugin: {

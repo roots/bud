@@ -7,6 +7,12 @@ exports.makeDevServer = void 0;
 var webpack_1 = __importDefault(require("webpack"));
 var chokidar_1 = __importDefault(require("chokidar"));
 var webpack_dev_server_1 = __importDefault(require("webpack-dev-server"));
+/**
+ * Dev server (for HMR / live reload)
+ *
+ * @todo this is not currently implemented. Instead we're passing
+ * the dev server middleware to BrowserSync. Finish implementing.
+ */
 var makeDevServer = function (bud, webpackConfig) {
     var wdsOptions = {
         before: function (app, server) {

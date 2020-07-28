@@ -7,9 +7,7 @@ exports.compileSafeMode = void 0;
 var webpack_1 = __importDefault(require("webpack"));
 var chalk_1 = __importDefault(require("chalk"));
 /**
- * Display stats.
- *
- * Normal-ish webpack stdout.
+ * Normal-ish webpack stdout. Used when `dashboard` feature flag is set to false.
  *
  * @param  {object} stats - webpack stats object
  * @return {void}

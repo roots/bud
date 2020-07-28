@@ -4,6 +4,12 @@ exports.features = void 0;
 var configs_1 = require("./configs");
 /**
  * Features
+ *
+ * Many API methods will opt-in a project
+ * based on usage. This is a nicer DX and is preferred.
+ *
+ * @see {Bud.Api.Features}
+ *
  */
 var features = {
     /**
@@ -21,6 +27,7 @@ var features = {
     terser: true,
     vendor: true,
     splitting: true,
+    minify: true,
     /**
      * Enabled by config presence
      */
@@ -29,16 +36,14 @@ var features = {
     postCss: configs_1.configs.postCss ? true : false,
     typescript: configs_1.configs.typescript ? true : false,
     /**
-     * Opt-in
+     * Opt-in.
      */
     browserSync: false,
-    debug: false,
     dependencyManifest: false,
     dump: false,
     hash: false,
     hot: false,
     inlineManifest: false,
-    minify: false,
     overlay: false,
     scss: false,
     cssModules: false,
@@ -47,7 +52,11 @@ var features = {
     sourceMap: false,
     translate: false,
     uglify: false,
-    watch: false
+    watch: false,
+    /**
+     * Deprecated
+     */
+    debug: false
 };
 exports.features = features;
 //# sourceMappingURL=features.js.map

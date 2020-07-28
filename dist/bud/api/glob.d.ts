@@ -1,4 +1,4 @@
-import type { Bundle } from './types';
+import type { Bud } from './types';
 /**
  * ## bud.glob
  *
@@ -11,6 +11,6 @@ import type { Bundle } from './types';
  * )
  * ```
  */
-declare const glob: Bundle;
+declare const glob: (this: Bud, output: string, files: string) => Bud;
 export { glob };
 //# sourceMappingURL=glob.d.ts.map

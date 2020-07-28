@@ -2,15 +2,6 @@
 exports.__esModule = true;
 exports.copyAll = void 0;
 var path_1 = require("path");
-/**
- * ## bud.copyAll
- *
- * Copy all files from a specified source to a specified destination.
- *
- * ```js
- * bud.copyAll(bud.src('images'), bud.dist('images'))
- * ```
- */
 var copyAll = function (from, to) {
     this.state.options.copy.patterns.push({
         from: '**/*',

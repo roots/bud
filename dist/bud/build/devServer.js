@@ -3,6 +3,7 @@ exports.__esModule = true;
 exports.devServer = void 0;
 /**
  * Dev server
+ * @param {Bud} bud
  */
 var devServer = function (bud) { return ({
     bud: bud,

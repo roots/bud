@@ -1,23 +1,6 @@
 "use strict";
 exports.__esModule = true;
 exports.hooks = void 0;
-/**
- * ## bud.hooks
- *
- * Register callback.
- *
- * ```js
- * bud.hooks.on('hookName', function(value) {
- *   doSomething(value)
- * })}
- * ```
- *
- * Invoke registered callback(s)
- *
- * ```js
- * bud.hooks.call('hookName', value)
- * ```
- */
 var hooks = {
     /**
      * Registered hooks.

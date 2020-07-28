@@ -7,6 +7,11 @@ var __createBinding = (this && this.__createBinding) || (Object.create ? (functi
     o[k2] = m[k];
 }));
 exports.__esModule = true;
+/**
+ * ## Bud - asset management framework.
+ *
+ * @const {Bud} bud
+ */
 var bud_1 = require("./bud");
 __createBinding(exports, bud_1, "bud");
 //# sourceMappingURL=index.js.map

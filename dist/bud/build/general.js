@@ -18,6 +18,10 @@ var general = function (bud) { return ({
         watch: bud.state.features.watch
     },
     make: function () {
+        /**
+         * Empty out non web globals so they aren't
+         * inadvertently used in project bundles.
+         */
         if (this.options.target == 'web') {
             this.options.node = {
                 module: 'empty',

@@ -21,9 +21,25 @@ var optimization_1 = require("./optimization");
 var output_1 = require("./output");
 var webpackResolve_1 = require("./webpackResolve");
 var plugins_1 = require("./plugins");
+/**
+ * Build - generates webpack configuration from Bud.State.
+ *
+ * @param {Bud} bud
+ * @return {BuilderController}
+ */
 var build = function (bud) { return ({
+    /**
+     * The bud container.
+     * @property {Bud} bud
+     */
     bud: bud,
+    /**
+     * The webpack config to be passed to the compiler.
+     */
     config: {},
+    /**
+     * Builders to handle different webpack concerns.
+     */
     builders: [
         ['entry', entry_1.entry],
         ['output', output_1.output],
@@ -34,14 +50,29 @@ var build = function (bud) { return ({
         ['externals', externals_1.externals],
         ['general', general_1.general],
     ],
+    /**
+     * Merge a set of configuration values into the final config.
+     *
+     * @property {Function} mergeConfig
+     * @return {void}
+     */
     mergeConfig: function (configValues) {
         this.config = __assign(__assign({}, this.config), configValues);
     },
+    /**
+     * Generate config values from a builder
+     * @property {Function} makeConfig
+     * @return {object}
+     */
     makeConfig: function () {
         var _this = this;
         this.bud.featureEnabled('optimize') &&
             this.builders.push(['optimization', optimization_1.optimization]);
+        /** Hook: pre_webpack */
         this.doHook('pre', this.bud.state.options);
+        /**
+         * Map builder output to bud.builder.config property.
+         */
         this.builders.map(function (_a) {
             var name = _a[0], builder = _a[1];
             var builderInstance = builder(_this.bud);
@@ -51,9 +82,13 @@ var build = function (bud) { return ({
             _this.mergeConfig(_this.builderOut);
             delete _this.builderOut;
         });
+        /** Hook: post_webpack */
         this.doHook('post', this.config);
         return this.config;
     },
+    /**
+     * Top level hooks.
+     */
     doHook: function (name) {
         var params = [];
         for (var _i = 1; _i < arguments.length; _i++) {
@@ -61,6 +96,10 @@ var build = function (bud) { return ({
         }
         this.bud.hooks.call(name + "_webpack", this, params);
     },
+    /**
+     * pre_{builder} hooks.
+     * @property {Function} preBuilderHook
+     */
     preBuilderHook: function (name) {
         var params = [];
         for (var _i = 1; _i < arguments.length; _i++) {
@@ -68,6 +107,10 @@ var build = function (bud) { return ({
         }
         this.bud.hooks.call("pre_" + name, params);
     },
+    /**
+     * post_{builder} hooks.
+     * @property {Function} preBuilderHook
+     */
     postBuilderHook: function (name) {
         var params = [];
         for (var _i = 1; _i < arguments.length; _i++) {

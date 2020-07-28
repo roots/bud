@@ -1,4 +1,7 @@
 import type { Bud } from './types';
+/**
+ * Webpack externals
+ */
 declare const externals: (bud: Bud) => {
     bud: Bud;
     options: {};

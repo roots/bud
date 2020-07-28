@@ -1,14 +1,5 @@
 import {Bud, Auto} from './types'
 
-/**
- * ## bud.auto
- *
- * Automatically load modules instead of needing to import them.
- *
- * ```js
- * bud.auto({jquery: ['$', 'window.jQuery']})
- * ```
- */
 const auto: Auto = function (
   this: Bud,
   options: {

@@ -14,7 +14,7 @@ const {Warnings} = require('./components/Warnings/index')
 const {DevServer} = require('./components/DevServer')
 
 /**
- * Successful build
+ * Helper: Successful build
  *
  * @prop {object} build
  * @return {boolean}

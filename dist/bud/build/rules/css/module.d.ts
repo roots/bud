@@ -1,6 +1,6 @@
 /**
  * CSS modules
- *
+ * @param {Bud} bud
  * @return {object}
  */
 declare const module: (bud: any) => {

@@ -34,10 +34,30 @@ declare const optimization: (bud: Bud) => {
     };
     uglifyOptions: any;
     make: () => any;
-    whenSupported: (feature: any, callback: any) => void;
+    /**
+     * Executes a callback if a given feature is enabled.
+     *
+     * @property {Function} whenSupported
+     * @parameter {string} bud.state.feature key
+     * @parameter {Function} callback
+     * @return {void}
+     */
+    whenSupported: (feature: string, callback: any) => void;
+    /**
+     * RuntimeChunk (inline manifest) support
+     */
     setRuntimeChunk: () => void;
+    /**
+     * Code splitting.
+     */
     setSplitChunks: () => void;
+    /**
+     * Minimization.
+     */
     setMinimizer: () => void;
+    /**
+     * Uglify (terser is implemented as a webpack plugin)
+     */
     uglify: () => UglifyJsPlugin;
     doHook: (name: any, ...params: any) => void;
 };

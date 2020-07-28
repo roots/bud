@@ -7,7 +7,7 @@ export declare type Auto = (options: {
     [key: string]: string[];
 }) => Bud;
 export declare type Babel = (arg0: BabelProperties) => Bud;
-export declare type Bundle = (name: string, entries: Object) => Bud;
+export declare type Bundle = (name: string, entries: string[]) => Bud;
 export declare type Copy = (from: string, to: string) => Bud;
 export declare type Dashboard = (enabled: boolean) => Bud;
 export declare type Debug = (enabled: boolean) => any;
@@ -16,6 +16,7 @@ export declare type Dev = (options: object) => Bud;
 export declare type Devtool = (devtool: string) => Bud;
 export declare type Dist = (path?: string) => string;
 export declare type DistPath = (src: string) => Bud;
+export declare type Hash = (this: Bud, enabled?: boolean) => Bud;
 export declare type InlineManifest = (name?: string) => Bud;
 export declare type Mini = (enabled?: boolean) => Bud;
 export declare type PostCss = (options?: {

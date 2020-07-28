@@ -6,7 +6,7 @@ import type {Options as BrowserSyncOptions} from 'browser-sync'
 export type Alias = (arg0: object) => Bud
 export type Auto = (options: {[key: string]: string[]}) => Bud
 export type Babel = (arg0: BabelProperties) => Bud
-export type Bundle = (name: string, entries: Object) => Bud
+export type Bundle = (name: string, entries: string[]) => Bud
 export type Copy = (from: string, to: string) => Bud
 export type Dashboard = (enabled: boolean) => Bud
 export type Debug = (enabled: boolean) => any
@@ -15,6 +15,8 @@ export type Dev = (options: object) => Bud
 export type Devtool = (devtool: string) => Bud
 export type Dist = (path?: string) => string
 export type DistPath = (src: string) => Bud
+export type Hash = (this: Bud, enabled?: boolean) => Bud
+
 export type InlineManifest = (name?: string) => Bud
 export type Mini = (enabled?: boolean) => Bud
 export type PostCss = (options?: {

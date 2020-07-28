@@ -44,20 +44,37 @@ var optimization = function (bud) { return ({
         this.whenSupported('minify', this.setMinimizer);
         return this.options;
     },
+    /**
+     * Executes a callback if a given feature is enabled.
+     *
+     * @property {Function} whenSupported
+     * @parameter {string} bud.state.feature key
+     * @parameter {Function} callback
+     * @return {void}
+     */
     whenSupported: function (feature, callback) {
         this.currentCallback = callback;
         this.supports[feature] && this.currentCallback();
     },
+    /**
+     * RuntimeChunk (inline manifest) support
+     */
     setRuntimeChunk: function () {
         this.doHook('pre_runtimechunk');
         this.options.optimization.runtimeChunk = this.runtimeChunkOptions;
         this.doHook('post_runtimechunk');
     },
+    /**
+     * Code splitting.
+     */
     setSplitChunks: function () {
         this.doHook('pre_splitchunks');
         this.options.optimization.splitChunks = this.splitChunksOptions;
         this.doHook('post_splitchunks');
     },
+    /**
+     * Minimization.
+     */
     setMinimizer: function () {
         this.doHook('pre_minimizer', this);
         if (!this.bud.featureEnabled('terser')) {
@@ -65,6 +82,9 @@ var optimization = function (bud) { return ({
         }
         this.doHook('post_minimizer', this);
     },
+    /**
+     * Uglify (terser is implemented as a webpack plugin)
+     */
     uglify: function () {
         this.doHook('pre_uglify', this);
         var uglify = new uglifyjs_webpack_plugin_1["default"](this.uglifyOptions);

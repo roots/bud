@@ -20,7 +20,10 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 exports.__esModule = true;
 exports.controller = void 0;
 /**
- * Plugin controller
+ * Plugin controller.
+ *
+ * @param {Bud} bud
+ * @return {Controller}
  * @this {Bud}
  */
 var controller = function (bud) {

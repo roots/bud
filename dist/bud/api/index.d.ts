@@ -6,7 +6,7 @@ export declare const api: {
     auto: import("./types").Auto;
     babel: import("./types").Babel;
     bundle: import("./types").Bundle;
-    compile: (this: import("./types").Bud) => void;
+    compile: (this: import("../types").Bud) => void;
     copy: import("./types").Copy;
     copyAll: import("./types").Copy;
     dashboard: import("./types").Dashboard;
@@ -16,13 +16,13 @@ export declare const api: {
     devtool: import("./types").Devtool;
     dist: import("./types").Dist;
     distPath: import("./types").DistPath;
-    dump: (enabled?: boolean) => import("./types").Bud;
+    dump: (enabled?: boolean) => import("../types").Bud;
     env: (key: string | number) => any;
-    featureEnabled: (this: import("./types").Bud, feature: string) => boolean;
-    features: (this: import("./types").Bud, features: any) => import("./types").Bud;
-    glob: import("./types").Bundle;
-    hash: (enabled?: boolean) => any;
-    hot: (this: import("./types").Bud, options: {
+    featureEnabled: (this: import("../types").Bud, feature: string) => boolean;
+    features: (this: import("../types").Bud, features: any) => import("../types").Bud;
+    glob: (this: import("../types").Bud, output: string, files: string) => import("../types").Bud;
+    hash: import("./types").Hash;
+    hot: (this: import("../types").Bud, options: {
         enabled: boolean;
         host: string;
         port?: number;
@@ -30,7 +30,7 @@ export declare const api: {
         open?: boolean;
         headers?: object;
         secure?: boolean;
-    }) => import("./types").Bud;
+    }) => import("../types").Bud;
     inlineManifest: import("./types").InlineManifest;
     map: import("./types").SourceMap;
     mini: import("./types").Mini;
@@ -38,16 +38,16 @@ export declare const api: {
     postCss: import("./types").PostCss;
     preset: import("./types").Preset;
     project: (relativePath: string) => string;
-    projectPath: (dir: string) => import("./types").Bud;
-    proxy: (this: import("./types").Bud, { host, ssl }: {
+    projectPath: (dir: string) => import("../types").Bud;
+    proxy: (this: import("../types").Bud, { host, ssl }: {
         host: any;
         ssl?: boolean;
-    }) => import("./types").Bud;
-    publicPath: (dir: string) => import("./types").Bud;
+    }) => import("../types").Bud;
+    publicPath: (dir: string) => import("../types").Bud;
     purge: import("./types").Purge;
     resolve: import("./types").Resolve;
-    scss: (enabled: boolean) => import("./types").Bud;
-    setEnv: (options: any) => import("./types").Bud;
+    scss: (enabled: boolean) => import("../types").Bud;
+    setEnv: (options: any) => import("../types").Bud;
     splitting: Function;
     src: import("./types").Src;
     srcPath: import("./types").SrcPath;
@@ -56,7 +56,7 @@ export declare const api: {
     terser: (options: {
         enable: boolean;
         terser: object;
-    }) => import("./types").Bud;
+    }) => import("../types").Bud;
     translate: import("./types").Translate;
     vendor: import("./types").Vendor;
     watch: import("./types").Watch;

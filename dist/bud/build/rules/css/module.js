@@ -7,7 +7,7 @@ var postCss_1 = require("../use/postCss");
 var resolveUrl_1 = require("../use/resolveUrl");
 /**
  * CSS modules
- *
+ * @param {Bud} bud
  * @return {object}
  */
 var module = function (bud) { return ({

@@ -5,7 +5,8 @@ var path_1 = require("path");
 /**
  * Webpack resolvers.
  *
- * @param {object}
+ * @param {Bud} bud
+ * @return {object}
  */
 var webpackResolve = function (bud) { return ({
     bud: bud,

@@ -8,6 +8,9 @@ var webpack_1 = __importDefault(require("webpack"));
 var react_1 = __importDefault(require("react"));
 var ink_1 = require("ink");
 var Runner_1 = require("./Runner");
+/**
+ * Inject webpack middleware on all entrypoints.
+ */
 var injectHot = function (webpackConfig) {
     var client = 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true&overlay=true';
     Object.keys(webpackConfig.entry).forEach(function (entry) {

@@ -1,6 +1,7 @@
 import type { Bud } from './types';
 /**
  * Dev server
+ * @param {Bud} bud
  */
 declare const devServer: (bud: Bud) => {
     bud: Bud;

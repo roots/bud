@@ -2,13 +2,19 @@ import {controller} from './controller'
 import {Bud} from './types'
 
 /**
- * ## plugin.register
+ * @todo this is duplicative and competes with bud.state.plugin.
+ * Only one is needed.
  *
- * Register a plugin
+ * The nice thing about this system is it separates webpack
+ * plugins from bud plugins, but also ensures that they keep
+ * the same API.
  *
- * ```js
- * bud.plugin.register('myPlugin', myPlugin)
- * ```
+ * I think the best thing to do is implement or import this system
+ * in the bud.state.plugin obj.
+ */
+
+/**
+ * Register a plugin.
  */
 const register = function (name: string, plugin: any) {
   const registeredPlugin = [name, plugin]
@@ -18,13 +24,7 @@ const register = function (name: string, plugin: any) {
 }
 
 /**
- * ## plugin.deregister
- *
  * Deregister a plugin
- *
- * ```js
- * bud.plugin.deregister('myPlugin')
- * ```
  */
 const deregister = function (name: string) {
   delete this.repo[0][name]
@@ -32,32 +32,21 @@ const deregister = function (name: string) {
 }
 
 /**
- * ## plugin.all
- *
  * Get all registered plugins
- *
- * ```js
- * bud.plugin.all()
- * ```
  */
 const all = function () {
   return this.repo
 }
 
 /**
- * ## plugin.get
- *
- * Get a plugin
- *
- * ```js
- * bud.plugin.get('myPlugin')
- * ```
+ * get plugin
  */
 const get = function (name: string) {
   return this.repo[name]
 }
 
-const makePluginApi = (bud, repo) => ({
+
+const makePluginApi = (bud: Bud, repo) => ({
   repo,
   register,
   deregister,
@@ -67,9 +56,10 @@ const makePluginApi = (bud, repo) => ({
 
 /**
  * ## plugin
+ * @constructor
  *
- * ```
- * js.plugin
+ * ```js
+ * bud.plugin.init
  * ```
  */
 const plugin = {

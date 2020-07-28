@@ -1,7 +1,8 @@
 /**
  * Webpack resolvers.
  *
- * @param {object}
+ * @param {Bud} bud
+ * @return {object}
  */
 declare const webpackResolve: (bud: any) => {
     bud: any;

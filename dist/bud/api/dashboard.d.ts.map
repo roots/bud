@@ -1,1 +1,1 @@
-{"version":3,"file":"dashboard.d.ts","sourceRoot":"","sources":["../../../src/bud/api/dashboard.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAM,SAAS,EAAC,MAAM,SAAS,CAAA;AAE3C;;;;;;;;GAQG;AACH,QAAA,MAAM,SAAS,EAAE,SAIhB,CAAA;AAED,OAAO,EAAC,SAAS,EAAC,CAAA"}
+{"version":3,"file":"dashboard.d.ts","sourceRoot":"","sources":["../../../src/bud/api/dashboard.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAM,SAAS,EAAC,MAAM,SAAS,CAAA;AAE3C,QAAA,MAAM,SAAS,EAAE,SAIhB,CAAA;AAED,OAAO,EAAC,SAAS,EAAC,CAAA"}

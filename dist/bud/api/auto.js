@@ -12,15 +12,6 @@ var __assign = (this && this.__assign) || function () {
 };
 exports.__esModule = true;
 exports.auto = void 0;
-/**
- * ## bud.auto
- *
- * Automatically load modules instead of needing to import them.
- *
- * ```js
- * bud.auto({jquery: ['$', 'window.jQuery']})
- * ```
- */
 var auto = function (options) {
     var _this = this;
     Object.entries(options).forEach(function (_a) {

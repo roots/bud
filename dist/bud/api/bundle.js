@@ -12,18 +12,6 @@ var __assign = (this && this.__assign) || function () {
 };
 exports.__esModule = true;
 exports.bundle = void 0;
-/**
- * ## bud.bundle
- *
- * Compile a group of assets.
- *
- * ```js
- * bud.bundle('app', [
- *   bud.src('app.js'),
- *   bud.src('app.css'),
- * ])
- * ```
- */
 var bundle = function (name, entries) {
     var _a;
     this.state.options.entry = __assign(__assign({}, this.state.options.entry), (_a = {}, _a["" + name] = entries, _a));

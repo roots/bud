@@ -18,6 +18,7 @@ var postCss_1 = require("../use/postCss");
 var resolveUrl_1 = require("../use/resolveUrl");
 /**
  * Css
+ * @param {Bud} bud
  * @return {object}
  */
 var css = function (bud) { return ({

@@ -6,34 +6,261 @@ import type { Util } from './util/types';
 import type * as Api from './api/types';
 export declare type Mode = Configuration['mode'];
 export declare type Production = boolean;
-export declare type Bud = {
+/**
+ * ## Bud - asset management framework.
+ *
+ * @typedef {Bud}
+ */
+declare type Bud = {
+    /**
+     * ## bud.hooks
+     *
+     * Register callback functions to be executed at various
+     * stages of Bud's lifecycle.
+     *
+     * Register a callback:
+     *
+     * ```js
+     * bud.hooks.on(
+     *  'hookName',
+     *  function(value) {
+     *   doSomething(value)
+     *  }
+     * )
+     * ```
+     *
+     * Invoke registered callback(s):
+     *
+     * ```js
+     * bud.hooks.call('hookName', value)
+     * ```
+     *
+     * @type {Hooks} hooks
+     */
     hooks: Hooks;
+    /**
+     * ## bud.util
+     *
+     * Helper functions.
+     *
+     * @type {Util} util
+     */
     util: Util;
+    /**
+     * ## bud.plugin
+     *
+     * Bud framework plugins and webpack adapters.
+     *
+     * @type {any} plugin
+     */
     plugin: any;
+    /**
+     * ## bud.mode
+     *
+     * Current build environment ('production', 'development', 'none')
+     *
+     * @type {Configuration['mode']} mode
+     */
     mode: Mode;
+    /**
+     * ## bud.inProduction
+     *
+     * Boolean returning true if in production.
+     *
+     * @type {boolean} mode
+     */
     inProduction: Production;
+    /**
+     * ## bud.state
+     *
+     * Contains the current state of the configuration Bud will build.
+     *
+     * @type {State} state
+     */
     state: State;
+    /**
+    * ## bud.compiler
+    *
+    * The compiler function which carries out the final build.
+    *
+    * @type {any} compiler
+    */
     compiler: any;
+    /**
+     * ## bud.alias
+     *
+     * Resolve modules through webpack aliases. Useful for situations that may otherwise require brittle relative paths.
+     *
+     * Having defined this alias:
+     *
+     * ```js
+     * bud.alias({'scripts': bud.src('scripts')})
+     * ```
+     *
+     * You can now reference scripts against that alias in your import statements:
+     *
+     * ```js
+     * import 'scripts/myScript' // replacing '../../myScript'
+     * ```
+     *
+     * @property {Api.Alias} alias
+     **/
     alias: Api.Alias;
+    /**
+     * ## bud.auto
+     *
+     * Automatically load modules instead of needing to import them.
+     *
+     * ```js
+     * bud.auto({jquery: ['$', 'window.jQuery']})
+     * ```
+     *
+     * @property {Api.Auto} auto
+     */
     auto: Api.Auto;
+    /**
+     * ## bud.babel
+     *
+     * Configure Babel.
+     *
+     * If you prefer, you may utilize a `babel.config.js` file in the project root,
+     * either alongside or in lieue of this configuration.
+     *
+     * Conflicts between supplied configs will be resolved in favor of bud.config.js.
+     *
+     * @see https://babeljs.io/docs/en/configuration
+     *
+     * @property {Api.Babel} babel
+     */
     babel: Api.Babel;
+    /**
+     * ## bud.bundle
+     *
+     * Compile a group of assets.
+     *
+     * ```js
+     * bud.bundle('app', [
+     *   bud.src('app.js'),
+     *   bud.src('app.css'),
+     * ])
+     * ```
+     *
+     * @property {Api.Bundle} bundle
+     */
     bundle: Api.Bundle;
+    /**
+     * ## bud.compile
+     *
+     * Compile finalized webpack configuration and run build.
+     *
+     * ```
+     * bud.compile()
+     * ```
+     *
+     * @property {(): void} compile
+     */
     compile: any;
+    /**
+     * ## bud.copy
+     *
+     * Copy a file.
+     *
+     * ```js
+     * bud.copy(
+     *   bud.src('images/image.png'),
+     *   bud.dist('image.png'),
+     * )
+     * ```
+     *
+     * @property {Api.Copy} copy
+     */
     copy: Api.Copy;
+    /**
+     * ## bud.copyAll
+     *
+     * Copy all files from a specified source to a specified destination.
+     *
+     * ```js
+     * bud.copyAll(
+     *  bud.src('images'),
+     *  bud.dist('images')
+     * )
+     * ```
+     *
+     * @property {Api.CopyAll} copyAll
+     */
     copyAll: Api.Copy;
+    /**
+     * ## bud.dashboard
+     *
+     * Enable or disable the Bud dashboard.
+     *
+     * ```js
+     * bud.dashboard(false)
+     * ```
+     *
+     * @property {Api.Dashboard} dashboard
+     */
     dashboard: Api.Dashboard;
     debug: Api.Debug;
     dependencyManifest: Api.DependencyManifest;
     dev: Api.Dev;
     devtool: Api.Devtool;
+    /**
+     * ## bud.dist
+     *
+     * Yield an absolute path from a path relative to the dist dir.
+     *
+     * ```js
+     * bud.dist('scripts/app.js')
+     * ```
+     *
+     * @property {Api.Dist} dist
+     */
     dist: Api.Dist;
+    /**
+     * ## bud.distPath
+     *
+     * Set the project's dist directory.
+     *
+     *  ```js
+     * bud.distPath('dist')
+     * ```
+     *
+     * @property {Api.DistPath} distPath
+     */
     distPath: Api.DistPath;
     dump: any;
     env: any;
     featureEnabled: any;
     features: any;
+    /**
+     * ## bud.glob
+     *
+     * Compile assets into a particular directory.
+     *
+     * ```js
+     * bud.bundlePath(
+     *  bud.dist('scripts'),
+     *  [bud.src('scripts')],
+     * )
+     * ```
+     *
+     * @property {(): Bud} glob
+     */
     glob: any;
-    hash: any;
+    /**
+     * ## bud.hash
+     *
+     * Enable or disable filename hashing of built assets. Unless specified, filename hashes will be created when running production builds.
+     *
+     * ```js
+     * bud.hash(true)
+     * ```
+     *
+     * @property {Api.Hash} hash
+     */
+    hash: Api.Hash;
     hot: any;
     inlineManifest: Api.InlineManifest;
     map: Api.SourceMap;
@@ -49,7 +276,29 @@ export declare type Bud = {
     resolve: any;
     scss: any;
     splitting: any;
+    /**
+     * ## bud.src
+     *
+     * Return an absolute path from a given path relative to the directory assigned by `bud.srcPath`.
+     *
+     * ```js
+     * bud.src('scripts/app.js')
+     * ```
+     *
+     * @property {Api.Src} src
+     */
     src: Api.Src;
+    /**
+     * ## bud.srcPath
+     *
+     * Set the project's src directory.
+     *
+     *  ```js
+     * bud.srcPath('src')
+     * ```
+     *
+     * @property {Api.SrcPath} srcPath
+     */
     srcPath: Api.SrcPath;
     sync: Api.Sync;
     target: Api.Target;
@@ -58,4 +307,5 @@ export declare type Bud = {
     vendor: Api.Vendor;
     watch: Api.Watch;
 };
+export { Bud };
 //# sourceMappingURL=types.d.ts.map

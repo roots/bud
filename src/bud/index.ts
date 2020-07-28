@@ -3,34 +3,40 @@ import {hooks} from './hooks'
 import {util} from './util'
 import {plugin} from './plugin'
 import {state} from './state'
-import {inProduction, mode} from './mode'
+import {inProduction, mode} from './flags'
 import {compiler} from './compiler'
 import type {Bud} from './types'
 
 /**
  * Bud - asset management framework.
+ *
+ * @type {Bud} bud
  */
 const bud: Bud = {
   /**
    * hooks
+   *
    * @property {Hooks} hooks
    */
   hooks,
 
   /**
    * util
+   *
    * @property {Util} util
    */
   util,
 
   /**
    * State
+   *
    * @property {State} state
    */
   state,
 
   /**
    * Mode
+   *
    * @property {Mode} mode
    */
   mode,
@@ -38,27 +44,46 @@ const bud: Bud = {
   /**
    * inProduction
    * True when mode is equal to "production"
+   *
    * @property {inProduction} inProduction
    */
   inProduction,
 
   /**
    * Plugin
+   *
    * @property {Plugin} plugin
    */
   plugin,
 
   /**
    * Compiler
+   *
    * @property {Compiler} compiler
    */
   compiler,
 
   /**
-   * Bud.Api methods
-   */
-
+   * ## bud.alias
+   *
+   * Resolve modules through webpack aliases. Useful for situations that may otherwise require brittle relative paths.
+   *
+   * Having defined this alias:
+   *
+   * ```js
+   * bud.alias({'scripts': bud.src('scripts')})
+   * ```
+   *
+   * You can now reference scripts against that alias in your import statements:
+   *
+   * ```js
+   * import 'scripts/myScript' // replacing '../../myScript'
+   * ```
+   *
+   **/
   alias: api.alias,
+
+
   auto: api.auto,
   babel: api.babel,
   bundle: api.bundle,

@@ -14,7 +14,7 @@ import {parse} from 'path'
  * )
  * ```
  */
-const glob: Bundle = function (
+const glob = function (
   this: Bud,
   output: string,
   files: string,

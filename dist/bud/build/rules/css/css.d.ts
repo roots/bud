@@ -1,5 +1,6 @@
 /**
  * Css
+ * @param {Bud} bud
  * @return {object}
  */
 declare const css: (bud: any) => {
