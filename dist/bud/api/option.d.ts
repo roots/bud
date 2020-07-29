@@ -1,14 +1,4 @@
-/**
- * ## bud.option
- *
- * Get the current value of a bud option
- *
- * ### Example
- *
- * ```js
- * bud.option(')
- * ```
- */
-declare const option: Function;
+import type { Option } from './types';
+declare const option: Option;
 export { option };
 //# sourceMappingURL=option.d.ts.map

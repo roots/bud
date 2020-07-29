@@ -70,6 +70,7 @@
     "@types/webpack-dev-middleware": "^3.7.1",
     "@types/webpack-dev-server": "^3.11.0",
     "@types/webpack-hot-middleware": "^2.25.3",
+    "@types/wordpress__dependency-extraction-webpack-plugin": "^2.7.0",
     "@types/yargs": "^15.0.5",
     "@wordpress/babel-plugin-makepot": "^3.7.0",
     "@wordpress/browserslist-config": "^2.7.0",

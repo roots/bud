@@ -1674,6 +1674,13 @@
     "@types/webpack-sources" "*"
     source-map "^0.6.0"
 
+"@types/wordpress__dependency-extraction-webpack-plugin@^2.7.0":
+  version "2.7.0"
+  resolved "https://registry.yarnpkg.com/@types/wordpress__dependency-extraction-webpack-plugin/-/wordpress__dependency-extraction-webpack-plugin-2.7.0.tgz#dfae4983e669d2dcd791140656cad5b68b24dc19"
+  integrity sha512-NQF1MYtmm5hOpx0JwpVkhAArUxMI/WyI4kYxgaIQWQerlE1nUGxuyXHpjfG6qhw70jdwkg3bfbMDY/kpJdIHyA==
+  dependencies:
+    "@wordpress/dependency-extraction-webpack-plugin" "*"
+
 "@types/wrap-ansi@^3.0.0":
   version "3.0.0"
   resolved "https://registry.yarnpkg.com/@types/wrap-ansi/-/wrap-ansi-3.0.0.tgz#18b97a972f94f60a679fd5c796d96421b9abb9fd"
@@ -2111,7 +2118,7 @@
   resolved "https://registry.yarnpkg.com/@wordpress/browserslist-config/-/browserslist-config-2.7.0.tgz#37e39ede39bec5a540dc93b96569787025aadc83"
   integrity sha512-pB45JlfmHuEigNFZ1X+CTgIsOT3/TTb9iZxw1DHXge/7ytY8FNhtcNwTfF9IgnS6/xaFRZBqzw4DyH4sP1Lyxg==
 
-"@wordpress/dependency-extraction-webpack-plugin@^2.8.0":
+"@wordpress/dependency-extraction-webpack-plugin@*", "@wordpress/dependency-extraction-webpack-plugin@^2.8.0":
   version "2.8.0"
   resolved "https://registry.yarnpkg.com/@wordpress/dependency-extraction-webpack-plugin/-/dependency-extraction-webpack-plugin-2.8.0.tgz#699ba0b3555217fd9a844e5f9f4de486d4a89cba"
   integrity sha512-fEOsSl1kYY8gkiAe7OM9IopmSOtaAug37OQwKVeda5fK6xLsnpqprP5iwHHOApNWMEzgmVGS6/iW5IZoi7qv/A==
@@ -12758,11 +12765,6 @@ url@^0.11.0:
   dependencies:
     punycode "1.3.2"
     querystring "0.2.0"
-
-use-global-hook@^0.1.12:
-  version "0.1.12"
-  resolved "https://registry.yarnpkg.com/use-global-hook/-/use-global-hook-0.1.12.tgz#3db747ca78e5bd1a007af176ad338f72293e730f"
-  integrity sha512-KhsWfDaa4jXgGHKDSxmBP0GjnIs5ad12y1vhl5mGBDcIiFfj3oB9vdfZZZCCPlZ14gI+tjCKZtb82+bPEwj3Iw==
 
 use@^3.1.0:
   version "3.1.1"

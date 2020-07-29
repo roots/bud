@@ -12,15 +12,6 @@ var __assign = (this && this.__assign) || function () {
 };
 exports.__esModule = true;
 exports.dependencyManifest = void 0;
-/**
- * ## bud.dependencyManifest
- *
- * @see https://git.io/JJLxM
- *
- * ```js
- * bud.dependencyManifest({outputFormat: 'js', injectPolyfill: false})
- * ```
- */
 var dependencyManifest = function (settings) {
     this.state.features.dependencyManifest = true;
     this.state.features.dependencyManifest &&

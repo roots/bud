@@ -1,17 +1,8 @@
-import type {Bud, DependencyManifest} from './types'
+import type {Bud, DependencyManifest, DependencyExtractionOptions} from './types'
 
-/**
- * ## bud.dependencyManifest
- *
- * @see https://git.io/JJLxM
- *
- * ```js
- * bud.dependencyManifest({outputFormat: 'js', injectPolyfill: false})
- * ```
- */
 const dependencyManifest: DependencyManifest = function (
   this: Bud,
-  settings,
+  settings?: DependencyExtractionOptions,
 ): Bud {
   this.state.features.dependencyManifest = true
 

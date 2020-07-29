@@ -1,1 +1,1 @@
-{"version":3,"file":"dependencyManifest.d.ts","sourceRoot":"","sources":["../../../src/bud/api/dependencyManifest.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAM,kBAAkB,EAAC,MAAM,SAAS,CAAA;AAEpD;;;;;;;;GAQG;AACH,QAAA,MAAM,kBAAkB,EAAE,kBAczB,CAAA;AAED,OAAO,EAAC,kBAAkB,EAAC,CAAA"}
+{"version":3,"file":"dependencyManifest.d.ts","sourceRoot":"","sources":["../../../src/bud/api/dependencyManifest.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAM,kBAAkB,EAA8B,MAAM,SAAS,CAAA;AAEjF,QAAA,MAAM,kBAAkB,EAAE,kBAczB,CAAA;AAED,OAAO,EAAC,kBAAkB,EAAC,CAAA"}

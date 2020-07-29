@@ -26,7 +26,7 @@ export declare const api: {
     inlineManifest: import("./types").InlineManifest;
     map: import("./types").SourceMap;
     mini: import("./types").Mini;
-    option: Function;
+    option: import("./types").Option;
     postCss: import("./types").PostCss;
     preset: import("./types").Preset;
     project: (relativePath: string) => string;

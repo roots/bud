@@ -136,7 +136,7 @@ type Bud = {
    * If you prefer, you may utilize a `babel.config.js` file in the project root,
    * either alongside or in lieue of this configuration.
    *
-   * Conflicts between supplied configs will be resolved in favor of bud.config.js.
+   * Conflicts between supplied configs will be resolved in favor of the project config file.
    *
    * @see https://babeljs.io/docs/en/configuration
    *
@@ -218,8 +218,40 @@ type Bud = {
    */
   dashboard: Api.Dashboard
 
+  /**
+   * ## bud.dependencyManifest
+   *
+   * Configure @wordpress/dependency-extraction-webpack-plugin
+   *
+   * @see https://git.io/JJLxM
+   *
+   * ```js
+   * bud.dependencyManifest({
+   *   outputFormat: 'js',
+   *   injectPolyfill: false,
+   * })
+   * ```
+   *
+   * @property {Api.DependencyManifest} dependencyManifest
+   */
   dependencyManifest: Api.DependencyManifest
+
+  /**
+   * ## bud.dev
+   *
+   * Development server settings
+   *
+   * @property {Api.Dev} dev
+   */
   dev: Api.Dev
+
+  /**
+   * ## bud.devtool
+   *
+   * Specify a devtool
+   *
+   * @property {Api.Devtool} devtool
+   */
   devtool: Api.Devtool
 
   /**
@@ -324,9 +356,74 @@ type Bud = {
    */
   map: Api.SourceMap
 
+  /**
+   * ## bud.mini
+   *
+   * Enable or disable minification
+   *
+   * ```js
+   * bud.mini(true) // enable
+   * ```
+   *
+   * @property {Api.Mini} mini
+   */
   mini: Api.Mini
-  option: any
+
+  /**
+   * ## bud.option
+   *
+   * Get the current value of a bud option
+   *
+   * ```js
+   * bud.option(')
+   * ```
+   *
+   * @property {Api.Option} option
+   */
+  option: Api.Option
+
+  /**
+   * ## bud.postCss
+   *
+   * Configure PostCSS.
+   *
+   * If you prefer, you may utilize a postcss.config.js file in the project root,
+   * either alongside or in lieue of this configuration.
+   *
+   * Conflicts between supplied configs will be resolved in favor of the project config file.
+   *
+   * ```js
+   * bud.postCss({
+   *   plugins: [
+   *    require('astroturf'),
+   *   ],
+   * })
+   * ```
+   *
+   * @property {Api.PostCss} postCss
+   */
   postCss: Api.PostCss
+
+  /**
+   * ## bud.preset
+   *
+   * Bud ships with several preset configurations for popular build tools. This function returns the contents
+   * of a specific config as a Javascript object..
+   *
+   * ```js
+   * bud.preset('babel/postcss')
+   * ```
+   *
+   * ```js
+   * bud.preset('babel/preset-react')
+   * ```
+   *
+   * ```js
+   * bud.preset('tsconfig')
+   * ```
+   *
+   * @property {Api.Preset} preset
+   */
   preset: Api.Preset
   project: Api.Project
   projectPath: Api.ProjectPath

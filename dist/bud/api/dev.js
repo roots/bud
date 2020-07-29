@@ -12,9 +12,6 @@ var __assign = (this && this.__assign) || function () {
 };
 exports.__esModule = true;
 exports.dev = void 0;
-/**
- * Development server settings
- */
 var dev = function (options) {
     this.state.options.dev = __assign(__assign({}, this.state.options.dev), options);
     return this;

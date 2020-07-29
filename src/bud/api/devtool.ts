@@ -1,9 +1,6 @@
-import type {Bud, Devtool} from './types'
+import type {Bud, Devtool, WebpackOptions} from './types'
 
-/**
- * Specify webpack devtool
- */
-const devtool: Devtool = function (devtool: string): Bud {
+const devtool: Devtool = function (devtool: WebpackOptions.Devtool): Bud {
   this.state.options.devtool = devtool
 
   return this

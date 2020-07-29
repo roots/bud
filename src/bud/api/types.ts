@@ -2,6 +2,11 @@ import {Bud} from '../types'
 export {Bud} from '../types'
 export {RegisteredPlugin} from '../plugin/types'
 import type {Options as BrowserSyncOptions} from 'browser-sync'
+import type {Options as WebpackOptions} from 'webpack'
+export type {WebpackOptions}
+
+import {Options as DependencyExtractionOptions} from '@wordpress/dependency-extraction-webpack-plugin'
+export type {DependencyExtractionOptions}
 
 export type Alias = (arg0: object) => Bud
 export type Auto = (options: {[key: string]: string[]}) => Bud
@@ -10,9 +15,9 @@ export type Bundle = (name: string, entries: string[]) => Bud
 export type Copy = (from: string, to: string) => Bud
 export type Dashboard = (enabled: boolean) => Bud
 export type Debug = (enabled?: boolean) => any
-export type DependencyManifest = (settings?: object) => Bud
+export type DependencyManifest = (settings?: DependencyExtractionOptions) => Bud
 export type Dev = (options: object) => Bud
-export type Devtool = (devtool: string) => Bud
+export type Devtool = (devtool: WebpackOptions.Devtool) => Bud
 export type Dist = (path?: string) => string
 export type DistPath = (src: string) => Bud
 export type Hash = (this: Bud, enabled?: boolean) => Bud
@@ -27,6 +32,7 @@ export type Hot = (this: Bud, options: {
 }) => Bud
 export type InlineManifest = (name?: string) => Bud
 export type Mini = (enabled?: boolean) => Bud
+export type Option = (key: string) => string
 export type PostCss = (options?: {
   enabled?: boolean
   plugins?: any[]
