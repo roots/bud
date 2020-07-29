@@ -3,6 +3,7 @@ import {features} from './features'
 import {options} from './options'
 import {paths} from './paths'
 import {plugins} from './plugins'
+import {flags} from './flags'
 import type {State} from './types'
 
 /**
@@ -10,6 +11,7 @@ import type {State} from './types'
  */
 export const state: State = {
   configs,
+  flags,
   features,
   options,
   paths,

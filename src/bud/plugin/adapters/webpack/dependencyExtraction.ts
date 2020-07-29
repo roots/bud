@@ -3,7 +3,7 @@ import type {WebpackAdapter} from './types'
 
 const dependencyExtraction: WebpackAdapter = () => ({
   mergeOptions: function () {
-    return this.bud.state.options.dependencyManifest
+    return this.bud.options.get('dependencyManifest')
   },
   make: function () {
     return new DependencyExtractionPlugin(this.options)

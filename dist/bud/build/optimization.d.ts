@@ -23,7 +23,7 @@ declare const optimization: (bud: Bud) => {
         cacheGroups: {
             vendor: {
                 test: RegExp;
-                name: String;
+                name: any;
                 chunks: string;
                 priority: number;
             };

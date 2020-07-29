@@ -4,7 +4,7 @@ import type {WebpackAdapter} from './types'
 const miniCssExtract: WebpackAdapter = () => ({
   setOptions: function () {
     return {
-      filename: this.bud.state.features.hash
+      filename: this.bud.features.enabled('hash')
         ? `[name].[hash:8].css`
         : '[name].css',
     }

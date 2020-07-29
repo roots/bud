@@ -4,13 +4,10 @@ const postCss: PostCss = function ({
   enabled = true,
   ...options
 }): Bud {
-  this.state.features.postCss = enabled
+  this.features.set({postCss: enabled ?? true})
 
-  if (this.state.features.postCss) {
-    this.state.options.postCss = {
-      ...this.state.options.postCss,
-      ...options,
-    }
+  if (this.features.enabled('postCss')) {
+    this.options.merge('postcss', options)
   }
 
   return this

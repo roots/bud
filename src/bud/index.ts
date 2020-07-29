@@ -3,7 +3,6 @@ import {hooks} from './hooks'
 import {util} from './util'
 import {plugin} from './plugin'
 import {state} from './state'
-import {inDevelopment, inProduction, mode} from './flags'
 import {compiler} from './compiler'
 import type {Bud} from './types'
 
@@ -16,10 +15,12 @@ const bud: Bud = {
   hooks,
   util,
   state,
+  options: state.options,
+  configs: state.configs,
   features: state.features,
-  mode,
-  inDevelopment,
-  inProduction,
+  mode: state.flags.get('mode'),
+  inDevelopment: state.flags.is('mode', 'development'),
+  inProduction: state.flags.is('mode', 'production'),
   plugin,
   compiler,
   alias: api.alias,
@@ -43,7 +44,6 @@ const bud: Bud = {
   inlineManifest: api.inlineManifest,
   map: api.map,
   mini: api.mini,
-  option: api.option,
   postCss: api.postCss,
   preset: api.preset,
   project: api.project,

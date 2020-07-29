@@ -7,7 +7,7 @@ const glob: Glob = function (
   output: string,
   files: string,
 ): Bud {
-  let entry = this.state.options.entry
+  let entry = this.options.get('entry')
 
   globby
     .sync(files, {
@@ -24,7 +24,7 @@ const glob: Glob = function (
       }
     })
 
-  this.state.options.entry = entry
+  this.options.set('entry', entry)
 
   return this
 }

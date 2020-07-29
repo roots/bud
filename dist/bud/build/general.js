@@ -11,10 +11,10 @@ var general = function (bud) { return ({
     options: {
         context: bud.state.paths.project,
         devtool: bud.features.enabled('sourceMap')
-            ? bud.state.options.devtool
+            ? bud.options.get('devtool')
             : false,
         mode: bud.mode,
-        target: bud.state.options.target,
+        target: bud.options.get('target'),
         watch: bud.features.enabled('watch')
     },
     make: function () {
@@ -22,7 +22,7 @@ var general = function (bud) { return ({
          * Empty out non web globals so they aren't
          * inadvertently used in project bundles.
          */
-        if (this.options.target == 'web') {
+        if (this.bud.options.is('target', 'web')) {
             this.options.node = {
                 module: 'empty',
                 dgram: 'empty',

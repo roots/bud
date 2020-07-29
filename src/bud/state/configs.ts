@@ -3,44 +3,45 @@ import {existsSync} from 'fs-extra'
 import {paths} from './paths'
 import type {Configs} from './types'
 
-/**
- * Config
- *
- * @param   {string} relativePath - relative path (from project root)
- * @return  {string} filePath
- */
 const config = file => join(paths.project, file)
 
 /**
- * Has config
- *
- * @param   {string} file - file path (relative to project root)
- * @return  {boolean} true if file exists
- */
-const hasConfig = file => existsSync(config(file))
-
-/**
- * Maybe config
- *
- * @param {string} file - file path (relative to project root)
- * @param {string} file - fallback config file path
- */
-const maybeConfig = (file, fallback = null) =>
-  hasConfig(file) ? config(file) : fallback
-
-/**
- * Project configuration files.
- *
- * @property {(string|boolean)} babel   - project babel.config.js
- * @property {(string|boolean)} eslint  - project .eslintrc.js
- * @property {(string|boolean)} postcss - project postcss.config.js
- * @property {(string|boolean)} typescript - project tsconfig.json
+ * ## bud.state.configs
  */
 const configs: Configs = {
-  babel: maybeConfig('babel.config.js'),
-  eslint: maybeConfig('.eslintrc.js'),
-  postCss: maybeConfig('postcss.config.js'),
-  typescript: maybeConfig('tsconfig.json'),
+  repository: {},
+  contents: function (this: Configs, config: string): any|null {
+    return require(this.get(config))
+  },
+  get: function (this: Configs, config: string): any {
+    return this.repository[config]
+  },
+  add: function (name: string, file: string): void {
+    this.repository = {
+      ...this.repository,
+      ...{name, file}
+    }
+  },
+  has: function (this: Configs, config: string): boolean {
+    return this.repository.hasOwnProperty(config) &&
+      this.repository[config] !== null
+  },
+  exists: function (this: Configs, file: string) {
+    return existsSync(file)
+  },
 }
 
-export {config, hasConfig, maybeConfig, configs}
+new Array(
+  ['babel', 'babel.config.js'],
+  ['eslint', '.eslintrc.js'],
+  ['postCss', 'postcss.config.js'],
+  ['prettier', 'prettier.config.js'],
+  ['stylelint', '.stylelintrc.js'],
+  ['typescript', 'tsconfig.json'],
+  ['js', 'jsconfig.json'],
+).forEach(([name, filename]) => {
+  const projectPath = join(paths.project, filename)
+  configs.exists(projectPath) && configs.add(name, projectPath)
+})
+
+export {configs}

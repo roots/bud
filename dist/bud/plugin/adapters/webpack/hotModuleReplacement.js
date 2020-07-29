@@ -4,13 +4,13 @@ exports.hotModuleReplacement = void 0;
 var webpack_1 = require("webpack");
 var hotModuleReplacement = function () { return ({
     setOptions: function () {
-        return this.bud.state.options.hotModuleReplacement;
+        return this.bud.options.get('hotModuleReplacement');
     },
     make: function () {
         return new webpack_1.HotModuleReplacementPlugin();
     },
     when: function () {
-        return this.bud.state.features.hot;
+        return this.bud.features.enabled('hot');
     }
 }); };
 exports.hotModuleReplacement = hotModuleReplacement;

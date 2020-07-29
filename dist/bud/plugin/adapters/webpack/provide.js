@@ -4,7 +4,7 @@ exports.provide = void 0;
 var webpack_1 = require("webpack");
 var provide = function () { return ({
     setOptions: function () {
-        return this.bud.state.options.auto;
+        return this.bud.options.get('auto');
     },
     make: function () {
         return new webpack_1.ProvidePlugin(this.options);

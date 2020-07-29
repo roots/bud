@@ -8,7 +8,7 @@ exports.devServer = void 0;
 var devServer = function (bud) { return ({
     bud: bud,
     options: {
-        devServer: bud.state.options.dev
+        devServer: bud.options.get('dev')
     },
     make: function () {
         return this.options;

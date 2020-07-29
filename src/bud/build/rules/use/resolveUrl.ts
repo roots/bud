@@ -7,7 +7,7 @@ const resolveUrl = bud => ({
 
   options: {
     engine: 'postcss',
-    sourceMap: bud.state.features.map,
+    sourceMap: bud.features.enabled('sourceMap'),
     debug: true,
   },
 

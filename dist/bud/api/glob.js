@@ -19,7 +19,7 @@ var globby_1 = __importDefault(require("globby"));
 var path_1 = require("path");
 var glob = function (output, files) {
     var _this = this;
-    var entry = this.state.options.entry;
+    var entry = this.options.get('entry');
     globby_1["default"]
         .sync(files, {
         expandDirectories: true
@@ -31,7 +31,7 @@ var glob = function (output, files) {
             .replace(path_1.parse(match).ext, '');
         entry = __assign(__assign({}, entry), (_a = {}, _a[dest] = match, _a));
     });
-    this.state.options.entry = entry;
+    this.options.set('entry', entry);
     return this;
 };
 exports.glob = glob;

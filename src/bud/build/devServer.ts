@@ -7,7 +7,7 @@ import type {Bud} from './types'
 const devServer = (bud: Bud) => ({
   bud,
   options: {
-    devServer: bud.state.options.dev,
+    devServer: bud.options.get('dev'),
   },
   make: function () {
     return this.options

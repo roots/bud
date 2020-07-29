@@ -27,7 +27,7 @@ const optimization = (bud: Bud) => ({
     cacheGroups: {
       vendor: {
         test: /[\\/]node_modules[\\/]/,
-        name: bud.state.options.vendor.name,
+        name: bud.options.get('vendor').name,
         chunks: 'all',
         priority: -20,
       },
@@ -38,7 +38,7 @@ const optimization = (bud: Bud) => ({
     name: entrypoint => `runtime/${entrypoint.name}`,
   },
 
-  uglifyOptions: bud.state.options.uglify,
+  uglifyOptions: bud.options.get('uglify'),
 
   make: function () {
     this.whenSupported('runtimeChunk', this.setRuntimeChunk)

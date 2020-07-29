@@ -78,7 +78,6 @@ export declare type Api = {
     glob: Glob;
     hash: Hash;
     hot: Hot;
-    option: Option;
     project: Project;
     publicPath: PathSetter;
     purge: Purge;

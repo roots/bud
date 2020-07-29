@@ -8,10 +8,10 @@ const watch: Watch = function (
   },
 ): Bud {
   this.features.set({
-    watch: options.hasOwnProperty('enabled') ? options.enabled : false
+    watch: options.hasOwnProperty('enabled') ? options.enabled : true
   })
 
-  this.state.options.watch = options.paths ?? []
+  options?.paths && this.options.set('watch', options.paths)
 
   return this
 }

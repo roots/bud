@@ -5,11 +5,7 @@ const babel: Babel = function (
   options: BabelProperties,
 ): Bud {
   this.features.enable('babel')
-
-  this.state.options.babel = {
-    ...this.state.options.babel,
-    ...options,
-  }
+  this.options.merge('babel', options)
 
   return this
 }

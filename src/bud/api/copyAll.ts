@@ -6,14 +6,19 @@ const copyAll: Copy = function (
   from: string,
   to: any,
 ): Bud {
-  this.state.options.copy.patterns.push({
-    from: '**/*',
-    context: from,
-    to: to ? to : join(this.state.paths.dist, from),
-    globOptions: {
-      ignore: '.*',
-    },
-    noErrorOnMissing: true,
+  this.options.set('copy', {
+    patterns: [
+      ...this.options.get('copy').patterns,
+      {
+        from: '**/*',
+        context: from,
+        to: to ? to : join(this.state.paths.dist, from),
+        globOptions: {
+          ignore: '.*',
+        },
+        noErrorOnMissing: true,
+      },
+    ],
   })
 
   return this

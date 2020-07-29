@@ -1,4 +1,5 @@
 import {env} from './env'
+import {flags} from './flags'
 import {configs} from './configs'
 import type {
   BabelConfiguration,
@@ -18,15 +19,14 @@ const babelFallback: BabelConfiguration = {
   presets: [],
   plugins: [],
 }
-
-const babel: BabelConfiguration = configs.babel
-  ? require(configs.babel)
+const babel: BabelConfiguration = configs.has('babel')
+  ? configs.contents('babel')
   : babelFallback
 
 const browserSync: Object = {
-  host: env?.BROWSERSYNC_HOST ? env.BROWSERSYNC_HOST : 'localhost',
-  port: env?.BROWSERSYNC_PORT ? env.BROWSERSYNC_PORT : 3000,
-  proxy: env?.BROWSERSYNC_PROXY ? env.BROWSERSYNC_PROXY : null,
+  host: flags.get('host'),
+  port: flags.get('port'),
+  proxy: flags.get('proxy'),
   online: false,
   open: false,
 }
@@ -34,8 +34,8 @@ const browserSync: Object = {
 const copy: Copy = {patterns: []}
 
 const dependencyManifest: WordPressDependenciesOptions = {
-  combineAssets: undefined,
-  combinedOutputFile: undefined,
+  combineAssets: false,
+  combinedOutputFile: null,
   injectPolyfill: false,
   outputFormat: 'json',
   useDefaults: true,
@@ -55,15 +55,14 @@ const externals: Externals = null
 const postCssFallback: PostCssConfiguration = {
   plugins: [],
 }
-
-const postCss: PostCssConfiguration = configs.postCss
-  ? require(configs.postCss)
+const postCss: PostCssConfiguration = configs.has('postCss')
+  ? configs.contents('postCss')
   : postCssFallback
 
 const target: Target = 'web'
 
-const typescript = configs.typescript
-  ? require(configs.typescript)
+const typescript = configs.has('typescript')
+  ? configs.contents('typescript')
   : {}
 
 const vendor: Vendor = {name: 'vendor'}
@@ -72,45 +71,71 @@ const vendor: Vendor = {name: 'vendor'}
  * Options container.
  */
 const options: Options = {
-  alias: null,
-  babel,
-  postCss,
-  typescript,
-  auto,
-  browserSync,
-  copy,
-  dev,
-  dependencyManifest,
-  devtool: 'source-map',
-  entry: {},
-  env,
-  externals,
-  inlineManifest: {
-    name: 'runtime',
-  },
-  node: {},
-  splitting: {
-    maxChunks: null,
-  },
-  target,
-  terser: {},
-  uglify: {
-    cache: true,
-    chunkFilter: ({name}) => name === 'vendor',
-    extractComments: false,
-    parallel: true,
-    uglifyOptions: {
-      output: {
-        beautify: false,
-      },
-      compress: false,
-      mangle: {
-        toplevel: true,
+  repository: {
+    alias: null,
+    babel,
+    postCss,
+    typescript,
+    auto,
+    browserSync,
+    copy,
+    dev,
+    dependencyManifest,
+    devtool: 'source-map',
+    entry: {},
+    env,
+    externals,
+    inlineManifest: {
+      name: 'runtime',
+    },
+    node: {},
+    splitting: {
+      maxChunks: null,
+    },
+    target,
+    terser: {},
+    uglify: {
+      cache: true,
+      chunkFilter: ({name}) => name === 'vendor',
+      extractComments: false,
+      parallel: true,
+      uglifyOptions: {
+        output: {
+          beautify: false,
+        },
+        compress: false,
+        mangle: {
+          toplevel: true,
+        },
       },
     },
+    vendor,
+    watch,
   },
-  vendor,
-  watch,
+  get: function (this: Options, option: string): any {
+    return this.repository[option]
+  },
+  set: function (option: string, value: any): void {
+    this.repository = {
+      ...this.repository,
+      [option]: value,
+    }
+  },
+  merge: function (option: string, value: any): void {
+    this.repository = {
+      ...this.repository,
+      [option]: {
+        ...this.repository[option],
+        ...value,
+      },
+    }
+  },
+  has: function (this: Options, option: string): boolean {
+    return this.repository.hasOwnProperty(option)
+  },
+  is: function (this: Options, option: string, value: any): boolean {
+    return this.get(option) === value
+  },
 }
 
 export {options}

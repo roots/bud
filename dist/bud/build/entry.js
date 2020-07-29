@@ -18,7 +18,7 @@ exports.entry = void 0;
 var entry = function (bud) { return ({
     bud: bud,
     options: {
-        entry: __assign({}, bud.state.options.entry)
+        entry: __assign({}, bud.state.options.get('entry'))
     },
     make: function () {
         return this.options;

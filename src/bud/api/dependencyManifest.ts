@@ -5,13 +5,7 @@ const dependencyManifest: DependencyManifest = function (
   settings?: DependencyExtractionOptions,
 ): Bud {
   this.features.enable('dependencyManifest')
-
-  if (settings) {
-    this.state.options.dependencyManifest = {
-      ...this.state.options.dependencyManifest,
-      ...(settings ? settings : {}),
-    }
-  }
+  settings && this.options.merge('dependencyManifest', settings)
 
   return this
 }

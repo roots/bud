@@ -28,7 +28,7 @@ var optimization = function (bud) { return ({
         cacheGroups: {
             vendor: {
                 test: /[\\/]node_modules[\\/]/,
-                name: bud.state.options.vendor.name,
+                name: bud.options.get('vendor').name,
                 chunks: 'all',
                 priority: -20
             }
@@ -37,7 +37,7 @@ var optimization = function (bud) { return ({
     runtimeChunkOptions: {
         name: function (entrypoint) { return "runtime/" + entrypoint.name; }
     },
-    uglifyOptions: bud.state.options.uglify,
+    uglifyOptions: bud.options.get('uglify'),
     make: function () {
         this.whenSupported('runtimeChunk', this.setRuntimeChunk);
         this.whenSupported('vendor', this.setSplitChunks);

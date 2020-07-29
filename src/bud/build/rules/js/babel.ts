@@ -25,7 +25,7 @@ const babel = (bud: Bud): any => ({
         {
           loader: loaders.babel,
           options: {
-            ...this.bud.state.options.babel,
+            ...this.bud.options.get('babel'),
             cacheDirectory: true,
             cacheCompression: this.bud.inProduction,
           },

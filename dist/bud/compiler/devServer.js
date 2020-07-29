@@ -16,7 +16,7 @@ var webpack_dev_server_1 = __importDefault(require("webpack-dev-server"));
 var makeDevServer = function (bud, webpackConfig) {
     var wdsOptions = {
         before: function (app, server) {
-            chokidar_1["default"].watch(bud.state.options.watch).on('all', function () {
+            chokidar_1["default"].watch(bud.options.get('watch')).on('all', function () {
                 server.sockWrite(server.sockets, 'content-changed');
             });
         },

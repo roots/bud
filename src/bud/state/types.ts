@@ -11,6 +11,7 @@ export type State = {
   options: Options
   paths: Paths
   plugins: any
+  flags: Flags
 }
 
 /**
@@ -25,10 +26,7 @@ export type Paths = {
   public: Directory
 }
 
-/**
- * Options
- */
-export type Options = {
+type optionsStore = {
   alias: any
   auto: any
   babel: BabelConfiguration
@@ -50,6 +48,56 @@ export type Options = {
   dependencyManifest: DependencyExtractionOptions
   vendor: Vendor
   watch: any
+}
+
+/**
+ * Option value
+ */
+type OptionsValue = any
+
+/**
+ * Option entry
+ */
+type OptionsEntry = {[key: string]: OptionsValue}
+
+/**
+ * Get the value of a option.
+ */
+interface GetOption {(option: string): any}
+
+/**
+ * Set the value of a option.
+ */
+interface SetOption {(OptionsRepository): void}
+
+/**
+ * Returns true if there is a value set for this option.
+ */
+interface HasOption {(option: string): boolean}
+
+/**
+ * Returns true if option is equal to the supplied value.
+ */
+interface IsOption {(option: string, value: any): boolean}
+
+/**
+ * Options
+ */
+export type Options = {
+  repository: OptionsEntry
+  get: GetOption
+
+  /**
+   * Merge new values into an option
+   */
+  merge: (option: string, value: any) => void
+
+  /**
+   * Set the value of a option.
+   */
+  set: (option: string, value: any) => void
+  has: HasOption
+  is: IsOption
 }
 
 export type BabelConfiguration = {
@@ -75,8 +123,8 @@ export type Vendor = {
 /**
  * Features
  */
-type Entry = boolean
-type Repository = {[key: string]: Entry}
+type FeatureEntry = boolean
+type FeatureRepository = {[key: string]: FeatureEntry}
 interface Enable {(feature: string): void}
 interface Enabled {(feature: string): boolean}
 interface Disable {(feature: string): void}
@@ -92,7 +140,7 @@ type Features = {
   /**
    * Feature store
    */
-  repository: Repository
+  repository: FeatureRepository
 
   /**
    * Enable a feature
@@ -132,15 +180,84 @@ type Features = {
 
 export type {Features}
 
+type FlagEntry = any
+type FlagRepository = {[key: string]: FlagEntry}
+interface GetFlag {(flag: string): any}
+interface SetFlag {(Repository): void}
+interface HasFlag {(flag: string): boolean}
+interface IsFlag {(flag: string, value: any): boolean}
 /**
- * Configs
+ * ## bud.state.flags
  */
-export type Configs = {
-  babel: string | null
-  eslint: string | null
-  postCss: string | null
-  typescript: string | null
+type Flags = {
+  /**
+   * Flags store
+   */
+  repository: FlagRepository
+
+  /**
+   * Get the value of a flag.
+   */
+  get: GetFlag
+
+  /**
+   * Set the value of a flag.
+   */
+  set: SetFlag
+
+  /**
+   * Check if a flag exists
+   */
+  has: HasFlag
+
+  /**
+   * Check if flag matches a given value
+   */
+  is: IsFlag
 }
+
+export type {Flags}
+
+
+type Config = string
+type ConfigEntry = {[key: string]: Config}
+
+/**
+ * ## bud.state.configs
+ */
+type Configs = {
+  /**
+   * Configs store
+   */
+  repository: ConfigEntry[]|{}
+
+  /**
+   * Get the contents of a config file.
+   */
+  contents: (this: Configs, config: string) => any|null
+
+  /**
+   * Get the value of a config.
+   */
+  get: (this: Configs, config: string) => any
+
+  /**
+   * Add a config
+   */
+  add: (this: Configs, name: string, contents: string) => void
+
+  /**
+   * Return true if config file exists
+   */
+  exists: (this: Configs, file: string) => boolean
+
+  /**
+   * Check if a config exists
+   */
+  has: (this: Configs, config: string) => boolean
+}
+
+export type {Configs}
 
 /**
  * Env

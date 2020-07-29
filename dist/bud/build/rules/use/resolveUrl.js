@@ -7,7 +7,7 @@ var resolveUrl = function (bud) { return ({
     loader: loaders_1.loaders.resolveUrl,
     options: {
         engine: 'postcss',
-        sourceMap: bud.state.features.map,
+        sourceMap: bud.features.enabled('sourceMap'),
         debug: true
     },
     make: function () {

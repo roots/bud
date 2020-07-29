@@ -8,7 +8,7 @@ var mini_css_extract_plugin_1 = __importDefault(require("mini-css-extract-plugin
 var miniCssExtract = function () { return ({
     setOptions: function () {
         return {
-            filename: this.bud.state.features.hash
+            filename: this.bud.features.enabled('hash')
                 ? "[name].[hash:8].css"
                 : '[name].css'
         };

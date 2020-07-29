@@ -1,1 +1,1 @@
-{"version":3,"file":"copy.d.ts","sourceRoot":"","sources":["../../../src/bud/api/copy.ts"],"names":[],"mappings":"AAAA,OAAO,EAAM,IAAI,EAAC,MAAM,SAAS,CAAA;AAEjC,QAAA,MAAM,IAAI,EAAE,IAQX,CAAA;AAED,OAAO,EAAC,IAAI,EAAC,CAAA"}
+{"version":3,"file":"copy.d.ts","sourceRoot":"","sources":["../../../src/bud/api/copy.ts"],"names":[],"mappings":"AAAA,OAAO,EAAM,IAAI,EAAC,MAAM,SAAS,CAAA;AAGjC,QAAA,MAAM,IAAI,EAAE,IAgBX,CAAA;AAED,OAAO,EAAC,IAAI,EAAC,CAAA"}

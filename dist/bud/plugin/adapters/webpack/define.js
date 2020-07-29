@@ -4,7 +4,7 @@ exports.define = void 0;
 var webpack_1 = require("webpack");
 var define = function () { return ({
     mergeOptions: function () {
-        return this.bud.state.options.env;
+        return this.bud.options.get('env');
     },
     make: function () {
         return new webpack_1.DefinePlugin(this.options);

@@ -1,7 +1,7 @@
 import type {Bud, Mini} from './types'
 
 const mini: Mini = function (enable: boolean = true): Bud {
-  this.state.features.minify = enable
+  this.features.set({minify: enable ?? true})
 
   return this
 }

@@ -5,10 +5,7 @@ const bundle: Bundle = function (
   name: string,
   entries: string[],
 ): Bud {
-  this.state.options.entry = {
-    ...this.state.options.entry,
-    [`${name}`]: entries,
-  }
+  this.options.merge('entry', {[`${name}`]: entries})
 
   return this
 }

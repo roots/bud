@@ -5,8 +5,8 @@ var webpack_1 = require("webpack");
 var LimitChunkCountPlugin = webpack_1.optimize.LimitChunkCountPlugin;
 var limitChunkCount = function () { return ({
     setOptions: function () {
-        var enabled = this.bud.state.features.splitting;
-        var chunks = this.bud.state.options.splitting.maxChunks;
+        var enabled = this.bud.features.enabled('splitting');
+        var chunks = this.bud.options.get('splitting').maxChunks;
         if (!enabled) {
             return {
                 maxChunks: 1

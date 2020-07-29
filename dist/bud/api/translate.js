@@ -20,14 +20,10 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 exports.__esModule = true;
 exports.translate = void 0;
 var translate = function (output) {
-    var _this = this;
-    this.state.features.translate = output ? true : false;
-    this.state.features.translate &&
-        (function () {
-            _this.state.options.babel = __assign(__assign({}, _this.state.options.babel), { plugins: __spreadArrays(_this.state.options.babel.plugins, [
-                    [_this.require('@wordpress/babel-plugin-makepot'), { output: output }],
-                ]) });
-        })();
+    this.features.set('translate', output ? true : false);
+    this.features.enabled('translate') && this.options.merge('babel', __assign(__assign({}, this.options.get('babel')), { plugins: __spreadArrays(this.options.get('babel').plugins, [
+            [this.require('@wordpress/babel-plugin-makepot'), { output: output }],
+        ]) }));
     return this;
 };
 exports.translate = translate;

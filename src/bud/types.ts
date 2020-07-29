@@ -1,11 +1,8 @@
 import type {Configuration} from 'webpack'
 import type {Hooks} from './hooks/types'
-import type {State, Features} from './state/types'
+import type {State, Configs, Features, Options} from './state/types'
 import type {Util} from './util/types'
 import type * as Api from './api/types'
-
-export type Mode = Configuration['mode']
-export type Production = boolean
 
 /**
  * ## Bud - asset management framework.
@@ -64,14 +61,14 @@ type Bud = {
    *
    * Boolean returning true if in development.
    */
-  inDevelopment: Production
+  inDevelopment: boolean
 
   /**
    * ## bud.inProduction
    *
    * Boolean returning true if in production.
    */
-  inProduction: Production
+  inProduction: boolean
 
   /**
    * ## bud.state
@@ -81,11 +78,25 @@ type Bud = {
   state: State
 
   /**
+   * ## bud.configs
+   *
+   * Project configuration files.
+   */
+  configs: Configs
+
+  /**
    * ## bud.features
    *
    * Status of features
    */
   features: Features
+
+  /**
+   * ## bud.options
+   *
+   * Primary key value store of configuration options.
+   */
+  options: Options
 
    /**
    * ## bud.compiler
@@ -349,17 +360,6 @@ type Bud = {
    * ```
    */
   mini: Api.Mini
-
-  /**
-   * ## bud.option
-   *
-   * Get the current value of a bud option
-   *
-   * ```js
-   * bud.option()
-   * ```
-   */
-  option: Api.Option
 
   /**
    * ## bud.postCss

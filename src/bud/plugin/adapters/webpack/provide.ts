@@ -3,7 +3,7 @@ import type {WebpackAdapter} from './types'
 
 const provide: WebpackAdapter = () => ({
   setOptions: function () {
-    return this.bud.state.options.auto
+    return this.bud.options.get('auto')
   },
   make: function () {
     return new ProvidePlugin(this.options)

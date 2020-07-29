@@ -2,7 +2,6 @@
 import type { Configuration as WebpackConfiguration } from 'webpack';
 import type { Options as DependencyExtractionOptions } from '@wordpress/dependency-extraction-webpack-plugin/build-types';
 import type { Options as BrowserSyncOptions } from 'browser-sync-webpack-plugin';
-import type { TerserPluginOptions as TerserOptions } from 'terser-webpack-plugin';
 /**
  * Mitch, all together.
  */
@@ -12,6 +11,7 @@ export declare type State = {
     options: Options;
     paths: Paths;
     plugins: any;
+    flags: Flags;
 };
 /**
  * Paths
@@ -25,30 +25,49 @@ export declare type Paths = {
     public: Directory;
 };
 /**
+ * Option value
+ */
+declare type OptionsValue = any;
+/**
+ * Option entry
+ */
+declare type OptionsEntry = {
+    [key: string]: OptionsValue;
+};
+/**
+ * Get the value of a option.
+ */
+interface GetOption {
+    (option: string): any;
+}
+/**
+ * Returns true if there is a value set for this option.
+ */
+interface HasOption {
+    (option: string): boolean;
+}
+/**
+ * Returns true if option is equal to the supplied value.
+ */
+interface IsOption {
+    (option: string, value: any): boolean;
+}
+/**
  * Options
  */
 export declare type Options = {
-    alias: any;
-    auto: any;
-    babel: BabelConfiguration;
-    copy: Copy;
-    dev: any;
-    devtool: any;
-    entry: any;
-    env: any;
-    inlineManifest: any;
-    node: any;
-    splitting: any;
-    uglify: any;
-    browserSync: any;
-    externals: Externals;
-    postCss: PostCssConfiguration;
-    target: WebpackConfiguration['target'];
-    terser: TerserOptions;
-    typescript: Typescript;
-    dependencyManifest: DependencyExtractionOptions;
-    vendor: Vendor;
-    watch: any;
+    repository: OptionsEntry;
+    get: GetOption;
+    /**
+     * Merge new values into an option
+     */
+    merge: (option: string, value: any) => void;
+    /**
+     * Set the value of a option.
+     */
+    set: (option: string, value: any) => void;
+    has: HasOption;
+    is: IsOption;
 };
 export declare type BabelConfiguration = {
     plugins: [];
@@ -72,9 +91,9 @@ export declare type Vendor = {
 /**
  * Features
  */
-declare type Entry = boolean;
-declare type Repository = {
-    [key: string]: Entry;
+declare type FeatureEntry = boolean;
+declare type FeatureRepository = {
+    [key: string]: FeatureEntry;
 };
 interface Enable {
     (feature: string): void;
@@ -104,7 +123,7 @@ declare type Features = {
     /**
      * Feature store
      */
-    repository: Repository;
+    repository: FeatureRepository;
     /**
      * Enable a feature
      */
@@ -135,15 +154,82 @@ declare type Features = {
     has: Has;
 };
 export type { Features };
-/**
- * Configs
- */
-export declare type Configs = {
-    babel: string | null;
-    eslint: string | null;
-    postCss: string | null;
-    typescript: string | null;
+declare type FlagEntry = any;
+declare type FlagRepository = {
+    [key: string]: FlagEntry;
 };
+interface GetFlag {
+    (flag: string): any;
+}
+interface SetFlag {
+    (Repository: any): void;
+}
+interface HasFlag {
+    (flag: string): boolean;
+}
+interface IsFlag {
+    (flag: string, value: any): boolean;
+}
+/**
+ * ## bud.state.flags
+ */
+declare type Flags = {
+    /**
+     * Flags store
+     */
+    repository: FlagRepository;
+    /**
+     * Get the value of a flag.
+     */
+    get: GetFlag;
+    /**
+     * Set the value of a flag.
+     */
+    set: SetFlag;
+    /**
+     * Check if a flag exists
+     */
+    has: HasFlag;
+    /**
+     * Check if flag matches a given value
+     */
+    is: IsFlag;
+};
+export type { Flags };
+declare type Config = string;
+declare type ConfigEntry = {
+    [key: string]: Config;
+};
+/**
+ * ## bud.state.configs
+ */
+declare type Configs = {
+    /**
+     * Configs store
+     */
+    repository: ConfigEntry[] | {};
+    /**
+     * Get the contents of a config file.
+     */
+    contents: (this: Configs, config: string) => any | null;
+    /**
+     * Get the value of a config.
+     */
+    get: (this: Configs, config: string) => any;
+    /**
+     * Add a config
+     */
+    add: (this: Configs, name: string, contents: string) => void;
+    /**
+     * Return true if config file exists
+     */
+    exists: (this: Configs, file: string) => boolean;
+    /**
+     * Check if a config exists
+     */
+    has: (this: Configs, config: string) => boolean;
+};
+export type { Configs };
 /**
  * Env
  */

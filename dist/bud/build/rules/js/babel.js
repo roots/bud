@@ -32,7 +32,7 @@ var babel = function (bud) { return ({
             use: [
                 {
                     loader: loaders_1.loaders.babel,
-                    options: __assign(__assign({}, this.bud.state.options.babel), { cacheDirectory: true, cacheCompression: this.bud.inProduction })
+                    options: __assign(__assign({}, this.bud.options.get('babel')), { cacheDirectory: true, cacheCompression: this.bud.inProduction })
                 },
             ]
         };

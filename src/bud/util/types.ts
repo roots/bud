@@ -10,11 +10,14 @@ export type Fab = {
   undefined: () => undefined
   null: () => null
 }
+export type ProjectRoot = string
+
 export type Util = {
   dump: Dump
   except: Except
   shortCircuit: ShortCircuit
   fab: Fab
+  projectRoot: ProjectRoot,
   terminate: (any) => void
   setProcess: (bud: Bud) => void
 }

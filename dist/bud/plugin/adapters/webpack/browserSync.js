@@ -10,7 +10,7 @@ var browser_sync_webpack_plugin_1 = __importDefault(require("browser-sync-webpac
  */
 var browserSync = function () { return ({
     mergeOptions: function () {
-        return this.bud.state.options.browserSync;
+        return this.bud.options.get('browserSync');
     },
     make: function () {
         return new browser_sync_webpack_plugin_1["default"](this.options);

@@ -7,7 +7,7 @@ const entry: BuilderConstructor = (bud: Bud): EntryBuilder => ({
   bud,
   options: {
     entry: {
-      ...bud.state.options.entry,
+      ...bud.state.options.get('entry'),
     },
   },
   make: function () {

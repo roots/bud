@@ -21,7 +21,6 @@ import {hot} from './hot'
 import {inlineManifest} from './inlineManifest'
 import {map} from './map'
 import {mini} from './mini'
-import {option} from './option'
 import {postCss} from './postcss'
 import {preset} from './preset'
 import {project} from './project'
@@ -67,7 +66,6 @@ export const api: Api = {
   inlineManifest,
   map,
   mini,
-  option,
   postCss,
   preset,
   project,

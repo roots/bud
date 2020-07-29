@@ -18,7 +18,7 @@ var manifest = function () { return ({
         return new webpack_manifest_plugin_1["default"](this.options);
     },
     when: function () {
-        return this.bud.state.features.manifest;
+        return this.bud.features.enabled('manifest');
     }
 }); };
 exports.manifest = manifest;

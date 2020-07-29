@@ -2,11 +2,10 @@
 exports.__esModule = true;
 exports.watch = void 0;
 var watch = function (options) {
-    var _a;
     this.features.set({
-        watch: options.hasOwnProperty('enabled') ? options.enabled : false
+        watch: options.hasOwnProperty('enabled') ? options.enabled : true
     });
-    this.state.options.watch = (_a = options.paths) !== null && _a !== void 0 ? _a : [];
+    (options === null || options === void 0 ? void 0 : options.paths) && this.options.set('watch', options.paths);
     return this;
 };
 exports.watch = watch;

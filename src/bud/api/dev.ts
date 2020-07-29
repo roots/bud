@@ -1,10 +1,7 @@
 import type {Bud, Dev} from './types'
 
 const dev: Dev = function (options: object): Bud {
-  this.state.options.dev = {
-    ...this.state.options.dev,
-    ...options,
-  }
+  this.options.merge('dev', options)
 
   return this
 }

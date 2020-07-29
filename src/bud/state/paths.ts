@@ -1,25 +1,26 @@
 import {join, resolve} from 'path'
+import {projectRoot} from '../util/projectRoot'
 import type {Directory, Paths} from './types'
 
 /**
  * Current working dir.
  */
-const projectDir: Directory = process.cwd()
+const project: Directory = projectRoot
 
 /**
  * Bud framework dir.
  */
-const frameworkDir: Directory = resolve(__dirname, './../../../')
+const framework: Directory = resolve(__dirname, '../../../')
 
 /**
  * Path references.
  */
 const paths: Paths = {
-  project: projectDir,
-  framework: frameworkDir,
-  src: join(projectDir, ''),
-  dist: join(projectDir, ''),
-  public: '',
+  project,
+  framework,
+  src: project,
+  dist: project,
+  public: project,
 }
 
 export {paths}

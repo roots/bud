@@ -15,7 +15,7 @@ const webpackDevMiddleware = require('webpack-dev-middleware');
 const webpackHotMiddleware = require('webpack-hot-middleware');
 
 const makeMiddleware = (compiler, bud) => [webpackDevMiddleware(compiler, {
-  headers: bud.state.options.dev.headers,
+  headers: bud.options.get('dev').headers,
   publicPath: bud.state.paths.public || '/',
   stats: {
     version: true,
@@ -34,7 +34,7 @@ const makeMiddleware = (compiler, bud) => [webpackDevMiddleware(compiler, {
 const hotSyncServer = (bud, compiler, callback) => {
   return browserSync.init({
     proxy: {
-      target: 'bud-sandbox.valet',
+      target: bud.options.get('dev').host,
       ws: true
     },
     logLevel: 'silent',

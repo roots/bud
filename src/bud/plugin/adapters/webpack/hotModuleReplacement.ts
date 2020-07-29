@@ -3,13 +3,13 @@ import type {WebpackAdapter} from './types'
 
 const hotModuleReplacement: WebpackAdapter = () => ({
   setOptions: function () {
-    return this.bud.state.options.hotModuleReplacement
+    return this.bud.options.get('hotModuleReplacement')
   },
   make: function () {
     return new HotModuleReplacementPlugin()
   },
   when: function () {
-    return this.bud.state.features.hot
+    return this.bud.features.enabled('hot')
   },
 })
 

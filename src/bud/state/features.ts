@@ -28,10 +28,10 @@ const features: Features = {
     /**
      * Enabled by config presence
      */
-    babel: configs.babel ? true : false, // babel.config.js
-    eslint: configs.eslint ? true : false, // .eslintrc.js
-    postCss: configs.postCss ? true : false, // postcss.config.js
-    typescript: configs.typescript ? true : false, // tsconfig.json
+    babel: configs.get('babel') ? true : false, // babel.config.js
+    eslint: configs.get('eslint') ? true : false, // .eslintrc.js
+    postCss: configs.get('postCss') ? true : false, // postcss.config.js
+    typescript: configs.get('typescript') ? true : false, // tsconfig.json
 
     /**
      * Opt-in.

@@ -2,23 +2,24 @@
 exports.__esModule = true;
 exports.paths = void 0;
 var path_1 = require("path");
+var projectRoot_1 = require("../util/projectRoot");
 /**
  * Current working dir.
  */
-var projectDir = process.cwd();
+var project = projectRoot_1.projectRoot;
 /**
  * Bud framework dir.
  */
-var frameworkDir = path_1.resolve(__dirname, './../../../');
+var framework = path_1.resolve(__dirname, '../../../');
 /**
  * Path references.
  */
 var paths = {
-    project: projectDir,
-    framework: frameworkDir,
-    src: path_1.join(projectDir, ''),
-    dist: path_1.join(projectDir, ''),
-    public: ''
+    project: project,
+    framework: framework,
+    src: project,
+    dist: project,
+    public: project
 };
 exports.paths = paths;
 //# sourceMappingURL=paths.js.map

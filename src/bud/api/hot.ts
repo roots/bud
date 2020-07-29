@@ -16,15 +16,15 @@ const hot: Hot = function (
   this.features.set({hot: options.enabled ?? true})
 
   if (this.features.enabled('hot')) {
-    this.state.options.dev = {
-      ...this.state.options.dev,
+    this.options.merge('dev', {
       before(app, server) {
         chokidar.watch(options.watch ?? []).on('all', function () {
           server.sockWrite(server.sockets, 'content-changed')
         })
       },
+      host: options.host ?? 'localhost',
       proxy: {
-        ...this.state.options.dev.proxy,
+        ...this.options.get('dev').proxy,
         '**': {
           target: options.host || 'localhost',
           secure: options.secure || false,
@@ -33,7 +33,7 @@ const hot: Hot = function (
         },
       },
       headers: {
-        ...this.state.options.dev.headers,
+        ...this.options.get('dev').headers,
         'Access-Control-Allow-Origin': '*',
         'Access-Control-Allow-Methods':
           'GET, POST, PUT, DELETE, PATCH, OPTIONS',
@@ -45,7 +45,7 @@ const hot: Hot = function (
       overlay: true,
       historyApiFallback: true,
       open: options.open ?? false,
-    }
+    })
   }
 
   return this

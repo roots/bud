@@ -7,7 +7,7 @@ exports.dependencyExtraction = void 0;
 var dependency_extraction_webpack_plugin_1 = __importDefault(require("@wordpress/dependency-extraction-webpack-plugin"));
 var dependencyExtraction = function () { return ({
     mergeOptions: function () {
-        return this.bud.state.options.dependencyManifest;
+        return this.bud.options.get('dependencyManifest');
     },
     make: function () {
         return new dependency_extraction_webpack_plugin_1["default"](this.options);

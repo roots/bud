@@ -9,11 +9,13 @@ export declare type Fab = {
     undefined: () => undefined;
     null: () => null;
 };
+export declare type ProjectRoot = string;
 export declare type Util = {
     dump: Dump;
     except: Except;
     shortCircuit: ShortCircuit;
     fab: Fab;
+    projectRoot: ProjectRoot;
     terminate: (any: any) => void;
     setProcess: (bud: Bud) => void;
 };

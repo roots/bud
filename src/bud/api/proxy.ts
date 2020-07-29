@@ -6,23 +6,22 @@ import type {Bud} from './types'
 const proxy = function (this: Bud, {host, ssl = false}): Bud {
   const qualified = ssl ? `https://${host}` : `http://${host}`
 
-  this.state.options.dev = {
-    ...this.state.options.dev,
+  this.options.merge('dev', {
     host: host,
     proxy: {
-      ...this.state.options.dev.proxy,
+      ...this.options.get('dev').proxy,
       target: qualified,
       headers: {
-        ...this.state.options.dev.proxy.headers,
+        ...this.options.get('dev').proxy.headers,
         'X-Bud-Proxy': qualified,
       },
     },
-  }
+  })
 
-  this.state.options.browserSync = {
-    ...this.state.options.browserSync,
+  this.options.merge('browserSync', {
+    ...this.options.get('browserSync'),
     proxy: {
-      ...this.state.options.browserSync.proxy,
+      ...this.options.get('browserSync').proxy,
       target: qualified,
       ws: true,
       proxyReq: [
@@ -31,7 +30,7 @@ const proxy = function (this: Bud, {host, ssl = false}): Bud {
         },
       ],
     },
-  }
+  })
 
   return this
 }

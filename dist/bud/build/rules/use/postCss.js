@@ -22,12 +22,12 @@ var postCss = function (bud) { return ({
     bud: bud,
     config: {
         loader: loaders_1.loaders.postCss,
-        options: __assign({ ident: 'postcss', parser: 'postcss-scss' }, bud.state.options.postCss)
+        options: __assign({ ident: 'postcss', parser: 'postcss-scss' }, bud.options.get('postCss'))
     },
     output: {},
     make: function () {
         this.bud.hooks.call('pre_postcss', this);
-        this.output = this.bud.state.features.postCss ? this.config : {};
+        this.output = this.bud.features.enabled('postCss') ? this.config : {};
         this.bud.hooks.call('post_postcss', this.output);
         return this.output;
     }

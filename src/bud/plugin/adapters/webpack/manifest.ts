@@ -13,7 +13,7 @@ const manifest: WebpackAdapter = () => ({
     return new ManifestPlugin(this.options)
   },
   when: function () {
-    return this.bud.state.features.manifest
+    return this.bud.features.enabled('manifest')
   },
 })
 

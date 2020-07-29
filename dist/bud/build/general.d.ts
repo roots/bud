@@ -10,7 +10,7 @@ declare const general: (bud: Bud) => {
         context: string;
         devtool: any;
         mode: "none" | "development" | "production";
-        target: "node" | "web" | "webworker" | "async-node" | "node-webkit" | "atom" | "electron" | "electron-renderer" | "electron-preload" | "electron-main" | ((compiler?: any) => void);
+        target: any;
         watch: boolean;
     };
     make: () => any;

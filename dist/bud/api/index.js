@@ -22,7 +22,6 @@ var hot_1 = require("./hot");
 var inlineManifest_1 = require("./inlineManifest");
 var map_1 = require("./map");
 var mini_1 = require("./mini");
-var option_1 = require("./option");
 var postcss_1 = require("./postcss");
 var preset_1 = require("./preset");
 var project_1 = require("./project");
@@ -65,7 +64,6 @@ exports.api = {
     inlineManifest: inlineManifest_1.inlineManifest,
     map: map_1.map,
     mini: mini_1.mini,
-    option: option_1.option,
     postCss: postcss_1.postCss,
     preset: preset_1.preset,
     project: project_1.project,

@@ -12,7 +12,7 @@ import WDS from 'webpack-dev-server'
 const makeDevServer = (bud: Bud, webpackConfig: WebpackConfig) => {
   const wdsOptions = {
     before(app, server) {
-      chokidar.watch(bud.state.options.watch).on('all', function () {
+      chokidar.watch(bud.options.get('watch')).on('all', function () {
         server.sockWrite(server.sockets, 'content-changed')
       })
     },

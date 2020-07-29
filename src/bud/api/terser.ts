@@ -4,9 +4,9 @@ const terser: Terser = function (options: {
   enable?: boolean
   terser?: object
 }): Bud {
-  this.state.features.terser = options?.enable ?? true
+  this.features.set('terser', options?.enable ?? true)
 
-  this.state.options.terser = {
+  this.options.merge('terser', {
     terserOptions: options?.terser ?? {
       parse: {
         ecma: 8,
@@ -28,8 +28,8 @@ const terser: Terser = function (options: {
     },
     cache: true,
     parallel: true,
-    sourceMap: this.state.features.sourceMap,
-  }
+    sourceMap: this.features.enabled('sourceMap')
+  })
 
   return this
 }

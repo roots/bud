@@ -8,10 +8,7 @@ const auto: Auto = function (
 ): Bud {
   Object.entries(options).forEach(([key, modules]) => {
     modules.forEach(handle => {
-      this.state.options.auto = {
-        ...this.state.options.auto,
-        [handle]: key,
-      }
+      this.options.merge('auto', {[handle]: key})
     })
   })
 
