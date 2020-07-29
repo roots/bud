@@ -576,6 +576,15 @@ type Bud = {
    */
   translate: Api.Translate
 
+  /**
+   * ## bud.vendor
+   *
+   * Enable bundling vendor modules separately from application code.
+   *
+   * ```js
+   * bud.vendor()
+   * ```
+   */
   vendor: Api.Vendor
 
   /**
