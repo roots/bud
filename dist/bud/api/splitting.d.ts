@@ -1,12 +1,4 @@
-/**
- * ## bud.splitting
- *
- * Enable or disable code splitting.
- *
- * ```js
- * bud.splitting(false)
- * ```
- */
-declare const splitting: Function;
+import type { Splitting } from './types';
+declare const splitting: Splitting;
 export { splitting };
 //# sourceMappingURL=splitting.d.ts.map

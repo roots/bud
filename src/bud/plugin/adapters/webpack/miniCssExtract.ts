@@ -14,11 +14,11 @@ const miniCssExtract: WebpackAdapter = () => ({
   },
   when: function () {
     return (
-      this.bud.featureEnabled('css') ||
-      this.bud.featureEnabled('scss') ||
-      this.bud.featureEnabled('postcss') ||
-      this.bud.featureEnabled('scssModules') ||
-      this.bud.featureEnabled('cssModules')
+      this.bud.features.enabled('css') ||
+      this.bud.features.enabled('scss') ||
+      this.bud.features.enabled('postcss') ||
+      this.bud.features.enabled('scssModules') ||
+      this.bud.features.enabled('cssModules')
     )
   },
 })

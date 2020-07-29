@@ -24,14 +24,14 @@ var resolveUrl_1 = require("../use/resolveUrl");
 var css = function (bud) { return ({
     bud: bud,
     test: patterns_1.patterns.css,
-    sourceMap: bud.featureEnabled('map'),
+    sourceMap: bud.features.enabled('map'),
     make: function () {
         this.use = [
-            loaders_1.loaders.miniCss(this.bud.featureEnabled('hot')),
+            loaders_1.loaders.miniCss(this.bud.features.enabled('hot')),
             loaders_1.loaders.css,
             resolveUrl_1.resolveUrl(this.bud).make(),
         ];
-        if (this.bud.featureEnabled('postCss')) {
+        if (this.bud.features.enabled('postCss')) {
             this.use.push(__assign({}, postCss_1.postCss(this.bud).make()));
         }
         this.bud.hooks.call('pre_css', this);

@@ -10,12 +10,12 @@ var general = function (bud) { return ({
     bud: bud,
     options: {
         context: bud.state.paths.project,
-        devtool: bud.state.features.sourceMap
+        devtool: bud.features.enabled('sourceMap')
             ? bud.state.options.devtool
             : false,
         mode: bud.mode,
         target: bud.state.options.target,
-        watch: bud.state.features.watch
+        watch: bud.features.enabled('watch')
     },
     make: function () {
         /**

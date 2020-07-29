@@ -11,13 +11,15 @@ var compiler_1 = require("./compiler");
 /**
  * Bud - asset management framework.
  *
- * @type {Bud}
+ * @const {Bud} bud
  */
 var bud = {
     hooks: hooks_1.hooks,
     util: util_1.util,
     state: state_1.state,
+    features: state_1.state.features,
     mode: flags_1.mode,
+    inDevelopment: flags_1.inDevelopment,
     inProduction: flags_1.inProduction,
     plugin: plugin_1.plugin,
     compiler: compiler_1.compiler,
@@ -29,16 +31,13 @@ var bud = {
     copy: api_1.api.copy,
     copyAll: api_1.api.copyAll,
     dashboard: api_1.api.dashboard,
+    devtool: api_1.api.devtool,
     dist: api_1.api.dist,
     distPath: api_1.api.distPath,
     debug: api_1.api.debug,
     dependencyManifest: api_1.api.dependencyManifest,
     dev: api_1.api.dev,
-    devtool: api_1.api.devtool,
     dump: api_1.api.dump,
-    env: api_1.api.env,
-    featureEnabled: api_1.api.featureEnabled,
-    features: api_1.api.features,
     glob: api_1.api.glob,
     hash: api_1.api.hash,
     hot: api_1.api.hot,
@@ -50,7 +49,6 @@ var bud = {
     preset: api_1.api.preset,
     project: api_1.api.project,
     projectPath: api_1.api.projectPath,
-    proxy: api_1.api.proxy,
     publicPath: api_1.api.publicPath,
     purge: api_1.api.purge,
     resolve: api_1.api.resolve,

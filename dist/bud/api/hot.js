@@ -18,8 +18,8 @@ exports.hot = void 0;
 var chokidar_1 = __importDefault(require("chokidar"));
 var hot = function (options) {
     var _a, _b, _c;
-    this.state.features.hot = (_a = options.enabled) !== null && _a !== void 0 ? _a : true;
-    if (this.state.features.hot) {
+    this.features.set({ hot: (_a = options.enabled) !== null && _a !== void 0 ? _a : true });
+    if (this.features.enabled('hot')) {
         this.state.options.dev = __assign(__assign({}, this.state.options.dev), { before: function (app, server) {
                 var _a;
                 chokidar_1["default"].watch((_a = options.watch) !== null && _a !== void 0 ? _a : []).on('all', function () {

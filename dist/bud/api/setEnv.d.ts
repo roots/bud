@@ -1,15 +1,6 @@
 import type { Bud } from './Types';
 /**
- * ## bud.setEnv
- *
- * Set environment variables.
- *
- * ```js
- * bud.setEnv({
- *  APP_NAME: 'sage',
- *  //...,
- * })
- * ```
+ * @todo env
  */
 declare const setEnv: (options: any) => Bud;
 export { setEnv };

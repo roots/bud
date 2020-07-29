@@ -4,7 +4,7 @@ import chokidar from 'chokidar'
 const hot: Hot = function (
   this: Bud,
   options: {
-    enabled: boolean
+    enabled?: boolean
     host: string
     port?: number
     watch?: string[]
@@ -13,9 +13,9 @@ const hot: Hot = function (
     secure?: boolean
   },
 ): Bud {
-  this.state.features.hot = options.enabled ?? true
+  this.features.set({hot: options.enabled ?? true})
 
-  if (this.state.features.hot) {
+  if (this.features.enabled('hot')) {
     this.state.options.dev = {
       ...this.state.options.dev,
       before(app, server) {

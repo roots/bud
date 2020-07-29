@@ -1,15 +1,7 @@
 import {join} from 'path'
+import type {Project} from './types'
 
-/**
- * ## bud.project
- *
- * Yield an absolute path from a path relative to the `bud.projectPath`.
- *
- * ```js
- * bud.project('package.json') // absolute path to package.json
- * ```
- */
-const project = function (relativePath: string): string {
+const project: Project = function (relativePath: string): string {
   return join(this.state.paths.project, relativePath)
 }
 

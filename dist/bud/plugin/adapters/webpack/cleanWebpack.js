@@ -7,7 +7,7 @@ var cleanWebpack = function () { return ({
         return new clean_webpack_plugin_1.CleanWebpackPlugin(this.options);
     },
     when: function () {
-        this.bud.featureEnabled('clean');
+        this.bud.features.enabled('clean');
     }
 }); };
 exports.cleanWebpack = cleanWebpack;

@@ -2,7 +2,7 @@ import type { Bud } from './types';
 /**
  * Bud - asset management framework.
  *
- * @type {Bud}
+ * @const {Bud} bud
  */
 declare const bud: Bud;
 export { bud };

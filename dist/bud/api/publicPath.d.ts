@@ -1,15 +1,4 @@
-import type { Bud } from './Types';
-/**
- * ## bud.publicPath
- *
- * Set the project public path.
- *
- * ### Example
- *
- * ```js
- * bud.publicPath('dist')
- * ```
- */
-declare const publicPath: (dir: string) => Bud;
+import type { PathSetter } from './Types';
+declare const publicPath: PathSetter;
 export { publicPath };
 //# sourceMappingURL=publicPath.d.ts.map

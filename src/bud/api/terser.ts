@@ -1,21 +1,8 @@
-import type {Bud} from './types'
+import type {Bud, Terser} from './types'
 
-/**
- * ## bud.terser
- *
- * Enable or disable minification
- *
- * ```js
- * bud.hot(true) // enable
- * ```
- *
- * ```js
- * bud.hot(false) // disable
- * ```
- */
-const terser = function (options: {
-  enable: boolean
-  terser: object
+const terser: Terser = function (options: {
+  enable?: boolean
+  terser?: object
 }): Bud {
   this.state.features.terser = options?.enable ?? true
 

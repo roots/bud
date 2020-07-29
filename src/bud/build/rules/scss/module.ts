@@ -39,7 +39,7 @@ const module = bud => ({
     this.output = {
       test: this.test,
       use: Object.values([
-        loaders.miniCss(this.bud.featureEnabled('hot')),
+        loaders.miniCss(this.bud.features.enabled('hot')),
         ,
         this.css,
         this.resolveUrl,

@@ -32,7 +32,7 @@ const renderCompilerDashboard: BudRenderer = (
   bud: Bud,
   webpackConfig: WebpackConfig,
 ): void => {
-  const compiler = bud.featureEnabled('hot')
+  const compiler = bud.features.enabled('hot')
     ? webpack(injectHot(webpackConfig))
     : webpack(webpackConfig)
 

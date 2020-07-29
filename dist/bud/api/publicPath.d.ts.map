@@ -1,1 +1,1 @@
-{"version":3,"file":"publicPath.d.ts","sourceRoot":"","sources":["../../../src/bud/api/publicPath.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAC,GAAG,EAAC,MAAM,SAAS,CAAA;AAEhC;;;;;;;;;;GAUG;AACH,QAAA,MAAM,UAAU,QAAkB,MAAM,KAAG,GAI1C,CAAA;AAED,OAAO,EAAC,UAAU,EAAC,CAAA"}
+{"version":3,"file":"publicPath.d.ts","sourceRoot":"","sources":["../../../src/bud/api/publicPath.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAM,UAAU,EAAC,MAAM,SAAS,CAAA;AAE5C,QAAA,MAAM,UAAU,EAAE,UAIjB,CAAA;AAED,OAAO,EAAC,UAAU,EAAC,CAAA"}

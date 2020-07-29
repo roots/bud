@@ -19,7 +19,9 @@ export declare type DependencyManifest = (settings?: DependencyExtractionOptions
 export declare type Dev = (options: object) => Bud;
 export declare type Devtool = (devtool: WebpackOptions.Devtool) => Bud;
 export declare type Dist = (path?: string) => string;
-export declare type DistPath = (src: string) => Bud;
+export declare type Dump = (enabled: boolean) => Bud;
+export declare type PathSetter = (path: string) => Bud;
+export declare type Glob = (this: Bud, output: string, files: string) => Bud;
 export declare type Hash = (this: Bud, enabled?: boolean) => Bud;
 export declare type Hot = (this: Bud, options: {
     enabled: boolean;
@@ -39,15 +41,18 @@ export declare type PostCss = (options?: {
 }) => Bud;
 export declare type Preset = (path?: string) => any;
 export declare type Project = (path?: string) => string;
-export declare type ProjectPath = (path: string) => Bud;
 export declare type Purge = (any: any) => Bud;
 export declare type Resolve = (moduleName: string) => string;
-export declare type Register = (name: string, plugin: any) => Bud;
+export declare type Scss = (enabled?: boolean) => Bud;
 export declare type SourceMap = (enabled?: boolean) => Bud;
+export declare type Splitting = (enabled?: boolean) => Bud;
 export declare type Src = (path?: string) => string;
-export declare type SrcPath = (src: string) => Bud;
 export declare type Sync = (options: SyncOptions) => Bud;
 export declare type Target = (target: string) => Bud;
+export declare type Terser = (options: {
+    enable?: boolean;
+    terser?: object;
+}) => Bud;
 export declare type Translate = (output: string) => Bud;
 export declare type Watch = (options: {
     paths: string[];
@@ -67,18 +72,28 @@ export declare type Api = {
     dependencyManifest: DependencyManifest;
     dev: Dev;
     devtool: Devtool;
-    features: any;
+    dist: Dist;
+    distPath: PathSetter;
+    dump: Dump;
+    glob: Glob;
+    hash: Hash;
+    hot: Hot;
+    option: Option;
+    project: Project;
+    publicPath: PathSetter;
+    purge: Purge;
+    splitting: Splitting;
+    terser: Terser;
     inlineManifest: InlineManifest;
     map: SourceMap;
     mini: Mini;
     postCss: PostCss;
     preset: Preset;
-    projectPath: ProjectPath;
+    projectPath: PathSetter;
     resolve: Resolve;
-    register: Register;
     scss: any;
     src: Src;
-    srcPath: SrcPath;
+    srcPath: PathSetter;
     sync: Sync;
     target: Target;
     translate: Translate;

@@ -60,7 +60,7 @@ const build = (bud: Bud): BuilderController => ({
    * @return {object}
    */
   makeConfig: function () {
-    this.bud.featureEnabled('optimize') &&
+    this.bud.features.enabled('optimize') &&
       this.builders.push(['optimization', optimization])
 
     /** Hook: pre_webpack */

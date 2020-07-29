@@ -15,8 +15,8 @@ const terser: WebpackAdapter = () => ({
   },
   when: function () {
     return (
-      this.bud.featureEnabled('terser') &&
-      this.bud.featureEnabled('minify')
+      this.bud.features.enabled('terser') &&
+      this.bud.features.enabled('minify')
     )
   },
 })

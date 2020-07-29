@@ -3,7 +3,7 @@ exports.__esModule = true;
 exports.hash = void 0;
 var hash = function (enabled) {
     if (enabled === void 0) { enabled = true; }
-    this.state.features.hash = enabled;
+    this.features.set({ hash: enabled });
     return this;
 };
 exports.hash = hash;

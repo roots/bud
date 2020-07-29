@@ -17,18 +17,6 @@ exports.__esModule = true;
 exports.glob = void 0;
 var globby_1 = __importDefault(require("globby"));
 var path_1 = require("path");
-/**
- * ## bud.glob
- *
- * Compile assets into a particular directory.
- *
- * ```js
- * bud.bundlePath(
- *  bud.dist('scripts'),
- *  [bud.src('scripts')],
- * )
- * ```
- */
 var glob = function (output, files) {
     var _this = this;
     var entry = this.state.options.entry;

@@ -1,5 +1,8 @@
 import type {Bud} from './types'
 
+/**
+ * @todo WDS
+ */
 const proxy = function (this: Bud, {host, ssl = false}): Bud {
   const qualified = ssl ? `https://${host}` : `http://${host}`
 

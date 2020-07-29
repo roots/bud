@@ -19,25 +19,13 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 };
 exports.__esModule = true;
 exports.translate = void 0;
-/**
- * ## bud.translate
- *
- * Process @wordpress/i18n strings from JS source assets.
- *
- * If you are already translating strings with `yarn translate` then
- * there is no reason to run this separately.
- *
- * ```js
- * bud.translate('resources/languages/sage.pot')
- * ```
- */
 var translate = function (output) {
     var _this = this;
     this.state.features.translate = output ? true : false;
     this.state.features.translate &&
         (function () {
             _this.state.options.babel = __assign(__assign({}, _this.state.options.babel), { plugins: __spreadArrays(_this.state.options.babel.plugins, [
-                    [require('@wordpress/babel-plugin-makepot'), { output: output }],
+                    [_this.require('@wordpress/babel-plugin-makepot'), { output: output }],
                 ]) });
         })();
     return this;

@@ -11,12 +11,12 @@ const compiler = (bud: Bud): void => {
   /**
    * Use bud's default dashboard when enabled
    */
-  const dashboardEnabled: boolean = bud.state.features.dashboard
+  const dashboardEnabled: boolean = bud.features.enabled('dashboard')
 
   /**
    * Dump config to stdout close process before build when enabled
    */
-  const dumpEnabled: boolean = bud.state.features.dump
+  const dumpEnabled: boolean = bud.features.enabled('dump')
 
   /**
    * Pre-configuration hook

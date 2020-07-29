@@ -66,7 +66,7 @@ var build = function (bud) { return ({
      */
     makeConfig: function () {
         var _this = this;
-        this.bud.featureEnabled('optimize') &&
+        this.bud.features.enabled('optimize') &&
             this.builders.push(['optimization', optimization_1.optimization]);
         /** Hook: pre_webpack */
         this.doHook('pre', this.bud.state.options);

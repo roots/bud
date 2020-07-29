@@ -1,19 +1,10 @@
-import type {Bud, Watch} from './types'
+import type {Bud, Splitting} from './types'
 
-/**
- * ## bud.splitting
- *
- * Enable or disable code splitting.
- *
- * ```js
- * bud.splitting(false)
- * ```
- */
-const splitting: Function = function (
+const splitting: Splitting = function (
   this: Bud,
   enabled: boolean,
 ): Bud {
-  this.state.features.splitting = enabled ?? true
+  this.features.set({splitting: enabled ?? true})
 
   return this
 }

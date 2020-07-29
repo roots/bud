@@ -13,16 +13,7 @@ var __assign = (this && this.__assign) || function () {
 exports.__esModule = true;
 exports.setEnv = void 0;
 /**
- * ## bud.setEnv
- *
- * Set environment variables.
- *
- * ```js
- * bud.setEnv({
- *  APP_NAME: 'sage',
- *  //...,
- * })
- * ```
+ * @todo env
  */
 var setEnv = function (options) {
     this.state.options.env = __assign(__assign({}, this.state.options.env), options);

@@ -22,7 +22,7 @@ var injectHot = function (webpackConfig) {
  * Webpack compilation dashboard renderer.
  */
 var renderCompilerDashboard = function (bud, webpackConfig) {
-    var compiler = bud.featureEnabled('hot')
+    var compiler = bud.features.enabled('hot')
         ? webpack_1["default"](injectHot(webpackConfig))
         : webpack_1["default"](webpackConfig);
     var runnerProps = {

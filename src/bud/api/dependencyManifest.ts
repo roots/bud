@@ -4,14 +4,14 @@ const dependencyManifest: DependencyManifest = function (
   this: Bud,
   settings?: DependencyExtractionOptions,
 ): Bud {
-  this.state.features.dependencyManifest = true
+  this.features.enable('dependencyManifest')
 
-  this.state.features.dependencyManifest &&
-    settings &&
-    Object.assign(this.state.options.dependencyManifest, {
+  if (settings) {
+    this.state.options.dependencyManifest = {
       ...this.state.options.dependencyManifest,
       ...(settings ? settings : {}),
-    })
+    }
+  }
 
   return this
 }

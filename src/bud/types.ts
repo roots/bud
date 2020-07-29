@@ -1,6 +1,6 @@
 import type {Configuration} from 'webpack'
 import type {Hooks} from './hooks/types'
-import type {State} from './state/types'
+import type {State, Features} from './state/types'
 import type {Util} from './util/types'
 import type * as Api from './api/types'
 
@@ -35,8 +35,6 @@ type Bud = {
    * ```js
    * bud.hooks.call('hookName', value)
    * ```
-   *
-   * @type {Hooks} hooks
    */
   hooks: Hooks
 
@@ -44,8 +42,6 @@ type Bud = {
    * ## bud.util
    *
    * Helper functions.
-   *
-   * @type {Util} util
    */
   util: Util
 
@@ -53,8 +49,6 @@ type Bud = {
    * ## bud.plugin
    *
    * Bud framework plugins and webpack adapters.
-   *
-   * @type {any} plugin
    */
   plugin: any
 
@@ -62,17 +56,20 @@ type Bud = {
    * ## bud.mode
    *
    * Current build environment ('production', 'development', 'none')
-   *
-   * @type {Configuration['mode']} mode
    */
-  mode: Mode
+  mode: Configuration['mode']
+
+  /**
+   * ## bud.inDevelopment
+   *
+   * Boolean returning true if in development.
+   */
+  inDevelopment: Production
 
   /**
    * ## bud.inProduction
    *
    * Boolean returning true if in production.
-   *
-   * @type {boolean} mode
    */
   inProduction: Production
 
@@ -80,17 +77,20 @@ type Bud = {
    * ## bud.state
    *
    * Contains the current state of the configuration Bud will build.
-   *
-   * @type {State} state
    */
   state: State
+
+  /**
+   * ## bud.features
+   *
+   * Status of features
+   */
+  features: Features
 
    /**
    * ## bud.compiler
    *
    * The compiler function which carries out the final build.
-   *
-   * @type {any} compiler
    */
   compiler: any
 
@@ -110,8 +110,6 @@ type Bud = {
    * ```js
    * import 'scripts/myScript' // replacing '../../myScript'
    * ```
-   *
-   * @property {Api.Alias} alias
    **/
   alias: Api.Alias
 
@@ -123,8 +121,6 @@ type Bud = {
    * ```js
    * bud.auto({jquery: ['$', 'window.jQuery']})
    * ```
-   *
-   * @property {Api.Auto} auto
    */
   auto: Api.Auto
 
@@ -139,8 +135,6 @@ type Bud = {
    * Conflicts between supplied configs will be resolved in favor of the project config file.
    *
    * @see https://babeljs.io/docs/en/configuration
-   *
-   * @property {Api.Babel} babel
    */
   babel: Api.Babel
 
@@ -155,8 +149,6 @@ type Bud = {
    *   bud.src('app.css'),
    * ])
    * ```
-   *
-   * @property {Api.Bundle} bundle
    */
   bundle: Api.Bundle
 
@@ -168,10 +160,8 @@ type Bud = {
    * ```
    * bud.compile()
    * ```
-   *
-   * @property {(): void} compile
    */
-  compile: any
+  compile: () => void
 
   /**
    * ## bud.copy
@@ -184,8 +174,6 @@ type Bud = {
    *   bud.dist('image.png'),
    * )
    * ```
-   *
-   * @property {Api.Copy} copy
    */
   copy: Api.Copy
 
@@ -200,8 +188,6 @@ type Bud = {
    *  bud.dist('images')
    * )
    * ```
-   *
-   * @property {Api.CopyAll} copyAll
    */
   copyAll: Api.Copy
 
@@ -213,10 +199,24 @@ type Bud = {
    * ```js
    * bud.dashboard(false)
    * ```
-   *
-   * @property {Api.Dashboard} dashboard
    */
   dashboard: Api.Dashboard
+
+  /**
+   * ## bud.debug
+   *
+   * Enable or disable debug mode.
+   *
+   * ```js
+   * bud.debug()
+   * bud.debug(true)
+   * ```
+   *
+   * ```js
+   * bud.debug(false)
+   * ```
+   */
+  debug: Api.Debug
 
   /**
    * ## bud.dependencyManifest
@@ -231,8 +231,6 @@ type Bud = {
    *   injectPolyfill: false,
    * })
    * ```
-   *
-   * @property {Api.DependencyManifest} dependencyManifest
    */
   dependencyManifest: Api.DependencyManifest
 
@@ -240,8 +238,6 @@ type Bud = {
    * ## bud.dev
    *
    * Development server settings
-   *
-   * @property {Api.Dev} dev
    */
   dev: Api.Dev
 
@@ -249,8 +245,6 @@ type Bud = {
    * ## bud.devtool
    *
    * Specify a devtool
-   *
-   * @property {Api.Devtool} devtool
    */
   devtool: Api.Devtool
 
@@ -262,8 +256,6 @@ type Bud = {
    * ```js
    * bud.dist('scripts/app.js')
    * ```
-   *
-   * @property {Api.Dist} dist
    */
   dist: Api.Dist
 
@@ -275,15 +267,17 @@ type Bud = {
    *  ```js
    * bud.distPath('dist')
    * ```
-   *
-   * @property {Api.DistPath} distPath
    */
-  distPath: Api.DistPath
+  distPath: Api.PathSetter
 
-  dump: any
-  env: any
-  featureEnabled: any
-  features: any
+  /**
+   * Dump generated webpack config for debugging
+   *
+   * ```js
+   * bud.dump(true)
+   * ```
+   */
+  dump: Api.Dump
 
   /**
    * ## bud.glob
@@ -296,21 +290,17 @@ type Bud = {
    *  [bud.src('scripts')],
    * )
    * ```
-   *
-   * @property {(): Bud} glob
    */
-  glob: any
+  glob: Api.Glob
 
   /**
    * ## bud.hash
    *
-   * Enable or disable filename hashing of built assets. Unless specified, filename hashes will be created when running production builds.
+   * Enable or disable filename hashing of built assets.
    *
    * ```js
    * bud.hash(true)
    * ```
-   *
-   * @property {Api.Hash} hash
    */
   hash: Api.Hash
 
@@ -327,8 +317,6 @@ type Bud = {
    *  secure: false,
    * })
    * ```
-   *
-   * @property {Api.Hot} hot
    */
   hot: Api.Hot
 
@@ -338,8 +326,6 @@ type Bud = {
    * ```js
    * bud.inlineManifest({name: 'runtime'})
    * ```
-   *
-   * @property {Api.InlineManifest} inlineManifest
    */
   inlineManifest: Api.InlineManifest
 
@@ -350,9 +336,6 @@ type Bud = {
    *
    * ```js
    * bud.map(true)
-   * ```
-   *
-   * @property {Api.SourceMap} map
    */
   map: Api.SourceMap
 
@@ -362,10 +345,8 @@ type Bud = {
    * Enable or disable minification
    *
    * ```js
-   * bud.mini(true) // enable
+   * bud.mini(true)
    * ```
-   *
-   * @property {Api.Mini} mini
    */
   mini: Api.Mini
 
@@ -375,10 +356,8 @@ type Bud = {
    * Get the current value of a bud option
    *
    * ```js
-   * bud.option(')
+   * bud.option()
    * ```
-   *
-   * @property {Api.Option} option
    */
   option: Api.Option
 
@@ -399,8 +378,6 @@ type Bud = {
    *   ],
    * })
    * ```
-   *
-   * @property {Api.PostCss} postCss
    */
   postCss: Api.PostCss
 
@@ -421,18 +398,99 @@ type Bud = {
    * ```js
    * bud.preset('tsconfig')
    * ```
-   *
-   * @property {Api.Preset} preset
    */
   preset: Api.Preset
+
+  /**
+   * ## bud.project
+   *
+   * Yield an absolute path from a path relative to the `bud.projectPath`.
+   *
+   * ```js
+   * bud.project('package.json') // absolute path to package.json
+   * ```
+   */
   project: Api.Project
-  projectPath: Api.ProjectPath
-  proxy: any
-  publicPath: any
+
+  /**
+   * ## bud.projectPath
+   *
+   * Set the project base path.
+   *
+   * ```js
+   * bud.projectPath(__dirname)
+   * ```
+   */
+  projectPath: Api.PathSetter
+
+  /**
+   * ## bud.publicPath
+   *
+   * Set the project public path.
+   *
+   * ### Example
+   *
+   * ```js
+   * bud.publicPath('dist')
+   * ```
+   */
+  publicPath: Api.PathSetter
+
+  /**
+   * ## bud.purge
+   *
+   * Purge unused CSS from compiled stylesheets
+   *
+   * @see https://purgecss.com/guides/wordpress.html
+   * @see https://purgecss.com/configuration.html
+   *
+   * ```js
+   * bud.purge({
+   *   enabled: bud.inProduction,
+   *   content: [bud.project('resources/views/**')],
+   *   allow: require('purgecss-with-wordpress').whitelist,
+   *   allowPatterns: require('purgecss-with-wordpress').whitelistPatterns,
+   * })
+   * ```
+   */
   purge: Api.Purge
-  resolve: any
-  scss: any
-  splitting: any
+
+  /**
+   * ## bud.resolve
+   *
+   * Resolve a module.
+   *
+   * ```js
+   * bud.resolve('scripts/app.js')
+   * ```
+   */
+  resolve: Api.Resolve
+
+  /**
+   * ## bud.scss
+   *
+   * Enable/disable scss support
+   *
+   * ```js
+   * bud.scss(true)
+   * ```
+   *
+   * ```js
+   * bud.scss(false)
+   * ```
+   */
+  scss: Api.Scss
+
+  /**
+   * ## bud.splitting
+   *
+   * Enable or disable code splitting.
+   *
+   * ```js
+   * bud.splitting(false)
+   * ```
+   */
+  splitting: Api.Splitting
 
   /**
    * ## bud.src
@@ -442,8 +500,6 @@ type Bud = {
    * ```js
    * bud.src('scripts/app.js')
    * ```
-   *
-   * @property {Api.Src} src
    */
   src: Api.Src
 
@@ -455,10 +511,8 @@ type Bud = {
    *  ```js
    * bud.srcPath('src')
    * ```
-   *
-   * @property {Api.SrcPath} srcPath
    */
-  srcPath: Api.SrcPath
+  srcPath: Api.PathSetter
 
   /**
    * ## bud.sync
@@ -473,14 +527,55 @@ type Bud = {
    *   port: 3000,
    * })
    * ```
-   *
-   * @property {Api.Sync} sync
    */
   sync: Api.Sync
 
+  /**
+   * ## bud.target
+   *
+   * Set the build target. Defaults to 'web'.
+   *
+   * ```js
+   * bud.target('web')
+   * ```
+   */
   target: Api.Target
-  terser: any
+
+  /**
+   * ## bud.terser
+   *
+   * Optimize build with terser.
+   *
+   * ```js
+   * bud.terser({
+   *  parse: {
+   *   ecma: 8,
+   *  },
+   *  compress: {
+   *    ecma: 5,
+   *    warnings: false,
+   *    comparisons: false,
+   *    inline: 2,
+   *  },
+   * })
+   * ```
+   */
+  terser: Api.Terser
+
+  /**
+   * ## bud.translate
+   *
+   * Process @wordpress/i18n strings from JS source assets.
+   *
+   * If you are already translating strings with `yarn translate` then
+   * there is no reason to run this separately.
+   *
+   * ```js
+   * bud.translate('resources/languages/sage.pot')
+   * ```
+   */
   translate: Api.Translate
+
   vendor: Api.Vendor
 
   /**
@@ -489,33 +584,13 @@ type Bud = {
    * Enable or disable watch mode.
    *
    * ```js
-   * bud.watch(
+   * bud.watch({
+   *  enabled: !bud.inProduction,
    *  paths: [bud.src('assets/images')],
-   * )
+   * })
    * ```
-   *
-   * @property {Api.Watch} watch
    */
   watch: Api.Watch
-
-  /**
-   * ## bud.debug
-   *
-   * Enable or disable debug mode.
-   *
-   * ```js
-   * bud.debug()
-   * bud.debug(true)
-   * ```
-   *
-   * ```js
-   * bud.debug(false) // debug disabled
-   * ```
-   *
-   * @property {Api.Debug}
-   * @deprecated
-   */
-  debug: Api.Debug
 }
 
 export {Bud}

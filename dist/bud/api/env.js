@@ -2,14 +2,7 @@
 exports.__esModule = true;
 exports.env = void 0;
 /**
- * Get environment variable value.
- *
- * ```js
- * bud.env('APP_NAME')
- * ```
- *
- * @param   {string} key
- * @return  {string}
+ * @todo env
  */
 var env = function (key) {
     return this.state.options.env[key]

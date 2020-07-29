@@ -15,7 +15,7 @@ var module = function (bud) { return ({
     rule: {
         test: patterns_1.patterns.cssModule,
         use: [
-            loaders_1.loaders.miniCss(bud.featureEnabled('hot')),
+            loaders_1.loaders.miniCss(bud.features.enabled('hot')),
             {
                 loader: loaders_1.loaders.css,
                 options: {
@@ -31,7 +31,7 @@ var module = function (bud) { return ({
      */
     make: function () {
         this.pre();
-        if (this.bud.featureEnabled('postCss')) {
+        if (this.bud.features.enabled('postCss')) {
             this.use.push(postCss_1.postCss(this.bud).make());
         }
         this.post();

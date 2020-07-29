@@ -1,7 +1,7 @@
 "use strict";
 var _a;
 exports.__esModule = true;
-exports.watch = exports.feature = exports.dist = exports.src = exports.port = exports.host = exports.hot = exports.mode = exports.inProduction = exports.arguments = void 0;
+exports.watch = exports.feature = exports.dist = exports.src = exports.port = exports.host = exports.hot = exports.mode = exports.inProduction = exports.inDevelopment = exports.arguments = void 0;
 var yargs_1 = require("yargs");
 exports.arguments = yargs_1.argv;
 var env_1 = require("./state/env");
@@ -13,21 +13,23 @@ var envArgument = yargs_1.argv === null || yargs_1.argv === void 0 ? void 0 : ya
 var envProject = env_1.env === null || env_1.env === void 0 ? void 0 : env_1.env.APP_ENV;
 var mode = (_a = envProject !== null && envProject !== void 0 ? envProject : envArgument) !== null && _a !== void 0 ? _a : envFallback;
 exports.mode = mode;
-var inProduction = mode === 'production';
+var inDevelopment = mode == 'development';
+exports.inDevelopment = inDevelopment;
+var inProduction = mode == 'production';
 exports.inProduction = inProduction;
 /**
  * --hot
  */
-var hotFallback = null;
+var hotFallback = false;
 var hotArgument = yargs_1.argv === null || yargs_1.argv === void 0 ? void 0 : yargs_1.argv.hot;
 var hot = hotArgument !== null && hotArgument !== void 0 ? hotArgument : hotFallback;
 exports.hot = hot;
 /**
  * --watch
  */
-var watchFallback = null;
+var watchFallback = false;
 var watchArgument = yargs_1.argv === null || yargs_1.argv === void 0 ? void 0 : yargs_1.argv.watch;
-var watch = watchArgument !== null && watchArgument !== void 0 ? watchArgument : watchFallback;
+var watch = watchArgument ? watchArgument : watchFallback;
 exports.watch = watch;
 /**
  * --host

@@ -13,7 +13,7 @@ var __assign = (this && this.__assign) || function () {
 exports.__esModule = true;
 exports.babel = void 0;
 var babel = function (options) {
-    this.state.features.babel = true;
+    this.features.enable('babel');
     this.state.options.babel = __assign(__assign({}, this.state.options.babel), options);
     return this;
 };

@@ -9,7 +9,7 @@ const dependencyExtraction: WebpackAdapter = () => ({
     return new DependencyExtractionPlugin(this.options)
   },
   when: function () {
-    return this.bud.featureEnabled('dependencyManifest')
+    return this.bud.features.enabled('dependencyManifest')
   },
 })
 

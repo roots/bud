@@ -1,9 +1,6 @@
-import type {Bud} from './types'
+import type {Bud, Scss} from './types'
 
-/**
- * ## bud.scss
- */
-const scss = function (enabled: boolean): Bud {
+const scss: Scss = function (enabled: boolean): Bud {
   this.state.features.scss = enabled ?? true
 
   return this

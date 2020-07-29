@@ -12,6 +12,9 @@ var __assign = (this && this.__assign) || function () {
 };
 exports.__esModule = true;
 exports.proxy = void 0;
+/**
+ * @todo WDS
+ */
 var proxy = function (_a) {
     var host = _a.host, _b = _a.ssl, ssl = _b === void 0 ? false : _b;
     var qualified = ssl ? "https://" + host : "http://" + host;

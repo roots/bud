@@ -1,8 +1,8 @@
 import {join} from 'path'
-import type {Bud, DistPath} from './types'
+import type {Bud, PathSetter} from './types'
 
-const distPath: DistPath = function (relativePath: string): Bud {
-  this.state.paths.dist = join(this.state.paths.project, relativePath)
+const distPath: PathSetter = function (dir: string): Bud {
+  this.state.paths.dist = join(this.state.paths.project, dir)
 
   return this
 }

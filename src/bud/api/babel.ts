@@ -4,7 +4,8 @@ const babel: Babel = function (
   this: Bud,
   options: BabelProperties,
 ): Bud {
-  this.state.features.babel = true
+  this.features.enable('babel')
+
   this.state.options.babel = {
     ...this.state.options.babel,
     ...options,

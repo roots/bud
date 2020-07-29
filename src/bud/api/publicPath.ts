@@ -1,17 +1,6 @@
-import type {Bud} from './Types'
+import type {Bud, PathSetter} from './Types'
 
-/**
- * ## bud.publicPath
- *
- * Set the project public path.
- *
- * ### Example
- *
- * ```js
- * bud.publicPath('dist')
- * ```
- */
-const publicPath = function (dir: string): Bud {
+const publicPath: PathSetter = function (dir: string): Bud {
   this.state.paths.public = dir
 
   return this

@@ -1,20 +1,8 @@
-import type {Bud, Bundle} from './types'
+import type {Bud, Glob} from './types'
 import globby from 'globby'
 import {parse} from 'path'
 
-/**
- * ## bud.glob
- *
- * Compile assets into a particular directory.
- *
- * ```js
- * bud.bundlePath(
- *  bud.dist('scripts'),
- *  [bud.src('scripts')],
- * )
- * ```
- */
-const glob = function (
+const glob: Glob = function (
   this: Bud,
   output: string,
   files: string,

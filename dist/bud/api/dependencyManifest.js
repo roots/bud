@@ -13,10 +13,10 @@ var __assign = (this && this.__assign) || function () {
 exports.__esModule = true;
 exports.dependencyManifest = void 0;
 var dependencyManifest = function (settings) {
-    this.state.features.dependencyManifest = true;
-    this.state.features.dependencyManifest &&
-        settings &&
-        Object.assign(this.state.options.dependencyManifest, __assign(__assign({}, this.state.options.dependencyManifest), (settings ? settings : {})));
+    this.features.enable('dependencyManifest');
+    if (settings) {
+        this.state.options.dependencyManifest = __assign(__assign({}, this.state.options.dependencyManifest), (settings ? settings : {}));
+    }
     return this;
 };
 exports.dependencyManifest = dependencyManifest;

@@ -11,11 +11,11 @@ var compiler = function (bud) {
     /**
      * Use bud's default dashboard when enabled
      */
-    var dashboardEnabled = bud.state.features.dashboard;
+    var dashboardEnabled = bud.features.enabled('dashboard');
     /**
      * Dump config to stdout close process before build when enabled
      */
-    var dumpEnabled = bud.state.features.dump;
+    var dumpEnabled = bud.features.enabled('dump');
     /**
      * Pre-configuration hook
      */

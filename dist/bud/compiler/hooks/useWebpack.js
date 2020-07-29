@@ -120,7 +120,7 @@ const useWebpack = ({
     if (progressPluginApplied) {
       if (!webpackRunning) {
         setWebpackRunning(true);
-        bud.featureEnabled('watch') ? compiler.watch({}, webpackCallback) : compiler.run(webpackCallback);
+        bud.features.enabled('watch') ? compiler.watch({}, webpackCallback) : compiler.run(webpackCallback);
       }
     }
   }, [progressPluginApplied, bud, compiler]);
@@ -133,7 +133,7 @@ const useWebpack = ({
     (buildStats === null || buildStats === void 0 ? void 0 : buildStats.errors) && setErrors(buildStats === null || buildStats === void 0 ? void 0 : buildStats.errors);
   }, [buildStats, buildErrors]);
   useMemo(() => {
-    if (webpackRunning && bud.featureEnabled('hot') && !devServer && (buildStats || buildErrors)) {
+    if (webpackRunning && bud.features.enabled('hot') && !devServer && (buildStats || buildErrors)) {
       hotSyncServer(bud, compiler, (err, bs) => {
         setDevServer(bs.name);
       });

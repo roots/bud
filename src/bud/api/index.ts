@@ -1,3 +1,4 @@
+import type {Api} from './types'
 import {alias} from './alias'
 import {auto} from './auto'
 import {babel} from './babel'
@@ -14,8 +15,6 @@ import {dev} from './dev'
 import {devtool} from './devtool'
 import {dump} from './dump'
 import {env} from './env'
-import {featureEnabled} from './featureEnabled'
-import {features} from './features'
 import {glob} from './glob'
 import {hash} from './hash'
 import {hot} from './hot'
@@ -46,7 +45,7 @@ import {watch} from './watch'
 /**
  * Bud.Bud export
  */
-export const api = {
+export const api: Api = {
   alias,
   auto,
   babel,
@@ -62,9 +61,6 @@ export const api = {
   dist,
   distPath,
   dump,
-  env,
-  featureEnabled,
-  features,
   glob,
   hash,
   hot,
@@ -76,12 +72,10 @@ export const api = {
   preset,
   project,
   projectPath,
-  proxy,
   publicPath,
   purge,
   resolve,
   scss,
-  setEnv,
   splitting,
   src,
   srcPath,

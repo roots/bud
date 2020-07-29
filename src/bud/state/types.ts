@@ -75,41 +75,62 @@ export type Vendor = {
 /**
  * Features
  */
-export type Features = {
-  babel: boolean
-  browserSync: boolean
-  clean: boolean
-  css: boolean
-  cssModules: boolean
-  debug: boolean
-  dashboard: boolean
-  dependencyManifest: boolean
-  dump: boolean
-  eslint: boolean
-  font: boolean
-  hash: boolean
-  image: boolean
-  hot: boolean
-  inlineManifest: boolean
-  js: boolean
-  manifest: boolean
-  minify: boolean
-  optimize: boolean
-  overlay: boolean
-  postCss: boolean
-  scss: boolean
-  scssModules: boolean
-  svg: boolean
-  terser: boolean
-  uglify: boolean
-  purge: boolean
-  sourceMap: boolean
-  splitting: boolean
-  translate: boolean
-  typescript: boolean
-  vendor: boolean
-  watch: boolean
+type Entry = boolean
+type Repository = {[key: string]: Entry}
+interface Enable {(feature: string): void}
+interface Enabled {(feature: string): boolean}
+interface Disable {(feature: string): void}
+interface Disabled {(feature: string): boolean}
+interface Get {(feature: string): boolean}
+interface Set {(Repository): void}
+interface Has {(feature: string): boolean}
+
+/**
+ * ## bud.state.features
+ */
+type Features = {
+  /**
+   * Feature store
+   */
+  repository: Repository
+
+  /**
+   * Enable a feature
+   */
+  enable: Enable
+
+  /**
+   * Boolean check if feature is enabled.
+   */
+  enabled: Enabled
+
+  /**
+   * Disable a feature
+   */
+  disable: Disable
+
+  /**
+   * Boolean check if feature is disabled.
+   */
+  disabled: Disabled
+
+  /**
+   * Get the value of a feature.
+   */
+  get: Get
+
+  /**
+   * Set the value of a feature.
+   */
+  set: Set
+
+  /**
+   * Check if a feature exists
+   */
+  has: Has
 }
+
+export type {Features}
 
 /**
  * Configs

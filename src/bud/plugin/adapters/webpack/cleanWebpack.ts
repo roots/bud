@@ -6,7 +6,7 @@ const cleanWebpack: WebpackAdapter = () => ({
     return new Plugin(this.options)
   },
   when: function () {
-    this.bud.featureEnabled('clean')
+    this.bud.features.enabled('clean')
   },
 })
 

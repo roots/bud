@@ -30,26 +30,26 @@ var rules = function (bud) { return ({
         /*     this.bud.state.options.target == 'node' &&
           this.options.module.rules.push({test: patterns.js, loader: loaders.shebang})
      */
-        this.bud.featureEnabled('typescript') &&
+        this.bud.features.enabled('typescript') &&
             this.options.module.rules.push(typescript_1.typescript(this.bud).make());
-        this.bud.featureEnabled('eslint') &&
-            !this.bud.featureEnabled('typescript') &&
+        this.bud.features.enabled('eslint') &&
+            !this.bud.features.enabled('typescript') &&
             this.options.module.rules.push(eslint_1.eslint(this.bud).make());
-        this.bud.featureEnabled('babel') &&
+        this.bud.features.enabled('babel') &&
             this.options.module.rules.push(babel_1.babel(this.bud).make());
-        this.bud.featureEnabled('css') &&
+        this.bud.features.enabled('css') &&
             this.options.module.rules.push(css_1.css(this.bud).make());
-        this.bud.featureEnabled('cssModules') &&
+        this.bud.features.enabled('cssModules') &&
             this.options.module.rules.push(module_1.module(this.bud).make());
-        this.bud.featureEnabled('scss') &&
+        this.bud.features.enabled('scss') &&
             this.options.module.rules.push(scss_1.scss(this.bud).make());
-        this.bud.featureEnabled('scssModules') &&
+        this.bud.features.enabled('scssModules') &&
             this.options.module.rules.push(module_2.module(this.bud).make());
-        this.bud.featureEnabled('font') &&
+        this.bud.features.enabled('font') &&
             this.options.module.rules.push(font_1.font(this.bud).make());
-        this.bud.featureEnabled('image') &&
+        this.bud.features.enabled('image') &&
             this.options.module.rules.push(image_1.image(this.bud).make());
-        this.bud.featureEnabled('svg') &&
+        this.bud.features.enabled('svg') &&
             this.options.module.rules.push(svg_1.svg(this.bud).make());
         return this.options;
     }

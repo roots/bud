@@ -19,7 +19,13 @@ export type DependencyManifest = (settings?: DependencyExtractionOptions) => Bud
 export type Dev = (options: object) => Bud
 export type Devtool = (devtool: WebpackOptions.Devtool) => Bud
 export type Dist = (path?: string) => string
-export type DistPath = (src: string) => Bud
+export type Dump = (enabled: boolean) => Bud
+export type PathSetter = (path: string) => Bud
+export type Glob = (
+  this: Bud,
+  output: string,
+  files: string,
+) => Bud
 export type Hash = (this: Bud, enabled?: boolean) => Bud
 export type Hot = (this: Bud, options: {
   enabled: boolean
@@ -33,23 +39,21 @@ export type Hot = (this: Bud, options: {
 export type InlineManifest = (name?: string) => Bud
 export type Mini = (enabled?: boolean) => Bud
 export type Option = (key: string) => string
-export type PostCss = (options?: {
-  enabled?: boolean
-  plugins?: any[]
-}) => Bud
+export type PostCss = (options?: {enabled?: boolean, plugins?: any[]}) => Bud
 export type Preset = (path?: string) => any
 export type Project = (path?: string) => string
-export type ProjectPath = (path: string) => Bud
 export type Purge = (any) => Bud
 export type Resolve = (moduleName: string) => string
-export type Register = (name: string, plugin: any) => Bud
+export type Scss = (enabled?: boolean) => Bud
 export type SourceMap = (enabled?: boolean) => Bud
-
+export type Splitting = (enabled?: boolean) => Bud
 export type Src = (path?: string) => string
-export type SrcPath = (src: string) => Bud
-
 export type Sync = (options: SyncOptions) => Bud
 export type Target = (target: string) => Bud
+export type Terser = (options: {
+  enable?: boolean
+  terser?: object
+}) => Bud
 export type Translate = (output: string) => Bud
 export type Watch = (options: {
   paths: string[]
@@ -70,18 +74,28 @@ export type Api = {
   dependencyManifest: DependencyManifest
   dev: Dev
   devtool: Devtool
-  features: any
+  dist: Dist
+  distPath: PathSetter
+  dump: Dump
+  glob: Glob
+  hash: Hash
+  hot: Hot
+  option: Option
+  project: Project
+  publicPath: PathSetter
+  purge: Purge
+  splitting: Splitting
+  terser: Terser
   inlineManifest: InlineManifest
   map: SourceMap
   mini: Mini
   postCss: PostCss
   preset: Preset
-  projectPath: ProjectPath
+  projectPath: PathSetter
   resolve: Resolve
-  register: Register
   scss: any
   src: Src
-  srcPath: SrcPath
+  srcPath: PathSetter
   sync: Sync
   target: Target
   translate: Translate

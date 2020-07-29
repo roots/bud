@@ -13,7 +13,7 @@ const module = bud => ({
   rule: {
     test: patterns.cssModule,
     use: [
-      loaders.miniCss(bud.featureEnabled('hot')),
+      loaders.miniCss(bud.features.enabled('hot')),
       {
         loader: loaders.css,
         options: {
@@ -31,7 +31,7 @@ const module = bud => ({
   make: function () {
     this.pre()
 
-    if (this.bud.featureEnabled('postCss')) {
+    if (this.bud.features.enabled('postCss')) {
       this.use.push(postCss(this.bud).make())
     }
 

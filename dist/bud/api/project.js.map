@@ -1,1 +1,1 @@
-{"version":3,"file":"project.js","sourceRoot":"","sources":["../../../src/bud/api/project.ts"],"names":[],"mappings":";;;AAAA,6BAAyB;AAEzB;;;;;;;;GAQG;AACH,IAAM,OAAO,GAAG,UAAU,YAAoB;IAC5C,OAAO,WAAI,CAAC,IAAI,CAAC,KAAK,CAAC,KAAK,CAAC,OAAO,EAAE,YAAY,CAAC,CAAA;AACrD,CAAC,CAAA;AAEO,0BAAO"}
+{"version":3,"file":"project.js","sourceRoot":"","sources":["../../../src/bud/api/project.ts"],"names":[],"mappings":";;;AAAA,6BAAyB;AAGzB,IAAM,OAAO,GAAY,UAAU,YAAoB;IACrD,OAAO,WAAI,CAAC,IAAI,CAAC,KAAK,CAAC,KAAK,CAAC,OAAO,EAAE,YAAY,CAAC,CAAA;AACrD,CAAC,CAAA;AAEO,0BAAO"}

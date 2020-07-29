@@ -13,7 +13,7 @@ var output = function (bud) { return ({
         output: {
             path: bud.state.paths.dist,
             publicPath: bud.state.paths.public,
-            filename: bud.state.features.hash
+            filename: bud.features.enabled('hash')
                 ? '[name].[hash:8].js'
                 : '[name].js'
         }

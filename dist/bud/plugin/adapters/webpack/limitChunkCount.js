@@ -23,7 +23,7 @@ var limitChunkCount = function () { return ({
         return new LimitChunkCountPlugin(this.options);
     },
     when: function () {
-        return this.bud.featureEnabled('optimize') && this.options;
+        return this.bud.features.enabled('optimize') && this.options;
     }
 }); };
 exports.limitChunkCount = limitChunkCount;

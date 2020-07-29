@@ -19,23 +19,6 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 };
 exports.__esModule = true;
 exports.purge = void 0;
-/**
- * ## bud.purge
- *
- * Purge unused CSS from compiled stylesheets
- *
- * @see https://purgecss.com/guides/wordpress.html
- * @see https://purgecss.com/configuration.html
- *
- * ```js
- * bud.purge({
- *   enabled: bud.inProduction,
- *   content: [bud.project('resources/views/**')],
- *   allow: require('purgecss-with-wordpress').whitelist,
- *   allowPatterns: require('purgecss-with-wordpress').whitelistPatterns,
- * })
- * ```
- */
 var purge = function (_a) {
     var _b = _a.enabled, enabled = _b === void 0 ? true : _b, options = __rest(_a, ["enabled"]);
     if (enabled) {

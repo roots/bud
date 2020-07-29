@@ -11,16 +11,16 @@ import {resolveUrl} from '../use/resolveUrl'
 const css = bud => ({
   bud,
   test: patterns.css,
-  sourceMap: bud.featureEnabled('map'),
+  sourceMap: bud.features.enabled('map'),
 
   make: function () {
     this.use = [
-      loaders.miniCss(this.bud.featureEnabled('hot')),
+      loaders.miniCss(this.bud.features.enabled('hot')),
       loaders.css,
       resolveUrl(this.bud).make(),
     ]
 
-    if (this.bud.featureEnabled('postCss')) {
+    if (this.bud.features.enabled('postCss')) {
       this.use.push({...postCss(this.bud).make()})
     }
 

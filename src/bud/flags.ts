@@ -10,21 +10,22 @@ const envArgument: any = argv?.env
 const envProject: string = env?.APP_ENV
 
 const mode: Mode = envProject ?? envArgument ?? envFallback
-const inProduction: Production = mode === 'production'
+const inDevelopment: Production = mode == 'development'
+const inProduction: Production = mode == 'production'
 
 /**
  * --hot
  */
-const hotFallback: string = null
+const hotFallback: boolean = false
 const hotArgument: any = argv?.hot
 const hot = hotArgument ?? hotFallback
 
 /**
  * --watch
  */
-const watchFallback: string = null
+const watchFallback: boolean = false
 const watchArgument: any = argv?.watch
-const watch = watchArgument ?? watchFallback
+const watch = watchArgument ? watchArgument : watchFallback
 
 /**
  * --host
@@ -61,9 +62,9 @@ const featureFallback: string = null
 const featureArgument: any = argv?.watch
 const feature = featureArgument ?? featureFallback
 
-
 export {
   argv as arguments,
+  inDevelopment,
   inProduction,
   mode,
   hot,

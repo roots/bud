@@ -1,20 +1,4 @@
-import type { Bud } from './types';
-/**
- * ## bud.terser
- *
- * Enable or disable minification
- *
- * ```js
- * bud.hot(true) // enable
- * ```
- *
- * ```js
- * bud.hot(false) // disable
- * ```
- */
-declare const terser: (options: {
-    enable: boolean;
-    terser: object;
-}) => Bud;
+import type { Terser } from './types';
+declare const terser: Terser;
 export { terser };
 //# sourceMappingURL=terser.d.ts.map

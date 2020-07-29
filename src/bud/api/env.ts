@@ -1,12 +1,5 @@
 /**
- * Get environment variable value.
- *
- * ```js
- * bud.env('APP_NAME')
- * ```
- *
- * @param   {string} key
- * @return  {string}
+ * @todo env
  */
 const env = function (key: string | number): any {
   return this.state.options.env[key]

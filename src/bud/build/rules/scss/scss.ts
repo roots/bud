@@ -30,7 +30,7 @@ const scss = bud => ({
     this.output = {
       test: this.test,
       use: Object.values([
-        loaders.miniCss(this.bud.featureEnabled('hot')),
+        loaders.miniCss(this.bud.features.enabled('hot')),
         loaders.css,
         this.resolveUrl,
         this.postCss,

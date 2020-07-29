@@ -119,7 +119,7 @@ const useWebpack = ({compiler, bud}) => {
       if (!webpackRunning) {
         setWebpackRunning(true)
 
-        bud.featureEnabled('watch')
+        bud.features.enabled('watch')
           ? compiler.watch({}, webpackCallback)
           : compiler.run(webpackCallback)
       }
@@ -139,7 +139,7 @@ const useWebpack = ({compiler, bud}) => {
   useMemo(() => {
     if (
       webpackRunning &&
-      bud.featureEnabled('hot') &&
+      bud.features.enabled('hot') &&
       !devServer &&
       (buildStats || buildErrors)
     ) {

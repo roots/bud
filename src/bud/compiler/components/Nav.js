@@ -69,7 +69,7 @@ const Nav = ({build, focused, bud}) => (
       </Text>
     </Box>
 
-    {bud.featureEnabled('hot') && (
+    {bud.features.enabled('hot') && (
       <>
         <Spacer />
         <Box>
@@ -80,7 +80,7 @@ const Nav = ({build, focused, bud}) => (
       </>
     )}
 
-    {bud.featureEnabled('browserSync') && (
+    {bud.features.enabled('browserSync') && (
       <>
         <Spacer />
         <Box>
@@ -91,7 +91,7 @@ const Nav = ({build, focused, bud}) => (
       </>
     )}
 
-    {bud.featureEnabled('debug') && (
+    {bud.features.enabled('debug') && (
       <>
         <Spacer />
         <Box>

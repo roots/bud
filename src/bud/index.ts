@@ -3,20 +3,22 @@ import {hooks} from './hooks'
 import {util} from './util'
 import {plugin} from './plugin'
 import {state} from './state'
-import {inProduction, mode} from './flags'
+import {inDevelopment, inProduction, mode} from './flags'
 import {compiler} from './compiler'
 import type {Bud} from './types'
 
 /**
  * Bud - asset management framework.
  *
- * @type {Bud}
+ * @const {Bud} bud
  */
 const bud: Bud = {
   hooks,
   util,
   state,
+  features: state.features,
   mode,
+  inDevelopment,
   inProduction,
   plugin,
   compiler,
@@ -28,16 +30,13 @@ const bud: Bud = {
   copy: api.copy,
   copyAll: api.copyAll,
   dashboard: api.dashboard,
+  devtool: api.devtool,
   dist: api.dist,
   distPath: api.distPath,
   debug: api.debug,
   dependencyManifest: api.dependencyManifest,
   dev: api.dev,
-  devtool: api.devtool,
   dump: api.dump,
-  env: api.env,
-  featureEnabled: api.featureEnabled,
-  features: api.features,
   glob: api.glob,
   hash: api.hash,
   hot: api.hot,
@@ -49,7 +48,6 @@ const bud: Bud = {
   preset: api.preset,
   project: api.project,
   projectPath: api.projectPath,
-  proxy: api.proxy,
   publicPath: api.publicPath,
   purge: api.purge,
   resolve: api.resolve,
