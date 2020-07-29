@@ -7,3 +7,5 @@ export type {
   WebpackAdapters,
   RegisteredPlugin,
 } from '../../types'
+
+export type {Bud} from '../../../types'

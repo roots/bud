@@ -56,7 +56,6 @@ const makePluginApi = (bud: Bud, repo) => ({
 
 /**
  * ## plugin
- * @constructor
  *
  * ```js
  * bud.plugin.init
@@ -68,6 +67,8 @@ const plugin = {
     this.controller = controller(bud)
     this.core = makePluginApi(bud, this.bud.state.plugins.registered)
     this.webpack = makePluginApi(bud, this.bud.state.plugins.adapters)
+
+    return this
   },
 }
 /**

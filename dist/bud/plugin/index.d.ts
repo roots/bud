@@ -1,14 +1,13 @@
 import { Bud } from './types';
 /**
  * ## plugin
- * @constructor
  *
  * ```js
  * bud.plugin.init
  * ```
  */
 declare const plugin: {
-    init: (bud: Bud) => void;
+    init: (bud: Bud) => any;
 };
 /**
  * bud.plugin export

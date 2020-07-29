@@ -2,6 +2,7 @@ import type {Configuration as WebpackConfiguration} from 'webpack'
 import type {Options as DependencyExtractionOptions} from '@wordpress/dependency-extraction-webpack-plugin/build-types'
 import type {Options as BrowserSyncOptions} from 'browser-sync-webpack-plugin'
 import type {TerserPluginOptions as TerserOptions} from 'terser-webpack-plugin'
+
 /**
  * Mitch, all together.
  */
@@ -26,66 +27,19 @@ export type Paths = {
   public: Directory
 }
 
-type optionsStore = {
-  alias: any
-  auto: any
-  babel: BabelConfiguration
-  copy: Copy
-  dev: any
-  devtool: any
-  entry: any
-  env: any
-  inlineManifest: any
-  node: any
-  splitting: any
-  uglify: any
-  browserSync: any
-  externals: Externals
-  postCss: PostCssConfiguration
-  target: WebpackConfiguration['target']
-  terser: TerserOptions
-  typescript: Typescript
-  dependencyManifest: DependencyExtractionOptions
-  vendor: Vendor
-  watch: any
-}
-
-/**
- * Option value
- */
-type OptionsValue = any
-
-/**
- * Option entry
- */
-type OptionsEntry = {[key: string]: OptionsValue}
-
-/**
- * Get the value of a option.
- */
-interface GetOption {(option: string): any}
-
-/**
- * Set the value of a option.
- */
-interface SetOption {(OptionsRepository): void}
-
-/**
- * Returns true if there is a value set for this option.
- */
-interface HasOption {(option: string): boolean}
-
-/**
- * Returns true if option is equal to the supplied value.
- */
-interface IsOption {(option: string, value: any): boolean}
-
 /**
  * Options
  */
 export type Options = {
-  repository: OptionsEntry
-  get: GetOption
+  /**
+   * Options repository
+   */
+  repository: {[key: string]: any}
+
+  /**
+   * Get the value of a option.
+   */
+  get: (option: string) => any
 
   /**
    * Merge new values into an option
@@ -96,8 +50,16 @@ export type Options = {
    * Set the value of a option.
    */
   set: (option: string, value: any) => void
-  has: HasOption
-  is: IsOption
+
+  /**
+   * Returns true if there is a value set for this option.
+   */
+  has: (option: string) => boolean
+
+  /**
+   * Returns true if option is equal to the supplied value.
+   */
+  is: (option: string, value: any) => boolean
 }
 
 export type BabelConfiguration = {

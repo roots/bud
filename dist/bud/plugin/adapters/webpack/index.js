@@ -18,10 +18,6 @@ var browserSyncAdapter = [
     'browser_sync_plugin',
     browserSync_1.browserSync,
 ];
-var cleanAdapter = [
-    'clean_webpack_plugin',
-    cleanWebpack_1.cleanWebpack,
-];
 var copyAdapter = ['copy_plugin', copy_1.copy];
 var defineAdapter = ['define_plugin', define_1.define];
 var dependencyExtractionAdapter = [
@@ -57,7 +53,7 @@ var terserAdapter = ['terser', terser_1.terser];
 var webpackAdapters = [
     writeFileAdapter,
     browserSyncAdapter,
-    cleanAdapter,
+    ['clean_webpack_plugin', cleanWebpack_1.cleanWebpack],
     copyAdapter,
     defineAdapter,
     dependencyExtractionAdapter,

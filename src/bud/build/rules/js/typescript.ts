@@ -17,7 +17,7 @@ const typescript: Function = (bud: Bud): any => ({
         {
           loader: loaders.ts,
           options: {
-            configFile: bud.configs.get('typescript'),
+            configFile: this.bud.configs.get('typescript'),
           },
         },
       ],

@@ -18,10 +18,7 @@ const browserSyncAdapter: RegisteredPlugin = [
   'browser_sync_plugin',
   browserSync,
 ]
-const cleanAdapter: RegisteredPlugin = [
-  'clean_webpack_plugin',
-  cleanWebpack,
-]
+
 const copyAdapter: RegisteredPlugin = ['copy_plugin', copy]
 const defineAdapter: RegisteredPlugin = ['define_plugin', define]
 const dependencyExtractionAdapter: RegisteredPlugin = [
@@ -59,7 +56,7 @@ const terserAdapter: RegisteredPlugin = ['terser', terser]
 const webpackAdapters: WebpackAdapters = [
   writeFileAdapter,
   browserSyncAdapter,
-  cleanAdapter,
+  ['clean_webpack_plugin', cleanWebpack],
   copyAdapter,
   defineAdapter,
   dependencyExtractionAdapter,

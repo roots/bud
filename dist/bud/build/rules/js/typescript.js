@@ -15,7 +15,7 @@ var typescript = function (bud) { return ({
                 {
                     loader: loaders_1.loaders.ts,
                     options: {
-                        configFile: bud.configs.get('typescript')
+                        configFile: this.bud.configs.get('typescript')
                     }
                 },
             ]

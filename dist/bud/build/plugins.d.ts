@@ -4,7 +4,8 @@ import type { Bud } from './types';
  */
 declare const plugins: (bud: Bud) => {
     bud: Bud;
-    pluginQueue: any;
+    controller: any;
+    adapters: any;
     make: () => {
         plugins: any;
     };

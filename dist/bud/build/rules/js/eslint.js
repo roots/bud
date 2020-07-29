@@ -16,7 +16,7 @@ var eslint = function (bud) { return ({
                 {
                     loader: loaders_1.loaders.eslint,
                     options: {
-                        configFile: bud.configs.get('eslint'),
+                        configFile: this.bud.configs.get('eslint'),
                         formatter: 'codeframe',
                         failOnError: true
                     }

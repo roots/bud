@@ -49,7 +49,6 @@ var makePluginApi = function (bud, repo) { return ({
 }); };
 /**
  * ## plugin
- * @constructor
  *
  * ```js
  * bud.plugin.init
@@ -61,6 +60,7 @@ var plugin = {
         this.controller = controller_1.controller(bud);
         this.core = makePluginApi(bud, this.bud.state.plugins.registered);
         this.webpack = makePluginApi(bud, this.bud.state.plugins.adapters);
+        return this;
     }
 };
 exports.plugin = plugin;

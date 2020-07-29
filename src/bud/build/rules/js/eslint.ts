@@ -17,7 +17,7 @@ const eslint: Function = (bud: Bud): any => ({
         {
           loader: loaders.eslint,
           options: {
-            configFile: bud.configs.get('eslint'),
+            configFile: this.bud.configs.get('eslint'),
             formatter: 'codeframe',
             failOnError: true,
           },

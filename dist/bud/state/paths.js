@@ -19,7 +19,7 @@ var paths = {
     framework: framework,
     src: project,
     dist: project,
-    public: project
+    public: ''
 };
 exports.paths = paths;
 //# sourceMappingURL=paths.js.map

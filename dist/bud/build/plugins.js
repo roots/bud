@@ -6,13 +6,14 @@ exports.plugins = void 0;
  */
 var plugins = function (bud) { return ({
     bud: bud,
-    pluginQueue: bud.state.plugins.adapters,
+    controller: bud.plugin.controller,
+    adapters: bud.state.plugins.adapters,
     make: function () {
         var _this = this;
         this.doHook('pre');
-        this.plugins = this.pluginQueue
+        this.plugins = this.adapters
             .map(function (plugin) {
-            return _this.bud.plugin.controller
+            return _this.controller
                 .initController(plugin)
                 .buildPlugin();
         })

@@ -25,39 +25,19 @@ export declare type Paths = {
     public: Directory;
 };
 /**
- * Option value
- */
-declare type OptionsValue = any;
-/**
- * Option entry
- */
-declare type OptionsEntry = {
-    [key: string]: OptionsValue;
-};
-/**
- * Get the value of a option.
- */
-interface GetOption {
-    (option: string): any;
-}
-/**
- * Returns true if there is a value set for this option.
- */
-interface HasOption {
-    (option: string): boolean;
-}
-/**
- * Returns true if option is equal to the supplied value.
- */
-interface IsOption {
-    (option: string, value: any): boolean;
-}
-/**
  * Options
  */
 export declare type Options = {
-    repository: OptionsEntry;
-    get: GetOption;
+    /**
+     * Options repository
+     */
+    repository: {
+        [key: string]: any;
+    };
+    /**
+     * Get the value of a option.
+     */
+    get: (option: string) => any;
     /**
      * Merge new values into an option
      */
@@ -66,8 +46,14 @@ export declare type Options = {
      * Set the value of a option.
      */
     set: (option: string, value: any) => void;
-    has: HasOption;
-    is: IsOption;
+    /**
+     * Returns true if there is a value set for this option.
+     */
+    has: (option: string) => boolean;
+    /**
+     * Returns true if option is equal to the supplied value.
+     */
+    is: (option: string, value: any) => boolean;
 };
 export declare type BabelConfiguration = {
     plugins: [];

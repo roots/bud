@@ -6,16 +6,17 @@ import type {Bud, RegisteredPlugin} from './types'
 const plugins = (bud: Bud) => ({
   bud,
 
-  pluginQueue: bud.state.plugins.adapters,
+  controller: bud.plugin.controller,
+  adapters: bud.state.plugins.adapters,
 
   make: function () {
     this.doHook('pre')
 
-    this.plugins = this.pluginQueue
+    this.plugins = this.adapters
       .map((plugin: RegisteredPlugin) =>
-        this.bud.plugin.controller
+        this.controller
           .initController(plugin)
-          .buildPlugin(),
+          .buildPlugin()
       )
       .filter(plugin => plugin !== undefined)
 

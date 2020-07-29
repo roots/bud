@@ -20,7 +20,7 @@ const paths: Paths = {
   framework,
   src: project,
   dist: project,
-  public: project,
+  public: '',
 }
 
 export {paths}
