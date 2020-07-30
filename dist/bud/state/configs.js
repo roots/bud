@@ -39,7 +39,7 @@ var configs = {
     }
 };
 exports.configs = configs;
-new Array(['babel', 'babel.config.js'], ['eslint', '.eslintrc.js'], ['postCss', 'postcss.config.js'], ['prettier', 'prettier.config.js'], ['stylelint', 'stylelint.config.js'], ['typescript', 'tsconfig.json'], ['js', 'jsconfig.json']).forEach(function (_a) {
+new Array(['babel', 'babel.config.js'], ['eslint', '.eslintrc.js'], ['postCss', 'postcss.config.js'], ['prettier', 'prettier.config.js'], ['stylelint', 'stylelint.config.js'], ['typescript', 'tsconfig.json'], ['js', 'jsconfig.json'], ['vue', 'vue.config.js']).forEach(function (_a) {
     var name = _a[0], filename = _a[1];
     var projectPath = path_1.join(paths_1.paths.project, filename);
     configs.exists(projectPath) && configs.add(name, projectPath);

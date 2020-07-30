@@ -242,6 +242,15 @@ declare type Bud = {
      */
     dump: Api.Dump;
     /**
+     * ## bud.eslint
+     *
+     * Set eslint options.
+     *
+     * ```js
+     * bud.stylelint(true)
+     */
+    eslint: Api.Eslint;
+    /**
      * ## bud.glob
      *
      * Compile assets into a particular directory.

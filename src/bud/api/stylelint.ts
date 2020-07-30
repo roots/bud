@@ -3,7 +3,7 @@ import {dirname} from 'path'
 
 const stylelint: Stylelint = function (options: {
   enabled?: boolean
-  options: StylelintOptions
+  options?: StylelintOptions
 }): Bud {
   this.features.set({stylelint: options?.enabled ?? true})
 

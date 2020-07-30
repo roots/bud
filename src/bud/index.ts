@@ -34,6 +34,7 @@ const framework = function () {
   this.dependencyManifest = api.dependencyManifest
   this.dev = api.dev
   this.dump = api.dump
+  this.eslint = api.eslint
   this.glob = api.glob
   this.hash = api.hash
   this.hot = api.hot

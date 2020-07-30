@@ -33,16 +33,12 @@ const features: Features = {
     postCss: configs.has('postCss'), // postcss.config.js
     stylelint: configs.has('stylelint'), // .stylelintrc.js
     typescript: configs.has('typescript'), // tsconfig.json
+    vue: configs.has('vue'), // vue.config.js
 
     /**
-     * Opt-in frameworks.
+     * Opt-in
      */
-    vue: false,
     react: false,
-
-    /**
-     * Opt-in.
-     */
     browserSync: false, // browsersync browser reloading
     dependencyManifest: false, // @wordpress webpack dependency manifest
     dump: false, // dump config

@@ -44,14 +44,11 @@ var features = {
         postCss: configs_1.configs.has('postCss'),
         stylelint: configs_1.configs.has('stylelint'),
         typescript: configs_1.configs.has('typescript'),
+        vue: configs_1.configs.has('vue'),
         /**
-         * Opt-in frameworks.
+         * Opt-in
          */
-        vue: false,
         react: false,
-        /**
-         * Opt-in.
-         */
         browserSync: false,
         dependencyManifest: false,
         dump: false,

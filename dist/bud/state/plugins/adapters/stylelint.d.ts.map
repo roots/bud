@@ -1,1 +1,1 @@
-{"version":3,"file":"stylelint.d.ts","sourceRoot":"","sources":["../../../../../src/bud/state/plugins/adapters/stylelint.ts"],"names":[],"mappings":"AACA,OAAO,KAAK,EAAC,cAAc,EAAC,MAAM,SAAS,CAAA;AAE3C,QAAA,MAAM,SAAS,EAAE,cAef,CAAA;AAEF,OAAO,EAAC,SAAS,EAAC,CAAA"}
+{"version":3,"file":"stylelint.d.ts","sourceRoot":"","sources":["../../../../../src/bud/state/plugins/adapters/stylelint.ts"],"names":[],"mappings":"AACA,OAAO,KAAK,EAAC,cAAc,EAAC,MAAM,SAAS,CAAA;AAE3C,QAAA,MAAM,SAAS,EAAE,cAYf,CAAA;AAEF,OAAO,EAAC,SAAS,EAAC,CAAA"}

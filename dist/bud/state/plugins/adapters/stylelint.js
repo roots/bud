@@ -15,8 +15,7 @@ var stylelint = function () { return ({
         return new stylelint_webpack_plugin_1["default"](this.options);
     },
     when: function () {
-        return (this.bud.configs.has('stylelint') ||
-            this.bud.features.enabled('stylelint'));
+        return this.bud.features.enabled('stylelint');
     }
 }); };
 exports.stylelint = stylelint;

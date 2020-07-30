@@ -16,6 +16,7 @@ var distPath_1 = require("./distPath");
 var dev_1 = require("./dev");
 var devtool_1 = require("./devtool");
 var dump_1 = require("./dump");
+var eslint_1 = require("./eslint");
 var glob_1 = require("./glob");
 var hash_1 = require("./hash");
 var hot_1 = require("./hot");
@@ -60,6 +61,7 @@ exports.api = {
     dist: dist_1.dist,
     distPath: distPath_1.distPath,
     dump: dump_1.dump,
+    eslint: eslint_1.eslint,
     glob: glob_1.glob,
     hash: hash_1.hash,
     hot: hot_1.hot,

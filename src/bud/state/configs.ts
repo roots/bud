@@ -38,6 +38,7 @@ new Array(
   ['stylelint', 'stylelint.config.js'],
   ['typescript', 'tsconfig.json'],
   ['js', 'jsconfig.json'],
+  ['vue', 'vue.config.js'],
 ).forEach(([name, filename]) => {
   const projectPath = join(paths.project, filename)
   configs.exists(projectPath) && configs.add(name, projectPath)

@@ -11,10 +11,7 @@ const stylelint: WebpackAdapter = () => ({
     return new StylelintPlugin(this.options)
   },
   when: function () {
-    return (
-      this.bud.configs.has('stylelint') ||
-      this.bud.features.enabled('stylelint')
-    )
+    return this.bud.features.enabled('stylelint')
   },
 })
 

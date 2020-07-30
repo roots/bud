@@ -22,6 +22,7 @@ export declare type Dev = (options: object) => Bud;
 export declare type Devtool = (devtool: WebpackOptions.Devtool) => Bud;
 export declare type Dist = (path?: string) => string;
 export declare type Dump = (enabled: boolean) => Bud;
+export declare type Eslint = (enabled: boolean) => Bud;
 export declare type PathSetter = (path: string) => Bud;
 export declare type Glob = (this: Bud, output: string, files: string) => Bud;
 export declare type Hash = (this: Bud, enabled?: boolean) => Bud;
@@ -50,7 +51,7 @@ export declare type SourceMap = (enabled?: boolean) => Bud;
 export declare type Splitting = (enabled?: boolean) => Bud;
 export declare type Stylelint = (options: {
     enabled?: boolean;
-    options: StylelintOptions;
+    options?: StylelintOptions;
 }) => Bud;
 export declare type Src = (path?: string) => string;
 export declare type Sync = (options: SyncOptions) => Bud;
@@ -85,6 +86,7 @@ export declare type Api = {
     dist: Dist;
     distPath: PathSetter;
     dump: Dump;
+    eslint: Eslint;
     glob: Glob;
     hash: Hash;
     hot: Hot;

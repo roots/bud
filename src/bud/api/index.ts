@@ -15,6 +15,7 @@ import {dev} from './dev'
 import {devtool} from './devtool'
 import {dump} from './dump'
 import {env} from './env'
+import {eslint} from './eslint'
 import {glob} from './glob'
 import {hash} from './hash'
 import {hot} from './hot'
@@ -62,6 +63,7 @@ export const api: Api = {
   dist,
   distPath,
   dump,
+  eslint,
   glob,
   hash,
   hot,

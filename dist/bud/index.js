@@ -36,6 +36,7 @@ var framework = function () {
     this.dependencyManifest = api_1.api.dependencyManifest;
     this.dev = api_1.api.dev;
     this.dump = api_1.api.dump;
+    this.eslint = api_1.api.eslint;
     this.glob = api_1.api.glob;
     this.hash = api_1.api.hash;
     this.hot = api_1.api.hot;
