@@ -39,10 +39,7 @@ const init = () => {
    * Action: adapters_build
    */
   bud.hooks.on('filter_adapters_build', adapters =>
-    adapters.map(([name, adapter]) => [
-      name,
-      adapter.buildPlugin()
-    ]),
+    adapters.map(([name, adapter]) => [name, adapter.buildPlugin()]),
   )
 
   /**

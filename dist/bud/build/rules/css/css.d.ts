@@ -1,10 +1,6 @@
-/**
- * Css
- * @param {Bud} bud
- * @return {object}
- */
 declare const css: (bud: any) => {
     bud: any;
+    use: any[];
     test: RegExp;
     sourceMap: any;
     make: () => any;

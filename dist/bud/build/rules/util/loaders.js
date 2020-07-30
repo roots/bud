@@ -26,7 +26,8 @@ var loaders = {
     svgr: require.resolve('@svgr/webpack'),
     url: require.resolve('url-loader'),
     ts: require.resolve('ts-loader'),
-    vue: require.resolve('vue-loader')
+    vue: require.resolve('vue-loader'),
+    vueStyle: require.resolve('vue-style-loader')
 };
 exports.loaders = loaders;
 //# sourceMappingURL=loaders.js.map

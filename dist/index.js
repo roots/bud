@@ -44,10 +44,7 @@ var init = function () {
     bud.hooks.on('filter_adapters_build', function (adapters) {
         return adapters.map(function (_a) {
             var name = _a[0], adapter = _a[1];
-            return [
-                name,
-                adapter.buildPlugin()
-            ];
+            return [name, adapter.buildPlugin()];
         });
     });
     /**

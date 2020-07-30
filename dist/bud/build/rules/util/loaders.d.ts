@@ -20,6 +20,7 @@ declare const loaders: {
     url: string;
     ts: string;
     vue: string;
+    vueStyle: string;
 };
 export { loaders };
 //# sourceMappingURL=loaders.d.ts.map

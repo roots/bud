@@ -57,8 +57,8 @@ export type Scss = (enabled?: boolean) => Bud
 export type SourceMap = (enabled?: boolean) => Bud
 export type Splitting = (enabled?: boolean) => Bud
 export type Stylelint = (options: {
-  enabled?: boolean,
-  options: StylelintOptions,
+  enabled?: boolean
+  options: StylelintOptions
 }) => Bud
 export type Src = (path?: string) => string
 export type Sync = (options: SyncOptions) => Bud
@@ -73,7 +73,10 @@ export type Watch = (options: {
   enabled: boolean
 }) => Bud
 export type Vendor = (name?: string) => Bud
-export type Vue = (vueOptions?: {enabled: boolean, options: any}) => Bud
+export type Vue = (vueOptions?: {
+  enabled: boolean
+  options: any
+}) => Bud
 
 export type Api = {
   alias: Alias

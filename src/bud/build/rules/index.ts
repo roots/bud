@@ -39,6 +39,7 @@ const rules = bud => ({
 
     this.bud.features.enabled('vue') &&
       this.options.module.rules.push(vue(this.bud).make())
+
     this.bud.features.enabled('eslint') &&
       !this.bud.features.enabled('typescript') &&
       this.options.module.rules.push(eslint(this.bud).make())

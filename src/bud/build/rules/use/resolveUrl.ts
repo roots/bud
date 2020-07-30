@@ -12,10 +12,13 @@ const resolveUrl = bud => ({
   make: function () {
     this.bud.hooks.call('pre_resolveurl', this)
 
-    this.output = this.bud.hooks.filter('filter_webpack_rules_resolveurl', {
-      loader: this.loader,
-      options: this.options,
-    })
+    this.output = this.bud.hooks.filter(
+      'filter_webpack_rules_resolveurl',
+      {
+        loader: this.loader,
+        options: this.options,
+      },
+    )
 
     this.bud.hooks.call('post_resolveurl', this.output)
 

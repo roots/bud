@@ -2,17 +2,17 @@ import type {Bud, Stylelint, StylelintOptions} from './types'
 import {dirname} from 'path'
 
 const stylelint: Stylelint = function (options: {
-  enabled?: boolean,
-  options: StylelintOptions,
+  enabled?: boolean
+  options: StylelintOptions
 }): Bud {
   this.features.set({stylelint: options?.enabled ?? true})
 
-  this.features.enabled('stylelint')
-    && this.options.set({
+  this.features.enabled('stylelint') &&
+    this.options.set({
       stylelint: {
         configFile: this.configs.get('stylelint'),
         ...options,
-      }
+      },
     })
 
   return this

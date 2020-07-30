@@ -1,5 +1,11 @@
 module.exports = {
-  extends: './index.js',
+  extends: [
+    './index',
+    'plugin:react/recommended',
+  ],
+  plugins: [
+    'react-hooks',
+  ],
   rules: {
     'react/prop-types': 1,
     'react/react-in-jsx-scope': 0,

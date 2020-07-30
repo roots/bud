@@ -82,7 +82,7 @@ const uglify = {
     mangle: {
       toplevel: true,
     },
-  }
+  },
 }
 
 /**

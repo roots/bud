@@ -15,8 +15,8 @@ exports.stylelint = void 0;
 var stylelint = function (options) {
     var _a;
     this.features.set({ stylelint: (_a = options === null || options === void 0 ? void 0 : options.enabled) !== null && _a !== void 0 ? _a : true });
-    this.features.enabled('stylelint')
-        && this.options.set({
+    this.features.enabled('stylelint') &&
+        this.options.set({
             stylelint: __assign({ configFile: this.configs.get('stylelint') }, options)
         });
     return this;

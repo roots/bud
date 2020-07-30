@@ -22,6 +22,7 @@ const loaders = {
   url: require.resolve('url-loader'),
   ts: require.resolve('ts-loader'),
   vue: require.resolve('vue-loader'),
+  vueStyle: require.resolve('vue-style-loader'),
 }
 
 export {loaders}
