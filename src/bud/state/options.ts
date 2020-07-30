@@ -67,6 +67,24 @@ const typescript = configs.has('typescript')
 
 const vendor: Vendor = {name: 'vendor'}
 
+const vue = {}
+
+const uglify = {
+  cache: true,
+  chunkFilter: ({name}) => name === 'vendor',
+  extractComments: false,
+  parallel: true,
+  uglifyOptions: {
+    output: {
+      beautify: false,
+    },
+    compress: false,
+    mangle: {
+      toplevel: true,
+    },
+  }
+}
+
 /**
  * Options container.
  */
@@ -95,21 +113,8 @@ const options: Options = {
     },
     target,
     terser: {},
-    uglify: {
-      cache: true,
-      chunkFilter: ({name}) => name === 'vendor',
-      extractComments: false,
-      parallel: true,
-      uglifyOptions: {
-        output: {
-          beautify: false,
-        },
-        compress: false,
-        mangle: {
-          toplevel: true,
-        },
-      },
-    },
+    uglify,
+    vue,
     vendor,
     watch,
   },

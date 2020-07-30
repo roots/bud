@@ -19,6 +19,7 @@ declare const loaders: {
     svgr: string;
     url: string;
     ts: string;
+    vue: string;
 };
 export { loaders };
 //# sourceMappingURL=loaders.d.ts.map

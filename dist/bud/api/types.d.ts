@@ -65,6 +65,10 @@ export declare type Watch = (options: {
     enabled: boolean;
 }) => Bud;
 export declare type Vendor = (name?: string) => Bud;
+export declare type Vue = (vueOptions?: {
+    enabled: boolean;
+    options: any;
+}) => Bud;
 export declare type Api = {
     alias: Alias;
     auto: Auto;
@@ -104,6 +108,7 @@ export declare type Api = {
     target: Target;
     translate: Translate;
     vendor: Vendor;
+    vue: Vue;
     watch: Watch;
 };
 import { TransformOptions as BabelOptions } from '@babel/core';

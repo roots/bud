@@ -11,6 +11,7 @@ import {manifest} from './manifest'
 import {provide} from './provide'
 import {stylelint} from './stylelint'
 import {terser} from './terser'
+import {vue} from './vue'
 import {writeFile} from './writeFile'
 
 import type {PluginRepoEntry, PluginsRepo} from '../types'
@@ -29,6 +30,7 @@ const adapters: PluginsRepo = [
   ['limit_chunks', limitChunkCount],
   ['stylelint', stylelint],
   ['terser', terser],
+  ['vue', vue],
   ['write_file', writeFile],
 ]
 

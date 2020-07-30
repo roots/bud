@@ -530,6 +530,16 @@ declare type Bud = {
      */
     vendor: Api.Vendor;
     /**
+     * ## bud.vue
+     *
+     * Enable and configure vue framework support.
+     *
+     * ```js
+     * bud.vue()
+     * ```
+     */
+    vue: Api.Vue;
+    /**
      * ## bud.watch
      *
      * Enable or disable watch mode.

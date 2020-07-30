@@ -7,9 +7,7 @@ var util_1 = require("./util");
 var state_1 = require("./state");
 var compiler_1 = require("./compiler");
 /**
- * Bud - asset management framework.
- *
- * @const {Bud} bud
+ * Bud framework
  */
 var framework = function () {
     this.configs = state_1.state.configs;
@@ -61,6 +59,7 @@ var framework = function () {
     this.terser = api_1.api.terser;
     this.translate = api_1.api.translate;
     this.vendor = api_1.api.vendor;
+    this.vue = api_1.api.vue;
     this.watch = api_1.api.watch;
 };
 exports.framework = framework;

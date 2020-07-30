@@ -45,6 +45,11 @@ var features = {
         stylelint: configs_1.configs.has('stylelint'),
         typescript: configs_1.configs.has('typescript'),
         /**
+         * Opt-in frameworks.
+         */
+        vue: false,
+        react: false,
+        /**
          * Opt-in.
          */
         browserSync: false,

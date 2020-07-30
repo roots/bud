@@ -1,7 +1,5 @@
 /**
- * Bud - asset management framework.
- *
- * @const {Bud} bud
+ * Bud framework
  */
 declare const framework: () => void;
 export { framework };

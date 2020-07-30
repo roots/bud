@@ -1,9 +1,10 @@
 module.exports = {
   extends: [
     'eslint:recommended',
-    'plugin:react/recommended',
   ],
-  plugins: ['import', 'jsx-a11y', 'react', 'react-hooks'],
+  plugins: [
+    'import',
+  ],
   globals: {
     wp: true,
   },
@@ -23,9 +24,6 @@ module.exports = {
   rules: {
     strict: 0,
     'no-console': 0,
-    'react/prop-types': 1,
-    'react/react-in-jsx-scope': 0,
-    'react-hooks/rules-of-hooks': 1,
     'no-extra-semi': 0,
     'comma-dangle': [
       'error',

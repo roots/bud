@@ -35,6 +35,12 @@ const features: Features = {
     typescript: configs.has('typescript'), // tsconfig.json
 
     /**
+     * Opt-in frameworks.
+     */
+    vue: false,
+    react: false,
+
+    /**
      * Opt-in.
      */
     browserSync: false, // browsersync browser reloading

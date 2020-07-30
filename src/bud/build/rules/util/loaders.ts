@@ -21,6 +21,7 @@ const loaders = {
   svgr: require.resolve('@svgr/webpack'),
   url: require.resolve('url-loader'),
   ts: require.resolve('ts-loader'),
+  vue: require.resolve('vue-loader'),
 }
 
 export {loaders}

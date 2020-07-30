@@ -57,6 +57,25 @@ var typescript = configs_1.configs.has('typescript')
     ? configs_1.configs.contents('typescript')
     : {};
 var vendor = { name: 'vendor' };
+var vue = {};
+var uglify = {
+    cache: true,
+    chunkFilter: function (_a) {
+        var name = _a.name;
+        return name === 'vendor';
+    },
+    extractComments: false,
+    parallel: true,
+    uglifyOptions: {
+        output: {
+            beautify: false
+        },
+        compress: false,
+        mangle: {
+            toplevel: true
+        }
+    }
+};
 /**
  * Options container.
  */
@@ -85,24 +104,8 @@ var options = {
         },
         target: target,
         terser: {},
-        uglify: {
-            cache: true,
-            chunkFilter: function (_a) {
-                var name = _a.name;
-                return name === 'vendor';
-            },
-            extractComments: false,
-            parallel: true,
-            uglifyOptions: {
-                output: {
-                    beautify: false
-                },
-                compress: false,
-                mangle: {
-                    toplevel: true
-                }
-            }
-        },
+        uglify: uglify,
+        vue: vue,
         vendor: vendor,
         watch: watch
     },

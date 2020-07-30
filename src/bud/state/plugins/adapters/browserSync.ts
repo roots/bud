@@ -1,9 +1,6 @@
 import BrowserSyncWebpackPlugin from 'browser-sync-webpack-plugin'
 import type {BrowserSyncPlugin, WebpackAdapter} from './types'
 
-/**
- * BrowserSync plugin adapter.
- */
 const browserSync: WebpackAdapter = () => ({
   mergeOptions: function (): Object {
     return this.bud.options.get('browserSync')

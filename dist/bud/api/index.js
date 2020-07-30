@@ -39,6 +39,7 @@ var target_1 = require("./target");
 var terser_1 = require("./terser");
 var translate_1 = require("./translate");
 var vendor_1 = require("./vendor");
+var vue_1 = require("./vue");
 var watch_1 = require("./watch");
 /**
  * Bud.Bud export
@@ -82,6 +83,7 @@ exports.api = {
     terser: terser_1.terser,
     translate: translate_1.translate,
     vendor: vendor_1.vendor,
+    vue: vue_1.vue,
     watch: watch_1.watch
 };
 //# sourceMappingURL=index.js.map

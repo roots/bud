@@ -40,6 +40,7 @@ import {target} from './target'
 import {terser} from './terser'
 import {translate} from './translate'
 import {vendor} from './vendor'
+import {vue} from './vue'
 import {watch} from './watch'
 
 /**
@@ -84,5 +85,6 @@ export const api: Api = {
   terser,
   translate,
   vendor,
+  vue,
   watch,
 }

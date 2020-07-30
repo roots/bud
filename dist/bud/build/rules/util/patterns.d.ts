@@ -10,6 +10,7 @@
 declare const patterns: {
     js: RegExp;
     ts: RegExp;
+    vue: RegExp;
     scss: RegExp;
     scssModule: RegExp;
     css: RegExp;

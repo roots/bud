@@ -1,6 +1,7 @@
 import {eslint} from './js/eslint'
 import {babel} from './js/babel'
 import {typescript} from './js/typescript'
+import {vue} from './js/vue'
 
 import {css} from './css/css'
 import {module as cssModule} from './css/module'
@@ -36,6 +37,8 @@ const rules = bud => ({
     this.bud.features.enabled('typescript') &&
       this.options.module.rules.push(typescript(this.bud).make())
 
+    this.bud.features.enabled('vue') &&
+      this.options.module.rules.push(vue(this.bud).make())
     this.bud.features.enabled('eslint') &&
       !this.bud.features.enabled('typescript') &&
       this.options.module.rules.push(eslint(this.bud).make())

@@ -14,6 +14,7 @@ var manifest_1 = require("./manifest");
 var provide_1 = require("./provide");
 var stylelint_1 = require("./stylelint");
 var terser_1 = require("./terser");
+var vue_1 = require("./vue");
 var writeFile_1 = require("./writeFile");
 var adapters = [
     ['browser_sync', browserSync_1.browserSync],
@@ -29,6 +30,7 @@ var adapters = [
     ['limit_chunks', limitChunkCount_1.limitChunkCount],
     ['stylelint', stylelint_1.stylelint],
     ['terser', terser_1.terser],
+    ['vue', vue_1.vue],
     ['write_file', writeFile_1.writeFile],
 ];
 exports.adapters = adapters;

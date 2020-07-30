@@ -3,12 +3,9 @@ import {hooks} from './hooks'
 import {util} from './util'
 import {state} from './state'
 import {compiler} from './compiler'
-import type {Bud} from './types'
 
 /**
- * Bud - asset management framework.
- *
- * @const {Bud} bud
+ * Bud framework
  */
 const framework = function () {
   this.configs = state.configs
@@ -60,6 +57,7 @@ const framework = function () {
   this.terser = api.terser
   this.translate = api.translate
   this.vendor = api.vendor
+  this.vue = api.vue
   this.watch = api.watch
 }
 

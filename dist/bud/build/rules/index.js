@@ -4,6 +4,7 @@ exports.rules = void 0;
 var eslint_1 = require("./js/eslint");
 var babel_1 = require("./js/babel");
 var typescript_1 = require("./js/typescript");
+var vue_1 = require("./js/vue");
 var css_1 = require("./css/css");
 var module_1 = require("./css/module");
 var scss_1 = require("./scss/scss");
@@ -32,6 +33,8 @@ var rules = function (bud) { return ({
      */
         this.bud.features.enabled('typescript') &&
             this.options.module.rules.push(typescript_1.typescript(this.bud).make());
+        this.bud.features.enabled('vue') &&
+            this.options.module.rules.push(vue_1.vue(this.bud).make());
         this.bud.features.enabled('eslint') &&
             !this.bud.features.enabled('typescript') &&
             this.options.module.rules.push(eslint_1.eslint(this.bud).make());

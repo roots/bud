@@ -73,6 +73,7 @@ export type Watch = (options: {
   enabled: boolean
 }) => Bud
 export type Vendor = (name?: string) => Bud
+export type Vue = (vueOptions?: {enabled: boolean, options: any}) => Bud
 
 export type Api = {
   alias: Alias
@@ -113,6 +114,7 @@ export type Api = {
   target: Target
   translate: Translate
   vendor: Vendor
+  vue: Vue
   watch: Watch
 }
 

@@ -10,6 +10,7 @@
 const patterns = {
   js: /\.(js|jsx)$/,
   ts: /\.(ts|tsx)$/,
+  vue: /\.vue$/,
   scss: /\.scss$/,
   scssModule: /\.module\.(scss|sass)$/,
   css: /\.css$/,
