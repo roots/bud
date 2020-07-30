@@ -9,7 +9,7 @@ export declare type Alias = (arg0: object) => Bud;
 export declare type Auto = (options: {
     [key: string]: string[];
 }) => Bud;
-export declare type Babel = (arg0: BabelProperties) => Bud;
+export declare type BabelCfg = (options: BabelOptions) => Bud;
 export declare type Bundle = (name: string, entries: string[]) => Bud;
 export declare type Copy = (from: string, to: string) => Bud;
 export declare type Dashboard = (enabled: boolean) => Bud;
@@ -61,7 +61,7 @@ export declare type Vendor = (name?: string) => Bud;
 export declare type Api = {
     alias: Alias;
     auto: Auto;
-    babel: Babel;
+    babel: BabelCfg;
     bundle: Bundle;
     compile: any;
     copy: Copy;
@@ -98,10 +98,8 @@ export declare type Api = {
     vendor: Vendor;
     watch: Watch;
 };
-export interface BabelProperties {
-    presets: [];
-    plugins: [];
-}
+import { TransformOptions as BabelOptions } from '@babel/core';
+export { BabelOptions };
 export interface SyncOptions {
     enabled?: boolean;
     options: BrowserSyncOptions;

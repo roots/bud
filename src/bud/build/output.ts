@@ -20,7 +20,12 @@ const output: BuilderConstructor = (bud: Bud): OutputBuilder => ({
   },
 
   make: function () {
-    return this.options
+    this.options.output.filename = this.bud.hooks.filter(
+      'filter_output_filename',
+      this.options.output.filename,
+    )
+
+    return this.bud.hooks.filter('filter_output_final', this.options)
   },
 })
 

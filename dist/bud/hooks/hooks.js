@@ -1,11 +1,19 @@
 "use strict";
 exports.__esModule = true;
 exports.hooks = void 0;
-var hooks = {
+var hooks = function () { return ({
     /**
      * Registered hooks.
      */
     registered: {},
+    /**
+     * Called hooks.
+     */
+    called: [],
+    init: function (bud) {
+        this.bud = bud;
+        return this;
+    },
     /**
      * Make a bud hook
      */
@@ -35,18 +43,32 @@ var hooks = {
     /**
      * Call a bud hook.
      */
-    call: function (name) {
-        var params = [];
-        for (var _i = 1; _i < arguments.length; _i++) {
-            params[_i - 1] = arguments[_i];
-        }
+    call: function (name, param) {
+        var bud = this.bud;
+        this.called.push(name);
         if (this.registered[name]) {
             this.registered[name].forEach(function (hook) {
-                hook.fn.apply(hook, params);
+                if (param) {
+                    hook.fn(param, bud);
+                }
+                else {
+                    hook.fn(bud);
+                }
                 hook.fired = true;
             });
         }
+    },
+    filter: function (name, value) {
+        var bud = this.bud;
+        this.called.push(name);
+        if (this.registered[name]) {
+            this.registered[name].forEach(function (hook) {
+                value = hook.fn(value, bud);
+                hook.fired = true;
+            });
+        }
+        return value;
     }
-};
+}); };
 exports.hooks = hooks;
 //# sourceMappingURL=hooks.js.map

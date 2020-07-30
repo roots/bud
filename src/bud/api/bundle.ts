@@ -5,7 +5,16 @@ const bundle: Bundle = function (
   name: string,
   entries: string[],
 ): Bud {
-  this.options.merge('entry', {[`${name}`]: entries})
+  this.hooks.call('pre_bundle', {name, entries})
+
+  this.options.merge(
+    'entry',
+    this.hooks.filter('filter_bundle_options', {
+      [`${name}`]: entries,
+    }),
+  )
+
+  this.hooks.call('post_bundle')
 
   return this
 }

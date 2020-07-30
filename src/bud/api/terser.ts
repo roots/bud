@@ -28,7 +28,7 @@ const terser: Terser = function (options: {
     },
     cache: true,
     parallel: true,
-    sourceMap: this.features.enabled('sourceMap')
+    sourceMap: this.features.enabled('sourceMap'),
   })
 
   return this

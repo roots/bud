@@ -74,6 +74,7 @@ var options = {
         devtool: 'source-map',
         entry: {},
         env: env_1.env,
+        extensions: ['.js', '.json'],
         externals: externals,
         inlineManifest: {
             name: 'runtime'

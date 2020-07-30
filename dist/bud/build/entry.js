@@ -21,7 +21,7 @@ var entry = function (bud) { return ({
         entry: __assign({}, bud.state.options.get('entry'))
     },
     make: function () {
-        return this.options;
+        return this.bud.hooks.filter('filter_entry_final', this.options);
     }
 }); };
 exports.entry = entry;

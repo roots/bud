@@ -1,15 +1,12 @@
 /// <reference types="webpack-dev-server" />
 import type { Configuration } from 'webpack';
+import { Bud } from './bud/types';
 export * from './bud/api/types';
-export { Hooks } from './bud/hooks/types';
-export { State } from './bud/state/types';
-export { Util } from './bud/util/types';
+export type { Hooks } from './bud/hooks/types';
+export type { State } from './bud/state/types';
+export type { Util } from './bud/util/types';
 export declare type Mode = Configuration['mode'];
 export declare type Production = boolean;
-/**
- * ## Bud - asset management framework.
- *
- * @const {Bud} bud
- */
-export { bud } from './bud';
+declare const bud: Bud;
+export { bud };
 //# sourceMappingURL=index.d.ts.map

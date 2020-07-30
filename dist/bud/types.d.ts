@@ -10,29 +10,6 @@ import type * as Api from './api/types';
  * @typedef {Bud}
  */
 declare type Bud = {
-    /**
-     * ## bud.hooks
-     *
-     * Register callback functions to be executed at various
-     * stages of Bud's lifecycle.
-     *
-     * Register a callback:
-     *
-     * ```js
-     * bud.hooks.on(
-     *  'hookName',
-     *  function(value) {
-     *   doSomething(value)
-     *  }
-     * )
-     * ```
-     *
-     * Invoke registered callback(s):
-     *
-     * ```js
-     * bud.hooks.call('hookName', value)
-     * ```
-     */
     hooks: Hooks;
     /**
      * ## bud.util
@@ -89,10 +66,10 @@ declare type Bud = {
      */
     options: Options;
     /**
-    * ## bud.compiler
-    *
-    * The compiler function which carries out the final build.
-    */
+     * ## bud.compiler
+     *
+     * The compiler function which carries out the final build.
+     */
     compiler: any;
     /**
      * ## bud.alias
@@ -134,7 +111,7 @@ declare type Bud = {
      *
      * @see https://babeljs.io/docs/en/configuration
      */
-    babel: Api.Babel;
+    babel: Api.BabelCfg;
     /**
      * ## bud.bundle
      *
@@ -311,13 +288,13 @@ declare type Bud = {
      */
     inlineManifest: Api.InlineManifest;
     /**
-      * ## bud.map
-      *
-      * Enable or disable source-maps
-      *
-      * ```js
-      * bud.map(true)
-      */
+     * ## bud.map
+     *
+     * Enable or disable source-maps
+     *
+     * ```js
+     * bud.map(true)
+     */
     map: Api.SourceMap;
     /**
      * ## bud.mini

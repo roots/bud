@@ -23,7 +23,7 @@ var general = function (bud) { return ({
          * inadvertently used in project bundles.
          */
         if (this.bud.options.is('target', 'web')) {
-            this.options.node = {
+            this.options.node = this.bud.hooks.filter('filter_webpack_node', {
                 module: 'empty',
                 dgram: 'empty',
                 dns: 'mock',
@@ -32,9 +32,9 @@ var general = function (bud) { return ({
                 net: 'empty',
                 tls: 'empty',
                 child_process: 'empty'
-            };
+            });
         }
-        return this.options;
+        return this.bud.hooks.filter('filter_webpack_final', this.options);
     }
 }); };
 exports.general = general;

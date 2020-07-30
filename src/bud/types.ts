@@ -1,6 +1,12 @@
 import type {Configuration} from 'webpack'
 import type {Hooks} from './hooks/types'
-import type {State, Configs, Features, Options, Plugins} from './state/types'
+import type {
+  State,
+  Configs,
+  Features,
+  Options,
+  Plugins,
+} from './state/types'
 import type {Util} from './util/types'
 import type * as Api from './api/types'
 
@@ -10,29 +16,6 @@ import type * as Api from './api/types'
  * @typedef {Bud}
  */
 type Bud = {
-  /**
-   * ## bud.hooks
-   *
-   * Register callback functions to be executed at various
-   * stages of Bud's lifecycle.
-   *
-   * Register a callback:
-   *
-   * ```js
-   * bud.hooks.on(
-   *  'hookName',
-   *  function(value) {
-   *   doSomething(value)
-   *  }
-   * )
-   * ```
-   *
-   * Invoke registered callback(s):
-   *
-   * ```js
-   * bud.hooks.call('hookName', value)
-   * ```
-   */
   hooks: Hooks
 
   /**
@@ -98,7 +81,7 @@ type Bud = {
    */
   options: Options
 
-   /**
+  /**
    * ## bud.compiler
    *
    * The compiler function which carries out the final build.
@@ -147,7 +130,7 @@ type Bud = {
    *
    * @see https://babeljs.io/docs/en/configuration
    */
-  babel: Api.Babel
+  babel: Api.BabelCfg
 
   /**
    * ## bud.bundle
@@ -340,7 +323,7 @@ type Bud = {
    */
   inlineManifest: Api.InlineManifest
 
- /**
+  /**
    * ## bud.map
    *
    * Enable or disable source-maps

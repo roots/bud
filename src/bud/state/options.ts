@@ -84,6 +84,7 @@ const options: Options = {
     devtool: 'source-map',
     entry: {},
     env,
+    extensions: ['.js', '.json'],
     externals,
     inlineManifest: {
       name: 'runtime',

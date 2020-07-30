@@ -31,8 +31,8 @@ var configs = {
         this.repository = __assign(__assign({}, this.repository), { name: name, file: file });
     },
     has: function (config) {
-        return this.repository.hasOwnProperty(config) &&
-            this.repository[config] !== null;
+        return (this.repository.hasOwnProperty(config) &&
+            this.repository[config] !== null);
     },
     exists: function (file) {
         return fs_extra_1.existsSync(file);

@@ -70,6 +70,10 @@ const build = (bud: Bud): BuilderController => ({
      * Map builder output to bud.builder.config property.
      */
     this.builders.map(([name, builder]: RegisteredBuilder) => {
+      builder = this.bud.hooks.filter(
+        `filter_webpack_${name}`,
+        builder,
+      )
       const builderInstance = builder(this.bud)
 
       this.preBuilderHook(name, this)

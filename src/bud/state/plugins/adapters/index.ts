@@ -33,10 +33,7 @@ const hmrAdapter: PluginRepoEntry = [
   'hot_module_replacement_plugin',
   hotModuleReplacement,
 ]
-const manifestAdapter: PluginRepoEntry = [
-  'manifest_plugin',
-  manifest,
-]
+const manifestAdapter: PluginRepoEntry = ['manifest_plugin', manifest]
 const miniCssAdapter: PluginRepoEntry = [
   'mini_css_extract_plugin',
   miniCssExtract,

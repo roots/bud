@@ -1,4 +1,8 @@
-import type {Bud, DependencyManifest, DependencyExtractionOptions} from './types'
+import type {
+  Bud,
+  DependencyManifest,
+  DependencyExtractionOptions,
+} from './types'
 
 const dependencyManifest: DependencyManifest = function (
   this: Bud,

@@ -14,7 +14,6 @@
   "engines": {
     "node": ">=12"
   },
-  "type": "module",
   "exports": {
     "bud": "./dist/index.js"
   },

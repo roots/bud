@@ -1,31 +1,61 @@
+import type {Bud} from '../types'
+export type {Bud}
+
+export type HooksConstructor = (bud: Bud) => Hooks
+
 /**
- * Hooks
- *
- * @typedef {Hooks}
- * @property {RegisteredHooks} registered
- * @property {Function} make
- * @property {function(): any[]} getAll
- * @property {function(name: string, callback: function): void} on
- * @property {function(name: string, params: any): void} call
+ * ## bud.hooks
  */
 export type Hooks = {
+  /**
+   * ## bud.hooks.init
+   * @constructor
+   */
+  init: (bud: Bud) => Hooks
+
+  /**
+   * ## bud.hooks.registered
+   *
+   * Registered hooks.
+   */
   registered: RegisteredHooks
+
+  /**
+   * ## bud.hooks.called
+   *
+   * List of called hooks.
+   */
+  called: string[]
+
+  /**
+   * ## bud.hooks.make
+   *
+   * Makes a new hook.
+   */
   make: Function
+
+  /**
+   * ## bud.hooks.getAll
+   *
+   * Returns an array of all registered hooks.
+   */
   getAll: () => any[]
 
   /**
-   * Register a function to be called with a hook.
+   * ## bud.hooks.on
    *
-   * @property {(name: string, callback: Function): void} call
+   * Register a function to be called with a hook.
    */
   on: (name: string, callback: Function) => void
 
   /**
-   * Call functions registered on a hook.
+   * ## bud.hooks.call
    *
-   * @property {(name: string, params: any): void} call
+   * Call functions registered on a hook.
    */
-  call: (name: string, params: any) => void
+  call: (name: string, params?: any) => void
+
+  filter: (name: string, value: any) => any
 }
 
 export type RegisteredHooks = {

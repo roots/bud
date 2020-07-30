@@ -1,10 +1,21 @@
-import type {Hook, Hooks} from './types'
+import type {Bud, Hook, Hooks} from './types'
 
-const hooks: Hooks = {
+const hooks = (): Hooks => ({
   /**
    * Registered hooks.
    */
   registered: {},
+
+  /**
+   * Called hooks.
+   */
+  called: [],
+
+  init: function (bud: Bud): Hooks {
+    this.bud = bud
+
+    return this
+  },
 
   /**
    * Make a bud hook
@@ -37,14 +48,38 @@ const hooks: Hooks = {
   /**
    * Call a bud hook.
    */
-  call: function (name, ...params) {
+  call: function (name: string, param?: any): void {
+    const bud = this.bud
+
+    this.called.push(name)
+
     if (this.registered[name]) {
       this.registered[name].forEach(function (hook) {
-        hook.fn(...params)
+        if (param) {
+          hook.fn(param, bud)
+        } else {
+          hook.fn(bud)
+        }
+
         hook.fired = true
       })
     }
   },
-}
+
+  filter: function (name: string, value: any): any {
+    const bud = this.bud
+
+    this.called.push(name)
+
+    if (this.registered[name]) {
+      this.registered[name].forEach(function (hook) {
+        value = hook.fn(value, bud)
+        hook.fired = true
+      })
+    }
+
+    return value
+  },
+})
 
 export {hooks}

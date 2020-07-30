@@ -17,7 +17,7 @@ export type Util = {
   except: Except
   shortCircuit: ShortCircuit
   fab: Fab
-  projectRoot: ProjectRoot,
+  projectRoot: ProjectRoot
   terminate: (any) => void
   setProcess: (bud: Bud) => void
 }

@@ -10,7 +10,7 @@ const devServer = (bud: Bud) => ({
     devServer: bud.options.get('dev'),
   },
   make: function () {
-    return this.options
+    return this.bud.hooks.filter('filter_dev_final', this.options)
   },
 })
 

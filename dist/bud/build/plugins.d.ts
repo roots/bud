@@ -4,6 +4,7 @@ import type { Bud } from './types';
  */
 declare const plugins: (bud: Bud) => {
     bud: Bud;
+    adapters: import("../state/plugins/types").PluginsRepo;
     make: () => {
         plugins: any;
     };

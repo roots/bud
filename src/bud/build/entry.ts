@@ -11,7 +11,7 @@ const entry: BuilderConstructor = (bud: Bud): EntryBuilder => ({
     },
   },
   make: function () {
-    return this.options
+    return this.bud.hooks.filter('filter_entry_final', this.options)
   },
 })
 

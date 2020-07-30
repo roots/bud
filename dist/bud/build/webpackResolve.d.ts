@@ -8,7 +8,7 @@ declare const webpackResolve: (bud: any) => {
     bud: any;
     options: {
         resolve: {
-            extensions: string[];
+            extensions: any;
             modules: any[];
         };
     };

@@ -1,7 +1,6 @@
 import {api} from './api'
 import {hooks} from './hooks'
 import {util} from './util'
-import {plugins} from './state/plugins'
 import {state} from './state'
 import {compiler} from './compiler'
 import type {Bud} from './types'
@@ -11,76 +10,56 @@ import type {Bud} from './types'
  *
  * @const {Bud} bud
  */
-const bud: Bud = {
-  hooks,
-  util,
-  state,
-  options: state.options,
-  configs: state.configs,
-  features: state.features,
-  mode: state.flags.get('mode'),
-  inDevelopment: state.flags.is('mode', 'development'),
-  inProduction: state.flags.is('mode', 'production'),
-  plugins,
-  compiler,
-  alias: api.alias,
-  auto: api.auto,
-  babel: api.babel,
-  bundle: api.bundle,
-  compile: api.compile,
-  copy: api.copy,
-  copyAll: api.copyAll,
-  dashboard: api.dashboard,
-  devtool: api.devtool,
-  dist: api.dist,
-  distPath: api.distPath,
-  debug: api.debug,
-  dependencyManifest: api.dependencyManifest,
-  dev: api.dev,
-  dump: api.dump,
-  glob: api.glob,
-  hash: api.hash,
-  hot: api.hot,
-  inlineManifest: api.inlineManifest,
-  map: api.map,
-  mini: api.mini,
-  postCss: api.postCss,
-  preset: api.preset,
-  project: api.project,
-  projectPath: api.projectPath,
-  publicPath: api.publicPath,
-  purge: api.purge,
-  resolve: api.resolve,
-  scss: api.scss,
-  splitting: api.splitting,
-  src: api.src,
-  srcPath: api.srcPath,
-  sync: api.sync,
-  target: api.target,
-  terser: api.terser,
-  translate: api.translate,
-  vendor: api.vendor,
-  watch: api.watch,
+const framework = function () {
+  this.hooks = hooks().init(this)
+  this.util = util
+  this.state = state
+  this.plugins = state.plugins
+  this.options = state.options
+  this.configs = state.configs
+  this.features = state.features
+  this.mode = state.flags.get('mode')
+  this.inDevelopment = state.flags.is('mode', 'development')
+  this.inProduction = state.flags.is('mode', 'production')
+  this.compiler = compiler
+  this.alias = api.alias
+  this.auto = api.auto
+  this.babel = api.babel
+  this.bundle = api.bundle
+  this.compile = api.compile
+  this.copy = api.copy
+  this.copyAll = api.copyAll
+  this.dashboard = api.dashboard
+  this.devtool = api.devtool
+  this.dist = api.dist
+  this.distPath = api.distPath
+  this.debug = api.debug
+  this.dependencyManifest = api.dependencyManifest
+  this.dev = api.dev
+  this.dump = api.dump
+  this.glob = api.glob
+  this.hash = api.hash
+  this.hot = api.hot
+  this.inlineManifest = api.inlineManifest
+  this.map = api.map
+  this.mini = api.mini
+  this.postCss = api.postCss
+  this.preset = api.preset
+  this.project = api.project
+  this.projectPath = api.projectPath
+  this.publicPath = api.publicPath
+  this.purge = api.purge
+  this.resolve = api.resolve
+  this.scss = api.scss
+  this.splitting = api.splitting
+  this.src = api.src
+  this.srcPath = api.srcPath
+  this.sync = api.sync
+  this.target = api.target
+  this.terser = api.terser
+  this.translate = api.translate
+  this.vendor = api.vendor
+  this.watch = api.watch
 }
 
-bud.hooks.on('adapters_init', bud => {
-  bud.plugins.repository.adapters = bud.plugins.repository.adapters
-    .map(function ([name, adapter]) {
-      return [name, bud.plugins.controller(bud).initController([name, adapter])]
-    })
-})
-
-bud.hooks.on('adapters_build', bud => {
-  bud.plugins.repository.adapters = bud.plugins.repository.adapters
-    .map(function ([name, controller]) {
-      return [name, controller.buildPlugin()]
-    })
-})
-
-bud.hooks.on('adapters_yield', bud =>
-  bud.plugins.repository.adapters = bud.plugins.repository.adapters
-    .filter(([name, adapter]) => adapter)
-    .map(([name, adapter]) => adapter)
-)
-
-export {bud}
+export {framework}

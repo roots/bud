@@ -6,11 +6,15 @@ const auto: Auto = function (
     [key: string]: string[]
   },
 ): Bud {
+  this.hooks.call('pre_auto', options)
+
   Object.entries(options).forEach(([key, modules]) => {
     modules.forEach(handle => {
       this.options.merge('auto', {[handle]: key})
     })
   })
+
+  this.hooks.call('post_auto', this)
 
   return this
 }

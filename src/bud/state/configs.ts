@@ -10,7 +10,7 @@ const config = file => join(paths.project, file)
  */
 const configs: Configs = {
   repository: {},
-  contents: function (this: Configs, config: string): any|null {
+  contents: function (this: Configs, config: string): any | null {
     return require(this.get(config))
   },
   get: function (this: Configs, config: string): any {
@@ -19,12 +19,14 @@ const configs: Configs = {
   add: function (name: string, file: string): void {
     this.repository = {
       ...this.repository,
-      ...{name, file}
+      ...{name, file},
     }
   },
   has: function (this: Configs, config: string): boolean {
-    return this.repository.hasOwnProperty(config) &&
+    return (
+      this.repository.hasOwnProperty(config) &&
       this.repository[config] !== null
+    )
   },
   exists: function (this: Configs, file: string) {
     return existsSync(file)

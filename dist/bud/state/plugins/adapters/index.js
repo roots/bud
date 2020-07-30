@@ -32,10 +32,7 @@ var hmrAdapter = [
     'hot_module_replacement_plugin',
     hotModuleReplacement_1.hotModuleReplacement,
 ];
-var manifestAdapter = [
-    'manifest_plugin',
-    manifest_1.manifest,
-];
+var manifestAdapter = ['manifest_plugin', manifest_1.manifest];
 var miniCssAdapter = [
     'mini_css_extract_plugin',
     miniCssExtract_1.miniCssExtract,

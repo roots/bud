@@ -1,6 +1,6 @@
 import {CleanWebpackPlugin as Plugin} from 'clean-webpack-plugin'
 import type {WebpackAdapter, CleanWebpackPlugin} from './types'
-import { Bud } from './types'
+import {Bud} from './types'
 
 const cleanWebpack: WebpackAdapter = function () {
   return {

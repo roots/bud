@@ -61,7 +61,7 @@ var optimization = function (bud) { return ({
      */
     setRuntimeChunk: function () {
         this.doHook('pre_runtimechunk');
-        this.options.optimization.runtimeChunk = this.runtimeChunkOptions;
+        this.options.optimization.runtimeChunk = this.bud.hooks.filter('filter_optimization_runtime_options', this.runtimeChunkOptions);
         this.doHook('post_runtimechunk');
     },
     /**
@@ -69,7 +69,7 @@ var optimization = function (bud) { return ({
      */
     setSplitChunks: function () {
         this.doHook('pre_splitchunks');
-        this.options.optimization.splitChunks = this.splitChunksOptions;
+        this.options.optimization.splitChunks = this.bud.hooks.filter('filter_optimization_splitchunks_options', this.splitChunksOptions);
         this.doHook('post_splitchunks');
     },
     /**
@@ -78,7 +78,7 @@ var optimization = function (bud) { return ({
     setMinimizer: function () {
         this.doHook('pre_minimizer', this);
         if (!this.bud.features.enabled('terser')) {
-            this.options.optimization.minimizer = [this.uglify()];
+            this.options.optimization.minimizer = this.bud.hooks.filter('filter_optimization_minimizer', [this.uglify()]);
         }
         this.doHook('post_minimizer', this);
     },

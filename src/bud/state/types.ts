@@ -94,13 +94,27 @@ export type Vendor = {
  */
 type FeatureEntry = boolean
 type FeatureRepository = {[key: string]: FeatureEntry}
-interface Enable {(feature: string): void}
-interface Enabled {(feature: string): boolean}
-interface Disable {(feature: string): void}
-interface Disabled {(feature: string): boolean}
-interface Get {(feature: string): boolean}
-interface Set {(Repository): void}
-interface Has {(feature: string): boolean}
+interface Enable {
+  (feature: string): void
+}
+interface Enabled {
+  (feature: string): boolean
+}
+interface Disable {
+  (feature: string): void
+}
+interface Disabled {
+  (feature: string): boolean
+}
+interface Get {
+  (feature: string): boolean
+}
+interface Set {
+  (Repository): void
+}
+interface Has {
+  (feature: string): boolean
+}
 
 /**
  * ## bud.state.features
@@ -151,10 +165,18 @@ export type {Features}
 
 type FlagEntry = any
 type FlagRepository = {[key: string]: FlagEntry}
-interface GetFlag {(flag: string): any}
-interface SetFlag {(Repository): void}
-interface HasFlag {(flag: string): boolean}
-interface IsFlag {(flag: string, value: any): boolean}
+interface GetFlag {
+  (flag: string): any
+}
+interface SetFlag {
+  (Repository): void
+}
+interface HasFlag {
+  (flag: string): boolean
+}
+interface IsFlag {
+  (flag: string, value: any): boolean
+}
 /**
  * ## bud.state.flags
  */
@@ -187,7 +209,6 @@ type Flags = {
 
 export type {Flags}
 
-
 type Config = string
 type ConfigEntry = {[key: string]: Config}
 
@@ -198,12 +219,12 @@ type Configs = {
   /**
    * Configs store
    */
-  repository: ConfigEntry[]|{}
+  repository: ConfigEntry[] | {}
 
   /**
    * Get the contents of a config file.
    */
-  contents: (this: Configs, config: string) => any|null
+  contents: (this: Configs, config: string) => any | null
 
   /**
    * Get the value of a config.

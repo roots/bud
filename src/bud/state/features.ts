@@ -28,10 +28,10 @@ const features: Features = {
     /**
      * Enabled by config presence
      */
-    babel: configs.get('babel') ? true : false, // babel.config.js
-    eslint: configs.get('eslint') ? true : false, // .eslintrc.js
-    postCss: configs.get('postCss') ? true : false, // postcss.config.js
-    typescript: configs.get('typescript') ? true : false, // tsconfig.json
+    babel: configs.has('babel') ? true : false, // babel.config.js
+    eslint: configs.has('eslint') ? true : false, // .eslintrc.js
+    postCss: configs.has('postCss') ? true : false, // postcss.config.js
+    typescript: configs.has('typescript') ? true : false, // tsconfig.json
 
     /**
      * Opt-in.
@@ -72,7 +72,7 @@ const features: Features = {
   get: function (feature: string): boolean {
     return this.repository[feature]
   },
-  set: function (features: {feature: string, value: boolean}): void {
+  set: function (features: {feature: string; value: boolean}): void {
     this.repository = {
       ...this.repository,
       ...features,

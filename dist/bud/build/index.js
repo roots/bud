@@ -75,6 +75,7 @@ var build = function (bud) { return ({
          */
         this.builders.map(function (_a) {
             var name = _a[0], builder = _a[1];
+            builder = _this.bud.hooks.filter("filter_webpack_" + name, builder);
             var builderInstance = builder(_this.bud);
             _this.preBuilderHook(name, _this);
             _this.builderOut = builderInstance.make();

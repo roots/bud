@@ -21,9 +21,10 @@ exports.__esModule = true;
 exports.translate = void 0;
 var translate = function (output) {
     this.features.set('translate', output ? true : false);
-    this.features.enabled('translate') && this.options.merge('babel', __assign(__assign({}, this.options.get('babel')), { plugins: __spreadArrays(this.options.get('babel').plugins, [
-            [this.require('@wordpress/babel-plugin-makepot'), { output: output }],
-        ]) }));
+    this.features.enabled('translate') &&
+        this.options.merge('babel', __assign(__assign({}, this.options.get('babel')), { plugins: __spreadArrays(this.options.get('babel').plugins, [
+                [this.require('@wordpress/babel-plugin-makepot'), { output: output }],
+            ]) }));
     return this;
 };
 exports.translate = translate;

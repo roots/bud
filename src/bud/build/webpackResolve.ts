@@ -10,7 +10,10 @@ const webpackResolve = bud => ({
   bud,
   options: {
     resolve: {
-      extensions: ['.js', '.json'],
+      extensions: bud.hooks.filter(
+        'filter_webpack_resolve_extensions',
+        bud.options.get('extensions'),
+      ),
       modules: [bud.project('node_modules'), bud.state.paths.src],
     },
   },
