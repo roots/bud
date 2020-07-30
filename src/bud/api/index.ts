@@ -34,6 +34,7 @@ import {splitting} from './splitting'
 import {src} from './src'
 import {srcPath} from './srcPath'
 import {scss} from './scss'
+import {stylelint} from './stylelint'
 import {sync} from './sync'
 import {target} from './target'
 import {terser} from './terser'
@@ -77,6 +78,7 @@ export const api: Api = {
   splitting,
   src,
   srcPath,
+  stylelint,
   sync,
   target,
   terser,

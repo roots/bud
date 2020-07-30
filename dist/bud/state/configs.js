@@ -28,18 +28,18 @@ var configs = {
         return this.repository[config];
     },
     add: function (name, file) {
-        this.repository = __assign(__assign({}, this.repository), { name: name, file: file });
+        var _a;
+        this.repository = __assign(__assign({}, this.repository), (_a = {}, _a[name] = file, _a));
     },
     has: function (config) {
-        return (this.repository.hasOwnProperty(config) &&
-            this.repository[config] !== null);
+        return this.repository[config] && this.repository[config] !== null;
     },
     exists: function (file) {
         return fs_extra_1.existsSync(file);
     }
 };
 exports.configs = configs;
-new Array(['babel', 'babel.config.js'], ['eslint', '.eslintrc.js'], ['postCss', 'postcss.config.js'], ['prettier', 'prettier.config.js'], ['stylelint', '.stylelintrc.js'], ['typescript', 'tsconfig.json'], ['js', 'jsconfig.json']).forEach(function (_a) {
+new Array(['babel', 'babel.config.js'], ['eslint', '.eslintrc.js'], ['postCss', 'postcss.config.js'], ['prettier', 'prettier.config.js'], ['stylelint', 'stylelint.config.js'], ['typescript', 'tsconfig.json'], ['js', 'jsconfig.json']).forEach(function (_a) {
     var name = _a[0], filename = _a[1];
     var projectPath = path_1.join(paths_1.paths.project, filename);
     configs.exists(projectPath) && configs.add(name, projectPath);

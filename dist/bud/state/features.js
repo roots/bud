@@ -39,10 +39,11 @@ var features = {
         /**
          * Enabled by config presence
          */
-        babel: configs_1.configs.has('babel') ? true : false,
-        eslint: configs_1.configs.has('eslint') ? true : false,
-        postCss: configs_1.configs.has('postCss') ? true : false,
-        typescript: configs_1.configs.has('typescript') ? true : false,
+        babel: configs_1.configs.has('babel'),
+        eslint: configs_1.configs.has('eslint'),
+        postCss: configs_1.configs.has('postCss'),
+        stylelint: configs_1.configs.has('stylelint'),
+        typescript: configs_1.configs.has('typescript'),
         /**
          * Opt-in.
          */

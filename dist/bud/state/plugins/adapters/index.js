@@ -12,55 +12,24 @@ var limitChunkCount_1 = require("./limitChunkCount");
 var miniCssExtract_1 = require("./miniCssExtract");
 var manifest_1 = require("./manifest");
 var provide_1 = require("./provide");
+var stylelint_1 = require("./stylelint");
 var terser_1 = require("./terser");
 var writeFile_1 = require("./writeFile");
-var browserSyncAdapter = [
-    'browser_sync_plugin',
-    browserSync_1.browserSync,
-];
-var copyAdapter = ['copy_plugin', copy_1.copy];
-var defineAdapter = ['define_plugin', define_1.define];
-var dependencyExtractionAdapter = [
-    'dependency_extraction_plugin',
-    dependencyExtraction_1.dependencyExtraction,
-];
-var fixStyleAdapter = [
-    'fix_style_only_entries_plugin',
-    fixStyleOnlyEntries_1.fixStyleOnlyEntries,
-];
-var hmrAdapter = [
-    'hot_module_replacement_plugin',
-    hotModuleReplacement_1.hotModuleReplacement,
-];
-var manifestAdapter = ['manifest_plugin', manifest_1.manifest];
-var miniCssAdapter = [
-    'mini_css_extract_plugin',
-    miniCssExtract_1.miniCssExtract,
-];
-var provideAdapter = ['provide_plugin', provide_1.provide];
-var writeFileAdapter = [
-    'write_file_plugin',
-    writeFile_1.writeFile,
-];
-var limitChunkAdapter = [
-    'limit_chunk_count',
-    limitChunkCount_1.limitChunkCount,
-];
-var terserAdapter = ['terser', terser_1.terser];
 var adapters = [
-    writeFileAdapter,
-    browserSyncAdapter,
+    ['browser_sync', browserSync_1.browserSync],
     ['clean_webpack_plugin', cleanWebpack_1.cleanWebpack],
-    copyAdapter,
-    defineAdapter,
-    dependencyExtractionAdapter,
-    fixStyleAdapter,
-    hmrAdapter,
-    manifestAdapter,
-    miniCssAdapter,
-    provideAdapter,
-    terserAdapter,
-    limitChunkAdapter,
+    ['copy', copy_1.copy],
+    ['define', define_1.define],
+    ['dependency_extraction', dependencyExtraction_1.dependencyExtraction],
+    ['fix_style_only_entries', fixStyleOnlyEntries_1.fixStyleOnlyEntries],
+    ['hot_module_replacement', hotModuleReplacement_1.hotModuleReplacement],
+    ['manifest', manifest_1.manifest],
+    ['mini_css_extract', miniCssExtract_1.miniCssExtract],
+    ['provide', provide_1.provide],
+    ['limit_chunks', limitChunkCount_1.limitChunkCount],
+    ['stylelint', stylelint_1.stylelint],
+    ['terser', terser_1.terser],
+    ['write_file', writeFile_1.writeFile],
 ];
 exports.adapters = adapters;
 //# sourceMappingURL=index.js.map

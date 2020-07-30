@@ -33,6 +33,7 @@ var splitting_1 = require("./splitting");
 var src_1 = require("./src");
 var srcPath_1 = require("./srcPath");
 var scss_1 = require("./scss");
+var stylelint_1 = require("./stylelint");
 var sync_1 = require("./sync");
 var target_1 = require("./target");
 var terser_1 = require("./terser");
@@ -75,6 +76,7 @@ exports.api = {
     splitting: splitting_1.splitting,
     src: src_1.src,
     srcPath: srcPath_1.srcPath,
+    stylelint: stylelint_1.stylelint,
     sync: sync_1.sync,
     target: target_1.target,
     terser: terser_1.terser,

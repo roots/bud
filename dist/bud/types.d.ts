@@ -449,6 +449,19 @@ declare type Bud = {
      */
     srcPath: Api.PathSetter;
     /**
+     * ## bud.stylelint
+     *
+     * Set stylelint options.
+     *
+     * ```js
+     * bud.stylelint({
+     *  options: {
+     *    fix: true,
+     *  },
+     * })
+     */
+    stylelint: Api.Stylelint;
+    /**
      * ## bud.sync
      *
      * Configure BrowserSync.

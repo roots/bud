@@ -10,7 +10,7 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) __createBinding(exports, m, p);
 };
 exports.__esModule = true;
-exports.bud = void 0;
+exports.configs = exports.bud = void 0;
 __exportStar(require("./bud/api/types"), exports);
 /**
  * ## Bud - asset management framework.
@@ -65,4 +65,8 @@ var init = function () {
 };
 var bud = init();
 exports.bud = bud;
+var configs = {
+    stylelint: require.resolve('../preset/stylelint')
+};
+exports.configs = configs;
 //# sourceMappingURL=index.js.map

@@ -10,25 +10,22 @@ const config = file => join(paths.project, file)
  */
 const configs: Configs = {
   repository: {},
-  contents: function (this: Configs, config: string): any | null {
+  contents: function (config: string): any | null {
     return require(this.get(config))
   },
-  get: function (this: Configs, config: string): any {
+  get: function (config: string): any {
     return this.repository[config]
   },
   add: function (name: string, file: string): void {
     this.repository = {
       ...this.repository,
-      ...{name, file},
+      [name]: file,
     }
   },
-  has: function (this: Configs, config: string): boolean {
-    return (
-      this.repository.hasOwnProperty(config) &&
-      this.repository[config] !== null
-    )
+  has: function (config: string): boolean {
+    return this.repository[config] && this.repository[config] !== null
   },
-  exists: function (this: Configs, file: string) {
+  exists: function (file: string) {
     return existsSync(file)
   },
 }
@@ -38,7 +35,7 @@ new Array(
   ['eslint', '.eslintrc.js'],
   ['postCss', 'postcss.config.js'],
   ['prettier', 'prettier.config.js'],
-  ['stylelint', '.stylelintrc.js'],
+  ['stylelint', 'stylelint.config.js'],
   ['typescript', 'tsconfig.json'],
   ['js', 'jsconfig.json'],
 ).forEach(([name, filename]) => {

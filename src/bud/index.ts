@@ -11,12 +11,12 @@ import type {Bud} from './types'
  * @const {Bud} bud
  */
 const framework = function () {
+  this.configs = state.configs
   this.hooks = hooks().init(this)
   this.util = util
   this.state = state
   this.plugins = state.plugins
   this.options = state.options
-  this.configs = state.configs
   this.features = state.features
   this.mode = state.flags.get('mode')
   this.inDevelopment = state.flags.is('mode', 'development')
@@ -54,6 +54,7 @@ const framework = function () {
   this.splitting = api.splitting
   this.src = api.src
   this.srcPath = api.srcPath
+  this.stylelint = api.stylelint
   this.sync = api.sync
   this.target = api.target
   this.terser = api.terser

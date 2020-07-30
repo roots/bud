@@ -12,12 +12,12 @@ var compiler_1 = require("./compiler");
  * @const {Bud} bud
  */
 var framework = function () {
+    this.configs = state_1.state.configs;
     this.hooks = hooks_1.hooks().init(this);
     this.util = util_1.util;
     this.state = state_1.state;
     this.plugins = state_1.state.plugins;
     this.options = state_1.state.options;
-    this.configs = state_1.state.configs;
     this.features = state_1.state.features;
     this.mode = state_1.state.flags.get('mode');
     this.inDevelopment = state_1.state.flags.is('mode', 'development');
@@ -55,6 +55,7 @@ var framework = function () {
     this.splitting = api_1.api.splitting;
     this.src = api_1.api.src;
     this.srcPath = api_1.api.srcPath;
+    this.stylelint = api_1.api.stylelint;
     this.sync = api_1.api.sync;
     this.target = api_1.api.target;
     this.terser = api_1.api.terser;

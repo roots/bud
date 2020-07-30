@@ -1,8 +1,14 @@
 import {Bud} from '../types'
 export {Bud} from '../types'
+
 import type {Options as BrowserSyncOptions} from 'browser-sync'
+export type {BrowserSyncOptions}
+
 import type {Options as WebpackOptions} from 'webpack'
 export type {WebpackOptions}
+
+import type {Options as StylelintOptions} from 'stylelint-webpack-plugin/declarations/getOptions'
+export type {StylelintOptions}
 
 import {Options as DependencyExtractionOptions} from '@wordpress/dependency-extraction-webpack-plugin'
 export type {DependencyExtractionOptions}
@@ -50,6 +56,10 @@ export type Resolve = (moduleName: string) => string
 export type Scss = (enabled?: boolean) => Bud
 export type SourceMap = (enabled?: boolean) => Bud
 export type Splitting = (enabled?: boolean) => Bud
+export type Stylelint = (options: {
+  enabled?: boolean,
+  options: StylelintOptions,
+}) => Bud
 export type Src = (path?: string) => string
 export type Sync = (options: SyncOptions) => Bud
 export type Target = (target: string) => Bud
@@ -95,9 +105,10 @@ export type Api = {
   preset: Preset
   projectPath: PathSetter
   resolve: Resolve
-  scss: any
+  scss: Scss
   src: Src
   srcPath: PathSetter
+  stylelint: Stylelint
   sync: Sync
   target: Target
   translate: Translate

@@ -8,5 +8,8 @@ export type { Util } from './bud/util/types';
 export declare type Mode = Configuration['mode'];
 export declare type Production = boolean;
 declare const bud: Bud;
-export { bud };
+declare const configs: {
+    stylelint: string;
+};
+export { bud, configs };
 //# sourceMappingURL=index.d.ts.map

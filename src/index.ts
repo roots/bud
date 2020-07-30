@@ -55,4 +55,9 @@ const init = () => {
 }
 
 const bud: Bud = init()
-export {bud}
+
+const configs = {
+  stylelint: require.resolve('../preset/stylelint'),
+}
+
+export {bud, configs}
