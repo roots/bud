@@ -3,6 +3,8 @@ import type {Options as DependencyExtractionOptions} from '@wordpress/dependency
 import type {Options as BrowserSyncOptions} from 'browser-sync-webpack-plugin'
 import type {TerserPluginOptions as TerserOptions} from 'terser-webpack-plugin'
 
+import type {Plugins} from './plugins/types'
+
 /**
  * Mitch, all together.
  */
@@ -11,9 +13,14 @@ export type State = {
   features: Features
   options: Options
   paths: Paths
-  plugins: any
+  plugins: Plugins
   flags: Flags
 }
+
+/**
+ * Plugins
+ */
+export type {Plugins}
 
 /**
  * Paths

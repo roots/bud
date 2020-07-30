@@ -1,6 +1,6 @@
 import type {Configuration} from 'webpack'
 import type {Hooks} from './hooks/types'
-import type {State, Configs, Features, Options} from './state/types'
+import type {State, Configs, Features, Options, Plugins} from './state/types'
 import type {Util} from './util/types'
 import type * as Api from './api/types'
 
@@ -47,7 +47,7 @@ type Bud = {
    *
    * Bud framework plugins and webpack adapters.
    */
-  plugin: any
+  plugins: Plugins
 
   /**
    * ## bud.mode

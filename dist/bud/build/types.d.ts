@@ -1,7 +1,7 @@
 /// <reference types="webpack-dev-server" />
 import type { Configuration as WebpackConfig } from 'webpack';
 import type { Bud } from '../types';
-export type { RegisteredPlugin } from '../plugin/types';
+export type { Plugin, Plugins } from '../state/plugins/types';
 export type { Bud };
 export declare type BuilderController = {
     bud: Bud;

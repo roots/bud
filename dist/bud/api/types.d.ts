@@ -1,6 +1,5 @@
 import { Bud } from '../types';
 export { Bud } from '../types';
-export { RegisteredPlugin } from '../plugin/types';
 import type { Options as BrowserSyncOptions } from 'browser-sync';
 import type { Options as WebpackOptions } from 'webpack';
 export type { WebpackOptions };

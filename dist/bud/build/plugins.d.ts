@@ -4,12 +4,10 @@ import type { Bud } from './types';
  */
 declare const plugins: (bud: Bud) => {
     bud: Bud;
-    controller: any;
-    adapters: any;
     make: () => {
         plugins: any;
     };
-    doHook: (name: any, ...params: any[]) => void;
+    doHook: (name: any) => void;
 };
 export { plugins };
 //# sourceMappingURL=plugins.d.ts.map

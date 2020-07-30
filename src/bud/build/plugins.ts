@@ -1,4 +1,4 @@
-import type {Bud, RegisteredPlugin} from './types'
+import type {Bud, Plugin} from './types'
 
 /**
  * Webpack plugins.
@@ -6,29 +6,18 @@ import type {Bud, RegisteredPlugin} from './types'
 const plugins = (bud: Bud) => ({
   bud,
 
-  controller: bud.plugin.controller,
-  adapters: bud.state.plugins.adapters,
-
   make: function () {
-    this.doHook('pre')
-
-    this.plugins = this.adapters
-      .map((plugin: RegisteredPlugin) =>
-        this.controller
-          .initController(plugin)
-          .buildPlugin()
-      )
-      .filter(plugin => plugin !== undefined)
-
-    this.doHook('post')
+    this.doHook('adapters_init')
+    this.doHook('adapters_build')
+    this.doHook('adapters_yield')
 
     return {
-      plugins: this.plugins,
+      plugins: this.bud.plugins.repository.adapters,
     }
   },
 
-  doHook: function (name, ...params) {
-    this.bud.hooks.call(`${name}_plugins`, this, params)
+  doHook: function (name) {
+    this.bud.hooks.call(name, this.bud)
   },
 })
 

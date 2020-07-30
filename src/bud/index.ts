@@ -1,7 +1,7 @@
 import {api} from './api'
 import {hooks} from './hooks'
 import {util} from './util'
-import {plugin} from './plugin'
+import {plugins} from './state/plugins'
 import {state} from './state'
 import {compiler} from './compiler'
 import type {Bud} from './types'
@@ -21,7 +21,7 @@ const bud: Bud = {
   mode: state.flags.get('mode'),
   inDevelopment: state.flags.is('mode', 'development'),
   inProduction: state.flags.is('mode', 'production'),
-  plugin,
+  plugins,
   compiler,
   alias: api.alias,
   auto: api.auto,
@@ -63,6 +63,24 @@ const bud: Bud = {
   watch: api.watch,
 }
 
-bud.plugin.init(bud)
+bud.hooks.on('adapters_init', bud => {
+  bud.plugins.repository.adapters = bud.plugins.repository.adapters
+    .map(function ([name, adapter]) {
+      return [name, bud.plugins.controller(bud).initController([name, adapter])]
+    })
+})
+
+bud.hooks.on('adapters_build', bud => {
+  bud.plugins.repository.adapters = bud.plugins.repository.adapters
+    .map(function ([name, controller]) {
+      return [name, controller.buildPlugin()]
+    })
+})
+
+bud.hooks.on('adapters_yield', bud =>
+  bud.plugins.repository.adapters = bud.plugins.repository.adapters
+    .filter(([name, adapter]) => adapter)
+    .map(([name, adapter]) => adapter)
+)
 
 export {bud}

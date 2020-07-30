@@ -4,7 +4,7 @@ exports.bud = void 0;
 var api_1 = require("./api");
 var hooks_1 = require("./hooks");
 var util_1 = require("./util");
-var plugin_1 = require("./plugin");
+var plugins_1 = require("./state/plugins");
 var state_1 = require("./state");
 var compiler_1 = require("./compiler");
 /**
@@ -22,7 +22,7 @@ var bud = {
     mode: state_1.state.flags.get('mode'),
     inDevelopment: state_1.state.flags.is('mode', 'development'),
     inProduction: state_1.state.flags.is('mode', 'production'),
-    plugin: plugin_1.plugin,
+    plugins: plugins_1.plugins,
     compiler: compiler_1.compiler,
     alias: api_1.api.alias,
     auto: api_1.api.auto,
@@ -64,5 +64,27 @@ var bud = {
     watch: api_1.api.watch
 };
 exports.bud = bud;
-bud.plugin.init(bud);
+bud.hooks.on('adapters_init', function (bud) {
+    bud.plugins.repository.adapters = bud.plugins.repository.adapters.map(function (_a) {
+        var name = _a[0], adapter = _a[1];
+        return [name, bud.plugins.controller(bud).initController([name, adapter])];
+    });
+});
+bud.hooks.on('adapters_build', function (bud) {
+    bud.plugins.repository.adapters = bud.plugins.repository.adapters.map(function (_a) {
+        var name = _a[0], controller = _a[1];
+        return [name, controller.buildPlugin()];
+    });
+});
+bud.hooks.on('adapters_yield', function (bud) {
+    return bud.plugins.repository.adapters = bud.plugins.repository.adapters
+        .filter(function (_a) {
+        var name = _a[0], adapter = _a[1];
+        return adapter;
+    })
+        .map(function (_a) {
+        var name = _a[0], adapter = _a[1];
+        return adapter;
+    });
+});
 //# sourceMappingURL=index.js.map

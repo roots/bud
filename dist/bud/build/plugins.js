@@ -6,29 +6,16 @@ exports.plugins = void 0;
  */
 var plugins = function (bud) { return ({
     bud: bud,
-    controller: bud.plugin.controller,
-    adapters: bud.state.plugins.adapters,
     make: function () {
-        var _this = this;
-        this.doHook('pre');
-        this.plugins = this.adapters
-            .map(function (plugin) {
-            return _this.controller
-                .initController(plugin)
-                .buildPlugin();
-        })
-            .filter(function (plugin) { return plugin !== undefined; });
-        this.doHook('post');
+        this.doHook('adapters_init');
+        this.doHook('adapters_build');
+        this.doHook('adapters_yield');
         return {
-            plugins: this.plugins
+            plugins: this.bud.plugins.repository.adapters
         };
     },
     doHook: function (name) {
-        var params = [];
-        for (var _i = 1; _i < arguments.length; _i++) {
-            params[_i - 1] = arguments[_i];
-        }
-        this.bud.hooks.call(name + "_plugins", this, params);
+        this.bud.hooks.call(name, this.bud);
     }
 }); };
 exports.plugins = plugins;

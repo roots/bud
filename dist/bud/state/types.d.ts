@@ -2,6 +2,7 @@
 import type { Configuration as WebpackConfiguration } from 'webpack';
 import type { Options as DependencyExtractionOptions } from '@wordpress/dependency-extraction-webpack-plugin/build-types';
 import type { Options as BrowserSyncOptions } from 'browser-sync-webpack-plugin';
+import type { Plugins } from './plugins/types';
 /**
  * Mitch, all together.
  */
@@ -10,9 +11,13 @@ export declare type State = {
     features: Features;
     options: Options;
     paths: Paths;
-    plugins: any;
+    plugins: Plugins;
     flags: Flags;
 };
+/**
+ * Plugins
+ */
+export type { Plugins };
 /**
  * Paths
  */
