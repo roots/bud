@@ -1,17 +1,16 @@
 import {env} from './env'
-import {flags} from './flags'
-import {configs} from './configs'
 import type {
   BabelConfiguration,
   Copy,
   Dev,
   Externals,
+  Flags,
   PostCssConfiguration,
   Target,
   Vendor,
   WordPressDependenciesOptions,
-  Options,
 } from './types'
+import {container} from '../container'
 
 const auto: Object = {}
 
@@ -19,17 +18,19 @@ const babelFallback: BabelConfiguration = {
   presets: [],
   plugins: [],
 }
-const babel: BabelConfiguration = configs.has('babel')
-  ? configs.contents('babel')
-  : babelFallback
 
-const browserSync: Object = {
+const babel: (state) => BabelConfiguration = state =>
+  state.configs.has('babel')
+    ? state.configs.contents('babel')
+    : babelFallback
+
+const browserSync: (flags: Flags) => object = flags => ({
   host: flags.get('host'),
   port: flags.get('port'),
   proxy: flags.get('proxy'),
   online: false,
   open: false,
-}
+})
 
 const copy: Copy = {patterns: []}
 
@@ -55,19 +56,20 @@ const externals: Externals = null
 const postCssFallback: PostCssConfiguration = {
   plugins: [],
 }
-const postCss: PostCssConfiguration = configs.has('postCss')
-  ? configs.contents('postCss')
-  : postCssFallback
+
+const postCss: (state) => PostCssConfiguration = state =>
+  state.configs.has('postCss')
+    ? state.configs.contents('postCss')
+    : postCssFallback
 
 const target: Target = 'web'
 
-const typescript = configs.has('typescript')
-  ? configs.contents('typescript')
-  : {}
+const typescript = state =>
+  state.configs.has('typescript')
+    ? state.configs.contents('typescript')
+    : {}
 
 const vendor: Vendor = {name: 'vendor'}
-
-const vue = null
 
 const uglify = {
   cache: true,
@@ -85,71 +87,39 @@ const uglify = {
   },
 }
 
+const filenameTemplate = {
+  hashed: `[name].[hash:8]`,
+  default: '[name]',
+}
+
 /**
  * Options container.
  */
-const options: Options = {
-  repository: {
-    alias: null,
-    babel,
-    postCss,
-    typescript,
+const options = state =>
+  new container({
+    babel: babel(state),
+    postCss: postCss(state),
+    typescript: typescript(state),
     auto,
     browserSync,
     copy,
     dev,
     dependencyManifest,
     devtool: 'source-map',
-    entry: null,
     env,
     extensions: ['.js', '.json'],
     externals,
+    filenameTemplate,
     inlineManifest: {
       name: 'runtime',
     },
-    node: {},
     splitting: {
       maxChunks: null,
     },
     target,
-    terser: {},
     uglify,
-    vue,
     vendor,
     watch,
-  },
-  get: function (this: Options, option: string): any {
-    return this.repository[option]
-  },
-  set: function (option: string, value: any): void {
-    this.repository = {
-      ...this.repository,
-      [option]: value,
-    }
-  },
-  concat: function (option: string, value: any): void {
-    this.repository[option] = [
-      ...this.repository[option],
-      ...value.filter(
-        item => !this.repository[option].includes(item),
-      ),
-    ]
-  },
-  merge: function (option: string, value: any): void {
-    this.repository = {
-      ...this.repository,
-      [option]: {
-        ...this.repository[option],
-        ...value,
-      },
-    }
-  },
-  has: function (this: Options, option: string): boolean {
-    return this.repository.hasOwnProperty(option)
-  },
-  is: function (this: Options, option: string, value: any): boolean {
-    return this.get(option) === value
-  },
-}
+  })
 
 export {options}

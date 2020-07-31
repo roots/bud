@@ -9,7 +9,7 @@ export declare type Hooks = {
      * ## bud.hooks.init
      * @constructor
      */
-    init: (bud: Bud) => Hooks;
+    init: (any: any) => Hooks;
     /**
      * ## bud.hooks.registered
      *

@@ -3,10 +3,12 @@ import type {Hooks} from './hooks/types'
 import type {
   State,
   Configs,
+  Paths,
   Features,
   Options,
   Plugins,
 } from './state/types'
+import type {FileContainer} from './container'
 import type {Util} from './util/types'
 import type * as Api from './api/types'
 
@@ -40,6 +42,13 @@ type Bud = {
   mode: Configuration['mode']
 
   /**
+   * ## bud.paths
+   *
+   * Project and framework paths.
+   */
+  paths: Paths
+
+  /**
    * ## bud.inDevelopment
    *
    * Boolean returning true if in development.
@@ -65,7 +74,7 @@ type Bud = {
    *
    * Project configuration files.
    */
-  configs: Configs
+  configs: FileContainer
 
   /**
    * ## bud.features

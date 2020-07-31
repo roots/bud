@@ -1,34 +1,7 @@
-import {join} from 'path'
-import {existsSync} from 'fs-extra'
-import {paths} from './paths'
-import type {Configs} from './types'
+import {fileContainer} from '../container'
+import type {FileContainer} from '../container'
 
-/**
- * ## bud.state.configs
- */
-const configs: Configs = {
-  repository: {},
-  contents: function (config: string): any | null {
-    return require(this.get(config))
-  },
-  get: function (config: string): any {
-    return this.repository[config]
-  },
-  add: function (name: string, file: string): void {
-    this.repository = {
-      ...this.repository,
-      [name]: file,
-    }
-  },
-  has: function (config: string): boolean {
-    return this.repository[config] && this.repository[config] !== null
-  },
-  exists: function (file: string) {
-    return existsSync(file)
-  },
-}
-
-new Array(
+const configFiles = [
   {
     name: 'babel',
     filename: 'babel.config.js',
@@ -61,10 +34,25 @@ new Array(
     name: 'vue',
     filename: 'vue.config.js',
   },
-).forEach(({name, filename}) => {
-  const projectPath = join(paths.project, filename)
+]
 
-  configs.exists(projectPath) && configs.add(name, projectPath)
-})
+/**
+ * ## bud.state.configs
+ */
+const configs: (paths: any) => FileContainer = paths => {
+  const container = new fileContainer({})
+
+  configFiles.forEach(({name, filename}) => {
+    const projectPath = container.fs.path.join(
+      paths.get('project'),
+      filename,
+    )
+    if (container.exists(projectPath)) {
+      container.set(name, projectPath)
+    }
+  })
+
+  return container
+}
 
 export {configs}

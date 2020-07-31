@@ -19,18 +19,16 @@ import {svg} from './svg'
 const rules = bud => ({
   bud,
 
-  options: {},
+  options: {
+    module: {
+      rules: [],
+    },
+  },
 
   /**
    * Make webpack rules
    */
   make: function () {
-    this.options = {
-      module: {
-        rules: [],
-      },
-    }
-
     /*     this.bud.state.options.target == 'node' &&
       this.options.module.rules.push({test: patterns.js, loader: loaders.shebang})
  */

@@ -15,7 +15,7 @@ var copyAll = function (from, to) {
             {
                 from: '**/*',
                 context: from,
-                to: to ? to : path_1.join(this.state.paths.dist, from),
+                to: to ? to : path_1.join(this.paths.get('dist'), from),
                 globOptions: {
                     ignore: '.*'
                 },

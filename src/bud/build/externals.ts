@@ -11,15 +11,17 @@ const externals = (bud: Bud) => ({
     /**
      * Set externals from bud.state.
      */
-    if (this.bud.state.options.externals) {
-      this.options.externals = this.bud.state.options.externals
+    const externalsState = this.bud.state.options.get('externals')
+
+    if (externalsState) {
+      this.options.externals = externalsState
     }
 
     /**
      * When targeting node we don't want to incorporate
      * modules in the build.
      */
-    if (this.bud.state.options.target == 'node') {
+    if (this.bud.state.options.get('target') == 'node') {
       this.options.externals = [nodeExternals()]
     }
 

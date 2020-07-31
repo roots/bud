@@ -1,7 +1,7 @@
 import type {Bud, PathSetter} from './Types'
 
 const projectPath: PathSetter = function (dir: string): Bud {
-  this.state.paths.project = dir
+  this.state.paths.set('project', dir)
 
   return this
 }

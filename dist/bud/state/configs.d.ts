@@ -1,7 +1,7 @@
-import type { Configs } from './types';
+import type { FileContainer } from '../container';
 /**
  * ## bud.state.configs
  */
-declare const configs: Configs;
+declare const configs: (paths: any) => FileContainer;
 export { configs };
 //# sourceMappingURL=configs.d.ts.map

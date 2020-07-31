@@ -1,5 +1,3 @@
-import type {Bud} from './types'
-
 const terminate = (
   options = {
     dump: false,

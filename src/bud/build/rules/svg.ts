@@ -20,6 +20,7 @@ const svg = bud => ({
       test: this.test,
       use: this.loaders,
     }
+
     this.post()
 
     return this.output

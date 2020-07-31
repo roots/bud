@@ -7,21 +7,17 @@ const bundle: Bundle = function (
 ): Bud {
   this.hooks.call('pre_bundle', {name, entries})
   /**
-   * Extensions used in bundle.
+   * Lazy load whatever loaders are needed to fulfill the
+   * bundle requirements.
    */
-  const usedExt = this.util.usedExt(entries, this)
+  this.util.usedExt(entries, this)
 
-  const used = this.hooks.filter(
-    'filter_api_bundle_extensions',
-    usedExt,
-  )
-
-  this.options.merge(
-    'entry',
-    this.hooks.filter('filter_bundle_options', {
+  this.options.set('entry', {
+    ...this.options.get('entry'),
+    ...this.hooks.filter('filter_bundle_options', {
       [`${name}`]: entries,
     }),
-  )
+  })
 
   this.hooks.call('post_bundle')
 

@@ -4,7 +4,11 @@
  */
 declare const rules: (bud: any) => {
     bud: any;
-    options: {};
+    options: {
+        module: {
+            rules: any[];
+        };
+    };
     /**
      * Make webpack rules
      */

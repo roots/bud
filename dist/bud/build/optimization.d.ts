@@ -7,13 +7,13 @@ import type { Bud } from './types';
 declare const optimization: (bud: Bud) => {
     bud: Bud;
     supports: {
-        minify: boolean;
-        runtimeChunk: boolean;
-        vendor: boolean;
+        minify: any;
+        runtimeChunk: any;
+        vendor: any;
     };
     options: {
         optimization: {
-            minimize: boolean;
+            minimize: any;
             removeAvailableModules: boolean;
             removeEmptyChunks: boolean;
             moduleIds: string;

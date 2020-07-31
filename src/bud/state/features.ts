@@ -1,16 +1,9 @@
-import type {Features} from './types'
-import {configs} from './configs'
+import type {Bud, Features} from './types'
+import type {Container} from '../container'
+import {container} from '../container'
 
-/**
- * Features
- *
- * Many API methods will opt-in a project based on usage.
- * This is a nicer DX and is preferred.
- *
- * @see {Bud.Api.Features}
- */
-const features: Features = {
-  repository: {
+const features: (state: any) => Container = (state: any) => {
+  const featuresContainer = new container({
     dashboard: true, // bud custom dashboard.
     clean: true, // clean compiled files on every run.
     css: true, // css loader support
@@ -28,12 +21,12 @@ const features: Features = {
     /**
      * Enabled by config presence
      */
-    babel: configs.has('babel'), // babel.config.js
-    eslint: configs.has('eslint'), // .eslintrc.js
-    postCss: configs.has('postCss'), // postcss.config.js
-    stylelint: configs.has('stylelint'), // .stylelintrc.js
-    typescript: configs.has('typescript'), // tsconfig.json
-    vue: configs.has('vue'), // vue.config.js
+    babel: state.configs.has('babel') ? true : false, // babel.config.js
+    eslint: state.configs.has('eslint') ? true : false, // .eslintrc.js
+    postCss: state.configs.has('postCss') ? true : false, // postcss.config.js
+    stylelint: state.configs.has('stylelint') ? true : false, // .stylelintrc.js
+    typescript: state.configs.has('typescript') ? true : false, // tsconfig.json
+    vue: state.configs.has('vue') ? true : false, // vue.config.js
 
     /**
      * Opt-in
@@ -54,36 +47,10 @@ const features: Features = {
     translate: false, // generate i18n translation files
     uglify: false, // uglify (disables terser)
     watch: false, // watch mode
-
-    /**
-     * Deprecated
-     */
     debug: false, // debug mode
-  },
-  enable: function (feature: string): void {
-    this.repository[feature] = true
-  },
-  enabled: function (feature: string): boolean {
-    return this.repository[feature] == true
-  },
-  disable: function (feature: string): void {
-    this.repository[feature] = false
-  },
-  disabled: function (feature: string): boolean {
-    return this.repository[feature] === false
-  },
-  get: function (feature: string): boolean {
-    return this.repository[feature]
-  },
-  set: function (features: {feature: string; value: boolean}): void {
-    this.repository = {
-      ...this.repository,
-      ...features,
-    }
-  },
-  has: function (feature: string): boolean {
-    return this.repository.hasOwnProperty(feature)
-  },
+  })
+
+  return featuresContainer
 }
 
 export {features}

@@ -11,8 +11,8 @@ var output = function (bud) { return ({
     bud: bud,
     options: {
         output: {
-            path: bud.state.paths.dist,
-            publicPath: bud.state.paths.public,
+            path: bud.paths.get('dist'),
+            publicPath: bud.paths.get('public'),
             filename: bud.features.enabled('hash')
                 ? '[name].[hash:8].js'
                 : '[name].js'

@@ -2,7 +2,9 @@ import {join} from 'path'
 import type {Bud, PathSetter} from './types'
 
 const srcPath: PathSetter = function (dir: string): Bud {
-  this.state.paths.src = join(this.state.paths.project, dir)
+  const setPath = join(this.state.paths.get('project'), dir)
+
+  this.state.paths.set('src', setPath)
 
   return this
 }

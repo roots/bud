@@ -1,7 +1,8 @@
 /// <reference types="webpack-dev-server" />
 import type { Configuration } from 'webpack';
 import type { Hooks } from './hooks/types';
-import type { State, Configs, Features, Options, Plugins } from './state/types';
+import type { State, Paths, Features, Options, Plugins } from './state/types';
+import type { FileContainer } from './container';
 import type { Util } from './util/types';
 import type * as Api from './api/types';
 /**
@@ -30,6 +31,12 @@ declare type Bud = {
      */
     mode: Configuration['mode'];
     /**
+     * ## bud.paths
+     *
+     * Project and framework paths.
+     */
+    paths: Paths;
+    /**
      * ## bud.inDevelopment
      *
      * Boolean returning true if in development.
@@ -52,7 +59,7 @@ declare type Bud = {
      *
      * Project configuration files.
      */
-    configs: Configs;
+    configs: FileContainer;
     /**
      * ## bud.features
      *

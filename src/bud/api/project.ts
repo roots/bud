@@ -1,8 +1,10 @@
 import {join} from 'path'
 import type {Project} from './types'
 
-const project: Project = function (relativePath: string): string {
-  return join(this.state.paths.project, relativePath)
+const project: Project = function (path: string): string {
+  return path
+    ? join(this.state.paths.get('project'), path)
+    : this.state.paths.get('project')
 }
 
 export {project}

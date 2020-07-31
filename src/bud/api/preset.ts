@@ -3,7 +3,7 @@ import type {Preset} from './types'
 
 const preset: Preset = function (relativePath): any {
   const presetConfig = join(
-    this.state.paths.framework,
+    this.paths.get('framework'),
     'preset',
     relativePath,
   )

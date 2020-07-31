@@ -7,7 +7,7 @@ var adapters_1 = require("./adapters");
 /**
  * ## bud.state.Plugins
  */
-var plugins = {
+var plugins = function (bud) { return ({
     repository: {
         adapters: adapters_1.adapters,
         core: core_1.core
@@ -37,6 +37,6 @@ var plugins = {
     hasAdapter: function (name) {
         return this.repository.adapters.hasOwnProperty(name);
     }
-};
+}); };
 exports.plugins = plugins;
 //# sourceMappingURL=index.js.map

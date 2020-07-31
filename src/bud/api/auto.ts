@@ -10,7 +10,10 @@ const auto: Auto = function (
 
   Object.entries(options).forEach(([key, modules]) => {
     modules.forEach(handle => {
-      this.options.merge('auto', {[handle]: key})
+      this.options.set('auto', {
+        ...this.options.get('auto'),
+        [handle]: key,
+      })
     })
   })
 

@@ -15,7 +15,7 @@ const webpackResolve = bud => ({
         'filter_webpack_resolve_extensions',
         bud.options.get('extensions'),
       ),
-      modules: [bud.project('node_modules'), bud.state.paths.src],
+      modules: [bud.project('node_modules'), bud.src()],
     },
   },
 
@@ -24,10 +24,10 @@ const webpackResolve = bud => ({
      * Resolve modules from framework
      */
     if (
-      this.bud.state.paths.project !== this.bud.state.paths.framework
+      !this.bud.paths.is('project', this.bud.paths.get('framework'))
     ) {
       this.options.resolve.modules.push(
-        join(this.bud.state.paths.framework, 'node_modules'),
+        join(this.bud.paths.get('framework'), 'node_modules'),
       )
     }
 

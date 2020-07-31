@@ -38,9 +38,9 @@ const usedExt = (entries, bud) => {
    * Enable features based on usage
    */
   if (matches.includes('.vue')) {
-    bud.features.enable('vue')
+    bud.features.set('vue', true)
 
-    !bud.options.get('extensions')['.vue'] &&
+    !bud.options.get('extensions').includes('.vue') &&
       bud.options.set('extensions', [
         ...bud.options.get('extensions'),
         '.vue',
@@ -48,8 +48,9 @@ const usedExt = (entries, bud) => {
   }
 
   if (matches.includes('.jsx')) {
-    bud.features.enable('react')
-    !bud.options.get('extensions')['.jsx'] &&
+    bud.features.set('react', true)
+
+    !bud.options.get('extensions').includes('.jsx') &&
       bud.options.set('extensions', [
         ...bud.options.get('extensions'),
         '.jsx',
@@ -57,13 +58,15 @@ const usedExt = (entries, bud) => {
   }
 
   if (matches.includes('.ts') || matches.includes('.tsx')) {
-    bud.features.enable('typescript')
-    !bud.options.get('extensions')['.ts'] &&
+    bud.features.set('typescript', true)
+
+    !bud.options.get('extensions').includes('.ts') &&
       bud.options.set('extensions', [
         ...bud.options.get('extensions'),
         '.ts',
       ])
-    !bud.options.get('extensions')['.tsx'] &&
+
+    !bud.options.get('extensions').includes('.tsx') &&
       bud.options.set('extensions', [
         ...bud.options.get('extensions'),
         '.tsx',
@@ -71,7 +74,13 @@ const usedExt = (entries, bud) => {
   }
 
   if (matches.includes('.scss')) {
-    bud.features.enable('scss')
+    bud.features.set('scss', true)
+
+    !bud.options.get('extensions').includes('.scss') &&
+      bud.options.set('extensions', [
+        ...bud.options.get('extensions'),
+        '.scss',
+      ])
   }
 
   return matches

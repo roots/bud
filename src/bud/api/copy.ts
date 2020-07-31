@@ -11,7 +11,7 @@ const copy: Copy = function (
       ...this.options.get('copy').patterns,
       {
         from,
-        to: to ? to : join(this.state.paths.dist, from),
+        to: to ? to : join(this.paths.get('dist'), from),
       },
     ],
   })

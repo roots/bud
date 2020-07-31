@@ -12,7 +12,7 @@ const copyAll: Copy = function (
       {
         from: '**/*',
         context: from,
-        to: to ? to : join(this.state.paths.dist, from),
+        to: to ? to : join(this.paths.get('dist'), from),
         globOptions: {
           ignore: '.*',
         },

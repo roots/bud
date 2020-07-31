@@ -11,7 +11,7 @@ export type Hooks = {
    * ## bud.hooks.init
    * @constructor
    */
-  init: (bud: Bud) => Hooks
+  init: (any) => Hooks
 
   /**
    * ## bud.hooks.registered

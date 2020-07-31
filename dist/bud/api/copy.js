@@ -14,7 +14,7 @@ var copy = function (from, to) {
         patterns: __spreadArrays(this.options.get('copy').patterns, [
             {
                 from: from,
-                to: to ? to : path_1.join(this.state.paths.dist, from)
+                to: to ? to : path_1.join(this.paths.get('dist'), from)
             },
         ])
     });

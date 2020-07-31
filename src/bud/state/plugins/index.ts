@@ -1,12 +1,12 @@
 import {controller} from './controller'
 import {core} from './core'
 import {adapters} from './adapters'
-import type {Plugins, PluginRepoEntry} from './types'
+import type {Bud, Plugins, PluginRepoEntry} from './types'
 
 /**
  * ## bud.state.Plugins
  */
-const plugins: Plugins = {
+const plugins: (bud: Bud) => Plugins = bud => ({
   repository: {
     adapters,
     core,
@@ -53,6 +53,6 @@ const plugins: Plugins = {
   hasAdapter: function (this: Plugins, name: string): boolean {
     return this.repository.adapters.hasOwnProperty(name)
   },
-}
+})
 
 export {plugins}

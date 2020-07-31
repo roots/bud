@@ -1,7 +1,6 @@
-import type { Options } from './types';
 /**
  * Options container.
  */
-declare const options: Options;
+declare const options: (state: any) => any;
 export { options };
 //# sourceMappingURL=options.d.ts.map

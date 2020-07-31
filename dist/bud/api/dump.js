@@ -3,7 +3,7 @@ exports.__esModule = true;
 exports.dump = void 0;
 var dump = function (enabled) {
     if (enabled === void 0) { enabled = true; }
-    this.state.features.dump = enabled;
+    this.features.set('dump', enabled);
     return this;
 };
 exports.dump = dump;

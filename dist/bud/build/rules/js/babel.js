@@ -13,6 +13,7 @@ var __assign = (this && this.__assign) || function () {
 exports.__esModule = true;
 exports.babel = void 0;
 var loaders_1 = require("../util/loaders");
+var patterns_1 = require("../util/patterns");
 /**
  * Babel
  *
@@ -28,7 +29,8 @@ var babel = function (bud) { return ({
     make: function () {
         this.pre();
         this.rule = {
-            include: /\.jsx?|\.tsx?/,
+            test: /\.(js|jsx)$/,
+            exclude: patterns_1.patterns.vendor,
             use: [
                 {
                     loader: loaders_1.loaders.babel,
@@ -36,7 +38,6 @@ var babel = function (bud) { return ({
                 },
             ]
         };
-        this.rule.test = /\.(js|jsx)$/;
         this.post();
         return this.rule;
     },

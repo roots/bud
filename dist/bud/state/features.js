@@ -1,28 +1,9 @@
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 exports.__esModule = true;
 exports.features = void 0;
-var configs_1 = require("./configs");
-/**
- * Features
- *
- * Many API methods will opt-in a project based on usage.
- * This is a nicer DX and is preferred.
- *
- * @see {Bud.Api.Features}
- */
-var features = {
-    repository: {
+var container_1 = require("../container");
+var features = function (state) {
+    var featuresContainer = new container_1.container({
         dashboard: true,
         clean: true,
         css: true,
@@ -39,12 +20,12 @@ var features = {
         /**
          * Enabled by config presence
          */
-        babel: configs_1.configs.has('babel'),
-        eslint: configs_1.configs.has('eslint'),
-        postCss: configs_1.configs.has('postCss'),
-        stylelint: configs_1.configs.has('stylelint'),
-        typescript: configs_1.configs.has('typescript'),
-        vue: configs_1.configs.has('vue'),
+        babel: state.configs.has('babel') ? true : false,
+        eslint: state.configs.has('eslint') ? true : false,
+        postCss: state.configs.has('postCss') ? true : false,
+        stylelint: state.configs.has('stylelint') ? true : false,
+        typescript: state.configs.has('typescript') ? true : false,
+        vue: state.configs.has('vue') ? true : false,
         /**
          * Opt-in
          */
@@ -64,32 +45,9 @@ var features = {
         translate: false,
         uglify: false,
         watch: false,
-        /**
-         * Deprecated
-         */
         debug: false
-    },
-    enable: function (feature) {
-        this.repository[feature] = true;
-    },
-    enabled: function (feature) {
-        return this.repository[feature] == true;
-    },
-    disable: function (feature) {
-        this.repository[feature] = false;
-    },
-    disabled: function (feature) {
-        return this.repository[feature] === false;
-    },
-    get: function (feature) {
-        return this.repository[feature];
-    },
-    set: function (features) {
-        this.repository = __assign(__assign({}, this.repository), features);
-    },
-    has: function (feature) {
-        return this.repository.hasOwnProperty(feature);
-    }
+    });
+    return featuresContainer;
 };
 exports.features = features;
 //# sourceMappingURL=features.js.map

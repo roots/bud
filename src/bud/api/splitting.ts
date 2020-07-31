@@ -4,7 +4,7 @@ const splitting: Splitting = function (
   this: Bud,
   enabled: boolean,
 ): Bud {
-  this.features.set({splitting: enabled ?? true})
+  this.features.set('splitting', enabled ?? true)
 
   return this
 }

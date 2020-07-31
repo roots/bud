@@ -10,7 +10,7 @@ var provide = function () { return ({
         return new webpack_1.ProvidePlugin(this.options);
     },
     when: function () {
-        return this.options;
+        return this.bud.options.has('auto');
     }
 }); };
 exports.provide = provide;

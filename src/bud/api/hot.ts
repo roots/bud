@@ -13,7 +13,7 @@ const hot: Hot = function (
     secure?: boolean
   },
 ): Bud {
-  this.features.set({hot: options.enabled ?? true})
+  this.features.set('hot', options.enabled ?? true)
 
   if (this.features.enabled('hot')) {
     this.options.merge('dev', {

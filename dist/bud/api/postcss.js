@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __rest = (this && this.__rest) || function (s, e) {
     var t = {};
     for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
@@ -13,10 +24,11 @@ var __rest = (this && this.__rest) || function (s, e) {
 exports.__esModule = true;
 exports.postCss = void 0;
 var postCss = function (_a) {
-    var _b = _a.enabled, enabled = _b === void 0 ? true : _b, options = __rest(_a, ["enabled"]);
-    this.features.set({ postCss: enabled !== null && enabled !== void 0 ? enabled : true });
+    var enabled = _a.enabled, options = __rest(_a, ["enabled"]);
+    var postCssEnabled = enabled ? enabled : true;
+    postCssEnabled && this.features.enable('postCss');
     if (this.features.enabled('postCss')) {
-        this.options.merge('postcss', options);
+        this.options.set('postcss', __assign(__assign({}, this.options.get('postCss')), options));
     }
     return this;
 };

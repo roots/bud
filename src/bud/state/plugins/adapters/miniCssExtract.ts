@@ -5,8 +5,8 @@ const miniCssExtract: WebpackAdapter = () => ({
   setOptions: function () {
     return {
       filename: this.bud.features.enabled('hash')
-        ? `[name].[hash:8].css`
-        : '[name].css',
+        ? `${this.bud.options.get('filenameTemplate').hashed}.css`
+        : `${this.bud.options.get('filenameTemplate').default}.css`,
     }
   },
   make: function () {

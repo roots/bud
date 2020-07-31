@@ -20,7 +20,8 @@ const babel = (bud: Bud): any => ({
     this.pre()
 
     this.rule = {
-      include: /\.jsx?|\.tsx?/,
+      test: /\.(js|jsx)$/,
+      exclude: patterns.vendor,
       use: [
         {
           loader: loaders.babel,
@@ -32,8 +33,6 @@ const babel = (bud: Bud): any => ({
         },
       ],
     }
-
-    this.rule.test = /\.(js|jsx)$/
 
     this.post()
 

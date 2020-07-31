@@ -1,9 +1,11 @@
 import type {Bud, Alias} from './types'
 
 const alias: Alias = function (this: Bud, options: object): Bud {
-  this.hooks.call('pre_alias', options)
+  this.hooks.call('pre_alias')
 
-  this.options.merge('alias', options)
+  const aliases = this.hooks.filter('filter_api_alias', options)
+
+  this.options.set('alias', aliases)
 
   this.hooks.call('post_alias')
 

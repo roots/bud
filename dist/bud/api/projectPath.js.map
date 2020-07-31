@@ -1,1 +1,1 @@
-{"version":3,"file":"projectPath.js","sourceRoot":"","sources":["../../../src/bud/api/projectPath.ts"],"names":[],"mappings":";;;AAEA,IAAM,WAAW,GAAe,UAAU,GAAW;IACnD,IAAI,CAAC,KAAK,CAAC,KAAK,CAAC,OAAO,GAAG,GAAG,CAAA;IAE9B,OAAO,IAAI,CAAA;AACb,CAAC,CAAA;AAEO,kCAAW"}
+{"version":3,"file":"projectPath.js","sourceRoot":"","sources":["../../../src/bud/api/projectPath.ts"],"names":[],"mappings":";;;AAEA,IAAM,WAAW,GAAe,UAAU,GAAW;IACnD,IAAI,CAAC,KAAK,CAAC,KAAK,CAAC,GAAG,CAAC,SAAS,EAAE,GAAG,CAAC,CAAA;IAEpC,OAAO,IAAI,CAAA;AACb,CAAC,CAAA;AAEO,kCAAW"}

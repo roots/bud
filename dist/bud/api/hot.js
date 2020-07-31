@@ -18,7 +18,7 @@ exports.hot = void 0;
 var chokidar_1 = __importDefault(require("chokidar"));
 var hot = function (options) {
     var _a, _b, _c, _d;
-    this.features.set({ hot: (_a = options.enabled) !== null && _a !== void 0 ? _a : true });
+    this.features.set('hot', (_a = options.enabled) !== null && _a !== void 0 ? _a : true);
     if (this.features.enabled('hot')) {
         this.options.merge('dev', {
             before: function (app, server) {

@@ -1,13 +1,15 @@
-import {join} from 'path'
 import dotenv from 'dotenv'
-import {paths} from './paths'
-import type {Environment} from './types'
+import {container} from '../container'
+import {join} from 'path'
 
 /**
  * Environment variables container.
  */
-const env: Environment = dotenv.config({
-  path: join(paths.project, '.env'),
-}).parsed
+const env = state =>
+  new container(
+    dotenv.config({
+      path: join(state.paths.get('project'), '.env'),
+    }).parsed,
+  )
 
 export {env}

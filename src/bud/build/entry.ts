@@ -7,7 +7,7 @@ const entry: BuilderConstructor = (bud: Bud): EntryBuilder => ({
   bud,
   options: {},
   make: function () {
-    if (this.bud.options.get('entry') == null) {
+    if (!this.bud.options.has('entry')) {
       this.bud.glob(`*/*.(js|css|scss|vue|ts|tsx)`)
     }
 

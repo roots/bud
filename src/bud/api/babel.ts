@@ -6,10 +6,10 @@ const babel: BabelCfg = function (
   options: BabelOptions,
 ): Bud {
   this.features.enable('babel')
-  this.options.merge(
-    'babel',
-    this.hooks.filter('filter_babel_options', options),
-  )
+  this.options.set('babel', {
+    ...this.options.get('babel'),
+    ...this.hooks.filter('filter_babel_options', options),
+  })
 
   this.hooks.call('post_babel')
 

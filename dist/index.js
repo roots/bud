@@ -26,6 +26,7 @@ var init = function () {
      * Constructor
      */
     var bud = new bud_1.framework();
+    bud.hooks.init(bud);
     /**
      * Action: extensions_init
      */

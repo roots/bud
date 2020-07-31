@@ -9,7 +9,7 @@ const provide: WebpackAdapter = () => ({
     return new ProvidePlugin(this.options)
   },
   when: function () {
-    return this.options
+    return this.bud.options.has('auto')
   },
 })
 

@@ -1,3 +1,4 @@
+import {join} from 'path'
 import type {Configuration} from 'webpack'
 import {Bud} from './bud/types'
 
@@ -23,7 +24,9 @@ const init = () => {
   /**
    * Constructor
    */
-  const bud: Bud = new framework()
+  let bud: Bud = new framework()
+
+  bud.hooks.init(bud)
 
   /**
    * Action: extensions_init

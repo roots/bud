@@ -21,9 +21,10 @@ exports.__esModule = true;
 exports.purge = void 0;
 var purge = function (_a) {
     var _b = _a.enabled, enabled = _b === void 0 ? true : _b, options = __rest(_a, ["enabled"]);
-    this.features.set({ purge: enabled !== null && enabled !== void 0 ? enabled : true });
+    var purgeEnabled = enabled !== null && enabled !== void 0 ? enabled : true;
+    purgeEnabled && this.features.enable('purge');
     if (this.features.enabled('purge')) {
-        this.options.merge('postCss', {
+        this.options.set('postCss', {
             plugins: __spreadArrays(this.options.get('postCss').plugins, [
                 require('@fullhuman/postcss-purgecss')(options),
             ])

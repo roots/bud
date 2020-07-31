@@ -13,15 +13,15 @@ var webpackResolve = function (bud) { return ({
     options: {
         resolve: {
             extensions: bud.hooks.filter('filter_webpack_resolve_extensions', bud.options.get('extensions')),
-            modules: [bud.project('node_modules'), bud.state.paths.src]
+            modules: [bud.project('node_modules'), bud.src()]
         }
     },
     make: function () {
         /**
          * Resolve modules from framework
          */
-        if (this.bud.state.paths.project !== this.bud.state.paths.framework) {
-            this.options.resolve.modules.push(path_1.join(this.bud.state.paths.framework, 'node_modules'));
+        if (!this.bud.paths.is('project', this.bud.paths.get('framework'))) {
+            this.options.resolve.modules.push(path_1.join(this.bud.paths.get('framework'), 'node_modules'));
         }
         /**
          * JSX support

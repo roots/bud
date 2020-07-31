@@ -15,7 +15,7 @@ var patterns = {
     ts: /\.(ts|tsx)$/,
     vue: /\.vue$/,
     scss: /\.scss$/,
-    scssModule: /\.module\.(scss|sass)$/,
+    scssModule: /\.module\.scss$/,
     css: /\.css$/,
     cssModule: /\.module\.css$/,
     svg: /\.svg$/,

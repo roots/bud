@@ -18,16 +18,15 @@ var svg_1 = require("./svg");
  */
 var rules = function (bud) { return ({
     bud: bud,
-    options: {},
+    options: {
+        module: {
+            rules: []
+        }
+    },
     /**
      * Make webpack rules
      */
     make: function () {
-        this.options = {
-            module: {
-                rules: []
-            }
-        };
         /*     this.bud.state.options.target == 'node' &&
           this.options.module.rules.push({test: patterns.js, loader: loaders.shebang})
      */

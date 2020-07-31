@@ -7,11 +7,11 @@ import type { Bud } from './types';
 declare const general: (bud: Bud) => {
     bud: Bud;
     options: {
-        context: string;
+        context: any;
         devtool: any;
         mode: "none" | "development" | "production";
         target: any;
-        watch: boolean;
+        watch: any;
     };
     make: () => any;
 };

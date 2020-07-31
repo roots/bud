@@ -2,8 +2,9 @@
 exports.__esModule = true;
 exports.alias = void 0;
 var alias = function (options) {
-    this.hooks.call('pre_alias', options);
-    this.options.merge('alias', options);
+    this.hooks.call('pre_alias');
+    var aliases = this.hooks.filter('filter_api_alias', options);
+    this.options.set('alias', aliases);
     this.hooks.call('post_alias');
     return this;
 };

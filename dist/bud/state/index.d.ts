@@ -1,6 +1,6 @@
-import type { State } from './types';
+import type { Bud, State } from './types';
 /**
  * bud.state
  */
-export declare const state: State;
+export declare const state: (bud: Bud) => State;
 //# sourceMappingURL=index.d.ts.map

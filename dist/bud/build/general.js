@@ -9,7 +9,7 @@ exports.general = void 0;
 var general = function (bud) { return ({
     bud: bud,
     options: {
-        context: bud.state.paths.project,
+        context: bud.state.paths.get('project'),
         devtool: bud.features.enabled('sourceMap')
             ? bud.options.get('devtool')
             : false,
