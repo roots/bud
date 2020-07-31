@@ -1,6 +1,6 @@
 /**
- * Bud framework
+ * Bud framework.
  */
-declare const framework: () => void;
-export { framework };
+declare const bootstrap: () => void;
+export { bootstrap };
 //# sourceMappingURL=index.d.ts.map

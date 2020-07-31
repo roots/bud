@@ -22,10 +22,7 @@ var bud_1 = require("./bud");
  * Initialize Bud.
  */
 var init = function () {
-    /**
-     * Constructor
-     */
-    var bud = new bud_1.framework();
+    var bud = new bud_1.bootstrap().framework;
     bud.hooks.init(bud);
     /**
      * Action: extensions_init
@@ -35,7 +32,7 @@ var init = function () {
             var name = _a.name, extension = _a.extension;
             return ({
                 name: name,
-                extension: bud.plugins
+                extension: bud.adapters
                     .controller(bud)
                     .initController({ name: name, extension: extension })
             });

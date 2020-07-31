@@ -1,15 +1,9 @@
 import dotenv from 'dotenv'
-import {container} from '../container'
-import {join} from 'path'
 
-/**
- * Environment variables container.
- */
-const env = state =>
-  new container(
-    dotenv.config({
-      path: join(state.paths.get('project'), '.env'),
-    }).parsed,
-  )
+const envRepository = function (framework: any) {
+  return dotenv.config({
+    path: framework.fs.path.join(framework.paths.get('project'), '.env'),
+  }).parsed ?? {}
+}
 
-export {env}
+export {envRepository}

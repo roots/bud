@@ -15,17 +15,14 @@ export type Production = boolean
  *
  * @const {Bud} bud
  */
-import {framework} from './bud'
+import {bootstrap} from './bud'
 
 /**
  * Initialize Bud.
  */
 const init = () => {
-  /**
-   * Constructor
-   */
-  let bud: Bud = new framework()
 
+  const bud: Bud = new bootstrap().framework
   bud.hooks.init(bud)
 
   /**
@@ -34,7 +31,7 @@ const init = () => {
   bud.hooks.on('filter_adapters_init', (extensions, bud) =>
     extensions.map(({name, extension}) => ({
       name,
-      extension: bud.plugins
+      extension: bud.adapters
         .controller(bud)
         .initController({name, extension}),
     })),

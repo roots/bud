@@ -1,30 +1,23 @@
-import {env} from './env'
 import type {
   BabelConfiguration,
   Copy,
   Dev,
-  Externals,
-  Flags,
   PostCssConfiguration,
   Target,
   Vendor,
   WordPressDependenciesOptions,
 } from './types'
-import {container} from '../container'
-
-const auto: Object = {}
 
 const babelFallback: BabelConfiguration = {
   presets: [],
   plugins: [],
 }
 
-const babel: (state) => BabelConfiguration = state =>
-  state.configs.has('babel')
-    ? state.configs.contents('babel')
-    : babelFallback
+const babel: (configs) => BabelConfiguration = function (configs) {
+  return configs.has('babel') ? configs.contents('babel') : babelFallback
+}
 
-const browserSync: (flags: Flags) => object = flags => ({
+const browserSync: (flags) => object = flags => ({
   host: flags.get('host'),
   port: flags.get('port'),
   proxy: flags.get('proxy'),
@@ -51,75 +44,59 @@ const dev: Dev = {
   proxy: {},
 }
 
-const externals: Externals = null
-
-const postCssFallback: PostCssConfiguration = {
-  plugins: [],
+const postCss: (configs) => PostCssConfiguration = function (configs) {
+  const fallback: PostCssConfiguration = {plugins: []}
+  return configs.has('postCss')
+    ? configs.contents('postCss')
+    : fallback
 }
-
-const postCss: (state) => PostCssConfiguration = state =>
-  state.configs.has('postCss')
-    ? state.configs.contents('postCss')
-    : postCssFallback
 
 const target: Target = 'web'
 
-const typescript = state =>
-  state.configs.has('typescript')
-    ? state.configs.contents('typescript')
+const typescript = configs =>
+  configs.has('typescript')
+    ? configs.contents('typescript')
     : {}
 
 const vendor: Vendor = {name: 'vendor'}
 
-const uglify = {
-  cache: true,
-  chunkFilter: ({name}) => name === 'vendor',
-  extractComments: false,
-  parallel: true,
-  uglifyOptions: {
-    output: {
-      beautify: false,
-    },
-    compress: false,
-    mangle: {
-      toplevel: true,
-    },
-  },
-}
-
-const filenameTemplate = {
-  hashed: `[name].[hash:8]`,
-  default: '[name]',
-}
-
 /**
  * Options container.
  */
-const options = state =>
-  new container({
-    babel: babel(state),
-    postCss: postCss(state),
-    typescript: typescript(state),
-    auto,
-    browserSync,
-    copy,
-    dev,
-    dependencyManifest,
-    devtool: 'source-map',
-    env,
-    extensions: ['.js', '.json'],
-    externals,
-    filenameTemplate,
-    inlineManifest: {
-      name: 'runtime',
+const optionsRepository = {
+  copy,
+  dev,
+  dependencyManifest,
+  devtool: 'source-map',
+  extensions: ['.js', '.json'],
+  filenameTemplate: {
+    hashed: `[name].[hash:8]`,
+    default: '[name]',
+  },
+  inlineManifest: {
+    name: 'runtime',
+  },
+  splitting: {
+    maxChunks: null,
+  },
+  target,
+  uglify: {
+    cache: true,
+    chunkFilter: ({name}) => name === 'vendor',
+    extractComments: false,
+    parallel: true,
+    uglifyOptions: {
+      output: {
+        beautify: false,
+      },
+      compress: false,
+      mangle: {
+        toplevel: true,
+      },
     },
-    splitting: {
-      maxChunks: null,
-    },
-    target,
-    uglify,
-    vendor,
-    watch,
-  })
+  },
+  vendor,
+  watch,
+}
 
-export {options}
+export {optionsRepository, babel, browserSync, postCss, typescript}

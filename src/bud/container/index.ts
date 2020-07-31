@@ -1,17 +1,21 @@
 import {existsSync} from 'fs-extra'
-import path from 'path'
+import {controller} from '../state/plugins/controller'
 
 type Repository = any[] | object
 
-interface ContainerInterface {
+interface Loose {
+  [key: string]: any
+}
+interface ContainerInterface extends Loose {
   repository: Repository
-  fs: typeof fs
   new: (this: Container, key: string, repository: Repository) => void
   get: (this: Container, key: string) => any
   contents: (this: Container, key: string) => any
   has: (this: Container, key: string) => boolean
   is: (this: Container, key: string, value: any) => boolean
   set: (this: Container, key: string, value: any) => void
+  map: (this: Container, args: any[]) => any
+  entries: (this: Container) => Repository
   merge: (this: Container, key: string, value: any) => void
   delete: (this: Container, key: string) => void
   enable: (this: Container, key: string) => void
@@ -25,13 +29,12 @@ interface FileContainerInterface extends ContainerInterface {
   exists: (this: Container, key: string) => boolean
 }
 
+interface ExtensionContainer extends ContainerInterface {
+  controller: (this: Container, args: any[]) => any
+}
+
 type Container = ContainerInterface
 type FileContainer = FileContainerInterface
-
-const fs = {
-  path,
-  existsSync,
-}
 
 const newContainer = function (
   key: string,
@@ -63,7 +66,7 @@ const set = function (key: string, value: any) {
 }
 
 const has = function (key: string): boolean {
-  return this.repository[key] && this.repository[key] !== null
+  return this.repository[key] && this.repository[key] !== null ? true : false
 }
 
 const merge = function (key: string, value: any) {
@@ -79,7 +82,7 @@ const containerMethodDelete = function (key: string) {
 }
 
 const exists = function (key: string): boolean {
-  return this.fs.existsSync(key)
+  return existsSync(this.repository[key])
 }
 
 const enable = function (key: string): void {
@@ -98,15 +101,24 @@ const disabled = function (key: string): boolean {
   return this.is(key, false)
 }
 
+const map = function (...params): any {
+  return this.repository.map(...params)
+}
+
+const entries = function (): any {
+  return this.repository
+}
+
 const container = function (this: Container, repository: Repository) {
   this.repository = repository
   this.new = newContainer
   this.get = get
-  this.contents = contents
+  this.has = has
   this.set = set
+  this.map = map
+  this.entries = entries
   this.merge = merge
   this.delete = containerMethodDelete
-  this.has = has
   this.is = is
   this.enable = enable
   this.enabled = enabled
@@ -114,28 +126,27 @@ const container = function (this: Container, repository: Repository) {
   this.disabled = disabled
 }
 
-container.prototype.fs = fs
+const bindContainer: (repository: Repository) => Container =
+  function (repository): Container {
+    return new container(repository)
+  }
 
-const fileContainer = function (
-  this: FileContainer,
-  repository: Repository,
-) {
-  this.repository = repository
-  this.fs = fs
-  this.new = newContainer
-  this.get = get
-  this.contents = contents
-  this.set = set
-  this.merge = merge
-  this.delete = containerMethodDelete
-  this.has = has
-  this.exists = exists
-  this.is = is
-  this.enable = enable
-  this.enabled = enabled
-  this.disable = disable
-  this.disabled = disabled
-}
+const bindFileContainer: (repository: Repository) => FileContainer =
+  function (repository): FileContainer {
+    const store = new container(repository)
+    store.contents = contents
+    store.exists = exists
 
-export {container, fileContainer}
-export type {Container, FileContainer, Repository}
+    return store
+  }
+
+const bindExtensionContainer: (repository: Repository) => ExtensionContainer =
+  function (repository): ExtensionContainer {
+    const store = new container(repository)
+    store.controller = controller
+
+    return store
+  }
+
+export {container, bindContainer, bindFileContainer, bindExtensionContainer}
+export type {Container, FileContainer, ExtensionContainer, Repository}

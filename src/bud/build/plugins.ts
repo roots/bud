@@ -3,9 +3,9 @@ import type {Bud} from './types'
 /**
  * Webpack plugins.
  */
-const plugins = (bud: Bud) => ({
+const plugins = (bud: any) => ({
   bud,
-  adapters: bud.plugins.repository.adapters,
+  adapters: bud.adapters.entries(),
 
   make: function () {
     this.doHook('adapters_init')

@@ -38,7 +38,7 @@ declare const optimization: (bud: Bud) => {
      * Executes a callback if a given feature is enabled.
      *
      * @property {Function} whenSupported
-     * @parameter {string} bud.state.feature key
+     * @parameter {string} bud.feature key
      * @parameter {Function} callback
      * @return {void}
      */

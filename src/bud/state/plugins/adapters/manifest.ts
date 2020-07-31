@@ -4,7 +4,7 @@ import type {WebpackAdapter} from './types'
 const manifest: WebpackAdapter = () => ({
   setOptions: function () {
     return {
-      publicPath: this.bud.state.paths.public ?? '/',
+      publicPath: this.bud.paths.public ?? '/',
       filename: 'manifest.json',
       writeToFileEmit: true,
     }

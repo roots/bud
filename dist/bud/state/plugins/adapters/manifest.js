@@ -9,7 +9,7 @@ var manifest = function () { return ({
     setOptions: function () {
         var _a;
         return {
-            publicPath: (_a = this.bud.state.paths.public) !== null && _a !== void 0 ? _a : '/',
+            publicPath: (_a = this.bud.paths.public) !== null && _a !== void 0 ? _a : '/',
             filename: 'manifest.json',
             writeToFileEmit: true
         };

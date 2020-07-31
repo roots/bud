@@ -6,7 +6,7 @@ exports.plugins = void 0;
  */
 var plugins = function (bud) { return ({
     bud: bud,
-    adapters: bud.plugins.repository.adapters,
+    adapters: bud.adapters.entries(),
     make: function () {
         this.doHook('adapters_init');
         this.doHook('adapters_build');

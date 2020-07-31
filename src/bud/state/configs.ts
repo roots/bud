@@ -1,5 +1,4 @@
-import {fileContainer} from '../container'
-import type {FileContainer} from '../container'
+import type {Repository} from '../container'
 
 const configFiles = [
   {
@@ -36,23 +35,22 @@ const configFiles = [
   },
 ]
 
-/**
- * ## bud.state.configs
- */
-const configs: (paths: any) => FileContainer = paths => {
-  const container = new fileContainer({})
+const configsRepository: (framework: any) => Repository = framework => {
+  const fs = framework.fs
+  const paths = framework.paths
+  const repository = {}
 
   configFiles.forEach(({name, filename}) => {
-    const projectPath = container.fs.path.join(
+    const projectPath = fs.path.join(
       paths.get('project'),
       filename,
     )
-    if (container.exists(projectPath)) {
-      container.set(name, projectPath)
+    if (fs.existsSync(projectPath)) {
+      repository[name] = projectPath
     }
   })
 
-  return container
+  return repository
 }
 
-export {configs}
+export {configsRepository}

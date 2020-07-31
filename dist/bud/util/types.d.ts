@@ -10,14 +10,21 @@ export declare type Fab = {
     null: () => null;
 };
 export declare type ProjectRoot = string;
+export declare type Fs = {
+    path: any;
+    existsSync: any;
+};
 export declare type Util = {
+    fs: Fs;
     dump: Dump;
     except: Except;
     shortCircuit: ShortCircuit;
     fab: Fab;
     projectRoot: ProjectRoot;
     terminate: (any: any) => void;
-    setProcess: (bud: Bud) => void;
+    process: {
+        set: (bud: Bud) => void;
+    };
     usedExt: (any: any, bud: Bud) => any[];
 };
 //# sourceMappingURL=types.d.ts.map

@@ -9,9 +9,9 @@ const externals = (bud: Bud) => ({
   options: {},
   make: function () {
     /**
-     * Set externals from bud.state.
+     * Set externals from bud.
      */
-    const externalsState = this.bud.state.options.get('externals')
+    const externalsState = this.bud.options.get('externals')
 
     if (externalsState) {
       this.options.externals = externalsState
@@ -21,7 +21,7 @@ const externals = (bud: Bud) => ({
      * When targeting node we don't want to incorporate
      * modules in the build.
      */
-    if (this.bud.state.options.get('target') == 'node') {
+    if (this.bud.options.get('target') == 'node') {
       this.options.externals = [nodeExternals()]
     }
 

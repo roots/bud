@@ -1,18 +1,14 @@
 "use strict";
 exports.__esModule = true;
-exports.options = void 0;
-var env_1 = require("./env");
-var container_1 = require("../container");
-var auto = {};
+exports.typescript = exports.postCss = exports.browserSync = exports.babel = exports.optionsRepository = void 0;
 var babelFallback = {
     presets: [],
     plugins: []
 };
-var babel = function (state) {
-    return state.configs.has('babel')
-        ? state.configs.contents('babel')
-        : babelFallback;
+var babel = function (configs) {
+    return configs.has('babel') ? configs.contents('babel') : babelFallback;
 };
+exports.babel = babel;
 var browserSync = function (flags) { return ({
     host: flags.get('host'),
     port: flags.get('port'),
@@ -20,6 +16,7 @@ var browserSync = function (flags) { return ({
     online: false,
     open: false
 }); };
+exports.browserSync = browserSync;
 var copy = { patterns: [] };
 var dependencyManifest = {
     combineAssets: false,
@@ -35,73 +32,61 @@ var dev = {
     headers: {},
     proxy: {}
 };
-var externals = null;
-var postCssFallback = {
-    plugins: []
+var postCss = function (configs) {
+    var fallback = { plugins: [] };
+    return configs.has('postCss')
+        ? configs.contents('postCss')
+        : fallback;
 };
-var postCss = function (state) {
-    return state.configs.has('postCss')
-        ? state.configs.contents('postCss')
-        : postCssFallback;
-};
+exports.postCss = postCss;
 var target = 'web';
-var typescript = function (state) {
-    return state.configs.has('typescript')
-        ? state.configs.contents('typescript')
+var typescript = function (configs) {
+    return configs.has('typescript')
+        ? configs.contents('typescript')
         : {};
 };
+exports.typescript = typescript;
 var vendor = { name: 'vendor' };
-var uglify = {
-    cache: true,
-    chunkFilter: function (_a) {
-        var name = _a.name;
-        return name === 'vendor';
-    },
-    extractComments: false,
-    parallel: true,
-    uglifyOptions: {
-        output: {
-            beautify: false
-        },
-        compress: false,
-        mangle: {
-            toplevel: true
-        }
-    }
-};
-var filenameTemplate = {
-    hashed: "[name].[hash:8]",
-    "default": '[name]'
-};
 /**
  * Options container.
  */
-var options = function (state) {
-    return new container_1.container({
-        babel: babel(state),
-        postCss: postCss(state),
-        typescript: typescript(state),
-        auto: auto,
-        browserSync: browserSync,
-        copy: copy,
-        dev: dev,
-        dependencyManifest: dependencyManifest,
-        devtool: 'source-map',
-        env: env_1.env,
-        extensions: ['.js', '.json'],
-        externals: externals,
-        filenameTemplate: filenameTemplate,
-        inlineManifest: {
-            name: 'runtime'
+var optionsRepository = {
+    copy: copy,
+    dev: dev,
+    dependencyManifest: dependencyManifest,
+    devtool: 'source-map',
+    extensions: ['.js', '.json'],
+    filenameTemplate: {
+        hashed: "[name].[hash:8]",
+        "default": '[name]'
+    },
+    inlineManifest: {
+        name: 'runtime'
+    },
+    splitting: {
+        maxChunks: null
+    },
+    target: target,
+    uglify: {
+        cache: true,
+        chunkFilter: function (_a) {
+            var name = _a.name;
+            return name === 'vendor';
         },
-        splitting: {
-            maxChunks: null
-        },
-        target: target,
-        uglify: uglify,
-        vendor: vendor,
-        watch: watch
-    });
+        extractComments: false,
+        parallel: true,
+        uglifyOptions: {
+            output: {
+                beautify: false
+            },
+            compress: false,
+            mangle: {
+                toplevel: true
+            }
+        }
+    },
+    vendor: vendor,
+    watch: watch
 };
-exports.options = options;
+exports.optionsRepository = optionsRepository;
 //# sourceMappingURL=options.js.map

@@ -1,6 +1,6 @@
-import type {Bud} from './../types'
+import type {Bud} from '../types'
 
-const setProcess = (bud: Bud) => {
+const set = (bud: Bud) => {
   process.title = bud.hooks.filter('node_process_title', 'bud-cli')
 
   process.env.BABEL_ENV = bud.mode
@@ -20,4 +20,4 @@ const setProcess = (bud: Bud) => {
   process.on('unhandledRejection', unhandledRejectionHandler)
 }
 
-export {setProcess}
+export default {set}

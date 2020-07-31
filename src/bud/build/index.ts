@@ -10,7 +10,7 @@ import {plugins} from './plugins'
 import type {Bud, BuilderController, RegisteredBuilder} from './types'
 
 /**
- * Build - generates webpack configuration from Bud.State.
+ * Build - generates webpack configuration from bud.
  *
  * @param {Bud} bud
  * @return {BuilderController}
@@ -64,7 +64,7 @@ const build = (bud: Bud): BuilderController => ({
       this.builders.push(['optimization', optimization])
 
     /** Hook: pre_webpack */
-    this.doHook('pre', this.bud.state.options)
+    this.doHook('pre', this.bud.options)
 
     /**
      * Map builder output to bud.builder.config property.

@@ -1,10 +1,9 @@
-import type { Bud } from './types';
 /**
  * Webpack plugins.
  */
-declare const plugins: (bud: Bud) => {
-    bud: Bud;
-    adapters: import("../state/plugins/types").PluginsRepo;
+declare const plugins: (bud: any) => {
+    bud: any;
+    adapters: any;
     make: () => {
         plugins: any;
     };

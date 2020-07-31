@@ -4,17 +4,19 @@ import {fab} from './fab'
 import {projectRoot} from './projectRoot'
 import {shortCircuit} from './shortCircuit'
 import {terminate} from './terminate'
-import {setProcess} from './setProcess'
+import process from './process'
 import {usedExt} from './usedExt'
+import {fs} from './fs'
 import type {Util} from './types'
 
 export const util: Util = {
+  fs,
   dump,
   except,
   shortCircuit,
   fab,
   projectRoot,
-  setProcess,
+  process,
   terminate,
   usedExt,
 }

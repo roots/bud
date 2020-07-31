@@ -1,58 +1,86 @@
-import {controller} from './controller'
-import {core} from './core'
-import {adapters} from './adapters'
-import type {Bud, Plugins, PluginRepoEntry} from './types'
+import {browserSync} from './adapters/browserSync'
+import {cleanWebpack} from './adapters/cleanWebpack'
+import {copy} from './adapters/copy'
+import {define} from './adapters/define'
+import {dependencyExtraction} from './adapters/dependencyExtraction'
+import {fixStyleOnlyEntries} from './adapters/fixStyleOnlyEntries'
+import {hotModuleReplacement} from './adapters/hotModuleReplacement'
+import {limitChunkCount} from './adapters/limitChunkCount'
+import {miniCssExtract} from './adapters/miniCssExtract'
+import {manifest} from './adapters/manifest'
+import {provide} from './adapters/provide'
+import {stylelint} from './adapters/stylelint'
+import {terser} from './adapters/terser'
+import {vue} from './adapters/vue'
+import {writeFile} from './adapters/writeFile'
 
-/**
- * ## bud.state.Plugins
- */
-const plugins: (bud: Bud) => Plugins = bud => ({
-  repository: {
-    adapters,
-    core,
+import type {PluginsRepo} from './types'
+
+const pluginsRepository: PluginsRepo = []
+const adaptersRepository: PluginsRepo = [
+  {
+    name: 'browser_sync',
+    extension: browserSync,
   },
-
-  controller,
-
-  getPlugin: function (this: Plugins, name: string): any {
-    return this.repository.adapters[name]
+  {
+    name: 'clean_webpack_plugin',
+    extension: cleanWebpack,
   },
-
-  setPlugin: function (
-    this: Plugins,
-    name: string,
-    plugin: PluginRepoEntry,
-  ): void {
-    this.repository.adapters[name] = plugin
+  {
+    name: 'copy',
+    extension: copy,
   },
-
-  deletePlugin: function (this: Plugins, name: string): void {
-    this.hasPlugin(name) && delete this.repository.adapters[name]
+  {
+    name: 'define',
+    extension: define,
   },
-
-  hasPlugin: function (this: Plugins, name: string): boolean {
-    return this.repository.adapters.hasOwnProperty(name)
+  {
+    name: 'dependency_extraction',
+    extension: dependencyExtraction,
   },
-
-  getAdapter: function (this: Plugins, name: string): any {
-    return this.repository.adapters[name]
+  {
+    name: 'fix_style_only_entries',
+    extension: fixStyleOnlyEntries,
   },
-
-  setAdapter: function (
-    this: Plugins,
-    name: string,
-    plugin: PluginRepoEntry,
-  ): void {
-    this.repository.adapters[name] = plugin
+  {
+    name: 'hot_module_replacement',
+    extension: hotModuleReplacement,
   },
-
-  deleteAdapter: function (this: Plugins, name: string): void {
-    this.hasAdapter(name) && delete this.repository.adapters[name]
+  {
+    name: 'manifest',
+    extension: manifest,
   },
-
-  hasAdapter: function (this: Plugins, name: string): boolean {
-    return this.repository.adapters.hasOwnProperty(name)
+  {
+    name: 'mini_css_extract',
+    extension: miniCssExtract,
   },
-})
+  {
+    name: 'provide',
+    extension: provide,
+  },
+  {
+    name: 'limit_chunks',
+    extension: limitChunkCount,
+  },
+  {
+    name: 'stylelint',
+    extension: stylelint,
+  },
+  {
+    name: 'terser',
+    extension: terser,
+  },
+  {
+    name: 'vue',
+    extension: vue,
+  },
+  {
+    name: 'write_file',
+    extension: writeFile,
+  },
+]
 
-export {plugins}
+export {
+  pluginsRepository,
+  adaptersRepository,
+}

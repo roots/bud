@@ -1,7 +1,4 @@
-import type { FileContainer } from '../container';
-/**
- * ## bud.state.configs
- */
-declare const configs: (paths: any) => FileContainer;
-export { configs };
+import type { Repository } from '../container';
+declare const configsRepository: (framework: any) => Repository;
+export { configsRepository };
 //# sourceMappingURL=configs.d.ts.map

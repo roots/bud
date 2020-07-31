@@ -22,7 +22,7 @@ var output_1 = require("./output");
 var webpackResolve_1 = require("./webpackResolve");
 var plugins_1 = require("./plugins");
 /**
- * Build - generates webpack configuration from Bud.State.
+ * Build - generates webpack configuration from bud.
  *
  * @param {Bud} bud
  * @return {BuilderController}
@@ -69,7 +69,7 @@ var build = function (bud) { return ({
         this.bud.features.enabled('optimize') &&
             this.builders.push(['optimization', optimization_1.optimization]);
         /** Hook: pre_webpack */
-        this.doHook('pre', this.bud.state.options);
+        this.doHook('pre', this.bud.options);
         /**
          * Map builder output to bud.builder.config property.
          */

@@ -1,7 +1,6 @@
 "use strict";
 exports.__esModule = true;
-exports.configs = void 0;
-var container_1 = require("../container");
+exports.configsRepository = void 0;
 var configFiles = [
     {
         name: 'babel',
@@ -36,19 +35,18 @@ var configFiles = [
         filename: 'vue.config.js'
     },
 ];
-/**
- * ## bud.state.configs
- */
-var configs = function (paths) {
-    var container = new container_1.fileContainer({});
+var configsRepository = function (framework) {
+    var fs = framework.fs;
+    var paths = framework.paths;
+    var repository = {};
     configFiles.forEach(function (_a) {
         var name = _a.name, filename = _a.filename;
-        var projectPath = container.fs.path.join(paths.get('project'), filename);
-        if (container.exists(projectPath)) {
-            container.set(name, projectPath);
+        var projectPath = fs.path.join(paths.get('project'), filename);
+        if (fs.existsSync(projectPath)) {
+            repository[name] = projectPath;
         }
     });
-    return container;
+    return repository;
 };
-exports.configs = configs;
+exports.configsRepository = configsRepository;
 //# sourceMappingURL=configs.js.map

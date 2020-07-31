@@ -1,6 +1,6 @@
 import type { Bud, BuilderController } from './types';
 /**
- * Build - generates webpack configuration from Bud.State.
+ * Build - generates webpack configuration from bud.
  *
  * @param {Bud} bud
  * @return {BuilderController}

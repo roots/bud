@@ -27,7 +27,7 @@ var rules = function (bud) { return ({
      * Make webpack rules
      */
     make: function () {
-        /*     this.bud.state.options.target == 'node' &&
+        /*     this.bud.options.target == 'node' &&
           this.options.module.rules.push({test: patterns.js, loader: loaders.shebang})
      */
         this.bud.features.enabled('typescript') &&

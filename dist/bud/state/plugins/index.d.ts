@@ -1,7 +1,5 @@
-import type { Bud, Plugins } from './types';
-/**
- * ## bud.state.Plugins
- */
-declare const plugins: (bud: Bud) => Plugins;
-export { plugins };
+import type { PluginsRepo } from './types';
+declare const pluginsRepository: PluginsRepo;
+declare const adaptersRepository: PluginsRepo;
+export { pluginsRepository, adaptersRepository, };
 //# sourceMappingURL=index.d.ts.map

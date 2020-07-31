@@ -1,7 +1,6 @@
-import {join, resolve} from 'path'
+import {resolve} from 'path'
 import {projectRoot} from '../util/projectRoot'
-import type {Bud, Directory, Paths} from './types'
-import {container} from '../container'
+import type {Directory} from './types'
 
 /**
  * Current working dir.
@@ -13,15 +12,12 @@ const project: Directory = projectRoot
  */
 const framework: Directory = resolve(__dirname, '../../../')
 
-/**
- * Path references.
- */
-const paths: Paths = new container({
+const pathsRepository = {
   project,
   framework,
   src: project,
   dist: project,
   public: '/',
-})
+}
 
-export {paths}
+export {pathsRepository}

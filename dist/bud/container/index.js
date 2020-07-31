@@ -17,17 +17,10 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
             r[k] = a[j];
     return r;
 };
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 exports.__esModule = true;
-exports.fileContainer = exports.container = void 0;
+exports.bindExtensionContainer = exports.bindFileContainer = exports.bindContainer = exports.container = void 0;
 var fs_extra_1 = require("fs-extra");
-var path_1 = __importDefault(require("path"));
-var fs = {
-    path: path_1["default"],
-    existsSync: fs_extra_1.existsSync
-};
+var controller_1 = require("../state/plugins/controller");
 var newContainer = function (key, repository) {
     if (repository === void 0) { repository = {}; }
     this.repository[key] = repository
@@ -47,7 +40,7 @@ var set = function (key, value) {
     this.repository[key] = value;
 };
 var has = function (key) {
-    return this.repository[key] && this.repository[key] !== null;
+    return this.repository[key] && this.repository[key] !== null ? true : false;
 };
 var merge = function (key, value) {
     this.repository[key] = this.repository[key]
@@ -58,7 +51,7 @@ var containerMethodDelete = function (key) {
     delete this.repository[key];
 };
 var exists = function (key) {
-    return this.fs.existsSync(key);
+    return fs_extra_1.existsSync(this.repository[key]);
 };
 var enable = function (key) {
     this.set(key, true);
@@ -72,15 +65,27 @@ var enabled = function (key) {
 var disabled = function (key) {
     return this.is(key, false);
 };
+var map = function () {
+    var _a;
+    var params = [];
+    for (var _i = 0; _i < arguments.length; _i++) {
+        params[_i] = arguments[_i];
+    }
+    return (_a = this.repository).map.apply(_a, params);
+};
+var entries = function () {
+    return this.repository;
+};
 var container = function (repository) {
     this.repository = repository;
     this["new"] = newContainer;
     this.get = get;
-    this.contents = contents;
+    this.has = has;
     this.set = set;
+    this.map = map;
+    this.entries = entries;
     this.merge = merge;
     this["delete"] = containerMethodDelete;
-    this.has = has;
     this.is = is;
     this.enable = enable;
     this.enabled = enabled;
@@ -88,23 +93,21 @@ var container = function (repository) {
     this.disabled = disabled;
 };
 exports.container = container;
-container.prototype.fs = fs;
-var fileContainer = function (repository) {
-    this.repository = repository;
-    this.fs = fs;
-    this["new"] = newContainer;
-    this.get = get;
-    this.contents = contents;
-    this.set = set;
-    this.merge = merge;
-    this["delete"] = containerMethodDelete;
-    this.has = has;
-    this.exists = exists;
-    this.is = is;
-    this.enable = enable;
-    this.enabled = enabled;
-    this.disable = disable;
-    this.disabled = disabled;
+var bindContainer = function (repository) {
+    return new container(repository);
 };
-exports.fileContainer = fileContainer;
+exports.bindContainer = bindContainer;
+var bindFileContainer = function (repository) {
+    var store = new container(repository);
+    store.contents = contents;
+    store.exists = exists;
+    return store;
+};
+exports.bindFileContainer = bindFileContainer;
+var bindExtensionContainer = function (repository) {
+    var store = new container(repository);
+    store.controller = controller_1.controller;
+    return store;
+};
+exports.bindExtensionContainer = bindExtensionContainer;
 //# sourceMappingURL=index.js.map

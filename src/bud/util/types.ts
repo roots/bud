@@ -11,14 +11,20 @@ export type Fab = {
   null: () => null
 }
 export type ProjectRoot = string
-
+export type Fs = {
+  path,
+  existsSync,
+}
 export type Util = {
+  fs: Fs
   dump: Dump
   except: Except
   shortCircuit: ShortCircuit
   fab: Fab
   projectRoot: ProjectRoot
   terminate: (any) => void
-  setProcess: (bud: Bud) => void
+  process: {
+    set: (bud: Bud) => void,
+  },
   usedExt: (any, bud: Bud) => any[]
 }
