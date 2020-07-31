@@ -28,14 +28,10 @@ exports.controller = void 0;
  */
 var controller = function (bud) { return ({
     bud: bud,
-    /**
-     * Initialize controller.
-     * @property {Controller.initController}
-     */
     initController: function (_a) {
-        var name = _a[0], plugin = _a[1];
+        var name = _a.name, extension = _a.extension;
         this.name = name;
-        this.plugin = plugin;
+        this.plugin = extension;
         return this;
     },
     /**

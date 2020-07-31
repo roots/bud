@@ -17,21 +17,66 @@ var terser_1 = require("./terser");
 var vue_1 = require("./vue");
 var writeFile_1 = require("./writeFile");
 var adapters = [
-    ['browser_sync', browserSync_1.browserSync],
-    ['clean_webpack_plugin', cleanWebpack_1.cleanWebpack],
-    ['copy', copy_1.copy],
-    ['define', define_1.define],
-    ['dependency_extraction', dependencyExtraction_1.dependencyExtraction],
-    ['fix_style_only_entries', fixStyleOnlyEntries_1.fixStyleOnlyEntries],
-    ['hot_module_replacement', hotModuleReplacement_1.hotModuleReplacement],
-    ['manifest', manifest_1.manifest],
-    ['mini_css_extract', miniCssExtract_1.miniCssExtract],
-    ['provide', provide_1.provide],
-    ['limit_chunks', limitChunkCount_1.limitChunkCount],
-    ['stylelint', stylelint_1.stylelint],
-    ['terser', terser_1.terser],
-    ['vue', vue_1.vue],
-    ['write_file', writeFile_1.writeFile],
+    {
+        name: 'browser_sync',
+        extension: browserSync_1.browserSync
+    },
+    {
+        name: 'clean_webpack_plugin',
+        extension: cleanWebpack_1.cleanWebpack
+    },
+    {
+        name: 'copy',
+        extension: copy_1.copy
+    },
+    {
+        name: 'define',
+        extension: define_1.define
+    },
+    {
+        name: 'dependency_extraction',
+        extension: dependencyExtraction_1.dependencyExtraction
+    },
+    {
+        name: 'fix_style_only_entries',
+        extension: fixStyleOnlyEntries_1.fixStyleOnlyEntries
+    },
+    {
+        name: 'hot_module_replacement',
+        extension: hotModuleReplacement_1.hotModuleReplacement
+    },
+    {
+        name: 'manifest',
+        extension: manifest_1.manifest
+    },
+    {
+        name: 'mini_css_extract',
+        extension: miniCssExtract_1.miniCssExtract
+    },
+    {
+        name: 'provide',
+        extension: provide_1.provide
+    },
+    {
+        name: 'limit_chunks',
+        extension: limitChunkCount_1.limitChunkCount
+    },
+    {
+        name: 'stylelint',
+        extension: stylelint_1.stylelint
+    },
+    {
+        name: 'terser',
+        extension: terser_1.terser
+    },
+    {
+        name: 'vue',
+        extension: vue_1.vue
+    },
+    {
+        name: 'write_file',
+        extension: writeFile_1.writeFile
+    },
 ];
 exports.adapters = adapters;
 //# sourceMappingURL=index.js.map

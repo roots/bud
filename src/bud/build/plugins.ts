@@ -1,4 +1,4 @@
-import type {Bud, Plugin} from './types'
+import type {Bud} from './types'
 
 /**
  * Webpack plugins.

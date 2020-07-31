@@ -18,5 +18,6 @@ export declare type Util = {
     projectRoot: ProjectRoot;
     terminate: (any: any) => void;
     setProcess: (bud: Bud) => void;
+    usedExt: (any: any, bud: Bud) => any[];
 };
 //# sourceMappingURL=types.d.ts.map

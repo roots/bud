@@ -2,8 +2,11 @@ import type { Bud } from '../../util/types';
 export type { Bud };
 export declare type WebpackAdapter = () => any;
 export declare type CorePlugin = () => any;
-export declare type Plugin = WebpackAdapter | CorePlugin;
-export declare type PluginRepoEntry = [string, Plugin];
+export declare type Extension = WebpackAdapter | CorePlugin;
+export declare type PluginRepoEntry = {
+    name: string;
+    extension: Extension;
+};
 export declare type PluginsRepo = PluginRepoEntry[];
 /**
  * ## bud.plugins
@@ -37,23 +40,11 @@ export declare type Plugins = {
      */
     controller: (bud: Bud) => Controller;
     /**
-     * ## bud.plugins.indexOfPlugin
-     *
-     * Get index of a core plugin.
-     */
-    indexOfPlugin: (this: Plugins, name: string) => number;
-    /**
      * ## bud.plugins.getPlugin
      *
      * Get the value of a core plugin.
      */
     getPlugin: (this: Plugins, plugin: string) => any;
-    /**
-     * ## bud.plugins.addPlugin
-     *
-     * Add a core plugin.
-     */
-    addPlugin: (this: Plugins, plugin: PluginRepoEntry) => void;
     /**
      * ## bud.plugins.setPlugin
      *
@@ -73,23 +64,11 @@ export declare type Plugins = {
      */
     hasPlugin: (this: Plugins, plugin: string) => boolean;
     /**
-     * ## bud.plugins.indexOfAdapter
-     *
-     * Get index of a webpack plugin adapter
-     */
-    indexOfAdapter: (this: Plugins, name: string) => number;
-    /**
      * ## bud.plugins.getAdapter
      *
      * Get the value of a webpack plugin adapter.
      */
     getAdapter: (this: Plugins, plugin: string) => any;
-    /**
-     * ## bud.plugins.addAdapter
-     *
-     * Add a webpack plugin adapter
-     */
-    addAdapter: (this: Plugins, plugin: PluginRepoEntry) => void;
     /**
      * ## bud.plugins.setAdapter
      *
@@ -131,7 +110,7 @@ export declare type Controller = {
     bud?: Bud;
     plugin?: BudPlugin;
     name?: string;
-    initController?: ([string, object]: PluginRepoEntry) => Controller;
+    initController?: ({ name: string, extension: Plugin, }: PluginRepoEntry) => Controller;
     initPlugin?: () => any;
     buildPlugin?: () => any;
     bindPluginProps?: () => any;

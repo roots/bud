@@ -1,1 +1,1 @@
-{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../../src/bud/state/plugins/index.ts"],"names":[],"mappings":"AAGA,OAAO,KAAK,EAAC,OAAO,EAAkB,MAAM,SAAS,CAAA;AAErD;;GAEG;AACH,QAAA,MAAM,OAAO,EAAE,OA6Fd,CAAA;AAED,OAAO,EAAC,OAAO,EAAC,CAAA"}
+{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../../src/bud/state/plugins/index.ts"],"names":[],"mappings":"AAGA,OAAO,KAAK,EAAC,OAAO,EAAkB,MAAM,SAAS,CAAA;AAErD;;GAEG;AACH,QAAA,MAAM,OAAO,EAAE,OA+Cd,CAAA;AAED,OAAO,EAAC,OAAO,EAAC,CAAA"}

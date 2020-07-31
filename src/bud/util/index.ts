@@ -5,6 +5,7 @@ import {projectRoot} from './projectRoot'
 import {shortCircuit} from './shortCircuit'
 import {terminate} from './terminate'
 import {setProcess} from './setProcess'
+import {usedExt} from './usedExt'
 import type {Util} from './types'
 
 export const util: Util = {
@@ -15,4 +16,5 @@ export const util: Util = {
   projectRoot,
   setProcess,
   terminate,
+  usedExt,
 }

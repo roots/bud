@@ -17,21 +17,66 @@ import {writeFile} from './writeFile'
 import type {PluginRepoEntry, PluginsRepo} from '../types'
 
 const adapters: PluginsRepo = [
-  ['browser_sync', browserSync],
-  ['clean_webpack_plugin', cleanWebpack],
-  ['copy', copy],
-  ['define', define],
-  ['dependency_extraction', dependencyExtraction],
-  ['fix_style_only_entries', fixStyleOnlyEntries],
-  ['hot_module_replacement', hotModuleReplacement],
-  ['manifest', manifest],
-  ['mini_css_extract', miniCssExtract],
-  ['provide', provide],
-  ['limit_chunks', limitChunkCount],
-  ['stylelint', stylelint],
-  ['terser', terser],
-  ['vue', vue],
-  ['write_file', writeFile],
+  {
+    name: 'browser_sync',
+    extension: browserSync,
+  },
+  {
+    name: 'clean_webpack_plugin',
+    extension: cleanWebpack,
+  },
+  {
+    name: 'copy',
+    extension: copy,
+  },
+  {
+    name: 'define',
+    extension: define,
+  },
+  {
+    name: 'dependency_extraction',
+    extension: dependencyExtraction,
+  },
+  {
+    name: 'fix_style_only_entries',
+    extension: fixStyleOnlyEntries,
+  },
+  {
+    name: 'hot_module_replacement',
+    extension: hotModuleReplacement,
+  },
+  {
+    name: 'manifest',
+    extension: manifest,
+  },
+  {
+    name: 'mini_css_extract',
+    extension: miniCssExtract,
+  },
+  {
+    name: 'provide',
+    extension: provide,
+  },
+  {
+    name: 'limit_chunks',
+    extension: limitChunkCount,
+  },
+  {
+    name: 'stylelint',
+    extension: stylelint,
+  },
+  {
+    name: 'terser',
+    extension: terser,
+  },
+  {
+    name: 'vue',
+    extension: vue,
+  },
+  {
+    name: 'write_file',
+    extension: writeFile,
+  },
 ]
 
 export {adapters}

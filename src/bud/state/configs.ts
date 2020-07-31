@@ -3,8 +3,6 @@ import {existsSync} from 'fs-extra'
 import {paths} from './paths'
 import type {Configs} from './types'
 
-const config = file => join(paths.project, file)
-
 /**
  * ## bud.state.configs
  */
@@ -31,16 +29,41 @@ const configs: Configs = {
 }
 
 new Array(
-  ['babel', 'babel.config.js'],
-  ['eslint', '.eslintrc.js'],
-  ['postCss', 'postcss.config.js'],
-  ['prettier', 'prettier.config.js'],
-  ['stylelint', 'stylelint.config.js'],
-  ['typescript', 'tsconfig.json'],
-  ['js', 'jsconfig.json'],
-  ['vue', 'vue.config.js'],
-).forEach(([name, filename]) => {
+  {
+    name: 'babel',
+    filename: 'babel.config.js',
+  },
+  {
+    name: 'eslint',
+    filename: '.eslintrc.js',
+  },
+  {
+    name: 'postcss',
+    filename: 'postcss.config.js',
+  },
+  {
+    name: 'prettier',
+    filename: 'prettier.config.js',
+  },
+  {
+    name: 'stylelint',
+    filename: 'stylelint.config.js',
+  },
+  {
+    name: 'typescript',
+    filename: 'tsconfig.json',
+  },
+  {
+    name: 'js',
+    filename: 'jsconfig.json',
+  },
+  {
+    name: 'vue',
+    filename: 'vue.config.js',
+  },
+).forEach(({name, filename}) => {
   const projectPath = join(paths.project, filename)
+
   configs.exists(projectPath) && configs.add(name, projectPath)
 })
 

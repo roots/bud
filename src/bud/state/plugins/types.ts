@@ -3,8 +3,8 @@ export type {Bud}
 
 export type WebpackAdapter = () => any
 export type CorePlugin = () => any
-export type Plugin = WebpackAdapter | CorePlugin
-export type PluginRepoEntry = [string, Plugin]
+export type Extension = WebpackAdapter | CorePlugin
+export type PluginRepoEntry = {name: string; extension: Extension}
 export type PluginsRepo = PluginRepoEntry[]
 
 /**
@@ -42,25 +42,11 @@ export type Plugins = {
   controller: (bud: Bud) => Controller
 
   /**
-   * ## bud.plugins.indexOfPlugin
-   *
-   * Get index of a core plugin.
-   */
-  indexOfPlugin: (this: Plugins, name: string) => number
-
-  /**
    * ## bud.plugins.getPlugin
    *
    * Get the value of a core plugin.
    */
   getPlugin: (this: Plugins, plugin: string) => any
-
-  /**
-   * ## bud.plugins.addPlugin
-   *
-   * Add a core plugin.
-   */
-  addPlugin: (this: Plugins, plugin: PluginRepoEntry) => void
 
   /**
    * ## bud.plugins.setPlugin
@@ -88,25 +74,11 @@ export type Plugins = {
   hasPlugin: (this: Plugins, plugin: string) => boolean
 
   /**
-   * ## bud.plugins.indexOfAdapter
-   *
-   * Get index of a webpack plugin adapter
-   */
-  indexOfAdapter: (this: Plugins, name: string) => number
-
-  /**
    * ## bud.plugins.getAdapter
    *
    * Get the value of a webpack plugin adapter.
    */
   getAdapter: (this: Plugins, plugin: string) => any
-
-  /**
-   * ## bud.plugins.addAdapter
-   *
-   * Add a webpack plugin adapter
-   */
-  addAdapter: (this: Plugins, plugin: PluginRepoEntry) => void
 
   /**
    * ## bud.plugins.setAdapter
@@ -160,7 +132,10 @@ export type Controller = {
   bud?: Bud
   plugin?: BudPlugin
   name?: string
-  initController?: ([string, object]: PluginRepoEntry) => Controller
+  initController?: ({
+    name: string,
+    extension: Plugin,
+  }: PluginRepoEntry) => Controller
   initPlugin?: () => any
   buildPlugin?: () => any
   bindPluginProps?: () => any

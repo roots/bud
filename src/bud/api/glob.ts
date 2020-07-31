@@ -2,27 +2,25 @@ import type {Bud, Glob} from './types'
 import globby from 'globby'
 import {parse} from 'path'
 
-const glob: Glob = function (
-  this: Bud,
-  output: string,
-  files: string,
-): Bud {
+const glob: Glob = function (this: Bud, files: string): Bud {
   let entry = this.options.get('entry')
 
-  globby
-    .sync(files, {
-      expandDirectories: true,
-    })
-    .forEach(match => {
-      const dest = match
-        .replace(this.src(), '')
-        .replace(parse(match).ext, '')
+  const included = globby.sync(this.src(files), {
+    expandDirectories: true,
+  })
 
-      entry = {
-        ...entry,
-        [dest]: match,
-      }
-    })
+  this.util.usedExt(included, this)
+
+  included.forEach(match => {
+    const dest = match
+      .replace(this.src('/'), '')
+      .replace(parse(match).ext, '')
+
+    entry = {
+      ...entry,
+      [dest]: match,
+    }
+  })
 
   this.options.set('entry', entry)
 

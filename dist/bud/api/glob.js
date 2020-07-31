@@ -17,17 +17,17 @@ exports.__esModule = true;
 exports.glob = void 0;
 var globby_1 = __importDefault(require("globby"));
 var path_1 = require("path");
-var glob = function (output, files) {
+var glob = function (files) {
     var _this = this;
     var entry = this.options.get('entry');
-    globby_1["default"]
-        .sync(files, {
+    var included = globby_1["default"].sync(this.src(files), {
         expandDirectories: true
-    })
-        .forEach(function (match) {
+    });
+    this.util.usedExt(included, this);
+    included.forEach(function (match) {
         var _a;
         var dest = match
-            .replace(_this.src(), '')
+            .replace(_this.src('/'), '')
             .replace(path_1.parse(match).ext, '');
         entry = __assign(__assign({}, entry), (_a = {}, _a[dest] = match, _a));
     });

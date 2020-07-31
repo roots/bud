@@ -15,7 +15,6 @@ exports.configs = void 0;
 var path_1 = require("path");
 var fs_extra_1 = require("fs-extra");
 var paths_1 = require("./paths");
-var config = function (file) { return path_1.join(paths_1.paths.project, file); };
 /**
  * ## bud.state.configs
  */
@@ -39,8 +38,32 @@ var configs = {
     }
 };
 exports.configs = configs;
-new Array(['babel', 'babel.config.js'], ['eslint', '.eslintrc.js'], ['postCss', 'postcss.config.js'], ['prettier', 'prettier.config.js'], ['stylelint', 'stylelint.config.js'], ['typescript', 'tsconfig.json'], ['js', 'jsconfig.json'], ['vue', 'vue.config.js']).forEach(function (_a) {
-    var name = _a[0], filename = _a[1];
+new Array({
+    name: 'babel',
+    filename: 'babel.config.js'
+}, {
+    name: 'eslint',
+    filename: '.eslintrc.js'
+}, {
+    name: 'postcss',
+    filename: 'postcss.config.js'
+}, {
+    name: 'prettier',
+    filename: 'prettier.config.js'
+}, {
+    name: 'stylelint',
+    filename: 'stylelint.config.js'
+}, {
+    name: 'typescript',
+    filename: 'tsconfig.json'
+}, {
+    name: 'js',
+    filename: 'jsconfig.json'
+}, {
+    name: 'vue',
+    filename: 'vue.config.js'
+}).forEach(function (_a) {
+    var name = _a.name, filename = _a.filename;
     var projectPath = path_1.join(paths_1.paths.project, filename);
     configs.exists(projectPath) && configs.add(name, projectPath);
 });

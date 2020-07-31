@@ -10,6 +10,13 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 exports.__esModule = true;
 exports.options = void 0;
 var env_1 = require("./env");
@@ -57,7 +64,7 @@ var typescript = configs_1.configs.has('typescript')
     ? configs_1.configs.contents('typescript')
     : {};
 var vendor = { name: 'vendor' };
-var vue = {};
+var vue = null;
 var uglify = {
     cache: true,
     chunkFilter: function (_a) {
@@ -91,7 +98,7 @@ var options = {
         dev: dev,
         dependencyManifest: dependencyManifest,
         devtool: 'source-map',
-        entry: {},
+        entry: null,
         env: env_1.env,
         extensions: ['.js', '.json'],
         externals: externals,
@@ -115,6 +122,10 @@ var options = {
     set: function (option, value) {
         var _a;
         this.repository = __assign(__assign({}, this.repository), (_a = {}, _a[option] = value, _a));
+    },
+    concat: function (option, value) {
+        var _this = this;
+        this.repository[option] = __spreadArrays(this.repository[option], value.filter(function (item) { return !_this.repository[option].includes(item); }));
     },
     merge: function (option, value) {
         var _a;

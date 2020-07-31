@@ -27,38 +27,43 @@ var init = function () {
      */
     var bud = new bud_1.framework();
     /**
-     * Action: adapters_init
+     * Action: extensions_init
      */
-    bud.hooks.on('filter_adapters_init', function (adapters, bud) {
-        return adapters.map(function (_a) {
-            var name = _a[0], adapter = _a[1];
-            return [
-                name,
-                bud.plugins.controller(bud).initController([name, adapter]),
-            ];
+    bud.hooks.on('filter_adapters_init', function (extensions, bud) {
+        return extensions.map(function (_a) {
+            var name = _a.name, extension = _a.extension;
+            return ({
+                name: name,
+                extension: bud.plugins
+                    .controller(bud)
+                    .initController({ name: name, extension: extension })
+            });
         });
     });
     /**
-     * Action: adapters_build
+     * Action: extensions_build
      */
-    bud.hooks.on('filter_adapters_build', function (adapters) {
-        return adapters.map(function (_a) {
-            var name = _a[0], adapter = _a[1];
-            return [name, adapter.buildPlugin()];
+    bud.hooks.on('filter_adapters_build', function (extensions) {
+        return extensions.map(function (_a) {
+            var name = _a.name, extension = _a.extension;
+            return ({
+                name: name,
+                extension: extension.buildPlugin()
+            });
         });
     });
     /**
-     * Action: adapters_yield
+     * Action: extensions_yield
      */
-    bud.hooks.on('filter_adapters_final', function (adapters) {
-        return adapters
+    bud.hooks.on('filter_adapters_final', function (extensions) {
+        return extensions
             .filter(function (_a) {
-            var name = _a[0], adapter = _a[1];
-            return adapter;
+            var name = _a.name, extension = _a.extension;
+            return extension;
         })
             .map(function (_a) {
-            var name = _a[0], adapter = _a[1];
-            return adapter;
+            var name = _a.name, extension = _a.extension;
+            return extension;
         });
     });
     return bud;

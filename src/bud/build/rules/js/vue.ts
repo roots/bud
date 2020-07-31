@@ -2,12 +2,11 @@ import {loaders} from '../util/loaders'
 import {patterns} from '../util/patterns'
 import type {Bud} from '../../types'
 
+import compiler from 'vue-template-compiler'
+
 const vue = (bud: Bud): any => ({
   bud,
 
-  /**
-   * Make vue rules
-   */
   make: function () {
     this.pre()
 
@@ -17,6 +16,13 @@ const vue = (bud: Bud): any => ({
       use: [
         {
           loader: loaders.vue,
+          options: {
+            compiler,
+            productionMode: this.bud.inProduction,
+            cacheDirectory: this.bud.dist('cache/vue'),
+            optimizeSSR: false,
+            ...this.bud.options.get('vue'),
+          },
         },
       ],
     }

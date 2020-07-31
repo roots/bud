@@ -26,29 +26,34 @@ const init = () => {
   const bud: Bud = new framework()
 
   /**
-   * Action: adapters_init
+   * Action: extensions_init
    */
-  bud.hooks.on('filter_adapters_init', (adapters, bud) =>
-    adapters.map(([name, adapter]) => [
+  bud.hooks.on('filter_adapters_init', (extensions, bud) =>
+    extensions.map(({name, extension}) => ({
       name,
-      bud.plugins.controller(bud).initController([name, adapter]),
-    ]),
+      extension: bud.plugins
+        .controller(bud)
+        .initController({name, extension}),
+    })),
   )
 
   /**
-   * Action: adapters_build
+   * Action: extensions_build
    */
-  bud.hooks.on('filter_adapters_build', adapters =>
-    adapters.map(([name, adapter]) => [name, adapter.buildPlugin()]),
+  bud.hooks.on('filter_adapters_build', extensions =>
+    extensions.map(({name, extension}) => ({
+      name,
+      extension: extension.buildPlugin(),
+    })),
   )
 
   /**
-   * Action: adapters_yield
+   * Action: extensions_yield
    */
-  bud.hooks.on('filter_adapters_final', adapters =>
-    adapters
-      .filter(([name, adapter]) => adapter)
-      .map(([name, adapter]) => adapter),
+  bud.hooks.on('filter_adapters_final', extensions =>
+    extensions
+      .filter(({name, extension}) => extension)
+      .map(({name, extension}) => extension),
   )
 
   return bud

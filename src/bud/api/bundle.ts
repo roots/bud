@@ -6,6 +6,15 @@ const bundle: Bundle = function (
   entries: string[],
 ): Bud {
   this.hooks.call('pre_bundle', {name, entries})
+  /**
+   * Extensions used in bundle.
+   */
+  const usedExt = this.util.usedExt(entries, this)
+
+  const used = this.hooks.filter(
+    'filter_api_bundle_extensions',
+    usedExt,
+  )
 
   this.options.merge(
     'entry',

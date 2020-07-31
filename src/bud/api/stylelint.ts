@@ -1,5 +1,4 @@
 import type {Bud, Stylelint, StylelintOptions} from './types'
-import {dirname} from 'path'
 
 const stylelint: Stylelint = function (options: {
   enabled?: boolean

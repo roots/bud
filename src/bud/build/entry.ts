@@ -5,12 +5,14 @@ import type {Bud, BuilderConstructor, EntryBuilder} from './types'
  */
 const entry: BuilderConstructor = (bud: Bud): EntryBuilder => ({
   bud,
-  options: {
-    entry: {
-      ...bud.state.options.get('entry'),
-    },
-  },
+  options: {},
   make: function () {
+    if (this.bud.options.get('entry') == null) {
+      this.bud.glob(`*/*.(js|css|scss|vue|ts|tsx)`)
+    }
+
+    this.options.entry = this.bud.options.get('entry')
+
     return this.bud.hooks.filter('filter_entry_final', this.options)
   },
 })

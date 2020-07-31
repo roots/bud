@@ -10,13 +10,9 @@ import type {Bud, Controller} from './types'
 const controller = (bud: Bud): Controller => ({
   bud,
 
-  /**
-   * Initialize controller.
-   * @property {Controller.initController}
-   */
-  initController: function ([name, plugin]): Controller {
+  initController: function ({name, extension}): Controller {
     this.name = name
-    this.plugin = plugin
+    this.plugin = extension
 
     return this
   },

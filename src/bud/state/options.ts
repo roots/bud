@@ -67,7 +67,7 @@ const typescript = configs.has('typescript')
 
 const vendor: Vendor = {name: 'vendor'}
 
-const vue = {}
+const vue = null
 
 const uglify = {
   cache: true,
@@ -100,7 +100,7 @@ const options: Options = {
     dev,
     dependencyManifest,
     devtool: 'source-map',
-    entry: {},
+    entry: null,
     env,
     extensions: ['.js', '.json'],
     externals,
@@ -126,6 +126,14 @@ const options: Options = {
       ...this.repository,
       [option]: value,
     }
+  },
+  concat: function (option: string, value: any): void {
+    this.repository[option] = [
+      ...this.repository[option],
+      ...value.filter(
+        item => !this.repository[option].includes(item),
+      ),
+    ]
   },
   merge: function (option: string, value: any): void {
     this.repository = {

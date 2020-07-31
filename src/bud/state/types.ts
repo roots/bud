@@ -54,6 +54,11 @@ export type Options = {
   merge: (option: string, value: any) => void
 
   /**
+   * Concat new values into an array option
+   */
+  concat: (option: string, value: any) => void
+
+  /**
    * Set the value of a option.
    */
   set: (option: string, value: any) => void

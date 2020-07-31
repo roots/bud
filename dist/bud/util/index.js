@@ -8,6 +8,7 @@ var projectRoot_1 = require("./projectRoot");
 var shortCircuit_1 = require("./shortCircuit");
 var terminate_1 = require("./terminate");
 var setProcess_1 = require("./setProcess");
+var usedExt_1 = require("./usedExt");
 exports.util = {
     dump: dump_1.dump,
     except: except_1.except,
@@ -15,6 +16,7 @@ exports.util = {
     fab: fab_1.fab,
     projectRoot: projectRoot_1.projectRoot,
     setProcess: setProcess_1.setProcess,
-    terminate: terminate_1.terminate
+    terminate: terminate_1.terminate,
+    usedExt: usedExt_1.usedExt
 };
 //# sourceMappingURL=index.js.map

@@ -20,4 +20,5 @@ export type Util = {
   projectRoot: ProjectRoot
   terminate: (any) => void
   setProcess: (bud: Bud) => void
+  usedExt: (any, bud: Bud) => any[]
 }
