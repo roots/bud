@@ -21,12 +21,6 @@ var optimization_1 = require("./optimization");
 var output_1 = require("./output");
 var webpackResolve_1 = require("./webpackResolve");
 var plugins_1 = require("./plugins");
-/**
- * Build - generates webpack configuration from bud.
- *
- * @param {Bud} bud
- * @return {BuilderController}
- */
 var build = function (bud) { return ({
     /**
      * The bud container.
@@ -95,7 +89,7 @@ var build = function (bud) { return ({
         for (var _i = 1; _i < arguments.length; _i++) {
             params[_i - 1] = arguments[_i];
         }
-        this.bud.hooks.call(name + "_webpack", this, params);
+        this.bud.hooks.call(name + "_webpack", params);
     },
     /**
      * pre_{builder} hooks.

@@ -1,7 +1,7 @@
 import type {Configuration as WebpackConfig} from 'webpack'
 import type {Bud} from '../types'
 
-export type {Extension, Plugins} from '../state/plugins/types'
+export type {Extension, Plugins} from '../repositories/plugins/types'
 
 export type {Bud}
 export declare type BuilderController = {

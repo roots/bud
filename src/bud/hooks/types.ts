@@ -28,6 +28,13 @@ export type Hooks = {
   called: string[]
 
   /**
+   * ## bud.hooks.log
+   *
+   * Log of hook activity
+   */
+  log: any[]
+
+  /**
    * ## bud.hooks.make
    *
    * Makes a new hook.
@@ -39,7 +46,14 @@ export type Hooks = {
    *
    * Returns an array of all registered hooks.
    */
-  getAll: () => any[]
+  entries: () => any[]
+
+  /**
+   * ## bud.hooks.logEntries
+   *
+   * Returns an array of all hook calls.
+   */
+  logEntries: () => any[]
 
   /**
    * ## bud.hooks.on

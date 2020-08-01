@@ -10,6 +10,10 @@ var hooks = function () { return ({
      * Called hooks.
      */
     called: [],
+    /**
+     * Log.
+     */
+    log: [],
     init: function (bud) {
         this.bud = bud;
         return this;
@@ -27,8 +31,14 @@ var hooks = function () { return ({
     /**
      * Get all bud hook entries.
      */
-    getAll: function () {
+    entries: function () {
         return Object.entries(this.registered);
+    },
+    /**
+     * Get all log entries
+     */
+    logEntries: function () {
+        return this.log;
     },
     /**
      * Register a function as a bud hook.
@@ -45,14 +55,23 @@ var hooks = function () { return ({
      */
     call: function (name, param) {
         var bud = this.bud;
+        var log = this.log;
         this.called.push(name);
         if (this.registered[name]) {
             this.registered[name].forEach(function (hook) {
                 if (param) {
-                    hook.fn(param, bud);
+                    log.push({
+                        type: 'call',
+                        name: hook.name,
+                        results: hook.fn(param, bud)
+                    });
                 }
                 else {
-                    hook.fn(bud);
+                    log.push({
+                        type: 'call',
+                        name: hook.name,
+                        results: hook.fn(bud)
+                    });
                 }
                 hook.fired = true;
             });
@@ -60,10 +79,16 @@ var hooks = function () { return ({
     },
     filter: function (name, value) {
         var bud = this.bud;
+        var log = this.log;
         this.called.push(name);
         if (this.registered[name]) {
             this.registered[name].forEach(function (hook) {
                 value = hook.fn(value, bud);
+                log.push({
+                    type: 'filter',
+                    name: hook.name,
+                    value: value
+                });
                 hook.fired = true;
             });
         }

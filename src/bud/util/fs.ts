@@ -3,5 +3,5 @@ import path from 'path'
 
 export const fs = {
   path,
-  existsSync
+  existsSync,
 }

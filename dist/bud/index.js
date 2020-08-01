@@ -4,9 +4,8 @@ exports.bootstrap = void 0;
 var api_1 = require("./api");
 var hooks_1 = require("./hooks");
 var util_1 = require("./util");
-var state_1 = require("./state");
-var plugins_1 = require("./state/plugins");
-var options_1 = require("./state/options");
+var repositories_1 = require("./repositories");
+var options_1 = require("./repositories/options");
 var compiler_1 = require("./compiler");
 var container_1 = require("./container");
 /**
@@ -16,45 +15,42 @@ var bootstrap = function () {
     var _this = this;
     /** Bootstrap target */
     this.framework = {};
-    /**
-     * Binders
-     */
+    /** Binders */
     this.store = container_1.bindContainer;
     this.fileStore = container_1.bindFileContainer;
     this.extensionStore = container_1.bindExtensionContainer;
-    /**
-     * Util
-     */
+    /** Stores */
+    this.repositories = repositories_1.repositories;
+    /** Utilities */
     this.framework.util = util_1.util;
     this.framework.fs = util_1.util.fs;
+    /** Compiler */
     this.framework.compiler = compiler_1.compiler;
+    /** Hooks */
+    this.framework.hooks = hooks_1.hooks().init(this.framework);
     /**
-     * Hooks
-     */
-    this.framework.hooks = hooks_1.hooks();
-    /**
-     * API methods
+     * API
      */
     Object.values(api_1.api).forEach(function (method) {
         _this.framework[method.name] = method;
     });
     /**
-     * Simple stores.
+     * Base stores.
      */
-    this.framework.paths = this.store(state_1.pathsRepository);
-    this.framework.features = this.store(state_1.featuresRepository);
-    this.framework.options = this.store(options_1.optionsRepository);
+    this.framework.paths = this.store(this.repositories.paths);
+    this.framework.features = this.store(this.repositories.features);
+    this.framework.options = this.store(this.repositories.options);
     /**
      * Derived stores.
      */
-    this.framework.configs = this.fileStore(state_1.configsRepository(this.framework));
-    this.framework.env = this.store(state_1.envRepository(this.framework));
-    this.framework.flags = this.store(state_1.flagsRepository(this.framework));
+    this.framework.configs = this.fileStore(this.repositories.configs(this.framework));
+    this.framework.env = this.store(this.repositories.env(this.framework));
+    this.framework.flags = this.store(this.repositories.flags(this.framework));
     /**
-     * Extensions
+     * Extensions.
      */
-    this.framework.plugins = this.extensionStore(plugins_1.pluginsRepository);
-    this.framework.adapters = this.extensionStore(plugins_1.adaptersRepository);
+    this.framework.plugins = this.extensionStore(this.repositories.plugins);
+    this.framework.adapters = this.extensionStore(this.repositories.adapters);
     /**
      * Auto-configured features.
      */
@@ -72,7 +68,7 @@ var bootstrap = function () {
     this.framework.options.set('browserSync', options_1.browserSync(this.framework.flags));
     this.framework.options.set('typescript', options_1.typescript(this.framework.configs));
     /**
-     * Simple accessors.
+     * Accessors.
      */
     this.framework.mode = this.framework.flags.get('mode');
     this.framework.inProduction = this.framework.flags.is('mode', 'production');

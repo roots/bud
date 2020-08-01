@@ -1,5 +1,5 @@
 import {existsSync} from 'fs-extra'
-import {controller} from '../state/plugins/controller'
+import {controller} from '../repositories/plugins/controller'
 
 type Repository = any[] | object
 
@@ -66,7 +66,9 @@ const set = function (key: string, value: any) {
 }
 
 const has = function (key: string): boolean {
-  return this.repository[key] && this.repository[key] !== null ? true : false
+  return this.repository[key] && this.repository[key] !== null
+    ? true
+    : false
 }
 
 const merge = function (key: string, value: any) {
@@ -126,27 +128,35 @@ const container = function (this: Container, repository: Repository) {
   this.disabled = disabled
 }
 
-const bindContainer: (repository: Repository) => Container =
-  function (repository): Container {
-    return new container(repository)
-  }
+const bindContainer: (
+  repository: Repository,
+) => Container = function (repository): Container {
+  return new container(repository)
+}
 
-const bindFileContainer: (repository: Repository) => FileContainer =
-  function (repository): FileContainer {
-    const store = new container(repository)
-    store.contents = contents
-    store.exists = exists
+const bindFileContainer: (
+  repository: Repository,
+) => FileContainer = function (repository): FileContainer {
+  const store = new container(repository)
+  store.contents = contents
+  store.exists = exists
 
-    return store
-  }
+  return store
+}
 
-const bindExtensionContainer: (repository: Repository) => ExtensionContainer =
-  function (repository): ExtensionContainer {
-    const store = new container(repository)
-    store.controller = controller
+const bindExtensionContainer: (
+  repository: Repository,
+) => ExtensionContainer = function (repository): ExtensionContainer {
+  const store = new container(repository)
+  store.controller = controller
 
-    return store
-  }
+  return store
+}
 
-export {container, bindContainer, bindFileContainer, bindExtensionContainer}
+export {
+  container,
+  bindContainer,
+  bindFileContainer,
+  bindExtensionContainer,
+}
 export type {Container, FileContainer, ExtensionContainer, Repository}

@@ -1,7 +1,7 @@
 /// <reference types="webpack-dev-server" />
 import type { Configuration } from 'webpack';
 import type { Hooks } from './hooks/types';
-import type { State, Paths, Features, Options, Plugins } from './state/types';
+import type { State, Paths, Features, Options, Plugins } from './repositories/types';
 import type { FileContainer } from './container';
 import type { Util } from './util/types';
 import type * as Api from './api/types';
@@ -11,6 +11,11 @@ import type * as Api from './api/types';
  * @typedef {Bud}
  */
 declare type Bud = {
+    /**
+     * ## bud.hooks
+     *
+     * Hooks
+     */
     hooks: Hooks;
     /**
      * ## bud.util

@@ -11,6 +11,11 @@ const hooks = (): Hooks => ({
    */
   called: [],
 
+  /**
+   * Log.
+   */
+  log: [],
+
   init: function (bud: Bud): Hooks {
     this.bud = bud
 
@@ -28,8 +33,15 @@ const hooks = (): Hooks => ({
   /**
    * Get all bud hook entries.
    */
-  getAll: function () {
+  entries: function () {
     return Object.entries(this.registered)
+  },
+
+  /**
+   * Get all log entries
+   */
+  logEntries: function () {
+    return this.log
   },
 
   /**
@@ -50,15 +62,24 @@ const hooks = (): Hooks => ({
    */
   call: function (name: string, param?: any): void {
     const bud = this.bud
+    const log = this.log
 
     this.called.push(name)
 
     if (this.registered[name]) {
       this.registered[name].forEach(function (hook) {
         if (param) {
-          hook.fn(param, bud)
+          log.push({
+            type: 'call',
+            name: hook.name,
+            results: hook.fn(param, bud),
+          })
         } else {
-          hook.fn(bud)
+          log.push({
+            type: 'call',
+            name: hook.name,
+            results: hook.fn(bud),
+          })
         }
 
         hook.fired = true
@@ -68,12 +89,20 @@ const hooks = (): Hooks => ({
 
   filter: function (name: string, value: any): any {
     const bud = this.bud
+    const log = this.log
 
     this.called.push(name)
 
     if (this.registered[name]) {
       this.registered[name].forEach(function (hook) {
         value = hook.fn(value, bud)
+
+        log.push({
+          type: 'filter',
+          name: hook.name,
+          value,
+        })
+
         hook.fired = true
       })
     }

@@ -1,11 +1,19 @@
 import {api} from './api'
 import {hooks} from './hooks'
 import {util} from './util'
-import {envRepository, flagsRepository, pathsRepository, featuresRepository, configsRepository} from './state'
-import {pluginsRepository, adaptersRepository} from './state/plugins'
-import {babel, browserSync, typescript, postCss, optionsRepository} from './state/options'
+import {repositories} from './repositories'
+import {
+  babel,
+  browserSync,
+  typescript,
+  postCss,
+} from './repositories/options'
 import {compiler} from './compiler'
-import {bindContainer, bindExtensionContainer, bindFileContainer} from './container'
+import {
+  bindContainer,
+  bindExtensionContainer,
+  bindFileContainer,
+} from './container'
 
 /**
  * Bud framework.
@@ -14,76 +22,118 @@ const bootstrap = function () {
   /** Bootstrap target */
   this.framework = {}
 
-  /**
-   * Binders
-   */
+  /** Binders */
   this.store = bindContainer
   this.fileStore = bindFileContainer
   this.extensionStore = bindExtensionContainer
 
-  /**
-   * Util
-   */
+  /** Stores */
+  this.repositories = repositories
+
+  /** Utilities */
   this.framework.util = util
   this.framework.fs = util.fs
+
+  /** Compiler */
   this.framework.compiler = compiler
 
-  /**
-   * Hooks
-   */
-  this.framework.hooks = hooks()
+  /** Hooks */
+  this.framework.hooks = hooks().init(this.framework)
 
   /**
-   * API methods
+   * API
    */
   Object.values(api).forEach((method: any) => {
     this.framework[method.name] = method
   })
 
   /**
-   * Simple stores.
+   * Base stores.
    */
-  this.framework.paths = this.store(pathsRepository)
-  this.framework.features = this.store(featuresRepository)
-  this.framework.options = this.store(optionsRepository)
+  this.framework.paths = this.store(this.repositories.paths)
+  this.framework.features = this.store(this.repositories.features)
+  this.framework.options = this.store(this.repositories.options)
 
   /**
    * Derived stores.
    */
-  this.framework.configs = this.fileStore(configsRepository(this.framework))
-  this.framework.env = this.store(envRepository(this.framework))
-  this.framework.flags = this.store(flagsRepository(this.framework))
+  this.framework.configs = this.fileStore(
+    this.repositories.configs(this.framework),
+  )
+  this.framework.env = this.store(
+    this.repositories.env(this.framework),
+  )
+  this.framework.flags = this.store(
+    this.repositories.flags(this.framework),
+  )
 
   /**
-   * Extensions
+   * Extensions.
    */
-  this.framework.plugins = this.extensionStore(pluginsRepository)
-  this.framework.adapters = this.extensionStore(adaptersRepository)
+  this.framework.plugins = this.extensionStore(
+    this.repositories.plugins,
+  )
+  this.framework.adapters = this.extensionStore(
+    this.repositories.adapters,
+  )
 
   /**
    * Auto-configured features.
    */
-  this.framework.features.set('babel', this.framework.configs.has('babel'))
-  this.framework.features.set('postCss', this.framework.configs.has('postCss'))
-  this.framework.features.set('eslint', this.framework.configs.has('eslint'))
-  this.framework.features.set('stylelint', this.framework.configs.has('stylelint'))
-  this.framework.features.set('typescript', this.framework.configs.has('typescript'))
-  this.framework.features.set('vue', this.framework.configs.has('vue'))
+  this.framework.features.set(
+    'babel',
+    this.framework.configs.has('babel'),
+  )
+  this.framework.features.set(
+    'postCss',
+    this.framework.configs.has('postCss'),
+  )
+  this.framework.features.set(
+    'eslint',
+    this.framework.configs.has('eslint'),
+  )
+  this.framework.features.set(
+    'stylelint',
+    this.framework.configs.has('stylelint'),
+  )
+  this.framework.features.set(
+    'typescript',
+    this.framework.configs.has('typescript'),
+  )
+  this.framework.features.set(
+    'vue',
+    this.framework.configs.has('vue'),
+  )
 
   /**
    * Auto-configured options.
    */
   this.framework.options.set('babel', babel(this.framework.configs))
-  this.framework.options.set('postCss', postCss(this.framework.configs))
-  this.framework.options.set('browserSync', browserSync(this.framework.flags))
-  this.framework.options.set('typescript', typescript(this.framework.configs))
+  this.framework.options.set(
+    'postCss',
+    postCss(this.framework.configs),
+  )
+  this.framework.options.set(
+    'browserSync',
+    browserSync(this.framework.flags),
+  )
+  this.framework.options.set(
+    'typescript',
+    typescript(this.framework.configs),
+  )
 
   /**
-   * Simple accessors.
+   * Accessors.
    */
   this.framework.mode = this.framework.flags.get('mode')
-  this.framework.inProduction = this.framework.flags.is('mode', 'production')
-  this.framework.inDevelopment = this.framework.flags.is('mode', 'development')
+  this.framework.inProduction = this.framework.flags.is(
+    'mode',
+    'production',
+  )
+  this.framework.inDevelopment = this.framework.flags.is(
+    'mode',
+    'development',
+  )
 }
 
 export {bootstrap}

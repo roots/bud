@@ -1,28 +1,16 @@
-import type {Bud} from './types'
-
-/**
- * Webpack plugins.
- */
 const plugins = (bud: any) => ({
   bud,
   adapters: bud.adapters.entries(),
+  controller: bud.adapters.controller(bud),
 
   make: function () {
-    this.doHook('adapters_init')
-    this.doHook('adapters_build')
-    this.doHook('adapters_final')
+    this.adapters = this.adapters.map(adapter =>
+      this.controller.build(adapter),
+    )
 
     return {
-      plugins: this.adapters,
+      plugins: this.adapters.filter(adapter => adapter),
     }
-  },
-
-  doHook: function (name) {
-    this.adapters = this.bud.hooks.filter(
-      `filter_${name}`,
-      this.adapters,
-    )
-    this.bud.hooks.call(name, this.adapters)
   },
 })
 

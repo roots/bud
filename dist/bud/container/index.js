@@ -20,7 +20,7 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 exports.__esModule = true;
 exports.bindExtensionContainer = exports.bindFileContainer = exports.bindContainer = exports.container = void 0;
 var fs_extra_1 = require("fs-extra");
-var controller_1 = require("../state/plugins/controller");
+var controller_1 = require("../repositories/plugins/controller");
 var newContainer = function (key, repository) {
     if (repository === void 0) { repository = {}; }
     this.repository[key] = repository

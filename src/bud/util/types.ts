@@ -12,8 +12,8 @@ export type Fab = {
 }
 export type ProjectRoot = string
 export type Fs = {
-  path,
-  existsSync,
+  path
+  existsSync
 }
 export type Util = {
   fs: Fs
@@ -24,7 +24,7 @@ export type Util = {
   projectRoot: ProjectRoot
   terminate: (any) => void
   process: {
-    set: (bud: Bud) => void,
-  },
+    set: (bud: Bud) => void
+  }
   usedExt: (any, bud: Bud) => any[]
 }

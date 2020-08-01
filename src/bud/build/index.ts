@@ -9,12 +9,6 @@ import {webpackResolve} from './webpackResolve'
 import {plugins} from './plugins'
 import type {Bud, BuilderController, RegisteredBuilder} from './types'
 
-/**
- * Build - generates webpack configuration from bud.
- *
- * @param {Bud} bud
- * @return {BuilderController}
- */
 const build = (bud: Bud): BuilderController => ({
   /**
    * The bud container.
@@ -77,7 +71,9 @@ const build = (bud: Bud): BuilderController => ({
       const builderInstance = builder(this.bud)
 
       this.preBuilderHook(name, this)
+
       this.builderOut = builderInstance.make()
+
       this.postBuilderHook(name, this.builderOut)
 
       this.mergeConfig(this.builderOut)
@@ -95,7 +91,7 @@ const build = (bud: Bud): BuilderController => ({
    * Top level hooks.
    */
   doHook: function (name, ...params) {
-    this.bud.hooks.call(`${name}_webpack`, this, params)
+    this.bud.hooks.call(`${name}_webpack`, params)
   },
 
   /**

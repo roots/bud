@@ -12,61 +12,13 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
 exports.__esModule = true;
 exports.configs = exports.bud = void 0;
 __exportStar(require("./bud/api/types"), exports);
+var bud_1 = require("./bud");
 /**
  * ## Bud - asset management framework.
  *
  * @const {Bud} bud
  */
-var bud_1 = require("./bud");
-/**
- * Initialize Bud.
- */
-var init = function () {
-    var bud = new bud_1.bootstrap().framework;
-    bud.hooks.init(bud);
-    /**
-     * Action: extensions_init
-     */
-    bud.hooks.on('filter_adapters_init', function (extensions, bud) {
-        return extensions.map(function (_a) {
-            var name = _a.name, extension = _a.extension;
-            return ({
-                name: name,
-                extension: bud.adapters
-                    .controller(bud)
-                    .initController({ name: name, extension: extension })
-            });
-        });
-    });
-    /**
-     * Action: extensions_build
-     */
-    bud.hooks.on('filter_adapters_build', function (extensions) {
-        return extensions.map(function (_a) {
-            var name = _a.name, extension = _a.extension;
-            return ({
-                name: name,
-                extension: extension.buildPlugin()
-            });
-        });
-    });
-    /**
-     * Action: extensions_yield
-     */
-    bud.hooks.on('filter_adapters_final', function (extensions) {
-        return extensions
-            .filter(function (_a) {
-            var name = _a.name, extension = _a.extension;
-            return extension;
-        })
-            .map(function (_a) {
-            var name = _a.name, extension = _a.extension;
-            return extension;
-        });
-    });
-    return bud;
-};
-var bud = init();
+var bud = new bud_1.bootstrap().framework;
 exports.bud = bud;
 var configs = {
     eslint: require.resolve('../preset/eslint'),
