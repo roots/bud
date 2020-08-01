@@ -10,26 +10,39 @@ var compiler_1 = require("./compiler");
 var container_1 = require("./container");
 /**
  * Bud framework.
+ * @constructor
  */
 var bootstrap = function () {
     var _this = this;
-    /** Bootstrap target */
+    /**
+     * Bootstrap target.
+     */
     this.framework = {};
-    /** Binders */
+    /**
+     * Utilities.
+     */
+    this.framework.util = util_1.util;
+    this.framework.fs = util_1.util.fs;
+    /**
+     * Binders.
+     */
     this.store = container_1.bindContainer;
     this.fileStore = container_1.bindFileContainer;
     this.extensionStore = container_1.bindExtensionContainer;
-    /** Stores */
+    /**
+     * Stores.
+     */
     this.repositories = repositories_1.repositories;
-    /** Utilities */
-    this.framework.util = util_1.util;
-    this.framework.fs = util_1.util.fs;
-    /** Compiler */
+    /**
+     * Compiler.
+     */
     this.framework.compiler = compiler_1.compiler;
-    /** Hooks */
+    /**
+     * Hooks.
+     */
     this.framework.hooks = hooks_1.hooks().init(this.framework);
     /**
-     * API
+     * API.
      */
     Object.values(api_1.api).forEach(function (method) {
         _this.framework[method.name] = method;

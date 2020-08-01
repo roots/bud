@@ -23,8 +23,6 @@ export type Util = {
   fab: Fab
   projectRoot: ProjectRoot
   terminate: (any) => void
-  process: {
-    set: (bud: Bud) => void
-  }
+  processHandler: any
   usedExt: (any, bud: Bud) => any[]
 }

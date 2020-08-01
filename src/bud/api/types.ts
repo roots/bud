@@ -20,9 +20,7 @@ export type Bundle = (name: string, entries: string[]) => Bud
 export type Copy = (from: string, to: string) => Bud
 export type Dashboard = (enabled: boolean) => Bud
 export type Debug = (enabled?: boolean) => any
-export type DependencyManifest = (
-  settings?: DependencyExtractionOptions,
-) => Bud
+export type DependencyManifest = (settings?: DependencyExtractionOptions) => Bud
 export type Dev = (options: object) => Bud
 export type Devtool = (devtool: WebpackOptions.Devtool) => Bud
 export type Dist = (path?: string) => string
@@ -46,10 +44,7 @@ export type Hot = (
 export type InlineManifest = (name?: string) => Bud
 export type Mini = (enabled?: boolean) => Bud
 export type Option = (key: string) => string
-export type PostCss = (options?: {
-  enabled?: boolean
-  plugins?: any[]
-}) => Bud
+export type PostCss = (options?: {enabled?: boolean; plugins?: any[]}) => Bud
 export type Preset = (path?: string) => any
 export type Project = (path?: string) => string
 export type Purge = (any) => Bud
@@ -57,27 +52,15 @@ export type Resolve = (moduleName: string) => string
 export type Scss = (enabled?: boolean) => Bud
 export type SourceMap = (enabled?: boolean) => Bud
 export type Splitting = (enabled?: boolean) => Bud
-export type Stylelint = (options: {
-  enabled?: boolean
-  options?: StylelintOptions
-}) => Bud
+export type Stylelint = (options: {enabled?: boolean; options?: StylelintOptions}) => Bud
 export type Src = (path?: string) => string
 export type Sync = (options: SyncOptions) => Bud
 export type Target = (target: string) => Bud
-export type Terser = (options: {
-  enable?: boolean
-  terser?: object
-}) => Bud
+export type Terser = (options: {enable?: boolean; terser?: object}) => Bud
 export type Translate = (output: string) => Bud
-export type Watch = (options: {
-  paths: string[]
-  enabled: boolean
-}) => Bud
+export type Watch = (options: {paths: string[]; enabled: boolean}) => Bud
 export type Vendor = (name?: string) => Bud
-export type Vue = (vueOptions?: {
-  enabled: boolean
-  options: any
-}) => Bud
+export type Vue = (vueOptions?: {enabled: boolean; options: any}) => Bud
 
 export type Api = {
   alias: Alias

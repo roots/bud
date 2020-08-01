@@ -32,8 +32,7 @@ const DevServer = ({build, actions}) => {
   patchConsole((stream, data) => {
     setLastConsole(data)
 
-    const frameOut =
-      lastConsole !== data ? consoleOut + data : consoleOut
+    const frameOut = lastConsole !== data ? consoleOut + data : consoleOut
     setConsoleOut(frameOut)
   })
 

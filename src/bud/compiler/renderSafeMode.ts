@@ -29,10 +29,7 @@ const displayStats = (stats: WebpackStats) => {
 /**
  * Safe mode
  */
-const compileSafeMode = (
-  config: any,
-  webpackConfig: WebpackConfig,
-) => {
+const compileSafeMode = (config: any, webpackConfig: WebpackConfig) => {
   const webpackCallback = (err: any, stats: WebpackStats) => {
     if (err) {
       console.error(err.stack || err)

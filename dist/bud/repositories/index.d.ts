@@ -49,6 +49,29 @@ export declare const repositories: {
             maxChunks: any;
         };
         target: "web";
+        terser: {
+            terserOptions: {
+                parse: {
+                    ecma: number;
+                };
+                compress: {
+                    ecma: number;
+                    warnings: boolean;
+                    comparisons: boolean;
+                    inline: number;
+                };
+                mangle: {
+                    safari10: boolean;
+                };
+                output: {
+                    ecma: number;
+                    comments: boolean;
+                    ascii_only: boolean;
+                };
+            };
+            cache: boolean;
+            parallel: boolean;
+        };
         uglify: {
             cache: boolean;
             chunkFilter: ({ name }: {

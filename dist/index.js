@@ -20,6 +20,10 @@ var bud_1 = require("./bud");
  */
 var bud = new bud_1.bootstrap().framework;
 exports.bud = bud;
+/**
+ * Node process handler.
+ */
+bud.util.processHandler(bud);
 var configs = {
     eslint: require.resolve('../preset/eslint'),
     postcss: require.resolve('../preset/postcss'),

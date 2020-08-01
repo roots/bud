@@ -1,7 +1,7 @@
 "use strict";
 exports.__esModule = true;
 exports.compiler = void 0;
-var build_1 = require("../build");
+var webpack_1 = require("../webpack");
 var renderCompilerDashboard_1 = require("./renderCompilerDashboard");
 var renderSafeMode_1 = require("./renderSafeMode");
 /**
@@ -23,7 +23,7 @@ var compiler = function (bud) {
     /**
      * webpack configuration
      */
-    var compiledConfig = build_1.build(bud).makeConfig();
+    var compiledConfig = webpack_1.build(bud).makeConfig();
     /**
      * Post-configuration hook (finalizes webpack configuration)
      */

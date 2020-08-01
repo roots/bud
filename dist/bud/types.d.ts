@@ -36,6 +36,12 @@ declare type Bud = {
      */
     mode: Configuration['mode'];
     /**
+     * ## bud.adapters
+     *
+     * Webpack plugins
+     */
+    adapters: any;
+    /**
      * ## bud.paths
      *
      * Project and framework paths.

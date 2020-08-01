@@ -1,10 +1,7 @@
 import {Bud, BabelCfg, BabelOptions} from './types'
 import {bud} from '../..'
 
-const babel: BabelCfg = function (
-  this: Bud,
-  options: BabelOptions,
-): Bud {
+const babel: BabelCfg = function (this: Bud, options: BabelOptions): Bud {
   this.features.enable('babel')
   this.options.set('babel', {
     ...this.options.get('babel'),

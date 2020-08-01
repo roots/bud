@@ -53,11 +53,7 @@ export type Plugins = {
    *
    * Set a core plugin.
    */
-  setPlugin: (
-    this: Plugins,
-    name: string,
-    plugin: PluginRepoEntry,
-  ) => void
+  setPlugin: (this: Plugins, name: string, plugin: PluginRepoEntry) => void
 
   /**
    * ## bud.plugins.deletePlugin
@@ -85,11 +81,7 @@ export type Plugins = {
    *
    * Set a webpack plugin adapter
    */
-  setAdapter: (
-    this: Plugins,
-    name: string,
-    plugin: PluginRepoEntry,
-  ) => void
+  setAdapter: (this: Plugins, name: string, plugin: PluginRepoEntry) => void
 
   /**
    * ## bud.plugins.deleteAdapter

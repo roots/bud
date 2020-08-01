@@ -10,21 +10,13 @@ import {shortCircuit} from './shortCircuit'
  * @param {Object} obj - object to inspect
  */
 const dump: Dump = (obj: Object) => {
-  const normalizedConfigString: string = JSON.stringify(
-    obj,
-    shortCircuit(),
-  )
+  const normalizedConfigString: string = JSON.stringify(obj, shortCircuit())
 
-  const prettifiedConfigString: string = format(
-    normalizedConfigString,
-    {
-      parser: 'json',
-    },
-  )
+  const prettifiedConfigString: string = format(normalizedConfigString, {
+    parser: 'json',
+  })
 
-  const highlightedConfigString: string = highlight(
-    prettifiedConfigString,
-  )
+  const highlightedConfigString: string = highlight(prettifiedConfigString)
 
   console.log(highlightedConfigString)
   process.exit()

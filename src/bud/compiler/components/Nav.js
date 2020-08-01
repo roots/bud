@@ -20,10 +20,7 @@ Bullet.propTypes = {
  * @prop {object} bud
  */
 const Nav = ({build, focused, bud}) => (
-  <Box
-    flexDirection="row"
-    justifyContent="space-between"
-    marginBottom={1}>
+  <Box flexDirection="row" justifyContent="space-between" marginBottom={1}>
     <Box>
       <Text color={'#545DD7'}>@roots/bud</Text>
     </Box>
@@ -39,11 +36,7 @@ const Nav = ({build, focused, bud}) => (
     <Box>
       <Text
         color={
-          build?.errors?.length > 0
-            ? '#dc3545'
-            : focused?.errors
-            ? 'white'
-            : '#6C758F'
+          build?.errors?.length > 0 ? '#dc3545' : focused?.errors ? 'white' : '#6C758F'
         }>
         <Bullet active={focused?.errors || false} /> Errors
         {build?.errors?.length > 0 && build.errors[0]
@@ -63,9 +56,7 @@ const Nav = ({build, focused, bud}) => (
             : '#6C758F'
         }>
         <Bullet active={focused?.warnings || false} /> Warnings
-        {build?.warnings?.length > 0
-          ? ` [${build?.warnings.length}]`
-          : `  `}
+        {build?.warnings?.length > 0 ? ` [${build?.warnings.length}]` : `  `}
       </Text>
     </Box>
 

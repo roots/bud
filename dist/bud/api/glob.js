@@ -26,9 +26,7 @@ var glob = function (files) {
     this.util.usedExt(included, this);
     included.forEach(function (match) {
         var _a;
-        var dest = match
-            .replace(_this.src('/'), '')
-            .replace(path_1.parse(match).ext, '');
+        var dest = match.replace(_this.src('/'), '').replace(path_1.parse(match).ext, '');
         entry = __assign(__assign({}, entry), (_a = {}, _a[dest] = match, _a));
     });
     this.options.set('entry', entry);

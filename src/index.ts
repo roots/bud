@@ -18,6 +18,11 @@ import {bootstrap} from './bud'
  */
 const bud: Bud = new bootstrap().framework
 
+/**
+ * Node process handler.
+ */
+bud.util.processHandler(bud)
+
 const configs = {
   eslint: require.resolve('../preset/eslint'),
   postcss: require.resolve('../preset/postcss'),

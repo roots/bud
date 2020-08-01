@@ -69,6 +69,11 @@ export type Hooks = {
    */
   call: (name: string, params?: any) => void
 
+  /**
+   * ## bud.hooks.filter
+   *
+   * Filter values and functions.
+   */
   filter: (name: string, value: any) => any
 }
 

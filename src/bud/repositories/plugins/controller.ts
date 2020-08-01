@@ -113,11 +113,7 @@ const controller = (bud: Bud): Controller => ({
    * @return   {void}
    */
   doPluginHook: function (hook, ...params): void {
-    this.bud.hooks.call(
-      `${hook}_${this.name}`,
-      this.plugin,
-      ...params,
-    )
+    this.bud.hooks.call(`${hook}_${this.name}`, this.plugin, ...params)
   },
 })
 

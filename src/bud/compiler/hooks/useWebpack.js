@@ -84,9 +84,7 @@ const useProgress = () => {
 const useWebpack = ({compiler, bud}) => {
   const {progressPlugin, percentage, message} = useProgress()
 
-  const [progressPluginApplied, setProgressPluginApplied] = useState(
-    null,
-  )
+  const [progressPluginApplied, setProgressPluginApplied] = useState(null)
 
   useEffect(() => {
     if (progressPlugin) {

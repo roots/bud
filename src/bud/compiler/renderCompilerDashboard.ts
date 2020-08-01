@@ -2,12 +2,7 @@ import webpack from 'webpack'
 import React from 'react'
 import {render} from 'ink'
 import {Runner} from './Runner'
-import type {
-  Bud,
-  BudRenderer,
-  RunnerProps,
-  WebpackConfig,
-} from './types'
+import type {Bud, BudRenderer, RunnerProps, WebpackConfig} from './types'
 
 /**
  * Inject webpack middleware on all entrypoints.
@@ -17,9 +12,7 @@ const injectHot = (webpackConfig: WebpackConfig) => {
     'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true&overlay=true'
 
   Object.keys(webpackConfig.entry).forEach(entry => {
-    webpackConfig.entry[entry] = [client].concat(
-      webpackConfig.entry[entry],
-    )
+    webpackConfig.entry[entry] = [client].concat(webpackConfig.entry[entry])
   })
 
   return webpackConfig

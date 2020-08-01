@@ -1,12 +1,8 @@
 import type {Bud} from './types'
 
 const compile = function (this: Bud): void {
-  this.hooks.call('pre_node_process')
-  this.util.process.set(this)
-  this.hooks.call('post_node_process')
-
-  this.hooks.call('pre_compiler_call')
-  this.compiler(this)
+  const compiler = this.hooks.filter('compiler', this.compiler)
+  compiler(this)
 }
 
 export {compile}

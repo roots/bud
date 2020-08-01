@@ -4,7 +4,6 @@ import type {
   Dev,
   PostCssConfiguration,
   Target,
-  Vendor,
   WordPressDependenciesOptions,
 } from './types'
 
@@ -14,9 +13,7 @@ const babelFallback: BabelConfiguration = {
 }
 
 const babel: (configs) => BabelConfiguration = function (configs) {
-  return configs.has('babel')
-    ? configs.contents('babel')
-    : babelFallback
+  return configs.has('babel') ? configs.contents('babel') : babelFallback
 }
 
 const browserSync: (flags) => object = flags => ({
@@ -46,16 +43,36 @@ const dev: Dev = {
   proxy: {},
 }
 
-const postCss: (configs) => PostCssConfiguration = function (
-  configs,
-) {
+const postCss: (configs) => PostCssConfiguration = function (configs) {
   const fallback: PostCssConfiguration = {plugins: []}
-  return configs.has('postCss')
-    ? configs.contents('postCss')
-    : fallback
+  return configs.has('postCss') ? configs.contents('postCss') : fallback
 }
 
 const target: Target = 'web'
+
+const terser = {
+  terserOptions: {
+    parse: {
+      ecma: 8,
+    },
+    compress: {
+      ecma: 5,
+      warnings: false,
+      comparisons: false,
+      inline: 2,
+    },
+    mangle: {
+      safari10: true,
+    },
+    output: {
+      ecma: 5,
+      comments: false,
+      ascii_only: true,
+    },
+  },
+  cache: true,
+  parallel: true,
+}
 
 const typescript = configs =>
   configs.has('typescript') ? configs.contents('typescript') : {}
@@ -80,6 +97,7 @@ const options = {
     maxChunks: null,
   },
   target,
+  terser,
   uglify: {
     cache: true,
     chunkFilter: ({name}) => name === 'vendor',

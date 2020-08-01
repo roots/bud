@@ -18,8 +18,7 @@ var terser = {
         return new terser_webpack_plugin_1["default"](this.options);
     },
     when: function () {
-        return (this.bud.features.enabled('terser') &&
-            this.bud.features.enabled('minify'));
+        return this.bud.features.enabled('terser') && this.bud.features.enabled('minify');
     }
 };
 exports.terser = terser;

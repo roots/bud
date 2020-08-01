@@ -23,9 +23,7 @@ var fs_extra_1 = require("fs-extra");
 var controller_1 = require("../repositories/plugins/controller");
 var newContainer = function (key, repository) {
     if (repository === void 0) { repository = {}; }
-    this.repository[key] = repository
-        ? new container({})
-        : new container([]);
+    this.repository[key] = repository ? new container({}) : new container([]);
 };
 var get = function (key) {
     return this.repository[key];

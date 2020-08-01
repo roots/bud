@@ -51,34 +51,24 @@ var usedExt = function (entries, bud) {
     if (matches.includes('.vue')) {
         bud.features.set('vue', true);
         !bud.options.get('extensions').includes('.vue') &&
-            bud.options.set('extensions', __spreadArrays(bud.options.get('extensions'), [
-                '.vue',
-            ]));
+            bud.options.set('extensions', __spreadArrays(bud.options.get('extensions'), ['.vue']));
     }
     if (matches.includes('.jsx')) {
         bud.features.set('react', true);
         !bud.options.get('extensions').includes('.jsx') &&
-            bud.options.set('extensions', __spreadArrays(bud.options.get('extensions'), [
-                '.jsx',
-            ]));
+            bud.options.set('extensions', __spreadArrays(bud.options.get('extensions'), ['.jsx']));
     }
     if (matches.includes('.ts') || matches.includes('.tsx')) {
         bud.features.set('typescript', true);
         !bud.options.get('extensions').includes('.ts') &&
-            bud.options.set('extensions', __spreadArrays(bud.options.get('extensions'), [
-                '.ts',
-            ]));
+            bud.options.set('extensions', __spreadArrays(bud.options.get('extensions'), ['.ts']));
         !bud.options.get('extensions').includes('.tsx') &&
-            bud.options.set('extensions', __spreadArrays(bud.options.get('extensions'), [
-                '.tsx',
-            ]));
+            bud.options.set('extensions', __spreadArrays(bud.options.get('extensions'), ['.tsx']));
     }
     if (matches.includes('.scss')) {
         bud.features.set('scss', true);
         !bud.options.get('extensions').includes('.scss') &&
-            bud.options.set('extensions', __spreadArrays(bud.options.get('extensions'), [
-                '.scss',
-            ]));
+            bud.options.set('extensions', __spreadArrays(bud.options.get('extensions'), ['.scss']));
     }
     return matches;
 };

@@ -20,9 +20,7 @@ const {DevServer} = require('./components/DevServer')
  * @return {boolean}
  */
 const successfulBuild = build =>
-  !build?.errors?.length > 0 &&
-  build?.percentage == 1 &&
-  build?.assets?.length > 0
+  !build?.errors?.length > 0 && build?.percentage == 1 && build?.assets?.length > 0
 
 /**
  * Budpack build status display
@@ -59,16 +57,10 @@ const Runner = ({compiler, bud}) => {
       })
   }, [build?.percentage])
 
-  const showBrowserSync =
-    !bud.state?.features?.debug && bud.state?.features?.browserSync
+  const showBrowserSync = !bud.state?.features?.debug && bud.state?.features?.browserSync
 
   return (
-    <App
-      width={width}
-      height={height}
-      build={build}
-      state={state}
-      bud={bud}>
+    <App width={width} height={height} build={build} state={state} bud={bud}>
       <Assets width={width} actions={actions} build={build} />
       <Errors actions={actions} build={build} />
       <Warnings actions={actions} build={build} />

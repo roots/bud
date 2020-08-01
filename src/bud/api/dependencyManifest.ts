@@ -1,15 +1,15 @@
-import type {
-  Bud,
-  DependencyManifest,
-  DependencyExtractionOptions,
-} from './types'
+import type {Bud, DependencyManifest, DependencyExtractionOptions} from './types'
 
 const dependencyManifest: DependencyManifest = function (
   this: Bud,
   settings?: DependencyExtractionOptions,
 ): Bud {
   this.features.enable('dependencyManifest')
-  settings && this.options.merge('dependencyManifest', settings)
+  settings &&
+    this.options.set('dependencyManifest', {
+      ...this.options.get('dependencyManifest'),
+      ...settings,
+    })
 
   return this
 }

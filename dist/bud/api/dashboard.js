@@ -2,7 +2,9 @@
 exports.__esModule = true;
 exports.dashboard = void 0;
 var dashboard = function (enabled) {
-    this.features.set('dashboard', enabled !== null && enabled !== void 0 ? enabled : true);
+    enabled === false
+        ? this.features.disable('dashboard')
+        : this.features.enable('dashboard');
     return this;
 };
 exports.dashboard = dashboard;

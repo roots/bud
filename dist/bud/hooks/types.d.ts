@@ -58,6 +58,11 @@ export declare type Hooks = {
      * Call functions registered on a hook.
      */
     call: (name: string, params?: any) => void;
+    /**
+     * ## bud.hooks.filter
+     *
+     * Filter values and functions.
+     */
     filter: (name: string, value: any) => any;
 };
 export declare type RegisteredHooks = {

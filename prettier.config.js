@@ -2,7 +2,7 @@ module.exports = {
   arrowParens: 'avoid',
   bracketSpacing: false,
   tabWidth: 2,
-  printWidth: 70,
+  printWidth: 90,
   singleQuote: true,
   jsxBracketSameLine: true,
   useTabs: false,

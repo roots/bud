@@ -31,9 +31,7 @@ function useCustom(store, React, mapState, mapActions) {
     store.listeners.push(newListener)
     newListener.run(store.state)
     return () => {
-      store.listeners = store.listeners.filter(
-        listener => listener !== newListener,
-      )
+      store.listeners = store.listeners.filter(listener => listener !== newListener)
     }
   }, []) // eslint-disable-line
   return [state, actions]

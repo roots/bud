@@ -12,9 +12,7 @@ const glob: Glob = function (this: Bud, files: string): Bud {
   this.util.usedExt(included, this)
 
   included.forEach(match => {
-    const dest = match
-      .replace(this.src('/'), '')
-      .replace(parse(match).ext, '')
+    const dest = match.replace(this.src('/'), '').replace(parse(match).ext, '')
 
     entry = {
       ...entry,

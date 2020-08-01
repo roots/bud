@@ -22,9 +22,7 @@ export declare type Util = {
     fab: Fab;
     projectRoot: ProjectRoot;
     terminate: (any: any) => void;
-    process: {
-        set: (bud: Bud) => void;
-    };
+    processHandler: any;
     usedExt: (any: any, bud: Bud) => any[];
 };
 //# sourceMappingURL=types.d.ts.map

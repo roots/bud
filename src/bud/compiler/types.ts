@@ -5,12 +5,7 @@ import type {Configuration, Compiler, Stats} from 'webpack'
 import type {Bud} from '../types'
 import type WebpackDevServer from 'webpack-dev-server'
 
-export type {
-  Bud,
-  Configuration as WebpackConfig,
-  Stats as WebpackStats,
-  WebpackDevServer,
-}
+export type {Bud, Configuration as WebpackConfig, Stats as WebpackStats, WebpackDevServer}
 
 /**
  * Runner Props
@@ -33,7 +28,4 @@ export interface RunnerProps {
  * @param {Configuration} webpackConfig
  * @return {void}
  */
-export type BudRenderer = (
-  config: Bud,
-  webpackConfig: Configuration,
-) => void
+export type BudRenderer = (config: Bud, webpackConfig: Configuration) => void

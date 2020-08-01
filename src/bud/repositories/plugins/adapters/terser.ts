@@ -14,10 +14,7 @@ const terser = {
     return new TerserPlugin(this.options)
   },
   when: function () {
-    return (
-      this.bud.features.enabled('terser') &&
-      this.bud.features.enabled('minify')
-    )
+    return this.bud.features.enabled('terser') && this.bud.features.enabled('minify')
   },
 }
 

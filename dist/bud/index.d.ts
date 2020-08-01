@@ -1,5 +1,6 @@
 /**
  * Bud framework.
+ * @constructor
  */
 declare const bootstrap: () => void;
 export { bootstrap };
