@@ -54,7 +54,10 @@ var babel = function (bud) { return ({
         this.bud.hooks.call('post_babel', this.rule);
         this.bud.logger.info({ name: 'webpack.rules', value: this.rule.test.toString() }, "babel test");
         this.bud.logger.info({ name: 'webpack.rules', value: this.rule.exclude.toString() }, "babel exclude");
-        this.bud.logger.info({ name: 'webpack.rules', value: this.rule.use.map(function (item) { return item.loader; }) }, "babel use");
+        this.bud.logger.info({
+            name: 'webpack.rules',
+            value: this.rule.use.map(function (item) { return item.loader; })
+        }, "babel use");
     }
 }); };
 exports.babel = babel;

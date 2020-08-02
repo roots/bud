@@ -54,7 +54,9 @@ var terser = {
     cache: true,
     parallel: true
 };
-var typescript = function (configs) { return configs.has('typescript') ? configs.require('typescript') : null; };
+var typescript = function (configs) {
+    return configs.has('typescript') ? configs.require('typescript') : null;
+};
 exports.typescript = typescript;
 /**
  * Options container.

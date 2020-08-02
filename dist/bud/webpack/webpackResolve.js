@@ -25,8 +25,9 @@ var webpackResolve = function (bud) { return ({
          * Ensure bundle support
          */
         var binding = this;
-        new Array('ts', 'tsx', 'jsx', 'vue', 'scss')
-            .forEach(function (ext) { return binding.ensureSupport(ext); });
+        new Array('ts', 'tsx', 'jsx', 'vue', 'scss').forEach(function (ext) {
+            return binding.ensureSupport(ext);
+        });
         /**
          * Filter, log & return
          */
@@ -41,9 +42,7 @@ var webpackResolve = function (bud) { return ({
         if (!this.bud.features.enabled(ext)) {
             return;
         }
-        var missedExt = this.target.resolve.extensions
-            .filter(function (supported) { return supported !== ext; })
-            .length < 1;
+        var missedExt = this.target.resolve.extensions.filter(function (supported) { return supported !== ext; }).length < 1;
         if (missedExt) {
             this.target.resolve.extensions.push("." + ext);
             this.bud.logger.warn({ name: 'webpack.resolve' }, "." + ext + " support added by support check.");

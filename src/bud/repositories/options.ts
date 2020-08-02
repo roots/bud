@@ -66,7 +66,8 @@ const terser = {
   parallel: true,
 }
 
-const typescript = configs => configs.has('typescript') ? configs.require('typescript') : null
+const typescript = configs =>
+  configs.has('typescript') ? configs.require('typescript') : null
 
 /**
  * Options container.

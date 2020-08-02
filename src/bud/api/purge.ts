@@ -4,8 +4,11 @@ const purge: Purge = function ({enabled = true, ...options}): Bud {
   const purgeEnabled = enabled ?? true
   purgeEnabled && this.features.enable('purge')
 
-  if (! this.features.enabled('purge')) {
-    this.logger.info({name: 'api'}, 'bud.purge called but it is not enabled on this build')
+  if (!this.features.enabled('purge')) {
+    this.logger.info(
+      {name: 'api'},
+      'bud.purge called but it is not enabled on this build',
+    )
     return this
   }
 

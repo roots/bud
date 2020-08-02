@@ -92,6 +92,7 @@ const Runner = ({
   useEffect(() => {
     var _build$assets2;
 
+    ;
     (!bud.features.enabled('watch') || !bud.features.enabled('hot')) && (build === null || build === void 0 ? void 0 : (_build$assets2 = build.assets) === null || _build$assets2 === void 0 ? void 0 : _build$assets2.length) > 1 && (build === null || build === void 0 ? void 0 : build.percentage) == 1 && quit();
   });
   const build = useWebpack({

@@ -7,7 +7,7 @@ export type HooksConstructor = (bud: Bud) => Hooks
  * ## bud.hooks
  */
 export type Hooks = {
-  logger: any,
+  logger: any
 
   /**
    * ## bud.hooks.init

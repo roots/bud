@@ -112,8 +112,7 @@ const useWebpack = ({compiler, bud}) => {
       if (!webpackRunning) {
         setWebpackRunning(true)
 
-        bud.features.enabled('watch')
-        && !bud.features.enabled('hot')
+        bud.features.enabled('watch') && !bud.features.enabled('hot')
           ? compiler.watch({}, webpackCallback)
           : compiler.run(webpackCallback)
       }

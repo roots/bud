@@ -32,12 +32,8 @@ const css = bud => ({
     }
 
     this.output = this.bud.hooks.filter('post_css', this.output)
-    this.bud.logger.info(
-      {name: 'webpack.rules', value: this.output.test}, `css test`
-    )
-    this.bud.logger.info(
-      {name: 'webpack.rules', value: this.output.use}, `css use`
-    )
+    this.bud.logger.info({name: 'webpack.rules', value: this.output.test}, `css test`)
+    this.bud.logger.info({name: 'webpack.rules', value: this.output.use}, `css use`)
     return this.output
   },
 })

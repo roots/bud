@@ -17,10 +17,7 @@ const image: ImageRulesFactory = (bud): imageLoaderInterface => ({
       ]),
     }
 
-    return this.bud.hooks.filter(
-      'loaders_image_final',
-      this.options
-    )
+    return this.bud.hooks.filter('loaders_image_final', this.options)
   },
 })
 

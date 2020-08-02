@@ -60,7 +60,10 @@ const build = (bud: Bud): BuilderController => ({
      */
     this.builders.map(([name, builder]: RegisteredBuilder) => {
       const builderFn = this.bud.hooks.filter(`webpack_builder_${name}`, builder)
-      const output = this.bud.hooks.filter(`webpack_builder_${name}_final`, builderFn(this.bud).make())
+      const output = this.bud.hooks.filter(
+        `webpack_builder_${name}_final`,
+        builderFn(this.bud).make(),
+      )
 
       output && this.merge(output)
     })

@@ -14,7 +14,8 @@ const devServer = (bud: Bud) => ({
   make: function () {
     this.target = this.bud.hooks.filter('webpack_devServer', this.target)
     this.bud.logger.info(
-      {name: 'webpack.devServer', value: this.target}, `webpack.devServer has been generated`
+      {name: 'webpack.devServer', value: this.target},
+      `webpack.devServer has been generated`,
     )
     return this.target
   },

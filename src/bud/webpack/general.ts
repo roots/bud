@@ -10,7 +10,10 @@ const general = (bud: Bud) => ({
 
   target: {
     context: bud.hooks.filter('webpack_context', bud.paths.get('project')),
-    devtool: bud.hooks.filter('webpack_devtool', bud.features.enabled('sourceMap') ? bud.options.get('devtool') : false),
+    devtool: bud.hooks.filter(
+      'webpack_devtool',
+      bud.features.enabled('sourceMap') ? bud.options.get('devtool') : false,
+    ),
     mode: bud.hooks.filter('webpack_mode', bud.mode),
     target: bud.hooks.filter('webpack_target', bud.options.get('target')),
     watch: bud.hooks.filter('webpack_watch', bud.features.enabled('watch')),
@@ -37,7 +40,8 @@ const general = (bud: Bud) => ({
 
     this.target = this.bud.hooks.filter('webpack_general', this.target)
     this.bud.logger.info(
-      {name: 'webpack_general', ...this.target}, `webpack general config has been generated`
+      {name: 'webpack_general', ...this.target},
+      `webpack general config has been generated`,
     )
     return this.target
   },

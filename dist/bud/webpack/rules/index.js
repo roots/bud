@@ -25,15 +25,14 @@ var rules = function (bud) { return ({
     },
     make: function () {
         if (this.bud.features.enabled('typescript')) {
-            this.target.module.rules.push(typescript_1.typescript(this.bud).make());
             this.bud.logger.info({ name: 'webpack.rules' }, "using ts-loader");
+            this.target.module.rules.push(typescript_1.typescript(this.bud).make());
         }
         if (this.bud.features.enabled('vue')) {
-            this.target.module.rules.push(vue_1.vue(this.bud).make());
             this.bud.logger.info({ name: 'webpack.rules' }, "using vue-loader");
+            this.target.module.rules.push(vue_1.vue(this.bud).make());
         }
-        if (this.bud.features.enabled('eslint')
-            && !this.bud.features.enabled('typescript')) {
+        if (this.bud.features.enabled('eslint') && !this.bud.features.enabled('typescript')) {
             this.target.module.rules.push(eslint_1.eslint(this.bud).make());
             this.bud.logger.info({ name: 'webpack.rules' }, "using eslint-loader");
         }

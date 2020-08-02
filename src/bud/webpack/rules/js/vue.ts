@@ -45,13 +45,19 @@ const vue = (bud: Bud): any => ({
   post: function () {
     this.bud.hooks.call('post_vue', this.rule)
     this.bud.logger.info(
-      {name: 'webpack.rules', value: this.rule.test.toString()}, `vue test`
+      {name: 'webpack.rules', value: this.rule.test.toString()},
+      `vue test`,
     )
     this.bud.logger.info(
-      {name: 'webpack.rules', value: this.rule.exclude.toString()}, `vue exclude`
+      {name: 'webpack.rules', value: this.rule.exclude.toString()},
+      `vue exclude`,
     )
     this.bud.logger.info(
-      {name: 'webpack.rules', value: this.rule.use.map(item => item.loader)}, `vue use`
+      {
+        name: 'webpack.rules',
+        value: this.rule.use.map(item => item.loader),
+      },
+      `vue use`,
     )
   },
 })

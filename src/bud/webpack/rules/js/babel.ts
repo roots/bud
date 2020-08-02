@@ -52,13 +52,19 @@ const babel = (bud: Bud): any => ({
   post: function () {
     this.bud.hooks.call('post_babel', this.rule)
     this.bud.logger.info(
-      {name: 'webpack.rules', value: this.rule.test.toString()}, `babel test`
+      {name: 'webpack.rules', value: this.rule.test.toString()},
+      `babel test`,
     )
     this.bud.logger.info(
-      {name: 'webpack.rules', value: this.rule.exclude.toString()}, `babel exclude`
+      {name: 'webpack.rules', value: this.rule.exclude.toString()},
+      `babel exclude`,
     )
     this.bud.logger.info(
-      {name: 'webpack.rules', value: this.rule.use.map(item => item.loader)}, `babel use`
+      {
+        name: 'webpack.rules',
+        value: this.rule.use.map(item => item.loader),
+      },
+      `babel use`,
     )
   },
 })

@@ -24,10 +24,8 @@ const hot: Hot = function (
     return this
   }
 
-  options?.watch && this.options.set('watch', [
-    ...this.options.get('watch'),
-    ...options.watch,
-  ])
+  options?.watch &&
+    this.options.set('watch', [...this.options.get('watch'), ...options.watch])
 
   this.features.enable('hot')
 
@@ -39,7 +37,7 @@ const hot: Hot = function (
       chokidar.watch(options?.watch ?? []).on('all', function () {
         server.sockWrite(server.sockets, 'content-changed')
       })
-    }
+    },
   }
 
   this.options.set('dev', {
@@ -64,7 +62,8 @@ const hot: Hot = function (
         secure: options?.secure ?? proxyAll?.secure ?? dev.secure,
         changeOrigin: options?.changeOrigin ?? proxyAll?.changeOrigin ?? true,
         port: options?.port ?? proxyAll?.port ?? dev.port,
-        headers: options?.headers ?? proxyAll?.headers ?? this.options.get('headers') ?? [],
+        headers:
+          options?.headers ?? proxyAll?.headers ?? this.options.get('headers') ?? [],
       },
       ...(options?.proxy ?? []),
     },

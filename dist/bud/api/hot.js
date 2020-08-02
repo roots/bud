@@ -29,7 +29,8 @@ var hot = function (options) {
     if ((options === null || options === void 0 ? void 0 : options.enabled) === false) {
         return this;
     }
-    (options === null || options === void 0 ? void 0 : options.watch) && this.options.set('watch', __spreadArrays(this.options.get('watch'), options.watch));
+    (options === null || options === void 0 ? void 0 : options.watch) &&
+        this.options.set('watch', __spreadArrays(this.options.get('watch'), options.watch));
     this.features.enable('hot');
     var dev = this.options.has('dev') ? this.options.get('dev') : {};
     var proxyAll = dev.proxy && dev.proxy['**'] ? dev.proxy['**'] : {};

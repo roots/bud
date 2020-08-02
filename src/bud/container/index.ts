@@ -8,7 +8,7 @@ interface Loose {
   [key: string]: any
 }
 interface ContainerInterface extends Loose {
-  name: string,
+  name: string
   repository: Repository
   new: (this: Container, key: string, repository: Repository) => void
   get: (this: Container, key: string) => any
@@ -93,7 +93,6 @@ const disable = function (key: string): void {
 }
 
 const enabled = function (key: string): boolean {
-
   return this.is(key, true)
 }
 
@@ -109,7 +108,11 @@ const entries = function (): any {
   return this.repository
 }
 
-const container = function (this: Container, repository: Repository, name: string = 'anonymous') {
+const container = function (
+  this: Container,
+  repository: Repository,
+  name: string = 'anonymous',
+) {
   this.name = name
   this.repository = repository
   this.new = newContainer
@@ -127,10 +130,7 @@ const container = function (this: Container, repository: Repository, name: strin
   this.disabled = disabled
 }
 
-const bindContainer: (
-  repository: Repository,
-  name: string,
-) => Container = function (
+const bindContainer: (repository: Repository, name: string) => Container = function (
   repository,
   name = 'anonymous',
 ): Container {
@@ -139,10 +139,10 @@ const bindContainer: (
   return new container(repository, name)
 }
 
-const bindFileContainer: (repository: Repository, name: string) => FileContainer = function (
-  repository,
-  name = 'anonymous',
-): FileContainer {
+const bindFileContainer: (
+  repository: Repository,
+  name: string,
+) => FileContainer = function (repository, name = 'anonymous'): FileContainer {
   logger.info({name: 'container', repository}, `create file container: ${name}`)
 
   const store = new container(repository, name)
@@ -152,10 +152,10 @@ const bindFileContainer: (repository: Repository, name: string) => FileContainer
   return store
 }
 
-const bindExtensionContainer: (repository: Repository, name: string) => ExtensionContainer = function (
-  repository,
-  name = 'anonymous',
-): ExtensionContainer {
+const bindExtensionContainer: (
+  repository: Repository,
+  name: string,
+) => ExtensionContainer = function (repository, name = 'anonymous'): ExtensionContainer {
   logger.info({name: 'container', repository}, `create extension api container: ${name}`)
 
   const store = new container(repository, name)

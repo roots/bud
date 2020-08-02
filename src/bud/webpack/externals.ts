@@ -15,12 +15,9 @@ const externals = (bud: Bud) => ({
     /**
      * Don't include modules when target is node.
      */
-    return ! this.bud.options.is('target', 'node')
+    return !this.bud.options.is('target', 'node')
       ? this.target.externals ?? null
-      : [
-        ...this.bud.services.nodeExternals(),
-        ...this.target.externals,
-      ]
+      : [...this.bud.services.nodeExternals(), ...this.target.externals]
   },
 })
 

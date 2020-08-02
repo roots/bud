@@ -1,1 +1,1 @@
-{"version":3,"file":"babel.d.ts","sourceRoot":"","sources":["../../../../../src/bud/webpack/rules/js/babel.ts"],"names":[],"mappings":"AAEA,OAAO,KAAK,EAAC,GAAG,EAAC,MAAM,aAAa,CAAA;AAEpC;;;;;GAKG;AACH,QAAA,MAAM,KAAK,QAAS,GAAG,KAAG,GAqDxB,CAAA;AAEF,OAAO,EAAC,KAAK,EAAC,CAAA"}
+{"version":3,"file":"babel.d.ts","sourceRoot":"","sources":["../../../../../src/bud/webpack/rules/js/babel.ts"],"names":[],"mappings":"AAEA,OAAO,KAAK,EAAC,GAAG,EAAC,MAAM,aAAa,CAAA;AAEpC;;;;;GAKG;AACH,QAAA,MAAM,KAAK,QAAS,GAAG,KAAG,GA2DxB,CAAA;AAEF,OAAO,EAAC,KAAK,EAAC,CAAA"}

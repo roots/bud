@@ -38,7 +38,10 @@ const optimization = (bud: Bud) => ({
     name: entrypoint => `runtime/${entrypoint.name}`,
   },
 
-  uglifyOptions: bud.hooks.filter('optimization_uglify_options', bud.options.get('uglify')),
+  uglifyOptions: bud.hooks.filter(
+    'optimization_uglify_options',
+    bud.options.get('uglify'),
+  ),
 
   make: function () {
     this.when(this.bud.features.enabled('inlineManifest'), this.doRuntimeChunk)
@@ -47,7 +50,8 @@ const optimization = (bud: Bud) => ({
 
     this.target = this.bud.hooks.filter('optimization_target', this.target)
     this.bud.logger.info(
-      {name: 'webpack_optimization', ...this.target}, `webpack.optimization has been generated`
+      {name: 'webpack_optimization', ...this.target},
+      `webpack.optimization has been generated`,
     )
     return this.target
   },

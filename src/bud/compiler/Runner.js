@@ -47,10 +47,10 @@ const Runner = ({compiler, bud}) => {
   })
 
   useEffect(() => {
-    (!bud.features.enabled('watch') || !bud.features.enabled('hot'))
-      && build?.assets?.length > 1
-      && build?.percentage == 1
-      && quit()
+    ;(!bud.features.enabled('watch') || !bud.features.enabled('hot')) &&
+      build?.assets?.length > 1 &&
+      build?.percentage == 1 &&
+      quit()
   })
 
   const build = useWebpack({compiler, bud})
@@ -63,7 +63,8 @@ const Runner = ({compiler, bud}) => {
       })
   }, [build?.percentage])
 
-  const showBrowserSync = !bud.features.enabled('debug') && bud.features.enabled('browserSync')
+  const showBrowserSync =
+    !bud.features.enabled('debug') && bud.features.enabled('browserSync')
 
   return (
     <App width={width} height={height} build={build} state={state} bud={bud}>
