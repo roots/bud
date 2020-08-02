@@ -1,1 +1,1 @@
-{"version":3,"file":"svg.d.ts","sourceRoot":"","sources":["../../../../src/bud/webpack/rules/svg.ts"],"names":[],"mappings":"AAGA;;;GAGG;AACH,QAAA,MAAM,GAAG;;;;;IAMP;;OAEG;;IAaH;;OAEG;;IAKH;;OAEG;;CAIH,CAAA;AAEF,OAAO,EAAC,GAAG,EAAC,CAAA"}
+{"version":3,"file":"svg.d.ts","sourceRoot":"","sources":["../../../../src/bud/webpack/rules/svg.ts"],"names":[],"mappings":"AAGA,QAAA,MAAM,GAAG;;;CAeP,CAAA;AAEF,OAAO,EAAC,GAAG,EAAC,CAAA"}

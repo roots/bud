@@ -42,6 +42,7 @@ const configs: (framework: any) => Repository = framework => {
 
   configFiles.forEach(({name, filename}) => {
     const projectPath = fs.path.join(paths.get('project'), filename)
+
     if (fs.existsSync(projectPath)) {
       repository[name] = projectPath
     }

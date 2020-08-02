@@ -13,13 +13,13 @@ const babelFallback: BabelConfiguration = {
 }
 
 const babel: (configs) => BabelConfiguration = function (configs) {
-  return configs.has('babel') ? configs.contents('babel') : babelFallback
+  return configs.has('babel') ? configs.require('babel') : babelFallback
 }
 
 const browserSync: (flags) => object = flags => ({
-  host: flags.get('host'),
-  port: flags.get('port'),
-  proxy: flags.get('proxy'),
+  host: flags.has('host') ? flags.get('host') : 'localhost',
+  port: flags.get('port') ? flags.get('port') : 3000,
+  proxy: flags.get('proxy') ? flags.get('proxy') : 'localhost',
   online: false,
   open: false,
 })
@@ -34,18 +34,10 @@ const dependencyManifest: WordPressDependenciesOptions = {
   useDefaults: true,
 }
 
-const watch: string[] = []
-
-const dev: Dev = {
-  disableHostCheck: true,
-  host: 'localhost',
-  headers: {},
-  proxy: {},
-}
-
 const postCss: (configs) => PostCssConfiguration = function (configs) {
   const fallback: PostCssConfiguration = {plugins: []}
-  return configs.has('postCss') ? configs.contents('postCss') : fallback
+
+  return configs.has('postCss') ? configs.require('postCss') : fallback
 }
 
 const target: Target = 'web'
@@ -74,21 +66,25 @@ const terser = {
   parallel: true,
 }
 
-const typescript = configs =>
-  configs.has('typescript') ? configs.contents('typescript') : {}
+const typescript = configs => configs.has('typescript') ? configs.require('typescript') : null
 
 /**
  * Options container.
  */
 const options = {
   copy,
-  dev,
   dependencyManifest,
+  dev: {},
   devtool: 'source-map',
   extensions: ['.js', '.json'],
   filenameTemplate: {
-    hashed: `[name].[hash:8]`,
+    hashed: '[name].[hash:8]',
     default: '[name]',
+  },
+  headers: {
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+    'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
   },
   inlineManifest: {
     name: 'runtime',
@@ -114,7 +110,6 @@ const options = {
     },
   },
   vendor: {name: 'vendor'},
-  watch,
 }
 
 export {options, babel, browserSync, postCss, typescript}

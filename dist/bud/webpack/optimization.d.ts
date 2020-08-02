@@ -1,4 +1,3 @@
-import UglifyJsPlugin from 'uglifyjs-webpack-plugin';
 import type { Bud } from './types';
 /**
  * Webpack optimization
@@ -11,7 +10,7 @@ declare const optimization: (bud: Bud) => {
         runtimeChunk: any;
         vendor: any;
     };
-    options: {
+    final: {
         optimization: {
             minimize: any;
             removeAvailableModules: boolean;
@@ -20,14 +19,7 @@ declare const optimization: (bud: Bud) => {
         };
     };
     splitChunksOptions: {
-        cacheGroups: {
-            vendor: {
-                test: RegExp;
-                name: any;
-                chunks: string;
-                priority: number;
-            };
-        };
+        cacheGroups: any;
     };
     runtimeChunkOptions: {
         name: (entrypoint: any) => string;
@@ -36,30 +28,20 @@ declare const optimization: (bud: Bud) => {
     make: () => any;
     /**
      * Executes a callback if a given feature is enabled.
-     *
-     * @property {Function} whenSupported
-     * @parameter {string} bud.feature key
-     * @parameter {Function} callback
-     * @return {void}
      */
-    whenSupported: (feature: string, callback: any) => void;
+    when: (feature: boolean, callback: any) => void;
     /**
      * RuntimeChunk (inline manifest) support
      */
-    setRuntimeChunk: () => void;
+    doRuntimeChunk: (context: any) => void;
     /**
      * Code splitting.
      */
-    setSplitChunks: () => void;
+    doVendor: (context: any) => void;
     /**
      * Minimization.
      */
-    setMinimizer: () => void;
-    /**
-     * Uglify (terser is implemented as a webpack plugin)
-     */
-    uglify: () => UglifyJsPlugin;
-    doHook: (name: any, ...params: any) => void;
+    doMinimizer: (context: any) => void;
 };
 export { optimization };
 //# sourceMappingURL=optimization.d.ts.map

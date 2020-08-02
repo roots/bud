@@ -6,6 +6,8 @@ const auto: Auto = function (
     [key: string]: string[]
   },
 ): Bud {
+  this.logger.info({options}, `[api] bud.auto called`)
+
   this.hooks.call('pre_auto', options)
 
   Object.entries(options).forEach(([key, modules]) => {

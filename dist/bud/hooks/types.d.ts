@@ -5,6 +5,7 @@ export declare type HooksConstructor = (bud: Bud) => Hooks;
  * ## bud.hooks
  */
 export declare type Hooks = {
+    logger: any;
     /**
      * ## bud.hooks.init
      * @constructor
@@ -23,12 +24,6 @@ export declare type Hooks = {
      */
     called: string[];
     /**
-     * ## bud.hooks.log
-     *
-     * Log of hook activity
-     */
-    log: any[];
-    /**
      * ## bud.hooks.make
      *
      * Makes a new hook.
@@ -40,12 +35,6 @@ export declare type Hooks = {
      * Returns an array of all registered hooks.
      */
     entries: () => any[];
-    /**
-     * ## bud.hooks.logEntries
-     *
-     * Returns an array of all hook calls.
-     */
-    logEntries: () => any[];
     /**
      * ## bud.hooks.on
      *

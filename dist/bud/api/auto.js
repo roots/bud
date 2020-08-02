@@ -14,6 +14,7 @@ exports.__esModule = true;
 exports.auto = void 0;
 var auto = function (options) {
     var _this = this;
+    this.logger.info({ options: options }, "[api] bud.auto called");
     this.hooks.call('pre_auto', options);
     Object.entries(options).forEach(function (_a) {
         var key = _a[0], modules = _a[1];

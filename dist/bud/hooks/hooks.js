@@ -1,7 +1,8 @@
 "use strict";
 exports.__esModule = true;
 exports.hooks = void 0;
-var hooks = function () { return ({
+var hooks = function (logger) { return ({
+    logger: logger,
     /**
      * Registered hooks.
      */
@@ -11,9 +12,8 @@ var hooks = function () { return ({
      */
     called: [],
     /**
-     * Log.
+     * Init hooks.
      */
-    log: [],
     init: function (bud) {
         this.bud = bud;
         return this;
@@ -35,12 +35,6 @@ var hooks = function () { return ({
         return Object.entries(this.registered);
     },
     /**
-     * Get all log entries
-     */
-    logEntries: function () {
-        return this.log;
-    },
-    /**
      * Register a function as a bud hook.
      */
     on: function (name, callback) {
@@ -55,40 +49,23 @@ var hooks = function () { return ({
      */
     call: function (name, param) {
         var bud = this.bud;
-        var log = this.log;
+        var logger = this.logger;
         this.called.push(name);
         if (this.registered[name]) {
             this.registered[name].forEach(function (hook) {
-                if (param) {
-                    log.push({
-                        type: 'call',
-                        name: hook.name,
-                        results: hook.fn(param, bud)
-                    });
-                }
-                else {
-                    log.push({
-                        type: 'call',
-                        name: hook.name,
-                        results: hook.fn(bud)
-                    });
-                }
+                logger.info(hook, "[action] [execute] " + name);
+                param ? hook.fn(param, bud) : hook.fn(bud);
                 hook.fired = true;
             });
         }
     },
     filter: function (name, value) {
-        var bud = this.bud;
-        var log = this.log;
+        var logger = this.logger;
         this.called.push(name);
         if (this.registered[name]) {
             this.registered[name].forEach(function (hook) {
-                value = hook.fn(value, bud);
-                log.push({
-                    type: 'filter',
-                    name: hook.name,
-                    value: value
-                });
+                var res = hook.fn(value);
+                logger.info(hook, "[filter] [execute] " + hook.name);
                 hook.fired = true;
             });
         }

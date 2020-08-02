@@ -71,23 +71,28 @@ const Runner = ({
   compiler,
   bud
 }) => {
-  var _bud$state2, _bud$state2$features, _bud$state3, _bud$state3$features;
-
   const [width, height] = useStdOutDimensions();
   const [state, actions] = useFocusState();
   const {
     exit
   } = useApp();
+
+  const quit = () => {
+    exit();
+    bud.dump();
+    bud.util.termiante();
+    process.exit();
+  };
+
   useInput(input => {
     if (input == 'q') {
-      exit();
-      process.exit();
+      quit();
     }
   });
   useEffect(() => {
-    var _bud$state, _bud$state$features, _build$assets2;
+    var _build$assets2;
 
-    !((_bud$state = bud.state) === null || _bud$state === void 0 ? void 0 : (_bud$state$features = _bud$state.features) === null || _bud$state$features === void 0 ? void 0 : _bud$state$features.watch) && (build === null || build === void 0 ? void 0 : (_build$assets2 = build.assets) === null || _build$assets2 === void 0 ? void 0 : _build$assets2.length) > 1 && (build === null || build === void 0 ? void 0 : build.percentage) == 1 && exit();
+    (!bud.features.enabled('watch') || !bud.features.enabled('hot')) && (build === null || build === void 0 ? void 0 : (_build$assets2 = build.assets) === null || _build$assets2 === void 0 ? void 0 : _build$assets2.length) > 1 && (build === null || build === void 0 ? void 0 : build.percentage) == 1 && quit();
   });
   const build = useWebpack({
     compiler,
@@ -99,7 +104,7 @@ const Runner = ({
       message: `${build.assets.length} assets built.`
     });
   }, [build === null || build === void 0 ? void 0 : build.percentage]);
-  const showBrowserSync = !((_bud$state2 = bud.state) === null || _bud$state2 === void 0 ? void 0 : (_bud$state2$features = _bud$state2.features) === null || _bud$state2$features === void 0 ? void 0 : _bud$state2$features.debug) && ((_bud$state3 = bud.state) === null || _bud$state3 === void 0 ? void 0 : (_bud$state3$features = _bud$state3.features) === null || _bud$state3$features === void 0 ? void 0 : _bud$state3$features.browserSync);
+  const showBrowserSync = !bud.features.enabled('debug') && bud.features.enabled('browserSync');
   return /*#__PURE__*/React.createElement(App, {
     width: width,
     height: height,

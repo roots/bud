@@ -14,7 +14,8 @@ exports.__esModule = true;
 exports.dependencyManifest = void 0;
 var dependencyManifest = function (settings) {
     this.features.enable('dependencyManifest');
-    settings && this.options.set('dependencyManifest', __assign(__assign({}, this.options.get('dependencyManifest')), settings));
+    settings &&
+        this.options.set('dependencyManifest', __assign(__assign({}, this.options.get('dependencyManifest')), settings));
     return this;
 };
 exports.dependencyManifest = dependencyManifest;

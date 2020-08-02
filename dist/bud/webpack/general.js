@@ -9,19 +9,20 @@ exports.general = void 0;
 var general = function (bud) { return ({
     bud: bud,
     options: {
-        context: bud.paths.get('project'),
-        devtool: bud.features.enabled('sourceMap') ? bud.options.get('devtool') : false,
-        mode: bud.mode,
-        target: bud.options.get('target'),
-        watch: bud.features.enabled('watch')
+        context: bud.hooks.filter('webpack_context', bud.paths.get('project')),
+        devtool: bud.hooks.filter('webpack_devtool', bud.features.enabled('sourceMap') ? bud.options.get('devtool') : false),
+        mode: bud.hooks.filter('webpack_mode', bud.mode),
+        target: bud.hooks.filter('webpack_target', bud.options.get('target')),
+        watch: bud.hooks.filter('webpack_watch', bud.features.enabled('watch'))
     },
     make: function () {
         /**
-         * Empty out non web globals so they aren't
-         * inadvertently used in project bundles.
+         * Empty out node globals that aren't native to web
+         * to ensure they aren't inadvertently used in project bundles
+         * intended for the browser..
          */
         if (this.bud.options.is('target', 'web')) {
-            this.options.node = this.bud.hooks.filter('filter_webpack_node', {
+            this.options.node = this.bud.hooks.filter('webpack_node', {
                 module: 'empty',
                 dgram: 'empty',
                 dns: 'mock',
@@ -32,7 +33,7 @@ var general = function (bud) { return ({
                 child_process: 'empty'
             });
         }
-        return this.bud.hooks.filter('filter_webpack_final', this.options);
+        return this.bud.hooks.filter('webpack_general_final', this.options);
     }
 }); };
 exports.general = general;

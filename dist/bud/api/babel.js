@@ -13,6 +13,7 @@ var __assign = (this && this.__assign) || function () {
 exports.__esModule = true;
 exports.babel = void 0;
 var babel = function (options) {
+    this.logger.info({ options: options }, "[api] bud.babel called");
     this.features.enable('babel');
     this.options.set('babel', __assign(__assign({}, this.options.get('babel')), this.hooks.filter('filter_babel_options', options)));
     this.hooks.call('post_babel');

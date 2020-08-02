@@ -1,6 +1,8 @@
 import type {Bud, Hook, Hooks} from './types'
 
-const hooks = (): Hooks => ({
+const hooks = (logger): Hooks => ({
+  logger,
+
   /**
    * Registered hooks.
    */
@@ -12,10 +14,8 @@ const hooks = (): Hooks => ({
   called: [],
 
   /**
-   * Log.
+   * Init hooks.
    */
-  log: [],
-
   init: function (bud: Bud): Hooks {
     this.bud = bud
 
@@ -38,13 +38,6 @@ const hooks = (): Hooks => ({
   },
 
   /**
-   * Get all log entries
-   */
-  logEntries: function () {
-    return this.log
-  },
-
-  /**
    * Register a function as a bud hook.
    */
   on: function (name, callback) {
@@ -62,47 +55,27 @@ const hooks = (): Hooks => ({
    */
   call: function (name: string, param?: any): void {
     const bud = this.bud
-    const log = this.log
-
+    const logger = this.logger
     this.called.push(name)
 
     if (this.registered[name]) {
       this.registered[name].forEach(function (hook) {
-        if (param) {
-          log.push({
-            type: 'call',
-            name: hook.name,
-            results: hook.fn(param, bud),
-          })
-        } else {
-          log.push({
-            type: 'call',
-            name: hook.name,
-            results: hook.fn(bud),
-          })
-        }
-
+        logger.info(hook, `[action] [execute] ${name}`)
+        param ? hook.fn(param, bud) : hook.fn(bud)
         hook.fired = true
       })
     }
   },
 
   filter: function (name: string, value: any): any {
-    const bud = this.bud
-    const log = this.log
+    const logger = this.logger
 
     this.called.push(name)
 
     if (this.registered[name]) {
       this.registered[name].forEach(function (hook) {
-        value = hook.fn(value, bud)
-
-        log.push({
-          type: 'filter',
-          name: hook.name,
-          value,
-        })
-
+        const res = hook.fn(value)
+        logger.info(hook, `[filter] [execute] ${hook.name}`)
         hook.fired = true
       })
     }

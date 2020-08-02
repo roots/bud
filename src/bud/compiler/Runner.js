@@ -33,18 +33,24 @@ const Runner = ({compiler, bud}) => {
   const [state, actions] = useFocusState()
   const {exit} = useApp()
 
+  const quit = () => {
+    exit()
+    bud.dump()
+    bud.util.termiante()
+    process.exit()
+  }
+
   useInput(input => {
     if (input == 'q') {
-      exit()
-      process.exit()
+      quit()
     }
   })
 
   useEffect(() => {
-    !bud.state?.features?.watch &&
-      build?.assets?.length > 1 &&
-      build?.percentage == 1 &&
-      exit()
+    (!bud.features.enabled('watch') || !bud.features.enabled('hot'))
+      && build?.assets?.length > 1
+      && build?.percentage == 1
+      && quit()
   })
 
   const build = useWebpack({compiler, bud})
@@ -57,7 +63,7 @@ const Runner = ({compiler, bud}) => {
       })
   }, [build?.percentage])
 
-  const showBrowserSync = !bud.state?.features?.debug && bud.state?.features?.browserSync
+  const showBrowserSync = !bud.features.enabled('debug') && bud.features.enabled('browserSync')
 
   return (
     <App width={width} height={height} build={build} state={state} bud={bud}>

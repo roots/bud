@@ -13,7 +13,7 @@ exports.repositories = {
     features: features_1.features,
     options: options_1.options,
     paths: paths_1.paths,
-    flags: cli_1.flags,
+    cli: cli_1.cli,
     env: env_1.env,
     adapters: plugins_1.adapters,
     plugins: plugins_1.plugins

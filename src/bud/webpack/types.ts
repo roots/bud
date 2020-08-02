@@ -6,19 +6,17 @@ export type {Extension, Plugins} from '../repositories/plugins/types'
 export type {Bud}
 export declare type BuilderController = {
   bud: Bud
-  config: WebpackConfig
+  final: WebpackConfig
   builders: RegisteredBuilder[]
-  mergeConfig: (configValues: Object) => void
-  makeConfig: () => WebpackConfig
-  doHook: (name: string, ...any: any) => void
-  preBuilderHook: (name: string, arg1: any) => void
-  postBuilderHook: (name: string, arg1: any) => void
+  merge: (configValues: Object) => void
+  make: () => WebpackConfig
 }
 export declare type RegisteredBuilder = [string, BuilderConstructor]
 export declare type BuilderConstructor = (bud: Bud) => Builder
 export declare interface Builder {
   bud: Bud
   options?: {}
+  final?: {}
   make: () => any
 }
 export declare interface EntryBuilder extends Builder {

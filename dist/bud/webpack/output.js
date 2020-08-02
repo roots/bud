@@ -7,9 +7,9 @@ var output = function (bud) { return ({
         output: {
             path: bud.paths.get('dist'),
             publicPath: bud.paths.get('public'),
-            filename: bud.features.enabled('hash') ?
-                bud.options.get('filenameTemplate').hashed + ".js" :
-                bud.options.get('filenameTemplate')["default"] + ".js"
+            filename: bud.features.enabled('hash')
+                ? bud.options.get('filenameTemplate').hashed + ".js"
+                : bud.options.get('filenameTemplate')["default"] + ".js"
         }
     },
     make: function () {

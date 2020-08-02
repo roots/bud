@@ -21,6 +21,7 @@ exports.__esModule = true;
 exports.bindExtensionContainer = exports.bindFileContainer = exports.bindContainer = exports.container = void 0;
 var fs_extra_1 = require("fs-extra");
 var controller_1 = require("../repositories/plugins/controller");
+var logger_1 = require("../util/logger");
 var newContainer = function (key, repository) {
     if (repository === void 0) { repository = {}; }
     this.repository[key] = repository ? new container({}) : new container([]);
@@ -35,10 +36,11 @@ var contents = function (key) {
     return require(this.get(key));
 };
 var set = function (key, value) {
+    logger_1.logger.info({ value: value }, "[container] set " + key + " on " + this.name);
     this.repository[key] = value;
 };
 var has = function (key) {
-    return this.repository[key] && this.repository[key] !== null ? true : false;
+    return this.repository.hasOwnProperty(key) ? true : false;
 };
 var merge = function (key, value) {
     this.repository[key] = this.repository[key]
@@ -52,10 +54,12 @@ var exists = function (key) {
     return fs_extra_1.existsSync(this.repository[key]);
 };
 var enable = function (key) {
-    this.set(key, true);
+    logger_1.logger.info("set " + key + " on " + this.name + " to true");
+    this.repository[key] = true;
 };
 var disable = function (key) {
-    this.set(key, false);
+    logger_1.logger.info("set " + key + " on " + this.name + " to false");
+    this.repository[key] = false;
 };
 var enabled = function (key) {
     return this.is(key, true);
@@ -74,7 +78,9 @@ var map = function () {
 var entries = function () {
     return this.repository;
 };
-var container = function (repository) {
+var container = function (repository, name) {
+    if (name === void 0) { name = 'anonymous'; }
+    this.name = name;
     this.repository = repository;
     this["new"] = newContainer;
     this.get = get;
@@ -91,19 +97,25 @@ var container = function (repository) {
     this.disabled = disabled;
 };
 exports.container = container;
-var bindContainer = function (repository) {
-    return new container(repository);
+var bindContainer = function (repository, name) {
+    if (name === void 0) { name = 'anonymous'; }
+    logger_1.logger.info(repository, "create container: " + name);
+    return new container(repository, name);
 };
 exports.bindContainer = bindContainer;
-var bindFileContainer = function (repository) {
-    var store = new container(repository);
+var bindFileContainer = function (repository, name) {
+    if (name === void 0) { name = 'anonymous'; }
+    logger_1.logger.info(repository, "create file container: " + name);
+    var store = new container(repository, name);
     store.contents = contents;
     store.exists = exists;
     return store;
 };
 exports.bindFileContainer = bindFileContainer;
-var bindExtensionContainer = function (repository) {
-    var store = new container(repository);
+var bindExtensionContainer = function (repository, name) {
+    if (name === void 0) { name = 'anonymous'; }
+    logger_1.logger.info(repository, "create extension api container: " + name);
+    var store = new container(repository, name);
     store.controller = controller_1.controller;
     return store;
 };

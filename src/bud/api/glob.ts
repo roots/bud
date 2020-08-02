@@ -3,6 +3,8 @@ import globby from 'globby'
 import {parse} from 'path'
 
 const glob: Glob = function (this: Bud, files: string): Bud {
+  this.logger.info(files, `[api] bud.glob called`)
+
   let entry = this.options.get('entry')
 
   const included = globby.sync(this.src(files), {

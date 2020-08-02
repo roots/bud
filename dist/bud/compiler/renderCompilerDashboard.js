@@ -11,8 +11,8 @@ var Runner_1 = require("./Runner");
 /**
  * Inject webpack middleware on all entrypoints.
  */
-var injectHot = function (webpackConfig) {
-    var client = 'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=true&overlay=true';
+var injectHot = function (webpackConfig, overlay, reload) {
+    var client = "webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=" + reload + "&overlay=" + overlay;
     Object.keys(webpackConfig.entry).forEach(function (entry) {
         webpackConfig.entry[entry] = [client].concat(webpackConfig.entry[entry]);
     });
@@ -22,8 +22,9 @@ var injectHot = function (webpackConfig) {
  * Webpack compilation dashboard renderer.
  */
 var renderCompilerDashboard = function (bud, webpackConfig) {
+    var _a, _b;
     var compiler = bud.features.enabled('hot')
-        ? webpack_1["default"](injectHot(webpackConfig))
+        ? webpack_1["default"](injectHot(webpackConfig, (_a = bud.options.get('dev').overlay) !== null && _a !== void 0 ? _a : false, (_b = bud.options.get('dev').reload) !== null && _b !== void 0 ? _b : false))
         : webpack_1["default"](webpackConfig);
     var runnerProps = {
         bud: bud,

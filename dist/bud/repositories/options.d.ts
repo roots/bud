@@ -8,13 +8,18 @@ declare const typescript: (configs: any) => any;
  */
 declare const options: {
     copy: Copy;
-    dev: any;
     dependencyManifest: WordPressDependenciesOptions;
+    dev: {};
     devtool: string;
     extensions: string[];
     filenameTemplate: {
         hashed: string;
         default: string;
+    };
+    headers: {
+        'Access-Control-Allow-Origin': string;
+        'Access-Control-Allow-Methods': string;
+        'Access-Control-Allow-Headers': string;
     };
     inlineManifest: {
         name: string;
@@ -66,7 +71,6 @@ declare const options: {
     vendor: {
         name: string;
     };
-    watch: string[];
 };
 export { options, babel, browserSync, postCss, typescript };
 //# sourceMappingURL=options.d.ts.map

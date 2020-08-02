@@ -24,94 +24,58 @@ var plugins_1 = require("./plugins");
 var build = function (bud) { return ({
     /**
      * The bud container.
-     * @property {Bud} bud
      */
     bud: bud,
     /**
-     * The webpack config to be passed to the compiler.
+     * The final webpack config.
      */
-    config: {},
+    final: {},
     /**
-     * Builders to handle different webpack concerns.
+     * Builders webpack concerns.
      */
     builders: [
         ['entry', entry_1.entry],
         ['output', output_1.output],
         ['rules', index_1.rules],
-        ['devServer', devServer_1.devServer],
         ['plugins', plugins_1.plugins],
         ['resolve', webpackResolve_1.webpackResolve],
         ['externals', externals_1.externals],
         ['general', general_1.general],
     ],
     /**
-     * Merge a set of configuration values into the final config.
-     *
-     * @property {Function} mergeConfig
-     * @return {void}
+     * Merge values into the final config.
      */
-    mergeConfig: function (configValues) {
-        this.config = __assign(__assign({}, this.config), configValues);
+    merge: function (values) {
+        this.final = __assign(__assign({}, this.final), values);
     },
     /**
-     * Generate config values from a builder
-     * @property {Function} makeConfig
-     * @return {object}
+     * Generate values from builders
      */
-    makeConfig: function () {
+    make: function () {
         var _this = this;
+        /**
+         * Conditionally enabled: optimization
+         */
         this.bud.features.enabled('optimize') &&
             this.builders.push(['optimization', optimization_1.optimization]);
-        /** Hook: pre_webpack */
-        this.doHook('pre', this.bud.options);
         /**
-         * Map builder output to bud.builder.config property.
+         * Conditionally enabled: devServer
+         */
+        this.bud.options.has('dev') &&
+            this.builders.push(['devServer', devServer_1.devServer]);
+        /**
+         * Build
          */
         this.builders.map(function (_a) {
             var name = _a[0], builder = _a[1];
-            builder = _this.bud.hooks.filter("filter_webpack_" + name, builder);
-            var builderInstance = builder(_this.bud);
-            _this.preBuilderHook(name, _this);
-            _this.builderOut = builderInstance.make();
-            _this.postBuilderHook(name, _this.builderOut);
-            _this.mergeConfig(_this.builderOut);
-            delete _this.builderOut;
+            var builderFn = _this.bud.hooks.filter("webpack_builder_" + name, builder);
+            var output = _this.bud.hooks.filter("webpack_builder_" + name + "_final", builderFn(_this.bud).make());
+            output && _this.merge(output);
         });
-        /** Hook: post_webpack */
-        this.doHook('post', this.config);
-        return this.config;
-    },
-    /**
-     * Top level hooks.
-     */
-    doHook: function (name) {
-        var params = [];
-        for (var _i = 1; _i < arguments.length; _i++) {
-            params[_i - 1] = arguments[_i];
-        }
-        this.bud.hooks.call(name + "_webpack", params);
-    },
-    /**
-     * pre_{builder} hooks.
-     * @property {Function} preBuilderHook
-     */
-    preBuilderHook: function (name) {
-        var params = [];
-        for (var _i = 1; _i < arguments.length; _i++) {
-            params[_i - 1] = arguments[_i];
-        }
-        this.bud.hooks.call("pre_" + name, params);
-    },
-    /**
-     * post_{builder} hooks.
-     * @property {Function} preBuilderHook
-     */
-    postBuilderHook: function (name) {
-        var params = [];
-        for (var _i = 1; _i < arguments.length; _i++) {
-            params[_i - 1] = arguments[_i];
-        }
-        this.bud.hooks.call("post_" + name, params);
+        /**
+         * Return final config object
+         */
+        return this.bud.hooks.filter('webpack_final', this.final);
     }
 }); };
 exports.build = build;

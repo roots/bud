@@ -19,6 +19,7 @@ var globby_1 = __importDefault(require("globby"));
 var path_1 = require("path");
 var glob = function (files) {
     var _this = this;
+    this.logger.info(files, "[api] bud.glob called");
     var entry = this.options.get('entry');
     var included = globby_1["default"].sync(this.src(files), {
         expandDirectories: true

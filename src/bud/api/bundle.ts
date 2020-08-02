@@ -1,6 +1,8 @@
 import type {Bud, Bundle} from './types'
 
 const bundle: Bundle = function (this: Bud, name: string, entries: string[]): Bud {
+  this.logger.info({name, entries}, `[api] bud.bundle called`)
+
   this.hooks.call('pre_bundle', {name, entries})
   /**
    * Lazy load whatever loaders are needed to fulfill the

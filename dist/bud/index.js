@@ -14,58 +14,35 @@ var container_1 = require("./container");
  */
 var bootstrap = function () {
     var _this = this;
-    /**
-     * Bootstrap target.
-     */
     this.framework = {};
-    /**
-     * Utilities.
-     */
-    this.framework.util = util_1.util;
-    this.framework.fs = util_1.util.fs;
-    /**
-     * Binders.
-     */
+    this.repositories = repositories_1.repositories;
+    this.logger = util_1.logger;
     this.store = container_1.bindContainer;
     this.fileStore = container_1.bindFileContainer;
     this.extensionStore = container_1.bindExtensionContainer;
-    /**
-     * Stores.
-     */
-    this.repositories = repositories_1.repositories;
-    /**
-     * Compiler.
-     */
+    this.framework.logger = this.logger;
     this.framework.compiler = compiler_1.compiler;
+    this.framework.util = util_1.util;
+    this.framework.fs = util_1.util.fs;
+    this.framework.flags = this.store(this.repositories.cli.flags, 'bud.flags');
+    this.framework.paths = this.store(this.repositories.paths, 'bud.paths');
+    this.framework.features = this.store(this.repositories.features, 'bud.features');
+    this.framework.options = this.store(this.repositories.options, 'bud.options');
+    this.framework.plugins = this.extensionStore(this.repositories.plugins, 'bud.plugins');
+    this.framework.adapters = this.extensionStore(this.repositories.adapters, 'bud.adapters');
+    this.framework.configs = this.fileStore(this.repositories.configs(this.framework), 'bud.configs');
+    this.framework.env = this.store(this.repositories.env(this.framework), 'bud.env');
+    this.framework.args = this.store(this.repositories.cli.args(this.framework), 'bud.args');
+    this.framework.hooks = hooks_1.hooks(this.logger).init(this.framework);
     /**
-     * Hooks.
-     */
-    this.framework.hooks = hooks_1.hooks().init(this.framework);
-    /**
-     * API.
+     * API methods.
      */
     Object.values(api_1.api).forEach(function (method) {
         _this.framework[method.name] = method;
+        _this.framework.logger.info("[api] bootstrapped bud." + method.name);
     });
     /**
-     * Base stores.
-     */
-    this.framework.paths = this.store(this.repositories.paths);
-    this.framework.features = this.store(this.repositories.features);
-    this.framework.options = this.store(this.repositories.options);
-    /**
-     * Derived stores.
-     */
-    this.framework.configs = this.fileStore(this.repositories.configs(this.framework));
-    this.framework.env = this.store(this.repositories.env(this.framework));
-    this.framework.flags = this.store(this.repositories.flags(this.framework));
-    /**
-     * Extensions.
-     */
-    this.framework.plugins = this.extensionStore(this.repositories.plugins);
-    this.framework.adapters = this.extensionStore(this.repositories.adapters);
-    /**
-     * Auto-configured features.
+     * Features and options.
      */
     this.framework.features.set('babel', this.framework.configs.has('babel'));
     this.framework.features.set('postCss', this.framework.configs.has('postCss'));
@@ -73,9 +50,6 @@ var bootstrap = function () {
     this.framework.features.set('stylelint', this.framework.configs.has('stylelint'));
     this.framework.features.set('typescript', this.framework.configs.has('typescript'));
     this.framework.features.set('vue', this.framework.configs.has('vue'));
-    /**
-     * Auto-configured options.
-     */
     this.framework.options.set('babel', options_1.babel(this.framework.configs));
     this.framework.options.set('postCss', options_1.postCss(this.framework.configs));
     this.framework.options.set('browserSync', options_1.browserSync(this.framework.flags));
@@ -83,9 +57,9 @@ var bootstrap = function () {
     /**
      * Accessors.
      */
-    this.framework.mode = this.framework.flags.get('mode');
-    this.framework.inProduction = this.framework.flags.is('mode', 'production');
-    this.framework.inDevelopment = this.framework.flags.is('mode', 'development');
+    this.framework.mode = this.framework.args.get('mode');
+    this.framework.inProduction = this.framework.args.is('mode', 'production');
+    this.framework.inDevelopment = this.framework.args.is('mode', 'development');
 };
 exports.bootstrap = bootstrap;
 //# sourceMappingURL=index.js.map

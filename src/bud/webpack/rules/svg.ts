@@ -1,43 +1,20 @@
 import {loaders} from './util/loaders'
 import {patterns} from './util/patterns'
 
-/**
- * SVG module rules
- * @return {object}
- */
 const svg = bud => ({
   bud,
-  output: {},
-  test: patterns.svg,
-  loaders: [loaders.svgr, loaders.url],
 
-  /**
-   * Make svg rules
-   */
   make: function () {
-    this.pre()
+    this.bud.hooks.call('pre_svg')
+
     this.output = {
-      test: this.test,
-      use: this.loaders,
+      test: this.bud.hooks.filter('loaders_svg_test', patterns.svg),
+      use: this.bud.hooks.filter('loaders_svg_use', [loaders.svgr, loaders.url]),
     }
 
-    this.post()
+    this.bud.hooks.call('post_svg')
 
-    return this.output
-  },
-
-  /**
-   * Hook: pre_svg
-   */
-  pre: function () {
-    this.bud.hooks.call('pre_svg', this)
-  },
-
-  /**
-   * Hook: post_svg
-   */
-  post: function () {
-    this.bud.hooks.call('post_svg', this.output)
+    return this.bud.hooks.filter('loaders_svg_final', this.output)
   },
 })
 

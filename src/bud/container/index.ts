@@ -1,5 +1,6 @@
 import {existsSync} from 'fs-extra'
 import {controller} from '../repositories/plugins/controller'
+import {logger} from '../util/logger'
 
 type Repository = any[] | object
 
@@ -7,6 +8,7 @@ interface Loose {
   [key: string]: any
 }
 interface ContainerInterface extends Loose {
+  name: string,
   repository: Repository
   new: (this: Container, key: string, repository: Repository) => void
   get: (this: Container, key: string) => any
@@ -53,11 +55,13 @@ const contents = function (key: string): any | null {
 }
 
 const set = function (key: string, value: any) {
+  logger.info({value}, `[container] set ${key} on ${this.name}`)
+
   this.repository[key] = value
 }
 
 const has = function (key: string): boolean {
-  return this.repository[key] && this.repository[key] !== null ? true : false
+  return this.repository.hasOwnProperty(key) ? true : false
 }
 
 const merge = function (key: string, value: any) {
@@ -77,14 +81,19 @@ const exists = function (key: string): boolean {
 }
 
 const enable = function (key: string): void {
-  this.set(key, true)
+  logger.info(`set ${key} on ${this.name} to true`)
+
+  this.repository[key] = true
 }
 
 const disable = function (key: string): void {
-  this.set(key, false)
+  logger.info(`set ${key} on ${this.name} to false`)
+
+  this.repository[key] = false
 }
 
 const enabled = function (key: string): boolean {
+
   return this.is(key, true)
 }
 
@@ -100,7 +109,8 @@ const entries = function (): any {
   return this.repository
 }
 
-const container = function (this: Container, repository: Repository) {
+const container = function (this: Container, repository: Repository, name: string = 'anonymous') {
+  this.name = name
   this.repository = repository
   this.new = newContainer
   this.get = get
@@ -117,26 +127,38 @@ const container = function (this: Container, repository: Repository) {
   this.disabled = disabled
 }
 
-const bindContainer: (repository: Repository) => Container = function (
+const bindContainer: (
+  repository: Repository,
+  name: string,
+) => Container = function (
   repository,
+  name = 'anonymous',
 ): Container {
-  return new container(repository)
+  logger.info(repository, `create container: ${name}`)
+
+  return new container(repository, name)
 }
 
-const bindFileContainer: (repository: Repository) => FileContainer = function (
+const bindFileContainer: (repository: Repository, name: string) => FileContainer = function (
   repository,
+  name = 'anonymous',
 ): FileContainer {
-  const store = new container(repository)
+  logger.info(repository, `create file container: ${name}`)
+
+  const store = new container(repository, name)
   store.contents = contents
   store.exists = exists
 
   return store
 }
 
-const bindExtensionContainer: (repository: Repository) => ExtensionContainer = function (
+const bindExtensionContainer: (repository: Repository, name: string) => ExtensionContainer = function (
   repository,
+  name = 'anonymous',
 ): ExtensionContainer {
-  const store = new container(repository)
+  logger.info(repository, `create extension api container: ${name}`)
+
+  const store = new container(repository, name)
   store.controller = controller
 
   return store

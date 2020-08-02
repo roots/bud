@@ -16,7 +16,7 @@ const webpackHotMiddleware = require('webpack-hot-middleware');
 
 const makeMiddleware = (compiler, bud) => [webpackDevMiddleware(compiler, {
   headers: bud.options.get('dev').headers,
-  publicPath: bud.state.paths.public || '/',
+  publicPath: bud.paths.get('public') || '/',
   stats: {
     version: true,
     hash: true,
@@ -40,13 +40,13 @@ const hotSyncServer = (bud, compiler, callback) => {
     logLevel: 'silent',
     reloadOnRestart: true,
     injectFileTypes: ['js', 'css'],
-    open: true,
+    open: bud.options.get('dev').open,
     middleware: makeMiddleware(compiler, bud),
     injectChanges: true,
     watchOptions: {
       ignoreInitial: true
     },
-    files: [bud.src('**/*.js'), bud.src('**/*.js'), bud.src('*.css'), bud.src('**/*.css')]
+    files: bud.options.get('watch')
   }, callback);
 };
 /**
@@ -120,7 +120,7 @@ const useWebpack = ({
     if (progressPluginApplied) {
       if (!webpackRunning) {
         setWebpackRunning(true);
-        bud.features.enabled('watch') ? compiler.watch({}, webpackCallback) : compiler.run(webpackCallback);
+        bud.features.enabled('watch') && !bud.features.enabled('hot') ? compiler.watch({}, webpackCallback) : compiler.run(webpackCallback);
       }
     }
   }, [progressPluginApplied, bud, compiler]);

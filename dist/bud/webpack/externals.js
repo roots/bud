@@ -1,32 +1,25 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
 };
 exports.__esModule = true;
 exports.externals = void 0;
-var webpack_node_externals_1 = __importDefault(require("webpack-node-externals"));
-/**
- * Webpack externals
- */
 var externals = function (bud) { return ({
     bud: bud,
-    options: {},
     make: function () {
+        var _a;
+        this.final = this.bud.options.has('externals')
+            ? this.bud.hooks.filter('webpack_externals', this.bud.options.get('externals'))
+            : this.bud.hooks.filter('webpack_externals_fallback', false);
         /**
-         * Set externals from bud.
+         * Don't include modules when target is node.
          */
-        var externalsState = this.bud.options.get('externals');
-        if (externalsState) {
-            this.options.externals = externalsState;
-        }
-        /**
-         * When targeting node we don't want to incorporate
-         * modules in the build.
-         */
-        if (this.bud.options.get('target') == 'node') {
-            this.options.externals = [webpack_node_externals_1["default"]()];
-        }
-        return this.options;
+        return this.bud.options.is('target', 'node')
+            ? __spreadArrays(this.bud.services.nodeExternals(), this.final) : (_a = this.final) !== null && _a !== void 0 ? _a : null;
     }
 }); };
 exports.externals = externals;

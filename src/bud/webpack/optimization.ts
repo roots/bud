@@ -14,7 +14,7 @@ const optimization = (bud: Bud) => ({
     vendor: bud.features.enabled('vendor'),
   },
 
-  options: {
+  final: {
     optimization: {
       minimize: bud.features.enabled('minify'),
       removeAvailableModules: false,
@@ -24,94 +24,79 @@ const optimization = (bud: Bud) => ({
   },
 
   splitChunksOptions: {
-    cacheGroups: {
-      vendor: {
-        test: /[\\/]node_modules[\\/]/,
+    cacheGroups: bud.hooks.filter('optimization_cachegroups', {
+      vendor: bud.hooks.filter('optimization_cachegroups_vendor', {
+        test: /node_modules/,
         name: bud.options.get('vendor').name,
         chunks: 'all',
         priority: -20,
-      },
-    },
+      }),
+    }),
   },
 
   runtimeChunkOptions: {
     name: entrypoint => `runtime/${entrypoint.name}`,
   },
 
-  uglifyOptions: bud.options.get('uglify'),
+  uglifyOptions: bud.hooks.filter('optimization_uglify_options', bud.options.get('uglify')),
 
   make: function () {
-    this.whenSupported('runtimeChunk', this.setRuntimeChunk)
-    this.whenSupported('vendor', this.setSplitChunks)
-    this.whenSupported('minify', this.setMinimizer)
+    this.when(this.bud.features.enabled('inlineManifest'), this.doRuntimeChunk)
+    this.when(this.bud.features.enabled('vendor'), this.doVendor)
+    this.when(this.bud.features.enabled('minify'), this.doMinimizer)
 
-    return this.options
+    return this.bud.hooks.filter('optimization_final', this.final)
   },
 
   /**
    * Executes a callback if a given feature is enabled.
-   *
-   * @property {Function} whenSupported
-   * @parameter {string} bud.feature key
-   * @parameter {Function} callback
-   * @return {void}
    */
-  whenSupported: function (feature: string, callback: any): void {
-    this.currentCallback = callback
-    this.supports[feature] && this.currentCallback()
+  when: function (feature: boolean, callback: any): void {
+    feature && callback(this)
   },
 
   /**
    * RuntimeChunk (inline manifest) support
    */
-  setRuntimeChunk: function () {
-    this.doHook('pre_runtimechunk')
-    this.options.optimization.runtimeChunk = this.bud.hooks.filter(
-      'filter_optimization_runtime_options',
-      this.runtimeChunkOptions,
+  doRuntimeChunk: function (context) {
+    context.bud.hooks.call('pre_optimization_runtimechunk')
+
+    context.final.optimization.runtimeChunk = context.bud.hooks.filter(
+      'optimization_runtimechunk',
+      context.runtimeChunkOptions,
     )
-    this.doHook('post_runtimechunk')
+
+    context.bud.hooks.call('post_optimization_runtimechunk')
   },
 
   /**
    * Code splitting.
    */
-  setSplitChunks: function () {
-    this.doHook('pre_splitchunks')
-    this.options.optimization.splitChunks = this.bud.hooks.filter(
-      'filter_optimization_splitchunks_options',
-      this.splitChunksOptions,
+  doVendor: function (context) {
+    context.bud.hooks.call('pre_optimization_splitchunks')
+
+    context.final.optimization.splitChunks = context.bud.hooks.filter(
+      'optimization_splitchunks',
+      context.splitChunksOptions,
     )
-    this.doHook('post_splitchunks')
+
+    context.bud.hooks.call('post_optimization_splitchunks')
   },
 
   /**
    * Minimization.
    */
-  setMinimizer: function () {
-    this.doHook('pre_minimizer', this)
-    if (!this.bud.features.enabled('terser')) {
-      this.options.optimization.minimizer = this.bud.hooks.filter(
-        'filter_optimization_minimizer',
-        [this.uglify()],
+  doMinimizer: function (context) {
+    context.bud.hooks.call('pre_optimization_minimizer')
+
+    if (!context.bud.features.enabled('terser')) {
+      context.final.optimization.minimizer = context.bud.hooks.filter(
+        'optimization_minimizer',
+        [new UglifyJsPlugin(context.uglifyOptions)],
       )
     }
-    this.doHook('post_minimizer', this)
-  },
 
-  /**
-   * Uglify (terser is implemented as a webpack plugin)
-   */
-  uglify: function () {
-    this.doHook('pre_uglify', this)
-    const uglify = new UglifyJsPlugin(this.uglifyOptions)
-    this.doHook('post_uglify', this)
-
-    return uglify
-  },
-
-  doHook: function (name: any, ...params: any) {
-    this.bud.hooks.call(`webpack_optimization_${name}`, this, params)
+    context.bud.hooks.call('post_optimization_minimizer')
   },
 })
 

@@ -34,13 +34,18 @@ export declare const repositories: {
     };
     options: {
         copy: import("./types").Copy;
-        dev: any;
         dependencyManifest: import("@wordpress/dependency-extraction-webpack-plugin/build-types").Options;
+        dev: {};
         devtool: string;
         extensions: string[];
         filenameTemplate: {
             hashed: string;
             default: string;
+        };
+        headers: {
+            'Access-Control-Allow-Origin': string;
+            'Access-Control-Allow-Methods': string;
+            'Access-Control-Allow-Headers': string;
         };
         inlineManifest: {
             name: string;
@@ -92,7 +97,6 @@ export declare const repositories: {
         vendor: {
             name: string;
         };
-        watch: string[];
     };
     paths: {
         project: string;
@@ -101,16 +105,22 @@ export declare const repositories: {
         dist: string;
         public: string;
     };
-    flags: (framework: any) => {
-        mode: any;
-        hot: any;
-        watch: any;
-        host: any;
-        port: any;
-        proxy: any;
-        src: any;
-        dist: any;
-        feature: any;
+    cli: {
+        args: (framework: any) => {
+            level: unknown;
+            mode: any;
+            host: any;
+            port: any;
+            proxy: any;
+            src: any;
+            dist: any;
+            feature: any;
+        };
+        flags: {
+            log: boolean;
+            hot: boolean;
+            watch: boolean;
+        };
     };
     env: (framework: any) => import("dotenv/types").DotenvParseOutput;
     adapters: import("./plugins/types").PluginsRepo;

@@ -1,31 +1,19 @@
 import type {Bud} from './types'
-import nodeExternals from 'webpack-node-externals'
 
-/**
- * Webpack externals
- */
 const externals = (bud: Bud) => ({
   bud,
-  options: {},
+
   make: function () {
-    /**
-     * Set externals from bud.
-     */
-    const externalsState = this.bud.options.get('externals')
-
-    if (externalsState) {
-      this.options.externals = externalsState
-    }
+    this.final = this.bud.options.has('externals')
+      ? this.bud.hooks.filter('webpack_externals', this.bud.options.get('externals'))
+      : this.bud.hooks.filter('webpack_externals_fallback', false)
 
     /**
-     * When targeting node we don't want to incorporate
-     * modules in the build.
+     * Don't include modules when target is node.
      */
-    if (this.bud.options.get('target') == 'node') {
-      this.options.externals = [nodeExternals()]
-    }
-
-    return this.options
+    return this.bud.options.is('target', 'node')
+      ? [...this.bud.services.nodeExternals(), ...this.final]
+      : this.final ?? null
   },
 })
 

@@ -9,9 +9,6 @@ declare const rules: (bud: any) => {
             rules: any[];
         };
     };
-    /**
-     * Make webpack rules
-     */
     make: () => any;
 };
 export { rules };

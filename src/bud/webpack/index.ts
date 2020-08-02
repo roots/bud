@@ -13,23 +13,21 @@ import type {Bud, BuilderController, RegisteredBuilder} from './types'
 const build = (bud: Bud): BuilderController => ({
   /**
    * The bud container.
-   * @property {Bud} bud
    */
   bud,
 
   /**
-   * The webpack config to be passed to the compiler.
+   * The final webpack config.
    */
-  config: {},
+  final: {},
 
   /**
-   * Builders to handle different webpack concerns.
+   * Builders webpack concerns.
    */
   builders: [
     ['entry', entry],
     ['output', output],
     ['rules', rules],
-    ['devServer', devServer],
     ['plugins', plugins],
     ['resolve', webpackResolve],
     ['externals', externals],
@@ -37,75 +35,45 @@ const build = (bud: Bud): BuilderController => ({
   ],
 
   /**
-   * Merge a set of configuration values into the final config.
-   *
-   * @property {Function} mergeConfig
-   * @return {void}
+   * Merge values into the final config.
    */
-  mergeConfig: function (configValues): void {
-    this.config = {
-      ...this.config,
-      ...configValues,
+  merge: function (values): void {
+    this.final = {
+      ...this.final,
+      ...values,
     }
   },
 
   /**
-   * Generate config values from a builder
-   * @property {Function} makeConfig
-   * @return {object}
+   * Generate values from builders
    */
-  makeConfig: function () {
+  make: function () {
+    /**
+     * Conditionally enabled: optimization
+     */
     this.bud.features.enabled('optimize') &&
       this.builders.push(['optimization', optimization])
 
-    /** Hook: pre_webpack */
-    this.doHook('pre', this.bud.options)
+    /**
+     * Conditionally enabled: devServer
+     */
+    this.bud.options.has('dev') &&
+      this.builders.push(['devServer', devServer])
 
     /**
-     * Map builder output to bud.builder.config property.
+     * Build
      */
     this.builders.map(([name, builder]: RegisteredBuilder) => {
-      builder = this.bud.hooks.filter(`filter_webpack_${name}`, builder)
-      const builderInstance = builder(this.bud)
+      const builderFn = this.bud.hooks.filter(`webpack_builder_${name}`, builder)
+      const output = this.bud.hooks.filter(`webpack_builder_${name}_final`, builderFn(this.bud).make())
 
-      this.preBuilderHook(name, this)
-
-      this.builderOut = builderInstance.make()
-
-      this.postBuilderHook(name, this.builderOut)
-
-      this.mergeConfig(this.builderOut)
-
-      delete this.builderOut
+      output && this.merge(output)
     })
 
-    /** Hook: post_webpack */
-    this.doHook('post', this.config)
-
-    return this.config
-  },
-
-  /**
-   * Top level hooks.
-   */
-  doHook: function (name, ...params) {
-    this.bud.hooks.call(`${name}_webpack`, params)
-  },
-
-  /**
-   * pre_{builder} hooks.
-   * @property {Function} preBuilderHook
-   */
-  preBuilderHook: function (name: string, ...params) {
-    this.bud.hooks.call(`pre_${name}`, params)
-  },
-
-  /**
-   * post_{builder} hooks.
-   * @property {Function} preBuilderHook
-   */
-  postBuilderHook: function (name: string, ...params) {
-    this.bud.hooks.call(`post_${name}`, params)
+    /**
+     * Return final config object
+     */
+    return this.bud.hooks.filter('webpack_final', this.final)
   },
 })
 

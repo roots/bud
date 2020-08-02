@@ -9,7 +9,7 @@ declare const general: (bud: Bud) => {
     options: {
         context: any;
         devtool: any;
-        mode: "none" | "development" | "production";
+        mode: any;
         target: any;
         watch: any;
     };

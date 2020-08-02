@@ -4,8 +4,8 @@ import {typescript} from './js/typescript'
 import {vue} from './js/vue'
 
 import {css} from './css/css'
-import {module as cssModule} from './css/module'
 import {scss} from './scss/scss'
+import {module as cssModule} from './css/module'
 import {module as scssModule} from './scss/module'
 
 import {font} from './font'
@@ -25,13 +25,7 @@ const rules = bud => ({
     },
   },
 
-  /**
-   * Make webpack rules
-   */
   make: function () {
-    /*     this.bud.options.target == 'node' &&
-      this.options.module.rules.push({test: patterns.js, loader: loaders.shebang})
- */
     this.bud.features.enabled('typescript') &&
       this.options.module.rules.push(typescript(this.bud).make())
 

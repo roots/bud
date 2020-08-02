@@ -3,6 +3,7 @@ interface Loose {
     [key: string]: any;
 }
 interface ContainerInterface extends Loose {
+    name: string;
     repository: Repository;
     new: (this: Container, key: string, repository: Repository) => void;
     get: (this: Container, key: string) => any;
@@ -28,10 +29,10 @@ interface ExtensionContainer extends ContainerInterface {
 }
 declare type Container = ContainerInterface;
 declare type FileContainer = FileContainerInterface;
-declare const container: (this: Container, repository: Repository) => void;
-declare const bindContainer: (repository: Repository) => Container;
-declare const bindFileContainer: (repository: Repository) => FileContainer;
-declare const bindExtensionContainer: (repository: Repository) => ExtensionContainer;
+declare const container: (this: Container, repository: Repository, name?: string) => void;
+declare const bindContainer: (repository: Repository, name: string) => Container;
+declare const bindFileContainer: (repository: Repository, name: string) => FileContainer;
+declare const bindExtensionContainer: (repository: Repository, name: string) => ExtensionContainer;
 export { container, bindContainer, bindFileContainer, bindExtensionContainer };
 export type { Container, FileContainer, ExtensionContainer, Repository };
 //# sourceMappingURL=index.d.ts.map

@@ -6,13 +6,13 @@ var babelFallback = {
     plugins: []
 };
 var babel = function (configs) {
-    return configs.has('babel') ? configs.contents('babel') : babelFallback;
+    return configs.has('babel') ? configs.require('babel') : babelFallback;
 };
 exports.babel = babel;
 var browserSync = function (flags) { return ({
-    host: flags.get('host'),
-    port: flags.get('port'),
-    proxy: flags.get('proxy'),
+    host: flags.has('host') ? flags.get('host') : 'localhost',
+    port: flags.get('port') ? flags.get('port') : 3000,
+    proxy: flags.get('proxy') ? flags.get('proxy') : 'localhost',
     online: false,
     open: false
 }); };
@@ -25,16 +25,9 @@ var dependencyManifest = {
     outputFormat: 'json',
     useDefaults: true
 };
-var watch = [];
-var dev = {
-    disableHostCheck: true,
-    host: 'localhost',
-    headers: {},
-    proxy: {}
-};
 var postCss = function (configs) {
     var fallback = { plugins: [] };
-    return configs.has('postCss') ? configs.contents('postCss') : fallback;
+    return configs.has('postCss') ? configs.require('postCss') : fallback;
 };
 exports.postCss = postCss;
 var target = 'web';
@@ -61,22 +54,25 @@ var terser = {
     cache: true,
     parallel: true
 };
-var typescript = function (configs) {
-    return configs.has('typescript') ? configs.contents('typescript') : {};
-};
+var typescript = function (configs) { return configs.has('typescript') ? configs.require('typescript') : null; };
 exports.typescript = typescript;
 /**
  * Options container.
  */
 var options = {
     copy: copy,
-    dev: dev,
     dependencyManifest: dependencyManifest,
+    dev: {},
     devtool: 'source-map',
     extensions: ['.js', '.json'],
     filenameTemplate: {
-        hashed: "[name].[hash:8]",
+        hashed: '[name].[hash:8]',
         "default": '[name]'
+    },
+    headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+        'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization'
     },
     inlineManifest: {
         name: 'runtime'
@@ -104,8 +100,7 @@ var options = {
             }
         }
     },
-    vendor: { name: 'vendor' },
-    watch: watch
+    vendor: { name: 'vendor' }
 };
 exports.options = options;
 //# sourceMappingURL=options.js.map

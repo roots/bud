@@ -1,9 +1,9 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
-import type {WebpackAdapter} from './types'
 
 const miniCssExtract = {
   setOptions: function () {
     return {
+      hot: this.bud.features.enabled('hot'),
       filename: this.bud.features.enabled('hash')
         ? `${this.bud.options.get('filenameTemplate').hashed}.css`
         : `${this.bud.options.get('filenameTemplate').default}.css`,

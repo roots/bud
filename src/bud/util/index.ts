@@ -20,3 +20,6 @@ export const util: Util = {
   terminate,
   usedExt,
 }
+
+export {nodeExternals} from './nodeExternals'
+export {logger} from './logger'

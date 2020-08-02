@@ -4,46 +4,31 @@ import {compileSafeMode} from './renderSafeMode'
 import type {Bud} from './types'
 import type {WebpackConfig} from './types'
 
-/**
- * Compiler
- */
 const compiler = (bud: Bud): void => {
+  bud.hooks.call('pre_compiler')
+
   /**
    * Use bud's default dashboard when enabled
    */
   const dashboardEnabled: boolean = bud.features.enabled('dashboard')
 
   /**
-   * Dump config to stdout close process before build when enabled
-   */
-  const dumpEnabled: boolean = bud.features.enabled('dump')
-
-  /**
-   * Pre-configuration hook
-   */
-  bud.hooks.call('pre_config', bud)
-
-  /**
    * webpack configuration
    */
-  const compiledConfig: WebpackConfig = build(bud).makeConfig()
+  const compiledConfig: WebpackConfig = build(bud).make()
 
-  /**
-   * Post-configuration hook (finalizes webpack configuration)
-   */
-  bud.hooks.call('post_config', compiledConfig)
-
-  /**
-   * Dump if dumpEnabled conditional check is true
-   */
-  dumpEnabled && bud.util.dump(compiledConfig)
+  bud.hooks.call('pre_dashboard')
 
   /**
    * Run compiler.
    */
   dashboardEnabled
     ? renderCompilerDashboard(bud, compiledConfig) // enabled: bud compiler
-    : compileSafeMode(bud, compiledConfig) // disabled: more standard stats output
+    : compileSafeMode(bud, compiledConfig) // disabled: simple stats output
+
+  bud.hooks.call('post_dashboard')
+
+  bud.hooks.call('post_compiler')
 }
 
 export {compiler}

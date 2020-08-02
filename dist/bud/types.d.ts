@@ -18,6 +18,12 @@ declare type Bud = {
      */
     hooks: Hooks;
     /**
+     * ## bud.logger
+     *
+     * Debug logger
+     */
+    logger: any;
+    /**
      * ## bud.util
      *
      * Helper functions.

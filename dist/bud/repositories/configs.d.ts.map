@@ -1,1 +1,1 @@
-{"version":3,"file":"configs.d.ts","sourceRoot":"","sources":["../../../src/bud/repositories/configs.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAC,UAAU,EAAC,MAAM,cAAc,CAAA;AAqC5C,QAAA,MAAM,OAAO,EAAE,CAAC,SAAS,EAAE,GAAG,KAAK,UAalC,CAAA;AAED,OAAO,EAAC,OAAO,EAAC,CAAA"}
+{"version":3,"file":"configs.d.ts","sourceRoot":"","sources":["../../../src/bud/repositories/configs.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAC,UAAU,EAAC,MAAM,cAAc,CAAA;AAqC5C,QAAA,MAAM,OAAO,EAAE,CAAC,SAAS,EAAE,GAAG,KAAK,UAclC,CAAA;AAED,OAAO,EAAC,OAAO,EAAC,CAAA"}

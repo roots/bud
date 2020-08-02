@@ -5,21 +5,15 @@ import {shortCircuit} from './shortCircuit'
 
 /**
  * Dump a prettified, syntax-highlighted object
- *
- * @type {Dump}
- * @param {Object} obj - object to inspect
  */
-const dump: Dump = (obj: Object) => {
-  const normalizedConfigString: string = JSON.stringify(obj, shortCircuit())
+const dump: Dump = (obj: any, prettierOptions?: object) => {
+  const prettierConfig = prettierOptions ?? {parser: 'json'}
 
-  const prettifiedConfigString: string = format(normalizedConfigString, {
-    parser: 'json',
-  })
+  const normalizedString: string = JSON.stringify(obj, shortCircuit())
+  const prettifiedString: string = format(normalizedString, prettierConfig)
+  const highlightedConfig: string = highlight(prettifiedString)
 
-  const highlightedConfigString: string = highlight(prettifiedConfigString)
-
-  console.log(highlightedConfigString)
-  process.exit()
+  console.log(highlightedConfig)
 }
 
 export {dump}

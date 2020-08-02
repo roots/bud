@@ -1,20 +1,6 @@
-/**
- * Font module rules
- *
- * @typedef {function} font
- * @return {object}
- */
-declare const font: (builder: any) => {
-    builder: any;
-    make: () => {
-        test: RegExp;
-        use: {
-            loader: string;
-            options: {
-                name: string;
-            };
-        }[];
-    };
+declare const font: (bud: any) => {
+    bud: any;
+    make: () => any;
 };
 export { font };
 //# sourceMappingURL=font.d.ts.map

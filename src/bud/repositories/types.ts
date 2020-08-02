@@ -69,6 +69,9 @@ export type {Features}
 type Flags = Container
 export type {Flags}
 
+type Args = Container
+export type {Args}
+
 /**
  * ## bud.state.config
  */
