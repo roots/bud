@@ -36,9 +36,8 @@ var configFiles = [
     },
 ];
 var configs = function (framework) {
-    var fs = framework.fs;
-    var paths = framework.paths;
     var repository = {};
+    var fs = framework.fs, paths = framework.paths;
     configFiles.forEach(function (_a) {
         var name = _a.name, filename = _a.filename;
         var projectPath = fs.path.join(paths.get('project'), filename);

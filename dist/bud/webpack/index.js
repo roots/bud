@@ -40,6 +40,7 @@ var build = function (bud) { return ({
         ['plugins', plugins_1.plugins],
         ['resolve', webpackResolve_1.webpackResolve],
         ['externals', externals_1.externals],
+        ['devServer', devServer_1.devServer],
         ['general', general_1.general],
     ],
     /**
@@ -58,11 +59,6 @@ var build = function (bud) { return ({
          */
         this.bud.features.enabled('optimize') &&
             this.builders.push(['optimization', optimization_1.optimization]);
-        /**
-         * Conditionally enabled: devServer
-         */
-        this.bud.options.has('dev') &&
-            this.builders.push(['devServer', devServer_1.devServer]);
         /**
          * Build
          */

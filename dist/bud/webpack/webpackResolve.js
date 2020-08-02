@@ -2,57 +2,52 @@
 exports.__esModule = true;
 exports.webpackResolve = void 0;
 var path_1 = require("path");
-/**
- * Webpack resolvers.
- *
- * @param {Bud} bud
- * @return {object}
- */
 var webpackResolve = function (bud) { return ({
     bud: bud,
-    options: {
+    target: {
         resolve: {
-            extensions: bud.hooks.filter('filter_webpack_resolve_extensions', bud.options.get('extensions')),
+            extensions: bud.options.get('extensions'),
             modules: [bud.project('node_modules'), bud.src()]
         }
     },
     make: function () {
         /**
-         * Resolve modules from framework
-         */
-        if (!this.bud.paths.is('project', this.bud.paths.get('framework'))) {
-            this.options.resolve.modules.push(path_1.join(this.bud.paths.get('framework'), 'node_modules'));
-        }
-        /**
-         * JSX support
-         */
-        if (this.bud.features.enabled('jsx') &&
-            !this.options.resolve.extensions.includes('.jsx')) {
-            this.options.resolve.extensions.push('.jsx');
-        }
-        /**
-         * Vue support
-         */
-        if (this.bud.features.enabled('vue') &&
-            !this.options.resolve.extensions.includes('.vue')) {
-            this.options.resolve.extensions.push('.vue');
-        }
-        /**
-         * TS support
-         */
-        if (this.bud.features.enabled('typescript') &&
-            !(this.options.resolve.extensions.includes('.ts') ||
-                this.options.resolve.extensions.includes('.tsx'))) {
-            this.options.resolve.extensions.push('.ts');
-            this.options.resolve.extensions.push('.tsx');
-        }
-        /**
          * Alias resolution
          */
         if (this.bud.options.has('alias')) {
-            this.options.resolve.alias = this.bud.options.get('alias');
+            this.target.resolve.alias = this.bud.options.get('alias');
         }
-        return this.bud.hooks.filter('filter_webpack_resolve', this.options);
+        /**
+         * Resolve framework node_modules
+         */
+        this.target.resolve.modules.push(path_1.join(this.bud.paths.get('framework'), 'node_modules'));
+        /**
+         * Ensure bundle support
+         */
+        var binding = this;
+        new Array('ts', 'tsx', 'jsx', 'vue', 'scss')
+            .forEach(function (ext) { return binding.ensureSupport(ext); });
+        /**
+         * Filter, log & return
+         */
+        this.target = this.bud.hooks.filter('webpack.resolve', this.target);
+        this.bud.logger.info({ name: 'webpack.resolve', value: this.target }, "webpack.resolve has been generated");
+        return this.target;
+    },
+    /**
+     * Ensure extensions supported
+     */
+    ensureSupport: function (ext) {
+        if (!this.bud.features.enabled(ext)) {
+            return;
+        }
+        var missedExt = this.target.resolve.extensions
+            .filter(function (supported) { return supported !== ext; })
+            .length < 1;
+        if (missedExt) {
+            this.target.resolve.extensions.push("." + ext);
+            this.bud.logger.warn({ name: 'webpack.resolve' }, "." + ext + " support added by support check.");
+        }
     }
 }); };
 exports.webpackResolve = webpackResolve;

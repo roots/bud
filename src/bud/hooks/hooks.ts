@@ -60,9 +60,9 @@ const hooks = (logger): Hooks => ({
 
     if (this.registered[name]) {
       this.registered[name].forEach(function (hook) {
-        logger.info(hook, `[action] [execute] ${name}`)
         param ? hook.fn(param, bud) : hook.fn(bud)
         hook.fired = true
+        logger.info({name: 'hook', hook}, `executed ${name}`)
       })
     }
   },
@@ -74,9 +74,9 @@ const hooks = (logger): Hooks => ({
 
     if (this.registered[name]) {
       this.registered[name].forEach(function (hook) {
-        const res = hook.fn(value)
-        logger.info(hook, `[filter] [execute] ${hook.name}`)
+        hook.fn(value)
         hook.fired = true
+        logger.info({name: 'hook', hook}, `filtered ${hook.name}`)
       })
     }
 

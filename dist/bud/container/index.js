@@ -36,7 +36,7 @@ var contents = function (key) {
     return require(this.get(key));
 };
 var set = function (key, value) {
-    logger_1.logger.info({ value: value }, "[container] set " + key + " on " + this.name);
+    logger_1.logger.info({ name: 'container', key: key, value: value }, this.name + ".set");
     this.repository[key] = value;
 };
 var has = function (key) {
@@ -54,11 +54,11 @@ var exists = function (key) {
     return fs_extra_1.existsSync(this.repository[key]);
 };
 var enable = function (key) {
-    logger_1.logger.info("set " + key + " on " + this.name + " to true");
+    logger_1.logger.info({ name: 'container', key: key, value: true }, this.name + ".enable");
     this.repository[key] = true;
 };
 var disable = function (key) {
-    logger_1.logger.info("set " + key + " on " + this.name + " to false");
+    logger_1.logger.info({ name: 'container', key: key, value: false }, this.name + ".disable");
     this.repository[key] = false;
 };
 var enabled = function (key) {
@@ -99,13 +99,13 @@ var container = function (repository, name) {
 exports.container = container;
 var bindContainer = function (repository, name) {
     if (name === void 0) { name = 'anonymous'; }
-    logger_1.logger.info(repository, "create container: " + name);
+    logger_1.logger.info({ name: 'container', repository: repository }, "create container: " + name);
     return new container(repository, name);
 };
 exports.bindContainer = bindContainer;
 var bindFileContainer = function (repository, name) {
     if (name === void 0) { name = 'anonymous'; }
-    logger_1.logger.info(repository, "create file container: " + name);
+    logger_1.logger.info({ name: 'container', repository: repository }, "create file container: " + name);
     var store = new container(repository, name);
     store.contents = contents;
     store.exists = exists;
@@ -114,7 +114,7 @@ var bindFileContainer = function (repository, name) {
 exports.bindFileContainer = bindFileContainer;
 var bindExtensionContainer = function (repository, name) {
     if (name === void 0) { name = 'anonymous'; }
-    logger_1.logger.info(repository, "create extension api container: " + name);
+    logger_1.logger.info({ name: 'container', repository: repository }, "create extension api container: " + name);
     var store = new container(repository, name);
     store.controller = controller_1.controller;
     return store;

@@ -2,6 +2,7 @@
 var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+var _this = this;
 exports.__esModule = true;
 exports.renderCompilerDashboard = void 0;
 var webpack_1 = __importDefault(require("webpack"));
@@ -15,6 +16,10 @@ var injectHot = function (webpackConfig, overlay, reload) {
     var client = "webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=" + reload + "&overlay=" + overlay;
     Object.keys(webpackConfig.entry).forEach(function (entry) {
         webpackConfig.entry[entry] = [client].concat(webpackConfig.entry[entry]);
+        _this.bud.logger.info({
+            name: 'compiler.injectHot',
+            value: webpackConfig.entry[entry]
+        }, "injecting hot middleware");
     });
     return webpackConfig;
 };

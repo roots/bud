@@ -55,7 +55,7 @@ const contents = function (key: string): any | null {
 }
 
 const set = function (key: string, value: any) {
-  logger.info({value}, `[container] set ${key} on ${this.name}`)
+  logger.info({name: 'container', key, value}, `${this.name}.set`)
 
   this.repository[key] = value
 }
@@ -81,13 +81,13 @@ const exists = function (key: string): boolean {
 }
 
 const enable = function (key: string): void {
-  logger.info(`set ${key} on ${this.name} to true`)
+  logger.info({name: 'container', key, value: true}, `${this.name}.enable`)
 
   this.repository[key] = true
 }
 
 const disable = function (key: string): void {
-  logger.info(`set ${key} on ${this.name} to false`)
+  logger.info({name: 'container', key, value: false}, `${this.name}.disable`)
 
   this.repository[key] = false
 }
@@ -134,7 +134,7 @@ const bindContainer: (
   repository,
   name = 'anonymous',
 ): Container {
-  logger.info(repository, `create container: ${name}`)
+  logger.info({name: 'container', repository}, `create container: ${name}`)
 
   return new container(repository, name)
 }
@@ -143,7 +143,7 @@ const bindFileContainer: (repository: Repository, name: string) => FileContainer
   repository,
   name = 'anonymous',
 ): FileContainer {
-  logger.info(repository, `create file container: ${name}`)
+  logger.info({name: 'container', repository}, `create file container: ${name}`)
 
   const store = new container(repository, name)
   store.contents = contents
@@ -156,7 +156,7 @@ const bindExtensionContainer: (repository: Repository, name: string) => Extensio
   repository,
   name = 'anonymous',
 ): ExtensionContainer {
-  logger.info(repository, `create extension api container: ${name}`)
+  logger.info({name: 'container', repository}, `create extension api container: ${name}`)
 
   const store = new container(repository, name)
   store.controller = controller

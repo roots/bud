@@ -7,11 +7,13 @@ exports.devServer = void 0;
  */
 var devServer = function (bud) { return ({
     bud: bud,
-    options: {
+    target: {
         devServer: bud.options.get('dev')
     },
     make: function () {
-        return this.bud.hooks.filter('filter_dev_final', this.options);
+        this.target = this.bud.hooks.filter('webpack_devServer', this.target);
+        this.bud.logger.info({ name: 'webpack.devServer', value: this.target }, "webpack.devServer has been generated");
+        return this.target;
     }
 }); };
 exports.devServer = devServer;

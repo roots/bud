@@ -8,7 +8,7 @@ import type {Bud} from './types'
 const general = (bud: Bud) => ({
   bud,
 
-  options: {
+  target: {
     context: bud.hooks.filter('webpack_context', bud.paths.get('project')),
     devtool: bud.hooks.filter('webpack_devtool', bud.features.enabled('sourceMap') ? bud.options.get('devtool') : false),
     mode: bud.hooks.filter('webpack_mode', bud.mode),
@@ -23,7 +23,7 @@ const general = (bud: Bud) => ({
      * intended for the browser..
      */
     if (this.bud.options.is('target', 'web')) {
-      this.options.node = this.bud.hooks.filter('webpack_node', {
+      this.target.node = this.bud.hooks.filter('webpack_node', {
         module: 'empty',
         dgram: 'empty',
         dns: 'mock',
@@ -35,7 +35,11 @@ const general = (bud: Bud) => ({
       })
     }
 
-    return this.bud.hooks.filter('webpack_general_final', this.options)
+    this.target = this.bud.hooks.filter('webpack_general', this.target)
+    this.bud.logger.info(
+      {name: 'webpack_general', ...this.target}, `webpack general config has been generated`
+    )
+    return this.target
   },
 })
 

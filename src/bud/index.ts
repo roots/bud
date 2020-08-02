@@ -36,6 +36,14 @@ const bootstrap = function () {
   this.framework.args = this.store(this.repositories.cli.args(this.framework), 'bud.args')
 
   this.framework.hooks = hooks(this.logger).init(this.framework)
+  this.framework.mode = this.framework.args.get('mode')
+  this.framework.inProduction = this.framework.args.is('mode', 'production')
+  this.framework.inDevelopment = this.framework.args.is('mode', 'development')
+
+  /**
+   * Node process
+   */
+  this.framework.process = util.processHandler(this.framework)
 
   /**
    * API methods.
@@ -43,7 +51,10 @@ const bootstrap = function () {
   Object.values(api).forEach((method: any) => {
     this.framework[method.name] = method
 
-    this.framework.logger.info(`[api] bootstrapped bud.${method.name}`)
+    this.framework.logger.info(
+      {name: 'bootstrap'},
+      `bootstrapped api method: bud.${method.name}`
+    )
   })
 
   /**
@@ -60,13 +71,6 @@ const bootstrap = function () {
   this.framework.options.set('postCss', postCss(this.framework.configs))
   this.framework.options.set('browserSync', browserSync(this.framework.flags))
   this.framework.options.set('typescript', typescript(this.framework.configs))
-
-  /**
-   * Accessors.
-   */
-  this.framework.mode = this.framework.args.get('mode')
-  this.framework.inProduction = this.framework.args.is('mode', 'production')
-  this.framework.inDevelopment = this.framework.args.is('mode', 'development')
 }
 
 export {bootstrap}

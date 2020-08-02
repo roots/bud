@@ -13,6 +13,11 @@ const injectHot = (webpackConfig: WebpackConfig, overlay: boolean, reload: boole
 
   Object.keys(webpackConfig.entry).forEach(entry => {
     webpackConfig.entry[entry] = [client].concat(webpackConfig.entry[entry])
+
+    this.bud.logger.info({
+      name: 'compiler.injectHot',
+      value: webpackConfig.entry[entry]
+    }, `injecting hot middleware`)
   })
 
   return webpackConfig

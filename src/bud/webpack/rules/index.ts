@@ -19,48 +19,115 @@ import {svg} from './svg'
 const rules = bud => ({
   bud,
 
-  options: {
+  target: {
     module: {
       rules: [],
     },
   },
 
   make: function () {
-    this.bud.features.enabled('typescript') &&
-      this.options.module.rules.push(typescript(this.bud).make())
+    if (this.bud.features.enabled('typescript')) {
+      this.target.module.rules.push(typescript(this.bud).make())
 
-    this.bud.features.enabled('vue') &&
-      this.options.module.rules.push(vue(this.bud).make())
+      this.bud.logger.info(
+        {name: 'webpack.rules'},
+        `using ts-loader`
+      )
+    }
 
-    this.bud.features.enabled('eslint') &&
-      !this.bud.features.enabled('typescript') &&
-      this.options.module.rules.push(eslint(this.bud).make())
+    if (this.bud.features.enabled('vue')) {
+      this.target.module.rules.push(vue(this.bud).make())
 
-    this.bud.features.enabled('babel') &&
-      this.options.module.rules.push(babel(this.bud).make())
+      this.bud.logger.info(
+        {name: 'webpack.rules'},
+        `using vue-loader`
+      )
+    }
 
-    this.bud.features.enabled('css') &&
-      this.options.module.rules.push(css(this.bud).make())
+    if (this.bud.features.enabled('eslint')
+    && !this.bud.features.enabled('typescript')) {
+      this.target.module.rules.push(eslint(this.bud).make())
 
-    this.bud.features.enabled('cssModules') &&
-      this.options.module.rules.push(cssModule(this.bud).make())
+      this.bud.logger.info(
+        {name: 'webpack.rules'},
+        `using eslint-loader`
+      )
+    }
 
-    this.bud.features.enabled('scss') &&
-      this.options.module.rules.push(scss(this.bud).make())
+    if (this.bud.features.enabled('babel')) {
+      this.target.module.rules.push(babel(this.bud).make())
 
-    this.bud.features.enabled('scssModules') &&
-      this.options.module.rules.push(scssModule(this.bud).make())
+      this.bud.logger.info(
+        {name: 'webpack.rules'},
+        `using babel-loader`
+      )
+    }
 
-    this.bud.features.enabled('font') &&
-      this.options.module.rules.push(font(this.bud).make())
+    if (this.bud.features.enabled('css')) {
+      this.target.module.rules.push(css(this.bud).make())
 
-    this.bud.features.enabled('image') &&
-      this.options.module.rules.push(image(this.bud).make())
+      this.bud.logger.info(
+        {name: 'webpack.rules'},
+        `using css-loader`
+      )
+    }
 
-    this.bud.features.enabled('svg') &&
-      this.options.module.rules.push(svg(this.bud).make())
+    if (this.bud.features.enabled('cssModules')) {
+      this.target.module.rules.push(cssModule(this.bud).make())
 
-    return this.options
+      this.bud.logger.info(
+        {name: 'webpack.rules'},
+        `supporting css modules`
+      )
+    }
+
+    if (this.bud.features.enabled('scss')) {
+      this.target.module.rules.push(scss(this.bud).make())
+
+      this.bud.logger.info(
+        {name: 'webpack.rules'},
+        `using sass-loader`
+      )
+    }
+
+    if (this.bud.features.enabled('scssModules')) {
+      this.target.module.rules.push(scssModule(this.bud).make())
+
+      this.bud.logger.info(
+        {name: 'webpack.rules'},
+        `supporting scss modules`
+      )
+    }
+
+    if (this.bud.features.enabled('font')) {
+      this.target.module.rules.push(font(this.bud).make())
+
+      this.bud.logger.info(
+        {name: 'webpack.rules'},
+        `supporting font files with file-loader`
+      )
+    }
+
+    if (this.bud.features.enabled('image')) {
+      this.target.module.rules.push(image(this.bud).make())
+
+      this.bud.logger.info(
+        {name: 'webpack.rules'},
+        `supporting image files with file-loader`
+      )
+    }
+
+    if (this.bud.features.enabled('svg')) {
+      this.target.module.rules.push(svg(this.bud).make())
+
+      this.bud.logger.info(
+        {name: 'webpack.rules'},
+        `supporting svg files with @svgr`
+      )
+    }
+
+    this.target = this.bud.hooks.filter('webpack.rules', this.target)
+    return this.target
   },
 })
 

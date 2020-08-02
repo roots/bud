@@ -23,13 +23,17 @@ var purge = function (_a) {
     var _b = _a.enabled, enabled = _b === void 0 ? true : _b, options = __rest(_a, ["enabled"]);
     var purgeEnabled = enabled !== null && enabled !== void 0 ? enabled : true;
     purgeEnabled && this.features.enable('purge');
-    if (this.features.enabled('purge')) {
-        this.options.set('postCss', {
-            plugins: __spreadArrays(this.options.get('postCss').plugins, [
-                require('@fullhuman/postcss-purgecss')(options),
-            ])
-        });
+    if (!this.features.enabled('purge')) {
+        this.logger.info({ name: 'api' }, 'bud.purge called but it is not enabled on this build');
+        return this;
     }
+    var value = {
+        plugins: __spreadArrays(this.options.get('postCss').plugins, [
+            require('@fullhuman/postcss-purgecss')(options),
+        ])
+    };
+    this.options.set('postCss', value);
+    this.logger.info({ name: 'api', value: value }, 'bud.purge called');
     return this;
 };
 exports.purge = purge;

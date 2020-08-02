@@ -31,6 +31,7 @@ const build = (bud: Bud): BuilderController => ({
     ['plugins', plugins],
     ['resolve', webpackResolve],
     ['externals', externals],
+    ['devServer', devServer],
     ['general', general],
   ],
 
@@ -53,12 +54,6 @@ const build = (bud: Bud): BuilderController => ({
      */
     this.bud.features.enabled('optimize') &&
       this.builders.push(['optimization', optimization])
-
-    /**
-     * Conditionally enabled: devServer
-     */
-    this.bud.options.has('dev') &&
-      this.builders.push(['devServer', devServer])
 
     /**
      * Build

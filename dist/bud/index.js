@@ -34,12 +34,19 @@ var bootstrap = function () {
     this.framework.env = this.store(this.repositories.env(this.framework), 'bud.env');
     this.framework.args = this.store(this.repositories.cli.args(this.framework), 'bud.args');
     this.framework.hooks = hooks_1.hooks(this.logger).init(this.framework);
+    this.framework.mode = this.framework.args.get('mode');
+    this.framework.inProduction = this.framework.args.is('mode', 'production');
+    this.framework.inDevelopment = this.framework.args.is('mode', 'development');
+    /**
+     * Node process
+     */
+    this.framework.process = util_1.util.processHandler(this.framework);
     /**
      * API methods.
      */
     Object.values(api_1.api).forEach(function (method) {
         _this.framework[method.name] = method;
-        _this.framework.logger.info("[api] bootstrapped bud." + method.name);
+        _this.framework.logger.info({ name: 'bootstrap' }, "bootstrapped api method: bud." + method.name);
     });
     /**
      * Features and options.
@@ -54,12 +61,6 @@ var bootstrap = function () {
     this.framework.options.set('postCss', options_1.postCss(this.framework.configs));
     this.framework.options.set('browserSync', options_1.browserSync(this.framework.flags));
     this.framework.options.set('typescript', options_1.typescript(this.framework.configs));
-    /**
-     * Accessors.
-     */
-    this.framework.mode = this.framework.args.get('mode');
-    this.framework.inProduction = this.framework.args.is('mode', 'production');
-    this.framework.inDevelopment = this.framework.args.is('mode', 'development');
 };
 exports.bootstrap = bootstrap;
 //# sourceMappingURL=index.js.map

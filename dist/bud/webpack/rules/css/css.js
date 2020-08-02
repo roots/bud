@@ -45,9 +45,9 @@ var css = function (bud) { return ({
             test: this.test,
             use: this.use
         };
-        this.bud.hooks.call('post_css', {
-            output: this.output
-        });
+        this.output = this.bud.hooks.filter('post_css', this.output);
+        this.bud.logger.info({ name: 'webpack.rules', value: this.output.test }, "css test");
+        this.bud.logger.info({ name: 'webpack.rules', value: this.output.use }, "css use");
         return this.output;
     }
 }); };

@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 exports.__esModule = true;
 exports.general = void 0;
 /**
@@ -8,7 +19,7 @@ exports.general = void 0;
  */
 var general = function (bud) { return ({
     bud: bud,
-    options: {
+    target: {
         context: bud.hooks.filter('webpack_context', bud.paths.get('project')),
         devtool: bud.hooks.filter('webpack_devtool', bud.features.enabled('sourceMap') ? bud.options.get('devtool') : false),
         mode: bud.hooks.filter('webpack_mode', bud.mode),
@@ -22,7 +33,7 @@ var general = function (bud) { return ({
          * intended for the browser..
          */
         if (this.bud.options.is('target', 'web')) {
-            this.options.node = this.bud.hooks.filter('webpack_node', {
+            this.target.node = this.bud.hooks.filter('webpack_node', {
                 module: 'empty',
                 dgram: 'empty',
                 dns: 'mock',
@@ -33,7 +44,9 @@ var general = function (bud) { return ({
                 child_process: 'empty'
             });
         }
-        return this.bud.hooks.filter('webpack_general_final', this.options);
+        this.target = this.bud.hooks.filter('webpack_general', this.target);
+        this.bud.logger.info(__assign({ name: 'webpack_general' }, this.target), "webpack general config has been generated");
+        return this.target;
     }
 }); };
 exports.general = general;

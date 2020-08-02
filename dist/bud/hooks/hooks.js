@@ -53,9 +53,9 @@ var hooks = function (logger) { return ({
         this.called.push(name);
         if (this.registered[name]) {
             this.registered[name].forEach(function (hook) {
-                logger.info(hook, "[action] [execute] " + name);
                 param ? hook.fn(param, bud) : hook.fn(bud);
                 hook.fired = true;
+                logger.info({ name: 'hook', hook: hook }, "executed " + name);
             });
         }
     },
@@ -64,9 +64,9 @@ var hooks = function (logger) { return ({
         this.called.push(name);
         if (this.registered[name]) {
             this.registered[name].forEach(function (hook) {
-                var res = hook.fn(value);
-                logger.info(hook, "[filter] [execute] " + hook.name);
+                hook.fn(value);
                 hook.fired = true;
+                logger.info({ name: 'hook', hook: hook }, "filtered " + hook.name);
             });
         }
         return value;

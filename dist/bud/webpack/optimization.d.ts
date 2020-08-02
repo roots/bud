@@ -10,7 +10,7 @@ declare const optimization: (bud: Bud) => {
         runtimeChunk: any;
         vendor: any;
     };
-    final: {
+    target: {
         optimization: {
             minimize: any;
             removeAvailableModules: boolean;

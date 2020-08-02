@@ -36,9 +36,8 @@ const configFiles = [
 ]
 
 const configs: (framework: any) => Repository = framework => {
-  const fs = framework.fs
-  const paths = framework.paths
   const repository = {}
+  const {fs, paths} = framework
 
   configFiles.forEach(({name, filename}) => {
     const projectPath = fs.path.join(paths.get('project'), filename)

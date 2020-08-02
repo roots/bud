@@ -28,15 +28,11 @@ const controller = (bud: Bud): Controller => ({
    * Bind plugin props
    */
   bindPluginProps: function (): void {
-    this.doPluginHook('pre_bind')
-
     this.ensurePluginProp('bud', this.bud)
     this.ensurePluginProp('options', this.bud.util.fab.undefined())
     this.ensurePluginProp('setOptions', this.bud.util.fab.undefined)
     this.ensurePluginProp('mergeOptions', this.bud.util.fab.undefined)
     this.ensurePluginProp('when', this.bud.util.fab.true)
-
-    this.doPluginHook('post_bind')
   },
 
   /**
@@ -109,11 +105,9 @@ const controller = (bud: Bud): Controller => ({
 
   /**
    * Do plugin hook.
-   * @property {function} doPluginHook
-   * @return   {void}
    */
-  doPluginHook: function (hook, ...params): void {
-    this.bud.hooks.call(`${hook}_${this.name}`, this.plugin, ...params)
+  doPluginHook: function (hook): void {
+    this.bud.hooks.call(`${hook}_${this.name}`)
   },
 })
 

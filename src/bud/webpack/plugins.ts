@@ -5,12 +5,23 @@ const plugins = (bud: Bud) => ({
   adapters: bud.adapters.entries(),
   controller: bud.adapters.controller(bud),
 
-  make: function () {
-    this.adapters = this.adapters.map(adapter => this.controller.build(adapter))
+  target: {
+    plugins: [],
+  },
 
-    return {
-      plugins: this.adapters.filter(adapter => adapter),
-    }
+  make: function () {
+    this.target.plugins = this.adapters
+      .map(adapter => this.controller.build(adapter))
+      .filter(adapter => adapter)
+
+    this.target = this.bud.hooks.filter(
+      'webpack.plugins',
+      this.target
+    )
+    this.bud.logger.info(
+      {name: 'webpack.plugins', value: this.target}, `generated`
+    )
+    return this.target
   },
 })
 

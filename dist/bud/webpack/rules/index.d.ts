@@ -4,7 +4,7 @@
  */
 declare const rules: (bud: any) => {
     bud: any;
-    options: {
+    target: {
         module: {
             rules: any[];
         };

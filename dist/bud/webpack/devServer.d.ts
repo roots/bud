@@ -5,7 +5,7 @@ import type { Bud } from './types';
  */
 declare const devServer: (bud: Bud) => {
     bud: Bud;
-    options: {
+    target: {
         devServer: any;
     };
     make: () => any;

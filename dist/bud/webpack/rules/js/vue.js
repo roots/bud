@@ -46,6 +46,9 @@ var vue = function (bud) { return ({
      */
     post: function () {
         this.bud.hooks.call('post_vue', this.rule);
+        this.bud.logger.info({ name: 'webpack.rules', value: this.rule.test.toString() }, "vue test");
+        this.bud.logger.info({ name: 'webpack.rules', value: this.rule.exclude.toString() }, "vue exclude");
+        this.bud.logger.info({ name: 'webpack.rules', value: this.rule.use.map(function (item) { return item.loader; }) }, "vue use");
     }
 }); };
 exports.vue = vue;

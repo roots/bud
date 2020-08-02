@@ -14,7 +14,7 @@ const optimization = (bud: Bud) => ({
     vendor: bud.features.enabled('vendor'),
   },
 
-  final: {
+  target: {
     optimization: {
       minimize: bud.features.enabled('minify'),
       removeAvailableModules: false,
@@ -45,7 +45,11 @@ const optimization = (bud: Bud) => ({
     this.when(this.bud.features.enabled('vendor'), this.doVendor)
     this.when(this.bud.features.enabled('minify'), this.doMinimizer)
 
-    return this.bud.hooks.filter('optimization_final', this.final)
+    this.target = this.bud.hooks.filter('optimization_target', this.target)
+    this.bud.logger.info(
+      {name: 'webpack_optimization', ...this.target}, `webpack.optimization has been generated`
+    )
+    return this.target
   },
 
   /**
@@ -61,7 +65,7 @@ const optimization = (bud: Bud) => ({
   doRuntimeChunk: function (context) {
     context.bud.hooks.call('pre_optimization_runtimechunk')
 
-    context.final.optimization.runtimeChunk = context.bud.hooks.filter(
+    context.target.optimization.runtimeChunk = context.bud.hooks.filter(
       'optimization_runtimechunk',
       context.runtimeChunkOptions,
     )
@@ -75,7 +79,7 @@ const optimization = (bud: Bud) => ({
   doVendor: function (context) {
     context.bud.hooks.call('pre_optimization_splitchunks')
 
-    context.final.optimization.splitChunks = context.bud.hooks.filter(
+    context.target.optimization.splitChunks = context.bud.hooks.filter(
       'optimization_splitchunks',
       context.splitChunksOptions,
     )
@@ -90,7 +94,7 @@ const optimization = (bud: Bud) => ({
     context.bud.hooks.call('pre_optimization_minimizer')
 
     if (!context.bud.features.enabled('terser')) {
-      context.final.optimization.minimizer = context.bud.hooks.filter(
+      context.target.optimization.minimizer = context.bud.hooks.filter(
         'optimization_minimizer',
         [new UglifyJsPlugin(context.uglifyOptions)],
       )

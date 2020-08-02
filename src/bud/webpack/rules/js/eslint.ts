@@ -36,6 +36,15 @@ const eslint: Function = (bud: Bud): any => ({
 
   post: function () {
     this.bud.hooks.call('post_eslint', this.rule)
+    this.bud.logger.info(
+      {name: 'webpack.rules', value: this.rule.test.toString()}, `eslint test`
+    )
+    this.bud.logger.info(
+      {name: 'webpack.rules', value: this.rule.exclude.toString()}, `eslint exclude`
+    )
+    this.bud.logger.info(
+      {name: 'webpack.rules', value: this.rule.use.map(item => item.loader)}, `eslint use`
+    )
   },
 })
 

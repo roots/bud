@@ -10,16 +10,19 @@ exports.__esModule = true;
 exports.externals = void 0;
 var externals = function (bud) { return ({
     bud: bud,
+    target: {
+        externals: false
+    },
     make: function () {
         var _a;
-        this.final = this.bud.options.has('externals')
+        this.target.externals = this.bud.options.has('externals')
             ? this.bud.hooks.filter('webpack_externals', this.bud.options.get('externals'))
             : this.bud.hooks.filter('webpack_externals_fallback', false);
         /**
          * Don't include modules when target is node.
          */
-        return this.bud.options.is('target', 'node')
-            ? __spreadArrays(this.bud.services.nodeExternals(), this.final) : (_a = this.final) !== null && _a !== void 0 ? _a : null;
+        return !this.bud.options.is('target', 'node')
+            ? (_a = this.target.externals) !== null && _a !== void 0 ? _a : null : __spreadArrays(this.bud.services.nodeExternals(), this.target.externals);
     }
 }); };
 exports.externals = externals;

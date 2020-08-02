@@ -6,7 +6,7 @@ import type { Bud } from './types';
  */
 declare const general: (bud: Bud) => {
     bud: Bud;
-    options: {
+    target: {
         context: any;
         devtool: any;
         mode: any;
