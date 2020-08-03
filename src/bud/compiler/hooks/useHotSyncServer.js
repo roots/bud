@@ -4,7 +4,7 @@ const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
 
 
-const makeMiddleware = (compiler, bud, setDevStats) => {
+const makeMiddleware = (bud, setDevStats) => {
   const devMiddlewareOptions = {
     headers: bud.options.get('dev').headers,
     logger: bud.logger,
@@ -27,21 +27,6 @@ const makeMiddleware = (compiler, bud, setDevStats) => {
         namedChunkGroups: false,
       }))
     },
-    stats: {
-      version: true,
-      hash: true,
-      time: true,
-      assets: true,
-      errors: true,
-      warnings: true,
-      chunks: false,
-      modules: false,
-      entrypoints: false,
-      assetsByChunkName: false,
-      logging: false,
-      children: false,
-      namedChunkGroups: false,
-    },
   }
 
   bud.logger.info(
@@ -49,13 +34,13 @@ const makeMiddleware = (compiler, bud, setDevStats) => {
     'making dev server middleware from options',
   )
 
-  const devMiddleware = webpackDevMiddleware(compiler, devMiddlewareOptions)
-  const hotMiddleware = webpackHotMiddleware(compiler)
+  const devMiddleware = webpackDevMiddleware(bud.compiler, devMiddlewareOptions)
+  const hotMiddleware = webpackHotMiddleware(bud.compiler)
 
   return [devMiddleware, hotMiddleware]
 }
 
-const useHotSyncServer = (bud, compiler, callback) => {
+const useHotSyncServer = (bud) => {
   const [hot] = useState(bud.features.enabled('hot'))
   const [target] = useState(bud.options.get('dev').host)
   const [open] = useState(bud.options.get('dev').open)
@@ -74,7 +59,7 @@ const useHotSyncServer = (bud, compiler, callback) => {
         logLevel: 'silent',
         reloadOnRestart: true,
         open,
-        middleware: makeMiddleware(compiler, bud, setDevStats),
+        middleware: makeMiddleware(bud, setDevStats),
         injectChanges: true,
         watchOptions: {
           ignoreInitial: true,

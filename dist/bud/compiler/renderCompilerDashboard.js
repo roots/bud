@@ -16,7 +16,7 @@ var injectHot = function (webpackConfig, overlay, reload, logger) {
     Object.keys(webpackConfig.entry).forEach(function (entry) {
         webpackConfig.entry[entry] = [client].concat(webpackConfig.entry[entry]);
         logger.info({
-            name: 'compiler.injectHot',
+            name: 'bud.compiler',
             value: webpackConfig.entry[entry]
         }, "injecting hot middleware");
     });
@@ -30,11 +30,12 @@ var renderCompilerDashboard = function (bud, webpackConfig) {
     var compiler = bud.features.enabled('hot')
         ? webpack_1["default"](injectHot(webpackConfig, (_a = bud.options.get('dev').overlay) !== null && _a !== void 0 ? _a : false, (_b = bud.options.get('dev').reload) !== null && _b !== void 0 ? _b : false, bud.logger))
         : webpack_1["default"](webpackConfig);
-    var runnerProps = {
-        bud: bud,
-        compiler: compiler
-    };
-    var application = react_1["default"].createElement(Runner_1.Runner, runnerProps);
+    bud.compiler = compiler;
+    bud.logger.info({
+        name: 'bud.compiler'
+    }, "compiler attached to bud");
+    var props = { bud: bud };
+    var application = react_1["default"].createElement(Runner_1.Runner, props);
     /** 🚀 */
     ink_1.render(application);
 };

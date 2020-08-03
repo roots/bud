@@ -27,10 +27,10 @@ const successfulBuild = build => build?.percentage == 1 && build?.assets?.length
  * @prop {object} compiler webpack compiler
  * @prop {object} config   webpack compiler config
  */
-const Runner = ({compiler, bud}) => {
+const Runner = ({bud}) => {
   const [width, height] = useStdOutDimensions()
   const [state, actions] = useFocusState()
-  const build = useWebpack({compiler, bud})
+  const build = useWebpack(bud)
   const {exit} = useApp()
 
   /**
@@ -38,11 +38,13 @@ const Runner = ({compiler, bud}) => {
    */
   const quit = () => {
     bud.logger.info({name: 'bud.compiler'}, 'Quitting application.')
-
     exit()
+
     bud.util.terminate()
+
     process.exit()
   }
+
   useInput(input => {
     if (input == 'q') {
       bud.logger.info(
@@ -54,6 +56,9 @@ const Runner = ({compiler, bud}) => {
     }
   })
 
+  /**
+   * Run OS level notification when build complete
+   */
   useEffect(() => {
     if (successfulBuild(build)) {
       const title = 'Build complete.'
@@ -62,6 +67,7 @@ const Runner = ({compiler, bud}) => {
         title,
         message,
       })
+
       bud.logger.info(
         {name: 'bud.compiler', title, message},
         'Build success notification',

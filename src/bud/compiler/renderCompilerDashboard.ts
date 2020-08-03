@@ -20,7 +20,7 @@ const injectHot = (
 
     logger.info(
       {
-        name: 'compiler.injectHot',
+        name: 'bud.compiler',
         value: webpackConfig.entry[entry],
       },
       `injecting hot middleware`,
@@ -48,12 +48,17 @@ const renderCompilerDashboard: BudRenderer = (
       )
     : webpack(webpackConfig)
 
-  const runnerProps: RunnerProps = {
-    bud,
-    compiler,
-  }
+  bud.compiler = compiler
 
-  const application = React.createElement(Runner, runnerProps)
+  bud.logger.info(
+    {
+      name: 'bud.compiler',
+    },
+    `compiler attached to bud`,
+  )
+
+  const props: RunnerProps = {bud}
+  const application = React.createElement(Runner, props)
 
   /** 🚀 */
   render(application)

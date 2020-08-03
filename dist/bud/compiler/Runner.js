@@ -74,15 +74,11 @@ const successfulBuild = build => {
 
 
 const Runner = ({
-  compiler,
   bud
 }) => {
   const [width, height] = useStdOutDimensions();
   const [state, actions] = useFocusState();
-  const build = useWebpack({
-    compiler,
-    bud
-  });
+  const build = useWebpack(bud);
   const {
     exit
   } = useApp();
@@ -108,6 +104,10 @@ const Runner = ({
       quit();
     }
   });
+  /**
+   * Run OS level notification when build complete
+   */
+
   useEffect(() => {
     if (successfulBuild(build)) {
       const title = 'Build complete.';

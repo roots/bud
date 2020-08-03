@@ -1,7 +1,7 @@
 /**
  * Typings
  */
-import type { Configuration, Compiler, Stats } from 'webpack';
+import type { Configuration, Stats } from 'webpack';
 import type { Bud } from '../types';
 import type WebpackDevServer from 'webpack-dev-server';
 export type { Bud, Configuration as WebpackConfig, Stats as WebpackStats, WebpackDevServer, };
@@ -15,7 +15,6 @@ export type { Bud, Configuration as WebpackConfig, Stats as WebpackStats, Webpac
  */
 export interface RunnerProps {
     bud: Bud;
-    compiler: Compiler;
 }
 /**
  * BudRenderer

@@ -4,10 +4,7 @@
  * @prop {compiler} compiler webpack.compiler
  * @prop {string}   options  project options
  */
-export function useWebpack({ compiler, bud }: {
-    compiler: any;
-    bud: any;
-}): {
+export function useWebpack(bud: any): {
     assets: any[];
     hasAssets: boolean;
     errors: any[];

@@ -22,7 +22,6 @@ export type {
  */
 export interface RunnerProps {
   bud: Bud
-  compiler: Compiler
 }
 
 /**
