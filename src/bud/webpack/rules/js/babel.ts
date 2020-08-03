@@ -1,70 +1,54 @@
 import {patterns} from '../util/patterns'
 import type {Bud} from '../../types'
 
-/**
- * Babel
- *
- * @type {function} babel
- * @return {object}
- */
 const babel = (bud: Bud): any => ({
   bud,
 
-  rule: {},
-
-  /**
-   * Make babel rules
-   */
-  make: function () {
-    this.pre()
-
-    this.rule = {
-      test: patterns.js,
-      exclude: patterns.vendor,
-      use: [
-        {
-          loader: bud.loaders.get('babel'),
-          options: {
-            ...this.bud.options.get('babel'),
-            cacheDirectory: true,
-            cacheCompression: this.bud.inProduction,
-          },
+  rule: {
+    test: patterns.js,
+    exclude: patterns.vendor,
+    use: [
+      {
+        loader: bud.loaders.get('babel'),
+        options: {
+          ...bud.options.get('babel'),
+          cacheDirectory: true,
+          cacheCompression: bud.inProduction,
         },
-      ],
-    }
-
-    this.post()
-
-    return this.rule
+      },
+    ],
   },
 
-  /**
-   * Hook: pre_babel
-   */
-  pre: function () {
-    this.bud.hooks.call('pre_babel', this)
-  },
+  make: function () {
+    this.bud.hooks.call('webpack.rules.babel.pre')
+    this.rule = this.bud.hooks.filter('webpack.rules.babel', this.rule)
+    this.bud.hooks.call('webpack.rules.babel.post')
 
-  /**
-   * Hook: post_babel
-   */
-  post: function () {
-    this.bud.hooks.call('post_babel', this.rule)
     this.bud.logger.info(
-      {name: 'webpack.rules', value: this.rule.test.toString()},
-      `babel test`,
+      {
+        name: 'webpack.rules',
+        value: this.rule.test,
+      },
+      `webpack.rules.babel.test`,
     )
+
     this.bud.logger.info(
-      {name: 'webpack.rules', value: this.rule.exclude.toString()},
-      `babel exclude`,
+      {
+        name: 'webpack.rules',
+        value: this.rule.exclude,
+      },
+      `webpack.rules.babel.exclude`,
     )
+
     this.bud.logger.info(
       {
         name: 'webpack.rules',
         value: this.rule.use.map(item => item.loader),
       },
-      `babel use`,
+      `webpack.rules.babel.use`,
     )
+
+    return this.rule
   },
 })
 

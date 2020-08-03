@@ -20,15 +20,15 @@ const module = bud => ({
     this.bud.hooks.call('webpack.rules.module.css.pre')
 
     if (this.bud.features.enabled('vue')) {
-      this.rule.use.push(useVueStyle('module.css', this.bud))
+      this.rule.use.push(useVueStyle('webpack.rules.module.css', this.bud))
     }
 
-    this.rule.use.push(useMiniCss('module.css', this.bud))
-    this.rule.use.push(useCss('module.css', this.bud, true))
-    this.rule.use.push(useResolveUrl('module.css', this.bud))
+    this.rule.use.push(useMiniCss('webpack.rules.module.css', this.bud))
+    this.rule.use.push(useCss('webpack.rules.module.css', this.bud, true))
+    this.rule.use.push(useResolveUrl('webpack.rules.module.css', this.bud))
 
     if (this.bud.features.enabled('postCss')) {
-      this.rule.use.push(usePostCss('module.css', this.bud))
+      this.rule.use.push(usePostCss('webpack.rules.module.css', this.bud))
     }
 
     this.rule = this.bud.hooks.filter('webpack.rules.module.css', this.rule)

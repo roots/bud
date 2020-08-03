@@ -1,7 +1,6 @@
 "use strict";
 exports.__esModule = true;
 exports.eslint = void 0;
-var loaders_1 = require("../util/loaders");
 var patterns_1 = require("../util/patterns");
 var eslint = function (bud) { return ({
     bud: bud,
@@ -14,7 +13,7 @@ var eslint = function (bud) { return ({
             exclude: patterns_1.patterns.vendor,
             use: [
                 {
-                    loader: loaders_1.loaders.eslint,
+                    loader: bud.loaders.eslint,
                     options: {
                         configFile: this.bud.configs.get('eslint'),
                         formatter: 'codeframe',

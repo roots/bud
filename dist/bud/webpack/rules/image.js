@@ -1,7 +1,6 @@
 "use strict";
 exports.__esModule = true;
 exports.image = void 0;
-var loaders_1 = require("./util/loaders");
 var patterns_1 = require("./util/patterns");
 var image = function (bud) { return ({
     bud: bud,
@@ -10,7 +9,7 @@ var image = function (bud) { return ({
             test: this.bud.hooks.filter('loaders_image_test', patterns_1.patterns.image),
             use: this.bud.hooks.filter('loaders_image_use', [
                 {
-                    loader: loaders_1.loaders.file,
+                    loader: this.bud.loaders.file,
                     options: {
                         name: '[path][name].[ext]'
                     }

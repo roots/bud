@@ -1,4 +1,3 @@
-import {loaders} from '../util/loaders'
 import {patterns} from '../util/patterns'
 import type {Bud} from '../../types'
 
@@ -15,7 +14,7 @@ const vue = (bud: Bud): any => ({
       exclude: patterns.vendor,
       use: [
         {
-          loader: loaders.vue,
+          loader: bud.loaders.vue,
           options: {
             compiler,
             productionMode: this.bud.inProduction,

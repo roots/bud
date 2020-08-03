@@ -18,13 +18,13 @@ var module = function (bud) { return ({
     make: function () {
         this.bud.hooks.call('webpack.rules.module.css.pre');
         if (this.bud.features.enabled('vue')) {
-            this.rule.use.push(useVueStyle_1.useVueStyle('module.css', this.bud));
+            this.rule.use.push(useVueStyle_1.useVueStyle('webpack.rules.module.css', this.bud));
         }
-        this.rule.use.push(useMiniCss_1.useMiniCss('module.css', this.bud));
-        this.rule.use.push(useCss_1.useCss('module.css', this.bud, true));
-        this.rule.use.push(useResolveUrl_1.useResolveUrl('module.css', this.bud));
+        this.rule.use.push(useMiniCss_1.useMiniCss('webpack.rules.module.css', this.bud));
+        this.rule.use.push(useCss_1.useCss('webpack.rules.module.css', this.bud, true));
+        this.rule.use.push(useResolveUrl_1.useResolveUrl('webpack.rules.module.css', this.bud));
         if (this.bud.features.enabled('postCss')) {
-            this.rule.use.push(usePostCss_1.usePostCss('module.css', this.bud));
+            this.rule.use.push(usePostCss_1.usePostCss('webpack.rules.module.css', this.bud));
         }
         this.rule = this.bud.hooks.filter('webpack.rules.module.css', this.rule);
         this.bud.logger.info({ name: 'webpack.rules.module.css', value: this.rule.test.toString() }, "webpack.rules.module.css.test");

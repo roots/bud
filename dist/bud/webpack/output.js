@@ -14,6 +14,7 @@ exports.__esModule = true;
 exports.output = void 0;
 var output = function (bud) { return ({
     bud: bud,
+    name: 'webpack.output',
     target: {
         output: {
             path: bud.paths.get('dist'),
@@ -24,9 +25,11 @@ var output = function (bud) { return ({
         }
     },
     make: function () {
-        this.target.output.filename = this.bud.hooks.filter('filter_output_filename', this.target.output.filename);
-        this.target = this.bud.hooks.filter('filter_output_final', this.target);
-        this.bud.logger.info(__assign({ name: 'webpack_output' }, this.target), "webpack.output has been generated");
+        this.target.output.publicPath = this.bud.hooks.filter(this.name + ".publicPath.filter", this.target.output.publicPath);
+        this.target.output.path = this.bud.hooks.filter(this.name + ".path.filter", this.target.output.path);
+        this.target.output.filename = this.bud.hooks.filter(this.name + ".filename.filter", this.target.output.filename);
+        this.target = this.bud.hooks.filter(this.name + ".filter", this.target);
+        this.bud.logger.info(__assign({ name: this.name }, this.target), "webpack.output has been generated");
         return this.target;
     }
 }); };

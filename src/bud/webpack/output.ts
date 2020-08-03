@@ -3,6 +3,8 @@ import type {BuilderConstructor} from './types'
 const output: BuilderConstructor = bud => ({
   bud,
 
+  name: 'webpack.output',
+
   target: {
     output: {
       path: bud.paths.get('dist'),
@@ -14,15 +16,23 @@ const output: BuilderConstructor = bud => ({
   },
 
   make: function () {
+    this.target.output.publicPath = this.bud.hooks.filter(
+      `${this.name}.publicPath.filter`,
+      this.target.output.publicPath,
+    )
+    this.target.output.path = this.bud.hooks.filter(
+      `${this.name}.path.filter`,
+      this.target.output.path,
+    )
     this.target.output.filename = this.bud.hooks.filter(
-      'filter_output_filename',
+      `${this.name}.filename.filter`,
       this.target.output.filename,
     )
 
-    this.target = this.bud.hooks.filter('filter_output_final', this.target)
+    this.target = this.bud.hooks.filter(`${this.name}.filter`, this.target)
 
     this.bud.logger.info(
-      {name: 'webpack_output', ...this.target},
+      {name: this.name, ...this.target},
       `webpack.output has been generated`,
     )
 

@@ -1,4 +1,3 @@
-import {loaders} from './util/loaders'
 import {patterns} from './util/patterns'
 
 const svg = bud => ({
@@ -9,7 +8,7 @@ const svg = bud => ({
 
     this.output = {
       test: this.bud.hooks.filter('loaders_svg_test', patterns.svg),
-      use: this.bud.hooks.filter('loaders_svg_use', [loaders.svgr, loaders.url]),
+      use: this.bud.hooks.filter('loaders_svg_use', [this.bud.loaders.svgr, this.bud.loaders.url]),
     }
 
     this.bud.hooks.call('post_svg')

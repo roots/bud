@@ -1,45 +1,54 @@
-import {loaders} from '../util/loaders'
 import {patterns} from '../util/patterns'
 import type {Bud} from '../../types'
 
 const typescript: Function = (bud: Bud): any => ({
   bud,
 
-  rule: {},
+  rule: {
+    test: patterns.ts,
+    exclude: patterns.vendor,
+    use: [
+      {
+        loader: bud.loaders.ts,
+        options: {
+          configFile: bud.configs.get('typescript'),
+        },
+      },
+    ],
+  },
 
   make: function () {
-    this.pre()
+    this.bud.hooks.call('webpack.rules.babel.post')
 
-    this.rule = {
-      test: /\.tsx?$/,
-      exclude: patterns.vendor,
-      use: [
-        {
-          loader: loaders.ts,
-          options: {
-            configFile: this.bud.configs.get('typescript'),
-          },
-        },
-      ],
-    }
+    this.rule = this.bud.hooks.filter('webpack.rules.typescript', this.rule)
 
-    this.post()
+    this.bud.logger.info(
+      {
+        name: 'webpack.rules',
+        value: this.rule.test,
+      },
+      `webpack.rules.typescript.test`,
+    )
+
+    this.bud.logger.info(
+      {
+        name: 'webpack.rules',
+        value: this.rule.exclude,
+      },
+      `webpack.rules.typescript.exclude`,
+    )
+
+    this.bud.logger.info(
+      {
+        name: 'webpack.rules',
+        value: this.rule.use.map(item => item.loader),
+      },
+      `webpack.rules.typescript.use`,
+    )
+
+    this.bud.hooks.call('webpack.rules.babel.post')
 
     return this.rule
-  },
-
-  /**
-   * Hook: pre_typescript
-   */
-  pre: function () {
-    this.bud.hooks.call('pre_typescript', this)
-  },
-
-  /**
-   * Hook: post_typescript
-   */
-  post: function () {
-    this.bud.hooks.call('post_typescript', this.rule)
   },
 })
 

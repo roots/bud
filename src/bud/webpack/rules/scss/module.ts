@@ -22,18 +22,18 @@ const module = bud => ({
     this.bud.hooks.call('webpack.rules.module.scss.pre')
 
     if (this.bud.features.enabled('vue')) {
-      this.rule.use.push(useVueStyle('module.scss', this.bud))
+      this.rule.use.push(useVueStyle('webpack.rules.module.scss', this.bud))
     }
 
-    this.rule.use.push(useMiniCss('module.scss', this.bud))
-    this.rule.use.push(useCss('module.scss', this.bud, true))
-    this.rule.use.push(useResolveUrl('module.scss', this.bud))
+    this.rule.use.push(useMiniCss('webpack.rules.module.scss', this.bud))
+    this.rule.use.push(useCss('webpack.rules.module.scss', this.bud, true))
+    this.rule.use.push(useResolveUrl('webpack.rules.module.scss', this.bud))
 
     if (this.isPostCss) {
-      this.rule.use.push(usePostCss('module.scss', this.bud))
+      this.rule.use.push(usePostCss('webpack.rules.module.scss', this.bud))
     }
 
-    this.rule.use.push(useScss('module.scss', this.bud))
+    this.rule.use.push(useScss('webpack.rules.module.scss', this.bud))
 
     this.rule = this.bud.hooks.filter('webpack.rules.module.scss', this.rule)
 

@@ -1,4 +1,3 @@
-import {loaders} from './util/loaders'
 import {patterns} from './util/patterns'
 
 const image: ImageRulesFactory = (bud): imageLoaderInterface => ({
@@ -9,7 +8,7 @@ const image: ImageRulesFactory = (bud): imageLoaderInterface => ({
       test: this.bud.hooks.filter('loaders_image_test', patterns.image),
       use: this.bud.hooks.filter('loaders_image_use', [
         {
-          loader: loaders.file,
+          loader: this.bud.loaders.file,
           options: {
             name: '[path][name].[ext]',
           },

@@ -15,7 +15,6 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 exports.__esModule = true;
 exports.vue = void 0;
-var loaders_1 = require("../util/loaders");
 var patterns_1 = require("../util/patterns");
 var vue_template_compiler_1 = __importDefault(require("vue-template-compiler"));
 var vue = function (bud) { return ({
@@ -27,7 +26,7 @@ var vue = function (bud) { return ({
             exclude: patterns_1.patterns.vendor,
             use: [
                 {
-                    loader: loaders_1.loaders.vue,
+                    loader: bud.loaders.vue,
                     options: __assign({ compiler: vue_template_compiler_1["default"], productionMode: this.bud.inProduction, cacheDirectory: this.bud.dist('cache/vue'), optimizeSSR: false }, this.bud.options.get('vue'))
                 },
             ]

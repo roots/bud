@@ -1,4 +1,3 @@
-import {loaders} from '../util/loaders'
 import {patterns} from '../util/patterns'
 import type {Bud} from '../../types'
 
@@ -15,7 +14,7 @@ const eslint: Function = (bud: Bud): any => ({
       exclude: patterns.vendor,
       use: [
         {
-          loader: loaders.eslint,
+          loader: bud.loaders.eslint,
           options: {
             configFile: this.bud.configs.get('eslint'),
             formatter: 'codeframe',

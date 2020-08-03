@@ -1,23 +1,39 @@
-import {loaders} from './util/loaders'
 import {patterns} from './util/patterns'
+import {useFile} from './use/useFile'
 
 const font = bud => ({
   bud,
 
-  make: function () {
-    this.options = {
-      test: this.bud.hooks.filter('loaders_font_test', patterns.font),
-      use: this.bud.hooks.filter('loaders_font_use', [
-        {
-          loader: loaders.url,
-          options: {
-            name: '[path][name].[ext]',
-          },
-        },
-      ]),
-    }
+  name: 'webpack.rules.font',
 
-    return this.bud.hooks.filter('loaders_font_final', this.options)
+  rule: {
+    test: patterns.font,
+    use: [],
+  },
+
+  make: function () {
+    this.rule.use.push(useFile(this.name, bud))
+    this.rule.use = this.bud.hooks.filter(`${this.name}.use`, this.rule.use)
+    this.rule.test = this.bud.hooks.filter(`${this.name}.test`, this.rule.test)
+    this.rule = this.bud.hooks.filter(`${this.name}.filter`, this.rule)
+
+    this.bud.logger.info(
+      {
+        name: this.name,
+        value: this.rule.test.toString(),
+      },
+      `test`,
+    )
+
+    this.bud.logger.info(
+      {
+        name: this.name,
+        value: this.rule.use.map(item => item.loader),
+      },
+      `use`,
+    )
+
+    return this.rule
   },
 })
 
