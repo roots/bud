@@ -12,21 +12,24 @@ const makeMiddleware = (bud, setDevStats) => {
     writeToDisk: false,
     reload: false,
     reporter: (middlewareOptions, reporterOptions) => {
-      reporterOptions?.stats && setDevStats(reporterOptions.stats.toJson({
-        version: true,
-        hash: true,
-        time: true,
-        assets: true,
-        errors: true,
-        warnings: true,
-        chunks: false,
-        modules: false,
-        entrypoints: false,
-        assetsByChunkName: false,
-        logging: false,
-        children: false,
-        namedChunkGroups: false,
-      }))
+      reporterOptions?.stats &&
+        setDevStats(
+          reporterOptions.stats.toJson({
+            version: true,
+            hash: true,
+            time: true,
+            assets: true,
+            errors: true,
+            warnings: true,
+            chunks: false,
+            modules: false,
+            entrypoints: false,
+            assetsByChunkName: false,
+            logging: false,
+            children: false,
+            namedChunkGroups: false,
+          }),
+        )
     },
   }
 
@@ -44,7 +47,7 @@ const makeMiddleware = (bud, setDevStats) => {
   return [devMiddleware, hotMiddleware]
 }
 
-const useHotSyncServer = (bud) => {
+const useHotSyncServer = bud => {
   const [hot] = useState(bud.features.enabled('hot'))
   const [target] = useState(bud.options.get('dev').host)
   const [open] = useState(bud.options.get('dev').open)
@@ -73,9 +76,7 @@ const useHotSyncServer = (bud) => {
         files,
       }
 
-      setHotSyncServer(
-        browserSync.init(options)
-      )
+      setHotSyncServer(browserSync.init(options))
 
       bud.logger.info(
         {name: 'bud.compiler', options, hot},
@@ -85,10 +86,8 @@ const useHotSyncServer = (bud) => {
   }, [hotSyncServer, setHotSyncServer, hot, open, files, target])
 
   useEffect(() => {
-    hotSyncServer && bud.logger.info(
-      {name: 'bud.compiler'},
-      'hot sync server initialized'
-    )
+    hotSyncServer &&
+      bud.logger.info({name: 'bud.compiler'}, 'hot sync server initialized')
   }, [hotSyncServer])
 
   return [hotSyncServer, devStats]

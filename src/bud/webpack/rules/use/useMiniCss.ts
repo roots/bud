@@ -7,12 +7,15 @@ const useMiniCss = (rule, bud) => {
     options.hmr = true
   }
 
-  bud.logger.info({
-    name: rule,
-    loader,
-    options,
-    isHot,
-  }, `using mini-css`)
+  bud.logger.info(
+    {
+      name: rule,
+      loader,
+      options,
+      isHot,
+    },
+    `using mini-css`,
+  )
 
   return {loader, options}
 }

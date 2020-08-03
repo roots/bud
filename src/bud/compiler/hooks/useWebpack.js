@@ -8,7 +8,7 @@ const {useHotSyncServer} = require('./useHotSyncServer')
  * @prop {compiler} compiler webpack.compiler
  * @prop {string}   options  project options
  */
-const useWebpack = (bud) => {
+const useWebpack = bud => {
   /**
    * Query bud for mode settings.
    */
@@ -60,7 +60,10 @@ const useWebpack = (bud) => {
       })
 
       bud.logger.info(
-        {name: 'bud.compiler', assets: results.stats.assets.map(asset => asset.name)},
+        {
+          name: 'bud.compiler',
+          assets: results.stats.assets.map(asset => asset.name),
+        },
         'webpack compiler callback generated prototypal build stats',
       )
     }
@@ -110,9 +113,9 @@ const useWebpack = (bud) => {
 
         bud.compiler.watch({}, webpackCallback)
 
-      /**
-       * Otherwise, run the vanilla compiler.
-       */
+        /**
+         * Otherwise, run the vanilla compiler.
+         */
       } else {
         bud.logger.info(
           {
@@ -217,10 +220,7 @@ const useWebpack = (bud) => {
   useEffect(() => {
     if (hash) {
       setHasHash(true)
-      bud.logger.info(
-        {name: 'bud.compiler', hash},
-        'new state: hash',
-      )
+      bud.logger.info({name: 'bud.compiler', hash}, 'new state: hash')
     }
   }, [hash])
 
@@ -228,10 +228,7 @@ const useWebpack = (bud) => {
   useEffect(() => {
     if (time) {
       setHasTime(true)
-      bud.logger.info(
-        {name: 'bud.compiler', payload: time},
-        'new state: time',
-      )
+      bud.logger.info({name: 'bud.compiler', payload: time}, 'new state: time')
     }
   }, [time])
 

@@ -21,11 +21,9 @@ const Errors = ({build, actions}) => {
 
   return (
     <Box display={display ? 'flex' : 'none'} flexDirection="column">
-      {
-        build?.errors &&
+      {build?.errors &&
         build.errors.length > 0 &&
-        build.errors.map((err, i) => <Error message={err} key={i} />)
-      }
+        build.errors.map((err, i) => <Error message={err} key={i} />)}
 
       {build?.warnings?.length == 0 && <Text>Nothing to see here.</Text>}
     </Box>

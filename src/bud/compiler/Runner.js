@@ -77,8 +77,7 @@ const Runner = ({bud}) => {
 
   useEffect(() => {
     const notWatching =
-      !bud.features.enabled('watch')
-      && !bud.features.enabled('hot')
+      !bud.features.enabled('watch') && !bud.features.enabled('hot')
 
     const complete = build?.done
 

@@ -7,12 +7,7 @@ import type {Bud, BudRenderer, RunnerProps, WebpackConfig} from './types'
 /**
  * Inject webpack middleware on all entrypoints.
  */
-const injectHot = ({
-  webpackConfig,
-  overlay,
-  reload,
-  logger,
-}) => {
+const injectHot = ({webpackConfig, overlay, reload, logger}) => {
   const client = `webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=${reload}&overlay=${overlay}`
 
   Object.keys(webpackConfig.entry).forEach(entry => {
