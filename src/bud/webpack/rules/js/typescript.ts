@@ -9,7 +9,7 @@ const typescript: Function = (bud: Bud): any => ({
     exclude: patterns.vendor,
     use: [
       {
-        loader: bud.loaders.ts,
+        loader: bud.loaders.get('ts'),
         options: {
           configFile: bud.configs.get('typescript'),
         },

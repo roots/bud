@@ -12,8 +12,7 @@ var module = function (bud) { return ({
     isHot: bud.features.enabled('hot'),
     rule: {
         test: patterns_1.patterns.cssModule,
-        use: [],
-        sourceMap: bud.features.enabled('map')
+        use: []
     },
     make: function () {
         this.bud.hooks.call('webpack.rules.module.css.pre');

@@ -3,9 +3,8 @@ exports.__esModule = true;
 exports.entry = void 0;
 var entry = function (bud) { return ({
     bud: bud,
-    target: {
-        entry: null
-    },
+    name: "webpack.entry",
+    target: {},
     make: function () {
         if (!this.bud.options.has('entry')) {
             this.bud.logger.warn({ name: 'webpack.entry', value: this.target }, "No entrypoints found. Automatically generating.");

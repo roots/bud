@@ -1,5 +1,5 @@
 const usePostCss = (rule, bud) => {
-  const loader = bud.loaders.postCss
+  const loader = bud.loaders.get('postCss')
   const options = {
     ident: 'postcss',
     parser: 'postcss-scss',

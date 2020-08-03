@@ -1,13 +1,15 @@
 import pino from 'pino'
 import {argv} from 'yargs'
 
+const log: any = argv.log
+const destination: (boolean|string) = argv?.log && typeof argv.log == "boolean" ? false : log
+
 const logger = pino({
   base: null,
-  dest: argv['log'] && (argv['log'] as string) ? argv['log'] : false,
-  enabled: argv['log'] ? true : false,
+  enabled: argv.hasOwnProperty('log') ? true : false,
   prettyPrint: {
     colorize: true,
   },
-})
+}, destination)
 
 export {logger}

@@ -8,15 +8,16 @@ export declare type BuilderController = {
   bud: Bud
   final: WebpackConfig
   builders: RegisteredBuilder[]
-  merge: (configValues: Object) => void
   make: () => WebpackConfig
 }
 export declare type RegisteredBuilder = [string, BuilderConstructor]
 export declare type BuilderConstructor = (bud: Bud) => Builder
 export declare interface Builder {
   bud: Bud
+  name?: {}
   options?: {}
   final?: {}
+  target?: {}
   make: () => any
 }
 export declare interface EntryBuilder extends Builder {

@@ -13,14 +13,13 @@ const css = bud => ({
   rule: {
     test: patterns.css,
     use: [],
-    sourceMap: bud.features.enabled('map'),
   },
 
   make: function () {
     this.bud.hooks.call('webpack.rules.css.pre')
 
     if (this.bud.features.enabled('vue')) {
-      this.rule.use.push(useVueStyle('webpack.rules.css', this.bud))
+      this.rule.use.push({...useVueStyle('webpack.rules.css', this.bud)})
     }
 
     this.rule.use.push(useMiniCss('webpack.rules.css', this.bud))

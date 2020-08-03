@@ -84,7 +84,7 @@ const rules = bud => ({
       this.target.module.rules.push(svg(this.bud).make())
     }
 
-    this.target.entry = this.bud.hooks.filter('webpack.rules', this.target.entry)
+    this.target.rules = this.bud.hooks.filter('webpack.rules', this.target.rules)
 
     this.bud.logger.info(
       {name: 'webpack.rules', value: this.target},

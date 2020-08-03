@@ -34,8 +34,8 @@ var build = function (bud) { return ({
      * Builders webpack concerns.
      */
     builders: [
-        ['entry', entry_1.entry],
         ['output', output_1.output],
+        ['entry', entry_1.entry],
         ['rules', index_1.rules],
         ['plugins', plugins_1.plugins],
         ['resolve', webpackResolve_1.webpackResolve],
@@ -43,12 +43,6 @@ var build = function (bud) { return ({
         ['devServer', devServer_1.devServer],
         ['general', general_1.general],
     ],
-    /**
-     * Merge values into the final config.
-     */
-    merge: function (values) {
-        this.final = __assign(__assign({}, this.final), values);
-    },
     /**
      * Generate values from builders
      */
@@ -64,14 +58,15 @@ var build = function (bud) { return ({
          */
         this.builders.map(function (_a) {
             var name = _a[0], builder = _a[1];
-            var builderFn = _this.bud.hooks.filter("webpack_builder_" + name, builder);
-            var output = _this.bud.hooks.filter("webpack_builder_" + name + "_final", builderFn(_this.bud).make());
-            output && _this.merge(output);
+            _this.final = __assign(__assign({}, _this.final), builder(_this.bud).make());
+            _this.bud.logger.info({ name: "webpack", builder: name, config: _this.final }, name + " complete");
         });
         /**
          * Return final config object
          */
-        return this.bud.hooks.filter('webpack_final', this.final);
+        this.final = this.bud.hooks.filter('webpack_final', this.final);
+        this.bud.logger.info({ name: "webpack", output: this.final }, "final configuration");
+        return this.final;
     }
 }); };
 exports.build = build;

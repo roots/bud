@@ -3,7 +3,7 @@ exports.__esModule = true;
 exports.useMiniCss = void 0;
 var useMiniCss = function (rule, bud) {
     var isHot = bud.features.enabled('hot');
-    var loader = bud.loaders.miniCss;
+    var loader = bud.loaders.get('miniCss');
     var options = {
         hot: isHot
     };

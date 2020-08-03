@@ -3,9 +3,9 @@ import type {Bud, BuilderConstructor, EntryBuilder} from './types'
 const entry = (bud: Bud) => ({
   bud,
 
-  target: {
-    entry: null,
-  },
+  name: `webpack.entry`,
+
+  target: {},
 
   make: function () {
     if (!this.bud.options.has('entry')) {
@@ -25,6 +25,7 @@ const entry = (bud: Bud) => ({
       {name: 'webpack.entry', value: this.target},
       `webpack.entry has been generated`,
     )
+
     return this.target
   },
 })

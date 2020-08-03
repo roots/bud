@@ -3,7 +3,10 @@ declare const font: (bud: any) => {
     name: string;
     rule: {
         test: RegExp;
-        use: any[];
+        use: {
+            loader: any;
+            options: any;
+        }[];
     };
     make: () => any;
 };

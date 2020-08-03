@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 exports.__esModule = true;
 exports.css = void 0;
 var patterns_1 = require("../util/patterns");
@@ -12,13 +23,12 @@ var css = function (bud) { return ({
     isHot: bud.features.enabled('hot'),
     rule: {
         test: patterns_1.patterns.css,
-        use: [],
-        sourceMap: bud.features.enabled('map')
+        use: []
     },
     make: function () {
         this.bud.hooks.call('webpack.rules.css.pre');
         if (this.bud.features.enabled('vue')) {
-            this.rule.use.push(useVueStyle_1.useVueStyle('webpack.rules.css', this.bud));
+            this.rule.use.push(__assign({}, useVueStyle_1.useVueStyle('webpack.rules.css', this.bud)));
         }
         this.rule.use.push(useMiniCss_1.useMiniCss('webpack.rules.css', this.bud));
         this.rule.use.push(useCss_1.useCss('webpack.rules.css', this.bud));

@@ -1,6 +1,6 @@
 const useMiniCss = (rule, bud) => {
   const isHot = bud.features.enabled('hot')
-  const loader = bud.loaders.miniCss
+  const loader = bud.loaders.get('miniCss')
   const options = {
     hot: isHot,
   }

@@ -2,7 +2,7 @@
 exports.__esModule = true;
 exports.useFile = void 0;
 var useFile = function (rule, bud) {
-    var loader = bud.hooks.filter('webpack.rules.fileloader.loader', bud.loaders.file);
+    var loader = bud.hooks.filter('webpack.rules.fileloader.loader', bud.loaders.get('file'));
     var options = bud.hooks.filter('webpack.rules.fileloader.options', {
         name: '[path][name].[ext]'
     });

@@ -15,7 +15,6 @@ const module = bud => ({
   rule: {
     test: patterns.scssModule,
     use: [],
-    sourceMap: bud.features.enabled('map'),
   },
 
   make: function () {

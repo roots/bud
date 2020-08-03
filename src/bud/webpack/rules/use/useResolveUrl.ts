@@ -1,5 +1,5 @@
 const useResolveUrl = (rule, bud) => {
-  const loader = bud.loaders.resolveUrl
+  const loader = bud.loaders.get('resolveUrl')
 
   const options = {
     engine: null,

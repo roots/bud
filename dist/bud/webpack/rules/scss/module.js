@@ -14,8 +14,7 @@ var module = function (bud) { return ({
     isPostCss: bud.features.enabled('postCss'),
     rule: {
         test: patterns_1.patterns.scssModule,
-        use: [],
-        sourceMap: bud.features.enabled('map')
+        use: []
     },
     make: function () {
         this.bud.hooks.call('webpack.rules.module.scss.pre');

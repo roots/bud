@@ -20,7 +20,6 @@ const scss = bud => ({
   rule: {
     test: patterns.scss,
     use: [],
-    sourceMap: bud.features.enabled('map'),
   },
 
   make: function () {

@@ -26,7 +26,7 @@ var vue = function (bud) { return ({
             exclude: patterns_1.patterns.vendor,
             use: [
                 {
-                    loader: bud.loaders.vue,
+                    loader: this.bud.loaders.get('vue'),
                     options: __assign({ compiler: vue_template_compiler_1["default"], productionMode: this.bud.inProduction, cacheDirectory: this.bud.dist('cache/vue'), optimizeSSR: false }, this.bud.options.get('vue'))
                 },
             ]

@@ -1,4 +1,5 @@
 import {patterns} from './util/patterns'
+import {useFile} from './use/useFile'
 
 const image: ImageRulesFactory = (bud): imageLoaderInterface => ({
   bud,
@@ -6,14 +7,9 @@ const image: ImageRulesFactory = (bud): imageLoaderInterface => ({
   make: function () {
     this.options = {
       test: this.bud.hooks.filter('loaders_image_test', patterns.image),
-      use: this.bud.hooks.filter('loaders_image_use', [
-        {
-          loader: this.bud.loaders.file,
-          options: {
-            name: '[path][name].[ext]',
-          },
-        },
-      ]),
+      use: [
+        this.bud.hooks.filter('loaders_image_use', {...useFile('webpack.rules.font', bud)}),
+      ],
     }
 
     return this.bud.hooks.filter('loaders_image_final', this.options)

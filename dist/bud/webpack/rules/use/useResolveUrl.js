@@ -2,7 +2,7 @@
 exports.__esModule = true;
 exports.useResolveUrl = void 0;
 var useResolveUrl = function (rule, bud) {
-    var loader = bud.loaders.resolveUrl;
+    var loader = bud.loaders.get('resolveUrl');
     var options = {
         engine: null,
         sourceMap: bud.features.enabled('sourceMap'),

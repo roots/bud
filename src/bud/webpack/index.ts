@@ -25,8 +25,8 @@ const build = (bud: Bud): BuilderController => ({
    * Builders webpack concerns.
    */
   builders: [
-    ['entry', entry],
     ['output', output],
+    ['entry', entry],
     ['rules', rules],
     ['plugins', plugins],
     ['resolve', webpackResolve],
@@ -34,16 +34,6 @@ const build = (bud: Bud): BuilderController => ({
     ['devServer', devServer],
     ['general', general],
   ],
-
-  /**
-   * Merge values into the final config.
-   */
-  merge: function (values): void {
-    this.final = {
-      ...this.final,
-      ...values,
-    }
-  },
 
   /**
    * Generate values from builders
@@ -59,19 +49,20 @@ const build = (bud: Bud): BuilderController => ({
      * Build
      */
     this.builders.map(([name, builder]: RegisteredBuilder) => {
-      const builderFn = this.bud.hooks.filter(`webpack_builder_${name}`, builder)
-      const output = this.bud.hooks.filter(
-        `webpack_builder_${name}_final`,
-        builderFn(this.bud).make(),
-      )
+      this.final = {
+        ...this.final,
+        ...builder(this.bud).make(),
+      }
 
-      output && this.merge(output)
+      this.bud.logger.info({name: `webpack`, builder: name, config: this.final}, `${name} complete`)
     })
 
     /**
      * Return final config object
      */
-    return this.bud.hooks.filter('webpack_final', this.final)
+    this.final = this.bud.hooks.filter('webpack_final', this.final)
+    this.bud.logger.info({name: `webpack`, output: this.final}, `final configuration`)
+    return this.final
   },
 })
 

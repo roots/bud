@@ -13,7 +13,7 @@ var __assign = (this && this.__assign) || function () {
 exports.__esModule = true;
 exports.usePostCss = void 0;
 var usePostCss = function (rule, bud) {
-    var loader = bud.loaders.postCss;
+    var loader = bud.loaders.get('postCss');
     var options = __assign({ ident: 'postcss', parser: 'postcss-scss' }, bud.options.get('postCss'));
     bud.logger.info({ name: rule, loader: loader, options: options }, "using postcss-loader");
     return { loader: loader, options: options };

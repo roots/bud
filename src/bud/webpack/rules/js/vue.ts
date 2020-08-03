@@ -14,7 +14,7 @@ const vue = (bud: Bud): any => ({
       exclude: patterns.vendor,
       use: [
         {
-          loader: bud.loaders.vue,
+          loader: this.bud.loaders.get('vue'),
           options: {
             compiler,
             productionMode: this.bud.inProduction,

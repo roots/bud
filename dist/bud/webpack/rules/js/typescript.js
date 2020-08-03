@@ -9,7 +9,7 @@ var typescript = function (bud) { return ({
         exclude: patterns_1.patterns.vendor,
         use: [
             {
-                loader: bud.loaders.ts,
+                loader: bud.loaders.get('ts'),
                 options: {
                     configFile: bud.configs.get('typescript')
                 }

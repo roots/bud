@@ -8,11 +8,12 @@ const font = bud => ({
 
   rule: {
     test: patterns.font,
-    use: [],
+    use: [
+      {...useFile('webpack.rules.font', bud)},
+    ],
   },
 
   make: function () {
-    this.rule.use.push(useFile(this.name, bud))
     this.rule.use = this.bud.hooks.filter(`${this.name}.use`, this.rule.use)
     this.rule.test = this.bud.hooks.filter(`${this.name}.test`, this.rule.test)
     this.rule = this.bud.hooks.filter(`${this.name}.filter`, this.rule)

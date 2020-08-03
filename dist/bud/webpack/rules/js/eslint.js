@@ -13,7 +13,7 @@ var eslint = function (bud) { return ({
             exclude: patterns_1.patterns.vendor,
             use: [
                 {
-                    loader: bud.loaders.eslint,
+                    loader: bud.loaders.get('eslint'),
                     options: {
                         configFile: this.bud.configs.get('eslint'),
                         formatter: 'codeframe',

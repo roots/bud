@@ -14,7 +14,7 @@ const eslint: Function = (bud: Bud): any => ({
       exclude: patterns.vendor,
       use: [
         {
-          loader: bud.loaders.eslint,
+          loader: bud.loaders.get('eslint'),
           options: {
             configFile: this.bud.configs.get('eslint'),
             formatter: 'codeframe',

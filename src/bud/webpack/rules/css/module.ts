@@ -13,7 +13,6 @@ const module = bud => ({
   rule: {
     test: patterns.cssModule,
     use: [],
-    sourceMap: bud.features.enabled('map'),
   },
 
   make: function () {

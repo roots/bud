@@ -5,7 +5,6 @@ declare const module: (bud: any) => {
     rule: {
         test: RegExp;
         use: any[];
-        sourceMap: any;
     };
     make: () => any;
 };

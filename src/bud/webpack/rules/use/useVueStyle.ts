@@ -3,7 +3,7 @@ const useVueStyle = (rule, bud) => {
 
   bud.logger.info({name: rule, loader}, `using vue-style-loader`)
 
-  return {loader}
+  return ({loader})
 }
 
 export {useVueStyle}

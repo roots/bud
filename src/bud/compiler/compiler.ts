@@ -17,6 +17,8 @@ const compiler = (bud: Bud): void => {
    */
   const compiledConfig: WebpackConfig = build(bud).make()
 
+  bud.logger.info({name: 'render compiler dashboard', ...compiledConfig}, `Webpack config generator results.`)
+
   bud.hooks.call('pre_dashboard')
 
   /**

@@ -18,8 +18,7 @@ var scss = function (bud) { return ({
     isPostCss: bud.features.enabled('postCss'),
     rule: {
         test: patterns_1.patterns.scss,
-        use: [],
-        sourceMap: bud.features.enabled('map')
+        use: []
     },
     make: function () {
         this.bud.hooks.call(this.name + ".pre");

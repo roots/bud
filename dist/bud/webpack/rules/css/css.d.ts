@@ -4,7 +4,6 @@ declare const css: (bud: any) => {
     rule: {
         test: RegExp;
         use: any[];
-        sourceMap: any;
     };
     make: () => any;
 };
