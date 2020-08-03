@@ -1,6 +1,6 @@
 declare const css: (bud: any) => {
     bud: any;
-    isHot: any;
+    name: string;
     rule: {
         test: RegExp;
         use: any[];

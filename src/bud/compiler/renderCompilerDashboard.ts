@@ -11,13 +11,14 @@ const injectHot = (
   webpackConfig: WebpackConfig,
   overlay: boolean,
   reload: boolean,
+  logger: any,
 ) => {
   const client = `webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=${reload}&overlay=${overlay}`
 
   Object.keys(webpackConfig.entry).forEach(entry => {
     webpackConfig.entry[entry] = [client].concat(webpackConfig.entry[entry])
 
-    this.bud.logger.info(
+    logger.info(
       {
         name: 'compiler.injectHot',
         value: webpackConfig.entry[entry],
@@ -42,6 +43,7 @@ const renderCompilerDashboard: BudRenderer = (
           webpackConfig,
           bud.options.get('dev').overlay ?? false,
           bud.options.get('dev').reload ?? false,
+          bud.logger,
         ),
       )
     : webpack(webpackConfig)

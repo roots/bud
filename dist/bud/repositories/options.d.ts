@@ -24,6 +24,7 @@ declare const options: {
     inlineManifest: {
         name: string;
     };
+    postCss: {};
     splitting: {
         maxChunks: any;
     };

@@ -19,9 +19,7 @@ var font = function (bud) { return ({
     name: 'webpack.rules.font',
     rule: {
         test: patterns_1.patterns.font,
-        use: [
-            __assign({}, useFile_1.useFile('webpack.rules.font', bud)),
-        ]
+        use: [__assign({}, useFile_1.useFile('webpack.rules.font', bud))]
     },
     make: function () {
         this.rule.use = this.bud.hooks.filter(this.name + ".use", this.rule.use);

@@ -27,7 +27,10 @@ const makeMiddleware = (compiler, bud) => [webpackDevMiddleware(compiler, {
   }
 }), webpackHotMiddleware(compiler, {
   log: msg => {
-    console.log(msg);
+    bud.logger.info({
+      name: 'bud.compiler',
+      msg
+    }, 'message via webpackHotMiddleware');
   }
 })];
 
@@ -98,6 +101,9 @@ const useWebpack = ({
     if (progressPlugin) {
       progressPlugin.apply(compiler);
       setProgressPluginApplied(true);
+      bud.logger.info({
+        name: 'bud.compiler'
+      }, 'progress plugin applied');
     }
   }, [progressPlugin, compiler]);
   const [buildStats, setBuildStats] = useState({});
@@ -106,21 +112,50 @@ const useWebpack = ({
   const [devServer, setDevServer] = useState(null);
   useEffect(() => {
     const webpackCallback = (err, stats) => {
-      setBuildErrors(err);
-      setBuildStats(stats === null || stats === void 0 ? void 0 : stats.toJson({
-        version: true,
-        hash: true,
-        time: true,
-        assets: true,
-        errors: true,
-        warnings: true
-      }));
+      if (err) {
+        setBuildErrors(err);
+        bud.logger.error({
+          name: 'bud.compiler',
+          err
+        }, 'useWebpack generated build errors');
+      }
+
+      if (stats) {
+        const jsonStats = stats === null || stats === void 0 ? void 0 : stats.toJson({
+          version: true,
+          hash: true,
+          time: true,
+          assets: true,
+          errors: true,
+          warnings: true,
+          chunks: false,
+          modules: false,
+          entrypoints: false,
+          assetsByChunkName: false,
+          logging: false,
+          children: false,
+          namedChunkGroups: false
+        });
+        setBuildStats(jsonStats);
+        bud.logger.info({
+          name: 'bud.compiler',
+          stats: jsonStats.assets.map(asset => asset.name)
+        }, 'useWebpack generated build stats');
+      }
     };
 
     if (progressPluginApplied) {
       if (!webpackRunning) {
+        const watching = bud.features.enabled('watch');
+        const hot = bud.features.enabled('hot');
+        bud.logger.info({
+          name: 'bud.compiler',
+          hot,
+          watching,
+          progressPluginApplied
+        }, 'starting compiler');
+        watching && !bud.features.enabled('hot') ? compiler.watch({}, webpackCallback) : compiler.run(webpackCallback);
         setWebpackRunning(true);
-        bud.features.enabled('watch') && !bud.features.enabled('hot') ? compiler.watch({}, webpackCallback) : compiler.run(webpackCallback);
       }
     }
   }, [progressPluginApplied, bud, compiler]);
@@ -134,11 +169,25 @@ const useWebpack = ({
   }, [buildStats, buildErrors]);
   useMemo(() => {
     if (webpackRunning && bud.features.enabled('hot') && !devServer && (buildStats || buildErrors)) {
+      bud.logger.info({
+        name: 'bud.compiler',
+        webpackRunning,
+        hot: bud.features.enabled('hot'),
+        devServer,
+        buildStats,
+        buildErrors
+      }, 'starting dev server');
       hotSyncServer(bud, compiler, (err, bs) => {
         setDevServer(bs.name);
       });
     }
   }, [webpackRunning, devServer]);
+  useEffect(() => {
+    assets && bud.logger.info({
+      name: 'bud.compiler',
+      assets: assets.map(asset => asset.name)
+    }, 'new assets in component state');
+  }, [assets]);
   return {
     assets,
     devServer,

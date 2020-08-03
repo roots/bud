@@ -1,5 +1,6 @@
 declare const module: (bud: any) => {
     bud: any;
+    name: string;
     isHot: any;
     isPostCss: any;
     rule: {

@@ -6,21 +6,23 @@ const purge: Purge = function ({enabled = true, ...options}): Bud {
 
   if (!this.features.enabled('purge')) {
     this.logger.info(
-      {name: 'api'},
+      {name: 'api.purge'},
       'bud.purge called but it is not enabled on this build',
     )
     return this
   }
 
+  this.logger.info({name: 'api.purge', enabled, options}, 'bud.api.purge called')
+
   const value = {
+    ...this.options.get('postCss'),
     plugins: [
       ...this.options.get('postCss').plugins,
-      require('@fullhuman/postcss-purgecss')(options),
+      this.services.purgeCss(options),
     ],
   }
 
   this.options.set('postCss', value)
-  this.logger.info({name: 'api', value}, 'bud.purge called')
 
   return this
 }

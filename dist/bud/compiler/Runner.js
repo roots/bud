@@ -54,11 +54,7 @@ const {
  */
 
 
-const successfulBuild = build => {
-  var _build$errors, _build$assets;
-
-  return !(build === null || build === void 0 ? void 0 : (_build$errors = build.errors) === null || _build$errors === void 0 ? void 0 : _build$errors.length) > 0 && (build === null || build === void 0 ? void 0 : build.percentage) == 1 && (build === null || build === void 0 ? void 0 : (_build$assets = build.assets) === null || _build$assets === void 0 ? void 0 : _build$assets.length) > 0;
-};
+const successfulBuild = build => (build === null || build === void 0 ? void 0 : build.percentage) == 1 && (build === null || build === void 0 ? void 0 : build.assets.length) > 0;
 /**
  * Budpack build status display
  *
@@ -78,33 +74,55 @@ const Runner = ({
   } = useApp();
 
   const quit = () => {
+    bud.logger.info({
+      name: 'bud.compiler'
+    }, 'Quitting application.');
     exit();
-    bud.dump();
     bud.util.termiante();
     process.exit();
   };
 
   useInput(input => {
     if (input == 'q') {
+      bud.logger.info({
+        name: 'bud.compiler',
+        input
+      }, 'User requested to close application.');
       quit();
     }
-  });
-  useEffect(() => {
-    var _build$assets2;
-
-    ;
-    (!bud.features.enabled('watch') || !bud.features.enabled('hot')) && (build === null || build === void 0 ? void 0 : (_build$assets2 = build.assets) === null || _build$assets2 === void 0 ? void 0 : _build$assets2.length) > 1 && (build === null || build === void 0 ? void 0 : build.percentage) == 1 && quit();
   });
   const build = useWebpack({
     compiler,
     bud
   });
   useEffect(() => {
-    successfulBuild(build) && notifier.notify({
-      title: 'Build complete',
-      message: `${build.assets.length} assets built.`
-    });
-  }, [build === null || build === void 0 ? void 0 : build.percentage]);
+    if (successfulBuild(build)) {
+      const title = 'Build complete.';
+      const message = `${build.assets.length} assets built.`;
+      notifier.notify({
+        title,
+        message
+      });
+      bud.logger.info({
+        name: 'bud.compiler',
+        title,
+        message
+      }, 'Build success notification');
+    }
+  }, [build === null || build === void 0 ? void 0 : build.percentage, build === null || build === void 0 ? void 0 : build.assets]);
+  useEffect(() => {
+    var _build$assets;
+
+    if ((!bud.features.enabled('watch') || !bud.features.enabled('hot')) && (build === null || build === void 0 ? void 0 : (_build$assets = build.assets) === null || _build$assets === void 0 ? void 0 : _build$assets.length) > 1 && (build === null || build === void 0 ? void 0 : build.percentage) === 1) {
+      bud.logger.info({
+        name: 'bud.compiler',
+        watch: bud.features.enabled('watch'),
+        hot: bud.features.enabled('hot'),
+        assets: build.assets.map(asset => asset.name)
+      }, 'application determined to be finished based on state. quitting.');
+      quit();
+    }
+  });
   const showBrowserSync = !bud.features.enabled('debug') && bud.features.enabled('browserSync');
   return /*#__PURE__*/React.createElement(App, {
     width: width,

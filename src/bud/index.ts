@@ -1,6 +1,7 @@
 import {api} from './api'
 import {hooks} from './hooks'
 import {nodeExternals, util, logger} from './util'
+import {purgeCss} from './util/purgeCss'
 import {repositories} from './repositories'
 import {babel, browserSync, typescript, postCss} from './repositories/options'
 import {compiler} from './compiler'
@@ -23,6 +24,8 @@ const bootstrap = function () {
   this.framework.compiler = compiler
   this.framework.util = util
   this.framework.fs = util.fs
+
+  this.framework.services = {purgeCss}
 
   this.framework.flags = this.store(this.repositories.cli.flags, 'bud.flags')
   this.framework.paths = this.store(this.repositories.paths, 'bud.paths')

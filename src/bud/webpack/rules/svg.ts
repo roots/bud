@@ -3,12 +3,17 @@ import {patterns} from './util/patterns'
 const svg = bud => ({
   bud,
 
+  output: {
+    test: patterns.svg,
+    use: [bud.loaders.get('svgr'), bud.loaders.get('url')],
+  },
+
   make: function () {
     this.bud.hooks.call('pre_svg')
 
     this.output = {
-      test: this.bud.hooks.filter('loaders_svg_test', patterns.svg),
-      use: this.bud.hooks.filter('loaders_svg_use', [this.bud.loaders.svgr, this.bud.loaders.url]),
+      test: this.bud.hooks.filter('loaders_svg_test', this.output.test),
+      use: this.bud.hooks.filter('loaders_svg_use', this.output.use),
     }
 
     this.bud.hooks.call('post_svg')

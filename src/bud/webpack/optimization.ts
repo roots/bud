@@ -3,7 +3,6 @@ import type {Bud} from './types'
 
 /**
  * Webpack optimization
- * @type {function} optimization
  */
 const optimization = (bud: Bud) => ({
   bud,
@@ -24,24 +23,21 @@ const optimization = (bud: Bud) => ({
   },
 
   splitChunksOptions: {
-    cacheGroups: bud.hooks.filter('optimization_cachegroups', {
-      vendor: bud.hooks.filter('optimization_cachegroups_vendor', {
+    cacheGroups: {
+      vendor: {
         test: /node_modules/,
         name: bud.options.get('vendor').name,
         chunks: 'all',
         priority: -20,
-      }),
-    }),
+      },
+    },
   },
 
   runtimeChunkOptions: {
     name: entrypoint => `runtime/${entrypoint.name}`,
   },
 
-  uglifyOptions: bud.hooks.filter(
-    'optimization_uglify_options',
-    bud.options.get('uglify'),
-  ),
+  uglifyOptions: bud.options.get('uglify'),
 
   make: function () {
     this.when(this.bud.features.enabled('inlineManifest'), this.doRuntimeChunk)
@@ -50,9 +46,10 @@ const optimization = (bud: Bud) => ({
 
     this.target = this.bud.hooks.filter('optimization_target', this.target)
     this.bud.logger.info(
-      {name: 'webpack_optimization', ...this.target},
+      {name: 'webpack.optimization', ...this.target},
       `webpack.optimization has been generated`,
     )
+
     return this.target
   },
 
@@ -67,44 +64,49 @@ const optimization = (bud: Bud) => ({
    * RuntimeChunk (inline manifest) support
    */
   doRuntimeChunk: function (context) {
-    context.bud.hooks.call('pre_optimization_runtimechunk')
+    context.bud.hooks.call('webpack.optimization.runtimechunk.pre')
 
     context.target.optimization.runtimeChunk = context.bud.hooks.filter(
-      'optimization_runtimechunk',
+      'webpack.optimization.runtimechunk',
       context.runtimeChunkOptions,
     )
 
-    context.bud.hooks.call('post_optimization_runtimechunk')
+    context.bud.hooks.call('webpack.optimization.runtimechunk.post')
   },
 
   /**
    * Code splitting.
    */
   doVendor: function (context) {
-    context.bud.hooks.call('pre_optimization_splitchunks')
+    context.bud.hooks.call('webpack.optimization.splitchunks.pre')
 
     context.target.optimization.splitChunks = context.bud.hooks.filter(
-      'optimization_splitchunks',
+      'webpack.optimization.splitchunks',
       context.splitChunksOptions,
     )
 
-    context.bud.hooks.call('post_optimization_splitchunks')
+    context.bud.hooks.call('webpack.optimization.splitchunks.post')
   },
 
   /**
    * Minimization.
    */
   doMinimizer: function (context) {
-    context.bud.hooks.call('pre_optimization_minimizer')
+    context.bud.hooks.call('webpack.optimization.minimizer.pre')
 
     if (!context.bud.features.enabled('terser')) {
+      context.hooks.filter(
+        'webpack.optimization.uglify',
+        context.options.get('uglify'),
+      )
+
       context.target.optimization.minimizer = context.bud.hooks.filter(
-        'optimization_minimizer',
+        'webpack.optimization.minimizer',
         [new UglifyJsPlugin(context.uglifyOptions)],
       )
     }
 
-    context.bud.hooks.call('post_optimization_minimizer')
+    context.bud.hooks.call('webpack.optimization.minimizer.post')
   },
 })
 

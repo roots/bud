@@ -14,7 +14,6 @@ import {svg} from './svg'
 
 /**
  * Webpack loaders
- * @type {function} rules
  */
 const rules = bud => ({
   bud,
@@ -84,7 +83,7 @@ const rules = bud => ({
       this.target.module.rules.push(svg(this.bud).make())
     }
 
-    this.target.rules = this.bud.hooks.filter('webpack.rules', this.target.rules)
+    this.target.module = this.bud.hooks.filter('webpack.module', this.target.module)
 
     this.bud.logger.info(
       {name: 'webpack.rules', value: this.target},

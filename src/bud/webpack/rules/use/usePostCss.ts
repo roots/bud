@@ -1,8 +1,22 @@
 const usePostCss = (rule, bud) => {
   const loader = bud.loaders.get('postCss')
-  const options = {
+  let options: any = {
     ident: 'postcss',
-    parser: 'postcss-scss',
+  }
+
+  if (bud.features.enabled('scss')) {
+    options = {
+      parser: 'postcss-scss',
+    }
+
+    bud.logger.info(
+      {name: rule, options},
+      `scss support enabled. using postcss-scss parser.`,
+    )
+  }
+
+  options = {
+    ...options,
     ...bud.options.get('postCss'),
   }
 

@@ -50,6 +50,7 @@ export declare const repositories: {
         inlineManifest: {
             name: string;
         };
+        postCss: {};
         splitting: {
             maxChunks: any;
         };

@@ -36,7 +36,7 @@ var build = function (bud) { return ({
     builders: [
         ['output', output_1.output],
         ['entry', entry_1.entry],
-        ['rules', index_1.rules],
+        ['module', index_1.rules],
         ['plugins', plugins_1.plugins],
         ['resolve', webpackResolve_1.webpackResolve],
         ['externals', externals_1.externals],
@@ -59,13 +59,11 @@ var build = function (bud) { return ({
         this.builders.map(function (_a) {
             var name = _a[0], builder = _a[1];
             _this.final = __assign(__assign({}, _this.final), builder(_this.bud).make());
-            _this.bud.logger.info({ name: "webpack", builder: name, config: _this.final }, name + " complete");
         });
         /**
          * Return final config object
          */
         this.final = this.bud.hooks.filter('webpack_final', this.final);
-        this.bud.logger.info({ name: "webpack", output: this.final }, "final configuration");
         return this.final;
     }
 }); };

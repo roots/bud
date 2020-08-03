@@ -8,7 +8,7 @@ import {useMiniCss} from '../use/useMiniCss'
 const css = bud => ({
   bud,
 
-  isHot: bud.features.enabled('hot'),
+  name: 'webpack.rules.css',
 
   rule: {
     test: patterns.css,
@@ -19,21 +19,21 @@ const css = bud => ({
     this.bud.hooks.call('webpack.rules.css.pre')
 
     if (this.bud.features.enabled('vue')) {
-      this.rule.use.push({...useVueStyle('webpack.rules.css', this.bud)})
+      this.rule.use.push({...useVueStyle(this.name, this.bud)})
     }
 
-    this.rule.use.push(useMiniCss('webpack.rules.css', this.bud))
-    this.rule.use.push(useCss('webpack.rules.css', this.bud))
-    this.rule.use.push(useResolveUrl('webpack.rules.css', this.bud))
+    this.rule.use.push(useMiniCss(this.name, this.bud))
+    this.rule.use.push(useCss(this.name, this.bud))
+    this.rule.use.push(useResolveUrl(this.name, this.bud))
 
     if (this.bud.features.enabled('postCss')) {
-      this.rule.use.push(usePostCss('webpack.rules.css', this.bud))
+      this.rule.use.push(usePostCss(this.name, this.bud))
     }
 
-    this.rule = this.bud.hooks.filter('webpack.rules.css', this.rule)
+    this.rule = this.bud.hooks.filter(this.name, this.rule)
 
     this.bud.logger.info(
-      {name: 'webpack.rules.css', value: this.rule.test.toString()},
+      {name: this.name, value: this.rule.test.toString()},
       `webpack.rules.css.test`,
     )
 

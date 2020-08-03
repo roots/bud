@@ -1,6 +1,5 @@
 /**
  * Webpack loaders
- * @type {function} rules
  */
 declare const rules: (bud: any) => {
     bud: any;

@@ -10,6 +10,7 @@ var useScss_1 = require("../use/useScss");
 var useMiniCss_1 = require("../use/useMiniCss");
 var module = function (bud) { return ({
     bud: bud,
+    name: 'webpack.rules.modulescss',
     isHot: bud.features.enabled('hot'),
     isPostCss: bud.features.enabled('postCss'),
     rule: {
@@ -19,17 +20,17 @@ var module = function (bud) { return ({
     make: function () {
         this.bud.hooks.call('webpack.rules.module.scss.pre');
         if (this.bud.features.enabled('vue')) {
-            this.rule.use.push(useVueStyle_1.useVueStyle('webpack.rules.module.scss', this.bud));
+            this.rule.use.push(useVueStyle_1.useVueStyle(this.name, this.bud));
         }
-        this.rule.use.push(useMiniCss_1.useMiniCss('webpack.rules.module.scss', this.bud));
-        this.rule.use.push(useCss_1.useCss('webpack.rules.module.scss', this.bud, true));
-        this.rule.use.push(useResolveUrl_1.useResolveUrl('webpack.rules.module.scss', this.bud));
+        this.rule.use.push(useMiniCss_1.useMiniCss(this.name, this.bud));
+        this.rule.use.push(useCss_1.useCss(this.name, this.bud, true));
+        this.rule.use.push(useResolveUrl_1.useResolveUrl(this.name, this.bud));
         if (this.isPostCss) {
-            this.rule.use.push(usePostCss_1.usePostCss('webpack.rules.module.scss', this.bud));
+            this.rule.use.push(usePostCss_1.usePostCss(this.name, this.bud));
         }
-        this.rule.use.push(useScss_1.useScss('webpack.rules.module.scss', this.bud));
-        this.rule = this.bud.hooks.filter('webpack.rules.module.scss', this.rule);
-        this.bud.logger.info({ name: 'webpack.rules.module.scss', value: this.rule.test.toString() }, "webpack.rules.module.scss.test");
+        this.rule.use.push(useScss_1.useScss(this.name, this.bud));
+        this.rule = this.bud.hooks.filter(this.name, this.rule);
+        this.bud.logger.info({ name: this.name, value: this.rule.test.toString() }, "webpack.rules.module.scss.test");
         this.bud.hooks.call('webpack.rules.module.scss.post');
         return this.rule;
     }

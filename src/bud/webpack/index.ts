@@ -7,7 +7,6 @@ import {optimization} from './optimization'
 import {output} from './output'
 import {webpackResolve} from './webpackResolve'
 import {plugins} from './plugins'
-
 import type {Bud, BuilderController, RegisteredBuilder} from './types'
 
 const build = (bud: Bud): BuilderController => ({
@@ -27,7 +26,7 @@ const build = (bud: Bud): BuilderController => ({
   builders: [
     ['output', output],
     ['entry', entry],
-    ['rules', rules],
+    ['module', rules],
     ['plugins', plugins],
     ['resolve', webpackResolve],
     ['externals', externals],
@@ -53,15 +52,12 @@ const build = (bud: Bud): BuilderController => ({
         ...this.final,
         ...builder(this.bud).make(),
       }
-
-      this.bud.logger.info({name: `webpack`, builder: name, config: this.final}, `${name} complete`)
     })
 
     /**
      * Return final config object
      */
     this.final = this.bud.hooks.filter('webpack_final', this.final)
-    this.bud.logger.info({name: `webpack`, output: this.final}, `final configuration`)
     return this.final
   },
 })

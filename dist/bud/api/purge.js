@@ -1,4 +1,15 @@
 "use strict";
+var __assign = (this && this.__assign) || function () {
+    __assign = Object.assign || function(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+                t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
 var __rest = (this && this.__rest) || function (s, e) {
     var t = {};
     for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
@@ -24,16 +35,14 @@ var purge = function (_a) {
     var purgeEnabled = enabled !== null && enabled !== void 0 ? enabled : true;
     purgeEnabled && this.features.enable('purge');
     if (!this.features.enabled('purge')) {
-        this.logger.info({ name: 'api' }, 'bud.purge called but it is not enabled on this build');
+        this.logger.info({ name: 'api.purge' }, 'bud.purge called but it is not enabled on this build');
         return this;
     }
-    var value = {
-        plugins: __spreadArrays(this.options.get('postCss').plugins, [
-            require('@fullhuman/postcss-purgecss')(options),
-        ])
-    };
+    this.logger.info({ name: 'api.purge', enabled: enabled, options: options }, 'bud.api.purge called');
+    var value = __assign(__assign({}, this.options.get('postCss')), { plugins: __spreadArrays(this.options.get('postCss').plugins, [
+            this.services.purgeCss(options),
+        ]) });
     this.options.set('postCss', value);
-    this.logger.info({ name: 'api', value: value }, 'bud.purge called');
     return this;
 };
 exports.purge = purge;

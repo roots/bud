@@ -1,7 +1,6 @@
 import type { Bud } from './types';
 /**
  * Webpack optimization
- * @type {function} optimization
  */
 declare const optimization: (bud: Bud) => {
     bud: Bud;
@@ -19,7 +18,14 @@ declare const optimization: (bud: Bud) => {
         };
     };
     splitChunksOptions: {
-        cacheGroups: any;
+        cacheGroups: {
+            vendor: {
+                test: RegExp;
+                name: any;
+                chunks: string;
+                priority: number;
+            };
+        };
     };
     runtimeChunkOptions: {
         name: (entrypoint: any) => string;

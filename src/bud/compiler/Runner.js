@@ -19,8 +19,7 @@ const {DevServer} = require('./components/DevServer')
  * @prop {object} build
  * @return {boolean}
  */
-const successfulBuild = build =>
-  !build?.errors?.length > 0 && build?.percentage == 1 && build?.assets?.length > 0
+const successfulBuild = build => build?.percentage == 1 && build?.assets.length > 0
 
 /**
  * Budpack build status display
@@ -34,34 +33,59 @@ const Runner = ({compiler, bud}) => {
   const {exit} = useApp()
 
   const quit = () => {
+    bud.logger.info({name: 'bud.compiler'}, 'Quitting application.')
+
     exit()
-    bud.dump()
     bud.util.termiante()
     process.exit()
   }
 
   useInput(input => {
     if (input == 'q') {
+      bud.logger.info(
+        {name: 'bud.compiler', input},
+        'User requested to close application.',
+      )
       quit()
     }
-  })
-
-  useEffect(() => {
-    ;(!bud.features.enabled('watch') || !bud.features.enabled('hot')) &&
-      build?.assets?.length > 1 &&
-      build?.percentage == 1 &&
-      quit()
   })
 
   const build = useWebpack({compiler, bud})
 
   useEffect(() => {
-    successfulBuild(build) &&
+    if (successfulBuild(build)) {
+      const title = 'Build complete.'
+      const message = `${build.assets.length} assets built.`
       notifier.notify({
-        title: 'Build complete',
-        message: `${build.assets.length} assets built.`,
+        title,
+        message,
       })
-  }, [build?.percentage])
+      bud.logger.info(
+        {name: 'bud.compiler', title, message},
+        'Build success notification',
+      )
+    }
+  }, [build?.percentage, build?.assets])
+
+  useEffect(() => {
+    if (
+      (!bud.features.enabled('watch') || !bud.features.enabled('hot')) &&
+      build?.assets?.length > 1 &&
+      build?.percentage === 1
+    ) {
+      bud.logger.info(
+        {
+          name: 'bud.compiler',
+          watch: bud.features.enabled('watch'),
+          hot: bud.features.enabled('hot'),
+          assets: build.assets.map(asset => asset.name),
+        },
+        'application determined to be finished based on state. quitting.',
+      )
+
+      quit()
+    }
+  })
 
   const showBrowserSync =
     !bud.features.enabled('debug') && bud.features.enabled('browserSync')

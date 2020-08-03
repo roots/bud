@@ -79,6 +79,7 @@ var options = {
     inlineManifest: {
         name: 'runtime'
     },
+    postCss: {},
     splitting: {
         maxChunks: null
     },

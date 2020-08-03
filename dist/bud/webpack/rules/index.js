@@ -14,7 +14,6 @@ var image_1 = require("./image");
 var svg_1 = require("./svg");
 /**
  * Webpack loaders
- * @type {function} rules
  */
 var rules = function (bud) { return ({
     bud: bud,
@@ -69,7 +68,7 @@ var rules = function (bud) { return ({
             this.bud.logger.info({ name: 'webpack.rules' }, "supports svg");
             this.target.module.rules.push(svg_1.svg(this.bud).make());
         }
-        this.target.rules = this.bud.hooks.filter('webpack.rules', this.target.rules);
+        this.target.module = this.bud.hooks.filter('webpack.module', this.target.module);
         this.bud.logger.info({ name: 'webpack.rules', value: this.target }, "webpack.rules has been generated");
         return this.target;
     }

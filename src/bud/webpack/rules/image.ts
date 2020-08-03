@@ -8,7 +8,9 @@ const image: ImageRulesFactory = (bud): imageLoaderInterface => ({
     this.options = {
       test: this.bud.hooks.filter('loaders_image_test', patterns.image),
       use: [
-        this.bud.hooks.filter('loaders_image_use', {...useFile('webpack.rules.font', bud)}),
+        this.bud.hooks.filter('loaders_image_use', {
+          ...useFile('webpack.rules.font', bud),
+        }),
       ],
     }
 

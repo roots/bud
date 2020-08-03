@@ -8,9 +8,7 @@ const font = bud => ({
 
   rule: {
     test: patterns.font,
-    use: [
-      {...useFile('webpack.rules.font', bud)},
-    ],
+    use: [{...useFile('webpack.rules.font', bud)}],
   },
 
   make: function () {

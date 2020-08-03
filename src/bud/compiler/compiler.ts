@@ -5,8 +5,6 @@ import type {Bud} from './types'
 import type {WebpackConfig} from './types'
 
 const compiler = (bud: Bud): void => {
-  bud.hooks.call('pre_compiler')
-
   /**
    * Use bud's default dashboard when enabled
    */
@@ -16,8 +14,6 @@ const compiler = (bud: Bud): void => {
    * webpack configuration
    */
   const compiledConfig: WebpackConfig = build(bud).make()
-
-  bud.logger.info({name: 'render compiler dashboard', ...compiledConfig}, `Webpack config generator results.`)
 
   bud.hooks.call('pre_dashboard')
 
@@ -29,8 +25,6 @@ const compiler = (bud: Bud): void => {
     : compileSafeMode(bud, compiledConfig) // disabled: simple stats output
 
   bud.hooks.call('post_dashboard')
-
-  bud.hooks.call('post_compiler')
 }
 
 export {compiler}
