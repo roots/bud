@@ -10,7 +10,7 @@ const logger = pino(
     base: null,
     enabled: argv.hasOwnProperty('log') ? true : false,
     prettyPrint: {
-      colorize: true,
+      colorize: !destination ? true : false,
     },
   },
   destination,

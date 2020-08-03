@@ -19,7 +19,7 @@ const {DevServer} = require('./components/DevServer')
  * @prop {object} build
  * @return {boolean}
  */
-const successfulBuild = build => build?.percentage == 1 && build?.assets.length > 0
+const successfulBuild = build => build?.percentage == 1 && build?.assets?.length > 0
 
 /**
  * Budpack build status display
@@ -30,27 +30,29 @@ const successfulBuild = build => build?.percentage == 1 && build?.assets.length 
 const Runner = ({compiler, bud}) => {
   const [width, height] = useStdOutDimensions()
   const [state, actions] = useFocusState()
+  const build = useWebpack({compiler, bud})
   const {exit} = useApp()
 
+  /**
+   * Quits application when called.
+   */
   const quit = () => {
     bud.logger.info({name: 'bud.compiler'}, 'Quitting application.')
 
     exit()
-    bud.util.termiante()
+    bud.util.terminate()
     process.exit()
   }
-
   useInput(input => {
     if (input == 'q') {
       bud.logger.info(
         {name: 'bud.compiler', input},
         'User requested to close application.',
       )
+
       quit()
     }
   })
-
-  const build = useWebpack({compiler, bud})
 
   useEffect(() => {
     if (successfulBuild(build)) {
@@ -68,17 +70,19 @@ const Runner = ({compiler, bud}) => {
   }, [build?.percentage, build?.assets])
 
   useEffect(() => {
-    if (
-      (!bud.features.enabled('watch') || !bud.features.enabled('hot')) &&
-      build?.assets?.length > 1 &&
-      build?.percentage === 1
-    ) {
+    const notWatching = !bud.features.enabled('watch') && !bud.features.enabled('hot')
+    const complete = build?.done
+
+    if (notWatching && complete) {
       bud.logger.info(
         {
           name: 'bud.compiler',
           watch: bud.features.enabled('watch'),
           hot: bud.features.enabled('hot'),
-          assets: build.assets.map(asset => asset.name),
+          build: {
+            ...build,
+            assets: build.assets.map(asset => asset.name),
+          },
         },
         'application determined to be finished based on state. quitting.',
       )

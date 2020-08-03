@@ -1,1 +1,1 @@
-{"version":3,"file":"general.d.ts","sourceRoot":"","sources":["../../../src/bud/webpack/general.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAC,GAAG,EAAC,MAAM,SAAS,CAAA;AAEhC;;;;GAIG;AACH,QAAA,MAAM,OAAO,QAAS,GAAG;;;;;;;;;;CA2CvB,CAAA;AAEF,OAAO,EAAC,OAAO,EAAC,CAAA"}
+{"version":3,"file":"general.d.ts","sourceRoot":"","sources":["../../../src/bud/webpack/general.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAC,GAAG,EAAC,MAAM,SAAS,CAAA;AAEhC;;;;GAIG;AACH,QAAA,MAAM,OAAO,QAAS,GAAG;;;;;;;;;;CAkDvB,CAAA;AAEF,OAAO,EAAC,OAAO,EAAC,CAAA"}

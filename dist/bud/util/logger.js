@@ -12,7 +12,7 @@ var logger = pino_1["default"]({
     base: null,
     enabled: yargs_1.argv.hasOwnProperty('log') ? true : false,
     prettyPrint: {
-        colorize: true
+        colorize: !destination ? true : false
     }
 }, destination);
 exports.logger = logger;

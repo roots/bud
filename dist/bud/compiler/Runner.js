@@ -1,3 +1,9 @@
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); if (enumerableOnly) symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; }); keys.push.apply(keys, symbols); } return keys; }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; if (i % 2) { ownKeys(Object(source), true).forEach(function (key) { _defineProperty(target, key, source[key]); }); } else if (Object.getOwnPropertyDescriptors) { Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)); } else { ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 const React = require('react');
 
 const {
@@ -54,7 +60,11 @@ const {
  */
 
 
-const successfulBuild = build => (build === null || build === void 0 ? void 0 : build.percentage) == 1 && (build === null || build === void 0 ? void 0 : build.assets.length) > 0;
+const successfulBuild = build => {
+  var _build$assets;
+
+  return (build === null || build === void 0 ? void 0 : build.percentage) == 1 && (build === null || build === void 0 ? void 0 : (_build$assets = build.assets) === null || _build$assets === void 0 ? void 0 : _build$assets.length) > 0;
+};
 /**
  * Budpack build status display
  *
@@ -69,16 +79,23 @@ const Runner = ({
 }) => {
   const [width, height] = useStdOutDimensions();
   const [state, actions] = useFocusState();
+  const build = useWebpack({
+    compiler,
+    bud
+  });
   const {
     exit
   } = useApp();
+  /**
+   * Quits application when called.
+   */
 
   const quit = () => {
     bud.logger.info({
       name: 'bud.compiler'
     }, 'Quitting application.');
     exit();
-    bud.util.termiante();
+    bud.util.terminate();
     process.exit();
   };
 
@@ -90,10 +107,6 @@ const Runner = ({
       }, 'User requested to close application.');
       quit();
     }
-  });
-  const build = useWebpack({
-    compiler,
-    bud
   });
   useEffect(() => {
     if (successfulBuild(build)) {
@@ -111,14 +124,17 @@ const Runner = ({
     }
   }, [build === null || build === void 0 ? void 0 : build.percentage, build === null || build === void 0 ? void 0 : build.assets]);
   useEffect(() => {
-    var _build$assets;
+    const notWatching = !bud.features.enabled('watch') && !bud.features.enabled('hot');
+    const complete = build === null || build === void 0 ? void 0 : build.done;
 
-    if ((!bud.features.enabled('watch') || !bud.features.enabled('hot')) && (build === null || build === void 0 ? void 0 : (_build$assets = build.assets) === null || _build$assets === void 0 ? void 0 : _build$assets.length) > 1 && (build === null || build === void 0 ? void 0 : build.percentage) === 1) {
+    if (notWatching && complete) {
       bud.logger.info({
         name: 'bud.compiler',
         watch: bud.features.enabled('watch'),
         hot: bud.features.enabled('hot'),
-        assets: build.assets.map(asset => asset.name)
+        build: _objectSpread(_objectSpread({}, build), {}, {
+          assets: build.assets.map(asset => asset.name)
+        })
       }, 'application determined to be finished based on state. quitting.');
       quit();
     }

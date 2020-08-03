@@ -44,11 +44,10 @@ const Nav = ({build, focused, bud}) => (
         }>
         <Bullet active={focused?.errors || false} /> Errors
         {build?.errors?.length > 0 && build.errors[0]
-          ? ` [${build?.errors.length}]`
+          ? ` [${build.errors.length}]`
           : `  `}
       </Text>
     </Box>
-    <Text>{build.errors[0]}</Text>
     <Spacer />
     <Box>
       <Text

@@ -32,6 +32,13 @@ var general = function (bud) { return ({
         this.target.mode = bud.hooks.filter('webpack.mode', this.target.mode);
         this.target.target = bud.hooks.filter('webpack.target', this.target.target);
         this.target.watch = bud.hooks.filter('webpack.watch', this.target.watch);
+        this.target.stats = {
+            version: true,
+            hash: true,
+            assets: true,
+            errors: true,
+            warnings: true
+        };
         /**
          * Empty out node globals that aren't native to web
          * to ensure they aren't inadvertently used in project bundles

@@ -1,87 +1,18 @@
 const {
   useState,
-  useEffect,
-  useMemo
+  useEffect
 } = require('react');
 
 const {
-  ProgressPlugin
-} = require('webpack');
+  useProgress
+} = require('./useProgress');
 
-const browserSync = require('browser-sync');
-
-const webpackDevMiddleware = require('webpack-dev-middleware');
-
-const webpackHotMiddleware = require('webpack-hot-middleware');
-
-const makeMiddleware = (compiler, bud) => [webpackDevMiddleware(compiler, {
-  headers: bud.options.get('dev').headers,
-  publicPath: bud.paths.get('public') || '/',
-  stats: {
-    version: true,
-    hash: true,
-    time: true,
-    assets: true,
-    errors: true,
-    warnings: true
-  }
-}), webpackHotMiddleware(compiler, {
-  log: msg => {
-    bud.logger.info({
-      name: 'bud.compiler',
-      msg
-    }, 'message via webpackHotMiddleware');
-  }
-})];
-
-const hotSyncServer = (bud, compiler, callback) => {
-  return browserSync.init({
-    proxy: {
-      target: bud.options.get('dev').host,
-      ws: true
-    },
-    logLevel: 'silent',
-    reloadOnRestart: true,
-    injectFileTypes: ['js', 'css'],
-    open: bud.options.get('dev').open,
-    middleware: makeMiddleware(compiler, bud),
-    injectChanges: true,
-    watchOptions: {
-      ignoreInitial: true
-    },
-    files: bud.options.get('watch')
-  }, callback);
-};
-/**
- * useProgress: Webpack ProgressPlugin
- * @return {object}
- */
-
-
-const useProgress = () => {
-  const [progressPlugin, setProgressPlugin] = useState();
-  const [percentage, setPercentage] = useState(0);
-  const [message, setMessage] = useState(null);
-  useEffect(() => {
-    !progressPlugin && setProgressPlugin(new ProgressPlugin({
-      activeModules: true,
-      modules: true,
-
-      handler(percentage, message) {
-        setPercentage(percentage);
-        setMessage(message);
-      }
-
-    }));
-  }, []);
-  return {
-    progressPlugin,
-    percentage,
-    message
-  };
-};
+const {
+  useHotSyncServer
+} = require('./useHotSyncServer');
 /**
  * Hook: useWebpack
+ *
  * @prop {compiler} compiler webpack.compiler
  * @prop {string}   options  project options
  */
@@ -91,11 +22,73 @@ const useWebpack = ({
   compiler,
   bud
 }) => {
+  /**
+   * Query bud for mode settings.
+   */
+  const [hot] = useState(bud.features.enabled('hot'));
+  const [watch] = useState(bud.features.enabled('watch'));
+  /**
+   * Webpack callback
+   *
+   * This is fired when webpack finishes each round of compilation.
+   *
+   * This callback is not utilized when running in hot mode. That is
+   * handled in the useHotSyncServer hook and is managed by webpack
+   * dev server middleware.
+   */
+
+  const webpackCallback = (err, stats) => {
+    const results = {};
+    /**
+     * Add webpack compiler errors to state.
+     */
+
+    if (err) {
+      results.error = err;
+      bud.logger.error({
+        name: 'bud.compiler',
+        err
+      }, 'webpack compiler callback generated build errors');
+    }
+    /**
+     * Add webpack compiler stats to state
+     */
+
+
+    if (stats) {
+      results.stats = stats.toJson({
+        version: true,
+        hash: true,
+        time: true,
+        assets: true,
+        errors: true,
+        warnings: true,
+        chunks: false,
+        modules: false,
+        entrypoints: false,
+        assetsByChunkName: false,
+        logging: false,
+        children: false,
+        namedChunkGroups: false
+      });
+      bud.logger.info({
+        name: 'bud.compiler',
+        assets: results.stats.assets.map(asset => asset.name)
+      }, 'webpack compiler callback generated prototypal build stats');
+    }
+
+    setBuild(results);
+  };
+  /**
+   * Add progress plugin to state.
+   */
+
+
   const {
     progressPlugin,
     percentage,
     message
-  } = useProgress();
+  } = useProgress(bud);
   const [progressPluginApplied, setProgressPluginApplied] = useState(null);
   useEffect(() => {
     if (progressPlugin) {
@@ -106,97 +99,170 @@ const useWebpack = ({
       }, 'progress plugin applied');
     }
   }, [progressPlugin, compiler]);
-  const [buildStats, setBuildStats] = useState({});
-  const [buildErrors, setBuildErrors] = useState([]);
+  /**
+   * Run webpack compiler and log output to state.
+   */
+
+  const [build, setBuild] = useState({});
   const [webpackRunning, setWebpackRunning] = useState(null);
-  const [devServer, setDevServer] = useState(null);
   useEffect(() => {
-    const webpackCallback = (err, stats) => {
-      if (err) {
-        setBuildErrors(err);
-        bud.logger.error({
-          name: 'bud.compiler',
-          err
-        }, 'useWebpack generated build errors');
+    if (progressPluginApplied && !webpackRunning) {
+      /** Hot mode is handled differently by WDS middleware */
+      if (hot) {
+        return;
       }
+      /**
+       * Run compiler in watch mode if bud watch feature is enabled.
+       */
 
-      if (stats) {
-        const jsonStats = stats === null || stats === void 0 ? void 0 : stats.toJson({
-          version: true,
-          hash: true,
-          time: true,
-          assets: true,
-          errors: true,
-          warnings: true,
-          chunks: false,
-          modules: false,
-          entrypoints: false,
-          assetsByChunkName: false,
-          logging: false,
-          children: false,
-          namedChunkGroups: false
-        });
-        setBuildStats(jsonStats);
-        bud.logger.info({
-          name: 'bud.compiler',
-          stats: jsonStats.assets.map(asset => asset.name)
-        }, 'useWebpack generated build stats');
-      }
-    };
 
-    if (progressPluginApplied) {
-      if (!webpackRunning) {
-        const watching = bud.features.enabled('watch');
-        const hot = bud.features.enabled('hot');
+      if (watch) {
         bud.logger.info({
           name: 'bud.compiler',
           hot,
-          watching,
-          progressPluginApplied
-        }, 'starting compiler');
-        watching && !bud.features.enabled('hot') ? compiler.watch({}, webpackCallback) : compiler.run(webpackCallback);
-        setWebpackRunning(true);
+          watch,
+          progressPluginApplied,
+          webpackRunning
+        }, 'starting compiler in watch mode');
+        compiler.watch({}, webpackCallback);
+        /**
+         * Otherwise, run the vanilla compiler.
+         */
+      } else {
+        bud.logger.info({
+          name: 'bud.compiler',
+          hot,
+          watch,
+          progressPluginApplied,
+          webpackRunning
+        }, 'starting compiler in run mode');
+        compiler.run(webpackCallback);
       }
+
+      setWebpackRunning(true);
     }
-  }, [progressPluginApplied, bud, compiler]);
+  }, [progressPluginApplied, webpackRunning, hot, watch, bud, compiler]);
+  /**
+   * Assets are generated by webpack's core compiler when not in hot mode.
+   * This is set to the build state variable above.
+   *
+   * When in hot mode assets are generated by WDS middleware slotted onto
+   * BrowserSync. This is set to the devStats state variable
+   * in the useHotSyncServer hook. That call happens below.
+   *
+   * Only one of them will run at a time.
+   */
+
+  /**
+   * Stats state variables consumed by application.
+   */
+
   const [assets, setAssets] = useState([]);
   const [warnings, setWarnings] = useState([]);
   const [errors, setErrors] = useState([]);
+  const [hash, setHash] = useState(null);
+  const [time, setTime] = useState(null);
+  const [hotSyncServer, devStats] = useHotSyncServer(bud, compiler, webpackCallback);
+  /**
+   * Assets generated by webpack compiler.run or webpack compiler.watch
+   */
+
   useEffect(() => {
-    (buildStats === null || buildStats === void 0 ? void 0 : buildStats.assets) && setAssets(buildStats.assets);
-    (buildStats === null || buildStats === void 0 ? void 0 : buildStats.warnings) && setWarnings(buildStats.warnings);
-    (buildStats === null || buildStats === void 0 ? void 0 : buildStats.errors) && setErrors(buildStats === null || buildStats === void 0 ? void 0 : buildStats.errors);
-  }, [buildStats, buildErrors]);
-  useMemo(() => {
-    if (webpackRunning && bud.features.enabled('hot') && !devServer && (buildStats || buildErrors)) {
+    var _build$stats, _build$stats2, _build$stats3, _build$stats4, _build$stats5;
+
+    (build === null || build === void 0 ? void 0 : (_build$stats = build.stats) === null || _build$stats === void 0 ? void 0 : _build$stats.assets) && setAssets(build.stats.assets);
+    (build === null || build === void 0 ? void 0 : (_build$stats2 = build.stats) === null || _build$stats2 === void 0 ? void 0 : _build$stats2.warnings) && setWarnings(build.stats.warnings);
+    (build === null || build === void 0 ? void 0 : (_build$stats3 = build.stats) === null || _build$stats3 === void 0 ? void 0 : _build$stats3.errors) && setErrors(build.stats.errors);
+    (build === null || build === void 0 ? void 0 : (_build$stats4 = build.stats) === null || _build$stats4 === void 0 ? void 0 : _build$stats4.hash) && setHash(build.stats.hash);
+    (build === null || build === void 0 ? void 0 : (_build$stats5 = build.stats) === null || _build$stats5 === void 0 ? void 0 : _build$stats5.time) && setTime(build.stats.time);
+  }, [build]);
+  /**
+   * Assets generated by WDS middleware
+   */
+
+  useEffect(() => {
+    (devStats === null || devStats === void 0 ? void 0 : devStats.assets) && setAssets(devStats.assets);
+    (devStats === null || devStats === void 0 ? void 0 : devStats.warnings) && setWarnings(devStats.warnings);
+    (devStats === null || devStats === void 0 ? void 0 : devStats.errors) && setErrors(devStats.errors);
+    (devStats === null || devStats === void 0 ? void 0 : devStats.hash) && setHash(devStats.hash);
+    (devStats === null || devStats === void 0 ? void 0 : devStats.time) && setTime(devStats.time);
+  }, [devStats]);
+  /**
+   * For convenience set a boolean conditional state variable
+   * for tracked build stats. This affords not having to
+   * litter length > 0 checks throughout the rest of the application.
+   */
+
+  const [hasAssets, setHasAssets] = useState(false);
+  useEffect(() => {
+    if (assets && assets.length > 0) {
+      setHasAssets(true);
       bud.logger.info({
         name: 'bud.compiler',
-        webpackRunning,
-        hot: bud.features.enabled('hot'),
-        devServer,
-        buildStats,
-        buildErrors
-      }, 'starting dev server');
-      hotSyncServer(bud, compiler, (err, bs) => {
-        setDevServer(bs.name);
-      });
+        assets: assets.map(asset => asset.name)
+      }, 'new state: assets');
     }
-  }, [webpackRunning, devServer]);
-  useEffect(() => {
-    assets && bud.logger.info({
-      name: 'bud.compiler',
-      assets: assets.map(asset => asset.name)
-    }, 'new assets in component state');
   }, [assets]);
+  const [hasWarnings, setHasWarnings] = useState(false);
+  useEffect(() => {
+    if (warnings && warnings.length > 0) {
+      setHasWarnings(true);
+      bud.logger.info({
+        name: 'bud.compiler',
+        warnings: warnings.map(asset => asset.name)
+      }, 'new state: warnings');
+    }
+  }, [warnings]);
+  const [hasErrors, setHasErrors] = useState(false);
+  useEffect(() => {
+    if (errors && errors.length > 0) {
+      setHasErrors(true);
+      bud.logger.info({
+        name: 'bud.compiler',
+        errors: errors.map(asset => asset.name)
+      }, 'new state: errors');
+    }
+  }, [errors]);
+  const [hasHash, setHasHash] = useState(false);
+  useEffect(() => {
+    if (hash) {
+      setHasHash(true);
+      bud.logger.info({
+        name: 'bud.compiler',
+        hash
+      }, 'new state: hash');
+    }
+  }, [hash]);
+  const [hasTime, setHasTime] = useState(false);
+  useEffect(() => {
+    if (time) {
+      setHasTime(true);
+      bud.logger.info({
+        name: 'bud.compiler',
+        payload: time
+      }, 'new state: time');
+    }
+  }, [time]);
+  const done = hasAssets && percentage === 1;
+  /**
+   * Return state to consumers.
+   */
+
   return {
     assets,
-    devServer,
+    hasAssets,
     errors,
-    hash: buildStats === null || buildStats === void 0 ? void 0 : buildStats.hash,
-    time: buildStats === null || buildStats === void 0 ? void 0 : buildStats.time,
+    hasErrors,
+    hash,
+    hasHash,
+    time,
+    hasTime,
     warnings,
+    hasWarnings,
     percentage,
-    message
+    done,
+    message,
+    hotSyncServer
   };
 };
 

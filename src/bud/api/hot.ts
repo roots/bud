@@ -18,14 +18,25 @@ const hot: Hot = function (
     chokidar?: object
   },
 ): Bud {
-  this.logger.info(options, `[api] bud.hot called`)
+  this.logger.info({name: 'bud.api', options}, `bud.api.hot called`)
 
   if (options?.enabled === false) {
+    this.logger.info(
+      {name: 'bud.api', options},
+      `bud.api.hot is not applicable to this build. skipping.`,
+    )
+
     return this
   }
 
-  options?.watch &&
+  if (options?.watch) {
+    this.logger.info(
+      {name: 'bud.api', watch: options.watch},
+      `bud.api.hot set watch mode options to true`,
+    )
+
     this.options.set('watch', [...this.options.get('watch'), ...options.watch])
+  }
 
   this.features.enable('hot')
 
@@ -40,7 +51,7 @@ const hot: Hot = function (
     },
   }
 
-  this.options.set('dev', {
+  const devServerConfig = {
     ...dev,
     ...chokidarHandler,
     hot: options?.enabled ?? dev.enabled ?? true,
@@ -68,7 +79,13 @@ const hot: Hot = function (
       },
       ...(options?.proxy ?? []),
     },
-  })
+  }
+
+  this.logger.info(
+    {name: 'bud.api', devServerConfig},
+    'Updating dev server configuration',
+  )
+  this.options.set('dev', devServerConfig)
 
   return this
 }
