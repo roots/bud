@@ -6,9 +6,14 @@ var useMiniCss = function (rule, bud) {
     var loader = bud.loaders.get('miniCss');
     var options = {};
     if (isHot) {
-        options.hot = true;
+        options.hmr = true;
     }
-    bud.logger.info({ name: rule, loader: loader, options: options, isHot: isHot }, "using mini-css");
+    bud.logger.info({
+        name: rule,
+        loader: loader,
+        options: options,
+        isHot: isHot
+    }, "using mini-css");
     return { loader: loader, options: options };
 };
 exports.useMiniCss = useMiniCss;

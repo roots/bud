@@ -13,14 +13,14 @@ var compiler = function (bud) {
      * webpack configuration
      */
     var compiledConfig = webpack_1.build(bud).make();
-    bud.hooks.call('pre_dashboard');
+    bud.hooks.call('compiler.dashboard.pre');
     /**
      * Run compiler.
      */
     dashboardEnabled
         ? renderCompilerDashboard_1.renderCompilerDashboard(bud, compiledConfig) // enabled: bud compiler
         : renderSafeMode_1.compileSafeMode(bud, compiledConfig); // disabled: simple stats output
-    bud.hooks.call('post_dashboard');
+    bud.hooks.call('compiler.dashboard.post');
 };
 exports.compiler = compiler;
 //# sourceMappingURL=compiler.js.map

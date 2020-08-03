@@ -8,7 +8,7 @@ var mini_css_extract_plugin_1 = __importDefault(require("mini-css-extract-plugin
 var miniCssExtract = {
     setOptions: function () {
         return {
-            hot: this.bud.features.enabled('hot'),
+            hmr: this.bud.features.enabled('hot'),
             filename: this.bud.features.enabled('hash')
                 ? this.bud.options.get('filenameTemplate').hashed + ".css"
                 : this.bud.options.get('filenameTemplate')["default"] + ".css"

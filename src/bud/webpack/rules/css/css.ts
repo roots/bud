@@ -4,6 +4,7 @@ import {useResolveUrl} from '../use/useResolveUrl'
 import {useVueStyle} from '../use/useVueStyle'
 import {useCss} from '../use/useCss'
 import {useMiniCss} from '../use/useMiniCss'
+import {useStyle} from '../use/useStyle'
 
 const css = bud => ({
   bud,

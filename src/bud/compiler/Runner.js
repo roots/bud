@@ -76,7 +76,10 @@ const Runner = ({bud}) => {
   }, [build?.percentage, build?.assets])
 
   useEffect(() => {
-    const notWatching = !bud.features.enabled('watch') && !bud.features.enabled('hot')
+    const notWatching =
+      !bud.features.enabled('watch')
+      && !bud.features.enabled('hot')
+
     const complete = build?.done
 
     if (notWatching && complete) {

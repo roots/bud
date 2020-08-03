@@ -6,6 +6,10 @@ const fixStyleOnlyEntries = {
     silent: true,
   },
   make: function () {
+    if (this.bud.features.enabled('hot')) {
+      this.options.ignore = 'webpack-hot-middleware'
+    }
+
     return new FixStyleOnlyEntriesPlugin(this.options)
   },
   when: function () {

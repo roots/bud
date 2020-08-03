@@ -4,10 +4,15 @@ const useMiniCss = (rule, bud) => {
   const options: any = {}
 
   if (isHot) {
-    options.hot = true
+    options.hmr = true
   }
 
-  bud.logger.info({name: rule, loader, options, isHot}, `using mini-css`)
+  bud.logger.info({
+    name: rule,
+    loader,
+    options,
+    isHot,
+  }, `using mini-css`)
 
   return {loader, options}
 }

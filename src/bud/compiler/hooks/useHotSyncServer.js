@@ -3,13 +3,14 @@ const browserSync = require('browser-sync').create()
 const webpackDevMiddleware = require('webpack-dev-middleware')
 const webpackHotMiddleware = require('webpack-hot-middleware')
 
-
 const makeMiddleware = (bud, setDevStats) => {
   const devMiddlewareOptions = {
     headers: bud.options.get('dev').headers,
     logger: bud.logger,
     loglevel: 'trace',
     publicPath: bud.paths.get('public'),
+    writeToDisk: false,
+    reload: false,
     reporter: (middlewareOptions, reporterOptions) => {
       reporterOptions?.stats && setDevStats(reporterOptions.stats.toJson({
         version: true,
@@ -35,7 +36,10 @@ const makeMiddleware = (bud, setDevStats) => {
   )
 
   const devMiddleware = webpackDevMiddleware(bud.compiler, devMiddlewareOptions)
-  const hotMiddleware = webpackHotMiddleware(bud.compiler)
+  const hotMiddleware = webpackHotMiddleware(bud.compiler, {
+    reload: false,
+    heartbeat: 2000,
+  })
 
   return [devMiddleware, hotMiddleware]
 }
@@ -57,12 +61,14 @@ const useHotSyncServer = (bud) => {
           ws: true,
         },
         logLevel: 'silent',
-        reloadOnRestart: true,
+        reload: false,
+        reloadOnRestart: false,
         open,
         middleware: makeMiddleware(bud, setDevStats),
         injectChanges: true,
+        injectFileTypes: ['js', 'scss', 'css', 'vue', 'jsx', 'ts', 'tsx'],
         watchOptions: {
-          ignoreInitial: true,
+          ignoreInitial: false,
         },
         files,
       }

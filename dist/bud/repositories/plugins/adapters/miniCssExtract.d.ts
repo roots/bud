@@ -1,7 +1,7 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 declare const miniCssExtract: {
     setOptions: () => {
-        hot: any;
+        hmr: any;
         filename: string;
     };
     make: () => MiniCssExtractPlugin;

@@ -8,9 +8,6 @@ var useVueStyle_1 = require("../use/useVueStyle");
 var useCss_1 = require("../use/useCss");
 var useScss_1 = require("../use/useScss");
 var useMiniCss_1 = require("../use/useMiniCss");
-/**
- * scss
- */
 var scss = function (bud) { return ({
     bud: bud,
     name: 'webpack.rules.scss',

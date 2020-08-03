@@ -10,6 +10,9 @@ var fixStyleOnlyEntries = {
         silent: true
     },
     make: function () {
+        if (this.bud.features.enabled('hot')) {
+            this.options.ignore = 'webpack-hot-middleware';
+        }
         return new webpack_fix_style_only_entries_1["default"](this.options);
     },
     when: function () {

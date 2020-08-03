@@ -5,9 +5,9 @@ var moduleOptions = {
     modules: true,
     onlyLocals: false
 };
-var useCss = function (rule, bud, module) {
+var useCss = function (rule, bud, modular) {
     var loader = bud.loaders.get('css');
-    var options = module ? moduleOptions : null;
+    var options = modular ? moduleOptions : null;
     bud.logger.info({ name: rule, loader: loader }, "using css-loader");
     if (!options) {
         return { loader: loader };

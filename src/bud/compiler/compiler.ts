@@ -15,7 +15,7 @@ const compiler = (bud: Bud): void => {
    */
   const compiledConfig: WebpackConfig = build(bud).make()
 
-  bud.hooks.call('pre_dashboard')
+  bud.hooks.call('compiler.dashboard.pre')
 
   /**
    * Run compiler.
@@ -24,7 +24,7 @@ const compiler = (bud: Bud): void => {
     ? renderCompilerDashboard(bud, compiledConfig) // enabled: bud compiler
     : compileSafeMode(bud, compiledConfig) // disabled: simple stats output
 
-  bud.hooks.call('post_dashboard')
+  bud.hooks.call('compiler.dashboard.post')
 }
 
 export {compiler}

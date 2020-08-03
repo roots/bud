@@ -11,7 +11,8 @@ var Runner_1 = require("./Runner");
 /**
  * Inject webpack middleware on all entrypoints.
  */
-var injectHot = function (webpackConfig, overlay, reload, logger) {
+var injectHot = function (_a) {
+    var webpackConfig = _a.webpackConfig, overlay = _a.overlay, reload = _a.reload, logger = _a.logger;
     var client = "webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=" + reload + "&overlay=" + overlay;
     Object.keys(webpackConfig.entry).forEach(function (entry) {
         webpackConfig.entry[entry] = [client].concat(webpackConfig.entry[entry]);
@@ -26,9 +27,13 @@ var injectHot = function (webpackConfig, overlay, reload, logger) {
  * Webpack compilation dashboard renderer.
  */
 var renderCompilerDashboard = function (bud, webpackConfig) {
-    var _a, _b;
     var compiler = bud.features.enabled('hot')
-        ? webpack_1["default"](injectHot(webpackConfig, (_a = bud.options.get('dev').overlay) !== null && _a !== void 0 ? _a : false, (_b = bud.options.get('dev').reload) !== null && _b !== void 0 ? _b : false, bud.logger))
+        ? webpack_1["default"](injectHot({
+            webpackConfig: webpackConfig,
+            overlay: bud.options.get('dev').overlay ? true : true,
+            reload: bud.options.get('dev').reload ? true : true,
+            logger: bud.logger
+        }))
         : webpack_1["default"](webpackConfig);
     bud.compiler = compiler;
     bud.logger.info({

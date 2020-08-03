@@ -3,9 +3,9 @@ const moduleOptions = {
   onlyLocals: false,
 }
 
-const useCss = (rule: string, bud, module?: boolean) => {
+const useCss = (rule: string, bud, modular?: boolean) => {
   const loader = bud.loaders.get('css')
-  const options = module ? moduleOptions : null
+  const options = modular ? moduleOptions : null
 
   bud.logger.info({name: rule, loader}, `using css-loader`)
 

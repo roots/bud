@@ -1,4 +1,4 @@
-declare const useCss: (rule: string, bud: any, module?: boolean) => {
+declare const useCss: (rule: string, bud: any, modular?: boolean) => {
     loader: any;
     options?: undefined;
 } | {

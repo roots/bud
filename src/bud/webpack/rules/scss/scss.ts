@@ -5,10 +5,8 @@ import {useVueStyle} from '../use/useVueStyle'
 import {useCss} from '../use/useCss'
 import {useScss} from '../use/useScss'
 import {useMiniCss} from '../use/useMiniCss'
+import {useStyle} from '../use/useStyle'
 
-/**
- * scss
- */
 const scss = bud => ({
   bud,
 

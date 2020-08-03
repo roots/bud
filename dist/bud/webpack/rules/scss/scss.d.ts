@@ -1,6 +1,3 @@
-/**
- * scss
- */
 declare const scss: (bud: any) => {
     bud: any;
     name: string;
