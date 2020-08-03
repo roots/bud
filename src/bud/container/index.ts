@@ -39,7 +39,9 @@ type Container = ContainerInterface
 type FileContainer = FileContainerInterface
 
 const newContainer = function (key: string, repository: Repository = {}) {
-  this.repository[key] = (repository as object) ? new container({}) : new container([])
+  this.repository[key] = (repository as object)
+    ? new container({})
+    : new container([])
 }
 
 const get = function (key: string) {
@@ -155,8 +157,14 @@ const bindFileContainer: (
 const bindExtensionContainer: (
   repository: Repository,
   name: string,
-) => ExtensionContainer = function (repository, name = 'anonymous'): ExtensionContainer {
-  logger.info({name: 'container', repository}, `create extension api container: ${name}`)
+) => ExtensionContainer = function (
+  repository,
+  name = 'anonymous',
+): ExtensionContainer {
+  logger.info(
+    {name: 'container', repository},
+    `create extension api container: ${name}`,
+  )
 
   const store = new container(repository, name)
   store.controller = controller

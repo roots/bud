@@ -29,46 +29,48 @@ var rules = function (bud) { return ({
             this.target.module.rules.push(typescript_1.typescript(this.bud).make());
         }
         if (this.bud.features.enabled('vue')) {
-            this.bud.logger.info({ name: 'webpack.rules' }, "using vue-loader");
+            this.bud.logger.info({ name: 'webpack.rules' }, "supports vue");
             this.target.module.rules.push(vue_1.vue(this.bud).make());
         }
-        if (this.bud.features.enabled('eslint') && !this.bud.features.enabled('typescript')) {
+        if (this.bud.features.enabled('eslint') &&
+            !this.bud.features.enabled('typescript')) {
+            this.bud.logger.info({ name: 'webpack.rules' }, "supports eslint");
             this.target.module.rules.push(eslint_1.eslint(this.bud).make());
-            this.bud.logger.info({ name: 'webpack.rules' }, "using eslint-loader");
         }
         if (this.bud.features.enabled('babel')) {
+            this.bud.logger.info({ name: 'webpack.rules' }, "supports babel");
             this.target.module.rules.push(babel_1.babel(this.bud).make());
-            this.bud.logger.info({ name: 'webpack.rules' }, "using babel-loader");
         }
         if (this.bud.features.enabled('css')) {
+            this.bud.logger.info({ name: 'webpack.rules' }, "supports css");
             this.target.module.rules.push(css_1.css(this.bud).make());
-            this.bud.logger.info({ name: 'webpack.rules' }, "using css-loader");
         }
         if (this.bud.features.enabled('cssModules')) {
+            this.bud.logger.info({ name: 'webpack.rules' }, "supports css modules");
             this.target.module.rules.push(module_1.module(this.bud).make());
-            this.bud.logger.info({ name: 'webpack.rules' }, "supporting css modules");
         }
         if (this.bud.features.enabled('scss')) {
+            this.bud.logger.info({ name: 'webpack.rules' }, "supports scss");
             this.target.module.rules.push(scss_1.scss(this.bud).make());
-            this.bud.logger.info({ name: 'webpack.rules' }, "using sass-loader");
         }
         if (this.bud.features.enabled('scssModules')) {
+            this.bud.logger.info({ name: 'webpack.rules' }, "supports scss modules");
             this.target.module.rules.push(module_2.module(this.bud).make());
-            this.bud.logger.info({ name: 'webpack.rules' }, "supporting scss modules");
         }
         if (this.bud.features.enabled('font')) {
+            this.bud.logger.info({ name: 'webpack.rules' }, "supports fonts");
             this.target.module.rules.push(font_1.font(this.bud).make());
-            this.bud.logger.info({ name: 'webpack.rules' }, "supporting font files with file-loader");
         }
         if (this.bud.features.enabled('image')) {
+            this.bud.logger.info({ name: 'webpack.rules' }, "supports images");
             this.target.module.rules.push(image_1.image(this.bud).make());
-            this.bud.logger.info({ name: 'webpack.rules' }, "supporting image files with file-loader");
         }
         if (this.bud.features.enabled('svg')) {
+            this.bud.logger.info({ name: 'webpack.rules' }, "supports svg");
             this.target.module.rules.push(svg_1.svg(this.bud).make());
-            this.bud.logger.info({ name: 'webpack.rules' }, "supporting svg files with @svgr");
         }
-        this.target = this.bud.hooks.filter('webpack.rules', this.target);
+        this.target.entry = this.bud.hooks.filter('webpack.rules', this.target.entry);
+        this.bud.logger.info({ name: 'webpack.rules', value: this.target }, "webpack.rules has been generated");
         return this.target;
     }
 }); };

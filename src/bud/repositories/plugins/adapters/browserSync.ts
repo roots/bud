@@ -9,7 +9,9 @@ const browserSync: object = {
     return new BrowserSyncWebpackPlugin(this.options)
   },
   when: function (): boolean {
-    return this.bud.features.enabled('browserSync') && !this.bud.features.enabled('hot')
+    return (
+      this.bud.features.enabled('browserSync') && !this.bud.features.enabled('hot')
+    )
   },
 }
 

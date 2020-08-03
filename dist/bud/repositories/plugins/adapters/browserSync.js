@@ -13,7 +13,7 @@ var browserSync = {
         return new browser_sync_webpack_plugin_1["default"](this.options);
     },
     when: function () {
-        return this.bud.features.enabled('browserSync') && !this.bud.features.enabled('hot');
+        return (this.bud.features.enabled('browserSync') && !this.bud.features.enabled('hot'));
     }
 };
 exports.browserSync = browserSync;

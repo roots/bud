@@ -12,7 +12,6 @@ var __assign = (this && this.__assign) || function () {
 };
 exports.__esModule = true;
 exports.babel = void 0;
-var loaders_1 = require("../util/loaders");
 var patterns_1 = require("../util/patterns");
 /**
  * Babel
@@ -29,11 +28,11 @@ var babel = function (bud) { return ({
     make: function () {
         this.pre();
         this.rule = {
-            test: /\.(js|jsx)$/,
+            test: patterns_1.patterns.js,
             exclude: patterns_1.patterns.vendor,
             use: [
                 {
-                    loader: loaders_1.loaders.babel,
+                    loader: bud.loaders.get('babel'),
                     options: __assign(__assign({}, this.bud.options.get('babel')), { cacheDirectory: true, cacheCompression: this.bud.inProduction })
                 },
             ]

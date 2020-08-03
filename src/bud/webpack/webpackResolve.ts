@@ -53,7 +53,8 @@ const webpackResolve = bud => ({
     }
 
     const missedExt =
-      this.target.resolve.extensions.filter(supported => supported !== ext).length < 1
+      this.target.resolve.extensions.filter(supported => supported !== ext).length <
+      1
 
     if (missedExt) {
       this.target.resolve.extensions.push(`.${ext}`)

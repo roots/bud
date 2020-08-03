@@ -24,7 +24,9 @@ var controller_1 = require("../repositories/plugins/controller");
 var logger_1 = require("../util/logger");
 var newContainer = function (key, repository) {
     if (repository === void 0) { repository = {}; }
-    this.repository[key] = repository ? new container({}) : new container([]);
+    this.repository[key] = repository
+        ? new container({})
+        : new container([]);
 };
 var get = function (key) {
     return this.repository[key];

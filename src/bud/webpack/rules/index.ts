@@ -32,71 +32,65 @@ const rules = bud => ({
     }
 
     if (this.bud.features.enabled('vue')) {
-      this.bud.logger.info({name: 'webpack.rules'}, `using vue-loader`)
+      this.bud.logger.info({name: 'webpack.rules'}, `supports vue`)
       this.target.module.rules.push(vue(this.bud).make())
     }
 
-    if (this.bud.features.enabled('eslint') && !this.bud.features.enabled('typescript')) {
+    if (
+      this.bud.features.enabled('eslint') &&
+      !this.bud.features.enabled('typescript')
+    ) {
+      this.bud.logger.info({name: 'webpack.rules'}, `supports eslint`)
       this.target.module.rules.push(eslint(this.bud).make())
-
-      this.bud.logger.info({name: 'webpack.rules'}, `using eslint-loader`)
     }
 
     if (this.bud.features.enabled('babel')) {
+      this.bud.logger.info({name: 'webpack.rules'}, `supports babel`)
       this.target.module.rules.push(babel(this.bud).make())
-
-      this.bud.logger.info({name: 'webpack.rules'}, `using babel-loader`)
     }
 
     if (this.bud.features.enabled('css')) {
+      this.bud.logger.info({name: 'webpack.rules'}, `supports css`)
       this.target.module.rules.push(css(this.bud).make())
-
-      this.bud.logger.info({name: 'webpack.rules'}, `using css-loader`)
     }
 
     if (this.bud.features.enabled('cssModules')) {
+      this.bud.logger.info({name: 'webpack.rules'}, `supports css modules`)
       this.target.module.rules.push(cssModule(this.bud).make())
-
-      this.bud.logger.info({name: 'webpack.rules'}, `supporting css modules`)
     }
 
     if (this.bud.features.enabled('scss')) {
+      this.bud.logger.info({name: 'webpack.rules'}, `supports scss`)
       this.target.module.rules.push(scss(this.bud).make())
-
-      this.bud.logger.info({name: 'webpack.rules'}, `using sass-loader`)
     }
 
     if (this.bud.features.enabled('scssModules')) {
+      this.bud.logger.info({name: 'webpack.rules'}, `supports scss modules`)
       this.target.module.rules.push(scssModule(this.bud).make())
-
-      this.bud.logger.info({name: 'webpack.rules'}, `supporting scss modules`)
     }
 
     if (this.bud.features.enabled('font')) {
+      this.bud.logger.info({name: 'webpack.rules'}, `supports fonts`)
       this.target.module.rules.push(font(this.bud).make())
-
-      this.bud.logger.info(
-        {name: 'webpack.rules'},
-        `supporting font files with file-loader`,
-      )
     }
 
     if (this.bud.features.enabled('image')) {
+      this.bud.logger.info({name: 'webpack.rules'}, `supports images`)
       this.target.module.rules.push(image(this.bud).make())
-
-      this.bud.logger.info(
-        {name: 'webpack.rules'},
-        `supporting image files with file-loader`,
-      )
     }
 
     if (this.bud.features.enabled('svg')) {
+      this.bud.logger.info({name: 'webpack.rules'}, `supports svg`)
       this.target.module.rules.push(svg(this.bud).make())
-
-      this.bud.logger.info({name: 'webpack.rules'}, `supporting svg files with @svgr`)
     }
 
-    this.target = this.bud.hooks.filter('webpack.rules', this.target)
+    this.target.entry = this.bud.hooks.filter('webpack.rules', this.target.entry)
+
+    this.bud.logger.info(
+      {name: 'webpack.rules', value: this.target},
+      `webpack.rules has been generated`,
+    )
+
     return this.target
   },
 })

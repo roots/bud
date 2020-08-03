@@ -1,4 +1,3 @@
-import {loaders} from '../util/loaders'
 import {patterns} from '../util/patterns'
 import type {Bud} from '../../types'
 
@@ -20,11 +19,11 @@ const babel = (bud: Bud): any => ({
     this.pre()
 
     this.rule = {
-      test: /\.(js|jsx)$/,
+      test: patterns.js,
       exclude: patterns.vendor,
       use: [
         {
-          loader: loaders.babel,
+          loader: bud.loaders.get('babel'),
           options: {
             ...this.bud.options.get('babel'),
             cacheDirectory: true,

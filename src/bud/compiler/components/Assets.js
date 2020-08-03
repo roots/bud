@@ -9,7 +9,9 @@ const PropTypes = require('prop-types')
  * @prop {boolean} emitted
  * @return {PropTypes.ReactComponentLike}
  */
-const Indicator = ({emitted}) => <Text color={emitted ? '#545DD7' : '#6C758F'}>⦿ </Text>
+const Indicator = ({emitted}) => (
+  <Text color={emitted ? '#545DD7' : '#6C758F'}>⦿ </Text>
+)
 
 Indicator.propTypes = {
   emitted: PropTypes.bool,

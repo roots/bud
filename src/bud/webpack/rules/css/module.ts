@@ -1,57 +1,46 @@
-import {loaders} from '../util/loaders'
 import {patterns} from '../util/patterns'
-import {postCss} from '../use/postCss'
-import {resolveUrl} from '../use/resolveUrl'
+import {usePostCss} from '../use/usePostCss'
+import {useResolveUrl} from '../use/useResolveUrl'
+import {useVueStyle} from '../use/useVueStyle'
+import {useCss} from '../use/useCss'
+import {useMiniCss} from '../use/useMiniCss'
 
-/**
- * CSS modules
- * @param {Bud} bud
- * @return {object}
- */
 const module = bud => ({
   bud,
+
+  isHot: bud.features.enabled('hot'),
+
   rule: {
     test: patterns.cssModule,
-    use: [
-      loaders.miniCss(bud.features.enabled('hot')),
-      {
-        loader: loaders.css,
-        options: {
-          modules: true,
-          onlyLocals: false,
-        },
-      },
-      resolveUrl(bud).make(),
-    ],
+    use: [],
+    sourceMap: bud.features.enabled('map'),
   },
 
-  /**
-   * Make CSS Modules object
-   */
   make: function () {
-    this.pre()
+    this.bud.hooks.call('webpack.rules.module.css.pre')
 
-    if (this.bud.features.enabled('postCss')) {
-      this.use.push(postCss(this.bud).make())
+    if (this.bud.features.enabled('vue')) {
+      this.rule.use.push(useVueStyle('module.css', this.bud))
     }
 
-    this.post()
+    this.rule.use.push(useMiniCss('module.css', this.bud))
+    this.rule.use.push(useCss('module.css', this.bud, true))
+    this.rule.use.push(useResolveUrl('module.css', this.bud))
+
+    if (this.bud.features.enabled('postCss')) {
+      this.rule.use.push(usePostCss('module.css', this.bud))
+    }
+
+    this.rule = this.bud.hooks.filter('webpack.rules.module.css', this.rule)
+
+    this.bud.logger.info(
+      {name: 'webpack.rules.module.css', value: this.rule.test.toString()},
+      `webpack.rules.module.css.test`,
+    )
+
+    this.bud.hooks.call('webpack.rules.module.css.post')
 
     return this.rule
-  },
-
-  /**
-   * hook: pre_css_module
-   */
-  pre: function () {
-    this.bud.hooks.call('pre_css_module', this)
-  },
-
-  /**
-   * hook: post_css_module
-   */
-  post: function () {
-    this.bud.hooks.call('pre_css_module', this.output)
   },
 })
 

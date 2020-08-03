@@ -24,6 +24,12 @@ declare type Bud = {
      */
     logger: any;
     /**
+     * ## bud.loaders
+     *
+     * Webpack loaders
+     */
+    loaders: any;
+    /**
      * ## bud.util
      *
      * Helper functions.

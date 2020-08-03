@@ -36,7 +36,11 @@ const Nav = ({build, focused, bud}) => (
     <Box>
       <Text
         color={
-          build?.errors?.length > 0 ? '#dc3545' : focused?.errors ? 'white' : '#6C758F'
+          build?.errors?.length > 0
+            ? '#dc3545'
+            : focused?.errors
+            ? 'white'
+            : '#6C758F'
         }>
         <Bullet active={focused?.errors || false} /> Errors
         {build?.errors?.length > 0 && build.errors[0]

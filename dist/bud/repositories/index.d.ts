@@ -98,6 +98,23 @@ export declare const repositories: {
             name: string;
         };
     };
+    loaders: {
+        babel: string;
+        css: string;
+        file: string;
+        eslint: string;
+        miniCss: string;
+        node: string;
+        postCss: string;
+        resolveUrl: string;
+        scss: string;
+        style: string;
+        svgr: string;
+        url: string;
+        ts: string;
+        vue: string;
+        vueStyle: string;
+    };
     paths: {
         project: string;
         framework: string;

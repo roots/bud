@@ -29,11 +29,15 @@ var bootstrap = function () {
     this.framework.features = this.store(this.repositories.features, 'bud.features');
     this.framework.options = this.store(this.repositories.options, 'bud.options');
     this.framework.plugins = this.extensionStore(this.repositories.plugins, 'bud.plugins');
+    this.framework.loaders = this.store(this.repositories.loaders, 'bud.loaders');
     this.framework.adapters = this.extensionStore(this.repositories.adapters, 'bud.adapters');
     this.framework.configs = this.fileStore(this.repositories.configs(this.framework), 'bud.configs');
     this.framework.env = this.store(this.repositories.env(this.framework), 'bud.env');
     this.framework.args = this.store(this.repositories.cli.args(this.framework), 'bud.args');
     this.framework.hooks = hooks_1.hooks(this.logger).init(this.framework);
+    /**
+     * Set mode.
+     */
     this.framework.mode = this.framework.args.get('mode');
     this.framework.inProduction = this.framework.args.is('mode', 'production');
     this.framework.inDevelopment = this.framework.args.is('mode', 'development');

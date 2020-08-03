@@ -13,17 +13,8 @@ exports.__esModule = true;
 exports.configs = exports.bud = void 0;
 __exportStar(require("./bud/api/types"), exports);
 var bud_1 = require("./bud");
-/**
- * ## Bud - asset management framework.
- *
- * @const {Bud} bud
- */
 var bud = new bud_1.bootstrap().framework;
 exports.bud = bud;
-/**
- * Node process handler.
- */
-bud.util.processHandler(bud);
 var configs = {
     eslint: require.resolve('../preset/eslint'),
     postcss: require.resolve('../preset/postcss'),

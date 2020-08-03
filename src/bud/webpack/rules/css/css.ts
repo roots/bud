@@ -1,40 +1,46 @@
-import {loaders} from '../util/loaders'
 import {patterns} from '../util/patterns'
-import {postCss} from '../use/postCss'
-import {resolveUrl} from '../use/resolveUrl'
+import {usePostCss} from '../use/usePostCss'
+import {useResolveUrl} from '../use/useResolveUrl'
+import {useVueStyle} from '../use/useVueStyle'
+import {useCss} from '../use/useCss'
+import {useMiniCss} from '../use/useMiniCss'
 
 const css = bud => ({
   bud,
-  use: [],
-  test: patterns.css,
-  sourceMap: bud.features.enabled('map'),
+
+  isHot: bud.features.enabled('hot'),
+
+  rule: {
+    test: patterns.css,
+    use: [],
+    sourceMap: bud.features.enabled('map'),
+  },
 
   make: function () {
+    this.bud.hooks.call('webpack.rules.css.pre')
+
     if (this.bud.features.enabled('vue')) {
-      this.use.push('vue-style-loader')
+      this.rule.use.push(useVueStyle('css', this.bud))
     }
 
-    this.use = [
-      ...this.use,
-      loaders.miniCss(this.bud.features.enabled('hot')),
-      loaders.css,
-      resolveUrl(this.bud).make(),
-    ]
+    this.rule.use.push(useMiniCss('css', this.bud))
+    this.rule.use.push(useCss('css', this.bud))
+    this.rule.use.push(useResolveUrl('css', this.bud))
 
     if (this.bud.features.enabled('postCss')) {
-      this.use.push({...postCss(this.bud).make()})
+      this.rule.use.push(usePostCss('css', this.bud))
     }
 
-    this.bud.hooks.call('pre_css', this)
-    this.output = {
-      test: this.test,
-      use: this.use,
-    }
+    this.rule = this.bud.hooks.filter('webpack.rules.css', this.rule)
 
-    this.output = this.bud.hooks.filter('post_css', this.output)
-    this.bud.logger.info({name: 'webpack.rules', value: this.output.test}, `css test`)
-    this.bud.logger.info({name: 'webpack.rules', value: this.output.use}, `css use`)
-    return this.output
+    this.bud.logger.info(
+      {name: 'webpack.rules.css', value: this.rule.test.toString()},
+      `webpack.rules.css.test`,
+    )
+
+    this.bud.hooks.call('webpack.rules.css.post')
+
+    return this.rule
   },
 })
 

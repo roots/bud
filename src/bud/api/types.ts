@@ -52,7 +52,10 @@ export type Resolve = (moduleName: string) => string
 export type Scss = (enabled?: boolean) => Bud
 export type SourceMap = (enabled?: boolean) => Bud
 export type Splitting = (enabled?: boolean) => Bud
-export type Stylelint = (options: {enabled?: boolean; options?: StylelintOptions}) => Bud
+export type Stylelint = (options: {
+  enabled?: boolean
+  options?: StylelintOptions
+}) => Bud
 export type Src = (path?: string) => string
 export type Sync = (options: SyncOptions) => Bud
 export type Target = (target: string) => Bud

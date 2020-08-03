@@ -11,17 +11,7 @@ export type Production = boolean
 
 import {bootstrap} from './bud'
 
-/**
- * ## Bud - asset management framework.
- *
- * @const {Bud} bud
- */
 const bud: Bud = new bootstrap().framework
-
-/**
- * Node process handler.
- */
-bud.util.processHandler(bud)
 
 const configs = {
   eslint: require.resolve('../preset/eslint'),

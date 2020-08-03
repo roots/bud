@@ -1,69 +1,50 @@
-import {loaders} from '../util/loaders'
 import {patterns} from '../util/patterns'
-import {postCss} from '../use/postCss'
-import {resolveUrl} from '../use/resolveUrl'
-import {implementation} from './implementation'
+import {usePostCss} from '../use/usePostCss'
+import {useResolveUrl} from '../use/useResolveUrl'
+import {useVueStyle} from '../use/useVueStyle'
+import {useCss} from '../use/useCss'
+import {useScss} from '../use/useScss'
+import {useMiniCss} from '../use/useMiniCss'
 
-/**
- * SCSS modules
- * @typedef {function} cssModule
- * @return {object}
- */
 const module = bud => ({
   bud,
-  output: {},
-  test: patterns.scssModule,
-  css: {
-    loader: loaders.css,
-    options: {
-      modules: true,
-      onlyLocals: false,
-    },
-  },
-  resolveUrl: resolveUrl(bud).make(),
-  postCss: postCss(bud).make(),
-  scss: {
-    loader: loaders.scss,
-    options: {
-      sourceMap: true,
-      implementation: implementation(),
-    },
+
+  isHot: bud.features.enabled('hot'),
+  isPostCss: bud.features.enabled('postCss'),
+
+  rule: {
+    test: patterns.scssModule,
+    use: [],
+    sourceMap: bud.features.enabled('map'),
   },
 
-  /**
-   * Make SCSS loaders object.
-   */
   make: function () {
-    this.pre()
+    this.bud.hooks.call('webpack.rules.module.scss.pre')
 
-    this.output = {
-      test: this.test,
-      use: Object.values([
-        loaders.miniCss(this.bud.features.enabled('hot')),
-        this.css,
-        this.resolveUrl,
-        this.postCss,
-        this.scss,
-      ]),
+    if (this.bud.features.enabled('vue')) {
+      this.rule.use.push(useVueStyle('module.scss', this.bud))
     }
 
-    this.post()
+    this.rule.use.push(useMiniCss('module.scss', this.bud))
+    this.rule.use.push(useCss('module.scss', this.bud, true))
+    this.rule.use.push(useResolveUrl('module.scss', this.bud))
 
-    return this.output
-  },
+    if (this.isPostCss) {
+      this.rule.use.push(usePostCss('module.scss', this.bud))
+    }
 
-  /**
-   * hook: pre_scss_module
-   */
-  pre: function () {
-    this.bud.hooks.call('pre_scss_module', this)
-  },
+    this.rule.use.push(useScss('module.scss', this.bud))
 
-  /**
-   * hook: post_scss_module
-   */
-  post: function () {
-    this.bud.hooks.call('post_scss_module', this.output)
+    this.rule = this.bud.hooks.filter('webpack.rules.module.scss', this.rule)
+
+    this.bud.logger.info(
+      {name: 'webpack.rules.module.scss', value: this.rule.test.toString()},
+      `webpack.rules.module.scss.test`,
+    )
+
+    this.bud.hooks.call('webpack.rules.module.scss.post')
+
+    return this.rule
   },
 })
 

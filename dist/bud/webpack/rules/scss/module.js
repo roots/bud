@@ -1,65 +1,38 @@
 "use strict";
 exports.__esModule = true;
 exports.module = void 0;
-var loaders_1 = require("../util/loaders");
 var patterns_1 = require("../util/patterns");
-var postCss_1 = require("../use/postCss");
-var resolveUrl_1 = require("../use/resolveUrl");
-var implementation_1 = require("./implementation");
-/**
- * SCSS modules
- * @typedef {function} cssModule
- * @return {object}
- */
+var usePostCss_1 = require("../use/usePostCss");
+var useResolveUrl_1 = require("../use/useResolveUrl");
+var useVueStyle_1 = require("../use/useVueStyle");
+var useCss_1 = require("../use/useCss");
+var useScss_1 = require("../use/useScss");
+var useMiniCss_1 = require("../use/useMiniCss");
 var module = function (bud) { return ({
     bud: bud,
-    output: {},
-    test: patterns_1.patterns.scssModule,
-    css: {
-        loader: loaders_1.loaders.css,
-        options: {
-            modules: true,
-            onlyLocals: false
-        }
+    isHot: bud.features.enabled('hot'),
+    isPostCss: bud.features.enabled('postCss'),
+    rule: {
+        test: patterns_1.patterns.scssModule,
+        use: [],
+        sourceMap: bud.features.enabled('map')
     },
-    resolveUrl: resolveUrl_1.resolveUrl(bud).make(),
-    postCss: postCss_1.postCss(bud).make(),
-    scss: {
-        loader: loaders_1.loaders.scss,
-        options: {
-            sourceMap: true,
-            implementation: implementation_1.implementation()
-        }
-    },
-    /**
-     * Make SCSS loaders object.
-     */
     make: function () {
-        this.pre();
-        this.output = {
-            test: this.test,
-            use: Object.values([
-                loaders_1.loaders.miniCss(this.bud.features.enabled('hot')),
-                this.css,
-                this.resolveUrl,
-                this.postCss,
-                this.scss,
-            ])
-        };
-        this.post();
-        return this.output;
-    },
-    /**
-     * hook: pre_scss_module
-     */
-    pre: function () {
-        this.bud.hooks.call('pre_scss_module', this);
-    },
-    /**
-     * hook: post_scss_module
-     */
-    post: function () {
-        this.bud.hooks.call('post_scss_module', this.output);
+        this.bud.hooks.call('webpack.rules.module.scss.pre');
+        if (this.bud.features.enabled('vue')) {
+            this.rule.use.push(useVueStyle_1.useVueStyle('module.scss', this.bud));
+        }
+        this.rule.use.push(useMiniCss_1.useMiniCss('module.scss', this.bud));
+        this.rule.use.push(useCss_1.useCss('module.scss', this.bud, true));
+        this.rule.use.push(useResolveUrl_1.useResolveUrl('module.scss', this.bud));
+        if (this.isPostCss) {
+            this.rule.use.push(usePostCss_1.usePostCss('module.scss', this.bud));
+        }
+        this.rule.use.push(useScss_1.useScss('module.scss', this.bud));
+        this.rule = this.bud.hooks.filter('webpack.rules.module.scss', this.rule);
+        this.bud.logger.info({ name: 'webpack.rules.module.scss', value: this.rule.test.toString() }, "webpack.rules.module.scss.test");
+        this.bud.hooks.call('webpack.rules.module.scss.post');
+        return this.rule;
     }
 }); };
 exports.module = module;

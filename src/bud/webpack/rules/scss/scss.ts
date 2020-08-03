@@ -1,60 +1,53 @@
-import {loaders} from '../util/loaders'
 import {patterns} from '../util/patterns'
-import {postCss} from '../use/postCss'
-import {resolveUrl} from '../use/resolveUrl'
-import {implementation} from './implementation'
+import {usePostCss} from '../use/usePostCss'
+import {useResolveUrl} from '../use/useResolveUrl'
+import {useVueStyle} from '../use/useVueStyle'
+import {useCss} from '../use/useCss'
+import {useScss} from '../use/useScss'
+import {useMiniCss} from '../use/useMiniCss'
 
 /**
  * scss
  */
 const scss = bud => ({
   bud,
-  output: {},
-  test: patterns.scss,
-  resolveUrl: resolveUrl(bud).make(),
-  postCss: postCss(bud).make(),
-  scss: {
-    loader: loaders.scss,
-    options: {
-      sourceMap: true,
-      implementation: implementation(),
-    },
+
+  isHot: bud.features.enabled('hot'),
+  isPostCss: bud.features.enabled('postCss'),
+
+  rule: {
+    test: patterns.scss,
+    use: [],
+    sourceMap: bud.features.enabled('map'),
   },
 
-  /**
-   * Make SCSS loaders object.
-   */
   make: function () {
-    this.pre()
+    this.bud.hooks.call('webpack.rules.scss.pre')
 
-    this.output = {
-      test: this.test,
-      use: Object.values([
-        loaders.miniCss(this.bud.features.enabled('hot')),
-        loaders.css,
-        this.resolveUrl,
-        this.postCss,
-        this.scss,
-      ]),
+    if (this.bud.features.enabled('vue')) {
+      this.rule.use.push(useVueStyle('scss', this.bud))
     }
 
-    this.post()
+    this.rule.use.push(useMiniCss('scss', this.bud))
+    this.rule.use.push(useCss('scss', this.bud))
+    this.rule.use.push(useResolveUrl('scss', this.bud))
 
-    return this.output
-  },
+    if (this.isPostCss) {
+      this.rule.use.push(usePostCss('scss', this.bud))
+    }
 
-  /**
-   * hook: pre_scss
-   */
-  pre: function () {
-    this.bud.hooks.call('pre_scss', this)
-  },
+    this.rule.use.push(useScss('module.scss', this.bud))
 
-  /**
-   * hook: post_scss
-   */
-  post: function () {
-    this.bud.hooks.call('post_scss', this.output)
+    this.rule = this.bud.hooks.filter('webpack.rules.scss', this.rule)
+
+    this.bud.logger.info(
+      {name: 'webpack.rules.scss', value: this.rule.test.toString()},
+      `webpack.rules.scss.test`,
+    )
+
+    this.bud.hooks.call('webpack.rules.scss.post')
+
+    return this.rule
   },
 })
 

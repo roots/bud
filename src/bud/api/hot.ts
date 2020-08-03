@@ -49,7 +49,8 @@ const hot: Hot = function (
     port: options?.port ?? dev.port ?? 3000,
     secure: options?.secure ?? dev.secure ?? false,
     open: options?.open ?? dev.open ?? true,
-    historyApiFallback: options?.historyApiFallback ?? dev.historyApiFallback ?? true,
+    historyApiFallback:
+      options?.historyApiFallback ?? dev.historyApiFallback ?? true,
     headers: {
       ...(this.options.get('headers') ?? []),
       ...(options?.headers ?? []),
