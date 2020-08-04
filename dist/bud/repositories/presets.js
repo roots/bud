@@ -6,6 +6,7 @@ var eslint = require.resolve('../../../preset/eslint');
 var postCss = require.resolve('../../../preset/postcss');
 var stylelint = require.resolve('../../../preset/stylelint');
 var babelWp = require.resolve('../../../preset/babel/preset-wp');
+var babelReact = require.resolve('../../../preset/babel/preset-react');
 /**
  * Preset configurations for common webpack plugins.
  */
@@ -15,6 +16,7 @@ var presets = (_a = {
         stylelint: stylelint
     },
     _a['babel-wp'] = babelWp,
+    _a['babel-react'] = babelReact,
     _a);
 exports.presets = presets;
 //# sourceMappingURL=presets.js.map

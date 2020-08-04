@@ -6,6 +6,7 @@ declare const presets: {
     postCss: string;
     stylelint: string;
     "babel-wp": string;
+    "babel-react": string;
 };
 export { presets };
 //# sourceMappingURL=presets.d.ts.map

@@ -17,6 +17,7 @@ export function useWebpack(bud: any): {
     hasWarnings: boolean;
     percentage: any;
     done: boolean;
+    success: boolean;
     message: any;
     hotSyncServer: any;
 };

@@ -240,7 +240,8 @@ const useWebpack = bud => {
       }, 'new state: time');
     }
   }, [time]);
-  const done = hasAssets && percentage === 1;
+  const done = percentage === 1 && (hasAssets || hasErrors);
+  const success = done && hasAssets && !hasErrors;
   /**
    * Return state to consumers.
    */
@@ -258,6 +259,7 @@ const useWebpack = bud => {
     hasWarnings,
     percentage,
     done,
+    success,
     message,
     hotSyncServer
   };

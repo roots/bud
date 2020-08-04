@@ -149,6 +149,7 @@ export declare const repositories: {
         postCss: string;
         stylelint: string;
         "babel-wp": string;
+        "babel-react": string;
     };
 };
 //# sourceMappingURL=index.d.ts.map

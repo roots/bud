@@ -2,7 +2,6 @@ import {build} from './webpack'
 import {renderCompilerDashboard} from './renderCompilerDashboard'
 import {compileSafeMode} from './renderSafeMode'
 import type {Bud} from './types'
-import type {WebpackConfig} from './types'
 
 const compiler = (bud: Bud): any => ({
   bud,

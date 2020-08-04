@@ -53,19 +53,6 @@ const {
   DevServer
 } = require('./components/DevServer');
 /**
- * Helper: Successful build
- *
- * @prop {object} build
- * @return {boolean}
- */
-
-
-const successfulBuild = build => {
-  var _build$assets;
-
-  return (build === null || build === void 0 ? void 0 : build.percentage) == 1 && (build === null || build === void 0 ? void 0 : (_build$assets = build.assets) === null || _build$assets === void 0 ? void 0 : _build$assets.length) > 0;
-};
-/**
  * Budpack build status display
  *
  * @prop {object} compiler webpack compiler
@@ -109,25 +96,21 @@ const Runner = ({
    */
 
   useEffect(() => {
-    if (successfulBuild(build)) {
-      const title = 'Build complete.';
-      const message = `${build.assets.length} assets built.`;
+    if (build === null || build === void 0 ? void 0 : build.success) {
+      const title = bud.hooks.filter('compiler.notify.success.title', 'Build complete.');
       notifier.notify({
-        title,
-        message
+        title
       });
       bud.logger.info({
         name: 'bud.compiler',
-        title,
-        message
+        title
       }, 'Build success notification');
     }
-  }, [build === null || build === void 0 ? void 0 : build.percentage, build === null || build === void 0 ? void 0 : build.assets]);
+  }, [build === null || build === void 0 ? void 0 : build.success]);
   useEffect(() => {
     const notWatching = !bud.features.enabled('watch') && !bud.features.enabled('hot');
-    const complete = build === null || build === void 0 ? void 0 : build.done;
 
-    if (notWatching && complete) {
+    if (notWatching && (build === null || build === void 0 ? void 0 : build.done)) {
       bud.logger.info({
         name: 'bud.compiler',
         watch: bud.features.enabled('watch'),

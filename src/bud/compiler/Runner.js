@@ -14,14 +14,6 @@ const {Warnings} = require('./components/Warnings/index')
 const {DevServer} = require('./components/DevServer')
 
 /**
- * Helper: Successful build
- *
- * @prop {object} build
- * @return {boolean}
- */
-const successfulBuild = build => build?.percentage == 1 && build?.assets?.length > 0
-
-/**
  * Budpack build status display
  *
  * @prop {object} compiler webpack compiler
@@ -60,28 +52,18 @@ const Runner = ({bud}) => {
    * Run OS level notification when build complete
    */
   useEffect(() => {
-    if (successfulBuild(build)) {
-      const title = 'Build complete.'
-      const message = `${build.assets.length} assets built.`
-      notifier.notify({
-        title,
-        message,
-      })
-
-      bud.logger.info(
-        {name: 'bud.compiler', title, message},
-        'Build success notification',
-      )
+    if (build?.success) {
+      const title = bud.hooks.filter('compiler.notify.success.title', 'Build complete.')
+      notifier.notify({title})
+      bud.logger.info({name: 'bud.compiler', title}, 'Build success notification')
     }
-  }, [build?.percentage, build?.assets])
+  }, [build?.success])
 
   useEffect(() => {
     const notWatching =
       !bud.features.enabled('watch') && !bud.features.enabled('hot')
 
-    const complete = build?.done
-
-    if (notWatching && complete) {
+    if (notWatching && build?.done) {
       bud.logger.info(
         {
           name: 'bud.compiler',
