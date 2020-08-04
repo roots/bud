@@ -1,9 +1,15 @@
-import {resolve} from 'path'
+import {join, resolve} from 'path'
+import {argv} from 'yargs'
 import {projectRoot} from '../util/projectRoot'
 import type {Directory} from './types'
 
 /**
- * Current working dir.
+ * Current working dir
+ */
+const cwd: Directory = process.cwd()
+
+/**
+ * Project directory.
  */
 const project: Directory = projectRoot
 
@@ -12,12 +18,18 @@ const project: Directory = projectRoot
  */
 const framework: Directory = resolve(__dirname, '../../../')
 
+/**
+ * Src arg
+ */
+const srcArg: any = argv.src
+
 const paths = {
-  project,
+  cwd,
+  project: cwd,
   framework,
-  src: project,
-  dist: project,
-  public: '/',
+  src: srcArg && typeof srcArg == 'string' ? join(cwd, srcArg) : join(cwd),
+  dist: argv?.dist ?? project,
+  public: argv?.public ?? '/',
 }
 
 export {paths}

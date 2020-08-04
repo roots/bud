@@ -1,12 +1,25 @@
 "use strict";
-var __createBinding = (this && this.__createBinding) || (Object.create ? (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    Object.defineProperty(o, k2, { enumerable: true, get: function() { return m[k]; } });
-}) : (function(o, m, k, k2) {
-    if (k2 === undefined) k2 = k;
-    o[k2] = m[k];
-}));
 exports.__esModule = true;
-var compiler_1 = require("./compiler");
-__createBinding(exports, compiler_1, "compiler");
+exports.compiler = void 0;
+var webpack_1 = require("./webpack");
+var renderCompilerDashboard_1 = require("./renderCompilerDashboard");
+var renderSafeMode_1 = require("./renderSafeMode");
+var compiler = function (bud) { return ({
+    bud: bud,
+    dashboardEnabled: function () {
+        return this.bud.features.enabled('dashboard');
+    },
+    buildConfig: function () {
+        this.config = webpack_1.build(this.bud).make();
+        return this;
+    },
+    compile: function () {
+        this.bud.hooks.call('compiler.dashboard.pre');
+        this.dashboardEnabled()
+            ? renderCompilerDashboard_1.renderCompilerDashboard(this.bud, this.config) // enabled: bud compiler
+            : renderSafeMode_1.compileSafeMode(this.bud, this.config); // disabled: simple stats output
+        this.bud.hooks.call('compiler.dashboard.post');
+    }
+}); };
+exports.compiler = compiler;
 //# sourceMappingURL=index.js.map

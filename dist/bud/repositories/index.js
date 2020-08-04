@@ -9,6 +9,7 @@ var cli_1 = require("./cli");
 var env_1 = require("./env");
 var plugins_1 = require("./plugins");
 var loaders_1 = require("./loaders");
+var presets_1 = require("./presets");
 exports.repositories = {
     configs: configs_1.configs,
     features: features_1.features,
@@ -18,6 +19,7 @@ exports.repositories = {
     cli: cli_1.cli,
     env: env_1.env,
     adapters: plugins_1.adapters,
-    plugins: plugins_1.plugins
+    plugins: plugins_1.plugins,
+    presets: presets_1.presets
 };
 //# sourceMappingURL=index.js.map

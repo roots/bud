@@ -1,8 +1,9 @@
-import {join} from 'path'
 import type {Src} from './types'
 
 const src: Src = function (path?: string): string {
-  return path ? join(this.paths.get('src'), path) : this.paths.get('src')
+  const srcDir = this.paths.get('src')
+
+  return path ? this.fs.path.join(srcDir, path) : srcDir
 }
 
 export {src}

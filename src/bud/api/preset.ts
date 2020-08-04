@@ -1,10 +1,17 @@
-import {join} from 'path'
 import type {Preset} from './types'
 
-const preset: Preset = function (relativePath): any {
-  const presetConfig = join(this.paths.get('framework'), 'preset', relativePath)
+const preset: Preset = function (presetKey: string): any {
+  if (! this.presets.has(presetKey)) {
+    this.logger.error({name: 'api.preset', presetKey}, `Preset key doesn't exist in presets repository.`)
+  }
 
-  return require(presetConfig)
+  const presetPath = this.presets.get(presetKey)
+
+  if (!presetPath) {
+    this.logger.error({name: 'api.preset', presetKey}, `Preset key is not valid.`)
+  }
+
+  return require(presetPath)
 }
 
 export {preset}

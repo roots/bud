@@ -19,12 +19,21 @@ var globby_1 = __importDefault(require("globby"));
 var path_1 = require("path");
 var glob = function (files) {
     var _this = this;
-    this.logger.info(files, "[api] bud.glob called");
+    this.logger.info({ name: 'api', files: files }, "bud.glob called");
     var entry = this.options.get('entry');
+    /**
+     * Glob matching files.
+     */
     var included = globby_1["default"].sync(this.src(files), {
         expandDirectories: true
     });
+    /**
+     * Enable support for matching extensions
+     */
     this.util.usedExt(included, this);
+    /**
+     * Add matching files as indviduated entrypoints.
+     */
     included.forEach(function (match) {
         var _a;
         var dest = match.replace(_this.src('/'), '').replace(path_1.parse(match).ext, '');

@@ -117,11 +117,12 @@ export declare const repositories: {
         vueStyle: string;
     };
     paths: {
+        cwd: string;
         project: string;
         framework: string;
         src: string;
-        dist: string;
-        public: string;
+        dist: unknown;
+        public: unknown;
     };
     cli: {
         args: (framework: any) => {
@@ -143,5 +144,11 @@ export declare const repositories: {
     env: (framework: any) => import("dotenv/types").DotenvParseOutput;
     adapters: import("./plugins/types").PluginsRepo;
     plugins: import("./plugins/types").PluginsRepo;
+    presets: {
+        eslint: string;
+        postCss: string;
+        stylelint: string;
+        "babel-wp": string;
+    };
 };
 //# sourceMappingURL=index.d.ts.map
