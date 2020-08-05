@@ -1,9 +1,11 @@
 import type {Bud, Dev} from './types'
 
 const dev: Dev = function (options: object): Bud {
+  this.logger.info({name: 'bud.api', function: 'bud.dev', options}, `bud.dev called`)
+
   this.options.set('dev', {
     ...this.options.get('dev'),
-    ...options,
+    ...this.filter('api.dev.filter', options),
   })
 
   return this

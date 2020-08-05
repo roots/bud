@@ -4,9 +4,9 @@ import {auto} from './auto'
 import {babel} from './babel'
 import {bundle} from './bundle'
 import {compile} from './compile'
+import {config} from './config'
 import {copy} from './copy'
 import {copyAll} from './copyAll'
-import {dashboard} from './dashboard'
 import {debug} from './debug'
 import {dependencyManifest} from './dependencyManifest'
 import {dist} from './dist'
@@ -39,7 +39,6 @@ import {stylelint} from './stylelint'
 import {sync} from './sync'
 import {target} from './target'
 import {terser} from './terser'
-import {translate} from './translate'
 import {vendor} from './vendor'
 import {vue} from './vue'
 import {watch} from './watch'
@@ -53,9 +52,9 @@ export const api: Api = {
   babel,
   bundle,
   compile,
+  config,
   copy,
   copyAll,
-  dashboard,
   debug,
   dependencyManifest,
   dev,
@@ -85,7 +84,6 @@ export const api: Api = {
   sync,
   target,
   terser,
-  translate,
   vendor,
   vue,
   watch,

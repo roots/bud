@@ -19,7 +19,7 @@ var globby_1 = __importDefault(require("globby"));
 var path_1 = require("path");
 var glob = function (files) {
     var _this = this;
-    this.logger.info({ name: 'api', files: files }, "bud.glob called");
+    this.logger.info({ name: 'bud.api', files: files }, "bud.glob called");
     var entry = this.options.get('entry');
     /**
      * Glob matching files.

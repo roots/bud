@@ -3,6 +3,7 @@ exports.__esModule = true;
 exports.srcPath = void 0;
 var path_1 = require("path");
 var srcPath = function (dir) {
+    this.logger.info({ name: 'bud.api', "function": 'bud.srcPath', dir: dir }, "bud.srcPath called");
     var setPath = path_1.join(this.paths.get('project'), dir);
     /**
      * If set, CLI arguments take precendence over config.

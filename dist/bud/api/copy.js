@@ -10,12 +10,13 @@ exports.__esModule = true;
 exports.copy = void 0;
 var path_1 = require("path");
 var copy = function (from, to) {
+    this.logger.info({ name: 'bud.copy', "function": 'bud.copy', from: from, to: to }, "bud.copy called");
     this.options.set('copy', {
         patterns: __spreadArrays(this.options.get('copy').patterns, [
-            {
+            this.hooks.filter('bud.copy.filter', {
                 from: from,
                 to: to ? to : path_1.join(this.paths.get('dist'), from)
-            },
+            }),
         ])
     });
     return this;

@@ -192,16 +192,6 @@ declare type Bud = {
      */
     copyAll: Api.Copy;
     /**
-     * ## bud.dashboard
-     *
-     * Enable or disable the Bud dashboard.
-     *
-     * ```js
-     * bud.dashboard(false)
-     * ```
-     */
-    dashboard: Api.Dashboard;
-    /**
      * ## bud.debug
      *
      * Enable or disable debug mode.
@@ -545,19 +535,6 @@ declare type Bud = {
      * ```
      */
     terser: Api.Terser;
-    /**
-     * ## bud.translate
-     *
-     * Process @wordpress/i18n strings from JS source assets.
-     *
-     * If you are already translating strings with `yarn translate` then
-     * there is no reason to run this separately.
-     *
-     * ```js
-     * bud.translate('resources/languages/sage.pot')
-     * ```
-     */
-    translate: Api.Translate;
     /**
      * ## bud.vendor
      *

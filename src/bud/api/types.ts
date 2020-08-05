@@ -4,8 +4,11 @@ export {Bud} from '../types'
 import type {Options as BrowserSyncOptions} from 'browser-sync'
 export type {BrowserSyncOptions}
 
-import type {Options as WebpackOptions} from 'webpack'
-export type {WebpackOptions}
+import type {
+  Configuration as WebpackConfiguration,
+  Options as WebpackOptions,
+} from 'webpack'
+export type {WebpackConfiguration, WebpackOptions}
 
 import type {Options as StylelintOptions} from 'stylelint-webpack-plugin/declarations/getOptions'
 export type {StylelintOptions}
@@ -18,7 +21,6 @@ export type Auto = (options: {[key: string]: string[]}) => Bud
 export type BabelCfg = (options: BabelOptions) => Bud
 export type Bundle = (name: string, entries: string[]) => Bud
 export type Copy = (from: string, to: string) => Bud
-export type Dashboard = (enabled: boolean) => Bud
 export type Debug = (enabled?: boolean) => any
 export type DependencyManifest = (settings?: DependencyExtractionOptions) => Bud
 export type Dev = (options: object) => Bud
@@ -60,7 +62,6 @@ export type Src = (path?: string) => string
 export type Sync = (options: SyncOptions) => Bud
 export type Target = (target: string) => Bud
 export type Terser = (options: {enable?: boolean; terser?: object}) => Bud
-export type Translate = (output: string) => Bud
 export type Watch = (options: {paths: string[]; enabled: boolean}) => Bud
 export type Vendor = (name?: string) => Bud
 export type Vue = (vueOptions?: {enabled: boolean; options: any}) => Bud
@@ -71,9 +72,9 @@ export type Api = {
   babel: BabelCfg
   bundle: Bundle
   compile: any
+  config: any
   copy: Copy
   copyAll: Copy
-  dashboard: Dashboard
   debug: Debug
   dependencyManifest: DependencyManifest
   dev: Dev
@@ -103,7 +104,6 @@ export type Api = {
   stylelint: Stylelint
   sync: Sync
   target: Target
-  translate: Translate
   vendor: Vendor
   vue: Vue
   watch: Watch

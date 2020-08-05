@@ -3,7 +3,7 @@ import globby from 'globby'
 import {parse} from 'path'
 
 const glob: Glob = function (this: Bud, files: string): Bud {
-  this.logger.info({name: 'api', files}, `bud.glob called`)
+  this.logger.info({name: 'bud.api', files}, `bud.glob called`)
 
   let entry = this.options.get('entry')
 

@@ -14,17 +14,17 @@ exports.__esModule = true;
 exports.bundle = void 0;
 var bundle = function (name, entries) {
     var _a;
-    this.logger.info({ name: name, entries: entries }, "[api] bud.bundle called");
-    this.hooks.call('pre_bundle', { name: name, entries: entries });
+    this.logger.info({ name: 'bud.api', "function": 'bud.bundle', entries: entries }, "bud.bundle called");
+    this.hooks.call('api.bundle.pre', { name: name, entries: entries });
     /**
      * Lazy load whatever loaders are needed to fulfill the
      * bundle requirements.
      */
     this.util.usedExt(entries, this);
-    this.options.set('entry', __assign(__assign({}, this.options.get('entry')), this.hooks.filter('filter_bundle_options', (_a = {},
+    this.options.set('entry', __assign(__assign({}, this.options.get('entry')), this.hooks.filter('api.bundle.filter', (_a = {},
         _a["" + name] = entries,
         _a))));
-    this.hooks.call('post_bundle');
+    this.hooks.call('api.bundle.post');
     return this;
 };
 exports.bundle = bundle;

@@ -2,8 +2,8 @@ import { Bud } from '../types';
 export { Bud } from '../types';
 import type { Options as BrowserSyncOptions } from 'browser-sync';
 export type { BrowserSyncOptions };
-import type { Options as WebpackOptions } from 'webpack';
-export type { WebpackOptions };
+import type { Configuration as WebpackConfiguration, Options as WebpackOptions } from 'webpack';
+export type { WebpackConfiguration, WebpackOptions };
 import type { Options as StylelintOptions } from 'stylelint-webpack-plugin/declarations/getOptions';
 export type { StylelintOptions };
 import { Options as DependencyExtractionOptions } from '@wordpress/dependency-extraction-webpack-plugin';
@@ -15,7 +15,6 @@ export declare type Auto = (options: {
 export declare type BabelCfg = (options: BabelOptions) => Bud;
 export declare type Bundle = (name: string, entries: string[]) => Bud;
 export declare type Copy = (from: string, to: string) => Bud;
-export declare type Dashboard = (enabled: boolean) => Bud;
 export declare type Debug = (enabled?: boolean) => any;
 export declare type DependencyManifest = (settings?: DependencyExtractionOptions) => Bud;
 export declare type Dev = (options: object) => Bud;
@@ -60,7 +59,6 @@ export declare type Terser = (options: {
     enable?: boolean;
     terser?: object;
 }) => Bud;
-export declare type Translate = (output: string) => Bud;
 export declare type Watch = (options: {
     paths: string[];
     enabled: boolean;
@@ -76,9 +74,9 @@ export declare type Api = {
     babel: BabelCfg;
     bundle: Bundle;
     compile: any;
+    config: any;
     copy: Copy;
     copyAll: Copy;
-    dashboard: Dashboard;
     debug: Debug;
     dependencyManifest: DependencyManifest;
     dev: Dev;
@@ -108,7 +106,6 @@ export declare type Api = {
     stylelint: Stylelint;
     sync: Sync;
     target: Target;
-    translate: Translate;
     vendor: Vendor;
     vue: Vue;
     watch: Watch;

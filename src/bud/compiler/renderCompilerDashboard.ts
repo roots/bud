@@ -25,14 +25,11 @@ const injectHot = ({webpackConfig, overlay, reload, logger}) => {
   return webpackConfig
 }
 
-/**
- * Webpack compilation dashboard renderer.
- */
 const renderCompilerDashboard: BudRenderer = (
   bud: Bud,
   webpackConfig: WebpackConfig,
 ): void => {
-  const compiler = bud.features.enabled('hot')
+  bud.compiler = bud.features.enabled('hot')
     ? webpack(
         injectHot({
           webpackConfig,
@@ -42,8 +39,6 @@ const renderCompilerDashboard: BudRenderer = (
         }),
       )
     : webpack(webpackConfig)
-
-  bud.compiler = compiler
 
   bud.logger.info(
     {

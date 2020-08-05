@@ -1,8 +1,7 @@
 /**
  * Hook: useWebpack
  *
- * @prop {compiler} compiler webpack.compiler
- * @prop {string}   options  project options
+ * @prop {Bud} bud
  */
 export function useWebpack(bud: any): {
     assets: any[];

@@ -13,7 +13,8 @@ var __assign = (this && this.__assign) || function () {
 exports.__esModule = true;
 exports.dev = void 0;
 var dev = function (options) {
-    this.options.set('dev', __assign(__assign({}, this.options.get('dev')), options));
+    this.logger.info({ name: 'bud.api', "function": 'bud.dev', options: options }, "bud.dev called");
+    this.options.set('dev', __assign(__assign({}, this.options.get('dev')), this.filter('api.dev.filter', options)));
     return this;
 };
 exports.dev = dev;

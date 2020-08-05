@@ -10,9 +10,10 @@ exports.__esModule = true;
 exports.copyAll = void 0;
 var path_1 = require("path");
 var copyAll = function (from, to) {
+    this.logger.info({ name: 'bud.api', "function": 'bud.copyAll', from: from, to: to }, "bud.copyAll called");
     this.options.set('copy', {
         patterns: __spreadArrays(this.options.get('copy').patterns, [
-            {
+            this.hooks.filter('bud.copyAll.filter', {
                 from: '**/*',
                 context: from,
                 to: to ? to : path_1.join(this.paths.get('dist'), from),
@@ -20,7 +21,7 @@ var copyAll = function (from, to) {
                     ignore: '.*'
                 },
                 noErrorOnMissing: true
-            },
+            }),
         ])
     });
     return this;

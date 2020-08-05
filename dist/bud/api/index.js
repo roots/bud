@@ -6,9 +6,9 @@ var auto_1 = require("./auto");
 var babel_1 = require("./babel");
 var bundle_1 = require("./bundle");
 var compile_1 = require("./compile");
+var config_1 = require("./config");
 var copy_1 = require("./copy");
 var copyAll_1 = require("./copyAll");
-var dashboard_1 = require("./dashboard");
 var debug_1 = require("./debug");
 var dependencyManifest_1 = require("./dependencyManifest");
 var dist_1 = require("./dist");
@@ -38,7 +38,6 @@ var stylelint_1 = require("./stylelint");
 var sync_1 = require("./sync");
 var target_1 = require("./target");
 var terser_1 = require("./terser");
-var translate_1 = require("./translate");
 var vendor_1 = require("./vendor");
 var vue_1 = require("./vue");
 var watch_1 = require("./watch");
@@ -51,9 +50,9 @@ exports.api = {
     babel: babel_1.babel,
     bundle: bundle_1.bundle,
     compile: compile_1.compile,
+    config: config_1.config,
     copy: copy_1.copy,
     copyAll: copyAll_1.copyAll,
-    dashboard: dashboard_1.dashboard,
     debug: debug_1.debug,
     dependencyManifest: dependencyManifest_1.dependencyManifest,
     dev: dev_1.dev,
@@ -83,7 +82,6 @@ exports.api = {
     sync: sync_1.sync,
     target: target_1.target,
     terser: terser_1.terser,
-    translate: translate_1.translate,
     vendor: vendor_1.vendor,
     vue: vue_1.vue,
     watch: watch_1.watch

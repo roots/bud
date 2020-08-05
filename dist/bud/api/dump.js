@@ -3,6 +3,7 @@ exports.__esModule = true;
 exports.dump = void 0;
 var dump = function (enabled) {
     if (enabled === void 0) { enabled = true; }
+    this.logger.info({ name: 'bud.api', "function": 'bud.dump', enabled: enabled }, "bud.dump called");
     this.features.set('dump', enabled);
     return this;
 };

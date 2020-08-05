@@ -25,6 +25,7 @@ exports.__esModule = true;
 exports.postCss = void 0;
 var postCss = function (_a) {
     var enabled = _a.enabled, options = __rest(_a, ["enabled"]);
+    this.logger.info({ name: 'bud.api', "function": 'bud.postcss', enabled: enabled, options: options }, "bud.postcss called");
     var postCssEnabled = enabled ? enabled : true;
     postCssEnabled && this.features.enable('postCss');
     if (this.features.enabled('postCss')) {

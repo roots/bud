@@ -23,11 +23,8 @@ var injectHot = function (_a) {
     });
     return webpackConfig;
 };
-/**
- * Webpack compilation dashboard renderer.
- */
 var renderCompilerDashboard = function (bud, webpackConfig) {
-    var compiler = bud.features.enabled('hot')
+    bud.compiler = bud.features.enabled('hot')
         ? webpack_1["default"](injectHot({
             webpackConfig: webpackConfig,
             overlay: bud.options.get('dev').overlay ? true : true,
@@ -35,7 +32,6 @@ var renderCompilerDashboard = function (bud, webpackConfig) {
             logger: bud.logger
         }))
         : webpack_1["default"](webpackConfig);
-    bud.compiler = compiler;
     bud.logger.info({
         name: 'bud.compiler'
     }, "compiler attached to bud");

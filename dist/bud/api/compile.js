@@ -2,7 +2,8 @@
 exports.__esModule = true;
 exports.compile = void 0;
 var compile = function () {
-    var compiler = this.hooks.filter('compiler', this.compiler);
+    this.logger.info({ name: 'bud.api', "function": 'bud.compile' }, "bud.compile called");
+    var compiler = this.hooks.filter('bud.compiler.filter', this.compiler);
     compiler.buildConfig().compile();
 };
 exports.compile = compile;

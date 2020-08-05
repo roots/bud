@@ -13,6 +13,7 @@ var __assign = (this && this.__assign) || function () {
 exports.__esModule = true;
 exports.dependencyManifest = void 0;
 var dependencyManifest = function (settings) {
+    this.logger.info({ name: 'bud.api', "function": 'bud.dependencyManifest', settings: settings }, "bud.dependencyManifest called");
     this.features.enable('dependencyManifest');
     settings &&
         this.options.set('dependencyManifest', __assign(__assign({}, this.options.get('dependencyManifest')), settings));

@@ -6,9 +6,9 @@ const auto: Auto = function (
     [key: string]: string[]
   },
 ): Bud {
-  this.logger.info({options}, `[api] bud.auto called`)
+  this.logger.info({name: 'bud.api', function: 'bud.auto', options}, `bud.auto called`)
 
-  this.hooks.call('pre_auto', options)
+  this.hooks.call('api.auto.pre')
 
   Object.entries(options).forEach(([key, modules]) => {
     modules.forEach(handle => {
@@ -19,7 +19,7 @@ const auto: Auto = function (
     })
   })
 
-  this.hooks.call('post_auto', this)
+  this.hooks.call('api.auto.post')
 
   return this
 }
