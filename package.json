@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud",
-  "version": "2.0.0-rc.1",
+  "version": "2.0.0-rc.2",
   "repository": {
     "type": "git",
     "url": "git://github.com/roots/bud.git"
@@ -14,11 +14,9 @@
   "engines": {
     "node": ">=12"
   },
-  "exports": {
-    "bud": "./dist/index.js"
-  },
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
+  "files": ["dist", "preset"],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
   "scripts": {
     "build": "tsc && babel src/ --out-dir=dist --extensions '.js'",
     "docs": "yarn docs:build",
