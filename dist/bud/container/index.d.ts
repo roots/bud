@@ -26,6 +26,7 @@ interface FileContainerInterface extends ContainerInterface {
 }
 interface ExtensionContainer extends ContainerInterface {
     controller: (this: Container, args: any[]) => any;
+    add: (this: Container, args: any[]) => any;
 }
 declare type Container = ContainerInterface;
 declare type FileContainer = FileContainerInterface;

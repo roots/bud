@@ -46,32 +46,22 @@ const controller = (bud: Bud): Controller => ({
    * Set plugin options.
    */
   setPluginOptions: function (): void {
-    this.doPluginHook('pre_options')
-
     this.boundValue = this.plugin.setOptions()
 
     if (this.boundValue) {
-      this.doPluginHook('options', this.boundValue)
-
       this.plugin.options = this.boundValue
     }
 
     delete this.boundValue
-
-    this.doPluginHook('post_options')
   },
 
   /**
    * Merge plugin options.
    */
   mergePluginOptions: function (): void {
-    this.doPluginHook('pre_merge')
-
     this.boundValue = this.plugin.mergeOptions()
 
     if (this.boundValue) {
-      this.doPluginHook('merge', this.boundValue)
-
       this.plugin.options = {
         ...this.plugin.options,
         ...this.boundValue,
@@ -79,8 +69,6 @@ const controller = (bud: Bud): Controller => ({
     }
 
     delete this.boundValue
-
-    this.doPluginHook('post_merge')
   },
 
   /**
@@ -89,25 +77,14 @@ const controller = (bud: Bud): Controller => ({
    * @return   {object} constructed webpack plugin
    */
   makePlugin: function (): object {
-    this.doPluginHook('pre')
-
     this.plugin =
       this.plugin.when() && this.plugin.make
-        ? this.plugin.make()
+        ? this.plugin.make(this.bud)
         : this.bud.util.fab.undefined()
-
-    this.doPluginHook('post')
 
     if (this.plugin) {
       return this.plugin
     }
-  },
-
-  /**
-   * Do plugin hook.
-   */
-  doPluginHook: function (hook): void {
-    this.bud.hooks.call(`${hook}_${this.name}`)
   },
 })
 

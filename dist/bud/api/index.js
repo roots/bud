@@ -1,6 +1,7 @@
 "use strict";
 exports.__esModule = true;
 exports.api = void 0;
+var use_1 = require("./use");
 var alias_1 = require("./alias");
 var auto_1 = require("./auto");
 var babel_1 = require("./babel");
@@ -29,7 +30,6 @@ var project_1 = require("./project");
 var projectPath_1 = require("./projectPath");
 var publicPath_1 = require("./publicPath");
 var purge_1 = require("./purge");
-var resolve_1 = require("./resolve");
 var splitting_1 = require("./splitting");
 var src_1 = require("./src");
 var srcPath_1 = require("./srcPath");
@@ -73,7 +73,6 @@ exports.api = {
     projectPath: projectPath_1.projectPath,
     publicPath: publicPath_1.publicPath,
     purge: purge_1.purge,
-    resolve: resolve_1.resolve,
     scss: scss_1.scss,
     splitting: splitting_1.splitting,
     src: src_1.src,
@@ -82,6 +81,7 @@ exports.api = {
     sync: sync_1.sync,
     target: target_1.target,
     terser: terser_1.terser,
+    use: use_1.use,
     vendor: vendor_1.vendor,
     vue: vue_1.vue,
     watch: watch_1.watch

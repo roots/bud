@@ -4,7 +4,10 @@ const dependencyManifest: DependencyManifest = function (
   this: Bud,
   settings?: DependencyExtractionOptions,
 ): Bud {
-  this.logger.info({name: 'bud.api', function: 'bud.dependencyManifest', settings}, `bud.dependencyManifest called`)
+  this.logger.info(
+    {name: 'bud.api', function: 'bud.dependencyManifest', settings},
+    `bud.dependencyManifest called`,
+  )
 
   this.features.enable('dependencyManifest')
 

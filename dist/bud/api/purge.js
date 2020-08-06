@@ -32,10 +32,16 @@ exports.__esModule = true;
 exports.purge = void 0;
 var purge = function (_a) {
     var _b = _a.enabled, enabled = _b === void 0 ? true : _b, options = __rest(_a, ["enabled"]);
+    this.logger.info({
+        name: 'bud.api',
+        "function": 'bud.purge',
+        enabled: enabled,
+        options: options
+    }, "bud.purge called");
     var purgeEnabled = enabled !== null && enabled !== void 0 ? enabled : true;
     purgeEnabled && this.features.enable('purge');
     if (!this.features.enabled('purge')) {
-        this.logger.info({ name: 'api.purge' }, 'bud.purge called but it is not enabled on this build');
+        this.logger.info({ name: 'api.purge' }, 'bud.purge is not enabled on this build');
         return this;
     }
     this.logger.info({ name: 'api.purge', enabled: enabled, options: options }, 'bud.api.purge called');

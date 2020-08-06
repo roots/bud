@@ -33,6 +33,7 @@ interface FileContainerInterface extends ContainerInterface {
 
 interface ExtensionContainer extends ContainerInterface {
   controller: (this: Container, args: any[]) => any
+  add: (this: Container, args: any[]) => any
 }
 
 type Container = ContainerInterface
@@ -42,6 +43,10 @@ const newContainer = function (key: string, repository: Repository = {}) {
   this.repository[key] = (repository as object)
     ? new container({})
     : new container([])
+}
+
+const add = function (entry: any) {
+  this.repository.push(entry)
 }
 
 const get = function (key: string) {
@@ -168,6 +173,7 @@ const bindExtensionContainer: (
 
   const store = new container(repository, name)
   store.controller = controller
+  store.add = add
 
   return store
 }

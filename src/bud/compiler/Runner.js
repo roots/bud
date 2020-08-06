@@ -53,7 +53,10 @@ const Runner = ({bud}) => {
    */
   useEffect(() => {
     if (build?.success) {
-      const title = bud.hooks.filter('compiler.notify.success.title', 'Build complete.')
+      const title = bud.hooks.filter(
+        'compiler.notify.success.title',
+        'Build complete.',
+      )
       notifier.notify({title})
       bud.logger.info({name: 'bud.compiler', title}, 'Build success notification')
     }

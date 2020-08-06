@@ -28,6 +28,9 @@ var newContainer = function (key, repository) {
         ? new container({})
         : new container([]);
 };
+var add = function (entry) {
+    this.repository.push(entry);
+};
 var get = function (key) {
     return this.repository[key];
 };
@@ -119,6 +122,7 @@ var bindExtensionContainer = function (repository, name) {
     logger_1.logger.info({ name: 'container', repository: repository }, "create extension api container: " + name);
     var store = new container(repository, name);
     store.controller = controller_1.controller;
+    store.add = add;
     return store;
 };
 exports.bindExtensionContainer = bindExtensionContainer;

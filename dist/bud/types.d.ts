@@ -1,7 +1,7 @@
 /// <reference types="webpack-dev-server" />
 import type { Configuration } from 'webpack';
 import type { Hooks } from './hooks/types';
-import type { State, Paths, Features, Options, Plugins } from './repositories/types';
+import type { State, Paths, Features, Options } from './repositories/types';
 import type { FileContainer } from './container';
 import type { Util } from './util/types';
 import type * as Api from './api/types';
@@ -36,11 +36,11 @@ declare type Bud = {
      */
     util: Util;
     /**
-     * ## bud.plugin
+     * ## bud.plugins
      *
      * Bud framework plugins and webpack adapters.
      */
-    plugins: Plugins;
+    plugins: any;
     /**
      * ## bud.mode
      *
@@ -101,6 +101,15 @@ declare type Bud = {
      * The compiler function which carries out the final build.
      */
     compiler: any;
+    /**
+     * ## bud.addPlugin
+     *
+     * Register a Bud extension.
+     *
+     * ```js
+     * bud.use([require('@roots/bud-demo-plugin')])
+     */
+    use: Api.Use;
     /**
      * ## bud.alias
      *
@@ -423,16 +432,6 @@ declare type Bud = {
      * ```
      */
     purge: Api.Purge;
-    /**
-     * ## bud.resolve
-     *
-     * Resolve a module.
-     *
-     * ```js
-     * bud.resolve('scripts/app.js')
-     * ```
-     */
-    resolve: Api.Resolve;
     /**
      * ## bud.scss
      *

@@ -8,6 +8,7 @@ import type { Options as StylelintOptions } from 'stylelint-webpack-plugin/decla
 export type { StylelintOptions };
 import { Options as DependencyExtractionOptions } from '@wordpress/dependency-extraction-webpack-plugin';
 export type { DependencyExtractionOptions };
+export declare type Use = (this: Bud, plugin: any) => Bud;
 export declare type Alias = (arg0: object) => Bud;
 export declare type Auto = (options: {
     [key: string]: string[];
@@ -69,6 +70,7 @@ export declare type Vue = (vueOptions?: {
     options: any;
 }) => Bud;
 export declare type Api = {
+    use: Use;
     alias: Alias;
     auto: Auto;
     babel: BabelCfg;
@@ -99,7 +101,6 @@ export declare type Api = {
     postCss: PostCss;
     preset: Preset;
     projectPath: PathSetter;
-    resolve: Resolve;
     scss: Scss;
     src: Src;
     srcPath: PathSetter;

@@ -10,15 +10,9 @@ var __exportStar = (this && this.__exportStar) || function(m, exports) {
     for (var p in m) if (p !== "default" && !exports.hasOwnProperty(p)) __createBinding(exports, m, p);
 };
 exports.__esModule = true;
-exports.configs = exports.bud = void 0;
+exports.bud = void 0;
 __exportStar(require("./bud/api/types"), exports);
 var bud_1 = require("./bud");
 var bud = new bud_1.bootstrap().framework;
 exports.bud = bud;
-var configs = {
-    eslint: require.resolve('../preset/eslint'),
-    postcss: require.resolve('../preset/postcss'),
-    stylelint: require.resolve('../preset/stylelint')
-};
-exports.configs = configs;
 //# sourceMappingURL=index.js.map

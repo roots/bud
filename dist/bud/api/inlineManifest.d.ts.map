@@ -1,1 +1,1 @@
-{"version":3,"file":"inlineManifest.d.ts","sourceRoot":"","sources":["../../../src/bud/api/inlineManifest.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAC,cAAc,EAAM,MAAM,SAAS,CAAA;AAEhD,QAAA,MAAM,cAAc,EAAE,cASrB,CAAA;AAED,OAAO,EAAC,cAAc,EAAC,CAAA"}
+{"version":3,"file":"inlineManifest.d.ts","sourceRoot":"","sources":["../../../src/bud/api/inlineManifest.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAC,cAAc,EAAM,MAAM,SAAS,CAAA;AAEhD,QAAA,MAAM,cAAc,EAAE,cAcrB,CAAA;AAED,OAAO,EAAC,cAAc,EAAC,CAAA"}

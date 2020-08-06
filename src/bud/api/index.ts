@@ -1,4 +1,5 @@
 import type {Api} from './types'
+import {use} from './use'
 import {alias} from './alias'
 import {auto} from './auto'
 import {babel} from './babel'
@@ -26,11 +27,8 @@ import {postCss} from './postcss'
 import {preset} from './preset'
 import {project} from './project'
 import {projectPath} from './projectPath'
-import {proxy} from './proxy'
 import {publicPath} from './publicPath'
 import {purge} from './purge'
-import {resolve} from './resolve'
-import {setEnv} from './setEnv'
 import {splitting} from './splitting'
 import {src} from './src'
 import {srcPath} from './srcPath'
@@ -75,7 +73,6 @@ export const api: Api = {
   projectPath,
   publicPath,
   purge,
-  resolve,
   scss,
   splitting,
   src,
@@ -84,6 +81,7 @@ export const api: Api = {
   sync,
   target,
   terser,
+  use,
   vendor,
   vue,
   watch,

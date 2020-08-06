@@ -53,27 +53,21 @@ var controller = function (bud) { return ({
      * Set plugin options.
      */
     setPluginOptions: function () {
-        this.doPluginHook('pre_options');
         this.boundValue = this.plugin.setOptions();
         if (this.boundValue) {
-            this.doPluginHook('options', this.boundValue);
             this.plugin.options = this.boundValue;
         }
         delete this.boundValue;
-        this.doPluginHook('post_options');
     },
     /**
      * Merge plugin options.
      */
     mergePluginOptions: function () {
-        this.doPluginHook('pre_merge');
         this.boundValue = this.plugin.mergeOptions();
         if (this.boundValue) {
-            this.doPluginHook('merge', this.boundValue);
             this.plugin.options = __assign(__assign({}, this.plugin.options), this.boundValue);
         }
         delete this.boundValue;
-        this.doPluginHook('post_merge');
     },
     /**
      * Make plugin.
@@ -81,21 +75,13 @@ var controller = function (bud) { return ({
      * @return   {object} constructed webpack plugin
      */
     makePlugin: function () {
-        this.doPluginHook('pre');
         this.plugin =
             this.plugin.when() && this.plugin.make
-                ? this.plugin.make()
+                ? this.plugin.make(this.bud)
                 : this.bud.util.fab.undefined();
-        this.doPluginHook('post');
         if (this.plugin) {
             return this.plugin;
         }
-    },
-    /**
-     * Do plugin hook.
-     */
-    doPluginHook: function (hook) {
-        this.bud.hooks.call(hook + "_" + this.name);
     }
 }); };
 exports.controller = controller;

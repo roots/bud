@@ -7,8 +7,6 @@ import type {Container, FileContainer} from '../container'
 import type {Bud} from '../types'
 export type {Bud}
 
-import type {Plugins} from './plugins/types'
-
 /**
  * Mitch, all together.
  */
@@ -17,24 +15,12 @@ export type State = {
   features: Features
   options: Options
   paths: Paths
-  plugins: Plugins
   flags: Flags
 }
 
-/**
- * Plugins
- */
-export type {Plugins}
-
-/**
- * Paths
- */
 export type Directory = string
 export type Paths = Container
 
-/**
- * Options
- */
 export type Options = Container
 
 export type BabelConfiguration = {
@@ -57,28 +43,16 @@ export type Vendor = {
   name: String
 }
 
-/**
- * ## bud.state.features
- */
 type Features = any
 export type {Features}
 
-/**
- * ## bud.state.flags
- */
 type Flags = Container
 export type {Flags}
 
 type Args = Container
 export type {Args}
 
-/**
- * ## bud.state.config
- */
 type Configs = FileContainer
 export type {Configs}
 
-/**
- * Env
- */
 export type Environment = any

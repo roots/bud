@@ -1,7 +1,10 @@
 import type {Bud, Vue} from './Types'
 
 const vue: Vue = function (vueOptions?: {enabled: boolean; options: any}): Bud {
-  this.logger.info({name: 'bud.api', function: 'bud.vue', ...vueOptions}, `bud.vue called`)
+  this.logger.info(
+    {name: 'bud.api', function: 'bud.vue', ...vueOptions},
+    `bud.vue called`,
+  )
 
   this.features.set({vue: vueOptions?.enabled ?? true})
 

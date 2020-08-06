@@ -2,7 +2,10 @@ import {join} from 'path'
 import type {Bud, Copy} from './types'
 
 const copyAll: Copy = function (this: Bud, from: string, to: any): Bud {
-  this.logger.info({name: 'bud.api', function: 'bud.copyAll', from, to}, `bud.copyAll called`)
+  this.logger.info(
+    {name: 'bud.api', function: 'bud.copyAll', from, to},
+    `bud.copyAll called`,
+  )
 
   this.options.set('copy', {
     patterns: [

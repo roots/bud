@@ -7,10 +7,14 @@ const watch: Watch = function (
     enabled: boolean
   },
 ): Bud {
-  this.logger.info({name: 'bud.api', function: 'bud.watch', ...options}, `bud.watch called`)
+  this.logger.info(
+    {name: 'bud.api', function: 'bud.watch', ...options},
+    `bud.watch called`,
+  )
 
   options?.enabled && this.features.enable('watch')
-  options?.paths && this.options.set('watch', this.hooks.filter('api.watch.filter', options.paths))
+  options?.paths &&
+    this.options.set('watch', this.hooks.filter('api.watch.filter', options.paths))
 
   return this
 }

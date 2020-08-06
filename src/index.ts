@@ -13,10 +13,4 @@ import {bootstrap} from './bud'
 
 const bud: Bud = new bootstrap().framework
 
-const configs = {
-  eslint: require.resolve('../preset/eslint'),
-  postcss: require.resolve('../preset/postcss'),
-  stylelint: require.resolve('../preset/stylelint'),
-}
-
-export {bud, configs}
+export {bud}

@@ -16,6 +16,7 @@ export type {StylelintOptions}
 import {Options as DependencyExtractionOptions} from '@wordpress/dependency-extraction-webpack-plugin'
 export type {DependencyExtractionOptions}
 
+export type Use = (this: Bud, plugin: any) => Bud
 export type Alias = (arg0: object) => Bud
 export type Auto = (options: {[key: string]: string[]}) => Bud
 export type BabelCfg = (options: BabelOptions) => Bud
@@ -67,6 +68,7 @@ export type Vendor = (name?: string) => Bud
 export type Vue = (vueOptions?: {enabled: boolean; options: any}) => Bud
 
 export type Api = {
+  use: Use
   alias: Alias
   auto: Auto
   babel: BabelCfg
@@ -97,7 +99,6 @@ export type Api = {
   postCss: PostCss
   preset: Preset
   projectPath: PathSetter
-  resolve: Resolve
   scss: Scss
   src: Src
   srcPath: PathSetter
