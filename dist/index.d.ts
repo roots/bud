@@ -8,5 +8,7 @@ export type { Util } from './bud/util/types';
 export declare type Mode = Configuration['mode'];
 export declare type Production = boolean;
 declare const bud: Bud;
-export { bud };
+import { palettePlugin } from './extensions/roots-palette-plugin';
+import { tailwind } from './extensions/tailwind';
+export { bud, palettePlugin, tailwind, };
 //# sourceMappingURL=index.d.ts.map

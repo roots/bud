@@ -5,7 +5,7 @@ var use = function (plugins) {
     var _this = this;
     this.logger.info({
         name: 'api.use',
-        plugins: plugins
+        plugins: plugins.map(function (ext) { return ext.name; })
     }, 'api.use called');
     plugins.forEach(function (plugin) {
         _this.plugins.add({

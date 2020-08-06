@@ -80,6 +80,7 @@ var options = {
         name: 'runtime'
     },
     postCss: {},
+    scss: {},
     splitting: {
         maxChunks: null
     },

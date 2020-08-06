@@ -13,4 +13,10 @@ import {bootstrap} from './bud'
 
 const bud: Bud = new bootstrap().framework
 
-export {bud}
+import {palettePlugin} from './extensions/roots-palette-plugin'
+import {tailwind} from './extensions/tailwind'
+export {
+  bud,
+  palettePlugin,
+  tailwind,
+}

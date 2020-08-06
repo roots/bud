@@ -7,10 +7,7 @@ var webpackResolve = function (bud) { return ({
     target: {
         resolve: {
             extensions: bud.options.get('extensions'),
-            modules: [
-                bud.project('node_modules'),
-                bud.src(),
-            ]
+            modules: [bud.project('node_modules'), bud.src()]
         }
     },
     make: function () {

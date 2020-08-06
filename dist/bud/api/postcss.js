@@ -21,15 +21,23 @@ var __rest = (this && this.__rest) || function (s, e) {
         }
     return t;
 };
+var __spreadArrays = (this && this.__spreadArrays) || function () {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+};
 exports.__esModule = true;
 exports.postCss = void 0;
 var postCss = function (_a) {
+    var _b;
     var enabled = _a.enabled, options = __rest(_a, ["enabled"]);
     this.logger.info({ name: 'bud.api', "function": 'bud.postcss', enabled: enabled, options: options }, "bud.postcss called");
     var postCssEnabled = enabled ? enabled : true;
     postCssEnabled && this.features.enable('postCss');
     if (this.features.enabled('postCss')) {
-        this.options.set('postcss', __assign(__assign({}, this.options.get('postCss')), options));
+        this.options.set('postcss', __assign(__assign(__assign({}, this.options.get('postCss')), options), { plugins: __spreadArrays(((_b = options.plugins) !== null && _b !== void 0 ? _b : []), this.options.get('postCss').plugins) }));
     }
     return this;
 };

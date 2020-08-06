@@ -25,6 +25,7 @@ declare const options: {
         name: string;
     };
     postCss: {};
+    scss: {};
     splitting: {
         maxChunks: any;
     };

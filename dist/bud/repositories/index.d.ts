@@ -51,6 +51,7 @@ export declare const repositories: {
             name: string;
         };
         postCss: {};
+        scss: {};
         splitting: {
             maxChunks: any;
         };

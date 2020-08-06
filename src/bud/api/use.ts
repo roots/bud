@@ -4,7 +4,7 @@ const use: Use = function (this: Bud, plugins: any[]): Bud {
   this.logger.info(
     {
       name: 'api.use',
-      plugins,
+      plugins: plugins.map(ext => ext.name),
     },
     'api.use called',
   )

@@ -19,6 +19,7 @@ const useScss = (rule, bud) => {
   const {name, implementation} = implementing()
 
   const options = {
+    ...bud.options.get('scss'),
     sourceMap: bud.features.enabled('sourceMap'),
     implementation,
   }

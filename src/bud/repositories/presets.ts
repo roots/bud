@@ -1,8 +1,8 @@
-const eslint: string = require.resolve('../../../preset/eslint')
-const postCss: string = require.resolve('../../../preset/postcss')
-const stylelint: string = require.resolve('../../../preset/stylelint')
-const babelWp: string = require.resolve('../../../preset/babel/preset-wp')
-const babelReact: string = require.resolve('../../../preset/babel/preset-react')
+const eslint: string = require.resolve('./presets/eslint')
+const postCss: string = require.resolve('./presets/postcss')
+const stylelint: string = require.resolve('./presets/stylelint')
+const babelWp: string = require.resolve('./presets/babel/preset-wp')
+const babelReact: string = require.resolve('./presets/babel/preset-react')
 
 /**
  * Preset configurations for common webpack plugins.

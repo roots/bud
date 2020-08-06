@@ -2,11 +2,11 @@
 var _a;
 exports.__esModule = true;
 exports.presets = void 0;
-var eslint = require.resolve('../../../preset/eslint');
-var postCss = require.resolve('../../../preset/postcss');
-var stylelint = require.resolve('../../../preset/stylelint');
-var babelWp = require.resolve('../../../preset/babel/preset-wp');
-var babelReact = require.resolve('../../../preset/babel/preset-react');
+var eslint = require.resolve('./presets/eslint');
+var postCss = require.resolve('./presets/postcss');
+var stylelint = require.resolve('./presets/stylelint');
+var babelWp = require.resolve('./presets/babel/preset-wp');
+var babelReact = require.resolve('./presets/babel/preset-react');
 /**
  * Preset configurations for common webpack plugins.
  */
