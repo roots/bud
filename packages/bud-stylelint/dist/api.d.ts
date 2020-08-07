@@ -3,6 +3,6 @@ declare type ConfigCall = (this: any, options: {
     enabled?: boolean;
     options?: StylelintOptions;
 }) => any;
-declare const config: ConfigCall;
-export default config;
-//# sourceMappingURL=config.d.ts.map
+declare const api: ConfigCall;
+export default api;
+//# sourceMappingURL=api.d.ts.map

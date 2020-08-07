@@ -7,7 +7,7 @@ type ConfigCall = (
   },
 ) => any
 
-const config: ConfigCall = function (
+const api: ConfigCall = function (
   options: {
     enabled?: boolean
     options?: StylelintOptions
@@ -24,4 +24,4 @@ const config: ConfigCall = function (
   return this
 }
 
-export default config
+export default api

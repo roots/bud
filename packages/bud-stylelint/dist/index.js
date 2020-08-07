@@ -6,6 +6,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 exports.preset = exports.stylelint = void 0;
 const path_1 = require("path");
 const adapter_1 = __importDefault(require("./adapter"));
+const api_1 = __importDefault(require("./api"));
 /**
  * Bud extension: Stylelint support.
  */
@@ -21,7 +22,7 @@ const stylelint = () => ({
         /**
          * Set bud.stylelint API method.
          */
-        this.bud.stylelint = config;
+        this.bud.stylelint = api_1.default;
         /**
          * Set stylelint to config container
          */

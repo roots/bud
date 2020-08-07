@@ -1,6 +1,6 @@
 import {join, resolve} from 'path'
 import adapter from './adapter'
-import config from './config'
+import api from './api'
 type BudPlugin = () => {make: () => void}
 
 /**
@@ -19,7 +19,7 @@ const stylelint: BudPlugin = () => ({
     /**
      * Set bud.stylelint API method.
      */
-    this.bud.stylelint = config
+    this.bud.stylelint = api
 
     /**
      * Set stylelint to config container
