@@ -5,11 +5,8 @@ const adapter = () => ({
   },
 })
 
-/**
- * Bud extension: vue support
- */
 const vue = () => ({
-  make: function () {
+  make: function (this: any): void {
     this.bud.features.enable('vue')
     this.bud.options.set('extensions', [
       '.vue',
@@ -23,23 +20,34 @@ const vue = () => ({
 
     this.bud.adapters.add(adapter)
   },
-  addVue: webpackModules => [
+
+  /**
+   * addVue
+   *
+   * Callback adding vue-loader to webpack.modules.
+   */
+  addVue: (webpackModules: any[]): any[] => [
     {
       test: /\.vue$/,
       use: [
         {
-          loader: 'vue-loader',
+          loader: require.resolve('vue-loader'),
           compiler: require('vue-template-compiler'),
         },
       ],
     },
     ...webpackModules,
   ],
-  addVueStyle: rules => [
+
+  /**
+   * addVueStyle
+   *
+   * Callback adding vue-style-loader to webpack.modules.
+   */
+  addVueStyle: (rules: any[]): any[] => [
     'vue-style-loader',
     ...rules,
   ],
 })
 
-export {vue}
-
+module.exports = vue
