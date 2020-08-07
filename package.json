@@ -14,17 +14,14 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["dist"],
-  "main": "dist/index.js",
+  "files": [
+    "dist"
+  ],
+  "main": "dist/module.js",
   "types": "dist/index.d.ts",
   "scripts": {
+    "rollup": "rollup -c && tsc",
     "build": "tsc && babel src/ --out-dir=dist --extensions '.js'",
-    "docs": "yarn docs:build",
-    "docs:dev": "npm-run-all -s docs:generate docs:vuepress:dev",
-    "docs:build": "npm-run-all -s docs:generate docs:vuepress:build",
-    "docs:generate": "typedoc --tsconfig tsconfig.json --mode modules --out docs/docs src --theme vuepress ",
-    "docs:vuepress:dev": "vuepress dev",
-    "docs:vuepress:build": "vuepress build",
     "lint": "npm-run-all -c lint:*",
     "lint:eslint": "eslint .",
     "lint:prettier": "prettier --config ./prettier.config.js --write ./src"
@@ -73,6 +70,8 @@
     "babel-loader": "^8.1.0",
     "babel-plugin-emotion": "^10.0.33",
     "babel-plugin-macros": "^2.8.0",
+    "babel-plugin-transform-runtime": "^6.23.0",
+    "babel-plugin-transform-vue-jsx": "^3.7.0",
     "blacklist": "^1.1.4",
     "browser-sync": "^2.26.7",
     "browser-sync-webpack-plugin": "^2.2.2",
@@ -91,6 +90,7 @@
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-react": "^7.20.5",
     "eslint-plugin-react-hooks": "^4.0.8",
+    "execa": "^4.0.3",
     "extract-text-webpack-plugin": "^3.0.2",
     "file-loader": "^6.0.0",
     "fs-extra": "^9.0.0",
@@ -105,7 +105,6 @@
     "ink-use-stdout-dimensions": "^1.0.5",
     "lodash": "^4.17.19",
     "mini-css-extract-plugin": "^0.9.0",
-    "node-loader": "^1.0.0",
     "node-notifier": "^7.0.1",
     "node-sass": "^4.14.1",
     "npm-run-all": "^4.1.5",
@@ -136,6 +135,8 @@
     "typescript": "^3.9.6",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "url-loader": "^4.1.0",
+    "vue": "^2.6.11",
+    "vue-cli": "^2.9.6",
     "vue-loader": "^15.9.3",
     "vue-template-compiler": "^2.6.11",
     "webpack": "^4.43.0",
@@ -150,11 +151,13 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
-    "@vuepress/plugin-back-to-top": "^1.3.1",
-    "@vuepress/plugin-medium-zoom": "^1.3.1",
-    "typedoc": "^0.17.8",
-    "typedoc-plugin-markdown": "^2.3.1",
-    "vuepress": "^1.3.1"
+    "@rollup/plugin-babel": "^5.1.0",
+    "@rollup/plugin-commonjs": "^14.0.0",
+    "@rollup/plugin-node-resolve": "^8.4.0",
+    "rollup": "^2.23.0",
+    "rollup-plugin-jsx": "^1.0.3",
+    "rollup-plugin-terser": "^6.1.0",
+    "rollup-plugin-typescript2": "^0.27.1"
   },
   "browserslist": [
     "extends @wordpress/browserslist-config"

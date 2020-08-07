@@ -1,1 +1,0 @@
-{"version":3,"file":"dashboard.js","sourceRoot":"","sources":["../../../src/bud/api/dashboard.ts"],"names":[],"mappings":";;;AAEA,IAAM,SAAS,GAAc,UAAqB,OAAgB;IAChE,OAAO,KAAK,KAAK;QACf,CAAC,CAAC,IAAI,CAAC,QAAQ,CAAC,OAAO,CAAC,WAAW,CAAC;QACpC,CAAC,CAAC,IAAI,CAAC,QAAQ,CAAC,MAAM,CAAC,WAAW,CAAC,CAAA;IAErC,OAAO,IAAI,CAAA;AACb,CAAC,CAAA;AAEO,8BAAS"}
