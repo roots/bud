@@ -1,4 +1,6 @@
-const tailwind: () => any = () => ({
+type Tailwind = () => any
+
+const tailwind: Tailwind = () => ({
   make: function () {
     this.bud.options.set('postCss', this.postCssOptions())
     this.bud.options.set('scss', this.scssOptions())

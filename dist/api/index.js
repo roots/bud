@@ -8,7 +8,6 @@ import { config } from './config';
 import { copy } from './copy';
 import { copyAll } from './copyAll';
 import { debug } from './debug';
-import { dependencyManifest } from './dependencyManifest';
 import { dist } from './dist';
 import { distPath } from './distPath';
 import { dev } from './dev';
@@ -50,7 +49,6 @@ export var api = {
     copy: copy,
     copyAll: copyAll,
     debug: debug,
-    dependencyManifest: dependencyManifest,
     dev: dev,
     devtool: devtool,
     dist: dist,

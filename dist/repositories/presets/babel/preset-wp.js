@@ -11,7 +11,6 @@ module.exports = function () { return ({
         require('@babel/plugin-syntax-dynamic-import'),
         require('@babel/plugin-proposal-object-rest-spread'),
         require('@babel/plugin-transform-runtime'),
-        require('babel-plugin-transform-vue-jsx'),
     ]
 }); };
 //# sourceMappingURL=preset-wp.js.map

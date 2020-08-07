@@ -9,7 +9,6 @@ import {config} from './config'
 import {copy} from './copy'
 import {copyAll} from './copyAll'
 import {debug} from './debug'
-import {dependencyManifest} from './dependencyManifest'
 import {dist} from './dist'
 import {distPath} from './distPath'
 import {dev} from './dev'
@@ -53,7 +52,6 @@ export const api: Api = {
   copy,
   copyAll,
   debug,
-  dependencyManifest,
   dev,
   devtool,
   dist,

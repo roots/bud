@@ -77,7 +77,6 @@ export type Api = {
   copy: Copy
   copyAll: Copy
   debug: Debug
-  dependencyManifest: DependencyManifest
   dev: Dev
   devtool: Devtool
   dist: Dist

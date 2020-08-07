@@ -216,21 +216,6 @@ declare type Bud = {
      */
     debug: Api.Debug;
     /**
-     * ## bud.dependencyManifest
-     *
-     * Configure @wordpress/dependency-extraction-webpack-plugin
-     *
-     * @see https://git.io/JJLxM
-     *
-     * ```js
-     * bud.dependencyManifest({
-     *   outputFormat: 'js',
-     *   injectPolyfill: false,
-     * })
-     * ```
-     */
-    dependencyManifest: Api.DependencyManifest;
-    /**
      * ## bud.dev
      *
      * Development server settings
