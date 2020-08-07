@@ -9,6 +9,12 @@
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
   "keywords": [
     "bud-extension"
   ],
