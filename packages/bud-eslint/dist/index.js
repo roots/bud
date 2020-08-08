@@ -52,3 +52,4 @@ const preset = {
     react: path_1.resolve(__dirname, './preset/react.js'),
 };
 exports.preset = preset;
+//# sourceMappingURL=index.js.map

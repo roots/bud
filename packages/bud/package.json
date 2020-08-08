@@ -15,12 +15,13 @@
     "node": ">=12"
   },
   "files": [
-    "dist"
+    "dist",
+    "types"
   ],
   "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "types": "types/index.d.ts",
   "scripts": {
-    "build": "rimraf ./dist && rollup -c && tsc",
+    "build": "rimraf ./dist && rollup -c",
     "lint": "eslint ."
   },
   "dependencies": {

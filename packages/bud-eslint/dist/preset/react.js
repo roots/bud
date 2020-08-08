@@ -14,3 +14,4 @@ const react = {
     },
 };
 module.exports = { react };
+//# sourceMappingURL=react.js.map

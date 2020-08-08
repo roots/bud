@@ -10,3 +10,4 @@ module.exports = {
     roots: roots_1.default,
     wordpress: wordpress_1.default,
 };
+//# sourceMappingURL=index.js.map

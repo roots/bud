@@ -19,9 +19,9 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["dist"],
+  "files": ["dist", "types"],
   "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "types": "types/index.d.ts",
   "scripts": {
     "lint": "eslint src/**.ts",
     "watch": "npm run build && npm link && nodemon",

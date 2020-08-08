@@ -6,3 +6,4 @@ module.exports = {
         wp: true,
     },
 };
+//# sourceMappingURL=wordpress.js.map

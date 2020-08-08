@@ -1,5 +1,16 @@
 {
-  "extends": "./../../tsconfig.json",
+  "compilerOptions": {
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "declaration": true,
+    "declarationDir": "types",
+    "declarationMap": true,
+    "sourceMap": true,
+    "module": "esnext",
+    "moduleResolution": "node",
+    "outDir": "dist",
+  },
   "include": ["src/*.ts", "src/**/*.ts"],
   "exclude": ["node_modules"]
 }

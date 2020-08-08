@@ -1,1 +1,0 @@
-{"version":3,"file":"browserSync.d.ts","sourceRoot":"","sources":["../../src/repositories/plugins/browserSync.ts"],"names":[],"mappings":"AACA,OAAO,KAAK,EAAC,iBAAiB,EAAC,MAAM,SAAS,CAAA;AAE9C,QAAA,MAAM,WAAW;wBACY,GAAG;gBAGX,iBAAiB;gBAGjB,OAAO;CAK1B,CAAA;AAEF,OAAO,EAAC,WAAW,EAAC,CAAA"}
