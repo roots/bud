@@ -3,7 +3,7 @@
 </p>
 
 <p align="center">
-  <img alt="MIT License" src="https://img.shields.io/github/license/?color=%23525ddc&style=flat-square">
+  <img alt="MIT License" src="https://img.shields.io/github/license/roots/bud?color=%23525ddc&style=flat-square">
   <a href="https://twitter.com/rootswp">
     <img alt="Follow Roots" src="https://img.shields.io/twitter/follow/rootswp.svg?style=flat-square&color=1da1f2" />
   </a>
@@ -15,11 +15,75 @@
 
 ## Overview
 
-This repository provides supporting client and server-side utilities to the Bud compiler and configuration toolset.
+A Javascript build tools framework combining the best parts of Laravel Mix and Symfony Encore.
 
-## Documentation
+## Installation
 
-- [API documentation](https://github.com/roots/bud/tree/master/docs/globals.md)
+`yarn add @roots/bud --dev`
+
+## Plugins
+
+### Usage
+
+Import plugins at the top of your `bud.config.js` file
+
+```js
+const {eslint} = require('@roots/bud-eslint')
+```
+
+Then, utilize the `bud.use` method and register the plugin. Plugins will be called in the provided order.
+
+```js
+bud.use([eslint])
+```
+
+Some plugins may provide additional configuration methods. Obviously, you can't call a plugin-provided method without first registering that plugin, which is one of the reasons it's  generally a good idea to import and register everything at the top of your config.
+
+```js
+bud
+  .use([dependencyExtraction])
+  .dependencyExtraction({
+    injectPolyfill: true,
+  })
+```
+
+### First-party plugins
+
+There are a number of Roots maintained plugins available to kickstart your projects.
+
+| Name | Description | Usage |
+|------|-------------|-------|
+| @roots/bud-dependency-extraction | Adds @wordpress/dependency-extraction-webpack-plugin support. | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-dependency-extraction/README.md)
+| @roots/bud-eslint | Adds eslint support. | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-eslint/README.md) |
+| @roots/bud-stylelint | Adds stylelint support. | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-stylelint/README.md) |
+| @roots/bud-tailwind | Adds tailwindcss support. | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-tailwind/README.md) |
+| @roots/bud-vue | Adds Vue framework support. | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-vue/README.md) |
+
+## Methods
+
+### bud.alias
+
+Resolve modules through webpack aliases. Useful for situations that may otherwise require brittle relative paths.
+
+Having defined this alias:
+
+```js
+bud.alias({'scripts': bud.src('scripts')})
+```
+
+You may now reference scripts against that alias in your import statements:
+
+```js
+import 'scripts/myScript'
+```
+
+### bud.auto
+
+Automatically load common modules instead of needing to manually import them.
+
+```js
+bud.auto({jquery: ['$', 'window.jQuery']})
+```
 
 ## Contributing
 
@@ -30,10 +94,6 @@ We have [contributing guidelines](https://github.com/roots/guidelines/blob/maste
 ## Bud sponsors
 
 Help support our open-source development efforts by [becoming a patron](https://www.patreon.com/rootsdev).
-
-<a href="https://kinsta.com/?kaid=OFDHAJIXUDIV"><img src="https://cdn.roots.io/app/uploads/kinsta.svg" alt="Kinsta" width="200" height="150"></a>
-<a href="https://k-m.com/"><img src="https://cdn.roots.io/app/uploads/km-digital.svg" alt="KM Digital" width="200" height="150"></a>
-<a href="https://carrot.com/"><img src="https://cdn.roots.io/app/uploads/carrot.svg" alt="Carrot" width="200" height="150"></a>
 
 ## Community
 
