@@ -14,6 +14,8 @@ const webpackResolve = bud => ({
     },
   },
 
+  extensions: ['js', 'jsx', 'ts', 'tsx'],
+
   make: function () {
     /**
      * Alias resolution
@@ -25,10 +27,7 @@ const webpackResolve = bud => ({
     /**
      * Ensure bundle support
      */
-    const binding = this
-    new Array('ts', 'tsx', 'jsx', 'vue', 'scss').forEach(ext =>
-      binding.ensureSupport(ext),
-    )
+    this.extensions.forEach(ext => this.ensureSupport(ext))
 
     /**
      * Filter, log & return
@@ -38,6 +37,7 @@ const webpackResolve = bud => ({
       {name: 'webpack.resolve', value: this.target},
       `webpack.resolve has been generated`,
     )
+
     return this.target
   },
 

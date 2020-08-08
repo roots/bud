@@ -3,7 +3,7 @@ export type {Bud}
 
 export type WebpackAdapter = () => any
 export type CorePlugin = () => any
-export type Extension = WebpackAdapter | CorePlugin | object
+export type Extension = WebpackAdapter | CorePlugin | any
 export type PluginsRepo = Extension[]
 import type BrowserSyncPlugin from 'browser-sync-webpack-plugin'
 export type {BrowserSyncPlugin}
@@ -13,22 +13,22 @@ export interface BudPlugin {
   /**
    * Set options
    */
-  setOptions?: Function
+  setOptions?: (any) => any
 
   /**
    * Merge options
    */
-  mergeOptions?: Function
+  mergeOptions?: (any) => any
 
   /**
    * Make plugin output.
    */
-  make?: Function
+  make?: (any) => any
 
   /**
    * Conditions that need to be met in order to engage plugin functionality.
    */
-  when?: Function
+  when?: (any) => any
 }
 
 export type Controller = {

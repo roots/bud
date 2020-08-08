@@ -21,9 +21,7 @@ import { controller } from '../repositories/plugins/controller';
 import { logger } from '../util/logger';
 var newContainer = function (key, repository) {
     if (repository === void 0) { repository = {}; }
-    this.repository[key] = repository
-        ? new container({})
-        : new container([]);
+    this.repository[key] = repository ? new container({}) : new container([]);
 };
 var add = function (entry) {
     this.repository.push(entry);

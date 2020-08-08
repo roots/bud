@@ -1,6 +1,6 @@
-declare function _exports(): {
+declare function _default(): (any: any) => {
     presets: any[];
     plugins: any[];
 };
-export = _exports;
+export default _default;
 //# sourceMappingURL=preset-wp.d.ts.map

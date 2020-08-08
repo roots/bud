@@ -21,5 +21,4 @@ export const util: Util = {
   usedExt,
 }
 
-export {nodeExternals} from './nodeExternals'
 export {logger} from './logger'

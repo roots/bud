@@ -1,8 +1,7 @@
 "use strict";
+const path_1 = require("path");
 module.exports = {
-    extends: [
-        require('path').resolve(__dirname, './roots.js'),
-    ],
+    extends: [path_1.resolve(__dirname, './roots.js')],
     globals: {
         wp: true,
     },

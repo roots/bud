@@ -6,18 +6,20 @@
     "type": "git",
     "url": "git://github.com/roots/bud.git"
   },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
-  "keywords": [
-    "bud-extension"
-  ],
+  "keywords": ["bud-extension"],
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {

@@ -4,7 +4,7 @@ type Typescript = () => any
 
 const loader = require.resolve('ts-loader')
 
-const rule: Function = (bud: any): any => ({
+const rule: (bud: any) => any = (bud: any): any => ({
   test: /\.(ts|tsx)$/,
   exclude: bud.patterns.get('vendor'),
   use: [

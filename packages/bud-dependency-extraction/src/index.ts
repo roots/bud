@@ -15,10 +15,7 @@ import DependencyExtractionWebpackPlugin from '@wordpress/dependency-extraction-
  * })
  * ```
  */
-const config = function (
-  this: any,
-  settings?: DependencyExtractionOptions,
-): any {
+const config = function (this: any, settings?: DependencyExtractionOptions): any {
   settings &&
     this.options.set('dependencyManifest', {
       ...this.options.get('dependencyManifest'),
@@ -34,7 +31,7 @@ const adapter = () => ({
   },
   make: function (this: any): any {
     return new DependencyExtractionWebpackPlugin(
-      this.bud.options.get('dependencyExtraction')
+      this.bud.options.get('dependencyExtraction'),
     )
   },
 })

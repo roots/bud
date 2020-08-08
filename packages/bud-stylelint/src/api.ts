@@ -7,12 +7,10 @@ type ConfigCall = (
   },
 ) => any
 
-const api: ConfigCall = function (
-  options: {
-    enabled?: boolean
-    options?: StylelintOptions
-  },
-) {
+const api: ConfigCall = function (options: {
+  enabled?: boolean
+  options?: StylelintOptions
+}) {
   this.features.set('stylelint', options?.enabled ?? true)
 
   this.features.enabled('stylelint') &&

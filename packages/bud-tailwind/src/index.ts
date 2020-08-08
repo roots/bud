@@ -9,10 +9,7 @@ const tailwind: Tailwind = () => ({
   postCssOptions: function () {
     const postCss = this.bud.options.get('postCss')
 
-    postCss.plugins = [
-      require('tailwindcss'),
-      ...postCss.plugins,
-    ]
+    postCss.plugins = [require('tailwindcss'), ...postCss.plugins]
 
     return postCss
   },

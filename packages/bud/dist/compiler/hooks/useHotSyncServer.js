@@ -1,7 +1,8 @@
-var _a = require('react'), useState = _a.useState, useEffect = _a.useEffect;
-var browserSync = require('browser-sync').create();
-var webpackDevMiddleware = require('webpack-dev-middleware');
-var webpackHotMiddleware = require('webpack-hot-middleware');
+import { useState, useEffect } from 'react';
+import browserSyncLibrary from 'browser-sync';
+import webpackDevMiddleware from 'webpack-dev-middleware';
+import webpackHotMiddleware from 'webpack-hot-middleware';
+var browserSync = browserSyncLibrary.create();
 var makeMiddleware = function (bud, setDevStats) {
     var devMiddlewareOptions = {
         headers: bud.options.get('dev').headers,

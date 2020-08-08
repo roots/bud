@@ -1,6 +1,6 @@
 import type {Bud, Dump} from './types'
 
-const dump: Dump = function (enabled: boolean = true): Bud {
+const dump: Dump = function (enabled = true): Bud {
   this.logger.info(
     {name: 'bud.api', function: 'bud.dump', enabled},
     `bud.dump called`,

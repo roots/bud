@@ -1,33 +1,34 @@
 import typescript from 'rollup-plugin-typescript2'
-import pkg from './package.json'
-import {terser} from "rollup-plugin-terser"
 import jsx from 'rollup-plugin-jsx'
 import babel from '@rollup/plugin-babel'
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
-import builtins from 'builtin-modules'
+
+import pkg from './package.json'
 
 export default {
   input: 'src/index.ts',
   output: [
     {
       file: pkg.main,
-      format: 'cjs'
+      format: 'cjs',
     },
   ],
-  external: [
-    ...Object.keys(pkg.dependencies || {}),
-    ...builtins,
-  ],
+  external: [...Object.keys(pkg.dependencies), 'path'],
   plugins: [
     typescript({
       typescript: require('typescript'),
     }),
-    babel({ babelHelpers: 'bundled' }),
+    babel({
+      babelHelpers: 'bundled',
+    }),
     jsx({factory: 'React.createElement'}),
-    resolve(),
+    resolve({
+      jsnext: true,
+      main: true,
+      browser: true,
+      preferBuiltins: true,
+    }),
     commonjs(),
-    terser(),
   ],
 }
-

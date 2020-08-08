@@ -24,7 +24,7 @@ export declare type BabelConfiguration = {
 };
 export declare type BrowserSync = BrowserSyncOptions;
 export declare type Copy = {
-    patterns: object[];
+    patterns: any[];
 };
 export { DependencyExtractionOptions as WordPressDependenciesOptions };
 export declare type Dev = any;
@@ -33,9 +33,9 @@ export declare type PostCssConfiguration = {
     plugins: [];
 };
 export declare type Target = WebpackConfiguration['target'];
-export declare type Typescript = Object;
+export declare type Typescript = any;
 export declare type Vendor = {
-    name: String;
+    name: string;
 };
 declare type Features = any;
 export type { Features };

@@ -7,7 +7,7 @@ export type { WebpackConfiguration, WebpackOptions };
 import { Options as DependencyExtractionOptions } from '@wordpress/dependency-extraction-webpack-plugin';
 export type { DependencyExtractionOptions };
 export declare type Use = (this: Bud, plugin: any) => Bud;
-export declare type Alias = (arg0: object) => Bud;
+export declare type Alias = (arg0: any) => Bud;
 export declare type Auto = (options: {
     [key: string]: string[];
 }) => Bud;
@@ -16,7 +16,7 @@ export declare type Bundle = (name: string, entries: string[]) => Bud;
 export declare type Copy = (from: string, to: string) => Bud;
 export declare type Debug = (enabled?: boolean) => any;
 export declare type DependencyManifest = (settings?: DependencyExtractionOptions) => Bud;
-export declare type Dev = (options: object) => Bud;
+export declare type Dev = (options: any) => Bud;
 export declare type Devtool = (devtool: WebpackOptions.Devtool) => Bud;
 export declare type Dist = (path?: string) => string;
 export declare type Dump = (enabled: boolean) => Bud;
@@ -30,7 +30,7 @@ export declare type Hot = (this: Bud, options: {
     port?: number;
     watch?: string[];
     open?: boolean;
-    headers?: object;
+    headers?: any;
     secure?: boolean;
 }) => Bud;
 export declare type InlineManifest = (name?: string) => Bud;
@@ -52,7 +52,7 @@ export declare type Sync = (options: SyncOptions) => Bud;
 export declare type Target = (target: string) => Bud;
 export declare type Terser = (options: {
     enable?: boolean;
-    terser?: object;
+    terser?: any;
 }) => Bud;
 export declare type Watch = (options: {
     paths: string[];

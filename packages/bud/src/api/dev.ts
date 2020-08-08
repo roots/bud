@@ -1,6 +1,6 @@
 import type {Bud, Dev} from './types'
 
-const dev: Dev = function (options: object): Bud {
+const dev: Dev = function (options: any): Bud {
   this.logger.info({name: 'bud.api', function: 'bud.dev', options}, `bud.dev called`)
 
   this.options.set('dev', {

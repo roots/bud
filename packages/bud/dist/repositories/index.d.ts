@@ -1,5 +1,5 @@
 export declare const repositories: {
-    configs: (framework: any) => import("../container").Repository;
+    configs: (framework: any) => any;
     features: {
         dashboard: boolean;
         clean: boolean;
@@ -169,7 +169,7 @@ export declare const repositories: {
             file: string;
         };
         "babel-wp": {
-            config: {
+            config: (any: any) => {
                 presets: any[];
                 plugins: any[];
             };

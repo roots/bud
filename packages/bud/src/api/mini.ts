@@ -1,6 +1,6 @@
 import type {Bud, Mini} from './types'
 
-const mini: Mini = function (enable: boolean = true): Bud {
+const mini: Mini = function (enable = true): Bud {
   this.logger.info(
     {name: 'bud.api', function: 'bud.mini', enable},
     `bud.mini called`,

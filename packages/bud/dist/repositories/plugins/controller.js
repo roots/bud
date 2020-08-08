@@ -12,8 +12,6 @@ var __assign = (this && this.__assign) || function () {
 /**
  * Plugin controller.
  *
- * @param {Bud} bud
- * @return {Controller}
  * @this {Bud}
  */
 var controller = function (bud) { return ({
@@ -66,8 +64,6 @@ var controller = function (bud) { return ({
     },
     /**
      * Make plugin.
-     * @property {function} makePlugin
-     * @return   {object} constructed webpack plugin
      */
     makePlugin: function () {
         this.plugin =

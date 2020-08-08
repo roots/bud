@@ -1,6 +1,6 @@
 "use strict";
 module.exports = {
-    extends: "stylelint-config-standard",
+    extends: 'stylelint-config-standard',
     rules: {
         'declaration-colon-newline-after': null,
         'value-list-comma-newline-after': null,

@@ -42,10 +42,7 @@ const eslint = () => ({
         /**
          * Add eslint rule to webpack modules repository.
          */
-        this.bud.rules.repository = [
-            bud => rule(bud),
-            ...this.bud.rules.repository,
-        ];
+        this.bud.rules.repository = [bud => rule(bud), ...this.bud.rules.repository];
     },
 });
 exports.eslint = eslint;

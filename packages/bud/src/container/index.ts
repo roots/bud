@@ -2,7 +2,7 @@ import {existsSync} from 'fs-extra'
 import {controller} from '../repositories/plugins/controller'
 import {logger} from '../util/logger'
 
-type Repository = any[] | object
+type Repository = any[] | any
 
 interface Loose {
   [key: string]: any
@@ -41,9 +41,7 @@ type Container = ContainerInterface
 type FileContainer = FileContainerInterface
 
 const newContainer = function (key: string, repository: Repository = {}) {
-  this.repository[key] = (repository as object)
-    ? new container({})
-    : new container([])
+  this.repository[key] = (repository as any) ? new container({}) : new container([])
 }
 
 const add = function (entry: any) {
@@ -73,7 +71,7 @@ const has = function (key: string): boolean {
 }
 
 const merge = function (key: string, value: any) {
-  this.repository[key] = (this.repository[key] as object)
+  this.repository[key] = (this.repository[key] as any)
     ? {...this.repository[key], ...value}
     : (this.repository[key] as any[])
     ? [...this.repository[key], ...value]
@@ -119,7 +117,7 @@ const entries = function (): any {
 const container = function (
   this: Container,
   repository: Repository,
-  name: string = 'anonymous',
+  name = 'anonymous',
 ) {
   this.name = name
   this.repository = repository

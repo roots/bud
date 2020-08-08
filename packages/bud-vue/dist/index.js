@@ -1,8 +1,9 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+const vue_loader_1 = require("vue-loader");
 const adapter = () => ({
     make: function () {
-        const { VueLoaderPlugin } = require('vue-loader');
-        return new VueLoaderPlugin();
+        return new vue_loader_1.VueLoaderPlugin();
     },
 });
 const vue = () => ({
@@ -40,10 +41,7 @@ const vue = () => ({
      *
      * Callback adding vue-style-loader to webpack.modules.
      */
-    addVueStyle: (rules) => [
-        'vue-style-loader',
-        ...rules,
-    ],
+    addVueStyle: (rules) => ['vue-style-loader', ...rules],
 });
 module.exports = vue;
 //# sourceMappingURL=index.js.map

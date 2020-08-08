@@ -1,6 +1,6 @@
 import type { BabelConfiguration, Copy, PostCssConfiguration, WordPressDependenciesOptions } from './types';
 declare const babel: (configs: any) => BabelConfiguration;
-declare const browserSync: (flags: any) => object;
+declare const browserSync: (flags: any) => any;
 declare const postCss: (configs: any) => PostCssConfiguration;
 /**
  * Options container.

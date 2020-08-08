@@ -1,10 +1,6 @@
 const react = {
-  extends: [
-    'plugin:react/recommended',
-  ],
-  plugins: [
-    'react-hooks',
-  ],
+  extends: ['plugin:react/recommended'],
+  plugins: ['react-hooks'],
   settings: {
     react: {
       version: 'detect',

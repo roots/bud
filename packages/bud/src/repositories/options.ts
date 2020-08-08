@@ -16,7 +16,7 @@ const babel: (configs) => BabelConfiguration = function (configs) {
   return configs.has('babel') ? configs.require('babel') : babelFallback
 }
 
-const browserSync: (flags) => object = flags => ({
+const browserSync: (flags) => any = flags => ({
   host: flags.has('host') ? flags.get('host') : 'localhost',
   port: flags.get('port') ? flags.get('port') : 3000,
   proxy: flags.get('proxy') ? flags.get('proxy') : 'localhost',

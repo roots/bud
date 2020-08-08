@@ -13,10 +13,10 @@ export declare type RegisteredBuilder = [string, BuilderConstructor];
 export declare type BuilderConstructor = (bud: Bud) => Builder;
 export declare interface Builder {
     bud: Bud;
-    name?: {};
-    options?: {};
-    final?: {};
-    target?: {};
+    name?: any;
+    options?: any;
+    final?: any;
+    target?: any;
     make: () => any;
 }
 export declare interface EntryBuilder extends Builder {

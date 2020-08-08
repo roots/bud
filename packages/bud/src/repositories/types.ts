@@ -1,7 +1,6 @@
 import type {Configuration as WebpackConfiguration} from 'webpack'
 import type {Options as DependencyExtractionOptions} from '@wordpress/dependency-extraction-webpack-plugin/build-types'
 import type {Options as BrowserSyncOptions} from 'browser-sync-webpack-plugin'
-import type {TerserPluginOptions as TerserOptions} from 'terser-webpack-plugin'
 
 import type {Container, FileContainer} from '../container'
 import type {Bud} from '../types'
@@ -29,7 +28,7 @@ export type BabelConfiguration = {
 }
 export type BrowserSync = BrowserSyncOptions
 export type Copy = {
-  patterns: object[]
+  patterns: any[]
 }
 export {DependencyExtractionOptions as WordPressDependenciesOptions}
 export type Dev = any
@@ -38,9 +37,9 @@ export type PostCssConfiguration = {
   plugins: []
 }
 export type Target = WebpackConfiguration['target']
-export type Typescript = Object
+export type Typescript = any
 export type Vendor = {
-  name: String
+  name: string
 }
 
 type Features = any

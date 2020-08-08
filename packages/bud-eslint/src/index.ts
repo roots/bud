@@ -1,9 +1,9 @@
 import presets from './preset'
-import {join, resolve } from 'path'
+import {join, resolve} from 'path'
 
 type Eslint = () => any
 
-const rule: Function = (bud: any): any => ({
+const rule: (any) => any = (bud: any): any => ({
   enforce: 'pre',
   test: bud.patterns.get('js'),
   exclude: bud.patterns.get('vendor'),
@@ -42,10 +42,7 @@ const eslint: Eslint = () => ({
     /**
      * Add eslint rule to webpack modules repository.
      */
-    this.bud.rules.repository = [
-      bud => rule(bud),
-      ...this.bud.rules.repository,
-    ]
+    this.bud.rules.repository = [bud => rule(bud), ...this.bud.rules.repository]
   },
 })
 

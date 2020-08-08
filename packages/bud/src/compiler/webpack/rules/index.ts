@@ -21,7 +21,7 @@ const rules = bud => ({
 
   make: function () {
     const rules: any[] = this.bud.rules.repository
-    rules.forEach((value) => {
+    rules.forEach(value => {
       this.target.module.rules.push(value(this.bud))
     })
 
@@ -60,7 +60,10 @@ const rules = bud => ({
       this.target.module.rules.push(svg(this.bud).make())
     }
 
-    this.target.module.rules = this.bud.hooks.filter('webpack.module.rules', this.target.module.rules)
+    this.target.module.rules = this.bud.hooks.filter(
+      'webpack.module.rules',
+      this.target.module.rules,
+    )
 
     this.bud.logger.info(
       {name: 'webpack.rules', value: this.target},

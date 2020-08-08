@@ -1,8 +1,7 @@
-var notifier = require('node-notifier');
-var React = require('react');
-var useEffect = React.useEffect;
-var _a = require('ink'), Box = _a.Box, Text = _a.Text;
-var PropTypes = require('prop-types');
+import notifier from 'node-notifier';
+import React, { useEffect } from 'react';
+import { Box, Text } from 'ink';
+import PropTypes from 'prop-types';
 /**
  * Error
  *

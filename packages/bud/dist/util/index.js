@@ -18,6 +18,5 @@ export var util = {
     terminate: terminate,
     usedExt: usedExt
 };
-export { nodeExternals } from './nodeExternals';
 export { logger } from './logger';
 //# sourceMappingURL=index.js.map

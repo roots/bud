@@ -3,8 +3,6 @@ import type {Bud, Controller} from './types'
 /**
  * Plugin controller.
  *
- * @param {Bud} bud
- * @return {Controller}
  * @this {Bud}
  */
 const controller = (bud: Bud): Controller => ({
@@ -72,10 +70,8 @@ const controller = (bud: Bud): Controller => ({
 
   /**
    * Make plugin.
-   * @property {function} makePlugin
-   * @return   {object} constructed webpack plugin
    */
-  makePlugin: function (): object {
+  makePlugin: function (): any {
     this.plugin =
       this.plugin.when() && this.plugin.make
         ? this.plugin.make(this.bud)

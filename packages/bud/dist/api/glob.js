@@ -9,8 +9,9 @@ var __assign = (this && this.__assign) || function () {
     };
     return __assign.apply(this, arguments);
 };
-var globby = require('globby');
 import { parse } from 'path';
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+var globby = require('globby');
 var glob = function (files) {
     var _this = this;
     this.logger.info({ name: 'bud.api', files: files }, "bud.glob called");

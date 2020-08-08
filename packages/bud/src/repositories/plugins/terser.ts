@@ -1,7 +1,7 @@
 import TerserPlugin from 'terser-webpack-plugin'
 import type {WebpackAdapter} from './types'
 
-const terser= () => ({
+const terser = () => ({
   setOptions: function () {
     return {
       parallel: true,

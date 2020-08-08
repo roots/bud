@@ -1,10 +1,7 @@
 /**
  * PostCSS config.
  */
-module.exports = {
-    plugins: [
-        require('postcss-import'),
-        require('autoprefixer'),
-    ]
+export default {
+    plugins: [require('postcss-import'), require('autoprefixer')]
 };
 //# sourceMappingURL=index.js.map

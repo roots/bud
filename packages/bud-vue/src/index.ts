@@ -1,6 +1,7 @@
+import {VueLoaderPlugin} from 'vue-loader'
+
 const adapter = () => ({
   make: function () {
-    const {VueLoaderPlugin} = require('vue-loader')
     return new VueLoaderPlugin()
   },
 })
@@ -44,10 +45,7 @@ const vue = () => ({
    *
    * Callback adding vue-style-loader to webpack.modules.
    */
-  addVueStyle: (rules: any[]): any[] => [
-    'vue-style-loader',
-    ...rules,
-  ],
+  addVueStyle: (rules: any[]): any[] => ['vue-style-loader', ...rules],
 })
 
 module.exports = vue

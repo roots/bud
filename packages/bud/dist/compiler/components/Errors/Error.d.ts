@@ -6,10 +6,11 @@
  */
 export function Error({ message }: {
     message: any;
-}): import("prop-types").ReactComponentLike;
+}): PropTypes.ReactComponentLike;
 export namespace Error {
     export namespace propTypes {
-        export const message: import("prop-types").Requireable<string>;
+        export const message: PropTypes.Requireable<string>;
     }
 }
+import PropTypes from "prop-types";
 //# sourceMappingURL=Error.d.ts.map

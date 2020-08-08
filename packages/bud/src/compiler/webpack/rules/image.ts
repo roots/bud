@@ -22,17 +22,17 @@ export type imageLoaderOptions = {
   test: RegExp
   use: [
     {
-      loader: object | string
-      options: object
+      loader: any | string
+      options: any
     },
   ]
 }
 
 export type imageLoaderInterface = {
-  bud: object
-  make: () => object
+  bud: any
+  make: () => any
 }
 
-export type ImageRulesFactory = (bud: object) => imageLoaderInterface
+export type ImageRulesFactory = (bud: any) => imageLoaderInterface
 
 export {image}

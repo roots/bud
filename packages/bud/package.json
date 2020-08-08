@@ -21,10 +21,8 @@
   "main": "dist/module.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "build": "rollup -c && tsc",
-    "lint": "npm-run-all -c lint:*",
-    "lint:eslint": "eslint .",
-    "lint:prettier": "prettier --config ./prettier.config.js --write ./src"
+    "build": "rimraf ./dist && rollup -c && tsc",
+    "lint": "eslint ."
   },
   "dependencies": {
     "@babel/core": "^7.10.5",
@@ -103,6 +101,7 @@
     "optimize-css-assets-webpack-plugin": "^5.0.1",
     "palette-webpack-plugin": "^1.0.0",
     "parallel-webpack": "^2.6.0",
+    "patch-console": "^1.0.0",
     "pino": "^6.5.0",
     "pino-pretty": "^4.1.0",
     "postcss-import": "^12.0.1",
@@ -121,9 +120,11 @@
     "style-loader": "^1.2.1",
     "tailwindcss": "^1.6.2",
     "terser-webpack-plugin": "^3.0.7",
+    "tslib": "^2.0.1",
     "uglifyjs-webpack-plugin": "^2.2.0",
     "url-loader": "^4.1.0",
     "webpack": "^4.43.0",
+    "webpack-dev-middleware": "^3.7.2",
     "webpack-dev-server": "^3.11.0",
     "webpack-fix-style-only-entries": "^0.5.1",
     "webpack-hot-client": "^4.1.2",
@@ -135,9 +136,11 @@
   },
   "devDependencies": {
     "@babel/cli": "^7.10.5",
+    "@rollup/plugin-auto-install": "^2.1.0",
     "@rollup/plugin-babel": "^5.1.0",
     "@rollup/plugin-commonjs": "^14.0.0",
     "@rollup/plugin-node-resolve": "^8.4.0",
+    "rimraf": "^3.0.2",
     "rollup": "^2.23.0",
     "rollup-plugin-jsx": "^1.0.3",
     "rollup-plugin-terser": "^6.1.0",

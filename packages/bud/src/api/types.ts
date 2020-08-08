@@ -14,14 +14,14 @@ import {Options as DependencyExtractionOptions} from '@wordpress/dependency-extr
 export type {DependencyExtractionOptions}
 
 export type Use = (this: Bud, plugin: any) => Bud
-export type Alias = (arg0: object) => Bud
+export type Alias = (arg0: any) => Bud
 export type Auto = (options: {[key: string]: string[]}) => Bud
 export type BabelCfg = (options: BabelOptions) => Bud
 export type Bundle = (name: string, entries: string[]) => Bud
 export type Copy = (from: string, to: string) => Bud
 export type Debug = (enabled?: boolean) => any
 export type DependencyManifest = (settings?: DependencyExtractionOptions) => Bud
-export type Dev = (options: object) => Bud
+export type Dev = (options: any) => Bud
 export type Devtool = (devtool: WebpackOptions.Devtool) => Bud
 export type Dist = (path?: string) => string
 export type Dump = (enabled: boolean) => Bud
@@ -37,7 +37,7 @@ export type Hot = (
     port?: number
     watch?: string[]
     open?: boolean
-    headers?: object
+    headers?: any
     secure?: boolean
   },
 ) => Bud
@@ -55,7 +55,7 @@ export type Splitting = (enabled?: boolean) => Bud
 export type Src = (path?: string) => string
 export type Sync = (options: SyncOptions) => Bud
 export type Target = (target: string) => Bud
-export type Terser = (options: {enable?: boolean; terser?: object}) => Bud
+export type Terser = (options: {enable?: boolean; terser?: any}) => Bud
 export type Watch = (options: {paths: string[]; enabled: boolean}) => Bud
 export type Vendor = (name?: string) => Bud
 

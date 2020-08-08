@@ -1,8 +1,6 @@
 "use strict";
 module.exports = {
-    extends: [
-        'eslint:recommended',
-    ],
+    extends: ['eslint:recommended'],
     parser: require.resolve('babel-eslint'),
     parserOptions: {
         ecmaVersion: 2018,

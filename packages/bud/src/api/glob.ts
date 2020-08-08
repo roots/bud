@@ -1,6 +1,8 @@
 import type {Bud, Glob} from './types'
-const globby = require('globby')
 import {parse} from 'path'
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const globby = require('globby')
 
 const glob: Glob = function (this: Bud, files: string): Bud {
   this.logger.info({name: 'bud.api', files}, `bud.glob called`)

@@ -6,6 +6,7 @@ declare const webpackResolve: (bud: any) => {
             modules: any[];
         };
     };
+    extensions: string[];
     make: () => any;
     /**
      * Ensure extensions supported

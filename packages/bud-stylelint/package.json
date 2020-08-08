@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-stylelint",
   "version": "1.0.0",
-  "description": "Adds stylelint support to Bud.",
+  "description": "Adds stylelint support to Bud",
   "repository": {
     "type": "git",
     "url": "git://github.com/roots/bud.git"
@@ -15,15 +15,11 @@
       "url": "http://opensource.org/licenses/MIT"
     }
   ],
-  "keywords": [
-    "bud-extension"
-  ],
+  "keywords": ["bud-extension"],
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "dist"
-  ],
+  "files": ["dist"],
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {

@@ -1,4 +1,3 @@
-
 import type {Bud} from '../types'
 export type {Bud}
 
@@ -35,7 +34,7 @@ export type Hooks = {
    *
    * Makes a new hook.
    */
-  make: Function
+  make: (any) => any
 
   /**
    * ## bud.hooks.getAll
@@ -49,7 +48,7 @@ export type Hooks = {
    *
    * Register a function to be called with a hook.
    */
-  on: (name: string, callback: Function) => void
+  on: (name: string, callback: (any) => any) => void
 
   /**
    * ## bud.hooks.call

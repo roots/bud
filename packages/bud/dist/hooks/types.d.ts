@@ -28,7 +28,7 @@ export declare type Hooks = {
      *
      * Makes a new hook.
      */
-    make: Function;
+    make: (any: any) => any;
     /**
      * ## bud.hooks.getAll
      *
@@ -40,7 +40,7 @@ export declare type Hooks = {
      *
      * Register a function to be called with a hook.
      */
-    on: (name: string, callback: Function) => void;
+    on: (name: string, callback: (any: any) => any) => void;
     /**
      * ## bud.hooks.call
      *

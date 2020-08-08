@@ -11,7 +11,9 @@ var webpackResolve = function (bud) { return ({
             ]
         }
     },
+    extensions: ['js', 'jsx', 'ts', 'tsx'],
     make: function () {
+        var _this = this;
         /**
          * Alias resolution
          */
@@ -21,10 +23,7 @@ var webpackResolve = function (bud) { return ({
         /**
          * Ensure bundle support
          */
-        var binding = this;
-        new Array('ts', 'tsx', 'jsx', 'vue', 'scss').forEach(function (ext) {
-            return binding.ensureSupport(ext);
-        });
+        this.extensions.forEach(function (ext) { return _this.ensureSupport(ext); });
         /**
          * Filter, log & return
          */

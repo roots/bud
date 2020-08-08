@@ -1,8 +1,8 @@
 import {Bud} from './../types'
 
 export type {Bud}
-export type Dump = (obj: Object) => void
-export type Except = Function
+export type Dump = (obj: any, prettierOptions?: any) => void
+export type Except = (target: any, properties: []) => any
 export type ShortCircuit = () => any
 export type Fab = {
   false: () => boolean
@@ -24,5 +24,5 @@ export type Util = {
   projectRoot: ProjectRoot
   terminate: (any) => void
   processHandler: any
-  usedExt: (any, bud: Bud) => any[],
+  usedExt: (any, bud: Bud) => any[]
 }

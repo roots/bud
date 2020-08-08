@@ -9,7 +9,7 @@ declare const presets: {
         file: string;
     };
     "babel-wp": {
-        config: {
+        config: (any: any) => {
             presets: any[];
             plugins: any[];
         };

@@ -6,7 +6,7 @@ import {shortCircuit} from './shortCircuit'
 /**
  * Dump a prettified, syntax-highlighted object
  */
-const dump: Dump = (obj: any, prettierOptions?: object) => {
+const dump: Dump = (obj: any, prettierOptions?: any): void => {
   const prettierConfig = prettierOptions ?? {parser: 'json'}
 
   const normalizedString: string = JSON.stringify(obj, shortCircuit())

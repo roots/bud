@@ -22,5 +22,22 @@
     "packages/bud-tailwind",
     "packages/bud-typescript",
     "packages/bud-vue"
-  ]
+  ],
+  "scripts": {
+    "packages:build": "yarn workspaces run build",
+    "packages:link": "node ./scripts/linkWorkspaces",
+    "packages:unlink": "node ./scripts/unlinkWorkspaces",
+    "lint": "eslint 'packages/**/*.{js,ts,tsx}' --fix",
+    "postinstall": "node ./scripts/postinstall"
+  },
+  "devDependencies": {
+    "@typescript-eslint/eslint-plugin": "^3.8.0",
+    "@typescript-eslint/parser": "^3.8.0",
+    "eslint": "^7.6.0",
+    "eslint-config-prettier": "^6.11.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.5",
+    "execa": "^4.0.3",
+    "prettier": "^2.0.5"
+  }
 }

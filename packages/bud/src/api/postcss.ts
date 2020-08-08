@@ -13,10 +13,7 @@ const postCss: PostCss = function ({enabled, ...options}): Bud {
     this.options.set('postcss', {
       ...this.options.get('postCss'),
       ...options,
-      plugins: [
-        ...(options.plugins ?? []),
-        ...this.options.get('postCss').plugins,
-      ],
+      plugins: [...(options.plugins ?? []), ...this.options.get('postCss').plugins],
     })
   }
 

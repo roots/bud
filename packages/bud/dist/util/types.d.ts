@@ -1,7 +1,7 @@
 import { Bud } from './../types';
 export type { Bud };
-export declare type Dump = (obj: Object) => void;
-export declare type Except = Function;
+export declare type Dump = (obj: any, prettierOptions?: any) => void;
+export declare type Except = (target: any, properties: []) => any;
 export declare type ShortCircuit = () => any;
 export declare type Fab = {
     false: () => boolean;

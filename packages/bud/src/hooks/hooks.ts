@@ -70,7 +70,7 @@ const hooks = (logger): Hooks => ({
 
     this.called.push(name)
 
-    if (! this.registered[name]) {
+    if (!this.registered[name]) {
       return value
     }
 

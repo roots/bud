@@ -1,7 +1,9 @@
-const {useState, useEffect} = require('react')
-const browserSync = require('browser-sync').create()
-const webpackDevMiddleware = require('webpack-dev-middleware')
-const webpackHotMiddleware = require('webpack-hot-middleware')
+import {useState, useEffect} from 'react'
+import browserSyncLibrary from 'browser-sync'
+import webpackDevMiddleware from 'webpack-dev-middleware'
+import webpackHotMiddleware from 'webpack-hot-middleware'
+
+const browserSync = browserSyncLibrary.create()
 
 const makeMiddleware = (bud, setDevStats) => {
   const devMiddlewareOptions = {

@@ -1,6 +1,6 @@
 import type {Bud, Alias} from './types'
 
-const alias: Alias = function (this: Bud, options: object): Bud {
+const alias: Alias = function (this: Bud, options: any): Bud {
   this.logger.info(
     {name: 'bud.api', function: 'bud.alias', options},
     `bud.alias called`,

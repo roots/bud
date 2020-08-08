@@ -9,13 +9,13 @@ const hot: Hot = function (
     port?: number
     watch?: string[]
     open?: boolean
-    headers?: object
+    headers?: any
     historyApiFallback?: boolean
     overlay?: boolean
     secure?: boolean
     proxy?: any
     changeOrigin?: boolean
-    chokidar?: object
+    chokidar?: any
   },
 ): Bud {
   this.logger.info(

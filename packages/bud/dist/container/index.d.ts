@@ -1,4 +1,4 @@
-declare type Repository = any[] | object;
+declare type Repository = any[] | any;
 interface Loose {
     [key: string]: any;
 }

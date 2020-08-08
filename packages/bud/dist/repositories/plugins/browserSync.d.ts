@@ -1,6 +1,6 @@
 import type { BrowserSyncPlugin } from './types';
 declare const browserSync: () => {
-    mergeOptions: () => Object;
+    mergeOptions: () => any;
     make: () => BrowserSyncPlugin;
     when: () => boolean;
 };
