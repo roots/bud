@@ -107,7 +107,6 @@ export declare const repositories: {
         miniCss: string;
         postCss: string;
         resolveUrl: string;
-        scss: string;
         style: string;
         svgr: string;
         url: string;
