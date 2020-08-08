@@ -41,32 +41,52 @@ const bootstrap = function () {
   this.framework.services = {purgeCss}
 
   /**
-   * CLI flags.
-   */
-  this.framework.flags = this.store(this.repositories.cli.flags, 'bud.flags')
-
-  /**
-   * Paths.
+   * Paths container.
    */
   this.framework.paths = this.store(this.repositories.paths, 'bud.paths')
 
   /**
-   * Features.
+   * Project configuration files container.
+   */
+  this.framework.configs = this.fileStore(
+    this.repositories.configs(this.framework.paths),
+    'bud.configs',
+  )
+
+  /**
+   * Envvar container.
+   */
+  this.framework.env = this.store(
+    this.repositories.env(this.framework.paths),
+    'bud.env',
+  )
+
+  /**
+   * CLI containers.
+   */
+  this.framework.args = this.store(
+    this.repositories.cli.args(this.framework.env),
+    'bud.args',
+  )
+  this.framework.flags = this.store(this.repositories.cli.flags, 'bud.flags')
+
+  /**
+   * Features container.
    */
   this.framework.features = this.store(this.repositories.features, 'bud.features')
 
   /**
-   * Options.
+   * Options container.
    */
   this.framework.options = this.store(this.repositories.options, 'bud.options')
 
   /**
-   * Presets.
+   * Presets container.
    */
   this.framework.presets = this.store(this.repositories.presets, 'bud.presets')
 
   /**
-   * Framework plugins.
+   * Framework plugins container.
    */
   this.framework.plugins = this.extensionStore(
     this.repositories.plugins,
@@ -74,39 +94,14 @@ const bootstrap = function () {
   )
 
   /**
-   * Webpack loaders.
+   * Webpack containers.
    */
   this.framework.patterns = this.store(this.repositories.patterns, 'bud.patterns')
   this.framework.loaders = this.store(this.repositories.loaders, 'bud.loaders')
   this.framework.rules = this.store(this.repositories.rules, 'bud.rules')
-
-  /**
-   * Webpack plugin adapters.
-   */
   this.framework.adapters = this.extensionStore(
     this.repositories.adapters,
     'bud.adapters',
-  )
-
-  /**
-   * Project configuration files.
-   */
-  this.framework.configs = this.fileStore(
-    this.repositories.configs(this.framework),
-    'bud.configs',
-  )
-
-  /**
-   * Environmental variables
-   */
-  this.framework.env = this.store(this.repositories.env(this.framework), 'bud.env')
-
-  /**
-   * CLI arguments.
-   */
-  this.framework.args = this.store(
-    this.repositories.cli.args(this.framework),
-    'bud.args',
   )
 
   /**

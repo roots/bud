@@ -1,4 +1,6 @@
 import type {Repository} from '../container'
+import {join} from 'path'
+import {existsSync} from 'fs-extra'
 
 const configFiles = [
   {
@@ -6,24 +8,8 @@ const configFiles = [
     filename: 'babel.config.js',
   },
   {
-    name: 'eslint',
-    filename: '.eslintrc.js',
-  },
-  {
     name: 'postcss',
     filename: 'postcss.config.js',
-  },
-  {
-    name: 'prettier',
-    filename: 'prettier.config.js',
-  },
-  {
-    name: 'stylelint',
-    filename: 'stylelint.config.js',
-  },
-  {
-    name: 'typescript',
-    filename: 'tsconfig.json',
   },
   {
     name: 'js',
@@ -31,14 +17,13 @@ const configFiles = [
   },
 ]
 
-const configs: (framework: any) => Repository = framework => {
+const configs: (paths: any) => Repository = paths => {
   const repository = {}
-  const {fs, paths} = framework
 
   configFiles.forEach(({name, filename}) => {
-    const projectPath = fs.path.join(paths.get('project'), filename)
+    const projectPath = join(paths.get('project'), filename)
 
-    if (fs.existsSync(projectPath)) {
+    if (existsSync(projectPath)) {
       repository[name] = projectPath
     }
   })

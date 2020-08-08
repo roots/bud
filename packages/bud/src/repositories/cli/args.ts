@@ -1,33 +1,17 @@
 import {argv} from 'yargs'
 
-/**
- * Resolve a value from CLI, envvar or a fallback.
- *
- * Order of precedence:
- *  - cli
- *  - env
- *  - fallback
- */
-const source = function (argKey, env, fallback) {
-  const fromCli = argv && argKey ? argv[argKey] : null
-  const fromEnv = env ?? null
-
-  return fromCli ?? fromEnv ?? fallback
-}
-
-const args = function (framework) {
-  const env = framework.env
-
-  return {
-    level: argv['level'] ?? 'info',
-    mode: source('env', env.get('APP_ENV'), 'none'),
-    host: source('host', env.get('APP_DEV_HOST'), false),
-    port: source('port', env.get('APP_DEV_PORT'), null),
-    proxy: source('proxy', env.get('APP_DEV_PROXY'), null),
-    src: source('src', env.get('APP_SRC'), null),
-    dist: source('dist', env.get('APP_DIST'), null),
-    feature: source('feature', env.get('APP_BUILD_FEATURE'), null),
-  }
-}
+const args = (env: any) => ({
+  log: argv['log'],
+  hot: argv['hot'],
+  watch: argv['watch'],
+  level: argv['level'] ?? 'info',
+  mode: argv['env'] ?? env.get('APP_ENV') ?? 'none',
+  host: argv['host'] ?? env.get('APP_DEV_HOST') ?? false,
+  port: argv['port'] ?? env.get('APP_DEV_PORT') ?? null,
+  proxy: argv['proxy'] ?? env.get('APP_DEV_PROXY') ?? null,
+  src: argv['src'] ?? env.get('APP_SRC') ?? null,
+  dist: argv['dist'] ?? env.get('APP_DIST') ?? null,
+  feature: argv['feature'] ?? env.get('APP_BUILD_FEATURE') ?? null,
+})
 
 export {args}

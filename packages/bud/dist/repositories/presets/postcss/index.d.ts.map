@@ -1,1 +1,1 @@
-{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../../src/repositories/presets/postcss/index.ts"],"names":[],"mappings":";;;AAAA;;GAEG;AACH,wBAEC"}
+{"version":3,"file":"index.d.ts","sourceRoot":"","sources":["../../../src/repositories/presets/postcss/index.ts"],"names":[],"mappings":";;;AAAA;;GAEG;AACH,wBAEC"}

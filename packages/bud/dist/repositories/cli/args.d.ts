@@ -1,4 +1,7 @@
-declare const args: (framework: any) => {
+declare const args: (env: any) => {
+    log: unknown;
+    hot: unknown;
+    watch: unknown;
     level: unknown;
     mode: any;
     host: any;

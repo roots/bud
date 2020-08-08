@@ -1,1 +1,1 @@
-{"version":3,"file":"paths.d.ts","sourceRoot":"","sources":["../../src/repositories/paths.ts"],"names":[],"mappings":"AAyBA,QAAA,MAAM,KAAK;;;;;;;CAOV,CAAA;AAED,OAAO,EAAC,KAAK,EAAC,CAAA"}
+{"version":3,"file":"paths.d.ts","sourceRoot":"","sources":["../src/repositories/paths.ts"],"names":[],"mappings":"AAqBA;;GAEG;AACH,QAAA,MAAM,KAAK;;;;;;;CAOV,CAAA;AAED,OAAO,EAAC,KAAK,EAAC,CAAA"}

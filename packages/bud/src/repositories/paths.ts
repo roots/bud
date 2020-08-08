@@ -9,11 +9,6 @@ import type {Directory} from './types'
 const cwd: Directory = process.cwd()
 
 /**
- * Project directory.
- */
-const project: Directory = projectRoot
-
-/**
  * Bud framework dir.
  */
 const framework: Directory = resolve(__dirname, '../')
@@ -21,15 +16,19 @@ const framework: Directory = resolve(__dirname, '../')
 /**
  * Src arg
  */
-const srcArg: any = argv.src
+const ensureStr: (any) => string = possibleStr =>
+  (possibleStr as string) ? possibleStr : ''
 
+/**
+ * Paths repo.
+ */
 const paths = {
   cwd,
   project: cwd,
   framework,
-  src: srcArg && typeof srcArg == 'string' ? join(cwd, srcArg) : join(cwd),
-  dist: argv?.dist ?? project,
-  public: argv?.public ?? '/',
+  src: argv['src'] ? join(cwd, ensureStr(argv['src'])) : join(cwd),
+  dist: argv['dist'] ? join(cwd, ensureStr(argv['dist'])) : join(cwd),
+  public: argv['public'] ? ensureStr(argv['public']) : '/',
 }
 
 export {paths}

@@ -1,9 +1,10 @@
+import {join} from 'path'
 import dotenv from 'dotenv'
 
-const env = function (framework: any) {
+const env = function (paths: any) {
   return (
     dotenv.config({
-      path: framework.fs.path.join(framework.paths.get('project'), '.env'),
+      path: join(paths.get('project'), '.env'),
     }).parsed ?? {}
   )
 }

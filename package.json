@@ -24,9 +24,10 @@
     "packages/bud-vue"
   ],
   "scripts": {
-    "packages:build": "yarn workspaces run build",
-    "packages:link": "node ./scripts/linkWorkspaces",
-    "packages:unlink": "node ./scripts/unlinkWorkspaces",
+    "build": "yarn workspaces run build",
+    "docs": "node ./scripts/docs",
+    "pkg-link": "node ./scripts/linkWorkspaces",
+    "pkg-unlink": "node ./scripts/unlinkWorkspaces",
     "lint": "eslint 'packages/**/*.{js,ts,tsx}' --fix",
     "postinstall": "node ./scripts/postinstall"
   },
@@ -38,6 +39,8 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.5",
     "execa": "^4.0.3",
-    "prettier": "^2.0.5"
+    "prettier": "^2.0.5",
+    "typedoc": "^0.17.8",
+    "typedoc-plugin-markdown": "^2.4.0"
   }
 }

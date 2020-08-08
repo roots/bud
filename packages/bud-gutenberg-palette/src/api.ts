@@ -3,4 +3,4 @@ const api = function (this: any, blacklist: string[]) {
   return this
 }
 
-exports = api
+export = api

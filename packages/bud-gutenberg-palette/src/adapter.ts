@@ -1,6 +1,6 @@
 import plugin from 'palette-webpack-plugin'
 
-const adapter = () => ({
+const adapter = (): any => ({
   make: function (this: any) {
     return new plugin({
       blacklist: this.bud.options.get('palette-blacklist'),
@@ -8,4 +8,4 @@ const adapter = () => ({
   },
 })
 
-exports = adapter
+export = adapter

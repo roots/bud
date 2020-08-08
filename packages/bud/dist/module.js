@@ -702,37 +702,20 @@ var configFiles = [
         filename: 'babel.config.js',
     },
     {
-        name: 'eslint',
-        filename: '.eslintrc.js',
-    },
-    {
         name: 'postcss',
         filename: 'postcss.config.js',
-    },
-    {
-        name: 'prettier',
-        filename: 'prettier.config.js',
-    },
-    {
-        name: 'stylelint',
-        filename: 'stylelint.config.js',
-    },
-    {
-        name: 'typescript',
-        filename: 'tsconfig.json',
     },
     {
         name: 'js',
         filename: 'jsconfig.json',
     },
 ];
-var configs = function (framework) {
+var configs = function (paths) {
     var repository = {};
-    var fs = framework.fs, paths = framework.paths;
     configFiles.forEach(function (_a) {
         var name = _a.name, filename = _a.filename;
-        var projectPath = fs.path.join(paths.get('project'), filename);
-        if (fs.existsSync(projectPath)) {
+        var projectPath = path.join(paths.get('project'), filename);
+        if (fsExtra.existsSync(projectPath)) {
             repository[name] = projectPath;
         }
     });
@@ -874,15 +857,10 @@ var options = {
     vendor: { name: 'vendor' },
 };
 
-var _a, _b;
 /**
  * Current working dir
  */
 var cwd = process.cwd();
-/**
- * Project directory.
- */
-var project$1 = projectRoot;
 /**
  * Bud framework dir.
  */
@@ -890,43 +868,36 @@ var framework = path.resolve(__dirname, '../');
 /**
  * Src arg
  */
-var srcArg = yargs.argv.src;
+var ensureStr = function (possibleStr) {
+    return possibleStr ? possibleStr : '';
+};
+/**
+ * Paths repo.
+ */
 var paths = {
     cwd: cwd,
     project: cwd,
     framework: framework,
-    src: srcArg && typeof srcArg == 'string' ? path.join(cwd, srcArg) : path.join(cwd),
-    dist: (_a = yargs.argv === null || yargs.argv === void 0 ? void 0 : yargs.argv.dist) !== null && _a !== void 0 ? _a : project$1,
-    public: (_b = yargs.argv === null || yargs.argv === void 0 ? void 0 : yargs.argv.public) !== null && _b !== void 0 ? _b : '/',
+    src: yargs.argv['src'] ? path.join(cwd, ensureStr(yargs.argv['src'])) : path.join(cwd),
+    dist: yargs.argv['dist'] ? path.join(cwd, ensureStr(yargs.argv['dist'])) : path.join(cwd),
+    public: yargs.argv['public'] ? ensureStr(yargs.argv['public']) : '/',
 };
 
-/**
- * Resolve a value from CLI, envvar or a fallback.
- *
- * Order of precedence:
- *  - cli
- *  - env
- *  - fallback
- */
-var source = function (argKey, env, fallback) {
-    var _a;
-    var fromCli = yargs.argv && argKey ? yargs.argv[argKey] : null;
-    var fromEnv = env !== null && env !== void 0 ? env : null;
-    return (_a = fromCli !== null && fromCli !== void 0 ? fromCli : fromEnv) !== null && _a !== void 0 ? _a : fallback;
-};
-var args = function (framework) {
-    var _a;
-    var env = framework.env;
-    return {
+var args = function (env) {
+    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q;
+    return ({
+        log: yargs.argv['log'],
+        hot: yargs.argv['hot'],
+        watch: yargs.argv['watch'],
         level: (_a = yargs.argv['level']) !== null && _a !== void 0 ? _a : 'info',
-        mode: source('env', env.get('APP_ENV'), 'none'),
-        host: source('host', env.get('APP_DEV_HOST'), false),
-        port: source('port', env.get('APP_DEV_PORT'), null),
-        proxy: source('proxy', env.get('APP_DEV_PROXY'), null),
-        src: source('src', env.get('APP_SRC'), null),
-        dist: source('dist', env.get('APP_DIST'), null),
-        feature: source('feature', env.get('APP_BUILD_FEATURE'), null),
-    };
+        mode: (_c = (_b = yargs.argv['env']) !== null && _b !== void 0 ? _b : env.get('APP_ENV')) !== null && _c !== void 0 ? _c : 'none',
+        host: (_e = (_d = yargs.argv['host']) !== null && _d !== void 0 ? _d : env.get('APP_DEV_HOST')) !== null && _e !== void 0 ? _e : false,
+        port: (_g = (_f = yargs.argv['port']) !== null && _f !== void 0 ? _f : env.get('APP_DEV_PORT')) !== null && _g !== void 0 ? _g : null,
+        proxy: (_j = (_h = yargs.argv['proxy']) !== null && _h !== void 0 ? _h : env.get('APP_DEV_PROXY')) !== null && _j !== void 0 ? _j : null,
+        src: (_l = (_k = yargs.argv['src']) !== null && _k !== void 0 ? _k : env.get('APP_SRC')) !== null && _l !== void 0 ? _l : null,
+        dist: (_o = (_m = yargs.argv['dist']) !== null && _m !== void 0 ? _m : env.get('APP_DIST')) !== null && _o !== void 0 ? _o : null,
+        feature: (_q = (_p = yargs.argv['feature']) !== null && _p !== void 0 ? _p : env.get('APP_BUILD_FEATURE')) !== null && _q !== void 0 ? _q : null,
+    });
 };
 
 var flags = {
@@ -940,10 +911,10 @@ var cli = {
     flags: flags,
 };
 
-var env = function (framework) {
+var env = function (paths) {
     var _a;
     return ((_a = dotenv.config({
-        path: framework.fs.path.join(framework.paths.get('project'), '.env'),
+        path: path.join(paths.get('project'), '.env'),
     }).parsed) !== null && _a !== void 0 ? _a : {});
 };
 
@@ -1189,21 +1160,21 @@ var babelWp = (() => any => ({
   plugins: [require('@babel/plugin-syntax-dynamic-import'), require('@babel/plugin-proposal-object-rest-spread'), require('@babel/plugin-transform-runtime')]
 }));
 
-var _a$1;
+var _a;
 /**
  * Preset configurations for common webpack plugins.
  */
-var presets = (_a$1 = {
+var presets = (_a = {
         postCss: {
             config: postCss$2,
             file: path__default.join(__dirname, 'repositories/presets/postcss'),
         }
     },
-    _a$1['babel-wp'] = {
+    _a['babel-wp'] = {
         config: babelWp(),
         file: path__default.join(__dirname, 'repositories/presets/babel/preset-wp'),
     },
-    _a$1);
+    _a);
 
 var babel$2 = function (bud) { return ({
     test: bud.patterns.get('js'),
@@ -5767,51 +5738,45 @@ var bootstrap = function () {
     this.framework.fs = util.fs;
     this.framework.services = { purgeCss: purgeCss };
     /**
-     * CLI flags.
-     */
-    this.framework.flags = this.store(this.repositories.cli.flags, 'bud.flags');
-    /**
-     * Paths.
+     * Paths container.
      */
     this.framework.paths = this.store(this.repositories.paths, 'bud.paths');
     /**
-     * Features.
+     * Project configuration files container.
+     */
+    this.framework.configs = this.fileStore(this.repositories.configs(this.framework.paths), 'bud.configs');
+    /**
+     * Envvar container.
+     */
+    this.framework.env = this.store(this.repositories.env(this.framework.paths), 'bud.env');
+    /**
+     * CLI containers.
+     */
+    this.framework.args = this.store(this.repositories.cli.args(this.framework.env), 'bud.args');
+    this.framework.flags = this.store(this.repositories.cli.flags, 'bud.flags');
+    /**
+     * Features container.
      */
     this.framework.features = this.store(this.repositories.features, 'bud.features');
     /**
-     * Options.
+     * Options container.
      */
     this.framework.options = this.store(this.repositories.options, 'bud.options');
     /**
-     * Presets.
+     * Presets container.
      */
     this.framework.presets = this.store(this.repositories.presets, 'bud.presets');
     /**
-     * Framework plugins.
+     * Framework plugins container.
      */
     this.framework.plugins = this.extensionStore(this.repositories.plugins, 'bud.plugins');
     /**
-     * Webpack loaders.
+     * Webpack containers.
      */
     this.framework.patterns = this.store(this.repositories.patterns, 'bud.patterns');
     this.framework.loaders = this.store(this.repositories.loaders, 'bud.loaders');
     this.framework.rules = this.store(this.repositories.rules, 'bud.rules');
-    /**
-     * Webpack plugin adapters.
-     */
     this.framework.adapters = this.extensionStore(this.repositories.adapters, 'bud.adapters');
-    /**
-     * Project configuration files.
-     */
-    this.framework.configs = this.fileStore(this.repositories.configs(this.framework), 'bud.configs');
-    /**
-     * Environmental variables
-     */
-    this.framework.env = this.store(this.repositories.env(this.framework), 'bud.env');
-    /**
-     * CLI arguments.
-     */
-    this.framework.args = this.store(this.repositories.cli.args(this.framework), 'bud.args');
     /**
      * Hooks API and store.
      */

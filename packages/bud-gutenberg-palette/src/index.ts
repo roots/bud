@@ -8,4 +8,4 @@ const jsonPalette = () => ({
   },
 })
 
-exports = jsonPalette
+export = jsonPalette

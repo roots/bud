@@ -15,7 +15,7 @@
 
 ## Overview
 
-A Javascript build tools framework combining the best parts of Laravel Mix and Symfony Encore.
+A webpack framework combining the best parts of Laravel Mix and Symfony Encore.
 
 ## Installation
 
@@ -58,32 +58,6 @@ There are a number of Roots maintained plugins available to kickstart your proje
 | @roots/bud-stylelint | Adds stylelint support. | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-stylelint/README.md) |
 | @roots/bud-tailwind | Adds tailwindcss support. | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-tailwind/README.md) |
 | @roots/bud-vue | Adds Vue framework support. | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-vue/README.md) |
-
-## Methods
-
-### bud.alias
-
-Resolve modules through webpack aliases. Useful for situations that may otherwise require brittle relative paths.
-
-Having defined this alias:
-
-```js
-bud.alias({'scripts': bud.src('scripts')})
-```
-
-You may now reference scripts against that alias in your import statements:
-
-```js
-import 'scripts/myScript'
-```
-
-### bud.auto
-
-Automatically load common modules instead of needing to manually import them.
-
-```js
-bud.auto({jquery: ['$', 'window.jQuery']})
-```
 
 ## Contributing
 
