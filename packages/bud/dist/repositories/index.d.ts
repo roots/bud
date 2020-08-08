@@ -1,5 +1,5 @@
 export declare const repositories: {
-    configs: (framework: any) => any;
+    configs: (paths: any) => any;
     features: {
         dashboard: boolean;
         clean: boolean;
@@ -117,11 +117,14 @@ export declare const repositories: {
         project: string;
         framework: string;
         src: string;
-        dist: unknown;
-        public: unknown;
+        dist: string;
+        public: string;
     };
     cli: {
-        args: (framework: any) => {
+        args: (env: any) => {
+            log: unknown;
+            hot: unknown;
+            watch: unknown;
             level: unknown;
             mode: any;
             host: any;
@@ -137,7 +140,7 @@ export declare const repositories: {
             watch: boolean;
         };
     };
-    env: (framework: any) => import("dotenv/types").DotenvParseOutput;
+    env: (paths: any) => import("dotenv/types").DotenvParseOutput;
     adapters: import("./plugins/types").PluginsRepo;
     patterns: {
         js: RegExp;

@@ -1,7 +1,6 @@
 declare const useResolveUrl: (rule: any, bud: any) => {
     loader: any;
     options: {
-        engine: any;
         sourceMap: any;
         debug: boolean;
     };

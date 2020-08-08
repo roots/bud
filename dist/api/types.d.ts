@@ -44,7 +44,6 @@ export declare type Preset = (path?: string) => any;
 export declare type Project = (path?: string) => string;
 export declare type Purge = (any: any) => Bud;
 export declare type Resolve = (moduleName: string) => string;
-export declare type Scss = (enabled?: boolean) => Bud;
 export declare type SourceMap = (enabled?: boolean) => Bud;
 export declare type Splitting = (enabled?: boolean) => Bud;
 export declare type Src = (path?: string) => string;
@@ -90,7 +89,6 @@ export declare type Api = {
     postCss: PostCss;
     preset: Preset;
     projectPath: PathSetter;
-    scss: Scss;
     src: Src;
     srcPath: PathSetter;
     sync: Sync;

@@ -2,7 +2,6 @@
 
 function _interopDefault (ex) { return (ex && (typeof ex === 'object') && 'default' in ex) ? ex['default'] : ex; }
 
-var tslib = require('tslib');
 var path = require('path');
 var path__default = _interopDefault(path);
 var chokidar = _interopDefault(require('chokidar'));
@@ -54,6 +53,52 @@ var alias = function (options) {
     return this;
 };
 
+/*! *****************************************************************************
+Copyright (c) Microsoft Corporation.
+
+Permission to use, copy, modify, and/or distribute this software for any
+purpose with or without fee is hereby granted.
+
+THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES WITH
+REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF MERCHANTABILITY
+AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR ANY SPECIAL, DIRECT,
+INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM
+LOSS OF USE, DATA OR PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR
+OTHER TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
+PERFORMANCE OF THIS SOFTWARE.
+***************************************************************************** */
+
+var __assign = function() {
+    __assign = Object.assign || function __assign(t) {
+        for (var s, i = 1, n = arguments.length; i < n; i++) {
+            s = arguments[i];
+            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p)) t[p] = s[p];
+        }
+        return t;
+    };
+    return __assign.apply(this, arguments);
+};
+
+function __rest(s, e) {
+    var t = {};
+    for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p) && e.indexOf(p) < 0)
+        t[p] = s[p];
+    if (s != null && typeof Object.getOwnPropertySymbols === "function")
+        for (var i = 0, p = Object.getOwnPropertySymbols(s); i < p.length; i++) {
+            if (e.indexOf(p[i]) < 0 && Object.prototype.propertyIsEnumerable.call(s, p[i]))
+                t[p[i]] = s[p[i]];
+        }
+    return t;
+}
+
+function __spreadArrays() {
+    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
+    for (var r = Array(s), k = 0, i = 0; i < il; i++)
+        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
+            r[k] = a[j];
+    return r;
+}
+
 var auto = function (options) {
     var _this = this;
     this.logger.info({ name: 'bud.api', "function": 'bud.auto', options: options }, "bud.auto called");
@@ -62,7 +107,7 @@ var auto = function (options) {
         var key = _a[0], modules = _a[1];
         modules.forEach(function (handle) {
             var _a;
-            _this.options.set('auto', tslib.__assign(tslib.__assign({}, _this.options.get('auto')), (_a = {}, _a[handle] = key, _a)));
+            _this.options.set('auto', __assign(__assign({}, _this.options.get('auto')), (_a = {}, _a[handle] = key, _a)));
         });
     });
     this.hooks.call('api.auto.post');
@@ -72,7 +117,7 @@ var auto = function (options) {
 var babel = function (options) {
     this.logger.info({ name: 'bud.api', "function": 'bud.babel', options: options }, "bud.babel called");
     this.features.enable('babel');
-    this.options.set('babel', tslib.__assign(tslib.__assign({}, this.options.get('babel')), this.hooks.filter('filter_babel_options', options)));
+    this.options.set('babel', __assign(__assign({}, this.options.get('babel')), this.hooks.filter('filter_babel_options', options)));
     this.hooks.call('post_babel');
     return this;
 };
@@ -86,7 +131,7 @@ var bundle = function (name, entries) {
      * bundle requirements.
      */
     this.util.usedExt(entries, this);
-    this.options.set('entry', tslib.__assign(tslib.__assign({}, this.options.get('entry')), this.hooks.filter('api.bundle.filter', (_a = {},
+    this.options.set('entry', __assign(__assign({}, this.options.get('entry')), this.hooks.filter('api.bundle.filter', (_a = {},
         _a["" + name] = entries,
         _a))));
     this.hooks.call('api.bundle.post');
@@ -108,7 +153,7 @@ var config = function () {
 var copy = function (from, to) {
     this.logger.info({ name: 'bud.copy', "function": 'bud.copy', from: from, to: to }, "bud.copy called");
     this.options.set('copy', {
-        patterns: tslib.__spreadArrays(this.options.get('copy').patterns, [
+        patterns: __spreadArrays(this.options.get('copy').patterns, [
             this.hooks.filter('bud.copy.filter', {
                 from: from,
                 to: to ? to : path.join(this.paths.get('dist'), from),
@@ -121,7 +166,7 @@ var copy = function (from, to) {
 var copyAll = function (from, to) {
     this.logger.info({ name: 'bud.api', "function": 'bud.copyAll', from: from, to: to }, "bud.copyAll called");
     this.options.set('copy', {
-        patterns: tslib.__spreadArrays(this.options.get('copy').patterns, [
+        patterns: __spreadArrays(this.options.get('copy').patterns, [
             this.hooks.filter('bud.copyAll.filter', {
                 from: '**/*',
                 context: from,
@@ -156,7 +201,7 @@ var distPath = function (dir) {
 
 var dev = function (options) {
     this.logger.info({ name: 'bud.api', "function": 'bud.dev', options: options }, "bud.dev called");
-    this.options.set('dev', tslib.__assign(tslib.__assign({}, this.options.get('dev')), this.filter('api.dev.filter', options)));
+    this.options.set('dev', __assign(__assign({}, this.options.get('dev')), this.filter('api.dev.filter', options)));
     return this;
 };
 
@@ -200,7 +245,7 @@ var glob = function (files) {
     included.forEach(function (match) {
         var _a;
         var dest = match.replace(_this.src('/'), '').replace(path.parse(match).ext, '');
-        entry = tslib.__assign(tslib.__assign({}, entry), (_a = {}, _a[dest] = match, _a));
+        entry = __assign(__assign({}, entry), (_a = {}, _a[dest] = match, _a));
     });
     this.options.set('entry', entry);
     return this;
@@ -229,7 +274,7 @@ var hot = function (options) {
         return this;
     }
     if (options === null || options === void 0 ? void 0 : options.watch) {
-        this.options.set('watch', tslib.__spreadArrays(this.options.get('watch'), options.watch));
+        this.options.set('watch', __spreadArrays(this.options.get('watch'), options.watch));
     }
     this.features.enable('hot');
     var dev = this.options.has('dev') ? this.options.get('dev') : {};
@@ -242,7 +287,7 @@ var hot = function (options) {
             });
         },
     };
-    var devServerConfig = tslib.__assign(tslib.__assign(tslib.__assign({}, dev), chokidarHandler), { hot: (_c = (_b = options === null || options === void 0 ? void 0 : options.enabled) !== null && _b !== void 0 ? _b : dev.enabled) !== null && _c !== void 0 ? _c : true, host: (_e = (_d = options === null || options === void 0 ? void 0 : options.host) !== null && _d !== void 0 ? _d : dev.host) !== null && _e !== void 0 ? _e : 'localhost', overlay: (_g = (_f = options === null || options === void 0 ? void 0 : options.overlay) !== null && _f !== void 0 ? _f : dev.overlay) !== null && _g !== void 0 ? _g : true, port: (_j = (_h = options === null || options === void 0 ? void 0 : options.port) !== null && _h !== void 0 ? _h : dev.port) !== null && _j !== void 0 ? _j : 3000, secure: (_l = (_k = options === null || options === void 0 ? void 0 : options.secure) !== null && _k !== void 0 ? _k : dev.secure) !== null && _l !== void 0 ? _l : false, open: (_o = (_m = options === null || options === void 0 ? void 0 : options.open) !== null && _m !== void 0 ? _m : dev.open) !== null && _o !== void 0 ? _o : true, historyApiFallback: (_q = (_p = options === null || options === void 0 ? void 0 : options.historyApiFallback) !== null && _p !== void 0 ? _p : dev.historyApiFallback) !== null && _q !== void 0 ? _q : true, headers: tslib.__assign(tslib.__assign({}, ((_r = this.options.get('headers')) !== null && _r !== void 0 ? _r : [])), ((_s = options === null || options === void 0 ? void 0 : options.headers) !== null && _s !== void 0 ? _s : [])), proxy: tslib.__assign(tslib.__assign(tslib.__assign({}, ((_t = dev.proxy) !== null && _t !== void 0 ? _t : [])), { '**': tslib.__assign(tslib.__assign({}, (proxyAll !== null && proxyAll !== void 0 ? proxyAll : [])), { target: (_v = (_u = options === null || options === void 0 ? void 0 : options.host) !== null && _u !== void 0 ? _u : proxyAll === null || proxyAll === void 0 ? void 0 : proxyAll.target) !== null && _v !== void 0 ? _v : 'http://localhost', secure: (_x = (_w = options === null || options === void 0 ? void 0 : options.secure) !== null && _w !== void 0 ? _w : proxyAll === null || proxyAll === void 0 ? void 0 : proxyAll.secure) !== null && _x !== void 0 ? _x : dev.secure, changeOrigin: (_z = (_y = options === null || options === void 0 ? void 0 : options.changeOrigin) !== null && _y !== void 0 ? _y : proxyAll === null || proxyAll === void 0 ? void 0 : proxyAll.changeOrigin) !== null && _z !== void 0 ? _z : true, port: (_1 = (_0 = options === null || options === void 0 ? void 0 : options.port) !== null && _0 !== void 0 ? _0 : proxyAll === null || proxyAll === void 0 ? void 0 : proxyAll.port) !== null && _1 !== void 0 ? _1 : dev.port, headers: (_4 = (_3 = (_2 = options === null || options === void 0 ? void 0 : options.headers) !== null && _2 !== void 0 ? _2 : proxyAll === null || proxyAll === void 0 ? void 0 : proxyAll.headers) !== null && _3 !== void 0 ? _3 : this.options.get('headers')) !== null && _4 !== void 0 ? _4 : [] }) }), ((_5 = options === null || options === void 0 ? void 0 : options.proxy) !== null && _5 !== void 0 ? _5 : [])) });
+    var devServerConfig = __assign(__assign(__assign({}, dev), chokidarHandler), { hot: (_c = (_b = options === null || options === void 0 ? void 0 : options.enabled) !== null && _b !== void 0 ? _b : dev.enabled) !== null && _c !== void 0 ? _c : true, host: (_e = (_d = options === null || options === void 0 ? void 0 : options.host) !== null && _d !== void 0 ? _d : dev.host) !== null && _e !== void 0 ? _e : 'localhost', overlay: (_g = (_f = options === null || options === void 0 ? void 0 : options.overlay) !== null && _f !== void 0 ? _f : dev.overlay) !== null && _g !== void 0 ? _g : true, port: (_j = (_h = options === null || options === void 0 ? void 0 : options.port) !== null && _h !== void 0 ? _h : dev.port) !== null && _j !== void 0 ? _j : 3000, secure: (_l = (_k = options === null || options === void 0 ? void 0 : options.secure) !== null && _k !== void 0 ? _k : dev.secure) !== null && _l !== void 0 ? _l : false, open: (_o = (_m = options === null || options === void 0 ? void 0 : options.open) !== null && _m !== void 0 ? _m : dev.open) !== null && _o !== void 0 ? _o : true, historyApiFallback: (_q = (_p = options === null || options === void 0 ? void 0 : options.historyApiFallback) !== null && _p !== void 0 ? _p : dev.historyApiFallback) !== null && _q !== void 0 ? _q : true, headers: __assign(__assign({}, ((_r = this.options.get('headers')) !== null && _r !== void 0 ? _r : [])), ((_s = options === null || options === void 0 ? void 0 : options.headers) !== null && _s !== void 0 ? _s : [])), proxy: __assign(__assign(__assign({}, ((_t = dev.proxy) !== null && _t !== void 0 ? _t : [])), { '**': __assign(__assign({}, (proxyAll !== null && proxyAll !== void 0 ? proxyAll : [])), { target: (_v = (_u = options === null || options === void 0 ? void 0 : options.host) !== null && _u !== void 0 ? _u : proxyAll === null || proxyAll === void 0 ? void 0 : proxyAll.target) !== null && _v !== void 0 ? _v : 'http://localhost', secure: (_x = (_w = options === null || options === void 0 ? void 0 : options.secure) !== null && _w !== void 0 ? _w : proxyAll === null || proxyAll === void 0 ? void 0 : proxyAll.secure) !== null && _x !== void 0 ? _x : dev.secure, changeOrigin: (_z = (_y = options === null || options === void 0 ? void 0 : options.changeOrigin) !== null && _y !== void 0 ? _y : proxyAll === null || proxyAll === void 0 ? void 0 : proxyAll.changeOrigin) !== null && _z !== void 0 ? _z : true, port: (_1 = (_0 = options === null || options === void 0 ? void 0 : options.port) !== null && _0 !== void 0 ? _0 : proxyAll === null || proxyAll === void 0 ? void 0 : proxyAll.port) !== null && _1 !== void 0 ? _1 : dev.port, headers: (_4 = (_3 = (_2 = options === null || options === void 0 ? void 0 : options.headers) !== null && _2 !== void 0 ? _2 : proxyAll === null || proxyAll === void 0 ? void 0 : proxyAll.headers) !== null && _3 !== void 0 ? _3 : this.options.get('headers')) !== null && _4 !== void 0 ? _4 : [] }) }), ((_5 = options === null || options === void 0 ? void 0 : options.proxy) !== null && _5 !== void 0 ? _5 : [])) });
     this.logger.info({
         name: 'bud.api',
         "function": 'bud.hot',
@@ -278,12 +323,12 @@ var mini = function (enable) {
 
 var postCss = function (_a) {
     var _b;
-    var enabled = _a.enabled, options = tslib.__rest(_a, ["enabled"]);
+    var enabled = _a.enabled, options = __rest(_a, ["enabled"]);
     this.logger.info({ name: 'bud.api', "function": 'bud.postcss', enabled: enabled, options: options }, "bud.postcss called");
     var postCssEnabled = enabled ? enabled : true;
     postCssEnabled && this.features.enable('postCss');
     if (this.features.enabled('postCss')) {
-        this.options.set('postcss', tslib.__assign(tslib.__assign(tslib.__assign({}, this.options.get('postCss')), options), { plugins: tslib.__spreadArrays(((_b = options.plugins) !== null && _b !== void 0 ? _b : []), this.options.get('postCss').plugins) }));
+        this.options.set('postcss', __assign(__assign(__assign({}, this.options.get('postCss')), options), { plugins: __spreadArrays(((_b = options.plugins) !== null && _b !== void 0 ? _b : []), this.options.get('postCss').plugins) }));
     }
     return this;
 };
@@ -318,7 +363,7 @@ var publicPath = function (dir) {
 };
 
 var purge = function (_a) {
-    var _b = _a.enabled, enabled = _b === void 0 ? true : _b, options = tslib.__rest(_a, ["enabled"]);
+    var _b = _a.enabled, enabled = _b === void 0 ? true : _b, options = __rest(_a, ["enabled"]);
     this.logger.info({
         name: 'bud.api',
         "function": 'bud.purge',
@@ -332,7 +377,7 @@ var purge = function (_a) {
         return this;
     }
     this.logger.info({ name: 'api.purge', enabled: enabled, options: options }, 'bud.api.purge called');
-    var value = tslib.__assign(tslib.__assign({}, this.options.get('postCss')), { plugins: tslib.__spreadArrays(this.options.get('postCss').plugins, [
+    var value = __assign(__assign({}, this.options.get('postCss')), { plugins: __spreadArrays(this.options.get('postCss').plugins, [
             this.services.purgeCss(options),
         ]) });
     this.options.set('postCss', value);
@@ -360,15 +405,6 @@ var srcPath = function (dir) {
     return this;
 };
 
-var scss = function (enabled, options) {
-    this.logger.info({ name: 'bud.api', "function": 'bud.scss', enabled: enabled }, "bud.scss called");
-    this.features.set('scss', this.hooks.filter('filter_scss_enabled', enabled ? enabled : true));
-    if (options) {
-        this.options.merge('scss', options);
-    }
-    return this;
-};
-
 var sync = function (_a) {
     var _b = _a.enabled, enabled = _b === void 0 ? true : _b, options = _a.options;
     this.features.set('browserSync', enabled !== null && enabled !== void 0 ? enabled : true);
@@ -385,7 +421,7 @@ var target = function (target) {
 
 var terser = function (options) {
     var _a;
-    this.logger.info(tslib.__assign({ name: 'bud.api', "function": 'bud.watch' }, options), "bud.watch called");
+    this.logger.info(__assign({ name: 'bud.api', "function": 'bud.watch' }, options), "bud.watch called");
     this.features.set('terser', (_a = options === null || options === void 0 ? void 0 : options.enable) !== null && _a !== void 0 ? _a : true);
     (options === null || options === void 0 ? void 0 : options.terser) && this.options.set('terser', options.terser);
     return this;
@@ -394,12 +430,12 @@ var terser = function (options) {
 var vendor = function (name) {
     this.logger.info({ name: 'bud.api', "function": 'bud.vendor', options: { name: name } }, "bud.vendor called");
     this.features.enable('vendor');
-    this.options.set('vendor', tslib.__assign(tslib.__assign({}, this.options.get('vendor')), { name: name !== null && name !== void 0 ? name : 'vendor' }));
+    this.options.set('vendor', __assign(__assign({}, this.options.get('vendor')), { name: name !== null && name !== void 0 ? name : 'vendor' }));
     return this;
 };
 
 var watch = function (options) {
-    this.logger.info(tslib.__assign({ name: 'bud.api', "function": 'bud.watch' }, options), "bud.watch called");
+    this.logger.info(__assign({ name: 'bud.api', "function": 'bud.watch' }, options), "bud.watch called");
     (options === null || options === void 0 ? void 0 : options.enabled) && this.features.enable('watch');
     (options === null || options === void 0 ? void 0 : options.paths) &&
         this.options.set('watch', this.hooks.filter('api.watch.filter', options.paths));
@@ -437,7 +473,6 @@ var api = {
     projectPath: projectPath,
     publicPath: publicPath,
     purge: purge,
-    scss: scss,
     splitting: splitting,
     src: src,
     srcPath: srcPath,
@@ -637,7 +672,7 @@ var usedExt = function (entries, bud) {
         var exts = entryIncludesExt(entry);
         exts.forEach(function (ext) {
             if (!matches[ext]) {
-                matches = tslib.__spreadArrays(matches, [ext]);
+                matches = __spreadArrays(matches, [ext]);
             }
         });
     });
@@ -647,24 +682,24 @@ var usedExt = function (entries, bud) {
     if (matches.includes('.vue')) {
         bud.features.set('vue', true);
         !bud.options.get('extensions').includes('.vue') &&
-            bud.options.set('extensions', tslib.__spreadArrays(bud.options.get('extensions'), ['.vue']));
+            bud.options.set('extensions', __spreadArrays(bud.options.get('extensions'), ['.vue']));
     }
     if (matches.includes('.jsx')) {
         bud.features.set('react', true);
         !bud.options.get('extensions').includes('.jsx') &&
-            bud.options.set('extensions', tslib.__spreadArrays(bud.options.get('extensions'), ['.jsx']));
+            bud.options.set('extensions', __spreadArrays(bud.options.get('extensions'), ['.jsx']));
     }
     if (matches.includes('.ts') || matches.includes('.tsx')) {
         bud.features.set('typescript', true);
         !bud.options.get('extensions').includes('.ts') &&
-            bud.options.set('extensions', tslib.__spreadArrays(bud.options.get('extensions'), ['.ts']));
+            bud.options.set('extensions', __spreadArrays(bud.options.get('extensions'), ['.ts']));
         !bud.options.get('extensions').includes('.tsx') &&
-            bud.options.set('extensions', tslib.__spreadArrays(bud.options.get('extensions'), ['.tsx']));
+            bud.options.set('extensions', __spreadArrays(bud.options.get('extensions'), ['.tsx']));
     }
     if (matches.includes('.scss')) {
         bud.features.set('scss', true);
         !bud.options.get('extensions').includes('.scss') &&
-            bud.options.set('extensions', tslib.__spreadArrays(bud.options.get('extensions'), ['.scss']));
+            bud.options.set('extensions', __spreadArrays(bud.options.get('extensions'), ['.scss']));
     }
     return matches;
 };
@@ -1125,7 +1160,6 @@ var loaders = {
     miniCss: MiniCssExtractPlugin.loader,
     postCss: require.resolve('postcss-loader'),
     resolveUrl: require.resolve('resolve-url-loader'),
-    scss: require.resolve('sass-loader'),
     style: require.resolve('style-loader'),
     svgr: require.resolve('@svgr/webpack'),
     url: require.resolve('url-loader'),
@@ -1182,7 +1216,7 @@ var babel$2 = function (bud) { return ({
     use: [
         {
             loader: bud.loaders.get('babel'),
-            options: tslib.__assign({ cacheDirectory: true, cacheCompression: bud.inProduction }, bud.options.get('babel')),
+            options: __assign({ cacheDirectory: true, cacheCompression: bud.inProduction }, bud.options.get('babel')),
         },
     ],
 }); };
@@ -1249,7 +1283,7 @@ var externals = function (bud) { return ({
          * Don't include modules when target is node.
          */
         return !this.bud.options.is('target', 'node')
-            ? (_a = this.target.externals) !== null && _a !== void 0 ? _a : null : tslib.__spreadArrays(this.bud.services.nodeExternals(), this.target.externals);
+            ? (_a = this.target.externals) !== null && _a !== void 0 ? _a : null : __spreadArrays(this.bud.services.nodeExternals(), this.target.externals);
     },
 }); };
 
@@ -1298,7 +1332,7 @@ var general = function (bud) { return ({
             });
         }
         this.target = this.bud.hooks.filter('webpack.general', this.target);
-        this.bud.logger.info(tslib.__assign({ name: 'webpack.general' }, this.target), "webpack general config has been generated");
+        this.bud.logger.info(__assign({ name: 'webpack.general' }, this.target), "webpack general config has been generated");
         return this.target;
     },
 }); };
@@ -1336,7 +1370,7 @@ var usePostCss = function (rule, bud) {
         };
         bud.logger.info({ name: rule, options: options }, "scss support enabled. using postcss-scss parser.");
     }
-    options = tslib.__assign(tslib.__assign({}, options), bud.options.get('postCss'));
+    options = __assign(__assign({}, options), bud.options.get('postCss'));
     bud.logger.info({ name: rule, loader: loader, options: options }, "using postcss-loader");
     return { loader: loader, options: options };
 };
@@ -1344,14 +1378,9 @@ var usePostCss = function (rule, bud) {
 var useResolveUrl = function (rule, bud) {
     var loader = bud.loaders.get('resolveUrl');
     var options = {
-        engine: null,
         sourceMap: bud.features.enabled('sourceMap'),
         debug: true,
     };
-    if (bud.features.enabled('postCss')) {
-        options.engine = 'postcss';
-        bud.logger.info({ name: rule, engine: options.engine }, "postcss enabled. resolve-url-loader is using postcss engine.");
-    }
     bud.logger.info({ name: rule, loader: loader, options: options }, "using resolve-url-loader");
     return { loader: loader, options: options };
 };
@@ -1410,56 +1439,6 @@ var css = function (bud) { return ({
     },
 }); };
 
-var implementing = function () {
-    try {
-        if (require.resolve('sass')) {
-            return {
-                name: 'dart-sass',
-                implementation: require('sass'),
-            };
-        }
-    }
-    catch (_a) {
-        return {
-            name: 'node-sass',
-            implementation: require('node-sass'),
-        };
-    }
-};
-var useScss = function (rule, bud) {
-    var loader = bud.loaders.get('scss');
-    var _a = implementing(), name = _a.name, implementation = _a.implementation;
-    var options = tslib.__assign(tslib.__assign({}, bud.options.get('scss')), { sourceMap: bud.features.enabled('sourceMap'), implementation: implementation });
-    bud.logger.info({ name: rule }, "sass-loader: using " + name + " implementation");
-    bud.logger.info({ name: rule, loader: loader, options: options }, "using sass-loader");
-    return { loader: loader, options: options };
-};
-
-var scss$1 = function (bud) { return ({
-    bud: bud,
-    name: 'webpack.module.rules.scss',
-    isPostCss: bud.features.enabled('postCss'),
-    rule: {
-        test: patterns$1.scss,
-        use: [],
-    },
-    make: function () {
-        this.bud.hooks.call(this.name + ".pre");
-        this.rule.use.push(useMiniCss(this.name, this.bud));
-        this.rule.use.push(useCss(this.name, this.bud));
-        this.rule.use.push(useResolveUrl(this.name, this.bud));
-        if (this.isPostCss) {
-            this.rule.use.push(usePostCss(this.name, this.bud));
-        }
-        this.rule.use.push(useScss(this.name, this.bud));
-        this.rule.use = this.bud.hooks.filter(this.name + ".use", this.rule.use);
-        this.rule = this.bud.hooks.filter(this.name, this.rule);
-        this.bud.logger.info({ name: this.name, value: this.rule.test.toString() }, "webpack.rules.scss.test");
-        this.bud.hooks.call(this.name + ".post");
-        return this.rule;
-    },
-}); };
-
 var module$1 = function (bud) { return ({
     bud: bud,
     name: 'webpack.module.rules.modules.css',
@@ -1483,31 +1462,6 @@ var module$1 = function (bud) { return ({
     },
 }); };
 
-var module$2 = function (bud) { return ({
-    bud: bud,
-    name: 'webpack.module.rules.modules.scss',
-    isPostCss: bud.features.enabled('postCss'),
-    rule: {
-        test: patterns$1.scssModule,
-        use: [],
-    },
-    make: function () {
-        this.bud.hooks.call(this.name + ".pre");
-        this.rule.use.push(useMiniCss(this.name, this.bud));
-        this.rule.use.push(useCss(this.name, this.bud, true));
-        this.rule.use.push(useResolveUrl(this.name, this.bud));
-        if (this.isPostCss) {
-            this.rule.use.push(usePostCss(this.name, this.bud));
-        }
-        this.rule.use.push(useScss(this.name, this.bud));
-        this.rule.use = this.bud.hooks.filter(this.name + ".use", this.rule.use);
-        this.rule = this.bud.hooks.filter(this.name, this.rule);
-        this.bud.logger.info({ name: this.name, value: this.rule.test.toString() }, this.name + ".test");
-        this.bud.hooks.call(this.name + ".post");
-        return this.rule;
-    },
-}); };
-
 var useFile = function (rule, bud) {
     var loader = bud.hooks.filter('webpack.rules.fileloader.loader', bud.loaders.get('file'));
     var options = bud.hooks.filter('webpack.rules.fileloader.options', {
@@ -1525,7 +1479,7 @@ var font = function (bud) { return ({
     name: 'webpack.rules.font',
     rule: {
         test: patterns$1.font,
-        use: [tslib.__assign({}, useFile('webpack.rules.font', bud))],
+        use: [__assign({}, useFile('webpack.rules.font', bud))],
     },
     make: function () {
         this.rule.use = this.bud.hooks.filter(this.name + ".use", this.rule.use);
@@ -1549,7 +1503,7 @@ var image = function (bud) { return ({
         this.options = {
             test: this.bud.hooks.filter('loaders_image_test', patterns$1.image),
             use: [
-                this.bud.hooks.filter('loaders_image_use', tslib.__assign({}, useFile('webpack.rules.font', bud))),
+                this.bud.hooks.filter('loaders_image_use', __assign({}, useFile('webpack.rules.font', bud))),
             ],
         };
         return this.bud.hooks.filter('loaders_image_final', this.options);
@@ -1596,14 +1550,6 @@ var rules$1 = function (bud) { return ({
         if (this.bud.features.enabled('cssModules')) {
             this.bud.logger.info({ name: 'webpack.rules' }, "supports css modules");
             this.target.module.rules.push(module$1(this.bud).make());
-        }
-        if (this.bud.features.enabled('scss')) {
-            this.bud.logger.info({ name: 'webpack.rules' }, "supports scss");
-            this.target.module.rules.push(scss$1(this.bud).make());
-        }
-        if (this.bud.features.enabled('scssModules')) {
-            this.bud.logger.info({ name: 'webpack.rules' }, "supports scss modules");
-            this.target.module.rules.push(module$2(this.bud).make());
         }
         if (this.bud.features.enabled('font')) {
             this.bud.logger.info({ name: 'webpack.rules' }, "supports fonts");
@@ -1660,7 +1606,7 @@ var optimization = function (bud) { return ({
         this.when(this.bud.features.enabled('vendor'), this.doVendor);
         this.when(this.bud.features.enabled('minify'), this.doMinimizer);
         this.target = this.bud.hooks.filter('optimization_target', this.target);
-        this.bud.logger.info(tslib.__assign({ name: 'webpack.optimization' }, this.target), "webpack.optimization has been generated");
+        this.bud.logger.info(__assign({ name: 'webpack.optimization' }, this.target), "webpack.optimization has been generated");
         return this.target;
     },
     /**
@@ -1715,7 +1661,7 @@ var output = function (bud) { return ({
         this.target.output.path = this.bud.hooks.filter(this.name + ".path.filter", this.target.output.path);
         this.target.output.filename = this.bud.hooks.filter(this.name + ".filename.filter", this.target.output.filename);
         this.target = this.bud.hooks.filter(this.name + ".filter", this.target);
-        this.bud.logger.info(tslib.__assign({ name: this.name }, this.target), "webpack.output has been generated");
+        this.bud.logger.info(__assign({ name: this.name }, this.target), "webpack.output has been generated");
         return this.target;
     },
 }); };
@@ -1823,7 +1769,7 @@ var build = function (bud) { return ({
          */
         this.builders.map(function (_a) {
             var name = _a[0], builder = _a[1];
-            _this.final = tslib.__assign(tslib.__assign({}, _this.final), builder(_this.bud).make());
+            _this.final = __assign(__assign({}, _this.final), builder(_this.bud).make());
         });
         /**
          * Return final config object
@@ -5591,7 +5537,7 @@ var controller = function (bud) { return ({
     mergePluginOptions: function () {
         this.boundValue = this.plugin.mergeOptions();
         if (this.boundValue) {
-            this.plugin.options = tslib.__assign(tslib.__assign({}, this.plugin.options), this.boundValue);
+            this.plugin.options = __assign(__assign({}, this.plugin.options), this.boundValue);
         }
         delete this.boundValue;
     },
@@ -5634,8 +5580,8 @@ var has$1 = function (key) {
 };
 var merge = function (key, value) {
     this.repository[key] = this.repository[key]
-        ? tslib.__assign(tslib.__assign({}, this.repository[key]), value) : this.repository[key]
-        ? tslib.__spreadArrays(this.repository[key], value) : [this.repository[key], value];
+        ? __assign(__assign({}, this.repository[key]), value) : this.repository[key]
+        ? __spreadArrays(this.repository[key], value) : [this.repository[key], value];
 };
 var containerMethodDelete = function (key) {
     delete this.repository[key];

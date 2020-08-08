@@ -1,8 +1,5 @@
 import {css} from './css/css'
-import {scss} from './scss/scss'
 import {module as cssModule} from './css/module'
-import {module as scssModule} from './scss/module'
-
 import {font} from './font'
 import {image} from './image'
 import {svg} from './svg'
@@ -33,16 +30,6 @@ const rules = bud => ({
     if (this.bud.features.enabled('cssModules')) {
       this.bud.logger.info({name: 'webpack.rules'}, `supports css modules`)
       this.target.module.rules.push(cssModule(this.bud).make())
-    }
-
-    if (this.bud.features.enabled('scss')) {
-      this.bud.logger.info({name: 'webpack.rules'}, `supports scss`)
-      this.target.module.rules.push(scss(this.bud).make())
-    }
-
-    if (this.bud.features.enabled('scssModules')) {
-      this.bud.logger.info({name: 'webpack.rules'}, `supports scss modules`)
-      this.target.module.rules.push(scssModule(this.bud).make())
     }
 
     if (this.bud.features.enabled('font')) {

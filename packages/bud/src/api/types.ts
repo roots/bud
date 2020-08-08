@@ -49,7 +49,6 @@ export type Preset = (path?: string) => any
 export type Project = (path?: string) => string
 export type Purge = (any) => Bud
 export type Resolve = (moduleName: string) => string
-export type Scss = (enabled?: boolean) => Bud
 export type SourceMap = (enabled?: boolean) => Bud
 export type Splitting = (enabled?: boolean) => Bud
 export type Src = (path?: string) => string
@@ -90,7 +89,6 @@ export type Api = {
   postCss: PostCss
   preset: Preset
   projectPath: PathSetter
-  scss: Scss
   src: Src
   srcPath: PathSetter
   sync: Sync

@@ -28,6 +28,7 @@
     "build": "rimraf ./dist && tsc"
   },
   "dependencies": {
+    "tslib": "^2.0.1",
     "ts-loader": "^8.0.2",
     "typescript": "^3.9.7"
   },

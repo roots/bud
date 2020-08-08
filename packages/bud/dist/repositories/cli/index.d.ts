@@ -1,5 +1,8 @@
 declare const cli: {
-    args: (framework: any) => {
+    args: (env: any) => {
+        log: unknown;
+        hot: unknown;
+        watch: unknown;
         level: unknown;
         mode: any;
         host: any;

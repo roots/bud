@@ -11,7 +11,6 @@ var loaders = {
     miniCss: MiniCssExtractPlugin.loader,
     postCss: require.resolve('postcss-loader'),
     resolveUrl: require.resolve('resolve-url-loader'),
-    scss: require.resolve('sass-loader'),
     style: require.resolve('style-loader'),
     svgr: require.resolve('@svgr/webpack'),
     url: require.resolve('url-loader')

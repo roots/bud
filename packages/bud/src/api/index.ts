@@ -31,7 +31,6 @@ import {purge} from './purge'
 import {splitting} from './splitting'
 import {src} from './src'
 import {srcPath} from './srcPath'
-import {scss} from './scss'
 import {sync} from './sync'
 import {target} from './target'
 import {terser} from './terser'
@@ -69,7 +68,6 @@ export const api: Api = {
   projectPath,
   publicPath,
   purge,
-  scss,
   splitting,
   src,
   srcPath,

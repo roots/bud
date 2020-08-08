@@ -430,20 +430,6 @@ declare type Bud = {
      */
     purge: Api.Purge;
     /**
-     * ## bud.scss
-     *
-     * Enable/disable scss support
-     *
-     * ```js
-     * bud.scss(true)
-     * ```
-     *
-     * ```js
-     * bud.scss(false)
-     * ```
-     */
-    scss: Api.Scss;
-    /**
      * ## bud.splitting
      *
      * Enable or disable code splitting.

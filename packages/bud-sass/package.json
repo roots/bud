@@ -1,0 +1,40 @@
+{
+  "name": "@roots/bud-sass",
+  "version": "1.0.0",
+  "description": "Adds sass support to Bud.",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/roots/bud.git"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "keywords": ["bud-extension"],
+  "engines": {
+    "node": ">=12"
+  },
+  "files": ["dist"],
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "lint": "eslint src/**.ts",
+    "watch": "npm run build && npm link && nodemon",
+    "build": "rimraf ./dist && tsc"
+  },
+  "dependencies": {
+    "sass-loader": "^9.0.2",
+    "postcss-scss": "^2.1.1",
+    "node-sass": "^4.14.1"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4",
+    "rimraf": "^3.0.2",
+    "ts-node": "^8.10.2"
+  }
+}
