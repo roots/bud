@@ -15,28 +15,18 @@ const rule = (bud) => ({
 });
 const typescript = () => ({
     make: function () {
-        /**
-         * Load tsconfig.json and bail early if not found.
-         */
-        const config = path_1.join(this.bud.project('tsconfig.json'));
-        if (!this.bud.fs.existsSync(config)) {
-            return;
+        if (this.bud) {
+            /**
+             * Load tsconfig.json and bail early if not found.
+             */
+            const config = path_1.join(this.bud.project('tsconfig.json'));
+            if (!this.bud.fs.existsSync(config)) {
+                return;
+            }
+            this.bud.configs.set('typescript', config);
+            this.bud.features.set('ts', true);
+            this.bud.rules.repository = [...this.bud.rules.repository, rule];
         }
-        /**
-         * Set eslintrc to config container
-         */
-        this.bud.configs.set('typescript', config);
-        /**
-         * Enable eslint support
-         */
-        this.bud.features.set('ts', true);
-        /**
-         * Add eslint rule to webpack modules repository.
-         */
-        this.bud.rules.repository = [
-            ...this.bud.rules.repository,
-            (bud) => rule(bud),
-        ];
     },
 });
 module.exports = typescript;

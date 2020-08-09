@@ -1,10 +1,9 @@
 import {join} from 'path'
-
-type Typescript = () => any
+import {Bud, Extension, ExtensionInterface, Rule} from '@roots/bud'
 
 const loader = require.resolve('ts-loader')
 
-const rule: (bud: any) => any = (bud: any): any => ({
+const rule: Rule = (bud: Bud) => ({
   test: /\.(ts|tsx)$/,
   exclude: bud.patterns.get('vendor'),
   use: [
@@ -17,33 +16,21 @@ const rule: (bud: any) => any = (bud: any): any => ({
   ],
 })
 
-const typescript: Typescript = () => ({
-  make: function () {
-    /**
-     * Load tsconfig.json and bail early if not found.
-     */
-    const config = join(this.bud.project('tsconfig.json'))
-    if (!this.bud.fs.existsSync(config)) {
-      return
+const typescript: Extension = () => ({
+  make: function (this: ExtensionInterface) {
+    if (this.bud) {
+      /**
+       * Load tsconfig.json and bail early if not found.
+       */
+      const config = join(this.bud.project('tsconfig.json'))
+      if (!this.bud.fs.existsSync(config)) {
+        return
+      }
+
+      this.bud.configs.set('typescript', config)
+      this.bud.features.set('ts', true)
+      this.bud.rules.repository = [...this.bud.rules.repository, rule]
     }
-
-    /**
-     * Set eslintrc to config container
-     */
-    this.bud.configs.set('typescript', config)
-
-    /**
-     * Enable eslint support
-     */
-    this.bud.features.set('ts', true)
-
-    /**
-     * Add eslint rule to webpack modules repository.
-     */
-    this.bud.rules.repository = [
-      ...this.bud.rules.repository,
-      (bud: any) => rule(bud),
-    ]
   },
 })
 

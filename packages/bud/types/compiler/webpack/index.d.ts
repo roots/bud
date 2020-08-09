@@ -1,4 +1,4 @@
-import type { BuilderController } from './types';
-declare const build: (bud: any) => BuilderController;
+import type { Bud, BuilderController } from './types';
+declare const build: (bud: Bud) => BuilderController;
 export { build };
 //# sourceMappingURL=index.d.ts.map

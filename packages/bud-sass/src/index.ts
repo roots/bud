@@ -9,7 +9,7 @@ declare const bud: Bud
  *
  * @type {Rule}
  */
-const rule: Rule = (bud: Bud) => ({
+const rule = (bud: Bud) => ({
   test: /\.s(c|a)ss$/,
   exclude: bud.patterns.get('vendor'),
   use: [

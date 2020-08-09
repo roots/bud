@@ -23,25 +23,36 @@
     "node": ">=12"
   },
   "files": [
-    "dist"
+    "dist",
+    "types"
   ],
   "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "types": "types/index.d.ts",
   "scripts": {
+    "build": "rimraf ./dist && rimraf ./types && rollup -c ./rollup.config.js",
     "lint": "eslint src/**.ts",
-    "watch": "npm run build && npm link && nodemon",
-    "build": "rimraf ./dist && tsc"
+    "watch": "npm run build && npm link && nodemon"
   },
   "dependencies": {
-    "babel-plugin-transform-vue-jsx": "^3.7.0",
+    "he": "^1.1.0",
+    "de-indent": "^1.0.2",
     "vue": "^2.6.11",
-    "vue-loader": "^15.9.3",
-    "vue-template-compiler": "^2.6.11"
+    "vue-loader": "^15.9.3"
   },
   "devDependencies": {
+    "@rollup/plugin-babel": "^5.1.0",
+    "@rollup/plugin-commonjs": "^14.0.0",
+    "@rollup/plugin-inject": "^4.0.2",
+    "@rollup/plugin-node-resolve": "^8.4.0",
     "@types/node": "^14.0.27",
+    "babel-plugin-transform-vue-jsx": "^3.7.0",
     "nodemon": "^2.0.4",
     "rimraf": "^3.0.2",
-    "ts-node": "^8.10.2"
+    "rollup": "^2.23.1",
+    "rollup-plugin-jsx": "^1.0.3",
+    "rollup-plugin-terser": "^7.0.0",
+    "rollup-plugin-typescript2": "^0.27.2",
+    "tslib": "^2.0.1",
+    "typescript": "^3.9.7"
   }
 }

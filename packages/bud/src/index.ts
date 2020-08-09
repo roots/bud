@@ -557,7 +557,7 @@ interface Bud extends Loose {
  *
  * @interface
  */
-interface ExtensionInterface {
+interface ExtensionInterface extends Loose {
   /**
    * Bud container.
    */

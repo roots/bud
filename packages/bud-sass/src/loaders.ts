@@ -1,22 +1,24 @@
-const miniCss = (bud: any) => ({
+import {Bud, Rule} from '@roots/bud'
+
+const miniCss: Rule = (bud: Bud) => ({
   loader: bud.loaders.get('miniCss'),
   options: {
     hmr: bud.features.enabled('hot'),
   },
 })
 
-const css = (bud: any) => ({
+const css: Rule = (bud: Bud) => ({
   loader: bud.loaders.get('css'),
 })
 
-const resolveUrl = (bud: any) => ({
+const resolveUrl: Rule = (bud: Bud) => ({
   loader: bud.loaders.get('resolveUrl'),
   options: {
     sourceMap: bud.features.enabled('sourceMap'),
   },
 })
 
-const postCss = (bud: any) => ({
+const postCss: Rule = (bud: Bud) => ({
   loader: bud.loaders.get('postCss'),
   options: {
     ident: 'postcss',
@@ -25,7 +27,7 @@ const postCss = (bud: any) => ({
   },
 })
 
-const sass = (bud: any) => ({
+const sass: Rule = (bud: Bud) => ({
   loader: require.resolve('sass-loader'),
   options: {
     ...bud.options.get('sass'),

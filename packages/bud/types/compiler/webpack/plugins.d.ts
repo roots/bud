@@ -1,5 +1,6 @@
-declare const plugins: (bud: any) => {
-    bud: any;
+import { Bud } from './types';
+declare const plugins: (bud: Bud) => {
+    bud: Bud;
     adapters: any;
     controller: any;
     target: {
