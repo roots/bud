@@ -19,6 +19,7 @@
     "packages/bud-dependency-extraction",
     "packages/bud-eslint",
     "packages/bud-purgecss",
+    "packages/bud-sage",
     "packages/bud-sass",
     "packages/bud-stylelint",
     "packages/bud-tailwind",
