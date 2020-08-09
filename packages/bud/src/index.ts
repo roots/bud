@@ -2,7 +2,6 @@ import type {Bud} from './types'
 import {api} from './api'
 import {hooks} from './hooks'
 import {util, logger} from './util'
-import {purgeCss} from './util/purgeCss'
 import {repositories} from './repositories'
 import {babel, browserSync, postCss} from './repositories/options'
 import {compiler} from './compiler'
@@ -38,7 +37,6 @@ const bootstrap = function () {
   this.framework.logger = this.logger
   this.framework.util = util
   this.framework.fs = util.fs
-  this.framework.services = {purgeCss}
 
   /**
    * Paths container.

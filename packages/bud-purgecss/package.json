@@ -1,7 +1,7 @@
 {
-  "name": "@roots/bud-dependency-extraction",
+  "name": "@roots/bud-purgecss",
   "version": "1.0.0",
-  "description": "Adds @wordpress/dependency-extraction-webpack-plugin to Bud",
+  "description": "Adds purgecss support to Bud",
   "repository": {
     "type": "git",
     "url": "git://github.com/roots/bud.git"
@@ -19,21 +19,21 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["dist", "types"],
+  "files": ["dist"],
   "main": "dist/index.js",
-  "types": "types/index.d.ts",
+  "types": "dist/index.d.ts",
   "scripts": {
     "lint": "eslint src/**.ts",
     "watch": "npm run build && npm link && nodemon",
     "build": "rimraf ./dist && tsc"
   },
   "dependencies": {
-    "@wordpress/dependency-extraction-webpack-plugin": "^2.8.0"
+    "@fullhuman/postcss-purgecss": "^2.3.0",
+    "purgecss-with-wordpress": "^2.3.0"
   },
   "devDependencies": {
     "nodemon": "^2.0.4",
     "rimraf": "^3.0.2",
-    "ts-node": "^8.10.2",
-    "@types/wordpress__dependency-extraction-webpack-plugin": "^2.7.0"
+    "ts-node": "^8.10.2"
   }
 }

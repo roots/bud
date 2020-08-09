@@ -25,7 +25,6 @@ export type Dev = (options: any) => Bud
 export type Devtool = (devtool: WebpackOptions.Devtool) => Bud
 export type Dist = (path?: string) => string
 export type Dump = (enabled: boolean) => Bud
-export type Eslint = (enabled: boolean) => Bud
 export type PathSetter = (path: string) => Bud
 export type Glob = (this: Bud, output: string, files: string) => Bud
 export type Hash = (this: Bud, enabled?: boolean) => Bud
@@ -47,7 +46,6 @@ export type Option = (key: string) => string
 export type PostCss = (options?: {enabled?: boolean; plugins?: any[]}) => Bud
 export type Preset = (path?: string) => any
 export type Project = (path?: string) => string
-export type Purge = (any) => Bud
 export type Resolve = (moduleName: string) => string
 export type SourceMap = (enabled?: boolean) => Bud
 export type Splitting = (enabled?: boolean) => Bud
@@ -74,13 +72,11 @@ export type Api = {
   dist: Dist
   distPath: PathSetter
   dump: Dump
-  eslint: Eslint
   glob: Glob
   hash: Hash
   hot: Hot
   project: Project
   publicPath: PathSetter
-  purge: Purge
   splitting: Splitting
   terser: Terser
   inlineManifest: InlineManifest

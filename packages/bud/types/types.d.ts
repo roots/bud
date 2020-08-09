@@ -397,24 +397,6 @@ export declare type Bud = {
      */
     publicPath: Api.PathSetter;
     /**
-     * ## bud.purge
-     *
-     * Purge unused CSS from compiled stylesheets
-     *
-     * @see https://purgecss.com/guides/wordpress.html
-     * @see https://purgecss.com/configuration.html
-     *
-     * ```js
-     * bud.purge({
-     *   enabled: bud.inProduction,
-     *   content: [bud.project('resources/views/**')],
-     *   allow: require('purgecss-with-wordpress').whitelist,
-     *   allowPatterns: require('purgecss-with-wordpress').whitelistPatterns,
-     * })
-     * ```
-     */
-    purge: Api.Purge;
-    /**
      * ## bud.splitting
      *
      * Enable or disable code splitting.
@@ -517,6 +499,7 @@ export declare type Bud = {
  * Bud Extension
  */
 export declare type Extension = () => {
+    bud?: Bud;
     /**
      * Set options
      */

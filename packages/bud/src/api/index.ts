@@ -14,8 +14,6 @@ import {distPath} from './distPath'
 import {dev} from './dev'
 import {devtool} from './devtool'
 import {dump} from './dump'
-import {env} from './env'
-import {eslint} from './eslint'
 import {glob} from './glob'
 import {hash} from './hash'
 import {hot} from './hot'
@@ -27,7 +25,6 @@ import {preset} from './preset'
 import {project} from './project'
 import {projectPath} from './projectPath'
 import {publicPath} from './publicPath'
-import {purge} from './purge'
 import {splitting} from './splitting'
 import {src} from './src'
 import {srcPath} from './srcPath'
@@ -55,7 +52,6 @@ export const api: Api = {
   dist,
   distPath,
   dump,
-  eslint,
   glob,
   hash,
   hot,
@@ -67,7 +63,6 @@ export const api: Api = {
   project,
   projectPath,
   publicPath,
-  purge,
   splitting,
   src,
   srcPath,
