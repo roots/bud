@@ -1,6 +1,6 @@
-import type {Configuration} from 'webpack'
+import type {Configuration, RuleSetRule} from 'webpack'
 import type {Hooks} from './hooks/types'
-import type {State, Paths, Features, Options} from './repositories/types'
+import type {Paths, Features, Options} from './repositories/types'
 import type {FileContainer} from './container'
 import type {Util} from './util/types'
 import type * as Api from './api/types'
@@ -10,7 +10,7 @@ import type * as Api from './api/types'
  *
  * @typedef {Bud}
  */
-type Bud = {
+export type Bud = {
   /**
    * ## bud.hooks
    *
@@ -80,13 +80,6 @@ type Bud = {
    * Boolean returning true if in production.
    */
   inProduction: boolean
-
-  /**
-   * ## bud.state
-   *
-   * Contains the current state of the configuration Bud will build.
-   */
-  state: State
 
   /**
    * ## bud.configs
@@ -297,16 +290,6 @@ type Bud = {
    * ```
    */
   dump: Api.Dump
-
-  /**
-   * ## bud.eslint
-   *
-   * Set eslint options.
-   *
-   * ```js
-   * bud.stylelint(true)
-   */
-  eslint: Api.Eslint
 
   /**
    * ## bud.glob
@@ -580,4 +563,29 @@ type Bud = {
   watch: Api.Watch
 }
 
-export {Bud}
+/**
+ * Bud Extension
+ */
+export type Extension = () => {
+  /**
+   * Set options
+   */
+  setOptions?: (this: Extension) => any
+
+  /**
+   * Merge options
+   */
+  mergeOptions?: (this: Extension) => any
+
+  /**
+   * Make plugin output.
+   */
+  make?: (this: Extension) => any
+
+  /**
+   * Conditions that need to be met in order to engage plugin functionality.
+   */
+  when?: (this: Extension) => boolean
+}
+
+export type Rule = (bud: Bud) => RuleSetRule

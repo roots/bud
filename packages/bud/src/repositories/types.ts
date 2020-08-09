@@ -6,17 +6,6 @@ import type {Container, FileContainer} from '../container'
 import type {Bud} from '../types'
 export type {Bud}
 
-/**
- * Mitch, all together.
- */
-export type State = {
-  configs: Configs
-  features: Features
-  options: Options
-  paths: Paths
-  flags: Flags
-}
-
 export type Directory = string
 export type Paths = Container
 

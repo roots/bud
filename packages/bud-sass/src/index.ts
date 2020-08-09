@@ -1,10 +1,11 @@
 import {config} from './api'
 import loaders from './loaders'
+import type {Bud, Extension, Rule} from '@roots/bud'
 
 /**
  * Sass webpack module rule.
  */
-const rule: (bud: any) => any = (bud: any): any => ({
+const rule: Rule = (bud: Bud) => ({
   test: /\.s(c|a)ss$/,
   exclude: bud.patterns.get('vendor'),
   use: [
@@ -16,7 +17,7 @@ const rule: (bud: any) => any = (bud: any): any => ({
   ],
 })
 
-const sass = () => ({
+const sass: Extension = () => ({
   make: function (this: any) {
     /**
      * Enable sass support
@@ -33,7 +34,7 @@ const sass = () => ({
      */
     this.bud.rules.repository = [
       ...this.bud.rules.repository,
-      (bud: any) => rule(bud),
+      (bud: Bud) => rule(bud),
     ]
   },
 })

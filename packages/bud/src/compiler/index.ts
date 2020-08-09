@@ -16,11 +16,7 @@ const compiler = (bud: Bud): any => ({
   },
 
   compile: function () {
-    this.bud.hooks.call('compiler.dashboard.pre')
-
     renderCompilerDashboard(this.bud, this.config)
-
-    this.bud.hooks.call('compiler.dashboard.post')
   },
 })
 

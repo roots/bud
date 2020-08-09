@@ -1,7 +1,7 @@
 /// <reference types="webpack-dev-server" />
-import type { Configuration } from 'webpack';
+import type { Configuration, RuleSetRule } from 'webpack';
 import type { Hooks } from './hooks/types';
-import type { State, Paths, Features, Options } from './repositories/types';
+import type { Paths, Features, Options } from './repositories/types';
 import type { FileContainer } from './container';
 import type { Util } from './util/types';
 import type * as Api from './api/types';
@@ -10,7 +10,7 @@ import type * as Api from './api/types';
  *
  * @typedef {Bud}
  */
-declare type Bud = {
+export declare type Bud = {
     /**
      * ## bud.hooks
      *
@@ -71,12 +71,6 @@ declare type Bud = {
      * Boolean returning true if in production.
      */
     inProduction: boolean;
-    /**
-     * ## bud.state
-     *
-     * Contains the current state of the configuration Bud will build.
-     */
-    state: State;
     /**
      * ## bud.configs
      *
@@ -267,15 +261,6 @@ declare type Bud = {
      * ```
      */
     dump: Api.Dump;
-    /**
-     * ## bud.eslint
-     *
-     * Set eslint options.
-     *
-     * ```js
-     * bud.stylelint(true)
-     */
-    eslint: Api.Eslint;
     /**
      * ## bud.glob
      *
@@ -528,5 +513,26 @@ declare type Bud = {
      */
     watch: Api.Watch;
 };
-export { Bud };
+/**
+ * Bud Extension
+ */
+export declare type Extension = () => {
+    /**
+     * Set options
+     */
+    setOptions?: (this: Extension) => any;
+    /**
+     * Merge options
+     */
+    mergeOptions?: (this: Extension) => any;
+    /**
+     * Make plugin output.
+     */
+    make?: (this: Extension) => any;
+    /**
+     * Conditions that need to be met in order to engage plugin functionality.
+     */
+    when?: (this: Extension) => boolean;
+};
+export declare type Rule = (bud: Bud) => RuleSetRule;
 //# sourceMappingURL=types.d.ts.map

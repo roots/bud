@@ -5,16 +5,6 @@ import type { Options as BrowserSyncOptions } from 'browser-sync-webpack-plugin'
 import type { Container, FileContainer } from '../container';
 import type { Bud } from '../types';
 export type { Bud };
-/**
- * Mitch, all together.
- */
-export declare type State = {
-    configs: Configs;
-    features: Features;
-    options: Options;
-    paths: Paths;
-    flags: Flags;
-};
 export declare type Directory = string;
 export declare type Paths = Container;
 export declare type Options = Container;

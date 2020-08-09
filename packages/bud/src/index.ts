@@ -155,3 +155,4 @@ const bootstrap = function () {
 const bud: Bud = new bootstrap().framework
 
 export default bud
+export type {Bud, Extension, Rule} from './types'
