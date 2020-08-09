@@ -1,4 +1,4 @@
-import type {Bud} from '../types'
+import type {Bud} from '..'
 
 const processHandler = (bud: Bud) => {
   process.title = bud.hooks.filter('node_process_title', 'bud-cli')

@@ -1,4 +1,6 @@
-import type {Bud, Vendor} from './Types'
+import type {Bud} from './Types'
+
+type Vendor = (name?: string) => Bud
 
 const vendor: Vendor = function (this: Bud, name: string) {
   this.logger.info(
@@ -16,3 +18,4 @@ const vendor: Vendor = function (this: Bud, name: string) {
 }
 
 export {vendor}
+export type {Vendor}

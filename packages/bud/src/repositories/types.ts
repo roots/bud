@@ -3,7 +3,7 @@ import type {Options as DependencyExtractionOptions} from '@wordpress/dependency
 import type {Options as BrowserSyncOptions} from 'browser-sync-webpack-plugin'
 
 import type {Container, FileContainer} from '../container'
-import type {Bud} from '../types'
+import type {Bud} from '..'
 export type {Bud}
 
 export type Directory = string

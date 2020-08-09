@@ -1,6 +1,5 @@
-import type { Bud } from './types';
-declare const entry: (bud: Bud) => {
-    bud: Bud;
+declare const entry: (bud: any) => {
+    bud: any;
     name: string;
     target: {};
     make: () => any;

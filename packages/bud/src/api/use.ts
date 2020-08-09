@@ -1,4 +1,6 @@
-import type {Use, Bud} from './types'
+import type {Bud} from '..'
+
+type Use = (this: Bud, plugin: any) => Bud
 
 const use: Use = function (this: Bud, plugins: any[]): Bud {
   const controller = this.plugins.controller(this)
@@ -11,3 +13,4 @@ const use: Use = function (this: Bud, plugins: any[]): Bud {
 }
 
 export {use}
+export type {Use}

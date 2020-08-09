@@ -1,6 +1,5 @@
-import type { Bud } from './types';
-declare const externals: (bud: Bud) => {
-    bud: Bud;
+declare const externals: (bud: any) => {
+    bud: any;
     target: {
         externals: boolean;
     };

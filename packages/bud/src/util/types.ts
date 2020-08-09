@@ -1,4 +1,4 @@
-import {Bud} from './../types'
+import {Bud} from '..'
 
 export type {Bud}
 export type Dump = (obj: any, prettierOptions?: any) => void

@@ -1,4 +1,4 @@
-import { Bud } from './../types';
+import { Bud } from '..';
 export type { Bud };
 export declare type Dump = (obj: any, prettierOptions?: any) => void;
 export declare type Except = (target: any, properties: []) => any;

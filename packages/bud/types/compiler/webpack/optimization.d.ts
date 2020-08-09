@@ -1,9 +1,8 @@
-import type { Bud } from './types';
 /**
  * Webpack optimization
  */
-declare const optimization: (bud: Bud) => {
-    bud: Bud;
+declare const optimization: (bud: any) => {
+    bud: any;
     supports: {
         minify: any;
         runtimeChunk: any;

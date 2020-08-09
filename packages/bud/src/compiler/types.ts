@@ -2,7 +2,7 @@
  * Typings
  */
 import type {Configuration, Compiler, Stats} from 'webpack'
-import type {Bud} from '../types'
+import type {Bud} from '..'
 import type WebpackDevServer from 'webpack-dev-server'
 
 export type {

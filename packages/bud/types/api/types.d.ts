@@ -1,12 +1,11 @@
-import { Bud } from '../types';
-export { Bud } from '../types';
+import { Bud } from '..';
+export { Bud } from '..';
 import type { Options as BrowserSyncOptions } from 'browser-sync';
 export type { BrowserSyncOptions };
 import type { Configuration as WebpackConfiguration, Options as WebpackOptions } from 'webpack';
 export type { WebpackConfiguration, WebpackOptions };
 import { Options as DependencyExtractionOptions } from '@wordpress/dependency-extraction-webpack-plugin';
 export type { DependencyExtractionOptions };
-export declare type Use = (this: Bud, plugin: any) => Bud;
 export declare type Alias = (arg0: any) => Bud;
 export declare type Auto = (options: {
     [key: string]: string[];
@@ -55,9 +54,11 @@ export declare type Watch = (options: {
     paths: string[];
     enabled: boolean;
 }) => Bud;
-export declare type Vendor = (name?: string) => Bud;
+import type { Use } from './use';
+export type { Use };
+import type { Vendor } from './vendor';
+export type { Vendor };
 export declare type Api = {
-    use: Use;
     alias: Alias;
     auto: Auto;
     babel: BabelCfg;
@@ -89,6 +90,7 @@ export declare type Api = {
     srcPath: PathSetter;
     sync: Sync;
     target: Target;
+    use: Use;
     vendor: Vendor;
     watch: Watch;
 };

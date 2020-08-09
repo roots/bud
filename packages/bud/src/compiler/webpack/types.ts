@@ -1,5 +1,5 @@
 import type {Configuration as WebpackConfig} from 'webpack'
-import type {Bud} from '../../types'
+import type {Bud} from '../..'
 
 export type {Extension} from '../../repositories/plugins/types'
 

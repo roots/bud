@@ -1,5 +1,5 @@
-import {Bud} from '../types'
-export {Bud} from '../types'
+import {Bud} from '..'
+export {Bud} from '..'
 
 import type {Options as BrowserSyncOptions} from 'browser-sync'
 export type {BrowserSyncOptions}
@@ -13,7 +13,6 @@ export type {WebpackConfiguration, WebpackOptions}
 import {Options as DependencyExtractionOptions} from '@wordpress/dependency-extraction-webpack-plugin'
 export type {DependencyExtractionOptions}
 
-export type Use = (this: Bud, plugin: any) => Bud
 export type Alias = (arg0: any) => Bud
 export type Auto = (options: {[key: string]: string[]}) => Bud
 export type BabelCfg = (options: BabelOptions) => Bud
@@ -54,10 +53,14 @@ export type Sync = (options: SyncOptions) => Bud
 export type Target = (target: string) => Bud
 export type Terser = (options: {enable?: boolean; terser?: any}) => Bud
 export type Watch = (options: {paths: string[]; enabled: boolean}) => Bud
-export type Vendor = (name?: string) => Bud
+
+import type {Use} from './use'
+export type {Use}
+
+import type {Vendor} from './vendor'
+export type {Vendor}
 
 export type Api = {
-  use: Use
   alias: Alias
   auto: Auto
   babel: BabelCfg
@@ -89,6 +92,7 @@ export type Api = {
   srcPath: PathSetter
   sync: Sync
   target: Target
+  use: Use
   vendor: Vendor
   watch: Watch
 }

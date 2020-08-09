@@ -1,4 +1,3 @@
-import type { Bud } from './types';
-declare const compile: (this: Bud) => void;
+declare const compile: (this: any) => void;
 export { compile };
 //# sourceMappingURL=compile.d.ts.map

@@ -1,4 +1,4 @@
-import type { Bud } from '../types';
+import type { Bud } from '..';
 declare const processHandler: (bud: Bud) => void;
 export { processHandler };
 //# sourceMappingURL=processHandler.d.ts.map

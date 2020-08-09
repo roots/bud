@@ -6,13 +6,12 @@ const alias: Alias = function (this: Bud, options: any): Bud {
     `bud.alias called`,
   )
 
-  this.hooks.call('pre_alias')
-
   const aliases = this.hooks.filter('api.alias.filter', options)
 
-  this.options.set('alias', aliases)
-
-  this.hooks.call('post_alias')
+  this.options.set('alias', {
+    ...this.options.get('aliases'),
+    ...aliases,
+  })
 
   return this
 }

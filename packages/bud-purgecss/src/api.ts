@@ -1,5 +1,40 @@
 import type {Bud} from '@roots/bud'
 import purgecss from '@fullhuman/postcss-purgecss'
+interface RawContent<T = string> {
+  extension: string
+  raw: T
+}
+interface RawCSS {
+  raw: string
+}
+type ExtractorFunction<T = string> = (content: T) => string[]
+interface Extractors {
+  extensions: string[]
+  extractor: ExtractorFunction
+}
+
+type PurgeCssOptions = {
+  content?: Array<string | RawContent>
+  contentFunction?: (sourceFile: string) => Array<string | RawContent>
+  css: Array<string | RawCSS>
+  defaultExtractor?: ExtractorFunction
+  extractors?: Array<Extractors>
+  fontFace?: boolean
+  keyframes?: boolean
+  output?: string
+  rejected?: boolean
+  stdin?: boolean
+  stdout?: boolean
+  variables?: boolean
+  whitelist?: string[]
+  whitelistPatterns?: Array<RegExp>
+  whitelistPatternsChildren?: Array<RegExp>
+}
+
+type BudPurgeOptions = {
+  enabled: boolean
+  options: PurgeCssOptions
+}
 
 /**
  * ## bud.purge
@@ -18,13 +53,13 @@ import purgecss from '@fullhuman/postcss-purgecss'
  * })
  * ```
  */
-const config = function (this: Bud, {enabled = true, ...options}): Bud {
-  const purgeEnabled = enabled ?? true
+const config = function (this: Bud, options: BudPurgeOptions): Bud {
+  const purgeEnabled = options.enabled ?? true
   purgeEnabled && this.features.enable('purge')
 
   const value = {
     ...this.options.get('postCss'),
-    plugins: [...this.options.get('postCss').plugins, purgecss(options)],
+    plugins: [...this.options.get('postCss').plugins, purgecss(options.options)],
   }
 
   this.options.set('postCss', value)

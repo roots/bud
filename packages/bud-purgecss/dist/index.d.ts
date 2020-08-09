@@ -1,4 +1,9 @@
-import type { Extension } from '@roots/bud';
-declare const purgecss: Extension;
-export = purgecss;
+import { Extension } from '@roots/bud';
+declare const _default: {
+    purgecss: Extension;
+    presets: {
+        wordpress: any;
+    };
+};
+export = _default;
 //# sourceMappingURL=index.d.ts.map

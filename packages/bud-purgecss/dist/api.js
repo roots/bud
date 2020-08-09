@@ -20,12 +20,13 @@ const postcss_purgecss_1 = __importDefault(require("@fullhuman/postcss-purgecss"
  * })
  * ```
  */
-const config = function ({ enabled = true, ...options }) {
-    const purgeEnabled = enabled !== null && enabled !== void 0 ? enabled : true;
+const config = function (options) {
+    var _a;
+    const purgeEnabled = (_a = options.enabled) !== null && _a !== void 0 ? _a : true;
     purgeEnabled && this.features.enable('purge');
     const value = {
         ...this.options.get('postCss'),
-        plugins: [...this.options.get('postCss').plugins, postcss_purgecss_1.default(options)],
+        plugins: [...this.options.get('postCss').plugins, postcss_purgecss_1.default(options.options)],
     };
     this.options.set('postCss', value);
     return this;

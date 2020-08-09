@@ -1,11 +1,10 @@
-import type { Bud } from './types';
 /**
  * General webpack options
  *
  * @this {bud}
  */
-declare const general: (bud: Bud) => {
-    bud: Bud;
+declare const general: (bud: any) => {
+    bud: any;
     target: {
         context: any;
         devtool: any;

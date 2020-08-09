@@ -1,5 +1,4 @@
-import type { Bud } from '../types';
-declare const babel: (bud: Bud) => {
+declare const babel: (bud: any) => {
     test: any;
     exclude: any;
     use: {

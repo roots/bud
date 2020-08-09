@@ -1,4 +1,3 @@
-import type { Bud } from './types';
-declare const compiler: (bud: Bud) => any;
+declare const compiler: (bud: any) => any;
 export { compiler };
 //# sourceMappingURL=index.d.ts.map

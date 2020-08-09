@@ -1,5 +1,4 @@
 import type {Api} from './types'
-import {use} from './use'
 import {alias} from './alias'
 import {auto} from './auto'
 import {babel} from './babel'
@@ -31,6 +30,7 @@ import {srcPath} from './srcPath'
 import {sync} from './sync'
 import {target} from './target'
 import {terser} from './terser'
+import {use} from './use'
 import {vendor} from './vendor'
 import {watch} from './watch'
 
