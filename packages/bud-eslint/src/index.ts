@@ -1,7 +1,6 @@
+import type {Bud, Extension, ExtensionInterface} from '@roots/bud'
 import presets from './preset'
 import {join, resolve} from 'path'
-
-type Eslint = () => any
 
 const rule: (any) => any = (bud: any): any => ({
   enforce: 'pre',
@@ -19,8 +18,9 @@ const rule: (any) => any = (bud: any): any => ({
   ],
 })
 
-const eslint: Eslint = () => ({
-  make: function () {
+const eslint: Extension = (bud: Bud): ExtensionInterface => ({
+  bud,
+  make: function (this: ExtensionInterface) {
     /**
      * Load .eslintrc.js and bail early if not found.
      */

@@ -1,8 +1,6 @@
 import {config} from './api'
 import loaders from './loaders'
-import {Bud, Extension, Rule} from '@roots/bud'
-
-declare const bud: Bud
+import {Bud, Extension, ExtensionInterface} from '@roots/bud'
 
 /**
  * Sass webpack module rule.
@@ -28,27 +26,23 @@ const rule = (bud: Bud) => ({
  *
  * @type {Extension}
  */
-const sass: Extension = () => ({
+const sass: Extension = (bud: Bud): ExtensionInterface => ({
+  bud,
   make: function () {
-    if (this.bud) {
-      /**
-       * Enable sass support
-       */
-      this.bud.features.set('sass', true)
+    /**
+     * Enable sass support
+     */
+    this.bud.features.set('sass', true)
 
-      /**
-       * Add bud.sass method.
-       */
-      this.bud.sass = config
+    /**
+     * Add bud.sass method.
+     */
+    this.bud.sass = config
 
-      /**
-       * Add sass rule to webpack modules repository.
-       */
-      this.bud.rules.repository = [
-        ...this.bud.rules.repository,
-        (bud: Bud) => rule(bud),
-      ]
-    }
+    /**
+     * Add sass rule to webpack modules repository.
+     */
+    this.bud.rules.repository = [...this.bud.rules.repository, rule]
   },
 })
 

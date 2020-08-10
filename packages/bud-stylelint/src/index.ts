@@ -1,13 +1,14 @@
+import {Bud, Extension, ExtensionInterface} from '@roots/bud'
 import {join, resolve} from 'path'
 import adapter from './adapter'
 import api from './api'
-type BudPlugin = () => {make: () => void}
 
 /**
  * Bud extension: Stylelint support.
  */
-const stylelint: BudPlugin = () => ({
-  make: function (this: any) {
+const stylelint: Extension = (bud: Bud): ExtensionInterface => ({
+  bud,
+  make: function (this: ExtensionInterface) {
     /**
      * Load .stylelintrc.js and bail early if not found.
      */

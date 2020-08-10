@@ -561,7 +561,7 @@ interface ExtensionInterface extends Loose {
   /**
    * Bud container.
    */
-  bud?: Bud | undefined
+  bud: Bud
 
   /**
    * Set options
@@ -590,7 +590,7 @@ interface ExtensionInterface extends Loose {
  * @typedef {Extension} Extension
  * @implements {ExtensionInterface}
  */
-type Extension = () => ExtensionInterface
+type Extension = (bud: Bud) => ExtensionInterface
 
 /**
  * Bud Module Rule
@@ -743,9 +743,12 @@ const bootstrap = function () {
   this.framework.options.set('browserSync', browserSync(this.framework.flags))
 }
 
-/**
- * Bud Framework
- * @type {Bud}
- */
-const bud: Bud = new bootstrap().framework
+const bud: (preset?: Extension) => Bud = (preset?) => {
+  /**
+   * Bud Framework
+   * @type {Bud}
+   */
+  return new bootstrap().framework.use(preset ? [preset] : [])
+}
+
 export {bud, Bud, Extension, ExtensionInterface, Rule}

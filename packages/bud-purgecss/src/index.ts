@@ -2,8 +2,6 @@ import {Bud, Extension, ExtensionInterface} from '@roots/bud'
 import config from './api'
 import presets from './presets'
 
-declare const bud: Bud
-
 /**
  * Bud extension: purgecss
  *
@@ -11,11 +9,10 @@ declare const bud: Bud
  *
  * @type {Extension}
  */
-const purgecss: Extension = () => ({
-  make: function (this: ExtensionInterface) {
-    if (this.bud) {
-      this.bud.purgecss = config
-    }
+const purgecss: Extension = (bud: Bud): ExtensionInterface => ({
+  bud,
+  make: function (this: ExtensionInterface): void {
+    this.bud.purgecss = config
   },
 })
 

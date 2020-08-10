@@ -1,3 +1,4 @@
+import type {Bud, ExtensionInterface, Extension} from '@roots/bud'
 import type DependencyExtractionOptions from '@wordpress/dependency-extraction-webpack-plugin'
 import DependencyExtractionWebpackPlugin from '@wordpress/dependency-extraction-webpack-plugin'
 
@@ -25,19 +26,21 @@ const config = function (this: any, settings?: DependencyExtractionOptions): any
   return this
 }
 
-const adapter = () => ({
-  mergeOptions: function (this: any): any {
+const adapter: Extension = (bud: Bud): ExtensionInterface => ({
+  bud,
+  mergeOptions: function (this: ExtensionInterface): any {
     return this.bud.options.get('dependencyManifest')
   },
-  make: function (this: any): any {
+  make: function (this: ExtensionInterface): any {
     return new DependencyExtractionWebpackPlugin(
       this.bud.options.get('dependencyExtraction'),
     )
   },
 })
 
-const dependencyExtraction = () => ({
-  make: function (this: any) {
+const dependencyExtraction: Extension = (bud: Bud): ExtensionInterface => ({
+  bud,
+  make: function (this: ExtensionInterface) {
     this.bud.options.set('dependencyExtraction', {})
     this.bud.dependencyExtraction = config
     this.bud.adapters.add(adapter)

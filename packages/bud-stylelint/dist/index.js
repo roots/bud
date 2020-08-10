@@ -10,7 +10,8 @@ const api_1 = __importDefault(require("./api"));
 /**
  * Bud extension: Stylelint support.
  */
-const stylelint = () => ({
+const stylelint = (bud) => ({
+    bud,
     make: function () {
         /**
          * Load .stylelintrc.js and bail early if not found.

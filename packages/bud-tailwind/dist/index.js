@@ -1,5 +1,6 @@
 "use strict";
-const tailwind = () => ({
+const tailwind = (bud) => ({
+    bud,
     make: function () {
         this.bud.options.set('postCss', this.postCssOptions());
         this.bud.options.set('scss', this.scssOptions());

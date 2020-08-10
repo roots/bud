@@ -27,25 +27,21 @@ const rule = (bud) => ({
  *
  * @type {Extension}
  */
-const sass = () => ({
+const sass = (bud) => ({
+    bud,
     make: function () {
-        if (this.bud) {
-            /**
-             * Enable sass support
-             */
-            this.bud.features.set('sass', true);
-            /**
-             * Add bud.sass method.
-             */
-            this.bud.sass = api_1.config;
-            /**
-             * Add sass rule to webpack modules repository.
-             */
-            this.bud.rules.repository = [
-                ...this.bud.rules.repository,
-                (bud) => rule(bud),
-            ];
-        }
+        /**
+         * Enable sass support
+         */
+        this.bud.features.set('sass', true);
+        /**
+         * Add bud.sass method.
+         */
+        this.bud.sass = api_1.config;
+        /**
+         * Add sass rule to webpack modules repository.
+         */
+        this.bud.rules.repository = [...this.bud.rules.repository, rule];
     },
 });
 module.exports = sass;

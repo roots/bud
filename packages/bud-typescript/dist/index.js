@@ -13,20 +13,19 @@ const rule = (bud) => ({
         },
     ],
 });
-const typescript = () => ({
+const typescript = (bud) => ({
+    bud,
     make: function () {
-        if (this.bud) {
-            /**
-             * Load tsconfig.json and bail early if not found.
-             */
-            const config = path_1.join(this.bud.project('tsconfig.json'));
-            if (!this.bud.fs.existsSync(config)) {
-                return;
-            }
-            this.bud.configs.set('typescript', config);
-            this.bud.features.set('ts', true);
-            this.bud.rules.repository = [...this.bud.rules.repository, rule];
+        /**
+         * Load tsconfig.json and bail early if not found.
+         */
+        const config = path_1.join(this.bud.project('tsconfig.json'));
+        if (!this.bud.fs.existsSync(config)) {
+            return;
         }
+        this.bud.configs.set('typescript', config);
+        this.bud.features.set('ts', true);
+        this.bud.rules.repository = [...this.bud.rules.repository, rule];
     },
 });
 module.exports = typescript;

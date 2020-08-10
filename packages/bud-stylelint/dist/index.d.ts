@@ -1,10 +1,8 @@
-declare type BudPlugin = () => {
-    make: () => void;
-};
+import { Extension } from '@roots/bud';
 /**
  * Bud extension: Stylelint support.
  */
-declare const stylelint: BudPlugin;
+declare const stylelint: Extension;
 declare const preset: {
     roots: string;
 };

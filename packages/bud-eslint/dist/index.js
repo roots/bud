@@ -22,7 +22,8 @@ const rule = (bud) => ({
         },
     ],
 });
-const eslint = () => ({
+const eslint = (bud) => ({
+    bud,
     make: function () {
         /**
          * Load .eslintrc.js and bail early if not found.

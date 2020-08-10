@@ -1,6 +1,6 @@
+import type { Extension } from '@roots/bud';
 import presets from './preset';
-declare type Eslint = () => any;
-declare const eslint: Eslint;
+declare const eslint: Extension;
 declare const preset: {
     roots: string;
     wordpress: string;

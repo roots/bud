@@ -16,21 +16,21 @@ const rule: Rule = (bud: Bud) => ({
   ],
 })
 
-const typescript: Extension = () => ({
-  make: function (this: ExtensionInterface) {
-    if (this.bud) {
-      /**
-       * Load tsconfig.json and bail early if not found.
-       */
-      const config = join(this.bud.project('tsconfig.json'))
-      if (!this.bud.fs.existsSync(config)) {
-        return
-      }
+const typescript: Extension = (bud: Bud): ExtensionInterface => ({
+  bud,
 
-      this.bud.configs.set('typescript', config)
-      this.bud.features.set('ts', true)
-      this.bud.rules.repository = [...this.bud.rules.repository, rule]
+  make: function (this: ExtensionInterface) {
+    /**
+     * Load tsconfig.json and bail early if not found.
+     */
+    const config = join(this.bud.project('tsconfig.json'))
+    if (!this.bud.fs.existsSync(config)) {
+      return
     }
+
+    this.bud.configs.set('typescript', config)
+    this.bud.features.set('ts', true)
+    this.bud.rules.repository = [...this.bud.rules.repository, rule]
   },
 })
 

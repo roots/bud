@@ -503,7 +503,7 @@ interface ExtensionInterface extends Loose {
     /**
      * Bud container.
      */
-    bud?: Bud | undefined;
+    bud: Bud;
     /**
      * Set options
      */
@@ -527,7 +527,7 @@ interface ExtensionInterface extends Loose {
  * @typedef {Extension} Extension
  * @implements {ExtensionInterface}
  */
-declare type Extension = () => ExtensionInterface;
+declare type Extension = (bud: Bud) => ExtensionInterface;
 /**
  * Bud Module Rule
  *
@@ -535,10 +535,6 @@ declare type Extension = () => ExtensionInterface;
  * @return {RuleSetRule}
  */
 declare type Rule = (bud: Bud) => RuleSetRule;
-/**
- * Bud Framework
- * @type {Bud}
- */
-declare const bud: Bud;
+declare const bud: (preset?: Extension) => Bud;
 export { bud, Bud, Extension, ExtensionInterface, Rule };
 //# sourceMappingURL=index.d.ts.map

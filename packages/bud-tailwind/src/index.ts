@@ -1,12 +1,14 @@
-type Tailwind = () => any
+import {Bud, Extension, ExtensionInterface} from '@roots/bud'
 
-const tailwind: Tailwind = () => ({
-  make: function () {
+const tailwind: Extension = (bud: Bud): ExtensionInterface => ({
+  bud,
+
+  make: function (this: ExtensionInterface) {
     this.bud.options.set('postCss', this.postCssOptions())
     this.bud.options.set('scss', this.scssOptions())
   },
 
-  postCssOptions: function () {
+  postCssOptions: function (this: ExtensionInterface) {
     const postCss = this.bud.options.get('postCss')
 
     postCss.plugins = [require('tailwindcss'), ...postCss.plugins]
@@ -14,7 +16,7 @@ const tailwind: Tailwind = () => ({
     return postCss
   },
 
-  scssOptions: function () {
+  scssOptions: function (this: ExtensionInterface) {
     const scss = this.bud.options.get('scss')
 
     scss.sassOptions = {

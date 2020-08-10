@@ -1,4 +1,4 @@
-declare type Tailwind = () => any;
-declare const tailwind: Tailwind;
+import { Extension } from '@roots/bud';
+declare const tailwind: Extension;
 export = tailwind;
 //# sourceMappingURL=index.d.ts.map

@@ -11,11 +11,10 @@ const presets_1 = __importDefault(require("./presets"));
  *
  * @type {Extension}
  */
-const purgecss = () => ({
+const purgecss = (bud) => ({
+    bud,
     make: function () {
-        if (this.bud) {
-            this.bud.purgecss = api_1.default;
-        }
+        this.bud.purgecss = api_1.default;
     },
 });
 module.exports = {

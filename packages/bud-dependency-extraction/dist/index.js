@@ -25,7 +25,8 @@ const config = function (settings) {
         });
     return this;
 };
-const adapter = () => ({
+const adapter = (bud) => ({
+    bud,
     mergeOptions: function () {
         return this.bud.options.get('dependencyManifest');
     },
@@ -33,7 +34,8 @@ const adapter = () => ({
         return new dependency_extraction_webpack_plugin_1.default(this.bud.options.get('dependencyExtraction'));
     },
 });
-const dependencyExtraction = () => ({
+const dependencyExtraction = (bud) => ({
+    bud,
     make: function () {
         this.bud.options.set('dependencyExtraction', {});
         this.bud.dependencyExtraction = config;

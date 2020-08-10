@@ -12,7 +12,7 @@ const controller = (bud: Bud): Controller => ({
    * Build plugin.
    */
   build: function (extension) {
-    this.plugin = extension()
+    this.plugin = extension(this.bud)
 
     this.bindPluginProps()
     this.setPluginOptions()
