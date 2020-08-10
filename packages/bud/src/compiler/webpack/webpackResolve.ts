@@ -7,9 +7,9 @@ const webpackResolve = bud => ({
     resolve: {
       extensions: ['.js', '.json'],
       modules: [
-        bud.paths.get('project'),
         bud.paths.get('src'),
-        join(bud.paths.get('framework')),
+        join(bud.paths.get('project'), 'node_modules'),
+        join(bud.paths.get('framework'), 'node_modules'),
       ],
     },
   },

@@ -1,4 +1,4 @@
-import type {Extension, ExtensionInterface} from '@roots/bud'
+import type {Bud, Extension, ExtensionInterface} from '@roots/bud'
 import adapter from './adapter'
 import rule from './rule'
 
@@ -9,7 +9,8 @@ const addVueStyle = (loaders: any[]) => ['vue-style-loader', ...loaders]
  *
  * Adds vue support to the Bud framework.
  */
-const vue: Extension = () => ({
+const vue: Extension = (bud: Bud) => ({
+  bud,
   make: function (this: ExtensionInterface): void {
     if (this.bud) {
       this.bud.features.set('vue', true)

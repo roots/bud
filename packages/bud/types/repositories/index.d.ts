@@ -154,14 +154,8 @@ export declare const repositories: {
         vendor: RegExp;
         image: RegExp;
     };
-    rules: ((bud: any) => {
-        test: any;
-        exclude: any;
-        use: {
-            loader: any;
-            options: any;
-        }[];
-    })[];
+    rules: ((bud: import("..").Bud) => any)[];
+    uses: import("./rulesets/uses").UsesHash;
     plugins: import("./plugins/types").PluginsRepo;
     presets: {
         postCss: {

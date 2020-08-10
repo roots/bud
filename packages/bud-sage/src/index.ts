@@ -58,8 +58,6 @@ const withFeatures: Sage = function (options): Bud {
         enabled.push(feature)
       })
 
-  console.log(enabled)
-
   this.use(enabled)
 
   enabled.includes(purgecssExtension) &&

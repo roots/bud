@@ -5,10 +5,9 @@ import {paths} from './paths'
 import {cli} from './cli'
 import {env} from './env'
 import {adapters, plugins} from './plugins'
-import {loaders} from './loaders'
 import {patterns} from './patterns'
 import {presets} from './presets'
-import {rules} from './rules'
+import {loaders, rules, uses} from './rulesets'
 
 export const repositories = {
   configs,
@@ -21,6 +20,7 @@ export const repositories = {
   adapters,
   patterns,
   rules,
+  uses,
   plugins,
   presets,
 }

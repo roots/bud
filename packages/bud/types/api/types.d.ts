@@ -63,16 +63,14 @@ export declare type Api = {
     auto: Auto;
     babel: BabelCfg;
     bundle: Bundle;
-    compile: any;
+    compile: () => void;
     config: any;
     copy: Copy;
     copyAll: Copy;
-    debug: Debug;
     dev: Dev;
     devtool: Devtool;
     dist: Dist;
     distPath: PathSetter;
-    dump: Dump;
     glob: Glob;
     hash: Hash;
     hot: Hot;

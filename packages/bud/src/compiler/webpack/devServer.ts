@@ -1,4 +1,5 @@
 import type {Bud} from './types'
+import {Configuration} from 'webpack'
 
 /**
  * Dev server
@@ -11,8 +12,9 @@ const devServer = (bud: Bud) => ({
     devServer: bud.options.get('dev'),
   },
 
-  make: function () {
-    this.target = this.bud.hooks.filter('webpack_devServer', this.target)
+  make: function (): Configuration['devServer'] {
+    this.target = this.bud.hooks.filter('webpack.devServer', this.target)
+
     this.bud.logger.info(
       {name: 'webpack.devServer', value: this.target},
       `webpack.devServer has been generated`,

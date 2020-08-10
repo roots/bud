@@ -7,12 +7,10 @@ import {compile} from './compile'
 import {config} from './config'
 import {copy} from './copy'
 import {copyAll} from './copyAll'
-import {debug} from './debug'
 import {dist} from './dist'
 import {distPath} from './distPath'
 import {dev} from './dev'
 import {devtool} from './devtool'
-import {dump} from './dump'
 import {glob} from './glob'
 import {hash} from './hash'
 import {hot} from './hot'
@@ -46,12 +44,10 @@ export const api: Api = {
   config,
   copy,
   copyAll,
-  debug,
   dev,
   devtool,
   dist,
   distPath,
-  dump,
   glob,
   hash,
   hot,

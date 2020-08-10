@@ -7,13 +7,13 @@ import {compiler} from './compiler'
 import {bindContainer, bindExtensionContainer, bindFileContainer} from './container'
 
 import type {Container} from './container'
-import type {Configuration, RuleSetRule} from 'webpack'
+import type {Configuration} from 'webpack'
 import type {Hooks} from './hooks/types'
+import type {Use, UsesHash} from './repositories/rulesets'
 import type {Paths, Features, Options} from './repositories/types'
 import type {FileContainer} from './container'
 import type {Util} from './util/types'
 import * as Api from './api/types'
-import type {Use} from './api/use'
 import type {Vendor} from './api/vendor'
 
 interface Loose {
@@ -139,6 +139,13 @@ interface Bud extends Loose {
   rules: Container
 
   /**
+   * ## bud.rules
+   *
+   * Webpack module loader rule loaders.
+   */
+  uses: Container
+
+  /**
    * ## bud.use
    *
    * Register a Bud extension.
@@ -146,7 +153,7 @@ interface Bud extends Loose {
    * ```js
    * bud.use([require('@roots/bud-demo-plugin')])
    */
-  use: Use
+  use: Api.Use
 
   /**
    * ## bud.alias
@@ -246,22 +253,6 @@ interface Bud extends Loose {
   copyAll: Api.Copy
 
   /**
-   * ## bud.debug
-   *
-   * Enable or disable debug mode.
-   *
-   * ```js
-   * bud.debug()
-   * bud.debug(true)
-   * ```
-   *
-   * ```js
-   * bud.debug(false)
-   * ```
-   */
-  debug: Api.Debug
-
-  /**
    * ## bud.dev
    *
    * Development server settings
@@ -296,15 +287,6 @@ interface Bud extends Loose {
    * ```
    */
   distPath: Api.PathSetter
-
-  /**
-   * Dump generated webpack config for debugging
-   *
-   * ```js
-   * bud.dump(true)
-   * ```
-   */
-  dump: Api.Dump
 
   /**
    * ## bud.glob
@@ -351,7 +333,7 @@ interface Bud extends Loose {
    * Inline common scripts.
    *
    * ```js
-   * bud.inlineManifest({name: 'runtime'})
+   * bud.inlineManifest('runtime')
    * ```
    */
   inlineManifest: Api.InlineManifest
@@ -593,14 +575,6 @@ interface ExtensionInterface extends Loose {
 type Extension = (bud: Bud) => ExtensionInterface
 
 /**
- * Bud Module Rule
- *
- * @param {Bud} bud
- * @return {RuleSetRule}
- */
-type Rule = (bud: Bud) => RuleSetRule
-
-/**
  * Bud framework.
  *
  * @constructor
@@ -685,11 +659,16 @@ const bootstrap = function () {
   )
 
   /**
-   * Webpack containers.
+   * Webpack module containers.
    */
   this.framework.patterns = this.store(this.repositories.patterns, 'bud.patterns')
   this.framework.loaders = this.store(this.repositories.loaders, 'bud.loaders')
   this.framework.rules = this.store(this.repositories.rules, 'bud.rules')
+  this.framework.uses = this.store(this.repositories.uses, 'bud.uses')
+
+  /**
+   * Webpack plugins.
+   */
   this.framework.adapters = this.extensionStore(
     this.repositories.adapters,
     'bud.adapters',
@@ -751,4 +730,4 @@ const bud: (preset?: Extension) => Bud = (preset?) => {
   return new bootstrap().framework.use(preset ? [preset] : [])
 }
 
-export {bud, Bud, Extension, ExtensionInterface, Rule}
+export {bud, Bud, Extension, ExtensionInterface, Use, UsesHash}

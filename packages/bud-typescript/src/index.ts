@@ -1,9 +1,9 @@
 import {join} from 'path'
-import {Bud, Extension, ExtensionInterface, Rule} from '@roots/bud'
+import {Bud, Extension, ExtensionInterface, Use} from '@roots/bud'
 
 const loader = require.resolve('ts-loader')
 
-const rule: Rule = (bud: Bud) => ({
+const rule: Use = (bud: Bud) => ({
   test: /\.(ts|tsx)$/,
   exclude: bud.patterns.get('vendor'),
   use: [

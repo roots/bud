@@ -1,12 +1,12 @@
 /// <reference types="webpack-dev-server" />
 import type { Container } from './container';
-import type { Configuration, RuleSetRule } from 'webpack';
+import type { Configuration } from 'webpack';
 import type { Hooks } from './hooks/types';
+import type { Use, UsesHash } from './repositories/rulesets';
 import type { Paths, Features, Options } from './repositories/types';
 import type { FileContainer } from './container';
 import type { Util } from './util/types';
 import * as Api from './api/types';
-import type { Use } from './api/use';
 import type { Vendor } from './api/vendor';
 interface Loose {
     [key: string]: any;
@@ -114,6 +114,12 @@ interface Bud extends Loose {
      */
     rules: Container;
     /**
+     * ## bud.rules
+     *
+     * Webpack module loader rule loaders.
+     */
+    uses: Container;
+    /**
      * ## bud.use
      *
      * Register a Bud extension.
@@ -121,7 +127,7 @@ interface Bud extends Loose {
      * ```js
      * bud.use([require('@roots/bud-demo-plugin')])
      */
-    use: Use;
+    use: Api.Use;
     /**
      * ## bud.alias
      *
@@ -213,21 +219,6 @@ interface Bud extends Loose {
      */
     copyAll: Api.Copy;
     /**
-     * ## bud.debug
-     *
-     * Enable or disable debug mode.
-     *
-     * ```js
-     * bud.debug()
-     * bud.debug(true)
-     * ```
-     *
-     * ```js
-     * bud.debug(false)
-     * ```
-     */
-    debug: Api.Debug;
-    /**
      * ## bud.dev
      *
      * Development server settings
@@ -259,14 +250,6 @@ interface Bud extends Loose {
      * ```
      */
     distPath: Api.PathSetter;
-    /**
-     * Dump generated webpack config for debugging
-     *
-     * ```js
-     * bud.dump(true)
-     * ```
-     */
-    dump: Api.Dump;
     /**
      * ## bud.glob
      *
@@ -309,7 +292,7 @@ interface Bud extends Loose {
      * Inline common scripts.
      *
      * ```js
-     * bud.inlineManifest({name: 'runtime'})
+     * bud.inlineManifest('runtime')
      * ```
      */
     inlineManifest: Api.InlineManifest;
@@ -528,13 +511,6 @@ interface ExtensionInterface extends Loose {
  * @implements {ExtensionInterface}
  */
 declare type Extension = (bud: Bud) => ExtensionInterface;
-/**
- * Bud Module Rule
- *
- * @param {Bud} bud
- * @return {RuleSetRule}
- */
-declare type Rule = (bud: Bud) => RuleSetRule;
 declare const bud: (preset?: Extension) => Bud;
-export { bud, Bud, Extension, ExtensionInterface, Rule };
+export { bud, Bud, Extension, ExtensionInterface, Use, UsesHash };
 //# sourceMappingURL=index.d.ts.map

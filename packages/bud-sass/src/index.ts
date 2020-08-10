@@ -1,5 +1,5 @@
 import {config} from './api'
-import loaders from './loaders'
+import use from './use'
 import {Bud, Extension, ExtensionInterface} from '@roots/bud'
 
 /**
@@ -11,11 +11,11 @@ const rule = (bud: Bud) => ({
   test: /\.s(c|a)ss$/,
   exclude: bud.patterns.get('vendor'),
   use: [
-    loaders.miniCss(bud),
-    loaders.css(bud),
-    loaders.resolveUrl(bud),
-    loaders.postCss(bud),
-    loaders.sass(bud),
+    bud.uses.get('miniCss')(bud),
+    bud.uses.get('css')(bud),
+    bud.uses.get('resolveUrl')(bud),
+    bud.uses.get('postCss')(bud),
+    use(bud),
   ],
 })
 

@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 const api_1 = require("./api");
-const loaders_1 = __importDefault(require("./loaders"));
+const use_1 = __importDefault(require("./use"));
 /**
  * Sass webpack module rule.
  *
@@ -13,11 +13,11 @@ const rule = (bud) => ({
     test: /\.s(c|a)ss$/,
     exclude: bud.patterns.get('vendor'),
     use: [
-        loaders_1.default.miniCss(bud),
-        loaders_1.default.css(bud),
-        loaders_1.default.resolveUrl(bud),
-        loaders_1.default.postCss(bud),
-        loaders_1.default.sass(bud),
+        bud.uses.get('miniCss')(bud),
+        bud.uses.get('css')(bud),
+        bud.uses.get('resolveUrl')(bud),
+        bud.uses.get('postCss')(bud),
+        use_1.default(bud),
     ],
 });
 /**
