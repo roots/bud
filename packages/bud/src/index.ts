@@ -722,12 +722,11 @@ const bootstrap = function () {
   this.framework.options.set('browserSync', browserSync(this.framework.flags))
 }
 
-const bud: (preset?: Extension) => Bud = (preset?) => {
-  /**
-   * Bud Framework
-   * @type {Bud}
-   */
-  return new bootstrap().framework.use(preset ? [preset] : [])
-}
+/**
+ * Bud Framework
+ * @type {Bud}
+ */
+const bud = new bootstrap().framework
 
-export {bud, Bud, Extension, ExtensionInterface, Use, UsesHash}
+export {bud}
+export {Bud, Extension, ExtensionInterface, Use, UsesHash}

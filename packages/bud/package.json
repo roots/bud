@@ -89,6 +89,7 @@
     "yargs": "^15.4.1"
   },
   "devDependencies": {
+    "@ava/babel": "^1.0.1",
     "@babel/cli": "^7.10.5",
     "@rollup/plugin-auto-install": "^2.1.0",
     "@rollup/plugin-babel": "^5.1.0",

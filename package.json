@@ -27,6 +27,7 @@
     "packages/bud-vue"
   ],
   "scripts": {
+    "test": "yarn ava",
     "build": "yarn workspaces run build",
     "docs": "node ./scripts/docs",
     "pkg-link": "node ./scripts/linkWorkspaces",
