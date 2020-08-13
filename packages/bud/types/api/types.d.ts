@@ -31,7 +31,10 @@ export declare type Hot = (this: Bud, options: {
     headers?: any;
     secure?: boolean;
 }) => Bud;
-export declare type InlineManifest = (name?: string) => Bud;
+export declare type InlineManifest = (arg0?: {
+    enabled: boolean;
+    name: string;
+}) => Bud;
 export declare type Mini = (enabled?: boolean) => Bud;
 export declare type Option = (key: string) => string;
 export declare type PostCss = (options?: {

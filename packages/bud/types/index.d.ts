@@ -512,10 +512,16 @@ interface ExtensionInterface extends Loose {
  */
 declare type Extension = (bud: Bud) => ExtensionInterface;
 /**
+ * Bud framework.
+ *
+ * @constructor
+ */
+declare const bootstrap: () => void;
+/**
  * Bud Framework
  * @type {Bud}
  */
 declare const bud: any;
-export { bud };
+export { bud, bootstrap };
 export { Bud, Extension, ExtensionInterface, Use, UsesHash };
 //# sourceMappingURL=index.d.ts.map

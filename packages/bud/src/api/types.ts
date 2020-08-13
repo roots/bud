@@ -39,7 +39,7 @@ export type Hot = (
     secure?: boolean
   },
 ) => Bud
-export type InlineManifest = (name?: string) => Bud
+export type InlineManifest = (arg0?: {enabled: boolean; name: string}) => Bud
 export type Mini = (enabled?: boolean) => Bud
 export type Option = (key: string) => string
 export type PostCss = (options?: {enabled?: boolean; plugins?: any[]}) => Bud

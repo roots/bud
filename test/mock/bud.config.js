@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 const {bud} = require('@roots/bud')
 const {join} = require('path')
 

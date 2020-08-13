@@ -728,5 +728,5 @@ const bootstrap = function () {
  */
 const bud = new bootstrap().framework
 
-export {bud}
+export {bud, bootstrap}
 export {Bud, Extension, ExtensionInterface, Use, UsesHash}
