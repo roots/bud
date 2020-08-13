@@ -16,8 +16,16 @@ test('bud.srcPath', t => {
   t.is(bud.paths.get('src'), join(mockPath, 'src'))
 })
 
-test('bud.dist', t => {
+test('sets path', t => {
   t.is(bud.paths.get('dist'), process.cwd())
   bud.distPath('dist')
   t.is(bud.paths.get('dist'), join(mockPath, 'dist'))
+})
+
+test('generates expected webpack.output.path', t => {
+  const config = bud.config()
+  t.deepEqual(
+    config.output.path,
+    bud.dist(),
+  )
 })

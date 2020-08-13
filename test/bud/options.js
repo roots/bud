@@ -1,7 +1,7 @@
 const test = require('ava')
+const {bud} = require('@roots/bud')
 
 test('has expected defaults', t => {
-  const {bud} = require('@roots/bud')
   t.deepEqual(bud.options.get('babel'), {
     plugins: [],
     presets: [],
@@ -84,4 +84,9 @@ test('has expected defaults', t => {
   t.deepEqual(bud.options.get('vendor'), {
     name: 'vendor',
   })
+})
+
+test('sets value', t => {
+  bud.options.set('foo', 'bar')
+  t.deepEqual(bud.options.get('foo'), 'bar')
 })

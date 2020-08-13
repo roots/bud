@@ -5,7 +5,7 @@ test('has expected defaults', t => {
   t.deepEqual(bud.options.get('babel'), {plugins: [], presets: []})
 })
 
-test('adds plugin to options', t => {
+test('sets option', t => {
   bud.babel({plugins: [require('babel-plugin-macros')]})
   t.deepEqual(bud.options.get('babel'), {
     plugins: [require('babel-plugin-macros')],
@@ -13,7 +13,7 @@ test('adds plugin to options', t => {
   })
 })
 
-test('adds preset to options', t => {
+test('merges option', t => {
   bud.babel({
     presets: [
       require('@babel/preset-env', {
@@ -34,7 +34,7 @@ test('adds preset to options', t => {
   })
 })
 
-test('generates expected config', t => {
+test('generates expected webpack.module.rules[] use entry', t => {
   const config = bud.config()
   t.deepEqual(config.module.rules[0].use[0].options, {
     cacheCompression: false,

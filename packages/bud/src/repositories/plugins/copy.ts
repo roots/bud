@@ -1,5 +1,4 @@
 import CopyWebpackPlugin from 'copy-webpack-plugin'
-import type {WebpackAdapter} from './types'
 
 const copy = () => ({
   mergeOptions: function () {

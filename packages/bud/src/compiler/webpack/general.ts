@@ -10,7 +10,7 @@ const general = (bud: Bud) => ({
 
   target: {
     context: bud.paths.get('project'),
-    devtool: bud.features.enabled('sourceMap') ? bud.options.get('devtool') : false,
+    devtool: bud.options.get('devtool') ?? false,
     mode: bud.hooks.filter('webpack.mode', bud.mode),
     target: bud.hooks.filter('webpack.target', bud.options.get('target')),
     watch: bud.hooks.filter('webpack.watch', bud.features.enabled('watch')),

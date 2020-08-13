@@ -2,17 +2,22 @@ const test = require('ava')
 const {join} = require('path')
 const {bud} = require('@roots/bud')
 
-test('bud.hash', t => {
+test('has expected default', t => {
   t.is(bud.features.get('hash'), false)
-  bud.hash()
-  t.is(bud.features.get('hash'), true)
 })
 
-test('bud.config output', t => {
+test('toggles feature', t => {
+  bud.hash()
+  t.is(bud.features.get('hash'), true)
+  bud.hash(false)
+  t.is(bud.features.get('hash'), false)
+  bud.hash()
+})
+
+test('generates expected webpack.output.filename', t => {
   const config = bud.config()
-  t.deepEqual(config.output, {
-    filename: `${bud.options.get('filenameTemplate').hashed}.js`,
-    path: bud.dist(),
-    publicPath: '/',
-  })
+  t.deepEqual(
+    config.output.filename,
+    `${bud.options.get('filenameTemplate').hashed}.js`
+  )
 })

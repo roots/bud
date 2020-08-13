@@ -1,11 +1,11 @@
 const test = require('ava')
 const {bud} = require('@roots/bud')
 
-test('default is undefined', t => {
+test('has expected default', t => {
   t.is(bud.options.get('entry'), undefined)
 })
 
-test('adds entrypoint to options', t => {
+test('sets option', t => {
   bud.bundle('entry', [bud.src('scripts/app.js')])
 
   t.deepEqual(bud.options.get('entry'), {
@@ -13,7 +13,7 @@ test('adds entrypoint to options', t => {
   })
 })
 
-test('adds second entrypoint to options', t => {
+test('merges options', t => {
   bud.bundle('editor', [bud.src('scripts/editor.js')])
 
   t.deepEqual(bud.options.get('entry'), {
@@ -22,7 +22,7 @@ test('adds second entrypoint to options', t => {
   })
 })
 
-test('generates expected config', t => {
+test('generates expected webpack.entry', t => {
   const config = bud.config()
 
   t.deepEqual(config.entry, {

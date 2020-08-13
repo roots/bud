@@ -3,7 +3,6 @@ import jsx from 'rollup-plugin-jsx'
 import babel from '@rollup/plugin-babel'
 import resolve from '@rollup/plugin-node-resolve'
 import commonjs from '@rollup/plugin-commonjs'
-import {terser} from 'rollup-plugin-terser'
 import pkg from './package.json'
 
 export default {
@@ -35,6 +34,5 @@ export default {
       preferBuiltins: true,
     }),
     commonjs(),
-    terser(),
   ],
 }
