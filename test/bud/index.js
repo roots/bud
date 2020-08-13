@@ -1,44 +1,13 @@
-const {bud} = require('@roots/bud')
 const test = require('ava')
 const {join, resolve} = require('path')
-
+const fs = require('fs-extra')
+const execa = require('execa')
+const {bud} = require('@roots/bud')
+const features = require('../fixtures/features')
 const mockPath = resolve(__dirname, '../mock')
 
 test('defaults: features', t => {
-  t.deepEqual(bud.features.repository, {
-    babel: false,
-    browserSync: false,
-    clean: true,
-    css: true,
-    cssModules: false,
-    dashboard: true,
-    debug: false,
-    dependencyManifest: false,
-    dump: false,
-    font: true,
-    hash: false,
-    hot: false,
-    image: true,
-    inlineManifest: false,
-    js: true,
-    manifest: true,
-    minify: true,
-    optimize: true,
-    overlay: false,
-    postCss: false,
-    purge: false,
-    react: false,
-    scss: false,
-    scssModules: false,
-    sourceMap: false,
-    splitting: true,
-    svg: true,
-    terser: true,
-    translate: false,
-    uglify: false,
-    vendor: true,
-    watch: false,
-  })
+  t.deepEqual(bud.features.repository, features)
 })
 
 test('defaults: options', t => {
@@ -136,7 +105,10 @@ test('bud.srcPath', t => {
   t.is(bud.paths.get('src'), process.cwd())
   bud.srcPath('src')
   t.is(bud.paths.get('src'), join(mockPath, 'src'))
+})
 
+test('bud.dist', t => {
+  t.is(bud.paths.get('dist'), process.cwd())
   bud.distPath('dist')
   t.is(bud.paths.get('dist'), join(mockPath, 'dist'))
 })
@@ -165,6 +137,7 @@ test('bud.alias', t => {
 
   bud.alias({'@styles': bud.src('styles')})
   t.deepEqual(bud.options.get('alias'), {
+    '@scripts': bud.src('scripts'),
     '@styles': bud.src('styles'),
   })
 })
@@ -195,4 +168,37 @@ test('bud.mini', t => {
   t.is(bud.features.get('minify'), false)
   bud.mini()
   t.is(bud.features.get('minify'), true)
+})
+
+test('bud.compile resolve', t => {
+  const config = bud.config()
+  t.deepEqual(config.resolve, {
+    alias: {
+      '@scripts': bud.src('scripts'),
+      '@styles': bud.src('styles'),
+    },
+    extensions: ['.js', '.json'],
+    modules: [
+      bud.src(),
+      bud.project('node_modules'),
+      join(bud.paths.get('framework'), 'node_modules'),
+    ],
+  })
+})
+
+test('bud.compile entry', t => {
+  const config = bud.config()
+  t.deepEqual(config.entry, {
+    entry: [bud.src('scripts/app.js')],
+    editor: [bud.src('scripts/editor.js')],
+  })
+})
+
+test('bud.compile output', t => {
+  const config = bud.config()
+  t.deepEqual(config.output, {
+    filename: `${bud.options.get('filenameTemplate').hashed}.js`,
+    path: bud.dist(),
+    publicPath: '/',
+  })
 })
