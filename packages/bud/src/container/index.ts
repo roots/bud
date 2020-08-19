@@ -2,6 +2,7 @@ import {Loose} from '@roots/bud-typings'
 import {existsSync} from 'fs-extra'
 import {controller} from '../repositories/plugins/controller'
 import {logger} from '../util/logger'
+import {get as _get, set as _set} from 'lodash'
 
 type Repository = any[] | any
 type Key = string
@@ -59,7 +60,7 @@ const add: Action = function (entry) {
 }
 
 const get: Getter = function (key) {
-  return key.split('.').reduce((o, i) => o[i], this.repository)
+  return _get(this.repository, key)
 }
 
 const is: ConditionalCheck = function (key, value) {
@@ -74,7 +75,7 @@ const require = function (key) {
 
 const set: Action = function (key, value) {
   logger.info({name: 'container', key, value}, `${this.name}.set`)
-  this.repository[key] = value
+  _set(this.repository, key, value)
 }
 
 const has: ConditionalCheck = function (key) {

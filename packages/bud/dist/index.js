@@ -1432,9 +1432,6 @@ var plugins$1 = function (bud) { return ({
 
 var builders = [entry, rules$1, externals, devServer];
 var complexBuilders = [general, webpackResolve, plugins$1, output];
-/**
- * Generates webpack config
- */
 var build = function (bud) {
     var config = {};
     bud.features.enabled('optimize') && complexBuilders.push(optimization);
@@ -5232,7 +5229,7 @@ var add = function (entry) {
     this.repository.push(entry);
 };
 var get = function (key) {
-    return key.split('.').reduce(function (o, i) { return o[i]; }, this.repository);
+    return lodash.get(this.repository, key);
 };
 var is = function (key, value) {
     return this.get(key) == value;
@@ -5243,7 +5240,7 @@ var require$1 = function (key) {
 };
 var set = function (key, value) {
     logger.info({ name: 'container', key: key, value: value }, this.name + ".set");
-    this.repository[key] = value;
+    lodash.set(this.repository, key, value);
 };
 var has$1 = function (key) {
     return this.repository.hasOwnProperty(key) ? true : false;
