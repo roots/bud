@@ -9,8 +9,8 @@ const compiler = (bud: Bud): any => ({
     return this.bud.features.enabled('dashboard')
   },
 
-  buildConfig: function (): typeof compiler {
-    this.config = build(this.bud).make()
+  buildConfig: function () {
+    this.config = build(this.bud)
 
     return this
   },

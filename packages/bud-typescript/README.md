@@ -1,3 +1,3 @@
-# @roots/bud-typescript
+# @roots/bud-typings
 
-Adds typescript support to @roots/bud projects.
+Common types used through the Bud monorepo.

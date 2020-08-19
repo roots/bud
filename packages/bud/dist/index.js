@@ -498,6 +498,9 @@ var projectRoot = require.main.paths[0]
     .split('node_modules')[0]
     .slice(0, -1);
 
+/**
+ * Terminate CLI execution
+ */
 var terminate = function (options) {
     if (options === void 0) { options = {
         dump: false,
@@ -1187,54 +1190,21 @@ var repositories = {
     presets: presets,
 };
 
-var entry = function (bud) { return ({
-    bud: bud,
-    name: "webpack.entry",
-    target: {},
-    make: function () {
-        if (!this.bud.options.has('entry')) {
-            this.bud.logger.warn({ name: 'webpack.entry', value: this.target }, "No entrypoints found. Automatically generating.");
-            this.bud.glob("*/*.(js|css|scss|vue|ts|tsx)");
-        }
-        this.target.entry = this.bud.hooks.filter('webpack.entry', this.bud.options.get('entry'));
-        this.bud.logger.info({ name: 'webpack.entry', value: this.target }, "webpack.entry has been generated");
-        return this.target;
-    },
-}); };
+var entry = function (bud) {
+    return bud.hooks.filter('webpack.entry', {
+        entry: bud.options.get('entry'),
+    });
+};
 
-/**
- * Dev server
- * @param {Bud} bud
- */
-var devServer = function (bud) { return ({
-    bud: bud,
-    target: {
-        devServer: bud.options.get('dev'),
-    },
-    make: function () {
-        this.target = this.bud.hooks.filter('webpack.devServer', this.target);
-        this.bud.logger.info({ name: 'webpack.devServer', value: this.target }, "webpack.devServer has been generated");
-        return this.target;
-    },
-}); };
+var devServer = function (bud) {
+    return bud.hooks.filter('webpack.devServer', { devServer: bud.options.get('dev') });
+};
 
-var externals = function (bud) { return ({
-    bud: bud,
-    target: {
-        externals: false,
-    },
-    make: function () {
-        var _a;
-        this.target.externals = this.bud.options.has('externals')
-            ? this.bud.hooks.filter('webpack_externals', this.bud.options.get('externals'))
-            : this.bud.hooks.filter('webpack_externals_fallback', false);
-        /**
-         * Don't include modules when target is node.
-         */
-        return !this.bud.options.is('target', 'node')
-            ? (_a = this.target.externals) !== null && _a !== void 0 ? _a : null : tslib.__spreadArrays(this.bud.services.nodeExternals(), this.target.externals);
-    },
-}); };
+var externals = function (bud) {
+    return bud.hooks.filter('webpack.externals', {
+        externals: bud.options.get('externals'),
+    });
+};
 
 /**
  * General webpack options
@@ -1289,26 +1259,13 @@ var general = function (bud) {
     });
 };
 
-/**
- * Webpack loaders
- */
-var rules$1 = function (bud) { return ({
-    bud: bud,
-    target: {
+var rules$1 = function (bud) {
+    return bud.hooks.filter('webpack.module.rules', {
         module: {
-            rules: [],
+            rules: bud.rules.repository.map(function (rule) { return rule(bud); }),
         },
-    },
-    make: function () {
-        var _this = this;
-        this.bud.rules.repository.forEach(function (rule) {
-            _this.target.module.rules.push(rule(_this.bud));
-        });
-        this.target.module.rules = this.bud.hooks.filter('webpack.module.rules', this.target.module.rules);
-        this.bud.logger.info({ name: 'webpack.rules', value: this.target }, "webpack.rules has been generated");
-        return this.target;
-    },
-}); };
+    });
+};
 
 /**
  * Webpack optimization
@@ -1473,52 +1430,22 @@ var plugins$1 = function (bud) { return ({
     },
 }); };
 
-var build = function (bud) { return ({
-    /**
-     * The bud container.
-     */
-    bud: bud,
-    /**
-     * The final webpack config.
-     */
-    final: {},
-    /**
-     * Builders webpack concerns.
-     */
-    builders: [
-        ['output', output],
-        ['entry', entry],
-        ['module', rules$1],
-        ['plugins', plugins$1],
-        ['resolve', webpackResolve],
-        ['externals', externals],
-        ['devServer', devServer],
-        ['general', general],
-    ],
-    /**
-     * Generate values from builders
-     */
-    make: function () {
-        var _this = this;
-        /**
-         * Conditionally enabled: optimization
-         */
-        this.bud.features.enabled('optimize') &&
-            this.builders.push(['optimization', optimization]);
-        /**
-         * Build
-         */
-        this.builders.map(function (_a) {
-            var name = _a[0], builder = _a[1];
-            _this.final = tslib.__assign(tslib.__assign({}, _this.final), builder(_this.bud).make());
-        });
-        /**
-         * Return final config object
-         */
-        this.final = this.bud.hooks.filter('webpack_final', this.final);
-        return this.final;
-    },
-}); };
+var builders = [entry, rules$1, externals, devServer];
+var complexBuilders = [general, webpackResolve, plugins$1, output];
+/**
+ * Generates webpack config
+ */
+var build = function (bud) {
+    var config = {};
+    bud.features.enabled('optimize') && complexBuilders.push(optimization);
+    builders.forEach(function (builder) {
+        Object.assign(config, builder(bud));
+    });
+    complexBuilders.map(function (builder) {
+        Object.assign(config, builder(bud).make());
+    });
+    return config;
+};
 
 function _defineProperty(obj, key, value) {
   if (key in obj) {
@@ -5219,7 +5146,7 @@ var compiler = function (bud) { return ({
         return this.bud.features.enabled('dashboard');
     },
     buildConfig: function () {
-        this.config = build(this.bud).make();
+        this.config = build(this.bud);
         return this;
     },
     compile: function () {
@@ -5294,21 +5221,25 @@ var controller = function (bud) { return ({
     },
 }); };
 
+var log$1 = function (repository, data, message) {
+    logger.info(tslib.__assign({ name: 'container', repository: repository }, (data || {})), message);
+};
 var newContainer = function (key, repository) {
     if (repository === void 0) { repository = {}; }
-    this.repository[key] = repository ? new container({}) : new container([]);
+    this.repository[key] = new container(repository);
 };
 var add = function (entry) {
     this.repository.push(entry);
 };
 var get = function (key) {
-    return this.repository[key];
+    return key.split('.').reduce(function (o, i) { return o[i]; }, this.repository);
 };
 var is = function (key, value) {
     return this.get(key) == value;
 };
-var contents = function (key) {
-    return require(this.get(key));
+var require$1 = function (key) {
+    var module = this.get(key);
+    require$1(module);
 };
 var set = function (key, value) {
     logger.info({ name: 'container', key: key, value: value }, this.name + ".set");
@@ -5371,22 +5302,31 @@ var container = function (repository, name) {
     this.disable = disable;
     this.disabled = disabled;
 };
+/**
+ * Bind container.
+ */
 var bindContainer = function (repository, name) {
     if (name === void 0) { name = 'anonymous'; }
-    logger.info({ name: 'container', repository: repository }, "create container: " + name);
+    log$1(repository, { repository: name }, "create container");
     return new container(repository, name);
 };
+/**
+ * Bind file container.
+ */
 var bindFileContainer = function (repository, name) {
     if (name === void 0) { name = 'anonymous'; }
-    logger.info({ name: 'container', repository: repository }, "create file container: " + name);
+    log$1(repository, { repository: name }, "create container");
     var store = new container(repository, name);
-    store.contents = contents;
+    store.require = require$1;
     store.exists = exists;
     return store;
 };
+/**
+ * Bind extension container.
+ */
 var bindExtensionContainer = function (repository, name) {
     if (name === void 0) { name = 'anonymous'; }
-    logger.info({ name: 'container', repository: repository }, "create extension api container: " + name);
+    log$1(repository, { repository: name }, "create extension api container");
     var store = new container(repository, name);
     store.controller = controller;
     store.add = add;
@@ -5488,7 +5428,7 @@ var bootstrap = function () {
      */
     Object.values(api).forEach(function (method) {
         _this.framework[method.name] = method;
-        _this.framework.logger.info({ name: 'bootstrap' }, "bootstrapped api method: bud." + method.name);
+        _this.logger.info({ name: 'bootstrap' }, "bootstrapped api method: bud." + method.name);
     });
     /**
      * Enable features based on presence of configuration files.

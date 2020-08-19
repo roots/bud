@@ -1,5 +1,5 @@
 import {Bud} from '..'
-
+import type {Terminate} from './terminate'
 export type {Bud}
 export type Dump = (obj: any, prettierOptions?: any) => void
 export type Except = (target: any, properties: []) => any
@@ -22,7 +22,7 @@ export type Util = {
   shortCircuit: ShortCircuit
   fab: Fab
   projectRoot: ProjectRoot
-  terminate: (any) => void
+  terminate: Terminate
   processHandler: any
   usedExt: (any, bud: Bud) => any[]
 }

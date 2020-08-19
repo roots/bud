@@ -1,0 +1,14 @@
+/// <reference types="webpack-dev-server" />
+import type { Configuration as WebpackConfig, RuleSetRule } from 'webpack';
+interface Loose {
+    [key: string]: any;
+}
+export { Loose };
+export declare type WebpackDevServer = WebpackConfig['devServer'];
+export declare type WebpackEntry = WebpackConfig['entry'];
+export declare type WebpackExternals = WebpackConfig['externals'];
+export declare type WebpackMode = WebpackConfig['mode'];
+export declare type WebpackModule = WebpackConfig['module'];
+export declare type WebpackOptimization = WebpackConfig['optimization'];
+export type { RuleSetRule, WebpackConfig };
+//# sourceMappingURL=index.d.ts.map

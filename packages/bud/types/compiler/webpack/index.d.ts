@@ -1,4 +1,7 @@
-import type { Bud, BuilderController } from './types';
-declare const build: (bud: Bud) => BuilderController;
+import type { Bud } from './types';
+/**
+ * Generates webpack config
+ */
+declare const build: (bud: Bud) => any;
 export { build };
 //# sourceMappingURL=index.d.ts.map

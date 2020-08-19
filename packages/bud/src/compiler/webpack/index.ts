@@ -7,59 +7,29 @@ import {optimization} from './optimization'
 import {output} from './output'
 import {webpackResolve} from './webpackResolve'
 import {plugins} from './plugins'
-import type {Bud, BuilderController, RegisteredBuilder} from './types'
 
-const build = (bud: Bud): BuilderController => ({
-  /**
-   * The bud container.
-   */
-  bud,
+import type {Bud} from './types'
 
-  /**
-   * The final webpack config.
-   */
-  final: {},
+const builders = [entry, rules, externals, devServer]
+const complexBuilders = [general, webpackResolve, plugins, output]
 
-  /**
-   * Builders webpack concerns.
-   */
-  builders: [
-    ['output', output],
-    ['entry', entry],
-    ['module', rules],
-    ['plugins', plugins],
-    ['resolve', webpackResolve],
-    ['externals', externals],
-    ['devServer', devServer],
-    ['general', general],
-  ],
+/**
+ * Generates webpack config
+ */
+const build = (bud: Bud): any => {
+  const config: any = {}
 
-  /**
-   * Generate values from builders
-   */
-  make: function () {
-    /**
-     * Conditionally enabled: optimization
-     */
-    this.bud.features.enabled('optimize') &&
-      this.builders.push(['optimization', optimization])
+  bud.features.enabled('optimize') && complexBuilders.push(optimization)
 
-    /**
-     * Build
-     */
-    this.builders.map(([name, builder]: RegisteredBuilder) => {
-      this.final = {
-        ...this.final,
-        ...builder(this.bud).make(),
-      }
-    })
+  builders.forEach(builder => {
+    Object.assign(config, builder(bud))
+  })
 
-    /**
-     * Return final config object
-     */
-    this.final = this.bud.hooks.filter('webpack_final', this.final)
-    return this.final
-  },
-})
+  complexBuilders.map(builder => {
+    Object.assign(config, builder(bud).make())
+  })
+
+  return config
+}
 
 export {build}

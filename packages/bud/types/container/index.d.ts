@@ -1,39 +1,51 @@
+import { Loose } from '@roots/bud-typings';
 declare type Repository = any[] | any;
-interface Loose {
-    [key: string]: any;
-}
+declare type Key = string;
+declare type Getter = (this: Container, key?: Key) => any;
+declare type Action = (this: Container, ...args: any) => void;
+declare type ConditionalCheck = (this: Container, key: Key, value?: any) => boolean;
 interface ContainerInterface extends Loose {
     name: string;
     repository: Repository;
-    new: (this: Container, key: string, repository: Repository) => void;
-    get: (this: Container, key: string) => any;
-    contents: (this: Container, key: string) => any;
-    has: (this: Container, key: string) => boolean;
-    is: (this: Container, key: string, value: any) => boolean;
-    set: (this: Container, key: string, value: any) => void;
-    map: (this: Container, args: any[]) => any;
-    entries: (this: Container) => Repository;
-    merge: (this: Container, key: string, value: any) => void;
-    delete: (this: Container, key: string) => void;
-    enable: (this: Container, key: string) => void;
-    enabled: (this: Container, key: string) => boolean;
-    disable: (this: Container, key: string) => void;
-    disabled: (this: Container, key: string) => boolean;
+    new: Action;
+    get: Getter;
+    require: () => void;
+    has: ConditionalCheck;
+    is: ConditionalCheck;
+    set: Action;
+    map: Action;
+    entries: Getter;
+    merge: Action;
+    delete: Action;
+    enable: Action;
+    enabled: ConditionalCheck;
+    disable: Action;
+    disabled: ConditionalCheck;
 }
 interface FileContainerInterface extends ContainerInterface {
-    contents: (this: Container, key: string) => any;
-    exists: (this: Container, key: string) => boolean;
+    require: Getter;
+    exists: ConditionalCheck;
 }
 interface ExtensionContainer extends ContainerInterface {
     controller: (this: Container, args: any[]) => any;
-    add: (this: Container, args: any[]) => any;
+    add: Action;
 }
 declare type Container = ContainerInterface;
 declare type FileContainer = FileContainerInterface;
-declare const container: (this: Container, repository: Repository, name?: string) => void;
-declare const bindContainer: (repository: Repository, name: string) => Container;
-declare const bindFileContainer: (repository: Repository, name: string) => FileContainer;
-declare const bindExtensionContainer: (repository: Repository, name: string) => ExtensionContainer;
+declare type ContainerBind = (repository: Repository, name: string) => Container | FileContainer | ExtensionContainer;
+declare const container: Action;
+/**
+ * Bind container.
+ */
+declare const bindContainer: ContainerBind;
+/**
+ * Bind file container.
+ */
+declare const bindFileContainer: ContainerBind;
+/**
+ * Bind extension container.
+ */
+declare const bindExtensionContainer: ContainerBind;
 export { container, bindContainer, bindFileContainer, bindExtensionContainer };
 export type { Container, FileContainer, ExtensionContainer, Repository };
 //# sourceMappingURL=index.d.ts.map

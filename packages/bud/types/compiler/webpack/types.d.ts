@@ -1,16 +1,17 @@
+/// <reference types="webpack" />
 /// <reference types="webpack-dev-server" />
-import type { Configuration as WebpackConfig } from 'webpack';
+import type { WebpackConfig } from '@roots/bud-typings';
 import type { Bud } from '../..';
 export type { Extension } from '../../repositories/plugins/types';
 export type { Bud };
 export declare type BuilderController = {
     bud: Bud;
     final: WebpackConfig;
-    builders: RegisteredBuilder[];
+    builders: any;
     make: () => WebpackConfig;
 };
-export declare type RegisteredBuilder = [string, BuilderConstructor];
-export declare type BuilderConstructor = (bud: Bud) => Builder;
+export declare type RegisteredBuilder = BuilderConstructor;
+export declare type BuilderConstructor = (bud: Bud) => Builder | any;
 export declare interface Builder {
     bud: Bud;
     name?: any;

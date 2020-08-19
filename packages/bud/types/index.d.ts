@@ -1,6 +1,5 @@
-/// <reference types="webpack-dev-server" />
+import type { Loose, WebpackMode } from '@roots/bud-typings';
 import type { Container } from './container';
-import type { Configuration } from 'webpack';
 import type { Hooks } from './hooks/types';
 import type { Use, UsesHash } from './repositories/rulesets';
 import type { Paths, Features, Options } from './repositories/types';
@@ -8,9 +7,6 @@ import type { FileContainer } from './container';
 import type { Util } from './util/types';
 import * as Api from './api/types';
 import type { Vendor } from './api/vendor';
-interface Loose {
-    [key: string]: any;
-}
 /**
  * Bud Framework Interface
  *
@@ -52,7 +48,7 @@ interface Bud extends Loose {
      *
      * Current build environment ('production', 'development', 'none')
      */
-    mode: Configuration['mode'];
+    mode: WebpackMode;
     /**
      * ## bud.adapters
      *

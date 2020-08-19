@@ -1,32 +1,15 @@
-/**
- * Webpack loaders
- */
-const rules = bud => ({
-  bud,
+import type {Bud} from '../..'
+import type {WebpackModule, RuleSetRule} from '@roots/bud-typings'
 
-  target: {
+type Use = (bud: Bud) => RuleSetRule
+type ModuleBuilder = (bud: Bud) => WebpackModule
+
+const rules: ModuleBuilder = bud =>
+  bud.hooks.filter('webpack.module.rules', {
     module: {
-      rules: [],
+      rules: bud.rules.repository.map((rule: Use) => rule(bud)),
     },
-  },
-
-  make: function () {
-    this.bud.rules.repository.forEach(rule => {
-      this.target.module.rules.push(rule(this.bud))
-    })
-
-    this.target.module.rules = this.bud.hooks.filter(
-      'webpack.module.rules',
-      this.target.module.rules,
-    )
-
-    this.bud.logger.info(
-      {name: 'webpack.rules', value: this.target},
-      `webpack.rules has been generated`,
-    )
-
-    return this.target
-  },
-})
+  })
 
 export {rules}
+export type {ModuleBuilder}

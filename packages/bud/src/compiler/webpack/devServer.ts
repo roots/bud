@@ -1,26 +1,10 @@
 import type {Bud} from './types'
-import {Configuration} from 'webpack'
+import type {WebpackDevServer} from '@roots/bud-typings'
 
-/**
- * Dev server
- * @param {Bud} bud
- */
-const devServer = (bud: Bud) => ({
-  bud,
+type DevServerBuilder = (bud: Bud) => WebpackDevServer
 
-  target: {
-    devServer: bud.options.get('dev'),
-  },
-
-  make: function (): Configuration['devServer'] {
-    this.target = this.bud.hooks.filter('webpack.devServer', this.target)
-
-    this.bud.logger.info(
-      {name: 'webpack.devServer', value: this.target},
-      `webpack.devServer has been generated`,
-    )
-    return this.target
-  },
-})
+const devServer: DevServerBuilder = bud =>
+  bud.hooks.filter('webpack.devServer', {devServer: bud.options.get('dev')})
 
 export {devServer}
+export type {DevServerBuilder}

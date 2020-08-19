@@ -1,15 +1,7 @@
 import type { Bud } from './types';
-import { Configuration } from 'webpack';
-/**
- * Dev server
- * @param {Bud} bud
- */
-declare const devServer: (bud: Bud) => {
-    bud: Bud;
-    target: {
-        devServer: any;
-    };
-    make: () => Configuration['devServer'];
-};
+import type { WebpackDevServer } from '@roots/bud-typings';
+declare type DevServerBuilder = (bud: Bud) => WebpackDevServer;
+declare const devServer: DevServerBuilder;
 export { devServer };
+export type { DevServerBuilder };
 //# sourceMappingURL=devServer.d.ts.map

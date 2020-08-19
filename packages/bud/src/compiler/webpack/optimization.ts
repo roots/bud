@@ -1,5 +1,8 @@
 import UglifyJsPlugin from 'uglifyjs-webpack-plugin'
 import type {Bud} from './types'
+import type {WebpackOptimization} from '@roots/bud-typings'
+
+type OptimizationBuilder = (bud: Bud) => WebpackOptimization
 
 /**
  * Webpack optimization
@@ -111,3 +114,4 @@ const optimization = (bud: Bud) => ({
 })
 
 export {optimization}
+export type {OptimizationBuilder}

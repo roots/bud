@@ -1,76 +1,87 @@
+import {Loose} from '@roots/bud-typings'
 import {existsSync} from 'fs-extra'
 import {controller} from '../repositories/plugins/controller'
 import {logger} from '../util/logger'
 
 type Repository = any[] | any
-
-interface Loose {
-  [key: string]: any
-}
+type Key = string
+type Getter = (this: Container, key?: Key) => any
+type Action = (this: Container, ...args: any) => void
+type ConditionalCheck = (this: Container, key: Key, value?: any) => boolean
 
 interface ContainerInterface extends Loose {
   name: string
   repository: Repository
-  new: (this: Container, key: string, repository: Repository) => void
-  get: (this: Container, key: string) => any
-  contents: (this: Container, key: string) => any
-  has: (this: Container, key: string) => boolean
-  is: (this: Container, key: string, value: any) => boolean
-  set: (this: Container, key: string, value: any) => void
-  map: (this: Container, args: any[]) => any
-  entries: (this: Container) => Repository
-  merge: (this: Container, key: string, value: any) => void
-  delete: (this: Container, key: string) => void
-  enable: (this: Container, key: string) => void
-  enabled: (this: Container, key: string) => boolean
-  disable: (this: Container, key: string) => void
-  disabled: (this: Container, key: string) => boolean
+  new: Action
+  get: Getter
+  require: () => void
+  has: ConditionalCheck
+  is: ConditionalCheck
+  set: Action
+  map: Action
+  entries: Getter
+  merge: Action
+  delete: Action
+  enable: Action
+  enabled: ConditionalCheck
+  disable: Action
+  disabled: ConditionalCheck
 }
 
 interface FileContainerInterface extends ContainerInterface {
-  contents: (this: Container, key: string) => any
-  exists: (this: Container, key: string) => boolean
+  require: Getter
+  exists: ConditionalCheck
 }
 
 interface ExtensionContainer extends ContainerInterface {
   controller: (this: Container, args: any[]) => any
-  add: (this: Container, args: any[]) => any
+  add: Action
 }
 
 type Container = ContainerInterface
 type FileContainer = FileContainerInterface
 
-const newContainer = function (key: string, repository: Repository = {}) {
-  this.repository[key] = (repository as any) ? new container({}) : new container([])
+type ContainerBind = (
+  repository: Repository,
+  name: string,
+) => Container | FileContainer | ExtensionContainer
+
+const log = (repository: string, data?: Loose, message?: string): void => {
+  logger.info({name: 'container', repository, ...(data || {})}, message)
 }
 
-const add = function (entry: any) {
+const newContainer: Action = function (key, repository = {}) {
+  this.repository[key] = new container(repository)
+}
+
+const add: Action = function (entry) {
   this.repository.push(entry)
 }
 
-const get = function (key: string) {
-  return this.repository[key]
+const get: Getter = function (key) {
+  return key.split('.').reduce((o, i) => o[i], this.repository)
 }
 
-const is = function (this: Container, key: string, value: any): boolean {
+const is: ConditionalCheck = function (key, value) {
   return this.get(key) == value
 }
 
-const contents = function (key: string): any | null {
-  return require(this.get(key))
+const require = function (key) {
+  const module = this.get(key)
+
+  require(module)
 }
 
-const set = function (key: string, value: any) {
+const set: Action = function (key, value) {
   logger.info({name: 'container', key, value}, `${this.name}.set`)
-
   this.repository[key] = value
 }
 
-const has = function (key: string): boolean {
+const has: ConditionalCheck = function (key) {
   return this.repository.hasOwnProperty(key) ? true : false
 }
 
-const merge = function (key: string, value: any) {
+const merge: Action = function (key, value) {
   this.repository[key] = (this.repository[key] as any)
     ? {...this.repository[key], ...value}
     : (this.repository[key] as any[])
@@ -78,47 +89,43 @@ const merge = function (key: string, value: any) {
     : [this.repository[key], value]
 }
 
-const containerMethodDelete = function (key: string) {
+const containerMethodDelete: Action = function (key) {
   delete this.repository[key]
 }
 
-const exists = function (key: string): boolean {
+const exists: ConditionalCheck = function (key) {
   return existsSync(this.repository[key])
 }
 
-const enable = function (key: string): void {
+const enable: Action = function (key) {
   logger.info({name: 'container', key, value: true}, `${this.name}.enable`)
 
   this.repository[key] = true
 }
 
-const disable = function (key: string): void {
+const disable: Action = function (key) {
   logger.info({name: 'container', key, value: false}, `${this.name}.disable`)
 
   this.repository[key] = false
 }
 
-const enabled = function (key: string): boolean {
+const enabled: ConditionalCheck = function (key) {
   return this.is(key, true)
 }
 
-const disabled = function (key: string): boolean {
+const disabled: ConditionalCheck = function (key) {
   return this.is(key, false)
 }
 
-const map = function (...params): any {
+const map: Action = function (...params): any {
   return this.repository.map(...params)
 }
 
-const entries = function (): any {
+const entries: Getter = function () {
   return this.repository
 }
 
-const container = function (
-  this: Container,
-  repository: Repository,
-  name = 'anonymous',
-) {
+const container: Action = function (repository?, name = 'anonymous') {
   this.name = name
   this.repository = repository
   this.new = newContainer
@@ -136,39 +143,42 @@ const container = function (
   this.disabled = disabled
 }
 
-const bindContainer: (repository: Repository, name: string) => Container = function (
+/**
+ * Bind container.
+ */
+const bindContainer: ContainerBind = function (
   repository,
   name = 'anonymous',
 ): Container {
-  logger.info({name: 'container', repository}, `create container: ${name}`)
+  log(repository, {repository: name}, `create container`)
 
   return new container(repository, name)
 }
 
-const bindFileContainer: (
-  repository: Repository,
-  name: string,
-) => FileContainer = function (repository, name = 'anonymous'): FileContainer {
-  logger.info({name: 'container', repository}, `create file container: ${name}`)
+/**
+ * Bind file container.
+ */
+const bindFileContainer: ContainerBind = function (
+  repository,
+  name = 'anonymous',
+): FileContainer {
+  log(repository, {repository: name}, `create container`)
 
   const store = new container(repository, name)
-  store.contents = contents
+  store.require = require
   store.exists = exists
 
   return store
 }
 
-const bindExtensionContainer: (
-  repository: Repository,
-  name: string,
-) => ExtensionContainer = function (
+/**
+ * Bind extension container.
+ */
+const bindExtensionContainer: ContainerBind = function (
   repository,
   name = 'anonymous',
 ): ExtensionContainer {
-  logger.info(
-    {name: 'container', repository},
-    `create extension api container: ${name}`,
-  )
+  log(repository, {repository: name}, `create extension api container`)
 
   const store = new container(repository, name)
   store.controller = controller

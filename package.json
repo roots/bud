@@ -24,6 +24,7 @@
     "packages/bud-stylelint",
     "packages/bud-tailwind",
     "packages/bud-typescript",
+    "packages/bud-typings",
     "packages/bud-vue"
   ],
   "scripts": {

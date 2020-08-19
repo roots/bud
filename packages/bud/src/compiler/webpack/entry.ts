@@ -1,33 +1,12 @@
-import type {Bud, BuilderConstructor, EntryBuilder} from './types'
+import type {Bud} from './types'
+import type {WebpackEntry} from '@roots/bud-typings'
 
-const entry = (bud: Bud) => ({
-  bud,
+type EntryBuilder = (bud: Bud) => WebpackEntry
 
-  name: `webpack.entry`,
-
-  target: {},
-
-  make: function () {
-    if (!this.bud.options.has('entry')) {
-      this.bud.logger.warn(
-        {name: 'webpack.entry', value: this.target},
-        `No entrypoints found. Automatically generating.`,
-      )
-      this.bud.glob(`*/*.(js|css|scss|vue|ts|tsx)`)
-    }
-
-    this.target.entry = this.bud.hooks.filter(
-      'webpack.entry',
-      this.bud.options.get('entry'),
-    )
-
-    this.bud.logger.info(
-      {name: 'webpack.entry', value: this.target},
-      `webpack.entry has been generated`,
-    )
-
-    return this.target
-  },
-})
+const entry: EntryBuilder = bud =>
+  bud.hooks.filter('webpack.entry', {
+    entry: bud.options.get('entry'),
+  })
 
 export {entry}
+export type {EntryBuilder}
