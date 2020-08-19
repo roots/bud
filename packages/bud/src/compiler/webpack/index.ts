@@ -13,9 +13,6 @@ import type {Bud} from './types'
 const builders = [entry, rules, externals, devServer]
 const complexBuilders = [general, webpackResolve, plugins, output]
 
-/**
- * Generates webpack config
- */
 const build = (bud: Bud): any => {
   const config: any = {}
 
