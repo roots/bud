@@ -2,7 +2,7 @@
  * Preset configurations for common webpack plugins.
  */
 declare const presets: {
-    postCss: {
+    postcss: {
         config: {
             plugins: any[];
         };

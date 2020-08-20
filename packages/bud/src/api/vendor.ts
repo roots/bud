@@ -1,14 +1,15 @@
 import type {Bud} from './Types'
 
-type Vendor = (name?: string) => Bud
+type Vendor = (this: Bud, options?: any) => Bud
 
-const vendor: Vendor = function (this: Bud, name: string) {
+const vendor: Vendor = function (options) {
   this.features.enable('vendor')
 
-  this.options.set('vendor', {
-    ...this.options.get('vendor'),
-    name: name ?? 'vendor',
-  })
+  options &&
+    this.options.set('optimization.splitChunks.cacheGroup.vendor', {
+      ...this.options.get('optimization.splitChunks.cacheGroup.vendor'),
+      ...options,
+    })
 
   return this
 }

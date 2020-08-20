@@ -19,8 +19,23 @@ declare const options: {
         hashed: string;
         default: string;
     };
-    inlineManifest: {
+    manifest: {
         name: string;
+    };
+    optimization: {
+        runtimeChunk: {
+            name: (entrypoint: any) => string;
+        };
+        splitChunks: {
+            cacheGroup: {
+                vendor: {
+                    test: RegExp;
+                    name: string;
+                    chunks: string;
+                    priority: number;
+                };
+            };
+        };
     };
     patterns: any[];
     postCss: {};
@@ -54,26 +69,6 @@ declare const options: {
         };
         cache: boolean;
         parallel: boolean;
-    };
-    uglify: {
-        cache: boolean;
-        chunkFilter: ({ name }: {
-            name: any;
-        }) => boolean;
-        extractComments: boolean;
-        parallel: boolean;
-        uglifyOptions: {
-            output: {
-                beautify: boolean;
-            };
-            compress: boolean;
-            mangle: {
-                toplevel: boolean;
-            };
-        };
-    };
-    vendor: {
-        name: string;
     };
     stats: {
         version: boolean;

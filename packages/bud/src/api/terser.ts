@@ -1,16 +1,17 @@
-import type {Bud, Terser} from './types'
+import type {Bud} from './types'
 
-const terser: Terser = function (options: {enable?: boolean; terser?: any}): Bud {
-  this.logger.info(
-    {name: 'bud.api', function: 'bud.watch', ...options},
-    `bud.watch called`,
-  )
+type Terser = (this: Bud, options?: any) => Bud
 
-  this.features.set('terser', options?.enable ?? true)
-
-  options?.terser && this.options.set('terser', options.terser)
+const terser: Terser = function (options) {
+  if (options) {
+    this.options.set('terser', {
+      ...this.options.get('terser'),
+      ...options,
+    })
+  }
 
   return this
 }
 
 export {terser}
+export type {Terser}

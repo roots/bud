@@ -1,55 +1,91 @@
 import {Bud} from '../..'
-import type {RuleSetRule} from 'webpack'
+import type {WebpackRule} from '@roots/bud-typings'
 
 /**
  * Module Rule
  */
-type Use = (bud: Bud) => RuleSetRule
+type Use = (bud: Bud) => WebpackRule
 interface UsesHash {
   [key: string]: Use
 }
 
 const uses: UsesHash = {
-  babel: (bud: Bud) => ({
-    loader: bud.loaders.get('babel'),
-    options: {
-      cacheDirectory: true,
-      cacheCompression: bud.inProduction,
-      ...bud.options.get('babel'),
-    },
-  }),
+  babel: (bud: Bud) =>
+    bud.hooks.filter('webpack.module.babel', {
+      loader: bud.hooks.filter(
+        'webpack.module.babel.loader',
+        bud.loaders.get('babel'),
+      ),
+      options: bud.hooks.filter('webpack.module.babel.options', {
+        cacheDirectory: bud.hooks.filter(
+          'webpack.module.babel.options.cacheDirectory',
+          true,
+        ),
+        cacheCompression: bud.hooks.filter(
+          'webpack.module.babel.options.cacheCompression',
+          true,
+        ),
+        ...bud.options.get('babel'),
+      }),
+    }),
+
   file: (bud: Bud) => ({
     loader: bud.loaders.get('file'),
     options: {
       name: '[path][name].[ext]',
     },
   }),
-  miniCss: (bud: Bud) => ({
-    loader: bud.loaders.get('miniCss'),
-    options: {
-      hot: bud.features.enabled('hot'),
-    },
-  }),
-  css: (bud: Bud) => ({
-    loader: bud.loaders.get('css'),
-  }),
-  resolveUrl: (bud: Bud) => ({
-    loader: bud.loaders.get('resolveUrl'),
-    options: {
-      sourceMap: bud.features.enabled('sourceMap'),
-      debug: true,
-    },
-  }),
-  postCss: (bud: Bud) => ({
-    loader: bud.loaders.get('postCss'),
-    options: {
-      ident: 'postcss',
-      ...bud.options.get('postCss'),
-    },
-  }),
-  style: (bud: Bud) => ({
-    loader: bud.loaders.get('style'),
-  }),
+
+  miniCss: (bud: Bud) =>
+    bud.hooks.filter('webpack.modules.miniCss', {
+      loader: bud.hooks.filter(
+        'webpack.modules.miniCss.loader',
+        bud.loaders.get('miniCss'),
+      ),
+      options: bud.hooks.filter('webpack.modules.miniCss.options', {
+        hot: bud.hooks.filter(
+          'webpack.modules.miniCss.loader.hot',
+          bud.features.enabled('hot'),
+        ),
+      }),
+    }),
+
+  css: (bud: Bud) =>
+    bud.hooks.filter('webpack.modules.css', {
+      loader: bud.hooks.filter('webpack.modules.css.loader', bud.loaders.get('css')),
+    }),
+
+  resolveUrl: (bud: Bud) =>
+    bud.hooks.filter('webpack.modules.resolveurl', {
+      loader: bud.hooks.filter(
+        'webpack.modules.resolveurl.loader',
+        bud.loaders.get('resolveUrl'),
+      ),
+      options: bud.hooks.filter('webpack.module.resolveurl.options', {
+        sourceMap: bud.features.enabled('sourceMap'),
+        debug: true,
+      }),
+    }),
+
+  postCss: (bud: Bud) =>
+    bud.hooks.filter('webpack.module.postcss', {
+      loader: bud.hooks.filter(
+        'webpack.module.postcss.loader',
+        bud.loaders.get('postCss'),
+      ),
+      options: bud.hooks.filter('webpack.module.postcss.options', {
+        ident: bud.hooks.filter('webpack.module.postcss.options.ident', 'postcss'),
+        ...bud.options.get('postCss'),
+      }),
+    }),
+
+  style: (bud: Bud) =>
+    bud.hooks.filter('webpack.module.style', {
+      loader: bud.hooks.filter(
+        'webpack.module.style.loader',
+        bud.loaders.get('style'),
+      ),
+    }),
 }
 
 export {uses}

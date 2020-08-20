@@ -1,8 +1,3 @@
-/**
- * Style loaders
- *
- * @type {object} loaders
- */
 declare const loaders: {
     babel: string;
     css: string;

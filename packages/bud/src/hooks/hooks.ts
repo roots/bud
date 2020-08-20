@@ -1,17 +1,12 @@
 import type {Bud, Hook, Hooks} from './types'
 
-const hooks = (logger): Hooks => ({
+const hooks = (logger: any): Hooks => ({
   logger,
 
   /**
    * Registered hooks.
    */
   registered: {},
-
-  /**
-   * Called hooks.
-   */
-  called: [],
 
   /**
    * Init hooks.
@@ -41,6 +36,8 @@ const hooks = (logger): Hooks => ({
    * Register a function as a bud hook.
    */
   on: function (name, callback) {
+    this.logger.info({name, callback: callback.name}, 'filter callback defined')
+
     if (!this.registered[name]) {
       this.registered[name] = []
     }
@@ -50,25 +47,8 @@ const hooks = (logger): Hooks => ({
     return this
   },
 
-  /**
-   * Call a bud hook.
-   */
-  call: function (name: string, param?: any): void {
-    const bud = this.bud
-    const logger = this.logger
-    this.called.push(name)
-
-    if (this.registered[name]) {
-      this.registered[name].forEach(function (hook) {
-        param ? hook(param, bud) : hook.fn(bud)
-      })
-    }
-  },
-
   filter: function (name: string, value: any): any {
-    const logger = this.logger
-
-    this.called.push(name)
+    this.logger.info({name, value}, `${name} filter defined`)
 
     if (!this.registered[name]) {
       return value

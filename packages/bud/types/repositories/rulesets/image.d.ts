@@ -1,8 +1,5 @@
-/// <reference types="webpack" />
 import type { Bud } from '../types';
-declare const image: (bud: Bud) => {
-    test: any;
-    use: import("webpack").RuleSetRule[];
-};
+import { WebpackRule } from '@roots/bud-typings';
+declare const image: (bud: Bud) => WebpackRule;
 export { image };
 //# sourceMappingURL=image.d.ts.map

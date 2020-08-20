@@ -23,13 +23,6 @@ export type Hooks = {
   registered: RegisteredHooks
 
   /**
-   * ## bud.hooks.called
-   *
-   * List of called hooks.
-   */
-  called: string[]
-
-  /**
    * ## bud.hooks.make
    *
    * Makes a new hook.
@@ -49,13 +42,6 @@ export type Hooks = {
    * Register a function to be called with a hook.
    */
   on: (name: string, callback: (any) => any) => void
-
-  /**
-   * ## bud.hooks.call
-   *
-   * Call functions registered on a hook.
-   */
-  call: (name: string, params?: any) => void
 
   /**
    * ## bud.hooks.filter

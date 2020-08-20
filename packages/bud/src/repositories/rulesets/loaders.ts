@@ -1,10 +1,5 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
-/**
- * Style loaders
- *
- * @type {object} loaders
- */
 const loaders = {
   babel: require.resolve('babel-loader'),
   css: require.resolve('css-loader'),

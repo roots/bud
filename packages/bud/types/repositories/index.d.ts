@@ -3,25 +3,17 @@ export declare const repositories: {
     features: {
         dashboard: boolean;
         clean: boolean;
-        image: boolean;
-        font: boolean;
         manifest: boolean;
-        optimize: boolean;
-        terser: boolean;
-        vendor: boolean;
-        splitting: boolean;
-        minify: boolean;
         postCss: boolean;
         browserSync: boolean;
-        dependencyManifest: boolean;
-        dump: boolean;
         hash: boolean;
         hot: boolean;
-        inlineManifest: boolean;
+        minify: boolean;
+        splitting: boolean;
+        vendor: boolean;
+        runtimeManifest: boolean;
         overlay: boolean;
         sourceMap: boolean;
-        translate: boolean;
-        uglify: boolean;
         watch: boolean;
         debug: boolean;
     };
@@ -39,8 +31,20 @@ export declare const repositories: {
             hashed: string;
             default: string;
         };
-        inlineManifest: {
-            name: string;
+        optimization: {
+            runtimeChunk: {
+                name: (entrypoint: any) => string;
+            };
+            splitChunks: {
+                cacheGroup: {
+                    vendor: {
+                        test: RegExp;
+                        name: string;
+                        chunks: string;
+                        priority: number;
+                    };
+                };
+            };
         };
         patterns: any[];
         postCss: {};
@@ -74,26 +78,6 @@ export declare const repositories: {
             };
             cache: boolean;
             parallel: boolean;
-        };
-        uglify: {
-            cache: boolean;
-            chunkFilter: ({ name }: {
-                name: any;
-            }) => boolean;
-            extractComments: boolean;
-            parallel: boolean;
-            uglifyOptions: {
-                output: {
-                    beautify: boolean;
-                };
-                compress: boolean;
-                mangle: {
-                    toplevel: boolean;
-                };
-            };
-        };
-        vendor: {
-            name: string;
         };
         stats: {
             version: boolean;
@@ -160,11 +144,11 @@ export declare const repositories: {
         vendor: RegExp;
         image: RegExp;
     };
-    rules: ((bud: import("./types").Bud) => any)[];
+    rules: ((bud: import("./types").Bud) => import("webpack").RuleSetRule)[];
     uses: import("./rulesets/uses").UsesHash;
     plugins: import("./plugins/types").PluginsRepo;
     presets: {
-        postCss: {
+        postcss: {
             config: {
                 plugins: any[];
             };

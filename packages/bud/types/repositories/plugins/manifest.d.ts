@@ -1,8 +1,8 @@
 declare const manifest: () => {
     setOptions: () => {
         publicPath: any;
-        filename: string;
-        writeToFileEmit: boolean;
+        filename: any;
+        writeToFileEmit: any;
     };
     make: () => any;
     when: () => any;

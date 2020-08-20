@@ -1,1 +1,0 @@
-{"version":3,"file":"inlineManifest.d.ts","sourceRoot":"","sources":["../../src/api/inlineManifest.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAC,GAAG,EAAC,MAAM,SAAS,CAAA;AAEhC,aAAK,cAAc,GAAG,CAAC,IAAI,CAAC,EAAE;IAAC,OAAO,EAAE,OAAO,CAAC;IAAC,IAAI,EAAE,MAAM,CAAA;CAAC,KAAK,GAAG,CAAA;AAEtE,QAAA,MAAM,cAAc,EAAE,cAKrB,CAAA;AAED,OAAO,EAAC,cAAc,EAAC,CAAA;AACvB,YAAY,EAAC,cAAc,EAAC,CAAA"}

@@ -284,10 +284,10 @@ export interface Bud extends Loose {
      * Inline common scripts.
      *
      * ```js
-     * bud.inlineManifest('runtime')
+     * bud.runtimeManifest('runtime')
      * ```
      */
-    inlineManifest: Api.InlineManifest;
+    runtimeManifest: Api.RuntimeManifest;
     /**
      * ## bud.map
      *

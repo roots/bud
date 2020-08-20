@@ -1,11 +1,8 @@
 import TerserPlugin from 'terser-webpack-plugin';
-declare const terser: () => {
-    setOptions: () => {
-        parallel: boolean;
-        terserOptions: {
-            ecma: number;
-        };
-    };
+import type { Bud } from './types';
+declare const terser: (bud: Bud) => {
+    bud: Bud;
+    setOptions: () => any;
     make: () => TerserPlugin;
     when: () => any;
 };

@@ -37,7 +37,7 @@ test('merges option', t => {
 test('generates expected webpack.module.rules[] use entry', t => {
   const config = bud.config()
   t.deepEqual(config.module.rules[0].use[0].options, {
-    cacheCompression: false,
+    cacheCompression: true,
     cacheDirectory: true,
     plugins: [require('babel-plugin-macros')],
     presets: [

@@ -1,11 +1,14 @@
 const test = require('ava')
 const {bud} = require('@roots/bud')
 
-test('has expected defaults', t => {
+test('has expected babel defaults', t => {
   t.deepEqual(bud.options.get('babel'), {
     plugins: [],
     presets: [],
   })
+})
+
+test('has expected browserSync defaults', t => {
   t.deepEqual(bud.options.get('browserSync'), {
     host: 'localhost',
     online: false,
@@ -13,33 +16,74 @@ test('has expected defaults', t => {
     port: 3000,
     proxy: 'localhost',
   })
+})
+
+test('has expected copy defaults', t => {
   t.deepEqual(bud.options.get('copy'), {
     patterns: [],
   })
-  t.deepEqual(bud.options.get('dev.headers'), {
+})
+
+test('has expected devServer defaults', t => {
+  t.deepEqual(bud.options.get('devServer.headers'), {
     'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
     'Access-Control-Allow-Origin': '*',
   })
+})
+
+test('has expected devtool defaults', t => {
   t.deepEqual(bud.options.get('devtool'), 'source-map')
+})
+
+test('has expected resolve defaults', t => {
   t.deepEqual(bud.options.get('resolve'), {
     alias: false,
     extensions: ['.css', '.js', '.json', '.svg'],
   })
+})
+
+test('has expected filenameTemplate defaults', t => {
   t.deepEqual(bud.options.get('filenameTemplate'), {
     default: '[name]',
     hashed: '[name].[hash:8]',
   })
-  t.deepEqual(bud.options.get('inlineManifest'), {
-    name: 'runtime',
+})
+
+test('has expected optimization.runtimeChunk defaults', t => {
+  t.truthy(bud.options.get('optimization.runtimeChunk'))
+})
+
+test('has expected optimization.splitChunks defaults', t => {
+  t.deepEqual(bud.options.get('optimization.splitChunks'), {
+    cacheGroup: {
+      vendor: {
+        test: /node_modules/,
+        name: 'vendor.js',
+        chunks: 'all',
+        priority: -20,
+      },
+    },
   })
+})
+
+test('has expected postcss defaults', t => {
   t.deepEqual(bud.options.get('postCss'), {
     plugins: [],
   })
+})
+
+test('has expected splitting defaults', t => {
   t.deepEqual(bud.options.get('splitting'), {
     maxChunks: null,
   })
+})
+
+test('has expected target defaults', t => {
   t.deepEqual(bud.options.get('target'), 'web')
+})
+
+test('has expected terser defaults', t => {
   t.deepEqual(bud.options.get('terser'), {
     cache: true,
     parallel: true,
@@ -63,25 +107,4 @@ test('has expected defaults', t => {
       },
     },
   })
-  t.deepEqual(bud.options.get('uglify').cache, true)
-  t.truthy(bud.options.get('uglify').chunkFilter)
-  t.deepEqual(bud.options.get('uglify').extractComments, false)
-  t.deepEqual(bud.options.get('uglify').parallel, true)
-  t.deepEqual(bud.options.get('uglify').uglifyOptions, {
-    output: {
-      beautify: false,
-    },
-    compress: false,
-    mangle: {
-      toplevel: true,
-    },
-  })
-  t.deepEqual(bud.options.get('vendor'), {
-    name: 'vendor',
-  })
-})
-
-test('sets value', t => {
-  bud.options.set('foo', 'bar')
-  t.deepEqual(bud.options.get('foo'), 'bar')
 })

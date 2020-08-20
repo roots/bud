@@ -13,7 +13,8 @@ import {devtool} from './devtool'
 import {glob} from './glob'
 import {hash} from './hash'
 import {hot} from './hot'
-import {inlineManifest} from './inlineManifest'
+import {manifest} from './manifest'
+import {runtimeManifest} from './runtimeManifest'
 import {map} from './map'
 import {mini} from './mini'
 import {postCss} from './postcss'
@@ -49,7 +50,7 @@ export const api: Api = {
   glob,
   hash,
   hot,
-  inlineManifest,
+  manifest,
   map,
   mini,
   postCss,
@@ -57,6 +58,7 @@ export const api: Api = {
   project,
   projectPath,
   publicPath,
+  runtimeManifest,
   splitting,
   src,
   srcPath,

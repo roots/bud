@@ -1,9 +1,9 @@
 import { Bud } from '../..';
-import type { RuleSetRule } from 'webpack';
+import type { WebpackRule } from '@roots/bud-typings';
 /**
  * Module Rule
  */
-declare type Use = (bud: Bud) => RuleSetRule;
+declare type Use = (bud: Bud) => WebpackRule;
 interface UsesHash {
     [key: string]: Use;
 }

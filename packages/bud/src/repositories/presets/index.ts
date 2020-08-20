@@ -7,7 +7,7 @@ import babelWp from './babel/preset-wp'
  * Preset configurations for common webpack plugins.
  */
 const presets = {
-  postCss: {
+  postcss: {
     config: postCss,
     file: path.join(__dirname, 'repositories/presets/postcss'),
   },

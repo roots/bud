@@ -13,6 +13,7 @@ import type {
   Configuration as WebpackConfig,
   ConfigurationFactory as WebpackConfigFactory,
   RuleSetRule as WebpackRule,
+  Options as WebpackOptions,
 } from 'webpack'
 
 export type WebpackDevServer = WebpackConfig['devServer']
@@ -25,4 +26,4 @@ export type WebpackOutput = WebpackConfig['output']
 export type WebpackPlugins = WebpackConfig['plugins']
 export type WebpackResolve = WebpackConfig['resolve']
 export type WebpackTarget = WebpackConfig['target']
-export type {WebpackConfig, WebpackConfigFactory, WebpackRule}
+export type {WebpackConfig, WebpackConfigFactory, WebpackOptions, WebpackRule}

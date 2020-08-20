@@ -1,9 +1,13 @@
-import type {Bud, Devtool, WebpackOptions} from './types'
+import type {Bud} from './types'
+import type {WebpackOptions} from '@roots/bud-typings'
 
-const devtool: Devtool = function (devtool: WebpackOptions.Devtool): Bud {
+type Devtool = (devtool: WebpackOptions.Devtool) => Bud
+
+const devtool: Devtool = function (devtool) {
   this.options.set('devtool', devtool)
 
   return this
 }
 
 export {devtool}
+export type {Devtool}

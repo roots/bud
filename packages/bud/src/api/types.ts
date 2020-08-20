@@ -2,16 +2,12 @@ import {Bud} from '..'
 export {Bud} from '..'
 import type {BrowserSyncOptions} from '@roots/bud-typings'
 
-import type {
-  Configuration as WebpackConfiguration,
-  Options as WebpackOptions,
-} from 'webpack'
-export type {WebpackConfiguration, WebpackOptions}
+import type {Configuration as WebpackConfiguration} from 'webpack'
+export type {WebpackConfiguration}
 
 import {Options as DependencyExtractionOptions} from '@wordpress/dependency-extraction-webpack-plugin'
 export type {DependencyExtractionOptions}
 
-export type Devtool = (devtool: WebpackOptions.Devtool) => Bud
 export type Dist = (path?: string) => string
 export type Dump = (enabled: boolean) => Bud
 export type PathSetter = (path: string) => Bud
@@ -40,7 +36,6 @@ export type Splitting = (enabled?: boolean) => Bud
 export type Src = (path?: string) => string
 export type Sync = (options: SyncOptions) => Bud
 export type Target = (target: string) => Bud
-export type Terser = (options: {enable?: boolean; terser?: any}) => Bud
 export type Watch = (options: {paths: string[]; enabled: boolean}) => Bud
 
 import type {Alias} from './alias'
@@ -64,8 +59,17 @@ export type {Config}
 import type {Copy} from './copy'
 export type {Copy}
 
-import type {InlineManifest} from './inlineManifest'
-export type {InlineManifest}
+import type {Devtool} from './devtool'
+export type {Devtool}
+
+import type {Manifest} from './manifest'
+export type {Manifest}
+
+import type {RuntimeManifest} from './runtimeManifest'
+export type {RuntimeManifest}
+
+import type {Terser} from './terser'
+export type {Terser}
 
 import type {UseExtension} from './use'
 export type {UseExtension}
@@ -88,20 +92,21 @@ export type Api = {
   glob: Glob
   hash: Hash
   hot: Hot
-  project: Project
-  publicPath: PathSetter
-  splitting: Splitting
-  terser: Terser
-  inlineManifest: InlineManifest
+  manifest: Manifest
   map: SourceMap
   mini: Mini
   postCss: PostCss
   preset: Preset
   projectPath: PathSetter
+  project: Project
+  publicPath: PathSetter
+  runtimeManifest: RuntimeManifest
+  splitting: Splitting
   src: Src
   srcPath: PathSetter
   sync: Sync
   target: Target
+  terser: Terser
   use: UseExtension
   vendor: Vendor
   watch: Watch

@@ -24,7 +24,6 @@ var MiniCssExtractPlugin = _interopDefault(require('mini-css-extract-plugin'));
 var ManifestPlugin = _interopDefault(require('webpack-manifest-plugin'));
 var TerserPlugin = _interopDefault(require('terser-webpack-plugin'));
 var WriteFilePlugin = _interopDefault(require('write-file-webpack-plugin'));
-var UglifyJsPlugin = _interopDefault(require('uglifyjs-webpack-plugin'));
 var React = require('react');
 var React__default = _interopDefault(React);
 var ink = require('ink');
@@ -169,10 +168,19 @@ var hot = function (options) {
     return this;
 };
 
-var inlineManifest = function (args) {
+var manifest = function (options) {
+    var _a, _b, _c, _d;
+    this.features.set('manifest', (_a = options === null || options === void 0 ? void 0 : options.enabled) !== null && _a !== void 0 ? _a : true);
+    this.options.set('manifest.name', (_b = options === null || options === void 0 ? void 0 : options.name) !== null && _b !== void 0 ? _b : 'manifest.json');
+    this.options.set('manifest.publicPath', (_c = options === null || options === void 0 ? void 0 : options.publicPath) !== null && _c !== void 0 ? _c : null);
+    this.options.set('manifest.writeToFileEmit', (_d = options === null || options === void 0 ? void 0 : options.writeToFileEmit) !== null && _d !== void 0 ? _d : true);
+    return this;
+};
+
+var runtimeManifest = function (args) {
     var _a, _b;
-    this.features.set('inlineManifest', (_a = args === null || args === void 0 ? void 0 : args.enabled) !== null && _a !== void 0 ? _a : true);
-    this.options.set('inlineManifest.name', (_b = args === null || args === void 0 ? void 0 : args.name) !== null && _b !== void 0 ? _b : 'runtime');
+    this.features.set('runtimeChunk', (_a = args === null || args === void 0 ? void 0 : args.enabled) !== null && _a !== void 0 ? _a : true);
+    this.options.set('optimization.runtimeChunk.name', (_b = args === null || args === void 0 ? void 0 : args.name) !== null && _b !== void 0 ? _b : this.options.get('optimization.runtimeChunk.name'));
     return this;
 };
 
@@ -245,17 +253,14 @@ var sync = function (_a) {
 };
 
 var target = function (target) {
-    this.hooks.call('pre_target', target);
-    this.options.set('target', this.hooks.filter('filter_target_option', target));
-    this.hooks.call('post_target');
+    this.options.set('target', this.hooks.filter('api.target', target));
     return this;
 };
 
 var terser = function (options) {
-    var _a;
-    this.logger.info(tslib.__assign({ name: 'bud.api', "function": 'bud.watch' }, options), "bud.watch called");
-    this.features.set('terser', (_a = options === null || options === void 0 ? void 0 : options.enable) !== null && _a !== void 0 ? _a : true);
-    (options === null || options === void 0 ? void 0 : options.terser) && this.options.set('terser', options.terser);
+    if (options) {
+        this.options.set('terser', tslib.__assign(tslib.__assign({}, this.options.get('terser')), options));
+    }
     return this;
 };
 
@@ -267,9 +272,10 @@ var use = function (plugins) {
     return this;
 };
 
-var vendor = function (name) {
+var vendor = function (options) {
     this.features.enable('vendor');
-    this.options.set('vendor', tslib.__assign(tslib.__assign({}, this.options.get('vendor')), { name: name !== null && name !== void 0 ? name : 'vendor' }));
+    options &&
+        this.options.set('optimization.splitChunks.cacheGroup.vendor', tslib.__assign(tslib.__assign({}, this.options.get('optimization.splitChunks.cacheGroup.vendor')), options));
     return this;
 };
 
@@ -298,7 +304,7 @@ var api = {
     glob: glob,
     hash: hash,
     hot: hot,
-    inlineManifest: inlineManifest,
+    manifest: manifest,
     map: map,
     mini: mini,
     postCss: postCss,
@@ -306,6 +312,7 @@ var api = {
     project: project,
     projectPath: projectPath,
     publicPath: publicPath,
+    runtimeManifest: runtimeManifest,
     splitting: splitting,
     src: src,
     srcPath: srcPath,
@@ -323,10 +330,6 @@ var hooks = function (logger) { return ({
      * Registered hooks.
      */
     registered: {},
-    /**
-     * Called hooks.
-     */
-    called: [],
     /**
      * Init hooks.
      */
@@ -354,28 +357,15 @@ var hooks = function (logger) { return ({
      * Register a function as a bud hook.
      */
     on: function (name, callback) {
+        this.logger.info({ name: name, callback: callback.name }, 'filter callback defined');
         if (!this.registered[name]) {
             this.registered[name] = [];
         }
         this.registered[name].push(callback);
         return this;
     },
-    /**
-     * Call a bud hook.
-     */
-    call: function (name, param) {
-        var bud = this.bud;
-        var logger = this.logger;
-        this.called.push(name);
-        if (this.registered[name]) {
-            this.registered[name].forEach(function (hook) {
-                param ? hook(param, bud) : hook.fn(bud);
-            });
-        }
-    },
     filter: function (name, value) {
-        var logger = this.logger;
-        this.called.push(name);
+        this.logger.info({ name: name, value: value }, name + " filter defined");
         if (!this.registered[name]) {
             return value;
         }
@@ -524,30 +514,25 @@ var configs = function (paths) {
 };
 
 var features = {
+    /**
+     * Default enabled
+     */
     dashboard: true,
     clean: true,
-    image: true,
-    font: true,
     manifest: true,
-    optimize: true,
-    terser: true,
-    vendor: true,
-    splitting: true,
-    minify: true,
     postCss: true,
     /**
      * Opt-in
      */
     browserSync: false,
-    dependencyManifest: false,
-    dump: false,
     hash: false,
     hot: false,
-    inlineManifest: false,
+    minify: false,
+    splitting: true,
+    vendor: false,
+    runtimeChunk: false,
     overlay: false,
     sourceMap: false,
-    translate: false,
-    uglify: false,
     watch: false,
     debug: false,
 };
@@ -572,29 +557,6 @@ var postCss$1 = function (configs) {
     return configs.has('postCss') ? configs.require('postCss') : fallback;
 };
 var target$1 = 'web';
-var terser$1 = {
-    terserOptions: {
-        parse: {
-            ecma: 8,
-        },
-        compress: {
-            ecma: 5,
-            warnings: false,
-            comparisons: false,
-            inline: 2,
-        },
-        mangle: {
-            safari10: true,
-        },
-        output: {
-            ecma: 5,
-            comments: false,
-            ascii_only: true,
-        },
-    },
-    cache: true,
-    parallel: true,
-};
 /**
  * Options container.
  */
@@ -612,8 +574,23 @@ var options = {
         hashed: '[name].[hash:8]',
         "default": '[name]',
     },
-    inlineManifest: {
-        name: 'runtime',
+    manifest: {
+        name: 'vendor.js',
+    },
+    optimization: {
+        runtimeChunk: {
+            name: function (entrypoint) { return "runtime/" + entrypoint.name; },
+        },
+        splitChunks: {
+            cacheGroup: {
+                vendor: {
+                    test: /node_modules/,
+                    name: 'vendor.js',
+                    chunks: 'all',
+                    priority: -20,
+                },
+            },
+        },
     },
     patterns: [],
     postCss: {},
@@ -625,27 +602,28 @@ var options = {
         maxChunks: null,
     },
     target: target$1,
-    terser: terser$1,
-    uglify: {
-        cache: true,
-        chunkFilter: function (_a) {
-            var name = _a.name;
-            return name === 'vendor';
-        },
-        extractComments: false,
-        parallel: true,
-        uglifyOptions: {
-            output: {
-                beautify: false,
+    terser: {
+        terserOptions: {
+            parse: {
+                ecma: 8,
             },
-            compress: false,
+            compress: {
+                ecma: 5,
+                warnings: false,
+                comparisons: false,
+                inline: 2,
+            },
             mangle: {
-                toplevel: true,
+                safari10: true,
+            },
+            output: {
+                ecma: 5,
+                comments: false,
+                ascii_only: true,
             },
         },
-    },
-    vendor: {
-        name: 'vendor',
+        cache: true,
+        parallel: true,
     },
     stats: {
         version: true,
@@ -847,13 +825,13 @@ var miniCssExtract = function () { return ({
     },
 }); };
 
-var manifest = function () { return ({
+var manifest$1 = function () { return ({
     setOptions: function () {
-        var _a;
+        var _a, _b, _c, _d;
         return {
-            publicPath: (_a = this.bud.paths.public) !== null && _a !== void 0 ? _a : '/',
-            filename: 'manifest.json',
-            writeToFileEmit: true,
+            publicPath: (_b = (_a = this.bud.options.get('manifest.publicPath')) !== null && _a !== void 0 ? _a : this.bud.paths.public) !== null && _b !== void 0 ? _b : '/',
+            filename: (_c = this.bud.options.get('manifest.name')) !== null && _c !== void 0 ? _c : 'manifest.json',
+            writeToFileEmit: (_d = this.bud.options.get('manifest.writeToFileEmit')) !== null && _d !== void 0 ? _d : true,
         };
     },
     make: function () {
@@ -876,20 +854,17 @@ var provide = function () { return ({
     },
 }); };
 
-var terser$2 = function () { return ({
+var terser$1 = function (bud) { return ({
+    bud: bud,
     setOptions: function () {
-        return {
-            parallel: true,
-            terserOptions: {
-                ecma: 6,
-            },
-        };
+        var terser = bud.options.get('terser');
+        return terser;
     },
     make: function () {
         return new TerserPlugin(this.options);
     },
     when: function () {
-        return this.bud.features.enabled('terser') && this.bud.features.enabled('minify');
+        return this.bud.features.enabled('minify');
     },
 }); };
 
@@ -910,11 +885,11 @@ var adapters = [
     define,
     fixStyleOnlyEntries,
     hotModuleReplacement,
-    manifest,
+    manifest$1,
     miniCssExtract,
     provide,
     limitChunkCount,
-    terser$2,
+    terser$1,
     writeFile,
 ];
 
@@ -952,7 +927,7 @@ var _a;
  * Preset configurations for common webpack plugins.
  */
 var presets = (_a = {
-        postCss: {
+        postcss: {
             config: postCss$2,
             file: path__default.join(__dirname, 'repositories/presets/postcss'),
         }
@@ -964,73 +939,98 @@ var presets = (_a = {
     _a);
 
 var uses = {
-    babel: function (bud) { return ({
-        loader: bud.loaders.get('babel'),
-        options: tslib.__assign({ cacheDirectory: true, cacheCompression: bud.inProduction }, bud.options.get('babel')),
-    }); },
+    babel: function (bud) {
+        return bud.hooks.filter('webpack.module.babel', {
+            loader: bud.hooks.filter('webpack.module.babel.loader', bud.loaders.get('babel')),
+            options: bud.hooks.filter('webpack.module.babel.options', tslib.__assign({ cacheDirectory: bud.hooks.filter('webpack.module.babel.options.cacheDirectory', true), cacheCompression: bud.hooks.filter('webpack.module.babel.options.cacheCompression', true) }, bud.options.get('babel'))),
+        });
+    },
     file: function (bud) { return ({
         loader: bud.loaders.get('file'),
         options: {
             name: '[path][name].[ext]',
         },
     }); },
-    miniCss: function (bud) { return ({
-        loader: bud.loaders.get('miniCss'),
-        options: {
-            hot: bud.features.enabled('hot'),
-        },
-    }); },
-    css: function (bud) { return ({
-        loader: bud.loaders.get('css'),
-    }); },
-    resolveUrl: function (bud) { return ({
-        loader: bud.loaders.get('resolveUrl'),
-        options: {
-            sourceMap: bud.features.enabled('sourceMap'),
-            debug: true,
-        },
-    }); },
-    postCss: function (bud) { return ({
-        loader: bud.loaders.get('postCss'),
-        options: tslib.__assign({ ident: 'postcss' }, bud.options.get('postCss')),
-    }); },
-    style: function (bud) { return ({
-        loader: bud.loaders.get('style'),
-    }); },
+    miniCss: function (bud) {
+        return bud.hooks.filter('webpack.modules.miniCss', {
+            loader: bud.hooks.filter('webpack.modules.miniCss.loader', bud.loaders.get('miniCss')),
+            options: bud.hooks.filter('webpack.modules.miniCss.options', {
+                hot: bud.hooks.filter('webpack.modules.miniCss.loader.hot', bud.features.enabled('hot')),
+            }),
+        });
+    },
+    css: function (bud) {
+        return bud.hooks.filter('webpack.modules.css', {
+            loader: bud.hooks.filter('webpack.modules.css.loader', bud.loaders.get('css')),
+        });
+    },
+    resolveUrl: function (bud) {
+        return bud.hooks.filter('webpack.modules.resolveurl', {
+            loader: bud.hooks.filter('webpack.modules.resolveurl.loader', bud.loaders.get('resolveUrl')),
+            options: bud.hooks.filter('webpack.module.resolveurl.options', {
+                sourceMap: bud.features.enabled('sourceMap'),
+                debug: true,
+            }),
+        });
+    },
+    postCss: function (bud) {
+        return bud.hooks.filter('webpack.module.postcss', {
+            loader: bud.hooks.filter('webpack.module.postcss.loader', bud.loaders.get('postCss')),
+            options: bud.hooks.filter('webpack.module.postcss.options', tslib.__assign({ ident: bud.hooks.filter('webpack.module.postcss.options.ident', 'postcss') }, bud.options.get('postCss'))),
+        });
+    },
+    style: function (bud) {
+        return bud.hooks.filter('webpack.module.style', {
+            loader: bud.hooks.filter('webpack.module.style.loader', bud.loaders.get('style')),
+        });
+    },
 };
 
-var babel$2 = function (bud) { return ({
-    test: bud.patterns.get('js'),
-    exclude: bud.patterns.get('vendor'),
-    use: [uses.babel(bud)],
-}); };
+var js = function (bud) {
+    return bud.hooks.filter('webpack.module.rules.js', {
+        test: bud.hooks.filter('webpack.module.rules.js.test', bud.patterns.get('js')),
+        exclude: bud.hooks.filter('webpack.module.rules.js.exclude', bud.patterns.get('vendor')),
+        use: bud.hooks.filter('webpack.module.rules.js.use', [uses.babel(bud)]),
+    });
+};
 
-var css = function (bud) { return ({
-    test: bud.patterns.get('css'),
-    exclude: bud.patterns.get('vendor'),
-    use: [uses.miniCss(bud), uses.css(bud), uses.resolveUrl(bud), uses.postCss(bud)],
-}); };
+var css = function (bud) {
+    return bud.hooks.filter('webpack.module.rules.css', {
+        test: bud.hooks.filter('webpack.module.rules.css.test', bud.patterns.get('css')),
+        exclude: bud.hooks.filter('webpack.module.rules.css.exclude', bud.patterns.get('vendor')),
+        use: bud.hooks.filter('webpack.module.rules.css.use', [
+            uses.miniCss(bud),
+            uses.css(bud),
+            uses.resolveUrl(bud),
+            uses.postCss(bud),
+        ]),
+    });
+};
 
-var font = function (bud) { return ({
-    test: bud.patterns.get('font'),
-    use: [uses.file(bud)],
-}); };
+var font = function (bud) {
+    return bud.hooks.filter('webpack.module.rules.font', {
+        test: bud.hooks.filter('bud.module.rules.font.test', bud.patterns.get('font')),
+        use: bud.hooks.filter('bud.module.rules.font.use', [uses.file(bud)]),
+    });
+};
 
-var image = function (bud) { return ({
-    test: bud.patterns.get('image'),
-    use: [uses.file(bud)],
-}); };
+var image = function (bud) {
+    return bud.hooks.filter('webpack.module.rules.image', {
+        test: bud.hooks.filter('webpack.module.rules.image.test', bud.patterns.get('image')),
+        use: bud.hooks.filter('webpack.module.rules.image.use', [uses.file(bud)]),
+    });
+};
 
-var svg = function (bud) { return ({
-    test: bud.patterns.get('svg'),
-    use: [bud.loaders.get('svgr'), bud.loaders.get('url')],
-}); };
+var svg = function (bud) {
+    return bud.hooks.filter('webpack.module.rules.svg', {
+        test: bud.hooks.filter('webpack.module.rules.svg.test', bud.patterns.get('svg')),
+        use: bud.hooks.filter('webpack.module.rules.svg.use', [
+            bud.loaders.get('svgr'),
+            bud.loaders.get('url'),
+        ]),
+    });
+};
 
-/**
- * Style loaders
- *
- * @type {object} loaders
- */
 var loaders = {
     babel: require.resolve('babel-loader'),
     css: require.resolve('css-loader'),
@@ -1043,10 +1043,7 @@ var loaders = {
     url: require.resolve('url-loader'),
 };
 
-/**
- * Rules
- */
-var rules = [babel$2, css, font, image, svg];
+var rules = [js, css, font, image, svg];
 
 var repositories = {
     configs: configs,
@@ -1108,32 +1105,26 @@ var rules$1 = function (bud) {
  */
 var optimization = function (bud) {
     return bud.hooks.filter('webpack.optimization', {
-        optimization: {
-            runtimeChunk: bud.hooks.filter('webpack.optimization.runtimeChunk', bud.features.enabled('inlineManifest')
-                ? {
-                    name: function (entrypoint) { return "runtime/" + entrypoint.name; },
-                }
-                : false),
-            splitChunks: bud.hooks.filter('webpack.optimization.splitChunks', bud.features.enabled('vendor')
-                ? {
+        optimization: tslib.__assign(tslib.__assign({}, (bud.features.enabled('runtimeManifest')
+            ? {
+                runtimeChunk: bud.hooks.filter('webpack.optimization.runtimeChunk', bud.options.get('optimization.runtimeChunk.name')
+                    ? {
+                        name: function (entrypoint) { return "runtime/" + entrypoint.name; },
+                    }
+                    : false),
+            }
+            : {})), { splitChunks: bud.hooks.filter('webpack.optimization.splitChunks', bud.features.enabled('splitChunks')
+                ? bud.hooks.filter('webpack.optimization.splitChunks.cacheGroups', {
                     cacheGroups: {
                         vendor: {
-                            test: /node_modules/,
-                            name: bud.options.get('vendor.name'),
-                            chunks: 'all',
-                            priority: -20,
+                            test: bud.hooks.filter('webpack.optimization.splitChunks.cacheGroups.test', bud.options.get('optimization.splitChunks.cacheGroups.test')),
+                            name: bud.hooks.filter('webpack.optimization.splitChunks.cacheGroups.name', bud.options.get('optimization.splitChunks.cacheGroups.name')),
+                            chunks: bud.hooks.filter('webpack.optimization.splitChunks.cacheGroups.chunks', bud.options.get('optimization.splitChunks.cacheGroups.chunks')),
+                            priority: bud.hooks.filter('webpack.optimization.splitChunks.cacheGroups.priority', bud.options.get('optimization.splitChunks.cacheGroups.priority')),
                         },
                     },
-                }
-                : false),
-            minimize: bud.hooks.filter('webpack.optimization.minimize', bud.features.enabled('minify')),
-            minimizer: bud.hooks.filter('webpack.optimization.minimizer', [
-                new UglifyJsPlugin(bud.options.get('uglify')),
-            ]),
-            removeAvailableModules: bud.hooks.filter('webpack.optimization.removeAvailableModules', false),
-            removeEmptyChunks: bud.hooks.filter('webpack.optimization.removeEmptyChunks', false),
-            moduleIds: bud.hooks.filter('webpack.optimization.moduleIds', 'hashed'),
-        },
+                })
+                : false), minimize: bud.hooks.filter('webpack.optimization.minimize', bud.features.enabled('minify')), removeAvailableModules: bud.hooks.filter('webpack.optimization.removeAvailableModules', false), removeEmptyChunks: bud.hooks.filter('webpack.optimization.removeEmptyChunks', false), moduleIds: bud.hooks.filter('webpack.optimization.moduleIds', 'hashed') }),
     });
 };
 
@@ -1167,7 +1158,9 @@ var plugins$1 = function (bud) {
     return bud.hooks.filter('webpack.plugins', {
         plugins: bud.adapters
             .entries()
-            .map(function (adapter) { return bud.adapters.controller(bud).build(adapter); })
+            .map(function (adapter) {
+            return bud.hooks.filter("webpack.plugins." + adapter.name, bud.adapters.controller(bud).build(adapter));
+        })
             .filter(function (adapter) { return adapter; }),
     });
 };

@@ -27,30 +27,6 @@ const postCss: (configs) => PostCssConfiguration = function (configs) {
 
 const target: Target = 'web'
 
-const terser = {
-  terserOptions: {
-    parse: {
-      ecma: 8,
-    },
-    compress: {
-      ecma: 5,
-      warnings: false,
-      comparisons: false,
-      inline: 2,
-    },
-    mangle: {
-      safari10: true,
-    },
-    output: {
-      ecma: 5,
-      comments: false,
-      ascii_only: true,
-    },
-  },
-  cache: true,
-  parallel: true,
-}
-
 /**
  * Options container.
  */
@@ -60,7 +36,8 @@ const options = {
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
-      'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
+      'Access-Control-Allow-Headers':
+        'X-Requested-With, content-type, Authorization',
     },
   },
   devtool: 'source-map',
@@ -68,8 +45,23 @@ const options = {
     hashed: '[name].[hash:8]',
     default: '[name]',
   },
-  inlineManifest: {
-    name: 'runtime',
+  manifest: {
+    name: 'vendor.js',
+  },
+  optimization: {
+    runtimeChunk: {
+      name: entrypoint => `runtime/${entrypoint.name}`,
+    },
+    splitChunks: {
+      cacheGroup: {
+        vendor: {
+          test: /node_modules/,
+          name: 'vendor.js',
+          chunks: 'all',
+          priority: -20,
+        },
+      },
+    },
   },
   patterns: [],
   postCss: {},
@@ -81,24 +73,28 @@ const options = {
     maxChunks: null,
   },
   target,
-  terser,
-  uglify: {
-    cache: true,
-    chunkFilter: ({name}) => name === 'vendor',
-    extractComments: false,
-    parallel: true,
-    uglifyOptions: {
-      output: {
-        beautify: false,
+  terser: {
+    terserOptions: {
+      parse: {
+        ecma: 8,
       },
-      compress: false,
+      compress: {
+        ecma: 5,
+        warnings: false,
+        comparisons: false,
+        inline: 2,
+      },
       mangle: {
-        toplevel: true,
+        safari10: true,
+      },
+      output: {
+        ecma: 5,
+        comments: false,
+        ascii_only: true,
       },
     },
-  },
-  vendor: {
-    name: 'vendor',
+    cache: true,
+    parallel: true,
   },
   stats: {
     version: true,
