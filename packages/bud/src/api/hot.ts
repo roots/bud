@@ -1,5 +1,6 @@
 import type {Bud, Hot} from './types'
 import chokidar from 'chokidar'
+import { bud } from '..'
 
 const hot: Hot = function (
   this: Bud,
@@ -18,7 +19,8 @@ const hot: Hot = function (
     chokidar?: any
   },
 ): Bud {
-  this.features.enable('hot', options?.enabled ?? true)
+  this.features.set('hot', options?.enabled ?? this.inDevelopment)
+
   options?.watch &&
     this.options.set('watch', [...this.options.get('watch'), ...options.watch])
 

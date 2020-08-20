@@ -9,7 +9,12 @@ export {BabelTransformOptions}
 import type {Options as BrowserSyncOptions} from 'browser-sync'
 export type {BrowserSyncOptions}
 
-import type {Configuration as WebpackConfig, RuleSetRule} from 'webpack'
+import type {
+  Configuration as WebpackConfig,
+  ConfigurationFactory as WebpackConfigFactory,
+  RuleSetRule as WebpackRule,
+} from 'webpack'
+
 export type WebpackDevServer = WebpackConfig['devServer']
 export type WebpackEntry = WebpackConfig['entry']
 export type WebpackExternals = WebpackConfig['externals']
@@ -20,4 +25,4 @@ export type WebpackOutput = WebpackConfig['output']
 export type WebpackPlugins = WebpackConfig['plugins']
 export type WebpackResolve = WebpackConfig['resolve']
 export type WebpackTarget = WebpackConfig['target']
-export type {RuleSetRule, WebpackConfig}
+export type {WebpackConfig, WebpackConfigFactory, WebpackRule}

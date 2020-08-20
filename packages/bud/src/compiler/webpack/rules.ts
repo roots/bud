@@ -1,7 +1,7 @@
 import type {Bud} from '../..'
-import type {WebpackModule, RuleSetRule} from '@roots/bud-typings'
+import type {WebpackModule, WebpackRule} from '@roots/bud-typings'
 
-type Use = (bud: Bud) => RuleSetRule
+type Use = (bud: Bud) => WebpackRule
 type ModuleBuilder = (bud: Bud) => WebpackModule
 
 const rules: ModuleBuilder = bud =>

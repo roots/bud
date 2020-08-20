@@ -150,7 +150,7 @@ var hash = function (enabled) {
 
 var hot = function (options) {
     var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5;
-    this.features.enable('hot', (_a = options === null || options === void 0 ? void 0 : options.enabled) !== null && _a !== void 0 ? _a : true);
+    this.features.set('hot', (_a = options === null || options === void 0 ? void 0 : options.enabled) !== null && _a !== void 0 ? _a : this.inDevelopment);
     (options === null || options === void 0 ? void 0 : options.watch) &&
         this.options.set('watch', tslib.__spreadArrays(this.options.get('watch'), options.watch));
     var devServer = this.options.has('devServer')
@@ -1071,7 +1071,9 @@ var entry = function (bud) {
 };
 
 var devServer = function (bud) {
-    return bud.hooks.filter('webpack.devServer', bud.options.get('dev'));
+    return bud.hooks.filter('webpack.devServer', {
+        devServer: bud.options.get('devServer'),
+    });
 };
 
 var externals = function (bud) {
@@ -1104,77 +1106,36 @@ var rules$1 = function (bud) {
 /**
  * Webpack optimization
  */
-var optimization = function (bud) { return ({
-    bud: bud,
-    supports: {
-        minify: bud.features.enabled('minify'),
-        runtimeChunk: bud.features.enabled('inlineManifest'),
-        vendor: bud.features.enabled('vendor'),
-    },
-    target: {
+var optimization = function (bud) {
+    return bud.hooks.filter('webpack.optimization', {
         optimization: {
-            minimize: bud.features.enabled('minify'),
-            removeAvailableModules: false,
-            removeEmptyChunks: false,
-            moduleIds: 'hashed',
+            runtimeChunk: bud.hooks.filter('webpack.optimization.runtimeChunk', bud.features.enabled('inlineManifest')
+                ? {
+                    name: function (entrypoint) { return "runtime/" + entrypoint.name; },
+                }
+                : false),
+            splitChunks: bud.hooks.filter('webpack.optimization.splitChunks', bud.features.enabled('vendor')
+                ? {
+                    cacheGroups: {
+                        vendor: {
+                            test: /node_modules/,
+                            name: bud.options.get('vendor.name'),
+                            chunks: 'all',
+                            priority: -20,
+                        },
+                    },
+                }
+                : false),
+            minimize: bud.hooks.filter('webpack.optimization.minimize', bud.features.enabled('minify')),
+            minimizer: bud.hooks.filter('webpack.optimization.minimizer', [
+                new UglifyJsPlugin(bud.options.get('uglify')),
+            ]),
+            removeAvailableModules: bud.hooks.filter('webpack.optimization.removeAvailableModules', false),
+            removeEmptyChunks: bud.hooks.filter('webpack.optimization.removeEmptyChunks', false),
+            moduleIds: bud.hooks.filter('webpack.optimization.moduleIds', 'hashed'),
         },
-    },
-    splitChunksOptions: {
-        cacheGroups: {
-            vendor: {
-                test: /node_modules/,
-                name: bud.options.get('vendor').name,
-                chunks: 'all',
-                priority: -20,
-            },
-        },
-    },
-    runtimeChunkOptions: {
-        name: function (entrypoint) { return "runtime/" + entrypoint.name; },
-    },
-    uglifyOptions: bud.options.get('uglify'),
-    make: function () {
-        this.when(this.bud.features.enabled('inlineManifest'), this.doRuntimeChunk);
-        this.when(this.bud.features.enabled('vendor'), this.doVendor);
-        this.when(this.bud.features.enabled('minify'), this.doMinimizer);
-        this.target = this.bud.hooks.filter('optimization_target', this.target);
-        this.bud.logger.info(tslib.__assign({ name: 'webpack.optimization' }, this.target), "webpack.optimization has been generated");
-        return this.target;
-    },
-    /**
-     * Executes a callback if a given feature is enabled.
-     */
-    when: function (feature, callback) {
-        feature && callback(this);
-    },
-    /**
-     * RuntimeChunk (inline manifest) support
-     */
-    doRuntimeChunk: function (context) {
-        context.bud.hooks.call('webpack.optimization.runtimechunk.pre');
-        context.target.optimization.runtimeChunk = context.bud.hooks.filter('webpack.optimization.runtimechunk', context.runtimeChunkOptions);
-        context.bud.hooks.call('webpack.optimization.runtimechunk.post');
-    },
-    /**
-     * Code splitting.
-     */
-    doVendor: function (context) {
-        context.bud.hooks.call('webpack.optimization.splitchunks.pre');
-        context.target.optimization.splitChunks = context.bud.hooks.filter('webpack.optimization.splitchunks', context.splitChunksOptions);
-        context.bud.hooks.call('webpack.optimization.splitchunks.post');
-    },
-    /**
-     * Minimization.
-     */
-    doMinimizer: function (context) {
-        context.bud.hooks.call('webpack.optimization.minimizer.pre');
-        if (!context.bud.features.enabled('terser')) {
-            context.hooks.filter('webpack.optimization.uglify', context.options.get('uglify'));
-            context.target.optimization.minimizer = context.bud.hooks.filter('webpack.optimization.minimizer', [new UglifyJsPlugin(context.uglifyOptions)]);
-        }
-        context.bud.hooks.call('webpack.optimization.minimizer.post');
-    },
-}); };
+    });
+};
 
 var output = function (bud) {
     return bud.hooks.filter('webpack.output', {
@@ -1218,16 +1179,13 @@ var builders = [
     rules$1,
     externals,
     output,
+    optimization,
     plugins$1,
     webpackResolve,
 ];
 var build = function (bud) {
-    var config = {};
-    builders.forEach(function (builder) {
-        Object.assign(config, builder(bud));
-    });
-    bud.features.enabled('optimize') && Object.assign(config, optimization(bud).make());
-    return config;
+    var builderReducer = function (acc, curr) { return (tslib.__assign(tslib.__assign({}, (acc !== null && acc !== void 0 ? acc : {})), curr(bud))); };
+    return builders.reduce(builderReducer, {});
 };
 
 function _defineProperty(obj, key, value) {

@@ -4,7 +4,9 @@ import type {WebpackDevServer} from '@roots/bud-typings'
 type DevServerBuilder = (bud: Bud) => WebpackDevServer
 
 const devServer: DevServerBuilder = bud =>
-  bud.hooks.filter('webpack.devServer', bud.options.get('dev'))
+  bud.hooks.filter('webpack.devServer', {
+    devServer: bud.options.get('devServer'),
+  })
 
 export {devServer}
 export type {DevServerBuilder}

@@ -9,6 +9,10 @@ import {webpackResolve} from './webpackResolve'
 import {plugins} from './plugins'
 
 import type {Bud} from './types'
+import type {WebpackConfig} from '@roots/bud-typings'
+
+type WebpackBuilder = (bud: Bud) => WebpackConfig
+type WebpackReducer = (acc: any, curr: WebpackBuilder) => WebpackConfig
 
 const builders = [
   devServer,
@@ -17,20 +21,18 @@ const builders = [
   rules,
   externals,
   output,
+  optimization,
   plugins,
   webpackResolve,
 ]
 
-const build = (bud: Bud): any => {
-  const config: any = {}
-
-  builders.forEach(builder => {
-    Object.assign(config, builder(bud))
+const build: WebpackBuilder = bud => {
+  const builderReducer: WebpackReducer = (acc, curr) => ({
+    ...(acc ?? {}),
+    ...curr(bud),
   })
 
-  bud.features.enabled('optimize') && Object.assign(config, optimization(bud).make())
-
-  return config
+  return builders.reduce(builderReducer, {})
 }
 
 export {build}
