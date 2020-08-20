@@ -16,8 +16,6 @@ const complexBuilders = [general, webpackResolve, plugins, output]
 const build = (bud: Bud): any => {
   const config: any = {}
 
-  bud.features.enabled('optimize') && complexBuilders.push(optimization)
-
   builders.forEach(builder => {
     Object.assign(config, builder(bud))
   })
@@ -25,6 +23,8 @@ const build = (bud: Bud): any => {
   complexBuilders.map(builder => {
     Object.assign(config, builder(bud).make())
   })
+
+  bud.features.enabled('optimize') && complexBuilders.push(optimization)
 
   return config
 }

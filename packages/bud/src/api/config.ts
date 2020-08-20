@@ -1,9 +1,10 @@
 import type {Bud, WebpackConfiguration} from './types'
 
-const config = function (this: Bud): WebpackConfiguration {
-  const compiler = this.hooks.filter('bud.compiler.filter', this.compiler)
+type Config = (this: Bud) => WebpackConfiguration
 
-  return compiler.buildConfig().config
+const config: Config = function () {
+  return this.hooks.filter('bud.compiler.filter', this.compiler).buildConfig().config
 }
 
 export {config}
+export type {Config}

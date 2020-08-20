@@ -1,16 +1,16 @@
-import type {InlineManifest, Bud} from './types'
+import type {Bud} from './types'
 
-const inlineManifest: InlineManifest = function (arg0?: {
-  enabled: boolean
-  name: string
-}): Bud {
-  this.features.set(
-    'inlineManifest',
-    arg0?.enabled !== undefined ? arg0.enabled : true,
-  )
-  this.options.set('inlineManifest', {name: arg0?.name ?? 'runtime'})
+type InlineManifest = (args?: {enabled: boolean; name: string}) => Bud
+
+const inlineManifest: InlineManifest = function ({
+  enabled = true,
+  name = 'runtime',
+}) {
+  enabled && this.features.enable('inlineManifest')
+  this.options.set('inlineManifest.name', name)
 
   return this
 }
 
 export {inlineManifest}
+export type {InlineManifest}

@@ -11,10 +11,6 @@ export type {WebpackConfiguration, WebpackOptions}
 import {Options as DependencyExtractionOptions} from '@wordpress/dependency-extraction-webpack-plugin'
 export type {DependencyExtractionOptions}
 
-export type Copy = (from: string, to: string) => Bud
-export type Debug = (enabled?: boolean) => any
-export type DependencyManifest = (settings?: DependencyExtractionOptions) => Bud
-export type Dev = (options: any) => Bud
 export type Devtool = (devtool: WebpackOptions.Devtool) => Bud
 export type Dist = (path?: string) => string
 export type Dump = (enabled: boolean) => Bud
@@ -33,7 +29,6 @@ export type Hot = (
     secure?: boolean
   },
 ) => Bud
-export type InlineManifest = (arg0?: {enabled: boolean; name: string}) => Bud
 export type Mini = (enabled?: boolean) => Bud
 export type Option = (key: string) => string
 export type PostCss = (options?: {enabled?: boolean; plugins?: any[]}) => Bud
@@ -60,6 +55,21 @@ export type {Babel}
 import type {Bundle} from './bundle'
 export type {Bundle}
 
+import type {Compile} from './compile'
+export type {Compile}
+
+import type {Config} from './config'
+export type {Config}
+
+import type {Copy} from './copy'
+export type {Copy}
+
+import type {Dev} from './dev'
+export type {Dev}
+
+import type {InlineManifest} from './inlineManifest'
+export type {InlineManifest}
+
 import type {UseExtension} from './use'
 export type {UseExtension}
 
@@ -71,8 +81,8 @@ export type Api = {
   auto: Auto
   babel: Babel
   bundle: Bundle
-  compile: () => void
-  config: any
+  compile: Compile
+  config: Config
   copy: Copy
   copyAll: Copy
   dev: Dev

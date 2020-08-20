@@ -1,6 +1,8 @@
-import type {Bud, Dev} from './types'
+import type {Bud} from './types'
 
-const dev: Dev = function (options: any): Bud {
+type Dev = (options: any) => Bud
+
+const dev: Dev = function (options) {
   this.options.set('dev', {
     ...this.options.get('dev'),
     ...this.filter('api.dev.filter', options),
@@ -10,3 +12,4 @@ const dev: Dev = function (options: any): Bud {
 }
 
 export {dev}
+export type {Dev}

@@ -5,6 +5,7 @@ type Babel = (this: Bud, options: BabelTransformOptions) => Bud
 
 const babel: Babel = function (options) {
   this.features.enable('babel')
+
   this.options.set('babel', {
     ...this.options.get('babel'),
     ...this.hooks.filter('bud.api.babel', options),
