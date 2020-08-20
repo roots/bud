@@ -7,7 +7,7 @@ declare const postCss: (configs: any) => PostCssConfiguration;
  */
 declare const options: {
     copy: Copy;
-    dev: {
+    devServer: {
         headers: {
             'Access-Control-Allow-Origin': string;
             'Access-Control-Allow-Methods': string;
@@ -74,6 +74,23 @@ declare const options: {
     };
     vendor: {
         name: string;
+    };
+    stats: {
+        version: boolean;
+        hash: boolean;
+        assets: boolean;
+        errors: boolean;
+        warnings: boolean;
+    };
+    node: {
+        module: string;
+        dgram: string;
+        dns: string;
+        fs: string;
+        http2: string;
+        net: string;
+        tls: string;
+        child_process: string;
     };
 };
 export { options, babel, browserSync, postCss };

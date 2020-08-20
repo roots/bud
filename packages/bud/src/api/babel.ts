@@ -8,7 +8,7 @@ const babel: Babel = function (options) {
 
   this.options.set('babel', {
     ...this.options.get('babel'),
-    ...this.hooks.filter('bud.api.babel', options),
+    ...this.hooks.filter('api.babel', options),
   })
 
   return this

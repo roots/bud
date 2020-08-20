@@ -14,19 +14,28 @@
   "engines": {
     "node": ">=12"
   },
-  "workspaces": [
-    "packages/bud",
-    "packages/bud-dependency-extraction",
-    "packages/bud-eslint",
-    "packages/bud-purgecss",
-    "packages/bud-sage",
-    "packages/bud-sass",
-    "packages/bud-stylelint",
-    "packages/bud-tailwind",
-    "packages/bud-typescript",
-    "packages/bud-typings",
-    "packages/bud-vue"
-  ],
+  "workspaces": {
+    "packages": [
+      "packages/bud",
+      "packages/bud-dependency-extraction",
+      "packages/bud-eslint",
+      "packages/bud-gutenberg-palette",
+      "packages/bud-purgecss",
+      "packages/bud-sage",
+      "packages/bud-sass",
+      "packages/bud-stylelint",
+      "packages/bud-tailwind",
+      "packages/bud-typescript",
+      "packages/bud-typings",
+      "packages/bud-vue"
+    ],
+    "nohoist": [
+      "**/webpack-hot-client",
+      "**/webpack-hot-client/**",
+      "**/webpack-hot-middleware",
+      "**/webpack-hot-middleware/**"
+    ]
+  },
   "scripts": {
     "test": "ava",
     "test:coverage": "nyc yarn run test",

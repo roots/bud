@@ -16,6 +16,8 @@ export type WebpackExternals = WebpackConfig['externals']
 export type WebpackMode = WebpackConfig['mode']
 export type WebpackModule = WebpackConfig['module']
 export type WebpackOptimization = WebpackConfig['optimization']
+export type WebpackOutput = WebpackConfig['output']
+export type WebpackPlugins = WebpackConfig['plugins']
 export type WebpackResolve = WebpackConfig['resolve']
 export type WebpackTarget = WebpackConfig['target']
 export type {RuleSetRule, WebpackConfig}

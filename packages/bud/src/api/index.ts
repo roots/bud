@@ -9,7 +9,6 @@ import {copy} from './copy'
 import {copyAll} from './copyAll'
 import {dist} from './dist'
 import {distPath} from './distPath'
-import {dev} from './dev'
 import {devtool} from './devtool'
 import {glob} from './glob'
 import {hash} from './hash'
@@ -44,7 +43,6 @@ export const api: Api = {
   config,
   copy,
   copyAll,
-  dev,
   devtool,
   dist,
   distPath,

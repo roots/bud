@@ -56,12 +56,11 @@ const terser = {
  */
 const options = {
   copy,
-  dev: {
+  devServer: {
     headers: {
       'Access-Control-Allow-Origin': '*',
       'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
-      'Access-Control-Allow-Headers':
-        'X-Requested-With, content-type, Authorization',
+      'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
     },
   },
   devtool: 'source-map',
@@ -100,6 +99,23 @@ const options = {
   },
   vendor: {
     name: 'vendor',
+  },
+  stats: {
+    version: true,
+    hash: true,
+    assets: true,
+    errors: true,
+    warnings: true,
+  },
+  node: {
+    module: 'empty',
+    dgram: 'empty',
+    dns: 'mock',
+    fs: 'empty',
+    http2: 'empty',
+    net: 'empty',
+    tls: 'empty',
+    child_process: 'empty',
   },
 }
 

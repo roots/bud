@@ -33,8 +33,16 @@ const renderCompilerDashboard: BudRenderer = (
     ? webpack(
         injectHot({
           webpackConfig,
-          overlay: bud.options.get('dev').overlay ? true : true,
-          reload: bud.options.get('dev').reload ? true : true,
+          overlay:
+            bud.options.has('devServer.overlay') &&
+            bud.options.get('devServer.overlay')
+              ? true
+              : true,
+          reload:
+            bud.options.has('devServer.reload') &&
+            bud.options.get('devServer.reload')
+              ? true
+              : true,
           logger: bud.logger,
         }),
       )

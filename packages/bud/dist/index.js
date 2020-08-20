@@ -39,7 +39,7 @@ var patchConsole = _interopDefault(require('patch-console'));
 var lodash = require('lodash');
 
 var alias = function (options) {
-    this.options.set('resolve.alias', tslib.__assign(tslib.__assign({}, this.options.get('resolve.alias')), this.hooks.filter('api.alias.filter', options)));
+    this.options.set('resolve.alias', tslib.__assign(tslib.__assign({}, this.options.get('resolve.alias')), this.hooks.filter('api.alias', options)));
     return this;
 };
 
@@ -57,7 +57,7 @@ var auto = function (options) {
 
 var babel = function (options) {
     this.features.enable('babel');
-    this.options.set('babel', tslib.__assign(tslib.__assign({}, this.options.get('babel')), this.hooks.filter('bud.api.babel', options)));
+    this.options.set('babel', tslib.__assign(tslib.__assign({}, this.options.get('babel')), this.hooks.filter('api.babel', options)));
     return this;
 };
 
@@ -108,12 +108,7 @@ var dist = function (path$1) {
 };
 
 var distPath = function (dir) {
-    this.paths.set('dist', this.hooks.filter('api.distPath.filter', path.join(this.paths.get('project'), dir)));
-    return this;
-};
-
-var dev = function (options) {
-    this.options.set('dev', tslib.__assign(tslib.__assign({}, this.options.get('dev')), this.filter('api.dev.filter', options)));
+    this.paths.set('dist', this.hooks.filter('api.distPath', path.join(this.paths.get('project'), dir)));
     return this;
 };
 
@@ -155,26 +150,14 @@ var hash = function (enabled) {
 
 var hot = function (options) {
     var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5;
-    this.logger.info({
-        name: 'bud.api',
-        "function": 'bud.hot',
-        options: options,
-    }, 'api.hot called');
-    if ((options === null || options === void 0 ? void 0 : options.enabled) === false) {
-        this.logger.info({
-            name: 'bud.api',
-            "function": 'bud.hot',
-            enabled: options.enabled,
-        }, "api.hot is not applicable to this build. skipping.");
-        return this;
-    }
-    if (options === null || options === void 0 ? void 0 : options.watch) {
+    this.features.enable('hot', (_a = options === null || options === void 0 ? void 0 : options.enabled) !== null && _a !== void 0 ? _a : true);
+    (options === null || options === void 0 ? void 0 : options.watch) &&
         this.options.set('watch', tslib.__spreadArrays(this.options.get('watch'), options.watch));
-    }
-    this.features.enable('hot');
-    var dev = this.options.has('dev') ? this.options.get('dev') : {};
-    var proxyAll = dev.proxy && dev.proxy['**'] ? dev.proxy['**'] : {};
-    var chokidarHandler = (_a = options === null || options === void 0 ? void 0 : options.chokidar) !== null && _a !== void 0 ? _a : {
+    var devServer = this.options.has('devServer')
+        ? this.options.get('devServer')
+        : {};
+    var proxyAll = devServer.proxy && devServer.proxy['**'] ? devServer.proxy['**'] : {};
+    var chokidarHandler = (_b = options === null || options === void 0 ? void 0 : options.chokidar) !== null && _b !== void 0 ? _b : {
         before: function (app, server) {
             var _a;
             chokidar.watch((_a = options === null || options === void 0 ? void 0 : options.watch) !== null && _a !== void 0 ? _a : []).on('all', function () {
@@ -182,13 +165,7 @@ var hot = function (options) {
             });
         },
     };
-    var devServerConfig = tslib.__assign(tslib.__assign(tslib.__assign({}, dev), chokidarHandler), { hot: (_c = (_b = options === null || options === void 0 ? void 0 : options.enabled) !== null && _b !== void 0 ? _b : dev.enabled) !== null && _c !== void 0 ? _c : true, host: (_e = (_d = options === null || options === void 0 ? void 0 : options.host) !== null && _d !== void 0 ? _d : dev.host) !== null && _e !== void 0 ? _e : 'localhost', overlay: (_g = (_f = options === null || options === void 0 ? void 0 : options.overlay) !== null && _f !== void 0 ? _f : dev.overlay) !== null && _g !== void 0 ? _g : true, port: (_j = (_h = options === null || options === void 0 ? void 0 : options.port) !== null && _h !== void 0 ? _h : dev.port) !== null && _j !== void 0 ? _j : 3000, secure: (_l = (_k = options === null || options === void 0 ? void 0 : options.secure) !== null && _k !== void 0 ? _k : dev.secure) !== null && _l !== void 0 ? _l : false, open: (_o = (_m = options === null || options === void 0 ? void 0 : options.open) !== null && _m !== void 0 ? _m : dev.open) !== null && _o !== void 0 ? _o : true, historyApiFallback: (_q = (_p = options === null || options === void 0 ? void 0 : options.historyApiFallback) !== null && _p !== void 0 ? _p : dev.historyApiFallback) !== null && _q !== void 0 ? _q : true, headers: tslib.__assign(tslib.__assign({}, ((_r = this.options.get('headers')) !== null && _r !== void 0 ? _r : [])), ((_s = options === null || options === void 0 ? void 0 : options.headers) !== null && _s !== void 0 ? _s : [])), proxy: tslib.__assign(tslib.__assign(tslib.__assign({}, ((_t = dev.proxy) !== null && _t !== void 0 ? _t : [])), { '**': tslib.__assign(tslib.__assign({}, (proxyAll !== null && proxyAll !== void 0 ? proxyAll : [])), { target: (_v = (_u = options === null || options === void 0 ? void 0 : options.host) !== null && _u !== void 0 ? _u : proxyAll === null || proxyAll === void 0 ? void 0 : proxyAll.target) !== null && _v !== void 0 ? _v : 'http://localhost', secure: (_x = (_w = options === null || options === void 0 ? void 0 : options.secure) !== null && _w !== void 0 ? _w : proxyAll === null || proxyAll === void 0 ? void 0 : proxyAll.secure) !== null && _x !== void 0 ? _x : dev.secure, changeOrigin: (_z = (_y = options === null || options === void 0 ? void 0 : options.changeOrigin) !== null && _y !== void 0 ? _y : proxyAll === null || proxyAll === void 0 ? void 0 : proxyAll.changeOrigin) !== null && _z !== void 0 ? _z : true, port: (_1 = (_0 = options === null || options === void 0 ? void 0 : options.port) !== null && _0 !== void 0 ? _0 : proxyAll === null || proxyAll === void 0 ? void 0 : proxyAll.port) !== null && _1 !== void 0 ? _1 : dev.port, headers: (_4 = (_3 = (_2 = options === null || options === void 0 ? void 0 : options.headers) !== null && _2 !== void 0 ? _2 : proxyAll === null || proxyAll === void 0 ? void 0 : proxyAll.headers) !== null && _3 !== void 0 ? _3 : this.options.get('headers')) !== null && _4 !== void 0 ? _4 : [] }) }), ((_5 = options === null || options === void 0 ? void 0 : options.proxy) !== null && _5 !== void 0 ? _5 : [])) });
-    this.logger.info({
-        name: 'bud.api',
-        "function": 'bud.hot',
-        devServerConfig: devServerConfig,
-    }, 'Updating dev server configuration');
-    this.options.set('dev', devServerConfig);
+    this.options.set('devServer', this.hooks.filter('api.hot', tslib.__assign(tslib.__assign(tslib.__assign({}, devServer), chokidarHandler), { hot: (_d = (_c = options === null || options === void 0 ? void 0 : options.enabled) !== null && _c !== void 0 ? _c : devServer.enabled) !== null && _d !== void 0 ? _d : true, host: (_f = (_e = options === null || options === void 0 ? void 0 : options.host) !== null && _e !== void 0 ? _e : devServer.host) !== null && _f !== void 0 ? _f : 'localhost', overlay: (_h = (_g = options === null || options === void 0 ? void 0 : options.overlay) !== null && _g !== void 0 ? _g : devServer.overlay) !== null && _h !== void 0 ? _h : true, port: (_k = (_j = options === null || options === void 0 ? void 0 : options.port) !== null && _j !== void 0 ? _j : devServer.port) !== null && _k !== void 0 ? _k : 3000, secure: (_m = (_l = options === null || options === void 0 ? void 0 : options.secure) !== null && _l !== void 0 ? _l : devServer.secure) !== null && _m !== void 0 ? _m : false, open: (_p = (_o = options === null || options === void 0 ? void 0 : options.open) !== null && _o !== void 0 ? _o : devServer.open) !== null && _p !== void 0 ? _p : true, historyApiFallback: (_r = (_q = options === null || options === void 0 ? void 0 : options.historyApiFallback) !== null && _q !== void 0 ? _q : devServer.historyApiFallback) !== null && _r !== void 0 ? _r : true, headers: tslib.__assign(tslib.__assign({}, ((_s = this.options.get('headers')) !== null && _s !== void 0 ? _s : [])), ((_t = options === null || options === void 0 ? void 0 : options.headers) !== null && _t !== void 0 ? _t : [])), proxy: tslib.__assign(tslib.__assign(tslib.__assign({}, ((_u = devServer.proxy) !== null && _u !== void 0 ? _u : [])), { '**': tslib.__assign(tslib.__assign({}, (proxyAll !== null && proxyAll !== void 0 ? proxyAll : [])), { target: (_w = (_v = options === null || options === void 0 ? void 0 : options.host) !== null && _v !== void 0 ? _v : proxyAll === null || proxyAll === void 0 ? void 0 : proxyAll.target) !== null && _w !== void 0 ? _w : 'http://localhost', secure: (_y = (_x = options === null || options === void 0 ? void 0 : options.secure) !== null && _x !== void 0 ? _x : proxyAll === null || proxyAll === void 0 ? void 0 : proxyAll.secure) !== null && _y !== void 0 ? _y : devServer.secure, changeOrigin: (_0 = (_z = options === null || options === void 0 ? void 0 : options.changeOrigin) !== null && _z !== void 0 ? _z : proxyAll === null || proxyAll === void 0 ? void 0 : proxyAll.changeOrigin) !== null && _0 !== void 0 ? _0 : true, port: (_2 = (_1 = options === null || options === void 0 ? void 0 : options.port) !== null && _1 !== void 0 ? _1 : proxyAll === null || proxyAll === void 0 ? void 0 : proxyAll.port) !== null && _2 !== void 0 ? _2 : devServer.port, headers: tslib.__assign(tslib.__assign({}, this.options.get('devServer.headers')), ((_4 = (_3 = options === null || options === void 0 ? void 0 : options.headers) !== null && _3 !== void 0 ? _3 : proxyAll === null || proxyAll === void 0 ? void 0 : proxyAll.headers) !== null && _4 !== void 0 ? _4 : [])) }) }), ((_5 = options === null || options === void 0 ? void 0 : options.proxy) !== null && _5 !== void 0 ? _5 : [])) })));
     return this;
 };
 
@@ -297,10 +274,9 @@ var vendor = function (name) {
 };
 
 var watch = function (options) {
-    this.logger.info(tslib.__assign({ name: 'bud.api', "function": 'bud.watch' }, options), "bud.watch called");
     (options === null || options === void 0 ? void 0 : options.enabled) && this.features.enable('watch');
     (options === null || options === void 0 ? void 0 : options.paths) &&
-        this.options.set('watch', this.hooks.filter('api.watch.filter', options.paths));
+        this.options.set('watch', this.hooks.filter('api.watch', options.paths));
     return this;
 };
 
@@ -316,7 +292,6 @@ var api = {
     config: config,
     copy: copy,
     copyAll: copyAll,
-    dev: dev,
     devtool: devtool,
     dist: dist,
     distPath: distPath,
@@ -625,7 +600,7 @@ var terser$1 = {
  */
 var options = {
     copy: copy$1,
-    dev: {
+    devServer: {
         headers: {
             'Access-Control-Allow-Origin': '*',
             'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
@@ -671,6 +646,23 @@ var options = {
     },
     vendor: {
         name: 'vendor',
+    },
+    stats: {
+        version: true,
+        hash: true,
+        assets: true,
+        errors: true,
+        warnings: true,
+    },
+    node: {
+        module: 'empty',
+        dgram: 'empty',
+        dns: 'mock',
+        fs: 'empty',
+        http2: 'empty',
+        net: 'empty',
+        tls: 'empty',
+        child_process: 'empty',
     },
 };
 
@@ -1079,7 +1071,7 @@ var entry = function (bud) {
 };
 
 var devServer = function (bud) {
-    return bud.hooks.filter('webpack.devServer', { devServer: bud.options.get('dev') });
+    return bud.hooks.filter('webpack.devServer', bud.options.get('dev'));
 };
 
 var externals = function (bud) {
@@ -1088,61 +1080,21 @@ var externals = function (bud) {
     });
 };
 
-/**
- * General webpack options
- *
- * @this {bud}
- */
 var general = function (bud) {
     var _a;
     return ({
-        bud: bud,
-        target: {
-            context: bud.paths.get('project'),
-            devtool: (_a = bud.options.get('devtool')) !== null && _a !== void 0 ? _a : false,
-            mode: bud.hooks.filter('webpack.mode', bud.mode),
-            target: bud.hooks.filter('webpack.target', bud.options.get('target')),
-            watch: bud.hooks.filter('webpack.watch', bud.features.enabled('watch')),
-        },
-        make: function () {
-            this.target.context = bud.hooks.filter('webpack.context', this.target.context);
-            this.target.devtool = bud.hooks.filter('webpack.devtool', this.target.devtool);
-            this.target.mode = bud.hooks.filter('webpack.mode', this.target.mode);
-            this.target.target = bud.hooks.filter('webpack.target', this.target.target);
-            this.target.watch = bud.hooks.filter('webpack.watch', this.target.watch);
-            this.target.stats = {
-                version: true,
-                hash: true,
-                assets: true,
-                errors: true,
-                warnings: true,
-            };
-            /**
-             * Empty out node globals that aren't native to web
-             * to ensure they aren't inadvertently used in project bundles
-             * intended for the browser..
-             */
-            if (this.bud.options.is('target', 'web')) {
-                this.target.node = this.bud.hooks.filter('webpack.node', {
-                    module: 'empty',
-                    dgram: 'empty',
-                    dns: 'mock',
-                    fs: 'empty',
-                    http2: 'empty',
-                    net: 'empty',
-                    tls: 'empty',
-                    child_process: 'empty',
-                });
-            }
-            this.target = this.bud.hooks.filter('webpack.general', this.target);
-            this.bud.logger.info(tslib.__assign({ name: 'webpack.general' }, this.target), "webpack general config has been generated");
-            return this.target;
-        },
+        context: bud.hooks.filter('webpack.context', bud.paths.get('project')),
+        devtool: bud.hooks.filter('webpack.devtool', (_a = bud.options.get('devtool')) !== null && _a !== void 0 ? _a : false),
+        mode: bud.hooks.filter('webpack.mode', bud.mode),
+        node: bud.hooks.filter('webpack.node', bud.options.get('node')),
+        stats: bud.hooks.filter('webpack.stats', bud.options.get('stats')),
+        target: bud.hooks.filter('webpack.target', bud.options.get('target')),
+        watch: bud.hooks.filter('webpack.watch', bud.features.enabled('watch')),
     });
 };
 
 var rules$1 = function (bud) {
-    return bud.hooks.filter('webpack.module.rules', {
+    return bud.hooks.filter('webpack.module', {
         module: {
             rules: bud.rules.repository.map(function (rule) { return rule(bud); }),
         },
@@ -1224,26 +1176,17 @@ var optimization = function (bud) { return ({
     },
 }); };
 
-var output = function (bud) { return ({
-    bud: bud,
-    name: 'webpack.output',
-    target: {
+var output = function (bud) {
+    return bud.hooks.filter('webpack.output', {
         output: {
-            path: bud.paths.get('dist'),
-            publicPath: bud.paths.get('public'),
-            filename: bud.features.enabled('hash')
+            path: bud.hooks.filter('webpack.output.path', bud.paths.get('dist')),
+            publicPath: bud.hooks.filter('webpack.output.publicPath', bud.paths.get('public')),
+            filename: bud.hooks.filter('webpack.output.filename', bud.features.enabled('hash')
                 ? bud.options.get('filenameTemplate').hashed + ".js"
-                : bud.options.get('filenameTemplate')["default"] + ".js",
+                : bud.options.get('filenameTemplate')["default"] + ".js"),
         },
-    },
-    make: function () {
-        this.target.output.publicPath = this.bud.hooks.filter(this.name + ".publicPath.filter", this.target.output.publicPath);
-        this.target.output.path = this.bud.hooks.filter(this.name + ".path.filter", this.target.output.path);
-        this.target.output.filename = this.bud.hooks.filter(this.name + ".filename.filter", this.target.output.filename);
-        this.target = this.bud.hooks.filter(this.name + ".filter", this.target);
-        return this.target;
-    },
-}); };
+    });
+};
 
 var webpackResolve = function (bud) {
     return bud.hooks.filter('webpack.resolve', {
@@ -1259,35 +1202,31 @@ var webpackResolve = function (bud) {
     });
 };
 
-var plugins$1 = function (bud) { return ({
-    bud: bud,
-    adapters: bud.adapters.entries(),
-    controller: bud.adapters.controller(bud),
-    target: {
-        plugins: [],
-    },
-    make: function () {
-        var _this = this;
-        this.target.plugins = this.adapters
-            .map(function (adapter) { return _this.controller.build(adapter); })
-            .filter(function (adapter) { return adapter; });
-        this.target = this.bud.hooks.filter('webpack.plugins', this.target);
-        this.bud.logger.info({ name: 'webpack.plugins', value: this.target }, "generated");
-        return this.target;
-    },
-}); };
+var plugins$1 = function (bud) {
+    return bud.hooks.filter('webpack.plugins', {
+        plugins: bud.adapters
+            .entries()
+            .map(function (adapter) { return bud.adapters.controller(bud).build(adapter); })
+            .filter(function (adapter) { return adapter; }),
+    });
+};
 
-var builders = [entry, rules$1, externals, devServer, webpackResolve];
-var complexBuilders = [general, plugins$1, output];
+var builders = [
+    devServer,
+    entry,
+    general,
+    rules$1,
+    externals,
+    output,
+    plugins$1,
+    webpackResolve,
+];
 var build = function (bud) {
     var config = {};
     builders.forEach(function (builder) {
         Object.assign(config, builder(bud));
     });
-    complexBuilders.map(function (builder) {
-        Object.assign(config, builder(bud).make());
-    });
-    bud.features.enabled('optimize') && complexBuilders.push(optimization);
+    bud.features.enabled('optimize') && Object.assign(config, optimization(bud).make());
     return config;
 };
 
@@ -1377,7 +1316,7 @@ const browserSync$2 = browserSyncLibrary.create();
 
 const makeMiddleware = (bud, setDevStats) => {
   const devMiddlewareOptions = {
-    headers: bud.options.get('dev').headers,
+    headers: bud.options.get('devServer.headers'),
     logger: bud.logger,
     loglevel: 'trace',
     publicPath: bud.paths.get('public'),
@@ -1415,8 +1354,8 @@ const makeMiddleware = (bud, setDevStats) => {
 
 const useHotSyncServer = bud => {
   const [hot] = React.useState(bud.features.enabled('hot'));
-  const [target] = React.useState(bud.options.get('dev').host);
-  const [open] = React.useState(bud.options.get('dev').open);
+  const [target] = React.useState(bud.options.get('devServer.host'));
+  const [open] = React.useState(bud.options.get('devServer.open'));
   const [files] = React.useState(bud.options.get('watch'));
   const [hotSyncServer, setHotSyncServer] = React.useState(null);
   const [devStats, setDevStats] = React.useState(null);
@@ -1434,7 +1373,7 @@ const useHotSyncServer = bud => {
         open,
         middleware: makeMiddleware(bud, setDevStats),
         injectChanges: true,
-        injectFileTypes: ['js', 'scss', 'css', 'vue', 'jsx', 'ts', 'tsx'],
+        injectFileTypes: bud.options.get('resolve.extensions').map(ext => ext.replace('.', '')),
         watchOptions: {
           ignoreInitial: false
         },
@@ -4970,8 +4909,14 @@ var renderCompilerDashboard = function (bud, webpackConfig) {
     bud.compiler = bud.features.enabled('hot')
         ? webpack__default(injectHot({
             webpackConfig: webpackConfig,
-            overlay: bud.options.get('dev').overlay ? true : true,
-            reload: bud.options.get('dev').reload ? true : true,
+            overlay: bud.options.has('devServer.overlay') &&
+                bud.options.get('devServer.overlay')
+                ? true
+                : true,
+            reload: bud.options.has('devServer.reload') &&
+                bud.options.get('devServer.reload')
+                ? true
+                : true,
             logger: bud.logger,
         }))
         : webpack__default(webpackConfig);

@@ -3,18 +3,15 @@ export declare const repositories: {
     features: {
         dashboard: boolean;
         clean: boolean;
-        css: boolean;
-        svg: boolean;
         image: boolean;
         font: boolean;
-        js: boolean;
         manifest: boolean;
         optimize: boolean;
         terser: boolean;
         vendor: boolean;
         splitting: boolean;
         minify: boolean;
-        react: boolean;
+        postCss: boolean;
         browserSync: boolean;
         dependencyManifest: boolean;
         dump: boolean;
@@ -22,10 +19,6 @@ export declare const repositories: {
         hot: boolean;
         inlineManifest: boolean;
         overlay: boolean;
-        scss: boolean;
-        cssModules: boolean;
-        scssModules: boolean;
-        purge: boolean;
         sourceMap: boolean;
         translate: boolean;
         uglify: boolean;
@@ -34,24 +27,27 @@ export declare const repositories: {
     };
     options: {
         copy: import("./types").Copy;
-        dependencyManifest: import("@wordpress/dependency-extraction-webpack-plugin/build-types").Options;
-        dev: {};
+        devServer: {
+            headers: {
+                'Access-Control-Allow-Origin': string;
+                'Access-Control-Allow-Methods': string;
+                'Access-Control-Allow-Headers': string;
+            };
+        };
         devtool: string;
-        extensions: string[];
         filenameTemplate: {
             hashed: string;
             default: string;
         };
-        headers: {
-            'Access-Control-Allow-Origin': string;
-            'Access-Control-Allow-Methods': string;
-            'Access-Control-Allow-Headers': string;
-        };
         inlineManifest: {
             name: string;
         };
+        patterns: any[];
         postCss: {};
-        scss: {};
+        resolve: {
+            alias: boolean;
+            extensions: string[];
+        };
         splitting: {
             maxChunks: any;
         };
@@ -99,6 +95,23 @@ export declare const repositories: {
         vendor: {
             name: string;
         };
+        stats: {
+            version: boolean;
+            hash: boolean;
+            assets: boolean;
+            errors: boolean;
+            warnings: boolean;
+        };
+        node: {
+            module: string;
+            dgram: string;
+            dns: string;
+            fs: string;
+            http2: string;
+            net: string;
+            tls: string;
+            child_process: string;
+        };
     };
     loaders: {
         babel: string;
@@ -111,14 +124,7 @@ export declare const repositories: {
         svgr: string;
         url: string;
     };
-    paths: {
-        cwd: string;
-        project: string;
-        framework: string;
-        src: string;
-        dist: string;
-        public: string;
-    };
+    paths: import("@roots/bud-typings").Loose;
     cli: {
         args: (env: any) => {
             log: unknown;
@@ -139,7 +145,7 @@ export declare const repositories: {
             watch: boolean;
         };
     };
-    env: (paths: any) => any;
+    env: (paths: import("@roots/bud-typings").Loose) => import("@roots/bud-typings").Loose;
     adapters: import("./plugins/types").PluginsRepo;
     patterns: {
         js: RegExp;

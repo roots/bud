@@ -1,23 +1,15 @@
 import {Bud} from './types'
+import type {WebpackPlugins} from '@roots/bud-typings'
 
-const plugins = (bud: Bud) => ({
-  bud,
-  adapters: bud.adapters.entries(),
-  controller: bud.adapters.controller(bud),
+type PluginsBuilder = (bud: Bud) => WebpackPlugins
 
-  target: {
-    plugins: [],
-  },
-
-  make: function () {
-    this.target.plugins = this.adapters
-      .map(adapter => this.controller.build(adapter))
-      .filter(adapter => adapter)
-
-    this.target = this.bud.hooks.filter('webpack.plugins', this.target)
-    this.bud.logger.info({name: 'webpack.plugins', value: this.target}, `generated`)
-    return this.target
-  },
-})
+const plugins: PluginsBuilder = bud =>
+  bud.hooks.filter('webpack.plugins', {
+    plugins: bud.adapters
+      .entries()
+      .map(adapter => bud.adapters.controller(bud).build(adapter))
+      .filter(adapter => adapter),
+  })
 
 export {plugins}
+export type {PluginsBuilder}

@@ -245,13 +245,6 @@ export interface Bud extends Loose {
   copyAll: Api.Copy
 
   /**
-   * ## bud.dev
-   *
-   * Development server settings
-   */
-  dev: Api.Dev
-
-  /**
    * ## bud.devtool
    *
    * Specify a devtool

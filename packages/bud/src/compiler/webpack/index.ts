@@ -10,8 +10,16 @@ import {plugins} from './plugins'
 
 import type {Bud} from './types'
 
-const builders = [entry, rules, externals, devServer, webpackResolve]
-const complexBuilders = [general, plugins, output]
+const builders = [
+  devServer,
+  entry,
+  general,
+  rules,
+  externals,
+  output,
+  plugins,
+  webpackResolve,
+]
 
 const build = (bud: Bud): any => {
   const config: any = {}
@@ -20,11 +28,7 @@ const build = (bud: Bud): any => {
     Object.assign(config, builder(bud))
   })
 
-  complexBuilders.map(builder => {
-    Object.assign(config, builder(bud).make())
-  })
-
-  bud.features.enabled('optimize') && complexBuilders.push(optimization)
+  bud.features.enabled('optimize') && Object.assign(config, optimization(bud).make())
 
   return config
 }

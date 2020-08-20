@@ -57,8 +57,6 @@ import type { Config } from './config';
 export type { Config };
 import type { Copy } from './copy';
 export type { Copy };
-import type { Dev } from './dev';
-export type { Dev };
 import type { InlineManifest } from './inlineManifest';
 export type { InlineManifest };
 import type { UseExtension } from './use';
@@ -74,7 +72,6 @@ export declare type Api = {
     config: Config;
     copy: Copy;
     copyAll: Copy;
-    dev: Dev;
     devtool: Devtool;
     dist: Dist;
     distPath: PathSetter;

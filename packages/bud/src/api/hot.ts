@@ -18,36 +18,16 @@ const hot: Hot = function (
     chokidar?: any
   },
 ): Bud {
-  this.logger.info(
-    {
-      name: 'bud.api',
-      function: 'bud.hot',
-      options,
-    },
-    'api.hot called',
-  )
-
-  if (options?.enabled === false) {
-    this.logger.info(
-      {
-        name: 'bud.api',
-        function: 'bud.hot',
-        enabled: options.enabled,
-      },
-      `api.hot is not applicable to this build. skipping.`,
-    )
-
-    return this
-  }
-
-  if (options?.watch) {
+  this.features.enable('hot', options?.enabled ?? true)
+  options?.watch &&
     this.options.set('watch', [...this.options.get('watch'), ...options.watch])
-  }
 
-  this.features.enable('hot')
+  const devServer = this.options.has('devServer')
+    ? this.options.get('devServer')
+    : {}
 
-  const dev = this.options.has('dev') ? this.options.get('dev') : {}
-  const proxyAll = dev.proxy && dev.proxy['**'] ? dev.proxy['**'] : {}
+  const proxyAll =
+    devServer.proxy && devServer.proxy['**'] ? devServer.proxy['**'] : {}
 
   const chokidarHandler = options?.chokidar ?? {
     before(app, server) {
@@ -57,46 +37,40 @@ const hot: Hot = function (
     },
   }
 
-  const devServerConfig = {
-    ...dev,
-    ...chokidarHandler,
-    hot: options?.enabled ?? dev.enabled ?? true,
-    host: options?.host ?? dev.host ?? 'localhost',
-    overlay: options?.overlay ?? dev.overlay ?? true,
-    port: options?.port ?? dev.port ?? 3000,
-    secure: options?.secure ?? dev.secure ?? false,
-    open: options?.open ?? dev.open ?? true,
-    historyApiFallback:
-      options?.historyApiFallback ?? dev.historyApiFallback ?? true,
-    headers: {
-      ...(this.options.get('headers') ?? []),
-      ...(options?.headers ?? []),
-    },
-    proxy: {
-      ...(dev.proxy ?? []),
-      '**': {
-        ...(proxyAll ?? []),
-        target: options?.host ?? proxyAll?.target ?? 'http://localhost',
-        secure: options?.secure ?? proxyAll?.secure ?? dev.secure,
-        changeOrigin: options?.changeOrigin ?? proxyAll?.changeOrigin ?? true,
-        port: options?.port ?? proxyAll?.port ?? dev.port,
-        headers:
-          options?.headers ?? proxyAll?.headers ?? this.options.get('headers') ?? [],
+  this.options.set(
+    'devServer',
+    this.hooks.filter('api.hot', {
+      ...devServer,
+      ...chokidarHandler,
+      hot: options?.enabled ?? devServer.enabled ?? true,
+      host: options?.host ?? devServer.host ?? 'localhost',
+      overlay: options?.overlay ?? devServer.overlay ?? true,
+      port: options?.port ?? devServer.port ?? 3000,
+      secure: options?.secure ?? devServer.secure ?? false,
+      open: options?.open ?? devServer.open ?? true,
+      historyApiFallback:
+        options?.historyApiFallback ?? devServer.historyApiFallback ?? true,
+      headers: {
+        ...(this.options.get('headers') ?? []),
+        ...(options?.headers ?? []),
       },
-      ...(options?.proxy ?? []),
-    },
-  }
-
-  this.logger.info(
-    {
-      name: 'bud.api',
-      function: 'bud.hot',
-      devServerConfig,
-    },
-    'Updating dev server configuration',
+      proxy: {
+        ...(devServer.proxy ?? []),
+        '**': {
+          ...(proxyAll ?? []),
+          target: options?.host ?? proxyAll?.target ?? 'http://localhost',
+          secure: options?.secure ?? proxyAll?.secure ?? devServer.secure,
+          changeOrigin: options?.changeOrigin ?? proxyAll?.changeOrigin ?? true,
+          port: options?.port ?? proxyAll?.port ?? devServer.port,
+          headers: {
+            ...this.options.get('devServer.headers'),
+            ...(options?.headers ?? proxyAll?.headers ?? []),
+          },
+        },
+        ...(options?.proxy ?? []),
+      },
+    }),
   )
-
-  this.options.set('dev', devServerConfig)
 
   return this
 }

@@ -7,7 +7,7 @@ const browserSync = browserSyncLibrary.create()
 
 const makeMiddleware = (bud, setDevStats) => {
   const devMiddlewareOptions = {
-    headers: bud.options.get('dev').headers,
+    headers: bud.options.get('devServer.headers'),
     logger: bud.logger,
     loglevel: 'trace',
     publicPath: bud.paths.get('public'),
@@ -51,8 +51,8 @@ const makeMiddleware = (bud, setDevStats) => {
 
 const useHotSyncServer = bud => {
   const [hot] = useState(bud.features.enabled('hot'))
-  const [target] = useState(bud.options.get('dev').host)
-  const [open] = useState(bud.options.get('dev').open)
+  const [target] = useState(bud.options.get('devServer.host'))
+  const [open] = useState(bud.options.get('devServer.open'))
   const [files] = useState(bud.options.get('watch'))
   const [hotSyncServer, setHotSyncServer] = useState(null)
   const [devStats, setDevStats] = useState(null)
@@ -71,7 +71,9 @@ const useHotSyncServer = bud => {
         open,
         middleware: makeMiddleware(bud, setDevStats),
         injectChanges: true,
-        injectFileTypes: ['js', 'scss', 'css', 'vue', 'jsx', 'ts', 'tsx'],
+        injectFileTypes: bud.options
+          .get('resolve.extensions')
+          .map(ext => ext.replace('.', '')),
         watchOptions: {
           ignoreInitial: false,
         },
