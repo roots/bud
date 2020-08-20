@@ -526,7 +526,7 @@ export interface Bud extends Loose {
 /**
  * Conditional check determining whether to engage extension functionality.
  */
-export type ExtensionConditional = (this: ExtensionInterface) => Boolean
+export type ExtensionConditional = (this: ExtensionInterface) => boolean
 
 /**
  * Extension method handling options

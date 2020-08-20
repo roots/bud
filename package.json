@@ -35,7 +35,8 @@
     "pkg-link": "node ./scripts/linkWorkspaces",
     "pkg-unlink": "node ./scripts/unlinkWorkspaces",
     "lint": "eslint 'packages/**/*.{js,ts,tsx}' --fix",
-    "postinstall": "node ./scripts/postinstall"
+    "postinstall": "node ./scripts/postinstall",
+    "release": "node ./scripts/release"
   },
   "devDependencies": {
     "@typescript-eslint/eslint-plugin": "^3.8.0",

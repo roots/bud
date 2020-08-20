@@ -5,7 +5,7 @@ type ShortCircuit = () => any
  *
  * Prevents circular references in JSON from looping
  */
-const shortCircuit: ShortCircuit = ()=> {
+const shortCircuit: ShortCircuit = () => {
   const seen = new WeakSet()
 
   return (key, value) => {

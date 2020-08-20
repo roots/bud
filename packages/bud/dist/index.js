@@ -723,6 +723,7 @@ var terser$1 = {
 var options = {
     copy: copy$1,
     dependencyManifest: dependencyManifest,
+    // eslint-disable-next-line
     dev: {},
     devtool: 'source-map',
     extensions: ['.js', '.json'],
@@ -738,7 +739,9 @@ var options = {
     inlineManifest: {
         name: 'runtime',
     },
+    // eslint-disable-next-line
     postCss: {},
+    // eslint-disable-next-line
     scss: {},
     splitting: {
         maxChunks: null,

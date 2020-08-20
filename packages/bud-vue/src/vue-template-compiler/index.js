@@ -725,7 +725,8 @@ function parseComponent(content, options) {
 var hasProto = '__proto__' in {}
 
 // Browser environment sniffing
-var inBrowser = typeof window !== 'undefined' && typeof window.document !== 'undefined'
+var inBrowser =
+  typeof window !== 'undefined' && typeof window.document !== 'undefined'
 var inWeex = typeof WXEnvironment !== 'undefined' && !!WXEnvironment.platform
 var weexPlatform = inWeex && WXEnvironment.platform.toLowerCase()
 var UA = inBrowser && window.navigator.userAgent.toLowerCase()

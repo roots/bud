@@ -3,4 +3,5 @@ dist
 docs
 scripts
 packages/**/dist
+packages/*/types
 test
