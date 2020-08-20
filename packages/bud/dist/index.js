@@ -39,8 +39,7 @@ var patchConsole = _interopDefault(require('patch-console'));
 var lodash = require('lodash');
 
 var alias = function (options) {
-    var aliases = this.hooks.filter('api.alias.filter', options);
-    this.options.set('alias', tslib.__assign(tslib.__assign({}, this.options.get('alias')), aliases));
+    this.options.set('resolve.alias', tslib.__assign(tslib.__assign({}, this.options.get('resolve.alias')), this.hooks.filter('api.alias.filter', options)));
     return this;
 };
 
@@ -64,71 +63,52 @@ var babel = function (options) {
 
 var bundle = function (name, entries) {
     var _a;
-    /**
-     * Lazy load whatever loaders are needed to fulfill the
-     * bundle requirements.
-     */
     this.util.usedExt(entries, this);
-    /**
-     * Set entrypoints.
-     */
     this.options.set('entry', tslib.__assign(tslib.__assign({}, this.options.get('entry')), this.hooks.filter('api.bundle.filter', (_a = {},
         _a["" + name] = entries,
         _a))));
-    this.hooks.call('api.bundle');
     return this;
 };
 
 var compile = function () {
-    this.logger.info({ name: 'bud.api', "function": 'bud.compile' }, "bud.compile called");
-    var compiler = this.hooks.filter('bud.compiler.filter', this.compiler);
-    compiler.buildConfig().compile();
+    this.hooks.filter('bud.compiler.filter', this.compiler).buildConfig().compile();
 };
 
 var config = function () {
-    var compiler = this.hooks.filter('bud.compiler.filter', this.compiler);
-    return compiler.buildConfig().config;
+    return this.hooks.filter('bud.compiler.filter', this.compiler).buildConfig().config;
 };
 
 var copy = function (from, to) {
-    this.options.set('copy', {
-        patterns: tslib.__spreadArrays(this.options.get('copy').patterns, [
-            {
-                from: from,
-                to: to !== null && to !== void 0 ? to : path.join(this.paths.get('dist'), from),
-            },
-        ]),
-    });
+    this.options.set('copy.patterns', tslib.__spreadArrays(this.options.get('copy.patterns'), [
+        {
+            from: from,
+            to: to !== null && to !== void 0 ? to : path.join(this.paths.get('dist'), from),
+        },
+    ]));
     return this;
 };
 
 var copyAll = function (from, to) {
-    this.logger.info({ name: 'bud.api', "function": 'bud.copyAll', from: from, to: to }, "bud.copyAll called");
-    this.options.set('copy', {
-        patterns: tslib.__spreadArrays(this.options.get('copy').patterns, [
-            this.hooks.filter('bud.copyAll.filter', {
-                from: '**/*',
-                context: from,
-                to: to ? to : path.join(this.paths.get('dist'), from),
-                globOptions: {
-                    ignore: '.*',
-                },
-                noErrorOnMissing: true,
-            }),
-        ]),
-    });
+    this.options.set('copy.patterns', tslib.__spreadArrays(this.options.get('copy.patterns'), [
+        this.hooks.filter('bud.copyAll.filter', {
+            from: '**/*',
+            context: from,
+            to: to ? to : path.join(this.paths.get('dist'), from),
+            globOptions: {
+                ignore: '.*',
+            },
+            noErrorOnMissing: true,
+        }),
+    ]));
     return this;
 };
 
 var dist = function (path$1) {
-    this.logger.info({ name: 'bud.api', "function": 'bud.dist', path: path$1 }, "bud.dist called");
     return path$1 ? path.join(this.paths.get('dist'), path$1) : this.paths.get('dist');
 };
 
 var distPath = function (dir) {
-    this.logger.info({ name: 'bud.api', "function": 'bud.distPath', dir: dir }, "bud.distPath called");
-    var value = this.hooks.filter('api.distPath.filter', path.join(this.paths.get('project'), dir));
-    this.paths.set('dist', value);
+    this.paths.set('dist', this.hooks.filter('api.distPath.filter', path.join(this.paths.get('project'), dir)));
     return this;
 };
 
@@ -212,10 +192,10 @@ var hot = function (options) {
     return this;
 };
 
-var inlineManifest = function (arg0) {
-    var _a;
-    this.features.set('inlineManifest', (arg0 === null || arg0 === void 0 ? void 0 : arg0.enabled) !== undefined ? arg0.enabled : true);
-    this.options.set('inlineManifest', { name: (_a = arg0 === null || arg0 === void 0 ? void 0 : arg0.name) !== null && _a !== void 0 ? _a : 'runtime' });
+var inlineManifest = function (args) {
+    var _a, _b;
+    this.features.set('inlineManifest', (_a = args === null || args === void 0 ? void 0 : args.enabled) !== null && _a !== void 0 ? _a : true);
+    this.options.set('inlineManifest.name', (_b = args === null || args === void 0 ? void 0 : args.name) !== null && _b !== void 0 ? _b : 'runtime');
     return this;
 };
 
@@ -234,9 +214,7 @@ var mini = function (enable) {
 var postCss = function (_a) {
     var _b;
     var enabled = _a.enabled, options = tslib.__rest(_a, ["enabled"]);
-    this.logger.info({ name: 'bud.api', "function": 'bud.postcss', enabled: enabled, options: options }, "bud.postcss called");
-    var postCssEnabled = enabled ? enabled : true;
-    postCssEnabled && this.features.enable('postCss');
+    this.features.set('postCss', enabled !== null && enabled !== void 0 ? enabled : true);
     if (this.features.enabled('postCss')) {
         this.options.set('postcss', tslib.__assign(tslib.__assign(tslib.__assign({}, this.options.get('postCss')), options), { plugins: tslib.__spreadArrays(((_b = options.plugins) !== null && _b !== void 0 ? _b : []), this.options.get('postCss').plugins) }));
     }
@@ -244,15 +222,7 @@ var postCss = function (_a) {
 };
 
 var preset = function (presetKey) {
-    this.logger.info({ name: 'bud.api', "function": 'bud.preset', presetKey: presetKey }, "bud.preset called");
-    if (!this.presets.has(presetKey)) {
-        this.logger.error({ name: 'api.preset', presetKey: presetKey }, "Preset key doesn't exist in presets repository.");
-    }
-    var presetPath = this.presets.get(presetKey);
-    if (!presetPath) {
-        this.logger.error({ name: 'api.preset', presetKey: presetKey }, "Preset key is not valid.");
-    }
-    return require(presetPath);
+    return require(this.presets.get(presetKey));
 };
 
 var project = function (path$1) {
@@ -260,13 +230,11 @@ var project = function (path$1) {
 };
 
 var projectPath = function (dir) {
-    this.logger.info({ name: 'bud.api', "function": 'bud.projectPath', dir: dir }, "bud.projectPath called");
     this.paths.set('project', dir);
     return this;
 };
 
 var publicPath = function (dir) {
-    this.logger.info({ name: 'bud.api', "function": 'bud.publicPath', dir: dir }, "bud.publicPath called");
     this.paths.set('public', dir);
     return this;
 };
@@ -523,65 +491,14 @@ var fs = {
     existsSync: fsExtra.existsSync,
 };
 
-var entryIncludesExt = function (entry) {
-    var matches = [
-        {
-            ext: '.scss',
-            contains: entry.match(/\.scss$/),
-        },
-        {
-            ext: '.jsx',
-            contains: entry.match(/\.jsx$/),
-        },
-        {
-            ext: '.ts',
-            contains: entry.match(/\.(ts|tsx)$/),
-        },
-        {
-            ext: '.vue',
-            contains: entry.match(/\.(vue)$/),
-        },
-    ];
-    return matches.filter(function (_a) {
-        var contains = _a.contains;
-        return contains;
-    }).map(function (_a) {
-        var ext = _a.ext;
-        return ext;
-    });
-};
 var usedExt = function (entries, bud) {
-    var matches = [];
     entries.forEach(function (entry) {
-        var exts = entryIncludesExt(entry);
-        exts.forEach(function (ext) {
-            if (!matches[ext]) {
-                matches = tslib.__spreadArrays(matches, [ext]);
-            }
-        });
+        var ext = entry.split('.')[entry.split('.').length - 1];
+        !bud.options.get('resolve.extensions').includes(ext) &&
+            bud.options.set('resolve.extensions', tslib.__spreadArrays(bud.options.get('resolve.extensions'), [
+                "." + ext,
+            ]));
     });
-    /**
-     * Enable features based on usage
-     */
-    if (matches.includes('.vue')) {
-        !bud.options.get('extensions').includes('.vue') &&
-            bud.options.set('extensions', tslib.__spreadArrays(bud.options.get('extensions'), ['.vue']));
-    }
-    if (matches.includes('.jsx')) {
-        !bud.options.get('extensions').includes('.jsx') &&
-            bud.options.set('extensions', tslib.__spreadArrays(bud.options.get('extensions'), ['.jsx']));
-    }
-    if (matches.includes('.ts') || matches.includes('.tsx')) {
-        !bud.options.get('extensions').includes('.ts') &&
-            bud.options.set('extensions', tslib.__spreadArrays(bud.options.get('extensions'), ['.ts']));
-        !bud.options.get('extensions').includes('.tsx') &&
-            bud.options.set('extensions', tslib.__spreadArrays(bud.options.get('extensions'), ['.tsx']));
-    }
-    if (matches.includes('.scss')) {
-        !bud.options.get('extensions').includes('.scss') &&
-            bud.options.set('extensions', tslib.__spreadArrays(bud.options.get('extensions'), ['.scss']));
-    }
-    return matches;
 };
 
 var log = yargs.argv.log;
@@ -634,21 +551,18 @@ var configs = function (paths) {
 var features = {
     dashboard: true,
     clean: true,
-    css: true,
-    svg: true,
     image: true,
     font: true,
-    js: true,
     manifest: true,
     optimize: true,
     terser: true,
     vendor: true,
     splitting: true,
     minify: true,
+    postCss: true,
     /**
      * Opt-in
      */
-    react: false,
     browserSync: false,
     dependencyManifest: false,
     dump: false,
@@ -656,10 +570,6 @@ var features = {
     hot: false,
     inlineManifest: false,
     overlay: false,
-    scss: false,
-    cssModules: false,
-    scssModules: false,
-    purge: false,
     sourceMap: false,
     translate: false,
     uglify: false,
@@ -682,13 +592,6 @@ var browserSync = function (flags) { return ({
     open: false,
 }); };
 var copy$1 = { patterns: [] };
-var dependencyManifest = {
-    combineAssets: false,
-    combinedOutputFile: null,
-    injectPolyfill: false,
-    outputFormat: 'json',
-    useDefaults: true,
-};
 var postCss$1 = function (configs) {
     var fallback = { plugins: [] };
     return configs.has('postCss') ? configs.require('postCss') : fallback;
@@ -722,27 +625,27 @@ var terser$1 = {
  */
 var options = {
     copy: copy$1,
-    dependencyManifest: dependencyManifest,
-    // eslint-disable-next-line
-    dev: {},
+    dev: {
+        headers: {
+            'Access-Control-Allow-Origin': '*',
+            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+            'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
+        },
+    },
     devtool: 'source-map',
-    extensions: ['.js', '.json'],
     filenameTemplate: {
         hashed: '[name].[hash:8]',
         "default": '[name]',
     },
-    headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
-        'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
-    },
     inlineManifest: {
         name: 'runtime',
     },
-    // eslint-disable-next-line
+    patterns: [],
     postCss: {},
-    // eslint-disable-next-line
-    scss: {},
+    resolve: {
+        alias: false,
+        extensions: ['.css', '.js', '.json', '.svg'],
+    },
     splitting: {
         maxChunks: null,
     },
@@ -766,7 +669,9 @@ var options = {
             },
         },
     },
-    vendor: { name: 'vendor' },
+    vendor: {
+        name: 'vendor',
+    },
 };
 
 /**
@@ -888,11 +793,9 @@ var fixStyleOnlyEntries = function () { return ({
         return new FixStyleOnlyEntriesPlugin(this.options);
     },
     when: function () {
-        return (this.bud.features.enabled('css') ||
-            this.bud.features.enabled('scss') ||
-            this.bud.features.enabled('postcss') ||
-            this.bud.features.enabled('scssModules') ||
-            this.bud.features.enabled('cssModules'));
+        return (this.bud.options.get('resolve.extensions').includes('.css') ||
+            this.bud.options.get('resolve.extensions').includes('.scss') ||
+            this.bud.options.get('resolve.extensions').includes('.sass'));
     },
 }); };
 
@@ -946,11 +849,9 @@ var miniCssExtract = function () { return ({
         return new MiniCssExtractPlugin(this.options);
     },
     when: function () {
-        return (this.bud.features.enabled('css') ||
-            this.bud.features.enabled('scss') ||
-            this.bud.features.enabled('postcss') ||
-            this.bud.features.enabled('scssModules') ||
-            this.bud.features.enabled('cssModules'));
+        return (this.bud.options.get('resolve.extensions').includes('.css') ||
+            this.bud.options.get('resolve.extensions').includes('.scss') ||
+            this.bud.options.get('resolve.extensions').includes('.sass'));
     },
 }); };
 
@@ -1340,58 +1241,23 @@ var output = function (bud) { return ({
         this.target.output.path = this.bud.hooks.filter(this.name + ".path.filter", this.target.output.path);
         this.target.output.filename = this.bud.hooks.filter(this.name + ".filename.filter", this.target.output.filename);
         this.target = this.bud.hooks.filter(this.name + ".filter", this.target);
-        this.bud.logger.info(tslib.__assign({ name: this.name }, this.target), "webpack.output has been generated");
         return this.target;
     },
 }); };
 
-var webpackResolve = function (bud) { return ({
-    bud: bud,
-    target: {
+var webpackResolve = function (bud) {
+    return bud.hooks.filter('webpack.resolve', {
         resolve: {
-            extensions: ['.js', '.json'],
-            modules: [
+            alias: bud.hooks.filter('webpack.resolve.alias', bud.options.get('resolve.alias')),
+            extensions: bud.hooks.filter('webpack.resolve.extensions', bud.options.get('resolve.extensions')),
+            modules: bud.hooks.filter('webpack.resolve.modules', [
                 bud.paths.get('src'),
                 path.join(bud.paths.get('project'), 'node_modules'),
                 path.join(bud.paths.get('framework'), 'node_modules'),
-            ],
+            ]),
         },
-    },
-    extensions: ['js', 'jsx', 'ts', 'tsx'],
-    make: function () {
-        var _this = this;
-        /**
-         * Alias resolution
-         */
-        if (this.bud.options.has('alias')) {
-            this.target.resolve.alias = this.bud.options.get('alias');
-        }
-        /**
-         * Ensure bundle support
-         */
-        this.extensions.forEach(function (ext) { return _this.ensureSupport(ext); });
-        /**
-         * Filter, log & return
-         */
-        this.target = this.bud.hooks.filter('webpack.resolve', this.target);
-        this.bud.logger.info({ name: 'webpack.resolve', value: this.target }, "webpack.resolve has been generated");
-        return this.target;
-    },
-    /**
-     * Ensure extensions supported
-     */
-    ensureSupport: function (ext) {
-        if (!this.bud.features.enabled(ext)) {
-            return;
-        }
-        var missedExt = this.target.resolve.extensions.filter(function (supported) { return supported !== ext; }).length <
-            1;
-        if (missedExt) {
-            this.target.resolve.extensions.push("." + ext);
-            this.bud.logger.warn({ name: 'webpack.resolve' }, "." + ext + " support added by support check.");
-        }
-    },
-}); };
+    });
+};
 
 var plugins$1 = function (bud) { return ({
     bud: bud,
@@ -1411,17 +1277,17 @@ var plugins$1 = function (bud) { return ({
     },
 }); };
 
-var builders = [entry, rules$1, externals, devServer];
-var complexBuilders = [general, webpackResolve, plugins$1, output];
+var builders = [entry, rules$1, externals, devServer, webpackResolve];
+var complexBuilders = [general, plugins$1, output];
 var build = function (bud) {
     var config = {};
-    bud.features.enabled('optimize') && complexBuilders.push(optimization);
     builders.forEach(function (builder) {
         Object.assign(config, builder(bud));
     });
     complexBuilders.map(function (builder) {
         Object.assign(config, builder(bud).make());
     });
+    bud.features.enabled('optimize') && complexBuilders.push(optimization);
     return config;
 };
 
@@ -5420,10 +5286,11 @@ var bootstrap = function () {
     this.framework.options.set('postCss', postCss$1(this.framework.configs));
     this.framework.options.set('browserSync', browserSync(this.framework.flags));
 };
+var budInstance = new bootstrap().framework;
 /**
  * Bud Framework
  */
-var bud = new bootstrap().framework;
+var bud = budInstance;
 
 exports.bootstrap = bootstrap;
 exports.bud = bud;

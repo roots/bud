@@ -13,16 +13,14 @@ const vue: Extension = (bud: Bud) => ({
   bud,
   make: function (this: ExtensionInterface): void {
     if (this.bud) {
-      this.bud.features.set('vue', true)
+      this.bud.options.set('resolve.extensions', [
+        ...this.bud.options.get('resolve.extensions'),
+        '.vue',
+      ])
       this.bud.adapters.add(adapter)
       this.bud.alias({
         vue$: 'vue/dist/vue.esm.js',
       })
-      this.bud.options.set('extensions', [
-        ...this.bud.options.get('extensions'),
-        '.vue',
-      ])
-
       this.bud.rules.repository = [...this.bud.rules.repository, rule]
       this.bud.hooks.on('webpack.module.rules.css.use', addVueStyle)
       this.bud.hooks.on('webpack.module.rules.scss.use', addVueStyle)

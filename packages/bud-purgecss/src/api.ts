@@ -54,15 +54,13 @@ type BudPurgeOptions = {
  * ```
  */
 const config = function (this: Bud, options: BudPurgeOptions): Bud {
-  const purgeEnabled = options.enabled ?? true
-  purgeEnabled && this.features.enable('purge')
-
-  const value = {
+  this.options.set('postCss', {
     ...this.options.get('postCss'),
-    plugins: [...this.options.get('postCss').plugins, purgecss(options.options)],
-  }
-
-  this.options.set('postCss', value)
+    plugins: [
+      ...this.options.get('postCss').plugins,
+      purgecss(options.options),
+    ],
+  })
 
   return this
 }

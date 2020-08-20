@@ -4,9 +4,11 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Program",
-      "skipFiles": ["<node_internals>/**"],
-      "program": "${workspaceFolder}/bin/bud.js"
+      "name": "bud",
+      "skipFiles": ["<node_internals>/**", "test/**"],
+      "preLaunchTask": "npm: build",
+      "outFiles": ["${workspaceFolder}/packages/bud/dist/index.js"],
+      "program": "${workspaceFolder}/packages/bud/src/index.ts"
     }
   ]
 }

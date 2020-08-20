@@ -14,11 +14,9 @@ const miniCssExtract = () => ({
   },
   when: function () {
     return (
-      this.bud.features.enabled('css') ||
-      this.bud.features.enabled('scss') ||
-      this.bud.features.enabled('postcss') ||
-      this.bud.features.enabled('scssModules') ||
-      this.bud.features.enabled('cssModules')
+      this.bud.options.get('resolve.extensions').includes('.css') ||
+      this.bud.options.get('resolve.extensions').includes('.scss') ||
+      this.bud.options.get('resolve.extensions').includes('.sass')
     )
   },
 })

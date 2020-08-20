@@ -156,10 +156,12 @@ const bootstrap = function (): void {
   this.framework.options.set('browserSync', browserSync(this.framework.flags))
 }
 
+const budInstance = new bootstrap().framework
+
 /**
  * Bud Framework
  */
-const bud: Bud = new bootstrap().framework
+const bud: Bud = budInstance
 
 export {bud, bootstrap}
 export {Bud, Extension, ExtensionInterface, Use, UsesHash}

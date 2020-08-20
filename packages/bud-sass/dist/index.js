@@ -30,17 +30,12 @@ const rule = (bud) => ({
 const sass = (bud) => ({
     bud,
     make: function () {
-        /**
-         * Enable sass support
-         */
-        this.bud.features.set('sass', true);
-        /**
-         * Add bud.sass method.
-         */
+        this.bud.options.set('resolve.extensions', [
+            ...this.bud.options.get('resolve.extensions'),
+            '.sass',
+            '.scss',
+        ]);
         this.bud.sass = api_1.config;
-        /**
-         * Add sass rule to webpack modules repository.
-         */
         this.bud.rules.repository = [...this.bud.rules.repository, rule];
     },
 });

@@ -1,1 +1,1 @@
-{"version":3,"file":"projectPath.d.ts","sourceRoot":"","sources":["../../src/api/projectPath.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAM,UAAU,EAAC,MAAM,SAAS,CAAA;AAE5C,QAAA,MAAM,WAAW,EAAE,UASlB,CAAA;AAED,OAAO,EAAC,WAAW,EAAC,CAAA"}
+{"version":3,"file":"projectPath.d.ts","sourceRoot":"","sources":["../../src/api/projectPath.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAM,UAAU,EAAC,MAAM,SAAS,CAAA;AAE5C,QAAA,MAAM,WAAW,EAAE,UAIlB,CAAA;AAED,OAAO,EAAC,WAAW,EAAC,CAAA"}

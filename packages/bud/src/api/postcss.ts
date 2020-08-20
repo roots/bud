@@ -1,13 +1,7 @@
 import type {Bud, PostCss} from './types'
 
 const postCss: PostCss = function ({enabled, ...options}): Bud {
-  this.logger.info(
-    {name: 'bud.api', function: 'bud.postcss', enabled, options},
-    `bud.postcss called`,
-  )
-
-  const postCssEnabled = enabled ? enabled : true
-  postCssEnabled && this.features.enable('postCss')
+  this.features.set('postCss', enabled ?? true)
 
   if (this.features.enabled('postCss')) {
     this.options.set('postcss', {

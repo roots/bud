@@ -1,11 +1,4 @@
-import type {
-  BabelConfiguration,
-  Copy,
-  Dev,
-  PostCssConfiguration,
-  Target,
-  WordPressDependenciesOptions,
-} from './types'
+import type {BabelConfiguration, Copy, PostCssConfiguration, Target} from './types'
 
 const babelFallback: BabelConfiguration = {
   presets: [],
@@ -25,14 +18,6 @@ const browserSync: (flags) => any = flags => ({
 })
 
 const copy: Copy = {patterns: []}
-
-const dependencyManifest: WordPressDependenciesOptions = {
-  combineAssets: false,
-  combinedOutputFile: null,
-  injectPolyfill: false,
-  outputFormat: 'json',
-  useDefaults: true,
-}
 
 const postCss: (configs) => PostCssConfiguration = function (configs) {
   const fallback: PostCssConfiguration = {plugins: []}
@@ -71,24 +56,28 @@ const terser = {
  */
 const options = {
   copy,
-  dependencyManifest,
-  dev: {},
+  dev: {
+    headers: {
+      'Access-Control-Allow-Origin': '*',
+      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+      'Access-Control-Allow-Headers':
+        'X-Requested-With, content-type, Authorization',
+    },
+  },
   devtool: 'source-map',
-  extensions: ['.js', '.json'],
   filenameTemplate: {
     hashed: '[name].[hash:8]',
     default: '[name]',
   },
-  headers: {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
-    'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
-  },
   inlineManifest: {
     name: 'runtime',
   },
+  patterns: [],
   postCss: {},
-  scss: {},
+  resolve: {
+    alias: false,
+    extensions: ['.css', '.js', '.json', '.svg'],
+  },
   splitting: {
     maxChunks: null,
   },
@@ -109,7 +98,9 @@ const options = {
       },
     },
   },
-  vendor: {name: 'vendor'},
+  vendor: {
+    name: 'vendor',
+  },
 }
 
 export {options, babel, browserSync, postCss}

@@ -4,14 +4,14 @@ const {bud} = require('@roots/bud')
 
 test('sets option', t => {
   bud.alias({'@scripts': bud.src('scripts')})
-  t.deepEqual(bud.options.get('alias'), {
+  t.deepEqual(bud.options.get('resolve.alias'), {
     '@scripts': bud.src('scripts'),
   })
 })
 
 test('merges options', t => {
   bud.alias({'@styles': bud.src('styles')})
-  t.deepEqual(bud.options.get('alias'), {
+  t.deepEqual(bud.options.get('resolve.alias'), {
     '@scripts': bud.src('scripts'),
     '@styles': bud.src('styles'),
   })
@@ -24,7 +24,7 @@ test('generates expected webpack.resolve', t => {
       '@scripts': bud.src('scripts'),
       '@styles': bud.src('styles'),
     },
-    extensions: ['.js', '.json'],
+    extensions: ['.css', '.js', '.json', '.svg'],
     modules: [
       bud.src(),
       bud.project('node_modules'),

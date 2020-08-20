@@ -29,7 +29,12 @@ const typescript: Extension = (bud: Bud): ExtensionInterface => ({
     }
 
     this.bud.configs.set('typescript', config)
-    this.bud.features.set('ts', true)
+    this.bud.options.set('resolve.extensions', [
+      ...this.bud.options.get('resolve.extensions'),
+      '.ts',
+      '.tsx',
+    ])
+
     this.bud.rules.repository = [...this.bud.rules.repository, rule]
   },
 })

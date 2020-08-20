@@ -1,7 +1,9 @@
 import {join, resolve} from 'path'
 import {argv} from 'yargs'
-import {projectRoot} from '../util/projectRoot'
-import type {Directory} from './types'
+import type {Loose} from '@roots/bud-typings'
+import type {Container} from '../container'
+type Directory = string
+type Paths = Container
 
 /**
  * Current working dir
@@ -22,7 +24,7 @@ const ensureStr: (any) => string = possibleStr =>
 /**
  * Paths repo.
  */
-const paths = {
+const paths: Loose = {
   cwd,
   project: cwd,
   framework,
@@ -32,3 +34,4 @@ const paths = {
 }
 
 export {paths}
+export type {Directory, Paths}

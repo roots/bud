@@ -1,5 +1,4 @@
 const test = require('ava')
-const features = require('../fixtures/features')
 const {bud} = require('@roots/bud')
 
 test('has expected default', t => {

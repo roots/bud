@@ -1,17 +1,7 @@
-declare const webpackResolve: (bud: any) => {
-    bud: any;
-    target: {
-        resolve: {
-            extensions: string[];
-            modules: any[];
-        };
-    };
-    extensions: string[];
-    make: () => any;
-    /**
-     * Ensure extensions supported
-     */
-    ensureSupport: (ext: any) => void;
-};
+import type { Bud } from './types';
+import type { WebpackResolve } from '@roots/bud-typings';
+declare type ResolveBuilder = (bud: Bud) => WebpackResolve;
+declare const webpackResolve: ResolveBuilder;
 export { webpackResolve };
+export type { ResolveBuilder };
 //# sourceMappingURL=webpackResolve.d.ts.map

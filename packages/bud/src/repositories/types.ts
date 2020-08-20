@@ -1,13 +1,12 @@
-import type {Configuration as WebpackConfiguration} from 'webpack'
-import type {Options as DependencyExtractionOptions} from '@wordpress/dependency-extraction-webpack-plugin/build-types'
-import type {Options as BrowserSyncOptions} from 'browser-sync-webpack-plugin'
+import type {
+  BrowserSyncOptions,
+  WebpackExternals,
+  WebpackTarget,
+} from '@roots/bud-typings'
 
 import type {Container, FileContainer} from '../container'
 import type {Bud} from '..'
 export type {Bud}
-
-export type Directory = string
-export type Paths = Container
 
 export type Options = Container
 
@@ -19,17 +18,13 @@ export type BrowserSync = BrowserSyncOptions
 export type Copy = {
   patterns: any[]
 }
-export {DependencyExtractionOptions as WordPressDependenciesOptions}
 export type Dev = any
-export type Externals = WebpackConfiguration['externals']
+export type Externals = WebpackExternals
 export type PostCssConfiguration = {
   plugins: []
 }
-export type Target = WebpackConfiguration['target']
-export type Typescript = any
-export type Vendor = {
-  name: string
-}
+export type Target = WebpackTarget
+export type Vendor = {name: string}
 
 type Features = any
 export type {Features}
@@ -42,5 +37,8 @@ export type {Args}
 
 type Configs = FileContainer
 export type {Configs}
+
+import type {Directory, Paths} from './paths'
+export type {Directory, Paths}
 
 export type Environment = any

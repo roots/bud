@@ -10,8 +10,8 @@ import {plugins} from './plugins'
 
 import type {Bud} from './types'
 
-const builders = [entry, rules, externals, devServer]
-const complexBuilders = [general, webpackResolve, plugins, output]
+const builders = [entry, rules, externals, devServer, webpackResolve]
+const complexBuilders = [general, plugins, output]
 
 const build = (bud: Bud): any => {
   const config: any = {}

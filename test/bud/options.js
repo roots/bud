@@ -16,24 +16,19 @@ test('has expected defaults', t => {
   t.deepEqual(bud.options.get('copy'), {
     patterns: [],
   })
-  t.deepEqual(bud.options.get('dependencyManifest'), {
-    combineAssets: false,
-    combinedOutputFile: null,
-    injectPolyfill: false,
-    outputFormat: 'json',
-    useDefaults: true,
-  })
-  t.deepEqual(bud.options.get('dev'), {})
-  t.deepEqual(bud.options.get('devtool'), 'source-map')
-  t.deepEqual(bud.options.get('extensions'), ['.js', '.json'])
-  t.deepEqual(bud.options.get('filenameTemplate'), {
-    default: '[name]',
-    hashed: '[name].[hash:8]',
-  })
-  t.deepEqual(bud.options.get('headers'), {
+  t.deepEqual(bud.options.get('dev.headers'), {
     'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
     'Access-Control-Allow-Origin': '*',
+  })
+  t.deepEqual(bud.options.get('devtool'), 'source-map')
+  t.deepEqual(bud.options.get('resolve'), {
+    alias: false,
+    extensions: ['.css', '.js', '.json', '.svg'],
+  })
+  t.deepEqual(bud.options.get('filenameTemplate'), {
+    default: '[name]',
+    hashed: '[name].[hash:8]',
   })
   t.deepEqual(bud.options.get('inlineManifest'), {
     name: 'runtime',

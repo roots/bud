@@ -31,11 +31,6 @@ const output: BuilderConstructor = bud => ({
 
     this.target = this.bud.hooks.filter(`${this.name}.filter`, this.target)
 
-    this.bud.logger.info(
-      {name: this.name, ...this.target},
-      `webpack.output has been generated`,
-    )
-
     return this.target
   },
 })

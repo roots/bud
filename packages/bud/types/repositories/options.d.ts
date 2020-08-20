@@ -1,4 +1,4 @@
-import type { BabelConfiguration, Copy, PostCssConfiguration, WordPressDependenciesOptions } from './types';
+import type { BabelConfiguration, Copy, PostCssConfiguration } from './types';
 declare const babel: (configs: any) => BabelConfiguration;
 declare const browserSync: (flags: any) => any;
 declare const postCss: (configs: any) => PostCssConfiguration;
@@ -7,24 +7,27 @@ declare const postCss: (configs: any) => PostCssConfiguration;
  */
 declare const options: {
     copy: Copy;
-    dependencyManifest: WordPressDependenciesOptions;
-    dev: {};
+    dev: {
+        headers: {
+            'Access-Control-Allow-Origin': string;
+            'Access-Control-Allow-Methods': string;
+            'Access-Control-Allow-Headers': string;
+        };
+    };
     devtool: string;
-    extensions: string[];
     filenameTemplate: {
         hashed: string;
         default: string;
     };
-    headers: {
-        'Access-Control-Allow-Origin': string;
-        'Access-Control-Allow-Methods': string;
-        'Access-Control-Allow-Headers': string;
-    };
     inlineManifest: {
         name: string;
     };
+    patterns: any[];
     postCss: {};
-    scss: {};
+    resolve: {
+        alias: boolean;
+        extensions: string[];
+    };
     splitting: {
         maxChunks: any;
     };

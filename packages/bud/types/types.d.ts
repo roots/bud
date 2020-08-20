@@ -1,11 +1,10 @@
 import type { Loose, WebpackMode } from '@roots/bud-typings';
+import * as Api from './api/types';
 import type { Container } from './container';
 import type { Hooks } from './hooks/types';
 import type { Paths, Features, Options } from './repositories/types';
 import type { FileContainer } from './container';
 import type { Util } from './util/types';
-import * as Api from './api/types';
-import type { Vendor } from './api/vendor';
 export type { Use, UsesHash } from './repositories/rulesets';
 /**
  * Bud Framework Interface
@@ -190,7 +189,7 @@ export interface Bud extends Loose {
      * bud.compile()
      * ```
      */
-    compile: () => void;
+    compile: Api.Compile;
     /**
      * ## bud.copy
      *
@@ -458,7 +457,7 @@ export interface Bud extends Loose {
      * bud.vendor()
      * ```
      */
-    vendor: Vendor;
+    vendor: Api.Vendor;
     /**
      * ## bud.watch
      *

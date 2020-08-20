@@ -1,23 +1,26 @@
 const test = require('ava')
+const {emptyDir} = require('fs-extra')
 const {join, resolve} = require('path')
-const {bud} = require('@roots/bud')
-const globby = require('globby')
 
-const mockDir = resolve(__dirname, '../mock')
+const {bud} = require('@roots/bud')
+
+const mockDir = resolve(process.cwd(), 'test/mock')
 const imagesDir = resolve(mockDir, 'public/images')
 const fontsDir = resolve(mockDir, 'public/fonts')
 
 bud.projectPath(mockDir)
 bud.distPath('dist')
 
+bud.project()
+
 const patterns = [
   {
     from: bud.project('public/images/*'),
-    to: bud.dist('public/images'),
+    to: bud.dist(),
   },
   {
     from: bud.project('public/fonts/*'),
-    to: bud.dist('public/fonts'),
+    to: bud.dist(),
   }
 ]
 
@@ -29,7 +32,7 @@ const expectations = [
       ignore: '.*',
     },
     noErrorOnMissing: true,
-    to: bud.dist('public/images'),
+    to: bud.dist(),
   },
   {
     context: join(fontsDir, '*'),
@@ -38,7 +41,7 @@ const expectations = [
       ignore: '.*',
     },
     noErrorOnMissing: true,
-    to: bud.dist('public/fonts'),
+    to: bud.dist(),
   },
 ]
 
@@ -58,4 +61,8 @@ test('generates expected webpack.plugins entry', t => {
   const config = bud.config()
 
   t.deepEqual(config.plugins[1].patterns, expectations)
+
+  t.teardown(async () => {
+    await emptyDir(bud.dist())
+  })
 })

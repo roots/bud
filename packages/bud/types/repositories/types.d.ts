@@ -1,12 +1,8 @@
-/// <reference types="webpack-dev-server" />
-import type { Configuration as WebpackConfiguration } from 'webpack';
-import type { Options as DependencyExtractionOptions } from '@wordpress/dependency-extraction-webpack-plugin/build-types';
-import type { Options as BrowserSyncOptions } from 'browser-sync-webpack-plugin';
+/// <reference types="browser-sync" />
+import type { BrowserSyncOptions, WebpackExternals, WebpackTarget } from '@roots/bud-typings';
 import type { Container, FileContainer } from '../container';
 import type { Bud } from '..';
 export type { Bud };
-export declare type Directory = string;
-export declare type Paths = Container;
 export declare type Options = Container;
 export declare type BabelConfiguration = {
     plugins: [];
@@ -16,14 +12,12 @@ export declare type BrowserSync = BrowserSyncOptions;
 export declare type Copy = {
     patterns: any[];
 };
-export { DependencyExtractionOptions as WordPressDependenciesOptions };
 export declare type Dev = any;
-export declare type Externals = WebpackConfiguration['externals'];
+export declare type Externals = WebpackExternals;
 export declare type PostCssConfiguration = {
     plugins: [];
 };
-export declare type Target = WebpackConfiguration['target'];
-export declare type Typescript = any;
+export declare type Target = WebpackTarget;
 export declare type Vendor = {
     name: string;
 };
@@ -35,5 +29,7 @@ declare type Args = Container;
 export type { Args };
 declare type Configs = FileContainer;
 export type { Configs };
+import type { Directory, Paths } from './paths';
+export type { Directory, Paths };
 export declare type Environment = any;
 //# sourceMappingURL=types.d.ts.map
