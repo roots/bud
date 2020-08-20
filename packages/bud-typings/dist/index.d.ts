@@ -1,9 +1,13 @@
 /// <reference types="webpack-dev-server" />
-import type { Configuration as WebpackConfig, RuleSetRule } from 'webpack';
 interface Loose {
     [key: string]: any;
 }
 export { Loose };
+import { TransformOptions as BabelTransformOptions } from '@babel/core';
+export { BabelTransformOptions };
+import type { Options as BrowserSyncOptions } from 'browser-sync';
+export type { BrowserSyncOptions };
+import type { Configuration as WebpackConfig, RuleSetRule } from 'webpack';
 export declare type WebpackDevServer = WebpackConfig['devServer'];
 export declare type WebpackEntry = WebpackConfig['entry'];
 export declare type WebpackExternals = WebpackConfig['externals'];

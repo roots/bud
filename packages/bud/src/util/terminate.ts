@@ -1,21 +1,16 @@
 import {Loose} from '@roots/bud-typings'
 
-type Terminate = (options: TerminateOptions) => TerminateReturn
 type TerminateReturn = () => (err: Error) => void
 interface TerminateOptions extends Loose {
   dump?: boolean
   timeout?: number
 }
+type Terminate = (options?: TerminateOptions) => TerminateReturn
 
 /**
  * Terminate CLI execution
  */
-const terminate: Terminate = (
-  options: TerminateOptions = {
-    dump: false,
-    timeout: 500,
-  },
-) => {
+const terminate: Terminate = options => {
   const exit = (code: number) => {
     options.dump ? process.abort() : process.exit(code)
   }

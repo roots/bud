@@ -17,8 +17,7 @@ const processHandler = (bud: Bud) => {
 
       process.exitCode = 1
       process.nextTick(() => {
-        bud.hooks.call('compile_error', {bud, error})
-        bud.util.terminate(bud)
+        bud.util.terminate()
       })
     },
   )

@@ -1,6 +1,8 @@
-import type {Bud, Alias} from './types'
+import type {Bud} from './types'
 
-const alias: Alias = function (this: Bud, options: any): Bud {
+type Alias = (this: Bud, options: any) => Bud
+
+const alias: Alias = function (options) {
   const aliases = this.hooks.filter('api.alias.filter', options)
 
   this.options.set('alias', {
@@ -12,3 +14,4 @@ const alias: Alias = function (this: Bud, options: any): Bud {
 }
 
 export {alias}
+export type {Alias}

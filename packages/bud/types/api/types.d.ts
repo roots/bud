@@ -1,17 +1,11 @@
+/// <reference types="browser-sync" />
 import { Bud } from '..';
 export { Bud } from '..';
-import type { Options as BrowserSyncOptions } from 'browser-sync';
-export type { BrowserSyncOptions };
+import type { BrowserSyncOptions } from '@roots/bud-typings';
 import type { Configuration as WebpackConfiguration, Options as WebpackOptions } from 'webpack';
 export type { WebpackConfiguration, WebpackOptions };
 import { Options as DependencyExtractionOptions } from '@wordpress/dependency-extraction-webpack-plugin';
 export type { DependencyExtractionOptions };
-export declare type Alias = (arg0: any) => Bud;
-export declare type Auto = (options: {
-    [key: string]: string[];
-}) => Bud;
-export declare type BabelCfg = (options: BabelOptions) => Bud;
-export declare type Bundle = (name: string, entries: string[]) => Bud;
 export declare type Copy = (from: string, to: string) => Bud;
 export declare type Debug = (enabled?: boolean) => any;
 export declare type DependencyManifest = (settings?: DependencyExtractionOptions) => Bud;
@@ -57,14 +51,22 @@ export declare type Watch = (options: {
     paths: string[];
     enabled: boolean;
 }) => Bud;
-import type { Use } from './use';
-export type { Use };
+import type { Alias } from './alias';
+export type { Alias };
+import type { Auto } from './auto';
+export type { Auto };
+import type { Babel } from './babel';
+export type { Babel };
+import type { Bundle } from './bundle';
+export type { Bundle };
+import type { UseExtension } from './use';
+export type { UseExtension };
 import type { Vendor } from './vendor';
 export type { Vendor };
 export declare type Api = {
     alias: Alias;
     auto: Auto;
-    babel: BabelCfg;
+    babel: Babel;
     bundle: Bundle;
     compile: () => void;
     config: any;
@@ -91,12 +93,10 @@ export declare type Api = {
     srcPath: PathSetter;
     sync: Sync;
     target: Target;
-    use: Use;
+    use: UseExtension;
     vendor: Vendor;
     watch: Watch;
 };
-import { TransformOptions as BabelOptions } from '@babel/core';
-export { BabelOptions };
 export interface SyncOptions {
     enabled?: boolean;
     options: BrowserSyncOptions;

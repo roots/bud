@@ -1,4 +1,4 @@
-import type { ShortCircuit } from './types';
+declare type ShortCircuit = () => any;
 /**
  * JSON.stringify replacement function
  *
@@ -6,4 +6,5 @@ import type { ShortCircuit } from './types';
  */
 declare const shortCircuit: ShortCircuit;
 export { shortCircuit };
+export type { ShortCircuit };
 //# sourceMappingURL=shortCircuit.d.ts.map

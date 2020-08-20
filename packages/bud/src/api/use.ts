@@ -1,8 +1,8 @@
 import type {Bud} from '..'
 
-type Use = (this: Bud, plugin: any) => Bud
+type UseExtension = (this: Bud, plugin: any) => Bud
 
-const use: Use = function (this: Bud, plugins: any[]): Bud {
+const use: UseExtension = function (this: Bud, plugins: any[]): Bud {
   const controller = this.plugins.controller(this)
 
   plugins.map(plugin => {
@@ -13,4 +13,4 @@ const use: Use = function (this: Bud, plugins: any[]): Bud {
 }
 
 export {use}
-export type {Use}
+export type {UseExtension}

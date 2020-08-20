@@ -1,7 +1,8 @@
-import type {Dump} from './types'
 import {format} from 'prettier'
 import {highlight} from 'cli-highlight'
 import {shortCircuit} from './shortCircuit'
+
+type Dump = (obj: any, prettierOptions?: any) => void
 
 /**
  * Dump a prettified, syntax-highlighted object
@@ -17,3 +18,4 @@ const dump: Dump = (obj: any, prettierOptions?: any): void => {
 }
 
 export {dump}
+export type {Dump}

@@ -1,7 +1,15 @@
 import {existsSync} from 'fs-extra'
 import path from 'path'
 
-export const fs = {
+type FS = {
+  path
+  existsSync
+}
+
+const fs: FS = {
   path,
   existsSync,
 }
+
+export {fs}
+export type {FS}

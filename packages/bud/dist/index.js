@@ -10,7 +10,6 @@ var path__default = _interopDefault(path);
 var chokidar = _interopDefault(require('chokidar'));
 var prettier = require('prettier');
 var cliHighlight = require('cli-highlight');
-var lodash = require('lodash');
 var fsExtra = require('fs-extra');
 var pino = _interopDefault(require('pino'));
 var yargs = require('yargs');
@@ -37,6 +36,7 @@ var webpackDevMiddleware = _interopDefault(require('webpack-dev-middleware'));
 var webpackHotMiddleware = _interopDefault(require('webpack-hot-middleware'));
 var blacklist = _interopDefault(require('blacklist'));
 var patchConsole = _interopDefault(require('patch-console'));
+var lodash = require('lodash');
 
 var alias = function (options) {
     var aliases = this.hooks.filter('api.alias.filter', options);
@@ -57,26 +57,25 @@ var auto = function (options) {
 };
 
 var babel = function (options) {
-    this.logger.info({ name: 'bud.api', "function": 'bud.babel', options: options }, "bud.babel called");
     this.features.enable('babel');
-    this.options.set('babel', tslib.__assign(tslib.__assign({}, this.options.get('babel')), this.hooks.filter('filter_babel_options', options)));
-    this.hooks.call('post_babel');
+    this.options.set('babel', tslib.__assign(tslib.__assign({}, this.options.get('babel')), this.hooks.filter('bud.api.babel', options)));
     return this;
 };
 
 var bundle = function (name, entries) {
     var _a;
-    this.logger.info({ name: 'bud.api', "function": 'bud.bundle', entries: entries }, "bud.bundle called");
-    this.hooks.call('api.bundle.pre', { name: name, entries: entries });
     /**
      * Lazy load whatever loaders are needed to fulfill the
      * bundle requirements.
      */
     this.util.usedExt(entries, this);
+    /**
+     * Set entrypoints.
+     */
     this.options.set('entry', tslib.__assign(tslib.__assign({}, this.options.get('entry')), this.hooks.filter('api.bundle.filter', (_a = {},
         _a["" + name] = entries,
         _a))));
-    this.hooks.call('api.bundle.post');
+    this.hooks.call('api.bundle');
     return this;
 };
 
@@ -228,7 +227,6 @@ var map = function (enabled) {
 
 var mini = function (enable) {
     if (enable === void 0) { enable = true; }
-    this.logger.info({ name: 'bud.api', "function": 'bud.mini', enable: enable }, "bud.mini called");
     this.features.set('minify', enable);
     return this;
 };
@@ -325,7 +323,6 @@ var use = function (plugins) {
 };
 
 var vendor = function (name) {
-    this.logger.info({ name: 'bud.api', "function": 'bud.vendor', options: { name: name } }, "bud.vendor called");
     this.features.enable('vendor');
     this.options.set('vendor', tslib.__assign(tslib.__assign({}, this.options.get('vendor')), { name: name !== null && name !== void 0 ? name : 'vendor' }));
     return this;
@@ -452,7 +449,6 @@ var hooks = function (logger) { return ({
  * Prevents circular references in JSON from looping
  */
 var shortCircuit = function () {
-    // eslint-disable-next-line no-undef
     var seen = new WeakSet();
     return function (key, value) {
         if (typeof value === 'object' && value !== null) {
@@ -476,14 +472,6 @@ var dump = function (obj, prettierOptions) {
     console.log(highlightedConfig);
 };
 
-var except = function (target, properties) {
-    var freshObj = lodash.cloneDeep(target);
-    properties.forEach(function (key) {
-        delete freshObj[key];
-    });
-    return freshObj;
-};
-
 /**
  * Fabs: like noop but fab.
  */
@@ -502,10 +490,6 @@ var projectRoot = require.main.paths[0]
  * Terminate CLI execution
  */
 var terminate = function (options) {
-    if (options === void 0) { options = {
-        dump: false,
-        timeout: 500,
-    }; }
     var exit = function (code) {
         options.dump ? process.abort() : process.exit(code);
     };
@@ -528,11 +512,15 @@ var processHandler = function (bud) {
         bud.logger.error({ name: 'process', value: error }, "unhandled rejection error");
         process.exitCode = 1;
         process.nextTick(function () {
-            bud.hooks.call('compile_error', { bud: bud, error: error });
-            bud.util.terminate(bud);
+            bud.util.terminate();
         });
     });
     process.on('unhandledRejection', unhandledRejectionHandler);
+};
+
+var fs = {
+    path: path__default,
+    existsSync: fsExtra.existsSync,
 };
 
 var entryIncludesExt = function (entry) {
@@ -576,33 +564,24 @@ var usedExt = function (entries, bud) {
      * Enable features based on usage
      */
     if (matches.includes('.vue')) {
-        bud.features.set('vue', true);
         !bud.options.get('extensions').includes('.vue') &&
             bud.options.set('extensions', tslib.__spreadArrays(bud.options.get('extensions'), ['.vue']));
     }
     if (matches.includes('.jsx')) {
-        bud.features.set('react', true);
         !bud.options.get('extensions').includes('.jsx') &&
             bud.options.set('extensions', tslib.__spreadArrays(bud.options.get('extensions'), ['.jsx']));
     }
     if (matches.includes('.ts') || matches.includes('.tsx')) {
-        bud.features.set('typescript', true);
         !bud.options.get('extensions').includes('.ts') &&
             bud.options.set('extensions', tslib.__spreadArrays(bud.options.get('extensions'), ['.ts']));
         !bud.options.get('extensions').includes('.tsx') &&
             bud.options.set('extensions', tslib.__spreadArrays(bud.options.get('extensions'), ['.tsx']));
     }
     if (matches.includes('.scss')) {
-        bud.features.set('scss', true);
         !bud.options.get('extensions').includes('.scss') &&
             bud.options.set('extensions', tslib.__spreadArrays(bud.options.get('extensions'), ['.scss']));
     }
     return matches;
-};
-
-var fs = {
-    path: path__default,
-    existsSync: fsExtra.existsSync,
 };
 
 var log = yargs.argv.log;
@@ -618,7 +597,6 @@ var logger = pino({
 var util = {
     fs: fs,
     dump: dump,
-    except: except,
     shortCircuit: shortCircuit,
     fab: fab,
     projectRoot: projectRoot,
@@ -5441,7 +5419,6 @@ var bootstrap = function () {
 };
 /**
  * Bud Framework
- * @type {Bud}
  */
 var bud = new bootstrap().framework;
 

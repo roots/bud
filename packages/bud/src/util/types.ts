@@ -1,28 +1,19 @@
-import {Bud} from '..'
+import type {Dump} from './dump'
+import type {Fab} from './fab'
+import type {FS} from './fs'
+import type {ProjectRoot} from './projectRoot'
+import type {ShortCircuit} from './shortCircuit'
 import type {Terminate} from './terminate'
-export type {Bud}
-export type Dump = (obj: any, prettierOptions?: any) => void
-export type Except = (target: any, properties: []) => any
-export type ShortCircuit = () => any
-export type Fab = {
-  false: () => boolean
-  true: () => boolean
-  undefined: () => undefined
-  null: () => null
-}
-export type ProjectRoot = string
-export type Fs = {
-  path
-  existsSync
-}
+
+export type {Bud} from '..'
+
 export type Util = {
-  fs: Fs
-  dump: Dump
-  except: Except
-  shortCircuit: ShortCircuit
   fab: Fab
-  projectRoot: ProjectRoot
-  terminate: Terminate
+  fs: FS
   processHandler: any
-  usedExt: (any, bud: Bud) => any[]
+  projectRoot: ProjectRoot
+  dump: Dump
+  shortCircuit: ShortCircuit
+  terminate: Terminate
+  usedExt: any
 }

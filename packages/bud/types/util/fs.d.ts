@@ -1,7 +1,8 @@
-/// <reference types="node" />
-import path from 'path';
-export declare const fs: {
-    path: path.PlatformPath;
+declare type FS = {
+    path: any;
     existsSync: any;
 };
+declare const fs: FS;
+export { fs };
+export type { FS };
 //# sourceMappingURL=fs.d.ts.map

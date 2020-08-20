@@ -1,20 +1,17 @@
-import {Bud, BabelCfg, BabelOptions} from './types'
+import {Bud} from './types'
+import {BabelTransformOptions} from '@roots/bud-typings'
 
-const babel: BabelCfg = function (this: Bud, options: BabelOptions): Bud {
-  this.logger.info(
-    {name: 'bud.api', function: 'bud.babel', options},
-    `bud.babel called`,
-  )
+type Babel = (this: Bud, options: BabelTransformOptions) => Bud
 
+const babel: Babel = function (options) {
   this.features.enable('babel')
   this.options.set('babel', {
     ...this.options.get('babel'),
-    ...this.hooks.filter('filter_babel_options', options),
+    ...this.hooks.filter('bud.api.babel', options),
   })
-
-  this.hooks.call('post_babel')
 
   return this
 }
 
 export {babel}
+export type {Babel}

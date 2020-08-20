@@ -1,11 +1,8 @@
-import {Bud, Auto} from './types'
+import {Bud} from './types'
 
-const auto: Auto = function (
-  this: Bud,
-  options: {
-    [key: string]: string[]
-  },
-): Bud {
+type Auto = (options: {[key: string]: string[]}) => Bud
+
+const auto: Auto = function (options) {
   Object.entries(options).forEach(([key, modules]) => {
     modules.forEach(handle => {
       this.options.set('auto', {
@@ -19,3 +16,4 @@ const auto: Auto = function (
 }
 
 export {auto}
+export type {Auto}

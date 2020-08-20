@@ -139,7 +139,7 @@ export declare const repositories: {
             watch: boolean;
         };
     };
-    env: (paths: any) => import("dotenv/types").DotenvParseOutput;
+    env: (paths: any) => any;
     adapters: import("./plugins/types").PluginsRepo;
     patterns: {
         js: RegExp;
@@ -154,7 +154,7 @@ export declare const repositories: {
         vendor: RegExp;
         image: RegExp;
     };
-    rules: ((bud: import("..").Bud) => any)[];
+    rules: ((bud: import("./types").Bud) => any)[];
     uses: import("./rulesets/uses").UsesHash;
     plugins: import("./plugins/types").PluginsRepo;
     presets: {

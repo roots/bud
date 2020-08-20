@@ -1,12 +1,11 @@
-import type {ShortCircuit} from './types'
+type ShortCircuit = () => any
 
 /**
  * JSON.stringify replacement function
  *
  * Prevents circular references in JSON from looping
  */
-const shortCircuit: ShortCircuit = (): any => {
-  // eslint-disable-next-line no-undef
+const shortCircuit: ShortCircuit = ()=> {
   const seen = new WeakSet()
 
   return (key, value) => {
@@ -23,3 +22,4 @@ const shortCircuit: ShortCircuit = (): any => {
 }
 
 export {shortCircuit}
+export type {ShortCircuit}

@@ -1,5 +1,4 @@
 import type {Bud, Glob} from './types'
-import {parse} from 'path'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const globby = require('globby')
 

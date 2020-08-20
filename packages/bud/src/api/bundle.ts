@@ -1,18 +1,17 @@
-import type {Bud, Bundle} from './types'
+import type {Bud} from './types'
 
-const bundle: Bundle = function (this: Bud, name: string, entries: string[]): Bud {
-  this.logger.info(
-    {name: 'bud.api', function: 'bud.bundle', entries},
-    `bud.bundle called`,
-  )
+type Bundle = (this: Bud, name: string, entries: string[]) => Bud
 
-  this.hooks.call('api.bundle.pre', {name, entries})
+const bundle: Bundle = function (name, entries) {
   /**
    * Lazy load whatever loaders are needed to fulfill the
    * bundle requirements.
    */
   this.util.usedExt(entries, this)
 
+  /**
+   * Set entrypoints.
+   */
   this.options.set('entry', {
     ...this.options.get('entry'),
     ...this.hooks.filter('api.bundle.filter', {
@@ -20,9 +19,10 @@ const bundle: Bundle = function (this: Bud, name: string, entries: string[]): Bu
     }),
   })
 
-  this.hooks.call('api.bundle.post')
+  this.hooks.call('api.bundle')
 
   return this
 }
 
 export {bundle}
+export type {Bundle}
