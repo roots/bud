@@ -55,9 +55,13 @@ There are a number of Roots maintained plugins available to kickstart your proje
 |------|-------------|-------|
 | @roots/bud-dependency-extraction | Adds @wordpress/dependency-extraction-webpack-plugin support. | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-dependency-extraction/README.md)
 | @roots/bud-eslint | Adds eslint support. | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-eslint/README.md) |
+| @roots/bud-palette-plugin | Adds palette-webpack-plugin support. | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-palette-plugin/README.md) |
+| @roots/bud-purgecss | Adds purgecss support. | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-purgecss/README.md) |
+| @roots/bud-react | Adds react support. | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-react/README.md) |
 | @roots/bud-sass | Adds sass preprocessor support. | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-sass/README.md) |
 | @roots/bud-stylelint | Adds stylelint support. | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-stylelint/README.md) |
-| @roots/bud-tailwind | Adds tailwindcss support. | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-tailwind/README.md) |
+| @roots/bud-tailwind | Adds tailwindcss support. | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-tailwindcss/README.md) |
+| @roots/bud-typescript | Adds typescript support. | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-typescript/README.md) |
 | @roots/bud-vue | Adds Vue framework support. | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-vue/README.md) |
 
 ## Contributing
