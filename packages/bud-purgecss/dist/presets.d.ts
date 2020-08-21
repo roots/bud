@@ -1,5 +1,3 @@
-declare const _default: {
-    wordpress: any;
-};
-export = _default;
+import wordpress from 'purgecss-with-wordpress';
+export { wordpress };
 //# sourceMappingURL=presets.d.ts.map

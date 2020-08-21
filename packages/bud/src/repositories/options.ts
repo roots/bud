@@ -1,15 +1,24 @@
-import type {BabelConfiguration, Copy, PostCssConfiguration, Target} from './types'
+import type {Copy, PostCssConfiguration, Target} from './types'
 
-const babelFallback: BabelConfiguration = {
-  presets: [],
+import {BabelTransformOptions} from '@roots/bud-typings'
+const babelFallback: BabelTransformOptions = {
+  presets: [
+    [
+      require('@babel/preset-env'),
+      {
+        modules: false,
+        forceAllTransforms: true,
+      },
+    ],
+  ],
   plugins: [],
 }
 
-const babel: (configs) => BabelConfiguration = function (configs) {
+const babel: (configs) => BabelTransformOptions = function (configs) {
   return configs.has('babel') ? configs.require('babel') : babelFallback
 }
 
-const browserSync: (flags) => any = flags => ({
+const browsersync: (flags) => any = flags => ({
   host: flags.has('host') ? flags.get('host') : 'localhost',
   port: flags.get('port') ? flags.get('port') : 3000,
   proxy: flags.get('proxy') ? flags.get('proxy') : 'localhost',
@@ -19,10 +28,12 @@ const browserSync: (flags) => any = flags => ({
 
 const copy: Copy = {patterns: []}
 
-const postCss: (configs) => PostCssConfiguration = function (configs) {
-  const fallback: PostCssConfiguration = {plugins: []}
+const postcss: (configs) => PostCssConfiguration = function (configs) {
+  const fallback = {
+    plugins: [require('postcss-import'), require('autoprefixer')],
+  }
 
-  return configs.has('postCss') ? configs.require('postCss') : fallback
+  return configs.has('postcss') ? configs.require('postcss') : fallback
 }
 
 const target: Target = 'web'
@@ -31,7 +42,10 @@ const target: Target = 'web'
  * Options container.
  */
 const options = {
-  copy,
+  resolve: {
+    alias: false,
+    extensions: ['.css', '.js', '.json', '.svg'],
+  },
   devServer: {
     headers: {
       'Access-Control-Allow-Origin': '*',
@@ -41,13 +55,6 @@ const options = {
     },
   },
   devtool: 'source-map',
-  filenameTemplate: {
-    hashed: '[name].[hash:8]',
-    default: '[name]',
-  },
-  manifest: {
-    name: 'vendor.js',
-  },
   optimization: {
     runtimeChunk: {
       name: entrypoint => `runtime/${entrypoint.name}`,
@@ -63,16 +70,32 @@ const options = {
       },
     },
   },
-  patterns: [],
-  postCss: {},
-  resolve: {
-    alias: false,
-    extensions: ['.css', '.js', '.json', '.svg'],
+  stats: {
+    version: true,
+    hash: true,
+    assets: true,
+    errors: true,
+    warnings: true,
   },
+  node: {
+    module: 'empty',
+    dgram: 'empty',
+    dns: 'mock',
+    fs: 'empty',
+    http2: 'empty',
+    net: 'empty',
+    tls: 'empty',
+    child_process: 'empty',
+  },
+  patterns: [],
+  postcss,
+  babel,
+  browsersync,
   splitting: {
     maxChunks: null,
   },
   target,
+  copy,
   terser: {
     terserOptions: {
       parse: {
@@ -96,23 +119,13 @@ const options = {
     cache: true,
     parallel: true,
   },
-  stats: {
-    version: true,
-    hash: true,
-    assets: true,
-    errors: true,
-    warnings: true,
+  filenameTemplate: {
+    hashed: '[name].[hash:8]',
+    default: '[name]',
   },
-  node: {
-    module: 'empty',
-    dgram: 'empty',
-    dns: 'mock',
-    fs: 'empty',
-    http2: 'empty',
-    net: 'empty',
-    tls: 'empty',
-    child_process: 'empty',
+  manifest: {
+    name: 'manifest.json',
   },
 }
 
-export {options, babel, browserSync, postCss}
+export {options}

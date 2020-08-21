@@ -7,5 +7,5 @@ import { Extension } from '@roots/bud';
  * @type {Extension}
  */
 declare const sass: Extension;
-export = sass;
+export { sass };
 //# sourceMappingURL=index.d.ts.map

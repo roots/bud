@@ -34,6 +34,13 @@
   resolved "https://registry.yarnpkg.com/@ava/require-precompiled/-/require-precompiled-1.0.0.tgz#6f4a48b75904a753eadff020bbfca81d3bbc0357"
   integrity sha512-N7w4g+P/SUL8SF+HC4Z4e/ctV6nQ5AERC90K90r4xZQ8WVrJux9albvfyYAzygyU47CSqMWh6yJwFs8DYaeWmg==
 
+"@ava/typescript@^1.1.1":
+  version "1.1.1"
+  resolved "https://registry.yarnpkg.com/@ava/typescript/-/typescript-1.1.1.tgz#3dcaba3aced8026fdb584d927d809752854dc6e6"
+  integrity sha512-KbLUAe2cWXK63WLK6LnOJonjwEDU/8MNXCOA1ooX/YFZgKRmeAD1kZu+2K0ks5fnOCEcckNQAooyBNGdZUmMQA==
+  dependencies:
+    escape-string-regexp "^2.0.0"
+
 "@babel/cli@^7.10.5":
   version "7.10.5"
   resolved "https://registry.yarnpkg.com/@babel/cli/-/cli-7.10.5.tgz#57df2987c8cf89d0fc7d4b157ec59d7619f1b77a"
@@ -4664,18 +4671,6 @@ cyclist@^1.0.1:
   resolved "https://registry.yarnpkg.com/cyclist/-/cyclist-1.0.1.tgz#596e9698fd0c80e12038c2b82d6eb1b35b6224d9"
   integrity sha1-WW6WmP0MgOEgOMK4LW6xs1tiJNk=
 
-d3-color@1, d3-color@^1.4.0:
-  version "1.4.1"
-  resolved "https://registry.yarnpkg.com/d3-color/-/d3-color-1.4.1.tgz#c52002bf8846ada4424d55d97982fef26eb3bc8a"
-  integrity sha512-p2sTHSLCJI2QKunbGb7ocOh7DgTAn8IrLx21QRc/BSnodXM4sv6aLQlnfpvehFMLZEfBc6g9pH9SWQccFYfJ9Q==
-
-d3-hsv@^0.1.0:
-  version "0.1.0"
-  resolved "https://registry.yarnpkg.com/d3-hsv/-/d3-hsv-0.1.0.tgz#c95be89b34177a29e70a0848db95d7f0261ea99b"
-  integrity sha1-yVvomzQXeinnCghI25XX8CYeqZs=
-  dependencies:
-    d3-color "1"
-
 d@1, d@^1.0.1:
   version "1.0.1"
   resolved "https://registry.yarnpkg.com/d/-/d-1.0.1.tgz#8698095372d58dbee346ffd0c7093f99f8f9eb5a"
@@ -9137,7 +9132,7 @@ node-releases@^1.1.52, node-releases@^1.1.58:
   resolved "https://registry.yarnpkg.com/node-releases/-/node-releases-1.1.59.tgz#4d648330641cec704bff10f8e4fe28e453ab8e8e"
   integrity sha512-H3JrdUczbdiwxN5FuJPyCHnGHIFqQ0wWxo+9j1kAXAzqNMAHlo+4I/sYYxpyK0irQ73HgdiyzD32oqQDcU2Osw==
 
-node-sass@^4.14.1, node-sass@^4.5.2:
+node-sass@^4.14.1:
   version "4.14.1"
   resolved "https://registry.yarnpkg.com/node-sass/-/node-sass-4.14.1.tgz#99c87ec2efb7047ed638fb4c9db7f3a42e2217b5"
   integrity sha512-sjCuOlvGyCJS40R8BscF5vhVlQjNN069NtQ1gSxyK1u9iqvn6tf7O1R4GNowVZfiZUCRt5MmMs1xd+4V/7Yr0g==
@@ -9722,16 +9717,6 @@ pako@~1.0.5:
   version "1.0.11"
   resolved "https://registry.yarnpkg.com/pako/-/pako-1.0.11.tgz#6c9599d340d54dfd3946380252a35705a6b992bf"
   integrity sha512-4hLB8Py4zZce5s4yd9XzopqwVv/yGNhV1Bl8NTmCq1763HeK2+EwVTv+leGeL13Dnh2wfbqowVPXCIO0z4taYw==
-
-palette-webpack-plugin@^1.0.0:
-  version "1.0.0"
-  resolved "https://registry.yarnpkg.com/palette-webpack-plugin/-/palette-webpack-plugin-1.0.0.tgz#e194f67ac8d0459e50516dde77e28d22458b2908"
-  integrity sha512-roK0yXlMpnuuKcU6PRD3ApPAYOaDa7DlhFfKpkTLYbZrKeQqRGHRCNHOn4JBztBfQGuo2sTpBpdIEJ1jDRwILQ==
-  dependencies:
-    d3-color "^1.4.0"
-    d3-hsv "^0.1.0"
-    lodash "^4.17.15"
-    sass-export "^1.0.6"
 
 parallel-transform@^1.1.0:
   version "1.2.0"
@@ -11901,15 +11886,6 @@ safe-regex@^1.1.0:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/safer-buffer/-/safer-buffer-2.1.2.tgz#44fa161b0187b9549dd84bb91802f9bd8385cd6a"
   integrity sha512-YZo3K82SD7Riyi0E1EQPojLz7kpepnSQI9IyPbHHg1XXXevb5dJI7tpyN2ADxGcQbHG7vcyRHk0cbwqcQriUtg==
-
-sass-export@^1.0.6:
-  version "1.0.6"
-  resolved "https://registry.yarnpkg.com/sass-export/-/sass-export-1.0.6.tgz#57f879be79878493d60d63654b88bf53a4310cfa"
-  integrity sha512-tDV88N3aPYgN9AoKw/gLHcf8oM5WmfjDGuTVfmQu2CQnYIo6MOWRyKwT3xRAZKiDKOTT0yebXriP94JgjJFxWQ==
-  dependencies:
-    glob "^7.1.2"
-    minimist "^1.2.0"
-    node-sass "^4.5.2"
 
 sass-graph@2.2.5:
   version "2.2.5"

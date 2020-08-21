@@ -29,16 +29,21 @@ const rule = (bud: Bud) => ({
 const sass: Extension = (bud: Bud): ExtensionInterface => ({
   bud,
   make: function () {
-    this.bud.options.set('resolve.extensions', [
-      ...this.bud.options.get('resolve.extensions'),
-      '.sass',
-      '.scss',
-    ])
+    !this.bud.options.get('resolve.extensions').includes('.sass') &&
+      this.bud.options.set('resolve.extensions', [
+        ...this.bud.options.get('resolve.extensions'),
+        '.sass',
+      ])
 
+    !this.bud.options.get('resolve.extensions').includes('.scss') &&
+      this.bud.options.set('resolve.extensions', [
+        ...this.bud.options.get('resolve.extensions'),
+        '.scss',
+      ])
     this.bud.sass = config
 
     this.bud.rules.repository = [...this.bud.rules.repository, rule]
   },
 })
 
-export = sass
+export {sass}

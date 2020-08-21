@@ -8,7 +8,7 @@ const glob: Glob = function (this: Bud, name: string, files: string): Bud {
   /**
    * Glob matching files.
    */
-  const included = globby.sync(this.src(files), {
+  const included = globby.sync(files, {
     expandDirectories: true,
   })
 
@@ -23,7 +23,7 @@ const glob: Glob = function (this: Bud, name: string, files: string): Bud {
   included.forEach(match => {
     entry = {
       ...entry,
-      [name]: match,
+      [`${name}/`]: match,
     }
   })
 

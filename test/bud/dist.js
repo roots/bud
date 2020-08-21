@@ -1,8 +1,8 @@
 const test = require('ava')
-const {join, resolve} = require('path')
-const mockPath = resolve(__dirname, '../mock')
-
 const {bud} = require('@roots/bud')
+const {join, resolve} = require('path')
+
+const mockPath = resolve(__dirname, '../mock')
 
 test('bud.projectPath', t => {
   t.is(bud.paths.get('project'), process.cwd())

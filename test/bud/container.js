@@ -10,7 +10,6 @@ const containers = [
   'rules',
   'uses',
   'patterns',
-  'presets',
 ]
 
 containers.forEach(container => {

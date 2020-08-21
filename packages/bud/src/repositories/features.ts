@@ -2,15 +2,16 @@ const features = {
   /**
    * Default enabled
    */
-  dashboard: true, // bud custom dashboard.
+  babel: true, // enable babel
   clean: true, // clean compiled files on every run.
+  dashboard: true, // bud custom dashboard.
   manifest: true, // generate a manifest
-  postCss: true, // enable postCss
+  postcss: true, // enable postCss
 
   /**
    * Opt-in
    */
-  browserSync: false, // browsersync browser reloading
+  browsersync: false, // browsersync browser reloading
   hash: false, // hash filenames
   hot: false, // enable devServer: hot module reloading
   minify: false, // enable optimization: minify

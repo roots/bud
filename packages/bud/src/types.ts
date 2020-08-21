@@ -345,7 +345,7 @@ export interface Bud extends Loose {
   mini: Api.Mini
 
   /**
-   * ## bud.postCss
+   * ## bud.postcss
    *
    * Configure PostCSS.
    *
@@ -362,7 +362,7 @@ export interface Bud extends Loose {
    * })
    * ```
    */
-  postCss: Api.PostCss
+  postcss: Api.PostCss
 
   /**
    * ## bud.project

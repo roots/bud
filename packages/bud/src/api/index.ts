@@ -17,7 +17,7 @@ import {manifest} from './manifest'
 import {runtimeManifest} from './runtimeManifest'
 import {map} from './map'
 import {mini} from './mini'
-import {postCss} from './postcss'
+import {postcss} from './postcss'
 import {preset} from './preset'
 import {project} from './project'
 import {projectPath} from './projectPath'
@@ -53,7 +53,7 @@ export const api: Api = {
   manifest,
   map,
   mini,
-  postCss,
+  postcss,
   preset,
   project,
   projectPath,

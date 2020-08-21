@@ -75,7 +75,7 @@ const uses: UsesHash = {
       ),
       options: bud.hooks.filter('webpack.module.postcss.options', {
         ident: bud.hooks.filter('webpack.module.postcss.options.ident', 'postcss'),
-        ...bud.options.get('postCss'),
+        ...bud.options.get('postcss'),
       }),
     }),
 

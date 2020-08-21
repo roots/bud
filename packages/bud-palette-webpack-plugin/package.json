@@ -1,0 +1,42 @@
+{
+  "name": "@roots/bud-gutenberg-palette",
+  "version": "1.0.0",
+  "description": "Adds json palette support for Gutenberg to Bud",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/roots/bud.git"
+  },
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
+  "keywords": [
+    "bud-extension"
+  ],
+  "engines": {
+    "node": ">=12"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "dist/bud-palette-plugin.min.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "lint": "eslint src/**.ts",
+    "watch": "npm run build && npm link && nodemon",
+    "build": "rimraf ./dist && rimraf ./types && rollup -c ./rollup.config.js"
+  },
+  "dependencies": {
+    "palette-webpack-plugin": "^1.0.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4",
+    "rimraf": "^3.0.2",
+    "ts-node": "^8.10.2"
+  }
+}

@@ -24,12 +24,12 @@
   "files": [
     "dist"
   ],
-  "main": "dist/index.js",
+  "main": "dist/bud-sass.min.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "lint": "eslint src/**.ts",
     "watch": "npm run build && npm link && nodemon",
-    "build": "rimraf ./dist && tsc"
+    "build": "rimraf ./dist && rimraf ./types && rollup -c ./rollup.config.js"
   },
   "dependencies": {
     "node-sass": "^4.14.1",

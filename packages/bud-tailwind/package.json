@@ -25,7 +25,7 @@
   "scripts": {
     "lint": "eslint src/**.ts",
     "watch": "npm run build && npm link && nodemon",
-    "build": "rimraf ./dist && tsc"
+    "build": "rimraf ./dist && rimraf ./types && rollup -c ./rollup.config.js"
   },
   "dependencies": {
     "tailwindcss": "^1.6.2"

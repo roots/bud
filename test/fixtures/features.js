@@ -1,6 +1,6 @@
 module.exports = {
-  babel: false,
-  browserSync: false,
+  babel: true,
+  browsersync: false,
   clean: true,
   dashboard: true,
   debug: false,
@@ -9,7 +9,7 @@ module.exports = {
   manifest: true,
   minify: false,
   overlay: false,
-  postCss: false,
+  postcss: true,
   runtimeChunk: false,
   sourceMap: false,
   splitting: true,

@@ -1,17 +1,21 @@
 {
   "compilerOptions": {
     "target": "ES2018",
-    "module": "commonjs",
-    "lib": ["es2015", "es2016", "es2017", "es2018"],
+    "module": "esnext",
+    "lib": ["es2015", "es2016", "es2017", "es2018", "dom"],
     "declaration": true,
+    "declarationDir": "types",
     "declarationMap": true,
     "sourceMap": true,
     "outDir": "./dist",
     "rootDir": "./src",
     "strict": true,
     "esModuleInterop": true,
-    "noImplicitAny": true,
+    "noImplicitAny": false,
+    "moduleResolution": "node"
   },
   "include": ["src/"],
-  "exclude": ["**/*.spec.ts"]
+  "exclude": [
+    "**/*.spec.ts",
+  ]
 }

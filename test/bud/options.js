@@ -4,7 +4,13 @@ const {bud} = require('@roots/bud')
 test('has expected babel defaults', t => {
   t.deepEqual(bud.options.get('babel'), {
     plugins: [],
-    presets: [],
+    presets: [[
+      require('@babel/preset-env'),
+      {
+        modules: false,
+        forceAllTransforms: true,
+      },
+    ]],
   })
 })
 
@@ -67,10 +73,8 @@ test('has expected optimization.splitChunks defaults', t => {
   })
 })
 
-test('has expected postcss defaults', t => {
-  t.deepEqual(bud.options.get('postCss'), {
-    plugins: [],
-  })
+test('has two postcss plugins by default', t => {
+  t.true(bud.options.get('postcss.plugins').length == 2)
 })
 
 test('has expected splitting defaults', t => {

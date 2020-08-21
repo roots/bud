@@ -1,0 +1,42 @@
+{
+  "name": "@roots/bud-react",
+  "version": "1.0.0",
+  "description": "Adds react support to Bud",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/roots/bud.git"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "keywords": [
+    "bud-extension"
+  ],
+  "engines": {
+    "node": ">=12"
+  },
+  "files": [
+    "dist"
+  ],
+  "main": "dist/react.js",
+  "types": "dist/index.d.ts",
+  "scripts": {
+    "lint": "eslint src/**.ts",
+    "watch": "npm run build && npm link && nodemon",
+    "build": "rimraf ./dist && rimraf ./types && rollup -c ./rollup.config.js"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4",
+    "rimraf": "^3.0.2",
+    "ts-node": "^8.10.2"
+  },
+  "dependencies": {
+    "@babel/preset-react": "^7.10.4"
+  }
+}

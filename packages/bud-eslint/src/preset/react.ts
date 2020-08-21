@@ -1,4 +1,4 @@
-const react = {
+export = {
   extends: ['plugin:react/recommended'],
   plugins: ['react-hooks'],
   settings: {
@@ -12,5 +12,3 @@ const react = {
     'react-hooks/rules-of-hooks': 1,
   },
 }
-
-export = {react}

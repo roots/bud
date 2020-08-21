@@ -2,7 +2,6 @@ import {api} from './api'
 import {hooks} from './hooks'
 import {util, logger} from './util'
 import {repositories} from './repositories'
-import {babel, browserSync, postCss} from './repositories/options'
 import {compiler} from './compiler'
 import {bindContainer, bindExtensionContainer, bindFileContainer} from './container'
 
@@ -80,11 +79,6 @@ const bootstrap = function (): void {
   this.framework.options = this.store(this.repositories.options, 'bud.options')
 
   /**
-   * Presets container.
-   */
-  this.framework.presets = this.store(this.repositories.presets, 'bud.presets')
-
-  /**
    * Framework plugins container.
    */
   this.framework.plugins = this.extensionStore(
@@ -131,6 +125,22 @@ const bootstrap = function (): void {
   this.framework.process = util.processHandler(this.framework)
 
   /**
+   * Options defaults that require construction.
+   */
+  this.framework.options.set(
+    'browserSync',
+    this.framework.options.get('browsersync')(this.framework.flags),
+  )
+  this.framework.options.set(
+    'babel',
+    this.framework.options.get('babel')(this.framework.configs),
+  )
+  this.framework.options.set(
+    'postcss',
+    this.framework.options.get('postcss')(this.framework.flags),
+  )
+
+  /**
    * API methods.
    */
   Object.values(api).forEach((method: any) => {
@@ -141,19 +151,6 @@ const bootstrap = function (): void {
       `bootstrapped api method: bud.${method.name}`,
     )
   })
-
-  /**
-   * Enable features based on presence of configuration files.
-   */
-  this.framework.features.set('babel', this.framework.configs.has('babel'))
-  this.framework.features.set('postCss', this.framework.configs.has('postCss'))
-
-  /**
-   * Set options based based on presence of configuration files.
-   */
-  this.framework.options.set('babel', babel(this.framework.configs))
-  this.framework.options.set('postCss', postCss(this.framework.configs))
-  this.framework.options.set('browserSync', browserSync(this.framework.flags))
 }
 
 const budInstance = new bootstrap().framework

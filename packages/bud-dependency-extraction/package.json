@@ -20,12 +20,12 @@
     "node": ">=12"
   },
   "files": ["dist", "types"],
-  "main": "dist/index.js",
-  "types": "types/index.d.ts",
+  "main": "dist/bud-dependency-extraction.min.js",
+  "types": "dist/index.d.ts",
   "scripts": {
+    "build": "rimraf ./dist && rimraf ./types && rollup -c ./rollup.config.js",
     "lint": "eslint src/**.ts",
-    "watch": "npm run build && npm link && nodemon",
-    "build": "rimraf ./dist && tsc"
+    "watch": "npm run build && npm link && nodemon"
   },
   "dependencies": {
     "@wordpress/dependency-extraction-webpack-plugin": "^2.8.0"

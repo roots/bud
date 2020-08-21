@@ -1,9 +1,14 @@
 import { Extension } from '@roots/bud';
-declare const _default: {
-    purgecss: Extension;
-    presets: {
-        wordpress: any;
-    };
+/**
+ * Bud extension: purgecss
+ *
+ * Adds purgecss support to the Bud framework.
+ *
+ * @type {Extension}
+ */
+declare const purgecss: Extension;
+declare const presets: {
+    wordpress: any;
 };
-export = _default;
+export { purgecss, presets };
 //# sourceMappingURL=index.d.ts.map

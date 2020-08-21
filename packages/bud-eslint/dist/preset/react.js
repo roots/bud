@@ -1,5 +1,5 @@
 "use strict";
-const react = {
+module.exports = {
     extends: ['plugin:react/recommended'],
     plugins: ['react-hooks'],
     settings: {
@@ -13,5 +13,4 @@ const react = {
         'react-hooks/rules-of-hooks': 1,
     },
 };
-module.exports = { react };
 //# sourceMappingURL=react.js.map

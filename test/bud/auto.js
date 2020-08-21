@@ -1,5 +1,4 @@
 const test = require('ava')
-const {join} = require('path')
 const {bud} = require('@roots/bud')
 
 test('sets option', t => {

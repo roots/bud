@@ -95,7 +95,7 @@ export type Api = {
   manifest: Manifest
   map: SourceMap
   mini: Mini
-  postCss: PostCss
+  postcss: PostCss
   preset: Preset
   projectPath: PathSetter
   project: Project

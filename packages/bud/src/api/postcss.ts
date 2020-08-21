@@ -1,17 +1,17 @@
 import type {Bud, PostCss} from './types'
 
-const postCss: PostCss = function ({enabled, ...options}): Bud {
-  this.features.set('postCss', enabled ?? true)
+const postcss: PostCss = function ({enabled, ...options}): Bud {
+  this.features.set('postcss', enabled ?? true)
 
-  if (this.features.enabled('postCss')) {
+  if (this.features.enabled('postcss')) {
     this.options.set('postcss', {
-      ...this.options.get('postCss'),
+      ...this.options.get('postcss'),
       ...options,
-      plugins: [...(options.plugins ?? []), ...this.options.get('postCss').plugins],
+      plugins: [...(options.plugins ?? []), ...this.options.get('postcss.plugins')],
     })
   }
 
   return this
 }
 
-export {postCss}
+export {postcss}

@@ -38,7 +38,7 @@ const adapter: Extension = (bud: Bud): ExtensionInterface => ({
   },
 })
 
-const dependencyExtraction: Extension = (bud: Bud): ExtensionInterface => ({
+const extraction: Extension = (bud: Bud): ExtensionInterface => ({
   bud,
   make: function (this: ExtensionInterface) {
     this.bud.options.set('dependencyExtraction', {})
@@ -47,4 +47,4 @@ const dependencyExtraction: Extension = (bud: Bud): ExtensionInterface => ({
   },
 })
 
-export = dependencyExtraction
+export {extraction}

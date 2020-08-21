@@ -26,7 +26,7 @@
     "dist",
     "types"
   ],
-  "main": "dist/index.js",
+  "main": "dist/sage.min.js",
   "types": "types/index.d.ts",
   "scripts": {
     "build": "rimraf ./dist && rimraf ./types && rollup -c ./rollup.config.js",

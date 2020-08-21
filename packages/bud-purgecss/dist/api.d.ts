@@ -1,4 +1,3 @@
-import type { Bud } from '@roots/bud';
 interface RawContent<T = string> {
     extension: string;
     raw: T;
@@ -49,6 +48,6 @@ declare type BudPurgeOptions = {
  * })
  * ```
  */
-declare const config: (this: Bud, options: BudPurgeOptions) => Bud;
-export = config;
+declare const config: (this: any, options: BudPurgeOptions) => any;
+export { config };
 //# sourceMappingURL=api.d.ts.map

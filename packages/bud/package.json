@@ -18,10 +18,10 @@
     "dist",
     "types"
   ],
-  "main": "dist/index.js",
+  "main": "dist/index.min.js",
   "types": "types/index.d.ts",
   "scripts": {
-    "build": "rimraf ./dist && rimraf ./types && rollup -c",
+    "build": "rimraf ./dist && rimraf ./types && rollup -c ./rollup.config.js",
     "lint": "eslint ."
   },
   "dependencies": {
@@ -134,8 +134,5 @@
     "rollup-plugin-typescript2": "^0.27.1",
     "tslib": "^2.0.1",
     "typescript": "^3.9.7"
-  },
-  "browserslist": [
-    "extends @wordpress/browserslist-config"
-  ]
+  }
 }

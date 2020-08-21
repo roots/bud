@@ -1,6 +1,6 @@
 import {Bud, Extension, ExtensionInterface} from '@roots/bud'
-import config from './api'
-import presets from './presets'
+import {config} from './api'
+import {wordpress} from './presets'
 
 /**
  * Bud extension: purgecss
@@ -16,7 +16,6 @@ const purgecss: Extension = (bud: Bud): ExtensionInterface => ({
   },
 })
 
-export = {
-  purgecss,
-  presets,
-}
+const presets = {wordpress}
+
+export {purgecss, presets}

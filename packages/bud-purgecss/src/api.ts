@@ -54,15 +54,12 @@ type BudPurgeOptions = {
  * ```
  */
 const config = function (this: Bud, options: BudPurgeOptions): Bud {
-  this.options.set('postCss', {
-    ...this.options.get('postCss'),
-    plugins: [
-      ...this.options.get('postCss').plugins,
-      purgecss(options.options),
-    ],
-  })
+  this.options.set('postcss.plugins', [
+    ...this.options.get('postcss.plugins'),
+    purgecss(options.options),
+  ])
 
   return this
 }
 
-export = config
+export {config}

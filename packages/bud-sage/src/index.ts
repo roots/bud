@@ -1,6 +1,6 @@
 import type {Bud, Extension, ExtensionInterface} from '@roots/bud'
-import dependencyExtractionExtension from '@roots/bud-dependency-extraction'
-import sassExtension from '@roots/bud-sass'
+import {extraction as extractionExtension} from '@roots/bud-dependency-extraction'
+import {sass as sassExtension} from '@roots/bud-sass'
 import {eslint as eslintExtension} from '@roots/bud-eslint'
 import {stylelint as stylelintExtension} from '@roots/bud-stylelint'
 import {purgecss as purgecssExtension, presets} from '@roots/bud-purgecss'
@@ -40,7 +40,7 @@ const features: Features = {
   purge: purgecssExtension,
   eslint: eslintExtension,
   stylelint: stylelintExtension,
-  extraction: dependencyExtractionExtension,
+  extraction: extractionExtension,
   sass: sassExtension,
 }
 
@@ -90,12 +90,10 @@ const sage: Extension = (bud: Bud): ExtensionInterface => ({
         '@scripts': this.bud.src('scripts'),
         '@styles': this.bud.src('styles'),
       })
-      .babel(this.bud.presets.get('babel-wp').config)
-      .postCss(this.bud.presets.get('postCss').config)
       .auto({
         jquery: ['$', 'window.jQuery'],
       })
-      .inlineManifest()
+      .runtimeManifest()
       .mini(this.bud.inProduction)
       .map(this.bud.inDevelopment)
       .hash(this.bud.inProduction)

@@ -4,13 +4,14 @@
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "declaration": true,
-    "declarationDir": "types",
+    "declarationDir": "./dist",
     "declarationMap": true,
     "sourceMap": true,
     "module": "esnext",
     "moduleResolution": "node",
-    "outDir": "dist",
+    "rootDir": "./src",
+    "outDir": "./dist",
   },
-  "include": ["src/*.ts", "src/**/*.ts"],
+  "include": ["src/*.ts", "src/**/*.ts", "test/bud/*.ts"],
   "exclude": ["node_modules"]
 }

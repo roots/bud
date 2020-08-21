@@ -10,20 +10,21 @@ export type {Bud}
 
 export type Options = Container
 
-export type BabelConfiguration = {
-  plugins: []
-  presets: []
-}
 export type BrowserSync = BrowserSyncOptions
+
 export type Copy = {
   patterns: any[]
 }
 export type Dev = any
+
 export type Externals = WebpackExternals
+
 export type PostCssConfiguration = {
-  plugins: []
+  plugins: any[]
 }
+
 export type Target = WebpackTarget
+
 export type Vendor = {name: string}
 
 type Features = any

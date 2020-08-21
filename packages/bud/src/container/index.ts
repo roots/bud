@@ -67,7 +67,7 @@ const is: ConditionalCheck = function (key, value) {
   return this.get(key) == value
 }
 
-const require = function (key) {
+const containerRequire = function (key) {
   const module = this.get(key)
 
   require(module)
@@ -166,7 +166,7 @@ const bindFileContainer: ContainerBind = function (
   log(repository, {repository: name}, `create container`)
 
   const store = new container(repository, name)
-  store.require = require
+  store.require = containerRequire
   store.exists = exists
 
   return store

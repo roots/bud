@@ -20,12 +20,12 @@
     "node": ">=12"
   },
   "files": ["dist"],
-  "main": "dist/index.js",
+  "main": "dist/stylelint.min.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "lint": "eslint src/**.ts",
     "watch": "npm run build && npm link && nodemon",
-    "build": "rimraf ./dist && tsc"
+    "build": "rimraf ./dist && rimraf ./types && rollup -c ./rollup.config.js"
   },
   "dependencies": {
     "@types/source-map": "^0.5.7",
