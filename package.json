@@ -50,12 +50,11 @@
     ]
   },
   "scripts": {
-    "test": "ava",
-    "test:coverage": "nyc yarn run test",
-    "build": "run-s lint build:packages test",
-    "build:packages": "yarn workspaces run build",
+    "build": "yarn workspaces run build",
     "commit": "yarn git-cz",
-    "lint": "eslint 'packages/**/*.{js,ts,tsx}' --fix"
+    "lint": "eslint 'packages/**/*.{js,ts,tsx}' --fix",
+    "test": "ava",
+    "test:coverage": "nyc yarn run test"
   },
   "devDependencies": {
     "@ava/babel": "^1.0.1",
