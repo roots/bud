@@ -4,8 +4,11 @@
 
 <p align="center">
   <img alt="MIT License" src="https://img.shields.io/github/license/roots/bud?color=%23525ddc&style=flat-square">
+  <img alt="Lerna" src="https://img.shields.io/badge/maintained%20with-lerna-535DDD.svg">
+  <img alt="Conventional changelog" src="https://img.shields.io/badge/changelog-conventional-535DDD.svg" />
+  <img src="https://api.codeclimate.com/v1/badges/4153714e5382c885560e/maintainability" />
   <a href="https://twitter.com/rootswp">
-    <img alt="Follow Roots" src="https://img.shields.io/twitter/follow/rootswp.svg?style=flat-square&color=1da1f2" />
+    <img alt="Follow Roots" src="https://img.shields.io/twitter/follow/rootswp.svg?style=flat-square&color=535DDD" />
   </a>
 </p>
 
