@@ -44,6 +44,7 @@
     "test": "ava",
     "test:coverage": "nyc yarn run test",
     "build": "yarn workspaces run build",
+    "commit": "yarn git-cz",
     "docs": "node ./scripts/docs",
     "all:link": "node ./scripts/linkWorkspaces",
     "all:unlink": "node ./scripts/unlinkWorkspaces",
