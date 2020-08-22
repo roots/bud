@@ -1,7 +1,7 @@
 {
   "private": true,
   "name": "@roots/bud-vue",
-  "version": "1.0.0",
+  "version": "2.0.0-next.0",
   "description": "Adds Vue support to Bud",
   "repository": {
     "type": "git",
@@ -19,11 +19,15 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": ["bud-extension"],
+  "keywords": [
+    "bud-extension"
+  ],
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "main": "lib/cjs/vue.min.js",
   "module": "lib/es/vue.js",
   "types": "lib/types/index.d.ts",
@@ -33,8 +37,8 @@
     "watch": "npm run build && npm link && nodemon"
   },
   "dependencies": {
-    "he": "^1.1.0",
     "de-indent": "^1.0.2",
+    "he": "^1.1.0",
     "vue": "^2.6.11",
     "vue-loader": "^15.9.3"
   },
