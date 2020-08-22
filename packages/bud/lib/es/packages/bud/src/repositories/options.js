@@ -1,5 +1,5 @@
 /**
- * @roots/bud v.2.0.0-rc.7 {@link https://roots.io/bud}
+ * @roots/bud v.2.0.0-next {@link https://roots.io/bud}
  *
  * A friendly build tool to help manage your project assets.
  *
