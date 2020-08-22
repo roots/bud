@@ -7,13 +7,10 @@ export type HooksConstructor = (bud: Bud) => Hooks
  * ## bud.hooks
  */
 export type Hooks = {
-  logger: any
-
   /**
-   * ## bud.hooks.init
-   * @constructor
+   * ## bud.logger
    */
-  init: (any) => Hooks
+  logger: Bud['logger']
 
   /**
    * ## bud.hooks.registered

@@ -1,5 +1,5 @@
 /**
- * @roots/bud v.2.0.0-next {@link https://roots.io/bud}
+ * @roots/bud v.2.0.0-next.0 {@link https://roots.io/bud}
  *
  * A friendly build tool to help manage your project assets.
  *
@@ -11,28 +11,31 @@
  * @license MIT
  */
 var features = {
-    /**
-     * Default enabled
-     */
-    babel: true,
-    clean: true,
-    dashboard: true,
-    manifest: true,
-    postcss: true,
-    /**
-     * Opt-in
-     */
-    browsersync: false,
-    hash: false,
-    hot: false,
-    minify: false,
-    splitting: true,
-    vendor: false,
-    runtimeChunk: false,
-    overlay: false,
-    sourceMap: false,
-    watch: false,
-    debug: false,
+    repository: 'features',
+    contents: {
+        /**
+         * Default enabled
+         */
+        babel: true,
+        clean: true,
+        dashboard: true,
+        manifest: true,
+        postcss: true,
+        /**
+         * Opt-in
+         */
+        browsersync: false,
+        hash: false,
+        hot: false,
+        minify: false,
+        splitting: true,
+        vendor: false,
+        runtimeChunk: false,
+        overlay: false,
+        sourceMap: false,
+        watch: false,
+        debug: false,
+    },
 };
 
 export { features };

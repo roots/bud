@@ -1,21 +1,12 @@
 import type {Bud, Hook, Hooks} from './types'
 
-const hooks = (logger: any): Hooks => ({
-  logger,
+const hooks = (bud: Bud): Hooks => ({
+  logger: bud.logger,
 
   /**
    * Registered hooks.
    */
   registered: {},
-
-  /**
-   * Init hooks.
-   */
-  init: function (bud: Bud): Hooks {
-    this.bud = bud
-
-    return this
-  },
 
   /**
    * Make a bud hook

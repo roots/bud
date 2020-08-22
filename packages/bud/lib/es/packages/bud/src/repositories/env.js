@@ -1,5 +1,5 @@
 /**
- * @roots/bud v.2.0.0-next {@link https://roots.io/bud}
+ * @roots/bud v.2.0.0-next.0 {@link https://roots.io/bud}
  *
  * A friendly build tool to help manage your project assets.
  *
@@ -13,11 +13,11 @@
 import { join } from 'path';
 import dotenv from 'dotenv';
 
-var env = function (paths) {
-    var _a;
-    return ((_a = dotenv.config({
-        path: join(paths.get('project'), '.env'),
-    }).parsed) !== null && _a !== void 0 ? _a : {});
+var env = {
+    repository: 'env',
+    contents: function (bud) { var _a; return (_a = dotenv.config({
+        path: join(bud.paths.get('project'), '.env'),
+    }).parsed) !== null && _a !== void 0 ? _a : {}; },
 };
 
 export { env };

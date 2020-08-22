@@ -9,15 +9,19 @@ import {patterns} from './patterns'
 import {loaders, rules, uses} from './rulesets'
 
 export const repositories = {
-  features,
-  options,
-  loaders,
-  paths,
-  cli,
-  adapters,
-  patterns,
-  rules,
-  uses,
-  configs,
-  env,
+  extensions: [adapters],
+  files: [configs],
+  stores: [
+    paths,
+    env,
+    ...cli,
+    features,
+    options,
+    loaders,
+    cli,
+    adapters,
+    patterns,
+    rules,
+    uses,
+  ],
 }

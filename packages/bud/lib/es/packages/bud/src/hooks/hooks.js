@@ -1,5 +1,5 @@
 /**
- * @roots/bud v.2.0.0-next {@link https://roots.io/bud}
+ * @roots/bud v.2.0.0-next.0 {@link https://roots.io/bud}
  *
  * A friendly build tool to help manage your project assets.
  *
@@ -10,19 +10,12 @@
  * @copyright 2020 Roots {@link https://roots.io}
  * @license MIT
  */
-var hooks = function (logger) { return ({
-    logger: logger,
+var hooks = function (bud) { return ({
+    logger: bud.logger,
     /**
      * Registered hooks.
      */
     registered: {},
-    /**
-     * Init hooks.
-     */
-    init: function (bud) {
-        this.bud = bud;
-        return this;
-    },
     /**
      * Make a bud hook
      */

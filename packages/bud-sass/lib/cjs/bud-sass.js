@@ -1,5 +1,5 @@
 /**
- * @roots/bud-sass v.1.0.0 {@link undefined}
+ * @roots/bud-sass v.2.0.0-next.0 {@link undefined}
  *
  * Adds sass support to Bud.
  *

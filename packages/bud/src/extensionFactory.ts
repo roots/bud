@@ -1,7 +1,7 @@
-import type {Bud} from '../..'
+import type {Bud} from './'
 import type {Extension, ExtensionInterface} from './index'
 import type {Plugin as WebpackPlugin} from 'webpack'
-import {Fab} from '../../util/fab'
+import {Fab} from './util/fab'
 
 type ExtensionPropFallback = Bud | Fab['undefined'] | Fab['true']
 type MakeExtension = () => WebpackPlugin
@@ -31,7 +31,7 @@ export type ExtensionControllerFactory = (
  *
  * @this {Bud}
  */
-const controller: ExtensionControllerFactory = (
+const extensionFactory: ExtensionControllerFactory = (
   bud: Bud,
   extension: Extension,
 ): ExtensionController => ({
@@ -118,4 +118,4 @@ const controller: ExtensionControllerFactory = (
   },
 })
 
-export {controller}
+export {extensionFactory}

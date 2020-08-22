@@ -1,13 +1,18 @@
 import {Loose} from '@roots/bud-typings'
-import type {Bud} from '..'
 import {existsSync} from 'fs-extra'
-import {controller} from '../repositories/adapters/controller'
-import {logger} from '../util/logger'
+import {logger} from './util/logger'
 import {get as _get, set as _set} from 'lodash'
 
-import type {ExtensionControllerFactory} from '../repositories/adapters/controller'
+import type {ExtensionControllerFactory} from './extensionFactory'
+import {Bud} from './'
 
 type Repository = any[] | any
+
+type RepositoryDefinition = {
+  repository: string
+  contents: Repository
+}
+
 type Key = string
 type Getter = (this: Container, key?: Key) => any
 type Action = (this: Container, ...args: any) => void
@@ -42,7 +47,6 @@ interface FileContainerInterface extends ContainerInterface {
 }
 
 interface ExtensionContainer extends ContainerInterface {
-  controller: ExtensionControllerFactory
   add: Action
 }
 
@@ -51,7 +55,7 @@ type FileContainer = FileContainerInterface
 
 type ContainerBind = (
   repository: Repository,
-  name: string,
+  bud: Bud,
 ) => Container | FileContainer | ExtensionContainer
 
 const log = (
@@ -164,58 +168,66 @@ const container: Action = function (repository?, name = 'anonymous') {
   this.disabled = disabled
 }
 
+const normalStoreContents = (contents, bud) =>
+  typeof contents === 'function' ? contents(bud) : contents
+
 /**
  * Bind container.
  */
-const bindContainer: ContainerBind = function (
-  repository,
-  name = 'anonymous',
+const makeContainer: ContainerBind = function (
+  store,
+  bud,
 ): Container {
-  log(repository, {repository: name}, `create container`)
+  store.contents = normalStoreContents(store.contents, bud)
+  log(store.repository, {store}, `create extension container`)
 
-  return new container(repository, name)
+  return new container(store.contents, store.repository)
 }
 
 /**
  * Bind file container.
  */
-const bindFileContainer: ContainerBind = function (
-  repository,
-  name = 'anonymous',
+const makeFileContainer: ContainerBind = function (
+  store,
+  bud,
 ): FileContainer {
-  log(repository, {repository: name}, `create container`)
+  store = normalStoreContents(store.contents, bud)
+  log(store.repository, {store}, `create container`)
 
-  const store = new container(repository, name)
-  store.require = containerRequire
-  store.exists = exists
+  const instance = new container(store.contents, store.repository)
+  instance.require = containerRequire
+  instance.exists = exists
 
-  return store
+  return instance
 }
 
 /**
  * Bind extension container.
  */
-const bindExtensionContainer: ContainerBind = function (
-  repository,
-  name = 'anonymous',
+const makeExtensionContainer: ContainerBind = function (
+  store,
+  bud,
 ): ExtensionContainer {
-  log(
-    repository,
-    {repository: name},
-    `create extension api container`,
-  )
+  store = normalStoreContents(store.contents, bud)
+  log(store.repository, {store}, `create extension container`)
 
-  const store = new container(repository, name)
-  store.controller = controller
-  store.add = add
+  const instance = new container(store.contents, store.repository)
+  instance.add = add
 
-  return store
+  return instance
 }
 
 export {
   container,
-  bindContainer,
-  bindFileContainer,
-  bindExtensionContainer,
+  makeContainer,
+  makeFileContainer,
+  makeExtensionContainer,
 }
-export type {Container, FileContainer, ExtensionContainer, Repository}
+
+export type {
+  Container,
+  FileContainer,
+  ExtensionContainer,
+  Repository,
+  RepositoryDefinition,
+}

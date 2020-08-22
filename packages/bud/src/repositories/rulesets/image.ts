@@ -1,5 +1,4 @@
 import type {Bud} from '../types'
-import {uses} from './uses'
 import {WebpackRule} from '@roots/bud-typings'
 
 const image = (bud: Bud): WebpackRule =>
@@ -9,7 +8,7 @@ const image = (bud: Bud): WebpackRule =>
       bud.patterns.get('image'),
     ),
     use: bud.hooks.filter('webpack.module.rules.image.use', [
-      uses.file(bud),
+      bud.uses.get('file')(bud),
     ]),
   })
 

@@ -1,5 +1,5 @@
 /**
- * @roots/bud v.2.0.0-next {@link https://roots.io/bud}
+ * @roots/bud v.2.0.0-next.0 {@link https://roots.io/bud}
  *
  * A friendly build tool to help manage your project assets.
  *
@@ -26,19 +26,22 @@ import { writeFile } from './writeFile.js';
 /**
  * Bud Webpack Adapters
  */
-var adapters = [
-    browserSync,
-    cleanWebpack,
-    copy,
-    define,
-    fixStyleOnlyEntries,
-    hotModuleReplacement,
-    manifest,
-    miniCssExtract,
-    provide,
-    limitChunkCount,
-    terser,
-    writeFile,
-];
+var adapters = {
+    repository: 'adapters',
+    contents: [
+        browserSync,
+        cleanWebpack,
+        copy,
+        define,
+        fixStyleOnlyEntries,
+        hotModuleReplacement,
+        manifest,
+        miniCssExtract,
+        provide,
+        limitChunkCount,
+        terser,
+        writeFile,
+    ],
+};
 
 export { adapters };

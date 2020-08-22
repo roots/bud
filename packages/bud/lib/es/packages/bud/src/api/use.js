@@ -1,5 +1,5 @@
 /**
- * @roots/bud v.2.0.0-next {@link https://roots.io/bud}
+ * @roots/bud v.2.0.0-next.0 {@link https://roots.io/bud}
  *
  * A friendly build tool to help manage your project assets.
  *
@@ -13,7 +13,7 @@
 var use = function (extensions) {
     var _this = this;
     extensions.map(function (extension) {
-        _this.adapters.controller(_this, extension).build();
+        _this.extensionFactory(_this, extension).build();
     });
     return this;
 };

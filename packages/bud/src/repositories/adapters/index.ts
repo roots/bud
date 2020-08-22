@@ -82,27 +82,34 @@ export interface ExtensionInterface extends Loose {
  */
 export type Extension = (bud: Bud) => ExtensionInterface
 
+export type ExtensionRepository = Extension[]
 /**
  * Extension Repository
  */
-export type ExtensionRepository = Extension[]
+export type ExtensionRepositoryDefinition = {
+  repository: string
+  contents: ExtensionRepository
+}
 
 /**
  * Bud Webpack Adapters
  */
-const adapters: ExtensionRepository = [
-  browserSync,
-  cleanWebpack,
-  copy,
-  define,
-  fixStyleOnlyEntries,
-  hotModuleReplacement,
-  manifest,
-  miniCssExtract,
-  provide,
-  limitChunkCount,
-  terser,
-  writeFile,
-]
+const adapters: ExtensionRepositoryDefinition = {
+  repository: 'adapters',
+  contents: [
+    browserSync,
+    cleanWebpack,
+    copy,
+    define,
+    fixStyleOnlyEntries,
+    hotModuleReplacement,
+    manifest,
+    miniCssExtract,
+    provide,
+    limitChunkCount,
+    terser,
+    writeFile,
+  ],
+}
 
 export {adapters}

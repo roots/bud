@@ -1,5 +1,5 @@
 /**
- * @roots/bud-dependency-extraction-webpack-plugin v.1.0.0 {@link https://roots.io/bud}
+ * @roots/bud-dependency-extraction-webpack-plugin v.2.0.0-next.0 {@link https://roots.io/bud}
  *
  * Adds @wordpress/dependency-extraction-webpack-plugin to Bud
  *

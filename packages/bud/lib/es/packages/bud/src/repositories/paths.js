@@ -1,5 +1,5 @@
 /**
- * @roots/bud v.2.0.0-next {@link https://roots.io/bud}
+ * @roots/bud v.2.0.0-next.0 {@link https://roots.io/bud}
  *
  * A friendly build tool to help manage your project assets.
  *
@@ -31,12 +31,17 @@ var ensureStr = function (possibleStr) {
  * Paths repo.
  */
 var paths = {
-    cwd: cwd,
-    project: cwd,
-    framework: framework,
-    src: argv['src'] ? join(cwd, ensureStr(argv['src'])) : join(cwd),
-    dist: argv['dist'] ? join(cwd, ensureStr(argv['dist'])) : join(cwd),
-    public: argv['public'] ? ensureStr(argv['public']) : '/',
+    repository: 'paths',
+    contents: {
+        cwd: cwd,
+        project: cwd,
+        framework: framework,
+        src: argv['src'] ? join(cwd, ensureStr(argv['src'])) : join(cwd),
+        public: argv['public'] ? ensureStr(argv['public']) : '/',
+        dist: argv['dist']
+            ? join(cwd, ensureStr(argv['dist']))
+            : join(cwd),
+    },
 };
 
 export { paths };

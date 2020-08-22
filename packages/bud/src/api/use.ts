@@ -8,7 +8,7 @@ const use: UseExtension = function (
   extensions: ExtensionRepository,
 ): Bud {
   extensions.map(extension => {
-    this.adapters.controller(this, extension).build()
+    this.extensionFactory(this, extension).build()
   })
 
   return this

@@ -25,12 +25,17 @@ const ensureStr: (any) => string = possibleStr =>
  * Paths repo.
  */
 const paths: Loose = {
-  cwd,
-  project: cwd,
-  framework,
-  src: argv['src'] ? join(cwd, ensureStr(argv['src'])) : join(cwd),
-  dist: argv['dist'] ? join(cwd, ensureStr(argv['dist'])) : join(cwd),
-  public: argv['public'] ? ensureStr(argv['public']) : '/',
+  repository: 'paths',
+  contents: {
+    cwd,
+    project: cwd,
+    framework,
+    src: argv['src'] ? join(cwd, ensureStr(argv['src'])) : join(cwd),
+    public: argv['public'] ? ensureStr(argv['public']) : '/',
+    dist: argv['dist']
+      ? join(cwd, ensureStr(argv['dist']))
+      : join(cwd),
+  },
 }
 
 export {paths}

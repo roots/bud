@@ -1,5 +1,5 @@
 /**
- * @roots/bud v.2.0.0-next {@link https://roots.io/bud}
+ * @roots/bud v.2.0.0-next.0 {@link https://roots.io/bud}
  *
  * A friendly build tool to help manage your project assets.
  *
@@ -12,8 +12,7 @@
  */
 import { __assign, __spreadArrays } from 'tslib';
 import { existsSync } from 'fs-extra';
-import { logger } from '../util/logger.js';
-import { controller } from '../repositories/adapters/controller.js';
+import { logger } from './util/logger.js';
 import { get as get$1, set as set$1 } from 'lodash';
 
 var log = function (repository, data, message) {
@@ -97,35 +96,37 @@ var container = function (repository, name) {
     this.disable = disable;
     this.disabled = disabled;
 };
+var normalStoreContents = function (contents, bud) {
+    return typeof contents === 'function' ? contents(bud) : contents;
+};
 /**
  * Bind container.
  */
-var bindContainer = function (repository, name) {
-    if (name === void 0) { name = 'anonymous'; }
-    log(repository, { repository: name }, "create container");
-    return new container(repository, name);
+var makeContainer = function (store, bud) {
+    store.contents = normalStoreContents(store.contents, bud);
+    log(store.repository, { store: store }, "create extension container");
+    return new container(store.contents, store.repository);
 };
 /**
  * Bind file container.
  */
-var bindFileContainer = function (repository, name) {
-    if (name === void 0) { name = 'anonymous'; }
-    log(repository, { repository: name }, "create container");
-    var store = new container(repository, name);
-    store.require = containerRequire;
-    store.exists = exists;
-    return store;
+var makeFileContainer = function (store, bud) {
+    store = normalStoreContents(store.contents, bud);
+    log(store.repository, { store: store }, "create container");
+    var instance = new container(store.contents, store.repository);
+    instance.require = containerRequire;
+    instance.exists = exists;
+    return instance;
 };
 /**
  * Bind extension container.
  */
-var bindExtensionContainer = function (repository, name) {
-    if (name === void 0) { name = 'anonymous'; }
-    log(repository, { repository: name }, "create extension api container");
-    var store = new container(repository, name);
-    store.controller = controller;
-    store.add = add;
-    return store;
+var makeExtensionContainer = function (store, bud) {
+    store = normalStoreContents(store.contents, bud);
+    log(store.repository, { store: store }, "create extension container");
+    var instance = new container(store.contents, store.repository);
+    instance.add = add;
+    return instance;
 };
 
-export { bindContainer, bindExtensionContainer, bindFileContainer, container };
+export { container, makeContainer, makeExtensionContainer, makeFileContainer };

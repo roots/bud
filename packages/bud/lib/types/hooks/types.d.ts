@@ -5,12 +5,10 @@ export declare type HooksConstructor = (bud: Bud) => Hooks;
  * ## bud.hooks
  */
 export declare type Hooks = {
-    logger: any;
     /**
-     * ## bud.hooks.init
-     * @constructor
+     * ## bud.logger
      */
-    init: (any: any) => Hooks;
+    logger: Bud['logger'];
     /**
      * ## bud.hooks.registered
      *

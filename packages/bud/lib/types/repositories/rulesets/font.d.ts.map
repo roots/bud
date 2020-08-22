@@ -1,1 +1,1 @@
-{"version":3,"file":"font.d.ts","sourceRoot":"","sources":["../../../../src/repositories/rulesets/font.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAC,GAAG,EAAC,MAAM,UAAU,CAAA;AAIjC,QAAA,MAAM,IAAI,QAAS,GAAG,QASlB,CAAA;AAEJ,OAAO,EAAC,IAAI,EAAC,CAAA"}
+{"version":3,"file":"font.d.ts","sourceRoot":"","sources":["../../../../src/repositories/rulesets/font.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAC,GAAG,EAAC,MAAM,UAAU,CAAA;AAGjC,QAAA,MAAM,IAAI,QAAS,GAAG,QASlB,CAAA;AAEJ,OAAO,EAAC,IAAI,EAAC,CAAA"}

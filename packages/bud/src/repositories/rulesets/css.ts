@@ -1,5 +1,4 @@
 import type {Bud} from '../..'
-import {uses} from './uses'
 import type {WebpackRule} from '@roots/bud-typings'
 
 const css = (bud: Bud): WebpackRule =>
@@ -13,10 +12,10 @@ const css = (bud: Bud): WebpackRule =>
       bud.patterns.get('vendor'),
     ),
     use: bud.hooks.filter('webpack.module.rules.css.use', [
-      uses.miniCss(bud),
-      uses.css(bud),
-      uses.resolveUrl(bud),
-      uses.postCss(bud),
+      bud.uses.get('miniCss')(bud),
+      bud.uses.get('css')(bud),
+      bud.uses.get('resolveUrl')(bud),
+      bud.uses.get('postCss')(bud),
     ]),
   })
 

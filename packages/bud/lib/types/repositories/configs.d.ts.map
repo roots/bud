@@ -1,1 +1,1 @@
-{"version":3,"file":"configs.d.ts","sourceRoot":"","sources":["../../../src/repositories/configs.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAC,UAAU,EAAC,MAAM,cAAc,CAAA;AAmB5C,QAAA,MAAM,OAAO,EAAE,CAAC,KAAK,EAAE,GAAG,KAAK,UAY9B,CAAA;AAED,OAAO,EAAC,OAAO,EAAC,CAAA"}
+{"version":3,"file":"configs.d.ts","sourceRoot":"","sources":["../../../src/repositories/configs.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAC,oBAAoB,EAAa,MAAM,cAAc,CAAA;AAoBlE,QAAA,MAAM,OAAO,EAAE,oBAgBd,CAAA;AAED,OAAO,EAAC,OAAO,EAAC,CAAA"}

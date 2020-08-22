@@ -1,15 +1,10 @@
-import type { Bud, Use, UsesHash } from './types';
+import { bootstrap } from './bootstrapper';
+import type { Bud, Use } from './types';
 import type { Extension, ExtensionInterface } from './repositories/adapters';
-/**
- * Bud framework.
- *
- * @constructor
- */
-declare const bootstrap: () => void;
+declare const bud: Bud;
 /**
  * Bud Framework
  */
-declare const bud: Bud;
 export { bud, bootstrap };
-export { Bud, Extension, ExtensionInterface, Use, UsesHash };
+export { Bud, Extension, ExtensionInterface, Use };
 //# sourceMappingURL=index.d.ts.map

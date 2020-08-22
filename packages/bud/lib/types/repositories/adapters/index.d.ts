@@ -53,13 +53,17 @@ export interface ExtensionInterface extends Loose {
  * Bud Extension
  */
 export declare type Extension = (bud: Bud) => ExtensionInterface;
+export declare type ExtensionRepository = Extension[];
 /**
  * Extension Repository
  */
-export declare type ExtensionRepository = Extension[];
+export declare type ExtensionRepositoryDefinition = {
+    repository: string;
+    contents: ExtensionRepository;
+};
 /**
  * Bud Webpack Adapters
  */
-declare const adapters: ExtensionRepository;
+declare const adapters: ExtensionRepositoryDefinition;
 export { adapters };
 //# sourceMappingURL=index.d.ts.map

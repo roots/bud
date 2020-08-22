@@ -1,5 +1,5 @@
 /**
- * @roots/bud v.2.0.0-next {@link https://roots.io/bud}
+ * @roots/bud v.2.0.0-next.0 {@link https://roots.io/bud}
  *
  * A friendly build tool to help manage your project assets.
  *
@@ -15,7 +15,7 @@ var plugins = function (bud) {
         plugins: bud.adapters
             .entries()
             .map(function (adapter) {
-            return bud.hooks.filter("webpack.plugins." + adapter.name, bud.adapters.controller(bud, adapter).build());
+            return bud.hooks.filter("webpack.plugins." + adapter.name, bud.extensionFactory(bud, adapter).build());
         })
             .filter(function (adapter) { return adapter; }),
     });

@@ -1,6 +1,6 @@
 import type {Bud} from '..'
 
-const processHandler = (bud: Bud) => {
+const processHandler = (bud: Bud): void => {
   process.title = bud.hooks.filter('node_process_title', 'bud-cli')
   bud.logger.info(
     {name: 'process', value: process.title},

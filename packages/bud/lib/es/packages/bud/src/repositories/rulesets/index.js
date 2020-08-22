@@ -1,5 +1,5 @@
 /**
- * @roots/bud v.2.0.0-next {@link https://roots.io/bud}
+ * @roots/bud v.2.0.0-next.0 {@link https://roots.io/bud}
  *
  * A friendly build tool to help manage your project assets.
  *
@@ -18,6 +18,9 @@ import { image } from './image.js';
 import { svg } from './svg.js';
 export { loaders } from './loaders.js';
 
-var rules = [js, css, font, image, svg];
+var rules = {
+    repository: 'rules',
+    contents: [js, css, font, image, svg],
+};
 
 export { rules };

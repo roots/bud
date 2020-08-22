@@ -1,5 +1,5 @@
 /**
- * @roots/bud v.2.0.0-next {@link https://roots.io/bud}
+ * @roots/bud v.2.0.0-next.0 {@link https://roots.io/bud}
  *
  * A friendly build tool to help manage your project assets.
  *
@@ -10,6 +10,7 @@
  * @copyright 2020 Roots {@link https://roots.io}
  * @license MIT
  */
+import { __assign } from 'tslib';
 import { join } from 'path';
 import { existsSync } from 'fs-extra';
 
@@ -27,16 +28,16 @@ var configFiles = [
         filename: 'jsconfig.json',
     },
 ];
-var configs = function (paths) {
-    var repository = {};
-    configFiles.forEach(function (_a) {
-        var name = _a.name, filename = _a.filename;
-        var projectPath = join(paths.get('project'), filename);
+var configs = {
+    repository: 'configs',
+    contents: function (bud) { return (__assign({}, configFiles.map(function (config) {
+        var _a;
+        var projectPath = join(bud.paths.get('project'), config.filename);
         if (existsSync(projectPath)) {
-            repository[name] = projectPath;
+            return _a = {}, _a[config.name] = projectPath, _a;
         }
-    });
-    return repository;
+        return {};
+    }))); },
 };
 
 export { configs };

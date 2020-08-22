@@ -1,7 +1,7 @@
-import type { Bud } from '../..';
+import type { Bud } from './';
 import type { Extension, ExtensionInterface } from './index';
 import type { Plugin as WebpackPlugin } from 'webpack';
-import { Fab } from '../../util/fab';
+import { Fab } from './util/fab';
 declare type ExtensionPropFallback = Bud | Fab['undefined'] | Fab['true'];
 declare type MakeExtension = () => WebpackPlugin;
 declare type ExtensionTransform = (propName?: string, fallback?: ExtensionPropFallback) => void;
@@ -21,6 +21,6 @@ export declare type ExtensionControllerFactory = (bud: Bud, extension: Extension
  *
  * @this {Bud}
  */
-declare const controller: ExtensionControllerFactory;
-export { controller };
-//# sourceMappingURL=controller.d.ts.map
+declare const extensionFactory: ExtensionControllerFactory;
+export { extensionFactory };
+//# sourceMappingURL=extensionFactory.d.ts.map

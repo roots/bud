@@ -1,13 +1,13 @@
 import {join} from 'path'
 import dotenv from 'dotenv'
-import {Loose} from '@roots/bud-typings'
+import type {Bud} from '..'
 
-const env = function (paths: Loose): Loose {
-  return (
+const env = {
+  repository: 'env',
+  contents: (bud: Bud): any =>
     dotenv.config({
-      path: join(paths.get('project'), '.env'),
-    }).parsed ?? {}
-  )
+      path: join(bud.paths.get('project'), '.env'),
+    }).parsed ?? {},
 }
 
 export {env}

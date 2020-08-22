@@ -1,5 +1,5 @@
 /**
- * @roots/bud v.2.0.0-next {@link https://roots.io/bud}
+ * @roots/bud v.2.0.0-next.0 {@link https://roots.io/bud}
  *
  * A friendly build tool to help manage your project assets.
  *
@@ -10,13 +10,11 @@
  * @copyright 2020 Roots {@link https://roots.io}
  * @license MIT
  */
-import { uses } from './uses.js';
-
 var font = function (bud) {
     return bud.hooks.filter('webpack.module.rules.font', {
         test: bud.hooks.filter('bud.module.rules.font.test', bud.patterns.get('font')),
         use: bud.hooks.filter('bud.module.rules.font.use', [
-            uses.file(bud),
+            bud.uses.get('file')(bud),
         ]),
     });
 };

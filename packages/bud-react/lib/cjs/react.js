@@ -1,5 +1,5 @@
 /**
- * @roots/bud-react v.1.0.0 {@link https://roots.io/bud}
+ * @roots/bud-react v.2.0.0-next.0 {@link https://roots.io/bud}
  *
  * Adds react support to Bud
  *

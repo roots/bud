@@ -1,5 +1,5 @@
 /**
- * @roots/bud v.2.0.0-next {@link https://roots.io/bud}
+ * @roots/bud v.2.0.0-next.0 {@link https://roots.io/bud}
  *
  * A friendly build tool to help manage your project assets.
  *
@@ -10,17 +10,15 @@
  * @copyright 2020 Roots {@link https://roots.io}
  * @license MIT
  */
-import { uses } from './uses.js';
-
 var css = function (bud) {
     return bud.hooks.filter('webpack.module.rules.css', {
         test: bud.hooks.filter('webpack.module.rules.css.test', bud.patterns.get('css')),
         exclude: bud.hooks.filter('webpack.module.rules.css.exclude', bud.patterns.get('vendor')),
         use: bud.hooks.filter('webpack.module.rules.css.use', [
-            uses.miniCss(bud),
-            uses.css(bud),
-            uses.resolveUrl(bud),
-            uses.postCss(bud),
+            bud.uses.get('miniCss')(bud),
+            bud.uses.get('css')(bud),
+            bud.uses.get('resolveUrl')(bud),
+            bud.uses.get('postCss')(bud),
         ]),
     });
 };

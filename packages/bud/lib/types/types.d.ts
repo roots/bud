@@ -4,7 +4,8 @@ import type { Hooks } from './hooks/types';
 import type { Paths, Features, Options } from './repositories/types';
 import type { Util } from './util/types';
 import type { Loose, WebpackMode } from '@roots/bud-typings';
-export type { Use, UsesHash } from './repositories/rulesets';
+import { ExtensionControllerFactory } from './extensionFactory';
+export type { Use } from './repositories/rulesets';
 /**
  * Bud Framework Interface
  *
@@ -23,6 +24,10 @@ export interface Bud extends Loose {
      * Extend the bud framework
      */
     apply: (string: any, any: any) => void;
+    /**
+     * ## bud.args
+     */
+    args: Container;
     /**
      * ## bud.compiler
      *
@@ -47,6 +52,10 @@ export interface Bud extends Loose {
      * Status of features
      */
     features: Features;
+    /**
+     * ## bud.args
+     */
+    flags: Container;
     /**
      * ## bud.fs
      *
@@ -247,6 +256,12 @@ export interface Bud extends Loose {
      * ```
      */
     distPath: Api.PathSetter;
+    /**
+     * ## bud.extension
+     *
+     * Extension controller
+     */
+    extensionFactory: ExtensionControllerFactory;
     /**
      * ## bud.glob
      *

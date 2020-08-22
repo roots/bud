@@ -1,6 +1,9 @@
 import { loaders } from './loaders';
-import { uses, Use, UsesHash } from './uses';
-declare const rules: ((bud: import("../types").Bud) => any)[];
+import { uses, Use } from './uses';
+declare const rules: {
+    repository: string;
+    contents: ((bud: import("../types").Bud) => any)[];
+};
 export { loaders, rules, uses };
-export type { Use, UsesHash };
+export type { Use };
 //# sourceMappingURL=index.d.ts.map

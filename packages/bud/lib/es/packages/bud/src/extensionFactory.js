@@ -1,5 +1,5 @@
 /**
- * @roots/bud v.2.0.0-next {@link https://roots.io/bud}
+ * @roots/bud v.2.0.0-next.0 {@link https://roots.io/bud}
  *
  * A friendly build tool to help manage your project assets.
  *
@@ -17,7 +17,7 @@ import { __assign } from 'tslib';
  *
  * @this {Bud}
  */
-var controller = function (bud, extension) { return ({
+var extensionFactory = function (bud, extension) { return ({
     bud: bud,
     extension: extension(bud),
     /**
@@ -79,4 +79,4 @@ var controller = function (bud, extension) { return ({
     },
 }); };
 
-export { controller };
+export { extensionFactory };

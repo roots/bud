@@ -1,5 +1,5 @@
 /**
- * @roots/palette-webpack-plugin v.1.0.0 {@link undefined}
+ * @roots/palette-webpack-plugin v.2.0.0-next.0 {@link undefined}
  *
  * Adds json palette support for Gutenberg to Bud
  *

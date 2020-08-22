@@ -1,5 +1,5 @@
 /**
- * @roots/bud v.2.0.0-next {@link https://roots.io/bud}
+ * @roots/bud v.2.0.0-next.0 {@link https://roots.io/bud}
  *
  * A friendly build tool to help manage your project assets.
  *
@@ -13,9 +13,12 @@
 import { argv } from 'yargs';
 
 var flags = {
-    log: argv.hasOwnProperty('log'),
-    hot: argv.hasOwnProperty('hot'),
-    watch: argv.hasOwnProperty('watch'),
+    repository: 'flags',
+    contents: {
+        log: argv.hasOwnProperty('log'),
+        hot: argv.hasOwnProperty('hot'),
+        watch: argv.hasOwnProperty('watch'),
+    },
 };
 
 export { flags };

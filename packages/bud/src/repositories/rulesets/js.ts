@@ -1,5 +1,4 @@
 import type {Bud} from '../types'
-import {uses} from './uses'
 import type {WebpackRule} from '@roots/bud-typings'
 
 const js = (bud: Bud): WebpackRule =>
@@ -13,7 +12,7 @@ const js = (bud: Bud): WebpackRule =>
       bud.patterns.get('vendor'),
     ),
     use: bud.hooks.filter('webpack.module.rules.js.use', [
-      uses.babel(bud),
+      bud.uses.get('babel')(bud),
     ]),
   })
 

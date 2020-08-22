@@ -1,5 +1,5 @@
 /**
- * @roots/bud v.2.0.0-next {@link https://roots.io/bud}
+ * @roots/bud v.2.0.0-next.0 {@link https://roots.io/bud}
  *
  * A friendly build tool to help manage your project assets.
  *
@@ -17,21 +17,7 @@ Object.defineProperty(exports, '__esModule', { value: true });
 var tslib = require('tslib');
 var path = require('path');
 var chokidar = require('chokidar');
-var prettier = require('prettier');
-var cliHighlight = require('cli-highlight');
-var fsExtra = require('fs-extra');
-var pino = require('pino');
-var yargs = require('yargs');
-var BrowserSyncWebpackPlugin = require('browser-sync-webpack-plugin');
-var cleanWebpackPlugin = require('clean-webpack-plugin');
-var CopyWebpackPlugin = require('copy-webpack-plugin');
 var webpack = require('webpack');
-var FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries');
-var MiniCssExtractPlugin = require('mini-css-extract-plugin');
-var ManifestPlugin = require('webpack-manifest-plugin');
-var TerserPlugin = require('terser-webpack-plugin');
-var WriteFilePlugin = require('write-file-webpack-plugin');
-var dotenv = require('dotenv');
 var React = require('react');
 var ink = require('ink');
 var PropTypes = require('prop-types');
@@ -42,22 +28,27 @@ var webpackDevMiddleware = require('webpack-dev-middleware');
 var webpackHotMiddleware = require('webpack-hot-middleware');
 var blacklist = require('blacklist');
 var patchConsole = require('patch-console');
+var prettier = require('prettier');
+var cliHighlight = require('cli-highlight');
+var fsExtra = require('fs-extra');
+var pino = require('pino');
+var yargs = require('yargs');
 var lodash = require('lodash');
+var BrowserSyncWebpackPlugin = require('browser-sync-webpack-plugin');
+var cleanWebpackPlugin = require('clean-webpack-plugin');
+var CopyWebpackPlugin = require('copy-webpack-plugin');
+var FixStyleOnlyEntriesPlugin = require('webpack-fix-style-only-entries');
+var MiniCssExtractPlugin = require('mini-css-extract-plugin');
+var ManifestPlugin = require('webpack-manifest-plugin');
+var TerserPlugin = require('terser-webpack-plugin');
+var WriteFilePlugin = require('write-file-webpack-plugin');
+var dotenv = require('dotenv');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
 var path__default = /*#__PURE__*/_interopDefaultLegacy(path);
 var chokidar__default = /*#__PURE__*/_interopDefaultLegacy(chokidar);
-var pino__default = /*#__PURE__*/_interopDefaultLegacy(pino);
-var BrowserSyncWebpackPlugin__default = /*#__PURE__*/_interopDefaultLegacy(BrowserSyncWebpackPlugin);
-var CopyWebpackPlugin__default = /*#__PURE__*/_interopDefaultLegacy(CopyWebpackPlugin);
 var webpack__default = /*#__PURE__*/_interopDefaultLegacy(webpack);
-var FixStyleOnlyEntriesPlugin__default = /*#__PURE__*/_interopDefaultLegacy(FixStyleOnlyEntriesPlugin);
-var MiniCssExtractPlugin__default = /*#__PURE__*/_interopDefaultLegacy(MiniCssExtractPlugin);
-var ManifestPlugin__default = /*#__PURE__*/_interopDefaultLegacy(ManifestPlugin);
-var TerserPlugin__default = /*#__PURE__*/_interopDefaultLegacy(TerserPlugin);
-var WriteFilePlugin__default = /*#__PURE__*/_interopDefaultLegacy(WriteFilePlugin);
-var dotenv__default = /*#__PURE__*/_interopDefaultLegacy(dotenv);
 var React__default = /*#__PURE__*/_interopDefaultLegacy(React);
 var PropTypes__default = /*#__PURE__*/_interopDefaultLegacy(PropTypes);
 var notifier__default = /*#__PURE__*/_interopDefaultLegacy(notifier);
@@ -67,6 +58,15 @@ var webpackDevMiddleware__default = /*#__PURE__*/_interopDefaultLegacy(webpackDe
 var webpackHotMiddleware__default = /*#__PURE__*/_interopDefaultLegacy(webpackHotMiddleware);
 var blacklist__default = /*#__PURE__*/_interopDefaultLegacy(blacklist);
 var patchConsole__default = /*#__PURE__*/_interopDefaultLegacy(patchConsole);
+var pino__default = /*#__PURE__*/_interopDefaultLegacy(pino);
+var BrowserSyncWebpackPlugin__default = /*#__PURE__*/_interopDefaultLegacy(BrowserSyncWebpackPlugin);
+var CopyWebpackPlugin__default = /*#__PURE__*/_interopDefaultLegacy(CopyWebpackPlugin);
+var FixStyleOnlyEntriesPlugin__default = /*#__PURE__*/_interopDefaultLegacy(FixStyleOnlyEntriesPlugin);
+var MiniCssExtractPlugin__default = /*#__PURE__*/_interopDefaultLegacy(MiniCssExtractPlugin);
+var ManifestPlugin__default = /*#__PURE__*/_interopDefaultLegacy(ManifestPlugin);
+var TerserPlugin__default = /*#__PURE__*/_interopDefaultLegacy(TerserPlugin);
+var WriteFilePlugin__default = /*#__PURE__*/_interopDefaultLegacy(WriteFilePlugin);
+var dotenv__default = /*#__PURE__*/_interopDefaultLegacy(dotenv);
 
 var alias = function (options) {
     this.options.set('resolve.alias', tslib.__assign(tslib.__assign({}, this.options.get('resolve.alias')), this.hooks.filter('api.alias', options)));
@@ -309,7 +309,7 @@ var terser = function (options) {
 var use = function (extensions) {
     var _this = this;
     extensions.map(function (extension) {
-        _this.adapters.controller(_this, extension).build();
+        _this.extensionFactory(_this, extension).build();
     });
     return this;
 };
@@ -366,740 +366,6 @@ var api = {
     watch: watch,
 };
 
-var hooks = function (logger) { return ({
-    logger: logger,
-    /**
-     * Registered hooks.
-     */
-    registered: {},
-    /**
-     * Init hooks.
-     */
-    init: function (bud) {
-        this.bud = bud;
-        return this;
-    },
-    /**
-     * Make a bud hook
-     */
-    make: function (fn) {
-        if (fn === void 0) { fn = function () { return null; }; }
-        return ({
-            fn: fn,
-            fired: false,
-        });
-    },
-    /**
-     * Get all bud hook entries.
-     */
-    entries: function () {
-        return Object.entries(this.registered);
-    },
-    /**
-     * Register a function as a bud hook.
-     */
-    on: function (name, callback) {
-        this.logger.info({ name: name, callback: callback.name }, 'filter callback defined');
-        if (!this.registered[name]) {
-            this.registered[name] = [];
-        }
-        this.registered[name].push(callback);
-        return this;
-    },
-    filter: function (name, value) {
-        this.logger.info({ name: name, value: value }, name + " filter defined");
-        if (!this.registered[name]) {
-            return value;
-        }
-        this.registered[name].forEach(function (hook) {
-            value = hook(value);
-        });
-        return value;
-    },
-}); };
-
-/**
- * JSON.stringify replacement function
- *
- * Prevents circular references in JSON from looping
- */
-var shortCircuit = function () {
-    var seen = new WeakSet();
-    return function (key, value) {
-        if (typeof value === 'object' && value !== null) {
-            if (seen.has(value) || key == 'UI') {
-                return;
-            }
-            seen.add(value);
-        }
-        return value;
-    };
-};
-
-/**
- * Dump a prettified, syntax-highlighted object
- */
-var dump = function (obj, prettierOptions) {
-    var prettierConfig = prettierOptions !== null && prettierOptions !== void 0 ? prettierOptions : { parser: 'json' };
-    var normalizedString = JSON.stringify(obj, shortCircuit());
-    var prettifiedString = prettier.format(normalizedString, prettierConfig);
-    var highlightedConfig = cliHighlight.highlight(prettifiedString);
-    console.log(highlightedConfig);
-};
-
-/**
- * Fabs: like noop but fab.
- */
-var fab = {
-    "false": function () { return false; },
-    "true": function () { return true; },
-    undefined: function () { return undefined; },
-    "null": function () { return null; },
-};
-
-var projectRoot = require.main.paths[0]
-    .split('node_modules')[0]
-    .slice(0, -1);
-
-/**
- * Terminate CLI execution
- */
-var terminate = function (options) {
-    var exit = function (code) {
-        options.dump ? process.abort() : process.exit(code);
-    };
-    return function () { return function (err) {
-        if (err && err instanceof Error) {
-            console.log(err.message, err.stack);
-        }
-        setTimeout(exit, options.timeout).unref();
-    }; };
-};
-
-var processHandler = function (bud) {
-    process.title = bud.hooks.filter('node_process_title', 'bud-cli');
-    bud.logger.info({ name: 'process', value: process.title }, "title set");
-    process.env.BABEL_ENV = bud.mode;
-    bud.logger.info({ name: 'process', value: process.env.BABEL_ENV }, "BABEL_ENV set");
-    process.env.NODE_ENV = bud.mode;
-    bud.logger.info({ name: 'process', value: process.env.NODE_ENV }, "NODE_ENV set");
-    var unhandledRejectionHandler = bud.hooks.filter('node_unhandled_rejection_handler', function (error) {
-        bud.logger.error({ name: 'process', value: error }, "unhandled rejection error");
-        process.exitCode = 1;
-        process.nextTick(function () {
-            bud.util.terminate();
-        });
-    });
-    process.on('unhandledRejection', unhandledRejectionHandler);
-};
-
-var fs = {
-    path: path__default['default'],
-    existsSync: fsExtra.existsSync,
-};
-
-var usedExt = function (entries, bud) {
-    entries.forEach(function (entry) {
-        var ext = "." + entry.split('.')[entry.split('.').length - 1];
-        !bud.options.get('resolve.extensions').includes(ext) &&
-            bud.options.set('resolve.extensions', tslib.__spreadArrays(bud.options.get('resolve.extensions'), [
-                ext,
-            ]));
-    });
-};
-
-var log = yargs.argv.log;
-var destination = (yargs.argv === null || yargs.argv === void 0 ? void 0 : yargs.argv.log) && typeof yargs.argv.log == 'boolean' ? false : log;
-var logger = pino__default['default']({
-    base: null,
-    enabled: yargs.argv.hasOwnProperty('log') ? true : false,
-    prettyPrint: {
-        colorize: !destination ? true : false,
-    },
-}, destination);
-
-var util = {
-    fs: fs,
-    dump: dump,
-    shortCircuit: shortCircuit,
-    fab: fab,
-    projectRoot: projectRoot,
-    processHandler: processHandler,
-    terminate: terminate,
-    usedExt: usedExt,
-};
-
-var browserSync = function (bud) { return ({
-    bud: bud,
-    name: 'browser-sync-webpack-plugin',
-    options: bud.options.get('adapters.browsersync'),
-    make: function () {
-        return new BrowserSyncWebpackPlugin__default['default'](this.options);
-    },
-    when: function () {
-        return (this.bud.features.enabled('browsersync') &&
-            !this.bud.features.enabled('hot'));
-    },
-}); };
-
-var cleanWebpack = function (bud) { return ({
-    bud: bud,
-    name: 'clean-webpack-plugin',
-    options: bud.options.get('adapters.clean'),
-    make: function () {
-        return new cleanWebpackPlugin.CleanWebpackPlugin(this.options);
-    },
-    when: function () {
-        return this.bud.features.enabled('clean');
-    },
-}); };
-
-var copy$1 = function (bud) { return ({
-    bud: bud,
-    name: 'copy-webpack-plugin',
-    options: bud.options.get('copy'),
-    make: function () {
-        return new CopyWebpackPlugin__default['default'](this.options);
-    },
-    when: function () {
-        return this.options.patterns.length > 0;
-    },
-}); };
-
-var define = function (bud) {
-    var _a;
-    return ({
-        bud: bud,
-        name: 'define',
-        options: (_a = bud.env.entries()) !== null && _a !== void 0 ? _a : false,
-        make: function () {
-            return new webpack.DefinePlugin(this.options);
-        },
-        when: function () {
-            return this.options;
-        },
-    });
-};
-
-var fixStyleOnlyEntries = function (bud) { return ({
-    bud: bud,
-    name: 'webpack-fix-style-only-entries',
-    options: bud.options.get('adapters.fixStyleOnlyEntries'),
-    make: function () {
-        if (this.bud.features.enabled('hot')) {
-            this.options.ignore = 'webpack-hot-middleware';
-        }
-        return new FixStyleOnlyEntriesPlugin__default['default'](this.options);
-    },
-    when: function () {
-        return (this.bud.options.get('resolve.extensions').includes('.css') ||
-            this.bud.options.get('resolve.extensions').includes('.scss') ||
-            this.bud.options.get('resolve.extensions').includes('.sass'));
-    },
-}); };
-
-var hotModuleReplacement = function (bud) { return ({
-    bud: bud,
-    name: 'hot-module-replacement-plugin',
-    options: bud.options.get('adapters.hotModuleReplacement'),
-    make: function () {
-        return new webpack.HotModuleReplacementPlugin(this.options);
-    },
-    when: function () {
-        return this.bud.features.enabled('hot');
-    },
-}); };
-
-var LimitChunkCountPlugin = webpack.optimize.LimitChunkCountPlugin;
-var limitChunkCount = function (bud) { return ({
-    bud: bud,
-    name: 'limit-chunk-count-plugin',
-    setOptions: function () {
-        var enabled = this.bud.features.enabled('splitting');
-        var chunks = this.bud.options.get('splitting').maxChunks;
-        if (!enabled) {
-            return {
-                maxChunks: 1,
-            };
-        }
-        if (chunks) {
-            return {
-                maxChunks: chunks,
-            };
-        }
-        return null;
-    },
-    make: function () {
-        return new LimitChunkCountPlugin(this.options);
-    },
-    when: function () {
-        return this.options;
-    },
-}); };
-
-var miniCssExtract = function (bud) { return ({
-    bud: bud,
-    name: 'mini-css-extract-plugin',
-    options: {
-        hmr: bud.features.enabled('hot'),
-        filename: bud.features.enabled('hash')
-            ? bud.options.get('filenameTemplate').hashed + ".css"
-            : bud.options.get('filenameTemplate')["default"] + ".css",
-    },
-    make: function () {
-        return new MiniCssExtractPlugin__default['default'](this.options);
-    },
-    when: function () {
-        return (this.bud.options.get('resolve.extensions').includes('.css') ||
-            this.bud.options.get('resolve.extensions').includes('.scss') ||
-            this.bud.options.get('resolve.extensions').includes('.sass'));
-    },
-}); };
-
-var manifest$1 = function (bud) {
-    var _a, _b, _c, _d;
-    return ({
-        bud: bud,
-        name: 'webpack-manifest-plugin',
-        options: {
-            publicPath: (_b = (_a = bud.options.get('manifest.publicPath')) !== null && _a !== void 0 ? _a : bud.paths.get('public')) !== null && _b !== void 0 ? _b : '/',
-            filename: (_c = bud.options.get('manifest.name')) !== null && _c !== void 0 ? _c : 'manifest.json',
-            writeToFileEmit: (_d = bud.options.get('manifest.writeToFileEmit')) !== null && _d !== void 0 ? _d : true,
-        },
-        make: function () {
-            return new ManifestPlugin__default['default'](this.options);
-        },
-        when: function () {
-            return this.bud.features.enabled('manifest');
-        },
-    });
-};
-
-var provide = function (bud) { return ({
-    bud: bud,
-    name: 'provide-plugin',
-    options: bud.options.get('auto'),
-    make: function () {
-        return new webpack.ProvidePlugin(this.options);
-    },
-    when: function () {
-        return this.bud.options.has('auto');
-    },
-}); };
-
-var terser$1 = function (bud) { return ({
-    bud: bud,
-    name: 'terser-webpack-plugin',
-    options: bud.options.get('adapters.terser'),
-    make: function () {
-        return new TerserPlugin__default['default'](this.options);
-    },
-    when: function () {
-        return this.bud.features.enabled('minify');
-    },
-}); };
-
-var writeFile = function (bud) { return ({
-    bud: bud,
-    name: 'write-file-webpack-plugin',
-    make: function () {
-        return new WriteFilePlugin__default['default']();
-    },
-}); };
-
-/**
- * Bud Webpack Adapters
- */
-var adapters = [
-    browserSync,
-    cleanWebpack,
-    copy$1,
-    define,
-    fixStyleOnlyEntries,
-    hotModuleReplacement,
-    manifest$1,
-    miniCssExtract,
-    provide,
-    limitChunkCount,
-    terser$1,
-    writeFile,
-];
-
-var args = function (env) {
-    var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q;
-    return ({
-        log: yargs.argv['log'],
-        hot: yargs.argv['hot'],
-        watch: yargs.argv['watch'],
-        level: (_a = yargs.argv['level']) !== null && _a !== void 0 ? _a : 'info',
-        mode: (_c = (_b = yargs.argv['env']) !== null && _b !== void 0 ? _b : env.get('APP_ENV')) !== null && _c !== void 0 ? _c : 'none',
-        host: (_e = (_d = yargs.argv['host']) !== null && _d !== void 0 ? _d : env.get('APP_DEV_HOST')) !== null && _e !== void 0 ? _e : false,
-        port: (_g = (_f = yargs.argv['port']) !== null && _f !== void 0 ? _f : env.get('APP_DEV_PORT')) !== null && _g !== void 0 ? _g : null,
-        proxy: (_j = (_h = yargs.argv['proxy']) !== null && _h !== void 0 ? _h : env.get('APP_DEV_PROXY')) !== null && _j !== void 0 ? _j : null,
-        src: (_l = (_k = yargs.argv['src']) !== null && _k !== void 0 ? _k : env.get('APP_SRC')) !== null && _l !== void 0 ? _l : null,
-        dist: (_o = (_m = yargs.argv['dist']) !== null && _m !== void 0 ? _m : env.get('APP_DIST')) !== null && _o !== void 0 ? _o : null,
-        feature: (_q = (_p = yargs.argv['feature']) !== null && _p !== void 0 ? _p : env.get('APP_BUILD_FEATURE')) !== null && _q !== void 0 ? _q : null,
-    });
-};
-
-var flags = {
-    log: yargs.argv.hasOwnProperty('log'),
-    hot: yargs.argv.hasOwnProperty('hot'),
-    watch: yargs.argv.hasOwnProperty('watch'),
-};
-
-var cli = {
-    args: args,
-    flags: flags,
-};
-
-var configFiles = [
-    {
-        name: 'babel',
-        filename: 'babel.config.js',
-    },
-    {
-        name: 'postcss',
-        filename: 'postcss.config.js',
-    },
-    {
-        name: 'js',
-        filename: 'jsconfig.json',
-    },
-];
-var configs = function (paths) {
-    var repository = {};
-    configFiles.forEach(function (_a) {
-        var name = _a.name, filename = _a.filename;
-        var projectPath = path.join(paths.get('project'), filename);
-        if (fsExtra.existsSync(projectPath)) {
-            repository[name] = projectPath;
-        }
-    });
-    return repository;
-};
-
-var env = function (paths) {
-    var _a;
-    return ((_a = dotenv__default['default'].config({
-        path: path.join(paths.get('project'), '.env'),
-    }).parsed) !== null && _a !== void 0 ? _a : {});
-};
-
-var features = {
-    /**
-     * Default enabled
-     */
-    babel: true,
-    clean: true,
-    dashboard: true,
-    manifest: true,
-    postcss: true,
-    /**
-     * Opt-in
-     */
-    browsersync: false,
-    hash: false,
-    hot: false,
-    minify: false,
-    splitting: true,
-    vendor: false,
-    runtimeChunk: false,
-    overlay: false,
-    sourceMap: false,
-    watch: false,
-    debug: false,
-};
-
-var babelFallback = {
-    presets: [require.resolve('@babel/preset-env')],
-    plugins: [],
-};
-var babel$1 = function (configs) {
-    return configs.get('babel')
-        ? configs.require('babel')
-        : babelFallback;
-};
-var browsersync = function (flags) { return ({
-    host: flags.has('host') ? flags.get('host') : 'localhost',
-    port: flags.get('port') ? flags.get('port') : 3000,
-    proxy: flags.get('proxy') ? flags.get('proxy') : 'localhost',
-    online: false,
-    open: false,
-}); };
-var copy$2 = { patterns: [] };
-var postcss$1 = function (configs) {
-    var fallback = {
-        plugins: [require('postcss-import'), require('autoprefixer')],
-    };
-    return configs.has('postcss')
-        ? configs.require('postcss')
-        : fallback;
-};
-var target$1 = 'web';
-/**
- * Options container.
- */
-var options = {
-    resolve: {
-        alias: false,
-        extensions: ['.css', '.js', '.json', '.svg'],
-    },
-    devServer: {
-        headers: {
-            'Access-Control-Allow-Origin': '*',
-            'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
-            'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
-        },
-    },
-    devtool: 'source-map',
-    optimization: {
-        runtimeChunk: {
-            name: function (entrypoint) { return "runtime/" + entrypoint.name; },
-        },
-        splitChunks: {
-            cacheGroup: {
-                vendor: {
-                    test: /node_modules/,
-                    name: 'vendor.js',
-                    chunks: 'all',
-                    priority: -20,
-                },
-            },
-        },
-    },
-    stats: {
-        version: true,
-        hash: true,
-        assets: true,
-        errors: true,
-        warnings: true,
-    },
-    node: {
-        module: 'empty',
-        dgram: 'empty',
-        dns: 'mock',
-        fs: 'empty',
-        http2: 'empty',
-        net: 'empty',
-        tls: 'empty',
-        child_process: 'empty',
-    },
-    adapters: {
-        browsersync: browsersync,
-        clean: {},
-        fixStyleOnlyEntries: {
-            silent: true,
-        },
-        hotModuleReplacement: {},
-        terser: {
-            terserOptions: {
-                parse: {
-                    ecma: 8,
-                },
-                compress: {
-                    ecma: 5,
-                    warnings: false,
-                    comparisons: false,
-                    inline: 2,
-                },
-                mangle: {
-                    safari10: true,
-                },
-                output: {
-                    ecma: 5,
-                    comments: false,
-                    ascii_only: true,
-                },
-            },
-            cache: true,
-            parallel: true,
-        },
-    },
-    patterns: [],
-    postcss: postcss$1,
-    babel: babel$1,
-    splitting: {
-        maxChunks: null,
-    },
-    target: target$1,
-    copy: copy$2,
-    filenameTemplate: {
-        hashed: '[name].[hash:8]',
-        "default": '[name]',
-    },
-    manifest: {
-        name: 'manifest.json',
-    },
-};
-
-/**
- * Current working dir
- */
-var cwd = process.cwd();
-/**
- * Bud framework dir.
- */
-var framework = path.resolve(__dirname, '../');
-/**
- * Src arg
- */
-var ensureStr = function (possibleStr) {
-    return possibleStr ? possibleStr : '';
-};
-/**
- * Paths repo.
- */
-var paths = {
-    cwd: cwd,
-    project: cwd,
-    framework: framework,
-    src: yargs.argv['src'] ? path.join(cwd, ensureStr(yargs.argv['src'])) : path.join(cwd),
-    dist: yargs.argv['dist'] ? path.join(cwd, ensureStr(yargs.argv['dist'])) : path.join(cwd),
-    public: yargs.argv['public'] ? ensureStr(yargs.argv['public']) : '/',
-};
-
-var patterns = {
-    js: /\.(js|jsx)$/,
-    ts: /\.(ts|tsx)$/,
-    vue: /\.vue$/,
-    scss: /\.scss$/,
-    scssModule: /\.module\.scss$/,
-    css: /\.css$/,
-    cssModule: /\.module\.css$/,
-    svg: /\.svg$/,
-    font: /\.(ttf|otf|eot|woff2?|png|jpe?g|gif|ico)$/,
-    vendor: /node_modules/,
-    image: /\.(png|svg|jpg|gif)$/,
-};
-
-var uses = {
-    babel: function (bud) {
-        return bud.hooks.filter('webpack.module.babel', {
-            loader: bud.hooks.filter('webpack.module.babel.loader', bud.loaders.get('babel')),
-            options: bud.hooks.filter('webpack.module.babel.options', tslib.__assign({ cacheDirectory: bud.hooks.filter('webpack.module.babel.options.cacheDirectory', true), cacheCompression: bud.hooks.filter('webpack.module.babel.options.cacheCompression', true) }, bud.options.get('babel'))),
-        });
-    },
-    file: function (bud) { return ({
-        loader: bud.loaders.get('file'),
-        options: {
-            name: '[path][name].[ext]',
-        },
-    }); },
-    miniCss: function (bud) {
-        return bud.hooks.filter('webpack.modules.miniCss', {
-            loader: bud.hooks.filter('webpack.modules.miniCss.loader', bud.loaders.get('miniCss')),
-            options: bud.hooks.filter('webpack.modules.miniCss.options', {
-                hot: bud.hooks.filter('webpack.modules.miniCss.loader.hot', bud.features.enabled('hot')),
-            }),
-        });
-    },
-    css: function (bud) {
-        return bud.hooks.filter('webpack.modules.css', {
-            loader: bud.hooks.filter('webpack.modules.css.loader', bud.loaders.get('css')),
-        });
-    },
-    resolveUrl: function (bud) {
-        return bud.hooks.filter('webpack.modules.resolveurl', {
-            loader: bud.hooks.filter('webpack.modules.resolveurl.loader', bud.loaders.get('resolveUrl')),
-            options: bud.hooks.filter('webpack.module.resolveurl.options', {
-                sourceMap: bud.features.enabled('sourceMap'),
-                debug: true,
-            }),
-        });
-    },
-    postCss: function (bud) {
-        return bud.hooks.filter('webpack.module.postcss', {
-            loader: bud.hooks.filter('webpack.module.postcss.loader', bud.loaders.get('postCss')),
-            options: bud.hooks.filter('webpack.module.postcss.options', tslib.__assign({ ident: bud.hooks.filter('webpack.module.postcss.options.ident', 'postcss') }, bud.options.get('postcss'))),
-        });
-    },
-    style: function (bud) {
-        return bud.hooks.filter('webpack.module.style', {
-            loader: bud.hooks.filter('webpack.module.style.loader', bud.loaders.get('style')),
-        });
-    },
-};
-
-var js = function (bud) {
-    return bud.hooks.filter('webpack.module.rules.js', {
-        test: bud.hooks.filter('webpack.module.rules.js.test', bud.patterns.get('js')),
-        exclude: bud.hooks.filter('webpack.module.rules.js.exclude', bud.patterns.get('vendor')),
-        use: bud.hooks.filter('webpack.module.rules.js.use', [
-            uses.babel(bud),
-        ]),
-    });
-};
-
-var css = function (bud) {
-    return bud.hooks.filter('webpack.module.rules.css', {
-        test: bud.hooks.filter('webpack.module.rules.css.test', bud.patterns.get('css')),
-        exclude: bud.hooks.filter('webpack.module.rules.css.exclude', bud.patterns.get('vendor')),
-        use: bud.hooks.filter('webpack.module.rules.css.use', [
-            uses.miniCss(bud),
-            uses.css(bud),
-            uses.resolveUrl(bud),
-            uses.postCss(bud),
-        ]),
-    });
-};
-
-var font = function (bud) {
-    return bud.hooks.filter('webpack.module.rules.font', {
-        test: bud.hooks.filter('bud.module.rules.font.test', bud.patterns.get('font')),
-        use: bud.hooks.filter('bud.module.rules.font.use', [
-            uses.file(bud),
-        ]),
-    });
-};
-
-var image = function (bud) {
-    return bud.hooks.filter('webpack.module.rules.image', {
-        test: bud.hooks.filter('webpack.module.rules.image.test', bud.patterns.get('image')),
-        use: bud.hooks.filter('webpack.module.rules.image.use', [
-            uses.file(bud),
-        ]),
-    });
-};
-
-var svg = function (bud) {
-    return bud.hooks.filter('webpack.module.rules.svg', {
-        test: bud.hooks.filter('webpack.module.rules.svg.test', bud.patterns.get('svg')),
-        use: bud.hooks.filter('webpack.module.rules.svg.use', [
-            bud.loaders.get('svgr'),
-            bud.loaders.get('url'),
-        ]),
-    });
-};
-
-var loaders = {
-    babel: require.resolve('babel-loader'),
-    css: require.resolve('css-loader'),
-    file: require.resolve('file-loader'),
-    miniCss: MiniCssExtractPlugin__default['default'].loader,
-    postCss: require.resolve('postcss-loader'),
-    resolveUrl: require.resolve('resolve-url-loader'),
-    style: require.resolve('style-loader'),
-    svgr: require.resolve('@svgr/webpack'),
-    url: require.resolve('url-loader'),
-};
-
-var rules = [js, css, font, image, svg];
-
-var repositories = {
-    features: features,
-    options: options,
-    loaders: loaders,
-    paths: paths,
-    cli: cli,
-    adapters: adapters,
-    patterns: patterns,
-    rules: rules,
-    uses: uses,
-    configs: configs,
-    env: env,
-};
-
 var entry = function (bud) {
     return bud.hooks.filter('webpack.entry', {
         entry: bud.options.get('entry'),
@@ -1131,7 +397,7 @@ var general = function (bud) {
     });
 };
 
-var rules$1 = function (bud) {
+var rules = function (bud) {
     return bud.hooks.filter('webpack.module', {
         module: bud.hooks.filter('webpack.module.rules', {
             rules: bud.rules.repository.map(function (rule) {
@@ -1200,7 +466,7 @@ var plugins = function (bud) {
         plugins: bud.adapters
             .entries()
             .map(function (adapter) {
-            return bud.hooks.filter("webpack.plugins." + adapter.name, bud.adapters.controller(bud, adapter).build());
+            return bud.hooks.filter("webpack.plugins." + adapter.name, bud.extensionFactory(bud, adapter).build());
         })
             .filter(function (adapter) { return adapter; }),
     });
@@ -1210,7 +476,7 @@ var builders = [
     devServer,
     entry,
     general,
-    rules$1,
+    rules,
     externals,
     output,
     optimization,
@@ -1304,7 +570,7 @@ const useProgress = bud => {
   };
 };
 
-const browserSync$1 = browserSyncLibrary__default['default'].create();
+const browserSync = browserSyncLibrary__default['default'].create();
 
 const makeMiddleware = (bud, setDevStats) => {
   const devMiddlewareOptions = {
@@ -1371,7 +637,7 @@ const useHotSyncServer = bud => {
         },
         files
       };
-      setHotSyncServer(browserSync$1.init(options));
+      setHotSyncServer(browserSync.init(options));
       bud.logger.info({
         name: 'bud.compiler',
         options,
@@ -4935,12 +4201,168 @@ var compiler = function (bud) { return ({
     },
 }); };
 
+var hooks = function (bud) { return ({
+    logger: bud.logger,
+    /**
+     * Registered hooks.
+     */
+    registered: {},
+    /**
+     * Make a bud hook
+     */
+    make: function (fn) {
+        if (fn === void 0) { fn = function () { return null; }; }
+        return ({
+            fn: fn,
+            fired: false,
+        });
+    },
+    /**
+     * Get all bud hook entries.
+     */
+    entries: function () {
+        return Object.entries(this.registered);
+    },
+    /**
+     * Register a function as a bud hook.
+     */
+    on: function (name, callback) {
+        this.logger.info({ name: name, callback: callback.name }, 'filter callback defined');
+        if (!this.registered[name]) {
+            this.registered[name] = [];
+        }
+        this.registered[name].push(callback);
+        return this;
+    },
+    filter: function (name, value) {
+        this.logger.info({ name: name, value: value }, name + " filter defined");
+        if (!this.registered[name]) {
+            return value;
+        }
+        this.registered[name].forEach(function (hook) {
+            value = hook(value);
+        });
+        return value;
+    },
+}); };
+
+/**
+ * JSON.stringify replacement function
+ *
+ * Prevents circular references in JSON from looping
+ */
+var shortCircuit = function () {
+    var seen = new WeakSet();
+    return function (key, value) {
+        if (typeof value === 'object' && value !== null) {
+            if (seen.has(value) || key == 'UI') {
+                return;
+            }
+            seen.add(value);
+        }
+        return value;
+    };
+};
+
+/**
+ * Dump a prettified, syntax-highlighted object
+ */
+var dump = function (obj, prettierOptions) {
+    var prettierConfig = prettierOptions !== null && prettierOptions !== void 0 ? prettierOptions : { parser: 'json' };
+    var normalizedString = JSON.stringify(obj, shortCircuit());
+    var prettifiedString = prettier.format(normalizedString, prettierConfig);
+    var highlightedConfig = cliHighlight.highlight(prettifiedString);
+    console.log(highlightedConfig);
+};
+
+/**
+ * Fabs: like noop but fab.
+ */
+var fab = {
+    "false": function () { return false; },
+    "true": function () { return true; },
+    undefined: function () { return undefined; },
+    "null": function () { return null; },
+};
+
+var projectRoot = require.main.paths[0]
+    .split('node_modules')[0]
+    .slice(0, -1);
+
+/**
+ * Terminate CLI execution
+ */
+var terminate = function (options) {
+    var exit = function (code) {
+        options.dump ? process.abort() : process.exit(code);
+    };
+    return function () { return function (err) {
+        if (err && err instanceof Error) {
+            console.log(err.message, err.stack);
+        }
+        setTimeout(exit, options.timeout).unref();
+    }; };
+};
+
+var processHandler = function (bud) {
+    process.title = bud.hooks.filter('node_process_title', 'bud-cli');
+    bud.logger.info({ name: 'process', value: process.title }, "title set");
+    process.env.BABEL_ENV = bud.mode;
+    bud.logger.info({ name: 'process', value: process.env.BABEL_ENV }, "BABEL_ENV set");
+    process.env.NODE_ENV = bud.mode;
+    bud.logger.info({ name: 'process', value: process.env.NODE_ENV }, "NODE_ENV set");
+    var unhandledRejectionHandler = bud.hooks.filter('node_unhandled_rejection_handler', function (error) {
+        bud.logger.error({ name: 'process', value: error }, "unhandled rejection error");
+        process.exitCode = 1;
+        process.nextTick(function () {
+            bud.util.terminate();
+        });
+    });
+    process.on('unhandledRejection', unhandledRejectionHandler);
+};
+
+var fs = {
+    path: path__default['default'],
+    existsSync: fsExtra.existsSync,
+};
+
+var usedExt = function (entries, bud) {
+    entries.forEach(function (entry) {
+        var ext = "." + entry.split('.')[entry.split('.').length - 1];
+        !bud.options.get('resolve.extensions').includes(ext) &&
+            bud.options.set('resolve.extensions', tslib.__spreadArrays(bud.options.get('resolve.extensions'), [
+                ext,
+            ]));
+    });
+};
+
+var log = yargs.argv.log;
+var destination = (yargs.argv === null || yargs.argv === void 0 ? void 0 : yargs.argv.log) && typeof yargs.argv.log == 'boolean' ? false : log;
+var logger = pino__default['default']({
+    base: null,
+    enabled: yargs.argv.hasOwnProperty('log') ? true : false,
+    prettyPrint: {
+        colorize: !destination ? true : false,
+    },
+}, destination);
+
+var util = {
+    fs: fs,
+    dump: dump,
+    shortCircuit: shortCircuit,
+    fab: fab,
+    projectRoot: projectRoot,
+    processHandler: processHandler,
+    terminate: terminate,
+    usedExt: usedExt,
+};
+
 /**
  * Extension controller.
  *
  * @this {Bud}
  */
-var controller = function (bud, extension) { return ({
+var extensionFactory = function (bud, extension) { return ({
     bud: bud,
     extension: extension(bud),
     /**
@@ -5001,6 +4423,32 @@ var controller = function (bud, extension) { return ({
         }
     },
 }); };
+
+/**
+ * Bootstrapper
+ */
+var bootstrapper = function () {
+    this.framework = {
+        api: api,
+        extensionFactory: extensionFactory,
+        fs: util.fs,
+        logger: logger,
+        util: util,
+    };
+    this.apply = function (propertyName, propertyValue) {
+        this.framework[propertyName] = propertyValue;
+        this.framework.logger.info({ name: 'framework.apply' }, "bootstrapped: bud." + propertyName);
+        return this;
+    };
+    this.boot = function () {
+        this.framework.logger.info({ name: 'framework.boot', framework: this.framework }, "booting");
+        this.apply('hooks', hooks(this.framework))
+            .apply('process', util.processHandler(this.framework))
+            .apply('compiler', compiler(this.framework));
+        return this.framework;
+    };
+};
+var bootstrap = new bootstrapper();
 
 var log$1 = function (repository, data, message) {
     logger.info(tslib.__assign({ name: 'container', repository: repository }, (data || {})), message);
@@ -5083,138 +4531,662 @@ var container = function (repository, name) {
     this.disable = disable;
     this.disabled = disabled;
 };
+var normalStoreContents = function (contents, bud) {
+    return typeof contents === 'function' ? contents(bud) : contents;
+};
 /**
  * Bind container.
  */
-var bindContainer = function (repository, name) {
-    if (name === void 0) { name = 'anonymous'; }
-    log$1(repository, { repository: name }, "create container");
-    return new container(repository, name);
+var makeContainer = function (store, bud) {
+    store.contents = normalStoreContents(store.contents, bud);
+    log$1(store.repository, { store: store }, "create extension container");
+    return new container(store.contents, store.repository);
 };
 /**
  * Bind file container.
  */
-var bindFileContainer = function (repository, name) {
-    if (name === void 0) { name = 'anonymous'; }
-    log$1(repository, { repository: name }, "create container");
-    var store = new container(repository, name);
-    store.require = containerRequire;
-    store.exists = exists;
-    return store;
+var makeFileContainer = function (store, bud) {
+    store = normalStoreContents(store.contents, bud);
+    log$1(store.repository, { store: store }, "create container");
+    var instance = new container(store.contents, store.repository);
+    instance.require = containerRequire;
+    instance.exists = exists;
+    return instance;
 };
 /**
  * Bind extension container.
  */
-var bindExtensionContainer = function (repository, name) {
-    if (name === void 0) { name = 'anonymous'; }
-    log$1(repository, { repository: name }, "create extension api container");
-    var store = new container(repository, name);
-    store.controller = controller;
-    store.add = add;
-    return store;
+var makeExtensionContainer = function (store, bud) {
+    store = normalStoreContents(store.contents, bud);
+    log$1(store.repository, { store: store }, "create extension container");
+    var instance = new container(store.contents, store.repository);
+    instance.add = add;
+    return instance;
+};
+
+var browserSync$1 = function (bud) { return ({
+    bud: bud,
+    name: 'browser-sync-webpack-plugin',
+    options: bud.options.get('adapters.browsersync'),
+    make: function () {
+        return new BrowserSyncWebpackPlugin__default['default'](this.options);
+    },
+    when: function () {
+        return (this.bud.features.enabled('browsersync') &&
+            !this.bud.features.enabled('hot'));
+    },
+}); };
+
+var cleanWebpack = function (bud) { return ({
+    bud: bud,
+    name: 'clean-webpack-plugin',
+    options: bud.options.get('adapters.clean'),
+    make: function () {
+        return new cleanWebpackPlugin.CleanWebpackPlugin(this.options);
+    },
+    when: function () {
+        return this.bud.features.enabled('clean');
+    },
+}); };
+
+var copy$1 = function (bud) { return ({
+    bud: bud,
+    name: 'copy-webpack-plugin',
+    options: bud.options.get('copy'),
+    make: function () {
+        return new CopyWebpackPlugin__default['default'](this.options);
+    },
+    when: function () {
+        return this.options.patterns.length > 0;
+    },
+}); };
+
+var define = function (bud) {
+    var _a;
+    return ({
+        bud: bud,
+        name: 'define',
+        options: (_a = bud.env.entries()) !== null && _a !== void 0 ? _a : false,
+        make: function () {
+            return new webpack.DefinePlugin(this.options);
+        },
+        when: function () {
+            return this.options;
+        },
+    });
+};
+
+var fixStyleOnlyEntries = function (bud) { return ({
+    bud: bud,
+    name: 'webpack-fix-style-only-entries',
+    options: bud.options.get('adapters.fixStyleOnlyEntries'),
+    make: function () {
+        if (this.bud.features.enabled('hot')) {
+            this.options.ignore = 'webpack-hot-middleware';
+        }
+        return new FixStyleOnlyEntriesPlugin__default['default'](this.options);
+    },
+    when: function () {
+        return (this.bud.options.get('resolve.extensions').includes('.css') ||
+            this.bud.options.get('resolve.extensions').includes('.scss') ||
+            this.bud.options.get('resolve.extensions').includes('.sass'));
+    },
+}); };
+
+var hotModuleReplacement = function (bud) { return ({
+    bud: bud,
+    name: 'hot-module-replacement-plugin',
+    options: bud.options.get('adapters.hotModuleReplacement'),
+    make: function () {
+        return new webpack.HotModuleReplacementPlugin(this.options);
+    },
+    when: function () {
+        return this.bud.features.enabled('hot');
+    },
+}); };
+
+var LimitChunkCountPlugin = webpack.optimize.LimitChunkCountPlugin;
+var limitChunkCount = function (bud) { return ({
+    bud: bud,
+    name: 'limit-chunk-count-plugin',
+    setOptions: function () {
+        var enabled = this.bud.features.enabled('splitting');
+        var chunks = this.bud.options.get('splitting').maxChunks;
+        if (!enabled) {
+            return {
+                maxChunks: 1,
+            };
+        }
+        if (chunks) {
+            return {
+                maxChunks: chunks,
+            };
+        }
+        return null;
+    },
+    make: function () {
+        return new LimitChunkCountPlugin(this.options);
+    },
+    when: function () {
+        return this.options;
+    },
+}); };
+
+var miniCssExtract = function (bud) { return ({
+    bud: bud,
+    name: 'mini-css-extract-plugin',
+    options: {
+        hmr: bud.features.enabled('hot'),
+        filename: bud.features.enabled('hash')
+            ? bud.options.get('filenameTemplate').hashed + ".css"
+            : bud.options.get('filenameTemplate')["default"] + ".css",
+    },
+    make: function () {
+        return new MiniCssExtractPlugin__default['default'](this.options);
+    },
+    when: function () {
+        return (this.bud.options.get('resolve.extensions').includes('.css') ||
+            this.bud.options.get('resolve.extensions').includes('.scss') ||
+            this.bud.options.get('resolve.extensions').includes('.sass'));
+    },
+}); };
+
+var manifest$1 = function (bud) {
+    var _a, _b, _c, _d;
+    return ({
+        bud: bud,
+        name: 'webpack-manifest-plugin',
+        options: {
+            publicPath: (_b = (_a = bud.options.get('manifest.publicPath')) !== null && _a !== void 0 ? _a : bud.paths.get('public')) !== null && _b !== void 0 ? _b : '/',
+            filename: (_c = bud.options.get('manifest.name')) !== null && _c !== void 0 ? _c : 'manifest.json',
+            writeToFileEmit: (_d = bud.options.get('manifest.writeToFileEmit')) !== null && _d !== void 0 ? _d : true,
+        },
+        make: function () {
+            return new ManifestPlugin__default['default'](this.options);
+        },
+        when: function () {
+            return this.bud.features.enabled('manifest');
+        },
+    });
+};
+
+var provide = function (bud) { return ({
+    bud: bud,
+    name: 'provide-plugin',
+    options: bud.options.get('auto'),
+    make: function () {
+        return new webpack.ProvidePlugin(this.options);
+    },
+    when: function () {
+        return this.bud.options.has('auto');
+    },
+}); };
+
+var terser$1 = function (bud) { return ({
+    bud: bud,
+    name: 'terser-webpack-plugin',
+    options: bud.options.get('adapters.terser'),
+    make: function () {
+        return new TerserPlugin__default['default'](this.options);
+    },
+    when: function () {
+        return this.bud.features.enabled('minify');
+    },
+}); };
+
+var writeFile = function (bud) { return ({
+    bud: bud,
+    name: 'write-file-webpack-plugin',
+    make: function () {
+        return new WriteFilePlugin__default['default']();
+    },
+}); };
+
+/**
+ * Bud Webpack Adapters
+ */
+var adapters = {
+    repository: 'adapters',
+    contents: [
+        browserSync$1,
+        cleanWebpack,
+        copy$1,
+        define,
+        fixStyleOnlyEntries,
+        hotModuleReplacement,
+        manifest$1,
+        miniCssExtract,
+        provide,
+        limitChunkCount,
+        terser$1,
+        writeFile,
+    ],
+};
+
+var args = {
+    repository: 'args',
+    contents: function (bud) {
+        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q;
+        return ({
+            log: yargs.argv['log'],
+            hot: yargs.argv['hot'],
+            watch: yargs.argv['watch'],
+            level: (_a = yargs.argv['level']) !== null && _a !== void 0 ? _a : 'info',
+            mode: (_c = (_b = yargs.argv['env']) !== null && _b !== void 0 ? _b : bud.env.get('APP_ENV')) !== null && _c !== void 0 ? _c : 'none',
+            host: (_e = (_d = yargs.argv['host']) !== null && _d !== void 0 ? _d : bud.env.get('APP_DEV_HOST')) !== null && _e !== void 0 ? _e : false,
+            port: (_g = (_f = yargs.argv['port']) !== null && _f !== void 0 ? _f : bud.env.get('APP_DEV_PORT')) !== null && _g !== void 0 ? _g : null,
+            proxy: (_j = (_h = yargs.argv['proxy']) !== null && _h !== void 0 ? _h : bud.env.get('APP_DEV_PROXY')) !== null && _j !== void 0 ? _j : null,
+            src: (_l = (_k = yargs.argv['src']) !== null && _k !== void 0 ? _k : bud.env.get('APP_SRC')) !== null && _l !== void 0 ? _l : null,
+            dist: (_o = (_m = yargs.argv['dist']) !== null && _m !== void 0 ? _m : bud.env.get('APP_DIST')) !== null && _o !== void 0 ? _o : null,
+            feature: (_q = (_p = yargs.argv['feature']) !== null && _p !== void 0 ? _p : bud.env.get('APP_BUILD_FEATURE')) !== null && _q !== void 0 ? _q : null,
+        });
+    },
+};
+
+var flags = {
+    repository: 'flags',
+    contents: {
+        log: yargs.argv.hasOwnProperty('log'),
+        hot: yargs.argv.hasOwnProperty('hot'),
+        watch: yargs.argv.hasOwnProperty('watch'),
+    },
+};
+
+var cli = [args, flags];
+
+var configFiles = [
+    {
+        name: 'babel',
+        filename: 'babel.config.js',
+    },
+    {
+        name: 'postcss',
+        filename: 'postcss.config.js',
+    },
+    {
+        name: 'js',
+        filename: 'jsconfig.json',
+    },
+];
+var configs = {
+    repository: 'configs',
+    contents: function (bud) { return (tslib.__assign({}, configFiles.map(function (config) {
+        var _a;
+        var projectPath = path.join(bud.paths.get('project'), config.filename);
+        if (fsExtra.existsSync(projectPath)) {
+            return _a = {}, _a[config.name] = projectPath, _a;
+        }
+        return {};
+    }))); },
+};
+
+var env = {
+    repository: 'env',
+    contents: function (bud) { var _a; return (_a = dotenv__default['default'].config({
+        path: path.join(bud.paths.get('project'), '.env'),
+    }).parsed) !== null && _a !== void 0 ? _a : {}; },
+};
+
+var features = {
+    repository: 'features',
+    contents: {
+        /**
+         * Default enabled
+         */
+        babel: true,
+        clean: true,
+        dashboard: true,
+        manifest: true,
+        postcss: true,
+        /**
+         * Opt-in
+         */
+        browsersync: false,
+        hash: false,
+        hot: false,
+        minify: false,
+        splitting: true,
+        vendor: false,
+        runtimeChunk: false,
+        overlay: false,
+        sourceMap: false,
+        watch: false,
+        debug: false,
+    },
+};
+
+var babelFallback = {
+    presets: [require.resolve('@babel/preset-env')],
+    plugins: [],
+};
+var babel$1 = function (configs) {
+    return configs.get('babel')
+        ? configs.require('babel')
+        : babelFallback;
+};
+var browsersync = function (flags) { return ({
+    host: flags.has('host') ? flags.get('host') : 'localhost',
+    port: flags.get('port') ? flags.get('port') : 3000,
+    proxy: flags.get('proxy') ? flags.get('proxy') : 'localhost',
+    online: false,
+    open: false,
+}); };
+var copy$2 = { patterns: [] };
+var postcss$1 = function (configs) {
+    var fallback = {
+        plugins: [require('postcss-import'), require('autoprefixer')],
+    };
+    return configs.has('postcss')
+        ? configs.require('postcss')
+        : fallback;
+};
+var target$1 = 'web';
+/**
+ * Options container.
+ */
+var options = {
+    repository: 'options',
+    contents: {
+        resolve: {
+            alias: false,
+            extensions: ['.css', '.js', '.json', '.svg'],
+        },
+        devServer: {
+            headers: {
+                'Access-Control-Allow-Origin': '*',
+                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+                'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
+            },
+        },
+        devtool: 'source-map',
+        optimization: {
+            runtimeChunk: {
+                name: function (entrypoint) { return "runtime/" + entrypoint.name; },
+            },
+            splitChunks: {
+                cacheGroup: {
+                    vendor: {
+                        test: /node_modules/,
+                        name: 'vendor.js',
+                        chunks: 'all',
+                        priority: -20,
+                    },
+                },
+            },
+        },
+        stats: {
+            version: true,
+            hash: true,
+            assets: true,
+            errors: true,
+            warnings: true,
+        },
+        node: {
+            module: 'empty',
+            dgram: 'empty',
+            dns: 'mock',
+            fs: 'empty',
+            http2: 'empty',
+            net: 'empty',
+            tls: 'empty',
+            child_process: 'empty',
+        },
+        adapters: {
+            browsersync: browsersync,
+            clean: {},
+            fixStyleOnlyEntries: {
+                silent: true,
+            },
+            hotModuleReplacement: {},
+            terser: {
+                terserOptions: {
+                    parse: {
+                        ecma: 8,
+                    },
+                    compress: {
+                        ecma: 5,
+                        warnings: false,
+                        comparisons: false,
+                        inline: 2,
+                    },
+                    mangle: {
+                        safari10: true,
+                    },
+                    output: {
+                        ecma: 5,
+                        comments: false,
+                        ascii_only: true,
+                    },
+                },
+                cache: true,
+                parallel: true,
+            },
+        },
+        patterns: [],
+        postcss: postcss$1,
+        babel: babel$1,
+        splitting: {
+            maxChunks: null,
+        },
+        target: target$1,
+        copy: copy$2,
+        filenameTemplate: {
+            hashed: '[name].[hash:8]',
+            "default": '[name]',
+        },
+        manifest: {
+            name: 'manifest.json',
+        },
+    },
 };
 
 /**
- * Bud framework.
- *
- * @constructor
+ * Current working dir
  */
-var bootstrap = function () {
-    var _this = this;
-    /**
-     * The framework container object.
-     */
-    this.framework = {
-        apply: function (propertyName, propertyValue) {
-            this[propertyName] = propertyValue;
-        },
-    };
-    /**
-     * Logger (pino)
-     */
-    this.logger = logger;
-    this.log = function (message, data) {
-        this.logger.info(tslib.__assign({ name: 'bootstrap' }, (data !== null && data !== void 0 ? data : [])), message);
-    };
-    /**
-     * Containers
-     */
-    this.repositories = repositories;
-    this.store = bindContainer;
-    this.fileStore = bindFileContainer;
-    this.extensionStore = bindExtensionContainer;
-    /**
-     * Utilities and dependencies.
-     */
-    this.framework.logger = this.logger;
-    this.framework.util = util;
-    this.framework.fs = util.fs;
-    /**
-     * Paths container.
-     */
-    this.framework.paths = this.store(this.repositories.paths, 'bud.paths');
-    /**
-     * Project configuration files container.
-     */
-    this.framework.configs = this.fileStore(this.repositories.configs(this.framework.paths), 'bud.configs');
-    /**
-     * Envvars container.
-     */
-    this.framework.env = this.store(this.repositories.env(this.framework.paths), 'bud.env');
-    /**
-     * Arguments container.
-     */
-    this.framework.args = this.store(this.repositories.cli.args(this.framework.env), 'bud.args');
-    this.framework.mode = this.framework.args.get('mode');
-    this.framework.inProduction = this.framework.args.is('mode', 'production');
-    this.framework.inDevelopment = this.framework.args.is('mode', 'development');
-    this.framework.flags = this.store(this.repositories.cli.flags, 'bud.flags');
-    /**
-     * Features container.
-     */
-    this.framework.features = this.store(this.repositories.features, 'bud.features');
-    /**
-     * Options container.
-     */
-    this.framework.options = this.store(this.repositories.options, 'bud.options');
-    /**
-     * Webpack module containers.
-     */
-    this.framework.patterns = this.store(this.repositories.patterns, 'bud.patterns');
-    this.framework.loaders = this.store(this.repositories.loaders, 'bud.loaders');
-    this.framework.rules = this.store(this.repositories.rules, 'bud.rules');
-    this.framework.uses = this.store(this.repositories.uses, 'bud.uses');
-    this.framework.adapters = this.extensionStore(this.repositories.adapters, 'bud.adapters');
-    /**
-     * Hooks API and store.
-     */
-    this.framework.hooks = hooks(this.logger).init(this.framework);
-    /**
-     * Compiler.
-     */
-    this.framework.compiler = compiler(this.framework);
-    /**
-     * Node process handling.
-     */
-    this.framework.process = util.processHandler(this.framework);
-    /**
-     * Options defaults that require construction.
-     */
-    this.framework.options.set('browserSync', this.framework.options.get('adapters.browsersync')(this.framework.flags));
-    this.framework.options.set('babel', this.framework.options.get('babel')(this.framework.configs));
-    this.framework.options.set('postcss', this.framework.options.get('postcss')(this.framework.flags));
-    /**
-     * API methods.
-     */
-    Object.values(api).forEach(function (method) {
-        _this.framework[method.name] = method;
-        _this.log("bootstrapped api method: bud." + method.name);
-    });
+var cwd = process.cwd();
+/**
+ * Bud framework dir.
+ */
+var framework = path.resolve(__dirname, '../');
+/**
+ * Src arg
+ */
+var ensureStr = function (possibleStr) {
+    return possibleStr ? possibleStr : '';
 };
 /**
- * Bud Framework
+ * Paths repo.
  */
-var bud = new bootstrap().framework;
+var paths = {
+    repository: 'paths',
+    contents: {
+        cwd: cwd,
+        project: cwd,
+        framework: framework,
+        src: yargs.argv['src'] ? path.join(cwd, ensureStr(yargs.argv['src'])) : path.join(cwd),
+        public: yargs.argv['public'] ? ensureStr(yargs.argv['public']) : '/',
+        dist: yargs.argv['dist']
+            ? path.join(cwd, ensureStr(yargs.argv['dist']))
+            : path.join(cwd),
+    },
+};
+
+var patterns = {
+    repository: 'patterns',
+    contents: {
+        js: /\.(js|jsx)$/,
+        ts: /\.(ts|tsx)$/,
+        vue: /\.vue$/,
+        scss: /\.scss$/,
+        scssModule: /\.module\.scss$/,
+        css: /\.css$/,
+        cssModule: /\.module\.css$/,
+        svg: /\.svg$/,
+        font: /\.(ttf|otf|eot|woff2?|png|jpe?g|gif|ico)$/,
+        vendor: /node_modules/,
+        image: /\.(png|svg|jpg|gif)$/,
+    },
+};
+
+var js = function (bud) {
+    return bud.hooks.filter('webpack.module.rules.js', {
+        test: bud.hooks.filter('webpack.module.rules.js.test', bud.patterns.get('js')),
+        exclude: bud.hooks.filter('webpack.module.rules.js.exclude', bud.patterns.get('vendor')),
+        use: bud.hooks.filter('webpack.module.rules.js.use', [
+            bud.uses.get('babel')(bud),
+        ]),
+    });
+};
+
+var css = function (bud) {
+    return bud.hooks.filter('webpack.module.rules.css', {
+        test: bud.hooks.filter('webpack.module.rules.css.test', bud.patterns.get('css')),
+        exclude: bud.hooks.filter('webpack.module.rules.css.exclude', bud.patterns.get('vendor')),
+        use: bud.hooks.filter('webpack.module.rules.css.use', [
+            bud.uses.get('miniCss')(bud),
+            bud.uses.get('css')(bud),
+            bud.uses.get('resolveUrl')(bud),
+            bud.uses.get('postCss')(bud),
+        ]),
+    });
+};
+
+var font = function (bud) {
+    return bud.hooks.filter('webpack.module.rules.font', {
+        test: bud.hooks.filter('bud.module.rules.font.test', bud.patterns.get('font')),
+        use: bud.hooks.filter('bud.module.rules.font.use', [
+            bud.uses.get('file')(bud),
+        ]),
+    });
+};
+
+var image = function (bud) {
+    return bud.hooks.filter('webpack.module.rules.image', {
+        test: bud.hooks.filter('webpack.module.rules.image.test', bud.patterns.get('image')),
+        use: bud.hooks.filter('webpack.module.rules.image.use', [
+            bud.uses.get('file')(bud),
+        ]),
+    });
+};
+
+var svg = function (bud) {
+    return bud.hooks.filter('webpack.module.rules.svg', {
+        test: bud.hooks.filter('webpack.module.rules.svg.test', bud.patterns.get('svg')),
+        use: bud.hooks.filter('webpack.module.rules.svg.use', [
+            bud.loaders.get('svgr'),
+            bud.loaders.get('url'),
+        ]),
+    });
+};
+
+var loaders = {
+    repository: 'loaders',
+    contents: {
+        babel: require.resolve('babel-loader'),
+        css: require.resolve('css-loader'),
+        file: require.resolve('file-loader'),
+        miniCss: MiniCssExtractPlugin__default['default'].loader,
+        postCss: require.resolve('postcss-loader'),
+        resolveUrl: require.resolve('resolve-url-loader'),
+        style: require.resolve('style-loader'),
+        svgr: require.resolve('@svgr/webpack'),
+        url: require.resolve('url-loader'),
+    },
+};
+
+var uses = {
+    repository: 'uses',
+    contents: {
+        babel: function (bud) {
+            return bud.hooks.filter('webpack.module.babel', {
+                loader: bud.hooks.filter('webpack.module.babel.loader', bud.loaders.get('babel')),
+                options: bud.hooks.filter('webpack.module.babel.options', tslib.__assign({ cacheDirectory: bud.hooks.filter('webpack.module.babel.options.cacheDirectory', true), cacheCompression: bud.hooks.filter('webpack.module.babel.options.cacheCompression', true) }, bud.options.get('babel'))),
+            });
+        },
+        file: function (bud) { return ({
+            loader: bud.loaders.get('file'),
+            options: {
+                name: '[path][name].[ext]',
+            },
+        }); },
+        miniCss: function (bud) {
+            return bud.hooks.filter('webpack.modules.miniCss', {
+                loader: bud.hooks.filter('webpack.modules.miniCss.loader', bud.loaders.get('miniCss')),
+                options: bud.hooks.filter('webpack.modules.miniCss.options', {
+                    hot: bud.hooks.filter('webpack.modules.miniCss.loader.hot', bud.features.enabled('hot')),
+                }),
+            });
+        },
+        css: function (bud) {
+            return bud.hooks.filter('webpack.modules.css', {
+                loader: bud.hooks.filter('webpack.modules.css.loader', bud.loaders.get('css')),
+            });
+        },
+        resolveUrl: function (bud) {
+            return bud.hooks.filter('webpack.modules.resolveurl', {
+                loader: bud.hooks.filter('webpack.modules.resolveurl.loader', bud.loaders.get('resolveUrl')),
+                options: bud.hooks.filter('webpack.module.resolveurl.options', {
+                    sourceMap: bud.features.enabled('sourceMap'),
+                    debug: true,
+                }),
+            });
+        },
+        postCss: function (bud) {
+            return bud.hooks.filter('webpack.module.postcss', {
+                loader: bud.hooks.filter('webpack.module.postcss.loader', bud.loaders.get('postCss')),
+                options: bud.hooks.filter('webpack.module.postcss.options', tslib.__assign({ ident: bud.hooks.filter('webpack.module.postcss.options.ident', 'postcss') }, bud.options.get('postcss'))),
+            });
+        },
+        style: function (bud) {
+            return bud.hooks.filter('webpack.module.style', {
+                loader: bud.hooks.filter('webpack.module.style.loader', bud.loaders.get('style')),
+            });
+        },
+    },
+};
+
+var rules$1 = {
+    repository: 'rules',
+    contents: [js, css, font, image, svg],
+};
+
+var repositories = {
+    extensions: [adapters],
+    files: [configs],
+    stores: tslib.__spreadArrays([
+        paths,
+        env
+    ], cli, [
+        features,
+        options,
+        loaders,
+        cli,
+        adapters,
+        patterns,
+        rules$1,
+        uses,
+    ]),
+};
+
+repositories.extensions.forEach(function (ext) {
+    bootstrap.apply(ext.repository, makeExtensionContainer(ext, bootstrap.framework));
+});
+repositories.stores.forEach(function (store) {
+    bootstrap.apply(store.repository, makeContainer(store, bootstrap.framework));
+});
+repositories.files.forEach(function (file) {
+    bootstrap.apply(file.repository, makeFileContainer(file, bootstrap.framework));
+});
+bootstrap.apply('mode', bootstrap.framework.args.get('mode'));
+bootstrap.apply('inProduction', bootstrap.framework.args.is('mode', 'production'));
+bootstrap.apply('inDevelopment', bootstrap.framework.args.is('mode', 'development'));
+Object.values(api).forEach(function (method) {
+    bootstrap.apply(method.name, method);
+});
+var bud = bootstrap.boot();
+bud.options.set('browserSync', bud.options.get('adapters.browsersync')(bud.flags));
+bud.options.set('babel', bud.options.get('babel')(bud.configs));
+bud.options.set('postcss', bud.options.get('postcss')(bud.flags));
 
 exports.bootstrap = bootstrap;
 exports.bud = bud;

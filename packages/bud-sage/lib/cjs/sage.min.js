@@ -1,5 +1,5 @@
 /**
- * @roots/bud-sage v.1.0.0 {@link undefined}
+ * @roots/bud-sage v.2.0.0-next.0 {@link undefined}
  *
  * Preset configuration for Sage projects
  *
