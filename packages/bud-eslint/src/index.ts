@@ -20,6 +20,9 @@ const rule: (any) => any = (bud: any): any => ({
 
 const eslint: Extension = (bud: Bud): ExtensionInterface => ({
   bud,
+
+  name: 'eslint',
+
   make: function (this: ExtensionInterface) {
     /**
      * Load .eslintrc.js and bail early if not found.
@@ -42,7 +45,10 @@ const eslint: Extension = (bud: Bud): ExtensionInterface => ({
     /**
      * Add eslint rule to webpack modules repository.
      */
-    this.bud.rules.repository = [bud => rule(bud), ...this.bud.rules.repository]
+    this.bud.rules.repository = [
+      bud => rule(bud),
+      ...this.bud.rules.repository,
+    ]
   },
 })
 

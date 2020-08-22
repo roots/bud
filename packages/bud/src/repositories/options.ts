@@ -2,20 +2,14 @@ import type {Copy, PostCssConfiguration, Target} from './types'
 
 import {BabelTransformOptions} from '@roots/bud-typings'
 const babelFallback: BabelTransformOptions = {
-  presets: [
-    [
-      require('@babel/preset-env'),
-      {
-        modules: false,
-        forceAllTransforms: true,
-      },
-    ],
-  ],
+  presets: [require.resolve('@babel/preset-env')],
   plugins: [],
 }
 
 const babel: (configs) => BabelTransformOptions = function (configs) {
-  return configs.has('babel') ? configs.require('babel') : babelFallback
+  return configs.get('babel')
+    ? configs.require('babel')
+    : babelFallback
 }
 
 const browsersync: (flags) => any = flags => ({
@@ -28,12 +22,16 @@ const browsersync: (flags) => any = flags => ({
 
 const copy: Copy = {patterns: []}
 
-const postcss: (configs) => PostCssConfiguration = function (configs) {
+const postcss: (configs) => PostCssConfiguration = function (
+  configs,
+) {
   const fallback = {
     plugins: [require('postcss-import'), require('autoprefixer')],
   }
 
-  return configs.has('postcss') ? configs.require('postcss') : fallback
+  return configs.has('postcss')
+    ? configs.require('postcss')
+    : fallback
 }
 
 const target: Target = 'web'
@@ -49,7 +47,8 @@ const options = {
   devServer: {
     headers: {
       'Access-Control-Allow-Origin': '*',
-      'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+      'Access-Control-Allow-Methods':
+        'GET, POST, PUT, DELETE, PATCH, OPTIONS',
       'Access-Control-Allow-Headers':
         'X-Requested-With, content-type, Authorization',
     },
@@ -87,38 +86,45 @@ const options = {
     tls: 'empty',
     child_process: 'empty',
   },
+  adapters: {
+    browsersync,
+    clean: {},
+    fixStyleOnlyEntries: {
+      silent: true,
+    },
+    hotModuleReplacement: {},
+    terser: {
+      terserOptions: {
+        parse: {
+          ecma: 8,
+        },
+        compress: {
+          ecma: 5,
+          warnings: false,
+          comparisons: false,
+          inline: 2,
+        },
+        mangle: {
+          safari10: true,
+        },
+        output: {
+          ecma: 5,
+          comments: false,
+          ascii_only: true,
+        },
+      },
+      cache: true,
+      parallel: true,
+    },
+  },
   patterns: [],
   postcss,
   babel,
-  browsersync,
   splitting: {
     maxChunks: null,
   },
   target,
   copy,
-  terser: {
-    terserOptions: {
-      parse: {
-        ecma: 8,
-      },
-      compress: {
-        ecma: 5,
-        warnings: false,
-        comparisons: false,
-        inline: 2,
-      },
-      mangle: {
-        safari10: true,
-      },
-      output: {
-        ecma: 5,
-        comments: false,
-        ascii_only: true,
-      },
-    },
-    cache: true,
-    parallel: true,
-  },
   filenameTemplate: {
     hashed: '[name].[hash:8]',
     default: '[name]',

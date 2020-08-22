@@ -57,7 +57,10 @@ const Runner = ({bud}) => {
         'Build complete.',
       )
       notifier.notify({title})
-      bud.logger.info({name: 'bud.compiler', title}, 'Build success notification')
+      bud.logger.info(
+        {name: 'bud.compiler', title},
+        'Build success notification',
+      )
     }
   }, [build?.success])
 
@@ -84,10 +87,16 @@ const Runner = ({bud}) => {
   })
 
   const showBrowserSync =
-    !bud.features.enabled('debug') && bud.features.enabled('browserSync')
+    !bud.features.enabled('debug') &&
+    bud.features.enabled('browserSync')
 
   return (
-    <App width={width} height={height} build={build} state={state} bud={bud}>
+    <App
+      width={width}
+      height={height}
+      build={build}
+      state={state}
+      bud={bud}>
       <Assets width={width} actions={actions} build={build} />
       <Errors actions={actions} build={build} />
       <Warnings actions={actions} build={build} />

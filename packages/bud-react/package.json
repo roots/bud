@@ -2,34 +2,34 @@
   "name": "@roots/bud-react",
   "version": "1.0.0",
   "description": "Adds react support to Bud",
+  "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
-    "url": "git://github.com/roots/bud.git"
+    "url": "https://github.com/roots/bud.git",
+    "directory": "packages/bud-react"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://opensource.org/licenses/MIT"
-    }
-  ],
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
-  "keywords": [
-    "bud-extension"
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "license": "MIT",
+  "contributors": [
+    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "dist"
-  ],
-  "main": "dist/react.js",
-  "types": "dist/index.d.ts",
+  "files": ["lib"],
+  "main": "./lib/cjs/react.min.js",
+  "module": "./lib/es/index.js",
+  "types": "./lib/types/index.d.ts",
   "scripts": {
     "lint": "eslint src/**.ts",
     "watch": "npm run build && npm link && nodemon",
-    "build": "rimraf ./dist && rimraf ./types && rollup -c ./rollup.config.js"
+    "build": "rimraf ./lib && rollup -c ./rollup.config.js"
   },
   "devDependencies": {
     "nodemon": "^2.0.4",

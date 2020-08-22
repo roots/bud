@@ -6,7 +6,10 @@ type OutputBuilder = (bud: Bud) => WebpackOutput
 const output: OutputBuilder = bud =>
   bud.hooks.filter('webpack.output', {
     output: {
-      path: bud.hooks.filter('webpack.output.path', bud.paths.get('dist')),
+      path: bud.hooks.filter(
+        'webpack.output.path',
+        bud.paths.get('dist'),
+      ),
       publicPath: bud.hooks.filter(
         'webpack.output.publicPath',
         bud.paths.get('public'),

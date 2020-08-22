@@ -25,9 +25,13 @@ const Warnings = ({build, actions}) => {
   return (
     <Box display={display ? 'flex' : 'none'} flexDirection="column">
       {build?.warnings?.length > 0 &&
-        build?.warnings?.map((warning, i) => <Warning message={warning} key={i} />)}
+        build?.warnings?.map((warning, i) => (
+          <Warning message={warning} key={i} />
+        ))}
 
-      {build?.warnings?.length == 0 && <Text>Nothing to see here.</Text>}
+      {build?.warnings?.length == 0 && (
+        <Text>Nothing to see here.</Text>
+      )}
     </Box>
   )
 }

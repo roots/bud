@@ -7,7 +7,10 @@ const postcss: PostCss = function ({enabled, ...options}): Bud {
     this.options.set('postcss', {
       ...this.options.get('postcss'),
       ...options,
-      plugins: [...(options.plugins ?? []), ...this.options.get('postcss.plugins')],
+      plugins: [
+        ...(options.plugins ?? []),
+        ...this.options.get('postcss.plugins'),
+      ],
     })
   }
 

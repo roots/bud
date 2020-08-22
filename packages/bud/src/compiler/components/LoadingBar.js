@@ -14,7 +14,14 @@ const BLACKLIST_PROPS = [
 
 class Bar extends React.Component {
   getString() {
-    const {percent, columns, left, right, character, rightPad} = this.props
+    const {
+      percent,
+      columns,
+      left,
+      right,
+      character,
+      rightPad,
+    } = this.props
 
     const screen = columns || process.stdout.columns || 80
     const space = screen - right - left

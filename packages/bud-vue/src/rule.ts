@@ -12,7 +12,8 @@ import compiler from './vue-template-compiler'
  */
 const rule: Use = () => ({
   test: /\.vue$/,
-  exclude: file => /node_modules/.test(file) && !/\.vue\.js/.test(file),
+  exclude: file =>
+    /node_modules/.test(file) && !/\.vue\.js/.test(file),
   use: [
     {
       loader,

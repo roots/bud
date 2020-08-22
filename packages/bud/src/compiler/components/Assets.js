@@ -24,7 +24,8 @@ Indicator.propTypes = {
  */
 const Asset = ({asset}) => {
   const display =
-    asset.name.split('.').pop() == 'css' || asset.name.split('.').pop() == 'js'
+    asset.name.split('.').pop() == 'css' ||
+    asset.name.split('.').pop() == 'js'
 
   return !display ? (
     []
@@ -32,7 +33,9 @@ const Asset = ({asset}) => {
     <Box flexDirection="row" justifyContent="space-between">
       <Box>
         <Indicator emitted={asset.emitted} />
-        <Text color={asset.emitted ? 'white' : 'gray'}>{asset.name}</Text>
+        <Text color={asset.emitted ? 'white' : 'gray'}>
+          {asset.name}
+        </Text>
       </Box>
       <Spacer />
       <Box>

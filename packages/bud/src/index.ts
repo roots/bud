@@ -3,9 +3,17 @@ import {hooks} from './hooks'
 import {util, logger} from './util'
 import {repositories} from './repositories'
 import {compiler} from './compiler'
-import {bindContainer, bindExtensionContainer, bindFileContainer} from './container'
+import {
+  bindContainer,
+  bindExtensionContainer,
+  bindFileContainer,
+} from './container'
 
-import {Bud, Extension, ExtensionInterface, Use, UsesHash} from './types'
+import type {Bud, Use, UsesHash} from './types'
+import type {
+  Extension,
+  ExtensionInterface,
+} from './repositories/adapters'
 
 /**
  * Bud framework.
@@ -16,12 +24,19 @@ const bootstrap = function (): void {
   /**
    * The framework container object.
    */
-  this.framework = {}
+  this.framework = {
+    apply: function (propertyName: string, propertyValue: any): void {
+      this[propertyName] = propertyValue
+    },
+  }
 
   /**
    * Logger (pino)
    */
   this.logger = logger
+  this.log = function (message: string, data?: any) {
+    this.logger.info({name: 'bootstrap', ...(data ?? [])}, message)
+  }
 
   /**
    * Containers
@@ -41,7 +56,10 @@ const bootstrap = function (): void {
   /**
    * Paths container.
    */
-  this.framework.paths = this.store(this.repositories.paths, 'bud.paths')
+  this.framework.paths = this.store(
+    this.repositories.paths,
+    'bud.paths',
+  )
 
   /**
    * Project configuration files container.
@@ -52,7 +70,7 @@ const bootstrap = function (): void {
   )
 
   /**
-   * Envvar container.
+   * Envvars container.
    */
   this.framework.env = this.store(
     this.repositories.env(this.framework.paths),
@@ -60,43 +78,60 @@ const bootstrap = function (): void {
   )
 
   /**
-   * CLI containers.
+   * Arguments container.
    */
   this.framework.args = this.store(
     this.repositories.cli.args(this.framework.env),
     'bud.args',
   )
-  this.framework.flags = this.store(this.repositories.cli.flags, 'bud.flags')
+  this.framework.mode = this.framework.args.get('mode')
+  this.framework.inProduction = this.framework.args.is(
+    'mode',
+    'production',
+  )
+  this.framework.inDevelopment = this.framework.args.is(
+    'mode',
+    'development',
+  )
+
+  this.framework.flags = this.store(
+    this.repositories.cli.flags,
+    'bud.flags',
+  )
 
   /**
    * Features container.
    */
-  this.framework.features = this.store(this.repositories.features, 'bud.features')
+  this.framework.features = this.store(
+    this.repositories.features,
+    'bud.features',
+  )
 
   /**
    * Options container.
    */
-  this.framework.options = this.store(this.repositories.options, 'bud.options')
-
-  /**
-   * Framework plugins container.
-   */
-  this.framework.plugins = this.extensionStore(
-    this.repositories.plugins,
-    'bud.plugins',
+  this.framework.options = this.store(
+    this.repositories.options,
+    'bud.options',
   )
 
   /**
    * Webpack module containers.
    */
-  this.framework.patterns = this.store(this.repositories.patterns, 'bud.patterns')
-  this.framework.loaders = this.store(this.repositories.loaders, 'bud.loaders')
-  this.framework.rules = this.store(this.repositories.rules, 'bud.rules')
-  this.framework.uses = this.store(this.repositories.uses, 'bud.uses')
+  this.framework.patterns = this.store(
+    this.repositories.patterns,
+    'bud.patterns',
+  )
 
-  /**
-   * Webpack plugins.
-   */
+  this.framework.loaders = this.store(
+    this.repositories.loaders,
+    'bud.loaders',
+  )
+  this.framework.rules = this.store(
+    this.repositories.rules,
+    'bud.rules',
+  )
+  this.framework.uses = this.store(this.repositories.uses, 'bud.uses')
   this.framework.adapters = this.extensionStore(
     this.repositories.adapters,
     'bud.adapters',
@@ -113,13 +148,6 @@ const bootstrap = function (): void {
   this.framework.compiler = compiler(this.framework)
 
   /**
-   * Set mode.
-   */
-  this.framework.mode = this.framework.args.get('mode')
-  this.framework.inProduction = this.framework.args.is('mode', 'production')
-  this.framework.inDevelopment = this.framework.args.is('mode', 'development')
-
-  /**
    * Node process handling.
    */
   this.framework.process = util.processHandler(this.framework)
@@ -129,7 +157,9 @@ const bootstrap = function (): void {
    */
   this.framework.options.set(
     'browserSync',
-    this.framework.options.get('browsersync')(this.framework.flags),
+    this.framework.options.get('adapters.browsersync')(
+      this.framework.flags,
+    ),
   )
   this.framework.options.set(
     'babel',
@@ -143,22 +173,17 @@ const bootstrap = function (): void {
   /**
    * API methods.
    */
-  Object.values(api).forEach((method: any) => {
+  Object.values(api).forEach((method: () => any) => {
     this.framework[method.name] = method
 
-    this.logger.info(
-      {name: 'bootstrap'},
-      `bootstrapped api method: bud.${method.name}`,
-    )
+    this.log(`bootstrapped api method: bud.${method.name}`)
   })
 }
-
-const budInstance = new bootstrap().framework
 
 /**
  * Bud Framework
  */
-const bud: Bud = budInstance
+const bud: Bud = new bootstrap().framework
 
 export {bud, bootstrap}
 export {Bud, Extension, ExtensionInterface, Use, UsesHash}

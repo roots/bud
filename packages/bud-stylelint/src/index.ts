@@ -8,6 +8,9 @@ import api from './api'
  */
 const stylelint: Extension = (bud: Bud): ExtensionInterface => ({
   bud,
+
+  name: 'stylelint',
+
   make: function (this: ExtensionInterface) {
     /**
      * Load .stylelintrc.js and bail early if not found.
@@ -20,7 +23,7 @@ const stylelint: Extension = (bud: Bud): ExtensionInterface => ({
     /**
      * Set bud.stylelint API method.
      */
-    this.bud.stylelint = api
+    this.bud.apply('stylelint', api)
 
     /**
      * Set stylelint to config container

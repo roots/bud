@@ -8,7 +8,10 @@ const rules: ModuleBuilder = bud =>
   bud.hooks.filter('webpack.module', {
     module: bud.hooks.filter('webpack.module.rules', {
       rules: bud.rules.repository.map((rule: Use) =>
-        bud.hooks.filter(`webpack.module.rules.${rule.name}`, rule(bud)),
+        bud.hooks.filter(
+          `webpack.module.rules.${rule.name}`,
+          rule(bud),
+        ),
       ),
     }),
   })

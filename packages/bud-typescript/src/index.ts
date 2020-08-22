@@ -19,6 +19,8 @@ const rule: Use = (bud: Bud) => ({
 const typescript: Extension = (bud: Bud): ExtensionInterface => ({
   bud,
 
+  name: 'typescript',
+
   make: function (this: ExtensionInterface) {
     /**
      * Load tsconfig.json and bail early if not found.

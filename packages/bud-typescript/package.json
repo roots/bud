@@ -4,28 +4,32 @@
   "description": "Adds Typescript support to Bud.",
   "repository": {
     "type": "git",
-    "url": "git://github.com/roots/bud.git"
+    "url": "https://github.com/roots/bud.git",
+    "directory": "packages/bud-typescript"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://opensource.org/licenses/MIT"
-    }
-  ],
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "license": "MIT",
+  "contributors": [
+    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
+  ],
   "keywords": ["bud-extension"],
   "engines": {
     "node": ">=12"
   },
-  "files": ["dist"],
-  "main": "dist/typescript.min.js",
-  "types": "dist/index.d.ts",
+  "files": ["lib"],
+  "main": "lib/cjs/typescript.min.js",
+  "module": "lib/es/typescript.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "lint": "eslint src/**.ts",
     "watch": "npm run build && npm link && nodemon",
-    "build": "rimraf ./dist && rimraf ./types && rollup -c ./rollup.config.js"
+    "build": "rimraf ./lib && rollup -c ./rollup.config.js"
   },
   "dependencies": {
     "tslib": "^2.0.1",

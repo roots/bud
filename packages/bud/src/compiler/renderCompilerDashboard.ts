@@ -1,7 +1,12 @@
 import webpack from 'webpack'
 import React from 'react'
 import {render} from 'ink'
-import type {Bud, BudRenderer, RunnerProps, WebpackConfig} from './types'
+import type {
+  Bud,
+  BudRenderer,
+  RunnerProps,
+  WebpackConfig,
+} from './types'
 import {Runner} from './Runner'
 
 /**
@@ -11,7 +16,9 @@ const injectHot = ({webpackConfig, overlay, reload, logger}) => {
   const client = `webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=${reload}&overlay=${overlay}`
 
   Object.keys(webpackConfig.entry).forEach(entry => {
-    webpackConfig.entry[entry] = [client].concat(webpackConfig.entry[entry])
+    webpackConfig.entry[entry] = [client].concat(
+      webpackConfig.entry[entry],
+    )
 
     logger.info(
       {

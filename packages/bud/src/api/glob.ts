@@ -2,7 +2,11 @@ import type {Bud, Glob} from './types'
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const globby = require('globby')
 
-const glob: Glob = function (this: Bud, name: string, files: string): Bud {
+const glob: Glob = function (
+  this: Bud,
+  name: string,
+  files: string,
+): Bud {
   let entry = this.options.get('entry')
 
   /**

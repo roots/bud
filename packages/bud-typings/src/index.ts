@@ -1,5 +1,8 @@
-interface Loose {
+interface Pair {
   [key: string]: any
+}
+interface Loose {
+  [key: string]: Pair[]
 }
 export {Loose}
 
@@ -26,4 +29,9 @@ export type WebpackOutput = WebpackConfig['output']
 export type WebpackPlugins = WebpackConfig['plugins']
 export type WebpackResolve = WebpackConfig['resolve']
 export type WebpackTarget = WebpackConfig['target']
-export type {WebpackConfig, WebpackConfigFactory, WebpackOptions, WebpackRule}
+export type {
+  WebpackConfig,
+  WebpackConfigFactory,
+  WebpackOptions,
+  WebpackRule,
+}

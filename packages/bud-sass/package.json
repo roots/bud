@@ -4,32 +4,34 @@
   "description": "Adds sass support to Bud.",
   "repository": {
     "type": "git",
-    "url": "git://github.com/roots/bud.git"
+    "url": "https://github.com/roots/bud.git",
+    "directory": "packages/bud-sass"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://opensource.org/licenses/MIT"
-    }
-  ],
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "license": "MIT",
+  "contributors": [
+    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
+  ],
   "keywords": [
     "bud-extension"
   ],
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "dist"
-  ],
-  "main": "dist/bud-sass.min.js",
-  "types": "dist/index.d.ts",
+  "files": ["lib"],
+  "main": "lib/cjs/bud-sass.min.js",
+  "module": "lib/es/index.js",
+  "types": "lib/types/index.d.ts",
   "scripts": {
     "lint": "eslint src/**.ts",
     "watch": "npm run build && npm link && nodemon",
-    "build": "rimraf ./dist && rimraf ./types && rollup -c ./rollup.config.js"
+    "build": "rimraf ./lib && rollup -c ./rollup.config.js"
   },
   "dependencies": {
     "node-sass": "^4.14.1",

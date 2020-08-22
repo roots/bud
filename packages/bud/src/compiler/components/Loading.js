@@ -11,7 +11,8 @@ const Loading = ({build, width}) =>
     <Box maxWidth={width} textWrap="truncate" flexDirection="row">
       <Text bgcolor={'#171c56'}>
         <Text width={6}>
-          {Math.round(build?.percentage * 100)}%{build?.percentage < 1 ? '  ' : ' '}
+          {Math.round(build?.percentage * 100)}%
+          {build?.percentage < 1 ? '  ' : ' '}
         </Text>
       </Text>
 

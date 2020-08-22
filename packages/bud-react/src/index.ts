@@ -1,13 +1,14 @@
 import {Bud, Extension, ExtensionInterface} from '@roots/bud'
-import react from '@babel/preset-react'
 
 const react: Extension = (bud: Bud): ExtensionInterface => ({
   bud,
 
+  name: 'react',
+
   make: function (this: ExtensionInterface) {
     this.bud.options.set('babel.presets', [
       ...this.bud.options.get('babel.presets'),
-      react,
+      require.resolve('@babel/preset-react'),
     ])
 
     !this.bud.options.get('resolve.extensions').includes('.jsx') &&

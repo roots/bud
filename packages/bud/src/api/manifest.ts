@@ -12,7 +12,10 @@ const manifest: Manifest = function (options?) {
 
   this.options.set('manifest.name', options?.name ?? 'manifest.json')
   this.options.set('manifest.publicPath', options?.publicPath ?? null)
-  this.options.set('manifest.writeToFileEmit', options?.writeToFileEmit ?? true)
+  this.options.set(
+    'manifest.writeToFileEmit',
+    options?.writeToFileEmit ?? true,
+  )
 
   return this
 }

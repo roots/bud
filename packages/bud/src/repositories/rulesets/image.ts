@@ -8,7 +8,9 @@ const image = (bud: Bud): WebpackRule =>
       'webpack.module.rules.image.test',
       bud.patterns.get('image'),
     ),
-    use: bud.hooks.filter('webpack.module.rules.image.use', [uses.file(bud)]),
+    use: bud.hooks.filter('webpack.module.rules.image.use', [
+      uses.file(bud),
+    ]),
   })
 
 export {image}

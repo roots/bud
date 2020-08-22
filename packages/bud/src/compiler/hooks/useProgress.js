@@ -22,7 +22,10 @@ const useProgress = bud => {
         }),
       )
 
-      bud.logger.info({name: 'bud.compiler'}, 'progress plugin created.')
+      bud.logger.info(
+        {name: 'bud.compiler'},
+        'progress plugin created.',
+      )
     }
   }, [])
 

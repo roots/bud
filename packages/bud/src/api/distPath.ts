@@ -4,7 +4,10 @@ import type {Bud, PathSetter} from './types'
 const distPath: PathSetter = function (dir: string): Bud {
   this.paths.set(
     'dist',
-    this.hooks.filter('api.distPath', join(this.paths.get('project'), dir)),
+    this.hooks.filter(
+      'api.distPath',
+      join(this.paths.get('project'), dir),
+    ),
   )
 
   return this

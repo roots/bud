@@ -6,7 +6,9 @@
 Object.defineProperty(exports, '__esModule', {value: true})
 
 function _interopDefault(ex) {
-  return ex && typeof ex === 'object' && 'default' in ex ? ex['default'] : ex
+  return ex && typeof ex === 'object' && 'default' in ex
+    ? ex['default']
+    : ex
 }
 
 var deindent = _interopDefault(require('de-indent'))
@@ -159,7 +161,11 @@ var hyphenate = cached(function (str) {
 function polyfillBind(fn, ctx) {
   function boundFn(a) {
     var l = arguments.length
-    return l ? (l > 1 ? fn.apply(ctx, arguments) : fn.call(ctx, a)) : fn.call(ctx)
+    return l
+      ? l > 1
+        ? fn.apply(ctx, arguments)
+        : fn.call(ctx, a)
+      : fn.call(ctx)
   }
 
   boundFn._length = fn.length
@@ -270,7 +276,8 @@ function def(obj, key, val, enumerable) {
 // Regular Expressions for parsing tags and attributes
 var attribute = /^\s*([^\s"'<>\/=]+)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/
 var dynamicArgAttribute = /^\s*((?:v-[\w-]+:|@|:|#)\[[^=]+\][^\s"'<>\/=]*)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/
-var ncname = '[a-zA-Z_][\\-\\.0-9_a-zA-Z' + unicodeRegExp.source + ']*'
+var ncname =
+  '[a-zA-Z_][\\-\\.0-9_a-zA-Z' + unicodeRegExp.source + ']*'
 var qnameCapture = '((?:' + ncname + '\\:)?' + ncname + ')'
 var startTagOpen = new RegExp('^<' + qnameCapture)
 var startTagClose = /^\s*(\/?)>/
@@ -303,7 +310,9 @@ var shouldIgnoreFirstNewline = function (tag, html) {
 }
 
 function decodeAttr(value, shouldDecodeNewlines) {
-  var re = shouldDecodeNewlines ? encodedAttrWithNewLines : encodedAttr
+  var re = shouldDecodeNewlines
+    ? encodedAttrWithNewLines
+    : encodedAttr
   return value.replace(re, function (match) {
     return decodingMap[match]
   })
@@ -418,9 +427,16 @@ function parseHTML(html, options) {
           '([\\s\\S]*?)(</' + stackedTag + '[^>]*>)',
           'i',
         ))
-      var rest$1 = html.replace(reStackedTag, function (all, text, endTag) {
+      var rest$1 = html.replace(reStackedTag, function (
+        all,
+        text,
+        endTag,
+      ) {
         endTagLength = endTag.length
-        if (!isPlainTextElement(stackedTag) && stackedTag !== 'noscript') {
+        if (
+          !isPlainTextElement(stackedTag) &&
+          stackedTag !== 'noscript'
+        ) {
           text = text
             .replace(/<!\--([\s\S]*?)-->/g, '$1') // #7298
             .replace(/<!\[CDATA\[([\s\S]*?)]]>/g, '$1')
@@ -440,10 +456,17 @@ function parseHTML(html, options) {
 
     if (html === last) {
       options.chars && options.chars(html)
-      if (process.env.NODE_ENV !== 'production' && !stack.length && options.warn) {
-        options.warn('Mal-formatted tag at end of template: "' + html + '"', {
-          start: index + html.length,
-        })
+      if (
+        process.env.NODE_ENV !== 'production' &&
+        !stack.length &&
+        options.warn
+      ) {
+        options.warn(
+          'Mal-formatted tag at end of template: "' + html + '"',
+          {
+            start: index + html.length,
+          },
+        )
       }
       break
     }
@@ -469,7 +492,8 @@ function parseHTML(html, options) {
       var end, attr
       while (
         !(end = html.match(startTagClose)) &&
-        (attr = html.match(dynamicArgAttribute) || html.match(attribute))
+        (attr =
+          html.match(dynamicArgAttribute) || html.match(attribute))
       ) {
         attr.start = index
         advance(attr[0].length)
@@ -513,7 +537,10 @@ function parseHTML(html, options) {
         name: args[1],
         value: decodeAttr(value, shouldDecodeNewlines),
       }
-      if (process.env.NODE_ENV !== 'production' && options.outputSourceRange) {
+      if (
+        process.env.NODE_ENV !== 'production' &&
+        options.outputSourceRange
+      ) {
         attrs[i].start = args.start + args[0].match(/^\s*/).length
         attrs[i].end = args.end
       }
@@ -565,10 +592,13 @@ function parseHTML(html, options) {
           (i > pos || !tagName) &&
           options.warn
         ) {
-          options.warn('tag <' + stack[i].tag + '> has no matching end tag.', {
-            start: stack[i].start,
-            end: stack[i].end,
-          })
+          options.warn(
+            'tag <' + stack[i].tag + '> has no matching end tag.',
+            {
+              start: stack[i].start,
+              end: stack[i].end,
+            },
+          )
         }
         if (options.end) {
           options.end(stack[i].tag, start, end)
@@ -619,7 +649,10 @@ function parseComponent(content, options) {
     sfc.errors.push(msg)
   }
 
-  if (process.env.NODE_ENV !== 'production' && options.outputSourceRange) {
+  if (
+    process.env.NODE_ENV !== 'production' &&
+    options.outputSourceRange
+  ) {
     warn = function (msg, range) {
       var data = {msg: msg}
       if (range.start != null) {
@@ -704,7 +737,8 @@ function parseComponent(content, options) {
       return content.slice(0, block.start).replace(replaceRE, ' ')
     } else {
       var offset = content.slice(0, block.start).split(splitRE).length
-      var padChar = block.type === 'script' && !block.lang ? '//\n' : '\n'
+      var padChar =
+        block.type === 'script' && !block.lang ? '//\n' : '\n'
       return Array(offset).join(padChar)
     }
   }
@@ -726,15 +760,19 @@ var hasProto = '__proto__' in {}
 
 // Browser environment sniffing
 var inBrowser =
-  typeof window !== 'undefined' && typeof window.document !== 'undefined'
-var inWeex = typeof WXEnvironment !== 'undefined' && !!WXEnvironment.platform
+  typeof window !== 'undefined' &&
+  typeof window.document !== 'undefined'
+var inWeex =
+  typeof WXEnvironment !== 'undefined' && !!WXEnvironment.platform
 var weexPlatform = inWeex && WXEnvironment.platform.toLowerCase()
 var UA = inBrowser && window.navigator.userAgent.toLowerCase()
 var isIE = UA && /msie|trident/.test(UA)
 var isIE9 = UA && UA.indexOf('msie 9.0') > 0
 var isEdge = UA && UA.indexOf('edge/') > 0
-var isAndroid = (UA && UA.indexOf('android') > 0) || weexPlatform === 'android'
-var isIOS = (UA && /iphone|ipad|ipod|ios/.test(UA)) || weexPlatform === 'ios'
+var isAndroid =
+  (UA && UA.indexOf('android') > 0) || weexPlatform === 'android'
+var isIOS =
+  (UA && /iphone|ipad|ipod|ios/.test(UA)) || weexPlatform === 'ios'
 var isChrome = UA && /chrome\/\d+/.test(UA) && !isEdge
 var isPhantomJS = UA && /phantomjs/.test(UA)
 var isFF = UA && UA.match(/firefox\/(\d+)/)
@@ -760,7 +798,9 @@ var isServerRendering = function () {
     if (!inBrowser && !inWeex && typeof global !== 'undefined') {
       // detect presence of vue-server-renderer and avoid
       // Webpack shimming the process
-      _isServer = global['process'] && global['process'].env.VUE_ENV === 'server'
+      _isServer =
+        global['process'] &&
+        global['process'].env.VUE_ENV === 'server'
     } else {
       _isServer = false
     }
@@ -773,7 +813,9 @@ var devtools = inBrowser && window.__VUE_DEVTOOLS_GLOBAL_HOOK__
 
 /* istanbul ignore next */
 function isNative(Ctor) {
-  return typeof Ctor === 'function' && /native code/.test(Ctor.toString())
+  return (
+    typeof Ctor === 'function' && /native code/.test(Ctor.toString())
+  )
 }
 
 var hasSymbol =
@@ -783,7 +825,10 @@ var hasSymbol =
   isNative(Reflect.ownKeys)
 
 var _Set // $flow-disable-line
-/* istanbul ignore if */ if (typeof Set !== 'undefined' && isNative(Set)) {
+/* istanbul ignore if */ if (
+  typeof Set !== 'undefined' &&
+  isNative(Set)
+) {
   // use native Set when available.
   _Set = Set
 } else {
@@ -947,7 +992,9 @@ if (process.env.NODE_ENV !== 'production') {
 
   tip = function (msg, vm) {
     if (hasConsole && !config.silent) {
-      console.warn('[Vue tip]: ' + msg + (vm ? generateComponentTrace(vm) : ''))
+      console.warn(
+        '[Vue tip]: ' + msg + (vm ? generateComponentTrace(vm) : ''),
+      )
     }
   }
 
@@ -1015,7 +1062,10 @@ if (process.env.NODE_ENV !== 'production') {
               '' +
               (i === 0 ? '---> ' : repeat(' ', 5 + i * 2)) +
               (Array.isArray(vm)
-                ? formatComponentName(vm[0]) + '... (' + vm[1] + ' recursive calls)'
+                ? formatComponentName(vm[0]) +
+                  '... (' +
+                  vm[1] +
+                  ' recursive calls)'
                 : formatComponentName(vm))
             )
           })
@@ -1130,7 +1180,15 @@ Object.defineProperties(VNode.prototype, prototypeAccessors)
 var arrayProto = Array.prototype
 var arrayMethods = Object.create(arrayProto)
 
-var methodsToPatch = ['push', 'pop', 'shift', 'unshift', 'splice', 'sort', 'reverse']
+var methodsToPatch = [
+  'push',
+  'pop',
+  'shift',
+  'unshift',
+  'splice',
+  'sort',
+  'reverse',
+]
 
 /**
  * Intercept mutating methods and emit events
@@ -1307,7 +1365,10 @@ function defineReactive$$1(obj, key, val, customSetter, shallow) {
     set: function reactiveSetter(newVal) {
       var value = getter ? getter.call(obj) : val
       /* eslint-disable no-self-compare */
-      if (newVal === value || (newVal !== newVal && value !== value)) {
+      if (
+        newVal === value ||
+        (newVal !== newVal && value !== value)
+      ) {
         return
       }
       /* eslint-enable no-self-compare */
@@ -1432,7 +1493,11 @@ function mergeData(to, from) {
     fromVal = from[key]
     if (!hasOwn(to, key)) {
       set(to, key, fromVal)
-    } else if (toVal !== fromVal && isPlainObject(toVal) && isPlainObject(fromVal)) {
+    } else if (
+      toVal !== fromVal &&
+      isPlainObject(toVal) &&
+      isPlainObject(fromVal)
+    ) {
       mergeData(toVal, fromVal)
     }
   }
@@ -1458,17 +1523,25 @@ function mergeDataOrFn(parentVal, childVal, vm) {
     // it has to be a function to pass previous merges.
     return function mergedDataFn() {
       return mergeData(
-        typeof childVal === 'function' ? childVal.call(this, this) : childVal,
-        typeof parentVal === 'function' ? parentVal.call(this, this) : parentVal,
+        typeof childVal === 'function'
+          ? childVal.call(this, this)
+          : childVal,
+        typeof parentVal === 'function'
+          ? parentVal.call(this, this)
+          : parentVal,
       )
     }
   } else {
     return function mergedInstanceDataFn() {
       // instance merge
       var instanceData =
-        typeof childVal === 'function' ? childVal.call(vm, vm) : childVal
+        typeof childVal === 'function'
+          ? childVal.call(vm, vm)
+          : childVal
       var defaultData =
-        typeof parentVal === 'function' ? parentVal.call(vm, vm) : parentVal
+        typeof parentVal === 'function'
+          ? parentVal.call(vm, vm)
+          : parentVal
       if (instanceData) {
         return mergeData(instanceData, defaultData)
       } else {
@@ -1535,7 +1608,8 @@ LIFECYCLE_HOOKS.forEach(function (hook) {
 function mergeAssets(parentVal, childVal, vm, key) {
   var res = Object.create(parentVal || null)
   if (childVal) {
-    process.env.NODE_ENV !== 'production' && assertObjectType(key, childVal, vm)
+    process.env.NODE_ENV !== 'production' &&
+      assertObjectType(key, childVal, vm)
     return extend(res, childVal)
   } else {
     return res
@@ -1661,7 +1735,8 @@ else if (
   typeof MutationObserver !== 'undefined' &&
   (isNative(MutationObserver) ||
     // PhantomJS and iOS 7.x
-    MutationObserver.toString() === '[object MutationObserverConstructor]')
+    MutationObserver.toString() ===
+      '[object MutationObserverConstructor]')
 ) {
   // Use MutationObserver where native Promise is not available,
   // e.g. PhantomJS, iOS7, Android 4.4
@@ -1672,7 +1747,10 @@ else if (
   observer.observe(textNode, {
     characterData: true,
   })
-} else if (typeof setImmediate !== 'undefined' && isNative(setImmediate));
+} else if (
+  typeof setImmediate !== 'undefined' &&
+  isNative(setImmediate)
+);
 
 /*  */
 
@@ -1695,7 +1773,9 @@ var mustUseProp = function (tag, type, attr) {
 
 var isEnumeratedAttr = makeMap('contenteditable,draggable,spellcheck')
 
-var isValidContentEditableValue = makeMap('events,caret,typing,plaintext-only')
+var isValidContentEditableValue = makeMap(
+  'events,caret,typing,plaintext-only',
+)
 
 var isBooleanAttr = makeMap(
   'allowfullscreen,async,autofocus,autoplay,checked,compact,controls,declare,' +
@@ -1752,7 +1832,9 @@ function getTagNamespace(tag) {
   }
 }
 
-var isTextInputType = makeMap('text,number,password,search,email,tel,url')
+var isTextInputType = makeMap(
+  'text,number,password,search,email,tel,url',
+)
 
 /*  */
 
@@ -1860,7 +1942,9 @@ function parseFilters(exp) {
   }
 
   function pushFilter() {
-    ;(filters || (filters = [])).push(exp.slice(lastFilterIndex, i).trim())
+    ;(filters || (filters = [])).push(
+      exp.slice(lastFilterIndex, i).trim(),
+    )
     lastFilterIndex = i + 1
   }
 
@@ -1881,7 +1965,9 @@ function wrapFilter(exp, filter) {
   } else {
     var name = filter.slice(0, i)
     var args = filter.slice(i + 1)
-    return '_f("' + name + '")(' + exp + (args !== ')' ? ',' + args : args)
+    return (
+      '_f("' + name + '")(' + exp + (args !== ')' ? ',' + args : args)
+    )
   }
 }
 
@@ -1959,7 +2045,9 @@ function addAttr(el, name, value, range, dynamic) {
   var attrs = dynamic
     ? el.dynamicAttrs || (el.dynamicAttrs = [])
     : el.attrs || (el.attrs = [])
-  attrs.push(rangeSetItem({name: name, value: value, dynamic: dynamic}, range))
+  attrs.push(
+    rangeSetItem({name: name, value: value, dynamic: dynamic}, range),
+  )
   el.plain = false
 }
 
@@ -1999,7 +2087,16 @@ function prependModifierMarker(symbol, name, dynamic) {
   return dynamic ? '_p(' + name + ',"' + symbol + '")' : symbol + name // mark the event as captured
 }
 
-function addHandler(el, name, value, modifiers, important, warn, range, dynamic) {
+function addHandler(
+  el,
+  name,
+  value,
+  modifiers,
+  important,
+  warn,
+  range,
+  dynamic,
+) {
   modifiers = modifiers || emptyObject
   // warn prevent and passive modifier
   /* istanbul ignore if */
@@ -2057,7 +2154,10 @@ function addHandler(el, name, value, modifiers, important, warn, range, dynamic)
     events = el.events || (el.events = {})
   }
 
-  var newHandler = rangeSetItem({value: value.trim(), dynamic: dynamic}, range)
+  var newHandler = rangeSetItem(
+    {value: value.trim(), dynamic: dynamic},
+    range,
+  )
   if (modifiers !== emptyObject) {
     newHandler.modifiers = modifiers
   }
@@ -2065,9 +2165,13 @@ function addHandler(el, name, value, modifiers, important, warn, range, dynamic)
   var handlers = events[name]
   /* istanbul ignore if */
   if (Array.isArray(handlers)) {
-    important ? handlers.unshift(newHandler) : handlers.push(newHandler)
+    important
+      ? handlers.unshift(newHandler)
+      : handlers.push(newHandler)
   } else if (handlers) {
-    events[name] = important ? [newHandler, handlers] : [handlers, newHandler]
+    events[name] = important
+      ? [newHandler, handlers]
+      : [handlers, newHandler]
   } else {
     events[name] = newHandler
   }
@@ -2085,7 +2189,8 @@ function getRawBindingAttr(el, name) {
 
 function getBindingAttr(el, name, getStatic) {
   var dynamicValue =
-    getAndRemoveAttr(el, ':' + name) || getAndRemoveAttr(el, 'v-bind:' + name)
+    getAndRemoveAttr(el, ':' + name) ||
+    getAndRemoveAttr(el, 'v-bind:' + name)
   if (dynamicValue != null) {
     return parseFilters(dynamicValue)
   } else if (getStatic !== false) {
@@ -2162,7 +2267,11 @@ function transformNode(el, options) {
   if (staticClass) {
     el.staticClass = JSON.stringify(staticClass)
   }
-  var classBinding = getBindingAttr(el, 'class', false /* getStatic */)
+  var classBinding = getBindingAttr(
+    el,
+    'class',
+    false /* getStatic */,
+  )
   if (classBinding) {
     el.classBinding = classBinding
   }
@@ -2224,7 +2333,11 @@ function transformNode$1(el, options) {
     el.staticStyle = JSON.stringify(parseStyleText(staticStyle))
   }
 
-  var styleBinding = getBindingAttr(el, 'style', false /* getStatic */)
+  var styleBinding = getBindingAttr(
+    el,
+    'style',
+    false /* getStatic */,
+  )
   if (styleBinding) {
     el.styleBinding = styleBinding
   }
@@ -2279,7 +2392,8 @@ function genComponentModel(el, value, modifiers) {
   el.model = {
     value: '(' + value + ')',
     expression: JSON.stringify(value),
-    callback: 'function (' + baseValueExpression + ') {' + assignment + '}',
+    callback:
+      'function (' + baseValueExpression + ') {' + assignment + '}',
   }
 }
 
@@ -2291,7 +2405,9 @@ function genAssignmentCode(value, assignment) {
   if (res.key === null) {
     return value + '=' + assignment
   } else {
-    return '$set(' + res.exp + ', ' + res.key + ', ' + assignment + ')'
+    return (
+      '$set(' + res.exp + ', ' + res.key + ', ' + assignment + ')'
+    )
   }
 }
 
@@ -2458,8 +2574,14 @@ function parse(template, options) {
   }
 
   transforms = pluckModuleFunction(options.modules, 'transformNode')
-  preTransforms = pluckModuleFunction(options.modules, 'preTransformNode')
-  postTransforms = pluckModuleFunction(options.modules, 'postTransformNode')
+  preTransforms = pluckModuleFunction(
+    options.modules,
+    'preTransformNode',
+  )
+  postTransforms = pluckModuleFunction(
+    options.modules,
+    'postTransformNode',
+  )
 
   delimiters = options.delimiters
 
@@ -2513,9 +2635,8 @@ function parse(template, options) {
           // keep it in the children list so that v-else(-if) conditions can
           // find it as the prev node.
           var name = element.slotTarget || '"default"'
-          ;(currentParent.scopedSlots || (currentParent.scopedSlots = {}))[
-            name
-          ] = element
+          ;(currentParent.scopedSlots ||
+            (currentParent.scopedSlots = {}))[name] = element
         }
         currentParent.children.push(element)
         element.parent = currentParent
@@ -2588,7 +2709,9 @@ function parse(template, options) {
     start: function start(tag, attrs, unary, start$1, end) {
       // check namespace.
       // inherit parent ns if there is one
-      var ns = (currentParent && currentParent.ns) || platformGetTagNamespace(tag)
+      var ns =
+        (currentParent && currentParent.ns) ||
+        platformGetTagNamespace(tag)
 
       // handle IE svg bug
       /* istanbul ignore if */
@@ -2605,10 +2728,14 @@ function parse(template, options) {
         if (options.outputSourceRange) {
           element.start = start$1
           element.end = end
-          element.rawAttrsMap = element.attrsList.reduce(function (cumulated, attr) {
+          element.rawAttrsMap = element.attrsList.reduce(function (
+            cumulated,
+            attr,
+          ) {
             cumulated[attr.name] = attr
             return cumulated
-          }, {})
+          },
+          {})
         }
         attrs.forEach(function (attr) {
           if (invalidAttributeRE.test(attr.name)) {
@@ -2681,7 +2808,10 @@ function parse(template, options) {
       // pop stack
       stack.length -= 1
       currentParent = stack[stack.length - 1]
-      if (process.env.NODE_ENV !== 'production' && options.outputSourceRange) {
+      if (
+        process.env.NODE_ENV !== 'production' &&
+        options.outputSourceRange
+      ) {
         element.end = end$1
       }
       closeElement(element)
@@ -2696,9 +2826,14 @@ function parse(template, options) {
               {start: start},
             )
           } else if ((text = text.trim())) {
-            warnOnce('text "' + text + '" outside root element will be ignored.', {
-              start: start,
-            })
+            warnOnce(
+              'text "' +
+                text +
+                '" outside root element will be ignored.',
+              {
+                start: start,
+              },
+            )
           }
         }
         return
@@ -2714,7 +2849,9 @@ function parse(template, options) {
       }
       var children = currentParent.children
       if (inPre || text.trim()) {
-        text = isTextTag(currentParent) ? text : decodeHTMLCached(text)
+        text = isTextTag(currentParent)
+          ? text
+          : decodeHTMLCached(text)
       } else if (!children.length) {
         // remove the whitespace-only node right after an opening tag
         text = ''
@@ -2736,7 +2873,11 @@ function parse(template, options) {
         }
         var res
         var child
-        if (!inVPre && text !== ' ' && (res = parseText(text, delimiters))) {
+        if (
+          !inVPre &&
+          text !== ' ' &&
+          (res = parseText(text, delimiters))
+        ) {
           child = {
             type: 2,
             expression: res.expression,
@@ -2754,7 +2895,10 @@ function parse(template, options) {
           }
         }
         if (child) {
-          if (process.env.NODE_ENV !== 'production' && options.outputSourceRange) {
+          if (
+            process.env.NODE_ENV !== 'production' &&
+            options.outputSourceRange
+          ) {
             child.start = start
             child.end = end
           }
@@ -2771,7 +2915,10 @@ function parse(template, options) {
           text: text,
           isComment: true,
         }
-        if (process.env.NODE_ENV !== 'production' && options.outputSourceRange) {
+        if (
+          process.env.NODE_ENV !== 'production' &&
+          options.outputSourceRange
+        ) {
           child.start = start
           child.end = end
         }
@@ -2814,7 +2961,8 @@ function processElement(element, options) {
 
   // determine whether this is a plain element after
   // removing structural attributes
-  element.plain = !element.key && !element.scopedSlots && !element.attrsList.length
+  element.plain =
+    !element.key && !element.scopedSlots && !element.attrsList.length
 
   processRef(element)
   processSlotContent(element)
@@ -2874,7 +3022,10 @@ function processFor(el) {
     if (res) {
       extend(el, res)
     } else if (process.env.NODE_ENV !== 'production') {
-      warn$1('Invalid v-for expression: ' + exp, el.rawAttrsMap['v-for'])
+      warn$1(
+        'Invalid v-for expression: ' + exp,
+        el.rawAttrsMap['v-for'],
+      )
     }
   }
 }
@@ -2945,7 +3096,10 @@ function findPrevElement(children) {
     if (children[i].type === 1) {
       return children[i]
     } else {
-      if (process.env.NODE_ENV !== 'production' && children[i].text !== ' ') {
+      if (
+        process.env.NODE_ENV !== 'production' &&
+        children[i].text !== ' '
+      ) {
         warn$1(
           'text "' +
             children[i].text.trim() +
@@ -2993,7 +3147,10 @@ function processSlotContent(el) {
     el.slotScope = slotScope || getAndRemoveAttr(el, 'slot-scope')
   } else if ((slotScope = getAndRemoveAttr(el, 'slot-scope'))) {
     /* istanbul ignore if */
-    if (process.env.NODE_ENV !== 'production' && el.attrsMap['v-for']) {
+    if (
+      process.env.NODE_ENV !== 'production' &&
+      el.attrsMap['v-for']
+    ) {
       warn$1(
         'Ambiguous combined usage of slot-scope and v-for on <' +
           el.tag +
@@ -3011,7 +3168,9 @@ function processSlotContent(el) {
   var slotTarget = getBindingAttr(el, 'slot')
   if (slotTarget) {
     el.slotTarget = slotTarget === '""' ? '"default"' : slotTarget
-    el.slotTargetDynamic = !!(el.attrsMap[':slot'] || el.attrsMap['v-bind:slot'])
+    el.slotTargetDynamic = !!(
+      el.attrsMap[':slot'] || el.attrsMap['v-bind:slot']
+    )
     // preserve slot as an attribute for native shadow DOM compat
     // only for non-scoped slots.
     if (el.tag !== 'template' && !el.slotScope) {
@@ -3027,7 +3186,10 @@ function processSlotContent(el) {
       if (slotBinding) {
         if (process.env.NODE_ENV !== 'production') {
           if (el.slotTarget || el.slotScope) {
-            warn$1('Unexpected mixed usage of different slot syntaxes.', el)
+            warn$1(
+              'Unexpected mixed usage of different slot syntaxes.',
+              el,
+            )
           }
           if (el.parent && !maybeComponent(el.parent)) {
             warn$1(
@@ -3056,7 +3218,10 @@ function processSlotContent(el) {
             )
           }
           if (el.slotScope || el.slotTarget) {
-            warn$1('Unexpected mixed usage of different slot syntaxes.', el)
+            warn$1(
+              'Unexpected mixed usage of different slot syntaxes.',
+              el,
+            )
           }
           if (el.scopedSlots) {
             warn$1(
@@ -3071,7 +3236,11 @@ function processSlotContent(el) {
         var ref$1 = getSlotName(slotBinding$1)
         var name$1 = ref$1.name
         var dynamic$1 = ref$1.dynamic
-        var slotContainer = (slots[name$1] = createASTElement('template', [], el))
+        var slotContainer = (slots[name$1] = createASTElement(
+          'template',
+          [],
+          el,
+        ))
         slotContainer.slotTarget = name$1
         slotContainer.slotTargetDynamic = dynamic$1
         slotContainer.children = el.children.filter(function (c) {
@@ -3080,7 +3249,8 @@ function processSlotContent(el) {
             return true
           }
         })
-        slotContainer.slotScope = slotBinding$1.value || emptySlotScopeToken
+        slotContainer.slotScope =
+          slotBinding$1.value || emptySlotScopeToken
         // remove children as they are returned from scopedSlots now
         el.children = []
         // mark el non-plain so data gets generated
@@ -3154,7 +3324,10 @@ function processAttrs(el) {
         if (isDynamic) {
           name = name.slice(1, -1)
         }
-        if (process.env.NODE_ENV !== 'production' && value.trim().length === 0) {
+        if (
+          process.env.NODE_ENV !== 'production' &&
+          value.trim().length === 0
+        ) {
           warn$1(
             'The value for a v-bind expression cannot be empty. Found in "v-bind:' +
               name +
@@ -3211,7 +3384,8 @@ function processAttrs(el) {
         }
         if (
           (modifiers && modifiers.prop) ||
-          (!el.component && platformMustUseProp(el.tag, el.attrsMap.type, name))
+          (!el.component &&
+            platformMustUseProp(el.tag, el.attrsMap.type, name))
         ) {
           addProp(el, name, value, list[i], isDynamic)
         } else {
@@ -3224,7 +3398,16 @@ function processAttrs(el) {
         if (isDynamic) {
           name = name.slice(1, -1)
         }
-        addHandler(el, name, value, modifiers, false, warn$1, list[i], isDynamic)
+        addHandler(
+          el,
+          name,
+          value,
+          modifiers,
+          false,
+          warn$1,
+          list[i],
+          isDynamic,
+        )
       } else {
         // normal directives
         name = name.replace(dirRE, '')
@@ -3239,8 +3422,20 @@ function processAttrs(el) {
             isDynamic = true
           }
         }
-        addDirective(el, name, rawName, value, arg, isDynamic, modifiers, list[i])
-        if (process.env.NODE_ENV !== 'production' && name === 'model') {
+        addDirective(
+          el,
+          name,
+          rawName,
+          value,
+          arg,
+          isDynamic,
+          modifiers,
+          list[i],
+        )
+        if (
+          process.env.NODE_ENV !== 'production' &&
+          name === 'model'
+        ) {
           checkForAliasModel(el, value)
         }
       }
@@ -3382,7 +3577,9 @@ function preTransformNode(el, options) {
 
     if (typeBinding) {
       var ifCondition = getAndRemoveAttr(el, 'v-if', true)
-      var ifConditionExtra = ifCondition ? '&&(' + ifCondition + ')' : ''
+      var ifConditionExtra = ifCondition
+        ? '&&(' + ifCondition + ')'
+        : ''
       var hasElse = getAndRemoveAttr(el, 'v-else', true) != null
       var elseIfCondition = getAndRemoveAttr(el, 'v-else-if', true)
       // 1. checkbox
@@ -3392,7 +3589,8 @@ function preTransformNode(el, options) {
       addRawAttr(branch0, 'type', 'checkbox')
       processElement(branch0, options)
       branch0.processed = true // prevent it from double-processed
-      branch0.if = '(' + typeBinding + ")==='checkbox'" + ifConditionExtra
+      branch0.if =
+        '(' + typeBinding + ")==='checkbox'" + ifConditionExtra
       addIfCondition(branch0, {
         exp: branch0.if,
         block: branch0,
@@ -3543,7 +3741,10 @@ function genCheckboxModel(el, value, modifiers) {
       genAssignmentCode(value, '$$a.concat([$$v])') +
       ')}' +
       'else{$$i>-1&&(' +
-      genAssignmentCode(value, '$$a.slice(0,$$i).concat($$a.slice($$i+1))') +
+      genAssignmentCode(
+        value,
+        '$$a.slice(0,$$i).concat($$a.slice($$i+1))',
+      ) +
       ')}' +
       '}else{' +
       genAssignmentCode(value, '$$c') +
@@ -3558,7 +3759,13 @@ function genRadioModel(el, value, modifiers) {
   var valueBinding = getBindingAttr(el, 'value') || 'null'
   valueBinding = number ? '_n(' + valueBinding + ')' : valueBinding
   addProp(el, 'checked', '_q(' + value + ',' + valueBinding + ')')
-  addHandler(el, 'change', genAssignmentCode(value, valueBinding), null, true)
+  addHandler(
+    el,
+    'change',
+    genAssignmentCode(value, valueBinding),
+    null,
+    true,
+  )
 }
 
 function genSelect(el, value, modifiers) {
@@ -3571,7 +3778,8 @@ function genSelect(el, value, modifiers) {
     (number ? '_n(val)' : 'val') +
     '})'
 
-  var assignment = '$event.target.multiple ? $$selectedVal : $$selectedVal[0]'
+  var assignment =
+    '$event.target.multiple ? $$selectedVal : $$selectedVal[0]'
   var code = 'var $$selectedVal = ' + selectedVal + ';'
   code = code + ' ' + genAssignmentCode(value, assignment)
   addHandler(el, 'change', code, null, true)
@@ -3584,9 +3792,12 @@ function genDefaultModel(el, value, modifiers) {
   // except for inputs with v-bind:type
   if (process.env.NODE_ENV !== 'production') {
     var value$1 = el.attrsMap['v-bind:value'] || el.attrsMap[':value']
-    var typeBinding = el.attrsMap['v-bind:type'] || el.attrsMap[':type']
+    var typeBinding =
+      el.attrsMap['v-bind:type'] || el.attrsMap[':type']
     if (value$1 && !typeBinding) {
-      var binding = el.attrsMap['v-bind:value'] ? 'v-bind:value' : ':value'
+      var binding = el.attrsMap['v-bind:value']
+        ? 'v-bind:value'
+        : ':value'
       warn$2(
         binding +
           '="' +
@@ -3603,7 +3814,11 @@ function genDefaultModel(el, value, modifiers) {
   var number = ref.number
   var trim = ref.trim
   var needCompositionGuard = !lazy && type !== 'range'
-  var event = lazy ? 'change' : type === 'range' ? RANGE_TOKEN : 'input'
+  var event = lazy
+    ? 'change'
+    : type === 'range'
+    ? RANGE_TOKEN
+    : 'input'
 
   var valueExpression = '$event.target.value'
   if (trim) {
@@ -3720,7 +3935,11 @@ function markStatic(node) {
       }
     }
     if (node.ifConditions) {
-      for (var i$1 = 1, l$1 = node.ifConditions.length; i$1 < l$1; i$1++) {
+      for (
+        var i$1 = 1, l$1 = node.ifConditions.length;
+        i$1 < l$1;
+        i$1++
+      ) {
         var block = node.ifConditions[i$1].block
         markStatic(block)
         if (!block.static) {
@@ -3755,7 +3974,11 @@ function markStaticRoots(node, isInFor) {
       }
     }
     if (node.ifConditions) {
-      for (var i$1 = 1, l$1 = node.ifConditions.length; i$1 < l$1; i$1++) {
+      for (
+        var i$1 = 1, l$1 = node.ifConditions.length;
+        i$1 < l$1;
+        i$1++
+      ) {
         markStaticRoots(node.ifConditions[i$1].block, isInFor)
       }
     }
@@ -3867,7 +4090,12 @@ function genHandlers(events, isNative) {
   staticHandlers = '{' + staticHandlers.slice(0, -1) + '}'
   if (dynamicHandlers) {
     return (
-      prefix + '_d(' + staticHandlers + ',[' + dynamicHandlers.slice(0, -1) + '])'
+      prefix +
+      '_d(' +
+      staticHandlers +
+      ',[' +
+      dynamicHandlers.slice(0, -1) +
+      '])'
     )
   } else {
     return prefix + staticHandlers
@@ -3893,7 +4121,9 @@ function genHandler(handler) {
 
   var isMethodPath = simplePathRE.test(handler.value)
   var isFunctionExpression = fnExpRE.test(handler.value)
-  var isFunctionInvocation = simplePathRE.test(handler.value.replace(fnInvokeRE, ''))
+  var isFunctionInvocation = simplePathRE.test(
+    handler.value.replace(fnInvokeRE, ''),
+  )
 
   if (!handler.modifiers) {
     if (isMethodPath || isFunctionExpression) {
@@ -3901,7 +4131,9 @@ function genHandler(handler) {
     }
     return (
       'function($event){' +
-      (isFunctionInvocation ? 'return ' + handler.value : handler.value) +
+      (isFunctionInvocation
+        ? 'return ' + handler.value
+        : handler.value) +
       '}'
     ) // inline statement
   } else {
@@ -4023,9 +4255,15 @@ var baseDirectives = {
 var CodegenState = function CodegenState(options) {
   this.options = options
   this.warn = options.warn || baseWarn
-  this.transforms = pluckModuleFunction(options.modules, 'transformCode')
+  this.transforms = pluckModuleFunction(
+    options.modules,
+    'transformCode',
+  )
   this.dataGenFns = pluckModuleFunction(options.modules, 'genData')
-  this.directives = extend(extend({}, baseDirectives), options.directives)
+  this.directives = extend(
+    extend({}, baseDirectives),
+    options.directives,
+  )
   var isReservedTag = options.isReservedTag || no
   this.maybeComponent = function (el) {
     return !!el.component || !isReservedTag(el.tag)
@@ -4072,7 +4310,9 @@ function genElement(el, state) {
         data = genData$2(el, state)
       }
 
-      var children = el.inlineTemplate ? null : genChildren(el, state, true)
+      var children = el.inlineTemplate
+        ? null
+        : genChildren(el, state, true)
       code =
         "_c('" +
         el.tag +
@@ -4099,7 +4339,9 @@ function genStatic(el, state) {
   if (el.pre) {
     state.pre = el.pre
   }
-  state.staticRenderFns.push('with(this){return ' + genElement(el, state) + '}')
+  state.staticRenderFns.push(
+    'with(this){return ' + genElement(el, state) + '}',
+  )
   state.pre = originalPreState
   return (
     '_m(' +
@@ -4132,7 +4374,15 @@ function genOnce(el, state) {
         )
       return genElement(el, state)
     }
-    return '_o(' + genElement(el, state) + ',' + state.onceId++ + ',' + key + ')'
+    return (
+      '_o(' +
+      genElement(el, state) +
+      ',' +
+      state.onceId++ +
+      ',' +
+      key +
+      ')'
+    )
   } else {
     return genStatic(el, state)
   }
@@ -4140,7 +4390,12 @@ function genOnce(el, state) {
 
 function genIf(el, state, altGen, altEmpty) {
   el.ifProcessed = true // avoid recursion
-  return genIfConditions(el.ifConditions.slice(), state, altGen, altEmpty)
+  return genIfConditions(
+    el.ifConditions.slice(),
+    state,
+    altGen,
+    altEmpty,
+  )
 }
 
 function genIfConditions(conditions, state, altGen, altEmpty) {
@@ -4297,7 +4552,14 @@ function genData$2(el, state) {
   // v-bind with dynamic arguments must be applied using the same v-bind object
   // merge helper so that class/style/mustUseProp attrs are handled correctly.
   if (el.dynamicAttrs) {
-    data = '_b(' + data + ',"' + el.tag + '",' + genProps(el.dynamicAttrs) + ')'
+    data =
+      '_b(' +
+      data +
+      ',"' +
+      el.tag +
+      '",' +
+      genProps(el.dynamicAttrs) +
+      ')'
   }
   // v-bind data wrap
   if (el.wrapData) {
@@ -4336,12 +4598,18 @@ function genDirectives(el, state) {
         dir.rawName +
         '"' +
         (dir.value
-          ? ',value:(' + dir.value + '),expression:' + JSON.stringify(dir.value)
+          ? ',value:(' +
+            dir.value +
+            '),expression:' +
+            JSON.stringify(dir.value)
           : '') +
         (dir.arg
-          ? ',arg:' + (dir.isDynamicArg ? dir.arg : '"' + dir.arg + '"')
+          ? ',arg:' +
+            (dir.isDynamicArg ? dir.arg : '"' + dir.arg + '"')
           : '') +
-        (dir.modifiers ? ',modifiers:' + JSON.stringify(dir.modifiers) : '') +
+        (dir.modifiers
+          ? ',modifiers:' + JSON.stringify(dir.modifiers)
+          : '') +
         '},'
     }
   }
@@ -4356,9 +4624,12 @@ function genInlineTemplate(el, state) {
     process.env.NODE_ENV !== 'production' &&
     (el.children.length !== 1 || ast.type !== 1)
   ) {
-    state.warn('Inline-template components must have exactly one child element.', {
-      start: el.start,
-    })
+    state.warn(
+      'Inline-template components must have exactly one child element.',
+      {
+        start: el.start,
+      },
+    )
   }
   if (ast && ast.type === 1) {
     var inlineRenderFns = generate(ast, state.options)
@@ -4386,7 +4657,10 @@ function genScopedSlots(el, slots, state) {
     Object.keys(slots).some(function (key) {
       var slot = slots[key]
       return (
-        slot.slotTargetDynamic || slot.if || slot.for || containsSlotChild(slot) // is passing down slot from parent which may be dynamic
+        slot.slotTargetDynamic ||
+        slot.if ||
+        slot.for ||
+        containsSlotChild(slot) // is passing down slot from parent which may be dynamic
       )
     })
 
@@ -4405,7 +4679,8 @@ function genScopedSlots(el, slots, state) {
     var parent = el.parent
     while (parent) {
       if (
-        (parent.slotScope && parent.slotScope !== emptySlotScopeToken) ||
+        (parent.slotScope &&
+          parent.slotScope !== emptySlotScopeToken) ||
         parent.for
       ) {
         needsForceUpdate = true
@@ -4429,7 +4704,9 @@ function genScopedSlots(el, slots, state) {
     generatedSlots +
     ']' +
     (needsForceUpdate ? ',null,true' : '') +
-    (!needsForceUpdate && needsKey ? ',null,false,' + hash(generatedSlots) : '') +
+    (!needsForceUpdate && needsKey
+      ? ',null,false,' + hash(generatedSlots)
+      : '') +
     ')'
   )
 }
@@ -4461,7 +4738,8 @@ function genScopedSlot(el, state) {
   if (el.for && !el.forProcessed) {
     return genFor(el, state, genScopedSlot)
   }
-  var slotScope = el.slotScope === emptySlotScopeToken ? '' : String(el.slotScope)
+  var slotScope =
+    el.slotScope === emptySlotScopeToken ? '' : String(el.slotScope)
   var fn =
     'function(' +
     slotScope +
@@ -4469,16 +4747,33 @@ function genScopedSlot(el, state) {
     'return ' +
     (el.tag === 'template'
       ? el.if && isLegacySyntax
-        ? '(' + el.if + ')?' + (genChildren(el, state) || 'undefined') + ':undefined'
+        ? '(' +
+          el.if +
+          ')?' +
+          (genChildren(el, state) || 'undefined') +
+          ':undefined'
         : genChildren(el, state) || 'undefined'
       : genElement(el, state)) +
     '}'
   // reverse proxy v-slot without scope on this.$slots
   var reverseProxy = slotScope ? '' : ',proxy:true'
-  return '{key:' + (el.slotTarget || '"default"') + ',fn:' + fn + reverseProxy + '}'
+  return (
+    '{key:' +
+    (el.slotTarget || '"default"') +
+    ',fn:' +
+    fn +
+    reverseProxy +
+    '}'
+  )
 }
 
-function genChildren(el, state, checkSkip, altGenElement, altGenNode) {
+function genChildren(
+  el,
+  state,
+  checkSkip,
+  altGenElement,
+  altGenNode,
+) {
   var children = el.children
   if (children.length) {
     var el$1 = children[0]
@@ -4494,7 +4789,11 @@ function genChildren(el, state, checkSkip, altGenElement, altGenNode) {
           ? ',1'
           : ',0'
         : ''
-      return '' + (altGenElement || genElement)(el$1, state) + normalizationType
+      return (
+        '' +
+        (altGenElement || genElement)(el$1, state) +
+        normalizationType
+      )
     }
     var normalizationType$1 = checkSkip
       ? getNormalizationType(children, state.maybeComponent)
@@ -4548,7 +4847,9 @@ function getNormalizationType(children, maybeComponent) {
 }
 
 function needsNormalization(el) {
-  return el.for !== undefined || el.tag === 'template' || el.tag === 'slot'
+  return (
+    el.for !== undefined || el.tag === 'template' || el.tag === 'slot'
+  )
 }
 
 function genNode(node, state) {
@@ -4582,14 +4883,16 @@ function genSlot(el, state) {
   var attrs =
     el.attrs || el.dynamicAttrs
       ? genProps(
-          (el.attrs || []).concat(el.dynamicAttrs || []).map(function (attr) {
-            return {
-              // slot props are camelized
-              name: camelize(attr.name),
-              value: attr.value,
-              dynamic: attr.dynamic,
-            }
-          }),
+          (el.attrs || [])
+            .concat(el.dynamicAttrs || [])
+            .map(function (attr) {
+              return {
+                // slot props are camelized
+                name: camelize(attr.name),
+                value: attr.value,
+                dynamic: attr.dynamic,
+              }
+            }),
         )
       : null
   var bind$$1 = el.attrsMap['v-bind']
@@ -4607,7 +4910,9 @@ function genSlot(el, state) {
 
 // componentName is el.component, take it as argument to shun flow's pessimistic refinement
 function genComponent(componentName, el, state) {
-  var children = el.inlineTemplate ? null : genChildren(el, state, true)
+  var children = el.inlineTemplate
+    ? null
+    : genChildren(el, state, true)
   return (
     '_c(' +
     componentName +
@@ -4632,7 +4937,9 @@ function genProps(props) {
   }
   staticProps = '{' + staticProps.slice(0, -1) + '}'
   if (dynamicProps) {
-    return '_d(' + staticProps + ',[' + dynamicProps.slice(0, -1) + '])'
+    return (
+      '_d(' + staticProps + ',[' + dynamicProps.slice(0, -1) + '])'
+    )
   } else {
     return staticProps
   }
@@ -4640,7 +4947,9 @@ function genProps(props) {
 
 // #3895, #4268
 function transformSpecialNewlines(text) {
-  return text.replace(/\u2028/g, '\\u2028').replace(/\u2029/g, '\\u2029')
+  return text
+    .replace(/\u2028/g, '\\u2028')
+    .replace(/\u2029/g, '\\u2029')
 }
 
 /*  */
@@ -4695,7 +5004,12 @@ function checkNode(node, warn) {
           } else if (onRE.test(name)) {
             checkEvent(value, name + '="' + value + '"', warn, range)
           } else {
-            checkExpression(value, name + '="' + value + '"', warn, range)
+            checkExpression(
+              value,
+              name + '="' + value + '"',
+              warn,
+              range,
+            )
           }
         }
       }
@@ -4713,7 +5027,10 @@ function checkNode(node, warn) {
 function checkEvent(exp, text, warn, range) {
   var stripped = exp.replace(stripStringRE, '')
   var keywordMatch = stripped.match(unaryOperatorsRE)
-  if (keywordMatch && stripped.charAt(keywordMatch.index - 1) !== '$') {
+  if (
+    keywordMatch &&
+    stripped.charAt(keywordMatch.index - 1) !== '$'
+  ) {
     warn(
       'avoid using JavaScript unary operator as property name: ' +
         '"' +
@@ -4739,7 +5056,12 @@ function checkIdentifier(ident, type, text, warn, range) {
       new Function('var ' + ident + '=_')
     } catch (e) {
       warn(
-        'invalid ' + type + ' "' + ident + '" in expression: ' + text.trim(),
+        'invalid ' +
+          type +
+          ' "' +
+          ident +
+          '" in expression: ' +
+          text.trim(),
         range,
       )
     }
@@ -4750,7 +5072,9 @@ function checkExpression(exp, text, warn, range) {
   try {
     new Function('return ' + exp)
   } catch (e) {
-    var keywordMatch = exp.replace(stripStringRE, '').match(prohibitedKeywordRE)
+    var keywordMatch = exp
+      .replace(stripStringRE, '')
+      .match(prohibitedKeywordRE)
     if (keywordMatch) {
       warn(
         'avoid using JavaScript keyword as property name: ' +
@@ -4815,14 +5139,20 @@ function generateCodeFrame(source, start, end) {
           continue
         }
         res.push(
-          '' + (j + 1) + repeat$1(' ', 3 - String(j + 1).length) + '|  ' + lines[j],
+          '' +
+            (j + 1) +
+            repeat$1(' ', 3 - String(j + 1).length) +
+            '|  ' +
+            lines[j],
         )
         var lineLength = lines[j].length
         if (j === i) {
           // push underline
           var pad = start - (count - lineLength) + 1
           var length = end > count ? lineLength - pad : end - start
-          res.push('   |  ' + repeat$1(' ', pad) + repeat$1('^', length))
+          res.push(
+            '   |  ' + repeat$1(' ', pad) + repeat$1('^', length),
+          )
         } else if (j > i) {
           if (end > count) {
             var length$1 = Math.min(end - count, lineLength)
@@ -4893,7 +5223,9 @@ function createCompileToFunctionFn(compile) {
     }
 
     // check cache
-    var key = options.delimiters ? String(options.delimiters) + template : template
+    var key = options.delimiters
+      ? String(options.delimiters) + template
+      : template
     if (cache[key]) {
       return cache[key]
     }
@@ -4946,7 +5278,9 @@ function createCompileToFunctionFn(compile) {
     var res = {}
     var fnGenErrors = []
     res.render = createFunction(compiled.render, fnGenErrors)
-    res.staticRenderFns = compiled.staticRenderFns.map(function (code) {
+    res.staticRenderFns = compiled.staticRenderFns.map(function (
+      code,
+    ) {
       return createFunction(code, fnGenErrors)
     })
 
@@ -4955,7 +5289,10 @@ function createCompileToFunctionFn(compile) {
     // mostly for codegen development use
     /* istanbul ignore if */
     if (process.env.NODE_ENV !== 'production') {
-      if ((!compiled.errors || !compiled.errors.length) && fnGenErrors.length) {
+      if (
+        (!compiled.errors || !compiled.errors.length) &&
+        fnGenErrors.length
+      ) {
         warn$$1(
           'Failed to generate render function:\n\n' +
             fnGenErrors
@@ -4989,7 +5326,10 @@ function createCompilerCreator(baseCompile) {
       }
 
       if (options) {
-        if (process.env.NODE_ENV !== 'production' && options.outputSourceRange) {
+        if (
+          process.env.NODE_ENV !== 'production' &&
+          options.outputSourceRange
+        ) {
           // $flow-disable-line
           var leadingSpaceLength = template.match(/^\s*/)[0].length
 
@@ -5008,7 +5348,9 @@ function createCompilerCreator(baseCompile) {
         }
         // merge custom modules
         if (options.modules) {
-          finalOptions.modules = (baseOptions.modules || []).concat(options.modules)
+          finalOptions.modules = (baseOptions.modules || []).concat(
+            options.modules,
+          )
         }
         // merge custom directives
         if (options.directives) {
@@ -5048,7 +5390,10 @@ function createCompilerCreator(baseCompile) {
 // `createCompilerCreator` allows creating compilers that use alternative
 // parser/optimizer/codegen, e.g the SSR optimizing compiler.
 // Here we just export a default compiler using the default parts.
-var createCompiler = createCompilerCreator(function baseCompile(template, options) {
+var createCompiler = createCompilerCreator(function baseCompile(
+  template,
+  options,
+) {
   var ast = parse(template.trim(), options)
   if (options.optimize !== false) {
     optimize(ast, options)
@@ -5087,7 +5432,11 @@ var isAttr = makeMap(
 
 /* istanbul ignore next */
 var isRenderableAttr = function (name) {
-  return isAttr(name) || name.indexOf('data-') === 0 || name.indexOf('aria-') === 0
+  return (
+    isAttr(name) ||
+    name.indexOf('data-') === 0 ||
+    name.indexOf('aria-') === 0
+  )
 }
 
 var propsToAttrMap = {
@@ -5193,7 +5542,9 @@ function genAttrSegment(name, value) {
 
 function genClassSegments(staticClass, classBinding) {
   if (staticClass && !classBinding) {
-    return [{type: RAW, value: ' class="' + JSON.parse(staticClass) + '"'}]
+    return [
+      {type: RAW, value: ' class="' + JSON.parse(staticClass) + '"'},
+    ]
   } else {
     return [
       {
@@ -5216,7 +5567,9 @@ function genStyleSegments(
   vShowExpression,
 ) {
   if (staticStyle && !styleBinding && !vShowExpression) {
-    return [{type: RAW, value: ' style=' + JSON.stringify(staticStyle)}]
+    return [
+      {type: RAW, value: ' style=' + JSON.stringify(staticStyle)},
+    ]
   } else {
     return [
       {
@@ -5281,7 +5634,11 @@ function walk(node, isRoot) {
       check(child)
     }
     if (node.ifConditions) {
-      for (var i$1 = 1, l$1 = node.ifConditions.length; i$1 < l$1; i$1++) {
+      for (
+        var i$1 = 1, l$1 = node.ifConditions.length;
+        i$1 < l$1;
+        i$1++
+      ) {
         var block = node.ifConditions[i$1].block
         walk(block, isRoot)
         check(block)
@@ -5289,7 +5646,8 @@ function walk(node, isRoot) {
     }
     if (
       node.ssrOptimizability == null ||
-      (!isRoot && (node.attrsMap['v-html'] || node.attrsMap['v-text']))
+      (!isRoot &&
+        (node.attrsMap['v-html'] || node.attrsMap['v-text']))
     ) {
       node.ssrOptimizability = optimizability.FULL
     } else {
@@ -5349,7 +5707,9 @@ function isUnOptimizableTree(node) {
   )
 }
 
-var isBuiltInDir = makeMap('text,html,show,on,bind,model,pre,cloak,once')
+var isBuiltInDir = makeMap(
+  'text,html,show,on,bind,model,pre,cloak,once',
+)
 
 function hasCustomDirective(node) {
   return (
@@ -5445,7 +5805,9 @@ function genSSRNode(el, state) {
 
 function genChildrenAsStringNode(el, state) {
   return el.children.length
-    ? '_ssrNode(' + flattenSegments(childrenToSegments(el, state)) + ')'
+    ? '_ssrNode(' +
+        flattenSegments(childrenToSegments(el, state)) +
+        ')'
     : ''
 }
 
@@ -5497,7 +5859,9 @@ function elementToSegments(el, state) {
   var ref = state.options
   var isUnaryTag = ref.isUnaryTag
   var close =
-    isUnaryTag && isUnaryTag(el.tag) ? [] : [{type: RAW, value: '</' + el.tag + '>'}]
+    isUnaryTag && isUnaryTag(el.tag)
+      ? []
+      : [{type: RAW, value: '</' + el.tag + '>'}]
   return openSegments.concat(childrenSegments, close)
 }
 
@@ -5511,19 +5875,31 @@ function elementToOpenTagSegments(el, state) {
   }
   // domProps
   if (el.props) {
-    segments.push.apply(segments, genDOMPropSegments(el.props, el.attrs))
+    segments.push.apply(
+      segments,
+      genDOMPropSegments(el.props, el.attrs),
+    )
   }
   // v-bind="object"
   if ((binding = el.attrsMap['v-bind'])) {
-    segments.push({type: EXPRESSION, value: '_ssrAttrs(' + binding + ')'})
+    segments.push({
+      type: EXPRESSION,
+      value: '_ssrAttrs(' + binding + ')',
+    })
   }
   // v-bind.prop="object"
   if ((binding = el.attrsMap['v-bind.prop'])) {
-    segments.push({type: EXPRESSION, value: '_ssrDOMProps(' + binding + ')'})
+    segments.push({
+      type: EXPRESSION,
+      value: '_ssrDOMProps(' + binding + ')',
+    })
   }
   // class
   if (el.staticClass || el.classBinding) {
-    segments.push.apply(segments, genClassSegments(el.staticClass, el.classBinding))
+    segments.push.apply(
+      segments,
+      genClassSegments(el.staticClass, el.classBinding),
+    )
   }
   // style & v-show
   if (el.staticStyle || el.styleBinding || el.attrsMap['v-show']) {

@@ -4,8 +4,8 @@ type Terser = (this: Bud, options?: any) => Bud
 
 const terser: Terser = function (options) {
   if (options) {
-    this.options.set('terser', {
-      ...this.options.get('terser'),
+    this.options.set('adapters.terser', {
+      ...this.options.get('adapters.terser'),
       ...options,
     })
   }

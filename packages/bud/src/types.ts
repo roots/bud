@@ -1,12 +1,14 @@
-import type {Loose, WebpackMode} from '@roots/bud-typings'
-
 import * as Api from './api/types'
-import type {Container} from './container'
+import type {
+  Container,
+  ExtensionContainer,
+  FileContainer,
+} from './container'
 import type {Hooks} from './hooks/types'
 import type {Paths, Features, Options} from './repositories/types'
-import type {FileContainer} from './container'
 import type {Util} from './util/types'
 
+import type {Loose, WebpackMode} from '@roots/bud-typings'
 export type {Use, UsesHash} from './repositories/rulesets'
 
 /**
@@ -20,7 +22,14 @@ export interface Bud extends Loose {
    *
    * Webpack plugins
    */
-  adapters: any
+  adapters: ExtensionContainer
+
+  /**
+   * ## bud.apply
+   *
+   * Extend the bud framework
+   */
+  apply: (string, any) => void
 
   /**
    * ## bud.compiler
@@ -37,11 +46,25 @@ export interface Bud extends Loose {
   configs: FileContainer
 
   /**
+   * ## bud.env
+   *
+   * Project environment variables.
+   */
+  env: Container
+
+  /**
    * ## bud.features
    *
    * Status of features
    */
   features: Features
+
+  /**
+   * ## bud.fs
+   *
+   * Filesystem utilities.
+   */
+  fs: Util['fs']
 
   /**
    * ## bud.hooks
@@ -111,20 +134,7 @@ export interface Bud extends Loose {
    *
    * Bud framework plugins and webpack adapters.
    */
-  plugins: any
-
-  /**
-   * ## bud.presets
-   *
-   * Bud ships with several preset configurations for popular build tools. This function returns an object with two properties:
-   * - config: the preset as an object
-   * - path: the preset path
-   *
-   * ```js
-   * bud.presets.get('babel-wp')
-   * ```
-   */
-  presets: Container
+  plugins: ExtensionContainer
 
   /**
    * ## bud.rules
@@ -515,55 +525,3 @@ export interface Bud extends Loose {
    */
   watch: Api.Watch
 }
-
-/**
- * Conditional check determining whether to engage extension functionality.
- */
-export type ExtensionConditional = (this: ExtensionInterface) => boolean
-
-/**
- * Extension method handling options
- */
-export type ExtensionOptions = (this: ExtensionInterface) => Loose
-
-/**
- * Constitutes primary extension action.
- */
-export type ExtensionMake = (this: ExtensionInterface) => void
-
-/**
- * Bud Extension Interface
- *
- * @interface
- */
-export interface ExtensionInterface extends Loose {
-  /**
-   * Bud container.
-   */
-  bud: Bud
-
-  /**
-   * Set options
-   */
-  setOptions?: ExtensionOptions
-
-  /**
-   * Merge options
-   */
-  mergeOptions?: ExtensionOptions
-
-  /**
-   * Primary action of extension.
-   */
-  make: ExtensionMake
-
-  /**
-   * When true extension is utilized.
-   */
-  when?: ExtensionConditional
-}
-
-/**
- * Bud Extension
- */
-export type Extension = (bud: Bud) => ExtensionInterface

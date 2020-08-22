@@ -28,6 +28,9 @@ const rule = (bud: Bud) => ({
  */
 const sass: Extension = (bud: Bud): ExtensionInterface => ({
   bud,
+
+  name: 'sass',
+
   make: function () {
     !this.bud.options.get('resolve.extensions').includes('.sass') &&
       this.bud.options.set('resolve.extensions', [
@@ -40,7 +43,8 @@ const sass: Extension = (bud: Bud): ExtensionInterface => ({
         ...this.bud.options.get('resolve.extensions'),
         '.scss',
       ])
-    this.bud.sass = config
+
+    this.bud.apply('sass', config)
 
     this.bud.rules.repository = [...this.bud.rules.repository, rule]
   },

@@ -22,14 +22,14 @@
     "node": ">=12"
   },
   "files": [
-    "dist"
+    "lib"
   ],
-  "main": "dist/index.js",
-  "types": "dist/index.d.ts",
+  "main": "lib/index.js",
+  "types": "lib/index.d.ts",
   "scripts": {
     "lint": "eslint src/**.ts",
     "watch": "npm run build && npm link && nodemon",
-    "build": "rimraf ./dist && tsc"
+    "build": "rimraf ./lib && tsc"
   },
   "devDependencies": {
     "nodemon": "^2.0.4",

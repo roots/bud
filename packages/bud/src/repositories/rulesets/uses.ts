@@ -52,7 +52,10 @@ const uses: UsesHash = {
 
   css: (bud: Bud) =>
     bud.hooks.filter('webpack.modules.css', {
-      loader: bud.hooks.filter('webpack.modules.css.loader', bud.loaders.get('css')),
+      loader: bud.hooks.filter(
+        'webpack.modules.css.loader',
+        bud.loaders.get('css'),
+      ),
     }),
 
   resolveUrl: (bud: Bud) =>
@@ -74,7 +77,10 @@ const uses: UsesHash = {
         bud.loaders.get('postCss'),
       ),
       options: bud.hooks.filter('webpack.module.postcss.options', {
-        ident: bud.hooks.filter('webpack.module.postcss.options.ident', 'postcss'),
+        ident: bud.hooks.filter(
+          'webpack.module.postcss.options.ident',
+          'postcss',
+        ),
         ...bud.options.get('postcss'),
       }),
     }),

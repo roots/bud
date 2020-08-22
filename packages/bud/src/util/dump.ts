@@ -11,7 +11,10 @@ const dump: Dump = (obj: any, prettierOptions?: any): void => {
   const prettierConfig = prettierOptions ?? {parser: 'json'}
 
   const normalizedString: string = JSON.stringify(obj, shortCircuit())
-  const prettifiedString: string = format(normalizedString, prettierConfig)
+  const prettifiedString: string = format(
+    normalizedString,
+    prettierConfig,
+  )
   const highlightedConfig: string = highlight(prettifiedString)
 
   console.log(highlightedConfig)

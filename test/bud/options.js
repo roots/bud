@@ -4,13 +4,7 @@ const {bud} = require('@roots/bud')
 test('has expected babel defaults', t => {
   t.deepEqual(bud.options.get('babel'), {
     plugins: [],
-    presets: [[
-      require('@babel/preset-env'),
-      {
-        modules: false,
-        forceAllTransforms: true,
-      },
-    ]],
+    presets: [require.resolve('@babel/preset-env')],
   })
 })
 
@@ -88,7 +82,7 @@ test('has expected target defaults', t => {
 })
 
 test('has expected terser defaults', t => {
-  t.deepEqual(bud.options.get('terser'), {
+  t.deepEqual(bud.options.get('adapters.terser'), {
     cache: true,
     parallel: true,
     terserOptions: {

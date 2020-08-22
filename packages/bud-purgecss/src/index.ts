@@ -11,8 +11,11 @@ import {wordpress} from './presets'
  */
 const purgecss: Extension = (bud: Bud): ExtensionInterface => ({
   bud,
+
+  name: 'purgecss',
+
   make: function (this: ExtensionInterface): void {
-    this.bud.purgecss = config
+    this.bud.apply('purgecss', config)
   },
 })
 

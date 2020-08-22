@@ -1,12 +1,14 @@
 import type {Bud} from '..'
+import {ExtensionRepository} from '../repositories/adapters'
 
-type UseExtension = (this: Bud, plugin: any) => Bud
+type UseExtension = (this: Bud, plugin: any[]) => Bud
 
-const use: UseExtension = function (this: Bud, plugins: any[]): Bud {
-  const controller = this.plugins.controller(this)
-
-  plugins.map(plugin => {
-    controller.build(plugin)
+const use: UseExtension = function (
+  this: Bud,
+  extensions: ExtensionRepository,
+): Bud {
+  extensions.map(extension => {
+    this.adapters.controller(this, extension).build()
   })
 
   return this

@@ -40,7 +40,10 @@ const makeMiddleware = (bud, setDevStats) => {
     'making dev server middleware from options',
   )
 
-  const devMiddleware = webpackDevMiddleware(bud.compiler, devMiddlewareOptions)
+  const devMiddleware = webpackDevMiddleware(
+    bud.compiler,
+    devMiddlewareOptions,
+  )
   const hotMiddleware = webpackHotMiddleware(bud.compiler, {
     reload: false,
     heartbeat: 2000,
@@ -91,7 +94,10 @@ const useHotSyncServer = bud => {
 
   useEffect(() => {
     hotSyncServer &&
-      bud.logger.info({name: 'bud.compiler'}, 'hot sync server initialized')
+      bud.logger.info(
+        {name: 'bud.compiler'},
+        'hot sync server initialized',
+      )
   }, [hotSyncServer])
 
   return [hotSyncServer, devStats]

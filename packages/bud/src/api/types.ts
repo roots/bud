@@ -27,7 +27,10 @@ export type Hot = (
 ) => Bud
 export type Mini = (enabled?: boolean) => Bud
 export type Option = (key: string) => string
-export type PostCss = (options?: {enabled?: boolean; plugins?: any[]}) => Bud
+export type PostCss = (options?: {
+  enabled?: boolean
+  plugins?: any[]
+}) => Bud
 export type Preset = (path?: string) => any
 export type Project = (path?: string) => string
 export type Resolve = (moduleName: string) => string
@@ -36,7 +39,10 @@ export type Splitting = (enabled?: boolean) => Bud
 export type Src = (path?: string) => string
 export type Sync = (options: SyncOptions) => Bud
 export type Target = (target: string) => Bud
-export type Watch = (options: {paths: string[]; enabled: boolean}) => Bud
+export type Watch = (options: {
+  paths: string[]
+  enabled: boolean
+}) => Bud
 
 import type {Alias} from './alias'
 export type {Alias}

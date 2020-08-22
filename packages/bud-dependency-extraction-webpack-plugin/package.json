@@ -1,0 +1,48 @@
+{
+  "name": "@roots/bud-dependency-extraction-webpack-plugin",
+  "version": "1.0.0",
+  "description": "Adds @wordpress/dependency-extraction-webpack-plugin to Bud",
+  "homepage": "https://roots.io/bud",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "packages/bud-dependency-extraction-webpack-plugin"
+  },
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "license": "MIT",
+  "contributors": [
+    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
+  ],
+  "engines": {
+    "node": ">=12"
+  },
+  "files": ["lib"],
+  "main": "lib/cjs/bud-dependency-extraction-webpack-plugin.min.js",
+  "module": "lib/es/bud-dependency-extraction-webpack-plugin.js",
+  "types": "lib/types/index.d.ts",
+  "scripts": {
+    "build": "rimraf ./lib && rollup -c ./rollup.config.js",
+    "lint": "eslint src/**.ts",
+    "watch": "npm run build && npm link && nodemon"
+  },
+  "dependencies": {
+    "@types/wordpress__dependency-extraction-webpack-plugin": "^2.7.0",
+    "@typescript-eslint/eslint-plugin": "^3.8.0",
+    "@typescript-eslint/parser": "^3.8.0",
+    "@wordpress/dependency-extraction-webpack-plugin": "^2.8.0",
+    "eslint": "^7.6.0",
+    "eslint-plugin-react": "^7.20.5",
+    "typedoc-plugin-markdown": "^2.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4",
+    "rimraf": "^3.0.2",
+    "ts-node": "^8.10.2"
+  }
+}

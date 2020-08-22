@@ -9,7 +9,10 @@ const watch: Watch = function (
 ): Bud {
   options?.enabled && this.features.enable('watch')
   options?.paths &&
-    this.options.set('watch', this.hooks.filter('api.watch', options.paths))
+    this.options.set(
+      'watch',
+      this.hooks.filter('api.watch', options.paths),
+    )
 
   return this
 }

@@ -2,14 +2,23 @@ import {build} from './webpack'
 import {renderCompilerDashboard} from './renderCompilerDashboard'
 import type {Bud} from './types'
 
-const compiler = (bud: Bud): any => ({
+interface CompilerController {
+  bud: Bud
+  dashboardEnabled: () => boolean
+  buildConfig: () => CompilerController
+  compile: () => void
+}
+
+type CompilerFactory = (bud: Bud) => CompilerController
+
+const compiler: CompilerFactory = (bud: Bud): CompilerController => ({
   bud,
 
-  dashboardEnabled: function () {
+  dashboardEnabled: function (): boolean {
     return this.bud.features.enabled('dashboard')
   },
 
-  buildConfig: function () {
+  buildConfig: function (): CompilerController {
     this.config = build(this.bud)
 
     return this
@@ -21,3 +30,4 @@ const compiler = (bud: Bud): any => ({
 })
 
 export {compiler}
+export type {CompilerController, CompilerFactory}

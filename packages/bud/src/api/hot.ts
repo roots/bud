@@ -1,6 +1,5 @@
 import type {Bud, Hot} from './types'
 import chokidar from 'chokidar'
-import { bud } from '..'
 
 const hot: Hot = function (
   this: Bud,
@@ -22,14 +21,19 @@ const hot: Hot = function (
   this.features.set('hot', options?.enabled ?? this.inDevelopment)
 
   options?.watch &&
-    this.options.set('watch', [...this.options.get('watch'), ...options.watch])
+    this.options.set('watch', [
+      ...this.options.get('watch'),
+      ...options.watch,
+    ])
 
   const devServer = this.options.has('devServer')
     ? this.options.get('devServer')
     : {}
 
   const proxyAll =
-    devServer.proxy && devServer.proxy['**'] ? devServer.proxy['**'] : {}
+    devServer.proxy && devServer.proxy['**']
+      ? devServer.proxy['**']
+      : {}
 
   const chokidarHandler = options?.chokidar ?? {
     before(app, server) {
@@ -51,7 +55,9 @@ const hot: Hot = function (
       secure: options?.secure ?? devServer.secure ?? false,
       open: options?.open ?? devServer.open ?? true,
       historyApiFallback:
-        options?.historyApiFallback ?? devServer.historyApiFallback ?? true,
+        options?.historyApiFallback ??
+        devServer.historyApiFallback ??
+        true,
       headers: {
         ...(this.options.get('headers') ?? []),
         ...(options?.headers ?? []),
@@ -60,9 +66,12 @@ const hot: Hot = function (
         ...(devServer.proxy ?? []),
         '**': {
           ...(proxyAll ?? []),
-          target: options?.host ?? proxyAll?.target ?? 'http://localhost',
-          secure: options?.secure ?? proxyAll?.secure ?? devServer.secure,
-          changeOrigin: options?.changeOrigin ?? proxyAll?.changeOrigin ?? true,
+          target:
+            options?.host ?? proxyAll?.target ?? 'http://localhost',
+          secure:
+            options?.secure ?? proxyAll?.secure ?? devServer.secure,
+          changeOrigin:
+            options?.changeOrigin ?? proxyAll?.changeOrigin ?? true,
           port: options?.port ?? proxyAll?.port ?? devServer.port,
           headers: {
             ...this.options.get('devServer.headers'),

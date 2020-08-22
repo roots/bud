@@ -1,15 +1,22 @@
+import {adapter} from './adapter'
+import {api} from './api'
+
 import {Bud, Extension, ExtensionInterface} from '@roots/bud'
 
-import adapter from './adapter'
-import api from './api'
-
-const jsonPalette: Extension = (bud: Bud): ExtensionInterface => ({
+/**
+ * ## bud.paletteWebpackPlugin
+ */
+const paletteWebpackPlugin: Extension = (
+  bud: Bud,
+): ExtensionInterface => ({
   bud,
 
+  name: 'palette-webpack-plugin',
+
   make: function (this: ExtensionInterface) {
-    this.bud.setPaletteBlacklist = api
+    this.bud.apply('setPaletteBlacklist', api)
     this.bud.adapters.add(adapter)
   },
 })
 
-exports = {palettePlugin}
+export {paletteWebpackPlugin}

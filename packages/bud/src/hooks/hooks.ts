@@ -36,7 +36,10 @@ const hooks = (logger: any): Hooks => ({
    * Register a function as a bud hook.
    */
   on: function (name, callback) {
-    this.logger.info({name, callback: callback.name}, 'filter callback defined')
+    this.logger.info(
+      {name, callback: callback.name},
+      'filter callback defined',
+    )
 
     if (!this.registered[name]) {
       this.registered[name] = []

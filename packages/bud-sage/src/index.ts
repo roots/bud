@@ -1,14 +1,23 @@
-import type {Bud, Extension, ExtensionInterface} from '@roots/bud'
-import {extraction as extractionExtension} from '@roots/bud-dependency-extraction'
+import {bud} from '@roots/bud'
+import type {Bud, Extension} from '@roots/bud'
+import {extraction as extractionExtension} from '@roots/bud-dependency-extraction-webpack-plugin'
 import {sass as sassExtension} from '@roots/bud-sass'
 import {eslint as eslintExtension} from '@roots/bud-eslint'
 import {stylelint as stylelintExtension} from '@roots/bud-stylelint'
-import {purgecss as purgecssExtension, presets} from '@roots/bud-purgecss'
+import {
+  purgecss as purgecssExtension,
+  presets,
+} from '@roots/bud-purgecss'
 
 /**
  * Available features.
  */
-type FeatureKey = 'purge' | 'eslint' | 'stylelint' | 'extraction' | 'sass'
+type FeatureKey =
+  | 'purge'
+  | 'eslint'
+  | 'stylelint'
+  | 'extraction'
+  | 'sass'
 
 /**
  * Map features to their extensions
@@ -32,25 +41,33 @@ interface Enabled {
  *  purge: false,
  * })
  */
-interface Sage {
-  (this: Bud, enabled: Enabled): Bud
+interface Sage extends Bud {
+  purgecss: any
+  sass: any
+  withFeatures: any
+}
+
+interface WithFeatures {
+  (this: Sage, enabled: Enabled): Sage
 }
 
 const features: Features = {
-  purge: purgecssExtension,
+  purgecss: purgecssExtension,
   eslint: eslintExtension,
   stylelint: stylelintExtension,
   extraction: extractionExtension,
   sass: sassExtension,
 }
 
-const withFeatures: Sage = function (options): Bud {
+const withFeatures: WithFeatures = function (options): Sage {
   const enabled: Extension[] = []
 
   options
     ? Object.entries(features).forEach(([feature, extension]) => {
         const isEnabled =
-          !options || !options.hasOwnProperty(feature) || options[feature] !== false
+          !options ||
+          !options.hasOwnProperty(feature) ||
+          options[feature] !== false
 
         isEnabled && enabled.push(extension)
       })
@@ -76,30 +93,28 @@ const withFeatures: Sage = function (options): Bud {
  *
  * Preset configuration for Sage projects
  */
-const sage: Extension = (bud: Bud): ExtensionInterface => ({
-  bud,
-  make: function (this: ExtensionInterface): void {
-    this.bud.withFeatures = withFeatures
+const sage = (() => {
+  bud.apply('withFeatures', withFeatures)
+  bud
+    .srcPath('resources/assets')
+    .distPath('dist')
+    .alias({
+      '@fonts': bud.src('fonts'),
+      '@images': bud.src('images'),
+      '@scripts': bud.src('scripts'),
+      '@styles': bud.src('styles'),
+    })
+    .auto({
+      jquery: ['$', 'window.jQuery'],
+    })
+    .runtimeManifest()
+    .mini(bud.inProduction)
+    .map(bud.inDevelopment)
+    .hash(bud.inProduction)
+    .vendor()
 
-    this.bud
-      .srcPath('resources/assets')
-      .distPath('dist')
-      .alias({
-        '@fonts': this.bud.src('fonts'),
-        '@images': this.bud.src('images'),
-        '@scripts': this.bud.src('scripts'),
-        '@styles': this.bud.src('styles'),
-      })
-      .auto({
-        jquery: ['$', 'window.jQuery'],
-      })
-      .runtimeManifest()
-      .mini(this.bud.inProduction)
-      .map(this.bud.inDevelopment)
-      .hash(this.bud.inProduction)
-      .vendor()
-  },
-})
+  return bud
+})()
 
 export {sage}
-export {Sage, FeatureKey, Features, Enabled}
+export {WithFeatures, FeatureKey, Features, Enabled}

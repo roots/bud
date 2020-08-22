@@ -1,14 +1,21 @@
 import {Loose} from '@roots/bud-typings'
+import type {Bud} from '..'
 import {existsSync} from 'fs-extra'
-import {controller} from '../repositories/plugins/controller'
+import {controller} from '../repositories/adapters/controller'
 import {logger} from '../util/logger'
 import {get as _get, set as _set} from 'lodash'
+
+import type {ExtensionControllerFactory} from '../repositories/adapters/controller'
 
 type Repository = any[] | any
 type Key = string
 type Getter = (this: Container, key?: Key) => any
 type Action = (this: Container, ...args: any) => void
-type ConditionalCheck = (this: Container, key: Key, value?: any) => boolean
+type ConditionalCheck = (
+  this: Container,
+  key: Key,
+  value?: any,
+) => boolean
 
 interface ContainerInterface extends Loose {
   name: string
@@ -35,7 +42,7 @@ interface FileContainerInterface extends ContainerInterface {
 }
 
 interface ExtensionContainer extends ContainerInterface {
-  controller: (this: Container, args: any[]) => any
+  controller: ExtensionControllerFactory
   add: Action
 }
 
@@ -47,8 +54,15 @@ type ContainerBind = (
   name: string,
 ) => Container | FileContainer | ExtensionContainer
 
-const log = (repository: string, data?: Loose, message?: string): void => {
-  logger.info({name: 'container', repository, ...(data || {})}, message)
+const log = (
+  repository: string,
+  data?: Loose,
+  message?: string,
+): void => {
+  logger.info(
+    {name: 'container', repository, ...(data || {})},
+    message,
+  )
 }
 
 const newContainer: Action = function (key, repository = {}) {
@@ -99,13 +113,19 @@ const exists: ConditionalCheck = function (key) {
 }
 
 const enable: Action = function (key) {
-  logger.info({name: 'container', key, value: true}, `${this.name}.enable`)
+  logger.info(
+    {name: 'container', key, value: true},
+    `${this.name}.enable`,
+  )
 
   this.repository[key] = true
 }
 
 const disable: Action = function (key) {
-  logger.info({name: 'container', key, value: false}, `${this.name}.disable`)
+  logger.info(
+    {name: 'container', key, value: false},
+    `${this.name}.disable`,
+  )
 
   this.repository[key] = false
 }
@@ -179,7 +199,11 @@ const bindExtensionContainer: ContainerBind = function (
   repository,
   name = 'anonymous',
 ): ExtensionContainer {
-  log(repository, {repository: name}, `create extension api container`)
+  log(
+    repository,
+    {repository: name},
+    `create extension api container`,
+  )
 
   const store = new container(repository, name)
   store.controller = controller
@@ -188,5 +212,10 @@ const bindExtensionContainer: ContainerBind = function (
   return store
 }
 
-export {container, bindContainer, bindFileContainer, bindExtensionContainer}
+export {
+  container,
+  bindContainer,
+  bindFileContainer,
+  bindExtensionContainer,
+}
 export type {Container, FileContainer, ExtensionContainer, Repository}

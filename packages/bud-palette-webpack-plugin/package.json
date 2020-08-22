@@ -1,19 +1,22 @@
 {
-  "name": "@roots/bud-gutenberg-palette",
+  "name": "@roots/palette-webpack-plugin",
   "version": "1.0.0",
   "description": "Adds json palette support for Gutenberg to Bud",
   "repository": {
     "type": "git",
-    "url": "git://github.com/roots/bud.git"
+    "url": "https://github.com/roots/bud.git",
+    "directory": "packages/bud-dependency-extraction-webpack-plugin"
   },
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://opensource.org/licenses/MIT"
-    }
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "license": "MIT",
+  "contributors": [
+    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
   "keywords": [
     "bud-extension"
@@ -21,15 +24,14 @@
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "dist"
-  ],
-  "main": "dist/bud-palette-plugin.min.js",
-  "types": "dist/index.d.ts",
+  "files": ["lib"],
+  "main": "lib/cjs/bud-palette-plugin.min.js",
+  "module": "lib/es/index.js",
+  "types": "lib/types/index.d.ts",
   "scripts": {
     "lint": "eslint src/**.ts",
     "watch": "npm run build && npm link && nodemon",
-    "build": "rimraf ./dist && rimraf ./types && rollup -c ./rollup.config.js"
+    "build": "rimraf ./lib && rimraf ./types && rollup -c ./rollup.config.js"
   },
   "dependencies": {
     "palette-webpack-plugin": "^1.0.0"

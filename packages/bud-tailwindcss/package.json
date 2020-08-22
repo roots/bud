@@ -1,0 +1,42 @@
+{
+  "name": "@roots/bud-tailwindcss",
+  "version": "1.0.0",
+  "description": "Adds tailwindcss support to Bud",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "packages/bud-tailwindcss"
+  },
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "license": "MIT",
+  "contributors": [
+    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
+  ],
+  "keywords": ["bud-extension"],
+  "engines": {
+    "node": ">=12"
+  },
+  "files": ["lib"],
+  "main": "lib/cjs/tailwind.min.js",
+  "module": "lib/es/tailwind.js",
+  "types": "lib/types/index.d.ts",
+  "scripts": {
+    "lint": "eslint src/**.ts",
+    "watch": "npm run build && npm link && nodemon",
+    "build": "rimraf ./lib && rollup -c ./rollup.config.js"
+  },
+  "dependencies": {
+    "tailwindcss": "^1.6.2"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.4",
+    "rimraf": "^3.0.2",
+    "ts-node": "^8.10.2"
+  }
+}

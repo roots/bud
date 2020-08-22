@@ -2,6 +2,5 @@ node_modules
 dist
 docs
 scripts
-packages/**/dist
-packages/*/types
+packages/*/lib
 test

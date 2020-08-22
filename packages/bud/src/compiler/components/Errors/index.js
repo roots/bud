@@ -24,7 +24,9 @@ const Errors = ({build, actions}) => {
         build.errors.length > 0 &&
         build.errors.map((err, i) => <Error message={err} key={i} />)}
 
-      {build?.warnings?.length == 0 && <Text>Nothing to see here.</Text>}
+      {build?.warnings?.length == 0 && (
+        <Text>Nothing to see here.</Text>
+      )}
     </Box>
   )
 }

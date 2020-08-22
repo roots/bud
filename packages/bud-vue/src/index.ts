@@ -2,7 +2,10 @@ import type {Bud, Extension, ExtensionInterface} from '@roots/bud'
 import adapter from './adapter'
 import rule from './rule'
 
-const addVueStyle = (loaders: any[]) => ['vue-style-loader', ...loaders]
+const addVueStyle = (loaders: any[]) => [
+  'vue-style-loader',
+  ...loaders,
+]
 
 /**
  * @roots/bud-vue
@@ -11,6 +14,8 @@ const addVueStyle = (loaders: any[]) => ['vue-style-loader', ...loaders]
  */
 const vue: Extension = (bud: Bud) => ({
   bud,
+
+  name: 'vue',
 
   make: function (this: ExtensionInterface): void {
     !this.bud.options.get('resolve.extensions').includes('.vue') &&

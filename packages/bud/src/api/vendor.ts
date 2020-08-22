@@ -7,7 +7,9 @@ const vendor: Vendor = function (options) {
 
   options &&
     this.options.set('optimization.splitChunks.cacheGroup.vendor', {
-      ...this.options.get('optimization.splitChunks.cacheGroup.vendor'),
+      ...this.options.get(
+        'optimization.splitChunks.cacheGroup.vendor',
+      ),
       ...options,
     })
 

@@ -12,7 +12,10 @@ import type {Bud} from './types'
 import type {WebpackConfig} from '@roots/bud-typings'
 
 type WebpackBuilder = (bud: Bud) => WebpackConfig
-type WebpackReducer = (acc: any, curr: WebpackBuilder) => WebpackConfig
+type WebpackReducer = (
+  acc: any,
+  curr: WebpackBuilder,
+) => WebpackConfig
 
 const builders = [
   devServer,
