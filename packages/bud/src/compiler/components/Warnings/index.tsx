@@ -1,4 +1,4 @@
-import React from 'React'
+import React from 'react'
 import {useEffect, useState} from 'react'
 import {Box, Text, useFocus} from 'ink'
 import PropTypes from 'prop-types'

@@ -36,7 +36,7 @@ const App = props => {
     marginBottom: 1
   }, /*#__PURE__*/React.createElement(Box, null, /*#__PURE__*/React.createElement(Text, {
     color: '#545DD7'
-  }, "@roots/bud-scripts"))));
+  }, "@roots/bud-scripts"), /*#__PURE__*/React.createElement(Text, null, "Triggered"))));
 };
 /** 🚀 */
 
