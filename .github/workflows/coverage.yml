@@ -1,4 +1,4 @@
-name: build
+name: coverage
 
 on:
   push:
@@ -7,7 +7,7 @@ on:
     tags:
       - '!*' # Do not execute on tags
     paths:
-      - src/*
+      - packages/*/src/*
       - test/*
       - '*.json'
       - yarn.lock
