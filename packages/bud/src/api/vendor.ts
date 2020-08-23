@@ -1,4 +1,4 @@
-import type {Bud} from './Types'
+import type {Bud} from './types'
 
 type Vendor = (this: Bud, options?: any) => Bud
 

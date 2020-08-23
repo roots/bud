@@ -1,4 +1,4 @@
-import type {Bud, Sync} from './Types'
+import type {Bud, Sync} from './types'
 
 const sync: Sync = function ({enabled = true, options}): Bud {
   this.features.set('adapters.browsersync', enabled ?? true)

@@ -1,4 +1,4 @@
-import type { Sync } from './Types';
+import type { Sync } from './types';
 declare const sync: Sync;
 export { sync };
 //# sourceMappingURL=sync.d.ts.map

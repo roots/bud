@@ -1,7 +1,6 @@
 import notifier from 'node-notifier'
 import React, {useEffect, FunctionComponent} from 'react'
 import {Box, Text} from 'ink'
-import PropTypes from 'prop-types'
 
 interface WarningProps {
   message: string
