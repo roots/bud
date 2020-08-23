@@ -13,7 +13,10 @@
  */
 const config = function (this: any, enabled: boolean, options?: any) {
   if (options) {
-    this.options.merge('sass', options)
+    this.options.set('sass', {
+      ...(this.options.get('sass') ?? []),
+      ...options,
+    })
   }
 
   return this

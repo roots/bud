@@ -31,7 +31,7 @@ const glob: Glob = function (
     }
   })
 
-  this.options.set('entry', entry)
+  this.options.set('webpack.entry', entry)
 
   return this
 }

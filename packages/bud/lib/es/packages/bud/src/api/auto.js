@@ -18,7 +18,7 @@ var auto = function (options) {
         var key = _a[0], modules = _a[1];
         modules.forEach(function (handle) {
             var _a;
-            _this.options.set('auto', __assign(__assign({}, _this.options.get('auto')), (_a = {}, _a[handle] = key, _a)));
+            _this.options.set('webpack.externals', __assign(__assign({}, _this.options.get('webpack.externals')), (_a = {}, _a[handle] = key, _a)));
         });
     });
     return this;

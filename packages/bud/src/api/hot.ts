@@ -21,13 +21,13 @@ const hot: Hot = function (
   this.features.set('hot', options?.enabled ?? this.inDevelopment)
 
   options?.watch &&
-    this.options.set('watch', [
-      ...this.options.get('watch'),
+    this.options.set('webpack.watch', [
+      ...this.options.get('webpack.watch'),
       ...options.watch,
     ])
 
   const devServer = this.options.has('devServer')
-    ? this.options.get('devServer')
+    ? this.options.get('webpack.devServer')
     : {}
 
   const proxyAll =
@@ -59,7 +59,7 @@ const hot: Hot = function (
         devServer.historyApiFallback ??
         true,
       headers: {
-        ...(this.options.get('headers') ?? []),
+        ...(this.options.get('webpack.devServer.headers') ?? []),
         ...(options?.headers ?? []),
       },
       proxy: {
@@ -74,7 +74,7 @@ const hot: Hot = function (
             options?.changeOrigin ?? proxyAll?.changeOrigin ?? true,
           port: options?.port ?? proxyAll?.port ?? devServer.port,
           headers: {
-            ...this.options.get('devServer.headers'),
+            ...this.options.get('webpack.devServer.proxy.headers'),
             ...(options?.headers ?? proxyAll?.headers ?? []),
           },
         },

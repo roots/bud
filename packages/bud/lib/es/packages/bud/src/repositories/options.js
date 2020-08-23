@@ -10,14 +10,10 @@
  * @copyright 2020 Roots {@link https://roots.io}
  * @license MIT
  */
+var target = 'web';
 var babelFallback = {
     presets: [require.resolve('@babel/preset-env')],
     plugins: [],
-};
-var babel = function (configs) {
-    return configs.get('babel')
-        ? configs.require('babel')
-        : babelFallback;
 };
 var browsersync = function (flags) { return ({
     host: flags.has('host') ? flags.get('host') : 'localhost',
@@ -27,6 +23,11 @@ var browsersync = function (flags) { return ({
     open: false,
 }); };
 var copy = { patterns: [] };
+var babel = function (configs) {
+    return configs.get('babel')
+        ? configs.require('babel')
+        : babelFallback;
+};
 var postcss = function (configs) {
     var fallback = {
         plugins: [require('postcss-import'), require('autoprefixer')],
@@ -35,96 +36,97 @@ var postcss = function (configs) {
         ? configs.require('postcss')
         : fallback;
 };
-var target = 'web';
-/**
- * Options container.
- */
+/** Options container. */
 var options = {
-    repository: 'options',
-    contents: {
-        resolve: {
-            alias: false,
-            extensions: ['.css', '.js', '.json', '.svg'],
-        },
-        devServer: {
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
-                'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
-            },
-        },
-        devtool: 'source-map',
-        optimization: {
-            runtimeChunk: {
-                name: function (entrypoint) { return "runtime/" + entrypoint.name; },
-            },
-            splitChunks: {
-                cacheGroup: {
-                    vendor: {
-                        test: /node_modules/,
-                        name: 'vendor.js',
-                        chunks: 'all',
-                        priority: -20,
-                    },
-                },
-            },
-        },
-        stats: {
-            version: true,
-            hash: true,
-            assets: true,
-            errors: true,
-            warnings: true,
-        },
-        node: {
-            module: 'empty',
-            dgram: 'empty',
-            dns: 'mock',
-            fs: 'empty',
-            http2: 'empty',
-            net: 'empty',
-            tls: 'empty',
-            child_process: 'empty',
-        },
-        adapters: {
-            browsersync: browsersync,
-            clean: {},
-            fixStyleOnlyEntries: {
-                silent: true,
-            },
-            hotModuleReplacement: {},
-            terser: {
-                terserOptions: {
-                    parse: {
-                        ecma: 8,
-                    },
-                    compress: {
-                        ecma: 5,
-                        warnings: false,
-                        comparisons: false,
-                        inline: 2,
-                    },
-                    mangle: {
-                        safari10: true,
-                    },
-                    output: {
-                        ecma: 5,
-                        comments: false,
-                        ascii_only: true,
-                    },
-                },
-                cache: true,
-                parallel: true,
-            },
-        },
-        patterns: [],
-        postcss: postcss,
+    name: 'options',
+    register: {
         babel: babel,
+        postcss: postcss,
+        patterns: [],
+        webpack: {
+            entry: {},
+            externals: false,
+            resolve: {
+                alias: false,
+                extensions: ['.css', '.js', '.json', '.svg'],
+            },
+            devServer: {
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+                    'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
+                },
+            },
+            devtool: 'source-map',
+            node: {
+                module: 'empty',
+                dgram: 'empty',
+                dns: 'mock',
+                fs: 'empty',
+                http2: 'empty',
+                net: 'empty',
+                tls: 'empty',
+                child_process: 'empty',
+            },
+            optimization: {
+                runtimeChunk: {
+                    name: function (entrypoint) { return "runtime/" + entrypoint.name; },
+                },
+                splitChunks: {
+                    cacheGroup: {
+                        vendor: {
+                            test: /node_modules/,
+                            name: 'vendor.js',
+                            chunks: 'all',
+                            priority: -20,
+                        },
+                    },
+                },
+            },
+            plugins: {
+                browsersync: browsersync,
+                clean: {},
+                copy: copy,
+                fixStyleOnlyEntries: {
+                    silent: true,
+                },
+                hotModuleReplacement: {},
+                terser: {
+                    terserOptions: {
+                        parse: {
+                            ecma: 8,
+                        },
+                        compress: {
+                            ecma: 5,
+                            warnings: false,
+                            comparisons: false,
+                            inline: 2,
+                        },
+                        mangle: {
+                            safari10: true,
+                        },
+                        output: {
+                            ecma: 5,
+                            comments: false,
+                            ascii_only: true,
+                        },
+                    },
+                    cache: true,
+                    parallel: true,
+                },
+            },
+            stats: {
+                version: true,
+                hash: true,
+                assets: true,
+                errors: true,
+                warnings: true,
+            },
+            target: target,
+        },
         splitting: {
             maxChunks: null,
         },
-        target: target,
-        copy: copy,
         filenameTemplate: {
             hashed: '[name].[hash:8]',
             "default": '[name]',

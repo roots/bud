@@ -9,11 +9,11 @@ const webpackResolve: ResolveBuilder = bud =>
     resolve: {
       alias: bud.hooks.filter(
         'webpack.resolve.alias',
-        bud.options.get('resolve.alias'),
+        bud.options.get('webpack.resolve.alias'),
       ),
       extensions: bud.hooks.filter(
         'webpack.resolve.extensions',
-        bud.options.get('resolve.extensions'),
+        bud.options.get('webpack.resolve.extensions'),
       ),
       modules: bud.hooks.filter('webpack.resolve.modules', [
         bud.paths.get('src'),

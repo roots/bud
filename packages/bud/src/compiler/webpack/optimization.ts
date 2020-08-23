@@ -13,7 +13,9 @@ const optimization: OptimizationBuilder = bud =>
         ? {
             runtimeChunk: bud.hooks.filter(
               'webpack.optimization.runtimeChunk',
-              bud.options.get('optimization.runtimeChunk.name')
+              bud.options.get(
+                'webpack.optimization.runtimeChunk.name',
+              )
                 ? {
                     name: entrypoint => `runtime/${entrypoint.name}`,
                   }
@@ -32,25 +34,25 @@ const optimization: OptimizationBuilder = bud =>
                     test: bud.hooks.filter(
                       'webpack.optimization.splitChunks.cacheGroups.test',
                       bud.options.get(
-                        'optimization.splitChunks.cacheGroups.test',
+                        'webpack.optimization.splitChunks.cacheGroups.test',
                       ),
                     ),
                     name: bud.hooks.filter(
                       'webpack.optimization.splitChunks.cacheGroups.name',
                       bud.options.get(
-                        'optimization.splitChunks.cacheGroups.name',
+                        'webpack.optimization.splitChunks.cacheGroups.name',
                       ),
                     ),
                     chunks: bud.hooks.filter(
                       'webpack.optimization.splitChunks.cacheGroups.chunks',
                       bud.options.get(
-                        'optimization.splitChunks.cacheGroups.chunks',
+                        'webpack.optimization.splitChunks.cacheGroups.chunks',
                       ),
                     ),
                     priority: bud.hooks.filter(
                       'webpack.optimization.splitChunks.cacheGroups.priority',
                       bud.options.get(
-                        'optimization.splitChunks.cacheGroups.priority',
+                        'webpack.optimization.splitChunks.cacheGroups.priority',
                       ),
                     ),
                   },

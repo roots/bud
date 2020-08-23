@@ -31,8 +31,8 @@ var ensureStr = function (possibleStr) {
  * Paths repo.
  */
 var paths = {
-    repository: 'paths',
-    contents: {
+    name: 'paths',
+    register: {
         cwd: cwd,
         project: cwd,
         framework: framework,

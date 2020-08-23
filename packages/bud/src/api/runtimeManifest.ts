@@ -8,8 +8,9 @@ type RuntimeManifest = (args?: {
 const runtimeManifest: RuntimeManifest = function (args?) {
   this.features.set('runtimeChunk', args?.enabled ?? true)
   this.options.set(
-    'optimization.runtimeChunk.name',
-    args?.name ?? this.options.get('optimization.runtimeChunk.name'),
+    'webpack.optimization.runtimeChunk.name',
+    args?.name ??
+      this.options.get('webpack.optimization.runtimeChunk.name'),
   )
 
   return this

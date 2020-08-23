@@ -1,14 +1,13 @@
-import type {
-  BrowserSyncOptions,
-  WebpackExternals,
-  WebpackTarget,
-} from '@roots/bud-typings'
-
 import type {Container, FileContainer} from '../container'
 import type {Bud} from '..'
 export type {Bud}
 
 export type Options = Container
+
+import type {
+  BrowserSyncOptions,
+  WebpackExternals,
+} from '@roots/bud-typings'
 
 export type BrowserSync = BrowserSyncOptions
 
@@ -22,8 +21,6 @@ export type Externals = WebpackExternals
 export type PostCssConfiguration = {
   plugins: any[]
 }
-
-export type Target = WebpackTarget
 
 export type Vendor = {name: string}
 

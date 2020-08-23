@@ -15,7 +15,7 @@ const paletteWebpackPlugin: Extension = (
 
   make: function (this: ExtensionInterface) {
     this.bud.apply('setPaletteBlacklist', api)
-    this.bud.adapters.add(adapter)
+    this.bud.plugins.add(adapter)
   },
 })
 

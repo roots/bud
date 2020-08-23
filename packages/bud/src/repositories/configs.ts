@@ -1,7 +1,7 @@
-import type {RepositoryDefinition, Repository} from '../container'
-import type {Bud} from '../'
 import {join} from 'path'
 import {existsSync} from 'fs-extra'
+
+import type {RepositoryDefinition} from '../container'
 
 const configFiles = [
   {
@@ -19,13 +19,10 @@ const configFiles = [
 ]
 
 const configs: RepositoryDefinition = {
-  repository: 'configs',
-  contents: (bud: Bud) => ({
+  name: 'configs',
+  register: {
     ...configFiles.map(config => {
-      const projectPath = join(
-        bud.paths.get('project'),
-        config.filename,
-      )
+      const projectPath = join(process.cwd(), config.filename)
 
       if (existsSync(projectPath)) {
         return {[config.name]: projectPath}
@@ -33,7 +30,7 @@ const configs: RepositoryDefinition = {
 
       return {}
     }),
-  }),
+  },
 }
 
 export {configs}

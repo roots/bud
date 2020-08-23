@@ -19,8 +19,8 @@ import { svg } from './svg.js';
 export { loaders } from './loaders.js';
 
 var rules = {
-    repository: 'rules',
-    contents: [js, css, font, image, svg],
+    name: 'rules',
+    register: [js, css, font, image, svg],
 };
 
 export { rules };

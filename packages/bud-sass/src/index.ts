@@ -32,15 +32,19 @@ const sass: Extension = (bud: Bud): ExtensionInterface => ({
   name: 'sass',
 
   make: function () {
-    !this.bud.options.get('resolve.extensions').includes('.sass') &&
-      this.bud.options.set('resolve.extensions', [
-        ...this.bud.options.get('resolve.extensions'),
+    !this.bud.options
+      .get('webpack.resolve.extensions')
+      .includes('.sass') &&
+      this.bud.options.set('webpack.resolve.extensions', [
+        ...this.bud.options.get('webpack.resolve.extensions'),
         '.sass',
       ])
 
-    !this.bud.options.get('resolve.extensions').includes('.scss') &&
-      this.bud.options.set('resolve.extensions', [
-        ...this.bud.options.get('resolve.extensions'),
+    !this.bud.options
+      .get('webpack.resolve.extensions')
+      .includes('.scss') &&
+      this.bud.options.set('webpack.resolve.extensions', [
+        ...this.bud.options.get('webpack.resolve.extensions'),
         '.scss',
       ])
 

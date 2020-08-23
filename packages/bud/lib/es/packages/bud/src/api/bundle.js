@@ -15,7 +15,7 @@ import { __assign } from 'tslib';
 var bundle = function (name, entries) {
     var _a;
     this.util.usedExt(entries, this);
-    this.options.set('entry', __assign(__assign({}, this.options.get('entry')), this.hooks.filter('api.bundle.filter', (_a = {},
+    this.options.set('webpack.entry', __assign(__assign({}, this.options.get('webpack.entry')), this.hooks.filter('api.bundle.filter', (_a = {},
         _a["" + name] = entries,
         _a))));
     return this;

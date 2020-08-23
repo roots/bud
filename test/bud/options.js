@@ -9,7 +9,7 @@ test('has expected babel defaults', t => {
 })
 
 test('has expected browserSync defaults', t => {
-  t.deepEqual(bud.options.get('browserSync'), {
+  t.deepEqual(bud.options.get('webpack.plugins.browsersync'), {
     host: 'localhost',
     online: false,
     open: false,
@@ -19,13 +19,13 @@ test('has expected browserSync defaults', t => {
 })
 
 test('has expected copy defaults', t => {
-  t.deepEqual(bud.options.get('copy'), {
+  t.deepEqual(bud.options.get('webpack.plugins.copy'), {
     patterns: [],
   })
 })
 
 test('has expected devServer defaults', t => {
-  t.deepEqual(bud.options.get('devServer.headers'), {
+  t.deepEqual(bud.options.get('webpack.devServer.headers'), {
     'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
     'Access-Control-Allow-Origin': '*',
@@ -33,11 +33,11 @@ test('has expected devServer defaults', t => {
 })
 
 test('has expected devtool defaults', t => {
-  t.deepEqual(bud.options.get('devtool'), 'source-map')
+  t.deepEqual(bud.options.get('webpack.devtool'), 'source-map')
 })
 
 test('has expected resolve defaults', t => {
-  t.deepEqual(bud.options.get('resolve'), {
+  t.deepEqual(bud.options.get('webpack.resolve'), {
     alias: false,
     extensions: ['.css', '.js', '.json', '.svg'],
   })
@@ -51,11 +51,11 @@ test('has expected filenameTemplate defaults', t => {
 })
 
 test('has expected optimization.runtimeChunk defaults', t => {
-  t.truthy(bud.options.get('optimization.runtimeChunk'))
+  t.truthy(bud.options.get('webpack.optimization.runtimeChunk'))
 })
 
 test('has expected optimization.splitChunks defaults', t => {
-  t.deepEqual(bud.options.get('optimization.splitChunks'), {
+  t.deepEqual(bud.options.get('webpack.optimization.splitChunks'), {
     cacheGroup: {
       vendor: {
         test: /node_modules/,
@@ -78,11 +78,11 @@ test('has expected splitting defaults', t => {
 })
 
 test('has expected target defaults', t => {
-  t.deepEqual(bud.options.get('target'), 'web')
+  t.deepEqual(bud.options.get('webpack.target'), 'web')
 })
 
 test('has expected terser defaults', t => {
-  t.deepEqual(bud.options.get('adapters.terser'), {
+  t.deepEqual(bud.options.get('webpack.plugins.terser'), {
     cache: true,
     parallel: true,
     terserOptions: {

@@ -4,5 +4,5 @@ const {react} = require('@roots/bud-react')
 
 test('has expected defaults', t => {
   bud.use([react])
-  t.true(bud.options.get('resolve.extensions').includes('.jsx'))
+  t.true(bud.options.get('webpack.resolve.extensions').includes('.jsx'))
 })

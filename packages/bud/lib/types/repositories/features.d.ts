@@ -1,29 +1,4 @@
-declare const features: {
-    repository: string;
-    contents: {
-        /**
-         * Default enabled
-         */
-        babel: boolean;
-        clean: boolean;
-        dashboard: boolean;
-        manifest: boolean;
-        postcss: boolean;
-        /**
-         * Opt-in
-         */
-        browsersync: boolean;
-        hash: boolean;
-        hot: boolean;
-        minify: boolean;
-        splitting: boolean;
-        vendor: boolean;
-        runtimeChunk: boolean;
-        overlay: boolean;
-        sourceMap: boolean;
-        watch: boolean;
-        debug: boolean;
-    };
-};
+import type { RepositoryDefinition } from '../container';
+declare const features: RepositoryDefinition;
 export { features };
 //# sourceMappingURL=features.d.ts.map

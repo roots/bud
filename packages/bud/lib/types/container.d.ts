@@ -1,9 +1,12 @@
 import { Loose } from '@roots/bud-typings';
 import { Bud } from './';
-declare type Repository = any[] | any;
+declare type Repository = {
+    [key: string]: any | any[];
+} | any | any[];
 declare type RepositoryDefinition = {
-    repository: string;
-    contents: Repository;
+    name: string;
+    register?: Repository;
+    boot?: (bud: Bud) => Repository;
 };
 declare type Key = string;
 declare type Getter = (this: Container, key?: Key) => any;
@@ -36,20 +39,20 @@ interface ExtensionContainer extends ContainerInterface {
 }
 declare type Container = ContainerInterface;
 declare type FileContainer = FileContainerInterface;
-declare type ContainerBind = (repository: Repository, bud: Bud) => Container | FileContainer | ExtensionContainer;
+declare type ContainerBind = (repository: Repository) => Container | FileContainer | ExtensionContainer;
 declare const container: Action;
 /**
  * Bind container.
  */
-declare const makeContainer: ContainerBind;
+declare const registerContainer: ContainerBind;
 /**
  * Bind file container.
  */
-declare const makeFileContainer: ContainerBind;
+declare const registerFileContainer: ContainerBind;
 /**
  * Bind extension container.
  */
-declare const makeExtensionContainer: ContainerBind;
-export { container, makeContainer, makeFileContainer, makeExtensionContainer, };
+declare const registerExtensionContainer: ContainerBind;
+export { container, registerContainer, registerFileContainer, registerExtensionContainer, };
 export type { Container, FileContainer, ExtensionContainer, Repository, RepositoryDefinition, };
 //# sourceMappingURL=container.d.ts.map

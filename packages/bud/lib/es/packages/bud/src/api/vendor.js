@@ -15,7 +15,7 @@ import { __assign } from 'tslib';
 var vendor = function (options) {
     this.features.enable('vendor');
     options &&
-        this.options.set('optimization.splitChunks.cacheGroup.vendor', __assign(__assign({}, this.options.get('optimization.splitChunks.cacheGroup.vendor')), options));
+        this.options.set('webpack.optimization.splitChunks.cacheGroup.vendor', __assign(__assign({}, this.options.get('webpack.optimization.splitChunks.cacheGroup.vendor')), options));
     return this;
 };
 

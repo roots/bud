@@ -1,5 +1,5 @@
 import type {Bud} from '..'
-import {ExtensionRepository} from '../repositories/adapters'
+import {ExtensionRepository} from '../repositories/plugins'
 
 type UseExtension = (this: Bud, plugin: any[]) => Bud
 

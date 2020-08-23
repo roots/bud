@@ -6,12 +6,15 @@ const vendor: Vendor = function (options) {
   this.features.enable('vendor')
 
   options &&
-    this.options.set('optimization.splitChunks.cacheGroup.vendor', {
-      ...this.options.get(
-        'optimization.splitChunks.cacheGroup.vendor',
-      ),
-      ...options,
-    })
+    this.options.set(
+      'webpack.optimization.splitChunks.cacheGroup.vendor',
+      {
+        ...this.options.get(
+          'webpack.optimization.splitChunks.cacheGroup.vendor',
+        ),
+        ...options,
+      },
+    )
 
   return this
 }

@@ -13,6 +13,6 @@
 import { args } from './args.js';
 import { flags } from './flags.js';
 
-var cli = [args, flags];
+var cli = [flags, args];
 
 export { cli };

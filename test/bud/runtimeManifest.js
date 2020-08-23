@@ -17,13 +17,13 @@ test('enabled parameter sets feature', t => {
 
 test('name parameter sets option', t => {
   bud.runtimeManifest({name: 'inline'})
-  t.deepEqual(bud.options.get('optimization.runtimeChunk.name'), 'inline')
+  t.deepEqual(bud.options.get('webpack.optimization.runtimeChunk.name'), 'inline')
 })
 
 test('name parameter implicitly sets feature', t => {
   bud.features.set('runtimeManifest', false)
 
   bud.runtimeManifest({name: 'inline'})
-  t.deepEqual(bud.options.get('optimization.runtimeChunk.name'), 'inline')
+  t.deepEqual(bud.options.get('webpack.optimization.runtimeChunk.name'), 'inline')
   t.is(bud.features.get('runtimeChunk'), true)
 })

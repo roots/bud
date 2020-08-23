@@ -14,7 +14,7 @@ import { __assign } from 'tslib';
 
 var terser = function (options) {
     if (options) {
-        this.options.set('adapters.terser', __assign(__assign({}, this.options.get('adapters.terser')), options));
+        this.options.set('webpack.plugins.terser', __assign(__assign({}, this.options.get('webpack.plugins.terser')), options));
     }
     return this;
 };

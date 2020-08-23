@@ -1,22 +1,18 @@
 import {argv} from 'yargs'
 import type {Bud} from '../..'
+import type {RepositoryDefinition} from '../../container'
 
-const args = {
-  repository: 'args',
-  contents: (bud: Bud) => ({
-    log: argv['log'],
-    hot: argv['hot'],
-    watch: argv['watch'],
-    level: argv['level'] ?? 'info',
-    mode: argv['env'] ?? bud.env.get('APP_ENV') ?? 'none',
-    host: argv['host'] ?? bud.env.get('APP_DEV_HOST') ?? false,
-    port: argv['port'] ?? bud.env.get('APP_DEV_PORT') ?? null,
-    proxy: argv['proxy'] ?? bud.env.get('APP_DEV_PROXY') ?? null,
-    src: argv['src'] ?? bud.env.get('APP_SRC') ?? null,
-    dist: argv['dist'] ?? bud.env.get('APP_DIST') ?? null,
-    feature:
-      argv['feature'] ?? bud.env.get('APP_BUILD_FEATURE') ?? null,
-  }),
+const args: RepositoryDefinition = {
+  name: 'args',
+  register: {
+    mode: argv['env'] ?? 'none',
+    host: argv['host'] ?? false,
+    port: argv['port'] ?? null,
+    proxy: argv['proxy'] ?? null,
+    src: argv['src'] ?? null,
+    dist: argv['dist'] ?? null,
+    feature: argv['feature'] ?? null,
+  },
 }
 
 export {args}

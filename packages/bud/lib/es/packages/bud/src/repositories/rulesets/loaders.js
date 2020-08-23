@@ -13,8 +13,8 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin';
 
 var loaders = {
-    repository: 'loaders',
-    contents: {
+    name: 'loaders',
+    register: {
         babel: require.resolve('babel-loader'),
         css: require.resolve('css-loader'),
         file: require.resolve('file-loader'),

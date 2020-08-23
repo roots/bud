@@ -16,7 +16,7 @@ const expectation = {
 
 test('sets glob option', t => {
   bud.glob('app', pattern)
-  t.deepEqual(bud.options.get('entry'), expectation)
+  t.deepEqual(bud.options.get('webpack.entry'), expectation)
 })
 
 test('generates expected webpack.entry', t => {

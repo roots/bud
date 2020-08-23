@@ -11,7 +11,7 @@
  * @license MIT
  */
 const api = function (blacklist) {
-    this.options.set('palette-blacklist', blacklist);
+    this.options.set('webpack.plugins.palettePlugin.blacklist', blacklist);
     return this;
 };
 

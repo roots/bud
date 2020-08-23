@@ -4,7 +4,7 @@ import type {WebpackOptions} from '@roots/bud-typings'
 type Devtool = (devtool: WebpackOptions.Devtool) => Bud
 
 const devtool: Devtool = function (devtool) {
-  this.options.set('devtool', devtool)
+  this.options.set('webpack.devtool', devtool)
 
   return this
 }

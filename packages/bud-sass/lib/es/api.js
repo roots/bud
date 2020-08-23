@@ -24,8 +24,12 @@
  * ```
  */
 const config = function (enabled, options) {
+    var _a;
     if (options) {
-        this.options.merge('sass', options);
+        this.options.set('sass', {
+            ...((_a = this.options.get('sass')) !== null && _a !== void 0 ? _a : []),
+            ...options,
+        });
     }
     return this;
 };

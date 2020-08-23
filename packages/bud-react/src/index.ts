@@ -11,9 +11,11 @@ const react: Extension = (bud: Bud): ExtensionInterface => ({
       require.resolve('@babel/preset-react'),
     ])
 
-    !this.bud.options.get('resolve.extensions').includes('.jsx') &&
-      this.bud.options.set('resolve.extensions', [
-        ...this.bud.options.get('resolve.extensions'),
+    !this.bud.options
+      .get('webpack.resolve.extensions')
+      .includes('.jsx') &&
+      this.bud.options.set('webpack.resolve.extensions', [
+        ...this.bud.options.get('webpack.resolve.extensions'),
         '.jsx',
       ])
   },

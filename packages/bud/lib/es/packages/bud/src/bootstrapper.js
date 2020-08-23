@@ -16,28 +16,30 @@ import { hooks } from './hooks/hooks.js';
 import { logger } from './util/logger.js';
 import { util } from './util/index.js';
 import { extensionFactory } from './extensionFactory.js';
+import { repositories } from './repositories/index.js';
 
 /**
  * Bootstrapper
  */
 var bootstrapper = function () {
+    this.repositories = repositories;
     this.framework = {
         api: api,
-        extensionFactory: extensionFactory,
         fs: util.fs,
         logger: logger,
         util: util,
+        extensionFactory: extensionFactory,
     };
     this.apply = function (propertyName, propertyValue) {
+        logger.info({ name: 'framework.apply' }, "bootstrapped: bud." + propertyName);
         this.framework[propertyName] = propertyValue;
-        this.framework.logger.info({ name: 'framework.apply' }, "bootstrapped: bud." + propertyName);
         return this;
     };
     this.boot = function () {
-        this.framework.logger.info({ name: 'framework.boot', framework: this.framework }, "booting");
-        this.apply('hooks', hooks(this.framework))
-            .apply('process', util.processHandler(this.framework))
-            .apply('compiler', compiler(this.framework));
+        logger.info({ name: 'framework.boot', framework: this.framework }, "booting");
+        this.framework.hooks = hooks(this.framework);
+        this.framework.process = util.processHandler(this.framework);
+        this.framework.compiler = compiler(this.framework);
         return this.framework;
     };
 };

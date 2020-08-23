@@ -5,7 +5,7 @@ type ExternalsBuilder = (bud: Bud) => WebpackExternals
 
 const externals: ExternalsBuilder = bud =>
   bud.hooks.filter('webpack.externals', {
-    externals: bud.options.get('externals'),
+    externals: bud.options.get('webpack.externals'),
   })
 
 export {externals}

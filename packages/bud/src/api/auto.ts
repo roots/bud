@@ -5,8 +5,8 @@ type Auto = (options: {[key: string]: string[]}) => Bud
 const auto: Auto = function (options) {
   Object.entries(options).forEach(([key, modules]) => {
     modules.forEach(handle => {
-      this.options.set('auto', {
-        ...this.options.get('auto'),
+      this.options.set('webpack.externals', {
+        ...this.options.get('webpack.externals'),
         [handle]: key,
       })
     })

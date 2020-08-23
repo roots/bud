@@ -22,8 +22,8 @@ const dependencyExtractionConfig = function (
   settings?: DependencyExtractionOptions,
 ): Bud {
   settings &&
-    this.options.set('adapters.dependencyExtraction', {
-      ...this.options.get('adapters.dependencyExtraction'),
+    this.options.set('webpack.plugins.dependencyExtraction', {
+      ...this.options.get('webpack.plugins.dependencyExtraction'),
       ...settings,
     })
 
@@ -38,14 +38,16 @@ const adapter: Extension = (bud: Bud): ExtensionInterface => ({
   mergeOptions: function (
     this: ExtensionInterface,
   ): DependencyExtractionOptions {
-    return this.bud.options.get('adapters.dependencyExtraction')
+    return this.bud.options.get(
+      'webpack.plugins.dependencyExtraction',
+    )
   },
 
   make: function (
     this: ExtensionInterface,
   ): DependencyExtractionWebpackPlugin {
     return new DependencyExtractionWebpackPlugin(
-      this.bud.options.get('adapters.dependencyExtraction'),
+      this.bud.options.get('webpack.plugins.dependencyExtraction'),
     )
   },
 })
@@ -56,11 +58,11 @@ const extraction: Extension = (bud: Bud): ExtensionInterface => ({
   name: 'bud-dependency-extraction',
 
   make: function (this: ExtensionInterface) {
-    this.bud.options.set('adapters.dependencyExtraction', {})
+    this.bud.options.set('webpack.plugins.dependencyExtraction', {})
 
     this.bud.apply('dependencyExtraction', dependencyExtractionConfig)
 
-    this.bud.adapters.add(adapter)
+    this.bud.plugins.add(adapter)
   },
 })
 

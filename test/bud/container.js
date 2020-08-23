@@ -4,7 +4,6 @@ const {bud} = require('@roots/bud')
 const containers = [
   'options',
   'paths',
-  'env',
   'features',
   'loaders',
   'rules',

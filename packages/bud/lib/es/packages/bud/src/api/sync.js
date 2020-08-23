@@ -15,7 +15,7 @@ import { __assign } from 'tslib';
 var sync = function (_a) {
     var _b = _a.enabled, enabled = _b === void 0 ? true : _b, options = _a.options;
     this.features.set('adapters.browsersync', enabled !== null && enabled !== void 0 ? enabled : true);
-    this.options.set('adapters.browsersync', __assign(__assign({}, this.options.get('adapters.browsersync')), options));
+    this.webpack.set('plugins.browsersync', __assign(__assign({}, this.webpack.get('plugins.browsersync')), options));
     return this;
 };
 

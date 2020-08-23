@@ -6,9 +6,11 @@ import {svg} from './svg'
 import {loaders} from './loaders'
 import {uses, Use} from './uses'
 
-const rules = {
-  repository: 'rules',
-  contents: [js, css, font, image, svg],
+import type {RepositoryDefinition} from '../../container'
+
+const rules: RepositoryDefinition = {
+  name: 'rules',
+  register: [js, css, font, image, svg],
 }
 
 export {loaders, rules, uses}

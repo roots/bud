@@ -36,14 +36,18 @@ const typescript = (bud) => ({
         if (!this.bud.fs.existsSync(config)) {
             return;
         }
-        !this.bud.options.get('resolve.extensions').includes('.ts') &&
-            this.bud.options.set('resolve.extensions', [
-                ...this.bud.options.get('resolve.extensions'),
+        !this.bud.options
+            .get('webpack.resolve.extensions')
+            .includes('.ts') &&
+            this.bud.options.set('webpack.resolve.extensions', [
+                ...this.bud.options.get('webpack.resolve.extensions'),
                 '.ts',
             ]);
-        !this.bud.options.get('resolve.extensions').includes('.tsx') &&
-            this.bud.options.set('resolve.extensions', [
-                ...this.bud.options.get('resolve.extensions'),
+        !this.bud.options
+            .get('webpack.resolve.extensions')
+            .includes('.tsx') &&
+            this.bud.options.set('webpack.resolve.extensions', [
+                ...this.bud.options.get('webpack.resolve.extensions'),
                 '.tsx',
             ]);
         this.bud.rules.repository = [...this.bud.rules.repository, rule];

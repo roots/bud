@@ -1,8 +1,10 @@
 import {argv} from 'yargs'
 
-const flags = {
-  repository: 'flags',
-  contents: {
+import type {RepositoryDefinition} from '../../container'
+
+const flags: RepositoryDefinition = {
+  name: 'flags',
+  register: {
     log: argv.hasOwnProperty('log'),
     hot: argv.hasOwnProperty('hot'),
     watch: argv.hasOwnProperty('watch'),

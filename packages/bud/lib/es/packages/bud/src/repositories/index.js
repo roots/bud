@@ -11,7 +11,7 @@
  * @license MIT
  */
 import { __spreadArrays } from 'tslib';
-import { adapters } from './adapters/index.js';
+import { plugins } from './plugins/index.js';
 import { cli } from './cli/index.js';
 import { configs } from './configs.js';
 import { env } from './env.js';
@@ -23,22 +23,24 @@ import { loaders } from './rulesets/loaders.js';
 import { uses } from './rulesets/uses.js';
 import { rules } from './rulesets/index.js';
 
+/**
+ * Repositories
+ */
 var repositories = {
-    extensions: [adapters],
+    extensions: [plugins],
     files: [configs],
     stores: __spreadArrays([
-        paths,
-        env
-    ], cli, [
+        /** Order is unimportant */
         features,
-        options,
         loaders,
-        cli,
-        adapters,
+        options,
+        paths,
         patterns,
         rules,
         uses,
-    ]),
+        /** Order is important */
+        env
+    ], cli),
 };
 
 export { repositories };

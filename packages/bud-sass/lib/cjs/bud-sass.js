@@ -28,8 +28,12 @@ Object.defineProperty(exports, '__esModule', { value: true });
  * ```
  */
 const config = function (enabled, options) {
+    var _a;
     if (options) {
-        this.options.merge('sass', options);
+        this.options.set('sass', {
+            ...((_a = this.options.get('sass')) !== null && _a !== void 0 ? _a : []),
+            ...options,
+        });
     }
     return this;
 };
@@ -79,14 +83,18 @@ const sass = (bud) => ({
     bud,
     name: 'sass',
     make: function () {
-        !this.bud.options.get('resolve.extensions').includes('.sass') &&
-            this.bud.options.set('resolve.extensions', [
-                ...this.bud.options.get('resolve.extensions'),
+        !this.bud.options
+            .get('webpack.resolve.extensions')
+            .includes('.sass') &&
+            this.bud.options.set('webpack.resolve.extensions', [
+                ...this.bud.options.get('webpack.resolve.extensions'),
                 '.sass',
             ]);
-        !this.bud.options.get('resolve.extensions').includes('.scss') &&
-            this.bud.options.set('resolve.extensions', [
-                ...this.bud.options.get('resolve.extensions'),
+        !this.bud.options
+            .get('webpack.resolve.extensions')
+            .includes('.scss') &&
+            this.bud.options.set('webpack.resolve.extensions', [
+                ...this.bud.options.get('webpack.resolve.extensions'),
                 '.scss',
             ]);
         this.bud.apply('sass', config);

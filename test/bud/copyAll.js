@@ -48,13 +48,13 @@ const expectations = [
 test('sets copyAll option', t => {
   bud.copyAll(patterns[0].from, patterns[0].to)
 
-  t.deepEqual(bud.options.get('copy.patterns[0]'), expectations[0])
+  t.deepEqual(bud.options.get('webpack.plugins.copy.patterns[0]'), expectations[0])
 })
 
 test('merges copyAll option', t => {
   bud.copyAll(patterns[1].from, patterns[1].to)
 
-  t.deepEqual(bud.options.get('copy.patterns'), expectations)
+  t.deepEqual(bud.options.get('webpack.plugins.copy.patterns'), expectations)
 })
 
 test('generates expected webpack.plugins entry', t => {

@@ -15,9 +15,6 @@ import { existsSync } from 'fs-extra';
 import { logger } from './util/logger.js';
 import { get as get$1, set as set$1 } from 'lodash';
 
-var log = function (repository, data, message) {
-    logger.info(__assign({ name: 'container', repository: repository }, (data || {})), message);
-};
 var newContainer = function (key, repository) {
     if (repository === void 0) { repository = {}; }
     this.repository[key] = new container(repository);
@@ -96,24 +93,17 @@ var container = function (repository, name) {
     this.disable = disable;
     this.disabled = disabled;
 };
-var normalStoreContents = function (contents, bud) {
-    return typeof contents === 'function' ? contents(bud) : contents;
-};
 /**
  * Bind container.
  */
-var makeContainer = function (store, bud) {
-    store.contents = normalStoreContents(store.contents, bud);
-    log(store.repository, { store: store }, "create extension container");
-    return new container(store.contents, store.repository);
+var registerContainer = function (store) {
+    return new container(store.register, store.name);
 };
 /**
  * Bind file container.
  */
-var makeFileContainer = function (store, bud) {
-    store = normalStoreContents(store.contents, bud);
-    log(store.repository, { store: store }, "create container");
-    var instance = new container(store.contents, store.repository);
+var registerFileContainer = function (store) {
+    var instance = new container(store.register, store.name);
     instance.require = containerRequire;
     instance.exists = exists;
     return instance;
@@ -121,12 +111,10 @@ var makeFileContainer = function (store, bud) {
 /**
  * Bind extension container.
  */
-var makeExtensionContainer = function (store, bud) {
-    store = normalStoreContents(store.contents, bud);
-    log(store.repository, { store: store }, "create extension container");
-    var instance = new container(store.contents, store.repository);
+var registerExtensionContainer = function (store) {
+    var instance = new container(store.register, store.name);
     instance.add = add;
     return instance;
 };
 
-export { container, makeContainer, makeExtensionContainer, makeFileContainer };
+export { container, registerContainer, registerExtensionContainer, registerFileContainer };

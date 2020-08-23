@@ -11,7 +11,7 @@ test('feature enabled when called', t => {
 })
 
 test('has expected default options', t => {
-  t.deepEqual(bud.options.get('optimization.splitChunks.cacheGroup.vendor'), {
+  t.deepEqual(bud.options.get('webpack.optimization.splitChunks.cacheGroup.vendor'), {
     test: /node_modules/,
     name: 'vendor.js',
     chunks: 'all',
@@ -21,7 +21,7 @@ test('has expected default options', t => {
 
 test('test option can be reassigned', t => {
   bud.vendor({test: /dank/})
-  t.deepEqual(bud.options.get('optimization.splitChunks.cacheGroup.vendor'), {
+  t.deepEqual(bud.options.get('webpack.optimization.splitChunks.cacheGroup.vendor'), {
     test: /dank/,
     name: 'vendor.js',
     chunks: 'all',
@@ -31,7 +31,7 @@ test('test option can be reassigned', t => {
 
 test('name option can be reassigned', t => {
   bud.vendor({name: 'whois.plagueis'})
-  t.deepEqual(bud.options.get('optimization.splitChunks.cacheGroup.vendor'), {
+  t.deepEqual(bud.options.get('webpack.optimization.splitChunks.cacheGroup.vendor'), {
     test: /dank/,
     name: 'whois.plagueis',
     chunks: 'all',
@@ -41,7 +41,7 @@ test('name option can be reassigned', t => {
 
 test('chunks option can be reassigned', t => {
   bud.vendor({chunks: 'chonks'})
-  t.deepEqual(bud.options.get('optimization.splitChunks.cacheGroup.vendor'), {
+  t.deepEqual(bud.options.get('webpack.optimization.splitChunks.cacheGroup.vendor'), {
     test: /dank/,
     name: 'whois.plagueis',
     chunks: 'chonks',
@@ -51,7 +51,7 @@ test('chunks option can be reassigned', t => {
 
 test('priority option can be reassigned', t => {
   bud.vendor({priority: 9001})
-  t.deepEqual(bud.options.get('optimization.splitChunks.cacheGroup.vendor'), {
+  t.deepEqual(bud.options.get('webpack.optimization.splitChunks.cacheGroup.vendor'), {
     test: /dank/,
     name: 'whois.plagueis',
     chunks: 'chonks',

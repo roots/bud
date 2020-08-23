@@ -12,7 +12,7 @@
  */
 var devServer = function (bud) {
     return bud.hooks.filter('webpack.devServer', {
-        devServer: bud.options.get('devServer'),
+        devServer: bud.options.get('webpack.devServer'),
     });
 };
 

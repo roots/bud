@@ -1,4 +1,4 @@
-import {adapters} from './adapters'
+import {plugins} from './plugins'
 import {cli} from './cli'
 import {configs} from './configs'
 import {env} from './env'
@@ -8,20 +8,24 @@ import {paths} from './paths'
 import {patterns} from './patterns'
 import {loaders, rules, uses} from './rulesets'
 
+/**
+ * Repositories
+ */
 export const repositories = {
-  extensions: [adapters],
+  extensions: [plugins],
   files: [configs],
   stores: [
-    paths,
-    env,
-    ...cli,
+    /** Order is unimportant */
     features,
-    options,
     loaders,
-    cli,
-    adapters,
+    options,
+    paths,
     patterns,
     rules,
     uses,
+
+    /** Order is important */
+    env,
+    ...cli,
   ],
 }

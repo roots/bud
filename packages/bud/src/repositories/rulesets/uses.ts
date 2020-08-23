@@ -1,14 +1,15 @@
 import {Bud} from '../..'
 import type {WebpackRule} from '@roots/bud-typings'
+import type {RepositoryDefinition} from '../../container'
 
 /**
  * Module Rule
  */
 type Use = (bud: Bud) => WebpackRule
 
-const uses = {
-  repository: 'uses',
-  contents: {
+const uses: RepositoryDefinition = {
+  name: 'uses',
+  register: {
     babel: (bud: Bud) =>
       bud.hooks.filter('webpack.module.babel', {
         loader: bud.hooks.filter(

@@ -11,19 +11,15 @@
  * @license MIT
  */
 var features = {
-    repository: 'features',
-    contents: {
-        /**
-         * Default enabled
-         */
+    name: 'features',
+    register: {
+        /** Default enabled */
         babel: true,
         clean: true,
         dashboard: true,
         manifest: true,
         postcss: true,
-        /**
-         * Opt-in
-         */
+        /** Opt-in */
         browsersync: false,
         hash: false,
         hot: false,

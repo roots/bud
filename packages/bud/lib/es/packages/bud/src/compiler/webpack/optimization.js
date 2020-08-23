@@ -19,7 +19,7 @@ var optimization = function (bud) {
     return bud.hooks.filter('webpack.optimization', {
         optimization: __assign(__assign({}, (bud.features.enabled('runtimeManifest')
             ? {
-                runtimeChunk: bud.hooks.filter('webpack.optimization.runtimeChunk', bud.options.get('optimization.runtimeChunk.name')
+                runtimeChunk: bud.hooks.filter('webpack.optimization.runtimeChunk', bud.options.get('webpack.optimization.runtimeChunk.name')
                     ? {
                         name: function (entrypoint) { return "runtime/" + entrypoint.name; },
                     }
@@ -29,10 +29,10 @@ var optimization = function (bud) {
                 ? bud.hooks.filter('webpack.optimization.splitChunks.cacheGroups', {
                     cacheGroups: {
                         vendor: {
-                            test: bud.hooks.filter('webpack.optimization.splitChunks.cacheGroups.test', bud.options.get('optimization.splitChunks.cacheGroups.test')),
-                            name: bud.hooks.filter('webpack.optimization.splitChunks.cacheGroups.name', bud.options.get('optimization.splitChunks.cacheGroups.name')),
-                            chunks: bud.hooks.filter('webpack.optimization.splitChunks.cacheGroups.chunks', bud.options.get('optimization.splitChunks.cacheGroups.chunks')),
-                            priority: bud.hooks.filter('webpack.optimization.splitChunks.cacheGroups.priority', bud.options.get('optimization.splitChunks.cacheGroups.priority')),
+                            test: bud.hooks.filter('webpack.optimization.splitChunks.cacheGroups.test', bud.options.get('webpack.optimization.splitChunks.cacheGroups.test')),
+                            name: bud.hooks.filter('webpack.optimization.splitChunks.cacheGroups.name', bud.options.get('webpack.optimization.splitChunks.cacheGroups.name')),
+                            chunks: bud.hooks.filter('webpack.optimization.splitChunks.cacheGroups.chunks', bud.options.get('webpack.optimization.splitChunks.cacheGroups.chunks')),
+                            priority: bud.hooks.filter('webpack.optimization.splitChunks.cacheGroups.priority', bud.options.get('webpack.optimization.splitChunks.cacheGroups.priority')),
                         },
                     },
                 })

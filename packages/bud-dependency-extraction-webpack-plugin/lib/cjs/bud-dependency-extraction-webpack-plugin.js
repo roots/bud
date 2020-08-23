@@ -36,8 +36,8 @@ var DependencyExtractionWebpackPlugin__default = /*#__PURE__*/_interopDefaultLeg
  */
 const dependencyExtractionConfig = function (settings) {
     settings &&
-        this.options.set('adapters.dependencyExtraction', {
-            ...this.options.get('adapters.dependencyExtraction'),
+        this.options.set('webpack.plugins.dependencyExtraction', {
+            ...this.options.get('webpack.plugins.dependencyExtraction'),
             ...settings,
         });
     return this;
@@ -46,19 +46,19 @@ const adapter = (bud) => ({
     bud,
     name: 'wordpress-dependency-extraction-plugin',
     mergeOptions: function () {
-        return this.bud.options.get('adapters.dependencyExtraction');
+        return this.bud.options.get('webpack.plugins.dependencyExtraction');
     },
     make: function () {
-        return new DependencyExtractionWebpackPlugin__default['default'](this.bud.options.get('adapters.dependencyExtraction'));
+        return new DependencyExtractionWebpackPlugin__default['default'](this.bud.options.get('webpack.plugins.dependencyExtraction'));
     },
 });
 const extraction = (bud) => ({
     bud,
     name: 'bud-dependency-extraction',
     make: function () {
-        this.bud.options.set('adapters.dependencyExtraction', {});
+        this.bud.options.set('webpack.plugins.dependencyExtraction', {});
         this.bud.apply('dependencyExtraction', dependencyExtractionConfig);
-        this.bud.adapters.add(adapter);
+        this.bud.plugins.add(adapter);
     },
 });
 

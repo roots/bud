@@ -2,8 +2,8 @@ import {join} from 'path'
 import type {Copy} from './copy'
 
 const copyAll: Copy = function (from, to?) {
-  this.options.set('copy.patterns', [
-    ...this.options.get('copy.patterns'),
+  this.options.set('webpack.plugins.copy.patterns', [
+    ...this.options.get('webpack.plugins.copy.patterns'),
     this.hooks.filter('bud.copyAll.filter', {
       from: '**/*',
       context: from,

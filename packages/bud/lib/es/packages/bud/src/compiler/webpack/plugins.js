@@ -12,7 +12,7 @@
  */
 var plugins = function (bud) {
     return bud.hooks.filter('webpack.plugins', {
-        plugins: bud.adapters
+        plugins: bud.plugins
             .entries()
             .map(function (adapter) {
             return bud.hooks.filter("webpack.plugins." + adapter.name, bud.extensionFactory(bud, adapter).build());

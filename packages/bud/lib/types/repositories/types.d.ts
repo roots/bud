@@ -1,8 +1,8 @@
-import type { BrowserSyncOptions, WebpackExternals, WebpackTarget } from '@roots/bud-typings';
 import type { Container, FileContainer } from '../container';
 import type { Bud } from '..';
 export type { Bud };
 export declare type Options = Container;
+import type { BrowserSyncOptions, WebpackExternals } from '@roots/bud-typings';
 export declare type BrowserSync = BrowserSyncOptions;
 export declare type Copy = {
     patterns: any[];
@@ -12,7 +12,6 @@ export declare type Externals = WebpackExternals;
 export declare type PostCssConfiguration = {
     plugins: any[];
 };
-export declare type Target = WebpackTarget;
 export declare type Vendor = {
     name: string;
 };

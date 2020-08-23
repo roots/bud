@@ -5,7 +5,7 @@ type EntryBuilder = (bud: Bud) => WebpackEntry
 
 const entry: EntryBuilder = bud =>
   bud.hooks.filter('webpack.entry', {
-    entry: bud.options.get('entry'),
+    entry: bud.options.get('webpack.entry'),
   })
 
 export {entry}

@@ -1,18 +1,16 @@
-const features = {
-  repository: 'features',
-  contents: {
-    /**
-     * Default enabled
-     */
+import type {RepositoryDefinition} from '../container'
+
+const features: RepositoryDefinition = {
+  name: 'features',
+  register: {
+    /** Default enabled */
     babel: true, // enable babel
     clean: true, // clean compiled files on every run.
     dashboard: true, // bud custom dashboard.
     manifest: true, // generate a manifest
     postcss: true, // enable postCss
 
-    /**
-     * Opt-in
-     */
+    /** Opt-in */
     browsersync: false, // browsersync browser reloading
     hash: false, // hash filenames
     hot: false, // enable devServer: hot module reloading

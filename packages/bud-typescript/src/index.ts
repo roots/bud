@@ -30,15 +30,19 @@ const typescript: Extension = (bud: Bud): ExtensionInterface => ({
       return
     }
 
-    !this.bud.options.get('resolve.extensions').includes('.ts') &&
-      this.bud.options.set('resolve.extensions', [
-        ...this.bud.options.get('resolve.extensions'),
+    !this.bud.options
+      .get('webpack.resolve.extensions')
+      .includes('.ts') &&
+      this.bud.options.set('webpack.resolve.extensions', [
+        ...this.bud.options.get('webpack.resolve.extensions'),
         '.ts',
       ])
 
-    !this.bud.options.get('resolve.extensions').includes('.tsx') &&
-      this.bud.options.set('resolve.extensions', [
-        ...this.bud.options.get('resolve.extensions'),
+    !this.bud.options
+      .get('webpack.resolve.extensions')
+      .includes('.tsx') &&
+      this.bud.options.set('webpack.resolve.extensions', [
+        ...this.bud.options.get('webpack.resolve.extensions'),
         '.tsx',
       ])
 

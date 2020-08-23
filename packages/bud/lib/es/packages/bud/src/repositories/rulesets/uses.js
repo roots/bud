@@ -13,8 +13,8 @@
 import { __assign } from 'tslib';
 
 var uses = {
-    repository: 'uses',
-    contents: {
+    name: 'uses',
+    register: {
         babel: function (bud) {
             return bud.hooks.filter('webpack.module.babel', {
                 loader: bud.hooks.filter('webpack.module.babel.loader', bud.loaders.get('babel')),

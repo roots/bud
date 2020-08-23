@@ -29,15 +29,15 @@ var configFiles = [
     },
 ];
 var configs = {
-    repository: 'configs',
-    contents: function (bud) { return (__assign({}, configFiles.map(function (config) {
+    name: 'configs',
+    register: __assign({}, configFiles.map(function (config) {
         var _a;
-        var projectPath = join(bud.paths.get('project'), config.filename);
+        var projectPath = join(process.cwd(), config.filename);
         if (existsSync(projectPath)) {
             return _a = {}, _a[config.name] = projectPath, _a;
         }
         return {};
-    }))); },
+    })),
 };
 
 export { configs };

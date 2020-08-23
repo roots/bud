@@ -14,8 +14,8 @@ import { join } from 'path';
 import dotenv from 'dotenv';
 
 var env = {
-    repository: 'env',
-    contents: function (bud) { var _a; return (_a = dotenv.config({
+    name: 'env',
+    boot: function (bud) { var _a; return (_a = dotenv.config({
         path: join(bud.paths.get('project'), '.env'),
     }).parsed) !== null && _a !== void 0 ? _a : {}; },
 };

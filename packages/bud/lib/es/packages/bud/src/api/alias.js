@@ -13,7 +13,7 @@
 import { __assign } from 'tslib';
 
 var alias = function (options) {
-    this.options.set('resolve.alias', __assign(__assign({}, this.options.get('resolve.alias')), this.hooks.filter('api.alias', options)));
+    this.options.set('webpack.resolve.alias', __assign(__assign({}, this.options.get('webpack.resolve.alias')), this.hooks.filter('api.alias', options)));
     return this;
 };
 

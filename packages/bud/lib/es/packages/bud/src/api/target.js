@@ -11,7 +11,7 @@
  * @license MIT
  */
 var target = function (target) {
-    this.options.set('target', this.hooks.filter('api.target', target));
+    this.webpack.set('target', this.hooks.filter('api.target', target));
     return this;
 };
 

@@ -11,7 +11,7 @@
  * @license MIT
  */
 var devtool = function (devtool) {
-    this.options.set('devtool', devtool);
+    this.options.set('webpack.devtool', devtool);
     return this;
 };
 

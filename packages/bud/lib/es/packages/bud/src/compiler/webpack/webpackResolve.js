@@ -15,8 +15,8 @@ import { join } from 'path';
 var webpackResolve = function (bud) {
     return bud.hooks.filter('webpack.resolve', {
         resolve: {
-            alias: bud.hooks.filter('webpack.resolve.alias', bud.options.get('resolve.alias')),
-            extensions: bud.hooks.filter('webpack.resolve.extensions', bud.options.get('resolve.extensions')),
+            alias: bud.hooks.filter('webpack.resolve.alias', bud.options.get('webpack.resolve.alias')),
+            extensions: bud.hooks.filter('webpack.resolve.extensions', bud.options.get('webpack.resolve.extensions')),
             modules: bud.hooks.filter('webpack.resolve.modules', [
                 bud.paths.get('src'),
                 join(bud.paths.get('project'), 'node_modules'),

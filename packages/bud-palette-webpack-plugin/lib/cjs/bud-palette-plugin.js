@@ -31,7 +31,7 @@ const adapter = (bud) => ({
 });
 
 const api = function (blacklist) {
-    this.options.set('palette-blacklist', blacklist);
+    this.options.set('webpack.plugins.palettePlugin.blacklist', blacklist);
     return this;
 };
 
@@ -43,7 +43,7 @@ const paletteWebpackPlugin = (bud) => ({
     name: 'palette-webpack-plugin',
     make: function () {
         this.bud.apply('setPaletteBlacklist', api);
-        this.bud.adapters.add(adapter);
+        this.bud.plugins.add(adapter);
     },
 });
 

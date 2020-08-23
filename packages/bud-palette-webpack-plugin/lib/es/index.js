@@ -21,7 +21,7 @@ const paletteWebpackPlugin = (bud) => ({
     name: 'palette-webpack-plugin',
     make: function () {
         this.bud.apply('setPaletteBlacklist', api);
-        this.bud.adapters.add(adapter);
+        this.bud.plugins.add(adapter);
     },
 });
 

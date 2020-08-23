@@ -169,6 +169,13 @@ export interface Bud extends Loose {
   uses: Container
 
   /**
+   * ## bud.webpack
+   *
+   * Webpack configuration
+   */
+  webpack: Container
+
+  /**
    * ## bud.alias
    *
    * Resolve modules through webpack aliases. Useful for situations that may otherwise require brittle relative paths.

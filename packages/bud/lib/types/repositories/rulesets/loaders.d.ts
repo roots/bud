@@ -1,6 +1,6 @@
 declare const loaders: {
-    repository: string;
-    contents: {
+    name: string;
+    register: {
         babel: string;
         css: string;
         file: string;

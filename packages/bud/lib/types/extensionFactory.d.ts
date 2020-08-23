@@ -6,7 +6,7 @@ declare type ExtensionPropFallback = Bud | Fab['undefined'] | Fab['true'];
 declare type MakeExtension = () => WebpackPlugin;
 declare type ExtensionTransform = (propName?: string, fallback?: ExtensionPropFallback) => void;
 export declare type ExtensionController = {
-    bud?: Bud;
+    bud: Bud;
     extension: ExtensionInterface;
     build: MakeExtension;
     makeExtension: MakeExtension;

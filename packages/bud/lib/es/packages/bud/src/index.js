@@ -13,27 +13,30 @@
 import { api } from './api/index.js';
 import { bootstrap } from './bootstrapper.js';
 export { bootstrap } from './bootstrapper.js';
-import { makeExtensionContainer, makeContainer, makeFileContainer } from './container.js';
-import { repositories } from './repositories/index.js';
+import { registerExtensionContainer, registerFileContainer, registerContainer } from './container.js';
 
-repositories.extensions.forEach(function (ext) {
-    bootstrap.apply(ext.repository, makeExtensionContainer(ext, bootstrap.framework));
+bootstrap.repositories.extensions.forEach(function (store) {
+    bootstrap.framework[store.name] = registerExtensionContainer(store);
 });
-repositories.stores.forEach(function (store) {
-    bootstrap.apply(store.repository, makeContainer(store, bootstrap.framework));
+bootstrap.repositories.files.forEach(function (store) {
+    bootstrap.framework[store.name] = registerFileContainer(store);
 });
-repositories.files.forEach(function (file) {
-    bootstrap.apply(file.repository, makeFileContainer(file, bootstrap.framework));
+bootstrap.repositories.stores.forEach(function (store) {
+    bootstrap.framework[store.name] = registerContainer(store);
 });
-bootstrap.apply('mode', bootstrap.framework.args.get('mode'));
-bootstrap.apply('inProduction', bootstrap.framework.args.is('mode', 'production'));
-bootstrap.apply('inDevelopment', bootstrap.framework.args.is('mode', 'development'));
+bootstrap.framework.mode = bootstrap.framework.args.get('mode');
+bootstrap.framework.inProduction = bootstrap.framework.args.is('mode', 'production');
+bootstrap.framework.inDevelopment = bootstrap.framework.args.is('mode', 'development');
 Object.values(api).forEach(function (method) {
-    bootstrap.apply(method.name, method);
+    bootstrap.framework[method.name] = method;
 });
 var bud = bootstrap.boot();
-bud.options.set('browserSync', bud.options.get('adapters.browsersync')(bud.flags));
+bud.options.set('webpack.plugins.browsersync', bud.options.get('webpack.plugins.browsersync')(bud.flags));
 bud.options.set('babel', bud.options.get('babel')(bud.configs));
 bud.options.set('postcss', bud.options.get('postcss')(bud.flags));
+bud.apply = function (propertyName, propertyValue) {
+    bud[propertyName] = propertyValue;
+    return this;
+};
 
 export { bud };

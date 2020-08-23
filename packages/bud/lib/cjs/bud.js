@@ -33,7 +33,6 @@ var cliHighlight = require('cli-highlight');
 var fsExtra = require('fs-extra');
 var pino = require('pino');
 var yargs = require('yargs');
-var lodash = require('lodash');
 var BrowserSyncWebpackPlugin = require('browser-sync-webpack-plugin');
 var cleanWebpackPlugin = require('clean-webpack-plugin');
 var CopyWebpackPlugin = require('copy-webpack-plugin');
@@ -43,6 +42,7 @@ var ManifestPlugin = require('webpack-manifest-plugin');
 var TerserPlugin = require('terser-webpack-plugin');
 var WriteFilePlugin = require('write-file-webpack-plugin');
 var dotenv = require('dotenv');
+var lodash = require('lodash');
 
 function _interopDefaultLegacy (e) { return e && typeof e === 'object' && 'default' in e ? e : { 'default': e }; }
 
@@ -69,7 +69,7 @@ var WriteFilePlugin__default = /*#__PURE__*/_interopDefaultLegacy(WriteFilePlugi
 var dotenv__default = /*#__PURE__*/_interopDefaultLegacy(dotenv);
 
 var alias = function (options) {
-    this.options.set('resolve.alias', tslib.__assign(tslib.__assign({}, this.options.get('resolve.alias')), this.hooks.filter('api.alias', options)));
+    this.options.set('webpack.resolve.alias', tslib.__assign(tslib.__assign({}, this.options.get('webpack.resolve.alias')), this.hooks.filter('api.alias', options)));
     return this;
 };
 
@@ -79,7 +79,7 @@ var auto = function (options) {
         var key = _a[0], modules = _a[1];
         modules.forEach(function (handle) {
             var _a;
-            _this.options.set('auto', tslib.__assign(tslib.__assign({}, _this.options.get('auto')), (_a = {}, _a[handle] = key, _a)));
+            _this.options.set('webpack.externals', tslib.__assign(tslib.__assign({}, _this.options.get('webpack.externals')), (_a = {}, _a[handle] = key, _a)));
         });
     });
     return this;
@@ -95,7 +95,7 @@ var babel = function (options) {
 var bundle = function (name, entries) {
     var _a;
     this.util.usedExt(entries, this);
-    this.options.set('entry', tslib.__assign(tslib.__assign({}, this.options.get('entry')), this.hooks.filter('api.bundle.filter', (_a = {},
+    this.options.set('webpack.entry', tslib.__assign(tslib.__assign({}, this.options.get('webpack.entry')), this.hooks.filter('api.bundle.filter', (_a = {},
         _a["" + name] = entries,
         _a))));
     return this;
@@ -115,7 +115,7 @@ var config = function () {
 };
 
 var copy = function (from, to) {
-    this.options.set('copy.patterns', tslib.__spreadArrays(this.options.get('copy.patterns'), [
+    this.options.set('webpack.plugins.copy.patterns', tslib.__spreadArrays(this.options.get('webpack.plugins.copy.patterns'), [
         {
             from: from,
             to: to !== null && to !== void 0 ? to : path.join(this.paths.get('dist'), from),
@@ -125,7 +125,7 @@ var copy = function (from, to) {
 };
 
 var copyAll = function (from, to) {
-    this.options.set('copy.patterns', tslib.__spreadArrays(this.options.get('copy.patterns'), [
+    this.options.set('webpack.plugins.copy.patterns', tslib.__spreadArrays(this.options.get('webpack.plugins.copy.patterns'), [
         this.hooks.filter('bud.copyAll.filter', {
             from: '**/*',
             context: from,
@@ -151,7 +151,7 @@ var distPath = function (dir) {
 };
 
 var devtool = function (devtool) {
-    this.options.set('devtool', devtool);
+    this.options.set('webpack.devtool', devtool);
     return this;
 };
 
@@ -176,7 +176,7 @@ var glob = function (name, files) {
         var _a;
         entry = tslib.__assign(tslib.__assign({}, entry), (_a = {}, _a[name + "/"] = match, _a));
     });
-    this.options.set('entry', entry);
+    this.options.set('webpack.entry', entry);
     return this;
 };
 
@@ -190,9 +190,9 @@ var hot = function (options) {
     var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q, _r, _s, _t, _u, _v, _w, _x, _y, _z, _0, _1, _2, _3, _4, _5;
     this.features.set('hot', (_a = options === null || options === void 0 ? void 0 : options.enabled) !== null && _a !== void 0 ? _a : this.inDevelopment);
     (options === null || options === void 0 ? void 0 : options.watch) &&
-        this.options.set('watch', tslib.__spreadArrays(this.options.get('watch'), options.watch));
+        this.options.set('webpack.watch', tslib.__spreadArrays(this.options.get('webpack.watch'), options.watch));
     var devServer = this.options.has('devServer')
-        ? this.options.get('devServer')
+        ? this.options.get('webpack.devServer')
         : {};
     var proxyAll = devServer.proxy && devServer.proxy['**']
         ? devServer.proxy['**']
@@ -205,7 +205,7 @@ var hot = function (options) {
             });
         },
     };
-    this.options.set('devServer', this.hooks.filter('api.hot', tslib.__assign(tslib.__assign(tslib.__assign({}, devServer), chokidarHandler), { hot: (_d = (_c = options === null || options === void 0 ? void 0 : options.enabled) !== null && _c !== void 0 ? _c : devServer.enabled) !== null && _d !== void 0 ? _d : true, host: (_f = (_e = options === null || options === void 0 ? void 0 : options.host) !== null && _e !== void 0 ? _e : devServer.host) !== null && _f !== void 0 ? _f : 'localhost', overlay: (_h = (_g = options === null || options === void 0 ? void 0 : options.overlay) !== null && _g !== void 0 ? _g : devServer.overlay) !== null && _h !== void 0 ? _h : true, port: (_k = (_j = options === null || options === void 0 ? void 0 : options.port) !== null && _j !== void 0 ? _j : devServer.port) !== null && _k !== void 0 ? _k : 3000, secure: (_m = (_l = options === null || options === void 0 ? void 0 : options.secure) !== null && _l !== void 0 ? _l : devServer.secure) !== null && _m !== void 0 ? _m : false, open: (_p = (_o = options === null || options === void 0 ? void 0 : options.open) !== null && _o !== void 0 ? _o : devServer.open) !== null && _p !== void 0 ? _p : true, historyApiFallback: (_r = (_q = options === null || options === void 0 ? void 0 : options.historyApiFallback) !== null && _q !== void 0 ? _q : devServer.historyApiFallback) !== null && _r !== void 0 ? _r : true, headers: tslib.__assign(tslib.__assign({}, ((_s = this.options.get('headers')) !== null && _s !== void 0 ? _s : [])), ((_t = options === null || options === void 0 ? void 0 : options.headers) !== null && _t !== void 0 ? _t : [])), proxy: tslib.__assign(tslib.__assign(tslib.__assign({}, ((_u = devServer.proxy) !== null && _u !== void 0 ? _u : [])), { '**': tslib.__assign(tslib.__assign({}, (proxyAll !== null && proxyAll !== void 0 ? proxyAll : [])), { target: (_w = (_v = options === null || options === void 0 ? void 0 : options.host) !== null && _v !== void 0 ? _v : proxyAll === null || proxyAll === void 0 ? void 0 : proxyAll.target) !== null && _w !== void 0 ? _w : 'http://localhost', secure: (_y = (_x = options === null || options === void 0 ? void 0 : options.secure) !== null && _x !== void 0 ? _x : proxyAll === null || proxyAll === void 0 ? void 0 : proxyAll.secure) !== null && _y !== void 0 ? _y : devServer.secure, changeOrigin: (_0 = (_z = options === null || options === void 0 ? void 0 : options.changeOrigin) !== null && _z !== void 0 ? _z : proxyAll === null || proxyAll === void 0 ? void 0 : proxyAll.changeOrigin) !== null && _0 !== void 0 ? _0 : true, port: (_2 = (_1 = options === null || options === void 0 ? void 0 : options.port) !== null && _1 !== void 0 ? _1 : proxyAll === null || proxyAll === void 0 ? void 0 : proxyAll.port) !== null && _2 !== void 0 ? _2 : devServer.port, headers: tslib.__assign(tslib.__assign({}, this.options.get('devServer.headers')), ((_4 = (_3 = options === null || options === void 0 ? void 0 : options.headers) !== null && _3 !== void 0 ? _3 : proxyAll === null || proxyAll === void 0 ? void 0 : proxyAll.headers) !== null && _4 !== void 0 ? _4 : [])) }) }), ((_5 = options === null || options === void 0 ? void 0 : options.proxy) !== null && _5 !== void 0 ? _5 : [])) })));
+    this.options.set('devServer', this.hooks.filter('api.hot', tslib.__assign(tslib.__assign(tslib.__assign({}, devServer), chokidarHandler), { hot: (_d = (_c = options === null || options === void 0 ? void 0 : options.enabled) !== null && _c !== void 0 ? _c : devServer.enabled) !== null && _d !== void 0 ? _d : true, host: (_f = (_e = options === null || options === void 0 ? void 0 : options.host) !== null && _e !== void 0 ? _e : devServer.host) !== null && _f !== void 0 ? _f : 'localhost', overlay: (_h = (_g = options === null || options === void 0 ? void 0 : options.overlay) !== null && _g !== void 0 ? _g : devServer.overlay) !== null && _h !== void 0 ? _h : true, port: (_k = (_j = options === null || options === void 0 ? void 0 : options.port) !== null && _j !== void 0 ? _j : devServer.port) !== null && _k !== void 0 ? _k : 3000, secure: (_m = (_l = options === null || options === void 0 ? void 0 : options.secure) !== null && _l !== void 0 ? _l : devServer.secure) !== null && _m !== void 0 ? _m : false, open: (_p = (_o = options === null || options === void 0 ? void 0 : options.open) !== null && _o !== void 0 ? _o : devServer.open) !== null && _p !== void 0 ? _p : true, historyApiFallback: (_r = (_q = options === null || options === void 0 ? void 0 : options.historyApiFallback) !== null && _q !== void 0 ? _q : devServer.historyApiFallback) !== null && _r !== void 0 ? _r : true, headers: tslib.__assign(tslib.__assign({}, ((_s = this.options.get('webpack.devServer.headers')) !== null && _s !== void 0 ? _s : [])), ((_t = options === null || options === void 0 ? void 0 : options.headers) !== null && _t !== void 0 ? _t : [])), proxy: tslib.__assign(tslib.__assign(tslib.__assign({}, ((_u = devServer.proxy) !== null && _u !== void 0 ? _u : [])), { '**': tslib.__assign(tslib.__assign({}, (proxyAll !== null && proxyAll !== void 0 ? proxyAll : [])), { target: (_w = (_v = options === null || options === void 0 ? void 0 : options.host) !== null && _v !== void 0 ? _v : proxyAll === null || proxyAll === void 0 ? void 0 : proxyAll.target) !== null && _w !== void 0 ? _w : 'http://localhost', secure: (_y = (_x = options === null || options === void 0 ? void 0 : options.secure) !== null && _x !== void 0 ? _x : proxyAll === null || proxyAll === void 0 ? void 0 : proxyAll.secure) !== null && _y !== void 0 ? _y : devServer.secure, changeOrigin: (_0 = (_z = options === null || options === void 0 ? void 0 : options.changeOrigin) !== null && _z !== void 0 ? _z : proxyAll === null || proxyAll === void 0 ? void 0 : proxyAll.changeOrigin) !== null && _0 !== void 0 ? _0 : true, port: (_2 = (_1 = options === null || options === void 0 ? void 0 : options.port) !== null && _1 !== void 0 ? _1 : proxyAll === null || proxyAll === void 0 ? void 0 : proxyAll.port) !== null && _2 !== void 0 ? _2 : devServer.port, headers: tslib.__assign(tslib.__assign({}, this.options.get('webpack.devServer.proxy.headers')), ((_4 = (_3 = options === null || options === void 0 ? void 0 : options.headers) !== null && _3 !== void 0 ? _3 : proxyAll === null || proxyAll === void 0 ? void 0 : proxyAll.headers) !== null && _4 !== void 0 ? _4 : [])) }) }), ((_5 = options === null || options === void 0 ? void 0 : options.proxy) !== null && _5 !== void 0 ? _5 : [])) })));
     return this;
 };
 
@@ -221,7 +221,7 @@ var manifest = function (options) {
 var runtimeManifest = function (args) {
     var _a, _b;
     this.features.set('runtimeChunk', (_a = args === null || args === void 0 ? void 0 : args.enabled) !== null && _a !== void 0 ? _a : true);
-    this.options.set('optimization.runtimeChunk.name', (_b = args === null || args === void 0 ? void 0 : args.name) !== null && _b !== void 0 ? _b : this.options.get('optimization.runtimeChunk.name'));
+    this.options.set('webpack.optimization.runtimeChunk.name', (_b = args === null || args === void 0 ? void 0 : args.name) !== null && _b !== void 0 ? _b : this.options.get('webpack.optimization.runtimeChunk.name'));
     return this;
 };
 
@@ -268,7 +268,6 @@ var publicPath = function (dir) {
 };
 
 var splitting = function (enabled) {
-    this.logger.info({ name: 'bud.api', "function": 'bud.splitting', enabled: enabled }, "bud.splitting called");
     this.features.set('splitting', enabled !== null && enabled !== void 0 ? enabled : true);
     return this;
 };
@@ -290,18 +289,18 @@ var srcPath = function (dir) {
 var sync = function (_a) {
     var _b = _a.enabled, enabled = _b === void 0 ? true : _b, options = _a.options;
     this.features.set('adapters.browsersync', enabled !== null && enabled !== void 0 ? enabled : true);
-    this.options.set('adapters.browsersync', tslib.__assign(tslib.__assign({}, this.options.get('adapters.browsersync')), options));
+    this.webpack.set('plugins.browsersync', tslib.__assign(tslib.__assign({}, this.webpack.get('plugins.browsersync')), options));
     return this;
 };
 
 var target = function (target) {
-    this.options.set('target', this.hooks.filter('api.target', target));
+    this.webpack.set('target', this.hooks.filter('api.target', target));
     return this;
 };
 
 var terser = function (options) {
     if (options) {
-        this.options.set('adapters.terser', tslib.__assign(tslib.__assign({}, this.options.get('adapters.terser')), options));
+        this.options.set('webpack.plugins.terser', tslib.__assign(tslib.__assign({}, this.options.get('webpack.plugins.terser')), options));
     }
     return this;
 };
@@ -317,7 +316,7 @@ var use = function (extensions) {
 var vendor = function (options) {
     this.features.enable('vendor');
     options &&
-        this.options.set('optimization.splitChunks.cacheGroup.vendor', tslib.__assign(tslib.__assign({}, this.options.get('optimization.splitChunks.cacheGroup.vendor')), options));
+        this.options.set('webpack.optimization.splitChunks.cacheGroup.vendor', tslib.__assign(tslib.__assign({}, this.options.get('webpack.optimization.splitChunks.cacheGroup.vendor')), options));
     return this;
 };
 
@@ -368,19 +367,19 @@ var api = {
 
 var entry = function (bud) {
     return bud.hooks.filter('webpack.entry', {
-        entry: bud.options.get('entry'),
+        entry: bud.options.get('webpack.entry'),
     });
 };
 
 var devServer = function (bud) {
     return bud.hooks.filter('webpack.devServer', {
-        devServer: bud.options.get('devServer'),
+        devServer: bud.options.get('webpack.devServer'),
     });
 };
 
 var externals = function (bud) {
     return bud.hooks.filter('webpack.externals', {
-        externals: bud.options.get('externals'),
+        externals: bud.options.get('webpack.externals'),
     });
 };
 
@@ -388,11 +387,11 @@ var general = function (bud) {
     var _a;
     return ({
         context: bud.hooks.filter('webpack.context', bud.paths.get('project')),
-        devtool: bud.hooks.filter('webpack.devtool', (_a = bud.options.get('devtool')) !== null && _a !== void 0 ? _a : false),
+        devtool: bud.hooks.filter('webpack.devtool', (_a = bud.options.get('webpack.devtool')) !== null && _a !== void 0 ? _a : false),
         mode: bud.hooks.filter('webpack.mode', bud.mode),
-        node: bud.hooks.filter('webpack.node', bud.options.get('node')),
-        stats: bud.hooks.filter('webpack.stats', bud.options.get('stats')),
-        target: bud.hooks.filter('webpack.target', bud.options.get('target')),
+        node: bud.hooks.filter('webpack.node', bud.options.get('webpack.node')),
+        stats: bud.hooks.filter('webpack.stats', bud.options.get('webpack.stats')),
+        target: bud.hooks.filter('webpack.target', bud.options.get('webpack.target')),
         watch: bud.hooks.filter('webpack.watch', bud.features.enabled('watch')),
     });
 };
@@ -414,7 +413,7 @@ var optimization = function (bud) {
     return bud.hooks.filter('webpack.optimization', {
         optimization: tslib.__assign(tslib.__assign({}, (bud.features.enabled('runtimeManifest')
             ? {
-                runtimeChunk: bud.hooks.filter('webpack.optimization.runtimeChunk', bud.options.get('optimization.runtimeChunk.name')
+                runtimeChunk: bud.hooks.filter('webpack.optimization.runtimeChunk', bud.options.get('webpack.optimization.runtimeChunk.name')
                     ? {
                         name: function (entrypoint) { return "runtime/" + entrypoint.name; },
                     }
@@ -424,10 +423,10 @@ var optimization = function (bud) {
                 ? bud.hooks.filter('webpack.optimization.splitChunks.cacheGroups', {
                     cacheGroups: {
                         vendor: {
-                            test: bud.hooks.filter('webpack.optimization.splitChunks.cacheGroups.test', bud.options.get('optimization.splitChunks.cacheGroups.test')),
-                            name: bud.hooks.filter('webpack.optimization.splitChunks.cacheGroups.name', bud.options.get('optimization.splitChunks.cacheGroups.name')),
-                            chunks: bud.hooks.filter('webpack.optimization.splitChunks.cacheGroups.chunks', bud.options.get('optimization.splitChunks.cacheGroups.chunks')),
-                            priority: bud.hooks.filter('webpack.optimization.splitChunks.cacheGroups.priority', bud.options.get('optimization.splitChunks.cacheGroups.priority')),
+                            test: bud.hooks.filter('webpack.optimization.splitChunks.cacheGroups.test', bud.options.get('webpack.optimization.splitChunks.cacheGroups.test')),
+                            name: bud.hooks.filter('webpack.optimization.splitChunks.cacheGroups.name', bud.options.get('webpack.optimization.splitChunks.cacheGroups.name')),
+                            chunks: bud.hooks.filter('webpack.optimization.splitChunks.cacheGroups.chunks', bud.options.get('webpack.optimization.splitChunks.cacheGroups.chunks')),
+                            priority: bud.hooks.filter('webpack.optimization.splitChunks.cacheGroups.priority', bud.options.get('webpack.optimization.splitChunks.cacheGroups.priority')),
                         },
                     },
                 })
@@ -450,8 +449,8 @@ var output = function (bud) {
 var webpackResolve = function (bud) {
     return bud.hooks.filter('webpack.resolve', {
         resolve: {
-            alias: bud.hooks.filter('webpack.resolve.alias', bud.options.get('resolve.alias')),
-            extensions: bud.hooks.filter('webpack.resolve.extensions', bud.options.get('resolve.extensions')),
+            alias: bud.hooks.filter('webpack.resolve.alias', bud.options.get('webpack.resolve.alias')),
+            extensions: bud.hooks.filter('webpack.resolve.extensions', bud.options.get('webpack.resolve.extensions')),
             modules: bud.hooks.filter('webpack.resolve.modules', [
                 bud.paths.get('src'),
                 path.join(bud.paths.get('project'), 'node_modules'),
@@ -463,7 +462,7 @@ var webpackResolve = function (bud) {
 
 var plugins = function (bud) {
     return bud.hooks.filter('webpack.plugins', {
-        plugins: bud.adapters
+        plugins: bud.plugins
             .entries()
             .map(function (adapter) {
             return bud.hooks.filter("webpack.plugins." + adapter.name, bud.extensionFactory(bud, adapter).build());
@@ -4329,8 +4328,8 @@ var fs = {
 var usedExt = function (entries, bud) {
     entries.forEach(function (entry) {
         var ext = "." + entry.split('.')[entry.split('.').length - 1];
-        !bud.options.get('resolve.extensions').includes(ext) &&
-            bud.options.set('resolve.extensions', tslib.__spreadArrays(bud.options.get('resolve.extensions'), [
+        !bud.options.get('webpack.resolve.extensions').includes(ext) &&
+            bud.options.set('webpack.resolve.extensions', tslib.__spreadArrays(bud.options.get('webpack.resolve.extensions'), [
                 ext,
             ]));
     });
@@ -4424,35 +4423,637 @@ var extensionFactory = function (bud, extension) { return ({
     },
 }); };
 
+var browserSync$1 = function (bud) { return ({
+    bud: bud,
+    name: 'browser-sync-webpack-plugin',
+    options: bud.options.get('webpack.plugins.browsersync'),
+    make: function () {
+        return new BrowserSyncWebpackPlugin__default['default'](this.options);
+    },
+    when: function () {
+        return (this.bud.features.enabled('browsersync') &&
+            !this.bud.features.enabled('hot'));
+    },
+}); };
+
+var cleanWebpack = function (bud) { return ({
+    bud: bud,
+    name: 'clean-webpack-plugin',
+    options: bud.options.get('webpack.plugins.clean'),
+    make: function () {
+        return new cleanWebpackPlugin.CleanWebpackPlugin(this.options);
+    },
+    when: function () {
+        return this.bud.features.enabled('clean');
+    },
+}); };
+
+var copy$1 = function (bud) { return ({
+    bud: bud,
+    name: 'copy-webpack-plugin',
+    options: bud.options.get('webpack.plugins.copy'),
+    make: function () {
+        return new CopyWebpackPlugin__default['default'](this.options);
+    },
+    when: function () {
+        return this.options.patterns.length > 0;
+    },
+}); };
+
+var define = function (bud) {
+    var _a;
+    return ({
+        bud: bud,
+        name: 'define',
+        options: (_a = bud.env.entries()) !== null && _a !== void 0 ? _a : false,
+        make: function () {
+            return new webpack.DefinePlugin(this.options);
+        },
+        when: function () {
+            return this.options;
+        },
+    });
+};
+
+var fixStyleOnlyEntries = function (bud) { return ({
+    bud: bud,
+    name: 'webpack-fix-style-only-entries',
+    options: bud.options.get('webpack.plugins.fixStyleOnlyEntries'),
+    make: function () {
+        if (this.bud.features.enabled('hot')) {
+            this.options.ignore = 'webpack-hot-middleware';
+        }
+        return new FixStyleOnlyEntriesPlugin__default['default'](this.options);
+    },
+    when: function () {
+        return (this.bud.options.get('webpack.resolve.extensions').includes('.css') ||
+            this.bud.options.get('webpack.resolve.extensions').includes('.scss') ||
+            this.bud.options.get('webpack.resolve.extensions').includes('.sass'));
+    },
+}); };
+
+var hotModuleReplacement = function (bud) { return ({
+    bud: bud,
+    name: 'hot-module-replacement-plugin',
+    options: bud.options.get('webpack.hotModuleReplacement'),
+    make: function () {
+        return new webpack.HotModuleReplacementPlugin(this.options);
+    },
+    when: function () {
+        return this.bud.features.enabled('hot');
+    },
+}); };
+
+var LimitChunkCountPlugin = webpack.optimize.LimitChunkCountPlugin;
+var limitChunkCount = function (bud) { return ({
+    bud: bud,
+    name: 'limit-chunk-count-plugin',
+    setOptions: function () {
+        var enabled = this.bud.features.enabled('splitting');
+        var chunks = this.bud.options.get('splitting').maxChunks;
+        if (!enabled) {
+            return {
+                maxChunks: 1,
+            };
+        }
+        if (chunks) {
+            return {
+                maxChunks: chunks,
+            };
+        }
+        return null;
+    },
+    make: function () {
+        return new LimitChunkCountPlugin(this.options);
+    },
+    when: function () {
+        return this.options;
+    },
+}); };
+
+var miniCssExtract = function (bud) { return ({
+    bud: bud,
+    name: 'mini-css-extract-plugin',
+    options: {
+        hmr: bud.features.enabled('hot'),
+        filename: bud.features.enabled('hash')
+            ? bud.options.get('filenameTemplate').hashed + ".css"
+            : bud.options.get('filenameTemplate')["default"] + ".css",
+    },
+    make: function () {
+        return new MiniCssExtractPlugin__default['default'](this.options);
+    },
+    when: function () {
+        return (this.bud.options
+            .get('webpack.resolve.extensions')
+            .includes('.css') ||
+            this.bud.options
+                .get('webpack.resolve.extensions')
+                .includes('.scss') ||
+            this.bud.options
+                .get('webpack.resolve.extensions')
+                .includes('.sass'));
+    },
+}); };
+
+var manifest$1 = function (bud) {
+    var _a, _b, _c, _d;
+    return ({
+        bud: bud,
+        name: 'webpack-manifest-plugin',
+        options: {
+            publicPath: (_b = (_a = bud.options.get('manifest.publicPath')) !== null && _a !== void 0 ? _a : bud.paths.get('public')) !== null && _b !== void 0 ? _b : '/',
+            filename: (_c = bud.options.get('manifest.name')) !== null && _c !== void 0 ? _c : 'manifest.json',
+            writeToFileEmit: (_d = bud.options.get('manifest.writeToFileEmit')) !== null && _d !== void 0 ? _d : true,
+        },
+        make: function () {
+            return new ManifestPlugin__default['default'](this.options);
+        },
+        when: function () {
+            return this.bud.features.enabled('manifest');
+        },
+    });
+};
+
+var provide = function (bud) { return ({
+    bud: bud,
+    name: 'provide-plugin',
+    options: bud.env.entries(),
+    make: function () {
+        return new webpack.ProvidePlugin(this.options);
+    },
+    when: function () {
+        return this.options;
+    },
+}); };
+
+var terser$1 = function (bud) { return ({
+    bud: bud,
+    name: 'terser-webpack-plugin',
+    options: bud.options.get('webpack.plugins.terser'),
+    make: function () {
+        return new TerserPlugin__default['default'](this.options);
+    },
+    when: function () {
+        return this.bud.features.enabled('minify');
+    },
+}); };
+
+var writeFile = function (bud) { return ({
+    bud: bud,
+    name: 'write-file-webpack-plugin',
+    make: function () {
+        return new WriteFilePlugin__default['default']();
+    },
+}); };
+
+/**
+ * Bud Webpack Adapters
+ */
+var plugins$1 = {
+    name: 'plugins',
+    register: [
+        browserSync$1,
+        cleanWebpack,
+        copy$1,
+        define,
+        fixStyleOnlyEntries,
+        hotModuleReplacement,
+        manifest$1,
+        miniCssExtract,
+        provide,
+        limitChunkCount,
+        terser$1,
+        writeFile,
+    ],
+};
+
+var _a, _b, _c, _d, _e, _f, _g;
+var args = {
+    name: 'args',
+    register: {
+        mode: (_a = yargs.argv['env']) !== null && _a !== void 0 ? _a : 'none',
+        host: (_b = yargs.argv['host']) !== null && _b !== void 0 ? _b : false,
+        port: (_c = yargs.argv['port']) !== null && _c !== void 0 ? _c : null,
+        proxy: (_d = yargs.argv['proxy']) !== null && _d !== void 0 ? _d : null,
+        src: (_e = yargs.argv['src']) !== null && _e !== void 0 ? _e : null,
+        dist: (_f = yargs.argv['dist']) !== null && _f !== void 0 ? _f : null,
+        feature: (_g = yargs.argv['feature']) !== null && _g !== void 0 ? _g : null,
+    },
+};
+
+var flags = {
+    name: 'flags',
+    register: {
+        log: yargs.argv.hasOwnProperty('log'),
+        hot: yargs.argv.hasOwnProperty('hot'),
+        watch: yargs.argv.hasOwnProperty('watch'),
+    },
+};
+
+var cli = [flags, args];
+
+var configFiles = [
+    {
+        name: 'babel',
+        filename: 'babel.config.js',
+    },
+    {
+        name: 'postcss',
+        filename: 'postcss.config.js',
+    },
+    {
+        name: 'js',
+        filename: 'jsconfig.json',
+    },
+];
+var configs = {
+    name: 'configs',
+    register: tslib.__assign({}, configFiles.map(function (config) {
+        var _a;
+        var projectPath = path.join(process.cwd(), config.filename);
+        if (fsExtra.existsSync(projectPath)) {
+            return _a = {}, _a[config.name] = projectPath, _a;
+        }
+        return {};
+    })),
+};
+
+var env = {
+    name: 'env',
+    boot: function (bud) { var _a; return (_a = dotenv__default['default'].config({
+        path: path.join(bud.paths.get('project'), '.env'),
+    }).parsed) !== null && _a !== void 0 ? _a : {}; },
+};
+
+var features = {
+    name: 'features',
+    register: {
+        /** Default enabled */
+        babel: true,
+        clean: true,
+        dashboard: true,
+        manifest: true,
+        postcss: true,
+        /** Opt-in */
+        browsersync: false,
+        hash: false,
+        hot: false,
+        minify: false,
+        splitting: true,
+        vendor: false,
+        runtimeChunk: false,
+        overlay: false,
+        sourceMap: false,
+        watch: false,
+        debug: false,
+    },
+};
+
+var target$1 = 'web';
+var babelFallback = {
+    presets: [require.resolve('@babel/preset-env')],
+    plugins: [],
+};
+var browsersync = function (flags) { return ({
+    host: flags.has('host') ? flags.get('host') : 'localhost',
+    port: flags.get('port') ? flags.get('port') : 3000,
+    proxy: flags.get('proxy') ? flags.get('proxy') : 'localhost',
+    online: false,
+    open: false,
+}); };
+var copy$2 = { patterns: [] };
+var babel$1 = function (configs) {
+    return configs.get('babel')
+        ? configs.require('babel')
+        : babelFallback;
+};
+var postcss$1 = function (configs) {
+    var fallback = {
+        plugins: [require('postcss-import'), require('autoprefixer')],
+    };
+    return configs.has('postcss')
+        ? configs.require('postcss')
+        : fallback;
+};
+/** Options container. */
+var options = {
+    name: 'options',
+    register: {
+        babel: babel$1,
+        postcss: postcss$1,
+        patterns: [],
+        webpack: {
+            entry: {},
+            externals: false,
+            resolve: {
+                alias: false,
+                extensions: ['.css', '.js', '.json', '.svg'],
+            },
+            devServer: {
+                headers: {
+                    'Access-Control-Allow-Origin': '*',
+                    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+                    'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
+                },
+            },
+            devtool: 'source-map',
+            node: {
+                module: 'empty',
+                dgram: 'empty',
+                dns: 'mock',
+                fs: 'empty',
+                http2: 'empty',
+                net: 'empty',
+                tls: 'empty',
+                child_process: 'empty',
+            },
+            optimization: {
+                runtimeChunk: {
+                    name: function (entrypoint) { return "runtime/" + entrypoint.name; },
+                },
+                splitChunks: {
+                    cacheGroup: {
+                        vendor: {
+                            test: /node_modules/,
+                            name: 'vendor.js',
+                            chunks: 'all',
+                            priority: -20,
+                        },
+                    },
+                },
+            },
+            plugins: {
+                browsersync: browsersync,
+                clean: {},
+                copy: copy$2,
+                fixStyleOnlyEntries: {
+                    silent: true,
+                },
+                hotModuleReplacement: {},
+                terser: {
+                    terserOptions: {
+                        parse: {
+                            ecma: 8,
+                        },
+                        compress: {
+                            ecma: 5,
+                            warnings: false,
+                            comparisons: false,
+                            inline: 2,
+                        },
+                        mangle: {
+                            safari10: true,
+                        },
+                        output: {
+                            ecma: 5,
+                            comments: false,
+                            ascii_only: true,
+                        },
+                    },
+                    cache: true,
+                    parallel: true,
+                },
+            },
+            stats: {
+                version: true,
+                hash: true,
+                assets: true,
+                errors: true,
+                warnings: true,
+            },
+            target: target$1,
+        },
+        splitting: {
+            maxChunks: null,
+        },
+        filenameTemplate: {
+            hashed: '[name].[hash:8]',
+            "default": '[name]',
+        },
+        manifest: {
+            name: 'manifest.json',
+        },
+    },
+};
+
+/**
+ * Current working dir
+ */
+var cwd = process.cwd();
+/**
+ * Bud framework dir.
+ */
+var framework = path.resolve(__dirname, '../');
+/**
+ * Src arg
+ */
+var ensureStr = function (possibleStr) {
+    return possibleStr ? possibleStr : '';
+};
+/**
+ * Paths repo.
+ */
+var paths = {
+    name: 'paths',
+    register: {
+        cwd: cwd,
+        project: cwd,
+        framework: framework,
+        src: yargs.argv['src'] ? path.join(cwd, ensureStr(yargs.argv['src'])) : path.join(cwd),
+        public: yargs.argv['public'] ? ensureStr(yargs.argv['public']) : '/',
+        dist: yargs.argv['dist']
+            ? path.join(cwd, ensureStr(yargs.argv['dist']))
+            : path.join(cwd),
+    },
+};
+
+var patterns = {
+    name: 'patterns',
+    register: {
+        js: /\.(js|jsx)$/,
+        ts: /\.(ts|tsx)$/,
+        vue: /\.vue$/,
+        scss: /\.scss$/,
+        scssModule: /\.module\.scss$/,
+        css: /\.css$/,
+        cssModule: /\.module\.css$/,
+        svg: /\.svg$/,
+        font: /\.(ttf|otf|eot|woff2?|png|jpe?g|gif|ico)$/,
+        vendor: /node_modules/,
+        image: /\.(png|svg|jpg|gif)$/,
+    },
+};
+
+var js = function (bud) {
+    return bud.hooks.filter('webpack.module.rules.js', {
+        test: bud.hooks.filter('webpack.module.rules.js.test', bud.patterns.get('js')),
+        exclude: bud.hooks.filter('webpack.module.rules.js.exclude', bud.patterns.get('vendor')),
+        use: bud.hooks.filter('webpack.module.rules.js.use', [
+            bud.uses.get('babel')(bud),
+        ]),
+    });
+};
+
+var css = function (bud) {
+    return bud.hooks.filter('webpack.module.rules.css', {
+        test: bud.hooks.filter('webpack.module.rules.css.test', bud.patterns.get('css')),
+        exclude: bud.hooks.filter('webpack.module.rules.css.exclude', bud.patterns.get('vendor')),
+        use: bud.hooks.filter('webpack.module.rules.css.use', [
+            bud.uses.get('miniCss')(bud),
+            bud.uses.get('css')(bud),
+            bud.uses.get('resolveUrl')(bud),
+            bud.uses.get('postCss')(bud),
+        ]),
+    });
+};
+
+var font = function (bud) {
+    return bud.hooks.filter('webpack.module.rules.font', {
+        test: bud.hooks.filter('bud.module.rules.font.test', bud.patterns.get('font')),
+        use: bud.hooks.filter('bud.module.rules.font.use', [
+            bud.uses.get('file')(bud),
+        ]),
+    });
+};
+
+var image = function (bud) {
+    return bud.hooks.filter('webpack.module.rules.image', {
+        test: bud.hooks.filter('webpack.module.rules.image.test', bud.patterns.get('image')),
+        use: bud.hooks.filter('webpack.module.rules.image.use', [
+            bud.uses.get('file')(bud),
+        ]),
+    });
+};
+
+var svg = function (bud) {
+    return bud.hooks.filter('webpack.module.rules.svg', {
+        test: bud.hooks.filter('webpack.module.rules.svg.test', bud.patterns.get('svg')),
+        use: bud.hooks.filter('webpack.module.rules.svg.use', [
+            bud.loaders.get('svgr'),
+            bud.loaders.get('url'),
+        ]),
+    });
+};
+
+var loaders = {
+    name: 'loaders',
+    register: {
+        babel: require.resolve('babel-loader'),
+        css: require.resolve('css-loader'),
+        file: require.resolve('file-loader'),
+        miniCss: MiniCssExtractPlugin__default['default'].loader,
+        postCss: require.resolve('postcss-loader'),
+        resolveUrl: require.resolve('resolve-url-loader'),
+        style: require.resolve('style-loader'),
+        svgr: require.resolve('@svgr/webpack'),
+        url: require.resolve('url-loader'),
+    },
+};
+
+var uses = {
+    name: 'uses',
+    register: {
+        babel: function (bud) {
+            return bud.hooks.filter('webpack.module.babel', {
+                loader: bud.hooks.filter('webpack.module.babel.loader', bud.loaders.get('babel')),
+                options: bud.hooks.filter('webpack.module.babel.options', tslib.__assign({ cacheDirectory: bud.hooks.filter('webpack.module.babel.options.cacheDirectory', true), cacheCompression: bud.hooks.filter('webpack.module.babel.options.cacheCompression', true) }, bud.options.get('babel'))),
+            });
+        },
+        file: function (bud) { return ({
+            loader: bud.loaders.get('file'),
+            options: {
+                name: '[path][name].[ext]',
+            },
+        }); },
+        miniCss: function (bud) {
+            return bud.hooks.filter('webpack.modules.miniCss', {
+                loader: bud.hooks.filter('webpack.modules.miniCss.loader', bud.loaders.get('miniCss')),
+                options: bud.hooks.filter('webpack.modules.miniCss.options', {
+                    hot: bud.hooks.filter('webpack.modules.miniCss.loader.hot', bud.features.enabled('hot')),
+                }),
+            });
+        },
+        css: function (bud) {
+            return bud.hooks.filter('webpack.modules.css', {
+                loader: bud.hooks.filter('webpack.modules.css.loader', bud.loaders.get('css')),
+            });
+        },
+        resolveUrl: function (bud) {
+            return bud.hooks.filter('webpack.modules.resolveurl', {
+                loader: bud.hooks.filter('webpack.modules.resolveurl.loader', bud.loaders.get('resolveUrl')),
+                options: bud.hooks.filter('webpack.module.resolveurl.options', {
+                    sourceMap: bud.features.enabled('sourceMap'),
+                    debug: true,
+                }),
+            });
+        },
+        postCss: function (bud) {
+            return bud.hooks.filter('webpack.module.postcss', {
+                loader: bud.hooks.filter('webpack.module.postcss.loader', bud.loaders.get('postCss')),
+                options: bud.hooks.filter('webpack.module.postcss.options', tslib.__assign({ ident: bud.hooks.filter('webpack.module.postcss.options.ident', 'postcss') }, bud.options.get('postcss'))),
+            });
+        },
+        style: function (bud) {
+            return bud.hooks.filter('webpack.module.style', {
+                loader: bud.hooks.filter('webpack.module.style.loader', bud.loaders.get('style')),
+            });
+        },
+    },
+};
+
+var rules$1 = {
+    name: 'rules',
+    register: [js, css, font, image, svg],
+};
+
+/**
+ * Repositories
+ */
+var repositories = {
+    extensions: [plugins$1],
+    files: [configs],
+    stores: tslib.__spreadArrays([
+        /** Order is unimportant */
+        features,
+        loaders,
+        options,
+        paths,
+        patterns,
+        rules$1,
+        uses,
+        /** Order is important */
+        env
+    ], cli),
+};
+
 /**
  * Bootstrapper
  */
 var bootstrapper = function () {
+    this.repositories = repositories;
     this.framework = {
         api: api,
-        extensionFactory: extensionFactory,
         fs: util.fs,
         logger: logger,
         util: util,
+        extensionFactory: extensionFactory,
     };
     this.apply = function (propertyName, propertyValue) {
+        logger.info({ name: 'framework.apply' }, "bootstrapped: bud." + propertyName);
         this.framework[propertyName] = propertyValue;
-        this.framework.logger.info({ name: 'framework.apply' }, "bootstrapped: bud." + propertyName);
         return this;
     };
     this.boot = function () {
-        this.framework.logger.info({ name: 'framework.boot', framework: this.framework }, "booting");
-        this.apply('hooks', hooks(this.framework))
-            .apply('process', util.processHandler(this.framework))
-            .apply('compiler', compiler(this.framework));
+        logger.info({ name: 'framework.boot', framework: this.framework }, "booting");
+        this.framework.hooks = hooks(this.framework);
+        this.framework.process = util.processHandler(this.framework);
+        this.framework.compiler = compiler(this.framework);
         return this.framework;
     };
 };
 var bootstrap = new bootstrapper();
 
-var log$1 = function (repository, data, message) {
-    logger.info(tslib.__assign({ name: 'container', repository: repository }, (data || {})), message);
-};
 var newContainer = function (key, repository) {
     if (repository === void 0) { repository = {}; }
     this.repository[key] = new container(repository);
@@ -4531,24 +5132,17 @@ var container = function (repository, name) {
     this.disable = disable;
     this.disabled = disabled;
 };
-var normalStoreContents = function (contents, bud) {
-    return typeof contents === 'function' ? contents(bud) : contents;
-};
 /**
  * Bind container.
  */
-var makeContainer = function (store, bud) {
-    store.contents = normalStoreContents(store.contents, bud);
-    log$1(store.repository, { store: store }, "create extension container");
-    return new container(store.contents, store.repository);
+var registerContainer = function (store) {
+    return new container(store.register, store.name);
 };
 /**
  * Bind file container.
  */
-var makeFileContainer = function (store, bud) {
-    store = normalStoreContents(store.contents, bud);
-    log$1(store.repository, { store: store }, "create container");
-    var instance = new container(store.contents, store.repository);
+var registerFileContainer = function (store) {
+    var instance = new container(store.register, store.name);
     instance.require = containerRequire;
     instance.exists = exists;
     return instance;
@@ -4556,637 +5150,35 @@ var makeFileContainer = function (store, bud) {
 /**
  * Bind extension container.
  */
-var makeExtensionContainer = function (store, bud) {
-    store = normalStoreContents(store.contents, bud);
-    log$1(store.repository, { store: store }, "create extension container");
-    var instance = new container(store.contents, store.repository);
+var registerExtensionContainer = function (store) {
+    var instance = new container(store.register, store.name);
     instance.add = add;
     return instance;
 };
 
-var browserSync$1 = function (bud) { return ({
-    bud: bud,
-    name: 'browser-sync-webpack-plugin',
-    options: bud.options.get('adapters.browsersync'),
-    make: function () {
-        return new BrowserSyncWebpackPlugin__default['default'](this.options);
-    },
-    when: function () {
-        return (this.bud.features.enabled('browsersync') &&
-            !this.bud.features.enabled('hot'));
-    },
-}); };
-
-var cleanWebpack = function (bud) { return ({
-    bud: bud,
-    name: 'clean-webpack-plugin',
-    options: bud.options.get('adapters.clean'),
-    make: function () {
-        return new cleanWebpackPlugin.CleanWebpackPlugin(this.options);
-    },
-    when: function () {
-        return this.bud.features.enabled('clean');
-    },
-}); };
-
-var copy$1 = function (bud) { return ({
-    bud: bud,
-    name: 'copy-webpack-plugin',
-    options: bud.options.get('copy'),
-    make: function () {
-        return new CopyWebpackPlugin__default['default'](this.options);
-    },
-    when: function () {
-        return this.options.patterns.length > 0;
-    },
-}); };
-
-var define = function (bud) {
-    var _a;
-    return ({
-        bud: bud,
-        name: 'define',
-        options: (_a = bud.env.entries()) !== null && _a !== void 0 ? _a : false,
-        make: function () {
-            return new webpack.DefinePlugin(this.options);
-        },
-        when: function () {
-            return this.options;
-        },
-    });
-};
-
-var fixStyleOnlyEntries = function (bud) { return ({
-    bud: bud,
-    name: 'webpack-fix-style-only-entries',
-    options: bud.options.get('adapters.fixStyleOnlyEntries'),
-    make: function () {
-        if (this.bud.features.enabled('hot')) {
-            this.options.ignore = 'webpack-hot-middleware';
-        }
-        return new FixStyleOnlyEntriesPlugin__default['default'](this.options);
-    },
-    when: function () {
-        return (this.bud.options.get('resolve.extensions').includes('.css') ||
-            this.bud.options.get('resolve.extensions').includes('.scss') ||
-            this.bud.options.get('resolve.extensions').includes('.sass'));
-    },
-}); };
-
-var hotModuleReplacement = function (bud) { return ({
-    bud: bud,
-    name: 'hot-module-replacement-plugin',
-    options: bud.options.get('adapters.hotModuleReplacement'),
-    make: function () {
-        return new webpack.HotModuleReplacementPlugin(this.options);
-    },
-    when: function () {
-        return this.bud.features.enabled('hot');
-    },
-}); };
-
-var LimitChunkCountPlugin = webpack.optimize.LimitChunkCountPlugin;
-var limitChunkCount = function (bud) { return ({
-    bud: bud,
-    name: 'limit-chunk-count-plugin',
-    setOptions: function () {
-        var enabled = this.bud.features.enabled('splitting');
-        var chunks = this.bud.options.get('splitting').maxChunks;
-        if (!enabled) {
-            return {
-                maxChunks: 1,
-            };
-        }
-        if (chunks) {
-            return {
-                maxChunks: chunks,
-            };
-        }
-        return null;
-    },
-    make: function () {
-        return new LimitChunkCountPlugin(this.options);
-    },
-    when: function () {
-        return this.options;
-    },
-}); };
-
-var miniCssExtract = function (bud) { return ({
-    bud: bud,
-    name: 'mini-css-extract-plugin',
-    options: {
-        hmr: bud.features.enabled('hot'),
-        filename: bud.features.enabled('hash')
-            ? bud.options.get('filenameTemplate').hashed + ".css"
-            : bud.options.get('filenameTemplate')["default"] + ".css",
-    },
-    make: function () {
-        return new MiniCssExtractPlugin__default['default'](this.options);
-    },
-    when: function () {
-        return (this.bud.options.get('resolve.extensions').includes('.css') ||
-            this.bud.options.get('resolve.extensions').includes('.scss') ||
-            this.bud.options.get('resolve.extensions').includes('.sass'));
-    },
-}); };
-
-var manifest$1 = function (bud) {
-    var _a, _b, _c, _d;
-    return ({
-        bud: bud,
-        name: 'webpack-manifest-plugin',
-        options: {
-            publicPath: (_b = (_a = bud.options.get('manifest.publicPath')) !== null && _a !== void 0 ? _a : bud.paths.get('public')) !== null && _b !== void 0 ? _b : '/',
-            filename: (_c = bud.options.get('manifest.name')) !== null && _c !== void 0 ? _c : 'manifest.json',
-            writeToFileEmit: (_d = bud.options.get('manifest.writeToFileEmit')) !== null && _d !== void 0 ? _d : true,
-        },
-        make: function () {
-            return new ManifestPlugin__default['default'](this.options);
-        },
-        when: function () {
-            return this.bud.features.enabled('manifest');
-        },
-    });
-};
-
-var provide = function (bud) { return ({
-    bud: bud,
-    name: 'provide-plugin',
-    options: bud.options.get('auto'),
-    make: function () {
-        return new webpack.ProvidePlugin(this.options);
-    },
-    when: function () {
-        return this.bud.options.has('auto');
-    },
-}); };
-
-var terser$1 = function (bud) { return ({
-    bud: bud,
-    name: 'terser-webpack-plugin',
-    options: bud.options.get('adapters.terser'),
-    make: function () {
-        return new TerserPlugin__default['default'](this.options);
-    },
-    when: function () {
-        return this.bud.features.enabled('minify');
-    },
-}); };
-
-var writeFile = function (bud) { return ({
-    bud: bud,
-    name: 'write-file-webpack-plugin',
-    make: function () {
-        return new WriteFilePlugin__default['default']();
-    },
-}); };
-
-/**
- * Bud Webpack Adapters
- */
-var adapters = {
-    repository: 'adapters',
-    contents: [
-        browserSync$1,
-        cleanWebpack,
-        copy$1,
-        define,
-        fixStyleOnlyEntries,
-        hotModuleReplacement,
-        manifest$1,
-        miniCssExtract,
-        provide,
-        limitChunkCount,
-        terser$1,
-        writeFile,
-    ],
-};
-
-var args = {
-    repository: 'args',
-    contents: function (bud) {
-        var _a, _b, _c, _d, _e, _f, _g, _h, _j, _k, _l, _m, _o, _p, _q;
-        return ({
-            log: yargs.argv['log'],
-            hot: yargs.argv['hot'],
-            watch: yargs.argv['watch'],
-            level: (_a = yargs.argv['level']) !== null && _a !== void 0 ? _a : 'info',
-            mode: (_c = (_b = yargs.argv['env']) !== null && _b !== void 0 ? _b : bud.env.get('APP_ENV')) !== null && _c !== void 0 ? _c : 'none',
-            host: (_e = (_d = yargs.argv['host']) !== null && _d !== void 0 ? _d : bud.env.get('APP_DEV_HOST')) !== null && _e !== void 0 ? _e : false,
-            port: (_g = (_f = yargs.argv['port']) !== null && _f !== void 0 ? _f : bud.env.get('APP_DEV_PORT')) !== null && _g !== void 0 ? _g : null,
-            proxy: (_j = (_h = yargs.argv['proxy']) !== null && _h !== void 0 ? _h : bud.env.get('APP_DEV_PROXY')) !== null && _j !== void 0 ? _j : null,
-            src: (_l = (_k = yargs.argv['src']) !== null && _k !== void 0 ? _k : bud.env.get('APP_SRC')) !== null && _l !== void 0 ? _l : null,
-            dist: (_o = (_m = yargs.argv['dist']) !== null && _m !== void 0 ? _m : bud.env.get('APP_DIST')) !== null && _o !== void 0 ? _o : null,
-            feature: (_q = (_p = yargs.argv['feature']) !== null && _p !== void 0 ? _p : bud.env.get('APP_BUILD_FEATURE')) !== null && _q !== void 0 ? _q : null,
-        });
-    },
-};
-
-var flags = {
-    repository: 'flags',
-    contents: {
-        log: yargs.argv.hasOwnProperty('log'),
-        hot: yargs.argv.hasOwnProperty('hot'),
-        watch: yargs.argv.hasOwnProperty('watch'),
-    },
-};
-
-var cli = [args, flags];
-
-var configFiles = [
-    {
-        name: 'babel',
-        filename: 'babel.config.js',
-    },
-    {
-        name: 'postcss',
-        filename: 'postcss.config.js',
-    },
-    {
-        name: 'js',
-        filename: 'jsconfig.json',
-    },
-];
-var configs = {
-    repository: 'configs',
-    contents: function (bud) { return (tslib.__assign({}, configFiles.map(function (config) {
-        var _a;
-        var projectPath = path.join(bud.paths.get('project'), config.filename);
-        if (fsExtra.existsSync(projectPath)) {
-            return _a = {}, _a[config.name] = projectPath, _a;
-        }
-        return {};
-    }))); },
-};
-
-var env = {
-    repository: 'env',
-    contents: function (bud) { var _a; return (_a = dotenv__default['default'].config({
-        path: path.join(bud.paths.get('project'), '.env'),
-    }).parsed) !== null && _a !== void 0 ? _a : {}; },
-};
-
-var features = {
-    repository: 'features',
-    contents: {
-        /**
-         * Default enabled
-         */
-        babel: true,
-        clean: true,
-        dashboard: true,
-        manifest: true,
-        postcss: true,
-        /**
-         * Opt-in
-         */
-        browsersync: false,
-        hash: false,
-        hot: false,
-        minify: false,
-        splitting: true,
-        vendor: false,
-        runtimeChunk: false,
-        overlay: false,
-        sourceMap: false,
-        watch: false,
-        debug: false,
-    },
-};
-
-var babelFallback = {
-    presets: [require.resolve('@babel/preset-env')],
-    plugins: [],
-};
-var babel$1 = function (configs) {
-    return configs.get('babel')
-        ? configs.require('babel')
-        : babelFallback;
-};
-var browsersync = function (flags) { return ({
-    host: flags.has('host') ? flags.get('host') : 'localhost',
-    port: flags.get('port') ? flags.get('port') : 3000,
-    proxy: flags.get('proxy') ? flags.get('proxy') : 'localhost',
-    online: false,
-    open: false,
-}); };
-var copy$2 = { patterns: [] };
-var postcss$1 = function (configs) {
-    var fallback = {
-        plugins: [require('postcss-import'), require('autoprefixer')],
-    };
-    return configs.has('postcss')
-        ? configs.require('postcss')
-        : fallback;
-};
-var target$1 = 'web';
-/**
- * Options container.
- */
-var options = {
-    repository: 'options',
-    contents: {
-        resolve: {
-            alias: false,
-            extensions: ['.css', '.js', '.json', '.svg'],
-        },
-        devServer: {
-            headers: {
-                'Access-Control-Allow-Origin': '*',
-                'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
-                'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
-            },
-        },
-        devtool: 'source-map',
-        optimization: {
-            runtimeChunk: {
-                name: function (entrypoint) { return "runtime/" + entrypoint.name; },
-            },
-            splitChunks: {
-                cacheGroup: {
-                    vendor: {
-                        test: /node_modules/,
-                        name: 'vendor.js',
-                        chunks: 'all',
-                        priority: -20,
-                    },
-                },
-            },
-        },
-        stats: {
-            version: true,
-            hash: true,
-            assets: true,
-            errors: true,
-            warnings: true,
-        },
-        node: {
-            module: 'empty',
-            dgram: 'empty',
-            dns: 'mock',
-            fs: 'empty',
-            http2: 'empty',
-            net: 'empty',
-            tls: 'empty',
-            child_process: 'empty',
-        },
-        adapters: {
-            browsersync: browsersync,
-            clean: {},
-            fixStyleOnlyEntries: {
-                silent: true,
-            },
-            hotModuleReplacement: {},
-            terser: {
-                terserOptions: {
-                    parse: {
-                        ecma: 8,
-                    },
-                    compress: {
-                        ecma: 5,
-                        warnings: false,
-                        comparisons: false,
-                        inline: 2,
-                    },
-                    mangle: {
-                        safari10: true,
-                    },
-                    output: {
-                        ecma: 5,
-                        comments: false,
-                        ascii_only: true,
-                    },
-                },
-                cache: true,
-                parallel: true,
-            },
-        },
-        patterns: [],
-        postcss: postcss$1,
-        babel: babel$1,
-        splitting: {
-            maxChunks: null,
-        },
-        target: target$1,
-        copy: copy$2,
-        filenameTemplate: {
-            hashed: '[name].[hash:8]',
-            "default": '[name]',
-        },
-        manifest: {
-            name: 'manifest.json',
-        },
-    },
-};
-
-/**
- * Current working dir
- */
-var cwd = process.cwd();
-/**
- * Bud framework dir.
- */
-var framework = path.resolve(__dirname, '../');
-/**
- * Src arg
- */
-var ensureStr = function (possibleStr) {
-    return possibleStr ? possibleStr : '';
-};
-/**
- * Paths repo.
- */
-var paths = {
-    repository: 'paths',
-    contents: {
-        cwd: cwd,
-        project: cwd,
-        framework: framework,
-        src: yargs.argv['src'] ? path.join(cwd, ensureStr(yargs.argv['src'])) : path.join(cwd),
-        public: yargs.argv['public'] ? ensureStr(yargs.argv['public']) : '/',
-        dist: yargs.argv['dist']
-            ? path.join(cwd, ensureStr(yargs.argv['dist']))
-            : path.join(cwd),
-    },
-};
-
-var patterns = {
-    repository: 'patterns',
-    contents: {
-        js: /\.(js|jsx)$/,
-        ts: /\.(ts|tsx)$/,
-        vue: /\.vue$/,
-        scss: /\.scss$/,
-        scssModule: /\.module\.scss$/,
-        css: /\.css$/,
-        cssModule: /\.module\.css$/,
-        svg: /\.svg$/,
-        font: /\.(ttf|otf|eot|woff2?|png|jpe?g|gif|ico)$/,
-        vendor: /node_modules/,
-        image: /\.(png|svg|jpg|gif)$/,
-    },
-};
-
-var js = function (bud) {
-    return bud.hooks.filter('webpack.module.rules.js', {
-        test: bud.hooks.filter('webpack.module.rules.js.test', bud.patterns.get('js')),
-        exclude: bud.hooks.filter('webpack.module.rules.js.exclude', bud.patterns.get('vendor')),
-        use: bud.hooks.filter('webpack.module.rules.js.use', [
-            bud.uses.get('babel')(bud),
-        ]),
-    });
-};
-
-var css = function (bud) {
-    return bud.hooks.filter('webpack.module.rules.css', {
-        test: bud.hooks.filter('webpack.module.rules.css.test', bud.patterns.get('css')),
-        exclude: bud.hooks.filter('webpack.module.rules.css.exclude', bud.patterns.get('vendor')),
-        use: bud.hooks.filter('webpack.module.rules.css.use', [
-            bud.uses.get('miniCss')(bud),
-            bud.uses.get('css')(bud),
-            bud.uses.get('resolveUrl')(bud),
-            bud.uses.get('postCss')(bud),
-        ]),
-    });
-};
-
-var font = function (bud) {
-    return bud.hooks.filter('webpack.module.rules.font', {
-        test: bud.hooks.filter('bud.module.rules.font.test', bud.patterns.get('font')),
-        use: bud.hooks.filter('bud.module.rules.font.use', [
-            bud.uses.get('file')(bud),
-        ]),
-    });
-};
-
-var image = function (bud) {
-    return bud.hooks.filter('webpack.module.rules.image', {
-        test: bud.hooks.filter('webpack.module.rules.image.test', bud.patterns.get('image')),
-        use: bud.hooks.filter('webpack.module.rules.image.use', [
-            bud.uses.get('file')(bud),
-        ]),
-    });
-};
-
-var svg = function (bud) {
-    return bud.hooks.filter('webpack.module.rules.svg', {
-        test: bud.hooks.filter('webpack.module.rules.svg.test', bud.patterns.get('svg')),
-        use: bud.hooks.filter('webpack.module.rules.svg.use', [
-            bud.loaders.get('svgr'),
-            bud.loaders.get('url'),
-        ]),
-    });
-};
-
-var loaders = {
-    repository: 'loaders',
-    contents: {
-        babel: require.resolve('babel-loader'),
-        css: require.resolve('css-loader'),
-        file: require.resolve('file-loader'),
-        miniCss: MiniCssExtractPlugin__default['default'].loader,
-        postCss: require.resolve('postcss-loader'),
-        resolveUrl: require.resolve('resolve-url-loader'),
-        style: require.resolve('style-loader'),
-        svgr: require.resolve('@svgr/webpack'),
-        url: require.resolve('url-loader'),
-    },
-};
-
-var uses = {
-    repository: 'uses',
-    contents: {
-        babel: function (bud) {
-            return bud.hooks.filter('webpack.module.babel', {
-                loader: bud.hooks.filter('webpack.module.babel.loader', bud.loaders.get('babel')),
-                options: bud.hooks.filter('webpack.module.babel.options', tslib.__assign({ cacheDirectory: bud.hooks.filter('webpack.module.babel.options.cacheDirectory', true), cacheCompression: bud.hooks.filter('webpack.module.babel.options.cacheCompression', true) }, bud.options.get('babel'))),
-            });
-        },
-        file: function (bud) { return ({
-            loader: bud.loaders.get('file'),
-            options: {
-                name: '[path][name].[ext]',
-            },
-        }); },
-        miniCss: function (bud) {
-            return bud.hooks.filter('webpack.modules.miniCss', {
-                loader: bud.hooks.filter('webpack.modules.miniCss.loader', bud.loaders.get('miniCss')),
-                options: bud.hooks.filter('webpack.modules.miniCss.options', {
-                    hot: bud.hooks.filter('webpack.modules.miniCss.loader.hot', bud.features.enabled('hot')),
-                }),
-            });
-        },
-        css: function (bud) {
-            return bud.hooks.filter('webpack.modules.css', {
-                loader: bud.hooks.filter('webpack.modules.css.loader', bud.loaders.get('css')),
-            });
-        },
-        resolveUrl: function (bud) {
-            return bud.hooks.filter('webpack.modules.resolveurl', {
-                loader: bud.hooks.filter('webpack.modules.resolveurl.loader', bud.loaders.get('resolveUrl')),
-                options: bud.hooks.filter('webpack.module.resolveurl.options', {
-                    sourceMap: bud.features.enabled('sourceMap'),
-                    debug: true,
-                }),
-            });
-        },
-        postCss: function (bud) {
-            return bud.hooks.filter('webpack.module.postcss', {
-                loader: bud.hooks.filter('webpack.module.postcss.loader', bud.loaders.get('postCss')),
-                options: bud.hooks.filter('webpack.module.postcss.options', tslib.__assign({ ident: bud.hooks.filter('webpack.module.postcss.options.ident', 'postcss') }, bud.options.get('postcss'))),
-            });
-        },
-        style: function (bud) {
-            return bud.hooks.filter('webpack.module.style', {
-                loader: bud.hooks.filter('webpack.module.style.loader', bud.loaders.get('style')),
-            });
-        },
-    },
-};
-
-var rules$1 = {
-    repository: 'rules',
-    contents: [js, css, font, image, svg],
-};
-
-var repositories = {
-    extensions: [adapters],
-    files: [configs],
-    stores: tslib.__spreadArrays([
-        paths,
-        env
-    ], cli, [
-        features,
-        options,
-        loaders,
-        cli,
-        adapters,
-        patterns,
-        rules$1,
-        uses,
-    ]),
-};
-
-repositories.extensions.forEach(function (ext) {
-    bootstrap.apply(ext.repository, makeExtensionContainer(ext, bootstrap.framework));
+bootstrap.repositories.extensions.forEach(function (store) {
+    bootstrap.framework[store.name] = registerExtensionContainer(store);
 });
-repositories.stores.forEach(function (store) {
-    bootstrap.apply(store.repository, makeContainer(store, bootstrap.framework));
+bootstrap.repositories.files.forEach(function (store) {
+    bootstrap.framework[store.name] = registerFileContainer(store);
 });
-repositories.files.forEach(function (file) {
-    bootstrap.apply(file.repository, makeFileContainer(file, bootstrap.framework));
+bootstrap.repositories.stores.forEach(function (store) {
+    bootstrap.framework[store.name] = registerContainer(store);
 });
-bootstrap.apply('mode', bootstrap.framework.args.get('mode'));
-bootstrap.apply('inProduction', bootstrap.framework.args.is('mode', 'production'));
-bootstrap.apply('inDevelopment', bootstrap.framework.args.is('mode', 'development'));
+bootstrap.framework.mode = bootstrap.framework.args.get('mode');
+bootstrap.framework.inProduction = bootstrap.framework.args.is('mode', 'production');
+bootstrap.framework.inDevelopment = bootstrap.framework.args.is('mode', 'development');
 Object.values(api).forEach(function (method) {
-    bootstrap.apply(method.name, method);
+    bootstrap.framework[method.name] = method;
 });
 var bud = bootstrap.boot();
-bud.options.set('browserSync', bud.options.get('adapters.browsersync')(bud.flags));
+bud.options.set('webpack.plugins.browsersync', bud.options.get('webpack.plugins.browsersync')(bud.flags));
 bud.options.set('babel', bud.options.get('babel')(bud.configs));
 bud.options.set('postcss', bud.options.get('postcss')(bud.flags));
+bud.apply = function (propertyName, propertyValue) {
+    bud[propertyName] = propertyValue;
+    return this;
+};
 
 exports.bootstrap = bootstrap;
 exports.bud = bud;

@@ -14,7 +14,7 @@ import { __spreadArrays } from 'tslib';
 import { join } from 'path';
 
 var copyAll = function (from, to) {
-    this.options.set('copy.patterns', __spreadArrays(this.options.get('copy.patterns'), [
+    this.options.set('webpack.plugins.copy.patterns', __spreadArrays(this.options.get('webpack.plugins.copy.patterns'), [
         this.hooks.filter('bud.copyAll.filter', {
             from: '**/*',
             context: from,

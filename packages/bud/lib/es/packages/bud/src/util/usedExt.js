@@ -15,8 +15,8 @@ import { __spreadArrays } from 'tslib';
 var usedExt = function (entries, bud) {
     entries.forEach(function (entry) {
         var ext = "." + entry.split('.')[entry.split('.').length - 1];
-        !bud.options.get('resolve.extensions').includes(ext) &&
-            bud.options.set('resolve.extensions', __spreadArrays(bud.options.get('resolve.extensions'), [
+        !bud.options.get('webpack.resolve.extensions').includes(ext) &&
+            bud.options.set('webpack.resolve.extensions', __spreadArrays(bud.options.get('webpack.resolve.extensions'), [
                 ext,
             ]));
     });

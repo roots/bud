@@ -12,7 +12,7 @@
  */
 var entry = function (bud) {
     return bud.hooks.filter('webpack.entry', {
-        entry: bud.options.get('entry'),
+        entry: bud.options.get('webpack.entry'),
     });
 };
 

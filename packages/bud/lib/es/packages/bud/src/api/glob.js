@@ -33,7 +33,7 @@ var glob = function (name, files) {
         var _a;
         entry = __assign(__assign({}, entry), (_a = {}, _a[name + "/"] = match, _a));
     });
-    this.options.set('entry', entry);
+    this.options.set('webpack.entry', entry);
     return this;
 };
 

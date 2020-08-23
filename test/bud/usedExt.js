@@ -2,7 +2,7 @@ const test = require('ava')
 const {bud} = require('@roots/bud')
 
 test('sanity check default extensions', t => {
-  t.deepEqual(bud.options.get('resolve.extensions'), [
+  t.deepEqual(bud.options.get('webpack.resolve.extensions'), [
     '.css',
     '.js',
     '.json',
@@ -15,7 +15,7 @@ test('parses basic extensions properly', t => {
     'foo.bar',
   ], bud)
 
-  t.true(bud.options.get('resolve.extensions').includes('.bar'))
+  t.true(bud.options.get('webpack.resolve.extensions').includes('.bar'))
 })
 
 test('parses extensions with path in string properly', t => {
@@ -23,7 +23,7 @@ test('parses extensions with path in string properly', t => {
     'util/foo.bam',
   ], bud)
 
-  t.true(bud.options.get('resolve.extensions').includes('.bam'))
+  t.true(bud.options.get('webpack.resolve.extensions').includes('.bam'))
 })
 
 test('does not duplicate extensions', t => {
@@ -31,7 +31,7 @@ test('does not duplicate extensions', t => {
     'util/foo.bam',
   ], bud)
 
-  t.deepEqual(bud.options.get('resolve.extensions'), [
+  t.deepEqual(bud.options.get('webpack.resolve.extensions'), [
     '.css',
     '.js',
     '.json',

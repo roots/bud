@@ -26,9 +26,11 @@ const vue = (bud) => ({
     bud,
     name: 'vue',
     make: function () {
-        !this.bud.options.get('resolve.extensions').includes('.vue') &&
-            this.bud.options.set('resolve.extensions', [
-                ...this.bud.options.get('resolve.extensions'),
+        !this.bud.options
+            .get('webpack.resolve.extensions')
+            .includes('.vue') &&
+            this.bud.options.set('webpack.resolve.extensions', [
+                ...this.bud.options.get('webpack.resolve.extensions'),
                 '.vue',
             ]);
         this.bud.adapters.add(adapter);

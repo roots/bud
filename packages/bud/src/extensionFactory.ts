@@ -11,7 +11,7 @@ type ExtensionTransform = (
 ) => void
 
 export type ExtensionController = {
-  bud?: Bud
+  bud: Bud
   extension: ExtensionInterface
   build: MakeExtension
   makeExtension: MakeExtension

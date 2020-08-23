@@ -1,6 +1,8 @@
-const patterns = {
-  repository: 'patterns',
-  contents: {
+import type {RepositoryDefinition} from '../container'
+
+const patterns: RepositoryDefinition = {
+  name: 'patterns',
+  register: {
     js: /\.(js|jsx)$/,
     ts: /\.(ts|tsx)$/,
     vue: /\.vue$/,

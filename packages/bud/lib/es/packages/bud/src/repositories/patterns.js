@@ -11,8 +11,8 @@
  * @license MIT
  */
 var patterns = {
-    repository: 'patterns',
-    contents: {
+    name: 'patterns',
+    register: {
         js: /\.(js|jsx)$/,
         ts: /\.(ts|tsx)$/,
         vue: /\.vue$/,
