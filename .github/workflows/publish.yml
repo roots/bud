@@ -1,4 +1,4 @@
-name: NPM Publish
+name: publish
 
 on:
   release:
@@ -26,6 +26,6 @@ jobs:
         echo "email=<your@email.address>" >>  /home/runner/work/_temp/.npmrc
         echo "always-auth=true" >>  /home/runner/work/_temp/.npmrc
       env:
-        NODE_AUTH_TOKEN: ${{ secrets.npm_token }}
+        NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
     - name: Publish
       run: npm publish
