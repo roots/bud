@@ -28,6 +28,7 @@ const App = props => {
         marginBottom={1}>
         <Box>
           <Text color={'#545DD7'}>@roots/bud-scripts</Text>
+          <Text>Triggered</Text>
         </Box>
       </Box>
     </Box>
