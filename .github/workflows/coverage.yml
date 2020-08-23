@@ -8,6 +8,7 @@ on:
       - '!*' # Do not execute on tags
     paths:
       - packages/*/src/*
+      - packages/*/src/**/*
       - test/*
       - '*.json'
       - yarn.lock
@@ -15,6 +16,7 @@ on:
     paths:
       - '!*.MD'
       - '!*.md'
+  workflow_dispatch:
 
 jobs:
   test:
