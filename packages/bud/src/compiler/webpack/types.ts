@@ -1,3 +1,3 @@
 import type {Bud} from '../..'
-export type {Extension} from '../../repositories/adapters'
+export type {Extension} from '../../repositories/plugins'
 export type {Bud}

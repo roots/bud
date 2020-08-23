@@ -1,15 +1,17 @@
+/// <reference types="react" />
+import PropTypes from 'prop-types';
 /**
  * Error
  */
-export function Errors({ build, actions }: {
-    build: any;
-    actions: any;
-}): JSX.Element;
-export namespace Errors {
-    export namespace propTypes {
-        export const build: PropTypes.Requireable<object>;
-        export const actions: PropTypes.Requireable<object>;
-    }
-}
-import PropTypes from "prop-types";
+declare const Errors: {
+    ({ build, actions }: {
+        build: any;
+        actions: any;
+    }): JSX.Element;
+    propTypes: {
+        build: PropTypes.Requireable<object>;
+        actions: PropTypes.Requireable<object>;
+    };
+};
+export { Errors };
 //# sourceMappingURL=index.d.ts.map

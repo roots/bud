@@ -1,10 +1,10 @@
 import path from 'path'
+import autoExternal from 'rollup-plugin-auto-external'
 import typescript from 'rollup-plugin-typescript2'
 import babel from '@rollup/plugin-babel'
 import nodeResolve from '@rollup/plugin-node-resolve'
 import json from 'rollup-plugin-json'
 import commonjs from '@rollup/plugin-commonjs'
-import {terser} from 'rollup-plugin-terser'
 
 /* eslint-disable */
 const banner = (pkg: any): string => `/**
@@ -26,32 +26,18 @@ const output = (directory: string, pkg: any): any[] => [
     banner: banner(pkg),
     file: pkg.main,
     format: 'cjs',
-    plugins: [terser()],
-  },
-  {
-    banner: banner(pkg),
-    file: path.join(directory, pkg.main.replace('.min', '')),
-    format: 'cjs',
-  },
-  {
-    banner: banner(pkg),
-    dir: path.join(directory, './lib/es/'),
-    format: 'es',
-    esModule: true,
-    preserveModules: true,
-    assetFileNames: true,
   },
 ]
 
 const rollup = (directory: string, pkg: any): any => ({
   input: 'src/index.ts',
   output: output(directory, pkg),
-  external: [
-    ...Object.keys(pkg.dependencies),
-    ...Object.keys(pkg.devDependencies),
-    'path',
-  ],
+  external: ['path'],
   plugins: [
+    autoExternal({
+      builtins: false,
+      dependencies: true,
+    }),
     typescript({
       typescript: require('typescript'),
       useTsconfigDeclarationDir: true,

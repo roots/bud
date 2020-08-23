@@ -1,6 +1,9 @@
 import {join, resolve} from 'path'
 import {argv} from 'yargs'
-import type {Container, RepositoryDefinition} from '../container'
+import type {
+  Container,
+  RepositoryDefinition,
+} from '@roots/bud-framework'
 
 type Directory = string
 type Paths = Container

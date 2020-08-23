@@ -3,15 +3,15 @@
   "changelog": {
     "repo": "@roots/bud",
     "cacheDir": ".changelog",
+    "nextVersion": "2.0.0",
     "labels": {
-      "PR: Spec Compliance :eyeglasses:": ":eyeglasses: Spec Compliance",
       "PR: Breaking Change :boom:": ":boom: Breaking Change",
-      "PR: New Feature :rocket:": ":rocket: New Feature",
-      "PR: Bug Fix :bug:": ":bug: Bug Fix",
+      "PR: Feature :rocket:": ":rocket: New Feature",
+      "PR: Fix :bug:": ":bug: Bug Fix",
       "PR: Polish :nail_care:": ":nail_care: Polish",
+      "PR: Chore :nail_care:": ":broom: Polish",
       "PR: Docs :memo:": ":memo: Documentation",
       "PR: Internal :house:": ":house: Internal",
-      "PR: Performance :running_woman:": ":running_woman: Performance",
       "PR: Revert :leftwards_arrow_with_hook:": ":leftwards_arrow_with_hook: Revert"
     }
   },

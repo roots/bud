@@ -31,5 +31,14 @@
     "lint": "eslint src/**.ts",
     "watch": "npm run build && npm link && nodemon",
     "build": "rimraf ./lib && tsc"
+  },
+  "devDependencies": {
+    "rollup-plugin-auto-external": "^2.0.0",
+    "rollup": "^2.26.4",
+    "rollup-plugin-json": "^4.0.0",
+    "rollup-plugin-jsx": "^1.0.3",
+    "rollup-plugin-npm": "^2.0.0",
+    "rollup-plugin-terser": "^6.1.0",
+    "rollup-plugin-typescript2": "^0.27.2"
   }
 }

@@ -1,0 +1,1 @@
+{"version":3,"file":"vendor.js","sourceRoot":"","sources":["../../src/api/vendor.ts"],"names":[],"mappings":";;;;;;;;;;;;;;AAIA,IAAM,MAAM,GAAW,UAAU,OAAO;IACtC,IAAI,CAAC,QAAQ,CAAC,MAAM,CAAC,QAAQ,CAAC,CAAA;IAE9B,OAAO;QACL,IAAI,CAAC,OAAO,CAAC,GAAG,CACd,oDAAoD,wBAE/C,IAAI,CAAC,OAAO,CAAC,GAAG,CACjB,oDAAoD,CACrD,GACE,OAAO,EAEb,CAAA;IAEH,OAAO,IAAI,CAAA;AACb,CAAC,CAAA;AAEO,wBAAM"}

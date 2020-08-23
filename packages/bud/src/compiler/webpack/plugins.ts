@@ -10,7 +10,7 @@ const plugins: PluginsBuilder = bud =>
       .map(adapter =>
         bud.hooks.filter(
           `webpack.plugins.${adapter.name}`,
-          bud.extensionFactory(bud, adapter).build(),
+          bud.extensions(bud, adapter).build(),
         ),
       )
       .filter(adapter => adapter),

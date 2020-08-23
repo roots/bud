@@ -1,4 +1,4 @@
-import type {Bud} from '../types'
+import type {Bud} from '../..'
 import type {WebpackRule} from '@roots/bud-typings'
 
 const svg = (bud: Bud): WebpackRule =>
@@ -7,6 +7,7 @@ const svg = (bud: Bud): WebpackRule =>
       'webpack.module.rules.svg.test',
       bud.patterns.get('svg'),
     ),
+
     use: bud.hooks.filter('webpack.module.rules.svg.use', [
       bud.loaders.get('svgr'),
       bud.loaders.get('url'),

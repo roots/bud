@@ -1,3 +1,7 @@
+/**
+ * Forked from {@link https://github.com/andregardi/use-global-hook}
+ */
+declare type UseStoreHook = (...UseStoreHookArguments: any[]) => any;
+declare const useStore: UseStoreHook;
 export default useStore;
-declare function useStore(React: any, initialState: any, actions: any, initializer: any): any;
 //# sourceMappingURL=useStore.d.ts.map

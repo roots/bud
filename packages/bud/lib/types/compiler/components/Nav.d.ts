@@ -1,3 +1,5 @@
+/// <reference types="react" />
+import PropTypes from 'prop-types';
 /**
  * Nav
  *
@@ -5,17 +7,17 @@
  * @prop {boolean} focused
  * @prop {object} bud
  */
-export function Nav({ build, focused, bud }: {
-    build: any;
-    focused: any;
-    bud: any;
-}): JSX.Element;
-export namespace Nav {
-    export namespace propTypes {
-        export const build: PropTypes.Requireable<object>;
-        export const focused: PropTypes.Requireable<object>;
-        export const bud: PropTypes.Requireable<object>;
-    }
-}
-import PropTypes from "prop-types";
+declare const Nav: {
+    ({ build, focused, bud }: {
+        build: any;
+        focused: any;
+        bud: any;
+    }): JSX.Element;
+    propTypes: {
+        build: PropTypes.Requireable<object>;
+        focused: PropTypes.Requireable<object>;
+        bud: PropTypes.Requireable<object>;
+    };
+};
+export { Nav };
 //# sourceMappingURL=Nav.d.ts.map

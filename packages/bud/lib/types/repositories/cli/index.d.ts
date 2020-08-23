@@ -1,3 +1,3 @@
-declare const cli: import("../../container").RepositoryDefinition[];
+declare const cli: any[];
 export { cli };
 //# sourceMappingURL=index.d.ts.map

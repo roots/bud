@@ -1,13 +1,11 @@
 {
-  "name": "@roots/bud-framework",
   "private": true,
   "version": "2.0.0-next",
   "description": "A friendly build tool to help manage your project assets.",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
-    "url": "https://github.com/roots/bud.git",
-    "directory": "packages/bud"
+    "url": "https://github.com/roots/bud.git"
   },
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
@@ -27,18 +25,20 @@
     "packages": [
       "packages/bud-support",
       "packages/bud-typings",
+      "packages/bud-framework",
       "packages/bud",
+      "packages/bud-cli",
       "packages/bud-dependency-extraction-webpack-plugin",
       "packages/bud-eslint",
       "packages/bud-palette-webpack-plugin",
       "packages/bud-purgecss",
       "packages/bud-react",
-      "packages/bud-sage",
       "packages/bud-sass",
       "packages/bud-stylelint",
       "packages/bud-tailwindcss",
       "packages/bud-typescript",
-      "packages/bud-vue"
+      "packages/bud-vue",
+      "packages/bud-sage"
     ],
     "nohoist": [
       "**/webpack-hot-client",

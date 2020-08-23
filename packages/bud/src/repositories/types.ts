@@ -1,6 +1,4 @@
-import type {Container, FileContainer} from '../container'
-import type {Bud} from '..'
-export type {Bud}
+import type {Container, FileContainer} from '@roots/bud-framework'
 
 export type Options = Container
 

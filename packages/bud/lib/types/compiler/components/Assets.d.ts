@@ -1,21 +1,19 @@
-/**
- * Assets
- *
- * @prop {object} build
- * @prop {object} actions
- * @prop {number} width
- * @return {PropTypes.ReactComponentLike}
- */
-export function Assets({ build, actions }: {
-    build: any;
-    actions: any;
-}): PropTypes.ReactComponentLike;
-export namespace Assets {
-    export namespace propTypes {
-        export const build: PropTypes.Requireable<object>;
-        export const actions: PropTypes.Requireable<object>;
-        export const width: PropTypes.Requireable<number>;
-    }
+import { FunctionComponent } from 'react';
+interface AssetInterface {
+    asset: {
+        name: string;
+        emitted: boolean;
+        size: number;
+    };
 }
-import PropTypes from "prop-types";
+interface AssetsProps {
+    build: {
+        assets: AssetInterface[];
+    };
+    actions: {
+        setFocus: (any: any) => void;
+    };
+}
+declare const Assets: FunctionComponent<AssetsProps>;
+export { Assets };
 //# sourceMappingURL=Assets.d.ts.map

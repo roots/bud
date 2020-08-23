@@ -19,6 +19,7 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
+  "private": false,
   "engines": {
     "node": ">=12"
   },

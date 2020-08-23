@@ -1,54 +1,60 @@
 import {api} from './api'
-import {bootstrap} from './bootstrapper'
-import {
-  registerContainer,
-  registerExtensionContainer,
-  registerFileContainer,
-} from './container'
+import {compiler} from './compiler'
+import {framework} from '@roots/bud-framework'
 import type {Bud, Use} from './types'
 import type {
   Extension,
   ExtensionInterface,
 } from './repositories/plugins'
+import {repositories} from './repositories'
 
-bootstrap.repositories.extensions.forEach(store => {
-  bootstrap.framework[store.name] = registerExtensionContainer(store)
-})
-bootstrap.repositories.files.forEach(store => {
-  bootstrap.framework[store.name] = registerFileContainer(store)
-})
-bootstrap.repositories.stores.forEach(store => {
-  bootstrap.framework[store.name] = registerContainer(store)
+repositories.extensions.forEach(store => {
+  framework.bindExtensions(store.name, store)
 })
 
-bootstrap.framework.mode = bootstrap.framework.args.get('mode')
-bootstrap.framework.inProduction = bootstrap.framework.args.is(
-  'mode',
-  'production',
+repositories.files.forEach(store => {
+  framework.bindFiles(store.name, store)
+})
+
+repositories.stores.forEach(store => {
+  framework.bind(store.name, store)
+})
+
+framework.apply('mode', framework.args.get('mode'))
+
+framework.apply(
+  'inProduction',
+  framework.args.is('mode', 'production'),
 )
-bootstrap.framework.inDevelopment = bootstrap.framework.args.is(
-  'mode',
-  'development',
+
+framework.apply(
+  'inDevelopment',
+  framework.args.is('mode', 'development'),
 )
+
+framework.options.set(
+  'webpack.plugins.browsersync',
+  framework.options.get('webpack.plugins.browsersync')(
+    framework.flags,
+  ),
+)
+
+const babel = framework.options.get('babel')
+framework.options.set('babel', babel(framework.configs))
+
+const postcss = framework.options.get('postcss')
+framework.options.set('postcss', postcss(framework.flags))
+
+framework.apply('fs', framework.util.fs)
 
 Object.values(api).forEach((method: () => any) => {
-  bootstrap.framework[method.name] = method
+  framework.apply(method.name, method)
 })
 
-const bud: Bud = bootstrap.boot()
+framework.apply('compiler', compiler(framework))
+framework.apply('hooks', framework.hooks(framework))
 
-bud.options.set(
-  'webpack.plugins.browsersync',
-  bud.options.get('webpack.plugins.browsersync')(bud.flags),
-)
-bud.options.set('babel', bud.options.get('babel')(bud.configs))
-bud.options.set('postcss', bud.options.get('postcss')(bud.flags))
+const bud: Bud = framework
 
-bud.apply = function (propertyName: string, propertyValue: any): Bud {
-  bud[propertyName] = propertyValue
-
-  return this
-}
-
-export {bud, bootstrap}
+export {bud}
 export {Bud, Extension, ExtensionInterface, Use}

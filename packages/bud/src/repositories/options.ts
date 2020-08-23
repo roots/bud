@@ -1,11 +1,11 @@
-import type {PostCssConfiguration} from './types'
 import type {
   BabelTransformOptions,
   BrowserSyncOptions,
   WebpackTarget,
 } from '@roots/bud-typings'
-import type {RepositoryDefinition} from '../container'
+import type {RepositoryDefinition} from '@roots/bud-framework'
 
+import type {PostCssConfiguration} from './types'
 export type BrowserSync = BrowserSyncOptions
 export type Copy = {patterns: any[]}
 

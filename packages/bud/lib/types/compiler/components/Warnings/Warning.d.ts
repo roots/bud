@@ -1,16 +1,8 @@
-/**
- * Warning (single)
- *
- * @prop {string} message
- * @return {PropTypes.ReactComponentLike}
- */
-export function Warning({ message }: {
-    message: any;
-}): PropTypes.ReactComponentLike;
-export namespace Warning {
-    export namespace propTypes {
-        export const message: PropTypes.Requireable<string>;
-    }
+import { FunctionComponent } from 'react';
+interface WarningProps {
+    message: string;
 }
-import PropTypes from "prop-types";
+declare type WarningComponent = FunctionComponent<WarningProps>;
+declare const Warning: WarningComponent;
+export { Warning };
 //# sourceMappingURL=Warning.d.ts.map

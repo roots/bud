@@ -1,0 +1,1 @@
+{"version":3,"file":"terser.js","sourceRoot":"","sources":["../../src/api/terser.ts"],"names":[],"mappings":";;;;;;;;;;;;;;AAIA,IAAM,MAAM,GAAW,UAAU,OAAO;IACtC,IAAI,OAAO,EAAE;QACX,IAAI,CAAC,OAAO,CAAC,GAAG,CAAC,wBAAwB,wBACpC,IAAI,CAAC,OAAO,CAAC,GAAG,CAAC,wBAAwB,CAAC,GAC1C,OAAO,EACV,CAAA;KACH;IAED,OAAO,IAAI,CAAA;AACb,CAAC,CAAA;AAEO,wBAAM"}

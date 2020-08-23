@@ -1,6 +1,6 @@
 import type { Bud } from '../..';
 import type { Loose } from '@roots/bud-typings';
-import type { Repository } from '../../container';
+import type { Repository } from '@roots/bud-framework';
 import type { Plugin as WebpackPlugin } from 'webpack';
 /**
  * Conditional check determining whether to engage extension functionality.

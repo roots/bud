@@ -1,17 +1,19 @@
+/// <reference types="react" />
+import PropTypes from 'prop-types';
 /**
  * Budpack build status display
  *
  * @prop {object} compiler webpack compiler
  * @prop {object} config   webpack compiler config
  */
-export function Runner({ bud }: {
-    bud: any;
-}): JSX.Element;
-export namespace Runner {
-    export namespace propTypes {
-        export const compiler: PropTypes.Requireable<object>;
-        export const bud: PropTypes.Requireable<object>;
-    }
-}
-import PropTypes from "prop-types";
+declare const Runner: {
+    ({ bud }: {
+        bud: any;
+    }): JSX.Element;
+    propTypes: {
+        compiler: PropTypes.Requireable<object>;
+        bud: PropTypes.Requireable<object>;
+    };
+};
+export { Runner };
 //# sourceMappingURL=Runner.d.ts.map

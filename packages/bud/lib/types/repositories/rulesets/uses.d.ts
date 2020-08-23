@@ -1,6 +1,6 @@
 import { Bud } from '../..';
 import type { WebpackRule } from '@roots/bud-typings';
-import type { RepositoryDefinition } from '../../container';
+import type { RepositoryDefinition } from '@roots/bud-framework';
 /**
  * Module Rule
  */

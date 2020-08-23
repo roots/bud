@@ -15,7 +15,6 @@ export const repositories = {
   extensions: [plugins],
   files: [configs],
   stores: [
-    /** Order is unimportant */
     features,
     loaders,
     options,
@@ -23,8 +22,6 @@ export const repositories = {
     patterns,
     rules,
     uses,
-
-    /** Order is important */
     env,
     ...cli,
   ],

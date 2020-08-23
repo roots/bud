@@ -1,18 +1,19 @@
 {
   "compilerOptions": {
+    "jsx": "react",
     "allowJs": true,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "declaration": true,
-    "module": "esnext",
+    "module": "commonjs",
     "moduleResolution": "node",
     "declarationMap": true,
     "sourceMap": true,
     "watch": false,
-    "rootDir": "src",
-    "outDir": "lib",
-    "declarationDir": "lib/types",
+    "rootDir": "./src",
+    "outDir": "./lib",
+    "declarationDir": "./lib/types",
   },
-  "include": ["src"],
-  "exclude": ["node_modules"]
+  "include": ["./src"],
+  "exclude": ["./node_modules"]
 }

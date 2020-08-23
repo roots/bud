@@ -1,10 +1,7 @@
 import * as Api from './api/types';
-import type { Container, ExtensionContainer, FileContainer } from './container';
-import type { Hooks } from './hooks/types';
-import type { Paths, Features, Options } from './repositories/types';
-import type { Util } from './util/types';
+import type { Container, ExtensionContainer, FileContainer, Hooks, Util } from '@roots/bud-framework';
 import type { Loose, WebpackMode } from '@roots/bud-typings';
-import { ExtensionControllerFactory } from './extensionFactory';
+import type { Paths, Features, Options } from './repositories/types';
 export type { Use } from './repositories/rulesets';
 /**
  * Bud Framework Interface
@@ -267,7 +264,7 @@ export interface Bud extends Loose {
      *
      * Extension controller
      */
-    extensionFactory: ExtensionControllerFactory;
+    extensions: any;
     /**
      * ## bud.glob
      *

@@ -1,14 +1,13 @@
-import type {Bud} from '..'
-import type {RepositoryDefinition} from '../container'
+import type {RepositoryDefinition} from '@roots/bud-framework'
 
 import {join} from 'path'
 import dotenv from 'dotenv'
 
 const env: RepositoryDefinition = {
   name: 'env',
-  boot: (bud: Bud): any =>
+  register:
     dotenv.config({
-      path: join(bud.paths.get('project'), '.env'),
+      path: join(process.cwd(), '.env'),
     }).parsed ?? {},
 }
 

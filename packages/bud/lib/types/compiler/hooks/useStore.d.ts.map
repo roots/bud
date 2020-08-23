@@ -1,1 +1,1 @@
-{"version":3,"file":"useStore.d.ts","sourceRoot":"","sources":["../../../../src/compiler/hooks/useStore.js"],"names":[],"mappings":";AAsDA,8FAMC"}
+{"version":3,"file":"useStore.d.ts","sourceRoot":"","sources":["../../../../src/compiler/hooks/useStore.ts"],"names":[],"mappings":"AAAA;;GAEG;AAsIH,aAAK,YAAY,GAAG,CAAC,GAAG,qBAAqB,OAAA,KAAK,GAAG,CAAA;AAErD,QAAA,MAAM,QAAQ,EAAE,YAcf,CAAA;AAED,eAAe,QAAQ,CAAA"}

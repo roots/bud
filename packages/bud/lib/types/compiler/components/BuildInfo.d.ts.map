@@ -1,1 +1,1 @@
-{"version":3,"file":"BuildInfo.d.ts","sourceRoot":"","sources":["../../../../src/compiler/components/BuildInfo.js"],"names":[],"mappings":"AAQA;;GAEG;AACH;;;gBAUC"}
+{"version":3,"file":"BuildInfo.d.ts","sourceRoot":"","sources":["../../../../src/compiler/components/BuildInfo.tsx"],"names":[],"mappings":";AAGA,OAAO,SAAS,MAAM,YAAY,CAAA;AAKlC;;GAEG;AACH,QAAA,MAAM,SAAS;;;;;;;;;;CAUd,CAAA;AAQD,OAAO,EAAC,SAAS,EAAC,CAAA"}

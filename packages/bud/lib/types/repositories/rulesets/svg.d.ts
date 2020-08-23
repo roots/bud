@@ -1,4 +1,4 @@
-import type { Bud } from '../types';
+import type { Bud } from '../..';
 declare const svg: (bud: Bud) => any;
 export { svg };
 //# sourceMappingURL=svg.d.ts.map

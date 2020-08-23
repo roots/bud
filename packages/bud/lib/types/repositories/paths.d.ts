@@ -1,4 +1,4 @@
-import type { Container, RepositoryDefinition } from '../container';
+import type { Container, RepositoryDefinition } from '@roots/bud-framework';
 declare type Directory = string;
 declare type Paths = Container;
 /**

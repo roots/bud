@@ -18,4 +18,8 @@ module.exports = {
     'prettier/@typescript-eslint',
     'plugin:prettier/recommended',
   ],
+  rules: {
+    '@typescript-eslint/no-explicit-any': 1,
+    'react/prop-types': 'off',
+  },
 }

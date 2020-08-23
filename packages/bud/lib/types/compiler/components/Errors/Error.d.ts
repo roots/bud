@@ -1,16 +1,18 @@
+/// <reference types="react" />
+import PropTypes from 'prop-types';
 /**
  * Error
  *
  * @prop {string} message
  * @return {PropTypes.ReactComponentLike}
  */
-export function Error({ message }: {
-    message: any;
-}): PropTypes.ReactComponentLike;
-export namespace Error {
-    export namespace propTypes {
-        export const message: PropTypes.Requireable<string>;
-    }
-}
-import PropTypes from "prop-types";
+declare const Error: {
+    ({ message }: {
+        message: any;
+    }): JSX.Element;
+    propTypes: {
+        message: PropTypes.Requireable<string>;
+    };
+};
+export { Error };
 //# sourceMappingURL=Error.d.ts.map

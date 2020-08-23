@@ -1,3 +1,5 @@
+/// <reference types="react" />
+import PropTypes from 'prop-types';
 /**
  * App
  *
@@ -9,23 +11,23 @@
  * @prop {number} height
  * @return {PropTypes.Component}
  */
-export function App({ children, state, build, bud, width, height }: {
-    children: any;
-    state: any;
-    build: any;
-    bud: any;
-    width: any;
-    height: any;
-}): any;
-export namespace App {
-    export namespace propTypes {
-        export const children: PropTypes.Requireable<any[]>;
-        export const state: PropTypes.Requireable<object>;
-        export const build: PropTypes.Requireable<object>;
-        export const bud: PropTypes.Requireable<object>;
-        export const width: PropTypes.Requireable<number>;
-        export const height: PropTypes.Requireable<number>;
-    }
-}
-import PropTypes from "prop-types";
+declare const App: {
+    ({ children, state, build, bud, width, height }: {
+        children: any;
+        state: any;
+        build: any;
+        bud: any;
+        width: any;
+        height: any;
+    }): JSX.Element;
+    propTypes: {
+        children: PropTypes.Requireable<any[]>;
+        state: PropTypes.Requireable<object>;
+        build: PropTypes.Requireable<object>;
+        bud: PropTypes.Requireable<object>;
+        width: PropTypes.Requireable<number>;
+        height: PropTypes.Requireable<number>;
+    };
+};
+export { App };
 //# sourceMappingURL=App.d.ts.map

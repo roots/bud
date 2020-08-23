@@ -1,16 +1,18 @@
+/// <reference types="react" />
+import PropTypes from 'prop-types';
 /**
  * Build Info
  */
-export function BuildInfo({ build, width }: {
-    build: any;
-    width: any;
-}): JSX.Element;
-export namespace BuildInfo {
-    export namespace propTypes {
-        export const build: PropTypes.Requireable<object>;
-        export const bud: PropTypes.Requireable<object>;
-        export const width: PropTypes.Requireable<number>;
-    }
-}
-import PropTypes from "prop-types";
+declare const BuildInfo: {
+    ({ build, width }: {
+        build: any;
+        width: any;
+    }): JSX.Element;
+    propTypes: {
+        build: PropTypes.Requireable<object>;
+        bud: PropTypes.Requireable<object>;
+        width: PropTypes.Requireable<number>;
+    };
+};
+export { BuildInfo };
 //# sourceMappingURL=BuildInfo.d.ts.map

@@ -1,6 +1,5 @@
 import {argv} from 'yargs'
-import type {Bud} from '../..'
-import type {RepositoryDefinition} from '../../container'
+import type {RepositoryDefinition} from '@roots/bud-framework'
 
 const args: RepositoryDefinition = {
   name: 'args',
