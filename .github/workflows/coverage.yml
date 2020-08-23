@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - next
-      - master
     tags:
       - '!*' # Do not execute on tags
     paths:
