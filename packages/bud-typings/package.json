@@ -1,6 +1,7 @@
 {
   "name": "@roots/bud-typings",
-  "version": "2.0.0-next.0",
+  "version": "2.0.0-next.2",
+  "private": true,
   "description": "Common types used throughout the Bud monorepo",
   "repository": {
     "type": "git",

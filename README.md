@@ -67,6 +67,10 @@ There are a number of Roots maintained plugins available to kickstart your proje
 | @roots/bud-typescript | Adds typescript support. | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-typescript/README.md) |
 | @roots/bud-vue | Adds Vue framework support. | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-vue/README.md) |
 
+## Build status
+
+![coverage](https://github.com/roots/bud-support/workflows/coverage/badge.svg?branch=next)
+
 ## Contributing
 
 Contributions are welcome from everyone.

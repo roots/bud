@@ -1,7 +1,8 @@
 {
   "name": "@roots/bud-support",
   "description": "Internal utilities for the @roots/bud monorepo.",
-  "version": "2.0.0-next.0",
+  "version": "2.0.0-next.2",
+  "private": true,
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -33,8 +34,8 @@
     "build": "rimraf ./lib && tsc"
   },
   "devDependencies": {
-    "rollup-plugin-auto-external": "^2.0.0",
     "rollup": "^2.26.4",
+    "rollup-plugin-auto-external": "^2.0.0",
     "rollup-plugin-json": "^4.0.0",
     "rollup-plugin-jsx": "^1.0.3",
     "rollup-plugin-npm": "^2.0.0",

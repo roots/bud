@@ -1,6 +1,7 @@
 name: coverage
 
 on:
+  workflow_dispatch:
   push:
     branches:
       - next
@@ -8,6 +9,7 @@ on:
       - '!*' # Do not execute on tags
     paths:
       - packages/*/src/*
+      - packages/*/src/**/*
       - test/*
       - '*.json'
       - yarn.lock

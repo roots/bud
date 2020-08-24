@@ -1,7 +1,6 @@
 {
-  "private": true,
   "name": "@roots/bud-sage",
-  "version": "2.0.0-next.0",
+  "version": "2.0.0-next.2",
   "description": "Preset configuration for Sage projects",
   "repository": {
     "type": "git",
@@ -38,11 +37,11 @@
   },
   "dependencies": {
     "@roots/bud": "^1.0.0-rc.9",
-    "@roots/bud-dependency-extraction-webpack-plugin": "^2.0.0-next.0",
+    "@roots/bud-dependency-extraction-webpack-plugin": "^2.0.0-next.2",
     "@roots/bud-eslint": "^2.0.0-next.0",
-    "@roots/bud-purgecss": "^2.0.0-next.0",
-    "@roots/bud-sass": "^2.0.0-next.0",
-    "@roots/bud-stylelint": "^2.0.0-next.0"
+    "@roots/bud-purgecss": "^2.0.0-next.2",
+    "@roots/bud-sass": "^2.0.0-next.2",
+    "@roots/bud-stylelint": "^2.0.0-next.2"
   },
   "devDependencies": {
     "@rollup/plugin-babel": "^5.1.0",

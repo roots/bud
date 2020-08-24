@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-cli",
   "description": "CLI tools for Bud.",
-  "version": "2.0.0-next.0",
+  "version": "2.0.0-next.2",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -36,12 +36,12 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "cross-env": "^7.0.2",
     "ink": "^3.0.0-6",
     "ink-gradient": "^1.0.0",
     "ink-link": "^1.1.0",
     "ink-spinner": "^4.0.0-0",
     "ink-use-stdout-dimensions": "^1.0.5",
-    "cross-env": "^7.0.2",
     "lodash": "^4.17.19",
     "prop-types": "^15.7.2",
     "react": "^16.13.1",
@@ -59,10 +59,10 @@
     "@babel/plugin-transform-runtime": "^7.10.5",
     "@babel/preset-env": "^7.10.4",
     "@babel/preset-react": "^7.10.4",
+    "@babel/preset-typescript": "^7.10.4",
     "@babel/register": "^7.10.5",
     "@babel/runtime": "^7.10.5",
     "@babel/traverse": "^7.10.5",
-    "@babel/preset-typescript": "^7.10.4",
     "@rollup/plugin-auto-install": "^2.1.0",
     "@rollup/plugin-babel": "^5.2.0",
     "@rollup/plugin-commonjs": "^14.0.0",
