@@ -46,6 +46,7 @@
     "react": "^16.13.1",
     "react-dev-utils": "^10.2.1",
     "react-dom": "^16.13.1",
+    "use-global-hook": "^0.2.1",
     "webpack-dev-middleware": "^3.7.2",
     "webpack-dev-server": "^3.11.0",
     "webpack-hot-client": "^4.1.2",

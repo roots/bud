@@ -1,7 +1,10 @@
 import React, {FunctionComponent} from 'react'
 import {Text} from 'ink'
+import useStdOutDimensions from 'ink-use-stdout-dimensions'
 
 interface BarProps {
+  color?: string
+  backgroundColor?: string
   percent: number
   columns?: number
   left?: number
@@ -12,27 +15,27 @@ interface BarProps {
 type BarComponent = FunctionComponent<BarProps>
 
 const Bar: BarComponent = ({
+  color = 'green',
+  backgroundColor = 'white',
   percent,
   character = '█',
   columns,
-  left,
-  right,
-  rightPad,
 }) => {
+  const [width] = useStdOutDimensions()
+
   const getString = () => {
-    const screen = columns || process.stdout.columns || 80
-    const space = screen - right - left
-    const max = Math.min(Math.floor(space * percent), space)
+    const screen = columns || width - 8
+    const max = Math.min(Math.floor(screen * percent), screen)
     const chars = character.repeat(max)
 
-    if (!rightPad) {
-      return chars
-    }
-
-    return chars + ' '.repeat(space - max)
+    return chars + ' '.repeat(screen - max)
   }
 
-  return <Text>{getString()}</Text>
+  return (
+    <Text backgroundColor={backgroundColor} color={color}>
+      {getString()}
+    </Text>
+  )
 }
 
 export {Bar}

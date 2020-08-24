@@ -1,10 +1,8 @@
 import { FunctionComponent } from 'react';
 interface AssetInterface {
-    asset: {
-        name: string;
-        emitted: boolean;
-        size: number;
-    };
+    name: string;
+    emitted: boolean;
+    size: number;
 }
 interface AssetsProps {
     build: {

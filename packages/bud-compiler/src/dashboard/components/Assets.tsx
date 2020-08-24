@@ -10,31 +10,30 @@ const Indicator: FunctionComponent<IndicatorProps> = ({emitted}) => (
 )
 
 interface AssetInterface {
-  asset: {
-    name: string
-    emitted: boolean
-    size: number
-  }
+  name: string
+  emitted: boolean
+  size: number
 }
 
-const Asset: FunctionComponent<AssetInterface> = ({asset}) => {
+const Asset: FunctionComponent<AssetInterface> = ({
+  name,
+  emitted,
+  size,
+}) => {
   const display =
-    asset.name.split('.').pop() == 'css' ||
-    asset.name.split('.').pop() == 'js'
+    name.split('.').pop() == 'css' || name.split('.').pop() == 'js'
 
   return !display ? (
     <Box></Box>
   ) : (
     <Box flexDirection="row" justifyContent="space-between">
       <Box>
-        <Indicator emitted={asset.emitted} />
-        <Text color={asset.emitted ? 'white' : 'gray'}>
-          {asset.name}
-        </Text>
+        <Indicator emitted={emitted} />
+        <Text color={emitted ? 'white' : 'gray'}>{name}</Text>
       </Box>
       <Spacer />
       <Box>
-        <Text dimColor={true}>{asset.size / 1000}kb</Text>
+        <Text dimColor={true}>{size / 1000}kb</Text>
       </Box>
     </Box>
   )
@@ -58,7 +57,12 @@ const Assets: FunctionComponent<AssetsProps> = ({build, actions}) => {
   return (
     <Box display={isFocused ? 'flex' : 'none'} flexDirection="column">
       {build?.assets?.map((asset, id) => (
-        <Asset key={id} {...asset} />
+        <Asset
+          key={id}
+          name={asset.name}
+          size={asset.size}
+          emitted={asset.emitted}
+        />
       ))}
       {build?.assets?.length == 0 && <Text>Loading</Text>}
     </Box>

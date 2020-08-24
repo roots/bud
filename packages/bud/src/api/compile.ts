@@ -1,10 +1,10 @@
 type Compile = () => void
 
 const compile: Compile = function () {
-  this.hooks
-    .filter('api.compile', this.compiler(this, this.config.build))
-    .buildConfig()
-    .compile()
+  let compiler = this.compiler(this, this.config.build())
+  compiler = this.hooks.filter('api.compile', compiler)
+
+  compiler.compile()
 }
 
 export {compile}

@@ -14,18 +14,19 @@ type LoadingComponentProps = {
 const Loading: FunctionComponent<LoadingComponentProps> = ({build}) =>
   build?.percentage > 0 && build?.percentage < 1 ? (
     <Box flexDirection="row">
-      <Text backgroundColor={'#171c56'}>
-        <Box width={6}>
-          <Text wrap="truncate">
-            {Math.round(build?.percentage * 100)}%
-            {build?.percentage < 1 ? '  ' : ' '}
-          </Text>
-        </Box>
-      </Text>
+      <Box width={6}>
+        <Text wrap="truncate">
+          {Math.round(build?.percentage * 100)}%
+          {build?.percentage < 1 ? '  ' : ' '}
+        </Text>
+      </Box>
 
-      <Text color={'#545DD7'}>
-        <Bar character="█" percent={build?.percentage ?? 0.01} />
-      </Text>
+      <Bar
+        backgroundColor="#171c56"
+        color={'#545DD7'}
+        character="█"
+        percent={build?.percentage ?? 0.01}
+      />
     </Box>
   ) : (
     <Box></Box>

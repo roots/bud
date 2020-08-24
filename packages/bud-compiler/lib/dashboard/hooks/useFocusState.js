@@ -16,7 +16,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 exports.__esModule = true;
 exports.useFocusState = void 0;
 var react_1 = __importDefault(require("react"));
-var useStore_1 = __importDefault(require("./useStore"));
+var use_global_hook_1 = __importDefault(require("use-global-hook"));
 var setFocus = function (store, value) {
     store.setState(__assign(__assign({}, store.state), value));
 };
@@ -27,7 +27,7 @@ var defaultState = {
     errors: false,
     warnings: false
 };
-var useFocusState = useStore_1["default"](react_1["default"], defaultState, {
+var useFocusState = use_global_hook_1["default"](react_1["default"], defaultState, {
     setFocus: setFocus
 });
 exports.useFocusState = useFocusState;

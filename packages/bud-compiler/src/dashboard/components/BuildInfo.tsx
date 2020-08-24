@@ -10,7 +10,7 @@ import {Loading} from './Loading'
  * Build Info
  */
 const BuildInfo = ({build, width}) => (
-  <Box flexDirection="column" paddingTop={1}>
+  <Box flexDirection="column" paddingTop={1} width={width}>
     {build?.percentage == 1 && build?.hash && (
       <Text color="#6C758F">
         Build {build?.hash}. Finished in {build?.time / 1000}s.

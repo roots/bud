@@ -15,7 +15,7 @@ var Loading_1 = require("./Loading");
  */
 var BuildInfo = function (_a) {
     var build = _a.build, width = _a.width;
-    return (react_1["default"].createElement(ink_1.Box, { flexDirection: "column", paddingTop: 1 },
+    return (react_1["default"].createElement(ink_1.Box, { flexDirection: "column", paddingTop: 1, width: width },
         (build === null || build === void 0 ? void 0 : build.percentage) == 1 && (build === null || build === void 0 ? void 0 : build.hash) && (react_1["default"].createElement(ink_1.Text, { color: "#6C758F" },
             "Build ", build === null || build === void 0 ? void 0 :
             build.hash,

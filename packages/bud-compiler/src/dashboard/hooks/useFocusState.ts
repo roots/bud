@@ -1,5 +1,5 @@
 import React from 'react'
-import globalState from './useStore'
+import globalState from 'use-global-hook'
 
 type SetFocus = (store: any, value: any) => void
 const setFocus: SetFocus = (store, value) => {
