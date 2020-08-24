@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-framework",
   "description": "Bud's backing framework",
-  "version": "2.0.0-next.2",
+  "version": "2.0.0-next.3",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -43,7 +43,7 @@
     "yargs": "^15.4.1"
   },
   "devDependencies": {
-    "@roots/bud-support": "^2.0.0-next.2",
+    "@roots/bud-support": "^2.0.0-next.3",
     "@types/dotenv": "^8.2.0",
     "@types/eslint": "^7.2.0",
     "@types/fs-extra": "^9.0.1",
