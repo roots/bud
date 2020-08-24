@@ -17,6 +17,7 @@ on:
     paths:
       - '!*.MD'
       - '!*.md'
+  workflow_dispatch:
 
 jobs:
   test:
