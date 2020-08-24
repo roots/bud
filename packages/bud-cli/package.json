@@ -36,25 +36,21 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "cross-env": "^7.0.2",
     "ink": "^3.0.0-6",
     "ink-gradient": "^1.0.0",
     "ink-link": "^1.1.0",
     "ink-spinner": "^4.0.0-0",
     "ink-use-stdout-dimensions": "^1.0.5",
-    "lodash": "^4.17.19",
     "react": "^16.13.1",
     "react-dev-utils": "^10.2.1",
-    "react-dom": "^16.13.1",
-    "yargs": "^15.4.1"
+    "react-dom": "^16.13.1"
   },
   "devDependencies": {
+    "@roots/bud-support": "2.0.0-next.2",
     "@types/react": "^16.9.43",
-    "@types/react-dom": "^16.9.8",
-    "npm-run-all": "^4.1.5",
-    "prettier": "^2.0.5",
-    "rimraf": "^3.0.2",
-    "tslib": "^2.0.1",
-    "typescript": "^4.0.2"
+    "@types/react-dom": "^16.9.8"
+  },
+  "peerDependencies": {
+    "@roots/bud": "2.0.0-next.2"
   }
 }

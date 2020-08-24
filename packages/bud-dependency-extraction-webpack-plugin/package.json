@@ -26,11 +26,10 @@
   "files": [
     "lib"
   ],
-  "main": "lib/cjs/bud-dependency-extraction-webpack-plugin.min.js",
-  "module": "lib/es/bud-dependency-extraction-webpack-plugin.js",
+  "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
   "scripts": {
-    "build": "rimraf ./lib && rollup -c ./rollup.config.js",
+    "build": "rimraf ./lib && tsc",
     "lint": "eslint src/**.ts",
     "watch": "npm run build && npm link && nodemon"
   },
@@ -38,11 +37,10 @@
     "@wordpress/dependency-extraction-webpack-plugin": "^2.8.0"
   },
   "devDependencies": {
-    "@types/wordpress__dependency-extraction-webpack-plugin": "^2.7.0",
-    "nodemon": "^2.0.4",
-    "ts-node": "^8.10.2",
-    "rimraf": "^3.0.2",
-    "tslib": "^2.0.1",
-    "typescript": "^4.0.2"
+    "@roots/bud-support": "^2.0.0-next.2",
+    "@types/wordpress__dependency-extraction-webpack-plugin": "^2.7.0"
+  },
+  "peerDependencies": {
+    "@roots/bud": "^2.0.0-next.2"
   }
 }

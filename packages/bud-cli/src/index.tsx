@@ -15,9 +15,7 @@ const App = props => {
   return (
     <Box
       width={dimensions.width}
-      maxWidth={dimensions.width}
       minHeight={dimensions.height}
-      textWrap="truncate"
       paddingRight={1}
       paddingBottom={1}
       paddingTop={1}

@@ -10,6 +10,7 @@ exports.__esModule = true;
 exports.logger = exports.util = void 0;
 var dump_1 = require("./dump");
 var fab_1 = require("./fab");
+var notify_1 = require("./notify");
 var projectRoot_1 = require("./projectRoot");
 var shortCircuit_1 = require("./shortCircuit");
 var terminate_1 = require("./terminate");
@@ -21,6 +22,7 @@ exports.util = {
     dump: dump_1.dump,
     shortCircuit: shortCircuit_1.shortCircuit,
     fab: fab_1.fab,
+    notify: notify_1.notify,
     projectRoot: projectRoot_1.projectRoot,
     processHandler: processHandler_1.processHandler,
     terminate: terminate_1.terminate,

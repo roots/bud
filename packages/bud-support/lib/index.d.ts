@@ -1,3 +1,4 @@
-import rollup from './rollup';
-export { rollup };
+/**
+ * Reserved for cross package development support
+ */
 //# sourceMappingURL=index.d.ts.map

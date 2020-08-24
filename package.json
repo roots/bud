@@ -65,7 +65,9 @@
     "husky": "^4.2.5",
     "lerna": "^3.22.1",
     "nyc": "^15.1.0",
-    "prettier": "^2.0.5"
+    "prettier": "^2.0.5",
+    "ts-node": "^9.0.0",
+    "typescript": "^4.0.2"
   },
   "name": "bud"
 }

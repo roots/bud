@@ -16,6 +16,7 @@ export declare type Util = {
     processHandler: any;
     projectRoot: ProjectRoot;
     dump: Dump;
+    notify: any;
     shortCircuit: ShortCircuit;
     terminate: Terminate;
     usedExt: any;

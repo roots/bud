@@ -27,34 +27,25 @@
   "files": [
     "lib"
   ],
-  "main": "lib/cjs/vue.min.js",
-  "module": "lib/es/vue.js",
+  "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
   "scripts": {
-    "build": "rimraf ./lib && rollup -c ./rollup.config.js",
+    "build": "rimraf ./lib && tsc",
     "lint": "eslint src/**.ts",
-    "watch": "npm run build && npm link && nodemon"
+    "watch": "npm run build && nodemon"
   },
   "dependencies": {
+    "babel-plugin-transform-vue-jsx": "^3.7.0",
     "de-indent": "^1.0.2",
     "he": "^1.1.0",
     "vue": "^2.6.11",
-    "vue-loader": "^15.9.3"
+    "vue-loader": "^15.9.3",
+    "vue-template-compiler": "^2.6.12"
   },
   "devDependencies": {
-    "@rollup/plugin-babel": "^5.1.0",
-    "@rollup/plugin-commonjs": "^14.0.0",
-    "@rollup/plugin-inject": "^4.0.2",
-    "@rollup/plugin-node-resolve": "^8.4.0",
-    "@types/node": "^14.0.27",
-    "babel-plugin-transform-vue-jsx": "^3.7.0",
-    "nodemon": "^2.0.4",
-    "rimraf": "^3.0.2",
-    "rollup": "^2.23.1",
-    "rollup-plugin-jsx": "^1.0.3",
-    "rollup-plugin-terser": "^7.0.0",
-    "rollup-plugin-typescript2": "^0.27.2",
-    "tslib": "^2.0.1",
-    "typescript": "^3.9.7"
+    "@roots/bud-support": "^2.0.0-next.2"
+  },
+  "peerDependencies": {
+    "@roots/bud": "2.0.0-next.2"
   }
 }

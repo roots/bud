@@ -38,11 +38,9 @@
     "palette-webpack-plugin": "^1.0.0"
   },
   "devDependencies": {
-    "cross-env": "^7.0.2",
-    "tslib": "^2.0.1",
-    "typescript": "^4.0.2",
-    "nodemon": "^2.0.4",
-    "rimraf": "^3.0.2",
-    "ts-node": "^8.10.2"
+    "@roots/bud-support": "^2.0.0-next.2"
+  },
+  "peerDependencies": {
+    "@roots/bud": "^2.0.0-next.2"
   }
 }

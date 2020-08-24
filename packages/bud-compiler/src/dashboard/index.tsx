@@ -1,6 +1,5 @@
 import React, {useEffect, FunctionComponent} from 'react'
 import {useApp, useInput} from 'ink'
-import notifier from 'node-notifier'
 import useStdOutDimensions from 'ink-use-stdout-dimensions'
 
 /**
@@ -65,7 +64,7 @@ const Dashboard: DashboardComponent = ({bud}) => {
         'compiler.notify.success.title',
         'Build complete.',
       )
-      notifier.notify({title})
+      bud.util.notify({title})
       bud.logger.info(
         {name: 'bud.compiler', title},
         'Build success notification',

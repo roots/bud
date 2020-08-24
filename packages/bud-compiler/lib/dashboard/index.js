@@ -36,7 +36,6 @@ exports.__esModule = true;
 exports.Dashboard = void 0;
 var react_1 = __importStar(require("react"));
 var ink_1 = require("ink");
-var node_notifier_1 = __importDefault(require("node-notifier"));
 var ink_use_stdout_dimensions_1 = __importDefault(require("ink-use-stdout-dimensions"));
 /**
  * Hooks
@@ -79,7 +78,7 @@ var Dashboard = function (_a) {
     react_1.useEffect(function () {
         if (build === null || build === void 0 ? void 0 : build.success) {
             var title = bud.hooks.filter('compiler.notify.success.title', 'Build complete.');
-            node_notifier_1["default"].notify({ title: title });
+            bud.util.notify({ title: title });
             bud.logger.info({ name: 'bud.compiler', title: title }, 'Build success notification');
         }
     }, [build === null || build === void 0 ? void 0 : build.success]);

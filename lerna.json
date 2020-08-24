@@ -9,30 +9,30 @@
       "PR: Feature :rocket:": ":rocket: New Feature",
       "PR: Fix :bug:": ":bug: Bug Fix",
       "PR: Polish :nail_care:": ":nail_care: Polish",
-      "PR: Chore :nail_care:": ":broom: Polish",
+      "PR: Chore :nail_care:": ":broom: Chore",
       "PR: Docs :memo:": ":memo: Documentation",
       "PR: Internal :house:": ":house: Internal",
       "PR: Revert :leftwards_arrow_with_hook:": ":leftwards_arrow_with_hook: Revert"
     }
   },
   "packages": [
-    "packages/bud-support",
-    "packages/bud-typings",
-    "packages/bud-framework",
     "packages/bud",
-    "packages/bud-compiler",
     "packages/bud-cli",
+    "packages/bud-compiler",
     "packages/bud-dependency-extraction-webpack-plugin",
     "packages/bud-eslint",
+    "packages/bud-framework",
     "packages/bud-palette-webpack-plugin",
     "packages/bud-purgecss",
     "packages/bud-react",
+    "packages/bud-sage",
     "packages/bud-sass",
     "packages/bud-stylelint",
+    "packages/bud-support",
     "packages/bud-tailwindcss",
     "packages/bud-typescript",
-    "packages/bud-vue",
-    "packages/bud-sage"
+    "packages/bud-typings",
+    "packages/bud-vue"
   ],
   "npmClient": "yarn",
   "useWorkspaces": true

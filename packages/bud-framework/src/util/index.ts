@@ -1,5 +1,6 @@
 import {dump} from './dump'
 import {fab} from './fab'
+import {notify} from './notify'
 import {projectRoot} from './projectRoot'
 import {shortCircuit} from './shortCircuit'
 import {terminate} from './terminate'
@@ -13,6 +14,7 @@ export const util: Util = {
   dump,
   shortCircuit,
   fab,
+  notify,
   projectRoot,
   processHandler,
   terminate,
