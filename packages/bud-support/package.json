@@ -30,7 +30,7 @@
   "types": "lib/index.d.js",
   "scripts": {
     "lint": "eslint src/**.ts",
-    "watch": "npm run build && npm link && nodemon",
+    "watch": "npm run build && nodemon",
     "build": "rimraf ./lib && tsc"
   },
   "dependencies": {
