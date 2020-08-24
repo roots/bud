@@ -3,7 +3,7 @@ exports.__esModule = true;
 exports.compile = void 0;
 var compile = function () {
     this.hooks
-        .filter('bud.compiler.filter', this.compiler)
+        .filter('api.compile', this.compiler(this, this.config.build))
         .buildConfig()
         .compile();
 };

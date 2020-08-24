@@ -4,7 +4,6 @@ import {auto} from './auto'
 import {babel} from './babel'
 import {bundle} from './bundle'
 import {compile} from './compile'
-import {config} from './config'
 import {copy} from './copy'
 import {copyAll} from './copyAll'
 import {dist} from './dist'
@@ -41,7 +40,6 @@ export const api: Api = {
   babel,
   bundle,
   compile,
-  config,
   copy,
   copyAll,
   devtool,

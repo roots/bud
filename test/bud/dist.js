@@ -23,7 +23,7 @@ test('sets path', t => {
 })
 
 test('generates expected webpack.output.path', t => {
-  const config = bud.config()
+  const config = bud.config.build()
   t.deepEqual(
     config.output.path,
     bud.dist(),

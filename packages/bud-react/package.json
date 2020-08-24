@@ -25,20 +25,24 @@
   "files": [
     "lib"
   ],
-  "main": "./lib/cjs/react.min.js",
-  "module": "./lib/es/index.js",
+  "main": "./lib/index.js",
   "types": "./lib/types/index.d.ts",
   "scripts": {
     "lint": "eslint src/**.ts",
     "watch": "npm run build && npm link && nodemon",
-    "build": "rimraf ./lib && rollup -c ./rollup.config.js"
+    "build": "rimraf ./lib && tsc"
   },
   "devDependencies": {
+    "@types/react": "^16.9.46",
+    "@types/react-dom": "^16.9.8",
     "nodemon": "^2.0.4",
     "rimraf": "^3.0.2",
     "ts-node": "^8.10.2"
   },
   "dependencies": {
-    "@babel/preset-react": "^7.10.4"
+    "@babel/preset-react": "^7.10.4",
+    "react": "^16.13.1",
+    "react-dev-utils": "^10.2.1",
+    "react-dom": "^16.13.1"
   }
 }

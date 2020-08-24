@@ -23,7 +23,7 @@ test('merges options', t => {
 })
 
 test('generates expected webpack.entry', t => {
-  const config = bud.config()
+  const config = bud.config.build()
 
   t.deepEqual(config.entry, {
     entry: [bud.src('scripts/app.js')],

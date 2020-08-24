@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "declaration": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "declarationMap": true,
+    "sourceMap": true,
+    "watch": false,
+    "rootDir": "./src",
+    "outDir": "./lib",
+    "declarationDir": "./types",
+  },
+  "include": ["./src"],
+  "exclude": ["./node_modules"]
+}

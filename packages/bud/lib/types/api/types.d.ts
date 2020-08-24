@@ -47,8 +47,6 @@ import type { Bundle } from './bundle';
 export type { Bundle };
 import type { Compile } from './compile';
 export type { Compile };
-import type { Config } from './config';
-export type { Config };
 import type { Copy } from './copy';
 export type { Copy };
 import type { Devtool } from './devtool';
@@ -69,7 +67,6 @@ export declare type Api = {
     babel: Babel;
     bundle: Bundle;
     compile: Compile;
-    config: Config;
     copy: Copy;
     copyAll: Copy;
     devtool: Devtool;

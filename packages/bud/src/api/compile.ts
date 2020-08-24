@@ -1,10 +1,8 @@
-import type {Bud} from './types'
-
-type Compile = (this: Bud) => void
+type Compile = () => void
 
 const compile: Compile = function () {
   this.hooks
-    .filter('bud.compiler.filter', this.compiler)
+    .filter('api.compile', this.compiler(this, this.config.build))
     .buildConfig()
     .compile()
 }

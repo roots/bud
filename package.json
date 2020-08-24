@@ -27,6 +27,7 @@
       "packages/bud-typings",
       "packages/bud-framework",
       "packages/bud",
+      "packages/bud-compiler",
       "packages/bud-cli",
       "packages/bud-dependency-extraction-webpack-plugin",
       "packages/bud-eslint",
@@ -39,14 +40,6 @@
       "packages/bud-typescript",
       "packages/bud-vue",
       "packages/bud-sage"
-    ],
-    "nohoist": [
-      "**/webpack-hot-client",
-      "**/webpack-hot-client/**",
-      "**/webpack-hot-middleware",
-      "**/webpack-hot-middleware/**",
-      "**/@wordpress/browserslist-config",
-      "**/@wordpress/browserslist-config/**"
     ]
   },
   "scripts": {
@@ -73,5 +66,6 @@
     "lerna": "^3.22.1",
     "nyc": "^15.1.0",
     "prettier": "^2.0.5"
-  }
+  },
+  "name": "bud"
 }

@@ -30,7 +30,7 @@ test('merges copy option', t => {
 })
 
 test('generates expected webpack.plugins entry', t => {
-  const config = bud.config()
+  const config = bud.config.build()
 
   t.deepEqual(config.plugins[1].patterns, patterns)
 })

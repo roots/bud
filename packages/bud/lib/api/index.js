@@ -6,7 +6,6 @@ var auto_1 = require("./auto");
 var babel_1 = require("./babel");
 var bundle_1 = require("./bundle");
 var compile_1 = require("./compile");
-var config_1 = require("./config");
 var copy_1 = require("./copy");
 var copyAll_1 = require("./copyAll");
 var dist_1 = require("./dist");
@@ -42,7 +41,6 @@ exports.api = {
     babel: babel_1.babel,
     bundle: bundle_1.bundle,
     compile: compile_1.compile,
-    config: config_1.config,
     copy: copy_1.copy,
     copyAll: copyAll_1.copyAll,
     devtool: devtool_1.devtool,

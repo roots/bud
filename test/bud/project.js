@@ -15,7 +15,7 @@ test('sets project path', t => {
 })
 
 test('generates expected webpack output', t => {
-  const config = bud.config()
+  const config = bud.config.build()
   t.deepEqual(
     config.context,
     mockPath,

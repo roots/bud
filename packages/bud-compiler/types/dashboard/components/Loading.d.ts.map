@@ -1,0 +1,1 @@
+{"version":3,"file":"Loading.d.ts","sourceRoot":"","sources":["../../../src/dashboard/components/Loading.tsx"],"names":[],"mappings":"AAAA,OAAc,EAAC,iBAAiB,EAAC,MAAM,OAAO,CAAA;AAI9C,aAAK,qBAAqB,GAAG;IAC3B,KAAK,CAAC,EAAE;QACN,UAAU,EAAE,MAAM,CAAA;KACnB,CAAA;CACF,CAAA;AAED;;GAEG;AACH,QAAA,MAAM,OAAO,EAAE,iBAAiB,CAAC,qBAAqB,CAkBnD,CAAA;AAEH,OAAO,EAAC,OAAO,EAAC,CAAA"}

@@ -1,0 +1,1 @@
+{"version":3,"file":"useProgress.d.ts","sourceRoot":"","sources":["../../../src/dashboard/hooks/useProgress.ts"],"names":[],"mappings":"AACA,OAAO,EAAC,cAAc,EAAC,MAAM,SAAS,CAAA;AACtC,OAAO,KAAK,EAAC,GAAG,EAAC,MAAM,YAAY,CAAA;AAEnC,QAAA,MAAM,WAAW,QACV,GAAG;oBAEQ,cAAc;gBAClB,MAAM;aACT,MAAM;CA2BhB,CAAA;AAED,OAAO,EAAC,WAAW,EAAC,CAAA"}
