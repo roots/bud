@@ -1,7 +1,6 @@
 name: coverage
 
 on:
-  workflow_dispatch:
   push:
     branches:
       - next
