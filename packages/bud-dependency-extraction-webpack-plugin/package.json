@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-dependency-extraction-webpack-plugin",
-  "version": "2.0.0-next.3",
+  "version": "2.0.0-next.4",
   "description": "Adds @wordpress/dependency-extraction-webpack-plugin to Bud",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -37,7 +37,7 @@
     "@wordpress/dependency-extraction-webpack-plugin": "^2.8.0"
   },
   "devDependencies": {
-    "@roots/bud-support": "^2.0.0-next.3",
+    "@roots/bud-support": "^2.0.0-next.4",
     "@types/wordpress__dependency-extraction-webpack-plugin": "^2.7.0"
   },
   "peerDependencies": {

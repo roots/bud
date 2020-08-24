@@ -1,6 +1,6 @@
 {
   "name": "@roots/palette-webpack-plugin",
-  "version": "2.0.0-next.3",
+  "version": "2.0.0-next.4",
   "description": "Adds json palette support for Gutenberg to Bud",
   "repository": {
     "type": "git",
@@ -38,7 +38,7 @@
     "palette-webpack-plugin": "^1.0.0"
   },
   "devDependencies": {
-    "@roots/bud-support": "^2.0.0-next.3"
+    "@roots/bud-support": "^2.0.0-next.4"
   },
   "peerDependencies": {
     "@roots/bud": "^2.0.0-next.2"

@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-cli",
   "description": "CLI tools for Bud.",
-  "version": "2.0.0-next.3",
+  "version": "2.0.0-next.4",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -46,7 +46,7 @@
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
-    "@roots/bud-support": "^2.0.0-next.3",
+    "@roots/bud-support": "^2.0.0-next.4",
     "@types/react": "^16.9.43",
     "@types/react-dom": "^16.9.8"
   },
