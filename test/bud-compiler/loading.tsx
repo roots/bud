@@ -45,7 +45,7 @@ ava('Render 50%', t => {
       columns={10}
     />
   )
-  console.log(lastFrame())
+
   t.true(lastFrame() === '█████')
 })
 

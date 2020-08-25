@@ -2,30 +2,15 @@ const test = require('ava')
 const {bud} = require('@roots/bud')
 const {join, resolve} = require('path')
 
-const mockPath = resolve(__dirname, '../mock')
-
-test('bud.projectPath', t => {
+test('projectPath has expected default', t => {
   t.is(bud.paths.get('project'), process.cwd())
-  bud.projectPath(mockPath)
-  t.is(bud.paths.get('project'), mockPath)
 })
 
-test('bud.srcPath', t => {
-  t.is(bud.paths.get('src'), process.cwd())
-  bud.srcPath('src')
-  t.is(bud.paths.get('src'), join(mockPath, 'src'))
+test('srcPath has expected default', t => {
+  t.is(bud.paths.get('src'), join(process.cwd(), 'src'))
 })
 
-test('sets path', t => {
-  t.is(bud.paths.get('dist'), process.cwd())
-  bud.distPath('dist')
-  t.is(bud.paths.get('dist'), join(mockPath, 'dist'))
+test('distPath has expected default', t => {
+  t.is(bud.paths.get('dist'), join(process.cwd(), 'dist'))
 })
 
-test('generates expected webpack.output.path', t => {
-  const config = bud.config.build()
-  t.deepEqual(
-    config.output.path,
-    bud.dist(),
-  )
-})

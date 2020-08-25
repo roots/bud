@@ -1,4 +1,4 @@
 import { Extension } from '@roots/bud';
-declare const paletteWebpackPlugin: Extension;
-export { paletteWebpackPlugin };
+declare const palette: Extension;
+export { palette };
 //# sourceMappingURL=index.d.ts.map

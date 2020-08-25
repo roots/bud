@@ -15,25 +15,7 @@
       "PR: Revert :leftwards_arrow_with_hook:": ":leftwards_arrow_with_hook: Revert"
     }
   },
-  "packages": [
-    "packages/bud",
-    "packages/bud-cli",
-    "packages/bud-compiler",
-    "packages/bud-dependency-extraction-webpack-plugin",
-    "packages/bud-eslint",
-    "packages/bud-framework",
-    "packages/bud-palette-webpack-plugin",
-    "packages/bud-purgecss",
-    "packages/bud-react",
-    "packages/bud-sage",
-    "packages/bud-sass",
-    "packages/bud-stylelint",
-    "packages/bud-support",
-    "packages/bud-tailwindcss",
-    "packages/bud-typescript",
-    "packages/bud-typings",
-    "packages/bud-vue"
-  ],
+  "packages": ["packages/*"],
   "npmClient": "yarn",
   "useWorkspaces": true
 }

@@ -22,6 +22,7 @@ interface ContainerInterface extends Loose {
   new: Action
   get: Getter
   require: () => void
+  addTo: Action
   has: ConditionalCheck
   is: ConditionalCheck
   set: Action

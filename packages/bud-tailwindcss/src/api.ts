@@ -16,11 +16,11 @@ import tailwind from 'tailwindcss'
  * }))
  * ```
  */
-const configTailwind = function (this: any, config: any) {
-  this.options.set('postCss', {
-    ...this.options.postCss,
+const configTailwind = function (config: any) {
+  this.options.set('postcss', {
+    ...this.options.get('postcss'),
     plugins: [
-      ...this.options.get('postCss').plugins,
+      ...this.options.get('postcss.plugins'),
       tailwind(config),
     ],
   })

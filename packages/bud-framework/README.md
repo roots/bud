@@ -10,59 +10,55 @@
 </p>
 
 <h1 align="center">
-  <strong>@roots/bud</strong>
+  <strong>@roots/bud-framework</strong>
 </h1>
 
 ## Overview
 
-A webpack framework combining the best parts of Laravel Mix and Symfony Encore.
+This is the core framework leveraged by @roots/bud. You may find it useful in other projects. It's kind of a bootstrap-y laravel/adonis style container-based framework.
 
 ## Installation
 
-`yarn add @roots/bud --dev`
+`yarn add @roots/bud-framework`
 
-## Plugins
+## Some things you can do with it
 
-### Usage
-
-Import plugins at the top of your `bud.config.js` file
+Attach things to it.
 
 ```js
-const {eslint} = require('@roots/bud-eslint')
+import {framework} from '@roots/bud-framework'
+
+framework.apply('method', () => console.log('attach a method to it'))
+
+const instance = new framework
+
+instance.method() // => 'attach a method to it'
 ```
 
-Then, utilize the `bud.use` method and register the plugin. Plugins will be called in the provided order.
+Log stuff.
 
 ```js
-bud.use([eslint])
+instance.logger.info({data: 100}, 'Logged message')
 ```
 
-Some plugins may provide additional configuration methods. Obviously, you can't call a plugin-provided method without first registering that plugin, which is one of the reasons it's  generally a good idea to import and register everything at the top of your config.
+Create containers for storing, accessing and manipulating stuff.
 
 ```js
-bud
-  .use([dependencyExtraction])
-  .dependencyExtraction({
-    injectPolyfill: true,
-  })
+instance.bind('things', {
+  some: {
+    thing: 100,
+  },
+})
+
+instance.things.get('some.thing')
+// => 100
+
+instance.things.set('some.thang', 200)
+instance.things.get('some')
+// => {some: {thing: 100, thang: 200}}
 ```
 
-### First-party plugins
-
-There are a number of Roots maintained plugins available to kickstart your projects.
-
-| Name | Description | Usage |
-|------|-------------|-------|
-| @roots/bud-dependency-extraction | Adds @wordpress/dependency-extraction-webpack-plugin support. | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-dependency-extraction/README.md)
-| @roots/bud-eslint | Adds eslint support. | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-eslint/README.md) |
-| @roots/bud-palette-plugin | Adds palette-webpack-plugin support. | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-palette-plugin/README.md) |
-| @roots/bud-purgecss | Adds purgecss support. | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-purgecss/README.md) |
-| @roots/bud-react | Adds react support. | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-react/README.md) |
-| @roots/bud-sass | Adds sass preprocessor support. | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-sass/README.md) |
-| @roots/bud-stylelint | Adds stylelint support. | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-stylelint/README.md) |
-| @roots/bud-tailwind | Adds tailwindcss support. | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-tailwindcss/README.md) |
-| @roots/bud-typescript | Adds typescript support. | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-typescript/README.md) |
-| @roots/bud-vue | Adds Vue framework support. | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-vue/README.md) |
+It definitely does other helpful stuff. As this is a lower-level utility it is largely undocumented, at the moment..
 
 ## Contributing
 

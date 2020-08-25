@@ -15,12 +15,12 @@
 
 ## Overview
 
-The compiler renders the Bud developer CLI and provides a development server for hot reloading.
+The compiler provides controls and renders Bud's built-in development server. It is a lower-level utility and there is no reason to include it in your Bud project.
 
 ## Installation
 
 ```sh
-yarn add @roots/bud-compiler
+yarn add @roots/bud-compiler --dev
 ```
 
 ## Usage

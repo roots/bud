@@ -22,6 +22,10 @@ const newContainer: Action = function (key, repository = {}) {
   this.repository[key] = new container(repository)
 }
 
+const addTo: Action = function (key, item) {
+  this.repository[key].push(item)
+}
+
 const push: Action = function (item) {
   this.repository.push(item)
 }
@@ -39,7 +43,6 @@ const containerRequire = function (key) {
 }
 
 const set: Action = function (key, value) {
-  logger.info({name: 'container', key, value}, `${this.name}.set`)
   _set(this.repository, key, value)
 }
 
@@ -47,8 +50,8 @@ const has: ConditionalCheck = function (key) {
   return this.repository.hasOwnProperty(key) ? true : false
 }
 
-const merge: Action = function (value) {
-  _merge(this.repository, value)
+const merge: Action = function (key, value) {
+  _merge(this.repository[key], value)
 }
 
 const containerMethodDelete: Action = function (key) {
@@ -87,6 +90,7 @@ const container: Action = function (repository?, name = 'anonymous') {
   this.name = name
   this.repository = repository
   this.new = newContainer
+  this.addTo = addTo
   this.get = get
   this.has = has
   this.set = set

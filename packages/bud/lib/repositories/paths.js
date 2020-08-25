@@ -26,11 +26,13 @@ var paths = {
         cwd: cwd,
         project: cwd,
         framework: framework,
-        src: yargs_1.argv['src'] ? path_1.join(cwd, ensureStr(yargs_1.argv['src'])) : path_1.join(cwd),
+        src: yargs_1.argv['src']
+            ? path_1.join(cwd, ensureStr(yargs_1.argv['src']))
+            : path_1.join(cwd, 'src'),
         public: yargs_1.argv['public'] ? ensureStr(yargs_1.argv['public']) : '/',
         dist: yargs_1.argv['dist']
             ? path_1.join(cwd, ensureStr(yargs_1.argv['dist']))
-            : path_1.join(cwd)
+            : path_1.join(cwd, 'dist')
     }
 };
 exports.paths = paths;

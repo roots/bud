@@ -11,8 +11,5 @@ ava('works', t => {
     <ErrorComponent message={'Error test.'}/>
   )
 
-  /**
-   * The space in ` Error test.` is important.
-   */
   t.true(lastFrame() === ' Error test.')
 })

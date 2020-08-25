@@ -1,9 +1,9 @@
 "use strict";
 exports.__esModule = true;
-exports.paletteWebpackPlugin = void 0;
+exports.palette = void 0;
 var adapter_1 = require("./adapter");
 var api_1 = require("./api");
-var paletteWebpackPlugin = function (bud) { return ({
+var palette = function (bud) { return ({
     bud: bud,
     name: 'palette-webpack-plugin',
     make: function () {
@@ -11,5 +11,5 @@ var paletteWebpackPlugin = function (bud) { return ({
         this.bud.plugins.push(adapter_1.plugin);
     }
 }); };
-exports.paletteWebpackPlugin = paletteWebpackPlugin;
+exports.palette = palette;
 //# sourceMappingURL=index.js.map

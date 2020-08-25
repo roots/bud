@@ -6,7 +6,11 @@ import type {
   Hooks,
   Util,
 } from '@roots/bud-framework'
-import type {Loose, WebpackMode} from '@roots/bud-typings'
+import type {
+  Loose,
+  WebpackMode,
+  WebpackConfig,
+} from '@roots/bud-typings'
 import type {Paths, Features, Options} from './repositories/types'
 export type {Use} from './repositories/rulesets'
 
@@ -27,6 +31,13 @@ export interface Bud extends Loose {
    * The compiler function which carries out the final build.
    */
   compiler: any
+
+  /**
+   * ## bud.config
+   *
+   * The final webpack config object
+   */
+  config: WebpackConfig | null
 
   /**
    * ## bud.configs

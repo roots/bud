@@ -10,36 +10,30 @@
 </p>
 
 <h1 align="center">
-  <strong>@roots/bud-typescript</strong>
+  <strong>@roots/bud-eslint</strong>
 </h1>
 
 ## Overview
 
-Adds support for compiling `.ts` and `.tsx` source files to the @roots/bud framework.
+Adds eslint support to @roots/bud projects.
 
 ## Installation
 
 ```sh
-yarn add @roots/bud-typescript --dev
+yarn add @roots/bud-eslint --dev
 ```
 
 ## Usage
 
 ```js
-const {typescript} = require('@roots/bud-vue')
+const {eslint} = require('@roots/bud-eslint')
 
-bud.use([typescript])
+bud.use([eslint])
 ```
 
-You should now be good to utilize typescript in your project. You will also need a tsconfig.json file in your project root directory. Consult the typescript docs for more information.
+You're all set.
 
-If your tsconfig.json file is not located in your project root you can configure the plugin to point to its location.
-
-```js
-bud.typescript({
-  configFile: bud.project('config/tsconfig.json'),
-})
-```
+Bud will automatically detect a eslint config in your project root and give you feedback during compilation.
 
 ## Contributing
 

@@ -2,11 +2,13 @@
 exports.__esModule = true;
 exports.registerExtensionContainer = exports.registerFileContainer = exports.registerContainer = exports.container = void 0;
 var fs_extra_1 = require("fs-extra");
-var logger_1 = require("./util/logger");
 var lodash_1 = require("lodash");
 var newContainer = function (key, repository) {
     if (repository === void 0) { repository = {}; }
     this.repository[key] = new container(repository);
+};
+var addTo = function (key, item) {
+    this.repository[key].push(item);
 };
 var push = function (item) {
     this.repository.push(item);
@@ -21,14 +23,13 @@ var containerRequire = function (key) {
     require(this.get(key));
 };
 var set = function (key, value) {
-    logger_1.logger.info({ name: 'container', key: key, value: value }, this.name + ".set");
     lodash_1.set(this.repository, key, value);
 };
 var has = function (key) {
     return this.repository.hasOwnProperty(key) ? true : false;
 };
-var merge = function (value) {
-    lodash_1.merge(this.repository, value);
+var merge = function (key, value) {
+    lodash_1.merge(this.repository[key], value);
 };
 var containerMethodDelete = function (key) {
     delete this.repository[key];
@@ -64,6 +65,7 @@ var container = function (repository, name) {
     this.name = name;
     this.repository = repository;
     this["new"] = newContainer;
+    this.addTo = addTo;
     this.get = get;
     this.has = has;
     this.set = set;

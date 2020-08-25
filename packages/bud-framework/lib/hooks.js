@@ -4,27 +4,22 @@ exports.hooks = void 0;
 var hooks = function (app) { return ({
     logger: app.logger,
     registered: {},
-    make: function (fn) {
-        if (fn === void 0) { fn = function () { return null; }; }
-        return ({
-            fn: fn,
-            value: null,
-            fired: false
-        });
-    },
+    make: function (fn) { return ({
+        fn: fn,
+        fired: false
+    }); },
     entries: function () {
         return Object.entries(this.registered);
     },
     on: function (name, callback) {
-        this.logger.info({
-            name: name,
-            callback: callback.name
-        }, 'filter defined');
+        this.logger.info({ name: name, callback: callback.name });
         var entry = this.make(callback);
         if (!this.registered[name]) {
             this.registered[name] = [entry];
         }
-        this.registered[name].push(callback);
+        else {
+            this.registered[name].push(entry);
+        }
         return this;
     },
     filter: function (name, value) {
@@ -36,7 +31,6 @@ var hooks = function (app) { return ({
             value = hook.fn(value);
             return {
                 name: hook.name,
-                value: value,
                 fired: true
             };
         });

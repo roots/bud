@@ -22,32 +22,17 @@
     "node": ">=12"
   },
   "workspaces": {
-    "packages": [
-      "packages/bud-support",
-      "packages/bud-typings",
-      "packages/bud-framework",
-      "packages/bud",
-      "packages/bud-compiler",
-      "packages/bud-cli",
-      "packages/bud-dependency-extraction-webpack-plugin",
-      "packages/bud-eslint",
-      "packages/bud-palette-webpack-plugin",
-      "packages/bud-purgecss",
-      "packages/bud-react",
-      "packages/bud-sass",
-      "packages/bud-stylelint",
-      "packages/bud-tailwindcss",
-      "packages/bud-typescript",
-      "packages/bud-vue",
-      "packages/bud-sage"
-    ]
+    "packages": ["packages/*"]
   },
   "scripts": {
     "build": "yarn workspaces run build",
-    "commit": "yarn git-cz",
     "lint": "eslint 'packages/**/*.{js,ts,tsx}' --fix",
     "test": "ava",
-    "test:coverage": "nyc yarn run test"
+    "test:coverage": "nyc yarn run test",
+    "pre:next": "lerna publish prerelease --ignore-scripts --pre-dist-tag next",
+    "release:next": "lerna publish --ignore-scripts --dist-tag next",
+    "pre:latest": "lerna publish --ignore-scripts --pre-dist-tag rc",
+    "release:latest": "lerna publish --ignore-scripts"
   },
   "devDependencies": {
     "@ava/babel": "^1.0.1",
@@ -68,6 +53,7 @@
     "lerna": "^3.22.1",
     "nyc": "^15.1.0",
     "prettier": "^2.0.5",
+    "semantic-release": "^15.8.0",
     "ts-node": "^9.0.0",
     "typescript": "^4.0.2"
   }

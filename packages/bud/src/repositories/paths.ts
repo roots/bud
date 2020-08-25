@@ -33,11 +33,13 @@ const paths: RepositoryDefinition = {
     cwd,
     project: cwd,
     framework,
-    src: argv['src'] ? join(cwd, ensureStr(argv['src'])) : join(cwd),
+    src: argv['src']
+      ? join(cwd, ensureStr(argv['src']))
+      : join(cwd, 'src'),
     public: argv['public'] ? ensureStr(argv['public']) : '/',
     dist: argv['dist']
       ? join(cwd, ensureStr(argv['dist']))
-      : join(cwd),
+      : join(cwd, 'dist'),
   },
 }
 

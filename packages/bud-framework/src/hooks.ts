@@ -10,9 +10,8 @@ const hooks: HooksConstructor = (app: Framework): Hooks => ({
   logger: app.logger,
   registered: {},
 
-  make: (fn = () => null): Hook => ({
+  make: fn => ({
     fn,
-    value: null,
     fired: false,
   }),
 
@@ -21,21 +20,15 @@ const hooks: HooksConstructor = (app: Framework): Hooks => ({
   },
 
   on: function (name, callback) {
-    this.logger.info(
-      {
-        name,
-        callback: callback.name,
-      },
-      'filter defined',
-    )
+    this.logger.info({name, callback: callback.name})
 
     const entry = this.make(callback)
 
     if (!this.registered[name]) {
       this.registered[name] = [entry]
+    } else {
+      this.registered[name].push(entry)
     }
-
-    this.registered[name].push(callback)
 
     return this
   },
@@ -52,7 +45,6 @@ const hooks: HooksConstructor = (app: Framework): Hooks => ({
 
       return {
         name: hook.name,
-        value,
         fired: true,
       }
     })

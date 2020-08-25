@@ -3,20 +3,21 @@ const {join} = require('path')
 const {bud} = require('../../packages/bud')
 
 const mockSrc = join(process.cwd(), 'src')
+const changedSrc = join(process.cwd(), 'newSrc')
 
 test('has expected default', t => {
-  t.is(bud.paths.get('src'), process.cwd())
+  t.is(bud.paths.get('src'), mockSrc)
 })
 
 test('sets src path', t => {
-  bud.srcPath('src')
-  t.is(bud.paths.get('src'), mockSrc)
+  bud.srcPath('newSrc')
+  t.is(bud.paths.get('src'), changedSrc)
 })
 
 test('generates expected webpack output', t => {
   const config = bud.config.build()
   t.deepEqual(
     config.resolve.modules[0],
-    mockSrc,
+    changedSrc,
   )
 })
