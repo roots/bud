@@ -1,11 +1,10 @@
-/**
- * Typings
- */
-import type {Configuration, Stats} from 'webpack'
+import type {Bud} from '@roots/bud'
 import type {
   WebpackConfig,
   WebpackDevServer,
 } from '@roots/bud-typings'
+
+import type {Configuration, Stats} from 'webpack'
 export type {
   Configuration as WebpackConfig,
   Stats as WebpackStats,
@@ -13,7 +12,7 @@ export type {
 }
 
 export interface RunnerProps {
-  bud: any
+  bud: Bud
 }
 
 export type BudRenderer = (
@@ -22,12 +21,12 @@ export type BudRenderer = (
 ) => void
 
 export type CompilerFactory = (
-  bud: any,
+  bud: Bud,
   config: WebpackConfig,
 ) => CompilerController
 
 export interface CompilerController {
-  bud: any
+  bud: Bud
   config: WebpackConfig
   compile: () => void
 }

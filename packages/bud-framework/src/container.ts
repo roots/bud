@@ -1,6 +1,6 @@
 import {existsSync} from 'fs-extra'
 import {logger} from './util/logger'
-import {get as _get, set as _set} from 'lodash'
+import {get as _get, set as _set, merge as _merge} from 'lodash'
 
 import {
   Container,
@@ -22,8 +22,8 @@ const newContainer: Action = function (key, repository = {}) {
   this.repository[key] = new container(repository)
 }
 
-const add: Action = function (entry) {
-  this.repository.push(entry)
+const push: Action = function (item) {
+  this.repository.push(item)
 }
 
 const get: Getter = function (key) {
@@ -35,9 +35,7 @@ const is: ConditionalCheck = function (key, value) {
 }
 
 const containerRequire = function (key) {
-  const module = this.get(key)
-
-  require(module)
+  require(this.get(key))
 }
 
 const set: Action = function (key, value) {
@@ -49,12 +47,8 @@ const has: ConditionalCheck = function (key) {
   return this.repository.hasOwnProperty(key) ? true : false
 }
 
-const merge: Action = function (key, value) {
-  this.repository[key] = (this.repository[key] as any)
-    ? {...this.repository[key], ...value}
-    : (this.repository[key] as any[])
-    ? [...this.repository[key], ...value]
-    : [this.repository[key], value]
+const merge: Action = function (value) {
+  _merge(this.repository, value)
 }
 
 const containerMethodDelete: Action = function (key) {
@@ -66,20 +60,10 @@ const exists: ConditionalCheck = function (key) {
 }
 
 const enable: Action = function (key) {
-  logger.info(
-    {name: 'container', key, value: true},
-    `${this.name}.enable`,
-  )
-
   this.repository[key] = true
 }
 
 const disable: Action = function (key) {
-  logger.info(
-    {name: 'container', key, value: false},
-    `${this.name}.disable`,
-  )
-
   this.repository[key] = false
 }
 
@@ -108,6 +92,7 @@ const container: Action = function (repository?, name = 'anonymous') {
   this.set = set
   this.map = map
   this.entries = entries
+  this.push = push
   this.merge = merge
   this.delete = containerMethodDelete
   this.is = is
@@ -147,8 +132,6 @@ const registerExtensionContainer: ContainerBind = function (
   store: RepositoryDefinition,
 ): ExtensionContainer {
   const instance = new container(store.register, store.name)
-
-  instance.add = add
 
   return instance
 }

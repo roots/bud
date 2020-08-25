@@ -10,18 +10,6 @@ export type { Use } from './repositories/rulesets';
  */
 export interface Bud extends Loose {
     /**
-     * ## bud.adapters
-     *
-     * Webpack plugins
-     */
-    adapters: ExtensionContainer;
-    /**
-     * ## bud.apply
-     *
-     * Extend the bud framework
-     */
-    apply: (string: any, any: any) => void;
-    /**
      * ## bud.args
      */
     args: Container;
@@ -144,6 +132,16 @@ export interface Bud extends Loose {
      */
     webpack: Container;
     /**
+     * ## bud.addExtensions
+     *
+     * Add support for additional extensions.
+     *
+     * ```js
+     * bud.addExtensions(['jsx', 'vue'])
+     * ```
+     */
+    addExtensions: Api.AddExtensions;
+    /**
      * ## bud.alias
      *
      * Resolve modules through webpack aliases. Useful for situations that may otherwise require brittle relative paths.
@@ -161,6 +159,12 @@ export interface Bud extends Loose {
      * ```
      **/
     alias: Api.Alias;
+    /**
+     * ## bud.apply
+     *
+     * Extend the bud framework
+     */
+    apply: (string: any, any: any) => void;
     /**
      * ## bud.auto
      *

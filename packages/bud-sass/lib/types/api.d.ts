@@ -1,3 +1,4 @@
+import { Bud } from '@roots/bud';
 /**
  * ## bud.scss
  *
@@ -11,6 +12,7 @@
  * bud.scss(false)
  * ```
  */
-declare const config: (this: any, enabled: boolean, options?: any) => any;
+declare type SassConfig = (this: Bud, options?: any) => Bud;
+declare const config: SassConfig;
 export { config };
 //# sourceMappingURL=api.d.ts.map

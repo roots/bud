@@ -3,8 +3,6 @@ import { Extension } from '@roots/bud';
  * Bud extension: purgecss
  *
  * Adds purgecss support to the Bud framework.
- *
- * @type {Extension}
  */
 declare const purgecss: Extension;
 declare const presets: {

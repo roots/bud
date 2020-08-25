@@ -7,27 +7,18 @@ const glob: Glob = function (
   name: string,
   files: string,
 ): Bud {
-  let entry = this.options.get('entry')
+  let entry
 
-  /**
-   * Glob matching files.
-   */
   const included = globby.sync(files, {
     expandDirectories: true,
   })
 
-  /**
-   * Enable support for matching extensions
-   */
-  this.util.usedExt(included, this)
+  included.forEach(file => {
+    this.addExtensions([file.split('.').pop()])
 
-  /**
-   * Add matching files as indviduated entrypoints.
-   */
-  included.forEach(match => {
     entry = {
-      ...entry,
-      [`${name}/`]: match,
+      ...this.options.get('webpack.entry'),
+      [`${name}/`]: file,
     }
   })
 

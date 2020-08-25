@@ -1,3 +1,5 @@
+import {Bud} from '@roots/bud'
+
 /**
  * ## bud.scss
  *
@@ -11,7 +13,9 @@
  * bud.scss(false)
  * ```
  */
-const config = function (this: any, enabled: boolean, options?: any) {
+type SassConfig = (this: Bud, options?: any) => Bud
+
+const config: SassConfig = function (options) {
   if (options) {
     this.options.set('sass', {
       ...(this.options.get('sass') ?? []),

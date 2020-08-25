@@ -1,6 +1,7 @@
 import {Bud} from '../..'
 import type {WebpackRule} from '@roots/bud-typings'
 import type {RepositoryDefinition} from '@roots/bud-framework'
+import {RuleSetLoader} from 'webpack'
 
 /**
  * Module Rule
@@ -10,7 +11,7 @@ type Use = (bud: Bud) => WebpackRule
 const uses: RepositoryDefinition = {
   name: 'uses',
   register: {
-    babel: (bud: Bud) =>
+    babel: (bud: Bud): RuleSetLoader =>
       bud.hooks.filter('webpack.module.babel', {
         loader: bud.hooks.filter(
           'webpack.module.babel.loader',
@@ -29,14 +30,14 @@ const uses: RepositoryDefinition = {
         }),
       }),
 
-    file: (bud: Bud) => ({
+    file: (bud: Bud): RuleSetLoader => ({
       loader: bud.loaders.get('file'),
       options: {
         name: '[path][name].[ext]',
       },
     }),
 
-    miniCss: (bud: Bud) =>
+    miniCss: (bud: Bud): RuleSetLoader =>
       bud.hooks.filter('webpack.modules.miniCss', {
         loader: bud.hooks.filter(
           'webpack.modules.miniCss.loader',
@@ -50,7 +51,7 @@ const uses: RepositoryDefinition = {
         }),
       }),
 
-    css: (bud: Bud) =>
+    css: (bud: Bud): RuleSetLoader =>
       bud.hooks.filter('webpack.modules.css', {
         loader: bud.hooks.filter(
           'webpack.modules.css.loader',
@@ -58,7 +59,7 @@ const uses: RepositoryDefinition = {
         ),
       }),
 
-    resolveUrl: (bud: Bud) =>
+    resolveUrl: (bud: Bud): RuleSetLoader =>
       bud.hooks.filter('webpack.modules.resolveurl', {
         loader: bud.hooks.filter(
           'webpack.modules.resolveurl.loader',
@@ -73,7 +74,7 @@ const uses: RepositoryDefinition = {
         ),
       }),
 
-    postCss: (bud: Bud) =>
+    postCss: (bud: Bud): RuleSetLoader =>
       bud.hooks.filter('webpack.module.postcss', {
         loader: bud.hooks.filter(
           'webpack.module.postcss.loader',
@@ -88,7 +89,7 @@ const uses: RepositoryDefinition = {
         }),
       }),
 
-    style: (bud: Bud) =>
+    style: (bud: Bud): RuleSetLoader =>
       bud.hooks.filter('webpack.module.style', {
         loader: bud.hooks.filter(
           'webpack.module.style.loader',

@@ -1,4 +1,5 @@
 import type {Api} from './types'
+import {addExtensions} from './addExtensions'
 import {alias} from './alias'
 import {auto} from './auto'
 import {babel} from './babel'
@@ -35,6 +36,7 @@ import {watch} from './watch'
  * Bud.Bud export
  */
 export const api: Api = {
+  addExtensions,
   alias,
   auto,
   babel,

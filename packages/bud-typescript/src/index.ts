@@ -1,52 +1,52 @@
 import {join} from 'path'
-import {Bud, Extension, ExtensionInterface, Use} from '@roots/bud'
+import {Bud, Extension, ExtensionInterface} from '@roots/bud'
 
-const loader = require.resolve('ts-loader')
+type FluentConfig = (
+  this: Bud,
+  options: {
+    configFile?: string
+  },
+) => Bud
 
-const rule: Use = (bud: Bud) => ({
-  test: /\.(ts|tsx)$/,
-  exclude: bud.patterns.get('vendor'),
-  use: [
-    {
-      loader,
+const publicConfig: FluentConfig = function (this: Bud, options) {
+  options.configFile &&
+    this.configs.set('typescript', options.configFile)
+
+  this.options.merge('typescript', options)
+
+  return this
+}
+
+const typescript: Extension = bud => ({
+  bud,
+  name: 'typescript',
+  make: function (this: ExtensionInterface) {
+    const configFile = join(this.bud.project('tsconfig.json'))
+
+    if (this.bud.fs.existsSync(configFile)) {
+      this.bud.configs.set('typescript', configFile)
+      this.bud.options.set('typescript', {
+        configFile: this.bud.configs.get('typescript'),
+      })
+    }
+
+    this.bud.addExtensions(['ts', 'tsx'])
+    this.bud.patterns.set('typescript', /\.(ts|tsx)$/)
+    this.bud.loaders.set('typescript', require.resolve('ts-loader'))
+    this.bud.uses.set('typescript', (bud: Bud) => ({
+      loader: bud.loaders.get('typescript'),
       options: {
         configFile: bud.configs.get('typescript'),
       },
-    },
-  ],
-})
+    }))
 
-const typescript: Extension = (bud: Bud): ExtensionInterface => ({
-  bud,
+    this.bud.rules.push((bud: Bud) => ({
+      test: bud.patterns.get('typescript'),
+      exclude: bud.patterns.get('vendor'),
+      use: [bud.uses.get('typescript')],
+    }))
 
-  name: 'typescript',
-
-  make: function (this: ExtensionInterface) {
-    /**
-     * Load tsconfig.json and bail early if not found.
-     */
-    const config = join(this.bud.project('tsconfig.json'))
-    if (!this.bud.fs.existsSync(config)) {
-      return
-    }
-
-    !this.bud.options
-      .get('webpack.resolve.extensions')
-      .includes('.ts') &&
-      this.bud.options.set('webpack.resolve.extensions', [
-        ...this.bud.options.get('webpack.resolve.extensions'),
-        '.ts',
-      ])
-
-    !this.bud.options
-      .get('webpack.resolve.extensions')
-      .includes('.tsx') &&
-      this.bud.options.set('webpack.resolve.extensions', [
-        ...this.bud.options.get('webpack.resolve.extensions'),
-        '.tsx',
-      ])
-
-    this.bud.rules.repository = [...this.bud.rules.repository, rule]
+    this.bud.apply('typescript', publicConfig)
   },
 })
 

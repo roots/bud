@@ -13,7 +13,7 @@ var LoadingBar_1 = require("./LoadingBar");
 var Loading = function (_a) {
     var _b;
     var build = _a.build;
-    return (build === null || build === void 0 ? void 0 : build.percentage) > 0 && (build === null || build === void 0 ? void 0 : build.percentage) < 1 ? (react_1["default"].createElement(ink_1.Box, { flexDirection: "row" },
+    return (build === null || build === void 0 ? void 0 : build.percentage) > 0 ? (react_1["default"].createElement(ink_1.Box, { flexDirection: "row" },
         react_1["default"].createElement(ink_1.Box, { width: 6 },
             react_1["default"].createElement(ink_1.Text, { wrap: "truncate" },
                 Math.round((build === null || build === void 0 ? void 0 : build.percentage) * 100),

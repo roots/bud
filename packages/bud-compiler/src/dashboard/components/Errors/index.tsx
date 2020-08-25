@@ -1,13 +1,14 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect, useState, FunctionComponent} from 'react'
 import {Box, Text, useFocus} from 'ink'
-import PropTypes from 'prop-types'
 
 import {Error} from './Error'
 
-/**
- * Error
- */
-const Errors = ({build, actions}) => {
+interface ErrorsProps {
+  build: any
+  actions: any
+}
+
+const Errors: FunctionComponent<ErrorsProps> = ({build, actions}) => {
   const {isFocused} = useFocus({autoFocus: true})
   useEffect(() => {
     actions?.setFocus({errors: isFocused})
@@ -29,11 +30,6 @@ const Errors = ({build, actions}) => {
       )}
     </Box>
   )
-}
-
-Errors.propTypes = {
-  build: PropTypes.object,
-  actions: PropTypes.object,
 }
 
 export {Errors}

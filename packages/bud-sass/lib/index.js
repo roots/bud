@@ -52,8 +52,13 @@ var sass = function (bud) { return ({
             this.bud.options.set('webpack.resolve.extensions', __spreadArrays(this.bud.options.get('webpack.resolve.extensions'), [
                 '.scss',
             ]));
+        if (!this.bud.options.has('sass')) {
+            this.bud.options.set('sass', {
+                sourceMap: true
+            });
+        }
         this.bud.apply('sass', api_1.config);
-        this.bud.rules.repository = __spreadArrays(this.bud.rules.repository, [rule]);
+        this.bud.rules.push(rule);
     }
 }); };
 exports.sass = sass;

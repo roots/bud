@@ -15,23 +15,15 @@ exports.glob = void 0;
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 var globby = require('globby');
 var glob = function (name, files) {
-    var entry = this.options.get('entry');
-    /**
-     * Glob matching files.
-     */
+    var _this = this;
+    var entry;
     var included = globby.sync(files, {
         expandDirectories: true
     });
-    /**
-     * Enable support for matching extensions
-     */
-    this.util.usedExt(included, this);
-    /**
-     * Add matching files as indviduated entrypoints.
-     */
-    included.forEach(function (match) {
+    included.forEach(function (file) {
         var _a;
-        entry = __assign(__assign({}, entry), (_a = {}, _a[name + "/"] = match, _a));
+        _this.addExtensions([file.split('.').pop()]);
+        entry = __assign(__assign({}, _this.options.get('webpack.entry')), (_a = {}, _a[name + "/"] = file, _a));
     });
     this.options.set('webpack.entry', entry);
     return this;

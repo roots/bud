@@ -1,6 +1,7 @@
 "use strict";
 exports.__esModule = true;
 exports.api = void 0;
+var addExtensions_1 = require("./addExtensions");
 var alias_1 = require("./alias");
 var auto_1 = require("./auto");
 var babel_1 = require("./babel");
@@ -36,6 +37,7 @@ var watch_1 = require("./watch");
  * Bud.Bud export
  */
 exports.api = {
+    addExtensions: addExtensions_1.addExtensions,
     alias: alias_1.alias,
     auto: auto_1.auto,
     babel: babel_1.babel,

@@ -14,29 +14,14 @@ var stylelint = function (bud) { return ({
     bud: bud,
     name: 'stylelint',
     make: function () {
-        /**
-         * Load .stylelintrc.js and bail early if not found.
-         */
         var config = path_1.join(this.bud.project('stylelint.config.js'));
         if (!this.bud.fs.existsSync(config)) {
             return;
         }
-        /**
-         * Set bud.stylelint API method.
-         */
         this.bud.apply('stylelint', api_1["default"]);
-        /**
-         * Set stylelint to config container
-         */
         this.bud.configs.set('stylelint', config);
-        /**
-         * Enable stylelint support
-         */
         this.bud.features.set('stylelint', true);
-        /**
-         * Add stylelint webpack adapter
-         */
-        this.bud.adapters.add(adapter_1["default"]);
+        this.bud.plugins.push(adapter_1["default"]);
     }
 }); };
 exports.stylelint = stylelint;

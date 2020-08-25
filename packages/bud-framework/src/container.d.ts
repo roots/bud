@@ -27,6 +27,7 @@ interface ContainerInterface extends Loose {
   set: Action
   map: Action
   entries: Getter
+  push: Action
   merge: Action
   delete: Action
   enable: Action

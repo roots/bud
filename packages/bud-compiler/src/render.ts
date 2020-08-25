@@ -12,13 +12,13 @@ const render: BudRenderer = (bud, config): void => {
         injectHot({
           config,
           overlay:
-            bud.options.has('devServer.overlay') &&
-            bud.options.get('devServer.overlay')
+            bud.options.has('webpack.devServer.overlay') &&
+            bud.options.get('webpack.devServer.overlay')
               ? true
               : true,
           reload:
-            bud.options.has('devServer.reload') &&
-            bud.options.get('devServer.reload')
+            bud.options.has('webpack.devServer.reload') &&
+            bud.options.get('webpack.devServer.reload')
               ? true
               : true,
         }),

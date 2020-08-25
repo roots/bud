@@ -1,0 +1,18 @@
+{
+  "compilerOptions": {
+    "jsx": "react",
+    "allowJs": true,
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "declaration": true,
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "declarationMap": true,
+    "sourceMap": true,
+    "watch": false,
+    "rootDir": "./packages",
+    "outDir": "./build",
+  },
+  "include": ["bud-compiler/src"],
+  "exclude": ["bud-compiler/node_modules"]
+}

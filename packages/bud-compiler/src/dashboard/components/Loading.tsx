@@ -12,7 +12,7 @@ type LoadingComponentProps = {
  * Loading (Progress Plugin)
  */
 const Loading: FunctionComponent<LoadingComponentProps> = ({build}) =>
-  build?.percentage > 0 && build?.percentage < 1 ? (
+  build?.percentage > 0 ? (
     <Box flexDirection="row">
       <Box width={6}>
         <Text wrap="truncate">

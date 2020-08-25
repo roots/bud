@@ -2,7 +2,7 @@ import type {Bud, Extension, ExtensionInterface} from '@roots/bud'
 import presets from './preset'
 import {join, resolve} from 'path'
 
-const rule: (any) => any = (bud: any): any => ({
+const rule = (bud: Bud) => ({
   enforce: 'pre',
   test: bud.patterns.get('js'),
   exclude: bud.patterns.get('vendor'),
@@ -20,35 +20,16 @@ const rule: (any) => any = (bud: any): any => ({
 
 const eslint: Extension = (bud: Bud): ExtensionInterface => ({
   bud,
-
   name: 'eslint',
-
   make: function (this: ExtensionInterface) {
-    /**
-     * Load .eslintrc.js and bail early if not found.
-     */
     const config = join(this.bud.project('.eslintrc.js'))
     if (!this.bud.fs.existsSync(config)) {
       return
     }
 
-    /**
-     * Set eslintrc to config container
-     */
     this.bud.configs.set('eslint', config)
-
-    /**
-     * Enable eslint support
-     */
     this.bud.features.set('eslint', true)
-
-    /**
-     * Add eslint rule to webpack modules repository.
-     */
-    this.bud.rules.repository = [
-      bud => rule(bud),
-      ...this.bud.rules.repository,
-    ]
+    this.bud.rules.push(rule)
   },
 })
 

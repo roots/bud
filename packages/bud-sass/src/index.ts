@@ -48,9 +48,15 @@ const sass: Extension = (bud: Bud): ExtensionInterface => ({
         '.scss',
       ])
 
+    if (!this.bud.options.has('sass')) {
+      this.bud.options.set('sass', {
+        sourceMap: true,
+      })
+    }
+
     this.bud.apply('sass', config)
 
-    this.bud.rules.repository = [...this.bud.rules.repository, rule]
+    this.bud.rules.push(rule)
   },
 })
 

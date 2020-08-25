@@ -95,6 +95,7 @@ const withFeatures: WithFeatures = function (options): Sage {
  */
 const sage = (() => {
   bud.apply('withFeatures', withFeatures)
+
   bud
     .srcPath('resources/assets')
     .distPath('dist')

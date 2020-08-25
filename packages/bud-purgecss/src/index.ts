@@ -1,24 +1,19 @@
-import {Bud, Extension, ExtensionInterface} from '@roots/bud'
+import {Extension} from '@roots/bud'
 import {config} from './api'
-import {wordpress} from './presets'
+import wordpress from 'purgecss-with-wordpress'
 
 /**
  * Bud extension: purgecss
  *
  * Adds purgecss support to the Bud framework.
- *
- * @type {Extension}
  */
-const purgecss: Extension = (bud: Bud): ExtensionInterface => ({
+const purgecss: Extension = bud => ({
   bud,
-
   name: 'purgecss',
-
-  make: function (this: ExtensionInterface): void {
+  make: function () {
     this.bud.apply('purgecss', config)
   },
 })
 
 const presets = {wordpress}
-
 export {purgecss, presets}

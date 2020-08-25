@@ -44,6 +44,9 @@ export type Watch = (options: {
   enabled: boolean
 }) => Bud
 
+import type {AddExtensions} from './addExtensions'
+export type {AddExtensions}
+
 import type {Alias} from './alias'
 export type {Alias}
 
@@ -81,6 +84,7 @@ import type {Vendor} from './vendor'
 export type {Vendor}
 
 export type Api = {
+  addExtensions: AddExtensions
   alias: Alias
   auto: Auto
   babel: Babel

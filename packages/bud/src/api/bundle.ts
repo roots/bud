@@ -3,7 +3,9 @@ import type {Bud} from './types'
 type Bundle = (this: Bud, name: string, entries: string[]) => Bud
 
 const bundle: Bundle = function (name, entries) {
-  this.util.usedExt(entries, this)
+  entries.forEach(entry =>
+    this.addExtensions([entry.split('.').pop()]),
+  )
 
   this.options.set('webpack.entry', {
     ...this.options.get('webpack.entry'),

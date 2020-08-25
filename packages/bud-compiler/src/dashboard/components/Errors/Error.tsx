@@ -1,15 +1,12 @@
 import notifier from 'node-notifier'
-import React, {useEffect} from 'react'
+import React, {useEffect, FunctionComponent} from 'react'
 import {Box, Text} from 'ink'
-import PropTypes from 'prop-types'
 
-/**
- * Error
- *
- * @prop {string} message
- * @return {PropTypes.ReactComponentLike}
- */
-const Error = ({message}) => {
+interface ErrorProps {
+  message: string
+}
+
+const Error: FunctionComponent<ErrorProps> = ({message}) => {
   useEffect(() => {
     message &&
       notifier.notify({
@@ -23,10 +20,6 @@ const Error = ({message}) => {
       <Text wrap="wrap">{message || ''}</Text>
     </Box>
   )
-}
-
-Error.propTypes = {
-  message: PropTypes.string,
 }
 
 export {Error}

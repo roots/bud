@@ -14,7 +14,10 @@ exports.__esModule = true;
 exports.bundle = void 0;
 var bundle = function (name, entries) {
     var _a;
-    this.util.usedExt(entries, this);
+    var _this = this;
+    entries.forEach(function (entry) {
+        return _this.addExtensions([entry.split('.').pop()]);
+    });
     this.options.set('webpack.entry', __assign(__assign({}, this.options.get('webpack.entry')), this.hooks.filter('api.bundle.filter', (_a = {},
         _a["" + name] = entries,
         _a))));

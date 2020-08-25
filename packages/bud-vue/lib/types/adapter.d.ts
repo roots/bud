@@ -1,4 +1,4 @@
 import type { Extension } from '@roots/bud';
-declare const adapter: Extension;
-export default adapter;
+declare const vuePlugin: Extension;
+export default vuePlugin;
 //# sourceMappingURL=adapter.d.ts.map

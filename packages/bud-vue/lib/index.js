@@ -10,34 +10,29 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 exports.__esModule = true;
+exports.vue = void 0;
 var adapter_1 = __importDefault(require("./adapter"));
 var rule_1 = __importDefault(require("./rule"));
 var addVueStyle = function (loaders) { return __spreadArrays([
     'vue-style-loader'
 ], loaders); };
-/**
- * @roots/bud-vue
- *
- * Adds vue support to the Bud framework.
- */
 var vue = function (bud) { return ({
     bud: bud,
     name: 'vue',
     make: function () {
-        !this.bud.options
+        if (!this.bud.options
             .get('webpack.resolve.extensions')
-            .includes('.vue') &&
+            .includes('.vue')) {
             this.bud.options.set('webpack.resolve.extensions', __spreadArrays(this.bud.options.get('webpack.resolve.extensions'), [
                 '.vue',
             ]));
-        this.bud.adapters.add(adapter_1["default"]);
-        this.bud.alias({
-            vue$: 'vue/dist/vue.esm.js'
-        });
-        this.bud.rules.repository = __spreadArrays(this.bud.rules.repository, [rule_1["default"]]);
+        }
+        this.bud.alias({ vue$: 'vue/dist/vue.esm.js' });
+        this.bud.rules.repository.push(rule_1["default"]);
+        this.bud.plugins.push(adapter_1["default"]);
         this.bud.hooks.on('webpack.module.rules.css.use', addVueStyle);
         this.bud.hooks.on('webpack.module.rules.scss.use', addVueStyle);
     }
 }); };
-module.exports = vue;
+exports.vue = vue;
 //# sourceMappingURL=index.js.map

@@ -1,15 +1,10 @@
 import {Use} from '@roots/bud'
 
-const loader = require.resolve('vue-loader')
-
-/**
- * Patched compiler.
- */
+/** Patched compiler.*/
 import compiler from './vue-template-compiler'
 
-/**
- * Vue SFC rule
- */
+const loader = require.resolve('vue-loader')
+
 const rule: Use = () => ({
   test: /\.vue$/,
   exclude: file =>

@@ -26,28 +26,13 @@ const eslint = (bud) => ({
     bud,
     name: 'eslint',
     make: function () {
-        /**
-         * Load .eslintrc.js and bail early if not found.
-         */
         const config = path_1.join(this.bud.project('.eslintrc.js'));
         if (!this.bud.fs.existsSync(config)) {
             return;
         }
-        /**
-         * Set eslintrc to config container
-         */
         this.bud.configs.set('eslint', config);
-        /**
-         * Enable eslint support
-         */
         this.bud.features.set('eslint', true);
-        /**
-         * Add eslint rule to webpack modules repository.
-         */
-        this.bud.rules.repository = [
-            bud => rule(bud),
-            ...this.bud.rules.repository,
-        ];
+        this.bud.rules.push(rule);
     },
 });
 exports.eslint = eslint;

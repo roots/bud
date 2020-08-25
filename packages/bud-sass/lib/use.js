@@ -13,7 +13,7 @@ var __assign = (this && this.__assign) || function () {
 exports.__esModule = true;
 var use = function (bud) { return ({
     loader: require.resolve('sass-loader'),
-    options: __assign(__assign({}, bud.options.get('sass')), { sourceMap: true, implementation: (function () {
+    options: __assign(__assign({}, bud.options.get('sass')), { implementation: (function () {
             try {
                 if (require.resolve('sass')) {
                     return require('sass');

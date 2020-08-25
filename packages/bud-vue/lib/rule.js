@@ -3,14 +3,9 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 exports.__esModule = true;
-var loader = require.resolve('vue-loader');
-/**
- * Patched compiler.
- */
+/** Patched compiler.*/
 var vue_template_compiler_1 = __importDefault(require("./vue-template-compiler"));
-/**
- * Vue SFC rule
- */
+var loader = require.resolve('vue-loader');
 var rule = function () { return ({
     test: /\.vue$/,
     exclude: function (file) {

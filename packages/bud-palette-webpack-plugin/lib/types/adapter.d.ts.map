@@ -1,1 +1,1 @@
-{"version":3,"file":"adapter.d.ts","sourceRoot":"","sources":["../../src/adapter.ts"],"names":[],"mappings":"AACA,OAAO,KAAK,EAAM,SAAS,EAAqB,MAAM,YAAY,CAAA;AAElE,QAAA,MAAM,OAAO,EAAE,SAUb,CAAA;AAEF,OAAO,EAAC,OAAO,EAAC,CAAA"}
+{"version":3,"file":"adapter.d.ts","sourceRoot":"","sources":["../../src/adapter.ts"],"names":[],"mappings":"AACA,OAAO,KAAK,EAAM,SAAS,EAAqB,MAAM,YAAY,CAAA;AAElE,QAAA,MAAM,MAAM,EAAE,SAQZ,CAAA;AAEF,OAAO,EAAC,MAAM,EAAC,CAAA"}

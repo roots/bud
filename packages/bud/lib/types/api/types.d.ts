@@ -37,6 +37,8 @@ export declare type Watch = (options: {
     paths: string[];
     enabled: boolean;
 }) => Bud;
+import type { AddExtensions } from './addExtensions';
+export type { AddExtensions };
 import type { Alias } from './alias';
 export type { Alias };
 import type { Auto } from './auto';
@@ -62,6 +64,7 @@ export type { UseExtension };
 import type { Vendor } from './vendor';
 export type { Vendor };
 export declare type Api = {
+    addExtensions: AddExtensions;
     alias: Alias;
     auto: Auto;
     babel: Babel;

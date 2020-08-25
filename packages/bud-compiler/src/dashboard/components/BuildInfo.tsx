@@ -1,15 +1,13 @@
-/** Modules */
-import React from 'react'
+import React, {FunctionComponent} from 'react'
 import {Box, Text} from 'ink'
-import PropTypes from 'prop-types'
-
-/** Application components */
 import {Loading} from './Loading'
 
-/**
- * Build Info
- */
-const BuildInfo = ({build, width}) => (
+interface InfoProps {
+  build: any
+  width: number
+}
+
+const BuildInfo: FunctionComponent<InfoProps> = ({build, width}) => (
   <Box flexDirection="column" paddingTop={1} width={width}>
     {build?.percentage == 1 && build?.hash && (
       <Text color="#6C758F">
@@ -20,11 +18,5 @@ const BuildInfo = ({build, width}) => (
     <Loading build={build} />
   </Box>
 )
-
-BuildInfo.propTypes = {
-  build: PropTypes.object,
-  bud: PropTypes.object,
-  width: PropTypes.number,
-}
 
 export {BuildInfo}

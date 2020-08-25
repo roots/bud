@@ -30,22 +30,16 @@ const dependencyExtractionConfig = function (
   return this
 }
 
-const adapter: Extension = (bud: Bud): ExtensionInterface => ({
+const plugin: Extension = bud => ({
   bud,
-
   name: 'wordpress-dependency-extraction-plugin',
-
-  mergeOptions: function (
-    this: ExtensionInterface,
-  ): DependencyExtractionOptions {
+  mergeOptions: function (): DependencyExtractionOptions {
     return this.bud.options.get(
       'webpack.plugins.dependencyExtraction',
     )
   },
 
-  make: function (
-    this: ExtensionInterface,
-  ): DependencyExtractionWebpackPlugin {
+  make: function (): DependencyExtractionWebpackPlugin {
     return new DependencyExtractionWebpackPlugin(
       this.bud.options.get('webpack.plugins.dependencyExtraction'),
     )
@@ -54,15 +48,13 @@ const adapter: Extension = (bud: Bud): ExtensionInterface => ({
 
 const extraction: Extension = (bud: Bud): ExtensionInterface => ({
   bud,
-
   name: 'bud-dependency-extraction',
-
   make: function (this: ExtensionInterface) {
     this.bud.options.set('webpack.plugins.dependencyExtraction', {})
 
     this.bud.apply('dependencyExtraction', dependencyExtractionConfig)
 
-    this.bud.plugins.add(adapter)
+    this.bud.plugins.push(plugin)
   },
 })
 

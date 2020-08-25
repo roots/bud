@@ -26,13 +26,6 @@ exports.Error = void 0;
 var node_notifier_1 = __importDefault(require("node-notifier"));
 var react_1 = __importStar(require("react"));
 var ink_1 = require("ink");
-var prop_types_1 = __importDefault(require("prop-types"));
-/**
- * Error
- *
- * @prop {string} message
- * @return {PropTypes.ReactComponentLike}
- */
 var Error = function (_a) {
     var message = _a.message;
     react_1.useEffect(function () {
@@ -46,7 +39,4 @@ var Error = function (_a) {
         react_1["default"].createElement(ink_1.Text, { wrap: "wrap" }, message || '')));
 };
 exports.Error = Error;
-Error.propTypes = {
-    message: prop_types_1["default"].string
-};
 //# sourceMappingURL=Error.js.map

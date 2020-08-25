@@ -1,11 +1,13 @@
+import type {Bud} from '@roots/bud'
 import type {Options as StylelintOptions} from 'stylelint-webpack-plugin/declarations/getOptions'
+
 type ConfigCall = (
-  this: any,
+  this: Bud,
   options: {
     enabled?: boolean
     options?: StylelintOptions
   },
-) => any
+) => Bud
 
 const api: ConfigCall = function (options: {
   enabled?: boolean
