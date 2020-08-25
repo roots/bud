@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-react",
-  "version": "2.0.0-next.4",
+  "version": "2.0.0-next.5",
   "description": "Adds react support to Bud",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -22,7 +22,9 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "main": "./lib/index.js",
   "types": "./lib/types/index.d.ts",
   "scripts": {
@@ -31,15 +33,15 @@
     "build": "rimraf ./lib && tsc"
   },
   "devDependencies": {
-    "@roots/bud-support": "^2.0.0-next.4",
-    "@roots/bud-typings": "^2.0.0-next.4",
+    "@roots/bud-support": "^2.0.0-next.5",
+    "@roots/bud-typings": "^2.0.0-next.5",
     "@types/react": "^16.9.46",
     "@types/react-dom": "^16.9.8"
   },
   "dependencies": {
     "@babel/core": "^7.10.5",
     "@babel/preset-react": "^7.10.4",
-    "@roots/bud": "2.0.0-next.4",
+    "@roots/bud": "^2.0.0-next.5",
     "react": "^16.13.1",
     "react-dev-utils": "^10.2.1",
     "react-dom": "^16.13.1"

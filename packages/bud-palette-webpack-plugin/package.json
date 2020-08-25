@@ -1,6 +1,6 @@
 {
   "name": "@roots/palette-webpack-plugin",
-  "version": "2.0.0-next.4",
+  "version": "2.0.0-next.5",
   "description": "Adds json palette support for Gutenberg to Bud",
   "repository": {
     "type": "git",
@@ -24,7 +24,9 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
   "scripts": {
@@ -33,11 +35,11 @@
     "build": "rimraf ./lib && tsc"
   },
   "dependencies": {
-    "@roots/bud": "^2.0.0-next.4",
+    "@roots/bud": "^2.0.0-next.5",
     "palette-webpack-plugin": "^1.0.0"
   },
   "devDependencies": {
-    "@roots/bud-support": "^2.0.0-next.4",
+    "@roots/bud-support": "^2.0.0-next.5",
     "webpack": "^4.43.0"
   }
 }
