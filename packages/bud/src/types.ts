@@ -37,7 +37,7 @@ export interface Bud extends Loose {
    *
    * The final webpack config object
    */
-  config: WebpackConfig | null
+  config: (bud: Bud) => WebpackConfig
 
   /**
    * ## bud.configs
@@ -105,7 +105,7 @@ export interface Bud extends Loose {
    *
    * Webpack loaders
    */
-  loaders: any
+  loaders: Container
 
   /**
    * ## bud.mode
@@ -286,6 +286,13 @@ export interface Bud extends Loose {
   copyAll: Api.Copy
 
   /**
+   * ## bud.dev
+   *
+   * Configure Bud's built in development server.
+   */
+  dev: Api.Dev
+
+  /**
    * ## bud.devtool
    *
    * Specify a devtool
@@ -345,22 +352,6 @@ export interface Bud extends Loose {
    * ```
    */
   hash: Api.Hash
-
-  /**
-   * ## bud.hot
-   *
-   * Enable or disable hot module reloading
-   *
-   * ```js
-   * bud.hot({
-   *  enabled: !bud.inProduction,
-   *  host: 'bud-sandbox.valet',
-   *  open: true,
-   *  secure: false,
-   * })
-   * ```
-   */
-  hot: Api.Hot
 
   /**
    * Inline common scripts.
@@ -448,17 +439,6 @@ export interface Bud extends Loose {
   publicPath: Api.PathSetter
 
   /**
-   * ## bud.splitting
-   *
-   * Enable or disable code splitting.
-   *
-   * ```js
-   * bud.splitting(false)
-   * ```
-   */
-  splitting: Api.Splitting
-
-  /**
    * ## bud.src
    *
    * Return an absolute path from a given path relative to the directory assigned by `bud.srcPath`.
@@ -479,22 +459,6 @@ export interface Bud extends Loose {
    * ```
    */
   srcPath: Api.PathSetter
-
-  /**
-   * ## bud.sync
-   *
-   * Configure BrowserSync.
-   *
-   * ```js
-   * bud.sync({
-   *   enabled: !bud.inProduction,
-   *   proxy: 'http://bud.test',
-   *   host: 'localhost',
-   *   port: 3000,
-   * })
-   * ```
-   */
-  sync: Api.Sync
 
   /**
    * ## bud.target
@@ -548,18 +512,4 @@ export interface Bud extends Loose {
    * ```
    */
   vendor: Api.Vendor
-
-  /**
-   * ## bud.watch
-   *
-   * Enable or disable watch mode.
-   *
-   * ```js
-   * bud.watch({
-   *  enabled: !bud.inProduction,
-   *  paths: [bud.src('assets/images')],
-   * })
-   * ```
-   */
-  watch: Api.Watch
 }

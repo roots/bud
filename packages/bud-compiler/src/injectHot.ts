@@ -1,8 +1,9 @@
-const injectHot = ({config, overlay, reload}) => {
-  const client = `webpack-hot-middleware/client?path=/__webpack_hmr&timeout=20000&reload=${reload}&overlay=${overlay}`
-
+const injectHot = ({config, bud}) => {
   Object.keys(config.entry).forEach(entry => {
-    config.entry[entry] = [client].concat(config.entry[entry])
+    config.entry[entry] = [
+      'webpack/hot/only-dev-server',
+      `webpack-dev-server/client?http://localhost:3000`,
+    ].concat(config.entry[entry])
   })
 
   return config

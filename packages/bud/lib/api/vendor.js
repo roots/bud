@@ -13,9 +13,11 @@ var __assign = (this && this.__assign) || function () {
 exports.__esModule = true;
 exports.vendor = void 0;
 var vendor = function (options) {
-    this.features.enable('vendor');
+    this.features.set('splitChunks', options && options.hasOwnProperty('enabled')
+        ? options.enabled
+        : true);
     options &&
-        this.options.set('webpack.optimization.splitChunks.cacheGroup.vendor', __assign(__assign({}, this.options.get('webpack.optimization.splitChunks.cacheGroup.vendor')), options));
+        this.options.set('webpack.optimization.splitChunks.cacheGroups.vendor', __assign(__assign({}, this.options.get('webpack.optimization.splitChunks.cacheGroups.vendor')), options));
     return this;
 };
 exports.vendor = vendor;

@@ -13,6 +13,7 @@ import {
 const bootstrap = function (): void {
   this.hooks = hooks
   this.util = util
+  this.fs = util.fs
   this.extensions = extensions
   this.logger = logger
 

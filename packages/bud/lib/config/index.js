@@ -33,13 +33,8 @@ var builders = [
     webpackResolve_1.webpackResolve,
 ];
 exports.builders = builders;
-var config = function (bud) { return ({
-    bud: bud,
-    reducer: function (acc, curr) { return (__assign(__assign({}, (acc !== null && acc !== void 0 ? acc : {})), curr(bud))); },
-    build: function () {
-        var _this = this;
-        return builders.reduce(function (acc, curr) { return (__assign(__assign({}, (acc !== null && acc !== void 0 ? acc : {})), curr(_this.bud))); }, {});
-    }
-}); };
+var config = function (bud) {
+    return builders.reduce(function (acc, curr) { return (__assign(__assign({}, (acc !== null && acc !== void 0 ? acc : [])), curr(bud))); }, {});
+};
 exports.config = config;
 //# sourceMappingURL=index.js.map

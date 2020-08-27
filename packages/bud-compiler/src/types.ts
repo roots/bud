@@ -1,4 +1,4 @@
-import type {Bud} from '@roots/bud'
+import type {Framework} from '@roots/bud-framework'
 import type {
   WebpackConfig,
   WebpackDevServer,
@@ -12,7 +12,7 @@ export type {
 }
 
 export interface RunnerProps {
-  bud: Bud
+  bud: Framework
 }
 
 export type BudRenderer = (
@@ -21,12 +21,12 @@ export type BudRenderer = (
 ) => void
 
 export type CompilerFactory = (
-  bud: Bud,
+  bud: Framework,
   config: WebpackConfig,
 ) => CompilerController
 
 export interface CompilerController {
-  bud: Bud
+  bud: Framework
   config: WebpackConfig
   compile: () => void
 }

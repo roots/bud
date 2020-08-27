@@ -64,7 +64,9 @@
     "@types/react-dom": "^16.9.8",
     "@types/webpack-dev-middleware": "^3.7.1",
     "@types/webpack-dev-server": "^3.11.0",
+    "@types/webpack-hot-client": "^4.1.0",
     "@types/webpack-hot-middleware": "^2.25.3",
-    "webpack": "^4.43.0"
+    "webpack": "^4.43.0",
+    "webpack-hot-client": "^4.1.2"
   }
 }

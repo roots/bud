@@ -9,58 +9,28 @@ type OptimizationBuilder = (bud: Bud) => WebpackOptimization
 const optimization: OptimizationBuilder = bud =>
   bud.hooks.filter('webpack.optimization', {
     optimization: {
-      ...(bud.features.enabled('runtimeManifest')
+      ...(bud.features.enabled('runtimeChunk')
         ? {
             runtimeChunk: bud.hooks.filter(
               'webpack.optimization.runtimeChunk',
-              bud.options.get(
-                'webpack.optimization.runtimeChunk.name',
-              )
-                ? {
-                    name: entrypoint => `runtime/${entrypoint.name}`,
-                  }
-                : false,
+              bud.options.get('webpack.optimization.runtimeChunk'),
             ),
           }
-        : {}),
-      splitChunks: bud.hooks.filter(
-        'webpack.optimization.splitChunks',
-        bud.features.enabled('splitChunks')
-          ? bud.hooks.filter(
-              'webpack.optimization.splitChunks.cacheGroups',
-              {
-                cacheGroups: {
-                  vendor: {
-                    test: bud.hooks.filter(
-                      'webpack.optimization.splitChunks.cacheGroups.test',
-                      bud.options.get(
-                        'webpack.optimization.splitChunks.cacheGroups.test',
-                      ),
-                    ),
-                    name: bud.hooks.filter(
-                      'webpack.optimization.splitChunks.cacheGroups.name',
-                      bud.options.get(
-                        'webpack.optimization.splitChunks.cacheGroups.name',
-                      ),
-                    ),
-                    chunks: bud.hooks.filter(
-                      'webpack.optimization.splitChunks.cacheGroups.chunks',
-                      bud.options.get(
-                        'webpack.optimization.splitChunks.cacheGroups.chunks',
-                      ),
-                    ),
-                    priority: bud.hooks.filter(
-                      'webpack.optimization.splitChunks.cacheGroups.priority',
-                      bud.options.get(
-                        'webpack.optimization.splitChunks.cacheGroups.priority',
-                      ),
-                    ),
-                  },
-                },
+        : []),
+      ...(bud.features.enabled('splitChunks')
+        ? {
+            splitChunks: {
+              cacheGroups: {
+                vendor: bud.hooks.filter(
+                  'webpack.optimization.splitChunks.cacheGroups.vendor',
+                  bud.options.get(
+                    'webpack.optimization.splitChunks.cacheGroups.vendor',
+                  ),
+                ),
               },
-            )
-          : false,
-      ),
+            },
+          }
+        : []),
       minimize: bud.hooks.filter(
         'webpack.optimization.minimize',
         bud.features.enabled('minify'),

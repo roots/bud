@@ -17,26 +17,19 @@ exports.optimization = void 0;
  */
 var optimization = function (bud) {
     return bud.hooks.filter('webpack.optimization', {
-        optimization: __assign(__assign({}, (bud.features.enabled('runtimeManifest')
+        optimization: __assign(__assign(__assign({}, (bud.features.enabled('runtimeChunk')
             ? {
-                runtimeChunk: bud.hooks.filter('webpack.optimization.runtimeChunk', bud.options.get('webpack.optimization.runtimeChunk.name')
-                    ? {
-                        name: function (entrypoint) { return "runtime/" + entrypoint.name; }
-                    }
-                    : false)
+                runtimeChunk: bud.hooks.filter('webpack.optimization.runtimeChunk', bud.options.get('webpack.optimization.runtimeChunk'))
             }
-            : {})), { splitChunks: bud.hooks.filter('webpack.optimization.splitChunks', bud.features.enabled('splitChunks')
-                ? bud.hooks.filter('webpack.optimization.splitChunks.cacheGroups', {
+            : [])), (bud.features.enabled('splitChunks')
+            ? {
+                splitChunks: {
                     cacheGroups: {
-                        vendor: {
-                            test: bud.hooks.filter('webpack.optimization.splitChunks.cacheGroups.test', bud.options.get('webpack.optimization.splitChunks.cacheGroups.test')),
-                            name: bud.hooks.filter('webpack.optimization.splitChunks.cacheGroups.name', bud.options.get('webpack.optimization.splitChunks.cacheGroups.name')),
-                            chunks: bud.hooks.filter('webpack.optimization.splitChunks.cacheGroups.chunks', bud.options.get('webpack.optimization.splitChunks.cacheGroups.chunks')),
-                            priority: bud.hooks.filter('webpack.optimization.splitChunks.cacheGroups.priority', bud.options.get('webpack.optimization.splitChunks.cacheGroups.priority'))
-                        }
+                        vendor: bud.hooks.filter('webpack.optimization.splitChunks.cacheGroups.vendor', bud.options.get('webpack.optimization.splitChunks.cacheGroups.vendor'))
                     }
-                })
-                : false), minimize: bud.hooks.filter('webpack.optimization.minimize', bud.features.enabled('minify')), removeAvailableModules: bud.hooks.filter('webpack.optimization.removeAvailableModules', false), removeEmptyChunks: bud.hooks.filter('webpack.optimization.removeEmptyChunks', false), moduleIds: bud.hooks.filter('webpack.optimization.moduleIds', 'hashed') })
+                }
+            }
+            : [])), { minimize: bud.hooks.filter('webpack.optimization.minimize', bud.features.enabled('minify')), removeAvailableModules: bud.hooks.filter('webpack.optimization.removeAvailableModules', false), removeEmptyChunks: bud.hooks.filter('webpack.optimization.removeEmptyChunks', false), moduleIds: bud.hooks.filter('webpack.optimization.moduleIds', 'hashed') })
     });
 };
 exports.optimization = optimization;

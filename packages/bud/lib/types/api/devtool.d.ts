@@ -1,3 +1,4 @@
+/// <reference types="webpack" />
 import type { Bud } from './types';
 import type { WebpackOptions } from '@roots/bud-typings';
 declare type Devtool = (devtool: WebpackOptions.Devtool) => Bud;

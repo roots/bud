@@ -2,13 +2,13 @@ import {join} from 'path'
 import {render} from 'ink-testing-library'
 import React from 'react'
 
-const {Error: ErrorComponent} = require(join(process.cwd(), 'packages/bud-compiler/src/dashboard/components/Errors/Error'))
+import {Error} from '../../packages/bud-compiler/src/dashboard/components/Errors/Error'
 
 const ava = require('ava')
 
 ava('works', t => {
   const {lastFrame} = render(
-    <ErrorComponent message={'Error test.'}/>
+    <Error message={'Error test.'}/>
   )
 
   t.true(lastFrame() === ' Error test.')

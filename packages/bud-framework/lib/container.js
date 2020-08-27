@@ -1,8 +1,11 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 exports.__esModule = true;
 exports.registerExtensionContainer = exports.registerFileContainer = exports.registerContainer = exports.container = void 0;
 var fs_extra_1 = require("fs-extra");
-var lodash_1 = require("lodash");
+var lodash_1 = __importDefault(require("lodash"));
 var newContainer = function (key, repository) {
     if (repository === void 0) { repository = {}; }
     this.repository[key] = new container(repository);
@@ -14,7 +17,7 @@ var push = function (item) {
     this.repository.push(item);
 };
 var get = function (key) {
-    return lodash_1.get(this.repository, key);
+    return lodash_1["default"].get(this.repository, key);
 };
 var is = function (key, value) {
     return this.get(key) == value;
@@ -23,13 +26,13 @@ var containerRequire = function (key) {
     require(this.get(key));
 };
 var set = function (key, value) {
-    lodash_1.set(this.repository, key, value);
+    lodash_1["default"].set(this.repository, key, value);
 };
 var has = function (key) {
     return this.repository.hasOwnProperty(key) ? true : false;
 };
 var merge = function (key, value) {
-    lodash_1.merge(this.repository[key], value);
+    lodash_1["default"].merge(this.repository[key], value);
 };
 var containerMethodDelete = function (key) {
     delete this.repository[key];

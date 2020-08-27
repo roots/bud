@@ -1,4 +1,5 @@
 import type { Bud } from '../..';
-declare const font: (bud: Bud) => any;
+import type { WebpackRule } from '@roots/bud-typings';
+declare const font: (bud: Bud) => WebpackRule;
 export { font };
 //# sourceMappingURL=font.d.ts.map

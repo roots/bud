@@ -11,6 +11,7 @@ var container_1 = require("./container");
 var bootstrap = function () {
     this.hooks = hooks_1.hooks;
     this.util = util_1.util;
+    this.fs = util_1.util.fs;
     this.extensions = extensions_1.extensions;
     this.logger = util_1.logger;
     this.apply = function (binding, value) {

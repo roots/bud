@@ -1,6 +1,5 @@
 import { Bud } from '..';
 export { Bud } from '..';
-import type { BrowserSyncOptions } from '@roots/bud-typings';
 import type { Configuration as WebpackConfiguration } from 'webpack';
 export type { WebpackConfiguration };
 import { Options as DependencyExtractionOptions } from '@wordpress/dependency-extraction-webpack-plugin';
@@ -10,15 +9,6 @@ export declare type Dump = (enabled: boolean) => Bud;
 export declare type PathSetter = (path: string) => Bud;
 export declare type Glob = (this: Bud, output: string, files: string) => Bud;
 export declare type Hash = (this: Bud, enabled?: boolean) => Bud;
-export declare type Hot = (this: Bud, options: {
-    enabled: boolean;
-    host: string;
-    port?: number;
-    watch?: string[];
-    open?: boolean;
-    headers?: any;
-    secure?: boolean;
-}) => Bud;
 export declare type Mini = (enabled?: boolean) => Bud;
 export declare type Option = (key: string) => string;
 export declare type PostCss = (options?: {
@@ -29,14 +19,8 @@ export declare type Preset = (path?: string) => any;
 export declare type Project = (path?: string) => string;
 export declare type Resolve = (moduleName: string) => string;
 export declare type SourceMap = (enabled?: boolean) => Bud;
-export declare type Splitting = (enabled?: boolean) => Bud;
 export declare type Src = (path?: string) => string;
-export declare type Sync = (options: SyncOptions) => Bud;
 export declare type Target = (target: string) => Bud;
-export declare type Watch = (options: {
-    paths: string[];
-    enabled: boolean;
-}) => Bud;
 import type { AddExtensions } from './addExtensions';
 export type { AddExtensions };
 import type { Alias } from './alias';
@@ -51,6 +35,8 @@ import type { Compile } from './compile';
 export type { Compile };
 import type { Copy } from './copy';
 export type { Copy };
+import type { Dev } from './dev';
+export type { Dev };
 import type { Devtool } from './devtool';
 export type { Devtool };
 import type { Manifest } from './manifest';
@@ -72,12 +58,12 @@ export declare type Api = {
     compile: Compile;
     copy: Copy;
     copyAll: Copy;
+    dev: Dev;
     devtool: Devtool;
     dist: Dist;
     distPath: PathSetter;
     glob: Glob;
     hash: Hash;
-    hot: Hot;
     manifest: Manifest;
     map: SourceMap;
     mini: Mini;
@@ -87,18 +73,11 @@ export declare type Api = {
     project: Project;
     publicPath: PathSetter;
     runtimeManifest: RuntimeManifest;
-    splitting: Splitting;
     src: Src;
     srcPath: PathSetter;
-    sync: Sync;
     target: Target;
     terser: Terser;
     use: UseExtension;
     vendor: Vendor;
-    watch: Watch;
 };
-export interface SyncOptions {
-    enabled?: boolean;
-    options: BrowserSyncOptions;
-}
 //# sourceMappingURL=types.d.ts.map

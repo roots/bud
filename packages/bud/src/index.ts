@@ -61,20 +61,15 @@ framework.options.set(
 )
 
 framework.apply('compiler', compiler)
-framework.apply('fs', framework.util.fs)
 framework.apply('hooks', framework.hooks(framework))
-framework.apply('config', config(framework))
+framework.apply('config', config)
 
-/**
- * Bind the public API.
- */
+/** Bind the public API. */
 Object.values(api).forEach((method: () => any) => {
   framework.apply(method.name, method)
 })
 
-/**
- * This can properly be typed as Bud.
- */
+/** Type achieved. */
 const bud: Bud = framework
 
 export {bud}

@@ -25,11 +25,7 @@ test('has expected copy defaults', t => {
 })
 
 test('has expected devServer defaults', t => {
-  t.deepEqual(bud.options.get('webpack.devServer.headers'), {
-    'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
-    'Access-Control-Allow-Origin': '*',
-  })
+  t.is(bud.options.get('webpack.devServer.headers'), undefined)
 })
 
 test('has expected devtool defaults', t => {

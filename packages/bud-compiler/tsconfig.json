@@ -12,7 +12,7 @@
     "watch": false,
     "rootDir": "./src",
     "outDir": "./lib",
-    "declarationDir": "./types",
+    "declarationDir": "./lib/types",
   },
   "include": ["./src"],
   "exclude": ["./node_modules"]

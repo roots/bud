@@ -13,7 +13,7 @@ test('sets option', t => {
 })
 
 test('generates expected webpack.devtool', t => {
-  const config = bud.config.build()
+  const config = bud.config(bud)
   t.deepEqual(
     config.devtool,
     'source-map',

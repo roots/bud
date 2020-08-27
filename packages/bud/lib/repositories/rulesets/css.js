@@ -6,7 +6,9 @@ var css = function (bud) {
         test: bud.hooks.filter('webpack.module.rules.css.test', bud.patterns.get('css')),
         exclude: bud.hooks.filter('webpack.module.rules.css.exclude', bud.patterns.get('vendor')),
         use: bud.hooks.filter('webpack.module.rules.css.use', [
-            bud.uses.get('miniCss')(bud),
+            bud.inProduction
+                ? bud.uses.get('miniCss')(bud)
+                : bud.loaders.get('style'),
             bud.uses.get('css')(bud),
             bud.uses.get('resolveUrl')(bud),
             bud.uses.get('postCss')(bud),

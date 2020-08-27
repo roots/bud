@@ -8,26 +8,16 @@ const limitChunkCount: Extension = bud => ({
 
   name: 'limit-chunk-count-plugin',
 
-  setOptions: function () {
-    const enabled = this.bud.features.enabled('splitting')
-    const chunks = this.bud.options.get('splitting').maxChunks
-
-    if (!enabled) {
-      return {
-        maxChunks: 1,
-      }
-    }
-
-    if (chunks) {
-      return {
-        maxChunks: chunks,
-      }
-    }
-
-    return null
-  },
-
   make: function () {
+    const enabled = this.bud.features.enabled('splitChunks')
+    const chunks = this.bud.options.get('splitting.maxChunks')
+
+    this.options = !enabled
+      ? {maxChunks: 1}
+      : chunks
+      ? {maxChunks: chunks}
+      : {}
+
     return new LimitChunkCountPlugin(this.options)
   },
 

@@ -7,14 +7,10 @@ const provide: Extension = bud => ({
 
   name: 'provide-plugin',
 
-  options: bud.env.entries(),
-
   make: function () {
-    return new ProvidePlugin(this.options)
-  },
-
-  when: function () {
-    return this.options
+    return new ProvidePlugin(
+      bud.options.get('webpack.plugins.provide') || {},
+    )
   },
 })
 

@@ -14,6 +14,6 @@
  * }))
  * ```
  */
-declare const configTailwind: (this: any, config: any) => any;
+declare const configTailwind: (config: any) => any;
 export default configTailwind;
 //# sourceMappingURL=api.d.ts.map

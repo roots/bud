@@ -1,3 +1,4 @@
+/// <reference types="browser-sync" />
 import type { BrowserSyncOptions } from '@roots/bud-typings';
 import type { RepositoryDefinition } from '@roots/bud-framework';
 export declare type BrowserSync = BrowserSyncOptions;

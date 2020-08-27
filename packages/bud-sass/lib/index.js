@@ -22,7 +22,9 @@ var rule = function (bud) { return ({
     test: /\.s(c|a)ss$/,
     exclude: bud.patterns.get('vendor'),
     use: [
-        bud.uses.get('miniCss')(bud),
+        bud.inProduction
+            ? bud.uses.get('miniCss')(bud)
+            : bud.loaders.get('style'),
         bud.uses.get('css')(bud),
         bud.uses.get('resolveUrl')(bud),
         bud.uses.get('postCss')(bud),

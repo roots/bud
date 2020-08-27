@@ -8,8 +8,6 @@ const browserSync: Extension = bud => ({
 
   name: 'browser-sync-webpack-plugin',
 
-  options: bud.options.get('webpack.plugins.browsersync'),
-
   make: function (): BrowserSyncPlugin {
     return new BrowserSyncWebpackPlugin(this.options)
   },

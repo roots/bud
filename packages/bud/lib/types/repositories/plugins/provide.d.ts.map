@@ -1,1 +1,1 @@
-{"version":3,"file":"provide.d.ts","sourceRoot":"","sources":["../../../../src/repositories/plugins/provide.ts"],"names":[],"mappings":"AAEA,OAAO,KAAK,EAAC,SAAS,EAAC,MAAM,SAAS,CAAA;AAEtC,QAAA,MAAM,OAAO,EAAE,SAcb,CAAA;AAEF,OAAO,EAAC,OAAO,EAAC,CAAA"}
+{"version":3,"file":"provide.d.ts","sourceRoot":"","sources":["../../../../src/repositories/plugins/provide.ts"],"names":[],"mappings":"AAEA,OAAO,KAAK,EAAC,SAAS,EAAC,MAAM,SAAS,CAAA;AAEtC,QAAA,MAAM,OAAO,EAAE,SAUb,CAAA;AAEF,OAAO,EAAC,OAAO,EAAC,CAAA"}

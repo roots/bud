@@ -40,18 +40,13 @@ bud_framework_1.framework.options.set('postcss', postcss(bud_framework_1.framewo
 var browsersync = bud_framework_1.framework.options.get('webpack.plugins.browsersync');
 bud_framework_1.framework.options.set('webpack.plugins.browsersync', browsersync(bud_framework_1.framework.flags));
 bud_framework_1.framework.apply('compiler', bud_compiler_1.compiler);
-bud_framework_1.framework.apply('fs', bud_framework_1.framework.util.fs);
 bud_framework_1.framework.apply('hooks', bud_framework_1.framework.hooks(bud_framework_1.framework));
-bud_framework_1.framework.apply('config', config_1.config(bud_framework_1.framework));
-/**
- * Bind the public API.
- */
+bud_framework_1.framework.apply('config', config_1.config);
+/** Bind the public API. */
 Object.values(api_1.api).forEach(function (method) {
     bud_framework_1.framework.apply(method.name, method);
 });
-/**
- * This can properly be typed as Bud.
- */
+/** Type achieved. */
 var bud = bud_framework_1.framework;
 exports.bud = bud;
 //# sourceMappingURL=index.js.map

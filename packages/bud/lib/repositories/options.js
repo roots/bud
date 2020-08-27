@@ -3,8 +3,25 @@ exports.__esModule = true;
 exports.options = void 0;
 var target = 'web';
 var babelFallback = {
-    presets: [require.resolve('@babel/preset-env')],
-    plugins: []
+    presets: [
+        [
+            require.resolve('@babel/preset-env'),
+            {
+                modules: false,
+                forceAllTransforms: true
+            },
+        ],
+    ],
+    plugins: [
+        require.resolve('@babel/plugin-syntax-dynamic-import'),
+        require.resolve('@babel/plugin-proposal-object-rest-spread'),
+        [
+            require.resolve('@babel/plugin-transform-runtime'),
+            {
+                helpers: false
+            },
+        ],
+    ]
 };
 var browsersync = function (flags) { return ({
     host: flags.has('host') ? flags.get('host') : 'localhost',
@@ -35,18 +52,12 @@ var options = {
         postcss: postcss,
         patterns: [],
         webpack: {
+            devServer: {},
             entry: {},
-            externals: false,
+            externals: {},
             resolve: {
                 alias: false,
                 extensions: ['.css', '.js', '.json', '.svg']
-            },
-            devServer: {
-                headers: {
-                    'Access-Control-Allow-Origin': '*',
-                    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
-                    'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization'
-                }
             },
             devtool: 'source-map',
             node: {
@@ -64,12 +75,21 @@ var options = {
                     name: function (entrypoint) { return "runtime/" + entrypoint.name; }
                 },
                 splitChunks: {
-                    cacheGroup: {
+                    cacheGroups: {
                         vendor: {
-                            test: /node_modules/,
-                            name: 'vendor.js',
+                            test: /[\\/]node_modules[\\/]/,
+                            name: function (module, chunks, cacheGroupKey) {
+                                var moduleFileName = module
+                                    .identifier()
+                                    .split('/')
+                                    .reduceRight(function (item) { return item; });
+                                var allChunksNames = chunks
+                                    .map(function (item) { return item.name; })
+                                    .join('~');
+                                return cacheGroupKey + "---" + allChunksNames + "---" + moduleFileName;
+                            },
                             chunks: 'all',
-                            priority: -20
+                            automaticNamePrefix: 'vendor'
                         }
                     }
                 }
@@ -81,7 +101,6 @@ var options = {
                 fixStyleOnlyEntries: {
                     silent: true
                 },
-                hotModuleReplacement: {},
                 terser: {
                     terserOptions: {
                         parse: {
@@ -116,14 +135,14 @@ var options = {
             target: target
         },
         splitting: {
-            maxChunks: null
+            maxChunks: 9999
         },
         filenameTemplate: {
             hashed: '[name].[hash:8]',
             "default": '[name]'
         },
         manifest: {
-            name: 'manifest.json'
+            name: 'manifest'
         }
     }
 };

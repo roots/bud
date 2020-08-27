@@ -1,0 +1,1 @@
+{"version":3,"file":"BuildInfo.d.ts","sourceRoot":"","sources":["../../../../src/dashboard/components/BuildInfo.tsx"],"names":[],"mappings":"AAAA,OAAc,EAAC,iBAAiB,EAAC,MAAM,OAAO,CAAA;AAI9C,UAAU,SAAS;IACjB,KAAK,EAAE,GAAG,CAAA;IACV,KAAK,EAAE,MAAM,CAAA;CACd;AAED,QAAA,MAAM,SAAS,EAAE,iBAAiB,CAAC,SAAS,CAU3C,CAAA;AAED,OAAO,EAAC,SAAS,EAAC,CAAA"}

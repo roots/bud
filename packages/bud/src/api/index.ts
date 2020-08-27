@@ -12,7 +12,7 @@ import {distPath} from './distPath'
 import {devtool} from './devtool'
 import {glob} from './glob'
 import {hash} from './hash'
-import {hot} from './hot'
+import {dev} from './dev'
 import {manifest} from './manifest'
 import {runtimeManifest} from './runtimeManifest'
 import {map} from './map'
@@ -22,15 +22,12 @@ import {preset} from './preset'
 import {project} from './project'
 import {projectPath} from './projectPath'
 import {publicPath} from './publicPath'
-import {splitting} from './splitting'
 import {src} from './src'
 import {srcPath} from './srcPath'
-import {sync} from './sync'
 import {target} from './target'
 import {terser} from './terser'
 import {use} from './use'
 import {vendor} from './vendor'
-import {watch} from './watch'
 
 /**
  * Bud.Bud export
@@ -49,7 +46,7 @@ export const api: Api = {
   distPath,
   glob,
   hash,
-  hot,
+  dev,
   manifest,
   map,
   mini,
@@ -59,13 +56,10 @@ export const api: Api = {
   projectPath,
   publicPath,
   runtimeManifest,
-  splitting,
   src,
   srcPath,
-  sync,
   target,
   terser,
   use,
   vendor,
-  watch,
 }

@@ -39,7 +39,7 @@ var tailwindcss_1 = __importDefault(require("tailwindcss"));
  * ```
  */
 var configTailwind = function (config) {
-    this.options.set('postCss', __assign(__assign({}, this.options.postCss), { plugins: __spreadArrays(this.options.get('postCss').plugins, [
+    this.options.set('postcss', __assign(__assign({}, this.options.get('postcss')), { plugins: __spreadArrays(this.options.get('postcss.plugins'), [
             tailwindcss_1["default"](config),
         ]) }));
     return this;

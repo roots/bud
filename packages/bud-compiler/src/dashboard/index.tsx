@@ -1,6 +1,7 @@
 import React, {useEffect, FunctionComponent} from 'react'
 import {useApp, useInput} from 'ink'
 import useStdOutDimensions from 'ink-use-stdout-dimensions'
+import fs from 'fs-extra'
 
 /**
  * Hooks
@@ -13,7 +14,6 @@ import {useFocusState} from './hooks/useFocusState'
  */
 import {App} from './components/App'
 import {Assets} from './components/Assets'
-import {BrowserSync} from './components/BrowserSync'
 import {Errors} from './components/Errors'
 import {Warnings} from './components/Warnings'
 import {DevServer} from './components/DevServer'
@@ -94,10 +94,6 @@ const Dashboard: DashboardComponent = ({bud}) => {
     }
   })
 
-  const showBrowserSync =
-    !bud.features.enabled('debug') &&
-    bud.features.enabled('browserSync')
-
   return (
     <App
       width={width}
@@ -108,8 +104,7 @@ const Dashboard: DashboardComponent = ({bud}) => {
       <Assets actions={actions} build={build} />
       <Errors actions={actions} build={build} />
       <Warnings actions={actions} build={build} />
-      {showBrowserSync && <BrowserSync actions={actions} />}
-      <DevServer actions={actions} build={build} />
+      <DevServer actions={actions} bud={bud} build={build} />
     </App>
   )
 }

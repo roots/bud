@@ -14,31 +14,16 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
     __setModuleDefault(result, mod);
     return result;
-};
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 exports.__esModule = true;
 exports.App = void 0;
 var react_1 = __importStar(require("react"));
 var ink_1 = require("ink");
-var prop_types_1 = __importDefault(require("prop-types"));
 var Nav_1 = require("./Nav");
 var BuildInfo_1 = require("./BuildInfo");
-/**
- * App
- *
- * @prop {React.Component[]} children
- * @prop {object} state
- * @prop {object} build
- * @prop {object} options
- * @prop {number} width
- * @prop {number} height
- * @return {PropTypes.Component}
- */
 var App = function (_a) {
     var children = _a.children, state = _a.state, build = _a.build, bud = _a.bud, width = _a.width, height = _a.height;
     var _b = react_1.useState({}), focused = _b[0], setFocused = _b[1];
@@ -52,12 +37,4 @@ var App = function (_a) {
         react_1["default"].createElement(BuildInfo_1.BuildInfo, { build: build, width: width })));
 };
 exports.App = App;
-App.propTypes = {
-    children: prop_types_1["default"].array,
-    state: prop_types_1["default"].object,
-    build: prop_types_1["default"].object,
-    bud: prop_types_1["default"].object,
-    width: prop_types_1["default"].number,
-    height: prop_types_1["default"].number
-};
 //# sourceMappingURL=App.js.map

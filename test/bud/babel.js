@@ -37,7 +37,7 @@ test('generates expected webpack.module.rules[] use entry', t => {
   bud.options.set('babel.presets', [])
   bud.options.set('babel.presets', [require.resolve('@babel/preset-env')])
 
-  const config = bud.config.build()
+  const config = bud.config(bud)
 
   t.deepEqual(config.module.rules[0].use[0].options, {
     cacheCompression: true,

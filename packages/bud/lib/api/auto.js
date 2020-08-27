@@ -15,11 +15,20 @@ exports.auto = void 0;
 var auto = function (options) {
     var _this = this;
     Object.entries(options).forEach(function (_a) {
+        var _b;
         var key = _a[0], modules = _a[1];
-        modules.forEach(function (handle) {
-            var _a;
-            _this.options.set('webpack.externals', __assign(__assign({}, _this.options.get('webpack.externals')), (_a = {}, _a[handle] = key, _a)));
-        });
+        var isString = typeof modules == 'string';
+        var isObject = typeof modules == 'object';
+        isString &&
+            _this.options.set('webpack.plugins.provide', __assign(__assign({}, _this.options.get('webpack.plugins.provide')), (_b = {}, _b["" + modules] = key, _b)));
+        isObject &&
+            modules.map(function (handle) {
+                var _a;
+                _this.options.set('webpack.plugins.provide', __assign(__assign({}, _this.options.get('webpack.plugins.provide')), (_a = {}, _a[handle] = key, _a)));
+            });
+        typeof modules !== 'object' &&
+            typeof modules !== 'string' &&
+            console.error('auto values must be either a string or an array.');
     });
     return this;
 };

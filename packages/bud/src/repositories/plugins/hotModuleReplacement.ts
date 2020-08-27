@@ -7,8 +7,6 @@ const hotModuleReplacement: Extension = bud => ({
 
   name: 'hot-module-replacement-plugin',
 
-  options: bud.options.get('webpack.hotModuleReplacement'),
-
   make: function () {
     return new HotModuleReplacementPlugin(this.options)
   },

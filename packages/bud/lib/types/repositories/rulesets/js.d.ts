@@ -1,4 +1,5 @@
 import type { Bud } from '../..';
-declare const js: (bud: Bud) => any;
+import type { WebpackRule } from '@roots/bud-typings';
+declare const js: (bud: Bud) => WebpackRule;
 export { js };
 //# sourceMappingURL=js.d.ts.map

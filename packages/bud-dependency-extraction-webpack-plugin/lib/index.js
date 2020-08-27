@@ -30,7 +30,7 @@ var dependency_extraction_webpack_plugin_1 = __importDefault(require("@wordpress
  * })
  * ```
  */
-var dependencyExtractionConfig = function (settings) {
+var dependencyExtraction = function (settings) {
     settings &&
         this.options.set('webpack.plugins.dependencyExtraction', __assign(__assign({}, this.options.get('webpack.plugins.dependencyExtraction')), settings));
     return this;
@@ -38,9 +38,6 @@ var dependencyExtractionConfig = function (settings) {
 var plugin = function (bud) { return ({
     bud: bud,
     name: 'wordpress-dependency-extraction-plugin',
-    mergeOptions: function () {
-        return this.bud.options.get('webpack.plugins.dependencyExtraction');
-    },
     make: function () {
         return new dependency_extraction_webpack_plugin_1["default"](this.bud.options.get('webpack.plugins.dependencyExtraction'));
     }
@@ -49,8 +46,15 @@ var extraction = function (bud) { return ({
     bud: bud,
     name: 'bud-dependency-extraction',
     make: function () {
-        this.bud.options.set('webpack.plugins.dependencyExtraction', {});
-        this.bud.apply('dependencyExtraction', dependencyExtractionConfig);
+        this.bud.options.set('webpack.plugins.dependencyExtraction', {
+            injectPolyfill: false,
+            outputFormat: 'json',
+            requestToExternal: function (request) {
+                if (request === '@babel/runtime/regenerator')
+                    return null;
+            }
+        });
+        this.bud.apply('dependencyExtraction', dependencyExtraction);
         this.bud.plugins.push(plugin);
     }
 }); };

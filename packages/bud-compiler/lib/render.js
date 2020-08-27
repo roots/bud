@@ -11,17 +11,7 @@ var dashboard_1 = require("./dashboard");
 var injectHot_1 = require("./injectHot");
 var render = function (bud, config) {
     bud.compiler = bud.features.enabled('hot')
-        ? webpack_1["default"](injectHot_1.injectHot({
-            config: config,
-            overlay: bud.options.has('webpack.devServer.overlay') &&
-                bud.options.get('webpack.devServer.overlay')
-                ? true
-                : true,
-            reload: bud.options.has('webpack.devServer.reload') &&
-                bud.options.get('webpack.devServer.reload')
-                ? true
-                : true
-        }))
+        ? webpack_1["default"](injectHot_1.injectHot({ config: config, bud: bud }))
         : webpack_1["default"](config);
     var props = { bud: bud };
     var application = react_1["default"].createElement(dashboard_1.Dashboard, props);

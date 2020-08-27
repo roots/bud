@@ -26,21 +26,21 @@ test('has expected value after multiple calls', t => {
 
 test('can filter webpack.devtool', t => {
   bud.hooks.on('webpack.devtool', devtool => 'ava')
-  const output = bud.config.build()
+  const output = bud.config(bud)
 
   t.is(output.devtool, 'ava')
 })
 
 test('can filter webpack.mode', t => {
   bud.hooks.on('webpack.mode', mode => mode.split('').shift())
-  const output = bud.config.build()
+  const output = bud.config(bud)
 
   t.is(output.mode, 'n')
 })
 
 test('can filter webpack.target', t => {
   bud.hooks.on('webpack.target', mode => mode.split('').reverse().shift())
-  const output = bud.config.build()
+  const output = bud.config(bud)
 
   t.is(output.target, 'b')
 })

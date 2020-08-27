@@ -7,7 +7,7 @@ var __createBinding = (this && this.__createBinding) || (Object.create ? (functi
     o[k2] = m[k];
 }));
 exports.__esModule = true;
-exports.logger = exports.util = void 0;
+exports.util = void 0;
 var dump_1 = require("./dump");
 var fab_1 = require("./fab");
 var notify_1 = require("./notify");

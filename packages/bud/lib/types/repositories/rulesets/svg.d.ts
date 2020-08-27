@@ -1,4 +1,5 @@
 import type { Bud } from '../..';
-declare const svg: (bud: Bud) => any;
+import type { WebpackRule } from '@roots/bud-typings';
+declare const svg: (bud: Bud) => WebpackRule;
 export { svg };
 //# sourceMappingURL=svg.d.ts.map

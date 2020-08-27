@@ -25,7 +25,7 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
     __setModuleDefault(result, mod);
     return result;
 };
@@ -47,7 +47,6 @@ var useFocusState_1 = require("./hooks/useFocusState");
  */
 var App_1 = require("./components/App");
 var Assets_1 = require("./components/Assets");
-var BrowserSync_1 = require("./components/BrowserSync");
 var Errors_1 = require("./components/Errors");
 var Warnings_1 = require("./components/Warnings");
 var DevServer_1 = require("./components/DevServer");
@@ -94,14 +93,11 @@ var Dashboard = function (_a) {
             quit();
         }
     });
-    var showBrowserSync = !bud.features.enabled('debug') &&
-        bud.features.enabled('browserSync');
     return (react_1["default"].createElement(App_1.App, { width: width, height: height, build: build, state: state, bud: bud },
         react_1["default"].createElement(Assets_1.Assets, { actions: actions, build: build }),
         react_1["default"].createElement(Errors_1.Errors, { actions: actions, build: build }),
         react_1["default"].createElement(Warnings_1.Warnings, { actions: actions, build: build }),
-        showBrowserSync && react_1["default"].createElement(BrowserSync_1.BrowserSync, { actions: actions }),
-        react_1["default"].createElement(DevServer_1.DevServer, { actions: actions, build: build })));
+        react_1["default"].createElement(DevServer_1.DevServer, { actions: actions, bud: bud, build: build })));
 };
 exports.Dashboard = Dashboard;
 //# sourceMappingURL=index.js.map

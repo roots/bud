@@ -1,6 +1,5 @@
 import {existsSync} from 'fs-extra'
-import {logger} from './util/logger'
-import {get as _get, set as _set, merge as _merge} from 'lodash'
+import _ from 'lodash'
 
 import {
   Container,
@@ -31,7 +30,7 @@ const push: Action = function (item) {
 }
 
 const get: Getter = function (key) {
-  return _get(this.repository, key)
+  return _.get(this.repository, key)
 }
 
 const is: ConditionalCheck = function (key, value) {
@@ -43,7 +42,7 @@ const containerRequire = function (key) {
 }
 
 const set: Action = function (key, value) {
-  _set(this.repository, key, value)
+  _.set(this.repository, key, value)
 }
 
 const has: ConditionalCheck = function (key) {
@@ -51,7 +50,7 @@ const has: ConditionalCheck = function (key) {
 }
 
 const merge: Action = function (key, value) {
-  _merge(this.repository[key], value)
+  _.merge(this.repository[key], value)
 }
 
 const containerMethodDelete: Action = function (key) {

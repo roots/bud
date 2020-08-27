@@ -1,4 +1,4 @@
-import {existsSync} from 'fs-extra'
+import filesystem from 'fs-extra'
 import path from 'path'
 import {URL} from 'url'
 
@@ -8,12 +8,14 @@ type PathLike = string | Buffer | URL
 type Exists = (path: PathLike) => boolean
 type FS = {
   path: PlatformPath
+  fs: typeof filesystem
   existsSync: Exists
 }
 
 const fs: FS = {
   path,
-  existsSync,
+  fs: filesystem,
+  existsSync: filesystem.existsSync,
 }
 
 export {fs}

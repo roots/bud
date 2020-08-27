@@ -14,7 +14,7 @@ var distPath_1 = require("./distPath");
 var devtool_1 = require("./devtool");
 var glob_1 = require("./glob");
 var hash_1 = require("./hash");
-var hot_1 = require("./hot");
+var dev_1 = require("./dev");
 var manifest_1 = require("./manifest");
 var runtimeManifest_1 = require("./runtimeManifest");
 var map_1 = require("./map");
@@ -24,15 +24,12 @@ var preset_1 = require("./preset");
 var project_1 = require("./project");
 var projectPath_1 = require("./projectPath");
 var publicPath_1 = require("./publicPath");
-var splitting_1 = require("./splitting");
 var src_1 = require("./src");
 var srcPath_1 = require("./srcPath");
-var sync_1 = require("./sync");
 var target_1 = require("./target");
 var terser_1 = require("./terser");
 var use_1 = require("./use");
 var vendor_1 = require("./vendor");
-var watch_1 = require("./watch");
 /**
  * Bud.Bud export
  */
@@ -50,7 +47,7 @@ exports.api = {
     distPath: distPath_1.distPath,
     glob: glob_1.glob,
     hash: hash_1.hash,
-    hot: hot_1.hot,
+    dev: dev_1.dev,
     manifest: manifest_1.manifest,
     map: map_1.map,
     mini: mini_1.mini,
@@ -60,14 +57,11 @@ exports.api = {
     projectPath: projectPath_1.projectPath,
     publicPath: publicPath_1.publicPath,
     runtimeManifest: runtimeManifest_1.runtimeManifest,
-    splitting: splitting_1.splitting,
     src: src_1.src,
     srcPath: srcPath_1.srcPath,
-    sync: sync_1.sync,
     target: target_1.target,
     terser: terser_1.terser,
     use: use_1.use,
-    vendor: vendor_1.vendor,
-    watch: watch_1.watch
+    vendor: vendor_1.vendor
 };
 //# sourceMappingURL=index.js.map

@@ -11,12 +11,6 @@ import {plugins} from './plugins'
 import type {Bud} from './types'
 import type {WebpackConfig} from '@roots/bud-typings'
 
-type WebpackBuilder = (bud: Bud) => WebpackConfig
-type WebpackReducer = (
-  acc: any,
-  curr: WebpackBuilder,
-) => WebpackConfig
-
 const builders = [
   devServer,
   entry,
@@ -29,29 +23,16 @@ const builders = [
   webpackResolve,
 ]
 
-const config: WebpackBuilder = bud => ({
-  bud,
+type WebpackBuilder = (bud: Bud) => WebpackConfig
 
-  reducer: (acc, curr) => ({
-    ...(acc ?? {}),
-    ...curr(bud),
-  }),
-
-  build: function () {
-    return builders.reduce(
-      (acc, curr) => ({
-        ...(acc ?? {}),
-        ...curr(this.bud),
-      }),
-      {},
-    )
-  },
-})
-
-export {
-  config,
-  builders,
-  WebpackBuilder,
-  WebpackReducer,
-  WebpackConfig,
+const config: WebpackBuilder = bud => {
+  return builders.reduce(
+    (acc: WebpackConfig, curr: (bud: Bud) => WebpackConfig) => ({
+      ...(acc ?? []),
+      ...curr(bud),
+    }),
+    {},
+  )
 }
+
+export {config, builders, WebpackBuilder, WebpackConfig}

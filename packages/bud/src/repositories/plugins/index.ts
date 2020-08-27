@@ -97,17 +97,17 @@ export type ExtensionRepositoryDefinition = {
 const plugins: ExtensionRepositoryDefinition = {
   name: 'plugins',
   register: [
-    browserSync,
+    // browserSync,
     cleanWebpack,
     copy,
     define,
-    fixStyleOnlyEntries,
+    // fixStyleOnlyEntries,
     hotModuleReplacement,
     manifest,
-    miniCssExtract,
+    // miniCssExtract,
     provide,
     limitChunkCount,
-    terser,
+    // terser,
     writeFile,
   ],
 }

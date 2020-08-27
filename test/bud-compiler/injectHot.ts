@@ -1,4 +1,3 @@
-import {join} from 'path'
 import {injectHot} from '../../packages/bud-compiler/src/injectHot'
 import {bud} from '@roots/bud'
 
@@ -9,7 +8,7 @@ bud.bundle('foo', ['whoa.nana'])
 
 ava('injects middleware on entrypoints', t => {
   const injected = injectHot({
-    config: bud.config.build(),
+    config: bud.config(bud),
     overlay: true,
     reload: true,
   })
