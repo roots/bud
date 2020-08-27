@@ -1,7 +1,6 @@
 declare type ShortCircuit = () => any;
 /**
  * JSON.stringify replacement function
- *
  * Prevents circular references in JSON from looping
  */
 declare const shortCircuit: ShortCircuit;

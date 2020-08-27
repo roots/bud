@@ -1,4 +1,4 @@
-import type { CompilerController, CompilerFactory } from './types';
+import { CompilerController, CompilerFactory } from './types';
 declare const compiler: CompilerFactory;
 export { compiler };
 export type { CompilerController, CompilerFactory };

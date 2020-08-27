@@ -2,7 +2,6 @@ type ShortCircuit = () => any
 
 /**
  * JSON.stringify replacement function
- *
  * Prevents circular references in JSON from looping
  */
 const shortCircuit: ShortCircuit = () => {
@@ -10,7 +9,7 @@ const shortCircuit: ShortCircuit = () => {
 
   return (key, value) => {
     if (typeof value === 'object' && value !== null) {
-      if (seen.has(value) || key == 'UI') {
+      if (seen.has(value)) {
         return
       }
 

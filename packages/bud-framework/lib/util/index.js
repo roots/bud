@@ -16,6 +16,7 @@ var shortCircuit_1 = require("./shortCircuit");
 var terminate_1 = require("./terminate");
 var processHandler_1 = require("./processHandler");
 var fs_1 = require("./fs");
+var os_1 = require("./os");
 var usedExt_1 = require("./usedExt");
 exports.util = {
     fs: fs_1.fs,
@@ -26,7 +27,8 @@ exports.util = {
     projectRoot: projectRoot_1.projectRoot,
     processHandler: processHandler_1.processHandler,
     terminate: terminate_1.terminate,
-    usedExt: usedExt_1.usedExt
+    usedExt: usedExt_1.usedExt,
+    os: os_1.os
 };
 var logger_1 = require("./logger");
 __createBinding(exports, logger_1, "logger");

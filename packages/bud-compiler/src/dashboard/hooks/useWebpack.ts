@@ -1,14 +1,9 @@
 import {useState, useEffect} from 'react'
 import {useProgress} from './useProgress'
-
 import fs from 'fs-extra'
-import {resolve} from 'path'
-
-import express from 'express'
-import devMiddleware from 'webpack-dev-middleware'
-import hotClient from 'webpack-hot-client'
-import proxyMiddleware from 'http-proxy-middleware'
-import WebpackDevServer from 'webpack-dev-server'
+import WebpackDevServer, {
+  addDevServerEntrypoints,
+} from 'webpack-dev-server'
 
 type Results = {
   error?: any
@@ -33,24 +28,14 @@ const useWebpack = bud => {
    * Webpack callback
    *
    * This is fired when webpack finishes each round of compilation.
-   *
-   * This callback is not utilized when running in hot mode. That is
-   * handled in the useHotSyncServer hook and is managed by webpack
-   * dev server middleware.
    */
   const webpackCallback = (err, stats) => {
     const results: Results = {}
 
-    /**
-     * Add webpack compiler errors to state.
-     */
     if (err) {
       results.error = err
     }
 
-    /**
-     * Add webpack compiler stats to state
-     */
     if (stats) {
       results.stats = stats.toJson({
         version: true,
@@ -72,9 +57,6 @@ const useWebpack = bud => {
     setBuild(results)
   }
 
-  /**
-   * Add progress plugin to state.
-   */
   const {progress, percentage, message} = useProgress(bud)
   const [progressApplied, setProgressPluginApplied] = useState(null)
   useEffect(() => {
@@ -84,33 +66,39 @@ const useWebpack = bud => {
     }
   }, [progress, bud])
 
-  /**
-   * Run webpack compiler and log output to state.
-   */
   const [build, setBuild] = useState<Build>(null)
   const [webpackRunning, setWebpackRunning] = useState(null)
-  const [client, setClient] = useState(null)
   const [server, setServer] = useState(null)
+
   useEffect(() => {
-    if (progressApplied && !webpackRunning) {
-      setServer(
-        new WebpackDevServer(bud.compiler, {
-          hot: true,
-          port: 3000,
-          inline: true,
-          overlay: true,
-          publicPath: bud.dist(),
-          disableHostCheck: true,
-          transportMode: 'ws',
-          host: 'sage.valet',
-        }),
-      )
+    if (!progressApplied && !webpackRunning) {
+      return
     }
+
+    addDevServerEntrypoints(
+      bud.compiler,
+      bud.options.get('webpack.devServer'),
+    )
+
+    const server = new WebpackDevServer(
+      bud.compiler,
+      bud.options.get('webpack.devServer'),
+    ).listen(3000)
+
+    setServer(server)
+    setWebpackRunning(true)
   }, [progressApplied, webpackRunning, hot, watch, bud])
 
   useEffect(() => {
-    server && fs.outputFile(bud.dist('hot'), `http://localhost:3000`)
-  }, [server, percentage])
+    server &&
+      percentage >= 1 &&
+      fs.outputFile(
+        bud.dist('hot'),
+        `http://${bud.options.get(
+          'webpack.devServer.host',
+        )}:${bud.options.get('webpack.devServer.port')}/${bud.options.get('webpack.devServer.publicPath')}`,
+      )
+  }, [webpackRunning, percentage])
 
   /**
    * Stats state variables consumed by application.
@@ -188,7 +176,6 @@ const useWebpack = bud => {
    */
   return {
     assets,
-    client,
     hasAssets,
     errors,
     hasErrors,

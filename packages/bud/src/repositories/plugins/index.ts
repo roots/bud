@@ -1,4 +1,3 @@
-import {browserSync} from './browserSync'
 import {cleanWebpack} from './cleanWebpack'
 import {copy} from './copy'
 import {define} from './define'
@@ -97,17 +96,16 @@ export type ExtensionRepositoryDefinition = {
 const plugins: ExtensionRepositoryDefinition = {
   name: 'plugins',
   register: [
-    // browserSync,
     cleanWebpack,
     copy,
     define,
-    // fixStyleOnlyEntries,
+    fixStyleOnlyEntries,
     hotModuleReplacement,
     manifest,
-    // miniCssExtract,
+    miniCssExtract,
     provide,
     limitChunkCount,
-    // terser,
+    terser,
     writeFile,
   ],
 }

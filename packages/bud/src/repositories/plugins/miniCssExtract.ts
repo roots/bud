@@ -19,17 +19,7 @@ const miniCssExtract: Extension = bud => ({
   },
 
   when: function () {
-    return (
-      this.bud.options
-        .get('webpack.resolve.extensions')
-        .includes('.css') ||
-      this.bud.options
-        .get('webpack.resolve.extensions')
-        .includes('.scss') ||
-      this.bud.options
-        .get('webpack.resolve.extensions')
-        .includes('.sass')
-    )
+    return this.bud.inProduction
   },
 })
 

@@ -22,7 +22,6 @@ exports.__esModule = true;
 exports.DevServer = void 0;
 var react_1 = __importStar(require("react"));
 var ink_1 = require("ink");
-var prettier_1 = require("prettier");
 var DevServer = function (_a) {
     var build = _a.build, actions = _a.actions, bud = _a.bud;
     var isFocused = ink_1.useFocus({ autoFocus: false }).isFocused;
@@ -31,8 +30,8 @@ var DevServer = function (_a) {
     }, [isFocused]);
     return (react_1["default"].createElement(ink_1.Box, { display: isFocused ? 'flex' : 'none', flexDirection: "column" },
         react_1["default"].createElement(ink_1.Box, { paddingLeft: 1, paddingRight: 1, flexDirection: "column" },
-            react_1["default"].createElement(ink_1.Text, { color: 'green' }, "Server"),
-            react_1["default"].createElement(ink_1.Text, { wrap: "wrap" }, prettier_1.format(JSON.stringify(build === null || build === void 0 ? void 0 : build.client), { parser: 'json' }) || ''))));
+            react_1["default"].createElement(ink_1.Text, { color: "green" }, "Server"),
+            react_1["default"].createElement(ink_1.Text, { wrap: "wrap" }, ''))));
 };
 exports.DevServer = DevServer;
 //# sourceMappingURL=DevServer.js.map

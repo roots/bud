@@ -5,7 +5,6 @@
  */
 declare const useWebpack: (bud: any) => {
     assets: any[];
-    client: any;
     hasAssets: boolean;
     errors: any[];
     hasErrors: boolean;

@@ -1,3 +1,6 @@
+import chokidar from 'chokidar'
+import {resolve} from 'path'
+
 import type {
   BabelTransformOptions,
   BrowserSyncOptions,
@@ -69,7 +72,35 @@ const options: RepositoryDefinition = {
     postcss,
     patterns: [],
     webpack: {
-      devServer: {},
+      devServer: {
+        host: 'localhost',
+        port: 3000,
+        watchOptions: {
+          poll: true,
+        },
+        writeToDisk: true,
+        inline: true,
+        overlay: {
+          errors: true,
+          warnings: false,
+        },
+        useLocalIp: false,
+        hotOnly: true,
+        disableHostCheck: true,
+        publicPath: '/',
+        headers: {
+          'Access-Control-Allow-Origin': '*',
+          'Access-Control-Allow-Methods':
+            'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+          'Access-Control-Allow-Headers':
+            'X-Requested-With, content-type, Authorization',
+        },
+        before: function (app, server) {
+          chokidar.watch(options?.watch ?? []).on('all', function () {
+            server.sockWrite(server.sockets, 'content-changed')
+          })
+        },
+      },
       entry: {},
       externals: {},
       resolve: {

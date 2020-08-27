@@ -8,7 +8,7 @@ const hotModuleReplacement: Extension = bud => ({
   name: 'hot-module-replacement-plugin',
 
   make: function () {
-    return new HotModuleReplacementPlugin(this.options)
+    return new HotModuleReplacementPlugin()
   },
 
   when: function () {

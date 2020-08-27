@@ -1,6 +1,5 @@
-import React, {useEffect, useState} from 'react'
-import {Box, Text, useFocus, Spacer} from 'ink'
-import {format} from 'prettier'
+import React, {useEffect} from 'react'
+import {Box, Text, useFocus} from 'ink'
 
 const DevServer = ({build, actions, bud}) => {
   const {isFocused} = useFocus({autoFocus: false})
@@ -11,11 +10,8 @@ const DevServer = ({build, actions, bud}) => {
   return (
     <Box display={isFocused ? 'flex' : 'none'} flexDirection="column">
       <Box paddingLeft={1} paddingRight={1} flexDirection="column">
-        {/* <Text color='green'>Client</Text>
-        <Text wrap="wrap">{format(JSON.stringify(build?.client), {parser: 'json'}) || ''}</Text>
-        <Spacer />*/}
-        <Text color='green'>Server</Text>
-        <Text wrap="wrap">{format(JSON.stringify(build?.client), {parser: 'json'}) || ''}</Text>
+        <Text color="green">Server</Text>
+        <Text wrap="wrap">{''}</Text>
       </Box>
     </Box>
   )

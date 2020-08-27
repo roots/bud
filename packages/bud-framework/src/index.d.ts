@@ -1,5 +1,4 @@
 import {Loose} from '@roots/bud-typings'
-
 export type Framework = Loose
 
 export {
@@ -17,14 +16,5 @@ export {
   Action,
   ConditionalCheck,
 } from './container'
-
 export {Hooks, HooksConstructor, Hook, RegisteredHooks} from './hooks'
-
-export {
-  Util,
-  Dump,
-  Terminate,
-  Fab,
-  FS,
-  ProjectRoot,
-} from './util/types'
+export {Util, Dump, Terminate, Fab, FS, ProjectRoot} from './util'

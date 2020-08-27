@@ -32,32 +32,16 @@ const Dashboard: DashboardComponent = ({bud}) => {
   const build = useWebpack(bud)
   const {exit} = useApp()
 
-  /**
-   * Quits application when called.
-   */
   const quit = () => {
-    bud.logger.info({name: 'bud.compiler'}, 'Quitting application.')
-    exit()
-
     bud.util.terminate()
-
     process.exit()
   }
-
   useInput(input => {
     if (input == 'q') {
-      bud.logger.info(
-        {name: 'bud.compiler', input},
-        'User requested to close application.',
-      )
-
       quit()
     }
   })
 
-  /**
-   * Run OS level notification when build complete
-   */
   useEffect(() => {
     if (build?.success) {
       const title = bud.hooks.filter(
@@ -65,10 +49,6 @@ const Dashboard: DashboardComponent = ({bud}) => {
         'Build complete.',
       )
       bud.util.notify({title})
-      bud.logger.info(
-        {name: 'bud.compiler', title},
-        'Build success notification',
-      )
     }
   }, [build?.success])
 
@@ -77,19 +57,6 @@ const Dashboard: DashboardComponent = ({bud}) => {
       !bud.features.enabled('watch') && !bud.features.enabled('hot')
 
     if (notWatching && build?.done) {
-      bud.logger.info(
-        {
-          name: 'bud.compiler',
-          watch: bud.features.enabled('watch'),
-          hot: bud.features.enabled('hot'),
-          build: {
-            ...build,
-            assets: build.assets.map(asset => asset.name),
-          },
-        },
-        'application determined to be finished based on state. quitting.',
-      )
-
       quit()
     }
   })

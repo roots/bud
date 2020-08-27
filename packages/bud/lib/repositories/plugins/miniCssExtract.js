@@ -18,15 +18,7 @@ var miniCssExtract = function (bud) { return ({
         return new mini_css_extract_plugin_1["default"](this.options);
     },
     when: function () {
-        return (this.bud.options
-            .get('webpack.resolve.extensions')
-            .includes('.css') ||
-            this.bud.options
-                .get('webpack.resolve.extensions')
-                .includes('.scss') ||
-            this.bud.options
-                .get('webpack.resolve.extensions')
-                .includes('.sass'));
+        return this.bud.inProduction;
     }
 }); };
 exports.miniCssExtract = miniCssExtract;

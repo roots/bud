@@ -6,7 +6,7 @@ var hotModuleReplacement = function (bud) { return ({
     bud: bud,
     name: 'hot-module-replacement-plugin',
     make: function () {
-        return new webpack_1.HotModuleReplacementPlugin(this.options);
+        return new webpack_1.HotModuleReplacementPlugin();
     },
     when: function () {
         return this.bud.features.enabled('hot');
