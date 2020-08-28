@@ -9,7 +9,6 @@ var manifest = function (bud) {
     var _a, _b, _c, _d;
     return ({
         bud: bud,
-        name: 'webpack-manifest-plugin',
         options: {
             publicPath: (_b = (_a = bud.options.get('manifest.publicPath')) !== null && _a !== void 0 ? _a : bud.paths.get('public')) !== null && _b !== void 0 ? _b : '/',
             filename: (_c = bud.options.get('manifest.name')) !== null && _c !== void 0 ? _c : 'manifest.json',

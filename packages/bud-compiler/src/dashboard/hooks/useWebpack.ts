@@ -1,9 +1,8 @@
 import {useState, useEffect} from 'react'
 import {useProgress} from './useProgress'
 import fs from 'fs-extra'
-import WebpackDevServer, {
-  addDevServerEntrypoints,
-} from 'webpack-dev-server'
+import chokidar from 'chokidar'
+import WebpackDevServer, {addDevServerEntrypoints} from 'webpack-dev-server'
 
 type Results = {
   error?: any
@@ -11,6 +10,17 @@ type Results = {
 }
 
 type Build = any
+
+const writeHotFlag = bud => {
+  const {host, port, publicPath} = bud.options.get(
+    'webpack.devServer',
+  )
+
+  fs.outputFile(
+    bud.dist('hot'),
+    `http://${host}:${port}${publicPath}`,
+  )
+}
 
 /**
  * Hook: useWebpack
@@ -80,25 +90,30 @@ const useWebpack = bud => {
       bud.options.get('webpack.devServer'),
     )
 
-    const server = new WebpackDevServer(
-      bud.compiler,
-      bud.options.get('webpack.devServer'),
-    ).listen(3000)
+    if (bud.features.enabled('watch') || true) {
+      bud.options.set('webpack.devServer', {
+        ...bud.options.get('webpack.devServer'),
+        before(app, server) {
+          chokidar
+            .watch(bud.options.get('watch') ?? [])
+            .on('change', function () {
+              server.sockWrite(server.sockets, 'content-updated')
+            })
+        },
+      })
+    }
+
+    const server = new WebpackDevServer(bud.compiler, {
+      ...bud.options.get('webpack.devServer'),
+    }).listen(3000)
 
     setServer(server)
     setWebpackRunning(true)
   }, [progressApplied, webpackRunning, hot, watch, bud])
 
   useEffect(() => {
-    server &&
-      percentage >= 1 &&
-      fs.outputFile(
-        bud.dist('hot'),
-        `http://${bud.options.get(
-          'webpack.devServer.host',
-        )}:${bud.options.get('webpack.devServer.port')}/${bud.options.get('webpack.devServer.publicPath')}`,
-      )
-  }, [webpackRunning, percentage])
+    percentage >= 1 && writeHotFlag(bud)
+  }, [bud, percentage])
 
   /**
    * Stats state variables consumed by application.

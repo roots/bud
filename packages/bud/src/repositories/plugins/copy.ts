@@ -1,11 +1,9 @@
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 
-import type {Extension} from './index'
+import type {Plugin} from '@roots/bud-framework'
 
-const copy: Extension = bud => ({
+const copy: Plugin = bud => ({
   bud,
-
-  name: 'copy-webpack-plugin',
 
   options: bud.options.get('webpack.plugins.copy'),
 

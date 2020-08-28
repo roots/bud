@@ -22,7 +22,10 @@
     "node": ">=12"
   },
   "workspaces": {
-    "packages": ["packages/*"]
+    "packages": [
+      "packages/*",
+      "packages/bud-sage"
+    ]
   },
   "scripts": {
     "build": "yarn workspaces run build",

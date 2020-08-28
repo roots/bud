@@ -12,7 +12,7 @@ var uses_1 = require("./uses");
 exports.uses = uses_1.uses;
 var rules = {
     name: 'rules',
-    register: [js_1.js, css_1.css, font_1.font, image_1.image, svg_1.svg]
+    register: { js: js_1.js, css: css_1.css, font: font_1.font, image: image_1.image, svg: svg_1.svg }
 };
 exports.rules = rules;
 //# sourceMappingURL=index.js.map

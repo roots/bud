@@ -75,6 +75,7 @@ const options: RepositoryDefinition = {
       devServer: {
         host: 'localhost',
         port: 3000,
+        disableHostCheck: true,
         watchOptions: {
           poll: true,
         },
@@ -84,9 +85,7 @@ const options: RepositoryDefinition = {
           errors: true,
           warnings: false,
         },
-        useLocalIp: false,
         hotOnly: true,
-        disableHostCheck: true,
         publicPath: '/',
         headers: {
           'Access-Control-Allow-Origin': '*',
@@ -94,11 +93,6 @@ const options: RepositoryDefinition = {
             'GET, POST, PUT, DELETE, PATCH, OPTIONS',
           'Access-Control-Allow-Headers':
             'X-Requested-With, content-type, Authorization',
-        },
-        before: function (app, server) {
-          chokidar.watch(options?.watch ?? []).on('all', function () {
-            server.sockWrite(server.sockets, 'content-changed')
-          })
         },
       },
       entry: {},

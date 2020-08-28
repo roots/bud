@@ -12,7 +12,7 @@ import {loaders, rules, uses} from './rulesets'
  * Repositories
  */
 export const repositories = {
-  extensions: [plugins],
+  plugins: [plugins],
   files: [configs],
   stores: [
     features,

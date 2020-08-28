@@ -5,7 +5,6 @@ var webpack_1 = require("webpack");
 var LimitChunkCountPlugin = webpack_1.optimize.LimitChunkCountPlugin;
 var limitChunkCount = function (bud) { return ({
     bud: bud,
-    name: 'limit-chunk-count-plugin',
     make: function () {
         var enabled = this.bud.features.enabled('splitChunks');
         var chunks = this.bud.options.get('splitting.maxChunks');
@@ -17,7 +16,7 @@ var limitChunkCount = function (bud) { return ({
         return new LimitChunkCountPlugin(this.options);
     },
     when: function () {
-        return this.options;
+        return this.options ? true : false;
     }
 }); };
 exports.limitChunkCount = limitChunkCount;

@@ -1,4 +1,4 @@
-import type { Extension } from './index';
-declare const cleanWebpack: Extension;
+import type { Plugin } from '@roots/bud-framework';
+declare const cleanWebpack: Plugin;
 export { cleanWebpack };
 //# sourceMappingURL=cleanWebpack.d.ts.map

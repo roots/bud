@@ -1,4 +1,4 @@
-import { Extension } from '@roots/bud';
-declare const extraction: Extension;
-export { extraction };
+import { Plugin } from '@roots/bud-framework';
+declare const dependencyExtractionPlugin: Plugin;
+export { dependencyExtractionPlugin };
 //# sourceMappingURL=index.d.ts.map

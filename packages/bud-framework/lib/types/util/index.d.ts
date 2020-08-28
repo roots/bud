@@ -1,10 +1,11 @@
 import { os } from './os';
+import { logger } from './logger';
 import type { Dump } from './dump';
 export type { Dump };
 import type { Fab } from './fab';
 export type { Fab };
-import type { FS } from './fs';
-export type { FS };
+import type { Format } from './format';
+export type { Format };
 import type { ProjectRoot } from './projectRoot';
 export type { ProjectRoot };
 import type { ShortCircuit } from './shortCircuit';
@@ -13,7 +14,9 @@ import type { Terminate } from './terminate';
 export type { Terminate };
 export declare type Util = {
     fab: Fab;
-    fs: FS;
+    format: Format;
+    fs: any;
+    logger: typeof logger;
     os: typeof os;
     processHandler: any;
     projectRoot: ProjectRoot;
@@ -24,5 +27,4 @@ export declare type Util = {
     usedExt: any;
 };
 export declare const util: Util;
-export { logger } from './logger';
 //# sourceMappingURL=index.d.ts.map

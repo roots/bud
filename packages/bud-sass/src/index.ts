@@ -1,54 +1,16 @@
-import {config} from './api'
-import use from './use'
-import {Bud, Extension, ExtensionInterface} from '@roots/bud'
-
-/**
- * Sass webpack module rule.
- *
- * @type {Rule}
- */
-const rule = (bud: Bud) => ({
-  test: /\.s(c|a)ss$/,
-  exclude: bud.patterns.get('vendor'),
-  use: [
-    bud.inProduction
-      ? bud.uses.get('miniCss')(bud)
-      : bud.loaders.get('style'),
-    bud.uses.get('css')(bud),
-    bud.uses.get('resolveUrl')(bud),
-    bud.uses.get('postCss')(bud),
-    use(bud),
-  ],
-})
+import {Bud} from '@roots/bud'
+import {Plugin} from '@roots/bud-framework'
 
 /**
  * Bud extension: sass
  *
  * Adds sass support to the Bud framework.
- *
- * @type {Extension}
  */
-const sass: Extension = (bud: Bud): ExtensionInterface => ({
+const sass: Plugin = (bud: Bud) => ({
   bud,
 
-  name: 'sass',
-
   make: function () {
-    !this.bud.options
-      .get('webpack.resolve.extensions')
-      .includes('.sass') &&
-      this.bud.options.set('webpack.resolve.extensions', [
-        ...this.bud.options.get('webpack.resolve.extensions'),
-        '.sass',
-      ])
-
-    !this.bud.options
-      .get('webpack.resolve.extensions')
-      .includes('.scss') &&
-      this.bud.options.set('webpack.resolve.extensions', [
-        ...this.bud.options.get('webpack.resolve.extensions'),
-        '.scss',
-      ])
+    this.bud.addExtensions(['sass', 'scss'])
 
     if (!this.bud.options.has('sass')) {
       this.bud.options.set('sass', {
@@ -56,9 +18,39 @@ const sass: Extension = (bud: Bud): ExtensionInterface => ({
       })
     }
 
-    this.bud.apply('sass', config)
+    this.bud.uses.set('sass', bud => ({
+      loader: require.resolve('sass-loader'),
+      options: {
+        ...bud.options.get('sass'),
+        implementation: (() => {
+          try {
+            if (require.resolve('sass')) {
+              return require('sass')
+            }
+          } catch {
+            return require('node-sass')
+          }
+        })(),
+      },
+    }))
 
-    this.bud.rules.push(rule)
+    this.bud.rules.set('sass', bud => ({
+      test: /\.s(c|a)ss$/,
+      exclude: bud.patterns.get('vendor'),
+      use: [
+        ...bud.rules.get('css')(bud).use,
+        bud.uses.get('sass')(bud),
+      ],
+    }))
+
+    this.bud.apply('sass', function (options) {
+      if (options) {
+        this.options.set('sass', {
+          ...(this.options.get('sass') ?? []),
+          ...options,
+        })
+      }
+    })
   },
 })
 

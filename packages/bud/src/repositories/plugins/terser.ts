@@ -1,11 +1,8 @@
 import TerserPlugin from 'terser-webpack-plugin'
+import type {Plugin} from '@roots/bud-framework'
 
-import type {Extension} from './index'
-
-const terser: Extension = bud => ({
+const terser: Plugin = bud => ({
   bud,
-
-  name: 'terser-webpack-plugin',
 
   options: bud.options.get('webpack.plugins.terser'),
 

@@ -7,7 +7,6 @@ exports.fixStyleOnlyEntries = void 0;
 var webpack_fix_style_only_entries_1 = __importDefault(require("webpack-fix-style-only-entries"));
 var fixStyleOnlyEntries = function (bud) { return ({
     bud: bud,
-    name: 'webpack-fix-style-only-entries',
     options: bud.options.get('webpack.plugins.fixStyleOnlyEntries'),
     make: function () {
         if (this.bud.features.enabled('hot')) {

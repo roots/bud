@@ -7,7 +7,6 @@ exports.miniCssExtract = void 0;
 var mini_css_extract_plugin_1 = __importDefault(require("mini-css-extract-plugin"));
 var miniCssExtract = function (bud) { return ({
     bud: bud,
-    name: 'mini-css-extract-plugin',
     options: {
         hmr: bud.features.enabled('hot'),
         filename: bud.features.enabled('hash')

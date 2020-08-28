@@ -5,10 +5,6 @@ interface TerminateOptions extends Loose {
     timeout?: number;
 }
 declare type Terminate = (options?: TerminateOptions) => TerminateReturn;
-/**
- * Terminate CLI execution
- */
 declare const terminate: Terminate;
-export { terminate };
-export type { Terminate };
+export { terminate, Terminate };
 //# sourceMappingURL=terminate.d.ts.map

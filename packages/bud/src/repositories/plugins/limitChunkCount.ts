@@ -1,12 +1,9 @@
 import {optimize} from 'webpack'
 const {LimitChunkCountPlugin} = optimize
+import type {Plugin} from '@roots/bud-framework'
 
-import type {Extension} from './index'
-
-const limitChunkCount: Extension = bud => ({
+const limitChunkCount: Plugin = bud => ({
   bud,
-
-  name: 'limit-chunk-count-plugin',
 
   make: function () {
     const enabled = this.bud.features.enabled('splitChunks')
@@ -22,7 +19,7 @@ const limitChunkCount: Extension = bud => ({
   },
 
   when: function () {
-    return this.options
+    return this.options ? true : false
   },
 })
 

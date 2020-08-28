@@ -1,42 +1,13 @@
-import type { Bud, Extension } from '@roots/bud';
-/**
- * Available features.
- */
-declare type FeatureKey = 'purge' | 'eslint' | 'stylelint' | 'extraction' | 'sass';
-/**
- * Map features to their extensions
- */
-interface Features {
-    [key: string]: Extension;
-}
-interface Enabled {
-    key: FeatureKey;
-    value: boolean;
-}
-/**
- * ## bud.sage
- *
- * Customize the features used in your theme.
- *
- * ```js
- * bud.sage({
- *  purge: false,
- * })
- */
-interface Sage extends Bud {
-    purgecss: any;
-    sass: any;
-    withFeatures: any;
-}
-interface WithFeatures {
-    (this: Sage, enabled: Enabled): Sage;
-}
-/**
- * @roots/bud-sage
- *
- * Preset configuration for Sage projects
- */
+import type { Bud } from '@roots/bud';
+import type { Plugin } from '@roots/bud-framework';
+import { dependencyExtractionPlugin } from '@roots/bud-dependency-extraction-webpack-plugin';
+import { sass } from '@roots/bud-sass';
+import { eslint } from '@roots/bud-eslint';
+import { stylelint } from '@roots/bud-stylelint';
+import { purgecss } from '@roots/bud-purgecss';
+declare type SageFeature = typeof purgecss | typeof eslint | typeof stylelint | typeof dependencyExtractionPlugin | typeof sass;
+declare type SageFeatures = Plugin[];
 declare const sage: Bud;
-export { sage };
-export { WithFeatures, FeatureKey, Features, Enabled };
+declare type Sage = typeof sage;
+export { sage, Sage, SageFeature, SageFeatures };
 //# sourceMappingURL=index.d.ts.map

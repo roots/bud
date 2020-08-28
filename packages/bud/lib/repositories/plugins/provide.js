@@ -4,7 +4,6 @@ exports.provide = void 0;
 var webpack_1 = require("webpack");
 var provide = function (bud) { return ({
     bud: bud,
-    name: 'provide-plugin',
     make: function () {
         return new webpack_1.ProvidePlugin(bud.options.get('webpack.plugins.provide') || {});
     }

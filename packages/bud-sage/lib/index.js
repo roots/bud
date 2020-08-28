@@ -1,15 +1,4 @@
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 exports.__esModule = true;
 exports.sage = void 0;
 var bud_1 = require("@roots/bud");
@@ -18,42 +7,45 @@ var bud_sass_1 = require("@roots/bud-sass");
 var bud_eslint_1 = require("@roots/bud-eslint");
 var bud_stylelint_1 = require("@roots/bud-stylelint");
 var bud_purgecss_1 = require("@roots/bud-purgecss");
-var features = {
-    purgecss: bud_purgecss_1.purgecss,
-    eslint: bud_eslint_1.eslint,
-    stylelint: bud_stylelint_1.stylelint,
-    extraction: bud_dependency_extraction_webpack_plugin_1.extraction,
-    sass: bud_sass_1.sass
-};
-var withFeatures = function (options) {
-    var enabled = [];
-    options
-        ? Object.entries(features).forEach(function (_a) {
-            var feature = _a[0], extension = _a[1];
-            var isEnabled = !options ||
-                !options.hasOwnProperty(feature) ||
-                options[feature] !== false;
-            isEnabled && enabled.push(extension);
-        })
-        : Object.values(features).forEach(function (feature) {
-            enabled.push(feature);
+var featureSet = [
+    bud_purgecss_1.purgecss,
+    bud_eslint_1.eslint,
+    bud_stylelint_1.stylelint,
+    bud_dependency_extraction_webpack_plugin_1.dependencyExtractionPlugin,
+    bud_sass_1.sass,
+];
+/**
+ * ## sage.enableThemeFeatures
+ *
+ * Customize the features used in your theme.
+ */
+var enableThemeFeatures = function (features) {
+    var enabledFeatures = [];
+    if (!features) {
+        featureSet.forEach(function (feature) {
+            enabledFeatures.push(feature);
         });
-    this.use(enabled);
-    enabled.includes(bud_purgecss_1.purgecss) &&
+    }
+    else {
+        Object.entries(featureSet).forEach(function (_a) {
+            var feature = _a[0], plugin = _a[1];
+            var isEnabled = !features ||
+                !features.hasOwnProperty(feature) ||
+                features[feature] !== false;
+            isEnabled && enabledFeatures.push(plugin);
+        });
+    }
+    this.use(enabledFeatures);
+    enabledFeatures.includes(bud_purgecss_1.purgecss) &&
         this.purgecss({
             enabled: this.inProduction,
-            options: __assign({}, bud_purgecss_1.presets.wordpress)
+            options: bud_purgecss_1.purgeWordPress
         });
     return this;
 };
-/**
- * @roots/bud-sage
- *
- * Preset configuration for Sage projects
- */
 var sage = (function () {
-    bud_1.bud.apply('withFeatures', withFeatures);
-    bud_1.bud
+    bud_1.bud.apply('enableThemeFeatures', enableThemeFeatures);
+    return bud_1.bud
         .srcPath('resources/assets')
         .distPath('dist')
         .alias({
@@ -70,7 +62,6 @@ var sage = (function () {
         .map(bud_1.bud.inDevelopment)
         .hash(bud_1.bud.inProduction)
         .vendor();
-    return bud_1.bud;
 })();
 exports.sage = sage;
 //# sourceMappingURL=index.js.map

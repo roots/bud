@@ -14,7 +14,7 @@ var __setModuleDefault = (this && this.__setModuleDefault) || (Object.create ? (
 var __importStar = (this && this.__importStar) || function (mod) {
     if (mod && mod.__esModule) return mod;
     var result = {};
-    if (mod != null) for (var k in mod) if (k !== "default" && Object.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
+    if (mod != null) for (var k in mod) if (k !== "default" && Object.prototype.hasOwnProperty.call(mod, k)) __createBinding(result, mod, k);
     __setModuleDefault(result, mod);
     return result;
 };
@@ -44,7 +44,6 @@ var Dashboard = function (_a) {
     var _b = ink_use_stdout_dimensions_1["default"](), width = _b[0], height = _b[1];
     var _c = useFocusState_1.useFocusState(), state = _c[0], actions = _c[1];
     var build = useWebpack_1.useWebpack(bud);
-    var exit = ink_1.useApp().exit;
     var quit = function () {
         bud.util.terminate();
         process.exit();

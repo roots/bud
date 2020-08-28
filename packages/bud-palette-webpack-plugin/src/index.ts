@@ -1,13 +1,26 @@
-import {plugin} from './adapter'
-import {api} from './api'
-import {Extension} from '@roots/bud'
+import {Plugin, PluginInterface} from '@roots/bud-framework'
+import PaletteWebpackPlugin from 'palette-webpack-plugin'
 
-const palette: Extension = bud => ({
-  bud,
-  name: 'palette-webpack-plugin',
+const palette: Plugin = (): PluginInterface => ({
   make: function () {
-    this.bud.apply('setPaletteBlacklist', api)
-    this.bud.plugins.push(plugin)
+    this.bud.apply('setPaletteBlacklist', function (
+      blacklist: string[],
+    ) {
+      this.options.set(
+        'webpack.plugins.palettePlugin.blacklist',
+        blacklist,
+      )
+
+      return this
+    })
+
+    this.bud.plugins.set('palette-webpack-plugin', () => ({
+      make: function () {
+        return new PaletteWebpackPlugin(
+          this.bud.options.get('webpack.plugins.palettePlugin'),
+        )
+      },
+    }))
   },
 })
 

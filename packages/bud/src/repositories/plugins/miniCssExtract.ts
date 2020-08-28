@@ -1,11 +1,8 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import type {Plugin} from '@roots/bud-framework'
 
-import type {Extension} from './index'
-
-const miniCssExtract: Extension = bud => ({
+const miniCssExtract: Plugin = bud => ({
   bud,
-
-  name: 'mini-css-extract-plugin',
 
   options: {
     hmr: bud.features.enabled('hot'),

@@ -2,15 +2,7 @@
 exports.__esModule = true;
 exports.typescript = void 0;
 var path_1 = require("path");
-var publicConfig = function (options) {
-    options.configFile &&
-        this.configs.set('typescript', options.configFile);
-    this.options.merge('typescript', options);
-    return this;
-};
-var typescript = function (bud) { return ({
-    bud: bud,
-    name: 'typescript',
+var typescript = function () { return ({
     make: function () {
         var configFile = path_1.join(this.bud.project('tsconfig.json'));
         if (this.bud.fs.existsSync(configFile)) {
@@ -33,7 +25,12 @@ var typescript = function (bud) { return ({
             exclude: bud.patterns.get('vendor'),
             use: [bud.uses.get('typescript')]
         }); });
-        this.bud.apply('typescript', publicConfig);
+        this.bud.apply('typescript', function (options) {
+            options.configFile &&
+                this.configs.set('typescript', options.configFile);
+            this.options.merge('typescript', options);
+            return this;
+        });
     }
 }); };
 exports.typescript = typescript;

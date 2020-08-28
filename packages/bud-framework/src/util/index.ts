@@ -1,5 +1,6 @@
 import {dump} from './dump'
 import {fab} from './fab'
+import {format} from './format'
 import {notify} from './notify'
 import {projectRoot} from './projectRoot'
 import {shortCircuit} from './shortCircuit'
@@ -8,6 +9,7 @@ import {processHandler} from './processHandler'
 import {fs} from './fs'
 import {os} from './os'
 import {usedExt} from './usedExt'
+import {logger} from './logger'
 
 import type {Dump} from './dump'
 export type {Dump}
@@ -15,8 +17,8 @@ export type {Dump}
 import type {Fab} from './fab'
 export type {Fab}
 
-import type {FS} from './fs'
-export type {FS}
+import type {Format} from './format'
+export type {Format}
 
 import type {ProjectRoot} from './projectRoot'
 export type {ProjectRoot}
@@ -29,7 +31,9 @@ export type {Terminate}
 
 export type Util = {
   fab: Fab
-  fs: FS
+  format: Format
+  fs: any
+  logger: typeof logger
   os: typeof os
   processHandler: any
   projectRoot: ProjectRoot
@@ -41,8 +45,10 @@ export type Util = {
 }
 
 export const util: Util = {
+  format,
   fs,
   dump,
+  logger,
   shortCircuit,
   fab,
   notify,
@@ -52,5 +58,3 @@ export const util: Util = {
   usedExt,
   os,
 }
-
-export {logger} from './logger'

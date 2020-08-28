@@ -10,7 +10,7 @@ import type {RepositoryDefinition} from '@roots/bud-framework'
 
 const rules: RepositoryDefinition = {
   name: 'rules',
-  register: [js, css, font, image, svg],
+  register: {js, css, font, image, svg},
 }
 
 export {loaders, rules, uses}

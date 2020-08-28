@@ -21,7 +21,7 @@ var rulesets_1 = require("./rulesets");
  * Repositories
  */
 exports.repositories = {
-    extensions: [plugins_1.plugins],
+    plugins: [plugins_1.plugins],
     files: [configs_1.configs],
     stores: __spreadArrays([
         features_1.features,

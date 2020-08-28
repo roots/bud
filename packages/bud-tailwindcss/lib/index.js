@@ -23,18 +23,20 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 exports.__esModule = true;
 exports.tailwindcss = void 0;
 var tailwindcss_1 = __importDefault(require("tailwindcss"));
-var api_1 = __importDefault(require("./api"));
-var tailwindcss = function (bud) { return ({
-    bud: bud,
-    name: 'tailwindcss',
+var tailwindcss = function () { return ({
     make: function () {
-        this.bud.apply('tailwind', api_1["default"]);
+        this.bud.apply('tailwind', function (config) {
+            this.options.set('postcss', __assign(__assign({}, this.options.get('postcss')), { plugins: __spreadArrays(this.options.get('postcss.plugins'), [
+                    tailwindcss_1["default"](config),
+                ]) }));
+            return this;
+        });
         this.bud.options.set('postcss.plugins', __spreadArrays(this.bud.options.get('postcss.plugins'), [
             tailwindcss_1["default"]({
                 config: this.bud.project('tailwind.config.js')
             }),
         ]));
-        this.bud.options.set('scss.sassOptions', __assign({ processCssUrls: false }, this.bud.options.get('scss.sassOptions')));
+        this.bud.options.set('sass.sassOptions', __assign({ processCssUrls: false }, this.bud.options.get('sass.sassOptions')));
     }
 }); };
 exports.tailwindcss = tailwindcss;

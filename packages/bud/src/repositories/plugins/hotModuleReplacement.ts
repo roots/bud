@@ -1,11 +1,8 @@
 import {HotModuleReplacementPlugin} from 'webpack'
+import type {Plugin} from '@roots/bud-framework'
 
-import type {Extension} from './index'
-
-const hotModuleReplacement: Extension = bud => ({
+const hotModuleReplacement: Plugin = bud => ({
   bud,
-
-  name: 'hot-module-replacement-plugin',
 
   make: function () {
     return new HotModuleReplacementPlugin()

@@ -5,15 +5,17 @@ type PluginsBuilder = (bud: Bud) => WebpackPlugins
 
 const plugins: PluginsBuilder = bud =>
   bud.hooks.filter('webpack.plugins', {
-    plugins: bud.plugins
-      .entries()
-      .map(adapter =>
-        bud.hooks.filter(
-          `webpack.plugins.${adapter.name}`,
-          bud.extensions(bud, adapter).build(),
-        ),
+    plugins: Object.entries(bud.plugins.entries())
+      .reduce(
+        (a, [, fn]) => [
+          ...(a ? a : []),
+          typeof fn == 'function'
+            ? bud.controller.use(fn).build()
+            : null,
+        ],
+        [],
       )
-      .filter(adapter => adapter),
+      .filter(plugin => plugin),
   })
 
 export {plugins}

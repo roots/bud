@@ -8,19 +8,14 @@ var __spreadArrays = (this && this.__spreadArrays) || function () {
 };
 exports.__esModule = true;
 exports.react = void 0;
-var react = function (bud) { return ({
-    bud: bud,
-    name: 'react',
+var react = function () { return ({
     make: function () {
         this.bud.options.set('babel.presets', __spreadArrays(this.bud.options.get('babel.presets'), [
             require.resolve('@babel/preset-react'),
         ]));
         !this.bud.options
             .get('webpack.resolve.extensions')
-            .includes('.jsx') &&
-            this.bud.options.set('webpack.resolve.extensions', __spreadArrays(this.bud.options.get('webpack.resolve.extensions'), [
-                '.jsx',
-            ]));
+            .includes('.jsx') && this.addExtensions(['.jsx']);
     }
 }); };
 exports.react = react;

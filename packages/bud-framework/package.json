@@ -26,19 +26,19 @@
     "lib"
   ],
   "main": "./lib/index.js",
-  "types": "./lib/types/types.d.ts",
+  "types": "./lib/types/index.d.ts",
   "scripts": {
     "build": "rimraf ./lib && tsc",
     "lint": "eslint ."
   },
   "dependencies": {
     "dotenv": "^8.2.0",
-    "fs-extra": "^9.0.0",
+    "fs-extra": "^9.0.1",
     "lodash": "^4.17.19",
     "node-notifier": "^7.0.1",
     "pino": "^6.5.0",
     "pino-pretty": "^4.1.0",
-    "prettier": "^2.0.5",
+    "prettier": "^2.1.1",
     "yargs": "^15.4.1"
   },
   "devDependencies": {

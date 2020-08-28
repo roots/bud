@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 exports.__esModule = true;
-exports.registerExtensionContainer = exports.registerFileContainer = exports.registerContainer = exports.container = void 0;
+exports.registerPluginContainer = exports.registerFileContainer = exports.registerContainer = exports.container = void 0;
 var fs_extra_1 = require("fs-extra");
 var lodash_1 = __importDefault(require("lodash"));
 var newContainer = function (key, repository) {
@@ -104,9 +104,9 @@ exports.registerFileContainer = registerFileContainer;
 /**
  * Bind extension container.
  */
-var registerExtensionContainer = function (store) {
+var registerPluginContainer = function (store) {
     var instance = new container(store.register, store.name);
     return instance;
 };
-exports.registerExtensionContainer = registerExtensionContainer;
+exports.registerPluginContainer = registerPluginContainer;
 //# sourceMappingURL=container.js.map

@@ -1,4 +1,4 @@
-import { Extension } from '@roots/bud';
-declare const react: Extension;
+import { Plugin } from '@roots/bud-framework';
+declare const react: Plugin;
 export { react };
 //# sourceMappingURL=index.d.ts.map

@@ -1,10 +1,6 @@
 "use strict";
-var __importDefault = (this && this.__importDefault) || function (mod) {
-    return (mod && mod.__esModule) ? mod : { "default": mod };
-};
 exports.__esModule = true;
 exports.options = void 0;
-var chokidar_1 = __importDefault(require("chokidar"));
 var target = 'web';
 var babelFallback = {
     presets: [
@@ -59,6 +55,7 @@ var options = {
             devServer: {
                 host: 'localhost',
                 port: 3000,
+                disableHostCheck: true,
                 watchOptions: {
                     poll: true
                 },
@@ -68,20 +65,12 @@ var options = {
                     errors: true,
                     warnings: false
                 },
-                useLocalIp: false,
                 hotOnly: true,
-                disableHostCheck: true,
                 publicPath: '/',
                 headers: {
                     'Access-Control-Allow-Origin': '*',
                     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
                     'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization'
-                },
-                before: function (app, server) {
-                    var _a;
-                    chokidar_1["default"].watch((_a = options === null || options === void 0 ? void 0 : options.watch) !== null && _a !== void 0 ? _a : []).on('all', function () {
-                        server.sockWrite(server.sockets, 'content-changed');
-                    });
                 }
             },
             entry: {},

@@ -7,7 +7,6 @@ exports.writeFile = void 0;
 var write_file_webpack_plugin_1 = __importDefault(require("write-file-webpack-plugin"));
 var writeFile = function (bud) { return ({
     bud: bud,
-    name: 'write-file-webpack-plugin',
     make: function () {
         return new write_file_webpack_plugin_1["default"]();
     }

@@ -1,7 +1,7 @@
-interface Loose {
-    [key: string]: any;
+interface LooselyDefined {
+    [key: string]: any | any[];
 }
-export { Loose };
+export declare type Loose = LooselyDefined;
 import { TransformOptions as BabelTransformOptions } from '@babel/core';
 export { BabelTransformOptions };
 import type { Options as BrowserSyncOptions } from 'browser-sync';

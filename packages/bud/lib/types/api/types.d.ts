@@ -6,6 +6,7 @@ import { Options as DependencyExtractionOptions } from '@wordpress/dependency-ex
 export type { DependencyExtractionOptions };
 export declare type Dist = (path?: string) => string;
 export declare type Dump = (enabled: boolean) => Bud;
+export declare type PathGetter = (path: string | undefined) => string;
 export declare type PathSetter = (path: string) => Bud;
 export declare type Glob = (this: Bud, output: string, files: string) => Bud;
 export declare type Hash = (this: Bud, enabled?: boolean) => Bud;
@@ -19,7 +20,6 @@ export declare type Preset = (path?: string) => any;
 export declare type Project = (path?: string) => string;
 export declare type Resolve = (moduleName: string) => string;
 export declare type SourceMap = (enabled?: boolean) => Bud;
-export declare type Src = (path?: string) => string;
 export declare type Target = (target: string) => Bud;
 import type { AddExtensions } from './addExtensions';
 export type { AddExtensions };
@@ -45,10 +45,13 @@ import type { RuntimeManifest } from './runtimeManifest';
 export type { RuntimeManifest };
 import type { Terser } from './terser';
 export type { Terser };
-import type { UseExtension } from './use';
-export type { UseExtension };
+import type { UsePlugin } from './use';
+export type { UsePlugin };
 import type { Vendor } from './vendor';
 export type { Vendor };
+export declare type Fluent = (this: Bud, options: {
+    [key: string]: any;
+}) => Bud;
 export declare type Api = {
     addExtensions: AddExtensions;
     alias: Alias;
@@ -73,11 +76,11 @@ export declare type Api = {
     project: Project;
     publicPath: PathSetter;
     runtimeManifest: RuntimeManifest;
-    src: Src;
+    src: PathGetter;
     srcPath: PathSetter;
     target: Target;
     terser: Terser;
-    use: UseExtension;
+    use: UsePlugin;
     vendor: Vendor;
 };
 //# sourceMappingURL=types.d.ts.map

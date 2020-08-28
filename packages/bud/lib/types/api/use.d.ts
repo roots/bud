@@ -1,6 +1,5 @@
 import type { Bud } from '..';
-declare type UseExtension = (this: Bud, plugin: any[]) => Bud;
-declare const use: UseExtension;
+export declare type UsePlugin = (this: Bud, plugins: any | any[]) => Bud;
+declare const use: UsePlugin;
 export { use };
-export type { UseExtension };
 //# sourceMappingURL=use.d.ts.map

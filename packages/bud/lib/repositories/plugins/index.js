@@ -17,19 +17,19 @@ var writeFile_1 = require("./writeFile");
  */
 var plugins = {
     name: 'plugins',
-    register: [
-        cleanWebpack_1.cleanWebpack,
-        copy_1.copy,
-        define_1.define,
-        fixStyleOnlyEntries_1.fixStyleOnlyEntries,
-        hotModuleReplacement_1.hotModuleReplacement,
-        manifest_1.manifest,
-        miniCssExtract_1.miniCssExtract,
-        provide_1.provide,
-        limitChunkCount_1.limitChunkCount,
-        terser_1.terser,
-        writeFile_1.writeFile,
-    ]
+    register: {
+        cleanWebpack: cleanWebpack_1.cleanWebpack,
+        copy: copy_1.copy,
+        define: define_1.define,
+        fixStyleOnlyEntries: fixStyleOnlyEntries_1.fixStyleOnlyEntries,
+        hotModuleReplacement: hotModuleReplacement_1.hotModuleReplacement,
+        manifest: manifest_1.manifest,
+        miniCssExtract: miniCssExtract_1.miniCssExtract,
+        provide: provide_1.provide,
+        limitChunkCount: limitChunkCount_1.limitChunkCount,
+        terser: terser_1.terser,
+        writeFile: writeFile_1.writeFile
+    }
 };
 exports.plugins = plugins;
 //# sourceMappingURL=index.js.map

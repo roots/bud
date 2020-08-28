@@ -1,14 +1,19 @@
-import {Bud, Extension, ExtensionInterface} from '@roots/bud'
+import {Plugin} from '@roots/bud-framework'
 import tailwind from 'tailwindcss'
-import configTailwind from './api'
 
-const tailwindcss: Extension = (bud: Bud): ExtensionInterface => ({
-  bud,
+const tailwindcss: Plugin = () => ({
+  make: function () {
+    this.bud.apply('tailwind', function (config: any) {
+      this.options.set('postcss', {
+        ...this.options.get('postcss'),
+        plugins: [
+          ...this.options.get('postcss.plugins'),
+          tailwind(config),
+        ],
+      })
 
-  name: 'tailwindcss',
-
-  make: function (this: ExtensionInterface) {
-    this.bud.apply('tailwind', configTailwind)
+      return this
+    })
 
     this.bud.options.set('postcss.plugins', [
       ...this.bud.options.get('postcss.plugins'),
@@ -17,9 +22,9 @@ const tailwindcss: Extension = (bud: Bud): ExtensionInterface => ({
       }),
     ])
 
-    this.bud.options.set('scss.sassOptions', {
+    this.bud.options.set('sass.sassOptions', {
       processCssUrls: false,
-      ...this.bud.options.get('scss.sassOptions'),
+      ...this.bud.options.get('sass.sassOptions'),
     })
   },
 })

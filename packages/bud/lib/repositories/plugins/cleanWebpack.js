@@ -4,7 +4,6 @@ exports.cleanWebpack = void 0;
 var clean_webpack_plugin_1 = require("clean-webpack-plugin");
 var cleanWebpack = function (bud) { return ({
     bud: bud,
-    name: 'clean-webpack-plugin',
     options: bud.options.get('webpack.plugins.clean'),
     make: function () {
         return new clean_webpack_plugin_1.CleanWebpackPlugin(this.options);

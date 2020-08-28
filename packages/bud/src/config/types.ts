@@ -1,2 +1,3 @@
-import type {Bud, Extension} from '..'
-export {Bud, Extension}
+import type {Bud} from '..'
+import type {Plugin} from '@roots/bud-framework'
+export {Bud, Plugin}

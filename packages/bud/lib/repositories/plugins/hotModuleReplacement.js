@@ -4,7 +4,6 @@ exports.hotModuleReplacement = void 0;
 var webpack_1 = require("webpack");
 var hotModuleReplacement = function (bud) { return ({
     bud: bud,
-    name: 'hot-module-replacement-plugin',
     make: function () {
         return new webpack_1.HotModuleReplacementPlugin();
     },

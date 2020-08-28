@@ -2,11 +2,10 @@ interface Pair {
   [key: string]: any
 }
 
-interface Loose {
-  [key: string]: any
+interface LooselyDefined {
+  [key: string]: any | any[]
 }
-
-export {Loose}
+export declare type Loose = LooselyDefined
 
 import {TransformOptions as BabelTransformOptions} from '@babel/core'
 export {BabelTransformOptions}

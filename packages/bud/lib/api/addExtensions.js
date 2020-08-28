@@ -11,7 +11,9 @@ exports.addExtensions = void 0;
 var addExtensions = function (extensions) {
     var _this = this;
     extensions.map(function (ext) {
-        !_this.options.get('webpack.resolve.extensions').includes(ext) &&
+        !_this.options
+            .get('webpack.resolve.extensions')
+            .includes("." + ext) &&
             _this.options.set('webpack.resolve.extensions', __spreadArrays(_this.options.get('webpack.resolve.extensions'), [
                 "." + ext,
             ]));

@@ -1,15 +1,15 @@
 /// <reference types="webpack-dev-server" />
-import type { Framework } from '@roots/bud-framework';
 import type { WebpackConfig, WebpackDevServer } from '@roots/bud-typings';
+import type { Loose } from '@roots/bud-typings';
 import type { Configuration, Stats } from 'webpack';
 export type { Configuration as WebpackConfig, Stats as WebpackStats, WebpackDevServer, };
-export interface RunnerProps {
-    bud: Framework;
+export declare interface RunnerProps {
+    bud: Loose;
 }
 export declare type BudRenderer = (config: any, webpackConfig: Configuration) => void;
-export declare type CompilerFactory = (bud: Framework, config: WebpackConfig) => CompilerController;
+export declare type CompilerFactory = (bud: Loose, config: WebpackConfig) => CompilerController;
 export interface CompilerController {
-    bud: Framework;
+    bud: Loose;
     config: WebpackConfig;
     compile: () => void;
 }

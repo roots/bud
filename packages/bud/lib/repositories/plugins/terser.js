@@ -7,7 +7,6 @@ exports.terser = void 0;
 var terser_webpack_plugin_1 = __importDefault(require("terser-webpack-plugin"));
 var terser = function (bud) { return ({
     bud: bud,
-    name: 'terser-webpack-plugin',
     options: bud.options.get('webpack.plugins.terser'),
     make: function () {
         return new terser_webpack_plugin_1["default"](this.options);

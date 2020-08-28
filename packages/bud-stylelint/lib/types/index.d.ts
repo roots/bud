@@ -1,11 +1,7 @@
-import { Extension } from '@roots/bud';
-/**
- * Bud extension: Stylelint support.
- */
-declare const stylelint: Extension;
+import { Plugin } from '@roots/bud-framework';
+declare const stylelint: Plugin;
 declare const preset: {
     roots: string;
 };
-export { stylelint };
-export { preset };
+export { stylelint, preset };
 //# sourceMappingURL=index.d.ts.map

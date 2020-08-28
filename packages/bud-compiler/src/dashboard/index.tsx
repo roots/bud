@@ -1,7 +1,6 @@
 import React, {useEffect, FunctionComponent} from 'react'
-import {useApp, useInput} from 'ink'
+import {useInput} from 'ink'
 import useStdOutDimensions from 'ink-use-stdout-dimensions'
-import fs from 'fs-extra'
 
 /**
  * Hooks
@@ -30,7 +29,6 @@ const Dashboard: DashboardComponent = ({bud}) => {
   const [width, height] = useStdOutDimensions()
   const [state, actions] = useFocusState()
   const build = useWebpack(bud)
-  const {exit} = useApp()
 
   const quit = () => {
     bud.util.terminate()

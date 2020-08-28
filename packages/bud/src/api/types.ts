@@ -7,23 +7,27 @@ export type {WebpackConfiguration}
 import {Options as DependencyExtractionOptions} from '@wordpress/dependency-extraction-webpack-plugin'
 export type {DependencyExtractionOptions}
 
-export type Dist = (path?: string) => string
-export type Dump = (enabled: boolean) => Bud
-export type PathSetter = (path: string) => Bud
-export type Glob = (this: Bud, output: string, files: string) => Bud
-export type Hash = (this: Bud, enabled?: boolean) => Bud
-export type Mini = (enabled?: boolean) => Bud
-export type Option = (key: string) => string
-export type PostCss = (options?: {
+export declare type Dist = (path?: string) => string
+export declare type Dump = (enabled: boolean) => Bud
+export declare type PathGetter = (path: string | undefined) => string
+export declare type PathSetter = (path: string) => Bud
+export declare type Glob = (
+  this: Bud,
+  output: string,
+  files: string,
+) => Bud
+export declare type Hash = (this: Bud, enabled?: boolean) => Bud
+export declare type Mini = (enabled?: boolean) => Bud
+export declare type Option = (key: string) => string
+export declare type PostCss = (options?: {
   enabled?: boolean
   plugins?: any[]
 }) => Bud
-export type Preset = (path?: string) => any
-export type Project = (path?: string) => string
-export type Resolve = (moduleName: string) => string
-export type SourceMap = (enabled?: boolean) => Bud
-export type Src = (path?: string) => string
-export type Target = (target: string) => Bud
+export declare type Preset = (path?: string) => any
+export declare type Project = (path?: string) => string
+export declare type Resolve = (moduleName: string) => string
+export declare type SourceMap = (enabled?: boolean) => Bud
+export declare type Target = (target: string) => Bud
 
 import type {AddExtensions} from './addExtensions'
 export type {AddExtensions}
@@ -61,11 +65,18 @@ export type {RuntimeManifest}
 import type {Terser} from './terser'
 export type {Terser}
 
-import type {UseExtension} from './use'
-export type {UseExtension}
+import type {UsePlugin} from './use'
+export type {UsePlugin}
 
 import type {Vendor} from './vendor'
 export type {Vendor}
+
+export declare type Fluent = (
+  this: Bud,
+  options: {
+    [key: string]: any
+  },
+) => Bud
 
 export type Api = {
   addExtensions: AddExtensions
@@ -91,10 +102,10 @@ export type Api = {
   project: Project
   publicPath: PathSetter
   runtimeManifest: RuntimeManifest
-  src: Src
+  src: PathGetter
   srcPath: PathSetter
   target: Target
   terser: Terser
-  use: UseExtension
+  use: UsePlugin
   vendor: Vendor
 }

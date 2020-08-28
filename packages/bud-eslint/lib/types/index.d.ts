@@ -1,12 +1,9 @@
-import type { Extension } from '@roots/bud';
-import presets from './preset';
-declare const eslint: Extension;
+import { Plugin } from '@roots/bud-framework';
+declare const eslint: Plugin;
 declare const preset: {
     roots: string;
     wordpress: string;
     react: string;
 };
-export { eslint };
-export { preset };
-export { presets };
+export { eslint, preset, };
 //# sourceMappingURL=index.d.ts.map

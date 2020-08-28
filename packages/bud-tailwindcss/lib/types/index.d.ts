@@ -1,4 +1,4 @@
-import { Extension } from '@roots/bud';
-declare const tailwindcss: Extension;
+import { Plugin } from '@roots/bud-framework';
+declare const tailwindcss: Plugin;
 export { tailwindcss };
 //# sourceMappingURL=index.d.ts.map

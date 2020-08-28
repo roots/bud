@@ -1,17 +1,13 @@
-import {CleanWebpackPlugin as Plugin} from 'clean-webpack-plugin'
-import type {CleanWebpackPlugin} from 'clean-webpack-plugin'
+import {CleanWebpackPlugin} from 'clean-webpack-plugin'
+import type {Plugin} from '@roots/bud-framework'
 
-import type {Extension} from './index'
-
-const cleanWebpack: Extension = bud => ({
+const cleanWebpack: Plugin = bud => ({
   bud,
-
-  name: 'clean-webpack-plugin',
 
   options: bud.options.get('webpack.plugins.clean'),
 
   make: function (): CleanWebpackPlugin {
-    return new Plugin(this.options)
+    return new CleanWebpackPlugin(this.options)
   },
 
   when: function () {
