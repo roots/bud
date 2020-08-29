@@ -18,39 +18,40 @@ const server = (bud: Bud): Express => {
   )
 
   bud.options.set('webpack.entry', injectEntrypoints(domain, config))
+
   bud.apply('compiler', webpack(bud.config(bud)))
 
   app.use(
     devMiddleware(
       bud.compiler,
-      makeDevOptions(bud, domain, config.devServer),
+      makeDevOptions(bud, config.devServer),
     ),
   )
 
-  app.use(
-    hotMiddleware(
-      bud.compiler,
-      makeHotOptions(bud, domain, config.devServer),
-    ),
-  )
+  app.use(hotMiddleware(bud.compiler, makeHotOptions()))
 
-  if (config.devServer.proxy) {
-    const proxyOptions = makeProxyOptions(bud, config.devServer)
-    const proxyMiddleware = createProxyMiddleware(proxyOptions)
-    app.use('**', proxyMiddleware)
-  }
+  config.devServer.proxy &&
+    app.use(
+      '**',
+      createProxyMiddleware(makeProxyOptions(config.devServer)),
+    )
 
-  app.listen(config.devServer.port, 'localhost')
+  app.listen(config.devServer.port, config.devServer.host)
 
-  bud.compiler.hooks.afterEmit.tap('bud', compilation => {
+  bud.compiler.hooks.afterEmit.tap('bud', () => {
     bud.fs.outputFile(bud.dist('hot'), domain)
   })
+
   return app
 }
 
-const makeDevOptions = (bud, domain, options) => ({
+const poweredBy = {
+  'X-Proxied-By': '@roots/bud',
+}
+
+const makeDevOptions = (bud, options) => ({
   filename: options.filename || 'index.html',
-  headers: options.headers || {},
+  headers: {...options.headers, ...poweredBy} || poweredBy,
   lazy: options.lazy || false,
   logger: options.logger || bud.logger,
   logLevel: options.logLevel || 'info',
@@ -60,25 +61,27 @@ const makeDevOptions = (bud, domain, options) => ({
   publicPath: options.publicPath,
   serverSideRender: options.serverSideRender || false,
   stats: options.stats || false,
-  watchOptions: {
+  watchOptions: options.watchOptions || {
     aggregateTimeout: 300,
     poll: true,
   },
   writeToDisk: options.writeToDisk || false,
 })
 
-const makeHotOptions = (bud, domain, options) => ({
+const makeHotOptions = () => ({
   path: '/__webpack_hmr',
   heartbeat: 2000,
 })
 
-const makeProxyOptions = (bud, options) => ({
-  target: options.proxy.target,
-  autoRewrite: options.proxy.autoRewrite || true,
-  changeOrigin: options.proxy.changeOrigin || true,
-  ws: options.proxy.ws || true,
+const makeProxyOptions = config => ({
+  target: config.proxy.target,
+  autoRewrite: config.proxy.autoRewrite || true,
+  changeOrigin: config.proxy.changeOrigin || true,
+  ws: config.proxy.ws || true,
   router: {
-    [`${options.proxy.target}:3000`]: `${options.host}:8000`,
+    [`${config.proxy.target || 'localhost'}:3000`]: `${
+      config.proxy.host
+    }:${config.proxy.port || 8000}`,
   },
 })
 

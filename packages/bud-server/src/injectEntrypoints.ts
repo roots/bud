@@ -1,6 +1,3 @@
-import {WebpackEntry} from '@roots/bud-typings'
-import {dirname, join, resolve} from 'path'
-
 const injectEntrypoints: (domain: string, options: any) => any = (
   domain,
   options,
