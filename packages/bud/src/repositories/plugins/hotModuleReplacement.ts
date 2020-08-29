@@ -7,10 +7,6 @@ const hotModuleReplacement: Plugin = bud => ({
   make: function () {
     return new HotModuleReplacementPlugin()
   },
-
-  when: function () {
-    return this.bud.features.enabled('hot')
-  },
 })
 
 export {hotModuleReplacement}

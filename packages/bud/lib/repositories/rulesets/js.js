@@ -5,9 +5,10 @@ var js = function (bud) {
     return bud.hooks.filter('webpack.module.rules.js', {
         test: bud.hooks.filter('webpack.module.rules.js.test', bud.patterns.get('js')),
         exclude: bud.hooks.filter('webpack.module.rules.js.exclude', bud.patterns.get('vendor')),
-        use: bud.hooks.filter('webpack.module.rules.js.use', [
-            bud.uses.get('babel')(bud),
-        ])
+        use: bud.hooks.filter('webpack.module.rules.js.use', {
+            value: [bud.uses.get('babel')(bud)],
+            bud: bud
+        }).value
     });
 };
 exports.js = js;

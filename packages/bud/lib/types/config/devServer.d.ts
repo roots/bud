@@ -1,4 +1,4 @@
-/// <reference types="webpack-dev-server" />
+/// <reference types="webpack-dev-middleware" />
 import type { Bud } from './types';
 import type { WebpackDevServer } from '@roots/bud-typings';
 declare type DevServerBuilder = (bud: Bud) => WebpackDevServer;

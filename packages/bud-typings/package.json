@@ -34,7 +34,10 @@
     "build": "rimraf ./lib && tsc"
   },
   "devDependencies": {
-    "@roots/bud-support": "^2.0.0-next.5",
-    "@roots/bud-framework": "^2.0.0-next.5"
+    "@roots/bud-framework": "^2.0.0-next.5",
+    "@roots/bud-support": "^2.0.0-next.5"
+  },
+  "dependencies": {
+    "webpack-dev-middleware": "^3.7.2"
   }
 }

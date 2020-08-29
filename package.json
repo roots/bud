@@ -23,8 +23,7 @@
   },
   "workspaces": {
     "packages": [
-      "packages/*",
-      "packages/bud-sage"
+      "packages/*"
     ]
   },
   "scripts": {

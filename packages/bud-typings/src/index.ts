@@ -29,6 +29,7 @@ export type WebpackOutput = WebpackConfig['output']
 export type WebpackPlugins = WebpackConfig['plugins']
 export type WebpackResolve = WebpackConfig['resolve']
 export type WebpackTarget = WebpackConfig['target']
+
 export {
   WebpackConfig,
   WebpackConfigFactory,
@@ -36,5 +37,4 @@ export {
   WebpackRule,
 }
 
-import {Configuration as WebpackDevServer} from 'webpack-dev-server'
-export {WebpackDevServer}
+export {Options as WebpackDevServer} from 'webpack-dev-middleware'

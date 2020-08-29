@@ -19,12 +19,10 @@ const eslint = (bud) => ({
                 failOnError: true,
             },
         }));
-        this.bud.rules.set('eslint', (bud) => ({
-            enforce: 'pre',
-            test: bud.patterns.get('js'),
-            exclude: bud.patterns.get('vendor'),
-            use: [bud.uses.get('eslint')(bud)],
-        }));
+        this.bud.hooks.filter('webpack.module.rules.js.use', (use, bud) => [
+            bud.uses.get('babel')(bud),
+            bud.uses.get('eslint')(bud),
+        ]);
     },
 });
 exports.eslint = eslint;

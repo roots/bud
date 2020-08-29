@@ -25,12 +25,10 @@ const eslint: Plugin = (bud: Bud) => ({
       },
     }))
 
-    this.bud.rules.set('eslint', (bud: Bud) => ({
-      enforce: 'pre',
-      test: bud.patterns.get('js'),
-      exclude: bud.patterns.get('vendor'),
-      use: [bud.uses.get('eslint')(bud)],
-    }))
+    this.bud.hooks.filter('webpack.module.rules.js.use', ({use, bud}) => [
+      bud.uses.get('babel'),
+      bud.uses.get('eslint'),
+    ])
   },
 })
 

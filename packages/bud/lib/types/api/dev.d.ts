@@ -1,4 +1,4 @@
-/// <reference types="webpack-dev-server" />
+/// <reference types="webpack-dev-middleware" />
 import type { Bud } from './types';
 import { WebpackDevServer } from '@roots/bud-typings';
 interface DevOptions extends WebpackDevServer {

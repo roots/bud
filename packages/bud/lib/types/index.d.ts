@@ -1,5 +1,4 @@
 /// <reference types="webpack" />
-/// <reference types="webpack-dev-server" />
 import * as Api from './api/types';
 import { Container, PluginContainer, FileContainer, PluginControllerInterface, Hooks, Util } from '@roots/bud-framework';
 import { WebpackMode, WebpackConfig } from '@roots/bud-typings';

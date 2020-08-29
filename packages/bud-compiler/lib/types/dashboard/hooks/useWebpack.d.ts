@@ -1,9 +1,10 @@
+import { Bud } from '@roots/bud';
 /**
  * Hook: useWebpack
  *
  * @prop {Bud} bud
  */
-declare const useWebpack: (bud: any) => {
+declare const useWebpack: (bud: Bud) => {
     assets: any[];
     hasAssets: boolean;
     errors: any[];

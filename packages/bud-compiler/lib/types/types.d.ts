@@ -1,4 +1,3 @@
-/// <reference types="webpack-dev-server" />
 import type { WebpackConfig, WebpackDevServer } from '@roots/bud-typings';
 import type { Loose } from '@roots/bud-typings';
 import type { Configuration, Stats } from 'webpack';

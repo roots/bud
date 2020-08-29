@@ -4,14 +4,11 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 };
 exports.__esModule = true;
 exports.render = void 0;
-var webpack_1 = __importDefault(require("webpack"));
 var react_1 = __importDefault(require("react"));
 var ink_1 = require("ink");
 var dashboard_1 = require("./dashboard");
-var render = function (bud, config) {
-    bud.compiler = webpack_1["default"](config);
-    var props = { bud: bud };
-    var application = react_1["default"].createElement(dashboard_1.Dashboard, props);
+var render = function (bud) {
+    var application = react_1["default"].createElement(dashboard_1.Dashboard, { bud: bud });
     ink_1.render(application);
 };
 exports.render = render;

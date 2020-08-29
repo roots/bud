@@ -1,8 +1,7 @@
+import {Bud} from '@roots/bud'
 import {useState, useEffect} from 'react'
 import {useProgress} from './useProgress'
-import fs from 'fs-extra'
-import chokidar from 'chokidar'
-import WebpackDevServer, {addDevServerEntrypoints} from 'webpack-dev-server'
+import budServer, {writeHotFlag} from '@roots/bud-server'
 
 type Results = {
   error?: any
@@ -11,23 +10,12 @@ type Results = {
 
 type Build = any
 
-const writeHotFlag = bud => {
-  const {host, port, publicPath} = bud.options.get(
-    'webpack.devServer',
-  )
-
-  fs.outputFile(
-    bud.dist('hot'),
-    `http://${host}:${port}${publicPath}`,
-  )
-}
-
 /**
  * Hook: useWebpack
  *
  * @prop {Bud} bud
  */
-const useWebpack = bud => {
+const useWebpack = (bud: Bud) => {
   /**
    * Query bud for mode settings.
    */
@@ -71,7 +59,7 @@ const useWebpack = bud => {
   const [progressApplied, setProgressPluginApplied] = useState(null)
   useEffect(() => {
     if (progress) {
-      progress.apply(bud.compiler)
+      // progress.apply(bud.compiler)
       setProgressPluginApplied(true)
     }
   }, [progress, bud])
@@ -81,33 +69,12 @@ const useWebpack = bud => {
   const [server, setServer] = useState(null)
 
   useEffect(() => {
-    if (!progressApplied && !webpackRunning) {
+    if (webpackRunning) {
       return
     }
 
-    addDevServerEntrypoints(
-      bud.compiler,
-      bud.options.get('webpack.devServer'),
-    )
-
-    if (bud.features.enabled('watch') || true) {
-      bud.options.set('webpack.devServer', {
-        ...bud.options.get('webpack.devServer'),
-        before(app, server) {
-          chokidar
-            .watch(bud.options.get('watch') ?? [])
-            .on('change', function () {
-              server.sockWrite(server.sockets, 'content-updated')
-            })
-        },
-      })
-    }
-
-    const server = new WebpackDevServer(bud.compiler, {
-      ...bud.options.get('webpack.devServer'),
-    }).listen(3000)
-
-    setServer(server)
+    budServer(bud)
+    setServer(false)
     setWebpackRunning(true)
   }, [progressApplied, webpackRunning, hot, watch, bud])
 

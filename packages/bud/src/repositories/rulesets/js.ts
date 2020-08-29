@@ -13,9 +13,10 @@ const js = (bud: Bud): WebpackRule =>
       bud.patterns.get('vendor'),
     ),
 
-    use: bud.hooks.filter('webpack.module.rules.js.use', [
-      bud.uses.get('babel')(bud),
-    ]),
+    use: bud.hooks.filter('webpack.module.rules.js.use', {
+      value: [bud.uses.get('babel')(bud)],
+      bud,
+    }).value,
   })
 
 export {js}

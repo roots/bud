@@ -1,5 +1,4 @@
 /// <reference types="webpack" />
-/// <reference types="webpack-dev-server" />
 import type { Bud } from './types';
 import type { WebpackConfig } from '@roots/bud-typings';
 declare const builders: (import("./entry").EntryBuilder | import("./devServer").DevServerBuilder | import("./externals").ExternalsBuilder | ((bud: Bud) => {

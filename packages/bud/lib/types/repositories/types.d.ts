@@ -1,4 +1,3 @@
-/// <reference types="browser-sync" />
 import { Container, FileContainer } from '@roots/bud-framework';
 export declare type Options = Container;
 import type { BrowserSyncOptions, WebpackExternals } from '@roots/bud-typings';

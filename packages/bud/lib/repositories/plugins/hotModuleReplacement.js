@@ -6,9 +6,6 @@ var hotModuleReplacement = function (bud) { return ({
     bud: bud,
     make: function () {
         return new webpack_1.HotModuleReplacementPlugin();
-    },
-    when: function () {
-        return this.bud.features.enabled('hot');
     }
 }); };
 exports.hotModuleReplacement = hotModuleReplacement;

@@ -17,6 +17,5 @@ export declare type WebpackPlugins = WebpackConfig['plugins'];
 export declare type WebpackResolve = WebpackConfig['resolve'];
 export declare type WebpackTarget = WebpackConfig['target'];
 export { WebpackConfig, WebpackConfigFactory, WebpackOptions, WebpackRule, };
-import { Configuration as WebpackDevServer } from 'webpack-dev-server';
-export { WebpackDevServer };
+export { Options as WebpackDevServer } from 'webpack-dev-middleware';
 //# sourceMappingURL=index.d.ts.map

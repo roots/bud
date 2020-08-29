@@ -56,17 +56,7 @@ var options = {
                 host: 'localhost',
                 port: 3000,
                 disableHostCheck: true,
-                watchOptions: {
-                    poll: true
-                },
-                writeToDisk: true,
                 inline: true,
-                overlay: {
-                    errors: true,
-                    warnings: false
-                },
-                hotOnly: true,
-                publicPath: '/',
                 headers: {
                     'Access-Control-Allow-Origin': '*',
                     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
