@@ -1,11 +1,10 @@
-import {Bud, Extension, ExtensionInterface} from '@roots/bud'
+import {Plugin} from '@roots/bud-framework'
+import {Bud} from '@roots/bud'
 
-const react: Extension = (bud: Bud): ExtensionInterface => ({
+const react: Plugin = (bud: Bud) => ({
   bud,
 
-  name: 'react',
-
-  make: function (this: ExtensionInterface) {
+  make: function () {
     this.bud.options.set('babel.presets', [
       ...this.bud.options.get('babel.presets'),
       require.resolve('@babel/preset-react'),
@@ -13,11 +12,7 @@ const react: Extension = (bud: Bud): ExtensionInterface => ({
 
     !this.bud.options
       .get('webpack.resolve.extensions')
-      .includes('.jsx') &&
-      this.bud.options.set('webpack.resolve.extensions', [
-        ...this.bud.options.get('webpack.resolve.extensions'),
-        '.jsx',
-      ])
+      .includes('.jsx') && this.bud.addExtensions(['jsx'])
   },
 })
 

@@ -1,1 +1,0 @@
-{"version":3,"file":"Warning.d.ts","sourceRoot":"","sources":["../../../../src/dashboard/components/Warnings/Warning.tsx"],"names":[],"mappings":"AACA,OAAc,EAAY,iBAAiB,EAAC,MAAM,OAAO,CAAA;AAGzD,UAAU,YAAY;IACpB,OAAO,EAAE,MAAM,CAAA;CAChB;AAED,aAAK,gBAAgB,GAAG,iBAAiB,CAAC,YAAY,CAAC,CAAA;AAEvD,QAAA,MAAM,OAAO,EAAE,gBAgBd,CAAA;AAED,OAAO,EAAC,OAAO,EAAC,CAAA"}

@@ -1,3 +1,6 @@
+import chokidar from 'chokidar'
+import {resolve} from 'path'
+
 import type {
   BabelTransformOptions,
   BrowserSyncOptions,
@@ -12,8 +15,25 @@ export type Copy = {patterns: any[]}
 const target: WebpackTarget = 'web'
 
 const babelFallback: BabelTransformOptions = {
-  presets: [require.resolve('@babel/preset-env')],
-  plugins: [],
+  presets: [
+    [
+      require.resolve('@babel/preset-env'),
+      {
+        modules: false,
+        forceAllTransforms: true,
+      },
+    ],
+  ],
+  plugins: [
+    require.resolve('@babel/plugin-syntax-dynamic-import'),
+    require.resolve('@babel/plugin-proposal-object-rest-spread'),
+    [
+      require.resolve('@babel/plugin-transform-runtime'),
+      {
+        helpers: false,
+      },
+    ],
+  ],
 }
 
 const browsersync: (flags) => any = flags => ({
@@ -52,13 +72,11 @@ const options: RepositoryDefinition = {
     postcss,
     patterns: [],
     webpack: {
-      entry: {},
-      externals: false,
-      resolve: {
-        alias: false,
-        extensions: ['.css', '.js', '.json', '.svg'],
-      },
       devServer: {
+        host: 'localhost',
+        port: 3000,
+        disableHostCheck: true,
+        inline: true,
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods':
@@ -66,6 +84,12 @@ const options: RepositoryDefinition = {
           'Access-Control-Allow-Headers':
             'X-Requested-With, content-type, Authorization',
         },
+      },
+      entry: {},
+      externals: {},
+      resolve: {
+        alias: false,
+        extensions: ['.css', '.js', '.json', '.svg'],
       },
       devtool: 'source-map',
       node: {
@@ -83,12 +107,21 @@ const options: RepositoryDefinition = {
           name: entrypoint => `runtime/${entrypoint.name}`,
         },
         splitChunks: {
-          cacheGroup: {
+          cacheGroups: {
             vendor: {
-              test: /node_modules/,
-              name: 'vendor.js',
+              test: /[\\/]node_modules[\\/]/,
+              name: function (module, chunks, cacheGroupKey) {
+                const moduleFileName = module
+                  .identifier()
+                  .split('/')
+                  .reduceRight(item => item)
+                const allChunksNames = chunks
+                  .map(item => item.name)
+                  .join('~')
+                return `${cacheGroupKey}---${allChunksNames}---${moduleFileName}`
+              },
               chunks: 'all',
-              priority: -20,
+              automaticNamePrefix: 'vendor',
             },
           },
         },
@@ -100,7 +133,6 @@ const options: RepositoryDefinition = {
         fixStyleOnlyEntries: {
           silent: true,
         },
-        hotModuleReplacement: {},
         terser: {
           terserOptions: {
             parse: {
@@ -135,14 +167,14 @@ const options: RepositoryDefinition = {
       target,
     },
     splitting: {
-      maxChunks: null,
+      maxChunks: 9999,
     },
     filenameTemplate: {
       hashed: '[name].[hash:8]',
       default: '[name]',
     },
     manifest: {
-      name: 'manifest.json',
+      name: 'manifest',
     },
   },
 }

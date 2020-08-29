@@ -1,10 +1,11 @@
 interface Pair {
   [key: string]: any
 }
-interface Loose {
-  [key: string]: Pair[]
+
+interface LooselyDefined {
+  [key: string]: any | any[]
 }
-export {Loose}
+export declare type Loose = LooselyDefined
 
 import {TransformOptions as BabelTransformOptions} from '@babel/core'
 export {BabelTransformOptions}
@@ -19,7 +20,6 @@ import type {
   Options as WebpackOptions,
 } from 'webpack'
 
-export type WebpackDevServer = WebpackConfig['devServer']
 export type WebpackEntry = WebpackConfig['entry']
 export type WebpackExternals = WebpackConfig['externals']
 export type WebpackMode = WebpackConfig['mode']
@@ -29,9 +29,12 @@ export type WebpackOutput = WebpackConfig['output']
 export type WebpackPlugins = WebpackConfig['plugins']
 export type WebpackResolve = WebpackConfig['resolve']
 export type WebpackTarget = WebpackConfig['target']
-export type {
+
+export {
   WebpackConfig,
   WebpackConfigFactory,
   WebpackOptions,
   WebpackRule,
 }
+
+export {Options as WebpackDevServer} from 'webpack-dev-middleware'

@@ -1,102 +1,75 @@
 import {bud} from '@roots/bud'
-import type {Bud, Extension} from '@roots/bud'
-import {extraction as extractionExtension} from '@roots/bud-dependency-extraction-webpack-plugin'
-import {sass as sassExtension} from '@roots/bud-sass'
-import {eslint as eslintExtension} from '@roots/bud-eslint'
-import {stylelint as stylelintExtension} from '@roots/bud-stylelint'
-import {
-  purgecss as purgecssExtension,
-  presets,
-} from '@roots/bud-purgecss'
+import type {Bud} from '@roots/bud'
+import type {Plugin} from '@roots/bud-framework'
 
-/**
- * Available features.
- */
-type FeatureKey =
-  | 'purge'
-  | 'eslint'
-  | 'stylelint'
-  | 'extraction'
-  | 'sass'
+import {dependencyExtractionPlugin} from '@roots/bud-dependency-extraction-webpack-plugin'
+import {sass} from '@roots/bud-sass'
+import {eslint} from '@roots/bud-eslint'
+import {stylelint} from '@roots/bud-stylelint'
+import {purgecss, purgeWordPress} from '@roots/bud-purgecss'
 
-/**
- * Map features to their extensions
- */
-interface Features {
-  [key: string]: Extension
-}
+type SageFeature =
+  | typeof purgecss
+  | typeof eslint
+  | typeof stylelint
+  | typeof dependencyExtractionPlugin
+  | typeof sass
 
-interface Enabled {
-  key: FeatureKey
+type SageFeatures = Plugin[]
+
+interface FeatureOption {
+  key: SageFeature
   value: boolean
 }
 
+type SelectFeatures = FeatureOption[]
+
+const featureSet: SageFeatures = [
+  purgecss,
+  eslint,
+  stylelint,
+  dependencyExtractionPlugin,
+  sass,
+]
+
 /**
- * ## bud.sage
+ * ## sage.enableThemeFeatures
  *
  * Customize the features used in your theme.
- *
- * ```js
- * bud.sage({
- *  purge: false,
- * })
  */
-interface Sage extends Bud {
-  purgecss: any
-  sass: any
-  withFeatures: any
-}
+const enableThemeFeatures = function (features: SelectFeatures) {
+  const enabledFeatures: Plugin[] = []
 
-interface WithFeatures {
-  (this: Sage, enabled: Enabled): Sage
-}
+  if (!features) {
+    featureSet.forEach(feature => {
+      enabledFeatures.push(feature)
+    })
+  } else {
+    Object.entries(featureSet).forEach(([feature, plugin]) => {
+      const isEnabled =
+        !features ||
+        !features.hasOwnProperty(feature) ||
+        features[feature] !== false
 
-const features: Features = {
-  purgecss: purgecssExtension,
-  eslint: eslintExtension,
-  stylelint: stylelintExtension,
-  extraction: extractionExtension,
-  sass: sassExtension,
-}
+      isEnabled && enabledFeatures.push(plugin)
+    })
+  }
 
-const withFeatures: WithFeatures = function (options): Sage {
-  const enabled: Extension[] = []
+  this.use(enabledFeatures)
 
-  options
-    ? Object.entries(features).forEach(([feature, extension]) => {
-        const isEnabled =
-          !options ||
-          !options.hasOwnProperty(feature) ||
-          options[feature] !== false
-
-        isEnabled && enabled.push(extension)
-      })
-    : Object.values(features).forEach(feature => {
-        enabled.push(feature)
-      })
-
-  this.use(enabled)
-
-  enabled.includes(purgecssExtension) &&
+  enabledFeatures.includes(purgecss) &&
     this.purgecss({
       enabled: this.inProduction,
-      options: {
-        ...presets.wordpress,
-      },
+      options: purgeWordPress,
     })
 
   return this
 }
 
-/**
- * @roots/bud-sage
- *
- * Preset configuration for Sage projects
- */
-const sage = (() => {
-  bud.apply('withFeatures', withFeatures)
+const sage: Bud = (() => {
+  bud.apply('enableThemeFeatures', enableThemeFeatures)
 
-  bud
+  return bud
     .srcPath('resources/assets')
     .distPath('dist')
     .alias({
@@ -105,7 +78,7 @@ const sage = (() => {
       '@scripts': bud.src('scripts'),
       '@styles': bud.src('styles'),
     })
-    .auto({
+    .provide({
       jquery: ['$', 'window.jQuery'],
     })
     .runtimeManifest()
@@ -113,9 +86,7 @@ const sage = (() => {
     .map(bud.inDevelopment)
     .hash(bud.inProduction)
     .vendor()
-
-  return bud
 })()
 
-export {sage}
-export {WithFeatures, FeatureKey, Features, Enabled}
+declare type Sage = typeof sage
+export {sage, Sage, SageFeature, SageFeatures}

@@ -1,11 +1,8 @@
 import ManifestPlugin from 'webpack-manifest-plugin'
+import type {Plugin} from '@roots/bud-framework'
 
-import type {Extension} from './index'
-
-const manifest: Extension = bud => ({
+const manifest: Plugin = bud => ({
   bud,
-
-  name: 'webpack-manifest-plugin',
 
   options: {
     publicPath:

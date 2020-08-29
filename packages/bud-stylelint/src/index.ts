@@ -1,24 +1,51 @@
-import {Bud, Extension, ExtensionInterface} from '@roots/bud'
-import {join, resolve} from 'path'
-import stylelintPlugin from './adapter'
-import api from './api'
+import {Bud} from '@roots/bud'
+import {Plugin} from '@roots/bud-framework'
+import StylelintPlugin from 'stylelint-webpack-plugin'
+import type {Options as StylelintOptions} from 'stylelint-webpack-plugin/declarations/getOptions'
+import {resolve} from 'path'
 
-/**
- * Bud extension: Stylelint support.
- */
-const stylelint: Extension = (bud: Bud): ExtensionInterface => ({
+const stylelint: Plugin = (bud: Bud) => ({
   bud,
-  name: 'stylelint',
-  make: function (this: ExtensionInterface) {
-    const config = join(this.bud.project('stylelint.config.js'))
-    if (!this.bud.fs.existsSync(config)) {
-      return
+
+  make: function () {
+    const config = this.bud.fs.join(
+      this.bud.project('stylelint.config.js'),
+    )
+
+    if (this.bud.fs.existsSync(config)) {
+      this.bud.features.enable('stylelint')
+      this.bud.configs.set('stylelint', config)
+
+      this.bud.options.set(
+        'webpack.plugins.stylelint.configFile',
+        this.bud.configs.get('stylelint'),
+      )
     }
 
-    this.bud.apply('stylelint', api)
-    this.bud.configs.set('stylelint', config)
-    this.bud.features.set('stylelint', true)
-    this.bud.plugins.push(stylelintPlugin)
+    this.bud.apply('stylelint', function (options: StylelintOptions) {
+      this.features.enable('stylelint')
+      this.options.set('webpack.plugins.stylelint', options)
+
+      return this
+    })
+
+    this.bud.plugins.set('stylelint-webpack-plugin', (bud: Bud) => ({
+      bud,
+
+      make: function () {
+        return new StylelintPlugin({
+          configFile:
+            this.bud.options.get(
+              'webpack.plugins.stylelint.configFile',
+            ) || this.bud.configs.get('webpack.plugins.stylelint'),
+          ...this.bud.options.get('webpack.plugins.stylelint'),
+        })
+      },
+
+      when: function () {
+        return this.bud.features.enabled('stylelint')
+      },
+    }))
   },
 })
 
@@ -26,5 +53,4 @@ const preset = {
   roots: resolve(__dirname, './preset/index.js'),
 }
 
-export {stylelint}
-export {preset}
+export {stylelint, preset}

@@ -1,22 +1,69 @@
 import {existsSync} from 'fs-extra'
-import {logger} from './util/logger'
-import {get as _get, set as _set, merge as _merge} from 'lodash'
+import _ from 'lodash'
 
-import {
-  Container,
-  FileContainer,
-  ExtensionContainer,
-  ContainerInterface,
-  FileContainerInterface,
-  ExtensionContainerInterface,
-  ContainerBind,
-  Repository,
-  RepositoryDefinition,
-  Key,
-  Getter,
-  Action,
-  ConditionalCheck,
-} from './container.d'
+import {Loose} from '@roots/bud-typings'
+
+export declare type Repository = {
+  [key: string]: any | any[]
+}
+
+export declare type RepositoryDefinition = {
+  name: string
+  register: Repository
+}
+
+export declare type Key = string
+export declare type MaybeCallable = any | ((any) => any) | any[]
+export declare type Getter = (
+  this: Container,
+  key?: Key,
+) => MaybeCallable
+export declare type Action = (this: Container, ...args: any) => void
+export declare type ConditionalCheck = (
+  this: Container,
+  key: Key,
+  value?: any,
+) => boolean
+
+export declare interface ContainerInterface extends Loose {
+  name: string
+  repository: Repository
+  new: Action
+  get: Getter
+  require: () => void
+  addTo: Action
+  has: ConditionalCheck
+  is: ConditionalCheck
+  set: Action
+  map: Action
+  entries: Getter
+  push: Action
+  merge: Action
+  delete: Action
+  enable: Action
+  enabled: ConditionalCheck
+  disable: Action
+  disabled: ConditionalCheck
+}
+
+export declare interface FileContainerInterface
+  extends ContainerInterface {
+  require: Getter
+  exists: ConditionalCheck
+}
+
+export declare interface PluginContainerInterface
+  extends ContainerInterface {
+  add: Action
+}
+
+export declare type Container = ContainerInterface
+export declare type FileContainer = FileContainerInterface
+export declare type PluginContainer = PluginContainerInterface
+
+export declare type ContainerBind = (
+  repository: Repository,
+) => Container | FileContainer | PluginContainer
 
 const newContainer: Action = function (key, repository = {}) {
   this.repository[key] = new container(repository)
@@ -31,7 +78,7 @@ const push: Action = function (item) {
 }
 
 const get: Getter = function (key) {
-  return _get(this.repository, key)
+  return _.get(this.repository, key)
 }
 
 const is: ConditionalCheck = function (key, value) {
@@ -43,7 +90,7 @@ const containerRequire = function (key) {
 }
 
 const set: Action = function (key, value) {
-  _set(this.repository, key, value)
+  _.set(this.repository, key, value)
 }
 
 const has: ConditionalCheck = function (key) {
@@ -51,7 +98,7 @@ const has: ConditionalCheck = function (key) {
 }
 
 const merge: Action = function (key, value) {
-  _merge(this.repository[key], value)
+  this.set(key, _.merge(this.get(key), value))
 }
 
 const containerMethodDelete: Action = function (key) {
@@ -83,7 +130,7 @@ const map: Action = function (...params): any {
 }
 
 const entries: Getter = function () {
-  return this.repository
+  return Object.entries(this.repository)
 }
 
 const container: Action = function (repository?, name = 'anonymous') {
@@ -132,9 +179,9 @@ const registerFileContainer: ContainerBind = function (
 /**
  * Bind extension container.
  */
-const registerExtensionContainer: ContainerBind = function (
+const registerPluginContainer: ContainerBind = function (
   store: RepositoryDefinition,
-): ExtensionContainer {
+): PluginContainer {
   const instance = new container(store.register, store.name)
 
   return instance
@@ -144,21 +191,5 @@ export {
   container,
   registerContainer,
   registerFileContainer,
-  registerExtensionContainer,
-}
-
-export {
-  Container,
-  FileContainer,
-  ExtensionContainer,
-  ContainerInterface,
-  FileContainerInterface,
-  ExtensionContainerInterface,
-  ContainerBind,
-  Repository,
-  RepositoryDefinition,
-  Key,
-  Getter,
-  Action,
-  ConditionalCheck,
+  registerPluginContainer,
 }

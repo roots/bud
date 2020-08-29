@@ -5,16 +5,16 @@ import type {Bud} from '@roots/bud'
 const useProgress = (
   bud: Bud,
 ): {
-  progressPlugin: ProgressPlugin
+  progress: ProgressPlugin
   percentage: number
   message: string
 } => {
-  const [progressPlugin, setProgressPlugin] = useState(null)
+  const [progress, setProgress] = useState(null)
   const [percentage, setPercentage] = useState(0)
   const [message, setMessage] = useState(null)
 
   useEffect(() => {
-    if (!progressPlugin) {
+    if (!progress) {
       const newProgressPlugin = new ProgressPlugin({
         activeModules: true,
         modules: true,
@@ -24,16 +24,11 @@ const useProgress = (
         },
       })
 
-      setProgressPlugin(newProgressPlugin)
-
-      bud.logger.info(
-        {name: 'bud.compiler'},
-        'progress plugin created.',
-      )
+      setProgress(newProgressPlugin)
     }
   }, [])
 
-  return {progressPlugin, percentage, message}
+  return {progress, percentage, message}
 }
 
 export {useProgress}

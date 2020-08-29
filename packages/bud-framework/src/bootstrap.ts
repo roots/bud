@@ -1,11 +1,23 @@
 import {hooks} from './hooks'
-import {logger, util} from './util'
-import {extensions} from './extensions'
+import {util} from './util'
+import {pluginController} from './pluginControllerFactory'
 import {
   registerContainer,
-  registerExtensionContainer,
+  registerPluginContainer,
   registerFileContainer,
 } from './container'
+
+/**
+ * Error on unhandled rejections.
+ */
+process.on('unhandledRejection', (error: Error) => {
+  process.exitCode = 1
+
+  process.nextTick(() => {
+    console.error(error)
+    util.terminate()
+  })
+})
 
 /**
  * Bootstrap
@@ -13,8 +25,8 @@ import {
 const bootstrap = function (): void {
   this.hooks = hooks
   this.util = util
-  this.extensions = extensions
-  this.logger = logger
+  this.pluginController = pluginController
+  this.logger = util.logger
 
   this.apply = function (binding: string, value: any) {
     this[binding] = value
@@ -34,8 +46,8 @@ const bootstrap = function (): void {
     return this[name]
   }
 
-  this.bindExtensions = function (name, store = {}) {
-    this[name] = registerExtensionContainer(store)
+  this.bindPlugins = function (name, store = {}) {
+    this[name] = registerPluginContainer(store)
 
     return this[name]
   }

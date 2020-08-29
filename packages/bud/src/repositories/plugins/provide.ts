@@ -1,20 +1,13 @@
 import {ProvidePlugin} from 'webpack'
+import type {Plugin} from '@roots/bud-framework'
 
-import type {Extension} from './index'
-
-const provide: Extension = bud => ({
+const provide: Plugin = bud => ({
   bud,
 
-  name: 'provide-plugin',
-
-  options: bud.env.entries(),
-
   make: function () {
-    return new ProvidePlugin(this.options)
-  },
-
-  when: function () {
-    return this.options
+    return new ProvidePlugin(
+      bud.options.get('webpack.plugins.provide') || {},
+    )
   },
 })
 

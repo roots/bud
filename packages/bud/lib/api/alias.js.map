@@ -1,1 +1,0 @@
-{"version":3,"file":"alias.js","sourceRoot":"","sources":["../../src/api/alias.ts"],"names":[],"mappings":";;;;;;;;;;;;;;AAIA,IAAM,KAAK,GAAU,UAAU,OAAO;IACpC,IAAI,CAAC,OAAO,CAAC,GAAG,CAAC,uBAAuB,wBACnC,IAAI,CAAC,OAAO,CAAC,GAAG,CAAC,uBAAuB,CAAC,GACzC,IAAI,CAAC,KAAK,CAAC,MAAM,CAAC,WAAW,EAAE,OAAO,CAAC,EAC1C,CAAA;IAEF,OAAO,IAAI,CAAA;AACb,CAAC,CAAA;AAEO,sBAAK"}

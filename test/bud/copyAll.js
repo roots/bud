@@ -58,7 +58,7 @@ test('merges copyAll option', t => {
 })
 
 test('generates expected webpack.plugins entry', t => {
-  const config = bud.config.build()
+  const config = bud.config(bud)
 
   t.deepEqual(config.plugins[1].patterns, expectations)
 

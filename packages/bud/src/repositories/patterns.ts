@@ -13,7 +13,7 @@ const patterns: RepositoryDefinition = {
     svg: /\.svg$/,
     font: /\.(ttf|otf|eot|woff2?|png|jpe?g|gif|ico)$/,
     vendor: /node_modules/,
-    image: /\.(png|svg|jpg|gif)$/,
+    image: /\.(png|svg|jpg|jpeg|gif)$/,
   },
 }
 

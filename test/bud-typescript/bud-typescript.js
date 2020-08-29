@@ -59,7 +59,7 @@ ava('typescript method returns Bud object', t => {
 /**
  * Ruleset
  */
-const ruleFn = bud.rules.entries().pop()
+const ruleFn = bud.rules.get('typescript')
 const usesRule = ruleFn(bud)
 
 ava('adds ts test', t => {

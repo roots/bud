@@ -5,24 +5,21 @@ interface TerminateOptions extends Loose {
   dump?: boolean
   timeout?: number
 }
+
 type Terminate = (options?: TerminateOptions) => TerminateReturn
 
-/**
- * Terminate CLI execution
- */
 const terminate: Terminate = options => {
   const exit = (code: number) => {
-    options.dump ? process.abort() : process.exit(code)
+    options?.dump ? process.abort() : process.exit(code)
   }
 
   return () => err => {
-    if (err && err instanceof Error) {
+    if (err) {
       console.log(err.message, err.stack)
     }
 
-    setTimeout(exit, options.timeout).unref()
+    setTimeout(exit, options?.timeout ?? 0).unref()
   }
 }
 
-export {terminate}
-export type {Terminate}
+export {terminate, Terminate}

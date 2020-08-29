@@ -5,7 +5,8 @@
   "description": "Common types used throughout the Bud monorepo",
   "repository": {
     "type": "git",
-    "url": "git://github.com/roots/bud.git"
+    "url": "git://github.com/roots/bud.git",
+    "directory": "packages/bud-typings"
   },
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
@@ -26,14 +27,17 @@
     "lib"
   ],
   "main": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "types": "lib/types/index.d.ts",
   "scripts": {
     "lint": "eslint src/**.ts",
     "watch": "npm run build && npm link && nodemon",
     "build": "rimraf ./lib && tsc"
   },
   "devDependencies": {
-    "@roots/bud": "^2.0.0-next.5",
+    "@roots/bud-framework": "^2.0.0-next.5",
     "@roots/bud-support": "^2.0.0-next.5"
+  },
+  "dependencies": {
+    "webpack-dev-middleware": "^3.7.2"
   }
 }

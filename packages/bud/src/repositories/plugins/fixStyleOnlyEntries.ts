@@ -1,11 +1,8 @@
 import FixStyleOnlyEntriesPlugin from 'webpack-fix-style-only-entries'
+import type {Plugin} from '@roots/bud-framework'
 
-import type {Extension} from './index'
-
-const fixStyleOnlyEntries: Extension = bud => ({
+const fixStyleOnlyEntries: Plugin = bud => ({
   bud,
-
-  name: 'webpack-fix-style-only-entries',
 
   options: bud.options.get('webpack.plugins.fixStyleOnlyEntries'),
 

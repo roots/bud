@@ -1,5 +1,5 @@
 import React, {useEffect, FunctionComponent} from 'react'
-import {useApp, useInput} from 'ink'
+import {useInput} from 'ink'
 import useStdOutDimensions from 'ink-use-stdout-dimensions'
 
 /**
@@ -13,7 +13,6 @@ import {useFocusState} from './hooks/useFocusState'
  */
 import {App} from './components/App'
 import {Assets} from './components/Assets'
-import {BrowserSync} from './components/BrowserSync'
 import {Errors} from './components/Errors'
 import {Warnings} from './components/Warnings'
 import {DevServer} from './components/DevServer'
@@ -30,34 +29,17 @@ const Dashboard: DashboardComponent = ({bud}) => {
   const [width, height] = useStdOutDimensions()
   const [state, actions] = useFocusState()
   const build = useWebpack(bud)
-  const {exit} = useApp()
 
-  /**
-   * Quits application when called.
-   */
   const quit = () => {
-    bud.logger.info({name: 'bud.compiler'}, 'Quitting application.')
-    exit()
-
     bud.util.terminate()
-
     process.exit()
   }
-
   useInput(input => {
     if (input == 'q') {
-      bud.logger.info(
-        {name: 'bud.compiler', input},
-        'User requested to close application.',
-      )
-
       quit()
     }
   })
 
-  /**
-   * Run OS level notification when build complete
-   */
   useEffect(() => {
     if (build?.success) {
       const title = bud.hooks.filter(
@@ -65,10 +47,6 @@ const Dashboard: DashboardComponent = ({bud}) => {
         'Build complete.',
       )
       bud.util.notify({title})
-      bud.logger.info(
-        {name: 'bud.compiler', title},
-        'Build success notification',
-      )
     }
   }, [build?.success])
 
@@ -77,26 +55,9 @@ const Dashboard: DashboardComponent = ({bud}) => {
       !bud.features.enabled('watch') && !bud.features.enabled('hot')
 
     if (notWatching && build?.done) {
-      bud.logger.info(
-        {
-          name: 'bud.compiler',
-          watch: bud.features.enabled('watch'),
-          hot: bud.features.enabled('hot'),
-          build: {
-            ...build,
-            assets: build.assets.map(asset => asset.name),
-          },
-        },
-        'application determined to be finished based on state. quitting.',
-      )
-
       quit()
     }
   })
-
-  const showBrowserSync =
-    !bud.features.enabled('debug') &&
-    bud.features.enabled('browserSync')
 
   return (
     <App
@@ -108,8 +69,7 @@ const Dashboard: DashboardComponent = ({bud}) => {
       <Assets actions={actions} build={build} />
       <Errors actions={actions} build={build} />
       <Warnings actions={actions} build={build} />
-      {showBrowserSync && <BrowserSync actions={actions} />}
-      <DevServer actions={actions} build={build} />
+      <DevServer actions={actions} bud={bud} build={build} />
     </App>
   )
 }

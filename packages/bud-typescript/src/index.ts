@@ -1,26 +1,11 @@
 import {join} from 'path'
-import {Bud, Extension, ExtensionInterface} from '@roots/bud'
+import {Bud} from '@roots/bud'
+import {Plugin} from '@roots/bud-framework'
 
-type FluentConfig = (
-  this: Bud,
-  options: {
-    configFile?: string
-  },
-) => Bud
-
-const publicConfig: FluentConfig = function (this: Bud, options) {
-  options.configFile &&
-    this.configs.set('typescript', options.configFile)
-
-  this.options.merge('typescript', options)
-
-  return this
-}
-
-const typescript: Extension = bud => ({
+const typescript: Plugin = (bud: Bud) => ({
   bud,
-  name: 'typescript',
-  make: function (this: ExtensionInterface) {
+
+  make: function () {
     const configFile = join(this.bud.project('tsconfig.json'))
 
     if (this.bud.fs.existsSync(configFile)) {
@@ -31,22 +16,31 @@ const typescript: Extension = bud => ({
     }
 
     this.bud.addExtensions(['ts', 'tsx'])
+
     this.bud.patterns.set('typescript', /\.(ts|tsx)$/)
     this.bud.loaders.set('typescript', require.resolve('ts-loader'))
-    this.bud.uses.set('typescript', (bud: Bud) => ({
+
+    this.bud.uses.set('typescript', bud => ({
       loader: bud.loaders.get('typescript'),
       options: {
         configFile: bud.configs.get('typescript'),
       },
     }))
 
-    this.bud.rules.push((bud: Bud) => ({
+    this.bud.rules.set('typescript', bud => ({
       test: bud.patterns.get('typescript'),
       exclude: bud.patterns.get('vendor'),
       use: [bud.uses.get('typescript')],
     }))
 
-    this.bud.apply('typescript', publicConfig)
+    this.bud.apply('typescript', function (this: Bud, options) {
+      options.configFile &&
+        this.configs.set('typescript', options.configFile)
+
+      this.options.merge('typescript', options)
+
+      return this
+    })
   },
 })
 

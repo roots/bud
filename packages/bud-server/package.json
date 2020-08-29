@@ -1,0 +1,53 @@
+{
+  "name": "@roots/bud-server",
+  "description": "Development server for @roots/bud",
+  "version": "2.0.0-next.5",
+  "homepage": "https://roots.io/bud",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "packages/bud-server"
+  },
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "license": "MIT",
+  "contributors": [
+    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
+  ],
+  "engines": {
+    "node": ">=12"
+  },
+  "files": ["lib"],
+  "main": "./lib/index.js",
+  "types": "./lib/types/index.d.ts",
+  "scripts": {
+    "build": "rimraf ./lib && tsc",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@roots/bud": "^2.0.0-next.5",
+    "@roots/bud-framework": "^2.0.0-next.5",
+    "http-proxy-middleware": "^1.0.5",
+    "webpack": "^4.44.1",
+    "webpack-dev-middleware": "^3.7.2",
+    "webpack-hot-middleware": "^2.25.0"
+  },
+  "devDependencies": {
+    "@roots/bud-support": "^2.0.0-next.5",
+    "@roots/bud-typings": "^2.0.0-next.5",
+    "@types/eslint": "^7.2.0",
+    "@types/lodash": "^4.14.157",
+    "@types/node": "^14.0.23",
+    "@types/node-notifier": "^6.0.1",
+    "@types/prettier": "^2.0.2",
+    "@types/react": "^16.9.46",
+    "@types/react-dom": "^16.9.8",
+    "@types/webpack-dev-middleware": "^3.7.1",
+    "@types/webpack-hot-middleware": "^2.25.3"
+  }
+}

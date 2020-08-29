@@ -5,7 +5,11 @@ type DevServerBuilder = (bud: Bud) => WebpackDevServer
 
 const devServer: DevServerBuilder = bud =>
   bud.hooks.filter('webpack.devServer', {
-    devServer: bud.options.get('webpack.devServer'),
+    devServer: {
+      host: 'localhost',
+      port: 3000,
+      hot: bud.options.get('webpack.devServer.hot'),
+    },
   })
 
 export {devServer}

@@ -1,18 +1,23 @@
 import type {Bud} from '..'
-import {ExtensionRepository} from '../repositories/plugins'
+import {isArray} from 'lodash'
 
-type UseExtension = (this: Bud, plugin: any[]) => Bud
-
-const use: UseExtension = function (
+export declare type UsePlugin = (
   this: Bud,
-  extensions: ExtensionRepository,
-): Bud {
-  extensions.map(extension => {
-    this.extensions(this, extension).build()
-  })
+  plugins: any | any[],
+) => Bud
+
+const use: UsePlugin = function (plugins): Bud {
+  if (isArray(plugins)) {
+    plugins.forEach(plugin => {
+      typeof plugin == 'function'
+        ? this.controller.use(plugin).build()
+        : null
+    })
+  } else {
+    this.controller.use(plugins).build()
+  }
 
   return this
 }
 
 export {use}
-export type {UseExtension}

@@ -1,12 +1,57 @@
-import type {Framework} from './index.d'
-import type {
-  Hooks,
-  HooksConstructor,
-  Hook,
-  RegisteredHooks,
-} from './hooks.d'
+export declare type RegisteredHooks = {
+  [name: string]: Hook[]
+}
 
-const hooks: HooksConstructor = (app: Framework): Hooks => ({
+/**
+ * A hook definition
+ */
+export declare type Hook = {
+  fn: () => any
+  value: any
+  fired: boolean
+}
+
+/**
+ * Framework hooks
+ */
+export declare type Hooks = {
+  /**
+   * Framework logging utility
+   */
+  logger: any
+
+  /**
+   * Logging
+   */
+  registered: RegisteredHooks
+
+  /**
+   * Formats a callback as registrable entry.
+   */
+  make: (any) => any
+
+  /**
+   * Returns all registered hooks.
+   */
+  entries: () => any[]
+
+  /**
+   * Sets a callback on a filter event.
+   */
+  on: (name: string, callback: (any) => any) => void
+
+  /**
+   * Calls registered callbacks
+   */
+  filter: (name: string, value: any) => any
+}
+
+/**
+ * Returns a hooks instance with application bindings.
+ */
+export declare type HooksConstructor = (app: any) => Hooks
+
+const hooks: HooksConstructor = (app: any): Hooks => ({
   logger: app.logger,
   registered: {},
 
@@ -53,4 +98,4 @@ const hooks: HooksConstructor = (app: Framework): Hooks => ({
   },
 })
 
-export {hooks, Hooks, HooksConstructor, Hook, RegisteredHooks}
+export {hooks}

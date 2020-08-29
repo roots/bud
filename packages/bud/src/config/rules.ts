@@ -1,17 +1,20 @@
 import type {Bud} from '..'
-import type {WebpackModule, WebpackRule} from '@roots/bud-typings'
+import type {WebpackModule} from '@roots/bud-typings'
 
-type Use = (bud: Bud) => WebpackRule
 type ModuleBuilder = (bud: Bud) => WebpackModule
 
 const rules: ModuleBuilder = bud =>
   bud.hooks.filter('webpack.module', {
     module: bud.hooks.filter('webpack.module.rules', {
-      rules: bud.rules.repository.map((rule: Use) =>
-        bud.hooks.filter(
-          `webpack.module.rules.${rule.name}`,
-          rule(bud),
-        ),
+      rules: Object.entries(bud.rules.repository).reduce(
+        (a, [key, fn]) => [
+          ...(a ? a : []),
+          bud.hooks.filter(
+            `webpack.module.rules.${key}`,
+            typeof fn == 'function' ? fn(bud) : console.log(fn),
+          ),
+        ],
+        [],
       ),
     }),
   })

@@ -1,11 +1,8 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import type {Plugin} from '@roots/bud-framework'
 
-import type {Extension} from './index'
-
-const miniCssExtract: Extension = bud => ({
+const miniCssExtract: Plugin = bud => ({
   bud,
-
-  name: 'mini-css-extract-plugin',
 
   options: {
     hmr: bud.features.enabled('hot'),
@@ -19,17 +16,7 @@ const miniCssExtract: Extension = bud => ({
   },
 
   when: function () {
-    return (
-      this.bud.options
-        .get('webpack.resolve.extensions')
-        .includes('.css') ||
-      this.bud.options
-        .get('webpack.resolve.extensions')
-        .includes('.scss') ||
-      this.bud.options
-        .get('webpack.resolve.extensions')
-        .includes('.sass')
-    )
+    return this.bud.inProduction
   },
 })
 

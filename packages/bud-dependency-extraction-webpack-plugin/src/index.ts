@@ -1,61 +1,61 @@
 import DependencyExtractionWebpackPlugin from '@wordpress/dependency-extraction-webpack-plugin'
 import type DependencyExtractionOptions from '@wordpress/dependency-extraction-webpack-plugin'
 
-import {Bud, ExtensionInterface, Extension} from '@roots/bud'
+import {Bud} from '@roots/bud'
+import {Plugin, PluginInterface} from '@roots/bud-framework'
 
-/**
- * ## bud.dependencyExtraction
- *
- * Configures @wordpress/dependency-extraction-webpack-plugin
- *
- * @see https://git.io/JJLxM
- *
- * ```js
- * bud.dependencyManifest({
- *   outputFormat: 'js',
- *   injectPolyfill: false,
- * })
- * ```
- */
-const dependencyExtractionConfig = function (
-  this: Bud,
-  settings?: DependencyExtractionOptions,
-): Bud {
-  settings &&
-    this.options.set('webpack.plugins.dependencyExtraction', {
-      ...this.options.get('webpack.plugins.dependencyExtraction'),
-      ...settings,
+const dependencyExtractionPlugin: Plugin = (
+  bud: Bud,
+): PluginInterface => ({
+  bud,
+
+  make: function () {
+    this.bud.options.set('webpack.plugins.dependencyExtraction', {
+      injectPolyfill: false,
+      outputFormat: 'json',
+      requestToExternal: request => {
+        if (request === '@babel/runtime/regenerator') return null
+      },
     })
 
-  return this
-}
+    /**
+     * ## bud.dependencyExtraction
+     *
+     * Configures @wordpress/dependency-extraction-webpack-plugin
+     *
+     * @see https://git.io/JJLxM
+     *
+     * ```js
+     * bud.dependencyExtraction({
+     *   outputFormat: 'js',
+     *   injectPolyfill: false,
+     * })
+     * ```
+     */
+    this.bud.apply('dependencyExtraction', function (
+      this: Bud,
+      settings?: DependencyExtractionOptions,
+    ): Bud {
+      settings &&
+        this.options.set('webpack.plugins.dependencyExtraction', {
+          ...this.options.get('webpack.plugins.dependencyExtraction'),
+          ...settings,
+        })
 
-const plugin: Extension = bud => ({
-  bud,
-  name: 'wordpress-dependency-extraction-plugin',
-  mergeOptions: function (): DependencyExtractionOptions {
-    return this.bud.options.get(
-      'webpack.plugins.dependencyExtraction',
-    )
-  },
+      return this
+    })
 
-  make: function (): DependencyExtractionWebpackPlugin {
-    return new DependencyExtractionWebpackPlugin(
-      this.bud.options.get('webpack.plugins.dependencyExtraction'),
-    )
+    this.bud.plugins.set('dependencyExtraction', (bud: Bud) => ({
+      bud,
+      make: function () {
+        return new DependencyExtractionWebpackPlugin(
+          this.bud.options.get(
+            'webpack.plugins.dependencyExtraction',
+          ),
+        )
+      },
+    }))
   },
 })
 
-const extraction: Extension = (bud: Bud): ExtensionInterface => ({
-  bud,
-  name: 'bud-dependency-extraction',
-  make: function (this: ExtensionInterface) {
-    this.bud.options.set('webpack.plugins.dependencyExtraction', {})
-
-    this.bud.apply('dependencyExtraction', dependencyExtractionConfig)
-
-    this.bud.plugins.push(plugin)
-  },
-})
-
-export {extraction}
+export {dependencyExtractionPlugin}

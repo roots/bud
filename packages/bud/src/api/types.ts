@@ -1,6 +1,5 @@
 import {Bud} from '..'
 export {Bud} from '..'
-import type {BrowserSyncOptions} from '@roots/bud-typings'
 
 import type {Configuration as WebpackConfiguration} from 'webpack'
 export type {WebpackConfiguration}
@@ -8,41 +7,27 @@ export type {WebpackConfiguration}
 import {Options as DependencyExtractionOptions} from '@wordpress/dependency-extraction-webpack-plugin'
 export type {DependencyExtractionOptions}
 
-export type Dist = (path?: string) => string
-export type Dump = (enabled: boolean) => Bud
-export type PathSetter = (path: string) => Bud
-export type Glob = (this: Bud, output: string, files: string) => Bud
-export type Hash = (this: Bud, enabled?: boolean) => Bud
-export type Hot = (
+export declare type Dist = (path?: string) => string
+export declare type Dump = (enabled: boolean) => Bud
+export declare type PathGetter = (path: string | undefined) => string
+export declare type PathSetter = (path: string) => Bud
+export declare type Glob = (
   this: Bud,
-  options: {
-    enabled: boolean
-    host: string
-    port?: number
-    watch?: string[]
-    open?: boolean
-    headers?: any
-    secure?: boolean
-  },
+  output: string,
+  files: string,
 ) => Bud
-export type Mini = (enabled?: boolean) => Bud
-export type Option = (key: string) => string
-export type PostCss = (options?: {
+export declare type Hash = (this: Bud, enabled?: boolean) => Bud
+export declare type Mini = (enabled?: boolean) => Bud
+export declare type Option = (key: string) => string
+export declare type PostCss = (options?: {
   enabled?: boolean
   plugins?: any[]
 }) => Bud
-export type Preset = (path?: string) => any
-export type Project = (path?: string) => string
-export type Resolve = (moduleName: string) => string
-export type SourceMap = (enabled?: boolean) => Bud
-export type Splitting = (enabled?: boolean) => Bud
-export type Src = (path?: string) => string
-export type Sync = (options: SyncOptions) => Bud
-export type Target = (target: string) => Bud
-export type Watch = (options: {
-  paths: string[]
-  enabled: boolean
-}) => Bud
+export declare type Preset = (path?: string) => any
+export declare type Project = (path?: string) => string
+export declare type Resolve = (moduleName: string) => string
+export declare type SourceMap = (enabled?: boolean) => Bud
+export declare type Target = (target: string) => Bud
 
 import type {AddExtensions} from './addExtensions'
 export type {AddExtensions}
@@ -50,8 +35,8 @@ export type {AddExtensions}
 import type {Alias} from './alias'
 export type {Alias}
 
-import type {Auto} from './auto'
-export type {Auto}
+import type {Provide} from './provide'
+export type {Provide}
 
 import type {Babel} from './babel'
 export type {Babel}
@@ -65,6 +50,9 @@ export type {Compile}
 import type {Copy} from './copy'
 export type {Copy}
 
+import type {Dev} from './dev'
+export type {Dev}
+
 import type {Devtool} from './devtool'
 export type {Devtool}
 
@@ -77,27 +65,33 @@ export type {RuntimeManifest}
 import type {Terser} from './terser'
 export type {Terser}
 
-import type {UseExtension} from './use'
-export type {UseExtension}
+import type {UsePlugin} from './use'
+export type {UsePlugin}
 
 import type {Vendor} from './vendor'
 export type {Vendor}
 
+export declare type Fluent = (
+  this: Bud,
+  options: {
+    [key: string]: any
+  },
+) => Bud
+
 export type Api = {
   addExtensions: AddExtensions
   alias: Alias
-  auto: Auto
   babel: Babel
   bundle: Bundle
   compile: Compile
   copy: Copy
   copyAll: Copy
+  dev: Dev
   devtool: Devtool
   dist: Dist
   distPath: PathSetter
   glob: Glob
   hash: Hash
-  hot: Hot
   manifest: Manifest
   map: SourceMap
   mini: Mini
@@ -105,19 +99,13 @@ export type Api = {
   preset: Preset
   projectPath: PathSetter
   project: Project
+  provide: Provide
   publicPath: PathSetter
   runtimeManifest: RuntimeManifest
-  splitting: Splitting
-  src: Src
+  src: PathGetter
   srcPath: PathSetter
-  sync: Sync
   target: Target
   terser: Terser
-  use: UseExtension
+  use: UsePlugin
   vendor: Vendor
-  watch: Watch
-}
-export interface SyncOptions {
-  enabled?: boolean
-  options: BrowserSyncOptions
 }

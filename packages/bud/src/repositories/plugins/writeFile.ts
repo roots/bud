@@ -1,10 +1,8 @@
 import WriteFilePlugin from 'write-file-webpack-plugin'
-import type {Extension} from './index'
+import type {Plugin} from '@roots/bud-framework'
 
-const writeFile: Extension = bud => ({
+const writeFile: Plugin = bud => ({
   bud,
-
-  name: 'write-file-webpack-plugin',
 
   make: function () {
     return new WriteFilePlugin()

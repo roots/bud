@@ -1,5 +1,5 @@
 import {render} from './render'
-import type {CompilerController, CompilerFactory} from './types'
+import {CompilerController, CompilerFactory} from './types'
 
 const compiler: CompilerFactory = (
   bud,

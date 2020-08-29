@@ -1,34 +1,9 @@
 const test = require('ava')
 const {bud} = require('@roots/bud')
 
-test('has expected babel defaults', t => {
-  t.deepEqual(bud.options.get('babel'), {
-    plugins: [],
-    presets: [require.resolve('@babel/preset-env')],
-  })
-})
-
-test('has expected browserSync defaults', t => {
-  t.deepEqual(bud.options.get('webpack.plugins.browsersync'), {
-    host: 'localhost',
-    online: false,
-    open: false,
-    port: 3000,
-    proxy: 'localhost',
-  })
-})
-
 test('has expected copy defaults', t => {
   t.deepEqual(bud.options.get('webpack.plugins.copy'), {
     patterns: [],
-  })
-})
-
-test('has expected devServer defaults', t => {
-  t.deepEqual(bud.options.get('webpack.devServer.headers'), {
-    'Access-Control-Allow-Headers': 'X-Requested-With, content-type, Authorization',
-    'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, PATCH, OPTIONS',
-    'Access-Control-Allow-Origin': '*',
   })
 })
 
@@ -54,26 +29,13 @@ test('has expected optimization.runtimeChunk defaults', t => {
   t.truthy(bud.options.get('webpack.optimization.runtimeChunk'))
 })
 
-test('has expected optimization.splitChunks defaults', t => {
-  t.deepEqual(bud.options.get('webpack.optimization.splitChunks'), {
-    cacheGroup: {
-      vendor: {
-        test: /node_modules/,
-        name: 'vendor.js',
-        chunks: 'all',
-        priority: -20,
-      },
-    },
-  })
-})
-
 test('has two postcss plugins by default', t => {
   t.true(bud.options.get('postcss.plugins').length == 2)
 })
 
 test('has expected splitting defaults', t => {
   t.deepEqual(bud.options.get('splitting'), {
-    maxChunks: null,
+    maxChunks: 9999,
   })
 })
 
