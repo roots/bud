@@ -1,1 +1,0 @@
-{"version":3,"file":"addExtensions.d.ts","sourceRoot":"","sources":["../../../src/api/addExtensions.ts"],"names":[],"mappings":"AAAA,OAAO,KAAK,EAAC,GAAG,EAAC,MAAM,SAAS,CAAA;AAEhC,aAAK,aAAa,GAAG,CAAC,IAAI,EAAE,GAAG,EAAE,UAAU,EAAE,MAAM,EAAE,KAAK,GAAG,CAAA;AAE7D,QAAA,MAAM,aAAa,EAAE,aAcpB,CAAA;AAED,OAAO,EAAC,aAAa,EAAC,CAAA;AACtB,YAAY,EAAC,aAAa,EAAC,CAAA"}

@@ -1,1 +1,0 @@
-{"version":3,"file":"hot.js","sourceRoot":"","sources":["../../src/middleware/hot.ts"],"names":[],"mappings":";;;;;;AAAA,kFAAkD;AAElD,IAAM,GAAG,GAAG,UAAA,GAAG;IACb,OAAA,mCAAa,CAAC,GAAG,CAAC,QAAQ,EAAE;QAC1B,IAAI,EAAE,gBAAgB;QACtB,SAAS,EAAE,IAAI;KAChB,CAAC;AAHF,CAGE,CAAA;AAEW,yBAAO"}

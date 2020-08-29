@@ -25,10 +25,10 @@ const eslint: Plugin = (bud: Bud) => ({
       },
     }))
 
-    this.bud.hooks.filter('webpack.module.rules.js.use', ({use, bud}) => [
-      bud.uses.get('babel'),
-      bud.uses.get('eslint'),
-    ])
+    this.bud.hooks.filter(
+      'webpack.module.rules.js.use',
+      ({use, bud}) => [bud.uses.get('babel'), bud.uses.get('eslint')],
+    )
   },
 })
 
@@ -38,7 +38,4 @@ const preset = {
   react: resolve(__dirname, './preset/react.js'),
 }
 
-export {
-  eslint,
-  preset,
-}
+export {eslint, preset}

@@ -1,4 +1,8 @@
-import {Container, FileContainer, PluginContainer} from '@roots/bud-framework'
+import {
+  Container,
+  FileContainer,
+  PluginContainer,
+} from '@roots/bud-framework'
 
 export type Options = Container
 
