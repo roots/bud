@@ -19,9 +19,9 @@ const eslint = (bud) => ({
                 failOnError: true,
             },
         }));
-        this.bud.hooks.filter('webpack.module.rules.js.use', (use, bud) => [
-            bud.uses.get('babel')(bud),
-            bud.uses.get('eslint')(bud),
+        this.bud.hooks.filter('webpack.module.rules.js.use', ({ use, bud }) => [
+            bud.uses.get('babel'),
+            bud.uses.get('eslint'),
         ]);
     },
 });

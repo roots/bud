@@ -1,9 +1,13 @@
 import url from 'url'
 import internalIp from 'internal-ip'
 
-const createDomain = (options, app) => {
-  const protocol = options.https ? 'https' : 'http'
-  const port = options.socket ? 0 : options.port ?? app.port ?? 0
+const createDomain = bud => {
+  const options = bud.options.get('webpack.devServer')
+  const protocol = bud.options.get('webpack.devServer.secure')
+    ? 'https'
+    : 'http'
+
+  const port = options.socket ? 0 : options.port ? options.port : 3000
   const hostname = options.useLocalIp ? internalIp.v4() : options.host
 
   if (options.public) {

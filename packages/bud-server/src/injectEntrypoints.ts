@@ -16,7 +16,6 @@ const injectEntrypoints: (domain: string, options: any) => any = (
 
     if (typeof entry === 'object' && !Array.isArray(entry)) {
       const entryClone = {}
-
       Object.keys(entry).forEach(key => {
         entryClone[key] = client.concat(entry[key])
       })

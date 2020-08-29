@@ -1,7 +1,7 @@
 import {Bud} from '@roots/bud'
 import {useState, useEffect} from 'react'
 import {useProgress} from './useProgress'
-import budServer, {writeHotFlag} from '@roots/bud-server'
+import budServer from '@roots/bud-server'
 
 type Results = {
   error?: any
@@ -77,10 +77,6 @@ const useWebpack = (bud: Bud) => {
     setServer(false)
     setWebpackRunning(true)
   }, [progressApplied, webpackRunning, hot, watch, bud])
-
-  useEffect(() => {
-    percentage >= 1 && writeHotFlag(bud)
-  }, [bud, percentage])
 
   /**
    * Stats state variables consumed by application.

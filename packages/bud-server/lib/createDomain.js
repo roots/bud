@@ -6,10 +6,12 @@ exports.__esModule = true;
 exports["default"] = void 0;
 var url_1 = __importDefault(require("url"));
 var internal_ip_1 = __importDefault(require("internal-ip"));
-var createDomain = function (options, app) {
-    var _a, _b;
-    var protocol = options.https ? 'https' : 'http';
-    var port = options.socket ? 0 : (_b = (_a = options.port) !== null && _a !== void 0 ? _a : app.port) !== null && _b !== void 0 ? _b : 0;
+var createDomain = function (bud) {
+    var options = bud.options.get('webpack.devServer');
+    var protocol = bud.options.get('webpack.devServer.secure')
+        ? 'https'
+        : 'http';
+    var port = options.socket ? 0 : options.port ? options.port : 3000;
     var hostname = options.useLocalIp ? internal_ip_1["default"].v4() : options.host;
     if (options.public) {
         return /^[a-zA-Z]+:\/\//.test(options.public)

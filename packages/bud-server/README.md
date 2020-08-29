@@ -10,29 +10,17 @@
 </p>
 
 <h1 align="center">
-  <strong>@roots/bud-compiler</strong>
+  <strong>@roots/bud-server</strong>
 </h1>
 
 ## Overview
 
-The compiler provides controls and renders Bud's built-in development server. It is a lower-level utility and there is no reason to include it in your Bud project.
+Bud's development server.
 
 ## Installation
 
 ```sh
-yarn add @roots/bud-compiler --dev
-```
-
-## Usage
-
-The compiler is called as a function and expects a valid webpack configuration and an instance of Bud.
-
-It returns an object that includes a `compile` function. This initiates the compiler.
-
-```js
-const {compiler} = require('@roots/bud-compiler')
-const instance = compiler(bud, config)
-instance.compile()
+yarn add @roots/bud-server
 ```
 
 ## Contributing
