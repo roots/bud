@@ -23,7 +23,22 @@
   },
   "workspaces": {
     "packages": [
-      "packages/*"
+      "packages/bud-support",
+      "packages/bud-typings",
+      "packages/bud-framework",
+      "packages/bud",
+      "packages/bud-compiler",
+      "packages/bud-server",
+      "packages/bud-dependency-extraction-webpack-plugin",
+      "packages/bud-eslint",
+      "packages/bud-palette-webpack-plugin",
+      "packages/bud-purgecss",
+      "packages/bud-react",
+      "packages/bud-sass",
+      "packages/bud-stylelint",
+      "packages/bud-tailwindcss",
+      "packages/bud-typescript",
+      "packages/bud-vue"
     ]
   },
   "scripts": {
