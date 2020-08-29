@@ -30,7 +30,7 @@ ava('adds sass options', t => {
 
 ava('adds sass loader', t => {
   t.deepEqual(
-    bud.rules.entries().pop()(bud).use.pop().loader,
+    bud.rules.get('sass')(bud).use.pop().loader,
     require.resolve('sass-loader'),
   )
 })

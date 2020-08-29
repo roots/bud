@@ -1,7 +1,6 @@
 import type {Api} from './types'
 import {addExtensions} from './addExtensions'
 import {alias} from './alias'
-import {auto} from './auto'
 import {babel} from './babel'
 import {bundle} from './bundle'
 import {compile} from './compile'
@@ -21,6 +20,7 @@ import {postcss} from './postcss'
 import {preset} from './preset'
 import {project} from './project'
 import {projectPath} from './projectPath'
+import {provide} from './provide'
 import {publicPath} from './publicPath'
 import {src} from './src'
 import {srcPath} from './srcPath'
@@ -35,7 +35,6 @@ import {vendor} from './vendor'
 export const api: Api = {
   addExtensions,
   alias,
-  auto,
   babel,
   bundle,
   compile,
@@ -54,6 +53,7 @@ export const api: Api = {
   preset,
   project,
   projectPath,
+  provide,
   publicPath,
   runtimeManifest,
   src,

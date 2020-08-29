@@ -16,7 +16,7 @@ var features = {
         hot: false,
         minify: false,
         splitting: true,
-        vendor: false,
+        splitChunks: false,
         runtimeChunk: false,
         overlay: false,
         sourceMap: false,

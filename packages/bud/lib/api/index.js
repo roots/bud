@@ -3,7 +3,6 @@ exports.__esModule = true;
 exports.api = void 0;
 var addExtensions_1 = require("./addExtensions");
 var alias_1 = require("./alias");
-var auto_1 = require("./auto");
 var babel_1 = require("./babel");
 var bundle_1 = require("./bundle");
 var compile_1 = require("./compile");
@@ -23,6 +22,7 @@ var postcss_1 = require("./postcss");
 var preset_1 = require("./preset");
 var project_1 = require("./project");
 var projectPath_1 = require("./projectPath");
+var provide_1 = require("./provide");
 var publicPath_1 = require("./publicPath");
 var src_1 = require("./src");
 var srcPath_1 = require("./srcPath");
@@ -36,7 +36,6 @@ var vendor_1 = require("./vendor");
 exports.api = {
     addExtensions: addExtensions_1.addExtensions,
     alias: alias_1.alias,
-    auto: auto_1.auto,
     babel: babel_1.babel,
     bundle: bundle_1.bundle,
     compile: compile_1.compile,
@@ -55,6 +54,7 @@ exports.api = {
     preset: preset_1.preset,
     project: project_1.project,
     projectPath: projectPath_1.projectPath,
+    provide: provide_1.provide,
     publicPath: publicPath_1.publicPath,
     runtimeManifest: runtimeManifest_1.runtimeManifest,
     src: src_1.src,

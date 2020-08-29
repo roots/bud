@@ -1,4 +1,3 @@
-import express from 'express'
 import webpack from 'webpack'
 import middleware from './middleware'
 import injectEntrypoints from './injectEntrypoints'
@@ -6,12 +5,7 @@ import createDomain from './createDomain'
 import tapCompiler from './tapCompiler'
 
 const server = bud => {
-  bud.apply('server', express())
-
-  bud.options.set(
-    'webpack.entry',
-    injectEntrypoints(createDomain(bud), bud.options.get('webpack')),
-  )
+  bud.options.set('webpack.entry', injectEntrypoints(bud))
 
   bud.apply('compiler', webpack(bud.config(bud)))
 

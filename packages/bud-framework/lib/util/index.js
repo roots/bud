@@ -1,4 +1,7 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 exports.__esModule = true;
 exports.util = void 0;
 var dump_1 = require("./dump");
@@ -11,9 +14,10 @@ var terminate_1 = require("./terminate");
 var processHandler_1 = require("./processHandler");
 var fs_1 = require("./fs");
 var os_1 = require("./os");
-var usedExt_1 = require("./usedExt");
 var logger_1 = require("./logger");
+var lodash_1 = __importDefault(require("lodash"));
 exports.util = {
+    _: lodash_1["default"],
     format: format_1.format,
     fs: fs_1.fs,
     dump: dump_1.dump,
@@ -24,7 +28,6 @@ exports.util = {
     projectRoot: projectRoot_1.projectRoot,
     processHandler: processHandler_1.processHandler,
     terminate: terminate_1.terminate,
-    usedExt: usedExt_1.usedExt,
     os: os_1.os
 };
 //# sourceMappingURL=index.js.map

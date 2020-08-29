@@ -3,22 +3,18 @@ import type {Bud} from './types'
 type Vendor = (this: Bud, options?: any) => Bud
 
 const vendor: Vendor = function (options) {
-  this.features.set(
-    'splitChunks',
-    options && options.hasOwnProperty('enabled')
-      ? options.enabled
-      : true,
-  )
+  if (options?.hasOwnProperty('enabled')) {
+    this.features.set('splitChunks', options.enabled)
+
+    delete options.enabled
+  } else {
+    this.features.enable('splitChunks')
+  }
 
   options &&
-    this.options.set(
+    this.options.merge(
       'webpack.optimization.splitChunks.cacheGroups.vendor',
-      {
-        ...this.options.get(
-          'webpack.optimization.splitChunks.cacheGroups.vendor',
-        ),
-        ...options,
-      },
+      options,
     )
 
   return this

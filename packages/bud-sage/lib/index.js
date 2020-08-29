@@ -54,7 +54,7 @@ var sage = (function () {
         '@scripts': bud_1.bud.src('scripts'),
         '@styles': bud_1.bud.src('styles')
     })
-        .auto({
+        .provide({
         jquery: ['$', 'window.jQuery']
     })
         .runtimeManifest()

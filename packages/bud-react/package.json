@@ -25,8 +25,8 @@
   "files": [
     "lib"
   ],
-  "main": "./lib/index.js",
-  "types": "./lib/types/index.d.ts",
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
   "scripts": {
     "lint": "eslint src/**.ts",
     "watch": "npm run build && npm link && nodemon",

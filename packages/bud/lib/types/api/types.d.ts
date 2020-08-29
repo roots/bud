@@ -25,8 +25,8 @@ import type { AddExtensions } from './addExtensions';
 export type { AddExtensions };
 import type { Alias } from './alias';
 export type { Alias };
-import type { Auto } from './auto';
-export type { Auto };
+import type { Provide } from './provide';
+export type { Provide };
 import type { Babel } from './babel';
 export type { Babel };
 import type { Bundle } from './bundle';
@@ -55,7 +55,6 @@ export declare type Fluent = (this: Bud, options: {
 export declare type Api = {
     addExtensions: AddExtensions;
     alias: Alias;
-    auto: Auto;
     babel: Babel;
     bundle: Bundle;
     compile: Compile;
@@ -74,6 +73,7 @@ export declare type Api = {
     preset: Preset;
     projectPath: PathSetter;
     project: Project;
+    provide: Provide;
     publicPath: PathSetter;
     runtimeManifest: RuntimeManifest;
     src: PathGetter;

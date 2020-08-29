@@ -2,7 +2,8 @@
 exports.__esModule = true;
 exports.typescript = void 0;
 var path_1 = require("path");
-var typescript = function () { return ({
+var typescript = function (bud) { return ({
+    bud: bud,
     make: function () {
         var configFile = path_1.join(this.bud.project('tsconfig.json'));
         if (this.bud.fs.existsSync(configFile)) {
@@ -20,7 +21,7 @@ var typescript = function () { return ({
                 configFile: bud.configs.get('typescript')
             }
         }); });
-        this.bud.rules.push(function (bud) { return ({
+        this.bud.rules.set('typescript', function (bud) { return ({
             test: bud.patterns.get('typescript'),
             exclude: bud.patterns.get('vendor'),
             use: [bud.uses.get('typescript')]

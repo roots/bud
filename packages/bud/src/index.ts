@@ -3,6 +3,7 @@ import {compiler} from '@roots/bud-compiler'
 import {api} from './api'
 import {repositories} from './repositories'
 import {config} from './config'
+import express, {Express} from 'express'
 import * as Api from './api/types'
 import {
   Container,
@@ -147,6 +148,13 @@ export declare type Bud = {
   rules: Container
 
   /**
+   * ## bud.server
+   *
+   * DEvelopment server.
+   */
+  server: Express
+
+  /**
    * ## bud.util
    *
    * Helper functions.
@@ -203,17 +211,6 @@ export declare type Bud = {
    * Extend the bud framework
    */
   apply: (string, any) => void
-
-  /**
-   * ## bud.auto
-   *
-   * Automatically load modules instead of needing to import them.
-   *
-   * ```js
-   * bud.auto({jquery: ['$', 'window.jQuery']})
-   * ```
-   */
-  auto: Api.Auto
 
   /**
    * ## bud.babel
@@ -423,6 +420,17 @@ export declare type Bud = {
   projectPath: Api.PathSetter
 
   /**
+   * ## bud.provide
+   *
+   * Define variable aliases
+   *
+   * ```js
+   * bud.provide({jquery: ['$', 'window.jQuery']})
+   * ```
+   */
+  provide: Api.Provide
+
+  /**
    * ## bud.publicPath
    *
    * Set the project public path.
@@ -548,6 +556,7 @@ framework.apply('fs', framework.util.fs)
 framework.apply('format', framework.util.format)
 framework.apply('config', config)
 framework.apply('compiler', compiler)
+framework.apply('server', express())
 
 /** Bind the public API. */
 Object.values(api).forEach((method: () => any) => {

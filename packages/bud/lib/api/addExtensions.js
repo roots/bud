@@ -10,7 +10,9 @@ exports.__esModule = true;
 exports.addExtensions = void 0;
 var addExtensions = function (extensions) {
     var _this = this;
-    extensions.map(function (ext) {
+    extensions
+        .map(function (ext) { return ext.replace(/^(\.)([^ .]+)?/, '$2'); })
+        .forEach(function (ext) {
         !_this.options
             .get('webpack.resolve.extensions')
             .includes("." + ext) &&

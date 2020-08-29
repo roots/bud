@@ -2,7 +2,9 @@ import {join} from 'path'
 import {Bud} from '@roots/bud'
 import {Plugin} from '@roots/bud-framework'
 
-const typescript: Plugin = () => ({
+const typescript: Plugin = (bud: Bud) => ({
+  bud,
+
   make: function () {
     const configFile = join(this.bud.project('tsconfig.json'))
 
@@ -14,8 +16,10 @@ const typescript: Plugin = () => ({
     }
 
     this.bud.addExtensions(['ts', 'tsx'])
+
     this.bud.patterns.set('typescript', /\.(ts|tsx)$/)
     this.bud.loaders.set('typescript', require.resolve('ts-loader'))
+
     this.bud.uses.set('typescript', bud => ({
       loader: bud.loaders.get('typescript'),
       options: {
@@ -23,7 +27,7 @@ const typescript: Plugin = () => ({
       },
     }))
 
-    this.bud.rules.push(bud => ({
+    this.bud.rules.set('typescript', bud => ({
       test: bud.patterns.get('typescript'),
       exclude: bud.patterns.get('vendor'),
       use: [bud.uses.get('typescript')],

@@ -32,7 +32,7 @@ var has = function (key) {
     return this.repository.hasOwnProperty(key) ? true : false;
 };
 var merge = function (key, value) {
-    lodash_1["default"].merge(this.repository[key], value);
+    this.set(key, lodash_1["default"].merge(this.get(key), value));
 };
 var containerMethodDelete = function (key) {
     delete this.repository[key];
@@ -61,7 +61,7 @@ var map = function () {
     return (_a = this.repository).map.apply(_a, params);
 };
 var entries = function () {
-    return this.repository;
+    return Object.entries(this.repository);
 };
 var container = function (repository, name) {
     if (name === void 0) { name = 'anonymous'; }

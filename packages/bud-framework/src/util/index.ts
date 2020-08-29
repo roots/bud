@@ -8,8 +8,9 @@ import {terminate} from './terminate'
 import {processHandler} from './processHandler'
 import {fs} from './fs'
 import {os} from './os'
-import {usedExt} from './usedExt'
 import {logger} from './logger'
+
+import _ from 'lodash'
 
 import type {Dump} from './dump'
 export type {Dump}
@@ -30,6 +31,7 @@ import type {Terminate} from './terminate'
 export type {Terminate}
 
 export type Util = {
+  _: typeof _
   fab: Fab
   format: Format
   fs: any
@@ -41,10 +43,10 @@ export type Util = {
   notify: any
   shortCircuit: ShortCircuit
   terminate: Terminate
-  usedExt: any
 }
 
 export const util: Util = {
+  _,
   format,
   fs,
   dump,
@@ -55,6 +57,5 @@ export const util: Util = {
   projectRoot,
   processHandler,
   terminate,
-  usedExt,
   os,
 }

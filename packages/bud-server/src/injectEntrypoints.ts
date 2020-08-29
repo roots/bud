@@ -1,13 +1,15 @@
-const injectEntrypoints: (domain: string, options: any) => any = (
-  domain,
-  options,
-) => {
-  const client = [
-    options.devServer.hotOnly
-      ? 'webpack/hot/only-dev-server'
-      : 'webpack/hot/dev-server',
-    `webpack-hot-middleware/client?${domain}/__webpack_hmr`,
-  ]
+import createDomain from './createDomain'
+
+const injectEntrypoints = bud => {
+  const {devServer, entry} = bud.options.get('webpack')
+
+  const endpoint = `${createDomain(bud)}/__webpack_hmr`
+  const hotClient = `webpack-hot-middleware/client?${endpoint}`
+  const hotServer = devServer.hotOnly
+    ? 'webpack/hot/only-dev-server'
+    : 'webpack/hot/dev-server'
+
+  const toInject = [hotServer, hotClient]
 
   const prepend = entry => {
     if (typeof entry === 'function') {
@@ -17,14 +19,14 @@ const injectEntrypoints: (domain: string, options: any) => any = (
     if (typeof entry === 'object' && !Array.isArray(entry)) {
       const entryClone = {}
       Object.keys(entry).forEach(key => {
-        entryClone[key] = client.concat(entry[key])
+        entryClone[key] = toInject.concat(entry[key])
       })
 
       return entryClone
     }
   }
 
-  return prepend(options.entry)
+  return prepend(entry)
 }
 
 export {injectEntrypoints as default}

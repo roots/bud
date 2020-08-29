@@ -11,8 +11,8 @@ var __assign = (this && this.__assign) || function () {
     return __assign.apply(this, arguments);
 };
 exports.__esModule = true;
-exports.auto = void 0;
-var auto = function (options) {
+exports.provide = void 0;
+var provide = function (options) {
     var _this = this;
     Object.entries(options).forEach(function (_a) {
         var _b;
@@ -26,11 +26,8 @@ var auto = function (options) {
                 var _a;
                 _this.options.set('webpack.plugins.provide', __assign(__assign({}, _this.options.get('webpack.plugins.provide')), (_a = {}, _a[handle] = key, _a)));
             });
-        typeof modules !== 'object' &&
-            typeof modules !== 'string' &&
-            console.error('auto values must be either a string or an array.');
     });
     return this;
 };
-exports.auto = auto;
-//# sourceMappingURL=auto.js.map
+exports.provide = provide;
+//# sourceMappingURL=provide.js.map

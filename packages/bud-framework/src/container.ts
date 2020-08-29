@@ -98,7 +98,7 @@ const has: ConditionalCheck = function (key) {
 }
 
 const merge: Action = function (key, value) {
-  _.merge(this.repository[key], value)
+  this.set(key, _.merge(this.get(key), value))
 }
 
 const containerMethodDelete: Action = function (key) {
@@ -130,7 +130,7 @@ const map: Action = function (...params): any {
 }
 
 const entries: Getter = function () {
-  return this.repository
+  return Object.entries(this.repository)
 }
 
 const container: Action = function (repository?, name = 'anonymous') {

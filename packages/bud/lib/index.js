@@ -1,4 +1,7 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 exports.__esModule = true;
 exports.bud = void 0;
 var bud_framework_1 = require("@roots/bud-framework");
@@ -6,6 +9,8 @@ var bud_compiler_1 = require("@roots/bud-compiler");
 var api_1 = require("./api");
 var repositories_1 = require("./repositories");
 var config_1 = require("./config");
+var express_1 = __importDefault(require("express"));
+var lodash_1 = __importDefault(require("lodash"));
 /**
  * Bind stores.
  */
@@ -33,6 +38,8 @@ bud_framework_1.framework.apply('fs', bud_framework_1.framework.util.fs);
 bud_framework_1.framework.apply('format', bud_framework_1.framework.util.format);
 bud_framework_1.framework.apply('config', config_1.config);
 bud_framework_1.framework.apply('compiler', bud_compiler_1.compiler);
+bud_framework_1.framework.apply('server', express_1["default"]());
+bud_framework_1.framework.apply('lo', lodash_1["default"]);
 /** Bind the public API. */
 Object.values(api_1.api).forEach(function (method) {
     bud_framework_1.framework.apply(method.name, method);

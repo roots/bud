@@ -19,6 +19,7 @@ test('merges options', t => {
 
 test('generates expected webpack.resolve', t => {
   const config = bud.config(bud)
+
   t.deepEqual(config.resolve, {
     alias: {
       '@scripts': bud.src('scripts'),

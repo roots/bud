@@ -78,7 +78,7 @@ const sage: Bud = (() => {
       '@scripts': bud.src('scripts'),
       '@styles': bud.src('styles'),
     })
-    .auto({
+    .provide({
       jquery: ['$', 'window.jQuery'],
     })
     .runtimeManifest()

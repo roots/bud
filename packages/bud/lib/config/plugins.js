@@ -10,7 +10,8 @@ exports.__esModule = true;
 exports.plugins = void 0;
 var plugins = function (bud) {
     return bud.hooks.filter('webpack.plugins', {
-        plugins: Object.entries(bud.plugins.entries())
+        plugins: bud.plugins
+            .entries()
             .reduce(function (a, _a) {
             var fn = _a[1];
             return __spreadArrays((a ? a : []), [

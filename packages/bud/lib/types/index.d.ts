@@ -1,10 +1,18 @@
 /// <reference types="webpack" />
+import { Express } from 'express';
+import lodash from 'lodash';
 import * as Api from './api/types';
 import { Container, PluginContainer, FileContainer, PluginControllerInterface, Hooks, Util } from '@roots/bud-framework';
 import { WebpackMode, WebpackConfig } from '@roots/bud-typings';
 import { Paths, Features, Options } from './repositories/types';
 export { Use } from './repositories/rulesets';
 export declare type Bud = {
+    /**
+     * ## bud.lo
+     *
+     * lodash
+     */
+    lo: typeof lodash;
     /**
      * ## bud.args
      */
@@ -116,6 +124,12 @@ export declare type Bud = {
      */
     rules: Container;
     /**
+     * ## bud.server
+     *
+     * DEvelopment server.
+     */
+    server: Express;
+    /**
      * ## bud.util
      *
      * Helper functions.
@@ -167,16 +181,6 @@ export declare type Bud = {
      * Extend the bud framework
      */
     apply: (string: any, any: any) => void;
-    /**
-     * ## bud.auto
-     *
-     * Automatically load modules instead of needing to import them.
-     *
-     * ```js
-     * bud.auto({jquery: ['$', 'window.jQuery']})
-     * ```
-     */
-    auto: Api.Auto;
     /**
      * ## bud.babel
      *
@@ -366,6 +370,16 @@ export declare type Bud = {
      * ```
      */
     projectPath: Api.PathSetter;
+    /**
+     * ## bud.provide
+     *
+     * Define variable aliases
+     *
+     * ```js
+     * bud.provide({jquery: ['$', 'window.jQuery']})
+     * ```
+     */
+    provide: Api.Provide;
     /**
      * ## bud.publicPath
      *

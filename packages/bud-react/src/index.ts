@@ -1,6 +1,9 @@
 import {Plugin} from '@roots/bud-framework'
+import {Bud} from '@roots/bud'
 
-const react: Plugin = () => ({
+const react: Plugin = (bud: Bud) => ({
+  bud,
+
   make: function () {
     this.bud.options.set('babel.presets', [
       ...this.bud.options.get('babel.presets'),
@@ -9,7 +12,7 @@ const react: Plugin = () => ({
 
     !this.bud.options
       .get('webpack.resolve.extensions')
-      .includes('.jsx') && this.addExtensions(['.jsx'])
+      .includes('.jsx') && this.bud.addExtensions(['jsx'])
   },
 })
 

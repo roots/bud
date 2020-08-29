@@ -13,6 +13,6 @@ module.exports = {
   runtimeChunk: false,
   sourceMap: false,
   splitting: true,
-  vendor: false,
+  splitChunks: false,
   watch: false,
 }

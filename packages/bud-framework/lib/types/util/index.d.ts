@@ -1,5 +1,6 @@
 import { os } from './os';
 import { logger } from './logger';
+import _ from 'lodash';
 import type { Dump } from './dump';
 export type { Dump };
 import type { Fab } from './fab';
@@ -13,6 +14,7 @@ export type { ShortCircuit };
 import type { Terminate } from './terminate';
 export type { Terminate };
 export declare type Util = {
+    _: typeof _;
     fab: Fab;
     format: Format;
     fs: any;
@@ -24,7 +26,6 @@ export declare type Util = {
     notify: any;
     shortCircuit: ShortCircuit;
     terminate: Terminate;
-    usedExt: any;
 };
 export declare const util: Util;
 //# sourceMappingURL=index.d.ts.map
