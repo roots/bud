@@ -8,9 +8,6 @@ test('has expected default', t => {
 test('toggles feature', t => {
   bud.hash()
   t.is(bud.features.get('hash'), true)
-  bud.hash(false)
-  t.is(bud.features.get('hash'), false)
-  bud.hash()
 })
 
 test('generates expected webpack.output.filename', t => {

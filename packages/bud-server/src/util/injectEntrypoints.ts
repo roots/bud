@@ -3,7 +3,7 @@ import createDomain from './createDomain'
 const injectEntrypoints = bud => {
   const {devServer, entry} = bud.options.get('webpack')
 
-  const endpoint = `${createDomain(bud)}/__webpack_hmr`
+  const endpoint = `/__webpack_hmr`
   const hotClient = `webpack-hot-middleware/client?${endpoint}`
   const hotServer = devServer.hotOnly
     ? 'webpack/hot/only-dev-server'
@@ -18,6 +18,7 @@ const injectEntrypoints = bud => {
 
     if (typeof entry === 'object' && !Array.isArray(entry)) {
       const entryClone = {}
+
       Object.keys(entry).forEach(key => {
         entryClone[key] = toInject.concat(entry[key])
       })

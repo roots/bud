@@ -39,10 +39,6 @@ const optimization: OptimizationBuilder = bud =>
         'webpack.optimization.removeAvailableModules',
         false,
       ),
-      removeEmptyChunks: bud.hooks.filter(
-        'webpack.optimization.removeEmptyChunks',
-        false,
-      ),
       moduleIds: bud.hooks.filter(
         'webpack.optimization.moduleIds',
         'hashed',

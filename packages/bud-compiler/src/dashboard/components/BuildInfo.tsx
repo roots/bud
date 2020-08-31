@@ -1,21 +1,19 @@
 import React, {FunctionComponent} from 'react'
-import {Box, Text} from 'ink'
-import {Loading} from './Loading'
+import {Box, Text, Spacer} from 'ink'
 
 interface InfoProps {
   build: any
-  width: number
 }
 
-const BuildInfo: FunctionComponent<InfoProps> = ({build, width}) => (
-  <Box flexDirection="column" paddingTop={1} width={width}>
+const BuildInfo: FunctionComponent<InfoProps> = ({build}) => (
+  <Box padding={1} flexDirection="column" justifyContent="flex-end">
     {build?.percentage == 1 && build?.hash && (
-      <Text color="#6C758F">
-        Build {build?.hash}. Finished in {build?.time / 1000}s.
-      </Text>
+      <>
+        <Text>Finished in {build?.time / 1000}s.</Text>
+        <Spacer />
+        <Text color="#6C758F">Build {build?.hash}.</Text>
+      </>
     )}
-
-    <Loading build={build} />
   </Box>
 )
 

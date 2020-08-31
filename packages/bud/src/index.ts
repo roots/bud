@@ -517,6 +517,20 @@ export declare type Bud = {
    * ```
    */
   vendor: Api.Vendor
+
+  /**
+   * ## bud.when
+   *
+   * Define build steps to be carried out under certain conditions
+   *
+   * ```js
+   * bud.when(bud.inProduction, bud => {
+   *  bud.mini()
+   *  bud.vendor()
+   *  // ...
+   * })
+   */
+  when: Api.When
 }
 
 /**
@@ -557,6 +571,7 @@ framework.apply('format', framework.util.format)
 framework.apply('config', config)
 framework.apply('compiler', compiler)
 framework.apply('server', express())
+framework.server.set('title', 'Bud')
 
 /** Bind the public API. */
 Object.values(api).forEach((method: () => any) => {

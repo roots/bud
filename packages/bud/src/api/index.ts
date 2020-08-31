@@ -9,6 +9,7 @@ import {copyAll} from './copyAll'
 import {dist} from './dist'
 import {distPath} from './distPath'
 import {devtool} from './devtool'
+import {when} from './when'
 import {glob} from './glob'
 import {hash} from './hash'
 import {dev} from './dev'
@@ -62,4 +63,5 @@ export const api: Api = {
   terser,
   use,
   vendor,
+  when,
 }

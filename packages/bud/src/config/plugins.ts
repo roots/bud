@@ -8,10 +8,13 @@ const plugins: PluginsBuilder = bud =>
     plugins: bud.plugins
       .entries()
       .reduce(
-        (a, [, fn]) => [
+        (a, [name, fn]) => [
           ...(a ? a : []),
           typeof fn == 'function'
-            ? bud.controller.use(fn).build()
+            ? bud.hooks.filter(
+                `webpack.plugins.${name}`,
+                bud.controller.use(fn).build(),
+              )
             : null,
         ],
         [],

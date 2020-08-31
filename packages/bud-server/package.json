@@ -22,7 +22,9 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "main": "./lib/index.js",
   "types": "./lib/types/index.d.ts",
   "scripts": {
@@ -32,10 +34,16 @@
   "dependencies": {
     "@roots/bud": "^2.0.0-next.5",
     "@roots/bud-framework": "^2.0.0-next.5",
+    "chokidar": "^3.4.2",
+    "globby": "^11.0.1",
+    "harmon": "^1.4.4",
     "http-proxy-middleware": "^1.0.5",
+    "prettier": "^2.1.1",
+    "transformer-proxy": "^0.3.5",
     "webpack": "^4.44.1",
     "webpack-dev-middleware": "^3.7.2",
-    "webpack-hot-middleware": "^2.25.0"
+    "webpack-hot-middleware": "^2.25.0",
+    "zlib": "^1.0.5"
   },
   "devDependencies": {
     "@roots/bud-support": "^2.0.0-next.5",

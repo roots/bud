@@ -2,17 +2,17 @@ import React, {FunctionComponent} from 'react'
 import {Box, Text} from 'ink'
 import {Bar} from './LoadingBar'
 
-type LoadingComponentProps = {
+type ProgressComponentProps = {
   build?: {
     percentage: number
+    message: string
   }
 }
 
-/**
- * Loading (Progress Plugin)
- */
-const Loading: FunctionComponent<LoadingComponentProps> = ({build}) =>
-  build?.percentage > 0 ? (
+const Progress: FunctionComponent<ProgressComponentProps> = ({
+  build,
+}) => (
+  <Box flexDirection="column">
     <Box flexDirection="row">
       <Box width={6}>
         <Text wrap="truncate">
@@ -28,8 +28,12 @@ const Loading: FunctionComponent<LoadingComponentProps> = ({build}) =>
         percent={build?.percentage ?? 0.01}
       />
     </Box>
-  ) : (
-    <Box></Box>
-  )
+    <Box height="1">
+      <Text wrap="truncate-start" color="#6C758F">
+        {build?.message ?? ' '}
+      </Text>
+    </Box>
+  </Box>
+)
 
-export {Loading}
+export {Progress as default}

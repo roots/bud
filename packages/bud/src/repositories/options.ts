@@ -1,6 +1,3 @@
-import chokidar from 'chokidar'
-import {resolve} from 'path'
-
 import type {
   BabelTransformOptions,
   BrowserSyncOptions,
@@ -36,14 +33,6 @@ const babelFallback: BabelTransformOptions = {
   ],
 }
 
-const browsersync: (flags) => any = flags => ({
-  host: flags.has('host') ? flags.get('host') : 'localhost',
-  port: flags.get('port') ? flags.get('port') : 3000,
-  proxy: flags.get('proxy') ? flags.get('proxy') : 'localhost',
-  online: false,
-  open: false,
-})
-
 const copy: Copy = {patterns: []}
 
 const babel: (configs) => BabelTransformOptions = function (configs) {
@@ -77,6 +66,7 @@ const options: RepositoryDefinition = {
         port: 3000,
         disableHostCheck: true,
         inline: true,
+        changeOrigin: true,
         headers: {
           'Access-Control-Allow-Origin': '*',
           'Access-Control-Allow-Methods':
@@ -115,10 +105,11 @@ const options: RepositoryDefinition = {
                   .identifier()
                   .split('/')
                   .reduceRight(item => item)
+                  .replace('.js', '')
                 const allChunksNames = chunks
                   .map(item => item.name)
                   .join('~')
-                return `${cacheGroupKey}---${allChunksNames}---${moduleFileName}`
+                return `${cacheGroupKey}/${allChunksNames}~${moduleFileName}`
               },
               chunks: 'all',
               automaticNamePrefix: 'vendor',
@@ -127,7 +118,6 @@ const options: RepositoryDefinition = {
         },
       },
       plugins: {
-        browsersync,
         clean: {},
         copy,
         fixStyleOnlyEntries: {
@@ -157,13 +147,7 @@ const options: RepositoryDefinition = {
           parallel: true,
         },
       },
-      stats: {
-        version: true,
-        hash: true,
-        assets: true,
-        errors: true,
-        warnings: true,
-      },
+      stats: 'detailed',
       target,
     },
     splitting: {

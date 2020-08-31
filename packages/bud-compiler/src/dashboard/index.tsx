@@ -2,76 +2,59 @@ import React, {useEffect, FunctionComponent} from 'react'
 import {useInput} from 'ink'
 import useStdOutDimensions from 'ink-use-stdout-dimensions'
 
-/**
- * Hooks
- */
 import {useWebpack} from './hooks/useWebpack'
-import {useFocusState} from './hooks/useFocusState'
-
-/**
- * Dashboard components
- */
+import {Configuration as WebpackConfig} from 'webpack'
 import {App} from './components/App'
-import {Assets} from './components/Assets'
-import {Errors} from './components/Errors'
-import {Warnings} from './components/Warnings'
-import {DevServer} from './components/DevServer'
-
+import {Artifact} from './components/Artifact'
 import type {Bud} from '@roots/bud'
 
 interface DashboardProps {
   bud: Bud
+  config: WebpackConfig
 }
 
 type DashboardComponent = FunctionComponent<DashboardProps>
 
-const Dashboard: DashboardComponent = ({bud}) => {
+const quit = bud => {
+  bud.util.terminate()
+
+  process.exit()
+}
+
+const Dashboard: DashboardComponent = ({bud, config}) => {
   const [width, height] = useStdOutDimensions()
-  const [state, actions] = useFocusState()
   const build = useWebpack(bud)
 
-  const quit = () => {
-    bud.util.terminate()
-    process.exit()
-  }
   useInput(input => {
-    if (input == 'q') {
-      quit()
-    }
+    input == 'q' && quit(bud)
   })
 
   useEffect(() => {
-    if (build?.success) {
+    if (
+      build?.assets.length > 0 &&
+      build?.errors.length == 0 &&
+      build?.percentage == 1
+    ) {
       const title = bud.hooks.filter(
         'compiler.notify.success.title',
         'Build complete.',
       )
+
       bud.util.notify({title})
     }
-  }, [build?.success])
+  }, [build])
 
-  useEffect(() => {
-    const notWatching =
-      !bud.features.enabled('watch') && !bud.features.enabled('hot')
-
-    if (notWatching && build?.done) {
-      quit()
-    }
-  })
-
-  return (
+  return bud.features.enabled('dev') ? (
     <App
+      config={config}
+      bud={bud}
       width={width}
       height={height}
       build={build}
-      state={state}
-      bud={bud}>
-      <Assets actions={actions} build={build} />
-      <Errors actions={actions} build={build} />
-      <Warnings actions={actions} build={build} />
-      <DevServer actions={actions} bud={bud} build={build} />
-    </App>
+    />
+  ) : (
+    <Artifact width={width} build={build} />
   )
 }
 
-export {Dashboard}
+export {Dashboard as default}

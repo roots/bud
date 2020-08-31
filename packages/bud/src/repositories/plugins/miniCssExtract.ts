@@ -5,7 +5,7 @@ const miniCssExtract: Plugin = bud => ({
   bud,
 
   options: {
-    hmr: bud.features.enabled('hot'),
+    hmr: bud.features.enabled('dev'),
     filename: bud.features.enabled('hash')
       ? `${bud.options.get('filenameTemplate').hashed}.css`
       : `${bud.options.get('filenameTemplate').default}.css`,
@@ -16,7 +16,7 @@ const miniCssExtract: Plugin = bud => ({
   },
 
   when: function () {
-    return this.bud.inProduction
+    return !this.bud.features.enabled('dev')
   },
 })
 

@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from 'react'
-import {Text} from 'ink'
+import {Box, Text} from 'ink'
 import useStdOutDimensions from 'ink-use-stdout-dimensions'
 
 interface BarProps {
@@ -12,6 +12,7 @@ interface BarProps {
   character?: string
   rightPad?: number
 }
+
 type BarComponent = FunctionComponent<BarProps>
 
 const Bar: BarComponent = ({
@@ -32,9 +33,11 @@ const Bar: BarComponent = ({
   }
 
   return (
-    <Text backgroundColor={backgroundColor} color={color}>
-      {getString()}
-    </Text>
+    <Box flexDirection="column">
+      <Text backgroundColor={backgroundColor} color={color}>
+        {getString()}
+      </Text>
+    </Box>
   )
 }
 

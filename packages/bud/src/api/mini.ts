@@ -1,7 +1,9 @@
-import type {Bud, Mini} from './types'
+import type {Bud} from './types'
 
-const mini: Mini = function (enable = true): Bud {
-  this.features.set('minify', enable)
+export declare type Mini = () => Bud
+
+const mini: Mini = function (): Bud {
+  this.features.enable('minify')
 
   return this
 }

@@ -16,8 +16,7 @@ export declare type Glob = (
   output: string,
   files: string,
 ) => Bud
-export declare type Hash = (this: Bud, enabled?: boolean) => Bud
-export declare type Mini = (enabled?: boolean) => Bud
+export declare type Hash = (this: Bud, {enabled: boolean}) => Bud
 export declare type Option = (key: string) => string
 export declare type PostCss = (options?: {
   enabled?: boolean
@@ -59,6 +58,9 @@ export type {Devtool}
 import type {Manifest} from './manifest'
 export type {Manifest}
 
+import type {Mini} from './mini'
+export type {Mini}
+
 import type {RuntimeManifest} from './runtimeManifest'
 export type {RuntimeManifest}
 
@@ -70,6 +72,9 @@ export type {UsePlugin}
 
 import type {Vendor} from './vendor'
 export type {Vendor}
+
+import type {When} from './when'
+export type {When}
 
 export declare type Fluent = (
   this: Bud,
@@ -108,4 +113,5 @@ export type Api = {
   terser: Terser
   use: UsePlugin
   vendor: Vendor
+  when: When
 }

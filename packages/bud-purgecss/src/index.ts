@@ -52,15 +52,14 @@ interface UserDefinedOptions {
  * })
  * ```
  */
-const purgecss: Plugin = () => ({
+const purgecss: Plugin = bud => ({
+  bud,
+
   make: function () {
     this.bud.apply('purgecss', function (
       options: UserDefinedOptions,
     ) {
-      this.options.push('postcss.plugins', [
-        ...this.options.get('postcss.plugins'),
-        PurgeCssPlugin(options),
-      ])
+      this.options.merge('postcss.plugins', [PurgeCssPlugin(options)])
 
       return this
     })

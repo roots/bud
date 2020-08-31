@@ -6,7 +6,10 @@ const distPath: PathSetter = function (dir: string): Bud {
     'dist',
     this.hooks.filter(
       'api.distPath',
-      join(this.paths.get('project'), dir),
+      join(
+        this.paths.get('project'),
+        dir.replace(/\/$/g, '').replace(/\/^/g, ''),
+      ),
     ),
   )
 

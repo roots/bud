@@ -9,7 +9,7 @@ const addExtensions: AddExtensions = function (extensions) {
       !this.options
         .get('webpack.resolve.extensions')
         .includes(`.${ext}`) &&
-        this.options.set('webpack.resolve.extensions', [
+        this.options.merge('webpack.resolve.extensions', [
           ...this.options.get('webpack.resolve.extensions'),
           `.${ext}`,
         ])

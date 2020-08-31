@@ -1,7 +1,7 @@
 import type {Hash} from './types'
 
-const hash: Hash = function (enabled = true) {
-  this.features.set('hash', enabled)
+const hash: Hash = function (options: {enabled}) {
+  this.features.set('hash', options?.enabled ?? true)
 
   return this
 }

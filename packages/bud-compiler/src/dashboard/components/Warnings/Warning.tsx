@@ -17,11 +17,9 @@ const Warning: WarningComponent = ({message}) => {
       })
   }, [message])
 
-  return !message ? (
-    <Box></Box>
-  ) : (
-    <Box paddingLeft={1} paddingRight={1} flexDirection="column">
-      <Text wrap="wrap">{message}</Text>
+  return (
+    <Box flexDirection="column">
+      {message && <Text wrap="wrap">{message}</Text>}
     </Box>
   )
 }

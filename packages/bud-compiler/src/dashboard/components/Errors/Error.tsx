@@ -1,9 +1,17 @@
 import notifier from 'node-notifier'
 import React, {useEffect, FunctionComponent} from 'react'
-import {Box, Text} from 'ink'
+import {Box, Text, Spacer} from 'ink'
 
 interface ErrorProps {
   message: string
+}
+
+const Generic = ({error}) => {
+  return (
+    <Box flexDirection="column">
+      <Text wrap="wrap">{error || ''}</Text>
+    </Box>
+  )
 }
 
 const Error: FunctionComponent<ErrorProps> = ({message}) => {
@@ -15,11 +23,11 @@ const Error: FunctionComponent<ErrorProps> = ({message}) => {
       })
   }, [message])
 
-  return (
-    <Box paddingLeft={1} paddingRight={1} flexDirection="column">
-      <Text wrap="wrap">{message || ''}</Text>
-    </Box>
-  )
+  if (message.includes(':')) {
+    message = message.split(':').slice(1).join('')
+  }
+
+  return <Generic error={message} />
 }
 
 export {Error}

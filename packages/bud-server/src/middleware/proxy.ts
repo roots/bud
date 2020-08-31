@@ -1,6 +1,8 @@
 import {createProxyMiddleware as middleware} from 'http-proxy-middleware'
+import createDomain from '../util/createDomain'
+import zlib from 'zlib'
 
-const routes = bud => {
+const proxy = bud => {
   const target = {
     host:
       bud.options.get('webpack.devServer.proxy.target') ||
@@ -12,20 +14,69 @@ const routes = bud => {
     bud.options.get('webpack.devServer.host') || 'localhost'
   const port = bud.options.get('webpack.devServer.port') || 8000
 
-  return {
-    [`${host}:${port}`]: `${target.host}:${target.port}`,
-  }
-}
-
-const proxy = bud =>
-  middleware({
+  const proxyOptions = {
     target: bud.options.get(`webpack.devServer.target`),
-    autoRewrite:
-      bud.options.get('webpack.devServer.autoRewrite') || true,
-    changeOrigin:
-      bud.options.get('webpack.devServer.changeOrigin') || true,
-    ws: bud.options.get('webpack.devServer.ws') || true,
-    router: routes(bud),
-  })
+    autoRewrite: true,
+    hostRewrite:
+      bud.options.get('webpack.devServer.hostRewrite') ??
+      `${host}:${port}`,
+    changeOrigin: true,
+    cookieDomainRewrite: bud.options.get(
+      'webpack.devServer.cookieDomainRewrite',
+    ) ?? {
+      [`${target.host.replace(/^[a-zA-Z]+:\/\//, '')}`]: createDomain(
+        bud,
+      ),
+    },
+    ws: bud.options.get('webpack.devServer.ws') ?? true,
+    xfwd: true,
+
+    /**
+     * Handle rewriting text/html contents
+     * replacing the target url with the host url
+     */
+    selfHandleResponse: true,
+    onProxyRes: function (proxyRes, req, res: any) {
+      let body = Buffer.from([])
+
+      proxyRes.on('data', data => {
+        body = Buffer.concat([body, data])
+      })
+
+      proxyRes.on('end', () => {
+        res.set({
+          'content-type': proxyRes.headers['content-type'],
+          'content-encoding': 'gzip',
+        })
+
+        if (proxyRes.headers['content-encoding'] == 'gzip') {
+          const transformBody = zlib
+            .gunzipSync(body)
+            .toString()
+            .replace(
+              new RegExp(
+                `http:\/\/${target.host.replace(
+                  /^[a-zA-Z]+:\/\//,
+                  '',
+                )}`,
+                'g',
+              ),
+              createDomain(bud),
+            )
+
+          res.send(zlib.gzipSync(transformBody))
+        } else {
+          res.send(Buffer.from(body))
+        }
+
+        res.end()
+      })
+    },
+  }
+
+  bud.bind('proxy', proxyOptions)
+
+  return middleware(proxyOptions)
+}
 
 export {proxy as default}

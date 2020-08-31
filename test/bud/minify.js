@@ -8,7 +8,4 @@ test('has expected default', t => {
 test('toggles feature', t => {
   bud.mini()
   t.is(bud.features.get('minify'), true)
-  bud.mini(false)
-  t.is(bud.features.get('minify'), false)
-  bud.mini()
 })
