@@ -40,5 +40,9 @@
     "pino-pretty": "^4.1.0",
     "prettier": "^2.1.1",
     "yargs": "^15.4.1"
+  },
+  "devDependencies": {
+    "@roots/bud-support": "2.0.0-next.5",
+    "@roots/bud-typings": "file:../bud-typings"
   }
 }

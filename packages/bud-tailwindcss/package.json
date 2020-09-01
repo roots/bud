@@ -36,5 +36,8 @@
   },
   "dependencies": {
     "tailwindcss": "^1.6.2"
+  },
+  "devDependencies": {
+    "@roots/bud-typings": "file:../bud-typings"
   }
 }

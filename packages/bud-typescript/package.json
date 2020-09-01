@@ -38,5 +38,8 @@
     "ts-loader": "^8.0.2",
     "tslib": "^2.0.1",
     "typescript": "^3.9.7"
+  },
+  "devDependencies": {
+    "@roots/bud-typings": "file:../bud-typings"
   }
 }

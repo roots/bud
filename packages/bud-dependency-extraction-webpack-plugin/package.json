@@ -35,5 +35,8 @@
   },
   "dependencies": {
     "@wordpress/dependency-extraction-webpack-plugin": "^2.8.0"
+  },
+  "devDependencies": {
+    "@roots/bud-typings": "file:../bud-typings"
   }
 }

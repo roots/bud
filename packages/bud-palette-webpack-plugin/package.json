@@ -36,5 +36,8 @@
   },
   "dependencies": {
     "palette-webpack-plugin": "^1.0.0"
+  },
+  "devDependencies": {
+    "@roots/bud-typings": "file:../bud-typings"
   }
 }

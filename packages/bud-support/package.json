@@ -35,5 +35,8 @@
   "scripts": {
     "build": "rimraf ./bin && tsc",
     "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@roots/bud-typings": "file:../bud-typings"
   }
 }

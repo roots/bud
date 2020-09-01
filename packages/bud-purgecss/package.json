@@ -35,5 +35,8 @@
   "dependencies": {
     "@fullhuman/postcss-purgecss": "^2.3.0",
     "purgecss-with-wordpress": "^2.3.0"
+  },
+  "devDependencies": {
+    "@roots/bud-typings": "file:../bud-typings"
   }
 }

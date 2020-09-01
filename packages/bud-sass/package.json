@@ -38,5 +38,8 @@
     "node-sass": "^4.14.1",
     "postcss-scss": "^2.1.1",
     "sass-loader": "^9.0.2"
+  },
+  "devDependencies": {
+    "@roots/bud-typings": "file:../bud-typings"
   }
 }
