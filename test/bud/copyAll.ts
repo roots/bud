@@ -1,8 +1,7 @@
 const test = require('ava')
-const {emptyDir} = require('fs-extra')
-const {join, resolve} = require('path')
-
 const {bud} = require('@roots/bud')
+const {join, resolve} = require('path')
+const {emptyDir} = require('fs-extra')
 
 const mockDir = resolve(process.cwd(), 'test/mock')
 const imagesDir = resolve(mockDir, 'public/images')
@@ -10,7 +9,6 @@ const fontsDir = resolve(mockDir, 'public/fonts')
 
 bud.projectPath(mockDir)
 bud.distPath('dist')
-
 bud.project()
 
 const patterns = [

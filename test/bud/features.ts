@@ -1,4 +1,7 @@
-module.exports = {
+const test = require('ava')
+const {bud} = require('@roots/bud')
+
+const features = {
   babel: true,
   clean: true,
   hash: false,
@@ -12,3 +15,8 @@ module.exports = {
   splitChunks: false,
   watch: false,
 }
+
+test('has expected defaults', t => {
+  const {bud} = require('@roots/bud')
+  t.deepEqual(bud.features.repository, features)
+})

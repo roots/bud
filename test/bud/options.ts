@@ -1,5 +1,6 @@
 const test = require('ava')
 const {bud} = require('@roots/bud')
+const {join, resolve} = require('path')
 
 test('has expected copy defaults', t => {
   t.deepEqual(bud.options.get('webpack.plugins.copy'), {

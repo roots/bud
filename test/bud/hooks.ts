@@ -1,5 +1,6 @@
 const test = require('ava')
 const {bud} = require('@roots/bud')
+const {join, resolve} = require('path')
 
 test('can be set', t => {
   bud.hooks.on('test', value => 'pong')

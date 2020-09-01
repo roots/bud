@@ -1,5 +1,6 @@
 const test = require('ava')
 const {bud} = require('@roots/bud')
+const {join} = require('path')
 
 test('adds extensions specified with without leading dot', t => {
   bud.addExtensions(['.new'])

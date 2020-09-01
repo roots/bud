@@ -1,6 +1,6 @@
-import test from 'ava'
-import {join} from 'path'
-import {bud} from '@roots/bud'
+const test = require('ava')
+const {bud} = require('@roots/bud')
+const {join} = require('path')
 
 test('sets option', t => {
   bud.alias({'@scripts': bud.src('scripts')})

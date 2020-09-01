@@ -1,6 +1,6 @@
 const test = require('ava')
-const {resolve} = require('path')
 const {bud} = require('@roots/bud')
+const {join, resolve} = require('path')
 
 bud.projectPath(resolve(__dirname, '../mock'))
 bud.srcPath('public')

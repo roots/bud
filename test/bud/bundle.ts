@@ -1,5 +1,6 @@
 const test = require('ava')
 const {bud} = require('@roots/bud')
+const {join} = require('path')
 
 test('has expected default', t => {
   t.deepEqual(bud.options.get('webpack.entry'), {})

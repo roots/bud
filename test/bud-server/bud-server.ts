@@ -1,5 +1,5 @@
-import {bud, Bud} from '../../packages/bud'
-import ava from 'ava'
+const {bud} = require('@roots/bud')
+const ava = require('ava')
 
 ava('Bud has server property', t => {
   t.true(bud.hasOwnProperty('server'))

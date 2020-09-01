@@ -1,6 +1,5 @@
 const test = require('ava')
 const {resolve} = require('path')
-
 const {bud} = require('@roots/bud')
 
 const mockDir = resolve(process.cwd(), 'test/mock')

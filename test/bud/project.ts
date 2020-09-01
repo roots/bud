@@ -1,7 +1,6 @@
 const test = require('ava')
-const {join} = require('path')
-
 const {bud} = require('@roots/bud')
+const {join, resolve} = require('path')
 
 const mockPath = join(process.cwd(), 'project')
 

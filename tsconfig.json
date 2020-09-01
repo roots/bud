@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "jsx": "react",
-    "allowJs": true,
+    "allowJs": false,
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
     "declaration": true,
@@ -10,9 +10,9 @@
     "declarationMap": true,
     "sourceMap": true,
     "watch": false,
-    "rootDir": "./packages",
-    "outDir": "./build",
+    "rootDir": "./packages/",
+    "outDir": "./build/",
   },
-  "include": ["packages/*/src"],
-  "exclude": ["node_modules", "**/node_modules"]
+  "include": ["./packages/*/src/"],
+  "exclude": ["./node_modules/", "./**/node_modules/"]
 }

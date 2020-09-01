@@ -9,10 +9,10 @@ jobs:
     runs-on: ubuntu-latest
     steps:
     - uses: actions/checkout@v2
-    - name: Use Node 12
+    - name: Use Node 14.9
       uses: actions/setup-node@v1
       with:
-        node-version: 12
+        node-version: 14.9
         registry-url: https://registry.npmjs.org/
     - name: Build package
       run: |

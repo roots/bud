@@ -1,5 +1,6 @@
-import test from 'ava'
-import {bud} from '@roots/bud'
+const test = require('ava')
+const {bud} = require('@roots/bud')
+const {join, resolve} = require('path')
 
 test('sets option', t => {
   bud.provide({jquery: ['$', 'window.jQuery']})
