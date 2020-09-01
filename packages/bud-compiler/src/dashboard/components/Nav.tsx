@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box, Spacer, Text} from 'ink'
+import {Box, Text} from 'ink'
 import useStdOutDimensions from 'ink-use-stdout-dimensions'
 
 const Bullet = ({active}) => {

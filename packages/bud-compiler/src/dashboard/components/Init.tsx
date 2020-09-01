@@ -1,4 +1,4 @@
-import React, {FunctionComponent, useState} from 'react'
+import React, {FunctionComponent} from 'react'
 import {Box, Text, Spacer} from 'ink'
 import Screen from './UI/Screen'
 import useHmr from '../hooks/useHmr'

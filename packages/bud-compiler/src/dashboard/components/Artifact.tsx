@@ -1,14 +1,12 @@
 import React, {useEffect, FunctionComponent} from 'react'
-import {Box, Spacer, useApp} from 'ink'
+import {Box, useApp} from 'ink'
 
 import Assets from './Assets'
 import Errors from './Errors'
 import Warnings from './Warnings'
 import Progress from './Progress'
-import Screen from './UI/Screen'
 
 import {BuildInfo} from './BuildInfo'
-import {bud} from '@roots/bud'
 
 interface ArtifactInterface {
   build: any
