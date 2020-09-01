@@ -34,11 +34,6 @@
   },
   "dependencies": {
     "@fullhuman/postcss-purgecss": "^2.3.0",
-    "@roots/bud": "^2.0.0-next.5",
-    "@roots/bud-framework": "^2.0.0-next.5",
     "purgecss-with-wordpress": "^2.3.0"
-  },
-  "devDependencies": {
-    "@roots/bud-support": "^2.0.0-next.5"
   }
 }

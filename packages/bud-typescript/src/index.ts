@@ -1,12 +1,12 @@
-import {join} from 'path'
-import {Bud} from '@roots/bud'
-import {Plugin} from '@roots/bud-typings'
+import {Bud, Plugin} from '@roots/bud-typings'
 
 const typescript: Plugin = (bud: Bud) => ({
   bud,
 
   make: function () {
-    const configFile = join(this.bud.project('tsconfig.json'))
+    const configFile = this.bud.fs.join(
+      this.bud.project('tsconfig.json'),
+    )
 
     if (this.bud.fs.existsSync(configFile)) {
       this.bud.configs.set('typescript', configFile)

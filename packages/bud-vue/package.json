@@ -35,8 +35,6 @@
     "watch": "npm run build && nodemon"
   },
   "dependencies": {
-    "@roots/bud": "^2.0.0-next.5",
-    "@roots/bud-framework": "^2.0.0-next.5",
     "babel-helper-vue-jsx-merge-props": "^2.0.0",
     "babel-plugin-transform-vue-jsx": "^3.7.0",
     "css-loader": "^3.6.0",
@@ -45,9 +43,5 @@
     "vue": "^2.6.11",
     "vue-loader": "^15.9.3",
     "vue-template-compiler": "^2.6.12"
-  },
-  "devDependencies": {
-    "@roots/bud-support": "^2.0.0-next.5",
-    "webpack": "^4.43.0"
   }
 }

@@ -18,11 +18,15 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": ["bud-extension"],
+  "keywords": [
+    "bud-extension"
+  ],
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
   "scripts": {
@@ -31,15 +35,8 @@
     "build": "rimraf ./lib && tsc"
   },
   "dependencies": {
-    "@roots/bud": "^2.0.0-next.5",
-    "@types/source-map": "^0.5.7",
-    "@types/stylelint": "^9.10.1",
     "stylelint": "^13.6.1",
     "stylelint-config-standard": "^20.0.0",
     "stylelint-webpack-plugin": "^2.1.0"
-  },
-  "devDependencies": {
-    "@roots/bud-support": "^2.0.0-next.5",
-    "webpack": "^4.43.0"
   }
 }

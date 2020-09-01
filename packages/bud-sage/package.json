@@ -42,8 +42,5 @@
     "@roots/bud-purgecss": "^2.0.0-next.5",
     "@roots/bud-sass": "^2.0.0-next.5",
     "@roots/bud-stylelint": "^2.0.0-next.5"
-  },
-  "devDependencies": {
-    "@roots/bud-support": "^2.0.0-next.5"
   }
 }

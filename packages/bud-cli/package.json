@@ -37,7 +37,6 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@roots/bud": "^2.0.0-next.5",
     "ink": "^3.0.0-6",
     "ink-gradient": "^1.0.0",
     "ink-link": "^1.1.0",
@@ -46,10 +45,5 @@
     "react": "^16.13.1",
     "react-dev-utils": "^10.2.1",
     "react-dom": "^16.13.1"
-  },
-  "devDependencies": {
-    "@roots/bud-support": "^2.0.0-next.5",
-    "@types/react": "^16.9.43",
-    "@types/react-dom": "^16.9.8"
   }
 }

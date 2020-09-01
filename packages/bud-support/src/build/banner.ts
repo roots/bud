@@ -13,4 +13,4 @@ const banner = (pkg: any): string => `/**
  */`
 /* eslint-enable */
 
-export default banner
+export {banner as default}

@@ -1,5 +1,32 @@
 {
   "version": "2.0.0-next.5",
+  "packages": [
+    "packages/bud-support",
+    "packages/bud-typings",
+    "packages/bud-framework",
+    "packages/bud-compiler",
+    "packages/bud-server",
+    "packages/bud",
+    "packages/bud-dependency-extraction-webpack-plugin",
+    "packages/bud-eslint",
+    "packages/bud-palette-webpack-plugin",
+    "packages/bud-purgecss",
+    "packages/bud-react",
+    "packages/bud-sass",
+    "packages/bud-stylelint",
+    "packages/bud-tailwindcss",
+    "packages/bud-typescript",
+    "packages/bud-vue"
+  ],
+  "npmClient": "yarn",
+  "useWorkspaces": true,
+  "command": {
+    "bootstrap": {
+      "npmClientArgs": [
+        "--use-workspaces"
+      ]
+    }
+  },
   "changelog": {
     "repo": "@roots/bud",
     "cacheDir": ".changelog",
@@ -14,10 +41,5 @@
       "PR: Internal :house:": ":house: Internal",
       "PR: Revert :leftwards_arrow_with_hook:": ":leftwards_arrow_with_hook: Revert"
     }
-  },
-  "packages": [
-    "packages/*"
-  ],
-  "npmClient": "yarn",
-  "useWorkspaces": true
+  }
 }
