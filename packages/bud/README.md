@@ -33,8 +33,6 @@ Bud can do many more things. But a central philosophy of the framework is that m
 
 ## Plugins
 
-Bud provides
-
 ### Usage
 
 Import plugins at the top of your `bud.config.js` file
