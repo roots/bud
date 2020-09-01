@@ -1,5 +1,4 @@
-import type {Bud} from '@roots/bud'
-import {Plugin, PluginInterface} from '@roots/bud-framework'
+import {Bud, Plugin, PluginInterface} from '@roots/bud-typings'
 import {join, resolve} from 'path'
 
 const eslint: Plugin = (bud: Bud) => ({

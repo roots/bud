@@ -1,4 +1,4 @@
-import {Plugin} from '@roots/bud-framework'
+import {Plugin} from '@roots/bud-typings'
 import {Bud} from '@roots/bud'
 
 const react: Plugin = (bud: Bud) => ({

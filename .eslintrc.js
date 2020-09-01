@@ -19,6 +19,7 @@ module.exports = {
     'plugin:prettier/recommended',
   ],
   rules: {
+    '@typescript-eslint/no-namespace': 0,
     '@typescript-eslint/no-explicit-any': 1,
     'react/prop-types': 'off',
   },

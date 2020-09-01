@@ -1,7 +1,7 @@
 import {join} from 'path'
-import type {Bud, PathSetter} from './types'
+import {Api} from '@roots/bud-typings'
 
-const distPath: PathSetter = function (dir: string): Bud {
+const distPath: Api.DistPath = function (dir: string) {
   this.paths.set(
     'dist',
     this.hooks.filter(

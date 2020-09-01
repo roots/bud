@@ -1,4 +1,4 @@
-import type {Bud} from './types'
+import type {Bud} from '@roots/bud-typings'
 import type {WebpackOptimization} from '@roots/bud-typings'
 
 type OptimizationBuilder = (bud: Bud) => WebpackOptimization

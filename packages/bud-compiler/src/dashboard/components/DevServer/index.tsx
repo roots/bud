@@ -1,14 +1,12 @@
 import React, {useEffect, useState, FunctionComponent} from 'react'
 import {Box, Text, Spacer} from 'ink'
 import Screen from '../UI/Screen'
-import useHmr from '../../hooks/useHmr'
 
 interface DevServerProps {
   build: any
 }
 
 const DevServer: FunctionComponent<DevServerProps> = ({build}) => {
-  const [hmrData] = useHmr()
   const [serverLog, setServerLog] = useState([])
   useEffect(() => {
     build.req && setServerLog([...serverLog, build.req])

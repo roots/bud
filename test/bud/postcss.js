@@ -1,5 +1,5 @@
-const test = require('ava')
-const {bud} = require('@roots/bud')
+import test from 'ava'
+import {bud} from '@roots/bud'
 
 bud.projectPath(__dirname)
 
@@ -14,10 +14,4 @@ test('sets option', t => {
 
   t.true(bud.options.get('postcss.plugins').length === 3)
   t.deepEqual(bud.options.get('postcss.plugins'), [require('postcss-import'), require('autoprefixer'), 'very-foo-bar'])
-})
-
-test('can be disabled', t => {
-  bud.postcss({enabled: false})
-
-  t.false(bud.features.enabled('postcss'))
 })

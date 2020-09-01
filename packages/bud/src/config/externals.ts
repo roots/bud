@@ -1,4 +1,4 @@
-import type {Bud} from './types'
+import type {Bud} from '@roots/bud-typings'
 import type {WebpackExternals} from '@roots/bud-typings'
 
 type ExternalsBuilder = (bud: Bud) => WebpackExternals

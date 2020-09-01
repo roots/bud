@@ -1,6 +1,7 @@
 import type {Bud} from '@roots/bud'
-import type {Plugin} from '@roots/bud-framework'
+import type {Plugin} from '@roots/bud-typings'
 import {VueLoaderPlugin} from 'vue-loader'
+
 /** Patched compiler.*/
 import compiler from './vue-template-compiler'
 

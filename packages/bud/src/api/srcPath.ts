@@ -1,7 +1,7 @@
 import {join} from 'path'
-import type {Bud, PathSetter} from './types'
+import {Api} from '@roots/bud-typings'
 
-const srcPath: PathSetter = function (dir: string): Bud {
+const srcPath: Api.SrcPath = function (dir: string) {
   const setPath = join(
     this.paths.get('project'),
     dir.replace(/\/$/g, '').replace(/\/^/g, ''),

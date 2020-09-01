@@ -2,11 +2,18 @@ import middleware from '../middleware'
 import injectEntrypoints from '../util/injectEntrypoints'
 import {format} from 'prettier'
 import createDomain from '../util/createDomain'
+import {Bud} from '@roots/bud-typings'
+
+interface BeforeArgs {
+  bud: Bud
+}
+const before: (BeforeArgs) => void = ({bud}) => {
+  bud.options.set('webpack.entry', injectEntrypoints(bud))
+}
 
 const development = {
-  before: ({bud}) => {
-    bud.options.set('webpack.entry', injectEntrypoints(bud))
-  },
+  before,
+
   after: ({bud, compilerCallback, expressCallback}) => {
     bud.server.use(function (req, res, next) {
       expressCallback(req)

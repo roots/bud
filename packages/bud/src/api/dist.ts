@@ -1,7 +1,7 @@
 import {join} from 'path'
-import type {Dist} from './types'
+import {Api} from '@roots/bud-typings'
 
-const dist: Dist = function (path?: string): string {
+const dist: Api.Dist = function (path?: string) {
   return path
     ? join(this.paths.get('dist'), path)
     : this.paths.get('dist')

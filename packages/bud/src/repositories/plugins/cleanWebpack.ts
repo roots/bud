@@ -1,5 +1,5 @@
-import {CleanWebpackPlugin} from 'clean-webpack-plugin'
-import type {Plugin} from '@roots/bud-framework'
+import {CleanWebpackPlugin} from './externals'
+import type {Plugin} from '@roots/bud-typings'
 
 const cleanWebpack: Plugin = bud => ({
   bud,

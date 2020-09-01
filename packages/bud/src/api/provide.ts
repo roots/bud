@@ -1,8 +1,6 @@
-import {Bud} from './types'
+import {Api} from '@roots/bud-typings'
 
-type Provide = (options: {[key: string]: string[]}) => Bud
-
-const provide: Provide = function (options) {
+const provide: Api.Provide = function (options) {
   Object.entries(options).forEach(([key, modules]) => {
     const isString = typeof modules == 'string'
     const isObject = typeof modules == 'object'
@@ -26,4 +24,3 @@ const provide: Provide = function (options) {
 }
 
 export {provide}
-export type {Provide}

@@ -1,7 +1,7 @@
 import {join} from 'path'
-import type {Copy} from './copy'
+import {Api} from '@roots/bud-typings'
 
-const copyAll: Copy = function (from, to?) {
+const copyAll: Api.Copy = function (from, to?) {
   this.options.set('webpack.plugins.copy.patterns', [
     ...this.options.get('webpack.plugins.copy.patterns'),
     this.hooks.filter('bud.copyAll.filter', {

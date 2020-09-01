@@ -1,7 +1,7 @@
 import {join} from 'path'
-import type {Project} from './types'
+import {Api} from '@roots/bud-typings'
 
-const project: Project = function (path: string): string {
+const project: Api.Project = function (path) {
   return path
     ? join(this.paths.get('project'), path)
     : this.paths.get('project')

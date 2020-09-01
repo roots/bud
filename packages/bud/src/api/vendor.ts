@@ -1,8 +1,6 @@
-import type {Bud} from './types'
+import {Api} from '@roots/bud-typings'
 
-type Vendor = (this: Bud, options?: any) => Bud
-
-const vendor: Vendor = function (options) {
+const vendor: Api.Vendor = function (options) {
   this.features.enable('splitChunks')
 
   options &&
@@ -20,4 +18,3 @@ const vendor: Vendor = function (options) {
 }
 
 export {vendor}
-export type {Vendor}

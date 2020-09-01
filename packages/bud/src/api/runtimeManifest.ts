@@ -1,12 +1,7 @@
-import type {Bud} from './types'
+import {Api} from '@roots/bud-typings'
 
-type RuntimeManifest = (args?: {
-  enabled: boolean
-  name: string
-}) => Bud
-
-const runtimeManifest: RuntimeManifest = function (args?) {
-  this.features.set('runtimeChunk', args?.enabled ?? true)
+const runtimeManifest: Api.RuntimeManifest = function (args?) {
+  this.features.set('runtimeChunk', true)
   args?.name &&
     this.options.set(
       'webpack.optimization.runtimeChunk.name',
@@ -17,4 +12,3 @@ const runtimeManifest: RuntimeManifest = function (args?) {
 }
 
 export {runtimeManifest}
-export type {RuntimeManifest}

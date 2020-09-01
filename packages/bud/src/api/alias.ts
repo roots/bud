@@ -1,15 +1,12 @@
-import type {Bud} from './types'
+import {Api} from '@roots/bud-typings'
 
-type Alias = (this: Bud, options: any) => Bud
-
-const alias: Alias = function (options) {
+const alias: Api.Alias = function (option) {
   this.options.set('webpack.resolve.alias', {
     ...this.options.get('webpack.resolve.alias'),
-    ...this.hooks.filter('api.alias', options),
+    ...this.hooks.filter('api.alias', option),
   })
 
   return this
 }
 
 export {alias}
-export type {Alias}

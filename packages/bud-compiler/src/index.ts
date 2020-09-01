@@ -1,9 +1,10 @@
 import {render} from './render'
 import {CompilerController, CompilerFactory} from './types'
+import {Bud, WebpackConfig} from '@roots/bud-typings'
 
 const compiler: CompilerFactory = (
-  bud,
-  config,
+  bud: Bud,
+  config: WebpackConfig,
 ): CompilerController => ({
   bud,
   config,

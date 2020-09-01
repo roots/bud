@@ -1,5 +1,5 @@
 import {Bud} from '@roots/bud'
-import {Plugin} from '@roots/bud-framework'
+import {Plugin} from '@roots/bud-typings'
 
 /**
  * Bud extension: sass

@@ -1,5 +1,4 @@
-import type {Bud} from './types'
-
+import type {Bud} from '@roots/bud-typings'
 const general = (bud: Bud) => ({
   context: bud.hooks.filter(
     'webpack.context',

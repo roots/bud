@@ -1,9 +1,8 @@
-import WriteFilePlugin from 'write-file-webpack-plugin'
-import type {Plugin} from '@roots/bud-framework'
+import {WriteFilePlugin} from './externals'
+import {Plugin} from '@roots/bud-typings'
 
 const writeFile: Plugin = bud => ({
   bud,
-
   make: function () {
     return new WriteFilePlugin()
   },

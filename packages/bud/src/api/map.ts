@@ -1,6 +1,6 @@
-import type {Bud, SourceMap} from './types'
+import {Api} from '@roots/bud-typings'
 
-const map: SourceMap = function (enabled = true): Bud {
+const map: Api.Map = function (enabled = true) {
   this.features.set('sourceMap', enabled ?? true)
 
   return this

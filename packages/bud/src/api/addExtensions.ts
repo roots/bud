@@ -1,8 +1,6 @@
-import type {Bud} from './types'
+import {Api} from '@roots/bud-typings'
 
-type AddExtensions = (this: Bud, extensions: string[]) => Bud
-
-const addExtensions: AddExtensions = function (extensions) {
+const addExtensions: Api.AddExtensions = function (extensions) {
   extensions
     .map(ext => ext.replace(/^(\.)([^ .]+)?/, '$2'))
     .forEach(ext => {
@@ -19,4 +17,3 @@ const addExtensions: AddExtensions = function (extensions) {
 }
 
 export {addExtensions}
-export type {AddExtensions}

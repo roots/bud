@@ -1,6 +1,6 @@
 import {join} from 'path'
 import {Bud} from '@roots/bud'
-import {Plugin} from '@roots/bud-framework'
+import {Plugin} from '@roots/bud-typings'
 
 const typescript: Plugin = (bud: Bud) => ({
   bud,

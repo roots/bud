@@ -1,6 +1,5 @@
-import {optimize} from 'webpack'
-const {LimitChunkCountPlugin} = optimize
-import type {Plugin} from '@roots/bud-framework'
+import {LimitChunkCountPlugin} from './externals'
+import {Plugin} from '@roots/bud-typings'
 
 const limitChunkCount: Plugin = bud => ({
   bud,

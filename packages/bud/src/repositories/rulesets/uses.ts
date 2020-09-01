@@ -1,6 +1,6 @@
 import {Bud} from '../..'
 import type {WebpackRule} from '@roots/bud-typings'
-import type {RepositoryDefinition} from '@roots/bud-framework'
+import type {RepositoryDefinition} from '@roots/bud-typings'
 import {RuleSetLoader} from 'webpack'
 
 /**

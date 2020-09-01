@@ -1,9 +1,7 @@
-import {Bud} from './types'
+import {Api} from '@roots/bud-typings'
 import {join} from 'path'
 
-type Copy = (this: Bud, from: string, to: string) => Bud
-
-const copy: Copy = function (from, to?) {
+const copy: Api.Copy = function (from, to?) {
   this.options.set('webpack.plugins.copy.patterns', [
     ...this.options.get('webpack.plugins.copy.patterns'),
     {
@@ -16,4 +14,3 @@ const copy: Copy = function (from, to?) {
 }
 
 export {copy}
-export type {Copy}

@@ -1,4 +1,4 @@
-import type {RepositoryDefinition} from '@roots/bud-framework'
+import type {RepositoryDefinition} from '@roots/bud-typings'
 
 const features: RepositoryDefinition = {
   name: 'features',

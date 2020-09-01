@@ -1,5 +1,5 @@
-import TerserPlugin from 'terser-webpack-plugin'
-import type {Plugin} from '@roots/bud-framework'
+import {TerserPlugin} from './externals'
+import type {Plugin} from '@roots/bud-typings'
 
 const terser: Plugin = bud => ({
   bud,

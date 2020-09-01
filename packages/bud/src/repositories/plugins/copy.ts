@@ -1,6 +1,6 @@
-import CopyWebpackPlugin from 'copy-webpack-plugin'
+import {CopyWebpackPlugin} from './externals'
 
-import type {Plugin} from '@roots/bud-framework'
+import type {Plugin} from '@roots/bud-typings'
 
 const copy: Plugin = bud => ({
   bud,

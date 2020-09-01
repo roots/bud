@@ -1,7 +1,8 @@
-import type {Bud, PostCss} from './types'
+import {Api} from '@roots/bud-typings'
 
-const postcss: PostCss = function ({enabled, plugins}): Bud {
-  this.features.set('postcss', enabled ?? true)
+const postcss: Api.PostCss = function ({plugins}) {
+  this.features.set('postcss', true)
+
   plugins &&
     this.options.set('postcss.plugins', [
       ...this.options.get('postcss.plugins'),

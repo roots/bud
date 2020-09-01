@@ -1,12 +1,9 @@
 import type {
   BabelTransformOptions,
-  BrowserSyncOptions,
   WebpackTarget,
+  RepositoryDefinition,
 } from '@roots/bud-typings'
-import type {RepositoryDefinition} from '@roots/bud-framework'
 
-import type {PostCssConfiguration} from './types'
-export type BrowserSync = BrowserSyncOptions
 export type Copy = {patterns: any[]}
 
 const target: WebpackTarget = 'web'
@@ -41,9 +38,7 @@ const babel: (configs) => BabelTransformOptions = function (configs) {
     : babelFallback
 }
 
-const postcss: (configs) => PostCssConfiguration = function (
-  configs,
-) {
+const postcss: (configs) => any = function (configs) {
   const fallback = {
     plugins: [require('postcss-import'), require('autoprefixer')],
   }

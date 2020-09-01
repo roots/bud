@@ -1,5 +1,5 @@
 import ManifestPlugin from 'webpack-manifest-plugin'
-import type {Plugin} from '@roots/bud-framework'
+import type {Plugin} from '@roots/bud-typings'
 
 const manifest: Plugin = bud => ({
   bud,

@@ -1,12 +1,7 @@
-import type {Bud} from '..'
+import {Api} from '@roots/bud-typings'
 import {isArray} from 'lodash'
 
-export declare type UsePlugin = (
-  this: Bud,
-  plugins: any | any[],
-) => Bud
-
-const use: UsePlugin = function (plugins): Bud {
+const use: Api.Use = function (plugins) {
   if (isArray(plugins)) {
     plugins.forEach(plugin => {
       typeof plugin == 'function'

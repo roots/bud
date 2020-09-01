@@ -1,5 +1,5 @@
-import {ProvidePlugin} from 'webpack'
-import type {Plugin} from '@roots/bud-framework'
+import {ProvidePlugin} from './externals'
+import type {Plugin} from '@roots/bud-typings'
 
 const provide: Plugin = bud => ({
   bud,

@@ -9,7 +9,7 @@ import {manifest} from './manifest'
 import {provide} from './provide'
 import {terser} from './terser'
 import {writeFile} from './writeFile'
-import {PluginRepositoryDefinition} from '@roots/bud-framework'
+import {PluginRepositoryDefinition} from '@roots/bud-typings'
 
 /**
  * Bud Webpack Adapters

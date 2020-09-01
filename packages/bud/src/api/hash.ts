@@ -1,7 +1,7 @@
-import type {Hash} from './types'
+import type {Api} from '@roots/bud-typings'
 
-const hash: Hash = function (options: {enabled}) {
-  this.features.set('hash', options?.enabled ?? true)
+const hash: Api.Hash = function () {
+  this.features.set('hash', true)
 
   return this
 }

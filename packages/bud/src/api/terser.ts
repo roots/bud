@@ -1,8 +1,6 @@
-import type {Bud} from './types'
+import {Api} from '@roots/bud-typings'
 
-type Terser = (this: Bud, options?: any) => Bud
-
-const terser: Terser = function (options) {
+const terser: Api.Terser = function (options) {
   if (options) {
     this.options.set('webpack.plugins.terser', {
       ...this.options.get('webpack.plugins.terser'),
@@ -14,4 +12,3 @@ const terser: Terser = function (options) {
 }
 
 export {terser}
-export type {Terser}

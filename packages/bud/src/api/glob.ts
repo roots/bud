@@ -1,12 +1,9 @@
-import type {Bud, Glob} from './types'
+import {Api} from '@roots/bud-typings'
+
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const globby = require('globby')
 
-const glob: Glob = function (
-  this: Bud,
-  name: string,
-  files: string,
-): Bud {
+const glob: Api.Glob = function (name, files) {
   let entry
 
   const included = globby.sync(files, {

@@ -1,9 +1,10 @@
-const test = require('ava')
-const {join} = require('path')
-const {bud} = require('@roots/bud')
+import test from 'ava'
+import {join} from 'path'
+import {bud} from '@roots/bud'
 
 test('sets option', t => {
   bud.alias({'@scripts': bud.src('scripts')})
+
   t.deepEqual(bud.options.get('webpack.resolve.alias'), {
     '@scripts': bud.src('scripts'),
   })
@@ -11,6 +12,7 @@ test('sets option', t => {
 
 test('merges options', t => {
   bud.alias({'@styles': bud.src('styles')})
+
   t.deepEqual(bud.options.get('webpack.resolve.alias'), {
     '@scripts': bud.src('scripts'),
     '@styles': bud.src('styles'),

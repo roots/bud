@@ -1,8 +1,6 @@
-import type {Bud} from './types'
+import {Api} from '@roots/bud-typings'
 
-type Bundle = (this: Bud, name: string, entries: string[]) => Bud
-
-const bundle: Bundle = function (name, entries) {
+const bundle: Api.Bundle = function (name, entries) {
   entries.forEach(entry =>
     this.addExtensions([entry.split('.').pop()]),
   )
@@ -18,4 +16,3 @@ const bundle: Bundle = function (name, entries) {
 }
 
 export {bundle}
-export type {Bundle}

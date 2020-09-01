@@ -1,8 +1,6 @@
-import type {Bud} from './types'
+import {Api} from '@roots/bud-typings'
 
-export declare type Mini = () => Bud
-
-const mini: Mini = function (): Bud {
+const mini: Api.Mini = function () {
   this.features.enable('minify')
 
   return this

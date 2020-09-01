@@ -1,10 +1,9 @@
-import {Bud} from './types'
+import {Api} from '@roots/bud-typings'
 
-type When = (this: Bud, test: boolean, cb: any) => Bud
-const when: When = function (this: Bud, test: boolean, cb: any): Bud {
-  test == true && cb(this)
+const when: Api.When = function (test, action) {
+  test == true && action(this)
 
   return this
 }
 
-export {when, When}
+export {when}

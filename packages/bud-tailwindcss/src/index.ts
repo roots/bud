@@ -1,4 +1,4 @@
-import {Plugin} from '@roots/bud-framework'
+import {Plugin} from '@roots/bud-typings'
 import tailwind from 'tailwindcss'
 
 const tailwindcss: Plugin = () => ({

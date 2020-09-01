@@ -1,9 +1,6 @@
-import {Bud} from './types'
-import {BabelTransformOptions} from '@roots/bud-typings'
+import {Api} from '@roots/bud-typings'
 
-type Babel = (this: Bud, options: BabelTransformOptions) => Bud
-
-const babel: Babel = function (options) {
+const babel: Api.Babel = function (options) {
   this.features.enable('babel')
 
   this.options.set(
@@ -25,4 +22,3 @@ const babel: Babel = function (options) {
 }
 
 export {babel}
-export type {Babel}

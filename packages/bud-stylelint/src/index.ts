@@ -1,5 +1,5 @@
 import {Bud} from '@roots/bud'
-import {Plugin} from '@roots/bud-framework'
+import {Plugin} from '@roots/bud-typings'
 import StylelintPlugin from 'stylelint-webpack-plugin'
 import type {Options as StylelintOptions} from 'stylelint-webpack-plugin/declarations/getOptions'
 import {resolve} from 'path'

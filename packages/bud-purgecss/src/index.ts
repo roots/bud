@@ -1,4 +1,4 @@
-import {Plugin} from '@roots/bud-framework'
+import {Plugin} from '@roots/bud-typings'
 import * as purgeWordPress from 'purgecss-with-wordpress'
 
 import PurgeCssPlugin from '@fullhuman/postcss-purgecss'

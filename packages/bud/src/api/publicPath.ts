@@ -1,6 +1,6 @@
-import type {Bud, PathSetter} from './types'
+import type {Api} from '@roots/bud-typings'
 
-const publicPath: PathSetter = function (dir: string): Bud {
+const publicPath: Api.PublicPath = function (dir: string) {
   dir = !dir.match(/\/$/g) ? `${dir}/` : dir
   dir = !dir.match(/\/^/g) ? `/${dir}` : dir
 

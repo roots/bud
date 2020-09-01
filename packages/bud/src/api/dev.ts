@@ -1,8 +1,6 @@
-import type {Bud} from './types'
+import {Api} from '@roots/bud-typings'
 
-type Dev = (this: Bud, options: any) => Bud
-
-const dev: Dev = function (options) {
+const dev: Api.Dev = function (options) {
   if (options?.hasOwnProperty('enabled')) {
     this.features.set('dev', options.enabled)
   } else {
@@ -18,4 +16,4 @@ const dev: Dev = function (options) {
   return this
 }
 
-export {dev, Dev}
+export {dev}

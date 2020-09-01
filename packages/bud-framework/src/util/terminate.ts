@@ -1,14 +1,4 @@
-import {Loose} from '@roots/bud-typings'
-
-type TerminateReturn = () => (err: Error) => void
-interface TerminateOptions extends Loose {
-  dump?: boolean
-  timeout?: number
-}
-
-type Terminate = (options?: TerminateOptions) => TerminateReturn
-
-const terminate: Terminate = options => {
+const terminate: any = options => {
   const exit = (code: number) => {
     options?.dump ? process.abort() : process.exit(code)
   }
@@ -22,4 +12,4 @@ const terminate: Terminate = options => {
   }
 }
 
-export {terminate, Terminate}
+export {terminate}

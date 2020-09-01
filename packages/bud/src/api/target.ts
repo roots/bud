@@ -1,6 +1,6 @@
-import type {Bud, Target} from './types'
+import {Api} from '@roots/bud-typings'
 
-const target: Target = function (this: Bud, target: string): Bud {
+const target: Api.Target = function (target) {
   this.webpack.set('target', this.hooks.filter('api.target', target))
 
   return this

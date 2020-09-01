@@ -6,7 +6,7 @@ import {svg} from './svg'
 import {loaders} from './loaders'
 import {uses, Use} from './uses'
 
-import type {RepositoryDefinition} from '@roots/bud-framework'
+import type {RepositoryDefinition} from '@roots/bud-typings'
 
 const rules: RepositoryDefinition = {
   name: 'rules',

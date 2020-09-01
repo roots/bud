@@ -1,12 +1,10 @@
 import {join, resolve} from 'path'
 import {argv} from 'yargs'
-import type {
-  Container,
-  RepositoryDefinition,
-} from '@roots/bud-framework'
 
-type Directory = string
-type Paths = Container
+import type {
+  Directory,
+  RepositoryDefinition,
+} from '@roots/bud-typings'
 
 /**
  * Current working dir
@@ -44,4 +42,3 @@ const paths: RepositoryDefinition = {
 }
 
 export {paths}
-export type {Directory, Paths}

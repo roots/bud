@@ -1,10 +1,8 @@
-type ShortCircuit = () => any
-
 /**
  * JSON.stringify replacement function
  * Prevents circular references in JSON from looping
  */
-const shortCircuit: ShortCircuit = () => {
+const shortCircuit = () => {
   const seen = new WeakSet()
 
   return (key, value) => {
@@ -21,4 +19,3 @@ const shortCircuit: ShortCircuit = () => {
 }
 
 export {shortCircuit}
-export type {ShortCircuit}

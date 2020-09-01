@@ -1,5 +1,5 @@
-import FixStyleOnlyEntriesPlugin from 'webpack-fix-style-only-entries'
-import type {Plugin} from '@roots/bud-framework'
+import {FixStyleOnlyEntriesPlugin} from './externals'
+import {Plugin} from '@roots/bud-typings'
 
 const fixStyleOnlyEntries: Plugin = bud => ({
   bud,

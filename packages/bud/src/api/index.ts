@@ -1,4 +1,3 @@
-import type {Api} from './types'
 import {addExtensions} from './addExtensions'
 import {alias} from './alias'
 import {babel} from './babel'
@@ -13,12 +12,10 @@ import {when} from './when'
 import {glob} from './glob'
 import {hash} from './hash'
 import {dev} from './dev'
-import {manifest} from './manifest'
 import {runtimeManifest} from './runtimeManifest'
 import {map} from './map'
 import {mini} from './mini'
 import {postcss} from './postcss'
-import {preset} from './preset'
 import {project} from './project'
 import {projectPath} from './projectPath'
 import {provide} from './provide'
@@ -33,7 +30,7 @@ import {vendor} from './vendor'
 /**
  * Bud.Bud export
  */
-export const api: Api = {
+export const api = {
   addExtensions,
   alias,
   babel,
@@ -47,11 +44,9 @@ export const api: Api = {
   glob,
   hash,
   dev,
-  manifest,
   map,
   mini,
   postcss,
-  preset,
   project,
   projectPath,
   provide,

@@ -1,5 +1,5 @@
-import MiniCssExtractPlugin from 'mini-css-extract-plugin'
-import type {Plugin} from '@roots/bud-framework'
+import {MiniCssExtractPlugin} from './externals'
+import {Plugin} from '@roots/bud-typings'
 
 const miniCssExtract: Plugin = bud => ({
   bud,
