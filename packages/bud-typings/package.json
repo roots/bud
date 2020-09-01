@@ -29,5 +29,8 @@
     "lint": "eslint src/**.ts",
     "watch": "npm run build && npm link && nodemon",
     "build": "rimraf ./lib && tsc"
+  },
+  "devDependencies": {
+    "@roots/bud-support": "2.0.0-next.5"
   }
 }

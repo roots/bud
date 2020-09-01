@@ -20,13 +20,6 @@
   ],
   "npmClient": "yarn",
   "useWorkspaces": true,
-  "command": {
-    "bootstrap": {
-      "npmClientArgs": [
-        "--use-workspaces"
-      ]
-    }
-  },
   "changelog": {
     "repo": "@roots/bud",
     "cacheDir": ".changelog",

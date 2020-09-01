@@ -32,8 +32,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@roots/bud-framework": "file:../bud-framework",
-    "@roots/bud-server": "file:../bud-server",
+    "@roots/bud-framework": "2.0.0-next.5",
+    "@roots/bud-server": "2.0.0-next.5",
     "cli-highlight": "^2.1.4",
     "ink": "^3.0.0-6",
     "ink-gradient": "^1.0.0",
@@ -47,6 +47,7 @@
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
-    "@roots/bud-typings": "file:../bud-typings"
+    "@roots/bud-support": "2.0.0-next.5",
+    "@roots/bud-typings": "2.0.0-next.5"
   }
 }

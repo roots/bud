@@ -88,27 +88,7 @@
     "rimraf": "^3.0.2",
     "semantic-release": "^15.8.0",
     "ts-node": "^9.0.0",
-    "typescript": "^4.0.2",
-    "webpack": "^4.43.0",
-    "webpack-dev-middleware": "^3.7.2"
-  },
-  "dependencies": {
-    "@roots/bud": "file:packages/bud",
-    "@roots/bud-compiler": "file:packages/bud-compiler",
-    "@roots/bud-dependency-extraction-webpack-plugin": "file:packages/bud-dependency-extraction-webpack-plugin",
-    "@roots/bud-eslint": "file:packages/bud-eslint",
-    "@roots/bud-framework": "file:packages/bud-framework",
-    "@roots/bud-purgecss": "file:packages/bud-purgecss",
-    "@roots/bud-react": "file:packages/bud-react",
-    "@roots/bud-sass": "file:packages/bud-sass",
-    "@roots/bud-server": "file:packages/bud-server",
-    "@roots/bud-stylelint": "file:packages/bud-stylelint",
-    "@roots/bud-support": "file:packages/bud-support",
-    "@roots/bud-tailwindcss": "file:packages/bud-tailwindcss",
-    "@roots/bud-typescript": "file:packages/bud-typescript",
-    "@roots/bud-typings": "file:packages/bud-typings",
-    "@roots/bud-vue": "file:packages/bud-vue",
-    "@roots/palette-webpack-plugin": "file:packages/bud-palette-webpack-plugin"
+    "typescript": "^4.0.2"
   },
   "workspaces": {
     "packages": [
