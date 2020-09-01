@@ -33,5 +33,5 @@ jobs:
         node-version: ${{matrix.node}}
     - run: npm install -g yarn
     - run: yarn install
-    - run: yarn build
-    - run: yarn test:coverage
+    - run: yarn make
+    - run: yarn test:coverage:lcov

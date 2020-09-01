@@ -13,6 +13,6 @@
     "rootDir": "./packages",
     "outDir": "./build",
   },
-  "include": ["bud-compiler/src"],
-  "exclude": ["bud-compiler/node_modules"]
+  "include": ["packages/*/src"],
+  "exclude": ["node_modules", "**/node_modules"]
 }
