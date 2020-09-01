@@ -34,4 +34,4 @@ jobs:
     - run: npm install -g yarn
     - run: yarn
     - run: yarn make
-    - run: yarn test:coverage:lcov
+    - run: yarn test
