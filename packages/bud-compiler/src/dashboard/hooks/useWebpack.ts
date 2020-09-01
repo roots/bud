@@ -1,3 +1,4 @@
+import {Bud} from '@roots/bud-typings'
 import {useState, useEffect} from 'react'
 import compile from '@roots/bud-server'
 
@@ -6,7 +7,18 @@ type Results = {
   stats?: any
 }
 
-const useWebpack = bud => {
+interface HookReturns {
+  assets: any[]
+  errors: any[]
+  hash: string
+  time: number
+  warnings: string[]
+  percentage: number
+  message: string
+  req: any
+}
+
+const useWebpack = (bud: Bud): HookReturns => {
   const [build, setBuild] = useState<Results>(null)
   const compilerCallback = (stats: any): void => {
     setBuild({

@@ -4,9 +4,10 @@ import type {
   ConfigurationFactory as WebpackConfigFactory,
   Options as WebpackOptions,
   RuleSetRule as WebpackRule,
+  Stats as WebpackStats,
 } from 'webpack'
 
-import {Options as WebpackDevServer} from 'webpack-dev-middleware'
+import {Options as WebpackDevMiddlewareOptions} from 'webpack-dev-middleware'
 
 type WebpackEntry = WebpackConfig['entry']
 type WebpackExternals = WebpackConfig['externals']
@@ -22,7 +23,7 @@ export {
   WebpackCompiler,
   WebpackConfig,
   WebpackConfigFactory,
-  WebpackDevServer,
+  WebpackDevMiddlewareOptions,
   WebpackEntry,
   WebpackExternals,
   WebpackMode,
@@ -32,6 +33,7 @@ export {
   WebpackOutput,
   WebpackPlugins,
   WebpackResolve,
+  WebpackStats,
   WebpackTarget,
   WebpackRule,
 }

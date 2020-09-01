@@ -1,17 +1,19 @@
-import {render} from './render'
-import {CompilerController, CompilerFactory} from './types'
-import {Bud, WebpackConfig} from '@roots/bud-typings'
+import React from 'react'
+import {render} from 'ink'
+import Dashboard from './dashboard'
 
-const compiler: CompilerFactory = (
-  bud: Bud,
-  config: WebpackConfig,
-): CompilerController => ({
+import {BudCompiler as Compiler} from '@roots/bud-typings'
+
+const compiler: Compiler.Factory = (bud, config) => ({
   bud,
   config,
   compile: function () {
-    render(this.bud, this.config)
+    renderCli(this.bud, this.config)
   },
 })
 
-export {compiler}
-export type {CompilerController, CompilerFactory}
+const renderCli: Compiler.Renderer = (bud, config) => {
+  render(React.createElement(Dashboard, {bud, config}))
+}
+
+export {compiler as default}

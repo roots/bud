@@ -6,7 +6,7 @@ export {
   WebpackCompiler,
   WebpackConfig,
   WebpackConfigFactory,
-  WebpackDevServer,
+  WebpackDevMiddlewareOptions,
   WebpackEntry,
   WebpackExternals,
   WebpackMode,
@@ -69,3 +69,6 @@ export {
   Directory,
   Paths,
 } from './bud/stores'
+
+export * as BudCompiler from './bud-compiler'
+

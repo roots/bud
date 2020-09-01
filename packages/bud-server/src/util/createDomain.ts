@@ -1,6 +1,7 @@
 import url from 'url'
+import {Bud} from '@roots/bud-typings'
 
-const createDomain = bud => {
+const createDomain = (bud: Bud): string => {
   const {secure, socket, port, host} = bud.options.get(
     'webpack.devServer',
   )

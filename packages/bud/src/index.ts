@@ -1,6 +1,7 @@
-import {Bud} from '@roots/bud-typings'
 import {framework} from '@roots/bud-framework'
-import {compiler} from '@roots/bud-compiler'
+import compiler from '@roots/bud-compiler'
+
+import {Bud} from '@roots/bud-typings'
 import {api} from './api'
 import {repositories} from './repositories'
 import {config} from './config'

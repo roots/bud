@@ -1,7 +1,7 @@
 import middleware from 'webpack-hot-middleware'
-import createDomain from '../util/createDomain'
+import {Bud} from '@roots/bud-typings'
 
-const hot = bud =>
+const hot = (bud: Bud) =>
   middleware(bud.compiler, {
     path: `/__webpack_hmr`,
     heartbeat: 2000,

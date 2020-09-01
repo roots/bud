@@ -6,7 +6,7 @@ export {
   WebpackCompiler,
   WebpackConfig,
   WebpackConfigFactory,
-  WebpackDevServer,
+  WebpackDevMiddlewareOptions,
   WebpackEntry,
   WebpackExternals,
   WebpackMode,
@@ -19,4 +19,3 @@ export {
   WebpackTarget,
   WebpackRule,
 } from './webpack'
-

@@ -1,12 +1,11 @@
+import {Bud, WebpackConfig} from '@roots/bud-typings'
+
 import React, {useEffect, FunctionComponent} from 'react'
 import {useInput} from 'ink'
 import useStdOutDimensions from 'ink-use-stdout-dimensions'
-
 import {useWebpack} from './hooks/useWebpack'
-import {Configuration as WebpackConfig} from 'webpack'
 import {App} from './components/App'
 import {Artifact} from './components/Artifact'
-import type {Bud} from '@roots/bud'
 
 interface DashboardProps {
   bud: Bud
@@ -17,7 +16,6 @@ type DashboardComponent = FunctionComponent<DashboardProps>
 
 const quit = bud => {
   bud.util.terminate()
-
   process.exit()
 }
 
