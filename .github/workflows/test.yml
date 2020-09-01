@@ -33,7 +33,7 @@ jobs:
         node-version: ${{matrix.node}}
     - run: npm install -g yarn
     - run: yarn
-    - run: lerna bootstrap
-    - run: lerna link
+    - run: yarn lerna bootstrap
+    - run: yarn lerna link
     - run: yarn build
     - run: yarn test:coverage:lcov
