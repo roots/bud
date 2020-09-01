@@ -1,6 +1,6 @@
 import React, {FunctionComponent} from 'react'
 import Screen from '../UI/Screen'
-import Asset from './asset'
+import Asset from './Asset'
 
 interface AssetsProps {
   assets: any

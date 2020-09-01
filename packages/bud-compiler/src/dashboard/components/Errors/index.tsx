@@ -1,5 +1,5 @@
-import React, {useEffect, useState, FunctionComponent} from 'react'
-import {Box, Text, useFocus} from 'ink'
+import React, {FunctionComponent} from 'react'
+import {Text} from 'ink'
 import Screen from '../UI/Screen'
 import {Error} from './Error'
 
