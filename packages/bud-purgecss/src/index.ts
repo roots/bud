@@ -1,5 +1,5 @@
 import {Plugin} from '@roots/bud-typings'
-import * as purgeWordPress from 'purgecss-with-wordpress'
+import * as wp from 'purgecss-with-wordpress'
 
 import PurgeCssPlugin from '@fullhuman/postcss-purgecss'
 
@@ -52,18 +52,31 @@ interface UserDefinedOptions {
  * })
  * ```
  */
-const purgecss: Plugin = bud => ({
+const plugin: Plugin = bud => ({
   bud,
 
   make: function () {
     this.bud.apply('purgecss', function (
       options: UserDefinedOptions,
     ) {
-      this.options.merge('postcss.plugins', [PurgeCssPlugin(options)])
+      this.hooks.on(
+        'webpack.module.postcss.options',
+        loaderOptions => ({
+          ...loaderOptions,
+          plugins: [
+            ...loaderOptions.plugins,
+            PurgeCssPlugin(options),
+          ],
+        }),
+      )
 
-      return this
+      return this.bud
     })
   },
 })
 
-export {purgecss, purgeWordPress}
+const preset = {
+  wp,
+}
+
+export {plugin, preset}
