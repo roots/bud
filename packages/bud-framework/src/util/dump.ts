@@ -1,24 +1,25 @@
-import {format} from 'prettier'
+import prettyFormat from 'pretty-format'
 import {highlight} from 'cli-highlight'
-import {shortCircuit} from './shortCircuit'
+import chalk from 'chalk'
 
-type Dump = (obj: any, prettierOptions?: any) => void
+export type Dump = (obj: any, parser?: any) => typeof obj
 
-/**
- * Dump a prettified, syntax-highlighted object
- */
-const dump: Dump = (obj: any, prettierOptions?: any): void => {
-  const prettierConfig = prettierOptions ?? {parser: 'json'}
-
-  const normalizedString: string = JSON.stringify(obj, shortCircuit())
-  const prettifiedString: string = format(
-    normalizedString,
-    prettierConfig,
+const dump: Dump = (obj, parser) => {
+  console.log(
+    highlight(
+      prettyFormat(obj, {
+        callToJSON: true,
+        highlight: true,
+        indent: 2,
+      }),
+      {
+        language: 'js',
+        theme: {
+          regexp: chalk.green,
+        },
+      },
+    ),
   )
-  const highlightedConfig: string = highlight(prettifiedString)
-
-  console.log(highlightedConfig)
 }
 
-export {dump}
-export type {Dump}
+export {dump as default}

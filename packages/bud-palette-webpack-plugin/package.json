@@ -24,9 +24,7 @@
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "lib"
-  ],
+  "files": ["lib"],
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
   "scripts": {
@@ -35,7 +33,6 @@
     "build": "rimraf ./lib && tsc"
   },
   "dependencies": {
-    "palette-webpack-plugin": "^1.0.0",
     "webpack": "^4.44.1"
   },
   "devDependencies": {

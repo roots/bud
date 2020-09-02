@@ -1,5 +1,5 @@
 const ava = require('ava')
-const {bud} = require('@roots/bud')
+const bud = require('@roots/bud')
 const {sass} = require('@roots/bud-sass')
 
 ava('exists', t => {

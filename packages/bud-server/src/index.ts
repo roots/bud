@@ -1,7 +1,6 @@
 import webpack from 'webpack'
 import progressPlugin from './plugins/progress'
 import builds from './builds'
-import globby from 'globby'
 
 /**
  * @todo fix this fuckboi typing.
@@ -28,21 +27,6 @@ const compile = (options: CompileOptions): void => {
   progress.apply(bud.compiler)
 
   builds[mode].after(options)
-
-  licenseTxtCleanup(bud)
-}
-
-const licenseTxtCleanup = bud => {
-  const patterns = [
-    bud.dist('*.LICENSE.txt'),
-    bud.dist('**/*.LICENSE.txt'),
-  ]
-
-  bud.compiler.hooks.afterEmit.tap('bud-remove-license-txt', () => {
-    globby.sync(patterns).forEach(match => {
-      bud.fs.remove(match)
-    })
-  })
 }
 
 export {compile as default}

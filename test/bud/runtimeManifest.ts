@@ -1,5 +1,5 @@
 const ava = require('ava')
-const {bud} = require('@roots/bud')
+const bud = require('@roots/bud')
 const {join, resolve} = require('path')
 
 ava('has expected default', t => {

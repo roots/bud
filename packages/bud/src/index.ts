@@ -7,7 +7,7 @@ import {repositories} from './repositories'
 import {config} from './config'
 import express from 'express'
 
-export {Use} from './repositories/rulesets'
+import {Use} from './repositories/uses'
 
 /**
  * Bind stores.
@@ -66,4 +66,5 @@ framework.options.set('postcss', postcss(framework.flags))
 /** Type achieved. */
 const bud: Bud = framework
 
-export {bud, Bud}
+export type {Bud, Use}
+module.exports = bud

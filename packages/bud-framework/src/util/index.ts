@@ -1,14 +1,16 @@
-import {dump} from './dump'
 import {fab} from './fab'
-import {format} from './format'
 import {notify} from './notify'
 import {projectRoot} from './projectRoot'
 import {shortCircuit} from './shortCircuit'
-import {terminate} from './terminate'
 import {processHandler} from './processHandler'
+
+import dd from './dd'
+import dump from './dump'
+import format from './format'
 import {fs} from './fs'
-import {os} from './os'
 import {logger} from './logger'
+import {os} from './os'
+import terminate from './terminate'
 
 import _ from 'lodash'
 
@@ -17,6 +19,7 @@ export const util = {
   format,
   fs,
   dump,
+  dd,
   logger,
   shortCircuit,
   fab,

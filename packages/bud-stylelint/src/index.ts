@@ -53,4 +53,5 @@ const preset = {
   roots: resolve(__dirname, './preset/index.js'),
 }
 
-export {stylelint, preset}
+module.exports = stylelint
+export {preset}

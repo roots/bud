@@ -1,4 +1,4 @@
-const {bud} = require('@roots/bud')
+const bud = require('@roots/bud')
 const {join} = require('path')
 
 bud

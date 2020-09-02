@@ -1,5 +1,5 @@
 const test = require('ava')
-const {bud} = require('@roots/bud')
+const bud = require('@roots/bud')
 
 const features = {
   babel: true,
@@ -17,6 +17,6 @@ const features = {
 }
 
 test('has expected defaults', t => {
-  const {bud} = require('@roots/bud')
+  const bud = require('@roots/bud')
   t.deepEqual(bud.features.repository, features)
 })

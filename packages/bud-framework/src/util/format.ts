@@ -1,21 +1,13 @@
-import prettier from 'prettier'
+import prettier, {BuiltInParserName} from 'prettier'
 
 type Format = {
   [key: string]: Formatter
 }
 
-type Formatter = (any) => string
+type Formatter = (any, parser: BuiltInParserName) => string
 
-const json: Formatter = contents => {
-  if (typeof contents == 'object') {
-    contents = JSON.stringify(contents)
-  }
-
-  return prettier.format(contents, {parser: 'json'})
+const format: Formatter = (contents, parser) => {
+  return prettier.format(contents, parser ? {parser} : undefined)
 }
 
-const format: Format = {
-  json,
-}
-
-export {format, Format}
+export {format as default}

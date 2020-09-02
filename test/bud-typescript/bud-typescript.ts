@@ -1,6 +1,6 @@
 const ava = require('ava')
 const {join} = require('path')
-const {bud} = require('@roots/bud')
+const bud = require('@roots/bud')
 const {typescript} = require('@roots/bud-typescript')
 
 bud.projectPath(process.cwd())

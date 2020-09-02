@@ -1,4 +1,4 @@
-import {terminate} from './terminate'
+import terminate from './terminate'
 
 const processHandler = (): void => {
   process.on('unhandledRejection', (error: Error) => {

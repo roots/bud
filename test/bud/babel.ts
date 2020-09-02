@@ -1,5 +1,5 @@
 const test = require('ava')
-const {bud} = require('@roots/bud')
+const bud = require('@roots/bud')
 const {join} = require('path')
 
 const base = {

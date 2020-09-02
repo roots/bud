@@ -9,12 +9,10 @@ const plugins: PluginsBuilder = bud =>
       .reduce(
         (a, [name, fn]) => [
           ...(a ? a : []),
-          typeof fn == 'function'
-            ? bud.hooks.filter(
-                `webpack.plugins.${name}`,
-                bud.controller.use(fn).build(),
-              )
-            : null,
+          bud.hooks.filter(
+            `webpack.plugins.${name}`,
+            bud.controller.use(fn).build(),
+          )
         ],
         [],
       )

@@ -10,10 +10,12 @@ const output: OutputBuilder = bud =>
         'webpack.output.path',
         bud.paths.get('dist'),
       ),
+
       publicPath: bud.hooks.filter(
         'webpack.output.publicPath',
         bud.paths.get('public'),
       ),
+
       filename: bud.hooks.filter(
         'webpack.output.filename',
         bud.features.enabled('hash')

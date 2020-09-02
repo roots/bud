@@ -28,7 +28,7 @@ const configs: RepositoryDefinition = {
         return {[config.name]: projectPath}
       }
 
-      return {}
+      return []
     }),
   },
 }

@@ -1,5 +1,5 @@
 const ava = require('ava')
-const {bud} = require('@roots/bud')
+const bud = require('@roots/bud')
 const {eslint} = require('@roots/bud-eslint')
 
 bud.projectPath(process.cwd())

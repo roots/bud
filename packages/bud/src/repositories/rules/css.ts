@@ -7,10 +7,7 @@ const css = (bud: Bud): WebpackRule =>
       'webpack.module.rules.css.test',
       bud.patterns.get('css'),
     ),
-    exclude: bud.hooks.filter(
-      'webpack.module.rules.css.exclude',
-      bud.patterns.get('vendor'),
-    ),
+
     use: bud.hooks.filter('webpack.module.rules.css.use', [
       bud.inProduction
         ? bud.uses.get('miniCss')(bud)

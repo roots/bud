@@ -1,4 +1,4 @@
-import {Bud} from '../..'
+import {Bud} from '..'
 import type {WebpackRule} from '@roots/bud-typings'
 import type {RepositoryDefinition} from '@roots/bud-typings'
 import {RuleSetLoader} from 'webpack'
@@ -57,6 +57,9 @@ const uses: RepositoryDefinition = {
           'webpack.modules.css.loader',
           bud.loaders.get('css'),
         ),
+        options: {
+          importLoaders: 1,
+        },
       }),
 
     resolveUrl: (bud: Bud): RuleSetLoader =>
@@ -65,11 +68,12 @@ const uses: RepositoryDefinition = {
           'webpack.modules.resolveurl.loader',
           bud.loaders.get('resolveUrl'),
         ),
+
         options: bud.hooks.filter(
           'webpack.module.resolveurl.options',
           {
+            root: bud.paths.get('src'),
             sourceMap: bud.features.enabled('sourceMap'),
-            debug: true,
           },
         ),
       }),
@@ -80,12 +84,11 @@ const uses: RepositoryDefinition = {
           'webpack.module.postcss.loader',
           bud.loaders.get('postCss'),
         ),
+
         options: bud.hooks.filter('webpack.module.postcss.options', {
-          ident: bud.hooks.filter(
-            'webpack.module.postcss.options.ident',
-            'postcss',
-          ),
-          ...bud.options.get('postcss'),
+          plugins: [
+            bud.options.get('postcss.plugins.autoprefixer')(),
+          ],
         }),
       }),
 
@@ -99,5 +102,5 @@ const uses: RepositoryDefinition = {
   },
 }
 
-export {uses}
+export {uses as default}
 export {Use}

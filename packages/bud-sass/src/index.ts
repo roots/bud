@@ -1,57 +1,69 @@
 import {Bud} from '@roots/bud'
 import {Plugin} from '@roots/bud-typings'
+import resolveFrom from 'resolve-from'
 
-/**
- * Bud extension: sass
- *
- * Adds sass support to the Bud framework.
- */
 const sass: Plugin = (bud: Bud) => ({
   bud,
 
   make: function () {
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const implementation = require(resolveFrom.silent(
+      bud.paths.get('project'),
+      'sass',
+    ) ?? resolveFrom(bud.paths.get('project'), 'node-sass'))
+
     this.bud.addExtensions(['sass', 'scss'])
 
     if (!this.bud.options.has('sass')) {
       this.bud.options.set('sass', {
-        sourceMap: true,
+        implementation,
       })
     }
 
     this.bud.uses.set('sass', bud => ({
-      loader: require.resolve('sass-loader'),
-      options: {
-        ...bud.options.get('sass'),
-        implementation: (() => {
-          try {
-            if (require.resolve('sass')) {
-              return require('sass')
-            }
-          } catch {
-            return require('node-sass')
-          }
-        })(),
-      },
+      loader: 'sass-loader',
+      options: bud.options.get('sass'),
     }))
 
     this.bud.rules.set('sass', bud => ({
-      test: /\.s(c|a)ss$/,
-      exclude: bud.patterns.get('vendor'),
+      test: bud.patterns.get('sass'),
       use: [
-        ...bud.rules.get('css')(bud).use,
+        bud.mode == 'production'
+          ? bud.uses.get('miniCss')(bud)
+          : bud.loaders.get('style'),
+        {
+          ...bud.uses.get('css')(bud),
+          options: {
+            ...bud.uses.get('css')(bud).options,
+            importLoaders: 2,
+          },
+        },
+        {
+          ...bud.uses.get('postCss')(bud),
+          options: {
+            ...bud.uses.get('postCss')(bud).options,
+            postcssOptions: {
+              syntax: require('postcss-scss'),
+            },
+          },
+        },
         bud.uses.get('sass')(bud),
       ],
     }))
 
     this.bud.apply('sass', function (options) {
-      if (options) {
-        this.options.set('sass', {
-          ...(this.options.get('sass') ?? []),
-          ...options,
-        })
+      if (!options) {
+        return this
       }
+
+      this.options.set('sass', {
+        ...this.options.get('sass'),
+        ...options,
+      })
+
+      return this
     })
   },
 })
 
-export {sass}
+module.exports = sass

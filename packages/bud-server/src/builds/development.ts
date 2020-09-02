@@ -17,7 +17,6 @@ const development = {
   after: ({bud, compilerCallback, expressCallback}) => {
     bud.server.use(function (req, res, next) {
       expressCallback(req)
-
       next()
     })
 

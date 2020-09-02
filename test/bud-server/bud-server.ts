@@ -1,4 +1,4 @@
-const {bud} = require('@roots/bud')
+const bud = require('@roots/bud')
 const ava = require('ava')
 
 ava('Bud has server property', t => {

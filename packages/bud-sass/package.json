@@ -35,13 +35,15 @@
     "build": "rimraf ./lib && tsc"
   },
   "dependencies": {
-    "node-sass": "^4.14.1",
+    "find-up": "^5.0.0",
     "postcss-scss": "^2.1.1",
+    "resolve-from": "^5.0.0",
     "sass-loader": "^9.0.2",
     "webpack": "^4.44.1"
   },
   "devDependencies": {
     "@roots/bud-support": "2.0.0-next.5",
-    "@roots/bud-typings": "file:../bud-typings"
+    "@roots/bud-typings": "file:../bud-typings",
+    "@types/sass": "^1.16.0"
   }
 }

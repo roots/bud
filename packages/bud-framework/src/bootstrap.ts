@@ -10,14 +10,7 @@ import {
 /**
  * Error on unhandled rejections.
  */
-process.on('unhandledRejection', (error: Error) => {
-  process.exitCode = 1
-
-  process.nextTick(() => {
-    console.error(error)
-    util.terminate()
-  })
-})
+process.on('unhandledRejection', util.processHandler)
 
 /**
  * Bootstrap

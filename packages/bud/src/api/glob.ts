@@ -4,22 +4,17 @@ import {Api} from '@roots/bud-typings'
 const globby = require('globby')
 
 const glob: Api.Glob = function (name, files) {
-  let entry
-
-  const included = globby.sync(files, {
-    expandDirectories: true,
-  })
-
-  included.forEach(file => {
-    this.addExtensions([file.split('.').pop()])
-
-    entry = {
-      ...this.options.get('webpack.entry'),
-      [`${name}/`]: file,
-    }
-  })
-
-  this.options.set('webpack.entry', entry)
+  this.options.merge(
+    'webpack.entry',
+    globby
+      .sync(files, {
+        expandDirectories: true,
+      })
+      .map(file => ({
+        ...this.options.get('webpack.entry'),
+        [`${name}/`]: file,
+      })),
+  )
 
   return this
 }

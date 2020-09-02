@@ -1,5 +1,5 @@
 const test = require('ava')
-const {bud} = require('@roots/bud')
+const bud = require('@roots/bud')
 const {join, resolve} = require('path')
 
 test('projectPath has expected default', t => {

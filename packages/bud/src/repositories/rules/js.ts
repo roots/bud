@@ -10,7 +10,7 @@ const js = (bud: Bud): WebpackRule =>
 
     exclude: bud.hooks.filter(
       'webpack.module.rules.js.exclude',
-      bud.patterns.get('vendor'),
+      bud.patterns.get('modules'),
     ),
 
     use: bud.hooks.filter('webpack.module.rules.js.use', {

@@ -15,4 +15,4 @@ const loaders = {
   },
 }
 
-export {loaders}
+export {loaders as default}

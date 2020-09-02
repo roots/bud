@@ -5,7 +5,12 @@ module.exports = {
       configFile: false,
     },
   },
-  files: ['test/bud*/*.ts'],
+  files: [
+    'test/bud/bud.ts',
+    'test/bud/container.ts',
+    'test/bud/bundle.ts',
+    'test/bud/hooks.ts',
+  ],
   typescript: {
     extensions: ['ts', 'tsx'],
     rewritePaths: {

@@ -1,15 +1,9 @@
-const terminate: any = options => {
-  const exit = (code: number) => {
-    options?.dump ? process.abort() : process.exit(code)
+const terminate = (code?: number): void => {
+  const exit = code => {
+    process.exit(code)
   }
 
-  return () => err => {
-    if (err) {
-      console.log(err.message, err.stack)
-    }
-
-    setTimeout(exit, options?.timeout ?? 0).unref()
-  }
+  setTimeout(() => exit(code ?? 0), 100).unref()
 }
 
-export {terminate}
+export {terminate as default}

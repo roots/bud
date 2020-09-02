@@ -37,4 +37,5 @@ const preset = {
   react: resolve(__dirname, './preset/react.js'),
 }
 
-export {eslint, preset}
+module.exports = eslint
+export {preset}

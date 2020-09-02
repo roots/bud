@@ -4,10 +4,6 @@ import type {
   RepositoryDefinition,
 } from '@roots/bud-typings'
 
-export type Copy = {patterns: any[]}
-
-const target: WebpackTarget = 'web'
-
 const babelFallback: BabelTransformOptions = {
   presets: [
     [
@@ -30,23 +26,30 @@ const babelFallback: BabelTransformOptions = {
   ],
 }
 
-const copy: Copy = {patterns: []}
-
 const babel: (configs) => BabelTransformOptions = function (configs) {
   return configs.get('babel')
     ? configs.require('babel')
     : babelFallback
 }
 
-const postcss: (configs) => any = function (configs) {
-  const fallback = {
-    plugins: [require('postcss-import'), require('autoprefixer')],
-  }
-
-  return configs.has('postcss')
-    ? configs.require('postcss')
-    : fallback
+const postcssFallback = {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  plugins: {
+    import: require('postcss-import'),
+    autoprefixer: require('autoprefixer'),
+  },
 }
+
+const postcss: (configs) => any = function (configs) {
+  return configs.get('postcss')
+    ? configs.require('postcss')
+    : postcssFallback
+}
+
+export type Copy = {patterns: any[]}
+const copy: Copy = {patterns: []}
+
+const target: WebpackTarget = 'web'
 
 /** Options container. */
 const options: RepositoryDefinition = {
@@ -158,4 +161,4 @@ const options: RepositoryDefinition = {
   },
 }
 
-export {options}
+export {options as default}
