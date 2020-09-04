@@ -13,7 +13,6 @@ import {glob} from './glob'
 import {hash} from './hash'
 import {dev} from './dev'
 import {runtimeManifest} from './runtimeManifest'
-import {map} from './map'
 import {mini} from './mini'
 import {postcss} from './postcss'
 import {project} from './project'
@@ -27,10 +26,7 @@ import {terser} from './terser'
 import {use} from './use'
 import {vendor} from './vendor'
 
-/**
- * Bud.Bud export
- */
-export const api = {
+const api = {
   addExtensions,
   alias,
   babel,
@@ -44,7 +40,6 @@ export const api = {
   glob,
   hash,
   dev,
-  map,
   mini,
   postcss,
   project,
@@ -60,3 +55,5 @@ export const api = {
   vendor,
   when,
 }
+
+export {api as default}

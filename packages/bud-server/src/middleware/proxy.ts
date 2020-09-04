@@ -3,33 +3,34 @@ import createDomain from '../util/createDomain'
 import zlib from 'zlib'
 
 const proxy = bud => {
-  const target = {
-    host:
-      bud.options.get('webpack.devServer.proxy.target') ||
-      bud.options.get('webpack.devServer.target'),
-    port: bud.options.get('webpack.devServer.proxy.port') || 3000,
+  const dev = {
+    host: bud.options.get('webpack.devServer.host') || 'localhost',
+    port: bud.options.get('webpack.devServer.port') || 3000,
   }
 
-  const host =
-    bud.options.get('webpack.devServer.host') || 'localhost'
-  const port = bud.options.get('webpack.devServer.port') || 8000
+  const proxy = {
+    host: bud.hooks.filter(
+      'server.proxy.host',
+      bud.options.get('webpack.devServer.proxy.host'),
+    ),
+    port: bud.options.get('webpack.devServer.proxy.port') || 8000,
+  }
 
   const proxyOptions = {
-    target: bud.options.get(`webpack.devServer.target`),
+    target: `http://${proxy.host}`,
     autoRewrite: true,
-    hostRewrite:
-      bud.options.get('webpack.devServer.hostRewrite') ??
-      `${host}:${port}`,
+    hostRewrite: dev.host,
     changeOrigin: true,
-    cookieDomainRewrite: bud.options.get(
-      'webpack.devServer.cookieDomainRewrite',
-    ) ?? {
-      [`${target.host.replace(/^[a-zA-Z]+:\/\//, '')}`]: createDomain(
-        bud,
-      ),
-    },
+    followRedirects: false,
+    ssl: bud.options.get('webpack.devServer.ssl') ?? false,
+    secure: bud.options.get('webpack.devServer.ssl') ?? false,
     ws: bud.options.get('webpack.devServer.ws') ?? true,
-    xfwd: true,
+    cookieDomainRewrite: {
+      [proxy.host]: dev.host,
+    },
+    router: {
+      [`http://${proxy.host}`]: `http://${dev.host}`,
+    },
 
     /**
      * Handle rewriting text/html contents
@@ -46,16 +47,17 @@ const proxy = bud => {
       proxyRes.on('end', () => {
         res.set({
           'content-type': proxyRes.headers['content-type'],
-          'content-encoding': 'gzip',
         })
 
         if (proxyRes.headers['content-encoding'] == 'gzip') {
+          res.set({'content-encoding': 'gzip'})
+
           const transformBody = zlib
             .gunzipSync(body)
             .toString()
             .replace(
               new RegExp(
-                `http:\/\/${target.host.replace(
+                `http:\/\/${proxy.host.replace(
                   /^[a-zA-Z]+:\/\//,
                   '',
                 )}`,

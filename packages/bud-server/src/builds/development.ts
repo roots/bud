@@ -1,7 +1,5 @@
 import middleware from '../middleware'
 import injectEntrypoints from '../util/injectEntrypoints'
-import {format} from 'prettier'
-import createDomain from '../util/createDomain'
 import {Bud} from '@roots/bud-typings'
 
 interface BeforeArgs {
@@ -28,26 +26,6 @@ const development = {
     )
 
     bud.compiler.hooks.done.tap('bud', compilerCallback)
-
-    bud.compiler.hooks.afterEmit.tap('bud-normalize-manifest', () =>
-      bud.fs.readJson(bud.dist('manifest.json')).then(assets => {
-        bud.fs.outputFile(
-          bud.dist('manifest.json'),
-          format(
-            JSON.stringify(
-              Object.entries(assets).reduce(
-                (acc, [key, value]) => ({
-                  ...(acc ? acc : []),
-                  [key]: `${createDomain(bud)}${value}`,
-                }),
-                {},
-              ),
-            ),
-            {parser: 'json'},
-          ),
-        )
-      }),
-    )
   },
 }
 
