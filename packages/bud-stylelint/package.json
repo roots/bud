@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-stylelint",
-  "version": "2.0.0-next.5",
+  "version": "2.0.0-next.6",
   "description": "Adds stylelint support to Bud",
   "repository": {
     "type": "git",
@@ -41,7 +41,7 @@
     "webpack": "^4.44.1"
   },
   "devDependencies": {
-    "@roots/bud-support": "2.0.0-next.5",
+    "@roots/bud-support": "^2.0.0-next.6",
     "@roots/bud-typings": "file:../bud-typings"
   }
 }
