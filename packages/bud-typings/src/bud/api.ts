@@ -209,16 +209,6 @@ export namespace Api {
   export type RuntimeManifest = (args?: {name: string}) => Bud
 
   /**
-   * ## bud.map
-   *
-   * Enable or disable source-maps
-   *
-   * ```js
-   * bud.map(true)
-   */
-  export type Map = (this: Bud) => Bud
-
-  /**
    * ## bud.mini
    *
    * Enable or disable minification

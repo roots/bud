@@ -1,7 +1,9 @@
 import {Api} from '@roots/bud-typings'
 
-const devtool: Api.Devtool = function (devtool) {
-  this.options.set('webpack.devtool', devtool)
+const devtool: Api.Devtool = function (devtool?) {
+  this.features.enable('devtool')
+
+  devtool && this.options.set('webpack.devtool', devtool)
 
   return this
 }

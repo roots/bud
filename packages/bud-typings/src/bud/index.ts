@@ -368,16 +368,6 @@ export interface Bud {
   runtimeManifest: Api.RuntimeManifest
 
   /**
-   * ## bud.map
-   *
-   * Enable or disable source-maps
-   *
-   * ```js
-   * bud.map(true)
-   */
-  map: Api.Map
-
-  /**
    * ## bud.mini
    *
    * Enable or disable minification
