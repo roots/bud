@@ -1,13 +1,12 @@
 import {framework} from '@roots/bud-framework'
 import compiler from '@roots/bud-compiler'
-
-import {Bud} from '@roots/bud-typings'
-import {api} from './api'
+import api from './api'
 import {repositories} from './repositories'
 import {config} from './config'
 import express from 'express'
-
 import {Use} from './repositories/uses'
+
+import {Bud} from '@roots/bud-typings'
 
 /**
  * Bind stores.
@@ -57,11 +56,11 @@ Object.values(api).forEach((method: () => any) => {
   framework.apply(method.name, method)
 })
 
-const babel = framework.options.get('babel')
-const postcss = framework.options.get('postcss')
+framework.configs.has('babel') &&
+  framework.options.merge('babel', framework.configs.get('babel'))
 
-framework.options.set('babel', babel(framework.configs))
-framework.options.set('postcss', postcss(framework.flags))
+framework.configs.has('postcss') &&
+  framework.options.merge('postcss', framework.configs.get('postcss'))
 
 /** Type achieved. */
 const bud: Bud = framework

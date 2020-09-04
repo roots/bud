@@ -17,4 +17,4 @@ const patterns: RepositoryDefinition = {
   },
 }
 
-export {patterns}
+export {patterns as default}

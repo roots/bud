@@ -1,50 +1,11 @@
 import type {
-  BabelTransformOptions,
+  WebpackEntry,
   WebpackTarget,
   RepositoryDefinition,
 } from '@roots/bud-typings'
 
-const babelFallback: BabelTransformOptions = {
-  presets: [
-    [
-      require.resolve('@babel/preset-env'),
-      {
-        modules: false,
-        forceAllTransforms: true,
-      },
-    ],
-  ],
-  plugins: [
-    require.resolve('@babel/plugin-syntax-dynamic-import'),
-    require.resolve('@babel/plugin-proposal-object-rest-spread'),
-    [
-      require.resolve('@babel/plugin-transform-runtime'),
-      {
-        helpers: false,
-      },
-    ],
-  ],
-}
-
-const babel: (configs) => BabelTransformOptions = function (configs) {
-  return configs.get('babel')
-    ? configs.require('babel')
-    : babelFallback
-}
-
-const postcssFallback = {
-  // eslint-disable-next-line @typescript-eslint/no-var-requires
-  plugins: {
-    import: require('postcss-import'),
-    autoprefixer: require('autoprefixer'),
-  },
-}
-
-const postcss: (configs) => any = function (configs) {
-  return configs.get('postcss')
-    ? configs.require('postcss')
-    : postcssFallback
-}
+import babel from './babel'
+import postcss from './postcss'
 
 export type Copy = {patterns: any[]}
 const copy: Copy = {patterns: []}
@@ -92,25 +53,38 @@ const options: RepositoryDefinition = {
       },
       optimization: {
         runtimeChunk: {
-          name: entrypoint => `runtime/${entrypoint.name}`,
+          name: (entrypoint: any): string =>
+            `runtime/${entrypoint.name}`,
         },
         splitChunks: {
+          chunks: 'async',
+          minSize: 20000,
+          minRemainingSize: 0,
+          maxSize: 0,
+          minChunks: 1,
+          maxAsyncRequests: 30,
+          maxInitialRequests: 30,
+          automaticNameDelimiter: '~',
+          enforceSizeThreshold: 50000,
           cacheGroups: {
             vendor: {
               test: /[\\/]node_modules[\\/]/,
-              name: function (module, chunks, cacheGroupKey) {
-                const moduleFileName = module
+              name: function (
+                module: any,
+                chunks: any,
+                cacheGroupKey: string,
+              ): string {
+                const fileName = module
                   .identifier()
                   .split('/')
                   .reduceRight(item => item)
                   .replace('.js', '')
-                const allChunksNames = chunks
+                const chunkNames = chunks
                   .map(item => item.name)
                   .join('~')
-                return `${cacheGroupKey}/${allChunksNames}~${moduleFileName}`
+                return `${cacheGroupKey}/${chunkNames}`
               },
               chunks: 'all',
-              automaticNamePrefix: 'vendor',
             },
           },
         },
@@ -145,7 +119,7 @@ const options: RepositoryDefinition = {
           parallel: true,
         },
       },
-      stats: 'detailed',
+      stats: 'none',
       target,
     },
     splitting: {

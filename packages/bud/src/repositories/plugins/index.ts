@@ -9,11 +9,9 @@ import {manifest} from './manifest'
 import {provide} from './provide'
 import {terser} from './terser'
 import {writeFile} from './writeFile'
+
 import {PluginRepositoryDefinition} from '@roots/bud-typings'
 
-/**
- * Bud Webpack Adapters
- */
 const plugins: PluginRepositoryDefinition = {
   name: 'plugins',
   register: {
@@ -31,4 +29,4 @@ const plugins: PluginRepositoryDefinition = {
   },
 }
 
-export {plugins}
+export {plugins as default}
