@@ -1,3 +1,30 @@
+##  (2020-09-04)
+
+* refactor(api): remove .map in favor of .devtool ([2338a1a](https://github.com/roots/bud/commit/2338a1a))
+* refactor(organization): an attempt to organize, largely in @roots/bud. ([4f2f690](https://github.com/roots/bud/commit/4f2f690))
+* refactor(types): attempt to eliminate cyclical deps in graph ([12dedef](https://github.com/roots/bud/commit/12dedef))
+* feat(bud-server): adds bud-server package (#7) ([4e29595](https://github.com/roots/bud/commit/4e29595)), closes [#7](https://github.com/roots/bud/issues/7)
+* feat(devtools): generates an entrypoints.json manifest ([443d919](https://github.com/roots/bud/commit/443d919))
+* feat(root): big deal CLI fixup ([e7e8369](https://github.com/roots/bud/commit/e7e8369))
+* fix(compiler): @roots/bud is no longer utilized directly by this pkg ([0de7901](https://github.com/roots/bud/commit/0de7901))
+* fix(compiler): js is type sensitive ([ae92f3e](https://github.com/roots/bud/commit/ae92f3e))
+* fix(dev): bump dev env up to 14.9 ([7599648](https://github.com/roots/bud/commit/7599648))
+* fix(fix sass): fixes sass and other loaders ([9acbd51](https://github.com/roots/bud/commit/9acbd51))
+* fix(github): ci ([22f91fc](https://github.com/roots/bud/commit/22f91fc))
+* chore(lerna): build tooling ([178be86](https://github.com/roots/bud/commit/178be86))
+* chore(lerna): explicitly define workspaces ([5258ab8](https://github.com/roots/bud/commit/5258ab8))
+* chore(lerna): move bud-compiler in front of bud for build ([1a76454](https://github.com/roots/bud/commit/1a76454))
+* chore(readme): update README ([894ed41](https://github.com/roots/bud/commit/894ed41))
+* test(test): remove coverage reports for now ([d9d7875](https://github.com/roots/bud/commit/d9d7875))
+
+
+### BREAKING CHANGE
+
+* All \`enabled\` props or args in config files are deprecated in favor of \`when\`.
+* bud.map removed in favor of bud.devtool.
+* Imported types should come from @roots/bud-typings
+
+
 ##  (2020-09-01)
 
 * fix(types): move compiler types to @roots/bud-typings ([49ec686](https://github.com/roots/bud/commit/49ec686))
