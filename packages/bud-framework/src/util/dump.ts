@@ -2,9 +2,9 @@ import prettyFormat from 'pretty-format'
 import {highlight} from 'cli-highlight'
 import chalk from 'chalk'
 
-export type Dump = (obj: any, parser?: any) => typeof obj
+export type Dump = (obj: any) => void
 
-const dump: Dump = (obj, parser) => {
+const dump: Dump = obj => {
   console.log(
     highlight(
       prettyFormat(obj, {

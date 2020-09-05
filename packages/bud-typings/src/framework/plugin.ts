@@ -83,4 +83,4 @@ export interface PluginControllerInterface extends Loose {
   mergeOptions: PluginTransform
 }
 
-export type PluginController = (app: any) => PluginControllerInterface
+export type PluginController = (any) => void

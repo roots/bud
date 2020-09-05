@@ -15,5 +15,5 @@ const fab: Fab = {
   null: () => null,
 }
 
-export {fab}
+export {fab as default}
 export type {Fab}

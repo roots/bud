@@ -6,7 +6,7 @@ lerna.packages.forEach(pkg => {
   const dir = join(process.cwd(), pkg)
   const {name, private} = require(join(dir, 'package.json'))
 
-  if (! private && name !== '@roots/bud') {
+  if (! private && name !== '@roots/bud-server') {
     console.log(`Publishing ${name}`)
     execa.sync('npm', [
       'publish',

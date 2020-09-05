@@ -2,7 +2,6 @@ import {
   Bud,
   BabelTransformOptions,
   Plugin,
-  PluginControllerInterface,
   WebpackOptions,
 } from '../'
 
@@ -50,7 +49,10 @@ export namespace Api {
    * bud.addExtensions(['jsx', 'vue'])
    * ```
    */
-  export type AddExtensions = (this: Bud, extensions: string[]) => Bud
+  export type AddExtensions = (
+    this: Bud,
+    extensions: string[],
+  ) => Bud
 
   /**
    * ## bud.alias
@@ -168,11 +170,14 @@ export namespace Api {
   export type DistPath = Base.PathSetter
 
   /**
-   * ## bud.extension
+   * ## bud.extend
    *
-   * Extension controller
+   * Register a Bud plugin.
+   *
+   * ```js
+   * bud.extend([require('@roots/bud-demo-plugin')])
    */
-  export type Controller = PluginControllerInterface
+  export type Extend = (this: Bud, plugins: Plugin[]) => Bud
 
   /**
    * ## bud.glob
@@ -186,7 +191,11 @@ export namespace Api {
    * )
    * ```
    */
-  export type Glob = (this: Bud, output: string, files: string) => Bud
+  export type Glob = (
+    this: Bud,
+    output: string,
+    files: string,
+  ) => Bud
 
   /**
    * ## bud.hash
@@ -224,10 +233,12 @@ export namespace Api {
    *
    * Configure PostCSS.
    *
-   * If you prefer, you may utilize a postcss.config.js file in the project root,
-   * either alongside or in lieue of this configuration.
+   * If you prefer, you may utilize a postcss.config.js
+   * file in the project root, either alongside or in
+   * lieue of this configuration.
    *
-   * Conflicts between supplied configs will be resolved in favor of the project config file.
+   * Conflicts between supplied configs will be resolved
+   * in favor of the project config file.
    *
    * ```js
    * bud.postCss({
@@ -270,7 +281,9 @@ export namespace Api {
    * bud.provide({jquery: ['$', 'window.jQuery']})
    * ```
    */
-  export type Provide = (options: {[key: string]: string[]}) => Bud
+  export type Provide = (options: {
+    [key: string]: string[]
+  }) => Bud
 
   /**
    * ## bud.publicPath
@@ -288,7 +301,8 @@ export namespace Api {
   /**
    * ## bud.src
    *
-   * Return an absolute path from a given path relative to the directory assigned by `bud.srcPath`.
+   * Return an absolute path from a given path relative
+   * to the directory assigned by `bud.srcPath`.
    *
    * ```js
    * bud.src('scripts/app.js')
@@ -338,16 +352,6 @@ export namespace Api {
    * ```
    */
   export type Terser = (this: Bud, options?: Base.Options) => Bud
-
-  /**
-   * ## bud.use
-   *
-   * Register a Bud extension.
-   *
-   * ```js
-   * bud.use([require('@roots/bud-demo-plugin')])
-   */
-  export type Use = (this: Bud, plugins: Plugin[]) => Bud
 
   /**
    * ## bud.vendor

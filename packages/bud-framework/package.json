@@ -45,5 +45,6 @@
     "prettier": "^2.1.1",
     "pretty-format": "^26.4.2",
     "yargs": "^15.4.1"
-  }
+  },
+  "gitHead": "a799bffc54512d0159f47f838e35625a4d1c679d"
 }

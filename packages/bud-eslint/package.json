@@ -45,5 +45,6 @@
   "devDependencies": {
     "@roots/bud-support": "^2.0.0-next.6",
     "@roots/bud-typings": "^2.0.0-next.6"
-  }
+  },
+  "gitHead": "a799bffc54512d0159f47f838e35625a4d1c679d"
 }

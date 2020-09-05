@@ -1,8 +1,10 @@
 export {Loose} from './base'
 
+export {BabelTransformOptions} from './externals'
+export {Express} from './externals'
+
 export {
-  BabelTransformOptions,
-  Express,
+  RuleSetLoader,
   WebpackCompiler,
   WebpackConfig,
   WebpackConfigFactory,
@@ -69,5 +71,7 @@ export {
   Directory,
   Paths,
 } from './bud/stores'
+
+export {Use} from './bud/stores'
 
 export * as BudCompiler from './bud-compiler'

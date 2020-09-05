@@ -1,13 +1,8 @@
-import {Bud} from '..'
-import type {WebpackRule} from '@roots/bud-typings'
-import type {RepositoryDefinition} from '@roots/bud-typings'
-import {RuleSetLoader} from 'webpack'
+import {Bud, RuleSetLoader, RepositoryDefinition} from '@roots/bud-typings'
 
 /**
  * Module Rule
  */
-type Use = (bud: Bud) => WebpackRule
-
 const uses: RepositoryDefinition = {
   name: 'uses',
   register: {
@@ -103,4 +98,3 @@ const uses: RepositoryDefinition = {
 }
 
 export {uses as default}
-export {Use}

@@ -1,12 +1,11 @@
 import {bud} from '@roots/bud'
-import type {Bud} from '@roots/bud'
-import type {Plugin} from '@roots/bud-framework'
+import type {Bud, Plugin} from '@roots/bud-typings'
 
-import {dependencyExtractionPlugin} from '@roots/bud-dependency-extraction-webpack-plugin'
-import {sass} from '@roots/bud-sass'
-import {eslint} from '@roots/bud-eslint'
-import {stylelint} from '@roots/bud-stylelint'
-import {purgecss, purgeWordPress} from '@roots/bud-purgecss'
+import dependencyExtractionPlugin from '@roots/bud-dependency-extraction-webpack-plugin'
+import sass from '@roots/bud-sass'
+import eslint from '@roots/bud-eslint'
+import stylelint from '@roots/bud-stylelint'
+import purgecss from '@roots/bud-purgecss'
 
 type SageFeature =
   | typeof purgecss
@@ -25,7 +24,7 @@ interface FeatureOption {
 type SelectFeatures = FeatureOption[]
 
 const featureSet: SageFeatures = [
-  purgecss,
+  purgecss.plugin,
   eslint,
   stylelint,
   dependencyExtractionPlugin,

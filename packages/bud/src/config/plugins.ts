@@ -11,7 +11,7 @@ const plugins: PluginsBuilder = bud =>
           ...(a ? a : []),
           bud.hooks.filter(
             `webpack.plugins.${name}`,
-            bud.controller.use(fn).build(),
+            bud.plugins.controller.use(bud, fn).build(),
           )
         ],
         [],

@@ -15,7 +15,7 @@ interface DashboardProps {
 type DashboardComponent = FunctionComponent<DashboardProps>
 
 const quit = bud => {
-  bud.util.terminate()
+  bud.terminate()
   process.exit()
 }
 

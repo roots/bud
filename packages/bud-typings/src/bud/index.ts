@@ -28,7 +28,7 @@ export {
   Paths,
 } from './stores'
 
-export interface Bud {
+export interface Bud extends Container {
   /**
    * ## bud.args
    */
@@ -499,14 +499,14 @@ export interface Bud {
   terser: Api.Terser
 
   /**
-   * ## bud.use
+   * ## bud.extend
    *
    * Register a Bud extension.
    *
    * ```js
-   * bud.use([require('@roots/bud-demo-plugin')])
+   * bud.extend([require('@roots/bud-demo-plugin')])
    */
-  use: Api.Use
+  extend: Api.Extend
 
   /**
    * ## bud.vendor

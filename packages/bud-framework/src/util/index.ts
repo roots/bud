@@ -1,31 +1,34 @@
-import {fab} from './fab'
+import fab from './fab'
 import {notify} from './notify'
-import {projectRoot} from './projectRoot'
-import {shortCircuit} from './shortCircuit'
-import {processHandler} from './processHandler'
 
 import dd from './dd'
 import dump from './dump'
 import format from './format'
+import highlight from './highlight'
+import pretty from './pretty'
 import {fs} from './fs'
 import {logger} from './logger'
 import {os} from './os'
 import terminate from './terminate'
+import processHandler from './processHandler'
 
-import _ from 'lodash'
+import __ from 'lodash'
+import {__ as Lo} from 'lodash'
 
-export const util = {
-  _,
-  format,
+const lo: Lo = __
+
+export {
+  lo,
+  pretty,
   fs,
   dump,
   dd,
   logger,
-  shortCircuit,
   fab,
-  notify,
-  projectRoot,
+  format,
+  highlight,
   processHandler,
+  notify,
   terminate,
   os,
 }

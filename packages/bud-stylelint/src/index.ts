@@ -1,10 +1,9 @@
-import {Bud} from '@roots/bud'
-import {Plugin} from '@roots/bud-typings'
+import {Bud, Plugin} from '@roots/bud-typings'
 import StylelintPlugin from 'stylelint-webpack-plugin'
 import type {Options as StylelintOptions} from 'stylelint-webpack-plugin/declarations/getOptions'
 import {resolve} from 'path'
 
-const stylelint: Plugin = (bud: Bud) => ({
+const plugin: Plugin = (bud: Bud) => ({
   bud,
 
   make: function () {
@@ -53,5 +52,4 @@ const preset = {
   roots: resolve(__dirname, './preset/index.js'),
 }
 
-module.exports = stylelint
-export {preset}
+export {plugin, preset}

@@ -2101,9 +2101,6 @@
   dependencies:
     "@types/node" ">= 8"
 
-"@roots/bud-typings@file:packages/bud-typings":
-  version "2.0.0-next.5"
-
 "@samverschueren/stream-to-observable@^0.3.0":
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/@samverschueren/stream-to-observable/-/stream-to-observable-0.3.1.tgz#a21117b19ee9be70c379ec1877537ef2e1c63301"

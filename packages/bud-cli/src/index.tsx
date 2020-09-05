@@ -1,11 +1,11 @@
 import React from 'react'
-import {Box, Spacer, Text, render} from 'ink'
+import {Box, Text, render} from 'ink'
 import useStdOutDimensions from 'ink-use-stdout-dimensions'
 
 /**
  * Bud-CLI
  */
-const App = props => {
+const App = () => {
   const [width, height] = useStdOutDimensions()
   const dimensions = {
     width,

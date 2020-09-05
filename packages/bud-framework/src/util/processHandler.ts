@@ -11,4 +11,4 @@ const processHandler = (): void => {
   })
 }
 
-export {processHandler}
+export {processHandler as default}

@@ -3,7 +3,7 @@ const terminate = (code?: number): void => {
     process.exit(code)
   }
 
-  setTimeout(() => exit(code ?? 0), 100).unref()
+  exit(code ?? 0)
 }
 
 export {terminate as default}

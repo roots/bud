@@ -12,9 +12,7 @@ const eslint: Plugin = (bud: Bud) => ({
     }
 
     this.bud.configs.set('eslint', config)
-
     this.bud.features.set('eslint', true)
-
     this.bud.uses.set('eslint', (bud: Bud) => ({
       loader: require.resolve('eslint-loader'),
       options: {
@@ -37,5 +35,4 @@ const preset = {
   react: resolve(__dirname, './preset/react.js'),
 }
 
-module.exports = eslint
-export {preset}
+export {eslint, preset}

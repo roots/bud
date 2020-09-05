@@ -120,7 +120,7 @@ const compile = (options: CompileOptions): void => {
        */
       bud.fs.outputFileSync(
         bud.dist('entrypoints.json'),
-        bud.util.format(JSON.stringify(entrypointsManifest), 'json'),
+        bud.util.pretty(JSON.stringify(entrypointsManifest), 'json'),
       )
 
       /** we dip. */

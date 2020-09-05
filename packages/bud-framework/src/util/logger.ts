@@ -1,4 +1,5 @@
 import pino from 'pino'
+
 import {argv} from 'yargs'
 
 const log: any = argv.log

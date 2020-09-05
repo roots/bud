@@ -1,5 +1,4 @@
-import {Bud} from '@roots/bud'
-import {Plugin} from '@roots/bud-typings'
+import {Bud, Plugin} from '@roots/bud-typings'
 import resolveFrom from 'resolve-from'
 
 const sass: Plugin = (bud: Bud) => ({
@@ -8,9 +7,9 @@ const sass: Plugin = (bud: Bud) => ({
   make: function () {
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const implementation = require(resolveFrom.silent(
-      bud.paths.get('project'),
+      this.bud.paths.get('project'),
       'sass',
-    ) ?? resolveFrom(bud.paths.get('project'), 'node-sass'))
+    ) ?? resolveFrom(this.bud.paths.get('project'), 'node-sass'))
 
     this.bud.addExtensions(['sass', 'scss'])
 

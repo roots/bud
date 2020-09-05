@@ -76,8 +76,6 @@ const proxy = bud => {
     },
   }
 
-  bud.bind('proxy', proxyOptions)
-
   return middleware(proxyOptions)
 }
 

@@ -1,10 +1,11 @@
-import type {
+import {
   Compiler as WebpackCompiler,
   Configuration as WebpackConfig,
   ConfigurationFactory as WebpackConfigFactory,
   Options as WebpackOptions,
   RuleSetRule as WebpackRule,
   Stats as WebpackStats,
+  RuleSetLoader,
 } from 'webpack'
 
 import {Options as WebpackDevMiddlewareOptions} from 'webpack-dev-middleware'
@@ -36,4 +37,5 @@ export {
   WebpackStats,
   WebpackTarget,
   WebpackRule,
+  RuleSetLoader,
 }

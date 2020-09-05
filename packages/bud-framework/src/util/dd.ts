@@ -1,8 +1,8 @@
 import dump from './dump'
 import terminate from './terminate'
 
-const dd = function (obj, parser?): void {
-  dump(obj, parser ?? undefined)
+const dd = function (obj: any): void {
+  dump(obj)
   terminate()
 }
 

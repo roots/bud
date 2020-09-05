@@ -1,13 +1,11 @@
-import prettier, {BuiltInParserName} from 'prettier'
+import prettyFormat from 'pretty-format'
 
-type Format = {
-  [key: string]: Formatter
-}
-
-type Formatter = (any, parser: BuiltInParserName) => string
-
-const format: Formatter = (contents, parser) => {
-  return prettier.format(contents, parser ? {parser} : undefined)
-}
+const format = (obj, options = {}) =>
+  prettyFormat(obj, {
+    callToJSON: true,
+    highlight: true,
+    indent: 2,
+    ...options,
+  })
 
 export {format as default}

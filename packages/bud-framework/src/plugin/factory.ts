@@ -1,33 +1,40 @@
 import {PluginController} from '@roots/bud-typings'
 
-const pluginController: PluginController = app => ({
-  app,
+const factory: PluginController = function (): void {
+  this.use = function (framework, plugin) {
+    this.bud = framework
+    this.plugin = plugin(this.bud)
 
-  use: function (plugin) {
-    this.plugin = plugin(this.app)
+    this.setOptions = this.setOptions.bind(this)
+    this.mergeOptions = this.mergeOptions.bind(this)
+    this.make = this.make.bind(this)
 
     return this
-  },
+  }
 
-  build: function () {
+  /**
+   * Build a plugin object
+   */
+  this.build = function () {
     this.bindProps()
     this.setOptions()
     this.mergeOptions()
 
     return this.make()
-  },
+  }
 
   /**
    * Bind plugin props
    */
-  bindProps: function (): void {
-    const props = this.app.hooks.filter(
+  this.bindProps = function (): void {
+    const props = this.bud.hooks.filter(
       'framework.plugins.ensureProp',
       [
-        ['options', this.app.util.fab.undefined()],
-        ['when', this.app.util.fab.true],
-        ['setOptions', this.app.util.fab.undefined],
-        ['mergeOptions', this.app.util.fab.undefined],
+        ['bud', this.bud],
+        ['options', null],
+        ['when', () => true],
+        ['setOptions', () => null],
+        ['mergeOptions', () => null],
       ],
     )
 
@@ -36,12 +43,12 @@ const pluginController: PluginController = app => ({
         this.plugin[name] = value
       }
     })
-  },
+  }
 
   /**
    * Set plugin options.
    */
-  setOptions: function () {
+  this.setOptions = function () {
     this.boundValue = this.plugin.setOptions()
 
     if (this.boundValue) {
@@ -49,12 +56,12 @@ const pluginController: PluginController = app => ({
     }
 
     delete this.boundValue
-  },
+  }
 
   /**
    * Merge plugin options.
    */
-  mergeOptions: function () {
+  this.mergeOptions = function () {
     this.boundValue = this.plugin.mergeOptions()
 
     if (this.boundValue) {
@@ -65,21 +72,21 @@ const pluginController: PluginController = app => ({
     }
 
     delete this.boundValue
-  },
+  }
 
   /**
    * Make plugin.
    */
-  make: function () {
+  this.make = function () {
     this.plugin =
       this.plugin.hasOwnProperty('when') && this.plugin.when()
         ? this.plugin.make()
-        : this.app.util.fab.undefined()
+        : null
 
     if (this.plugin) {
       return this.plugin
     }
-  },
-})
+  }
+}
 
-export {pluginController}
+export {factory as default}

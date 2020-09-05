@@ -1,69 +1,64 @@
-import {framework} from '@roots/bud-framework'
+import framework from '@roots/bud-framework'
 import compiler from '@roots/bud-compiler'
+import express from 'express'
 import api from './api'
+
 import {repositories} from './repositories'
 import {config} from './config'
-import express from 'express'
-import {Use} from './repositories/uses'
 
 import {Bud} from '@roots/bud-typings'
 
-/**
- * Bind stores.
- */
+const bootstrap = new framework()
+
+bootstrap.compiler = compiler
+bootstrap.config = config
+bootstrap.server = express()
+
 repositories.stores.forEach(store => {
-  framework.bind(store.name, store)
+  bootstrap[store.name] = new bootstrap.container(store.register)
 })
-
-/**
- * Bind file stores.
- */
 repositories.files.forEach(store => {
-  framework.bindFiles(store.name, store)
+  bootstrap[store.name] = new bootstrap.files(store.register)
 })
-
-/**
- * Bind stores.
- */
 repositories.plugins.forEach(store => {
-  framework.bindPlugins(store.name, store)
+  bootstrap[store.name] = new bootstrap.plugins(store.register)
+  bootstrap[store.name].controller = new bootstrap.pluginFactory(
+    bootstrap,
+  )
 })
 
-framework.apply('mode', framework.args.get('mode'))
-
-framework.apply(
-  'inProduction',
-  framework.args.is('mode', 'production'),
+bootstrap.mode = bootstrap.args.get('mode')
+bootstrap.inDevelopment = bootstrap.args.is(
+  'mode',
+  'development',
 )
+bootstrap.inProduction = bootstrap.args.is('mode', 'production')
 
-framework.apply(
-  'inDevelopment',
-  framework.args.is('mode', 'development'),
-)
-
-framework.apply('hooks', framework.hooks(framework))
-framework.apply('controller', framework.pluginController(framework))
-framework.apply('fs', framework.util.fs)
-framework.apply('format', framework.util.format)
-framework.apply('config', config)
-framework.apply('compiler', compiler)
-framework.apply('server', express())
+bootstrap.hooks = bootstrap.hooks(bootstrap)
+bootstrap.format = bootstrap.util.format
 
 /**
- * Bind the public API.
+ * Binding config API methods
  */
-Object.values(api).forEach((method: () => any) => {
-  framework.apply(method.name, method)
+bootstrap.api = api
+Object.entries(api).forEach(([name, method]) => {
+  bootstrap[name] = method
 })
-
-framework.configs.has('babel') &&
-  framework.options.merge('babel', framework.configs.get('babel'))
-
-framework.configs.has('postcss') &&
-  framework.options.merge('postcss', framework.configs.get('postcss'))
 
 /** Type achieved. */
-const bud: Bud = framework
+const bud: Bud = bootstrap
 
-export type {Bud, Use}
+/**
+ * Set babel config
+ */
+bud.configs.has('babel') &&
+  bud.options.merge('babel', bud.configs.get('babel'))
+
+/**
+ * Get babel config
+ */
+bud.configs.has('postcss') &&
+  bud.options.merge('postcss', bud.configs.get('postcss'))
+
 module.exports = bud
+export type {Bud}

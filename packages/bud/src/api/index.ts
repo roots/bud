@@ -8,23 +8,23 @@ import {copyAll} from './copyAll'
 import {dist} from './dist'
 import {distPath} from './distPath'
 import {devtool} from './devtool'
-import {when} from './when'
 import {glob} from './glob'
 import {hash} from './hash'
 import {dev} from './dev'
-import {runtimeManifest} from './runtimeManifest'
+import extend from './extend'
 import {mini} from './mini'
 import {postcss} from './postcss'
 import {project} from './project'
 import {projectPath} from './projectPath'
 import {provide} from './provide'
 import {publicPath} from './publicPath'
+import {runtimeManifest} from './runtimeManifest'
 import {src} from './src'
 import {srcPath} from './srcPath'
 import {target} from './target'
 import {terser} from './terser'
-import {use} from './use'
 import {vendor} from './vendor'
+import {when} from './when'
 
 const api = {
   addExtensions,
@@ -51,7 +51,7 @@ const api = {
   srcPath,
   target,
   terser,
-  use,
+  extend,
   vendor,
   when,
 }
