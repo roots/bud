@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud",
   "description": "A friendly build tool to help manage your project assets.",
-  "version": "2.0.0-next.6",
+  "version": "2.0.0-next.7",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -36,8 +36,8 @@
     "@babel/core": "^7.11.5",
     "@babel/plugin-transform-runtime": "^7.11.0",
     "@babel/preset-env": "^7.11.5",
-    "@roots/bud-compiler": "^2.0.0-next.6",
-    "@roots/bud-framework": "^2.0.0-next.6",
+    "@roots/bud-compiler": "^2.0.0-next.7",
+    "@roots/bud-framework": "^2.0.0-next.7",
     "@svgr/webpack": "^5.4.0",
     "autoprefixer": "^9.8.5",
     "babel-loader": "^8.1.0",
@@ -67,8 +67,8 @@
     "write-file-webpack-plugin": "^4.5.1"
   },
   "devDependencies": {
-    "@roots/bud-support": "^2.0.0-next.6",
-    "@roots/bud-typings": "^2.0.0-next.6"
+    "@roots/bud-support": "^2.0.0-next.7",
+    "@roots/bud-typings": "^2.0.0-next.7"
   },
   "gitHead": "a799bffc54512d0159f47f838e35625a4d1c679d"
 }
