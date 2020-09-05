@@ -4,7 +4,8 @@ import zlib from 'zlib'
 
 const proxy = bud => {
   const dev = {
-    host: bud.options.get('webpack.devServer.host') || 'localhost',
+    host:
+      bud.options.get('webpack.devServer.host') || 'localhost',
     port: bud.options.get('webpack.devServer.port') || 3000,
   }
 
@@ -13,7 +14,8 @@ const proxy = bud => {
       'server.proxy.host',
       bud.options.get('webpack.devServer.proxy.host'),
     ),
-    port: bud.options.get('webpack.devServer.proxy.port') || 8000,
+    port:
+      bud.options.get('webpack.devServer.proxy.port') || 8000,
   }
 
   const proxyOptions = {

@@ -4,7 +4,9 @@ import {Plugin} from '@roots/bud-typings'
 const fixStyleOnlyEntries: Plugin = bud => ({
   bud,
 
-  options: bud.options.get('webpack.plugins.fixStyleOnlyEntries'),
+  options: bud.options.get(
+    'webpack.plugins.fixStyleOnlyEntries',
+  ),
 
   make: function () {
     if (this.bud.features.enabled('hot')) {

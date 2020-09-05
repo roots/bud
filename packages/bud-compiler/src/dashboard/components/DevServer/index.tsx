@@ -1,4 +1,8 @@
-import React, {useEffect, useState, FunctionComponent} from 'react'
+import React, {
+  useEffect,
+  useState,
+  FunctionComponent,
+} from 'react'
 import {Box, Text, Spacer} from 'ink'
 import Screen from '../UI/Screen'
 
@@ -6,7 +10,9 @@ interface DevServerProps {
   build: any
 }
 
-const DevServer: FunctionComponent<DevServerProps> = ({build}) => {
+const DevServer: FunctionComponent<DevServerProps> = ({
+  build,
+}) => {
   const [serverLog, setServerLog] = useState([])
   useEffect(() => {
     build.req && setServerLog([...serverLog, build.req])

@@ -8,7 +8,8 @@ const Console = () => {
   patchConsole((stream, data) => {
     setLastConsole(data)
 
-    const frameOut = lastConsole !== data ? `${text}${data}` : text
+    const frameOut =
+      lastConsole !== data ? `${text}${data}` : text
     setText(frameOut)
   })
 

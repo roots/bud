@@ -7,5 +7,8 @@ interface Compiler {
   compile: () => void
 }
 
-export type Factory = (bud: Bud, config: WebpackConfig) => Compiler
+export type Factory = (
+  bud: Bud,
+  config: WebpackConfig,
+) => Compiler
 export type Renderer = (bud: Bud, config: WebpackConfig) => void

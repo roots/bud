@@ -378,7 +378,9 @@ function parseHTML(html, options) {
         var startTagMatch = parseStartTag()
         if (startTagMatch) {
           handleStartTag(startTagMatch)
-          if (shouldIgnoreFirstNewline(startTagMatch.tagName, html)) {
+          if (
+            shouldIgnoreFirstNewline(startTagMatch.tagName, html)
+          ) {
             advance(1)
           }
           continue
@@ -493,7 +495,8 @@ function parseHTML(html, options) {
       while (
         !(end = html.match(startTagClose)) &&
         (attr =
-          html.match(dynamicArgAttribute) || html.match(attribute))
+          html.match(dynamicArgAttribute) ||
+          html.match(attribute))
       ) {
         attr.start = index
         advance(attr[0].length)
@@ -541,7 +544,8 @@ function parseHTML(html, options) {
         process.env.NODE_ENV !== 'production' &&
         options.outputSourceRange
       ) {
-        attrs[i].start = args.start + args[0].match(/^\s*/).length
+        attrs[i].start =
+          args.start + args[0].match(/^\s*/).length
         attrs[i].end = args.end
       }
     }
@@ -558,7 +562,13 @@ function parseHTML(html, options) {
     }
 
     if (options.start) {
-      options.start(tagName, attrs, unary, match.start, match.end)
+      options.start(
+        tagName,
+        attrs,
+        unary,
+        match.start,
+        match.end,
+      )
     }
   }
 
@@ -593,7 +603,9 @@ function parseHTML(html, options) {
           options.warn
         ) {
           options.warn(
-            'tag <' + stack[i].tag + '> has no matching end tag.',
+            'tag <' +
+              stack[i].tag +
+              '> has no matching end tag.',
             {
               start: stack[i].start,
               end: stack[i].end,
@@ -717,7 +729,10 @@ function parseComponent(content, options) {
   function end(tag, start) {
     if (depth === 1 && currentBlock) {
       currentBlock.end = start
-      var text = content.slice(currentBlock.start, currentBlock.end)
+      var text = content.slice(
+        currentBlock.start,
+        currentBlock.end,
+      )
       if (options.deindent !== false) {
         text = deindent(text)
       }
@@ -734,9 +749,12 @@ function parseComponent(content, options) {
 
   function padContent(block, pad) {
     if (pad === 'space') {
-      return content.slice(0, block.start).replace(replaceRE, ' ')
+      return content
+        .slice(0, block.start)
+        .replace(replaceRE, ' ')
     } else {
-      var offset = content.slice(0, block.start).split(splitRE).length
+      var offset = content.slice(0, block.start).split(splitRE)
+        .length
       var padChar =
         block.type === 'script' && !block.lang ? '//\n' : '\n'
       return Array(offset).join(padChar)
@@ -763,7 +781,8 @@ var inBrowser =
   typeof window !== 'undefined' &&
   typeof window.document !== 'undefined'
 var inWeex =
-  typeof WXEnvironment !== 'undefined' && !!WXEnvironment.platform
+  typeof WXEnvironment !== 'undefined' &&
+  !!WXEnvironment.platform
 var weexPlatform = inWeex && WXEnvironment.platform.toLowerCase()
 var UA = inBrowser && window.navigator.userAgent.toLowerCase()
 var isIE = UA && /msie|trident/.test(UA)
@@ -772,7 +791,8 @@ var isEdge = UA && UA.indexOf('edge/') > 0
 var isAndroid =
   (UA && UA.indexOf('android') > 0) || weexPlatform === 'android'
 var isIOS =
-  (UA && /iphone|ipad|ipod|ios/.test(UA)) || weexPlatform === 'ios'
+  (UA && /iphone|ipad|ipod|ios/.test(UA)) ||
+  weexPlatform === 'ios'
 var isChrome = UA && /chrome\/\d+/.test(UA) && !isEdge
 var isPhantomJS = UA && /phantomjs/.test(UA)
 var isFF = UA && UA.match(/firefox\/(\d+)/)
@@ -814,7 +834,8 @@ var devtools = inBrowser && window.__VUE_DEVTOOLS_GLOBAL_HOOK__
 /* istanbul ignore next */
 function isNative(Ctor) {
   return (
-    typeof Ctor === 'function' && /native code/.test(Ctor.toString())
+    typeof Ctor === 'function' &&
+    /native code/.test(Ctor.toString())
   )
 }
 
@@ -993,7 +1014,9 @@ if (process.env.NODE_ENV !== 'production') {
   tip = function (msg, vm) {
     if (hasConsole && !config.silent) {
       console.warn(
-        '[Vue tip]: ' + msg + (vm ? generateComponentTrace(vm) : ''),
+        '[Vue tip]: ' +
+          msg +
+          (vm ? generateComponentTrace(vm) : ''),
       )
     }
   }
@@ -1047,7 +1070,10 @@ if (process.env.NODE_ENV !== 'production') {
             vm = vm.$parent
             continue
           } else if (currentRecursiveSequence > 0) {
-            tree[tree.length - 1] = [last, currentRecursiveSequence]
+            tree[tree.length - 1] = [
+              last,
+              currentRecursiveSequence,
+            ]
             currentRecursiveSequence = 0
           }
         }
@@ -1310,7 +1336,10 @@ function observe(value, asRootData) {
     return
   }
   var ob
-  if (hasOwn(value, '__ob__') && value.__ob__ instanceof Observer) {
+  if (
+    hasOwn(value, '__ob__') &&
+    value.__ob__ instanceof Observer
+  ) {
     ob = value.__ob__
   } else if (
     shouldObserve &&
@@ -1330,7 +1359,13 @@ function observe(value, asRootData) {
 /**
  * Define a reactive property on an Object.
  */
-function defineReactive$$1(obj, key, val, customSetter, shallow) {
+function defineReactive$$1(
+  obj,
+  key,
+  val,
+  customSetter,
+  shallow,
+) {
   var dep = new Dep()
 
   var property = Object.getOwnPropertyDescriptor(obj, key)
@@ -1372,7 +1407,10 @@ function defineReactive$$1(obj, key, val, customSetter, shallow) {
         return
       }
       /* eslint-enable no-self-compare */
-      if (process.env.NODE_ENV !== 'production' && customSetter) {
+      if (
+        process.env.NODE_ENV !== 'production' &&
+        customSetter
+      ) {
         customSetter()
       }
       // #7981: for accessor properties without setter
@@ -1459,7 +1497,12 @@ var strats = config.optionMergeStrategies
  * Options with restrictions
  */
 if (process.env.NODE_ENV !== 'production') {
-  strats.el = strats.propsData = function (parent, child, vm, key) {
+  strats.el = strats.propsData = function (
+    parent,
+    child,
+    vm,
+    key,
+  ) {
     if (!vm) {
       warn(
         'option "' +
@@ -1481,7 +1524,9 @@ function mergeData(to, from) {
   }
   var key, toVal, fromVal
 
-  var keys = hasSymbol ? Reflect.ownKeys(from) : Object.keys(from)
+  var keys = hasSymbol
+    ? Reflect.ownKeys(from)
+    : Object.keys(from)
 
   for (var i = 0; i < keys.length; i++) {
     key = keys[i]
@@ -1761,17 +1806,23 @@ else if (
 var isReservedAttr = makeMap('style,class')
 
 // attributes that should be using props for binding
-var acceptValue = makeMap('input,textarea,option,select,progress')
+var acceptValue = makeMap(
+  'input,textarea,option,select,progress',
+)
 var mustUseProp = function (tag, type, attr) {
   return (
-    (attr === 'value' && acceptValue(tag) && type !== 'button') ||
+    (attr === 'value' &&
+      acceptValue(tag) &&
+      type !== 'button') ||
     (attr === 'selected' && tag === 'option') ||
     (attr === 'checked' && tag === 'input') ||
     (attr === 'muted' && tag === 'video')
   )
 }
 
-var isEnumeratedAttr = makeMap('contenteditable,draggable,spellcheck')
+var isEnumeratedAttr = makeMap(
+  'contenteditable,draggable,spellcheck',
+)
 
 var isValidContentEditableValue = makeMap(
   'events,caret,typing,plaintext-only',
@@ -1966,7 +2017,11 @@ function wrapFilter(exp, filter) {
     var name = filter.slice(0, i)
     var args = filter.slice(i + 1)
     return (
-      '_f("' + name + '")(' + exp + (args !== ')' ? ',' + args : args)
+      '_f("' +
+      name +
+      '")(' +
+      exp +
+      (args !== ')' ? ',' + args : args)
     )
   }
 }
@@ -2036,7 +2091,10 @@ function pluckModuleFunction(modules, key) {
 
 function addProp(el, name, value, range, dynamic) {
   ;(el.props || (el.props = [])).push(
-    rangeSetItem({name: name, value: value, dynamic: dynamic}, range),
+    rangeSetItem(
+      {name: name, value: value, dynamic: dynamic},
+      range,
+    ),
   )
   el.plain = false
 }
@@ -2046,7 +2104,10 @@ function addAttr(el, name, value, range, dynamic) {
     ? el.dynamicAttrs || (el.dynamicAttrs = [])
     : el.attrs || (el.attrs = [])
   attrs.push(
-    rangeSetItem({name: name, value: value, dynamic: dynamic}, range),
+    rangeSetItem(
+      {name: name, value: value, dynamic: dynamic},
+      range,
+    ),
   )
   el.plain = false
 }
@@ -2054,7 +2115,9 @@ function addAttr(el, name, value, range, dynamic) {
 // add a raw attr (use this in preTransforms)
 function addRawAttr(el, name, value, range) {
   el.attrsMap[name] = value
-  el.attrsList.push(rangeSetItem({name: name, value: value}, range))
+  el.attrsList.push(
+    rangeSetItem({name: name, value: value}, range),
+  )
 }
 
 function addDirective(
@@ -2084,7 +2147,9 @@ function addDirective(
 }
 
 function prependModifierMarker(symbol, name, dynamic) {
-  return dynamic ? '_p(' + name + ',"' + symbol + '")' : symbol + name // mark the event as captured
+  return dynamic
+    ? '_p(' + name + ',"' + symbol + '")'
+    : symbol + name // mark the event as captured
 }
 
 function addHandler(
@@ -2118,7 +2183,8 @@ function addHandler(
   // the only target envs that have right/middle clicks.
   if (modifiers.right) {
     if (dynamic) {
-      name = '(' + name + ")==='click'?'contextmenu':(" + name + ')'
+      name =
+        '(' + name + ")==='click'?'contextmenu':(" + name + ')'
     } else if (name === 'click') {
       name = 'contextmenu'
       delete modifiers.right
@@ -2393,7 +2459,11 @@ function genComponentModel(el, value, modifiers) {
     value: '(' + value + ')',
     expression: JSON.stringify(value),
     callback:
-      'function (' + baseValueExpression + ') {' + assignment + '}',
+      'function (' +
+      baseValueExpression +
+      ') {' +
+      assignment +
+      '}',
   }
 }
 
@@ -2406,7 +2476,13 @@ function genAssignmentCode(value, assignment) {
     return value + '=' + assignment
   } else {
     return (
-      '$set(' + res.exp + ', ' + res.key + ', ' + assignment + ')'
+      '$set(' +
+      res.exp +
+      ', ' +
+      res.key +
+      ', ' +
+      assignment +
+      ')'
     )
   }
 }
@@ -2573,7 +2649,10 @@ function parse(template, options) {
     return !!el.component || !isReservedTag(el.tag)
   }
 
-  transforms = pluckModuleFunction(options.modules, 'transformNode')
+  transforms = pluckModuleFunction(
+    options.modules,
+    'transformNode',
+  )
   preTransforms = pluckModuleFunction(
     options.modules,
     'preTransformNode',
@@ -2703,7 +2782,8 @@ function parse(template, options) {
     isUnaryTag: options.isUnaryTag,
     canBeLeftOpenTag: options.canBeLeftOpenTag,
     shouldDecodeNewlines: options.shouldDecodeNewlines,
-    shouldDecodeNewlinesForHref: options.shouldDecodeNewlinesForHref,
+    shouldDecodeNewlinesForHref:
+      options.shouldDecodeNewlinesForHref,
     shouldKeepComment: options.comments,
     outputSourceRange: options.outputSourceRange,
     start: function start(tag, attrs, unary, start$1, end) {
@@ -2728,14 +2808,13 @@ function parse(template, options) {
         if (options.outputSourceRange) {
           element.start = start$1
           element.end = end
-          element.rawAttrsMap = element.attrsList.reduce(function (
-            cumulated,
-            attr,
-          ) {
-            cumulated[attr.name] = attr
-            return cumulated
-          },
-          {})
+          element.rawAttrsMap = element.attrsList.reduce(
+            function (cumulated, attr) {
+              cumulated[attr.name] = attr
+              return cumulated
+            },
+            {},
+          )
         }
         attrs.forEach(function (attr) {
           if (invalidAttributeRE.test(attr.name)) {
@@ -2962,7 +3041,9 @@ function processElement(element, options) {
   // determine whether this is a plain element after
   // removing structural attributes
   element.plain =
-    !element.key && !element.scopedSlots && !element.attrsList.length
+    !element.key &&
+    !element.scopedSlots &&
+    !element.attrsList.length
 
   processRef(element)
   processSlotContent(element)
@@ -3144,7 +3225,8 @@ function processSlotContent(el) {
         true,
       )
     }
-    el.slotScope = slotScope || getAndRemoveAttr(el, 'slot-scope')
+    el.slotScope =
+      slotScope || getAndRemoveAttr(el, 'slot-scope')
   } else if ((slotScope = getAndRemoveAttr(el, 'slot-scope'))) {
     /* istanbul ignore if */
     if (
@@ -3167,14 +3249,20 @@ function processSlotContent(el) {
   // slot="xxx"
   var slotTarget = getBindingAttr(el, 'slot')
   if (slotTarget) {
-    el.slotTarget = slotTarget === '""' ? '"default"' : slotTarget
+    el.slotTarget =
+      slotTarget === '""' ? '"default"' : slotTarget
     el.slotTargetDynamic = !!(
       el.attrsMap[':slot'] || el.attrsMap['v-bind:slot']
     )
     // preserve slot as an attribute for native shadow DOM compat
     // only for non-scoped slots.
     if (el.tag !== 'template' && !el.slotScope) {
-      addAttr(el, 'slot', slotTarget, getRawBindingAttr(el, 'slot'))
+      addAttr(
+        el,
+        'slot',
+        slotTarget,
+        getRawBindingAttr(el, 'slot'),
+      )
     }
   }
 
@@ -3243,7 +3331,9 @@ function processSlotContent(el) {
         ))
         slotContainer.slotTarget = name$1
         slotContainer.slotTargetDynamic = dynamic$1
-        slotContainer.children = el.children.filter(function (c) {
+        slotContainer.children = el.children.filter(function (
+          c,
+        ) {
           if (!c.slotScope) {
             c.parent = slotContainer
             return true
@@ -3266,7 +3356,10 @@ function getSlotName(binding) {
     if (binding.name[0] !== '#') {
       name = 'default'
     } else if (process.env.NODE_ENV !== 'production') {
-      warn$1('v-slot shorthand syntax requires a slot name.', binding)
+      warn$1(
+        'v-slot shorthand syntax requires a slot name.',
+        binding,
+      )
     }
   }
   return dynamicArgRE.test(name)
@@ -3517,7 +3610,8 @@ function isForbiddenTag(el) {
   return (
     el.tag === 'style' ||
     (el.tag === 'script' &&
-      (!el.attrsMap.type || el.attrsMap.type === 'text/javascript'))
+      (!el.attrsMap.type ||
+        el.attrsMap.type === 'text/javascript'))
   )
 }
 
@@ -3581,7 +3675,11 @@ function preTransformNode(el, options) {
         ? '&&(' + ifCondition + ')'
         : ''
       var hasElse = getAndRemoveAttr(el, 'v-else', true) != null
-      var elseIfCondition = getAndRemoveAttr(el, 'v-else-if', true)
+      var elseIfCondition = getAndRemoveAttr(
+        el,
+        'v-else-if',
+        true,
+      )
       // 1. checkbox
       var branch0 = cloneASTElement(el)
       // process for on the main node
@@ -3601,7 +3699,8 @@ function preTransformNode(el, options) {
       addRawAttr(branch1, 'type', 'radio')
       processElement(branch1, options)
       addIfCondition(branch0, {
-        exp: '(' + typeBinding + ")==='radio'" + ifConditionExtra,
+        exp:
+          '(' + typeBinding + ")==='radio'" + ifConditionExtra,
         block: branch1,
       })
       // 3. other
@@ -3626,7 +3725,11 @@ function preTransformNode(el, options) {
 }
 
 function cloneASTElement(el) {
-  return createASTElement(el.tag, el.attrsList.slice(), el.parent)
+  return createASTElement(
+    el.tag,
+    el.attrsList.slice(),
+    el.parent,
+  )
 }
 
 var model = {
@@ -3703,8 +3806,10 @@ function model$1(el, dir, _warn) {
 function genCheckboxModel(el, value, modifiers) {
   var number = modifiers && modifiers.number
   var valueBinding = getBindingAttr(el, 'value') || 'null'
-  var trueValueBinding = getBindingAttr(el, 'true-value') || 'true'
-  var falseValueBinding = getBindingAttr(el, 'false-value') || 'false'
+  var trueValueBinding =
+    getBindingAttr(el, 'true-value') || 'true'
+  var falseValueBinding =
+    getBindingAttr(el, 'false-value') || 'false'
   addProp(
     el,
     'checked',
@@ -3757,8 +3862,14 @@ function genCheckboxModel(el, value, modifiers) {
 function genRadioModel(el, value, modifiers) {
   var number = modifiers && modifiers.number
   var valueBinding = getBindingAttr(el, 'value') || 'null'
-  valueBinding = number ? '_n(' + valueBinding + ')' : valueBinding
-  addProp(el, 'checked', '_q(' + value + ',' + valueBinding + ')')
+  valueBinding = number
+    ? '_n(' + valueBinding + ')'
+    : valueBinding
+  addProp(
+    el,
+    'checked',
+    '_q(' + value + ',' + valueBinding + ')',
+  )
   addHandler(
     el,
     'change',
@@ -3791,7 +3902,8 @@ function genDefaultModel(el, value, modifiers) {
   // warn if v-bind:value conflicts with v-model
   // except for inputs with v-bind:type
   if (process.env.NODE_ENV !== 'production') {
-    var value$1 = el.attrsMap['v-bind:value'] || el.attrsMap[':value']
+    var value$1 =
+      el.attrsMap['v-bind:value'] || el.attrsMap[':value']
     var typeBinding =
       el.attrsMap['v-bind:type'] || el.attrsMap[':type']
     if (value$1 && !typeBinding) {
@@ -3961,7 +4073,9 @@ function markStaticRoots(node, isInFor) {
     if (
       node.static &&
       node.children.length &&
-      !(node.children.length === 1 && node.children[0].type === 3)
+      !(
+        node.children.length === 1 && node.children[0].type === 3
+      )
     ) {
       node.staticRoot = true
       return
@@ -3997,10 +4111,10 @@ function isStatic(node) {
   return !!(
     node.pre ||
     (!node.hasBindings && // no dynamic bindings
-    !node.if &&
-    !node.for && // not v-if or v-for or v-else
-    !isBuiltInTag(node.tag) && // not a built-in
-    isPlatformReservedTag(node.tag) && // not a component
+      !node.if &&
+      !node.for && // not v-if or v-for or v-else
+      !isBuiltInTag(node.tag) && // not a built-in
+      isPlatformReservedTag(node.tag) && // not a component
       !isDirectChildOfTemplateFor(node) &&
       Object.keys(node).every(isStaticKey))
   )
@@ -4259,7 +4373,10 @@ var CodegenState = function CodegenState(options) {
     options.modules,
     'transformCode',
   )
-  this.dataGenFns = pluckModuleFunction(options.modules, 'genData')
+  this.dataGenFns = pluckModuleFunction(
+    options.modules,
+    'genData',
+  )
   this.directives = extend(
     extend({}, baseDirectives),
     options.directives,
@@ -4295,7 +4412,11 @@ function genElement(el, state) {
     return genFor(el, state)
   } else if (el.if && !el.ifProcessed) {
     return genIf(el, state)
-  } else if (el.tag === 'template' && !el.slotTarget && !state.pre) {
+  } else if (
+    el.tag === 'template' &&
+    !el.slotTarget &&
+    !state.pre
+  ) {
     return genChildren(el, state) || 'void 0'
   } else if (el.tag === 'slot') {
     return genSlot(el, state)
@@ -4739,7 +4860,9 @@ function genScopedSlot(el, state) {
     return genFor(el, state, genScopedSlot)
   }
   var slotScope =
-    el.slotScope === emptySlotScopeToken ? '' : String(el.slotScope)
+    el.slotScope === emptySlotScopeToken
+      ? ''
+      : String(el.slotScope)
   var fn =
     'function(' +
     slotScope +
@@ -4848,7 +4971,9 @@ function getNormalizationType(children, maybeComponent) {
 
 function needsNormalization(el) {
   return (
-    el.for !== undefined || el.tag === 'template' || el.tag === 'slot'
+    el.for !== undefined ||
+    el.tag === 'template' ||
+    el.tag === 'slot'
   )
 }
 
@@ -4938,7 +5063,11 @@ function genProps(props) {
   staticProps = '{' + staticProps.slice(0, -1) + '}'
   if (dynamicProps) {
     return (
-      '_d(' + staticProps + ',[' + dynamicProps.slice(0, -1) + '])'
+      '_d(' +
+      staticProps +
+      ',[' +
+      dynamicProps.slice(0, -1) +
+      '])'
     )
   } else {
     return staticProps
@@ -4971,7 +5100,9 @@ var prohibitedKeywordRE = new RegExp(
 // these unary operators should not be used as property/method names
 var unaryOperatorsRE = new RegExp(
   '\\b' +
-    'delete,typeof,void'.split(',').join('\\s*\\([^\\)]*\\)|\\b') +
+    'delete,typeof,void'
+      .split(',')
+      .join('\\s*\\([^\\)]*\\)|\\b') +
     '\\s*\\([^\\)]*\\)',
 )
 
@@ -5002,7 +5133,12 @@ function checkNode(node, warn) {
               range,
             )
           } else if (onRE.test(name)) {
-            checkEvent(value, name + '="' + value + '"', warn, range)
+            checkEvent(
+              value,
+              name + '="' + value + '"',
+              warn,
+              range,
+            )
           } else {
             checkExpression(
               value,
@@ -5046,8 +5182,20 @@ function checkEvent(exp, text, warn, range) {
 function checkFor(node, text, warn, range) {
   checkExpression(node.for || '', text, warn, range)
   checkIdentifier(node.alias, 'v-for alias', text, warn, range)
-  checkIdentifier(node.iterator1, 'v-for iterator', text, warn, range)
-  checkIdentifier(node.iterator2, 'v-for iterator', text, warn, range)
+  checkIdentifier(
+    node.iterator1,
+    'v-for iterator',
+    text,
+    warn,
+    range,
+  )
+  checkIdentifier(
+    node.iterator2,
+    'v-for iterator',
+    text,
+    warn,
+    range,
+  )
 }
 
 function checkIdentifier(ident, type, text, warn, range) {
@@ -5101,7 +5249,12 @@ function checkExpression(exp, text, warn, range) {
   }
 }
 
-function checkFunctionParameterExpression(exp, text, warn, range) {
+function checkFunctionParameterExpression(
+  exp,
+  text,
+  warn,
+  range,
+) {
   try {
     new Function(exp, '')
   } catch (e) {
@@ -5134,7 +5287,11 @@ function generateCodeFrame(source, start, end) {
   for (var i = 0; i < lines.length; i++) {
     count += lines[i].length + 1
     if (count >= start) {
-      for (var j = i - range; j <= i + range || end > count; j++) {
+      for (
+        var j = i - range;
+        j <= i + range || end > count;
+        j++
+      ) {
         if (j < 0 || j >= lines.length) {
           continue
         }
@@ -5149,9 +5306,12 @@ function generateCodeFrame(source, start, end) {
         if (j === i) {
           // push underline
           var pad = start - (count - lineLength) + 1
-          var length = end > count ? lineLength - pad : end - start
+          var length =
+            end > count ? lineLength - pad : end - start
           res.push(
-            '   |  ' + repeat$1(' ', pad) + repeat$1('^', length),
+            '   |  ' +
+              repeat$1(' ', pad) +
+              repeat$1('^', length),
           )
         } else if (j > i) {
           if (end > count) {
@@ -5331,7 +5491,8 @@ function createCompilerCreator(baseCompile) {
           options.outputSourceRange
         ) {
           // $flow-disable-line
-          var leadingSpaceLength = template.match(/^\s*/)[0].length
+          var leadingSpaceLength = template.match(/^\s*/)[0]
+            .length
 
           warn = function (msg, range, tip) {
             var data = {msg: msg}
@@ -5348,9 +5509,9 @@ function createCompilerCreator(baseCompile) {
         }
         // merge custom modules
         if (options.modules) {
-          finalOptions.modules = (baseOptions.modules || []).concat(
-            options.modules,
-          )
+          finalOptions.modules = (
+            baseOptions.modules || []
+          ).concat(options.modules)
         }
         // merge custom directives
         if (options.directives) {
@@ -5535,7 +5696,8 @@ function genAttrSegment(name, value) {
   } else {
     return {
       type: EXPRESSION,
-      value: '_ssrAttr(' + JSON.stringify(name) + ',' + value + ')',
+      value:
+        '_ssrAttr(' + JSON.stringify(name) + ',' + value + ')',
     }
   }
 }
@@ -5543,7 +5705,10 @@ function genAttrSegment(name, value) {
 function genClassSegments(staticClass, classBinding) {
   if (staticClass && !classBinding) {
     return [
-      {type: RAW, value: ' class="' + JSON.parse(staticClass) + '"'},
+      {
+        type: RAW,
+        value: ' class="' + JSON.parse(staticClass) + '"',
+      },
     ]
   } else {
     return [
@@ -5568,7 +5733,10 @@ function genStyleSegments(
 ) {
   if (staticStyle && !styleBinding && !vShowExpression) {
     return [
-      {type: RAW, value: ' style=' + JSON.stringify(staticStyle)},
+      {
+        type: RAW,
+        value: ' style=' + JSON.stringify(staticStyle),
+      },
     ]
   } else {
     return [
@@ -5581,7 +5749,9 @@ function genStyleSegments(
           (styleBinding || 'null') +
           ', ' +
           (vShowExpression
-            ? '{ display: (' + vShowExpression + ") ? '' : 'none' }"
+            ? '{ display: (' +
+              vShowExpression +
+              ") ? '' : 'none' }"
             : 'null') +
           ')',
       },
@@ -5796,7 +5966,13 @@ function genNormalElement(el, state, stringifyChildren) {
 }
 
 function genSSRChildren(el, state, checkSkip) {
-  return genChildren(el, state, checkSkip, genSSRElement, genSSRNode)
+  return genChildren(
+    el,
+    state,
+    checkSkip,
+    genSSRElement,
+    genSSRNode,
+  )
 }
 
 function genSSRNode(el, state) {
@@ -5829,7 +6005,9 @@ function genStringElementWithChildren(el, state) {
 }
 
 function elementToString(el, state) {
-  return '(' + flattenSegments(elementToSegments(el, state)) + ')'
+  return (
+    '(' + flattenSegments(elementToSegments(el, state)) + ')'
+  )
 }
 
 function elementToSegments(el, state) {
@@ -5902,7 +6080,11 @@ function elementToOpenTagSegments(el, state) {
     )
   }
   // style & v-show
-  if (el.staticStyle || el.styleBinding || el.attrsMap['v-show']) {
+  if (
+    el.staticStyle ||
+    el.styleBinding ||
+    el.attrsMap['v-show']
+  ) {
     segments.push.apply(
       segments,
       genStyleSegments(
@@ -5915,7 +6097,10 @@ function elementToOpenTagSegments(el, state) {
   }
   // _scopedId
   if (state.options.scopeId) {
-    segments.push({type: RAW, value: ' ' + state.options.scopeId})
+    segments.push({
+      type: RAW,
+      value: ' ' + state.options.scopeId,
+    })
   }
   segments.push({type: RAW, value: '>'})
   return segments
@@ -5929,7 +6114,10 @@ function childrenToSegments(el, state) {
   if ((binding = el.attrsMap['v-text'])) {
     return [{type: INTERPOLATION, value: '_s(' + binding + ')'}]
   }
-  if (el.tag === 'textarea' && (binding = el.attrsMap['v-model'])) {
+  if (
+    el.tag === 'textarea' &&
+    (binding = el.attrsMap['v-model'])
+  ) {
     return [{type: INTERPOLATION, value: '_s(' + binding + ')'}]
   }
   return el.children ? nodesToSegments(el.children, state) : []
@@ -5984,19 +6172,18 @@ function flattenSegments(segments) {
 
 /*  */
 
-var createCompiler$1 = createCompilerCreator(function baseCompile(
-  template,
-  options,
-) {
-  var ast = parse(template.trim(), options)
-  optimize$1(ast, options)
-  var code = generate$1(ast, options)
-  return {
-    ast: ast,
-    render: code.render,
-    staticRenderFns: code.staticRenderFns,
-  }
-})
+var createCompiler$1 = createCompilerCreator(
+  function baseCompile(template, options) {
+    var ast = parse(template.trim(), options)
+    optimize$1(ast, options)
+    var code = generate$1(ast, options)
+    return {
+      ast: ast,
+      render: code.render,
+      staticRenderFns: code.staticRenderFns,
+    }
+  },
+)
 
 /*  */
 

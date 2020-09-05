@@ -9,7 +9,10 @@ const rules: ModuleBuilder = bud =>
       rules: Object.entries(bud.rules.repository).reduce(
         (a, [key, fn]) => [
           ...(a ? a : []),
-          bud.hooks.filter(`webpack.module.rules.${key}`, fn(bud)),
+          bud.hooks.filter(
+            `webpack.module.rules.${key}`,
+            fn(bud),
+          ),
         ],
         [],
       ),

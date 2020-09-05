@@ -11,7 +11,10 @@ export type RepositoryDefinition = {
 
 export type MaybeCallable = any | ((any) => any) | any[]
 
-export type Getter = (this: Container, key?: string) => MaybeCallable
+export type Getter = (
+  this: Container,
+  key?: string,
+) => MaybeCallable
 
 export type Action = (this: Container, ...args: any) => void
 

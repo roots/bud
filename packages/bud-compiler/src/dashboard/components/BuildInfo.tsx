@@ -6,7 +6,10 @@ interface InfoProps {
 }
 
 const BuildInfo: FunctionComponent<InfoProps> = ({build}) => (
-  <Box padding={1} flexDirection="column" justifyContent="flex-end">
+  <Box
+    padding={1}
+    flexDirection="column"
+    justifyContent="flex-end">
     {build?.percentage == 1 && build?.hash && (
       <>
         <Text>Finished in {build?.time / 1000}s.</Text>

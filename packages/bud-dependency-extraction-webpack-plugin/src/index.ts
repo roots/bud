@@ -13,7 +13,8 @@ const dependencyExtractionPlugin: Plugin = function (bud: Bud) {
           injectPolyfill: false,
           outputFormat: 'json',
           requestToExternal: request => {
-            if (request === '@babel/runtime/regenerator') return null
+            if (request === '@babel/runtime/regenerator')
+              return null
           },
         },
       )
@@ -53,7 +54,9 @@ const dependencyExtractionPlugin: Plugin = function (bud: Bud) {
           ),
 
           make: function () {
-            return new DependencyExtractionWebpackPlugin(this.options)
+            return new DependencyExtractionWebpackPlugin(
+              this.options,
+            )
           },
         }),
       )

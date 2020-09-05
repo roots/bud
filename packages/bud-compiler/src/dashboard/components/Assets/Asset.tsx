@@ -21,7 +21,11 @@ const Asset: FunctionComponent<AssetInterface> = ({
     name.split('.')[name.split('.').length - 2] !== 'hot-update'
 
   const sizeColor =
-    size / 1000 > 200 ? 'red' : size / 1000 > 100 ? 'yellow' : 'white'
+    size / 1000 > 200
+      ? 'red'
+      : size / 1000 > 100
+      ? 'yellow'
+      : 'white'
 
   return !display ? (
     <Box></Box>

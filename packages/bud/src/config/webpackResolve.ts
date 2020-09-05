@@ -15,13 +15,17 @@ const webpackResolve: ResolveBuilder = bud =>
           }
         : []),
 
-      extensions: bud.hooks.filter('webpack.resolve.extensions', [
-        ...bud.options.get('webpack.resolve.extensions'),
-      ]),
+      extensions: bud.hooks.filter(
+        'webpack.resolve.extensions',
+        [...bud.options.get('webpack.resolve.extensions')],
+      ),
 
       modules: bud.hooks.filter('webpack.resolve.modules', [
         bud.fs.resolve(bud.paths.get('project'), 'node_modules'),
-        bud.fs.resolve(bud.paths.get('framework'), 'node_modules'),
+        bud.fs.resolve(
+          bud.paths.get('framework'),
+          'node_modules',
+        ),
       ]),
     },
   })

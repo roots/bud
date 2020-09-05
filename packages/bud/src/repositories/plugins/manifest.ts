@@ -9,7 +9,8 @@ const manifest: Plugin = bud => ({
       bud.options.get('manifest.publicPath') ??
       bud.paths.get('public') ??
       '/',
-    filename: bud.options.get('manifest.name') ?? 'manifest.json',
+    filename:
+      bud.options.get('manifest.name') ?? 'manifest.json',
     writeToFileEmit:
       bud.options.get('manifest.writeToFileEmit') ?? true,
   },

@@ -30,7 +30,10 @@ const tailwindcss: Plugin = (bud: Bud) => ({
      * Handle conflicts between tailwind directives
      * and dart-sass/node-sass compilers
      */
-    this.bud.options.set('sass.sassOptions.processCssUrls', false)
+    this.bud.options.set(
+      'sass.sassOptions.processCssUrls',
+      false,
+    )
 
     /**
      * ## bud.tailwind

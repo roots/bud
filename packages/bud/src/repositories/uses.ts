@@ -1,4 +1,8 @@
-import {Bud, RuleSetLoader, RepositoryDefinition} from '@roots/bud-typings'
+import {
+  Bud,
+  RuleSetLoader,
+  RepositoryDefinition,
+} from '@roots/bud-typings'
 
 /**
  * Module Rule
@@ -12,17 +16,20 @@ const uses: RepositoryDefinition = {
           'webpack.module.babel.loader',
           bud.loaders.get('babel'),
         ),
-        options: bud.hooks.filter('webpack.module.babel.options', {
-          cacheDirectory: bud.hooks.filter(
-            'webpack.module.babel.options.cacheDirectory',
-            true,
-          ),
-          cacheCompression: bud.hooks.filter(
-            'webpack.module.babel.options.cacheCompression',
-            true,
-          ),
-          ...bud.options.get('babel'),
-        }),
+        options: bud.hooks.filter(
+          'webpack.module.babel.options',
+          {
+            cacheDirectory: bud.hooks.filter(
+              'webpack.module.babel.options.cacheDirectory',
+              true,
+            ),
+            cacheCompression: bud.hooks.filter(
+              'webpack.module.babel.options.cacheCompression',
+              true,
+            ),
+            ...bud.options.get('babel'),
+          },
+        ),
       }),
 
     file: (bud: Bud): RuleSetLoader => ({
@@ -38,12 +45,15 @@ const uses: RepositoryDefinition = {
           'webpack.modules.miniCss.loader',
           bud.loaders.get('miniCss'),
         ),
-        options: bud.hooks.filter('webpack.modules.miniCss.options', {
-          hot: bud.hooks.filter(
-            'webpack.modules.miniCss.loader.hot',
-            bud.features.enabled('hot'),
-          ),
-        }),
+        options: bud.hooks.filter(
+          'webpack.modules.miniCss.options',
+          {
+            hot: bud.hooks.filter(
+              'webpack.modules.miniCss.loader.hot',
+              bud.features.enabled('hot'),
+            ),
+          },
+        ),
       }),
 
     css: (bud: Bud): RuleSetLoader =>
@@ -80,11 +90,14 @@ const uses: RepositoryDefinition = {
           bud.loaders.get('postCss'),
         ),
 
-        options: bud.hooks.filter('webpack.module.postcss.options', {
-          plugins: [
-            bud.options.get('postcss.plugins.autoprefixer')(),
-          ],
-        }),
+        options: bud.hooks.filter(
+          'webpack.module.postcss.options',
+          {
+            plugins: [
+              bud.options.get('postcss.plugins.autoprefixer')(),
+            ],
+          },
+        ),
       }),
 
     style: (bud: Bud): RuleSetLoader =>

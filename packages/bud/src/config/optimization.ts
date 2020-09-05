@@ -13,7 +13,9 @@ const optimization: OptimizationBuilder = bud =>
         ? {
             runtimeChunk: bud.hooks.filter(
               'webpack.optimization.runtimeChunk',
-              bud.options.get('webpack.optimization.runtimeChunk'),
+              bud.options.get(
+                'webpack.optimization.runtimeChunk',
+              ),
             ),
           }
         : []),

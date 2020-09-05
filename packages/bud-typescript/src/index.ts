@@ -18,7 +18,10 @@ const typescript: Plugin = (bud: Bud) => ({
     this.bud.addExtensions(['ts', 'tsx'])
 
     this.bud.patterns.set('typescript', /\.(ts|tsx)$/)
-    this.bud.loaders.set('typescript', require.resolve('ts-loader'))
+    this.bud.loaders.set(
+      'typescript',
+      require.resolve('ts-loader'),
+    )
 
     this.bud.uses.set('typescript', bud => ({
       loader: bud.loaders.get('typescript'),

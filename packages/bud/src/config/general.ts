@@ -5,7 +5,10 @@ import type {WebpackConfig} from '@roots/bud-typings'
 type WebpackBuilder = (bud: Bud) => WebpackConfig
 
 const general: WebpackBuilder = bud => ({
-  context: bud.hooks.filter('webpack.context', bud.paths.get('src')),
+  context: bud.hooks.filter(
+    'webpack.context',
+    bud.paths.get('src'),
+  ),
 
   devtool: bud.hooks.filter(
     'webpack.devtool',

@@ -11,7 +11,9 @@ export type PluginTransform = (
 /**
  * Conditional check determining whether to engage plugin functionality.
  */
-export type PluginConditional = (this: PluginInterface) => boolean
+export type PluginConditional = (
+  this: PluginInterface,
+) => boolean
 
 /**
  * Plugin method handling options

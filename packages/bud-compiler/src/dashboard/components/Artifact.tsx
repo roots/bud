@@ -43,7 +43,8 @@ const Artifact: FunctionComponent<ArtifactInterface> = ({
         <Errors errors={build.errors} />
       </Box>
 
-      <Box display={build?.warnings?.length > 0 ? 'flex' : 'none'}>
+      <Box
+        display={build?.warnings?.length > 0 ? 'flex' : 'none'}>
         <Warnings warnings={build.warnings} />
       </Box>
 

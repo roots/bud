@@ -5,7 +5,10 @@ import Title from './Title'
 interface ScreenInterface {
   title?: string
   display?: boolean
-  children: FunctionComponent | FunctionComponent[] | ReactElement
+  children:
+    | FunctionComponent
+    | FunctionComponent[]
+    | ReactElement
 }
 
 const Screen: FunctionComponent<ScreenInterface> = ({

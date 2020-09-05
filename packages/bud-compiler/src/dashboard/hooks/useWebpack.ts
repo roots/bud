@@ -51,12 +51,17 @@ const useWebpack = (bud: Bud): HookReturns => {
 
   const [percentage, setPercentage] = useState<number>(0)
   const [message, setMessage] = useState<string>(null)
-  const progressCallback = (percentage: number, message: string) => {
+  const progressCallback = (
+    percentage: number,
+    message: string,
+  ) => {
     setPercentage(percentage)
     setMessage(message)
   }
 
-  const [compilerInitialized, setCompilerInitialized] = useState(null)
+  const [compilerInitialized, setCompilerInitialized] = useState(
+    null,
+  )
   useEffect(() => {
     if (compilerInitialized) {
       return

@@ -32,7 +32,7 @@
     "build:compiler": "lerna run --loglevel silent --parallel --stream --profile --scope=@roots/bud-compiler build",
     "build:bud": "lerna run --loglevel silent --parallel --stream --profile --scope=@roots/bud build",
     "build:plugins": "lerna run --loglevel silent --parallel --stream --profile --scope='@roots/bud-*' --ignore='@roots/{bud-support,bud-framework,bud-typings,bud-compiler,bud-server}' build",
-    "lint": "eslint --silent 'packages/**/*.{js,ts,tsx}' --fix",
+    "lint": "eslint 'packages/**/*.{js,ts,tsx}' --fix",
     "test": "ava",
     "test:coverage": "nyc yarn run test",
     "test:coverage:lcov": "nyc --reporter=lcov yarn run test",

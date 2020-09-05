@@ -105,7 +105,9 @@ const App: FunctionComponent<AppInterface> = ({
                 {screen == 'warnings' && (
                   <Warnings warnings={build.warnings} />
                 )}
-                {screen == 'devServer' && <DevServer build={build} />}
+                {screen == 'devServer' && (
+                  <DevServer build={build} />
+                )}
 
                 <BuildInfo build={build} />
               </>

@@ -16,33 +16,29 @@ import {hooks} from './hooks'
 
 process.on('unhandledRejection', processHandler)
 
+/** 🌰 */
 const framework = function (): void {
   this.apply = function (key, value) {
     this[key] = value
   }
 }
+
 /** Constructor for utilities. */
-framework.prototype.util = function (): void {}
+framework.prototype.util = {}
 
 /** bail tools */
 framework.prototype.dump = dump
 framework.prototype.terminate = terminate
-
 /** pino */
 framework.prototype.logger = logger
-
 /** fs-extra */
 framework.prototype.fs = fs
-
 /** lo! dash */
 framework.prototype.lo = lo
-
 /** prettier format */
 framework.prototype.util.pretty = pretty
-
 /** os-level notifications */
 framework.prototype.util.notify = notify
-
 /** format for console */
 framework.prototype.util.format = format
 /** syntax highlight for console */

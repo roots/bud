@@ -45,8 +45,14 @@ const vue: Plugin = bud => ({
       },
     }))
 
-    this.bud.hooks.on('webpack.module.rules.css.use', addVueStyle)
-    this.bud.hooks.on('webpack.module.rules.scss.use', addVueStyle)
+    this.bud.hooks.on(
+      'webpack.module.rules.css.use',
+      addVueStyle,
+    )
+    this.bud.hooks.on(
+      'webpack.module.rules.scss.use',
+      addVueStyle,
+    )
   },
 })
 
