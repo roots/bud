@@ -77,12 +77,18 @@ export interface PluginRepositoryDefinition {
 }
 
 export interface PluginControllerInterface extends Loose {
-  use: (Plugin) => PluginControllerInterface
-  build: () => any
-  make: () => any
+  use: (
+    Plugin,
+  ) =>
+    | PluginControllerInterface
+    | Promise<PluginControllerInterface>
+  build: () => any | Promise<any>
+  make: () => any | Promise<any>
   bindProps: PluginTransform
   setOptions: PluginTransform
   mergeOptions: PluginTransform
 }
-
-export type PluginController = (any) => void
+export type PluginController = PluginControllerInterface
+export type PluginControllerFactory = (
+  bud: Bud,
+) => PluginController

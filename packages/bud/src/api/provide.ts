@@ -5,19 +5,29 @@ const provide: Api.Provide = function (options) {
     const isString = typeof modules == 'string'
     const isObject = typeof modules == 'object'
 
-    isString &&
+    if (isString) {
       this.options.set('webpack.plugins.provide', {
         ...this.options.get('webpack.plugins.provide'),
         [`${modules}`]: key,
       })
+      this.options.set('webpack.externals', {
+        ...this.options.get('webpack.externals'),
+        [`${modules}`]: key,
+      })
+    }
 
-    isObject &&
-      modules.map(handle => {
+    if (isObject) {
+      modules.map(module => {
         this.options.set('webpack.plugins.provide', {
           ...this.options.get('webpack.plugins.provide'),
-          [handle]: key,
+          [module]: key,
+        })
+        this.options.set('webpack.externals', {
+          ...this.options.get('webpack.externals'),
+          [`${module}`]: key,
         })
       })
+    }
   })
 
   return this

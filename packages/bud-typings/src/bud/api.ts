@@ -177,7 +177,10 @@ export namespace Api {
    * ```js
    * bud.extend([require('@roots/bud-demo-plugin')])
    */
-  export type Extend = (this: Bud, plugins: Plugin[]) => Bud
+  export type Extend = (
+    this: Bud,
+    plugins: Plugin[],
+  ) => Promise<Bud>
 
   /**
    * ## bud.glob

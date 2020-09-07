@@ -59,3 +59,4 @@ const preset = {
 }
 
 export {plugin, preset}
+module.exports = {plugin, preset}

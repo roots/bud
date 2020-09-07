@@ -112,7 +112,8 @@
       "packages/bud-stylelint",
       "packages/bud-tailwindcss",
       "packages/bud-typescript",
-      "packages/bud-vue"
+      "packages/bud-vue",
+      "packages/bud-wordpress-externals"
     ]
   }
 }

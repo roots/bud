@@ -25,6 +25,7 @@ export {
   PluginPropFallback,
   PluginController,
   PluginControllerInterface,
+  PluginControllerFactory,
   PluginTransform,
 } from './plugin'
 

@@ -33,6 +33,7 @@ export {
   PluginPropFallback,
   PluginController,
   PluginControllerInterface,
+  PluginControllerFactory,
   PluginTransform,
   PluginContainer,
 } from './framework'

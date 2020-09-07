@@ -1,32 +1,36 @@
-import {PluginController} from '@roots/bud-typings'
+import {PluginControllerFactory} from '@roots/bud-typings'
 
-const factory: PluginController = function (): void {
-  this.use = function (framework, plugin) {
-    this.bud = framework
-    this.plugin = plugin(this.bud)
+const controller: PluginControllerFactory = bud => ({
+  bud,
 
+  /**
+   * Use
+   */
+  use: function (plugin) {
     this.setOptions = this.setOptions.bind(this)
     this.mergeOptions = this.mergeOptions.bind(this)
     this.make = this.make.bind(this)
 
+    this.plugin = plugin(this.bud)
+
     return this
-  }
+  },
 
   /**
    * Build a plugin object
    */
-  this.build = function () {
+  build: function () {
     this.bindProps()
     this.setOptions()
     this.mergeOptions()
 
     return this.make()
-  }
+  },
 
   /**
    * Bind plugin props
    */
-  this.bindProps = function (): void {
+  bindProps: function (): void {
     const props = this.bud.hooks.filter(
       'framework.plugins.ensureProp',
       [
@@ -43,12 +47,12 @@ const factory: PluginController = function (): void {
         this.plugin[name] = value
       }
     })
-  }
+  },
 
   /**
    * Set plugin options.
    */
-  this.setOptions = function () {
+  setOptions: function () {
     this.boundValue = this.plugin.setOptions()
 
     if (this.boundValue) {
@@ -56,12 +60,12 @@ const factory: PluginController = function (): void {
     }
 
     delete this.boundValue
-  }
+  },
 
   /**
    * Merge plugin options.
    */
-  this.mergeOptions = function () {
+  mergeOptions: function () {
     this.boundValue = this.plugin.mergeOptions()
 
     if (this.boundValue) {
@@ -72,21 +76,16 @@ const factory: PluginController = function (): void {
     }
 
     delete this.boundValue
-  }
+  },
 
   /**
    * Make plugin.
    */
-  this.make = function () {
-    this.plugin =
-      this.plugin.hasOwnProperty('when') && this.plugin.when()
-        ? this.plugin.make()
-        : null
-
-    if (this.plugin) {
-      return this.plugin
+  make: function () {
+    if (this.plugin.when()) {
+      return this.plugin.make()
     }
-  }
-}
+  },
+})
 
-export {factory as default}
+export {controller as default}

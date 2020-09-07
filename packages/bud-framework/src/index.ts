@@ -1,4 +1,4 @@
-import factory from './plugin/factory'
+import controller from './plugin/controller'
 import container from './container'
 import {
   dump,
@@ -71,6 +71,6 @@ framework.prototype.files = filestore
  */
 const pluginstore = container
 framework.prototype.plugins = pluginstore
-framework.prototype.pluginFactory = factory
+framework.prototype.controller = controller
 
 export {framework as default}

@@ -1,0 +1,46 @@
+{
+  "name": "@roots/bud-wordpress-externals",
+  "version": "2.0.0-next.7",
+  "description": "Gutenberg packages",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "packages/bud-wordpress-externals"
+  },
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "license": "MIT",
+  "contributors": [
+    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
+  ],
+  "keywords": [
+    "bud-extension"
+  ],
+  "engines": {
+    "node": ">=12"
+  },
+  "files": [
+    "lib"
+  ],
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
+  "scripts": {
+    "lint": "eslint src/*",
+    "watch": "npm run build && npm link && nodemon",
+    "build": "rimraf ./lib && tsc"
+  },
+  "dependencies": {
+    "import-all.macro": "^3.0.0",
+    "node-fetch": "^2.6.1",
+    "webpack": "^4.44.1"
+  },
+  "devDependencies": {
+    "@roots/bud-support": "2.0.0-next.7",
+    "@roots/bud-typings": "2.0.0-next.7"
+  }
+}

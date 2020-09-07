@@ -17,12 +17,14 @@ bootstrap.server = express()
 repositories.stores.forEach(store => {
   bootstrap[store.name] = new bootstrap.container(store.register)
 })
+
 repositories.files.forEach(store => {
   bootstrap[store.name] = new bootstrap.files(store.register)
 })
+
 repositories.plugins.forEach(store => {
   bootstrap[store.name] = new bootstrap.plugins(store.register)
-  bootstrap[store.name].controller = new bootstrap.pluginFactory(
+  bootstrap[store.name].controller = new bootstrap.controller(
     bootstrap,
   )
 })
