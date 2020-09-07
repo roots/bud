@@ -11,8 +11,8 @@
     "sourceMap": true,
     "watch": false,
     "rootDir": "./src",
-    "outDir": "./bin",
-    "declarationDir": "./types",
+    "outDir": "./lib",
+    "declarationDir": "./lib/types",
   },
   "include": ["./src"],
   "exclude": ["./node_modules"]

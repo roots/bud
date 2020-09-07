@@ -10,32 +10,12 @@
 </p>
 
 <h1 align="center">
-  <strong>@roots/bud-palette-webpack-plugin</strong>
+  <strong>@roots/bud-webpack-tools</strong>
 </h1>
 
 ## Overview
 
-Adds palette-webpack-plugin support to @roots/bud projects.
-
-## Installation
-
-```sh
-yarn add @roots/bud-palette-webpack-plugin --dev
-```
-
-## Usage
-
-```js
-const {palette} = require('@roots/bud-palette-webpack-plugin'))
-
-bud.use([palette])
-```
-
-You can specify a blacklist using the `setPaletteBlacklist` function this extension attaches to the `bud` config object.
-
-```js
-bud.setPaletteBlacklist(['fubar'])
-```
+Internally maintained Webpack plugins and loaders.
 
 ## Contributing
 

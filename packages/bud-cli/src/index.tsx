@@ -1,37 +1,6 @@
-import React from 'react'
-import {Box, Text, render} from 'ink'
-import useStdOutDimensions from 'ink-use-stdout-dimensions'
+import App from './components/App'
+import Console from './components/Console'
+import Screen from './components/Screen'
+import Title from './components/Title'
 
-/**
- * Bud-CLI
- */
-const App = () => {
-  const [width, height] = useStdOutDimensions()
-  const dimensions = {
-    width,
-    height: height - 5,
-  }
-
-  return (
-    <Box
-      width={dimensions.width}
-      minHeight={dimensions.height}
-      paddingRight={1}
-      paddingBottom={1}
-      paddingTop={1}
-      flexDirection="column">
-      <Box
-        flexDirection="row"
-        justifyContent="space-between"
-        marginBottom={1}>
-        <Box>
-          <Text color={'#545DD7'}>@roots/bud-scripts</Text>
-          <Text>Triggered</Text>
-        </Box>
-      </Box>
-    </Box>
-  )
-}
-
-/** 🚀 */
-render(<App />)
+export {App, Console, Screen, Title}

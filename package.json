@@ -27,7 +27,7 @@
     "install": "lerna bootstrap --loglevel silent",
     "build": "run-s --silent build:support build:framework build:server build:compiler build:bud build:plugins",
     "build:support": "lerna run --loglevel silent --parallel --stream --profile --scope=@roots/{bud-support,bud-typings} build",
-    "build:framework": "lerna run --loglevel silent --parallel --stream --profile --scope=@roots/bud-framework build",
+    "build:framework": "lerna run --loglevel silent --parallel --stream --profile --scope=@roots/{bud-framework,bud-cli} build",
     "build:server": "lerna run --loglevel silent --parallel --stream --profile --scope=@roots/bud-server build",
     "build:compiler": "lerna run --loglevel silent --parallel --stream --profile --scope=@roots/bud-compiler build",
     "build:bud": "lerna run --loglevel silent --parallel --stream --profile --scope=@roots/bud build",
@@ -98,12 +98,14 @@
   ],
   "workspaces": {
     "packages": [
+      "packages/bud-cli",
       "packages/bud-support",
       "packages/bud-typings",
       "packages/bud-framework",
       "packages/bud-compiler",
       "packages/bud-server",
       "packages/bud",
+      "packages/bud-webpack-tools",
       "packages/bud-dependency-extraction-webpack-plugin",
       "packages/bud-eslint",
       "packages/bud-purgecss",
@@ -112,8 +114,7 @@
       "packages/bud-stylelint",
       "packages/bud-tailwindcss",
       "packages/bud-typescript",
-      "packages/bud-vue",
-      "packages/bud-wordpress-externals"
+      "packages/bud-vue"
     ]
   }
 }

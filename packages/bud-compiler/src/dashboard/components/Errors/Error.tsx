@@ -1,6 +1,6 @@
 import notifier from 'node-notifier'
 import React, {useEffect, FunctionComponent} from 'react'
-import {Box, Text, Spacer} from 'ink'
+import {Box, Text} from 'ink'
 
 interface ErrorProps {
   message: string

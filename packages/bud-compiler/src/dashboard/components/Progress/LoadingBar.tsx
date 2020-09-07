@@ -34,7 +34,10 @@ const Bar: BarComponent = ({
 
   return (
     <Box flexDirection="column">
-      <Text backgroundColor={backgroundColor} color={color}>
+      <Text
+        wrap="truncate"
+        backgroundColor={backgroundColor}
+        color={color}>
         {getString()}
       </Text>
     </Box>

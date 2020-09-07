@@ -1,11 +1,11 @@
 {
-  "name": "@roots/bud-wordpress-externals",
+  "name": "@roots/bud-webpack-tools",
   "version": "2.0.0-next.7",
-  "description": "Gutenberg packages",
+  "description": "Webpack tools",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
-    "directory": "packages/bud-wordpress-externals"
+    "directory": "packages/bud-webpack-tools"
   },
   "bugs": {
     "url": "https://github.com/roots/bud/issues"

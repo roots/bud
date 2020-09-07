@@ -20,7 +20,7 @@ const Init: FunctionComponent<InitProps> = ({bud, config}) => {
           <Spacer />
           <Text>
             {' '}
-            {bud.options.get('webpack.devServer.target')}
+            {bud.options.get('webpack.devServer.proxy.host')}
           </Text>
         </Box>
         <Box
@@ -32,7 +32,7 @@ const Init: FunctionComponent<InitProps> = ({bud, config}) => {
           <Spacer />
           <Text>
             {' '}
-            http://{bud.options.get('webpack.devServer.host')}:
+            {bud.options.get('webpack.devServer.host')}:
             {bud.options.get('webpack.devServer.port')}
           </Text>
         </Box>
@@ -46,10 +46,16 @@ const Init: FunctionComponent<InitProps> = ({bud, config}) => {
           <Spacer />
           {Object.entries(bud.options.get('webpack.entry')).map(
             ([name, files], id) => (
-              <Box flexDirection="column" marginTop={1} key={id}>
-                <Text bold>✨ {name} </Text>
-                <Text dimColor>
-                  {(files as string[]).map(file => `▶ ${file} `)}
+              <Box flexDirection="row" marginTop={1} key={id}>
+                <Text dimColor wrap="truncate">
+                  <Text bold>
+                    ✨{'  '}
+                    {name}
+                    {'  '}
+                  </Text>
+                  {(files as string[]).map(
+                    file => `▶ ${file.split('/').pop()} `,
+                  )}
                 </Text>
               </Box>
             ),

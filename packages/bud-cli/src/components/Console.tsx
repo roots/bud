@@ -5,6 +5,7 @@ import patchConsole from 'patch-console'
 const Console = () => {
   const [lastConsole, setLastConsole] = useState(null)
   const [text, setText] = useState('')
+
   patchConsole((stream, data) => {
     setLastConsole(data)
 

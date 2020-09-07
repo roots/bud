@@ -4,6 +4,7 @@
     "packages/bud-support",
     "packages/bud-typings",
     "packages/bud-framework",
+    "packages/bud-cli",
     "packages/bud-compiler",
     "packages/bud-server",
     "packages/bud",
@@ -17,7 +18,7 @@
     "packages/bud-tailwindcss",
     "packages/bud-typescript",
     "packages/bud-vue",
-    "packages/bud-wordpress-externals"
+    "packages/bud-webpack-tools"
   ],
   "npmClient": "yarn",
   "useWorkspaces": true,
