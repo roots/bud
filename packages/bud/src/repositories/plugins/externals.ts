@@ -1,6 +1,6 @@
 import CopyWebpackPlugin from 'copy-webpack-plugin'
 import {CleanWebpackPlugin} from 'clean-webpack-plugin'
-import IgnoreEmitPlugin from 'ignore-emit-webpack-plugin';
+import IgnoreEmitPlugin from 'ignore-emit-webpack-plugin'
 import ManifestPlugin from 'webpack-manifest-plugin'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import TerserPlugin from 'terser-webpack-plugin'

@@ -36,10 +36,7 @@ const plugin: Plugin = (bud: Bud) => ({
 
 const presets = {
   roots: path.resolve(__dirname, './preset/roots.js'),
-  wordpress: path.resolve(
-    __dirname,
-    './preset/wordpress.js',
-  ),
+  wordpress: path.resolve(__dirname, './preset/wordpress.js'),
   react: path.resolve(__dirname, './preset/react.js'),
 }
 
