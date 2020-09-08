@@ -4,6 +4,7 @@ import {notify} from './notify'
 import dd from './dd'
 import dump from './dump'
 import format from './format'
+import helpers from './helpers'
 import highlight from './highlight'
 import pretty from './pretty'
 import {fs} from './fs'
@@ -18,6 +19,7 @@ import {__ as Lo} from 'lodash'
 const lo: Lo = __
 
 export {
+  helpers,
   lo,
   pretty,
   fs,

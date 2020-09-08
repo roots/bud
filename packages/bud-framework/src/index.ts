@@ -5,6 +5,7 @@ import {
   format,
   pretty,
   fs,
+  helpers,
   highlight,
   logger,
   lo,
@@ -25,7 +26,6 @@ const framework = function (): void {
 
 /** Constructor for utilities. */
 framework.prototype.util = {}
-
 /** bail tools */
 framework.prototype.dump = dump
 framework.prototype.terminate = terminate
@@ -43,20 +43,17 @@ framework.prototype.util.notify = notify
 framework.prototype.util.format = format
 /** syntax highlight for console */
 framework.prototype.util.highlight = highlight
+/** helpers */
+framework.prototype.util.standardizeFilePaths =
+  helpers.standardizeFilePaths
 
-/**
- * Hooks system.
- */
+/** Bud hooks system */
 framework.prototype.hooks = hooks
 
-/**
- * Generic container.
- */
+/** Container */
 framework.prototype.container = container
 
-/**
- * File container.
- */
+/** File container */
 const filestore = container
 filestore.prototype.require = function (key) {
   require(this.get(key))
@@ -66,9 +63,7 @@ filestore.prototype.exists = function (key) {
 }
 framework.prototype.files = filestore
 
-/**
- * Plugin container.
- */
+/** Plugin container */
 const pluginstore = container
 framework.prototype.plugins = pluginstore
 framework.prototype.controller = controller
