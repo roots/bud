@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from 'react'
-import Screen from '../UI/Screen'
+import {Screen} from '@roots/bud-cli'
 import Asset from './Asset'
 
 interface AssetsProps {

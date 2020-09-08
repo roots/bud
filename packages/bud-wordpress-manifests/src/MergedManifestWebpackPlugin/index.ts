@@ -31,8 +31,6 @@ class MergedManifestWebpackPlugin {
         path.resolve(this.dir, 'wordpress.json'),
       )
 
-      console.log(entrypoints, wordpress)
-
       await fs.outputFile(
         path.resolve(this.dir, 'assets.json'),
 

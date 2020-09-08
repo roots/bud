@@ -1,18 +1,8 @@
 import {Bud, Plugin, PluginInterface} from '@roots/bud-typings'
+import path from 'path'
 
 const plugin: Plugin = (bud: Bud) => ({
   bud,
-
-  presets: function () {
-    return {
-      roots: this.bud.fs.from(__dirname, './preset/roots.js'),
-      wordpress: this.bud.fs.from(
-        __dirname,
-        './preset/wordpress.js',
-      ),
-      react: this.bud.fs.from(__dirname, './preset/react.js'),
-    }
-  },
 
   make: function (this: PluginInterface) {
     const config = this.bud.project('.eslintrc.js')
@@ -44,5 +34,13 @@ const plugin: Plugin = (bud: Bud) => ({
   },
 })
 
-export {plugin as default}
-module.exports = plugin
+const presets = {
+  roots: path.resolve(__dirname, './preset/roots.js'),
+  wordpress: path.resolve(
+    __dirname,
+    './preset/wordpress.js',
+  ),
+  react: path.resolve(__dirname, './preset/react.js'),
+}
+
+export {plugin, presets}

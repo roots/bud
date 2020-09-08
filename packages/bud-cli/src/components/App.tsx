@@ -39,7 +39,7 @@ const App: AppComponent = ({bud, children}) => {
         paddingLeft={1}
         flexDirection="column"
         justifyContent="flex-start">
-        <Text color={'#545DD7'}>
+        <Text backgroundColor={'#545DD7'} color={'white'}>
           {width > 70 ? '' : ' '}@roots/bud
         </Text>
         {children}

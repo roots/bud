@@ -34,6 +34,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "cli-highlight": "^2.1.4",
     "ink": "^3.0.0-6",
     "ink-gradient": "^1.0.0",
     "ink-link": "^1.1.0",

@@ -1,6 +1,6 @@
 import React, {FunctionComponent} from 'react'
 import {Box, Text, Spacer} from 'ink'
-import Screen from './UI/Screen'
+import {Screen} from '@roots/bud-cli'
 
 interface InitProps {
   bud: any

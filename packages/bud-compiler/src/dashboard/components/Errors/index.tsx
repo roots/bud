@@ -1,6 +1,6 @@
 import React, {FunctionComponent} from 'react'
 import {Text} from 'ink'
-import Screen from '../UI/Screen'
+import {Screen} from '@roots/bud-cli'
 import {Error} from './Error'
 
 interface ErrorsProps {

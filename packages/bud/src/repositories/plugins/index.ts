@@ -1,7 +1,7 @@
 import {cleanWebpack} from './cleanWebpack'
 import {copy} from './copy'
 import {define} from './define'
-import {fixStyleOnlyEntries} from './fixStyleOnlyEntries'
+import {ignoreEmit} from './ignoreEmit'
 import {hotModuleReplacement} from './hotModuleReplacement'
 import {limitChunkCount} from './limitChunkCount'
 import {miniCssExtract} from './miniCssExtract'
@@ -18,8 +18,8 @@ const plugins: PluginRepositoryDefinition = {
     cleanWebpack,
     copy,
     define,
-    fixStyleOnlyEntries,
     hotModuleReplacement,
+    ignoreEmit,
     manifest,
     miniCssExtract,
     provide,

@@ -1,11 +1,11 @@
 {
-  "name": "@roots/bud-webpack-tools",
+  "name": "@roots/bud-wordpress-manifests",
   "version": "2.0.0-next.7",
   "description": "Webpack tools",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
-    "directory": "packages/bud-webpack-tools"
+    "directory": "packages/bud-wordpress-manifests"
   },
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
@@ -35,7 +35,6 @@
     "build": "rimraf ./lib && tsc"
   },
   "dependencies": {
-    "import-all.macro": "^3.0.0",
     "node-fetch": "^2.6.1",
     "webpack": "^4.44.1"
   },

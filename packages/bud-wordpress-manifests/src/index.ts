@@ -24,14 +24,19 @@ const entrypointsPlugin = bud => ({
   },
 })
 
-const budDistTools: Plugin = bud => ({
+const budWordPressBuildTools: Plugin = bud => ({
   bud,
   make: function () {
-    this.bud.plugins.set('webpack-wp-deps', externalsPlugin)
     this.bud.plugins.set(
-      'webpack-entrypoints',
+      'wordpress-externals-webpack-plugin',
+      externalsPlugin,
+    )
+
+    this.bud.plugins.set(
+      'entrypoints-webpack-plugin',
       entrypointsPlugin,
     )
+
     this.bud.plugins.set(
       'merged-manifest-webpack-plugin',
       mergedManifestPlugin,
@@ -39,4 +44,4 @@ const budDistTools: Plugin = bud => ({
   },
 })
 
-module.exports = budDistTools
+module.exports = budWordPressBuildTools

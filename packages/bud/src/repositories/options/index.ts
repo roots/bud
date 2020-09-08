@@ -92,9 +92,7 @@ const options: RepositoryDefinition = {
       plugins: {
         clean: {},
         copy,
-        fixStyleOnlyEntries: {
-          silent: true,
-        },
+        ignoreEmit: [/\.*\.css.?\.js/],
         terser: {
           terserOptions: {
             parse: {

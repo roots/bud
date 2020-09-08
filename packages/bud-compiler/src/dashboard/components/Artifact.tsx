@@ -20,7 +20,9 @@ const Artifact: FunctionComponent<ArtifactInterface> = ({
   const app = useApp()
 
   useEffect(() => {
-    build?.percentage == 1 && app.exit()
+    build?.assets?.length > 0 &&
+      build?.percentage == 1 &&
+      app.exit()
   }, [build])
 
   return (

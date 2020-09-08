@@ -105,7 +105,7 @@
       "packages/bud-compiler",
       "packages/bud-server",
       "packages/bud",
-      "packages/bud-webpack-tools",
+      "packages/bud-wordpress-manifests",
       "packages/bud-dependency-extraction-webpack-plugin",
       "packages/bud-eslint",
       "packages/bud-purgecss",

@@ -10,12 +10,12 @@ const BuildInfo: FunctionComponent<InfoProps> = ({build}) => (
     padding={1}
     flexDirection="column"
     justifyContent="flex-end">
-    {build?.percentage == 1 && build?.hash && (
-      <>
-        <Text>Finished in {build?.time / 1000}s.</Text>
-        <Spacer />
-        <Text color="#6C758F">Build {build?.hash}.</Text>
-      </>
+    {build?.time && (
+      <Text>Finished in {build?.time / 1000}s.</Text>
+    )}
+    <Spacer />
+    {build?.hash && (
+      <Text color="#6C758F">Build {build?.hash}.</Text>
     )}
   </Box>
 )

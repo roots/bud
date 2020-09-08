@@ -1,21 +1,20 @@
+import fetchExternals from './fetchExternals'
+import externalsPlugin from './externalsPlugin'
+import {Hash} from './fetchExternals'
 import {RawSource} from 'webpack-sources'
-import Webpack from 'webpack'
+import Webpack, {ExternalsPlugin} from 'webpack'
 import path from 'path'
-import {SyncWaterfallHook} from 'tapable'
 
-class EntrypointsWebpackPlugin {
+class WordPressExternalsWebpackPlugin {
+  public name = 'wordpress-externals'
+  public plugin
+  public externalsPlugin: ExternalsPlugin
   public output: Output
-
-  public plugin: {
-    name: string
-    stage: number
-  }
-
   public options: Options
 
   constructor(
     options: Options = {
-      name: 'entrypoints.json',
+      name: 'wordpress.json',
       writeToFileEmit: true,
     },
   ) {
@@ -33,9 +32,14 @@ class EntrypointsWebpackPlugin {
     }
 
     this.plugin = {
-      name: 'EntrypointsManifestPlugin',
+      name: 'WordPressExternalsWebpackPlugin',
       stage: Infinity,
     }
+
+    this.externalsPlugin = new ExternalsPlugin(
+      'this',
+      externalsPlugin.bind(this),
+    )
 
     this.emit = this.emit.bind(this)
   }
@@ -53,48 +57,41 @@ class EntrypointsWebpackPlugin {
       this.output.file,
     )
 
-    compiler.hooks.emit.tapAsync(this.plugin, this.emit)
+    this.externalsPlugin.apply(compiler)
+
+    compiler.hooks.emit.tapAsync(
+      this.constructor.name,
+      this.emit.bind(this),
+    )
   }
 
   async emit(
     compilation: Webpack.compilation.Compilation,
     callback: () => void,
   ): Promise<void> {
-    const {assets, entrypoints, hooks}: any = compilation
+    const externals: Hash = await fetchExternals()
 
-    hooks.entrypoints = new SyncWaterfallHook([
-      'compilation',
-      'output',
-    ])
-    hooks.entrypoints.tap(
-      this.plugin,
-      this.entrypoints.bind(this),
-    )
+    compilation.entrypoints.forEach(entrypoint => {
+      const dependencies = []
+      const outputKey = entrypoint.name
 
-    this.output = hooks.entrypoints.call(
-      entrypoints,
-      this.output,
-    )
+      entrypoint.chunks.forEach(chunk => {
+        chunk.modulesIterable.forEach(module => {
+          externals[module.userRequest] &&
+            dependencies.push(
+              externals[module.userRequest].enqueue,
+            )
+        })
+      })
 
-    if (this.options.writeToFileEmit) {
-      assets[this.output.name] = new RawSource(
-        JSON.stringify(this.output.content),
-      )
-    }
-
-    callback()
-  }
-
-  entrypoints(entrypoints, output: Output): Output {
-    entrypoints.forEach(entrypoint => {
-      output.content[
-        entrypoint.name
-      ] = entrypoint.chunks.map(chunk =>
-        path.resolve(output.publicPath, `${chunk.name}.js`),
-      )
+      this.output.content[outputKey] = dependencies
     })
 
-    return output
+    compilation.assets[this.output.name] = new RawSource(
+      JSON.stringify(this.output.content),
+    )
+
+    callback()
   }
 }
 
@@ -120,4 +117,4 @@ type Options = {
   writeToFileEmit: boolean
 }
 
-export {EntrypointsWebpackPlugin as default}
+export {WordPressExternalsWebpackPlugin as default}
