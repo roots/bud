@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-cli",
   "description": "CLI tools for Bud.",
-  "version": "2.0.0-next.10",
+  "version": "2.0.0-next.11",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -22,7 +22,10 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib", "types"],
+  "files": [
+    "lib",
+    "types"
+  ],
   "main": "./lib/index.js",
   "types": "./lib/types/index.d.ts",
   "scripts": {
@@ -41,8 +44,8 @@
     "react-dom": "^16.13.1"
   },
   "devDependencies": {
-    "@roots/bud-support": "^2.0.0-next.10",
-    "@roots/bud-typings": "^2.0.0-next.10"
+    "@roots/bud-support": "^2.0.0-next.11",
+    "@roots/bud-typings": "^2.0.0-next.11"
   },
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5"
 }

@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud",
   "description": "A friendly build tool to help manage your project assets.",
-  "version": "2.0.0-next.10",
+  "version": "2.0.0-next.11",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -22,7 +22,10 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["docs", "lib"],
+  "files": [
+    "docs",
+    "lib"
+  ],
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
   "scripts": {
@@ -31,7 +34,6 @@
   },
   "dependencies": {
     "@babel/core": "^7.11.5",
-    "@babel/plugin-transform-runtime": "^7.11.0",
     "@babel/helper-compilation-targets": "^7.10.4",
     "@babel/helper-module-imports": "^7.10.4",
     "@babel/helper-plugin-utils": "^7.10.4",
@@ -85,6 +87,7 @@
     "@babel/plugin-transform-property-literals": "^7.10.4",
     "@babel/plugin-transform-regenerator": "^7.10.4",
     "@babel/plugin-transform-reserved-words": "^7.10.4",
+    "@babel/plugin-transform-runtime": "^7.11.0",
     "@babel/plugin-transform-shorthand-properties": "^7.10.4",
     "@babel/plugin-transform-spread": "^7.11.0",
     "@babel/plugin-transform-sticky-regex": "^7.10.4",
@@ -96,8 +99,8 @@
     "@babel/preset-modules": "^0.1.3",
     "@babel/types": "^7.11.5",
     "@roots/bud-cli": "^2.0.0-.next.7",
-    "@roots/bud-compiler": "^2.0.0-next.10",
-    "@roots/bud-framework": "^2.0.0-next.10",
+    "@roots/bud-compiler": "^2.0.0-next.11",
+    "@roots/bud-framework": "^2.0.0-next.11",
     "@svgr/webpack": "^5.4.0",
     "autoprefixer": "^9.8.5",
     "babel-loader": "^8.1.0",
@@ -128,8 +131,8 @@
     "write-file-webpack-plugin": "^4.5.1"
   },
   "devDependencies": {
-    "@roots/bud-support": "^2.0.0-next.10",
-    "@roots/bud-typings": "^2.0.0-next.10"
+    "@roots/bud-support": "^2.0.0-next.11",
+    "@roots/bud-typings": "^2.0.0-next.11"
   },
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5"
 }
