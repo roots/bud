@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-stylelint",
-  "version": "2.0.0-next.8",
+  "version": "2.0.0-next.9",
   "description": "Adds stylelint support to Bud",
   "repository": {
     "type": "git",
@@ -18,11 +18,15 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": ["bud-extension"],
+  "keywords": [
+    "bud-extension"
+  ],
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
   "scripts": {
@@ -37,8 +41,8 @@
     "webpack": "^4.44.1"
   },
   "devDependencies": {
-    "@roots/bud-support": "^2.0.0-next.8",
-    "@roots/bud-typings": "^2.0.0-next.8"
+    "@roots/bud-support": "^2.0.0-next.9",
+    "@roots/bud-typings": "^2.0.0-next.9"
   },
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5"
 }
