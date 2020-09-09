@@ -30,6 +30,6 @@ function (
 
 ## Arguments
 
-Name | Type |
------- | ------ |
-`enabled` | boolean |
+| Name      | Type    |
+| --------- | ------- |
+| `enabled` | boolean |

@@ -26,14 +26,33 @@ yarn add @roots/bud-eslint --dev
 ## Usage
 
 ```js
-const {eslint} = require('@roots/bud-eslint')
-
-bud.use([eslint])
+bud.extend([require('@roots/bud-eslint').plugin])
 ```
 
-You're all set.
+You're all set. Bud will automatically detect a eslint config in your project root and give you feedback during compilation.
 
-Bud will automatically detect a eslint config in your project root and give you feedback during compilation.
+Do note the `.plugin` affixed to the require statement. Unlike other plugins, `@roots/bud-eslint` is not a default export.
+
+That's because it also exports some ready-made presets for you to utilize in your `.eslintrc.js` configuration.
+
+```js
+const {presets} = require('@roots/bud-eslint').presets
+module.exports = {
+  root: true,
+  extends: presets.roots,
+  rules: {
+    //...
+  },
+}
+```
+
+Exported presets:
+
+| Preset    | Description              |
+| --------- | ------------------------ |
+| roots     | Baseline configuration   |
+| wordpress | WordPress specific rules |
+| react     | React rules and plugins  |
 
 ## Contributing
 

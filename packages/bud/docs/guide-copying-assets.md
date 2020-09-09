@@ -6,4 +6,3 @@ description: Copy static assets with bud.copy and bud.copyAll
 
 - [bud.copy](config-copy.md)
 - [bud.copyAll](config-copyAll.md)
-

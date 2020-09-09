@@ -32,10 +32,10 @@ function ({
 
 ## Parameters
 
-Name | Type |
------- | ------ |
-`key` | string |
-`path` | string |
+| Name   | Type   |
+| ------ | ------ |
+| `key`  | string |
+| `path` | string |
 
 ## Returns
 

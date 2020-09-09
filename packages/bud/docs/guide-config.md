@@ -58,7 +58,7 @@ First, we set the paths of important project directories. Bud includes a number 
 
 [bud.distPath](config-distPath.md) indicates the directory to emit compiled assets.
 
-If you are running the config outside the project root, you may also need to specify the path of the project itself. This is done with [bud.projectPath](config-projectPath.md). If you are using this function, __use it before specifying [bud.srcPath](config-srcPath.md) and [bud.distPath](config-distPath.md)__, as they utilize the value set here.
+If you are running the config outside the project root, you may also need to specify the path of the project itself. This is done with [bud.projectPath](config-projectPath.md). If you are using this function, **use it before specifying [bud.srcPath](config-srcPath.md) and [bud.distPath](config-distPath.md)**, as they utilize the value set here.
 
 ```js
 /** First, set the project path */
@@ -94,13 +94,10 @@ bud
 ### 1. The bundle name
 
 ```js{2}
-bud.bundle(
-  'app',
-  [bud.src('scripts/app.js')]
-)
+bud.bundle('app', [bud.src('scripts/app.js')])
 ```
 
-__The first argument__ is a `string` and it names the outputted file(s).
+**The first argument** is a `string` and it names the outputted file(s).
 
 ::: tip No extension required
 There is no reason to include an extension in the bundle name &mdash; Bud will determine the appropriate extension to use for the source files.
@@ -109,22 +106,16 @@ There is no reason to include an extension in the bundle name &mdash; Bud will d
 All bundled assets will be compiled to the root of the [bud.dist](/config-dist.md). If you want to group compiled assets into subdirectories within dist, you may do so by including a `/` in the bundle name:
 
 ```js{2}
-bud.bundle(
-  'scripts/app',
-  [bud.src('scripts/app.js')]
-)
+bud.bundle('scripts/app', [bud.src('scripts/app.js')])
 ```
 
 ### 2. The bundle source(s)
 
 ```js{2}
-bud.bundle(
-  'app',
-  [bud.src('scripts/app.js')]
-)
+bud.bundle('app', [bud.src('scripts/app.js')])
 ```
 
-__The second argument__ is an `array` of source files to include in the bundle.
+**The second argument** is an `array` of source files to include in the bundle.
 
 It is totally fine to specify more than one source file per bundle (hence, the name: `bundle`). You can even use files of different types.
 

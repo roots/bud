@@ -13,10 +13,7 @@ Details on the usage of this method are available in [the Copying Static Assets 
 ## Usage
 
 ```js
-bud.copy(
-  bud.src('images/logo.png'),
-  bud.dist('logo.png'),
-)
+bud.copy(bud.src('images/logo.png'), bud.dist('logo.png'))
 ```
 
 ## Signature
@@ -30,10 +27,10 @@ function (
 
 ## Parameters
 
-Name | Type |
------- | ------ |
-`from` | string |
-`to` | string |
+| Name   | Type   |
+| ------ | ------ |
+| `from` | string |
+| `to`   | string |
 
 ## Returns
 

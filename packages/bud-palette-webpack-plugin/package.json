@@ -18,9 +18,7 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": [
-    "bud-extension"
-  ],
+  "keywords": ["bud-extension"],
   "engines": {
     "node": ">=12"
   },

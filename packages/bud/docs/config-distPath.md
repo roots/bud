@@ -16,9 +16,9 @@ bud.distPath('public')
 
 ## Arguments
 
-Name | Type |
------- | ------ |
-`path` | string |
+| Name   | Type   |
+| ------ | ------ |
+| `path` | string |
 
 ## Related
 

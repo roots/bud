@@ -10,7 +10,7 @@
 </p>
 
 <h1 align="center">
-  <strong>@roots/bud-tailwind</strong>
+  <strong>@roots/bud-tailwindcss</strong>
 </h1>
 
 ## Overview
@@ -26,12 +26,10 @@ yarn add @roots/bud-tailwindcss --dev
 ## Usage
 
 ```js
-const {tailwindcss} = require('@roots/bud-tailwindcss')
-
-bud.use([tailwindcss])
+bud.extend([require('@roots/bud-tailwindcss')])
 ```
 
-You should now be good to utilize tailwind in your project. You can use it in sass or using postcss directly. You can specify this preference through the extension used 😃.
+You should now be good to utilize tailwind in your project. You can use it with scss or postcss &mdash; it'll automatically invoke the correct parser based on the extension you save the source file with.
 
 ## Contributing
 

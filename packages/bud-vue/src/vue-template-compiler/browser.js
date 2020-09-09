@@ -422,7 +422,10 @@
           if (startTagMatch) {
             handleStartTag(startTagMatch)
             if (
-              shouldIgnoreFirstNewline(startTagMatch.tagName, html)
+              shouldIgnoreFirstNewline(
+                startTagMatch.tagName,
+                html,
+              )
             ) {
               advance(1)
             }
@@ -503,7 +506,9 @@
         options.chars && options.chars(html)
         if (!stack.length && options.warn) {
           options.warn(
-            'Mal-formatted tag at end of template: "' + html + '"',
+            'Mal-formatted tag at end of template: "' +
+              html +
+              '"',
             {
               start: index + html.length,
             },
@@ -534,7 +539,8 @@
         while (
           !(end = html.match(startTagClose)) &&
           (attr =
-            html.match(dynamicArgAttribute) || html.match(attribute))
+            html.match(dynamicArgAttribute) ||
+            html.match(attribute))
         ) {
           attr.start = index
           advance(attr[0].length)
@@ -558,7 +564,10 @@
         if (lastTag === 'p' && isNonPhrasingTag(tagName)) {
           parseEndTag(lastTag)
         }
-        if (canBeLeftOpenTag$$1(tagName) && lastTag === tagName) {
+        if (
+          canBeLeftOpenTag$$1(tagName) &&
+          lastTag === tagName
+        ) {
           parseEndTag(tagName)
         }
       }
@@ -579,7 +588,8 @@
           value: decodeAttr(value, shouldDecodeNewlines),
         }
         if (options.outputSourceRange) {
-          attrs[i].start = args.start + args[0].match(/^\s*/).length
+          attrs[i].start =
+            args.start + args[0].match(/^\s*/).length
           attrs[i].end = args.end
         }
       }
@@ -596,7 +606,13 @@
       }
 
       if (options.start) {
-        options.start(tagName, attrs, unary, match.start, match.end)
+        options.start(
+          tagName,
+          attrs,
+          unary,
+          match.start,
+          match.end,
+        )
       }
     }
 
@@ -627,7 +643,9 @@
         for (var i = stack.length - 1; i >= pos; i--) {
           if (i > pos || (!tagName && options.warn)) {
             options.warn(
-              'tag <' + stack[i].tag + '> has no matching end tag.',
+              'tag <' +
+                stack[i].tag +
+                '> has no matching end tag.',
               {
                 start: stack[i].start,
                 end: stack[i].end,
@@ -748,7 +766,10 @@
     function end(tag, start) {
       if (depth === 1 && currentBlock) {
         currentBlock.end = start
-        var text = content.slice(currentBlock.start, currentBlock.end)
+        var text = content.slice(
+          currentBlock.start,
+          currentBlock.end,
+        )
         if (options.deindent !== false) {
           text = deIndent(text)
         }
@@ -765,10 +786,13 @@
 
     function padContent(block, pad) {
       if (pad === 'space') {
-        return content.slice(0, block.start).replace(replaceRE, ' ')
+        return content
+          .slice(0, block.start)
+          .replace(replaceRE, ' ')
       } else {
-        var offset = content.slice(0, block.start).split(splitRE$1)
-          .length
+        var offset = content
+          .slice(0, block.start)
+          .split(splitRE$1).length
         var padChar =
           block.type === 'script' && !block.lang ? '//\n' : '\n'
         return Array(offset).join(padChar)
@@ -793,16 +817,20 @@
   // Browser environment sniffing
   var inBrowser = typeof window !== 'undefined'
   var inWeex =
-    typeof WXEnvironment !== 'undefined' && !!WXEnvironment.platform
-  var weexPlatform = inWeex && WXEnvironment.platform.toLowerCase()
+    typeof WXEnvironment !== 'undefined' &&
+    !!WXEnvironment.platform
+  var weexPlatform =
+    inWeex && WXEnvironment.platform.toLowerCase()
   var UA = inBrowser && window.navigator.userAgent.toLowerCase()
   var isIE = UA && /msie|trident/.test(UA)
   var isIE9 = UA && UA.indexOf('msie 9.0') > 0
   var isEdge = UA && UA.indexOf('edge/') > 0
   var isAndroid =
-    (UA && UA.indexOf('android') > 0) || weexPlatform === 'android'
+    (UA && UA.indexOf('android') > 0) ||
+    weexPlatform === 'android'
   var isIOS =
-    (UA && /iphone|ipad|ipod|ios/.test(UA)) || weexPlatform === 'ios'
+    (UA && /iphone|ipad|ipod|ios/.test(UA)) ||
+    weexPlatform === 'ios'
   var isChrome = UA && /chrome\/\d+/.test(UA) && !isEdge
   var isPhantomJS = UA && /phantomjs/.test(UA)
   var isFF = UA && UA.match(/firefox\/(\d+)/)
@@ -825,7 +853,11 @@
   var isServerRendering = function () {
     if (_isServer === undefined) {
       /* istanbul ignore if */
-      if (!inBrowser && !inWeex && typeof global !== 'undefined') {
+      if (
+        !inBrowser &&
+        !inWeex &&
+        typeof global !== 'undefined'
+      ) {
         // detect presence of vue-server-renderer and avoid
         // Webpack shimming the process
         _isServer =
@@ -1080,7 +1112,10 @@
               vm = vm.$parent
               continue
             } else if (currentRecursiveSequence > 0) {
-              tree[tree.length - 1] = [last, currentRecursiveSequence]
+              tree[tree.length - 1] = [
+                last,
+                currentRecursiveSequence,
+              ]
               currentRecursiveSequence = 0
             }
           }
@@ -1295,7 +1330,9 @@
   /**
    * Observe a list of Array items.
    */
-  Observer.prototype.observeArray = function observeArray(items) {
+  Observer.prototype.observeArray = function observeArray(
+    items,
+  ) {
     for (var i = 0, l = items.length; i < l; i++) {
       observe(items[i])
     }
@@ -1335,7 +1372,10 @@
       return
     }
     var ob
-    if (hasOwn(value, '__ob__') && value.__ob__ instanceof Observer) {
+    if (
+      hasOwn(value, '__ob__') &&
+      value.__ob__ instanceof Observer
+    ) {
       ob = value.__ob__
     } else if (
       shouldObserve &&
@@ -1355,7 +1395,13 @@
   /**
    * Define a reactive property on an Object.
    */
-  function defineReactive$$1(obj, key, val, customSetter, shallow) {
+  function defineReactive$$1(
+    obj,
+    key,
+    val,
+    customSetter,
+    shallow,
+  ) {
     var dep = new Dep()
 
     var property = Object.getOwnPropertyDescriptor(obj, key)
@@ -1480,7 +1526,12 @@
    * Options with restrictions
    */
   {
-    strats.el = strats.propsData = function (parent, child, vm, key) {
+    strats.el = strats.propsData = function (
+      parent,
+      child,
+      vm,
+      key,
+    ) {
       if (!vm) {
         warn(
           'option "' +
@@ -1502,7 +1553,9 @@
     }
     var key, toVal, fromVal
 
-    var keys = hasSymbol ? Reflect.ownKeys(from) : Object.keys(from)
+    var keys = hasSymbol
+      ? Reflect.ownKeys(from)
+      : Object.keys(from)
 
     for (var i = 0; i < keys.length; i++) {
       key = keys[i]
@@ -1780,10 +1833,14 @@
   var isReservedAttr = makeMap('style,class')
 
   // attributes that should be using props for binding
-  var acceptValue = makeMap('input,textarea,option,select,progress')
+  var acceptValue = makeMap(
+    'input,textarea,option,select,progress',
+  )
   var mustUseProp = function (tag, type, attr) {
     return (
-      (attr === 'value' && acceptValue(tag) && type !== 'button') ||
+      (attr === 'value' &&
+        acceptValue(tag) &&
+        type !== 'button') ||
       (attr === 'selected' && tag === 'option') ||
       (attr === 'checked' && tag === 'input') ||
       (attr === 'muted' && tag === 'video')
@@ -2008,7 +2065,9 @@
   })
 
   function parseText(text, delimiters) {
-    var tagRE = delimiters ? buildRegex(delimiters) : defaultTagRE
+    var tagRE = delimiters
+      ? buildRegex(delimiters)
+      : defaultTagRE
     if (!tagRE.test(text)) {
       return
     }
@@ -2020,7 +2079,9 @@
       index = match.index
       // push text token
       if (index > lastIndex) {
-        rawTokens.push((tokenValue = text.slice(lastIndex, index)))
+        rawTokens.push(
+          (tokenValue = text.slice(lastIndex, index)),
+        )
         tokens.push(JSON.stringify(tokenValue))
       }
       // tag token
@@ -2085,7 +2146,9 @@
   // add a raw attr (use this in preTransforms)
   function addRawAttr(el, name, value, range) {
     el.attrsMap[name] = value
-    el.attrsList.push(rangeSetItem({name: name, value: value}, range))
+    el.attrsList.push(
+      rangeSetItem({name: name, value: value}, range),
+    )
   }
 
   function addDirective(
@@ -2146,14 +2209,16 @@
     // the only target envs that have right/middle clicks.
     if (modifiers.right) {
       if (dynamic) {
-        name = '(' + name + ")==='click'?'contextmenu':(" + name + ')'
+        name =
+          '(' + name + ")==='click'?'contextmenu':(" + name + ')'
       } else if (name === 'click') {
         name = 'contextmenu'
         delete modifiers.right
       }
     } else if (modifiers.middle) {
       if (dynamic) {
-        name = '(' + name + ")==='click'?'mouseup':(" + name + ')'
+        name =
+          '(' + name + ")==='click'?'mouseup':(" + name + ')'
       } else if (name === 'click') {
         name = 'mouseup'
       }
@@ -2358,7 +2423,9 @@
           )
         }
       }
-      el.staticStyle = JSON.stringify(parseStyleText(staticStyle))
+      el.staticStyle = JSON.stringify(
+        parseStyleText(staticStyle),
+      )
     }
 
     var styleBinding = getBindingAttr(
@@ -6210,34 +6277,34 @@
         yuml: '\xFF',
       }
       var decodeMapNumeric = {
-        '0': '\uFFFD',
-        '128': '\u20AC',
-        '130': '\u201A',
-        '131': '\u0192',
-        '132': '\u201E',
-        '133': '\u2026',
-        '134': '\u2020',
-        '135': '\u2021',
-        '136': '\u02C6',
-        '137': '\u2030',
-        '138': '\u0160',
-        '139': '\u2039',
-        '140': '\u0152',
-        '142': '\u017D',
-        '145': '\u2018',
-        '146': '\u2019',
-        '147': '\u201C',
-        '148': '\u201D',
-        '149': '\u2022',
-        '150': '\u2013',
-        '151': '\u2014',
-        '152': '\u02DC',
-        '153': '\u2122',
-        '154': '\u0161',
-        '155': '\u203A',
-        '156': '\u0153',
-        '158': '\u017E',
-        '159': '\u0178',
+        0: '\uFFFD',
+        128: '\u20AC',
+        130: '\u201A',
+        131: '\u0192',
+        132: '\u201E',
+        133: '\u2026',
+        134: '\u2020',
+        135: '\u2021',
+        136: '\u02C6',
+        137: '\u2030',
+        138: '\u0160',
+        139: '\u2039',
+        140: '\u0152',
+        142: '\u017D',
+        145: '\u2018',
+        146: '\u2019',
+        147: '\u201C',
+        148: '\u201D',
+        149: '\u2022',
+        150: '\u2013',
+        151: '\u2014',
+        152: '\u02DC',
+        153: '\u2122',
+        154: '\u0161',
+        155: '\u203A',
+        156: '\u0153',
+        158: '\u017E',
+        159: '\u0178',
       }
       var invalidReferenceCodePoints = [
         1,
@@ -6470,7 +6537,9 @@
         var encodeEverything = options.encodeEverything
         var useNamedReferences = options.useNamedReferences
         var allowUnsafeSymbols = options.allowUnsafeSymbols
-        var escapeCodePoint = options.decimal ? decEscape : hexEscape
+        var escapeCodePoint = options.decimal
+          ? decEscape
+          : hexEscape
 
         var escapeBmpSymbol = function (symbol) {
           return escapeCodePoint(symbol.charCodeAt(0))
@@ -6498,19 +6567,22 @@
           // Encode non-ASCII symbols.
           if (useNamedReferences) {
             // Encode non-ASCII symbols that can be replaced with a named reference.
-            string = string.replace(regexEncodeNonAscii, function (
-              string,
-            ) {
-              // Note: there is no need to check `has(encodeMap, string)` here.
-              return '&' + encodeMap[string] + ';'
-            })
+            string = string.replace(
+              regexEncodeNonAscii,
+              function (string) {
+                // Note: there is no need to check `has(encodeMap, string)` here.
+                return '&' + encodeMap[string] + ';'
+              },
+            )
           }
           // Note: any remaining non-ASCII symbols are handled outside of the `if`.
         } else if (useNamedReferences) {
           // Apply named character references.
           // Encode `<>"'&` using named character references.
           if (!allowUnsafeSymbols) {
-            string = string.replace(regexEscape, function (string) {
+            string = string.replace(regexEscape, function (
+              string,
+            ) {
               return '&' + encodeMap[string] + ';' // no need to check `has()` here
             })
           }
@@ -6594,7 +6666,9 @@
             next = $3
             if (next && options.isAttributeValue) {
               if (strict && next == '=') {
-                parseError('`&` did not start a character reference')
+                parseError(
+                  '`&` did not start a character reference',
+                )
               }
               return $0
             } else {
@@ -6719,7 +6793,11 @@
       value: '(' + value + ')',
       expression: JSON.stringify(value),
       callback:
-        'function (' + baseValueExpression + ') {' + assignment + '}',
+        'function (' +
+        baseValueExpression +
+        ') {' +
+        assignment +
+        '}',
     }
   }
 
@@ -6732,7 +6810,13 @@
       return value + '=' + assignment
     } else {
       return (
-        '$set(' + res.exp + ', ' + res.key + ', ' + assignment + ')'
+        '$set(' +
+        res.exp +
+        ', ' +
+        res.key +
+        ', ' +
+        assignment +
+        ')'
       )
     }
   }
@@ -6899,7 +6983,10 @@
       return !!el.component || !isReservedTag(el.tag)
     }
 
-    transforms = pluckModuleFunction(options.modules, 'transformNode')
+    transforms = pluckModuleFunction(
+      options.modules,
+      'transformNode',
+    )
     preTransforms = pluckModuleFunction(
       options.modules,
       'preTransformNode',
@@ -7055,14 +7142,13 @@
           if (options.outputSourceRange) {
             element.start = start$1
             element.end = end
-            element.rawAttrsMap = element.attrsList.reduce(function (
-              cumulated,
-              attr,
-            ) {
-              cumulated[attr.name] = attr
-              return cumulated
-            },
-            {})
+            element.rawAttrsMap = element.attrsList.reduce(
+              function (cumulated, attr) {
+                cumulated[attr.name] = attr
+                return cumulated
+              },
+              {},
+            )
           }
           attrs.forEach(function (attr) {
             if (invalidAttributeRE.test(attr.name)) {
@@ -7460,8 +7546,11 @@
           true,
         )
       }
-      el.slotScope = slotScope || getAndRemoveAttr(el, 'slot-scope')
-    } else if ((slotScope = getAndRemoveAttr(el, 'slot-scope'))) {
+      el.slotScope =
+        slotScope || getAndRemoveAttr(el, 'slot-scope')
+    } else if (
+      (slotScope = getAndRemoveAttr(el, 'slot-scope'))
+    ) {
       /* istanbul ignore if */
       if (el.attrsMap['v-for']) {
         warn$1(
@@ -7480,14 +7569,20 @@
     // slot="xxx"
     var slotTarget = getBindingAttr(el, 'slot')
     if (slotTarget) {
-      el.slotTarget = slotTarget === '""' ? '"default"' : slotTarget
+      el.slotTarget =
+        slotTarget === '""' ? '"default"' : slotTarget
       el.slotTargetDynamic = !!(
         el.attrsMap[':slot'] || el.attrsMap['v-bind:slot']
       )
       // preserve slot as an attribute for native shadow DOM compat
       // only for non-scoped slots.
       if (el.tag !== 'template' && !el.slotScope) {
-        addAttr(el, 'slot', slotTarget, getRawBindingAttr(el, 'slot'))
+        addAttr(
+          el,
+          'slot',
+          slotTarget,
+          getRawBindingAttr(el, 'slot'),
+        )
       }
     }
 
@@ -7556,7 +7651,9 @@
           ))
           slotContainer.slotTarget = name$1
           slotContainer.slotTargetDynamic = dynamic$1
-          slotContainer.children = el.children.filter(function (c) {
+          slotContainer.children = el.children.filter(function (
+            c,
+          ) {
             if (!c.slotScope) {
               c.parent = slotContainer
               return true
@@ -7698,7 +7795,11 @@
           if (
             (modifiers && modifiers.prop) ||
             (!el.component &&
-              platformMustUseProp(el.tag, el.attrsMap.type, name))
+              platformMustUseProp(
+                el.tag,
+                el.attrsMap.type,
+                name,
+              ))
           ) {
             addProp(el, name, value, list[i], isDynamic)
           } else {
@@ -7822,7 +7923,8 @@
     return (
       el.tag === 'style' ||
       (el.tag === 'script' &&
-        (!el.attrsMap.type || el.attrsMap.type === 'text/javascript'))
+        (!el.attrsMap.type ||
+          el.attrsMap.type === 'text/javascript'))
     )
   }
 
@@ -7885,8 +7987,13 @@
         var ifConditionExtra = ifCondition
           ? '&&(' + ifCondition + ')'
           : ''
-        var hasElse = getAndRemoveAttr(el, 'v-else', true) != null
-        var elseIfCondition = getAndRemoveAttr(el, 'v-else-if', true)
+        var hasElse =
+          getAndRemoveAttr(el, 'v-else', true) != null
+        var elseIfCondition = getAndRemoveAttr(
+          el,
+          'v-else-if',
+          true,
+        )
         // 1. checkbox
         var branch0 = cloneASTElement(el)
         // process for on the main node
@@ -7906,7 +8013,8 @@
         addRawAttr(branch1, 'type', 'radio')
         processElement(branch1, options)
         addIfCondition(branch0, {
-          exp: '(' + typeBinding + ")==='radio'" + ifConditionExtra,
+          exp:
+            '(' + typeBinding + ")==='radio'" + ifConditionExtra,
           block: branch1,
         })
         // 3. other
@@ -7931,7 +8039,11 @@
   }
 
   function cloneASTElement(el) {
-    return createASTElement(el.tag, el.attrsList.slice(), el.parent)
+    return createASTElement(
+      el.tag,
+      el.attrsList.slice(),
+      el.parent,
+    )
   }
 
   var model = {
@@ -7996,7 +8108,8 @@
   function genCheckboxModel(el, value, modifiers) {
     var number = modifiers && modifiers.number
     var valueBinding = getBindingAttr(el, 'value') || 'null'
-    var trueValueBinding = getBindingAttr(el, 'true-value') || 'true'
+    var trueValueBinding =
+      getBindingAttr(el, 'true-value') || 'true'
     var falseValueBinding =
       getBindingAttr(el, 'false-value') || 'false'
     addProp(
@@ -8051,8 +8164,14 @@
   function genRadioModel(el, value, modifiers) {
     var number = modifiers && modifiers.number
     var valueBinding = getBindingAttr(el, 'value') || 'null'
-    valueBinding = number ? '_n(' + valueBinding + ')' : valueBinding
-    addProp(el, 'checked', '_q(' + value + ',' + valueBinding + ')')
+    valueBinding = number
+      ? '_n(' + valueBinding + ')'
+      : valueBinding
+    addProp(
+      el,
+      'checked',
+      '_q(' + value + ',' + valueBinding + ')',
+    )
     addHandler(
       el,
       'change',
@@ -8256,7 +8375,10 @@
       if (
         node.static &&
         node.children.length &&
-        !(node.children.length === 1 && node.children[0].type === 3)
+        !(
+          node.children.length === 1 &&
+          node.children[0].type === 3
+        )
       ) {
         node.staticRoot = true
         return
@@ -8265,7 +8387,10 @@
       }
       if (node.children) {
         for (var i = 0, l = node.children.length; i < l; i++) {
-          markStaticRoots(node.children[i], isInFor || !!node.for)
+          markStaticRoots(
+            node.children[i],
+            isInFor || !!node.for,
+          )
         }
       }
       if (node.ifConditions) {
@@ -8292,10 +8417,10 @@
     return !!(
       node.pre ||
       (!node.hasBindings && // no dynamic bindings
-      !node.if &&
-      !node.for && // not v-if or v-for or v-else
-      !isBuiltInTag(node.tag) && // not a built-in
-      isPlatformReservedTag(node.tag) && // not a component
+        !node.if &&
+        !node.for && // not v-if or v-for or v-else
+        !isBuiltInTag(node.tag) && // not a built-in
+        isPlatformReservedTag(node.tag) && // not a component
         !isDirectChildOfTemplateFor(node) &&
         Object.keys(node).every(isStaticKey))
     )
@@ -8366,7 +8491,9 @@
     alt: genGuard('!$event.altKey'),
     meta: genGuard('!$event.metaKey'),
     left: genGuard("'button' in $event && $event.button !== 0"),
-    middle: genGuard("'button' in $event && $event.button !== 1"),
+    middle: genGuard(
+      "'button' in $event && $event.button !== 1",
+    ),
     right: genGuard("'button' in $event && $event.button !== 2"),
   }
 
@@ -8530,7 +8657,9 @@
         "'," +
         dir.value +
         ',' +
-        (dir.modifiers && dir.modifiers.prop ? 'true' : 'false') +
+        (dir.modifiers && dir.modifiers.prop
+          ? 'true'
+          : 'false') +
         (dir.modifiers && dir.modifiers.sync ? ',true' : '') +
         ')'
       )
@@ -8554,7 +8683,10 @@
       options.modules,
       'transformCode',
     )
-    this.dataGenFns = pluckModuleFunction(options.modules, 'genData')
+    this.dataGenFns = pluckModuleFunction(
+      options.modules,
+      'genData',
+    )
     this.directives = extend(
       extend({}, baseDirectives),
       options.directives,
@@ -9033,7 +9165,9 @@
       return genFor(el, state, genScopedSlot)
     }
     var slotScope =
-      el.slotScope === emptySlotScopeToken ? '' : String(el.slotScope)
+      el.slotScope === emptySlotScopeToken
+        ? ''
+        : String(el.slotScope)
     var fn =
       'function(' +
       slotScope +
@@ -9234,7 +9368,11 @@
     staticProps = '{' + staticProps.slice(0, -1) + '}'
     if (dynamicProps) {
       return (
-        '_d(' + staticProps + ',[' + dynamicProps.slice(0, -1) + '])'
+        '_d(' +
+        staticProps +
+        ',[' +
+        dynamicProps.slice(0, -1) +
+        '])'
       )
     } else {
       return staticProps
@@ -9267,7 +9405,9 @@
   // these unary operators should not be used as property/method names
   var unaryOperatorsRE = new RegExp(
     '\\b' +
-      'delete,typeof,void'.split(',').join('\\s*\\([^\\)]*\\)|\\b') +
+      'delete,typeof,void'
+        .split(',')
+        .join('\\s*\\([^\\)]*\\)|\\b') +
       '\\s*\\([^\\)]*\\)',
   )
 
@@ -9289,7 +9429,12 @@
           if (value) {
             var range = node.rawAttrsMap[name]
             if (name === 'v-for') {
-              checkFor(node, 'v-for="' + value + '"', warn, range)
+              checkFor(
+                node,
+                'v-for="' + value + '"',
+                warn,
+                range,
+              )
             } else if (name === 'v-slot' || name[0] === '#') {
               checkFunctionParameterExpression(
                 value,
@@ -9414,7 +9559,12 @@
     }
   }
 
-  function checkFunctionParameterExpression(exp, text, warn, range) {
+  function checkFunctionParameterExpression(
+    exp,
+    text,
+    warn,
+    range,
+  ) {
     try {
       new Function(exp, '')
     } catch (e) {
@@ -9447,7 +9597,11 @@
     for (var i = 0; i < lines.length; i++) {
       count += lines[i].length + 1
       if (count >= start) {
-        for (var j = i - range; j <= i + range || end > count; j++) {
+        for (
+          var j = i - range;
+          j <= i + range || end > count;
+          j++
+        ) {
           if (j < 0 || j >= lines.length) {
             continue
           }
@@ -9462,9 +9616,12 @@
           if (j === i) {
             // push underline
             var pad = start - (count - lineLength) + 1
-            var length = end > count ? lineLength - pad : end - start
+            var length =
+              end > count ? lineLength - pad : end - start
             res.push(
-              '   |  ' + repeat$1(' ', pad) + repeat$1('^', length),
+              '   |  ' +
+                repeat$1(' ', pad) +
+                repeat$1('^', length),
             )
           } else if (j > i) {
             if (end > count) {
@@ -9591,11 +9748,11 @@
       var res = {}
       var fnGenErrors = []
       res.render = createFunction(compiled.render, fnGenErrors)
-      res.staticRenderFns = compiled.staticRenderFns.map(function (
-        code,
-      ) {
-        return createFunction(code, fnGenErrors)
-      })
+      res.staticRenderFns = compiled.staticRenderFns.map(
+        function (code) {
+          return createFunction(code, fnGenErrors)
+        },
+      )
 
       // check function generation errors.
       // this should only happen if there is a bug in the compiler itself.
@@ -9641,7 +9798,8 @@
         if (options) {
           if (options.outputSourceRange) {
             // $flow-disable-line
-            var leadingSpaceLength = template.match(/^\s*/)[0].length
+            var leadingSpaceLength = template.match(/^\s*/)[0]
+              .length
 
             warn = function (msg, range, tip) {
               var data = {msg: msg}
@@ -9658,9 +9816,9 @@
           }
           // merge custom modules
           if (options.modules) {
-            finalOptions.modules = (baseOptions.modules || []).concat(
-              options.modules,
-            )
+            finalOptions.modules = (
+              baseOptions.modules || []
+            ).concat(options.modules)
           }
           // merge custom directives
           if (options.directives) {
@@ -9700,21 +9858,20 @@
   // `createCompilerCreator` allows creating compilers that use alternative
   // parser/optimizer/codegen, e.g the SSR optimizing compiler.
   // Here we just export a default compiler using the default parts.
-  var createCompiler = createCompilerCreator(function baseCompile(
-    template,
-    options,
-  ) {
-    var ast = parse(template.trim(), options)
-    if (options.optimize !== false) {
-      optimize(ast, options)
-    }
-    var code = generate(ast, options)
-    return {
-      ast: ast,
-      render: code.render,
-      staticRenderFns: code.staticRenderFns,
-    }
-  })
+  var createCompiler = createCompilerCreator(
+    function baseCompile(template, options) {
+      var ast = parse(template.trim(), options)
+      if (options.optimize !== false) {
+        optimize(ast, options)
+      }
+      var code = generate(ast, options)
+      return {
+        ast: ast,
+        render: code.render,
+        staticRenderFns: code.staticRenderFns,
+      }
+    },
+  )
 
   /*  */
 
@@ -9845,7 +10002,8 @@
     } else {
       return {
         type: EXPRESSION,
-        value: '_ssrAttr(' + JSON.stringify(name) + ',' + value + ')',
+        value:
+          '_ssrAttr(' + JSON.stringify(name) + ',' + value + ')',
       }
     }
   }
@@ -9881,7 +10039,10 @@
   ) {
     if (staticStyle && !styleBinding && !vShowExpression) {
       return [
-        {type: RAW, value: ' style=' + JSON.stringify(staticStyle)},
+        {
+          type: RAW,
+          value: ' style=' + JSON.stringify(staticStyle),
+        },
       ]
     } else {
       return [
@@ -9894,7 +10055,9 @@
             (styleBinding || 'null') +
             ', ' +
             (vShowExpression
-              ? '{ display: (' + vShowExpression + ") ? '' : 'none' }"
+              ? '{ display: (' +
+                vShowExpression +
+                ") ? '' : 'none' }"
               : 'null') +
             ')',
         },
@@ -10148,7 +10311,9 @@
   }
 
   function elementToString(el, state) {
-    return '(' + flattenSegments(elementToSegments(el, state)) + ')'
+    return (
+      '(' + flattenSegments(elementToSegments(el, state)) + ')'
+    )
   }
 
   function elementToSegments(el, state) {
@@ -10221,7 +10386,11 @@
       )
     }
     // style & v-show
-    if (el.staticStyle || el.styleBinding || el.attrsMap['v-show']) {
+    if (
+      el.staticStyle ||
+      el.styleBinding ||
+      el.attrsMap['v-show']
+    ) {
       segments.push.apply(
         segments,
         genStyleSegments(
@@ -10234,7 +10403,10 @@
     }
     // _scopedId
     if (state.options.scopeId) {
-      segments.push({type: RAW, value: ' ' + state.options.scopeId})
+      segments.push({
+        type: RAW,
+        value: ' ' + state.options.scopeId,
+      })
     }
     segments.push({type: RAW, value: '>'})
     return segments
@@ -10246,10 +10418,17 @@
       return [{type: EXPRESSION, value: '_s(' + binding + ')'}]
     }
     if ((binding = el.attrsMap['v-text'])) {
-      return [{type: INTERPOLATION, value: '_s(' + binding + ')'}]
+      return [
+        {type: INTERPOLATION, value: '_s(' + binding + ')'},
+      ]
     }
-    if (el.tag === 'textarea' && (binding = el.attrsMap['v-model'])) {
-      return [{type: INTERPOLATION, value: '_s(' + binding + ')'}]
+    if (
+      el.tag === 'textarea' &&
+      (binding = el.attrsMap['v-model'])
+    ) {
+      return [
+        {type: INTERPOLATION, value: '_s(' + binding + ')'},
+      ]
     }
     return el.children ? nodesToSegments(el.children, state) : []
   }
@@ -10259,7 +10438,10 @@
     for (var i = 0; i < children.length; i++) {
       var c = children[i]
       if (c.type === 1) {
-        segments.push.apply(segments, elementToSegments(c, state))
+        segments.push.apply(
+          segments,
+          elementToSegments(c, state),
+        )
       } else if (c.type === 2) {
         segments.push({type: INTERPOLATION, value: c.expression})
       } else if (c.type === 3) {
@@ -10303,19 +10485,18 @@
 
   /*  */
 
-  var createCompiler$1 = createCompilerCreator(function baseCompile(
-    template,
-    options,
-  ) {
-    var ast = parse(template.trim(), options)
-    optimize$1(ast, options)
-    var code = generate$1(ast, options)
-    return {
-      ast: ast,
-      render: code.render,
-      staticRenderFns: code.staticRenderFns,
-    }
-  })
+  var createCompiler$1 = createCompilerCreator(
+    function baseCompile(template, options) {
+      var ast = parse(template.trim(), options)
+      optimize$1(ast, options)
+      var code = generate$1(ast, options)
+      return {
+        ast: ast,
+        render: code.render,
+        staticRenderFns: code.staticRenderFns,
+      }
+    },
+  )
 
   /*  */
 

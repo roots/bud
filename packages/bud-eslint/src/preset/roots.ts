@@ -2,25 +2,20 @@ export = {
   extends: ['eslint:recommended'],
   parser: require.resolve('babel-eslint'),
   parserOptions: {
+    ecmaFeatures: {
+      globalReturn: true,
+      generators: false,
+      objectLiteralDuplicateProperties: false,
+    },
     ecmaVersion: 2018,
+    sourceType: 'module',
   },
-  env: {
-    browser: true,
-    node: true,
-  },
-  rules: {
-    strict: 0,
-    'no-console': 0,
-    'no-extra-semi': 0,
-    'comma-dangle': [
-      'error',
-      {
-        arrays: 'always-multiline',
-        objects: 'always-multiline',
-        imports: 'always-multiline',
-        exports: 'always-multiline',
-        functions: 'ignore',
-      },
+  plugins: ['import'],
+  settings: {
+    'import/core-modules': [],
+    'import/ignore': [
+      'node_modules',
+      '\\.(coffee|scss|css|less|hbs|svg|json)$',
     ],
   },
 }

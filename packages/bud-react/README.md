@@ -26,12 +26,10 @@ yarn add @roots/bud-react --dev
 ## Usage
 
 ```js
-const {react} = require('@roots/bud-react')
-
-bud.use([react])
+bud.extend([require('@roots/bud-react')])
 ```
 
-You should now be good to utilize react in your project.
+You should now be good to utilize React in your project.
 
 ## Contributing
 

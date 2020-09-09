@@ -10,7 +10,7 @@
     "watch": false,
     "rootDir": "./src",
     "outDir": "./bin",
-    "declarationDir": "./bin/types",
+    "declarationDir": "./bin/types"
   },
   "include": ["./src"],
   "exclude": ["./node_modules"]

@@ -4,7 +4,7 @@ description: Specify the root directory of the project's source files.
 
 # bud.copyAll
 
-`bud.copyAll` copies the contents of a directory to from one location to another. This is a straight copy -- the files are not processed or  transpiled.
+`bud.copyAll` copies the contents of a directory to from one location to another. This is a straight copy -- the files are not processed or transpiled.
 
 ::: tip 🕵️‍♂️ Guide available
 Details on the usage of this method are available in [the Copying Static Assets guide](guide-copying-assets.md).
@@ -13,10 +13,7 @@ Details on the usage of this method are available in [the Copying Static Assets 
 ## Usage
 
 ```js
-bud.copyAll(
- bud.src('images'),
- bud.dist('images')
-)
+bud.copyAll(bud.src('images'), bud.dist('images'))
 ```
 
 ## Signature
@@ -30,10 +27,10 @@ function (
 
 ## Parameters
 
-Name | Type |
------- | ------ |
-`from` | string |
-`to` | string |
+| Name   | Type   |
+| ------ | ------ |
+| `from` | string |
+| `to`   | string |
 
 ## Returns
 

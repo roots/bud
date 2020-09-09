@@ -33,7 +33,7 @@ function (
 
 ## Arguments
 
-Name | Type |
------- | ------ |
-`name` | `string` |
-`pattern` | `string | string[]` |
+| Name      | Type     |
+| --------- | -------- |
+| `name`    | `string` |
+| `pattern` | `string  | string[]` |

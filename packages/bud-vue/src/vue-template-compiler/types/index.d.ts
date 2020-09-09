@@ -11,7 +11,8 @@ interface CompilerOptions {
   outputSourceRange?: any
 }
 
-interface CompilerOptionsWithSourceRange extends CompilerOptions {
+interface CompilerOptionsWithSourceRange
+  extends CompilerOptions {
   outputSourceRange: true
 }
 
@@ -43,7 +44,10 @@ interface ModuleOptions {
   staticKeys?: string[]
 }
 
-type DirectiveFunction = (node: ASTElement, directiveMeta: ASTDirective) => void
+type DirectiveFunction = (
+  node: ASTElement,
+  directiveMeta: ASTDirective,
+) => void
 
 /*
  * AST Types
@@ -224,7 +228,9 @@ export function compile(
   options?: CompilerOptions,
 ): CompiledResult<string>
 
-export function compileToFunctions(template: string): CompiledResultFunctions
+export function compileToFunctions(
+  template: string,
+): CompiledResultFunctions
 
 export function ssrCompile(
   template: string,
@@ -236,7 +242,9 @@ export function ssrCompile(
   options?: CompilerOptions,
 ): CompiledResult<string>
 
-export function ssrCompileToFunctions(template: string): CompiledResultFunctions
+export function ssrCompileToFunctions(
+  template: string,
+): CompiledResultFunctions
 
 export function parseComponent(
   file: string,

@@ -14,8 +14,8 @@ bud.use([sass, tailwindcss])
 
 ## Arguments
 
-Name | Type |
------- | ------ |
-`plugins` | array |
+| Name      | Type  |
+| --------- | ----- |
+| `plugins` | array |
 
 ## Related

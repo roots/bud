@@ -26,14 +26,12 @@ yarn add @roots/bud-sass --dev
 ## Usage
 
 ```js
-const {sass} = require('@roots/bud-stylelint')
-
-bud.use([sass])
+bud.extend([require('@roots/bud-sass')])
 ```
 
 You should now be good to include `.sass` and `.scss` files in your project.
 
-If you need to provide additional options to the sass-loader you can do so with the `.sass()` configuration function which this plugin attaches to `bud`.
+If you need to provide additional options to the sass-loader you can do so with the `bud.sass()` configuration function.
 
 ```js
 bud.sass({

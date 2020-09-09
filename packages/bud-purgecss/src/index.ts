@@ -72,7 +72,7 @@ const plugin: Plugin = bud => ({
         }),
       )
 
-      return this.bud
+      return this
     })
   },
 })

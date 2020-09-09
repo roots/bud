@@ -60,4 +60,4 @@ const tailwindcss: Plugin = (bud: Bud) => ({
   },
 })
 
-export {tailwindcss}
+export {tailwindcss as default}

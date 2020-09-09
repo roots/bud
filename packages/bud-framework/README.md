@@ -28,9 +28,11 @@ Attach things to it.
 ```js
 import {framework} from '@roots/bud-framework'
 
-framework.apply('method', () => console.log('attach a method to it'))
+framework.apply('method', () =>
+  console.log('attach a method to it'),
+)
 
-const instance = new framework
+const instance = new framework()
 
 instance.method() // => 'attach a method to it'
 ```

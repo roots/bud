@@ -19,7 +19,7 @@
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
   "engines": {
-    "node": ">=12"
+    "node": "14.9.0"
   },
   "scripts": {
     "make": "run-s --silent clean install build",
@@ -31,8 +31,10 @@
     "build:server": "lerna run --loglevel silent --parallel --stream --profile --scope=@roots/bud-server build",
     "build:compiler": "lerna run --loglevel silent --parallel --stream --profile --scope=@roots/bud-compiler build",
     "build:bud": "lerna run --loglevel silent --parallel --stream --profile --scope=@roots/bud build",
-    "build:plugins": "lerna run --loglevel silent --parallel --stream --profile --scope='@roots/bud-*' --ignore='@roots/{bud-support,bud-framework,bud-typings,bud-compiler,bud-server}' build",
-    "lint": "eslint 'packages/**/*.{js,ts,tsx}' --fix",
+    "build:plugins": "lerna run --loglevel silent --parallel --stream --profile --scope='@roots/bud-*' --ignore=@roots/{bud-support,bud-framework,bud-typings,bud-compiler,bud-server} build",
+    "lint": "run-s lint:*",
+    "lint:eslint": "eslint 'packages/**/*.{js,ts,tsx}' --fix",
+    "lint:prettier": "prettier packages/**/*.{js,ts,tsx,json,md} --ignore-path='packages/**/lib/*' --write",
     "test": "ava",
     "test:coverage": "nyc yarn run test",
     "test:coverage:lcov": "nyc --reporter=lcov yarn run test",
@@ -80,6 +82,7 @@
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.5",
+    "eslint-plugin-react-hooks": "^4.1.0",
     "execa": "^4.0.3",
     "husky": "^4.2.5",
     "ink-testing-library": "^2.0.1",
@@ -94,8 +97,7 @@
     "typescript": "^4.0.2",
     "webpack": "^4.44.1"
   },
-  "nohoist": [
-  ],
+  "nohoist": [],
   "workspaces": {
     "packages": [
       "packages/bud-cli",

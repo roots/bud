@@ -13,10 +13,7 @@ Details on the usage of this method are available in [the Configuration Guide](c
 ## Usage
 
 ```js
-bud.bundle('app', [
-  bud.src('app.js'),
-  bud.src('app.css'),
-])
+bud.bundle('app', [bud.src('app.js'), bud.src('app.css')])
 ```
 
 ## Signature
@@ -30,10 +27,10 @@ function (
 
 ## Parameters
 
-Name | Type |
------- | ------ |
-`name` | string |
-`entries` | string[] |
+| Name      | Type     |
+| --------- | -------- |
+| `name`    | string   |
+| `entries` | string[] |
 
 ## Returns
 

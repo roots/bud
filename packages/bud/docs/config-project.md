@@ -18,9 +18,9 @@ bud.project('resources/views')
 
 ## Arguments
 
-Name | Type |
------- | ------ |
-`path` | string |
+| Name   | Type   |
+| ------ | ------ |
+| `path` | string |
 
 ## Related
 

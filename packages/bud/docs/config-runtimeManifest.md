@@ -20,9 +20,9 @@ function (name: string): Bud
 
 ## Parameters
 
-Name | Type |
------- | ------ |
-`name?` | string |
+| Name    | Type   |
+| ------- | ------ |
+| `name?` | string |
 
 ## Returns
 

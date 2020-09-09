@@ -16,9 +16,9 @@ bud.projectPath(__dirname)
 
 ## Arguments
 
-Name | Type |
------- | ------ |
-`path` | string |
+| Name   | Type   |
+| ------ | ------ |
+| `path` | string |
 
 ## Related
 

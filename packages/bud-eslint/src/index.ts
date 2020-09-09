@@ -12,7 +12,6 @@ const plugin: Plugin = (bud: Bud) => ({
     }
 
     this.bud.configs.set('eslint', config)
-
     this.bud.features.set('eslint', true)
 
     this.bud.hooks.filter(

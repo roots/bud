@@ -18,9 +18,9 @@ bud.src('scripts/app.js')
 
 ## Arguments
 
-Name | Type |
------- | ------ |
-`path` | string |
+| Name   | Type   |
+| ------ | ------ |
+| `path` | string |
 
 ## Related
 

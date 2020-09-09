@@ -21,6 +21,8 @@
 
 A webpack framework combining the best parts of Laravel Mix and Symfony Encore.
 
+**🧳 roots/bud houses the webpack build tooling formerly integrated into the scaffolding tool now known as roots/clover.** If you are looking for the scaffolding tools you can find them at [https://github.com/roots/clover](roots/clover). These packages were born out of the same repository and it took a hot minute before we realized where everything belongs. Both packages are being bumped to v2.0.0 to reflect this change; sorry for any confusion.
+
 ## Installation
 
 `yarn add @roots/bud --dev`

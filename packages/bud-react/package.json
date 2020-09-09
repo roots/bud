@@ -22,9 +22,7 @@
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "lib"
-  ],
+  "files": ["lib"],
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
   "scripts": {
@@ -43,5 +41,5 @@
     "@roots/bud-support": "^2.0.0-next.8",
     "@roots/bud-typings": "^2.0.0-next.8"
   },
-  "gitHead": "a799bffc54512d0159f47f838e35625a4d1c679d"
+  "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5"
 }

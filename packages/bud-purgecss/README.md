@@ -36,7 +36,7 @@ bud.purgecss({
   enabled: bud.inProduction,
   options: {
     // ...purge options
-  }
+  },
 })
 ```
 
@@ -47,12 +47,10 @@ The `purgecss-with-wordpress` preset is included along with the plugin. You can 
 ```js
 const {purgecss, presets} = require('@roots/bud-purgecss')
 
-bud
-  .use([purgecss])
-  .purgecss({
-    enabled: bud.inProduction,
-    options: presets.wordpress,
-  })
+bud.use([purgecss]).purgecss({
+  enabled: bud.inProduction,
+  options: presets.wordpress,
+})
 ```
 
 ## Contributing
@@ -74,4 +72,3 @@ Keep track of development and community news.
 - Read and subscribe to the [Roots Blog](https://roots.io/blog/)
 - Subscribe to the [Roots Newsletter](https://roots.io/subscribe/)
 - Listen to the [Roots Radio podcast](https://roots.io/podcast/)
-

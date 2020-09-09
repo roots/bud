@@ -26,14 +26,12 @@ yarn add @roots/bud-typescript --dev
 ## Usage
 
 ```js
-const {typescript} = require('@roots/bud-vue')
-
-bud.use([typescript])
+bud.extend([require('@roots/bud-typescript')])
 ```
 
-You should now be good to utilize typescript in your project. You will also need a tsconfig.json file in your project root directory. Consult the typescript docs for more information.
+You should now be good to utilize typescript in your project. You will also need a `tsconfig.json` file in your project root directory. Consult the typescript docs for more information on Typescript usage.
 
-If your tsconfig.json file is not located in your project root you can configure the plugin to point to its location.
+If your `tsconfig.json` is not located in your project root you can configure the plugin to point to its location.
 
 ```js
 bud.typescript({

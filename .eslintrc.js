@@ -22,5 +22,28 @@ module.exports = {
     '@typescript-eslint/no-namespace': 0,
     '@typescript-eslint/no-explicit-any': 1,
     'react/prop-types': 'off',
+    'no-console': 0,
+    'react/prop-types': 0,
+    'react/react-in-jsx-scope': 0,
+    'no-extra-semi': 0,
+    'markdownlint/no-inline-html': 0,
+    quotes: [
+      'error',
+      'single',
+      {
+        allowTemplateLiterals: true,
+        avoidEscape: true,
+      },
+    ],
+    'comma-dangle': [
+      'error',
+      {
+        arrays: 'always-multiline',
+        objects: 'always-multiline',
+        imports: 'always-multiline',
+        exports: 'always-multiline',
+        functions: 'ignore',
+      },
+    ],
   },
 }
