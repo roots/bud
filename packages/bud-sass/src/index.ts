@@ -20,10 +20,7 @@ const sass: Plugin = (bud: Bud) => ({
     }
 
     this.bud.uses.set('sass', bud => ({
-      loader: bud.resolveFrom(
-        this.bud.paths.get('project'),
-        'sass-loader',
-      ),
+      loader: require.resolve('sass-loader'),
       options: bud.options.get('sass'),
     }))
 
