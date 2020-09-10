@@ -36,8 +36,5 @@
   "dependencies": {
     "@wordpress/dependency-extraction-webpack-plugin": "^2.8.0"
   },
-  "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5",
-  "peerDependencies": {
-    "@roots/bud": "file:../bud"
-  }
+  "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5"
 }
