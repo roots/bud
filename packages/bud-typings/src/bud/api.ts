@@ -4,6 +4,7 @@ import {
   Plugin,
   WebpackOptions,
 } from '../'
+import {Loose} from '../base'
 
 export namespace Base {
   export type Option = {
@@ -89,6 +90,28 @@ export namespace Api {
     this: Bud,
     options: BabelTransformOptions,
   ) => Bud
+
+  /**
+   * ## bud.brotli
+   *
+   * Apply brotli compression to static assets.
+   *
+   * ```js
+   * bud.brotli()
+   * ```
+   *
+   * ```js
+   * bud.brotli({
+   *   compressionOptions: {
+   *     level: 11,
+   *   },
+   *   threshold: 10240,
+   *   minRatio: 0.8,
+   *   deleteOriginalAssets: false,
+   * })
+   * ```
+   */
+  export type Brotli = (this: Bud, options?: Loose) => Bud
 
   /**
    * ## bud.bundle
@@ -199,6 +222,24 @@ export namespace Api {
     output: string,
     files: string,
   ) => Bud
+
+  /**
+   * ## bud.gzip
+   *
+   * Apply gzip compression to static assets.
+   *
+   * ```js
+   * bud.gzip()
+   * ```
+   *
+   * ```js
+   * bud.gzip({
+   *  test: /\.js$|\.css$|\.html$/,
+   *  minRatio: 0.8,
+   * })
+   * ```
+   */
+  export type Gzip = (this: Bud, options?: Loose) => Bud
 
   /**
    * ## bud.hash

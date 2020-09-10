@@ -238,6 +238,28 @@ export interface Bud extends Container {
   babel: Api.Babel
 
   /**
+   * ## bud.brotli
+   *
+   * Apply brotli compression to static assets.
+   *
+   * ```js
+   * bud.brotli()
+   * ```
+   *
+   * ```js
+   * bud.brotli({
+   *   compressionOptions: {
+   *     level: 11,
+   *   },
+   *   threshold: 10240,
+   *   minRatio: 0.8,
+   *   deleteOriginalAssets: false,
+   * })
+   * ```
+   */
+  brotli: Api.Brotli
+
+  /**
    * ## bud.bundle
    *
    * Compile a group of assets.
@@ -346,6 +368,24 @@ export interface Bud extends Container {
    * ```
    */
   glob: Api.Glob
+
+  /**
+   * ## bud.gzip
+   *
+   * Apply gzip compression to static assets.
+   *
+   * ```js
+   * bud.gzip()
+   * ```
+   *
+   * ```js
+   * bud.gzip({
+   *  test: /\.js$|\.css$|\.html$/,
+   *  minRatio: 0.8,
+   * })
+   * ```
+   */
+  gzip: Api.Gzip
 
   /**
    * ## bud.hash

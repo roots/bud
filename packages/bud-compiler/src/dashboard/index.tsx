@@ -1,4 +1,4 @@
-import {Bud, WebpackConfig} from '@roots/bud-typings'
+import type {Bud, WebpackConfig} from '@roots/bud-typings'
 import React, {
   useEffect,
   useState,

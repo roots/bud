@@ -4,6 +4,9 @@ import {
   RepositoryDefinition,
 } from '@roots/bud-typings'
 
+import style from './style'
+import svg from './svg'
+
 /**
  * Module Rule
  */
@@ -99,14 +102,8 @@ const uses: RepositoryDefinition = {
           },
         ),
       }),
-
-    style: (bud: Bud): RuleSetLoader =>
-      bud.hooks.filter('webpack.module.style', {
-        loader: bud.hooks.filter(
-          'webpack.module.style.loader',
-          bud.loaders.get('style'),
-        ),
-      }),
+    style,
+    svg,
   },
 }
 

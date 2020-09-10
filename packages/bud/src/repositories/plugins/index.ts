@@ -2,6 +2,7 @@ import {cleanWebpack} from './cleanWebpack'
 import {copy} from './copy'
 import {define} from './define'
 import {ignoreEmit} from './ignoreEmit'
+import {brotli, gzip} from './compression'
 import {hotModuleReplacement} from './hotModuleReplacement'
 import {limitChunkCount} from './limitChunkCount'
 import {miniCssExtract} from './miniCssExtract'
@@ -15,6 +16,8 @@ import {PluginRepositoryDefinition} from '@roots/bud-typings'
 const plugins: PluginRepositoryDefinition = {
   name: 'plugins',
   register: {
+    brotli,
+    gzip,
     cleanWebpack,
     copy,
     define,

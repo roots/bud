@@ -38,12 +38,7 @@
     "he": "^1.1.0",
     "vue": "^2.6.11",
     "vue-loader": "^15.9.3",
-    "vue-template-compiler": "^2.6.12",
-    "webpack": "^4.44.1"
-  },
-  "devDependencies": {
-    "@roots/bud-support": "^2.0.0-next.14",
-    "@roots/bud-typings": "^2.0.0-next.14"
+    "vue-template-compiler": "^2.6.12"
   },
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5"
 }

@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "boxen": "^4.2.0",
+    "cli-highlight": "^2.1.4",
     "dotenv": "^8.2.0",
     "fs-extra": "^9.0.1",
     "javascript-stringify": "^2.0.1",
@@ -40,11 +41,8 @@
     "pino-pretty": "^4.1.0",
     "prettier": "^2.1.1",
     "pretty-format": "^26.4.2",
+    "resolve-from": "^5.0.0",
     "yargs": "^15.4.1"
-  },
-  "devDependencies": {
-    "@roots/bud-support": "^2.0.0-next.14",
-    "@roots/bud-typings": "^2.0.0-next.14"
   },
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5"
 }

@@ -34,13 +34,7 @@
     "find-up": "^5.0.0",
     "postcss-scss": "^2.1.1",
     "resolve-from": "^5.0.0",
-    "sass-loader": "^9.0.2",
-    "webpack": "^4.44.1"
-  },
-  "devDependencies": {
-    "@roots/bud-support": "^2.0.0-next.14",
-    "@roots/bud-typings": "^2.0.0-next.14",
-    "@types/sass": "^1.16.0"
+    "sass-loader": "^9.0.2"
   },
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5"
 }

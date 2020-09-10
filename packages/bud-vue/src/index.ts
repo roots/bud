@@ -1,5 +1,4 @@
-import type {Bud} from '@roots/bud'
-import type {Plugin} from '@roots/bud-typings'
+import type {Bud, Plugin} from '@roots/bud-typings'
 import {VueLoaderPlugin} from 'vue-loader'
 
 /** Patched compiler.*/

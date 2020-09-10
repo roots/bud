@@ -33,13 +33,10 @@
   "dependencies": {
     "@babel/core": "^7.10.5",
     "@babel/preset-react": "^7.10.4",
+    "@svgr/webpack": "^5.4.0",
     "react": "^16.13.1",
     "react-dev-utils": "^10.2.1",
     "react-dom": "^16.13.1"
-  },
-  "devDependencies": {
-    "@roots/bud-support": "^2.0.0-next.14",
-    "@roots/bud-typings": "^2.0.0-next.14"
   },
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5"
 }

@@ -7,7 +7,8 @@ const features: RepositoryDefinition = {
     clean: true, // clean compiled files on every run.
     manifest: true, // generate a manifest
     postcss: true, // enable postCss
-
+    brotli: false, // brotli compression
+    gzip: false, // gzip compression
     hash: false, // hash filenames
     hot: false, // enable devServer: hot module reloading
     minify: false, // enable optimization: minify

@@ -1,6 +1,7 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
+    "lib": ["ES2015"],
     "esModuleInterop": true,
     "declaration": true,
     "module": "commonjs",

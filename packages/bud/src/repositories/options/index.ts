@@ -1,11 +1,11 @@
 import type {
-  WebpackEntry,
   WebpackTarget,
   RepositoryDefinition,
 } from '@roots/bud-typings'
 
 import babel from './babel'
 import postcss from './postcss'
+import server from './server'
 
 export type Copy = {patterns: any[]}
 const copy: Copy = {patterns: []}
@@ -19,19 +19,7 @@ const options: RepositoryDefinition = {
     babel,
     postcss,
     patterns: [],
-    server: {
-      disableHostCheck: true,
-      inline: true,
-      changeOrigin: true,
-      headers: {
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods':
-          'GET, POST, PUT, DELETE, PATCH, OPTIONS',
-        'Access-Control-Allow-Headers':
-          'X-Requested-With, content-type, Authorization',
-      },
-      writeToDisk: true,
-    },
+    server,
     webpack: {
       entry: {},
       externals: {},
@@ -90,6 +78,26 @@ const options: RepositoryDefinition = {
       },
       plugins: {
         clean: {},
+        compression: {
+          brotli: {
+            filename: '[path].br',
+            algorithm: 'brotliCompress',
+            test: /\.(js|css|html|svg)$/,
+            compressionOptions: {
+              level: 11,
+            },
+            threshold: 10240,
+            minRatio: 0.8,
+            deleteOriginalAssets: false,
+          },
+          gzip: {
+            filename: '[path].gz',
+            algorithm: 'gzip',
+            test: /\.js$|\.css$|\.html$/,
+            threshold: 10240,
+            minRatio: 0.8,
+          },
+        },
         copy,
         ignoreEmit: [/\.*\.css.?\.js/],
         terser: {
