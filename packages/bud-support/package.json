@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-support",
-  "version": "2.0.0-next.15",
+  "version": "2.0.0-next.16",
   "description": "Internal utilities for the @roots/bud monorepo.",
   "private": true,
   "homepage": "https://roots.io/bud",
@@ -23,7 +23,10 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["bin", "types"],
+  "files": [
+    "bin",
+    "types"
+  ],
   "main": "./bin/bud-cli.js",
   "types": "./types/index.d.ts",
   "scripts": {
