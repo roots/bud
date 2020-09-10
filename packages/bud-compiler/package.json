@@ -34,7 +34,6 @@
   "dependencies": {
     "@roots/bud-cli": "file:../bud-cli",
     "@roots/bud-server": "file:../bud-server",
-    "cli-highlight": "^2.1.4",
     "ink": "^3.0.0-6",
     "ink-gradient": "^1.0.0",
     "ink-link": "^1.1.0",
@@ -42,7 +41,6 @@
     "ink-use-stdout-dimensions": "^1.0.5",
     "node-notifier": "^8.0.0",
     "patch-console": "^1.0.0",
-    "prettier": "^2.0.5",
     "react": "^16.13.1",
     "react-dev-utils": "^10.2.1",
     "react-dom": "^16.13.1"
