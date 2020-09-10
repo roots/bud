@@ -1,6 +1,7 @@
 import {addExtensions} from './addExtensions'
 import {alias} from './alias'
 import {babel} from './babel'
+import {brotli} from './brotli'
 import {bundle} from './bundle'
 import {compile} from './compile'
 import {copy} from './copy'
@@ -9,6 +10,7 @@ import {dist} from './dist'
 import {distPath} from './distPath'
 import {devtool} from './devtool'
 import {glob} from './glob'
+import {gzip} from './gzip'
 import {hash} from './hash'
 import {dev} from './dev'
 import extend from './extend'
@@ -30,6 +32,7 @@ const api = {
   addExtensions,
   alias,
   babel,
+  brotli,
   bundle,
   compile,
   copy,
@@ -38,6 +41,7 @@ const api = {
   dist,
   distPath,
   glob,
+  gzip,
   hash,
   dev,
   mini,
