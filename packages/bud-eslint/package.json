@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-eslint",
-  "version": "2.0.0-next.14",
+  "version": "2.0.0-next.15",
   "description": "Adds eslint support to Bud",
   "repository": {
     "type": "git",
@@ -15,11 +15,15 @@
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
-  "keywords": ["bud-extension"],
+  "keywords": [
+    "bud-extension"
+  ],
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
   "scripts": {
