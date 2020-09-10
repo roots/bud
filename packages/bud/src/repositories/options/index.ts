@@ -19,21 +19,20 @@ const options: RepositoryDefinition = {
     babel,
     postcss,
     patterns: [],
-    webpack: {
-      devServer: {
-        host: 'localhost',
-        port: 3000,
-        disableHostCheck: true,
-        inline: true,
-        changeOrigin: true,
-        headers: {
-          'Access-Control-Allow-Origin': '*',
-          'Access-Control-Allow-Methods':
-            'GET, POST, PUT, DELETE, PATCH, OPTIONS',
-          'Access-Control-Allow-Headers':
-            'X-Requested-With, content-type, Authorization',
-        },
+    server: {
+      disableHostCheck: true,
+      inline: true,
+      changeOrigin: true,
+      headers: {
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods':
+          'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+        'Access-Control-Allow-Headers':
+          'X-Requested-With, content-type, Authorization',
       },
+      writeToDisk: true,
+    },
+    webpack: {
       entry: {},
       externals: {},
       resolve: {

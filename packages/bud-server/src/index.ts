@@ -2,8 +2,6 @@ import webpack from 'webpack'
 import progressPlugin from './plugins/progress'
 import builds from './builds'
 import {Bud} from '@roots/bud-typings'
-import path from 'path'
-import {RawSource} from 'webpack-sources'
 
 /**
  * @todo fix this fuckboi typing.
@@ -26,8 +24,7 @@ const compile = (options: CompileOptions): void => {
 
   bud.apply('compiler', webpack(bud.config(bud)))
 
-  const progress = progressPlugin(progressCallback)
-  progress.apply(bud.compiler)
+  progressPlugin(progressCallback).apply(bud.compiler)
 
   builds[mode].after(options)
 }

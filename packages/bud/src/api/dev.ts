@@ -11,7 +11,7 @@ const dev: Api.Dev = function (options) {
     return this
   }
 
-  this.options.merge('webpack.devServer', options)
+  this.options.merge('server', options)
 
   return this
 }

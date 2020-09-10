@@ -1,5 +1,4 @@
 import {entry} from './entry'
-import {devServer} from './devServer'
 import {externals} from './externals'
 import {general} from './general'
 import {rules} from './rules'
@@ -12,7 +11,6 @@ import type {Bud} from '@roots/bud-typings'
 import type {WebpackConfig} from '@roots/bud-typings'
 
 const builders = [
-  devServer,
   entry,
   general,
   rules,

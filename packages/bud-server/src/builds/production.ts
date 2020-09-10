@@ -7,6 +7,9 @@ const production = {
   after: ({bud, compilerCallback}) => {
     bud.compiler.run((err, stats) => compilerCallback(stats))
 
+    /**
+     * @todo this should be a proper webpack plugin
+     */
     bud.compiler.hooks.done.tap('bud-license-files', () => {
       globby
         .sync([

@@ -1,11 +1,10 @@
-import createDomain from './createDomain'
-
 const injectEntrypoints = bud => {
-  const {devServer, entry} = bud.options.get('webpack')
+  const {entry} = bud.options.get('webpack')
+  const devServer = bud.options.get('server')
 
   const endpoint = `/__webpack_hmr`
   const hotClient = `webpack-hot-middleware/client?${endpoint}`
-  const hotServer = devServer.hotOnly
+  const hotServer = devServer?.hotOnly
     ? 'webpack/hot/only-dev-server'
     : 'webpack/hot/dev-server'
 

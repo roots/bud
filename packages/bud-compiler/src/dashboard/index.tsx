@@ -4,10 +4,10 @@ import React, {
   useState,
   FunctionComponent,
 } from 'react'
-import {Box, Text, useInput} from 'ink'
+import {Box, useInput} from 'ink'
 import useStdOutDimensions from 'ink-use-stdout-dimensions'
 import {useWebpack} from './hooks/useWebpack'
-import {App, Screen} from '@roots/bud-cli'
+import {App} from '@roots/bud-cli'
 import {Artifact} from './components/Artifact'
 import {BuildInfo} from './components/BuildInfo'
 import Progress from './components/Progress'

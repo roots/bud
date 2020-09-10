@@ -20,7 +20,8 @@ const Init: FunctionComponent<InitProps> = ({bud, config}) => {
           <Spacer />
           <Text>
             {' '}
-            {bud.options.get('webpack.devServer.proxy.host')}
+            {bud.options.get('server.from.host')}:
+            {bud.options.get('server.from.port')}
           </Text>
         </Box>
         <Box
@@ -32,8 +33,8 @@ const Init: FunctionComponent<InitProps> = ({bud, config}) => {
           <Spacer />
           <Text>
             {' '}
-            {bud.options.get('webpack.devServer.host')}:
-            {bud.options.get('webpack.devServer.port')}
+            {bud.options.get('server.to.host')}:
+            {bud.options.get('server.to.port')}
           </Text>
         </Box>
         <Box

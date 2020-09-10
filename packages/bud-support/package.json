@@ -26,10 +26,7 @@
   "bin": {
     "bud-build": "./bin/index.js"
   },
-  "files": [
-    "bin",
-    "types"
-  ],
+  "files": ["bin", "types"],
   "main": "./bin/bud-cli.js",
   "types": "./types/index.d.ts",
   "scripts": {
