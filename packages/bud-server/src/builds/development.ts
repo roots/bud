@@ -1,6 +1,6 @@
 import middleware from '../middleware'
 import injectEntrypoints from '../util/injectEntrypoints'
-import {Bud} from '@roots/bud-typings'
+import {Bud} from '@roots/bud-types'
 
 interface BeforeArgs {
   bud: Bud

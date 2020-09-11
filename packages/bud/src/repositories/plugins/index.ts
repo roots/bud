@@ -11,7 +11,7 @@ import {provide} from './provide'
 import {terser} from './terser'
 import {writeFile} from './writeFile'
 
-import {PluginRepositoryDefinition} from '@roots/bud-typings'
+import {PluginRepositoryDefinition} from '@roots/bud-types'
 
 const plugins: PluginRepositoryDefinition = {
   name: 'plugins',

@@ -1,5 +1,5 @@
 import {bud} from '@roots/bud'
-import type {Bud, Plugin} from '@roots/bud-typings'
+import type {Bud, Plugin} from '@roots/bud-types'
 
 import dependencyExtractionPlugin from '@roots/bud-dependency-extraction-webpack-plugin'
 import sass from '@roots/bud-sass'

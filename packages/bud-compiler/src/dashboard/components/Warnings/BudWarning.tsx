@@ -1,6 +1,6 @@
 import React from 'react'
 import {Box, Text, Spacer} from 'ink'
-import {Bud} from '@roots/bud-typings'
+import {Bud} from '@roots/bud-types'
 
 const BudWarning = (bud: Bud) => (
   <>

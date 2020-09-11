@@ -6,7 +6,7 @@ import api from './api'
 import {repositories} from './repositories'
 import {config} from './config'
 
-import {Bud} from '@roots/bud-typings'
+import {Bud} from '@roots/bud-types'
 
 const bootstrap = new framework()
 

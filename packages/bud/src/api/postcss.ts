@@ -1,4 +1,4 @@
-import {Api} from '@roots/bud-typings'
+import {Api} from '@roots/bud-types'
 
 const postcss: Api.PostCss = function ({plugins}) {
   this.features.set('postcss', true)

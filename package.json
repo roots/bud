@@ -25,7 +25,7 @@
     "make": "run-s clean install build",
     "clean": "lerna clean -y",
     "install": "lerna bootstrap",
-    "build": "npm ci",
+    "build": "npm ci && lerna run build",
     "lint": "run-s lint:*",
     "lint:eslint": "eslint 'packages/**/*.{js,ts,tsx}' --fix",
     "lint:prettier": "prettier packages/**/*.{js,ts,tsx,json,md} --ignore-path='packages/**/lib/*' --write",
@@ -102,6 +102,7 @@
     "@roots/bud-server": "file:packages/bud-server",
     "@roots/bud-stylelint": "file:packages/bud-stylelint",
     "@roots/bud-tailwindcss": "file:packages/bud-tailwindcss",
+    "@roots/bud-types": "file:packages/bud-types",
     "@roots/bud-typescript": "file:packages/bud-typescript",
     "@roots/bud-vue": "file:packages/bud-vue",
     "@roots/bud-wordpress-manifests": "file:packages/bud-wordpress-manifests"

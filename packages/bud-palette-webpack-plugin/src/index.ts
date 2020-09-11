@@ -1,4 +1,4 @@
-import {Plugin, PluginInterface} from '@roots/bud-typings'
+import {Plugin, PluginInterface} from '@roots/bud-types'
 import PaletteWebpackPlugin from 'palette-webpack-plugin'
 
 const palette: Plugin = (): PluginInterface => ({

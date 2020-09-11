@@ -1,4 +1,4 @@
-import {Bud, RuleSetLoader} from '@roots/bud-typings'
+import {Bud, RuleSetLoader} from '@roots/bud-types'
 import svgToMiniDataUri from 'mini-svg-data-uri'
 
 const svg = (bud: Bud): RuleSetLoader =>

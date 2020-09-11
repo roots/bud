@@ -1,4 +1,4 @@
-import {Api} from '@roots/bud-typings'
+import {Api} from '@roots/bud-types'
 
 const extend: Api.Extend = async function (plugins) {
   if (!this.lo.isArray(plugins)) {

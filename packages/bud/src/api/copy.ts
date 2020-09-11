@@ -1,4 +1,4 @@
-import {Api} from '@roots/bud-typings'
+import {Api} from '@roots/bud-types'
 import {join} from 'path'
 
 const copy: Api.Copy = function (from, to?) {

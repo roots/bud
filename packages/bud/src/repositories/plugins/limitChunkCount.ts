@@ -1,5 +1,5 @@
 import {LimitChunkCountPlugin} from './externals'
-import {Plugin} from '@roots/bud-typings'
+import {Plugin} from '@roots/bud-types'
 
 const limitChunkCount: Plugin = bud => ({
   bud,

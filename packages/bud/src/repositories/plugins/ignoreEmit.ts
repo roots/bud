@@ -1,5 +1,5 @@
 import {IgnoreEmitPlugin} from './externals'
-import {Plugin} from '@roots/bud-typings'
+import {Plugin} from '@roots/bud-types'
 
 const ignoreEmit: Plugin = bud => ({
   bud,

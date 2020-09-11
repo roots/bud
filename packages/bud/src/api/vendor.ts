@@ -1,4 +1,4 @@
-import {Api} from '@roots/bud-typings'
+import {Api} from '@roots/bud-types'
 
 const vendor: Api.Vendor = function (options) {
   this.features.enable('splitChunks')

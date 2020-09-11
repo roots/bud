@@ -1,4 +1,4 @@
-import {Bud, Plugin, PluginInterface} from '@roots/bud-typings'
+import {Bud, Plugin, PluginInterface} from '@roots/bud-types'
 import path from 'path'
 
 const plugin: Plugin = (bud: Bud) => ({

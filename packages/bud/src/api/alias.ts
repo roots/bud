@@ -1,4 +1,4 @@
-import {Api} from '@roots/bud-typings'
+import {Api} from '@roots/bud-types'
 
 const alias: Api.Alias = function (option) {
   this.options.set('webpack.resolve.alias', {

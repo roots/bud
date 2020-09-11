@@ -1,4 +1,4 @@
-import {Bud} from '@roots/bud-typings'
+import {Bud} from '@roots/bud-types'
 import React, {FunctionComponent, ReactElement} from 'react'
 import {useInput, Box, Text} from 'ink'
 import useStdOutDimensions from 'ink-use-stdout-dimensions'

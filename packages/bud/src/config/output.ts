@@ -1,5 +1,5 @@
-import type {Bud} from '@roots/bud-typings'
-import type {WebpackOutput} from '@roots/bud-typings'
+import type {Bud} from '@roots/bud-types'
+import type {WebpackOutput} from '@roots/bud-types'
 
 type OutputBuilder = (bud: Bud) => WebpackOutput
 

@@ -2,7 +2,7 @@ import React from 'react'
 import {render} from 'ink'
 import Dashboard from './dashboard'
 
-import {BudCompiler as Compiler} from '@roots/bud-typings'
+import {BudCompiler as Compiler} from '@roots/bud-types'
 
 const compiler: Compiler.Factory = (bud, config) => ({
   bud,

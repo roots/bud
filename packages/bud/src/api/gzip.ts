@@ -1,4 +1,4 @@
-import {Api} from '@roots/bud-typings'
+import {Api} from '@roots/bud-types'
 
 const gzip: Api.Gzip = function (options?) {
   this.features.set('gzip', true)

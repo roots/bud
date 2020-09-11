@@ -1,7 +1,7 @@
 import type {
   WebpackTarget,
   RepositoryDefinition,
-} from '@roots/bud-typings'
+} from '@roots/bud-types'
 
 import babel from './babel'
 import postcss from './postcss'

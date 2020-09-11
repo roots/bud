@@ -23,14 +23,17 @@
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "bin",
-    "types"
-  ],
+  "files": ["bin", "types"],
   "main": "./bin/bud-cli.js",
   "types": "./types/index.d.ts",
   "scripts": {
     "build": "rimraf ./bin && tsc",
     "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@roots/bud-types": "file:../bud-types"
+  },
+  "peerDependencies": {
+    "@roots/bud": "file:../bud"
   }
 }

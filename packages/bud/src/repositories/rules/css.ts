@@ -1,5 +1,5 @@
 import type {Bud} from '../..'
-import type {WebpackRule} from '@roots/bud-typings'
+import type {WebpackRule} from '@roots/bud-types'
 
 const css = (bud: Bud): WebpackRule =>
   bud.hooks.filter('webpack.module.rules.css', {

@@ -2,7 +2,7 @@ import {
   Bud,
   RuleSetLoader,
   RepositoryDefinition,
-} from '@roots/bud-typings'
+} from '@roots/bud-types'
 
 import style from './style'
 import svg from './svg'

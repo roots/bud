@@ -1,4 +1,4 @@
-import {Bud, Plugin} from '@roots/bud-typings'
+import {Bud, Plugin} from '@roots/bud-types'
 import StylelintPlugin from 'stylelint-webpack-plugin'
 import type {Options as StylelintOptions} from 'stylelint-webpack-plugin/declarations/getOptions'
 import {resolve} from 'path'

@@ -1,5 +1,5 @@
-import type {Bud} from '@roots/bud-typings'
-import type {WebpackEntry} from '@roots/bud-typings'
+import type {Bud} from '@roots/bud-types'
+import type {WebpackEntry} from '@roots/bud-types'
 
 type EntryBuilder = (bud: Bud) => WebpackEntry
 

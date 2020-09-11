@@ -1,7 +1,7 @@
 {
   "version": "2.0.0-next.18",
   "packages": [
-    "packages/bud-typings",
+    "packages/bud-types",
     "packages/bud-support",
     "packages/bud-framework",
     "packages/bud-cli",

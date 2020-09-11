@@ -1,5 +1,5 @@
 import {WriteFilePlugin} from './externals'
-import {Plugin} from '@roots/bud-typings'
+import {Plugin} from '@roots/bud-types'
 
 const writeFile: Plugin = bud => ({
   bud,

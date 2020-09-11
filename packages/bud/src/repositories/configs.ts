@@ -1,7 +1,7 @@
 import {join} from 'path'
 import {existsSync} from 'fs-extra'
 
-import type {RepositoryDefinition} from '@roots/bud-typings'
+import type {RepositoryDefinition} from '@roots/bud-types'
 
 const configFiles = [
   {

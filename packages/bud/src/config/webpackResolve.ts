@@ -1,5 +1,5 @@
-import type {Bud} from '@roots/bud-typings'
-import type {WebpackResolve} from '@roots/bud-typings'
+import type {Bud} from '@roots/bud-types'
+import type {WebpackResolve} from '@roots/bud-types'
 
 type ResolveBuilder = (bud: Bud) => WebpackResolve
 

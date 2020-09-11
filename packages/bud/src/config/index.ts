@@ -7,8 +7,8 @@ import {output} from './output'
 import {webpackResolve} from './webpackResolve'
 import {plugins} from './plugins'
 
-import type {Bud} from '@roots/bud-typings'
-import type {WebpackConfig} from '@roots/bud-typings'
+import type {Bud} from '@roots/bud-types'
+import type {WebpackConfig} from '@roots/bud-types'
 
 const builders = [
   entry,

@@ -1,5 +1,5 @@
 import {join} from 'path'
-import {Api} from '@roots/bud-typings'
+import {Api} from '@roots/bud-types'
 
 const dist: Api.Dist = function (path?: string) {
   return path

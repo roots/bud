@@ -1,4 +1,4 @@
-import {Api} from '@roots/bud-typings'
+import {Api} from '@roots/bud-types'
 
 const brotli: Api.Brotli = function (options?) {
   this.features.set('brotli', true)

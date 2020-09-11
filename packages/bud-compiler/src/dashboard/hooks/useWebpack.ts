@@ -1,4 +1,4 @@
-import {Bud} from '@roots/bud-typings'
+import {Bud} from '@roots/bud-types'
 import {useState, useEffect} from 'react'
 import compile from '@roots/bud-server'
 

@@ -1,4 +1,4 @@
-import {Api} from '@roots/bud-typings'
+import {Api} from '@roots/bud-types'
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const globby = require('globby')

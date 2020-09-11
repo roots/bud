@@ -1,4 +1,4 @@
-import {Api} from '@roots/bud-typings'
+import {Api} from '@roots/bud-types'
 
 const bundle: Api.Bundle = function (name, entries) {
   this.options.merge('webpack.entry', {

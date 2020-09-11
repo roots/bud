@@ -1,4 +1,4 @@
-import type {RepositoryDefinition} from '@roots/bud-typings'
+import type {RepositoryDefinition} from '@roots/bud-types'
 
 const patterns: RepositoryDefinition = {
   name: 'patterns',

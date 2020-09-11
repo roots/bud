@@ -1,5 +1,5 @@
 import {ProvidePlugin} from './externals'
-import type {Plugin} from '@roots/bud-typings'
+import type {Plugin} from '@roots/bud-types'
 
 const provide: Plugin = bud => ({
   bud,

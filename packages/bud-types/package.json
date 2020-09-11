@@ -1,12 +1,12 @@
 {
-  "name": "@roots/bud-typings",
+  "name": "@roots/bud-types",
   "version": "2.0.0-next.18",
   "private": true,
   "description": "Common types used throughout the Bud monorepo",
   "repository": {
     "type": "git",
     "url": "git://github.com/roots/bud.git",
-    "directory": "packages/bud-typings"
+    "directory": "packages/bud-types"
   },
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
@@ -20,14 +20,15 @@
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "lib"
-  ],
+  "files": ["lib"],
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
   "scripts": {
     "lint": "eslint src/**.ts",
     "watch": "npm run build && npm link && nodemon",
     "build": "rimraf ./lib && tsc"
+  },
+  "peerDependencies": {
+    "@roots/bud": "file:../bud"
   }
 }

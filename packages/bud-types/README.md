@@ -10,7 +10,7 @@
 </p>
 
 <h1 align="center">
-  <strong>@roots/bud-typings</strong>
+  <strong>@roots/bud-types</strong>
 </h1>
 
 ## Overview

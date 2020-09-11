@@ -1,9 +1,5 @@
 import __ from 'lodash'
-import {
-  Action,
-  Getter,
-  ConditionalCheck,
-} from '@roots/bud-typings'
+import {Action, Getter, ConditionalCheck} from '@roots/bud-types'
 
 const addTo: Action = function (key, item) {
   this.repository[key].push(item)

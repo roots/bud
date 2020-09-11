@@ -1,6 +1,4 @@
-import {Bud, Plugin} from '@roots/bud-typings'
-
-const typescript: Plugin = (bud: Bud) => ({
+const typescript = bud => ({
   bud,
 
   make: function () {
@@ -36,7 +34,7 @@ const typescript: Plugin = (bud: Bud) => ({
       use: [bud.uses.get('typescript')],
     }))
 
-    this.bud.apply('typescript', function (this: Bud, options) {
+    this.bud.apply('typescript', function (options) {
       options.configFile &&
         this.configs.set('typescript', options.configFile)
 
@@ -47,4 +45,4 @@ const typescript: Plugin = (bud: Bud) => ({
   },
 })
 
-export {typescript}
+export {typescript as default}

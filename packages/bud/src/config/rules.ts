@@ -1,5 +1,5 @@
 import type {Bud} from '..'
-import type {WebpackModule} from '@roots/bud-typings'
+import type {WebpackModule} from '@roots/bud-types'
 
 type ModuleBuilder = (bud: Bud) => WebpackModule
 

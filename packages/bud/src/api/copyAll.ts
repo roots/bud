@@ -1,5 +1,5 @@
 import {join} from 'path'
-import {Api} from '@roots/bud-typings'
+import {Api} from '@roots/bud-types'
 
 const copyAll: Api.Copy = function (from, to?) {
   this.options.set('webpack.plugins.copy.patterns', [

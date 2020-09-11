@@ -1,7 +1,7 @@
 import webpack from 'webpack'
 import progressPlugin from './plugins/progress'
 import builds from './builds'
-import {Bud} from '@roots/bud-typings'
+import {Bud} from '@roots/bud-types'
 
 /**
  * @todo fix this fuckboi typing.

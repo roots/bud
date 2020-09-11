@@ -1,4 +1,4 @@
-import {Api} from '@roots/bud-typings'
+import {Api} from '@roots/bud-types'
 
 const runtimeManifest: Api.RuntimeManifest = function (args?) {
   this.features.set('runtimeChunk', true)

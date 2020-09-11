@@ -22,10 +22,7 @@
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "docs",
-    "lib"
-  ],
+  "files": ["docs", "lib"],
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
   "scripts": {
@@ -71,6 +68,6 @@
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5",
   "devDependencies": {
     "@babel/types": "^7.11.5",
-    "@roots/bud-typings": "file:../bud-typings"
+    "@roots/bud-types": "file:../bud-types"
   }
 }

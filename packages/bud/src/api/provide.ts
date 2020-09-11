@@ -1,4 +1,4 @@
-import {Api} from '@roots/bud-typings'
+import {Api} from '@roots/bud-types'
 
 const provide: Api.Provide = function (options) {
   Object.entries(options).forEach(([key, modules]) => {

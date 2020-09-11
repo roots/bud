@@ -1,4 +1,4 @@
-import {Bud, Plugin} from '@roots/bud-typings'
+import {Bud, Plugin} from '@roots/bud-types'
 import resolveFrom from 'resolve-from'
 
 const sass: Plugin = (bud: Bud) => ({

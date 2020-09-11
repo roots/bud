@@ -1,5 +1,5 @@
 import {DefinePlugin} from './externals'
-import type {Plugin} from '@roots/bud-typings'
+import type {Plugin} from '@roots/bud-types'
 
 const define: Plugin = bud => ({
   options: bud.env.repository ?? {},

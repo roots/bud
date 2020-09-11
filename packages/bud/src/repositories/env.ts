@@ -1,4 +1,4 @@
-import type {RepositoryDefinition} from '@roots/bud-typings'
+import type {RepositoryDefinition} from '@roots/bud-types'
 
 import {join} from 'path'
 import dotenv from 'dotenv'

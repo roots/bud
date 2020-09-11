@@ -1,4 +1,4 @@
-import type {Api} from '@roots/bud-typings'
+import type {Api} from '@roots/bud-types'
 
 const publicPath: Api.PublicPath = function (dir: string) {
   dir = !dir.match(/\/$/g) ? `${dir}/` : dir

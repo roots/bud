@@ -1,4 +1,4 @@
-import {Bud, WebpackPlugins} from '@roots/bud-typings'
+import {Bud, WebpackPlugins} from '@roots/bud-types'
 
 type PluginsBuilder = (bud: Bud) => WebpackPlugins
 

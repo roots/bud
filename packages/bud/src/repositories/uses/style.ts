@@ -1,4 +1,4 @@
-import {Bud, RuleSetLoader} from '@roots/bud-typings'
+import {Bud, RuleSetLoader} from '@roots/bud-types'
 
 const style = (bud: Bud): RuleSetLoader =>
   bud.hooks.filter('webpack.module.style', {

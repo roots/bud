@@ -5,19 +5,13 @@ module.exports = {
       configFile: false,
     },
   },
-  files: [
-    'test/bud/bud.ts',
-    'test/bud/container.ts',
-    'test/bud/bundle.ts',
-    'test/bud/hooks.ts',
-  ],
+  files: ['test/bud/bud.ts'],
   typescript: {
     extensions: ['ts', 'tsx'],
     rewritePaths: {
       'packages/bud/src/': 'packages/bud/lib/',
     },
   },
-  nodeArguments: ['--experimental-modules'],
   failFast: true,
   failWithoutAssertions: false,
   verbose: true,

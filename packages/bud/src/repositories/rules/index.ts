@@ -4,7 +4,7 @@ import {font} from './font'
 import {image} from './image'
 import {svg} from './svg'
 
-import type {RepositoryDefinition} from '@roots/bud-typings'
+import type {RepositoryDefinition} from '@roots/bud-types'
 
 const rules: RepositoryDefinition = {
   name: 'rules',

@@ -1,4 +1,4 @@
-import {Api} from '@roots/bud-typings'
+import {Api} from '@roots/bud-types'
 
 const compile: Api.Compile = function () {
   let compiler = this.compiler(this, this.config(this))

@@ -4,7 +4,7 @@ import {argv} from 'yargs'
 import type {
   Directory,
   RepositoryDefinition,
-} from '@roots/bud-typings'
+} from '@roots/bud-types'
 
 /**
  * Current working dir

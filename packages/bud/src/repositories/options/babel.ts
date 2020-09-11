@@ -1,4 +1,4 @@
-import type {BabelTransformOptions} from '@roots/bud-typings'
+import type {BabelTransformOptions} from '@roots/bud-types'
 
 const presets = [
   [

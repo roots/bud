@@ -1,4 +1,4 @@
-import {Api} from '@roots/bud-typings'
+import {Api} from '@roots/bud-types'
 
 const dev: Api.Dev = function (options) {
   if (options?.hasOwnProperty('enabled')) {

@@ -3,7 +3,7 @@ import {
   Plugin,
   WebpackRule,
   RuleSetLoader,
-} from '@roots/bud-typings'
+} from '@roots/bud-types'
 
 const react: Plugin = (bud: Bud) => ({
   bud,

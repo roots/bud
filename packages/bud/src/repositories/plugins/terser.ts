@@ -1,5 +1,5 @@
 import {TerserPlugin} from './externals'
-import type {Plugin} from '@roots/bud-typings'
+import type {Plugin} from '@roots/bud-types'
 
 const terser: Plugin = bud => ({
   bud,

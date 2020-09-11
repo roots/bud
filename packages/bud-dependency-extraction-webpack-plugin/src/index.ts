@@ -1,6 +1,6 @@
 import DependencyExtractionWebpackPlugin from '@wordpress/dependency-extraction-webpack-plugin'
 import type DependencyExtractionOptions from '@wordpress/dependency-extraction-webpack-plugin'
-import type {Bud, Plugin} from '@roots/bud-typings'
+import type {Bud, Plugin} from '@roots/bud-types'
 
 const dependencyExtractionPlugin: Plugin = function (bud: Bud) {
   return {

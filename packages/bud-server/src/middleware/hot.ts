@@ -1,5 +1,5 @@
 import middleware from 'webpack-hot-middleware'
-import {Bud} from '@roots/bud-typings'
+import {Bud} from '@roots/bud-types'
 
 const hot = (bud: Bud) =>
   middleware(bud.compiler, {

@@ -1,13 +1,13 @@
-import type {Bud, Plugin} from '@roots/bud-typings'
+import type {Bud, Plugin} from '@roots/bud-types'
 import {VueLoaderPlugin} from 'vue-loader'
 
 /** Patched compiler.*/
-import compiler from './vue-template-compiler'
-
+// eslint-disable-next-line
+const compiler = require('./vue-template-compiler')
 const loader = require.resolve('vue-loader')
 
 const addVueStyle = (loaders: any[]) => [
-  'vue-style-loader',
+  require.resolve('vue-style-loader'),
   ...loaders,
 ]
 
@@ -55,4 +55,4 @@ const vue: Plugin = bud => ({
   },
 })
 
-export {vue}
+export {vue as default}

@@ -1,5 +1,5 @@
 import {HotModuleReplacementPlugin} from 'webpack'
-import type {Plugin} from '@roots/bud-typings'
+import type {Plugin} from '@roots/bud-types'
 
 const hotModuleReplacement: Plugin = bud => ({
   bud,

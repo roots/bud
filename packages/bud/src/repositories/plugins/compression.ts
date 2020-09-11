@@ -1,5 +1,5 @@
 import {Compression} from './externals'
-import type {Plugin} from '@roots/bud-typings'
+import type {Plugin} from '@roots/bud-types'
 
 /**
  * Gzip

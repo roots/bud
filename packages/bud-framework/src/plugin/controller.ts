@@ -1,4 +1,4 @@
-import {PluginControllerFactory} from '@roots/bud-typings'
+import {PluginControllerFactory} from '@roots/bud-types'
 
 const controller: PluginControllerFactory = bud => ({
   bud,
