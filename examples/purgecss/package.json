@@ -1,0 +1,14 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "node bud.config.js --env development",
+    "build": "node bud.config.js --env production"
+  },
+  "devDependencies": {
+    "@roots/bud": "file:../../packages/bud",
+    "node-sass": "^4.14.1"
+  },
+  "dependencies": {
+    "bootstrap": "^4.5.0"
+  }
+}
