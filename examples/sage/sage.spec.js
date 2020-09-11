@@ -107,9 +107,107 @@ describe('sage', () => {
   })
 
   describe('compiles', () => {
-    test('app chunk', done => {
+    test('app.js', done => {
       build.run((err, stat) => {
-        expect(stat.toJson().assets[0].chunkNames[0]).toBe('app')
+        expect(stat.toJson().assets[0]).toEqual({
+          chunkNames: ['app'],
+          chunks: [5],
+          emitted: true,
+          info: {},
+          isOverSizeLimit: undefined,
+          name: 'app.js',
+          size: 2772,
+        })
+        done()
+      })
+    })
+
+    test('app.js.map', done => {
+      build.run((err, stat) => {
+        expect(stat.toJson().assets[1]).toEqual({
+          chunkNames: ['app'],
+          chunks: [5],
+          emitted: true,
+          info: {development: true},
+          isOverSizeLimit: undefined,
+          name: 'app.js.map',
+          size: 1594,
+        })
+        done()
+      })
+    })
+
+    test('customizer.js', done => {
+      build.run((err, stat) => {
+        expect(stat.toJson().assets[2]).toEqual({
+          chunkNames: ['customizer'],
+          chunks: [7],
+          emitted: true,
+          info: {},
+          isOverSizeLimit: undefined,
+          name: 'customizer.js',
+          size: 813,
+        })
+        done()
+      })
+    })
+
+    test('customizer.js.map', done => {
+      build.run((err, stat) => {
+        expect(stat.toJson().assets[3]).toEqual({
+          chunkNames: ['customizer'],
+          chunks: [7],
+          emitted: true,
+          info: {development: true},
+          isOverSizeLimit: undefined,
+          name: 'customizer.js.map',
+          size: 756,
+        })
+        done()
+      })
+    })
+
+    test('editor.js', done => {
+      build.run((err, stat) => {
+        expect(stat.toJson().assets[4]).toEqual({
+          chunkNames: ['editor'],
+          chunks: [6],
+          emitted: true,
+          info: {},
+          isOverSizeLimit: undefined,
+          name: 'editor.js',
+          size: 10278,
+        })
+        done()
+      })
+    })
+
+    test('editor.js.map', done => {
+      build.run((err, stat) => {
+        expect(stat.toJson().assets[5]).toEqual({
+          chunkNames: ['editor'],
+          chunks: [6],
+          emitted: true,
+          info: {development: true},
+          isOverSizeLimit: undefined,
+          name: 'editor.js.map',
+          size: 10638,
+        })
+        done()
+      })
+    })
+
+    test('entrypoints.json', done => {
+      build.run((err, stat) => {
+        expect(stat.toJson().assets[6]).toEqual({
+          chunkNames: [],
+          chunks: [],
+          emitted: true,
+          info: {},
+          sizeLimit: undefined,
+          name: 'entrypoints.json',
+          size: 542,
+        })
         done()
       })
     })
