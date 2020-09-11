@@ -9,10 +9,15 @@ const react: Plugin = (bud: Bud) => ({
   bud,
 
   make: function () {
-    this.bud.options.set('babel.presets', [
-      ...this.bud.options.get('babel.presets'),
-      require.resolve('@babel/preset-react'),
-    ])
+    this.bud.addExtensions(['jsx'])
+
+    this.bud.options.set('babel', {
+      ...this.bud.options.get('babel'),
+      presets: [
+        ...this.bud.options.get('babel.presets'),
+        require.resolve('@babel/preset-react'),
+      ],
+    })
 
     this.bud.loaders.set(
       'svgr',
@@ -32,17 +37,13 @@ const react: Plugin = (bud: Bud) => ({
         test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
         issuer: bud.patterns.get('js'),
         use: [
-          bud.uses.get('babel-loader'),
+          bud.uses.get('babel'),
           bud.uses.get('svgr'),
-          bud.uses.get('url-loader'),
+          bud.uses.get('resolveUrl'),
         ],
       }),
     )
-
-    !this.bud.options
-      .get('webpack.resolve.extensions')
-      .includes('.jsx') && this.bud.addExtensions(['jsx'])
   },
 })
 
-export {react}
+module.exports = react

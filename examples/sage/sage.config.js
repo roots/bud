@@ -2,6 +2,7 @@
 const bud = require('@roots/bud')
 
 bud.extend([
+  require('@roots/bud-react'),
   require('@roots/bud-sass'),
   require('@roots/bud-eslint').plugin,
   require('@roots/bud-stylelint').plugin,

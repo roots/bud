@@ -1,15 +1,24 @@
-import '@wordpress/edit-post';
-import domReady from '@wordpress/dom-ready';
-import {
-  unregisterBlockStyle,
-  registerBlockStyle,
-} from '@wordpress/blocks';
+import {__} from '@wordpress/i18n'
+import {addFilter} from '@wordpress/hooks'
+import {InspectorAdvancedControls, ToggleControl} from '@wordpress/components'
 
-domReady(() => {
-  unregisterBlockStyle('core/button', 'outline');
+const withAdvancedControls = createHigherOrderComponent(BlockEdit => ({isSelected}) => (
+  <>
+    <BlockEdit {...props} />
 
-  registerBlockStyle('core/button', {
-    name: 'outline',
-    label: 'Outline',
-  });
-});
+    {isSelected && (
+      <InspectorAdvancedControls>
+        <ToggleControl
+          label={__('Remove Bottom Margin')}
+          checked={true}
+        />
+      </InspectorAdvancedControls>
+    )}
+  </>
+, 'withAdvancedControls'))
+
+addFilter(
+  'editor.BlockEdit',
+  'controls',
+  withAdvancedControls,
+)

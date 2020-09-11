@@ -1,8 +1,5 @@
 {
   "private": true,
-  "browserslist": [
-    "extends @wordpress/browserslist-config"
-  ],
   "scripts": {
     "dev": "node sage.config.js --env development",
     "build": "node sage.config.js --env production",
@@ -20,10 +17,10 @@
     "@roots/bud": "file:../../packages/bud",
     "@roots/bud-eslint": "file:../../packages/bud-eslint",
     "@roots/bud-purgecss": "file:../../packages/bud-purgecss",
+    "@roots/bud-react": "file:../../packages/bud-react",
     "@roots/bud-sass": "file:../../packages/bud-sass",
     "@roots/bud-stylelint": "file:../../packages/bud-stylelint",
     "@roots/bud-wordpress-manifests": "file:../../packages/bud-wordpress-manifests",
-    "@wordpress/browserslist-config": "^2.7.0",
     "node-sass": "^4.14.1",
     "npm-run-all": "^4.1",
     "rimraf": "^3.0.2"
