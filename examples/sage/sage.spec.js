@@ -45,8 +45,12 @@ describe('sage', () => {
 
   describe('build base is configured', () => {
     test('babel presets as expected', () => {
-      expect(bud.options.get('babel.presets')[0][0]).toContain('@babel/preset-env')
-      expect(bud.options.get('babel.presets')[1]).toContain('@babel/preset-react')
+      expect(bud.options.get('babel.presets')[0][0]).toContain(
+        '@babel/preset-env',
+      )
+      expect(bud.options.get('babel.presets')[1]).toContain(
+        '@babel/preset-react',
+      )
     })
   })
 
@@ -105,7 +109,10 @@ describe('sage', () => {
 
     test('compiler has customizer js entrypoint', () => {
       expect(config.entry.customizer[0]).toBe(
-        resolve(__dirname, 'resources/assets/scripts/customizer.js'),
+        resolve(
+          __dirname,
+          'resources/assets/scripts/customizer.js',
+        ),
       )
     })
   })
@@ -116,7 +123,6 @@ describe('sage', () => {
         const asset = stat.toJson().assets[0]
 
         expect(asset.chunkNames[0]).toEqual('app')
-        expect(asset.chunks[0]).toEqual(5)
         expect(asset.emitted).toEqual(true)
 
         done()
@@ -128,7 +134,6 @@ describe('sage', () => {
         const asset = stat.toJson().assets[1]
 
         expect(asset.chunkNames[0]).toEqual('app')
-        expect(asset.chunks[0]).toEqual(5)
         expect(asset.emitted).toEqual(true)
         expect(asset.info.development).toEqual(true)
 
@@ -141,7 +146,6 @@ describe('sage', () => {
         const asset = stat.toJson().assets[2]
 
         expect(asset.chunkNames[0]).toEqual('customizer')
-        expect(asset.chunks[0]).toEqual(7)
         expect(asset.emitted).toEqual(true)
 
         done()
@@ -153,7 +157,6 @@ describe('sage', () => {
         const asset = stat.toJson().assets[3]
 
         expect(asset.chunkNames[0]).toEqual('customizer')
-        expect(asset.chunks[0]).toEqual(7)
         expect(asset.emitted).toEqual(true)
         expect(asset.info.development).toEqual(true)
 
@@ -166,7 +169,6 @@ describe('sage', () => {
         const asset = stat.toJson().assets[4]
 
         expect(asset.chunkNames[0]).toEqual('editor')
-        expect(asset.chunks[0]).toEqual(6)
         expect(asset.emitted).toEqual(true)
 
         done()
@@ -178,7 +180,6 @@ describe('sage', () => {
         const asset = stat.toJson().assets[5]
 
         expect(asset.chunkNames[0]).toEqual('editor')
-        expect(asset.chunks[0]).toEqual(6)
         expect(asset.emitted).toEqual(true)
         expect(asset.info.development).toEqual(true)
 
@@ -191,7 +192,6 @@ describe('sage', () => {
         const asset = stat.toJson().assets[6]
 
         expect(asset.chunkNames).toEqual([])
-        expect(asset.chunks).toEqual([])
         expect(asset.emitted).toEqual(true)
         expect(asset.name).toBe('entrypoints.json')
 
