@@ -14,6 +14,8 @@ function _interopDefault(ex) {
 var deindent = _interopDefault(require('de-indent'))
 var he = _interopDefault(require('he'))
 
+/*  */
+
 var emptyObject = Object.freeze({})
 
 // These helpers produce better VM code in JS engines due to their
@@ -223,6 +225,8 @@ function genStaticKeys(modules) {
     .join(',')
 }
 
+/*  */
+
 var isUnaryTag = makeMap(
   'area,base,br,col,embed,frame,hr,img,input,isindex,keygen,' +
     'link,meta,param,source,track,wbr',
@@ -243,6 +247,8 @@ var isNonPhrasingTag = makeMap(
     'optgroup,option,param,rp,rt,source,style,summary,tbody,td,tfoot,th,thead,' +
     'title,tr,track',
 )
+
+/*  */
 
 /**
  * unicode letters used for parsing html tags, component names and property paths.
@@ -629,6 +635,8 @@ function parseHTML(html, options) {
   }
 }
 
+/*  */
+
 var splitRE = /\r?\n/g
 var replaceRE = /./g
 var isSpecialTag = makeMap('script,style,template', true)
@@ -763,6 +771,8 @@ function parseComponent(content, options) {
   return sfc
 }
 
+/*  */
+
 // can we use __proto__?
 var hasProto = '__proto__' in {}
 
@@ -879,6 +889,8 @@ var LIFECYCLE_HOOKS = [
   'serverPrefetch',
 ]
 
+/*  */
+
 var config = {
   /**
    * Option merge strategies (used in core/util/options)
@@ -972,6 +984,8 @@ var config = {
    */
   _lifecycleHooks: LIFECYCLE_HOOKS,
 }
+
+/*  */
 
 var warn = noop
 var tip = noop
@@ -1089,6 +1103,8 @@ if (process.env.NODE_ENV !== 'production') {
   }
 }
 
+/*  */
+
 var uid = 0
 
 /**
@@ -1134,6 +1150,8 @@ Dep.prototype.notify = function notify() {
 // This is globally unique because only one watcher
 // can be evaluated at a time.
 Dep.target = null
+
+/*  */
 
 var VNode = function VNode(
   tag,
@@ -1229,6 +1247,8 @@ methodsToPatch.forEach(function (method) {
     return result
   })
 })
+
+/*  */
 
 var arrayKeys = Object.getOwnPropertyNames(arrayMethods)
 
@@ -1463,6 +1483,8 @@ function dependArray(value) {
     }
   }
 }
+
+/*  */
 
 /**
  * Option overwriting strategies are functions that handle
@@ -1729,6 +1751,12 @@ function assertObjectType(name, value, vm) {
   }
 }
 
+/*  */
+
+/*  */
+
+/*  */
+
 var callbacks = []
 
 function flushCallbacks() {
@@ -1769,6 +1797,10 @@ else if (
   isNative(setImmediate)
 );
 
+/*  */
+
+/*  */
+
 // these are reserved for web because they are directly compiled away
 // during template compilation
 var isReservedAttr = makeMap('style,class')
@@ -1804,6 +1836,10 @@ var isBooleanAttr = makeMap(
     'required,reversed,scoped,seamless,selected,sortable,translate,' +
     'truespeed,typemustmatch,visible',
 )
+
+/*  */
+
+/*  */
 
 var isHTMLTag = makeMap(
   'html,body,base,head,link,meta,style,title,' +
@@ -1850,6 +1886,10 @@ function getTagNamespace(tag) {
 var isTextInputType = makeMap(
   'text,number,password,search,email,tel,url',
 )
+
+/*  */
+
+/*  */
 
 var validDivisionCharRE = /[\w).+\-_$\]]/
 
@@ -1986,6 +2026,8 @@ function wrapFilter(exp, filter) {
   }
 }
 
+/*  */
+
 var defaultTagRE = /\{\{((?:.|\r?\n)+?)\}\}/g
 var regexEscapeRE = /[-.*+?^${}()|[\]\/\\]/g
 
@@ -2026,6 +2068,8 @@ function parseText(text, delimiters) {
     tokens: rawTokens,
   }
 }
+
+/*  */
 
 /* eslint-disable no-unused-vars */
 function baseWarn(msg, range) {
@@ -2267,6 +2311,8 @@ function rangeSetItem(item, range) {
   return item
 }
 
+/*  */
+
 function transformNode(el, options) {
   var warn = options.warn || baseWarn
   var staticClass = getAndRemoveAttr(el, 'class')
@@ -2314,6 +2360,8 @@ var klass = {
   genData: genData,
 }
 
+/*  */
+
 var parseStyleText = cached(function (cssText) {
   var res = {}
   var listDelimiter = /;(?![^(]*\))/g
@@ -2326,6 +2374,8 @@ var parseStyleText = cached(function (cssText) {
   })
   return res
 })
+
+/*  */
 
 function transformNode$1(el, options) {
   var warn = options.warn || baseWarn
@@ -2375,6 +2425,8 @@ var style = {
   transformNode: transformNode$1,
   genData: genData$1,
 }
+
+/*  */
 
 /**
  * Cross-platform code generation for component v-model
@@ -2535,6 +2587,8 @@ function parseString(chr) {
     }
   }
 }
+
+/*  */
 
 var onRE = /^@|^v-on:/
 var dirRE = /^v-|^@|^:|^#/
@@ -3598,6 +3652,8 @@ function checkForAliasModel(el, value) {
   }
 }
 
+/*  */
+
 function preTransformNode(el, options) {
   if (el.tag === 'input') {
     var map = el.attrsMap
@@ -3681,6 +3737,8 @@ var model = {
 }
 
 var modules = [klass, style, model]
+
+/*  */
 
 var warn$2
 
@@ -3894,11 +3952,15 @@ function genDefaultModel(el, value, modifiers) {
   }
 }
 
+/*  */
+
 function text(el, dir) {
   if (dir.value) {
     addProp(el, 'textContent', '_s(' + dir.value + ')', dir)
   }
 }
+
+/*  */
 
 function html(el, dir) {
   if (dir.value) {
@@ -3912,6 +3974,8 @@ var directives = {
   html: html,
 }
 
+/*  */
+
 var baseOptions = {
   expectHTML: true,
   modules: modules,
@@ -3924,6 +3988,8 @@ var baseOptions = {
   getTagNamespace: getTagNamespace,
   staticKeys: genStaticKeys(modules),
 }
+
+/*  */
 
 var isStaticKey
 var isPlatformReservedTag
@@ -4066,6 +4132,8 @@ function isDirectChildOfTemplateFor(node) {
   }
   return false
 }
+
+/*  */
 
 var fnExpRE = /^([\w$_]+|\([^)]*?\))\s*=>|^function(?:\s+[\w$]+)?\s*\(/
 var fnInvokeRE = /\([^)]*?\);*$/
@@ -4258,6 +4326,8 @@ function genFilterCode(key) {
   )
 }
 
+/*  */
+
 function on(el, dir) {
   if (process.env.NODE_ENV !== 'production' && dir.modifiers) {
     warn('v-on without argument does not support modifiers.')
@@ -4266,6 +4336,8 @@ function on(el, dir) {
     return '_g(' + code + ',' + dir.value + ')'
   }
 }
+
+/*  */
 
 function bind$1(el, dir) {
   el.wrapData = function (code) {
@@ -4284,11 +4356,15 @@ function bind$1(el, dir) {
   }
 }
 
+/*  */
+
 var baseDirectives = {
   on: on,
   bind: bind$1,
   cloak: noop,
 }
+
+/*  */
 
 var CodegenState = function CodegenState(options) {
   this.options = options
@@ -4859,6 +4935,10 @@ function genChildren(
   }
 }
 
+// determine the normalization needed for the children array.
+// 0: no normalization needed
+// 1: simple normalization needed (possible 1-level deep nested array)
+// 2: full normalization needed
 function getNormalizationType(children, maybeComponent) {
   var res = 0
   for (var i = 0; i < children.length; i++) {
@@ -5001,6 +5081,10 @@ function transformSpecialNewlines(text) {
     .replace(/\u2029/g, '\\u2029')
 }
 
+/*  */
+
+// these keywords should not appear inside expressions, but operators like
+// typeof, instanceof and in are allowed
 var prohibitedKeywordRE = new RegExp(
   '\\b' +
     (
@@ -5013,6 +5097,7 @@ var prohibitedKeywordRE = new RegExp(
     '\\b',
 )
 
+// these unary operators should not be used as property/method names
 var unaryOperatorsRE = new RegExp(
   '\\b' +
     'delete,typeof,void'
@@ -5021,8 +5106,10 @@ var unaryOperatorsRE = new RegExp(
     '\\s*\\([^\\)]*\\)',
 )
 
+// strip strings in expressions
 var stripStringRE = /'(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"|`(?:[^`\\]|\\.)*\$\{|\}(?:[^`\\]|\\.)*`|`(?:[^`\\]|\\.)*`/g
 
+// detect problematic expressions in a template
 function detectErrors(ast, warn) {
   if (ast) {
     checkNode(ast, warn)
@@ -5186,6 +5273,8 @@ function checkFunctionParameterExpression(
   }
 }
 
+/*  */
+
 var range = 2
 
 function generateCodeFrame(source, start, end) {
@@ -5255,6 +5344,8 @@ function repeat$1(str, n) {
   }
   return result
 }
+
+/*  */
 
 function createFunction(code, errors) {
   try {
@@ -5381,6 +5472,8 @@ function createCompileToFunctionFn(compile) {
   }
 }
 
+/*  */
+
 function createCompilerCreator(baseCompile) {
   return function createCompiler(baseOptions) {
     function compile(template, options) {
@@ -5453,6 +5546,8 @@ function createCompilerCreator(baseCompile) {
   }
 }
 
+/*  */
+
 // `createCompilerCreator` allows creating compilers that use alternative
 // parser/optimizer/codegen, e.g the SSR optimizing compiler.
 // Here we just export a default compiler using the default parts.
@@ -5472,9 +5567,13 @@ var createCompiler = createCompilerCreator(function baseCompile(
   }
 })
 
+/*  */
+
 var ref = createCompiler(baseOptions)
 var compile = ref.compile
 var compileToFunctions = ref.compileToFunctions
+
+/*  */
 
 var isAttr = makeMap(
   'accept,accept-charset,accesskey,action,align,alt,async,autocomplete,' +
@@ -5523,8 +5622,12 @@ function escapeChar(a) {
   return ESC[a] || a
 }
 
+/*  */
+
 var plainStringRE = /^"(?:[^"\\]|\\.)*"$|^'(?:[^'\\]|\\.)*'$/
 
+// let the model AST transform translate v-model into appropriate
+// props bindings
 function applyModelTransform(el, state) {
   if (el.directives) {
     for (var i = 0; i < el.directives.length; i++) {
@@ -5655,6 +5758,8 @@ function genStyleSegments(
     ]
   }
 }
+
+/*  */
 
 // optimizability constants
 var optimizability = {
@@ -5798,6 +5903,8 @@ function isSelectWithModel(node) {
     })
   )
 }
+
+/*  */
 
 // segment types
 var RAW = 0
@@ -6063,6 +6170,8 @@ function flattenSegments(segments) {
   return mergedSegments.join('+')
 }
 
+/*  */
+
 var createCompiler$1 = createCompilerCreator(
   function baseCompile(template, options) {
     var ast = parse(template.trim(), options)
@@ -6076,15 +6185,17 @@ var createCompiler$1 = createCompilerCreator(
   },
 )
 
+/*  */
+
 var ref$1 = createCompiler$1(baseOptions)
 var compile$1 = ref$1.compile
 var compileToFunctions$1 = ref$1.compileToFunctions
 
-export default {
-  parseComponent: parseComponent,
-  compile: compile,
-  compileToFunctions: compileToFunctions,
-  ssrCompile: compile$1,
-  ssrCompileToFunctions: compileToFunctions$1,
-  generateCodeFrame: generateCodeFrame,
-}
+/*  */
+
+exports.parseComponent = parseComponent
+exports.compile = compile
+exports.compileToFunctions = compileToFunctions
+exports.ssrCompile = compile$1
+exports.ssrCompileToFunctions = compileToFunctions$1
+exports.generateCodeFrame = generateCodeFrame

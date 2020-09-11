@@ -96,9 +96,9 @@ const uses: RepositoryDefinition = {
         options: bud.hooks.filter(
           'webpack.module.postcss.options',
           {
-            plugins: [
-              bud.options.get('postcss.plugins.autoprefixer')(),
-            ],
+            plugins: Object.values(
+              bud.options.get('postcss.plugins'),
+            ),
           },
         ),
       }),

@@ -5,25 +5,40 @@ const sass: Plugin = (bud: Bud) => ({
   bud,
 
   make: function () {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const implementation = require(resolveFrom.silent(
-      this.bud.paths.get('project'),
-      'sass',
-    ) ?? resolveFrom(this.bud.paths.get('project'), 'node-sass'))
-
+    /**
+     * Add sass/scss extension support
+     */
     this.bud.addExtensions(['sass', 'scss'])
 
+    /**
+     * Loader options
+     */
     if (!this.bud.options.has('sass')) {
-      this.bud.options.set('sass', {
-        implementation,
-      })
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      const implementation = require(resolveFrom.silent(
+        this.bud.paths.get('project'),
+        'sass',
+      ) ??
+        resolveFrom(this.bud.paths.get('project'), 'node-sass'))
+
+      this.bud.options.set('sass.implementation', implementation)
     }
 
-    this.bud.uses.set('sass', bud => ({
-      loader: require.resolve('sass-loader'),
-      options: bud.options.get('sass'),
-    }))
+    /**
+     * Loader
+     */
+    !this.bud.uses.has('sass') &&
+      this.bud.uses.set('sass', bud => ({
+        loader: bud.fs.from(
+          bud.paths.get('project'),
+          'sass-loader',
+        ),
+        options: bud.options.get('sass'),
+      }))
 
+    /**
+     * Module
+     */
     this.bud.rules.set('sass', bud => ({
       test: bud.patterns.get('sass'),
       use: [
@@ -50,15 +65,15 @@ const sass: Plugin = (bud: Bud) => ({
       ],
     }))
 
-    this.bud.apply('sass', function (options) {
+    /**
+     * bud.sass
+     */
+    this.bud.apply('sass', function (this: Bud, options) {
       if (!options) {
         return this
       }
 
-      this.options.set('sass', {
-        ...this.options.get('sass'),
-        ...options,
-      })
+      this.options.merge('sass', options)
 
       return this
     })

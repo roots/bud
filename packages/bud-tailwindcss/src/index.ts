@@ -11,15 +11,15 @@ const tailwindcss: Plugin = (bud: Bud) => ({
    * The primary plugin action.
    */
   make: function () {
-    /**
-     * Set config.
-     */
-    this.bud.configs.set('tailwind', 'tailwind.config.js')
+    this.bud.configs.set(
+      'tailwind',
+      this.bud.project('tailwind.config.js'),
+    )
 
     /**
      * Set defaults.
      */
-    this.bud.options.merge(
+    this.bud.options.set(
       'postcss.plugins.tailwind',
       tailwind({
         config: this.bud.configs.get('tailwind'),
@@ -60,4 +60,4 @@ const tailwindcss: Plugin = (bud: Bud) => ({
   },
 })
 
-export {tailwindcss as default}
+module.exports = tailwindcss

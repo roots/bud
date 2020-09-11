@@ -33,4 +33,4 @@ jobs:
         node-version: ${{matrix.node}}
     - run: npm install -g lerna
     - run: lerna bootstrap
-    - run: npm run test
+    - run: lerna run build

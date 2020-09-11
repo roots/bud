@@ -1,0 +1,11 @@
+{
+  "private": true,
+  "scripts": {
+    "dev": "node bud.config.js --env development",
+    "build": "node bud.config.js --env production"
+  },
+  "devDependencies": {
+    "@roots/bud": "file:../../packages/bud",
+    "@roots/bud-vue": "file:../../packages/bud-vue"
+  }
+}

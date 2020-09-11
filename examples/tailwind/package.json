@@ -1,0 +1,15 @@
+{
+  "private": true,
+  "browserslist": [
+    "extends @wordpress/browserslist-config"
+  ],
+  "scripts": {
+    "dev": "node bud.config.js --env development",
+    "build": "node bud.config.js --env production"
+  },
+  "devDependencies": {
+    "@roots/bud": "file:../../packages/bud",
+    "@roots/bud-tailwindcss": "file:../../packages/bud-tailwindcss",
+    "@wordpress/browserslist-config": "^2.7.0"
+  }
+}

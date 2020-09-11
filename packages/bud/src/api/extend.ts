@@ -1,16 +1,12 @@
 import {Api} from '@roots/bud-types'
 
-const extend: Api.Extend = async function (plugins) {
+const extend: Api.Extend = function (plugins) {
   if (!this.lo.isArray(plugins)) {
     return
   }
 
-  const build = async plugin => {
-    return await plugin.build()
-  }
-
   plugins.map(plugin =>
-    build(this.plugins.controller.use(plugin)),
+    this.plugins.controller.use(plugin).build(),
   )
 
   return this
