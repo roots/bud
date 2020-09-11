@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-server",
   "description": "Development server for @roots/bud",
-  "version": "2.0.0-next.19",
+  "version": "2.0.0-next.20",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",

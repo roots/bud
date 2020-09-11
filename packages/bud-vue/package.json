@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-vue",
-  "version": "2.0.0-next.19",
+  "version": "2.0.0-next.20",
   "description": "Adds Vue support to Bud",
   "repository": {
     "type": "git",
