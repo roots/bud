@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-types",
-  "version": "2.0.0-next.20",
+  "version": "2.0.0-next.21",
   "private": true,
   "description": "Common types used throughout the Bud monorepo",
   "repository": {
@@ -20,7 +20,9 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
   "scripts": {

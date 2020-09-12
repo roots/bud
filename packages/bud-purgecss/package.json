@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-purgecss",
-  "version": "2.0.0-next.20",
+  "version": "2.0.0-next.21",
   "description": "Adds purgecss support to Bud",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -22,7 +22,9 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
   "scripts": {
