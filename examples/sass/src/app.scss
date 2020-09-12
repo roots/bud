@@ -1,5 +1,5 @@
-@tailwind base;
-
-@tailwind components;
-
-@tailwind utilities;
+.testing {
+  .nested {
+    color: blue;
+  }
+}
