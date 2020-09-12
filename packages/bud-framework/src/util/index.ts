@@ -12,6 +12,7 @@ import {logger} from './logger'
 import {os} from './os'
 import terminate from './terminate'
 import processHandler from './processHandler'
+import globby from 'globby'
 
 import __ from 'lodash'
 import {__ as Lo} from 'lodash'
@@ -28,6 +29,7 @@ export {
   logger,
   fab,
   format,
+  globby,
   highlight,
   processHandler,
   notify,

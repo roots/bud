@@ -1,8 +1,10 @@
 {
+  "name": "example-simple",
   "private": true,
   "scripts": {
     "dev": "node bud.config.js --env development",
-    "build": "node bud.config.js --env production"
+    "build": "node bud.config.js --env production --ci",
+    "test": "jest --verbose"
   },
   "devDependencies": {
     "@roots/bud": "file:../../packages/bud"

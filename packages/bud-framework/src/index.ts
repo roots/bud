@@ -1,10 +1,14 @@
+import filesystem from 'fs-extra'
+import resolveFrom from 'resolve-from'
+import path from 'path'
+
 import controller from './plugin/controller'
 import container from './container'
 import {
   dump,
   format,
+  globby,
   pretty,
-  fs,
   helpers,
   highlight,
   logger,
@@ -13,6 +17,7 @@ import {
   processHandler,
   terminate,
 } from './util'
+import Globby from 'globby'
 import {hooks} from './hooks'
 
 process.on('unhandledRejection', processHandler)
@@ -31,8 +36,6 @@ framework.prototype.dump = dump
 framework.prototype.terminate = terminate
 /** pino */
 framework.prototype.logger = logger
-/** fs-extra */
-framework.prototype.fs = fs
 /** lo! dash */
 framework.prototype.lo = lo
 /** prettier format */
@@ -55,11 +58,36 @@ framework.prototype.container = container
 
 /** File container */
 const filestore = container
+
 filestore.prototype.require = function (key) {
   require(this.get(key))
 }
+
 filestore.prototype.exists = function (key) {
-  return this.fs.existsSync(this.get(key))
+  return this.filesystem.existsSync(this.get(key))
+}
+
+filestore.prototype = {
+  ...filestore.prototype,
+  ...path, // nodepath
+  ...filesystem, // fs-extra
+  glob: globby, // globby
+  from: resolveFrom, // resolveFrom
+
+  base: process.cwd(),
+
+  get: function (key) {
+    return this.from(this.base, key)
+  },
+  read: function (key) {
+    return this.readFile(this.get(key))
+  },
+  write: function (key, content) {
+    this.writeFile(this.get(key), content)
+  },
+  setDisk: function (glob) {
+    this.repository = this.glob(glob)
+  },
 }
 framework.prototype.files = filestore
 

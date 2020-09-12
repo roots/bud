@@ -8,24 +8,20 @@ const {readJsonSync} = require('fs-extra')
 jest.useFakeTimers()
 
 beforeEach(() => {
-  bud
-    .projectPath(__dirname)
-    .srcPath('src')
-    .distPath('dist')
-    .mode.set('production')
+  bud.srcPath('src').distPath('dist').mode.set('production')
 
   bud.bundle('app', [bud.src('app.js')])
 })
 
 test('store has entrypoint', () => {
   expect(bud.options.get('webpack.entry.app')[0]).toBe(
-    resolve('examples/simple/src/app.js'),
+    resolve('src/app.js'),
   )
 })
 
 test('compiler has entrypoint', () => {
   expect(bud.config(bud).entry.app[0]).toBe(
-    resolve('examples/simple/src/app.js'),
+    resolve('src/app.js'),
   )
 })
 

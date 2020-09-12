@@ -22,6 +22,8 @@ repositories.files.forEach(store => {
   bootstrap[store.name] = new bootstrap.files(store.register)
 })
 
+bootstrap.fs = new bootstrap.files()
+
 repositories.plugins.forEach(store => {
   bootstrap[store.name] = new bootstrap.plugins(store.register)
   bootstrap[store.name].controller = new bootstrap.controller(
@@ -65,6 +67,20 @@ const bud: Bud = bootstrap
 if (bud.args.has('env')) {
   bud.mode.set(bud.args.get('env'))
 }
+
+if (bud.args.has('project')) {
+  bud.paths.set('project', bud.args.get('project'))
+}
+
+/**
+ * Filesystem
+ */
+bud.fs.base = bud.paths.get('project') || bud.fs.cwd
+bud.fs.setDisk([
+  bud.fs.resolve(bud.fs.base, '**/*'),
+  '!node_modules',
+  '!vendor',
+])
 
 /**
  * Set babel config

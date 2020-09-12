@@ -25,7 +25,7 @@
     "make": "run-s clean install build",
     "clean": "lerna clean -y",
     "install": "lerna bootstrap",
-    "build": "npm ci && lerna run build",
+    "build": "lerna run build",
     "lint": "run-s lint:*",
     "lint:eslint": "eslint 'packages/**/*.{js,ts,tsx}' --fix",
     "lint:prettier": "prettier packages/**/*.{js,ts,tsx,json,md} --ignore-path='packages/**/lib/*' --write",

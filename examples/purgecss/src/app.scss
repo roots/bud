@@ -1,4 +1,12 @@
-@import '~bootstrap/scss/bootstrap';
+.donotbuild {
+  .classes-not-included {
+    color: blue;
+  }
+}
+
+.whitelisted {
+  color: green;
+}
 
 .test-class {
   background-color: #000000;

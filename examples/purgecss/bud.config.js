@@ -10,8 +10,7 @@ build
   .purgecss({
     content: ['./**/*.html'],
     options: {
-      whitelist: ['container'],
-      whitelistPatterns: [/^d(-.*)?$/, /^mr(-.*)?$/],
+      whitelist: ['whitelisted'],
     },
   })
   .compile()

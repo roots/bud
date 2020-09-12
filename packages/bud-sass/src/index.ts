@@ -42,7 +42,7 @@ const sass: Plugin = (bud: Bud) => ({
     this.bud.rules.set('sass', bud => ({
       test: bud.patterns.get('sass'),
       use: [
-        bud.mode == 'production'
+        bud.mode.is('production')
           ? bud.uses.get('miniCss')(bud)
           : bud.loaders.get('style'),
         {

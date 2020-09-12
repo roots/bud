@@ -1,15 +1,13 @@
 {
+  "name": "example-sass",
   "private": true,
   "scripts": {
     "dev": "node bud.config.js --env development",
-    "build": "node bud.config.js --env production"
+    "build": "node bud.config.js --env production --ci"
   },
   "devDependencies": {
     "@roots/bud": "file:../../packages/bud",
     "@roots/bud-sass": "file:../../packages/bud-sass",
     "@roots/bud-tailwindcss": "file:../../packages/bud-tailwindcss"
-  },
-  "dependencies": {
-    "node-sass": "^4.14.1"
   }
 }

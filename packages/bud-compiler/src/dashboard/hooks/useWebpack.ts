@@ -73,9 +73,7 @@ const useWebpack = (bud: Bud): HookReturns => {
 
     compile({
       bud,
-      mode: bud.features.enabled('dev')
-        ? 'development'
-        : 'production',
+      mode: bud.mode.get(),
       compilerCallback,
       expressCallback,
       progressCallback,

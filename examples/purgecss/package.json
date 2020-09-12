@@ -1,14 +1,17 @@
 {
+  "name": "example-purge",
   "private": true,
   "scripts": {
     "dev": "node bud.config.js --env development",
-    "build": "node bud.config.js --env production"
+    "build": "node bud.config.js --env production --ci"
   },
   "devDependencies": {
     "@roots/bud": "file:../../packages/bud",
-    "node-sass": "^4.14.1"
+    "@roots/bud-purgecss": "file:../../packages/bud-purgecss",
+    "@roots/bud-sass": "file:../../packages/bud-sass"
   },
   "dependencies": {
-    "bootstrap": "^4.5.0"
+    "bootstrap": "^4.5.2",
+    "node-sass": "^4.14.1"
   }
 }

@@ -16,6 +16,10 @@ const configFiles = [
     name: 'js',
     filename: 'jsconfig.json',
   },
+  {
+    name: 'package',
+    filename: 'package.json',
+  },
 ]
 
 const configs: RepositoryDefinition = {

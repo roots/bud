@@ -17,7 +17,12 @@
     "packages/bud-tailwindcss",
     "packages/bud-typescript",
     "packages/bud-vue",
-    "packages/bud-wordpress-manifests"
+    "packages/bud-wordpress-manifests",
+    "examples/sage",
+    "examples/purgecss",
+    "examples/simple",
+    "examples/tailwind",
+    "examples/vue"
   ],
   "changelog": {
     "repo": "@roots/bud",
