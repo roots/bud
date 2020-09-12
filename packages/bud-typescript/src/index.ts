@@ -2,17 +2,6 @@ const typescript = bud => ({
   bud,
 
   make: function () {
-    const configFile = this.bud.fs.join(
-      this.bud.project('tsconfig.json'),
-    )
-
-    if (this.bud.fs.existsSync(configFile)) {
-      this.bud.configs.set('typescript', configFile)
-      this.bud.options.set('typescript', {
-        configFile: this.bud.configs.get('typescript'),
-      })
-    }
-
     this.bud.addExtensions(['ts', 'tsx'])
 
     this.bud.patterns.set('typescript', /\.(ts|tsx)$/)
@@ -22,15 +11,15 @@ const typescript = bud => ({
     )
 
     this.bud.uses.set('typescript', bud => ({
-      loader: bud.loaders.get('typescript'),
+      loader: this.bud.loaders.get('typescript'),
       options: {
-        configFile: bud.configs.get('typescript'),
+        configFile: this.bud.project('tsconfig.json'),
       },
     }))
 
     this.bud.rules.set('typescript', bud => ({
       test: bud.patterns.get('typescript'),
-      exclude: bud.patterns.get('vendor'),
+      exclude: bud.patterns.get('modules'),
       use: [bud.uses.get('typescript')],
     }))
 
@@ -45,4 +34,4 @@ const typescript = bud => ({
   },
 })
 
-export {typescript as default}
+module.exports = typescript
