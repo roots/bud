@@ -411,7 +411,7 @@ export namespace Api {
    * Define build steps to be carried out under certain conditions
    *
    * ```js
-   * bud.when(bud.inProduction, bud => {
+   * bud.when(bud.mode.is('production'), bud => {
    *  bud.mini()
    *  bud.vendor()
    *  // ...

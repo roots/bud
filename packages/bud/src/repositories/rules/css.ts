@@ -9,9 +9,9 @@ const css = (bud: Bud): WebpackRule =>
     ),
 
     use: bud.hooks.filter('webpack.module.rules.css.use', [
-      bud.inProduction
+      bud.mode.is('production')
         ? bud.uses.get('miniCss')(bud)
-        : bud.loaders.get('style'),
+        : bud.uses.get('style')(bud),
       bud.uses.get('css')(bud),
       bud.uses.get('resolveUrl')(bud),
       bud.uses.get('postCss')(bud),

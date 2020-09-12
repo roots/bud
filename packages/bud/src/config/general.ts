@@ -15,7 +15,7 @@ const general: WebpackBuilder = bud => ({
     bud.options.get('webpack.devtool') ?? false,
   ),
 
-  mode: bud.hooks.filter('webpack.mode', bud.mode),
+  mode: bud.hooks.filter('webpack.mode', bud.mode.get()),
 
   node: bud.hooks.filter(
     'webpack.node',

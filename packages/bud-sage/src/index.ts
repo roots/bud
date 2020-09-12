@@ -81,9 +81,9 @@ const sage: Bud = (() => {
       jquery: ['$', 'window.jQuery'],
     })
     .runtimeManifest()
-    .mini(bud.inProduction)
-    .map(bud.inDevelopment)
-    .hash(bud.inProduction)
+    .mini(bud.mode.is('production'))
+    .map(bud.mode.is('development'))
+    .hash(bud.mode.is('production'))
     .vendor()
 })()
 

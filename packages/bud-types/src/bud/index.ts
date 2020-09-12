@@ -89,20 +89,6 @@ export interface Bud extends Container {
   hooks: Hooks
 
   /**
-   * ## bud.inDevelopment
-   *
-   * Boolean returning true if in development.
-   */
-  inDevelopment: boolean
-
-  /**
-   * ## bud.inProduction
-   *
-   * Boolean returning true if in production.
-   */
-  inProduction: boolean
-
-  /**
    * ## bud.logger
    *
    * Debug logger
@@ -115,13 +101,6 @@ export interface Bud extends Container {
    * Webpack loaders
    */
   loaders: Container
-
-  /**
-   * ## bud.mode
-   *
-   * Current build environment ('production', 'development', 'none')
-   */
-  mode: WebpackMode
 
   /**
    * ## bud.options
@@ -419,6 +398,29 @@ export interface Bud extends Container {
   mini: Api.Mini
 
   /**
+   * ## bud.mode
+   *
+   * Get, set and check the webpack build mode.
+   *
+   * ```js
+   * bud.mode.get()
+   * ```
+   *
+   * ```js
+   * bud.mode.is('production')
+   * ```
+   *
+   * ```js
+   * bud.mode.set('production')
+   * ```
+   */
+  mode: {
+    is: (check: 'production' | 'development' | 'none') => boolean
+    get: () => 'production' | 'development' | 'none'
+    set: (check: 'production' | 'development' | 'none') => Bud
+  }
+
+  /**
    * ## bud.postcss
    *
    * Configure PostCSS.
@@ -565,7 +567,7 @@ export interface Bud extends Container {
    * Define build steps to be carried out under certain conditions
    *
    * ```js
-   * bud.when(bud.inProduction, bud => {
+   * bud.when(bud.mode.is('production'), bud => {
    *  bud.mini()
    *  bud.vendor()
    *  // ...

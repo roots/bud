@@ -24,9 +24,12 @@ const builders = [
 type WebpackBuilder = (bud: Bud) => WebpackConfig
 
 const config: WebpackBuilder = bud => {
+  process.env.NODE_ENV = bud.mode.get() ?? 'none'
+  process.env.BABEL_ENV = bud.mode.get() ?? 'none'
+
   return builders.reduce(
     (acc: WebpackConfig, curr: (bud: Bud) => WebpackConfig) => ({
-      ...(acc ?? []),
+      ...acc,
       ...curr(bud),
     }),
     {},

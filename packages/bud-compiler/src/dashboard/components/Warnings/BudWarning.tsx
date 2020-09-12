@@ -23,7 +23,7 @@ const BudWarning = (bud: Bud) => (
         <Text>
           {bud.util.highlight(`
   bud.when(
-  bud.inProduction,
+  bud.mode.is('production'),
   () => bud.runtimeManifest()
   )
   `)}

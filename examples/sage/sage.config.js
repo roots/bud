@@ -31,7 +31,7 @@ bud
   .vendor()
   .runtimeManifest()
 
-bud.when(bud.inDevelopment, () => {
+bud.mode.is('development') &&
   bud
     .dev({
       from: {
@@ -39,14 +39,13 @@ bud.when(bud.inDevelopment, () => {
       },
     })
     .devtool('inline-cheap-module-source-map')
-})
 
-bud.when(bud.inProduction, () => {
+bud.mode.is('production') &&
   bud
     .hash()
-    .devtool('hidden-source-map')
     .mini()
+    .gzip()
+    .devtool('hidden-source-map')
     .purgecss(require('@roots/bud-purgecss').preset)
-})
 
 bud.compile()

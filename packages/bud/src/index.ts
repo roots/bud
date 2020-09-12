@@ -29,12 +29,21 @@ repositories.plugins.forEach(store => {
   )
 })
 
-bootstrap.mode = bootstrap.args.get('mode')
-bootstrap.inDevelopment = bootstrap.args.is(
-  'mode',
-  'development',
-)
-bootstrap.inProduction = bootstrap.args.is('mode', 'production')
+bootstrap.mode = {
+  is: function (check: 'production' | 'development') {
+    return bootstrap.options.is('webpack.mode', check)
+  },
+
+  get: function () {
+    return bootstrap.options.get('webpack.mode')
+  },
+
+  set: function (mode: 'production' | 'development') {
+    bootstrap.options.set('webpack.mode', mode)
+
+    return bootstrap
+  },
+}
 
 bootstrap.hooks = bootstrap.hooks(bootstrap)
 bootstrap.format = bootstrap.util.format
@@ -49,6 +58,13 @@ Object.entries(api).forEach(([name, method]) => {
 
 /** Type achieved. */
 const bud: Bud = bootstrap
+
+/**
+ * Set mode from env if available
+ */
+if (bud.args.has('env')) {
+  bud.mode.set(bud.args.get('env'))
+}
 
 /**
  * Set babel config

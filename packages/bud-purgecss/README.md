@@ -33,7 +33,7 @@ bud.use([purgecss])
 
 ```js
 bud.purgecss({
-  enabled: bud.inProduction,
+  enabled: bud.mode.is('production'),
   options: {
     // ...purge options
   },
@@ -48,7 +48,7 @@ The `purgecss-with-wordpress` preset is included along with the plugin. You can 
 const {purgecss, presets} = require('@roots/bud-purgecss')
 
 bud.use([purgecss]).purgecss({
-  enabled: bud.inProduction,
+  enabled: bud.mode.is('production'),
   options: presets.wordpress,
 })
 ```

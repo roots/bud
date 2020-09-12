@@ -8,10 +8,13 @@ const {readJsonSync} = require('fs-extra')
 jest.useFakeTimers()
 jest.setTimeout(10000)
 
-bud.mode == 'production'
-bud.options.set('webpack.mode', 'production')
-
 describe('sage', () => {
+  bud
+    .projectPath(__dirname)
+    .srcPath('src')
+    .distPath('dist')
+    .mode.set('production')
+
   bud
     .extend([
       require('@roots/bud-sass'),

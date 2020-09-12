@@ -17,7 +17,7 @@ bud.hash()
 Enable hashing only in production:
 
 ```js
-bud.hash(bud.inProduction)
+bud.hash(bud.mode.is('production'))
 ```
 
 ## Signature
