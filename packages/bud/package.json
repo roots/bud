@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud",
-  "version": "2.0.0-next.21",
+  "version": "2.0.0-next.22",
   "description": "A friendly build tool to help manage your project assets.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -22,7 +22,10 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["docs", "lib"],
+  "files": [
+    "docs",
+    "lib"
+  ],
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
   "scripts": {
