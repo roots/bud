@@ -1,12 +1,9 @@
 {
   "name": "example-tailwind",
   "private": true,
-  "browserslist": [
-    "extends @wordpress/browserslist-config"
-  ],
   "scripts": {
     "dev": "node bud.config.js --env development",
-    "build": "node bud.config.js --env production --ci"
+    "build": "node bud.config.js --env production"
   },
   "devDependencies": {
     "@roots/bud": "file:../../packages/bud",

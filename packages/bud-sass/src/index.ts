@@ -15,11 +15,14 @@ const sass: Plugin = (bud: Bud) => ({
      */
     if (!this.bud.options.has('sass')) {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
-      const implementation = require(resolveFrom.silent(
+      const implementation = require(this.bud.fs.from.silent(
         this.bud.paths.get('project'),
         'sass',
       ) ??
-        resolveFrom(this.bud.paths.get('project'), 'node-sass'))
+        this.bud.fs.from(
+          this.bud.paths.get('project'),
+          'node-sass',
+        ))
 
       this.bud.options.set('sass.implementation', implementation)
     }
@@ -27,14 +30,14 @@ const sass: Plugin = (bud: Bud) => ({
     /**
      * Loader
      */
-    !this.bud.uses.has('sass') &&
-      this.bud.uses.set('sass', bud => ({
+    !this.bud.loaders.has('sass') &&
+      this.bud.loaders.set('sass', {
         loader: bud.fs.from(
           bud.paths.get('project'),
           'sass-loader',
         ),
         options: bud.options.get('sass'),
-      }))
+      })
 
     /**
      * Module
@@ -43,25 +46,25 @@ const sass: Plugin = (bud: Bud) => ({
       test: bud.patterns.get('sass'),
       use: [
         bud.mode.is('production')
-          ? bud.uses.get('miniCss')(bud)
+          ? bud.loaders.get('minicss')
           : bud.loaders.get('style'),
         {
-          ...bud.uses.get('css')(bud),
+          ...bud.loaders.get('css'),
           options: {
-            ...bud.uses.get('css')(bud).options,
+            ...bud.loaders.get('css').options,
             importLoaders: 2,
           },
         },
         {
-          ...bud.uses.get('postCss')(bud),
+          ...bud.loaders.get('postcss'),
           options: {
-            ...bud.uses.get('postCss')(bud).options,
+            ...bud.loaders.get('postcss.options'),
             postcssOptions: {
               syntax: require('postcss-scss'),
             },
           },
         },
-        bud.uses.get('sass')(bud),
+        bud.loaders.get('sass'),
       ],
     }))
 

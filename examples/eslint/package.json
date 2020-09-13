@@ -1,0 +1,12 @@
+{
+  "name": "example-eslint",
+  "private": true,
+  "scripts": {
+    "dev": "node bud.config.js --env development",
+    "build": "node bud.config.js --env production --fix"
+  },
+  "devDependencies": {
+    "@roots/bud": "file:../../packages/bud",
+    "@roots/bud-eslint": "file:../../packages/bud-eslint"
+  }
+}

@@ -1,42 +1,41 @@
 import {Bud, Plugin, PluginInterface} from '@roots/bud-types'
-import path from 'path'
+import {resolve} from 'path'
 
 const plugin: Plugin = (bud: Bud) => ({
   bud,
 
   make: function (this: PluginInterface) {
-    const config = this.bud.project('.eslintrc.js')
+    const config =
+      this.bud.fs.project('.eslintrc.js') ||
+      this.bud.fs.project('.eslintrc.json')
 
     if (!this.bud.fs.existsSync(config)) {
       return
     }
 
-    this.bud.configs.set('eslint', config)
     this.bud.features.set('eslint', true)
 
-    this.bud.hooks.filter(
-      'webpack.module.rules.js.use',
-      ({use, bud}) => [
-        bud.uses.get('babel'),
-        bud.uses.get('eslint'),
-      ],
-    )
-
-    this.bud.uses.set('eslint', (bud: Bud) => ({
+    this.bud.loaders.set('eslint', {
       loader: require.resolve('eslint-loader'),
       options: {
-        configFile: bud.configs.get('eslint'),
+        configFile: this.bud.fs.get('eslint'),
         formatter: 'codeframe',
         failOnError: true,
+        fix: this.bud.args.get('fix') ?? false,
       },
-    }))
+    })
+
+    this.bud.hooks.on('webpack.module.rules.js.use', loaders => [
+      ...loaders,
+      this.bud.loaders.get('eslint'),
+    ])
   },
 })
 
 const presets = {
-  roots: path.resolve(__dirname, './preset/roots.js'),
-  wordpress: path.resolve(__dirname, './preset/wordpress.js'),
-  react: path.resolve(__dirname, './preset/react.js'),
+  roots: resolve(__dirname, './preset/roots.js'),
+  wordpress: resolve(__dirname, './preset/wordpress.js'),
+  react: resolve(__dirname, './preset/react.js'),
 }
 
-export {plugin, presets}
+module.exports = {plugin, presets}

@@ -2,29 +2,14 @@ import {Bud, Plugin} from '@roots/bud-types'
 import tailwind from 'tailwindcss'
 
 const tailwindcss: Plugin = (bud: Bud) => ({
-  /**
-   * The bud container object.
-   */
   bud,
 
-  /**
-   * The primary plugin action.
-   */
   make: function () {
-    this.bud.configs.set(
-      'tailwind',
-      this.bud.project('tailwind.config.js'),
-    )
-
-    /**
-     * Set defaults.
-     */
-    this.bud.options.set(
-      'postcss.plugins.tailwind',
+    this.bud.loaders.merge('postcss.options.plugins', [
       tailwind({
-        config: this.bud.configs.get('tailwind'),
+        config: this.bud.fs.project('tailwind.config.js'),
       }),
-    )
+    ])
 
     /**
      * Handle conflicts between tailwind directives
@@ -38,7 +23,9 @@ const tailwindcss: Plugin = (bud: Bud) => ({
     /**
      * ## bud.tailwind
      *
-     * Configure tailwindcss support.
+     * Configure tailwindcss support. This is optional if your
+     * tailwind file is locatable in the root of your project
+     * with the name `tailwind.config.js`.
      *
      * ```js
      * bud.tailwind({
@@ -54,7 +41,10 @@ const tailwindcss: Plugin = (bud: Bud) => ({
      * ```
      */
     this.bud.apply('tailwind', function (config: any) {
-      this.options.merge('postcss.plugins', [tailwind(config)])
+      this.loaders.merge('postcss.options.plugins', [
+        tailwind(config),
+      ])
+
       return this
     })
   },

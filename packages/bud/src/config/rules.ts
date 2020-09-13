@@ -6,16 +6,18 @@ type ModuleBuilder = (bud: Bud) => WebpackModule
 const rules: ModuleBuilder = bud =>
   bud.hooks.filter('webpack.module', {
     module: bud.hooks.filter('webpack.module.rules', {
-      rules: Object.entries(bud.rules.repository).reduce(
-        (a, [key, fn]) => [
-          ...(a ? a : []),
-          bud.hooks.filter(
-            `webpack.module.rules.${key}`,
-            fn(bud),
-          ),
-        ],
-        [],
-      ),
+      rules: bud.rules
+        .entries()
+        .reduce(
+          (a, [key, fn]) => [
+            ...a,
+            bud.hooks.filter(
+              `webpack.module.rules.${key}`,
+              fn(bud),
+            ),
+          ],
+          [],
+        ),
     }),
   })
 

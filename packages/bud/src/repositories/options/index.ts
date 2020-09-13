@@ -1,10 +1,9 @@
 import type {
+  Bud,
   WebpackTarget,
   RepositoryDefinition,
 } from '@roots/bud-types'
 
-import babel from './babel'
-import postcss from './postcss'
 import server from './server'
 
 export type Copy = {patterns: any[]}
@@ -16,9 +15,6 @@ const target: WebpackTarget = 'web'
 const options: RepositoryDefinition = {
   name: 'options',
   register: {
-    babel,
-    postcss,
-    patterns: [],
     server,
     webpack: {
       entry: {},
@@ -127,7 +123,7 @@ const options: RepositoryDefinition = {
       stats: 'none',
       target,
     },
-    splitting: {
+    split: {
       maxChunks: 9999,
     },
     filenameTemplate: {

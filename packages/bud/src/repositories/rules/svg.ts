@@ -9,7 +9,7 @@ const svg = (bud: Bud): WebpackRule =>
     ),
 
     use: bud.hooks.filter('webpack.module.rules.svg.use', [
-      bud.loaders.get('url'),
+      bud.loaders.get('svg'),
     ]),
   })
 

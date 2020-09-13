@@ -9,7 +9,7 @@ const image = (bud: Bud): WebpackRule =>
     ),
 
     use: bud.hooks.filter('webpack.module.rules.image.use', [
-      bud.uses.get('file')(bud),
+      bud.loaders.get('file'),
     ]),
   })
 

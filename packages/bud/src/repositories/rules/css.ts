@@ -7,14 +7,13 @@ const css = (bud: Bud): WebpackRule =>
       'webpack.module.rules.css.test',
       bud.patterns.get('css'),
     ),
-
     use: bud.hooks.filter('webpack.module.rules.css.use', [
       bud.mode.is('production')
-        ? bud.uses.get('miniCss')(bud)
-        : bud.uses.get('style')(bud),
-      bud.uses.get('css')(bud),
-      bud.uses.get('resolveUrl')(bud),
-      bud.uses.get('postCss')(bud),
+        ? bud.loaders.get('minicss')
+        : bud.loaders.get('style'),
+      bud.loaders.get('css'),
+      bud.loaders.get('resolveUrl'),
+      bud.loaders.get('postcss'),
     ]),
   })
 

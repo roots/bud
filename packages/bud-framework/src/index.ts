@@ -17,7 +17,7 @@ import {
   processHandler,
   terminate,
 } from './util'
-import Globby from 'globby'
+import watcher from './watcher'
 import {hooks} from './hooks'
 
 process.on('unhandledRejection', processHandler)
@@ -73,22 +73,43 @@ filestore.prototype = {
   ...filesystem, // fs-extra
   glob: globby, // globby
   from: resolveFrom, // resolveFrom
+  watcher,
 
   base: process.cwd(),
+  setBase: function (dir) {
+    this.base = dir
+  },
 
+  setDisk: function (glob) {
+    const files = this.glob.sync(glob, {gitignore: true})
+    this.repository = files.reduce(
+      (acc, curr) => ({
+        ...acc,
+        [curr.replace(`${this.base}/`, '')]: curr,
+      }),
+      {},
+    )
+  },
   get: function (key) {
     return this.from(this.base, key)
   },
+  project: function (key) {
+    return this.resolve(this.base, key)
+  },
   read: function (key) {
-    return this.readFile(this.get(key))
+    return this.readFileSync(this.get(key), 'utf8')
+  },
+  readJson: function (key) {
+    return this.readJsonSync(this.get(key), 'utf8')
   },
   write: function (key, content) {
-    this.writeFile(this.get(key), content)
+    this.writeFileSync(this.resolve(this.base, key), content)
   },
-  setDisk: function (glob) {
-    this.repository = this.glob(glob)
+  writeJson: function (key, content) {
+    this.writeJsonSync(this.resolve(this.base, key), content)
   },
 }
+
 framework.prototype.files = filestore
 
 /** Plugin container */

@@ -3,5 +3,5 @@ const bud = require('@roots/bud')
 
 bud
   .extend([require('@roots/bud-tailwindcss')])
-  .bundle('example', [bud.src('app.js'), bud.src('app.css')])
+  .bundle('example', [bud.src('app.css')])
   .compile()

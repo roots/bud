@@ -17,12 +17,6 @@ const cwd: Directory = process.cwd()
 const framework: Directory = resolve(__dirname, '../')
 
 /**
- * Src arg
- */
-const ensureStr: (any) => string = possibleStr =>
-  (possibleStr as string) ? possibleStr : ''
-
-/**
  * Paths repo.
  */
 const paths: RepositoryDefinition = {
@@ -31,13 +25,9 @@ const paths: RepositoryDefinition = {
     cwd,
     project: cwd,
     framework,
-    src: argv['src']
-      ? join(cwd, ensureStr(argv['src']))
-      : join(cwd, 'src'),
-    public: argv['public'] ? ensureStr(argv['public']) : '/',
-    dist: argv['dist']
-      ? join(cwd, ensureStr(argv['dist']))
-      : join(cwd, 'dist'),
+    src: join(cwd, 'src'),
+    public: '/',
+    dist: join(cwd, 'dist'),
   },
 }
 

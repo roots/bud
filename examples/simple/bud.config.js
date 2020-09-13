@@ -1,3 +1,4 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const build = require('@roots/bud')
-build.bundle('app', [build.src('app.js')]).compile()
+require('@roots/bud')
+  .bundle('app', ['./app.js', './style/app.css'])
+  .compile()

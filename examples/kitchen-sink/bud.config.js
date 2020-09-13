@@ -25,4 +25,5 @@ build
   .gzip()
   .runtimeManifest()
   .vendor()
-  .compile()
+
+build.terminate()

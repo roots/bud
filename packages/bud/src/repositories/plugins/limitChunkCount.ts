@@ -5,8 +5,8 @@ const limitChunkCount: Plugin = bud => ({
   bud,
 
   make: function () {
-    const enabled = this.bud.features.enabled('splitChunks')
-    const chunks = this.bud.options.get('splitting.maxChunks')
+    const enabled = this.bud.features.enabled('split')
+    const chunks = this.bud.options.get('split.maxChunks')
 
     this.options = !enabled
       ? {maxChunks: 1}

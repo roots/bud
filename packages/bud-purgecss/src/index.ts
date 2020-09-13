@@ -61,16 +61,10 @@ const plugin: Plugin = bud => ({
     this.bud.apply('purgecss', function (
       options: UserDefinedOptions,
     ) {
-      this.hooks.on(
-        'webpack.module.postcss.options',
-        loaderOptions => ({
-          ...loaderOptions,
-          plugins: [
-            ...loaderOptions.plugins,
-            PurgeCssPlugin(options),
-          ],
-        }),
-      )
+      this.loaders.set('postcss.options.plugins', [
+        ...this.loaders.get('postcss.options.plugins'),
+        PurgeCssPlugin(options),
+      ])
 
       return this
     })

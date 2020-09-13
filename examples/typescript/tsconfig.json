@@ -9,7 +9,7 @@
     "moduleResolution": "node",
     "declarationMap": true,
     "sourceMap": true,
-    "watch": false,
+    "watch": false
   },
   "include": ["./src/"],
   "exclude": ["./node_modules/"]

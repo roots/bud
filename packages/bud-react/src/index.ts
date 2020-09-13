@@ -1,9 +1,4 @@
-import {
-  Bud,
-  Plugin,
-  WebpackRule,
-  RuleSetLoader,
-} from '@roots/bud-types'
+import {Bud, Plugin} from '@roots/bud-types'
 
 const react: Plugin = (bud: Bud) => ({
   bud,
@@ -11,38 +6,24 @@ const react: Plugin = (bud: Bud) => ({
   make: function () {
     this.bud.addExtensions(['jsx'])
 
-    this.bud.options.set('babel', {
-      ...this.bud.options.get('babel'),
-      presets: [
-        ...this.bud.options.get('babel.presets'),
-        require.resolve('@babel/preset-react'),
-      ],
+    this.bud.loaders.set('babel.options.presets', [
+      ...this.bud.loaders.get('babel.options.presets'),
+      require.resolve('@babel/preset-react'),
+    ])
+
+    this.bud.loaders.set('svgr', {
+      loader: require.resolve('@svgr/webpack'),
     })
 
-    this.bud.loaders.set(
-      'svgr',
-      require.resolve('@svgr/webpack'),
-    )
-
-    this.bud.uses.set(
-      'svgr',
-      (bud: Bud): RuleSetLoader => ({
-        loader: bud.loaders.get('svgr'),
-      }),
-    )
-
-    this.bud.rules.set(
-      'svgr',
-      (bud: Bud): WebpackRule => ({
-        test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
-        issuer: bud.patterns.get('js'),
-        use: [
-          bud.uses.get('babel'),
-          bud.uses.get('svgr'),
-          bud.uses.get('resolveUrl'),
-        ],
-      }),
-    )
+    this.bud.rules.set('svgr', (bud: Bud) => ({
+      test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
+      issuer: bud.patterns.get('js'),
+      use: [
+        bud.loaders.get('babel'),
+        bud.loaders.get('svgr'),
+        bud.loaders.get('resolveUrl'),
+      ],
+    }))
   },
 })
 

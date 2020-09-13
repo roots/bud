@@ -9,7 +9,7 @@ const font = (bud: Bud): WebpackRule =>
     ),
 
     use: bud.hooks.filter('bud.module.rules.font.use', [
-      bud.uses.get('file')(bud),
+      bud.loaders.get('file'),
     ]),
   })
 
