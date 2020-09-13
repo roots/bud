@@ -8,6 +8,8 @@ Configure Bud's default development server.
 
 There are plenty of options here but the only requirement is specifying what URL you would like to proxy, as illustrated in the usage example.
 
+In order to enable hot module reloading, include the `--hot` flag in the terminal invocation.
+
 ## Usage
 
 ```js

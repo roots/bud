@@ -11,7 +11,6 @@
     "@roots/bud-sass": "file:../../packages/bud-sass"
   },
   "dependencies": {
-    "bootstrap": "^4.5.2",
     "node-sass": "^4.14.1"
   }
 }
