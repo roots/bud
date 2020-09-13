@@ -1,4 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-require('@roots/bud')
-  .bundle('app', ['./app.js', './style/app.css'])
+const bud = require('@roots/bud')
+bud
+  .bundle('app', [bud.src('app.js'), bud.src('style/app.css')])
   .compile()

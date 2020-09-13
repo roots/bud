@@ -12,9 +12,7 @@ const compiler: Compiler.Factory = (
 ) => ({
   bud,
   config,
-  name: bud.fs.readJsonSync(
-    bud.fs.from(bud.paths.get('project'), './package.json'),
-  )?.name,
+  name: bud.fs.readJsonSync('package.json')?.name,
   progressMessage,
 
   progressCallback: function (number, message) {

@@ -1,4 +1,4 @@
-import {cli} from './cli'
+import {args} from './args'
 import {env} from './env'
 import {features} from './features'
 import {paths} from './paths'
@@ -18,6 +18,6 @@ export const repositories = {
     patterns,
     rules,
     env,
-    ...cli,
+    args,
   ],
 }

@@ -32,28 +32,33 @@ bud.fs.refresh()
  *
  * Enabling CI flags for @roots/bud-cli that rawmode is not supported.
  */
-if (bud.args.has('ci')) {
+if (bud.args.get('ci')) {
   bud.features.enable('ci')
 }
 
 /**
  * Set mode from args if available
  */
-if (bud.args.has('env')) {
+if (bud.args.get('env')) {
   bud.mode.set(bud.args.get('env'))
 }
 
 /**
+ * Enable dev if mode is set
+ */
+bud.mode.is('development') && bud.features.enable('dev')
+
+/**
  * Set hot from args
  */
-if (bud.args.has('hot')) {
+if (bud.args.get('hot')) {
   bud.features.enable('hot')
 }
 
 /**
  * Set src from args
  */
-if (bud.args.has('src')) {
+if (bud.args.get('src')) {
   bud.paths.set(
     'src',
     bud.fs.resolve(
@@ -66,7 +71,7 @@ if (bud.args.has('src')) {
 /**
  * Set dist from args
  */
-if (bud.args.has('dist')) {
+if (bud.args.get('dist')) {
   bud.paths.set(
     'dist',
     bud.fs.resolve(
@@ -79,22 +84,15 @@ if (bud.args.has('dist')) {
 /**
  * Set gzip from args
  */
-if (bud.args.has('gzip')) {
+if (bud.args.get('gzip')) {
   bud.features.set('gzip', bud.args.get('gzip'))
 }
 
 /**
  * Set brotli from args
  */
-if (bud.args.has('brotli')) {
+if (bud.args.get('brotli')) {
   bud.features.set('brotli', bud.args.get('brotli'))
-}
-
-/**
- * Set brotli from args
- */
-if (bud.args.has('brotli')) {
-  bud.features.set(bud.args.get('brotli'))
 }
 
 /**

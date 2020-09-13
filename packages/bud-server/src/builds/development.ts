@@ -1,16 +1,11 @@
 import middleware from '../middleware'
 import injectEntrypoints from '../util/injectEntrypoints'
-import {Bud} from '@roots/bud-types'
-
-interface BeforeArgs {
-  bud: Bud
-}
-const before: (BeforeArgs) => void = ({bud}) => {
-  bud.options.set('webpack.entry', injectEntrypoints(bud))
-}
 
 const development = {
-  before,
+  before: ({bud}) => {
+    bud.features.enabled('hot') &&
+      bud.options.set('webpack.entry', injectEntrypoints(bud))
+  },
 
   after: ({bud, compilerCallback, expressCallback}) => {
     /**
@@ -32,7 +27,13 @@ const development = {
     /**
      * proxy server and hmr middlewares
      */
-    middleware.map(ware => bud.server.use(ware(bud)))
+    bud.server.use(middleware.dev(bud))
+
+    bud.features.enabled('hot') &&
+      bud.server.use(middleware.hot(bud))
+
+    bud.options.get('server.proxy.from') &&
+      bud.server.use(middleware.proxy(bud))
 
     /**
      * 🚀

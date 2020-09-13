@@ -16,7 +16,7 @@ const miniCssExtract: Plugin = bud => ({
   },
 
   when: function () {
-    return !this.bud.features.enabled('dev')
+    return !this.bud.mode.is('development')
   },
 })
 

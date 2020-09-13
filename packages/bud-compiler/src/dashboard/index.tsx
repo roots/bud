@@ -54,7 +54,7 @@ const Dashboard: DashboardComponent = ({bud, config}) => {
   useEffect(() => {
     if (
       build?.assets.length > 0 &&
-      build?.errors.length == 0 &&
+      (!build?.errors || build.errors.length == 0) &&
       build?.percentage == 1
     ) {
       const title = bud.hooks.filter(

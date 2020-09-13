@@ -2,15 +2,13 @@
   "name": "example-typescript",
   "private": true,
   "scripts": {
-    "dev": "node bud.config.js --env development",
+    "dev": "node bud.config.js --env development --hot",
     "build": "node bud.config.js --env production"
   },
   "devDependencies": {
     "@roots/bud": "file:../../packages/bud",
-    "@roots/bud-react": "file:../../packages/bud-react"
-  },
-  "dependencies": {
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1"
+    "@roots/bud-compiler": "file:../../packages/bud-compiler",
+    "@roots/bud-server": "file:../../packages/bud-server",
+    "@roots/bud-typescript": "file:../../packages/bud-typescript"
   }
 }

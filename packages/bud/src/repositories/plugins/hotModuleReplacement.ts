@@ -9,7 +9,7 @@ const hotModuleReplacement: Plugin = bud => ({
   },
 
   when: function () {
-    return this.bud.features.enabled('dev')
+    return this.bud.features.enabled('hot')
   },
 })
 
