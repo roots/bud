@@ -32,7 +32,7 @@ const development = {
     bud.features.enabled('hot') &&
       bud.server.use(middleware.hot(bud))
 
-    bud.options.get('server.proxy.from') &&
+    bud.options.get('server.host') &&
       bud.server.use(middleware.proxy(bud))
 
     /**

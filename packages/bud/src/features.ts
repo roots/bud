@@ -15,9 +15,8 @@ const features: RepositoryDefinition = {
     splitChunks: false, // separate node_modules code from project code
     runtimeChunk: false, // generate a runtime manifest (runtimeChunk)
     overlay: false, // enable WDS/BS browser overlay
-    sourceMap: false, // generate source maps
     watch: false, // watch mode
   },
 }
 
-export {features}
+export {features as default}

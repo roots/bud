@@ -1,5 +1,4 @@
 import {join, resolve} from 'path'
-import {argv} from 'yargs'
 
 import type {
   Directory,
@@ -31,4 +30,4 @@ const paths: RepositoryDefinition = {
   },
 }
 
-export {paths}
+export {paths as default}

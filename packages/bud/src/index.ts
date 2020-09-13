@@ -1,17 +1,22 @@
 import bud from './bud'
-import loaders from './loaders'
+import {loaders} from './loaders'
 
 import {Bud} from '@roots/bud-types'
 
 /**
- * Project args
+ * Set projectPath form args.
+ *
+ * This is used by filesystem setup so we do it early.
  */
 if (bud.args.has('project')) {
-  bud.paths.set('project', bud.args.get('project'))
+  bud.paths.set(
+    'project',
+    bud.fs.resolve(process.cwd(), bud.args.get('project')),
+  )
 }
 
 /**
- * Filesystem
+ * Setup filesystem.
  */
 bud.fs.refresh = () => {
   bud.fs.setBase(bud.paths.get('project'))
@@ -24,6 +29,9 @@ bud.fs.refresh = () => {
   ])
 }
 
+/**
+ * Set filesystem best we can
+ */
 bud.fs.setBase(bud.paths.get('project') || bud.fs.cwd)
 bud.fs.refresh()
 
@@ -82,6 +90,13 @@ if (bud.args.get('dist')) {
 }
 
 /**
+ * Set devtool from args
+ */
+if (bud.args.get('devtool')) {
+  bud.options.set('webpack.devtool', bud.args.get('devtool'))
+}
+
+/**
  * Set gzip from args
  */
 if (bud.args.get('gzip')) {
@@ -118,5 +133,9 @@ bud.fs.has('postcss.config.js') &&
     bud.fs.read('postcss.config.js'),
   )
 
+/**
+ * Bud - Webpack build framework
+ */
 module.exports = bud
+
 export type {Bud}

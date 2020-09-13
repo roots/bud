@@ -1,4 +1,4 @@
-import type {Bud} from '../..'
+import type {Bud} from '../'
 import type {WebpackRule} from '@roots/bud-types'
 
 const js = (bud: Bud): WebpackRule =>

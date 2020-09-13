@@ -8,19 +8,19 @@ const proxy = bud => {
    */
   const from = {
     host: bud.hooks.filter(
-      'server.from.host',
-      bud.options.get('server.from.host'),
+      'server.host',
+      bud.options.get('server.host'),
     ),
 
     port:
       bud.hooks.filter(
-        'server.from.port',
-        bud.options.get('server.from.port'),
+        'server.port',
+        bud.options.get('server.port'),
       ) ?? 8000,
 
     ssl: bud.hooks.filter(
-      'server.from.ssl',
-      bud.options.get('server.from.ssl') ?? false,
+      'server.ssl',
+      bud.options.get('server.ssl') ?? false,
     ),
   }
 
@@ -33,7 +33,7 @@ const proxy = bud => {
         'server.to.host',
         bud.options.get('server.to.host'),
       ) ??
-      bud.options.get('server.from.host') ??
+      bud.options.get('server.host') ??
       'localhost',
 
     port:
@@ -53,10 +53,7 @@ const proxy = bud => {
    */
   const getUrl = target =>
     url.format({
-      protocol:
-        target.ssl ?? bud.options.get('server.ssl')
-          ? 'https'
-          : 'http',
+      protocol: target.ssl ?? from.ssl ? 'https' : 'http',
 
       hostname: /^[a-zA-Z]+:\/\//.test(target.host)
         ? target.host.replace(/^[a-zA-Z]+:\/\//, '')

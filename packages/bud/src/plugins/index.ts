@@ -11,25 +11,20 @@ import {provide} from './provide'
 import {terser} from './terser'
 import {writeFile} from './writeFile'
 
-import {PluginRepositoryDefinition} from '@roots/bud-types'
-
-const plugins: PluginRepositoryDefinition = {
-  name: 'plugins',
-  register: {
-    brotli,
-    gzip,
-    cleanWebpack,
-    copy,
-    define,
-    hotModuleReplacement,
-    ignoreEmit,
-    manifest,
-    miniCssExtract,
-    provide,
-    limitChunkCount,
-    terser,
-    writeFile,
-  },
-}
+const plugins = [
+  brotli,
+  gzip,
+  cleanWebpack,
+  copy,
+  define,
+  hotModuleReplacement,
+  ignoreEmit,
+  manifest,
+  miniCssExtract,
+  provide,
+  limitChunkCount,
+  terser,
+  writeFile,
+]
 
 export {plugins as default}
