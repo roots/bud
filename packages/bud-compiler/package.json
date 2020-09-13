@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-compiler",
   "description": "developer CLI",
-  "version": "2.0.0-next.22",
+  "version": "2.0.0-next.23",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -22,7 +22,9 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "main": "./lib/index.js",
   "types": "./lib/types/index.d.ts",
   "scripts": {
