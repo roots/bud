@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-wordpress-manifests",
-  "version": "2.0.0-next.23",
+  "version": "2.0.0-next.24",
   "description": "Webpack tools",
   "repository": {
     "type": "git",
@@ -18,11 +18,15 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": ["bud-extension"],
+  "keywords": [
+    "bud-extension"
+  ],
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
   "scripts": {
