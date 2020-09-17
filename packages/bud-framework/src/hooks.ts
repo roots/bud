@@ -1,12 +1,13 @@
-export declare type RegisteredHooks = {
+export type RegisteredHooks = {
   [name: string]: Hook[]
 }
 
 /**
  * A hook definition
  */
-export declare type Hook = {
-  fn: () => any
+export type Hook = {
+  name: string
+  fn: (...args: any | any[]) => any
   value: any
   fired: boolean
 }
@@ -14,7 +15,7 @@ export declare type Hook = {
 /**
  * Framework hooks
  */
-export declare type Hooks = {
+export type Hooks = {
   /**
    * Framework logging utility
    */
@@ -28,7 +29,7 @@ export declare type Hooks = {
   /**
    * Formats a callback as registrable entry.
    */
-  make: (any) => any
+  make: (args: any | any[]) => any
 
   /**
    * Returns all registered hooks.
@@ -38,7 +39,10 @@ export declare type Hooks = {
   /**
    * Sets a callback on a filter event.
    */
-  on: (name: string, callback: (any) => any) => void
+  on: (
+    name: string,
+    callback: (args: any | any[]) => any,
+  ) => void
 
   /**
    * Calls registered callbacks

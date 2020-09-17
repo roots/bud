@@ -1,7 +1,21 @@
-import {Api} from '@roots/bud-types'
+import {BudInterface, Plugin} from '../'
+import {isArray} from 'lodash'
 
-const extend: Api.Extend = function (plugins) {
-  if (!this.lo.isArray(plugins)) {
+/**
+ * ## bud.extend
+ *
+ * Register a BudInterface plugin.
+ *
+ * ```js
+ * bud.extend([require('@roots/bud-demo-plugin')])
+ */
+export type Extend = (
+  this: BudInterface,
+  plugins: Plugin[],
+) => BudInterface
+
+const extend: Extend = function (plugins) {
+  if (!isArray(plugins)) {
     return
   }
 

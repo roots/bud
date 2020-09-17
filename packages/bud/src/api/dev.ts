@@ -1,11 +1,18 @@
-import {Api} from '@roots/bud-types'
+import {ServerConfig} from '@roots/bud-server'
+import BudInterface from '../Bud'
 
-const dev: Api.Dev = function (options) {
-  if (options?.hasOwnProperty('enabled')) {
-    this.features.set('dev', options.enabled)
-  } else {
-    this.features.enable('dev')
-  }
+/**
+ * ## bud.dev
+ *
+ * Configure BudInterface's built in development server.
+ */
+export type Dev = (
+  this: BudInterface,
+  options: ServerConfig,
+) => BudInterface
+
+const dev: Dev = function (options) {
+  this.features.enable('dev')
 
   if (!options) {
     return this
@@ -16,4 +23,4 @@ const dev: Api.Dev = function (options) {
   return this
 }
 
-export {dev}
+export {dev as default}

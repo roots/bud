@@ -1,7 +1,7 @@
-import type {Bud} from '../'
-import type {WebpackRule} from '@roots/bud-types'
+import type {BudInterface} from '../'
+import type {RuleSetRule} from 'webpack'
 
-const image = (bud: Bud): WebpackRule =>
+const image = (bud: BudInterface): RuleSetRule =>
   bud.hooks.filter('webpack.module.rules.image', {
     test: bud.hooks.filter(
       'webpack.module.rules.image.test',
@@ -13,4 +13,4 @@ const image = (bud: Bud): WebpackRule =>
     ]),
   })
 
-export {image}
+export {image as default}

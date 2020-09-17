@@ -1,7 +1,7 @@
 import {TerserPlugin} from './externals'
-import type {Plugin} from '@roots/bud-types'
+import {BudInterface, Plugin} from '../'
 
-const terser: Plugin = bud => ({
+const terser: Plugin = (bud: BudInterface) => ({
   bud,
 
   options: bud.options.get('webpack.plugins.terser'),
@@ -11,8 +11,12 @@ const terser: Plugin = bud => ({
   },
 
   when: function () {
-    return this.bud.features.enabled('minify')
+    if (this.bud) {
+      return this.bud.features.enabled('minify')
+    }
+
+    return false
   },
 })
 
-export {terser}
+export {terser as default}

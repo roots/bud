@@ -1,33 +1,25 @@
 import {join, resolve} from 'path'
 
-import type {
-  Directory,
-  RepositoryDefinition,
-} from '@roots/bud-types'
-
 /**
  * Current working dir
  */
-const cwd: Directory = process.cwd()
+const cwd: string = process.cwd()
 
 /**
  * Bud framework dir.
  */
-const framework: Directory = resolve(__dirname, '../')
+const framework: string = resolve(__dirname, '../')
 
 /**
  * Paths repo.
  */
-const paths: RepositoryDefinition = {
-  name: 'paths',
-  register: {
-    cwd,
-    project: cwd,
-    framework,
-    src: join(cwd, 'src'),
-    public: '/',
-    dist: join(cwd, 'dist'),
-  },
+const paths = {
+  cwd,
+  project: cwd,
+  framework,
+  src: join(cwd, 'src'),
+  public: '/',
+  dist: join(cwd, 'dist'),
 }
 
 export {paths as default}

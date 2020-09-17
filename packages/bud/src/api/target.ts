@@ -1,12 +1,27 @@
-import {Api} from '@roots/bud-types'
+import {BudInterface} from '../Bud'
+import {Configuration} from 'webpack'
 
-const target: Api.Target = function (target) {
-  this.webpack.set(
-    'target',
+/**
+ * ## bud.target
+ *
+ * Set the build target. Defaults to 'web'.
+ *
+ * ```js
+ * bud.target('web')
+ * ```
+ */
+export type Target = (
+  this: BudInterface,
+  target: Configuration['target'],
+) => BudInterface
+
+const target: Target = function (this: BudInterface, target) {
+  this.options.set(
+    'webpack.target',
     this.hooks.filter('api.target', target),
   )
 
   return this
 }
 
-export {target}
+export {target as default}

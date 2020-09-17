@@ -6,4 +6,4 @@ const os = {
   isMac,
 }
 
-export {os}
+export {os as default}

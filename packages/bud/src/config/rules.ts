@@ -1,7 +1,9 @@
-import type {Bud} from '..'
-import type {WebpackModule} from '@roots/bud-types'
+import type {BudInterface} from '../Bud'
+import type {Configuration, Module, RuleSetRule} from 'webpack'
 
-type ModuleBuilder = (bud: Bud) => WebpackModule
+type ModuleBuilder = (
+  bud: BudInterface,
+) => Configuration['module']
 
 const rules: ModuleBuilder = bud =>
   bud.hooks.filter('webpack.module', {
@@ -9,11 +11,16 @@ const rules: ModuleBuilder = bud =>
       rules: bud.rules
         .entries()
         .reduce(
-          (a, [key, fn]) => [
+          (
+            a: Module['rules'],
+            [key, rule]: [string, CallableFunction],
+          ) => [
             ...a,
             bud.hooks.filter(
               `webpack.module.rules.${key}`,
-              fn(bud),
+              typeof rule == 'function'
+                ? rule(bud)
+                : console.log(rule),
             ),
           ],
           [],

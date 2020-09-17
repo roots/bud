@@ -1,4 +1,4 @@
-import {Plugin} from '@roots/bud-types'
+import {BudInterface, Plugin} from '@roots/bud'
 import WordPressExternalsWebpackPlugin from './WordPressExternalsWebpackPlugin'
 import EntrypointsWebpackPlugin from './EntrypointsWebpackPlugin'
 import MergedManifestWebpackPlugin from './MergedManifestWebpackPlugin'

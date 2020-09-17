@@ -1,51 +1,33 @@
-import {createProxyMiddleware as middleware} from 'http-proxy-middleware'
+import {
+  createProxyMiddleware,
+  RequestHandler,
+  Options,
+} from 'http-proxy-middleware'
+
 import zlib from 'zlib'
 import url from 'url'
+import {ServerConfig} from '..'
 
-const proxy = bud => {
+/**
+ * Proxy middleware factory
+ */
+const proxy = (config: ServerConfig): RequestHandler => {
   /**
    * Origin server
    */
   const from = {
-    host: bud.hooks.filter(
-      'server.host',
-      bud.options.get('server.host'),
-    ),
-
-    port:
-      bud.hooks.filter(
-        'server.port',
-        bud.options.get('server.port'),
-      ) ?? 8000,
-
-    ssl: bud.hooks.filter(
-      'server.ssl',
-      bud.options.get('server.ssl') ?? false,
-    ),
+    host: config.host,
+    port: config.port ?? 8000,
+    ssl: config.ssl ?? false,
   }
 
   /**
    * Proxy server
    */
   const to = {
-    host:
-      bud.hooks.filter(
-        'server.to.host',
-        bud.options.get('server.to.host'),
-      ) ??
-      bud.options.get('server.host') ??
-      'localhost',
-
-    port:
-      bud.hooks.filter(
-        'server.to.port',
-        bud.options.get('server.to.port'),
-      ) ?? 3000,
-
-    ssl: bud.hooks.filter(
-      'server.to.ssl',
-      bud.options.get('server.to.ssl') ?? false,
-    ),
+    host: config.to?.host ?? config.host ?? 'localhost',
+    port: config.to?.port ?? 3000,
+    ssl: config.ssl ?? false,
   }
 
   /**
@@ -72,7 +54,7 @@ const proxy = bud => {
   /**
    * Rewrite hostname in body contents
    */
-  const transformBody = body =>
+  const transformBody = (body: string): string =>
     body.replace(
       new RegExp(from.host, 'g'),
       `${to.host}:${to.port}`,
@@ -128,16 +110,16 @@ const proxy = bud => {
   /**
    * Proxy middleware configuration
    */
-  const proxyOptions = {
+  const proxyOptions: Options = {
     target: getUrl(from),
-    autoRewrite: true,
+    autoRewrite: config.autoRewrite,
     headers,
     hostRewrite: `${to.host}:${to.port}`,
     changeOrigin: true,
     followRedirects: true,
-    ssl: bud.options.get('server.ssl') ?? false,
-    secure: bud.options.get('server.ssl') ?? false,
-    ws: bud.options.get('server.ws') ?? true,
+    ssl: config.ssl ?? false,
+    secure: config.ssl ?? false,
+    ws: config.ws ?? true,
     cookieDomainRewrite: {
       [from.host]: to.host,
     },
@@ -145,7 +127,7 @@ const proxy = bud => {
     selfHandleResponse: true,
   }
 
-  return middleware(proxyOptions)
+  return createProxyMiddleware(proxyOptions)
 }
 
 export {proxy as default}

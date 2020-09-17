@@ -1,9 +1,13 @@
 const terminate = (code?: number): void => {
-  const exit = code => {
-    process.exit(code)
-  }
+  process.on('beforeExit', (code: number) => {
+    console.log('Process beforeExit event with code: ', code)
+  })
 
-  exit(code ?? 0)
+  process.on('exit', (code: number) => {
+    console.log('Process exit event with code: ', code)
+  })
+
+  process.exit(code)
 }
 
-export {terminate as default}
+export default terminate

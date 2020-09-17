@@ -1,7 +1,7 @@
 import {ProvidePlugin} from './externals'
-import type {Plugin} from '@roots/bud-types'
+import {BudInterface, Plugin} from '../'
 
-const provide: Plugin = bud => ({
+const provide: Plugin = (bud: BudInterface) => ({
   bud,
 
   make: function () {
@@ -11,4 +11,4 @@ const provide: Plugin = bud => ({
   },
 })
 
-export {provide}
+export {provide as default}

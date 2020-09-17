@@ -1,6 +1,20 @@
-import {Api} from '@roots/bud-types'
+import {BudInterface} from '../Bud'
 
-const addExtensions: Api.AddExtensions = function (extensions) {
+/**
+ * ## bud.addExtensions
+ *
+ * Add support for additional extensions.
+ *
+ * ```js
+ * bud.addExtensions(['jsx', 'vue'])
+ * ```
+ */
+export type AddExtensions = (
+  this: BudInterface,
+  extensions: string[],
+) => BudInterface
+
+const addExtensions: AddExtensions = function (extensions) {
   extensions
     .map(ext => ext.replace(/^(\.)([^ .]+)?/, '$2'))
     .forEach(ext => {
@@ -16,4 +30,4 @@ const addExtensions: Api.AddExtensions = function (extensions) {
   return this
 }
 
-export {addExtensions}
+export {addExtensions as default}

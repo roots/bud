@@ -23,32 +23,38 @@
     "node": ">=12"
   },
   "files": [
+    "bin",
     "lib",
     "types"
   ],
-  "main": "./lib/index.js",
-  "types": "./lib/types/index.d.ts",
+  "bin": {
+    "bud": "bin/bud"
+  },
+  "main": "lib/index.js",
+  "types": "lib/types/index.d.ts",
   "scripts": {
     "build": "rimraf ./lib && tsc",
     "lint": "eslint ."
   },
+  "devDependencies": {
+    "@roots/container": "file:../container"
+  },
   "dependencies": {
+    "@roots/bud-compiler": "file:../bud-compiler",
+    "@roots/bud-server": "file:../bud-server",
     "cli-highlight": "^2.1.4",
+    "execa": "^4.0.3",
     "ink": "^3.0.0-6",
     "ink-gradient": "^1.0.0",
     "ink-link": "^1.1.0",
     "ink-spinner": "^4.0.0-0",
     "ink-use-stdout-dimensions": "^1.0.5",
+    "patch-console": "^1.0.0",
     "prettier": "^2.1.1",
     "react": "^16.13.1",
     "react-dev-utils": "^10.2.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "yargs": "^16.0.3"
   },
-  "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5",
-  "devDependencies": {
-    "@roots/bud-types": "file:../bud-types"
-  },
-  "peerDependencies": {
-    "@roots/bud": "file:../bud"
-  }
+  "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5"
 }

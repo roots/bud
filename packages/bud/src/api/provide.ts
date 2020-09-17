@@ -1,6 +1,19 @@
-import {Api} from '@roots/bud-types'
+import {BudInterface} from '../Bud'
 
-const provide: Api.Provide = function (options) {
+/**
+ * ## bud.provide
+ *
+ * Define variable aliases
+ *
+ * ```js
+ * bud.provide({jquery: ['$', 'window.jQuery']})
+ * ```
+ */
+export type Provide = (options: {
+  [key: string]: string[]
+}) => BudInterface
+
+const provide: Provide = function (options) {
   Object.entries(options).forEach(([key, modules]) => {
     const isString = typeof modules == 'string'
     const isObject = typeof modules == 'object'
@@ -33,4 +46,4 @@ const provide: Api.Provide = function (options) {
   return this
 }
 
-export {provide}
+export {provide as default}

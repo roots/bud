@@ -1,7 +1,6 @@
-import {Bud, Plugin} from '@roots/bud-types'
-import resolveFrom from 'resolve-from'
+import {BudInterface, Plugin} from '@roots/bud'
 
-const sass: Plugin = (bud: Bud) => ({
+const sass: Plugin = (bud: BudInterface) => ({
   bud,
 
   make: function () {
@@ -32,46 +31,49 @@ const sass: Plugin = (bud: Bud) => ({
      */
     !this.bud.loaders.has('sass') &&
       this.bud.loaders.set('sass', {
-        loader: bud.fs.from(
-          bud.paths.get('project'),
+        loader: this.bud.fs.from(
+          this.bud.paths.get('project'),
           'sass-loader',
         ),
-        options: bud.options.get('sass'),
+        options: this.bud.options.get('sass'),
       })
 
     /**
      * Module
      */
-    this.bud.rules.set('sass', bud => ({
-      test: bud.patterns.get('sass'),
+    this.bud.rules.set('sass', {
+      test: this.bud.patterns.get('sass'),
       use: [
-        bud.mode.is('production')
-          ? bud.loaders.get('minicss')
-          : bud.loaders.get('style'),
+        this.bud.mode.is('production')
+          ? this.bud.loaders.get('minicss')
+          : this.bud.loaders.get('style'),
         {
-          ...bud.loaders.get('css'),
+          ...this.bud.loaders.get('css'),
           options: {
-            ...bud.loaders.get('css').options,
+            ...this.bud.loaders.get('css').options,
             importLoaders: 2,
           },
         },
         {
-          ...bud.loaders.get('postcss'),
+          ...this.bud.loaders.get('postcss'),
           options: {
-            ...bud.loaders.get('postcss.options'),
+            ...this.bud.loaders.get('postcss.options'),
             postcssOptions: {
               syntax: require('postcss-scss'),
             },
           },
         },
-        bud.loaders.get('sass'),
+        this.bud.loaders.get('sass'),
       ],
-    }))
+    })
 
     /**
-     * bud.sass
+     * ## bud.sass
      */
-    this.bud.apply('sass', function (this: Bud, options) {
+    this.bud.apply('sass', function (
+      this: BudInterface,
+      options,
+    ) {
       if (!options) {
         return this
       }

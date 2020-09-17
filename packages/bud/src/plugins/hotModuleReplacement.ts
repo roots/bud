@@ -1,7 +1,7 @@
 import {HotModuleReplacementPlugin} from 'webpack'
-import type {Plugin} from '@roots/bud-types'
+import {BudInterface, Plugin} from '../'
 
-const hotModuleReplacement: Plugin = bud => ({
+const hotModuleReplacement: Plugin = (bud: BudInterface) => ({
   bud,
 
   make: function () {
@@ -13,4 +13,4 @@ const hotModuleReplacement: Plugin = bud => ({
   },
 })
 
-export {hotModuleReplacement}
+export {hotModuleReplacement as default}

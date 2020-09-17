@@ -1,9 +1,9 @@
-import {Bud} from '@roots/bud-types'
+import {BudInterface, Plugin} from '@roots/bud'
 
 /**
  * ## bud.typescript
  */
-const configFunction = function (options) {
+const configFunction = function (options: any | any[]) {
   options.configFile &&
     this.configs.set('typescript', options.configFile)
 
@@ -12,7 +12,9 @@ const configFunction = function (options) {
   return this
 }
 
-const typescript = bud => ({
+const typescript: Plugin = (bud: BudInterface) => ({
+  bud,
+
   make: function () {
     this.bud.addExtensions(['ts', 'tsx'])
 
@@ -30,11 +32,11 @@ const typescript = bud => ({
       },
     })
 
-    this.bud.rules.set('typescript', (bud: Bud) => ({
+    this.bud.rules.set('typescript', {
       test: bud.patterns.get('typescript'),
       exclude: bud.patterns.get('modules'),
       use: [bud.loaders.get('typescript')],
-    }))
+    })
 
     this.bud.apply('typescript', configFunction)
   },

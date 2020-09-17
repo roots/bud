@@ -14,6 +14,6 @@
     "outDir": "./lib",
     "declarationDir": "./lib/types"
   },
-  "include": ["./src"],
+  "include": ["./src", "../bud-compiler/src/progress.ts"],
   "exclude": ["./node_modules"]
 }

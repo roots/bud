@@ -1,20 +1,31 @@
-import React from 'react'
-import {Box, Text, Spacer} from 'ink'
-import {Bud} from '@roots/bud-types'
+import React, {FunctionComponent} from 'react'
+import {Box, Text} from 'ink'
 import {highlight} from 'cli-highlight'
-import {format} from 'prettier'
+import {format, Options} from 'prettier'
 
-const Prettier = ({code, options}) => (
+interface PrettierProps extends Options {
+  children: string
+}
+
+type PrettierFunctionComponent = FunctionComponent<PrettierProps>
+
+const Prettier: PrettierFunctionComponent = props => (
   <Box
     marginTop={1}
+    marginBottom={1}
     flexDirection="column"
     justifyContent="flex-start"
     alignItems="flex-start"
     alignSelf="flex-start">
     <Text>
-      {highlight(format(code, options ?? {parser: 'babel'}))}
+      {highlight(
+        format(props.children, {
+          parser: props.parser ?? 'babel',
+          ...props,
+        }),
+      )}
     </Text>
   </Box>
 )
 
-export {Prettier as default}
+export {Prettier as default, PrettierFunctionComponent}

@@ -1,23 +1,18 @@
-import {Bud, Plugin} from '@roots/bud-types'
+import {BudInterface, Plugin} from '@roots/bud'
 import StylelintPlugin from 'stylelint-webpack-plugin'
 import type {Options as StylelintOptions} from 'stylelint-webpack-plugin/declarations/getOptions'
 import {resolve} from 'path'
 
-const plugin: Plugin = (bud: Bud) => ({
+const plugin: Plugin = (bud: BudInterface) => ({
   bud,
 
   make: function () {
-    const config = this.bud.fs.join(
-      this.bud.project('stylelint.config.js'),
-    )
-
-    if (this.bud.fs.existsSync(config)) {
+    if (this.bud.fs.get('stylelint.config.js')) {
       this.bud.features.enable('stylelint')
-      this.bud.configs.set('stylelint', config)
 
       this.bud.options.set(
         'webpack.plugins.stylelint.configFile',
-        this.bud.configs.get('stylelint'),
+        this.bud.fs.get('stylelint.config.js'),
       )
     }
 
@@ -25,25 +20,21 @@ const plugin: Plugin = (bud: Bud) => ({
       options: StylelintOptions,
     ) {
       this.features.enable('stylelint')
+
       this.options.set('webpack.plugins.stylelint', options)
 
       return this
     })
 
-    this.bud.plugins.set(
+    this.bud.webpackPlugins.set(
       'stylelint-webpack-plugin',
-      (bud: Bud) => ({
+      (bud: BudInterface) => ({
         bud,
 
         make: function () {
-          return new StylelintPlugin({
-            configFile:
-              this.bud.options.get(
-                'webpack.plugins.stylelint.configFile',
-              ) ||
-              this.bud.configs.get('webpack.plugins.stylelint'),
-            ...this.bud.options.get('webpack.plugins.stylelint'),
-          })
+          return new StylelintPlugin(
+            this.bud.options.get('webpack.plugins.stylelint'),
+          )
         },
 
         when: function () {

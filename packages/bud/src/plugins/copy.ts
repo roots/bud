@@ -1,19 +1,20 @@
 import {CopyWebpackPlugin} from './externals'
+import {BudInterface} from '../Bud'
+import {Plugin} from '../Plugin'
 
-import type {Plugin} from '@roots/bud-types'
-
-const copy: Plugin = bud => ({
+const copy: Plugin = (bud: BudInterface) => ({
   bud,
-
-  options: bud.options.get('webpack.plugins.copy'),
-
   make: function () {
-    return new CopyWebpackPlugin(this.options)
+    return new CopyWebpackPlugin(
+      bud.options.get('webpack.plugins.copy'),
+    )
   },
-
   when: function () {
-    return this.options.patterns.length > 0
+    return (
+      this.bud.options.get('webpack.plugins.copy')?.patterns
+        ?.length > 0
+    )
   },
 })
 
-export {copy}
+export {copy as default}

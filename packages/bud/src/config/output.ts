@@ -1,7 +1,7 @@
-import type {Bud} from '@roots/bud-types'
+import type {BudInterface} from '../'
 import type {WebpackOutput} from '@roots/bud-types'
 
-type OutputBuilder = (bud: Bud) => WebpackOutput
+type OutputBuilder = (bud: BudInterface) => WebpackOutput
 
 const output: OutputBuilder = bud =>
   bud.hooks.filter('webpack.output', {

@@ -1,43 +1,101 @@
-import React from 'react'
-import {render} from 'ink'
-import Dashboard from './dashboard'
-import compile from '@roots/bud-server'
+import webpack, {
+  Configuration as WebpackConfig,
+  Compiler as WebpackCompiler,
+  Watching as WebpackWatching,
+  ProgressPlugin,
+} from 'webpack'
 
-import {BudCompiler as Compiler} from '@roots/bud-types'
+/**
+ * The Bud webpack compiler.
+ */
+interface CompilerInterface {
+  /**
+   * Identifies compilation
+   */
+  name: string
 
-const compiler: Compiler.Factory = (
-  bud,
-  config,
-  progressMessage = '',
-) => ({
-  bud,
-  config,
-  name: bud.fs.readJsonSync('package.json')?.name,
-  progressMessage,
+  /**
+   * Webpack configuration
+   */
+  config: WebpackConfig
 
-  progressCallback: function (number, message) {
-    if (this.progressMessage !== message) {
-      this.progressMessage = message
-      console.log(`[${this.name}] ${this.progressMessage}`)
-    }
-  },
-  compile: function () {
-    this.progressCallback = this.progressCallback.bind(this)
+  /**
+   * Core webpack compiler
+   */
+  compiler: WebpackCompiler
 
-    this.bud.args.get('ci')
-      ? compile({
-          bud: this.bud,
-          mode: bud.mode.get(),
-          compilerCallback: () => null,
-          expressCallback: () => null,
-          progressCallback: this.progressCallback,
-        })
-      : renderCli(this.bud, this.config)
-  },
-})
+  /**
+   * Close and invalidation methods for the watch process
+   */
+  watching: WebpackWatching
 
-const renderCli: Compiler.Renderer = (bud, config) => {
-  render(React.createElement(Dashboard, {bud, config}))
+  /**
+   * Watch mode configuration
+   */
+  watchOptions: WebpackCompiler.WatchOptions
+
+  /**
+   * Runs the compiler.
+   */
+  run: () => void
+
+  /**
+   * Runs the compiler in watch mode.
+   */
+  watch: () => void
+
+  /**
+   * Apply the progress plugin to the compiler.
+   */
+  applyProgressPlugin: (handler: ProgressPlugin.Handler) => void
 }
 
-export {compiler as default}
+class Compiler implements CompilerInterface {
+  public name = '@roots/bud'
+  public config: WebpackConfig
+
+  public compiler: WebpackCompiler
+  public handler: WebpackCompiler.Handler
+
+  public watching: WebpackWatching
+  public watchOptions: WebpackCompiler.WatchOptions = {
+    aggregateTimeout: 300,
+  }
+
+  constructor(
+    name: string,
+    config: WebpackConfig,
+    handler: WebpackCompiler.Handler,
+  ) {
+    this.name = name
+    this.config = config
+    this.handler = handler
+
+    this.run = this.run.bind(this)
+    this.watch = this.watch.bind(this)
+    this.applyProgressPlugin = this.applyProgressPlugin.bind(
+      this,
+    )
+
+    this.compiler = webpack(this.config)
+  }
+
+  public run(): void {
+    this.compiler.run(this.handler)
+  }
+
+  public watch(): void {
+    this.watching = this.compiler.watch(
+      this.watchOptions,
+      this.handler,
+    )
+  }
+
+  public applyProgressPlugin(
+    progressHandler: ProgressPlugin.Handler,
+  ): void {
+    new ProgressPlugin(progressHandler).apply(this.compiler)
+  }
+}
+
+export {Compiler as default, CompilerInterface}

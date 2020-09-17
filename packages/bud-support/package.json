@@ -32,11 +32,5 @@
   "scripts": {
     "build": "rimraf ./bin && tsc",
     "lint": "eslint ."
-  },
-  "devDependencies": {
-    "@roots/bud-types": "file:../bud-types"
-  },
-  "peerDependencies": {
-    "@roots/bud": "file:../bud"
   }
 }

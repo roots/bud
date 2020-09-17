@@ -1,7 +1,9 @@
-import type {Bud} from '@roots/bud-types'
+import type {BudInterface} from '../'
 import type {WebpackOptimization} from '@roots/bud-types'
 
-type OptimizationBuilder = (bud: Bud) => WebpackOptimization
+type OptimizationBuilder = (
+  bud: BudInterface,
+) => WebpackOptimization
 
 /**
  * Webpack optimization

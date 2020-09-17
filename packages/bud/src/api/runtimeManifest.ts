@@ -1,6 +1,20 @@
-import {Api} from '@roots/bud-types'
+import {BudInterface} from '../Bud'
 
-const runtimeManifest: Api.RuntimeManifest = function (args?) {
+/**
+ * Inline common scripts.
+ *
+ * ```js
+ * bud.runtimeManifest('runtime')
+ * ```
+ */
+export type RuntimeManifest = (
+  this: BudInterface,
+  args?: {
+    name: string
+  },
+) => BudInterface
+
+const runtimeManifest: RuntimeManifest = function (args?) {
   this.features.set('runtimeChunk', true)
   args?.name &&
     this.options.set(
@@ -11,4 +25,4 @@ const runtimeManifest: Api.RuntimeManifest = function (args?) {
   return this
 }
 
-export {runtimeManifest}
+export {runtimeManifest as default}

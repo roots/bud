@@ -1,10 +1,11 @@
-import {Bud, Loose} from '@roots/bud-types'
+import {BudInterface} from '../Bud'
+import {Loose} from '@roots/bud-framework'
 import svgToMiniDataUri from 'mini-svg-data-uri'
 
 /**
  * RuleSetLoaders
  */
-const loaders = (bud: Bud): Loose => ({
+const loaders = (bud: BudInterface): Loose => ({
   babel: {
     loader: bud.loaderModules.get('babel'),
     options: {

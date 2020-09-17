@@ -32,24 +32,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@roots/bud-cli": "file:../bud-cli",
-    "@roots/bud-server": "file:../bud-server",
-    "ink": "^3.0.0-6",
-    "ink-gradient": "^1.0.0",
-    "ink-link": "^1.1.0",
-    "ink-spinner": "^4.0.0-0",
-    "ink-use-stdout-dimensions": "^1.0.5",
-    "node-notifier": "^8.0.0",
-    "patch-console": "^1.0.0",
-    "react": "^16.13.1",
-    "react-dev-utils": "^10.2.1",
-    "react-dom": "^16.13.1"
+    "@roots/bud-server": "file:../bud-server"
   },
-  "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5",
-  "devDependencies": {
-    "@roots/bud-types": "file:../bud-types"
-  },
-  "peerDependencies": {
-    "@roots/bud": "file:../bud"
-  }
+  "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5"
 }

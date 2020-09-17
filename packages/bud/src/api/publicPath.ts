@@ -1,6 +1,23 @@
-import type {Api} from '@roots/bud-types'
+import {BudInterface} from '../Bud'
 
-const publicPath: Api.PublicPath = function (dir: string) {
+/**
+ * ## bud.publicPath
+ *
+ * Set the project's public directory.
+ *
+ *  ```js
+ * bud.publicPath('public')
+ * ```
+ */
+export type PublicPath = (
+  this: BudInterface,
+  path: string,
+) => BudInterface
+
+const publicPath: PublicPath = function (dir: string) {
+  /**
+   * @todo this sucks and is unnecessary
+   */
   dir = !dir.match(/\/$/g) ? `${dir}/` : dir
   dir = !dir.match(/\/^/g) ? `/${dir}` : dir
 
@@ -9,4 +26,4 @@ const publicPath: Api.PublicPath = function (dir: string) {
   return this
 }
 
-export {publicPath}
+export {publicPath as default}

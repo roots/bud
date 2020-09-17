@@ -1,4 +1,4 @@
-import {Plugin} from '@roots/bud-types'
+import {BudInterface, Plugin} from '@roots/bud'
 import * as wp from 'purgecss-with-wordpress'
 
 import PurgeCssPlugin from '@fullhuman/postcss-purgecss'
@@ -38,26 +38,26 @@ interface UserDefinedOptions {
   whitelistPatternsChildren?: Array<RegExp>
 }
 
-/**
- * ## bud.purge
- *
- * Purge unused CSS from compiled stylesheets
- *
- * @see https://purgecss.com/guides/wordpress.html
- * @see https://purgecss.com/configuration.html
- *
- * ```js
- * bud.purge({
- *   content: [bud.project('resources/views/**')],
- *   allow: require('purgecss-with-wordpress').whitelist,
- *   allowPatterns: require('purgecss-with-wordpress').whitelistPatterns,
- * })
- * ```
- */
-const plugin: Plugin = bud => ({
+const plugin: Plugin = (bud: BudInterface) => ({
   bud,
 
   make: function () {
+    /**
+     * ## bud.purge
+     *
+     * Purge unused CSS from compiled stylesheets
+     *
+     * @see https://purgecss.com/guides/wordpress.html
+     * @see https://purgecss.com/configuration.html
+     *
+     * ```js
+     * bud.purge({
+     *   content: [bud.project('resources/views/**')],
+     *   allow: require('purgecss-with-wordpress').whitelist,
+     *   allowPatterns: require('purgecss-with-wordpress').whitelistPatterns,
+     * })
+     * ```
+     */
     this.bud.apply('purgecss', function (
       options: UserDefinedOptions,
     ) {
@@ -71,8 +71,5 @@ const plugin: Plugin = bud => ({
   },
 })
 
-const preset = {
-  wp,
-}
-
+const preset = {wp}
 export {plugin, preset}

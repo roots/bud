@@ -1,13 +1,19 @@
-import {highlight as highlightLib} from 'cli-highlight'
+import {
+  highlight as highlightLib,
+  HighlightOptions,
+} from 'cli-highlight'
 import chalk from 'chalk'
 
-const highlight = (text, options = {}) =>
+const highlight = (
+  text: string,
+  options?: HighlightOptions,
+): string =>
   highlightLib(text, {
     language: 'js',
     theme: {
       regexp: chalk.green,
     },
-    ...options,
+    ...(options ?? []),
   })
 
 export {highlight as default}

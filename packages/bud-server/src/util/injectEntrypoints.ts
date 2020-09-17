@@ -1,10 +1,18 @@
-const injectEntrypoints = bud => {
-  const {entry} = bud.options.get('webpack')
-  const devServer = bud.options.get('server')
+import {Configuration} from 'webpack'
+import {ServerConfig} from '../'
 
+interface InjectionProps {
+  entry: Configuration['entry']
+  config: ServerConfig
+}
+
+const injectEntrypoints = ({
+  entry,
+  config,
+}: InjectionProps): Configuration['entry'] => {
   const endpoint = `/__webpack_hmr`
   const hotClient = `webpack-hot-middleware/client?${endpoint}`
-  const hotServer = devServer?.hotOnly
+  const hotServer = config?.hotOnly
     ? 'webpack/hot/only-dev-server'
     : 'webpack/hot/dev-server'
 
@@ -29,4 +37,4 @@ const injectEntrypoints = bud => {
   return prepend(entry)
 }
 
-export {injectEntrypoints as default}
+export {injectEntrypoints as default, InjectionProps}

@@ -1,22 +1,20 @@
 import ManifestPlugin from 'webpack-manifest-plugin'
-import type {Plugin} from '@roots/bud-types'
+import {BudInterface, Plugin} from '../'
 
-const manifest: Plugin = bud => ({
+const manifest: Plugin = (bud: BudInterface) => ({
   bud,
 
-  options: {
-    publicPath:
-      bud.options.get('manifest.publicPath') ??
-      bud.paths.get('public') ??
-      '/',
-    filename:
-      bud.options.get('manifest.name') ?? 'manifest.json',
-    writeToFileEmit:
-      bud.options.get('manifest.writeToFileEmit') ?? true,
-  },
-
   make: function () {
-    return new ManifestPlugin(this.options)
+    return new ManifestPlugin({
+      publicPath:
+        this.bud.options.get('manifest.publicPath') ??
+        this.bud.paths.get('public') ??
+        '/',
+      fileName:
+        this.bud.options.get('manifest.name') ?? 'manifest.json',
+      writeToFileEmit:
+        bud.options.get('manifest.writeToFileEmit') ?? true,
+    })
   },
 
   when: function () {
@@ -24,4 +22,4 @@ const manifest: Plugin = bud => ({
   },
 })
 
-export {manifest}
+export {manifest as default}

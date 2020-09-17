@@ -1,11 +1,18 @@
-import {Api} from '@roots/bud-types'
+import BudInterface from '../Bud'
 
-const compile: Api.Compile = function () {
-  let compiler = this.compiler(this, this.config(this))
+/**
+ * ## bud.compile
+ *
+ * Compile finalized webpack configuration and run build.
+ *
+ * ```
+ * bud.compile()
+ * ```
+ */
+export type Compile = () => void
 
-  compiler = this.hooks.filter('api.compile', compiler)
-
-  compiler.compile()
+const compile: Compile = function (this: BudInterface) {
+  this.makeCli()
 }
 
-export {compile}
+export {compile as default}

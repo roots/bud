@@ -1,7 +1,7 @@
-import type {Bud} from '../'
-import type {WebpackRule} from '@roots/bud-types'
+import type {BudInterface} from '../'
+import type {RuleSetRule} from 'webpack'
 
-const font = (bud: Bud): WebpackRule =>
+const font = (bud: BudInterface): RuleSetRule =>
   bud.hooks.filter('webpack.module.rules.font', {
     test: bud.hooks.filter(
       'bud.module.rules.font.test',
@@ -13,4 +13,4 @@ const font = (bud: Bud): WebpackRule =>
     ]),
   })
 
-export {font}
+export {font as default}

@@ -1,7 +1,7 @@
-import type {Bud} from '../'
-import type {WebpackRule} from '@roots/bud-types'
+import type {BudInterface} from '../'
+import type {RuleSetRule} from 'webpack'
 
-const svg = (bud: Bud): WebpackRule =>
+const svg = (bud: BudInterface): RuleSetRule =>
   bud.hooks.filter('webpack.module.rules.svg', {
     test: bud.hooks.filter(
       'webpack.module.rules.svg.test',
@@ -13,4 +13,4 @@ const svg = (bud: Bud): WebpackRule =>
     ]),
   })
 
-export {svg}
+export {svg as default}

@@ -1,7 +1,7 @@
 import {IgnoreEmitPlugin} from './externals'
-import {Plugin} from '@roots/bud-types'
+import {BudInterface, Plugin} from '../'
 
-const ignoreEmit: Plugin = bud => ({
+const ignoreEmit: Plugin = (bud: BudInterface) => ({
   bud,
   make: function () {
     return new IgnoreEmitPlugin(
@@ -10,4 +10,4 @@ const ignoreEmit: Plugin = bud => ({
   },
 })
 
-export {ignoreEmit}
+export {ignoreEmit as default}

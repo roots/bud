@@ -1,7 +1,5 @@
 export {BabelTransformOptions} from './babel'
 
-export {Express} from './express'
-
 export {
   RuleSetLoader,
   WebpackStats,

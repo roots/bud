@@ -8,23 +8,29 @@ Bud includes support for extending the framework with optional functionality.
 
 ### Usage
 
-Plugins are registered using `bud.extend` method. Plugins will be called in the provided order.
+Plugins are registered using `bud.extend` method. Plugins will be called in
+the provided order.
 
 ```js
 bud.extend([require('@roots/bud-eslint')])
 ```
 
-Some plugins may attach additional configuration methods to the `bud` object for you to utilize.
+Some plugins may attach additional configuration methods to the `bud` object
+for you to utilize.
 
-Obviously, you can't call a plugin-provided method without first registering that plugin, which is one of the reasons it's generally a good idea to import and register everything at the top of your config.
+Obviously, you can't call a plugin-provided method without first registering the
+ plugin that provides it.
 
 ```js
-bud.extend([require('@roots/bud-purgecss')]).purgecss({
+bud.extend([require('@roots/bud-purgecss').plugin]).purgecss({
   /** purgecss configuration */
 })
 ```
 
-Some extensions may provide additional configuration methods. Obviously, you can't call an extension-provided method without first registering that extension, which is one of the reasons it's generally a good idea to import and register everything at the top of your config.
+Some extensions may provide additional configuration methods. Obviously, you
+can't call an extension-provided method without first registering that
+extension, which is one of the reasons it's generally a good idea to import and
+register everything at the top of your config.
 
 ```js
 bud.extend([dependencyExtraction]).dependencyExtraction({
@@ -36,8 +42,8 @@ bud.extend([dependencyExtraction]).dependencyExtraction({
 
 There are a number of Roots maintained plugins available to kickstart your projects.
 
-| Name                                            | Description                                                    | Usage                                                                                                          |
-| ----------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
+| Name                                            | Description                                                    | Usage                                   |
+| ----------------------------------------------- | -------------------------------------------------------------- | --------------------------------------- |
 | @roots/bud-dependency-extraction-webpack-plugin | Adds @wordpress/dependency-extraction-webpack-plugin support.  | [Usage ↗](bud-dependency-extraction.md) |
 | @roots/bud-eslint                               | Adds eslint support.                                           | [Usage ↗](bud-eslint.md)                |
 | @roots/bud-palette-webpack-plugin               | Adds palette-webpack-plugin support.                           | [Usage ↗](bud-palette-plugin.md)        |

@@ -1,6 +1,24 @@
-import {Api} from '@roots/bud-types'
+import BudInterface from '../Bud'
 
-const bundle: Api.Bundle = function (name, entries) {
+/**
+ * ## bud.bundle
+ *
+ * Compile a group of assets.
+ *
+ * ```js
+ * bud.bundle('app', [
+ *   bud.src('app.js'),
+ *   bud.src('app.css'),
+ * ])
+ * ```
+ */
+export type Bundle = (
+  this: BudInterface,
+  name: string,
+  entries: string[],
+) => BudInterface
+
+const bundle: Bundle = function (name, entries) {
   this.options.merge('webpack.entry', {
     ...this.hooks.filter('api.bundle.filter', {
       [name]: entries,
@@ -10,4 +28,4 @@ const bundle: Api.Bundle = function (name, entries) {
   return this
 }
 
-export {bundle}
+export {bundle as default}

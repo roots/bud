@@ -1,7 +1,7 @@
-import {Bud, Plugin} from '@roots/bud-types'
+import {BudInterface, Plugin} from '@roots/bud'
 import tailwind from 'tailwindcss'
 
-const tailwindcss: Plugin = (bud: Bud) => ({
+const tailwindcss: Plugin = (bud: BudInterface) => ({
   bud,
 
   make: function () {

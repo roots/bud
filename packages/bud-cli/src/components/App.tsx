@@ -1,51 +1,72 @@
-import {Bud} from '@roots/bud-types'
-import React, {FunctionComponent, ReactElement} from 'react'
-import {useInput, Box, Text} from 'ink'
+import React, {FunctionComponent} from 'react'
+import {useApp, useInput, Box, Text} from 'ink'
 import useStdOutDimensions from 'ink-use-stdout-dimensions'
 
-interface AppProps {
-  bud: Bud
-  children:
-    | FunctionComponent
-    | FunctionComponent[]
-    | ReactElement
+import useCompiler, {
+  CompilerDerivedState,
+} from '../hooks/useCompiler'
+
+import Screen from './Screen'
+import {Configuration} from 'webpack'
+import {ServerConfig} from '@roots/bud-server'
+
+interface ApplicationCliProps {
+  name: string
+  webpackConfig: Configuration
+  serverConfig: ServerConfig
+  terminate: CallableFunction
 }
 
-type AppComponent = FunctionComponent<AppProps>
+type ApplicationCli = FunctionComponent<ApplicationCliProps>
 
-const quit = bud => {
-  bud.terminate()
-  process.exit()
-}
-
-const App: AppComponent = ({bud, children}) => {
+const App: ApplicationCli = ({
+  name,
+  webpackConfig,
+  serverConfig,
+  terminate,
+}) => {
+  const app = useApp()
   const [width, height] = useStdOutDimensions()
+  const {
+    serverInstance,
+    progress,
+  }: CompilerDerivedState = useCompiler(
+    webpackConfig,
+    serverConfig,
+  )
 
   useInput(input => {
-    input == 'q' && quit(bud)
+    if (input == 'q') {
+      app.exit()
+      terminate()
+    }
   })
 
   return (
     <Box
       width={width}
-      height={height}
       minHeight={height}
       paddingRight={1}
       paddingBottom={2}
       paddingTop={1}
       flexDirection="column"
       justifyContent="space-between">
-      <Box
-        paddingLeft={1}
-        flexDirection="column"
-        justifyContent="flex-start">
-        <Text backgroundColor={'#545DD7'} color={'white'}>
-          {width > 70 ? '' : ' '}@roots/bud
-        </Text>
-        {children}
-      </Box>
+      <Screen title={name}>
+        <>
+          <Text>
+            {webpackConfig && JSON.stringify(webpackConfig)}
+          </Text>
+          <Text>
+            {serverConfig && JSON.stringify(serverConfig)}
+          </Text>
+          <Text>{progress && JSON.stringify(progress)}</Text>
+          <Text>
+            {serverInstance && JSON.stringify(serverInstance)}
+          </Text>
+        </>
+      </Screen>
     </Box>
   )
 }
 
-export {App as default}
+export {App as default, ApplicationCli, ApplicationCliProps}

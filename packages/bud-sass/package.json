@@ -42,9 +42,7 @@
   },
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5",
   "devDependencies": {
-    "@roots/bud-types": "file:../bud-types"
-  },
-  "peerDependencies": {
-    "@roots/bud": "file:../bud"
+    "@roots/bud": "file:../bud",
+    "@types/express": "^4.17.8"
   }
 }

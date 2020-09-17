@@ -1,15 +1,15 @@
-import {Bud, Plugin, PluginInterface} from '@roots/bud-types'
+import {BudInterface, Plugin} from '@roots/bud'
 import {resolve} from 'path'
 
-const plugin: Plugin = (bud: Bud) => ({
+const plugin: Plugin = (bud: BudInterface) => ({
   bud,
 
-  make: function (this: PluginInterface) {
+  make: function () {
     const config =
-      this.bud.fs.project('.eslintrc.js') ||
-      this.bud.fs.project('.eslintrc.json')
+      this.bud.fs.get('.eslintrc.js') ||
+      this.bud.fs.get('.eslintrc.json')
 
-    if (!this.bud.fs.existsSync(config)) {
+    if (!this.bud.fs.exists(config)) {
       return
     }
 
@@ -25,10 +25,13 @@ const plugin: Plugin = (bud: Bud) => ({
       },
     })
 
-    this.bud.hooks.on('webpack.module.rules.js.use', loaders => [
-      ...loaders,
-      this.bud.loaders.get('eslint'),
-    ])
+    this.bud.hooks.on(
+      'webpack.module.rules.js.use',
+      (loaders: BudInterface['loaders']['repository']) => [
+        ...loaders,
+        this.bud.loaders.get('eslint'),
+      ],
+    )
   },
 })
 

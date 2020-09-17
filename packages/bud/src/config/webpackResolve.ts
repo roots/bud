@@ -1,7 +1,7 @@
-import type {Bud} from '@roots/bud-types'
+import type {BudInterface} from '../'
 import type {WebpackResolve} from '@roots/bud-types'
 
-type ResolveBuilder = (bud: Bud) => WebpackResolve
+type ResolveBuilder = (bud: BudInterface) => WebpackResolve
 
 const webpackResolve: ResolveBuilder = bud =>
   bud.hooks.filter('webpack.resolve', {
@@ -21,8 +21,11 @@ const webpackResolve: ResolveBuilder = bud =>
       ),
 
       modules: bud.hooks.filter('webpack.resolve.modules', [
-        bud.fs.resolve(bud.paths.get('project'), 'node_modules'),
-        bud.fs.resolve(
+        bud.fs.path.resolve(
+          bud.paths.get('project'),
+          'node_modules',
+        ),
+        bud.fs.path.resolve(
           bud.paths.get('framework'),
           'node_modules',
         ),

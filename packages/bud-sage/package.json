@@ -32,11 +32,11 @@
     "watch": "npm run build && npm link && nodemon"
   },
   "dependencies": {
-    "@roots/bud": "^2.0.0-next.14",
-    "@roots/bud-dependency-extraction-webpack-plugin": "^2.0.0-next.14",
-    "@roots/bud-eslint": "^2.0.0-next.14",
-    "@roots/bud-purgecss": "^2.0.0-next.14",
-    "@roots/bud-sass": "^2.0.0-next.14",
-    "@roots/bud-stylelint": "^2.0.0-next.14"
+    "@roots/bud": "file:../bud",
+    "@roots/bud-dependency-extraction-webpack-plugin": "file:../bud-dependency-extraction-webpack-plugin",
+    "@roots/bud-eslint": "file:../bud-eslint",
+    "@roots/bud-purgecss": "file:../bud-purgecss",
+    "@roots/bud-sass": "file:../bud-sass",
+    "@roots/bud-stylelint": "file:../bud-stylelint"
   }
 }

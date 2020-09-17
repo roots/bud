@@ -1,7 +1,7 @@
-import type {Bud} from '../'
-import type {WebpackRule} from '@roots/bud-types'
+import type {BudInterface} from '../'
+import type {RuleSetRule} from 'webpack'
 
-const js = (bud: Bud): WebpackRule =>
+const js = (bud: BudInterface): RuleSetRule =>
   bud.hooks.filter('webpack.module.rules.js', {
     test: bud.hooks.filter(
       'webpack.module.rules.js.test',
@@ -18,4 +18,4 @@ const js = (bud: Bud): WebpackRule =>
     ]),
   })
 
-export {js}
+export {js as default}

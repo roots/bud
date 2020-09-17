@@ -1,8 +1,8 @@
 import DependencyExtractionWebpackPlugin from '@wordpress/dependency-extraction-webpack-plugin'
 import type DependencyExtractionOptions from '@wordpress/dependency-extraction-webpack-plugin'
-import type {Bud, Plugin} from '@roots/bud-types'
+import {BudInterface, Plugin} from '@roots/bud'
 
-const dependencyExtractionPlugin: Plugin = function (bud: Bud) {
+const dependencyExtractionPlugin: Plugin = function (bud: BudInterface) {
   return {
     bud,
 
@@ -34,9 +34,9 @@ const dependencyExtractionPlugin: Plugin = function (bud: Bud) {
        * ```
        */
       this.bud.apply('extract', function (
-        this: Bud,
+        this: BudInterface,
         settings?: DependencyExtractionOptions,
-      ): Bud {
+      ): BudInterface {
         settings &&
           this.options.merge(
             'webpack.plugins.wordpress-dependency-extraction-webpack-plugin',
@@ -48,7 +48,7 @@ const dependencyExtractionPlugin: Plugin = function (bud: Bud) {
 
       this.bud.plugins.set(
         'wordpress-dependency-extraction-webpack-plugin',
-        (bud: Bud) => ({
+        (bud: BudInterface) => ({
           options: bud.options.get(
             'webpack.plugins.wordpress-dependency-extraction-webpack-plugin',
           ),

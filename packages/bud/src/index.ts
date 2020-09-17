@@ -1,39 +1,26 @@
-import bud from './bud'
-import {loaders} from './loaders'
-
-import {Bud} from '@roots/bud-types'
+import Bud, {BudInterface, Plugin} from './Bud'
 
 /**
- * Set projectPath form args.
+ * Instantiate Bud object.
+ */
+const bud: Bud = new Bud()
+
+/**
+ * Set projectPath from args.
  *
  * This is used by filesystem setup so we do it early.
  */
 if (bud.args.has('project')) {
   bud.paths.set(
     'project',
-    bud.fs.resolve(process.cwd(), bud.args.get('project')),
+    bud.fs.path.resolve(process.cwd(), bud.args.get('project')),
   )
-}
-
-/**
- * Setup filesystem.
- */
-bud.fs.refresh = () => {
-  bud.fs.setBase(bud.paths.get('project'))
-
-  bud.fs.setDisk([
-    bud.fs.resolve(bud.fs.base, '**/*'),
-    bud.fs.resolve(bud.fs.base, '*'),
-    `!${bud.fs.resolve(bud.fs.base, 'node_modules/**/*')}`,
-    `!${bud.fs.resolve(bud.fs.base, 'vendor/**/*')}`,
-  ])
 }
 
 /**
  * Set filesystem best we can
  */
-bud.fs.setBase(bud.paths.get('project') || bud.fs.cwd)
-bud.fs.refresh()
+bud.updateDisk()
 
 /**
  * Set CI mode from args if available --
@@ -47,7 +34,11 @@ if (bud.args.get('ci')) {
 /**
  * Set mode from args if available
  */
-if (bud.args.get('env')) {
+if (
+  bud.args.get('env') == 'production' ||
+  'development' ||
+  'none'
+) {
   bud.mode.set(bud.args.get('env'))
 }
 
@@ -69,7 +60,7 @@ if (bud.args.get('hot')) {
 if (bud.args.get('src')) {
   bud.paths.set(
     'src',
-    bud.fs.resolve(
+    bud.fs.path.resolve(
       bud.paths.get('project'),
       bud.args.get('src'),
     ),
@@ -82,7 +73,7 @@ if (bud.args.get('src')) {
 if (bud.args.get('dist')) {
   bud.paths.set(
     'dist',
-    bud.fs.resolve(
+    bud.fs.path.resolve(
       bud.paths.get('project'),
       bud.args.get('dist'),
     ),
@@ -113,7 +104,7 @@ if (bud.args.get('brotli')) {
 /**
  * Setup loaders
  */
-bud.loaders = new bud.container(loaders(bud))
+bud.makeLoaders()
 
 /**
  * Set babel config
@@ -136,6 +127,6 @@ bud.fs.has('postcss.config.js') &&
 /**
  * Bud - Webpack build framework
  */
-module.exports = bud
+export {BudInterface, Plugin}
 
-export type {Bud}
+module.exports = bud

@@ -18,11 +18,10 @@
     "packages/bud-typescript",
     "packages/bud-vue",
     "packages/bud-wordpress-manifests",
-    "examples/sage",
-    "examples/purgecss",
-    "examples/simple",
-    "examples/tailwind",
-    "examples/vue"
+    "packages/container",
+    "packages/dependencies",
+    "packages/filesystem",
+    "packages/sandbox"
   ],
   "changelog": {
     "repo": "@roots/bud",

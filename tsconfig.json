@@ -1,18 +1,62 @@
 {
   "compilerOptions": {
+    /* Basic Options */
+    "target": "es2017",
+    "module": "commonjs",
+    "watch": false,
+    "lib": ["esnext", "es5", "es6", "dom", "dom.iterable"],
+    // "allowJs": true,
+    // "checkJs": true,
     "jsx": "react",
-    "allowJs": false,
+    "declaration": true,
+    "declarationMap": true,
+    "pretty": true,
+    "sourceMap": true,
+    // "outFile": "./",
+    // "outDir": "lib",
+    // "rootDir": "src",
+    // "composite": true,
+    // "removeComments": true,
+    // "noEmit": true,
+    "importHelpers": true,
+    // "downlevelIteration": true,
+    // "isolatedModules": true,
+
+    /* Strict Type-Checking Options */
+    // "strict": true,
+    // "noImplicitAny": true,
+    // "strictNullChecks": true,
+    // "strictFunctionTypes": true,
+    // "strictBindCallApply": true,
+    // "strictPropertyInitialization": true,
+    // "noImplicitThis": true,
+    // "alwaysStrict": true,
+    // "forceConsistentCasingInFileNames": true,
+
+    /* Additional Checks */
+    "noUnusedLocals": true,
+    // "noUnusedParameters": true,
+    // "noImplicitReturns": true,
+    // "noFallthroughCasesInSwitch": true,
+
+    /* Module Resolution Options */
+    "moduleResolution": "node",
+    // "paths": { "@bud/*": ["packages/*"] },
+    // "rootDirs": [],
+    // "typeRoots": [],
+    // "types": [],
     "allowSyntheticDefaultImports": true,
     "esModuleInterop": true,
-    "declaration": true,
-    "module": "commonjs",
-    "moduleResolution": "node",
-    "declarationMap": true,
-    "sourceMap": true,
-    "watch": false,
-    "rootDir": "./packages/",
-    "outDir": "./build/",
-  },
-  "include": ["./packages/*/src/"],
-  "exclude": ["./node_modules/", "./**/node_modules/"]
+    // "preserveSymlinks": true,
+
+    /* Source Map Options */
+    // "sourceRoot": "",
+    // "mapRoot": "",
+    // "inlineSourceMap": true,
+    // "inlineSources": true,
+
+    /* Experimental Options */
+    // "experimentalDecorators": true,
+    // "emitDecoratorMetadata": true,
+  }
 }

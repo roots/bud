@@ -1,11 +1,11 @@
 import {WriteFilePlugin} from './externals'
-import {Plugin} from '@roots/bud-types'
+import {BudInterface, Plugin} from '../'
 
-const writeFile: Plugin = bud => ({
+const writeFile: Plugin = (bud: BudInterface) => ({
   bud,
   make: function () {
     return new WriteFilePlugin()
   },
 })
 
-export {writeFile}
+export {writeFile as default}

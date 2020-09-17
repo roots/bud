@@ -1,9 +1,12 @@
 import prettier, {BuiltInParserName} from 'prettier'
 
-type Formatter = (any, parser: BuiltInParserName) => string
+type Formatter = (
+  contents: string,
+  parser: BuiltInParserName,
+) => string
 
 const pretty: Formatter = (contents, parser) => {
   return prettier.format(contents, parser ? {parser} : undefined)
 }
 
-export {pretty as default}
+export default pretty

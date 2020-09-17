@@ -1,18 +1,18 @@
 import {MiniCssExtractPlugin} from './externals'
-import {Plugin} from '@roots/bud-types'
+import {BudInterface, Plugin} from '../'
 
-const miniCssExtract: Plugin = bud => ({
+const miniCssExtract: Plugin = (bud: BudInterface) => ({
   bud,
-
-  options: {
-    hmr: bud.features.enabled('hot'),
-    filename: bud.features.enabled('hash')
-      ? `${bud.options.get('filenameTemplate').hashed}.css`
-      : `${bud.options.get('filenameTemplate').default}.css`,
-  },
-
   make: function () {
-    return new MiniCssExtractPlugin(this.options)
+    return new MiniCssExtractPlugin({
+      filename: this.bud.features.enabled('hash')
+        ? `${
+            this.bud.options.get('filenameTemplate').hashed
+          }.css`
+        : `${
+            this.bud.options.get('filenameTemplate').default
+          }.css`,
+    })
   },
 
   when: function () {
@@ -20,4 +20,4 @@ const miniCssExtract: Plugin = bud => ({
   },
 })
 
-export {miniCssExtract}
+export {miniCssExtract as default}

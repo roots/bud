@@ -1,4 +1,4 @@
-import type {Bud, Plugin} from '@roots/bud-types'
+import {BudInterface, Plugin} from '@roots/bud'
 import {VueLoaderPlugin} from 'vue-loader'
 
 /** Patched compiler.*/
@@ -12,7 +12,7 @@ const addVueStyle = (loaders: any[]) => [
   ...loaders,
 ]
 
-const vue: Plugin = bud => ({
+const vue: Plugin = (bud: BudInterface) => ({
   bud,
 
   make: function () {

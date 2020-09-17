@@ -1,7 +1,13 @@
-import notifier from 'node-notifier'
+import notifier, {
+  Notification,
+  NotificationCallback,
+} from 'node-notifier'
 
-const notify = args => {
-  return notifier.notify({...args})
+const notify = (
+  notification: Notification,
+  callback?: NotificationCallback,
+): void => {
+  notifier.notify(notification, callback ?? undefined)
 }
 
-export {notify}
+export {notify as default}

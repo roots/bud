@@ -1,21 +1,33 @@
-import {Api} from '@roots/bud-types'
+import {BudInterface} from '../'
 
-const srcPath: Api.SrcPath = function (segment: string) {
+/**
+ * ## bud.srcPath
+ *
+ * Set the project's src directory.
+ *
+ *  ```js
+ * bud.srcPath('src')
+ * ```
+ */
+export type SrcPath = (
+  this: BudInterface,
+  path: string,
+) => BudInterface
+
+const srcPath: SrcPath = function (
+  this: BudInterface,
+  segment: string,
+): BudInterface {
   if (this.args.get('src')) {
     return this
   }
 
   this.paths.set(
     'src',
-    this.fs.resolve(this.paths.get('project'), segment),
+    this.fs.path.resolve(this.paths.get('project'), segment),
   )
-
-  /**
-   * Update the disk
-   */
-  this.fs.refresh()
 
   return this
 }
 
-export {srcPath}
+export {srcPath as default}

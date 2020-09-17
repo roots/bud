@@ -1,7 +1,7 @@
 import {CleanWebpackPlugin} from './externals'
-import type {Plugin} from '@roots/bud-types'
+import {BudInterface, Plugin} from '../'
 
-const cleanWebpack: Plugin = bud => ({
+const cleanWebpack: Plugin = (bud: BudInterface) => ({
   bud,
 
   options: bud.options.get('webpack.plugins.clean'),
@@ -15,4 +15,4 @@ const cleanWebpack: Plugin = bud => ({
   },
 })
 
-export {cleanWebpack}
+export {cleanWebpack as default}

@@ -1,12 +1,27 @@
-import {Api} from '@roots/bud-types'
+import {BudInterface} from '../'
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const globby = require('globby')
+/**
+ * ## bud.glob
+ *
+ * Compile assets into a particular directory.
+ *
+ * ```js
+ * bud.bundlePath(
+ *  bud.dist('scripts'),
+ *  [bud.src('scripts')],
+ * )
+ * ```
+ */
+export type Glob = (
+  this: BudInterface,
+  output: string,
+  files: string,
+) => BudInterface
 
-const glob: Api.Glob = function (name, files) {
+const glob: Glob = function (name, files) {
   this.options.merge(
     'webpack.entry',
-    globby
+    this.fs.glob
       .sync(files, {
         expandDirectories: true,
       })
@@ -19,4 +34,4 @@ const glob: Api.Glob = function (name, files) {
   return this
 }
 
-export {glob}
+export {glob as default}

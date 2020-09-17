@@ -32,6 +32,7 @@
     "build": "rimraf ./lib && tsc"
   },
   "dependencies": {
+    "@roots/bud": "file:../bud",
     "babel-eslint": "8",
     "eslint": "^7.8.1",
     "eslint-loader": "^4.0.2",
@@ -44,8 +45,5 @@
   "devDependencies": {
     "@babel/types": "^7.11.5",
     "@roots/bud-types": "file:../bud-types"
-  },
-  "peerDependencies": {
-    "@roots/bud": "file:../bud"
   }
 }

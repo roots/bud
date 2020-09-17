@@ -1,5 +1,4 @@
 import pino from 'pino'
-
 import {argv} from 'yargs'
 
 const log: any = argv.log
@@ -14,7 +13,7 @@ const logger = pino(
       colorize: !destination ? true : false,
     },
   },
-  destination,
+  pino.destination(),
 )
 
-export {logger}
+export {logger as default}

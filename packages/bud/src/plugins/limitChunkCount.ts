@@ -1,7 +1,7 @@
 import {LimitChunkCountPlugin} from './externals'
-import {Plugin} from '@roots/bud-types'
+import {BudInterface, Plugin} from '../'
 
-const limitChunkCount: Plugin = bud => ({
+const limitChunkCount: Plugin = (bud: BudInterface) => ({
   bud,
 
   make: function () {
@@ -22,4 +22,4 @@ const limitChunkCount: Plugin = bud => ({
   },
 })
 
-export {limitChunkCount}
+export {limitChunkCount as default}

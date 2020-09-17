@@ -4,3 +4,4 @@ coverage
 /docs/
 dist
 packages/*/lib
+*.tsbuildinfo

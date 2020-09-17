@@ -1,13 +1,32 @@
-import {join} from 'path'
-import {Api} from '@roots/bud-types'
+import BudInterface from '../Bud'
 
-const copyAll: Api.Copy = function (from, to?) {
+/**
+ * ## bud.copyAll
+ *
+ * Copy all files from a specified source to a specified destination.
+ *
+ * ```js
+ * bud.copyAll(
+ *  bud.src('images'),
+ *  bud.dist('images')
+ * )
+ * ```
+ */
+export type CopyAll = (
+  this: BudInterface,
+  from: string,
+  to: string,
+) => BudInterface
+
+const copyAll: CopyAll = function (from, to?) {
   this.options.set('webpack.plugins.copy.patterns', [
     ...this.options.get('webpack.plugins.copy.patterns'),
     this.hooks.filter('api.copyAll', {
       from: '**/*',
       context: from,
-      to: to ? to : join(this.paths.get('dist'), from),
+      to: to
+        ? to
+        : this.fs.path.join(this.paths.get('dist'), from),
       globOptions: {
         ignore: '.*',
       },
@@ -18,4 +37,4 @@ const copyAll: Api.Copy = function (from, to?) {
   return this
 }
 
-export {copyAll}
+export {copyAll as default}

@@ -1,7 +1,7 @@
-import type {Bud} from '@roots/bud-types'
+import type {BudInterface} from '../'
 import type {WebpackExternals} from '@roots/bud-types'
 
-type ExternalsBuilder = (bud: Bud) => WebpackExternals
+type ExternalsBuilder = (bud: BudInterface) => WebpackExternals
 
 const externals: ExternalsBuilder = bud =>
   bud.hooks.filter('webpack.externals', {

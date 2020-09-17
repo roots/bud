@@ -1,7 +1,7 @@
 import {DefinePlugin} from './externals'
-import type {Plugin} from '@roots/bud-types'
+import {BudInterface, Plugin} from '../'
 
-const define: Plugin = bud => ({
+const define: Plugin = (bud: BudInterface) => ({
   options: bud.env.repository ?? {},
 
   make: function () {
@@ -13,4 +13,4 @@ const define: Plugin = bud => ({
   },
 })
 
-export {define}
+export {define as default}

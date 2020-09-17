@@ -20,7 +20,7 @@ type WebpackPlugins = WebpackConfig['plugins']
 type WebpackResolve = WebpackConfig['resolve']
 type WebpackTarget = WebpackConfig['target']
 
-export {
+export type {
   WebpackCompiler,
   WebpackConfig,
   WebpackConfigFactory,

@@ -38,9 +38,6 @@
     "tailwindcss": "^1.6.2"
   },
   "devDependencies": {
-    "@roots/bud-types": "file:../bud-types"
-  },
-  "peerDependencies": {
     "@roots/bud": "file:../bud"
   },
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5"

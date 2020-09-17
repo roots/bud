@@ -1,7 +1,28 @@
-import {Api} from '@roots/bud-types'
-import {join} from 'path'
+import BudInterface from '../Bud'
 
-const copy: Api.Copy = function (from, to = '') {
+/**
+ * ## bud.copy
+ *
+ * Copy a file.
+ *
+ * ```js
+ * bud.copy(
+ *   bud.src('images/image.png'),
+ *   bud.dist('image.png'),
+ * )
+ * ```
+ */
+export type Copy = (
+  this: BudInterface,
+  from: string,
+  to: string,
+) => BudInterface
+
+const copy: Copy = function (
+  this: BudInterface,
+  from: string,
+  to = '',
+): BudInterface {
   this.options.set('webpack.plugins.copy.patterns', [
     ...this.options.get('webpack.plugins.copy.patterns'),
     {
@@ -13,4 +34,4 @@ const copy: Api.Copy = function (from, to = '') {
   return this
 }
 
-export {copy}
+export {copy as default}

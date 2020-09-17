@@ -24,7 +24,8 @@
   },
   "files": [
     "docs",
-    "lib"
+    "lib",
+    "types"
   ],
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
@@ -38,7 +39,10 @@
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/plugin-transform-runtime": "^7.11.5",
     "@babel/preset-env": "^7.11.5",
-    "@roots/bud-compiler": "file:../bud-compiler",
+    "@roots/container": "file:../container",
+    "@roots/dependencies": "file:../dependencies",
+    "@roots/filesystem": "file:../filesystem",
+    "@roots/bud-cli": "file:../bud-cli",
     "@roots/bud-framework": "file:../bud-framework",
     "autoprefixer": "^9.8.5",
     "babel-loader": "^8.1.0",
@@ -71,6 +75,8 @@
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5",
   "devDependencies": {
     "@babel/types": "^7.11.5",
-    "@roots/bud-types": "file:../bud-types"
+    "@types/compression-webpack-plugin": "^4.0.1",
+    "@types/express": "^4.17.8",
+    "@types/webpack-manifest-plugin": "^2.1.0"
   }
 }

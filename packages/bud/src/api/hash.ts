@@ -1,9 +1,20 @@
-import type {Api} from '@roots/bud-types'
+import {BudInterface} from '../Bud'
 
-const hash: Api.Hash = function () {
+/**
+ * ## bud.hash
+ *
+ * Enable or disable filename hashing of built assets.
+ *
+ * ```js
+ * bud.hash(true)
+ * ```
+ */
+export type Hash = (this: BudInterface) => BudInterface
+
+const hash: Hash = function () {
   this.features.set('hash', true)
 
   return this
 }
 
-export {hash}
+export {hash as default}

@@ -7,7 +7,7 @@ import {output} from './output'
 import {webpackResolve} from './webpackResolve'
 import {plugins} from './plugins'
 
-import type {Bud} from '@roots/bud-types'
+import type {BudInterface} from '../'
 import type {WebpackConfig} from '@roots/bud-types'
 
 const builders = [
@@ -21,14 +21,14 @@ const builders = [
   webpackResolve,
 ]
 
-type WebpackBuilder = (bud: Bud) => WebpackConfig
+type WebpackBuilder = (bud: BudInterface) => WebpackConfig
 
 const config: WebpackBuilder = bud => {
   process.env.NODE_ENV = bud.mode.get() ?? 'none'
   process.env.BABEL_ENV = bud.mode.get() ?? 'none'
 
   return builders.reduce(
-    (acc: WebpackConfig, curr: (bud: Bud) => WebpackConfig) => ({
+    (acc, curr: (bud: BudInterface) => WebpackConfig) => ({
       ...acc,
       ...curr(bud),
     }),
