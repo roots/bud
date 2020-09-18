@@ -21,18 +21,17 @@ const PROXY_MSG = {
 const options = (
   config: ServerConfig,
 ): WebpackDevMiddleware.Options => ({
-  publicPath: config.publicPath,
-  filename: config.filename,
+  publicPath: config.publicPath ?? '/',
   headers: {...config.headers, ...PROXY_MSG} ?? PROXY_MSG,
-  lazy: config.lazy,
-  logLevel: config.logLevel,
-  logTime: config.logTime,
-  methods: config.methods,
+  lazy: config.lazy ?? false,
+  logLevel: config.logLevel ?? 'silent',
+  methods: config.methods ?? ['GET', 'HEAD'],
   mimeTypes: config.mimeTypes,
   serverSideRender: config.serverSideRender,
   stats: config.stats,
+  index: config.index ?? 'index.html',
   watchOptions: config.watchOptions,
-  writeToDisk: config.writeToDisk,
+  writeToDisk: config.writeToDisk ?? true,
 })
 
 export {dev as default}

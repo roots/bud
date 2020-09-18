@@ -7,28 +7,29 @@ import Screen from './components/Screen'
 import Title from './components/Title'
 import Prettier from './components/Prettier'
 
-const app = ({
+export type ApplicationCli = (
+  props: ApplicationCliProps,
+) => Instance
+
+const app: ApplicationCli = ({
   name,
+  compiler,
+  server,
   webpackConfig,
   serverConfig,
   terminate,
-}: ApplicationCliProps): Instance =>
+}) =>
   render(
     <App
       name={name}
+      compiler={compiler}
+      server={server}
       webpackConfig={webpackConfig}
       serverConfig={serverConfig}
       terminate={terminate}
     />,
   )
 
-export {
-  App,
-  ApplicationCliProps,
-  Console,
-  Screen,
-  Title,
-  Prettier,
-  app,
-  Instance,
-}
+export default app
+export {Console, Screen, Title, Prettier}
+export {ApplicationCliProps, Instance}

@@ -4,7 +4,7 @@ import Framework, {
   FrameworkInterface,
   Hooks,
 } from '@roots/bud-framework'
-import {app, Instance} from '@roots/bud-cli'
+import app, {ApplicationCli} from '@roots/bud-cli'
 
 import {config, WebpackBuilder} from './config'
 
@@ -64,14 +64,7 @@ declare interface BudInterface extends FrameworkInterface {
    *
    * Application CLI
    */
-  cli: Instance
-
-  /**
-   * ## bud.makeCli
-   *
-   * Make an application CLI
-   */
-  makeCli: () => void
+  cli: ApplicationCli
 
   /**
    * ## bud.args
@@ -649,7 +642,7 @@ class Bud
     /** Instantiate filesystem */
     this.fs = this.makeDisk(this.paths.get('project'))
 
-    this.makeCli = this.makeCli.bind(this)
+    this.cli = app
   }
 
   public makeLoaders(this: BudInterface): void {
@@ -673,15 +666,6 @@ class Bud
       notNodeModules,
       notVendor,
     ])
-  }
-
-  public makeCli(): void {
-    this.cli = app({
-      name: this.name,
-      webpackConfig: this.options.get('webpack'),
-      serverConfig: this.options.get('server'),
-      terminate: this.terminate,
-    })
   }
 }
 

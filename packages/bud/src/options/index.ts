@@ -21,7 +21,7 @@ const options = {
     default: '[name]',
   },
   manifest: {
-    name: 'manifest',
+    name: 'manifest.json',
   },
 }
 

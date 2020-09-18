@@ -1,11 +1,14 @@
 import dev from './middleware/dev'
 import hot from './middleware/hot'
 import proxy from './middleware/proxy'
-import injectEntrypoints from './util/injectEntrypoints'
+
+import devMiddleware from './middleware/dev'
+import hotMiddleware from './middleware/hot'
+import proxyMiddleware from './middleware/proxy'
 
 import WebpackDevMiddleware from 'webpack-dev-middleware'
 import {Options as ProxyOptions} from 'http-proxy-middleware'
-import {Configuration, Compiler} from 'webpack'
+import {Compiler} from 'webpack'
 import express, {
   Application as Express,
   Handler as ExpressHandler,
@@ -15,13 +18,14 @@ interface ServerConfig {
   host?: string
   port?: number
   from?: {
-    host: string
+    host?: string
     port?: number
   }
   to?: {
-    host: string
-    port: number
+    host?: string
+    port?: number
   }
+  index?: string
   hot?: boolean
   hotOnly?: boolean
   publicPath?: string
@@ -29,6 +33,8 @@ interface ServerConfig {
   secure?: ProxyOptions['secure']
   ws?: ProxyOptions['ws']
   autoRewrite?: ProxyOptions['autoRewrite']
+  changeOrigin?: ProxyOptions['changeOrigin']
+  followRedirects?: ProxyOptions['followRedirects']
   filename?: WebpackDevMiddleware.Options['filename']
   headers?: WebpackDevMiddleware.Options['headers']
   lazy?: WebpackDevMiddleware.Options['lazy']
@@ -45,7 +51,6 @@ interface ServerConfig {
 interface ServerOptions {
   config: ServerConfig
   compiler: Compiler
-  handler: ExpressHandler
 }
 
 /**
@@ -55,31 +60,15 @@ class Server {
   public server: Express = express()
   public config: ServerOptions['config']
   public compiler: ServerOptions['compiler']
-  public handler: ServerOptions['handler']
 
-  public constructor({
-    compiler,
-    config,
-    handler,
-  }: ServerOptions) {
+  public constructor({compiler, config}: ServerOptions) {
     this.compiler = compiler
     this.config = config
-    this.handler = handler
 
-    this.injectHmr = this.injectHmr.bind(this)
-    this.addMiddleware = this.addMiddleware.bind(this)
     this.addDevMiddleware = this.addDevMiddleware.bind(this)
     this.addHotMiddleware = this.addHotMiddleware.bind(this)
     this.addProxyMiddleware = this.addProxyMiddleware.bind(this)
-  }
-
-  public injectHmr(
-    entry: Configuration['entry'],
-  ): Configuration['entry'] {
-    return injectEntrypoints({
-      entry,
-      config: this.config,
-    })
+    this.addMiddleware = this.addMiddleware.bind(this)
   }
 
   public addMiddleware(middleware: ExpressHandler): void {
@@ -104,6 +93,8 @@ class Server {
   }
 
   public listen(): void {
+    this.server.use(express.static('dist'))
+
     this.server.listen(
       this.config.to?.port ?? 3000,
       (this.config.to?.host as string) ??
@@ -113,4 +104,11 @@ class Server {
   }
 }
 
-export {Server as default, ServerConfig, ServerOptions}
+export default Server
+export {
+  ServerConfig,
+  ServerOptions,
+  devMiddleware,
+  hotMiddleware,
+  proxyMiddleware,
+}

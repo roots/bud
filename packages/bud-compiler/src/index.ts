@@ -5,6 +5,8 @@ import webpack, {
   ProgressPlugin,
 } from 'webpack'
 
+import injectHmr from './inject'
+
 /**
  * The Bud webpack compiler.
  */
@@ -37,12 +39,14 @@ interface CompilerInterface {
   /**
    * Runs the compiler.
    */
-  run: () => void
+  run: (callback: WebpackCompiler.Handler) => void
 
   /**
    * Runs the compiler in watch mode.
    */
-  watch: () => void
+  watch: (
+    callback: WebpackCompiler.Handler,
+  ) => WebpackCompiler.Watching
 
   /**
    * Apply the progress plugin to the compiler.
@@ -53,23 +57,15 @@ interface CompilerInterface {
 class Compiler implements CompilerInterface {
   public name = '@roots/bud'
   public config: WebpackConfig
-
   public compiler: WebpackCompiler
-  public handler: WebpackCompiler.Handler
-
   public watching: WebpackWatching
   public watchOptions: WebpackCompiler.WatchOptions = {
     aggregateTimeout: 300,
   }
 
-  constructor(
-    name: string,
-    config: WebpackConfig,
-    handler: WebpackCompiler.Handler,
-  ) {
+  constructor(name: string, config: WebpackConfig) {
     this.name = name
     this.config = config
-    this.handler = handler
 
     this.run = this.run.bind(this)
     this.watch = this.watch.bind(this)
@@ -80,15 +76,17 @@ class Compiler implements CompilerInterface {
     this.compiler = webpack(this.config)
   }
 
-  public run(): void {
-    this.compiler.run(this.handler)
+  public run(handler: WebpackCompiler.Handler): void {
+    this.compiler.run(handler)
   }
 
-  public watch(): void {
-    this.watching = this.compiler.watch(
+  public watch(
+    handler: WebpackCompiler.Handler,
+  ): WebpackCompiler.Watching {
+    return (this.watching = this.compiler.watch(
       this.watchOptions,
-      this.handler,
-    )
+      handler,
+    ))
   }
 
   public applyProgressPlugin(
@@ -98,4 +96,4 @@ class Compiler implements CompilerInterface {
   }
 }
 
-export {Compiler as default, CompilerInterface}
+export {Compiler as default, injectHmr, CompilerInterface}

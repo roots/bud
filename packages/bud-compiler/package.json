@@ -22,17 +22,12 @@
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "lib"
-  ],
+  "files": ["lib"],
   "main": "./lib/index.js",
   "types": "./lib/types/index.d.ts",
   "scripts": {
     "build": "rimraf ./lib && tsc",
     "lint": "eslint ."
-  },
-  "dependencies": {
-    "@roots/bud-server": "file:../bud-server"
   },
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5"
 }

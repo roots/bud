@@ -1,20 +1,22 @@
 import React, {FunctionComponent} from 'react'
-import {useApp, useInput, Box, Text} from 'ink'
+import {useApp, useInput, Box} from 'ink'
 import useStdOutDimensions from 'ink-use-stdout-dimensions'
-
-import useCompiler, {
-  CompilerDerivedState,
-} from '../hooks/useCompiler'
-
-import Screen from './Screen'
 import {Configuration} from 'webpack'
-import {ServerConfig} from '@roots/bud-server'
+
+import Compiler from '@roots/bud-compiler'
+import Server, {ServerConfig} from '@roots/bud-server'
+
+import useCompilation from '../hooks/useCompilation'
+import Screen from './Screen'
+import Prettier from './Prettier'
 
 interface ApplicationCliProps {
   name: string
   webpackConfig: Configuration
   serverConfig: ServerConfig
   terminate: CallableFunction
+  compiler: Compiler
+  server: Server
 }
 
 type ApplicationCli = FunctionComponent<ApplicationCliProps>
@@ -24,16 +26,11 @@ const App: ApplicationCli = ({
   webpackConfig,
   serverConfig,
   terminate,
+  compiler,
+  server,
 }) => {
   const app = useApp()
   const [width, height] = useStdOutDimensions()
-  const {
-    serverInstance,
-    progress,
-  }: CompilerDerivedState = useCompiler(
-    webpackConfig,
-    serverConfig,
-  )
 
   useInput(input => {
     if (input == 'q') {
@@ -41,6 +38,13 @@ const App: ApplicationCli = ({
       terminate()
     }
   })
+
+  const compilation = useCompilation(
+    compiler,
+    server,
+    webpackConfig,
+    serverConfig,
+  )
 
   return (
     <Box
@@ -53,16 +57,9 @@ const App: ApplicationCli = ({
       justifyContent="space-between">
       <Screen title={name}>
         <>
-          <Text>
-            {webpackConfig && JSON.stringify(webpackConfig)}
-          </Text>
-          <Text>
-            {serverConfig && JSON.stringify(serverConfig)}
-          </Text>
-          <Text>{progress && JSON.stringify(progress)}</Text>
-          <Text>
-            {serverInstance && JSON.stringify(serverInstance)}
-          </Text>
+          <Prettier parser="json">
+            {JSON.stringify(compilation?.stats?.assets || {})}
+          </Prettier>
         </>
       </Screen>
     </Box>

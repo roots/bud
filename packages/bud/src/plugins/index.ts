@@ -3,6 +3,7 @@ import copy from './copy'
 import define from './define'
 import ignoreEmit from './ignoreEmit'
 import {brotli, gzip} from './compression'
+import html from './html'
 import hotModuleReplacement from './hotModuleReplacement'
 import limitChunkCount from './limitChunkCount'
 import miniCssExtract from './miniCssExtract'
@@ -18,6 +19,7 @@ const plugins = [
   copy,
   define,
   hotModuleReplacement,
+  html,
   ignoreEmit,
   manifest,
   miniCssExtract,

@@ -24,10 +24,7 @@
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "bin",
-    "types"
-  ],
+  "files": ["bin", "types"],
   "main": "./lib/index.js",
   "types": "./types/index.d.ts",
   "scripts": {

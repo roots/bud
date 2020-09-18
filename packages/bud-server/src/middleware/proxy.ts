@@ -16,8 +16,8 @@ const proxy = (config: ServerConfig): RequestHandler => {
    * Origin server
    */
   const from = {
-    host: config.host,
-    port: config.port ?? 8000,
+    host: config.from?.host ?? config.host ?? 'localhost',
+    port: config.from?.port ?? config.port ?? 8000,
     ssl: config.ssl ?? false,
   }
 
@@ -115,8 +115,9 @@ const proxy = (config: ServerConfig): RequestHandler => {
     autoRewrite: config.autoRewrite,
     headers,
     hostRewrite: `${to.host}:${to.port}`,
-    changeOrigin: true,
-    followRedirects: true,
+    changeOrigin: config.changeOrigin,
+    followRedirects: config.followRedirects,
+    logLevel: 'silent',
     ssl: config.ssl ?? false,
     secure: config.ssl ?? false,
     ws: config.ws ?? true,

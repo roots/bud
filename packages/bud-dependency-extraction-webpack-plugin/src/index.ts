@@ -2,7 +2,9 @@ import DependencyExtractionWebpackPlugin from '@wordpress/dependency-extraction-
 import type DependencyExtractionOptions from '@wordpress/dependency-extraction-webpack-plugin'
 import {BudInterface, Plugin} from '@roots/bud'
 
-const dependencyExtractionPlugin: Plugin = function (bud: BudInterface) {
+const dependencyExtractionPlugin: Plugin = function (
+  bud: BudInterface,
+) {
   return {
     bud,
 

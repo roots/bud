@@ -2,6 +2,7 @@ const server = {
   /**
    * Dev middleware
    */
+  hot: false,
   disableHostCheck: true,
   inline: true,
   changeOrigin: true,
@@ -14,14 +15,12 @@ const server = {
   },
   writeToDisk: true,
   publicPath: '/',
-  filename: 'index.html',
+  index: 'index.html',
   lazy: false,
   logLevel: 'silent',
-  logTime: false,
   methods: ['GET', 'HEAD'],
   mimeTypes: null,
   serverSideRender: false,
-  stats: false,
   watchOptions: {
     aggregateTimeout: 300,
     poll: true,
