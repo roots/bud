@@ -36,8 +36,8 @@ class FileContainer extends Container {
     this.base = dir
   }
 
-  require(key: string): void {
-    require(this.get(key))
+  require(key: string): any {
+    return require(this.get(key))
   }
 
   exists(key: string): boolean {
@@ -57,7 +57,11 @@ class FileContainer extends Container {
   }
 
   get(this: FileContainer, key: string): any {
-    return this.from(this.base, key)
+    return this.repository[key]
+  }
+
+  resolve(this: FileContainer, key: string): any {
+    return require(resolveFrom(this.base, this.get(key)))
   }
 
   project(key: string): string {

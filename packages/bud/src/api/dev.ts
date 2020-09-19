@@ -18,6 +18,8 @@ const dev: Dev = function (options) {
     return this
   }
 
+  options.hot && this.features.enabled('hot')
+
   this.options.merge('server', options)
 
   return this

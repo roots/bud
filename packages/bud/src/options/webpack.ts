@@ -4,7 +4,14 @@ const webpack: Configuration = {
   entry: {},
   externals: {},
   resolve: {
-    extensions: ['.css', '.js', '.json', '.svg'],
+    extensions: [
+      '.css',
+      '.htm',
+      '.html',
+      '.js',
+      '.json',
+      '.svg',
+    ],
   },
   devtool: 'source-map',
   node: {

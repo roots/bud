@@ -140,6 +140,13 @@ declare interface BudInterface extends FrameworkInterface {
   options: Container
 
   /**
+   * ## bud.package
+   *
+   * Project package.json info.
+   */
+  package?: Container
+
+  /**
    * ## bud.paths
    *
    * Project and framework paths.
@@ -569,6 +576,7 @@ class Bud
   public fs: BudInterface['fs']
   public hooks: BudInterface['hooks']
   public mode: BudInterface['mode']
+  public package?: BudInterface['package']
 
   /**
    * Containers

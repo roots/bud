@@ -6,6 +6,7 @@ const loaderModules = {
   file: require.resolve('file-loader'),
   minicss: MiniCssExtractPlugin.loader,
   postcss: require.resolve('postcss-loader'),
+  raw: require.resolve('raw-loader'),
   resolveUrl: require.resolve('resolve-url-loader'),
   style: require.resolve('style-loader'),
   url: require.resolve('url-loader'),

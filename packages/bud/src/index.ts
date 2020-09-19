@@ -6,9 +6,49 @@ import Bud, {BudInterface, Plugin} from './Bud'
 const bud: Bud = new Bud()
 
 /**
- * Set projectPath from args.
- *
- * This is used by filesystem setup so we do it early.
+ * Loaders have to be set up after Bud is instantiated.
+ */
+bud.makeLoaders()
+
+/**
+ * Parse env arg
+ */
+if (bud.args.get('env')) {
+  if (
+    bud.args.get('env') !== 'production' &&
+    bud.args.get('env') !== 'development' &&
+    bud.args.get('env') !== 'none'
+  ) {
+    console.error(
+      'Env must be one of: production, development, none',
+    )
+    bud.terminate()
+  }
+
+  bud.mode.set(bud.args.get('env'))
+  bud.mode.is('development') && bud.features.enable('dev')
+}
+
+/**
+ * Parse feature flags
+ */
+bud.features.set('ci', bud.args.get('ci'))
+bud.features.set('hot', bud.args.get('hot'))
+bud.features.set('watch', bud.args.get('watch'))
+bud.features.set('gzip', bud.args.get('gzip'))
+bud.features.set('brotli', bud.args.get('brotli'))
+
+/**
+ * Parse various options
+ */
+bud.args.get('devtool') &&
+  bud.options.set('webpack.devtool', bud.args.get('devtool'))
+
+bud.features.enabled('hot') &&
+  bud.options.set('server.hot', true)
+
+/**
+ * Pathing args
  */
 if (bud.args.has('project')) {
   bud.paths.set(
@@ -17,47 +57,7 @@ if (bud.args.has('project')) {
   )
 }
 
-/**
- * Set filesystem best we can
- */
-bud.updateDisk()
-
-/**
- * Set CI mode from args if available --
- *
- * Enabling CI flags for @roots/bud-cli that rawmode is not supported.
- */
-if (bud.args.get('ci')) {
-  bud.features.enable('ci')
-}
-
-/**
- * Set mode from args if available
- */
-if (
-  bud.args.get('env') == 'production' ||
-  'development' ||
-  'none'
-) {
-  bud.mode.set(bud.args.get('env'))
-}
-
-/**
- * Enable dev if mode is set
- */
-bud.mode.is('development') && bud.features.enable('dev')
-
-/**
- * Set hot from args
- */
-if (bud.args.get('hot')) {
-  bud.features.enable('hot')
-}
-
-/**
- * Set src from args
- */
-if (bud.args.get('src')) {
+bud.args.get('src') &&
   bud.paths.set(
     'src',
     bud.fs.path.resolve(
@@ -65,12 +65,8 @@ if (bud.args.get('src')) {
       bud.args.get('src'),
     ),
   )
-}
 
-/**
- * Set dist from args
- */
-if (bud.args.get('dist')) {
+bud.args.get('dist') &&
   bud.paths.set(
     'dist',
     bud.fs.path.resolve(
@@ -78,55 +74,34 @@ if (bud.args.get('dist')) {
       bud.args.get('dist'),
     ),
   )
+
+/** Refresh internal file index */
+bud.updateDisk()
+
+/** Set project info */
+if (bud.fs.has('package.json')) {
+  bud.package = bud.makeContainer(
+    bud.fs.readJson('package.json'),
+  )
+  bud.name = bud.package.get('name')
 }
 
-/**
- * Set devtool from args
- */
-if (bud.args.get('devtool')) {
-  bud.options.set('webpack.devtool', bud.args.get('devtool'))
-}
-
-/**
- * Set gzip from args
- */
-if (bud.args.get('gzip')) {
-  bud.features.set('gzip', bud.args.get('gzip'))
-}
-
-/**
- * Set brotli from args
- */
-if (bud.args.get('brotli')) {
-  bud.features.set('brotli', bud.args.get('brotli'))
-}
-
-/**
- * Setup loaders
- */
-bud.makeLoaders()
-
-/**
- * Set babel config
- */
+/** Check/process babel config */
 bud.fs.has('babel.config.js') &&
   bud.loaders.set(
     'babel.options',
-    bud.fs.read('babel.config.js'),
+    bud.fs.require('babel.config.js'),
   )
 
-/**
- * Get postcss config
- */
+/** Check/process postcss config */
 bud.fs.has('postcss.config.js') &&
   bud.loaders.set(
     'postcss.options',
-    bud.fs.read('postcss.config.js'),
+    bud.fs.require('postcss.config.js'),
   )
 
 /**
  * Bud - Webpack build framework
  */
-export {BudInterface, Plugin}
-
 module.exports = bud
+export {BudInterface, Plugin}

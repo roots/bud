@@ -8,6 +8,9 @@ const ignoreEmit: Plugin = (bud: BudInterface) => ({
       this.bud.options.get('webpack.plugins.ignoreEmit'),
     )
   },
+  when: function () {
+    return this.bud.options.get('webpack.plugins.ignoreEmit')
+  },
 })
 
 export {ignoreEmit as default}

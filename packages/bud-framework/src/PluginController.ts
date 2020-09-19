@@ -109,7 +109,10 @@ class PluginController {
   }
 
   make(): any {
-    if (this.plugin.when && this.plugin.when()) {
+    if (
+      !this.plugin.when ||
+      (this.plugin.when && this.plugin.when())
+    ) {
       return this.plugin.make()
     }
   }

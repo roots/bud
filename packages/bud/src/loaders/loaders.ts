@@ -55,6 +55,10 @@ const loaders = (bud: BudInterface): Loose => ({
     },
   },
 
+  raw: {
+    loader: bud.loaderModules.get('raw'),
+  },
+
   style: {
     loader: bud.loaderModules.get('style'),
   },
