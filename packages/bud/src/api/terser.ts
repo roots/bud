@@ -1,4 +1,4 @@
-import {BudInterface} from '../Bud'
+import {BudInterface} from '../'
 import {TerserPluginOptions} from 'terser-webpack-plugin'
 
 /**

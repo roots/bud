@@ -1,14 +1,16 @@
 import {useState, useEffect} from 'react'
 import {Configuration, Stats} from 'webpack'
 
-import Server, {ServerConfig} from '@roots/bud-server'
+import Server from '@roots/bud-server'
 import Compiler from '@roots/bud-compiler'
 
+/**
+ * Use Webpack.Stats from either compiler or Express server callbacks
+ */
 const useStats = (
   compiler: Compiler,
   server: Server,
   webpackConfig: Configuration,
-  serverConfig: ServerConfig,
 ): {stats: Stats.ToJsonOutput} => {
   /** Stats already tapped */
   const [tapped, setTapped] = useState(null)
@@ -55,6 +57,7 @@ const useStats = (
       compiler.run((err: Error, stats: Stats) => {
         if (err) {
           console.error(err)
+
           process.exit(1)
         }
 

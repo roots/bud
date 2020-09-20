@@ -1,4 +1,4 @@
-import {BudInterface} from '../Bud'
+import {BudInterface} from '../'
 
 /**
  * Inline common scripts.

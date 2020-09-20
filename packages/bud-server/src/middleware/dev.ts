@@ -8,27 +8,26 @@ export interface DevFactoryOptions {
   config: ServerConfig
 }
 
+const BUD_HEADERS = {
+  'X-Server': '@roots/bud',
+}
+
 const dev = ({
   compiler,
   config,
 }: DevFactoryOptions): RequestHandler =>
   WebpackDevMiddleware(compiler, options(config))
 
-const PROXY_MSG = {
-  'X-Server': '@roots/bud',
-}
-
 const options = (
   config: ServerConfig,
 ): WebpackDevMiddleware.Options => ({
   publicPath: config.publicPath ?? '/',
-  headers: {...config.headers, ...PROXY_MSG} ?? PROXY_MSG,
+  headers: {...config.headers, ...BUD_HEADERS} ?? BUD_HEADERS,
   lazy: config.lazy ?? false,
-  logLevel: config.logLevel ?? 'silent',
+  logLevel: 'silent',
   methods: config.methods ?? ['GET', 'HEAD'],
   mimeTypes: config.mimeTypes,
   serverSideRender: config.serverSideRender,
-  stats: config.stats,
   index: config.index ?? 'index.html',
   watchOptions: config.watchOptions,
   writeToDisk: config.writeToDisk ?? true,

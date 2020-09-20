@@ -36,4 +36,9 @@ const config: WebpackBuilder = bud => {
   )
 }
 
-export {config, builders, WebpackBuilder, WebpackConfig}
+export {
+  config as default,
+  builders,
+  WebpackBuilder,
+  WebpackConfig,
+}

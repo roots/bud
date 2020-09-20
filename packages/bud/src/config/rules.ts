@@ -1,5 +1,5 @@
-import type {BudInterface} from '../Bud'
-import type {Configuration, Module, RuleSetRule} from 'webpack'
+import type {BudInterface} from '../'
+import type {Configuration, Module} from 'webpack'
 
 type ModuleBuilder = (
   bud: BudInterface,

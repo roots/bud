@@ -1,7 +1,7 @@
 *.log
 node_modules
 coverage
-/docs/
 dist
 packages/*/lib
 *.tsbuildinfo
+.docs

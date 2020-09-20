@@ -1,5 +1,5 @@
 import {Loose} from '@roots/bud-framework'
-import {BudInterface} from '../Bud'
+import {BudInterface} from '../'
 
 /**
  * ## bud.gzip

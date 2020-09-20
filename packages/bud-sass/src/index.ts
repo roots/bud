@@ -85,4 +85,5 @@ const sass: Plugin = (bud: BudInterface) => ({
   },
 })
 
-module.exports = sass
+export {sass as default}
+module.exports = {sass}

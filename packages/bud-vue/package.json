@@ -26,9 +26,8 @@
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
   "scripts": {
-    "build": "rimraf ./lib && tsc",
-    "lint": "eslint src/**.ts",
-    "watch": "npm run build && nodemon"
+    "build": "rimraf ./lib && tsc -p tsconfig.build.json",
+    "lint": "eslint src/**.ts"
   },
   "dependencies": {
     "babel-helper-vue-jsx-merge-props": "^2.0.0",

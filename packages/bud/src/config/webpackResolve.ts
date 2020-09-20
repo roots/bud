@@ -21,6 +21,8 @@ const webpackResolve: ResolveBuilder = bud =>
       ),
 
       modules: bud.hooks.filter('webpack.resolve.modules', [
+        bud.paths.get('src'),
+        'node_modules',
         bud.fs.path.resolve(
           bud.paths.get('project'),
           'node_modules',

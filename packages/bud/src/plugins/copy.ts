@@ -1,6 +1,5 @@
 import {CopyWebpackPlugin} from './externals'
-import {BudInterface} from '../Bud'
-import {Plugin} from '../Plugin'
+import {BudInterface, Plugin} from '../'
 
 const copy: Plugin = (bud: BudInterface) => ({
   bud,

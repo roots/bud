@@ -14,11 +14,13 @@ const config: string = argv.config
 /**
  * CLI runtime.
  */
-;(async (config: string): Promise<void> => {
-  try {
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    require(config)
-  } catch (error) {
-    console.error(error)
-  }
-})(resolve(process.cwd(), config))
+if (config) {
+  ;(async (config: string): Promise<void> => {
+    try {
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      require(config)
+    } catch (error) {
+      console.error(error)
+    }
+  })(resolve(process.cwd(), config))
+}

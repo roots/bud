@@ -1,3 +1,7 @@
-import Container, {Loose} from './container'
+import Container, {
+  ContainerInterface,
+  Item,
+  Loose,
+} from './container'
 
-export {Container as default, Loose}
+export {Container as default, ContainerInterface, Item, Loose}

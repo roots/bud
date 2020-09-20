@@ -1,57 +1,5 @@
 import {Loose} from '@roots/container'
-import BudInterface from './Bud'
-
-/**
- * Conditional check determining whether to engage plugin functionality.
- */
-export type PluginConditional = (
-  this: PluginInterface,
-) => boolean
-
-/**
- * Plugin method handling options
- */
-export type PluginOptions = (this: PluginInterface) => Loose
-
-/**
- * Plugin interface
- */
-export interface PluginInterface extends Loose {
-  /**
-   * Framework
-   */
-  bud?: BudInterface
-
-  /**
-   * Plugin options.
-   */
-  options?: Loose
-
-  /**
-   * Set plugin options
-   */
-  setOptions?: PluginOptions
-
-  /**
-   * Merge plugin options
-   */
-  mergeOptions?: PluginOptions
-
-  /**
-   * Primary action of plugin.
-   */
-  make: () => any | void
-
-  /**
-   * Plugin is utilized when true.
-   */
-  when?: PluginConditional
-}
-
-/**
- * BudInterface Plugin
- */
-export type Plugin = (app: BudInterface) => PluginInterface
+import {BudInterface, Plugin, PluginInterface} from './'
 
 class PluginController {
   public bud: BudInterface

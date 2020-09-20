@@ -27,8 +27,7 @@
   "types": "lib/types/index.d.ts",
   "scripts": {
     "lint": "eslint src/**.ts",
-    "watch": "npm run build && nodemon",
-    "build": "rimraf ./lib && tsc"
+    "build": "rimraf ./lib && tsc -p tsconfig.build.json"
   },
   "dependencies": {
     "tailwindcss": "^1.6.2"

@@ -27,9 +27,8 @@
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
   "scripts": {
-    "build": "rimraf ./lib && tsc",
-    "lint": "eslint src/**.ts",
-    "watch": "npm run build && npm link && nodemon"
+    "build": "rimraf ./lib && tsc -p tsconfig.build.json",
+    "lint": "eslint src/**.ts"
   },
   "dependencies": {
     "@wordpress/dependency-extraction-webpack-plugin": "^2.8.0"

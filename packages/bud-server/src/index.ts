@@ -1,114 +1,220 @@
-import dev from './middleware/dev'
-import hot from './middleware/hot'
-import proxy from './middleware/proxy'
-
-import devMiddleware from './middleware/dev'
-import hotMiddleware from './middleware/hot'
-import proxyMiddleware from './middleware/proxy'
-
 import WebpackDevMiddleware from 'webpack-dev-middleware'
 import {Options as ProxyOptions} from 'http-proxy-middleware'
-import {Compiler} from 'webpack'
-import express, {
+import {
+  Compiler,
+  Options as WebpackOptions,
+  Configuration,
+} from 'webpack'
+import {
   Application as Express,
   Handler as ExpressHandler,
 } from 'express'
 
-interface ServerConfig {
+import Server from './Server'
+import injectClient from './injectClient'
+
+interface InjectionProps {
+  entrypoints: Configuration['entry']
+  hotOnly: boolean
+}
+
+/**
+ * Inject webpack entry configuration with hot client/server loaders
+ */
+export type InjectClient = (
+  props: InjectionProps,
+) => Configuration['entry']
+
+/**
+ * Server configuration
+ */
+export interface ServerConfig {
+  /**
+   * The development server host
+   * @example example.test
+   */
   host?: string
+
+  /**
+   * The development server port
+   * @example 3000
+   */
   port?: number
+
+  /**
+   * Proxy origin
+   */
   from?: {
+    /**
+     * Proxy origin host
+     * @example example.test
+     */
     host?: string
+
+    /**
+     * Proxy origin port
+     * @example 8080
+     */
     port?: number
   }
+
+  /**
+   * Proxy destination
+   */
   to?: {
+    /**
+     * Proxy destination host
+     * @example localhost
+     */
     host?: string
+
+    /**
+     * Proxy destination port
+     * @example 3000
+     */
     port?: number
   }
-  index?: string
+
+  /**
+   * The index path for web server, defaults to "index.html".
+   */
+  index?: WebpackDevMiddleware.Options['index']
+
+  /**
+   * Should hot middleware be used?
+   */
   hot?: boolean
+
+  /**
+   * Should hotOnly middleware be used?
+   */
   hotOnly?: boolean
-  publicPath?: string
+
+  /**
+   * The public path that the middleware is bound to.
+   */
+  publicPath?: WebpackDevMiddleware.Options['publicPath']
+
+  /**
+   * Proxy setting: object passed to  https.createServer
+   */
   ssl?: ProxyOptions['ssl']
+
+  /**
+   * Proxy setting: set to true to verify SSL certificates
+   */
   secure?: ProxyOptions['secure']
+
+  /**
+   * Proxy setting: proxy websockets.
+   */
   ws?: ProxyOptions['ws']
+
+  /**
+   * Proxy setting: rewrite the location host/port on (301/302/307/308) redirects based on requested host/port.
+   */
   autoRewrite?: ProxyOptions['autoRewrite']
+
+  /**
+   * Proxy setting: change the origin of the host header to the target URL
+   */
   changeOrigin?: ProxyOptions['changeOrigin']
+
+  disableHostCheck?: WebpackDevMiddleware.Options[]
+
+  /**
+   * Proxy setting: specify whether you want to follow redirects
+   */
   followRedirects?: ProxyOptions['followRedirects']
+
+  /**
+   * Filename to serve as index.
+   */
   filename?: WebpackDevMiddleware.Options['filename']
+
+  /**
+   * This property allows a user to pass custom HTTP headers on each request. eg. { "X-Custom-Header": "yes" }
+   */
   headers?: WebpackDevMiddleware.Options['headers']
+
+  /**
+   * This option instructs the module to operate in 'lazy' mode,
+   * meaning that it won't recompile when files change, but rather on each request.
+   */
   lazy?: WebpackDevMiddleware.Options['lazy']
-  logLevel?: WebpackDevMiddleware.Options['logLevel']
-  logTime?: WebpackDevMiddleware.Options['logTime']
+
+  /**
+   * This property allows a user to pass the list of HTTP request methods accepted by the server.
+   * @default [ 'GET', 'HEAD' ]
+   */
   methods?: WebpackDevMiddleware.Options['methods']
-  mimeTypes?: WebpackDevMiddleware.Options['mimeTypes']
+
+  /**
+   * This property allows a user to register custom mime types or extension mappings
+   * @default null
+   */
+  mimeTypes?:
+    | WebpackDevMiddleware.MimeTypeMap
+    | WebpackDevMiddleware.OverrideMimeTypeMap
+    | null
+
+  /**
+   * Instructs the module to enable or disable the server-side rendering mode
+   */
   serverSideRender?: WebpackDevMiddleware.Options['serverSideRender']
-  stats?: WebpackDevMiddleware.Options['stats']
-  watchOptions?: WebpackDevMiddleware.Options['watchOptions']
+
+  /**
+   * Specify polling, etc.
+   */
+  watchOptions?: WebpackOptions.WatchOptions
+
+  /**
+   * If true, the option will instruct the module to write files to the configured location on disk as specified in your webpack config file
+   * This option also accepts a Function value, which can be used to filter which files are written to disk
+   */
   writeToDisk?: WebpackDevMiddleware.Options['writeToDisk']
 }
 
-interface ServerOptions {
+export interface ServerOptions {
+  /**
+   * Server configuration.
+   */
   config: ServerConfig
+
+  /**
+   * Webpack compiler.
+   */
   compiler: Compiler
 }
 
 /**
- * Bud Server
+ * Bud development server.
  */
-class Server {
-  public server: Express = express()
-  public config: ServerOptions['config']
-  public compiler: ServerOptions['compiler']
+export interface ServerInterface {
+  /**
+   * Express instance.
+   */
+  server: Express
 
-  public constructor({compiler, config}: ServerOptions) {
-    this.compiler = compiler
-    this.config = config
+  /**
+   * Server configuration.
+   */
+  config: ServerOptions['config']
 
-    this.addDevMiddleware = this.addDevMiddleware.bind(this)
-    this.addHotMiddleware = this.addHotMiddleware.bind(this)
-    this.addProxyMiddleware = this.addProxyMiddleware.bind(this)
-    this.addMiddleware = this.addMiddleware.bind(this)
-  }
+  /**
+   * Webpack compiler.
+   */
+  compiler: ServerOptions['compiler']
 
-  public addMiddleware(middleware: ExpressHandler): void {
-    this.server.use(middleware)
-  }
+  /**
+   * Add middleware to Express instance.
+   */
+  addMiddleware: (middleware: ExpressHandler) => void
 
-  public addDevMiddleware(): void {
-    this.addMiddleware(
-      dev({
-        compiler: this.compiler,
-        config: this.config,
-      }),
-    )
-  }
-
-  public addHotMiddleware(): void {
-    this.addMiddleware(hot(this.compiler))
-  }
-
-  public addProxyMiddleware(): void {
-    this.addMiddleware(proxy(this.config))
-  }
-
-  public listen(): void {
-    this.server.use(express.static('dist'))
-
-    this.server.listen(
-      this.config.to?.port ?? 3000,
-      (this.config.to?.host as string) ??
-        (this.config.host as string) ??
-        'localhost',
-    )
-  }
+  /**
+   * Binds and listens for connections on the host and port specified in the config.
+   */
+  listen: () => void
 }
 
-export default Server
-export {
-  ServerConfig,
-  ServerOptions,
-  devMiddleware,
-  hotMiddleware,
-  proxyMiddleware,
-}
+export {Server as default, injectClient}

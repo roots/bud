@@ -8,7 +8,7 @@ import Server, {ServerConfig} from '@roots/bud-server'
 
 import useCompilation from '../hooks/useCompilation'
 import Screen from './Screen'
-import Prettier from './Prettier'
+import Assets from './Assets'
 
 interface ApplicationCliProps {
   name: string
@@ -43,7 +43,6 @@ const App: ApplicationCli = ({
     compiler,
     server,
     webpackConfig,
-    serverConfig,
   )
 
   return (
@@ -56,11 +55,7 @@ const App: ApplicationCli = ({
       flexDirection="column"
       justifyContent="space-between">
       <Screen title={name}>
-        <>
-          <Prettier parser="json">
-            {JSON.stringify(compilation?.stats?.assets || {})}
-          </Prettier>
-        </>
+        <Assets assets={compilation?.stats?.assets} />
       </Screen>
     </Box>
   )

@@ -1,37 +1,28 @@
 import React, {FunctionComponent} from 'react'
-import Screen from '../Screen'
-import Asset from './Asset'
 import {Box} from 'ink'
+import {Stats} from 'webpack'
+
+import Asset from './Asset'
+import useAssetTransform from './useAssetTransform'
 
 interface AssetsProps {
-  assets: any
+  assets: Stats.ToJsonOutput['assets']
 }
 
 const Assets: FunctionComponent<AssetsProps> = ({assets}) => {
-  assets = assets?.map(asset => ({
-    ...asset,
-    hot:
-      assets.filter(
-        check =>
-          check.name.split('.').shift() ==
-            asset.name.split('.').shift() &&
-          check.name.includes('hot-update'),
-      ).length > 0,
-  }))
+  const processedAssets = useAssetTransform(assets)
 
   return (
     <Box>
-      <Screen title="Assets">
-        {assets?.map((asset, id) => (
-          <Asset
-            key={id}
-            name={asset.name}
-            size={asset.size}
-            emitted={asset.emitted}
-            hot={asset.hot}
-          />
-        ))}
-      </Screen>
+      {processedAssets?.map((asset, id) => (
+        <Asset
+          key={id}
+          name={asset.name}
+          size={asset.size}
+          emitted={asset.emitted}
+          hot={asset.hot}
+        />
+      ))}
     </Box>
   )
 }

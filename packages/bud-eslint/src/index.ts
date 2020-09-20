@@ -41,4 +41,5 @@ const presets = {
   react: resolve(__dirname, './preset/react.js'),
 }
 
+export {plugin, presets}
 module.exports = {plugin, presets}

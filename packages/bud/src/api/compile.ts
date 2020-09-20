@@ -1,9 +1,6 @@
 import BudInterface from '../Bud'
-import Compiler, {
-  CompilerInterface,
-  injectHmr,
-} from '@roots/bud-compiler'
-import Server from '@roots/bud-server'
+import Compiler, {CompilerInterface} from '@roots/bud-compiler'
+import Server, {injectClient} from '@roots/bud-server'
 
 /**
  * ## bud.compile
@@ -20,9 +17,9 @@ const compile: Compile = function (this: BudInterface) {
   if (this.options.get('server.hot')) {
     this.options.set(
       'webpack.entry',
-      injectHmr({
+      injectClient({
         entrypoints: this.options.get('webpack.entry'),
-        hotOnly: this.options.get('server.hotOnly'),
+        hotOnly: this.options.get('server.hotOnly') ?? false,
       }),
     )
   }
@@ -35,23 +32,21 @@ const compile: Compile = function (this: BudInterface) {
     webpackConfig,
   )
 
-  let server: Server = null
-
   if (this.mode.is('development')) {
-    server = new Server({
+    this.server = new Server({
       compiler: compiler.compiler,
       config: webpackConfig,
     })
 
-    server.addDevMiddleware()
-    serverConfig.hot && server.addHotMiddleware()
-    serverConfig.to?.host && server.addProxyMiddleware()
+    this.server.addDevMiddleware()
+    serverConfig.hot && this.server.addHotMiddleware()
+    serverConfig.to?.host && this.server.addProxyMiddleware()
   }
 
   this.cli({
     name: this.name,
     compiler,
-    server,
+    server: this.server,
     webpackConfig,
     serverConfig,
     terminate: this.terminate,

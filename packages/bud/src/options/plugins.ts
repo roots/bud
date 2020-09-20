@@ -1,5 +1,4 @@
 export type Copy = {patterns: any[]}
-const copy: Copy = {patterns: []}
 
 const plugins = {
   clean: {},

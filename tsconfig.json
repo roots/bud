@@ -1,62 +1,22 @@
 {
   "compilerOptions": {
-    /* Basic Options */
-    "target": "es2017",
-    "module": "commonjs",
-    "watch": false,
-    "lib": ["esnext", "es5", "es6", "dom", "dom.iterable"],
-    // "allowJs": true,
-    // "checkJs": true,
-    "jsx": "react",
+    "allowSyntheticDefaultImports": true,
+    "baseUrl": "./packages",
     "declaration": true,
     "declarationMap": true,
+    "esModuleInterop": true,
+    "importHelpers": true,
+    "lib": ["esnext", "es5", "es6", "dom", "dom.iterable"],
+    "jsx": "react",
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noUnusedLocals": true,
     "pretty": true,
     "sourceMap": true,
-    // "outFile": "./",
-    // "outDir": "lib",
-    // "rootDir": "src",
-    // "composite": true,
-    // "removeComments": true,
-    // "noEmit": true,
-    "importHelpers": true,
-    // "downlevelIteration": true,
-    // "isolatedModules": true,
-
-    /* Strict Type-Checking Options */
-    // "strict": true,
-    // "noImplicitAny": true,
-    // "strictNullChecks": true,
-    // "strictFunctionTypes": true,
-    // "strictBindCallApply": true,
-    // "strictPropertyInitialization": true,
-    // "noImplicitThis": true,
-    // "alwaysStrict": true,
-    // "forceConsistentCasingInFileNames": true,
-
-    /* Additional Checks */
-    "noUnusedLocals": true,
-    // "noUnusedParameters": true,
-    // "noImplicitReturns": true,
-    // "noFallthroughCasesInSwitch": true,
-
-    /* Module Resolution Options */
-    "moduleResolution": "node",
-    // "paths": { "@bud/*": ["packages/*"] },
-    // "rootDirs": [],
-    // "typeRoots": [],
-    // "types": [],
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    // "preserveSymlinks": true,
-
-    /* Source Map Options */
-    // "sourceRoot": "",
-    // "mapRoot": "",
-    // "inlineSourceMap": true,
-    // "inlineSources": true,
-
-    /* Experimental Options */
-    // "experimentalDecorators": true,
-    // "emitDecoratorMetadata": true,
+    "target": "es2017",
+    "watch": false,
+    "paths": {
+      "@roots/*": ["*/src"]
+    },
   }
 }

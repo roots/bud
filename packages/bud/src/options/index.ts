@@ -6,8 +6,19 @@ import webpack from './webpack'
  * Options container repository
  */
 const options = {
+  /**
+   * Development server options.
+   */
   server,
+
+  /**
+   * Webpack options.
+   */
   webpack,
+
+  /**
+   * Webpack plugin options.
+   */
   plugins,
 
   /**

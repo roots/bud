@@ -5,8 +5,6 @@ import webpack, {
   ProgressPlugin,
 } from 'webpack'
 
-import injectHmr from './inject'
-
 /**
  * The Bud webpack compiler.
  */
@@ -96,4 +94,4 @@ class Compiler implements CompilerInterface {
   }
 }
 
-export {Compiler as default, injectHmr, CompilerInterface}
+export {Compiler as default, CompilerInterface}

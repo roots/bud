@@ -1,4 +1,4 @@
-import {BudInterface} from '../Bud'
+import {BudInterface} from '../'
 import {Loose} from '@roots/bud-framework'
 import svgToMiniDataUri from 'mini-svg-data-uri'
 

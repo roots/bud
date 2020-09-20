@@ -23,11 +23,11 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["bin", "types"],
+  "files": ["bin", "build"],
   "main": "./bin/bud-cli.js",
   "types": "./types/index.d.ts",
   "scripts": {
-    "build": "rimraf ./bin && tsc",
+    "build": "rimraf ./lib && tsc -p tsconfig.build.json",
     "lint": "eslint ."
   }
 }

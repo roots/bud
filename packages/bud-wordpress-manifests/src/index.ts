@@ -3,7 +3,7 @@ import WordPressExternalsWebpackPlugin from './WordPressExternalsWebpackPlugin'
 import EntrypointsWebpackPlugin from './EntrypointsWebpackPlugin'
 import MergedManifestWebpackPlugin from './MergedManifestWebpackPlugin'
 
-const mergedManifestPlugin = bud => ({
+const mergedManifestPlugin = (bud: BudInterface) => ({
   bud,
   make: function () {
     return new MergedManifestWebpackPlugin()
@@ -24,9 +24,9 @@ const entrypointsPlugin = bud => ({
   },
 })
 
-const budWordPressBuildTools: Plugin = bud => ({
+const budWordPressManifests: Plugin = bud => ({
   bud,
-  make: function () {
+  make() {
     this.bud.plugins.set(
       'wordpress-externals-webpack-plugin',
       externalsPlugin,
@@ -44,4 +44,4 @@ const budWordPressBuildTools: Plugin = bud => ({
   },
 })
 
-module.exports = budWordPressBuildTools
+module.exports = budWordPressManifests

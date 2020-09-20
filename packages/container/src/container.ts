@@ -1,119 +1,205 @@
 import __ from 'lodash'
 
+export type Item = any | Loose | Loose[]
+
 export interface Loose {
-  [key: string]: any | any[] | Loose | Loose[]
+  [key: string]: Item
 }
 
-export type Getter = (this: Container, key: string) => Loose
-export type Action = (this: Container, ...args: any) => void
+/**
+ * Generic store.
+ *
+ * @typedef ContainerInterface
+ * @extends Loose
+ */
+export interface ContainerInterface extends Loose {
+  repository: Loose
 
-export type ConditionalCheck = (
-  this: Container,
-  key: string,
-  value?: any,
-) => boolean
+  /**
+   * Push a new value onto an array item
+   */
+  add(this: ContainerInterface, key: string, item: Item): void
 
-class Container implements Loose {
+  /**
+   * Push a new value onto an array item
+   */
+  push(this: ContainerInterface, key: string, item: Item): void
+
+  /**
+   * Get a value
+   */
+  get(this: ContainerInterface, key: string): Item
+
+  /**
+   * Check a value
+   */
+  is(this: ContainerInterface, key: string, value: Item): boolean
+
+  /**
+   * Set a value
+   */
+  set(this: ContainerInterface, key: string, value: Item): void
+
+  /**
+   * Check if an item exists in the repository.
+   */
+  has(this: ContainerInterface, key: string): boolean
+
+  /**
+   * Merge an item value.
+   */
+  merge(this: ContainerInterface, key: string, value: Item): void
+
+  /**
+   * Delete an item from the repository
+   */
+  delete(this: ContainerInterface, key: string): void
+
+  /**
+   * Set an item to true
+   */
+  enable(this: ContainerInterface, key: string): void
+
+  /**
+   * Set an item to false
+   */
+  disable(this: ContainerInterface, key: string): void
+
+  /**
+   * Set if an item is true
+   */
+  enabled(this: ContainerInterface, key: string): boolean
+
+  /**
+   * Check if an item is false
+   */
+  disabled(this: ContainerInterface, key: string): boolean
+
+  /**
+   * Map a callback onto an iterable item
+   */
+  map(
+    this: ContainerInterface,
+    key: string,
+    callback: (params: unknown) => unknown,
+  ): unknown
+
+  /**
+   * Get all of the repository contents
+   */
+  entries(this: ContainerInterface): Loose
+}
+
+/**
+ * Keyed item store.
+ */
+class Container implements ContainerInterface {
   repository: Loose
 
   constructor(repository?: Loose) {
     this.repository = repository || {}
-
-    this.add = this.add.bind(this)
-    this.push = this.push.bind(this)
-    this.get = this.get.bind(this)
-    this.is = this.is.bind(this)
-    this.set = this.set.bind(this)
-    this.has = this.has.bind(this)
   }
 
-  add: Action = function (
-    this: Container,
+  /**
+   * Push a new value onto an array item
+   * @deprecated
+   */
+  public add(
+    this: ContainerInterface,
     key: string,
-    item: any,
+    item: Item,
   ): void {
     this.repository[key].push(item)
   }
 
-  push: Action = function (this: Container, item: any) {
-    this.repository.push(item)
+  /**
+   * Push a new value onto an array item
+   */
+  public push(
+    this: ContainerInterface,
+    key: string,
+    item: Item,
+  ): void {
+    this.repository[key].push(item)
   }
 
-  get(this: Container, key: string): any {
+  /**
+   * Get a value of a repository item.
+   */
+  public get(this: ContainerInterface, key: string): Item {
     return __.get(this.repository, key)
   }
 
-  is: ConditionalCheck = function (
-    this: Container,
+  public is(
+    this: ContainerInterface,
     key: string,
-    value: any,
-  ) {
+    value: Item,
+  ): boolean {
     return this.get(key) == value
   }
 
-  set: Action = function (
-    this: Container,
+  public set(
+    this: ContainerInterface,
     key: string,
-    value: any,
-  ) {
+    value: Item,
+  ): void {
     __.set(this.repository, key, value)
   }
 
-  has: ConditionalCheck = function (
-    this: Container,
-    key: string,
-  ) {
+  public has(this: ContainerInterface, key: string): boolean {
     return this.repository.hasOwnProperty(key) ? true : false
   }
 
-  merge: Action = function (
-    this: Container,
+  public merge(
+    this: ContainerInterface,
     key: string,
-    value: any,
-  ) {
+    value: Item,
+  ): void {
     this.set(key, __.merge(this.get(key), value))
   }
 
-  deleteBind: Action = function (this: Container, key: string) {
+  public delete: ContainerInterface['delete'] = function (
+    this: ContainerInterface,
+    key: string,
+  ) {
     delete this.repository[key]
   }
 
-  enable: Action = function (this: Container, key: string) {
+  public enable(this: ContainerInterface, key: string): void {
     this.repository[key] = true
   }
 
-  disable: Action = function (this: Container, key: string) {
+  public disable(this: ContainerInterface, key: string): void {
     this.repository[key] = false
   }
 
-  enabled: ConditionalCheck = function (
-    this: Container,
+  public enabled(
+    this: ContainerInterface,
     key: string,
-  ) {
+  ): boolean {
     return this.is(key, true)
   }
 
-  disabled: ConditionalCheck = function (
-    this: Container,
+  public disabled(
+    this: ContainerInterface,
     key: string,
-  ) {
+  ): boolean {
     return this.is(key, false)
   }
 
-  map: Action = function (
-    this: Container,
+  public map(
+    this: ContainerInterface,
     key: string,
-    callback: (params: any) => any,
-  ): any {
+    callback: (params: unknown) => unknown,
+  ): unknown {
     return this.get(key).map(callback)
   }
 
-  entries: (this: Container) => Loose = function () {
+  /**
+   * Get all of the repository contents
+   */
+  public entries(): Loose {
     return Object.entries(this.repository)
-  }
-
-  requireBind: Action = function (this: Container, key: string) {
-    require.resolve(this.get(key)) && require(this.get(key))
   }
 }
 

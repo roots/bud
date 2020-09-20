@@ -23,11 +23,11 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib", "types"],
+  "files": ["lib"],
   "main": "./lib/index.js",
-  "types": "./types/index.d.ts",
+  "types": "./lib/types/index.d.ts",
   "scripts": {
-    "build": "rimraf ./lib && tsc",
+    "build": "rimraf ./lib && tsc -p tsconfig.build.json",
     "lint": "eslint ."
   },
   "devDependencies": {

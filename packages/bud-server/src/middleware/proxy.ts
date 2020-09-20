@@ -4,8 +4,9 @@ import {
   Options,
 } from 'http-proxy-middleware'
 
-import zlib from 'zlib'
 import url from 'url'
+import zlib from 'zlib'
+
 import {ServerConfig} from '..'
 
 /**
@@ -112,6 +113,7 @@ const proxy = (config: ServerConfig): RequestHandler => {
    */
   const proxyOptions: Options = {
     target: getUrl(from),
+    forward: getUrl(to),
     autoRewrite: config.autoRewrite,
     headers,
     hostRewrite: `${to.host}:${to.port}`,

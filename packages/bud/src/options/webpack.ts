@@ -5,12 +5,11 @@ const webpack: Configuration = {
   externals: {},
   resolve: {
     extensions: [
-      '.css',
-      '.htm',
-      '.html',
+      '.wasm',
+      '.mjs',
       '.js',
       '.json',
-      '.svg',
+      '.css',
     ],
   },
   devtool: 'source-map',
@@ -40,21 +39,13 @@ const webpack: Configuration = {
       cacheGroups: {
         vendor: {
           test: /[\\/]node_modules[\\/]/,
-          name: function (
-            module: any,
-            chunks: any,
+          name: (
+            chunks: {name}[],
             cacheGroupKey: string,
-          ): string {
-            const fileName = module
-              .identifier()
-              .split('/')
-              .reduceRight(item => item)
-              .replace('.js', '')
-            const chunkNames = chunks
+          ): string =>
+            `${cacheGroupKey}/${chunks
               .map(item => item.name)
-              .join('~')
-            return `${cacheGroupKey}/${chunkNames}`
-          },
+              .join('~')}`,
           chunks: 'all',
         },
       },

@@ -22,15 +22,18 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "main": "./lib/index.js",
   "types": "./lib/types/index.d.ts",
   "scripts": {
-    "build": "rimraf ./lib && tsc",
+    "build": "rimraf ./lib && tsc -p tsconfig.build.json",
     "lint": "eslint ."
   },
   "dependencies": {
     "http-proxy-middleware": "^1.0.5",
+    "strip-ansi": "^6.0.0",
     "webpack": "^4.44.1",
     "webpack-dev-middleware": "^3.7.2",
     "webpack-hot-middleware": "^2.25.0",

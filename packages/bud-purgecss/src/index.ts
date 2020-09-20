@@ -73,3 +73,4 @@ const plugin: Plugin = (bud: BudInterface) => ({
 
 const preset = {wp}
 export {plugin, preset}
+module.exports = {plugin, preset}

@@ -1,11 +1,9 @@
-const server = {
-  /**
-   * Dev middleware
-   */
-  hot: false,
-  disableHostCheck: true,
-  inline: true,
+import {ServerConfig} from '@roots/bud-server'
+
+const server: ServerConfig = {
+  autoRewrite: true,
   changeOrigin: true,
+  followRedirects: true,
   headers: {
     'Access-Control-Allow-Origin': '*',
     'Access-Control-Allow-Methods':
@@ -13,26 +11,20 @@ const server = {
     'Access-Control-Allow-Headers':
       'X-Requested-With, content-type, Authorization',
   },
-  writeToDisk: true,
-  publicPath: '/',
+  hot: false,
   index: 'index.html',
   lazy: false,
-  logLevel: 'silent',
   methods: ['GET', 'HEAD'],
   mimeTypes: null,
+  publicPath: '/',
+  ssl: false,
+  secure: false,
   serverSideRender: false,
   watchOptions: {
     aggregateTimeout: 300,
     poll: true,
   },
-
-  /**
-   * Proxy middleware
-   */
-  autoRewrite: true,
-  followRedirects: true,
-  ssl: false,
-  secure: false,
+  writeToDisk: true,
   ws: true,
 }
 
