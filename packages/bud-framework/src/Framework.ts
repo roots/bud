@@ -1,5 +1,6 @@
 import Container, {Loose} from '@roots/container'
 import Filesystem from '@roots/filesystem'
+import {FrameworkInterface, Hooks} from './'
 import {
   dump,
   format,
@@ -10,8 +11,7 @@ import {
   processHandler,
   terminate,
 } from './util'
-import {hooks, Hooks} from './hooks'
-import {FrameworkInterface} from './'
+import {hooks} from './hooks'
 
 class Framework implements FrameworkInterface {
   public dump = dump

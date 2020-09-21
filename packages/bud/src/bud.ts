@@ -45,9 +45,6 @@ class Bud
   public package?: BudInterface['package']
   public server: BudInterface['server']
 
-  /**
-   * Public configuration API
-   */
   public addExtensions: BudInterface['addExtensions'] =
     api.addExtensions
   public alias: BudInterface['alias'] = api.alias

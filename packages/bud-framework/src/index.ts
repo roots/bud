@@ -9,8 +9,6 @@ import {
   notify,
   terminate,
 } from './util'
-import {Hooks} from './hooks'
-
 import Framework from './Framework'
 
 interface FrameworkInterface extends Loose {
@@ -85,4 +83,56 @@ interface FrameworkInterface extends Loose {
   makeDisk: (baseDir?: string, pattern?: string[]) => Filesystem
 }
 
-export {Framework as default, FrameworkInterface, Hooks, Loose}
+export type RegisteredHooks = {
+  [name: string]: Hook[]
+}
+
+/**
+ * A hook definition
+ */
+export type Hook = {
+  name: string
+  fn: (...args: any | any[]) => any
+  value: any
+  fired: boolean
+}
+
+/**
+ * Framework hooks
+ */
+export type Hooks = {
+  /**
+   * Framework logging utility
+   */
+  logger: any
+
+  /**
+   * Logging
+   */
+  registered: RegisteredHooks
+
+  /**
+   * Formats a callback as registrable entry.
+   */
+  make: (args: any | any[]) => any
+
+  /**
+   * Returns all registered hooks.
+   */
+  entries: () => any[]
+
+  /**
+   * Sets a callback on a filter event.
+   */
+  on: (
+    name: string,
+    callback: (args: any | any[]) => any,
+  ) => void
+
+  /**
+   * Calls registered callbacks
+   */
+  filter: (name: string, value: any) => any
+}
+
+export {Framework as default, FrameworkInterface, Loose}
