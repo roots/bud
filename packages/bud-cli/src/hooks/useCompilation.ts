@@ -10,7 +10,7 @@ import Compiler from '@roots/bud-compiler'
 const useStats = (
   compiler: Compiler,
   server: Server,
-): {stats: Stats.ToJsonOutput} => {
+): {stats: Stats.ToJsonOutput; progress: any} => {
   /** Stats already tapped */
   const [tapped, setTapped] = useState(null)
 
@@ -23,10 +23,33 @@ const useStats = (
   /** Stats state */
   const [stats, setStats] = useState(null)
 
+  /** Compilation progress */
+  const [progress, setProgress] = useState(null)
+
+  /** Plugins applied */
+  const [applied, setApplied] = useState(false)
+
   /** Stats handler */
   const statsHandler = (stats: Stats) => {
     setStats(stats.toJson())
   }
+
+  /** Progress handler */
+  const progressHandler = progress => {
+    setProgress(progress)
+  }
+
+  /**
+   * Apply plugins.
+   */
+  useEffect(() => {
+    if (applied) {
+      return
+    }
+
+    compiler.applyPlugins(progressHandler)
+    setApplied(true)
+  }, [compiler])
 
   /**
    * Listen on server if available
@@ -67,7 +90,7 @@ const useStats = (
     })
   }
 
-  return {stats}
+  return {progress, stats}
 }
 
 export {useStats as default}

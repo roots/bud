@@ -15,7 +15,6 @@ import injectClient from './injectClient'
 
 interface InjectionProps {
   entrypoints: Configuration['entry']
-  hotOnly: boolean
 }
 
 /**

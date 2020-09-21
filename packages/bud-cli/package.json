@@ -38,6 +38,7 @@
   "dependencies": {
     "@roots/bud-compiler": "file:../bud-compiler",
     "@roots/bud-server": "file:../bud-server",
+    "@roots/bud-support": "file:../bud-support",
     "cli-highlight": "^2.1.4",
     "execa": "^4.0.3",
     "ink": "^3.0.0-6",

@@ -1,5 +1,6 @@
 import {BudInterface, Plugin} from '@roots/bud'
 import {resolve} from 'path'
+import {eslintFormatter} from '@roots/bud-support'
 
 const plugin: Plugin = (bud: BudInterface) => ({
   bud,
@@ -19,7 +20,7 @@ const plugin: Plugin = (bud: BudInterface) => ({
       loader: require.resolve('eslint-loader'),
       options: {
         configFile: this.bud.fs.get('eslint'),
-        formatter: 'codeframe',
+        formatter: eslintFormatter,
         failOnError: true,
         fix: this.bud.args.get('fix') ?? false,
       },

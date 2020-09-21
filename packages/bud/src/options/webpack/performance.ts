@@ -1,10 +1,8 @@
 import {Configuration} from 'webpack'
 
-const performance: Configuration['performance'] = {
-  assetFilter: undefined,
-  hints: false,
-  maxAssetSize: 250000,
-  maxEntrypointSize: 250000,
-}
+/**
+ * Disabled. Managed in @roots/bud-cli and @roots/bud-compiler.
+ */
+const performance: Configuration['performance'] = false
 
 export {performance as default}

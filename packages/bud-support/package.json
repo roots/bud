@@ -2,7 +2,6 @@
   "name": "@roots/bud-support",
   "version": "2.0.0-next.24",
   "description": "Internal utilities for the @roots/bud monorepo.",
-  "private": true,
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -23,11 +22,19 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["bin", "build"],
-  "main": "./bin/bud-cli.js",
-  "types": "./types/index.d.ts",
+  "files": [
+    "bin",
+    "build"
+  ],
+  "main": "./lib/index.js",
+  "types": "./lib/types/index.d.ts",
   "scripts": {
     "build": "rimraf ./lib && tsc -p tsconfig.build.json",
     "lint": "eslint ."
+  },
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "react-dev-utils": "^10.2.1",
+    "shell-quote": "^1.7.2"
   }
 }

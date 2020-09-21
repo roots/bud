@@ -1,6 +1,7 @@
 const features = {
   babel: true, // enable babel
   clean: true, // clean compiled files on every run.
+  html: true,
   manifest: true, // generate a manifest
   postcss: true, // enable postCss
   brotli: false, // brotli compression

@@ -2,7 +2,7 @@ import {BudInterface, Plugin} from './'
 import Framework, {
   FrameworkInterface,
 } from '@roots/bud-framework'
-import api from './api'
+import * as api from './api'
 import app from '@roots/bud-cli'
 import args from './args'
 import Compiler from '@roots/bud-compiler'
@@ -19,7 +19,7 @@ import plugins from './plugins'
 import rules from './rules'
 import Server from '@roots/bud-server'
 
-class Bud
+export default class Bud
   extends Framework
   implements BudInterface, FrameworkInterface {
   public name = '@roots/bud'
@@ -139,5 +139,3 @@ class Bud
     return new PluginController(this, plugin)
   }
 }
-
-export {Bud as default}

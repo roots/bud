@@ -20,7 +20,7 @@ class Server implements ServerInterface {
       this.compiler = compiler
     }
 
-    if (this.config) {
+    if (config) {
       this.config = config
     }
 

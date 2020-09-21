@@ -21,11 +21,11 @@ const dev = function () {
 
 /**
  * Inject hmr loaders
+ * @see bud-server
  */
 const inject = function () {
   const entrypoints = injectClient({
     entrypoints: this.options.get('webpack.entry'),
-    hotOnly: this.options.get('server.hotOnly') ?? false,
   })
 
   this.options.set('webpack.entry', entrypoints)
@@ -36,7 +36,7 @@ const inject = function () {
  *
  * Compile finalized webpack configuration and run build.
  *
- * ```
+ * ```js
  * bud.compile()
  * ```
  */

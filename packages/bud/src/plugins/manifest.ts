@@ -8,7 +8,7 @@ const manifest: Plugin = (bud: BudInterface) => ({
     return new ManifestPlugin({
       publicPath:
         this.bud.options.get('manifest.publicPath') ??
-        this.bud.paths.get('public') ??
+        this.bud.paths.get('dist') ??
         '/',
       fileName:
         this.bud.options.get('manifest.name') ?? 'manifest.json',

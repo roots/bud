@@ -4,19 +4,18 @@ import {FrameworkInterface, Hooks} from '@roots/bud-framework'
 import {ApplicationCli} from '@roots/bud-cli'
 import {CompilerInterface} from '@roots/bud-compiler'
 import {ServerInterface} from '@roots/bud-server'
+import * as Api from './api'
 import {WebpackBuilder} from './config'
-import {Api} from './api'
 import {Mode} from './mode'
 import {PluginController} from './Plugin'
 
 import bootstrap from './bootstrap'
 
 /**
- * # Bud - Asset management framework.
- *
- * @see https://github.com/roots/bud
+ * Bud -- Asset management framework
  */
-export interface BudInterface extends FrameworkInterface {
+export declare interface BudInterface
+  extends FrameworkInterface {
   /**
    * ## bud.name
    *
@@ -89,6 +88,8 @@ export interface BudInterface extends FrameworkInterface {
 
   /**
    * ## bud.updateDisk
+   *
+   * Update the index of files maintained by bud.fs
    */
   updateDisk: () => void
 
@@ -596,14 +597,9 @@ export interface PluginInterface extends Loose {
 }
 
 /**
- * BudInterface Plugin
+ * Plugin
  */
 export type Plugin = (app: BudInterface) => PluginInterface
 
-/**
- * Bud - Webpack build framework
- */
-const bud: BudInterface = bootstrap()
-
+const bud: BudInterface = bootstrap
 module.exports = bud
-export {bud as default}

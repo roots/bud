@@ -65,9 +65,9 @@ export interface CompilerInterface {
   watchOptions: Webpack.WatchOptions
 
   /**
-   * Apply the progress plugin to the compiler.
+   * Apply progress handler and overlay plugins.
    */
-  applyProgress: (
+  applyPlugins: (
     handler: ProgressPlugin.Handler,
   ) => CompilerInterface
 }

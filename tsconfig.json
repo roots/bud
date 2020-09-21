@@ -5,7 +5,7 @@
     "declaration": true,
     "declarationMap": true,
     "esModuleInterop": true,
-    "importHelpers": true,
+    // "importHelpers": true,
     "lib": ["esnext", "es5", "es6", "dom", "dom.iterable"],
     "jsx": "react",
     "module": "commonjs",
@@ -16,7 +16,7 @@
     "target": "es2017",
     "watch": false,
     "paths": {
-      "@roots/*": ["*/src"]
+      "@roots/*": ["*/src"],
     },
   }
 }

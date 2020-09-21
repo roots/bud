@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from 'react'
-import {useApp, useInput, Box} from 'ink'
+import {useApp, useInput, Box, Text} from 'ink'
 import useStdOutDimensions from 'ink-use-stdout-dimensions'
 
 import Compiler from '@roots/bud-compiler'
@@ -45,7 +45,10 @@ const App: ApplicationCli = ({
       flexDirection="column"
       justifyContent="space-between">
       <Screen title={name}>
-        <Assets assets={compilation?.stats?.assets} />
+        <>
+          <Assets assets={compilation?.stats?.assets} />
+          <Text>{JSON.stringify(compilation.progress)}</Text>
+        </>
       </Screen>
     </Box>
   )

@@ -10,7 +10,8 @@ const banner = (pkg: any): string => `/**
  *
  * @copyright ${new Date().getFullYear()} Roots {@link https://roots.io}
  * @license ${pkg.license}
- */`
-/* eslint-enable */
+ */
+
+ `
 
 export {banner as default}

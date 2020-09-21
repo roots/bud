@@ -7,7 +7,7 @@ import {BudInterface, Plugin} from '../'
 const gzip: Plugin = (bud: BudInterface) => ({
   bud,
 
-  options: bud.options.get('webpack.plugins.compression.gzip'),
+  options: bud.options.get('plugins.compression.gzip'),
 
   make: function (): Compression {
     return new Compression(this.options)
@@ -24,7 +24,7 @@ const gzip: Plugin = (bud: BudInterface) => ({
 const brotli: Plugin = (bud: BudInterface) => ({
   bud,
 
-  options: bud.options.get('webpack.plugins.compression.brotli'),
+  options: bud.options.get('plugins.compression.brotli'),
 
   make: function (): Compression {
     return new Compression(this.options)

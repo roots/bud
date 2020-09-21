@@ -4,7 +4,7 @@ import {BudInterface, Plugin} from '../'
 const terser: Plugin = (bud: BudInterface) => ({
   bud,
 
-  options: bud.options.get('webpack.plugins.terser'),
+  options: bud.options.get('plugins.terser'),
 
   make: function () {
     return new TerserPlugin(this.options)

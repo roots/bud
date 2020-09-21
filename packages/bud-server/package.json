@@ -22,7 +22,9 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "main": "./lib/index.js",
   "types": "./lib/types/index.d.ts",
   "scripts": {
@@ -30,8 +32,9 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@roots/bud-support": "file:../bud-support",
     "http-proxy-middleware": "^1.0.5",
-    "strip-ansi": "^6.0.0",
+    "react-error-overlay": "^6.0.7",
     "webpack": "^4.44.1",
     "webpack-dev-middleware": "^3.7.2",
     "webpack-hot-middleware": "^2.25.0",

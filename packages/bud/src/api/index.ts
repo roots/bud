@@ -1,74 +1,68 @@
-import addExtensions, {
-  AddExtensions as IAddExtensions,
-} from './addExtensions'
-import alias, {Alias as IAlias} from './alias'
-import babel, {Babel as IBabel} from './babel'
-import brotli, {Brotli as IBrotli} from './brotli'
-import bundle, {Bundle as IBundle} from './bundle'
-import compile, {Compile as ICompile} from './compile'
-import copy, {Copy as ICopy} from './copy'
-import copyAll, {CopyAll as ICopyAll} from './copyAll'
-import dev, {Dev as IDev} from './dev'
-import devtool, {Devtool as IDevtool} from './devtool'
-import dist, {Dist as IDist} from './dist'
-import distPath, {DistPath as IDistPath} from './distPath'
-import extend, {Extend as IExtend} from './extend'
-import hash, {Hash as IHash} from './hash'
-import gzip, {Gzip as IGzip} from './gzip'
-import glob, {Glob as IGlob} from './glob'
+import addExtensions, {AddExtensions} from './addExtensions'
+import alias, {Alias} from './alias'
+import babel, {Babel} from './babel'
+import brotli, {Brotli} from './brotli'
+import bundle, {Bundle} from './bundle'
+import compile, {Compile} from './compile'
+import copy, {Copy} from './copy'
+import copyAll, {CopyAll} from './copyAll'
+import dev, {Dev} from './dev'
+import devtool, {Devtool} from './devtool'
+import dist, {Dist} from './dist'
+import distPath, {DistPath} from './distPath'
+import extend, {Extend} from './extend'
+import hash, {Hash} from './hash'
+import gzip, {Gzip} from './gzip'
+import glob, {Glob} from './glob'
 import runtimeManifest, {
-  RuntimeManifest as IRuntimeManifest,
+  RuntimeManifest,
 } from './runtimeManifest'
-import mini, {Mini as IMini} from './mini'
-import postcss, {PostCss as IPostCss} from './postcss'
-import project, {Project as IProject} from './project'
-import projectPath, {
-  ProjectPath as IProjectPath,
-} from './projectPath'
-import provide, {Provide as IProvide} from './provide'
-import publicPath, {
-  PublicPath as IPublicPath,
-} from './publicPath'
-import src, {Src as ISrc} from './src'
-import srcPath, {SrcPath as ISrcPath} from './srcPath'
-import target, {Target as ITarget} from './target'
-import terser, {Terser as ITerser} from './terser'
-import vendor, {Vendor as IVendor} from './vendor'
-import when, {When as IWhen} from './when'
+import mini, {Mini} from './mini'
+import postcss, {PostCss} from './postcss'
+import project, {Project} from './project'
+import projectPath, {ProjectPath} from './projectPath'
+import provide, {Provide} from './provide'
+import publicPath, {PublicPath} from './publicPath'
+import src, {Src} from './src'
+import srcPath, {SrcPath} from './srcPath'
+import target, {Target} from './target'
+import terser, {Terser} from './terser'
+import vendor, {Vendor} from './vendor'
+import when, {When} from './when'
 
-export declare namespace Api {
-  export type AddExtensions = IAddExtensions
-  export type Alias = IAlias
-  export type Babel = IBabel
-  export type Brotli = IBrotli
-  export type Bundle = IBundle
-  export type Compile = ICompile
-  export type Copy = ICopy
-  export type CopyAll = ICopyAll
-  export type Dev = IDev
-  export type Devtool = IDevtool
-  export type Dist = IDist
-  export type DistPath = IDistPath
-  export type Extend = IExtend
-  export type Hash = IHash
-  export type Gzip = IGzip
-  export type Glob = IGlob
-  export type RuntimeManifest = IRuntimeManifest
-  export type Mini = IMini
-  export type PostCss = IPostCss
-  export type Project = IProject
-  export type ProjectPath = IProjectPath
-  export type Provide = IProvide
-  export type PublicPath = IPublicPath
-  export type Src = ISrc
-  export type SrcPath = ISrcPath
-  export type Target = ITarget
-  export type Terser = ITerser
-  export type Vendor = IVendor
-  export type When = IWhen
+export type {
+  AddExtensions,
+  Alias,
+  Babel,
+  Brotli,
+  Bundle,
+  Compile,
+  Copy,
+  CopyAll,
+  Dev,
+  Devtool,
+  Dist,
+  DistPath,
+  Extend,
+  Hash,
+  Gzip,
+  Glob,
+  RuntimeManifest,
+  Mini,
+  PostCss,
+  Project,
+  ProjectPath,
+  Provide,
+  PublicPath,
+  Src,
+  SrcPath,
+  Target,
+  Terser,
+  Vendor,
+  When,
 }
 
-const api: {[key: string]: any} = {
+export {
   addExtensions,
   alias,
   babel,
@@ -99,5 +93,3 @@ const api: {[key: string]: any} = {
   vendor,
   when,
 }
-
-export {api as default}

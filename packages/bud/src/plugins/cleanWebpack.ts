@@ -4,7 +4,7 @@ import {BudInterface, Plugin} from '../'
 const cleanWebpack: Plugin = (bud: BudInterface) => ({
   bud,
 
-  options: bud.options.get('webpack.plugins.clean'),
+  options: bud.options.get('plugins.clean'),
 
   make: function (): CleanWebpackPlugin {
     return new CleanWebpackPlugin(this.options)

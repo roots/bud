@@ -2,7 +2,7 @@ import {DefinePlugin} from './externals'
 import {BudInterface, Plugin} from '../'
 
 const define: Plugin = (bud: BudInterface) => ({
-  options: bud.env.repository ?? {},
+  options: bud.env.repository,
 
   make: function () {
     return new DefinePlugin(this.options)

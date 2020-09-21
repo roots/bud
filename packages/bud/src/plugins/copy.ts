@@ -4,14 +4,11 @@ import {BudInterface, Plugin} from '../'
 const copy: Plugin = (bud: BudInterface) => ({
   bud,
   make: function () {
-    return new CopyWebpackPlugin(
-      bud.options.get('webpack.plugins.copy'),
-    )
+    return new CopyWebpackPlugin(bud.options.get('plugins.copy'))
   },
   when: function () {
     return (
-      this.bud.options.get('webpack.plugins.copy')?.patterns
-        ?.length > 0
+      this.bud.options.get('plugins.copy')?.patterns?.length > 0
     )
   },
 })

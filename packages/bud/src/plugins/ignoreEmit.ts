@@ -5,11 +5,11 @@ const ignoreEmit: Plugin = (bud: BudInterface) => ({
   bud,
   make: function () {
     return new IgnoreEmitPlugin(
-      this.bud.options.get('webpack.plugins.ignoreEmit'),
+      this.bud.options.get('plugins.ignoreEmit'),
     )
   },
   when: function () {
-    return this.bud.options.get('webpack.plugins.ignoreEmit')
+    return this.bud.options.get('plugins.ignoreEmit')
   },
 })
 

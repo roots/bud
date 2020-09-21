@@ -1,32 +1,37 @@
 import {Configuration} from 'webpack'
+import {resolve} from 'path'
 
 const output: Configuration['output'] = {
-  chunkFilename: '[name].js',
+  chunkFilename: '[name][query]',
   chunkLoadTimeout: 120000,
   crossOriginLoading: false,
   devtoolLineToLine: false,
-  devtoolNamespace: 'bud',
   filename: '[name].js',
-  globalObject: 'window',
-  hashDigest: 'hex',
-  hashDigestLength: 8,
-  hashFunction: 'md4',
-  hashSalt: 'bud',
-  hotUpdateChunkFilename: '[id].[hash].bud.update.js',
-  hotUpdateFunction: 'webpackHotUpdate',
-  hotUpdateMainFilename: '[hash].bud.update.json',
-  jsonpFunction: 'webpackJsonp',
-  jsonpScriptType: 'text/javascript',
-  library: undefined,
-  libraryExport: undefined,
-  libraryTarget: 'var',
-  pathinfo: true,
+  path: resolve(process.cwd(), 'dist'),
   publicPath: '/',
-  sourceMapFilename: '[file].map[query]',
-  umdNamedDefine: false,
-  path: undefined,
-  sourcePrefix: '',
-  futureEmitAssets: true,
+
+  /**
+   * Unspecified.
+   */
+  // devtoolNamespace: undefined,
+  // globalObject: 'window',
+  // hashDigest: 'hex',
+  // sourcePrefix: '',
+  // futureEmitAssets: true,
+  // hashDigestLength: 8,
+  // hashFunction: 'md4',
+  // hashSalt: undefined,
+  // hotUpdateChunkFilename: '[id].[hash].hot-update.js',
+  // hotUpdateFunction: 'webpackHotUpdate',
+  // hotUpdateMainFilename: '[hash].hot-update.json',
+  // jsonpFunction: 'webpackJsonp',
+  // jsonpScriptType: 'text/javascript',
+  // library: undefined,
+  // libraryExport: undefined,
+  // libraryTarget: 'var',
+  // pathinfo: true,
+  // sourceMapFilename: '[file].map[query]',
+  // umdNamedDefine: false,
 }
 
 export {output as default}

@@ -11,7 +11,10 @@ const server: ServerConfig = {
     'Access-Control-Allow-Headers':
       'X-Requested-With, content-type, Authorization',
   },
+  host: 'localhost',
+  port: 3000,
   hot: false,
+  hotOnly: false,
   index: 'index.html',
   lazy: false,
   methods: ['GET', 'HEAD'],

@@ -1,5 +1,4 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import htmlWebpackHarddiskPlugin from 'html-webpack-harddisk-plugin'
 import {BudInterface, Plugin} from '../'
 
 const html: Plugin = (bud: BudInterface) => ({
@@ -7,18 +6,26 @@ const html: Plugin = (bud: BudInterface) => ({
 
   make: function (): HtmlWebpackPlugin {
     return new HtmlWebpackPlugin({
-      filename: 'index.html',
-      alwaysWriteToDisk: true,
+      inject: true,
+      template: this.bud.fs.get(
+        this.bud.options.get('plugins.html.template'),
+      ),
+      minify: this.bud.options.get('plugins.html.minify'),
     })
   },
-})
 
-const htmlWriteToDisk: Plugin = (bud: BudInterface) => ({
-  bud,
-
-  make: function (): typeof htmlWebpackHarddiskPlugin {
-    return new htmlWebpackHarddiskPlugin()
+  /**
+   * Enabled when html is flagged true
+   * and template file is present.
+   */
+  when: function () {
+    return (
+      this.bud.features.enabled('html') &&
+      this.bud.fs.exists(
+        this.bud.options.get('plugins.html.template'),
+      )
+    )
   },
 })
 
-export {html, htmlWriteToDisk}
+export {html as default}

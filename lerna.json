@@ -1,10 +1,8 @@
 {
   "version": "2.0.0-next.24",
   "packages": [
-    "packages/bud-types",
-    "packages/bud-support",
-    "packages/bud-framework",
     "packages/bud-cli",
+    "packages/bud-framework",
     "packages/bud-compiler",
     "packages/bud-server",
     "packages/bud",
@@ -14,14 +12,15 @@
     "packages/bud-react",
     "packages/bud-sass",
     "packages/bud-stylelint",
+    "packages/bud-support",
     "packages/bud-tailwindcss",
+    "packages/bud-types",
     "packages/bud-typescript",
     "packages/bud-vue",
     "packages/bud-wordpress-manifests",
     "packages/container",
     "packages/dependencies",
-    "packages/filesystem",
-    "packages/sandbox"
+    "packages/filesystem"
   ],
   "changelog": {
     "repo": "@roots/bud",

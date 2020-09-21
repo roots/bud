@@ -6,7 +6,7 @@ const provide: Plugin = (bud: BudInterface) => ({
 
   make: function () {
     return new ProvidePlugin(
-      this.bud.options.get('webpack.plugins.provide') || {},
+      this.bud.options.get('plugins.provide') || {},
     )
   },
 })

@@ -16,15 +16,14 @@ class Compiler implements CompilerInterface {
       this.config = config
     }
 
-    this.compile = this.compile.bind(this)
-    this.run = this.run.bind(this)
-    this.watch = this.watch.bind(this)
-
-    this.applyProgress = this.applyProgress.bind(this)
+    this.applyPlugins = this.applyPlugins.bind(this)
 
     this.getConfig = this.getConfig.bind(this)
     this.setConfig = this.setConfig.bind(this)
 
+    this.compile = this.compile.bind(this)
+    this.run = this.run.bind(this)
+    this.watch = this.watch.bind(this)
     this.getCompiler = this.getCompiler.bind(this)
     this.setCompiler = this.setCompiler.bind(this)
   }
@@ -68,7 +67,7 @@ class Compiler implements CompilerInterface {
     return this.watching
   }
 
-  public applyProgress(
+  public applyPlugins(
     progressHandler: ProgressPlugin.Handler,
   ): CompilerInterface {
     new ProgressPlugin(progressHandler).apply(this.compiler)

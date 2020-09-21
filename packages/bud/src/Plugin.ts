@@ -15,7 +15,7 @@ class PluginController {
     this.make = this.make.bind(this)
   }
 
-  build(): any | void {
+  build(): unknown | void {
     this.setOptions()
     this.mergeOptions()
 
