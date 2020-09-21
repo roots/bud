@@ -1,10 +1,9 @@
 import React, {FunctionComponent} from 'react'
 import {useApp, useInput, Box} from 'ink'
 import useStdOutDimensions from 'ink-use-stdout-dimensions'
-import {Configuration} from 'webpack'
 
 import Compiler from '@roots/bud-compiler'
-import Server, {ServerConfig} from '@roots/bud-server'
+import Server from '@roots/bud-server'
 
 import useCompilation from '../hooks/useCompilation'
 import Screen from './Screen'
@@ -12,25 +11,22 @@ import Assets from './Assets'
 
 interface ApplicationCliProps {
   name: string
-  webpackConfig: Configuration
-  serverConfig: ServerConfig
-  terminate: CallableFunction
   compiler: Compiler
   server: Server
+  terminate: CallableFunction
 }
 
 type ApplicationCli = FunctionComponent<ApplicationCliProps>
 
 const App: ApplicationCli = ({
   name,
-  webpackConfig,
-  serverConfig,
-  terminate,
   compiler,
   server,
+  terminate,
 }) => {
   const app = useApp()
   const [width, height] = useStdOutDimensions()
+  const compilation = useCompilation(compiler, server)
 
   useInput(input => {
     if (input == 'q') {
@@ -38,12 +34,6 @@ const App: ApplicationCli = ({
       terminate()
     }
   })
-
-  const compilation = useCompilation(
-    compiler,
-    server,
-    webpackConfig,
-  )
 
   return (
     <Box

@@ -1,62 +1,72 @@
-export {AddExtensions} from './addExtensions'
-export {Alias} from './alias'
-export {Babel} from './babel'
-export {Brotli} from './brotli'
-export {Bundle} from './bundle'
-export {Compile} from './compile'
-export {Copy} from './copy'
-export {CopyAll} from './copyAll'
-export {Dev} from './dev'
-export {Devtool} from './devtool'
-export {Dist} from './dist'
-export {DistPath} from './distPath'
-export {Extend} from './extend'
-export {Hash} from './hash'
-export {Gzip} from './gzip'
-export {Glob} from './glob'
-export {RuntimeManifest} from './runtimeManifest'
-export {Mini} from './mini'
-export {PostCss} from './postcss'
-export {Project} from './project'
-export {ProjectPath} from './projectPath'
-export {Provide} from './provide'
-export {PublicPath} from './publicPath'
-export {Src} from './src'
-export {SrcPath} from './srcPath'
-export {Target} from './target'
-export {Terser} from './terser'
-export {Vendor} from './vendor'
-export {When} from './when'
+import addExtensions, {
+  AddExtensions as IAddExtensions,
+} from './addExtensions'
+import alias, {Alias as IAlias} from './alias'
+import babel, {Babel as IBabel} from './babel'
+import brotli, {Brotli as IBrotli} from './brotli'
+import bundle, {Bundle as IBundle} from './bundle'
+import compile, {Compile as ICompile} from './compile'
+import copy, {Copy as ICopy} from './copy'
+import copyAll, {CopyAll as ICopyAll} from './copyAll'
+import dev, {Dev as IDev} from './dev'
+import devtool, {Devtool as IDevtool} from './devtool'
+import dist, {Dist as IDist} from './dist'
+import distPath, {DistPath as IDistPath} from './distPath'
+import extend, {Extend as IExtend} from './extend'
+import hash, {Hash as IHash} from './hash'
+import gzip, {Gzip as IGzip} from './gzip'
+import glob, {Glob as IGlob} from './glob'
+import runtimeManifest, {
+  RuntimeManifest as IRuntimeManifest,
+} from './runtimeManifest'
+import mini, {Mini as IMini} from './mini'
+import postcss, {PostCss as IPostCss} from './postcss'
+import project, {Project as IProject} from './project'
+import projectPath, {
+  ProjectPath as IProjectPath,
+} from './projectPath'
+import provide, {Provide as IProvide} from './provide'
+import publicPath, {
+  PublicPath as IPublicPath,
+} from './publicPath'
+import src, {Src as ISrc} from './src'
+import srcPath, {SrcPath as ISrcPath} from './srcPath'
+import target, {Target as ITarget} from './target'
+import terser, {Terser as ITerser} from './terser'
+import vendor, {Vendor as IVendor} from './vendor'
+import when, {When as IWhen} from './when'
 
-import addExtensions from './addExtensions'
-import alias from './alias'
-import babel from './babel'
-import brotli from './brotli'
-import bundle from './bundle'
-import compile from './compile'
-import copy from './copy'
-import copyAll from './copyAll'
-import dev from './dev'
-import devtool from './devtool'
-import dist from './dist'
-import distPath from './distPath'
-import extend from './extend'
-import hash from './hash'
-import gzip from './gzip'
-import glob from './glob'
-import runtimeManifest from './runtimeManifest'
-import mini from './mini'
-import postcss from './postcss'
-import project from './project'
-import projectPath from './projectPath'
-import provide from './provide'
-import publicPath from './publicPath'
-import src from './src'
-import srcPath from './srcPath'
-import target from './target'
-import terser from './terser'
-import vendor from './vendor'
-import when from './when'
+export declare namespace Api {
+  export type AddExtensions = IAddExtensions
+  export type Alias = IAlias
+  export type Babel = IBabel
+  export type Brotli = IBrotli
+  export type Bundle = IBundle
+  export type Compile = ICompile
+  export type Copy = ICopy
+  export type CopyAll = ICopyAll
+  export type Dev = IDev
+  export type Devtool = IDevtool
+  export type Dist = IDist
+  export type DistPath = IDistPath
+  export type Extend = IExtend
+  export type Hash = IHash
+  export type Gzip = IGzip
+  export type Glob = IGlob
+  export type RuntimeManifest = IRuntimeManifest
+  export type Mini = IMini
+  export type PostCss = IPostCss
+  export type Project = IProject
+  export type ProjectPath = IProjectPath
+  export type Provide = IProvide
+  export type PublicPath = IPublicPath
+  export type Src = ISrc
+  export type SrcPath = ISrcPath
+  export type Target = ITarget
+  export type Terser = ITerser
+  export type Vendor = IVendor
+  export type When = IWhen
+}
 
 const api: {[key: string]: any} = {
   addExtensions,

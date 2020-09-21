@@ -2,38 +2,12 @@ import Container, {Loose} from '@roots/container'
 import Filesystem from '@roots/filesystem'
 import {FrameworkInterface, Hooks} from '@roots/bud-framework'
 import {ApplicationCli} from '@roots/bud-cli'
+import {CompilerInterface} from '@roots/bud-compiler'
+import {ServerInterface} from '@roots/bud-server'
 import {WebpackBuilder} from './config'
-import Server from '@roots/bud-server'
+import {Api} from './api'
 import {Mode} from './mode'
-import {AddExtensions} from './api/addExtensions'
-import {Alias} from './api/alias'
-import {Babel} from './api/babel'
-import {Brotli} from './api/brotli'
-import {Bundle} from './api/bundle'
-import {Compile} from './api/compile'
-import {Copy} from './api/copy'
-import {CopyAll} from './api/copyAll'
-import {Dev} from './api/dev'
-import {Devtool} from './api/devtool'
-import {Dist} from './api/dist'
-import {DistPath} from './api/distPath'
-import {Extend} from './api/extend'
-import {Hash} from './api/hash'
-import {Gzip} from './api/gzip'
-import {Glob} from './api/glob'
-import {RuntimeManifest} from './api/runtimeManifest'
-import {Mini} from './api/mini'
-import {PostCss} from './api/postcss'
-import {Project} from './api/project'
-import {ProjectPath} from './api/projectPath'
-import {Provide} from './api/provide'
-import {PublicPath} from './api/publicPath'
-import {Src} from './api/src'
-import {SrcPath} from './api/srcPath'
-import {Target} from './api/target'
-import {Terser} from './api/terser'
-import {Vendor} from './api/vendor'
-import {When} from './api/when'
+import {PluginController} from './Plugin'
 
 import bootstrap from './bootstrap'
 
@@ -58,6 +32,13 @@ export interface BudInterface extends FrameworkInterface {
   cli: ApplicationCli
 
   /**
+   * ## bud.compiler
+   *
+   * The compiler interface.
+   */
+  compiler: CompilerInterface
+
+  /**
    * ## bud.fs
    *
    * Application filesystem.
@@ -69,7 +50,7 @@ export interface BudInterface extends FrameworkInterface {
    *
    * Dev server
    */
-  server: Server
+  server: ServerInterface
 
   /**
    * ## bud.args
@@ -130,6 +111,27 @@ export interface BudInterface extends FrameworkInterface {
    */
   makeLoaders: () => void
 
+  makePluginController: (plugin: Plugin) => PluginController
+
+  /**
+   * ## bud.mode
+   *
+   * Get, set and check the webpack build mode.
+   *
+   * ```js
+   * bud.mode.get()
+   * ```
+   *
+   * ```js
+   * bud.mode.is('production')
+   * ```
+   *
+   * ```js
+   * bud.mode.set('production')
+   * ```
+   */
+  mode: Mode
+
   /**
    * ## bud.options
    *
@@ -181,7 +183,7 @@ export interface BudInterface extends FrameworkInterface {
    * bud.addExtensions(['jsx', 'vue'])
    * ```
    */
-  addExtensions: AddExtensions
+  addExtensions: Api.AddExtensions
 
   /**
    * ## bud.alias
@@ -200,7 +202,7 @@ export interface BudInterface extends FrameworkInterface {
    * import 'scripts/myScript' // replacing '../../myScript'
    * ```
    **/
-  alias: Alias
+  alias: Api.Alias
 
   /**
    * ## bud.babel
@@ -214,7 +216,7 @@ export interface BudInterface extends FrameworkInterface {
    *
    * @see https://babeljs.io/docs/en/configuration
    */
-  babel: Babel
+  babel: Api.Babel
 
   /**
    * ## bud.brotli
@@ -236,7 +238,7 @@ export interface BudInterface extends FrameworkInterface {
    * })
    * ```
    */
-  brotli: Brotli
+  brotli: Api.Brotli
 
   /**
    * ## bud.bundle
@@ -250,7 +252,7 @@ export interface BudInterface extends FrameworkInterface {
    * ])
    * ```
    */
-  bundle: Bundle
+  bundle: Api.Bundle
 
   /**
    * ## bud.compile
@@ -261,7 +263,7 @@ export interface BudInterface extends FrameworkInterface {
    * bud.compile()
    * ```
    */
-  compile: Compile
+  compile: Api.Compile
 
   /**
    * ## bud.copy
@@ -275,7 +277,7 @@ export interface BudInterface extends FrameworkInterface {
    * )
    * ```
    */
-  copy: Copy
+  copy: Api.Copy
 
   /**
    * ## bud.copyAll
@@ -289,21 +291,21 @@ export interface BudInterface extends FrameworkInterface {
    * )
    * ```
    */
-  copyAll: CopyAll
+  copyAll: Api.CopyAll
 
   /**
    * ## bud.dev
    *
    * Configure Bud's built in development server.
    */
-  dev: Dev
+  dev: Api.Dev
 
   /**
    * ## bud.devtool
    *
    * Specify a devtool
    */
-  devtool: Devtool
+  devtool: Api.Devtool
 
   /**
    * ## bud.dist
@@ -314,7 +316,7 @@ export interface BudInterface extends FrameworkInterface {
    * bud.dist('scripts/app.js')
    * ```
    */
-  dist: Dist
+  dist: Api.Dist
 
   /**
    * ## bud.distPath
@@ -325,7 +327,17 @@ export interface BudInterface extends FrameworkInterface {
    * bud.distPath('dist')
    * ```
    */
-  distPath: DistPath
+  distPath: Api.DistPath
+
+  /**
+   * ## bud.extend
+   *
+   * Register a Bud extension.
+   *
+   * ```js
+   * bud.extend([require('@roots/bud-demo-plugin')])
+   */
+  extend: Api.Extend
 
   /**
    * ## bud.glob
@@ -339,7 +351,7 @@ export interface BudInterface extends FrameworkInterface {
    * )
    * ```
    */
-  glob: Glob
+  glob: Api.Glob
 
   /**
    * ## bud.gzip
@@ -357,7 +369,7 @@ export interface BudInterface extends FrameworkInterface {
    * })
    * ```
    */
-  gzip: Gzip
+  gzip: Api.Gzip
 
   /**
    * ## bud.hash
@@ -368,7 +380,7 @@ export interface BudInterface extends FrameworkInterface {
    * bud.hash(true)
    * ```
    */
-  hash: Hash
+  hash: Api.Hash
 
   /**
    * ## bud.mini
@@ -379,26 +391,7 @@ export interface BudInterface extends FrameworkInterface {
    * bud.mini(true)
    * ```
    */
-  mini: Mini
-
-  /**
-   * ## bud.mode
-   *
-   * Get, set and check the webpack build mode.
-   *
-   * ```js
-   * bud.mode.get()
-   * ```
-   *
-   * ```js
-   * bud.mode.is('production')
-   * ```
-   *
-   * ```js
-   * bud.mode.set('production')
-   * ```
-   */
-  mode: Mode
+  mini: Api.Mini
 
   /**
    * ## bud.postcss
@@ -418,7 +411,7 @@ export interface BudInterface extends FrameworkInterface {
    * })
    * ```
    */
-  postcss: PostCss
+  postcss: Api.PostCss
 
   /**
    * ## bud.project
@@ -429,7 +422,7 @@ export interface BudInterface extends FrameworkInterface {
    * bud.project('package.json') // absolute path to package.json
    * ```
    */
-  project: Project
+  project: Api.Project
 
   /**
    * ## bud.projectPath
@@ -440,7 +433,7 @@ export interface BudInterface extends FrameworkInterface {
    * bud.projectPath(__dirname)
    * ```
    */
-  projectPath: ProjectPath
+  projectPath: Api.ProjectPath
 
   /**
    * ## bud.provide
@@ -451,7 +444,7 @@ export interface BudInterface extends FrameworkInterface {
    * bud.provide({jquery: ['$', 'window.jQuery']})
    * ```
    */
-  provide: Provide
+  provide: Api.Provide
 
   /**
    * ## bud.publicPath
@@ -464,7 +457,7 @@ export interface BudInterface extends FrameworkInterface {
    * bud.publicPath('dist')
    * ```
    */
-  publicPath: PublicPath
+  publicPath: Api.PublicPath
 
   /**
    * Inline common scripts.
@@ -473,7 +466,7 @@ export interface BudInterface extends FrameworkInterface {
    * bud.runtimeManifest('runtime')
    * ```
    */
-  runtimeManifest: RuntimeManifest
+  runtimeManifest: Api.RuntimeManifest
 
   /**
    * ## bud.src
@@ -484,7 +477,7 @@ export interface BudInterface extends FrameworkInterface {
    * bud.src('scripts/app.js')
    * ```
    */
-  src: Src
+  src: Api.Src
 
   /**
    * ## bud.srcPath
@@ -495,7 +488,7 @@ export interface BudInterface extends FrameworkInterface {
    * bud.srcPath('src')
    * ```
    */
-  srcPath: SrcPath
+  srcPath: Api.SrcPath
 
   /**
    * ## bud.target
@@ -506,7 +499,7 @@ export interface BudInterface extends FrameworkInterface {
    * bud.target('web')
    * ```
    */
-  target: Target
+  target: Api.Target
 
   /**
    * ## bud.terser
@@ -527,17 +520,7 @@ export interface BudInterface extends FrameworkInterface {
    * })
    * ```
    */
-  terser: Terser
-
-  /**
-   * ## bud.extend
-   *
-   * Register a Bud extension.
-   *
-   * ```js
-   * bud.extend([require('@roots/bud-demo-plugin')])
-   */
-  extend: Extend
+  terser: Api.Terser
 
   /**
    * ## bud.vendor
@@ -548,7 +531,7 @@ export interface BudInterface extends FrameworkInterface {
    * bud.vendor()
    * ```
    */
-  vendor: Vendor
+  vendor: Api.Vendor
 
   /**
    * ## bud.when
@@ -562,7 +545,7 @@ export interface BudInterface extends FrameworkInterface {
    *  // ...
    * })
    */
-  when: When
+  when: Api.When
 }
 
 /**

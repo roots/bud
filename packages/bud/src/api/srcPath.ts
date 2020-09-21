@@ -27,6 +27,8 @@ const srcPath: SrcPath = function (
     this.fs.path.resolve(this.paths.get('project'), segment),
   )
 
+  this.updateDisk()
+
   return this
 }
 

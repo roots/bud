@@ -11,9 +11,10 @@ import parseArguments from './parseArguments'
 const bootstrap = (): BudInterface => {
   let bud: BudInterface = new Bud()
 
+  process.on('unhandledRejection', bud.util.processHandler)
+
   bud = parseArguments(bud)
   bud = filesystemSetup(bud)
-
   bud.makeLoaders()
 
   bud.options.set('server.hot', bud.features.enabled('hot'))

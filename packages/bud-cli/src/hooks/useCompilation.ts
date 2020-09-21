@@ -1,5 +1,5 @@
 import {useState, useEffect} from 'react'
-import {Configuration, Stats} from 'webpack'
+import {Stats} from 'webpack'
 
 import Server from '@roots/bud-server'
 import Compiler from '@roots/bud-compiler'
@@ -10,7 +10,6 @@ import Compiler from '@roots/bud-compiler'
 const useStats = (
   compiler: Compiler,
   server: Server,
-  webpackConfig: Configuration,
 ): {stats: Stats.ToJsonOutput} => {
   /** Stats already tapped */
   const [tapped, setTapped] = useState(null)
@@ -32,7 +31,7 @@ const useStats = (
   /**
    * Listen on server if available
    */
-  if (webpackConfig.mode == 'development') {
+  if (compiler.getConfig().mode == 'development') {
     /** Tap stats */
     useEffect(() => {
       /** Only run if there is an untapped compiler */

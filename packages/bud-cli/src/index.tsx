@@ -15,8 +15,6 @@ const app: ApplicationCli = ({
   name,
   compiler,
   server,
-  webpackConfig,
-  serverConfig,
   terminate,
 }) =>
   render(
@@ -24,8 +22,6 @@ const app: ApplicationCli = ({
       name={name}
       compiler={compiler}
       server={server}
-      webpackConfig={webpackConfig}
-      serverConfig={serverConfig}
       terminate={terminate}
     />,
   )

@@ -15,9 +15,6 @@ export type DistPath = (
 ) => BudInterface
 
 const distPath: DistPath = function (segment: string) {
-  /**
-   * If set, CLI arguments take precendence over dist in config.
-   */
   !this.args.get('dist') &&
     this.paths.set(
       'dist',
@@ -27,10 +24,7 @@ const distPath: DistPath = function (segment: string) {
       ),
     )
 
-  /**
-   * Update the disk
-   */
-  this.diskRefresh()
+  this.updateDisk()
 
   return this
 }

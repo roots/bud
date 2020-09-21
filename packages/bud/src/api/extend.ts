@@ -20,7 +20,7 @@ const extend: Extend = function (plugins) {
   }
 
   plugins.map(plugin =>
-    this.plugins.controller.use(plugin).build(),
+    this.makePluginController(plugin).build(),
   )
 
   return this

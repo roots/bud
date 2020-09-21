@@ -194,22 +194,67 @@ export interface ServerInterface {
   /**
    * Express instance.
    */
-  server: Express
+  instance: Express
+
+  /**
+   * Get Express instance.
+   */
+  getServer: () => Express
+
+  /**
+   * Set Express instance.
+   */
+  setServer: (server: Express) => ServerInterface
 
   /**
    * Server configuration.
    */
-  config: ServerOptions['config']
+  config: ServerConfig
+
+  /**
+   * Get Express instance.
+   */
+  getConfig: () => ServerConfig
+
+  /**
+   * Set Express instance.
+   */
+  setConfig: (config: ServerConfig) => ServerInterface
 
   /**
    * Webpack compiler.
    */
-  compiler: ServerOptions['compiler']
+  compiler: Compiler
+
+  /**
+   * Get compiler.
+   */
+  getCompiler: () => Compiler
+
+  /**
+   * Set compiler.
+   */
+  setCompiler: (compiler: Compiler) => ServerInterface
 
   /**
    * Add middleware to Express instance.
    */
-  addMiddleware: (middleware: ExpressHandler) => void
+  addMiddleware: (middleware: ExpressHandler) => ServerInterface
+
+  /**
+   * Add dev middleware
+   */
+  addDevMiddleware: () => ServerInterface
+
+  /**
+   * Add hot middleware
+   */
+  addHotMiddleware: () => ServerInterface
+
+  /**
+   * Add dev middleware
+   */
+  addProxyMiddleware: () => ServerInterface
 
   /**
    * Binds and listens for connections on the host and port specified in the config.

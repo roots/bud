@@ -1,6 +1,35 @@
 import BudInterface from '../Bud'
-import Compiler, {CompilerInterface} from '@roots/bud-compiler'
-import Server, {injectClient} from '@roots/bud-server'
+import {injectClient} from '@roots/bud-server'
+
+/**
+ * setup devServer
+ */
+const dev = function () {
+  this.server
+    .setCompiler(this.compiler.getCompiler())
+    .setConfig(this.options.get('server'))
+    .addDevMiddleware()
+
+  this.when(
+    this.server.getConfig().hot === true,
+    this.server.addHotMiddleware,
+  ).when(
+    typeof this.server.getConfig().to?.host === 'string',
+    this.server.addProxyMiddleware,
+  )
+}
+
+/**
+ * Inject hmr loaders
+ */
+const inject = function () {
+  const entrypoints = injectClient({
+    entrypoints: this.options.get('webpack.entry'),
+    hotOnly: this.options.get('server.hotOnly') ?? false,
+  })
+
+  this.options.set('webpack.entry', entrypoints)
+}
 
 /**
  * ## bud.compile
@@ -14,41 +43,19 @@ import Server, {injectClient} from '@roots/bud-server'
 export type Compile = () => void
 
 const compile: Compile = function (this: BudInterface) {
-  if (this.options.get('server.hot')) {
-    this.options.set(
-      'webpack.entry',
-      injectClient({
-        entrypoints: this.options.get('webpack.entry'),
-        hotOnly: this.options.get('server.hotOnly') ?? false,
-      }),
-    )
-  }
+  this.when(this.options.get('server.hot'), inject.bind(this))
 
-  const webpackConfig = this.config(this)
-  const serverConfig = this.options.get('server')
+  this.compiler.setConfig(this.config(this)).compile()
 
-  const compiler: CompilerInterface = new Compiler(
-    '@roots/bud',
-    webpackConfig,
-  )
+  this.when(this.mode.is('development'), dev.bind(this))
 
-  if (this.mode.is('development')) {
-    this.server = new Server({
-      compiler: compiler.compiler,
-      config: webpackConfig,
-    })
-
-    this.server.addDevMiddleware()
-    serverConfig.hot && this.server.addHotMiddleware()
-    serverConfig.to?.host && this.server.addProxyMiddleware()
-  }
-
+  /**
+   * Run CLI.
+   */
   this.cli({
     name: this.name,
-    compiler,
+    compiler: this.compiler,
     server: this.server,
-    webpackConfig,
-    serverConfig,
     terminate: this.terminate,
   })
 }

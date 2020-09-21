@@ -1,97 +1,75 @@
-import webpack, {
-  Configuration as WebpackConfig,
-  Compiler as WebpackCompiler,
-  Watching as WebpackWatching,
+import {
+  Configuration,
+  Compiler as Webpack,
   ProgressPlugin,
 } from 'webpack'
+import Compiler from './Compiler'
 
 /**
  * The Bud webpack compiler.
  */
-interface CompilerInterface {
-  /**
-   * Identifies compilation
-   */
-  name: string
-
+export interface CompilerInterface {
   /**
    * Webpack configuration
    */
-  config: WebpackConfig
+  config: Configuration
+
+  /**
+   * Get the compiler configuration object
+   */
+  getConfig: () => Configuration
+
+  /**
+   * Set the compiler configuration object
+   */
+  setConfig: (config: Configuration) => CompilerInterface
 
   /**
    * Core webpack compiler
    */
-  compiler: WebpackCompiler
+  compiler: Webpack
 
   /**
-   * Close and invalidation methods for the watch process
+   * Create a new compilation instance
    */
-  watching: WebpackWatching
+  compile: () => CompilerInterface
 
   /**
-   * Watch mode configuration
+   * Get the compiler configuration object
    */
-  watchOptions: WebpackCompiler.WatchOptions
+  getCompiler: () => Webpack
+
+  /**
+   * Set the compiler configuration object
+   */
+  setCompiler: (config: Webpack) => CompilerInterface
 
   /**
    * Runs the compiler.
    */
-  run: (callback: WebpackCompiler.Handler) => void
+  run: (callback: Webpack.Handler) => void
 
   /**
    * Runs the compiler in watch mode.
    */
-  watch: (
-    callback: WebpackCompiler.Handler,
-  ) => WebpackCompiler.Watching
+  watch: (callback: Webpack.Handler) => Webpack.Watching
+
+  /**
+   * Close and invalidation methods for the watch process
+   */
+  watching: Webpack.Watching
+
+  /**
+   * Watch mode configuration
+   */
+  watchOptions: Webpack.WatchOptions
 
   /**
    * Apply the progress plugin to the compiler.
    */
-  applyProgressPlugin: (handler: ProgressPlugin.Handler) => void
+  applyProgress: (
+    handler: ProgressPlugin.Handler,
+  ) => CompilerInterface
 }
 
-class Compiler implements CompilerInterface {
-  public name = '@roots/bud'
-  public config: WebpackConfig
-  public compiler: WebpackCompiler
-  public watching: WebpackWatching
-  public watchOptions: WebpackCompiler.WatchOptions = {
-    aggregateTimeout: 300,
-  }
-
-  constructor(name: string, config: WebpackConfig) {
-    this.name = name
-    this.config = config
-
-    this.run = this.run.bind(this)
-    this.watch = this.watch.bind(this)
-    this.applyProgressPlugin = this.applyProgressPlugin.bind(
-      this,
-    )
-
-    this.compiler = webpack(this.config)
-  }
-
-  public run(handler: WebpackCompiler.Handler): void {
-    this.compiler.run(handler)
-  }
-
-  public watch(
-    handler: WebpackCompiler.Handler,
-  ): WebpackCompiler.Watching {
-    return (this.watching = this.compiler.watch(
-      this.watchOptions,
-      handler,
-    ))
-  }
-
-  public applyProgressPlugin(
-    progressHandler: ProgressPlugin.Handler,
-  ): void {
-    new ProgressPlugin(progressHandler).apply(this.compiler)
-  }
-}
-
-export {Compiler as default, CompilerInterface}
+export {Compiler as default}

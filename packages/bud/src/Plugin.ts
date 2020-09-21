@@ -45,11 +45,11 @@ class PluginController {
     }
   }
 
-  make(): any {
+  make(): unknown {
     if (this.plugin.when && this.plugin.when()) {
       return this.plugin.make()
     }
   }
 }
 
-export {PluginController as default}
+export {PluginController}

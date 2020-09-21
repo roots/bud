@@ -1,11 +1,11 @@
-import {BudInterface} from './'
+import {BudInterface, Plugin} from './'
 import Framework, {
   FrameworkInterface,
 } from '@roots/bud-framework'
-import app from '@roots/bud-cli'
-
 import api from './api'
+import app from '@roots/bud-cli'
 import args from './args'
+import Compiler from '@roots/bud-compiler'
 import config from './config'
 import env from './env'
 import features from './features'
@@ -14,25 +14,20 @@ import mode from './mode'
 import options from './options'
 import paths from './paths'
 import patterns from './patterns'
+import {PluginController} from './Plugin'
 import plugins from './plugins'
 import rules from './rules'
+import Server from '@roots/bud-server'
 
 class Bud
   extends Framework
   implements BudInterface, FrameworkInterface {
   public name = '@roots/bud'
 
-  public cli: BudInterface['cli'] = app
-  public config: BudInterface['config'] = config
-  public fs: BudInterface['fs']
-  public hooks: BudInterface['hooks']
-  public mode: BudInterface['mode']
-  public package?: BudInterface['package']
-  public server: BudInterface['server']
+  public cli: BudInterface['cli']
+  public compiler: BudInterface['compiler']
+  public config: BudInterface['config']
 
-  /**
-   * Containers
-   */
   public args: BudInterface['args']
   public env: BudInterface['env']
   public features: BudInterface['features']
@@ -43,6 +38,12 @@ class Bud
   public patterns: BudInterface['patterns']
   public rules: BudInterface['rules']
   public webpackPlugins: BudInterface['webpackPlugins']
+
+  public fs: BudInterface['fs']
+  public hooks: BudInterface['hooks']
+  public mode: BudInterface['mode']
+  public package?: BudInterface['package']
+  public server: BudInterface['server']
 
   /**
    * Public configuration API
@@ -83,6 +84,12 @@ class Bud
   public constructor() {
     super()
 
+    this.cli = app
+    this.config = config
+
+    this.compiler = new Compiler()
+    this.server = new Server()
+
     this.args = this.makeContainer(args)
     this.env = this.makeContainer(env)
     this.features = this.makeContainer(features)
@@ -98,17 +105,20 @@ class Bud
     this.fs = this.makeDisk(this.paths.get('project'))
   }
 
-  public makeLoaders(this: BudInterface): void {
+  public makeLoaders: BudInterface['makeLoaders'] = function (
+    this: BudInterface,
+  ): void {
     this.loaders = this.makeContainer(loaders(this))
   }
 
-  public updateDisk(): void {
+  public updateDisk: BudInterface['updateDisk'] = function (): void {
     /** !Glob */
     const noInclude = [
       `!${this.fs.path.resolve(
         this.paths.get('project'),
         'node_modules/**/*',
       )}`,
+
       `!${this.fs.path.resolve(
         this.paths.get('project'),
         'vendor/**/*',
@@ -126,6 +136,10 @@ class Bud
       ...yesInclude,
       ...noInclude,
     ])
+  }
+
+  public makePluginController(plugin: Plugin): PluginController {
+    return new PluginController(this, plugin)
   }
 }
 

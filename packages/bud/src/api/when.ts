@@ -21,20 +21,21 @@ export type When = (
   /**
    * Function to execute when test case is true.
    */
-  trueCase: CallableFunction,
+  trueCase?: CallableFunction,
   /**
    * Function to execute when test case is false.
    */
-  falseCase: CallableFunction | undefined,
+  falseCase?: CallableFunction | undefined,
 ) => BudInterface
 
 const when: When = function (
   this: BudInterface,
   test: boolean,
-  trueCase: CallableFunction = () => null,
-  falseCase: CallableFunction = () => null,
+  trueCase?: CallableFunction,
+  falseCase?: CallableFunction,
 ) {
-  test === true ? trueCase(this) : falseCase(this)
+  test === true && trueCase && trueCase(this)
+  test === false && falseCase && falseCase(this)
 
   return this
 }
