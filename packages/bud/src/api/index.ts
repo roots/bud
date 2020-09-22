@@ -17,7 +17,8 @@ import glob, {Glob} from './glob'
 import runtimeManifest, {
   RuntimeManifest,
 } from './runtimeManifest'
-import mini, {Mini} from './mini'
+import template, {Template} from './template'
+import minify, {Minify} from './minify'
 import postcss, {PostCss} from './postcss'
 import project, {Project} from './project'
 import projectPath, {ProjectPath} from './projectPath'
@@ -48,7 +49,7 @@ export type {
   Gzip,
   Glob,
   RuntimeManifest,
-  Mini,
+  Minify,
   PostCss,
   Project,
   ProjectPath,
@@ -57,6 +58,7 @@ export type {
   Src,
   SrcPath,
   Target,
+  Template,
   Terser,
   Vendor,
   When,
@@ -80,7 +82,7 @@ export {
   gzip,
   glob,
   runtimeManifest,
-  mini,
+  minify,
   postcss,
   project,
   projectPath,
@@ -89,6 +91,7 @@ export {
   src,
   srcPath,
   target,
+  template,
   terser,
   vendor,
   when,

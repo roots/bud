@@ -1,15 +1,13 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import {BudInterface, Plugin} from '../'
+import {BudInterface, Plugin, PluginInterface} from '../'
 
-const html: Plugin = (bud: BudInterface) => ({
+const html: Plugin = (bud: BudInterface): PluginInterface => ({
   bud,
 
   make: function (): HtmlWebpackPlugin {
     return new HtmlWebpackPlugin({
       inject: true,
-      template: this.bud.fs.get(
-        this.bud.options.get('plugins.html.template'),
-      ),
+      template: this.bud.options.get('plugins.html.template'),
       minify: this.bud.options.get('plugins.html.minify'),
     })
   },
@@ -19,13 +17,8 @@ const html: Plugin = (bud: BudInterface) => ({
    * and template file is present.
    */
   when: function () {
-    return (
-      this.bud.features.enabled('html') &&
-      this.bud.fs.exists(
-        this.bud.options.get('plugins.html.template'),
-      )
-    )
+    return this.bud.features.enabled('html')
   },
 })
 
-export {html as default}
+export {html}

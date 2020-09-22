@@ -4,7 +4,9 @@ import {BudInterface, Plugin} from '../'
 const copy: Plugin = (bud: BudInterface) => ({
   bud,
   make: function () {
-    return new CopyWebpackPlugin(bud.options.get('plugins.copy'))
+    return new CopyWebpackPlugin(
+      this.bud.options.get('plugins.copy'),
+    )
   },
   when: function () {
     return (

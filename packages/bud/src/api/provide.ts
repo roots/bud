@@ -19,8 +19,8 @@ const provide: Provide = function (options) {
     const isObject = typeof modules == 'object'
 
     if (isString) {
-      this.options.set('webpack.plugins.provide', {
-        ...this.options.get('webpack.plugins.provide'),
+      this.options.set('plugins.provide', {
+        ...this.options.get('plugins.provide'),
         [`${modules}`]: key,
       })
       this.options.set('webpack.externals', {
@@ -31,8 +31,8 @@ const provide: Provide = function (options) {
 
     if (isObject) {
       modules.map(module => {
-        this.options.set('webpack.plugins.provide', {
-          ...this.options.get('webpack.plugins.provide'),
+        this.options.set('plugins.provide', {
+          ...this.options.get('plugins.provide'),
           [module]: key,
         })
         this.options.set('webpack.externals', {

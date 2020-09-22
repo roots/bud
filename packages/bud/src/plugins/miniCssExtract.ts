@@ -6,12 +6,12 @@ const miniCssExtract: Plugin = (bud: BudInterface) => ({
   make: function () {
     return new MiniCssExtractPlugin({
       filename: this.bud.features.enabled('hash')
-        ? `${
-            this.bud.options.get('filenameTemplate').hashed
-          }.css`
-        : `${
-            this.bud.options.get('filenameTemplate').default
-          }.css`,
+        ? `${this.bud.options.get(
+            'filenameTemplate.hashed',
+          )}.css`
+        : `${this.bud.options.get(
+            'filenameTemplate.hashed',
+          )}.css`,
     })
   },
 

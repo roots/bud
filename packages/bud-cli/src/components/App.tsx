@@ -7,6 +7,7 @@ import Server from '@roots/bud-server'
 
 import useCompilation from '../hooks/useCompilation'
 import Assets from './Assets'
+import Errors from './Errors'
 import BuildInfo from './BuildInfo'
 import Progress from './Progress'
 import Screen from './Screen'
@@ -59,14 +60,22 @@ const App: ApplicationCli = ({
       justifyContent="space-between">
       <Screen title={name}>
         <>
+          {compilation.errors?.length > 0 ? (
+            <Box marginBottom={1}>
+              <Errors errors={compilation.errors} />
+            </Box>
+          ) : (
+            <>
+              <Box marginBottom={1}>
+                <Assets assets={compilation.stats?.assets} />
+              </Box>
+              <Box marginBottom={1}>
+                <Progress progress={compilation.progress} />
+              </Box>
+            </>
+          )}
           <Box marginBottom={1}>
-            <Assets assets={compilation.stats?.assets} />
-          </Box>
-          <Box marginBottom={1}>
-            <Progress progress={compilation.progress} />
-          </Box>
-          <Box marginBottom={1}>
-            <BuildInfo stats={compilation.stats} />
+            <BuildInfo width={width} stats={compilation.stats} />
           </Box>
         </>
       </Screen>

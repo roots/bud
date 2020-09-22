@@ -6,10 +6,9 @@ const manifest: Plugin = (bud: BudInterface) => ({
 
   make: function () {
     return new ManifestPlugin({
-      publicPath:
-        this.bud.options.get('manifest.publicPath') ??
-        this.bud.paths.get('dist') ??
-        '/',
+      publicPath: this.bud.options.get(
+        'webpack.output.publicPath',
+      ),
       fileName:
         this.bud.options.get('manifest.name') ?? 'manifest.json',
       writeToFileEmit:

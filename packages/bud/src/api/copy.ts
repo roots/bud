@@ -23,8 +23,8 @@ const copy: Copy = function (
   from: string,
   to = '',
 ): BudInterface {
-  this.options.set('webpack.plugins.copy.patterns', [
-    ...this.options.get('webpack.plugins.copy.patterns'),
+  this.options.set('plugins.copy.patterns', [
+    ...this.options.get('plugins.copy.patterns'),
     {
       from,
       to,

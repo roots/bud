@@ -61,7 +61,7 @@ export default class Bud
   public glob: BudInterface['glob'] = api.glob
   public gzip: BudInterface['gzip'] = api.gzip
   public hash: BudInterface['hash'] = api.hash
-  public mini: BudInterface['mini'] = api.mini
+  public minify: BudInterface['minify'] = api.minify
   public postcss: BudInterface['postcss'] = api.postcss
   public project: BudInterface['project'] = api.project
   public projectPath: BudInterface['projectPath'] =
@@ -73,6 +73,7 @@ export default class Bud
   public src: BudInterface['src'] = api.src
   public srcPath: BudInterface['srcPath'] = api.srcPath
   public target: BudInterface['target'] = api.target
+  public template: BudInterface['template'] = api.template
   public terser: BudInterface['terser'] = api.terser
   public extend: BudInterface['extend'] = api.extend
   public vendor: BudInterface['vendor'] = api.vendor

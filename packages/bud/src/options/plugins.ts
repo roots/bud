@@ -1,3 +1,5 @@
+import {resolve} from 'path'
+
 export type Copy = {patterns: any[]}
 
 const plugins = {
@@ -30,13 +32,16 @@ const plugins = {
   /**
    * Copy webpack plugin.
    */
-  copy: {},
+  copy: {
+    patterns: [],
+  },
 
   /**
    * HTML webpack plugin
    */
   html: {
-    template: 'public/index.html',
+    replacements: null,
+    template: resolve(process.cwd(), 'public/index.html'),
     minify: {
       removeComments: true,
       collapseWhitespace: true,

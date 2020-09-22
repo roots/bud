@@ -30,10 +30,7 @@ const brotli: Brotli = function (options?) {
   this.features.set('brotli', true)
 
   options &&
-    this.options.merge(
-      'webpack.plugins.compression.brotli',
-      options,
-    )
+    this.options.merge('plugins.compression.brotli', options)
 
   return this
 }

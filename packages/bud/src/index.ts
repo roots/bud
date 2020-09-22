@@ -392,7 +392,7 @@ export declare interface BudInterface
    * bud.mini(true)
    * ```
    */
-  mini: Api.Mini
+  minify: Api.Minify
 
   /**
    * ## bud.postcss
@@ -501,6 +501,17 @@ export declare interface BudInterface
    * ```
    */
   target: Api.Target
+
+  /**
+   * ## bud.template
+   *
+   * Add an HTML template to generate html boilerplate with.
+   *
+   * ```js
+   * bud.template(bud.src('template.html'))
+   * ```
+   */
+  template: Api.Template
 
   /**
    * ## bud.terser

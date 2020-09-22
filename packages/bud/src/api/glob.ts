@@ -21,9 +21,9 @@ const prepareGlobObject = function (
 ): string[] {
   switch (typeof search) {
     case 'string':
-      return [this.src(search)]
+      return [search]
     case 'object':
-      return search.map(file => this.src(file))
+      return search.map(file => file)
   }
 }
 
@@ -61,13 +61,13 @@ export type Glob = (
   this: BudInterface,
   name: string,
   files: string | string[],
-  options: {[key: string]: any},
+  options?: {[key: string]: any},
 ) => BudInterface
 
 const glob: Glob = function (
   this: BudInterface,
-  name: string,
-  files: string | string[],
+  name,
+  files,
   options = {expandDirectories: true},
 ): BudInterface {
   /**
@@ -81,13 +81,16 @@ const glob: Glob = function (
    */
   this.options.merge(
     'webpack.entry',
-    results.reduce(
-      (acc, curr) => ({
+    results.reduce((acc, curr) => {
+      const entryPath = name ? `${name}/` : '/'
+      const entryName = basedName.bind(this)(curr)
+      const entry = this.fs.path.join(entryPath, entryName)
+
+      return {
         ...acc,
-        [`${name}/${basedName.bind(this)(curr)}`]: curr,
-      }),
-      {},
-    ),
+        [entry]: curr,
+      }
+    }, {}),
   )
 
   return this

@@ -30,8 +30,8 @@ const terser: Terser = function (
   options: TerserPluginOptions,
 ) {
   if (options) {
-    this.options.set('webpack.plugins.terser', {
-      ...this.options.get('webpack.plugins.terser'),
+    this.options.set('plugins.terser', {
+      ...this.options.get('plugins.terser'),
       ...options,
     })
   }

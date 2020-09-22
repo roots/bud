@@ -15,11 +15,6 @@ const Asset: FunctionComponent<AssetInterface> = ({
   size,
   hot,
 }) => {
-  const display =
-    (name.split('.').pop() == 'css' ||
-      name.split('.').pop() == 'js') &&
-    name.split('.')[name.split('.').length - 2] !== 'hot-update'
-
   const sizeColor =
     size / 1000 > 200
       ? 'red'
@@ -27,15 +22,12 @@ const Asset: FunctionComponent<AssetInterface> = ({
       ? 'yellow'
       : 'white'
 
-  return !display ? (
-    <Box></Box>
-  ) : (
+  return (
     <Box flexDirection="row" justifyContent="flex-start">
-      <Box>
+      <Box width={20}>
         <Indicator emitted={emitted} />
-
         <Text color={emitted ? 'white' : 'gray'}>
-          {name} {hot && '🔥'}
+          {hot && ' 🔥 '} {name}
         </Text>
       </Box>
 

@@ -19,8 +19,8 @@ export type CopyAll = (
 ) => BudInterface
 
 const copyAll: CopyAll = function (from, to?) {
-  this.options.set('webpack.plugins.copy.patterns', [
-    ...this.options.get('webpack.plugins.copy.patterns'),
+  this.options.set('plugins.copy.patterns', [
+    ...this.options.get('plugins.copy.patterns'),
     this.hooks.filter('api.copyAll', {
       from: '**/*',
       context: from,

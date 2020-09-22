@@ -4,18 +4,31 @@ import {Stats} from 'webpack'
 
 interface InfoProps {
   stats: Stats.ToJsonOutput
+  width?: number
 }
 
-const BuildInfo: FunctionComponent<InfoProps> = ({stats}) => (
-  <Box flexDirection="column" justifyContent="flex-end">
+const BuildInfo: FunctionComponent<InfoProps> = ({
+  stats,
+  width,
+}) => (
+  <Box
+    flexDirection="row"
+    width={width ? width : 'auto'}
+    justifyContent="space-between">
     {stats?.time && (
-      <Text>Finished in {stats.time / 1000}s.</Text>
+      <Text bold color="white">
+        {' '}
+        Finished {stats.errors.length > 0 ? 'with errors ' : ''}
+        in {stats.time / 1000}s.{' '}
+      </Text>
     )}
 
     <Spacer />
 
     {stats?.hash && (
-      <Text color="#6C758F">Build {stats.hash}.</Text>
+      <Text color="#6C758F">
+        Build {stats.hash}.{'  '}
+      </Text>
     )}
   </Box>
 )

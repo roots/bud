@@ -2,23 +2,19 @@ import React, {FunctionComponent} from 'react'
 import {Box, Text} from 'ink'
 
 interface ErrorProps {
-  message: string
+  message: {errors: string; warnings: string}
 }
 
-const Generic = ({error}) => {
-  return (
-    <Box flexDirection="column">
-      <Text wrap="wrap">{error || ''}</Text>
+const Error: FunctionComponent<ErrorProps> = ({message}) => (
+  <Box flexDirection="column">
+    <Box
+      flexDirection="column"
+      borderColor="red"
+      borderStyle="round"
+      padding={1}>
+      <Text wrap="wrap">{message || ''}</Text>
     </Box>
-  )
-}
+  </Box>
+)
 
-const Error: FunctionComponent<ErrorProps> = ({message}) => {
-  if (message.includes(':')) {
-    message = message.split(':').slice(1).join('')
-  }
-
-  return <Generic error={message} />
-}
-
-export {Error}
+export {Error as default}

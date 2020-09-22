@@ -15,13 +15,8 @@ export type PublicPath = (
 ) => BudInterface
 
 const publicPath: PublicPath = function (dir: string) {
-  /**
-   * @todo this sucks and is unnecessary
-   */
-  dir = !dir.match(/\/$/g) ? `${dir}/` : dir
-  dir = !dir.match(/\/^/g) ? `/${dir}` : dir
-
   this.paths.set('public', dir)
+  this.options.set('webpack.publicPath', dir)
 
   return this
 }

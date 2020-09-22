@@ -3,9 +3,11 @@ import {Stats} from 'webpack'
 
 import Server from '@roots/bud-server'
 import Compiler from '@roots/bud-compiler'
+import {formatWebpackMessages} from '@roots/bud-support'
 
 interface Compilation {
   stats?: Stats.ToJsonOutput
+  errors?: Stats.ToJsonOutput['errors']
   progress: {
     percentage: number
     msg: string
@@ -38,6 +40,10 @@ const useCompilation: CompilationHook = (
   const [listening, setListening] = useState(false)
   // Stats state
   const [stats, setStats] = useState(null)
+  // Errors state
+  const [errors, setErrors] = useState(null)
+  // Warnings state
+  const [warnings, setWarnings] = useState(null)
   // Compilation progress
   const [progress, setProgress] = useState({
     percentage: 0,
@@ -49,7 +55,10 @@ const useCompilation: CompilationHook = (
 
   /** Stats handler */
   const statsHandler = (stats: Stats) => {
-    setStats(stats.toJson())
+    const jsonStats = stats.toJson()
+    setStats(jsonStats)
+    setErrors(formatWebpackMessages(jsonStats).errors)
+    setWarnings(formatWebpackMessages(jsonStats).warnings)
   }
 
   /** Progress handler */
@@ -136,6 +145,8 @@ const useCompilation: CompilationHook = (
     watching,
     progress,
     stats,
+    errors,
+    warnings,
   }
 }
 

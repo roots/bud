@@ -26,10 +26,7 @@ const gzip: Gzip = function (options?) {
   this.features.set('gzip', true)
 
   options &&
-    this.options.merge(
-      ['webpack', 'plugins', 'compression', 'gzip'],
-      options,
-    )
+    this.options.merge('plugins.compression.gzip', options)
 
   return this
 }

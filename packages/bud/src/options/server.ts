@@ -13,8 +13,6 @@ const server: ServerConfig = {
   },
   host: 'localhost',
   port: 3000,
-  hot: false,
-  hotOnly: false,
   index: 'index.html',
   lazy: false,
   methods: ['GET', 'HEAD'],
