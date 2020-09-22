@@ -20,12 +20,11 @@ const Bar: BarComponent = ({
   backgroundColor = 'white',
   percent,
   character = '█',
-  columns,
 }) => {
   const [width] = useStdOutDimensions()
 
   const getString = () => {
-    const screen = columns || width - 8
+    const screen = width - 12
     const max = Math.min(Math.floor(screen * percent), screen)
     const chars = character.repeat(max)
 
@@ -38,10 +37,10 @@ const Bar: BarComponent = ({
         wrap="truncate"
         backgroundColor={backgroundColor}
         color={color}>
-        {getString()}
+        {getString() ?? ' '}
       </Text>
     </Box>
   )
 }
 
-export {Bar}
+export {Bar as default}

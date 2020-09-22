@@ -1,13 +1,15 @@
-import React, {FunctionComponent} from 'react'
-import {useApp, useInput, Box, Text} from 'ink'
+import React, {FunctionComponent, useEffect} from 'react'
+import {useApp, useInput, Box} from 'ink'
 import useStdOutDimensions from 'ink-use-stdout-dimensions'
 
 import Compiler from '@roots/bud-compiler'
 import Server from '@roots/bud-server'
 
 import useCompilation from '../hooks/useCompilation'
-import Screen from './Screen'
 import Assets from './Assets'
+import BuildInfo from './BuildInfo'
+import Progress from './Progress'
+import Screen from './Screen'
 
 interface ApplicationCliProps {
   name: string
@@ -35,6 +37,17 @@ const App: ApplicationCli = ({
     }
   })
 
+  useEffect(() => {
+    if (
+      !compilation?.listening &&
+      compilation?.stats?.assets?.length > 0 &&
+      compilation?.progress?.percentage == 1
+    ) {
+      app.exit()
+      terminate()
+    }
+  }, [compilation])
+
   return (
     <Box
       width={width}
@@ -46,8 +59,15 @@ const App: ApplicationCli = ({
       justifyContent="space-between">
       <Screen title={name}>
         <>
-          <Assets assets={compilation?.stats?.assets} />
-          <Text>{JSON.stringify(compilation.progress)}</Text>
+          <Box marginBottom={1}>
+            <Assets assets={compilation?.stats?.assets} />
+          </Box>
+          <Box marginBottom={1}>
+            <Progress progress={compilation?.progress} />
+          </Box>
+          <Box marginBottom={1}>
+            <BuildInfo stats={compilation?.stats} />
+          </Box>
         </>
       </Screen>
     </Box>

@@ -1,9 +1,10 @@
 import fs from 'fs'
 import path from 'path'
 import child_process from 'child_process'
-import os from 'os'
 import chalk from 'chalk'
 import shellQuote from 'shell-quote'
+
+import isWsl from './isWsl'
 
 const isTerminalEditor = editor => {
   switch (editor) {
@@ -288,7 +289,11 @@ function printInstructions(fileName, errorMessage) {
 }
 
 let _childProcess = null
-function launchEditor(fileName, lineNumber, colNumber) {
+const launchEditor = (
+  fileName: string,
+  lineNumber: number,
+  colNumber: number,
+): void => {
   if (!fs.existsSync(fileName)) {
     return
   }
@@ -306,7 +311,8 @@ function launchEditor(fileName, lineNumber, colNumber) {
     colNumber = 1
   }
 
-  const [editor, ...args] = guessEditor()
+  // eslint-disable-next-line prefer-const
+  let [editor, ...args] = guessEditor()
 
   if (!editor) {
     printInstructions(fileName, null)
@@ -317,17 +323,15 @@ function launchEditor(fileName, lineNumber, colNumber) {
     return
   }
 
-  if (
-    process.platform === 'linux' &&
-    fileName.startsWith('/mnt/') &&
-    /Microsoft/i.test(os.release())
-  ) {
-    // Assume WSL / "Bash on Ubuntu on Windows" is being used, and
-    // that the file exists on the Windows file system.
-    // `os.release()` is "4.4.0-43-Microsoft" in the current release
-    // build of WSL, see: https://github.com/Microsoft/BashOnWindows/issues/423#issuecomment-221627364
-    // When a Windows editor is specified, interop functionality can
-    // handle the path translation, but only if a relative path is used.
+  if (isWsl(fileName)) {
+    /**
+     * Assume WSL / "Bash on Ubuntu on Windows" is being used, and
+     * that the file exists on the Windows file system.
+     * `os.release()` is "4.4.0-43-Microsoft" in the current release
+     * build of WSL, see: https://github.com/Microsoft/BashOnWindows/issues/423#issuecomment-221627364
+     * When a Windows editor is specified, interop functionality can
+     * handle the path translation, but only if a relative path is used.
+     */
     fileName = path.relative('', fileName)
   }
 
@@ -393,6 +397,7 @@ function launchEditor(fileName, lineNumber, colNumber) {
       stdio: 'inherit',
     })
   }
+
   _childProcess.on('exit', function (errorCode) {
     _childProcess = null
 

@@ -13,7 +13,7 @@ const Assets: FunctionComponent<AssetsProps> = ({assets}) => {
   const processedAssets = useAssetTransform(assets)
 
   return (
-    <Box>
+    <Box minHeight={1}>
       {processedAssets?.map((asset, id) => (
         <Asset
           key={id}

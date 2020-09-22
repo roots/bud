@@ -1,38 +1,41 @@
 import React, {FunctionComponent} from 'react'
 import {Box, Text} from 'ink'
-import {Bar} from './LoadingBar'
+import Bar from './Bar'
 
 type ProgressComponentProps = {
-  build?: {
-    percentage: number
-    message: string
+  progress?: {
+    percentage?: number
+    msg?: string
   }
 }
 
 const Progress: FunctionComponent<ProgressComponentProps> = ({
-  build,
+  progress,
 }) => (
-  <Box flexDirection="column">
-    <Box flexDirection="row">
-      <Box width={6}>
-        <Text wrap="truncate">
-          {Math.round(build?.percentage * 100)}%
-          {build?.percentage < 1 ? '  ' : ' '}
-        </Text>
-      </Box>
+  <Box flexDirection="column" minHeight={1}>
+    {progress?.percentage && (
+      <Box flexDirection="row">
+        <Box width={6}>
+          <Text wrap="truncate">
+            {Math.round(progress?.percentage * 100)}%
+            {progress?.percentage < 1 ? ' ' : ''}
+          </Text>
+        </Box>
 
-      <Bar
-        backgroundColor="#171c56"
-        color={'#545DD7'}
-        character="█"
-        percent={build?.percentage ?? 0.01}
-      />
-    </Box>
-    <Box height="1">
-      <Text wrap="truncate-start" color="#6C758F">
-        {build?.message ?? ' '}
-      </Text>
-    </Box>
+        <Bar
+          backgroundColor="none"
+          color="#545DD7"
+          character="█"
+          percent={progress?.percentage ?? 0}
+        />
+
+        <Box height="1">
+          <Text wrap="truncate-start" color="#6C758F">
+            {progress?.msg ?? ' '}
+          </Text>
+        </Box>
+      </Box>
+    )}
   </Box>
 )
 

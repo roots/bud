@@ -7,10 +7,7 @@ interface InfoProps {
 }
 
 const BuildInfo: FunctionComponent<InfoProps> = ({stats}) => (
-  <Box
-    padding={1}
-    flexDirection="column"
-    justifyContent="flex-end">
+  <Box flexDirection="column" justifyContent="flex-end">
     {stats?.time && (
       <Text>Finished in {stats.time / 1000}s.</Text>
     )}

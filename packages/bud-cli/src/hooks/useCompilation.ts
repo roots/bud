@@ -10,7 +10,12 @@ import Compiler from '@roots/bud-compiler'
 const useStats = (
   compiler: Compiler,
   server: Server,
-): {stats: Stats.ToJsonOutput; progress: any} => {
+): {
+  stats: Stats.ToJsonOutput
+  progress: any
+  listening: boolean
+  running: boolean
+} => {
   /** Stats already tapped */
   const [tapped, setTapped] = useState(null)
 
@@ -35,8 +40,9 @@ const useStats = (
   }
 
   /** Progress handler */
-  const progressHandler = progress => {
-    setProgress(progress)
+  const progressHandler = (percentage: number, msg: string) => {
+    percentage && setProgress({...progress, percentage})
+    msg && setProgress({...progress, msg})
   }
 
   /**
@@ -90,7 +96,7 @@ const useStats = (
     })
   }
 
-  return {progress, stats}
+  return {listening, running, progress, stats}
 }
 
 export {useStats as default}

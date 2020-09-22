@@ -4,8 +4,6 @@ import {Box, useApp} from 'ink'
 import Assets from './Assets'
 import Errors from './Errors'
 import Warnings from './Warnings'
-import Progress from './Progress'
-
 import BuildInfo from './BuildInfo'
 
 interface ArtifactInterface {
@@ -27,10 +25,6 @@ const Artifact: FunctionComponent<ArtifactInterface> = ({
 
   return (
     <Box width={width} flexDirection="column">
-      <Box display={build?.percentage < 1 ? 'flex' : 'none'}>
-        <Progress build={build} />
-      </Box>
-
       <Box display={build?.assets?.length > 0 ? 'flex' : 'none'}>
         <Assets assets={build?.assets} />
       </Box>
