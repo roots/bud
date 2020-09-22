@@ -1,5 +1,5 @@
 {
-  "name": "sandbox",
+  "name": "sandbox-app",
   "private": true,
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -24,8 +24,10 @@
   "bin": {
     "bud": "../../node_modules/@roots/bud-cli/bin/bud.js"
   },
+  "scripts": {
+    "bud": "../../node_modules/@roots/bud-cli/bin/bud.js"
+  },
   "dependencies": {
-    "@roots/bud": "file:../bud",
-    "@roots/bud-cli": "file:../bud-cli"
+    "@roots/bud": "file:../bud"
   }
 }

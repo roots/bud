@@ -41,7 +41,7 @@ const App: ApplicationCli = ({
     if (
       !compilation?.listening &&
       compilation?.stats?.assets?.length > 0 &&
-      compilation?.progress?.percentage == 1
+      compilation?.progress?.percentage == 100
     ) {
       app.exit()
       terminate()
@@ -60,13 +60,13 @@ const App: ApplicationCli = ({
       <Screen title={name}>
         <>
           <Box marginBottom={1}>
-            <Assets assets={compilation?.stats?.assets} />
+            <Assets assets={compilation.stats?.assets} />
           </Box>
           <Box marginBottom={1}>
-            <Progress progress={compilation?.progress} />
+            <Progress progress={compilation.progress} />
           </Box>
           <Box marginBottom={1}>
-            <BuildInfo stats={compilation?.stats} />
+            <BuildInfo stats={compilation.stats} />
           </Box>
         </>
       </Screen>

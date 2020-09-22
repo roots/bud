@@ -13,7 +13,7 @@ const Assets: FunctionComponent<AssetsProps> = ({assets}) => {
   const processedAssets = useAssetTransform(assets)
 
   return (
-    <Box minHeight={1}>
+    <Box flexDirection="column" minHeight={2}>
       {processedAssets?.map((asset, id) => (
         <Asset
           key={id}
