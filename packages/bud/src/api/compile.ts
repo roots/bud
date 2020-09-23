@@ -10,11 +10,13 @@ const dev = function () {
     .setConfig(this.options.get('server'))
     .addDevMiddleware()
 
+  const serverConf = this.server.getConfig()
+
   this.when(
-    this.server.getConfig().hot === true,
+    serverConf.hot === true,
     this.server.addHotMiddleware,
   ).when(
-    typeof this.server.getConfig().to?.host === 'string',
+    typeof serverConf.to?.host === 'string',
     this.server.addProxyMiddleware,
   )
 }
@@ -53,7 +55,7 @@ const compile: Compile = function (this: BudInterface) {
    * Run CLI.
    */
   this.cli({
-    name: this.name,
+    name: this.package?.name,
     compiler: this.compiler,
     server: this.server,
     terminate: this.terminate,

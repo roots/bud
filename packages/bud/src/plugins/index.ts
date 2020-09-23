@@ -3,13 +3,14 @@ import copy from './copy'
 import define from './define'
 import ignoreEmit from './ignoreEmit'
 import {brotli, gzip} from './compression'
-import {html} from './html'
+import {html, interpolateHtml} from './html'
 import hotModuleReplacement from './hotModuleReplacement'
 import limitChunkCount from './limitChunkCount'
 import miniCssExtract from './miniCssExtract'
 import manifest from './manifest'
 import provide from './provide'
 import terser from './terser'
+import watchMissingModules from './watchMissingModules'
 import writeFile from './writeFile'
 
 const plugins = [
@@ -20,6 +21,7 @@ const plugins = [
   define,
   hotModuleReplacement,
   html,
+  interpolateHtml,
   ignoreEmit,
   manifest,
   miniCssExtract,
@@ -27,6 +29,7 @@ const plugins = [
   limitChunkCount,
   terser,
   writeFile,
+  watchMissingModules,
 ]
 
 export {plugins as default}

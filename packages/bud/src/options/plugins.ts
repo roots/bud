@@ -1,4 +1,4 @@
-import {resolve} from 'path'
+import {dirname, join} from 'path'
 
 export type Copy = {patterns: any[]}
 
@@ -9,6 +9,9 @@ const plugins = {
    * Compression webpack plugin.
    */
   compression: {
+    /**
+     * Brotli compression
+     */
     brotli: {
       filename: '[path].br',
       algorithm: 'brotliCompress',
@@ -20,6 +23,9 @@ const plugins = {
       minRatio: 0.8,
       deleteOriginalAssets: false,
     },
+    /**
+     * Gzip compression
+     */
     gzip: {
       filename: '[path].gz',
       algorithm: 'gzip',
@@ -31,6 +37,7 @@ const plugins = {
 
   /**
    * Copy webpack plugin.
+   * @see bud.copy
    */
   copy: {
     patterns: [],
@@ -40,8 +47,15 @@ const plugins = {
    * HTML webpack plugin
    */
   html: {
-    replacements: null,
-    template: resolve(process.cwd(), 'public/index.html'),
+    replacements: {},
+    /**
+     * This is a little hackish but this is just
+     * initial state.. and it _does_ resolve.
+     */
+    template: join(
+      dirname(require.resolve('@roots/bud-support')),
+      '/../publish/template.html',
+    ),
     minify: {
       removeComments: true,
       collapseWhitespace: true,

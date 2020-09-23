@@ -4,10 +4,11 @@ import {FrameworkInterface, Hooks} from '@roots/bud-framework'
 import {ApplicationCli} from '@roots/bud-cli'
 import {CompilerInterface} from '@roots/bud-compiler'
 import {ServerInterface} from '@roots/bud-server'
-import * as Api from './api'
 import {WebpackBuilder} from './config'
 import {Mode} from './mode'
 import {PluginController} from './Plugin'
+
+import * as Api from './api'
 
 import bootstrap from './bootstrap'
 
@@ -16,13 +17,6 @@ import bootstrap from './bootstrap'
  */
 export declare interface BudInterface
   extends FrameworkInterface {
-  /**
-   * ## bud.name
-   *
-   * Instance name
-   */
-  name: string
-
   /**
    * ## bud.cli
    *
@@ -105,13 +99,11 @@ export declare interface BudInterface
    *
    * Webpack loaders
    */
-  loaders: Container | Loose
+  loaders: Container
 
   /**
-   * ## bud.makeLoaders
+   * ## bud.makePluginController
    */
-  makeLoaders: () => void
-
   makePluginController: (plugin: Plugin) => PluginController
 
   /**

@@ -10,10 +10,6 @@ const filesystemSetup = (bud: BudInterface): BudInterface => {
     bud.package = bud.makeContainer(
       bud.fs.readJson('package.json'),
     )
-
-    if (bud.package.has('name')) {
-      bud.name = bud.package.get('name')
-    }
   }
 
   /**

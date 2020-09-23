@@ -1,5 +1,10 @@
 import {BudInterface} from '../'
 
+interface TemplateProps {
+  template?: string
+  replacements?: {[key: string]: string}
+}
+
 /**
  * ## bud.template
  *
@@ -11,21 +16,21 @@ import {BudInterface} from '../'
  */
 export type Template = (
   this: BudInterface,
-  template: string,
-  replacements?: {[key: string]: string},
+  TemplateProps,
 ) => BudInterface
 
 const template: Template = function (
   this: BudInterface,
-  template,
-  replacements?,
+  {template = null, replacements = null},
 ) {
-  this.options.set(
-    'plugins.html.template',
-    this.hooks.filter('api.template', template),
-  )
+  template &&
+    this.options.set(
+      'plugins.html.template',
+      this.hooks.filter('api.template', template),
+    )
 
   replacements &&
+    replacements &&
     this.options.merge(
       'plugins.html.replacements',
       this.hooks.filter('api.html.replacements', replacements),

@@ -2,9 +2,6 @@ import useStdOutDimensions from 'ink-use-stdout-dimensions'
 import {useState, useEffect} from 'react'
 
 export interface Styles {
-  ctx: CallableFunction
-  col: CallableFunction
-  is: CallableFunction
   unit: number
   dimensions: {
     width: number
@@ -14,6 +11,10 @@ export interface Styles {
   colors: {
     primary: string
   }
+  ctx: CallableFunction
+  col: CallableFunction
+  is: CallableFunction
+  size: (query: unknown) => boolean
 }
 
 export interface Palette {
@@ -66,8 +67,13 @@ const useAppStyles: (themeProps?: Theme) => Styles = (
     }
   }
 
-  const is = (query, forTrue, forFalse) =>
-    screen == query ? forTrue : forFalse
+  const size = (query: unknown): boolean => screen == query
+
+  const is = (
+    query: unknown,
+    forTrue: unknown,
+    forFalse: unknown,
+  ) => (query ? forTrue : forFalse ?? null)
 
   const dimensions = {
     width: width - theme.spacer * 2,
@@ -81,6 +87,7 @@ const useAppStyles: (themeProps?: Theme) => Styles = (
     ctx,
     dimensions,
     screen,
+    size,
     colors: theme.palette,
   }
 }

@@ -13,8 +13,10 @@ import formatWebpackMessages from './formatWebpackMessages'
 import launchEditor from './launchEditor'
 import launchEditorEndpoint from './launchEditorEndpoint'
 
+const WatchMissingNodeModulesPlugin = require('react-dev-utils/WatchMissingNodeModulesPlugin')
 const checkRequiredFiles = require('react-dev-utils/checkRequiredFiles')
 const eslintFormatter = require('react-dev-utils/eslintFormatter')
+const InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin')
 
 const util = {
   checkRequiredFiles,
@@ -22,6 +24,8 @@ const util = {
   launchEditor,
   launchEditorEndpoint,
   formatWebpackMessages,
+  WatchMissingNodeModulesPlugin,
+  InterpolateHtmlPlugin,
 }
 
 export {util as default}

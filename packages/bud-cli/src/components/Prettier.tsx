@@ -11,7 +11,6 @@ type PrettierFunctionComponent = FunctionComponent<PrettierProps>
 
 const Prettier: PrettierFunctionComponent = props => (
   <Box
-    marginTop={1}
     marginBottom={1}
     flexDirection="column"
     justifyContent="flex-start"

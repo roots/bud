@@ -2,9 +2,7 @@ import {BudInterface} from '../'
 import checkEnvIsValid from './checkEnvIsValid'
 
 const parseArguments = (bud: BudInterface): BudInterface => {
-  /**
-   * Project dir.
-   */
+  /** Project dir */
   bud.args.has('project') &&
     bud.paths.set(
       'project',
@@ -14,9 +12,7 @@ const parseArguments = (bud: BudInterface): BudInterface => {
       ),
     )
 
-  /**
-   * Src dir.
-   */
+  /** Src dir */
   bud.args.has('src') &&
     bud.paths.set(
       'src',
@@ -26,9 +22,7 @@ const parseArguments = (bud: BudInterface): BudInterface => {
       ),
     )
 
-  /**
-   * Dist dir.
-   */
+  /** Dist dir */
   bud.args.has('dist') &&
     bud.paths.set(
       'dist',
@@ -38,28 +32,20 @@ const parseArguments = (bud: BudInterface): BudInterface => {
       ),
     )
 
-  /**
-   * Set mode.
-   */
+  /** Set env */
   bud.args.has('env') &&
     checkEnvIsValid(bud.args.get('env')) &&
     bud.mode.set(bud.args.get('env'))
 
-  /**
-   * Devtool
-   */
+  /** Devtool */
   bud.args.get('devtool') &&
     bud.options.set('webpack.devtool', bud.args.get('devtool'))
 
-  /**
-   * Target
-   */
+  /** Target */
   bud.args.get('target') &&
     bud.options.set('webpack.target', bud.args.get('target'))
 
-  /**
-   * HTML template
-   */
+  /** HTML template */
   bud.args.get('template') &&
     bud.options.set(
       'plugin.html.template',

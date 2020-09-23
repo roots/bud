@@ -6,6 +6,8 @@ const {
   launchEditor,
   launchEditorEndpoint,
   formatWebpackMessages,
+  WatchMissingNodeModulesPlugin,
+  InterpolateHtmlPlugin,
 } = util
 
 export {
@@ -14,4 +16,6 @@ export {
   launchEditor,
   launchEditorEndpoint,
   formatWebpackMessages,
+  WatchMissingNodeModulesPlugin,
+  InterpolateHtmlPlugin,
 }

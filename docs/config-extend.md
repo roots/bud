@@ -1,5 +1,5 @@
 ---
-description: Specify the root directory of the project.
+description: Extend Bud with additional packaged functionality.
 ---
 
 # bud.use
@@ -9,7 +9,7 @@ Registers an `array` of [Bud extensions](guide-using-extensions.md) with the fra
 ## Usage
 
 ```js
-bud.use([sass, tailwindcss])
+bud.extend([require('@roots/bud-sass'), require('@roots/bud-tailwind')])
 ```
 
 ## Arguments
@@ -17,5 +17,3 @@ bud.use([sass, tailwindcss])
 | Name      | Type  |
 | --------- | ----- |
 | `plugins` | array |
-
-## Related

@@ -17,7 +17,6 @@ const server: ServerConfig = {
   lazy: false,
   methods: ['GET', 'HEAD'],
   mimeTypes: null,
-  publicPath: '/',
   ssl: false,
   secure: false,
   serverSideRender: false,
@@ -27,6 +26,7 @@ const server: ServerConfig = {
   },
   writeToDisk: true,
   ws: true,
+  // publicPath: '/', :: hardwired bud.fs.get(bud.paths.public)
 }
 
 export {server as default}

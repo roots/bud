@@ -13,20 +13,25 @@ interface BarProps {
 type BarComponent = FunctionComponent<BarProps>
 
 const Bar: BarComponent = ({
-  color = 'green',
+  color = 'white',
   percent,
+  backgroundColor = 'transparent',
   character = '\u2588',
 }) => {
-  const {col, ctx} = useAppStyles()
+  const {col, ctx, is} = useAppStyles()
 
   const drawBar = () => {
     const width = ctx([col(12), col(10), col(11)])
     const max = Math.min(Math.floor(width * percent), width)
 
-    return max > 0 ? character.repeat(max) : ''
+    return is(max > 0, character.repeat(max))
   }
 
-  return <Text color={color}>{drawBar()}</Text>
+  return (
+    <Text backgroundColor={backgroundColor} color={color}>
+      {drawBar()}
+    </Text>
+  )
 }
 
 export {Bar as default}

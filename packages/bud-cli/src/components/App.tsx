@@ -60,21 +60,20 @@ const App: ApplicationCli = ({
       justifyContent="space-between">
       <Screen title={name}>
         <Box flexDirection="column">
-          {compilation.errors?.length > 0 ? (
+          {compilation.errors?.length > 0 && (
             <Box flexDirection="column" marginBottom={1}>
               <Errors errors={compilation.errors} />
             </Box>
-          ) : (
-            <>
-              <Box flexDirection="column" marginBottom={1}>
-                <Assets assets={compilation.stats?.assets} />
-              </Box>
-
-              <Box flexDirection="column" marginBottom={1}>
-                <Progress progress={compilation.progress} />
-              </Box>
-            </>
           )}
+          <>
+            <Box flexDirection="column" marginBottom={1}>
+              <Assets assets={compilation.stats?.assets} />
+            </Box>
+
+            <Box flexDirection="column" marginBottom={1}>
+              <Progress progress={compilation.progress} />
+            </Box>
+          </>
           <Box flexDirection="column" marginBottom={1}>
             <BuildInfo stats={compilation.stats} />
           </Box>

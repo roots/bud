@@ -8,6 +8,7 @@ const basedName = function (
   file: string,
 ): string {
   const ext = `.${file.split('.').pop()}`
+
   return this.fs.path.basename(file, ext)
 }
 
@@ -15,7 +16,7 @@ const basedName = function (
  * Prepare param for use with globbing function
  * @see BudInterface.fs.glob
  */
-const prepareGlobObject = function (
+const prepareGlob = function (
   this: BudInterface,
   search: string | string[],
 ): string[] {
@@ -73,7 +74,7 @@ const glob: Glob = function (
   /**
    * Prep and run glob op.
    */
-  const glob = prepareGlobObject.bind(this)(files)
+  const glob = prepareGlob.bind(this)(files)
   const results = this.fs.glob.sync(glob, options)
 
   /**

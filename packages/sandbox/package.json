@@ -1,5 +1,6 @@
 {
   "name": "sandbox-app",
+  "description": "my sandbox bud project",
   "private": true,
   "homepage": "https://roots.io/bud",
   "repository": {

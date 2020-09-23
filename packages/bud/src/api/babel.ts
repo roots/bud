@@ -18,7 +18,7 @@ export type Babel = (
   options: BabelTransformOptions,
 ) => BudInterface
 
-const babel: Babel = function (options) {
+const babel: Babel = function (options: BabelTransformOptions) {
   this.features.enable('babel')
 
   this.loaders.merge(

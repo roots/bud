@@ -22,12 +22,12 @@ import Server from '@roots/bud-server'
 export default class Bud
   extends Framework
   implements BudInterface, FrameworkInterface {
-  public name = '@roots/bud'
-
+  public package?: BudInterface['package']
   public cli: BudInterface['cli']
   public compiler: BudInterface['compiler']
-  public config: BudInterface['config']
+  public server: BudInterface['server']
 
+  public config: BudInterface['config']
   public args: BudInterface['args']
   public env: BudInterface['env']
   public features: BudInterface['features']
@@ -38,12 +38,9 @@ export default class Bud
   public patterns: BudInterface['patterns']
   public rules: BudInterface['rules']
   public webpackPlugins: BudInterface['webpackPlugins']
-
   public fs: BudInterface['fs']
   public hooks: BudInterface['hooks']
   public mode: BudInterface['mode']
-  public package?: BudInterface['package']
-  public server: BudInterface['server']
 
   public addExtensions: BudInterface['addExtensions'] =
     api.addExtensions
@@ -91,6 +88,7 @@ export default class Bud
     this.args = this.makeContainer(args)
     this.env = this.makeContainer(env)
     this.features = this.makeContainer(features)
+    this.loaders = this.makeContainer(loaders())
     this.loaderModules = this.makeContainer(loaderModules)
     this.options = this.makeContainer(options)
     this.paths = this.makeContainer(paths)
@@ -101,12 +99,6 @@ export default class Bud
     this.hooks = this.makeHooks(this)
     this.mode = mode(this)
     this.fs = this.makeDisk(this.paths.get('project'))
-  }
-
-  public makeLoaders: BudInterface['makeLoaders'] = function (
-    this: BudInterface,
-  ): void {
-    this.loaders = this.makeContainer(loaders(this))
   }
 
   public updateDisk: BudInterface['updateDisk'] = function (): void {

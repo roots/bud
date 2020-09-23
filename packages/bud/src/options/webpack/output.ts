@@ -7,12 +7,13 @@ const output: Configuration['output'] = {
   crossOriginLoading: false,
   devtoolLineToLine: false,
   filename: '[name].js',
+  publicPath: '',
   path: resolve(process.cwd(), 'dist'),
-  publicPath: '/',
 
   /**
    * Unspecified.
    */
+  // path: resolve(process.cwd(), 'dist'),
   // devtoolNamespace: undefined,
   // globalObject: 'window',
   // hashDigest: 'hex',
@@ -28,8 +29,7 @@ const output: Configuration['output'] = {
   // jsonpScriptType: 'text/javascript',
   // library: undefined,
   // libraryExport: undefined,
-  // libraryTarget: 'var',
-  // pathinfo: true,
+  // libraryTarget: 'var',,
   // sourceMapFilename: '[file].map[query]',
   // umdNamedDefine: false,
 }
