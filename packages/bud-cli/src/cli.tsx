@@ -5,7 +5,7 @@ import {argv} from 'yargs'
 import {existsSync} from 'fs-extra'
 
 /**
- * Load conf if available.s
+ * Load conf if available.
  */
 const config = argv.config ?? 'bud.config.js'
 

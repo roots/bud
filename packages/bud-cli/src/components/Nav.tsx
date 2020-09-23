@@ -12,7 +12,7 @@ const Bullet = ({active}) => {
   )
 }
 
-const Nav = ({build, focus, width, height}) => (
+const Nav = ({build, focus, width}) => (
   <Box
     paddingTop={width > 70 ? 2 : 1}
     paddingBottom={width > 70 ? 1 : 0}

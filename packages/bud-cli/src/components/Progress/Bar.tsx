@@ -1,46 +1,32 @@
 import React, {FunctionComponent} from 'react'
-import {Box, Text} from 'ink'
-import useStdOutDimensions from 'ink-use-stdout-dimensions'
+import {Text} from 'ink'
+
+import useAppStyles from '../../hooks/useAppStyles'
 
 interface BarProps {
   color?: string
   backgroundColor?: string
   percent: number
-  columns?: number
-  left?: number
-  right?: number
   character?: string
-  rightPad?: number
 }
 
 type BarComponent = FunctionComponent<BarProps>
 
 const Bar: BarComponent = ({
   color = 'green',
-  backgroundColor = 'white',
   percent,
-  character = '█',
+  character = '\u2588',
 }) => {
-  const [width] = useStdOutDimensions()
+  const {col, ctx} = useAppStyles()
 
-  const getString = () => {
-    const screen = width - 12
-    const max = Math.min(Math.floor(screen * percent), screen)
-    const chars = character.repeat(max)
+  const drawBar = () => {
+    const width = ctx([col(12), col(10), col(11)])
+    const max = Math.min(Math.floor(width * percent), width)
 
-    return chars + ' '.repeat(screen - max)
+    return max > 0 ? character.repeat(max) : ''
   }
 
-  return (
-    <Box flexDirection="column">
-      <Text
-        wrap="truncate"
-        backgroundColor={backgroundColor}
-        color={color}>
-        {getString() ?? ' '}
-      </Text>
-    </Box>
-  )
+  return <Text color={color}>{drawBar()}</Text>
 }
 
 export {Bar as default}

@@ -1,6 +1,8 @@
 import React, {FunctionComponent} from 'react'
-import {Box, Spacer, Text} from 'ink'
+import {Box, Text} from 'ink'
 import Indicator from '../UI/Indicator'
+
+import useAppStyles from '../../hooks/useAppStyles'
 
 interface AssetInterface {
   name: string
@@ -15,27 +17,29 @@ const Asset: FunctionComponent<AssetInterface> = ({
   size,
   hot,
 }) => {
-  const sizeColor =
-    size / 1000 > 200
-      ? 'red'
-      : size / 1000 > 100
-      ? 'yellow'
-      : 'white'
+  const {ctx, is, col} = useAppStyles()
+
+  const roundedSize = Math.round(size / 1000)
 
   return (
-    <Box flexDirection="row" justifyContent="flex-start">
-      <Box width={20}>
-        <Indicator emitted={emitted} />
-        <Text color={emitted ? 'white' : 'gray'}>
-          {hot && ' 🔥 '} {name}
+    <Box
+      flexDirection={ctx(['row'])}
+      justifyContent={ctx(['space-between', 'flex-start'])}
+      width={col(12)}>
+      <Box width={ctx([col(12)])}>
+        <Text
+          wrap="truncate-end"
+          color={emitted ? 'white' : 'gray'}>
+          <Indicator emitted={emitted} />
+          {is(hot, `🔥 ${name} `, ` ${name} `)}
         </Text>
       </Box>
 
-      <Spacer />
-
-      <Box>
-        <Text color={sizeColor} dimColor={true}>
-          {size / 1000}kb
+      <Box
+        justifyContent={ctx(['flex-end'])}
+        width={ctx([col(12), col(6)])}>
+        <Text wrap="truncate" dimColor={true}>
+          {roundedSize}kb
         </Text>
       </Box>
     </Box>

@@ -5,41 +5,44 @@ import Assets from './Assets'
 import Errors from './Errors'
 import Warnings from './Warnings'
 import BuildInfo from './BuildInfo'
+import {Compilation} from '../hooks/useCompilation'
 
 interface ArtifactInterface {
-  build: any
+  stats: Compilation['stats']
+  progress: Compilation['progress']
   width: number
 }
 
 const Artifact: FunctionComponent<ArtifactInterface> = ({
-  build,
+  stats,
+  progress,
   width,
 }) => {
   const app = useApp()
 
   useEffect(() => {
-    build?.assets?.length > 0 &&
-      build?.percentage == 1 &&
+    stats?.assets?.length > 0 &&
+      progress?.percentage == 1 &&
       app.exit()
-  }, [build])
+  }, [stats])
 
   return (
     <Box width={width} flexDirection="column">
-      <Box display={build?.assets?.length > 0 ? 'flex' : 'none'}>
-        <Assets assets={build?.assets} />
+      <Box display={stats?.assets?.length > 0 ? 'flex' : 'none'}>
+        <Assets assets={stats?.assets} />
       </Box>
 
-      <Box display={build?.errors?.length > 0 ? 'flex' : 'none'}>
-        <Errors errors={build.errors} />
+      <Box display={stats?.errors?.length > 0 ? 'flex' : 'none'}>
+        <Errors errors={stats.errors} />
       </Box>
 
       <Box
-        display={build?.warnings?.length > 0 ? 'flex' : 'none'}>
-        <Warnings warnings={build.warnings} />
+        display={stats?.warnings?.length > 0 ? 'flex' : 'none'}>
+        <Warnings warnings={stats.warnings} />
       </Box>
 
-      <Box display={build?.percentage >= 1 ? 'flex' : 'none'}>
-        <BuildInfo stats={build} />
+      <Box display={progress?.percentage >= 1 ? 'flex' : 'none'}>
+        <BuildInfo stats={stats} />
       </Box>
     </Box>
   )

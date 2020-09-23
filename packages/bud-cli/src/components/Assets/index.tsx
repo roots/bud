@@ -1,8 +1,8 @@
 import React, {FunctionComponent} from 'react'
-import {Box} from 'ink'
 import {Stats} from 'webpack'
 
 import Asset from './Asset'
+
 import useAssetTransform from './useAssetTransform'
 
 interface AssetsProps {
@@ -12,9 +12,9 @@ interface AssetsProps {
 const Assets: FunctionComponent<AssetsProps> = ({assets}) => {
   const processedAssets = useAssetTransform(assets)
 
-  return (
-    <Box flexDirection="column" minHeight={2}>
-      {processedAssets?.map((asset, id) => (
+  return processedAssets ? (
+    <>
+      {processedAssets.map((asset, id) => (
         <Asset
           key={id}
           name={asset.name}
@@ -23,7 +23,9 @@ const Assets: FunctionComponent<AssetsProps> = ({assets}) => {
           hot={asset.hot}
         />
       ))}
-    </Box>
+    </>
+  ) : (
+    <></>
   )
 }
 

@@ -5,29 +5,59 @@ import Server from '@roots/bud-server'
 import Compiler from '@roots/bud-compiler'
 import {formatWebpackMessages} from '@roots/bud-support'
 
-interface Compilation {
+export interface Compilation {
+  /**
+   * All stats data
+   */
   stats?: Stats.ToJsonOutput
+
+  /**
+   * Formatted error messages
+   */
   errors?: Stats.ToJsonOutput['errors']
+
+  /**
+   * Formatted warning messages
+   */
+  warnings?: Stats.ToJsonOutput['warnings']
+
+  /**
+   * Compile progress
+   */
   progress: {
     percentage: number
     msg: string
   }
+
+  /**
+   * Is server listening?
+   */
   listening: boolean
+
+  /**
+   * Is server running?
+   */
   running: boolean
+
+  /**
+   * Is compiler in watch mode?
+   */
   watching: boolean
 }
 
-interface CompilationHook {
-  (compiler: Compiler, server: Server): Compilation
+export interface CompileSources {
+  compiler: Compiler
+  server: Server
 }
 
-/**
- * Use Webpack.Stats from either compiler or Express server callbacks
- */
-const useCompilation: CompilationHook = (
-  compiler: Compiler,
-  server: Server,
-) => {
+export interface UseCompilation {
+  (props: CompileSources): Compilation
+}
+
+const useCompilation: UseCompilation = ({
+  compiler,
+  server,
+}: CompileSources): Compilation => {
   // Use dev server or compiler?
   const [mode, setMode] = useState(null)
   // Stats already tapped
@@ -49,27 +79,30 @@ const useCompilation: CompilationHook = (
     percentage: 0,
     msg: '',
   })
-
   // Plugins applied
   const [applied, setApplied] = useState(false)
 
+  // Helpers
+  const shouldDev = compiler.getConfig().mode == 'development'
+  const shouldWatch = compiler.getConfig().watch
+
   /** Stats handler */
   const statsHandler = (stats: Stats) => {
-    const jsonStats = stats.toJson()
-    setStats(jsonStats)
-    setErrors(formatWebpackMessages(jsonStats).errors)
-    setWarnings(formatWebpackMessages(jsonStats).warnings)
+    const allStats = stats.toJson()
+    setStats(allStats)
+
+    // Use facebook formatter for error msgs
+    const formatted = formatWebpackMessages(allStats)
+    setErrors(formatted.errors)
+    setWarnings(formatted.warnings)
   }
 
   /** Progress handler */
   const progressHandler = (percentage: number, msg: string) => {
     if (typeof percentage !== 'number') return
 
-    percentage =
-      percentage > 0 ? Math.round(percentage * 100) : percentage
-
     setProgress({
-      percentage: percentage,
+      percentage: Math.round(percentage * 100),
       msg: msg ?? progress.msg,
     })
   }
@@ -90,21 +123,16 @@ const useCompilation: CompilationHook = (
   useEffect(() => {
     if (mode) return
 
-    const isDev = compiler.getConfig().mode == 'development'
-    const isWatch = compiler.getConfig().watch
-
-    isWatch && setMode('watch')
-    isDev && setMode('dev')
-    !isWatch && !isDev && setMode('run')
-
-    setMode(setMode)
+    if (shouldWatch) setMode('watch')
+    else if (shouldDev) setMode('dev')
+    else if (!shouldWatch) !shouldDev && setMode('run')
   }, [!mode, compiler])
 
   /**
    * dev tap
    */
   useEffect(() => {
-    if (mode !== 'dev' || !compiler || tapped) return
+    if (!shouldDev || !compiler || tapped) return
 
     compiler.compiler.hooks.done.tap('bud-cli', statsHandler)
     setTapped(true)
@@ -114,7 +142,7 @@ const useCompilation: CompilationHook = (
    * dev listen
    */
   useEffect(() => {
-    if (mode !== 'dev' || !tapped || listening) return
+    if (!shouldDev || !tapped || listening) return
 
     server.listen()
     setListening(true)
@@ -124,7 +152,7 @@ const useCompilation: CompilationHook = (
    * compiler watch
    */
   useEffect(() => {
-    if (!mode || mode == 'dev' || running || watching) return
+    if (!mode || shouldDev || running || watching) return
 
     mode == 'run' && setRunning(true)
     mode == 'watch' && setWatching(true)

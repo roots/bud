@@ -2,6 +2,8 @@ import React, {FunctionComponent} from 'react'
 import {Box, Text} from 'ink'
 import Bar from './Bar'
 
+import useAppStyles from '../../hooks/useAppStyles'
+
 type ProgressComponentProps = {
   progress: {
     percentage: number
@@ -11,30 +13,25 @@ type ProgressComponentProps = {
 
 const Progress: FunctionComponent<ProgressComponentProps> = ({
   progress,
-}) => (
-  <Box flexDirection="column" minHeight={1}>
-    <Box flexDirection="row">
-      <Box width={6}>
-        <Text wrap="truncate">
-          {progress.percentage}%
-          {progress.percentage < 100 ? ' ' : ''}
-        </Text>
+}) => {
+  const {col, ctx, is} = useAppStyles()
+
+  return (
+    <Box
+      display={is(progress.percentage < 100, 'flex', 'none')}
+      width={col(12)}
+      flexDirection={ctx(['column', 'row'])}>
+      <Box width={ctx([col(12), col(2), col(1)])}>
+        <Text>{progress.percentage}%</Text>
       </Box>
 
       <Bar
         backgroundColor="none"
         color="#545DD7"
-        character="█"
         percent={progress.percentage}
       />
-
-      <Box height="1">
-        <Text wrap="truncate-start" color="#6C758F">
-          {progress.msg ?? ' '}
-        </Text>
-      </Box>
     </Box>
-  </Box>
-)
+  )
+}
 
 export {Progress as default}

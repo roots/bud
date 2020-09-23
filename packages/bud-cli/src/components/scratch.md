@@ -1,4 +1,9 @@
-{bud.options.get('server.from.host') && (
+# Just some old components
+
+Don't want tsc to choke on these. Don't want to lose them.
+
+```tsx
+      {bud.options.get('server.from.host') && (
           <Box
             flexDirection="row"
             justifyContent="flex-start"
@@ -13,7 +18,9 @@
             </Text>
           </Box>
         )}
+```
 
+```tsx
         {bud.options.get('server.to.host') && (
           <Box
             flexDirection="row"
@@ -29,7 +36,9 @@
             </Text>
           </Box>
         )}
+```
 
+```tsx
         <Box
           flexDirection="row"
           justifyContent="flex-start"
@@ -39,7 +48,9 @@
           <Spacer />
           <Text> {bud.mode.get()}</Text>
         </Box>
+```
 
+```tsx
         <Box
           marginTop={1}
           flexDirection="row"
@@ -56,7 +67,9 @@
               .map(([name, enabled]) => `${name} `)}
           </Text>
         </Box>
+```
 
+```tsx
         <Box
           marginTop={1}
           flexDirection="row"
@@ -73,9 +86,9 @@
               .map(([name, enabled]) => `${name} `)}
           </Text>
         </Box>
+```
 
-
-
+```tsx
         {webpackConfig && (
         <Box flexDirection="column">
           <Box
@@ -120,3 +133,4 @@
           </Box>
         </Box>
       )}
+```
