@@ -1,11 +1,10 @@
-import {Loader} from 'webpack'
 import svgToMiniDataUri from 'mini-svg-data-uri'
+import {RuleSetLoader} from 'webpack'
 
-const svg: Loader = {
-  loader: require.resolve('url-loader'),
-  options: {
-    generator: content => svgToMiniDataUri(content.toString()),
-  },
+export const loader: RuleSetLoader['loader'] = require.resolve(
+  'url-loader',
+)
+
+export const options: RuleSetLoader['options'] = {
+  generator: content => svgToMiniDataUri(content.toString()),
 }
-
-export = svg

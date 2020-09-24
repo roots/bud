@@ -37,6 +37,7 @@
     "@babel/preset-env": "^7.11.5",
     "@roots/bud-cli": "file:../bud-cli",
     "@roots/bud-framework": "file:../bud-framework",
+    "@roots/bud-server": "file:../bud-server",
     "@roots/bud-support": "file:../bud-support",
     "@roots/container": "file:../container",
     "@roots/dependencies": "file:../dependencies",

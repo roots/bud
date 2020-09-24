@@ -1,16 +1,21 @@
-import type {BudInterface} from '../'
-import {WebpackPlugins} from '@roots/bud-types'
+import type {BudInterface, PluginInterface} from '../'
+import type {Configuration, Plugin} from 'webpack'
 
-type PluginsBuilder = (bud: BudInterface) => WebpackPlugins
+export type PluginsBuilder = (
+  bud: BudInterface,
+) => Configuration['plugins']
 
-const plugins: PluginsBuilder = bud =>
+export const plugins: PluginsBuilder = (bud: BudInterface) =>
   bud.hooks.filter('webpack.plugins', {
     plugins: bud.webpackPlugins
       .entries()
       .reduce(
         (
-          a: any,
-          [name, fn]: [string, (bud: BudInterface) => any],
+          a: Configuration['plugins'],
+          [name, fn]: [
+            string,
+            (bud: BudInterface) => PluginInterface,
+          ],
         ) => [
           ...a,
           bud.hooks.filter(
@@ -20,8 +25,5 @@ const plugins: PluginsBuilder = bud =>
         ],
         [],
       )
-      .filter((plugin: any) => plugin),
+      .filter((plugin: Plugin) => plugin),
   })
-
-export {plugins}
-export type {PluginsBuilder}

@@ -1,4 +1,6 @@
-import babel from './babel'
+import * as babel from './babel'
+import * as svg from './svg'
+
 import css from './css'
 import file from './file'
 import minicss from './minicss'
@@ -6,14 +8,13 @@ import postcss from './postcss'
 import raw from './raw'
 import resolveUrl from './resolveUrl'
 import style from './style'
-import svg from './svg'
 
-import {Loose} from '@roots/bud-framework'
+import {RuleSetLoader} from 'webpack'
 
 /**
  * RuleSetLoaders
  */
-const loaders = (): Loose => ({
+const loaders = (): {[key: string]: RuleSetLoader} => ({
   babel,
   css,
   file,

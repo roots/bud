@@ -4,7 +4,7 @@ import {FrameworkInterface, Hooks} from '@roots/bud-framework'
 import {ApplicationCli} from '@roots/bud-cli'
 import {CompilerInterface} from '@roots/bud-compiler'
 import {ServerInterface} from '@roots/bud-server'
-import {WebpackBuilder} from './config'
+import {ConfigBuilder} from './config'
 import {Mode} from './mode'
 import {PluginController} from './Plugin'
 
@@ -57,7 +57,7 @@ export declare interface BudInterface
    *
    * Builds the webpack configuration.
    */
-  config: WebpackBuilder
+  config: ConfigBuilder
 
   /**
    * ## bud.env

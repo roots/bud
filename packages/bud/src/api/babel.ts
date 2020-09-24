@@ -1,4 +1,4 @@
-import {BabelTransformOptions} from '@roots/bud-types'
+import {TransformOptions} from '@babel/core'
 import BudInterface from '../Bud'
 
 /**
@@ -15,10 +15,12 @@ import BudInterface from '../Bud'
  */
 export type Babel = (
   this: BudInterface,
-  options: BabelTransformOptions,
+  options: TransformOptions,
 ) => BudInterface
 
-const babel: Babel = function (options: BabelTransformOptions) {
+export const babel: Babel = function (
+  options: TransformOptions,
+) {
   this.features.enable('babel')
 
   this.loaders.merge(
@@ -28,5 +30,3 @@ const babel: Babel = function (options: BabelTransformOptions) {
 
   return this
 }
-
-export {babel as default, BabelTransformOptions}

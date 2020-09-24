@@ -78,7 +78,7 @@
     "eslint-plugin-react-hooks": "^4.1.0",
     "execa": "^4.0.3",
     "express": "^4.17.1",
-    "husky": "^4.2.5",
+    "husky": "^4.3.0",
     "ink-testing-library": "^2.0.1",
     "jest": "^26.4.2",
     "lerna": "^3.22.1",
@@ -106,13 +106,11 @@
     "@roots/bud-support": "file:packages/bud-support",
     "@roots/bud-stylelint": "file:packages/bud-stylelint",
     "@roots/bud-tailwindcss": "file:packages/bud-tailwindcss",
-    "@roots/bud-types": "file:packages/bud-types",
     "@roots/bud-typescript": "file:packages/bud-typescript",
     "@roots/bud-vue": "file:packages/bud-vue",
     "@roots/bud-wordpress-manifests": "file:packages/bud-wordpress-manifests",
     "@roots/container": "file:packages/container",
     "@roots/dependencies": "file:packages/dependencies",
-    "@roots/filesystem": "file:packages/filesystem",
-    "sandbox": "file:packages/sandbox"
+    "@roots/filesystem": "file:packages/filesystem"
   }
 }

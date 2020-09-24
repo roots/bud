@@ -8,6 +8,7 @@ import Compiler from './Compiler'
 /**
  * The Bud webpack compiler.
  */
+export default Compiler
 export interface CompilerInterface {
   /**
    * Webpack configuration
@@ -71,5 +72,3 @@ export interface CompilerInterface {
     handler: ProgressPlugin.Handler,
   ) => CompilerInterface
 }
-
-export {Compiler as default}

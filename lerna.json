@@ -14,7 +14,6 @@
     "packages/bud-stylelint",
     "packages/bud-support",
     "packages/bud-tailwindcss",
-    "packages/bud-types",
     "packages/bud-typescript",
     "packages/bud-vue",
     "packages/bud-wordpress-manifests",

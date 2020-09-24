@@ -5,7 +5,7 @@ import webpack, {
 } from 'webpack'
 import {CompilerInterface} from './'
 
-class Compiler implements CompilerInterface {
+export default class Compiler implements CompilerInterface {
   public config: Configuration
   public compiler: Webpack
   public watchOptions: Webpack.WatchOptions
@@ -75,5 +75,3 @@ class Compiler implements CompilerInterface {
     return this
   }
 }
-
-export {Compiler as default}

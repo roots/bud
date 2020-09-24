@@ -1,6 +1,6 @@
 import addExtensions, {AddExtensions} from './addExtensions'
 import alias, {Alias} from './alias'
-import babel, {Babel} from './babel'
+import {babel, Babel} from './babel'
 import brotli, {Brotli} from './brotli'
 import bundle, {Bundle} from './bundle'
 import compile, {Compile} from './compile'

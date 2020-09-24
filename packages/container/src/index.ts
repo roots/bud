@@ -90,4 +90,4 @@ export interface ContainerInterface extends Loose {
   entries(this: ContainerInterface): Loose
 }
 
-export {Container as default}
+export default Container

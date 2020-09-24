@@ -1,11 +1,12 @@
 import type {BudInterface} from '../'
 import type {Configuration, Module} from 'webpack'
+import {Builder} from './'
 
-type ModuleBuilder = (
+export type ModuleBuilder = (
   bud: BudInterface,
-) => Configuration['module']
+) => Configuration['module'] | Builder
 
-const rules: ModuleBuilder = bud =>
+export const rules: ModuleBuilder = bud =>
   bud.hooks.filter('webpack.module', {
     module: bud.hooks.filter('webpack.module.rules', {
       rules: [
@@ -35,6 +36,3 @@ const rules: ModuleBuilder = bud =>
       ],
     }),
   })
-
-export {rules}
-export type {ModuleBuilder}

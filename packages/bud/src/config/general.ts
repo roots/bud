@@ -1,10 +1,9 @@
 import type {BudInterface} from '../'
+import type {Configuration} from 'webpack'
 
-import type {WebpackConfig} from '@roots/bud-types'
+export type WebpackBuilder = (bud: BudInterface) => Configuration
 
-type WebpackBuilder = (bud: BudInterface) => WebpackConfig
-
-const general: WebpackBuilder = bud => ({
+export const general: WebpackBuilder = bud => ({
   context: bud.hooks.filter(
     'webpack.context',
     bud.paths.get('src'),
@@ -37,5 +36,3 @@ const general: WebpackBuilder = bud => ({
     bud.features.enabled('watch'),
   ),
 })
-
-export {general}

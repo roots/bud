@@ -1,9 +1,11 @@
 import type {BudInterface} from '../'
-import type {WebpackResolve} from '@roots/bud-types'
+import type {Configuration} from 'webpack'
 
-type ResolveBuilder = (bud: BudInterface) => WebpackResolve
+export type ResolveBuilder = (
+  bud: BudInterface,
+) => Configuration['resolve']
 
-const webpackResolve: ResolveBuilder = bud =>
+export const webpackResolve: ResolveBuilder = bud =>
   bud.hooks.filter('webpack.resolve', {
     resolve: {
       ...(bud.options.get('webpack.resolve.alias')
@@ -26,6 +28,3 @@ const webpackResolve: ResolveBuilder = bud =>
       ]),
     },
   })
-
-export {webpackResolve}
-export type {ResolveBuilder}

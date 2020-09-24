@@ -1,14 +1,15 @@
+import type {Builder} from './'
 import type {BudInterface} from '../'
-import type {WebpackOptimization} from '@roots/bud-types'
+import type {Configuration} from 'webpack'
 
-type OptimizationBuilder = (
+export type OptimizationBuilder = (
   bud: BudInterface,
-) => WebpackOptimization
+) => Configuration['optimization'] | Builder
 
 /**
  * Webpack optimization
  */
-const optimization: OptimizationBuilder = bud =>
+export const optimization: OptimizationBuilder = bud =>
   bud.hooks.filter('webpack.optimization', {
     optimization: {
       ...(bud.features.enabled('runtimeChunk')
@@ -49,6 +50,3 @@ const optimization: OptimizationBuilder = bud =>
       ),
     },
   })
-
-export {optimization}
-export type {OptimizationBuilder}

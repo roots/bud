@@ -1,16 +1,20 @@
-import {BudInterface, Plugin} from '@roots/bud'
+import {BudInterface, Plugin, PluginInterface} from '@roots/bud'
+import type {Configuration} from 'webpack'
+
 import {resolve} from 'path'
 import {eslintFormatter} from '@roots/bud-support'
 
-const plugin: Plugin = (bud: BudInterface) => ({
+export const plugin: Plugin = (
+  bud: BudInterface,
+): PluginInterface => ({
   bud,
 
   make: function () {
     const config =
-      this.bud.fs.get('.eslintrc.js') ||
+      this.bud.fs.get('.eslintrc.js') ??
       this.bud.fs.get('.eslintrc.json')
 
-    if (!this.bud.fs.exists(config)) {
+    if (!this.bud.fs.existsSync(config)) {
       return
     }
 
@@ -28,7 +32,7 @@ const plugin: Plugin = (bud: BudInterface) => ({
 
     this.bud.hooks.on(
       'webpack.module.rules.js.use',
-      (loaders: BudInterface['loaders']['repository']) => [
+      (loaders: Configuration['module']['rules']) => [
         ...loaders,
         this.bud.loaders.get('eslint'),
       ],
@@ -36,11 +40,8 @@ const plugin: Plugin = (bud: BudInterface) => ({
   },
 })
 
-const presets = {
+export const presets = {
   roots: resolve(__dirname, './preset/roots.js'),
   wordpress: resolve(__dirname, './preset/wordpress.js'),
   react: resolve(__dirname, './preset/react.js'),
 }
-
-export {plugin, presets}
-module.exports = {plugin, presets}

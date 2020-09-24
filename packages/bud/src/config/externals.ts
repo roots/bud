@@ -1,12 +1,12 @@
 import type {BudInterface} from '../'
-import type {WebpackExternals} from '@roots/bud-types'
+import type {Configuration} from 'webpack'
+import type {Builder} from './'
 
-type ExternalsBuilder = (bud: BudInterface) => WebpackExternals
+export type ExternalsBuilder = (
+  bud: BudInterface,
+) => Configuration['externals'] | Builder
 
-const externals: ExternalsBuilder = bud =>
+export const externals: ExternalsBuilder = bud =>
   bud.hooks.filter('webpack.externals', {
     externals: bud.options.get('webpack.externals'),
   })
-
-export {externals}
-export type {ExternalsBuilder}

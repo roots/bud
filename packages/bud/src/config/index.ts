@@ -1,16 +1,40 @@
-import {entry} from './entry'
-import {externals} from './externals'
-import {general} from './general'
-import {rules} from './rules'
-import {optimization} from './optimization'
-import {output} from './output'
-import {webpackResolve} from './webpackResolve'
-import {plugins} from './plugins'
+import {entry, EntryBuilder} from './entry'
+import {externals, ExternalsBuilder} from './externals'
+import {general, WebpackBuilder} from './general'
+import {rules, ModuleBuilder} from './rules'
+import {optimization, OptimizationBuilder} from './optimization'
+import {output, OutputBuilder} from './output'
+import {webpackResolve, ResolveBuilder} from './webpackResolve'
+import {plugins, PluginsBuilder} from './plugins'
 
 import type {BudInterface} from '../'
-import type {WebpackConfig} from '@roots/bud-types'
+import type {Configuration} from 'webpack'
 
-const builders = [
+export type Builder = (
+  bud: BudInterface,
+) =>
+  | EntryBuilder
+  | ExternalsBuilder
+  | WebpackBuilder
+  | ModuleBuilder
+  | OptimizationBuilder
+  | OutputBuilder
+  | ResolveBuilder
+  | PluginsBuilder
+  | Configuration
+
+export interface Builders {
+  entry: EntryBuilder
+  general: WebpackBuilder
+  rules: ModuleBuilder
+  externals: ExternalsBuilder
+  output: OutputBuilder
+  optimization: OptimizationBuilder
+  plugins: PluginsBuilder
+  webpackResolve: ResolveBuilder
+}
+
+export const builders: Builders = {
   entry,
   general,
   rules,
@@ -19,26 +43,17 @@ const builders = [
   optimization,
   plugins,
   webpackResolve,
-]
+}
 
-type WebpackBuilder = (bud: BudInterface) => WebpackConfig
+export type ConfigBuilder = (bud: BudInterface) => Configuration
 
-const config: WebpackBuilder = bud => {
-  process.env.NODE_ENV = bud.mode.get() ?? 'none'
-  process.env.BABEL_ENV = bud.mode.get() ?? 'none'
-
-  return builders.reduce(
-    (acc, curr: (bud: BudInterface) => WebpackConfig) => ({
-      ...acc,
-      ...curr(bud),
+export const config: ConfigBuilder = (
+  bud: BudInterface,
+): Configuration =>
+  Object.entries(builders).reduce(
+    (config, [, builder]: [string, Builder]) => ({
+      ...config,
+      ...builder(bud),
     }),
     {},
   )
-}
-
-export {
-  config as default,
-  builders,
-  WebpackBuilder,
-  WebpackConfig,
-}
