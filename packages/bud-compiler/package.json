@@ -29,8 +29,5 @@
     "build": "rimraf ./lib && tsc -p tsconfig.build.json",
     "lint": "eslint ."
   },
-  "dependencies": {
-    "error-overlay-webpack-plugin": "^0.4.1"
-  },
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5"
 }

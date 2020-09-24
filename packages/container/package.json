@@ -2,7 +2,6 @@
   "name": "@roots/container",
   "version": "2.0.0-next.24",
   "description": "Collections utility",
-  "private": true,
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",

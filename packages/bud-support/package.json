@@ -22,7 +22,11 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["bin", "lib", "publish"],
+  "files": [
+    "bin",
+    "lib",
+    "publish"
+  ],
   "main": "./lib/index.js",
   "types": "./lib/types/index.d.ts",
   "scripts": {
@@ -31,6 +35,7 @@
   },
   "dependencies": {
     "chalk": "^4.1.0",
-    "react-dev-utils": "^10.2.1"
+    "react-dev-utils": "^10.2.1",
+    "update-notifier": "^4.1.1"
   }
 }

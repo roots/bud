@@ -31,6 +31,7 @@
   },
   "dependencies": {
     "@roots/bud-support": "file:../bud-support",
+    "express": "^4.17.1",
     "http-proxy-middleware": "^1.0.5",
     "react-error-overlay": "^6.0.7",
     "webpack": "^4.44.1",

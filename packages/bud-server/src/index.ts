@@ -1,28 +1,12 @@
 import WebpackDevMiddleware from 'webpack-dev-middleware'
 import {Options as ProxyOptions} from 'http-proxy-middleware'
-import {
-  Compiler,
-  Options as WebpackOptions,
-  Configuration,
-} from 'webpack'
+import {Compiler, Options as WebpackOptions} from 'webpack'
 import {
   Application as Express,
   Handler as ExpressHandler,
 } from 'express'
-
 import Server from './Server'
-import injectClient from './injectClient'
-
-interface InjectionProps {
-  entrypoints: Configuration['entry']
-}
-
-/**
- * Inject webpack entry configuration with hot client/server loaders
- */
-export type InjectClient = (
-  props: InjectionProps,
-) => Configuration['entry']
+import {injectClient} from './client'
 
 /**
  * Server configuration
