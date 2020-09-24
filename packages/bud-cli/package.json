@@ -22,11 +22,7 @@
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "bin",
-    "lib",
-    "types"
-  ],
+  "files": ["bin", "lib", "types"],
   "bin": {
     "bud": "lib/cli.js"
   },

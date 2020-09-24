@@ -34,7 +34,9 @@ class Filesystem extends Container {
     glob.push(`!${resolve(options.baseDir, '**/types/**/*')}`)
     glob.push(`!${resolve(options.baseDir, '**/*.map')}`)
     glob.push(`!${resolve(options.baseDir, '**/*.d.ts')}`)
-    glob.push(`!${resolve(options.baseDir, '**/node_modules/**/*')}`)
+    glob.push(
+      `!${resolve(options.baseDir, '**/node_modules/**/*')}`,
+    )
     glob.push(`!${resolve(options.baseDir, '**/vendor/**/*')}`)
 
     disk.setDisk(glob)

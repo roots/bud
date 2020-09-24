@@ -1,7 +1,6 @@
 import BudInterface from '../Bud'
 import {injectClient} from '@roots/bud-server'
 
-
 /**
  * ## bud.compile
  *
