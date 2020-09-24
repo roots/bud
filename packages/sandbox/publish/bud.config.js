@@ -10,8 +10,7 @@ bud
       PUBLIC_URL: bud.env.get('PUBLIC_URL'),
     },
   })
-
-bud.when(
+  .when(
     bud.mode.is('development'),
     () => bud.dev({hot: true}),
     () => bud.minify().gzip().runtimeManifest().vendor(),

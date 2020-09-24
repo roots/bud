@@ -1,5 +1,5 @@
 import Container, {Loose} from '@roots/container'
-import Filesystem from '@roots/filesystem'
+import {FileContainerInterface} from '@roots/filesystem'
 import {FrameworkInterface, Hooks} from '@roots/bud-framework'
 import {ApplicationCli} from '@roots/bud-cli'
 import {CompilerInterface} from '@roots/bud-compiler'
@@ -36,7 +36,7 @@ export declare interface BudInterface
    *
    * Application filesystem.
    */
-  fs: Filesystem
+  fs: FileContainerInterface
 
   /**
    * ## bud.server
@@ -138,6 +138,13 @@ export declare interface BudInterface
    * Project package.json info.
    */
   package?: Container
+
+  /**
+   * ## bud.update
+   *
+   * Information about available updates for the framework.
+   */
+  update?: any
 
   /**
    * ## bud.paths

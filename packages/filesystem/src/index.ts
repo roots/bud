@@ -5,6 +5,7 @@ import resolveFrom from 'resolve-from'
 import {ContainerInterface} from '@roots/container'
 import watcher from './watcher'
 import FileContainer from './FileContainer'
+import Filesystem from './Filesystem'
 
 /**
  * A container acting as a virtual disk for simpler filesystem IO.
@@ -87,4 +88,4 @@ export interface FileContainerInterface
   require(this: ContainerInterface, key: string): NodeModule
 }
 
-export {FileContainer as default}
+export {FileContainer as default, Filesystem}

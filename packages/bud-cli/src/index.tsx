@@ -1,11 +1,7 @@
 import React from 'React'
 import {render, Instance} from 'ink'
 
-import App, {ApplicationCliProps} from './components/App'
-import Console from './components/Console'
-import Screen from './components/Screen'
-import Title from './components/Title'
-import Prettier from './components/Prettier'
+import App, {ApplicationCliProps} from './containers/App'
 
 export type ApplicationCli = (
   props: ApplicationCliProps,
@@ -27,5 +23,4 @@ const app: ApplicationCli = ({
   )
 
 export default app
-export {Console, Screen, Title, Prettier}
 export {ApplicationCliProps, Instance}

@@ -22,9 +22,13 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["bin", "lib", "types"],
+  "files": [
+    "bin",
+    "lib",
+    "types"
+  ],
   "bin": {
-    "bud": "bin/bud"
+    "bud": "lib/cli.js"
   },
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
@@ -33,11 +37,11 @@
     "lint": "eslint ."
   },
   "devDependencies": {
-    "@roots/container": "file:../container"
+    "@roots/container": "file:../container",
+    "@roots/bud-server": "file:../bud-server"
   },
   "dependencies": {
     "@roots/bud-compiler": "file:../bud-compiler",
-    "@roots/bud-server": "file:../bud-server",
     "@roots/bud-support": "file:../bud-support",
     "cli-highlight": "^2.1.4",
     "execa": "^4.0.3",

@@ -47,7 +47,10 @@ class FileContainer
     this: ContainerInterface,
     glob: string[],
   ): void {
-    const files = this.glob.sync(glob, {gitignore: true})
+    const files = this.glob.sync(glob, {
+      onlyFiles: false,
+      expandDirectories: true,
+    })
 
     this.repository = files.reduce(
       (acc: Loose, curr: Item) => ({

@@ -8,9 +8,9 @@ import resolve from './resolve'
 const webpack: Configuration = {
   name: '@roots/bud',
   bail: true,
+  cache: true,
   devtool: 'source-map',
   mode: 'none',
-  cache: true,
   entry: {},
   stats: {
     all: true,
@@ -22,7 +22,8 @@ const webpack: Configuration = {
   optimization,
   performance,
   resolve,
-  // context: process.cwd(),
+
+  // context: process.cwd(), // hardwire bud.paths.src
   // amd: undefined,
   // parallelism: undefined,
   // externals: {},

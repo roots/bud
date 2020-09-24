@@ -10,7 +10,6 @@ import {BudInterface} from '../'
  * bud.src('scripts/app.js')
  * ```
  */
-
 export type Src = {
   (this: BudInterface, path?: string | undefined): string
 }

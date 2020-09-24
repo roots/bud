@@ -1,6 +1,18 @@
 import BudInterface from '../Bud'
 import {injectClient} from '@roots/bud-server'
 
+
+/**
+ * ## bud.compile
+ *
+ * Compile finalized webpack configuration and run build.
+ *
+ * ```js
+ * bud.compile()
+ * ```
+ */
+export type Compile = () => void
+
 /**
  * setup devServer
  */
@@ -33,17 +45,6 @@ const inject = function () {
   this.options.set('webpack.entry', entrypoints)
 }
 
-/**
- * ## bud.compile
- *
- * Compile finalized webpack configuration and run build.
- *
- * ```js
- * bud.compile()
- * ```
- */
-export type Compile = () => void
-
 const compile: Compile = function (this: BudInterface) {
   this.when(this.options.get('server.hot'), inject.bind(this))
 
@@ -55,10 +56,11 @@ const compile: Compile = function (this: BudInterface) {
    * Run CLI.
    */
   this.cli({
-    name: this.package?.name,
+    name: this.package.get('name'),
     compiler: this.compiler,
     server: this.server,
     terminate: this.terminate,
+    update: this.update,
   })
 }
 

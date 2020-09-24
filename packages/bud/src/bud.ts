@@ -23,6 +23,7 @@ export default class Bud
   extends Framework
   implements BudInterface, FrameworkInterface {
   public package?: BudInterface['package']
+  public update?: BudInterface['update']
   public cli: BudInterface['cli']
   public compiler: BudInterface['compiler']
   public server: BudInterface['server']
@@ -81,6 +82,8 @@ export default class Bud
 
     this.cli = app
     this.config = config
+    this.hooks = this.makeHooks(this)
+    this.mode = mode(this)
 
     this.compiler = new Compiler()
     this.server = new Server()
@@ -96,36 +99,24 @@ export default class Bud
     this.rules = this.makeContainer(rules)
     this.webpackPlugins = this.makeContainer(plugins)
 
-    this.hooks = this.makeHooks(this)
-    this.mode = mode(this)
-    this.fs = this.makeDisk(this.paths.get('project'))
+    /** Project disk (default)*/
+    this.fs = this.disks.set('project', {
+      baseDir: this.paths.get('project'),
+      glob: ['**/*'],
+    })
+
+    /** framework disk */
+    this.disks.set('@roots', {
+      baseDir: this.fs.path.resolve(__dirname, '../../'),
+      glob: ['**/*'],
+    })
   }
 
   public updateDisk: BudInterface['updateDisk'] = function (): void {
-    /** !Glob */
-    const noInclude = [
-      `!${this.fs.path.resolve(
-        this.paths.get('project'),
-        'node_modules/**/*',
-      )}`,
-
-      `!${this.fs.path.resolve(
-        this.paths.get('project'),
-        'vendor/**/*',
-      )}`,
-    ]
-
-    /** Glob */
-    const yesInclude = [
-      this.fs.path.resolve(this.paths.get('project'), '*'),
-      this.fs.path.resolve(this.paths.get('project'), '**/*'),
-    ]
-
-    /** Set */
-    this.fs = this.makeDisk(this.paths.get('project'), [
-      ...yesInclude,
-      ...noInclude,
-    ])
+    this.fs = this.disks.set('project', {
+      baseDir: this.paths.get('project'),
+      glob: ['**/*'],
+    })
   }
 
   public makePluginController(plugin: Plugin): PluginController {

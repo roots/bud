@@ -9,7 +9,9 @@ template:
     APP_DESCRIPTION: ${APP_DESCRIPTION}
     PUBLIC_URL: ${APP_PUBLIC_URL}
 
-features:
-  - minify
-  - gzip
-  - runtimeChunk
+env:
+  production:
+    features:
+      - minify
+      - gzip
+      - runtimeChunk

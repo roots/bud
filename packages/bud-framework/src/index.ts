@@ -1,5 +1,8 @@
 import Container, {Loose} from '@roots/container'
-import Filesystem from '@roots/filesystem'
+import {
+  FileContainerInterface,
+  Filesystem,
+} from '@roots/filesystem'
 import {
   dump,
   format,
@@ -13,6 +16,11 @@ import Framework from './Framework'
 import highlight from 'cli-highlight'
 
 interface FrameworkInterface extends Loose {
+  /**
+   * Virtual filesystems
+   */
+  disks: Filesystem
+
   /**
    * Dump values to the terminal.
    */
@@ -86,7 +94,11 @@ interface FrameworkInterface extends Loose {
   /**
    * Make a new filesystem container
    */
-  makeDisk: (baseDir?: string, pattern?: string[]) => Filesystem
+  makeDisk: (
+    key?: string,
+    baseDir?: string,
+    glob?: string[],
+  ) => FileContainerInterface
 }
 
 export type RegisteredHooks = {

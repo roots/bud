@@ -1,5 +1,8 @@
 import Container, {Loose} from '@roots/container'
-import Filesystem from '@roots/filesystem'
+import {
+  Filesystem,
+  FileContainerInterface,
+} from '@roots/filesystem'
 import {FrameworkInterface, Hooks} from './'
 import {
   dump,
@@ -14,6 +17,8 @@ import {
 import {hooks} from './hooks'
 
 class Framework implements FrameworkInterface {
+  public disks: Filesystem
+
   public dump = dump
 
   public terminate = terminate
@@ -31,7 +36,11 @@ class Framework implements FrameworkInterface {
   }
 
   public constructor() {
+    this.disks = new Filesystem()
+
     this.apply = this.apply.bind(this)
+    this.getDisk = this.getDisk.bind(this)
+    this.makeDisk = this.makeDisk.bind(this)
   }
 
   public apply(key: PropertyKey, value: unknown): void {
@@ -43,13 +52,15 @@ class Framework implements FrameworkInterface {
   }
 
   public makeDisk(
+    key?: string,
     baseDir?: string,
-    pattern?: string[],
-  ): Filesystem {
-    const disk = new Filesystem(baseDir ?? undefined)
-    pattern && disk.setDisk(pattern)
+    glob?: string[],
+  ): FileContainerInterface {
+    return this.disks.set(key ?? 'primary', {baseDir, glob})
+  }
 
-    return disk
+  public getDisk(key?: string): FileContainerInterface {
+    return this.disks.get(key ?? 'primary')
   }
 
   public makeHooks(app: FrameworkInterface): Hooks {

@@ -1,6 +1,9 @@
 {
   "extends": "../../tsconfig.build.json",
   "compilerOptions": {
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "module": "commonjs",
     "jsx": "react",
     "rootDir": "./src",
     "outDir": "./lib",

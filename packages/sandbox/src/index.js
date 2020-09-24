@@ -1,4 +1,4 @@
-document.querySelector('body').style.backgroundColor = 'green'
+document.querySelector('body').style.backgroundColor = 'blue'
 console.log('done!')
 
 module?.hot?.accept(err => {

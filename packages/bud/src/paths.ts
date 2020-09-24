@@ -1,4 +1,4 @@
-import {join, resolve} from 'path'
+import {join} from 'path'
 
 /**
  * Current working directory.
@@ -13,7 +13,7 @@ const project: string = cwd
 /**
  * Bud framework directory.
  */
-const framework: string = resolve(__dirname, '../')
+const framework: string = __dirname
 
 /**
  * Source files directory.

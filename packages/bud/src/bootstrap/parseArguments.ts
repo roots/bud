@@ -1,94 +1,95 @@
 import {BudInterface} from '../'
 import checkEnvIsValid from './checkEnvIsValid'
 
-const parseArguments = (bud: BudInterface): BudInterface => {
+const parseArguments = function (this: BudInterface): void {
   /** Project dir */
-  bud.args.has('project') &&
-    bud.paths.set(
+  this.args.has('project') &&
+    this.paths.set(
       'project',
-      bud.fs.path.resolve(
+      this.fs.path.resolve(
         process.cwd(),
-        bud.args.get('project'),
+        this.args.get('project'),
       ),
     )
 
   /** Src dir */
-  bud.args.has('src') &&
-    bud.paths.set(
+  this.args.has('src') &&
+    this.paths.set(
       'src',
-      bud.fs.path.resolve(
-        bud.paths.get('project'),
-        bud.args.get('src'),
+      this.fs.path.resolve(
+        this.paths.get('project'),
+        this.args.get('src'),
       ),
     )
 
   /** Dist dir */
-  bud.args.has('dist') &&
-    bud.paths.set(
+  this.args.has('dist') &&
+    this.paths.set(
       'dist',
-      bud.fs.path.resolve(
-        bud.paths.get('project'),
-        bud.args.get('dist'),
+      this.fs.path.resolve(
+        this.paths.get('project'),
+        this.args.get('dist'),
       ),
     )
 
   /** Set env */
-  bud.args.has('env') &&
-    checkEnvIsValid(bud.args.get('env')) &&
-    bud.mode.set(bud.args.get('env'))
+  this.args.has('env') &&
+    checkEnvIsValid(this.args.get('env')) &&
+    this.mode.set(this.args.get('env'))
 
   /** Devtool */
-  bud.args.get('devtool') &&
-    bud.options.set('webpack.devtool', bud.args.get('devtool'))
+  this.args.get('devtool') &&
+    this.options.set('webpack.devtool', this.args.get('devtool'))
 
   /** Target */
-  bud.args.get('target') &&
-    bud.options.set('webpack.target', bud.args.get('target'))
+  this.args.get('target') &&
+    this.options.set('webpack.target', this.args.get('target'))
 
   /** HTML template */
-  bud.args.get('template') &&
-    bud.options.set(
+  this.args.get('template') &&
+    this.options.set(
       'plugin.html.template',
-      bud.fs.path.resolve(bud.fs.base, bud.args.get('template')),
+      this.fs.path.resolve(
+        this.fs.base,
+        this.args.get('template'),
+      ),
     )
 
   /**
    * Set features.
    */
-  bud.args.has('brotli') &&
-    bud.features.set('brotli', bud.args.get('brotli'))
+  this.args.has('brotli') &&
+    this.features.set('brotli', this.args.get('brotli'))
 
-  bud.args.has('ci') &&
-    bud.features.set('ci', bud.args.get('ci'))
+  this.args.has('ci') &&
+    this.features.set('ci', this.args.get('ci'))
 
-  bud.args.has('gzip') &&
-    bud.features.set('gzip', bud.args.get('gzip'))
+  this.args.has('gzip') &&
+    this.features.set('gzip', this.args.get('gzip'))
 
-  bud.args.has('hash') &&
-    bud.features.set('hash', bud.args.get('hash'))
+  this.args.has('hash') &&
+    this.features.set('hash', this.args.get('hash'))
 
-  bud.args.has('hot') &&
-    bud.features.set('hot', bud.args.get('hot'))
+  this.args.has('hot') &&
+    this.features.set('hot', this.args.get('hot'))
 
-  bud.args.has('html') &&
-    bud.features.set('html', bud.args.get('html'))
+  this.args.has('html') &&
+    this.features.set('html', this.args.get('html'))
 
-  bud.args.has('minify') &&
-    bud.features.set('minify', bud.args.get('minify'))
+  this.args.has('minify') &&
+    this.features.set('minify', this.args.get('minify'))
 
-  bud.args.has('runtime') &&
-    bud.features.set('runtimeChunk', bud.args.get('runtime'))
+  this.args.has('runtime') &&
+    this.features.set('runtimeChunk', this.args.get('runtime'))
 
-  bud.args.has('split') &&
-    bud.features.set('splitChunks', bud.args.get('split'))
+  this.args.has('split') &&
+    this.features.set('splitChunks', this.args.get('split'))
 
-  bud.args.has('vendor') &&
-    bud.features.set('vendor', bud.args.get('vendor'))
+  this.args.has('vendor') &&
+    this.features.set('vendor', this.args.get('vendor'))
 
-  bud.args.has('watch') &&
-    bud.features.set('watch', bud.args.get('watch'))
-
-  return bud
+  this.args.has('watch') &&
+    this.features.set('watch', this.args.get('watch'))
 }
 
 export {parseArguments as default}

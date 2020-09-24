@@ -4,11 +4,11 @@ import {useApp, useInput, Box} from 'ink'
 import Compiler from '@roots/bud-compiler'
 import Server from '@roots/bud-server'
 
-import Assets from './Assets'
-import Errors from './Errors'
-import BuildInfo from './BuildInfo'
-import Progress from './Progress'
-import Screen from './Screen'
+import Assets from '../components/Assets'
+import Errors from '../components/Errors'
+import BuildInfo from '../components/BuildInfo'
+import Progress from '../components/Progress'
+import Screen from '../components/Screen'
 
 import useAppStyles from '../hooks/useAppStyles'
 import useCompilation from '../hooks/useCompilation'
@@ -18,6 +18,12 @@ interface ApplicationCliProps {
   compiler: Compiler
   server: Server
   terminate: CallableFunction
+  update?: {
+    latest: string
+    current: string
+    type: string
+    name: string
+  } | null
 }
 
 type ApplicationCli = FunctionComponent<ApplicationCliProps>
@@ -27,10 +33,14 @@ const App: ApplicationCli = ({
   compiler,
   server,
   terminate,
+  update = null,
 }) => {
   const app = useApp()
   const {dimensions, col, ctx} = useAppStyles()
-  const compilation = useCompilation({compiler, server})
+  const compilation = useCompilation({
+    compiler,
+    server,
+  })
 
   useInput(input => {
     if (input == 'q') {
@@ -65,6 +75,7 @@ const App: ApplicationCli = ({
               <Errors errors={compilation.errors} />
             </Box>
           )}
+
           <>
             <Box flexDirection="column" marginBottom={1}>
               <Assets assets={compilation.stats?.assets} />
@@ -74,6 +85,7 @@ const App: ApplicationCli = ({
               <Progress progress={compilation.progress} />
             </Box>
           </>
+
           <Box flexDirection="column" marginBottom={1}>
             <BuildInfo stats={compilation.stats} />
           </Box>

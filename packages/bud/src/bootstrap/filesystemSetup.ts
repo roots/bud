@@ -1,36 +1,34 @@
 import {BudInterface} from '../'
 
-const filesystemSetup = (bud: BudInterface): BudInterface => {
-  bud.updateDisk()
+const filesystemSetup = function (this: BudInterface): void {
+  this.updateDisk()
 
   /**
    * Set package.
    */
-  if (bud.fs.exists('package.json')) {
-    bud.package = bud.makeContainer(
-      bud.fs.readJson('package.json'),
+  if (this.fs.exists('package.json')) {
+    this.package = this.makeContainer(
+      this.fs.readJson('package.json'),
     )
   }
 
   /**
    * Set babel conf.
    */
-  bud.fs.exists('babel.config.js') &&
-    bud.loaders.set(
+  this.fs.exists('babel.config.js') &&
+    this.loaders.set(
       'babel.options',
-      bud.fs.require('babel.config.js'),
+      this.fs.require('babel.config.js'),
     )
 
   /**
    * Set postcss conf.
    */
-  bud.fs.exists('postcss.config.js') &&
-    bud.loaders.set(
+  this.fs.exists('postcss.config.js') &&
+    this.loaders.set(
       'postcss.options',
-      bud.fs.require('postcss.config.js'),
+      this.fs.require('postcss.config.js'),
     )
-
-  return bud
 }
 
 export {filesystemSetup as default}

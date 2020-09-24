@@ -2,13 +2,15 @@ import Bud from '../Bud'
 import type {BudInterface} from '../'
 import filesystemSetup from './filesystemSetup'
 import parseArguments from './parseArguments'
+import checkUpdate from './checkUpdate'
 
-let bud: BudInterface = new Bud()
+const bud: BudInterface = new Bud()
 
 process.on('unhandledRejection', bud.util.processHandler)
 
-bud = parseArguments(bud)
-bud = filesystemSetup(bud)
+bud.update = checkUpdate.bind(bud)().update
+parseArguments.bind(bud)()
+filesystemSetup.bind(bud)()
 
 bud.options.set('server.hot', bud.features.enabled('hot'))
 bud.mode.is('development') && bud.features.enable('dev')
@@ -18,4 +20,4 @@ bud.options.merge('plugins.html.replacements', {
   ...bud.package.repository,
 })
 
-export {bud as default}
+export = bud

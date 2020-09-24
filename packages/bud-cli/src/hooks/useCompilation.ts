@@ -143,7 +143,6 @@ const useCompilation: UseCompilation = ({
    */
   useEffect(() => {
     if (!shouldDev || !tapped || listening) return
-
     server.listen()
     setListening(true)
   }, [server, tapped, listening])

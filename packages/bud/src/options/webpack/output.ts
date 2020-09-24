@@ -7,7 +7,7 @@ const output: Configuration['output'] = {
   crossOriginLoading: false,
   devtoolLineToLine: false,
   filename: '[name].js',
-  publicPath: '',
+  publicPath: '/',
   path: resolve(process.cwd(), 'dist'),
 
   /**
