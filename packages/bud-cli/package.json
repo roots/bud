@@ -24,7 +24,7 @@
   },
   "files": ["bin", "lib", "types"],
   "bin": {
-    "bud": "lib/cli.js"
+    "bud": "lib/bud.js"
   },
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
