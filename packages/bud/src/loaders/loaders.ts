@@ -14,7 +14,7 @@ import {RuleSetLoader} from 'webpack'
 /**
  * RuleSetLoaders
  */
-const loaders = (): {[key: string]: RuleSetLoader} => ({
+const loaders: LoadersFactory = () => ({
   babel,
   css,
   file,
@@ -26,4 +26,9 @@ const loaders = (): {[key: string]: RuleSetLoader} => ({
   resolveUrl,
 })
 
-export {loaders as default}
+/**
+ * Produces rule set loaders.
+ */
+export type LoadersFactory = () => {[key: string]: RuleSetLoader}
+
+export default loaders

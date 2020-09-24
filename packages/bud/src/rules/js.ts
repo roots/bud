@@ -18,4 +18,4 @@ const js = (bud: BudInterface): RuleSetRule =>
     ]),
   })
 
-export {js as default}
+export = js
