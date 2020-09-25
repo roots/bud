@@ -47,8 +47,7 @@
     "prettier": "^2.1.1",
     "react": "^16.13.1",
     "react-dev-utils": "^10.2.1",
-    "react-dom": "^16.13.1",
-    "yargs": "^16.0.3"
+    "react-dom": "^16.13.1"
   },
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5"
 }

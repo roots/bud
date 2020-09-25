@@ -4,7 +4,6 @@
     "declaration": true,
     "declarationMap": true,
     "esModuleInterop": true,
-    "importHelpers": true,
     "lib": ["esnext", "es5", "es6"],
     "jsx": "react",
     "moduleResolution": "node",
@@ -14,5 +13,6 @@
     "sourceMap": true,
     "target": "es2017",
     "watch": false,
-  }
+  },
+  "exclude": ["docs", "node_modules"]
 }

@@ -1,16 +1,16 @@
 import {join} from 'path'
 import {stat} from 'fs-extra'
-import {CommandModule} from 'yargs'
+import {yargs} from '@roots/bud-support'
 
 const cwd = process.cwd()
 
-export const aliases: CommandModule['aliases'] =
+export const aliases: yargs.CommandModule['aliases'] =
   'build [options]'
 
-export const describe: CommandModule['describe'] =
+export const describe: yargs.CommandModule['describe'] =
   'Build source into compiled assets.'
 
-export const builder: CommandModule['builder'] = yargs =>
+export const builder: yargs.CommandModule['builder'] = yargs =>
   yargs
     .option('config', {
       describe: 'Specify a custom configuration file',
@@ -105,7 +105,7 @@ export const builder: CommandModule['builder'] = yargs =>
     .hide('version')
     .showHelpOnFail(true)
 
-export const handler: CommandModule['handler'] = async (args: {
+export const handler: yargs.CommandModule['handler'] = async (args: {
   [config: string]: unknown
 }): Promise<void> => {
   const config = (args.config as string) ?? 'bud.config.js'

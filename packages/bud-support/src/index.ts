@@ -7,4 +7,4 @@ export {formatWebpackMessages} from './util'
 export {WatchMissingNodeModulesPlugin} from './util'
 export {InterpolateHtmlPlugin} from './util'
 
-export {execa, fs, lodash} from './dependencies'
+export {execa, fs, lodash, yargs} from './dependencies'

@@ -40,7 +40,8 @@
     "lodash": "^4.17.20",
     "node-notifier": "^8.0.0",
     "react-dev-utils": "^10.2.1",
-    "update-notifier": "^4.1.1"
+    "update-notifier": "^4.1.1",
+    "yargs": "^16.0.3"
   },
   "devDependencies": {
     "@types/react-dev-utils": "^9.0.4"

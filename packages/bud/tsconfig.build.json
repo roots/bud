@@ -4,7 +4,7 @@
     "rootDir": "./src",
     "outDir": "./lib",
     "declarationDir": "./lib/types",
-    "module": "commonjs",
+    "module": "commonjs"
   },
   "include": ["src/**/*"]
 }

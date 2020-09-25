@@ -4,7 +4,7 @@
     "rootDir": "./src",
     "outDir": "./lib",
     "declarationDir": "./lib/types",
-    "lib": ["esnext", "es5", "es6", "dom", "dom.iterable"],
+    "lib": ["esnext", "es5", "es6", "dom", "dom.iterable"]
   },
   "include": ["src/**/*"]
 }

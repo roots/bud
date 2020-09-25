@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 
-import yargs from 'yargs'
+import {yargs} from '@roots/bud-support'
 import commands from './commands'
 
 export = yargs

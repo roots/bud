@@ -18,5 +18,6 @@
     "paths": {
       "@roots/*": ["*/src"],
     },
-  }
+  },
+  "exclude": ["docs", "node_modules"]
 }
