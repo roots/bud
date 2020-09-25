@@ -22,7 +22,9 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "main": "./lib/index.js",
   "types": "./lib/types/index.d.ts",
   "scripts": {
@@ -30,7 +32,6 @@
     "lint": "eslint ."
   },
   "devDependencies": {
-    "@roots/bud-types": "file:../bud-types",
     "@types/fb-watchman": "^2.0.0"
   },
   "dependencies": {

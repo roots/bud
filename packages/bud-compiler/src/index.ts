@@ -9,6 +9,7 @@ import Compiler from './Compiler'
  * The Bud webpack compiler.
  */
 export default Compiler
+
 export interface CompilerInterface {
   /**
    * Webpack configuration

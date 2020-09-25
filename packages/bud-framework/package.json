@@ -30,21 +30,17 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@roots/bud-support": "file:../bud-support",
     "@roots/container": "file:../container",
     "@roots/dependencies": "file:../dependencies",
     "@roots/filesystem": "file:../filesystem",
     "boxen": "^4.2.0",
     "cli-highlight": "^2.1.4",
     "dotenv": "^8.2.0",
-    "highlight-cli": "^1.0.0",
-    "javascript-stringify": "^2.0.1",
-    "lodash": "^4.17.19",
-    "node-notifier": "^7.0.1",
     "pino": "^6.5.0",
     "pino-pretty": "^4.1.0",
     "prettier": "^2.1.1",
-    "pretty-format": "^26.4.2",
-    "yargs": "^15.4.1"
+    "pretty-format": "^26.4.2"
   },
   "devDependencies": {
     "@types/pino": "^6.3.0"

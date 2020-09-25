@@ -1,3 +1,11 @@
-import util from './react-dev-util'
+export {
+  checkRequiredFiles,
+  eslintFormatter,
+  launchEditor,
+  launchEditorEndpoint,
+  formatWebpackMessages,
+  WatchMissingNodeModulesPlugin,
+  InterpolateHtmlPlugin,
+} from './react-dev-util'
 
-export {util as default}
+export {notify} from './notify'

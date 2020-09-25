@@ -8,12 +8,11 @@ import {
   dump,
   format,
   pretty,
-  highlight,
   logger,
-  notify,
   processHandler,
   terminate,
 } from './util'
+
 import {hooks} from './hooks'
 
 class Framework implements FrameworkInterface {
@@ -28,8 +27,6 @@ class Framework implements FrameworkInterface {
   public util = {
     dump,
     format,
-    highlight,
-    notify,
     pretty,
     processHandler,
     terminate,

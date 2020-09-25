@@ -1,13 +1,5 @@
-/**
- * Copyright (c) 2015-present, Facebook, Inc.
- *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
- */
-
-'use strict'
-
 import chalk from 'chalk'
+
 const friendlySyntaxErrorLabel = 'Syntax error:'
 
 function isLikelyASyntaxError(message) {
@@ -100,7 +92,7 @@ function formatMessage(message) {
     .trim()
 }
 
-function formatWebpackMessages(json) {
+export default function formatWebpackMessages(json) {
   const formattedErrors = json.errors.map(formatMessage)
   const formattedWarnings = json.warnings.map(formatMessage)
   const result = {
@@ -113,5 +105,3 @@ function formatWebpackMessages(json) {
   }
   return result
 }
-
-export {formatWebpackMessages as default}

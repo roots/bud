@@ -1,21 +1,10 @@
-import util from './util'
+export {checkRequiredFiles} from './util'
+export {eslintFormatter} from './util'
+export {launchEditor} from './util'
+export {launchEditorEndpoint} from './util'
+export {notify} from './util'
+export {formatWebpackMessages} from './util'
+export {WatchMissingNodeModulesPlugin} from './util'
+export {InterpolateHtmlPlugin} from './util'
 
-const {
-  checkRequiredFiles,
-  eslintFormatter,
-  launchEditor,
-  launchEditorEndpoint,
-  formatWebpackMessages,
-  WatchMissingNodeModulesPlugin,
-  InterpolateHtmlPlugin,
-} = util
-
-export {
-  checkRequiredFiles,
-  eslintFormatter,
-  launchEditor,
-  launchEditorEndpoint,
-  formatWebpackMessages,
-  WatchMissingNodeModulesPlugin,
-  InterpolateHtmlPlugin,
-}
+export {execa, fs, lodash} from './dependencies'

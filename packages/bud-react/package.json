@@ -22,7 +22,9 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
   "scripts": {
@@ -33,6 +35,7 @@
   "dependencies": {
     "@babel/core": "^7.10.5",
     "@babel/preset-react": "^7.10.4",
+    "@roots/bud-support": "file:../bud-support",
     "@svgr/webpack": "^5.4.0",
     "react": "^16.13.1",
     "react-dev-utils": "^10.2.1",

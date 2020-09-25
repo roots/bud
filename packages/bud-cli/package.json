@@ -22,12 +22,12 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["bin", "lib", "types"],
+  "files": ["lib"],
   "bin": {
-    "bud": "lib/bud.js"
+    "bud": "./lib/bud.js"
   },
-  "main": "lib/index.js",
-  "types": "lib/types/index.d.ts",
+  "main": "./lib/index.js",
+  "types": "./lib/types/index.d.ts",
   "scripts": {
     "build": "rimraf ./lib && tsc -p tsconfig.build.json",
     "lint": "eslint ."
@@ -37,10 +37,7 @@
     "@roots/bud-server": "file:../bud-server"
   },
   "dependencies": {
-    "@roots/bud-compiler": "file:../bud-compiler",
     "@roots/bud-support": "file:../bud-support",
-    "cli-highlight": "^2.1.4",
-    "execa": "^4.0.3",
     "ink": "^3.0.0-6",
     "ink-gradient": "^1.0.0",
     "ink-link": "^1.1.0",

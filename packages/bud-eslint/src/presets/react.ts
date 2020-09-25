@@ -1,4 +1,4 @@
-export = {
+export default {
   extends: ['plugin:react/recommended'],
   plugins: ['react-hooks'],
   settings: {

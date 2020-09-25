@@ -1,7 +1,8 @@
 import {resolve} from 'path'
+const roots = resolve(__dirname, './roots.js')
 
-export = {
-  extends: [resolve(__dirname, './roots.js')],
+export default {
+  extends: [roots],
   globals: {
     wp: true,
   },

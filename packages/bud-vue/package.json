@@ -18,11 +18,15 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": ["bud-extension"],
+  "keywords": [
+    "bud-extension"
+  ],
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
   "scripts": {
@@ -30,6 +34,7 @@
     "lint": "eslint src/**.ts"
   },
   "dependencies": {
+    "@roots/bud-support": "file:../bud-support",
     "babel-helper-vue-jsx-merge-props": "^2.0.0",
     "babel-plugin-transform-vue-jsx": "^3.7.0",
     "css-loader": "^3.6.0",
@@ -39,8 +44,8 @@
     "vue-loader": "^15.9.3",
     "vue-template-compiler": "^2.6.12"
   },
-  "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5",
   "devDependencies": {
     "@roots/bud": "file:../bud"
-  }
+  },
+  "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5"
 }

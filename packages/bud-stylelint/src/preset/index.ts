@@ -1,4 +1,4 @@
-export = {
+export default {
   extends: 'stylelint-config-standard',
   rules: {
     'declaration-colon-newline-after': null,

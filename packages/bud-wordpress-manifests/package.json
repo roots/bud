@@ -18,11 +18,15 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": ["bud-extension"],
+  "keywords": [
+    "bud-extension"
+  ],
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
   "scripts": {
@@ -30,6 +34,7 @@
     "build": "rimraf ./lib && tsc -p tsconfig.build.json"
   },
   "dependencies": {
+    "@roots/bud-support": "file:../bud-support",
     "fs-extra": "^9.0.1",
     "node-fetch": "^2.6.1",
     "prettier": "^2.1.1",

@@ -22,7 +22,11 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["bin", "lib", "publish"],
+  "files": [
+    "bin",
+    "lib",
+    "publish"
+  ],
   "main": "./lib/index.js",
   "types": "./lib/types/index.d.ts",
   "scripts": {
@@ -31,7 +35,14 @@
   },
   "dependencies": {
     "chalk": "^4.1.0",
+    "execa": "^4.0.3",
+    "fs-extra": "^9.0.1",
+    "lodash": "^4.17.20",
+    "node-notifier": "^8.0.0",
     "react-dev-utils": "^10.2.1",
     "update-notifier": "^4.1.1"
+  },
+  "devDependencies": {
+    "@types/react-dev-utils": "^9.0.4"
   }
 }

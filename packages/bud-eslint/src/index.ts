@@ -1,15 +1,15 @@
 import {BudInterface, Plugin, PluginInterface} from '@roots/bud'
 import type {Configuration} from 'webpack'
-
-import {resolve} from 'path'
 import {eslintFormatter} from '@roots/bud-support'
+
+export * as presets from './presets'
 
 export const plugin: Plugin = (
   bud: BudInterface,
 ): PluginInterface => ({
   bud,
 
-  make: function () {
+  make(): void {
     const config =
       this.bud.fs.get('.eslintrc.js') ??
       this.bud.fs.get('.eslintrc.json')
@@ -39,9 +39,3 @@ export const plugin: Plugin = (
     )
   },
 })
-
-export const presets = {
-  roots: resolve(__dirname, './preset/roots.js'),
-  wordpress: resolve(__dirname, './preset/wordpress.js'),
-  react: resolve(__dirname, './preset/react.js'),
-}

@@ -22,7 +22,9 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
   "scripts": {
@@ -31,6 +33,7 @@
   },
   "dependencies": {
     "@fullhuman/postcss-purgecss": "^2.3.0",
+    "@roots/bud-support": "file:../bud-support",
     "purgecss-with-wordpress": "^2.3.0"
   },
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5",

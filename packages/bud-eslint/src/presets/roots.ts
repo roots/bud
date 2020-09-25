@@ -1,4 +1,4 @@
-export = {
+export default {
   extends: ['eslint:recommended'],
   parser: require.resolve('babel-eslint'),
   parserOptions: {

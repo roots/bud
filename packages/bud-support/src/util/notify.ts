@@ -3,11 +3,9 @@ import notifier, {
   NotificationCallback,
 } from 'node-notifier'
 
-const notify = (
+export function notify(
   notification: Notification,
   callback?: NotificationCallback,
-): void => {
+): void {
   notifier.notify(notification, callback ?? undefined)
 }
-
-export {notify as default}

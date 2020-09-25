@@ -22,11 +22,8 @@
   "engines": {
     "node": ">=12"
   },
-  "bin": {
-    "bud": "../../node_modules/@roots/bud-cli/bin/bud.js"
-  },
   "scripts": {
-    "bud": "../../node_modules/@roots/bud-cli/bin/bud.js"
+    "bud": "./node_modules/@roots/bud-cli/lib/bud.js"
   },
   "dependencies": {
     "@roots/bud": "file:../bud"

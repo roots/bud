@@ -289,11 +289,11 @@ function printInstructions(fileName, errorMessage) {
 }
 
 let _childProcess = null
-const launchEditor = (
+export default function (
   fileName: string,
   lineNumber: number,
   colNumber: number,
-): void => {
+): void {
   if (!fs.existsSync(fileName)) {
     return
   }
@@ -410,5 +410,3 @@ const launchEditor = (
     printInstructions(fileName, error.message)
   })
 }
-
-export {launchEditor as default}

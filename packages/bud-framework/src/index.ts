@@ -9,11 +9,9 @@ import {
   pretty,
   processHandler,
   logger,
-  notify,
   terminate,
 } from './util'
 import Framework from './Framework'
-import highlight from 'cli-highlight'
 
 interface FrameworkInterface extends Loose {
   /**
@@ -49,16 +47,6 @@ interface FrameworkInterface extends Loose {
      * Format object values safely.
      */
     format: typeof format
-
-    /**
-     * Syntax highlighter
-     */
-    highlight: typeof highlight
-
-    /**
-     * Dispatch system notifications.
-     */
-    notify: typeof notify
 
     /**
      * Prettier utility.
