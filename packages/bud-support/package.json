@@ -22,11 +22,7 @@
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "bin",
-    "lib",
-    "publish"
-  ],
+  "files": ["bin", "lib", "publish"],
   "main": "./lib/index.js",
   "types": "./lib/types/index.d.ts",
   "scripts": {
@@ -48,6 +44,7 @@
     "yargs": "^16.0.3"
   },
   "devDependencies": {
+    "@types/fs-extra": "^9.0.1",
     "@types/node": "^14.11.2"
   }
 }

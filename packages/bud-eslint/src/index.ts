@@ -1,5 +1,9 @@
 import {eslintFormatter} from '@roots/bud-support'
-import type {BudInterface, Plugin, PluginInterface} from '@roots/bud'
+import type {
+  BudInterface,
+  Plugin,
+  PluginInterface,
+} from '@roots/bud'
 import type {Configuration} from 'webpack'
 
 export * as presets from './presets'

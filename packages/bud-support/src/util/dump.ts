@@ -2,8 +2,8 @@ import prettyFormat from 'pretty-format'
 
 export type Dump = (
   obj: unknown,
-  options?: prettyFormat.OptionsReceived
-)  => void
+  options?: prettyFormat.OptionsReceived,
+) => void
 
 export const dump: Dump = (
   obj,
@@ -11,9 +11,7 @@ export const dump: Dump = (
     callToJSON: true,
     highlight: true,
     indent: 2,
-  }
+  },
 ) => {
-  console.log(
-    prettyFormat(obj, options),
-  )
+  console.log(prettyFormat(obj, options))
 }

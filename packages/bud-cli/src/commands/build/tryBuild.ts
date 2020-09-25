@@ -23,17 +23,17 @@ export const tryBuild = async (cfgPath: string) => {
      * If it is a default export from an esm module
      * then we'll invoke it.
      */
-    maybeModule?.hasOwnProperty('default')
-      && typeof maybeModule.default == 'function'
-      && preflight.compile(maybeModule.default(bud))
+    maybeModule?.hasOwnProperty('default') &&
+      typeof maybeModule.default == 'function' &&
+      preflight.compile(maybeModule.default(bud))
 
     /**
      * If it is a cjs export we'll call the
      * function that was passed in, bless em.
      */
-    maybeModule
-      && typeof maybeModule == 'function'
-      && preflight.compile(maybeModule.default(bud))
+    maybeModule &&
+      typeof maybeModule == 'function' &&
+      preflight.compile(maybeModule.default(bud))
   } catch (err) {
     require(cfgPath)
   }

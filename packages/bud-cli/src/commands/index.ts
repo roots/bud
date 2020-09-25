@@ -1,2 +1,4 @@
-export * as build from './build'
-export * as publish from './publish'
+import * as build from './build'
+import * as publish from './publish'
+
+export {build, publish}

@@ -1,4 +1,4 @@
-import React from 'React'
+import React from 'react'
 import {render, Instance} from 'ink'
 
 import App, {ApplicationCliProps} from './containers/App'

@@ -1,4 +1,4 @@
-import {BudInterface} from '../'
+import {BudInterface} from '..'
 import {Configuration} from 'webpack'
 
 /**

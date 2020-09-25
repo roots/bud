@@ -13,13 +13,12 @@ export const dev = function (bud: BudInterface) {
 
   const serverConf = bud.server.getConfig()
 
-  bud.when(
-    serverConf.hot === true,
-    bud.server.addHotMiddleware,
-  ).when(
-    typeof serverConf.to?.host === 'string',
-    bud.server.addProxyMiddleware,
-  )
+  bud
+    .when(serverConf.hot === true, bud.server.addHotMiddleware)
+    .when(
+      typeof serverConf.to?.host === 'string',
+      bud.server.addProxyMiddleware,
+    )
 }
 
 /**
@@ -38,7 +37,6 @@ export const inject: (bud: BudInterface) => void = bud => {
  * Compile build.
  */
 export const compile: (bud: BudInterface) => void = bud => {
-
   /**
    * Inject HMR entrypoints if running hot.
    */

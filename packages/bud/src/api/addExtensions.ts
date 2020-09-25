@@ -20,18 +20,27 @@ export const addExtensions: Fluent = function (
   this: BudInterface,
   extensions: string | string[],
 ): BudInterface {
-  const normalize = ext => ext.replace(/^(\.)([^ .]+)?/, '$2')
-
-  (typeof extensions == 'string') && mergeExt.bind(this)(normalize(extensions))
-  (typeof extensions == 'object') && (extensions as string[])
-    .map(normalize)
-    .map(ext => mergeExt.bind(this)(ext))
+  const normalize = ext =>
+    ext.replace(
+      /^(\.)([^ .]+)?/,
+      '$2',
+    )(typeof extensions == 'string') &&
+    mergeExt.bind(this)(normalize(extensions))(
+      typeof extensions == 'object',
+    ) &&
+    (extensions as string[])
+      .map(normalize)
+      .map(ext => mergeExt.bind(this)(ext))
 
   return this
 }
 
 function mergeExt(this: BudInterface, ext: string): void {
-  if(this.options.get('webpack.resolve.extensions').includes(`.${ext}`)) {
+  if (
+    this.options
+      .get('webpack.resolve.extensions')
+      .includes(`.${ext}`)
+  ) {
     return
   }
 

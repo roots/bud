@@ -22,9 +22,7 @@
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "lib"
-  ],
+  "files": ["lib"],
   "bin": {
     "bud": "lib/bud.js"
   },

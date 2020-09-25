@@ -1,3 +1,5 @@
+/* eslint-disable */
+
 /**
  * @type {import('../bud').default} bud
  */
@@ -17,10 +19,7 @@ bud.template({
 
 bud.extend
 
-bud.when(
-  bud.mode.is('development'),
-  () => bud.dev({hot: true})
-)
+bud.when(bud.mode.is('development'), () => bud.dev({hot: true}))
 
 bud.compile()
 

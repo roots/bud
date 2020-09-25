@@ -1,6 +1,6 @@
-import fetchExternals from './fetchExternals'
+import fetchExternals, {Hash} from './fetchExternals'
 import externalsPlugin from './externalsPlugin'
-import {Hash} from './fetchExternals'
+
 import {RawSource} from 'webpack-sources'
 import Webpack, {ExternalsPlugin} from 'webpack'
 import path from 'path'

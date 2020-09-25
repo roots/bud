@@ -16,13 +16,14 @@ export const handler: Handler = async (args: {
   [config: string]: unknown
 }): Promise<void> => {
   const cfg = args.config ?? 'bud.config.js'
-  const cfgPath = join(cwd, (cfg as string))
+  const cfgPath = join(cwd, cfg as string)
   await tryBuild(cfgPath)
 }
 
 export const aliases: Aliases = 'build [options]'
 
-export const describe: Describe = 'Build source into compiled assets.'
+export const describe: Describe =
+  'Build source into compiled assets.'
 
 export const builder: Builder = yargs =>
   yargs

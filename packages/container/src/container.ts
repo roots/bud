@@ -1,5 +1,5 @@
 import __ from 'lodash'
-import {ContainerInterface, Item, Loose} from './'
+import {ContainerInterface, Item, Loose} from '.'
 
 /**
  * Keyed item store.

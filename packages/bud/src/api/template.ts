@@ -1,4 +1,4 @@
-import {BudInterface} from '../'
+import {BudInterface} from '..'
 
 interface TemplateProps {
   template?: string
