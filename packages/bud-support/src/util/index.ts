@@ -9,3 +9,5 @@ export {
 } from './react-dev-util'
 
 export {notify} from './notify'
+
+export {dump, Dump} from './dump'

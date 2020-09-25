@@ -1,29 +1,19 @@
 import Container, {Loose} from '@roots/container'
 import {FileContainerInterface} from '@roots/filesystem'
 import {FrameworkInterface, Hooks} from '@roots/bud-framework'
-import {ApplicationCli} from '@roots/bud-cli'
 import {CompilerInterface} from '@roots/bud-compiler'
 import {ServerInterface} from '@roots/bud-server'
 import {ConfigBuilder} from './config'
 import {Mode} from './mode'
 import {PluginController} from './Plugin'
+import {Plugin as WebpackPlugin} from 'webpack'
 
 import * as Api from './api'
 
-import bootstrap from './bootstrap'
+import bud from './bootstrap'
 
-/**
- * Bud -- Asset management framework
- */
 export declare interface BudInterface
   extends FrameworkInterface {
-  /**
-   * ## bud.cli
-   *
-   * Application CLI
-   */
-  cli: ApplicationCli
-
   /**
    * ## bud.compiler
    *
@@ -35,6 +25,18 @@ export declare interface BudInterface
    * ## bud.fs
    *
    * Application filesystem.
+   *
+   * ```js
+   * bud.fs.get('package.json')
+   * ```
+   *
+   * ```js
+   * bud.fs.set('exmaple.md', `
+   *  # Writing to a file.
+   *
+   *  Few cares given.
+   * `)
+   * ```
    */
   fs: FileContainerInterface
 
@@ -49,13 +51,21 @@ export declare interface BudInterface
    * ## bud.args
    *
    * Arguments passed on invocation.
+   *
+   * ```js
+   * bud.args.get('hot')
+   * ```
    */
   args: Container
 
   /**
    * ## bud.config
    *
-   * Builds the webpack configuration.
+   * Internal method which builds the final webpack configuration.
+   *
+   * ```js
+   * bud.config(bud)
+   * ```
    */
   config: ConfigBuilder
 
@@ -63,6 +73,14 @@ export declare interface BudInterface
    * ## bud.env
    *
    * Project environment variables.
+   *
+   * ```js
+   * bud.env.get('APP_NAME')
+   * ```
+   *
+   * ```js
+   * bud.env.get('APP_SECRET')
+   * ```
    */
   env: Container
 
@@ -77,6 +95,18 @@ export declare interface BudInterface
    * ## bud.hooks
    *
    * Filters-based extension interface.
+   *
+   * Filter values:
+   *
+   * ```js
+   * bud.hooks.on('webpack.output.filename', valueWhichWouldHaveBeen => '[name].hooked.js')
+   * ```
+   *
+   * Register your own event:
+   *
+   * ```js
+   * bud.hooks.call('my-hookable-event', valueToPassToSubscribers)
+   * ```
    */
   hooks: Hooks
 
@@ -84,25 +114,43 @@ export declare interface BudInterface
    * ## bud.updateDisk
    *
    * Update the index of files maintained by bud.fs
+   *
+   * @deprecated
    */
   updateDisk: () => void
 
   /**
    * ## bud.loaderModules
    *
-   * Webpack loader modules
+   * Repository for loader modules. Makes it easier for extensions
+   * to swap a loader implementations without changing every rule
+   * that uses the loader..
+   *
+   * ```js
+   * bud.loaderModules.set('css', require('my-alternative-css-loader))
+   * ```
    */
   loaderModules: Container
 
   /**
    * ## bud.loaders
    *
-   * Webpack loaders
+   * Webpack loaders.
+   *
+   * ```js
+   * bud.loaders.set('cool', {
+   *  loader: require.resolve('cool-loader'),
+   *   options: {
+   *     very: 'nice',
+   *   },
+   *  }))
    */
   loaders: Container
 
   /**
    * ## bud.makePluginController
+   *
+   * Internal method which is used during plugin registration.
    */
   makePluginController: (plugin: Plugin) => PluginController
 
@@ -136,6 +184,10 @@ export declare interface BudInterface
    * ## bud.package
    *
    * Project package.json info.
+   *
+   * ```js
+   * bud.package.get('dependencies')
+   * ```
    */
   package?: Container
 
@@ -183,12 +235,32 @@ export declare interface BudInterface
    * bud.addExtensions(['jsx', 'vue'])
    * ```
    */
-  addExtensions: Api.AddExtensions
+  addExtensions: Api.addExtensions.Fluent
+
+  /**
+   * ## bud.addPlugin
+   *
+   * Add a webpack plugin.
+   *
+   * ```js
+   * bud.addPlugin('myPlugin', bud => new MyPlugin())
+   * ```
+   *
+   * This is just a streamlined, fluent version of calling
+   * bud.webpackPlugins.set. It does not utilize Bud's
+   * PluginInterface.
+   *
+   * @param name
+   * @param webpack.plugin
+   * @returns bud
+   */
+  addPlugin: Api.AddPlugin
 
   /**
    * ## bud.alias
    *
-   * Resolve modules through webpack aliases. Useful for situations that may otherwise require brittle relative paths.
+   * Resolve modules through webpack aliases. Useful for situations that may otherwise
+   * require brittle relative paths.
    *
    * Having defined this alias:
    *
@@ -211,6 +283,20 @@ export declare interface BudInterface
    *
    * If you prefer, you may utilize a `babel.config.js` file in the project root,
    * either alongside or in lieue of this configuration.
+   *
+   * You can also pass the contents of that config file directly to Bud:
+   *
+   * ```js
+   * bud.babel(bud.fs.readJson('babel.config.js'))
+   *
+   * // Or, perhaps more usefully:
+   * bud.babel({
+   *   plugins: {
+   *     ...bud.fs.readJson('babel.config.js').plugins,
+   *     [pluginToAdd, {option: value}],
+   *   },
+   * })
+   * ```
    *
    * Conflicts between supplied configs will be resolved in favor of the project config file.
    *
@@ -259,7 +345,7 @@ export declare interface BudInterface
    *
    * Compile finalized webpack configuration and run build.
    *
-   * ```
+   * ```js
    * bud.compile()
    * ```
    */
@@ -335,7 +421,10 @@ export declare interface BudInterface
    * Register a Bud extension.
    *
    * ```js
-   * bud.extend([require('@roots/bud-demo-plugin')])
+   * bud.extend([
+   *   require('@roots/killer-bud-extension')
+   * ])
+   * ```
    */
   extend: Api.Extend
 
@@ -555,6 +644,7 @@ export declare interface BudInterface
    *  bud.vendor()
    *  // ...
    * })
+   * ```
    */
   when: Api.When
 }
@@ -573,6 +663,15 @@ export type PluginOptions = (this: PluginInterface) => Loose
 
 /**
  * Plugin interface
+ *
+ * Plugins are passed a single parameter -- the Bud object after all configuration
+ * is complete, during the build phase just prior to compilation.
+ *
+ * They are required to have a single member function -- `make`. Bud extensions which
+ * add webpack plugins to the compiler can return the instantiated plugin from the
+ * make function for registration.
+ *
+ * Extensions which return `false` from `when` will not have their `make` method called.
  */
 export interface PluginInterface extends Loose {
   /**
@@ -598,10 +697,10 @@ export interface PluginInterface extends Loose {
   /**
    * Primary action of plugin.
    */
-  make: () => unknown | void
+  make: () => WebpackPlugin | void
 
   /**
-   * Plugin is utilized when true.
+   * Whether or not to call `make`.
    */
   when?: PluginConditional
 }
@@ -609,7 +708,18 @@ export interface PluginInterface extends Loose {
 /**
  * Plugin
  */
-export type Plugin = (app: BudInterface) => PluginInterface
+export declare type Plugin = (
+  app: BudInterface,
+) => PluginInterface
 
-const bud: BudInterface = bootstrap
-module.exports = bud
+export declare type Bud = BudInterface
+
+const instance: BudInterface = bud
+
+/**
+ * @name Bud
+ * @description Asset management framework
+ * @type {BudInterface} instance
+ */
+export default instance
+module.exports = instance

@@ -33,10 +33,9 @@
   },
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5",
   "dependencies": {
-    "webpack": "^4.44.2",
-    "@roots/bud-support": "file:../bud-support",
-    "@roots/container": "file:../container",
-    "@roots/dependencies": "file:../dependencies",
-    "@roots/filesystem": "file:../filesystem"
+    "webpack": "^4.44.2"
+  },
+  "devDependencies": {
+    "@types/node": "^14.11.2"
   }
 }

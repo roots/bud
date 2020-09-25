@@ -22,18 +22,23 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "main": "./lib/index.js",
   "types": "./lib/types/index.d.ts",
   "scripts": {
-    "build": "rimraf ./lib && tsc -p tsconfig.build.json",
+    "build": "run-s -s clean:* tsc",
+    "clean:lib": "rimraf ./lib",
+    "clean:modules": "rimraf ./node_modules",
+    "clean:build": "rimraf ./tsconfig.build.tsbuildinfo",
+    "tsc": "tsc -p ./tsconfig.build.json",
     "lint": "eslint ."
   },
   "dependencies": {
     "@roots/bud-support": "file:../bud-support",
     "express": "^4.17.1",
     "http-proxy-middleware": "^1.0.5",
-    "react-error-overlay": "^6.0.7",
     "webpack": "^4.44.1",
     "webpack-dev-middleware": "^3.7.2",
     "webpack-hot-middleware": "^2.25.0",
@@ -41,6 +46,6 @@
   },
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5",
   "devDependencies": {
-    "@types/express": "^4.17.8"
+    "@types/node": "^14.11.2"
   }
 }

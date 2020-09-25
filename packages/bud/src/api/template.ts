@@ -11,7 +11,12 @@ interface TemplateProps {
  * Add an HTML template to generate html boilerplate with.
  *
  * ```js
- * bud.template(bud.src('template.html'))
+ * bud.template({
+ *  template: bud.src('template.html'),
+ *  replacements: {
+ *    MY_VARIABLE: 'my variable value',
+ *  },
+ * })
  * ```
  */
 export type Template = (
@@ -30,7 +35,6 @@ const template: Template = function (
     )
 
   replacements &&
-    replacements &&
     this.options.merge(
       'plugins.html.replacements',
       this.hooks.filter('api.html.replacements', replacements),

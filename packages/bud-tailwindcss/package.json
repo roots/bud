@@ -18,11 +18,15 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": ["bud-extension"],
+  "keywords": [
+    "bud-extension"
+  ],
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
   "scripts": {
@@ -33,8 +37,9 @@
     "@roots/bud-support": "file:../bud-support",
     "tailwindcss": "^1.6.2"
   },
+  "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5",
   "devDependencies": {
-    "@roots/bud": "file:../bud"
-  },
-  "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5"
+    "@roots/bud": "file:../bud",
+    "@types/node": "^14.11.2"
+  }
 }

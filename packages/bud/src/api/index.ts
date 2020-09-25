@@ -1,9 +1,9 @@
-import addExtensions, {AddExtensions} from './addExtensions'
+export * as addExtensions from './addExtensions'
 import alias, {Alias} from './alias'
 import {babel, Babel} from './babel'
 import brotli, {Brotli} from './brotli'
 import bundle, {Bundle} from './bundle'
-import compile, {Compile} from './compile'
+import {compile, Compile} from './compile'
 import copy, {Copy} from './copy'
 import copyAll, {CopyAll} from './copyAll'
 import dev, {Dev} from './dev'
@@ -31,8 +31,9 @@ import terser, {Terser} from './terser'
 import vendor, {Vendor} from './vendor'
 import when, {When} from './when'
 
+export {addPlugin, AddPlugin} from './addPlugin'
+
 export type {
-  AddExtensions,
   Alias,
   Babel,
   Brotli,
@@ -65,7 +66,6 @@ export type {
 }
 
 export {
-  addExtensions,
   alias,
   babel,
   brotli,

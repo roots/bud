@@ -22,11 +22,18 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib", "types"],
+  "files": [
+    "lib",
+    "types"
+  ],
   "main": "./lib/index.js",
   "types": "./lib/types/index.d.ts",
   "scripts": {
-    "build": "rimraf ./lib && tsc -p tsconfig.build.json",
+    "build": "run-s -s clean:* tsc",
+    "clean:lib": "rimraf ./lib",
+    "clean:modules": "rimraf ./node_modules",
+    "clean:build": "rimraf ./tsconfig.build.tsbuildinfo",
+    "tsc": "tsc -p ./tsconfig.build.json",
     "lint": "eslint ."
   },
   "dependencies": {
@@ -42,7 +49,7 @@
     "pretty-format": "^26.4.2"
   },
   "devDependencies": {
-    "@types/pino": "^6.3.0"
+    "@types/node": "^14.11.2"
   },
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5"
 }

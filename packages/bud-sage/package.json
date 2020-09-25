@@ -31,11 +31,14 @@
     "lint": "eslint src/**.ts"
   },
   "dependencies": {
-    "@roots/bud": "file:../bud",
     "@roots/bud-dependency-extraction-webpack-plugin": "file:../bud-dependency-extraction-webpack-plugin",
     "@roots/bud-eslint": "file:../bud-eslint",
     "@roots/bud-purgecss": "file:../bud-purgecss",
     "@roots/bud-sass": "file:../bud-sass",
     "@roots/bud-stylelint": "file:../bud-stylelint"
+  },
+  "devDependencies": {
+    "@roots/bud": "file:../bud",
+    "@types/node": "^14.11.2"
   }
 }

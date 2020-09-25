@@ -15,11 +15,15 @@
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
-  "keywords": ["bud-extension"],
+  "keywords": [
+    "bud-extension"
+  ],
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
   "scripts": {
@@ -38,6 +42,7 @@
   },
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5",
   "devDependencies": {
-    "@roots/bud": "file:../bud"
+    "@roots/bud": "file:../bud",
+    "@types/node": "^14.11.2"
   }
 }

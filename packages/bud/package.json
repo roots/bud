@@ -22,11 +22,18 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["docs", "lib"],
+  "files": [
+    "docs",
+    "lib"
+  ],
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
   "scripts": {
-    "build": "rimraf ./lib && tsc -p tsconfig.build.json",
+    "build": "run-s -s clean:* tsc",
+    "clean:lib": "rimraf ./lib",
+    "clean:modules": "rimraf ./node_modules",
+    "clean:build": "rimraf ./tsconfig.build.tsbuildinfo",
+    "tsc": "tsc -p tsconfig.build.json",
     "lint": "eslint ."
   },
   "dependencies": {
@@ -35,8 +42,8 @@
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/plugin-transform-runtime": "^7.11.5",
     "@babel/preset-env": "^7.11.5",
-    "@roots/bud-cli": "file:../bud-cli",
     "@roots/bud-framework": "file:../bud-framework",
+    "@roots/bud-compiler": "file:../bud-compiler",
     "@roots/bud-server": "file:../bud-server",
     "@roots/bud-support": "file:../bud-support",
     "@roots/container": "file:../container",
@@ -67,14 +74,12 @@
     "style-loader": "^1.2.1",
     "terser-webpack-plugin": "^3.0.7",
     "url-loader": "^4.1.0",
-    "webpack": "^4.43.0",
+    "webpack": "^4.44.2",
     "webpack-manifest-plugin": "^2.2.0",
     "write-file-webpack-plugin": "^4.5.1"
   },
+  "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5",
   "devDependencies": {
-    "@babel/types": "^7.11.5",
-    "@types/compression-webpack-plugin": "^4.0.1",
-    "@types/webpack-manifest-plugin": "^2.1.0"
-  },
-  "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5"
+    "@types/node": "^14.11.2"
+  }
 }

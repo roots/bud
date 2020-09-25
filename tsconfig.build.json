@@ -1,18 +1,21 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
+    "composite": false,
     "declaration": true,
-    "declarationMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "esModuleInterop": true,
-    "lib": ["esnext", "es5", "es6"],
+    "lib": ["esnext", "es5", "es6", "dom", "dom.iterable"],
     "jsx": "react",
     "moduleResolution": "node",
     "module": "commonjs",
+    "noLib": false,
     "noUnusedLocals": true,
+    "noEmitOnError": true,
     "pretty": true,
     "sourceMap": true,
     "target": "es2017",
-    "watch": false,
   },
   "exclude": ["docs", "node_modules"]
 }

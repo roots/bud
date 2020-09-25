@@ -22,11 +22,19 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["bin", "lib", "publish"],
+  "files": [
+    "bin",
+    "lib",
+    "publish"
+  ],
   "main": "./lib/index.js",
   "types": "./lib/types/index.d.ts",
   "scripts": {
-    "build": "rimraf ./lib && tsc -p tsconfig.build.json",
+    "build": "run-s -s clean:* tsc",
+    "clean:lib": "rimraf ./lib",
+    "clean:modules": "rimraf ./node_modules",
+    "clean:build": "rimraf ./tsconfig.build.tsbuildinfo",
+    "tsc": "tsc -p ./tsconfig.build.json",
     "lint": "eslint ."
   },
   "dependencies": {
@@ -40,6 +48,6 @@
     "yargs": "^16.0.3"
   },
   "devDependencies": {
-    "@types/react-dev-utils": "^9.0.4"
+    "@types/node": "^14.11.2"
   }
 }

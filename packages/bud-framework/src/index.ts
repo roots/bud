@@ -1,16 +1,18 @@
 import Container, {Loose} from '@roots/container'
+
 import {
   FileContainerInterface,
   Filesystem,
 } from '@roots/filesystem'
+
 import {
-  dump,
   format,
   pretty,
   processHandler,
   logger,
   terminate,
 } from './util'
+
 import Framework from './Framework'
 
 interface FrameworkInterface extends Loose {
@@ -18,11 +20,6 @@ interface FrameworkInterface extends Loose {
    * Virtual filesystems
    */
   disks: Filesystem
-
-  /**
-   * Dump values to the terminal.
-   */
-  dump: typeof dump
 
   /**
    * Kill the framework process.
@@ -38,11 +35,6 @@ interface FrameworkInterface extends Loose {
    * Utilities.
    */
   util: {
-    /**
-     * Dump values to the terminal.
-     */
-    dump: typeof dump
-
     /**
      * Format object values safely.
      */

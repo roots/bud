@@ -23,11 +23,21 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["bin", "types"],
+  "files": [
+    "bin",
+    "types"
+  ],
   "main": "./lib/index.js",
   "types": "./types/index.d.ts",
   "scripts": {
-    "build": "rimraf ./lib && tsc -p tsconfig.build.json",
+    "build": "run-s -s clean:* tsc",
+    "clean:lib": "rimraf ./lib",
+    "clean:modules": "rimraf ./node_modules",
+    "clean:build": "rimraf ./tsconfig.build.tsbuildinfo",
+    "tsc": "tsc -p ./tsconfig.build.json",
     "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@types/node": "^14.11.2"
   }
 }

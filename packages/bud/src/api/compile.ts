@@ -2,59 +2,28 @@ import BudInterface from '../Bud'
 import {injectClient} from '@roots/bud-server'
 
 /**
- * ## bud.compile
- *
- * Compile finalized webpack configuration and run build.
- *
- * ```js
- * bud.compile()
- * ```
+ * Compile build directly from config.
  */
-export type Compile = () => void
-
-/**
- * setup devServer
- */
-const dev = function () {
-  this.server
-    .setCompiler(this.compiler.getCompiler())
-    .setConfig(this.options.get('server'))
-    .addDevMiddleware()
-
-  const serverConf = this.server.getConfig()
-
-  this.when(
-    serverConf.hot === true,
-    this.server.addHotMiddleware,
-  ).when(
-    typeof serverConf.to?.host === 'string',
-    this.server.addProxyMiddleware,
-  )
-}
-
-/**
- * Inject hmr loaders
- * @see bud-server
- */
-const inject = function () {
-  const entrypoints = injectClient({
-    entrypoints: this.options.get('webpack.entry'),
-  })
-
-  this.options.set('webpack.entry', entrypoints)
-}
-
-const compile: Compile = function (this: BudInterface) {
+export type Compile = () => Promise<void>
+export const compile: Compile = async function (
+  this: BudInterface,
+) {
   this.when(this.options.get('server.hot'), inject.bind(this))
-
   this.compiler.setConfig(this.config(this)).compile()
-
   this.when(this.mode.is('development'), dev.bind(this))
 
   /**
    * Run CLI.
+   *
+   * We have to get at the CLI in a kind of roundabout way
+   * in order to sidestep making a circular
+   * dependency: @roots/bud => @roots/bud-cli => @roots/bud
    */
-  this.cli({
+  const {default: app} = await import(
+    this.disks.get('@roots').get('bud-cli')
+  )
+
+  app({
     name: this.package.get('name'),
     compiler: this.compiler,
     server: this.server,
@@ -63,4 +32,30 @@ const compile: Compile = function (this: BudInterface) {
   })
 }
 
-export {compile as default}
+/**
+ * Inject hmr loaders
+ */
+function inject(): void {
+  const entrypoints = injectClient({
+    entrypoints: this.options.get('webpack.entry'),
+  })
+
+  this.options.set('webpack.entry', entrypoints)
+}
+
+/**
+ * setup devServer
+ */
+function dev(): void {
+  this.server
+    .setCompiler(this.compiler.getCompiler())
+    .setConfig(this.options.get('server'))
+    .addDevMiddleware()
+
+  const {hot, to} = this.server.getConfig()
+
+  this.when(hot, this.server.addHotMiddleware).when(
+    typeof to?.host === 'string',
+    this.server.addProxyMiddleware,
+  )
+}

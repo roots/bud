@@ -5,5 +5,5 @@
     "outDir": "./lib",
     "declarationDir": "./lib/types"
   },
-  "include": ["src/**/*"]
+  "include": ["./src/**/*"]
 }

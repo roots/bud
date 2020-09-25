@@ -1,9 +1,9 @@
 import {useState, useEffect} from 'react'
 import {Stats} from 'webpack'
-
-import Server from '@roots/bud-server'
-import Compiler from '@roots/bud-compiler'
 import {formatWebpackMessages} from '@roots/bud-support'
+
+import type Server from '@roots/bud-server'
+import type Compiler from '@roots/bud-compiler'
 
 export interface Compilation {
   /**

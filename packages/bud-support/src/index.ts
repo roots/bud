@@ -1,4 +1,4 @@
-export {checkRequiredFiles} from './util'
+export {checkRequiredFiles, dump} from './util'
 export {eslintFormatter} from './util'
 export {launchEditor} from './util'
 export {launchEditorEndpoint} from './util'

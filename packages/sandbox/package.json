@@ -21,11 +21,5 @@
   ],
   "engines": {
     "node": ">=12"
-  },
-  "scripts": {
-    "bud": "./node_modules/@roots/bud-cli/lib/bud.js"
-  },
-  "dependencies": {
-    "@roots/bud": "file:../bud"
   }
 }

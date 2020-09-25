@@ -3,7 +3,6 @@ import Framework, {
   FrameworkInterface,
 } from '@roots/bud-framework'
 import * as api from './api'
-import app from '@roots/bud-cli'
 import args from './args'
 import Compiler from '@roots/bud-compiler'
 import {config} from './config'
@@ -24,7 +23,6 @@ export default class Bud
   implements BudInterface, FrameworkInterface {
   public package?: BudInterface['package']
   public update?: BudInterface['update']
-  public cli: BudInterface['cli']
   public compiler: BudInterface['compiler']
   public server: BudInterface['server']
 
@@ -43,8 +41,10 @@ export default class Bud
   public hooks: BudInterface['hooks']
   public mode: BudInterface['mode']
 
-  public addExtensions: BudInterface['addExtensions'] =
-    api.addExtensions
+  public addExtensions: BudInterface['AddExtensions'] =
+    api.addExtensions.addExtensions
+
+  public addPlugin: BudInterface['addPlugin'] = api.addPlugin
   public alias: BudInterface['alias'] = api.alias
   public babel: BudInterface['babel'] = api.babel
   public brotli: BudInterface['brotli'] = api.brotli
@@ -80,7 +80,6 @@ export default class Bud
   public constructor() {
     super()
 
-    this.cli = app
     this.config = config
     this.hooks = this.makeHooks(this)
     this.mode = mode(this)

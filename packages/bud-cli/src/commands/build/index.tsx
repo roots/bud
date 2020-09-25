@@ -1,16 +1,30 @@
 import {join} from 'path'
-import {stat} from 'fs-extra'
 import {yargs} from '@roots/bud-support'
+import {tryBuild} from './tryBuild'
+
+export declare type Aliases = yargs.CommandModule['aliases']
+export declare type Describe = yargs.CommandModule['describe']
+export declare type Builder = yargs.CommandModule['builder']
+export declare type Handler = yargs.CommandModule['handler']
 
 const cwd = process.cwd()
 
-export const aliases: yargs.CommandModule['aliases'] =
-  'build [options]'
+/**
+ * handler: bud build
+ */
+export const handler: Handler = async (args: {
+  [config: string]: unknown
+}): Promise<void> => {
+  const cfg = args.config ?? 'bud.config.js'
+  const cfgPath = join(cwd, (cfg as string))
+  await tryBuild(cfgPath)
+}
 
-export const describe: yargs.CommandModule['describe'] =
-  'Build source into compiled assets.'
+export const aliases: Aliases = 'build [options]'
 
-export const builder: yargs.CommandModule['builder'] = yargs =>
+export const describe: Describe = 'Build source into compiled assets.'
+
+export const builder: Builder = yargs =>
   yargs
     .option('config', {
       describe: 'Specify a custom configuration file',
@@ -104,15 +118,3 @@ export const builder: yargs.CommandModule['builder'] = yargs =>
     .hide('help')
     .hide('version')
     .showHelpOnFail(true)
-
-export const handler: yargs.CommandModule['handler'] = async (args: {
-  [config: string]: unknown
-}): Promise<void> => {
-  const config = (args.config as string) ?? 'bud.config.js'
-  const configPath = join(cwd, config)
-  const hasConfig = await stat(configPath)
-
-  if (!hasConfig) return
-
-  import(configPath)
-}

@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 
 import {yargs} from '@roots/bud-support'
-import commands from './commands'
+import * as commands from './commands'
 
-export = yargs
+yargs
   .command(commands.build)
   .command(commands.publish)
   .demandCommand(1, 'Try using one of the above commands.')

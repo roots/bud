@@ -1,5 +1,12 @@
 import {BudInterface} from '../'
 
+export interface Fluent {
+  (
+    this: BudInterface,
+    extensions: string | string[],
+  ): BudInterface
+}
+
 /**
  * ## bud.addExtensions
  *
@@ -9,25 +16,27 @@ import {BudInterface} from '../'
  * bud.addExtensions(['jsx', 'vue'])
  * ```
  */
-export type AddExtensions = (
+export const addExtensions: Fluent = function (
   this: BudInterface,
-  extensions: string[],
-) => BudInterface
+  extensions: string | string[],
+): BudInterface {
+  const normalize = ext => ext.replace(/^(\.)([^ .]+)?/, '$2')
 
-const addExtensions: AddExtensions = function (extensions) {
-  extensions
-    .map(ext => ext.replace(/^(\.)([^ .]+)?/, '$2'))
-    .forEach(ext => {
-      !this.options
-        .get('webpack.resolve.extensions')
-        .includes(`.${ext}`) &&
-        this.options.merge('webpack.resolve.extensions', [
-          ...this.options.get('webpack.resolve.extensions'),
-          `.${ext}`,
-        ])
-    })
+  (typeof extensions == 'string') && mergeExt.bind(this)(normalize(extensions))
+  (typeof extensions == 'object') && (extensions as string[])
+    .map(normalize)
+    .map(ext => mergeExt.bind(this)(ext))
 
   return this
 }
 
-export {addExtensions as default}
+function mergeExt(this: BudInterface, ext: string): void {
+  if(this.options.get('webpack.resolve.extensions').includes(`.${ext}`)) {
+    return
+  }
+
+  this.options.merge('webpack.resolve.extensions', [
+    ...this.options.get('webpack.resolve.extensions'),
+    `.${ext}`,
+  ])
+}

@@ -5,7 +5,6 @@ import {
 } from '@roots/filesystem'
 import {FrameworkInterface, Hooks} from './'
 import {
-  dump,
   format,
   pretty,
   logger,
@@ -18,14 +17,11 @@ import {hooks} from './hooks'
 class Framework implements FrameworkInterface {
   public disks: Filesystem
 
-  public dump = dump
-
   public terminate = terminate
 
   public logger = logger
 
   public util = {
-    dump,
     format,
     pretty,
     processHandler,

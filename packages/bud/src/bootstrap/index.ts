@@ -20,4 +20,4 @@ bud.options.merge('plugins.html.replacements', {
   ...bud.package.repository,
 })
 
-export = bud
+export default bud
