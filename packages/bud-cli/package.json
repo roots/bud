@@ -33,8 +33,12 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@roots/bud-framework": "file:../bud-framework",
     "@roots/bud-server": "file:../bud-server",
     "@roots/bud-support": "file:../bud-support",
+    "@roots/container": "file:../container",
+    "@roots/dependencies": "file:../dependencies",
+    "@roots/filesystem": "file:../filesystem",
     "ink": "^3.0.0-6",
     "ink-gradient": "^1.0.0",
     "ink-link": "^1.1.0",

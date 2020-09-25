@@ -35,7 +35,6 @@
     "@roots/dependencies": "file:../dependencies",
     "@roots/filesystem": "file:../filesystem",
     "boxen": "^4.2.0",
-    "cli-highlight": "^2.1.4",
     "dotenv": "^8.2.0",
     "pino": "^6.5.0",
     "pino-pretty": "^4.1.0",

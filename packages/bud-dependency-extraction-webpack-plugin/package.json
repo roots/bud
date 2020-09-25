@@ -31,7 +31,12 @@
     "lint": "eslint src/**.ts"
   },
   "dependencies": {
+    "@roots/bud-framework": "file:../bud-framework",
+    "@roots/bud-server": "file:../bud-server",
     "@roots/bud-support": "file:../bud-support",
+    "@roots/container": "file:../container",
+    "@roots/dependencies": "file:../dependencies",
+    "@roots/filesystem": "file:../filesystem",
     "@wordpress/dependency-extraction-webpack-plugin": "^2.8.0"
   },
   "devDependencies": {

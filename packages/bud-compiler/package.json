@@ -22,12 +22,21 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib"],
+  "files": [
+    "lib"
+  ],
   "main": "./lib/index.js",
   "types": "./lib/types/index.d.ts",
   "scripts": {
     "build": "rimraf ./lib && tsc -p tsconfig.build.json",
     "lint": "eslint ."
   },
-  "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5"
+  "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5",
+  "dependencies": {
+    "webpack": "^4.44.2",
+    "@roots/bud-support": "file:../bud-support",
+    "@roots/container": "file:../container",
+    "@roots/dependencies": "file:../dependencies",
+    "@roots/filesystem": "file:../filesystem"
+  }
 }

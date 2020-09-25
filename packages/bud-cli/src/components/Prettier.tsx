@@ -1,6 +1,5 @@
 import React, {FunctionComponent} from 'react'
 import {Box, Text} from 'ink'
-import {highlight} from 'cli-highlight'
 import {format, Options} from 'prettier'
 
 interface PrettierProps extends Options {
@@ -17,12 +16,10 @@ const Prettier: PrettierFunctionComponent = props => (
     alignItems="flex-start"
     alignSelf="flex-start">
     <Text>
-      {highlight(
-        format(props.children, {
-          parser: props.parser ?? 'babel',
-          ...props,
-        }),
-      )}
+      {format(props.children, {
+        parser: props.parser ?? 'babel',
+        ...props,
+      })}
     </Text>
   </Box>
 )
