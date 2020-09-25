@@ -32,11 +32,8 @@
     "build": "rimraf ./lib && tsc -p tsconfig.build.json",
     "lint": "eslint ."
   },
-  "devDependencies": {
-    "@roots/container": "file:../container",
-    "@roots/bud-server": "file:../bud-server"
-  },
   "dependencies": {
+    "@roots/bud-server": "file:../bud-server",
     "@roots/bud-support": "file:../bud-support",
     "ink": "^3.0.0-6",
     "ink-gradient": "^1.0.0",
