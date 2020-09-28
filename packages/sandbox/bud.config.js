@@ -1,34 +1,14 @@
 /* eslint-disable */
 
-/** @type {import('../bud').default} bud */
-const {
-  loaders,
-  options,
-  rules,
-  terminate,
-} = require('@roots/bud')
+/**
+ * @type {import('../bud-types').default} bud
+ * @namespace {import('../bud-types).Bud}
+ */
+const bud = require('@roots/bud')
 
-loaders.each(({ident, options}, id) => {
-  console.log({[ident ?? id]: options})
+bud.postPluginAdd({
+  astroturf: [require('astroturf')],
 })
-
-rules.each(rule => {
-  console.log(rule.get().test)
-})
-
-loaders.set('postcss.ident', '😺')
-
-const {presets, plugins} = loaders.get('babel.options')
-loaders.merge('babel.options', {presets, plugins})
-
-options.merge('postcss.plugins', 'bruu.')
-
-console.log(
-  presets ===
-    require('@roots/bud').loaders.get('babel.options.presets'),
-)
-
-terminate()
 
 /*
 bud.bundle('app', ['index.js'])

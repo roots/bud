@@ -2,7 +2,8 @@
   "extends": "../../tsconfig.build.json",
   "compilerOptions": {
     "baseUrl": "./src",
-    "outDir": "./lib"
+    "outDir": "./lib",
+    "declaration": false
   },
   "compileOnSave": true,
   "include": ["src"]

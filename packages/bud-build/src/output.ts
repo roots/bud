@@ -1,25 +1,26 @@
 import Bud from '@roots/bud-types'
 
-const output: Bud.Build.Output = bud =>
-  bud.hooks.filter('webpack.output', {
+const output: Bud.Build.Output = function () {
+  return this.hooks.filter('webpack.output', {
     output: {
-      path: bud.hooks.filter(
+      path: this.hooks.filter(
         'webpack.output.path',
-        bud.paths.get('dist'),
+        this.paths.get('dist'),
       ),
 
-      publicPath: bud.hooks.filter(
+      publicPath: this.hooks.filter(
         'webpack.output.publicPath',
-        bud.paths.get('public'),
+        this.paths.get('public'),
       ),
 
-      filename: bud.hooks.filter(
+      filename: this.hooks.filter(
         'webpack.output.filename',
-        bud.features.enabled('hash')
-          ? `${bud.options.get('filenameTemplate').hashed}.js`
-          : `${bud.options.get('filenameTemplate').default}.js`,
+        this.features.enabled('hash')
+          ? `${this.options.get('filenameTemplate').hashed}.js`
+          : `${this.options.get('filenameTemplate').default}.js`,
       ),
     },
   })
+}
 
 export {output as default}

@@ -11,13 +11,14 @@ export const builders: Bud.Build.Index = {
   resolve: require('./resolve'),
 }
 
-const build: Bud['build'] = bud =>
-  Object.entries(builders).reduce(
+const build: Bud['build'] = function (this: Bud) {
+  return Object.entries(builders).reduce(
     (config, [, builder]: [string, Bud.Build.Builders]) => ({
       ...(config ?? []),
-      ...builder(bud),
+      ...builder.bind(this)(),
     }),
     {}, // feels bad, bad.
   )
+}
 
 export default build

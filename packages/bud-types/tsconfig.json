@@ -1,10 +1,10 @@
 {
   "extends": "../../tsconfig.build.json",
   "compilerOptions": {
-    "baseUrl": "./src",
+    "baseUrl": "./types",
     "outDir": "./lib"
   },
   "compileOnSave": true,
-  "include": ["src"],
+  "include": ["types"],
   "exclude": ["lib", "node_modules"]
 }

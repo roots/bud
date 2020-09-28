@@ -1,37 +1,39 @@
 import Bud from '@roots/bud-types'
 
-const general: Bud.Build.General = bud => ({
-  context: bud.hooks.filter(
-    'webpack.context',
-    bud.paths.get('src'),
-  ),
+const general: Bud.Build.General = function (this: Bud) {
+  return {
+    context: this.hooks.filter(
+      'webpack.context',
+      this.paths.get('src'),
+    ),
 
-  devtool: bud.hooks.filter(
-    'webpack.devtool',
-    bud.options.get('webpack.devtool') ?? false,
-  ),
+    devtool: this.hooks.filter(
+      'webpack.devtool',
+      this.options.get('webpack.devtool') ?? false,
+    ),
 
-  mode: bud.hooks.filter('webpack.mode', bud.mode.get()),
+    mode: this.hooks.filter('webpack.mode', this.mode.get()),
 
-  node: bud.hooks.filter(
-    'webpack.node',
-    bud.options.get('webpack.node'),
-  ),
+    node: this.hooks.filter(
+      'webpack.node',
+      this.options.get('webpack.node'),
+    ),
 
-  stats: bud.hooks.filter(
-    'webpack.stats',
-    bud.options.get('webpack.stats'),
-  ),
+    stats: this.hooks.filter(
+      'webpack.stats',
+      this.options.get('webpack.stats'),
+    ),
 
-  target: bud.hooks.filter(
-    'webpack.target',
-    bud.options.get('webpack.target'),
-  ),
+    target: this.hooks.filter(
+      'webpack.target',
+      this.options.get('webpack.target'),
+    ),
 
-  watch: bud.hooks.filter(
-    'webpack.watch',
-    bud.features.enabled('watch'),
-  ),
-})
+    watch: this.hooks.filter(
+      'webpack.watch',
+      this.features.enabled('watch'),
+    ),
+  }
+}
 
 export {general as default}

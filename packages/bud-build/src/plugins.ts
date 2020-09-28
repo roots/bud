@@ -1,8 +1,8 @@
 import Bud from '@roots/bud-types'
 
-const plugins: Bud.Build.Plugins = bud =>
-  bud.hooks.filter('webpack.plugins', {
-    plugins: bud.plugins
+const plugins: Bud.Build.Plugins = function () {
+  return this.hooks.filter('webpack.plugins', {
+    plugins: this.plugins
       .entries()
       .reduce(
         (
@@ -10,9 +10,9 @@ const plugins: Bud.Build.Plugins = bud =>
           [name, fn]: [string, Bud.Plugin.Factory],
         ) => [
           ...plugins,
-          bud.hooks.filter(
+          this.hooks.filter(
             `webpack.plugins.${name}`,
-            bud.makePluginController(fn).make(),
+            this.makePluginController(fn).make(),
           ),
         ],
         [],
@@ -21,5 +21,6 @@ const plugins: Bud.Build.Plugins = bud =>
         (plugin: Bud.Build.Configuration['plugins']) => plugin,
       ),
   })
+}
 
 export {plugins as default}

@@ -22,7 +22,8 @@
   "engines": {
     "node": ">=12"
   },
-  "dependencies": {
-    "@roots/bud": "2.0.0-next.25"
+  "devDependencies": {
+    "@roots/bud": "file:../bud",
+    "@roots/bud-types": "file:../bud-types"
   }
 }

@@ -24,11 +24,9 @@ const sage: Sage = bud
   .map()
   .hash()
   .vendor()
-  .when(
-    bud.mode.is('production'),
-    () => bud.mini().runtimeManifest(),
-    () => null,
-  )
+  .when(bud.mode.is('production'), () => {
+    bud.mini().runtimeManifest()
+  })
 
 sage.apply('sageFeatures', sageFeatures)
 

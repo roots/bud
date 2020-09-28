@@ -20,7 +20,7 @@ export default class extends Bud {
   public constructor() {
     super()
 
-    this.build = Build
+    this.build = Build.bind(this)
 
     this.compiler = new Compiler()
     this.server = new Server()
@@ -36,7 +36,6 @@ export default class extends Bud {
     this.loaders = this.makeContainer(modules)
     this.rules = this.makeContainer(rules)
     this.uses = this.makeContainer(uses)
-
     this.mode = mode(this)
 
     /**

@@ -1,27 +1,28 @@
 import Bud from '@roots/bud-types'
 
-const resolve: Bud.Build.Resolve = bud =>
-  bud.hooks.filter('webpack.resolve', {
+const resolve: Bud.Build.Resolve = function () {
+  return this.hooks.filter('webpack.resolve', {
     resolve: {
-      ...(bud.options.get('webpack.resolve.alias')
+      ...(this.options.get('webpack.resolve.alias')
         ? {
-            alias: bud.hooks.filter(
+            alias: this.hooks.filter(
               'webpack.resolve.alias',
-              bud.options.get('webpack.resolve.alias'),
+              this.options.get('webpack.resolve.alias'),
             ),
           }
         : []),
 
-      extensions: bud.hooks.filter(
+      extensions: this.hooks.filter(
         'webpack.resolve.extensions',
-        [...bud.options.get('webpack.resolve.extensions')],
+        [...this.options.get('webpack.resolve.extensions')],
       ),
 
-      modules: bud.hooks.filter('webpack.resolve.modules', [
-        bud.fs.get('src'),
+      modules: this.hooks.filter('webpack.resolve.modules', [
+        this.fs.get('src'),
         'node_modules',
       ]),
     },
   })
+}
 
-export default resolve
+export {resolve as default}

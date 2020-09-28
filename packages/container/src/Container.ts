@@ -13,6 +13,7 @@ class Container implements ContainerInterface {
 
   /**
    * Push a new value onto an array item
+   *
    * @deprecated
    */
   public add(
@@ -41,6 +42,9 @@ class Container implements ContainerInterface {
     return __.get(this.repository, key)
   }
 
+  /**
+   * Check the value for a given key
+   */
   public is(
     this: ContainerInterface,
     key: string,
@@ -49,6 +53,26 @@ class Container implements ContainerInterface {
     return this.get(key) == value
   }
 
+  /**
+   * Check if a given key is true
+   */
+  public isTrue(this: ContainerInterface, key: string): boolean {
+    return this.get(key) === true
+  }
+
+  /**
+   * Check if a given key is truthy
+   */
+  public isTruthy(
+    this: ContainerInterface,
+    key: string,
+  ): boolean {
+    return this.get(key) == true
+  }
+
+  /**
+   * Set the value of a key
+   */
   public set(
     this: ContainerInterface,
     key: string,

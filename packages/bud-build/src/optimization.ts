@@ -3,27 +3,27 @@ import Bud from '@roots/bud-types'
 /**
  * Webpack optimization
  */
-const optimization: Bud.Build.Optimization = bud =>
-  bud.hooks.filter('webpack.optimization', {
+const optimization: Bud.Build.Optimization = function () {
+  return this.hooks.filter('webpack.optimization', {
     optimization: {
-      ...(bud.features.enabled('runtimeChunk')
+      ...(this.features.enabled('runtimeChunk')
         ? {
-            runtimeChunk: bud.hooks.filter(
+            runtimeChunk: this.hooks.filter(
               'webpack.optimization.runtimeChunk',
-              bud.options.get(
+              this.options.get(
                 'webpack.optimization.runtimeChunk',
               ),
             ),
           }
         : []),
 
-      ...(bud.features.enabled('splitChunks')
+      ...(this.features.enabled('splitChunks')
         ? {
             splitChunks: {
               cacheGroups: {
-                vendor: bud.hooks.filter(
+                vendor: this.hooks.filter(
                   'webpack.optimization.splitChunks.cacheGroups.vendor',
-                  bud.options.get(
+                  this.options.get(
                     'webpack.optimization.splitChunks.cacheGroups.vendor',
                   ),
                 ),
@@ -32,21 +32,22 @@ const optimization: Bud.Build.Optimization = bud =>
           }
         : []),
 
-      minimize: bud.hooks.filter(
+      minimize: this.hooks.filter(
         'webpack.optimization.minimize',
-        bud.features.enabled('minify'),
+        this.features.enabled('minify'),
       ),
 
-      removeAvailableModules: bud.hooks.filter(
+      removeAvailableModules: this.hooks.filter(
         'webpack.optimization.removeAvailableModules',
         false,
       ),
 
-      moduleIds: bud.hooks.filter(
+      moduleIds: this.hooks.filter(
         'webpack.optimization.moduleIds',
         'hashed',
       ),
     },
   })
+}
 
 export {optimization as default}

@@ -5,7 +5,7 @@ import {injectClient} from '@roots/bud-server'
 export const compile: Bud.Config.Compile = async function () {
   this.when(this.options.get('server.hot'), inject.bind(this))
   this.compiler
-    .setConfig(this.build(this) as Webpack.Configuration)
+    .setConfig(this.build() as Webpack.Configuration)
     .compile()
   this.when(this.mode.is('development'), dev.bind(this))
 
