@@ -1,7 +1,7 @@
 import {IgnoreEmitPlugin} from './externals'
-import {BudInterface, Plugin} from '../'
+import Bud from '@roots/bud-types'
 
-const ignoreEmit: Plugin = (bud: BudInterface) => ({
+const ignoreEmit: Bud.Plugin.Factory = bud => ({
   bud,
   make: function () {
     return new IgnoreEmitPlugin(

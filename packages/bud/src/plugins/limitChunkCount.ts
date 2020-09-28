@@ -1,24 +1,20 @@
+import Bud from '@roots/bud-types'
 import {LimitChunkCountPlugin} from './externals'
-import {BudInterface, Plugin} from '../'
 
-const limitChunkCount: Plugin = (bud: BudInterface) => ({
+const limitChunkCount: Bud.Plugin.Factory = bud => ({
   bud,
 
   make: function () {
-    const enabled = this.bud.features.enabled('split')
-    const chunks = this.bud.options.get('split.maxChunks')
-
-    this.options = !enabled
-      ? {maxChunks: 1}
-      : chunks
-      ? {maxChunks: chunks}
-      : {}
-
-    return new LimitChunkCountPlugin(this.options)
+    return new LimitChunkCountPlugin(
+      this.bud.options.get('plugins.limitChunkCount.maxChunks'),
+    )
   },
 
   when: function () {
-    return this.options ? true : false
+    return (
+      this.bud.features.enabled('split') &&
+      this.bud.options.get('split.maxChunks')
+    )
   },
 })
 

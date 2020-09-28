@@ -1,7 +1,7 @@
-import {BudInterface} from '../'
+import Bud from '@roots/bud-types'
 import checkEnvIsValid from './checkEnvIsValid'
 
-const parseArguments = function (this: BudInterface): void {
+const parseArguments = function (this: Bud): void {
   /** Project dir */
   this.args.has('project') &&
     this.paths.set(

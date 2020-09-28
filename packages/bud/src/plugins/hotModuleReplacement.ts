@@ -1,7 +1,7 @@
+import Bud from '@roots/bud-types'
 import {HotModuleReplacementPlugin} from 'webpack'
-import {BudInterface, Plugin} from '../'
 
-const hotModuleReplacement: Plugin = (bud: BudInterface) => ({
+const hotModuleReplacement: Bud.Plugin.Factory = bud => ({
   bud,
 
   make: function () {

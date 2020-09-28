@@ -1,7 +1,7 @@
-import {TerserPlugin} from './externals'
-import {BudInterface, Plugin} from '../'
+import Bud from '@roots/bud-types'
+import TerserPlugin from 'terser-webpack-plugin'
 
-const terser: Plugin = (bud: BudInterface) => ({
+const terser: Bud.Plugin.Factory = bud => ({
   bud,
 
   options: bud.options.get('plugins.terser'),

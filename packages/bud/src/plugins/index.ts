@@ -5,7 +5,6 @@ import ignoreEmit from './ignoreEmit'
 import {brotli, gzip} from './compression'
 import {html, interpolateHtml} from './html'
 import hotModuleReplacement from './hotModuleReplacement'
-import limitChunkCount from './limitChunkCount'
 import miniCssExtract from './miniCssExtract'
 import manifest from './manifest'
 import provide from './provide'
@@ -26,7 +25,6 @@ const plugins = [
   manifest,
   miniCssExtract,
   provide,
-  limitChunkCount,
   terser,
   writeFile,
   watchMissingModules,

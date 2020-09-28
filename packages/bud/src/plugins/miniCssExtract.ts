@@ -1,8 +1,9 @@
+import Bud from '@roots/bud-types'
 import {MiniCssExtractPlugin} from './externals'
-import {BudInterface, Plugin} from '../'
 
-const miniCssExtract: Plugin = (bud: BudInterface) => ({
+const miniCssExtract: Bud.Plugin.Factory = bud => ({
   bud,
+
   make: function () {
     return new MiniCssExtractPlugin({
       filename: this.bud.features.enabled('hash')

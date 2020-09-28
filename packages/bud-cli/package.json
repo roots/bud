@@ -29,13 +29,17 @@
   "main": "lib/index.js",
   "types": "lib/types/index.d.ts",
   "scripts": {
-    "build": "rimraf ./lib && tsc -p tsconfig.build.json",
+    "build": "run-s -s clean:* tsc",
+    "clean:lib": "rimraf ./lib",
+    "clean:modules": "rimraf ./node_modules",
+    "clean:build": "rimraf ./tsconfig.build.tsbuildinfo",
+    "tsc": "tsc -p tsconfig.build.json",
     "lint": "eslint ."
   },
   "dependencies": {
     "@roots/bud": "file:../bud",
-    "@roots/bud-support": "file:../bud-support",
     "@roots/bud-server": "file:../bud-server",
+    "@roots/bud-support": "file:../bud-support",
     "ink": "^3.0.0-6",
     "ink-gradient": "^1.0.0",
     "ink-link": "^1.1.0",
@@ -49,6 +53,7 @@
   },
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5",
   "devDependencies": {
+    "@roots/bud-types": "file:../bud-types",
     "@types/node": "^14.11.2"
   }
 }

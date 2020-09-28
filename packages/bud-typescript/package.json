@@ -38,6 +38,7 @@
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5",
   "devDependencies": {
     "@roots/bud": "file:../bud",
+    "@roots/bud-types": "file:../bud-types",
     "@types/node": "^14.11.2"
   }
 }

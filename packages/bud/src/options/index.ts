@@ -1,11 +1,18 @@
+import webpack from './webpack/index'
 import plugins from './plugins'
 import server from './server'
-import webpack from './webpack'
+
+import {postcss} from './postcss'
 
 /**
  * Options container repository
  */
-const options = {
+export const options = {
+  /**
+   * Postcss options
+   */
+  postcss,
+
   /**
    * Development server options.
    */
@@ -25,7 +32,7 @@ const options = {
    * @todo Junk drawer..
    */
   split: {
-    maxChunks: 9999,
+    maxChunks: -1,
   },
   filenameTemplate: {
     hashed: '[name].[hash:8]',
@@ -35,5 +42,3 @@ const options = {
     name: 'manifest.json',
   },
 }
-
-export {options as default}

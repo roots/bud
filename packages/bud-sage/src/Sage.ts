@@ -1,10 +1,11 @@
-import bud, {BudInterface} from '@roots/bud'
+import Bud from '@roots/bud-types'
+import bud from '@roots/bud'
 import sageFeatures, {SelectFeatures} from './sageFeatures'
 
 /**
  * Sage
  */
-export interface Sage extends BudInterface {
+export interface Sage extends Bud {
   support(this: Sage, features: SelectFeatures): Sage
 }
 

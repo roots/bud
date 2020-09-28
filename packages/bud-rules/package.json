@@ -1,0 +1,66 @@
+{
+  "name": "@roots/bud-rules",
+  "version": "2.0.0-next.24",
+  "description": "Webpack rules management",
+  "homepage": "https://roots.io/bud",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "packages/bud"
+  },
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "license": "MIT",
+  "contributors": [
+    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
+  ],
+  "engines": {
+    "node": ">=12"
+  },
+  "files": ["lib", "types"],
+  "main": "lib/index.js",
+  "types": "types/index.d.ts",
+  "scripts": {
+    "build": "run-s -s clean:* tsc",
+    "clean:lib": "rimraf ./lib",
+    "clean:modules": "rimraf ./node_modules",
+    "clean:build": "rimraf ./tsconfig.tsbuildinfo",
+    "tsc": "tsc -p tsconfig.json",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@babel/core": "^7.11.5",
+    "@babel/plugin-proposal-object-rest-spread": "^7.11.0",
+    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
+    "@babel/plugin-transform-runtime": "^7.11.5",
+    "@babel/preset-env": "^7.11.5",
+    "autoprefixer": "^9.8.5",
+    "babel-loader": "^8.1.0",
+    "babel-plugin-add-module-exports": "^1.0.4",
+    "css-loader": "^3.6.0",
+    "file-loader": "^6.0.0",
+    "img-loader": "^3.0.0",
+    "mini-css-extract-plugin": "^0.9.0",
+    "mini-svg-data-uri": "^1.2.3",
+    "postcss-import": "^12.0.1",
+    "postcss-loader": "^3.0.0",
+    "postcss-preset-env": "^6.7.0",
+    "raw-loader": "^4.0.1",
+    "resolve-url-loader": "^3.1.1",
+    "source-map-loader": "^1.0.1",
+    "style-loader": "^1.2.1",
+    "url-loader": "^4.1.0",
+    "webpack": "^4.44.2"
+  },
+  "devDependencies": {
+    "@roots/bud-types": "file:../bud-types",
+    "@types/autoprefixer": "^9.7.2",
+    "@types/node": "^14.11.2"
+  },
+  "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5"
+}

@@ -1,8 +1,8 @@
+import Bud from '@roots/bud-types'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import {InterpolateHtmlPlugin} from '@roots/bud-support'
-import {BudInterface, Plugin, PluginInterface} from '../'
 
-const html: Plugin = (bud: BudInterface): PluginInterface => ({
+const html: Bud.Plugin.Factory = bud => ({
   bud,
 
   make: function (): HtmlWebpackPlugin {
@@ -22,9 +22,7 @@ const html: Plugin = (bud: BudInterface): PluginInterface => ({
   },
 })
 
-const interpolateHtml = (
-  bud: BudInterface,
-): PluginInterface => ({
+const interpolateHtml: Bud.Plugin.Factory = bud => ({
   bud,
 
   make: function (): typeof InterpolateHtmlPlugin {

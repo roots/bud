@@ -9,5 +9,5 @@ export {
 } from './react-dev-util'
 
 export {notify} from './notify'
-
-export {dump, Dump} from './dump'
+export {dump} from './dump'
+export {processHandler} from './processHandler'

@@ -1,6 +1,6 @@
-import {BudInterface, Plugin} from '@roots/bud'
+import Bud from '@roots/bud-types'
 
-const react: Plugin = (bud: BudInterface) => ({
+const react: Bud.Plugin.Factory = bud => ({
   bud,
 
   make: function () {
@@ -15,13 +15,13 @@ const react: Plugin = (bud: BudInterface) => ({
       loader: require.resolve('@svgr/webpack'),
     })
 
-    this.bud.rules.set('svgr', (bud: BudInterface) => ({
+    this.bud.rules.set('svgr', (bud: Bud) => ({
       test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
       issuer: bud.patterns.get('js'),
       use: [
         bud.loaders.get('babel'),
         bud.loaders.get('svgr'),
-        bud.loaders.get('resolveUrl'),
+        bud.loaders.get('resolve-url'),
       ],
     }))
   },

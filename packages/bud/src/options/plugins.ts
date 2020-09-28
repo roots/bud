@@ -1,6 +1,6 @@
 import {dirname, join} from 'path'
 
-export type Copy = {patterns: any[]}
+export type Copy = {patterns: string[]}
 
 const plugins = {
   clean: {},
@@ -82,7 +82,7 @@ const plugins = {
 
     /**
      * Stop users from owning themselves with a wholescale moment/locale import.
-     * @see https://github.com/facebook/create-react-app/blob/52449c34eedc53e50a2a159d38604ea7df5bd997/packages/react-scripts/config/webpack.config.prod.js#L463-L467
+     * @see {@link https://git.io/JUaNq}
      */
     /^\.\/locale$/,
     /moment$/,

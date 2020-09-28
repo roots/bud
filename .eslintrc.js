@@ -22,6 +22,7 @@ module.exports = {
     'plugin:import/typescript',
   ],
   rules: {
+    'import/no-unresolved': 0,
     '@typescript-eslint/no-namespace': 0,
     '@typescript-eslint/no-explicit-any': 1,
     'react/prop-types': 'off',

@@ -1,8 +1,9 @@
+import Bud from '@roots/bud-types'
 import {CopyWebpackPlugin} from './externals'
-import {BudInterface, Plugin} from '../'
 
-const copy: Plugin = (bud: BudInterface) => ({
+const copy: Bud.Plugin.Factory = bud => ({
   bud,
+
   make: function () {
     return new CopyWebpackPlugin(
       this.bud.options.get('plugins.copy'),

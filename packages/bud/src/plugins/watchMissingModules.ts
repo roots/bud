@@ -1,10 +1,9 @@
+import Bud from '@roots/bud-types'
 import {WatchMissingNodeModulesPlugin} from '@roots/bud-support'
-import {BudInterface, Plugin, PluginInterface} from '../'
 
-const watchMissingNodeModules: Plugin = (
-  bud: BudInterface,
-): PluginInterface => ({
+const watchMissingNodeModules: Bud.Plugin.Factory = bud => ({
   bud,
+
   make: function (): typeof WatchMissingNodeModulesPlugin {
     return new WatchMissingNodeModulesPlugin(
       this.bud.fs.resolve('node_modules'),

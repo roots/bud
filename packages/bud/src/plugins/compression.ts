@@ -1,10 +1,10 @@
-import {Compression} from './externals'
-import {BudInterface, Plugin} from '../'
+import Bud from '@roots/bud-types'
+import Compression from 'compression-webpack-plugin'
 
 /**
  * Gzip
  */
-const gzip: Plugin = (bud: BudInterface) => ({
+const gzip: Bud.Plugin.Factory = bud => ({
   bud,
 
   options: bud.options.get('plugins.compression.gzip'),
@@ -21,7 +21,7 @@ const gzip: Plugin = (bud: BudInterface) => ({
 /**
  * Brotli
  */
-const brotli: Plugin = (bud: BudInterface) => ({
+const brotli: Bud.Plugin.Factory = bud => ({
   bud,
 
   options: bud.options.get('plugins.compression.brotli'),

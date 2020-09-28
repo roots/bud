@@ -1,22 +1,16 @@
 import {eslintFormatter} from '@roots/bud-support'
-import type {
-  BudInterface,
-  Plugin,
-  PluginInterface,
-} from '@roots/bud'
+import Bud from '@roots/bud-types'
 import type {Configuration} from 'webpack'
 
 export * as presets from './presets'
 
-export const plugin: Plugin = (
-  bud: BudInterface,
-): PluginInterface => ({
+export const plugin: Bud.Plugin.Factory = (bud: Bud) => ({
   bud,
 
   make(): void {
     const config =
-      this.bud.fs.get('.eslintrc.js') ??
-      this.bud.fs.get('.eslintrc.json')
+      this.bud.fs.has('.eslintrc.js') ??
+      this.bud.fs.has('.eslintrc.json')
 
     if (!this.bud.fs.existsSync(config)) {
       return

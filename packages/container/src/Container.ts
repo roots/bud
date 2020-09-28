@@ -106,6 +106,16 @@ class Container implements ContainerInterface {
     return this.get(key).map(callback)
   }
 
+  public each(
+    this: ContainerInterface,
+    callback: (value: any, index: number, array: any[]) => void,
+    key?: string,
+  ): unknown {
+    return !key
+      ? Object.values(this.repository).forEach(callback)
+      : Object.values(this.get(key)).forEach(callback)
+  }
+
   /**
    * Get all of the repository contents
    */

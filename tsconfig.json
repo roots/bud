@@ -1,16 +1,22 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
-    "baseUrl": "./packages",
+    "composite": true,
+    "declarationDir": "./lib/types",
     "declaration": true,
-    "declarationMap": true,
-    "lib": ["esnext", "es5", "es6", "dom", "dom.iterable"],
-    "jsx": "react",
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
     "esModuleInterop": true,
-    "skipLibCheck": true,
-    "paths": {
-      "@roots/*": ["packages/*"],
-    },
+    "lib": ["esnext", "es5", "es6"],
+    "jsx": "react",
+    "moduleResolution": "node",
+    "module": "commonjs",
+    "noLib": false,
+    "noUnusedLocals": true,
+    "noEmitOnError": true,
+    "pretty": true,
+    "sourceMap": true,
+    "target": "ESNext",
   },
   "exclude": ["docs", "node_modules"]
 }

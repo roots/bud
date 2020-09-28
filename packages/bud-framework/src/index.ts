@@ -1,136 +1,51 @@
+import Bud from '@roots/bud-types'
 import Container, {Loose} from '@roots/container'
-
 import {
-  FileContainerInterface,
   Filesystem,
+  FileContainerInterface,
 } from '@roots/filesystem'
+import {format, pretty, logger} from './util/index'
+import {hooks} from './hooks'
 
-import {
-  format,
-  pretty,
-  processHandler,
-  logger,
-  terminate,
-} from './util'
+export default class {
+  public disks: Bud['disks']
 
-import Framework from './Framework'
+  public logger = logger
 
-interface FrameworkInterface extends Loose {
-  /**
-   * Virtual filesystems
-   */
-  disks: Filesystem
-
-  /**
-   * Kill the framework process.
-   */
-  terminate: typeof terminate
-
-  /**
-   * Framework logger.
-   */
-  logger: typeof logger
-
-  /**
-   * Utilities.
-   */
-  util: {
-    /**
-     * Format object values safely.
-     */
-    format: typeof format
-
-    /**
-     * Prettier utility.
-     */
-    pretty: typeof pretty
-
-    /**
-     * Process handler.
-     */
-    processHandler: typeof processHandler
-
-    /**
-     * Terminate framework.
-     */
-    terminate: typeof terminate
+  public util = {
+    format,
+    pretty,
   }
 
-  /**
-   * Set a framework property.
-   */
-  apply: (key: string, value: Loose) => void
+  public constructor() {
+    this.disks = new Filesystem()
 
-  /**
-   * Make a new container.
-   */
-  makeContainer: (repo?: Loose) => Container
+    this.apply = this.apply.bind(this)
+    this.getDisk = this.getDisk.bind(this)
+    this.makeDisk = this.makeDisk.bind(this)
+  }
 
-  /**
-   * Make a new hooks container
-   */
-  makeHooks: (app: FrameworkInterface) => Hooks
+  public apply(key: PropertyKey, value: unknown): void {
+    Object.defineProperty(this, key, value)
+  }
 
-  /**
-   * Make a new filesystem container
-   */
-  makeDisk: (
+  public makeContainer(repo?: Loose): Container {
+    return new Container(repo ?? {})
+  }
+
+  public makeDisk(
     key?: string,
     baseDir?: string,
     glob?: string[],
-  ) => FileContainerInterface
+  ): FileContainerInterface {
+    return this.disks.set(key ?? 'primary', {baseDir, glob})
+  }
+
+  public getDisk(key?: string): FileContainerInterface {
+    return this.disks.get(key ?? 'primary')
+  }
+
+  public makeHooks(bud: Bud): Bud['hooks'] {
+    return hooks(bud)
+  }
 }
-
-export type RegisteredHooks = {
-  [name: string]: Hook[]
-}
-
-/**
- * A hook definition
- */
-export type Hook = {
-  name: string
-  fn: (...args: any | any[]) => any
-  value: any
-  fired: boolean
-}
-
-/**
- * Framework hooks
- */
-export type Hooks = {
-  /**
-   * Framework logging utility
-   */
-  logger: any
-
-  /**
-   * Logging
-   */
-  registered: RegisteredHooks
-
-  /**
-   * Formats a callback as registrable entry.
-   */
-  make: (args: any | any[]) => any
-
-  /**
-   * Returns all registered hooks.
-   */
-  entries: () => any[]
-
-  /**
-   * Sets a callback on a filter event.
-   */
-  on: (
-    name: string,
-    callback: (args: any | any[]) => any,
-  ) => void
-
-  /**
-   * Calls registered callbacks
-   */
-  filter: (name: string, value: any) => any
-}
-
-export {Framework as default, FrameworkInterface, Loose}

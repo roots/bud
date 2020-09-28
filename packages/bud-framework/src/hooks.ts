@@ -1,12 +1,11 @@
-import {Hooks} from './'
+import Bud from '@roots/bud-types'
 
 /**
  * Returns a hooks instance with application bindings.
  */
-export declare type HooksConstructor = (app: any) => Hooks
+const hooks: (bud: Bud) => Bud.Hooks.Hooks = (bud: Bud) => ({
+  logger: bud.logger,
 
-const hooks: HooksConstructor = (app: any): Hooks => ({
-  logger: app.logger,
   registered: {},
 
   make: fn => ({

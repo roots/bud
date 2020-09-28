@@ -1,7 +1,7 @@
-import {BudInterface, Plugin} from '@roots/bud'
+import Bud from '@roots/bud-types'
 import tailwind from 'tailwindcss'
 
-const tailwindcss: Plugin = (bud: BudInterface) => ({
+const tailwindcss: Bud.Plugin.Factory = (bud: Bud) => ({
   bud,
 
   make: function () {

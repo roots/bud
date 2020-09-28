@@ -1,7 +1,9 @@
 import {DefinePlugin} from './externals'
-import {BudInterface, Plugin} from '../'
+import Bud from '@roots/bud-types'
 
-const define: Plugin = (bud: BudInterface) => ({
+const define: Bud.Plugin.Factory = bud => ({
+  bud,
+
   options: bud.env.repository,
 
   make: function () {

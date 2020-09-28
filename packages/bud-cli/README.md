@@ -13,9 +13,43 @@
   <strong>@roots/bud-cli</strong>
 </h1>
 
-## Experimental
+## Overview
 
-This utility is still in development.
+Adds @wordpress/dependency-extraction-webpack-plugin support to @roots/bud projects.
+
+## Installation
+
+```js
+yarn add @roots/bud-cli --dev
+```
+
+```js
+npm add @roots/bud-cli --save-dev
+```
+
+## Usage
+
+```sh
+bud [command] [options]
+```
+
+Get help:
+
+```sh
+bud --help
+```
+
+Run a build:
+
+```sh
+bud build [options]
+```
+
+Publish a provided template to your project:
+
+```sh
+bud publish [template]
+```
 
 ## Contributing
 

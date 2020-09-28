@@ -1,6 +1,6 @@
-import {BudInterface} from '../'
+import Bud from '@roots/bud-types'
 
-const filesystemSetup = function (this: BudInterface): void {
+const filesystemSetup = function (this: Bud): void {
   this.updateDisk()
 
   /**

@@ -1,9 +1,9 @@
-import type {BudInterface, Plugin} from '@roots/bud'
+import type Bud from '@roots/bud-types'
 import StylelintPlugin from 'stylelint-webpack-plugin'
 import type {Options as StylelintOptions} from 'stylelint-webpack-plugin/declarations/getOptions'
 import {resolve} from 'path'
 
-const plugin: Plugin = (bud: BudInterface) => ({
+const plugin: Bud.Plugin.Factory = (bud: Bud) => ({
   bud,
 
   make: function () {
@@ -28,7 +28,7 @@ const plugin: Plugin = (bud: BudInterface) => ({
 
     this.bud.webpackPlugins.set(
       'stylelint-webpack-plugin',
-      (bud: BudInterface) => ({
+      (bud: Bud) => ({
         bud,
 
         make: function () {

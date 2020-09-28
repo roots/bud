@@ -1,4 +1,4 @@
-import {Plugin} from '@roots/bud'
+import Bud from '@roots/bud-types'
 import sass from '@roots/bud-sass'
 import {plugin as eslint} from '@roots/bud-eslint'
 import {plugin as stylelint} from '@roots/bud-stylelint'
@@ -10,7 +10,7 @@ import {
 import {Sage} from '.'
 
 /**
- * Bud Plugins consumed by the Sage preset.
+ * Bud extensions consumed by the Sage preset.
  */
 type SageFeature =
   | typeof purgecss
@@ -45,7 +45,7 @@ const sageFeatures = function (
   /**
    * Available feature plugins.
    */
-  const featureSet: Plugin[] = [
+  const featureSet: Bud.Plugin.Factory[] = [
     purgecss,
     eslint,
     stylelint,
@@ -55,7 +55,7 @@ const sageFeatures = function (
   /**
    * Enabled features
    */
-  const enabledFeatures: Plugin[] = []
+  const enabledFeatures: Bud.Plugin.Factory[] = []
 
   /**
    * If user didn't specify anything, enable all features.

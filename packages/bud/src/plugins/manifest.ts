@@ -1,7 +1,7 @@
 import ManifestPlugin from 'webpack-manifest-plugin'
-import {BudInterface, Plugin} from '../'
+import Bud from '@roots/bud-types'
 
-const manifest: Plugin = (bud: BudInterface) => ({
+const manifest: Bud.Plugin.Factory = bud => ({
   bud,
 
   make: function () {

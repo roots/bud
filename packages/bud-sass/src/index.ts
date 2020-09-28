@@ -1,6 +1,6 @@
-import {BudInterface, Plugin} from '@roots/bud'
+import Bud from '@roots/bud-types'
 
-const sass: Plugin = (bud: BudInterface) => ({
+const sass: Bud.Plugin.Factory = (bud: Bud) => ({
   bud,
 
   make: function () {
@@ -69,11 +69,9 @@ const sass: Plugin = (bud: BudInterface) => ({
 
     /**
      * ## bud.sass
+     * @todo type opts
      */
-    this.bud.apply('sass', function (
-      this: BudInterface,
-      options,
-    ) {
+    this.bud.apply('sass', function (this: Bud, options: any) {
       if (!options) {
         return this
       }
