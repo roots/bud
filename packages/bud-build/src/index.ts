@@ -17,7 +17,7 @@ const build: Bud['build'] = function (this: Bud) {
       ...(config ?? []),
       ...builder.bind(this)(),
     }),
-    {}, // feels bad, bad.
+    {},
   )
 }
 

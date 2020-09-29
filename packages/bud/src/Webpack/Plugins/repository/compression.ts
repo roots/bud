@@ -7,7 +7,17 @@ import Compression from 'compression-webpack-plugin'
 const gzip: Bud.Plugin.Factory = bud => ({
   bud,
 
-  options: bud.options.get('plugins.compression.gzip'),
+  options: {
+    filename: '[path].br',
+    algorithm: 'brotliCompress',
+    test: /\.(js|css|html|svg)$/,
+    compressionOptions: {
+      level: 11,
+    },
+    threshold: 10240,
+    minRatio: 0.8,
+    deleteOriginalAssets: false,
+  },
 
   make: function (): Compression {
     return new Compression(this.options)
@@ -24,7 +34,13 @@ const gzip: Bud.Plugin.Factory = bud => ({
 const brotli: Bud.Plugin.Factory = bud => ({
   bud,
 
-  options: bud.options.get('plugins.compression.brotli'),
+  options: {
+    filename: '[path].gz',
+    algorithm: 'gzip',
+    test: /\.js$|\.css$|\.html$/,
+    threshold: 10240,
+    minRatio: 0.8,
+  },
 
   make: function (): Compression {
     return new Compression(this.options)

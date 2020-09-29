@@ -123,6 +123,10 @@ export default class {
     }
   }
 
+  public set(rule: Bud.Rule.Generic): void {
+    Object.assign(this, rule)
+  }
+
   public make(): Bud.Rule.Makes {
     return Object.entries(this.get()).reduce(
       (properties, [prop, val]: [string, unknown]) => ({
@@ -136,12 +140,5 @@ export default class {
       }),
       {},
     )
-  }
-
-  /**
-   * Set the loader values
-   */
-  public set(rule: Bud.Rule.Generic): void {
-    Object.assign(this, rule)
   }
 }

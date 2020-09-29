@@ -23,7 +23,6 @@
     "node": ">=12"
   },
   "devDependencies": {
-    "@roots/bud": "file:../bud",
-    "@roots/bud-types": "file:../bud-types"
+    "@roots/bud": "file:../bud"
   }
 }

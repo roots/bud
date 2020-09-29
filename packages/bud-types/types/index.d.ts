@@ -1,5 +1,4 @@
 /* eslint-disable @typescript-eslint/no-unused-vars */
-
 import * as Filesystem from '@roots/filesystem'
 import * as Container from '@roots/container'
 
@@ -28,6 +27,13 @@ declare class Bud extends Framework {
    * The compiler interface.
    */
   compiler: Compiler
+
+  /**
+   * ## bud.webpack
+   *
+   * @todo unsure how to type this object.
+   */
+  webpack: any
 
   /**
    * ## bud.build
@@ -987,10 +993,18 @@ declare namespace Bud {
   }
 
   export namespace Plugin {
+    export interface Extension extends Plugin {
+      make: () => void
+    }
+
+    export interface WebpackPlugin extends Plugin {
+      make: () => Webpack.Plugin
+    }
+
     /**
      * Function which returns a Plugin
      */
-    export type Factory = (bud: Bud) => Plugin
+    export type Factory = (bud: Bud) => Extension | WebpackPlugin
 
     /**
      * Plugin lifecycle.
@@ -998,17 +1012,13 @@ declare namespace Bud {
     export class Controller {
       bud: Bud
 
-      plugin: Plugin
+      plugin?: Plugin
 
-      options: Plugin.Options
+      constructor(app: Bud)
 
-      constructor(app: Bud, plugin: Factory)
+      select(key: string): this
 
-      setOptions(): void
-
-      mergeOptions(): void
-
-      make(): unknown
+      make(): Webpack.Plugin | void
     }
 
     /**
@@ -1280,6 +1290,8 @@ declare namespace Bud {
   export namespace Build {
     export type Configuration = Webpack.Configuration
 
+    export type Input = any
+
     export namespace Product {
       export type Entry = Webpack.Entry | Webpack.EntryFunc
       export type Externals = Webpack.ExternalsObjectElement
@@ -1322,6 +1334,67 @@ declare namespace Bud {
 
     export interface Index {
       [key: string]: Builders
+    }
+  }
+
+  export namespace CLI {
+    export namespace State {
+      export type Mode = Webpack.Configuration['mode']
+      export type Stats = Webpack.Stats.ToJsonOutput
+      export type Errors = Webpack.Stats.ToJsonOutput['errors']
+      export type Warnings = Webpack.Stats.ToJsonOutput['warnings']
+      /**
+       * @see Webpack.ProgressPlugin.Handler
+       */
+      export type Progress = {
+        percentage: number,
+        msg: string
+      }
+    }
+
+    export interface UseCompilation {
+      (props: CompileSources): Compilation
+    }
+
+    export interface Compilation {
+      /**
+       * All stats data
+       */
+      stats?: Bud.CLI.State.Stats
+
+      /**
+       * Formatted error messages
+       */
+      errors?: Bud.CLI.State.Errors
+
+      /**
+       * Formatted warning messages
+       */
+      warnings?: Bud.CLI.State.Warnings
+
+      /**
+       * Compile progress
+       */
+      progress: Bud.CLI.State.Progress
+
+      /**
+       * Is server listening?
+       */
+      listening: boolean
+
+      /**
+       * Is server running?
+       */
+      running: boolean
+
+      /**
+       * Is compiler in watch mode?
+       */
+      watching: boolean
+    }
+    export interface CompileSources {
+      compiler: Compiler
+      server: Server
     }
   }
 }

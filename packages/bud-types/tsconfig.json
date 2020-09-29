@@ -6,5 +6,5 @@
   },
   "compileOnSave": true,
   "include": ["types"],
-  "exclude": ["lib", "node_modules"]
+  "exclude": ["lib"]
 }

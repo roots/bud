@@ -42,7 +42,7 @@ declare type Plugin = {
   /**
    * Primary action of plugin.
    */
-  make: () => Bud.Plugin.Product
+  make: () => Bud.Plugin.Product | void
 
   /**
    * Whether or not to call `make`.

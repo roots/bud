@@ -34,7 +34,13 @@ export default class {
     }
   }
 
-  get webpack(): Bud.Use.Product {
+  public set(module: Bud.Use.Module): void {
+    Object.entries(module).forEach(([property, value]) => {
+      Object.assign(this, property, value)
+    })
+  }
+
+  make(): Bud.Use.Product {
     return Object.entries(this.get()).reduce(
       (properties, [prop, val]: [string, Bud.Use.Property]) => ({
         ...properties,
@@ -43,11 +49,5 @@ export default class {
       }),
       {},
     )
-  }
-
-  public set(module: Bud.Use.Module): void {
-    Object.entries(module).forEach(([property, value]) => {
-      Object.assign(this, property, value)
-    })
   }
 }

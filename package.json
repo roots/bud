@@ -60,6 +60,7 @@
   },
   "dependencies": {
     "@roots/bud": "file:packages/bud",
+    "@roots/bud-build": "file:packages/bud-build",
     "@roots/bud-cli": "file:packages/bud-cli",
     "@roots/bud-compiler": "file:packages/bud-compiler",
     "@roots/bud-config": "file:packages/bud-config",

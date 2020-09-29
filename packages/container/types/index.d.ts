@@ -28,6 +28,14 @@ export interface ContainerInterface extends Loose {
      */
     is(this: ContainerInterface, key: string, value: Item): boolean;
     /**
+     * Check if a given key is true
+     */
+    isTrue(this: ContainerInterface, key: string): boolean;
+    /**
+     * Check if a given key is truthy
+     */
+    isTruthy(this: ContainerInterface, key: string): boolean;
+    /**
      * Set a value
      */
     set(this: ContainerInterface, key: string, value: Item): void;
@@ -63,6 +71,7 @@ export interface ContainerInterface extends Loose {
      * Map a callback onto an iterable item
      */
     map(this: ContainerInterface, key: string, callback: (params: unknown) => unknown): unknown;
+    each(this: ContainerInterface, callback: (value: any, index: number, array: any[]) => void, key?: string): unknown;
     /**
      * Get all of the repository contents
      */

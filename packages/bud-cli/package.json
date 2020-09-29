@@ -33,11 +33,12 @@
     "clean:lib": "rimraf ./lib",
     "clean:modules": "rimraf ./node_modules",
     "clean:build": "rimraf ./tsconfig.build.tsbuildinfo",
-    "tsc": "tsc -p tsconfig.build.json",
+    "tsc": "tsc -p tsconfig.json",
     "lint": "eslint ."
   },
   "dependencies": {
     "@roots/bud": "file:../bud",
+    "@roots/bud-compiler": "file:../bud-compiler",
     "@roots/bud-server": "file:../bud-server",
     "@roots/bud-support": "file:../bud-support",
     "ink": "^3.0.0-6",

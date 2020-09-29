@@ -9,24 +9,24 @@ const general: Bud.Build.General = function (this: Bud) {
 
     devtool: this.hooks.filter(
       'webpack.devtool',
-      this.options.get('webpack.devtool') ?? false,
+      this.webpack.get('devtool') ?? false,
     ),
 
     mode: this.hooks.filter('webpack.mode', this.mode.get()),
 
     node: this.hooks.filter(
       'webpack.node',
-      this.options.get('webpack.node'),
+      this.webpack.get('node'),
     ),
 
     stats: this.hooks.filter(
       'webpack.stats',
-      this.options.get('webpack.stats'),
+      this.webpack.get('stats'),
     ),
 
     target: this.hooks.filter(
       'webpack.target',
-      this.options.get('webpack.target'),
+      this.webpack.get('target'),
     ),
 
     watch: this.hooks.filter(

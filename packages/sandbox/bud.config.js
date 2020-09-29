@@ -1,9 +1,4 @@
 /* eslint-disable */
-
-/**
- * @type {import('../bud-types').default} bud
- * @namespace {import('../bud-types).Bud}
- */
 const bud = require('@roots/bud')
 
 bud.postPluginAdd({
@@ -28,8 +23,6 @@ bud.when(
 )
 
 bud.compile() */
-
-/** @param {import('../bud').default} bud */
 /**
 module.exports = (bud) => {
   bud.bundle('app', ['index.js'])

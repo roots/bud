@@ -12,7 +12,7 @@ import terser from './terser'
 import watchMissingModules from './watchMissingModules'
 import writeFile from './writeFile'
 
-const plugins = [
+export default {
   brotli,
   gzip,
   cleanWebpack,
@@ -28,6 +28,4 @@ const plugins = [
   terser,
   writeFile,
   watchMissingModules,
-]
-
-export {plugins as default}
+}

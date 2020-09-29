@@ -11,69 +11,59 @@ import features from './features'
 import mode from './mode'
 import paths from './paths'
 import patterns from './patterns'
-
-import {options} from '../options'
-import Controller from '../Plugin'
-import plugins from '../plugins/index'
+import Webpack from '../Webpack'
 
 export default class extends Bud {
+  public api: unknown // a set of fns
+  public webpack: Webpack
+
   public constructor() {
     super()
-
-    this.build = Build.bind(this)
 
     this.compiler = new Compiler()
     this.server = new Server()
     this.hooks = this.makeHooks(this)
 
+    // containers
     this.args = this.makeContainer(args)
     this.env = this.makeContainer(env)
     this.features = this.makeContainer(features)
-    this.options = this.makeContainer(options)
+
     this.paths = this.makeContainer(paths)
     this.patterns = this.makeContainer(patterns)
-    this.plugins = this.makeContainer(plugins)
     this.loaders = this.makeContainer(modules)
     this.rules = this.makeContainer(rules)
     this.uses = this.makeContainer(uses)
+
+    this.webpack = new Webpack(this)
+
     this.mode = mode(this)
+    this.build = Build.bind(this)
 
     /**
-     * Produce the config API and bind scope.
+     * Set API and map top level `this.{fn}` => `this.config.{fn}`
+     * for convenient access
      */
-    Object.entries(Config).forEach(
+    Object.entries(Config).map(
       ([name, fn]: [string, CallableFunction]) => {
-        this[name] = fn
-        this[name] = this[name].bind(this)
+        this.api[name] = fn.bind(this)
+
+        Object.defineProperty(this, name, {
+          get: this.api[name],
+        })
       },
     )
 
-    /** Project disk (default)*/
+    // project vdisk
     this.fs = this.disks.set('project', {
       baseDir: this.paths.get('project'),
       glob: ['**/*'],
     })
 
-    /** framework disk */
+    // @roots vdisk
     this.disks.set('@roots', {
       baseDir: this.fs.path.resolve(__dirname, '../../'),
       glob: ['**/*'],
     })
-  }
-
-  /**
-   * @todo updateDisk / file watcher solution
-   */
-  public updateDisk: Bud['updateDisk'] = function (): void {
-    this.fs = this.disks.set('project', {
-      baseDir: this.paths.get('project'),
-      glob: ['**/*'],
-    })
-  }
-
-  public makePluginController: Bud['makePluginController'] = function (
-    plugin: Bud.Plugin.Factory,
-  ) {
-    return new Controller(this, plugin)
   }
 }
