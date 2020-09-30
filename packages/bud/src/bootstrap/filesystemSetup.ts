@@ -1,8 +1,6 @@
 import Bud from '@roots/bud-types'
 
 const filesystemSetup = function (this: Bud): void {
-  this.updateDisk()
-
   /**
    * Set package.
    */

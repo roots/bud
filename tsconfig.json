@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
-    "composite": true,
+    "composite": false,
     "declaration": true,
     "emitDecoratorMetadata": true,
     "experimentalDecorators": true,
@@ -10,7 +10,6 @@
     "jsx": "react",
     "moduleResolution": "node",
     "module": "commonjs",
-    "noLib": false,
     "noUnusedLocals": true,
     "noEmitOnError": true,
     "pretty": true,

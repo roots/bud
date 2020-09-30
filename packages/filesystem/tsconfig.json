@@ -1,0 +1,12 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "baseUrl": "./src",
+    "outDir": "./lib",
+    "declaration": true,
+    "declarationDir": "./types"
+  },
+  "compileOnSave": true,
+  "include": ["src"],
+  "exclude": ["lib", "node_modules"]
+}

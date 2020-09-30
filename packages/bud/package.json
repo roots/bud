@@ -22,15 +22,17 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib"],
+  "files": [
+    "lib",
+    "types"
+  ],
   "main": "lib/index.js",
-  "types": "lib/types/index.d.ts",
+  "types": "types/index.d.ts",
   "scripts": {
-    "build": "run-s -s clean:lib tsc",
+    "build": "run-s -s clean:* tsc",
     "clean:lib": "rimraf ./lib",
     "clean:modules": "rimraf ./node_modules",
-    "clean:build": "rimraf ./tsconfig.build.tsbuildinfo",
-    "tsc": "tsc -p tsconfig.build.json",
+    "tsc": "tsc -p tsconfig.json",
     "lint": "eslint ."
   },
   "dependencies": {
@@ -39,13 +41,14 @@
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/plugin-transform-runtime": "^7.11.5",
     "@babel/preset-env": "^7.11.5",
-    "@roots/bud-build": "file:../bud-build",
-    "@roots/bud-compiler": "file:../bud-compiler",
-    "@roots/bud-config": "file:../bud-config",
-    "@roots/bud-framework": "file:../bud-framework",
-    "@roots/bud-rules": "file:../bud-rules",
-    "@roots/bud-server": "file:../bud-server",
-    "@roots/bud-support": "file:../bud-support",
+    "@roots/bud-build": "file:../build",
+    "@roots/bud-compiler": "file:../compiler",
+    "@roots/bud-config": "file:../config",
+    "@roots/bud-framework": "file:../framework",
+    "@roots/bud-rules": "file:../rules",
+    "@roots/bud-server": "file:../server",
+    "@roots/bud-support": "file:../support",
+    "@roots/bud-types": "file:../types",
     "@roots/container": "file:../container",
     "@roots/dependencies": "file:../dependencies",
     "@roots/filesystem": "file:../filesystem",
@@ -56,7 +59,6 @@
     "compression-webpack-plugin": "^5.0.2",
     "copy-webpack-plugin": "^6.1.0",
     "css-loader": "^3.6.0",
-    "dotenv": "^8.2.0",
     "file-loader": "^6.0.0",
     "html-webpack-harddisk-plugin": "^1.0.2",
     "html-webpack-plugin": "^4.4.1",
@@ -66,9 +68,6 @@
     "mini-css-extract-plugin": "^0.9.0",
     "mini-svg-data-uri": "^1.2.3",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
-    "postcss-import": "^12.0.1",
-    "postcss-loader": "^3.0.0",
-    "postcss-preset-env": "^6.7.0",
     "raw-loader": "^4.0.1",
     "resolve-url-loader": "^3.1.1",
     "source-map-loader": "^1.0.1",
@@ -81,7 +80,6 @@
   },
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5",
   "devDependencies": {
-    "@roots/bud-types": "file:../bud-types",
     "@types/autoprefixer": "^9.7.2",
     "@types/node": "^14.11.2"
   }

@@ -2,94 +2,63 @@ import Bud from '@roots/bud-types'
 import checkEnvIsValid from './checkEnvIsValid'
 
 const parseArguments = function (this: Bud): void {
+  const args = this.store.use('args')
+  const features = this.store.use('features')
+  const paths = this.store.use('paths')
+
   /** Project dir */
-  this.args.has('project') &&
-    this.paths.set(
+  args.has('project') &&
+    paths.set(
       'project',
-      this.fs.path.resolve(
-        process.cwd(),
-        this.args.get('project'),
-      ),
+      this.fs.path.resolve(process.cwd(), args.get('project')),
     )
 
-  /** Src dir */
-  this.args.has('src') &&
-    this.paths.set(
-      'src',
-      this.fs.path.resolve(
-        this.paths.get('project'),
-        this.args.get('src'),
-      ),
+  if (args.has('src')) {
+    const src = this.fs.path.resolve(
+      paths.get('project'),
+      args.get('src'),
     )
+    paths.set('src', src)
+  }
 
   /** Dist dir */
-  this.args.has('dist') &&
-    this.paths.set(
+  args.has('dist') &&
+    paths.set(
       'dist',
       this.fs.path.resolve(
-        this.paths.get('project'),
-        this.args.get('dist'),
+        paths.get('project'),
+        args.get('dist'),
       ),
     )
 
   /** Set env */
-  this.args.has('env') &&
-    checkEnvIsValid(this.args.get('env')) &&
-    this.mode.set(this.args.get('env'))
+  args.has('env') &&
+    checkEnvIsValid(args.get('env')) &&
+    this.mode.set(args.get('env'))
 
-  /** Devtool */
-  this.args.get('devtool') &&
-    this.options.set('webpack.devtool', this.args.get('devtool'))
-
-  /** Target */
-  this.args.get('target') &&
-    this.options.set('webpack.target', this.args.get('target'))
+  /* eslint-disable */
+  // args.has('devtool') && this.webpack.set('devtool', args.get('devtool'))
+  // args.has('target') && this.webpack.set('target', args.get('target'))
+  args.has('brotli') && features.set('brotli', args.get('brotli'))
+  args.has('ci') && features.set('ci', args.get('ci'))
+  args.has('gzip') && features.set('gzip', args.get('gzip'))
+  args.has('hash') && features.set('hash', args.get('hash'))
+  args.has('hot') && features.set('hot', args.get('hot'))
+  args.has('html') && features.set('html', args.get('html'))
+  args.has('minify') && features.set('minify', args.get('minify'))
+  args.has('runtime') && features.set('runtimeChunk', args.get('runtime'))
+  args.has('split') && features.set('splitChunks', args.get('split'))
+  args.has('vendor') && features.set('vendor', args.get('vendor'))
+  args.has('watch') && features.set('watch', args.get('watch'))
 
   /** HTML template */
-  this.args.get('template') &&
-    this.options.set(
-      'plugin.html.template',
-      this.fs.path.resolve(
-        this.fs.base,
-        this.args.get('template'),
-      ),
-    )
-
-  /**
-   * Set features.
-   */
-  this.args.has('brotli') &&
-    this.features.set('brotli', this.args.get('brotli'))
-
-  this.args.has('ci') &&
-    this.features.set('ci', this.args.get('ci'))
-
-  this.args.has('gzip') &&
-    this.features.set('gzip', this.args.get('gzip'))
-
-  this.args.has('hash') &&
-    this.features.set('hash', this.args.get('hash'))
-
-  this.args.has('hot') &&
-    this.features.set('hot', this.args.get('hot'))
-
-  this.args.has('html') &&
-    this.features.set('html', this.args.get('html'))
-
-  this.args.has('minify') &&
-    this.features.set('minify', this.args.get('minify'))
-
-  this.args.has('runtime') &&
-    this.features.set('runtimeChunk', this.args.get('runtime'))
-
-  this.args.has('split') &&
-    this.features.set('splitChunks', this.args.get('split'))
-
-  this.args.has('vendor') &&
-    this.features.set('vendor', this.args.get('vendor'))
-
-  this.args.has('watch') &&
-    this.features.set('watch', this.args.get('watch'))
+  /*
+    args.get('template') &&
+      this.webpack.setPlugin(
+        'plugin.html.template',
+        this.fs.path.resolve(this.fs.base, args.get('template')),
+      )
+  */
 }
 
 export {parseArguments as default}

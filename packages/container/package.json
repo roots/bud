@@ -22,21 +22,20 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib"],
+  "files": [
+    "lib",
+    "types"
+  ],
   "main": "./lib/index.js",
   "types": "./types/index.d.ts",
   "scripts": {
-    "build": "run-s -s clean:* tsc",
+    "build": "run-s -s clean:lib tsc",
     "clean:lib": "rimraf ./lib",
     "clean:modules": "rimraf ./node_modules",
-    "clean:build": "rimraf ./tsconfig.build.tsbuildinfo",
-    "tsc": "tsc -p tsconfig.build.json",
+    "tsc": "tsc -p tsconfig.json",
     "lint": "eslint ."
   },
   "dependencies": {
     "lodash": "^4.17.19"
-  },
-  "devDependencies": {
-    "@types/node": "^14.11.2"
   }
 }

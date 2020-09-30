@@ -4,14 +4,7 @@ import Container, {Loose} from '@roots/container'
 export abstract class Controller extends Container {
   public bud: Bud
 
-  /**
-   * Options store.
-   */
   public store: Bud.Framework.Container
-
-  /**
-   * Active plugin/extension
-   */
   public plugin?: Bud.Plugin.Extension | Bud.Plugin.WebpackPlugin
 
   public constructor(bud: Bud) {

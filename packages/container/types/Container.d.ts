@@ -3,7 +3,8 @@ import { ContainerInterface, Item, Loose } from '.';
  * Keyed item store.
  */
 declare class Container implements ContainerInterface {
-    repository: Loose;
+    public repository: Loose;
+
     constructor(repository?: Loose);
     /**
      * Push a new value onto an array item

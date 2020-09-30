@@ -1,0 +1,59 @@
+{
+  "name": "@roots/bud-support",
+  "version": "2.0.0-next.24",
+  "description": "Internal utilities for the @roots/bud monorepo.",
+  "homepage": "https://roots.io/bud",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "packages/bud-support"
+  },
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "license": "MIT",
+  "contributors": [
+    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
+  ],
+  "engines": {
+    "node": ">=12"
+  },
+  "files": [
+    "lib",
+    "publish"
+  ],
+  "main": "lib/index.js",
+  "types": "types/index.d.ts",
+  "scripts": {
+    "build": "run-s -s clean:* tsc",
+    "clean:lib": "rimraf ./lib",
+    "clean:modules": "rimraf ./node_modules",
+    "clean:build": "rimraf ./tsconfig.build.tsbuildinfo",
+    "tsc": "tsc -p ./tsconfig.json",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "chalk": "^4.1.0",
+    "execa": "^4.0.3",
+    "fs-extra": "^9.0.1",
+    "globby": "^11.0.1",
+    "lodash": "^4.17.20",
+    "node-notifier": "^8.0.0",
+    "react-dev-utils": "^10.2.1",
+    "update-notifier": "^4.1.1",
+    "yargs": "^16.0.3"
+  },
+  "devDependencies": {
+    "@roots/bud-types": "file:../types",
+    "@types/fs-extra": "^9.0.1",
+    "@types/lodash": "^4.14.161",
+    "@types/node": "^14.11.2",
+    "eslint": "^7.10.0",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2"
+  }
+}
