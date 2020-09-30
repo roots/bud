@@ -1,12 +1,15 @@
 import Bud from '@roots/bud-types'
 
 export const distPath: Bud.Config.DistPath = function (segment) {
-  !this.args.get('dist') &&
-    this.paths.set(
+  !this.store['args'].get('dist') &&
+    this.store['paths'].set(
       'dist',
       this.hooks.filter(
         'api.distPath',
-        this.fs.path.resolve(this.paths.get('project'), segment),
+        this.fs.path.resolve(
+          this.store['paths'].get('project'),
+          segment,
+        ),
       ),
     )
 

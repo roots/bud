@@ -1,14 +1,21 @@
 import Bud from '@roots/bud-types'
 
+import entry from './entry'
+import general from './general'
+import module from './module'
+import externals from './externals'
+import output from './output'
+import plugins from './plugins'
+import resolve from './resolve'
+
 export const builders: Bud.Build.Index = {
-  entry: require('./entry'),
-  general: require('./general'),
-  module: require('./module'),
-  externals: require('./externals'),
-  output: require('./output'),
-  optimization: require('./optimization'),
-  plugins: require('./plugins'),
-  resolve: require('./resolve'),
+  entry,
+  general,
+  module,
+  resolve,
+  externals,
+  output,
+  plugins,
 }
 
 const build: Bud['build'] = function (this: Bud) {

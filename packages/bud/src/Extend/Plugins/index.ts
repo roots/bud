@@ -9,6 +9,7 @@ import Container, {Loose} from '@roots/container'
 export default class Plugins extends Container {
   // lifecycle
   protected controller: Bud.Plugin.Controller
+  protected bud: Bud
 
   constructor(
     bud: Bud,
@@ -16,7 +17,9 @@ export default class Plugins extends Container {
   ) {
     super(plugins)
 
+    this.bud = bud
     this.controller = new PluginController(bud)
+    this.register(plugins)
   }
 
   /**
@@ -50,9 +53,12 @@ export default class Plugins extends Container {
    * @see {Webpack.Plugin}
    */
   public make(): Webpack.Configuration['plugins'] {
-    return Object.keys(this.entries()).reduce(
-      (plugins, plugin: string) => {
-        const results = this.controller.select(plugin).make()
+    return Object.values(this.repository).reduce(
+      (
+        plugins: Webpack.Configuration['plugins'],
+        plugin: Bud.Plugin.Factory,
+      ) => {
+        const results = this.controller.make(plugin(this.bud))
 
         if (results) {
           return [...plugins, results]

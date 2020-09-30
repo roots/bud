@@ -26,23 +26,17 @@
     "lib",
     "types"
   ],
-  "main": "lib/index.js",
-  "types": "types/index.d.ts",
+  "main": "./lib/index.js",
+  "types": "./types/index.d.ts",
   "scripts": {
-    "build": "run-s -s clean:lib tsc",
+    "build": "tsc --build",
     "clean:lib": "rimraf ./lib",
     "clean:modules": "rimraf ./node_modules",
-    "tsc": "tsc -p tsconfig.json",
+    "tsc": "tsc -b tsconfig.json",
     "lint": "eslint ."
   },
   "dependencies": {
-    "@babel/core": "^7.11.5",
-    "@babel/plugin-proposal-object-rest-spread": "^7.11.0",
-    "@babel/plugin-syntax-dynamic-import": "^7.8.3",
-    "@babel/plugin-transform-runtime": "^7.11.5",
-    "@babel/preset-env": "^7.11.5",
-    "babel-loader": "^8.1.0",
-    "babel-plugin-add-module-exports": "^1.0.4",
-    "@roots/bud-types": "file:../types"
+    "@roots/bud-types": "file:../types",
+    "postcss": "^8.1.1"
   }
 }

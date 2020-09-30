@@ -4,13 +4,16 @@ export const srcPath: Bud.Config.SrcPath = function (
   this: Bud,
   segment: string,
 ) {
-  if (this.args.get('src')) {
+  if (this.store['args'].get('src')) {
     return this
   }
 
-  this.paths.set(
+  this.store['paths'].set(
     'src',
-    this.fs.path.resolve(this.paths.get('project'), segment),
+    this.fs.path.resolve(
+      this.store['paths'].get('project'),
+      segment,
+    ),
   )
 
   return this

@@ -18,16 +18,14 @@ export const addExtensions: Bud.Config.AddExtensions = function (
 }
 
 function mergeExt(this: Bud, ext: string): void {
-  if (
-    this.webpack.config
-      .get('resolve.extensions')
-      .includes(`.${ext}`)
-  ) {
+  const webpack = this.store.use('webpack')
+
+  if (webpack.get('resolve.extensions').includes(`.${ext}`)) {
     return
   }
 
-  this.webpack.config.merge('resolve.extensions', [
-    ...this.webpack.config.get('resolve.extensions'),
+  webpack.merge('resolve.extensions', [
+    ...webpack.get('resolve.extensions'),
     `.${ext}`,
   ])
 }

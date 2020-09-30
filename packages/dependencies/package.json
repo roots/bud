@@ -30,10 +30,13 @@
   "main": "./lib/index.js",
   "types": "./types/index.d.ts",
   "scripts": {
-    "build": "run-s -s clean:* tsc",
+    "build": "tsc --build",
     "clean:lib": "rimraf ./lib",
     "clean:modules": "rimraf ./node_modules",
     "tsc": "tsc -p ./tsconfig.json",
     "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@types/node": "^14.11.2"
   }
 }

@@ -7,20 +7,8 @@ export type ApplicationCli = (
   props: ApplicationCliProps,
 ) => Instance
 
-const app: ApplicationCli = ({
-  name,
-  compiler,
-  server,
-  terminate,
-}) =>
-  render(
-    <App
-      name={name}
-      compiler={compiler}
-      server={server}
-      terminate={terminate}
-    />,
-  )
+const app: ApplicationCli = ({name, compiler, server}) =>
+  render(<App name={name} compiler={compiler} server={server} />)
 
 export default app
 export {ApplicationCliProps, Instance}

@@ -17,24 +17,11 @@ interface ApplicationCliProps {
   name: string
   compiler: Compiler
   server: Server
-  terminate: CallableFunction
-  update?: {
-    latest: string
-    current: string
-    type: string
-    name: string
-  } | null
 }
 
 type ApplicationCli = FunctionComponent<ApplicationCliProps>
 
-const App: ApplicationCli = ({
-  name,
-  compiler,
-  server,
-  terminate,
-  update = null,
-}) => {
+const App: ApplicationCli = ({name, compiler, server}) => {
   const app = useApp()
   const {dimensions, col, ctx} = useAppStyles()
   const compilation = useCompilation({
@@ -45,7 +32,7 @@ const App: ApplicationCli = ({
   useInput(input => {
     if (input == 'q') {
       app.exit()
-      terminate()
+      process.exit()
     }
   })
 
@@ -56,7 +43,7 @@ const App: ApplicationCli = ({
       compilation?.progress?.percentage == 100
     ) {
       app.exit()
-      terminate()
+      process.exit()
     }
   }, [compilation])
 

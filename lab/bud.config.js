@@ -1,6 +1,10 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const bud = require('@roots/bud')
+const bud = require('../packages/bud/lib/index')
 
-console.log(bud.store.get('webpack', 'output'))
+const [webpack] = bud.store.query(['webpack'])
 
-process.exit()
+webpack.set('mode', 'production')
+console.log(webpack.repository, bud.compiler.getConfig())
+
+bud.bundle('foo', ['index.js'])
+console.log(bud.store['server'], bud.store['webpack'], bud.server.getConfig(), bud.compiler.getConfig())

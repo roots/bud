@@ -29,7 +29,7 @@
   "main": "./lib/index.js",
   "types": "./types/index.d.ts",
   "scripts": {
-    "build": "run-s -s clean:* tsc",
+    "build": "tsc --build",
     "clean:lib": "rimraf ./lib",
     "clean:modules": "rimraf ./node_modules",
     "tsc": "tsc -p ./tsconfig.json",
@@ -41,5 +41,8 @@
     "fs-extra": "^9.0.1",
     "globby": "^11.0.1",
     "resolve-from": "^5.0.0"
+  },
+  "devDependencies": {
+    "@types/node": "^14.11.2"
   }
 }

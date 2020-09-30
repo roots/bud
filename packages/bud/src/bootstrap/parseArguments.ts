@@ -36,9 +36,12 @@ const parseArguments = function (this: Bud): void {
     checkEnvIsValid(args.get('env')) &&
     this.mode.set(args.get('env'))
 
+  args.has('devtool') &&
+    this.store['webpack'].set('devtool', args.get('devtool'))
+  args.has('target') &&
+    this.store['webpack'].set('target', args.get('target'))
+
   /* eslint-disable */
-  // args.has('devtool') && this.webpack.set('devtool', args.get('devtool'))
-  // args.has('target') && this.webpack.set('target', args.get('target'))
   args.has('brotli') && features.set('brotli', args.get('brotli'))
   args.has('ci') && features.set('ci', args.get('ci'))
   args.has('gzip') && features.set('gzip', args.get('gzip'))
@@ -50,15 +53,6 @@ const parseArguments = function (this: Bud): void {
   args.has('split') && features.set('splitChunks', args.get('split'))
   args.has('vendor') && features.set('vendor', args.get('vendor'))
   args.has('watch') && features.set('watch', args.get('watch'))
-
-  /** HTML template */
-  /*
-    args.get('template') &&
-      this.webpack.setPlugin(
-        'plugin.html.template',
-        this.fs.path.resolve(this.fs.base, args.get('template')),
-      )
-  */
 }
 
 export {parseArguments as default}

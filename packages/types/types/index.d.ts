@@ -6,6 +6,8 @@ import Framework from './Framework'
 import Build from './Build'
 import Compiler from './Compiler'
 import Plugin from './Plugin'
+import Extension from './Extension'
+
 import Server from './Server'
 import Use from './Use'
 import Rule from './Rule'
@@ -20,7 +22,7 @@ import PostCss from 'postcss-loader'
 
 export default Bud
 
-declare abstract class Bud extends Framework {
+declare class Bud extends Framework {
   /**
    * ## bud.compiler
    *
@@ -29,11 +31,13 @@ declare abstract class Bud extends Framework {
   compiler: Compiler
 
   /**
-   * ## bud.webpack
+   * ## bud.store
    *
-   * @todo unsure how to type this object.
+   * @todo typings
    */
-  store: any
+  store: Bud.Store
+
+  plugins: any
 
   /**
    * ## bud.build
@@ -45,11 +49,6 @@ declare abstract class Bud extends Framework {
    * ```
    */
   build: Build
-
-  /**
-   * ## bud.loaders
-   */
-  loaders: Bud.Framework.Container
 
   /**
    * ## bud.fs
@@ -76,39 +75,6 @@ declare abstract class Bud extends Framework {
    * Dev server
    */
   server: Server
-
-  /**
-   * ## bud.args
-   *
-   * Arguments passed on invocation.
-   *
-   * ```js
-   * bud.args.get('hot')
-   * ```
-   */
-  args: Bud.Framework.Container
-
-  /**
-   * ## bud.env
-   *
-   * Project environment variables.
-   *
-   * ```js
-   * bud.env.get('APP_NAME')
-   * ```
-   *
-   * ```js
-   * bud.env.get('APP_SECRET')
-   * ```
-   */
-  env: Bud.Framework.Container
-
-  /**
-   * ## bud.features
-   *
-   * Status of features
-   */
-  features: Bud.Framework.Container
 
   /**
    * ## bud.hooks
@@ -148,47 +114,103 @@ declare abstract class Bud extends Framework {
    */
   mode: Bud.Mode.Mode
 
-  /**
-   * ## bud.package
-   *
-   * Project package.json info.
-   *
-   * ```js
-   * bud.package.get('dependencies')
-   * ```
-   */
-  package?: Bud.Framework.Container
-
-  /**
-   * ## bud.paths
-   *
-   * Project and framework paths.
-   */
-  paths: Bud.Framework.Container
-
-  /**
-   * ## bud.patterns
-   *
-   * RegExp stash box.
-   */
-  patterns: Bud.Framework.Container
-
-  /**
-   * ## bud.plugins
-   *
-   * @see Webpack.RuleSetRule
-   */
-  rules: Bud.Framework.Container
-
-  /**
-   * ## bud.uses
-   *
-   * @see Webpack.RuleSetLoader
-   */
-  uses: Bud.Framework.Container
+  when: Bud.Config.When
 }
 
 declare namespace Bud {
+  export type Store = {
+    use(name: string): Bud.Framework.Container
+    create(name: string, repo: Bud.Framework.Repository): unknown
+
+    state: {
+      [key: string]: any
+
+      /**
+       * ## bud.package
+       *
+       * Project package.json info.
+       *
+       * ```js
+       * bud.package.get('dependencies')
+       * ```
+       */
+      package: Container.ContainerInterface
+
+      /**
+       * ## bud.paths
+       *
+       * Project and framework paths.
+       */
+      paths: Container.ContainerInterface
+
+      /**
+       * ## bud.patterns
+       *
+       * RegExp stash box.
+       */
+      patterns: Container.ContainerInterface
+
+      /**
+       * ## bud.server
+       *
+       * Dev server
+       */
+      server: Container.ContainerInterface
+
+      /**
+       * ## bud.args
+       *
+       * Arguments passed on invocation.
+       *
+       * ```js
+       * bud.args.get('hot')
+       * ```
+       */
+      args: Bud.Framework.Container
+
+      /**
+       * ## bud.env
+       *
+       * Project environment variables.
+       *
+       * ```js
+       * bud.env.get('APP_NAME')
+       * ```
+       *
+       * ```js
+       * bud.env.get('APP_SECRET')
+       * ```
+       */
+      env: Bud.Framework.Container
+
+      /**
+       * ## bud.features
+       *
+       * Status of features
+       */
+      features: Bud.Framework.Container
+
+      /**
+       * ## bud.loaders
+       */
+      loaders: Bud.Framework.Container
+
+      /**
+       * ## bud.plugins
+       *
+       * @see Webpack.RuleSetRule
+       */
+      rules: Bud.Framework.Container
+
+      /**
+       * ## bud.uses
+       *
+       * @see Webpack.RuleSetLoader
+       */
+      uses: Bud.Framework.Container
+    }
+  }
+
   export namespace Config {
     export type Dist = Config.PathGetter
     export type Project = Config.PathGetter
@@ -369,7 +391,7 @@ declare namespace Bud {
     }
 
     export interface Factory {
-      (this: Use): Literal
+      (this: Bud): Literal
     }
 
     export type Property = Literal | Factory
@@ -407,7 +429,7 @@ declare namespace Bud {
      * Rule property defined with a callable.
      */
     export interface Factory<Product> {
-      (this: Rule): Product
+      (this: Bud): Product
     }
 
     /**
@@ -479,10 +501,6 @@ declare namespace Bud {
   }
 
   export namespace Plugin {
-    export interface Extension extends Plugin {
-      make: () => void
-    }
-
     export interface WebpackPlugin extends Plugin {
       make: () => Webpack.Plugin
     }
@@ -490,7 +508,7 @@ declare namespace Bud {
     /**
      * Function which returns a Plugin
      */
-    export type Factory = (bud: Bud) => Extension | WebpackPlugin
+    export type Factory = (bud: Bud) => WebpackPlugin
 
     /**
      * Plugin lifecycle.
@@ -502,9 +520,7 @@ declare namespace Bud {
 
       constructor(app: Bud)
 
-      select(key: string): this
-
-      make(): Webpack.Plugin | void
+      make(plugin: Plugin.WebpackPlugin): Webpack.Plugin
     }
 
     /**

@@ -22,21 +22,18 @@
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "lib"
-  ],
+  "files": ["lib", "types"],
   "main": "./lib/index.js",
-  "types": "./lib/types/index.d.ts",
+  "types": "./types/index.d.ts",
   "scripts": {
-    "build": "run-s -s clean:* tsc",
+    "build": "tsc --build",
     "clean:lib": "rimraf ./lib",
     "clean:modules": "rimraf ./node_modules",
-    "clean:build": "rimraf ./tsconfig.build.tsbuildinfo",
-    "tsc": "tsc -p ./tsconfig.json",
+    "tsc": "tsc -b",
     "lint": "eslint ."
   },
   "dependencies": {
-    "@roots/bud-support": "file:../support",
+    "@roots/bud-support": "2.0.0-next.24",
     "express": "^4.17.1",
     "http-proxy-middleware": "^1.0.5",
     "webpack": "^4.44.1",

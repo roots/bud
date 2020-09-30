@@ -24,24 +24,6 @@
     "packages/extensions/vue",
     "packages/extensions/manifests"
   ],
-  "npmClientArgs": [
-    "--production",
-    "--no-optional",
-    "--ci"
-  ],
-  "changelog": {
-    "repo": "@roots/bud",
-    "cacheDir": ".changelog",
-    "nextVersion": "2.0.0",
-    "labels": {
-      "PR: Breaking Change :boom:": ":boom: Breaking Change",
-      "PR: Feature :rocket:": ":rocket: New Feature",
-      "PR: Fix :bug:": ":bug: Bug Fix",
-      "PR: Polish :nail_care:": ":nail_care: Polish",
-      "PR: Chore :broom:": ":broom: Chore",
-      "PR: Docs :memo:": ":memo: Documentation",
-      "PR: Internal :house:": ":house: Internal",
-      "PR: Revert :leftwards_arrow_with_hook:": ":leftwards_arrow_with_hook: Revert"
-    }
-  }
+  "npmClient": "yarn",
+  "useWorkspaces": true
 }

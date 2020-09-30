@@ -2,8 +2,8 @@
 node_modules
 coverage
 dist
-packages/**/lib
-packages/**/types
+**/lib
+**/types
 !packages/container/types
 !packages/dependencies/types
 !packages/filesystem/types

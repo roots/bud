@@ -17,9 +17,15 @@ const useCompilation: Bud.CLI.UseCompilation = ({
   const [stats, setStats] = useState<Bud.CLI.State.Stats>(null)
 
   /* eslint-disable */
-  const [errors, setErrors] = useState<Bud.CLI.State.Errors>(null)
-  const [warnings, setWarnings] = useState<Bud.CLI.State.Warnings>(null)
-  const [progress, setProgress] = useState<Bud.CLI.State.Progress>({
+  const [errors, setErrors] = useState<Bud.CLI.State.Errors>(
+    null,
+  )
+  const [warnings, setWarnings] = useState<
+    Bud.CLI.State.Warnings
+  >(null)
+  const [progress, setProgress] = useState<
+    Bud.CLI.State.Progress
+  >({
     percentage: 0,
     msg: '',
   })

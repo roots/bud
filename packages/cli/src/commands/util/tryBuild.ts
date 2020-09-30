@@ -1,5 +1,4 @@
 import * as preflight from './preflight'
-import bud from '@roots/bud'
 import {fs} from '@roots/bud-support'
 
 export const tryBuild = async (
@@ -26,15 +25,13 @@ export const tryBuild = async (
        */
       cfg?.hasOwnProperty('default') &&
         typeof cfg.default == 'function' &&
-        preflight.compile(cfg.default(bud))
+        preflight.compile()
 
       /**
        * If it is a cjs export we'll call the
        * function that was passed in, bless em.
        */
-      cfg &&
-        typeof cfg == 'function' &&
-        preflight.compile(cfg.default(bud))
+      cfg && typeof cfg == 'function' && preflight.compile()
     })
     .catch(err => {
       require(cfgPath)

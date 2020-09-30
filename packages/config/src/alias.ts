@@ -4,9 +4,11 @@ export const alias: Bud.Config.Alias = function (
   this: Bud,
   aliases: Bud.Framework.Repository,
 ) {
-  this.options.set('webpack.resolve.alias', {
-    ...this.options.get('webpack.resolve.alias'),
-    ...this.hooks.filter('api.alias', aliases),
+  const webpack = this.store.use('webpack')
+
+  webpack.set('resolve.alias', {
+    ...webpack.get('resolve.alias'),
+    aliases,
   })
 
   return this

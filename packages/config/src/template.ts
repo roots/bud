@@ -5,14 +5,14 @@ export const template: Bud.Config.Template = function ({
   replacements,
 }) {
   template &&
-    this.options.set(
-      'plugins.html.template',
+    this.store['plugins'].set(
+      'html.template',
       this.hooks.filter('api.template', template),
     )
 
   replacements &&
-    this.options.merge(
-      'plugins.html.replacements',
+    this.store['plugins'].set(
+      'html.replacements',
       this.hooks.filter('api.html.replacements', replacements),
     )
 

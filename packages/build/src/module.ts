@@ -7,7 +7,7 @@ const moduleBuilder: Bud.Build.General = function (this: Bud) {
         {parser: {requireEnsure: false}},
         {
           oneOf: [
-            ...this.rules
+            ...this.store['rules']
               .entries()
               .reduce(
                 (

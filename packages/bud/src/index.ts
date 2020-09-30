@@ -10,20 +10,18 @@ process.on('unhandledRejection', processHandler)
 parseArguments.bind(bud)()
 filesystemSetup.bind(bud)()
 
-const [server, features, webpack] = [
-  bud.store.use('server'),
-  bud.store.use('features'),
-  bud.store.use('webpack'),
-]
+bud.store['webpack'].set('output.publicPath', '/')
+bud.store['webpack'].set('mode', bud.mode.get())
+bud.store['features'].enabled('hot') &&
+  bud.store['server'].enable('hot')
 
-webpack.set('output.publicPath', '/foo')
-features.enabled('hot') && server.enable('hot')
-bud.mode.is('development') && features.enabled('dev')
+bud.mode.is('development') &&
+  bud.store['features'].enabled('dev')
 
-/* plugins.merge('html.replacements', {
-  ...bud.env.repository,
-  ...bud.package.repository,
-}) */
+bud.store['plugins'].merge('html.replacements', {
+  ...bud.store['env'].repository,
+  ...bud.store['package'].repository,
+})
 
-module.exports = bud
 export {bud as default}
+module.exports = bud

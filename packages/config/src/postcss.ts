@@ -7,18 +7,18 @@ export const postcss: Bud.Config.PostCss = function ({
   parser = null,
   stringifier = null,
 }) {
-  this.features.set('postcss', true)
+  this.store['features'].set('postcss', true)
 
-  syntax && this.options.set('postcss.syntax', syntax)
-  map && this.options.set('postcss.map', map)
-  parser && this.options.set('postcss.parser', parser)
+  syntax && this.store['postcss'].set('syntax', syntax)
+  map && this.store['postcss'].set('map', map)
+  parser && this.store['postcss'].set('parser', parser)
 
   stringifier &&
-    this.options.set('postcss.stringifier', stringifier)
+    this.store['postcss'].set('stringifier', stringifier)
 
   plugins &&
-    this.options.set('postcss.plugins', [
-      ...this.options.get('postcss.plugins'),
+    this.store['postcss'].set('plugins', [
+      ...this.store['postcss'].get('plugins'),
       ...plugins,
     ])
 

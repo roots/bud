@@ -96,9 +96,14 @@ export default class {
 
     Object.entries(rule).forEach(([property, value]) => {
       Object.assign(this, property, value)
+      this[property] = this[property].bind(this.bud)
 
       if (typeof this[property] == 'function') {
-        Object.assign(this, property, this[property].bind(this))
+        Object.assign(
+          this,
+          property,
+          this[property].bind(this.bud),
+        )
       }
     })
 
@@ -135,7 +140,7 @@ export default class {
           typeof val !== 'undefined' &&
           typeof val == 'function' &&
           val.hasOwnProperty('bind')
-            ? val.bind(this)()
+            ? val.bind(this.bud)()
             : val,
       }),
       {},

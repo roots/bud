@@ -38,4 +38,3 @@ declare class Use {
    */
   make(): Bud.Use.Product
 }
-

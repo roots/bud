@@ -7,13 +7,13 @@ export const postPluginAdd: Bud.Config.PostPluginAdd = function (
   entry,
 ) {
   if (isArray(entry)) {
-    this.options.set('postcss.plugins', {
-      ...this.options.get('postcss.plugins'),
+    this.store['postcss'].set('plugins', {
+      ...this.store['postcss'].get('plugins'),
       ...(entry as Bud.Config.PostPluginStore[]),
     })
   } else {
-    this.options.set('postcss.plugins', {
-      ...this.options.get('postcss.plugins'),
+    this.store['postcss'].set('plugins', {
+      ...this.store['postcss'].get('plugins'),
       ...(entry as Bud.Config.PostPluginStore),
     })
   }

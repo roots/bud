@@ -3,7 +3,6 @@ import output from './output'
 import optimization from './optimization'
 import performance from './performance'
 import resolve from './resolve'
-import plugins from './plugins'
 
 export default {
   node,
@@ -11,5 +10,6 @@ export default {
   optimization,
   performance,
   resolve,
-  plugins,
+  entry: {},
+  plugins: [],
 }

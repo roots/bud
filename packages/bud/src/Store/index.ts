@@ -1,20 +1,37 @@
 import Container, {Loose} from '@roots/container'
 
 export default class Store {
-  state: Container
+  [key: string]: any
+  state: any
 
-  public constructor() {
+  public constructor(repo: Loose) {
     this.state = new Container()
 
     this.get = this.get.bind(this)
     this.set = this.set.bind(this)
     this.create = this.create.bind(this)
+
+    repo &&
+      Object.entries(repo).forEach(([key, val]) => {
+        this.create(key, val)
+      })
   }
 
   public create(name: string, state: Loose): Container {
     this.state[name] = new Container(state)
 
+    Object.defineProperty(this, name, {
+      get: () => this.state[name],
+      set: val => {
+        this.state['name'] = val
+      },
+    })
+
     return this.use(name)
+  }
+
+  public query(stores: string[]): Container[] {
+    return stores.map(store => this[store])
   }
 
   public use(name: string): Container {

@@ -1,9 +1,9 @@
 import Bud from '@roots/bud-types'
 
 export const devtool: Bud.Config.Devtool = function (devtool?) {
-  this.features.enable('devtool')
+  this.store['features'].enable('devtool')
 
-  devtool && this.options.set('webpack.devtool', devtool)
+  devtool && this.store['webpack'].set('devtool', devtool)
 
   return this
 }

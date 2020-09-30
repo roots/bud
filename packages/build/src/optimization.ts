@@ -10,7 +10,9 @@ const optimization: Bud.Build.Optimization = function () {
         ? {
             runtimeChunk: this.hooks.filter(
               'optimization.runtimeChunk',
-              this.webpack.get('optimization.runtimeChunk'),
+              this.store['webpack'].get(
+                'optimization.runtimeChunk',
+              ),
             ),
           }
         : []),
@@ -21,7 +23,7 @@ const optimization: Bud.Build.Optimization = function () {
               cacheGroups: {
                 vendor: this.hooks.filter(
                   'optimization.splitChunks.cacheGroups.vendor',
-                  this.webpack.get(
+                  this.store['webpack'].get(
                     'optimization.splitChunks.cacheGroups.vendor',
                   ),
                 ),

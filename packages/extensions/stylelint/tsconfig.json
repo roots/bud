@@ -1,12 +1,12 @@
 {
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "./src",
+    "rootDir": "./src",
     "outDir": "./lib",
     "declaration": true,
     "declarationDir": "./types"
   },
   "compileOnSave": true,
-  "include": ["src"],
+  "include": ["./src/**/*"],
   "exclude": ["lib", "node_modules"]
 }

@@ -1,12 +1,13 @@
-import Webpack from 'webpack'
 import Bud from '@roots/bud-types'
 import {injectClient} from '@roots/bud-server'
 
-export const compile: Bud.Config.Compile = async function () {
-  this.when(this.options.get('server.hot'), inject.bind(this))
-  this.compiler
-    .setConfig(this.build() as Webpack.Configuration)
-    .compile()
+export const compile: Bud.Config.Compile = async function (
+  this: Bud,
+): Promise<void> {
+  this.when(this.store['server'].get('hot'), inject.bind(this))
+
+  this.compiler.setConfig(this.build()).compile()
+
   this.when(this.mode.is('development'), dev.bind(this))
 
   /**
@@ -16,16 +17,12 @@ export const compile: Bud.Config.Compile = async function () {
    * in order to sidestep making a circular
    * dependency: @roots/bud => @roots/bud-cli => @roots/bud
    */
-  const {default: app} = await import(
-    this.disks.get('@roots').get('bud-cli')
-  )
+  const {default: app} = await import('@roots/bud-cli')
 
   app({
-    name: this.package.get('name'),
+    name: this.store['package'].get('name') ?? '@roots/bud',
     compiler: this.compiler,
     server: this.server,
-    terminate: this.terminate,
-    update: this.update,
   })
 }
 
@@ -34,19 +31,19 @@ export const compile: Bud.Config.Compile = async function () {
  */
 function inject(): void {
   const entrypoints = injectClient({
-    entrypoints: this.options.get('webpack.entry'),
+    entrypoints: this.store['webpack'].get('entry'),
   })
 
-  this.options.set('webpack.entry', entrypoints)
+  this.store['webpack'].set('entry', entrypoints)
 }
 
 /**
  * setup devServer
  */
-function dev(): void {
+function dev(this: Bud): void {
   this.server
     .setCompiler(this.compiler.getCompiler())
-    .setConfig(this.options.get('server'))
+    .setConfig(this.store['server'].repository)
     .addDevMiddleware()
 
   const {hot, to} = this.server.getConfig()

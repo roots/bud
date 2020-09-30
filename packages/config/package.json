@@ -27,23 +27,22 @@
     "types"
   ],
   "main": "lib/index.js",
+  "types": "types/index.d.ts",
   "scripts": {
-    "build": "run-s -s clean:lib tsc",
+    "build": "tsc --build",
     "clean:lib": "rimraf ./lib",
     "clean:modules": "rimraf ./node_modules",
-    "tsc": "tsc -p tsconfig.json",
     "lint": "eslint ."
   },
   "dependencies": {
-    "@roots/bud-server": "file:../server",
-    "@roots/bud-support": "file:../support"
+    "@roots/bud-server": "2.0.0-next.24",
+    "@roots/bud-types": "2.0.0-next.24",
+    "@roots/bud-support": "2.0.0-next.24"
   },
   "devDependencies": {
-    "@roots/bud-types": "file:../types",
-    "@types/node": "^14.11.2",
-    "eslint": "^7.10.0",
-    "npm-run-all": "^4.1.5",
-    "rimraf": "^3.0.2"
+    "autoprefixer": "^10.0.1",
+    "postcss": "^8.1.1",
+    "postcss-loader": "^4.0.2"
   },
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5"
 }

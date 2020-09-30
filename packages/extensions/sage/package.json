@@ -24,13 +24,13 @@
     "node": ">=12"
   },
   "files": ["lib"],
-  "main": "lib/index.js",
-  "types": "types/index.d.ts",
+  "main": "./lib/index.js",
+  "types": "./types/index.d.ts",
   "scripts": {
-    "build": "run-s -s clean:* tsc",
+    "build": "tsc --build",
     "clean:lib": "rimraf ./lib",
     "clean:modules": "rimraf ./node_modules",
-    "tsc": "tsc -p tsconfig.json",
+    "tsc": "tsc -b tsconfig.json",
     "lint": "eslint ."
   },
   "dependencies": {

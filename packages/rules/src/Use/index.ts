@@ -20,7 +20,11 @@ export default class {
       Object.assign(this, property, value)
 
       if (typeof this[property] == 'function') {
-        Object.assign(this, property, this[property].bind(this))
+        Object.assign(
+          this,
+          property,
+          this[property].bind(this.bud),
+        )
       }
     })
 
@@ -48,7 +52,7 @@ export default class {
       (properties, [prop, val]: [string, Bud.Use.Property]) => ({
         ...properties,
         [prop]:
-          typeof val == 'function' ? val.bind(this)() : val,
+          typeof val == 'function' ? val.bind(this.bud)() : val,
       }),
       {},
     )

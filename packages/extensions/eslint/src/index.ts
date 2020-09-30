@@ -18,7 +18,7 @@ export const plugin: Bud.Plugin.Factory = (bud: Bud) => ({
 
     this.bud.features.set('eslint', true)
 
-    this.bud.loaders.set('eslint', {
+    this.bud.store['loaders'].set('eslint', {
       loader: require.resolve('eslint-loader'),
       options: {
         configFile: this.bud.fs.get('eslint'),
@@ -32,7 +32,7 @@ export const plugin: Bud.Plugin.Factory = (bud: Bud) => ({
       'webpack.module.rules.js.use',
       (loaders: Configuration['module']['rules']) => [
         ...loaders,
-        this.bud.loaders.get('eslint'),
+        this.bud.store['loaders'].get('eslint'),
       ],
     )
   },

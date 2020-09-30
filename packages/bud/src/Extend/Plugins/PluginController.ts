@@ -1,18 +1,17 @@
 import Bud from '@roots/bud-types'
-import BaseController from '../Controller'
+import webpack from 'webpack'
 
-export default class PluginController extends BaseController {
-  public plugin?: Bud.Plugin.WebpackPlugin
+export default class PluginController {
+  bud: Bud
 
   public constructor(bud: Bud) {
-    super(bud)
-
+    this.bud = bud
     this.make = this.make.bind(this)
   }
 
-  public make(): Bud.Plugin.Product {
-    if (this.plugin.when && this.plugin.when()) {
-      return this.plugin.make()
+  public make(plugin: Bud.Plugin.WebpackPlugin): webpack.Plugin {
+    if (plugin?.when && plugin.when()) {
+      return plugin.make()
     }
   }
 }

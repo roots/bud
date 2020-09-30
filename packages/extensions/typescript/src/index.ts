@@ -22,21 +22,21 @@ const TypescriptSupport: Bud.Plugin.Factory = (bud: Bud) => ({
   make: function (this: Bud.Plugin.Extension) {
     this.bud.addExtensions(['ts', 'tsx'])
 
-    this.bud.patterns.set('typescript', /\.(ts|tsx)$/)
+    this.bud.store['pattterns'].set('typescript', /\.(ts|tsx)$/)
 
-    this.bud.loaders.set(
+    this.bud.store['loaders'].set(
       'typescript',
       require.resolve('ts-loader'),
     )
 
-    this.bud.loaders.set('typescript', {
-      loader: this.bud.loaders.get('typescript'),
+    this.bud.store['loaders'].set('typescript', {
+      loader: this.bud.store['loaders'].get('typescript'),
       options: {
         configFile: this.bud.fs.resolve('tsconfig.json'),
       },
     })
 
-    this.bud.rules.set('typescript', rule)
+    this.bud.store['rules'].set('typescript', rule)
 
     /**
      * Add typescript config function to Bud.Config

@@ -2,6 +2,8 @@ import Bud from '@roots/bud-types'
 
 const sass: Bud.Plugin.Factory = (bud: Bud) => ({
   bud,
+  loaders: bud.store['loaders'],
+  rules: bud.store['rules'],
 
   make: function () {
     /**
@@ -12,7 +14,7 @@ const sass: Bud.Plugin.Factory = (bud: Bud) => ({
     /**
      * Loader options
      */
-    if (!this.bud.options.has('sass')) {
+    if (!this.bud.store['sass']) {
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       const implementation = require(this.bud.fs.from.silent(
         this.bud.paths.get('project'),
@@ -23,47 +25,53 @@ const sass: Bud.Plugin.Factory = (bud: Bud) => ({
           'node-sass',
         ))
 
-      this.bud.options.set('sass.implementation', implementation)
+      this.bud.store['sass'].set(
+        'implementation',
+        implementation,
+      )
     }
 
     /**
      * Loader
      */
-    !this.bud.loaders.has('sass') &&
-      this.bud.loaders.set('sass', {
+    !this.loaders.has('sass') &&
+      this.loaders.set('sass', {
         loader: this.bud.fs.from(
           this.bud.paths.get('project'),
           'sass-loader',
         ),
-        options: this.bud.options.get('sass'),
+        options: this.bud.store['sass'],
       })
 
     /**
      * Module
      */
-    this.bud.rules.set('sass', {
-      test: this.bud.patterns.get('sass'),
+    this.rules.set('sass', {
+      test: this.bud.store['pattterns'].get('sass'),
       use: [
         this.bud.mode.is('production')
-          ? this.bud.loaders.get('minicss')
-          : this.bud.loaders.get('style'),
+          ? this.loaders.get('minicss')
+          : this.loaders.get('style'),
         {
-          ...this.bud.loaders.get('css'),
+          ...this.loaders.get('css'),
           options: {
-            ...this.bud.loaders.get('css').options,
+            ...this.loaders.get('css.options'),
             importLoaders: 2,
           },
         },
         {
-          ...this.bud.loaders.get('postcss'),
+          ...this.loaders.get('postcss'),
           options: {
-            ...this.bud.loaders.get('postcss.options'),
+            ...this.loaders.get('postcss.options'),
             postcssOptions: {
+              ...this.loaders.get(
+                'postcss.options.postcssOptions',
+              ),
               syntax: require('postcss-scss'),
             },
           },
         },
-        this.bud.loaders.get('sass'),
+        this.loaders.get('sass'),
       ],
     })
 
@@ -71,15 +79,18 @@ const sass: Bud.Plugin.Factory = (bud: Bud) => ({
      * ## bud.sass
      * @todo type opts
      */
-    this.bud.apply('sass', function (this: Bud, options: any) {
+    this.bud.config.sass = function (this: Bud, options: any) {
       if (!options) {
         return this
       }
 
-      this.options.merge('sass', options)
+      this.store['sass'].set({
+        ...this.store['sass'].get(options),
+        ...options,
+      })
 
       return this
-    })
+    }
   },
 })
 

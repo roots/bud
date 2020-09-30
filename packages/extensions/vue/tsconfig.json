@@ -1,13 +1,12 @@
 {
   "extends": "../../../tsconfig.json",
   "compilerOptions": {
-    "baseUrl": "./src",
     "outDir": "./lib",
     "lib": ["esnext", "es5", "es6", "DOM", "DOM.Iterable"],
     "declaration": true,
     "declarationDir": "./types"
   },
   "compileOnSave": true,
-  "include": ["src"],
+  "include": ["./src/**/*"],
   "exclude": ["lib", "node_modules"]
 }

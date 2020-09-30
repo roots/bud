@@ -21,7 +21,38 @@
   "engines": {
     "node": "14.9.0"
   },
+  "workspaces": {
+    "packages": [
+      "packages/container",
+      "packages/dependencies",
+      "packages/filesystem",
+      "packages/babel",
+      "packages/bud",
+      "packages/build",
+      "packages/cli",
+      "packages/compiler",
+      "packages/config",
+      "packages/framework",
+      "packages/postcss",
+      "packages/rules",
+      "packages/server",
+      "packages/support",
+      "packages/types",
+      "packages/extensions/bud-eslint",
+      "packages/extensions/bud-manifests",
+      "packages/extensions/bud-purgecss",
+      "packages/extensions/bud-react",
+      "packages/extensions/bud-sage",
+      "packages/extensions/bud-sass",
+      "packages/extensions/bud-stylelint",
+      "packages/extensions/bud-tailwindcss",
+      "packages/extensions/bud-typescript",
+      "packages/extensions/bud-vue"
+    ]
+  },
   "scripts": {
+    "yarn:install": "install",
+    "yarn:install:production": "install --production --force",
     "make": "run-s clean install build",
     "clean": "lerna clean -y",
     "bootstrap": "lerna bootstrap --hoist",
@@ -34,7 +65,8 @@
     "release:next:pre": "lerna publish prerelease --ignore-scripts --pre-dist-tag next",
     "release:latest": "lerna publish --ignore-scripts",
     "release:latest:pre": "lerna publish --ignore-scripts --pre-dist-tag rc",
-    "test": "jest --verbose"
+    "test": "jest --verbose",
+    "tsc": "tsc --build"
   },
   "devDependencies": {
     "@types/node": "^14.11.2",
@@ -58,31 +90,5 @@
     "rimraf": "^3.0.2",
     "semantic-release": "^15.8.0",
     "typescript": "^4.0.2"
-  },
-  "dependencies": {
-    "@roots/bud": "file:packages/bud",
-    "@roots/bud-babel": "file:packages/babel",
-    "@roots/bud-build": "file:packages/build",
-    "@roots/bud-cli": "file:packages/cli",
-    "@roots/bud-compiler": "file:packages/compiler",
-    "@roots/bud-config": "file:packages/config",
-    "@roots/bud-framework": "file:packages/framework",
-    "@roots/bud-postcss": "file:packages/postcss",
-    "@roots/bud-rules": "file:packages/rules",
-    "@roots/bud-server": "file:packages/server",
-    "@roots/bud-support": "file:packages/support",
-    "@roots/bud-types": "file:packages/types",
-    "@roots/bud-tailwindcss": "file:packages/extensions/tailwindcss",
-    "@roots/bud-stylelint": "file:packages/extensions/stylelint",
-    "@roots/bud-react": "file:packages/extensions/react",
-    "@roots/bud-sass": "file:packages/extensions/sass",
-    "@roots/bud-eslint": "file:packages/extensions/eslint",
-    "@roots/bud-purgecss": "file:packages/extensions/purgecss",
-    "@roots/bud-typescript": "file:packages/extensions/typescript",
-    "@roots/bud-vue": "file:packages/extensions/vue",
-    "@roots/bud-wordpress-manifests": "file:packages/extensions/manifests",
-    "@roots/container": "file:packages/container",
-    "@roots/dependencies": "file:packages/dependencies",
-    "@roots/filesystem": "file:packages/filesystem"
   }
 }

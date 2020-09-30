@@ -4,11 +4,9 @@ export const postPluginConfig: Bud.Config.PostPluginConfig = function (
   plugin,
   options,
 ) {
-  const pluginLiteral = `postcss.plugins.${plugin}`
-
-  const [instance] = this.options.get(pluginLiteral)
-
-  this.options.set(pluginLiteral, [instance, options])
+  const pluginLiteral = `plugins.${plugin}`
+  const [instance] = this.store['postcss'].get(pluginLiteral)
+  this.store['postcss'].set(pluginLiteral, [instance, options])
 
   return this
 }

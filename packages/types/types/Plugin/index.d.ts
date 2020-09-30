@@ -3,6 +3,7 @@
 // Definitions by: Kelly Mears <kelly@roots.io>
 
 import Bud from '..'
+import Webpack from 'webpack'
 
 export default Plugin
 
@@ -42,7 +43,7 @@ declare type Plugin = {
   /**
    * Primary action of plugin.
    */
-  make: () => Bud.Plugin.Product | void
+  make: () => Webpack.Plugin
 
   /**
    * Whether or not to call `make`.

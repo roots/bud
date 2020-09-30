@@ -6,7 +6,7 @@ const TailwindSupport = (bud: Bud): Bud.Plugin.Extension => ({
   bud,
 
   make: function () {
-    this.bud.loaders.merge('postcss.options.plugins', [
+    this.bud.store['loaders'].merge('postcss.options.plugins', [
       tailwindcss({
         config: this.bud.fs.project('tailwind.config.js'),
       }),

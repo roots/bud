@@ -1,20 +1,20 @@
 import Bud from '@roots/bud-types'
 
 export const test: Bud.Rule.Factory<Bud.Rule.Conditional> = function () {
-  return this.bud.patterns.get('css')
+  return this.store['patterns'].get('css')
 }
 
 export const exclude: Bud.Rule.Factory<Bud.Rule.Conditional> = function () {
-  return this.bud.patterns.get('modules')
+  return this.store['patterns'].get('modules')
 }
 
 export const use: Bud.Rule.Factory<Bud.Rule.Loader> = function () {
   return [
-    this.bud.mode.is('production')
-      ? this.bud.loaders.get('minicss').webpack
-      : this.bud.loaders.get('style').webpack,
-    this.bud.loaders.get('css').webpack,
-    this.bud.loaders.get('resolveUrl').webpack,
-    this.bud.loaders.get('postcss').webpack,
+    this.mode.is('production')
+      ? this.store['loaders'].get('minicss').make()
+      : this.store['loaders'].get('style').make(),
+    this.store['loaders'].get('css').make(),
+    this.store['loaders'].get('resolveUrl').make(),
+    this.store['loaders'].get('postcss').make(),
   ]
 }

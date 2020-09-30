@@ -20,7 +20,7 @@ const vue: Bud.Plugin.Factory = (bud: Bud) => ({
 
     this.bud.alias({vue$: 'vue/dist/vue.esm.js'})
 
-    this.bud.rules.set('vue', () => ({
+    this.bud.store['rules'].set('vue', () => ({
       test: /\.vue$/,
       use: [
         {

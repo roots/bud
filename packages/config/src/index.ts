@@ -30,7 +30,7 @@ export {postPluginConfig} from './postPluginConfig'
  * Webpack
  */
 export {addExtensions} from './addExtensions'
-export {addPlugin} from './addPlugin'
+// export {addPlugin} from './addPlugin'
 export {alias} from './alias'
 export {brotli} from './brotli'
 export {bundle} from './bundle'

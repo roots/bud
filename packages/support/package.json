@@ -22,14 +22,11 @@
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "lib",
-    "publish"
-  ],
-  "main": "lib/index.js",
-  "types": "types/index.d.ts",
+  "files": ["lib", "publish"],
+  "main": "./lib/index.js",
+  "types": "./types/index.d.ts",
   "scripts": {
-    "build": "run-s -s clean:* tsc",
+    "build": "tsc --build",
     "clean:lib": "rimraf ./lib",
     "clean:modules": "rimraf ./node_modules",
     "clean:build": "rimraf ./tsconfig.build.tsbuildinfo",
@@ -48,12 +45,6 @@
     "yargs": "^16.0.3"
   },
   "devDependencies": {
-    "@roots/bud-types": "file:../types",
-    "@types/fs-extra": "^9.0.1",
-    "@types/lodash": "^4.14.161",
-    "@types/node": "^14.11.2",
-    "eslint": "^7.10.0",
-    "npm-run-all": "^4.1.5",
-    "rimraf": "^3.0.2"
+    "@roots/bud-types": "file:../types"
   }
 }

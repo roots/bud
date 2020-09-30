@@ -4,10 +4,10 @@ export const ident: Bud.Use.Property = 'postcss'
 
 export const query: Bud.Use.Property = undefined
 
-export const loader: Bud.Use.Factory = function () {
-  return this.bud.loaders.get('postcss-loader')
+export const loader: Bud.Use.Factory = function (this: Bud) {
+  return this.store['loaders'].get('postcss-loader')
 }
 
-export const options: Bud.Use.Factory = function () {
-  return this.bud.store.postcss.all
+export const options: Bud.Use.Factory = function (this: Bud) {
+  return this.store['postcss'].repository
 }

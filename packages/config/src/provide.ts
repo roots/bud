@@ -5,12 +5,12 @@ export const provide: Bud.Config.Provide = function (options) {
     const isString = typeof modules == 'string'
 
     if (isString) {
-      this.options.set('plugins.provide', {
-        ...this.options.get('plugins.provide'),
+      this.store['plugins'].set('provide', {
+        ...this.store['plugins'].get('provide'),
         [`${modules}`]: key,
       })
-      this.options.set('webpack.externals', {
-        ...this.options.get('webpack.externals'),
+      this.store['webpack'].set('externals', {
+        ...this.store['webpack'].get('.externals'),
         [`${modules}`]: key,
       })
     }
@@ -19,12 +19,12 @@ export const provide: Bud.Config.Provide = function (options) {
 
     if (isObject) {
       modules.map(module => {
-        this.options.set('plugins.provide', {
-          ...this.options.get('plugins.provide'),
+        this.store['plugins'].set('provide', {
+          ...this.store['plugins'].get('provide'),
           [module]: key,
         })
-        this.options.set('webpack.externals', {
-          ...this.options.get('webpack.externals'),
+        this.store['webpack'].set('externals', {
+          ...this.store['webpack'].get('.externals'),
           [`${module}`]: key,
         })
       })

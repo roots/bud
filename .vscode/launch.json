@@ -1,14 +1,20 @@
 {
   "version": "0.2.0",
   "configurations": [
+  {
+    "name": "Attach by Process ID",
+    "processId": "${command:PickProcess}",
+    "request": "attach",
+    "skipFiles": [
+      "<node_internals>/**"
+    ],
+    "type": "pwa-node"
+  },
     {
-      "type": "node",
+      "command": "yarn build",
+      "name": "Run yarn build",
       "request": "launch",
-      "name": "bud",
-      "skipFiles": ["<node_internals>/**", "test/**"],
-      "preLaunchTask": "npm: build",
-      "outFiles": ["${workspaceFolder}/packages/bud/dist/index.js"],
-      "program": "${workspaceFolder}/packages/bud/src/index.ts"
+      "type": "node-terminal"
     }
   ]
 }

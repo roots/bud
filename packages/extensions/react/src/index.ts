@@ -6,16 +6,16 @@ const react: Bud.Plugin.Factory = bud => ({
   make: function () {
     this.bud.addExtensions(['jsx'])
 
-    this.bud.loaders.set('babel.options.presets', [
-      ...this.bud.loaders.get('babel.options.presets'),
+    this.bud.store['loaders'].set('babel.options.presets', [
+      ...this.bud.store['loaders'].get('babel.options.presets'),
       require.resolve('@babel/preset-react'),
     ])
 
-    this.bud.loaders.set('svgr', {
+    this.bud.store['loaders'].set('svgr', {
       loader: require.resolve('@svgr/webpack'),
     })
 
-    this.bud.rules.set('svgr', (bud: Bud) => ({
+    this.bud.store['rules'].set('svgr', (bud: Bud) => ({
       test: /\.svg(\?v=\d+\.\d+\.\d+)?$/,
       issuer: bud.patterns.get('js'),
       use: [
