@@ -1,24 +1,27 @@
 import Bud from '@roots/bud-types'
 
-const resolve: Bud.Build.Resolve = function (this: Bud) {
+const resolve: Bud.Build.Resolve = function (
+  this: Bud,
+  webpack,
+) {
   return this.hooks.filter('webpack.resolve', {
     resolve: {
-      ...(this.store['webpack'].get('resolve.alias')
+      ...(webpack.resolve.alias
         ? {
             alias: this.hooks.filter(
               'webpack.resolve.alias',
-              this.store['webpack'].get('resolve.alias'),
+              webpack.resolve.alias,
             ),
           }
         : []),
 
       extensions: this.hooks.filter(
         'webpack.resolve.extensions',
-        [...this.store['webpack'].get('resolve.extensions')],
+        [...webpack.resolve.extensions],
       ),
 
       modules: this.hooks.filter('webpack.resolve.modules', [
-        this.store['paths'].get('src'),
+        webpack.resolve.modules ?? webpack.context,
         'node_modules',
       ]),
     },

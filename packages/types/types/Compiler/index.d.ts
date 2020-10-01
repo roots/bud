@@ -43,22 +43,17 @@ declare class Compiler {
   /**
    * Set the compiler configuration object
    */
-  public setConfig: (config: Webpack.Configuration) => Compiler
+  public setConfig: (config: Webpack.Configuration) => void
 
   /**
    * Create a new compilation instance
    */
-  public compile: () => Compiler
+  public compile: () => void
 
   /**
    * Get the compiler configuration object
    */
   public getCompiler: () => Webpack.Compiler
-
-  /**
-   * Set the compiler configuration object
-   */
-  public setCompiler: (config: Webpack.Compiler) => Compiler
 
   /**
    * Runs the compiler.
@@ -77,5 +72,5 @@ declare class Compiler {
    */
   public applyPlugins: (
     handler: Webpack.ProgressPlugin.Handler,
-  ) => Compiler
+  ) => void
 }

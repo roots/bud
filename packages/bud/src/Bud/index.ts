@@ -1,8 +1,8 @@
-import Bud from '@roots/bud-types'
+import * as config from '@roots/bud-config'
+import * as Bud from '@roots/bud-types'
 import Framework from '@roots/bud-framework'
 import Server from '@roots/bud-server'
 import Compiler from '@roots/bud-compiler'
-import * as config from '@roots/bud-config'
 import build from '@roots/bud-build'
 import {uses, loaders, rules} from '@roots/bud-rules'
 
@@ -20,50 +20,54 @@ import Plugins from '../Extend/Plugins'
 
 export default class extends Framework {
   public fs: Bud.Framework.FileContainer
-  public hooks: Bud.Hooks.Hooks
   public plugins: Plugins
   public when: Bud.Config.When
 
-  public store: Bud.Store = new Store({
-    args,
-    env,
-    extensions,
-    features,
-    loaders,
-    package: {},
-    paths,
-    patterns,
-    plugins,
-    rules,
-    uses,
-    webpack,
-    server,
-  })
-
   public config = config
   public build: Bud['build']
-  public compiler: Compiler
-  public server: Server
+  public compiler?: Compiler
+  public hooks: Bud.Hooks.Hooks
+  public server?: Server
   public mode: Bud.Mode.Mode
+  public store: Bud.Store
 
   public constructor() {
     super()
 
-    this.hooks = this.makeHooks(this)
-    this.build = build.bind(this)
+    this.store = new Store({
+      args,
+      env,
+      extensions,
+      features,
+      loaders,
+      package: {},
+      paths,
+      patterns,
+      plugins,
+      uses: uses(this),
+      rules: rules(this),
+      webpack,
+      server,
+    })
+
+    this.compiler = new Compiler()
+    this.server = new Server()
 
     Object.entries(this.config).map(
       ([name, fn]: [string, CallableFunction]) => {
-        fn = fn.bind(this)
         Object.defineProperty(this, name, {
-          get: function () {
-            return fn
-          },
+          get: () => fn.bind(this),
         })
-
-        return [name, fn]
       },
     )
+
+    this.plugins = new Plugins(
+      this,
+      this.store['plugins'].repository,
+    )
+
+    this.hooks = this.makeHooks(this)
+    this.build = build.bind(this)
 
     this.mode = {
       is: check => this.store['webpack'].is('mode', check),
@@ -85,16 +89,5 @@ export default class extends Framework {
       baseDir: this.fs.path.resolve(__dirname, '../../'),
       glob: ['**/*'],
     })
-
-    this.plugins = new Plugins(
-      this,
-      this.store['plugins'].repository,
-    )
-
-    this.compiler = new Compiler(this.build())
-    this.server = new Server(
-      this.store['server'].repository,
-      this.compiler,
-    )
   }
 }

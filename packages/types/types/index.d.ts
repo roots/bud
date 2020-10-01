@@ -6,12 +6,9 @@ import Framework from './Framework'
 import Build from './Build'
 import Compiler from './Compiler'
 import Plugin from './Plugin'
-import Extension from './Extension'
-
 import Server from './Server'
 import Use from './Use'
 import Rule from './Rule'
-
 import Webpack from 'webpack'
 import * as Babel from '@babel/core'
 import WebpackDevMiddleware from 'webpack-dev-middleware'
@@ -20,7 +17,7 @@ import Globby from 'globby'
 import {TerserPluginOptions} from 'terser-webpack-plugin'
 import PostCss from 'postcss-loader'
 
-export default Bud
+export = Bud
 
 declare class Bud extends Framework {
   /**
@@ -28,7 +25,7 @@ declare class Bud extends Framework {
    *
    * The compiler interface.
    */
-  compiler: Compiler
+  compiler?: Compiler
 
   /**
    * ## bud.store
@@ -37,6 +34,9 @@ declare class Bud extends Framework {
    */
   store: Bud.Store
 
+  /**
+   * Plugins controller
+   */
   plugins: any
 
   /**
@@ -74,7 +74,7 @@ declare class Bud extends Framework {
    *
    * Dev server
    */
-  server: Server
+  server?: Server
 
   /**
    * ## bud.hooks
@@ -121,6 +121,7 @@ declare namespace Bud {
   export type Store = {
     use(name: string): Bud.Framework.Container
     create(name: string, repo: Bud.Framework.Repository): unknown
+    query(name: string[]): Bud.Framework.Container[]
 
     state: {
       [key: string]: any
@@ -328,9 +329,7 @@ declare namespace Bud {
 
     export type Runtime = (
       this: Bud,
-      args?: {
-        name: string
-      },
+      name?: string
     ) => Bud
 
     export interface Fluent<P> {
@@ -815,14 +814,14 @@ declare namespace Bud {
       >
     }
 
-    export type Entry = (this: Bud) => Product.Entry
-    export type Externals = (this: Bud) => Product.Externals
-    export type Module = (this: Bud) => Product.Module
-    export type Resolve = (this: Bud) => Product.Resolve
-    export type Optimization = (this: Bud) => Product.Optimization
-    export type Plugins = (this: Bud) => Product.Plugins
-    export type Output = (this: Bud) => Product.Output
-    export type General = (this: Bud) => Product.General
+    export type Entry = (this: Bud, state?: Bud.Framework.Repository) => Product.Entry
+    export type Externals = (this: Bud, state?: Bud.Framework.Repository) => Product.Externals
+    export type Module = (this: Bud, state?: Bud.Framework.Repository) => Product.Module
+    export type Resolve = (this: Bud, state?: Bud.Framework.Repository) => Product.Resolve
+    export type Optimization = (this: Bud, state?: Bud.Framework.Repository) => Product.Optimization
+    export type Plugins = (this: Bud, state?: Bud.Framework.Repository) => Product.Plugins
+    export type Output = (this: Bud, state?: Bud.Framework.Repository) => Product.Output
+    export type General = (this: Bud, state?: Bud.Framework.Repository) => Product.General
 
     export type Builders =
       | Build.Entry

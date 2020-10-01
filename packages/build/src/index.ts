@@ -19,12 +19,21 @@ export const builders: Bud.Build.Index = {
 }
 
 const build: Bud['build'] = function (this: Bud) {
+  preflight.bind(this)()
+
   return Object.entries(builders).reduce(
     (config, [, builder]: [string, Bud.Build.Builders]) => ({
       ...(config ?? []),
-      ...builder.bind(this)(),
+      ...builder.bind(this)(this.store['webpack'].repository),
     }),
     {},
+  )
+}
+
+function preflight() {
+  this.store['webpack'].set(
+    'context',
+    this.store['paths'].get('src'),
   )
 }
 

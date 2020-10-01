@@ -21,7 +21,9 @@ export default class Store {
     this.state[name] = new Container(state)
 
     Object.defineProperty(this, name, {
-      get: () => this.state[name],
+      get: () => {
+        return this.state[name]
+      },
       set: val => {
         this.state['name'] = val
       },
@@ -31,7 +33,7 @@ export default class Store {
   }
 
   public query(stores: string[]): Container[] {
-    return stores.map(store => this[store])
+    return stores.map(store => this.state[store])
   }
 
   public use(name: string): Container {
@@ -39,10 +41,10 @@ export default class Store {
   }
 
   public get(name: string, query: string): unknown {
-    return this.use(name).get(query)
+    return this.state[name].get(query)
   }
 
   public set(name: string, key: string, value: unknown): void {
-    this.use(name).set(key, value)
+    this.state[name].set(key, value)
   }
 }

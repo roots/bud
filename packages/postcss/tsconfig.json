@@ -4,7 +4,7 @@
     "outDir": "./lib",
     "declaration": true,
     "declarationDir": "./types",
-    "declarationMap": true,
+    "declarationMap": true
   },
   "compileOnSave": true,
   "include": ["./src"],
@@ -32,6 +32,6 @@
     {"@roots/bud-stylelint": "../extensions/stylelint"},
     {"@roots/bud-tailwindcss": "../extensions/tailwindcss"},
     {"@roots/bud-typescript": "../extensions/typescript"},
-    {"@roots/bud-vue": "../extensions/vue"},
+    {"@roots/bud-vue": "../extensions/vue"}
   ]
 }

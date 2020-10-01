@@ -1,5 +1,6 @@
 import Bud from '@roots/bud-types'
 import Webpack from 'webpack'
+
 export const bundle: Bud.Config.Bundle = function (
   this: Bud,
   name: string,

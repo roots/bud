@@ -1,20 +1,42 @@
-import Bud from '@roots/bud-types'
+import * as Bud from '@roots/bud-types'
 
-export const test: Bud.Rule.Factory<Bud.Rule.Conditional> = function () {
+/**
+ * CSS: Test
+ */
+export const test: CSS.Patterns = function () {
   return this.store['patterns'].get('css')
 }
 
-export const exclude: Bud.Rule.Factory<Bud.Rule.Conditional> = function () {
+/**
+ * CSS: Exclude
+ */
+export const exclude: CSS.Exclude = function () {
   return this.store['patterns'].get('modules')
 }
 
-export const use: Bud.Rule.Factory<Bud.Rule.Loader> = function () {
+/**
+ * CSS: Loaders
+ * {@see Bud.Use}
+ */
+export const use: CSS.Loaders = function () {
+  const use = (loader: string): Bud.Use.Product =>
+    this.store['uses'].get(loader).make()
+
   return [
     this.mode.is('production')
-      ? this.store['loaders'].get('minicss').make()
-      : this.store['loaders'].get('style').make(),
-    this.store['loaders'].get('css').make(),
-    this.store['loaders'].get('resolveUrl').make(),
-    this.store['loaders'].get('postcss').make(),
+      ? use('minicss-loader')
+      : use('style-loader'),
+    use('css-loader'),
+    use('resolve-url-loader'),
+    use('postcss-loader'),
   ]
+}
+
+/**
+ * @see {Webpack.Module.Rule}
+ */
+declare namespace CSS {
+  export type Patterns = Bud.Rule.Factory<Bud.Rule.Conditional>
+  export type Exclude = Bud.Rule.Factory<Bud.Rule.Conditional>
+  export type Loaders = Bud.Rule.Factory<Bud.Rule.Loader>
 }

@@ -25,33 +25,22 @@ export default class Compiler implements CompilerInterface {
     this.run = this.run.bind(this)
     this.watch = this.watch.bind(this)
     this.getCompiler = this.getCompiler.bind(this)
-    this.setCompiler = this.setCompiler.bind(this)
   }
 
   public getConfig(): Configuration {
     return this.config
   }
 
-  public setConfig(config: Configuration): CompilerInterface {
+  public setConfig(config: Configuration): void {
     this.config = config
-
-    return this
   }
 
-  public compile(): CompilerInterface {
+  public compile(): void {
     this.compiler = webpack(this.getConfig())
-
-    return this
   }
 
   public getCompiler(): Webpack {
     return this.compiler
-  }
-
-  public setCompiler(compiler: Webpack): CompilerInterface {
-    this.compiler = compiler
-
-    return this
   }
 
   public run(handler: Webpack.Handler): void {
@@ -69,9 +58,7 @@ export default class Compiler implements CompilerInterface {
 
   public applyPlugins(
     progressHandler: ProgressPlugin.Handler,
-  ): CompilerInterface {
+  ): void {
     new ProgressPlugin(progressHandler).apply(this.compiler)
-
-    return this
   }
 }

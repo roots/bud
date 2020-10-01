@@ -19,6 +19,7 @@ export default class Plugins extends Container {
 
     this.bud = bud
     this.controller = new PluginController(bud)
+
     this.register(plugins)
   }
 
@@ -38,7 +39,7 @@ export default class Plugins extends Container {
    * Getter for registered plugin
    */
   public getOptions(name: string): unknown {
-    return this.get(`${name}.options`)
+    return this.get(`${name}`)
   }
 
   /**
@@ -50,23 +51,19 @@ export default class Plugins extends Container {
 
   /**
    * Make plugin and return as specified
+   *
    * @see {Webpack.Plugin}
    */
   public make(): Webpack.Configuration['plugins'] {
-    return Object.values(this.repository).reduce(
-      (
-        plugins: Webpack.Configuration['plugins'],
-        plugin: Bud.Plugin.Factory,
-      ) => {
-        const results = this.controller.make(plugin(this.bud))
-
-        if (results) {
-          return [...plugins, results]
-        }
-
-        return plugins
-      },
-      [],
-    )
+    return this.entries()
+      .map(
+        ([, plugin]: [
+          name: string,
+          plugin: Bud.Plugin.Factory,
+        ]) => {
+          return this.controller.make(plugin(this.bud))
+        },
+      )
+      .filter(plugin => plugin)
   }
 }

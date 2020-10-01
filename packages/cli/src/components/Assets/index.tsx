@@ -12,20 +12,20 @@ interface AssetsProps {
 const Assets: FunctionComponent<AssetsProps> = ({assets}) => {
   const processedAssets = useAssetTransform(assets)
 
-  return processedAssets ? (
+  return (
     <>
-      {processedAssets.map((asset, id) => (
-        <Asset
-          key={id}
-          name={asset.name}
-          size={asset.size}
-          emitted={asset.emitted}
-          hot={asset.hot}
-        />
-      ))}
+      {processedAssets?.length
+        ? processedAssets.map((asset, id) => (
+            <Asset
+              key={id}
+              name={asset.name}
+              size={asset.size}
+              emitted={asset.emitted}
+              hot={asset.hot}
+            />
+          ))
+        : []}
     </>
-  ) : (
-    <></>
   )
 }
 

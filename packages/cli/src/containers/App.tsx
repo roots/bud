@@ -32,6 +32,7 @@ const App: ApplicationCli = ({name, compiler, server}) => {
   useInput(input => {
     if (input == 'q') {
       app.exit()
+
       process.exit()
     }
   })
@@ -43,6 +44,7 @@ const App: ApplicationCli = ({name, compiler, server}) => {
       compilation?.progress?.percentage == 100
     ) {
       app.exit()
+
       process.exit()
     }
   }, [compilation])

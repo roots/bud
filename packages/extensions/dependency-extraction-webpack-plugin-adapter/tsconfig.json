@@ -1,6 +1,7 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
+    "rootDir": "./src",
     "outDir": "./lib",
     "declaration": true,
     "declarationDir": "./types",
@@ -8,5 +9,9 @@
   },
   "compileOnSave": true,
   "include": ["./src"],
-  "exclude": ["./lib", "./node_modules"]
+  "exclude": ["./lib"],
+  "references": [
+    {"@roots/bud-types": "../../types"},
+    {"@roots/bud": "../../bud"}
+  ]
 }

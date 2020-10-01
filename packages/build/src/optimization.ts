@@ -6,7 +6,7 @@ import Bud from '@roots/bud-types'
 const optimization: Bud.Build.Optimization = function () {
   return this.hooks.filter('optimization', {
     optimization: {
-      ...(this.features.enabled('runtimeChunk')
+      ...(this.store['features'].enabled('runtimeChunk')
         ? {
             runtimeChunk: this.hooks.filter(
               'optimization.runtimeChunk',
@@ -17,7 +17,7 @@ const optimization: Bud.Build.Optimization = function () {
           }
         : []),
 
-      ...(this.features.enabled('splitChunks')
+      ...(this.store['features'].enabled('splitChunks')
         ? {
             splitChunks: {
               cacheGroups: {
@@ -34,7 +34,7 @@ const optimization: Bud.Build.Optimization = function () {
 
       minimize: this.hooks.filter(
         'optimization.minimize',
-        this.features.enabled('minify'),
+        this.store['features'].enabled('minify'),
       ),
 
       removeAvailableModules: this.hooks.filter(

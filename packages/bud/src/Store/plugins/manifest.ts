@@ -5,7 +5,7 @@ const manifest: Bud.Plugin.Factory = bud => ({
   bud,
 
   options: {
-    publicPath: bud.store['webpack'].get('output').publicPath,
+    publicPath: bud.store['webpack'].get('output.publicPath'),
     fileName: 'manifest.json',
     writeToFileEmit: true,
   },

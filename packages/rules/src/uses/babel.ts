@@ -50,11 +50,12 @@ const dynamicImport: PluginItem = [dynamicImportTarget]
 /**
  * Babel loader
  */
-export const ident: Bud.Use.Property = 'babel'
+export const ident: Bud.Use.Property = 'babel-loader'
 export const query: Bud.Use.Property = undefined
-export const loader: Bud.Use.Property = require.resolve(
-  'babel-loader',
-)
+export const loader: Bud.Use.Factory = function (this: Bud) {
+  return this.store['loaders'].get('babel-loader')
+}
+
 export const options: Bud.Use.Property = {
   presets: [env],
   plugins: [

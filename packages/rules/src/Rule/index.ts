@@ -1,6 +1,6 @@
 import Bud from '@roots/bud-types'
 
-export default class {
+export default class Rule {
   /**
    * The Bud instance.
    */
@@ -94,20 +94,13 @@ export default class {
   constructor(bud: Bud, rule: Bud.Rule.Generic) {
     this.bud = bud
 
-    Object.entries(rule).forEach(([property, value]) => {
-      Object.assign(this, property, value)
-      this[property] = this[property].bind(this.bud)
-
-      if (typeof this[property] == 'function') {
-        Object.assign(
-          this,
-          property,
-          this[property].bind(this.bud),
-        )
-      }
+    Object.entries(rule).map(([key, item]) => {
+      this[key] =
+        typeof item == 'function' ? item.bind(this.bud) : item
     })
 
     this.get.bind(this)
+    this.make.bind(this)
   }
 
   public get(): Bud.Rule.Generic {
@@ -128,22 +121,27 @@ export default class {
     }
   }
 
-  public set(rule: Bud.Rule.Generic): void {
-    Object.assign(this, rule)
-  }
-
   public make(): Bud.Rule.Makes {
-    return Object.entries(this.get()).reduce(
-      (properties, [prop, val]: [string, unknown]) => ({
-        ...properties,
-        [prop]:
-          typeof val !== 'undefined' &&
-          typeof val == 'function' &&
-          val.hasOwnProperty('bind')
-            ? val.bind(this.bud)()
-            : val,
-      }),
-      {},
-    )
+    /**
+     * Out of all entries, filter out the nullish/undefined values
+     * and call the functional ones.
+     */
+    return Object.entries(this.get())
+      .filter(
+        ([, value]) => value !== null && value !== undefined,
+      )
+      .reduce(
+        (
+          fields: Bud.Rule.Makes,
+          [key, value]: [
+            string,
+            Bud.Rule.Factory<{this: Bud}> | unknown,
+          ],
+        ) => ({
+          ...fields,
+          [key]: typeof value == 'function' ? value() : value,
+        }),
+        {},
+      )
   }
 }

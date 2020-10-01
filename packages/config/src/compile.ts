@@ -1,4 +1,4 @@
-import Bud from '@roots/bud-types'
+import type Bud from '@roots/bud-types'
 import {injectClient} from '@roots/bud-server'
 
 export const compile: Bud.Config.Compile = async function (
@@ -6,7 +6,8 @@ export const compile: Bud.Config.Compile = async function (
 ): Promise<void> {
   this.when(this.store['server'].get('hot'), inject.bind(this))
 
-  this.compiler.setConfig(this.build()).compile()
+  this.compiler.setConfig(this.build())
+  this.compiler.compile()
 
   this.when(this.mode.is('development'), dev.bind(this))
 
@@ -17,7 +18,9 @@ export const compile: Bud.Config.Compile = async function (
    * in order to sidestep making a circular
    * dependency: @roots/bud => @roots/bud-cli => @roots/bud
    */
-  const {default: app} = await import('@roots/bud-cli')
+  const {default: app} = await import(
+    require.resolve('@roots/bud-cli')
+  )
 
   app({
     name: this.store['package'].get('name') ?? '@roots/bud',
@@ -41,10 +44,9 @@ function inject(): void {
  * setup devServer
  */
 function dev(this: Bud): void {
-  this.server
-    .setCompiler(this.compiler.getCompiler())
-    .setConfig(this.store['server'].repository)
-    .addDevMiddleware()
+  this.server.setCompiler(this.compiler.getCompiler())
+  this.server.setConfig(this.store['server'].repository)
+  this.server.addDevMiddleware()
 
   const {hot, to} = this.server.getConfig()
 

@@ -6,8 +6,8 @@ export default {
   ['file-loader']: require.resolve('file-loader'),
   ['minicss-loader']: minicssLoader,
   ['postcss-loader']: require.resolve('postcss-loader'),
-  ['raw']: require.resolve('raw-loader'),
+  ['raw-loader']: require.resolve('raw-loader'),
   ['resolve-url-loader']: require.resolve('resolve-url-loader'),
-  ['style']: require.resolve('style-loader'),
-  ['url']: require.resolve('url-loader'),
+  ['style-loader']: require.resolve('style-loader'),
+  ['url-loader']: require.resolve('url-loader'),
 }

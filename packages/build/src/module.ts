@@ -1,6 +1,6 @@
 import Bud from '@roots/bud-types'
 
-const moduleBuilder: Bud.Build.General = function (this: Bud) {
+const moduleBuilder: Bud.Build.Module = function (this: Bud) {
   return this.hooks.filter('webpack.module', {
     module: this.hooks.filter('webpack.module.rules', {
       rules: [
@@ -11,9 +11,12 @@ const moduleBuilder: Bud.Build.General = function (this: Bud) {
               .entries()
               .reduce(
                 (
-                  a: Bud.Build.Configuration['module']['rules'],
-                  [, rule]: [string, CallableFunction],
-                ) => [...a, rule(this)],
+                  all: Bud.Build.Configuration['module']['rules'],
+                  [, rule]: [
+                    string,
+                    {make: () => Bud.Use.Product},
+                  ],
+                ) => [...all, rule.make()],
                 [],
               ),
           ],

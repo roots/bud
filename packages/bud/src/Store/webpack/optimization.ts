@@ -1,10 +1,7 @@
 import {Configuration} from 'webpack'
 
 const optimization: Configuration['optimization'] = {
-  runtimeChunk: {
-    name: (entrypoint: any): string =>
-      `runtime/${entrypoint.name}`,
-  },
+  runtimeChunk: false,
   splitChunks: {
     chunks: 'async',
     minSize: 20000,
@@ -23,7 +20,7 @@ const optimization: Configuration['optimization'] = {
           `${cacheGroupKey}/${chunks
             .map(item => item.name)
             .join('~')}`,
-        chunks: 'all',
+        chunks: 'initial',
       },
     },
   },

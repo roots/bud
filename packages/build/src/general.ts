@@ -1,37 +1,25 @@
 import Bud from '@roots/bud-types'
 
-const general: Bud.Build.General = function (this: Bud) {
+const general: Bud.Build.General = function (
+  this: Bud,
+  webpack,
+) {
   return {
+    ...webpack,
+    mode: this.hooks.filter('webpack.mode', webpack.mode),
+    node: this.hooks.filter('webpack.node', webpack.node),
+    stats: this.hooks.filter('webpack.stats', webpack.stats),
+    target: this.hooks.filter('webpack.target', webpack.target),
+    watch: this.hooks.filter('webpack.watch', webpack.watch),
+
     context: this.hooks.filter(
       'webpack.context',
-      this.store['paths'].get('src'),
+      webpack.context,
     ),
 
     devtool: this.hooks.filter(
       'webpack.devtool',
-      this.store['webpack'].get('devtool') ?? false,
-    ),
-
-    mode: this.hooks.filter('webpack.mode', this.mode.get()),
-
-    node: this.hooks.filter(
-      'webpack.node',
-      this.store['webpack'].get('node'),
-    ),
-
-    stats: this.hooks.filter(
-      'webpack.stats',
-      this.store['webpack'].get('stats'),
-    ),
-
-    target: this.hooks.filter(
-      'webpack.target',
-      this.store['webpack'].get('target'),
-    ),
-
-    watch: this.hooks.filter(
-      'webpack.watch',
-      this.store['features'].enabled('watch'),
+      webpack.devtool ?? false,
     ),
   }
 }

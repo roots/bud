@@ -77,7 +77,6 @@ const useCompilation: Bud.CLI.UseCompilation = ({
    */
   useEffect(() => {
     if (!shouldDev || !compiler || tapped) return
-
     compiler.compiler.hooks.done.tap('bud-cli', statsHandler)
     setTapped(true)
   }, [mode, compiler, tapped])
@@ -92,22 +91,22 @@ const useCompilation: Bud.CLI.UseCompilation = ({
   }, [server, tapped, listening])
 
   /**
-   * compiler watch
+   * Compilation
    */
   useEffect(() => {
     if (!mode || shouldDev || running || watching) return
 
-    mode == 'production' && setRunning(true)
-    mode == 'none' && setWatching(true)
+    if (mode == 'production') {
+      setRunning(true)
 
-    compiler[mode]((err: Error, stats: Stats) => {
-      if (err) {
-        console.error(err)
-        process.exit(1)
-      }
+      compiler.run(() => null)
+    }
 
-      statsHandler(stats)
-    })
+    if (mode == 'none' || mode == 'development') {
+      setWatching(true)
+
+      compiler.watch(() => null)
+    }
   }, [compiler, mode, watching, running])
 
   return {

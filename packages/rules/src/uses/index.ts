@@ -12,13 +12,13 @@ import * as style from './style'
 import * as svg from './svg'
 
 export default (bud: Bud): {[key: string]: Use} => ({
-  babel: new Use(bud, babel),
-  postcss: new Use(bud, postcss),
-  raw: new Use(bud, raw),
-  svg: new Use(bud, svg),
-  css: new Use(bud, css),
-  file: new Use(bud, file),
-  minicss: new Use(bud, minicss),
-  style: new Use(bud, style),
-  resolveUrl: new Use(bud, resolveUrl),
+  ['babel-loader']: new Use(bud, babel),
+  ['postcss-loader']: new Use(bud, postcss),
+  ['raw-loader']: new Use(bud, raw),
+  ['svg-loader']: new Use(bud, svg),
+  ['css-loader']: new Use(bud, css),
+  ['file-loader']: new Use(bud, file),
+  ['minicss-loader']: new Use(bud, minicss),
+  ['style-loader']: new Use(bud, style),
+  ['resolve-url-loader']: new Use(bud, resolveUrl),
 })

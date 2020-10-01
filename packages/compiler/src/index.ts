@@ -24,7 +24,7 @@ export interface CompilerInterface {
   /**
    * Set the compiler configuration object
    */
-  setConfig: (config: Configuration) => CompilerInterface
+  setConfig: (config: Configuration) => void
 
   /**
    * Core webpack compiler
@@ -34,17 +34,12 @@ export interface CompilerInterface {
   /**
    * Create a new compilation instance
    */
-  compile: () => CompilerInterface
+  compile: () => void
 
   /**
    * Get the compiler configuration object
    */
   getCompiler: () => Webpack
-
-  /**
-   * Set the compiler configuration object
-   */
-  setCompiler: (config: Webpack) => CompilerInterface
 
   /**
    * Runs the compiler.
@@ -69,7 +64,5 @@ export interface CompilerInterface {
   /**
    * Apply progress handler and overlay plugins.
    */
-  applyPlugins: (
-    handler: ProgressPlugin.Handler,
-  ) => CompilerInterface
+  applyPlugins: (handler: ProgressPlugin.Handler) => void
 }

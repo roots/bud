@@ -2,17 +2,14 @@ import {Configuration} from 'webpack'
 import {resolve} from 'path'
 
 const output: Configuration['output'] = {
-  chunkFilename: '[name][query]',
+  chunkFilename: '[name].js',
   chunkLoadTimeout: 120000,
   crossOriginLoading: false,
   devtoolLineToLine: false,
   filename: '[name].js',
   publicPath: '/',
-  path: resolve(process.cwd(), 'dist'),
+  path: resolve(process.cwd(), 'build'),
 
-  /**
-   * Unspecified.
-   */
   // path: resolve(process.cwd(), 'dist'),
   // devtoolNamespace: undefined,
   // globalObject: 'window',

@@ -10,6 +10,10 @@ export default class PluginController {
   }
 
   public make(plugin: Bud.Plugin.WebpackPlugin): webpack.Plugin {
+    if (!plugin.when) {
+      return plugin.make()
+    }
+
     if (plugin?.when && plugin.when()) {
       return plugin.make()
     }

@@ -12,7 +12,10 @@ export const dev: Bud.Config.Dev = function (config) {
   }
 
   // Enable host middleware
-  config.hot && this.store['features'].enable('hot')
+  if (config.hot) {
+    this.store['features'].enable('hot')
+    this.store['server'].set('hot', true)
+  }
 
   // Merge conf
   this.store['server'].repository = {

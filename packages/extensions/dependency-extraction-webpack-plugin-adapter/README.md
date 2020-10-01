@@ -13,6 +13,12 @@
   <strong>@roots/bud-dependency-extraction-webpack-plugin</strong>
 </h1>
 
+## 🚩 Deprecated
+
+This extension is deprecated. Please switch to `@roots/wordpress-manifests`.
+
+Alternatively, you can also implement the `@wordpress/dependency-extraction-webpack-plugin` package in your configuration file.
+
 ## Overview
 
 Adds @wordpress/dependency-extraction-webpack-plugin support to @roots/bud projects.

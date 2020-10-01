@@ -1,12 +1,17 @@
 import Bud from '@roots/bud-types'
 
-export const runtime: Bud.Config.Runtime = function (args?) {
+const defaultName = (entrypoint: any): string =>
+  `runtime/${entrypoint.name}`
+
+export const runtime: Bud.Config.Runtime = function (
+  name: Bud.Config.Runtime['name'],
+) {
   this.store['features'].set('runtimeChunk', true)
 
-  args?.name &&
+  name &&
     this.store['webpack'].set(
       'optimization.runtimeChunk.name',
-      args.name,
+      name ?? defaultName,
     )
 
   return this

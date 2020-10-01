@@ -7,7 +7,7 @@ import {injectClient} from '@roots/bud-server'
 export const dev = function (bud: Bud): void {
   bud.server
     .setCompiler(bud.compiler.getCompiler())
-    .setConfig(bud.store.use('server').repository)
+    .setConfig(bud.store['server'].repository)
     .addDevMiddleware()
 
   /*
@@ -26,10 +26,10 @@ export const dev = function (bud: Bud): void {
  */
 export const inject: (bud: Bud) => void = bud => {
   const entrypoints = injectClient({
-    entrypoints: bud.store.get('webpack', 'entry'),
+    entrypoints: bud.store['webpack'].get('entry'),
   })
 
-  bud.store.set('webpack.entry', entrypoints)
+  bud.store['webpack'].set('entry', entrypoints)
 }
 
 /**
