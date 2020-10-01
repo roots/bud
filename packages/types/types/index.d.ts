@@ -20,19 +20,14 @@ import PostCss from 'postcss-loader'
 export = Bud
 
 declare class Bud extends Framework {
+  [key: string]: any
+
   /**
    * ## bud.compiler
    *
    * The compiler interface.
    */
   compiler?: Compiler
-
-  /**
-   * ## bud.store
-   *
-   * @todo typings
-   */
-  store: Bud.Store
 
   /**
    * Plugins controller
@@ -118,100 +113,6 @@ declare class Bud extends Framework {
 }
 
 declare namespace Bud {
-  export type Store = {
-    use(name: string): Bud.Framework.Container
-    create(name: string, repo: Bud.Framework.Repository): unknown
-    query(name: string[]): Bud.Framework.Container[]
-
-    state: {
-      [key: string]: any
-
-      /**
-       * ## bud.package
-       *
-       * Project package.json info.
-       *
-       * ```js
-       * bud.package.get('dependencies')
-       * ```
-       */
-      package: Container.ContainerInterface
-
-      /**
-       * ## bud.paths
-       *
-       * Project and framework paths.
-       */
-      paths: Container.ContainerInterface
-
-      /**
-       * ## bud.patterns
-       *
-       * RegExp stash box.
-       */
-      patterns: Container.ContainerInterface
-
-      /**
-       * ## bud.server
-       *
-       * Dev server
-       */
-      server: Container.ContainerInterface
-
-      /**
-       * ## bud.args
-       *
-       * Arguments passed on invocation.
-       *
-       * ```js
-       * bud.args.get('hot')
-       * ```
-       */
-      args: Bud.Framework.Container
-
-      /**
-       * ## bud.env
-       *
-       * Project environment variables.
-       *
-       * ```js
-       * bud.env.get('APP_NAME')
-       * ```
-       *
-       * ```js
-       * bud.env.get('APP_SECRET')
-       * ```
-       */
-      env: Bud.Framework.Container
-
-      /**
-       * ## bud.features
-       *
-       * Status of features
-       */
-      features: Bud.Framework.Container
-
-      /**
-       * ## bud.loaders
-       */
-      loaders: Bud.Framework.Container
-
-      /**
-       * ## bud.plugins
-       *
-       * @see Webpack.RuleSetRule
-       */
-      rules: Bud.Framework.Container
-
-      /**
-       * ## bud.uses
-       *
-       * @see Webpack.RuleSetLoader
-       */
-      uses: Bud.Framework.Container
-    }
-  }
-
   export namespace Config {
     export type Dist = Config.PathGetter
     export type Project = Config.PathGetter
@@ -327,10 +228,7 @@ declare namespace Bud {
       },
     ) => Bud
 
-    export type Runtime = (
-      this: Bud,
-      name?: string
-    ) => Bud
+    export type Runtime = (this: Bud, name?: string) => Bud
 
     export interface Fluent<P> {
       (this: Bud, ...P): Bud
@@ -814,14 +712,38 @@ declare namespace Bud {
       >
     }
 
-    export type Entry = (this: Bud, state?: Bud.Framework.Repository) => Product.Entry
-    export type Externals = (this: Bud, state?: Bud.Framework.Repository) => Product.Externals
-    export type Module = (this: Bud, state?: Bud.Framework.Repository) => Product.Module
-    export type Resolve = (this: Bud, state?: Bud.Framework.Repository) => Product.Resolve
-    export type Optimization = (this: Bud, state?: Bud.Framework.Repository) => Product.Optimization
-    export type Plugins = (this: Bud, state?: Bud.Framework.Repository) => Product.Plugins
-    export type Output = (this: Bud, state?: Bud.Framework.Repository) => Product.Output
-    export type General = (this: Bud, state?: Bud.Framework.Repository) => Product.General
+    export type Entry = (
+      this: Bud,
+      state?: Bud.Framework.Repository,
+    ) => Product.Entry
+    export type Externals = (
+      this: Bud,
+      state?: Bud.Framework.Repository,
+    ) => Product.Externals
+    export type Module = (
+      this: Bud,
+      state?: Bud.Framework.Repository,
+    ) => Product.Module
+    export type Resolve = (
+      this: Bud,
+      state?: Bud.Framework.Repository,
+    ) => Product.Resolve
+    export type Optimization = (
+      this: Bud,
+      state?: Bud.Framework.Repository,
+    ) => Product.Optimization
+    export type Plugins = (
+      this: Bud,
+      state?: Bud.Framework.Repository,
+    ) => Product.Plugins
+    export type Output = (
+      this: Bud,
+      state?: Bud.Framework.Repository,
+    ) => Product.Output
+    export type General = (
+      this: Bud,
+      state?: Bud.Framework.Repository,
+    ) => Product.General
 
     export type Builders =
       | Build.Entry
@@ -848,7 +770,7 @@ declare namespace Bud {
        * @see Webpack.ProgressPlugin.Handler
        */
       export type Progress = {
-        percentage: number,
+        percentage: number
         msg: string
       }
     }

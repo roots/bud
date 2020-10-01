@@ -20,7 +20,7 @@ const optimization: Configuration['optimization'] = {
           `${cacheGroupKey}/${chunks
             .map(item => item.name)
             .join('~')}`,
-        chunks: 'initial',
+        chunks: 'all',
       },
     },
   },

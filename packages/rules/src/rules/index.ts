@@ -8,7 +8,9 @@ import * as image from './image'
 import * as js from './js'
 import * as svg from './svg'
 
-export default (bud: Bud): Bud.Rule.Products => ({
+export default (
+  bud: Bud,
+): {[key: string]: Bud.Rule.Products} => ({
   html: new Rule(bud, html),
   image: new Rule(bud, image),
   js: new Rule(bud, js),

@@ -21,7 +21,9 @@ import Plugins from '../Extend/Plugins'
 export default class extends Framework {
   public fs: Bud.Framework.FileContainer
   public plugins: Plugins
+
   public when: Bud.Config.When
+  public dist: Bud.Config.Dist
 
   public config = config
   public build: Bud['build']
@@ -29,7 +31,7 @@ export default class extends Framework {
   public hooks: Bud.Hooks.Hooks
   public server?: Server
   public mode: Bud.Mode.Mode
-  public store: Bud.Store
+  public store: Store
 
   public constructor() {
     super()

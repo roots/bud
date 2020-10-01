@@ -1,14 +1,11 @@
-import Container, {Loose} from '@roots/container'
+import Container from '@roots/container'
 
-export default class Store {
-  [key: string]: any
-  state: any
+class Store implements Store.IStore {
+  state: Container
 
-  public constructor(repo: Loose) {
+  public constructor(repo: Store.Constructor) {
     this.state = new Container()
 
-    this.get = this.get.bind(this)
-    this.set = this.set.bind(this)
     this.create = this.create.bind(this)
 
     repo &&
@@ -17,7 +14,7 @@ export default class Store {
       })
   }
 
-  public create(name: string, state: Loose): Container {
+  public create: Store.Create = function (name, state) {
     this.state[name] = new Container(state)
 
     Object.defineProperty(this, name, {
@@ -32,19 +29,149 @@ export default class Store {
     return this.use(name)
   }
 
-  public query(stores: string[]): Container[] {
+  public query: Store.Query = function (stores) {
     return stores.map(store => this.state[store])
   }
 
-  public use(name: string): Container {
+  public use: Store.Use = function (name: string) {
     return this.state[name]
   }
+}
 
-  public get(name: string, query: string): unknown {
-    return this.state[name].get(query)
+/**
+ * ## Bud.Store
+ */
+declare namespace Store {
+  /**
+   * Store objects keyed by string.
+   *
+   * @note Objects will be containerized in the Store.
+   * do not call new Container() before passing.
+   *
+   * @todo make this okay.
+   */
+  export interface Constructor {
+    [key: string]: {[key: string]: any}
   }
 
-  public set(name: string, key: string, value: unknown): void {
-    this.state[name].set(key, value)
+  /**
+   * Application state stores.
+   */
+  export interface IStore {
+    state: Container
+    /**
+     * Create a new store.
+     */
+    create: Store.Create
+    /**
+     * Use a store.
+     */
+    query: Store.Query
+    /**
+     * Get the state from an array of store keys
+     */
+    use: Store.Use
+  }
+
+  export type Use = (this: IStore, name: string) => Container
+
+  export type Query = (
+    this: IStore,
+    name: string[],
+  ) => Container[]
+
+  export type Create = (
+    this: IStore,
+    name: string,
+    repo: Container['repository'],
+  ) => void
+
+  /**
+   * ## Application state container.
+   */
+  export type State = {
+    /**
+     * ## Project package.json info.
+     *
+     * ```js
+     * bud.package.get('dependencies')
+     * ```
+     */
+    package?: Container
+
+    /**
+     * ## bud.paths
+     *
+     * Project and framework paths.
+     */
+    paths?: Container
+
+    /**
+     * ## bud.patterns
+     *
+     * RegExp stash box.
+     */
+    patterns?: Container
+
+    /**
+     * ## bud.server
+     *
+     * Dev server
+     */
+    server?: Container
+
+    /**
+     * ## bud.args
+     *
+     * Arguments passed on invocation.
+     *
+     * ```js
+     * bud.args.get('hot')
+     * ```
+     */
+    args?: Container
+
+    /**
+     * ## bud.env
+     *
+     * Project environment variables.
+     *
+     * ```js
+     * bud.env.get('APP_NAME')
+     * ```
+     *
+     * ```js
+     * bud.env.get('APP_SECRET')
+     * ```
+     */
+    env?: Container
+
+    /**
+     * ## bud.features
+     *
+     * Status of features
+     */
+    features?: Container
+
+    /**
+     * ## bud.loaders
+     */
+    loaders?: Container
+
+    /**
+     * ## bud.plugins
+     *
+     * @see Webpack.RuleSetRule
+     */
+    rules?: Container
+
+    /**
+     * ## bud.uses
+     *
+     * @see Webpack.RuleSetLoader
+     */
+    uses?: Container
   }
 }
+
+export default Store
