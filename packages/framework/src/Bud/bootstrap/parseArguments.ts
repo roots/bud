@@ -57,7 +57,8 @@ const parseArguments = function (this: Bud): void {
   }
 
   /* eslint-disable */
-  args.has('devtool') && webpack.set('devtool', args.get('devtool'))
+  args.has('devtool') &&
+    webpack.set('devtool', args.get('devtool'))
   args.has('target') && webpack.set('target', args.get('target'))
   args.has('brotli') &&
     features.set('brotli', args.get('brotli'))

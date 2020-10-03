@@ -1,14 +1,14 @@
 import dev from '../middleware/dev'
 import hot from '../middleware/hot'
 import proxy from '../middleware/proxy'
-import express, {Handler} from 'express'
-import WebpackDevMiddleware from 'webpack-dev-middleware'
-import {Options as ProxyOptions} from 'http-proxy-middleware'
-import {Compiler, Options as WebpackOptions} from 'webpack'
-import {
+import express, {
+  Handler,
   Application as Express,
   Handler as ExpressHandler,
 } from 'express'
+import WebpackDevMiddleware from 'webpack-dev-middleware'
+import {Options as ProxyOptions} from 'http-proxy-middleware'
+import {Compiler, Options as WebpackOptions} from 'webpack'
 
 class Server implements Server.Interface {
   public instance: Server.Interface['instance']
