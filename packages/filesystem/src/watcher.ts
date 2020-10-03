@@ -1,5 +1,4 @@
-import watchman from 'fb-watchman'
-declare type Watchman = any
+import * as Watchman from 'fb-watchman'
 
-const client = new watchman.Client()
+const client = new Watchman.Client()
 export {client as default}

@@ -1,11 +1,11 @@
 import WebpackDevMiddleware from 'webpack-dev-middleware'
 import {Compiler} from 'webpack'
 import {RequestHandler} from 'express'
-import {ServerConfig} from '..'
+import Server from '../Server'
 
 export interface DevFactoryOptions {
   compiler: Compiler
-  config: ServerConfig
+  config: Server.Config
 }
 
 const BUD_HEADERS = {
@@ -19,7 +19,7 @@ const dev = ({
   WebpackDevMiddleware(compiler, options(config))
 
 const options = (
-  config: ServerConfig,
+  config: Server.Config,
 ): WebpackDevMiddleware.Options => ({
   publicPath: config.publicPath ?? '/',
   headers: {...config.headers, ...BUD_HEADERS} ?? BUD_HEADERS,

@@ -20,7 +20,7 @@
     {"@roots/bud-cli": "../cli"},
     {"@roots/bud-build": "../build"},
     {"@roots/bud-compiler": "../compiler"},
-    {"@roots/bud-rules": "../rules"},
+    {"@roots/bud-webpack": "../webpack"},
     {"@roots/bud-server": "../server"},
     {"@roots/bud-postcss": "../postcss"},
     {"@roots/bud-eslint": "../extensions/eslint"},

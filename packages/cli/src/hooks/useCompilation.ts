@@ -1,31 +1,29 @@
 import {useState, useEffect} from 'react'
-import {Stats} from 'webpack'
+import Webpack, {Stats} from 'webpack'
 import {formatWebpackMessages} from '@roots/bud-support'
 
-import Bud from '@roots/bud-types'
-
-const useCompilation: Bud.CLI.UseCompilation = ({
-  compiler,
-  server,
-}: Bud.CLI.CompileSources) => {
+const useCompilation = ({compiler, server}) => {
   const [applied, setApplied] = useState<boolean>(false)
   const [tapped, setTapped] = useState<boolean>(null)
   const [running, setRunning] = useState<boolean>(false)
   const [watching, setWatching] = useState<boolean>(false)
   const [listening, setListening] = useState<boolean>(false)
-  const [mode, setMode] = useState<Bud.CLI.State.Mode>('none')
-  const [stats, setStats] = useState<Bud.CLI.State.Stats>(null)
+  const [mode, setMode] = useState<
+    Webpack.Configuration['mode']
+  >('none')
+  const [stats, setStats] = useState<Stats.ToJsonOutput>(null)
 
   /* eslint-disable */
-  const [errors, setErrors] = useState<Bud.CLI.State.Errors>(
-    null,
-  )
-  const [warnings, setWarnings] = useState<
-    Bud.CLI.State.Warnings
+  const [errors, setErrors] = useState<
+    Webpack.Stats['compilation']['errors']
   >(null)
-  const [progress, setProgress] = useState<
-    Bud.CLI.State.Progress
-  >({
+  const [warnings, setWarnings] = useState<
+    Webpack.Stats['compilation']['warnings']
+  >(null)
+  const [progress, setProgress] = useState<{
+    percentage: number
+    msg: string
+  }>({
     percentage: 0,
     msg: '',
   })

@@ -43,8 +43,5 @@
     "resolve-from": "^5.0.0",
     "sass-loader": "^9.0.2"
   },
-  "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5",
-  "devDependencies": {
-    "@roots/bud-types": "file:../types"
-  }
+  "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5"
 }

@@ -1,14 +1,9 @@
-import Bud from './Bud'
+import Bud from '@roots/bud-framework'
 import {processHandler} from '@roots/bud-support'
-import filesystemSetup from './bootstrap/filesystemSetup'
-import parseArguments from './bootstrap/parseArguments'
 
-const bud: Bud = new Bud()
+const bud = new Bud()
 
 process.on('unhandledRejection', processHandler)
 
-parseArguments.bind(bud)()
-filesystemSetup.bind(bud)()
-
-export {bud as default}
+export default bud
 module.exports = bud

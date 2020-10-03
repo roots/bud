@@ -21,7 +21,7 @@
     {"@roots/bud-config": "../config"},
     {"@roots/bud-framework": "../framework"},
     {"@roots/bud-postcss": "../postcss"},
-    {"@roots/bud-rules": "../rules"},
+    {"@roots/bud-webpack": "../webpack"},
     {"@roots/bud-server": "../server"},
     {"@roots/bud-support": "../support"},
     {"@roots/bud-types": "../types"},

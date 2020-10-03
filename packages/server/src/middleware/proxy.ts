@@ -7,12 +7,12 @@ import {
 import url from 'url'
 import zlib from 'zlib'
 
-import {ServerConfig} from '..'
+import Server from '..'
 
 /**
  * Proxy middleware factory
  */
-const proxy = (config: ServerConfig): RequestHandler => {
+const proxy = (config: Server.Config): RequestHandler => {
   /**
    * Origin server
    */

@@ -1,31 +1,25 @@
 import __ from 'lodash'
 import {resolve} from 'path'
 
-import Container, {
-  ContainerInterface,
-  Item,
-} from '@roots/container'
-
+import Container from '@roots/container'
 import FileContainer from './FileContainer'
-import {FileContainerInterface} from './'
 
 class Filesystem extends Container {
   constructor() {
     super()
   }
 
-  public get(this: ContainerInterface, key: string): Item {
+  public get(key: string): FileContainer {
     return __.get(this.repository, key)
   }
 
   public set(
-    this: ContainerInterface,
     key: string,
     options: {
       baseDir: string
       glob: string[]
     },
-  ): FileContainerInterface {
+  ): FileContainer {
     const disk = new FileContainer(options.baseDir)
     const glob = options.glob.map(item =>
       resolve(options.baseDir, item),

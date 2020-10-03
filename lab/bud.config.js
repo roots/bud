@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const bud = require('../packages/bud/lib/index')
+const bud = require('../packages/bud')
 
-bud.bundle('foo', 'foo')
-console.log(bud.build().module.rules[1].oneOf.map(i => i.use))
+bud.bundle('app', ['foo.js'])
+bud.compile()

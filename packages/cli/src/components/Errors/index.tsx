@@ -1,9 +1,8 @@
 import React, {FunctionComponent} from 'react'
 import {Box, Text} from 'ink'
-import Bud from '@roots/bud-types'
 
 interface ErrorProps {
-  errors: Bud.CLI.Compilation['errors']
+  errors: any
 }
 
 const Errors: FunctionComponent<ErrorProps> = ({errors}) => (

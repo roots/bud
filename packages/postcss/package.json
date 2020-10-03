@@ -22,7 +22,10 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib", "types"],
+  "files": [
+    "lib",
+    "types"
+  ],
   "main": "./lib/index.js",
   "types": "./types/index.d.ts",
   "scripts": {
@@ -33,7 +36,6 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@roots/bud-types": "file:../types",
     "postcss": "^8.1.1"
   }
 }

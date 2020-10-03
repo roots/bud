@@ -1,25 +1,16 @@
+import Container from '@roots/container'
 import path from 'path'
-import filesystem from 'fs-extra'
+import * as fs from 'fs-extra'
 import globby from 'globby'
 import resolveFrom from 'resolve-from'
 import __ from 'lodash'
-
-import Container, {
-  ContainerInterface,
-  Item,
-  Loose,
-} from '@roots/container'
 import watcher from './watcher'
 
-import {FileContainerInterface} from './'
+export default class extends Container {
+  public fs = fs
 
-class FileContainer
-  extends Container
-  implements FileContainerInterface {
-  public fs: typeof filesystem = filesystem
-
+  public repository: Container.Repository
   public glob: typeof globby = globby
-
   public path: typeof path = path
   public from: typeof resolveFrom = resolveFrom
   public watcher: typeof watcher = watcher
@@ -37,23 +28,18 @@ class FileContainer
     }
   }
 
-  public setBase: FileContainerInterface['setBase'] = function (
-    dir: string,
-  ): void {
+  public setBase = function (dir: string): void {
     this.base = dir
   }
 
-  public setDisk(
-    this: ContainerInterface,
-    glob: string[],
-  ): void {
+  public setDisk(glob: string[]): void {
     const files = this.glob.sync(glob, {
       onlyFiles: false,
       expandDirectories: true,
     })
 
     this.repository = files.reduce(
-      (acc: Loose, curr: Item) => ({
+      (acc: Container.Repository, curr: Container.Item) => ({
         ...acc,
         [curr.replace(`${this.base}/`, '')]: curr,
       }),
@@ -61,19 +47,15 @@ class FileContainer
     )
   }
 
-  public get(this: ContainerInterface, key: string): Item {
+  public get(key: string): Container.Item {
     return __.get(this.repository, key)
   }
 
-  public exists: FileContainerInterface['exists'] = function (
-    key: string,
-  ): boolean {
+  public exists = function (key: string): boolean {
     return this.fs.existsSync(this.get(key))
   }
 
-  public read: FileContainerInterface['read'] = function (
-    key: string,
-  ): string {
+  public read = function (key: string): string {
     return this.fs.readFileSync(this.get(key), 'utf8')
   }
 
@@ -95,12 +77,79 @@ class FileContainer
     )
   }
 
-  public require(
-    this: ContainerInterface,
-    key: string,
-  ): NodeModule {
+  public require(key: string): NodeModule {
     return require(this.get(key))
   }
 }
 
-export {FileContainer as default}
+declare class FileContainer extends Container {
+  /**
+   * Basepath of disk.
+   */
+  base: string
+
+  /**
+   * FS-Extra instance.
+   */
+  fs: typeof fs
+
+  /**
+   * Globby instance.
+   */
+  glob: typeof globby
+
+  /**
+   * PlatformPath utilities.
+   */
+  path: typeof path
+
+  /**
+   * ResolveFrom utility.
+   */
+  from: typeof resolveFrom
+
+  /**
+   * Watchman instance.
+   */
+  watcher: typeof watcher
+
+  /**
+   * Set the base filepath
+   */
+  setBase: (dir: string) => void
+
+  /**
+   * Check if a file exists in the repository.
+   */
+  exists: (key: string) => boolean
+
+  /**
+   * Relative to the set basepath, glob for files and set to the repository.
+   */
+  setDisk(glob: string[]): void
+
+  /**
+   * Read a repository item file contents as a utf8 string.
+   */
+  read(key: string): string
+
+  /**
+   * Read JSON from a repository item's file.
+   */
+  readJson(key: string): unknown
+
+  /**
+   * Write a string to a repository item's file.
+   */
+  write(key: string, content: string): void
+
+  /**
+   * Write JSON to a repository item's file.
+   */
+  writeJson(key: string, content: string): void
+
+  /**
+   * Require a modular item
+   */
+  require(this: Container.Interface, key: string): NodeModule
+}

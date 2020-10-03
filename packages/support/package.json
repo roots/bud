@@ -22,7 +22,10 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib", "publish"],
+  "files": [
+    "lib",
+    "publish"
+  ],
   "main": "./lib/index.js",
   "types": "./types/index.d.ts",
   "scripts": {
@@ -44,7 +47,5 @@
     "update-notifier": "^4.1.1",
     "yargs": "^16.0.3"
   },
-  "devDependencies": {
-    "@roots/bud-types": "file:../types"
-  }
+  "devDependencies": {}
 }

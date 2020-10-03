@@ -22,7 +22,10 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib", "types"],
+  "files": [
+    "lib",
+    "types"
+  ],
   "main": "./lib/index.js",
   "types": "./types/index.d.ts",
   "scripts": {
@@ -36,7 +39,5 @@
     "webpack": "^4.44.2"
   },
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5",
-  "devDependencies": {
-    "@roots/bud-types": "file:../types"
-  }
+  "devDependencies": {}
 }

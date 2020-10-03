@@ -1,109 +1,226 @@
-import Container from './Container'
-
-export type Item = any | Loose | Loose[]
-
-export interface Loose {
-  [key: string]: Item
-}
+import __ from 'lodash'
 
 /**
- * Generic store.
- *
- * @typedef ContainerInterface
- * @extends Loose
+ * Keyed item store.
  */
-export interface ContainerInterface extends Loose {
-  repository: Loose
+class Container implements Container.Interface {
+  repository: Container.Repository
+
+  constructor(repository?: Container.Repository) {
+    this.repository = repository || {}
+  }
+
+  /**
+   * Push a new value onto an array item
+   *
+   * @deprecated
+   */
+  public add(key: string, item: Container.Item): void {
+    this.repository[key].push(item)
+  }
 
   /**
    * Push a new value onto an array item
    */
-  add(this: ContainerInterface, key: string, item: Item): void
+  public push(key: string, item: Container.Item): void {
+    this.repository[key].push(item)
+  }
 
   /**
-   * Push a new value onto an array item
+   * Get a value of a repository item.
    */
-  push(this: ContainerInterface, key: string, item: Item): void
+  public get(key: string): Container.Item {
+    return __.get(this.repository, key)
+  }
 
   /**
-   * Get a value
+   * Check the value for a given key
    */
-  get(this: ContainerInterface, key: string): Item
-
-  /**
-   * Check a value
-   */
-  is(this: ContainerInterface, key: string, value: Item): boolean
+  public is(key: string, value: Container.Item): boolean {
+    return this.get(key) == value
+  }
 
   /**
    * Check if a given key is true
    */
-  isTrue(this: ContainerInterface, key: string): boolean
+  public isTrue(key: string): boolean {
+    return this.get(key) === true
+  }
 
   /**
    * Check if a given key is truthy
    */
-  isTruthy(this: ContainerInterface, key: string): boolean
+  public isTruthy(key: string): boolean {
+    return this.get(key) == true
+  }
 
   /**
-   * Set a value
+   * Set the value of a key
    */
-  set(this: ContainerInterface, key: string, value: Item): void
+  public set(key: string, value: Container.Item): void {
+    __.set(this.repository, key, value)
+  }
 
-  /**
-   * Check if an item exists in the repository.
-   */
-  has(this: ContainerInterface, key: string): boolean
+  public has(key: string): boolean {
+    return this.repository.hasOwnProperty(key) ? true : false
+  }
 
-  /**
-   * Merge an item value.
-   */
-  merge(this: ContainerInterface, key: string, value: Item): void
+  public merge(key: string, value: Container.Item): void {
+    this.set(key, __.merge(this.get(key), value))
+  }
 
-  /**
-   * Delete an item from the repository
-   */
-  delete(this: ContainerInterface, key: string): void
+  public delete: Container.Interface['delete'] = function (
+    key: string,
+  ) {
+    delete this.repository[key]
+  }
 
-  /**
-   * Set an item to true
-   */
-  enable(this: ContainerInterface, key: string): void
+  public enable(key: string): void {
+    this.repository[key] = true
+  }
 
-  /**
-   * Set an item to false
-   */
-  disable(this: ContainerInterface, key: string): void
+  public disable(key: string): void {
+    this.repository[key] = false
+  }
 
-  /**
-   * Set if an item is true
-   */
-  enabled(this: ContainerInterface, key: string): boolean
+  public enabled(key: string): boolean {
+    return this.is(key, true)
+  }
 
-  /**
-   * Check if an item is false
-   */
-  disabled(this: ContainerInterface, key: string): boolean
+  public disabled(key: string): boolean {
+    return this.is(key, false)
+  }
 
-  /**
-   * Map a callback onto an iterable item
-   */
-  map(
-    this: ContainerInterface,
+  public map(
     key: string,
     callback: (params: unknown) => unknown,
-  ): unknown
+  ): unknown {
+    return this.get(key).map(callback)
+  }
 
-  each(
-    this: ContainerInterface,
+  public each(
     callback: (value: any, index: number, array: any[]) => void,
     key?: string,
-  ): unknown
+  ): unknown {
+    return !key
+      ? Object.values(this.repository).forEach(callback)
+      : Object.values(this.get(key)).forEach(callback)
+  }
 
   /**
    * Get all of the repository contents
    */
-  entries(this: ContainerInterface): Loose
+  public entries(): Container.Repository {
+    return Object.entries(this.repository)
+  }
+}
+
+declare namespace Container {
+  export type Item = any | Loose | Loose[]
+
+  export type Repository = Loose
+
+  export interface Loose {
+    [key: string]: Item
+  }
+
+  export interface Interface extends Repository {
+    repository: Repository
+
+    /**
+     * Push a new value onto an array item
+     */
+    add(this: this, key: string, item: Item): void
+
+    /**
+     * Push a new value onto an array item
+     */
+    push(this: this, key: string, item: Item): void
+
+    /**
+     * Get a value
+     */
+    get(this: this, key: string): Item
+
+    /**
+     * Check a value
+     */
+    is(this: this, key: string, value: Item): boolean
+
+    /**
+     * Check if a given key is true
+     */
+    isTrue(this: this, key: string): boolean
+
+    /**
+     * Check if a given key is truthy
+     */
+    isTruthy(this: this, key: string): boolean
+
+    /**
+     * Set a value
+     */
+    set(this: this, key: string, value: Item): void
+
+    /**
+     * Check if an item exists in the repository.
+     */
+    has(this: this, key: string): boolean
+
+    /**
+     * Merge an item value.
+     */
+    merge(this: this, key: string, value: Item): void
+
+    /**
+     * Delete an item from the repository
+     */
+    delete(this: this, key: string): void
+
+    /**
+     * Set an item to true
+     */
+    enable(this: this, key: string): void
+
+    /**
+     * Set an item to false
+     */
+    disable(this: this, key: string): void
+
+    /**
+     * Set if an item is true
+     */
+    enabled(this: this, key: string): boolean
+
+    /**
+     * Check if an item is false
+     */
+    disabled(this: this, key: string): boolean
+
+    /**
+     * Map a callback onto an iterable item
+     */
+    map(
+      this: this,
+      key: string,
+      callback: (params: unknown) => unknown,
+    ): unknown
+
+    each(
+      this: this,
+      callback: (
+        value: any,
+        index: number,
+        array: any[],
+      ) => void,
+      key?: string,
+    ): unknown
+
+    /**
+     * Get all of the repository contents
+     */
+    entries(this: this): Loose
+  }
 }
 
 export default Container

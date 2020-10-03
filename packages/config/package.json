@@ -22,7 +22,10 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib", "types"],
+  "files": [
+    "lib",
+    "types"
+  ],
   "main": "lib/index.js",
   "types": "types/index.d.ts",
   "scripts": {
@@ -32,14 +35,21 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@roots/bud-compiler": "2.0.0-next.24",
     "@roots/bud-server": "2.0.0-next.24",
-    "@roots/bud-types": "2.0.0-next.24",
-    "@roots/bud-support": "2.0.0-next.24"
+    "@roots/bud-support": "2.0.0-next.24",
+    "dotenv": "^8.2.0",
+    "pino": "^6.5.0",
+    "pino-pretty": "^4.1.0",
+    "prettier": "^2.1.1",
+    "pretty-format": "^26.4.2",
+    "yargs": "^16.0.3"
   },
   "devDependencies": {
     "autoprefixer": "^10.0.1",
     "postcss": "^8.1.1",
-    "postcss-loader": "^4.0.2"
+    "postcss-loader": "^4.0.2",
+    "terser": "^5.3.4"
   },
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5"
 }

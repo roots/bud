@@ -2,7 +2,6 @@
   "version": "2.0.0-next.24",
   "packages": [
     "packages/bud",
-    "packages/babel",
     "packages/build",
     "packages/cli",
     "packages/config",
@@ -11,8 +10,6 @@
     "packages/container",
     "packages/dependencies",
     "packages/filesystem",
-    "packages/rules",
-    "packages/types",
     "packages/extensions/eslint",
     "packages/extensions/purgecss",
     "packages/extensions/react",
