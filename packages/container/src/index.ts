@@ -12,12 +12,20 @@ class Container implements Container.Interface {
     this.setAccess = this.setAccess.bind(this)
 
     repository &&
-      Object.entries(repository).forEach(([key, val]) => {
-        this.setAccess(key, val)
+      Object.keys(repository).forEach(key => {
+        const obj = Object.getOwnPropertyDescriptor(
+          repository,
+          key,
+        )
+        !obj.set &&
+          !obj.get &&
+          obj.configurable &&
+          obj.writable &&
+          this.setAccess(key)
       })
   }
 
-  public setAccess(key, val) {
+  public setAccess(key: string): void {
     Object.defineProperty(this, key, {
       get: () => {
         return this.repository[key]
@@ -77,8 +85,6 @@ class Container implements Container.Interface {
    */
   public set(key: string, value: Container.Item): void {
     __.set(this.repository, key, value)
-    this.setAccess(key, value)
-
   }
 
   public has(key: string): boolean {

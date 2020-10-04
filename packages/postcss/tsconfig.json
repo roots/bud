@@ -8,7 +8,5 @@
   },
   "compileOnSave": true,
   "include": ["./src"],
-  "references": [
-    {"@roots/framework": "../framework"},
-  ]
+  "references": [{"@roots/framework": "../framework"}]
 }

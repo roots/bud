@@ -10,15 +10,19 @@ export class Controller implements Interface {
 
     this.make = this.make.bind(this)
 
-    this.bud.on('webpack.plugins', plugins =>
-      plugins.filter(plugin => plugin),
+    this.bud.on(
+      'webpack.plugins',
+      (plugins: Extension.Interface[]) =>
+        plugins.filter((plugin: Extension.Interface) => plugin),
     )
   }
 
   public make(factory: Extension.Factory): Extension.Product {
     const extension: Extension.Interface = factory(this.bud)
 
-    if (extension.when && extension.when()) {
+    if (!extension.make) return
+
+    if (!extension.when || extension.when()) {
       return extension.make()
     }
   }

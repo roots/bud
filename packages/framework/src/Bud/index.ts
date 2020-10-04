@@ -14,7 +14,6 @@ import Hooks from '../Extend/Hooks'
 import Model from '../Model'
 import Store from '../Store'
 
-import mode from './mode'
 import env from './env'
 import format from './util/format'
 import logger from './util/logger'
@@ -36,7 +35,6 @@ class Bud {
   public hooks: Bud.Hooks
   public server: Server.Interface
   public logger: Bud.Hooks['logger'] = logger
-  public mode: Bud.Mode
   public on: Bud.Hooks['on']
   public store: Bud.Store
   public util = {
@@ -68,8 +66,14 @@ class Bud {
       return this.store.create(name, model)
     })
 
-    // Binds bud.mode -- Utility for getting/setting webpack build mode
-    this.mode = mode.bind(this)()
+    this.mode = {
+      is: check => this.store['build'].is('mode', check),
+      get: () => this.store['build'].get('mode'),
+      set: mode => {
+        this.store['build'].set('mode', mode)
+        return this
+      },
+    }
 
     // Binds bud.env -- Utility for getting and checking enviornment variables.
     this.env = env.bind(this)()

@@ -24,7 +24,9 @@ const optimization: Configuration['optimization'] = {
         ): string => {
           return chunks?.length && chunks.length > 0
             ? `${cacheGroupKey}/${chunks}`
-            : `${cacheGroupKey}/${chunks.map(item => item.name).join('~')}`
+            : `${cacheGroupKey}/${chunks
+                .map(item => item.name)
+                .join('~')}`
         },
         chunks: 'async',
       },

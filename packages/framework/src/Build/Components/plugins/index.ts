@@ -1,6 +1,7 @@
 import cleanWebpack from './cleanWebpack'
 import copy from './copy'
 import define from './define'
+import {dll, dllReference} from './dll'
 import ignoreEmit from './ignoreEmit'
 import {brotli, gzip} from './compression'
 import {html, interpolateHtml} from './html'
@@ -18,6 +19,8 @@ export default {
   cleanWebpack,
   copy,
   define,
+  dll,
+  dllReference,
   hotModuleReplacement,
   html,
   interpolateHtml,

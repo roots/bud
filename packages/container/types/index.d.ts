@@ -4,7 +4,7 @@
 declare class Container implements Container.Interface {
     repository: Container.Repository;
     constructor(repository?: Container.Repository);
-    setAccess(key: any, val: any): void;
+    setAccess(key: string): void;
     /**
      * Push a new value onto an array item
      *

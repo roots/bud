@@ -1,6 +1,5 @@
 import Bud from '../../../Bud'
 
-
 export const ident: Bud.Build.Use.Property = 'file'
 
 export const loader: Bud.Build.Use.Factory = function () {

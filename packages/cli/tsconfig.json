@@ -6,7 +6,7 @@
     "declaration": true,
     "declarationDir": "./types",
     "declarationMap": true,
-    "jsx": "react",
+    "jsx": "react"
   },
   "compileOnSave": true,
   "include": ["./src"],

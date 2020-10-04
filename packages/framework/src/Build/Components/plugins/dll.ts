@@ -7,7 +7,7 @@ const dll: Extension.Factory = bud => ({
   options: {
     context: bud.store['build'].context,
     name: '[name]-[hash]',
-    path: bud.dist('/library/[name].json'),
+    path: bud.dist('library/[name].json'),
   },
 
   make: function (): DllPlugin {
@@ -27,7 +27,7 @@ const dllReference: Extension.Factory = bud => ({
 
   options: {
     context: bud['build']['context'],
-    manifest: require(bud.dist('library/manifest.json')),
+    manifest: bud.dist('library/manifest.json'),
     scope: 'xyz',
     sourceType: 'commonjs2',
   },
@@ -39,8 +39,11 @@ const dllReference: Extension.Factory = bud => ({
   when: function () {
     const {library} = this.bud.store['build']['entry']
     const {library: enabled} = this.bud.store['features']
+    const manifestExists = bud.fs.exists(
+      'dist/library/manifest.json',
+    )
 
-    return library && enabled
+    return library && enabled && manifestExists
   },
 })
 

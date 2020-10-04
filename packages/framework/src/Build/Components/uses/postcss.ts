@@ -1,6 +1,5 @@
 import Bud from '../../../Bud'
 
-
 export const ident: Bud.Build.Use.Property = 'postcss-loader'
 
 export const query: Bud.Build.Use.Property = undefined

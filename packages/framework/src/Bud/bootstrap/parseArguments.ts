@@ -30,15 +30,8 @@ const parseArguments = function (this: Bud): void {
   args.has('split') && features.set('splitChunks', args.get('split'))
   args.has('vendor') && features.set('vendor', args.get('vendor'))
   args.has('watch') && features.set('watch', args.get('watch'))
-  /* eslint-enable */
-
-  /**
-   * side fx
-   */
-  build['output'].publicPath = '/'
-  build['mode'] = this.mode.get()
-
   features.enabled('hot') && this.store['server'].enable('hot')
+    /* eslint-enable */
 }
 
 export {parseArguments as default}
