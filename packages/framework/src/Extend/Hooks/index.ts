@@ -3,14 +3,12 @@ import Bud from '../../Bud'
 /**
  * Returns a hooks instance with application bindings.
  */
-const Hooks = (
-  logger: Bud.Hooks.Interface['logger'],
-): Bud.Hooks.Interface => ({
+const Hooks = (logger: Bud.Hooks['logger']): Bud.Hooks => ({
   logger,
 
   registered: {},
 
-  make: (hook: Bud.Hooks.Filter) => ({
+  make: (hook: Bud.Hooks.Handler) => ({
     hook,
     fired: false,
   }),
@@ -20,8 +18,6 @@ const Hooks = (
   },
 
   on: function (name, callback) {
-    this.logger.info({name, callback: callback.name})
-
     const entry = this.make(callback)
 
     if (!this.registered[name]) {
@@ -34,8 +30,6 @@ const Hooks = (
   },
 
   filter: function (name: string, value: any): any {
-    this.logger.info({name, value}, `${name} filter called`)
-
     if (!this.registered[name]) {
       return value
     }

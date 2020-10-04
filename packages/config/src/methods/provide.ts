@@ -9,8 +9,8 @@ export const provide: Config.Provide = function (options) {
         ...this.store['plugins'].get('provide'),
         [`${modules}`]: key,
       })
-      this.store['webpack'].set('externals', {
-        ...this.store['webpack'].get('.externals'),
+      this.store['build'].set('externals', {
+        ...this.store['build'].get('.externals'),
         [`${modules}`]: key,
       })
     }
@@ -23,8 +23,8 @@ export const provide: Config.Provide = function (options) {
           ...this.store['plugins'].get('provide'),
           [module]: key,
         })
-        this.store['webpack'].set('externals', {
-          ...this.store['webpack'].get('.externals'),
+        this.store['build'].set('externals', {
+          ...this.store['build'].get('.externals'),
           [`${module}`]: key,
         })
       })

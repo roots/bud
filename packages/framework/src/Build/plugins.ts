@@ -1,12 +1,12 @@
-import Bud from './../Bud'
+import Bud from '../Bud'
 
 const plugins: Bud.Build.Plugins = function () {
   return {
     plugins: this.hooks.filter(
       'webpack.plugins',
-      this.store['plugins']
+      this.components['plugins']
         .entries()
-        .map(([, plugin]) => this.extension.make(plugin)),
+        .map(([, plugin]) => this.extensions.make(plugin)),
     ),
   }
 }

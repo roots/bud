@@ -14,11 +14,11 @@ export const dev: Config.Dev = function (config) {
   // Enable host middleware
   if (config.hot) {
     this.store['features'].enable('hot')
-    this.store['server'].set('hot', true)
+    this.store['server']['hot'] = true
   }
 
   // Merge conf
-  this.store['server'].repository = {
+  this.store['server'] = {
     ...this.store['server'],
     ...config,
   }

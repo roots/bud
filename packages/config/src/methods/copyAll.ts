@@ -6,12 +6,7 @@ export const copyAll: Config.CopyAll = function (from, to?) {
     this.hooks.filter('api.copyAll', {
       from: '**/*',
       context: from,
-      to: to
-        ? to
-        : this.fs.path.join(
-            this.store['paths'].get('dist'),
-            from,
-          ),
+      to: to ? to : this.distPath(from),
       globOptions: {
         ignore: '.*',
       },

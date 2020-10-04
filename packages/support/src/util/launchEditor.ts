@@ -6,13 +6,14 @@ import shellQuote from 'shell-quote'
 
 import isWsl from './isWsl'
 
-const isTerminalEditor = editor => {
+const isTerminalEditor = (editor: string) => {
   switch (editor) {
     case 'vim':
     case 'emacs':
     case 'nano':
       return true
   }
+
   return false
 }
 

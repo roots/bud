@@ -22,7 +22,10 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib", "publish"],
+  "files": [
+    "lib",
+    "publish"
+  ],
   "main": "./lib/index.js",
   "types": "./types/index.d.ts",
   "scripts": {
@@ -44,5 +47,11 @@
     "update-notifier": "^4.1.1",
     "yargs": "^16.0.3"
   },
-  "devDependencies": {}
+
+  "devDependencies": {
+    "@types/fs-extra": "^9.0.1",
+    "@types/globby": "^9.1.0",
+    "@types/lodash": "^4.14.161",
+    "@types/shell-quote": "^1.7.0"
+  }
 }

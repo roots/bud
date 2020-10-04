@@ -1,6 +1,6 @@
 import Server from '@roots/bud-server'
 
-const server: Server.Config = {
+const store: Server.Config = {
   autoRewrite: true,
   changeOrigin: true,
   followRedirects: true,
@@ -29,4 +29,4 @@ const server: Server.Config = {
   // publicPath: '/', :: hardwired bud.fs.get(bud.paths.public)
 }
 
-export default server
+export default store

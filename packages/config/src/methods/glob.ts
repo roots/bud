@@ -40,8 +40,7 @@ function basedName(file: string): string {
 }
 
 /**
- * Prepare param for use with globbing function
- *
+ * Prepare globbing fn props
  * @see Bud.fs.glob
  */
 function prepareGlob(search: string | string[]): string[] {

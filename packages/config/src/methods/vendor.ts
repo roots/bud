@@ -4,10 +4,10 @@ export const vendor: Config.Vendor = function (options) {
   this.store['features'].enable('splitChunks')
 
   options &&
-    this.store['webpack'].set(
+    this.store['build'].set(
       'optimization.splitChunks.cacheGroups.vendor',
       {
-        ...this.store['webpack'].get(
+        ...this.store['build'].get(
           'webpack.optimization.splitChunks.cacheGroups.vendor',
         ),
         ...options,

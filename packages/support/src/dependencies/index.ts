@@ -1,7 +1,7 @@
-import execa from './execa'
+import execa from 'execa'
 import lodash from 'lodash'
-import yargs from './yargs'
-import globby = require('globby')
+import yargs from 'yargs'
+import globby from 'globby'
+import fs from 'fs-extra'
 
-export * as fs from 'fs-extra'
-export {execa, globby, lodash, yargs}
+export {execa, fs, globby, lodash, yargs}

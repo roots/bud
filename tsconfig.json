@@ -5,6 +5,8 @@
     "declaration": true,
     "declarationMap": true,
     "experimentalDecorators": true,
+    "removeComments": false,
+    "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
     "lib": ["DOM", "ES2019"],
     "jsx": "react",

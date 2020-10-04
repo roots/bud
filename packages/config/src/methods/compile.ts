@@ -21,7 +21,7 @@ export const compile: Config.Compile = async function (): Promise<void> {
   )
 
   app({
-    name: this.store['package'].get('name') ?? '@roots/bud',
+    name: '@roots/bud',
     compiler: this.compiler,
     server: this.server,
   })
@@ -32,10 +32,10 @@ export const compile: Config.Compile = async function (): Promise<void> {
  */
 function inject(): void {
   const entrypoints = injectClient({
-    entrypoints: this.store['webpack'].get('entry'),
+    entrypoints: this.store['build'].get('entry'),
   })
 
-  this.store['webpack'].set('entry', entrypoints)
+  this.store['build'].set('entry', entrypoints)
 }
 
 /**

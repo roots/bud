@@ -1,4 +1,4 @@
 import {yargs} from '@roots/bud-support'
 
-const args = yargs.argv
+const {argv: args} = yargs
 export {args as default}

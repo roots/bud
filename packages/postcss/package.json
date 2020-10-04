@@ -33,6 +33,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "postcss": "^8.1.1"
+    "postcss": "^8.1.1",
+    "@roots/bud-framework": "file:../framework"
   }
 }

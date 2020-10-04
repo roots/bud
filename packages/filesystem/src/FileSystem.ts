@@ -1,16 +1,19 @@
 import __ from 'lodash'
 import {resolve} from 'path'
-
 import Container from '@roots/container'
 import FileContainer from './FileContainer'
 
-class Filesystem extends Container {
+class FileSystem extends Container {
   constructor() {
     super()
   }
 
   public get(key: string): FileContainer {
     return __.get(this.repository, key)
+  }
+
+  public ls(key?: string): Container.Item {
+    return key ? __.get(this.repository, key) : this.repository
   }
 
   public set(
@@ -41,4 +44,4 @@ class Filesystem extends Container {
   }
 }
 
-export {Filesystem as default}
+export {FileSystem as default}

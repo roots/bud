@@ -1,7 +1,12 @@
+/* eslint-disable */
+
 import {Configuration} from 'webpack'
 
 const optimization: Configuration['optimization'] = {
-  runtimeChunk: false,
+  runtimeChunk: {
+    name: (entrypoint: any): string =>
+      `runtime/${entrypoint.name}`,
+  },
   splitChunks: {
     chunks: 'async',
     minSize: 20000,
@@ -16,11 +21,12 @@ const optimization: Configuration['optimization'] = {
         name: (
           chunks: {name}[],
           cacheGroupKey: string,
-        ): string =>
-          `${cacheGroupKey}/${chunks
-            .map(item => item.name)
-            .join('~')}`,
-        chunks: 'all',
+        ): string => {
+          return chunks?.length && chunks.length > 0
+            ? `${cacheGroupKey}/${chunks}`
+            : `${cacheGroupKey}/${chunks.map(item => item.name).join('~')}`
+        },
+        chunks: 'async',
       },
     },
   },

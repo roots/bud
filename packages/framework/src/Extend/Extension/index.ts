@@ -1,5 +1,5 @@
-import * as Webpack from 'webpack'
 import Bud from '../../Bud'
+import * as Webpack from 'webpack'
 
 export interface Interface {
   /**

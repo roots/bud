@@ -9,7 +9,7 @@ export const runtime: Config.Runtime = function (
   this.store['features'].set('runtimeChunk', true)
 
   name &&
-    this.store['webpack'].set(
+    this.store['build'].set(
       'optimization.runtimeChunk.name',
       name ?? defaultName,
     )

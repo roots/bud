@@ -1,11 +1,11 @@
-import App from '../../Bud'
-import * as Webpack from 'webpack'
+import Bud from '../../Bud'
 import * as Extension from './../Extension'
+import * as Webpack from 'webpack'
 
 export class Controller implements Interface {
-  public bud: App
+  public bud: Bud
 
-  public constructor(bud: App) {
+  public constructor(bud: Bud) {
     this.bud = bud
 
     this.make = this.make.bind(this)
@@ -25,7 +25,7 @@ export class Controller implements Interface {
 }
 
 export interface Interface {
-  bud: App
+  bud: Bud
 
   extension?: Extension.Interface
 

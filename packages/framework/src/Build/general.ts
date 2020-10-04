@@ -1,4 +1,4 @@
-import Bud from './../Bud'
+import Bud from '../Bud'
 
 const general: Bud.Build.General = function (webpack) {
   return {

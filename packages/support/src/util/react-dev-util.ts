@@ -16,7 +16,7 @@ import launchEditor from './launchEditor'
 import WatchMissingNodeModulesPlugin from 'react-dev-utils/WatchMissingNodeModulesPlugin'
 import checkRequiredFiles from 'react-dev-utils/checkRequiredFiles'
 import eslintFormatter from 'react-dev-utils/eslintFormatter'
-import InterpolateHtmlPlugin from 'react-dev-utils/InterpolateHtmlPlugin'
+import InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin')
 
 export {
   checkRequiredFiles,

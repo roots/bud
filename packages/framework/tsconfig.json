@@ -3,14 +3,19 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./lib",
+    "baseUrl": ".",
     "declaration": true,
-    "declarationDir": "./types",
+    "declarationDir": "types",
     "declarationMap": true
+  },
+  "typeAcquisition": {
+    "enable": true
   },
   "compileOnSave": true,
   "include": ["./src"],
   "exclude": ["./lib"],
   "references": [
+    {"@roots/bud-framework": "./"},
     {"@roots/container": "../container"},
     {"@roots/dependencies": "../dependencies"},
     {"@roots/filesystem": "../filesystem"},

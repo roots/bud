@@ -1,5 +1,5 @@
-import Webpack from 'webpack'
 import Bud from '../Bud'
+
 import entry from './entry'
 import general from './general'
 import rulesets from './rulesets'
@@ -8,7 +8,7 @@ import output from './output'
 import plugins from './plugins'
 import resolve from './resolve'
 
-export const builders = {
+const builders = {
   entry,
   general,
   rulesets,
@@ -18,21 +18,14 @@ export const builders = {
   plugins,
 }
 
-export function Build(): Webpack.Configuration {
-  preflight.bind(this)()
-
+function Build(this: Bud): Bud.Build.Configuration {
   return Object.entries(builders).reduce(
     (config, [, builder]: [string, Bud.Build.Builders]) => ({
       ...(config ?? []),
-      ...builder.bind(this)(this.store['webpack'].repository),
+      ...builder.bind(this)(this.store['build'].repository),
     }),
     {},
   )
 }
 
-function preflight() {
-  this.store['webpack'].set(
-    'context',
-    this.store['paths'].get('src'),
-  )
-}
+export default Build

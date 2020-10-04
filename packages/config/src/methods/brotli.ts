@@ -1,10 +1,11 @@
 import {Config} from '..'
 
 export const brotli: Config.Brotli = function (options) {
-  this.store['plugins'].set('brotli', true)
+  this.store['features'].set('brotli', true)
 
-  options &&
-    this.store['plugins'].set('compression.brotli', options)
+  if (options) {
+    this.store['components'].plugins.compression.brotli = options
+  }
 
   return this
 }

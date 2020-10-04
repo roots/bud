@@ -23,6 +23,7 @@ import {extend} from './extend'
 import {hash} from './hash'
 import {gzip} from './gzip'
 import {glob} from './glob'
+import {library} from './library'
 import {runtime} from './runtime'
 import {template} from './template'
 import {minify} from './minify'
@@ -57,6 +58,7 @@ export default {
   hash,
   gzip,
   glob,
+  library,
   runtime,
   template,
   minify,

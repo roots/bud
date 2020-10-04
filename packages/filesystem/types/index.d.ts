@@ -1,8 +1,4 @@
 import FileContainer from './FileContainer';
 import FileSystem from './FileSystem';
-declare const _default: {
-    FileContainer: typeof FileContainer;
-    FileSystem: typeof FileSystem;
-};
-export default _default;
+export { FileContainer, FileSystem };
 //# sourceMappingURL=index.d.ts.map

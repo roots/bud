@@ -9,7 +9,6 @@ const output: Configuration['output'] = {
   filename: '[name].js',
   publicPath: '/',
   path: resolve(process.cwd(), 'build'),
-
   // path: resolve(process.cwd(), 'dist'),
   // devtoolNamespace: undefined,
   // globalObject: 'window',

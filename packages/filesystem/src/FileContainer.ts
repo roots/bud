@@ -6,7 +6,7 @@ import resolveFrom from 'resolve-from'
 import __ from 'lodash'
 import watcher from './watcher'
 
-export default class extends Container {
+export default class FileContainer extends Container {
   public fs = fs
 
   public repository: Container.Repository
@@ -47,6 +47,10 @@ export default class extends Container {
     )
   }
 
+  public ls(key?: string): Container.Item {
+    return key ? __.get(this.repository, key) : this.repository
+  }
+
   public get(key: string): Container.Item {
     return __.get(this.repository, key)
   }
@@ -80,76 +84,4 @@ export default class extends Container {
   public require(key: string): NodeModule {
     return require(this.get(key))
   }
-}
-
-declare class FileContainer extends Container {
-  /**
-   * Basepath of disk.
-   */
-  base: string
-
-  /**
-   * FS-Extra instance.
-   */
-  fs: typeof fs
-
-  /**
-   * Globby instance.
-   */
-  glob: typeof globby
-
-  /**
-   * PlatformPath utilities.
-   */
-  path: typeof path
-
-  /**
-   * ResolveFrom utility.
-   */
-  from: typeof resolveFrom
-
-  /**
-   * Watchman instance.
-   */
-  watcher: typeof watcher
-
-  /**
-   * Set the base filepath
-   */
-  setBase: (dir: string) => void
-
-  /**
-   * Check if a file exists in the repository.
-   */
-  exists: (key: string) => boolean
-
-  /**
-   * Relative to the set basepath, glob for files and set to the repository.
-   */
-  setDisk(glob: string[]): void
-
-  /**
-   * Read a repository item file contents as a utf8 string.
-   */
-  read(key: string): string
-
-  /**
-   * Read JSON from a repository item's file.
-   */
-  readJson(key: string): unknown
-
-  /**
-   * Write a string to a repository item's file.
-   */
-  write(key: string, content: string): void
-
-  /**
-   * Write JSON to a repository item's file.
-   */
-  writeJson(key: string, content: string): void
-
-  /**
-   * Require a modular item
-   */
-  require(this: Container.Interface, key: string): NodeModule
 }

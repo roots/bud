@@ -1,11 +1,12 @@
 /// <reference types="node" />
 import Container from '@roots/container';
 import path from 'path';
+import * as fs from 'fs-extra';
 import globby from 'globby';
 import resolveFrom from 'resolve-from';
 import watcher from './watcher';
-export default class extends Container {
-    fs: any;
+export default class FileContainer extends Container {
+    fs: typeof fs;
     repository: Container.Repository;
     glob: typeof globby;
     path: typeof path;
@@ -15,6 +16,7 @@ export default class extends Container {
     constructor(baseDir?: string);
     setBase: (dir: string) => void;
     setDisk(glob: string[]): void;
+    ls(key?: string): Container.Item;
     get(key: string): Container.Item;
     exists: (key: string) => boolean;
     read: (key: string) => string;

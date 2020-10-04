@@ -1,18 +1,18 @@
-import Bud from './../Bud'
+import Bud from '../Bud'
 
 /**
  * Webpack optimization
  */
-const optimization: Bud.Build.Optimization = function () {
+const optimization: Bud.Build.Optimization = function ({
+  optimization,
+}) {
   return this.hooks.filter('optimization', {
     optimization: {
       ...(this.store['features'].enabled('runtimeChunk')
         ? {
             runtimeChunk: this.hooks.filter(
               'optimization.runtimeChunk',
-              this.store['webpack'].get(
-                'optimization.runtimeChunk',
-              ),
+              optimization.runtimeChunk,
             ),
           }
         : []),
@@ -23,9 +23,7 @@ const optimization: Bud.Build.Optimization = function () {
               cacheGroups: {
                 vendor: this.hooks.filter(
                   'optimization.splitChunks.cacheGroups.vendor',
-                  this.store['webpack'].get(
-                    'optimization.splitChunks.cacheGroups.vendor',
-                  ),
+                  optimization.splitChunks.cacheGroups.vendor,
                 ),
               },
             },

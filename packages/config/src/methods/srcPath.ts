@@ -3,16 +3,13 @@ import {Config} from '..'
 export const srcPath: Config.SrcPath = function (
   segment: string,
 ) {
-  if (this.store['args'].get('src')) {
+  if (this.store.args.build) {
     return this
   }
 
-  this.store['paths'].set(
-    'src',
-    this.fs.path.resolve(
-      this.store['paths'].get('project'),
-      segment,
-    ),
+  this.store['build'].context = this.hooks.filter(
+    'api.distPath',
+    this.fs.path.resolve(this.store['paths'].project, segment),
   )
 
   return this

@@ -44,7 +44,7 @@ class Server implements Server.Interface {
     return this.instance
   }
 
-  public setServer(instance: Server.Interface): this {
+  public setServer(instance: Express): this {
     this.instance = instance
 
     return this

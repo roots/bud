@@ -11,14 +11,16 @@ const mode: Configuration['mode'] = 'none'
 const watch: Configuration['watch'] = false
 const performance: Configuration['performance'] = false
 const plugins: Configuration['plugins'] = []
-const profile: Configuration['profile'] = true
-const stats: Configuration['stats'] = false
+const profile: Configuration['profile'] = false
+const stats: Configuration['stats'] = true
 const target: Configuration['target'] = 'web'
 const bail: Configuration['bail'] = false
 const parallelism: Configuration['parallelism'] = 1
+
 const context: Configuration['context'] = normalize(
   join(process.cwd(), 'src'),
 )
+
 const devtool: Configuration['devtool'] =
   '#@cheap-eval-source-map'
 

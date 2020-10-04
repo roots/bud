@@ -1,9 +1,9 @@
-import Bud from './../Bud'
+import Bud from '../Bud'
 
-const entry: Bud.Build.Entry = function () {
-  return this.hooks.filter('webpack.entry', {
-    entry: this.store['webpack'].get('entry'),
-  })
+const entry: Bud.Build.Entry = function ({entry}) {
+  return {
+    entry: this.hooks.filter('webpack.entry', entry),
+  }
 }
 
 export {entry as default}

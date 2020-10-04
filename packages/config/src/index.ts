@@ -48,6 +48,7 @@ export declare namespace Config {
   export type AddPlugin = Fluent<{
     name: string
     plugin: PluginFactory
+    when: () => boolean
   }>
 
   export type Alias = Fluent<{
@@ -91,6 +92,8 @@ export declare namespace Config {
   ) => Bud
 
   export type Hash = (this: Bud) => Bud
+
+  export type Library = (this: Bud) => Bud
 
   export type Minify = (this: Bud) => Bud
 

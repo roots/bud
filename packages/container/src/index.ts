@@ -8,6 +8,24 @@ class Container implements Container.Interface {
 
   constructor(repository?: Container.Repository) {
     this.repository = repository || {}
+
+    this.setAccess = this.setAccess.bind(this)
+
+    repository &&
+      Object.entries(repository).forEach(([key, val]) => {
+        this.setAccess(key, val)
+      })
+  }
+
+  public setAccess(key, val) {
+    Object.defineProperty(this, key, {
+      get: () => {
+        return this.repository[key]
+      },
+      set: val => {
+        this.repository[key] = val
+      },
+    })
   }
 
   /**
@@ -59,6 +77,8 @@ class Container implements Container.Interface {
    */
   public set(key: string, value: Container.Item): void {
     __.set(this.repository, key, value)
+    this.setAccess(key, value)
+
   }
 
   public has(key: string): boolean {
@@ -127,75 +147,77 @@ declare namespace Container {
   export interface Interface extends Repository {
     repository: Repository
 
-    /**
-     * Push a new value onto an array item
-     */
-    add(this: this, key: string, item: Item): void
+    setAccess(key: string, item: Item): void
 
     /**
      * Push a new value onto an array item
      */
-    push(this: this, key: string, item: Item): void
+    add(key: string, item: Item): void
+
+    /**
+     * Push a new value onto an array item
+     */
+    push(key: string, item: Item): void
 
     /**
      * Get a value
      */
-    get(this: this, key: string): Item
+    get(key: string): Item
 
     /**
      * Check a value
      */
-    is(this: this, key: string, value: Item): boolean
+    is(key: string, value: Item): boolean
 
     /**
      * Check if a given key is true
      */
-    isTrue(this: this, key: string): boolean
+    isTrue(key: string): boolean
 
     /**
      * Check if a given key is truthy
      */
-    isTruthy(this: this, key: string): boolean
+    isTruthy(key: string): boolean
 
     /**
      * Set a value
      */
-    set(this: this, key: string, value: Item): void
+    set(key: string, value: Item): void
 
     /**
      * Check if an item exists in the repository.
      */
-    has(this: this, key: string): boolean
+    has(key: string): boolean
 
     /**
      * Merge an item value.
      */
-    merge(this: this, key: string, value: Item): void
+    merge(key: string, value: Item): void
 
     /**
      * Delete an item from the repository
      */
-    delete(this: this, key: string): void
+    delete(key: string): void
 
     /**
      * Set an item to true
      */
-    enable(this: this, key: string): void
+    enable(key: string): void
 
     /**
      * Set an item to false
      */
-    disable(this: this, key: string): void
+    disable(key: string): void
 
     /**
      * Set if an item is true
      */
-    enabled(this: this, key: string): boolean
+    enabled(key: string): boolean
 
     /**
      * Check if an item is false
      */
-    disabled(this: this, key: string): boolean
+    disabled(key: string): boolean
 
     /**
      * Map a callback onto an iterable item
