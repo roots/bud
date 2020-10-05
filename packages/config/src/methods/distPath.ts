@@ -1,14 +1,17 @@
 import {Config} from '..'
 
-export const distPath: Config.DistPath = function (segment) {
+export const distPath: Config.DistPath = function (
+  segment: string,
+) {
   /** Bounce early if dist is overwritten from CLI */
-  if (this.store.args.build) {
+  if (this.store['args'].output) {
     return this
   }
 
-  this.store.build.output.path = this.hooks.filter(
-    'api.distPath',
-    this.fs.path.resolve(this.store.paths.project, segment),
+  this.store.set(
+    'build',
+    'output.path',
+    this.hooks.filter('api.distPath', this.project(segment)),
   )
 
   return this

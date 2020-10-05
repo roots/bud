@@ -31,6 +31,14 @@ class Store implements Bud.Store {
     return this.use(name)
   }
 
+  public get: Bud.Store.Get = function (name, query) {
+    return this.use(name).get(query)
+  }
+
+  public set: Bud.Store.Set = function (name, query, val) {
+    return this.use(name).set(query, val)
+  }
+
   public merge: Bud.Store.Merge = function (name, state) {
     return (this[name].repository = {
       ...this[name].repository,

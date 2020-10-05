@@ -45,9 +45,25 @@ declare class Container implements Container.Interface {
     map(key: string, callback: (params: unknown) => unknown): unknown;
     each(callback: (value: any, index: number, array: any[]) => void, key?: string): unknown;
     /**
-     * Get all of the repository contents
+     * All repository
+     */
+    all(): Container.Repository;
+    /**
+     * Get repo entries.
      */
     entries(): Container.Repository;
+    /**
+     * Get repo keys.
+     */
+    keys(): Container.Repository;
+    /**
+     * Get repo values.
+     */
+    values(): Container.Repository;
+    /**
+     * Produce a Map of the repo
+     */
+    Map(): Map<string, Container.Repository>;
 }
 declare namespace Container {
     type Item = any | Loose | Loose[];
@@ -118,7 +134,6 @@ declare namespace Container {
          * Map a callback onto an iterable item
          */
         map(this: this, key: string, callback: (params: unknown) => unknown): unknown;
-        each(this: this, callback: (value: any, index: number, array: any[]) => void, key?: string): unknown;
         /**
          * Get all of the repository contents
          */

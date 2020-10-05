@@ -8,7 +8,7 @@ import Compiler from '@roots/bud-compiler'
 import Config from '@roots/bud-config'
 
 import Build from '../Build'
-import Components from '../Build/Components'
+import Components from '../Components'
 import {Controller} from '../Extend/Controller'
 import Hooks from '../Extend/Hooks'
 import Model from '../Model'
@@ -157,8 +157,12 @@ declare namespace Bud {
     ) => Product.Externals
 
     export type Module = (
-      state?: Container.Repository,
-    ) => Product.Module
+      build?: Container.Repository,
+    ) => Webpack.Module
+
+    export type Rules = (
+      build?: Container.Repository,
+    ) => Product.Module['rules']
 
     export type Resolve = (
       state?: Container.Repository,
@@ -533,6 +537,16 @@ declare namespace Bud {
      * Get the state from an array of store keys
      */
     use: Store.Use
+
+    /**
+     * Fetch something from a store
+     */
+    get: Store.Get
+
+    /**
+     * Set something to the store
+     */
+    set: Store.Set
   }
 
   export namespace Store {
@@ -558,6 +572,17 @@ declare namespace Bud {
     }
 
     export type Use = (name: string) => Container
+
+    export type Get = (
+      name: string,
+      query: string | string[],
+    ) => Container[]
+
+    export type Set = (
+      name: string,
+      query: string | string[],
+      val: unknown,
+    ) => Container[]
 
     export type Query = (name: string[]) => Container[]
 

@@ -1,21 +1,21 @@
 import Bud from '../Bud'
 
-const resolve: Bud.Build.Resolve = function (webpack) {
+const resolve: Bud.Build.Resolve = function (build) {
   const alias = this.hooks.filter(
-    'webpack.resolve.alias',
-    webpack.resolve.alias,
+    'build.resolve.alias',
+    build.resolve.alias,
   )
 
   return {
     resolve: {
       alias,
       extensions: this.hooks.filter(
-        'webpack.resolve.extensions',
-        webpack.resolve.extensions,
+        'build.resolve.extensions',
+        build.resolve.extensions,
       ),
 
-      modules: this.hooks.filter('webpack.resolve.modules', [
-        webpack.resolve.modules ?? webpack.context,
+      modules: this.hooks.filter('build.resolve.modules', [
+        build.resolve.modules ?? build.context,
         'node_modules',
       ]),
     },

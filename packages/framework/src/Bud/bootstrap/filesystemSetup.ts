@@ -28,18 +28,21 @@ const ingestConfig = (
 const filesystemSetup = function (this: Bud): void {
   const [args] = this.store.query(['args'])
 
-  // Hopefully resolves to node_modules/@roots
-  this.makeDisk(
-    '@roots',
-    this.fs.path.resolve(__dirname, SHAME.REL_DIR),
-    ['**/*'],
-  )
-
   const projectDir = args.has('project')
     ? this.fs.path.resolve(process.cwd(), args.get('project'))
     : process.cwd()
 
-  this.makeDisk('project', projectDir, ['**/*'])
+  this.disks.set('@roots', {
+    baseDir: this.fs.path.resolve(__dirname, SHAME.REL_DIR),
+    glob: ['**/*'],
+  })
+  this.disks.set('project', {
+    baseDir: projectDir,
+    glob: ['**/*'],
+  })
+  this.disks.get('project')
+
+  this.projectPath(projectDir)
 
   args.has('src') && this.srcPath(args.get('src'))
   args.has('build') && this.distPath(args.get('build'))

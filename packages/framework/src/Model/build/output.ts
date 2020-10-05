@@ -1,33 +1,42 @@
 import {Configuration} from 'webpack'
 import {resolve} from 'path'
 
-const output: Configuration['output'] = {
-  chunkFilename: '[name].js',
-  chunkLoadTimeout: 120000,
-  crossOriginLoading: false,
-  devtoolLineToLine: false,
-  filename: '[name].js',
-  publicPath: '/',
-  path: resolve(process.cwd(), 'build'),
-  // path: resolve(process.cwd(), 'dist'),
-  // devtoolNamespace: undefined,
-  // globalObject: 'window',
-  // hashDigest: 'hex',
-  // sourcePrefix: '',
-  // futureEmitAssets: true,
-  // hashDigestLength: 8,
-  // hashFunction: 'md4',
-  // hashSalt: undefined,
-  // hotUpdateChunkFilename: '[id].[hash].hot-update.js',
-  // hotUpdateFunction: 'webpackHotUpdate',
-  // hotUpdateMainFilename: '[hash].hot-update.json',
-  // jsonpFunction: 'webpackJsonp',
-  // jsonpScriptType: 'text/javascript',
-  // library: undefined,
-  // libraryExport: undefined,
-  // libraryTarget: 'var',,
-  // sourceMapFilename: '[file].map[query]',
-  // umdNamedDefine: false,
-}
+export const chunkFilename: Configuration['output']['chunkFilename'] =
+  '[name].js'
 
-export {output as default}
+export const chunkLoadTimeout: Configuration['output']['chunkLoadTimeout'] = 120000
+
+export const crossOriginLoading: Configuration['output']['crossOriginLoading'] = false
+
+export const devtoolLineToLine: Configuration['output']['devtoolLineToLine'] = false
+
+export const filename: Configuration['output']['filename'] =
+  '[name].js'
+
+export const publicPath: Configuration['output']['publicPath'] =
+  '/'
+
+export const path: Configuration['output']['path'] = resolve(
+  process.cwd(),
+  'build',
+)
+
+// path: resolve(process.cwd(), 'dist'),
+// devtoolNamespace: undefined,
+// globalObject: 'window',
+// hashDigest: 'hex',
+// sourcePrefix: '',
+// futureEmitAssets: true,
+// hashDigestLength: 8,
+// hashFunction: 'md4',
+// hashSalt: undefined,
+// hotUpdateChunkFilename: '[id].[hash].hot-update.js',
+// hotUpdateFunction: 'webpackHotUpdate',
+// hotUpdateMainFilename: '[hash].hot-update.json',
+// jsonpFunction: 'webpackJsonp',
+// jsonpScriptType: 'text/javascript',
+// library: undefined,
+// libraryExport: undefined,
+// libraryTarget: 'var',,
+// sourceMapFilename: '[file].map[query]',
+// umdNamedDefine: false,

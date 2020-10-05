@@ -1,4 +1,4 @@
-import __ from 'lodash'
+import __, {isObject} from 'lodash'
 
 /**
  * Keyed item store.
@@ -8,21 +8,22 @@ class Container implements Container.Interface {
 
   constructor(repository?: Container.Repository) {
     this.repository = repository || {}
-
     this.setAccess = this.setAccess.bind(this)
 
-    repository &&
-      Object.keys(repository).forEach(key => {
-        const obj = Object.getOwnPropertyDescriptor(
-          repository,
-          key,
-        )
-        !obj.set &&
-          !obj.get &&
-          obj.configurable &&
-          obj.writable &&
-          this.setAccess(key)
-      })
+    if (!repository) {
+      return
+    }
+
+    Object.entries(repository).map(([key, val]) => {
+      if (!isObject()) return
+
+      const obj = Object.getOwnPropertyDescriptor(
+        repository,
+        key,
+      )
+
+      obj.configurable && obj.writable && this.setAccess(key)
+    })
   }
 
   public setAccess(key: string): void {
@@ -33,6 +34,7 @@ class Container implements Container.Interface {
       set: val => {
         this.repository[key] = val
       },
+      configurable: true,
     })
   }
 
@@ -49,6 +51,7 @@ class Container implements Container.Interface {
    * Push a new value onto an array item
    */
   public push(key: string, item: Container.Item): void {
+    this.setAccess(key)
     this.repository[key].push(item)
   }
 
@@ -84,6 +87,7 @@ class Container implements Container.Interface {
    * Set the value of a key
    */
   public set(key: string, value: Container.Item): void {
+    this.setAccess(key)
     __.set(this.repository, key, value)
   }
 
@@ -134,10 +138,44 @@ class Container implements Container.Interface {
   }
 
   /**
-   * Get all of the repository contents
+   * All repository
+   */
+  public all(): Container.Repository {
+    return this.repository
+  }
+
+  /**
+   * Get repo entries.
    */
   public entries(): Container.Repository {
     return Object.entries(this.repository)
+  }
+
+  /**
+   * Get repo keys.
+   */
+  public keys(): Container.Repository {
+    return Object.keys(this.repository)
+  }
+
+  /**
+   * Get repo values.
+   */
+  public values(): Container.Repository {
+    return Object.values(this.repository)
+  }
+
+  /**
+   * Produce a Map of the repo
+   */
+  public Map(): Map<string, Container.Repository> {
+    return this.all().reduce(
+      (
+        map: Map<string, Container.Loose>,
+        [key, value]: [string, Container.Loose],
+      ) => map.set(key, value),
+      new Map(),
+    )
   }
 }
 
@@ -232,16 +270,6 @@ declare namespace Container {
       this: this,
       key: string,
       callback: (params: unknown) => unknown,
-    ): unknown
-
-    each(
-      this: this,
-      callback: (
-        value: any,
-        index: number,
-        array: any[],
-      ) => void,
-      key?: string,
     ): unknown
 
     /**
