@@ -20,7 +20,8 @@ const parseArguments = function (this: Bud): void {
   args.has('devtool') &&
     build.set('devtool', args.get('devtool'))
   args.has('target') && build.set('target', args.get('target'))
-  args.has('brotli') && features.set('brotli', args.get('brotli'))
+  args.has('brotli') &&
+    features.set('brotli', args.get('brotli'))
   args.has('ci') && features.set('ci', args.get('ci'))
   args.has('gzip') && features.set('gzip', args.get('gzip'))
   args.has('hash') && features.set('hash', args.get('hash'))
