@@ -1,8 +1,11 @@
 import {Configuration} from 'webpack'
 
-const resolve: Configuration['resolve'] = {
-  alias: {},
-  extensions: ['.wasm', '.mjs', '.js', '.json', '.css'],
-}
+export const alias: Configuration['resolve']['alias'] = {}
 
-export {resolve as default}
+export const extensions: Configuration['resolve']['extensions'] = [
+  '.wasm',
+  '.mjs',
+  '.js',
+  '.json',
+  '.css',
+]

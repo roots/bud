@@ -1,14 +1,15 @@
-import {Configuration} from 'webpack'
+import {Node} from 'webpack'
 
-const node: Configuration['node'] = {
-  module: 'empty',
-  dgram: 'empty',
-  dns: 'mock',
-  fs: 'empty',
-  http2: 'empty',
-  net: 'empty',
-  tls: 'empty',
-  child_process: 'empty',
-}
+export const module: Node['module'] = 'empty'
 
-export {node as default}
+export const dns: Node['module'] = 'mock'
+
+export const fs: Node['module'] = 'empty'
+
+export const http2: Node['module'] = 'empty'
+
+export const net: Node['module'] = 'empty'
+
+export const tls: Node['module'] = 'empty'
+
+export const child_process: Node['module'] = 'empty'

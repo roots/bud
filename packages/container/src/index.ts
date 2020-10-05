@@ -1,4 +1,4 @@
-import __, {isObject} from 'lodash'
+import __ from 'lodash'
 
 /**
  * Keyed item store.
@@ -8,34 +8,10 @@ class Container implements Container.Interface {
 
   constructor(repository?: Container.Repository) {
     this.repository = repository || {}
-    this.setAccess = this.setAccess.bind(this)
 
     if (!repository) {
       return
     }
-
-    Object.entries(repository).map(([key, val]) => {
-      if (!isObject()) return
-
-      const obj = Object.getOwnPropertyDescriptor(
-        repository,
-        key,
-      )
-
-      obj.configurable && obj.writable && this.setAccess(key)
-    })
-  }
-
-  public setAccess(key: string): void {
-    Object.defineProperty(this, key, {
-      get: () => {
-        return this.repository[key]
-      },
-      set: val => {
-        this.repository[key] = val
-      },
-      configurable: true,
-    })
   }
 
   /**
@@ -51,7 +27,6 @@ class Container implements Container.Interface {
    * Push a new value onto an array item
    */
   public push(key: string, item: Container.Item): void {
-    this.setAccess(key)
     this.repository[key].push(item)
   }
 
@@ -87,7 +62,6 @@ class Container implements Container.Interface {
    * Set the value of a key
    */
   public set(key: string, value: Container.Item): void {
-    this.setAccess(key)
     __.set(this.repository, key, value)
   }
 
@@ -190,8 +164,6 @@ declare namespace Container {
 
   export interface Interface extends Repository {
     repository: Repository
-
-    setAccess(key: string, item: Item): void
 
     /**
      * Push a new value onto an array item

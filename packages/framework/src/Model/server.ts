@@ -26,7 +26,6 @@ const store: Server.Config = {
   },
   writeToDisk: true,
   ws: true,
-  // publicPath: '/', :: hardwired bud.fs.get(bud.paths.public)
 }
 
 export default store

@@ -5,7 +5,7 @@ export const bundle: Config.Bundle = function (
   name: string,
   assets: string | string[] | Webpack.Entry | Webpack.EntryFunc,
 ) {
-  this.store['build'].merge('entry', {
+  this.store.use('build').merge('entry', {
     [name]: assets,
   })
 

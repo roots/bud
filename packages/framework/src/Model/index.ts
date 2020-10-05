@@ -4,7 +4,7 @@ import features from './features'
 import * as paths from './paths'
 import patterns from './patterns'
 import server from './server'
-import build from './build'
+import * as build from './build'
 
 export default {
   args,
