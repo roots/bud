@@ -33,8 +33,7 @@ const parseArguments = function (this: Bud): void {
     features.set('runtimeChunk', args.get('runtime'))
   args.has('split') &&
     features.set('splitChunks', args.get('split'))
-  args.has('vendor') &&
-    features.set('vendor', args.get('vendor'))
+  features.set('vendor', args.get('vendor'))
   args.has('watch') && features.set('watch', args.get('watch'))
   features.enabled('hot') && this.store['server'].enable('hot')
   /* eslint-enable */

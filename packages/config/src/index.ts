@@ -1,7 +1,7 @@
 import Container from '@roots/container'
 import Server from '@roots/bud-server'
 
-import Babel from '@babel/core'
+import {TransformOptions} from '@babel/core'
 import Globby from 'globby'
 import * as PostCss from 'postcss'
 import Webpack from 'webpack'
@@ -11,7 +11,6 @@ import Config from './methods'
 
 export declare namespace Config {
   export type Bud = any
-
   export type Dist = PathGetter
   export type Project = PathGetter
   export type Src = PathGetter
@@ -21,7 +20,7 @@ export declare namespace Config {
   export type SrcPath = Fluent<string>
 
   export namespace Options {
-    export type Babel = Babel.TransformOptions
+    export type Babel = TransformOptions
 
     export type Glob = {
       name: string

@@ -1,5 +1,3 @@
 {
-  "runtime/app.js": "/runtime/app.js",
-  "app.js": "/app.js",
-  "index.html": "/index.html"
+  "app.js": "/app.js"
 }

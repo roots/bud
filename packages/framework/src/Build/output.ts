@@ -2,17 +2,17 @@ import Bud from '../Bud'
 
 const output: Bud.Build.Output = function ({output}) {
   const path = this.hooks.filter(
-    'webpack.output.path',
+    'build.output.path',
     output.path,
   )
 
   const publicPath = this.hooks.filter(
-    'webpack.output.publicPath',
+    'build.output.publicPath',
     output.publicPath,
   )
 
   const filename = this.hooks.filter(
-    'webpack.output.filename',
+    'build.output.filename',
     this.store['features'].enabled('hash')
       ? `[name].[hash].js`
       : `[name].js`,
@@ -20,7 +20,6 @@ const output: Bud.Build.Output = function ({output}) {
 
   return {
     output: {
-      ...output,
       path,
       publicPath,
       filename,

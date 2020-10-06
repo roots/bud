@@ -14,9 +14,8 @@ export const glob: Config.Glob = function (
     options ?? {expandDirectories: true},
   )
 
-  /** Merge results onto webpack entries. */
-  this.options.merge(
-    'webpack.entry',
+  this.store['build'].merge(
+    'entry',
     results.reduce((acc, curr) => {
       const entryPath = name ? `${name}/` : '/'
       const entryName = basedName.bind(this)(curr)

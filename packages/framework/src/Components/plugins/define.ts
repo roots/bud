@@ -4,7 +4,7 @@ import {DefinePlugin} from 'webpack'
 const define: Extension.Factory = bud => ({
   bud,
 
-  options: bud.store['env'].repository,
+  options: bud.env,
 
   make: function () {
     return new DefinePlugin(this.options)

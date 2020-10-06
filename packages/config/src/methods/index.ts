@@ -13,7 +13,7 @@ import {postPluginConfig} from './postPluginConfig'
 import {addExtensions} from './addExtensions'
 import {alias} from './alias'
 import {brotli} from './brotli'
-import {bundle} from './bundle'
+import {entry} from './entry'
 import {compile} from './compile'
 import {copy} from './copy'
 import {copyAll} from './copyAll'
@@ -48,7 +48,7 @@ export default {
   addExtensions,
   alias,
   brotli,
-  bundle,
+  entry,
   compile,
   copy,
   copyAll,

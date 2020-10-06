@@ -8,18 +8,19 @@ const useCompilation = ({compiler, server}) => {
   const [running, setRunning] = useState<boolean>(false)
   const [watching, setWatching] = useState<boolean>(false)
   const [listening, setListening] = useState<boolean>(false)
+  const [stats, setStats] = useState<Stats.ToJsonOutput>(null)
   const [mode, setMode] = useState<
     Webpack.Configuration['mode']
   >('none')
-  const [stats, setStats] = useState<Stats.ToJsonOutput>(null)
 
-  /* eslint-disable */
   const [errors, setErrors] = useState<
     Webpack.Stats['compilation']['errors']
   >(null)
+
   const [warnings, setWarnings] = useState<
     Webpack.Stats['compilation']['warnings']
   >(null)
+
   const [progress, setProgress] = useState<{
     percentage: number
     msg: string
@@ -27,16 +28,12 @@ const useCompilation = ({compiler, server}) => {
     percentage: 0,
     msg: '',
   })
-  /* eslint-enable */
 
   useEffect(() => {
     if (mode) return
 
     setMode(compiler.getConfig().mode)
   }, [!mode, compiler])
-
-  // Helpers
-  const shouldDev = mode == 'development'
 
   // Stats handler
   const statsHandler: (stats: Stats) => void = stats => {
@@ -46,6 +43,7 @@ const useCompilation = ({compiler, server}) => {
 
     // Use facebook formatter for error msgs
     const formatted = formatWebpackMessages(allStats)
+
     setErrors(formatted.errors)
     setWarnings(formatted.warnings)
   }
@@ -74,7 +72,8 @@ const useCompilation = ({compiler, server}) => {
    * dev tap
    */
   useEffect(() => {
-    if (!shouldDev || !compiler || tapped) return
+    if (mode == 'development' || !compiler || tapped) return
+
     compiler.compiler.hooks.done.tap('bud-cli', statsHandler)
     setTapped(true)
   }, [mode, compiler, tapped])
@@ -83,7 +82,8 @@ const useCompilation = ({compiler, server}) => {
    * dev listen
    */
   useEffect(() => {
-    if (!shouldDev || !tapped || listening) return
+    if (mode !== 'development' || !tapped || listening) return
+
     server.listen()
     setListening(true)
   }, [server, tapped, listening])
@@ -92,7 +92,7 @@ const useCompilation = ({compiler, server}) => {
    * Compilation
    */
   useEffect(() => {
-    if (!mode || shouldDev || running || watching) return
+    if (mode == 'development' || running || watching) return
 
     if (mode == 'production') {
       setRunning(true)
@@ -100,9 +100,8 @@ const useCompilation = ({compiler, server}) => {
       compiler.run(() => null)
     }
 
-    if (mode == 'none' || mode == 'development') {
+    if (mode == 'none') {
       setWatching(true)
-
       compiler.watch(() => null)
     }
   }, [compiler, mode, watching, running])

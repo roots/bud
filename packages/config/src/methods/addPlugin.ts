@@ -9,7 +9,7 @@ export const addPlugin: Config.AddPlugin = function (
     return
   }
 
-  this.store['components']['plugins'].set(name, bud => ({
+  this.extensions.extensions[name] = bud => ({
     bud,
     make: function () {
       return plugin(bud)
@@ -17,7 +17,7 @@ export const addPlugin: Config.AddPlugin = function (
     when: function () {
       return when ? when() : true
     },
-  }))
+  })
 
   return this
 }

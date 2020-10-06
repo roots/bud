@@ -10,6 +10,7 @@ import Config from '@roots/bud-config'
 import Build from '../Build'
 import Components from '../Components'
 import {Controller} from '../Extend/Controller'
+import corePlugins from '../Components/plugins'
 import Hooks from '../Extend/Hooks'
 import Model from '../Model'
 import Store from '../Store'
@@ -60,6 +61,7 @@ class Bud {
   private init() {
     // Binds bud.build -- produces final webpack configuration
     this.build = Build.bind(this)
+    this.env = env.bind(this)()
 
     // State
     Object.entries(Model).map(([name, model]) => {
@@ -74,9 +76,6 @@ class Bud {
         return this
       },
     }
-
-    // Binds bud.env -- Utility for getting and checking enviornment variables.
-    this.env = env.bind(this)()
 
     // Binds API
     Object.entries(Config).map(
@@ -93,6 +92,8 @@ class Bud {
     // Various setup tasks
     filesystemSetup.bind(this)()
     parseArguments.bind(this)()
+
+    this.extensions.boot(corePlugins)
   }
 
   public makeDisk(

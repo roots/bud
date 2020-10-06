@@ -6,29 +6,31 @@ import Bud from '../Bud'
 const optimization: Bud.Build.Optimization = function ({
   optimization,
 }) {
+  const runtimeChunk = this.store['features'].enabled(
+    'runtimeChunk',
+  )
+    ? this.hooks.filter(
+        'optimization.runtimeChunk',
+        optimization.runtimeChunk,
+      )
+    : false
+
+  const vendor = this.store['features'].enabled('vendor')
+    ? this.hooks.filter(
+        'optimization.splitChunks.cacheGroups.vendor',
+        optimization.splitChunks.cacheGroups.vendor,
+      )
+    : false
+
   return this.hooks.filter('optimization', {
     optimization: {
-      ...(this.store['features'].enabled('runtimeChunk')
-        ? {
-            runtimeChunk: this.hooks.filter(
-              'optimization.runtimeChunk',
-              optimization.runtimeChunk,
-            ),
-          }
-        : []),
+      runtimeChunk,
 
-      ...(this.store['features'].enabled('splitChunks')
-        ? {
-            splitChunks: {
-              cacheGroups: {
-                vendor: this.hooks.filter(
-                  'optimization.splitChunks.cacheGroups.vendor',
-                  optimization.splitChunks.cacheGroups.vendor,
-                ),
-              },
-            },
-          }
-        : []),
+      splitChunks: {
+        cacheGroups: {
+          vendor,
+        },
+      },
 
       minimize: this.hooks.filter(
         'optimization.minimize',

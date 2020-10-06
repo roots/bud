@@ -2,7 +2,6 @@ import Bud from '../Bud'
 
 const general: Bud.Build.General = function (webpack) {
   return {
-    ...webpack,
     mode: this.hooks.filter('webpack.mode', webpack.mode),
     node: this.hooks.filter('webpack.node', webpack.node),
     stats: this.hooks.filter('webpack.stats', webpack.stats),

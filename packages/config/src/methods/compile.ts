@@ -2,7 +2,10 @@ import {Config} from '..'
 import {injectClient} from '@roots/bud-server'
 
 export const compile: Config.Compile = async function (): Promise<void> {
-  this.when(this.store['server'].get('hot'), inject.bind(this))
+  this.when(
+    this.store.use('server').get('hot'),
+    inject.bind(this),
+  )
 
   this.compiler.setConfig(this.build())
   this.compiler.compile()
@@ -32,10 +35,10 @@ export const compile: Config.Compile = async function (): Promise<void> {
  */
 function inject(): void {
   const entrypoints = injectClient({
-    entrypoints: this.store['build'].get('entry'),
+    entrypoints: this.store.get('build', 'entry'),
   })
 
-  this.store['build'].set('entry', entrypoints)
+  this.store.set('build', 'entry', entrypoints)
 }
 
 /**
@@ -43,7 +46,7 @@ function inject(): void {
  */
 function dev(): void {
   this.server.setCompiler(this.compiler.getCompiler())
-  this.server.setConfig(this.store['server'].repository)
+  this.server.setConfig(this.store['server'])
   this.server.addDevMiddleware()
 
   const {hot, to} = this.server.getConfig()

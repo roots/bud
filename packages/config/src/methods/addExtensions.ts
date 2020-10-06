@@ -18,14 +18,11 @@ export const addExtensions: Config.AddExtensions = function (
 }
 
 function mergeExt(ext: string): void {
-  const webpack = this.store.use('webpack')
+  const build = this.store.use('build')
 
-  if (webpack.get('resolve.extensions').includes(`.${ext}`)) {
+  if (build.get('resolve.extensions').includes(`.${ext}`)) {
     return
   }
 
-  webpack.merge('resolve.extensions', [
-    ...webpack.get('resolve.extensions'),
-    `.${ext}`,
-  ])
+  build.merge('resolve.extensions', [`.${ext}`])
 }

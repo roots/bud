@@ -21,7 +21,7 @@ class Store implements Bud.Store {
 
     Object.defineProperty(this, name, {
       get: () => {
-        return this.state[name].all()
+        return this.state[name]
       },
     })
 
