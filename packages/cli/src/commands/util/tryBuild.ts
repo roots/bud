@@ -33,7 +33,7 @@ export const tryBuild = async (
        */
       cfg && typeof cfg == 'function' && preflight.compile()
     })
-    .catch(err => {
+    .catch(() => {
       require(cfgPath)
     })
 }

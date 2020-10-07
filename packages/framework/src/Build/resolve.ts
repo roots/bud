@@ -1,9 +1,4 @@
-import Bud from '../Bud'
-
-const resolve: Bud.Build.Resolve = function ({
-  resolve,
-  context,
-}) {
+const resolve: Build.Resolve = function ({resolve, context}) {
   const alias = this.hooks.filter(
     'build.resolve.alias',
     resolve.alias,

@@ -1,7 +1,6 @@
-import * as Extension from '../../Extend/Extension'
 import {DefinePlugin} from 'webpack'
 
-const define: Extension.Factory = bud => ({
+const define: Framework.Extension.Factory = bud => ({
   bud,
 
   options: bud.env,

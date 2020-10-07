@@ -1,7 +1,6 @@
-import * as Extension from '../../Extend/Extension'
 import {IgnoreEmitPlugin} from './externals'
 
-const ignoreEmit: Extension.Factory = bud => ({
+const ignoreEmit: Framework.Extension.Factory = bud => ({
   bud,
   options: [
     /**

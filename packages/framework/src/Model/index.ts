@@ -1,17 +1,34 @@
-import args from './args'
-import env from './env'
-import features from './features'
-import * as paths from './paths'
-import patterns from './patterns'
-import server from './server'
-import * as build from './build'
+/**
+ * CLI arguments
+ */
+export {args} from './args'
 
-export default {
-  args,
-  env,
-  features,
-  paths,
-  patterns,
-  server,
-  build,
-}
+/**
+ * Build config (1:1 webpack)
+ */
+export * as build from './build'
+
+/**
+ * Environment variables
+ */
+export {env} from './env'
+
+/**
+ * Boolean feature flags.
+ */
+export * as features from './features'
+
+/**
+ * Bootstrap pathings.
+ */
+export * as paths from './paths'
+
+/**
+ * RegExp map
+ */
+export {patterns} from './patterns'
+
+/**
+ * WDS/middlware configuration
+ */
+export * as server from './server'

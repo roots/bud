@@ -1,7 +1,6 @@
-import * as Extension from '../../Extend/Extension'
 import {WriteFilePlugin} from './externals'
 
-const writeFile: Extension.Factory = bud => ({
+const writeFile: Framework.Extension.Factory = bud => ({
   bud,
 
   make: function () {

@@ -1,8 +1,7 @@
-import * as Extension from '../../Extend/Extension'
 import HtmlWebpackPlugin = require('html-webpack-plugin')
 import {InterpolateHtmlPlugin} from '@roots/bud-support'
 
-const html: Extension.Factory = bud => ({
+const html: Framework.Extension.Factory = bud => ({
   bud,
 
   options: {
@@ -40,7 +39,7 @@ const html: Extension.Factory = bud => ({
   },
 })
 
-const interpolateHtml: Extension.Factory = bud => ({
+const interpolateHtml: Framework.Extension.Factory = bud => ({
   bud,
 
   replacements: {

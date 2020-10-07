@@ -1,4 +1,10 @@
-const patterns = {
+/**
+ * Common RegExp patterns.
+ *
+ * @export
+ * @implements {Patterns}
+ */
+export const patterns: Patterns = {
   js: /\.(js|jsx)$/,
   ts: /\.(ts|tsx)$/,
   vue: /\.vue$/,
@@ -13,4 +19,12 @@ const patterns = {
   html: /\.(html?)$/,
 }
 
-export {patterns as default}
+/**
+ * Patterns interface
+ *
+ * @export
+ * @interface Patterns
+ */
+export interface Patterns {
+  [key: string]: RegExp
+}

@@ -1,19 +1,29 @@
-const features = {
-  babel: true, // enable babel
-  postcss: true, // enable postCss
-  clean: true, // clean compiled files on every run.
-  manifest: true, // generate a manifest
-  html: false,
-  brotli: false, // brotli compression
-  gzip: false, // gzip compression
-  hash: false, // hash filenames
-  hot: false, // enable devServer: hot reload
-  minify: false, // enable optimization: minify
-  proxy: false, // enable proxy
-  splitChunks: false, // separate node_modules code from project code
-  runtimeChunk: false, // generate a runtime manifest (runtimeChunk)
-  overlay: false, // enable WDS/BS browser overlay
-  watch: false, // watch mode
-}
+export const babel = true // enable babel
 
-export {features as default}
+export const postcss = true // enable postCss
+
+export const clean = true // clean compiled files on every run.
+
+export const manifest = true // generate a manifest
+
+export const html = false // html webpack plugin generation
+
+export const brotli = false // brotli compression
+
+export const gzip = false // gzip compression
+
+export const hash = false // hash filenames
+
+export const hot = false // enable devServer hot reload
+
+export const minify = false // enable optimization minify
+
+export const proxy = false // enable proxy
+
+export const splitChunks = false // separate node_modules code from project code
+
+export const runtimeChunk = false // generate a runtime manifest (runtimeChunk)
+
+export const overlay = false // enable WDS/BS browser overlay
+
+export const watch = false // watch mode

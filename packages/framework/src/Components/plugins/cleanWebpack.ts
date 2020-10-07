@@ -1,7 +1,6 @@
-import * as Extension from '../../Extend/Extension'
 import {CleanWebpackPlugin} from 'clean-webpack-plugin'
 
-const cleanWebpack: Extension.Factory = bud => ({
+const cleanWebpack: Framework.Extension.Factory = bud => ({
   bud,
 
   options: {},

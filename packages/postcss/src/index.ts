@@ -1,11 +1,11 @@
-import Bud from '@roots/bud-framework'
+import * as Framework from '@roots/bud-framework'
 
 const DEFAULT_PLUGINS: PostCssPluginStoreValue = {
   autoprefixer: [require('autoprefixer'), {}],
 }
 
-export const register = (bud: Bud): void => {
-  bud.on('register.store', () => {
+export const register = (bud: Framework.Bud): void => {
+  bud.hooks.on('register.store', () => {
     bud.store.create('postcss', {
       plugins: DEFAULT_PLUGINS,
       sourceMapOptions: null,
@@ -15,11 +15,11 @@ export const register = (bud: Bud): void => {
     })
   })
 
-  bud.on('register.loaders', () => ({
+  bud.hooks.on('register.loaders', () => ({
     ['postcss-loader']: require.resolve('postcss-loader'),
   }))
 
-  bud.on('register.ruleset.use', () => ({
+  bud.hooks.on('register.ruleset.use', () => ({
     ident: 'postcss-loader',
 
     loader: function () {
@@ -38,7 +38,7 @@ export const register = (bud: Bud): void => {
     },
   }))
 
-  bud.on('module.rule.uses.css', css => {
+  bud.hooks.on('module.rule.uses.css', css => {
     css.push(bud.store['uses'].get('postcss-loader').make())
     return css
   })

@@ -1,6 +1,4 @@
-import Bud from '../Bud'
-
-const general: Bud.Build.General = function (webpack) {
+const general: Build.General = function (webpack) {
   return {
     mode: this.hooks.filter('webpack.mode', webpack.mode),
     node: this.hooks.filter('webpack.node', webpack.node),

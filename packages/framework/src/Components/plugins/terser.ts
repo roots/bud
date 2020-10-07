@@ -1,7 +1,6 @@
-import * as Extension from '../../Extend/Extension'
 import TerserPlugin from 'terser-webpack-plugin'
 
-const terser: Extension.Factory = bud => ({
+const terser: Framework.Extension.Factory = bud => ({
   bud,
 
   options: {

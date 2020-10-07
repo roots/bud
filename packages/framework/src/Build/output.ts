@@ -1,6 +1,4 @@
-import Bud from '../Bud'
-
-const output: Bud.Build.Output = function ({output}) {
+const output: Build.Output = function ({output}) {
   const path = this.hooks.filter(
     'build.output.path',
     output.path,

@@ -1,6 +1,4 @@
-import Bud from '../Bud'
-
-const plugins: Bud.Build.Plugins = function () {
+const plugins: Build.Plugins = function () {
   return {
     plugins: this.hooks.filter(
       'build.plugins',

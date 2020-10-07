@@ -12,9 +12,9 @@ import loaders from './loaders'
 const makeComponents = (
   bud: Bud,
 ): {
-  uses: Bud.Index<Use>
-  rules: Bud.Index<Rule>
-  loaders: Bud.Index<Loader>
+  uses: Framework.Index<Use>
+  rules: Framework.Index<Rule>
+  loaders: Framework.Index<Loader>
 } => ({
   uses: uses(bud),
   rules: rules(bud),

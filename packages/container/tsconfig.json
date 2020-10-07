@@ -6,6 +6,9 @@
     "declaration": true,
     "declarationDir": "./types"
   },
+  "typeAcquisition": {
+    "enable": true
+  },
   "compileOnSave": true,
   "include": ["./src/**/*"],
   "exclude": ["lib", "node_modules"],

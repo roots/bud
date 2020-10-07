@@ -20,5 +20,5 @@ export default (bud: Bud): RuleIndex => {
 }
 
 declare interface RuleIndex {
-  [key: string]: Bud.Build.Rule
+  [key: string]: Build.Rule
 }

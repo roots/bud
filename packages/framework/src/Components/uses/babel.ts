@@ -1,5 +1,3 @@
-import Bud from '../../Bud'
-
 import {
   PluginItem,
   PluginTarget,
@@ -57,15 +55,15 @@ const dynamicImport: PluginItem = [dynamicImportTarget]
 /**
  * Babel loader
  */
-export const ident: Bud.Build.Use.Property = 'babel-loader'
+export const ident: Build.Use.Property = 'babel-loader'
 
-export const query: Bud.Build.Use.Property = undefined
+export const query: Build.Use.Property = undefined
 
-export const loader: Bud.Build.Use.Factory = function () {
+export const loader: Build.Use.Factory = function () {
   return this.components['loaders'].get('babel-loader')
 }
 
-export const options: Bud.Build.Use.Property = {
+export const options: Build.Use.Property = {
   presets: [env],
   plugins: [
     dynamicImport,

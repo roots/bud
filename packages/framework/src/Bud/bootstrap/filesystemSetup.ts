@@ -11,7 +11,7 @@ enum SHAME {
  * Helper utility to read a JSON config file into state.
  */
 const ingestConfig = (
-  store: Bud.Store,
+  store: Framework.Store,
   key: string,
   source: unknown,
 ) => {

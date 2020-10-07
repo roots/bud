@@ -1,7 +1,6 @@
-import * as Extension from '../../Extend/Extension'
 import {MiniCssExtractPlugin} from './externals'
 
-const miniCssExtract: Extension.Factory = bud => ({
+const miniCssExtract: Framework.Extension.Factory = bud => ({
   bud,
 
   make: function () {

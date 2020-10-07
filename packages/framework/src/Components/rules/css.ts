@@ -2,20 +2,20 @@ import type Bud from '../../Bud'
 import Webpack from 'webpack'
 
 /**
+ * CSS Module
+ *
  * @see {Webpack.Module.Rule}
  */
 declare namespace CSS {
-  export type Patterns = Bud.Build.Rule.Factory<
-    Bud.Build.Rule.Conditional
+  export type Patterns = Build.Rule.Factory<
+    Build.Rule.Conditional
   >
 
-  export type Exclude = Bud.Build.Rule.Factory<
-    Bud.Build.Rule.Conditional
+  export type Exclude = Build.Rule.Factory<
+    Build.Rule.Conditional
   >
 
-  export type Loaders = Bud.Build.Rule.Factory<
-    Webpack.RuleSetRule[]
-  >
+  export type Loaders = Build.Rule.Factory<Webpack.RuleSetRule[]>
 }
 
 /**
@@ -34,10 +34,10 @@ export const exclude: CSS.Exclude = function () {
 
 /**
  * CSS: Loaders
- * {@see Bud.Use}
+ * {@see Use}
  */
-export const use: CSS.Loaders = function () {
-  const use = (loader: string): Bud.Build.Rule.Product =>
+export const use: CSS.Loaders = function (this: Bud) {
+  const use = (loader: string): Build.Rule.Product =>
     this.components['uses'].get(loader).make()
 
   return [

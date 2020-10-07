@@ -1,9 +1,7 @@
-import Bud from '../Bud'
-
 /**
  * Webpack optimization
  */
-const optimization: Bud.Build.Optimization = function ({
+const optimization: Build.Optimization = function ({
   optimization,
 }) {
   const runtimeChunk = this.store['features'].enabled(

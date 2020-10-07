@@ -1,7 +1,6 @@
-import * as Extension from '../../Extend/Extension'
 import {WatchMissingNodeModulesPlugin} from '@roots/bud-support'
 
-const watchMissingNodeModules: Extension.Factory = bud => ({
+const watchMissingNodeModules: Framework.Extension.Factory = bud => ({
   bud,
 
   make: function (): WatchMissingNodeModulesPlugin {

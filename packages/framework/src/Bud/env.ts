@@ -1,6 +1,12 @@
 import Bud from './index'
 
-const env = function (this: Bud): Bud.Env {
+/**
+ * Freezes envvars.
+ *
+ * @this Bud
+ * @return {Bud.Index<unknown>}
+ */
+const env = function (this: Bud): Framework.Env {
   const env = this.store['env']
 
   Object.freeze(env)
@@ -8,4 +14,4 @@ const env = function (this: Bud): Bud.Env {
   return env
 }
 
-export {env as default}
+export {env}

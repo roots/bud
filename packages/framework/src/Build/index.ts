@@ -21,14 +21,12 @@ const builders = {
   optimization,
 }
 
-function Build(this: Bud): Webpack.Configuration {
+export default function (this: Bud): Webpack.Configuration {
   return Object.entries(builders).reduce(
-    (config, [, builder]: [string, Bud.Build.Builders]) => ({
+    (config, [, builder]: [string, Build.Builders]) => ({
       ...config,
       ...builder.bind(this)(this.store['build'].all()),
     }),
     {},
   )
 }
-
-export default Build

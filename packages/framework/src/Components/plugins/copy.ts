@@ -1,7 +1,6 @@
-import * as Extension from '../../Extend/Extension'
 import {CopyWebpackPlugin} from './externals'
 
-const copy: Extension.Factory = bud => ({
+const copy: Framework.Extension.Factory = bud => ({
   bud,
 
   options: {

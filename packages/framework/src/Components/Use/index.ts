@@ -1,17 +1,58 @@
 import type Bud from '../../Bud'
 
-class Use implements Bud.Build.Use {
+/**
+ * Build Use
+ *
+ * @description loader implementation
+ *
+ * @class Use
+ * @implements {Build.Use}
+ */
+class Use implements Build.Use {
+  /**
+   * The Bud instance.
+   *
+   * @type {Bud}
+   * @memberof Use
+   */
   bud: Bud
 
-  ident?: Bud.Build.Use.Property
+  /**
+   * Ident
+   *
+   * @type {Build.Use.Property}
+   */
+  ident?: Build.Use.Property
 
-  loader?: Bud.Build.Use.Property
+  /**
+   * Loader
+   *
+   * @type {Build.Use.Property}
+   */
+  loader?: Build.Use.Property
 
-  options?: Bud.Build.Use.Property
+  /**
+   * Options
+   *
+   * @type {Build.Use.Property}
+   */
+  options?: Build.Use.Property
 
-  query?: Bud.Build.Use.Property
+  /**
+   * Query
+   *
+   * @type {Build.Use.Property}
+   */
+  query?: Build.Use.Property
 
-  constructor(bud: Bud, rule: Bud.Build.Use.Module) {
+  /**
+   * Creates an instance of Use.
+   *
+   * @param {Bud} bud
+   * @param {Build.Use.Module} rule
+   * @memberof Use
+   */
+  constructor(bud: Bud, rule: Build.Use.Module) {
     this.bud = bud
 
     this.set(rule)
@@ -23,15 +64,24 @@ class Use implements Bud.Build.Use {
 
   /**
    * Set the loader definition
+   *
+   * @param {Build.Use.Module} rule
+   * @memberof Use
    */
-  public set(rule: Bud.Build.Use.Module): void {
+  public set(rule: Build.Use.Module): void {
     Object.entries(rule).map(([key, item]) => {
       this[key] =
         typeof item == 'function' ? item.bind(this.bud) : item
     })
   }
 
-  public get(): Bud.Build.Use.Module {
+  /**
+   * Get
+   *
+   * @returns {Build.Use.Module}
+   * @memberof Use
+   */
+  public get(): Build.Use.Module {
     return {
       ident: this.ident,
       loader: this.loader,
@@ -40,18 +90,21 @@ class Use implements Bud.Build.Use {
     }
   }
 
-  public make(): Bud.Build.Use.Product {
+  /**
+   * Make
+   *
+   * @returns {Build.Use.Product}
+   * @memberof Use
+   */
+  public make(): Build.Use.Product {
     return Object.entries(this.get())
       .filter(
         ([, value]) => value !== null && value !== undefined,
       )
       .reduce(
         (
-          fields: Bud.Build.Use.Product,
-          [key, value]: [
-            string,
-            Bud.Build.Use.Factory | unknown,
-          ],
+          fields: Build.Use.Product,
+          [key, value]: [string, Build.Use.Factory | unknown],
         ) => ({
           ...fields,
           [key]: typeof value == 'function' ? value() : value,

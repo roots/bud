@@ -1,11 +1,11 @@
 import prettier, {BuiltInParserName} from 'prettier'
 
-type Formatter = (
+export type Pretty = (
   contents: string,
   parser: BuiltInParserName,
 ) => string
 
-const pretty: Formatter = (contents, parser) => {
+const pretty: Pretty = (contents, parser) => {
   return prettier.format(contents, parser ? {parser} : undefined)
 }
 

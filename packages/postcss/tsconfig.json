@@ -8,5 +8,5 @@
   },
   "compileOnSave": true,
   "include": ["./src"],
-  "references": [{"@roots/framework": "../framework"}]
+  "references": [{"@roots/bud-framework": "../framework"}]
 }

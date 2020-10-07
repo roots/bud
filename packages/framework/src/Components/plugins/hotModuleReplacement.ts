@@ -1,7 +1,6 @@
-import * as Extension from '../../Extend/Extension'
 import {HotModuleReplacementPlugin} from 'webpack'
 
-const hotModuleReplacement: Extension.Factory = bud => ({
+const hotModuleReplacement: Framework.Extension.Factory = bud => ({
   bud,
 
   make: function () {

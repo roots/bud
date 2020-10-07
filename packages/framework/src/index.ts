@@ -1,3 +1,1 @@
-import Bud from './Bud'
-
-export default Bud
+export * as Bud from './Bud'

@@ -1,5 +1,3 @@
-/* eslint-disable */
-
 import {Configuration} from 'webpack'
 
 export const runtimeChunk: Configuration['optimization']['runtimeChunk'] = {
@@ -18,17 +16,19 @@ export const splitChunks: Configuration['optimization']['splitChunks'] = {
   cacheGroups: {
     vendor: {
       test: /[\\/]node_modules[\\/]/,
-      name: (
-        chunks: {name}[],
-        cacheGroupKey: string,
-      ): string => {
-        return chunks?.length && chunks.length > 0
-          ? `${cacheGroupKey}/${chunks}`
-          : `${cacheGroupKey}/${chunks
-              .map(item => item.name)
-              .join('~')}`
-      },
+      name: vendorName,
       chunks: 'async',
     },
   },
+}
+
+function vendorName(
+  chunks: {name: string}[],
+  cacheGroupKey: string,
+): string {
+  return chunks?.length && chunks.length > 0
+    ? `${cacheGroupKey}/${chunks}`
+    : `${cacheGroupKey}/${chunks
+        .map(item => item.name)
+        .join('~')}`
 }

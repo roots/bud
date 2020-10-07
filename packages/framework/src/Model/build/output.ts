@@ -21,7 +21,6 @@ export const path: Configuration['output']['path'] = resolve(
   'build',
 )
 
-// path: resolve(process.cwd(), 'dist'),
 // devtoolNamespace: undefined,
 // globalObject: 'window',
 // hashDigest: 'hex',

@@ -1,7 +1,6 @@
-import * as Extension from '../../Extend/Extension'
 import {ProvidePlugin} from 'webpack'
 
-const provide: Extension.Factory = bud => ({
+const provide: Framework.Extension.Factory = bud => ({
   bud,
 
   options: {},

@@ -1,3 +1,2 @@
-export * as Extension from './Extension'
-export * as Controller from './Controller'
+export * as Extensions from './Extensions'
 export * as Hooks from './Hooks'

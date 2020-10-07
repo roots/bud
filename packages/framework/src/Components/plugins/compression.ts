@@ -1,10 +1,9 @@
-import * as Extension from '../../Extend/Extension'
 import Compression from 'compression-webpack-plugin'
 
 /**
  * Gzip
  */
-const gzip: Extension.Factory = bud => ({
+const gzip: Framework.Extension.Factory = bud => ({
   bud,
 
   options: {
@@ -31,7 +30,7 @@ const gzip: Extension.Factory = bud => ({
 /**
  * Brotli
  */
-const brotli: Extension.Factory = bud => ({
+const brotli: Framework.Extension.Factory = bud => ({
   bud,
 
   options: {

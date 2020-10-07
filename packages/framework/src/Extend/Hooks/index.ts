@@ -1,14 +1,16 @@
-import Bud from '../../Bud'
+import Framework from '../../types'
 
 /**
  * Returns a hooks instance with application bindings.
  */
-const Hooks = (logger: Bud.Hooks['logger']): Bud.Hooks => ({
+const Hooks = (
+  logger: Framework.Hooks['logger'],
+): Framework.Hooks => ({
   logger,
 
   registered: {},
 
-  make: (hook: Bud.Hooks.Handler) => ({
+  make: (hook: Framework.Hooks.Handler) => ({
     hook,
     fired: false,
   }),
@@ -29,7 +31,7 @@ const Hooks = (logger: Bud.Hooks['logger']): Bud.Hooks => ({
     return this
   },
 
-  filter: function (name: string, value: any): any {
+  filter: function (name: string, value: unknown): unknown {
     if (!this.registered[name]) {
       return value
     }

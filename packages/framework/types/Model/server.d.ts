@@ -1,0 +1,18 @@
+import Server from '@roots/bud-server'
+export declare const autoRewrite: Server.Config['autoRewrite']
+export declare const changeOrigin: Server.Config['changeOrigin']
+export declare const followRedirects: Server.Config['followRedirects']
+export declare const headers: Server.Config['headers']
+export declare const host: Server.Config['host']
+export declare const port: Server.Config['port']
+export declare const index: Server.Config['index']
+export declare const lazy: Server.Config['lazy']
+export declare const methods: Server.Config['methods']
+export declare const mimeTypes: Server.Config['mimeTypes']
+export declare const ssl: Server.Config['ssl']
+export declare const secure: Server.Config['secure']
+export declare const serverSideRender: Server.Config['serverSideRender']
+export declare const watchOptions: Server.Config['watchOptions']
+export declare const writeToDisk: Server.Config['writeToDisk']
+export declare const ws: Server.Config['ws']
+//# sourceMappingURL=server.d.ts.map

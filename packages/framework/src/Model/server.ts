@@ -1,31 +1,42 @@
 import Server from '@roots/bud-server'
 
-const store: Server.Config = {
-  autoRewrite: true,
-  changeOrigin: true,
-  followRedirects: true,
-  headers: {
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods':
-      'GET, POST, PUT, DELETE, PATCH, OPTIONS',
-    'Access-Control-Allow-Headers':
-      'X-Requested-With, content-type, Authorization',
-  },
-  host: 'localhost',
-  port: 3000,
-  index: 'index.html',
-  lazy: false,
-  methods: ['GET', 'HEAD'],
-  mimeTypes: null,
-  ssl: false,
-  secure: false,
-  serverSideRender: false,
-  watchOptions: {
-    aggregateTimeout: 300,
-    poll: true,
-  },
-  writeToDisk: true,
-  ws: true,
+export const autoRewrite: Server.Config['autoRewrite'] = true
+
+export const changeOrigin: Server.Config['changeOrigin'] = true
+
+export const followRedirects: Server.Config['followRedirects'] = true
+
+export const headers: Server.Config['headers'] = {
+  'Access-Control-Allow-Origin': '*',
+  'Access-Control-Allow-Methods':
+    'GET, POST, PUT, DELETE, PATCH, OPTIONS',
+  'Access-Control-Allow-Headers':
+    'X-Requested-With, content-type, Authorization',
 }
 
-export default store
+export const host: Server.Config['host'] = 'localhost'
+
+export const port: Server.Config['port'] = 3000
+
+export const index: Server.Config['index'] = 'index.html'
+
+export const lazy: Server.Config['lazy'] = false
+
+export const methods: Server.Config['methods'] = ['GET', 'HEAD']
+
+export const mimeTypes: Server.Config['mimeTypes'] = null
+
+export const ssl: Server.Config['ssl'] = false
+
+export const secure: Server.Config['secure'] = false
+
+export const serverSideRender: Server.Config['serverSideRender'] = false
+
+export const watchOptions: Server.Config['watchOptions'] = {
+  aggregateTimeout: 300,
+  poll: true,
+}
+
+export const writeToDisk: Server.Config['writeToDisk'] = true
+
+export const ws: Server.Config['ws'] = true

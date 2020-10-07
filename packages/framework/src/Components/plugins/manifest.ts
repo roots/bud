@@ -1,7 +1,6 @@
-import * as Extension from '../../Extend/Extension'
 import ManifestPlugin from 'webpack-manifest-plugin'
 
-const manifest: Extension.Factory = bud => ({
+const manifest: Framework.Extension.Factory = bud => ({
   bud,
 
   options: {
