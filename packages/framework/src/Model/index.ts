@@ -1,12 +1,7 @@
 /**
- * CLI arguments
+ * CLI arguments.
  */
 export {args} from './args'
-
-/**
- * Build config (1:1 webpack)
- */
-export * as build from './build'
 
 /**
  * Environment variables
@@ -14,21 +9,26 @@ export * as build from './build'
 export {env} from './env'
 
 /**
+ * Build seed configuration.
+ */
+export * as build from './build'
+
+/**
  * Boolean feature flags.
  */
 export * as features from './features'
 
 /**
- * Bootstrap pathings.
+ * Bootstrap paths.
  */
 export * as paths from './paths'
 
 /**
- * RegExp map
+ * Common regular expression patterns.
  */
-export {patterns} from './patterns'
+export * as patterns from './patterns'
 
 /**
- * WDS/middlware configuration
+ * WDS/middlware seed configuration.
  */
 export * as server from './server'

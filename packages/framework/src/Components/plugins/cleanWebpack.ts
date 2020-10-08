@@ -1,17 +1,11 @@
 import {CleanWebpackPlugin} from 'clean-webpack-plugin'
 
-const cleanWebpack: Framework.Extension.Factory = bud => ({
-  bud,
+export const when: Adapter.when = bud =>
+  bud.store['features'].enabled('clean')
 
-  options: {},
+export const make: Adapter.make = new CleanWebpackPlugin()
 
-  make: function (): CleanWebpackPlugin {
-    return new CleanWebpackPlugin(this.options)
-  },
-
-  when: function () {
-    return this.bud.store['features'].enabled('clean')
-  },
-})
-
-export {cleanWebpack as default}
+declare namespace Adapter {
+  type make = Framework.Extension['make']
+  type when = Framework.Extension['when']
+}

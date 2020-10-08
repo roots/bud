@@ -7,22 +7,20 @@ import {FileContainer, FileSystem} from '@roots/filesystem'
 import * as Config from '@roots/bud-config'
 import {BuiltInParserName} from 'prettier'
 
-export {Bud}
+export {IBud}
 
 /**
  * Bud core.
  *
  * @class Bud
  */
-declare class Bud {
+declare interface IBud {
   /**
-   * Name of primary virtual disk (fallback for bud.disks/bud.fs)
+   * Escape hatch
    *
-   * @private
-   * @static
-   * @memberof Bud
+   * @todo remove this once type safe.
    */
-  private static PRIMARY_DISK: string
+  [key: string]: unknown
 
   /**
    * Build function.
@@ -31,7 +29,7 @@ declare class Bud {
    * @type {Bud.Build}
    * @memberof Bud
    */
-  public build: Framework.Build
+  build: Framework.Build
 
   /**
    * Build components (loaders, rules, etc.)
@@ -39,7 +37,7 @@ declare class Bud {
    * @type {Store}
    * @memberof Bud
    */
-  public components: Framework.Store
+  components: Framework.Store
 
   /**
    * Compiler instance.
@@ -47,7 +45,7 @@ declare class Bud {
    * @type {Compiler}
    * @memberof Bud
    */
-  public compiler: Compiler
+  compiler: Compiler
 
   /**
    * Disks instance.
@@ -55,7 +53,7 @@ declare class Bud {
    * @type {FileSystem}
    * @memberof Bud
    */
-  public disks: FileSystem
+  disks: FileSystem
 
   /**
    * Env variables.
@@ -65,7 +63,7 @@ declare class Bud {
    * @type {Bud.Env}
    * @memberof Bud
    */
-  public env: Framework.Env
+  env: Framework.Env
 
   /**
    * Extensions controller.
@@ -73,7 +71,7 @@ declare class Bud {
    * @type {Controller}
    * @memberof Bud
    */
-  public extensions: Framework.Extensions
+  extensions: Framework.Extensions
 
   /**
    * Filesystem.
@@ -81,7 +79,7 @@ declare class Bud {
    * @type {FileContainer}
    * @memberof Bud
    */
-  public fs: FileContainer
+  fs: FileContainer
 
   /**
    * Hooks system.
@@ -89,7 +87,7 @@ declare class Bud {
    * @type {Hooks}
    * @memberof Bud
    */
-  public hooks: Framework.Hooks
+  hooks: Framework.Hooks
 
   /**
    * WDS wrapper.
@@ -97,7 +95,7 @@ declare class Bud {
    * @type {Server.Interface}
    * @memberof Bud
    */
-  public server: Server.Interface
+  server: Server.Interface
 
   /**
    * Logger
@@ -105,7 +103,7 @@ declare class Bud {
    * @type {pino.Logger}
    * @memberof Bud
    */
-  public logger: pino.Logger
+  logger: pino.Logger
 
   /**
    * Mode
@@ -113,7 +111,7 @@ declare class Bud {
    * @type {Framework.Mode}
    * @memberof Bud
    */
-  public mode: Framework.Mode
+  mode: Framework.Mode
 
   /**
    * Key/Value store.
@@ -122,7 +120,7 @@ declare class Bud {
    * @type {Store}
    * @memberof Bud
    */
-  public store: Framework.Store
+  store: Framework.Store
 
   /**
    * Utilities/helpers.
@@ -130,7 +128,7 @@ declare class Bud {
    * @property format - formatting util.
    * @property pretty - prettier util.
    */
-  public util: {
+  util: {
     format: (obj: unknown, options: unknown) => string
     pretty: (
       contents: string,
@@ -147,19 +145,12 @@ declare class Bud {
   projectPath: Config.projectPath
 
   /**
-   * Creates an instance of Bud.
-   *
-   * @memberof Bud
-   */
-  public constructor()
-
-  /**
    * Initialize the instance of Bud.
    *
    * @private
    * @memberof Bud
    */
-  private init(): void
+  init(): void
 
   /**
    * Make a new disk virtual disk.
@@ -170,7 +161,7 @@ declare class Bud {
    * @returns {FileContainer}
    * @memberof Bud
    */
-  public makeDisk(
+  makeDisk(
     key: string,
     baseDir?: string,
     glob?: string[],
@@ -183,7 +174,7 @@ declare class Bud {
    * @returns {FileContainer}
    * @memberof Bud
    */
-  public useDisk(key: string): FileContainer
+  useDisk(key: string): FileContainer
 
   /**
    * Make a container.
@@ -192,5 +183,5 @@ declare class Bud {
    * @returns {FileContainer}
    * @memberof Bud
    */
-  public makeContainer(baseDir: string): FileContainer
+  makeContainer(baseDir: string): FileContainer
 }

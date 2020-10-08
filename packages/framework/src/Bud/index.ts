@@ -25,7 +25,7 @@ import parseArguments from './bootstrap/parseArguments'
  *
  * @class Bud
  */
-class Bud {
+class Bud implements Framework.IBud {
   /**
    * Escape hatch
    *
@@ -188,7 +188,7 @@ class Bud {
    * @private
    * @memberof Bud
    */
-  private init() {
+  public init() {
     /**
      * Bind the build function.
      */

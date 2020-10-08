@@ -1,20 +1,16 @@
-import Bud from '../../Bud'
-
 /**
  * Boots and handles extension lifecycle concerns.
  */
 export class Extensions {
   /**
    * The Bud instance.
-   *
-   * @type {Bud}
+   * @type {Framework.Bud}
    * @memberof Controller
    */
-  public bud: Bud
+  public bud: Framework.IBud
 
   /**
    * Keyed extensions
-   *
    * @type {Index<Extension>}
    * @memberof Controller
    */
@@ -26,12 +22,16 @@ export class Extensions {
    * @param {Bud} bud
    * @memberof Controller
    */
-  public constructor(bud: Bud) {
+  public constructor(bud: Framework.IBud) {
     this.bud = bud
 
     this.boot = this.boot.bind(this)
     this.make = this.make.bind(this)
 
+    /**
+     * @todo this is a not so hot place for this filter.
+     * @todo really this filter shouldn't be needed.
+     */
     this.bud.hooks.on(
       'build.plugins',
       (plugins: Framework.Extension[]) =>
@@ -48,19 +48,55 @@ export class Extensions {
   public boot(
     definitions: Framework.Index<Framework.Extension.Factory>,
   ): void {
-    /* eslint-disable-next-line */
-    const ctx = this
-
     Object.entries(definitions).map(
-      ([name, factory]: [
+      ([name, pluginPackage]: [
         string,
         Framework.Extension.Factory,
       ]) => {
-        const instance: Framework.Extension = factory(ctx.bud)
+        const instance: Framework.Extension =
+          typeof pluginPackage == 'function'
+            ? pluginPackage(this.bud)
+            : pluginPackage
 
-        ctx.extensions[name] = instance
+        if (instance.hasOwnProperty('options')) {
+          instance.options =
+            typeof instance.options == 'function'
+              ? instance.options(this.bud)
+              : instance.options
+        } else {
+          instance.options = null
+        }
+
+        this.registerIsh(instance, 'loaders', 'registerLoaders')
+        this.registerIsh(instance, 'rules', 'registerRules')
+        this.registerIsh(instance, 'uses', 'registerUses')
+
+        this.extensions[name] = instance
       },
     )
+  }
+
+  /**
+   * Invokes extension's registration calls, availability permitting.
+   *
+   * @param {Framework.Extension} extension
+   * @param {Index<unknown>} options
+   */
+  public registerIsh(
+    instance: Framework.Extension,
+    registry: string,
+    func: string,
+  ): void {
+    if (!instance.hasOwnProperty(func)) return
+
+    const value =
+      typeof instance[func] == 'function'
+        ? instance[func](this.bud)
+        : instance
+
+    Object.entries(value).forEach(([key, value]) => {
+      this.bud.store[registry].set(key, value)
+    })
   }
 
   /**
@@ -68,7 +104,6 @@ export class Extensions {
    *
    * @param {string} extension
    * @param {Index<unknown>} options
-   * @memberof Controller
    */
   public setOptions(
     extension: string,
@@ -83,15 +118,20 @@ export class Extensions {
    * @note applies only to webpack plugins
    *
    * @returns {Extension.Product[]}
-   * @memberof Controller
    */
   public make(): Framework.Extension.Product[] {
     const output = Object.values(this.extensions)
       .map(extension => {
         if (!extension.make) return
 
-        if (!extension.when || extension.when()) {
-          return extension.make()
+        if (
+          !extension.when ||
+          extension.when == true ||
+          extension.when(this.bud)
+        ) {
+          return typeof extension.make === 'function'
+            ? extension.make(extension.options)
+            : extension.make
         }
       })
       .filter(ext => ext)

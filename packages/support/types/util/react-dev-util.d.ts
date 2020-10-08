@@ -6,21 +6,12 @@
  *
  * @see https://www.npmjs.com/package/react-dev-utils
  */
-declare const launchEditorEndpoint =
-  '/__open-stack-frame-in-editor'
-import formatWebpackMessages from './formatWebpackMessages'
-import launchEditor from './launchEditor'
-import WatchMissingNodeModulesPlugin from 'react-dev-utils/WatchMissingNodeModulesPlugin'
-import checkRequiredFiles from 'react-dev-utils/checkRequiredFiles'
-import eslintFormatter from 'react-dev-utils/eslintFormatter'
-import InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin')
-export {
-  checkRequiredFiles,
-  eslintFormatter,
-  launchEditor,
-  launchEditorEndpoint,
-  formatWebpackMessages,
-  WatchMissingNodeModulesPlugin,
-  InterpolateHtmlPlugin,
-}
+declare const launchEditorEndpoint = "/__open-stack-frame-in-editor";
+import formatWebpackMessages from './formatWebpackMessages';
+import launchEditor from './launchEditor';
+import WatchMissingNodeModulesPlugin from 'react-dev-utils/WatchMissingNodeModulesPlugin';
+import checkRequiredFiles from 'react-dev-utils/checkRequiredFiles';
+import eslintFormatter from 'react-dev-utils/eslintFormatter';
+import InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin');
+export { checkRequiredFiles, eslintFormatter, launchEditor, launchEditorEndpoint, formatWebpackMessages, WatchMissingNodeModulesPlugin, InterpolateHtmlPlugin, };
 //# sourceMappingURL=react-dev-util.d.ts.map

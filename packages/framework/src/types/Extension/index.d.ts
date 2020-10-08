@@ -1,4 +1,3 @@
-import Bud from '../../Bud'
 import * as Webpack from 'webpack'
 
 export {Extension}
@@ -13,7 +12,7 @@ declare interface Extension {
   /**
    * Framework
    */
-  bud: Bud
+  bud?: Framework.IBud
 
   /**
    * Plugin options.
@@ -23,7 +22,7 @@ declare interface Extension {
   /**
    * Primary action of plugin.
    */
-  make: () => Extension.Product
+  make?: Extension.Make
 
   /**
    * Whether or not to call `make`.
@@ -40,14 +39,16 @@ declare namespace Extension {
   /**
    * Plugin options
    */
-  export interface Options {
-    [key: string]: any
-  }
+  export type Options =
+    | ((bud?: Framework.IBud) => void)
+    | {[key: string]: any}
 
   /**
    * Function which returns a Plugin
    */
-  export type Factory = (bud: Bud) => Extension
+  export type Factory =
+    | ((bud?: Framework.IBud) => Framework.Extension)
+    | Framework.Extension
 
   /**
    * Possible extension products
@@ -55,7 +56,16 @@ declare namespace Extension {
   export type Product = Webpack.Plugin | void
 
   /**
+   * Plugin make
+   */
+  export type Make =
+    | ((options: Extension.Options) => Extension.Product)
+    | Extension.Product
+
+  /**
    * Plugin conditional
    */
-  export type Conditional = () => boolean
+  export type Conditional =
+    | ((bud?: Framework.IBud) => boolean)
+    | boolean
 }

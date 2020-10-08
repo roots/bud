@@ -1,6 +1,7 @@
-import {Bud} from '@roots/bud-framework'
-import {processHandler} from '@roots/bud-support'
+import Bud from '@roots/bud-framework/lib/Bud'
+import {processHandler} from '@roots/bud-support/lib/util/processHandler'
 
+console.log(Bud)
 const bud = new Bud()
 
 process.on('unhandledRejection', processHandler)

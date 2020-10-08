@@ -1,16 +1,14 @@
-import type Bud from '../../Bud'
 import {DllPlugin, DllReferencePlugin} from 'webpack'
 
 /**
  * DLL Plugin
  */
 const dll: Framework.Extension.Factory = (
-  bud: Bud,
+  bud: Framework.IBud,
 ): Framework.Extension => ({
   /**
    * Bud instance.
-   *
-   * @param {Bud} bud
+   * @param {Framework.Bud} bud
    */
   bud,
 
@@ -50,7 +48,9 @@ const dll: Framework.Extension.Factory = (
 /**
  * DLL Reference Plugin
  */
-const dllReference: Framework.Extension.Factory = bud => ({
+const dllReference: Framework.Extension.Factory = (
+  bud: Framework.IBud,
+) => ({
   bud,
 
   options: {

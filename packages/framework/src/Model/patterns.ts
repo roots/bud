@@ -1,30 +1,65 @@
 /**
  * Common RegExp patterns.
  *
- * @export
- * @implements {Patterns}
+ * @exports Patterns
  */
-export const patterns: Patterns = {
-  js: /\.(js|jsx)$/,
-  ts: /\.(ts|tsx)$/,
-  vue: /\.vue$/,
-  sass: /\.(scss|sass)$/,
-  sassModule: /\.module\.(scss|sass)$/,
-  css: /\.css$/,
-  cssModule: /\.module\.css$/,
-  svg: /\.svg$/,
-  font: /\.(ttf|otf|eot|woff2?|png|jpe?g|gif|ico)$/,
-  modules: /(node_modules|bower_components)/,
-  image: /\.(png|svg|jpg|jpeg|gif)$/,
-  html: /\.(html?)$/,
-}
 
 /**
- * Patterns interface
- *
- * @export
- * @interface Patterns
+ * JS/X
  */
-export interface Patterns {
-  [key: string]: RegExp
-}
+export const js = /\.(js|jsx)$/
+
+/**
+ * TS/X
+ */
+export const ts = /\.(ts|tsx)$/
+
+/**
+ * Vue
+ */
+export const vue = /\.vue$/
+
+/**
+ * Vendored scripts
+ */
+export const modules = /(node_modules|bower_components)/
+
+/**
+ * Sass
+ */
+export const sass = /\.(scss|sass)$/
+
+/**
+ * SassModule
+ */
+export const sassModule = /\.module\.(scss|sass)$/
+
+/**
+ * CSS
+ */
+export const css = /\.css$/
+
+/**
+ * CSS Module
+ */
+export const cssModule = /\.module\.css$/
+
+/**
+ * SVG
+ */
+export const svg = /\.svg$/
+
+/**
+ * Webfonts & icons
+ */
+export const font = /\.(ttf|otf|eot|woff2?|png|jpe?g|gif|ico)$/
+
+/**
+ * Images
+ */
+export const image = /\.(png|svg|jpg|jpeg|gif)$/
+
+/**
+ * HTM/L
+ */
+export const html = /\.(html?)$/
