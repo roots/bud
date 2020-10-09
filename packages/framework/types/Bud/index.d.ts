@@ -1,15 +1,15 @@
 import * as pino from 'pino';
+import * as Config from '@roots/bud-config';
 import Compiler from '@roots/bud-compiler';
 import Server from '@roots/bud-server';
 import { FileContainer, FileSystem } from '@roots/filesystem';
-import * as Config from '@roots/bud-config';
 import { Pretty } from './util/pretty';
 /**
  * Bud core.
  *
  * @class Bud
  */
-declare class Bud implements Framework.IBud {
+declare class Bud implements Framework.Bud {
     /**
      * Escape hatch
      *

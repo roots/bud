@@ -8,7 +8,7 @@ import * as image from './image'
 import * as js from './js'
 import * as svg from './svg'
 
-export default (bud: Bud): RuleIndex => {
+export default (bud: Bud): Framework.Index<Rule> => {
   return bud.hooks.filter('components.rules', {
     html: new Rule(bud, html),
     image: new Rule(bud, image),
@@ -16,9 +16,5 @@ export default (bud: Bud): RuleIndex => {
     svg: new Rule(bud, svg),
     css: new Rule(bud, css),
     font: new Rule(bud, font),
-  }) as RuleIndex
-}
-
-declare interface RuleIndex {
-  [key: string]: Build.Rule
+  }) as Framework.Index<Rule>
 }

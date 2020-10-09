@@ -2,11 +2,19 @@ import type Webpack from 'webpack'
 import type Container from '@roots/container'
 import type {Index} from '../generic'
 
-export {Use} from './Use'
+export as namespace Build
+
+export interface Build {
+  (): Build.Configuration
+}
+
+export {Item} from './Item'
+
 export {Rule} from './Rule'
 
-export declare interface Build {
-  (): Build.Configuration
+export type Loader = string
+export namespace Loader {
+  export type Repository = Framework.Index<Loader>
 }
 
 export type Configuration = Webpack.Configuration
@@ -79,5 +87,3 @@ export type Builders =
   | Build.Plugins
   | Build.Output
   | Build.General
-
-export as namespace Build

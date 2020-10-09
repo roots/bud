@@ -12,7 +12,7 @@ declare interface Extension {
   /**
    * Framework
    */
-  bud?: Framework.IBud
+  bud?: Framework.Bud
 
   /**
    * Plugin options.
@@ -40,14 +40,14 @@ declare namespace Extension {
    * Plugin options
    */
   export type Options =
-    | ((bud?: Framework.IBud) => void)
+    | ((bud?: Framework.Bud) => void)
     | {[key: string]: any}
 
   /**
    * Function which returns a Plugin
    */
   export type Factory =
-    | ((bud?: Framework.IBud) => Framework.Extension)
+    | ((bud?: Framework.Bud) => Framework.Extension)
     | Framework.Extension
 
   /**
@@ -66,6 +66,6 @@ declare namespace Extension {
    * Plugin conditional
    */
   export type Conditional =
-    | ((bud?: Framework.IBud) => boolean)
+    | ((bud?: Framework.Bud) => boolean)
     | boolean
 }

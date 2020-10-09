@@ -1,5 +1,8 @@
 import * as pino from 'pino'
 
+import * as Model from '../Model'
+import * as Config from '@roots/bud-config'
+
 import Compiler from '@roots/bud-compiler'
 import Server from '@roots/bud-server'
 import {FileContainer, FileSystem} from '@roots/filesystem'
@@ -9,8 +12,6 @@ import Components from '../Components'
 import corePlugins from '../Components/plugins'
 import {Extensions} from '../Extend/Extensions'
 import Hooks from '../Extend/Hooks'
-import * as Model from '../Model'
-import * as Config from '@roots/bud-config'
 import Store from '../Store'
 import {env} from './env'
 import format from './util/format'
@@ -25,7 +26,7 @@ import parseArguments from './bootstrap/parseArguments'
  *
  * @class Bud
  */
-class Bud implements Framework.IBud {
+class Bud implements Framework.Bud {
   /**
    * Escape hatch
    *
@@ -188,7 +189,7 @@ class Bud implements Framework.IBud {
    * @private
    * @memberof Bud
    */
-  public init() {
+  public init(): void {
     /**
      * Bind the build function.
      */

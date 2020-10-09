@@ -1,5 +1,3 @@
 export {Index}
 
-declare interface Index<T> {
-  [key: string]: T
-}
+declare type Index<T> = {[key: string]: T}

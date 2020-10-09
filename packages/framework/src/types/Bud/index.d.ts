@@ -1,20 +1,18 @@
 import * as pino from 'pino'
-
-import * as Framework from '..'
 import Compiler from '@roots/bud-compiler'
 import Server from '@roots/bud-server'
 import {FileContainer, FileSystem} from '@roots/filesystem'
 import * as Config from '@roots/bud-config'
 import {BuiltInParserName} from 'prettier'
 
-export {IBud}
+export {Bud}
 
 /**
  * Bud core.
  *
  * @class Bud
  */
-declare interface IBud {
+declare interface Bud {
   /**
    * Escape hatch
    *

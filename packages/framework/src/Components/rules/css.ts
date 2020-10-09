@@ -1,50 +1,28 @@
-import type Bud from '../../Bud'
-import Webpack from 'webpack'
+export const test: Conditional = bud =>
+  bud.store['patterns'].has('css')
 
-/**
- * CSS Module
- *
- * @see {Webpack.Module.Rule}
- */
-declare namespace CSS {
-  export type Patterns = Build.Rule.Factory<
-    Build.Rule.Conditional
-  >
+export const exclude: Exclude = bud =>
+  bud.store['patterns'].get('modules')
 
-  export type Exclude = Build.Rule.Factory<
-    Build.Rule.Conditional
-  >
-
-  export type Loaders = Build.Rule.Factory<Webpack.RuleSetRule[]>
-}
-
-/**
- * CSS: Test
- */
-export const test: CSS.Patterns = function () {
-  return this.store['patterns'].get('css')
-}
-
-/**
- * CSS: Exclude
- */
-export const exclude: CSS.Exclude = function () {
-  return this.store['patterns'].get('modules')
-}
-
-/**
- * CSS: Loaders
- * {@see Use}
- */
-export const use: CSS.Loaders = function (this: Bud) {
-  const use = (loader: string): Build.Rule.Product =>
-    this.components['uses'].get(loader).make()
+export const use: Build.Rule.Factory<Build.Rule.Use> = bud => {
+  const use: Loaders.UseLoader = loader =>
+    bud.components['items'].get(loader).make()
 
   return [
-    this.mode.is('production')
+    bud.mode.is('production')
       ? use('minicss-loader')
       : use('style-loader'),
     use('css-loader'),
     use('resolve-url-loader'),
   ]
+}
+
+declare type Conditional = Build.Rule.Factory<
+  Build.Rule.Conditional
+>
+
+declare type Exclude = Build.Rule.Factory<Build.Rule.Conditional>
+
+declare namespace Loaders {
+  export type UseLoader = (loader: string) => Build.Rule.Product
 }

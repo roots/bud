@@ -17,7 +17,7 @@ export const when: Adapter.when = bud =>
 
 export const make: Adapter.make = opts =>
   new CompressionPlugin(
-    opts as CompressionPlugin.Options<unknown>,
+    opts as CompressionPlugin.Options<Adapter.options>,
   )
 
 declare namespace Adapter {

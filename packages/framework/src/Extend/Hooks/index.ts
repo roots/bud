@@ -10,7 +10,7 @@ const Hooks = (
 
   registered: {},
 
-  make: (hook: Framework.Hooks.Handler) => ({
+  make: (hook: Framework.Hooks.Handler<unknown>) => ({
     hook,
     fired: false,
   }),

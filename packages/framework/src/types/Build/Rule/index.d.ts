@@ -55,7 +55,7 @@ declare class Rule {
   public compiler?: Rule.Conditional
   public rules?: Rule.OneOf
   public test?: Rule.Conditional
-  public use?: Rule.Loader
+  public use?: Rule.Use
 
   constructor(bud: Bud, rule: Rule.Generic)
 
@@ -69,7 +69,7 @@ declare namespace Rule {
    * The most generic representation of a rule module.
    * Used for typecheck on constructor, get.
    */
-  export type Generic = Property<Products> | Property<Products>[]
+  export type Generic = Property<Products>
 
   /**
    * Rule modules produce Webpack.RuleSetRule entries
@@ -80,19 +80,14 @@ declare namespace Rule {
    * Rule modules can also be manipulated as keyed items.
    */
   export interface Property<Product> {
-    [key: string]: Yield<Product>
+    [key: string]: Factory<Product> | Product
   }
-
-  /**
-   * Rule properties can be defined as callable functions or as literal values.
-   */
-  export type Yield<Product> = Factory<Product> | Product
 
   /**
    * Rule property defined with a callable.
    */
   export interface Factory<Product> {
-    (this: Bud): Product
+    (unknown): Products
   }
 
   /**
@@ -112,7 +107,7 @@ declare namespace Rule {
     | Parser
     | Query
     | Resolve
-    | Loader
+    | Use
     | OneOf
     | Webpack.RuleSetLoader
     | Webpack.RuleSetLoader[]
@@ -162,10 +157,7 @@ declare namespace Rule {
   /**
    * Product: loader(s)
    */
-  export type Loader =
-    | Webpack.RuleSetLoader
-    | Webpack.RuleSetLoader[]
-    | Webpack.RuleSetUse
+  export type Use = Webpack.RuleSetUse
 
   /**
    * Product: Multiple child rules.

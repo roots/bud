@@ -44,7 +44,7 @@ declare class Extensions {
   registerIsh: (
     instance: Extension,
     registry: string,
-    func: string
+    func: string,
   ) => void
 
   /**

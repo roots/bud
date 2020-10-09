@@ -1,5 +1,4 @@
 import Webpack from 'webpack'
-import Bud from '../Bud'
 
 import entry from './entry'
 import general from './general'
@@ -21,7 +20,9 @@ const builders = {
   optimization,
 }
 
-export default function (this: Bud): Webpack.Configuration {
+export default function (
+  this: Framework.Bud,
+): Webpack.Configuration {
   return Object.entries(builders).reduce(
     (config, [, builder]: [string, Build.Builders]) => ({
       ...config,

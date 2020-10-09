@@ -1,10 +1,22 @@
-import * as Framework from '@roots/bud-framework'
+import Framework from '@roots/bud-framework'
+exports = Framework
 
-const DEFAULT_PLUGINS: PostCssPluginStoreValue = {
+/* const DEFAULT_PLUGINS: PostCssPluginStoreValue = {
   autoprefixer: [require('autoprefixer'), {}],
 }
 
-export const register = (bud: Framework.Bud): void => {
+export const registerLoaders = {
+  'postcss-loader': require.resolve('postcss-loader'),
+}
+
+export const updateRule = (
+  bud: Framework.IBud,
+  loader: any[],
+): void => {
+  loader.push(bud.components['loaders'].get('postcss-loader'))
+}
+
+export const register = (bud: Framework.IBud): void => {
   bud.hooks.on('register.store', () => {
     bud.store.create('postcss', {
       plugins: DEFAULT_PLUGINS,
@@ -14,10 +26,6 @@ export const register = (bud: Framework.Bud): void => {
       stringifier: null,
     })
   })
-
-  bud.hooks.on('register.loaders', () => ({
-    ['postcss-loader']: require.resolve('postcss-loader'),
-  }))
 
   bud.hooks.on('register.ruleset.use', () => ({
     ident: 'postcss-loader',
@@ -42,16 +50,10 @@ export const register = (bud: Framework.Bud): void => {
     css.push(bud.store['uses'].get('postcss-loader').make())
     return css
   })
-}
 
-/**
- * PostCSS loader plugin type
- */
-declare type PluginTuple = [Plugin | Transformer, unknown]
+  declare type PluginTuple = [Plugin | Transformer, unknown]
 
-/**
- * The store plugin type
- */
 declare type PostCssPluginStoreValue = {
   [key: string]: PluginTuple
 }
+} */

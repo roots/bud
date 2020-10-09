@@ -5,29 +5,32 @@ export declare class Extensions {
     /**
      * The Bud instance.
      * @type {Framework.Bud}
-     * @memberof Controller
      */
-    bud: Framework.IBud;
+    bud: Framework.Bud;
     /**
      * Keyed extensions
      * @type {Index<Extension>}
-     * @memberof Controller
      */
     extensions: Framework.Index<Framework.Extension>;
     /**
      * Creates an instance of Controller.
      *
      * @param {Bud} bud
-     * @memberof Controller
      */
-    constructor(bud: Framework.IBud);
+    constructor(bud: Framework.Bud);
     /**
-     * Boot an extension.
-     *
+     * Boot extensions controller.
      * @param {Index<Extension.Factory>} definitions
-     * @memberof Controller
      */
-    boot(definitions: Framework.Index<Framework.Extension.Factory>): void;
+    boot(extArgument?: Framework.Index<Framework.Extension.Factory>): void;
+    /**
+     * Register a batch of extensions.
+     */
+    registerExtensions(extensions: Framework.Index<Framework.Extension.Factory>): void;
+    /**
+     * Register an extension.
+     */
+    registerExtension(name: string, extension: Framework.Extension.Factory): void;
     /**
      * Invokes extension's registration calls, availability permitting.
      *

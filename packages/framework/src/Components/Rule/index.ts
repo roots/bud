@@ -1,5 +1,3 @@
-import type Bud from '../../Bud'
-
 /**
  * Build Rule
  *
@@ -13,9 +11,8 @@ class Rule {
    * The Bud instance.
    *
    * @type {Bud}
-   * @memberof Rule
    */
-  public bud: Bud
+  public bud: Framework.Bud
 
   /**
    * Enforce rule as 'pre' or 'post'
@@ -117,10 +114,8 @@ class Rule {
 
   /**
    * Use
-   *
-   * @type {Build.Rule.Conditional}
    */
-  public use?: Build.Rule.Loader
+  public use?: Build.Loader
 
   /**
    *Creates an instance of Rule.
@@ -129,17 +124,11 @@ class Rule {
    * @param {Build.Rule.Generic} rule
    * @memberof Rule
    */
-  constructor(bud: Bud, rule: Build.Rule.Generic) {
+  constructor(bud: Framework.Bud, rule: Build.Rule.Generic) {
     this.bud = bud
 
-    /**
-     * If a property from the rule module which has been passed is a function,
-     * we bind Bud to that function. This should make it maximally flexible for
-     * extensions.
-     */
     Object.entries(rule).map(([key, item]) => {
-      this[key] =
-        typeof item == 'function' ? item.bind(this.bud) : item
+      this[key] = item
     })
 
     this.get.bind(this)
@@ -192,16 +181,15 @@ class Rule {
             fields: Build.Rule.Product,
             [key, value]: [
               string,
-              Build.Rule.Factory<{this: Bud}> | unknown,
+              Build.Rule.Factory<unknown> | unknown,
             ],
-          ) =>
-            /** ...provide a hook for extensions */
-            this.bud.hooks.filter(`module.rule.uses.${key}`, {
-              ...fields,
-              [key]:
-              /** And, finally, call any values which are callable. */
-                typeof value == 'function' ? value() : value,
-            }),
+          ) => ({
+            ...fields,
+            [key]:
+              typeof value == 'function'
+                ? value(this.bud)
+                : value,
+          }),
           {},
         )
     )

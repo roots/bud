@@ -1,4 +1,3 @@
-import type Bud from '../../Bud';
 /**
  * Build Rule
  *
@@ -12,9 +11,8 @@ declare class Rule {
      * The Bud instance.
      *
      * @type {Bud}
-     * @memberof Rule
      */
-    bud: Bud;
+    bud: Framework.Bud;
     /**
      * Enforce rule as 'pre' or 'post'
      *
@@ -99,10 +97,8 @@ declare class Rule {
     test?: Build.Rule.Conditional;
     /**
      * Use
-     *
-     * @type {Build.Rule.Conditional}
      */
-    use?: Build.Rule.Loader;
+    use?: Build.Loader;
     /**
      *Creates an instance of Rule.
      *
@@ -110,7 +106,7 @@ declare class Rule {
      * @param {Build.Rule.Generic} rule
      * @memberof Rule
      */
-    constructor(bud: Bud, rule: Build.Rule.Generic);
+    constructor(bud: Framework.Bud, rule: Build.Rule.Generic);
     /**
      * Get the rule definition
      *

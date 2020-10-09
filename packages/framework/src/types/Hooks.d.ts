@@ -1,8 +1,9 @@
-import pino from 'pino'
 import Bud from '../Bud'
 
-export declare interface Hooks {
-  logger: Hooks.Logger
+export {Hooks}
+
+declare interface Hooks {
+  logger: Bud['logger']
 
   registered: Hooks.Registry
 
@@ -10,20 +11,20 @@ export declare interface Hooks {
 
   entries: () => any
 
-  on: Hooks.Handler
+  on: Hooks.On<any>
 
-  filter: Hooks.Handler
+  filter: Hooks.Filter<any>
 }
 
-export declare namespace Hooks {
-  export type Logger = pino.BaseLogger
+declare namespace Hooks {
+  export type Handler<T> = (value: T) => T
+
+  export type On<T> = (name: string, handler: Handler<T>) => T
+
+  export type Filter<T> = (name: string, data: T) => T
 
   export interface Constructor {
     (app: Bud): Hooks
-  }
-
-  export interface Handler {
-    (name: string, value: unknown): unknown
   }
 
   export interface Registry {
@@ -31,9 +32,11 @@ export declare namespace Hooks {
   }
 
   export interface RegistryItem {
-    hook: Handler
+    hook: Handler<any>
     fired: boolean
   }
 
-  export type RegistryFactory = (hook: Handler) => RegistryItem
+  export type RegistryFactory = (
+    hook: Handler<any>,
+  ) => RegistryItem
 }

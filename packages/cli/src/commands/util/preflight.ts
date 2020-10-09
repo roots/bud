@@ -1,4 +1,4 @@
-import {Bud} from '@roots/bud-framework'
+import Bud from '@roots/bud-framework/lib/Bud'
 import {injectClient} from '@roots/bud-server'
 
 /**

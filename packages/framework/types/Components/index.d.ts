@@ -1,12 +1,12 @@
 import { Loader } from 'webpack';
 import Bud from '../Bud';
-import Use from './Use';
+import Item from './Item';
 import Rule from './Rule';
-import uses from './uses';
+import items from './items';
 import rules from './rules';
 import loaders from './loaders';
 declare const makeComponents: (bud: Bud) => {
-    uses: Framework.Index<Use>;
+    items: Framework.Index<Item>;
     rules: Framework.Index<Rule>;
     loaders: Framework.Index<Loader>;
 };

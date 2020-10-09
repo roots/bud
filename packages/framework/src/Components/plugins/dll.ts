@@ -4,7 +4,7 @@ import {DllPlugin, DllReferencePlugin} from 'webpack'
  * DLL Plugin
  */
 const dll: Framework.Extension.Factory = (
-  bud: Framework.IBud,
+  bud: Framework.Bud,
 ): Framework.Extension => ({
   /**
    * Bud instance.
@@ -49,7 +49,7 @@ const dll: Framework.Extension.Factory = (
  * DLL Reference Plugin
  */
 const dllReference: Framework.Extension.Factory = (
-  bud: Framework.IBud,
+  bud: Framework.Bud,
 ) => ({
   bud,
 

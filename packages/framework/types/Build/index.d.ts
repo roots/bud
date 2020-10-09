@@ -1,4 +1,3 @@
 import Webpack from 'webpack';
-import Bud from '../Bud';
-export default function (this: Bud): Webpack.Configuration;
+export default function (this: Framework.Bud): Webpack.Configuration;
 //# sourceMappingURL=index.d.ts.map

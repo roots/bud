@@ -1,17 +1,13 @@
-import Bud from '../../Bud'
 import Webpack from 'webpack'
 
 function rules(
-  this: Bud,
+  this: Framework.Bud,
 ): Webpack.Configuration['module']['rules'] {
-  const parser: Webpack.RuleSetRule['parser'] = this.hooks.filter(
-    'build.module.rules.parser',
-    {
-      requireEnsure: false,
-    },
-  )
+  const parser = this.hooks.filter('build.module.rules.parser', {
+    requireEnsure: false,
+  })
 
-  const rules: Webpack.RuleSetRule[] = this.hooks.filter(
+  const rules = this.hooks.filter(
     'build.module.rules.oneOf',
     this.components['rules'].entries().reduce(ruleReducer, []),
   ) as Webpack.RuleSetRule[]
