@@ -1,1 +1,3 @@
-export * as Bud from './Bud'
+import {Bud} from './Bud'
+
+export {Bud}

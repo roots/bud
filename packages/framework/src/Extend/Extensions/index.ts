@@ -23,6 +23,7 @@ export class Extensions {
    */
   public constructor(bud: Framework.Bud) {
     this.bud = bud
+
     this.boot = this.boot.bind(this)
     this.make = this.make.bind(this)
   }
@@ -86,14 +87,20 @@ export class Extensions {
      * Register item
      */
     if (instance.hasOwnProperty('registerItem')) {
-      const item: [string, Build.Item.Module] =
+      const module: Build.Item.Module =
         typeof instance.registerItem == 'function'
           ? instance.registerItem(this.bud)
           : instance.registerItem
 
+      const itemInstance = new Item(this.bud, module)
+
+      console.log(itemInstance)
+
       this.bud.components['items'].set(
-        item[0],
-        new Item(this.bud, item[1]),
+        typeof module.ident == 'function'
+          ? module.ident(this.bud)
+          : module.ident,
+        itemInstance,
       )
     }
 

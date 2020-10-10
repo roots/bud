@@ -27,8 +27,3 @@ export * as paths from './paths'
  * Common regular expression patterns.
  */
 export * as patterns from './patterns'
-
-/**
- * WDS/middlware seed configuration.
- */
-export * as server from './server'

@@ -2,4 +2,5 @@
 const bud = require('../packages/bud/lib')
 
 bud.entry('app', 'foo.js')
-bud.compile()
+
+console.log(bud.build())

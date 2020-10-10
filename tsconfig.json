@@ -23,6 +23,7 @@
     {"@roots/dependencies": "dependencies"},
     {"@roots/filesystem": "filesystem"},
     {"@roots/bud": "bud"},
+    {"@roots/bud-babel": "babel"},
     {"@roots/bud-build": "build"},
     {"@roots/bud-cli": "cli"},
     {"@roots/bud-compiler": "compiler"},

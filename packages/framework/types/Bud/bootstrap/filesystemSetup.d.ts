@@ -1,4 +1,4 @@
-import Bud from '..';
+import type { Bud } from '..';
 /**
  * Read the project FS and try to set state basd on what is fuond
  */

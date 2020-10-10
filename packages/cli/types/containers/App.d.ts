@@ -1,6 +1,6 @@
 import { FunctionComponent } from 'react';
 import Compiler from '@roots/bud-compiler';
-import Server from '@roots/bud-server';
+import { Server } from '@roots/bud-server';
 interface ApplicationCliProps {
     name: string;
     compiler: Compiler;

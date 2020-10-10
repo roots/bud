@@ -2,12 +2,12 @@ import Container from '@roots/container'
 import Framework from '../types'
 
 /**
- * Store class: meta container class.
+ * Store class
  *
- * @class Store
- * @implements {Framework.Store}
+ * @description
+ *  A container of containers.
  */
-class Store implements Framework.Store {
+class Store {
   /**
    * The store repository
    *

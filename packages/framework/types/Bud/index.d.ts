@@ -1,7 +1,6 @@
 import * as pino from 'pino';
 import * as Config from '@roots/bud-config';
 import Compiler from '@roots/bud-compiler';
-import Server from '@roots/bud-server';
 import { FileContainer, FileSystem } from '@roots/filesystem';
 import { Pretty } from './util/pretty';
 /**
@@ -89,7 +88,7 @@ declare class Bud implements Framework.Bud {
      * @type {Server.Interface}
      * @memberof Bud
      */
-    server: Server.Interface;
+    server: Framework.Bud['server'];
     /**
      * Logger
      *
@@ -125,10 +124,10 @@ declare class Bud implements Framework.Bud {
     /**
      * API
      */
-    dist: Config.dist;
-    distPath: Config.distPath;
-    srcPath: Config.srcPath;
-    projectPath: Config.projectPath;
+    dist: Config.Dist;
+    distPath: Config.DistPath;
+    srcPath: Config.SrcPath;
+    projectPath: Config.ProjectPath;
     /**
      * Creates an instance of Bud.
      *
@@ -169,5 +168,5 @@ declare class Bud implements Framework.Bud {
      */
     makeContainer(baseDir: string): FileContainer;
 }
-export { Bud as default };
+export { Bud };
 //# sourceMappingURL=index.d.ts.map

@@ -1,4 +1,4 @@
-import type Bud from '../../Bud'
+import type {Bud} from '../../Bud'
 import Rule from '../Rule'
 
 import * as css from './css'

@@ -1,4 +1,4 @@
-import type Bud from '../Bud'
+import type {Bud} from '../Bud'
 import type Webpack from 'webpack'
 
 export {Mode}

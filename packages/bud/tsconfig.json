@@ -18,6 +18,8 @@
     {"@roots/container": "../container"},
     {"@roots/dependencies": "../dependencies"},
     {"@roots/filesystem": "../filesystem"},
+    {"@roots/bud-framework": "../framework"},
+    {"@roots/bud-babel": "../babel"},
     {"@roots/bud-support": "../support"},
     {"@roots/bud-config": "../config"},
     {"@roots/bud-cli": "../cli"},

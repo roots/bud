@@ -3,10 +3,10 @@ declare const _default: (bud: Framework.Bud) => {
     [key: string]: import("../../types/Build/Item").Item;
 };
 /**
- * Dictionary of Items to be used in RuleSets.
+ * Dictionary of RuleSetUse items.
  *
  * @example
- *  bud.store['items'].get('babel')
+ *  bud.store['items'].get('css')
  */
 export default _default;
 //# sourceMappingURL=index.d.ts.map

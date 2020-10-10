@@ -1,5 +1,5 @@
-import type Bud from '../../Bud'
-import {Extension} from '../Extension'
+import type {Bud} from '../../Bud'
+import type {Extension} from '../Extension'
 
 export {Extensions}
 

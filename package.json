@@ -23,27 +23,18 @@
   },
   "workspaces": {
     "packages": [
-      "packages/container",
-      "packages/dependencies",
-      "packages/filesystem",
+      "packages/babel",
       "packages/bud",
       "packages/cli",
       "packages/compiler",
       "packages/config",
+      "packages/container",
+      "packages/dependencies",
+      "packages/filesystem",
       "packages/framework",
       "packages/postcss",
       "packages/server",
-      "packages/support",
-      "packages/extensions/bud-eslint",
-      "packages/extensions/bud-manifests",
-      "packages/extensions/bud-purgecss",
-      "packages/extensions/bud-react",
-      "packages/extensions/bud-sage",
-      "packages/extensions/bud-sass",
-      "packages/extensions/bud-stylelint",
-      "packages/extensions/bud-tailwindcss",
-      "packages/extensions/bud-typescript",
-      "packages/extensions/bud-vue"
+      "packages/support"
     ]
   },
   "scripts": {

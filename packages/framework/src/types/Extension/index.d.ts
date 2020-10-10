@@ -32,7 +32,9 @@ declare interface Extension {
   /**
    * Register Items
    */
-  registerItem?: (param: unknown) => any
+  registerItem?:
+    | ((bud: Framework.Bud) => Build.Item.Module)
+    | Build.Item.Module
 
   /**
    * Register Options

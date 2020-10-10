@@ -1,10 +1,6 @@
 import {Configuration} from 'webpack'
 import {ansiColors, overlayStyles} from './styles'
 
-interface InjectionProps {
-  entrypoints: Configuration['entry']
-}
-
 /**
  * Hot client/server module dependencies
  */
@@ -13,18 +9,14 @@ const params = `path=/__webpack_hmr`
 const colors = encodeURIComponent(JSON.stringify(ansiColors))
 const styles = encodeURIComponent(JSON.stringify(overlayStyles))
 
+const toInject = [
+  `${client}?${params}&ansiColors=${colors}&overlayStyles=${styles}`,
+]
+
 /**
- * Inject webpack entrypoints with client HMR handling script(s).
+ * Injects webpack.entry items with hot module scripts.
  */
-export type InjectClient = (
-  props: InjectionProps,
-) => Configuration['entry']
-
 export const injectClient: InjectClient = ({entrypoints}) => {
-  const toInject = [
-    `${client}?${params}&ansiColors=${colors}&overlayStyles=${styles}`,
-  ]
-
   const prepend = (entry: unknown) => {
     if (typeof entry === 'function') {
       return () => Promise.resolve(entry()).then(prepend)
@@ -42,4 +34,18 @@ export const injectClient: InjectClient = ({entrypoints}) => {
   }
 
   return prepend(entrypoints)
+}
+
+/**
+ * Inject webpack entrypoints with client HMR handling script(s).
+ */
+export type InjectClient = (
+  props: InjectionProps,
+) => Configuration['entry']
+
+/**
+ * Requires entrypoints indexed as <K, V>
+ */
+interface InjectionProps {
+  entrypoints: Configuration['entry']
 }

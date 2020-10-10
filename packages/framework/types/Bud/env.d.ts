@@ -1,4 +1,4 @@
-import Bud from './index';
+import type { Bud } from './index';
 /**
  * Freezes envvars.
  *

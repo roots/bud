@@ -2,7 +2,7 @@ import React, {FunctionComponent, useEffect} from 'react'
 import {useApp, useInput, Box} from 'ink'
 
 import Compiler from '@roots/bud-compiler'
-import Server from '@roots/bud-server'
+import {Server} from '@roots/bud-server'
 
 import Assets from '../components/Assets'
 import Errors from '../components/Errors'

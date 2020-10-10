@@ -2039,11 +2039,6 @@
 "@roots/bud-framework@file:packages/framework":
   version "2.0.0-next.24"
   dependencies:
-    "@babel/core" "^7.11.5"
-    "@babel/plugin-proposal-object-rest-spread" "^7.11.0"
-    "@babel/plugin-syntax-dynamic-import" "^7.8.3"
-    "@babel/plugin-transform-runtime" "^7.11.5"
-    "@babel/preset-env" "^7.11.5"
     "@roots/bud-compiler" "2.0.0-next.24"
     "@roots/bud-config" "2.0.0-next.24"
     "@roots/bud-server" "2.0.0-next.24"
@@ -2051,15 +2046,11 @@
     "@roots/container" "2.0.0-next.24"
     "@roots/dependencies" "2.0.0-next.24"
     "@roots/filesystem" "2.0.0-next.24"
-    autoprefixer "^9.8.5"
-    babel-loader "^8.1.0"
-    babel-plugin-add-module-exports "^1.0.4"
     clean-webpack-plugin "^3.0.0"
     compression-webpack-plugin "^6.0.2"
     copy-webpack-plugin "^6.2.0"
     css-loader "^3.6.0"
     file-loader "^6.0.0"
-    html-webpack-harddisk-plugin "^1.0.2"
     html-webpack-plugin "^4.4.1"
     ignore-emit-webpack-plugin "^2.0.3"
     imagemin "^6.0.1"
@@ -2067,7 +2058,6 @@
     mini-css-extract-plugin "^0.11.3"
     mini-svg-data-uri "^1.2.3"
     optimize-css-assets-webpack-plugin "^5.0.1"
-    postcss-loader "^4.0.3"
     raw-loader "^4.0.1"
     resolve-url-loader "^3.1.1"
     source-map-loader "^1.0.1"
@@ -7233,13 +7223,6 @@ html-minifier-terser@^5.0.1:
     relateurl "^0.2.7"
     terser "^4.6.3"
 
-html-webpack-harddisk-plugin@^1.0.2:
-  version "1.0.2"
-  resolved "https://registry.yarnpkg.com/html-webpack-harddisk-plugin/-/html-webpack-harddisk-plugin-1.0.2.tgz#75aa36fb7face505b3f1efd7bfb31c06c9f19459"
-  integrity sha512-s0F0qAxug9fgztJyWWa8cUlVvgbAD/+J9Dhg22REU637DV9RhrKt0EsFBOXkRuSuwSeYLUtyLcQYpARPBZe51g==
-  dependencies:
-    mkdirp "^0.5.1"
-
 html-webpack-plugin@^4.4.1:
   version "4.5.0"
   resolved "https://registry.yarnpkg.com/html-webpack-plugin/-/html-webpack-plugin-4.5.0.tgz#625097650886b97ea5dae331c320e3238f6c121c"
@@ -11224,7 +11207,7 @@ postcss-discard-overridden@^4.0.1:
   dependencies:
     postcss "^7.0.0"
 
-postcss-loader@^4.0.2, postcss-loader@^4.0.3:
+postcss-loader@^4.0.2:
   version "4.0.3"
   resolved "https://registry.yarnpkg.com/postcss-loader/-/postcss-loader-4.0.3.tgz#337f51bbdfb02269fb42f7db9fc7f0a93c1b2e3f"
   integrity sha512-jHboC/AOnJLPu8/974hODCJ/rNAa2YhhJOclUeuRlAmFpKmEcBY6az8y1ejHyYc2LThzPl8qPRekh2Yz3CiRKA==

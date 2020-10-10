@@ -1,23 +1,23 @@
 import dev from '../middleware/dev'
 import hot from '../middleware/hot'
 import proxy from '../middleware/proxy'
-import express, {
-  Handler,
-  Application as Express,
-  Handler as ExpressHandler,
-} from 'express'
+import express, {Handler, Application as Express} from 'express'
 import WebpackDevMiddleware from 'webpack-dev-middleware'
 import {Options as ProxyOptions} from 'http-proxy-middleware'
 import {Compiler, Options as WebpackOptions} from 'webpack'
 
-class Server implements Server.Interface {
-  public instance: Server.Interface['instance']
-  public config: Server.Interface['config']
-  public compiler: Server.Interface['compiler']
+export {Server}
+
+class Server implements ServerInterface {
+  public instance: Server.Instance
+
+  public config: Server.Config
+
+  public compiler: Compiler
 
   public constructor(
-    compiler?: Server.Interface['compiler'],
-    config?: Server.Interface['config'],
+    compiler?: Compiler,
+    config?: Server.Config,
   ) {
     this.instance = express()
     this.instance.set('x-powered-by', false)
@@ -54,19 +54,17 @@ class Server implements Server.Interface {
     return this.config
   }
 
-  public setConfig(config: Server.Interface['config']): this {
+  public setConfig(config: Server.Config): this {
     this.config = config
 
     return this
   }
 
-  public getCompiler(): this['compiler'] {
+  public getCompiler(): Compiler {
     return this.compiler
   }
 
-  public setCompiler(
-    compiler: Server.Interface['compiler'],
-  ): this {
+  public setCompiler(compiler: Compiler): this {
     this.compiler = compiler
 
     return this
@@ -109,81 +107,80 @@ class Server implements Server.Interface {
   }
 }
 
-declare namespace Server {
+declare interface ServerInterface {
   /**
-   * Bud development server.
+   * Express instance.
    */
-  export interface Interface {
-    /**
-     * Express instance.
-     */
-    instance: Express
+  instance: Server.Instance
 
-    /**
-     * Get Express instance.
-     */
-    getServer: () => Express
+  /**
+   * Server configuration.
+   */
+  config: Server.Config
 
-    /**
-     * Set Express instance.
-     */
-    setServer: (server: Express) => this
+  /**
+   * Webpack compiler.
+   */
+  compiler: Compiler
 
-    /**
-     * Server configuration.
-     */
-    config: Config
+  /**
+   * Get Express instance.
+   */
+  getServer: () => Express
 
-    /**
-     * Get Express instance.
-     */
-    getConfig: () => Config
+  /**
+   * Set Express instance.
+   */
+  setServer: (server: Express) => this
 
-    /**
-     * Set Express instance.
-     */
-    setConfig: (config: Config) => this
+  /**
+   * Get Express instance.
+   */
+  getConfig: () => Server.Config
 
-    /**
-     * Webpack compiler.
-     */
-    compiler: Compiler
+  /**
+   * Set Express instance.
+   */
+  setConfig: (config: Server.Config) => this
 
-    /**
-     * Get compiler.
-     */
-    getCompiler: () => Compiler
+  /**
+   * Get compiler.
+   */
+  getCompiler: () => Compiler
 
-    /**
-     * Set compiler.
-     */
-    setCompiler: (compiler: Compiler) => this
+  /**
+   * Set compiler.
+   */
+  setCompiler: (compiler: Compiler) => this
 
-    /**
-     * Add middleware to Express instance.
-     */
-    addMiddleware: (middleware: ExpressHandler) => this
+  /**
+   * Add middleware to Express instance.
+   */
+  addMiddleware: (middleware: Handler) => this
 
-    /**
-     * Add dev middleware
-     */
-    addDevMiddleware: () => this
+  /**
+   * Add dev middleware
+   */
+  addDevMiddleware: () => this
 
-    /**
-     * Add hot middleware
-     */
-    addHotMiddleware: () => this
+  /**
+   * Add hot middleware
+   */
+  addHotMiddleware: () => this
 
-    /**
-     * Add dev middleware
-     */
-    addProxyMiddleware: () => this
+  /**
+   * Add dev middleware
+   */
+  addProxyMiddleware: () => this
 
-    /**
-     * Binds and listens for connections on the host and port specified in the config.
-     */
-    listen: () => void
-  }
+  /**
+   * Binds and listens for connections on the host and port specified in the config.
+   */
+  listen: () => void
+}
+
+declare namespace Server {
+  export type Instance = Express
 
   /**
    * Server configuration
@@ -251,7 +248,7 @@ declare namespace Server {
     hotOnly?: boolean
 
     /**
-     * The public path that the middleware is bound to.
+     * The path that the middleware is bound to.
      */
     publicPath?: WebpackDevMiddleware.Options['publicPath']
 
@@ -339,7 +336,7 @@ declare namespace Server {
     /**
      * Server configuration.
      */
-    config: Config
+    config: Server.Config
 
     /**
      * Webpack compiler.
@@ -347,5 +344,3 @@ declare namespace Server {
     compiler: Compiler
   }
 }
-
-export default Server

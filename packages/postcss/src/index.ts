@@ -2,6 +2,11 @@ import * as Framework from '@roots/bud-framework'
 import * as postcss from './item'
 
 /**
+ * PostCSS RuleSetItem
+ */
+export const registerItem = postcss
+
+/**
  * PostCSS Loader
  */
 export const registerLoader = (bud: Framework.Bud): void => {
@@ -12,12 +17,7 @@ export const registerLoader = (bud: Framework.Bud): void => {
 }
 
 /**
- * PostCSS Loader implementation
- */
-export const registerItem = ['postcss', postcss]
-
-/**
- * On boot get the css rule and modify it to use postcss
+ * Modify CSS rule to use PostCSS
  */
 export const boot = (bud: Framework.Bud): void => {
   const use = bud.components['rules'].get('css').use(bud)

@@ -1,7 +1,7 @@
 import rules from './rules'
 import Webpack from 'webpack'
 
-function module(
+export default function module(
   build: Build.Configuration,
 ): Framework.Index<Partial<Webpack.Module>> {
   return {
@@ -11,5 +11,3 @@ function module(
     }),
   }
 }
-
-export {module as default}

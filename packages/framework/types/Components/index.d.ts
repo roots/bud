@@ -1,5 +1,5 @@
-import { Loader } from 'webpack';
-import Bud from '../Bud';
+import type { Loader } from 'webpack';
+import type { Bud } from '../Bud';
 import Item from './Item';
 import Rule from './Rule';
 import items from './items';

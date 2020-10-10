@@ -1,21 +1,13 @@
 import * as pino from 'pino'
 import Compiler from '@roots/bud-compiler'
-import Server from '@roots/bud-server'
+import {Server} from '@roots/bud-server'
+import Config from '@roots/bud-config'
 import {FileContainer, FileSystem} from '@roots/filesystem'
-import * as Config from '@roots/bud-config'
 import {BuiltInParserName} from 'prettier'
 
-export {Bud}
-
-/**
- * Bud core.
- *
- * @class Bud
- */
-declare interface Bud {
+declare class Bud {
   /**
    * Escape hatch
-   *
    * @todo remove this once type safe.
    */
   [key: string]: unknown
@@ -93,7 +85,7 @@ declare interface Bud {
    * @type {Server.Interface}
    * @memberof Bud
    */
-  server: Server.Interface
+  server: Server
 
   /**
    * Logger
@@ -137,10 +129,10 @@ declare interface Bud {
   /**
    * API
    */
-  dist: Config.dist
-  distPath: Config.distPath
-  srcPath: Config.srcPath
-  projectPath: Config.projectPath
+  dist: Config.Dist
+  distPath: Config.DistPath
+  srcPath: Config.SrcPath
+  projectPath: Config.ProjectPath
 
   /**
    * Initialize the instance of Bud.

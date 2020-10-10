@@ -1,6 +1,5 @@
 import Item from '../Item'
 
-import * as babel from './babel'
 import * as css from './css'
 import * as file from './file'
 import * as minicss from './minicss'
@@ -11,16 +10,15 @@ import * as style from './style'
 import * as svg from './svg'
 
 /**
- * Dictionary of Items to be used in RuleSets.
+ * Dictionary of RuleSetUse items.
  *
  * @example
- *  bud.store['items'].get('babel')
+ *  bud.store['items'].get('css')
  */
 export default (
   bud: Framework.Bud,
 ): {[key: string]: Build.Item} => {
   return bud.hooks.filter('components.uses', {
-    ['babel']: new Item(bud, babel),
     ['postcss']: new Item(bud, postcss),
     ['raw']: new Item(bud, raw),
     ['svg']: new Item(bud, svg),

@@ -38,7 +38,11 @@
   },
   "dependencies": {
     "@roots/bud-framework": "file:../framework",
+    "autoprefixer": "^9.8.5",
     "postcss": "^8.1.1",
     "postcss-loader": "^4.0.4"
+  },
+  "devDependencies": {
+    "@types/autoprefixer": "^9.7.2"
   }
 }

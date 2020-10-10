@@ -1,4 +1,4 @@
-import Bud from '..'
+import type {Bud} from '..'
 import checkEnvIsValid from './checkModeIsValid'
 
 const parseArguments = function (this: Bud): void {

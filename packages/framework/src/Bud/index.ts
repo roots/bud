@@ -1,8 +1,8 @@
 import * as pino from 'pino'
 import * as Model from '../Model'
 import * as Config from '@roots/bud-config'
+import {Server} from '@roots/bud-server'
 import Compiler from '@roots/bud-compiler'
-import Server from '@roots/bud-server'
 import {FileContainer, FileSystem} from '@roots/filesystem'
 import Webpack from 'webpack'
 import Build from '../Build'
@@ -113,7 +113,7 @@ class Bud implements Framework.Bud {
    * @type {Server.Interface}
    * @memberof Bud
    */
-  public server: Server.Interface
+  public server: Framework.Bud['server']
 
   /**
    * Logger
@@ -157,10 +157,10 @@ class Bud implements Framework.Bud {
   /**
    * API
    */
-  dist: Config.dist
-  distPath: Config.distPath
-  srcPath: Config.srcPath
-  projectPath: Config.projectPath
+  dist: Config.Dist
+  distPath: Config.DistPath
+  srcPath: Config.SrcPath
+  projectPath: Config.ProjectPath
 
   /**
    * Creates an instance of Bud.
@@ -287,4 +287,4 @@ class Bud implements Framework.Bud {
   }
 }
 
-export {Bud as default}
+export {Bud}

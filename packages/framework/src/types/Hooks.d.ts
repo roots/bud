@@ -1,4 +1,4 @@
-import Bud from '../Bud'
+import {Bud} from '../Bud'
 
 export {Hooks}
 

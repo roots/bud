@@ -1,5 +1,5 @@
-import Server from './Server'
+import * as Server from './Server'
+import {injectClient} from './client'
 
-export default Server
-
-export {injectClient} from './client'
+export {Server}
+export {injectClient}

@@ -1,6 +1,6 @@
 import Webpack from 'webpack'
 
-function rules(
+export default function rules(
   this: Framework.Bud,
 ): Webpack.Configuration['module']['rules'] {
   const parser = this.hooks.filter('build.module.rules.parser', {
@@ -22,5 +22,3 @@ function rules(
 
   return [{parser}, {oneOf: rules}]
 }
-
-export {rules as default}
