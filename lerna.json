@@ -18,7 +18,6 @@
     "packages/extensions/react",
     "packages/extensions/sass",
     "packages/extensions/stylelint",
-    "packages/extensions/support",
     "packages/extensions/tailwindcss",
     "packages/extensions/typescript",
     "packages/extensions/vue",
