@@ -9,17 +9,18 @@ function rules(
 
   const rules = this.hooks.filter(
     'build.module.rules.oneOf',
-    this.components['rules'].entries().reduce(ruleReducer, []),
+    this.components['rules']
+      .entries()
+      .reduce(
+        (
+          rules: Webpack.RuleSetRule[],
+          [, rule]: [string, {make: () => Webpack.RuleSetRule}],
+        ): Webpack.RuleSetRule[] => [...rules, rule.make()],
+        [],
+      ),
   ) as Webpack.RuleSetRule[]
 
   return [{parser}, {oneOf: rules}]
-}
-
-function ruleReducer(
-  rules: Webpack.RuleSetRule[],
-  [, rule]: [string, {make: () => Webpack.RuleSetRule}],
-): Webpack.RuleSetRule[] {
-  return [...rules, rule.make()]
 }
 
 export {rules as default}

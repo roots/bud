@@ -22,7 +22,11 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib", "types", "src"],
+  "files": [
+    "lib",
+    "types",
+    "src"
+  ],
   "main": "./lib/index.js",
   "types": "./types/index.d.ts",
   "scripts": {
@@ -33,7 +37,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@roots/bud-framework": "file:../framework",
     "postcss": "^8.1.1",
-    "@roots/bud-framework": "file:../framework"
+    "postcss-loader": "^4.0.4"
   }
 }

@@ -1,8 +1,6 @@
 import * as pino from 'pino'
-
 import * as Model from '../Model'
 import * as Config from '@roots/bud-config'
-
 import Compiler from '@roots/bud-compiler'
 import Server from '@roots/bud-server'
 import {FileContainer, FileSystem} from '@roots/filesystem'
@@ -17,7 +15,6 @@ import {env} from './env'
 import format from './util/format'
 import logger from './util/logger'
 import pretty, {Pretty} from './util/pretty'
-
 import filesystemSetup from './bootstrap/filesystemSetup'
 import parseArguments from './bootstrap/parseArguments'
 

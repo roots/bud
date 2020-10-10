@@ -1,3 +1,5 @@
+import Item from '../../Components/Item'
+
 /**
  * Boots and handles extension lifecycle concerns.
  */
@@ -58,9 +60,9 @@ export class Extensions {
    */
   public registerExtension(
     name: string,
-    extension: Framework.Extension.Factory,
+    extension: unknown,
   ): void {
-    const instance: Framework.Extension =
+    const instance =
       typeof extension == 'function'
         ? extension(this.bud)
         : extension
@@ -74,34 +76,36 @@ export class Extensions {
       instance.options = null
     }
 
-    this.registerIsh(instance, 'loaders', 'registerLoaders')
-    this.registerIsh(instance, 'items', 'registerItems')
-    this.registerIsh(instance, 'rules', 'registerRules')
+    if (instance.hasOwnProperty('registerLoader')) {
+      typeof instance.registerLoader == 'function'
+        ? instance.registerLoader(this.bud)
+        : instance.registerLoader
+    }
+
+    /**
+     * Register item
+     */
+    if (instance.hasOwnProperty('registerItem')) {
+      const item: [string, Build.Item.Module] =
+        typeof instance.registerItem == 'function'
+          ? instance.registerItem(this.bud)
+          : instance.registerItem
+
+      this.bud.components['items'].set(
+        item[0],
+        new Item(this.bud, item[1]),
+      )
+    }
+
+    if (instance.hasOwnProperty('registerRule')) {
+      typeof instance.registerRule == 'function'
+        ? instance.registerRule(this.bud)
+        : instance.registerRule
+    }
+
+    instance.hasOwnProperty('boot') && instance.boot(this.bud)
 
     this.extensions[name] = instance
-  }
-
-  /**
-   * Invokes extension's registration calls, availability permitting.
-   *
-   * @param {Framework.Extension} extension
-   * @param {Index<unknown>} options
-   */
-  public registerIsh(
-    instance: Framework.Extension,
-    registry: string,
-    func: string,
-  ): void {
-    if (!instance.hasOwnProperty(func)) return
-
-    const value =
-      typeof instance[func] == 'function'
-        ? instance[func](this.bud)
-        : instance
-
-    Object.entries(value).forEach(([key, value]) => {
-      this.bud.store[registry].set(key, value)
-    })
   }
 
   /**
@@ -121,8 +125,6 @@ export class Extensions {
    * Make an extension
    *
    * @note applies only to webpack plugins
-   *
-   * @returns {Extension.Product[]}
    */
   public make(): Framework.Extension.Product[] {
     const output = Object.values(this.extensions)

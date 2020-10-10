@@ -28,6 +28,26 @@ declare interface Extension {
    * Whether or not to call `make`.
    */
   when?: Extension.Conditional
+
+  /**
+   * Register Items
+   */
+  registerItem?: (param: unknown) => any
+
+  /**
+   * Register Options
+   */
+  registerOption?: (param: unknown) => any
+
+  /**
+   * Register Rules
+   */
+  registerRule?: (param: unknown) => any
+
+  /**
+   * Do stuff after registration
+   */
+  boot?: (bud: Framework.Bud) => void
 }
 
 /**

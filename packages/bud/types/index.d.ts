@@ -1,3 +1,4 @@
-declare const bud: any
-export default bud
+import Framework from '@roots/bud-framework';
+declare const bud: Framework.Bud;
+export default bud;
 //# sourceMappingURL=index.d.ts.map

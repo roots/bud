@@ -1,59 +1,30 @@
-import Framework from '@roots/bud-framework'
-exports = Framework
+import * as Framework from '@roots/bud-framework'
+import * as postcss from './item'
 
-/* const DEFAULT_PLUGINS: PostCssPluginStoreValue = {
-  autoprefixer: [require('autoprefixer'), {}],
+/**
+ * PostCSS Loader
+ */
+export const registerLoader = (bud: Framework.Bud): void => {
+  bud.components['loaders'].set(
+    'postcss-loader',
+    require.resolve('postcss-loader'),
+  )
 }
 
-export const registerLoaders = {
-  'postcss-loader': require.resolve('postcss-loader'),
+/**
+ * PostCSS Loader implementation
+ */
+export const registerItem = ['postcss', postcss]
+
+/**
+ * On boot get the css rule and modify it to use postcss
+ */
+export const boot = (bud: Framework.Bud): void => {
+  const use = bud.components['rules'].get('css').use(bud)
+
+  bud.components['rules'].set('css.use', bud => [
+    ...use.splice(0, use.length - 1),
+    bud.components['items'].get('postcss').make(),
+    ...use.splice(use.length - 1),
+  ])
 }
-
-export const updateRule = (
-  bud: Framework.IBud,
-  loader: any[],
-): void => {
-  loader.push(bud.components['loaders'].get('postcss-loader'))
-}
-
-export const register = (bud: Framework.IBud): void => {
-  bud.hooks.on('register.store', () => {
-    bud.store.create('postcss', {
-      plugins: DEFAULT_PLUGINS,
-      sourceMapOptions: null,
-      syntax: null,
-      parser: null,
-      stringifier: null,
-    })
-  })
-
-  bud.hooks.on('register.ruleset.use', () => ({
-    ident: 'postcss-loader',
-
-    loader: function () {
-      return this.store['loaders'].get('postcss-loader')
-    },
-
-    options: function () {
-      const options = this.store['postcss']
-      return {
-        ...options,
-        plugins: Object.entries(options).reduce(
-          (acc, [, tuple]) => [...acc, tuple],
-          [],
-        ),
-      }
-    },
-  }))
-
-  bud.hooks.on('module.rule.uses.css', css => {
-    css.push(bud.store['uses'].get('postcss-loader').make())
-    return css
-  })
-
-  declare type PluginTuple = [Plugin | Transformer, unknown]
-
-declare type PostCssPluginStoreValue = {
-  [key: string]: PluginTuple
-}
-} */

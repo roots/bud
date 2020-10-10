@@ -1,7 +1,7 @@
 export * from './generic'
 
-export * from './Bud'
-export * from './Build'
+export {Bud} from './Bud'
+export {Build} from './Build'
 export {Env} from './Env'
 export {Extension} from './Extension'
 export {Extensions} from './Extensions'

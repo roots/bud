@@ -24,6 +24,14 @@ declare class Extensions {
   extensions: Framework.Index<Extension>
 
   /**
+   * Register extension
+   */
+  registerExtension(
+    name: string,
+    extension: Framework.Extension.Factory,
+  ): void
+
+  /**
    * Boot an extension.
    *
    * @param {Framework.Index<Extension.Factory>} definitions
@@ -32,20 +40,6 @@ declare class Extensions {
   public boot(
     definitions: Framework.Index<Framework.Extension.Factory>,
   ): void
-
-  /**
-   * Invokes extension's registration calls, availability permitting.
-   *
-   * @param  {string} instance
-   * @param  {string} registry
-   * @param  {string} registrationFunc
-   * @returns void
-   */
-  registerIsh: (
-    instance: Extension,
-    registry: string,
-    func: string,
-  ) => void
 
   /**
    * Set the options on a booted extension.

@@ -1,199 +1,116 @@
 /**
- * Build Rule
+ * Manufactures a RuleSetRule
  *
- * @description
- *  Manufactures a RuleSet item.
- *
- * @class Rule
+ * @typedef {Build.Rule.Rule}
+ * @yields {Webpack.RuleSetRule}
  */
-class Rule {
-  /**
-   * The Bud instance.
-   *
-   * @type {Bud}
-   */
+export default class Rule {
   public bud: Framework.Bud
-
-  /**
-   * Enforce rule as 'pre' or 'post'
-   *
-   * @type {Build.Rule.Enforce}
-   */
   public enforce?: Build.Rule.Enforce
-
-  /**
-   * Exclude
-   *
-   * @type {Build.Rule.Conditional}
-   */
   public exclude?: Build.Rule.Conditional
-
-  /**
-   * Include
-   *
-   * @type {Build.Rule.Conditional}
-   */
   public include?: Build.Rule.Conditional
-
-  /**
-   * Issuer
-   *
-   * @type {Build.Rule.Conditional}
-   */
   public issuer?: Build.Rule.Conditional
-
-  /**
-   * OneOf
-   *
-   * @type {Build.Rule.Conditional}
-   */
   public oneOf?: Build.Rule.OneOf
-
-  /**
-   * Options
-   *
-   * @type {Build.Rule.Conditional}
-   */
   public options?: Build.Rule.Query
-
-  /**
-   * Options for parsing
-   */
   public parser?: Build.Rule.Parser
-
-  /**
-   * Options for the resolver
-   */
   public resolve?: Build.Rule.Resolve
-
-  /**
-   * Flags a module as with or without side effects
-   */
-  public sideEffects?: Build.Rule.Bool
-
-  /**
-   * Shortcut for use.query
-   */
+  public sideEffects?: boolean
   public query?: Build.Rule.Query
-
-  /**
-   * Module type to use for the module
-   */
   public type?: Build.Rule.Type
-
-  /**
-   * Match the resource path of the module
-   */
   public resource?: Build.Rule.Conditional
-
-  /**
-   * Match the resource query of the module
-   */
   public resourceQuery?: Build.Rule.Conditional
-
-  /**
-   * Compiler
-   *
-   * @type {Build.Rule.Conditional}
-   */
   public compiler?: Build.Rule.Conditional
-
-  /**
-   * Rules
-   *
-   * @type {Build.Rule.Conditional}
-   */
   public rules?: Build.Rule.OneOf
-
-  /**
-   * Test
-   *
-   * @type {Build.Rule.Conditional}
-   */
   public test?: Build.Rule.Conditional
-
-  /**
-   * Use
-   */
   public use?: Build.Loader
 
-  /**
-   *Creates an instance of Rule.
-   *
-   * @param {Bud} bud
-   * @param {Build.Rule.Generic} rule
-   * @memberof Rule
-   */
-  constructor(bud: Framework.Bud, rule: Build.Rule.Generic) {
+  constructor(bud: Framework.Bud, rule: unknown) {
     this.bud = bud
 
-    Object.entries(rule).map(([key, item]) => {
-      this[key] = item
+    this.register = this.register.bind(this)
+    this.getProp = this.getProp.bind(this)
+    this.setProp = this.setProp.bind(this)
+    this.get = this.get.bind(this)
+    this.make = this.make.bind(this)
+
+    this.register(rule)
+  }
+
+  /**
+   * Map to class props.
+   */
+  public register(rule: unknown): this {
+    Object.entries(rule).map(([prop, source]) => {
+      this.setProp(prop, source)
     })
 
-    this.get.bind(this)
-    this.make.bind(this)
+    return this
   }
 
-  /**
-   * Get the rule definition
-   *
-   * @returns {Build.Rule.Product}
-   * @memberof Rule
-   */
-  public get(): Build.Rule.Product {
-    return {
-      enforce: this.enforce,
-      exclude: this.exclude,
-      include: this.include,
-      issuer: this.issuer,
-      oneOf: this.oneOf,
-      options: this.options,
-      parser: this.parser,
-      sideEffects: this.sideEffects,
-      query: this.query,
-      compiler: this.compiler,
-      rules: this.rules,
-      test: this.test,
-      use: this.use,
-    }
+  public getProp(prop: string): Build.Rule.Property<unknown> {
+    return this[prop]
   }
 
-  /**
-   * Make the Rule (for builder).
-   *
-   * @returns {Build.Rule.Product}
-   * @memberof Rule
-   */
+  public setProp(
+    prop: string,
+    value: Build.Rule.Property<unknown>,
+  ): this {
+    this[prop] = value
+    return this
+  }
+
+  public get(): Build.Rule.MakeSet {
+    return Object.entries({
+      enforce: [this.enforce, this.bud],
+      exclude: [this.exclude, this.bud],
+      include: [this.include, this.bud],
+      issuer: [this.issuer, this.bud],
+      oneOf: [this.oneOf, this.bud],
+      options: [this.options, this.bud],
+      parser: [this.parser, this.bud],
+      sideEffects: [this.sideEffects, this.bud],
+      query: [this.query, this.bud],
+      compiler: [this.compiler, this.bud],
+      rules: [this.rules, this.bud],
+      test: [this.test, this.bud],
+      use: [this.use, this.bud],
+    })
+  }
+
   public make(): Build.Rule.Product {
-    /**
-     * Out of all entries...
-     */
     return (
-      Object.entries(this.get())
+      /**
+       * Iterable set of tuples yielding:
+       *
+       *  - label
+       *  - RuleSetRule property,
+       *  - Parameters to pass to callables in a given rule.
+       */
+      this.get()
+
         /** ...filter out the nully ones. */
         .filter(
-          ([, value]) => value !== null && value !== undefined,
+          ([, [prop]]: Build.Rule.MakeIn) =>
+            prop !== null && prop !== undefined,
         )
-        /** ...reduce the remaining down to a Webpack RuleSet item */
+
+        /**
+         * ...reduce the remaining down to a Webpack RuleSetRule
+         */
         .reduce(
           (
-            fields: Build.Rule.Product,
-            [key, value]: [
-              string,
-              Build.Rule.Factory<unknown> | unknown,
-            ],
+            accumulator: Build.Rule.Product,
+            [label, [prop, params]]: Build.Rule.MakeIn,
           ) => ({
-            ...fields,
-            [key]:
-              typeof value == 'function'
-                ? value(this.bud)
-                : value,
+            ...accumulator,
+            /**
+             * Prop might be callable. If so, pass it the appropriate param(s).
+             */
+            [label]:
+              typeof prop == 'function' ? prop(params) : prop,
           }),
           {},
         )
     )
   }
 }
-
-export default Rule

@@ -30,14 +30,7 @@ export declare class Extensions {
     /**
      * Register an extension.
      */
-    registerExtension(name: string, extension: Framework.Extension.Factory): void;
-    /**
-     * Invokes extension's registration calls, availability permitting.
-     *
-     * @param {Framework.Extension} extension
-     * @param {Index<unknown>} options
-     */
-    registerIsh(instance: Framework.Extension, registry: string, func: string): void;
+    registerExtension(name: string, extension: unknown): void;
     /**
      * Set the options on a booted extensions.
      *
@@ -49,8 +42,6 @@ export declare class Extensions {
      * Make an extension
      *
      * @note applies only to webpack plugins
-     *
-     * @returns {Extension.Product[]}
      */
     make(): Framework.Extension.Product[];
 }
