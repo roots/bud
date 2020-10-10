@@ -23,6 +23,6 @@
     {"@roots/bud-cli": "../cli"},
     {"@roots/bud-build": "../build"},
     {"@roots/bud-compiler": "../compiler"},
-    {"@roots/bud-server": "../server"},
+    {"@roots/bud-server": "../server"}
   ]
 }

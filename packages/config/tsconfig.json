@@ -19,11 +19,8 @@
     {"@roots/dependencies": "../dependencies"},
     {"@roots/filesystem": "../filesystem"},
     {"@roots/bud-support": "../support"},
-    {"@roots/bud-cli": "../cli"},
-    {"@roots/bud-build": "../build"},
     {"@roots/bud-compiler": "../compiler"},
     {"@roots/bud-framework": "../framework"},
-    {"@roots/bud-webpack": "../webpack"},
     {"@roots/bud-server": "../server"},
     {"@roots/bud-postcss": "../postcss"}
   ]

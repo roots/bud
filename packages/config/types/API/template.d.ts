@@ -1,2 +1,2 @@
-export declare const template: API.Template;
+export declare const template: API.Template
 //# sourceMappingURL=template.d.ts.map

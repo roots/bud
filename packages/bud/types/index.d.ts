@@ -1,3 +1,3 @@
-declare const bud: Framework.Bud;
-export default bud;
+declare const bud: Framework.Bud
+export default bud
 //# sourceMappingURL=index.d.ts.map

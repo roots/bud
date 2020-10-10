@@ -1,5 +1,5 @@
 import Container from '@roots/container'
-import {Server} from '@roots/bud-server'
+import * as Server from '@roots/bud-server'
 import * as TerserPluginOptions from 'terser-webpack-plugin'
 import {TransformOptions} from '@babel/core'
 import Globby from 'globby'
