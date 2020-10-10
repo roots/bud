@@ -1,8 +1,8 @@
-import {FunctionComponent} from 'react'
-import {Stats} from 'webpack'
+import { FunctionComponent } from 'react';
+import { Stats } from 'webpack';
 interface InfoProps {
-  stats: Stats.ToJsonOutput
+    stats: Stats.ToJsonOutput;
 }
-declare const BuildInfo: FunctionComponent<InfoProps>
-export {BuildInfo as default}
+declare const BuildInfo: FunctionComponent<InfoProps>;
+export { BuildInfo as default };
 //# sourceMappingURL=BuildInfo.d.ts.map

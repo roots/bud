@@ -12,16 +12,7 @@
     "packages/framework",
     "packages/postcss",
     "packages/server",
-    "packages/support",
-    "packages/extensions/eslint",
-    "packages/extensions/purgecss",
-    "packages/extensions/react",
-    "packages/extensions/sass",
-    "packages/extensions/stylelint",
-    "packages/extensions/tailwindcss",
-    "packages/extensions/typescript",
-    "packages/extensions/vue",
-    "packages/extensions/manifests"
+    "packages/support"
   ],
   "npmClient": "yarn",
   "useWorkspaces": true

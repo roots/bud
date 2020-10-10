@@ -1,3 +1,2 @@
-import dotenv from 'dotenv'
-export declare const env: dotenv.DotenvParseOutput
+export declare const env: any;
 //# sourceMappingURL=env.d.ts.map

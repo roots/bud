@@ -1,8 +1,8 @@
-import {FunctionComponent} from 'react'
+import { FunctionComponent } from 'react';
 interface WarningProps {
-  message: string
+    message: string;
 }
-declare type WarningComponent = FunctionComponent<WarningProps>
-declare const Warning: WarningComponent
-export {Warning}
+declare type WarningComponent = FunctionComponent<WarningProps>;
+declare const Warning: WarningComponent;
+export { Warning };
 //# sourceMappingURL=Warning.d.ts.map

@@ -1,7 +1,7 @@
-import {FunctionComponent} from 'react'
+import { FunctionComponent } from 'react';
 interface ErrorProps {
-  errors: any
+    errors: any;
 }
-declare const Errors: FunctionComponent<ErrorProps>
-export {Errors as default}
+declare const Errors: FunctionComponent<ErrorProps>;
+export { Errors as default };
 //# sourceMappingURL=index.d.ts.map

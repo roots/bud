@@ -1,3 +1,5 @@
-export {Server} from './Server'
-export {injectClient} from './Server/client'
+import { Server } from './Server';
+import { injectClient } from './client';
+export { Server };
+export { injectClient };
 //# sourceMappingURL=index.d.ts.map

@@ -1,2 +1,2 @@
-export declare const postcss: API.Postcss
+export declare const postcss: API.Postcss;
 //# sourceMappingURL=postcss.d.ts.map

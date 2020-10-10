@@ -1,7 +1,7 @@
-import {FunctionComponent} from 'react'
+import { FunctionComponent } from 'react';
 interface ScreenInterface {
-  file: string
+    file: string;
 }
-declare const Publish: FunctionComponent<ScreenInterface>
-export {Publish as default}
+declare const Publish: FunctionComponent<ScreenInterface>;
+export { Publish as default };
 //# sourceMappingURL=Publish.d.ts.map
