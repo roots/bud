@@ -3,7 +3,7 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./lib",
-    "baseUrl": ".",
+    "baseUrl": "."
   },
   "typeAcquisition": {
     "enable": true
@@ -11,7 +11,5 @@
   "compileOnSave": true,
   "include": ["./src"],
   "exclude": ["./lib"],
-  "references": [
-    {"@roots/bud-framework": "../framework"},
-  ]
+  "references": [{"@roots/bud-framework": "../framework"}]
 }

@@ -1,8 +1,11 @@
 node_modules
 dist
 docs
+test
+lab
 scripts
 **/bin
 **/lib
 **/types
-test
+**/*.d.ts
+**/*.json

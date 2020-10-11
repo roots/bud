@@ -3,6 +3,7 @@
 node_modules
 coverage
 dist
-**/types
 **/lib
+**/types
+!**/src/types
 *.tsbuildinfo
