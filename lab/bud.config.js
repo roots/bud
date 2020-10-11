@@ -1,6 +1,9 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const bud = require('../packages/bud/lib')
+const sass = require('../packages/extensions/sass')
 
-bud.entry('app', 'foo.js')
+bud.extensions.registerExtension('sass', sass)
 
-console.log(bud.build())
+bud.entry('app', ['foo.js', 'foo.scss'])
+
+bud.compile()

@@ -1,5 +1,7 @@
 export { boot } from './boot';
-export * as registerLoader from './registerLoader';
-export * as registerItem from './registerItem';
-export * as registerConfig from './registerConfig';
+export declare const registerLoaders: {
+    'postcss-loader': string;
+};
+export * as registerItems from './registerItems';
+export * as registerConfigs from './registerConfigs';
 //# sourceMappingURL=index.d.ts.map

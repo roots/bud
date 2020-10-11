@@ -2,10 +2,12 @@
 export {boot} from './boot'
 
 // Add PostCSS loader
-export * as registerLoader from './registerLoader'
+export const registerLoaders = {
+  'postcss-loader': require.resolve('postcss-loader'),
+}
 
 // Add PostCSS rule set item
-export * as registerItem from './registerItem'
+export * as registerItems from './registerItems'
 
 // Add bud.postcss config method
-export * as registerConfig from './registerConfig'
+export * as registerConfigs from './registerConfigs'

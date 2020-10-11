@@ -8,16 +8,23 @@ import Webpack from 'webpack'
 
 export as namespace API
 
-type Fluent<T, P=void, P1=void, P2=void> = (this: T, P, P1, P2) => T
+type Fluent<T, P = void, P1 = void, P2 = void> = (
+  this: T,
+  P,
+  P1,
+  P2,
+) => T
 
 export interface Method<T> {
-  Fluent
-  (): void
+  Fluent(): void
   (): unknown
   (argument: unknown): unknown
 }
 
-export type AddExtensions = Fluent<Framework.Bud, string | string>
+export type AddExtensions = Fluent<
+  Framework.Bud,
+  string | string
+>
 
 export type Dist = PathGetter
 
@@ -43,7 +50,11 @@ export type Babel = Fluent<Framework.Bud, Options.Babel>
 
 export type Brotli = Fluent<Framework.Bud>
 
-export type Entry = Fluent<Framework.Bud, string, string | string[]>
+export type Entry = Fluent<
+  Framework.Bud,
+  string,
+  string | string[]
+>
 
 export type Compile = (this: Framework.Bud) => Promise<void>
 
@@ -51,7 +62,10 @@ export type Copy = Fluent<Framework.Bud, string, string>
 
 export type CopyAll = Fluent<Framework.Bud, string, string>
 
-export type Devtool = Fluent<Framework.Bud, Webpack.Options.Devtool>
+export type Devtool = Fluent<
+  Framework.Bud,
+  Webpack.Options.Devtool
+>
 
 export type Dev = Fluent<Framework.Bud, Server.Config>
 
@@ -108,7 +122,10 @@ export interface PathGetter {
   (this: Framework.Bud, path?: string | undefined): string
 }
 
-export type Runtime = (this: Framework.Bud, name?: string) => Framework.Bud
+export type Runtime = (
+  this: Framework.Bud,
+  name?: string,
+) => Framework.Bud
 
 export namespace Options {
   export type Babel = TransformOptions
@@ -125,4 +142,6 @@ export namespace Options {
   }
 }
 
-export type PluginFactory = (bud?: Framework.Bud) => Webpack.Plugin
+export type PluginFactory = (
+  bud?: Framework.Bud,
+) => Webpack.Plugin

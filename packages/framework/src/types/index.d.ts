@@ -10,6 +10,18 @@ import {Store} from './Store'
 
 import {Fluent, Index} from './generic'
 
-export {Bud, Build, Config, Env, Fluent, Extension, Extensions, Hooks, Index, Mode, Store}
+export {
+  Bud,
+  Build,
+  Config,
+  Env,
+  Fluent,
+  Extension,
+  Extensions,
+  Hooks,
+  Index,
+  Mode,
+  Store,
+}
 
 export as namespace Framework

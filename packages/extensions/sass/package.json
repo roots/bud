@@ -1,11 +1,12 @@
 {
   "name": "@roots/bud-sass",
   "version": "2.0.0-next.24",
-  "description": "Adds sass support to Bud.",
+  "description": "Sass support",
+  "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
-    "directory": "packages/bud-sass"
+    "directory": "packages/bud"
   },
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
@@ -18,14 +19,13 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": [
-    "bud-extension"
-  ],
   "engines": {
     "node": ">=12"
   },
   "files": [
-    "lib"
+    "lib",
+    "types",
+    "src"
   ],
   "main": "./lib/index.js",
   "types": "./types/index.d.ts",
@@ -37,11 +37,11 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@roots/bud-support": "file:../../support",
-    "find-up": "^5.0.0",
-    "postcss-scss": "^2.1.1",
-    "resolve-from": "^5.0.0",
-    "sass-loader": "^9.0.2"
+    "@roots/bud-framework": "2.0.0-next.24",
+    "@roots/bud-support": "2.0.0-next.24",
+    "node-sass": "^4.14.1",
+    "postcss-scss": "^3.0.2",
+    "sass-loader": "^10.0.3"
   },
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5"
 }

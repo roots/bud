@@ -1,6 +1,0 @@
-{
-  "runtime/app.js": "/runtime/app.js",
-  "runtime/library.js": "/runtime/library.js",
-  "app.js": "/app.js",
-  "library.js": "/library.js"
-}

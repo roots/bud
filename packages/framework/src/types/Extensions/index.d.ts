@@ -63,7 +63,7 @@ declare class Extensions {
    */
   make(): Extension.Product[]
 
-    /**
+  /**
    * Make a config API method.
    */
   public bindConfigurable(
@@ -71,11 +71,10 @@ declare class Extensions {
     callable: CallableFunction,
   ): void
 
-
   /**
    * Bind all config API methods.
    */
   public bindAllConfigurables(
-    methods: Framework.Index<CallableFunction>
+    methods: Framework.Index<CallableFunction>,
   ): void
 }

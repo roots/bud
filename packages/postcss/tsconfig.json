@@ -21,6 +21,6 @@
     {"@roots/bud-build": "../build"},
     {"@roots/bud-compiler": "../compiler"},
     {"@roots/bud-webpack": "../webpack"},
-    {"@roots/bud-server": "../server"},
+    {"@roots/bud-server": "../server"}
   ]
 }

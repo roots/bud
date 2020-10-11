@@ -31,6 +31,7 @@ export declare class Extensions {
      * Register an extension.
      */
     registerExtension(name: string, extension: unknown): void;
+    registerRule: ([name, rule]: [any, any]) => void;
     /**
      * Bind all config API.
      */

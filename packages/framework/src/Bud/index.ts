@@ -1,6 +1,6 @@
 import * as Model from '../Model'
 import * as Config from '@roots/bud-config'
-import {Server} from '@roots/bud-server'
+import {Server, ServerModel} from '@roots/bud-server'
 import Compiler from '@roots/bud-compiler'
 import {FileContainer, FileSystem} from '@roots/filesystem'
 import Webpack from 'webpack'
@@ -91,6 +91,7 @@ class Bud implements Framework.Bud {
     /**
      * Load the Bud.Store with initial models.
      */
+    this.store.create('server', ServerModel)
     Object.entries(Model).map(([name, model]) => {
       return this.store.create(name, model)
     })
@@ -123,8 +124,6 @@ class Bud implements Framework.Bud {
 
     // Setup filesystem.
     filesystemSetup.bind(this)()
-
-    // Parse CLI arguments and do early config.
     parseArguments.bind(this)()
 
     // Boot extensions.

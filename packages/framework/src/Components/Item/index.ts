@@ -1,7 +1,5 @@
 /**
  * Build Item
- *
- * @description loader implementation
  */
 class Item {
   /**
@@ -33,9 +31,6 @@ class Item {
 
   /**
    * Creates an instance of Item.
-   *
-   * @param {Bud} bud
-   * @param {Build.Item.Module} rule
    */
   constructor(bud: Framework.Bud, module: Build.Item.Module) {
     this.bud = bud
@@ -44,6 +39,20 @@ class Item {
 
     this.set = this.set.bind(this)
     this.make = this.make.bind(this)
+  }
+
+  /**
+   * Prop map
+   */
+  public propMap(): Framework.Index<
+    [Build.Item.Property, Framework.Store | Framework.Bud]
+  > {
+    return {
+      ident: [this.ident, this.bud],
+      query: [this.query, this.bud],
+      loader: [this.loader, this.bud.components['loaders']],
+      options: [this.options, this.bud],
+    }
   }
 
   /**
@@ -58,12 +67,26 @@ class Item {
   }
 
   /**
+   * Get the loader ident
+   */
+  public getIdent: Build.Item['getIdent'] = function () {
+    return this.ident
+  }
+
+  /**
    * Set the loader ident
    */
   public setIdent: Build.Item['setIdent'] = function (
     ident: Build.Item.Module.Ident,
   ): void {
     this.ident = ident
+  }
+
+  /**
+   * Get the loader ident
+   */
+  public getOptions: Build.Item['getOptions'] = function () {
+    return this.options
   }
 
   /**
@@ -76,12 +99,28 @@ class Item {
   }
 
   /**
+   * Get the loader ident
+   */
+  public getQuery: Build.Item['getQuery'] = function () {
+    return typeof this.query == 'function'
+      ? this.query()
+      : this.query
+  }
+
+  /**
    * Set the loader query
    */
   public setQuery: Build.Item['setQuery'] = function (
     query: Build.Item.Module.Query,
   ): void {
     this.query = query
+  }
+
+  /**
+   * Get the loader ident
+   */
+  public getLoader: Build.Item['getLoader'] = function () {
+    return this.loader
   }
 
   /**
@@ -97,16 +136,10 @@ class Item {
    * Make
    */
   public make: Build.Item['make'] = function (this: Build.Item) {
-    // Map registered props to the params provided to extensions
-    const propMap = Object.entries({
-      ident: [this.ident, this.bud],
-      query: [this.query, this.bud],
-      loader: [this.loader, this.bud.components['loaders']],
-      options: [this.options, this.bud],
-    })
-
     // Filter to the workable subset.
-    const valid: Build.Item.Valid = propMap.filter(
+    const valid: Build.Item.Valid = Object.entries(
+      this.propMap(),
+    ).filter(
       ([, [value]]: [string, [Build.Item.Property, unknown]]) =>
         value !== null && value !== undefined,
     )

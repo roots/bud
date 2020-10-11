@@ -1,4 +1,4 @@
-export const ident: Build.Item['ident'] = 'css-loader'
+export const ident: Build.Item['ident'] = 'css'
 
 export const loader: Build.Item['loader'] = loaders =>
   loaders.get('css-loader')

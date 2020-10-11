@@ -12,7 +12,8 @@
     "packages/framework",
     "packages/postcss",
     "packages/server",
-    "packages/support"
+    "packages/support",
+    "packages/extensions/sass"
   ],
   "npmClient": "yarn",
   "useWorkspaces": true

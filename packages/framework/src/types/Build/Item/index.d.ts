@@ -13,7 +13,17 @@ declare class Item {
 
   query?: Item.MaybeCallable<Item.Module.Query>
 
-  get: Item.Yield<Build.Item.MaybeCallable<Build.Item.Property>>
+  propMap:() => Framework.Index<
+    [Build.Item.Property, Framework.Store | Framework.Bud]
+  >
+
+  getIdent: Item.Getter<Item.Module.Ident>
+
+  getLoader: Item.Getter<Item.Module.Loader>
+
+  getOptions: Item.Getter<Item.Module.Options>
+
+  getQuery: Item.Getter<Item.Module.Query>
 
   set: Item.Setter<Item.Module>
 
@@ -29,7 +39,10 @@ declare class Item {
 }
 
 declare namespace Item {
+  export type Getter<T> = () => T
+
   export type Setter<T> = (prop: T) => void
+
   export type Product = Webpack.RuleSetLoader
 
   export type Factory<OutType> = (any) => OutType

@@ -1,7 +1,5 @@
 /**
  * Build Item
- *
- * @description loader implementation
  */
 declare class Item {
     /**
@@ -28,27 +26,47 @@ declare class Item {
     query?: Build.Item['query'];
     /**
      * Creates an instance of Item.
-     *
-     * @param {Bud} bud
-     * @param {Build.Item.Module} rule
      */
     constructor(bud: Framework.Bud, module: Build.Item.Module);
+    /**
+     * Prop map
+     */
+    propMap(): Framework.Index<[
+        Build.Item.Property,
+        Framework.Store | Framework.Bud
+    ]>;
     /**
      * Set the loader definition
      */
     set: Build.Item['set'];
     /**
+     * Get the loader ident
+     */
+    getIdent: Build.Item['getIdent'];
+    /**
      * Set the loader ident
      */
     setIdent: Build.Item['setIdent'];
+    /**
+     * Get the loader ident
+     */
+    getOptions: Build.Item['getOptions'];
     /**
      * Set the loader options
      */
     setOptions: Build.Item['setOptions'];
     /**
+     * Get the loader ident
+     */
+    getQuery: Build.Item['getQuery'];
+    /**
      * Set the loader query
      */
     setQuery: Build.Item['setQuery'];
+    /**
+     * Get the loader ident
+     */
+    getLoader: Build.Item['getLoader'];
     /**
      * Set the loader
      */
