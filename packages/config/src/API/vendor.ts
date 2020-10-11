@@ -1,7 +1,4 @@
-export const vendor: API.Vendor = function (
-  this: API.Bud,
-  options,
-) {
+export const vendor: API.Vendor = function (options) {
   this.store['features'].enable('splitChunks')
 
   options &&

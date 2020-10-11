@@ -1,16 +1,14 @@
 import * as pino from 'pino'
 import Compiler from '@roots/bud-compiler'
 import {Server} from '@roots/bud-server'
-import Config from '@roots/bud-config'
 import {FileContainer, FileSystem} from '@roots/filesystem'
 import {BuiltInParserName} from 'prettier'
 
 declare class Bud {
   /**
-   * Escape hatch
-   * @todo remove this once type safe.
+   * @note I'm not sure how to type something this flexible.
    */
-  [key: string]: unknown
+  [key: string]: any
 
   /**
    * Build function.
@@ -125,14 +123,6 @@ declare class Bud {
       parser: BuiltInParserName,
     ) => string
   }
-
-  /**
-   * API
-   */
-  dist: Config.Dist
-  distPath: Config.DistPath
-  srcPath: Config.SrcPath
-  projectPath: Config.ProjectPath
 
   /**
    * Initialize the instance of Bud.

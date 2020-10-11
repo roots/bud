@@ -7,11 +7,11 @@ export const addPlugin: API.AddPlugin = function (
     return
   }
 
-  this.extensions.extensions[name] = bud => ({
-    bud,
-    make: function () {
+  this.extensions.registerExtension(name, {
+    make: function (bud: Framework.Bud) {
       return plugin(bud)
     },
+
     when: function () {
       return when ? when() : true
     },

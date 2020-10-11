@@ -1,7 +1,4 @@
-export const runtime: API.Runtime = function (
-  this: API.Bud,
-  name: API.Runtime['name'],
-) {
+export const runtime: API.Runtime = function (name) {
   this.store['features'].set('runtimeChunk', true)
 
   name &&

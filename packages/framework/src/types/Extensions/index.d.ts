@@ -62,4 +62,20 @@ declare class Extensions {
    * @memberof Controller
    */
   make(): Extension.Product[]
+
+    /**
+   * Make a config API method.
+   */
+  public bindConfigurable(
+    name: string,
+    callable: CallableFunction,
+  ): void
+
+
+  /**
+   * Bind all config API methods.
+   */
+  public bindAllConfigurables(
+    methods: Framework.Index<CallableFunction>
+  ): void
 }

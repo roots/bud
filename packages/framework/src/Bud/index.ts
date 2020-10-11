@@ -1,4 +1,3 @@
-import * as pino from 'pino'
 import * as Model from '../Model'
 import * as Config from '@roots/bud-config'
 import {Server} from '@roots/bud-server'
@@ -13,154 +12,49 @@ import Hooks from '../Extend/Hooks'
 import Store from '../Store'
 import {env} from './env'
 import format from './util/format'
-import logger from './util/logger'
-import pretty, {Pretty} from './util/pretty'
+import pretty from './util/pretty'
 import filesystemSetup from './bootstrap/filesystemSetup'
 import parseArguments from './bootstrap/parseArguments'
 
 /**
- * Bud core.
- *
- * @class Bud
+ * Bud class.
  */
 class Bud implements Framework.Bud {
   /**
-   * Escape hatch
-   *
-   * @todo remove this once type safe.
+   * @note I'm not sure how to type something this flexible.
    */
-  [key: string]: unknown
+  [key: string]: any
 
-  /**
-   * Name of primary virtual disk (fallback for bud.disks/bud.fs)
-   *
-   * @private
-   * @static
-   * @memberof Bud
-   */
   private static PRIMARY_DISK = 'project'
 
-  /**
-   * Build function.
-   *
-   * @description Generates webpack configuration
-   * @type {Bud.Build}
-   * @memberof Bud
-   */
-  public build: Framework.Build
+  public build: Framework.Bud['build']
 
-  /**
-   * Build components (loaders, rules, etc.)
-   *
-   * @type {Store}
-   * @memberof Bud
-   */
-  public components: Framework.Store
+  public components: Framework.Bud['components']
 
-  /**
-   * Compiler instance.
-   *
-   * @type {Compiler}
-   * @memberof Bud
-   */
-  public compiler: Compiler
+  public compiler: Framework.Bud['compiler']
 
-  /**
-   * Disks instance.
-   *
-   * @type {FileSystem}
-   * @memberof Bud
-   */
-  public disks: FileSystem
+  public disks: Framework.Bud['disks']
 
-  /**
-   * Env variables.
-   *
-   * @note this variable is frozen.
-   *
-   * @type {Bud.Env}
-   * @memberof Bud
-   */
-  public env: Framework.Env
+  public env: Framework.Bud['env']
 
-  /**
-   * Extensions controller.
-   *
-   * @type {Controller}
-   * @memberof Bud
-   */
-  public extensions: Framework.Extensions
+  public extensions: Framework.Bud['extensions']
 
-  /**
-   * Filesystem.
-   *
-   * @type {FileContainer}
-   * @memberof Bud
-   */
-  public fs: FileContainer
+  public fs: Framework.Bud['fs']
 
-  /**
-   * Hooks system.
-   *
-   * @type {Hooks}
-   * @memberof Bud
-   */
-  public hooks: Framework.Hooks
+  public hooks: Framework.Bud['hooks']
 
-  /**
-   * WDS wrapper.
-   *
-   * @type {Server.Interface}
-   * @memberof Bud
-   */
   public server: Framework.Bud['server']
 
-  /**
-   * Logger
-   *
-   * @type {pino.Logger}
-   * @memberof Bud
-   */
-  public logger: pino.Logger = logger
+  public logger: Framework.Bud['logger']
 
-  /**
-   * Mode
-   *
-   * @type {Framework.Mode}
-   * @memberof Bud
-   */
-  public mode: Framework.Mode
+  public mode: Framework.Bud['mode']
 
-  /**
-   * Key/Value store.
-   *
-   * @see {Index<T>}
-   * @type {Store}
-   * @memberof Bud
-   */
-  public store: Framework.Store
+  public store: Framework.Bud['store']
 
-  /**
-   * Utilities/helpers.
-   *
-   * @property format - formatting util.
-   * @property pretty - prettier util.
-   */
-  public util: {
-    format: (obj: unknown, options: unknown) => string
-    pretty: Pretty
-  } = {
+  public util: Framework.Bud['util'] = {
     format,
     pretty,
   }
-
-  /**
-   * API
-   */
-  dist: Config.Dist
-  distPath: Config.DistPath
-  srcPath: Config.SrcPath
-  projectPath: Config.ProjectPath
 
   /**
    * Creates an instance of Bud.
@@ -181,12 +75,9 @@ class Bud implements Framework.Bud {
   }
 
   /**
-   * Initialize the instance of Bud.
-   *
-   * @private
-   * @memberof Bud
+   * Initialize class.
    */
-  public init(): void {
+  public init: Framework.Bud['init'] = function () {
     /**
      * Bind the build function.
      */
@@ -205,12 +96,8 @@ class Bud implements Framework.Bud {
     })
 
     /**
-     * Return the current compilation mode
-     *
      * @todo A terrible place to instantiate Bud.mode
-     *
      * @see {Webpack.Configuration['mode']}
-     * @memberof Bud
      */
     this.mode = {
       is: (check: unknown) =>
@@ -246,17 +133,11 @@ class Bud implements Framework.Bud {
 
   /**
    * Make a new disk virtual disk.
-   *
-   * @param {string} [key=Bud.PRIMARY_DISK]
-   * @param {string} [baseDir]
-   * @param {string[]} [glob]
-   * @returns {FileContainer}
-   * @memberof Bud
    */
-  public makeDisk(
-    key: string = Bud.PRIMARY_DISK,
-    baseDir?: string,
-    glob?: string[],
+  public makeDisk: Framework.Bud['makeDisk'] = function (
+    key = Bud.PRIMARY_DISK,
+    baseDir?,
+    glob?,
   ): FileContainer {
     return this.disks.set(key, {
       baseDir,
@@ -266,23 +147,19 @@ class Bud implements Framework.Bud {
 
   /**
    * Load a disk in place of the current one.
-   *
-   * @param {string} [key=Bud.PRIMARY_DISK]
-   * @returns {FileContainer}
-   * @memberof Bud
    */
-  public useDisk(key: string = Bud.PRIMARY_DISK): FileContainer {
+  public useDisk: Framework.Bud['useDisk'] = function (
+    key = Bud.PRIMARY_DISK,
+  ) {
     return this.disks.get(key)
   }
 
   /**
    * Make a container.
-   *
-   * @param {string} baseDir
-   * @returns {FileContainer}
-   * @memberof Bud
    */
-  public makeContainer(baseDir: string): FileContainer {
+  public makeContainer: Framework.Bud['makeContainer'] = function (
+    baseDir,
+  ) {
     return new FileContainer(baseDir ?? process.cwd())
   }
 }

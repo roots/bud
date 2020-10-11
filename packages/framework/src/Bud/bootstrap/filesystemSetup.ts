@@ -1,4 +1,4 @@
-import type {Bud} from '..'
+import type Framework from '../../types'
 
 /**
  * @todo hardcode garbagio
@@ -25,7 +25,7 @@ const ingestConfig = (
 /**
  * Read the project FS and try to set state basd on what is fuond
  */
-const filesystemSetup = function (this: Bud): void {
+const filesystemSetup = function (this: Framework.Bud): void {
   const [args] = this.store.query(['args'])
 
   const projectDir = args.has('project')
@@ -43,7 +43,6 @@ const filesystemSetup = function (this: Bud): void {
   this.disks.get('project')
 
   this.projectPath(projectDir)
-
   args.has('src') && this.srcPath(args.get('src'))
   args.has('build') && this.distPath(args.get('build'))
 

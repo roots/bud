@@ -1,5 +1,5 @@
 export const srcPath: API.SrcPath = function (segment: string) {
-  if (this.store.args.build) {
+  if (this.store['args'].build) {
     return this
   }
 

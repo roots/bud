@@ -1,7 +1,7 @@
 export const distPath: API.DistPath = function (
   segment: string,
 ) {
-  const [build] = this.store.use('build')
+  const build = this.store.use('build')
 
   /** Bounce early if dist is overwritten from CLI */
   if (this.store['args'].get('output')) {

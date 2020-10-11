@@ -1,26 +1,23 @@
+import type Framework from '@roots/bud-framework'
 import Container from '@roots/container'
 import {Server} from '@roots/bud-server'
 import * as TerserPluginOptions from 'terser-webpack-plugin'
 import {TransformOptions} from '@babel/core'
 import Globby from 'globby'
-import {
-  AcceptedPlugin,
-  Syntax,
-  SourceMapOptions,
-  Parser,
-  Stringifier,
-} from 'postcss'
 import Webpack from 'webpack'
-
-declare type Bud = any
 
 export as namespace API
 
-export interface Fluent<T, P> {
-  (this: T, ...P): T
+type Fluent<T, P=void, P1=void, P2=void> = (this: T, P, P1, P2) => T
+
+export interface Method<T> {
+  Fluent
+  (): void
+  (): unknown
+  (argument: unknown): unknown
 }
 
-export type AddExtensions = Fluent<any, string | string[]>
+export type AddExtensions = Fluent<Framework.Bud, string | string>
 
 export type Dist = PathGetter
 
@@ -28,106 +25,90 @@ export type Project = PathGetter
 
 export type Src = PathGetter
 
-export type DistPath = Fluent<Bud, string>
+export type DistPath = Fluent<Framework.Bud>
 
-export type ProjectPath = Fluent<Bud, string>
+export type ProjectPath = Fluent<Framework.Bud>
 
-export type PublicPath = Fluent<Bud, string>
+export type PublicPath = Fluent<Framework.Bud>
 
-export type SrcPath = Fluent<Bud, string>
+export type SrcPath = Fluent<Framework.Bud>
 
-export type AddPlugin = Fluent<Bud, unknown>
+export type AddPlugin = Fluent<Framework.Bud>
 
-export type addExtensions = Fluent<Bud, string | string[]>
+export type addExtensions = Fluent<Framework.Bud>
 
-export type Alias = Fluent<Bud, Container['repository']>
+export type Alias = Fluent<Framework.Bud>
 
-export type Babel = Fluent<Bud, Options.Babel>
+export type Babel = Fluent<Framework.Bud, Options.Babel>
 
-export type Brotli = Fluent<Bud, Container['repository']>
+export type Brotli = Fluent<Framework.Bud>
 
-export type Entry = (name: string, entries: string[]) => Bud
+export type Entry = Fluent<Framework.Bud, string, string | string[]>
 
-export type Compile = (this: Bud) => Promise<void>
+export type Compile = (this: Framework.Bud) => Promise<void>
 
-export type Copy = Fluent<Bud, {from: string; to: string}>
+export type Copy = Fluent<Framework.Bud, string, string>
 
-export type CopyAll = Fluent<Bud, {from: string; to: string}>
+export type CopyAll = Fluent<Framework.Bud, string, string>
 
-export type Devtool = Fluent<Bud, Webpack.Options.Devtool>
+export type Devtool = Fluent<Framework.Bud, Webpack.Options.Devtool>
 
-export type Extend = Fluent<Bud, PluginFactory>
+export type Dev = Fluent<Framework.Bud, Server.Config>
 
-export type Glob = Fluent<Bud, Options.Glob>
+export type Extend = Fluent<Framework.Bud, PluginFactory>
+
+export type Glob = Fluent<Framework.Bud, Options.Glob>
 
 export type Gzip = (
-  this: Bud,
+  this: Framework.Bud,
   options?: Container['repository'],
-) => Bud
+) => Framework.Bud
 
-export type Hash = (this: Bud) => Bud
+export type Hash = (this: Framework.Bud) => Framework.Bud
 
-export type Library = (this: Bud) => Bud
+export type Library = (this: Framework.Bud) => Framework.Bud
 
-export type Minify = (this: Bud) => Bud
+export type Minify = (this: Framework.Bud) => Framework.Bud
 
-export type Postcss = (
-  this: Bud,
-  options?: Options.Postcss,
-) => Bud
+export type Template = (
+  this: Framework.Bud,
+  options: Options.Template,
+) => Framework.Bud
 
 export type Vendor = (
-  this: Bud,
+  this: Framework.Bud,
   options?: Webpack.Options.CacheGroupsOptions,
-) => Bud
+) => Framework.Bud
 
 export type When = (
-  this: Bud,
+  this: Framework.Bud,
   test: boolean,
   trueCase?: CallableFunction,
   falseCase?: CallableFunction | undefined,
-) => Bud
-
-export type Template = (
-  this: Bud,
-  options: Options.Template,
-) => Bud
-
-export type Dev = (this: Bud, config: Server.Config) => Bud
+) => Framework.Bud
 
 export type Target = (
-  this: Bud,
+  this: Framework.Bud,
   target: Webpack.Configuration['target'],
-) => Bud
+) => Framework.Bud
 
 export type Terser = (
-  this: Bud,
+  this: Framework.Bud,
   options: TerserPluginOptions,
-) => Bud
-
-export type PostPluginAdd = (
-  this: Bud,
-  entry: PostPluginStore | PostPluginStore[],
-) => Bud
-
-export type PostPluginConfig = (
-  this: Bud,
-  plugin: PostPluginStore,
-  options: unknown,
-) => Bud
+) => Framework.Bud
 
 export type Provide = (
-  this: Bud,
+  this: Framework.Bud,
   options: {
     [key: string]: string[]
   },
-) => Bud
-
-export type Runtime = (this: Bud, name?: string) => Bud
+) => Framework.Bud
 
 export interface PathGetter {
-  (this: Bud, path?: string | undefined): string
+  (this: Framework.Bud, path?: string | undefined): string
 }
+
+export type Runtime = (this: Framework.Bud, name?: string) => Framework.Bud
 
 export namespace Options {
   export type Babel = TransformOptions
@@ -138,27 +119,10 @@ export namespace Options {
     options?: Globby.GlobbyOptions
   }
 
-  export type Postcss = {
-    syntax?: Syntax
-    plugins?: PostPluginStore[]
-    map?: SourceMapOptions
-    parser?: Parser
-    stringifier?: Stringifier
-  }
-
   export type Template = {
     template?: string
     replacements?: {[key: string]: string}
   }
 }
 
-export type PluginFactory = (bud?: Bud) => Webpack.Plugin
-
-export interface PostPluginTuple {
-  plugin: AcceptedPlugin
-  options?: unknown
-}
-
-export interface PostPluginStore {
-  [key: string]: PostPluginTuple
-}
+export type PluginFactory = (bud?: Framework.Bud) => Webpack.Plugin

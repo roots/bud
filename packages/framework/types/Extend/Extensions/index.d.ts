@@ -32,6 +32,14 @@ export declare class Extensions {
      */
     registerExtension(name: string, extension: unknown): void;
     /**
+     * Bind all config API.
+     */
+    bindAllConfigurables: Framework.Bud['bindAllConfigurables'];
+    /**
+     * Make a config API method.
+     */
+    bindConfigurable: Framework.Bud['bindConfigurable'];
+    /**
      * Set the options on a booted extensions.
      *
      * @param {string} extension

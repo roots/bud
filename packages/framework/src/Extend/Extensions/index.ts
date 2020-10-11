@@ -1,4 +1,5 @@
 import Item from '../../Components/Item'
+import {lodash as _} from '@roots/bud-support'
 
 /**
  * Boots and handles extension lifecycle concerns.
@@ -104,6 +105,16 @@ export class Extensions {
       )
     }
 
+    /**
+     * Register config API
+     */
+    if (instance.hasOwnProperty('registerConfig')) {
+      this.bindAllConfigurables(instance.registerConfig)
+    }
+
+    /**
+     * Register rule
+     */
     if (instance.hasOwnProperty('registerRule')) {
       typeof instance.registerRule == 'function'
         ? instance.registerRule(this.bud)
@@ -113,6 +124,29 @@ export class Extensions {
     instance.hasOwnProperty('boot') && instance.boot(this.bud)
 
     this.extensions[name] = instance
+  }
+
+  /**
+   * Bind all config API.
+   */
+  public bindAllConfigurables: Framework.Bud['bindAllConfigurables'] = function (
+    methods,
+  ) {
+    Object.entries(methods).map(
+      ([name, fn]: [string, CallableFunction]) => {
+        this.bindConfigurable(name, fn.bind(this.bud))
+      },
+    )
+  }
+
+  /**
+   * Make a config API method.
+   */
+  public bindConfigurable: Framework.Bud['bindConfigurable'] = function (
+    name,
+    callable,
+  ) {
+    this[name] = callable.bind(this)
   }
 
   /**
