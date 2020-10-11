@@ -1,17 +1,12 @@
-import {
-  PluginItem,
-  PluginTarget,
-  PluginOptions,
-} from '@babel/core'
+const target: babel.PluginTarget = require.resolve(
+  '@babel/preset-env',
+)
 
-const target = require.resolve('@babel/preset-env')
-
-const options: PluginOptions = {
+const options: babel.PluginOptions = {
   modules: false,
   forceAllTransforms: true,
 }
 
-export const env: PluginItem | [PluginTarget, PluginOptions] = [
-  target,
-  options,
-]
+export const env:
+  | babel.PluginItem
+  | [babel.PluginTarget, babel.PluginOptions] = [target, options]

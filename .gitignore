@@ -1,7 +1,8 @@
+.docs
 *.log
 node_modules
 coverage
 dist
+**/types
 **/lib
 *.tsbuildinfo
-.docs

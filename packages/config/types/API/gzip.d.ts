@@ -1,2 +1,2 @@
-export declare const gzip: API.Gzip;
+export declare const gzip: API.Gzip
 //# sourceMappingURL=gzip.d.ts.map

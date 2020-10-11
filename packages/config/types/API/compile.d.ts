@@ -1,2 +1,2 @@
-export declare const compile: API.Compile;
+export declare const compile: API.Compile
 //# sourceMappingURL=compile.d.ts.map

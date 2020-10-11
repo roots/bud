@@ -7,7 +7,7 @@ import * as Plugin from '@wordpress/dependency-extraction-webpack-plugin'
  * or make a new container/store if you need to access options
  * outside of this plugin's scope.
  */
-export let options = {}
+export const options = {}
 
 /**
  * Init is called early and should be
@@ -45,7 +45,7 @@ export const init = (build, api): void => {
  *   hoisting here. If declaring as a const, move this function
  *   above the export.
  */
-function plugin(bud: Bud) {
+function plugin(bud: Framework.Bud) {
   return Plugin(options)
 }
 

@@ -1,39 +1,33 @@
-import {eslintFormatter} from '@roots/bud-support'
-import Bud from '@roots/bud-types'
-import type {Configuration} from 'webpack'
+import {eslintFormatter as formatter} from '@roots/bud-support'
 
-export * as presets from './presets'
+export const options = {
+  formatter,
+  failOnError: true,
+  fix: false,
+}
 
-export const plugin: Bud.Plugin.Factory = (bud: Bud) => ({
-  bud,
+export const boot = (bud: Framework.Bud): void => {
+  const config = bud.fs.has('.eslintrc.js')
+    ? bud.fs.get('.eslintrc.json')
+    : null
 
-  make(): void {
-    const config =
-      this.bud.fs.has('.eslintrc.js') ??
-      this.bud.fs.has('.eslintrc.json')
+  if (bud.fs.exists(config)) {
+    bud.extensions.setOptions('@roots/bud-eslint', config)
+  }
 
-    if (!this.bud.fs.existsSync(config)) {
-      return
-    }
+  bud.features.set('eslint', true)
 
-    this.bud.features.set('eslint', true)
+  const base = bud.components['rules'].get('js.use')(bud)
 
-    this.bud.store['loaders'].set('eslint', {
-      loader: require.resolve('eslint-loader'),
-      options: {
-        configFile: this.bud.fs.get('eslint'),
-        formatter: eslintFormatter,
-        failOnError: true,
-        fix: this.bud.args.get('fix') ?? false,
-      },
-    })
+  bud.components['rules'].set('js.use', bud => [
+    ...base,
+    bud.components['items'].get('eslint').make(),
+  ])
+}
 
-    this.bud.hooks.on(
-      'webpack.module.rules.js.use',
-      (loaders: Configuration['module']['rules']) => [
-        ...loaders,
-        this.bud.store['loaders'].get('eslint'),
-      ],
-    )
-  },
-})
+export const registerLoader = [
+  'eslint',
+  require.resolve('eslint-loader'),
+]
+
+export * as registerItems from './registerItems'

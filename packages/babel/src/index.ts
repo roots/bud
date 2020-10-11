@@ -1,8 +1,7 @@
-import * as Framework from '@roots/bud-framework'
 import * as babel from './babel'
 
 /**
- * Register babel loader
+ * Register babel loader.
  */
 export const registerLoader = [
   'babel',
@@ -10,18 +9,18 @@ export const registerLoader = [
 ]
 
 /**
- * Register babel rules and config
+ * Register babel rule.
  */
-export const registerItems = {babel}
+export const registerItem = ['babel', babel]
 
 /**
- * Modify JS rules to use babel
+ * Modify JS rules to use babel.
  */
 export const boot = (bud: Framework.Bud): void => {
-  const baseUseItems = bud.components['rules'].get('js.use')(bud)
+  const base = bud.components['rules'].get('js.use')(bud)
 
-  bud.components['rules'].set('js.use', bud => [
-    ...baseUseItems,
+  bud.components['rules'].set('js.use', (bud: Framework.Bud) => [
+    ...base,
     bud.components['items'].get('babel').make(),
   ])
 }

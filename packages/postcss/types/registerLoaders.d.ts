@@ -1,2 +1,2 @@
-export declare const postcss: string;
+export declare const postcss: string
 //# sourceMappingURL=registerLoaders.d.ts.map

@@ -1,6 +1,7 @@
 import * as cleanWebpack from './cleanWebpack';
 import * as gzip from './gzip';
 import * as brotli from './brotli';
+import * as ignoreEmit from './ignoreEmit';
 declare const _default: {
     brotli: typeof brotli;
     gzip: typeof gzip;
@@ -12,7 +13,7 @@ declare const _default: {
     hotModuleReplacement: import("../../types/Extension").Extension.Factory;
     html: import("../../types/Extension").Extension.Factory;
     interpolateHtml: import("../../types/Extension").Extension.Factory;
-    ignoreEmit: import("../../types/Extension").Extension.Factory;
+    ignoreEmit: typeof ignoreEmit;
     manifest: import("../../types/Extension").Extension.Factory;
     miniCssExtract: import("../../types/Extension").Extension.Factory;
     provide: import("../../types/Extension").Extension.Factory;

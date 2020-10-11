@@ -1,2 +1,2 @@
-export declare const env: any;
+export declare const env: any
 //# sourceMappingURL=env.d.ts.map

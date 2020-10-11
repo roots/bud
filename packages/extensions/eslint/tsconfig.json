@@ -3,15 +3,11 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./lib",
-    "declaration": true,
-    "declarationDir": "./types",
-    "declarationMap": true
   },
-  "compileOnSave": true,
   "include": ["./src"],
   "exclude": ["./lib"],
   "references": [
-    {"@roots/bud-types": "../types"},
-    {"@roots/bud": "../bud"}
+    {"@roots/bud-support": "../support"},
+    {"@roots/bud-framework": "../framework"},
   ]
 }

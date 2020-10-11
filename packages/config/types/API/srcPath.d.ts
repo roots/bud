@@ -1,2 +1,2 @@
-export declare const srcPath: API.SrcPath;
+export declare const srcPath: API.SrcPath
 //# sourceMappingURL=srcPath.d.ts.map

@@ -62,8 +62,8 @@ declare namespace Extension {
    * Plugin options
    */
   export type Options =
-    | ((bud?: Framework.Bud) => void)
-    | {[key: string]: any}
+    | ((bud?: Framework.Bud) => Framework.Index<unknown>)
+    | Framework.Index<unknown>
 
   /**
    * Function which returns a Plugin

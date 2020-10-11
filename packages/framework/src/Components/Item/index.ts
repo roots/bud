@@ -133,18 +133,22 @@ class Item {
   }
 
   /**
-   * Make
+   * Make an item for use in a rule.
    */
   public make: Build.Item['make'] = function (this: Build.Item) {
-    // Filter to the workable subset.
+    // Each property is calculated based on its propMap entry.
     const valid: Build.Item.Valid = Object.entries(
       this.propMap(),
-    ).filter(
-      ([, [value]]: [string, [Build.Item.Property, unknown]]) =>
-        value !== null && value !== undefined,
     )
+      // First out nullish values, etc.
+      .filter(
+        ([, [value]]: [
+          string,
+          [Build.Item.Property, unknown],
+        ]) => value !== null && value !== undefined,
+      )
 
-    // Reduce the set, tapping callables in translation
+    // Then, reduce the set, tapping callables in translation
     const product: Build.Item.Product = valid.reduce(
       (
         fields: Build.Item.Product,
@@ -155,15 +159,32 @@ class Item {
             unknown,
           ],
         ],
-      ): Build.Item.Product => ({
-        ...fields,
-        [property]:
-          typeof value == 'function' ? value(param) : value,
-      }),
+      ): Build.Item.Product => {
+        /**
+         * A property value can be calculated
+         * in a couple different ways.
+         */
+        const computed =
+          // For loaders which are specified as a string
+          property == 'loader' && typeof value == 'string'
+            ? // Set the loader from that string
+              this.bud.components['loaders'].get(value)
+            : // Otherwise, for functions
+            typeof value == 'function'
+            ? // Call them with the param from this.propMap
+              value(param)
+            : // Else, just use the given value
+              value
+
+        return {
+          ...fields,
+          [property]: computed,
+        }
+      },
       {},
     )
 
-    // Yield the ultimate RuleSetLoader
+    // Finally, return the computed item for use in a ruleset.
     return product
   }
 }

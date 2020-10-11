@@ -1,29 +1,24 @@
 import {IgnoreEmitPlugin} from './externals'
 
-const ignoreEmit: Framework.Extension.Factory = bud => ({
-  bud,
-  options: [
-    /**
-     * Prevent Webpack 4 from creating useless .css.js files
-     * when an entrypoint includes only css assets.
-     */
-    /\.*\.css.?\.js/,
+export const options = [
+  /**
+   * Prevent Webpack 4 from creating useless .css.js files
+   * when an entrypoint includes only css assets.
+   */
+  /\.*\.css.?\.js/,
 
-    /**
-     * Stop users from owning themselves with a wholescale moment/locale import.
-     * @see {@link https://git.io/JUaNq}
-     */
-    /^\.\/locale$/,
-    /moment$/,
-  ],
+  /**
+   * Stop users from owning themselves with a wholescale moment/locale import.
+   * @see {@link https://git.io/JUaNq}
+   */
+  /^\.\/locale$/,
+  /moment$/,
+]
 
-  make: function () {
-    return new IgnoreEmitPlugin(this.options)
-  },
+export const make: Framework.Extension['make'] = () => {
+  return new IgnoreEmitPlugin(options)
+}
 
-  when: function () {
-    return this.options?.length && this.options.length > 0
-  },
-})
-
-export {ignoreEmit as default}
+export const when: Framework.Extension['when'] = () => {
+  return options.length && options.length > 0
+}

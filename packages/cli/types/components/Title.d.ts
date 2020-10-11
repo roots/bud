@@ -1,7 +1,7 @@
-import { FunctionComponent } from 'react';
+import {FunctionComponent} from 'react'
 interface TitleInterface {
-    children: string;
+  children: string
 }
-declare const Title: FunctionComponent<TitleInterface>;
-export { Title as default };
+declare const Title: FunctionComponent<TitleInterface>
+export {Title as default}
 //# sourceMappingURL=Title.d.ts.map

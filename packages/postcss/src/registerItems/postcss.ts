@@ -1,19 +1,10 @@
 import autoprefixer from 'autoprefixer'
 
-/**
- * PostCSS ident
- */
 export const ident: Build.Item['ident'] = 'postcss'
 
-/**
- * PostCSS loader
- */
 export const loader: Build.Item['loader'] = loaders =>
-  loaders.get('postcss-loader')
+  loaders.get('postcss')
 
-/**
- * PostCSS options
- */
 export const options: Build.Item['options'] = {
   postcssOptions: {
     plugins: {
@@ -23,5 +14,5 @@ export const options: Build.Item['options'] = {
     syntax: null,
     parser: null,
     stringifier: null,
-  }
+  },
 }

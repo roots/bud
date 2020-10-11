@@ -1,5 +1,3 @@
-import Framework from '../../types'
-
 /**
  * Returns a hooks instance with application bindings.
  */

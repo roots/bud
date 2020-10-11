@@ -1,18 +1,12 @@
-import {
-  PluginItem,
-  PluginTarget,
-  PluginOptions,
-} from '@babel/core'
-
-const transformRuntimeTarget: PluginTarget = require.resolve(
+const target: babel.PluginTarget = require.resolve(
   '@babel/plugin-transform-runtime',
 )
 
-const transformRuntimeOptions: PluginOptions = {
+const options: babel.PluginOptions = {
   helpers: false,
 }
 
-export const transformRuntime: PluginItem = [
-  transformRuntimeTarget,
-  transformRuntimeOptions,
+export const transformRuntime: babel.PluginItem = [
+  target,
+  options,
 ]

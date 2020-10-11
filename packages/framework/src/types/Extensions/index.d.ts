@@ -11,7 +11,6 @@ declare class Extensions {
    * The Bud instance.
    *
    * @type {Bud}
-   * @memberof Controller
    */
   bud: Bud
 
@@ -19,7 +18,6 @@ declare class Extensions {
    * Keyed extensions
    *
    * @type {Framework.Index<Extension.Interface>}
-   * @memberof Controller
    */
   extensions: Framework.Index<Extension>
 
@@ -35,18 +33,25 @@ declare class Extensions {
    * Boot an extension.
    *
    * @param {Framework.Index<Extension.Factory>} definitions
-   * @memberof Controller
    */
   public boot(
     definitions: Framework.Index<Framework.Extension.Factory>,
   ): void
 
   /**
+   * Get plugin options.
+   *
+   * @param {string} extension
+   */
+  getOptions: (
+    extension: string,
+  ) => Framework.Extension.Options
+
+  /**
    * Set the options on a booted extension.
    *
    * @param {string} extension
    * @param {Framework.Index<unknown>} options
-   * @memberof Controller
    */
   setOptions: (
     extension: string,
@@ -59,22 +64,13 @@ declare class Extensions {
    * @note applies only to webpack plugins
    *
    * @returns {Extension.Product[]}
-   * @memberof Controller
    */
   make(): Extension.Product[]
 
   /**
-   * Make a config API method.
-   */
-  public bindConfigurable(
-    name: string,
-    callable: CallableFunction,
-  ): void
-
-  /**
    * Bind all config API methods.
    */
-  public bindAllConfigurables(
+  public bindApi(
     methods: Framework.Index<CallableFunction>,
   ): void
 }

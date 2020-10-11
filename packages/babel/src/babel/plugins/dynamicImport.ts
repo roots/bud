@@ -1,5 +1,3 @@
-import {PluginItem} from '@babel/core'
-
-export const dynamicImport: PluginItem = [
+export const dynamicImport: babel.PluginItem = [
   require.resolve('@babel/plugin-syntax-dynamic-import'),
 ]

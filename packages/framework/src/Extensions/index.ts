@@ -1,11 +1,11 @@
-import Item from '../../Components/Item'
-import Rule from '../../Components/Rule'
+import Item from '../Components/Item'
+import Rule from '../Components/Rule'
 import {lodash as _} from '@roots/bud-support'
 
 /**
  * Boots and handles extension lifecycle concerns.
  */
-export class Extensions {
+export class Extensions implements Framework.Extensions {
   /**
    * The Bud instance.
    * @type {Framework.Bud}
@@ -70,18 +70,15 @@ export class Extensions {
         ? extension(this.bud)
         : extension
 
+    this.extensions[name] = instance
+
     if (instance.hasOwnProperty('options')) {
       instance.options =
         typeof instance.options == 'function'
           ? instance.options(this.bud)
           : instance.options
-    } else {
-      instance.options = null
     }
 
-    /**
-     * Register loader.
-     */
     instance.hasOwnProperty('registerLoader') &&
       this.bud.components['loaders'].set(
         ...instance.registerLoader,
@@ -91,9 +88,11 @@ export class Extensions {
         this.bud.components['loaders'].set(...loader),
       )
 
-    /**
-     * Register Rule items.
-     */
+    instance.hasOwnProperty('registerItem') &&
+      this.bud.components['items'].set(
+        instance.registerItem[0],
+        new Item(this.bud, instance.registerItem[1]),
+      )
     instance.hasOwnProperty('registerItems') &&
       Object.entries(instance.registerItems).map(
         ([, item]: [string, Build.Item.Module]) => {
@@ -104,56 +103,44 @@ export class Extensions {
         },
       )
 
-    /**
-     * Register rules
-     */
-    instance.hasOwnProperty('registerRules') &&
-      Object.entries(instance.registerRules).map(
-        this.registerRule.bind(this),
+    instance.hasOwnProperty('registerRule') &&
+      this.bud.components['rules'].set(
+        instance.registerRule.take(),
+        new Rule(this.bud, instance.registerRule.take()),
       )
+    instance.hasOwnProperty('registerRules') &&
+      Object.entries(instance.registerRules).map(([, rule]) => {
+        this.bud.components['rules'].set(
+          name,
+          new Rule(this.bud, rule),
+        )
+      })
 
     /**
      * Register API
      */
-    instance.hasOwnProperty('registerConfig') &&
-      this.bindConfigurable(instance.registerConfig)
-
-    instance.hasOwnProperty('registerConfigs') &&
-      this.bindAllConfigurables(instance.registerConfigs)
-
+    instance.hasOwnProperty('api') && this.bindApi(instance.api)
     instance.hasOwnProperty('boot') && instance.boot(this.bud)
-
-    this.extensions[name] = instance
-  }
-
-  public registerRule = function ([name, rule]) {
-    this.bud.components['rules'].set(
-      name,
-      new Rule(this.bud, rule),
-    )
   }
 
   /**
    * Bind all config API.
    */
-  public bindAllConfigurables: Framework.Bud['bindAllConfigurables'] = function (
-    methods,
-  ) {
+  public bindApi = function (methods) {
     Object.entries(methods).map(
       ([name, fn]: [string, CallableFunction]) => {
-        this.bindConfigurable(name, fn.bind(this.bud))
+        this.bud[name] = fn.bind(this.bud)
       },
     )
   }
 
   /**
-   * Make a config API method.
+   * Get the options on a booted extensions.
    */
-  public bindConfigurable: Framework.Bud['bindConfigurable'] = function (
-    name,
-    callable,
-  ) {
-    this[name] = callable.bind(this)
+  public getOptions(
+    extension: string,
+  ): Framework.Extension.Options {
+    return this.extensions[extension].options
   }
 
   /**

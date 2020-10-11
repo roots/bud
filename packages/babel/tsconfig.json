@@ -4,9 +4,6 @@
     "rootDir": "./src",
     "outDir": "./lib",
     "baseUrl": ".",
-    "declaration": true,
-    "declarationDir": "types",
-    "declarationMap": true
   },
   "typeAcquisition": {
     "enable": true
@@ -15,16 +12,6 @@
   "include": ["./src"],
   "exclude": ["./lib"],
   "references": [
-    {"@roots/container": "../container"},
-    {"@roots/dependencies": "../dependencies"},
-    {"@roots/filesystem": "../filesystem"},
-    {"@roots/bud-support": "../support"},
-    {"@roots/bud-config": "../config"},
-    {"@roots/bud-cli": "../cli"},
-    {"@roots/bud-build": "../build"},
-    {"@roots/bud-compiler": "../compiler"},
-    {"@roots/bud-config": "../config"},
-    {"@roots/bud-webpack": "../webpack"},
-    {"@roots/bud-server": "../server"}
+    {"@roots/bud-framework": "../framework"},
   ]
 }

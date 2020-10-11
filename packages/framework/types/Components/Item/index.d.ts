@@ -72,7 +72,7 @@ declare class Item {
      */
     setLoader: Build.Item['setLoader'];
     /**
-     * Make
+     * Make an item for use in a rule.
      */
     make: Build.Item['make'];
 }
