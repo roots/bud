@@ -1,6 +1,6 @@
-import Container from '@roots/container'
+import dotenv from 'dotenv'
 
 /**
  * Environment utility.
  */
-export type Env = Container
+export type Env = Readonly<dotenv.DotenvParseOutput>

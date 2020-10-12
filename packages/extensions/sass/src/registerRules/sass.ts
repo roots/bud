@@ -7,23 +7,21 @@ export const exclude: Exclude = bud =>
   bud.store['patterns'].get('modules')
 
 export const use: Build.Rule.Factory<Build.Rule.Use> = bud => {
-  const items = bud.components['items']
-  const use: UseLoader = item => items.get(item)?.make()
+  const use: UseLoader = item => bud.build.items[item]?.make()
 
   const base = [
     bud.mode.is('production') ? use('minicss') : use('style'),
     use('css'),
     use('sass'),
-    use('resolve-url'),
+    use('resolveUrl'),
   ]
 
-  if (!items.has('postcss')) {
+  if (!bud.build.items.hasOwnProperty('postcss')) {
     return base
   }
 
-  items.get('postcss').options.postcssOptions.syntax = syntax
-
-  items.get('css').setOptions({importLoaders: 2})
+  bud.build.items.postcss.options.postcssOptions.syntax = syntax
+  bud.build.items.css.options.importLoaders = 2
 
   return [...base.slice(0, 2), use('postcss'), ...base.slice(2)]
 }

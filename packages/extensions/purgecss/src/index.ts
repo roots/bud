@@ -28,10 +28,10 @@ const plugin: Bud.Plugin.Factory = bud => ({
 const purgeUserConfig: Bud.Config.Fluent<UserOptions> = function (
   options: UserOptions,
 ) {
-  this.loaders.set('postcss.options.plugins', [
-    ...this.loaders.get('postcss.options.plugins'),
+  this.build.loaders.postcss.options.plugins = [
+    ...this.build.loaders.postcss.options.plugins,
     PurgeCssPlugin(options),
-  ])
+  ]
 
   return this
 }

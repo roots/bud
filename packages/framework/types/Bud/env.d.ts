@@ -1,10 +1,6 @@
-import type { Bud } from './index';
+declare const _default: any;
 /**
- * Freezes envvars.
- *
- * @this Bud
- * @return {Bud.Index<unknown>}
+ * Environment variables
  */
-declare const env: (this: Bud) => Framework.Env;
-export { env };
+export default _default;
 //# sourceMappingURL=env.d.ts.map

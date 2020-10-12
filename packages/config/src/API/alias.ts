@@ -1,5 +1,5 @@
 export const alias: API.Alias = function (aliases) {
-  this.store['build'].merge('resolve.alias', aliases)
+  this.build.config.merge('resolve.alias', aliases)
 
   return this
 }

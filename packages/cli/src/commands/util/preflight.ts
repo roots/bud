@@ -26,10 +26,10 @@ export const dev = function (bud: Bud): void {
  */
 export const inject: (bud: Bud) => void = bud => {
   const entrypoints = injectClient({
-    entrypoints: bud.store['webpack'].get('entry'),
+    entrypoints: bud.build.config.get('entry'),
   })
 
-  bud.store['webpack'].set('entry', entrypoints)
+  bud.build.config.set('entry', entrypoints)
 }
 
 /**

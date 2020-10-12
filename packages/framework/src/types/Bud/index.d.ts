@@ -20,14 +20,6 @@ declare class Bud {
   build: Framework.Build
 
   /**
-   * Build components (loaders, rules, etc.)
-   *
-   * @type {Store}
-   * @memberof Bud
-   */
-  components: Framework.Store
-
-  /**
    * Compiler instance.
    *
    * @type {Compiler}

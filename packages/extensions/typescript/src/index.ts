@@ -24,19 +24,16 @@ const TypescriptSupport: Bud.Plugin.Factory = (bud: Bud) => ({
 
     this.bud.store['pattterns'].set('typescript', /\.(ts|tsx)$/)
 
-    this.bud.store['loaders'].set(
-      'typescript',
-      require.resolve('ts-loader'),
-    )
+    this.bud.build.loaders.typescript = require.resolve('ts-loader')
 
-    this.bud.store['loaders'].set('typescript', {
+    this.bud.build.items.typescript = {
       loader: this.bud.store['loaders'].get('typescript'),
       options: {
         configFile: this.bud.fs.resolve('tsconfig.json'),
       },
-    })
+    }
 
-    this.bud.store['rules'].set('typescript', rule)
+    this.bud.build.rules.typescript = rule
 
     /**
      * Add typescript config function to Bud.Config

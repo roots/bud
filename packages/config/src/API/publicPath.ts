@@ -1,5 +1,5 @@
 export const publicPath: API.PublicPath = function (path) {
-  this.store['build'].output.publicPath = path
+  this.build.config.output.publicPath = path
 
   return this
 }

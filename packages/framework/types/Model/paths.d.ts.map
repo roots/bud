@@ -1,1 +1,1 @@
-{"version":3,"file":"paths.d.ts","sourceRoot":"","sources":["../../src/Model/paths.ts"],"names":[],"mappings":"AAAA;;GAEG;AACH,eAAO,MAAM,GAAG,EAAE,MAAsB,CAAA;AAExC;;GAEG;AACH,eAAO,MAAM,OAAO,EAAE,MAAY,CAAA;AAElC;;GAEG;AACH,eAAO,MAAM,SAAS,EAAE,MAAkB,CAAA"}
+{"version":3,"file":"paths.d.ts","sourceRoot":"","sources":["../../src/Model/paths.ts"],"names":[],"mappings":"AAAA;;GAEG;AAEH,eAAO,MAAM,GAAG,EAAE,MAAsB,CAAA;AACxC,eAAO,MAAM,OAAO,EAAE,MAAY,CAAA;AAClC,eAAO,MAAM,SAAS,EAAE,MAAkB,CAAA"}

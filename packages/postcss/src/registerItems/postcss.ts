@@ -1,10 +1,7 @@
 import autoprefixer from 'autoprefixer'
 
 export const ident: Build.Item['ident'] = 'postcss'
-
-export const loader: Build.Item['loader'] = loaders =>
-  loaders.get('postcss')
-
+export const loader: Build.Item['loader'] = 'postcss'
 export const options: Build.Item['options'] = {
   postcssOptions: {
     plugins: {

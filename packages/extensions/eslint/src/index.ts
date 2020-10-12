@@ -20,7 +20,7 @@ export const boot: Framework.Extension['boot'] = bud => {
   const base = bud.components['rules'].get('js.use')(bud)
   bud.components['rules'].set('js.use', bud => [
     ...base,
-    bud.components['items'].get('eslint').make(),
+    bud.build.items.eslint.make(),
   ])
 }
 

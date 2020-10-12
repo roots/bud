@@ -1,3 +1,6 @@
+/**
+ * @exports Args
+ */
 export declare const args: {
     [x: string]: unknown;
     _: string[];

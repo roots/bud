@@ -8,7 +8,7 @@ export const glob: API.Glob = function (name, files, options) {
     options ?? {expandDirectories: true},
   )
 
-  this.store['build'].merge(
+  this.build.config.merge(
     'entry',
     results.reduce((acc, curr) => {
       const entryPath = name ? `${name}/` : '/'

@@ -1,5 +1,5 @@
-import Bud from '@roots/bud-types'
 import bud from '@roots/bud'
+import {Bud} from '@roots/bud-framework'
 import sageFeatures, {SelectFeatures} from './sageFeatures'
 
 /**

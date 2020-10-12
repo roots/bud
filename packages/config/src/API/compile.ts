@@ -6,7 +6,7 @@ export const compile: API.Compile = async function (): Promise<void> {
     inject.bind(this),
   )
 
-  this.compiler.setConfig(this.build())
+  this.compiler.setConfig(this.build.compile())
   this.compiler.compile()
 
   this.when(this.mode.is('development'), dev.bind(this))
@@ -34,10 +34,10 @@ export const compile: API.Compile = async function (): Promise<void> {
  */
 function inject(): void {
   const entrypoints = injectClient({
-    entrypoints: this.store.get('build', 'entry'),
+    entrypoints: this.build.config.get('entry'),
   })
 
-  this.store.set('build', 'entry', entrypoints)
+  this.build.config.set('entry', entrypoints)
 }
 
 /**

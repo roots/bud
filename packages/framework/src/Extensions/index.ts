@@ -1,5 +1,3 @@
-import Item from '../Components/Item'
-import Rule from '../Components/Rule'
 import {lodash as _} from '@roots/bud-support'
 
 /**
@@ -40,11 +38,11 @@ export class Extensions implements Framework.Extensions {
    * @param {Index<Extension.Factory>} definitions
    */
   public boot(
-    extArgument?: Framework.Index<Framework.Extension.Factory>,
+    extensions?: Framework.Index<Framework.Extension.Factory>,
   ): void {
-    if (!extArgument) return
+    if (!extensions) return
 
-    this.registerExtensions(extArgument)
+    this.registerExtensions(extensions)
   }
 
   /**
@@ -103,12 +101,10 @@ export class Extensions implements Framework.Extensions {
    */
   public processLoaders(extension: Framework.Extension): void {
     extension.hasOwnProperty('registerLoader') &&
-      this.bud.components['loaders'].set(
-        ...extension.registerLoader,
-      )
+      this.bud.build.makeLoader(...extension.registerLoader)
     extension.hasOwnProperty('registerLoaders') &&
       Object.entries(extension.registerLoaders).map(loader =>
-        this.bud.components['loaders'].set(...loader),
+        this.bud.build.makeLoader(...loader),
       )
   }
 
@@ -117,18 +113,15 @@ export class Extensions implements Framework.Extensions {
    */
   public processRuleItems(extension: Framework.Extension): void {
     extension.hasOwnProperty('registerItem') &&
-      this.bud.components['items'].set(
+      this.bud.build.makeItem(
         extension.registerItem[0],
-        new Item(this.bud, extension.registerItem[1]),
+        extension.registerItem[1],
       )
 
     extension.hasOwnProperty('registerItems') &&
       Object.entries(extension.registerItems).map(
         ([, item]: [string, Build.Item.Module]) => {
-          this.bud.components['items'].set(
-            item.ident,
-            new Item(this.bud, item),
-          )
+          this.bud.build.makeItem(item.ident, item)
         },
       )
   }
@@ -138,18 +131,15 @@ export class Extensions implements Framework.Extensions {
    */
   public processRules(extension: Framework.Extension): void {
     extension.hasOwnProperty('registerRule') &&
-      this.bud.components['rules'].set(
+      this.bud.build.makeRule(
         extension.registerRule[0],
-        new Rule(this.bud, extension.registerRule[1]),
+        extension.registerRule[1],
       )
 
     extension.hasOwnProperty('registerRules') &&
       Object.entries(extension.registerRules).map(
         ([name, rule]) => {
-          this.bud.components['rules'].set(
-            name,
-            new Rule(this.bud, rule),
-          )
+          this.bud.build.makeRule(name, rule)
         },
       )
   }

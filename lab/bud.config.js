@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const bud = require('../packages/bud/lib')
+const bud = require('../packages/bud')
 const sass = require('../packages/extensions/sass')
 
 bud.extensions.register('sass', sass)

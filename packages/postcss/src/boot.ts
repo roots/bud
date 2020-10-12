@@ -1,11 +1,9 @@
 export const boot = (bud: Framework.Bud): void => {
-  const [Rules, Items] = bud.components.query(['rules', 'items'])
+  const useCss = bud.build.rules.css.use(bud)
 
-  const useCss = Rules.get('css.use')(bud)
-
-  Rules.set('css.use', [
+  bud.build.rules.css.use = (bud: Framework.Bud) => [
     ...useCss.splice(0, useCss.length - 1),
-    Items.get('postcss').make(),
+    bud.build.items.postcss.make(),
     ...useCss.splice(useCss.length - 1),
-  ])
+  ]
 }

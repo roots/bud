@@ -2,9 +2,9 @@ export const runtime: API.Runtime = function (name) {
   this.store['features'].set('runtimeChunk', true)
 
   name &&
-    this.store['build'].set(
+    this.build.config.set(
       'optimization.runtimeChunk.name',
-      name ?? this.store['build'].optimization.runtimeChunk.name,
+      name ?? this.build.config.optimization.runtimeChunk.name,
     )
 
   return this

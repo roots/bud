@@ -4,7 +4,7 @@ export const entry: API.Entry = function (
   name: string,
   assets: string | string[] | Webpack.Entry | Webpack.EntryFunc,
 ) {
-  this.store.use('build').merge('entry', {
+  this.build.config.merge('entry', {
     [name]: assets,
   })
 

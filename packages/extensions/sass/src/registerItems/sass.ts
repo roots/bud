@@ -3,11 +3,7 @@
  */
 export const ident: Build.Item['ident'] = 'sass'
 
-/**
- * Sass loader
- */
-export const loader: Build.Item['loader'] = loaders =>
-  loaders.get('sass-loader')
+export const loader: Build.Item['loader'] = 'sass'
 
 let implementation: unknown
 try {

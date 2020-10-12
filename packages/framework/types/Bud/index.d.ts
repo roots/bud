@@ -1,17 +1,13 @@
-/**
- * Bud class.
- */
 declare class Bud implements Framework.Bud {
     /**
      * @note I'm not sure how to type something this flexible.
      */
     [key: string]: any;
     private static PRIMARY_DISK;
-    build: Framework.Bud['build'];
-    components: Framework.Bud['components'];
+    build: Framework.Build;
     compiler: Framework.Bud['compiler'];
     disks: Framework.Bud['disks'];
-    env: Framework.Bud['env'];
+    env: Framework.Env;
     extensions: Framework.Bud['extensions'];
     fs: Framework.Bud['fs'];
     hooks: Framework.Bud['hooks'];

@@ -3,7 +3,7 @@ export const srcPath: API.SrcPath = function (segment: string) {
     return this
   }
 
-  this.store['build'].context = this.hooks.filter(
+  this.build.config.context = this.hooks.filter(
     'api.distPath',
     this.fs.path.resolve(this.store['paths'].project, segment),
   )

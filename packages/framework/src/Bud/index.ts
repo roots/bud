@@ -1,24 +1,23 @@
-import * as Model from '../Model'
-import * as Config from '@roots/bud-config'
-import * as plugins from '../Components/plugins'
-import {Server, ServerModel} from '@roots/bud-server'
 import Compiler from '@roots/bud-compiler'
-import {FileContainer, FileSystem} from '@roots/filesystem'
-import Webpack from 'webpack'
-import Build from '../Build'
-import Components from '../Components'
-import {Extensions} from '../Extensions'
+import {Build} from '../Build'
+import Env from './env'
 import Hooks from '../Hooks'
+import {Extensions} from '../Extensions'
+import {FileContainer, FileSystem} from '@roots/filesystem'
+import Mode from './mode'
+import {Server, ServerModel} from '@roots/bud-server'
 import Store from '../Store'
-import {env} from './env'
+
+import * as api from '@roots/bud-config'
+import * as items from './items'
+import * as model from '../Model'
+import * as rules from './rules'
+import * as plugins from './plugins'
+import * as loaders from './loaders'
+
 import format from './util/format'
 import pretty from './util/pretty'
-import filesystemSetup from './bootstrap/filesystemSetup'
-import parseArguments from './bootstrap/parseArguments'
 
-/**
- * Bud class.
- */
 class Bud implements Framework.Bud {
   /**
    * @note I'm not sure how to type something this flexible.
@@ -27,15 +26,13 @@ class Bud implements Framework.Bud {
 
   private static PRIMARY_DISK = 'project'
 
-  public build: Framework.Bud['build']
-
-  public components: Framework.Bud['components']
+  public build: Framework.Build
 
   public compiler: Framework.Bud['compiler']
 
   public disks: Framework.Bud['disks']
 
-  public env: Framework.Bud['env']
+  public env: Framework.Env
 
   public extensions: Framework.Bud['extensions']
 
@@ -62,9 +59,11 @@ class Bud implements Framework.Bud {
    * @memberof Bud
    */
   public constructor() {
+    this.env = Env
     this.hooks = Hooks(this.logger)
     this.components = new Store()
     this.store = new Store()
+    this.build = new Build(this)
     this.extensions = new Extensions(this)
     this.disks = new FileSystem()
     this.fs = new FileContainer()
@@ -79,54 +78,40 @@ class Bud implements Framework.Bud {
    */
   public init: Framework.Bud['init'] = function () {
     /**
-     * Bind the build function.
-     */
-    this.build = Build.bind(this)
-
-    /**
-     * Bind the frozen object form of env.
-     */
-    this.env = env.bind(this)()
-
-    /**
      * Load the Bud.Store with initial models.
      */
-    this.store.create('server', ServerModel)
-    Object.entries(Model).map(([name, model]) => {
-      return this.store.create(name, model)
+    Object.entries(model).map(([name, model]) => {
+      this.store.create(name, model)
+
+      this[name] = this.store[name]
     })
 
-    /**
-     * @todo A terrible place to instantiate Bud.mode
-     * @see {Webpack.Configuration['mode']}
-     */
-    this.mode = {
-      is: (check: unknown) =>
-        this.store['build'].is('mode', check),
-      get: () => this.store['build'].get('mode'),
-      set: (mode: Webpack.Configuration['mode']) => {
-        this.store['build'].set('mode', mode)
-        return this
-      },
-    }
+    this.store.create('server', ServerModel)
 
-    // Binds API
-    Object.entries(Config).map(
+    this.mode = new Mode(this.build.config)
+
+    Object.entries(api).map(
       ([name, fn]: [string, CallableFunction]) => {
         this[name] = fn.bind(this)
       },
     )
+    Object.entries(loaders).map(
+      ([name, loader]: [string, Build.Loader]) => {
+        return this.build.makeLoader(name, loader)
+      },
+    )
+    Object.entries(items).map(
+      ([name, item]: [string, Build.Item.Module]) => {
+        return this.build.makeItem(name, item)
+      },
+    )
+    Object.entries(rules).map(
+      ([name, rule]: [string, Build.Rule.Module]) => {
+        return this.build.makeRule(name, rule)
+      },
+    )
 
-    // Manufactures interfaces used by bud.build
-    Object.entries(Components(this)).map(([name, component]) => {
-      return this.components.create(name, component)
-    })
-
-    // Setup filesystem.
-    filesystemSetup.bind(this)()
-    parseArguments.bind(this)()
-
-    // Boot extensions.
+    // Boot webpack plugins.
     this.extensions.boot(plugins)
   }
 

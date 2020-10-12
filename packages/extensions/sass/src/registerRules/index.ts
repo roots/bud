@@ -1,1 +1,1 @@
-export * as scss from './sass'
+export * as sass from './sass'

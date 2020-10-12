@@ -1,17 +1,11 @@
-import type {Bud} from './index'
+import dotenv from 'dotenv'
+import {join} from 'path'
 
 /**
- * Freezes envvars.
- *
- * @this Bud
- * @return {Bud.Index<unknown>}
+ * Environment variables
  */
-const env = function (this: Bud): Framework.Env {
-  const env = this.store['env']
-
-  Object.freeze(env)
-
-  return env
-}
-
-export {env}
+export default Object.freeze(
+  dotenv.config({
+    path: join(process.cwd(), '.env'),
+  }).parsed ?? {},
+)

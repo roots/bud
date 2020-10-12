@@ -7,8 +7,8 @@ export const provide: API.Provide = function (options) {
         ...this.store['plugins'].get('provide'),
         [`${modules}`]: key,
       })
-      this.store['build'].set('externals', {
-        ...this.store['build'].get('.externals'),
+      this.build.config.set('externals', {
+        ...this.build.config.get('.externals'),
         [`${modules}`]: key,
       })
     }
@@ -21,8 +21,8 @@ export const provide: API.Provide = function (options) {
           ...this.store['plugins'].get('provide'),
           [module]: key,
         })
-        this.store['build'].set('externals', {
-          ...this.store['build'].get('.externals'),
+        this.build.config.set('externals', {
+          ...this.build.config.get('.externals'),
           [`${module}`]: key,
         })
       })

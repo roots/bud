@@ -4,8 +4,8 @@ import type {Index} from '../generic'
 
 export as namespace Build
 
-export interface Build {
-  (): Build.Configuration
+export declare class Build {
+  [key: string]: any
 }
 
 export {Item} from './Item'

@@ -10,9 +10,10 @@ export const boot = (bud: Framework.Bud): void => {
 /**
  * Register sass-loader
  */
-export const registerLoaders = {
-  'sass-loader': require.resolve('sass-loader'),
-}
+export const registerLoader = [
+  'sass',
+  require.resolve('sass-loader'),
+]
 
 /**
  * Add scss rule.

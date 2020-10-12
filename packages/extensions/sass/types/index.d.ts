@@ -6,9 +6,7 @@ export declare const boot: (bud: Framework.Bud) => void;
 /**
  * Register sass-loader
  */
-export declare const registerLoaders: {
-    'sass-loader': string;
-};
+export declare const registerLoader: string[];
 /**
  * Add scss rule.
  */

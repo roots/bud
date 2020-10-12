@@ -1,3 +1,6 @@
+/**
+ * @exports Features
+ */
 export declare const babel = true;
 export declare const postcss = true;
 export declare const clean = true;

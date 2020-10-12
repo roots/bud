@@ -16,11 +16,13 @@ export const addExtensions: API.AddExtensions = function (
 }
 
 function mergeExt(ext: string): void {
-  const build = this.store.use('build')
-
-  if (build.get('resolve.extensions').includes(`.${ext}`)) {
+  if (
+    this.build.config
+      .get('resolve.extensions')
+      .includes(`.${ext}`)
+  ) {
     return
   }
 
-  build.merge('resolve.extensions', [`.${ext}`])
+  this.build.config.merge('resolve.extensions', [`.${ext}`])
 }

@@ -22,7 +22,7 @@ declare type Mode = {
   /**
    * Set the mode.
    */
-  set: (check: Mode.Modes) => Bud
+  set: (check: Mode.Modes) => void
 }
 
 /**
