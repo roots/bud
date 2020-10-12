@@ -27,7 +27,12 @@ export class Extensions implements Framework.Extensions {
     this.bud = bud
 
     this.boot = this.boot.bind(this)
-    this.make = this.make.bind(this)
+    this.makePlugins = this.makePlugins.bind(this)
+
+    this.processOptions = this.processOptions.bind(this)
+    this.processLoaders = this.processLoaders.bind(this)
+    this.processRuleItems = this.processRuleItems.bind(this)
+    this.processRules = this.processRules.bind(this)
   }
 
   /**
@@ -54,54 +59,71 @@ export class Extensions implements Framework.Extensions {
       ([name, extension]: [
         string,
         Framework.Extension.Factory,
-      ]) => this.registerExtension(name, extension),
+      ]) => this.register(name, extension),
     )
   }
 
   /**
    * Register an extension.
    */
-  public registerExtension(
-    name: string,
-    extension: unknown,
-  ): void {
+  public register(name: string, extension: unknown): void {
     this.extensions[name] =
       typeof extension == 'function'
         ? extension(this.bud)
         : extension
 
-    if (this.extensions[name].hasOwnProperty('options')) {
-      this.extensions[name].options =
-        typeof this.extensions[name].options == 'function'
-          ? (this.extensions[name].options as CallableFunction)(
-              this.bud,
-            )
-          : this.extensions[name].options
-    } else {
-      this.extensions[name].options = {}
-    }
+    this.processOptions(this.extensions[name])
+    this.processLoaders(this.extensions[name])
+    this.processRuleItems(this.extensions[name])
+    this.processRules(this.extensions[name])
 
-    this.extensions[name].hasOwnProperty('registerLoader') &&
+    this.extensions[name].hasOwnProperty('api') &&
+      this.bindApi(this.extensions[name].api)
+
+    this.extensions[name].hasOwnProperty('boot') &&
+      this.extensions[name].boot(this.bud)
+  }
+
+  /**
+   * Process options
+   */
+  public processOptions(extension: Framework.Extension): void {
+    if (extension.hasOwnProperty('options')) {
+      extension.options =
+        typeof extension.options == 'function'
+          ? (extension.options as CallableFunction)(this.bud)
+          : extension.options
+    } else {
+      extension.options = {}
+    }
+  }
+
+  /**
+   * Process loaders
+   */
+  public processLoaders(extension: Framework.Extension): void {
+    extension.hasOwnProperty('registerLoader') &&
       this.bud.components['loaders'].set(
-        ...this.extensions[name].registerLoader,
+        ...extension.registerLoader,
       )
-    this.extensions[name].hasOwnProperty('registerLoaders') &&
-      Object.entries(
-        this.extensions[name].registerLoaders,
-      ).map(loader =>
+    extension.hasOwnProperty('registerLoaders') &&
+      Object.entries(extension.registerLoaders).map(loader =>
         this.bud.components['loaders'].set(...loader),
       )
+  }
 
-    this.extensions[name].hasOwnProperty('registerItem') &&
+  /**
+   * Process rule items.
+   */
+  public processRuleItems(extension: Framework.Extension): void {
+    extension.hasOwnProperty('registerItem') &&
       this.bud.components['items'].set(
-        this.extensions[name].registerItem[0],
-        new Item(
-          this.bud,
-          this.extensions[name].registerItem[1],
-        ),
+        extension.registerItem[0],
+        new Item(this.bud, extension.registerItem[1]),
       )
-    this.extensions[name].hasOwnProperty('registerItems') &&
-      Object.entries(this.extensions[name].registerItems).map(
+
+    extension.hasOwnProperty('registerItems') &&
+      Object.entries(extension.registerItems).map(
         ([, item]: [string, Build.Item.Module]) => {
           this.bud.components['items'].set(
             item.ident,
@@ -109,43 +131,38 @@ export class Extensions implements Framework.Extensions {
           )
         },
       )
+  }
 
-    this.extensions[name].hasOwnProperty('registerRule') &&
+  /**
+   * Process rules.
+   */
+  public processRules(extension: Framework.Extension): void {
+    extension.hasOwnProperty('registerRule') &&
       this.bud.components['rules'].set(
-        this.extensions[name].registerRule[0],
-        new Rule(
-          this.bud,
-          this.extensions[name].registerRule[1],
-        ),
+        extension.registerRule[0],
+        new Rule(this.bud, extension.registerRule[1]),
       )
-    this.extensions[name].hasOwnProperty('registerRules') &&
-      Object.entries(this.extensions[name].registerRules).map(
-        ([, rule]) => {
+
+    extension.hasOwnProperty('registerRules') &&
+      Object.entries(extension.registerRules).map(
+        ([name, rule]) => {
           this.bud.components['rules'].set(
             name,
             new Rule(this.bud, rule),
           )
         },
       )
-
-    /**
-     * Register API
-     */
-    this.extensions[name].hasOwnProperty('api') &&
-      this.bindApi(this.extensions[name].api)
-    this.extensions[name].hasOwnProperty('boot') &&
-      this.extensions[name].boot(this.bud)
   }
 
   /**
    * Bind all config API.
    */
-  public bindApi = function (methods) {
-    Object.entries(methods).map(
-      ([name, fn]: [string, CallableFunction]) => {
-        this.bud[name] = fn.bind(this.bud)
-      },
-    )
+  public bindApi = function (
+    methods: Framework.Index<CallableFunction>,
+  ): void {
+    Object.entries(methods).map(([name, fn]) => {
+      this.bud[name] = fn.bind(this.bud)
+    })
   }
 
   /**
@@ -172,14 +189,12 @@ export class Extensions implements Framework.Extensions {
 
   /**
    * Make an extension
-   *
    * @note applies only to webpack plugins
    */
-  public make(): Framework.Extension.Product[] {
+  public makePlugins(): Framework.Extension.Product[] {
     const output = Object.values(this.extensions)
+      .filter(extension => extension.hasOwnProperty('make'))
       .map(extension => {
-        if (!extension.make) return
-
         if (
           !extension.when ||
           extension.when == true ||

@@ -24,7 +24,7 @@ declare class Extensions {
   /**
    * Register extension
    */
-  registerExtension(
+  register(
     name: string,
     extension: Framework.Extension.Factory,
   ): void
@@ -59,13 +59,13 @@ declare class Extensions {
   ) => void
 
   /**
-   * Make an extension
+   * Make all plugin extensions
    *
    * @note applies only to webpack plugins
    *
    * @returns {Extension.Product[]}
    */
-  make(): Extension.Product[]
+  makePlugins(): Extension.Product[]
 
   /**
    * Bind all config API methods.
