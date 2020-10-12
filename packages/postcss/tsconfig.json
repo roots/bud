@@ -11,16 +11,6 @@
   "include": ["./src"],
   "exclude": ["./lib"],
   "references": [
-    {"@roots/container": "../container"},
-    {"@roots/dependencies": "../dependencies"},
-    {"@roots/filesystem": "../filesystem"},
-    {"@roots/bud-support": "../support"},
-    {"@roots/bud-framework": "../framework"},
     {"@roots/bud-config": "../config"},
-    {"@roots/bud-cli": "../cli"},
-    {"@roots/bud-build": "../build"},
-    {"@roots/bud-compiler": "../compiler"},
-    {"@roots/bud-webpack": "../webpack"},
-    {"@roots/bud-server": "../server"}
   ]
 }

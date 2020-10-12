@@ -5,7 +5,7 @@
     "outDir": "./lib",
     "baseUrl": ".",
     "declaration": true,
-    "declarationDir": "types",
+    "declarationDir": "./types",
     "declarationMap": true
   },
   "typeAcquisition": {

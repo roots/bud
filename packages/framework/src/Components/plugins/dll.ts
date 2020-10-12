@@ -1,78 +1,19 @@
-import {DllPlugin, DllReferencePlugin} from 'webpack'
+import {DllPlugin} from 'webpack'
 
-/**
- * DLL Plugin
- */
-const dll: Framework.Extension.Factory = (
+export const options: (
   bud: Framework.Bud,
-): Framework.Extension => ({
-  /**
-   * Bud instance.
-   * @param {Framework.Bud} bud
-   */
-  bud,
-
-  /**
-   * Plugin options.
-   *
-   * @type {Framework.Extension.Options}
-   */
-  options: {
-    context: bud.store['build'].get('context'),
-    name: '[name]-[hash]',
-    path: bud.dist('library/[name].json'),
-  },
-
-  /**
-   * Make webpack plugin.
-   *
-   * @return {DllPlugin}
-   */
-  make: function (): DllPlugin {
-    return new DllPlugin(this.options)
-  },
-
-  /**
-   * Conditions for plugin
-   *
-   * @return {boolean}
-   */
-  when: function (): boolean {
-    const {library} = this.bud.store['build'].get('entry')
-    const enabled = this.bud.store['features'].enabled('library')
-
-    return library && enabled
-  },
+) => DllPlugin.Options = bud => ({
+  context: bud.store['build'].get('context'),
+  name: '[name]-[hash]',
+  path: bud.dist('library/[name].json'),
 })
 
-/**
- * DLL Reference Plugin
- */
-const dllReference: Framework.Extension.Factory = (
-  bud: Framework.Bud,
-) => ({
-  bud,
+export const make: Adapter.make = (opts: DllPlugin.Options) =>
+  new DllPlugin(opts)
 
-  options: {
-    context: bud.store['build'].get('context'),
-    manifest: bud.dist('library/manifest.json'),
-    scope: 'xyz',
-    sourceType: 'commonjs2',
-  },
+export const when: Adapter.when = bud => {
+  const {library} = bud.store['build'].get('entry')
+  const enabled = bud.store['features'].enabled('library')
 
-  make: function (): DllReferencePlugin {
-    return new DllReferencePlugin(this.options)
-  },
-
-  when: function () {
-    const {library} = this.bud.store['build'].get('entry')
-    const enabled = this.bud.store['features'].enabled('library')
-    const manifestExists = bud.fs.exists(
-      'dist/library/manifest.json',
-    )
-
-    return library && enabled && manifestExists
-  },
-})
-
-export {dll, dllReference}
+  return library && enabled
+}

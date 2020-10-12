@@ -27,29 +27,38 @@ declare interface Extension {
   /**
    * Whether or not to call `make`.
    */
-  when?: Extension.Conditional
+  when?: Extension.When
+
+  /**
+   * Register Items
+   */
+  registerLoader?:
+    [string, Build.Item['loader']]
+  registerLoaders?:
+    Framework.Index<Framework.Extension['registerLoader']>
 
   /**
    * Register Items
    */
   registerItem?:
-    | ((bud: Framework.Bud) => Build.Item.Module)
-    | Build.Item.Module
-
-  /**
-   * Register Options
-   */
-  registerOption?: (param: unknown) => any
+    Build.Item.Module
+  registerItems?:
+    Framework.Index<Framework.Extension['registerItem']>
 
   /**
    * Register Rules
    */
-  registerRule?: (param: unknown) => any
+  registerRule?: [string, Build.Rule.Module]
+  registerRules?:
+    Framework.Index<Build.Rule.Module>
 
   /**
    * Do stuff after registration
    */
   boot?: (bud: Framework.Bud) => void
+
+  /** @todo typings */
+  api?: any
 }
 
 /**
@@ -62,8 +71,10 @@ declare namespace Extension {
    * Plugin options
    */
   export type Options =
-    | ((bud?: Framework.Bud) => Framework.Index<unknown>)
-    | Framework.Index<unknown>
+    | ((bud?: Framework.Bud) => Framework.Index<any>)
+    | ((bud?: Framework.Bud) => Array<any>)
+    | Framework.Index<any>
+    | Array<any>
 
   /**
    * Function which returns a Plugin
@@ -83,6 +94,13 @@ declare namespace Extension {
   export type Make =
     | ((options: Extension.Options) => Extension.Product)
     | Extension.Product
+
+  /**
+   * Plugin make when
+   */
+  export type When =
+    | ((bud: Framework.Bud, options: Extension.Options) => boolean)
+    | boolean
 
   /**
    * Plugin conditional

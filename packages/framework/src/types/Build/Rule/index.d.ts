@@ -135,6 +135,10 @@ declare class Rule {
 }
 
 declare namespace Rule {
+  export type Module = {
+    [key: string]: Framework.MaybeCallable<Build.Rule.Products>
+  }
+
   /**
    * A tuple to be processed by make
    */

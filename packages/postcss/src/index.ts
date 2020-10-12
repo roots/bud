@@ -1,8 +1,9 @@
-import './types'
+import * as PostCss from './types'
+export type {PostCss}
 
 export {boot} from './boot'
 
-export const registerLoader = [
+export const registerLoader: PostCss.Adapter['registerLoader'] = [
   'postcss',
   require.resolve('postcss-loader'),
 ]

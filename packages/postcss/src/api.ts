@@ -1,9 +1,6 @@
-import type {Options} from './types'
+import type {PostCss} from '.'
 
-const postcss: Framework.Config.Fluent<
-  Framework.Bud,
-  Options
-> = function (this: Framework.Bud, options: Options) {
+export const postcss: PostCss.Config = function (options) {
   this.store['features'].enable('postcss')
 
   this.components['items']
@@ -12,5 +9,3 @@ const postcss: Framework.Config.Fluent<
 
   return this
 }
-
-export {postcss}

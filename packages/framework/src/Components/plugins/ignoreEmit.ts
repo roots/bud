@@ -15,10 +15,15 @@ export const options = [
   /moment$/,
 ]
 
-export const make: Framework.Extension['make'] = () => {
+export const make: Framework.Extension['make'] = (
+  options: Array<RegExp | string>,
+) => {
   return new IgnoreEmitPlugin(options)
 }
 
-export const when: Framework.Extension['when'] = () => {
-  return options.length && options.length > 0
+export const when: Framework.Extension['when'] = (
+  bud: Framework.Bud,
+) => {
+  const options = bud.extensions.getOptions('ignoreEmit')?.length
+  return options > 0
 }

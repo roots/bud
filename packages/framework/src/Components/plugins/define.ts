@@ -1,17 +1,17 @@
 import {DefinePlugin} from 'webpack'
 
-const define: Framework.Extension.Factory = bud => ({
-  bud,
+export const options: OptionsFactory = bud => bud.env?.repository
 
-  options: bud.env,
+export const make: Adapter.make = (opts: Options) =>
+  new DefinePlugin(opts)
 
-  make: function () {
-    return new DefinePlugin(this.options)
-  },
+export const when: Adapter.when = (_bud, opts) =>
+  opts ? true : false
 
-  when: function () {
-    return this.options ? true : false
-  },
-})
+export type OptionsFactory = (
+  bud: Framework.Bud,
+) => Framework.Index<DefinePlugin.CodeValueObject>
 
-export {define as default}
+export type Options = Framework.Index<
+  DefinePlugin.CodeValueObject
+>

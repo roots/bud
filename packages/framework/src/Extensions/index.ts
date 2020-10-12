@@ -65,36 +65,43 @@ export class Extensions implements Framework.Extensions {
     name: string,
     extension: unknown,
   ): void {
-    const instance =
+    this.extensions[name] =
       typeof extension == 'function'
         ? extension(this.bud)
         : extension
 
-    this.extensions[name] = instance
-
-    if (instance.hasOwnProperty('options')) {
-      instance.options =
-        typeof instance.options == 'function'
-          ? instance.options(this.bud)
-          : instance.options
+    if (this.extensions[name].hasOwnProperty('options')) {
+      this.extensions[name].options =
+        typeof this.extensions[name].options == 'function'
+          ? (this.extensions[name].options as CallableFunction)(
+              this.bud,
+            )
+          : this.extensions[name].options
+    } else {
+      this.extensions[name].options = {}
     }
 
-    instance.hasOwnProperty('registerLoader') &&
+    this.extensions[name].hasOwnProperty('registerLoader') &&
       this.bud.components['loaders'].set(
-        ...instance.registerLoader,
+        ...this.extensions[name].registerLoader,
       )
-    instance.hasOwnProperty('registerLoaders') &&
-      Object.entries(instance.registerLoaders).map(loader =>
+    this.extensions[name].hasOwnProperty('registerLoaders') &&
+      Object.entries(
+        this.extensions[name].registerLoaders,
+      ).map(loader =>
         this.bud.components['loaders'].set(...loader),
       )
 
-    instance.hasOwnProperty('registerItem') &&
+    this.extensions[name].hasOwnProperty('registerItem') &&
       this.bud.components['items'].set(
-        instance.registerItem[0],
-        new Item(this.bud, instance.registerItem[1]),
+        this.extensions[name].registerItem[0],
+        new Item(
+          this.bud,
+          this.extensions[name].registerItem[1],
+        ),
       )
-    instance.hasOwnProperty('registerItems') &&
-      Object.entries(instance.registerItems).map(
+    this.extensions[name].hasOwnProperty('registerItems') &&
+      Object.entries(this.extensions[name].registerItems).map(
         ([, item]: [string, Build.Item.Module]) => {
           this.bud.components['items'].set(
             item.ident,
@@ -103,24 +110,31 @@ export class Extensions implements Framework.Extensions {
         },
       )
 
-    instance.hasOwnProperty('registerRule') &&
+    this.extensions[name].hasOwnProperty('registerRule') &&
       this.bud.components['rules'].set(
-        instance.registerRule.take(),
-        new Rule(this.bud, instance.registerRule.take()),
+        this.extensions[name].registerRule[0],
+        new Rule(
+          this.bud,
+          this.extensions[name].registerRule[1],
+        ),
       )
-    instance.hasOwnProperty('registerRules') &&
-      Object.entries(instance.registerRules).map(([, rule]) => {
-        this.bud.components['rules'].set(
-          name,
-          new Rule(this.bud, rule),
-        )
-      })
+    this.extensions[name].hasOwnProperty('registerRules') &&
+      Object.entries(this.extensions[name].registerRules).map(
+        ([, rule]) => {
+          this.bud.components['rules'].set(
+            name,
+            new Rule(this.bud, rule),
+          )
+        },
+      )
 
     /**
      * Register API
      */
-    instance.hasOwnProperty('api') && this.bindApi(instance.api)
-    instance.hasOwnProperty('boot') && instance.boot(this.bud)
+    this.extensions[name].hasOwnProperty('api') &&
+      this.bindApi(this.extensions[name].api)
+    this.extensions[name].hasOwnProperty('boot') &&
+      this.extensions[name].boot(this.bud)
   }
 
   /**
@@ -169,7 +183,7 @@ export class Extensions implements Framework.Extensions {
         if (
           !extension.when ||
           extension.when == true ||
-          extension.when(this.bud)
+          extension.when(this.bud, extension.options)
         ) {
           return typeof extension.make === 'function'
             ? extension.make(extension.options)
