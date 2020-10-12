@@ -1,19 +1,16 @@
 import {MiniCssExtractPlugin} from './externals'
 
-const miniCssExtract: Framework.Extension.Factory = bud => ({
-  bud,
-
-  make: function () {
-    return new MiniCssExtractPlugin({
-      filename: this.bud.store['features'].enabled('hash')
-        ? '[name].[hash].css'
-        : '[name].css',
-    })
-  },
-
-  when: function () {
-    return !this.bud.mode.is('development')
-  },
+export const options: (
+  bud: Framework.Bud,
+) => MiniCssExtractPlugin.PluginOptions = ({store}) => ({
+  filename: store['features'].enabled('hash')
+    ? '[name].[hash].css'
+    : '[name].css',
 })
 
-export {miniCssExtract as default}
+export const make: Adapter.make = (
+  opts: MiniCssExtractPlugin.PluginOptions,
+) => new MiniCssExtractPlugin(opts)
+
+export const when: Adapter.when = ({mode}) =>
+  mode.is('development')

@@ -1,3 +1,3 @@
-declare const provide: Framework.Extension.Factory;
-export { provide as default };
+export declare const options: Adapter.options;
+export declare const make: Adapter.make;
 //# sourceMappingURL=provide.d.ts.map

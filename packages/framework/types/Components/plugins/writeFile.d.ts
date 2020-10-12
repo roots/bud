@@ -1,3 +1,2 @@
-declare const writeFile: Framework.Extension.Factory;
-export { writeFile as default };
+export declare const make: Adapter.make;
 //# sourceMappingURL=writeFile.d.ts.map

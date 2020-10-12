@@ -1,15 +1,7 @@
 import {HotModuleReplacementPlugin} from 'webpack'
 
-const hotModuleReplacement: Framework.Extension.Factory = bud => ({
-  bud,
+export const make: Adapter.make = () =>
+  new HotModuleReplacementPlugin()
 
-  make: function () {
-    return new HotModuleReplacementPlugin()
-  },
-
-  when: function () {
-    return this.bud.store['features'].enabled('hot')
-  },
-})
-
-export {hotModuleReplacement as default}
+export const when: Adapter.when = ({store}) =>
+  store['features'].enabled('hot')

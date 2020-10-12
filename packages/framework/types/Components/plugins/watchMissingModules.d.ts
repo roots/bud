@@ -1,3 +1,3 @@
-declare const watchMissingNodeModules: Framework.Extension.Factory;
-export { watchMissingNodeModules as default };
+export declare const options: Adapter.options;
+export declare const make: Adapter.make;
 //# sourceMappingURL=watchMissingModules.d.ts.map

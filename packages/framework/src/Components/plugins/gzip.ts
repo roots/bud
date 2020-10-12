@@ -19,9 +19,3 @@ export const make: Adapter.make = options =>
   new CompressionPlugin(
     options as CompressionPlugin.Options<unknown>,
   )
-
-declare namespace Adapter {
-  type options = Framework.Extension['options']
-  type make = Framework.Extension['make']
-  type when = Framework.Extension['when']
-}

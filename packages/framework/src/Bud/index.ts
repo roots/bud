@@ -1,12 +1,12 @@
 import * as Model from '../Model'
 import * as Config from '@roots/bud-config'
+import * as plugins from '../Components/plugins'
 import {Server, ServerModel} from '@roots/bud-server'
 import Compiler from '@roots/bud-compiler'
 import {FileContainer, FileSystem} from '@roots/filesystem'
 import Webpack from 'webpack'
 import Build from '../Build'
 import Components from '../Components'
-import corePlugins from '../Components/plugins'
 import {Extensions} from '../Extensions'
 import Hooks from '../Hooks'
 import Store from '../Store'
@@ -127,7 +127,7 @@ class Bud implements Framework.Bud {
     parseArguments.bind(this)()
 
     // Boot extensions.
-    this.extensions.boot(corePlugins)
+    this.extensions.boot(plugins)
   }
 
   /**

@@ -1,39 +1,33 @@
-import TerserPlugin from 'terser-webpack-plugin'
+import TerserPlugin, {
+  TerserPluginOptions,
+} from 'terser-webpack-plugin'
 
-const terser: Framework.Extension.Factory = bud => ({
-  bud,
-
-  options: {
-    terserOptions: {
-      parse: {
-        ecma: 8,
-      },
-      compress: {
-        ecma: 5,
-        warnings: false,
-        comparisons: false,
-        inline: 2,
-      },
-      mangle: {
-        safari10: true,
-      },
-      output: {
-        ecma: 5,
-        comments: false,
-        ascii_only: true,
-      },
+export const options: TerserPluginOptions = {
+  terserOptions: {
+    parse: {
+      ecma: 8,
     },
-    cache: true,
-    parallel: true,
+    compress: {
+      ecma: 5,
+      warnings: false,
+      comparisons: false,
+      inline: 2,
+    },
+    mangle: {
+      safari10: true,
+    },
+    output: {
+      ecma: 5,
+      comments: false,
+      ascii_only: true,
+    },
   },
+  cache: true,
+  parallel: true,
+}
 
-  make: function () {
-    return new TerserPlugin(this.options)
-  },
+export const make: Adapter.make = (opts: TerserPluginOptions) =>
+  new TerserPlugin(opts)
 
-  when: function () {
-    return this.bud.store['features'].enabled('minify')
-  },
-})
-
-export {terser as default}
+export const when: Adapter.when = ({store}) =>
+  store['features'].enabled('minify')

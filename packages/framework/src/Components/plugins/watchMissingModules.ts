@@ -1,13 +1,7 @@
 import {WatchMissingNodeModulesPlugin} from '@roots/bud-support'
 
-const watchMissingNodeModules: Framework.Extension.Factory = bud => ({
-  bud,
+export const options: Adapter.options = ({project}) =>
+  project('node_modules')
 
-  make: function (): WatchMissingNodeModulesPlugin {
-    return new WatchMissingNodeModulesPlugin(
-      this.bud.project('node_modules'),
-    )
-  },
-})
-
-export {watchMissingNodeModules as default}
+export const make: Adapter.make = (opts: string) =>
+  new WatchMissingNodeModulesPlugin(opts)

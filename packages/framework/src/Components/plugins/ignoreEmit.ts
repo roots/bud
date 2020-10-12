@@ -9,6 +9,7 @@ export const options = [
 
   /**
    * Stop users from owning themselves with a wholescale moment/locale import.
+   *
    * @see {@link https://git.io/JUaNq}
    */
   /^\.\/locale$/,

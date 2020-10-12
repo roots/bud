@@ -1,4 +1,5 @@
-declare const html: Framework.Extension.Factory;
-declare const interpolateHtml: Framework.Extension.Factory;
-export { html, interpolateHtml };
+import HtmlWebpackPlugin from 'html-webpack-plugin';
+export declare const options: HtmlWebpackPlugin.Options;
+export declare const make: Adapter.make;
+export declare const when: Adapter.when;
 //# sourceMappingURL=html.d.ts.map

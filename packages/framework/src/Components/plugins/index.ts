@@ -1,36 +1,17 @@
-import * as cleanWebpack from './cleanWebpack'
-import * as gzip from './gzip'
-import * as brotli from './brotli'
-import * as ignoreEmit from './ignoreEmit'
-import * as copy from './copy'
-import * as define from './define'
-import * as dll from './dll'
-import * as dllReference from './dllReference'
-import {html, interpolateHtml} from './html'
-import hotModuleReplacement from './hotModuleReplacement'
-import miniCssExtract from './miniCssExtract'
-import manifest from './manifest'
-import provide from './provide'
-import terser from './terser'
-import watchMissingModules from './watchMissingModules'
-import writeFile from './writeFile'
-
-export default {
-  brotli,
-  gzip,
-  cleanWebpack,
-  copy,
-  define,
-  dll,
-  dllReference,
-  hotModuleReplacement,
-  html,
-  interpolateHtml,
-  ignoreEmit,
-  manifest,
-  miniCssExtract,
-  provide,
-  terser,
-  writeFile,
-  watchMissingModules,
-}
+export * as cleanWebpack from './cleanWebpack'
+export * as gzip from './gzip'
+export * as brotli from './brotli'
+export * as ignoreEmit from './ignoreEmit'
+export * as copy from './copy'
+export * as define from './define'
+export * as dll from './dll'
+export * as dllReference from './dllReference'
+export * as hotModuleReplacement from './hotModuleReplacement'
+export * as html from './html'
+export * as interpolateHtml from './interpolateHtmlPlugin'
+export * as manifest from './manifest'
+export * as miniCssExtract from './miniCssExtract'
+export * as provide from './provide'
+export * as terser from './terser'
+export * as watchMissingModules from './watchMissingModules'
+export * as writeFile from './writeFile'

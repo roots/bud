@@ -1,21 +1,16 @@
 import ManifestPlugin from 'webpack-manifest-plugin'
 
-const manifest: Framework.Extension.Factory = bud => ({
-  bud,
-
-  options: {
-    publicPath: bud.store['build'].get('output.publicPath'),
-    fileName: 'manifest.json',
-    writeToFileEmit: true,
-  },
-
-  make: function () {
-    return new ManifestPlugin(this.options)
-  },
-
-  when: function () {
-    return this.bud.store['features'].enabled('manifest')
-  },
+export const options: (
+  bud: Framework.Bud,
+) => ManifestPlugin.Options = ({store}) => ({
+  publicPath: store['build'].get('output.publicPath'),
+  fileName: 'manifest.json',
+  writeToFileEmit: true,
 })
 
-export {manifest as default}
+export const make: (
+  opts: ManifestPlugin.Options,
+) => ManifestPlugin = opts => new ManifestPlugin(opts)
+
+export const when: Adapter.when = ({store}) =>
+  store['features'].enabled('manifest')
