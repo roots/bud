@@ -7,7 +7,7 @@ export const addPlugin: API.AddPlugin = function (
     return
   }
 
-  this.extensions.registerExtension(name, {
+  this.extensions.register(name, {
     make: function (bud: Framework.Bud) {
       return plugin(bud)
     },

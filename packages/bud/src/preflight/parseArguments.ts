@@ -5,7 +5,8 @@ export const parseArguments = function (
 
   args.has('devtool') &&
     this.build.config.set('devtool', args.get('devtool'))
-  args.has('target') && this.build.config.set('target', args.get('target'))
+  args.has('target') &&
+    this.build.config.set('target', args.get('target'))
   args.has('brotli') &&
     features.set('brotli', args.get('brotli'))
   args.has('ci') && features.set('ci', args.get('ci'))

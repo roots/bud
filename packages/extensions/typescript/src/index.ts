@@ -24,7 +24,9 @@ const TypescriptSupport: Bud.Plugin.Factory = (bud: Bud) => ({
 
     this.bud.store['pattterns'].set('typescript', /\.(ts|tsx)$/)
 
-    this.bud.build.loaders.typescript = require.resolve('ts-loader')
+    this.bud.build.loaders.typescript = require.resolve(
+      'ts-loader',
+    )
 
     this.bud.build.items.typescript = {
       loader: this.bud.store['loaders'].get('typescript'),

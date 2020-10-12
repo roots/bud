@@ -45,7 +45,7 @@ declare class Extensions {
    */
   getOptions: (
     extension: string,
-  ) => Framework.Extension.Options
+  ) => any
 
   /**
    * Set the options on a booted extension.
