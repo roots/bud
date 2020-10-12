@@ -1,7 +1,5 @@
-import {PluginItem, PluginTarget} from '@babel/core'
-
-const target: PluginTarget = require.resolve(
+const target: babel.PluginTarget = require.resolve(
   '@babel/plugin-proposal-object-rest-spread',
 )
 
-export const objectRestSpread: PluginItem = [target]
+export const objectRestSpread: babel.PluginItem = [target]
