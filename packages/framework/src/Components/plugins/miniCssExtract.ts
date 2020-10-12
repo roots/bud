@@ -1,4 +1,4 @@
-import {MiniCssExtractPlugin} from './externals'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
 export const options: (
   bud: Framework.Bud,
@@ -13,4 +13,4 @@ export const make: Adapter.make = (
 ) => new MiniCssExtractPlugin(opts)
 
 export const when: Adapter.when = ({mode}) =>
-  mode.is('development')
+  mode.is('production')

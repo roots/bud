@@ -1,4 +1,4 @@
-import {IgnoreEmitPlugin} from './externals'
+import {IgnoreEmitPlugin} from 'ignore-emit-webpack-plugin'
 
 export const options = [
   /**
