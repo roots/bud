@@ -20,7 +20,7 @@ export const use: Build.Rule.Factory<Build.Rule.Use> = bud => {
   bud.build.items.postcss.options.postcssOptions.syntax = syntax
   bud.build.items.css.options.importLoaders = 2
 
-  return [...base.slice(0, 2), use('postcss'), ...base.slice(2)]
+  return [...base.splice(0, 2), use('postcss'), ...base]
 }
 
 declare type Conditional = Build.Rule.Factory<

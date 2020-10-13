@@ -24,7 +24,7 @@ export class Rule implements Build.Rule {
   public test?: Build.Rule.Conditional
   public use?: Build.Rule.Use
 
-  constructor(bud: Framework.Bud, rule: unknown) {
+  constructor(bud: Framework.Bud, rule?: unknown) {
     this.bud = bud
 
     this.register = this.register.bind(this)
@@ -33,7 +33,7 @@ export class Rule implements Build.Rule {
     this.get = this.get.bind(this)
     this.make = this.make.bind(this)
 
-    this.register(rule)
+    rule && this.register(rule)
   }
 
   /**
@@ -47,50 +47,53 @@ export class Rule implements Build.Rule {
     return this
   }
 
-  public getProp(prop: string): Build.Rule.Property<unknown> {
+  public getProp(
+    prop: string,
+  ): Build.Rule.Property<Build.Rule.Generic> {
     return this[prop]
   }
 
   public setProp(
     prop: string,
-    value: Build.Rule.Property<unknown>,
+    value: Build.Rule.Property<Build.Rule.Generic>,
   ): this {
     this[prop] = value
     return this
   }
 
+  /**
+   * Rule as iterable tuples.
+   *
+   * Yields:
+   *  - label
+   *  - RuleSetRule property,
+   *  - Parameters to pass to callables in a given rule.
+   */
   public get(): Build.Rule.MakeSet {
     return Object.entries({
-      enforce: [this.enforce, this.bud],
-      exclude: [this.exclude, this.bud],
-      include: [this.include, this.bud],
-      issuer: [this.issuer, this.bud],
-      oneOf: [this.oneOf, this.bud],
-      options: [this.options, this.bud],
-      parser: [this.parser, this.bud],
-      sideEffects: [this.sideEffects, this.bud],
-      query: [this.query, this.bud],
-      compiler: [this.compiler, this.bud],
-      rules: [this.rules, this.bud],
-      test: [this.test, this.bud],
-      use: [this.use, this.bud],
+      enforce: this.enforce,
+      exclude: this.exclude,
+      include: this.include,
+      issuer: this.issuer,
+      oneOf: this.oneOf,
+      options: this.options,
+      parser: this.parser,
+      sideEffects: this.sideEffects,
+      query: this.query,
+      compiler: this.compiler,
+      rules: this.rules,
+      test: this.test,
+      use: this.use,
     })
   }
 
   public make(): Build.Rule.Product {
     return (
-      /**
-       * Iterable set of tuples yielding:
-       *
-       *  - label
-       *  - RuleSetRule property,
-       *  - Parameters to pass to callables in a given rule.
-       */
       this.get()
 
         /** ...filter out the nully ones. */
         .filter(
-          ([, [prop]]: Build.Rule.MakeIn) =>
+          ([, prop]: Build.Rule.MakeIn) =>
             prop !== null && prop !== undefined,
         )
 
@@ -100,14 +103,14 @@ export class Rule implements Build.Rule {
         .reduce(
           (
             accumulator: Build.Rule.Product,
-            [label, [prop, params]]: Build.Rule.MakeIn,
+            [label, prop]: Build.Rule.MakeIn,
           ) => ({
             ...accumulator,
             /**
              * Prop might be callable. If so, pass it the appropriate param(s).
              */
             [label]:
-              typeof prop == 'function' ? prop(params) : prop,
+              typeof prop == 'function' ? prop(this.bud) : prop,
           }),
           {},
         )

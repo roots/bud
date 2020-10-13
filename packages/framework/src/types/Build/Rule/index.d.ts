@@ -97,9 +97,7 @@ declare class Rule {
   /**
    * Use
    */
-  public use?:
-    | Webpack.RuleSetUseItem[]
-    | Rule.Factory<Webpack.RuleSetUseItem[]>
+  public use?: Build.Rule.Use
 
   /**
    * Class constructor
@@ -124,20 +122,23 @@ declare class Rule {
   public register(rule: unknown): this
 
   /**
-   * Set prop
+   * Set property on rule
    */
   setProp(
     prop: string,
-    value: Build.Rule.Property<unknown>,
+    value: Build.Rule.Property<any>,
   ): this
 
   /**
    * Get prop
    */
-  getProp(prop: string): Build.Rule.Property<unknown>
+  getProp(prop: string): Build.Rule.Property<any>
 }
 
 declare namespace Rule {
+  /**
+   * A modular rule implementation
+   */
   export type Module = {
     [key: string]: Framework.MaybeCallable<Build.Rule.Products>
   }
@@ -147,13 +148,18 @@ declare namespace Rule {
    */
   export type MakeIn = [
     string,
-    [unknown, Framework.Index<unknown>],
+    Framework.MaybeCallable<unknown>,
   ]
 
   /**
-   * An array of inputs (for Framework.Rule['get'])
+   * Rule as iterable tuples.
+   *
+   * Yields:
+   *  - label
+   *  - RuleSetRule property,
+   *  - Parameters to pass to callables in a given rule.
    */
-  export type MakeSet = Array<MakeIn>
+  export type MakeSet = MakeIn[]
 
   /**
    * The most generic representation of a rule module.
@@ -173,21 +179,12 @@ declare namespace Rule {
     [key: string]: Factory<Product> | Product
   }
 
-  /**
-   * Rule property defined with a callable.
-   */
   export interface Factory<Product> {
     (unknown): Product
   }
 
-  /**
-   * Rule modules produce Webpack.RuleSetRule entries
-   */
   export type Product = Webpack.RuleSetRule
 
-  /**
-   * All possible final products
-   */
   export type Products =
     | string
     | boolean
@@ -200,43 +197,26 @@ declare namespace Rule {
     | Use
     | OneOf
 
-  /**
-   * Product: Module type to use
-   */
-  export type Type = Webpack.RuleSetRule['type']
+  export type Type =
+    | 'javascript/auto'
+    | 'javascript/dynamic'
+    | 'javascript/esm'
+    | 'json'
+    | 'webassembly/experimental'
 
-  /**
-   * Product: Enforce this rule as pre or post step
-   */
-  export type Enforce = Webpack.RuleSetRule['enforce']
+  export type Enforce = 'pre' | 'post'
 
-  /**
-   * Product: Boolean test
-   */
   export type Conditional = Webpack.RuleSetCondition
 
-  /**
-   * Product: Options for parsing
-   */
-  export type Parser = Webpack.RuleSetRule['parser']
+  export type Parser = Framework.Index<any>
 
-  /**
-   * Product: Use query
-   */
   export type Query = string | Parser
 
-  /**
-   * Product: webpack resolve (multi-compiler)
-   */
   export type Resolve = Webpack.Resolve
 
-  /**
-   * Product: loader(s)
-   */
-  export type Use = Webpack.RuleSetRule['use']
+  export type Use =
+    | Webpack.RuleSetUseItem[]
+    | Rule.Factory<Webpack.RuleSetUseItem[]>
 
-  /**
-   * Product: Multiple child rules.
-   */
   export type OneOf = Webpack.RuleSetRule
 }
