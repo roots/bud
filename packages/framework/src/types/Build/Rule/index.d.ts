@@ -124,10 +124,7 @@ declare class Rule {
   /**
    * Set property on rule
    */
-  setProp(
-    prop: string,
-    value: Build.Rule.Property<any>,
-  ): this
+  setProp(prop: string, value: Build.Rule.Property<any>): this
 
   /**
    * Get prop
@@ -146,10 +143,7 @@ declare namespace Rule {
   /**
    * A tuple to be processed by make
    */
-  export type MakeIn = [
-    string,
-    Framework.MaybeCallable<unknown>,
-  ]
+  export type MakeIn = [string, Framework.MaybeCallable<unknown>]
 
   /**
    * Rule as iterable tuples.

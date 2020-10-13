@@ -32,11 +32,17 @@ export declare class Build {
 
   public getItem(name: string): Build.Item.Product
 
-  public setItem(name: string, module: Build.Item.Module): Build.Item
+  public setItem(
+    name: string,
+    module: Build.Item.Module,
+  ): Build.Item
 
-  public getRule(name: string): Build.Rule.Product
+  public getRule(name: string): Build.Rule.Generic
 
-  public setRule(name: string, module: Build.Rule.Module): Build.Rule
+  public setRule(
+    name: string,
+    module: Build.Rule.Module,
+  ): Build.Rule
 }
 
 export {Item} from './Item'

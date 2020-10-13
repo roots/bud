@@ -1,4 +1,5 @@
 import * as babel from './babel'
+import type {RuleSetUse} from 'webpack'
 
 export const registerLoader = [
   'babel',
@@ -11,7 +12,7 @@ export const boot = (bud: Framework.Bud): void => {
   bud.build.mergeRule('js', {
     use: [
       bud.build.getItem('babel'),
-      ...bud.build.getRule('js').use,
+      ...(bud.build.getRule('js').use as RuleSetUse[]),
     ],
   })
 }
