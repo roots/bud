@@ -1,4 +1,5 @@
 import type Webpack from 'webpack'
+import webpack from 'webpack'
 
 export {Rule}
 
@@ -96,7 +97,7 @@ declare class Rule {
   /**
    * Use
    */
-  public use?: Build.Rule.Use
+  public use?: Webpack.RuleSetRule['use']
 
   /**
    * Class constructor

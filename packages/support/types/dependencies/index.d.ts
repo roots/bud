@@ -4,5 +4,5 @@ import yargs from 'yargs';
 import globby from 'globby';
 import fsExtra from 'fs-extra';
 import futil from 'futil-js';
-export { lodash, futil, execa, fsExtra as fs, globby, yargs, };
+export { lodash, futil, execa, fsExtra as fs, globby, yargs };
 //# sourceMappingURL=index.d.ts.map

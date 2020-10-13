@@ -7,5 +7,5 @@ export { WatchMissingNodeModulesPlugin } from './util';
 export { InterpolateHtmlPlugin } from './util';
 export { checkRequiredFiles, dump } from './util';
 export { processHandler } from './util';
-export { execa, fs, globby, lodash, futil, yargs } from './dependencies';
+export { execa, fs, globby, lodash, futil, yargs, } from './dependencies';
 //# sourceMappingURL=index.d.ts.map
