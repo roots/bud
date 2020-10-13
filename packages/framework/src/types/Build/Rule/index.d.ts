@@ -97,7 +97,9 @@ declare class Rule {
   /**
    * Use
    */
-  public use?: Webpack.RuleSetRule['use']
+  public use?:
+    | Webpack.RuleSetUseItem[]
+    | Rule.Factory<Webpack.RuleSetUseItem[]>
 
   /**
    * Class constructor
