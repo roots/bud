@@ -37,7 +37,7 @@ export declare class Build {
     module: Build.Item.Module,
   ): Build.Item
 
-  public getRule(name: string): Build.Rule.Generic
+  public getRule(name: string): Build.Rule.Product
 
   public setRule(
     name: string,
