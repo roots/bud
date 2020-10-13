@@ -77,6 +77,20 @@ bud.distPath(
   bud.args.has('dist') ? bud.args.get('dist') : 'dist',
 )
 
+bud.features.enabled('html') && bud.template()
+bud.features.enabled('minify') && bud.minify()
+bud.features.enabled('gzip') && bud.gzip()
+bud.features.enabled('brotli') && bud.brotli()
+bud.features.enabled('hash') && bud.hash()
+bud.features.enabled('runtime') && bud.runtime()
+bud.features.enabled('vendor') && bud.vendor()
+bud.features.enabled('devtool') &&
+  (() => {
+    bud.devtool(
+      bud.args.get('devtool') ?? '#@cheap-eval-source-map',
+    )
+  })
+
 /**
  * Stow project files
  */
@@ -103,24 +117,6 @@ bud.fs.exists('.browserslist') &&
     'browserslist',
     bud.fs.require('.browserslist'),
   )
-
-bud.features.enabled('html') && bud.template()
-bud.features.enabled('minify') && bud.minify()
-bud.features.enabled('gzip') && bud.gzip()
-bud.features.enabled('brotli') && bud.brotli()
-bud.features.enabled('hash') && bud.hash()
-bud.features.enabled('runtime') &&
-  bud.runtime(bud.args.get('runtime') ?? null)
-
-bud.features.enabled('vendor') &&
-  bud.vendor(bud.args.get('vendor') ?? null)
-
-bud.features.enabled('devtool') &&
-  (() => {
-    bud.devtool(
-      bud.args.get('devtool') ?? '#@cheap-eval-source-map',
-    )
-  })
 
 export default bud
 module.exports = bud

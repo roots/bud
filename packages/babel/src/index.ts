@@ -8,10 +8,10 @@ export const registerLoader = [
 export const registerItem = ['babel', babel]
 
 export const boot = (bud: Framework.Bud): void => {
-  const base = bud.build.rules.js.use(bud)
+  const use = item => bud.build.items[item]?.make()
 
-  bud.build.rules.js.use = (bud: Framework.Bud) => [
-    ...base,
-    bud.build.items.babel.make(),
+  bud.build.rules.js.use = [
+    use('babel'),
+    ...bud.build.getRule('js').use,
   ]
 }

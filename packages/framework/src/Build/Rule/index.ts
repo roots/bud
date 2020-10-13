@@ -22,7 +22,7 @@ export class Rule implements Build.Rule {
   public compiler?: Build.Rule.Conditional
   public rules?: Build.Rule.OneOf
   public test?: Build.Rule.Conditional
-  public use?: Build.Loader
+  public use?: Build.Rule.Use
 
   constructor(bud: Framework.Bud, rule: unknown) {
     this.bud = bud

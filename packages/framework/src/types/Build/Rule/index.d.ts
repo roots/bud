@@ -96,7 +96,7 @@ declare class Rule {
   /**
    * Use
    */
-  public use?: Build.Loader
+  public use?: Build.Rule.Use
 
   /**
    * Class constructor

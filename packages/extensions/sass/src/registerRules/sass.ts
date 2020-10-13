@@ -1,7 +1,6 @@
 import * as syntax from 'postcss-scss'
 
-export const test: Conditional = bud =>
-  bud.patterns.get('sass')
+export const test: Conditional = bud => bud.patterns.get('sass')
 
 export const exclude: Exclude = bud =>
   bud.patterns.get('modules')
