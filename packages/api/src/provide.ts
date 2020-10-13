@@ -1,4 +1,4 @@
-import {_} from '@roots/bud-support'
+import {lodash as _} from '@roots/bud-support'
 
 export const provide: Api.Provide = function (options) {
   Object.entries(options).forEach(([key, modules]) => {
