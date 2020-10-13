@@ -1,4 +1,4 @@
-import {Configuration} from 'webpack'
+import webpack, {Configuration} from 'webpack'
 
 import {Item} from './Item'
 import {Rule} from './Rule'
@@ -6,6 +6,7 @@ import {Rule} from './Rule'
 import * as builders from './builders'
 import * as config from './config'
 import Container from '@roots/container'
+import {lodash as _} from '@roots/bud-support'
 
 export class Build implements Framework.Build {
   public bud: Framework.Bud
@@ -58,13 +59,32 @@ export class Build implements Framework.Build {
     return this.items[name]
   }
 
-  public getRule(name: string): Build.Rule.Product {
+  public mergeItem(
+    item: string,
+    value: Partial<Build.Item>,
+  ): void {
+    const merged: Partial<Build.Item> = {}
+    _.merge(merged, this.items[item].make(), value)
+
+    this.setItem(item, merged)
+  }
+
+  public getRule(name: string): webpack.RuleSetRule {
     return this.rules[name].make()
   }
 
   public setRule(name: string, module: Build.Rule.Module): Rule {
     this.rules[name] = new Rule(this.bud, module)
-
     return this.rules[name]
+  }
+
+  public mergeRule(
+    rule: string,
+    value: Partial<Build.Rule>,
+  ): void {
+    const merged: Partial<Build.Rule> = {}
+    _.merge(merged, this.rules[rule].make(), value)
+
+    this.setRule(rule, merged)
   }
 }

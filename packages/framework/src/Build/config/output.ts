@@ -1,5 +1,5 @@
 import {Configuration} from 'webpack'
-import {resolve} from 'path'
+import {join} from 'path'
 
 export const chunkFilename: Configuration['output']['chunkFilename'] =
   '[name].js'
@@ -16,7 +16,7 @@ export const filename: Configuration['output']['filename'] =
 export const publicPath: Configuration['output']['publicPath'] =
   '/'
 
-export const path: Configuration['output']['path'] = resolve(
+export const path: Configuration['output']['path'] = join(
   process.cwd(),
   'build',
 )

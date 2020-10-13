@@ -2,7 +2,7 @@ import {Bud} from '@roots/bud-framework'
 import * as Babel from '@roots/bud-babel'
 import * as PostCSS from '@roots/bud-postcss'
 import {ingestConfig} from './helpers/ingestConfig'
-import {lodash as _} from '@roots/bud-support'
+import {_} from '@roots/bud-support'
 
 /**
  * Instantiate Bud.

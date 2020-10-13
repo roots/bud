@@ -1,4 +1,4 @@
-import { Configuration } from 'webpack';
+import webpack, { Configuration } from 'webpack';
 import { Item } from './Item';
 import { Rule } from './Rule';
 import Container from '@roots/container';
@@ -15,7 +15,9 @@ export declare class Build implements Framework.Build {
     setLoader(name: string, loader: Build.Loader): Build.Loader;
     getItem(name: string): Build.Item.Product;
     setItem(name: string, module: Build.Item.Module): Item;
-    getRule(name: string): Build.Rule.Product;
+    mergeItem(item: string, value: Partial<Build.Item>): void;
+    getRule(name: string): webpack.RuleSetRule;
     setRule(name: string, module: Build.Rule.Module): Rule;
+    mergeRule(rule: string, value: Partial<Build.Rule>): void;
 }
 //# sourceMappingURL=index.d.ts.map

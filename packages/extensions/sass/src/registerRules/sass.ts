@@ -15,9 +15,7 @@ export const use: Build.Rule.Factory<Build.Rule.Use> = bud => {
     use('resolveUrl'),
   ]
 
-  if (!bud.build.items.hasOwnProperty('postcss')) {
-    return base
-  }
+  if (!bud.build.items.hasOwnProperty('postcss')) return base
 
   bud.build.items.postcss.options.postcssOptions.syntax = syntax
   bud.build.items.css.options.importLoaders = 2
