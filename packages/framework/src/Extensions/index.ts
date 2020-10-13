@@ -112,7 +112,7 @@ export class Extensions implements Framework.Extensions {
    */
   public processRuleItems(extension: Framework.Extension): void {
     extension.hasOwnProperty('registerItem') &&
-      this.bud.build.makeItem(
+      this.bud.build.setItem(
         extension.registerItem[0],
         extension.registerItem[1],
       )
@@ -120,7 +120,11 @@ export class Extensions implements Framework.Extensions {
     extension.hasOwnProperty('registerItems') &&
       Object.entries(extension.registerItems).map(
         ([, item]: [string, Build.Item.Module]) => {
-          this.bud.build.makeItem(item.ident, item)
+          const name =
+            typeof item.ident == 'function'
+              ? item.ident(this.bud)
+              : item.ident
+          this.bud.build.setItem(name, item)
         },
       )
   }
@@ -130,7 +134,7 @@ export class Extensions implements Framework.Extensions {
    */
   public processRules(extension: Framework.Extension): void {
     extension.hasOwnProperty('registerRule') &&
-      this.bud.build.makeRule(
+      this.bud.build.setRule(
         extension.registerRule[0],
         extension.registerRule[1],
       )
@@ -138,7 +142,7 @@ export class Extensions implements Framework.Extensions {
     extension.hasOwnProperty('registerRules') &&
       Object.entries(extension.registerRules).map(
         ([name, rule]) => {
-          this.bud.build.makeRule(name, rule)
+          this.bud.build.setRule(name, rule)
         },
       )
   }

@@ -1,12 +1,14 @@
 import * as Webpack from 'webpack'
 
+export as namespace Extension
+
 /**
  * Extension interface
  *
  * @export
  * @interface Extension
  */
-export declare interface Extension {
+declare interface Extension {
   /**
    * Framework
    */
@@ -63,7 +65,7 @@ export declare interface Extension {
  *
  * @namespace {Extension}
  */
-export declare namespace Extension {
+declare namespace Extension {
   /**
    * Plugin options
    */
