@@ -1,16 +1,14 @@
 export const optimization: Build.Optimization = function ({
   optimization,
 }) {
-  const runtimeChunk = this.store['features'].enabled(
-    'runtimeChunk',
-  )
+  const runtimeChunk = this.features.enabled('runtimeChunk')
     ? this.hooks.filter(
         'optimization.runtimeChunk',
         optimization.runtimeChunk,
       )
     : false
 
-  const vendor = this.store['features'].enabled('vendor')
+  const vendor = this.features.enabled('vendor')
     ? this.hooks.filter(
         'optimization.splitChunks.cacheGroups.vendor',
         optimization.splitChunks.cacheGroups.vendor,
@@ -29,7 +27,7 @@ export const optimization: Build.Optimization = function ({
 
       minimize: this.hooks.filter(
         'optimization.minimize',
-        this.store['features'].enabled('minify'),
+        this.features.enabled('minify'),
       ),
 
       removeAvailableModules: this.hooks.filter(

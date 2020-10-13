@@ -29,5 +29,5 @@ export const options: TerserPluginOptions = {
 export const make: Adapter.make = (opts: TerserPluginOptions) =>
   new TerserPlugin(opts)
 
-export const when: Adapter.when = ({store}) =>
-  store['features'].enabled('minify')
+export const when: Adapter.when = ({features}) =>
+  features.enabled('minify')

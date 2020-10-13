@@ -7,29 +7,25 @@ import * as builders from './builders'
 import * as config from './config'
 import Container from '@roots/container'
 
-export class Build {
+export class Build implements Framework.Build {
   public bud: Framework.Bud
 
   public builders: Partial<Build.Builders> = builders
 
-  public loaders: Framework.Index<Build.Loader>
+  public loaders: Framework.Index<Build.Loader> = {}
 
-  public items: Framework.Index<Item>
+  public items: Framework.Index<Item> = {}
 
-  public rules: Framework.Index<Rule>
+  public rules: Framework.Index<Rule> = {}
 
   public config: Container
 
   public constructor(bud: Framework.Bud) {
     this.bud = bud
-    this.compile = this.compile.bind(this)
     this.config = new Container(config)
-    this.loaders = {}
-    this.items = {}
-    this.rules = {}
   }
 
-  public compile(this: Framework.Bud): Configuration {
+  public compile(): Configuration {
     return Object.entries(builders).reduce(
       (config, [, builder]: [string, Build.Builders]) => ({
         ...config,
@@ -39,27 +35,36 @@ export class Build {
     )
   }
 
-  public makeLoader(
+  public getLoader(name: string): Build.Loader {
+    return this.loaders[name]
+  }
+
+  public setLoader(
     name: string,
     loader: Build.Loader,
   ): Build.Loader {
     this.loaders[name] = loader
-    return loader
+
+    return this.loaders[name]
   }
 
-  public makeItem(
-    name: string,
-    module: Build.Item.Module,
-  ): Item {
+  public getItem(name: string): Build.Item.Product {
+    return this.items[name].make()
+  }
+
+  public setItem(name: string, module: Build.Item.Module): Item {
     this.items[name] = new Item(this.bud, module)
+
     return this.items[name]
   }
 
-  public makeRule(
-    name: string,
-    module: Build.Rule.Module,
-  ): Rule {
+  public getRule(name: string): Build.Rule.Product {
+    return this.rules[name].make()
+  }
+
+  public setRule(name: string, module: Build.Rule.Module): Rule {
     this.rules[name] = new Rule(this.bud, module)
+
     return this.rules[name]
   }
 }

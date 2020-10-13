@@ -1,5 +1,3 @@
-import {lodash as _} from '@roots/bud-support'
-
 /**
  * Boots and handles extension lifecycle concerns.
  */
@@ -101,10 +99,11 @@ export class Extensions implements Framework.Extensions {
    */
   public processLoaders(extension: Framework.Extension): void {
     extension.hasOwnProperty('registerLoader') &&
-      this.bud.build.makeLoader(...extension.registerLoader)
+      this.bud.build.setLoader(...extension.registerLoader)
+
     extension.hasOwnProperty('registerLoaders') &&
       Object.entries(extension.registerLoaders).map(loader =>
-        this.bud.build.makeLoader(...loader),
+        this.bud.build.setLoader(...loader),
       )
   }
 
@@ -153,6 +152,15 @@ export class Extensions implements Framework.Extensions {
     Object.entries(methods).map(([name, fn]) => {
       this.bud[name] = fn.bind(this.bud)
     })
+  }
+
+  /**
+   * Get an extension instance.
+   */
+  public getExtension = function (
+    name: string,
+  ): Framework.Extension {
+    return this.extensions[name]
   }
 
   /**

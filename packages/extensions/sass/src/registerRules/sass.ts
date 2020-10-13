@@ -1,10 +1,10 @@
 import * as syntax from 'postcss-scss'
 
 export const test: Conditional = bud =>
-  bud.store['patterns'].get('sass')
+  bud.patterns.get('sass')
 
 export const exclude: Exclude = bud =>
-  bud.store['patterns'].get('modules')
+  bud.patterns.get('modules')
 
 export const use: Build.Rule.Factory<Build.Rule.Use> = bud => {
   const use: UseLoader = item => bud.build.items[item]?.make()

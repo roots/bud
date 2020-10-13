@@ -37,5 +37,4 @@ export const context: Configuration['context'] = normalize(
   join(process.cwd(), 'src'),
 )
 
-export const devtool: Configuration['devtool'] =
-  '#@cheap-eval-source-map'
+export const devtool: Configuration['devtool'] = false

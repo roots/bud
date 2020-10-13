@@ -1,24 +1,27 @@
 import Compiler from '@roots/bud-compiler'
-import {Build} from '../Build'
-import Env from './env'
-import Hooks from '../Hooks'
-import {Extensions} from '../Extensions'
 import {FileContainer, FileSystem} from '@roots/filesystem'
-import Mode from './mode'
-import {Server, ServerModel} from '@roots/bud-server'
-import Store from '../Store'
+import * as api from '@roots/bud-api'
 
-import * as api from '@roots/bud-config'
+import {Build} from '../Build'
+import {Hooks} from '../Hooks'
+import {Extensions} from '../Extensions'
+import {Features} from '../Features'
+import {Mode} from '../Mode'
+import {Server} from '@roots/bud-server'
+
+import {args} from './args'
+import {env} from './env'
 import * as items from './items'
-import * as model from '../Model'
 import * as rules from './rules'
+import * as patterns from './patterns'
 import * as plugins from './plugins'
 import * as loaders from './loaders'
 
 import format from './util/format'
 import pretty from './util/pretty'
+import Container from '@roots/container'
 
-class Bud implements Framework.Bud {
+export class Bud implements Framework.Bud {
   /**
    * @note I'm not sure how to type something this flexible.
    */
@@ -30,23 +33,25 @@ class Bud implements Framework.Bud {
 
   public compiler: Framework.Bud['compiler']
 
-  public disks: Framework.Bud['disks']
+  public disk: Framework.Bud['disk']
 
   public env: Framework.Env
 
+  public fs: FileContainer
+
   public extensions: Framework.Bud['extensions']
 
-  public fs: Framework.Bud['fs']
+  public features: Framework.Features
 
   public hooks: Framework.Bud['hooks']
+
+  public mode: Framework.Mode
 
   public server: Framework.Bud['server']
 
   public logger: Framework.Bud['logger']
 
   public mode: Framework.Bud['mode']
-
-  public store: Framework.Bud['store']
 
   public util: Framework.Bud['util'] = {
     format,
@@ -59,15 +64,16 @@ class Bud implements Framework.Bud {
    * @memberof Bud
    */
   public constructor() {
-    this.env = Env
-    this.hooks = Hooks(this.logger)
-    this.components = new Store()
-    this.store = new Store()
+    this.args = new Container(args)
     this.build = new Build(this)
-    this.extensions = new Extensions(this)
-    this.disks = new FileSystem()
-    this.fs = new FileContainer()
     this.compiler = new Compiler()
+    this.disk = new FileSystem()
+    this.env = env
+    this.extensions = new Extensions(this)
+    this.features = new Features()
+    this.fs = new FileContainer()
+    this.hooks = Hooks(this.logger)
+    this.patterns = new Container(patterns)
     this.server = new Server()
 
     this.init()
@@ -77,41 +83,32 @@ class Bud implements Framework.Bud {
    * Initialize class.
    */
   public init: Framework.Bud['init'] = function () {
-    /**
-     * Load the Bud.Store with initial models.
-     */
-    Object.entries(model).map(([name, model]) => {
-      this.store.create(name, model)
-
-      this[name] = this.store[name]
-    })
-
-    this.store.create('server', ServerModel)
-
-    this.mode = new Mode(this.build.config)
+    this.mode = Mode(this.build.config)
 
     Object.entries(api).map(
       ([name, fn]: [string, CallableFunction]) => {
         this[name] = fn.bind(this)
       },
     )
+
     Object.entries(loaders).map(
       ([name, loader]: [string, Build.Loader]) => {
-        return this.build.makeLoader(name, loader)
-      },
-    )
-    Object.entries(items).map(
-      ([name, item]: [string, Build.Item.Module]) => {
-        return this.build.makeItem(name, item)
-      },
-    )
-    Object.entries(rules).map(
-      ([name, rule]: [string, Build.Rule.Module]) => {
-        return this.build.makeRule(name, rule)
+        return this.build.setLoader(name, loader)
       },
     )
 
-    // Boot webpack plugins.
+    Object.entries(items).map(
+      ([name, item]: [string, Build.Item.Module]) => {
+        return this.build.setItem(name, item)
+      },
+    )
+
+    Object.entries(rules).map(
+      ([name, rule]: [string, Build.Rule.Module]) => {
+        return this.build.setRule(name, rule)
+      },
+    )
+
     this.extensions.boot(plugins)
   }
 
@@ -123,29 +120,9 @@ class Bud implements Framework.Bud {
     baseDir?,
     glob?,
   ): FileContainer {
-    return this.disks.set(key, {
+    return this.disk.set(key, {
       baseDir,
       glob,
     })
   }
-
-  /**
-   * Load a disk in place of the current one.
-   */
-  public useDisk: Framework.Bud['useDisk'] = function (
-    key = Bud.PRIMARY_DISK,
-  ) {
-    return this.disks.get(key)
-  }
-
-  /**
-   * Make a container.
-   */
-  public makeContainer: Framework.Bud['makeContainer'] = function (
-    baseDir,
-  ) {
-    return new FileContainer(baseDir ?? process.cwd())
-  }
 }
-
-export {Bud}

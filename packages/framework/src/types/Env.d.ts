@@ -1,4 +1,4 @@
-import dotenv from 'dotenv'
+import type dotenv from 'dotenv'
 
 /**
  * Environment utility.

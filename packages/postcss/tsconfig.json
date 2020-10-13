@@ -11,6 +11,6 @@
   "include": ["./src"],
   "exclude": ["./lib"],
   "references": [
-    {"@roots/bud-config": "../config"},
+    {"@roots/bud-api": "../api"},
   ]
 }

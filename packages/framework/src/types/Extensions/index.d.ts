@@ -1,7 +1,7 @@
-import type {Bud} from '../../Bud'
+import type {Bud} from '../Bud'
 import type {Extension} from '../Extension'
 
-export {Extensions}
+export as namespace Extensions
 
 /**
  * Extensions controller
@@ -15,11 +15,9 @@ declare class Extensions {
   bud: Bud
 
   /**
-   * Keyed extensions
-   *
-   * @type {Framework.Index<Extension.Interface>}
+   * @type {Framework.Index<Framework.Extension>}
    */
-  extensions: Framework.Index<Extension>
+  extensions: Framework.Index<Framework.Extension>
 
   /**
    * Register extension
@@ -51,11 +49,10 @@ declare class Extensions {
    * Set the options on a booted extension.
    *
    * @param {string} extension
-   * @param {Framework.Index<unknown>} options
    */
   setOptions: (
     extension: string,
-    options: Framework.Index<unknown>,
+    options: any,
   ) => void
 
   /**

@@ -4,7 +4,7 @@ import {Server} from '@roots/bud-server'
 import {FileContainer, FileSystem} from '@roots/filesystem'
 import {BuiltInParserName} from 'prettier'
 
-declare class Bud {
+export declare class Bud {
   /**
    * @note I'm not sure how to type something this flexible.
    */
@@ -15,7 +15,6 @@ declare class Bud {
    *
    * @description Generates webpack configuration
    * @type {Bud.Build}
-   * @memberof Bud
    */
   build: Framework.Build
 
@@ -23,7 +22,6 @@ declare class Bud {
    * Compiler instance.
    *
    * @type {Compiler}
-   * @memberof Bud
    */
   compiler: Compiler
 
@@ -31,9 +29,8 @@ declare class Bud {
    * Disks instance.
    *
    * @type {FileSystem}
-   * @memberof Bud
    */
-  disks: FileSystem
+  disk: FileSystem
 
   /**
    * Env variables.
@@ -41,31 +38,30 @@ declare class Bud {
    * @note this variable is frozen.
    *
    * @type {Bud.Env}
-   * @memberof Bud
    */
   env: Framework.Env
+
+  /**
+   * File container.
+   */
+  fs: FileContainer
 
   /**
    * Extensions controller.
    *
    * @type {Controller}
-   * @memberof Bud
    */
   extensions: Framework.Extensions
 
   /**
-   * Filesystem.
-   *
-   * @type {FileContainer}
-   * @memberof Bud
+   * Features.
    */
-  fs: FileContainer
+  features: Framework.Features
 
   /**
    * Hooks system.
    *
    * @type {Hooks}
-   * @memberof Bud
    */
   hooks: Framework.Hooks
 
@@ -73,7 +69,6 @@ declare class Bud {
    * WDS wrapper.
    *
    * @type {Server.Interface}
-   * @memberof Bud
    */
   server: Server
 
@@ -81,7 +76,6 @@ declare class Bud {
    * Logger
    *
    * @type {pino.Logger}
-   * @memberof Bud
    */
   logger: pino.Logger
 
@@ -89,18 +83,8 @@ declare class Bud {
    * Mode
    *
    * @type {Framework.Mode}
-   * @memberof Bud
    */
   mode: Framework.Mode
-
-  /**
-   * Key/Value store.
-   *
-   * @see {Index<T>}
-   * @type {Store}
-   * @memberof Bud
-   */
-  store: Framework.Store
 
   /**
    * Utilities/helpers.
@@ -120,7 +104,6 @@ declare class Bud {
    * Initialize the instance of Bud.
    *
    * @private
-   * @memberof Bud
    */
   init(): void
 
@@ -131,29 +114,10 @@ declare class Bud {
    * @param {string} [baseDir]
    * @param {string[]} [glob]
    * @returns {FileContainer}
-   * @memberof Bud
    */
   makeDisk(
     key: string,
     baseDir?: string,
     glob?: string[],
   ): FileContainer
-
-  /**
-   * Load a disk in place of the current one.
-   *
-   * @param {string} [key=Bud.PRIMARY_DISK]
-   * @returns {FileContainer}
-   * @memberof Bud
-   */
-  useDisk(key: string): FileContainer
-
-  /**
-   * Make a container.
-   *
-   * @param {string} baseDir
-   * @returns {FileContainer}
-   * @memberof Bud
-   */
-  makeContainer(baseDir: string): FileContainer
 }

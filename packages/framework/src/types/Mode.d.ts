@@ -1,14 +1,11 @@
-import type {Bud} from '../Bud'
 import type Webpack from 'webpack'
-
-export {Mode}
 
 /**
  * Mode
  *
  * Helper utility for determining current compilation mode.
  */
-declare type Mode = {
+export declare type Mode = {
   /**
    * Check the currently set mode.
    */
@@ -28,7 +25,7 @@ declare type Mode = {
 /**
  * Mode namespace
  */
-declare namespace Mode {
+export declare namespace Mode {
   /**
    * All possible modes ('development' | 'production' | 'none')
    */

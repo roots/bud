@@ -14,7 +14,10 @@ declare class Item {
   query?: Item.MaybeCallable<Item.Module.Query>
 
   propMap: () => Framework.Index<
-    [Build.Item.Property, Framework.Store | Framework.Bud]
+    [
+      Build.Item.Property,
+      Framework.Index<Build.Loader> | Framework.Bud,
+    ]
   >
 
   getIdent: Item.Getter<Item.Module.Ident>

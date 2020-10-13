@@ -6,7 +6,7 @@ import Framework from '../types';
  * @description
  *  A container of containers.
  */
-declare class Store {
+export declare class Store implements Framework.Store {
     /**
      * The store repository
      *
@@ -55,5 +55,4 @@ declare class Store {
      */
     use: Framework.Store.Use;
 }
-export default Store;
 //# sourceMappingURL=index.d.ts.map

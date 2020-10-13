@@ -21,11 +21,11 @@
     {"@roots/bud-framework": "../framework"},
     {"@roots/bud-babel": "../babel"},
     {"@roots/bud-support": "../support"},
-    {"@roots/bud-config": "../config"},
+    {"@roots/bud-api": "../api"},
     {"@roots/bud-cli": "../cli"},
     {"@roots/bud-build": "../build"},
     {"@roots/bud-compiler": "../compiler"},
-    {"@roots/bud-config": "../config"},
+    {"@roots/bud-api": "../api"},
     {"@roots/bud-webpack": "../webpack"},
     {"@roots/bud-server": "../server"},
     {"@roots/bud-postcss": "../postcss"}

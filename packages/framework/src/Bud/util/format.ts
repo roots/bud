@@ -1,6 +1,6 @@
 import prettyFormat from 'pretty-format'
 
-const format = (obj: any, options = {}): string =>
+const format = (obj: unknown, options = {}): string =>
   prettyFormat(obj, {
     callToJSON: true,
     highlight: true,

@@ -4,16 +4,23 @@ import Container from '@roots/container'
 import FileContainer from './FileContainer'
 
 class FileSystem extends Container {
+  public current: FileContainer
+
   constructor() {
     super()
   }
 
   public get(key: string): FileContainer {
-    return __.get(this.repository, key)
+    this.current = __.get(this.repository, key)
+    return this.current
   }
 
   public ls(key?: string): Container.Item {
     return key ? __.get(this.repository, key) : this.repository
+  }
+
+  public get baseDir(): string {
+    return this.current.getBase()
   }
 
   public set(
@@ -40,7 +47,7 @@ class FileSystem extends Container {
 
     this.repository[key] = disk
 
-    return this.get(key)
+    return (this.current = this.get(key))
   }
 }
 

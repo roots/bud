@@ -1,6 +1,5 @@
-declare const _default: any;
 /**
  * Environment variables
  */
-export default _default;
+export declare const env: any;
 //# sourceMappingURL=env.d.ts.map

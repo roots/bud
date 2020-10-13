@@ -6,6 +6,37 @@ export as namespace Build
 
 export declare class Build {
   [key: string]: any
+
+  public bud: Framework.Bud
+
+  public builders: Partial<Build.Builders>
+
+  public loaders: Framework.Index<Build.Loader>
+
+  public items: Framework.Index<Build.Item>
+
+  public rules: Framework.Index<Build.Rule>
+
+  public config: Container
+
+  public constructor(bud: Framework.Bud)
+
+  public compile(): Configuration
+
+  public getLoader(name: string): Build.Loader
+
+  public setLoader(
+    name: string,
+    loader: Build.Loader,
+  ): Build.Loader
+
+  public getItem(name: string): Build.Item.Product
+
+  public setItem(name: string, module: Build.Item.Module): Build.Item
+
+  public getRule(name: string): Build.Rule.Product
+
+  public setRule(name: string, module: Build.Rule.Module): Build.Rule
 }
 
 export {Item} from './Item'

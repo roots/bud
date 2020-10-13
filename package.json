@@ -23,11 +23,11 @@
   },
   "workspaces": {
     "packages": [
+      "packages/api",
       "packages/babel",
       "packages/bud",
       "packages/cli",
       "packages/compiler",
-      "packages/config",
       "packages/container",
       "packages/dependencies",
       "packages/filesystem",

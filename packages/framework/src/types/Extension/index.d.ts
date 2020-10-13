@@ -1,14 +1,12 @@
 import * as Webpack from 'webpack'
 
-export {Extension}
-
 /**
  * Extension interface
  *
  * @export
  * @interface Extension
  */
-declare interface Extension {
+export declare interface Extension {
   /**
    * Framework
    */
@@ -32,10 +30,9 @@ declare interface Extension {
   /**
    * Register Items
    */
-  registerLoader?:
-    [string, Build.Item['loader']]
-  registerLoaders?:
-    Framework.Index<Framework.Extension['registerLoader']>
+  registerLoader?: [string, Build.Loader]
+
+  registerLoaders?: Framework.Index<Build.Loader>
 
   /**
    * Register Items
@@ -66,7 +63,7 @@ declare interface Extension {
  *
  * @namespace {Extension}
  */
-declare namespace Extension {
+export declare namespace Extension {
   /**
    * Plugin options
    */

@@ -13,8 +13,8 @@ export const make: (
 ) => InterpolateHtmlPlugin = ({replacements}) =>
   new InterpolateHtmlPlugin(HtmlWebpackPlugin, replacements)
 
-export const when: Adapter.when = ({store}) =>
-  store['features'].enabled('html')
+export const when: Adapter.when = ({features}) =>
+  features.enabled('html')
 
 declare type Options = {
   replacements: {

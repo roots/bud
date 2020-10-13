@@ -19,7 +19,7 @@
     {"@roots/dependencies": "../dependencies"},
     {"@roots/filesystem": "../filesystem"},
     {"@roots/bud-support": "../support"},
-    {"@roots/bud-config": "../config"},
+    {"@roots/bud-api": "../api"},
     {"@roots/bud-cli": "../cli"},
     {"@roots/bud-build": "../build"},
     {"@roots/bud-compiler": "../compiler"}

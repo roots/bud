@@ -1,7 +1,7 @@
 /**
  * Build Item
  */
-export class Item {
+export class Item implements Build.Item {
   /**
    * The Bud instance.
    *
@@ -44,13 +44,11 @@ export class Item {
   /**
    * Prop map
    */
-  public propMap(): Framework.Index<
-    [Build.Item.Property, Framework.Store | Framework.Bud]
-  > {
+  public propMap: Build.Item['propMap'] = function () {
     return {
       ident: [this.ident, this.bud],
       query: [this.query, this.bud],
-      loader: [this.loader, this.bud.components['loaders']],
+      loader: [this.loader, this.bud.build.loaders],
       options: [this.options, this.bud],
     }
   }

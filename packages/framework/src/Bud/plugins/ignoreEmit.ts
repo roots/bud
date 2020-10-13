@@ -22,9 +22,10 @@ export const make: Framework.Extension['make'] = (
   return new IgnoreEmitPlugin(options)
 }
 
-export const when: Framework.Extension['when'] = (
-  bud: Framework.Bud,
-) => {
-  const options = bud.extensions.getOptions('ignoreEmit')?.length
-  return options > 0
+export const when: Framework.Extension['when'] = ({
+  extensions,
+}) => {
+  const options = extensions.getOptions('ignoreEmit')
+
+  return options?.length && options.length > 0
 }

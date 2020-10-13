@@ -35,7 +35,7 @@ export interface PluginStore {
 
 export type Adapter = Framework.Extension
 
-export type Config = Framework.Config.Fluent<
+export type Config = Framework.Api.Fluent<
   Framework.Bud,
   Options
 >

@@ -4,7 +4,7 @@
  * @typedef {Build.Rule.Rule}
  * @yields {Webpack.RuleSetRule}
  */
-export class Rule {
+export class Rule implements Build.Rule {
   public bud: Framework.Bud
   public enforce?: Build.Rule.Enforce
   public exclude?: Build.Rule.Conditional

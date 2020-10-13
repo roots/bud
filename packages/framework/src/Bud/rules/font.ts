@@ -2,7 +2,7 @@
  * Font test
  */
 export const test: Build.Rule.Factory<Build.Rule.Conditional> = bud =>
-  bud.store['patterns'].get('font')
+  bud.patterns.get('font')
 
 /**
  * Font: Loaders

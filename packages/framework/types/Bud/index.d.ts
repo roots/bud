@@ -1,4 +1,5 @@
-declare class Bud implements Framework.Bud {
+import { FileContainer } from '@roots/filesystem';
+export declare class Bud implements Framework.Bud {
     /**
      * @note I'm not sure how to type something this flexible.
      */
@@ -6,15 +7,16 @@ declare class Bud implements Framework.Bud {
     private static PRIMARY_DISK;
     build: Framework.Build;
     compiler: Framework.Bud['compiler'];
-    disks: Framework.Bud['disks'];
+    disk: Framework.Bud['disk'];
     env: Framework.Env;
+    fs: FileContainer;
     extensions: Framework.Bud['extensions'];
-    fs: Framework.Bud['fs'];
+    features: Framework.Features;
     hooks: Framework.Bud['hooks'];
+    mode: Framework.Mode;
     server: Framework.Bud['server'];
     logger: Framework.Bud['logger'];
     mode: Framework.Bud['mode'];
-    store: Framework.Bud['store'];
     util: Framework.Bud['util'];
     /**
      * Creates an instance of Bud.
@@ -30,14 +32,5 @@ declare class Bud implements Framework.Bud {
      * Make a new disk virtual disk.
      */
     makeDisk: Framework.Bud['makeDisk'];
-    /**
-     * Load a disk in place of the current one.
-     */
-    useDisk: Framework.Bud['useDisk'];
-    /**
-     * Make a container.
-     */
-    makeContainer: Framework.Bud['makeContainer'];
 }
-export { Bud };
 //# sourceMappingURL=index.d.ts.map

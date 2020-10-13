@@ -15,6 +15,7 @@ export default class FileContainer extends Container {
     base: string;
     constructor(baseDir?: string);
     setBase: (dir: string) => void;
+    getBase: () => string;
     setDisk(glob: string[]): void;
     ls(key?: string): Container.Item;
     get(key: string): Container.Item;

@@ -1,0 +1,46 @@
+{
+  "name": "@roots/bud-api",
+  "version": "2.0.0-next.24",
+  "description": "Bud configuration API",
+  "homepage": "https://roots.io/bud",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "packages/bud"
+  },
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "license": "MIT",
+  "contributors": [
+    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
+  ],
+  "engines": {
+    "node": ">=12"
+  },
+  "files": ["./lib", "./types", "./src"],
+  "main": "lib/index.js",
+  "types": "./src/types/index.d.ts",
+  "scripts": {
+    "build": "tsc --build",
+    "clean:lib": "rimraf ./lib",
+    "clean:modules": "rimraf ./node_modules",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@roots/bud-compiler": "2.0.0-next.24",
+    "@roots/bud-server": "^2.0.0-next.24",
+    "@roots/bud-support": "2.0.0-next.24"
+  },
+  "devDependencies": {
+    "autoprefixer": "^10.0.1",
+    "postcss": "^8.1.1",
+    "postcss-loader": "^4.0.2",
+    "terser": "^5.3.4"
+  },
+  "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5"
+}

@@ -1,1 +1,1 @@
-{"version":3,"file":"format.d.ts","sourceRoot":"","sources":["../../../src/Bud/util/format.ts"],"names":[],"mappings":"AAEA,QAAA,MAAM,MAAM,QAAS,GAAG,mBAAiB,MAMrC,CAAA;AAEJ,OAAO,EAAC,MAAM,IAAI,OAAO,EAAC,CAAA"}
+{"version":3,"file":"format.d.ts","sourceRoot":"","sources":["../../../src/Bud/util/format.ts"],"names":[],"mappings":"AAEA,QAAA,MAAM,MAAM,QAAS,OAAO,mBAAiB,MAMzC,CAAA;AAEJ,OAAO,EAAC,MAAM,IAAI,OAAO,EAAC,CAAA"}

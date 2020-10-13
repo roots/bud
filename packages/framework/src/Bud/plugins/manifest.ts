@@ -12,5 +12,5 @@ export const make: (
   opts: ManifestPlugin.Options,
 ) => ManifestPlugin = opts => new ManifestPlugin(opts)
 
-export const when: Adapter.when = ({store}) =>
-  store['features'].enabled('manifest')
+export const when: Adapter.when = ({features}) =>
+  features.enabled('manifest')

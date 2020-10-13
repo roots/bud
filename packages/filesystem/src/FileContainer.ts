@@ -32,6 +32,10 @@ export default class FileContainer extends Container {
     this.base = dir
   }
 
+  public getBase = function (): string {
+    return this.base
+  }
+
   public setDisk(glob: string[]): void {
     const files = this.glob.sync(glob, {
       onlyFiles: false,

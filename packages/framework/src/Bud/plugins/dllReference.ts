@@ -15,7 +15,7 @@ export const make: Adapter.make = (
 
 export const when: Adapter.when = bud => {
   const {library} = bud.build.config.get('entry')
-  const enabled = bud.store['features'].enabled('library')
+  const enabled = bud.features.enabled('library')
   const manifestExists = bud.fs.exists(
     'dist/library/manifest.json',
   )

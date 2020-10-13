@@ -25,6 +25,6 @@ export const options: HtmlWebpackPlugin.Options = ({fs}) => ({
 export const make: Adapter.make = opts =>
   new HtmlWebpackPlugin(opts)
 
-export const when: Adapter.when = ({store}) => {
-  return store['features'].enabled('html')
+export const when: Adapter.when = ({features}) => {
+  return features.enabled('html')
 }

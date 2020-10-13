@@ -33,7 +33,7 @@
   },
   "dependencies": {
     "@roots/bud-compiler": "2.0.0-next.24",
-    "@roots/bud-config": "2.0.0-next.24",
+    "@roots/bud-api": "2.0.0-next.24",
     "@roots/bud-server": "2.0.0-next.24",
     "@roots/bud-support": "2.0.0-next.24",
     "@roots/container": "2.0.0-next.24",

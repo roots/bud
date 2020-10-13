@@ -4,6 +4,6 @@ const sass = require('../packages/extensions/sass')
 
 bud.extensions.register('sass', sass)
 
-bud.entry('app', ['foo.js', 'foo.scss'])
+bud.entry('foo', 'foo.js')
 
 bud.compile()

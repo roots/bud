@@ -13,7 +13,7 @@ export const options: Adapter.options = {
 }
 
 export const when: Adapter.when = bud =>
-  bud.store['features'].enabled('brotli')
+  bud.features.enabled('brotli')
 
 export const make: Adapter.make = opts =>
   new CompressionPlugin(

@@ -6,6 +6,8 @@ import resolveFrom from 'resolve-from'
 import watcher from './watcher'
 
 declare class FileSystem extends Container {
+  public current: FSContainer
+
   constructor()
 
   public get(key: string): FSContainer
@@ -59,6 +61,11 @@ declare class FSContainer extends Container {
    * Set the base filepath
    */
   setBase(dir: string): void
+
+  /**
+   * Get the base filepath
+   */
+  getBase(): string
 
   /**
    * Check if a file exists in the repository.

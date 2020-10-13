@@ -1,6 +1,5 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
-export const babel = require.resolve('babel-loader')
 export const css = require.resolve('css-loader')
 export const file = require.resolve('file-loader')
 export const minicss = MiniCssExtractPlugin.loader

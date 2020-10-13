@@ -1,7 +1,7 @@
 /**
  * Returns a hooks instance with application bindings.
  */
-const Hooks = (
+export const Hooks = (
   logger: Framework.Hooks['logger'],
 ): Framework.Hooks => ({
   logger,
@@ -46,5 +46,3 @@ const Hooks = (
     return value
   },
 })
-
-export default Hooks

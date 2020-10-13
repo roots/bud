@@ -11,7 +11,7 @@ export const output: Build.Output = function ({output}) {
 
   const filename = this.hooks.filter(
     'build.output.filename',
-    this.store['features'].enabled('hash')
+    this.features.enabled('hash')
       ? `[name].[hash].js`
       : `[name].js`,
   )

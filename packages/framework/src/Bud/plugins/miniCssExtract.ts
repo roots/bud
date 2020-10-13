@@ -2,8 +2,8 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
 export const options: (
   bud: Framework.Bud,
-) => MiniCssExtractPlugin.PluginOptions = ({store}) => ({
-  filename: store['features'].enabled('hash')
+) => MiniCssExtractPlugin.PluginOptions = ({features}) => ({
+  filename: features.enabled('hash')
     ? '[name].[hash].css'
     : '[name].css',
 })
