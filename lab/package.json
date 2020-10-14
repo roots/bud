@@ -8,6 +8,8 @@
     "test": "jest --verbose"
   },
   "devDependencies": {
-    "@roots/bud": "2.0.0-next.24"
+    "@roots/bud": "2.0.0-next.24",
+    "@roots/bud-eslint": "2.0.0-next.24",
+    "@roots/bud-sass": "2.0.0-next.24"
   }
 }

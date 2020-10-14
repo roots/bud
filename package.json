@@ -35,6 +35,7 @@
       "packages/postcss",
       "packages/server",
       "packages/support",
+      "packages/extensions/eslint",
       "packages/extensions/sass"
     ]
   },

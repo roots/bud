@@ -1,8 +1,5 @@
 import {Bud} from '@roots/bud-framework'
-import * as Babel from '@roots/bud-babel'
-import * as PostCSS from '@roots/bud-postcss'
 import {ingestConfig} from './helpers/ingestConfig'
-import {lodash as _} from '@roots/bud-support'
 
 /**
  * Instantiate Bud.
@@ -12,8 +9,9 @@ const bud: Framework.Bud = new Bud()
 /**
  * Use babel & postcss.
  */
-bud.extensions.register('babel', Babel)
-bud.extensions.register('postcss', PostCSS)
+bud.extensions
+  .use('@roots/bud-babel')
+  .use('@roots/bud-postcss')
 
 /**
  * Process feature flags.

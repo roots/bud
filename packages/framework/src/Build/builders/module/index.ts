@@ -4,7 +4,7 @@ import Webpack from 'webpack'
 export const module = function (
   this: Framework.Bud,
   build: Build.Configuration,
-): Framework.Index<Partial<Webpack.Module>> {
+): Framework.Index<Webpack.Module> {
   return {
     module: this.hooks.filter('build.module', {
       ...build.module,

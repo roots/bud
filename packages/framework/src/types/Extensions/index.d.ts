@@ -19,13 +19,15 @@ declare class Extensions {
    */
   extensions: Framework.Index<Framework.Extension>
 
+  use(name: string): this
+
   /**
    * Register extension
    */
   register(
     name: string,
     extension: Framework.Extension.Factory,
-  ): void
+  ): this
 
   /**
    * Boot an extension.

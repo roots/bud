@@ -59,14 +59,31 @@ export class Extensions implements Framework.Extensions {
     )
   }
 
+  public use(pkg: string): this {
+    const path = require.resolve(pkg)
+    this.bud.makeDisk(pkg, this.bud.fs.path.dirname(path), [
+      '**/*',
+    ])
+
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    const extension = require(path)
+
+    this.register(pkg, extension)
+
+    return this
+  }
+
   /**
    * Register an extension.
    */
-  public register(name: string, extension: unknown): void {
+  public register(name: string, extension: unknown): this {
     this.extensions[name] =
       typeof extension == 'function'
         ? extension(this.bud)
         : extension
+
+    this.extensions[name].hasOwnProperty('register') &&
+      this.extensions[name].register(this.bud)
 
     this.processOptions(this.extensions[name])
     this.processLoaders(this.extensions[name])
@@ -78,6 +95,8 @@ export class Extensions implements Framework.Extensions {
 
     this.extensions[name].hasOwnProperty('boot') &&
       this.extensions[name].boot(this.bud)
+
+    return this
   }
 
   /**

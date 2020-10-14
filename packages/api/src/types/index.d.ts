@@ -41,7 +41,7 @@ export type PublicPath = Fluent<Framework.Bud>
 
 export type SrcPath = Fluent<Framework.Bud>
 
-export type AddPlugin = Fluent<Framework.Bud, string, Webpack.Plugin, Framework.Extension.Options, Framework.Extension.Conditional>
+export type AddPlugin = Fluent<Framework.Bud, string, Plugin, Framework.Extension.Options, Framework.Extension.Conditional>
 
 export type addExtensions = Fluent<Framework.Bud>
 
@@ -70,7 +70,7 @@ export type Devtool = Fluent<
 
 export type Dev = Fluent<Framework.Bud, Server.Config>
 
-export type Extend = Fluent<Framework.Bud, PluginFactory>
+export type Extend = Fluent<Framework.Bud, () => any>
 
 export type Glob = Fluent<Framework.Bud, Options.Glob>
 
@@ -92,7 +92,7 @@ export type Template = (
 
 export type Vendor = (
   this: Framework.Bud,
-  options?: Webpack.Options.CacheGroupsOptions,
+  options?: Webpack.HotModuleReplacementPlugin
 ) => Framework.Bud
 
 export type When = (
@@ -142,7 +142,3 @@ export namespace Options {
     replacements?: {[key: string]: string}
   }
 }
-
-export type PluginFactory = (
-  bud?: Framework.Bud,
-) => Webpack.Plugin

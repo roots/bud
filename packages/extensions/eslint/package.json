@@ -35,7 +35,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@roots/bud-support": "file:../../support",
+    "@roots/bud-framework": "^2.0.0-next.24",
+    "@roots/bud-support": "^2.0.0-next.24",
     "babel-eslint": "8",
     "eslint": "^7.8.1",
     "eslint-loader": "^4.0.2",
@@ -46,7 +47,7 @@
   },
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5",
   "devDependencies": {
-    "@roots/bud-types": "file:../../types",
-    "@types/node": "^14.11.2"
+    "@types/node": "^14.11.2",
+    "webpack": "^5.1.0"
   }
 }

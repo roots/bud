@@ -30,6 +30,11 @@ declare interface Extension {
   when?: Extension.When
 
   /**
+   * Register
+   */
+  register?: (bud: Framework.Bud) => void
+
+  /**
    * Register Items
    */
   registerLoader?: [string, Build.Loader]
@@ -43,6 +48,8 @@ declare interface Extension {
     Build.Item.Module
   registerItems?:
     Framework.Index<Framework.Extension['registerItem']>
+
+  registerPre?: Framework.Index<Build.Rule.Module>
 
   /**
    * Register Rules

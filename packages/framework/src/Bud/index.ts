@@ -64,6 +64,8 @@ export class Bud implements Framework.Bud {
    * @memberof Bud
    */
   public constructor() {
+    this.hooks = Hooks(this.logger)
+
     this.args = new Container(args)
     this.build = new Build(this)
     this.compiler = new Compiler()
@@ -72,7 +74,6 @@ export class Bud implements Framework.Bud {
     this.extensions = new Extensions(this)
     this.features = new Features()
     this.fs = new FileContainer()
-    this.hooks = Hooks(this.logger)
     this.patterns = new Container(patterns)
     this.server = new Server()
 

@@ -21,10 +21,10 @@ export const Hooks = (
     const entry = this.make(callback)
 
     if (!this.registered[name]) {
-      this.registered[name] = [entry]
-    } else {
-      this.registered[name].push(entry)
+      this.registered[name] = []
     }
+
+    this.registered[name].push(entry)
 
     return this
   },

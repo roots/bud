@@ -1,5 +1,3 @@
-import {eslintFormatter as formatter} from '@roots/bud-support'
-
 export const ident: Build.Item['ident'] = 'eslint'
 
 export const loader: Build.Item['loader'] = 'eslint'

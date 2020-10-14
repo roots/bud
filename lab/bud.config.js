@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const bud = require('../packages/bud')
-const sass = require('../packages/extensions/sass')
+// @ts-check
+const bud = require('../packages/bud/lib')
 
-bud.extensions.register('sass', sass)
+bud.extensions
+  .use('@roots/bud-sass')
+  .use('@roots/bud-eslint')
 
-bud.entry('foo', 'foo.js')
-
-bud.compile()
+bud.entry('foo', 'foo.js').compile()

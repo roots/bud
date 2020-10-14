@@ -1,32 +1,28 @@
 import {eslintFormatter as formatter} from '@roots/bud-support'
 
-export const options: Framework.Extension['options'] = {
-  formatter,
-  failOnError: true,
-  fix: false,
-}
-
-export const boot: Framework.Extension['boot'] = bud => {
-  const config = bud.fs.has('.eslintrc.js')
-    ? bud.fs.get('.eslintrc.json')
-    : null
-
-  if (bud.fs.exists(config)) {
-    bud.extensions.setOptions('eslint', config)
-  }
-
-  bud.features.set('eslint', true)
-
-  const base = bud.components['rules'].get('js.use')(bud)
-  bud.components['rules'].set('js.use', bud => [
-    ...base,
-    bud.build.items.eslint.make(),
-  ])
-}
-
-export const registerLoader: Framework.Extension['registerLoader'] = [
+export const registerLoader = [
   'eslint',
   require.resolve('eslint-loader'),
 ]
 
-export * as registerItems from './registerItems'
+export * as registerItems from './items'
+
+export * as registerRules from './rules'
+
+export const boot: Framework.Extension['register'] = bud => {
+  const configPath = bud.disk.get('project').has('eslintrc.js')
+    ? bud.disk.get('project').get('eslintrc.js')
+    : bud.disk
+        .get('@roots/bud-eslint')
+        .get('lib/presets/roots.js')
+
+  bud.extensions.setOptions('@roots/bud-eslint', {
+    eslintPath: require.resolve('eslint'),
+    configPath,
+    formatter,
+    failOnError: true,
+    fix: false,
+  })
+
+  bud.features.set('eslint', true)
+}
