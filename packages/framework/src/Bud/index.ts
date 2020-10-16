@@ -19,7 +19,7 @@ import * as loaders from './loaders'
 
 import format from './util/format'
 import pretty from './util/pretty'
-import Container from '@roots/container'
+import {Container} from '@roots/container'
 
 export class Bud implements Framework.Bud {
   /**

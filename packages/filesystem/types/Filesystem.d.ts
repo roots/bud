@@ -1,15 +1,12 @@
-import Container from '@roots/container';
-import FileContainer from './FileContainer';
-declare class FileSystem extends Container {
+import { Container } from '@roots/container';
+import { FileContainer } from './FileContainer';
+export declare class FileSystem extends Container {
     current: FileContainer;
+    repository: Container.Repository;
     constructor();
-    get(key: string): FileContainer;
+    get: Container.Get;
     ls(key?: string): Container.Item;
     get baseDir(): string;
-    set(key: string, options: {
-        baseDir: string;
-        glob: string[];
-    }): FileContainer;
+    set: Container.Using;
 }
-export { FileSystem as default };
 //# sourceMappingURL=FileSystem.d.ts.map

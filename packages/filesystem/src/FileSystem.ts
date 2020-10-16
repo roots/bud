@@ -1,16 +1,18 @@
 import __ from 'lodash'
 import {resolve} from 'path'
-import Container from '@roots/container'
-import FileContainer from './FileContainer'
+import {Container} from '@roots/container'
+import {FileContainer} from './FileContainer'
 
-class FileSystem extends Container {
+export class FileSystem extends Container {
   public current: FileContainer
+
+  public repository: Container.Repository
 
   constructor() {
     super()
   }
 
-  public get(key: string): FileContainer {
+  public get: Container.Get = function (key) {
     this.current = __.get(this.repository, key)
     return this.current
   }
@@ -23,7 +25,7 @@ class FileSystem extends Container {
     return this.current.getBase()
   }
 
-  public set(
+  public set: Container.Using = function (
     key: string,
     options: {
       baseDir: string
@@ -50,5 +52,3 @@ class FileSystem extends Container {
     return (this.current = this.get(key))
   }
 }
-
-export {FileSystem as default}

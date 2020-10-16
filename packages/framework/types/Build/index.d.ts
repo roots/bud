@@ -1,8 +1,9 @@
 import webpack, { Configuration } from 'webpack';
 import { Item } from './Item';
 import { Rule } from './Rule';
-import Container from '@roots/container';
-export declare class Build implements Framework.Build {
+import { Container } from '@roots/container';
+export { Build };
+declare class Build implements Framework.Build {
     bud: Framework.Bud;
     builders: Partial<Build.Builders>;
     loaders: Framework.Index<Build.Loader>;

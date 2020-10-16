@@ -1,1 +1,1 @@
-export * as Container from './Container'
+export {Container} from './Container'

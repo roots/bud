@@ -1,4 +1,2 @@
-import FileContainer from './FileContainer'
-import FileSystem from './FileSystem'
-
-export {FileContainer, FileSystem}
+export {FileContainer} from './FileContainer'
+export {FileSystem} from './FileSystem'

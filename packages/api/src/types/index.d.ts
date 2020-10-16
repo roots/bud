@@ -1,5 +1,5 @@
 import type Framework from '@roots/bud-framework'
-import Container from '@roots/container'
+import {Container} from '@roots/container'
 import {TerserPluginOptions} from 'terser-webpack-plugin'
 import {TransformOptions} from '@babel/core'
 import Globby from 'globby'
@@ -75,7 +75,7 @@ export type Glob = Fluent<Framework.Bud, Options.Glob>
 
 export type Gzip = (
   this: Framework.Bud,
-  options?: Container['repository'],
+  options?: Container.Repository,
 ) => Framework.Bud
 
 export type Hash = (this: Framework.Bud) => Framework.Bud
@@ -118,9 +118,7 @@ export type Provide = (
   },
 ) => Framework.Bud
 
-export interface PathGetter {
-  (this: Framework.Bud, path?: string | undefined): string
-}
+export type PathGetter = (this: Framework.Bud, path?: string | undefined) => string | void
 
 export type Runtime = (
   this: Framework.Bud,

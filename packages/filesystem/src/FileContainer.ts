@@ -1,19 +1,26 @@
-import Container from '@roots/container'
+import {Container} from '@roots/container'
 import path from 'path'
 import * as fs from 'fs-extra'
 import globby from 'globby'
 import resolveFrom from 'resolve-from'
-import __ from 'lodash'
 import watcher from './watcher'
+import __ from 'lodash'
 
-export default class FileContainer extends Container {
+export {FileContainer}
+
+class FileContainer extends Container {
   public fs = fs
 
   public repository: Container.Repository
+
   public glob: typeof globby = globby
+
   public path: typeof path = path
+
   public from: typeof resolveFrom = resolveFrom
+
   public watcher: typeof watcher = watcher
+
   public base: string = process.cwd()
 
   constructor(baseDir?: string) {
@@ -55,7 +62,7 @@ export default class FileContainer extends Container {
     return key ? __.get(this.repository, key) : this.repository
   }
 
-  public get(key: string): Container.Item {
+  public get: Container.Get = function (key) {
     return __.get(this.repository, key)
   }
 

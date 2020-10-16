@@ -1,6 +1,6 @@
 import __ from 'lodash'
 
-import '../types/Container'
+export {Container}
 
 class Container {
   repository: Container.Repository
@@ -79,7 +79,9 @@ class Container {
     return this.repository
   }
 
-  public entries: Container.Transform = function () {
+  public entries: Container.Transform<
+    Array<[string, Container.Item]>
+  > = function () {
     return Object.entries(this.repository)
   }
 
@@ -106,4 +108,30 @@ class Container {
   }
 }
 
-export {Container as default}
+namespace Container {
+  export type Item = any | Repository | Repository[]
+
+  export interface Repository {
+    [key: string]: Item
+  }
+
+  export type Handler = (params: unknown) => unknown
+
+  export type Using = (key: string, value: Item) => void
+
+  export type Conditional = (
+    key: string,
+    comparison?: any,
+  ) => boolean
+
+  export type Select = (key: string) => void
+
+  export type Get = (key: string) => Item
+
+  export type IterateUsing = (
+    key: string,
+    handler: Handler,
+  ) => unknown
+
+  export type Transform<T = any> = (args?: any) => T
+}

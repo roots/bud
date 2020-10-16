@@ -1,8 +1,11 @@
-export const dist: Api.Dist = function (path?: string) {
+export const dist: Api.Dist = function (
+  this: Framework.Bud,
+  path?: string,
+) {
   return path
     ? this.fs.path.resolve(
         this.build.config.get('output.path'),
-        path,
+        path as string,
       )
     : this.build.config.get('output.path')
 }

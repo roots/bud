@@ -15,6 +15,7 @@
     {"@roots/container": "../container"},
     {"@roots/dependencies": "../dependencies"},
     {"@roots/filesystem": "../filesystem"},
+    {"@roots/container": "../container"},
     {"@roots/bud-support": "../support"},
     {"@roots/bud-framework": "../framework"},
     {"@roots/bud-api": "../api"},

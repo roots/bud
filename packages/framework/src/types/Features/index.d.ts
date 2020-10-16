@@ -1,4 +1,4 @@
-import Container from '@roots/container'
+import {Container} from '@roots/container'
 
 export {Features}
 

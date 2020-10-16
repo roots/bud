@@ -1,5 +1,5 @@
 import type Webpack from 'webpack'
-import type Container from '@roots/container'
+import {Container} from '@roots/container'
 import type {Index} from '../generic'
 
 export as namespace Build

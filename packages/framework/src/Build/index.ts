@@ -5,10 +5,12 @@ import {Rule} from './Rule'
 
 import * as builders from './builders'
 import * as config from './config'
-import Container from '@roots/container'
+import {Container} from '@roots/container'
 import {lodash as _} from '@roots/bud-support'
 
-export class Build implements Framework.Build {
+export {Build}
+
+class Build implements Framework.Build {
   public bud: Framework.Bud
 
   public builders: Partial<Build.Builders> = builders
