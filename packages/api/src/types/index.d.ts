@@ -1,6 +1,5 @@
 import type Framework from '@roots/bud-framework'
 import Container from '@roots/container'
-import {Server} from '@roots/bud-server'
 import {TerserPluginOptions} from 'terser-webpack-plugin'
 import {TransformOptions} from '@babel/core'
 import Globby from 'globby'
@@ -68,7 +67,7 @@ export type Devtool = Fluent<
   Webpack.Options.Devtool
 >
 
-export type Dev = Fluent<Framework.Bud, Server.Config>
+export type Dev = Fluent<Framework.Bud, Framework.Bud['server']['config']>
 
 export type Extend = Fluent<Framework.Bud, () => any>
 

@@ -1,10 +1,6 @@
 import React, {FunctionComponent} from 'react'
 import {Box, Text} from 'ink'
 
-interface ScreenInterface {
-  file: string
-}
-
 const Publish: FunctionComponent<ScreenInterface> = ({file}) => (
   <Box
     display="flex"

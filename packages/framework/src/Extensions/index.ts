@@ -192,7 +192,7 @@ export class Extensions implements Framework.Extensions {
   public getOptions(
     extension: string,
   ): Framework.Extension.Options {
-    return this.extensions[extension].options
+    return this.getExtension(extension).options
   }
 
   /**
@@ -205,7 +205,10 @@ export class Extensions implements Framework.Extensions {
     extension: string,
     options: Framework.Index<unknown>,
   ): void {
-    this.extensions[extension].options = options
+    this.extensions[extension].options = {
+      ...this.getOptions(extension),
+      ...options,
+    }
   }
 
   /**

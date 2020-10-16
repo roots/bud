@@ -1,5 +1,5 @@
 import Bud from '@roots/bud-framework/lib/Bud'
-import {injectClient} from '@roots/bud-server'
+import {injectClient} from '@roots/bud-server/lib/Server/injectClient'
 
 /**
  * Server setup

@@ -1,7 +1,6 @@
 import WebpackDevMiddleware from 'webpack-dev-middleware'
 import {Compiler} from 'webpack'
 import {RequestHandler} from 'express'
-import {Server} from '../Server'
 
 export interface DevFactoryOptions {
   compiler: Compiler

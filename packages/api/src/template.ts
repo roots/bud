@@ -1,17 +1,20 @@
-export const template: Api.Template = function ({
-  template,
-  replacements,
+export const template: Api.Template = function (options?: {
+  template
+  replacements
 }) {
-  template &&
-    this.extensions.setOptions(
-      'template',
-      this.hooks.filter('api.template', template),
-    )
-
-  replacements &&
+  options?.template &&
     this.extensions.setOptions(
       'html',
-      this.hooks.filter('api.html.replacements', replacements),
+      this.hooks.filter('api.template', options?.template),
+    )
+
+  options?.replacements &&
+    this.extensions.setOptions(
+      'html',
+      this.hooks.filter(
+        'api.html.replacements',
+        options?.replacements,
+      ),
     )
 
   return this

@@ -2,32 +2,30 @@ import {useState, useEffect} from 'react'
 import {Stats} from 'webpack'
 import {formatWebpackMessages} from '@roots/bud-support'
 
-const useCompilation: Hooks.Compilation.Compiler = ({
+const useDevServer: Hooks.Compilation.Server = ({
   compiler,
+  server,
 }) => {
   const [applied, setApplied] = useState<boolean>(false)
   const [tapped, setTapped] = useState<boolean>(null)
+  const [listening, setListening] = useState<boolean>(false)
   const [stats, setStats] = useState<Compilation.Stats>(null)
-  const [watching] = useState<boolean>(false)
-  const [errors, setErrors] = useState<Compilation.Stats.Errors>(
-    null,
-  )
   const [warnings, setWarnings] = useState<
     Compilation.Stats.Warnings
   >(null)
-  const [running, setRunning] = useState<Compilation.Running>(
-    false,
+  const [errors, setErrors] = useState<Compilation.Stats.Errors>(
+    null,
+  )
+  const [progress, setProgress] = useState<Compilation.Progress>(
+    {
+      percentage: 0,
+      msg: '',
+    },
   )
 
-  const [progress, setProgress] = useState<{
-    percentage: number
-    msg: string
-  }>({
-    percentage: 0,
-    msg: '',
-  })
-
-  // Stats handler
+  /**
+   * Stats handler
+   */
   const statsHandler: (stats: Stats) => void = stats => {
     const allStats = stats.toJson()
 
@@ -40,7 +38,9 @@ const useCompilation: Hooks.Compilation.Compiler = ({
     setWarnings(formatted.warnings)
   }
 
-  /** Progress handler */
+  /**
+   * Progress handler
+   */
   const progressHandler = (percentage: number, msg: string) => {
     if (typeof percentage !== 'number') return
 
@@ -56,7 +56,6 @@ const useCompilation: Hooks.Compilation.Compiler = ({
   useEffect(() => {
     if (applied) return
     setApplied(true)
-
     compiler.applyPlugins(progressHandler)
   }, [compiler])
 
@@ -64,23 +63,22 @@ const useCompilation: Hooks.Compilation.Compiler = ({
    * dev tap
    */
   useEffect(() => {
-    if (!compiler || tapped) return
-    compiler.compiler.hooks.done.tap('bud-cli', statsHandler)
+    if (tapped) return
     setTapped(true)
-  }, [compiler, tapped])
+    compiler.compiler.hooks.done.tap('bud-cli', statsHandler)
+  }, [tapped])
 
   /**
-   * Compilation
+   * dev listen
    */
   useEffect(() => {
-    if (watching) return
-    setRunning(true)
-    compiler.run(() => null)
-  }, [compiler, watching, running])
+    if (listening || !applied || !tapped) return
+    setListening(true)
+    server.listen()
+  }, [applied, tapped, listening])
 
   return {
-    running,
-    watching,
+    listening,
     progress,
     stats,
     errors,
@@ -88,4 +86,4 @@ const useCompilation: Hooks.Compilation.Compiler = ({
   }
 }
 
-export {useCompilation as default}
+export {useDevServer as default}

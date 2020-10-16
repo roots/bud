@@ -1,1 +1,1 @@
-{"version":3,"file":"useCompilation.d.ts","sourceRoot":"","sources":["../../src/hooks/useCompilation.ts"],"names":[],"mappings":"AACA,OAAgB,EAAC,KAAK,EAAC,MAAM,SAAS,CAAA;AAGtC,QAAA,MAAM,cAAc;;;;;;;;oBAoBJ,MAAM;aACb,MAAM;;;;;CA4Fd,CAAA;AAED,OAAO,EAAC,cAAc,IAAI,OAAO,EAAC,CAAA"}
+{"version":3,"file":"useCompilation.d.ts","sourceRoot":"","sources":["../../src/hooks/useCompilation.ts"],"names":[],"mappings":"AAIA,QAAA,MAAM,cAAc,EAAE,KAAK,CAAC,WAAW,CAAC,QAoFvC,CAAA;AAED,OAAO,EAAC,cAAc,IAAI,OAAO,EAAC,CAAA"}

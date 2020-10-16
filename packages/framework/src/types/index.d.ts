@@ -9,6 +9,7 @@ export {Extensions} from './Extensions'
 export {Features} from './Features'
 export {Hooks} from './Hooks'
 export {Mode} from './Mode'
+export {Server} from '@roots/bud-server'
 export {Store} from './Store'
 export * as Adapter from './aliases'
 export {

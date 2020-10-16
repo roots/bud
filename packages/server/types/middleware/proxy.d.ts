@@ -1,5 +1,4 @@
 import { RequestHandler } from 'http-proxy-middleware';
-import type { Server } from '../Server';
 /**
  * Proxy middleware factory
  */

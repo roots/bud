@@ -9,9 +9,7 @@ const bud: Framework.Bud = new Bud()
 /**
  * Use babel & postcss.
  */
-bud.extensions
-  .use('@roots/bud-babel')
-  .use('@roots/bud-postcss')
+bud.extensions.use('@roots/bud-babel').use('@roots/bud-postcss')
 
 /**
  * Process feature flags.

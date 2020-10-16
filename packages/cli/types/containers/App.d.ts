@@ -1,12 +1,10 @@
 import { FunctionComponent } from 'react';
-import Compiler from '@roots/bud-compiler';
-import { Server } from '@roots/bud-server';
-interface ApplicationCliProps {
-    name: string;
-    compiler: Compiler;
-    server: Server;
-}
-declare type ApplicationCli = FunctionComponent<ApplicationCliProps>;
-declare const App: ApplicationCli;
-export { App as default, ApplicationCli, ApplicationCliProps };
+declare const App: FunctionComponent<{
+    bud: Framework.Bud;
+    stats: Compilation.Stats;
+    progress: Compilation.Progress;
+    errors: Compilation.Stats.Errors;
+    warnings: Compilation.Stats.Warnings;
+}>;
+export { App as default };
 //# sourceMappingURL=App.d.ts.map

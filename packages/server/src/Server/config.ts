@@ -1,5 +1,3 @@
-import type {Server} from '../Server'
-
 /**
  * Automatically rewrite hostname over proxy connection.
  */

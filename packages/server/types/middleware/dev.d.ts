@@ -1,5 +1,4 @@
 import { Compiler } from 'webpack';
-import { Server } from '../Server';
 export interface DevFactoryOptions {
     compiler: Compiler;
     config: Server.Config;

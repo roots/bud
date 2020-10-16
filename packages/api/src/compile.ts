@@ -1,4 +1,4 @@
-import {injectClient} from '@roots/bud-server'
+import {injectClient} from '@roots/bud-server/lib/Server/injectClient'
 
 export const compile: Api.Compile = async function (): Promise<void> {
   this.when(this.server.config?.hot, inject.bind(this))
@@ -21,11 +21,7 @@ export const compile: Api.Compile = async function (): Promise<void> {
     require.resolve('@roots/bud-cli')
   )
 
-  app({
-    name: '@roots/bud',
-    compiler: this.compiler,
-    server: this.server,
-  })
+  app({bud: this})
 }
 
 /**

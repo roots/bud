@@ -1,14 +1,11 @@
 import React from 'react'
-import {render, Instance} from 'ink'
+import {render} from 'ink'
+import Compile from './Compile'
+import Serve from './Serve'
 
-import App, {ApplicationCliProps} from './containers/App'
-
-export type ApplicationCli = (
-  props: ApplicationCliProps,
-) => Instance
-
-const app: ApplicationCli = ({name, compiler, server}) =>
-  render(<App name={name} compiler={compiler} server={server} />)
+const app: Dash.App = ({bud}) =>
+  bud.mode.is('development')
+    ? render(<Serve bud={bud} />)
+    : render(<Compile bud={bud} />)
 
 export default app
-export {ApplicationCliProps, Instance}

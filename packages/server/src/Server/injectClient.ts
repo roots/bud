@@ -1,4 +1,3 @@
-import {Configuration} from 'webpack'
 import {ansiColors, overlayStyles} from './styles'
 
 /**
@@ -16,7 +15,9 @@ const toInject = [
 /**
  * Injects webpack.entry items with hot module scripts.
  */
-export const injectClient: InjectClient = ({entrypoints}) => {
+export const injectClient: Server.InjectClient = ({
+  entrypoints,
+}) => {
   const prepend = (entry: unknown) => {
     if (typeof entry === 'function') {
       return () => Promise.resolve(entry()).then(prepend)
@@ -34,18 +35,4 @@ export const injectClient: InjectClient = ({entrypoints}) => {
   }
 
   return prepend(entrypoints)
-}
-
-/**
- * Inject webpack entrypoints with client HMR handling script(s).
- */
-export type InjectClient = (
-  props: InjectionProps,
-) => Configuration['entry']
-
-/**
- * Requires entrypoints indexed as <K, V>
- */
-interface InjectionProps {
-  entrypoints: Configuration['entry']
 }

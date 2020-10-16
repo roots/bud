@@ -7,8 +7,6 @@ import {
 import url from 'url'
 import zlib from 'zlib'
 
-import type {Server} from '../Server'
-
 /**
  * Proxy middleware factory
  */

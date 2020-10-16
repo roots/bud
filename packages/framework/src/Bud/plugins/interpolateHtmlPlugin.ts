@@ -14,7 +14,7 @@ export const make: (
   new InterpolateHtmlPlugin(HtmlWebpackPlugin, replacements)
 
 export const when: Adapter.when = ({features}) =>
-  features.enabled('html')
+  features.get('html') == true
 
 declare type Options = {
   replacements: {

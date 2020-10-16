@@ -70,7 +70,7 @@ export declare class Bud {
    *
    * @type {Server.Interface}
    */
-  server: Server
+  server: Server.Server
 
   /**
    * Logger
