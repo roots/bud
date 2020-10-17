@@ -1,13 +1,12 @@
-import Bud from '@roots/bud-framework/lib/Bud';
+import { Framework } from '@roots/bud-typings';
 /**
  * Server setup
  */
-export declare const dev: (bud: any) => void;
+export declare const dev: (bud: Framework.Bud) => void;
 /**
  * Inject hmr loaders
  * @see bud-server
  */
-export declare const inject: (bud: Bud) => void;
 /**
  * Compile build.
  */

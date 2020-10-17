@@ -131,4 +131,4 @@ const proxy = (config: Server.Config): RequestHandler => {
   return createProxyMiddleware(proxyOptions)
 }
 
-export {proxy as default}
+export {proxy}

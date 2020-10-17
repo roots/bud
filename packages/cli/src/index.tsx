@@ -3,7 +3,7 @@ import {render} from 'ink'
 import Compile from './Compile'
 import Serve from './Serve'
 
-const app: Dash.App = ({bud}) =>
+const app: CLI.App = ({bud}) =>
   bud.mode.is('development')
     ? render(<Serve bud={bud} />)
     : render(<Compile bud={bud} />)

@@ -1,5 +1,9 @@
-import Compiler from '@roots/bud-compiler'
+import {Container} from '@roots/container'
+import {Compiler} from '@roots/bud-compiler'
 import {FileContainer, FileSystem} from '@roots/filesystem'
+
+import app from '@roots/bud-cli'
+import {Server} from '@roots/bud-server'
 import * as api from '@roots/bud-api'
 
 import {Build} from '../Build'
@@ -7,7 +11,6 @@ import {Hooks} from '../Hooks'
 import {Extensions} from '../Extensions'
 import {Features} from '../Features'
 import {Mode} from '../Mode'
-import {Server} from '@roots/bud-server'
 
 import {args} from './args'
 import {env} from './env'
@@ -19,7 +22,6 @@ import * as loaders from './loaders'
 
 import format from './util/format'
 import pretty from './util/pretty'
-import {Container} from '@roots/container'
 
 export class Bud implements Framework.Bud {
   /**
@@ -28,6 +30,8 @@ export class Bud implements Framework.Bud {
   [key: string]: any
 
   private static PRIMARY_DISK = 'project'
+
+  public app: CLI.App = app
 
   public build: Framework.Build
 
@@ -64,18 +68,17 @@ export class Bud implements Framework.Bud {
    * @memberof Bud
    */
   public constructor() {
+    this.env = env
     this.hooks = Hooks(this.logger)
-
     this.args = new Container(args)
     this.build = new Build(this)
-    this.compiler = new Compiler()
+    this.compiler = new Compiler(this)
+    this.server = new Server(this)
     this.disk = new FileSystem()
-    this.env = env
     this.extensions = new Extensions(this)
     this.features = new Features()
     this.fs = new FileContainer()
     this.patterns = new Container(patterns)
-    this.server = new Server()
 
     this.init()
   }

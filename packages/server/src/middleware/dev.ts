@@ -32,4 +32,4 @@ const options = (
   writeToDisk: config.writeToDisk ?? true,
 })
 
-export {dev as default}
+export {dev}

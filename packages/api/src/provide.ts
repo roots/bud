@@ -5,24 +5,26 @@ export const provide: Api.Provide = function (options) {
     const isString = typeof modules == 'string'
 
     if (isString) {
-      this.store['plugins'].set('provide', {
-        ...this.store['plugins'].get('provide'),
+      this.extensions.setOptions('provide', {
+        ...this.extensions.getOptions('provide'),
         [`${modules}`]: key,
       })
+
       this.build.config.set('externals', {
-        ...this.build.config.get('.externals'),
+        ...this.build.config.get('externals'),
         [`${modules}`]: key,
       })
     }
 
     if (_.isArray(modules)) {
       modules.map(module => {
-        this.store['plugins'].set('provide', {
-          ...this.store['plugins'].get('provide'),
+        this.extensions.setOptions('provide', {
+          ...this.extensions.getOptions('provide'),
           [module]: key,
         })
+
         this.build.config.set('externals', {
-          ...this.build.config.get('.externals'),
+          ...this.build.config.get('externals'),
           [`${module}`]: key,
         })
       })

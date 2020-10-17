@@ -1,4 +1,4 @@
-import type {PostCss} from '.'
+import type {PostCss} from './'
 
 export const postcss: PostCss.Config = function (options) {
   this.features.enable('postcss')

@@ -1,4 +1,4 @@
-export * from '@roots/bud-framework'
+import '@roots/bud-typings'
 export {
   PluginTarget,
   PluginOptions,

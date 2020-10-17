@@ -1,4 +1,4 @@
-import * as PostCss from './types';
+import * as PostCss from './typings';
 export type { PostCss };
 export { boot } from './boot';
 export declare const registerLoader: PostCss.Adapter['registerLoader'];

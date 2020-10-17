@@ -1,12 +1,11 @@
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const {HtmlWebpackPlugin} = require('html-webpack-plugin')
+import HtmlWebpackPlugin from 'html-webpack-plugin'
 import {InterpolateHtmlPlugin} from '@roots/bud-support'
 
-export const options: Options = {
+export const options: OptionsFactory = bud => ({
   replacements: {
-    APP_TITLE: '@roots/bud',
+    ...bud.env,
   },
-}
+})
 
 export const make: (
   options: Options,
@@ -21,3 +20,5 @@ declare type Options = {
     [key: string]: string
   }
 }
+
+declare type OptionsFactory = (bud: Framework.Bud) => Options

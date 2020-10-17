@@ -12,4 +12,4 @@ const hot = (compiler: Compiler): RequestHandler => {
   return WebpackHotMiddleware(compiler, options)
 }
 
-export {hot as default}
+export {hot}

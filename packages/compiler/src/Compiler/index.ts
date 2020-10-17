@@ -1,25 +1,19 @@
+import type {CompilerInterface} from '@roots/bud-typings'
 import webpack, {
-  Configuration,
   Compiler as Webpack,
   ProgressPlugin,
 } from 'webpack'
-import {CompilerInterface} from './'
 
-export default class Compiler implements CompilerInterface {
-  public config: Configuration
+export class Compiler implements CompilerInterface {
+  public bud: Framework.Bud
   public compiler: Webpack
   public watchOptions: Webpack.WatchOptions
   public watching: Webpack.Watching
 
-  constructor(config?: Configuration) {
-    if (config) {
-      this.config = config
-    }
+  constructor(bud: Framework.Bud) {
+    this.bud = bud
 
     this.applyPlugins = this.applyPlugins.bind(this)
-
-    this.getConfig = this.getConfig.bind(this)
-    this.setConfig = this.setConfig.bind(this)
 
     this.compile = this.compile.bind(this)
     this.run = this.run.bind(this)
@@ -27,16 +21,8 @@ export default class Compiler implements CompilerInterface {
     this.getCompiler = this.getCompiler.bind(this)
   }
 
-  public getConfig(): Configuration {
-    return this.config
-  }
-
-  public setConfig(config: Configuration): void {
-    this.config = config
-  }
-
   public compile(): void {
-    this.compiler = webpack(this.getConfig())
+    this.compiler = webpack(this.bud.build.compile())
   }
 
   public getCompiler(): Webpack {

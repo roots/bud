@@ -4,5 +4,5 @@ export interface DevFactoryOptions {
     config: Server.Config;
 }
 declare const dev: ({ compiler, config, }: DevFactoryOptions) => any;
-export { dev as default };
+export { dev };
 //# sourceMappingURL=dev.d.ts.map

@@ -4,11 +4,10 @@
     "rootDir": "./src",
     "outDir": "./lib",
     "declaration": true,
-    "declarationDir": "./types"
+    "declarationDir": "./lib/types"
   },
   "compileOnSave": true,
   "include": ["./src/**/*"],
-  "exclude": ["lib", "node_modules"],
   "references": [
     {"@roots/container": "../container"},
     {"@roots/dependencies": "../dependencies"},
@@ -16,7 +15,6 @@
     {"@roots/bud": "../bud"},
     {"@roots/bud-build": "../build"},
     {"@roots/bud-cli": "../cli"},
-    {"@roots/bud-compiler": "../compiler"},
     {"@roots/bud-api": "../api"},
     {"@roots/bud-framework": "../framework"},
     {"@roots/bud-postcss": "../postcss"},

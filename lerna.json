@@ -13,6 +13,7 @@
     "packages/postcss",
     "packages/server",
     "packages/support",
+    "packages/typings",
     "packages/extensions/eslint",
     "packages/extensions/sass"
   ],

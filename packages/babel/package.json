@@ -43,6 +43,6 @@
   },
   "devDependencies": {
     "webpack": "^4.44.2",
-    "@roots/bud-framework": "^2.0.0-next.24"
+    "@roots/bud-typings": "^2.0.0-next.24"
   }
 }

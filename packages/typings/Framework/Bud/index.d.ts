@@ -1,9 +1,11 @@
 import * as pino from 'pino'
-import Compiler from '@roots/bud-compiler'
-import {Server} from '@roots/bud-server'
+import {CompilerInterface} from '../..'
 import {FileContainer, FileSystem} from '@roots/filesystem'
 import {BuiltInParserName} from 'prettier'
 
+/**
+ * Bud.
+ */
 export declare class Bud {
   /**
    * @note I'm not sure how to type something this flexible.
@@ -11,33 +13,25 @@ export declare class Bud {
   [key: string]: any
 
   /**
-   * Build function.
-   *
+   * Build.
    * @description Generates webpack configuration
-   * @type {Bud.Build}
    */
   build: Framework.Build
 
   /**
    * Compiler instance.
-   *
-   * @type {Compiler}
    */
-  compiler: Compiler
+  compiler: CompilerInterface
 
   /**
-   * Disks instance.
-   *
-   * @type {FileSystem}
+   * FS instance.
    */
   disk: FileSystem
 
   /**
    * Env variables.
    *
-   * @note this variable is frozen.
-   *
-   * @type {Bud.Env}
+   * @note frozen
    */
   env: Framework.Env
 
@@ -48,8 +42,6 @@ export declare class Bud {
 
   /**
    * Extensions controller.
-   *
-   * @type {Controller}
    */
   extensions: Framework.Extensions
 
@@ -60,37 +52,26 @@ export declare class Bud {
 
   /**
    * Hooks system.
-   *
-   * @type {Hooks}
    */
   hooks: Framework.Hooks
 
   /**
    * WDS wrapper.
-   *
-   * @type {Server.Interface}
    */
   server: Server.Server
 
   /**
    * Logger
-   *
-   * @type {pino.Logger}
    */
   logger: pino.Logger
 
   /**
    * Mode
-   *
-   * @type {Framework.Mode}
    */
   mode: Framework.Mode
 
   /**
    * Utilities/helpers.
-   *
-   * @property format - formatting util.
-   * @property pretty - prettier util.
    */
   util: {
     format: (obj: unknown, options: unknown) => string
@@ -102,18 +83,11 @@ export declare class Bud {
 
   /**
    * Initialize the instance of Bud.
-   *
-   * @private
    */
   init(): void
 
   /**
    * Make a new disk virtual disk.
-   *
-   * @param {string} [key=Bud.PRIMARY_DISK]
-   * @param {string} [baseDir]
-   * @param {string[]} [glob]
-   * @returns {FileContainer}
    */
   makeDisk(
     key: string,

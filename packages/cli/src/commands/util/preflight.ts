@@ -1,10 +1,9 @@
-import Bud from '@roots/bud-framework/lib/Bud'
-import {injectClient} from '@roots/bud-server/lib/Server/injectClient'
+import {Framework} from '@roots/bud-typings'
 
 /**
  * Server setup
  */
-export const dev = function (bud: Bud): void {
+export const dev = function (bud: Framework.Bud): void {
   bud.server
     .setCompiler(bud.compiler.getCompiler())
     .setConfig(bud.store['server'].repository)
@@ -24,14 +23,14 @@ export const dev = function (bud: Bud): void {
  * Inject hmr loaders
  * @see bud-server
  */
-export const inject: (bud: Bud) => void = bud => {
+/* export const inject: (bud: Bud) => void = bud => {
   const entrypoints = injectClient({
     entrypoints: bud.build.config.get('entry'),
   })
 
   bud.build.config.set('entry', entrypoints)
 }
-
+ */
 /**
  * Compile build.
  */

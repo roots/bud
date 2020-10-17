@@ -1,21 +1,21 @@
 export const template: Api.Template = function (options?: {
-  template
-  replacements
+  template: string
+  replacements: Framework.Index<string>
 }) {
   options?.template &&
-    this.extensions.setOptions(
-      'html',
-      this.hooks.filter('api.template', options?.template),
-    )
+    this.extensions.setOptions('html', {
+      ...this.extensions.getOptions('html'),
+      template: options?.template,
+    })
 
   options?.replacements &&
-    this.extensions.setOptions(
-      'html',
-      this.hooks.filter(
-        'api.html.replacements',
-        options?.replacements,
-      ),
-    )
+    this.extensions.setOptions('html', {
+      ...this.extensions.getOptions('html'),
+      replacements: {
+        ...this.extensions.getOptions('html').replacements,
+        ...options?.replacements,
+      },
+    })
 
   return this
 }

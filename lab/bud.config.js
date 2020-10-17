@@ -6,4 +6,6 @@ bud.extensions
   .use('@roots/bud-sass')
   .use('@roots/bud-eslint')
 
-bud.entry('foo', 'foo.js').compile()
+bud.entry('foo', 'foo.js')
+
+bud.compile()

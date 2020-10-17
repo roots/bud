@@ -50,9 +50,6 @@ const useCompilation: Hooks.Compilation.Compiler = ({
     })
   }
 
-  /**
-   * Apply plugins.
-   */
   useEffect(() => {
     if (applied) return
     setApplied(true)
@@ -60,18 +57,12 @@ const useCompilation: Hooks.Compilation.Compiler = ({
     compiler.applyPlugins(progressHandler)
   }, [compiler])
 
-  /**
-   * dev tap
-   */
   useEffect(() => {
     if (!compiler || tapped) return
     compiler.compiler.hooks.done.tap('bud-cli', statsHandler)
     setTapped(true)
   }, [compiler, tapped])
 
-  /**
-   * Compilation
-   */
   useEffect(() => {
     if (watching) return
     setRunning(true)

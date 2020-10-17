@@ -8,6 +8,11 @@ export as namespace Server
 
 export declare class Server {
   /**
+   * Bud
+   */
+  bud: Framework.Bud
+
+  /**
    * Express instance.
    */
   instance: Instance
@@ -21,6 +26,11 @@ export declare class Server {
    * Webpack compiler.
    */
   compiler: Compiler
+
+  /**
+   * Class constructor.
+   */
+  constructor(bud: Framework.Bud)
 
   /**
    * Get Express instance.

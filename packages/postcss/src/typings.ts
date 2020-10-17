@@ -1,4 +1,4 @@
-import '@roots/bud-framework'
+import type {Framework} from '@roots/bud-typings'
 
 import type {
   AcceptedPlugin,
@@ -16,7 +16,7 @@ export type {
   Stringifier,
 }
 
-export interface Options {
+declare interface Options {
   syntax?: Syntax
   plugins?: PluginStore[]
   map?: SourceMapOptions
@@ -24,15 +24,18 @@ export interface Options {
   stringifier?: Stringifier
 }
 
-export interface PluginTuple {
+export declare interface PluginTuple {
   plugin: AcceptedPlugin
   options?: unknown
 }
 
-export interface PluginStore {
+export declare interface PluginStore {
   [key: string]: PluginTuple
 }
 
-export type Adapter = Framework.Extension
+export declare type Adapter = Framework.Extension
 
-export type Config = Framework.Api.Fluent<Framework.Bud, Options>
+export declare type Config = Framework.Api.Fluent<
+  Framework.Bud,
+  Options
+>

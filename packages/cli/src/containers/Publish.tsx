@@ -1,7 +1,7 @@
 import React, {FunctionComponent} from 'react'
 import {Box, Text} from 'ink'
 
-const Publish: FunctionComponent<ScreenInterface> = ({file}) => (
+const Publish: FunctionComponent<any> = ({file}) => (
   <Box
     display="flex"
     margin={1}

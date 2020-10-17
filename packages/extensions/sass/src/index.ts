@@ -1,5 +1,3 @@
-import '@roots/bud-framework'
-
 export const boot = (bud: Framework.Bud): void => {
   bud.addExtensions(['sass', 'scss'])
 }

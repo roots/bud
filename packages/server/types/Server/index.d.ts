@@ -1,16 +1,13 @@
-import { Handler, Application as Express } from 'express';
-import { Compiler } from 'webpack';
+import { Handler } from 'express';
 export declare class Server {
+    bud: Framework.Bud;
     instance: Server.Instance;
     config: Server.Config;
-    compiler: Compiler;
-    constructor();
+    middleware: any;
+    constructor(bud: Framework.Bud);
     getServer(): this['instance'];
-    setServer(instance: Express): this;
     getConfig(): this['config'];
     setConfig(config: Server.Config): this;
-    getCompiler(): Compiler;
-    setCompiler(compiler: Compiler): this;
     addMiddleware(middleware: Handler): this;
     addDevMiddleware(): this;
     addHotMiddleware(): this;
