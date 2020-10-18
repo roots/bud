@@ -1,6 +1,8 @@
 import {lodash as _} from '@roots/bud-support'
 
-export const provide: Framework.API.Provide = function (options) {
+export const provide: Framework.API.Provide = function (
+  options,
+) {
   Object.entries(options).forEach(([key, modules]) => {
     const isString = typeof modules == 'string'
 

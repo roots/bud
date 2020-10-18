@@ -1,4 +1,6 @@
-export const project: Framework.API.Project = function (segment) {
+export const project: Framework.API.Project = function (
+  segment,
+) {
   return segment
     ? this.disk.get('project')
       ? this.disk.current.get(segment)

@@ -4,8 +4,9 @@ export const options: CopyPluginOptions = {
   patterns: [],
 }
 
-export const make: Framework.Extension.Make = (opts: CopyPluginOptions) =>
-  new CopyPlugin(opts)
+export const make: Framework.Extension.Make = (
+  opts: CopyPluginOptions,
+) => new CopyPlugin(opts)
 
 export const when: Framework.Extension.When = (
   _bud,

@@ -1,5 +1,5 @@
 import webpack from 'webpack'
-import Framework from '@roots/bud-typings'
+
 export class Compiler {
   public bud: Framework.Bud
 

@@ -39,12 +39,16 @@ export const port: Framework.Server.Config['port'] = 3000
 /**
  * Filename of html used for WDS file index at root.
  */
-export const index: Framework.Server.Config['index'] = 'index.html'
+export const index: Framework.Server.Config['index'] =
+  'index.html'
 
 /**
  * Methods supported by dev server.
  */
-export const methods: Framework.Server.Config['methods'] = ['GET', 'HEAD']
+export const methods: Framework.Server.Config['methods'] = [
+  'GET',
+  'HEAD',
+]
 
 /**
  * Mimetypes supported by dev server.

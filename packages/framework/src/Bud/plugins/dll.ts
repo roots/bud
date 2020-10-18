@@ -8,8 +8,9 @@ export const options: (
   path: bud.dist('library/[name].json'),
 })
 
-export const make: Framework.Extension.Make = (opts: DllPlugin.Options) =>
-  new DllPlugin(opts)
+export const make: Framework.Extension.Make = (
+  opts: DllPlugin.Options,
+) => new DllPlugin(opts)
 
 export const when: Framework.Extension.When = bud => {
   const {library} = bud.build.config.get('entry')

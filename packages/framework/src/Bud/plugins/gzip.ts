@@ -15,8 +15,9 @@ export const options: GzipOptions = {
 export const when: Framework.Extension.When = bud =>
   bud.features.get('gzip') === true
 
-export const make: Framework.Extension.Make = (options: GzipOptions) =>
-  new CompressionPlugin(options)
+export const make: Framework.Extension.Make = (
+  options: GzipOptions,
+) => new CompressionPlugin(options)
 
 declare type GzipOptions = CompressionPlugin.Options<
   CompressionPlugin.ZlibOptions
