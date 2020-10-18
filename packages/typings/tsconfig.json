@@ -5,14 +5,9 @@
     "outDir": "./types",
     "declaration": true,
     "declarationDir": "types",
-    "declarationMap": true
-  },
-  "typeAcquisition": {
-    "enable": true,
   },
   "compileOnSave": true,
-  "include": ["../cli/**/*"],
-  "exclude": ["../extensions/**/*"],
+  "include": ["./packages/**/*"],
   "references": [
     {"@roots/container": "../container"},
     {"@roots/dependencies": "../dependencies"},

@@ -4,10 +4,7 @@
     "rootDir": "./src",
     "outDir": "./lib",
     "declaration": true,
-    "declarationDir": "./types"
-  },
-  "typeAcquisition": {
-    "enable": true
+    "declarationDir": "./lib/types"
   },
   "compileOnSave": true,
   "include": ["./src/**/*"],

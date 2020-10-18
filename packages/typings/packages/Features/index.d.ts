@@ -1,11 +1,9 @@
-import {Container} from '@roots/container'
+import type Framework from '../'
 
-export {Features}
-
-declare class Features extends Container {
+export declare class Features extends Framework.Container {
 
 }
 
-declare namespace Features {
+export declare namespace Features {
 
 }

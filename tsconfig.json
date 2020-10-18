@@ -33,7 +33,7 @@
     {"@roots/bud-rules": "rules"},
     {"@roots/bud-server": "server"},
     {"@roots/bud-support": "support"},
-    {"@roots/bud-types": "types"},
+    {"@roots/bud-typings": "typings"},
     {"@roots/bud-eslint": "extensions/eslint"},
     {"@roots/bud-manifests": "extensions/manifests"},
     {"@roots/bud-purgecss": "extensions/purgecss"},

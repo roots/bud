@@ -1,4 +1,4 @@
-import Ink from 'ink'
+import * as Ink from 'ink'
 
 export as namespace CLI
 

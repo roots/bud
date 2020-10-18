@@ -1,8 +1,9 @@
+import '@roots/dependencies'
+
 export as namespace Framework
 
-export * from '@roots/filesystem'
-export * from '@roots/container'
-export * from '@roots/dependencies'
+export {Container} from '@roots/container'
+export {FileContainer, FileSystem} from '@roots/filesystem'
 
 export * from './API'
 export * from './Bud'

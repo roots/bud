@@ -1,17 +1,23 @@
 import {
   Configuration, Options, RuleSetRule, Compiler, RuleSetCondition, RuleSetLoader, RuleSetQuery, RuleSetUse, RuleSetUseItem, Watching, HotModuleReplacementPlugin, Resolve, Stats, ProgressPlugin,
-  ICompiler, Plugin,
+  ICompiler, Plugin, ExternalsObjectElement, Entry, EntryFunc,
+  Module, Output,
 } from 'webpack'
 
 export namespace Webpack {
   export {
-    Configuration,
-    Options,
-    RuleSetRule,
     Compiler,
+    Configuration,
+    Entry,
+    EntryFunc,
+    ExternalsObjectElement,
+    Module,
+    Options,
+    Output,
     RuleSetCondition,
     RuleSetLoader,
     RuleSetQuery,
+    RuleSetRule,
     RuleSetUse,
     RuleSetUseItem,
     Watching,

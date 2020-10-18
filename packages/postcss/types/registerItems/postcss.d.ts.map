@@ -1,1 +1,0 @@
-{"version":3,"file":"postcss.d.ts","sourceRoot":"","sources":["../../src/registerItems/postcss.ts"],"names":[],"mappings":"AAEA,eAAO,MAAM,KAAK,EAAE,SAAS,CAAC,IAAI,CAAC,OAAO,CAAa,CAAA;AACvD,eAAO,MAAM,MAAM,EAAE,SAAS,CAAC,IAAI,CAAC,QAAQ,CAAa,CAAA;AACzD,eAAO,MAAM,OAAO,EAAE,SAAS,CAAC,IAAI,CAAC,SAAS,CAU7C,CAAA"}
