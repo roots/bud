@@ -2,18 +2,17 @@ import {Container} from '@roots/container'
 import {Compiler} from '@roots/bud-compiler'
 import {FileContainer, FileSystem} from '@roots/filesystem'
 
-import app from '@roots/bud-cli'
-import {Server} from '@roots/bud-server'
-import * as api from '@roots/bud-api'
-
+import {App} from '@roots/bud-cli'
 import {Build} from '../Build'
 import {Hooks} from '../Hooks'
 import {Extensions} from '../Extensions'
 import {Features} from '../Features'
 import {Mode} from '../Mode'
+import {Server} from '@roots/bud-server'
 
-import {args} from './args'
-import {env} from './env'
+import * as api from '@roots/bud-api'
+import * as args from './args'
+import * as env from './env'
 import * as items from './items'
 import * as rules from './rules'
 import * as patterns from './patterns'
@@ -31,7 +30,7 @@ export class Bud implements Framework.Bud {
 
   private static PRIMARY_DISK = 'project'
 
-  public app: CLI.App = app
+  public app: CLI.ControllerInterface
 
   public build: Framework.Build
 
@@ -79,6 +78,7 @@ export class Bud implements Framework.Bud {
     this.features = new Features()
     this.fs = new FileContainer()
     this.patterns = new Container(patterns)
+    this.app = App(this)
 
     this.init()
   }
@@ -96,19 +96,19 @@ export class Bud implements Framework.Bud {
     )
 
     Object.entries(loaders).map(
-      ([name, loader]: [string, Build.Loader]) => {
+      ([name, loader]: [string, Framework.Build.Loader]) => {
         return this.build.setLoader(name, loader)
       },
     )
 
     Object.entries(items).map(
-      ([name, item]: [string, Build.Item.Module]) => {
+      ([name, item]: [string, Framework.Item.Module]) => {
         return this.build.setItem(name, item)
       },
     )
 
     Object.entries(rules).map(
-      ([name, rule]: [string, Build.Rule.Module]) => {
+      ([name, rule]: [string, Framework.Rule.Module]) => {
         return this.build.setRule(name, rule)
       },
     )

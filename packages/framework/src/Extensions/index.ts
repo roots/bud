@@ -138,7 +138,7 @@ export class Extensions implements Framework.Extensions {
 
     extension.hasOwnProperty('registerItems') &&
       Object.entries(extension.registerItems).map(
-        ([, item]: [string, Build.Item.Module]) => {
+        ([, item]: [string, Framework.Item.Module]) => {
           const name =
             typeof item.ident == 'function'
               ? item.ident(this.bud)

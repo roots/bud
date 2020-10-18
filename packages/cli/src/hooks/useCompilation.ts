@@ -59,7 +59,9 @@ const useCompilation: Hooks.Compilation.Compiler = ({
 
   useEffect(() => {
     if (!compiler || tapped) return
-    compiler.compiler.hooks.done.tap('bud-cli', statsHandler)
+    compiler
+      .getCompilation()
+      .hooks.done.tap('bud-cli', statsHandler)
     setTapped(true)
   }, [compiler, tapped])
 

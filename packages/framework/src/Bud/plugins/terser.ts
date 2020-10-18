@@ -26,8 +26,8 @@ export const options: TerserPluginOptions = {
   parallel: true,
 }
 
-export const make: Adapter.make = (opts: TerserPluginOptions) =>
+export const make: Framework.Extension.Make = (opts: TerserPluginOptions) =>
   new TerserPlugin(opts)
 
-export const when: Adapter.when = ({features}) =>
+export const when: Framework.Extension.When = ({features}) =>
   features.enabled('minify')

@@ -1,7 +1,7 @@
-export const ident: Build.Item['ident'] = 'css'
+export const ident: Framework.Item['ident'] = 'css'
 
-export const loader: Build.Item['loader'] = 'css'
+export const loader: Framework.Item['loader'] = 'css'
 
-export const options: Build.Item['options'] = {
+export const options: Framework.Item['options'] = {
   importLoaders: 1,
 }

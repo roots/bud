@@ -1,15 +1,13 @@
-import {Framework} from '@roots/bud-typings'
-
 /**
  * Server setup
  */
 export const dev = function (bud: Framework.Bud): void {
-  bud.server
-    .setCompiler(bud.compiler.getCompiler())
+  /*
+    bud.server
+    .setCompiler(bud.compiler.getCompilation())
     .setConfig(bud.store['server'].repository)
     .addDevMiddleware()
 
-  /*
     const serverConf = bud.server.getConfig()
     bud
     .when(serverConf.hot === true, bud.server.addHotMiddleware)

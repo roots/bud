@@ -1,2 +1,2 @@
-export const ident: Build.Item['ident'] = 'minicss'
-export const loader: Build.Item['loader'] = 'minicss'
+export const ident: Framework.Item['ident'] = 'minicss'
+export const loader: Framework.Item['loader'] = 'minicss'

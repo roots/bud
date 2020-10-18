@@ -1,4 +1,4 @@
-export const externals: Build.Externals = function ({
+export const externals: Framework.Build.Externals = function ({
   externals,
 }) {
   return {

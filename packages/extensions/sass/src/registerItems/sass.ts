@@ -1,8 +1,8 @@
-export const ident: Build.Item['ident'] = 'sass'
+export const ident: Framework.Item['ident'] = 'sass'
 
-export const loader: Build.Item['loader'] = 'sass'
+export const loader: Framework.Item['loader'] = 'sass'
 
-export const options: Build.Item['options'] = {
+export const options: Framework.Item['options'] = {
   implementation: (() => {
     let implementation: unknown
 

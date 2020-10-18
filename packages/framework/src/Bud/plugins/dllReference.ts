@@ -9,11 +9,11 @@ export const options: (
   sourceType: 'commonjs2',
 })
 
-export const make: Adapter.make = (
+export const make: Framework.Extension.Make = (
   opts: DllReferencePlugin.Options,
 ) => new DllReferencePlugin(opts)
 
-export const when: Adapter.when = bud => {
+export const when: Framework.Extension.When = bud => {
   const {library} = bud.build.config.get('entry')
   const enabled = bud.features.enabled('library')
   const manifestExists = bud.fs.exists(

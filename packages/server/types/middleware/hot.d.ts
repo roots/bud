@@ -1,4 +1,3 @@
-import { Compiler } from 'webpack';
-declare const hot: (compiler: Compiler) => any;
+declare const hot: (compiler: Framework.Webpack.Compiler) => any;
 export { hot };
 //# sourceMappingURL=hot.d.ts.map

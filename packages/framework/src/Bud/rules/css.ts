@@ -13,11 +13,13 @@ export const use: Use = ({build, mode}) => {
   return [style, use('css'), use('resolveUrl')]
 }
 
-declare type Conditional = Build.Rule.Factory<
-  Build.Rule.Conditional
+declare type Conditional = Framework.Rule.Factory<
+  Framework.Rule.Conditional
 >
 
-declare type Exclude = Build.Rule.Factory<Build.Rule.Conditional>
+declare type Exclude = Framework.Rule.Factory<
+  Framework.Rule.Conditional
+>
 
-declare type Use = Build.Rule.Factory<Build.Rule.Use>
-declare type UseItem = (item: string) => Build.Rule.Generic
+declare type Use = Framework.Rule.Factory<Framework.Rule.Use>
+declare type UseItem = (item: string) => Framework.Rule.Generic

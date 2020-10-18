@@ -5,7 +5,7 @@ export declare class Bud implements Framework.Bud {
      */
     [key: string]: any;
     private static PRIMARY_DISK;
-    app: CLI.App;
+    app: CLI.ControllerInterface;
     build: Framework.Build;
     compiler: Framework.Bud['compiler'];
     disk: Framework.Bud['disk'];

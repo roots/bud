@@ -1,8 +1,8 @@
 import WebpackHotMiddleware from 'webpack-hot-middleware'
-import {Compiler} from 'webpack'
-import {RequestHandler} from 'express'
 
-const hot = (compiler: Compiler): RequestHandler => {
+const hot = (
+  compiler: Framework.Webpack.Compiler,
+): Framework.Express.RequestHandler => {
   const options: WebpackHotMiddleware.MiddlewareOptions = {
     path: `/__webpack_hmr`,
     heartbeat: 2000,

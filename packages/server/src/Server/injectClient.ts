@@ -15,7 +15,7 @@ const toInject = [
 /**
  * Injects webpack.entry items with hot module scripts.
  */
-export const injectClient: Server.InjectClient = ({
+export const injectClient: Framework.Server.InjectClient = ({
   entrypoints,
 }) => {
   const prepend = (entry: unknown) => {

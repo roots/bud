@@ -1,13 +1,14 @@
 import * as middleware from '../middleware'
 import express, {Handler} from 'express'
 import * as config from './config'
+import {injectClient} from './injectClient'
 
 export class Server {
   public bud: Framework.Bud
 
-  public instance: Server.Instance = express()
+  public instance: Framework.Server.Instance = express()
 
-  public config: Server.Config = config
+  public config: Framework.Server.Config = config
 
   public middleware: any
 
@@ -22,7 +23,7 @@ export class Server {
     this.addProxyMiddleware = this.addProxyMiddleware.bind(this)
   }
 
-  public getServer(): this['instance'] {
+  public getInstance(): this['instance'] {
     return this.instance
   }
 
@@ -30,7 +31,7 @@ export class Server {
     return this.config
   }
 
-  public setConfig(config: Server.Config): this {
+  public setConfig(config: Framework.Server.Config): this {
     this.config = config
 
     return this
@@ -43,9 +44,9 @@ export class Server {
   }
 
   public addDevMiddleware(): this {
-    this.addMiddleware(
+    this.instance.use(
       middleware.dev({
-        compiler: this.bud.compiler.getCompiler(),
+        compiler: this.bud.compiler.getCompilation(),
         config: this.config,
       }),
     )
@@ -54,8 +55,15 @@ export class Server {
   }
 
   public addHotMiddleware(): this {
+    this.bud.build.config.set(
+      'entry',
+      injectClient({
+        entrypoints: this.bud.build.config.get('entry'),
+      }),
+    )
+
     this.addMiddleware(
-      middleware.hot(this.bud.compiler.getCompiler()),
+      middleware.hot(this.bud.compiler.getCompilation()),
     )
 
     return this

@@ -9,28 +9,6 @@
   "compileOnSave": true,
   "include": ["./src/**/*"],
   "references": [
-    {"@roots/container": "../container"},
-    {"@roots/dependencies": "../dependencies"},
-    {"@roots/filesystem": "../filesystem"},
-    {"@roots/bud": "../bud"},
-    {"@roots/bud-build": "../build"},
-    {"@roots/bud-cli": "../cli"},
-    {"@roots/bud-api": "../api"},
-    {"@roots/bud-framework": "../framework"},
-    {"@roots/bud-postcss": "../postcss"},
-    {"@roots/bud-webpack": "../webpack"},
-    {"@roots/bud-server": "../server"},
-    {"@roots/bud-support": "../support"},
-    {"@roots/bud-types": "../types"},
-    {"@roots/bud-eslint": "../extensions/eslint"},
-    {"@roots/bud-manifests": "../extensions/manifests"},
-    {"@roots/bud-purgecss": "../extensions/purgecss"},
-    {"@roots/bud-react": "../extensions/react"},
-    {"@roots/bud-sage": "../extensions/sage"},
-    {"@roots/bud-sass": "../extensions/sass"},
-    {"@roots/bud-stylelint": "../extensions/stylelint"},
-    {"@roots/bud-tailwindcss": "../extensions/tailwindcss"},
-    {"@roots/bud-typescript": "../extensions/typescript"},
-    {"@roots/bud-vue": "../extensions/vue"}
+    {"@roots/bud-typings": "../typings"}
   ]
 }

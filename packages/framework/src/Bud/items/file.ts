@@ -1,8 +1,8 @@
-export const ident: Build.Item['ident'] = 'file'
-export const loader: Build.Item['loader'] = 'file'
+export const ident: Framework.Item['ident'] = 'file'
+export const loader: Framework.Item['loader'] = 'file'
 
-export const options: Build.Item['options'] = {
+export const options: Framework.Item['options'] = {
   name: '[path][name].[ext]',
 }
 
-export const query: Build.Item['query'] = undefined
+export const query: Framework.Item['query'] = undefined

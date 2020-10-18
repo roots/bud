@@ -1,3 +1,3 @@
 import WriteFilePlugin from 'write-file-webpack-plugin'
 
-export const make: Adapter.make = new WriteFilePlugin()
+export const make: Framework.Extension.Make = new WriteFilePlugin()

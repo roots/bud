@@ -1,4 +1,4 @@
-export const resolve: Build.Resolve = function ({
+export const resolve: Framework.Build.Resolve = function ({
   resolve,
   context,
 }) {

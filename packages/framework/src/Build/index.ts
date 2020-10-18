@@ -1,27 +1,28 @@
 import webpack, {Configuration} from 'webpack'
 
-import {Item} from './Item'
-import {Rule} from './Rule'
-
 import * as builders from './builders'
 import * as config from './config'
+
 import {Container} from '@roots/container'
 import {lodash as _} from '@roots/bud-support'
 
+import {Item} from '../Item'
+import {Rule} from '../Rule'
+
 export {Build}
 
-class Build implements Framework.Build {
+class Build implements Build {
   public bud: Framework.Bud
 
-  public builders: Partial<Build.Builders> = builders
+  public builders: Partial<Framework.Build.Builders> = builders
 
-  public loaders: Framework.Index<Build.Loader> = {}
+  public loaders: Framework.Index<Framework.Build.Loader> = {}
 
-  public items: Framework.Index<Item> = {}
+  public items: Framework.Index<Framework.Item> = {}
 
-  public rules: Framework.Index<Rule> = {}
+  public rules: Framework.Index<Framework.Rule> = {}
 
-  public config: Container
+  public config: Framework.Container
 
   public constructor(bud: Framework.Bud) {
     this.bud = bud
@@ -30,7 +31,10 @@ class Build implements Framework.Build {
 
   public compile(): Configuration {
     return Object.entries(builders).reduce(
-      (config, [, builder]: [string, Build.Builders]) => ({
+      (
+        config,
+        [, builder]: [string, Framework.Build.Builders],
+      ) => ({
         ...config,
         ...builder.bind(this.bud)(this.config.all()),
       }),
@@ -38,24 +42,27 @@ class Build implements Framework.Build {
     )
   }
 
-  public getLoader(name: string): Build.Loader {
+  public getLoader(name: string): Framework.Build.Loader {
     return this.loaders[name]
   }
 
   public setLoader(
     name: string,
-    loader: Build.Loader,
-  ): Build.Loader {
+    loader: Framework.Build.Loader,
+  ): Framework.Build.Loader {
     this.loaders[name] = loader
 
     return this.loaders[name]
   }
 
-  public getItem(name: string): Build.Item.Product {
+  public getItem(name: string): Framework.Item.Product {
     return this.items[name].make()
   }
 
-  public setItem(name: string, module: Build.Item.Module): Item {
+  public setItem(
+    name: string,
+    module: Framework.Item.Module,
+  ): Framework.Item {
     this.items[name] = new Item(this.bud, module)
 
     return this.items[name]
@@ -63,9 +70,9 @@ class Build implements Framework.Build {
 
   public mergeItem(
     item: string,
-    value: Partial<Build.Item>,
+    value: Partial<Framework.Item>,
   ): void {
-    const merged: Partial<Build.Item> = {}
+    const merged: Partial<Framework.Item> = {}
     _.merge(merged, this.items[item].make(), value)
 
     this.setItem(item, merged)
@@ -75,16 +82,19 @@ class Build implements Framework.Build {
     return this.rules[name].make()
   }
 
-  public setRule(name: string, module: Build.Rule.Module): Rule {
+  public setRule(
+    name: string,
+    module: Framework.Rule.Module,
+  ): Rule {
     this.rules[name] = new Rule(this.bud, module)
     return this.rules[name]
   }
 
   public mergeRule(
     rule: string,
-    value: Partial<Build.Rule>,
+    value: Partial<Framework.Rule>,
   ): void {
-    const merged: Partial<Build.Rule> = {}
+    const merged: Partial<Framework.Rule> = {}
     _.merge(merged, this.rules[rule].make(), value)
 
     this.setRule(rule, merged)

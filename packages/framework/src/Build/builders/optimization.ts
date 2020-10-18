@@ -1,4 +1,4 @@
-export const optimization: Build.Optimization = function ({
+export const optimization: Framework.Build.Optimization = function ({
   optimization,
 }) {
   const runtimeChunk = this.features.enabled('runtimeChunk')

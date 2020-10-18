@@ -1,4 +1,3 @@
-import { Framework } from '@roots/bud-typings';
 /**
  * Server setup
  */

@@ -1,6 +1,6 @@
 import {CleanWebpackPlugin} from 'clean-webpack-plugin'
 
-export const when: Adapter.when = ({features}) =>
+export const when: Framework.Extension.When = ({features}) =>
   features.enabled('clean')
 
-export const make: Adapter.make = new CleanWebpackPlugin()
+export const make: Framework.Extension.Make = new CleanWebpackPlugin()

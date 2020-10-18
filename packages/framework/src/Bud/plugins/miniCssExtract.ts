@@ -8,9 +8,9 @@ export const options: (
     : '[name].css',
 })
 
-export const make: Adapter.make = (
+export const make: Framework.Extension.Make = (
   opts: MiniCssExtractPlugin.PluginOptions,
 ) => new MiniCssExtractPlugin(opts)
 
-export const when: Adapter.when = ({mode}) =>
+export const when: Framework.Extension.When = ({mode}) =>
   mode.is('production')

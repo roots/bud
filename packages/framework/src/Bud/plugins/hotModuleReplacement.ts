@@ -1,7 +1,7 @@
 import {HotModuleReplacementPlugin} from 'webpack'
 
-export const make: Adapter.make = () =>
+export const make: Framework.Extension.Make = () =>
   new HotModuleReplacementPlugin()
 
-export const when: Adapter.when = ({features}) =>
+export const when: Framework.Extension.When = ({features}) =>
   features.enabled('hot')

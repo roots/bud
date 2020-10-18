@@ -11,10 +11,10 @@ export const options: OptionsFactory = bud =>
       {},
     ) ?? {}
 
-export const make: Adapter.make = (opts: Options) =>
+export const make: Framework.Extension.Make = (opts: Options) =>
   new DefinePlugin(opts)
 
-export const when: Adapter.when = (_bud, opts) =>
+export const when: Framework.Extension.When = (_bud, opts) =>
   opts ? true : false
 
 export type OptionsFactory = (

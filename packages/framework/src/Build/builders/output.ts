@@ -1,4 +1,6 @@
-export const output: Build.Output = function ({output}) {
+export const output: Framework.Build.Output = function ({
+  output,
+}: Partial<Framework.Build.Configuration>) {
   const path = this.hooks.filter(
     'build.output.path',
     output.path,

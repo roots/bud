@@ -10,22 +10,21 @@ import zlib from 'zlib'
 /**
  * Proxy middleware factory
  */
-const proxy = (config: Server.Config): RequestHandler => {
-  /**
-   * Origin server
-   */
-  const from = {
-    host: config.from?.host ?? config.host ?? 'localhost',
-    port: config.from?.port ?? config.port ?? 8000,
+const proxy = (
+  config: Framework.Server.Config,
+): RequestHandler => {
+  const dev = {
+    host: config.host ?? 'localhost',
+    port: config.port ?? 8000,
     ssl: config.ssl ?? false,
   }
 
   /**
    * Proxy server
    */
-  const to = {
-    host: config.to?.host ?? config.host ?? 'localhost',
-    port: config.to?.port ?? 3000,
+  const proxy = {
+    host: config.proxy?.host ?? config.host ?? 'localhost',
+    port: config.proxy?.port ?? 3000,
     ssl: config.ssl ?? false,
   }
 
@@ -34,7 +33,7 @@ const proxy = (config: Server.Config): RequestHandler => {
    */
   const getUrl = target =>
     url.format({
-      protocol: target.ssl ?? from.ssl ? 'https' : 'http',
+      protocol: target.ssl ?? dev.ssl ? 'https' : 'http',
 
       hostname: /^[a-zA-Z]+:\/\//.test(target.host)
         ? target.host.replace(/^[a-zA-Z]+:\/\//, '')
@@ -46,8 +45,8 @@ const proxy = (config: Server.Config): RequestHandler => {
    */
   const headers = {
     'X-Powered-By': '@roots/bud',
-    'X-Bud-Proxy-From': from.host,
-    'X-Bud-Proxy-Secure': from.ssl,
+    'X-Bud-Proxy-From': dev.host,
+    'X-Bud-Proxy-Secure': dev.ssl,
   }
 
   /**
@@ -55,8 +54,8 @@ const proxy = (config: Server.Config): RequestHandler => {
    */
   const transformBody = (body: string): string =>
     body.replace(
-      new RegExp(from.host, 'g'),
-      `${to.host}:${to.port}`,
+      new RegExp(dev.host, 'g'),
+      `${proxy.host}:${proxy.port}`,
     )
 
   /**
@@ -110,11 +109,11 @@ const proxy = (config: Server.Config): RequestHandler => {
    * Proxy middleware configuration
    */
   const proxyOptions: Options = {
-    target: getUrl(from),
-    forward: getUrl(to),
+    target: getUrl(dev),
+    forward: getUrl(proxy),
     autoRewrite: config.autoRewrite,
     headers,
-    hostRewrite: `${to.host}:${to.port}`,
+    hostRewrite: `${proxy.host}:${proxy.port}`,
     changeOrigin: config.changeOrigin,
     followRedirects: config.followRedirects,
     logLevel: 'silent',
@@ -122,7 +121,7 @@ const proxy = (config: Server.Config): RequestHandler => {
     secure: config.ssl ?? false,
     ws: config.ws ?? true,
     cookieDomainRewrite: {
-      [from.host]: to.host,
+      [dev.host]: proxy.host,
     },
     onProxyRes,
     selfHandleResponse: true,

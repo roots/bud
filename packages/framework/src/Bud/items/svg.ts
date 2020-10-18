@@ -1,8 +1,8 @@
 import svgToMiniDataUri from 'mini-svg-data-uri'
 
-export const ident: Build.Item['ident'] = 'svg'
-export const loader: Build.Item['loader'] = 'resolveUrl'
-export const options: Build.Item['options'] = {
+export const ident: Framework.Item['ident'] = 'svg'
+export const loader: Framework.Item['loader'] = 'resolveUrl'
+export const options: Framework.Item['options'] = {
   generator: (content: unknown) =>
     svgToMiniDataUri(content.toString()),
 }

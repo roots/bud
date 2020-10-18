@@ -12,7 +12,7 @@ export const make: (
 ) => InterpolateHtmlPlugin = ({replacements}) =>
   new InterpolateHtmlPlugin(HtmlWebpackPlugin, replacements)
 
-export const when: Adapter.when = ({features}) =>
+export const when: Framework.Extension.When = ({features}) =>
   features.get('html') == true
 
 declare type Options = {

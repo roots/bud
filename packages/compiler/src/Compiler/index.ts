@@ -1,14 +1,13 @@
-import type {CompilerInterface} from '@roots/bud-typings'
-import webpack, {
-  Compiler as Webpack,
-  ProgressPlugin,
-} from 'webpack'
-
-export class Compiler implements CompilerInterface {
+import webpack from 'webpack'
+import Framework from '@roots/bud-typings'
+export class Compiler {
   public bud: Framework.Bud
-  public compiler: Webpack
-  public watchOptions: Webpack.WatchOptions
-  public watching: Webpack.Watching
+
+  public compilation: Framework.Webpack.Compiler
+
+  public watchOptions: Framework.Webpack.Options.WatchOptions
+
+  public watching: Framework.Webpack.Watching
 
   constructor(bud: Framework.Bud) {
     this.bud = bud
@@ -18,23 +17,27 @@ export class Compiler implements CompilerInterface {
     this.compile = this.compile.bind(this)
     this.run = this.run.bind(this)
     this.watch = this.watch.bind(this)
-    this.getCompiler = this.getCompiler.bind(this)
+    this.getCompilation = this.getCompilation.bind(this)
   }
 
   public compile(): void {
-    this.compiler = webpack(this.bud.build.compile())
+    this.compilation = webpack(this.bud.build.compile())
   }
 
-  public getCompiler(): Webpack {
-    return this.compiler
+  public getCompilation(): Framework.Webpack.Compiler {
+    return this.compilation
   }
 
-  public run(handler: Webpack.Handler): void {
-    this.compiler.run(handler)
+  public run(
+    handler: Framework.Webpack.ICompiler.Handler,
+  ): void {
+    this.getCompilation().run(handler)
   }
 
-  public watch(handler: Webpack.Handler): Webpack.Watching {
-    this.watching = this.compiler.watch(
+  public watch(
+    handler: Framework.Webpack.ICompiler.Handler,
+  ): Framework.Webpack.Watching {
+    this.watching = this.getCompilation().watch(
       this.watchOptions,
       handler,
     )
@@ -43,8 +46,10 @@ export class Compiler implements CompilerInterface {
   }
 
   public applyPlugins(
-    progressHandler: ProgressPlugin.Handler,
+    progressHandler: Framework.Webpack.ProgressPlugin.Handler,
   ): void {
-    new ProgressPlugin(progressHandler).apply(this.compiler)
+    new webpack.ProgressPlugin(progressHandler).apply(
+      this.getCompilation(),
+    )
   }
 }

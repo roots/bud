@@ -3,7 +3,7 @@ import Webpack from 'webpack'
 
 export const module = function (
   this: Framework.Bud,
-  build: Build.Configuration,
+  build: Framework.Build.Configuration,
 ): Framework.Index<Webpack.Module> {
   return {
     module: this.hooks.filter('build.module', {

@@ -1,4 +1,6 @@
-export const general: Build.General = function (build) {
+export const general: Framework.Build.General = function (
+  build: Partial<Framework.Build.Configuration>,
+) {
   return {
     mode: this.hooks.filter('build.mode', build.mode),
     node: this.hooks.filter('build.node', build.node),

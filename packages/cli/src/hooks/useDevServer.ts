@@ -65,7 +65,9 @@ const useDevServer: Hooks.Compilation.Server = ({
   useEffect(() => {
     if (tapped) return
     setTapped(true)
-    compiler.compiler.hooks.done.tap('bud-cli', statsHandler)
+    compiler
+      .getCompilation()
+      .hooks.done.tap('bud-cli', statsHandler)
   }, [tapped])
 
   /**

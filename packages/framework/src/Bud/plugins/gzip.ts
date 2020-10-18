@@ -12,10 +12,10 @@ export const options: GzipOptions = {
   deleteOriginalAssets: false,
 }
 
-export const when: Adapter.when = bud =>
+export const when: Framework.Extension.When = bud =>
   bud.features.get('gzip') === true
 
-export const make: Adapter.make = (options: GzipOptions) =>
+export const make: Framework.Extension.Make = (options: GzipOptions) =>
   new CompressionPlugin(options)
 
 declare type GzipOptions = CompressionPlugin.Options<

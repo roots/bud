@@ -4,10 +4,10 @@ export const options: CopyPluginOptions = {
   patterns: [],
 }
 
-export const make: Adapter.make = (opts: CopyPluginOptions) =>
+export const make: Framework.Extension.Make = (opts: CopyPluginOptions) =>
   new CopyPlugin(opts)
 
-export const when: Adapter.when = (
+export const when: Framework.Extension.When = (
   _bud,
   options: CopyPluginOptions,
 ) => options?.patterns?.length > 0

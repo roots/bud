@@ -1,6 +1,6 @@
 import CompressionPlugin from 'compression-webpack-plugin'
 
-export const options: Adapter.options = {
+export const options: Framework.Extension.Options = {
   filename: '[path].br',
   algorithm: 'brotliCompress',
   test: /\.(js|css|html|svg)$/,
@@ -12,10 +12,12 @@ export const options: Adapter.options = {
   deleteOriginalAssets: false,
 }
 
-export const when: Adapter.when = bud =>
+export const when: Framework.Extension.When = bud =>
   bud.features.enabled('brotli')
 
-export const make: Adapter.make = opts =>
+export const make: Framework.Extension.Make = opts =>
   new CompressionPlugin(
-    opts as CompressionPlugin.Options<Adapter.options>,
+    opts as CompressionPlugin.Options<
+      Framework.Extension.Options
+    >,
   )

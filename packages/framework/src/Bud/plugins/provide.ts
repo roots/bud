@@ -1,4 +1,4 @@
 import {ProvidePlugin} from 'webpack'
 
-export const options: Adapter.options = {}
-export const make: Adapter.make = opts => new ProvidePlugin(opts)
+export const options: Framework.Extension.Options = {}
+export const make: Framework.Extension.Make = opts => new ProvidePlugin(opts)

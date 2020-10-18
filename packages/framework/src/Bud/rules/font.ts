@@ -1,12 +1,12 @@
 /**
  * Font test
  */
-export const test: Build.Rule.Factory<Build.Rule.Conditional> = bud =>
+export const test: Framework.Rule.Factory<Framework.Rule.Conditional> = bud =>
   bud.patterns.get('font')
 
 /**
  * Font: Loaders
  */
-export const use: Build.Rule.Factory<Build.Rule.Use> = bud => [
+export const use: Framework.Rule.Factory<Framework.Rule.Use> = bud => [
   bud.build.items.file.make(),
 ]

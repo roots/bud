@@ -4,7 +4,7 @@ import {RequestHandler} from 'express'
 
 export interface DevFactoryOptions {
   compiler: Compiler
-  config: Server.Config
+  config: Framework.Server.Config
 }
 
 const BUD_HEADERS = {
@@ -18,11 +18,10 @@ const dev = ({
   WebpackDevMiddleware(compiler, options(config))
 
 const options = (
-  config: Server.Config,
+  config: Framework.Server.Config,
 ): WebpackDevMiddleware.Options => ({
   publicPath: config.publicPath ?? '/',
   headers: {...config.headers, ...BUD_HEADERS} ?? BUD_HEADERS,
-  lazy: config.lazy ?? false,
   logLevel: 'silent',
   methods: config.methods ?? ['GET', 'HEAD'],
   mimeTypes: config.mimeTypes,

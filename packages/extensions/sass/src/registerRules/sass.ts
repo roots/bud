@@ -1,11 +1,12 @@
 import * as syntax from 'postcss-scss'
+import type {Conditional, Exclude, UseLoader} from '../types'
 
 export const test: Conditional = bud => bud.patterns.get('sass')
 
 export const exclude: Exclude = bud =>
   bud.patterns.get('modules')
 
-export const use: Build.Rule.Factory<Build.Rule.Use> = bud => {
+export const use: Framework.Rule.Factory<Framework.Rule.Use> = bud => {
   const use: UseLoader = item => bud.build.items[item]?.make()
 
   const base = [
@@ -22,11 +23,3 @@ export const use: Build.Rule.Factory<Build.Rule.Use> = bud => {
 
   return [...base.splice(0, 2), use('postcss'), ...base]
 }
-
-declare type Conditional = Build.Rule.Factory<
-  Build.Rule.Conditional
->
-
-declare type Exclude = Build.Rule.Factory<Build.Rule.Conditional>
-
-declare type UseLoader = (loader: string) => Build.Rule

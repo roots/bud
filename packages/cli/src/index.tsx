@@ -3,9 +3,14 @@ import {render} from 'ink'
 import Compile from './Compile'
 import Serve from './Serve'
 
-const app: CLI.App = ({bud}) =>
-  bud.mode.is('development')
-    ? render(<Serve bud={bud} />)
-    : render(<Compile bud={bud} />)
-
-export default app
+export const App: CLI.Controller = (bud: Framework.Bud) => ({
+  bud,
+  run() {
+    this.instance = this.bud.mode.is('development')
+      ? render(<Serve bud={this.bud} />)
+      : render(<Compile bud={this.bud} />)
+  },
+  kill() {
+    this.instance.quit()
+  },
+})
