@@ -1,4 +1,4 @@
-import __ from 'lodash'
+import _ from 'lodash'
 
 export {Container}
 
@@ -18,7 +18,7 @@ class Container {
   }
 
   public get: Container.Get = function (key: string) {
-    return __.get(this.repository, key)
+    return _.get(this.repository, key)
   }
 
   public is: Container.Conditional = function (key, value) {
@@ -34,7 +34,7 @@ class Container {
   }
 
   public set: Container.Using = function (key, value) {
-    __.set(this.repository, key, value)
+    _.set(this.repository, key, value)
   }
 
   public has: Container.Conditional = function (key) {
@@ -42,7 +42,7 @@ class Container {
   }
 
   public merge: Container.Using = function (key, value) {
-    this.set(key, __.merge(this.get(key), value))
+    this.set(key, _.merge(this.get(key), value))
   }
 
   public delete: Container.Select = function (key) {
@@ -108,7 +108,7 @@ class Container {
   }
 }
 
-namespace Container {
+declare namespace Container {
   export type Item = any | Repository | Repository[]
 
   export interface Repository {
