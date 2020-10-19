@@ -1,17 +1,13 @@
-import webpack, {Configuration} from 'webpack'
-
 import * as builders from './builders'
 import * as config from './config'
 
-import {Container} from '@roots/container'
+import {Indexed as Container} from '@roots/container'
 import {lodash as _} from '@roots/bud-support'
 
 import {Item} from '../Item'
 import {Rule} from '../Rule'
 
-export {Build}
-
-class Build implements Build {
+export class Build implements Build {
   public bud: Framework.Bud
 
   public builders: Partial<Framework.Build.Builders> = builders
@@ -29,7 +25,7 @@ class Build implements Build {
     this.config = new Container(config)
   }
 
-  public compile(): Configuration {
+  public compile(): Framework.Webpack.Configuration {
     return Object.entries(builders).reduce(
       (
         config,
@@ -78,7 +74,7 @@ class Build implements Build {
     this.setItem(item, merged)
   }
 
-  public getRule(name: string): webpack.RuleSetRule {
+  public getRule(name: string): Framework.Webpack.RuleSetRule {
     return this.rules[name].make()
   }
 

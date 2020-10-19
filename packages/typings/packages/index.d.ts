@@ -1,12 +1,6 @@
 /**
  * Bud Framework core typings.
- *
- * These types are included separately
- * to allow framework packages and the core framework
- * to reference bi-directionally without producing
- * cyclical dependency issues.
  */
-
 export as namespace Framework
 
 /**
@@ -38,105 +32,90 @@ export {
 
 /**
  * Framework.API
- *
  * @package @roots/bud-api
  */
-export * from './API'
+export {API} from './API'
 
 /**
  * Framework.Bud
- *
  * @package @roots/bud-framework
  */
 export * from './Bud'
 
 /**
  * Framework.Build
- *
  * @package @roots/bud-framework
  */
 export * from './Build'
 
 /**
  * Framework.CLI
- *
  * @package @roots/bud-cli
  */
 export * from './CLI'
 
 /**
  * Framework.Compiler
- *
  * @package @roots/bud-compiler
  */
 export * from './Compiler'
 
 /**
  * Framework.Dependencies
- *
  * @packages @roots/bud-dependencies
  */
 export * from '../../dependencies'
 
 /**
  * Framework.Env
- *
  * @package @roots/bud-framework
  */
 export * from './Env'
 
 /**
  * Framework.Extension
- *
  * @package @roots/bud-framework
  */
 export * from './Extension'
 
 /**
  * Framework.Extensions
- *
  * @package @roots/bud-framework
  */
 export * from './Extensions'
 
 /**
  * Framework.Features
- *
  * @package @roots/bud-framework
  */
 export * from './Features'
 
 /**
  * Framework.Hooks
- *
  * @package @roots/bud-framework
  */
 export * from './Hooks'
 
 /**
  * Framework.Item
- *
  * @package @roots/bud-framework
  */
 export * from './Item'
 
 /**
  * Framework.Mode
- *
  * @package @roots/bud-framework
  */
 export * from './Mode'
 
 /**
  * Framework.Rule
- *
  * @package @roots/bud-framework
  */
 export * from './Rule'
 
 /**
  * Framework.Server
- *
  * @package @roots/bud-framework
  */
 export * from './Server'

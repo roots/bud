@@ -10,7 +10,7 @@
 </p>
 
 <h1 align="center">
-  <strong>@roots/bud-api</strong>
+  <strong>@roots/bud-typings</strong>
 </h1>
 <h3 align="center">
   <em>Bud is a high-level webpack framework combining the best parts of Laravel Mix and Symfony Encore.</em>
@@ -18,15 +18,16 @@
 
 ## Overview
 
-This package contains the config utilities intended for use in project-level configuration.
+This package contains typings for the core Framework packages.
 
 ## Details
 
-Each function has its lexical scope bound to the `Framework.Bud` object.
+These types are included separately to allow framework packages and the core
+framework to reference types bi-directionally without producing cyclical dependency
+issues.
 
-Whenever possible API methods should return the Bud object so that the interface
-remains "fluent". You can guarantee this in development using the `Fluent` utility
-type.
+The `packages` directory exists as a merged namespace for frequently utilized,
+shared, or otherwise fundamental typings.
 
 ## Contributing
 
