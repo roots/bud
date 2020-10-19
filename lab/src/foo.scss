@@ -1,7 +1,13 @@
-div.class {
-  font-weight: bold;
+html,
+body {
+  margin: 0;
+  padding: 0;
+}
 
-  div.demo {
-    font-weight: 300;
-  }
+#root {
+  background: green;
+  height: 100vh;
+  width: 100vw;
+  margin: 0;
+  padding: 0;
 }

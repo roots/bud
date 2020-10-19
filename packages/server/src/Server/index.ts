@@ -16,6 +16,7 @@ export class Server {
     this.bud = bud
 
     this.instance.set('x-powered-by', false)
+
     this.setConfig = this.setConfig.bind(this)
     this.addMiddleware = this.addMiddleware.bind(this)
     this.addDevMiddleware = this.addDevMiddleware.bind(this)
@@ -76,9 +77,6 @@ export class Server {
   }
 
   public listen(): void {
-    this.instance.listen(
-      this.config?.port ?? 3000,
-      this.config?.host ?? 'localhost',
-    )
+    this.instance.listen(this.config?.port ?? 3000)
   }
 }

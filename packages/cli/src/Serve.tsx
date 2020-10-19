@@ -1,12 +1,11 @@
-import React, {FunctionComponent} from 'react'
+import React from 'react'
 import {useApp, useInput, Text} from 'ink'
 import useDevServer from './hooks/useDevServer'
 import App from './containers/App'
 
-const Serve: FunctionComponent<{bud: Framework.Bud}> = ({
-  bud,
-}) => {
+const Serve: Framework.CLI.Serve = ({bud}) => {
   const app = useApp()
+
   const {
     stats,
     progress,

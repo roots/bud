@@ -1,6 +1,14 @@
 import WebpackDevMiddleware from 'webpack-dev-middleware'
 import {Options as ProxyOptions} from 'http-proxy-middleware'
 
+/**
+ * Framework.Server
+ *
+ * Express instance configured with WDS middleware
+ * for local development.
+ *
+ * @package @roots/bud-server
+ */
 export declare class Server {
   /**
    * Bud
@@ -84,6 +92,9 @@ export declare class Server {
 }
 
 export namespace Server {
+  /**
+   * Express application.
+   */
   export type Instance = Framework.Express.Application
 
   /**
@@ -130,11 +141,6 @@ export namespace Server {
     hot?: boolean
 
     /**
-     * Should hotOnly middleware be used?
-     */
-    hotOnly?: boolean
-
-    /**
      * The path that the middleware is bound to.
      */
     publicPath?: WebpackDevMiddleware.Options['publicPath']
@@ -164,6 +170,9 @@ export namespace Server {
      */
     changeOrigin?: ProxyOptions['changeOrigin']
 
+    /**
+     * Escape hatch for Webpack's host check security feature.
+     */
     disableHostCheck?: WebpackDevMiddleware.Options[]
 
     /**
@@ -180,12 +189,6 @@ export namespace Server {
      * This property allows a user to pass custom HTTP headers on each request. eg. { "X-Custom-Header": "yes" }
      */
     headers?: WebpackDevMiddleware.Options['headers']
-
-    /**
-     * This option instructs the module to operate in 'lazy' mode,
-     * meaning that it won't recompile when files change, but rather on each request.
-     */
-    lazy?: WebpackDevMiddleware.Options['lazy']
 
     /**
      * This property allows a user to pass the list of HTTP request methods accepted by the server.
@@ -219,18 +222,6 @@ export namespace Server {
      * filter which files are written to disk
      */
     writeToDisk?: WebpackDevMiddleware.Options['writeToDisk']
-  }
-
-  export interface Options {
-    /**
-     * Server configuration.
-     */
-    config: Config
-
-    /**
-     * Webpack compiler.
-     */
-    compiler: Framework.Webpack.Compiler
   }
 
   /**

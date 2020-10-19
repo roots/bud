@@ -21,7 +21,11 @@ bud.args
     bud.features.set(arg, value ? true : false)
   })
 
-bud.args.has('target') && bud.target(bud.args.get('target'))
+bud.args.has('hot') && bud.features.enable('hot')
+
+if (bud.features.enabled('hot')) {
+  bud.server.config.hot = true
+}
 
 bud.mode.set(bud.args.get('mode') ?? 'none')
 

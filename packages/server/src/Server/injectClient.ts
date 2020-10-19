@@ -1,15 +1,16 @@
-import {ansiColors, overlayStyles} from './styles'
+// import {ansiColors, overlayStyles} from './styles'
 
 /**
  * Hot client/server module dependencies
  */
 const client = require.resolve('webpack-hot-middleware/client')
 const params = `path=/__webpack_hmr`
-const colors = encodeURIComponent(JSON.stringify(ansiColors))
-const styles = encodeURIComponent(JSON.stringify(overlayStyles))
+// const colors = encodeURIComponent(JSON.stringify(ansiColors))
+// const styles = encodeURIComponent(JSON.stringify(overlayStyles))
 
 const toInject = [
-  `${client}?${params}&ansiColors=${colors}&overlayStyles=${styles}`,
+  `${client}?${params}`,
+  // `${client}?${params}&ansiColors=${colors}&overlayStyles=${styles}`,
 ]
 
 /**
@@ -18,20 +19,18 @@ const toInject = [
 export const injectClient: Framework.Server.InjectClient = ({
   entrypoints,
 }) => {
-  const prepend = (entry: unknown) => {
-    if (typeof entry === 'function') {
-      return () => Promise.resolve(entry()).then(prepend)
-    }
-
-    if (typeof entry === 'object' && !Array.isArray(entry)) {
-      const entryClone = {}
-
-      Object.keys(entry).forEach(key => {
-        entryClone[key] = toInject.concat(entry[key])
-      })
-
-      return entryClone
-    }
+  const prepend = (
+    entrypoints: Framework.Webpack.Configuration['entry'],
+  ) => {
+    return typeof entrypoints === 'function'
+      ? () => Promise.resolve(entrypoints()).then(prepend)
+      : Object.entries(entrypoints).reduce(
+          (acc, [name, scripts]) => ({
+            ...acc,
+            [name]: toInject.concat(scripts),
+          }),
+          {},
+        )
   }
 
   return prepend(entrypoints)

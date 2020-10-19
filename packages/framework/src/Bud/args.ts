@@ -4,4 +4,4 @@ import {yargs} from '@roots/bud-support'
  * @exports Args
  */
 
-export const {argv: args} = yargs
+export const args = yargs.argv

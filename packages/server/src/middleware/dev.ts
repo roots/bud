@@ -22,11 +22,11 @@ const options = (
 ): WebpackDevMiddleware.Options => ({
   publicPath: config.publicPath ?? '/',
   headers: {...config.headers, ...BUD_HEADERS} ?? BUD_HEADERS,
-  logLevel: 'silent',
+  logLevel: 'info',
   methods: config.methods ?? ['GET', 'HEAD'],
   mimeTypes: config.mimeTypes,
-  serverSideRender: config.serverSideRender,
-  index: config.index ?? 'index.html',
+  serverSideRender: config.serverSideRender ?? false,
+  index: config.index,
   watchOptions: config.watchOptions,
   writeToDisk: config.writeToDisk ?? true,
 })

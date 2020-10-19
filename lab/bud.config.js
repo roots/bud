@@ -5,5 +5,8 @@ bud.extensions
   .use('@roots/bud-sass')
   .use('@roots/bud-eslint')
 
-bud.entry('foo', 'foo.js')
+bud
+  .entry('foo', ['foo.js', 'foo.scss'])
+
+bud.build.config.set('watch', true)
 bud.compile()

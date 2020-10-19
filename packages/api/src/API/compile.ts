@@ -1,17 +1,12 @@
-export const compile: Framework.API.Compile = async function () {
+export const compile: Framework.API.Compile = function (
+  this: Framework.Bud,
+) {
   this.compiler.compile()
 
-  this.when(
-    this.mode.is('development'),
-    this.server.addDevMiddleware,
-  )
+  this.mode.is('development') && this.server.addDevMiddleware()
+  this.features.enabled('hot') && this.server.addHotMiddleware()
+  this.features.enabled('proxy') &&
+    this.server.addProxyMiddleware()
 
-  this.when(this.server.config.hot, this.server.addHotMiddleware)
-
-  this.when(
-    this.server.config.proxy?.host,
-    this.server.addProxyMiddleware,
-  )
-
-  this.app.run()
+  this.cli.run()
 }

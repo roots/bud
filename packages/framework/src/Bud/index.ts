@@ -10,8 +10,8 @@ import {Features} from '../Features'
 import {Mode} from '../Mode'
 import {Server} from '@roots/bud-server'
 
+import {args} from './args'
 import * as api from '@roots/bud-api'
-import * as args from './args'
 import * as env from './env'
 import * as items from './items'
 import * as rules from './rules'
@@ -73,7 +73,7 @@ export class Bud implements Framework.Bud {
     this.features = new Features()
     this.fs = new FileContainer()
     this.patterns = new Container(patterns)
-    this.app = App(this)
+    this.cli = App(this)
 
     this.init()
   }
@@ -104,6 +104,13 @@ export class Bud implements Framework.Bud {
         return this.build.setRule(name, rule)
       },
     )
+
+    this.args
+      .entries()
+      .filter(([arg]) => !['src', 'dist', 'mode'].includes(arg))
+      .map(([arg, value]) => {
+        this.features.set(arg, value ? true : false)
+      })
 
     this.extensions.boot(plugins)
   }

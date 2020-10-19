@@ -26,6 +26,8 @@ export const headers: Framework.Server.Config['headers'] = {
     'X-Requested-With, content-type, Authorization',
 }
 
+export const hot: Framework.Server.Config['hot'] = false
+
 /**
  * Hostname to use for dev server.
  */

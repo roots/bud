@@ -1,15 +1,12 @@
-import {
-  isArray,
-  isArguments,
-  isBoolean,
-  flatMap,
-  flatMapDeep,
-} from 'lodash'
+;(() => {
+  console.log('hello')
 
-Object.entries({
-  isArray,
-  isArguments,
-  isBoolean,
-  flatMap,
-  flatMapDeep,
-}).map(dash => (document.body.innerHTML = dash.toString()))
+  const animate = () => {
+    console.log('animating')
+    const root = document.getElementById('root')
+
+    root ? (root.style.background = 'yellow') : animate()
+  }
+
+  window.requestAnimationFrame(animate)
+})()

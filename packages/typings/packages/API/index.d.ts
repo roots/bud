@@ -96,7 +96,7 @@ export namespace API {
    *
    * Indicates finalized configuration.
    */
-  export type Compile = (this: Framework.Bud) => Promise<void>
+  export type Compile = (this: Framework.Bud) => void
 
   /**
    * Copy files to the `dist` directory. Can be expressed as a glob.
