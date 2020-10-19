@@ -1,2 +1,2 @@
-export declare const App: CLI.Controller;
+export declare const App: Framework.CLI.Factory;
 //# sourceMappingURL=index.d.ts.map

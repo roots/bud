@@ -32,7 +32,7 @@ declare interface Extension {
   /**
    * Register
    */
-  register?: (bud: Framework.Bud) => void
+  register?: Extension.Register
 
   /**
    * Register Items
@@ -73,6 +73,7 @@ declare interface Extension {
  * @namespace {Extension}
  */
 declare namespace Extension {
+  export type Register = (bud: Framework.Bud) => void
   /**
    * Plugin options
    */

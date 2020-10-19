@@ -1,82 +1,98 @@
 import {BuiltInParserName} from 'prettier'
 
+export {Bud}
+
 /**
- * Bud.
+ * Core unit of the Bud application.
  */
-export declare class Bud {
+declare class Bud {
   /**
    * @note I'm not sure how to type something this flexible.
    */
   [key: string]: any
 
-  /**
-   * Build.
-   * @description Generates webpack configuration
-   */
-  build: Framework.Build
+  private static PRIMARY_DISK: string
 
   /**
-   * Compiler instance.
+   * Builds webpack configuration.
    */
-  compiler: Framework.Compiler
+  public build: Framework.Build
+
+  /**
+   * CLI controller interface.
+   *
+   * Gateway to Ink application instance for build and
+   * development reporting.
+   */
+  public cli: Framework.CLI.Controller
+
+  /**
+   * Interface wrapping the webpack compiler.
+   */
+  public compiler: Framework.Compiler
 
   /**
    * FS instance.
    */
-  disk: Framework.FileSystem
+  public disk: Framework.FileSystem
 
   /**
    * Env variables.
    *
    * @note frozen
    */
-  env: Framework.Env
+  public env: Framework.Env
 
   /**
-   * File container.
+   * Features (boolean flags)
    */
-  fs: Framework.FileContainer
+  public features: Framework.Features
+
+  /**
+   * Filesystem interface.
+   *
+   * Used for interacting with project, framework and extension files.
+   */
+  public fs: Framework.FileContainer
 
   /**
    * Extensions controller.
    */
-  extensions: Framework.Extensions
+  public extensions: Framework.Extensions
 
   /**
    * Features.
    */
-  features: Framework.Features
+  public features: Framework.Features
 
   /**
    * Hooks system.
    */
-  hooks: Framework.Hooks
-
-  /**
-   * WDS wrapper.
-   */
-  server: Framework.Server
+  public hooks: Framework.Hooks
 
   /**
    * Logger
    */
-  logger: Framework.Logger
+  public logger: Framework.Logger
 
   /**
-   * Mode
+   * Simple container interface for querying and
+   * modifying Webpack mode.
+   *
+   * @see {Webpack.Mode}
    */
-  mode: Framework.Mode
+  public mode: Framework.Mode
 
   /**
-   * Utilities/helpers.
+   * WDS wrapper.
    */
-  util: {
-    format: (obj: unknown, options: unknown) => string
-    pretty: (
-      contents: string,
-      parser: BuiltInParserName,
-    ) => string
-  }
+  public server: Framework.Server
+
+  /**
+   * Simple utilities.
+   * @deprecated
+   */
+  public util: Framework.Util
 
   /**
    * Initialize the instance of Bud.
@@ -92,3 +108,18 @@ export declare class Bud {
     glob?: string[],
   ): Framework.FileContainer
 }
+
+export type Util = {
+  format: Format,
+  pretty: Pretty,
+}
+
+export type Pretty = (
+  contents: string,
+  parser: BuiltInParserName,
+) => string
+
+export type Format = (
+  obj: unknown,
+  options?
+) => string

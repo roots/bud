@@ -1,6 +1,6 @@
 import type dotenv from 'dotenv'
 
 /**
- * Environment utility.
+ * Environment variables utility.
  */
 export type Env = Readonly<dotenv.DotenvParseOutput>

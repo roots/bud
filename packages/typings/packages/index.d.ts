@@ -1,19 +1,10 @@
 /**
  * Bud Framework core typings.
  *
- * Type extensions (including @roots/bud-babel, etc.)
- * are sourced from those packages. These types are
- * fundamental to Bud itself. They are included separately
- * to allow for bi-directional referencing without causing
- * build issues w/r/t cyclical dependencies, etc.
- *
- * Includes:
- *  - @roots/container
- *  - @roots/filesystem
- *  - @roots/bud-api
- *  - @roots/bud-compiler
- *  - @roots/bud-framework
- *  - @roots/bud-server
+ * These types are included separately
+ * to allow framework packages and the core framework
+ * to reference bi-directionally without producing
+ * cyclical dependency issues.
  */
 
 export as namespace Framework
@@ -28,7 +19,11 @@ export * from './utility'
  *
  * @package @roots/container
  */
-export {Container} from '@roots/container'
+export {
+  Base,
+  Arrayed,
+  Indexed as Container,
+} from '@roots/container'
 
 /**
  * Framework.FileContainer
@@ -39,7 +34,7 @@ export {Container} from '@roots/container'
 export {
   FileContainer,
   FileSystem,
-} from '@roots/filesystem'
+} from '../../filesystem'
 
 /**
  * Framework.API
@@ -81,7 +76,7 @@ export * from './Compiler'
  *
  * @packages @roots/bud-dependencies
  */
-export * from '@roots/dependencies'
+export * from '../../dependencies'
 
 /**
  * Framework.Env

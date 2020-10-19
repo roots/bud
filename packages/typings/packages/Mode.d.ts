@@ -4,6 +4,8 @@ import type Webpack from 'webpack'
  * Mode
  *
  * Helper utility for determining current compilation mode.
+ *
+ * @see {Webpack.Mode}
  */
 export declare type Mode = {
   /**
@@ -23,7 +25,7 @@ export declare type Mode = {
 }
 
 /**
- * Mode namespace
+ * Mode
  */
 export declare namespace Mode {
   /**

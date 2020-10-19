@@ -1,16 +1,11 @@
 import _ from 'lodash'
+import {Base, Container} from '../Base'
 
-export {Container}
+export class Indexed extends Base implements Container.Indexed {
+  repository: Container.KeyedRepository
 
-class Container {
-  repository: Container.Repository
-
-  constructor(repository?: Container.Repository) {
-    this.repository = repository || {}
-  }
-
-  public add: Container.Using = function (key, item): void {
-    this.repository.push(item)
+  constructor(repository?: Container.KeyedRepository) {
+    super(repository || {})
   }
 
   public push(key: string, item: Container.Item): void {
@@ -106,32 +101,4 @@ class Container {
       new Map(),
     )
   }
-}
-
-declare namespace Container {
-  export type Item = any | Repository | Repository[]
-
-  export interface Repository {
-    [key: string]: Item
-  }
-
-  export type Handler = (params: unknown) => unknown
-
-  export type Using = (key: string, value: Item) => void
-
-  export type Conditional = (
-    key: string,
-    comparison?: any,
-  ) => boolean
-
-  export type Select = (key: string) => void
-
-  export type Get = (key: string) => Item
-
-  export type IterateUsing = (
-    key: string,
-    handler: Handler,
-  ) => unknown
-
-  export type Transform<T = any> = (args?: any) => T
 }

@@ -1,6 +1,7 @@
-import {Container} from '@roots/container'
 import path from 'path'
+
 import * as fs from 'fs-extra'
+import {Indexed as Container} from '@roots/container'
 import globby from 'globby'
 import resolveFrom from 'resolve-from'
 import watcher from './watcher'

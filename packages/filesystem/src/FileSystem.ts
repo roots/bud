@@ -1,6 +1,6 @@
 import __ from 'lodash'
 import {resolve} from 'path'
-import {Container} from '@roots/container'
+import {Indexed as Container} from '@roots/container'
 import {FileContainer} from './FileContainer'
 
 export class FileSystem extends Container {

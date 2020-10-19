@@ -1,13 +1,11 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "rootDir": "../",
+    "rootDir": "./",
     "outDir": "./types",
     "declaration": true,
     "declarationDir": "types",
   },
-  "compileOnSave": true,
-  "include": ["./packages/**/*"],
   "references": [
     {"@roots/container": "../container"},
     {"@roots/dependencies": "../dependencies"},

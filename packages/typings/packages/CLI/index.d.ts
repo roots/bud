@@ -1,17 +1,34 @@
 import * as Ink from 'ink'
+import * as hooks from './hooks'
 
-export as namespace CLI
+/**
+ * Framework CLI
+ */
+export namespace CLI {
+  /**
+   * The CLI instance
+   */
+  export type App = Ink.Instance
 
-export type App = Ink.Instance
+  /**
+   * Constructs the CLI controller interface
+   */
+  export type Factory = (bud: Framework.Bud) =>
+    Controller
 
-export type Controller = (bud: Framework.Bud) =>
-  ControllerInterface
+  /**
+   * Controller interface used to start and stop
+   * Ink application from within Bud context.
+   */
+  export interface Controller {
+    bud: Framework.Bud
+    instance?: App
+    run: () => void
+    kill: () => void
+  }
 
-export interface ControllerInterface {
-  bud: Framework.Bud
-  instance?: App
-  run: () => void
-  kill: () => void
+  /**
+   * React hooks.
+   */
+  export {hooks}
 }
-
-export * as hooks from './hooks'

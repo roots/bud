@@ -6,5 +6,4 @@ bud.extensions
   .use('@roots/bud-eslint')
 
 bud.entry('foo', 'foo.js')
-
 bud.compile()

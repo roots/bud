@@ -26,10 +26,9 @@
   "main": "./lib/index.js",
   "types": "./lib/types/index.d.ts",
   "scripts": {
-    "build": "tsc --build",
+    "build": "tsc",
     "clean:lib": "rimraf ./lib",
     "clean:modules": "rimraf ./node_modules",
-    "tsc": "tsc -b tsconfig.json",
     "lint": "eslint ."
   },
   "dependencies": {

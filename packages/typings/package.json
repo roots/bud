@@ -27,7 +27,7 @@
   ],
   "types": "./packages/index.d.ts",
   "scripts": {
-    "build": "tsc --build"
+    "build": "tsc"
   },
   "dependencies": {},
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5",

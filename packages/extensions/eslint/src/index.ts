@@ -9,7 +9,7 @@ export * as registerItems from './items'
 
 export * as registerRules from './rules'
 
-export const boot: Framework.Extension['register'] = bud => {
+export const boot: Framework.Extension.Register = bud => {
   const configPath = bud.disk.get('project').has('eslintrc.js')
     ? bud.disk.get('project').get('eslintrc.js')
     : bud.disk

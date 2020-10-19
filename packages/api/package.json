@@ -42,6 +42,7 @@
   },
   "devDependencies": {
     "terser": "^5.3.4",
+    "@roots/bud-typings": "^2.0.0-next.24",
     "webpack": "^4.44.2"
   },
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5"

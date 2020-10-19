@@ -1,4 +1,4 @@
-import {Container} from '@roots/container'
+import {Indexed as Container} from '@roots/container'
 import {Compiler} from '@roots/bud-compiler'
 import {FileContainer, FileSystem} from '@roots/filesystem'
 
@@ -30,13 +30,13 @@ export class Bud implements Framework.Bud {
 
   private static PRIMARY_DISK = 'project'
 
-  public app: CLI.ControllerInterface
-
   public build: Framework.Build
 
-  public compiler: Framework.Bud['compiler']
+  public cli: Framework.CLI.Controller
 
-  public disk: Framework.Bud['disk']
+  public compiler: Framework.Compiler
+
+  public disk: Framework.FileSystem
 
   public env: Framework.Env
 
@@ -46,7 +46,7 @@ export class Bud implements Framework.Bud {
 
   public features: Framework.Features
 
-  public hooks: Framework.Bud['hooks']
+  public hooks: Framework.Hooks
 
   public mode: Framework.Mode
 
@@ -56,16 +56,11 @@ export class Bud implements Framework.Bud {
 
   public mode: Framework.Bud['mode']
 
-  public util: Framework.Bud['util'] = {
+  public util: Framework.Util = {
     format,
     pretty,
   }
 
-  /**
-   * Creates an instance of Bud.
-   *
-   * @memberof Bud
-   */
   public constructor() {
     this.env = env
     this.hooks = Hooks(this.logger)
@@ -83,9 +78,6 @@ export class Bud implements Framework.Bud {
     this.init()
   }
 
-  /**
-   * Initialize class.
-   */
   public init: Framework.Bud['init'] = function () {
     this.mode = Mode(this.build.config)
 
