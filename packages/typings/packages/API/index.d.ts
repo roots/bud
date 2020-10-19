@@ -1,33 +1,66 @@
 import {TerserPluginOptions} from 'terser-webpack-plugin'
-import {TransformOptions} from '@babel/core'
 import Globby from 'globby'
 
+/**
+ * Framework.API
+ *
+ * Utilities intended for use in project-level configuration.
+ *
+ * @package @roots/bud-api
+ */
 export namespace API {
-  export interface Method<T> {
-    Fluent(): void
-    (): unknown
-    (argument: unknown): unknown
-  }
-
+  /**
+   * Indicate additional filetypes to be resolved by the compiler.
+   */
   export type AddExtensions = Framework.Fluent<
     Framework.Bud,
     string | string[]
   >
 
+  /**
+   * Returns the path to the `dist` directory. Or, if passed a string,
+   * formats it as a path with `dist` as the root.
+   */
   export type Dist = PathGetter
 
+  /**
+   * Returns the path to the project root. Or, if passed a string,
+   * formats it as a path with the project as the root.
+   */
   export type Project = PathGetter
 
+  /**
+   * Returns the path to the `src` directory. Or, if passed a string,
+   * formats it as a path with `src` as the root.
+   */
   export type Src = PathGetter
 
+  /**
+   * Set the `dist` directory. Indicate with an asbsolute path.
+   */
   export type DistPath = Framework.Fluent<Framework.Bud>
 
+  /**
+   * Set the `project` directory. Indicate with an asbsolute path.
+   */
   export type ProjectPath = Framework.Fluent<Framework.Bud>
 
+  /**
+   * Set the `public` path. This should be the path to distributable files
+   * as accessed in a web browser.
+   *
+   * Default: '/'
+   */
   export type PublicPath = Framework.Fluent<Framework.Bud>
 
+  /**
+   * Set the `src` path. Indicate with an asbsolute path.
+   */
   export type SrcPath = Framework.Fluent<Framework.Bud>
 
+  /**
+   * Set the `dist` directory. Indicate with an asbsolute path.
+   */
   export type AddPlugin = Framework.Fluent<
     Framework.Bud,
     string,
@@ -36,25 +69,39 @@ export namespace API {
     Framework.Extension.Conditional
   >
 
-  export type addExtensions = Framework.Fluent<Framework.Bud>
-
+  /**
+   * Alias windows variables or path shorthands.
+   * @see {Webpack.Configuration['alias']}
+   */
   export type Alias = Framework.Fluent<Framework.Bud>
 
-  export type Babel = Framework.Fluent<Framework.Bud, Options.Babel>
-
+  /**
+   * Enable brotli compression for static assets.
+   *
+   * @todo typings for Webpack Compression
+   */
   export type Brotli = Framework.Fluent<Framework.Bud, any>
 
+  /**
+   * Specify files to be compiled.
+   */
   export type Entry = Framework.Fluent<
     Framework.Bud,
     string,
     string | string[]
   >
 
+  /**
+   * Run the compiler and/or dev server for you build.
+   *
+   * Indicates finalized configuration.
+   */
   export type Compile = (this: Framework.Bud) => Promise<void>
 
+  /**
+   * Copy files to the `dist` directory. Can be expressed as a glob.
+   */
   export type Copy = Framework.Fluent<Framework.Bud, string, string>
-
-  export type CopyAll = Framework.Fluent<Framework.Bud, string, string>
 
   export type Devtool = Framework.Fluent<
     Framework.Bud,
@@ -123,8 +170,6 @@ export namespace API {
   ) => Framework.Bud
 
   export namespace Options {
-    export type Babel = TransformOptions
-
     export type Glob = {
       name: string
       files: string | string[]
