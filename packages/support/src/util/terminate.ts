@@ -10,4 +10,4 @@ const terminate = (code?: number): void => {
   process.exit(code)
 }
 
-export default terminate
+export {terminate as default}

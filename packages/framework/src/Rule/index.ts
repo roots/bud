@@ -36,9 +36,6 @@ export class Rule implements Framework.Rule {
     rule && this.register(rule)
   }
 
-  /**
-   * Map to class props.
-   */
   public register(rule: unknown): this {
     Object.entries(rule).map(([prop, source]) => {
       this.setProp(prop, source)
@@ -61,14 +58,6 @@ export class Rule implements Framework.Rule {
     return this
   }
 
-  /**
-   * Rule as iterable tuples.
-   *
-   * Yields:
-   *  - label
-   *  - RuleSetRule property,
-   *  - Parameters to pass to callables in a given rule.
-   */
   public get(): Framework.Rule.MakeSet {
     return Object.entries({
       enforce: this.enforce,
@@ -91,7 +80,7 @@ export class Rule implements Framework.Rule {
     return (
       this.get()
 
-        /** ...filter out the nully ones. */
+        /** ...filter out the nully values */
         .filter(
           ([, prop]: Framework.Rule.MakeIn) =>
             prop !== null && prop !== undefined,
@@ -106,6 +95,7 @@ export class Rule implements Framework.Rule {
             [label, prop]: Framework.Rule.MakeIn,
           ) => ({
             ...accumulator,
+
             /**
              * Prop might be callable. If so, pass it the appropriate param(s).
              */

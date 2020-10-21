@@ -1,12 +1,7 @@
-;(() => {
-  console.log('hello')
+const root = document.querySelector('#root')
 
-  const animate = () => {
-    console.log('animating')
-    const root = document.getElementById('root')
+root.style.backgroundColor = 'red'
+root.style.width = '100vw'
+root.style.height = '100vh'
 
-    root ? (root.style.background = 'yellow') : animate()
-  }
-
-  window.requestAnimationFrame(animate)
-})()
+module?.hot?.accept()

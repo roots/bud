@@ -7,8 +7,8 @@ export const dev: Framework.API.Dev = function (
   if (!config) return this
 
   if (
-    config.proxy.hasOwnProperty('host') ||
-    config.proxy.hasOwnProperty('port')
+    config.proxy?.hasOwnProperty('host') ||
+    config.proxy?.hasOwnProperty('port')
   ) {
     this.features.enable('proxy')
   }

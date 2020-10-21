@@ -1,4 +1,5 @@
 export const general: Framework.Build.General = function (
+  this: Framework.Bud,
   build: Partial<Framework.Build.Configuration>,
 ) {
   return {

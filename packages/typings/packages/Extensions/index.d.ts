@@ -19,6 +19,9 @@ declare class Extensions {
    */
   extensions: Framework.Index<Framework.Extension>
 
+  /**
+   * Register an extension to be utilized during compilation.
+   */
   use(name: string): this
 
   /**

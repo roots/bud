@@ -44,8 +44,5 @@
     "@roots/dependencies": "2.0.0-next.24",
     "@roots/filesystem": "2.0.0-next.24"
   },
-  "devDependencies": {
-    "@roots/bud-typings": "^2.0.0-next.24"
-  },
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5"
 }

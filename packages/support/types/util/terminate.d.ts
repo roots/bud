@@ -1,3 +1,3 @@
 declare const terminate: (code?: number) => void;
-export default terminate;
+export { terminate as default };
 //# sourceMappingURL=terminate.d.ts.map

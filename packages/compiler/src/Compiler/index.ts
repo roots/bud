@@ -1,5 +1,8 @@
 import webpack from 'webpack'
 
+/**
+ * Framework.Compiler
+ */
 export class Compiler {
   public bud: Framework.Bud
 
@@ -18,14 +21,21 @@ export class Compiler {
     this.run = this.run.bind(this)
     this.watch = this.watch.bind(this)
     this.getCompilation = this.getCompilation.bind(this)
+    this.setCompilation = this.setCompilation.bind(this)
   }
 
   public compile(): void {
-    this.compilation = webpack(this.bud.build.compile())
+    this.setCompilation(webpack(this.bud.build.make()))
   }
 
   public getCompilation(): Framework.Webpack.Compiler {
     return this.compilation
+  }
+
+  public setCompilation(
+    compilation: Framework.Webpack.Compiler,
+  ): void {
+    this.compilation = compilation
   }
 
   public run(

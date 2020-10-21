@@ -1,9 +1,7 @@
-import WebpackDevMiddleware from 'webpack-dev-middleware'
-import {Compiler} from 'webpack'
-import {RequestHandler} from 'express'
+import middleware from 'webpack-dev-middleware'
 
 export interface DevFactoryOptions {
-  compiler: Compiler
+  compiler: Framework.Webpack.Compiler
   config: Framework.Server.Config
 }
 
@@ -14,21 +12,23 @@ const BUD_HEADERS = {
 const dev = ({
   compiler,
   config,
-}: DevFactoryOptions): RequestHandler =>
-  WebpackDevMiddleware(compiler, options(config))
+}: DevFactoryOptions): Framework.Express.RequestHandler =>
+  middleware(compiler, options(config))
 
 const options = (
   config: Framework.Server.Config,
-): WebpackDevMiddleware.Options => ({
-  publicPath: config.publicPath ?? '/',
-  headers: {...config.headers, ...BUD_HEADERS} ?? BUD_HEADERS,
-  logLevel: 'info',
-  methods: config.methods ?? ['GET', 'HEAD'],
-  mimeTypes: config.mimeTypes,
-  serverSideRender: config.serverSideRender ?? false,
-  index: config.index,
-  watchOptions: config.watchOptions,
-  writeToDisk: config.writeToDisk ?? true,
-})
+): middleware.Options => {
+  return {
+    publicPath: '/',
+    headers: BUD_HEADERS,
+    logLevel: 'silent',
+    methods: config.methods ?? ['GET', 'HEAD'],
+    // mimeTypes: config.mimeTypes ?? undefined,
+    serverSideRender: config.serverSideRender ?? false,
+    index: config.index ?? 'index.html',
+    watchOptions: config.watchOptions,
+    // writeToDisk: config.writeToDisk ?? true,
+  }
+}
 
 export {dev}

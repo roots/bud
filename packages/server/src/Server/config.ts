@@ -26,7 +26,7 @@ export const headers: Framework.Server.Config['headers'] = {
     'X-Requested-With, content-type, Authorization',
 }
 
-export const hot: Framework.Server.Config['hot'] = false
+export const hot: Framework.Server.Config['hot'] = true
 
 /**
  * Hostname to use for dev server.
@@ -53,19 +53,15 @@ export const methods: Framework.Server.Config['methods'] = [
 ]
 
 /**
- * Mimetypes supported by dev server.
+ * Public path (base url)
  */
-export const mimeTypes: Framework.Server.Config['mimeTypes'] = null
+export const publicPath: Framework.Server.Config['publicPath'] =
+  '/'
 
 /**
- * SSL certificate.
+ * Provide
  */
 export const ssl: Framework.Server.Config['ssl'] = false
-
-/**
- * Should WDS attempt to encrypt service.
- */
-export const secure: Framework.Server.Config['secure'] = false
 
 /**
  * Render WDS output on the server before sending to client.
@@ -86,3 +82,8 @@ export const watchOptions: Framework.Server.Config['watchOptions'] = {
  * @note Build is still served from RAM even when `true`.
  */
 export const writeToDisk: Framework.Server.Config['writeToDisk'] = true
+
+/**
+ * Mimetypes supported by dev server.
+ */
+// export const mimeTypes: Framework.Server.Config['mimeTypes'] = undefined

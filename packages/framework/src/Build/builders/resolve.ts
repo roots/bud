@@ -17,6 +17,11 @@ export const resolve: Framework.Build.Resolve = function ({
 
       modules: this.hooks.filter('build.resolve.modules', [
         resolve.modules ?? context,
+        this.disk.get('@roots').getBase(),
+        this.fs.path.resolve(
+          this.disk.get('@roots').getBase(),
+          '../node_modules',
+        ),
         'node_modules',
       ]),
     },

@@ -63,24 +63,24 @@ export class Bud implements Framework.Bud {
 
   public constructor() {
     this.env = env
+    this.disk = new FileSystem()
+    this.fs = new FileContainer()
+    this.features = new Features()
+
     this.hooks = Hooks(this.logger)
     this.args = new Container(args)
     this.build = new Build(this)
     this.compiler = new Compiler(this)
     this.server = new Server(this)
-    this.disk = new FileSystem()
     this.extensions = new Extensions(this)
-    this.features = new Features()
-    this.fs = new FileContainer()
     this.patterns = new Container(patterns)
+    this.mode = Mode(this.build)
     this.cli = App(this)
 
     this.init()
   }
 
   public init: Framework.Bud['init'] = function () {
-    this.mode = Mode(this.build.config)
-
     Object.entries(api).map(
       ([name, fn]: [string, CallableFunction]) => {
         this[name] = fn.bind(this)

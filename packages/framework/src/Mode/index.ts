@@ -1,21 +1,23 @@
-import type {Configuration} from 'webpack'
-
 /**
  * @constructs Framework.Mode
  */
 const constructor = function (build: Framework.Build): void {
   this.build = build
 
-  this.get = function (): Configuration['mode'] {
-    return this.build.config.mode
+  this.get = function (): Framework.Webpack.Configuration['mode'] {
+    return this.build.config.get('mode')
   }
 
-  this.set = function (mode: Configuration['mode']) {
-    this.build.config.mode = mode
+  this.set = function (
+    mode: Framework.Webpack.Configuration['mode'],
+  ) {
+    this.build.config.set('mode', mode)
   }
 
-  this.is = function (check: Configuration['mode']) {
-    return this.build.mode === check
+  this.is = function (
+    check: Framework.Webpack.Configuration['mode'],
+  ) {
+    return this.build.config.is('mode', check)
   }
 }
 

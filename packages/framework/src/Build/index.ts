@@ -25,7 +25,7 @@ export class Build implements Build {
     this.config = new Container(config)
   }
 
-  public compile(): Framework.Webpack.Configuration {
+  public make(): Framework.Webpack.Configuration {
     return Object.entries(builders).reduce(
       (
         config,

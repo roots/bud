@@ -22,7 +22,11 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["./lib", "./types", "./src"],
+  "files": [
+    "./lib",
+    "./types",
+    "./src"
+  ],
   "main": "./lib/index.js",
   "types": "./lib/types/index.d.ts",
   "scripts": {
@@ -32,9 +36,9 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@roots/bud-compiler": "2.0.0-next.24",
     "@roots/bud-api": "2.0.0-next.24",
     "@roots/bud-cli": "2.0.0-next.24",
+    "@roots/bud-compiler": "2.0.0-next.24",
     "@roots/bud-server": "2.0.0-next.24",
     "@roots/bud-support": "2.0.0-next.24",
     "@roots/container": "2.0.0-next.24",
@@ -45,6 +49,7 @@
     "copy-webpack-plugin": "^6.2.0",
     "css-loader": "^3.6.0",
     "file-loader": "^6.0.0",
+    "html-webpack-harddisk-plugin": "^1.0.2",
     "html-webpack-plugin": "^4.4.1",
     "ignore-emit-webpack-plugin": "^2.0.3",
     "imagemin": "^6.0.1",
@@ -66,9 +71,9 @@
   },
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5",
   "devDependencies": {
+    "@roots/bud-typings": "2.0.0-next.24",
     "@types/mini-css-extract-plugin": "^0.9.1",
     "@types/node": "^14.11.2",
-    "@types/pino": "^6.3.2",
-    "@roots/bud-typings": "2.0.0-next.24"
+    "@types/pino": "^6.3.2"
   }
 }

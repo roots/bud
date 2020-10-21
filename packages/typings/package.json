@@ -32,9 +32,12 @@
   "dependencies": {},
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5",
   "devDependencies": {
-    "@types/node": "^14.11.2",
     "@roots/container": "^2.0.0-next.24",
     "@roots/filesystem": "^2.0.0-next.24",
+    "@types/node": "^14.11.2",
+    "webpack": "^4.44.2",
+    "express": "^4.17.1",
+    "http-proxy-middleware": "^1.0.6",
     "ink": "^3.0.0-6",
     "ink-gradient": "^1.0.0",
     "ink-link": "^1.1.0",
@@ -44,6 +47,9 @@
     "prettier": "^2.1.1",
     "react": "^16.13.1",
     "react-dev-utils": "^10.2.1",
-    "react-dom": "^16.13.1"
+    "react-dom": "^16.13.1",
+    "webpack-dev-middleware": "^3.7.2",
+    "webpack-hot-middleware": "^2.25.0",
+    "zlib": "^1.0.5"
   }
 }

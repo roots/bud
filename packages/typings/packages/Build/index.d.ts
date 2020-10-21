@@ -42,7 +42,7 @@ export declare class Build {
   /**
    * Function producing the final webpack configuration.
    */
-  public compile(): Framework.Webpack.Configuration
+  public make(): Framework.Webpack.Configuration
 
   /**
    * Add or override a loader by key.
@@ -176,7 +176,7 @@ export namespace Build {
    */
   export type Module = (
     build?: Framework.Container.Repository,
-  ) => Framework.Webpack.Module
+  ) => {module: Framework.Webpack.Module}
 
   /**
    * Called by Build.Module

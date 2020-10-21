@@ -59,6 +59,9 @@ export class Extensions implements Framework.Extensions {
     )
   }
 
+  /**
+   * Register a plugin to be utilized during compilation.
+   */
   public use(pkg: string): this {
     const path = require.resolve(pkg)
     this.bud.makeDisk(pkg, this.bud.fs.path.dirname(path), [
@@ -205,7 +208,7 @@ export class Extensions implements Framework.Extensions {
     extension: string,
     options: Framework.Index<unknown>,
   ): void {
-    this.extensions[extension].options = {
+    this.getExtension(extension).options = {
       ...this.getOptions(extension),
       ...options,
     }

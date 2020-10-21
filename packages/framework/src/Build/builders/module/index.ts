@@ -1,10 +1,9 @@
 import rules from './rules'
-import Webpack from 'webpack'
 
-export const module = function (
+export const module: Framework.Build.Module = function (
   this: Framework.Bud,
   build: Framework.Build.Configuration,
-): Framework.Index<Webpack.Module> {
+): {module: Framework.Webpack.Module} {
   return {
     module: this.hooks.filter('build.module', {
       ...build.module,

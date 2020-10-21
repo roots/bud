@@ -1,4 +1,4 @@
-import WebpackDevMiddleware from 'webpack-dev-middleware'
+import * as WebpackDevMiddleware from 'webpack-dev-middleware'
 import {Options as ProxyOptions} from 'http-proxy-middleware'
 
 /**
@@ -46,15 +46,24 @@ export declare class Server {
   setServer: (server: Framework.Express.Application) => this
 
   /**
-   * Get Express instance.
+   * Get server config.
    */
   getConfig: () => Server.Config
 
   /**
-   * Set Express instance.
+   * Get Express config item.
+   */
+  getConfigItem: (key: string) => Partial<Server.Config>
+
+  /**
+   * Set config.
    */
   setConfig: (config: Server.Config) => this
 
+  /**
+   * Set config item.
+   */
+  setConfigItem: (key: string, item: Partial<Server.Config>) => void
   /**
    * Get compiler.
    */
@@ -227,14 +236,6 @@ export namespace Server {
   /**
    * Inject webpack entrypoints with client HMR handling script(s).
    */
-  export type InjectClient = (
-    props: InjectionProps,
-  ) => Framework.Webpack.Configuration['entry']
-
-  /**
-   * Requires entrypoints indexed as <K, V>
-   */
-  export interface InjectionProps {
-    entrypoints: Framework.Webpack.Configuration['entry']
-  }
+  export type InjectClient = (entrypoints: Framework.Webpack.Entry) =>
+    Framework.Webpack.Entry
 }

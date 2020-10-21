@@ -102,7 +102,12 @@ export declare class Rule {
   constructor(bud: Framework.Bud, rule: Rule.Generic)
 
   /**
-   * Get iterable
+   * Rule as iterable tuples.
+   *
+   * Yields:
+   *  - label
+   *  - RuleSetRule property,
+   *  - Parameters to pass to callables in a given rule.
    */
   public get(): Rule.MakeSet
 

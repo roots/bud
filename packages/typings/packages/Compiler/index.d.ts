@@ -1,3 +1,8 @@
+/**
+ * Framework.Compiler
+ *
+ * @package @roots/bud-compiler
+ */
 export declare class Compiler {
   /**
    * Bud instance.
@@ -15,9 +20,15 @@ export declare class Compiler {
   compile: () => void
 
   /**
-   * Get the compiler configuration object
+   * Get the (activated) compiler
    */
   getCompilation: () => Framework.Webpack.Compiler
+
+
+  /**
+   * Set the activated compiler
+   */
+  setCompilation: (compiler: Framework.Webpack.Compiler) => void
 
   /**
    * Runs the compiler.

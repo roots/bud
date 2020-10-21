@@ -1,8 +1,10 @@
 export const test: Framework.Rule.Factory<Framework.Rule.Conditional> = bud =>
   bud.patterns.get('js')
 
-export const exclude: Framework.Rule.Factory<Framework.Rule.Conditional> = bud =>
-  bud.patterns.get('modules')
+export const exclude: Framework.Rule.Factory<Framework.Rule.Conditional> = bud => [
+  bud.patterns.get('modules'),
+  /bud/,
+]
 
 export const enforce: Framework.Rule.Enforce = 'pre'
 

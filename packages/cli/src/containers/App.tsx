@@ -6,6 +6,8 @@ import Errors from '../components/Errors'
 import BuildInfo from '../components/BuildInfo'
 import Progress from '../components/Progress'
 import Screen from '../components/Screen'
+import Prettier from '../components/Prettier'
+
 import useCtx from '../hooks/useAppStyles'
 
 const App: FunctionComponent<{
@@ -45,6 +47,14 @@ const App: FunctionComponent<{
 
           <Box flexDirection="column" marginBottom={1}>
             <BuildInfo stats={stats} />
+          </Box>
+
+          <Box flexDirection="column" marginBottom={1}>
+            <Prettier parser="babel">
+              {`console.log(${JSON.stringify(
+                bud.build.make(),
+              )})`}
+            </Prettier>
           </Box>
         </Box>
       </Screen>

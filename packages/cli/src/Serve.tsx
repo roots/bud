@@ -1,5 +1,5 @@
 import React from 'react'
-import {useApp, useInput, Text} from 'ink'
+import {useApp, useInput} from 'ink'
 import useDevServer from './hooks/useDevServer'
 import App from './containers/App'
 
@@ -11,7 +11,6 @@ const Serve: Framework.CLI.Serve = ({bud}) => {
     progress,
     errors,
     warnings,
-    listening,
   } = useDevServer(bud)
 
   useInput(input => {
@@ -30,7 +29,6 @@ const Serve: Framework.CLI.Serve = ({bud}) => {
         progress={progress}
         warnings={warnings}
       />
-      {listening && <Text>Listening.</Text>}
     </>
   )
 }

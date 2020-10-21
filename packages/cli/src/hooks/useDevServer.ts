@@ -8,7 +8,6 @@ const useDevServer: Hooks.Compilation.Server = ({
 }) => {
   const [applied, setApplied] = useState<boolean>(false)
   const [tapped, setTapped] = useState<boolean>(null)
-  const [listening, setListening] = useState<boolean>(false)
   const [stats, setStats] = useState<Compilation.Stats>(null)
   const [warnings, setWarnings] = useState<
     Compilation.Stats.Warnings
@@ -27,12 +26,12 @@ const useDevServer: Hooks.Compilation.Server = ({
    * Stats handler
    */
   const statsHandler: (stats: Stats) => void = stats => {
-    const allStats = stats.toJson()
+    const all = stats.toJson()
 
-    setStats(allStats)
+    setStats(stats.toJson())
 
     // Use facebook formatter for error msgs
-    const formatted = formatWebpackMessages(allStats)
+    const formatted = formatWebpackMessages(all)
 
     setErrors(formatted.errors)
     setWarnings(formatted.warnings)
@@ -65,6 +64,7 @@ const useDevServer: Hooks.Compilation.Server = ({
   useEffect(() => {
     if (tapped) return
     setTapped(true)
+
     compiler
       .getCompilation()
       .hooks.done.tap('bud-cli', statsHandler)
@@ -73,14 +73,15 @@ const useDevServer: Hooks.Compilation.Server = ({
   /**
    * dev listen
    */
-  useEffect(() => {
+  /*   useEffect(() => {
     if (listening || !applied || !tapped) return
     setListening(true)
+
     server.listen()
   }, [applied, tapped, listening])
+ */
 
   return {
-    listening,
     progress,
     stats,
     errors,

@@ -1,17 +1,10 @@
 import {Configuration} from 'webpack'
 import {join} from 'path'
 
-export const chunkFilename: Configuration['output']['chunkFilename'] =
-  '[name].js'
-
-export const chunkLoadTimeout: Configuration['output']['chunkLoadTimeout'] = 120000
-
-export const crossOriginLoading: Configuration['output']['crossOriginLoading'] = false
-
-export const devtoolLineToLine: Configuration['output']['devtoolLineToLine'] = false
-
-export const filename: Configuration['output']['filename'] =
-  '[name].js'
+// export const chunkFilename: Configuration['output']['chunkFilename'] = '[name].js'
+// export const chunkLoadTimeout: Configuration['output']['chunkLoadTimeout'] = 120000
+// export const crossOriginLoading: Configuration['output']['crossOriginLoading'] = false
+// export const filename: Configuration['output']['filename'] = '[name].js'
 
 export const publicPath: Configuration['output']['publicPath'] =
   '/'
@@ -39,3 +32,8 @@ export const path: Configuration['output']['path'] = join(
 // libraryTarget: 'var',,
 // sourceMapFilename: '[file].map[query]',
 // umdNamedDefine: false,
+
+/**
+ * @deprecated webpack5
+ */
+// export const devtoolLineToLine: Configuration['output']['devtoolLineToLine'] = false

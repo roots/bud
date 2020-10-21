@@ -10,7 +10,6 @@ declare interface Build {
 }
 
 declare interface Dev {
-  listening: Compilation.Listening
   progress: Compilation.Progress
   stats: Compilation.Stats
   errors: Compilation.Stats.Errors
