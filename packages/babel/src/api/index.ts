@@ -16,11 +16,19 @@ export const babel: ConfigureBabel = function (userCfg: {
       ...userCfg,
       presets: [
         ...(options.presets ?? []),
-        ...(userCfg.presets ?? []),
+        ...(userCfg.presets
+          ? userCfg.presets.map(preset =>
+              typeof preset === 'object' ? preset : [preset],
+            )
+          : []),
       ],
       plugins: [
         ...(options.plugins ?? []),
-        ...(userCfg.plugins ?? []),
+        ...(userCfg.plugins
+          ? userCfg.plugins.map(plugin =>
+              typeof plugin === 'object' ? plugin : [plugin],
+            )
+          : []),
       ],
     },
   })

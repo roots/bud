@@ -10,9 +10,8 @@ bud
 bud
   .babel({
     plugins: [
-      ['@babel/plugin-transform-runtime', {helpers: false}],
-      ['@babel/plugin-proposal-object-rest-spread'],
-      ['@babel/plugin-syntax-dynamic-import'],
+      '@babel/plugin-proposal-object-rest-spread',
+      '@babel/plugin-syntax-dynamic-import',
     ],
     presets: [
       ['@babel/preset-env', {modules: false}],
