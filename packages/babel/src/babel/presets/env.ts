@@ -4,7 +4,6 @@ const target: babel.PluginTarget = require.resolve(
 
 const options: babel.PluginOptions = {
   modules: false,
-  forceAllTransforms: true,
 }
 
 export const env:

@@ -9,6 +9,7 @@ import Globby from 'globby'
  * @package @roots/bud-api
  */
 export namespace API {
+
   /**
    * Indicate additional filetypes to be resolved by the compiler.
    */

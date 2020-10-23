@@ -6,12 +6,7 @@ import App from './containers/App'
 const Serve: Framework.CLI.Serve = ({bud}) => {
   const app = useApp()
 
-  const {
-    stats,
-    progress,
-    errors,
-    warnings,
-  } = useDevServer(bud)
+  const {stats, progress, errors, warnings} = useDevServer(bud)
 
   useInput(input => {
     if (input == 'q') {
