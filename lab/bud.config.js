@@ -7,16 +7,19 @@ bud
     .use('@roots/bud-babel')
     .use('@roots/bud-sass')
 
-bud
-  .babel({
-    plugins: [
-      '@babel/plugin-proposal-object-rest-spread',
-      '@babel/plugin-syntax-dynamic-import',
-    ],
-    presets: [
-      ['@babel/preset-env', {modules: false}],
-    ],
-  })
+    console.log(bud.babel)
+
+bud.babel.init()
+  .mergePlugins([
+    '@babel/plugin-proposal-object-rest-spread',
+    '@babel/plugin-syntax-dynamic-import',
+  ])
+
+  /**
+   *  .setPresets([
+    ['@babel/preset-env', {modules: false}],
+  ])
+   */
 
 bud.entry('foo', ['foo.js'])
 

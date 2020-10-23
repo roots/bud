@@ -22,7 +22,11 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib", "types", "src"],
+  "files": [
+    "lib",
+    "types",
+    "src"
+  ],
   "main": "./lib/index.js",
   "types": "./types/index.d.ts",
   "scripts": {
@@ -42,7 +46,7 @@
     "babel-plugin-add-module-exports": "^1.0.4"
   },
   "devDependencies": {
-    "webpack": "^4.44.2",
-    "@roots/bud-typings": "^2.0.0-next.24"
+    "@roots/bud-typings": "^2.0.0-next.24",
+    "webpack": "^4.44.2"
   }
 }

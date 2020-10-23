@@ -1,5 +1,5 @@
 import * as babel from './babel'
-import * as api from './api'
+import {config} from './api'
 
 export const registerLoader = [
   'babel',
@@ -13,7 +13,5 @@ export const boot = (bud: Framework.Bud): void => {
     use: [bud.build.getItem('babel')],
   })
 
-  Object.entries(api).map(([name, fn]) =>
-    Object.assign(bud, {[name]: fn}),
-  )
+  Object.assign(bud, {babel: config(bud).init()})
 }

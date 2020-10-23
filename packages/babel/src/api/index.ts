@@ -1,40 +1,39 @@
-import {lodash as _} from '@roots/bud-support'
+import {mergePlugins} from './mergePlugins'
+import {setPlugins} from './setPlugins'
+import {addPlugin} from './addPlugin'
+import {mergeConfig} from './mergeConfig'
+import {setConfig} from './setConfig'
+import {setPresets} from './setPresets'
+import {mergePresets} from './mergePresets'
+import {addPreset} from './addPreset'
 
-/**
- * Set babel plugins.
- */
-export const babel: ConfigureBabel = function (userCfg: {
-  plugins: Plugin[]
-  presets: Plugin[]
-}) {
-  const {options, ...babel} = this.build.getItem('babel') as any // 😇
+export const config: Factory = bud => ({
+  bud,
+  methods: [
+    ['mergeConfig', mergeConfig],
+    ['setConfig', setConfig],
+    ['mergePlugins', mergePlugins],
+    ['setPlugins', setPlugins],
+    ['addPlugin', addPlugin],
+    ['mergePresets', mergePresets],
+    ['setPresets', setPresets],
+    ['addPreset', addPreset],
+  ],
+  init(this: BabelConfig) {
+    this.methods.map(
+      ([name, func]) => (this[name] = func.bind(this)),
+    )
 
-  this.build.setItem('babel', {
-    ...babel,
-    options: {
-      ...options,
-      ...userCfg,
-      presets: [
-        ...(options.presets ?? []),
-        ...(userCfg.presets
-          ? userCfg.presets.map(preset =>
-              typeof preset === 'object' ? preset : [preset],
-            )
-          : []),
-      ],
-      plugins: [
-        ...(options.plugins ?? []),
-        ...(userCfg.plugins
-          ? userCfg.plugins.map(plugin =>
-              typeof plugin === 'object' ? plugin : [plugin],
-            )
-          : []),
-      ],
-    },
-  })
+    return this
+  },
+})
 
-  return this
+export interface BabelConfig {
+  bud: Framework.Bud
+  methods: Array<[string, ConfigureBabel]>
+  init: Framework.Fluent<BabelConfig>
 }
 
-type Plugin = [babel.PluginItem, babel.PluginOptions]
-type ConfigureBabel = Framework.Fluent<Framework.Bud, any>
+export type ConfigureBabel = Framework.Fluent<BabelConfig>
+export type Factory = (bud: Framework.Bud) => BabelConfig
+export type Plugin = [babel.PluginItem, babel.PluginOptions]
