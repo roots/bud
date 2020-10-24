@@ -236,4 +236,11 @@ export class Extensions implements Framework.Extensions {
 
     return output
   }
+
+  /**
+   * Return Bud (Fluent helper)
+   */
+  public next(): Framework.Bud {
+    return this.bud
+  }
 }

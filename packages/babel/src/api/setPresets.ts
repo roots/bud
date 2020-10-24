@@ -1,11 +1,10 @@
 import {lodash as _} from '@roots/bud-support'
-import type {ConfigureBabel} from '.'
 
 /**
  * Merge babel plugins
  */
-export const setPresets: ConfigureBabel = function (
-  presets: babel.PluginItem[],
+export const setPresets: Babel.Config = function (
+  presets: Babel.Plugin,
 ) {
   const {options} = this.bud.build.getItem('babel') as any // 😇
 

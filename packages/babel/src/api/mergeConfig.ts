@@ -1,31 +1,29 @@
 import {lodash as _} from '@roots/bud-support'
-import type {BabelConfig, ConfigureBabel} from '.'
 
 /**
  * Merge babel transformOptions
  */
-export const mergeConfig: ConfigureBabel = function (
-  this: BabelConfig,
-  userCfg: babel.TransformOptions,
+export const mergeConfig: Babel.Config = function (
+  cfg: Babel.TransformOptions,
 ) {
   const {options} = this.bud.build.getItem('babel') as any // 😇
 
   this.bud.build.mergeItem('babel', {
     options: {
       ...options,
-      ...userCfg,
+      ...cfg,
       presets: [
         ...(options.presets ?? []),
-        ...(userCfg.presets
-          ? userCfg.presets.map(preset =>
+        ...(cfg.presets
+          ? cfg.presets.map(preset =>
               typeof preset === 'object' ? preset : [preset],
             )
           : []),
       ],
       plugins: [
         ...(options.plugins ?? []),
-        ...(userCfg.plugins
-          ? userCfg.plugins.map(plugin =>
+        ...(cfg.plugins
+          ? cfg.plugins.map(plugin =>
               typeof plugin === 'object' ? plugin : [plugin],
             )
           : []),

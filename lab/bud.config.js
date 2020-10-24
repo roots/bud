@@ -1,18 +1,15 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 const bud = require('../packages/bud/lib')
 
-bud
-  .extensions
-    .use('@roots/bud-eslint')
-    .use('@roots/bud-babel')
-    .use('@roots/bud-sass')
-
-    console.log(bud.babel)
+bud.extensions
+  .use('@roots/bud-eslint')
+  .use('@roots/bud-sass')
+  .use('@roots/bud-babel')
+    .next()
 
 /**
- * Babel API
+ * Babel configuration API usage
  */
-bud.babel
+.babel
   /**
    * Merge plugins
    */
@@ -20,10 +17,14 @@ bud.babel
     '@babel/plugin-proposal-object-rest-spread',
     '@babel/plugin-syntax-dynamic-import',
   ])
+
   /**
    * Completely overwrite plugins.
    */
-  .setPlugins(['@babel/plugin-syntax-dynamic-import'])
+  .setPlugins([
+    '@babel/plugin-syntax-dynamic-import'
+  ])
+
   /**
    * Add a single plugin
    */
@@ -37,17 +38,28 @@ bud.babel
    */
   .setPresets([
     ['@babel/preset-env', {modules: false}],
+    'babel/preset-env', // no options? a string works.
   ])
+
   .mergePresets([
     ['@babel/preset-env'],
   ])
-  .addPreset('babel/preset-env', {module: false})
+
+  .addPreset('babel/preset-env')
+
+  /**
+   * call next to continue chaining with bud
+   */
   .next()
 
+/**
+ * Set entrypoint.
+ */
+.entry('foo', ['foo.js'])
 
 /**
- * Bundle files.
+ * 👀
  */
-bud.entry('foo', ['foo.js'])
-
-Object.values(bud.build.items.babel.options).map(item => console.log(item))
+Object
+  .values(bud.build.items.babel.options)
+  .map(item => console.log(item))

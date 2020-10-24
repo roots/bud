@@ -7,7 +7,10 @@ import {setPresets} from './setPresets'
 import {mergePresets} from './mergePresets'
 import {addPreset} from './addPreset'
 
-export const config: Factory = bud => ({
+/**
+ * bud.babel configuration utility
+ */
+export const babelConfig: Babel.Factory = bud => ({
   bud,
   methods: [
     ['mergeConfig', mergeConfig],
@@ -19,6 +22,7 @@ export const config: Factory = bud => ({
     ['setPresets', setPresets],
     ['addPreset', addPreset],
   ],
+
   init() {
     this.methods.map(
       ([name, func]) => (this[name] = func.bind(this)),
@@ -26,18 +30,8 @@ export const config: Factory = bud => ({
 
     return this
   },
+
   next() {
     return this.bud
   },
 })
-
-export interface BabelConfig {
-  bud: Framework.Bud
-  methods: Array<[string, ConfigureBabel]>
-  init: Framework.Fluent<BabelConfig>
-  next: (this: BabelConfig) => Framework.Bud
-}
-
-export type ConfigureBabel = Framework.Fluent<BabelConfig>
-export type Factory = (bud: Framework.Bud) => BabelConfig
-export type Plugin = [babel.PluginItem, babel.PluginOptions]
