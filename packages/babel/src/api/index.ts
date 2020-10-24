@@ -19,12 +19,15 @@ export const config: Factory = bud => ({
     ['setPresets', setPresets],
     ['addPreset', addPreset],
   ],
-  init(this: BabelConfig) {
+  init() {
     this.methods.map(
       ([name, func]) => (this[name] = func.bind(this)),
     )
 
     return this
+  },
+  next() {
+    return this.bud
   },
 })
 
@@ -32,6 +35,7 @@ export interface BabelConfig {
   bud: Framework.Bud
   methods: Array<[string, ConfigureBabel]>
   init: Framework.Fluent<BabelConfig>
+  next: (this: BabelConfig) => Framework.Bud
 }
 
 export type ConfigureBabel = Framework.Fluent<BabelConfig>
