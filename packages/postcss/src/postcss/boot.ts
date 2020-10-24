@@ -1,13 +1,19 @@
-import {RuleSetRule} from 'webpack'
+import {postcssConfig} from './api'
 
-export const boot = (bud: Framework.Bud): void => {
-  const css = bud.build.getRule('css').use as RuleSetRule[]
+export const boot = (instance: Framework.Bud): void => {
+  const css = instance.build.getRule('css')
+    .use as Framework.Webpack.RuleSetRule[]
 
-  bud.build.mergeRule('css', {
-    use: (bud: Framework.Bud) => [
+  instance.build.mergeRule('css', {
+    use: (instance: Framework.Bud) => [
       ...css.splice(0, css.length - 1),
-      bud.build.getItem('postcss'),
+      instance.build.getItem('postcss'),
       ...css.splice(css.length - 1),
     ],
+  })
+
+  // Register instance.css config utility
+  Object.assign(instance, {
+    css: postcssConfig(instance).init(),
   })
 }

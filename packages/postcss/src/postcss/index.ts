@@ -6,5 +6,3 @@ export const registerLoader: Framework.Extension['registerLoader'] = [
 ]
 
 export * as registerItems from './registerItems'
-
-export * as api from './api'

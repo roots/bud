@@ -6,6 +6,26 @@ bud.extensions
   .use('@roots/bud-babel')
     .next()
 
+.css
+  .addPlugin('postcss-import', require('postcss-import'))
+  .mergePlugins({
+    'postcss-import': require('postcss-import'),
+  })
+  .setPlugins({
+    'postcss-import': require('postcss-import'),
+  })
+  .mergeConfig({
+    syntax: 'sass',
+  })
+  .setConfig({
+    plugins: {
+      'postcss-import': require('postcss-import'),
+    },
+  })
+  .setParser('sugarss')
+  .setSyntax('sass')
+  .next()
+
 /**
  * Babel configuration API usage
  */
