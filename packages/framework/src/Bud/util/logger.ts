@@ -28,5 +28,4 @@ const logger: pino.Logger = pino(
   pino.destination(),
 )
 
-
 export {logger as default}

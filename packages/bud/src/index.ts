@@ -7,24 +7,6 @@ import {ingestConfig} from './helpers/ingestConfig'
 const bud: Framework.Bud = new Bud()
 
 /**
- * Process feature flags.
- */
-bud.args
-  .entries()
-  .filter(([k]) => !['src', 'dist', 'mode'].includes(k))
-  .map(([arg, value]) => {
-    bud.features.set(arg, value ? true : false)
-  })
-
-bud.args.has('hot') && bud.features.enable('hot')
-
-if (bud.features.enabled('hot')) {
-  bud.server.config.hot = true
-}
-
-bud.mode.set(bud.args.get('mode') ?? 'none')
-
-/**
  * Error out if specified build mode is invaid.
  */
 bud.when(
@@ -46,17 +28,10 @@ bud.disk.set('@roots', {
   baseDir: bud.fs.path.resolve(__dirname, '../../'),
   glob: ['**/*'],
 })
-
-/**
- * Set project disk.
- */
 bud.disk.set('project', {
   baseDir: process.cwd(),
   glob: ['**/*'],
 })
-
-bud.args.has('publicPath') &&
-  bud.publicPath(bud.args.get('publicPath'))
 
 bud.projectPath(
   bud.args.has('project')
@@ -66,11 +41,31 @@ bud.projectPath(
       )
     : process.cwd(),
 )
-
 bud.srcPath(bud.args.has('src') ? bud.args.get('src') : 'src')
 bud.distPath(
   bud.args.has('dist') ? bud.args.get('dist') : 'dist',
 )
+
+bud.fs.exists('package.json') &&
+  ingestConfig(bud.store, 'pkg', bud.fs.readJson('package.json'))
+bud.fs.exists('babel.config.js') &&
+  ingestConfig(
+    bud.store,
+    'babel',
+    bud.fs.require('babel.config.js'),
+  )
+bud.fs.exists('postcss.config.js') &&
+  ingestConfig(
+    bud.store,
+    'postcss',
+    bud.fs.require('postcss.config.js'),
+  )
+bud.fs.exists('.browserslist') &&
+  ingestConfig(
+    bud.store,
+    'browserslist',
+    bud.fs.require('.browserslist'),
+  )
 
 bud.features.enabled('html') && bud.template()
 bud.features.enabled('minify') && bud.minify()
@@ -85,33 +80,6 @@ bud.features.enabled('devtool') &&
       bud.args.get('devtool') ?? '#@cheap-eval-source-map',
     )
   })
-
-/**
- * Stow project files
- */
-bud.fs.exists('package.json') &&
-  ingestConfig(bud.store, 'pkg', bud.fs.readJson('package.json'))
-
-bud.fs.exists('babel.config.js') &&
-  ingestConfig(
-    bud.store,
-    'babel',
-    bud.fs.require('babel.config.js'),
-  )
-
-bud.fs.exists('postcss.config.js') &&
-  ingestConfig(
-    bud.store,
-    'postcss',
-    bud.fs.require('postcss.config.js'),
-  )
-
-bud.fs.exists('.browserslist') &&
-  ingestConfig(
-    bud.store,
-    'browserslist',
-    bud.fs.require('.browserslist'),
-  )
 
 /**
  * Use babel & postcss.

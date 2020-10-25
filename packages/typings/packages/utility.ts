@@ -17,7 +17,8 @@ export namespace Service {
   /**
    * A service constructor.
    */
-  export interface Constructor<T> extends Framework.Constructor<T> {
+  export interface Constructor<T>
+    extends Framework.Constructor<T> {
     new (params?: Index<any>): T
   }
 
