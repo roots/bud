@@ -1,3 +1,6 @@
+import { Webpack } from "../Webpack"
+import type {Bud, Container, Index, Item, Rule} from '../'
+
 /**
  * Framework.Build is ultimately responsible for producing
  * the webpack configuration utilized by Framework.Compiler
@@ -7,7 +10,7 @@ export declare class Build {
   /**
    * The Bud application instance.
    */
-  public bud: Framework.Bud
+  public bud: Bud
 
   /**
    * The builders which do the work.
@@ -17,32 +20,32 @@ export declare class Build {
   /**
    * Loaders
    */
-  public loaders: Framework.Index<Build.Loader>
+  public loaders: Index<Build.Loader>
 
   /**
    * Items (loader implementations)
    */
-  public items: Framework.Index<Framework.Item>
+  public items: Index<Item>
 
   /**
    * Rules (sets of Framework.Build.Items used under certain conditions)
    */
-  public rules: Framework.Index<Framework.Rule>
+  public rules: Index<Rule>
 
   /**
    * THe final built configuration object.
    */
-  public config: Framework.Container
+  public config: Container
 
   /**
    * Class constructor.
    */
-  public constructor(bud: Framework.Bud)
+  public constructor(arguments: Index<Bud>)
 
   /**
    * Function producing the final webpack configuration.
    */
-  public make(): Framework.Webpack.Configuration
+  public make(): Webpack.Configuration
 
   /**
    * Add or override a loader by key.
@@ -60,41 +63,41 @@ export declare class Build {
   /**
    * Ge an item by key.
    */
-  public getItem(name: string): Framework.Item.Product
+  public getItem(name: string): Item.Product
 
   /**
    * Add or override an item by key.
    */
   public setItem(
     name: string,
-    module: Framework.Item.Module,
-  ): Framework.Item
+    module: Item.Module,
+  ): Item
 
   /**
    * Merge values onto an existing item.
    */
   public mergeItem(
     item: string,
-    value: Partial<Framework.Item>,
+    value: Partial<Item>,
   ): void
 
   /**
    * Get a rule by key.
    */
-  public getRule(name: string): Framework.Rule.Product
+  public getRule(name: string): Webpack.RuleSetRule
 
   /**
    * Add or override a rule by key.
    */
   public setRule(
     name: string,
-    module: Framework.Rule.Module,
+    module: Rule.Module,
   ): Framework.Rule
 
   /**
    * Merge values onto an existing rule.
    */
-  public mergeRule(name: string, rule: Framework.Rule.Module)
+  public mergeRule(name: string, rule: Rule.Module)
 }
 
 export namespace Build {
@@ -106,14 +109,14 @@ export namespace Build {
     /**
      * Loaders are keyed values so they can be manipulated by name.
      */
-    export type Repository = Framework.Index<Loader>
+    export type Repository = Index<Loader>
   }
 
   /**
    * The final product.
    * @see {Webpack.Configuration}
    */
-  export type Configuration = Framework.Webpack.Configuration
+  export type Configuration = Webpack.Configuration
 
   /**
    * Output produced by the builders.
@@ -123,26 +126,26 @@ export namespace Build {
      * @see {webpack.Configuration['entry']}
      */
     export type Entry =
-      | Framework.Webpack.Entry
-      | Framework.Webpack.EntryFunc
+      | Webpack.Entry
+      | Webpack.EntryFunc
 
     /**
      * @see {webpack.Configuration['externals']}
      */
-    export type Externals = Framework.Webpack.ExternalsObjectElement
+    export type Externals = Webpack.ExternalsObjectElement
 
     /**
      * @see {webpack.Configuration['module']}
      */
-    export type Module = Framework.Webpack.Module
+    export type Module = Webpack.Module
 
     /**
      * @see {webpack.Configuration['resolve']}
      */
-    export type Resolve = Framework.Webpack.Resolve
-    export type Optimization = Framework.Webpack.Options.Optimization
-    export type Output = Framework.Webpack.Output
-    export type Plugins = Framework.Webpack.Plugin[]
+    export type Resolve = Webpack.Resolve
+    export type Optimization = Webpack.Options.Optimization
+    export type Output = Webpack.Output
+    export type Plugins = Webpack.Plugin[]
 
     export type General = Omit<
       Configuration,
@@ -161,22 +164,22 @@ export namespace Build {
    * Builds webpack's entrypoint configuration
    */
   export type Entry = (
-    state?: Framework.Container.Repository,
+    state?: Container.Repository,
   ) => Product.Entry
 
   /**
    * Builds webpack's externals configuration
    */
   export type Externals = (
-    state?: Framework.Container.Repository,
+    state?: Container.Repository,
   ) => Product.Externals
 
   /**
    * Builds webpack's module configuration
    */
   export type Module = (
-    build?: Framework.Container.Repository,
-  ) => {module: Framework.Webpack.Module}
+    build?: Container.Repository,
+  ) => {module: Webpack.Module}
 
   /**
    * Called by Build.Module
@@ -184,36 +187,36 @@ export namespace Build {
    * Builds webpack's rules configuration
    */
   export type Rules = (
-    build?: Framework.Container.Repository,
+    build?: Container.Repository,
   ) => Product.Module['rules']
 
   /**
    * Builds webpack's resolve configuration.
    */
   export type Resolve = (
-    state?: Framework.Container.Repository,
-  ) => Framework.Index<Product.Resolve>
+    state?: Container.Repository,
+  ) => Index<Product.Resolve>
 
   /**
    * Builds webpack's optimization configuration
    */
   export type Optimization = (
-    state?: Framework.Container.Repository,
+    state?: Container.Repository,
   ) => Product.Optimization
 
   /**
    * Builds webpack's plugins configuration
    */
   export type Plugins = (
-    state?: Framework.Container.Repository,
-  ) => Framework.Index<Product.Plugins>
+    state?: Container.Repository,
+  ) => Index<Product.Plugins>
 
   /**
    * Builds webpack's output configuration
    */
   export type Output = (
-    state?: Framework.Container.Repository,
-  ) => Framework.Index<Product.Output>
+    state?: Container.Repository,
+  ) => Index<Product.Output>
 
   /**
    * Webpack has a lot of top level keys which are
@@ -224,7 +227,7 @@ export namespace Build {
    * to handle many small concerns.
    */
   export type General = (
-    state?: Framework.Container.Repository,
+    state?: Container.Repository,
   ) => Product.General
 
   /**

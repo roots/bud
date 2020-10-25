@@ -95,9 +95,15 @@ declare class Bud {
   public util: Framework.Util
 
   /**
-   * Initialize the instance of Bud.
+   * Register services, functions, on Bud.
    */
-  init(): void
+  register({
+    api,
+    builders,
+  }: {
+    api: any
+    builders: any
+  }): void
 
   /**
    * Make a new disk virtual disk.
@@ -107,7 +113,16 @@ declare class Bud {
     baseDir?: string,
     glob?: string[],
   ): Framework.FileContainer
+
+  /**
+   * Bind and assign functions to Bud.
+   */
+  mapCallables(
+    callables: Framework.Index<CallableFunction>,
+  ): void
 }
+
+
 
 export type Util = {
   format: Format,

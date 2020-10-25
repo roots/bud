@@ -11,14 +11,14 @@ import {Mode} from '../Mode'
 import {Server} from '@roots/bud-server'
 
 import {args} from './args'
-import * as api from '@roots/bud-api'
 import * as env from './env'
-import * as items from './items'
-import * as rules from './rules'
 import * as patterns from './patterns'
 import * as plugins from './plugins'
-import * as loaders from './loaders'
 
+import * as api from '@roots/bud-api'
+import {builders, Builders} from './builders'
+
+import logger from './util/logger'
 import format from './util/format'
 import pretty from './util/pretty'
 
@@ -42,7 +42,7 @@ export class Bud implements Framework.Bud {
 
   public fs: FileContainer
 
-  public extensions: Framework.Bud['extensions']
+  public extensions: Framework.Extensions
 
   public features: Framework.Features
 
@@ -52,76 +52,116 @@ export class Bud implements Framework.Bud {
 
   public server: Framework.Bud['server']
 
-  public logger: Framework.Bud['logger']
-
   public mode: Framework.Bud['mode']
+
+  public logger: Framework.Bud['logger'] = logger
 
   public util: Framework.Util = {
     format,
     pretty,
   }
 
-  public constructor() {
+  public constructor(params: {
+    api?: Framework.Index<[string, CallableFunction]>
+    builders?: Builders
+  }) {
+    // Bindings
+    this.set = this.set.bind(this)
+    this.mapCallables = this.mapCallables.bind(this)
+    this.mapBuilders = this.mapBuilders.bind(this)
+
+    // Foundation instances
     this.env = env
     this.disk = new FileSystem()
     this.fs = new FileContainer()
     this.features = new Features()
 
-    this.hooks = Hooks(this.logger)
+    // Containers
     this.args = new Container(args)
-    this.build = new Build(this)
-    this.compiler = new Compiler(this)
-    this.server = new Server(this)
-    this.extensions = new Extensions(this)
     this.patterns = new Container(patterns)
+
+    // Feature objects
+    this.hooks = new Hooks({logger: this.logger})
+    this.build = new Build({bud: this})
+    this.compiler = new Compiler({bud: this})
+    this.server = new Server({bud: this})
+    this.extensions = new Extensions({bud: this})
     this.mode = Mode(this.build)
     this.cli = App(this)
 
-    this.init()
+    // Registration
+    this.register({
+      api: params?.api ?? api,
+      builders: params?.builders ?? builders,
+    })
   }
 
-  public init: Framework.Bud['init'] = function () {
-    Object.entries(api).map(
-      ([name, fn]: [string, CallableFunction]) => {
-        this[name] = fn.bind(this)
-      },
-    )
+  /**
+   * Initialize class.
+   */
+  public register = function ({
+    api,
+    builders,
+  }: {
+    api: Framework.Index<[string, CallableFunction]>
+    builders: Builders
+  }): void {
+    this.mapBuilders(builders)
+    this.mapCallables(api)
 
-    Object.entries(loaders).map(
-      ([name, loader]: [string, Framework.Build.Loader]) => {
-        return this.build.setLoader(name, loader)
-      },
-    )
-
-    Object.entries(items).map(
-      ([name, item]: [string, Framework.Item.Module]) => {
-        return this.build.setItem(name, item)
-      },
-    )
-
-    Object.entries(rules).map(
-      ([name, rule]: [string, Framework.Rule.Module]) => {
-        return this.build.setRule(name, rule)
-      },
-    )
-
-    this.args
-      .entries()
-      .filter(([arg]) => !['src', 'dist', 'mode'].includes(arg))
-      .map(([arg, value]) => {
-        this.features.set(arg, value ? true : false)
-      })
+    this.args.entries().map(([arg, value]) => {
+      this.features.set(arg, value ? true : false)
+    })
 
     this.extensions.boot(plugins)
   }
 
   /**
+   * Set on Bud.
+   */
+  public set(key: string, value: unknown): void {
+    this[key] = value
+  }
+
+  /**
+   * Map builders
+   */
+  public mapBuilders = function (
+    this: Framework.Bud,
+    builders: Builders,
+  ): void {
+    builders.map(
+      ([builderSet, registration]: [
+        Framework.Index<any>,
+        (any) => void,
+      ]) => {
+        Object.entries(builderSet).map((builder: any) =>
+          registration.bind(this)(builder),
+        )
+      },
+    )
+  }
+
+  /**
+   * Map api callables and top-level utility objects onto bud
+   */
+  public mapCallables = function (
+    callables: Framework.Index<CallableFunction>,
+  ): void {
+    Object.entries(callables).map(
+      ([name, fn]: [string, CallableFunction]) => {
+        this.set(name, fn.bind(this))
+      },
+    )
+  }
+
+  /**
    * Make a new disk virtual disk.
    */
-  public makeDisk: Framework.Bud['makeDisk'] = function (
+  public makeDisk = function (
     key = Bud.PRIMARY_DISK,
-    baseDir?,
-    glob?,
+    baseDir?: string,
+    glob?: string[],
   ): FileContainer {
     return this.disk.set(key, {
       baseDir,

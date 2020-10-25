@@ -1,23 +1,23 @@
 /**
  * Returns a hooks instance with application bindings.
  */
-export const Hooks = (
-  logger: Framework.Hooks['logger'],
-): Framework.Hooks => ({
-  logger,
+export const Hooks = function (params: Framework.Index<any>) {
+  this.logger = params.logger
 
-  registered: {},
+  this.registered = {}
 
-  make: (hook: Framework.Hooks.Handler<unknown>) => ({
-    hook,
-    fired: false,
-  }),
+  this.make = function (hook: Framework.Hooks.Handler<any>) {
+    return {
+      hook,
+      fired: false,
+    }
+  }
 
-  entries: function () {
+  this.entries = function () {
     return Object.entries(this.registered)
-  },
+  }
 
-  on: function (name, callback) {
+  this.on = function (name, callback) {
     const entry = this.make(callback)
 
     if (!this.registered[name]) {
@@ -27,9 +27,12 @@ export const Hooks = (
     this.registered[name].push(entry)
 
     return this
-  },
+  }
 
-  filter: function (name: string, value: unknown): unknown {
+  this.filter = function (
+    name: string,
+    value: unknown,
+  ): unknown {
     if (!this.registered[name]) {
       return value
     }
@@ -44,5 +47,5 @@ export const Hooks = (
     })
 
     return value
-  },
-})
+  }
+}

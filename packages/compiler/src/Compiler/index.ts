@@ -12,8 +12,8 @@ export class Compiler {
 
   public watching: Framework.Webpack.Watching
 
-  constructor(bud: Framework.Bud) {
-    this.bud = bud
+  constructor(params?: Framework.Index<Framework.Bud>) {
+    this.bud = params.bud
 
     this.applyPlugins = this.applyPlugins.bind(this)
 

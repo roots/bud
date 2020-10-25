@@ -1,15 +1,21 @@
 import {DefinePlugin} from 'webpack'
 
-export const options: OptionsFactory = bud =>
-  Object.entries(bud.env)
-    .filter(([key]: [string, string]) => !key.includes('SECRET'))
-    .reduce(
-      (acc, [key, value]) => ({
-        ...acc,
-        [key]: value,
-      }),
-      {},
-    ) ?? {}
+export const options: OptionsFactory = bud => {
+  console.log(bud)
+  return (
+    Object.entries(bud?.env)
+      .filter(
+        ([key]: [string, string]) => !key.includes('SECRET'),
+      )
+      .reduce(
+        (acc, [key, value]) => ({
+          ...acc,
+          [key]: value,
+        }),
+        {},
+      ) ?? {}
+  )
+}
 
 export const make: Framework.Extension.Make = (opts: Options) =>
   new DefinePlugin(opts)

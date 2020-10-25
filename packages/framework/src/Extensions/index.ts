@@ -1,43 +1,42 @@
+import type {Bud, Extension, Index} from '@roots/bud-typings'
+
 /**
  * Boots and handles extension lifecycle concerns.
  */
 export class Extensions implements Framework.Extensions {
   /**
    * The Bud instance.
-   * @type {Framework.Bud}
+   * @type {Bud}
    */
-  public bud: Framework.Bud
+  public bud: Bud
 
   /**
    * Keyed extensions
    * @type {Index<Extension>}
    */
-  public extensions: Framework.Index<Framework.Extension> = {}
+  public extensions: Index<Extension> = {}
 
   /**
    * Creates an instance of Controller.
    *
-   * @param {Bud} bud
+   * @param {Bud}
    */
-  public constructor(bud: Framework.Bud) {
-    this.bud = bud
+  public constructor(params?: any) {
+    this.bud = params.bud
 
     this.boot = this.boot.bind(this)
     this.makePlugins = this.makePlugins.bind(this)
-
+    this.processRules = this.processRules.bind(this)
     this.processOptions = this.processOptions.bind(this)
     this.processLoaders = this.processLoaders.bind(this)
     this.processRuleItems = this.processRuleItems.bind(this)
-    this.processRules = this.processRules.bind(this)
   }
 
   /**
    * Boot extensions controller.
    * @param {Index<Extension.Factory>} definitions
    */
-  public boot(
-    extensions?: Framework.Index<Framework.Extension.Factory>,
-  ): void {
+  public boot(extensions?: Index<Extension.Factory>): void {
     if (!extensions) return
 
     this.registerExtensions(extensions)
@@ -47,15 +46,12 @@ export class Extensions implements Framework.Extensions {
    * Register a batch of extensions.
    */
   public registerExtensions(
-    extensions: Framework.Index<Framework.Extension.Factory>,
+    extensions: Index<Extension.Factory>,
   ): void {
     Object.entries(
       extensions,
-    ).map(
-      ([name, extension]: [
-        string,
-        Framework.Extension.Factory,
-      ]) => this.register(name, extension),
+    ).map(([name, extension]: [string, Extension.Factory]) =>
+      this.register(name, extension),
     )
   }
 
@@ -105,7 +101,7 @@ export class Extensions implements Framework.Extensions {
   /**
    * Process options
    */
-  public processOptions(extension: Framework.Extension): void {
+  public processOptions(extension: Extension): void {
     if (extension.hasOwnProperty('options')) {
       extension.options =
         typeof extension.options == 'function'
@@ -119,7 +115,7 @@ export class Extensions implements Framework.Extensions {
   /**
    * Process loaders
    */
-  public processLoaders(extension: Framework.Extension): void {
+  public processLoaders(extension: Extension): void {
     extension.hasOwnProperty('registerLoader') &&
       this.bud.build.setLoader(...extension.registerLoader)
 
@@ -132,7 +128,7 @@ export class Extensions implements Framework.Extensions {
   /**
    * Process rule items.
    */
-  public processRuleItems(extension: Framework.Extension): void {
+  public processRuleItems(extension: Extension): void {
     extension.hasOwnProperty('registerItem') &&
       this.bud.build.setItem(
         extension.registerItem[0],
@@ -154,7 +150,7 @@ export class Extensions implements Framework.Extensions {
   /**
    * Process rules.
    */
-  public processRules(extension: Framework.Extension): void {
+  public processRules(extension: Extension): void {
     extension.hasOwnProperty('registerRule') &&
       this.bud.build.setRule(
         extension.registerRule[0],
@@ -173,28 +169,26 @@ export class Extensions implements Framework.Extensions {
    * Bind all config API.
    */
   public bindApi = function (
-    methods: Framework.Index<CallableFunction>,
+    methods: Index<CallableFunction>,
   ): void {
-    Object.entries(methods).map(([name, fn]) => {
-      this.bud[name] = fn.bind(this.bud)
-    })
+    Object.entries(methods).map(
+      ([name, fn]: [string, CallableFunction]) => {
+        this.bud[name] = fn.bind(this.bud)
+      },
+    )
   }
 
   /**
    * Get an extension instance.
    */
-  public getExtension = function (
-    name: string,
-  ): Framework.Extension {
+  public getExtension = function (name: string): Extension {
     return this.extensions[name]
   }
 
   /**
    * Get the options on a booted extensions.
    */
-  public getOptions(
-    extension: string,
-  ): Framework.Extension.Options {
+  public getOptions(extension: string): Extension.Options {
     return this.getExtension(extension).options
   }
 
@@ -206,7 +200,7 @@ export class Extensions implements Framework.Extensions {
    */
   public setOptions(
     extension: string,
-    options: Framework.Index<unknown>,
+    options: Index<unknown>,
   ): void {
     this.getExtension(extension).options = {
       ...this.getOptions(extension),
@@ -218,7 +212,7 @@ export class Extensions implements Framework.Extensions {
    * Make an extension
    * @note applies only to webpack plugins
    */
-  public makePlugins(): Framework.Extension.Product[] {
+  public makePlugins(): Extension.Product[] {
     const output = Object.values(this.extensions)
       .filter(extension => extension.hasOwnProperty('make'))
       .map(extension => {
@@ -240,7 +234,7 @@ export class Extensions implements Framework.Extensions {
   /**
    * Return Bud (Fluent helper)
    */
-  public next(): Framework.Bud {
+  public next(): Bud {
     return this.bud
   }
 }

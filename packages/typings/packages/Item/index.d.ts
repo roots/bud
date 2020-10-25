@@ -66,13 +66,12 @@ declare namespace Item {
   export type Property =
     | Webpack.RuleSetLoader['ident']
     | Webpack.RuleSetLoader['loader']
-    | Webpack.RuleSetLoader['options']
+    | { [k: string]: any } // do not support 'string' from query
     | Webpack.RuleSetLoader['query']
-
   export namespace Module {
     export type Ident = Webpack.RuleSetLoader['ident']
     export type Loader = Webpack.RuleSetLoader['loader']
-    export type Options = Webpack.RuleSetLoader['options']
+    export type Options = { [k: string]: any } // do not support 'string' from query
     export type Query = Webpack.RuleSetLoader['query']
   }
 

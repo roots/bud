@@ -1,5 +1,35 @@
 export type Index<T> = {[key: string]: T}
 
+/**
+ * Constructable function/class yielding T type
+ */
+export interface Constructor<T> {
+  new (params: any): T
+}
+
+/**
+ * Keyed service tuples. Useful for passing
+ * maps of services as an object.
+ */
+export type Services = Index<Service.Tuple>
+
+export namespace Service {
+  /**
+   * A service constructor.
+   */
+  export interface Constructor<T> extends Framework.Constructor<T> {
+    new (params?: Index<any>): T
+  }
+
+  export type Dependency = [string, unknown]
+  export type Dependencies = Array<Dependency> | Dependency
+
+  export type Tuple = [
+    service: Constructor<any>,
+    deps?: Dependencies,
+  ]
+}
+
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export type Fluent<
   T,

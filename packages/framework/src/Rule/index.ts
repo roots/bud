@@ -1,3 +1,5 @@
+import type {RuleSetRule} from 'webpack'
+
 /**
  * Manufactures a RuleSetRule
  *
@@ -11,10 +13,10 @@ export class Rule implements Framework.Rule {
   public include?: Framework.Rule.Conditional
   public issuer?: Framework.Rule.Conditional
   public oneOf?: Framework.Rule.OneOf
-  public options?: Framework.Rule.Query
+  public options?: Framework.Rule.Options
   public parser?: Framework.Rule.Parser
   public resolve?: Framework.Rule.Resolve
-  public sideEffects?: boolean
+  public sideEffects?: Framework.Rule.SideEffects
   public query?: Framework.Rule.Query
   public type?: Framework.Rule.Type
   public resource?: Framework.Rule.Conditional
@@ -58,7 +60,9 @@ export class Rule implements Framework.Rule {
     return this
   }
 
-  public get(): Framework.Rule.MakeSet {
+  public get: () => Array<
+    [string, Framework.Rule.Generic]
+  > = function () {
     return Object.entries({
       enforce: this.enforce,
       exclude: this.exclude,
@@ -76,7 +80,7 @@ export class Rule implements Framework.Rule {
     })
   }
 
-  public make(): Framework.Rule.Product {
+  public make(): RuleSetRule {
     return (
       this.get()
 
@@ -91,7 +95,7 @@ export class Rule implements Framework.Rule {
          */
         .reduce(
           (
-            accumulator: Framework.Rule.Product,
+            accumulator: RuleSetRule,
             [label, prop]: Framework.Rule.MakeIn,
           ) => ({
             ...accumulator,

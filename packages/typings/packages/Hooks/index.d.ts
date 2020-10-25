@@ -21,10 +21,6 @@ export declare namespace Hooks {
 
   export type Filter<T> = (name: string, data: T) => T
 
-  export interface Constructor {
-    (app: Bud): Hooks
-  }
-
   export interface Registry {
     [key: string]: RegistryItem
   }

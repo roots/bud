@@ -7,11 +7,6 @@ import {ingestConfig} from './helpers/ingestConfig'
 const bud: Framework.Bud = new Bud()
 
 /**
- * Use babel & postcss.
- */
-bud.extensions.use('@roots/bud-babel').use('@roots/bud-postcss')
-
-/**
  * Process feature flags.
  */
 bud.args
@@ -117,6 +112,14 @@ bud.fs.exists('.browserslist') &&
     'browserslist',
     bud.fs.require('.browserslist'),
   )
+
+/**
+ * Use babel & postcss.
+ */
+bud.extensions
+  .use('@roots/bud-babel')
+  .use('@roots/bud-postcss')
+  .use('@roots/bud-sass')
 
 export default bud
 module.exports = bud

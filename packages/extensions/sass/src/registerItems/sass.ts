@@ -7,7 +7,7 @@ export const options: Framework.Item['options'] = {
     let implementation: unknown
 
     try {
-      implementation = require.resolve('sass')
+      implementation = require('sass')
     } catch {
       implementation = require('node-sass')
     }

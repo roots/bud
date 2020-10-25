@@ -10,7 +10,6 @@ export * from './utility'
 
 /**
  * Framework.Container
- *
  * @package @roots/container
  */
 export {
@@ -22,7 +21,6 @@ export {
 /**
  * Framework.FileContainer
  * Framework.FileSystem
- *
  * @package @roots/filesystem
  */
 export {
@@ -122,18 +120,18 @@ export * from './Server'
 
 /**
  * Framework.Express
- * @see express
+ * @see {express}
  */
 export * from './Express'
 
 /**
  * Framework.Webpack
- * @see webpack
+ * @see {webpack}
  */
 export * from './Webpack'
 
 /**
  * Framework.Logger
- * @see pino
+ * @see {pino}
  */
 export {Logger} from 'pino'

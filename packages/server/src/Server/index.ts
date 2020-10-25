@@ -11,7 +11,7 @@ export class Server {
 
   public config: Framework.Server.Config = config
 
-  public constructor(bud: Framework.Bud) {
+  public constructor({bud}: Framework.Bud) {
     this.bud = bud
 
     this.instance = express()

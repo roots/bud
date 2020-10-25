@@ -1,4 +1,5 @@
-import type Webpack from 'webpack'
+import type {RuleSetRule, RuleSetCondition, Resolve} from 'webpack'
+import type {Bud, Index, Item, MaybeCallable} from '../'
 
 /**
  * Manufactures a RuleSetRule
@@ -9,7 +10,7 @@ export declare class Rule {
   /**
    * The Bud instance.
    */
-  public bud: Framework.Bud
+  public bud: Bud
 
   /**
    * Enforce rule as 'pre' or 'post'
@@ -39,7 +40,7 @@ export declare class Rule {
   /**
    * Options
    */
-  public options?: Rule.Query
+  public options?: Index<any>
 
   /**
    * Options for parsing
@@ -54,7 +55,7 @@ export declare class Rule {
   /**
    * Flags a module as with or without side effects
    */
-  public sideEffects?: boolean
+  public sideEffects?: Rule.SideEffects
 
   /**
    * Shortcut for use.query
@@ -94,12 +95,12 @@ export declare class Rule {
   /**
    * Use
    */
-  public use?: Rule.Use
+  public use?: Array<Index<any>>
 
   /**
    * Class constructor
    */
-  constructor(bud: Framework.Bud, rule: Rule.Generic)
+  constructor(bud: Bud, rule: Rule.Generic)
 
   /**
    * Rule as iterable tuples.
@@ -109,19 +110,21 @@ export declare class Rule {
    *  - RuleSetRule property,
    *  - Parameters to pass to callables in a given rule.
    */
-  public get(): Rule.MakeSet
+  public get: () => Array<
+    [string, Rule.Generic]
+  >
 
   /**
    * Produce rule product
    *
-   * @see Webpack.RuleSetRule
+   * @see RuleSetRule
    */
-  public make(): Rule.Product
+  public make(): RuleSetRule
 
   /**
    * Register prop(s) on rule.
    */
-  public register(rule: unknown): this
+  public register(rule: any): this
 
   /**
    * Set property on rule
@@ -134,18 +137,18 @@ export declare class Rule {
   getProp(prop: string): Rule.Property<any>
 }
 
-declare namespace Rule {
+export declare namespace Rule {
   /**
    * A modular rule implementation
    */
   export type Module = {
-    [key: string]: Framework.MaybeCallable<Rule.Products>
+    [key: string]: MaybeCallable<Rule.Products>
   }
 
   /**
    * A tuple to be processed by make
    */
-  export type MakeIn = [string, Framework.MaybeCallable<unknown>]
+  export type MakeIn = [string, MaybeCallable<any>]
 
   /**
    * Rule as iterable tuples.
@@ -164,9 +167,9 @@ declare namespace Rule {
   export type Generic = Property<Products>
 
   /**
-   * Rule modules produce Webpack.RuleSetRule entries
+   * Rule modules produce RuleSetRule entries
    */
-  export type Makes = Webpack.RuleSetRule
+  export type Makes = RuleSetRule
 
   /**
    * Rule modules can also be manipulated as keyed items.
@@ -175,12 +178,21 @@ declare namespace Rule {
     [key: string]: Factory<Product> | Product
   }
 
+  /**
+   * Factory
+   */
   export interface Factory<Product> {
-    (unknown): Product
+    (arguments?: any): Product
   }
 
-  export type Product = Framework.Webpack.RuleSetRule
+  /**
+   * Product
+   */
+  export type Product = Array<Item>
 
+  /**
+   * Products
+   */
   export type Products =
     | string
     | boolean
@@ -193,6 +205,9 @@ declare namespace Rule {
     | Use
     | OneOf
 
+  /**
+   * Type
+   */
   export type Type =
     | 'javascript/auto'
     | 'javascript/dynamic'
@@ -200,19 +215,52 @@ declare namespace Rule {
     | 'json'
     | 'webassembly/experimental'
 
+  /**
+   * Enforce
+   */
   export type Enforce = 'pre' | 'post'
 
-  export type Conditional = Framework.Webpack.RuleSetCondition
+  /**
+   * Conditional
+   */
+  export type Conditional = RuleSetCondition
 
-  export type Parser = Framework.Index<any>
+  /**
+   * Parser
+   */
+  export type Parser = Index<any>
 
+  /**
+   * Query
+   */
   export type Query = string | Parser
 
-  export type Resolve = Framework.Webpack.Resolve
+  /**
+   * Resolve
+   */
+  export type {Resolve}
 
-  export type Use =
-    | Framework.Webpack.RuleSetUseItem[]
-    | Rule.Factory<Framework.Webpack.RuleSetUseItem[]>
+  /**
+   * SideEffects
+   */
+  export type SideEffects = boolean
 
-  export type OneOf = Framework.Webpack.RuleSetRule
+  /**
+   * Options
+   */
+  export type Options = Index<any>
+
+  /**
+   * OneOf
+   */
+  export type OneOf = MaybeCallable<
+    Array<
+      RuleSetRule
+    >
+  >
+
+  /**
+   * Use
+   */
+  export type Use = Array<{[key: string]: any}>
 }
