@@ -1,8 +1,10 @@
 /**
  * @constructs Framework.Mode
  */
-const constructor = function (build: Framework.Build): void {
-  this.build = build
+export const Mode = function (
+  params: Framework.Index<Framework.Bud>,
+): void {
+  this.build = params.bud.build
 
   this.get = function (): Framework.Webpack.Configuration['mode'] {
     return this.build.config.get('mode')
@@ -20,6 +22,3 @@ const constructor = function (build: Framework.Build): void {
     return this.build.config.is('mode', check)
   }
 }
-
-export const Mode = (build: Framework.Build): Framework.Mode =>
-  new constructor(build)

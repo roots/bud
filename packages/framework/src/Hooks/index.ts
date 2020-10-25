@@ -1,7 +1,9 @@
 /**
  * Returns a hooks instance with application bindings.
  */
-export const Hooks = function (params: Framework.Index<any>) {
+export const Hooks = function (
+  params: Framework.Index<any>,
+): void {
   this.logger = params.logger
 
   this.registered = {}

@@ -7,21 +7,6 @@ import {ingestConfig} from './helpers/ingestConfig'
 const bud: Framework.Bud = new Bud()
 
 /**
- * Error out if specified build mode is invaid.
- */
-bud.when(
-  !bud.mode.is('production') &&
-    !bud.mode.is('development') &&
-    !bud.mode.is('none'),
-  () => {
-    console.error(
-      'Mode must be one of: production, development, none.',
-    )
-    process.exit(1)
-  },
-)
-
-/**
  * Set @roots org namespace disk
  */
 bud.disk.set('@roots', {

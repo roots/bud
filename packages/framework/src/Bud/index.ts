@@ -1,32 +1,21 @@
+import type {FileContainer} from '@roots/filesystem'
+
 import {Indexed as Container} from '@roots/container'
-import {Compiler} from '@roots/bud-compiler'
-import {FileContainer, FileSystem} from '@roots/filesystem'
-
-import {App} from '@roots/bud-cli'
-import {Build} from '../Build'
-import {Hooks} from '../Hooks'
-import {Extensions} from '../Extensions'
-import {Features} from '../Features'
-import {Mode} from '../Mode'
-import {Server} from '@roots/bud-server'
-
-import {args} from './args'
-import * as env from './env'
-import * as patterns from './patterns'
-import * as plugins from './plugins'
 
 import * as api from '@roots/bud-api'
+import * as containers from './containers'
+import * as env from './env'
+import * as plugins from './plugins'
+
 import {builders, Builders} from './builders'
+import {services, IServices} from './services'
 
 import logger from './util/logger'
 import format from './util/format'
 import pretty from './util/pretty'
 
 export class Bud implements Framework.Bud {
-  /**
-   * @note I'm not sure how to type something this flexible.
-   */
-  [key: string]: any
+  [key: string]: any // 🚨
 
   private static PRIMARY_DISK = 'project'
 
@@ -38,7 +27,7 @@ export class Bud implements Framework.Bud {
 
   public disk: Framework.FileSystem
 
-  public env: Framework.Env
+  public env: Framework.Env = env
 
   public fs: FileContainer
 
@@ -64,36 +53,28 @@ export class Bud implements Framework.Bud {
   public constructor(params: {
     api?: Framework.Index<[string, CallableFunction]>
     builders?: Builders
+    containers?: Framework.Index<Framework.Index<any>>
+    services?: IServices
   }) {
-    // Bindings
     this.set = this.set.bind(this)
     this.mapCallables = this.mapCallables.bind(this)
     this.mapBuilders = this.mapBuilders.bind(this)
+    this.mapContainers = this.mapContainers.bind(this)
+    this.mapServices = this.mapServices.bind(this)
 
-    // Foundation instances
-    this.env = env
-    this.disk = new FileSystem()
-    this.fs = new FileContainer()
-    this.features = new Features()
-
-    // Containers
-    this.args = new Container(args)
-    this.patterns = new Container(patterns)
-
-    // Feature objects
-    this.hooks = new Hooks({logger: this.logger})
-    this.build = new Build({bud: this})
-    this.compiler = new Compiler({bud: this})
-    this.server = new Server({bud: this})
-    this.extensions = new Extensions({bud: this})
-    this.mode = Mode(this.build)
-    this.cli = App(this)
-
-    // Registration
-    this.register({
+    const registry: {
+      api: Framework.Index<[string, CallableFunction]>
+      builders: Builders
+      containers: Framework.Index<Framework.Index<any>>
+      services: IServices
+    } = {
       api: params?.api ?? api,
       builders: params?.builders ?? builders,
-    })
+      containers: params?.containers ?? containers,
+      services: (params?.services ?? services).bind(this)(),
+    }
+
+    this.register(registry)
   }
 
   /**
@@ -102,18 +83,26 @@ export class Bud implements Framework.Bud {
   public register = function ({
     api,
     builders,
+    containers,
+    services,
   }: {
     api: Framework.Index<[string, CallableFunction]>
     builders: Builders
+    containers: Framework.Index<Framework.Index<any>>
+    services: IServices
   }): void {
-    this.mapBuilders(builders)
+    this.mapServices(services)
+    this.mapContainers(containers)
     this.mapCallables(api)
+    this.mapBuilders(builders)
 
     this.args.entries().map(([arg, value]) => {
       this.features.set(arg, value ? true : false)
     })
 
     this.extensions.boot(plugins)
+
+    console.log(this)
   }
 
   /**
@@ -126,10 +115,10 @@ export class Bud implements Framework.Bud {
   /**
    * Map builders
    */
-  public mapBuilders = function (
+  public mapBuilders = async function (
     this: Framework.Bud,
     builders: Builders,
-  ): void {
+  ): Promise<void> {
     builders.map(
       ([builderSet, registration]: [
         Framework.Index<any>,
@@ -143,14 +132,41 @@ export class Bud implements Framework.Bud {
   }
 
   /**
-   * Map api callables and top-level utility objects onto bud
+   * Map api callables and top-level utilities
    */
-  public mapCallables = function (
+  public mapCallables = async function (
     callables: Framework.Index<CallableFunction>,
-  ): void {
+  ): Promise<void> {
     Object.entries(callables).map(
       ([name, fn]: [string, CallableFunction]) => {
         this.set(name, fn.bind(this))
+      },
+    )
+  }
+
+  /**
+   * Map services to Framework.
+   */
+  public mapServices = async function (
+    this: Framework.Bud,
+    services: IServices,
+  ): Promise<void> {
+    Object.entries(services).map(
+      ([name, [service, dependencies]]) => {
+        this.set(name, new service(dependencies))
+      },
+    )
+  }
+
+  /**
+   * Map container objects
+   */
+  public mapContainers = async function (
+    containers: Framework.Index<Framework.Index<any>>,
+  ): Promise<void> {
+    Object.entries(containers).map(
+      ([name, repository]: [string, Framework.Index<any>]) => {
+        this.set(name, new Container(repository))
       },
     )
   }

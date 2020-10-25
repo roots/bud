@@ -21,7 +21,7 @@ export class Build implements Framework.Build {
 
   public config: Framework.Container
 
-  public constructor(params?) {
+  public constructor(params?: Framework.Index<Framework.Bud>) {
     this.bud = params.bud
     this.config = new Container(config)
   }

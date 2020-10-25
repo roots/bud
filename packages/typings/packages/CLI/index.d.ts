@@ -12,12 +12,6 @@ export namespace CLI {
   export type App = Ink.Instance
 
   /**
-   * Constructs the CLI controller interface
-   */
-  export type Factory = (bud: Framework.Bud) =>
-    Controller
-
-  /**
    * Controller interface used to start and stop
    * Ink application from within Bud context.
    */
