@@ -1,0 +1,20 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./lib",
+    "baseUrl": ".",
+    "declaration": true,
+    "declarationDir": "types",
+    "declarationMap": true
+  },
+  "typeAcquisition": {
+    "enable": true
+  },
+  "compileOnSave": true,
+  "include": ["./src"],
+  "exclude": ["./lib"],
+  "references": [
+    {"@roots/bud-framework": "../framework"},
+  ]
+}

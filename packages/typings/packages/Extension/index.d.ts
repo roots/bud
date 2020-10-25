@@ -20,7 +20,7 @@ declare interface Extension {
   options?: Extension.Options
 
   /**
-   * Primary action of plugin.
+   * Register a webpack plugin.
    */
   make?: Extension.Make
 
@@ -44,19 +44,15 @@ declare interface Extension {
   /**
    * Register Items
    */
-  registerItem?:
-    Framework.Item.Module
-  registerItems?:
-    Framework.Index<Framework.Extension['registerItem']>
-
+  registerItem?: Framework.Item.Module
+  registerItems?: Framework.Index<Framework.Extension['registerItem']>
   registerPre?: Framework.Index<Framework.Rule.Module>
 
   /**
    * Register Rules
    */
   registerRule?: [string, Framework.Rule.Module]
-  registerRules?:
-    Framework.Index<Framework.Rule.Module>
+  registerRules?: Framework.Index<Framework.Rule.Module>
 
   /**
    * Do stuff after registration

@@ -1,0 +1,16 @@
+{
+  "extends": "../../tsconfig.json",
+  "compilerOptions": {
+    "rootDir": "./src",
+    "outDir": "./lib",
+    "declaration": true,
+    "declarationDir": "./types",
+    "declarationMap": true
+  },
+  "compileOnSave": true,
+  "include": ["./src"],
+  "exclude": ["./lib"],
+  "references": [
+    {"@roots/bud-typings": "../typings"},
+  ]
+}

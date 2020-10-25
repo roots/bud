@@ -24,7 +24,6 @@
   "workspaces": {
     "packages": [
       "packages/api",
-      "packages/babel",
       "packages/bud",
       "packages/cli",
       "packages/compiler",
@@ -32,13 +31,18 @@
       "packages/dependencies",
       "packages/filesystem",
       "packages/framework",
-      "packages/postcss",
       "packages/server",
       "packages/support",
       "packages/typings",
-      "packages/extensions/eslint",
-      "packages/extensions/manifests",
-      "packages/extensions/sass"
+      "packages/extension-babel",
+      "packages/extension-postcss",
+      "packages/extension-eslint",
+      "packages/extension-sass",
+      "packages/extension-tailwindcss",
+      "packages/plugin-manifests",
+      "packages/webpack-entrypoints-plugin",
+      "packages/webpack-merged-manifest-plugin",
+      "packages/webpack-wordpress-externals-plugin"
     ]
   },
   "scripts": {

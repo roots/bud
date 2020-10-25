@@ -2,7 +2,6 @@
   "version": "2.0.0-next.24",
   "packages": [
     "packages/api",
-    "packages/babel",
     "packages/bud",
     "packages/cli",
     "packages/compiler",
@@ -11,12 +10,18 @@
     "packages/filesystem",
     "packages/framework",
     "packages/manifests",
-    "packages/postcss",
     "packages/server",
     "packages/support",
     "packages/typings",
-    "packages/extensions/eslint",
-    "packages/extensions/sass"
+    "packages/extension-babel",
+    "packages/extension-postcss",
+    "packages/extension-eslint",
+    "packages/extension-sass",
+    "packages/extension-tailwindcss",
+    "packages/plugin-manifests",
+    "packages/webpack-entrypoints-plugin",
+    "packages/webpack-merged-manifest-plugin",
+    "packages/webpack-wordpress-externals-plugin"
   ],
   "npmClient": "yarn",
   "useWorkspaces": true
