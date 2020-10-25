@@ -37,6 +37,7 @@
       "packages/support",
       "packages/typings",
       "packages/extensions/eslint",
+      "packages/extensions/manifests",
       "packages/extensions/sass"
     ]
   },

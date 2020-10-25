@@ -1,6 +1,7 @@
 const bud = require('../packages/bud/lib')
 
-bud.mode.set('production')
+bud.extensions
+  .use('@roots/bud-wordpress-manifests')
 
 bud
   .entry('foo', ['foo.js', 'foo.scss'])
