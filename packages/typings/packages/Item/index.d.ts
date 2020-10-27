@@ -47,8 +47,8 @@ declare namespace Item {
   export type Setter<T> = (prop: T) => void
 
   export type Product = {
-    ident: MaybeCallable<string>,
-    loader: MaybeCallable<string>,
+    ident?: MaybeCallable<string>,
+    loader?: MaybeCallable<string>,
     options?:
       | MaybeCallable<any>
       | any,
@@ -62,7 +62,7 @@ declare namespace Item {
   export type Yield<P> = () => P
 
   export type Module = {
-    ident: Module.Ident,
+    ident?: Module.Ident,
     loader?: Module.Loader,
     options?: Module.Options,
     query?: Module.Query,
