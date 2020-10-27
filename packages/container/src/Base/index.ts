@@ -18,6 +18,13 @@ class Base {
     _.set(this.repository, key, value)
   }
 
+  public mutate = function (
+    key: string | number,
+    mutationFn: (any) => any,
+  ): any {
+    this.set(key, mutationFn(this.get(key)))
+  }
+
   public has: Container.Conditional = function (
     key: number | string,
   ) {

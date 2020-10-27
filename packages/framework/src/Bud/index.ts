@@ -1,5 +1,4 @@
 import type {FileContainer} from '@roots/filesystem'
-
 import {Indexed as Container} from '@roots/container'
 
 import * as api from '@roots/bud-api'
@@ -62,19 +61,12 @@ export class Bud implements Framework.Bud {
     this.mapContainers = this.mapContainers.bind(this)
     this.mapServices = this.mapServices.bind(this)
 
-    const registry: {
-      api: Framework.Index<[string, CallableFunction]>
-      builders: Builders
-      containers: Framework.Index<Framework.Index<any>>
-      services: IServices
-    } = {
+    this.register({
       api: params?.api ?? api,
       builders: params?.builders ?? builders,
       containers: params?.containers ?? containers,
       services: (params?.services ?? services).bind(this)(),
-    }
-
-    this.register(registry)
+    })
   }
 
   /**
@@ -93,16 +85,14 @@ export class Bud implements Framework.Bud {
   }): void {
     this.mapServices(services)
     this.mapContainers(containers)
-    this.mapCallables(api)
     this.mapBuilders(builders)
+    this.mapCallables(api)
 
     this.args.entries().map(([arg, value]) => {
       this.features.set(arg, value ? true : false)
     })
 
     this.extensions.boot(plugins)
-
-    console.log(this)
   }
 
   /**

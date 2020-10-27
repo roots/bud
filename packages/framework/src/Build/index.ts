@@ -67,12 +67,9 @@ export class Build implements Framework.Build {
 
   public mergeItem(
     item: string,
-    value: Partial<Framework.Item>,
+    value: Partial<Framework.Item.Module>,
   ): void {
-    const merged: Partial<Framework.Item> = {}
-    _.merge(merged, this.items[item].make(), value)
-
-    this.setItem(item, merged)
+    this.setItem(item, _.merge(this.getItem(item), value))
   }
 
   public getRule(name: string): Webpack.RuleSetRule {
@@ -84,6 +81,7 @@ export class Build implements Framework.Build {
     module: Framework.Rule.Module,
   ): Rule {
     this.rules[name] = new Rule(this.bud, module)
+
     return this.rules[name]
   }
 

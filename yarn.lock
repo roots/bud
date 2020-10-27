@@ -9805,6 +9805,11 @@ loglevelnext@^1.0.1, loglevelnext@^1.0.2:
     es6-symbol "^3.1.1"
     object.assign "^4.1.0"
 
+loglevelnext@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/loglevelnext/-/loglevelnext-3.0.1.tgz#e3e4659c4061c09264f6812c33586dc55a009a04"
+  integrity sha512-JpjaJhIN1reaSb26SIxDGtE0uc67gPl19OMVHrr+Ggt6b/Vy60jmCtKgQBrygAH0bhRA2nkxgDvM+8QvR8r0YA==
+
 longest@^2.0.1:
   version "2.0.1"
   resolved "https://registry.yarnpkg.com/longest/-/longest-2.0.1.tgz#781e183296aa94f6d4d916dc335d0d17aefa23f8"
@@ -10401,6 +10406,11 @@ nan@^2.12.1, nan@^2.13.2:
   version "2.14.1"
   resolved "https://registry.yarnpkg.com/nan/-/nan-2.14.1.tgz#d7be34dfa3105b91494c3147089315eff8874b01"
   integrity sha512-isWHgVjnFjh2x2yuJ/tj3JbwoHu3UC2dX5G/88Cm24yB6YopVgxvBObDY7n5xW6ExmFhJpSEQqFPvq9zaXc8Jw==
+
+nanoid@^2.0.3:
+  version "2.1.11"
+  resolved "https://registry.yarnpkg.com/nanoid/-/nanoid-2.1.11.tgz#ec24b8a758d591561531b4176a01e3ab4f0f0280"
+  integrity sha512-s/snB+WGm6uwi0WjsZdaVcuf3KJXlfGl2LcxgwkEwJF0D/BWzVWAZW/XY4bFaiR7s0Jk3FPvlnepg1H1b1UwlA==
 
 nanoid@^3.1.12:
   version "3.1.12"
@@ -15547,6 +15557,14 @@ webidl-conversions@^6.1.0:
   resolved "https://registry.yarnpkg.com/webidl-conversions/-/webidl-conversions-6.1.0.tgz#9111b4d7ea80acd40f5270d666621afa78b69514"
   integrity sha512-qBIvFLGiBpLjfwmYAaHPXsn+ho5xZnGvyGvsarywGNc8VyQJUMHJ8OBKGGrPER0okBeMDaan4mNBlgBROxuI8w==
 
+webpack-config-dump-plugin@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/webpack-config-dump-plugin/-/webpack-config-dump-plugin-3.0.1.tgz#83e728488692638f485ed475e54a57e6568d01dd"
+  integrity sha512-0hJe5EOAQFZcuFKSIyhVFxPMdyvRyRQJTPhkonnBstGgqA7my1OfoY45er6NtvPL7CPHlI9k9JWN31JXcU26/w==
+  dependencies:
+    lodash "^4.17.15"
+    webpack-log "^3.0.1"
+
 webpack-dev-middleware@^3.7.2:
   version "3.7.2"
   resolved "https://registry.yarnpkg.com/webpack-dev-middleware/-/webpack-dev-middleware-3.7.2.tgz#0019c3db716e3fa5cecbf64f2ab88a74bab331f3"
@@ -15599,6 +15617,15 @@ webpack-log@^2.0.0:
   dependencies:
     ansi-colors "^3.0.0"
     uuid "^3.3.2"
+
+webpack-log@^3.0.1:
+  version "3.0.1"
+  resolved "https://registry.yarnpkg.com/webpack-log/-/webpack-log-3.0.1.tgz#647c42231b6f74d7cc3c3a66510370e635d066ea"
+  integrity sha512-mX/6BJPPpxco6BGCFZJ96NjgnwBrLQx6d7Kxe1PaJ7KvjI3LFmJK9QgRPCAr9tXrPVawPN1cuM8hJ2Vadnwm+Q==
+  dependencies:
+    chalk "^2.4.2"
+    loglevelnext "^3.0.1"
+    nanoid "^2.0.3"
 
 webpack-manifest-plugin@^2.2.0:
   version "2.2.0"

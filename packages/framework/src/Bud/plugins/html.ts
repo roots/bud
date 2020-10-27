@@ -1,9 +1,6 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 
-export const options: HtmlWebpackPlugin.Options = ({
-  fs,
-  disk,
-}) => ({
+export const options: HtmlWebpackPlugin.Options = ({fs}) => ({
   alwaysWriteToDisk: true,
   base: fs.baseDir,
   publicPath: '/',

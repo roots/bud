@@ -53,26 +53,25 @@ bud.fs.exists('.browserslist') &&
   )
 
 bud.features.enabled('html') && bud.template()
+
 bud.features.enabled('minify') && bud.minify()
+
 bud.features.enabled('gzip') && bud.gzip()
+
 bud.features.enabled('brotli') && bud.brotli()
+
 bud.features.enabled('hash') && bud.hash()
+
 bud.features.enabled('runtime') && bud.runtime()
+
 bud.features.enabled('vendor') && bud.vendor()
+
 bud.features.enabled('devtool') &&
   (() => {
     bud.devtool(
       bud.args.get('devtool') ?? '#@cheap-eval-source-map',
     )
   })
-
-/**
- * Use babel & postcss.
- */
-bud.extensions
-  .use('@roots/bud-babel')
-  .use('@roots/bud-postcss')
-  .use('@roots/bud-sass')
 
 export default bud
 module.exports = bud

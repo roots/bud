@@ -85,8 +85,11 @@ export class Extensions implements Framework.Extensions {
       this.extensions[name].register(this.bud)
 
     this.processOptions(this.extensions[name])
+
     this.processLoaders(this.extensions[name])
+
     this.processRuleItems(this.extensions[name])
+
     this.processRules(this.extensions[name])
 
     this.extensions[name].hasOwnProperty('api') &&
@@ -142,6 +145,7 @@ export class Extensions implements Framework.Extensions {
             typeof item.ident == 'function'
               ? item.ident(this.bud)
               : item.ident
+
           this.bud.build.setItem(name, item)
         },
       )

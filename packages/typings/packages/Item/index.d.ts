@@ -9,7 +9,7 @@ declare class Item {
 
   loader?: Item.MaybeCallable<Item.Module.Loader>
 
-  options?: Item.MaybeCallable<Item.Module.Options>
+  options?: Item.Module.Options
 
   query?: Item.MaybeCallable<Item.Module.Query>
 
@@ -46,34 +46,43 @@ declare namespace Item {
 
   export type Setter<T> = (prop: T) => void
 
-  export type Product = Webpack.RuleSetLoader
+  export type Product = {
+    ident: MaybeCallable<string>,
+    loader: MaybeCallable<string>,
+    options?:
+      | MaybeCallable<any>
+      | any,
+    query?: MaybeCallable<Module.Query>,
+  }
 
   export type Factory<OutType> = (any) => OutType
 
-  export type MaybeCallable<Product> = Factory<Product> | Product
+  export type MaybeCallable<P> = Factory<P> | P
 
-  export type Yield<Product> = () => Product
+  export type Yield<P> = () => P
 
   export type Module = {
-    ident?: MaybeCallable<Module.Ident>
-    loader?: MaybeCallable<Module.Loader>
-    options?: MaybeCallable<Module.Options>
-    query?: MaybeCallable<Module.Query>
+    ident: Module.Ident,
+    loader?: Module.Loader,
+    options?: Module.Options,
+    query?: Module.Query,
   }
+
+  export namespace Module {
+    export type Ident = MaybeCallable<string>
+    export type Loader = MaybeCallable<string>
+    export type Options = any
+    export type Query = MaybeCallable<Webpack.RuleSetQuery>
+  }
+
+  export type Property =
+    | string
+    | string
+    | { [k: string]: any } // do not support 'string' from query
+    | Webpack.RuleSetLoader['query']
 
   export type Untapped = MaybeCallable<Property>
 
-  export type Property =
-    | Webpack.RuleSetLoader['ident']
-    | Webpack.RuleSetLoader['loader']
-    | { [k: string]: any } // do not support 'string' from query
-    | Webpack.RuleSetLoader['query']
-  export namespace Module {
-    export type Ident = Webpack.RuleSetLoader['ident']
-    export type Loader = Webpack.RuleSetLoader['loader']
-    export type Options = { [k: string]: any } // do not support 'string' from query
-    export type Query = Webpack.RuleSetLoader['query']
-  }
 
   export type PropertyTuple = [string, MaybeCallable<Property>]
 

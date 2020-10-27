@@ -12,8 +12,10 @@ export const Mode = function (
 
   this.set = function (
     mode: Framework.Webpack.Configuration['mode'],
-  ) {
+  ): Framework.Bud {
     this.build.config.set('mode', mode)
+
+    return this.build.bud
   }
 
   this.is = function (

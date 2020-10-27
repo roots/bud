@@ -4,9 +4,13 @@ export * as registerRules from './registerRules'
 export * as registerItems from './registerItems'
 
 export const boot = (instance: Framework.Bud): void => {
-  instance.addExtensions(['sass', 'scss'])
+  ;['sass', 'scss'].map(ext => {
+    !instance.build.config
+      .get('resolve.extensions')
+      .includes(ext) &&
+      instance.build.config.merge('resolve.extensions', [ext])
+  })
 
-  // Register bud.sass config utility
   Object.assign(instance, {
     sass: sassConfig(instance).init(),
   })

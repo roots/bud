@@ -66,6 +66,7 @@
     "terser-webpack-plugin": "^4.2.2",
     "url-loader": "^4.1.0",
     "webpack": "^4.44.2",
+    "webpack-config-dump-plugin": "^3.0.1",
     "webpack-manifest-plugin": "^2.2.0",
     "write-file-webpack-plugin": "^4.5.1"
   },

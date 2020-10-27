@@ -6,7 +6,7 @@ const hot = (
   const options: WebpackHotMiddleware.MiddlewareOptions = {
     log: console.log,
     path: '/__webpack_hmr',
-    heartbeat: 10000,
+    heartbeat: 1000,
   }
 
   return WebpackHotMiddleware(compiler, options)

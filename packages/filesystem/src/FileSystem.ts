@@ -1,4 +1,4 @@
-import __ from 'lodash'
+import _ from 'lodash'
 import {resolve} from 'path'
 import {Indexed as Container} from '@roots/container'
 import {FileContainer} from './FileContainer'
@@ -13,12 +13,12 @@ export class FileSystem extends Container {
   }
 
   public get: Container.Get = function (key) {
-    this.current = __.get(this.repository, key)
+    this.current = _.get(this.repository, key)
     return this.current
   }
 
   public ls(key?: string): Container.Item {
-    return key ? __.get(this.repository, key) : this.repository
+    return key ? _.get(this.repository, key) : this.repository
   }
 
   public get baseDir(): string {
@@ -33,6 +33,7 @@ export class FileSystem extends Container {
     },
   ): FileContainer {
     const disk = new FileContainer(options.baseDir)
+
     const glob = options.glob.map(item =>
       resolve(options.baseDir, item),
     )

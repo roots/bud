@@ -1,7 +1,6 @@
 import {DefinePlugin} from 'webpack'
 
 export const options: OptionsFactory = bud => {
-  console.log(bud)
   return (
     Object.entries(bud?.env)
       .filter(

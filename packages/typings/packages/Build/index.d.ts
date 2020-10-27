@@ -78,7 +78,7 @@ export declare class Build {
    */
   public mergeItem(
     item: string,
-    value: Partial<Item>,
+    value: Partial<Item.Module>,
   ): void
 
   /**

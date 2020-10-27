@@ -23,11 +23,11 @@ const options = (
     headers: BUD_HEADERS,
     logLevel: 'silent',
     methods: config.methods ?? ['GET', 'HEAD'],
-    // mimeTypes: config.mimeTypes ?? undefined,
+    mimeTypes: config.mimeTypes ?? undefined,
     serverSideRender: config.serverSideRender ?? false,
     index: config.index ?? 'index.html',
     watchOptions: config.watchOptions,
-    // writeToDisk: config.writeToDisk ?? true,
+    writeToDisk: config.writeToDisk ?? true,
   }
 }
 
