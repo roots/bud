@@ -1,13 +1,25 @@
 import ReactRefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 
+/**
+ * @svgr loader
+ */
 export const registerLoader = [
   '@svgr',
   require.resolve('@svgr/webpack'),
 ]
 
+/**
+ * Boot bud-jsx extension
+ */
 export const boot = (instance: Framework.Bud): void => {
+  /**
+   * Existing babel rules.
+   */
   const {options} = instance.build.items['babel'].make()
 
+  /**
+   * React babel preset
+   */
   Object.assign(instance.build.items['babel'].options, {
     presets: [
       ...options.presets,
@@ -15,6 +27,9 @@ export const boot = (instance: Framework.Bud): void => {
     ],
   })
 
+  /**
+   * react-refresh webpack plugin
+   */
   instance.extensions.register('react-reresh-webpack-plugin', {
     options: {
       overlay: {
@@ -26,6 +41,9 @@ export const boot = (instance: Framework.Bud): void => {
     when: instance => instance.mode.is('development'),
   })
 
+  /**
+   * react-refresh babel plugin.
+   */
   Object.assign(instance.build.items['babel'].options, {
     plugins: [
       ...options.plugins,
