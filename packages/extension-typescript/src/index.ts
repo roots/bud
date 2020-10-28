@@ -28,10 +28,7 @@ export const boot = (bud: Framework.Bud) => {
   bud.patterns.set('typescript', /\.(ts|tsx)$/)
 
   Object.assign(bud, {
-    typescript: function (
-      this: Framework.Bud,
-      options: any
-    ) {
+    typescript: function (this: Framework.Bud, options: any) {
       return this
     },
   })

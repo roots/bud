@@ -9,7 +9,7 @@ import {Features} from '../Features'
 import {Mode} from '../Mode'
 import {Server} from '@roots/bud-server'
 
-export interface IServices {
+export interface Services {
   (this: Framework.Bud): {
     [key: string]: [
       service: NewableFunction,
@@ -18,7 +18,7 @@ export interface IServices {
   }
 }
 
-export const services: IServices = function (
+export const services: Services = function (
   this: Framework.Bud,
 ) {
   return {

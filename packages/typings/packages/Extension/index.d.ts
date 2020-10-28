@@ -57,7 +57,7 @@ declare interface Extension {
   /**
    * Do stuff after registration
    */
-  boot?: (bud: Framework.Bud) => void
+  boot?: Extension.Boot
 
   /** @todo typings */
   api?: any
@@ -111,4 +111,9 @@ declare namespace Extension {
   export type Conditional =
     | ((bud?: Framework.Bud) => boolean)
     | boolean
+
+  /**
+   * Do stuff after registration
+   */
+  export type Boot = (bud: Framework.Bud) => void
 }

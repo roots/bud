@@ -26,7 +26,7 @@
     "lib"
   ],
   "main": "./lib/index.js",
-  "types": "./types/index.d.ts",
+  "types": "./lib/types/index.d.ts",
   "scripts": {
     "build": "tsc --build",
     "clean:lib": "rimraf ./lib",
@@ -36,9 +36,10 @@
   },
   "dependencies": {
     "@fullhuman/postcss-purgecss": "^2.3.0",
-    "@roots/bud": "file:../bud",
-    "@roots/bud-support": "file:../../support",
     "purgecss-with-wordpress": "^2.3.0"
+  },
+  "devDependencies": {
+    "@roots/bud-typings": "2.0.0-next.24"
   },
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5"
 }

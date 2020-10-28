@@ -1,12 +1,6 @@
 module.exports = () => ({
-  entry: {
-    foo: [
-      '/Users/kellymears/code/projects/cli/bud/bud/node_modules/webpack-hot-middleware/client.js?path=/__webpack_hmr&timeout=2000',
-      'foo.js',
-      'foo.scss'
-    ]
-  },
-  mode: 'development',
+  entry: { foo: [ 'foo.js', 'foo.scss' ] },
+  mode: 'production',
   node: {
     module: 'empty',
     dns: 'mock',
@@ -34,8 +28,8 @@ module.exports = () => ({
             test: /\.css$/,
             use: [
               {
-                ident: 'style',
-                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/style-loader/dist/cjs.js'
+                ident: 'minicss',
+                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/mini-css-extract-plugin/dist/loader.js'
               },
               {
                 ident: 'css',
@@ -119,8 +113,7 @@ module.exports = () => ({
                   ],
                   [
                     '/Users/kellymears/code/projects/cli/bud/bud/node_modules/@babel/plugin-syntax-dynamic-import/lib/index.js'
-                  ],
-                  '/Users/kellymears/code/projects/cli/bud/bud/node_modules/react-refresh/babel.js'
+                  ]
                 ]
               }
             }
@@ -139,8 +132,8 @@ module.exports = () => ({
             test: /\.(scss|sass)$/,
             use: [
               {
-                ident: 'style',
-                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/style-loader/dist/cjs.js'
+                ident: 'minicss',
+                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/mini-css-extract-plugin/dist/loader.js'
               },
               {
                 ident: 'css',
@@ -198,7 +191,6 @@ module.exports = () => ({
     exprContextCritical: true,
     wrappedContextRegExp: /.*/,
     wrappedContextRecursive: true,
-    unsafeCache: true,
     defaultRules: [
       { type: 'javascript/auto' },
       {
@@ -221,7 +213,6 @@ module.exports = () => ({
     chunkCallbackName: 'webpackChunk',
     globalObject: 'window',
     libraryTarget: 'var',
-    pathinfo: true,
     sourceMapFilename: '[file].map[query]',
     hotUpdateChunkFilename: '[id].[hash].hot-update.js',
     hotUpdateMainFilename: '[hash].hot-update.json',
@@ -249,30 +240,6 @@ module.exports = () => ({
         env: { PUBLIC_URL: '/', APP_NAME: 'App', APP_DESCRIPTION: 'Test' }
       }
     },
-    { fullBuildTimeout: 200, requestTimeout: 10000 },
-    {
-      options: {
-        template: '/Users/kellymears/code/projects/cli/bud/bud/packages/support/publish/template.html',
-        filename: 'index.html',
-        publicPath: '/',
-        inject: 'body',
-        scriptLoading: 'blocking',
-        compile: true,
-        minify: 'auto',
-        cache: true,
-        showErrors: true,
-        chunks: 'all',
-        chunksSortMode: 'auto',
-        title: 'Webpack App',
-        alwaysWriteToDisk: true
-      },
-      version: 4
-    },
-    {
-      replacements: {
-        env: "<<Circular reference to 'config.plugins.[3].definitions.env'>>"
-      }
-    },
     {
       opts: {
         publicPath: '/',
@@ -282,18 +249,10 @@ module.exports = () => ({
       }
     },
     {
-      nodeModulesPath: '/Users/kellymears/code/projects/cli/bud/bud/lab/node_modules'
+      options: { filename: '[name].css', chunkFilename: '[name].css' }
     },
     {
-      options: {
-        overlay: {
-          sockIntegration: 'whm',
-          entry: '/Users/kellymears/code/projects/cli/bud/bud/packages/extension-jsx/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ErrorOverlayEntry.js',
-          module: '/Users/kellymears/code/projects/cli/bud/bud/packages/extension-jsx/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/index.js'
-        },
-        exclude: /node_modules/i,
-        include: /\.([jt]sx?|flow)$/i
-      }
+      nodeModulesPath: '/Users/kellymears/code/projects/cli/bud/bud/lab/node_modules'
     },
     {
       name: 'wordpress-externals',
@@ -332,24 +291,30 @@ module.exports = () => ({
           priority: -10
         }
       },
+      hidePathInfo: true,
       chunks: 'async',
-      minSize: 10000,
+      minSize: 30000,
       minChunks: 1,
-      maxAsyncRequests: Infinity,
+      maxAsyncRequests: 5,
       automaticNameDelimiter: '~',
       automaticNameMaxLength: 109,
-      maxInitialRequests: Infinity,
+      maxInitialRequests: 3,
       name: true
     },
     moduleIds: 'hashed',
     removeEmptyChunks: true,
     mergeDuplicateChunks: true,
+    flagIncludedChunks: true,
+    occurrenceOrder: true,
+    sideEffects: true,
     providedExports: true,
-    namedModules: true,
-    namedChunks: true,
-    nodeEnv: 'development'
+    usedExports: true,
+    concatenateModules: true,
+    noEmitOnErrors: true,
+    checkWasmTypes: true,
+    nodeEnv: 'production'
   },
-  cache: true,
+  performance: { maxAssetSize: 250000, maxEntrypointSize: 250000, hints: 'warning' },
   resolveLoader: {
     unsafeCache: true,
     mainFields: [ 'loader', 'main' ],

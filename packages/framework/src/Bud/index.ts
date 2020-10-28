@@ -7,7 +7,7 @@ import * as env from './env'
 import * as plugins from './plugins'
 
 import {builders, Builders} from './builders'
-import {services, IServices} from './services'
+import {services, Services} from './services'
 
 import logger from './util/logger'
 import format from './util/format'
@@ -18,44 +18,48 @@ export class Bud implements Framework.Bud {
 
   private static PRIMARY_DISK = 'project'
 
+
   public build: Framework.Build
 
   public cli: Framework.CLI.Controller
 
   public compiler: Framework.Compiler
 
+  public compilations: Framework.Container = new Container()
+
   public disk: Framework.FileSystem
 
   public env: Framework.Env = env
-
-  public fs: FileContainer
 
   public extensions: Framework.Extensions
 
   public features: Framework.Features
 
+  public fs: FileContainer
+
   public hooks: Framework.Hooks
+
+  public logger: Framework.Logger = logger
 
   public mode: Framework.Mode
 
-  public server: Framework.Bud['server']
+  public presets: Framework.Container = new Container()
 
-  public mode: Framework.Bud['mode']
-
-  public logger: Framework.Bud['logger'] = logger
+  public server: Framework.Server
 
   public util: Framework.Util = {
     format,
     pretty,
   }
 
-  public constructor(params: {
+  public constructor(params?: {
     api?: Framework.Index<[string, CallableFunction]>
     builders?: Builders
     containers?: Framework.Index<Framework.Index<any>>
-    services?: IServices
+    services?: Services
   }) {
     this.set = this.set.bind(this)
+    this.register = this.register.bind(this)
     this.mapCallables = this.mapCallables.bind(this)
     this.mapBuilders = this.mapBuilders.bind(this)
     this.mapContainers = this.mapContainers.bind(this)
@@ -81,7 +85,7 @@ export class Bud implements Framework.Bud {
     api: Framework.Index<[string, CallableFunction]>
     builders: Builders
     containers: Framework.Index<Framework.Index<any>>
-    services: IServices
+    services: Services
   }): void {
     this.mapServices(services)
     this.mapContainers(containers)
@@ -139,7 +143,7 @@ export class Bud implements Framework.Bud {
    */
   public mapServices = async function (
     this: Framework.Bud,
-    services: IServices,
+    services: Services,
   ): Promise<void> {
     Object.entries(services).map(
       ([name, [service, dependencies]]) => {

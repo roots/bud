@@ -11,8 +11,6 @@ declare class Bud {
    */
   [key: string]: any
 
-  private static PRIMARY_DISK: string
-
   /**
    * Builds webpack configuration.
    */
@@ -95,9 +93,19 @@ declare class Bud {
   public util: Framework.Util
 
   /**
+   * Construct
+   */
+  public constructor(params?: {
+    api?: Framework.Index<[string, CallableFunction]>
+    builders?: any
+    containers?: Framework.Index<Framework.Index<any>>
+    services?: any
+  })
+
+  /**
    * Register services, functions, on Bud.
    */
-  register({
+  public register({
     api,
     builders,
   }: {
@@ -106,18 +114,9 @@ declare class Bud {
   }): void
 
   /**
-   * Make a new disk virtual disk.
-   */
-  makeDisk(
-    key: string,
-    baseDir?: string,
-    glob?: string[],
-  ): Framework.FileContainer
-
-  /**
    * Bind and assign functions to Bud.
    */
-  mapCallables(
+  public mapCallables(
     callables: Framework.Index<CallableFunction>,
   ): void
 }

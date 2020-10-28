@@ -37,6 +37,7 @@
       "packages/extension-babel",
       "packages/extension-eslint",
       "packages/extension-postcss",
+      "packages/extension-purgecss",
       "packages/extension-react",
       "packages/extension-sass",
       "packages/extension-tailwindcss",

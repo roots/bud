@@ -1,13 +1,4 @@
-import Bud from '@roots/bud-types'
-import PurgeCssPlugin from '@fullhuman/postcss-purgecss'
-import * as wp from 'purgecss-with-wordpress'
-
-const plugin: Bud.Plugin.Factory = bud => ({
-  bud,
-  make: function () {
-    this.bud.apply('purgecss', purgeUserConfig.bind(this))
-  },
-})
+import '@roots/bud-typings'
 
 /**
  * ## bud.purge
@@ -25,18 +16,10 @@ const plugin: Bud.Plugin.Factory = bud => ({
  * })
  * ```
  */
-const purgeUserConfig: Bud.Config.Fluent<UserOptions> = function (
-  options: UserOptions,
-) {
-  this.build.loaders.postcss.options.plugins = [
-    ...this.build.loaders.postcss.options.plugins,
-    PurgeCssPlugin(options),
-  ]
 
-  return this
-}
+export as namespace Purge;
 
-interface UserOptions {
+export declare interface UserOptions {
   content?: Array<string | RawContent>
   contentFunction?: (
     sourceFile: string,
@@ -56,21 +39,17 @@ interface UserOptions {
   whitelistPatternsChildren?: Array<RegExp>
 }
 
-interface RawContent<T = string> {
+export declare interface RawContent<T = string> {
   extension: string
   raw: T
 }
 
-interface RawCSS {
+export declare interface RawCSS {
   raw: string
 }
 
-type ExtractorFunction<T = string> = (content: T) => string[]
-interface Extractors {
+export declare type ExtractorFunction<T = string> = (content: T) => string[]
+export declare interface Extractors {
   extensions: string[]
   extractor: ExtractorFunction
 }
-
-const preset = {wp}
-export {plugin, preset}
-module.exports = {plugin, preset}
