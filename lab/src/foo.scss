@@ -9,11 +9,9 @@ body {
 
 #root {
   @apply bg-green-800;
-
-  height: 100vh;
-  width: 100vw;
-  margin: 0;
-  padding: 0;
+  @apply h-screen;
+  @apply w-full;
+  @apply m-0;
 }
 
 @import 'tailwindcss/utilities';

@@ -34,6 +34,7 @@ export class Extensions implements Framework.Extensions {
 
   /**
    * Boot extensions controller.
+   *
    * @param {Index<Extension.Factory>} definitions
    */
   public boot(extensions?: Index<Extension.Factory>): void {

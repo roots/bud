@@ -16,6 +16,7 @@
     "packages/extension-babel",
     "packages/extension-postcss",
     "packages/extension-eslint",
+    "packages/extension-jsx",
     "packages/extension-sass",
     "packages/extension-tailwindcss",
     "packages/plugin-manifests",

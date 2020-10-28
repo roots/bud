@@ -3,7 +3,7 @@ import {babelConfig} from './api'
 
 export const boot = (instance: Framework.Bud): void => {
   instance.build.mergeRule('js', {
-    use: [instance.build.getItem('babel')],
+    use: bud => bud.build.getItem('babel'),
   })
 
   Object.assign(instance, {

@@ -29,6 +29,7 @@
     {"@roots/bud-cli": "cli"},
     {"@roots/bud-compiler": "compiler"},
     {"@roots/bud-framework": "framework"},
+    {"@roots/bud-jsx": "extension-jsx"},
     {"@roots/bud-postcss": "postcss"},
     {"@roots/bud-rules": "rules"},
     {"@roots/bud-server": "server"},
@@ -44,6 +45,7 @@
     {"@roots/bud-tailwindcss": "extensions/tailwindcss"},
     {"@roots/bud-typescript": "extensions/typescript"},
     {"@roots/bud-vue": "extensions/vue"},
+    {"@roots/entrypoints-webpack-plugin": "webpack-entrypoints-plugin"}
   ],
   "files": [],
 }

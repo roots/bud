@@ -2,9 +2,7 @@ import {lodash as _} from '@roots/bud-support'
 
 const toInject = require
   .resolve('webpack-hot-middleware/client')
-  .concat(
-    '?path=http://localhost:3000/__webpack_hmr&timeout=2000',
-  )
+  .concat('?path=/__webpack_hmr&timeout=2000')
 
 /**
  * Injects webpack.entry items with hot module scripts.

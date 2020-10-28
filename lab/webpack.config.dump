@@ -1,7 +1,7 @@
 module.exports = () => ({
   entry: {
     foo: [
-      '/Users/kellymears/code/projects/cli/bud/bud/node_modules/webpack-hot-middleware/client.js?path=http://localhost:3000/__webpack_hmr&timeout=2000',
+      '/Users/kellymears/code/projects/cli/bud/bud/node_modules/webpack-hot-middleware/client.js?path=/__webpack_hmr&timeout=2000',
       'foo.js',
       'foo.scss'
     ]
@@ -98,30 +98,32 @@ module.exports = () => ({
           {
             exclude: /(node_modules|bower_components)/,
             test: /\.(js|jsx)$/,
-            use: [
-              {
-                ident: 'babel',
-                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/babel-loader/lib/index.js',
-                options: {
-                  presets: [
-                    [
-                      '/Users/kellymears/code/projects/cli/bud/bud/node_modules/@babel/preset-env/lib/index.js'
-                    ]
+            use: {
+              ident: 'babel',
+              loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/babel-loader/lib/index.js',
+              options: {
+                presets: [
+                  [
+                    '/Users/kellymears/code/projects/cli/bud/bud/node_modules/@babel/preset-env/lib/index.js'
                   ],
-                  plugins: [
-                    [
-                      '/Users/kellymears/code/projects/cli/bud/bud/node_modules/@babel/plugin-transform-runtime/lib/index.js'
-                    ],
-                    [
-                      '/Users/kellymears/code/projects/cli/bud/bud/node_modules/@babel/plugin-proposal-object-rest-spread/lib/index.js'
-                    ],
-                    [
-                      '/Users/kellymears/code/projects/cli/bud/bud/node_modules/@babel/plugin-syntax-dynamic-import/lib/index.js'
-                    ]
+                  [
+                    '/Users/kellymears/code/projects/cli/bud/bud/node_modules/@babel/preset-react/lib/index.js'
                   ]
-                }
+                ],
+                plugins: [
+                  [
+                    '/Users/kellymears/code/projects/cli/bud/bud/node_modules/@babel/plugin-transform-runtime/lib/index.js'
+                  ],
+                  [
+                    '/Users/kellymears/code/projects/cli/bud/bud/node_modules/@babel/plugin-proposal-object-rest-spread/lib/index.js'
+                  ],
+                  [
+                    '/Users/kellymears/code/projects/cli/bud/bud/node_modules/@babel/plugin-syntax-dynamic-import/lib/index.js'
+                  ],
+                  '/Users/kellymears/code/projects/cli/bud/bud/node_modules/react-refresh/babel.js'
+                ]
               }
-            ]
+            }
           },
           {
             test: /\.svg$/,
@@ -281,6 +283,17 @@ module.exports = () => ({
     },
     {
       nodeModulesPath: '/Users/kellymears/code/projects/cli/bud/bud/lab/node_modules'
+    },
+    {
+      options: {
+        overlay: {
+          sockIntegration: 'whm',
+          entry: '/Users/kellymears/code/projects/cli/bud/bud/packages/extension-jsx/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ErrorOverlayEntry.js',
+          module: '/Users/kellymears/code/projects/cli/bud/bud/packages/extension-jsx/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/index.js'
+        },
+        exclude: /node_modules/i,
+        include: /\.([jt]sx?|flow)$/i
+      }
     },
     {
       name: 'wordpress-externals',
