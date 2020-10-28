@@ -10,15 +10,14 @@ export * as registerItems from './items'
 export * as registerRules from './rules'
 
 export const boot: Framework.Extension.Register = bud => {
-  const configPath = bud.disk.get('project').has('eslintrc.js')
-    ? bud.disk.get('project').get('eslintrc.js')
-    : bud.disk
-        .get('@roots/bud-eslint')
-        .get('lib/presets/roots.js')
+  const project = bud.disk.get('project')
+  const extension = bud.disk.get('@roots/bud-eslint')
 
   bud.extensions.setOptions('@roots/bud-eslint', {
     eslintPath: require.resolve('eslint'),
-    configPath,
+    configPath: project.has('eslintrc.js')
+      ? project.get('eslintrc.js')
+      : extension.get('lib/presets/roots.js'),
     formatter,
     failOnError: true,
     fix: false,

@@ -2,23 +2,16 @@ import {Compiler} from '@roots/bud-compiler'
 import {FileContainer, FileSystem} from '@roots/filesystem'
 
 import {App} from '@roots/bud-cli'
-import {Build} from '../Build'
-import {Hooks} from '../Hooks'
-import {Extensions} from '../Extensions'
-import {Features} from '../Features'
-import {Mode} from '../Mode'
+import {
+  Build,
+  Hooks,
+  Extensions,
+  Features,
+  Mode,
+} from '@roots/bud-framework'
 import {Server} from '@roots/bud-server'
 
-export interface Services {
-  (this: Framework.Bud): {
-    [key: string]: [
-      service: NewableFunction,
-      dependenies?: Framework.Index<any>,
-    ]
-  }
-}
-
-export const services: Services = function (
+export const services: Framework.Services = function (
   this: Framework.Bud,
 ) {
   return {

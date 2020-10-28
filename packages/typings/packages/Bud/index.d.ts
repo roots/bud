@@ -137,3 +137,25 @@ export type Format = (
   obj: unknown,
   options?
 ) => string
+
+export type Builders = Array<
+  [
+    Framework.Index<any>,
+    (
+      this: Bud,
+      [name, loader]: [
+        string,
+        Framework.Build.Loader | Framework.Item.Module | Framework.Rule.Module,
+      ],
+    ) => void,
+  ]
+>
+
+export interface Services {
+  (this: Framework.Bud): {
+    [key: string]: [
+      service: NewableFunction,
+      dependenies?: Framework.Index<any>,
+    ]
+  }
+}

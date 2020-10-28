@@ -18,7 +18,7 @@ const MyApp = () => {
 ReactDOM.render(
   <MyApp />,
   root,
-)
+);;
 
 module?.hot && module.hot.accept(err => {
   console.error(err)

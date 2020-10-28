@@ -7,12 +7,6 @@ export interface Constructor<T> {
   new (params: any): T
 }
 
-/**
- * Keyed service tuples. Useful for passing
- * maps of services as an object.
- */
-export type Services = Index<Service.Tuple>
-
 export namespace Service {
   /**
    * A service constructor.

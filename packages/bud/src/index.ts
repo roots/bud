@@ -1,10 +1,23 @@
 import {Bud} from '@roots/bud-framework'
 import {ingestConfig} from './helpers/ingestConfig'
 
+import * as api from '@roots/bud-api'
+import * as containers from './containers'
+import * as plugins from './plugins'
+
+import {builders} from './builders'
+import {services} from './services'
+
 /**
  * Instantiate Bud.
  */
-const bud: Framework.Bud = new Bud()
+const bud: Framework.Bud = new Bud({
+  api,
+  builders,
+  containers,
+  plugins,
+  services,
+})
 
 /**
  * Set @roots org namespace disk
@@ -13,6 +26,7 @@ bud.disk.set('@roots', {
   baseDir: bud.fs.path.resolve(__dirname, '../../'),
   glob: ['**/*'],
 })
+
 bud.disk.set('project', {
   baseDir: process.cwd(),
   glob: ['**/*'],

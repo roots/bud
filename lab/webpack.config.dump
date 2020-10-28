@@ -22,6 +22,21 @@ module.exports = () => ({
   module: {
     rules: [
       {
+        enforce: 'pre',
+        exclude: [ /(node_modules|bower_components)/, /bud/ ],
+        test: /\.(js|jsx)$/,
+        use: [
+          {
+            ident: 'eslint',
+            loader: '/Users/kellymears/code/projects/cli/bud/bud/packages/extension-eslint/node_modules/eslint-loader/dist/cjs.js',
+            options: {
+              eslintPath: '/Users/kellymears/code/projects/cli/bud/bud/packages/extension-eslint/node_modules/eslint/lib/api.js',
+              failOnError: true
+            }
+          }
+        ]
+      },
+      {
         oneOf: [
           {
             exclude: /(node_modules|bower_components)/,
@@ -85,7 +100,7 @@ module.exports = () => ({
               {
                 ident: 'file',
                 loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/file-loader/dist/cjs.js',
-                options: "<<Circular reference to 'config.module.rules.[0].oneOf.[1].use.[0].options'>>"
+                options: "<<Circular reference to 'config.module.rules.[1].oneOf.[1].use.[0].options'>>"
               }
             ]
           },

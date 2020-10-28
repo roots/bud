@@ -1,13 +1,8 @@
 import type {FileContainer} from '@roots/filesystem'
 import {Indexed as Container} from '@roots/container'
 
-import * as api from '@roots/bud-api'
-import * as containers from './containers'
 import * as env from './env'
-import * as plugins from './plugins'
-
-import {builders, Builders} from './builders'
-import {services, Services} from './services'
+import {args} from './args'
 
 import logger from './util/logger'
 import format from './util/format'
@@ -18,6 +13,7 @@ export class Bud implements Framework.Bud {
 
   private static PRIMARY_DISK = 'project'
 
+  public args: Framework.Index<unknown> = args
 
   public build: Framework.Build
 
@@ -54,9 +50,10 @@ export class Bud implements Framework.Bud {
 
   public constructor(params?: {
     api?: Framework.Index<[string, CallableFunction]>
-    builders?: Builders
+    builders?: Framework.Builders
     containers?: Framework.Index<Framework.Index<any>>
-    services?: Services
+    plugins?: Framework.Index<Framework.Extension>
+    services?: Framework.Services
   }) {
     this.set = this.set.bind(this)
     this.register = this.register.bind(this)
@@ -66,10 +63,11 @@ export class Bud implements Framework.Bud {
     this.mapServices = this.mapServices.bind(this)
 
     this.register({
-      api: params?.api ?? api,
-      builders: params?.builders ?? builders,
-      containers: params?.containers ?? containers,
-      services: (params?.services ?? services).bind(this)(),
+      api: params?.api ?? null,
+      builders: params?.builders ?? null,
+      containers: params?.containers ?? null,
+      services: params?.services?.bind(this)() ?? null,
+      plugins: params?.plugins ?? null,
     })
   }
 
@@ -81,22 +79,20 @@ export class Bud implements Framework.Bud {
     builders,
     containers,
     services,
+    plugins,
   }: {
-    api: Framework.Index<[string, CallableFunction]>
-    builders: Builders
-    containers: Framework.Index<Framework.Index<any>>
-    services: Services
+    api?: Framework.Index<[string, CallableFunction]>
+    builders?: Framework.Builders
+    containers?: Framework.Index<Framework.Index<any>>
+    services?: Framework.Services
+    plugins?: Framework.Index<Framework.Extension>
   }): void {
-    this.mapServices(services)
-    this.mapContainers(containers)
-    this.mapBuilders(builders)
-    this.mapCallables(api)
+    services && this.mapServices(services)
+    containers && this.mapContainers(containers)
+    builders && this.mapBuilders(builders)
+    api && this.mapCallables(api)
 
-    this.args.entries().map(([arg, value]) => {
-      this.features.set(arg, value ? true : false)
-    })
-
-    this.extensions.boot(plugins)
+    plugins && this.extensions.boot(plugins)
   }
 
   /**
@@ -111,7 +107,7 @@ export class Bud implements Framework.Bud {
    */
   public mapBuilders = async function (
     this: Framework.Bud,
-    builders: Builders,
+    builders: Framework.Builders,
   ): Promise<void> {
     builders.map(
       ([builderSet, registration]: [
@@ -143,7 +139,7 @@ export class Bud implements Framework.Bud {
    */
   public mapServices = async function (
     this: Framework.Bud,
-    services: Services,
+    services: Framework.Services,
   ): Promise<void> {
     Object.entries(services).map(
       ([name, [service, dependencies]]) => {

@@ -9,7 +9,7 @@
     "declarationMap": true
   },
   "compileOnSave": true,
-  "include": ["./src"],
+  "include": ["./src", "../bud/src/services/services.ts"],
   "exclude": ["./lib"],
   "references": [
     {"@roots/container": "../container"},

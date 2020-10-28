@@ -5,6 +5,7 @@ bud.mode.set('production')
 bud
   .extensions
     .use('@roots/bud-babel')
+    .use('@roots/bud-eslint')
     .use('@roots/bud-postcss')
     .use('@roots/bud-sass')
     .use('@roots/bud-tailwindcss')
