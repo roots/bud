@@ -41,6 +41,7 @@
       "packages/extension-react",
       "packages/extension-sass",
       "packages/extension-tailwindcss",
+      "packages/extension-vue",
       "packages/plugin-manifests",
       "packages/webpack-entrypoints-plugin",
       "packages/webpack-merged-manifest-plugin",

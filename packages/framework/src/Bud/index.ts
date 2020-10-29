@@ -28,8 +28,6 @@ export class Bud implements Framework.Bud {
 
   public hooks: Framework.Hooks
 
-  public instances: Framework.Index<Framework.Bud> = {}
-
   public logger: Framework.Logger = logger
 
   public mode: Framework.Mode
@@ -89,8 +87,6 @@ export class Bud implements Framework.Bud {
     builders && this.mapBuilders(builders)
     api && this.mapCallables(api)
     plugins && this.extensions.boot(plugins)
-
-    this.setup()
   }
 
   public run = function (this: Framework.Bud): void {
@@ -179,49 +175,6 @@ export class Bud implements Framework.Bud {
       ([name, repository]: [string, Framework.Index<any>]) => {
         this.set(name, new Container(repository))
       },
-    )
-  }
-
-  public setup = function (): void {
-    this.args.has('mode') && this.mode.set(this.args.get('mode'))
-    this.args.has('html') && this.template()
-    this.args.has('minify') && this.minify()
-    this.args.has('gzip') && this.gzip()
-    this.args.has('brotli') && this.brotli()
-    this.args.has('runtime') && this.runtime()
-    this.args.has('vendor') && this.vendor()
-    this.args.has('hash') && this.hash()
-
-    this.args.has('devtool') &&
-      this.devtool(
-        this.args.get('devtool') ?? '#@cheap-eval-source-map',
-      )
-
-    this.disk.set('@roots', {
-      baseDir: this.fs.path.resolve(__dirname, '../../'),
-      glob: ['**/*'],
-    })
-
-    this.disk.set('project', {
-      baseDir: process.cwd(),
-      glob: ['**/*'],
-    })
-
-    this.projectPath(
-      this.args.has('project')
-        ? this.fs.path.resolve(
-            this.disk.baseDir,
-            this.args.get('project'),
-          )
-        : process.cwd(),
-    )
-
-    this.srcPath(
-      this.args.has('src') ? this.args.get('src') : 'src',
-    )
-
-    this.distPath(
-      this.args.has('dist') ? this.args.get('dist') : 'dist',
     )
   }
 }

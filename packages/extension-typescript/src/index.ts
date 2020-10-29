@@ -24,10 +24,16 @@ export const registerRule: Framework.Extension.Register = _bud => [
   },
 ]
 
-export const boot = (bud: Framework.Bud) => {
-  bud.patterns.set('typescript', /\.(ts|tsx)$/)
+export const boot = (instance: Framework.Bud) => {
+  instance.patterns.set('typescript', /\.(ts|tsx)$/)
+  ;['ts', 'tsx'].map(ext => {
+    !instance.build.config
+      .get('resolve.extensions')
+      .includes(ext) &&
+      instance.build.config.merge('resolve.extensions', [ext])
+  })
 
-  Object.assign(bud, {
+  Object.assign(instance, {
     typescript: function (this: Framework.Bud, options: any) {
       return this
     },

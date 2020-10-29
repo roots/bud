@@ -1,6 +1,4 @@
-/* eslint-disable @typescript-eslint/no-empty-function */
-/* eslint-disable @typescript-eslint/no-unused-vars */
-/* eslint-disable @typescript-eslint/no-var-requires */
+/* eslint-disable */
 'use strict'
 
 Object.defineProperty(exports, '__esModule', {value: true})
@@ -11,12 +9,12 @@ function _interopDefault(ex) {
     : ex
 }
 
-var deindent = _interopDefault(require('de-indent'))
-var he = _interopDefault(require('he'))
+const deindent = _interopDefault(require('de-indent'))
+const he = _interopDefault(require('he'))
 
 /*  */
 
-var emptyObject = Object.freeze({})
+const emptyObject = Object.freeze({})
 
 // These helpers produce better VM code in JS engines due to their
 // explicitness and function inlining.
@@ -49,7 +47,7 @@ function isObject(obj) {
 /**
  * Get the raw type string of a value, e.g., [object Object].
  */
-var _toString = Object.prototype.toString
+const _toString = Object.prototype.toString
 
 function toRawType(value) {
   return _toString.call(value).slice(8, -1)
@@ -67,7 +65,7 @@ function isPlainObject(obj) {
  * Check if val is a valid array index.
  */
 function isValidArrayIndex(val) {
-  var n = parseFloat(String(val))
+  const n = parseFloat(String(val))
   return n >= 0 && Math.floor(n) === n && isFinite(val)
 }
 
@@ -76,9 +74,9 @@ function isValidArrayIndex(val) {
  * is in that map.
  */
 function makeMap(str, expectsLowerCase) {
-  var map = Object.create(null)
-  var list = str.split(',')
-  for (var i = 0; i < list.length; i++) {
+  const map = Object.create(null)
+  const list = str.split(',')
+  for (let i = 0; i < list.length; i++) {
     map[list[i]] = true
   }
   return expectsLowerCase
@@ -93,19 +91,19 @@ function makeMap(str, expectsLowerCase) {
 /**
  * Check if a tag is a built-in tag.
  */
-var isBuiltInTag = makeMap('slot,component', true)
+const isBuiltInTag = makeMap('slot,component', true)
 
 /**
  * Check if an attribute is a reserved attribute.
  */
-var isReservedAttribute = makeMap('key,ref,slot,slot-scope,is')
+const isReservedAttribute = makeMap('key,ref,slot,slot-scope,is')
 
 /**
  * Remove an item from an array.
  */
 function remove(arr, item) {
   if (arr.length) {
-    var index = arr.indexOf(item)
+    const index = arr.indexOf(item)
     if (index > -1) {
       return arr.splice(index, 1)
     }
@@ -115,7 +113,7 @@ function remove(arr, item) {
 /**
  * Check whether an object has the property.
  */
-var hasOwnProperty = Object.prototype.hasOwnProperty
+const hasOwnProperty = Object.prototype.hasOwnProperty
 function hasOwn(obj, key) {
   return hasOwnProperty.call(obj, key)
 }
@@ -124,9 +122,9 @@ function hasOwn(obj, key) {
  * Create a cached version of a pure function.
  */
 function cached(fn) {
-  var cache = Object.create(null)
+  const cache = Object.create(null)
   return function cachedFn(str) {
-    var hit = cache[str]
+    const hit = cache[str]
     return hit || (cache[str] = fn(str))
   }
 }
@@ -134,8 +132,8 @@ function cached(fn) {
 /**
  * Camelize a hyphen-delimited string.
  */
-var camelizeRE = /-(\w)/g
-var camelize = cached(function (str) {
+const camelizeRE = /-(\w)/g
+const camelize = cached(function (str) {
   return str.replace(camelizeRE, function (_, c) {
     return c ? c.toUpperCase() : ''
   })
@@ -144,8 +142,8 @@ var camelize = cached(function (str) {
 /**
  * Hyphenate a camelCase string.
  */
-var hyphenateRE = /\B([A-Z])/g
-var hyphenate = cached(function (str) {
+const hyphenateRE = /\B([A-Z])/g
+const hyphenate = cached(function (str) {
   return str.replace(hyphenateRE, '-$1').toLowerCase()
 })
 
@@ -160,7 +158,7 @@ var hyphenate = cached(function (str) {
 /* istanbul ignore next */
 function polyfillBind(fn, ctx) {
   function boundFn(a) {
-    var l = arguments.length
+    const l = arguments.length
     return l
       ? l > 1
         ? fn.apply(ctx, arguments)
@@ -176,13 +174,13 @@ function nativeBind(fn, ctx) {
   return fn.bind(ctx)
 }
 
-var bind = Function.prototype.bind ? nativeBind : polyfillBind
+const bind = Function.prototype.bind ? nativeBind : polyfillBind
 
 /**
  * Mix properties into target object.
  */
 function extend(to, _from) {
-  for (var key in _from) {
+  for (const key in _from) {
     to[key] = _from[key]
   }
   return to
@@ -201,7 +199,7 @@ function noop(a, b, c) {}
 /**
  * Always return false.
  */
-var no = function (a, b, c) {
+const no = function (a, b, c) {
   return false
 }
 
@@ -210,7 +208,7 @@ var no = function (a, b, c) {
 /**
  * Return the same value.
  */
-var identity = function (_) {
+const identity = function (_) {
   return _
 }
 
@@ -227,20 +225,20 @@ function genStaticKeys(modules) {
 
 /*  */
 
-var isUnaryTag = makeMap(
+const isUnaryTag = makeMap(
   'area,base,br,col,embed,frame,hr,img,input,isindex,keygen,' +
     'link,meta,param,source,track,wbr',
 )
 
 // Elements that you can, intentionally, leave open
 // (and which close themselves)
-var canBeLeftOpenTag = makeMap(
+const canBeLeftOpenTag = makeMap(
   'colgroup,dd,dt,li,options,p,td,tfoot,th,thead,tr,source',
 )
 
 // HTML5 tags https://html.spec.whatwg.org/multipage/indices.html#elements-3
 // Phrasing Content https://html.spec.whatwg.org/multipage/dom.html#phrasing-content
-var isNonPhrasingTag = makeMap(
+const isNonPhrasingTag = makeMap(
   'address,article,aside,base,blockquote,body,caption,col,colgroup,dd,' +
     'details,dialog,div,dl,dt,fieldset,figcaption,figure,footer,form,' +
     'h1,h2,h3,h4,h5,h6,head,header,hgroup,hr,html,legend,li,menuitem,meta,' +
@@ -255,7 +253,7 @@ var isNonPhrasingTag = makeMap(
  * using https://www.w3.org/TR/html53/semantics-scripting.html#potentialcustomelementname
  * skipping \u10000-\uEFFFF due to it freezing up PhantomJS
  */
-var unicodeRegExp = /a-zA-Z\u00B7\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u037D\u037F-\u1FFF\u200C-\u200D\u203F-\u2040\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD/
+const unicodeRegExp = /a-zA-Z\u00B7\u00C0-\u00D6\u00D8-\u00F6\u00F8-\u037D\u037F-\u1FFF\u200C-\u200D\u203F-\u2040\u2070-\u218F\u2C00-\u2FEF\u3001-\uD7FF\uF900-\uFDCF\uFDF0-\uFFFD/
 
 /**
  * Define a property.
@@ -274,24 +272,24 @@ function def(obj, key, val, enumerable) {
  */
 
 // Regular Expressions for parsing tags and attributes
-var attribute = /^\s*([^\s"'<>\/=]+)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/
-var dynamicArgAttribute = /^\s*((?:v-[\w-]+:|@|:|#)\[[^=]+\][^\s"'<>\/=]*)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/
-var ncname =
+const attribute = /^\s*([^\s"'<>\/=]+)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/
+const dynamicArgAttribute = /^\s*((?:v-[\w-]+:|@|:|#)\[[^=]+\][^\s"'<>\/=]*)(?:\s*(=)\s*(?:"([^"]*)"+|'([^']*)'+|([^\s"'=<>`]+)))?/
+const ncname =
   '[a-zA-Z_][\\-\\.0-9_a-zA-Z' + unicodeRegExp.source + ']*'
-var qnameCapture = '((?:' + ncname + '\\:)?' + ncname + ')'
-var startTagOpen = new RegExp('^<' + qnameCapture)
-var startTagClose = /^\s*(\/?)>/
-var endTag = new RegExp('^<\\/' + qnameCapture + '[^>]*>')
-var doctype = /^<!DOCTYPE [^>]+>/i
+const qnameCapture = '((?:' + ncname + '\\:)?' + ncname + ')'
+const startTagOpen = new RegExp('^<' + qnameCapture)
+const startTagClose = /^\s*(\/?)>/
+const endTag = new RegExp('^<\\/' + qnameCapture + '[^>]*>')
+const doctype = /^<!DOCTYPE [^>]+>/i
 // #7298: escape - to avoid being passed as HTML comment when inlined in page
-var comment = /^<!\--/
-var conditionalComment = /^<!\[/
+const comment = /^<!\--/
+const conditionalComment = /^<!\[/
 
 // Special Elements (can contain anything)
-var isPlainTextElement = makeMap('script,style,textarea', true)
-var reCache = {}
+const isPlainTextElement = makeMap('script,style,textarea', true)
+const reCache = {}
 
-var decodingMap = {
+const decodingMap = {
   '&lt;': '<',
   '&gt;': '>',
   '&quot;': '"',
@@ -300,17 +298,17 @@ var decodingMap = {
   '&#9;': '\t',
   '&#39;': "'",
 }
-var encodedAttr = /&(?:lt|gt|quot|amp|#39);/g
-var encodedAttrWithNewLines = /&(?:lt|gt|quot|amp|#39|#10|#9);/g
+const encodedAttr = /&(?:lt|gt|quot|amp|#39);/g
+const encodedAttrWithNewLines = /&(?:lt|gt|quot|amp|#39|#10|#9);/g
 
 // #5992
-var isIgnoreNewlineTag = makeMap('pre,textarea', true)
-var shouldIgnoreFirstNewline = function (tag, html) {
+const isIgnoreNewlineTag = makeMap('pre,textarea', true)
+const shouldIgnoreFirstNewline = function (tag, html) {
   return tag && isIgnoreNewlineTag(tag) && html[0] === '\n'
 }
 
 function decodeAttr(value, shouldDecodeNewlines) {
-  var re = shouldDecodeNewlines
+  const re = shouldDecodeNewlines
     ? encodedAttrWithNewLines
     : encodedAttr
   return value.replace(re, function (match) {
@@ -319,21 +317,21 @@ function decodeAttr(value, shouldDecodeNewlines) {
 }
 
 function parseHTML(html, options) {
-  var stack = []
-  var expectHTML = options.expectHTML
-  var isUnaryTag$$1 = options.isUnaryTag || no
-  var canBeLeftOpenTag$$1 = options.canBeLeftOpenTag || no
-  var index = 0
-  var last, lastTag
+  const stack = []
+  const expectHTML = options.expectHTML
+  const isUnaryTag$$1 = options.isUnaryTag || no
+  const canBeLeftOpenTag$$1 = options.canBeLeftOpenTag || no
+  let index = 0
+  let last, lastTag
   while (html) {
     last = html
     // Make sure we're not in a plaintext content element like script/style
     if (!lastTag || !isPlainTextElement(lastTag)) {
-      var textEnd = html.indexOf('<')
+      let textEnd = html.indexOf('<')
       if (textEnd === 0) {
         // Comment:
         if (comment.test(html)) {
-          var commentEnd = html.indexOf('-->')
+          const commentEnd = html.indexOf('-->')
 
           if (commentEnd >= 0) {
             if (options.shouldKeepComment) {
@@ -350,7 +348,7 @@ function parseHTML(html, options) {
 
         // http://en.wikipedia.org/wiki/Conditional_comment#Downlevel-revealed_conditional_comment
         if (conditionalComment.test(html)) {
-          var conditionalEnd = html.indexOf(']>')
+          const conditionalEnd = html.indexOf(']>')
 
           if (conditionalEnd >= 0) {
             advance(conditionalEnd + 2)
@@ -359,23 +357,23 @@ function parseHTML(html, options) {
         }
 
         // Doctype:
-        var doctypeMatch = html.match(doctype)
+        const doctypeMatch = html.match(doctype)
         if (doctypeMatch) {
           advance(doctypeMatch[0].length)
           continue
         }
 
         // End tag:
-        var endTagMatch = html.match(endTag)
+        const endTagMatch = html.match(endTag)
         if (endTagMatch) {
-          var curIndex = index
+          const curIndex = index
           advance(endTagMatch[0].length)
           parseEndTag(endTagMatch[1], curIndex, index)
           continue
         }
 
         // Start tag:
-        var startTagMatch = parseStartTag()
+        const startTagMatch = parseStartTag()
         if (startTagMatch) {
           handleStartTag(startTagMatch)
           if (
@@ -387,7 +385,7 @@ function parseHTML(html, options) {
         }
       }
 
-      var text = void 0,
+      let text = void 0,
         rest = void 0,
         next = void 0
       if (textEnd >= 0) {
@@ -423,13 +421,13 @@ function parseHTML(html, options) {
     } else {
       var endTagLength = 0
       var stackedTag = lastTag.toLowerCase()
-      var reStackedTag =
+      const reStackedTag =
         reCache[stackedTag] ||
         (reCache[stackedTag] = new RegExp(
           '([\\s\\S]*?)(</' + stackedTag + '[^>]*>)',
           'i',
         ))
-      var rest$1 = html.replace(reStackedTag, function (
+      const rest$1 = html.replace(reStackedTag, function (
         all,
         text,
         endTag,
@@ -483,15 +481,15 @@ function parseHTML(html, options) {
   }
 
   function parseStartTag() {
-    var start = html.match(startTagOpen)
+    const start = html.match(startTagOpen)
     if (start) {
-      var match = {
+      const match = {
         tagName: start[1],
         attrs: [],
         start: index,
       }
       advance(start[0].length)
-      var end, attr
+      let end, attr
       while (
         !(end = html.match(startTagClose)) &&
         (attr =
@@ -513,8 +511,8 @@ function parseHTML(html, options) {
   }
 
   function handleStartTag(match) {
-    var tagName = match.tagName
-    var unarySlash = match.unarySlash
+    const tagName = match.tagName
+    const unarySlash = match.unarySlash
 
     if (expectHTML) {
       if (lastTag === 'p' && isNonPhrasingTag(tagName)) {
@@ -525,14 +523,14 @@ function parseHTML(html, options) {
       }
     }
 
-    var unary = isUnaryTag$$1(tagName) || !!unarySlash
+    const unary = isUnaryTag$$1(tagName) || !!unarySlash
 
-    var l = match.attrs.length
-    var attrs = new Array(l)
-    for (var i = 0; i < l; i++) {
-      var args = match.attrs[i]
-      var value = args[3] || args[4] || args[5] || ''
-      var shouldDecodeNewlines =
+    const l = match.attrs.length
+    const attrs = new Array(l)
+    for (let i = 0; i < l; i++) {
+      const args = match.attrs[i]
+      const value = args[3] || args[4] || args[5] || ''
+      const shouldDecodeNewlines =
         tagName === 'a' && args[1] === 'href'
           ? options.shouldDecodeNewlinesForHref
           : options.shouldDecodeNewlines
@@ -573,7 +571,7 @@ function parseHTML(html, options) {
   }
 
   function parseEndTag(tagName, start, end) {
-    var pos, lowerCasedTagName
+    let pos, lowerCasedTagName
     if (start == null) {
       start = index
     }
@@ -596,7 +594,7 @@ function parseHTML(html, options) {
 
     if (pos >= 0) {
       // Close all the open elements, up the stack
-      for (var i = stack.length - 1; i >= pos; i--) {
+      for (let i = stack.length - 1; i >= pos; i--) {
         if (
           process.env.NODE_ENV !== 'production' &&
           (i > pos || !tagName) &&
@@ -637,9 +635,9 @@ function parseHTML(html, options) {
 
 /*  */
 
-var splitRE = /\r?\n/g
-var replaceRE = /./g
-var isSpecialTag = makeMap('script,style,template', true)
+const splitRE = /\r?\n/g
+const replaceRE = /./g
+const isSpecialTag = makeMap('script,style,template', true)
 
 /**
  * Parse a single-file component (*.vue) file into an SFC Descriptor Object.
@@ -647,17 +645,17 @@ var isSpecialTag = makeMap('script,style,template', true)
 function parseComponent(content, options) {
   if (options === void 0) options = {}
 
-  var sfc = {
+  const sfc = {
     template: null,
     script: null,
     styles: [],
     customBlocks: [],
     errors: [],
   }
-  var depth = 0
-  var currentBlock = null
+  let depth = 0
+  let currentBlock = null
 
-  var warn = function (msg) {
+  let warn = function (msg) {
     sfc.errors.push(msg)
   }
 
@@ -666,7 +664,7 @@ function parseComponent(content, options) {
     options.outputSourceRange
   ) {
     warn = function (msg, range) {
-      var data = {msg: msg}
+      const data = {msg: msg}
       if (range.start != null) {
         data.start = range.start
       }
@@ -684,8 +682,8 @@ function parseComponent(content, options) {
         content: '',
         start: end,
         attrs: attrs.reduce(function (cumulated, ref) {
-          var name = ref.name
-          var value = ref.value
+          const name = ref.name
+          const value = ref.value
 
           cumulated[name] = value || true
           return cumulated
@@ -709,8 +707,8 @@ function parseComponent(content, options) {
   }
 
   function checkAttrs(block, attrs) {
-    for (var i = 0; i < attrs.length; i++) {
-      var attr = attrs[i]
+    for (let i = 0; i < attrs.length; i++) {
+      const attr = attrs[i]
       if (attr.name === 'lang') {
         block.lang = attr.value
       }
@@ -729,7 +727,7 @@ function parseComponent(content, options) {
   function end(tag, start) {
     if (depth === 1 && currentBlock) {
       currentBlock.end = start
-      var text = content.slice(
+      let text = content.slice(
         currentBlock.start,
         currentBlock.end,
       )
@@ -753,9 +751,9 @@ function parseComponent(content, options) {
         .slice(0, block.start)
         .replace(replaceRE, ' ')
     } else {
-      var offset = content.slice(0, block.start).split(splitRE)
+      const offset = content.slice(0, block.start).split(splitRE)
         .length
-      var padChar =
+      const padChar =
         block.type === 'script' && !block.lang ? '//\n' : '\n'
       return Array(offset).join(padChar)
     }
@@ -774,34 +772,35 @@ function parseComponent(content, options) {
 /*  */
 
 // can we use __proto__?
-var hasProto = '__proto__' in {}
+const hasProto = '__proto__' in {}
 
 // Browser environment sniffing
-var inBrowser =
+const inBrowser =
   typeof window !== 'undefined' &&
   typeof window.document !== 'undefined'
-var inWeex =
+const inWeex =
   typeof WXEnvironment !== 'undefined' &&
   !!WXEnvironment.platform
-var weexPlatform = inWeex && WXEnvironment.platform.toLowerCase()
-var UA = inBrowser && window.navigator.userAgent.toLowerCase()
-var isIE = UA && /msie|trident/.test(UA)
-var isIE9 = UA && UA.indexOf('msie 9.0') > 0
-var isEdge = UA && UA.indexOf('edge/') > 0
-var isAndroid =
+const weexPlatform =
+  inWeex && WXEnvironment.platform.toLowerCase()
+const UA = inBrowser && window.navigator.userAgent.toLowerCase()
+const isIE = UA && /msie|trident/.test(UA)
+const isIE9 = UA && UA.indexOf('msie 9.0') > 0
+const isEdge = UA && UA.indexOf('edge/') > 0
+const isAndroid =
   (UA && UA.indexOf('android') > 0) || weexPlatform === 'android'
-var isIOS =
+const isIOS =
   (UA && /iphone|ipad|ipod|ios/.test(UA)) ||
   weexPlatform === 'ios'
-var isChrome = UA && /chrome\/\d+/.test(UA) && !isEdge
-var isPhantomJS = UA && /phantomjs/.test(UA)
-var isFF = UA && UA.match(/firefox\/(\d+)/)
+const isChrome = UA && /chrome\/\d+/.test(UA) && !isEdge
+const isPhantomJS = UA && /phantomjs/.test(UA)
+const isFF = UA && UA.match(/firefox\/(\d+)/)
 
 // Firefox has a "watch" function on Object.prototype...
-var nativeWatch = {}.watch
+const nativeWatch = {}.watch
 if (inBrowser) {
   try {
-    var opts = {}
+    const opts = {}
     Object.defineProperty(opts, 'passive', {
       get: function get() {},
     }) // https://github.com/facebook/flow/issues/285
@@ -811,8 +810,8 @@ if (inBrowser) {
 
 // this needs to be lazy-evaled because vue may be required before
 // vue-server-renderer can set VUE_ENV
-var _isServer
-var isServerRendering = function () {
+let _isServer
+const isServerRendering = function () {
   if (_isServer === undefined) {
     /* istanbul ignore if */
     if (!inBrowser && !inWeex && typeof global !== 'undefined') {
@@ -829,7 +828,7 @@ var isServerRendering = function () {
 }
 
 // detect devtools
-var devtools = inBrowser && window.__VUE_DEVTOOLS_GLOBAL_HOOK__
+const devtools = inBrowser && window.__VUE_DEVTOOLS_GLOBAL_HOOK__
 
 /* istanbul ignore next */
 function isNative(Ctor) {
@@ -839,13 +838,13 @@ function isNative(Ctor) {
   )
 }
 
-var hasSymbol =
+const hasSymbol =
   typeof Symbol !== 'undefined' &&
   isNative(Symbol) &&
   typeof Reflect !== 'undefined' &&
   isNative(Reflect.ownKeys)
 
-var _Set // $flow-disable-line
+let _Set // $flow-disable-line
 /* istanbul ignore if */ if (
   typeof Set !== 'undefined' &&
   isNative(Set)
@@ -872,9 +871,9 @@ var _Set // $flow-disable-line
   })()
 }
 
-var ASSET_TYPES = ['component', 'directive', 'filter']
+const ASSET_TYPES = ['component', 'directive', 'filter']
 
-var LIFECYCLE_HOOKS = [
+const LIFECYCLE_HOOKS = [
   'beforeCreate',
   'created',
   'beforeMount',
@@ -891,7 +890,7 @@ var LIFECYCLE_HOOKS = [
 
 /*  */
 
-var config = {
+const config = {
   /**
    * Option merge strategies (used in core/util/options)
    */
@@ -987,15 +986,15 @@ var config = {
 
 /*  */
 
-var warn = noop
-var tip = noop
-var generateComponentTrace = noop // work around flow check
-var formatComponentName = noop
+let warn = noop
+let tip = noop
+let generateComponentTrace = noop // work around flow check
+let formatComponentName = noop
 
 if (process.env.NODE_ENV !== 'production') {
-  var hasConsole = typeof console !== 'undefined'
-  var classifyRE = /(?:^|[-_])(\w)/g
-  var classify = function (str) {
+  const hasConsole = typeof console !== 'undefined'
+  const classifyRE = /(?:^|[-_])(\w)/g
+  const classify = function (str) {
     return str
       .replace(classifyRE, function (c) {
         return c.toUpperCase()
@@ -1004,7 +1003,7 @@ if (process.env.NODE_ENV !== 'production') {
   }
 
   warn = function (msg, vm) {
-    var trace = vm ? generateComponentTrace(vm) : ''
+    const trace = vm ? generateComponentTrace(vm) : ''
 
     if (hasConsole && !config.silent) {
       console.error('[Vue warn]: ' + msg + trace)
@@ -1025,16 +1024,16 @@ if (process.env.NODE_ENV !== 'production') {
     if (vm.$root === vm) {
       return '<Root>'
     }
-    var options =
+    const options =
       typeof vm === 'function' && vm.cid != null
         ? vm.options
         : vm._isVue
         ? vm.$options || vm.constructor.options
         : vm
-    var name = options.name || options._componentTag
-    var file = options.__file
+    let name = options.name || options._componentTag
+    const file = options.__file
     if (!name && file) {
-      var match = file.match(/([^/\\]+)\.vue$/)
+      const match = file.match(/([^/\\]+)\.vue$/)
       name = match && match[1]
     }
 
@@ -1044,8 +1043,8 @@ if (process.env.NODE_ENV !== 'production') {
     )
   }
 
-  var repeat = function (str, n) {
-    var res = ''
+  const repeat = function (str, n) {
+    let res = ''
     while (n) {
       if (n % 2 === 1) {
         res += str
@@ -1060,11 +1059,11 @@ if (process.env.NODE_ENV !== 'production') {
 
   generateComponentTrace = function (vm) {
     if (vm._isVue && vm.$parent) {
-      var tree = []
-      var currentRecursiveSequence = 0
+      const tree = []
+      let currentRecursiveSequence = 0
       while (vm) {
         if (tree.length > 0) {
-          var last = tree[tree.length - 1]
+          const last = tree[tree.length - 1]
           if (last.constructor === vm.constructor) {
             currentRecursiveSequence++
             vm = vm.$parent
@@ -1105,13 +1104,13 @@ if (process.env.NODE_ENV !== 'production') {
 
 /*  */
 
-var uid = 0
+let uid = 0
 
 /**
  * A dep is an observable that can have multiple
  * directives subscribing to it.
  */
-var Dep = function Dep() {
+const Dep = function Dep() {
   this.id = uid++
   this.subs = []
 }
@@ -1132,7 +1131,7 @@ Dep.prototype.depend = function depend() {
 
 Dep.prototype.notify = function notify() {
   // stabilize the subscriber list first
-  var subs = this.subs.slice()
+  const subs = this.subs.slice()
   if (process.env.NODE_ENV !== 'production' && !config.async) {
     // subs aren't sorted in scheduler if not running async
     // we need to sort them now to make sure they fire in correct
@@ -1141,7 +1140,7 @@ Dep.prototype.notify = function notify() {
       return a.id - b.id
     })
   }
-  for (var i = 0, l = subs.length; i < l; i++) {
+  for (let i = 0, l = subs.length; i < l; i++) {
     subs[i].update()
   }
 }
@@ -1153,7 +1152,7 @@ Dep.target = null
 
 /*  */
 
-var VNode = function VNode(
+const VNode = function VNode(
   tag,
   data,
   children,
@@ -1188,7 +1187,7 @@ var VNode = function VNode(
   this.isAsyncPlaceholder = false
 }
 
-var prototypeAccessors = {child: {configurable: true}}
+const prototypeAccessors = {child: {configurable: true}}
 
 // DEPRECATED: alias for componentInstance for backwards compat.
 /* istanbul ignore next */
@@ -1203,10 +1202,10 @@ Object.defineProperties(VNode.prototype, prototypeAccessors)
  * dynamically accessing methods on Array prototype
  */
 
-var arrayProto = Array.prototype
-var arrayMethods = Object.create(arrayProto)
+const arrayProto = Array.prototype
+const arrayMethods = Object.create(arrayProto)
 
-var methodsToPatch = [
+const methodsToPatch = [
   'push',
   'pop',
   'shift',
@@ -1221,15 +1220,15 @@ var methodsToPatch = [
  */
 methodsToPatch.forEach(function (method) {
   // cache original method
-  var original = arrayProto[method]
+  const original = arrayProto[method]
   def(arrayMethods, method, function mutator() {
-    var args = [],
+    let args = [],
       len = arguments.length
     while (len--) args[len] = arguments[len]
 
-    var result = original.apply(this, args)
-    var ob = this.__ob__
-    var inserted
+    const result = original.apply(this, args)
+    const ob = this.__ob__
+    let inserted
     switch (method) {
       case 'push':
       case 'unshift':
@@ -1250,13 +1249,13 @@ methodsToPatch.forEach(function (method) {
 
 /*  */
 
-var arrayKeys = Object.getOwnPropertyNames(arrayMethods)
+const arrayKeys = Object.getOwnPropertyNames(arrayMethods)
 
 /**
  * In some cases we may want to disable observation inside a component's
  * update computation.
  */
-var shouldObserve = true
+const shouldObserve = true
 
 /**
  * Observer class that is attached to each observed
@@ -1264,7 +1263,7 @@ var shouldObserve = true
  * object's property keys into getter/setters that
  * collect dependencies and dispatch updates.
  */
-var Observer = function Observer(value) {
+const Observer = function Observer(value) {
   this.value = value
   this.dep = new Dep()
   this.vmCount = 0
@@ -1287,8 +1286,8 @@ var Observer = function Observer(value) {
  * value type is Object.
  */
 Observer.prototype.walk = function walk(obj) {
-  var keys = Object.keys(obj)
-  for (var i = 0; i < keys.length; i++) {
+  const keys = Object.keys(obj)
+  for (let i = 0; i < keys.length; i++) {
     defineReactive$$1(obj, keys[i])
   }
 }
@@ -1297,7 +1296,7 @@ Observer.prototype.walk = function walk(obj) {
  * Observe a list of Array items.
  */
 Observer.prototype.observeArray = function observeArray(items) {
-  for (var i = 0, l = items.length; i < l; i++) {
+  for (let i = 0, l = items.length; i < l; i++) {
     observe(items[i])
   }
 }
@@ -1320,8 +1319,8 @@ function protoAugment(target, src) {
  */
 /* istanbul ignore next */
 function copyAugment(target, src, keys) {
-  for (var i = 0, l = keys.length; i < l; i++) {
-    var key = keys[i]
+  for (let i = 0, l = keys.length; i < l; i++) {
+    const key = keys[i]
     def(target, key, src[key])
   }
 }
@@ -1335,7 +1334,7 @@ function observe(value, asRootData) {
   if (!isObject(value) || value instanceof VNode) {
     return
   }
-  var ob
+  let ob
   if (
     hasOwn(value, '__ob__') &&
     value.__ob__ instanceof Observer
@@ -1366,26 +1365,26 @@ function defineReactive$$1(
   customSetter,
   shallow,
 ) {
-  var dep = new Dep()
+  const dep = new Dep()
 
-  var property = Object.getOwnPropertyDescriptor(obj, key)
+  const property = Object.getOwnPropertyDescriptor(obj, key)
   if (property && property.configurable === false) {
     return
   }
 
   // cater for pre-defined getter/setters
-  var getter = property && property.get
-  var setter = property && property.set
+  const getter = property && property.get
+  const setter = property && property.set
   if ((!getter || setter) && arguments.length === 2) {
     val = obj[key]
   }
 
-  var childOb = !shallow && observe(val)
+  let childOb = !shallow && observe(val)
   Object.defineProperty(obj, key, {
     enumerable: true,
     configurable: true,
     get: function reactiveGetter() {
-      var value = getter ? getter.call(obj) : val
+      const value = getter ? getter.call(obj) : val
       if (Dep.target) {
         dep.depend()
         if (childOb) {
@@ -1398,7 +1397,7 @@ function defineReactive$$1(
       return value
     },
     set: function reactiveSetter(newVal) {
-      var value = getter ? getter.call(obj) : val
+      const value = getter ? getter.call(obj) : val
       /* eslint-disable no-self-compare */
       if (
         newVal === value ||
@@ -1452,7 +1451,7 @@ function set(target, key, val) {
     target[key] = val
     return val
   }
-  var ob = target.__ob__
+  const ob = target.__ob__
   if (target._isVue || (ob && ob.vmCount)) {
     process.env.NODE_ENV !== 'production' &&
       warn(
@@ -1475,7 +1474,7 @@ function set(target, key, val) {
  * we cannot intercept array element access like property getters.
  */
 function dependArray(value) {
-  for (var e = void 0, i = 0, l = value.length; i < l; i++) {
+  for (let e = void 0, i = 0, l = value.length; i < l; i++) {
     e = value[i]
     e && e.__ob__ && e.__ob__.dep.depend()
     if (Array.isArray(e)) {
@@ -1491,7 +1490,7 @@ function dependArray(value) {
  * how to merge a parent option value and a child option
  * value into the final value.
  */
-var strats = config.optionMergeStrategies
+const strats = config.optionMergeStrategies
 
 /**
  * Options with restrictions
@@ -1522,13 +1521,13 @@ function mergeData(to, from) {
   if (!from) {
     return to
   }
-  var key, toVal, fromVal
+  let key, toVal, fromVal
 
-  var keys = hasSymbol
+  const keys = hasSymbol
     ? Reflect.ownKeys(from)
     : Object.keys(from)
 
-  for (var i = 0; i < keys.length; i++) {
+  for (let i = 0; i < keys.length; i++) {
     key = keys[i]
     // in case the object is already observed...
     if (key === '__ob__') {
@@ -1579,11 +1578,11 @@ function mergeDataOrFn(parentVal, childVal, vm) {
   } else {
     return function mergedInstanceDataFn() {
       // instance merge
-      var instanceData =
+      const instanceData =
         typeof childVal === 'function'
           ? childVal.call(vm, vm)
           : childVal
-      var defaultData =
+      const defaultData =
         typeof parentVal === 'function'
           ? parentVal.call(vm, vm)
           : parentVal
@@ -1619,7 +1618,7 @@ strats.data = function (parentVal, childVal, vm) {
  * Hooks and props are merged as arrays.
  */
 function mergeHook(parentVal, childVal) {
-  var res = childVal
+  const res = childVal
     ? parentVal
       ? parentVal.concat(childVal)
       : Array.isArray(childVal)
@@ -1630,8 +1629,8 @@ function mergeHook(parentVal, childVal) {
 }
 
 function dedupeHooks(hooks) {
-  var res = []
-  for (var i = 0; i < hooks.length; i++) {
+  const res = []
+  for (let i = 0; i < hooks.length; i++) {
     if (res.indexOf(hooks[i]) === -1) {
       res.push(hooks[i])
     }
@@ -1651,7 +1650,7 @@ LIFECYCLE_HOOKS.forEach(function (hook) {
  * options and parent options.
  */
 function mergeAssets(parentVal, childVal, vm, key) {
-  var res = Object.create(parentVal || null)
+  const res = Object.create(parentVal || null)
   if (childVal) {
     process.env.NODE_ENV !== 'production' &&
       assertObjectType(key, childVal, vm)
@@ -1689,11 +1688,11 @@ strats.watch = function (parentVal, childVal, vm, key) {
   if (!parentVal) {
     return childVal
   }
-  var ret = {}
+  const ret = {}
   extend(ret, parentVal)
-  for (var key$1 in childVal) {
-    var parent = ret[key$1]
-    var child = childVal[key$1]
+  for (const key$1 in childVal) {
+    let parent = ret[key$1]
+    const child = childVal[key$1]
     if (parent && !Array.isArray(parent)) {
       parent = [parent]
     }
@@ -1721,7 +1720,7 @@ strats.props = strats.methods = strats.inject = strats.computed = function (
   if (!parentVal) {
     return childVal
   }
-  var ret = Object.create(null)
+  const ret = Object.create(null)
   extend(ret, parentVal)
   if (childVal) {
     extend(ret, childVal)
@@ -1757,12 +1756,12 @@ function assertObjectType(name, value, vm) {
 
 /*  */
 
-var callbacks = []
+const callbacks = []
 
 function flushCallbacks() {
-  var copies = callbacks.slice(0)
+  const copies = callbacks.slice(0)
   callbacks.length = 0
-  for (var i = 0; i < copies.length; i++) {
+  for (let i = 0; i < copies.length; i++) {
     copies[i]()
   }
 }
@@ -1786,9 +1785,9 @@ else if (
   // Use MutationObserver where native Promise is not available,
   // e.g. PhantomJS, iOS7, Android 4.4
   // (#6466 MutationObserver is unreliable in IE11)
-  var counter = 1
-  var observer = new MutationObserver(flushCallbacks)
-  var textNode = document.createTextNode(String(counter))
+  const counter = 1
+  const observer = new MutationObserver(flushCallbacks)
+  const textNode = document.createTextNode(String(counter))
   observer.observe(textNode, {
     characterData: true,
   })
@@ -1803,13 +1802,13 @@ else if (
 
 // these are reserved for web because they are directly compiled away
 // during template compilation
-var isReservedAttr = makeMap('style,class')
+const isReservedAttr = makeMap('style,class')
 
 // attributes that should be using props for binding
-var acceptValue = makeMap(
+const acceptValue = makeMap(
   'input,textarea,option,select,progress',
 )
-var mustUseProp = function (tag, type, attr) {
+const mustUseProp = function (tag, type, attr) {
   return (
     (attr === 'value' &&
       acceptValue(tag) &&
@@ -1820,15 +1819,15 @@ var mustUseProp = function (tag, type, attr) {
   )
 }
 
-var isEnumeratedAttr = makeMap(
+const isEnumeratedAttr = makeMap(
   'contenteditable,draggable,spellcheck',
 )
 
-var isValidContentEditableValue = makeMap(
+const isValidContentEditableValue = makeMap(
   'events,caret,typing,plaintext-only',
 )
 
-var isBooleanAttr = makeMap(
+const isBooleanAttr = makeMap(
   'allowfullscreen,async,autofocus,autoplay,checked,compact,controls,declare,' +
     'default,defaultchecked,defaultmuted,defaultselected,defer,disabled,' +
     'enabled,formnovalidate,hidden,indeterminate,inert,ismap,itemscope,loop,multiple,' +
@@ -1841,7 +1840,7 @@ var isBooleanAttr = makeMap(
 
 /*  */
 
-var isHTMLTag = makeMap(
+const isHTMLTag = makeMap(
   'html,body,base,head,link,meta,style,title,' +
     'address,article,aside,footer,header,h1,h2,h3,h4,h5,h6,hgroup,nav,section,' +
     'div,dd,dl,dt,figcaption,figure,picture,hr,img,li,main,ol,p,pre,ul,' +
@@ -1857,18 +1856,18 @@ var isHTMLTag = makeMap(
 
 // this map is intentionally selective, only covering SVG elements that may
 // contain child elements.
-var isSVG = makeMap(
+const isSVG = makeMap(
   'svg,animate,circle,clippath,cursor,defs,desc,ellipse,filter,font-face,' +
     'foreignObject,g,glyph,image,line,marker,mask,missing-glyph,path,pattern,' +
     'polygon,polyline,rect,switch,symbol,text,textpath,tspan,use,view',
   true,
 )
 
-var isPreTag = function (tag) {
+const isPreTag = function (tag) {
   return tag === 'pre'
 }
 
-var isReservedTag = function (tag) {
+const isReservedTag = function (tag) {
   return isHTMLTag(tag) || isSVG(tag)
 }
 
@@ -1883,7 +1882,7 @@ function getTagNamespace(tag) {
   }
 }
 
-var isTextInputType = makeMap(
+const isTextInputType = makeMap(
   'text,number,password,search,email,tel,url',
 )
 
@@ -1891,18 +1890,18 @@ var isTextInputType = makeMap(
 
 /*  */
 
-var validDivisionCharRE = /[\w).+\-_$\]]/
+const validDivisionCharRE = /[\w).+\-_$\]]/
 
 function parseFilters(exp) {
-  var inSingle = false
-  var inDouble = false
-  var inTemplateString = false
-  var inRegex = false
-  var curly = 0
-  var square = 0
-  var paren = 0
-  var lastFilterIndex = 0
-  var c, prev, i, expression, filters
+  let inSingle = false
+  let inDouble = false
+  let inTemplateString = false
+  let inRegex = false
+  let curly = 0
+  let square = 0
+  let paren = 0
+  let lastFilterIndex = 0
+  let c, prev, i, expression, filters
 
   for (i = 0; i < exp.length; i++) {
     prev = c
@@ -1970,8 +1969,8 @@ function parseFilters(exp) {
       }
       if (c === 0x2f) {
         // /
-        var j = i - 1
-        var p = void 0
+        let j = i - 1
+        let p = void 0
         // find first non-whitespace prev char
         for (; j >= 0; j--) {
           p = exp.charAt(j)
@@ -2009,13 +2008,13 @@ function parseFilters(exp) {
 }
 
 function wrapFilter(exp, filter) {
-  var i = filter.indexOf('(')
+  const i = filter.indexOf('(')
   if (i < 0) {
     // _f: resolveFilter
     return '_f("' + filter + '")(' + exp + ')'
   } else {
-    var name = filter.slice(0, i)
-    var args = filter.slice(i + 1)
+    const name = filter.slice(0, i)
+    const args = filter.slice(i + 1)
     return (
       '_f("' +
       name +
@@ -2028,24 +2027,26 @@ function wrapFilter(exp, filter) {
 
 /*  */
 
-var defaultTagRE = /\{\{((?:.|\r?\n)+?)\}\}/g
-var regexEscapeRE = /[-.*+?^${}()|[\]\/\\]/g
+const defaultTagRE = /\{\{((?:.|\r?\n)+?)\}\}/g
+const regexEscapeRE = /[-.*+?^${}()|[\]\/\\]/g
 
-var buildRegex = cached(function (delimiters) {
-  var open = delimiters[0].replace(regexEscapeRE, '\\$&')
-  var close = delimiters[1].replace(regexEscapeRE, '\\$&')
+const buildRegex = cached(function (delimiters) {
+  const open = delimiters[0].replace(regexEscapeRE, '\\$&')
+  const close = delimiters[1].replace(regexEscapeRE, '\\$&')
   return new RegExp(open + '((?:.|\\n)+?)' + close, 'g')
 })
 
 function parseText(text, delimiters) {
-  var tagRE = delimiters ? buildRegex(delimiters) : defaultTagRE
+  const tagRE = delimiters
+    ? buildRegex(delimiters)
+    : defaultTagRE
   if (!tagRE.test(text)) {
     return
   }
-  var tokens = []
-  var rawTokens = []
-  var lastIndex = (tagRE.lastIndex = 0)
-  var match, index, tokenValue
+  const tokens = []
+  const rawTokens = []
+  let lastIndex = (tagRE.lastIndex = 0)
+  let match, index, tokenValue
   while ((match = tagRE.exec(text))) {
     index = match.index
     // push text token
@@ -2054,7 +2055,7 @@ function parseText(text, delimiters) {
       tokens.push(JSON.stringify(tokenValue))
     }
     // tag token
-    var exp = parseFilters(match[1].trim())
+    const exp = parseFilters(match[1].trim())
     tokens.push('_s(' + exp + ')')
     rawTokens.push({'@binding': exp})
     lastIndex = index + match[0].length
@@ -2100,7 +2101,7 @@ function addProp(el, name, value, range, dynamic) {
 }
 
 function addAttr(el, name, value, range, dynamic) {
-  var attrs = dynamic
+  const attrs = dynamic
     ? el.dynamicAttrs || (el.dynamicAttrs = [])
     : el.attrs || (el.attrs = [])
   attrs.push(
@@ -2212,7 +2213,7 @@ function addHandler(
     name = prependModifierMarker('&', name, dynamic)
   }
 
-  var events
+  let events
   if (modifiers.native) {
     delete modifiers.native
     events = el.nativeEvents || (el.nativeEvents = {})
@@ -2220,7 +2221,7 @@ function addHandler(
     events = el.events || (el.events = {})
   }
 
-  var newHandler = rangeSetItem(
+  const newHandler = rangeSetItem(
     {value: value.trim(), dynamic: dynamic},
     range,
   )
@@ -2228,7 +2229,7 @@ function addHandler(
     newHandler.modifiers = modifiers
   }
 
-  var handlers = events[name]
+  const handlers = events[name]
   /* istanbul ignore if */
   if (Array.isArray(handlers)) {
     important
@@ -2254,13 +2255,13 @@ function getRawBindingAttr(el, name) {
 }
 
 function getBindingAttr(el, name, getStatic) {
-  var dynamicValue =
+  const dynamicValue =
     getAndRemoveAttr(el, ':' + name) ||
     getAndRemoveAttr(el, 'v-bind:' + name)
   if (dynamicValue != null) {
     return parseFilters(dynamicValue)
   } else if (getStatic !== false) {
-    var staticValue = getAndRemoveAttr(el, name)
+    const staticValue = getAndRemoveAttr(el, name)
     if (staticValue != null) {
       return JSON.stringify(staticValue)
     }
@@ -2272,10 +2273,10 @@ function getBindingAttr(el, name, getStatic) {
 // By default it does NOT remove it from the map (attrsMap) because the map is
 // needed during codegen.
 function getAndRemoveAttr(el, name, removeFromMap) {
-  var val
+  let val
   if ((val = el.attrsMap[name]) != null) {
-    var list = el.attrsList
-    for (var i = 0, l = list.length; i < l; i++) {
+    const list = el.attrsList
+    for (let i = 0, l = list.length; i < l; i++) {
       if (list[i].name === name) {
         list.splice(i, 1)
         break
@@ -2289,9 +2290,9 @@ function getAndRemoveAttr(el, name, removeFromMap) {
 }
 
 function getAndRemoveAttrByRegex(el, name) {
-  var list = el.attrsList
-  for (var i = 0, l = list.length; i < l; i++) {
-    var attr = list[i]
+  const list = el.attrsList
+  for (let i = 0, l = list.length; i < l; i++) {
+    const attr = list[i]
     if (name.test(attr.name)) {
       list.splice(i, 1)
       return attr
@@ -2314,10 +2315,10 @@ function rangeSetItem(item, range) {
 /*  */
 
 function transformNode(el, options) {
-  var warn = options.warn || baseWarn
-  var staticClass = getAndRemoveAttr(el, 'class')
+  const warn = options.warn || baseWarn
+  const staticClass = getAndRemoveAttr(el, 'class')
   if (process.env.NODE_ENV !== 'production' && staticClass) {
-    var res = parseText(staticClass, options.delimiters)
+    const res = parseText(staticClass, options.delimiters)
     if (res) {
       warn(
         'class="' +
@@ -2333,7 +2334,7 @@ function transformNode(el, options) {
   if (staticClass) {
     el.staticClass = JSON.stringify(staticClass)
   }
-  var classBinding = getBindingAttr(
+  const classBinding = getBindingAttr(
     el,
     'class',
     false /* getStatic */,
@@ -2344,7 +2345,7 @@ function transformNode(el, options) {
 }
 
 function genData(el) {
-  var data = ''
+  let data = ''
   if (el.staticClass) {
     data += 'staticClass:' + el.staticClass + ','
   }
@@ -2354,7 +2355,7 @@ function genData(el) {
   return data
 }
 
-var klass = {
+const klass = {
   staticKeys: ['staticClass'],
   transformNode: transformNode,
   genData: genData,
@@ -2362,13 +2363,13 @@ var klass = {
 
 /*  */
 
-var parseStyleText = cached(function (cssText) {
-  var res = {}
-  var listDelimiter = /;(?![^(]*\))/g
-  var propertyDelimiter = /:(.+)/
+const parseStyleText = cached(function (cssText) {
+  const res = {}
+  const listDelimiter = /;(?![^(]*\))/g
+  const propertyDelimiter = /:(.+)/
   cssText.split(listDelimiter).forEach(function (item) {
     if (item) {
-      var tmp = item.split(propertyDelimiter)
+      const tmp = item.split(propertyDelimiter)
       tmp.length > 1 && (res[tmp[0].trim()] = tmp[1].trim())
     }
   })
@@ -2378,12 +2379,12 @@ var parseStyleText = cached(function (cssText) {
 /*  */
 
 function transformNode$1(el, options) {
-  var warn = options.warn || baseWarn
-  var staticStyle = getAndRemoveAttr(el, 'style')
+  const warn = options.warn || baseWarn
+  const staticStyle = getAndRemoveAttr(el, 'style')
   if (staticStyle) {
     /* istanbul ignore if */
     if (process.env.NODE_ENV !== 'production') {
-      var res = parseText(staticStyle, options.delimiters)
+      const res = parseText(staticStyle, options.delimiters)
       if (res) {
         warn(
           'style="' +
@@ -2399,7 +2400,7 @@ function transformNode$1(el, options) {
     el.staticStyle = JSON.stringify(parseStyleText(staticStyle))
   }
 
-  var styleBinding = getBindingAttr(
+  const styleBinding = getBindingAttr(
     el,
     'style',
     false /* getStatic */,
@@ -2410,7 +2411,7 @@ function transformNode$1(el, options) {
 }
 
 function genData$1(el) {
-  var data = ''
+  let data = ''
   if (el.staticStyle) {
     data += 'staticStyle:' + el.staticStyle + ','
   }
@@ -2420,7 +2421,7 @@ function genData$1(el) {
   return data
 }
 
-var style = {
+const style = {
   staticKeys: ['staticStyle'],
   transformNode: transformNode$1,
   genData: genData$1,
@@ -2432,12 +2433,12 @@ var style = {
  * Cross-platform code generation for component v-model
  */
 function genComponentModel(el, value, modifiers) {
-  var ref = modifiers || {}
-  var number = ref.number
-  var trim = ref.trim
+  const ref = modifiers || {}
+  const number = ref.number
+  const trim = ref.trim
 
-  var baseValueExpression = '$$v'
-  var valueExpression = baseValueExpression
+  const baseValueExpression = '$$v'
+  let valueExpression = baseValueExpression
   if (trim) {
     valueExpression =
       '(typeof ' +
@@ -2453,7 +2454,7 @@ function genComponentModel(el, value, modifiers) {
   if (number) {
     valueExpression = '_n(' + valueExpression + ')'
   }
-  var assignment = genAssignmentCode(value, valueExpression)
+  const assignment = genAssignmentCode(value, valueExpression)
 
   el.model = {
     value: '(' + value + ')',
@@ -2471,7 +2472,7 @@ function genComponentModel(el, value, modifiers) {
  * Cross-platform codegen helper for generating v-model value assignment code.
  */
 function genAssignmentCode(value, assignment) {
-  var res = parseModel(value)
+  const res = parseModel(value)
   if (res.key === null) {
     return value + '=' + assignment
   } else {
@@ -2502,7 +2503,7 @@ function genAssignmentCode(value, assignment) {
  *
  */
 
-var len, str, chr, index, expressionPos, expressionEndPos
+let len, str, chr, index, expressionPos, expressionEndPos
 
 function parseModel(val) {
   // Fix https://github.com/vuejs/vue/pull/7730
@@ -2557,7 +2558,7 @@ function isStringStart(chr) {
 }
 
 function parseBracket(chr) {
-  var inBracket = 1
+  let inBracket = 1
   expressionPos = index
   while (!eof()) {
     chr = next()
@@ -2579,7 +2580,7 @@ function parseBracket(chr) {
 }
 
 function parseString(chr) {
-  var stringQuote = chr
+  const stringQuote = chr
   while (!eof()) {
     chr = next()
     if (chr === stringQuote) {
@@ -2590,38 +2591,38 @@ function parseString(chr) {
 
 /*  */
 
-var onRE = /^@|^v-on:/
-var dirRE = /^v-|^@|^:|^#/
-var forAliasRE = /([\s\S]*?)\s+(?:in|of)\s+([\s\S]*)/
-var forIteratorRE = /,([^,\}\]]*)(?:,([^,\}\]]*))?$/
-var stripParensRE = /^\(|\)$/g
-var dynamicArgRE = /^\[.*\]$/
+const onRE = /^@|^v-on:/
+const dirRE = /^v-|^@|^:|^#/
+const forAliasRE = /([\s\S]*?)\s+(?:in|of)\s+([\s\S]*)/
+const forIteratorRE = /,([^,\}\]]*)(?:,([^,\}\]]*))?$/
+const stripParensRE = /^\(|\)$/g
+const dynamicArgRE = /^\[.*\]$/
 
-var argRE = /:(.*)$/
-var bindRE = /^:|^\.|^v-bind:/
-var modifierRE = /\.[^.\]]+(?=[^\]]*$)/g
+const argRE = /:(.*)$/
+const bindRE = /^:|^\.|^v-bind:/
+const modifierRE = /\.[^.\]]+(?=[^\]]*$)/g
 
-var slotRE = /^v-slot(:|$)|^#/
+const slotRE = /^v-slot(:|$)|^#/
 
-var lineBreakRE = /[\r\n]/
-var whitespaceRE = /\s+/g
+const lineBreakRE = /[\r\n]/
+const whitespaceRE = /\s+/g
 
-var invalidAttributeRE = /[\s"'<>\/=]/
+const invalidAttributeRE = /[\s"'<>\/=]/
 
-var decodeHTMLCached = cached(he.decode)
+const decodeHTMLCached = cached(he.decode)
 
-var emptySlotScopeToken = '_empty_'
+const emptySlotScopeToken = '_empty_'
 
 // configurable state
-var warn$1
-var delimiters
-var transforms
-var preTransforms
-var postTransforms
-var platformIsPreTag
-var platformMustUseProp
-var platformGetTagNamespace
-var maybeComponent
+let warn$1
+let delimiters
+let transforms
+let preTransforms
+let postTransforms
+let platformIsPreTag
+let platformMustUseProp
+let platformGetTagNamespace
+let maybeComponent
 
 function createASTElement(tag, attrs, parent) {
   return {
@@ -2644,7 +2645,7 @@ function parse(template, options) {
   platformIsPreTag = options.isPreTag || no
   platformMustUseProp = options.mustUseProp || no
   platformGetTagNamespace = options.getTagNamespace || no
-  var isReservedTag = options.isReservedTag || no
+  const isReservedTag = options.isReservedTag || no
   maybeComponent = function (el) {
     return !!el.component || !isReservedTag(el.tag)
   }
@@ -2664,14 +2665,14 @@ function parse(template, options) {
 
   delimiters = options.delimiters
 
-  var stack = []
-  var preserveWhitespace = options.preserveWhitespace !== false
-  var whitespaceOption = options.whitespace
-  var root
-  var currentParent
-  var inVPre = false
-  var inPre = false
-  var warned = false
+  const stack = []
+  const preserveWhitespace = options.preserveWhitespace !== false
+  const whitespaceOption = options.whitespace
+  let root
+  let currentParent
+  let inVPre = false
+  let inPre = false
+  let warned = false
 
   function warnOnce(msg, range) {
     if (!warned) {
@@ -2713,7 +2714,7 @@ function parse(template, options) {
           // scoped slot
           // keep it in the children list so that v-else(-if) conditions can
           // find it as the prev node.
-          var name = element.slotTarget || '"default"'
+          const name = element.slotTarget || '"default"'
           ;(currentParent.scopedSlots ||
             (currentParent.scopedSlots = {}))[name] = element
         }
@@ -2738,7 +2739,7 @@ function parse(template, options) {
       inPre = false
     }
     // apply post-transforms
-    for (var i = 0; i < postTransforms.length; i++) {
+    for (let i = 0; i < postTransforms.length; i++) {
       postTransforms[i](element, options)
     }
   }
@@ -2746,7 +2747,7 @@ function parse(template, options) {
   function trimEndingWhitespace(el) {
     // remove trailing whitespace node
     if (!inPre) {
-      var lastNode
+      let lastNode
       while (
         (lastNode = el.children[el.children.length - 1]) &&
         lastNode.type === 3 &&
@@ -2789,7 +2790,7 @@ function parse(template, options) {
     start: function start(tag, attrs, unary, start$1, end) {
       // check namespace.
       // inherit parent ns if there is one
-      var ns =
+      const ns =
         (currentParent && currentParent.ns) ||
         platformGetTagNamespace(tag)
 
@@ -2799,7 +2800,7 @@ function parse(template, options) {
         attrs = guardIESVGBug(attrs)
       }
 
-      var element = createASTElement(tag, attrs, currentParent)
+      let element = createASTElement(tag, attrs, currentParent)
       if (ns) {
         element.ns = ns
       }
@@ -2845,7 +2846,7 @@ function parse(template, options) {
       }
 
       // apply pre-transforms
-      for (var i = 0; i < preTransforms.length; i++) {
+      for (let i = 0; i < preTransforms.length; i++) {
         element = preTransforms[i](element, options) || element
       }
 
@@ -2883,7 +2884,7 @@ function parse(template, options) {
     },
 
     end: function end(tag, start, end$1) {
-      var element = stack[stack.length - 1]
+      const element = stack[stack.length - 1]
       // pop stack
       stack.length -= 1
       currentParent = stack[stack.length - 1]
@@ -2926,7 +2927,7 @@ function parse(template, options) {
       ) {
         return
       }
-      var children = currentParent.children
+      const children = currentParent.children
       if (inPre || text.trim()) {
         text = isTextTag(currentParent)
           ? text
@@ -2950,8 +2951,8 @@ function parse(template, options) {
           // condense consecutive whitespaces into single space
           text = text.replace(whitespaceRE, ' ')
         }
-        var res
-        var child
+        let res
+        let child
         if (
           !inVPre &&
           text !== ' ' &&
@@ -2989,7 +2990,7 @@ function parse(template, options) {
       // adding anyting as a sibling to the root node is forbidden
       // comments should still be allowed, but ignored
       if (currentParent) {
-        var child = {
+        const child = {
           type: 3,
           text: text,
           isComment: true,
@@ -3015,11 +3016,11 @@ function processPre(el) {
 }
 
 function processRawAttrs(el) {
-  var list = el.attrsList
-  var len = list.length
+  const list = el.attrsList
+  const len = list.length
   if (len) {
-    var attrs = (el.attrs = new Array(len))
-    for (var i = 0; i < len; i++) {
+    const attrs = (el.attrs = new Array(len))
+    for (let i = 0; i < len; i++) {
       attrs[i] = {
         name: list[i].name,
         value: JSON.stringify(list[i].value),
@@ -3049,7 +3050,7 @@ function processElement(element, options) {
   processSlotContent(element)
   processSlotOutlet(element)
   processComponent(element)
-  for (var i = 0; i < transforms.length; i++) {
+  for (let i = 0; i < transforms.length; i++) {
     element = transforms[i](element, options) || element
   }
   processAttrs(element)
@@ -3057,7 +3058,7 @@ function processElement(element, options) {
 }
 
 function processKey(el) {
-  var exp = getBindingAttr(el, 'key')
+  const exp = getBindingAttr(el, 'key')
   if (exp) {
     if (process.env.NODE_ENV !== 'production') {
       if (el.tag === 'template') {
@@ -3067,8 +3068,8 @@ function processKey(el) {
         )
       }
       if (el.for) {
-        var iterator = el.iterator2 || el.iterator1
-        var parent = el.parent
+        const iterator = el.iterator2 || el.iterator1
+        const parent = el.parent
         if (
           iterator &&
           iterator === exp &&
@@ -3089,7 +3090,7 @@ function processKey(el) {
 }
 
 function processRef(el) {
-  var ref = getBindingAttr(el, 'ref')
+  const ref = getBindingAttr(el, 'ref')
   if (ref) {
     el.ref = ref
     el.refInFor = checkInFor(el)
@@ -3097,9 +3098,9 @@ function processRef(el) {
 }
 
 function processFor(el) {
-  var exp
+  let exp
   if ((exp = getAndRemoveAttr(el, 'v-for'))) {
-    var res = parseFor(exp)
+    const res = parseFor(exp)
     if (res) {
       extend(el, res)
     } else if (process.env.NODE_ENV !== 'production') {
@@ -3112,14 +3113,14 @@ function processFor(el) {
 }
 
 function parseFor(exp) {
-  var inMatch = exp.match(forAliasRE)
+  const inMatch = exp.match(forAliasRE)
   if (!inMatch) {
     return
   }
-  var res = {}
+  const res = {}
   res.for = inMatch[2].trim()
-  var alias = inMatch[1].trim().replace(stripParensRE, '')
-  var iteratorMatch = alias.match(forIteratorRE)
+  const alias = inMatch[1].trim().replace(stripParensRE, '')
+  const iteratorMatch = alias.match(forIteratorRE)
   if (iteratorMatch) {
     res.alias = alias.replace(forIteratorRE, '').trim()
     res.iterator1 = iteratorMatch[1].trim()
@@ -3133,7 +3134,7 @@ function parseFor(exp) {
 }
 
 function processIf(el) {
-  var exp = getAndRemoveAttr(el, 'v-if')
+  const exp = getAndRemoveAttr(el, 'v-if')
   if (exp) {
     el.if = exp
     addIfCondition(el, {
@@ -3144,7 +3145,7 @@ function processIf(el) {
     if (getAndRemoveAttr(el, 'v-else') != null) {
       el.else = true
     }
-    var elseif = getAndRemoveAttr(el, 'v-else-if')
+    const elseif = getAndRemoveAttr(el, 'v-else-if')
     if (elseif) {
       el.elseif = elseif
     }
@@ -3152,7 +3153,7 @@ function processIf(el) {
 }
 
 function processIfConditions(el, parent) {
-  var prev = findPrevElement(parent.children)
+  const prev = findPrevElement(parent.children)
   if (prev && prev.if) {
     addIfCondition(prev, {
       exp: el.elseif,
@@ -3172,7 +3173,7 @@ function processIfConditions(el, parent) {
 }
 
 function findPrevElement(children) {
-  var i = children.length
+  let i = children.length
   while (i--) {
     if (children[i].type === 1) {
       return children[i]
@@ -3202,7 +3203,7 @@ function addIfCondition(el, condition) {
 }
 
 function processOnce(el) {
-  var once$$1 = getAndRemoveAttr(el, 'v-once')
+  const once$$1 = getAndRemoveAttr(el, 'v-once')
   if (once$$1 != null) {
     el.once = true
   }
@@ -3211,7 +3212,7 @@ function processOnce(el) {
 // handle content being passed to a component as slot,
 // e.g. <template slot="xxx">, <div slot-scope="xxx">
 function processSlotContent(el) {
-  var slotScope
+  let slotScope
   if (el.tag === 'template') {
     slotScope = getAndRemoveAttr(el, 'scope')
     /* istanbul ignore if */
@@ -3247,7 +3248,7 @@ function processSlotContent(el) {
   }
 
   // slot="xxx"
-  var slotTarget = getBindingAttr(el, 'slot')
+  const slotTarget = getBindingAttr(el, 'slot')
   if (slotTarget) {
     el.slotTarget =
       slotTarget === '""' ? '"default"' : slotTarget
@@ -3270,7 +3271,7 @@ function processSlotContent(el) {
   {
     if (el.tag === 'template') {
       // v-slot on <template>
-      var slotBinding = getAndRemoveAttrByRegex(el, slotRE)
+      const slotBinding = getAndRemoveAttrByRegex(el, slotRE)
       if (slotBinding) {
         if (process.env.NODE_ENV !== 'production') {
           if (el.slotTarget || el.slotScope) {
@@ -3287,16 +3288,16 @@ function processSlotContent(el) {
             )
           }
         }
-        var ref = getSlotName(slotBinding)
-        var name = ref.name
-        var dynamic = ref.dynamic
+        const ref = getSlotName(slotBinding)
+        const name = ref.name
+        const dynamic = ref.dynamic
         el.slotTarget = name
         el.slotTargetDynamic = dynamic
         el.slotScope = slotBinding.value || emptySlotScopeToken // force it into a scoped slot for perf
       }
     } else {
       // v-slot on component, denotes default slot
-      var slotBinding$1 = getAndRemoveAttrByRegex(el, slotRE)
+      const slotBinding$1 = getAndRemoveAttrByRegex(el, slotRE)
       if (slotBinding$1) {
         if (process.env.NODE_ENV !== 'production') {
           if (!maybeComponent(el)) {
@@ -3320,11 +3321,11 @@ function processSlotContent(el) {
           }
         }
         // add the component's children to its default slot
-        var slots = el.scopedSlots || (el.scopedSlots = {})
-        var ref$1 = getSlotName(slotBinding$1)
-        var name$1 = ref$1.name
-        var dynamic$1 = ref$1.dynamic
-        var slotContainer = (slots[name$1] = createASTElement(
+        const slots = el.scopedSlots || (el.scopedSlots = {})
+        const ref$1 = getSlotName(slotBinding$1)
+        const name$1 = ref$1.name
+        const dynamic$1 = ref$1.dynamic
+        const slotContainer = (slots[name$1] = createASTElement(
           'template',
           [],
           el,
@@ -3351,7 +3352,7 @@ function processSlotContent(el) {
 }
 
 function getSlotName(binding) {
-  var name = binding.name.replace(slotRE, '')
+  let name = binding.name.replace(slotRE, '')
   if (!name) {
     if (binding.name[0] !== '#') {
       name = 'default'
@@ -3385,7 +3386,7 @@ function processSlotOutlet(el) {
 }
 
 function processComponent(el) {
-  var binding
+  let binding
   if ((binding = getBindingAttr(el, 'is'))) {
     el.component = binding
   }
@@ -3395,8 +3396,8 @@ function processComponent(el) {
 }
 
 function processAttrs(el) {
-  var list = el.attrsList
-  var i, l, name, rawName, value, modifiers, syncGen, isDynamic
+  const list = el.attrsList
+  let i, l, name, rawName, value, modifiers, syncGen, isDynamic
   for (i = 0, l = list.length; i < l; i++) {
     name = rawName = list[i].name
     value = list[i].value
@@ -3505,8 +3506,8 @@ function processAttrs(el) {
         // normal directives
         name = name.replace(dirRE, '')
         // parse arg
-        var argMatch = name.match(argRE)
-        var arg = argMatch && argMatch[1]
+        const argMatch = name.match(argRE)
+        let arg = argMatch && argMatch[1]
         isDynamic = false
         if (arg) {
           name = name.slice(0, -(arg.length + 1))
@@ -3535,7 +3536,7 @@ function processAttrs(el) {
     } else {
       // literal attribute
       if (process.env.NODE_ENV !== 'production') {
-        var res = parseText(value, delimiters)
+        const res = parseText(value, delimiters)
         if (res) {
           warn$1(
             name +
@@ -3564,7 +3565,7 @@ function processAttrs(el) {
 }
 
 function checkInFor(el) {
-  var parent = el
+  let parent = el
   while (parent) {
     if (parent.for !== undefined) {
       return true
@@ -3575,9 +3576,9 @@ function checkInFor(el) {
 }
 
 function parseModifiers(name) {
-  var match = name.match(modifierRE)
+  const match = name.match(modifierRE)
   if (match) {
-    var ret = {}
+    const ret = {}
     match.forEach(function (m) {
       ret[m.slice(1)] = true
     })
@@ -3586,8 +3587,8 @@ function parseModifiers(name) {
 }
 
 function makeAttrsMap(attrs) {
-  var map = {}
-  for (var i = 0, l = attrs.length; i < l; i++) {
+  const map = {}
+  for (let i = 0, l = attrs.length; i < l; i++) {
     if (
       process.env.NODE_ENV !== 'production' &&
       map[attrs[i].name] &&
@@ -3615,14 +3616,14 @@ function isForbiddenTag(el) {
   )
 }
 
-var ieNSBug = /^xmlns:NS\d+/
-var ieNSPrefix = /^NS\d+:/
+const ieNSBug = /^xmlns:NS\d+/
+const ieNSPrefix = /^NS\d+:/
 
 /* istanbul ignore next */
 function guardIESVGBug(attrs) {
-  var res = []
-  for (var i = 0; i < attrs.length; i++) {
-    var attr = attrs[i]
+  const res = []
+  for (let i = 0; i < attrs.length; i++) {
+    const attr = attrs[i]
     if (!ieNSBug.test(attr.name)) {
       attr.name = attr.name.replace(ieNSPrefix, '')
       res.push(attr)
@@ -3632,7 +3633,7 @@ function guardIESVGBug(attrs) {
 }
 
 function checkForAliasModel(el, value) {
-  var _el = el
+  let _el = el
   while (_el) {
     if (_el.for && _el.alias === value) {
       warn$1(
@@ -3656,12 +3657,12 @@ function checkForAliasModel(el, value) {
 
 function preTransformNode(el, options) {
   if (el.tag === 'input') {
-    var map = el.attrsMap
+    const map = el.attrsMap
     if (!map['v-model']) {
       return
     }
 
-    var typeBinding
+    let typeBinding
     if (map[':type'] || map['v-bind:type']) {
       typeBinding = getBindingAttr(el, 'type')
     }
@@ -3670,18 +3671,19 @@ function preTransformNode(el, options) {
     }
 
     if (typeBinding) {
-      var ifCondition = getAndRemoveAttr(el, 'v-if', true)
-      var ifConditionExtra = ifCondition
+      const ifCondition = getAndRemoveAttr(el, 'v-if', true)
+      const ifConditionExtra = ifCondition
         ? '&&(' + ifCondition + ')'
         : ''
-      var hasElse = getAndRemoveAttr(el, 'v-else', true) != null
-      var elseIfCondition = getAndRemoveAttr(
+      const hasElse =
+        getAndRemoveAttr(el, 'v-else', true) != null
+      const elseIfCondition = getAndRemoveAttr(
         el,
         'v-else-if',
         true,
       )
       // 1. checkbox
-      var branch0 = cloneASTElement(el)
+      const branch0 = cloneASTElement(el)
       // process for on the main node
       processFor(branch0)
       addRawAttr(branch0, 'type', 'checkbox')
@@ -3694,7 +3696,7 @@ function preTransformNode(el, options) {
         block: branch0,
       })
       // 2. add radio else-if condition
-      var branch1 = cloneASTElement(el)
+      const branch1 = cloneASTElement(el)
       getAndRemoveAttr(branch1, 'v-for', true)
       addRawAttr(branch1, 'type', 'radio')
       processElement(branch1, options)
@@ -3704,7 +3706,7 @@ function preTransformNode(el, options) {
         block: branch1,
       })
       // 3. other
-      var branch2 = cloneASTElement(el)
+      const branch2 = cloneASTElement(el)
       getAndRemoveAttr(branch2, 'v-for', true)
       addRawAttr(branch2, ':type', typeBinding)
       processElement(branch2, options)
@@ -3732,26 +3734,26 @@ function cloneASTElement(el) {
   )
 }
 
-var model = {
+const model = {
   preTransformNode: preTransformNode,
 }
 
-var modules = [klass, style, model]
+const modules = [klass, style, model]
 
 /*  */
 
-var warn$2
+let warn$2
 
 // in some cases, the event used has to be determined at runtime
 // so we used some reserved tokens during compile.
-var RANGE_TOKEN = '__r'
+const RANGE_TOKEN = '__r'
 
 function model$1(el, dir, _warn) {
   warn$2 = _warn
-  var value = dir.value
-  var modifiers = dir.modifiers
-  var tag = el.tag
-  var type = el.attrsMap.type
+  const value = dir.value
+  const modifiers = dir.modifiers
+  const tag = el.tag
+  const type = el.attrsMap.type
 
   if (process.env.NODE_ENV !== 'production') {
     // inputs with type="file" are read only and setting the input's
@@ -3804,11 +3806,11 @@ function model$1(el, dir, _warn) {
 }
 
 function genCheckboxModel(el, value, modifiers) {
-  var number = modifiers && modifiers.number
-  var valueBinding = getBindingAttr(el, 'value') || 'null'
-  var trueValueBinding =
+  const number = modifiers && modifiers.number
+  const valueBinding = getBindingAttr(el, 'value') || 'null'
+  const trueValueBinding =
     getBindingAttr(el, 'true-value') || 'true'
-  var falseValueBinding =
+  const falseValueBinding =
     getBindingAttr(el, 'false-value') || 'false'
   addProp(
     el,
@@ -3860,8 +3862,8 @@ function genCheckboxModel(el, value, modifiers) {
 }
 
 function genRadioModel(el, value, modifiers) {
-  var number = modifiers && modifiers.number
-  var valueBinding = getBindingAttr(el, 'value') || 'null'
+  const number = modifiers && modifiers.number
+  let valueBinding = getBindingAttr(el, 'value') || 'null'
   valueBinding = number
     ? '_n(' + valueBinding + ')'
     : valueBinding
@@ -3880,8 +3882,8 @@ function genRadioModel(el, value, modifiers) {
 }
 
 function genSelect(el, value, modifiers) {
-  var number = modifiers && modifiers.number
-  var selectedVal =
+  const number = modifiers && modifiers.number
+  const selectedVal =
     'Array.prototype.filter' +
     '.call($event.target.options,function(o){return o.selected})' +
     '.map(function(o){var val = "_value" in o ? o._value : o.value;' +
@@ -3889,25 +3891,25 @@ function genSelect(el, value, modifiers) {
     (number ? '_n(val)' : 'val') +
     '})'
 
-  var assignment =
+  const assignment =
     '$event.target.multiple ? $$selectedVal : $$selectedVal[0]'
-  var code = 'var $$selectedVal = ' + selectedVal + ';'
+  let code = 'var $$selectedVal = ' + selectedVal + ';'
   code = code + ' ' + genAssignmentCode(value, assignment)
   addHandler(el, 'change', code, null, true)
 }
 
 function genDefaultModel(el, value, modifiers) {
-  var type = el.attrsMap.type
+  const type = el.attrsMap.type
 
   // warn if v-bind:value conflicts with v-model
   // except for inputs with v-bind:type
   if (process.env.NODE_ENV !== 'production') {
-    var value$1 =
+    const value$1 =
       el.attrsMap['v-bind:value'] || el.attrsMap[':value']
-    var typeBinding =
+    const typeBinding =
       el.attrsMap['v-bind:type'] || el.attrsMap[':type']
     if (value$1 && !typeBinding) {
-      var binding = el.attrsMap['v-bind:value']
+      const binding = el.attrsMap['v-bind:value']
         ? 'v-bind:value'
         : ':value'
       warn$2(
@@ -3921,18 +3923,18 @@ function genDefaultModel(el, value, modifiers) {
     }
   }
 
-  var ref = modifiers || {}
-  var lazy = ref.lazy
-  var number = ref.number
-  var trim = ref.trim
-  var needCompositionGuard = !lazy && type !== 'range'
-  var event = lazy
+  const ref = modifiers || {}
+  const lazy = ref.lazy
+  const number = ref.number
+  const trim = ref.trim
+  const needCompositionGuard = !lazy && type !== 'range'
+  const event = lazy
     ? 'change'
     : type === 'range'
     ? RANGE_TOKEN
     : 'input'
 
-  var valueExpression = '$event.target.value'
+  let valueExpression = '$event.target.value'
   if (trim) {
     valueExpression = '$event.target.value.trim()'
   }
@@ -3940,7 +3942,7 @@ function genDefaultModel(el, value, modifiers) {
     valueExpression = '_n(' + valueExpression + ')'
   }
 
-  var code = genAssignmentCode(value, valueExpression)
+  let code = genAssignmentCode(value, valueExpression)
   if (needCompositionGuard) {
     code = 'if($event.target.composing)return;' + code
   }
@@ -3968,7 +3970,7 @@ function html(el, dir) {
   }
 }
 
-var directives = {
+const directives = {
   model: model$1,
   text: text,
   html: html,
@@ -3976,7 +3978,7 @@ var directives = {
 
 /*  */
 
-var baseOptions = {
+const baseOptions = {
   expectHTML: true,
   modules: modules,
   directives: directives,
@@ -3991,10 +3993,10 @@ var baseOptions = {
 
 /*  */
 
-var isStaticKey
-var isPlatformReservedTag
+let isStaticKey
+let isPlatformReservedTag
 
-var genStaticKeysCached = cached(genStaticKeys$1)
+const genStaticKeysCached = cached(genStaticKeys$1)
 
 /**
  * Goal of the optimizer: walk the generated template AST tree
@@ -4039,8 +4041,8 @@ function markStatic(node) {
     ) {
       return
     }
-    for (var i = 0, l = node.children.length; i < l; i++) {
-      var child = node.children[i]
+    for (let i = 0, l = node.children.length; i < l; i++) {
+      const child = node.children[i]
       markStatic(child)
       if (!child.static) {
         node.static = false
@@ -4048,11 +4050,11 @@ function markStatic(node) {
     }
     if (node.ifConditions) {
       for (
-        var i$1 = 1, l$1 = node.ifConditions.length;
+        let i$1 = 1, l$1 = node.ifConditions.length;
         i$1 < l$1;
         i$1++
       ) {
-        var block = node.ifConditions[i$1].block
+        const block = node.ifConditions[i$1].block
         markStatic(block)
         if (!block.static) {
           node.static = false
@@ -4083,13 +4085,13 @@ function markStaticRoots(node, isInFor) {
       node.staticRoot = false
     }
     if (node.children) {
-      for (var i = 0, l = node.children.length; i < l; i++) {
+      for (let i = 0, l = node.children.length; i < l; i++) {
         markStaticRoots(node.children[i], isInFor || !!node.for)
       }
     }
     if (node.ifConditions) {
       for (
-        var i$1 = 1, l$1 = node.ifConditions.length;
+        let i$1 = 1, l$1 = node.ifConditions.length;
         i$1 < l$1;
         i$1++
       ) {
@@ -4135,12 +4137,12 @@ function isDirectChildOfTemplateFor(node) {
 
 /*  */
 
-var fnExpRE = /^([\w$_]+|\([^)]*?\))\s*=>|^function(?:\s+[\w$]+)?\s*\(/
-var fnInvokeRE = /\([^)]*?\);*$/
-var simplePathRE = /^[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\['[^']*?']|\["[^"]*?"]|\[\d+]|\[[A-Za-z_$][\w$]*])*$/
+const fnExpRE = /^([\w$_]+|\([^)]*?\))\s*=>|^function(?:\s+[\w$]+)?\s*\(/
+const fnInvokeRE = /\([^)]*?\);*$/
+const simplePathRE = /^[A-Za-z_$][\w$]*(?:\.[A-Za-z_$][\w$]*|\['[^']*?']|\["[^"]*?"]|\[\d+]|\[[A-Za-z_$][\w$]*])*$/
 
 // KeyboardEvent.keyCode aliases
-var keyCodes = {
+const keyCodes = {
   esc: 27,
   tab: 9,
   enter: 13,
@@ -4153,7 +4155,7 @@ var keyCodes = {
 }
 
 // KeyboardEvent.key aliases
-var keyNames = {
+const keyNames = {
   // #7880: IE11 and Edge use `Esc` for Escape key name.
   esc: ['Esc', 'Escape'],
   tab: 'Tab',
@@ -4172,11 +4174,11 @@ var keyNames = {
 // #4868: modifiers that prevent the execution of the listener
 // need to explicitly return null so that we can determine whether to remove
 // the listener for .once
-var genGuard = function (condition) {
+const genGuard = function (condition) {
   return 'if(' + condition + ')return null;'
 }
 
-var modifierCode = {
+const modifierCode = {
   stop: '$event.stopPropagation();',
   prevent: '$event.preventDefault();',
   self: genGuard('$event.target !== $event.currentTarget'),
@@ -4190,11 +4192,11 @@ var modifierCode = {
 }
 
 function genHandlers(events, isNative) {
-  var prefix = isNative ? 'nativeOn:' : 'on:'
-  var staticHandlers = ''
-  var dynamicHandlers = ''
-  for (var name in events) {
-    var handlerCode = genHandler(events[name])
+  const prefix = isNative ? 'nativeOn:' : 'on:'
+  let staticHandlers = ''
+  let dynamicHandlers = ''
+  for (const name in events) {
+    const handlerCode = genHandler(events[name])
     if (events[name] && events[name].dynamic) {
       dynamicHandlers += name + ',' + handlerCode + ','
     } else {
@@ -4233,9 +4235,9 @@ function genHandler(handler) {
     )
   }
 
-  var isMethodPath = simplePathRE.test(handler.value)
-  var isFunctionExpression = fnExpRE.test(handler.value)
-  var isFunctionInvocation = simplePathRE.test(
+  const isMethodPath = simplePathRE.test(handler.value)
+  const isFunctionExpression = fnExpRE.test(handler.value)
+  const isFunctionInvocation = simplePathRE.test(
     handler.value.replace(fnInvokeRE, ''),
   )
 
@@ -4251,10 +4253,10 @@ function genHandler(handler) {
       '}'
     ) // inline statement
   } else {
-    var code = ''
-    var genModifierCode = ''
-    var keys = []
-    for (var key in handler.modifiers) {
+    let code = ''
+    let genModifierCode = ''
+    const keys = []
+    for (const key in handler.modifiers) {
       if (modifierCode[key]) {
         genModifierCode += modifierCode[key]
         // left/right
@@ -4284,7 +4286,7 @@ function genHandler(handler) {
     if (genModifierCode) {
       code += genModifierCode
     }
-    var handlerCode = isMethodPath
+    const handlerCode = isMethodPath
       ? 'return ' + handler.value + '($event)'
       : isFunctionExpression
       ? 'return (' + handler.value + ')($event)'
@@ -4307,12 +4309,12 @@ function genKeyFilter(keys) {
 }
 
 function genFilterCode(key) {
-  var keyVal = parseInt(key, 10)
+  const keyVal = parseInt(key, 10)
   if (keyVal) {
     return '$event.keyCode!==' + keyVal
   }
-  var keyCode = keyCodes[key]
-  var keyName = keyNames[key]
+  const keyCode = keyCodes[key]
+  const keyName = keyNames[key]
   return (
     '_k($event.keyCode,' +
     JSON.stringify(key) +
@@ -4358,7 +4360,7 @@ function bind$1(el, dir) {
 
 /*  */
 
-var baseDirectives = {
+const baseDirectives = {
   on: on,
   bind: bind$1,
   cloak: noop,
@@ -4366,7 +4368,7 @@ var baseDirectives = {
 
 /*  */
 
-var CodegenState = function CodegenState(options) {
+const CodegenState = function CodegenState(options) {
   this.options = options
   this.warn = options.warn || baseWarn
   this.transforms = pluckModuleFunction(
@@ -4381,7 +4383,7 @@ var CodegenState = function CodegenState(options) {
     extend({}, baseDirectives),
     options.directives,
   )
-  var isReservedTag = options.isReservedTag || no
+  const isReservedTag = options.isReservedTag || no
   this.maybeComponent = function (el) {
     return !!el.component || !isReservedTag(el.tag)
   }
@@ -4391,8 +4393,8 @@ var CodegenState = function CodegenState(options) {
 }
 
 function generate(ast, options) {
-  var state = new CodegenState(options)
-  var code = ast ? genElement(ast, state) : '_c("div")'
+  const state = new CodegenState(options)
+  const code = ast ? genElement(ast, state) : '_c("div")'
   return {
     render: 'with(this){return ' + code + '}',
     staticRenderFns: state.staticRenderFns,
@@ -4422,16 +4424,16 @@ function genElement(el, state) {
     return genSlot(el, state)
   } else {
     // component or element
-    var code
+    let code
     if (el.component) {
       code = genComponent(el.component, el, state)
     } else {
-      var data
+      let data
       if (!el.plain || (el.pre && state.maybeComponent(el))) {
         data = genData$2(el, state)
       }
 
-      var children = el.inlineTemplate
+      const children = el.inlineTemplate
         ? null
         : genChildren(el, state, true)
       code =
@@ -4443,7 +4445,7 @@ function genElement(el, state) {
         ')'
     }
     // module transforms
-    for (var i = 0; i < state.transforms.length; i++) {
+    for (let i = 0; i < state.transforms.length; i++) {
       code = state.transforms[i](el, code)
     }
     return code
@@ -4456,7 +4458,7 @@ function genStatic(el, state) {
   // Some elements (templates) need to behave differently inside of a v-pre
   // node.  All pre nodes are static roots, so we can use this as a location to
   // wrap a state change and reset it upon exiting the pre node.
-  var originalPreState = state.pre
+  const originalPreState = state.pre
   if (el.pre) {
     state.pre = el.pre
   }
@@ -4478,8 +4480,8 @@ function genOnce(el, state) {
   if (el.if && !el.ifProcessed) {
     return genIf(el, state)
   } else if (el.staticInFor) {
-    var key = ''
-    var parent = el.parent
+    let key = ''
+    let parent = el.parent
     while (parent) {
       if (parent.for) {
         key = parent.key
@@ -4524,7 +4526,7 @@ function genIfConditions(conditions, state, altGen, altEmpty) {
     return altEmpty || '_e()'
   }
 
-  var condition = conditions.shift()
+  const condition = conditions.shift()
   if (condition.exp) {
     return (
       '(' +
@@ -4549,10 +4551,10 @@ function genIfConditions(conditions, state, altGen, altEmpty) {
 }
 
 function genFor(el, state, altGen, altHelper) {
-  var exp = el.for
-  var alias = el.alias
-  var iterator1 = el.iterator1 ? ',' + el.iterator1 : ''
-  var iterator2 = el.iterator2 ? ',' + el.iterator2 : ''
+  const exp = el.for
+  const alias = el.alias
+  const iterator1 = el.iterator1 ? ',' + el.iterator1 : ''
+  const iterator2 = el.iterator2 ? ',' + el.iterator2 : ''
 
   if (
     process.env.NODE_ENV !== 'production' &&
@@ -4594,11 +4596,11 @@ function genFor(el, state, altGen, altHelper) {
 }
 
 function genData$2(el, state) {
-  var data = '{'
+  let data = '{'
 
   // directives first.
   // directives may mutate the el's other properties before they are generated.
-  var dirs = genDirectives(el, state)
+  const dirs = genDirectives(el, state)
   if (dirs) {
     data += dirs + ','
   }
@@ -4623,7 +4625,7 @@ function genData$2(el, state) {
     data += 'tag:"' + el.tag + '",'
   }
   // module data generation functions
-  for (var i = 0; i < state.dataGenFns.length; i++) {
+  for (let i = 0; i < state.dataGenFns.length; i++) {
     data += state.dataGenFns[i](el)
   }
   // attributes
@@ -4663,7 +4665,7 @@ function genData$2(el, state) {
   }
   // inline-template
   if (el.inlineTemplate) {
-    var inlineTemplate = genInlineTemplate(el, state)
+    const inlineTemplate = genInlineTemplate(el, state)
     if (inlineTemplate) {
       data += inlineTemplate + ','
     }
@@ -4694,17 +4696,17 @@ function genData$2(el, state) {
 }
 
 function genDirectives(el, state) {
-  var dirs = el.directives
+  const dirs = el.directives
   if (!dirs) {
     return
   }
-  var res = 'directives:['
-  var hasRuntime = false
-  var i, l, dir, needRuntime
+  let res = 'directives:['
+  let hasRuntime = false
+  let i, l, dir, needRuntime
   for (i = 0, l = dirs.length; i < l; i++) {
     dir = dirs[i]
     needRuntime = true
-    var gen = state.directives[dir.name]
+    const gen = state.directives[dir.name]
     if (gen) {
       // compile-time directive that manipulates AST.
       // returns true if it also needs a runtime counterpart.
@@ -4740,7 +4742,7 @@ function genDirectives(el, state) {
 }
 
 function genInlineTemplate(el, state) {
-  var ast = el.children[0]
+  const ast = el.children[0]
   if (
     process.env.NODE_ENV !== 'production' &&
     (el.children.length !== 1 || ast.type !== 1)
@@ -4753,7 +4755,7 @@ function genInlineTemplate(el, state) {
     )
   }
   if (ast && ast.type === 1) {
-    var inlineRenderFns = generate(ast, state.options)
+    const inlineRenderFns = generate(ast, state.options)
     return (
       'inlineTemplate:{render:function(){' +
       inlineRenderFns.render +
@@ -4773,10 +4775,10 @@ function genScopedSlots(el, slots, state) {
   // components with only scoped slots to skip forced updates from parent.
   // but in some cases we have to bail-out of this optimization
   // for example if the slot contains dynamic names, has v-if or v-for on them...
-  var needsForceUpdate =
+  let needsForceUpdate =
     el.for ||
     Object.keys(slots).some(function (key) {
-      var slot = slots[key]
+      const slot = slots[key]
       return (
         slot.slotTargetDynamic ||
         slot.if ||
@@ -4789,7 +4791,7 @@ function genScopedSlots(el, slots, state) {
   // it's possible for the same component to be reused but with different
   // compiled slot content. To avoid that, we generate a unique key based on
   // the generated code of all the slot contents.
-  var needsKey = !!el.if
+  let needsKey = !!el.if
 
   // OR when it is inside another scoped slot or v-for (the reactivity may be
   // disconnected due to the intermediate scope variable)
@@ -4797,7 +4799,7 @@ function genScopedSlots(el, slots, state) {
   // TODO: this can be further optimized by properly analyzing in-scope bindings
   // and skip force updating ones that do not actually use scope variables.
   if (!needsForceUpdate) {
-    var parent = el.parent
+    let parent = el.parent
     while (parent) {
       if (
         (parent.slotScope &&
@@ -4814,7 +4816,7 @@ function genScopedSlots(el, slots, state) {
     }
   }
 
-  var generatedSlots = Object.keys(slots)
+  const generatedSlots = Object.keys(slots)
     .map(function (key) {
       return genScopedSlot(slots[key], state)
     })
@@ -4833,8 +4835,8 @@ function genScopedSlots(el, slots, state) {
 }
 
 function hash(str) {
-  var hash = 5381
-  var i = str.length
+  let hash = 5381
+  let i = str.length
   while (i) {
     hash = (hash * 33) ^ str.charCodeAt(--i)
   }
@@ -4852,18 +4854,18 @@ function containsSlotChild(el) {
 }
 
 function genScopedSlot(el, state) {
-  var isLegacySyntax = el.attrsMap['slot-scope']
+  const isLegacySyntax = el.attrsMap['slot-scope']
   if (el.if && !el.ifProcessed && !isLegacySyntax) {
     return genIf(el, state, genScopedSlot, 'null')
   }
   if (el.for && !el.forProcessed) {
     return genFor(el, state, genScopedSlot)
   }
-  var slotScope =
+  const slotScope =
     el.slotScope === emptySlotScopeToken
       ? ''
       : String(el.slotScope)
-  var fn =
+  const fn =
     'function(' +
     slotScope +
     '){' +
@@ -4879,7 +4881,7 @@ function genScopedSlot(el, state) {
       : genElement(el, state)) +
     '}'
   // reverse proxy v-slot without scope on this.$slots
-  var reverseProxy = slotScope ? '' : ',proxy:true'
+  const reverseProxy = slotScope ? '' : ',proxy:true'
   return (
     '{key:' +
     (el.slotTarget || '"default"') +
@@ -4897,9 +4899,9 @@ function genChildren(
   altGenElement,
   altGenNode,
 ) {
-  var children = el.children
+  const children = el.children
   if (children.length) {
-    var el$1 = children[0]
+    const el$1 = children[0]
     // optimize single v-for
     if (
       children.length === 1 &&
@@ -4907,7 +4909,7 @@ function genChildren(
       el$1.tag !== 'template' &&
       el$1.tag !== 'slot'
     ) {
-      var normalizationType = checkSkip
+      const normalizationType = checkSkip
         ? state.maybeComponent(el$1)
           ? ',1'
           : ',0'
@@ -4918,10 +4920,10 @@ function genChildren(
         normalizationType
       )
     }
-    var normalizationType$1 = checkSkip
+    const normalizationType$1 = checkSkip
       ? getNormalizationType(children, state.maybeComponent)
       : 0
-    var gen = altGenNode || genNode
+    const gen = altGenNode || genNode
     return (
       '[' +
       children
@@ -4940,9 +4942,9 @@ function genChildren(
 // 1: simple normalization needed (possible 1-level deep nested array)
 // 2: full normalization needed
 function getNormalizationType(children, maybeComponent) {
-  var res = 0
-  for (var i = 0; i < children.length; i++) {
-    var el = children[i]
+  let res = 0
+  for (let i = 0; i < children.length; i++) {
+    const el = children[i]
     if (el.type !== 1) {
       continue
     }
@@ -5002,10 +5004,10 @@ function genComment(comment) {
 }
 
 function genSlot(el, state) {
-  var slotName = el.slotName || '"default"'
-  var children = genChildren(el, state)
-  var res = '_t(' + slotName + (children ? ',' + children : '')
-  var attrs =
+  const slotName = el.slotName || '"default"'
+  const children = genChildren(el, state)
+  let res = '_t(' + slotName + (children ? ',' + children : '')
+  const attrs =
     el.attrs || el.dynamicAttrs
       ? genProps(
           (el.attrs || [])
@@ -5020,7 +5022,7 @@ function genSlot(el, state) {
             }),
         )
       : null
-  var bind$$1 = el.attrsMap['v-bind']
+  const bind$$1 = el.attrsMap['v-bind']
   if ((attrs || bind$$1) && !children) {
     res += ',null'
   }
@@ -5035,7 +5037,7 @@ function genSlot(el, state) {
 
 // componentName is el.component, take it as argument to shun flow's pessimistic refinement
 function genComponent(componentName, el, state) {
-  var children = el.inlineTemplate
+  const children = el.inlineTemplate
     ? null
     : genChildren(el, state, true)
   return (
@@ -5049,11 +5051,11 @@ function genComponent(componentName, el, state) {
 }
 
 function genProps(props) {
-  var staticProps = ''
-  var dynamicProps = ''
-  for (var i = 0; i < props.length; i++) {
-    var prop = props[i]
-    var value = transformSpecialNewlines(prop.value)
+  let staticProps = ''
+  let dynamicProps = ''
+  for (let i = 0; i < props.length; i++) {
+    const prop = props[i]
+    const value = transformSpecialNewlines(prop.value)
     if (prop.dynamic) {
       dynamicProps += prop.name + ',' + value + ','
     } else {
@@ -5085,7 +5087,7 @@ function transformSpecialNewlines(text) {
 
 // these keywords should not appear inside expressions, but operators like
 // typeof, instanceof and in are allowed
-var prohibitedKeywordRE = new RegExp(
+const prohibitedKeywordRE = new RegExp(
   '\\b' +
     (
       'do,if,for,let,new,try,var,case,else,with,await,break,catch,class,const,' +
@@ -5098,7 +5100,7 @@ var prohibitedKeywordRE = new RegExp(
 )
 
 // these unary operators should not be used as property/method names
-var unaryOperatorsRE = new RegExp(
+const unaryOperatorsRE = new RegExp(
   '\\b' +
     'delete,typeof,void'
       .split(',')
@@ -5107,7 +5109,7 @@ var unaryOperatorsRE = new RegExp(
 )
 
 // strip strings in expressions
-var stripStringRE = /'(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"|`(?:[^`\\]|\\.)*\$\{|\}(?:[^`\\]|\\.)*`|`(?:[^`\\]|\\.)*`/g
+const stripStringRE = /'(?:[^'\\]|\\.)*'|"(?:[^"\\]|\\.)*"|`(?:[^`\\]|\\.)*\$\{|\}(?:[^`\\]|\\.)*`|`(?:[^`\\]|\\.)*`/g
 
 // detect problematic expressions in a template
 function detectErrors(ast, warn) {
@@ -5118,11 +5120,11 @@ function detectErrors(ast, warn) {
 
 function checkNode(node, warn) {
   if (node.type === 1) {
-    for (var name in node.attrsMap) {
+    for (const name in node.attrsMap) {
       if (dirRE.test(name)) {
-        var value = node.attrsMap[name]
+        const value = node.attrsMap[name]
         if (value) {
-          var range = node.rawAttrsMap[name]
+          const range = node.rawAttrsMap[name]
           if (name === 'v-for') {
             checkFor(node, 'v-for="' + value + '"', warn, range)
           } else if (name === 'v-slot' || name[0] === '#') {
@@ -5151,7 +5153,7 @@ function checkNode(node, warn) {
       }
     }
     if (node.children) {
-      for (var i = 0; i < node.children.length; i++) {
+      for (let i = 0; i < node.children.length; i++) {
         checkNode(node.children[i], warn)
       }
     }
@@ -5161,8 +5163,8 @@ function checkNode(node, warn) {
 }
 
 function checkEvent(exp, text, warn, range) {
-  var stripped = exp.replace(stripStringRE, '')
-  var keywordMatch = stripped.match(unaryOperatorsRE)
+  const stripped = exp.replace(stripStringRE, '')
+  const keywordMatch = stripped.match(unaryOperatorsRE)
   if (
     keywordMatch &&
     stripped.charAt(keywordMatch.index - 1) !== '$'
@@ -5220,7 +5222,7 @@ function checkExpression(exp, text, warn, range) {
   try {
     new Function('return ' + exp)
   } catch (e) {
-    var keywordMatch = exp
+    const keywordMatch = exp
       .replace(stripStringRE, '')
       .match(prohibitedKeywordRE)
     if (keywordMatch) {
@@ -5275,20 +5277,20 @@ function checkFunctionParameterExpression(
 
 /*  */
 
-var range = 2
+const range = 2
 
 function generateCodeFrame(source, start, end) {
   if (start === void 0) start = 0
   if (end === void 0) end = source.length
 
-  var lines = source.split(/\r?\n/)
-  var count = 0
-  var res = []
-  for (var i = 0; i < lines.length; i++) {
+  const lines = source.split(/\r?\n/)
+  let count = 0
+  const res = []
+  for (let i = 0; i < lines.length; i++) {
     count += lines[i].length + 1
     if (count >= start) {
       for (
-        var j = i - range;
+        let j = i - range;
         j <= i + range || end > count;
         j++
       ) {
@@ -5302,11 +5304,11 @@ function generateCodeFrame(source, start, end) {
             '|  ' +
             lines[j],
         )
-        var lineLength = lines[j].length
+        const lineLength = lines[j].length
         if (j === i) {
           // push underline
-          var pad = start - (count - lineLength) + 1
-          var length =
+          const pad = start - (count - lineLength) + 1
+          const length =
             end > count ? lineLength - pad : end - start
           res.push(
             '   |  ' +
@@ -5315,7 +5317,7 @@ function generateCodeFrame(source, start, end) {
           )
         } else if (j > i) {
           if (end > count) {
-            var length$1 = Math.min(end - count, lineLength)
+            const length$1 = Math.min(end - count, lineLength)
             res.push('   |  ' + repeat$1('^', length$1))
           }
           count += lineLength + 1
@@ -5328,7 +5330,7 @@ function generateCodeFrame(source, start, end) {
 }
 
 function repeat$1(str, n) {
-  var result = ''
+  let result = ''
   if (n > 0) {
     while (true) {
       // eslint-disable-line
@@ -5357,11 +5359,11 @@ function createFunction(code, errors) {
 }
 
 function createCompileToFunctionFn(compile) {
-  var cache = Object.create(null)
+  const cache = Object.create(null)
 
   return function compileToFunctions(template, options, vm) {
     options = extend({}, options)
-    var warn$$1 = options.warn || warn
+    const warn$$1 = options.warn || warn
     delete options.warn
 
     /* istanbul ignore if */
@@ -5383,7 +5385,7 @@ function createCompileToFunctionFn(compile) {
     }
 
     // check cache
-    var key = options.delimiters
+    const key = options.delimiters
       ? String(options.delimiters) + template
       : template
     if (cache[key]) {
@@ -5391,7 +5393,7 @@ function createCompileToFunctionFn(compile) {
     }
 
     // compile
-    var compiled = compile(template, options)
+    const compiled = compile(template, options)
 
     // check compilation errors/tips
     if (process.env.NODE_ENV !== 'production') {
@@ -5435,8 +5437,8 @@ function createCompileToFunctionFn(compile) {
     }
 
     // turn code into functions
-    var res = {}
-    var fnGenErrors = []
+    const res = {}
+    const fnGenErrors = []
     res.render = createFunction(compiled.render, fnGenErrors)
     res.staticRenderFns = compiled.staticRenderFns.map(function (
       code,
@@ -5457,8 +5459,8 @@ function createCompileToFunctionFn(compile) {
           'Failed to generate render function:\n\n' +
             fnGenErrors
               .map(function (ref) {
-                var err = ref.err
-                var code = ref.code
+                const err = ref.err
+                const code = ref.code
 
                 return err.toString() + ' in\n\n' + code + '\n'
               })
@@ -5477,11 +5479,11 @@ function createCompileToFunctionFn(compile) {
 function createCompilerCreator(baseCompile) {
   return function createCompiler(baseOptions) {
     function compile(template, options) {
-      var finalOptions = Object.create(baseOptions)
-      var errors = []
-      var tips = []
+      const finalOptions = Object.create(baseOptions)
+      const errors = []
+      const tips = []
 
-      var warn = function (msg, range, tip) {
+      let warn = function (msg, range, tip) {
         ;(tip ? tips : errors).push(msg)
       }
 
@@ -5491,11 +5493,11 @@ function createCompilerCreator(baseCompile) {
           options.outputSourceRange
         ) {
           // $flow-disable-line
-          var leadingSpaceLength = template.match(/^\s*/)[0]
+          const leadingSpaceLength = template.match(/^\s*/)[0]
             .length
 
           warn = function (msg, range, tip) {
-            var data = {msg: msg}
+            const data = {msg: msg}
             if (range) {
               if (range.start != null) {
                 data.start = range.start + leadingSpaceLength
@@ -5521,7 +5523,7 @@ function createCompilerCreator(baseCompile) {
           )
         }
         // copy other options
-        for (var key in options) {
+        for (const key in options) {
           if (key !== 'modules' && key !== 'directives') {
             finalOptions[key] = options[key]
           }
@@ -5530,7 +5532,7 @@ function createCompilerCreator(baseCompile) {
 
       finalOptions.warn = warn
 
-      var compiled = baseCompile(template.trim(), finalOptions)
+      const compiled = baseCompile(template.trim(), finalOptions)
       if (process.env.NODE_ENV !== 'production') {
         detectErrors(compiled.ast, warn)
       }
@@ -5551,31 +5553,30 @@ function createCompilerCreator(baseCompile) {
 // `createCompilerCreator` allows creating compilers that use alternative
 // parser/optimizer/codegen, e.g the SSR optimizing compiler.
 // Here we just export a default compiler using the default parts.
-var createCompiler = createCompilerCreator(function baseCompile(
-  template,
-  options,
-) {
-  var ast = parse(template.trim(), options)
-  if (options.optimize !== false) {
-    optimize(ast, options)
-  }
-  var code = generate(ast, options)
-  return {
-    ast: ast,
-    render: code.render,
-    staticRenderFns: code.staticRenderFns,
-  }
-})
+const createCompiler = createCompilerCreator(
+  function baseCompile(template, options) {
+    const ast = parse(template.trim(), options)
+    if (options.optimize !== false) {
+      optimize(ast, options)
+    }
+    const code = generate(ast, options)
+    return {
+      ast: ast,
+      render: code.render,
+      staticRenderFns: code.staticRenderFns,
+    }
+  },
+)
 
 /*  */
 
-var ref = createCompiler(baseOptions)
-var compile = ref.compile
-var compileToFunctions = ref.compileToFunctions
+const ref = createCompiler(baseOptions)
+const compile = ref.compile
+const compileToFunctions = ref.compileToFunctions
 
 /*  */
 
-var isAttr = makeMap(
+const isAttr = makeMap(
   'accept,accept-charset,accesskey,action,align,alt,async,autocomplete,' +
     'autofocus,autoplay,autosave,bgcolor,border,buffered,challenge,charset,' +
     'checked,cite,class,code,codebase,color,cols,colspan,content,http-equiv,' +
@@ -5592,7 +5593,7 @@ var isAttr = makeMap(
 )
 
 /* istanbul ignore next */
-var isRenderableAttr = function (name) {
+const isRenderableAttr = function (name) {
   return (
     isAttr(name) ||
     name.indexOf('data-') === 0 ||
@@ -5600,14 +5601,14 @@ var isRenderableAttr = function (name) {
   )
 }
 
-var propsToAttrMap = {
+const propsToAttrMap = {
   acceptCharset: 'accept-charset',
   className: 'class',
   htmlFor: 'for',
   httpEquiv: 'http-equiv',
 }
 
-var ESC = {
+const ESC = {
   '<': '&lt;',
   '>': '&gt;',
   '"': '&quot;',
@@ -5624,14 +5625,14 @@ function escapeChar(a) {
 
 /*  */
 
-var plainStringRE = /^"(?:[^"\\]|\\.)*"$|^'(?:[^'\\]|\\.)*'$/
+const plainStringRE = /^"(?:[^"\\]|\\.)*"$|^'(?:[^'\\]|\\.)*'$/
 
 // let the model AST transform translate v-model into appropriate
 // props bindings
 function applyModelTransform(el, state) {
   if (el.directives) {
-    for (var i = 0; i < el.directives.length; i++) {
-      var dir = el.directives[i]
+    for (let i = 0; i < el.directives.length; i++) {
+      const dir = el.directives[i]
       if (dir.name === 'model') {
         state.directives.model(el, dir, state.warn)
         // remove value for textarea as its converted to text
@@ -5648,18 +5649,18 @@ function applyModelTransform(el, state) {
 
 function genAttrSegments(attrs) {
   return attrs.map(function (ref) {
-    var name = ref.name
-    var value = ref.value
+    const name = ref.name
+    const value = ref.value
 
     return genAttrSegment(name, value)
   })
 }
 
 function genDOMPropSegments(props, attrs) {
-  var segments = []
+  const segments = []
   props.forEach(function (ref) {
-    var name = ref.name
-    var value = ref.value
+    let name = ref.name
+    const value = ref.value
 
     name = propsToAttrMap[name] || name.toLowerCase()
     if (
@@ -5762,7 +5763,7 @@ function genStyleSegments(
 /*  */
 
 // optimizability constants
-var optimizability = {
+const optimizability = {
   FALSE: 0, // whole sub tree un-optimizable
   FULL: 1, // whole sub tree optimizable
   SELF: 2, // self optimizable but has some un-optimizable children
@@ -5770,7 +5771,7 @@ var optimizability = {
   PARTIAL: 4, // self un-optimizable with some un-optimizable children
 }
 
-var isPlatformReservedTag$1
+let isPlatformReservedTag$1
 
 function optimize$1(root, options) {
   if (!root) {
@@ -5786,8 +5787,8 @@ function walk(node, isRoot) {
     return
   }
   // root node or nodes with custom directives should always be a VNode
-  var selfUnoptimizable = isRoot || hasCustomDirective(node)
-  var check = function (child) {
+  const selfUnoptimizable = isRoot || hasCustomDirective(node)
+  const check = function (child) {
     if (child.ssrOptimizability !== optimizability.FULL) {
       node.ssrOptimizability = selfUnoptimizable
         ? optimizability.PARTIAL
@@ -5798,18 +5799,18 @@ function walk(node, isRoot) {
     node.ssrOptimizability = optimizability.CHILDREN
   }
   if (node.type === 1) {
-    for (var i = 0, l = node.children.length; i < l; i++) {
-      var child = node.children[i]
+    for (let i = 0, l = node.children.length; i < l; i++) {
+      const child = node.children[i]
       walk(child)
       check(child)
     }
     if (node.ifConditions) {
       for (
-        var i$1 = 1, l$1 = node.ifConditions.length;
+        let i$1 = 1, l$1 = node.ifConditions.length;
         i$1 < l$1;
         i$1++
       ) {
-        var block = node.ifConditions[i$1].block
+        const block = node.ifConditions[i$1].block
         walk(block, isRoot)
         check(block)
       }
@@ -5829,11 +5830,11 @@ function walk(node, isRoot) {
 }
 
 function optimizeSiblings(el) {
-  var children = el.children
-  var optimizedChildren = []
+  const children = el.children
+  const optimizedChildren = []
 
-  var currentOptimizableGroup = []
-  var pushGroup = function () {
+  let currentOptimizableGroup = []
+  const pushGroup = function () {
     if (currentOptimizableGroup.length) {
       optimizedChildren.push({
         type: 1,
@@ -5849,8 +5850,8 @@ function optimizeSiblings(el) {
     currentOptimizableGroup = []
   }
 
-  for (var i = 0; i < children.length; i++) {
-    var c = children[i]
+  for (let i = 0; i < children.length; i++) {
+    const c = children[i]
     if (c.ssrOptimizability === optimizability.FULL) {
       currentOptimizableGroup.push(c)
     } else {
@@ -5877,7 +5878,7 @@ function isUnOptimizableTree(node) {
   )
 }
 
-var isBuiltInDir = makeMap(
+const isBuiltInDir = makeMap(
   'text,html,show,on,bind,model,pre,cloak,once',
 )
 
@@ -5908,12 +5909,12 @@ function isSelectWithModel(node) {
 
 // segment types
 var RAW = 0
-var INTERPOLATION = 1
+const INTERPOLATION = 1
 var EXPRESSION = 2
 
 function generate$1(ast, options) {
-  var state = new CodegenState(options)
-  var code = ast ? genSSRElement(ast, state) : '_c("div")'
+  const state = new CodegenState(options)
+  const code = ast ? genSSRElement(ast, state) : '_c("div")'
   return {
     render: 'with(this){return ' + code + '}',
     staticRenderFns: state.staticRenderFns,
@@ -5951,8 +5952,8 @@ function genSSRElement(el, state) {
 }
 
 function genNormalElement(el, state, stringifyChildren) {
-  var data = el.plain ? undefined : genData$2(el, state)
-  var children = stringifyChildren
+  const data = el.plain ? undefined : genData$2(el, state)
+  const children = stringifyChildren
     ? '[' + genChildrenAsStringNode(el, state) + ']'
     : genSSRChildren(el, state, true)
   return (
@@ -5992,7 +5993,7 @@ function genStringElement(el, state) {
 }
 
 function genStringElementWithChildren(el, state) {
-  var children = genSSRChildren(el, state, true)
+  const children = genSSRChildren(el, state, true)
   return (
     '_ssrNode(' +
     flattenSegments(elementToOpenTagSegments(el, state)) +
@@ -6032,11 +6033,11 @@ function elementToSegments(el, state) {
     return childrenToSegments(el, state)
   }
 
-  var openSegments = elementToOpenTagSegments(el, state)
-  var childrenSegments = childrenToSegments(el, state)
-  var ref = state.options
-  var isUnaryTag = ref.isUnaryTag
-  var close =
+  const openSegments = elementToOpenTagSegments(el, state)
+  const childrenSegments = childrenToSegments(el, state)
+  const ref = state.options
+  const isUnaryTag = ref.isUnaryTag
+  const close =
     isUnaryTag && isUnaryTag(el.tag)
       ? []
       : [{type: RAW, value: '</' + el.tag + '>'}]
@@ -6045,8 +6046,8 @@ function elementToSegments(el, state) {
 
 function elementToOpenTagSegments(el, state) {
   applyModelTransform(el, state)
-  var binding
-  var segments = [{type: RAW, value: '<' + el.tag}]
+  let binding
+  const segments = [{type: RAW, value: '<' + el.tag}]
   // attrs
   if (el.attrs) {
     segments.push.apply(segments, genAttrSegments(el.attrs))
@@ -6107,7 +6108,7 @@ function elementToOpenTagSegments(el, state) {
 }
 
 function childrenToSegments(el, state) {
-  var binding
+  let binding
   if ((binding = el.attrsMap['v-html'])) {
     return [{type: EXPRESSION, value: '_s(' + binding + ')'}]
   }
@@ -6124,15 +6125,15 @@ function childrenToSegments(el, state) {
 }
 
 function nodesToSegments(children, state) {
-  var segments = []
-  for (var i = 0; i < children.length; i++) {
-    var c = children[i]
+  const segments = []
+  for (let i = 0; i < children.length; i++) {
+    const c = children[i]
     if (c.type === 1) {
       segments.push.apply(segments, elementToSegments(c, state))
     } else if (c.type === 2) {
       segments.push({type: INTERPOLATION, value: c.expression})
     } else if (c.type === 3) {
-      var text = escape(c.text)
+      let text = escape(c.text)
       if (c.isComment) {
         text = '<!--' + text + '-->'
       }
@@ -6143,18 +6144,18 @@ function nodesToSegments(children, state) {
 }
 
 function flattenSegments(segments) {
-  var mergedSegments = []
-  var textBuffer = ''
+  const mergedSegments = []
+  let textBuffer = ''
 
-  var pushBuffer = function () {
+  const pushBuffer = function () {
     if (textBuffer) {
       mergedSegments.push(JSON.stringify(textBuffer))
       textBuffer = ''
     }
   }
 
-  for (var i = 0; i < segments.length; i++) {
-    var s = segments[i]
+  for (let i = 0; i < segments.length; i++) {
+    const s = segments[i]
     if (s.type === RAW) {
       textBuffer += s.value
     } else if (s.type === INTERPOLATION) {
@@ -6172,11 +6173,11 @@ function flattenSegments(segments) {
 
 /*  */
 
-var createCompiler$1 = createCompilerCreator(
+const createCompiler$1 = createCompilerCreator(
   function baseCompile(template, options) {
-    var ast = parse(template.trim(), options)
+    const ast = parse(template.trim(), options)
     optimize$1(ast, options)
-    var code = generate$1(ast, options)
+    const code = generate$1(ast, options)
     return {
       ast: ast,
       render: code.render,
@@ -6187,9 +6188,9 @@ var createCompiler$1 = createCompilerCreator(
 
 /*  */
 
-var ref$1 = createCompiler$1(baseOptions)
-var compile$1 = ref$1.compile
-var compileToFunctions$1 = ref$1.compileToFunctions
+const ref$1 = createCompiler$1(baseOptions)
+const compile$1 = ref$1.compile
+const compileToFunctions$1 = ref$1.compileToFunctions
 
 /*  */
 

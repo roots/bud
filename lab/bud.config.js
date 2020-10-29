@@ -8,6 +8,7 @@ bud.extensions
   .use('@roots/bud-tailwindcss')
   .use('@roots/bud-purgecss')
   .use('@roots/bud-wordpress-manifests')
+  .use('@roots/bud-vue')
   .next()
 
   .template()

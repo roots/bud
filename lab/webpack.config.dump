@@ -1,11 +1,6 @@
 module.exports = () => ({
-  entry: {
-    bar: [
-      '/Users/kellymears/code/projects/cli/bud/bud/node_modules/webpack-hot-middleware/client.js?path=/__webpack_hmr&timeout=2000',
-      'bar.js'
-    ]
-  },
-  mode: 'development',
+  entry: { bar: [ 'bar.js' ] },
+  mode: 'production',
   node: {
     module: 'empty',
     dns: 'mock',
@@ -47,9 +42,10 @@ module.exports = () => ({
             exclude: /(node_modules|bower_components)/,
             test: /\.css$/,
             use: [
+              '/Users/kellymears/code/projects/cli/bud/bud/node_modules/vue-style-loader/index.js',
               {
-                ident: 'style',
-                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/style-loader/dist/cjs.js'
+                ident: 'minicss',
+                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/mini-css-extract-plugin/dist/loader.js'
               },
               {
                 ident: 'css',
@@ -148,9 +144,10 @@ module.exports = () => ({
             exclude: /(node_modules|bower_components)/,
             test: /\.(scss|sass)$/,
             use: [
+              '/Users/kellymears/code/projects/cli/bud/bud/node_modules/vue-style-loader/index.js',
               {
-                ident: 'style',
-                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/style-loader/dist/cjs.js'
+                ident: 'minicss',
+                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/mini-css-extract-plugin/dist/loader.js'
               },
               {
                 ident: 'css',
@@ -198,6 +195,14 @@ module.exports = () => ({
             ]
           }
         ]
+      },
+      {
+        test: /\.vue$/,
+        use: [
+          {
+            loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/vue-loader/lib/index.js'
+          }
+        ]
       }
     ],
     unknownContextRequest: '.',
@@ -208,7 +213,6 @@ module.exports = () => ({
     exprContextCritical: true,
     wrappedContextRegExp: /.*/,
     wrappedContextRecursive: true,
-    unsafeCache: true,
     defaultRules: [
       { type: 'javascript/auto' },
       {
@@ -231,7 +235,6 @@ module.exports = () => ({
     chunkCallbackName: 'webpackChunk',
     globalObject: 'window',
     libraryTarget: 'var',
-    pathinfo: true,
     sourceMapFilename: '[file].map[query]',
     hotUpdateChunkFilename: '[id].[hash].hot-update.js',
     hotUpdateMainFilename: '[hash].hot-update.json',
@@ -247,6 +250,17 @@ module.exports = () => ({
       cleanOnceBeforeBuildPatterns: [ '**/*' ],
       outputPath: '/Users/kellymears/code/projects/cli/bud/bud/lab/dist'
     },
+    {
+      options: {
+        test: /\.(js|css|html|svg)$/,
+        cache: true,
+        algorithm: 'gzip',
+        compressionOptions: { level: 11 },
+        filename: '[path].gz[query]',
+        threshold: 10240,
+        minRatio: 0.7
+      }
+    },
     { ignorePatterns: [ /\.*\.css.?\.js/, /^\.\/locale$/, /moment$/ ] },
     {
       outputPath: '/Users/kellymears/code/projects/cli/bud/bud/lab',
@@ -261,7 +275,6 @@ module.exports = () => ({
         }
       }
     },
-    { fullBuildTimeout: 200, requestTimeout: 10000 },
     {
       options: {
         template: '/Users/kellymears/code/projects/cli/bud/bud/packages/support/publish/template.html',
@@ -282,7 +295,7 @@ module.exports = () => ({
     },
     {
       replacements: {
-        repository: "<<Circular reference to 'config.plugins.[3].definitions.repository'>>"
+        repository: "<<Circular reference to 'config.plugins.[4].definitions.repository'>>"
       }
     },
     {
@@ -291,6 +304,22 @@ module.exports = () => ({
         fileName: 'manifest.json',
         transformExtensions: /^(gz|map)$/i,
         writeToFileEmit: true
+      }
+    },
+    {
+      options: { filename: '[name].css', chunkFilename: '[name].css' }
+    },
+    {
+      options: {
+        test: /\.m?js(\?.*)?$/i,
+        cache: true,
+        parallel: true,
+        terserOptions: {
+          output: { ecma: 5, ascii_only: true },
+          parse: { ecma: 8 },
+          compress: { ecma: 5, inline: 2 },
+          mangle: { safari10: true }
+        }
       }
     },
     {
@@ -311,11 +340,12 @@ module.exports = () => ({
     { plugin: { name: 'MergedManifestPlugin' } }
   ],
   resolve: {
-    extensions: [ 'scss', '.mjs', '.js', '.json', '.css' ],
+    alias: { 'vue$': 'vue/dist/vue.esm.js' },
+    extensions: [ 'vue', '.mjs', '.js', '.json', '.css' ],
     modules: [
       '/Users/kellymears/code/projects/cli/bud/bud/lab/src',
-      '/Users/kellymears/code/projects/cli/bud/bud/packages/framework',
-      '/Users/kellymears/code/projects/cli/bud/bud/packages/node_modules',
+      '/Users/kellymears/code/projects/cli/bud/bud/packages',
+      '/Users/kellymears/code/projects/cli/bud/bud/node_modules',
       'node_modules'
     ],
     unsafeCache: true,
@@ -333,24 +363,31 @@ module.exports = () => ({
           priority: -10
         }
       },
+      hidePathInfo: true,
       chunks: 'async',
-      minSize: 10000,
+      minSize: 30000,
       minChunks: 1,
-      maxAsyncRequests: Infinity,
+      maxAsyncRequests: 5,
       automaticNameDelimiter: '~',
       automaticNameMaxLength: 109,
-      maxInitialRequests: Infinity,
+      maxInitialRequests: 3,
       name: true
     },
+    minimize: true,
     moduleIds: 'hashed',
     removeEmptyChunks: true,
     mergeDuplicateChunks: true,
+    flagIncludedChunks: true,
+    occurrenceOrder: true,
+    sideEffects: true,
     providedExports: true,
-    namedModules: true,
-    namedChunks: true,
-    nodeEnv: 'development'
+    usedExports: true,
+    concatenateModules: true,
+    noEmitOnErrors: true,
+    checkWasmTypes: true,
+    nodeEnv: 'production'
   },
-  cache: true,
+  performance: { maxAssetSize: 250000, maxEntrypointSize: 250000, hints: 'warning' },
   resolveLoader: {
     unsafeCache: true,
     mainFields: [ 'loader', 'main' ],

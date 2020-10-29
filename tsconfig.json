@@ -39,11 +39,10 @@
     {"@roots/bud-server": "server"},
     {"@roots/bud-support": "support"},
     {"@roots/bud-typings": "typings"},
-    {"@roots/bud-purgecss": "extensions/purgecss"},
-    {"@roots/bud-sage": "extensions/sage"},
+    {"@roots/bud-purgecss": "extension-purgecss"},
     {"@roots/bud-stylelint": "extensions/stylelint"},
     {"@roots/bud-tailwindcss": "extension-tailwindcss"},
-    {"@roots/bud-vue": "extensions/vue"},
+    {"@roots/bud-vue": "extension-vue"},
     {"@roots/entrypoints-webpack-plugin": "webpack-entrypoints-plugin"}
   ],
   "files": [],

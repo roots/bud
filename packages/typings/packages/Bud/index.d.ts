@@ -69,12 +69,6 @@ declare class Bud {
   public hooks: Framework.Hooks
 
   /**
-   * Allows for multiple instances of Bud
-   * (multi-compiler mode)
-   */
-  public instances: Framework.Index<Framework.Bud>
-
-  /**
    * Logger
    */
   public logger: Framework.Logger

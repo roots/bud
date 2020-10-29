@@ -7,8 +7,14 @@ export default function (
     .reduce(
       (
         rules: Webpack.RuleSetRule[],
-        [, rule]: [string, Framework.Rule],
-      ): Webpack.RuleSetRule[] => [...rules, rule.make()],
+        [label, rule]: [string, Framework.Rule],
+      ): Webpack.RuleSetRule[] => [
+        ...rules,
+        this.hooks.filter(
+          `webpack.module.rules.oneOf.${label}`,
+          rule.make(),
+        ),
+      ],
       [],
     )
     .filter(

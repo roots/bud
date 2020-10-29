@@ -5,7 +5,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
-    "directory": "packages/bud-vue"
+    "directory": "packages/extension-vue"
   },
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
@@ -38,7 +38,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@roots/bud-support": "file:../../support",
+    "@roots/bud-support": "2.0.0-next.24",
     "babel-helper-vue-jsx-merge-props": "^2.0.0",
     "babel-plugin-transform-vue-jsx": "^3.7.0",
     "css-loader": "^3.6.0",
@@ -50,6 +50,6 @@
   },
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5",
   "devDependencies": {
-    "@roots/bud-types": "file:../../types"
+    "@roots/bud-typings": "2.0.0-next.24"
   }
 }
