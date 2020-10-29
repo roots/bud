@@ -42,6 +42,7 @@
       "packages/extension-sass",
       "packages/extension-stylelint",
       "packages/extension-tailwindcss",
+      "packages/extension-typescript",
       "packages/extension-vue",
       "packages/plugin-manifests",
       "packages/webpack-entrypoints-plugin",

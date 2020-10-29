@@ -97,10 +97,10 @@ declare class Bud {
    */
   public constructor (
     params?: {
-      api?: Framework.Index<[string, CallableFunction]>
-      builders?: any
-      containers?: Framework.Index<Framework.Index<any>>
-      services?: any
+      api?: Framework.Index<[string, CallableFunction]>,
+      builders?: any,
+      containers?: Framework.Index<Framework.Index<any>>,
+      services?: any,
     },
   )
 
@@ -158,6 +158,6 @@ export interface Services {
     [key: string]: [
       service: NewableFunction,
       dependenies?: Framework.Index<any>,
-    ]
-  }
+    ],
+  },
 }

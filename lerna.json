@@ -21,6 +21,7 @@
     "packages/extension-sass",
     "packages/extension-stylelint",
     "packages/extension-tailwindcss",
+    "packages/extension-typescript",
     "packages/plugin-manifests",
     "packages/webpack-entrypoints-plugin",
     "packages/webpack-merged-manifest-plugin",

@@ -52,7 +52,7 @@ export class Build implements Framework.Build {
     return this.loaders[name]
   }
 
-  public getItem(name: string): Framework.Item.Product {
+  public getItem(name: string): Framework.Build.RuleSetLoader {
     return this.items[name].make()
   }
 

@@ -20,7 +20,8 @@ export const boot = (instance: Framework.Bud): void => {
   /**
    * React babel preset
    */
-  Object.assign(instance.build.items['babel'].options, {
+  instance.build.items['babel'].setOptions({
+    ...options,
     presets: [
       ...options.presets,
       [require.resolve('@babel/preset-react')],

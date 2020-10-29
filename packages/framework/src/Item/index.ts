@@ -152,9 +152,9 @@ export class Item implements Framework.Item {
       )
 
     // Then, reduce the set, tapping callables in translation
-    const product: Framework.Item.Product = valid.reduce(
+    const product: Framework.Build.RuleSetLoader = valid.reduce(
       (
-        fields: Framework.Item.Product,
+        fields: Framework.Build.RuleSetLoader,
         [property, [value, param]]: [
           string,
           [
@@ -164,7 +164,7 @@ export class Item implements Framework.Item {
             unknown,
           ],
         ],
-      ): Framework.Item.Product => {
+      ): Framework.Build.RuleSetLoader => {
         /**
          * A property value can be calculated
          * in a couple different ways.

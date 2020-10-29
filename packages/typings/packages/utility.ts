@@ -19,10 +19,7 @@ export namespace Service {
   export type Dependency = [string, unknown]
   export type Dependencies = Array<Dependency> | Dependency
 
-  export type Tuple = [
-    service: Constructor<any>,
-    deps?: Dependencies,
-  ]
+  export type Tuple = [Constructor<any>, Dependencies]
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars

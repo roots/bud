@@ -63,7 +63,7 @@ export declare class Build {
   /**
    * Ge an item by key.
    */
-  public getItem(name: string): Item.Product
+  public getItem(name: string): Build.RuleSetLoader
 
   /**
    * Add or override an item by key.
@@ -242,4 +242,23 @@ export namespace Build {
     | Build.Plugins
     | Build.Output
     | Build.General
+
+  export type RuleSetLoader = {
+      /**
+       * Loader name
+       */
+      loader?: string;
+      /**
+       * Loader options
+       */
+      options?: Framework.Index<any>;
+      /**
+       * Unique loader identifier
+       */
+      ident?: string;
+      /**
+       * Loader query
+       */
+      query?: Webpack.RuleSetQuery;
+  }
 }

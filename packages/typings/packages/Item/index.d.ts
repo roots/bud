@@ -1,4 +1,5 @@
 import type Webpack from 'webpack'
+import { Build } from '../Build'
 
 export {Item}
 
@@ -38,7 +39,7 @@ declare class Item {
 
   setQuery: Item.Setter<Item.Module.Query>
 
-  make: Item.Yield<Item.Product>
+  make: () => Framework.Build.RuleSetLoader
 }
 
 declare namespace Item {
@@ -49,9 +50,7 @@ declare namespace Item {
   export type Product = {
     ident?: MaybeCallable<string>,
     loader?: MaybeCallable<string>,
-    options?:
-      | MaybeCallable<any>
-      | any,
+    options?: MaybeCallable<Build.RuleSetLoader['options']>
     query?: MaybeCallable<Module.Query>,
   }
 
@@ -71,7 +70,7 @@ declare namespace Item {
   export namespace Module {
     export type Ident = MaybeCallable<string>
     export type Loader = MaybeCallable<string>
-    export type Options = any
+    export type Options = MaybeCallable<Build.RuleSetLoader['options']>
     export type Query = MaybeCallable<Webpack.RuleSetQuery>
   }
 
@@ -82,7 +81,6 @@ declare namespace Item {
     | Webpack.RuleSetLoader['query']
 
   export type Untapped = MaybeCallable<Property>
-
 
   export type PropertyTuple = [string, MaybeCallable<Property>]
 
