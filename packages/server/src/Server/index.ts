@@ -92,7 +92,7 @@ export class Server {
     )
 
     this.bud.features.enabled('proxy') &&
-      this.addProxyMiddleware()
+      this.instance.use(middleware.proxy(this.config))
 
     this.listen()
 

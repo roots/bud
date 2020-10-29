@@ -1,8 +1,7 @@
-import {lodash as _} from '@roots/bud-support'
-
 import type {FileContainer} from '@roots/filesystem'
 import {Indexed as Container} from '@roots/container'
 
+import webpack from 'webpack'
 import logger from './util/logger'
 import format from './util/format'
 import pretty from './util/pretty'
@@ -93,31 +92,77 @@ export class Bud implements Framework.Bud {
     this.setup()
   }
 
-  public run = function (this: Framework.Bud): void {
-    this.compiler.compile()
+  public new = function (
+    this: Framework.Bud,
+    name: string,
+    params = {},
+  ): Framework.Bud {
+    this.instances[name] = new Bud({
+      ...this.params,
+    })
+
+    this.instances[name].build.make()
+
+    return this.instances[name]
+  }
+
+  public get = function (name: string): Framework.Bud {
+    return this.instances[name]
+  }
+
+  public delete = function (name: string): void {
+    delete this.instances[name]
+  }
+
+  public with = function (
+    name: string,
+    userConfig: (bud: Framework.Bud) => void,
+  ): void {
+    userConfig(this.get(name))
+  }
+
+  public isMultiCompilation = function (): boolean {
+    return Object.entries(this.instances).length > 0
+  }
+
+  public run = function (this: Framework.Bud) {
+    if (this.isMultiCompilation()) {
+      this.compiler.setCompilation(
+        webpack(
+          Object.entries(this.instances).reduce(
+            (
+              multi: Framework.Webpack.Configuration[],
+              [, instance]: [string, Framework.Bud],
+            ) => {
+              multi.push(instance.build.make())
+              return multi
+            },
+            [],
+          ),
+        ),
+      )
+    } else {
+      this.compiler.compile()
+    }
 
     if (this.mode.is('development')) {
-      this.server.addDevMiddleware()
+      this.features.enabled('hot')
+        ? this.server.addHotMiddleware()
+        : this.server.addDevMiddleware()
 
-      this.server.getConfigItem('hot') &&
-        this.server.addHotMiddleware()
-
-      !_.isUndefined(this.server.getConfigItem('proxy')) &&
+      this.features.enabled('proxy') &&
         this.server.addProxyMiddleware()
     }
 
     this.cli.run()
   }
 
-  /**
-   * Assign values.
-   */
   public assign(value: unknown): void {
     Object.assign(this, {value})
   }
 
   /**
-   * Set values.
+   * Set on Bud.
    */
   public set(key: string, value: unknown): void {
     this[key] = value
@@ -183,20 +228,6 @@ export class Bud implements Framework.Bud {
   }
 
   public setup = function (): void {
-    this.args.has('mode') && this.mode.set(this.args.get('mode'))
-    this.args.has('html') && this.template()
-    this.args.has('minify') && this.minify()
-    this.args.has('gzip') && this.gzip()
-    this.args.has('brotli') && this.brotli()
-    this.args.has('runtime') && this.runtime()
-    this.args.has('vendor') && this.vendor()
-    this.args.has('hash') && this.hash()
-
-    this.args.has('devtool') &&
-      this.devtool(
-        this.args.get('devtool') ?? '#@cheap-eval-source-map',
-      )
-
     this.disk.set('@roots', {
       baseDir: this.fs.path.resolve(__dirname, '../../'),
       glob: ['**/*'],
@@ -215,13 +246,32 @@ export class Bud implements Framework.Bud {
           )
         : process.cwd(),
     )
-
     this.srcPath(
       this.args.has('src') ? this.args.get('src') : 'src',
     )
-
     this.distPath(
       this.args.has('dist') ? this.args.get('dist') : 'dist',
     )
+
+    this.features.enabled('html') && this.template()
+
+    this.features.enabled('minify') && this.minify()
+
+    this.features.enabled('gzip') && this.gzip()
+
+    this.features.enabled('brotli') && this.brotli()
+
+    this.features.enabled('hash') && this.hash()
+
+    this.features.enabled('runtime') && this.runtime()
+
+    this.features.enabled('vendor') && this.vendor()
+
+    this.features.enabled('devtool') &&
+      (() => {
+        this.devtool(
+          this.args.get('devtool') ?? '#@cheap-eval-source-map',
+        )
+      })
   }
 }

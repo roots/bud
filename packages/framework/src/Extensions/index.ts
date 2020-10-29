@@ -61,9 +61,10 @@ export class Extensions implements Framework.Extensions {
    */
   public use(pkg: string): this {
     const path = require.resolve(pkg)
-    this.bud.makeDisk(pkg, this.bud.fs.path.dirname(path), [
-      '**/*',
-    ])
+    this.bud.disk.set(pkg, {
+      baseDir: this.bud.fs.path.dirname(path),
+      glob: ['**/*'],
+    })
 
     // eslint-disable-next-line @typescript-eslint/no-var-requires
     const extension = require(path)

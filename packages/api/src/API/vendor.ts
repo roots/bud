@@ -1,6 +1,4 @@
 export const vendor: Framework.API.Vendor = function (options) {
-  this.features.enable('splitChunks')
-
   options &&
     this.build.config.set(
       'optimization.splitChunks.cacheGroups.vendor',

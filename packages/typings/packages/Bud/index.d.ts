@@ -69,6 +69,12 @@ declare class Bud {
   public hooks: Framework.Hooks
 
   /**
+   * Allows for multiple instances of Bud
+   * (multi-compiler mode)
+   */
+  public instances: Framework.Index<Framework.Bud>
+
+  /**
    * Logger
    */
   public logger: Framework.Logger
@@ -95,12 +101,14 @@ declare class Bud {
   /**
    * Construct
    */
-  public constructor(params?: {
-    api?: Framework.Index<[string, CallableFunction]>
-    builders?: any
-    containers?: Framework.Index<Framework.Index<any>>
-    services?: any
-  })
+  public constructor (
+    params?: {
+      api?: Framework.Index<[string, CallableFunction]>
+      builders?: any
+      containers?: Framework.Index<Framework.Index<any>>
+      services?: any
+    },
+  )
 
   /**
    * Register services, functions, on Bud.

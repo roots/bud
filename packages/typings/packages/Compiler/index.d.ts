@@ -24,11 +24,10 @@ export declare class Compiler {
    */
   getCompilation: () => Framework.Webpack.Compiler
 
-
   /**
    * Set the activated compiler
    */
-  setCompilation: (compiler: Framework.Webpack.Compiler) => void
+  setCompilation: (compiler: Framework.Webpack.Compiler | Framework.Webpack.MultiCompiler) => void
 
   /**
    * Runs the compiler.

@@ -17,10 +17,10 @@ export const dev: Framework.API.Dev = function (
     this.features.enable('hot')
   }
 
-  this.server.setConfig = {
+  this.server.setConfig({
     ...this.server.getConfig(),
     ...config,
-  }
+  })
 
   return this
 }

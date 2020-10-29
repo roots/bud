@@ -4,9 +4,7 @@ export const registerLoader = [
   'eslint',
   require.resolve('eslint-loader'),
 ]
-
 export * as registerItems from './items'
-
 export * as registerRules from './rules'
 
 export const boot: Framework.Extension.Register = bud => {

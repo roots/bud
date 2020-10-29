@@ -20,8 +20,6 @@ export const followRedirects: Framework.Server.Config['followRedirects'] = true
  */
 export const headers: Framework.Server.Config['headers'] = {
   'Access-Control-Allow-Origin': '*',
-  'Access-Control-Allow-Methods':
-    'GET, POST, PUT, DELETE, PATCH, OPTIONS',
   'Access-Control-Allow-Headers':
     'X-Requested-With, content-type, Authorization',
 }
@@ -37,6 +35,11 @@ export const host: Framework.Server.Config['host'] = 'localhost'
  * Port to use for dev server.
  */
 export const port: Framework.Server.Config['port'] = 3000
+
+/**
+ * Proxy destination
+ */
+export const proxy: Framework.Server.Config['proxy'] = undefined
 
 /**
  * Filename of html used for WDS file index at root.
@@ -82,8 +85,3 @@ export const watchOptions: Framework.Server.Config['watchOptions'] = {
  * @note Build is still served from RAM even when `true`.
  */
 export const writeToDisk: Framework.Server.Config['writeToDisk'] = true
-
-/**
- * Mimetypes supported by dev server.
- */
-// export const mimeTypes: Framework.Server.Config['mimeTypes'] = undefined

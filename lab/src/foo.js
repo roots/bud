@@ -7,7 +7,7 @@ const MyApp = () => {
   const [state, setState] = useState('')
 
   return (
-    <div className="flex flex-col content-center justify-center w-full h-full align-middle bg-blue-600">
+    <div className="flex flex-col content-center justify-center">
       <div className="text-xl text-center text-gray-400">
         <input onChange={e => setState(e.value)} type="text" placeholder="foobarns" value={state} />
       </div>

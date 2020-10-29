@@ -1,22 +1,22 @@
 const bud = require('../packages/bud/lib')
 
-bud.mode.set('production')
+bud.extensions
+  .use('@roots/bud-babel')
+  .use('@roots/bud-eslint')
+  .use('@roots/bud-postcss')
+  .use('@roots/bud-sass')
+  .use('@roots/bud-tailwindcss')
+  .use('@roots/bud-purgecss')
+  .use('@roots/bud-wordpress-manifests')
+  .next()
 
-bud
-  .extensions
-    .use('@roots/bud-babel')
-    .use('@roots/bud-eslint')
-    .use('@roots/bud-postcss')
-    .use('@roots/bud-sass')
-    .use('@roots/bud-tailwindcss')
-    .use('@roots/bud-purgecss')
-    .use('@roots/bud-react')
-    .use('@roots/bud-wordpress-manifests')
+  .template()
 
-bud.purgecss({
-  ...bud.presets.get('purgecss.wp'),
-})
-
-bud
-  .entry('foo', ['foo.js', 'foo.scss'])
-  .compile()
+  .when(bud.mode.is('production'), bud => {
+    bud.minify()
+    bud.gzip()
+  }, bud => {
+    bud.dev({hot: true})
+  })
+  .entry('bar', ['bar.js'])
+  .run()
