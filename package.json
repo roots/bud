@@ -40,6 +40,7 @@
       "packages/extension-purgecss",
       "packages/extension-react",
       "packages/extension-sass",
+      "packages/extension-stylelint",
       "packages/extension-tailwindcss",
       "packages/extension-vue",
       "packages/plugin-manifests",

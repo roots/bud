@@ -4,14 +4,13 @@
     "rootDir": "./src",
     "outDir": "./lib",
     "declaration": true,
-    "declarationDir": "./types",
+    "declarationDir": "./lib/types",
     "declarationMap": true
   },
   "compileOnSave": true,
   "include": ["./src"],
   "exclude": ["./lib"],
   "references": [
-    {"@roots/bud-types": "../types"},
-    {"@roots/bud": "../bud"}
+    {"@roots/bud-typings": "../typings"},
   ]
 }

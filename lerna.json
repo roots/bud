@@ -19,6 +19,7 @@
     "packages/extension-postcss",
     "packages/extension-purgecss",
     "packages/extension-sass",
+    "packages/extension-stylelint",
     "packages/extension-tailwindcss",
     "packages/plugin-manifests",
     "packages/webpack-entrypoints-plugin",

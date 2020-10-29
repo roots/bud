@@ -1,53 +1,36 @@
-import type Bud from '@roots/bud-types'
 import StylelintPlugin from 'stylelint-webpack-plugin'
-import type {Options as StylelintOptions} from 'stylelint-webpack-plugin/declarations/getOptions'
-import {resolve} from 'path'
 
-const plugin: Bud.Plugin.Factory = (bud: Bud) => ({
-  bud,
+export const registerApi = {
+  stylelint: function (
+    this: Framework.Bud,
+    options: StylelintPlugin['options'],
+  ): Framework.Bud {
+    this.features.enable('stylelint')
+    this.extensions.setOptions('@roots/bud-stylelint', options)
 
-  make: function () {
-    if (this.bud.fs.get('stylelint.config.js')) {
-      this.bud.features.enable('stylelint')
-
-      this.bud.options.set(
-        'webpack.plugins.stylelint.configFile',
-        this.bud.fs.get('stylelint.config.js'),
-      )
-    }
-
-    this.bud.apply('stylelint', function (
-      options: StylelintOptions,
-    ) {
-      this.features.enable('stylelint')
-
-      this.options.set('webpack.plugins.stylelint', options)
-
-      return this
-    })
-
-    this.bud.webpackPlugins.set(
-      'stylelint-webpack-plugin',
-      (bud: Bud) => ({
-        bud,
-
-        make: function () {
-          return new StylelintPlugin(
-            this.bud.options.get('webpack.plugins.stylelint'),
-          )
-        },
-
-        when: function () {
-          return this.bud.features.enabled('stylelint')
-        },
-      }),
-    )
+    return this
   },
-})
-
-const preset = {
-  roots: resolve(__dirname, './preset/index.js'),
 }
 
-export {plugin, preset}
-module.exports = {plugin, preset}
+export const boot = function (instance: Framework.Bud): void {
+  instance.presets.set(
+    'stylelint',
+    instance.fs.path.resolve(__dirname, './preset/index.js'),
+  )
+
+  instance.when(instance.fs.get('stylelint.config.js'), () =>
+    instance.features.enable('stylelint'),
+  )
+
+  instance.extensions.register('stylelint-webpack-plugin', {
+    make: function () {
+      return new StylelintPlugin(
+        instance.extensions.getOptions('@roots/bud-stylelint'),
+      )
+    },
+
+    when: function () {
+      return instance.features.enabled('stylelint')
+    },
+  })
+}
