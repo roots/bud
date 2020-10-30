@@ -13,9 +13,9 @@
   <strong>@roots/bud</strong>
 </h1>
 
-**🧳 roots/bud houses the webpack build tooling formerly integrated into the scaffolding tool now known as roots/clover.**
-
-If you are looking for the scaffolding tools you can find them at [https://github.com/roots/clover](roots/clover). These packages were born out of the same repository and it took a hot minute before we realized where everything belongs. Both packages are being bumped to v2.0.0 to reflect this change; sorry for any confusion.
+<h3 align="center">
+  <em>Bud is a high-level webpack framework combining the best parts of Laravel Mix and Symfony Encore.</em>
+</h3>
 
 ## Overview
 
@@ -25,68 +25,99 @@ A webpack framework combining the best parts of Laravel Mix and Symfony Encore.
 
 `yarn add @roots/bud --dev`
 
-## Usage
+## Geting started
+
+Bud is designed to be utilized in a config file situated in your project's root directory.
+
+Create a file in your project root. For the sake of convention let's call it `bud.config.js`.
 
 ```js
-const {bud} = require('@roots/bud')
+const bud = require('@roots/bud')
 
-bud.bundle('app', ['app.js', 'app.css']).compile()
+bud.entry('app', ['app.js', 'app.css'])
+
+bud.run()
 ```
 
-Bud can do many more things. But a central philosophy of the framework is that more is not always better for many common use cases.
+You can run this build by running `node bud.config.js` in the terminal. When the process completes you should find an `app.js` and `app.css` file in the `dist` directory.
 
-## Plugins
+By default Bud assumes `app.js` and `app.css` are available in a `src` directory and that assets will be built to `dist`.
+
+You can customize this behavior with a couple more functions: `bud.srcPath` and `bud.distPath`. Here's an example where assets are built from a directory called `scripts` into a directory called `build`.
+
+```js
+const bud = require('@roots/bud')
+
+bud
+  .srcPath('scripts')
+  .distPath('build')
+  .entry('app', ['app.js'])
+  .run()
+```
+
+Note that we have left `bud` off of the function calls following the first. This is because most of the functions exposed in the configuration API return the Bud framework itself which lets us chain the calls. This is sometimes referred to as a fluent interface. It is only intended to make things less repetitive to read and type. If you don't like it you can still type `bud` before each function. It's totally the same.
+
+Bud can do many more things. But a central philosophy of the framework is that more is not always better for many common use cases. With just `bud`, `entry` and `run` you can already compile ES6 and postcss into a syntax that browsers can understand. For many people this may very well be enough.
+
+## Extensions
+
+Bud, by itself, provides an intentionally sparse, minimal baseline configuration. In fact, much of the "core" of Bud is actually defined through extensions. That is to say -- this is a fundamental design tenant of Bud as software.
+
+The point being that users will likely want to install at least one or two extensions. But this is not required.
 
 ### Usage
 
-Plugins are registered using `bud.extend` method. Plugins will be called in the provided order.
+Extensions are registered using the `bud.use` method. Extensions will be called in the order provided.
 
 ```js
-bud.extend([require('@roots/bud-eslint')])
+bud.use('@roots/bud-eslint')
 ```
 
-Some plugins may attach additional configuration methods to the `bud` object for you to utilize.
+We recommend adding all the extensions you want to use at the very top of your configuration file.
 
-Obviously, you can't call a plugin-provided method without first registering that plugin, which is one of the reasons it's generally a good idea to import and register everything at the top of your config.
+Some extensions may attach additional configuration functions to the `bud` object for you to utilize.
 
 ```js
-bud.extend([require('@roots/bud-purgecss')]).purgecss({
+bud.use('@roots/bud-purgecss').purgecss({
   /** purgecss configuration */
 })
 ```
 
-### First-party plugins
+### First-party extensions
 
-There are a number of Roots maintained plugins available to kickstart your projects.
+There are a number of Roots maintained extensions available to kickstart your projects.
 
-| Name                                            | Description                                                    | Usage                                                                                                          |
-| ----------------------------------------------- | -------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------- |
-| @roots/bud-dependency-extraction-webpack-plugin | Adds @wordpress/dependency-extraction-webpack-plugin support.  | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-dependency-extraction/README.md) |
-| @roots/bud-eslint                               | Adds eslint support.                                           | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-eslint/README.md)                |
-| @roots/bud-palette-webpack-plugin               | Adds palette-webpack-plugin support.                           | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-palette-plugin/README.md)        |
-| @roots/bud-purgecss                             | Adds purgecss support.                                         | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-purgecss/README.md)              |
-| @roots/bud-react                                | Adds react support.                                            | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-react/README.md)                 |
-| @roots/bud-sass                                 | Adds sass preprocessor support.                                | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-sass/README.md)                  |
-| @roots/bud-stylelint                            | Adds stylelint support.                                        | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-stylelint/README.md)             |
-| @roots/bud-tailwindcss                          | Adds tailwindcss support.                                      | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-tailwindcss/README.md)           |
-| @roots/bud-typescript                           | Adds typescript support.                                       | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-typescript/README.md)            |
-| @roots/bud-vue                                  | Adds Vue framework support.                                    | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-vue/README.md)                   |
-| @roots/bud-wordpress-manifests                  | Adds WordPress specific asset manifests for simpler enqueuing. | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/bud-wordpress-manifests/README.md)   |
+| Name                   | Description                                                                                                      | Usage                                                                                                      |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| @roots/bud-babel       | Adds babel support.                                                                                              | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/extension-babel/README.md)       |
+| @roots/bud-eslint      | Adds eslint support.                                                                                             | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/extension-eslint/README.md)      |
+| @roots/bud-manifests   | For WordPress projects. Adds WP dependency extraction support and manifests more suitabl for WordPress projects. | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/extension-manifests/README.md)   |
+| @roots/bud-purgecss    | Adds purgecss support.                                                                                           | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/extension-purgecss/README.md)    |
+| @roots/bud-react       | Adds react support.                                                                                              | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/extension-react/README.md)       |
+| @roots/bud-sass        | Adds sass preprocessor support.                                                                                  | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/extension-sass/README.md)        |
+| @roots/bud-stylelint   | Adds stylelint support.                                                                                          | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/extension-stylelint/README.md)   |
+| @roots/bud-tailwindcss | Adds tailwindcss support.                                                                                        | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/extension-tailwindcss/README.md) |
+| @roots/bud-typescript  | Adds typescript support.                                                                                         | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/extension-typescript/README.md)  |
+| @roots/bud-vue         | Adds Vue framework support.                                                                                      | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/extension-vue/README.md)         |
 
 ## Alternative syntax
 
 More advanced users may want to configure Bud's options more directly. The `@roots/bud-framework` container API allows for that.
 
-Set the source directory path:
+Set the webpack context:
 
 ```js
-bud.paths.set('src', path.join(__dirname, 'inputDir'))
+bud.config.set('context', path.join(__dirname, 'src'))
 ```
 
 Set filetypes for webpack to resolve:
 
 ```js
-bud.options.set('webpack.resolve.extensions', ['.ts', '.tsx'])
+bud.config.mutate('resolve.extensions', extensions => [
+  ...extensions,
+  '.ts',
+  '.tsx',
+])
 ```
 
 Enable specific features:
@@ -97,21 +128,31 @@ bud.features.set('hot', true)
 
 ## Hooks
 
-Bud provides a system of 'hooks' to expose values in the webpack config for modification, replacement, testing, etc.
+Bud provides a system of 'hooks' to open Framework functions and webpack values up
+for easier modification.
 
-Here are some examples
+Here are some examples:
 
 ```js
 bud.hooks.on('webpack.externals', externals => ({
+  ...externals,
   $: 'jquery',
 })
+```
 
-bud.hooks.on('webpack.output.filename', filename => '[name].[hash:4]')
+```js
+bud.hooks.on(
+  'webpack.output.filename',
+  filename => '[name].[hash:4]',
+)
+```
 
+```js
 bud.hooks.on('webpack.module.rules.css.test', /\.css$/)
 ```
 
-You may also add new filters. This is probably most helpful in the context of authoring plugins.
+You may also add new filters. This is probably most helpful when authoring
+extensions.
 
 ```js
 const filteredValue = bud.hooks.filter(
@@ -120,13 +161,17 @@ const filteredValue = bud.hooks.filter(
 )
 ```
 
-Now, other plugins or the user can modify this value, same as above:
+Now, other plugins or the user can modify this value:
 
 ```js
 bud.hooks.on('plugin.filter.key', defaultValue =>
   defaultValue.shift(),
 )
 ```
+
+## Framework
+
+Users who want even less boilerplate can start by installing `@roots/bud-framework` instead of `@roots/bud`. This will allow them to configure everything, including their development server, transpiler etc., exactly to their liking. Those users may wish to fork `@roots/bud` so as to have a starting point to configure from.
 
 ## Contributing
 

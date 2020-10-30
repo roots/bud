@@ -12,6 +12,7 @@
 <h1 align="center">
   <strong>@roots/bud-typings</strong>
 </h1>
+
 <h3 align="center">
   <em>Bud is a high-level webpack framework combining the best parts of Laravel Mix and Symfony Encore.</em>
 </h3>

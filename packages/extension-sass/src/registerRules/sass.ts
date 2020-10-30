@@ -1,20 +1,18 @@
-import type {Conditional, Exclude} from '../types'
-
-export const test: Conditional = ({patterns}) =>
+export const test: Sass.Conditional = ({patterns}) =>
   patterns.get('sass')
 
-export const exclude: Exclude = ({patterns}) =>
+export const exclude: Sass.Exclude = ({patterns}) =>
   patterns.get('modules')
 
-export const use: Framework.Rule.Factory<Framework.Rule.Use> = bud => {
+export const use: Framework.Rule.Factory<Framework.Rule.Use> = instance => {
   return [
-    bud.mode.is('production') ? 'minicss' : 'style',
+    instance.mode.is('production') ? 'minicss' : 'style',
     'css',
     'postcss',
     'sass',
     'resolveUrl',
   ].reduce((modules, loader) => {
-    const loaderModule = bud.build.getItem(loader)
+    const loaderModule = instance.build.getItem(loader)
     return !loaderModule ? modules : [...modules, loaderModule]
   }, [])
 }

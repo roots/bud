@@ -18,6 +18,7 @@ export const glob: Framework.API.Glob = function (
     results.reduce((acc, curr) => {
       const entryPath = name ? `${name}/` : '/'
       const entryName = basedName.bind(this)(curr)
+
       const entry = this.fs.path.join(entryPath, entryName)
 
       return {...acc, [entry]: curr}

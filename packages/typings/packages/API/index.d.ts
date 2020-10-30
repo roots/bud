@@ -1,5 +1,6 @@
 import {TerserPluginOptions} from 'terser-webpack-plugin'
 import Globby from 'globby'
+import {Webpack} from '../Webpack'
 
 /**
  * Framework.API
@@ -120,7 +121,7 @@ export namespace API {
 
   export type Gzip = (
     this: Framework.Bud,
-    options?: Framework.Container.Repository,
+    options?: Webpack.Plugin,
   ) => Framework.Bud
 
   export type Hash = (this: Framework.Bud) => Framework.Bud
@@ -139,6 +140,11 @@ export namespace API {
     options?: Framework.Webpack.HotModuleReplacementPlugin
   ) => Framework.Bud
 
+  /**
+   * Given a conditional check:
+   *  - execute the truecase fn if true
+   *  - optionally, a third parameter to execute as an elsecase.
+   */
   export type When = (
     this: Framework.Bud,
     test: boolean,

@@ -10,11 +10,6 @@ export as namespace Extension
  */
 declare interface Extension {
   /**
-   * Framework
-   */
-  bud?: Framework.Bud
-
-  /**
    * Plugin options.
    */
   options?: Extension.Options
@@ -38,14 +33,21 @@ declare interface Extension {
    * Register Items
    */
   registerLoader?: [string, string]
-
   registerLoaders?: Framework.Index<string>
 
   /**
-   * Register Items
+   * Register RuleSetUseItem
    */
   registerItem?: Framework.Item.Module
+
+  /**
+   * Register set of RuleSetUseItems
+   */
   registerItems?: Framework.Index<Framework.Extension['registerItem']>
+
+  /**
+   * Register outside of module.rules.oneOf
+   */
   registerPre?: Framework.Index<Framework.Rule.Module>
 
   /**
@@ -60,7 +62,7 @@ declare interface Extension {
   boot?: Extension.Boot
 
   /** @todo typings */
-  api?: any
+  api?: Framework.Index<(arguments?: any) => any>
 }
 
 /**
@@ -69,7 +71,9 @@ declare interface Extension {
  * @namespace {Extension}
  */
 declare namespace Extension {
+
   export type Register = (bud: Framework.Bud) => void
+
   /**
    * Plugin options
    */

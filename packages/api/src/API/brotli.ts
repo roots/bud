@@ -6,7 +6,7 @@ export const brotli: Framework.API.Brotli = function (
 
   if (!options) return
 
-  this.plugins.setOptions('brotli', options)
+  this.extensions.setOptions('brotli', options)
 
   return this
 }

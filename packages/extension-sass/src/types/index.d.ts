@@ -5,7 +5,6 @@ import '@roots/bud-typings'
  */
 export as namespace Sass
 
-
 export declare type Conditional = Framework.Rule.Factory<
   Framework.Rule.Conditional
 >

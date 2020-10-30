@@ -1,8 +1,8 @@
-import { Webpack } from "../Webpack"
+import {Webpack} from '../Webpack'
 import type {Bud, Container, Index, Item, Rule} from '../'
 
 /**
- * Framework.Build is ultimately responsible for producing
+ * Framework.Build is responsible for producing
  * the webpack configuration utilized by Framework.Compiler
  * and Framework.Server.
  */
@@ -100,6 +100,9 @@ export declare class Build {
   public mergeRule(name: string, rule: Rule.Module)
 }
 
+/**
+ * Build
+ */
 export namespace Build {
   /**
    * @see {webpack.Loader}
@@ -231,7 +234,7 @@ export namespace Build {
   ) => Product.General
 
   /**
-   * Config file builder functions
+   * Webpack.Configuration builder functions
    */
   export type Builders =
     | Build.Entry
@@ -242,6 +245,7 @@ export namespace Build {
     | Build.Plugins
     | Build.Output
     | Build.General
+
 
   export type RuleSetLoader = {
       /**
