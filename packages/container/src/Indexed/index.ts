@@ -62,7 +62,7 @@ export class Indexed extends Base implements Container.Indexed {
 
   public map: Container.Transform<
     Container.Repository
-  > = function (handler) {
+  > = function (handler: (item: unknown) => unknown) {
     return this.entries().map(handler)
   }
 

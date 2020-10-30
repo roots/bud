@@ -1,6 +1,6 @@
 import _ from 'lodash'
 
-class Base {
+class Base implements Container.Base {
   repository: Container.Repository
 
   constructor(repository: Container.Repository) {
@@ -13,22 +13,22 @@ class Base {
 
   public set: Container.Using = function (
     key: number | string,
-    value: any,
+    value: unknown,
   ) {
     _.set(this.repository, key, value)
   }
 
   public mutate = function (
     key: string | number,
-    mutationFn: (any) => any,
-  ): any {
+    mutationFn: (unknown) => unknown,
+  ): void {
     this.set(key, mutationFn(this.get(key)))
   }
 
   public has: Container.Conditional = function (
     key: number | string,
-  ) {
-    return this.repository[key]
+  ): boolean {
+    return this.repository.hasOwnProperty(key)
   }
 
   public delete: Container.Using = function (
@@ -42,6 +42,9 @@ class Base {
  * Common container
  */
 export namespace Container {
+  /**
+   * A basic container object.
+   */
   export declare class Base {
     /**
      * Store.
@@ -72,6 +75,14 @@ export namespace Container {
      * Delete an item from the repo.
      */
     public delete: Using
+
+    /**
+     * Overwrite a repository value with the result of a callback.
+     */
+    public mutate: (
+      key: string | number,
+      mutationFn: (any) => any,
+    ) => any
   }
 
   export declare class Arrayed extends Base {
@@ -84,12 +95,24 @@ export namespace Container {
      */
     public add: Using
 
+    /**
+     * Get an item from the repository
+     */
     public get: Get
 
+    /**
+     * Set a repository item's value
+     */
     public set: Using
 
+    /**
+     * Check if repository key exists.
+     */
     public has: Conditional
 
+    /**
+     * Delete an item from the repository.
+     */
     public delete: Using
   }
 
@@ -104,44 +127,85 @@ export namespace Container {
     push: Using
 
     /**
-     * Conditional check if repository item matches value.
+     * Conditional check that repository item matches value.
      */
     is: Conditional
 
     /**
-     * Conditionally check assertion is true.
+     * Conditional check that item is true.
      */
     isTrue: Conditional
 
     /**
-     * Condiionally check assertion as being truth-ish.
+     * Conditional check that item is truth-adjacent.
      */
     isTruthy: Conditional
 
+    /**
+     * Conditional check that item key exists
+     */
     has: Conditional
 
+    /**
+     * Merge values onto a repository item.
+     */
     merge: Using
 
+    /**
+     * For a boolean item, set to true.
+     */
     enable: Select
 
+    /**
+     * For a boolean item, set to false.
+     */
     disable: Select
 
+    /**
+     * Check that a boolean value is true.
+     */
     enabled: Conditional
 
+    /**
+     * Check that a boolean value is false.
+     */
     disabled: Conditional
 
-    map: Transform<Repository>
+    /**
+     * Returns a function
+     */
+    map:
+      | Transform<Repository>
+      | ((handler: (item: unknown) => unknown) => unknown[])
 
+    /**
+     * Do something with each item in the repository
+     */
     each: IterateUsing
 
+    /**
+     * Return the entire repository contents
+     */
     all: Transform
 
+    /**
+     * Return repository contents as a tuple (object.entries)
+     */
     entries: Transform<Array<[string, Item]>>
 
+    /**
+     * Return the repository keys (object.keys)
+     */
     keys: Transform<string[]>
 
+    /**
+     * Return the repository values (object.values)
+     */
     values: Transform<Item[]>
 
+    /**
+     * Return an ES6 of the repository.
+     */
     Map: Transform<Map<string, Item>>
   }
   /**
@@ -150,18 +214,24 @@ export namespace Container {
   export type Item = any | Repository | Repository[]
 
   /**
-   * Container repository.
+   * Container value store.
    */
   export type Repository = KeyedRepository | ArrayedRepository
 
+  /**
+   * Indexed container value store.
+   */
   export type KeyedRepository = {
     [key: string]: Item
   }
 
+  /**
+   * Arrayed container value store.
+   */
   export type ArrayedRepository = Array<any>
 
   /**
-   * Do something
+   * Do something with a repository item.
    */
   export type Using = (key: string | number, value: Item) => void
 
@@ -196,6 +266,9 @@ export namespace Container {
     handler: Handler,
   ) => unknown
 
+  /**
+   * Transform a repository item.
+   */
   export type Transform<T = any> = (args?: any) => T
 }
 
