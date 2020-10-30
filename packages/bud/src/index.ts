@@ -21,21 +21,31 @@ const bud: Framework.Bud = new Bud({
 bud
   .when(
     bud.args.has('mode'),
-    bud => bud.mode.set(bud.args.get('mode')),
-    bud => bud.mode.set('none'),
+    (bud: Framework.Bud) => bud.mode.set(bud.args.get('mode')),
+    (bud: Framework.Bud) => bud.mode.set('none'),
   )
-  .when(bud.args.has('html'), bud => bud.template())
-  .when(bud.args.has('minify'), bud => bud.minify())
-  .when(bud.args.has('gzip'), bud => bud.gzip())
-  .when(bud.args.has('brotli'), bud => bud.brotli())
-  .when(bud.args.has('runtime'), bud => bud.runtime())
-  .when(bud.args.has('vendor'), bud => bud.vendor())
-  .when(bud.args.has('hash'), bud => bud.hash())
-  .when(bud.args.has('devtool'), bud =>
+  .when(bud.args.has('devtool'), (bud: Framework.Bud) =>
     bud.devtool(
       bud.args.get('devtool') ?? '#@cheap-eval-source-map',
     ),
   )
+  .when(bud.args.has('html'), (bud: Framework.Bud) =>
+    bud.template(),
+  )
+  .when(bud.args.has('minify'), (bud: Framework.Bud) =>
+    bud.minify(),
+  )
+  .when(bud.args.has('gzip'), (bud: Framework.Bud) => bud.gzip())
+  .when(bud.args.has('brotli'), (bud: Framework.Bud) =>
+    bud.brotli(),
+  )
+  .when(bud.args.has('runtime'), (bud: Framework.Bud) =>
+    bud.runtime(),
+  )
+  .when(bud.args.has('vendor'), (bud: Framework.Bud) =>
+    bud.vendor(),
+  )
+  .when(bud.args.has('hash'), (bud: Framework.Bud) => bud.hash())
 
 bud.disk.set('@roots', {
   baseDir: bud.fs.path.resolve(__dirname, '../../'),
@@ -62,5 +72,14 @@ bud.distPath(
   bud.args.has('dist') ? bud.args.get('dist') : 'dist',
 )
 
+/**
+ * Bud
+ * @type {Framework.Bud}
+ */
 export default bud
+
+/**
+ * Bud
+ * @type {Framework.Bud}
+ */
 module.exports = bud

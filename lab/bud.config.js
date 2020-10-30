@@ -1,4 +1,8 @@
+/**
+ * @type {Framework.Bud}
+ */
 const bud = require('../packages/bud/lib')
+
 
 bud.extensions
   .use('@roots/bud-babel')
@@ -13,11 +17,13 @@ bud.extensions
 
   .template()
 
-  .when(bud.mode.is('production'), bud => {
-    bud.minify()
-    bud.gzip()
-  }, bud => {
-    bud.dev({hot: true})
-  })
+  .when(
+    bud.mode.is('production'),
+    () => {
+      bud.minify()
+      bud.gzip()
+    },
+    () => bud.dev(),
+  )
   .entry('bar', ['bar.js'])
   .run()

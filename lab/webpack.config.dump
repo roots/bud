@@ -1,6 +1,11 @@
 module.exports = () => ({
-  entry: { bar: [ 'bar.js' ] },
-  mode: 'production',
+  entry: {
+    bar: [
+      '/Users/kellymears/code/projects/cli/bud/bud/node_modules/webpack-hot-middleware/client.js?path=/__webpack_hmr&timeout=2000',
+      'bar.js'
+    ]
+  },
+  mode: 'development',
   node: {
     module: 'empty',
     dns: 'mock',
@@ -44,8 +49,8 @@ module.exports = () => ({
             use: [
               '/Users/kellymears/code/projects/cli/bud/bud/node_modules/vue-style-loader/index.js',
               {
-                ident: 'minicss',
-                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/mini-css-extract-plugin/dist/loader.js'
+                ident: 'style',
+                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/style-loader/dist/cjs.js'
               },
               {
                 ident: 'css',
@@ -146,8 +151,8 @@ module.exports = () => ({
             use: [
               '/Users/kellymears/code/projects/cli/bud/bud/node_modules/vue-style-loader/index.js',
               {
-                ident: 'minicss',
-                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/mini-css-extract-plugin/dist/loader.js'
+                ident: 'style',
+                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/style-loader/dist/cjs.js'
               },
               {
                 ident: 'css',
@@ -213,6 +218,7 @@ module.exports = () => ({
     exprContextCritical: true,
     wrappedContextRegExp: /.*/,
     wrappedContextRecursive: true,
+    unsafeCache: true,
     defaultRules: [
       { type: 'javascript/auto' },
       {
@@ -235,6 +241,7 @@ module.exports = () => ({
     chunkCallbackName: 'webpackChunk',
     globalObject: 'window',
     libraryTarget: 'var',
+    pathinfo: true,
     sourceMapFilename: '[file].map[query]',
     hotUpdateChunkFilename: '[id].[hash].hot-update.js',
     hotUpdateMainFilename: '[hash].hot-update.json',
@@ -250,17 +257,6 @@ module.exports = () => ({
       cleanOnceBeforeBuildPatterns: [ '**/*' ],
       outputPath: '/Users/kellymears/code/projects/cli/bud/bud/lab/dist'
     },
-    {
-      options: {
-        test: /\.(js|css|html|svg)$/,
-        cache: true,
-        algorithm: 'gzip',
-        compressionOptions: { level: 11 },
-        filename: '[path].gz[query]',
-        threshold: 10240,
-        minRatio: 0.7
-      }
-    },
     { ignorePatterns: [ /\.*\.css.?\.js/, /^\.\/locale$/, /moment$/ ] },
     {
       outputPath: '/Users/kellymears/code/projects/cli/bud/bud/lab',
@@ -275,6 +271,7 @@ module.exports = () => ({
         }
       }
     },
+    { fullBuildTimeout: 200, requestTimeout: 10000 },
     {
       options: {
         template: '/Users/kellymears/code/projects/cli/bud/bud/packages/support/publish/template.html',
@@ -295,7 +292,7 @@ module.exports = () => ({
     },
     {
       replacements: {
-        repository: "<<Circular reference to 'config.plugins.[4].definitions.repository'>>"
+        repository: "<<Circular reference to 'config.plugins.[3].definitions.repository'>>"
       }
     },
     {
@@ -304,22 +301,6 @@ module.exports = () => ({
         fileName: 'manifest.json',
         transformExtensions: /^(gz|map)$/i,
         writeToFileEmit: true
-      }
-    },
-    {
-      options: { filename: '[name].css', chunkFilename: '[name].css' }
-    },
-    {
-      options: {
-        test: /\.m?js(\?.*)?$/i,
-        cache: true,
-        parallel: true,
-        terserOptions: {
-          output: { ecma: 5, ascii_only: true },
-          parse: { ecma: 8 },
-          compress: { ecma: 5, inline: 2 },
-          mangle: { safari10: true }
-        }
       }
     },
     {
@@ -363,31 +344,24 @@ module.exports = () => ({
           priority: -10
         }
       },
-      hidePathInfo: true,
       chunks: 'async',
-      minSize: 30000,
+      minSize: 10000,
       minChunks: 1,
-      maxAsyncRequests: 5,
+      maxAsyncRequests: Infinity,
       automaticNameDelimiter: '~',
       automaticNameMaxLength: 109,
-      maxInitialRequests: 3,
+      maxInitialRequests: Infinity,
       name: true
     },
-    minimize: true,
     moduleIds: 'hashed',
     removeEmptyChunks: true,
     mergeDuplicateChunks: true,
-    flagIncludedChunks: true,
-    occurrenceOrder: true,
-    sideEffects: true,
     providedExports: true,
-    usedExports: true,
-    concatenateModules: true,
-    noEmitOnErrors: true,
-    checkWasmTypes: true,
-    nodeEnv: 'production'
+    namedModules: true,
+    namedChunks: true,
+    nodeEnv: 'development'
   },
-  performance: { maxAssetSize: 250000, maxEntrypointSize: 250000, hints: 'warning' },
+  cache: true,
   resolveLoader: {
     unsafeCache: true,
     mainFields: [ 'loader', 'main' ],

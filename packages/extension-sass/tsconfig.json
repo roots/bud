@@ -4,8 +4,8 @@
     "rootDir": "./src",
     "outDir": "./lib",
     "declaration": true,
-    "declarationDir": "./types",
-    "declarationMap": true
+    "declarationDir": "./lib/types",
+    "declarationMap": true,
   },
   "compileOnSave": true,
   "include": ["./src"],

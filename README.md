@@ -61,9 +61,9 @@ Bud can do many more things. But a central philosophy of the framework is that m
 
 ## Extensions
 
-Bud, by itself, provides an intentionally sparse, minimal baseline configuration. In fact, much of the "core" of Bud is actually defined through extensions. That is to say -- this is a fundamental design tenant of Bud as software.
+Bud, by itself, provides an intentionally sparse, baseline configuration. In fact, much of the core of Bud is actually made up of extensions. That is to say -- extensibility is a fundamental design tenant of Bud as software.
 
-The point being that users will likely want to install at least one or two extensions. But this is not required.
+The point being that users will likely want to install at least one or two extensions. But, this is not required.
 
 ### Usage
 
@@ -73,7 +73,9 @@ Extensions are registered using the `bud.use` method. Extensions will be called 
 bud.use('@roots/bud-eslint')
 ```
 
-We recommend adding all the extensions you want to use at the very top of your configuration file.
+We recommend adding all the extensions you want to use at the very top of your configuration file. For many extensions the oder in which they are called is a non-issue, but for other extensions the ordering may be important. For instance, if you are adding React support to your application with `@roots/bud-react`, you are going to want to add that extension after `@roots/bud-babel`. Likewise, `@roots/bud-purgecss` adds a postcss plugin and so it should be included after `@roots/bud-postcss`.
+
+In the future it is likely there will be an API for extension authors to declare dependencies so that Bud can infer an order without the user having to know what depends on what. But, for now, this is the case.
 
 Some extensions may attach additional configuration functions to the `bud` object for you to utilize.
 
@@ -99,32 +101,6 @@ There are a number of Roots maintained extensions available to kickstart your pr
 | @roots/bud-tailwindcss | Adds tailwindcss support.                                                                                        | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/extension-tailwindcss/README.md) |
 | @roots/bud-typescript  | Adds typescript support.                                                                                         | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/extension-typescript/README.md)  |
 | @roots/bud-vue         | Adds Vue framework support.                                                                                      | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/extension-vue/README.md)         |
-
-## Alternative syntax
-
-More advanced users may want to configure Bud's options more directly. The `@roots/bud-framework` container API allows for that.
-
-Set the webpack context:
-
-```js
-bud.config.set('context', path.join(__dirname, 'src'))
-```
-
-Set filetypes for webpack to resolve:
-
-```js
-bud.config.mutate('resolve.extensions', extensions => [
-  ...extensions,
-  '.ts',
-  '.tsx',
-])
-```
-
-Enable specific features:
-
-```js
-bud.features.set('hot', true)
-```
 
 ## Hooks
 
@@ -169,9 +145,39 @@ bud.hooks.on('plugin.filter.key', defaultValue =>
 )
 ```
 
+## Alternative syntax
+
+More advanced users may want to configure Bud's options more directly. The `@roots/bud-framework` container API allows for that.
+
+Set the webpack context:
+
+```js
+bud.config.set('context', path.join(__dirname, 'src'))
+```
+
+Set filetypes for webpack to resolve:
+
+```js
+bud.config.mutate('resolve.extensions', extensions => [
+  ...extensions,
+  '.ts',
+  '.tsx',
+])
+```
+
+Enable specific features:
+
+```js
+bud.features.set('hot', true)
+```
+
 ## Framework
 
 Users who want even less boilerplate can start by installing `@roots/bud-framework` instead of `@roots/bud`. This will allow them to configure everything, including their development server, transpiler etc., exactly to their liking. Those users may wish to fork `@roots/bud` so as to have a starting point to configure from.
+
+## Writing extensions
+
+An extension can be defined either as an object or an es module. Bud's core extensions are defined as modules, and this is the preferred approach. Typescript makes this pretty easy to do while remaining cross compatible with older module APIs.
 
 ## Contributing
 

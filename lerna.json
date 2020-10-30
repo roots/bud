@@ -22,7 +22,7 @@
     "packages/extension-stylelint",
     "packages/extension-tailwindcss",
     "packages/extension-typescript",
-    "packages/plugin-manifests",
+    "packages/extension-wordpress-manifests",
     "packages/webpack-entrypoints-plugin",
     "packages/webpack-merged-manifest-plugin",
     "packages/webpack-wordpress-externals-plugin"

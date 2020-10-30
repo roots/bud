@@ -82,6 +82,11 @@ declare class Bud {
   public mode: Framework.Mode
 
   /**
+   * Run the build.
+   */
+  public run: () => void
+
+  /**
    * WDS wrapper.
    */
   public server: Framework.Server

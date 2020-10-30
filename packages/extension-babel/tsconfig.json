@@ -3,6 +3,9 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./lib",
+    "declaration": true,
+    "declarationDir": "./lib/types",
+    "declarationMap": true,
     "baseUrl": "."
   },
   "typeAcquisition": {

@@ -32,7 +32,7 @@ export {
  * Framework.API
  * @package @roots/bud-api
  */
-export {API} from './API'
+export {API} from './api'
 
 /**
  * Framework.Bud

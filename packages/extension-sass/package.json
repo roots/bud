@@ -28,7 +28,7 @@
     "src"
   ],
   "main": "./lib/index.js",
-  "types": "./types/index.d.ts",
+  "types": "./lib/types/index.d.ts",
   "scripts": {
     "build": "tsc --build",
     "clean:lib": "rimraf ./lib",
