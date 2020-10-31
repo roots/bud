@@ -2,14 +2,14 @@
 description: Generate a runtime chunk.
 ---
 
-# bud.runtimeManifest
+# bud.runtime
 
 Generate a runtime chunk intended to be inlined on the page. Useful for dynamic imports.
 
 ## Usage
 
 ```js
-bud.runtimeManifest()
+bud.runtime()
 ```
 
 ## Signature

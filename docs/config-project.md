@@ -25,3 +25,5 @@ bud.project('resources/views')
 ## Related
 
 - [bud.projectPath](config-projectPath.md)
+- [bud.src](config-src.md)
+- [bud.dist](config.dist.md)

@@ -1,10 +1,10 @@
 ---
-description: Enable or disable filename hashing of built assets.
+description: Enable filename hashing of built assets.
 ---
 
 # bud.hash
 
-Enable or disable filename hashing of built assets.
+Enable filename hashing of built assets.
 
 ## Usage
 
@@ -14,22 +14,8 @@ Enable hashing:
 bud.hash()
 ```
 
-Enable hashing only in production:
-
-```js
-bud.hash(bud.mode.is('production'))
-```
-
 ## Signature
 
 ```ts
-function (
-  enabled? = true
-): Bud
+function (): Bud
 ```
-
-## Arguments
-
-| Name      | Type    |
-| --------- | ------- |
-| `enabled` | boolean |

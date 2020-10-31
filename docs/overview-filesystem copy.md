@@ -67,3 +67,17 @@ See the [resolveFrom](https://github.com/sindresorhus/resolve-from) docs for mor
 `fast-glob` implementation.
 
 See the [globby](https://github.com/sindresorhus/globby) docs for more information on using this function.
+
+### Additional utilities
+
+#### fs-extra functions
+
+Bud has all the [fs-extra](https://github.com/fs-extra) methods are bound to the `bud.fs` object. So, you can easily tap into those (`bud.fs.ensureFileSync`, et al.) when convenient.
+
+See the fs-extra docs for more information.
+
+#### node path functions
+
+Bud has all of node's native path methods are bound as properties of `bud.fs`. For example, instead of needing to manually import `path.join`, you can use `bud.fs.join`.
+
+See the node path docs for more information.

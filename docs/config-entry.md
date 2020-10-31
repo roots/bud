@@ -26,7 +26,7 @@ bud.entry('app', ['app.js', 'app.css'])
 
 ## Alternative
 
-If you want to pass all of your assets without repeatedly calling `bud.entry` you might consider either setting the config directly:
+If you want to pass all of your assets without repeatedly calling `bud.entry` you can set the configuration directly:
 
 ```js
 bud.config.set('entry', {
@@ -34,9 +34,9 @@ bud.config.set('entry', {
   another: ['another.js'],
 })
 
-/***
+/**
  * You might also want to append multiple entries,
- * rather than overwriting them:
+ * rather than overwriting the existing config.
  */
 bud.config.mutate('entry', entry => ({
   ...entry,

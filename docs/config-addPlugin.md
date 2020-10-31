@@ -72,7 +72,7 @@ function (
 | ------ | ------ |
 | `name` | string |
 | `make` | Framework.Extension.Make | Webpack.Plugin |
-| `when` | Framework.Extension.Conditional | boolean |
+| `when?` | Framework.Extension.Conditional | boolean |
 
 ## Returns
 

@@ -2,8 +2,6 @@ export const dev: Framework.API.Dev = function (
   this: Framework.Bud,
   config,
 ) {
-  this.features.enable('dev')
-
   if (!config) return this
 
   if (

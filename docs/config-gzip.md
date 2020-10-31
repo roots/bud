@@ -10,9 +10,13 @@ It's arguments are optional. For more information on what options are available 
 
 ## Usage
 
+Use default options:
+
 ```js
 bud.gzip()
 ```
+
+Overriding defaults:
 
 ```js
 bud.gzip({
@@ -23,9 +27,7 @@ bud.gzip({
 ## Signature
 
 ```ts
-function (
-  {[key: string]: any[]}[]
-): Bud
+function ({[key: string]: any}): Framework.Bud
 ```
 
 ## Parameters
@@ -36,5 +38,4 @@ function (
 
 ## Returns
 
-The Bud instance.
-
+`Framework.Bud`: The Bud instance.

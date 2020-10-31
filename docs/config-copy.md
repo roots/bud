@@ -6,9 +6,7 @@ description: Specify the root directory of the project's source files.
 
 `bud.copy` allows you to copy static assets to your output directory.
 
-You can specify a path to a specific file or use [fast-glob](https://github.com/mrmlnc/fast-glob) style globbing to move over sets of files.
-
-Uses [globby](https://github.com/sindresorhus/globby) under the hood.
+You can specify a path to a specific file or use glob syntax to match many files at once.
 
 ## Usage
 

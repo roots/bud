@@ -29,72 +29,77 @@ const bud = require('@roots/bud')()
 
 bud
   .srcPath('resources')
-  .distPath('dist')
-  .bundle('app', [
-    bud.src('scripts/app.js'),
-    bud.src('styles/app.css'),
+  .entry('app', [
+    'scripts/app.js',
+    'styles/app.css',
   ])
-  .compile()
+  .run()
 ```
 
-## Set project paths
+Let's break down what is happening.
 
-```js{4-5}
+### 1. Set project paths
+
+```js
 const bud = require('@roots/bud')()
 
 bud
   .srcPath('resources')
-  .distPath('dist')
-  .bundle('app', [
-    bud.src('scripts/app.js'),
-    bud.src('styles/app.css'),
+  .entry('app', [
+    'scripts/app.js',
+    'styles/app.css',
   ])
-  .compile()
+  .run()
 ```
 
 First, we set the paths of important project directories. Bud includes a number of functions to help make sure your assets can be found by your build tools.
 
-[bud.srcPath](config-srcPath.md) indicates where the project source files are located.
+- [bud.projectPath](config-projectPath.md) indicates the root path of the project. Since our config file is already in the project root, we don't need to explicitly set this. However, if you are running the config outside the project root, you will need to make this explicit. This is done with [bud.projectPath](config-projectPath.md).
 
-[bud.distPath](config-distPath.md) indicates the directory to emit compiled assets.
+- [bud.srcPath](config-srcPath.md) indicates where the project source files are located.
 
-If you are running the config outside the project root, you may also need to specify the path of the project itself. This is done with [bud.projectPath](config-projectPath.md). If you are using this function, **use it before specifying [bud.srcPath](config-srcPath.md) and [bud.distPath](config-distPath.md)**, as they utilize the value set here.
+- [bud.distPath](config-distPath.md) indicates the directory to emit compiled assets. Since our directory name matches the presumed default `dist` directory, we don't need to explicitly set this.
+
+If you are using `bud.projectPath`, **use it before specifying [bud.srcPath](config-srcPath.md) and [bud.distPath](config-distPath.md)**.
 
 ```js
 /** First, set the project path */
 bud.projectPath('/abs/path/to/project')
 
 /** Now, it is safe to set the src and dist directories */
-bud.srcPath('resources/assets')
-bud.distPath('dist')
+bud
+  .srcPath('resources/assets')
+  .distPath('dist')
 ```
 
-These values may be utilized throughout the rest of the config using functions like [bud.src](config-src.md), [bud.dist](config-dist.md), and [bud.project](config-project.md). You'll see them used throughout this guide when specifying paths.
+The reason is that the value set by `bud.projectPath` is utilized by `bud.srcPath` and `bud.distPath`.
 
-## Bundle source files
+## Specifying source files
 
-```js{6-9}
+```js
 const bud = require('@roots/bud')
 
 bud
   .srcPath('resources')
   .distPath('dist')
-  .bundle('app', [
-    bud.src('scripts/app.js'),
-    bud.src('styles/app.css'),
+  .entry('app', [
+    'scripts/app.js',
+    'styles/app.css',
   ])
-  .compile()
+  .run()
 ```
 
-[bud.bundle](config-bundle.md) is used to group your source assets into distinct distributables. It takes two arguments, indicating:
+[bud.entry](config-entry.md) is used to group your source assets into distinct distributables. It takes two arguments, indicating:
 
-1. the bundle name; and
+1. the entrypoint name; and
 2. the source files to include.
 
-### 1. The bundle name
+An `entry` or `entrypoint` may be referred to in other ways, depending on context. Often, you'll here people describe a "root" file or the "main" file. These terms all mean the same thing, but in the context of webpack, `entry` is the most common term used for this referent.
 
-```js{2}
-bud.bundle('app', [bud.src('scripts/app.js')])
+#### 1. The entry name
+
+```js
+bud.entry('app', 'scripts/app.js')
 ```
 
 **The first argument** is a `string` and it names the outputted file(s).
@@ -105,43 +110,40 @@ There is no reason to include an extension in the bundle name &mdash; Bud will d
 
 All bundled assets will be compiled to the root of the [bud.dist](/config-dist.md). If you want to group compiled assets into subdirectories within dist, you may do so by including a `/` in the bundle name:
 
-```js{2}
-bud.bundle('scripts/app', [bud.src('scripts/app.js')])
+```js
+bud.entry('scripts/app', 'scripts/app.js')
 ```
 
-### 2. The bundle source(s)
+#### 2. The entry source(s)
 
-```js{2}
-bud.bundle('app', [bud.src('scripts/app.js')])
+```js
+bud.entry('app', 'scripts/app.js')
 ```
 
-**The second argument** is an `array` of source files to include in the bundle.
+**The second argument** is either a `string` or an `array` of source files to include in the entry bundle.
 
-It is totally fine to specify more than one source file per bundle (hence, the name: `bundle`). You can even use files of different types.
+Use the array form to specify more than one source file per bundle. You can even use files of different types.
 
-```js{3-4}
+```js
 /** Bundle includes js and css assets and that's OK */
-bud.bundle('app', [
-  bud.src('scripts/app.js'),
-  bud.src('styles/app.css'),
+bud.entry('app', [
+  'scripts/app.js',
+  'styles/app.css',
 ])
 ```
 
-If files can't be concatenated, as is the case with the script and style source files above, there will be multiple outputs generated.
+If a set of sources can't be concatenated, as is the case with the script and style sources above, there will be multiple output files generated.
 
-## Finalize the config
+### 3. Run the build
 
-```js{10}
-const bud = require('@roots/bud')
-
-bud
-  .srcPath('resources')
-  .distPath('dist')
-  .bundle('app', [
-    bud.src('scripts/app.js'),
-    bud.src('styles/app.css'),
-  ])
-  .compile()
+```js
+bud.run()
 ```
 
-The last step invokes the compiler.
+The last step runs the build and outputs the build results using the bud cli.
+
+If you want to use vanilla webpack to run your build, more power to you! Rename your file `webpack.config.js` and change the final line to export the configuration directly:
+
+```js
+module.exports = bud.build.make()
+```
