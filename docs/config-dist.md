@@ -34,8 +34,8 @@ function (
 
 ## Arguments
 
-| Name   | Type    |
-| ------ | ------  |
+| Name    | Type   |
+| ------- | ------ |
 | `path?` | string |
 
 ## Related

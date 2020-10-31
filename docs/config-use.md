@@ -16,6 +16,6 @@ bud.use('@roots/bud-sass')
 
 ## Arguments
 
-| Name      | Type  |
-| --------- | ----- |
+| Name        | Type   |
+| ----------- | ------ |
 | `extension` | string |

@@ -60,6 +60,7 @@
     "lint": "run-s lint:*",
     "lint:eslint": "eslint 'packages/**/*.{js,ts,tsx}' --fix",
     "lint:prettier": "prettier 'packages/**/src/**/*'  --write",
+    "lint:docs": "prettier 'docs/*' --write",
     "changelog": "conventional-changelog -i CHANGELOG.md -s -u",
     "release:next": "lerna publish --ignore-scripts --dist-tag next",
     "release:next:pre": "lerna publish prerelease --ignore-scripts --pre-dist-tag next",

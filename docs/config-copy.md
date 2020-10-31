@@ -41,11 +41,11 @@ function ({
 
 ## Parameters
 
-| Name   | Type   |
-| ------ | ------ |
-| `from` | string |
-| `context`   | string |
-| `to` | string |
+| Name          | Type                 |
+| ------------- | -------------------- |
+| `from`        | string               |
+| `context`     | string               |
+| `to`          | string               |
 | `globOptions` | {[key: string]: any} |
 
 ## Returns

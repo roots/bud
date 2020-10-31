@@ -12,10 +12,10 @@ Import your plugin in the manner described by the plugin documentation. Dependin
 
 ```js
 // commonjs require
-const myPlugin = require('my-plugin');
+const myPlugin = require('my-plugin')
 
 // module import
-import myPlugin from 'my-plugin';
+import myPlugin from 'my-plugin'
 ```
 
 Now, you can add the plugin using `bud.addPlugin`. The first parameter is a name to reference the plugin by. The second parameter defines the plugin.
@@ -29,8 +29,8 @@ Above we are defining the plugin as an object. It is also possible to define the
 ```js
 bud.addPlugin(
   'my-plugin',
-  bud => new myPlugin({path: bud.src()})
-);
+  bud => new myPlugin({path: bud.src()}),
+)
 ```
 
 Optionally, a third parameter can be passed which defines whether this plugin should be used at all. This can be helpful to only load a plugin in certain environments (as an example).
@@ -48,10 +48,8 @@ bud.addPlugin(
 Just as with the plugin definition, you can also define this optional conditional check as a function:
 
 ```js
-bud.addPlugin(
-  'my-plugin',
-  new myPlugin(),
-  bud => bud.features.enabled('hot'),
+bud.addPlugin('my-plugin', new myPlugin(), bud =>
+  bud.features.enabled('hot'),
 )
 ```
 
@@ -68,10 +66,10 @@ function (
 
 ## Parameters
 
-| Name   | Type   |
-| ------ | ------ |
-| `name` | string |
-| `make` | Framework.Extension.Make | Webpack.Plugin |
+| Name    | Type                            |
+| ------- | ------------------------------- |
+| `name`  | string                          |
+| `make`  | Framework.Extension.Make        | Webpack.Plugin |
 | `when?` | Framework.Extension.Conditional | boolean |
 
 ## Returns

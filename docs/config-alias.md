@@ -40,10 +40,10 @@ function ({
 
 ## Parameters
 
-| Name      | Type   |
-| --------- | ------ |
-| `handle`  | string |
-| `path`    | string |
+| Name     | Type   |
+| -------- | ------ |
+| `handle` | string |
+| `path`   | string |
 
 ## Returns
 

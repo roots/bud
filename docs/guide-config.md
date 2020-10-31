@@ -29,10 +29,7 @@ const bud = require('@roots/bud')()
 
 bud
   .srcPath('resources')
-  .entry('app', [
-    'scripts/app.js',
-    'styles/app.css',
-  ])
+  .entry('app', ['scripts/app.js', 'styles/app.css'])
   .run()
 ```
 
@@ -45,10 +42,7 @@ const bud = require('@roots/bud')()
 
 bud
   .srcPath('resources')
-  .entry('app', [
-    'scripts/app.js',
-    'styles/app.css',
-  ])
+  .entry('app', ['scripts/app.js', 'styles/app.css'])
   .run()
 ```
 
@@ -67,9 +61,7 @@ If you are using `bud.projectPath`, **use it before specifying [bud.srcPath](con
 bud.projectPath('/abs/path/to/project')
 
 /** Now, it is safe to set the src and dist directories */
-bud
-  .srcPath('resources/assets')
-  .distPath('dist')
+bud.srcPath('resources/assets').distPath('dist')
 ```
 
 The reason is that the value set by `bud.projectPath` is utilized by `bud.srcPath` and `bud.distPath`.
@@ -82,10 +74,7 @@ const bud = require('@roots/bud')
 bud
   .srcPath('resources')
   .distPath('dist')
-  .entry('app', [
-    'scripts/app.js',
-    'styles/app.css',
-  ])
+  .entry('app', ['scripts/app.js', 'styles/app.css'])
   .run()
 ```
 
@@ -126,10 +115,7 @@ Use the array form to specify more than one source file per bundle. You can even
 
 ```js
 /** Bundle includes js and css assets and that's OK */
-bud.entry('app', [
-  'scripts/app.js',
-  'styles/app.css',
-])
+bud.entry('app', ['scripts/app.js', 'styles/app.css'])
 ```
 
 If a set of sources can't be concatenated, as is the case with the script and style sources above, there will be multiple output files generated.

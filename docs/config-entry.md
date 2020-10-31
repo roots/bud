@@ -65,9 +65,9 @@ function (
 
 ## Parameters
 
-| Name      | Type     |
-| --------- | -------- |
-| `name`    | string   |
+| Name    | Type             |
+| ------- | ---------------- |
+| `name`  | string           |
 | `entry` | string, string[] |
 
 ## Returns

@@ -30,8 +30,8 @@ function (
 
 ## Parameters
 
-| Name   | Type   |
-| ------ | ------ |
+| Name      | Type                                              |
+| --------- | ------------------------------------------------- |
 | `options` | compression-plugin options for brotli compression |
 
 ## Returns

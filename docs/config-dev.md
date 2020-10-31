@@ -4,170 +4,101 @@ description: Configure the Bud development server.
 
 # bud.dev
 
-Configure Bud's default development server.
+Configure Bud's development server.
 
-## Defaults
+## Server information
 
-| Property   | Value |
+By default the server is available in `development` mode at this address:
+
+| Property   | Value     |
 | ---------- | --------- |
 | host       | localhost |
 | port       | 3000      |
-| publicPath | '/'       |
-| ssl        | false     |
+| publicPath | `/`       |
+
+These default values are customizable using this function, `bud.dev`.
 
 ## Usage
 
-```js
+```ts
 bud.dev({
-  hot: true,
-  host: 'localhost',
-  port: 8000,
+  host: 'my-local-site.example',
+  port: 5000,
 })
 ```
 
-Users who are building on top of an existing server-side framework like WordPress, or Laravel, will likely want to proxy their established development server. An example config might look like:
+Users building on top of an existing backend framework like WordPress, Laravel, RoR, etc. will likely want to proxy their established development server. An example config for a hypothetical `example.test` domain might look like:
 
 ```js
 bud.dev({
-  hot: true,
   host: 'localhost',
   port: 3000,
   proxy: {
-    host: 'example.test', // for existing example.test domain
+    host: 'example.test',
     port: 8080,
   },
+})
+```
+
+Users who's assets are not served from web root should specify the `publicPath` option. For instance, if your main JS file is accessed in a browser at `mysite.com/assets/app.js` your publicPath should be set to `assets`.
+
+This example covers the typical publicPath of assets for a [@roots/sage](https://github.com/roots/sage) theme:
+
+```ts
+bud.dev({
+  publicPath: 'app/themes/sage/dist',
 })
 ```
 
 ## Signature
 
 ```ts
-function ({
-  /**
-   * The development server host
-   * @example example.test
-   */
+function (options: {
   host?: string
-
-  /**
-   * The development server port
-   * @example 3000
-   */
   port?: number
-
-  /**
-   * Proxy destination
-   */
   proxy?: {
-    /**
-     * Proxy destination host
-     * @example localhost
-     */
     host?: string
-
-    /**
-     * Proxy destination port
-     * @example 8080
-     */
     port?: number
   }
-
-  /**
-   * The index path for web server, defaults to "index.html".
-   */
   index?: WebpackDevMiddleware.Options['index']
-
-  /**
-   * Should hot middleware be used?
-   */
-  hot?: boolean
-
-  /**
-   * The path that the middleware is bound to.
-   */
   publicPath?: WebpackDevMiddleware.Options['publicPath']
-
-  /**
-   * Proxy setting: object passed to  https.createServer
-   */
   ssl?: ProxyOptions['ssl']
-
-  /**
-   * Proxy setting: set to true to verify SSL certificates
-   */
   secure?: ProxyOptions['secure']
-
-  /**
-   * Proxy setting: proxy websockets.
-   */
   ws?: ProxyOptions['ws']
-
-  /**
-   * Proxy setting: rewrite the location host/port on (301/302/307/308) redirects based on requested host/port.
-   */
   autoRewrite?: ProxyOptions['autoRewrite']
-
-  /**
-   * Proxy setting: change the origin of the host header to the target URL
-   */
   changeOrigin?: ProxyOptions['changeOrigin']
-
-  /**
-   * Escape hatch for Webpack's host check security feature.
-   */
   disableHostCheck?: WebpackDevMiddleware.Options[]
-
-  /**
-   * Proxy setting: specify whether you want to follow redirects
-   */
   followRedirects?: ProxyOptions['followRedirects']
-
-  /**
-   * Filename to serve as index.
-   */
   filename?: WebpackDevMiddleware.Options['filename']
-
-  /**
-   * This property allows a user to pass custom HTTP headers on each request. eg. { "X-Custom-Header": "yes" }
-   */
   headers?: WebpackDevMiddleware.Options['headers']
-
-  /**
-   * This property allows a user to pass the list of HTTP request methods accepted by the server.
-   * @default [ 'GET', 'HEAD' ]
-   */
   methods?: WebpackDevMiddleware.Options['methods']
-
-  /**
-   * This property allows a user to register custom mime types or extension mappings
-   * @default null
-   */
-  mimeTypes?:
-    | WebpackDevMiddleware.MimeTypeMap
-    | WebpackDevMiddleware.OverrideMimeTypeMap
-    | null
-
-  /**
-   * Instructs the module to enable or disable the server-side rendering mode
-   */
-  serverSideRender?: WebpackDevMiddleware.Options['serverSideRender']
-
-  /**
-   * If true, the option will instruct the module to write files to
-   * the configured location on disk as specified in your webpack config file
-   * This option also accepts a Function value, which can be used to
-   * filter which files are written to disk
-   */
   writeToDisk?: WebpackDevMiddleware.Options['writeToDisk']
-}): Bud
+}): Framework.Bud
 ```
 
 ## Parameters
 
-| Name   | Type   |
-| ------ | ------ |
-| `options` | development server options |
+| Name                       | Type                                                     |
+| -------------------------- | -------------------------------------------------------- |
+| `options.host`             | The development server host                              |
+| `options.port`             | The development server port                              |
+| `options.proxy`            | Proxy destination                                        |
+| `options.proxy.host`       | Proxy destination host                                   |
+| `options.proxy.port`       | Proxy destination port                                   |
+| `options.index`            | The index path for web server, defaults to "index.html". |
+| `options.publicPath`       | The path that the middleware is bound to.                |
+| `options.ssl`              | Object passed to https.createServer                      |
+| `options.secure`           | Should SSL certificates be verified?                     |
+| `options.ws`               | Should websockets be proxied?                            |
+| `options.autoRewrite`      | Rewrite the host/port on (301/302/307/308) redirects.    |
+| `options.changeOrigin`     | Change the origin of the host header to the target URL   |
+| `options.disableHostCheck` | Escape hatch for Webpack's host check security feature.  |
+| `options.followRedirects`  | Whether you want to follow proxied redirects             |
+| `options.filename`         | Index filename                                           |
+| `options.headers`          | Custom HTTP headers                                      |
+| `options.methods`          | HTTP request methods accepted by the server.             |
+| `options.writeToDisk`      | Should files be written to disk.                         |
 
 ## Returns
 
-The Bud instance
+`Framework.Bud`: The Bud instance

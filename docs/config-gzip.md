@@ -32,8 +32,8 @@ function ({[key: string]: any}): Framework.Bud
 
 ## Parameters
 
-| Name   | Type   |
-| ------ | ------ |
+| Name      | Type                      |
+| --------- | ------------------------- |
 | `options` | compression-plugin option |
 
 ## Returns

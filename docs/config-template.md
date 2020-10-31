@@ -45,14 +45,14 @@ PUBLIC_URL=http://localhost:3000
   <head>
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1"
+    />
 
     <title>%APP_NAME%</title>
     <meta name="theme-color" content="#000000" />
-    <meta
-      name="description"
-      content="%APP_DESCRIPTION%"
-    />
+    <meta name="description" content="%APP_DESCRIPTION%" />
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
   </head>
 
@@ -68,7 +68,7 @@ PUBLIC_URL=http://localhost:3000
 
 ## Arguments
 
-| Name   | Type   |
-| ------ | ------ |
-| `template` | string |
-| `replacements` | {[key: string]: value}
+| Name           | Type                   |
+| -------------- | ---------------------- |
+| `template`     | string                 |
+| `replacements` | {[key: string]: value} |
