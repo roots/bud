@@ -1,1 +1,1 @@
-import '@roots/bud-typings'
+export * from '@roots/bud-typings'

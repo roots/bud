@@ -10,15 +10,6 @@ import {Webpack} from '../Webpack'
  * @package @roots/bud-api
  */
 export namespace API {
-
-  /**
-   * Indicate additional filetypes to be resolved by the compiler.
-   */
-  export type AddExtensions = Framework.Fluent<
-    Framework.Bud,
-    string | string[]
-  >
-
   /**
    * Returns the path to the `dist` directory. Or, if passed a string,
    * formats it as a path with `dist` as the root.
@@ -61,15 +52,22 @@ export namespace API {
   export type SrcPath = Framework.Fluent<Framework.Bud>
 
   /**
-   * Set the `dist` directory. Indicate with an asbsolute path.
+   * Add a webpack plugin.
+   * @param
    */
-  export type AddPlugin = Framework.Fluent<
-    Framework.Bud,
-    string,
-    Framework.Extension.Make,
-    Framework.Extension.Options,
-    Framework.Extension.Conditional
-  >
+  export type AddPlugin =
+    | Framework.Fluent<
+        Framework.Bud,
+        string,
+        Framework.Extension.Make,
+        Framework.Extension.Conditional
+      >
+    | ((
+        this: Framework.Bud,
+        name: string,
+        make: Framework.Extension.Make,
+        when?: Framework.Extension.Conditional,
+      ) => Framework.Bud)
 
   /**
    * Alias windows variables or path shorthands.
@@ -103,7 +101,11 @@ export namespace API {
   /**
    * Copy files to the `dist` directory. Can be expressed as a glob.
    */
-  export type Copy = Framework.Fluent<Framework.Bud, string, string>
+  export type Copy = Framework.Fluent<
+    Framework.Bud,
+    string,
+    string
+  >
 
   export type Devtool = Framework.Fluent<
     Framework.Bud,
@@ -117,7 +119,10 @@ export namespace API {
 
   export type Extend = Framework.Fluent<Framework.Bud, () => any>
 
-  export type Glob = Framework.Fluent<Framework.Bud, Options.Glob>
+  export type Glob = Framework.Fluent<
+    Framework.Bud,
+    Options.Glob
+  >
 
   export type Gzip = (
     this: Framework.Bud,
@@ -137,7 +142,7 @@ export namespace API {
 
   export type Vendor = (
     this: Framework.Bud,
-    options?: Framework.Webpack.HotModuleReplacementPlugin
+    options?: Framework.Webpack.HotModuleReplacementPlugin,
   ) => Framework.Bud
 
   /**
@@ -169,7 +174,10 @@ export namespace API {
     },
   ) => Framework.Bud
 
-  export type PathGetter = (this: Framework.Bud, path?: string | undefined) => string | void
+  export type PathGetter = (
+    this: Framework.Bud,
+    path?: string | undefined,
+  ) => string | void
 
   export type Runtime = (
     this: Framework.Bud,

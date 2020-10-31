@@ -1,3 +1,4 @@
+import Framework from '..'
 import * as Ink from 'ink'
 import * as hooks from './hooks'
 import {FunctionComponent} from 'react'

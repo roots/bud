@@ -27,7 +27,7 @@ import 'scripts/myScript' // replacing '../../myScript'
 ```ts
 function ({
   [{key: string}]: {path: string},
-}[]): Bud
+}[]): Framework.Bud
 ```
 
 ## Parameters

@@ -1,7 +1,15 @@
+import {lodash as _} from '@roots/bud-support'
+
 export const addPlugin: Framework.API.AddPlugin = function (
-  extension: Framework.Extension,
+  make: Framework.Extension.Make | Framework.Webpack.Plugin,
+  when?: Framework.Extension.When | boolean,
 ) {
-  this.extensions.register(name, extension)
+  const args = {
+    make: !_.isFunction(make) ? () => make : make,
+    when: !_.isFunction(when) ? () => when ?? true : when,
+  }
+
+  this.extensions.register(name, args)
 
   return this
 }
