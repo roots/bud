@@ -4,25 +4,41 @@ description: Specify the root directory of the project's source files.
 
 # bud.copy
 
-`bud.copy` is copy a file from one location to another. This is a straight copy -- the file will not be transpiled.
+`bud.copy` allows you to copy static assets to your output directory.
 
-::: tip 🕵️‍♂️ Guide available
-Details on the usage of this method are available in [the Copying Static Assets guide](guide-copying-assets.md).
-:::
+You can specify a path to a specific file or use [fast-glob](https://github.com/mrmlnc/fast-glob) style globbing to move over sets of files.
+
+Uses [globby](https://github.com/sindresorhus/globby) under the hood.
 
 ## Usage
 
+Copy all files from `src/images`:
+
 ```js
-bud.copy(bud.src('images/logo.png'), bud.dist('logo.png'))
+bud.copy({from: 'images/**/*'})
+```
+
+Copy all files from a path outside of `bud.src`:
+
+```js
+bud.copy({from: 'images/**/*', context: bud.project('assets')})
+```
+
+Copy all files to a path outside of `bud.dist`:
+
+```js
+bud.copy({from: 'images/**/*', to: '/app/cdn/media'})
 ```
 
 ## Signature
 
 ```ts
-function (
+function ({
   from: string,
-  to: string,
-): Bud
+  context?: string,
+  to?: string,
+  globOptions?: {[key: string]: any}
+}): Framework.Bud
 ```
 
 ## Parameters
@@ -30,13 +46,10 @@ function (
 | Name   | Type   |
 | ------ | ------ |
 | `from` | string |
-| `to`   | string |
+| `context`   | string |
+| `to` | string |
+| `globOptions` | {[key: string]: any} |
 
 ## Returns
 
 The Bud instance.
-
-## Related
-
-- [bud.glob](config-glob.md)
-- [bud.copyAll](config-copyAll.md)

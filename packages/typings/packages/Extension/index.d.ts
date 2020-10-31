@@ -43,7 +43,9 @@ declare interface Extension {
   /**
    * Register set of RuleSetUseItems
    */
-  registerItems?: Framework.Index<Framework.Extension['registerItem']>
+  registerItems?: Framework.Index<
+    Framework.Extension['registerItem']
+  >
 
   /**
    * Register outside of module.rules.oneOf
@@ -71,7 +73,6 @@ declare interface Extension {
  * @namespace {Extension}
  */
 declare namespace Extension {
-
   export type Register = (bud: Framework.Bud) => void
 
   /**
@@ -106,7 +107,10 @@ declare namespace Extension {
    * Plugin make when
    */
   export type When =
-    | ((bud: Framework.Bud, options: Extension.Options) => boolean)
+    | ((
+        bud: Framework.Bud,
+        options: Extension.Options,
+      ) => boolean)
     | boolean
 
   /**

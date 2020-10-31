@@ -68,7 +68,7 @@ function (
 | Name      | Type     |
 | --------- | -------- |
 | `name`    | string   |
-| `entry` | string | string[] |
+| `entry` | string, string[] |
 
 ## Returns
 

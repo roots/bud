@@ -100,14 +100,12 @@ declare class Bud {
   /**
    * Construct
    */
-  public constructor (
-    params?: {
-      api?: Framework.Index<[string, CallableFunction]>,
-      builders?: any,
-      containers?: Framework.Index<Framework.Index<any>>,
-      services?: any,
-    },
-  )
+  public constructor(params?: {
+    api?: Framework.Index<[string, CallableFunction]>
+    builders?: any
+    containers?: Framework.Index<Framework.Index<any>>
+    services?: any
+  })
 
   /**
    * Register services, functions, on Bud.
@@ -128,11 +126,9 @@ declare class Bud {
   ): void
 }
 
-
-
 export type Util = {
-  format: Format,
-  pretty: Pretty,
+  format: Format
+  pretty: Pretty
 }
 
 export type Pretty = (
@@ -140,10 +136,7 @@ export type Pretty = (
   parser: BuiltInParserName,
 ) => string
 
-export type Format = (
-  obj: unknown,
-  options?
-) => string
+export type Format = (obj: unknown, options?) => string
 
 export type Builders = Array<
   [
@@ -152,7 +145,11 @@ export type Builders = Array<
       this: Bud,
       [name, loader]: [
         string,
-        Framework.Build.Loader | Framework.Item.Module | Framework.Rule.Module,
+        (
+          | Framework.Build.Loader
+          | Framework.Item.Module
+          | Framework.Rule.Module
+        ),
       ],
     ) => void,
   ]
@@ -163,6 +160,6 @@ export interface Services {
     [key: string]: [
       service: NewableFunction,
       dependenies?: Framework.Index<any>,
-    ],
-  },
+    ]
+  }
 }

@@ -214,6 +214,16 @@ export class Extensions implements Framework.Extensions {
     }
   }
 
+  public mutateOptions(
+    extension: string,
+    mutationFn: (any) => any,
+  ): void {
+    this.setOptions(
+      extension,
+      mutationFn(this.getOptions(extension)),
+    )
+  }
+
   /**
    * Make an extension
    * @note applies only to webpack plugins
