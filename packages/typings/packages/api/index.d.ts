@@ -138,6 +138,18 @@ export namespace API {
     options: Options.Template,
   ) => Framework.Bud
 
+  /**
+   * Register an extension or set of extensions to use.
+   *
+   * Extensions can be specified by:
+   *
+   * - a resolvable package name
+   * - an array of resolvable package names
+   * - a module path
+   * - an array of module paths
+   * - extension object formatted as a tuple [extension name, object]
+   * - an array of extension objects in the same tuple format.
+   */
   export type Use =
     | Framework.Fluent<Framework.Bud>
     | ((
@@ -149,26 +161,26 @@ export namespace API {
           | Framework.Extension[],
       ) => Framework.Bud)
 
+  /**
+   *
+   */
   export type Vendor = (
     this: Framework.Bud,
     options?: Framework.Webpack.HotModuleReplacementPlugin,
   ) => Framework.Bud
 
   /**
-   * Given a conditional check:
-   *  - execute the truecase fn if true
-   *  - optionally, a third parameter to execute as an elsecase.
+   * Executes a function if a given test is true.
+   *
+   * The first parameter is the conditional check.
+   * The second parameter is the function to execute if true.
+   * The third paramter is optional; executed if the conditional is not true.
    */
   export type When = (
     this: Framework.Bud,
     test: boolean,
     trueCase?: CallableFunction,
     falseCase?: CallableFunction | undefined,
-  ) => Framework.Bud
-
-  export type Target = (
-    this: Framework.Bud,
-    target: Framework.Webpack.Configuration['target'],
   ) => Framework.Bud
 
   export type Terser = (
