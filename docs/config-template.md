@@ -4,7 +4,7 @@ description: Generate HTML boilerplate.
 
 # bud.template
 
-This functionality allows you to configure the boilerplate HTML generated for your project.
+This function allows you to generate and/or configure boilerplate HTML generated for your project. This HTML includes the path to your built assets automatically. It is especially useful when building hashed assets with [`bud.hash`](config-hash.md).
 
 In the example below, we:
 
@@ -13,16 +13,17 @@ In the example below, we:
 
 In addition to the variables specified in `replacements` any top level key from `package.json` and any `.env` variables are also made available to the template -- you don't need to specify anything.
 
-You can use any of these variables in the template by surrounding the variable name with `%` characters, like so: `%VARIABLE_NAME%`.
+You can use any of these variables in the template by surrounding the variable name with `%` characters. Example: `%VARIABLE_NAME%`.
 
 ## Usage
 
 ```js
+const {name, description} = bud.fs.readJson('package.json')
 bud.template({
-  template: bud.fs.path.resolve('public/index.html'),
+  template: bud.project('public/index.html'),
   replacements: {
-    APP_NAME: bud.package.get('name'),
-    APP_DESCRIPTION: bud.package.get('description'),
+    APP_NAME: name,
+    APP_DESCRIPTION: description,
     PUBLIC_URL: bud.env.get('PUBLIC_URL'),
   },
 })
@@ -45,28 +46,16 @@ PUBLIC_URL=http://localhost:3000
     <meta charset="utf-8" />
     <link rel="icon" href="%PUBLIC_URL%/favicon.ico" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>%APP_NAME%</title>
     <meta name="theme-color" content="#000000" />
     <meta
       name="description"
       content="%APP_DESCRIPTION%"
     />
-
-    <link rel="apple-touch-icon" href="%PUBLIC_URL%/logo192.png" />
-    <!--
-      manifest.json provides metadata used when your web app is installed on a
-      user's mobile device or desktop. See https://developers.google.com/web/fundamentals/web-app-manifest/
-    -->
     <link rel="manifest" href="%PUBLIC_URL%/manifest.json" />
-    <!--
-      Notice the use of %PUBLIC_URL% in the tags above.
-      It will be replaced with the URL of the `public` folder during the build.
-      Only files inside the `public` folder can be referenced from the HTML.
-      Unlike "/favicon.ico" or "favicon.ico", "%PUBLIC_URL%/favicon.ico" will
-      work correctly both with client-side routing and a non-root public URL.
-      Learn how to configure a non-root public URL by running `npm run build`.
-    -->
-    <title>%APP_NAME%</title>
   </head>
+
   <body>
     <div id="root"></div>
     <!--

@@ -3,7 +3,6 @@
  */
 const bud = require('../packages/bud/lib')
 
-
 bud.extensions
   .use('@roots/bud-babel')
   .use('@roots/bud-eslint')
@@ -16,6 +15,8 @@ bud.extensions
   .next()
 
   .template()
+
+bud
 
   .when(
     bud.mode.is('production'),

@@ -1,5 +1,5 @@
 ---
-description: Compress static assets with brotli.
+description: Compress static assets with brotli compression.
 ---
 
 # bud.brotli
@@ -32,9 +32,8 @@ function (
 
 | Name   | Type   |
 | ------ | ------ |
-| `options` | compression-plugin option |
+| `options` | compression-plugin options for brotli compression |
 
 ## Returns
 
 The Bud instance.
-

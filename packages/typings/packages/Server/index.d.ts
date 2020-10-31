@@ -63,7 +63,10 @@ export declare class Server {
   /**
    * Set config item.
    */
-  setConfigItem: (key: string, item: Partial<Server.Config>) => void
+  setConfigItem: (
+    key: string,
+    item: Partial<Server.Config>,
+  ) => void
   /**
    * Get compiler.
    */
@@ -236,6 +239,7 @@ export namespace Server {
   /**
    * Inject webpack entrypoints with client HMR handling script(s).
    */
-  export type InjectClient = (entrypoints: Framework.Webpack.Entry) =>
-    Framework.Webpack.Entry
+  export type InjectClient = (
+    entrypoints: Framework.Webpack.Entry,
+  ) => Framework.Webpack.Entry
 }

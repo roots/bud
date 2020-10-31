@@ -4,14 +4,14 @@ description: Specify the root directory of the project.
 
 # bud.distPath
 
-Sets the directory containing a project's source files and assets.
+Sets the directory where assets will be built to. By default this directory is set as `dist` (relative to the `projectPath`).
 
-Once set, this directory may be utilitized using [bud.dist](config-dist.md).
+This directory is utilitized by [bud.dist](config-dist.md).
 
 ## Usage
 
 ```js
-bud.distPath('public')
+bud.distPath('build')
 ```
 
 ## Arguments

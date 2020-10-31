@@ -6,9 +6,14 @@ description: Configure the Bud development server.
 
 Configure Bud's default development server.
 
-There are plenty of options here but to get started you can just call `bud.dev()`.
+## Defaults
 
-In order to enable hot module reloading, include the `--hot` flag in the terminal invocation or enable with the `hot` option..
+| Property   | Value |
+| ---------- | --------- |
+| host       | localhost |
+| port       | 3000      |
+| publicPath | '/'       |
+| ssl        | false     |
 
 ## Usage
 
@@ -16,20 +21,20 @@ In order to enable hot module reloading, include the `--hot` flag in the termina
 bud.dev({
   hot: true,
   host: 'localhost',
-  port: 5000,
+  port: 8000,
 })
 ```
 
-WordPress users will need to proxy their exiting content. An example config might look like:
+Users who are building on top of an existing server-side framework like WordPress, or Laravel, will likely want to proxy their established development server. An example config might look like:
 
 ```js
 bud.dev({
   hot: true,
   host: 'localhost',
   port: 3000,
-  from: {
-    host: 'example.test', // for existing example.test wp install
-    port: 8080, // served over http
+  proxy: {
+    host: 'example.test', // for existing example.test domain
+    port: 8080,
   },
 })
 ```
@@ -51,26 +56,9 @@ function ({
   port?: number
 
   /**
-   * Proxy origin
-   */
-  from?: {
-    /**
-     * Proxy origin host
-     * @example example.test
-     */
-    host?: string
-
-    /**
-     * Proxy origin port
-     * @example 8080
-     */
-    port?: number
-  }
-
-  /**
    * Proxy destination
    */
-  to?: {
+  proxy?: {
     /**
      * Proxy destination host
      * @example localhost
@@ -79,7 +67,7 @@ function ({
 
     /**
      * Proxy destination port
-     * @example 3000
+     * @example 8080
      */
     port?: number
   }
@@ -95,7 +83,7 @@ function ({
   hot?: boolean
 
   /**
-   * The public path that the middleware is bound to.
+   * The path that the middleware is bound to.
    */
   publicPath?: WebpackDevMiddleware.Options['publicPath']
 
@@ -124,6 +112,9 @@ function ({
    */
   changeOrigin?: ProxyOptions['changeOrigin']
 
+  /**
+   * Escape hatch for Webpack's host check security feature.
+   */
   disableHostCheck?: WebpackDevMiddleware.Options[]
 
   /**
@@ -140,12 +131,6 @@ function ({
    * This property allows a user to pass custom HTTP headers on each request. eg. { "X-Custom-Header": "yes" }
    */
   headers?: WebpackDevMiddleware.Options['headers']
-
-  /**
-   * This option instructs the module to operate in 'lazy' mode,
-   * meaning that it won't recompile when files change, but rather on each request.
-   */
-  lazy?: WebpackDevMiddleware.Options['lazy']
 
   /**
    * This property allows a user to pass the list of HTTP request methods accepted by the server.
@@ -168,13 +153,10 @@ function ({
   serverSideRender?: WebpackDevMiddleware.Options['serverSideRender']
 
   /**
-   * Specify polling, etc.
-   */
-  watchOptions?: WebpackOptions.WatchOptions
-
-  /**
-   * If true, the option will instruct the module to write files to the configured location on disk as specified in your webpack config file
-   * This option also accepts a Function value, which can be used to filter which files are written to disk
+   * If true, the option will instruct the module to write files to
+   * the configured location on disk as specified in your webpack config file
+   * This option also accepts a Function value, which can be used to
+   * filter which files are written to disk
    */
   writeToDisk?: WebpackDevMiddleware.Options['writeToDisk']
 }): Bud
