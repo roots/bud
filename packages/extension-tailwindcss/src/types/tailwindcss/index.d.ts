@@ -4,9 +4,7 @@
 
 export as namespace tailwindcss
 
-export function tailwindcss(
-  params: tailwindcss.Config
-): any;
+export function tailwindcss(params: tailwindcss.Config): any
 
 export type Config =
   | PathToConfig
@@ -22,6 +20,6 @@ export type UsingConfigKey<Type> = {
 }
 
 export interface ThemeObject {
-  theme?: {[key: string]: any},
-  variants?: {[key: string]: any},
+  theme?: {[key: string]: any}
+  variants?: {[key: string]: any}
 }

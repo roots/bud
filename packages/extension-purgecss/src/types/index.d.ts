@@ -17,7 +17,7 @@ import '@roots/bud-typings'
  * ```
  */
 
-export as namespace Purge;
+export as namespace Purge
 
 export declare interface UserOptions {
   content?: Array<string | RawContent>
@@ -48,7 +48,9 @@ export declare interface RawCSS {
   raw: string
 }
 
-export declare type ExtractorFunction<T = string> = (content: T) => string[]
+export declare type ExtractorFunction<T = string> = (
+  content: T,
+) => string[]
 export declare interface Extractors {
   extensions: string[]
   extractor: ExtractorFunction

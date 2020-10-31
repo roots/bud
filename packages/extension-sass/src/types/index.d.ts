@@ -13,8 +13,9 @@ export declare type Exclude = Framework.Rule.Factory<
   Framework.Rule.Conditional
 >
 
-export declare type UseLoader = (loader: string) =>
-  Framework.Rule
+export declare type UseLoader = (
+  loader: string,
+) => Framework.Rule
 
 export interface Sass {
   bud: Framework.Bud

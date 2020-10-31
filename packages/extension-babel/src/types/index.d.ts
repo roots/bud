@@ -26,7 +26,7 @@ export {
   PluginTarget,
   PluginOptions,
   PluginItem,
-  TransformOptions
+  TransformOptions,
 }
 export type Plugin = [PluginItem, PluginOptions]
 
