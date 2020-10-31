@@ -45,7 +45,7 @@ bud.config.mutate('entry', entry => ({
 }))
 ```
 
-You could also use the `bud.hooks` system:
+You could also use the `bud.hooks` system.
 
 ```js
 bud.hooks.on('webpack.entry', entry => ({
