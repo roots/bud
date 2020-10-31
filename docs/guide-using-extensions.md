@@ -26,40 +26,12 @@ Using npm:
 npm install @roots/bud-sass --save-dev
 ```
 
-## Require the extension
+## Register the extension
 
-```js{2}
+```js
 const bud = require('@roots/bud')
-const sass = require('@roots/bud-sass')
 
-const project = bud()
-
-project
-  .srcPath('resources')
-  .distPath('dist')
-  .bundle('app', [
-    bud.src('scripts/app.js'),
-    bud.src('styles/app.css'),
-  ])
-  .compile()
-```
-
-## Register the extension with Bud
-
-```js{4}
-const bud = require('@roots/bud')
-const sass = require('@roots/bud-sass')
-
-const project = bud().use([sass])
-
-project
-  .srcPath('resources')
-  .distPath('dist')
-  .bundle('app', [
-    bud.src('scripts/app.js'),
-    bud.src('styles/app.css'),
-  ])
-  .compile()
+bud.use('@roots/bud-sass)
 ```
 
 Were there need for additional extensions, they could be added to the [bud.use](config-use.md) array alongside `sass`.
@@ -74,7 +46,7 @@ const project = bud().use([sass, typescript])
 project
   .srcPath('resources')
   .distPath('dist')
-  .bundle('app', [
+  .entry('app', [
     bud.src('scripts/app.js'),
     bud.src('styles/app.css'),
   ])

@@ -3,21 +3,18 @@
  */
 const bud = require('../packages/bud/lib')
 
-bud.extensions
-  .use('@roots/bud-babel')
-  .use('@roots/bud-eslint')
-  .use('@roots/bud-postcss')
-  .use('@roots/bud-sass')
-  .use('@roots/bud-tailwindcss')
-  .use('@roots/bud-purgecss')
-  .use('@roots/bud-wordpress-manifests')
-  .use('@roots/bud-vue')
-  .next()
-
-  .template()
-
 bud
-
+  .use([
+    '@roots/bud-babel',
+    '@roots/bud-eslint',
+    '@roots/bud-postcss',
+    '@roots/bud-sass',
+    '@roots/bud-tailwindcss',
+    '@roots/bud-purgecss',
+    '@roots/bud-wordpress-manifests',
+    '@roots/bud-vue',
+  ])
+  .template()
   .when(
     bud.mode.is('production'),
     () => {

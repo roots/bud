@@ -23,10 +23,7 @@ export {
  * Framework.FileSystem
  * @package @roots/filesystem
  */
-export {
-  FileContainer,
-  FileSystem,
-} from '../../filesystem'
+export {FileContainer, FileSystem} from '../../filesystem'
 
 /**
  * Framework.API

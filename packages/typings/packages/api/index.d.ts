@@ -117,8 +117,6 @@ export namespace API {
     Framework.Server.Config
   >
 
-  export type Extend = Framework.Fluent<Framework.Bud, () => any>
-
   export type Glob = Framework.Fluent<
     Framework.Bud,
     Options.Glob
@@ -139,6 +137,17 @@ export namespace API {
     this: Framework.Bud,
     options: Options.Template,
   ) => Framework.Bud
+
+  export type Use =
+    | Framework.Fluent<Framework.Bud>
+    | ((
+        this: Framework.Bud,
+        extensions:
+          | string
+          | string[]
+          | Framework.Extension
+          | Framework.Extension[],
+      ) => Framework.Bud)
 
   export type Vendor = (
     this: Framework.Bud,
