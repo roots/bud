@@ -40,7 +40,7 @@ Were there need for additional extensions, they could be added to the [bud.use](
 bud.use(['@roots/bud-sass', '@roots/bud-typescript'])
 ```
 
-## Other styles of registering
+## Taking it further
 
 We can resolve the path explicitly:
 
@@ -50,15 +50,7 @@ bud.use(require.resolve('@roots/bud-sass'))
 
 We can include the extension as an object. This requires formatting the extension as [a tuple](https://en.wikipedia.org/wiki/Tuple).
 
-```ts
-// pseudo definition:
-[name (string), extension (obj)]
-
-// ts definition
-[name, extension] = [string, {[key: string]: any}]
-```
-
-The first parameter is a name for the extension (when using a module this name value is taken from the module's `package.json` file). The second is the extension object itself:
+The first value is a name for the extension (with a proper module this value is derived from the `package.json` file). The second value is the extension object itself:
 
 ```js
 bud.use(['sass', require('@roots/bud-sass')])
