@@ -68,8 +68,11 @@ bud.projectPath(
 
 bud.srcPath(bud.args.has('src') ? bud.args.get('src') : 'src')
 
-bud.distPath(
-  bud.args.has('dist') ? bud.args.get('dist') : 'dist',
+bud.build.config.set(
+  'output.path',
+  bud.args.has('dist')
+    ? bud.args.get('dist')
+    : bud.fs.path.resolve(process.cwd(), 'dist'),
 )
 
 /**

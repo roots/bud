@@ -9,17 +9,20 @@ const MyApp = () => {
   return (
     <div className="flex flex-col content-center justify-center">
       <div className="text-xl text-center text-gray-400">
-        <input onChange={e => setState(e.value)} type="text" placeholder="foobarns" value={state} />
+        <input
+          onChange={e => setState(e.value)}
+          type="text"
+          placeholder="foobarns"
+          value={state}
+        />
       </div>
     </div>
   )
 }
 
-ReactDOM.render(
-  <MyApp />,
-  root,
-);;
+ReactDOM.render(<MyApp />, root)
 
-module?.hot && module.hot.accept(err => {
-  console.error(err)
-})
+module?.hot &&
+  module.hot.accept(err => {
+    console.error(err)
+  })

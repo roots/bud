@@ -1,5 +1,6 @@
 import type {Bud} from '../Bud'
 import type {Extension} from '../Extension'
+import {Webpack} from '../Webpack'
 
 export as namespace Extensions
 
@@ -46,19 +47,14 @@ declare class Extensions {
    *
    * @param {string} extension
    */
-  getOptions: (
-    extension: string,
-  ) => any
+  getOptions: (extension: string) => any
 
   /**
    * Set the options on a booted extension.
    *
    * @param {string} extension
    */
-  setOptions: (
-    extension: string,
-    options: any,
-  ) => void
+  setOptions: (extension: string, options: any) => void
 
   /**
    * Make all plugin extensions
@@ -67,7 +63,7 @@ declare class Extensions {
    *
    * @returns {Extension.Product[]}
    */
-  makePlugins(): Extension.Product[]
+  makePlugins(): Webpack.Plugin[]
 
   /**
    * Bind all config API methods.

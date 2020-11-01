@@ -1,5 +1,5 @@
 module.exports = () => ({
-  entry: { bar: [ 'bar.js' ] },
+  entry: { foo: [ 'foo.js' ] },
   mode: 'production',
   node: {
     module: 'empty',
@@ -42,7 +42,14 @@ module.exports = () => ({
             exclude: /(node_modules|bower_components)/,
             test: /\.css$/,
             use: [
-              '/Users/kellymears/code/projects/cli/bud/bud/node_modules/vue-style-loader/index.js',
+              {
+                ident: 'thread',
+                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/thread-loader/dist/cjs.js'
+              },
+              {
+                ident: 'cache',
+                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/cache-loader/dist/cjs.js'
+              },
               {
                 ident: 'minicss',
                 loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/mini-css-extract-plugin/dist/loader.js'
@@ -115,6 +122,9 @@ module.exports = () => ({
                 presets: [
                   [
                     '/Users/kellymears/code/projects/cli/bud/bud/node_modules/@babel/preset-env/lib/index.js'
+                  ],
+                  [
+                    '/Users/kellymears/code/projects/cli/bud/bud/node_modules/@babel/preset-react/lib/index.js'
                   ]
                 ],
                 plugins: [
@@ -139,68 +149,6 @@ module.exports = () => ({
                 loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/resolve-url-loader/index.js'
               }
             ]
-          },
-          {
-            exclude: /(node_modules|bower_components)/,
-            test: /\.(scss|sass)$/,
-            use: [
-              '/Users/kellymears/code/projects/cli/bud/bud/node_modules/vue-style-loader/index.js',
-              {
-                ident: 'minicss',
-                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/mini-css-extract-plugin/dist/loader.js'
-              },
-              {
-                ident: 'css',
-                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/css-loader/dist/cjs.js',
-                options: { importLoaders: 1 }
-              },
-              {
-                ident: 'postcss',
-                loader: '/Users/kellymears/code/projects/cli/bud/bud/packages/extension-postcss/node_modules/postcss-loader/dist/cjs.js',
-                options: {
-                  postcssOptions: {
-                    plugins: [
-                      'postcss-flexbugs-fixes',
-                      [
-                        'postcss-preset-env',
-                        {
-                          autoprefixer: { flexbox: 'no-2009' },
-                          stage: 3
-                        }
-                      ],
-                      {
-                        version: '7.0.35',
-                        postcssPlugin: 'tailwind',
-                        postcssVersion: '7.0.35'
-                      }
-                    ]
-                  }
-                }
-              },
-              {
-                ident: 'sass',
-                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/sass-loader/dist/cjs.js',
-                options: {
-                  implementation: {
-                    info: 'node-sass\t4.14.1\t(Wrapper)\t[JavaScript]\n' +
-                      'libsass  \t3.5.5\t(Sass Compiler)\t[C/C++]'
-                  }
-                }
-              },
-              {
-                ident: 'resolveUrl',
-                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/resolve-url-loader/index.js',
-                options: { sourceMap: true }
-              }
-            ]
-          }
-        ]
-      },
-      {
-        test: /\.vue$/,
-        use: [
-          {
-            loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/vue-loader/lib/index.js'
           }
         ]
       }
@@ -247,19 +195,8 @@ module.exports = () => ({
     {
       cleanStaleWebpackAssets: true,
       protectWebpackAssets: true,
-      cleanOnceBeforeBuildPatterns: [ '**/*' ],
+      cleanOnceBeforeBuildPatterns: [ '**/*', '!dll/*' ],
       outputPath: '/Users/kellymears/code/projects/cli/bud/bud/lab/dist'
-    },
-    {
-      options: {
-        test: /\.(js|css|html|svg)$/,
-        cache: true,
-        algorithm: 'gzip',
-        compressionOptions: { level: 11 },
-        filename: '[path].gz[query]',
-        threshold: 10240,
-        minRatio: 0.7
-      }
     },
     { ignorePatterns: [ /\.*\.css.?\.js/, /^\.\/locale$/, /moment$/ ] },
     {
@@ -273,29 +210,6 @@ module.exports = () => ({
         repository: {
           env: { PUBLIC_URL: '/', APP_NAME: 'App', APP_DESCRIPTION: 'Test' }
         }
-      }
-    },
-    {
-      options: {
-        template: '/Users/kellymears/code/projects/cli/bud/bud/packages/support/publish/template.html',
-        filename: 'index.html',
-        publicPath: '/',
-        inject: 'body',
-        scriptLoading: 'blocking',
-        compile: true,
-        minify: 'auto',
-        cache: true,
-        showErrors: true,
-        chunks: 'all',
-        chunksSortMode: 'auto',
-        title: 'Webpack App',
-        alwaysWriteToDisk: true
-      },
-      version: 4
-    },
-    {
-      replacements: {
-        repository: "<<Circular reference to 'config.plugins.[4].definitions.repository'>>"
       }
     },
     {
@@ -337,11 +251,20 @@ module.exports = () => ({
       output: { name: 'entrypoints.json' },
       plugin: { name: 'EntrypointsManifestPlugin', stage: Infinity }
     },
-    { plugin: { name: 'MergedManifestPlugin' } }
+    { plugin: { name: 'MergedManifestPlugin' } },
+    {
+      _originalSettings: {
+        inject: true,
+        filename: '[name].[hash].js',
+        entry: { library: [ 'react', 'react-dom' ] },
+        path: 'dll',
+        inherit: true,
+        context: '/Users/kellymears/code/projects/cli/bud/bud/lab'
+      }
+    }
   ],
   resolve: {
-    alias: { 'vue$': 'vue/dist/vue.esm.js' },
-    extensions: [ 'vue', '.mjs', '.js', '.json', '.css' ],
+    extensions: [ '.wasm', '.mjs', '.js', '.json', '.css' ],
     modules: [
       '/Users/kellymears/code/projects/cli/bud/bud/lab/src',
       '/Users/kellymears/code/projects/cli/bud/bud/packages',

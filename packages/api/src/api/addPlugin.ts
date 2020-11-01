@@ -1,6 +1,7 @@
 import {lodash as _} from '@roots/bud-support'
 
 export const addPlugin: Framework.API.AddPlugin = function (
+  name: string,
   make: Framework.Extension.Make | Framework.Webpack.Plugin,
   when?: Framework.Extension.When | boolean,
 ) {

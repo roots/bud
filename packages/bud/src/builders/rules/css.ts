@@ -10,7 +10,13 @@ export const use: Use = ({build, mode}) => {
     ? use('minicss')
     : use('style')
 
-  return [style, use('css'), use('resolveUrl')]
+  return [
+    use('thread'),
+    use('cache'),
+    style,
+    use('css'),
+    use('resolveUrl'),
+  ]
 }
 
 declare type Conditional = Framework.Rule.Factory<

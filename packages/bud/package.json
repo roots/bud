@@ -22,7 +22,11 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["./lib", "./types", "./src"],
+  "files": [
+    "./lib",
+    "./types",
+    "./src"
+  ],
   "main": "./lib/index.js",
   "types": "./lib/types/index.d.ts",
   "scripts": {
@@ -42,7 +46,10 @@
     "@roots/bud-support": "2.0.0-next.24",
     "@roots/container": "2.0.0-next.24",
     "@roots/dependencies": "2.0.0-next.24",
-    "@roots/filesystem": "2.0.0-next.24"
+    "@roots/filesystem": "2.0.0-next.24",
+    "autodll-webpack-plugin": "^0.4.2",
+    "cache-loader": "^4.1.0",
+    "thread-loader": "^3.0.1"
   },
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5"
 }

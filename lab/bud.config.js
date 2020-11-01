@@ -8,20 +8,9 @@ bud
     '@roots/bud-babel',
     '@roots/bud-eslint',
     '@roots/bud-postcss',
-    '@roots/bud-sass',
-    '@roots/bud-tailwindcss',
-    '@roots/bud-purgecss',
     '@roots/bud-wordpress-manifests',
-    '@roots/bud-vue',
+    '@roots/bud-react',
   ])
-  .template()
-  .when(
-    bud.mode.is('production'),
-    () => {
-      bud.minify()
-      bud.gzip()
-    },
-    () => bud.dev(),
-  )
-  .entry('bar', ['bar.js'])
+  .library(['react', 'react-dom'])
+  .entry('foo', ['foo.js'])
   .run()

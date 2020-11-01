@@ -44,6 +44,7 @@
     "@roots/container": "2.0.0-next.24",
     "@roots/dependencies": "2.0.0-next.24",
     "@roots/filesystem": "2.0.0-next.24",
+    "autodll-webpack-plugin": "^0.4.2",
     "clean-webpack-plugin": "^3.0.0",
     "compression-webpack-plugin": "^6.0.2",
     "copy-webpack-plugin": "^6.2.0",

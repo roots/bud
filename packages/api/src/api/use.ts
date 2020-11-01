@@ -4,8 +4,20 @@ export const use: Framework.API.Use = function (
   extensions:
     | string
     | string[]
-    | [string, Framework.Extension]
-    | [string, Framework.Extension][],
+    | [
+        string,
+        (
+          | Framework.Extension
+          | ((bud: Framework.Bud) => Framework.Extension)
+        ),
+      ]
+    | [
+        string,
+        (
+          | Framework.Extension
+          | ((bud: Framework.Bud) => Framework.Extension)
+        ),
+      ][],
 ) {
   if (_.isString(extensions)) {
     this.extensions.use(extensions)
@@ -26,7 +38,9 @@ export const use: Framework.API.Use = function (
 
 function ensureIterable(extensions) {
   return _.isArray(extensions) &&
-    _.isArray(extensions[0]) &&
+    extensions[0] &&
+    extensions[1] &&
+    !_.isArray(extensions[0]) &&
     _.isObject(extensions[1]) &&
     !_.isArrayLike(extensions[1])
     ? [extensions]

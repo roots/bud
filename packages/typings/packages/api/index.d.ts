@@ -129,7 +129,10 @@ export namespace API {
 
   export type Hash = (this: Framework.Bud) => Framework.Bud
 
-  export type Library = (this: Framework.Bud) => Framework.Bud
+  export type Library = (
+    this: Framework.Bud,
+    modules: string[],
+  ) => Framework.Bud
 
   export type Minify = (this: Framework.Bud) => Framework.Bud
 

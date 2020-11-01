@@ -27,7 +27,7 @@ export class Build implements Framework.Build {
   }
 
   public make(): Webpack.Configuration {
-    return Object.entries(builders).reduce(
+    const config = Object.entries(builders).reduce(
       (
         config,
         [, builder]: [string, Framework.Build.Builders],
@@ -37,6 +37,9 @@ export class Build implements Framework.Build {
       }),
       {},
     )
+    return Object.entries(config).reduce((acc, [key, value]) => {
+      return !value || value == {} ? acc : {...acc, [key]: value}
+    }, {})
   }
 
   public getLoader(name: string): Framework.Build.Loader {

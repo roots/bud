@@ -36,13 +36,14 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@roots/container": "^2.0.0-next.24",
     "@roots/bud-server": "^2.0.0-next.24",
-    "@roots/bud-support": "2.0.0-next.24"
+    "@roots/bud-support": "2.0.0-next.24",
+    "@roots/container": "^2.0.0-next.24",
+    "autodll-webpack-plugin": "^0.4.2"
   },
   "devDependencies": {
-    "terser": "^5.3.4",
     "@roots/bud-typings": "^2.0.0-next.24",
+    "terser": "^5.3.4",
     "webpack": "^4.44.2"
   },
   "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5"

@@ -1,4 +1,9 @@
-import type {Bud, Extension, Index} from '@roots/bud-typings'
+import type {
+  Bud,
+  Extension,
+  Index,
+  Webpack,
+} from '@roots/bud-typings'
 
 /**
  * Boots and handles extension lifecycle concerns.
@@ -228,7 +233,7 @@ export class Extensions implements Framework.Extensions {
    * Make an extension
    * @note applies only to webpack plugins
    */
-  public makePlugins(): Extension.Product[] {
+  public makePlugins(): Webpack.Plugin[] {
     const output = Object.values(this.extensions)
       .filter(extension => extension.hasOwnProperty('make'))
       .map(extension => {

@@ -4,15 +4,19 @@ import {join} from 'path'
 // export const chunkFilename: Configuration['output']['chunkFilename'] = '[name].js'
 // export const chunkLoadTimeout: Configuration['output']['chunkLoadTimeout'] = 120000
 // export const crossOriginLoading: Configuration['output']['crossOriginLoading'] = false
-// export const filename: Configuration['output']['filename'] = '[name].js'
+
+export const filename: Configuration['output']['filename'] =
+  '[name].js'
 
 export const publicPath: Configuration['output']['publicPath'] =
   '/'
 
 export const path: Configuration['output']['path'] = join(
   process.cwd(),
-  'build',
+  'dist',
 )
+
+// export const library: Configuration['output']['library'] = undefined
 
 // devtoolNamespace: undefined,
 // globalObject: 'window',
@@ -27,7 +31,6 @@ export const path: Configuration['output']['path'] = join(
 // hotUpdateMainFilename: '[hash].hot-update.json',
 // jsonpFunction: 'webpackJsonp',
 // jsonpScriptType: 'text/javascript',
-// library: undefined,
 // libraryExport: undefined,
 // libraryTarget: 'var',,
 // sourceMapFilename: '[file].map[query]',

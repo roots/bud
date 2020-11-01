@@ -24,7 +24,7 @@ It is also possible to pass an array of assets. Assets do not have to be the sam
 bud.entry('app', ['app.js', 'app.css'])
 ```
 
-## Alternative
+## Taking it further
 
 If you want to pass all of your assets without repeatedly calling `bud.entry` you can set the configuration directly:
 

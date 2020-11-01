@@ -22,6 +22,16 @@ class MergedManifestWebpackPlugin {
   }
 
   async done(compilation, callback) {
+    if (
+      !fs.existsSync(
+        path.resolve(this.dir, 'entrypoints.json'),
+      ) ||
+      !fs.existsSync(path.resolve(this.dir, 'wordpress.json')) ||
+      !fs.existsSync(path.resolve(this.dir, 'assets.json'))
+    ) {
+      return callback()
+    }
+
     try {
       const entrypoints = await fs.readJson(
         path.resolve(this.dir, 'entrypoints.json'),

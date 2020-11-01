@@ -66,6 +66,7 @@ class EntrypointsWebpackPlugin {
       'compilation',
       'output',
     ])
+
     hooks.entrypoints.tap(
       this.plugin,
       this.entrypoints.bind(this),
