@@ -4,7 +4,7 @@ description: Generate a long-life DLL cache
 
 # bud.library
 
-`bud.library` enables DLL (dynamic link library) caching of specified libraries/modules. This can improve developer build times for vendored dependencies which do not frequently change.
+`bud.library` enables DLL ([dynamic link library](https://en.wikipedia.org/wiki/Dynamic-link_library)) caching of specified libraries/modules. This can improve developer build times for vendored dependencies which do not frequently change.
 
 `bud.library` differs from `bud.vendor` in that it doesn't just separate the vendored code from the application code, but actually stops the vendored assets from needing to be rebuilt at all.
 

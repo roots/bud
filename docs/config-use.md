@@ -69,15 +69,15 @@ bud.use(['my-module', {
 }])
 ```
 
-Lastly, you can also add object extensions in the tuple format as described above as an array. And within that array you can import extensions in any of the ways described above (no need for them all to be the same format).
+Lastly, you can also add extensions in the tuple format described above, by wrapping them all in an outer array. And, within that array you can import each extension in any of the supported formats (no need for them all to be the same format).
 
 ```ts
 /**
  * A bit sloppy, but it'll do.
  */
 bud.use([
-  ['myExtension', bud => null],
   '@roots/bud-sass',
+  ['myExtension', bud => {boot: () => null]},
   ['@roots/bud-typescript', require('@roots/bud-typescript')],
 ])
 ```
@@ -87,7 +87,3 @@ bud.use([
 | Name        | Type   |
 | ----------- | ------ |
 | `extension` | string |
-
-```
-
-```
