@@ -4,7 +4,8 @@ description: Read environmental variables using the bud.env container
 
 # Env
 
-Bud includes support for values set in a `.env` file. This file should be located in the project root.
+Bud includes support for values set in a `.env` file.
+This file should be located in the project root.
 
 ## Accessing env values from the config file
 
@@ -30,7 +31,7 @@ Values defined in the application `.env` file are available in app code.
 const {APP_NAME} = window
 ```
 
-If you have a secret value in `.env` which should not be shared in the application bundle, you can flag it as private by including the string `SECRET` in the variable name:
+If you have a sensitive value (like an API key) in `.env` which should not be shared in the application bundle, you can flag it as private by including the string `SECRET` in the variable name:
 
 ```env
 APP_NAME='My application'

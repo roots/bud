@@ -1,8 +1,8 @@
 ---
-description: bud.fs allows for reading and writing to the disk.
+description: bud.fs allows for reading and writing project files.
 ---
 
-# bud.fs
+# Filesystem
 
 ## Methods
 

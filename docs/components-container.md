@@ -2,7 +2,7 @@
 description: The Bud container component is a swiss-army knife for collecting and manipulating data.
 ---
 
-# bud.container
+# Container
 
 Many of the objects you will most frequently be using when working with Bud are an instance or extension of `@roots/container`.
 
