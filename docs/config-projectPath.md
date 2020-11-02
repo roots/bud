@@ -6,7 +6,7 @@ description: Specify the root directory of the project.
 
 If Bud is being run outside of the project root, it may be necessary to specify the path of the project root explicitly.
 
-For most builds this may be safely omitted.
+For projects with their config files in the root this may be safely omitted.
 
 ## Usage
 

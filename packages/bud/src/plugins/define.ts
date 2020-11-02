@@ -2,7 +2,8 @@ import {DefinePlugin} from 'webpack'
 
 export const options: OptionsFactory = bud => {
   return (
-    Object.entries(bud?.env)
+    bud.env
+      .entries()
       .filter(
         ([key]: [string, string]) => !key.includes('SECRET'),
       )

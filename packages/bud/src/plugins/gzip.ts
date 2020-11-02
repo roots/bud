@@ -1,23 +1,22 @@
 import CompressionPlugin from 'compression-webpack-plugin'
 
 export const options: GzipOptions = {
-  filename: '[path].gz[query]',
   algorithm: 'gzip',
-  test: /\.(js|css|html|svg)$/,
+  filename: '[path].gz[query]',
+  test: /\.js$|\.css$|\.html$/,
   compressionOptions: {
-    level: 11,
+    level: 9,
   },
   threshold: 10240,
-  minRatio: 0.7,
-  deleteOriginalAssets: false,
+  minRatio: 0.8,
 }
-
-export const when: Framework.Extension.When = bud =>
-  bud.features.get('gzip') === true
 
 export const make: Framework.Extension.Make = (
   options: GzipOptions,
 ) => new CompressionPlugin(options)
+
+export const when: Framework.Extension.When = bud =>
+  bud.features.get('gzip') === true
 
 declare type GzipOptions = CompressionPlugin.Options<
   CompressionPlugin.ZlibOptions

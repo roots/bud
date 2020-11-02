@@ -198,6 +198,17 @@ module.exports = () => ({
       cleanOnceBeforeBuildPatterns: [ '**/*', '!dll/*' ],
       outputPath: '/Users/kellymears/code/projects/cli/bud/bud/lab/dist'
     },
+    {
+      options: {
+        test: /\.js$|\.css$|\.html$/,
+        cache: true,
+        algorithm: 'gzip',
+        compressionOptions: { level: 9 },
+        filename: '[path].gz[query]',
+        threshold: 10240,
+        minRatio: 0.8
+      }
+    },
     { ignorePatterns: [ /\.*\.css.?\.js/, /^\.\/locale$/, /moment$/ ] },
     {
       outputPath: '/Users/kellymears/code/projects/cli/bud/bud/lab',
@@ -206,11 +217,7 @@ module.exports = () => ({
       keepCircularReferences: true
     },
     {
-      definitions: {
-        repository: {
-          env: { PUBLIC_URL: '/', APP_NAME: 'App', APP_DESCRIPTION: 'Test' }
-        }
-      }
+      definitions: { PUBLIC_URL: '/', APP_NAME: 'App', APP_DESCRIPTION: 'Test' }
     },
     {
       opts: {
@@ -222,19 +229,6 @@ module.exports = () => ({
     },
     {
       options: { filename: '[name].css', chunkFilename: '[name].css' }
-    },
-    {
-      options: {
-        test: /\.m?js(\?.*)?$/i,
-        cache: true,
-        parallel: true,
-        terserOptions: {
-          output: { ecma: 5, ascii_only: true },
-          parse: { ecma: 8 },
-          compress: { ecma: 5, inline: 2 },
-          mangle: { safari10: true }
-        }
-      }
     },
     {
       nodeModulesPath: '/Users/kellymears/code/projects/cli/bud/bud/lab/node_modules'
@@ -296,7 +290,6 @@ module.exports = () => ({
       maxInitialRequests: 3,
       name: true
     },
-    minimize: true,
     moduleIds: 'hashed',
     removeEmptyChunks: true,
     mergeDuplicateChunks: true,

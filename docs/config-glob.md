@@ -6,9 +6,11 @@ description: Enable or disable filename hashing of built assets.
 
 Generate an entrypoint from assets matching a [fast-glob](https://github.com/mrmlnc/fast-glob) formatted string.
 
+## Globbing
+
 Internally, Bud uses [globby](https://github.com/sindresorhus/globby#readme) to handle the matching.
 
-Supported patterns:
+**Supported patterns:**
 
 - `*` matches any number of characters, but not `/`
 - `?` matches a single character, but not `/`
@@ -18,8 +20,10 @@ Supported patterns:
 
 ## Usage
 
+Just roll up all
+
 ```js
-bud.glob('app', bud.src('**/*.js'))
+bud.glob('app', '**/*.js')
 ```
 
 ## Signature

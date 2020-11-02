@@ -10,7 +10,7 @@ description: Generate a long-life DLL cache
 
 It seems like a superpower, but you know the superhero trope: with great power _something something an invalidated bundle cache_.. point being: it's rad but you have to use discretion.
 
-Updating a package will invalidate the DLL so the longer the life of the package added to the library, the better. Adding a package which is updated frequently to the library will diminish the benefit for packages with a longer shelf life. This functionality is basically perfect for code like `lodash` and `moment`.
+Updating a package will invalidate the DLL so the longer the life of the package added to the library, the better. Adding a package which is updated frequently to the library will diminish the benefit for packages with a longer shelf life.
 
 The first build will likely take longer as the DLL will need to be compiled, but subsequent builds should see a noticeable reduction in build time.
 
@@ -22,7 +22,7 @@ Pass `bud.library` the module you would like to add to the DLL cache:
 bud.library('jquery')
 ```
 
-Multiple assets can be added at once by passing an array:
+Multiple modules can be added at once by passing an array:
 
 ```js
 bud.library(['jquery', 'bootstrap'])

@@ -6,7 +6,7 @@ description: The Bud container component is a swiss-army knife for collecting an
 
 Many of the objects you will most frequently be using when working with Bud are an instance or extension of `@roots/container`.
 
-Values are stored in `container.repository`. The rest of the `container` class are methods to help interface with those values.
+Values are stored in `container.repository`. The rest of the `container` class provides an interface to work with these values.
 
 ## Instantiate
 
@@ -93,7 +93,7 @@ webpack.set('entry', {app: ['app.js']})
 
 You can set a nested value using dot notation syntax. This is particularly useful when modifying a nested value while trying to preserve the rest of the object.
 
-In order to do this we could use spread assignment:
+For instance:
 
 ```ts
 const some = tutorial.get('some')
@@ -139,7 +139,7 @@ webpack.mutate('entry', entry => ({
 }))
 ```
 
-THe callback is passed the value associated with the requested key and returns the replacement value.
+The callback is passed the value associated with the requested key and returns the replacement value.
 
 This is a more succint, functional replacement for relatively common tasks that would otherwise require:
 

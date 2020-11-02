@@ -107,6 +107,15 @@ export namespace API {
     string
   >
 
+  /**
+   * Define
+   * Make vars available to application code.
+   */
+  export type Define = Framework.Fluent<
+    Framework.Bud,
+    Framework.Index<any>
+  >
+
   export type Devtool = Framework.Fluent<
     Framework.Bud,
     Framework.Webpack.Options.Devtool

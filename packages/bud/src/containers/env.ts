@@ -4,8 +4,7 @@ import {join} from 'path'
 /**
  * Environment variables
  */
-export const env = Object.freeze(
+export const env =
   dotenv.config({
     path: join(process.cwd(), '.env'),
-  }).parsed ?? {},
-)
+  }).parsed ?? {}
