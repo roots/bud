@@ -198,17 +198,6 @@ module.exports = () => ({
       cleanOnceBeforeBuildPatterns: [ '**/*', '!dll/*' ],
       outputPath: '/Users/kellymears/code/projects/cli/bud/bud/lab/dist'
     },
-    {
-      options: {
-        test: /\.js$|\.css$|\.html$/,
-        cache: true,
-        algorithm: 'gzip',
-        compressionOptions: { level: 9 },
-        filename: '[path].gz[query]',
-        threshold: 10240,
-        minRatio: 0.8
-      }
-    },
     { ignorePatterns: [ /\.*\.css.?\.js/, /^\.\/locale$/, /moment$/ ] },
     {
       outputPath: '/Users/kellymears/code/projects/cli/bud/bud/lab',
@@ -225,6 +214,18 @@ module.exports = () => ({
         fileName: 'manifest.json',
         transformExtensions: /^(gz|map)$/i,
         writeToFileEmit: true
+      }
+    },
+    {
+      options: {
+        test: /\.m?js(\?.*)?$/i,
+        parallel: true,
+        terserOptions: {
+          output: { ecma: 5, ascii_only: true },
+          parse: { ecma: 2018 },
+          compress: { ecma: 5, inline: 2 },
+          mangle: { safari10: true }
+        }
       }
     },
     {
@@ -286,6 +287,7 @@ module.exports = () => ({
       maxInitialRequests: 3,
       name: true
     },
+    minimize: true,
     moduleIds: 'hashed',
     removeEmptyChunks: true,
     mergeDuplicateChunks: true,

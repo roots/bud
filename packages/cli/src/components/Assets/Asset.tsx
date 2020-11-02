@@ -6,14 +6,14 @@ import useAppStyles from '../../hooks/useAppStyles'
 
 interface AssetInterface {
   name: string
-  emitted: boolean
+  active: boolean
   size: number
   hot: boolean
 }
 
 const Asset: FunctionComponent<AssetInterface> = ({
   name,
-  emitted,
+  active,
   size,
   hot,
 }) => {
@@ -29,8 +29,8 @@ const Asset: FunctionComponent<AssetInterface> = ({
       <Box width={ctx([col(12)])}>
         <Text
           wrap="truncate-end"
-          color={emitted ? 'white' : 'gray'}>
-          <Indicator emitted={emitted} />
+          color={active ? 'white' : 'gray'}>
+          <Indicator active={active} />
           {is(hot, `🔥 ${name} `, ` ${name} `)}
         </Text>
       </Box>

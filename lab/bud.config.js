@@ -13,6 +13,5 @@ bud
   ])
   .library(['react', 'react-dom'])
   .entry('foo', ['foo.js'])
-  .gzip()
-
-bud.run()
+  .minify()
+  .run()

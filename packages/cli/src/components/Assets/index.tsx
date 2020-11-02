@@ -20,7 +20,7 @@ const Assets: FunctionComponent<AssetsProps> = ({assets}) => {
               key={id}
               name={asset.name}
               size={asset.size}
-              emitted={asset.emitted}
+              active={asset.emitted}
               hot={asset.hot}
             />
           ))

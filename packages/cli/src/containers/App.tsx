@@ -7,6 +7,7 @@ import BuildInfo from '../components/BuildInfo'
 import Progress from '../components/Progress'
 import Screen from '../components/Screen'
 import Title from '../components/Title'
+import {Nav} from '../components/Nav'
 
 import useCtx from '../hooks/useAppStyles'
 
@@ -16,8 +17,9 @@ const App: FunctionComponent<{
   progress: Compilation.Progress
   errors: Compilation.Stats.Errors
   warnings: Compilation.Stats.Warnings
-}> = ({bud, stats, progress, errors}) => {
+}> = ({bud, stats, progress, errors, warnings}) => {
   const {dimensions, col, ctx} = useCtx()
+
   const displayName = bud.disk
     .get('project')
     .exists('package.json')
@@ -38,11 +40,18 @@ const App: FunctionComponent<{
         <Box flexDirection="column">
           <Box flexDirection="column" marginBottom={1}>
             <Title>{displayName}</Title>
+            <Nav />
           </Box>
 
           {errors && (
             <Box flexDirection="column" marginBottom={1}>
               <Errors errors={errors} />
+            </Box>
+          )}
+
+          {warnings && (
+            <Box flexDirection="column" marginBottom={1}>
+              <Errors errors={warnings} />
             </Box>
           )}
 

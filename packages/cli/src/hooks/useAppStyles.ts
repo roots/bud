@@ -8,9 +8,7 @@ export interface Styles {
     height: number
   }
   screen: string
-  colors: {
-    primary: string
-  }
+  colors: Palette
   ctx: CallableFunction
   col: CallableFunction
   is: CallableFunction
@@ -18,7 +16,7 @@ export interface Styles {
 }
 
 export interface Palette {
-  primary: string
+  [key: string]: string
 }
 
 export interface Theme {
@@ -28,10 +26,15 @@ export interface Theme {
 
 const defaultTheme: Theme = {
   spacer: 1,
-  palette: {primary: '#6C758F'},
+  palette: {
+    primary: '#545DD7',
+    error: '#dc3545',
+    warning: '#fd7e14',
+    faded: '#6C758F',
+  },
 }
 
-const useAppStyles: (themeProps?: Theme) => Styles = (
+export const useAppStyles: (themeProps?: Theme) => Styles = (
   themeProps = defaultTheme,
 ) => {
   const [width, height] = useStdOutDimensions()

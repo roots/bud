@@ -20,16 +20,22 @@ const Progress: FunctionComponent<ProgressComponentProps> = ({
     <Box
       display={is(progress.percentage < 100, 'flex', 'none')}
       width={col(12)}
-      flexDirection={ctx(['column', 'row'])}>
-      <Box width={ctx([col(12), col(2), col(1)])}>
-        <Text>{progress.percentage}%</Text>
+      flexDirection={ctx(['column'])}>
+      <Box flexDirection={ctx(['column', 'row'])}>
+        <Box width={ctx([col(12), col(2), col(1)])}>
+          <Text>{progress.percentage}%</Text>
+        </Box>
+
+        <Bar
+          backgroundColor="none"
+          color="#545DD7"
+          percent={progress.percentage}
+        />
       </Box>
 
-      <Bar
-        backgroundColor="none"
-        color="#545DD7"
-        percent={progress.percentage}
-      />
+      <Box>
+        <Text>{progress.msg}</Text>
+      </Box>
     </Box>
   )
 }
