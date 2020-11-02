@@ -261,9 +261,8 @@ module.exports = () => ({
     extensions: [ '.wasm', '.mjs', '.js', '.json', '.css' ],
     modules: [
       '/Users/kellymears/code/projects/cli/bud/bud/lab/src',
-      '/Users/kellymears/code/projects/cli/bud/bud/packages',
-      '/Users/kellymears/code/projects/cli/bud/bud/node_modules',
-      'node_modules'
+      '/Users/kellymears/code/projects/cli/bud/bud/lab',
+      '/Users/kellymears/code/projects/cli/bud/bud/node_modules'
     ],
     unsafeCache: true,
     mainFiles: [ 'index' ],

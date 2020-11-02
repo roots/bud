@@ -1,18 +1,22 @@
-export const general: Framework.Build.General = function (
-  this: Framework.Bud,
-  build: Partial<Framework.Build.Configuration>,
-) {
+export const general: Framework.Build.General = function ({
+  mode,
+  node,
+  stats,
+  target,
+  watch,
+  context,
+  devtool,
+}) {
   return {
-    mode: this.hooks.filter('build.mode', build.mode),
-    node: this.hooks.filter('build.node', build.node),
-    stats: this.hooks.filter('build.stats', build.stats),
-    target: this.hooks.filter('build.target', build.target),
-    watch: this.hooks.filter('build.watch', build.watch),
-    context: this.hooks.filter('build.context', build.context),
-
+    mode: this.hooks.filter('webpack.mode', mode),
+    node: this.hooks.filter('webpack.node', node),
+    stats: this.hooks.filter('webpack.stats', stats),
+    target: this.hooks.filter('webpack.target', target),
+    watch: this.hooks.filter('webpack.watch', watch),
+    context: this.hooks.filter('webpack.context', context),
     devtool: this.hooks.filter(
-      'build.devtool',
-      build.devtool ?? false,
+      'webpack.devtool',
+      devtool ?? false,
     ),
   }
 }

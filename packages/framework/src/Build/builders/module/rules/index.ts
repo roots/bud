@@ -1,4 +1,5 @@
 import oneOf from './oneOf'
+import post from './post'
 import pre from './pre'
 
 export default function (
@@ -9,5 +10,6 @@ export default function (
     {
       oneOf: oneOf.bind(this)(),
     },
+    ...post.bind(this)(),
   ])
 }

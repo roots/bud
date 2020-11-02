@@ -102,49 +102,6 @@ There are a number of Roots maintained extensions available to kickstart your pr
 | @roots/bud-typescript  | Adds typescript support.                                                                                         | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/extension-typescript/README.md)  |
 | @roots/bud-vue         | Adds Vue framework support.                                                                                      | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/extension-vue/README.md)         |
 
-## Hooks
-
-Bud provides a system of 'hooks' to open Framework functions and webpack values up
-for easier modification.
-
-Here are some examples:
-
-```js
-bud.hooks.on('webpack.externals', externals => ({
-  ...externals,
-  $: 'jquery',
-})
-```
-
-```js
-bud.hooks.on(
-  'webpack.output.filename',
-  filename => '[name].[hash:4]',
-)
-```
-
-```js
-bud.hooks.on('webpack.module.rules.css.test', /\.css$/)
-```
-
-You may also add new filters. This is probably most helpful when authoring
-extensions.
-
-```js
-const filteredValue = bud.hooks.filter(
-  'plugin.filter.key',
-  defaultValue,
-)
-```
-
-Now, other plugins or the user can modify this value:
-
-```js
-bud.hooks.on('plugin.filter.key', defaultValue =>
-  defaultValue.shift(),
-)
-```
-
 ## Alternative syntax
 
 More advanced users may want to configure Bud's options more directly. The `@roots/bud-framework` container API allows for that.

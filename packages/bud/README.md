@@ -95,7 +95,7 @@ bud.features.set('hot', true)
 
 Bud provides a system of 'hooks' to expose values in the webpack config for modification, replacement, testing, etc.
 
-Here are some examples
+Some examples:
 
 ```js
 bud.hooks.on('webpack.externals', externals => ({

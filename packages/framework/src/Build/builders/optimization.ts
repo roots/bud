@@ -3,19 +3,19 @@ export const optimization: Framework.Build.Optimization = function ({
 }) {
   const runtimeChunk = this.features.enabled('runtimeChunk')
     ? this.hooks.filter(
-        'optimization.runtimeChunk',
+        'webpack.optimization.runtimeChunk',
         optimization.runtimeChunk,
       )
     : false
 
   const vendor = this.features.enabled('vendor')
     ? this.hooks.filter(
-        'optimization.splitChunks.cacheGroups.vendor',
+        'webpack.optimization.splitChunks.cacheGroups.vendor',
         optimization.splitChunks.cacheGroups.vendor,
       )
     : false
 
-  return this.hooks.filter('optimization', {
+  return this.hooks.filter('webpack.optimization', {
     optimization: {
       runtimeChunk,
 
@@ -26,17 +26,17 @@ export const optimization: Framework.Build.Optimization = function ({
       },
 
       minimize: this.hooks.filter(
-        'optimization.minimize',
+        'webpack.optimization.minimize',
         this.features.enabled('minify'),
       ),
 
       removeAvailableModules: this.hooks.filter(
-        'optimization.removeAvailableModules',
+        'webpack.optimization.removeAvailableModules',
         false,
       ),
 
       moduleIds: this.hooks.filter(
-        'optimization.moduleIds',
+        'webpack.optimization.moduleIds',
         'hashed',
       ),
     },

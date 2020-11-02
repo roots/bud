@@ -68,10 +68,7 @@ export declare class Build {
   /**
    * Add or override an item by key.
    */
-  public setItem(
-    name: string,
-    module: Item.Module,
-  ): Item
+  public setItem(name: string, module: Item.Module): Item
 
   /**
    * Merge values onto an existing item.
@@ -128,9 +125,7 @@ export namespace Build {
     /**
      * @see {webpack.Configuration['entry']}
      */
-    export type Entry =
-      | Webpack.Entry
-      | Webpack.EntryFunc
+    export type Entry = Webpack.Entry | Webpack.EntryFunc
 
     /**
      * @see {webpack.Configuration['externals']}
@@ -230,7 +225,9 @@ export namespace Build {
    * to handle many small concerns.
    */
   export type General = (
-    state?: Container.Repository,
+    this: Framework.Bud,
+    build: Partial<Framework.Build.Configuration>,
+    hooks: Framework.Hooks,
   ) => Product.General
 
   /**
@@ -246,23 +243,22 @@ export namespace Build {
     | Build.Output
     | Build.General
 
-
   export type RuleSetLoader = {
-      /**
-       * Loader name
-       */
-      loader?: string;
-      /**
-       * Loader options
-       */
-      options?: Framework.Index<any>;
-      /**
-       * Unique loader identifier
-       */
-      ident?: string;
-      /**
-       * Loader query
-       */
-      query?: Webpack.RuleSetQuery;
+    /**
+     * Loader name
+     */
+    loader?: string
+    /**
+     * Loader options
+     */
+    options?: Framework.Index<any>
+    /**
+     * Unique loader identifier
+     */
+    ident?: string
+    /**
+     * Loader query
+     */
+    query?: Webpack.RuleSetQuery
   }
 }
