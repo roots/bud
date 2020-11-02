@@ -4,7 +4,7 @@ description: The build config file is the keystone of Bud. Let's walk through a 
 
 # Configuration
 
-The build config file is the keystone of Bud. In this guide we'll look at a simple hypothetical project and walk through the basics of how it works.
+The build config file is the keystone of Bud. In this guide we'll look at a hypothetical project and walk through the basics of how it works.
 
 [[toc]]
 
@@ -13,7 +13,7 @@ The build config file is the keystone of Bud. In this guide we'll look at a simp
 Assuming the following project structure:
 
 ```sh
-root
+my-project
 ├── bud.config.js
 ├── dist
 ├── package.json
@@ -22,10 +22,10 @@ root
     └── styles
 ```
 
-Our minimal config file might look something like this:
+Our minimal `bud.config.js` file might look something like this:
 
 ```js
-const bud = require('@roots/bud')()
+const bud = require('@roots/bud')
 
 bud
   .srcPath('resources')
@@ -38,7 +38,7 @@ Let's break down what is happening.
 ### 1. Set project paths
 
 ```js
-const bud = require('@roots/bud')()
+const bud = require('@roots/bud')
 
 bud
   .srcPath('resources')
@@ -128,8 +128,10 @@ bud.run()
 
 The last step runs the build and outputs the build results using the bud cli.
 
-If you want to use vanilla webpack to run your build, more power to you! Rename your file `webpack.config.js` and change the final line to export the configuration directly:
+If you want to use vanilla webpack to run your build, more power to you! Rename your file `webpack.config.js` and change the final line to export the configuration directly.
 
 ```js
 module.exports = bud.build.make()
 ```
+
+Now you can use your configuration file with the `webpack-cli`.

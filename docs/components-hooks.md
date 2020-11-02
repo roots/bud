@@ -72,6 +72,9 @@ bud.hooks.on('my.filter.key', value => value.shift())
 
 ## Available hooks
 
+::: warning Work-in-progress
+Documentation is incomplete. :::
+
 | Name                                                  | Called from           |
 | ----------------------------------------------------- | --------------------- |
 | `webpack.mode`                                        | `Framework.Bud.Build` |

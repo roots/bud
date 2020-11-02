@@ -5,7 +5,7 @@ description: bud.disk is a meta container of `bud.fs` containers
 # bud.disk
 
 ::: warning Work-in-progress
-Documentation is incomplete.
+Documentation is incomplete. :::
 
 There are many `bud.fs` instances created by Bud for easy filesystem access throughout the core packages, project directories and any registered extensions.
 

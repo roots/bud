@@ -1,9 +1,6 @@
 import type {RuleSetRule} from 'webpack'
 
 /**
- * Manufactures a RuleSetRule
- *
- * @typedef {Framework.Rule.Rule}
  * @yields {Webpack.RuleSetRule}
  */
 export class Rule implements Framework.Rule {

@@ -34,7 +34,7 @@ Check if current mode matches a certain value.
 const {isProduction} = bud.mode.is('production')
 ```
 
-Pairs very well with [`bud.when`](config-when.md)
+Pairs very well with [`bud.when`](config-when.md).
 
 ```ts
 bud.when(

@@ -11,6 +11,7 @@ export const tryBuild = async (
     fs.statSync(cfgPath)
   } catch (err) {
     console.error(err)
+
     process.exit()
   }
 

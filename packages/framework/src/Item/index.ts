@@ -2,36 +2,12 @@
  * Build Item
  */
 export class Item implements Framework.Item {
-  /**
-   * The Bud instance.
-   *
-   * @type {Bud}
-   */
   bud: Framework.Bud
-
-  /**
-   * Ident
-   */
   ident?: Framework.Item['ident']
-
-  /**
-   * Loader
-   */
   loader?: Framework.Item['loader']
-
-  /**
-   * Options
-   */
   options?: Framework.Item['options']
-
-  /**
-   * Query
-   */
   query?: Framework.Item['query']
 
-  /**
-   * Creates an instance of Item.
-   */
   constructor(
     bud: Framework.Bud,
     module: Framework.Item.Module,

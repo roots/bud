@@ -4,14 +4,13 @@ description: Read environmental variables using the bud.env container
 
 # Env
 
-Bud includes support for values set in a `.env` file.
-This file should be located in the project root.
+Bud includes support for values set in a `.env` file. This file should be located in the project root.
 
 ## Accessing env values from the config file
 
 Values defined in the application `.env` file are available via `bud.env`.
 
-This is a container object bound to `bud.env`.
+This is a [bud.container instance](components-container.md).
 
 ```js
 bud.env.get('APP_NAME')
@@ -25,7 +24,7 @@ Values defined in the application `.env` file are available within HTML template
 
 ## Accessing env values from within the application
 
-Values defined in the application `.env` file are available in app code.
+Values defined in the application `.env` file are available in modules.
 
 ```js
 const {APP_NAME} = window

@@ -4,6 +4,9 @@ description: bud.fs allows for reading and writing project files.
 
 # Filesystem
 
+::: warning Work-in-progress
+Documentation is incomplete. :::
+
 ## Methods
 
 ### bud.fs.get

@@ -13,13 +13,13 @@ node bud.config.js
 ## Compiling in `production` mode
 
 ```sh
-node bud.config.js --env production
+node bud.config.js --mode production
 ```
 
 ## Compiling in `development` mode
 
 ```sh
-node bud.config.js --env development
+node bud.config.js --mode development
 ```
 
 ## Use a bud config with the standard webpack CLI
@@ -27,5 +27,5 @@ node bud.config.js --env development
 Alternatively, you can generate the configuration and pass it to Webpack yourself. The simplest way is to export the config from a file named `webpack.config.js`.
 
 ```js
-module.exports = bud.config()
+module.exports = bud.build.make()
 ```
