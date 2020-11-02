@@ -139,57 +139,53 @@ export class Item implements Framework.Item {
   public make: Framework.Item['make'] = function (
     this: Framework.Item,
   ) {
-    // Each property is calculated based on its propMap entry.
-    const valid: Framework.Item.Valid = Object.entries(
-      this.propMap(),
+    return (
+      // Get the map of props to items
+      Object.entries(this.propMap())
+        // First out nullish values, etc.
+        .filter(
+          ([, [value]]: [
+            string,
+            [Framework.Item.Property, unknown],
+          ]) => value !== null && value !== undefined,
+        )
+        // Then, reduce the set, tapping callables during translation
+        .reduce(
+          (
+            fields: Framework.Build.RuleSetLoader,
+            [property, [value, param]]: [
+              string,
+              [
+                Framework.Item.MaybeCallable<
+                  Framework.Item.Property
+                >,
+                unknown,
+              ],
+            ],
+          ): Framework.Build.RuleSetLoader => {
+            /**
+             * A property value can be calculated
+             * in a couple different ways.
+             */
+            const computed =
+              // For loaders which are specified as a string
+              property == 'loader' && typeof value == 'string'
+                ? // Set the loader from that string
+                  this.bud.build.loaders[value]
+                : // Otherwise, for functions
+                typeof value == 'function'
+                ? // Call them with the param from this.propMap
+                  value(param)
+                : // Else, just use the given value
+                  value
+
+            return {
+              ...fields,
+              [property]: computed,
+            }
+          },
+          {},
+        )
     )
-      // First out nullish values, etc.
-      .filter(
-        ([, [value]]: [
-          string,
-          [Framework.Item.Property, unknown],
-        ]) => value !== null && value !== undefined,
-      )
-
-    // Then, reduce the set, tapping callables in translation
-    const product: Framework.Build.RuleSetLoader = valid.reduce(
-      (
-        fields: Framework.Build.RuleSetLoader,
-        [property, [value, param]]: [
-          string,
-          [
-            Framework.Item.MaybeCallable<
-              Framework.Item.Property
-            >,
-            unknown,
-          ],
-        ],
-      ): Framework.Build.RuleSetLoader => {
-        /**
-         * A property value can be calculated
-         * in a couple different ways.
-         */
-        const computed =
-          // For loaders which are specified as a string
-          property == 'loader' && typeof value == 'string'
-            ? // Set the loader from that string
-              this.bud.build.loaders[value]
-            : // Otherwise, for functions
-            typeof value == 'function'
-            ? // Call them with the param from this.propMap
-              value(param)
-            : // Else, just use the given value
-              value
-
-        return {
-          ...fields,
-          [property]: computed,
-        }
-      },
-      {},
-    )
-
-    // Finally, return the computed item for use in a ruleset.
-    return product
   }
 }

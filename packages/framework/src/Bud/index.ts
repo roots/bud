@@ -94,9 +94,7 @@ export class Bud implements Framework.Bud {
 
     if (this.mode.is('development')) {
       this.server.addDevMiddleware()
-
-      this.server.getConfigItem('hot') &&
-        this.server.addHotMiddleware()
+      this.server.addHotMiddleware()
 
       !_.isUndefined(this.server.getConfigItem('proxy')) &&
         this.server.addProxyMiddleware()

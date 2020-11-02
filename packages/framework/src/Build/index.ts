@@ -37,7 +37,12 @@ export class Build implements Framework.Build {
       }),
       {},
     )
-    return Object.entries(config).reduce((acc, [key, value]) => {
+
+    return this.filterEmpty(config)
+  }
+
+  public filterEmpty(object) {
+    return Object.entries(object).reduce((acc, [key, value]) => {
       return !value || value == {} ? acc : {...acc, [key]: value}
     }, {})
   }
