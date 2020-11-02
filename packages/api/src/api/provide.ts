@@ -10,22 +10,12 @@ export const provide: Framework.API.Provide = function (
             ...this.extensions.getOptions('provide'),
             [`${modules}`]: key,
           })
-
-          this.build.config.set('externals', {
-            ...this.build.config.get('externals'),
-            [`${modules}`]: key,
-          })
         })()
       : _.isArray(modules) &&
         modules.map(module => {
           this.extensions.setOptions('provide', {
             ...this.extensions.getOptions('provide'),
             [module]: key,
-          })
-
-          this.build.config.set('externals', {
-            ...this.build.config.get('externals'),
-            [`${module}`]: key,
           })
         })
   })

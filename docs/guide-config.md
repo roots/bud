@@ -111,7 +111,7 @@ bud.entry('app', 'scripts/app.js')
 
 **The second argument** is either a `string` or an `array` of source files to include in the entry bundle.
 
-Use the array form to specify more than one source file per bundle. You can even use files of different types.
+Use the array form to specify more than one source file per bundle. You may include files of different types in the same entrypoint.
 
 ```js
 /** Bundle includes js and css assets and that's OK */

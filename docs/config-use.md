@@ -8,13 +8,13 @@ Registers a [Bud extensions](guide-using-extensions.md).
 
 ## Usage
 
-We can register this super simply with the package name.
+Add support for [sass](https://sass-lang.com) using the [`@roots/bud-sass`](https://github.com/roots/bud/tree/master/packages/extension-sass) extension.
 
 ```js
 bud.use('@roots/bud-sass')
 ```
 
-Were there need for additional extensions, they could be added to the [bud.use](config-use.md) array alongside `sass`.
+Multiple extensions can be added with an array:
 
 ```js
 bud.use(['@roots/bud-sass', '@roots/bud-typescript'])
@@ -22,15 +22,21 @@ bud.use(['@roots/bud-sass', '@roots/bud-typescript'])
 
 ## Taking it further
 
+### Resolve your own module paths
+
 We can resolve the path explicitly:
 
 ```js
 bud.use(require.resolve('@roots/bud-sass'))
 ```
 
-We can include the extension as an object. This requires formatting the extension as [a tuple](https://en.wikipedia.org/wiki/Tuple).
+This likely won't have any material benefit on the project but it might provide psychological benefit in these uncertain times.
 
-The first value is a name for the extension (with a proper module this value is derived from the `package.json` file). The second value is the extension object itself:
+### Use an extension as an object
+
+Rather than specifying a path to resolve the extension module from, we can also include the extension as an object directly. This requires formatting the extension as [a tuple](https://en.wikipedia.org/wiki/Tuple).
+
+The first designation is a name for the extension (with a proper module this value is derived from the `package.json` file). The second designation is the object itself:
 
 ```js
 bud.use(['sass', require('@roots/bud-sass')])
@@ -40,36 +46,27 @@ This seems kind of silly in this context (since we can just pass `@roots/bud-sas
 
 ```js
 /**
- * Inline bud extension which lets the user set a `webpack.target`
+ * Adds a `bud.target` function.
  */
-bud.use(['my-module', {
-  /**
-   * Extension options
-   */
-  options: {target: 'web'}
-
-  /**
-   * Stuff to do when extension boots
-   */
-  boot: (bud) => {
-    const {target} = bud.extensions.getOptions('my-module')
-
-    bud.config.set('target', target)
-  },
-
-  /**
-   * Define custom bud functions
-   */
-  api: {
-    // bud.target()
-    target: function (target) {
-      bud.extensions.setOptions('my-module', {target})
+bud.use([
+  'target',
+  {
+    // set target to `web` as default
+    boot: bud => {
+      bud.build.config.set('target', 'web')
+    },
+    api: {
+      // bud.target function
+      target: function (target) {
+        bud.build.config.set('target', target)
+        return this
+      },
     },
   },
-}])
+])
 ```
 
-Lastly, you can also add extensions in the tuple format described above, by wrapping them all in an outer array. And, within that array you can import each extension in any of the supported formats (no need for them all to be the same format).
+Lastly, no matter how you are specifying an extension, you can specify it as part of an array of extensions. This is demonstrated with package name style extensions above, but it applies to all formats. Moreover, within an array of extensions you can define each extension in any of the supported formats (no need for them all to match).
 
 ```ts
 /**
@@ -82,8 +79,24 @@ bud.use([
 ])
 ```
 
-## Arguments
+### Signature
 
-| Name        | Type   |
-| ----------- | ------ |
-| `extension` | string |
+```ts
+function (
+  extensions:
+    | string
+    | string[]
+    | Framework.Extension.Tuple
+    | Framework.Extension.Tuple,
+) => Framework.Bud
+```
+
+```ts
+type Tuple = [
+  string,
+  (
+    | Framework.Extension
+    | ((bud: Framework.Bud) => Framework.Extension)
+  ),
+]
+```

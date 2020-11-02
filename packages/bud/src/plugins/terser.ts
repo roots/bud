@@ -5,11 +5,10 @@ import TerserPlugin, {
 export const options: TerserPluginOptions = {
   terserOptions: {
     parse: {
-      ecma: 8,
+      ecma: 2018,
     },
     compress: {
       ecma: 5,
-      warnings: false,
       comparisons: false,
       inline: 2,
     },
@@ -22,7 +21,7 @@ export const options: TerserPluginOptions = {
       ascii_only: true,
     },
   },
-  cache: true,
+  extractComments: false,
   parallel: true,
 }
 
