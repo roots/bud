@@ -108,17 +108,6 @@ declare class Bud {
   })
 
   /**
-   * Register services, functions, on Bud.
-   */
-  public register({
-    api,
-    builders,
-  }: {
-    api: any
-    builders: any
-  }): void
-
-  /**
    * Bind and assign functions to Bud.
    */
   public mapCallables(

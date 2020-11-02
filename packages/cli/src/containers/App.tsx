@@ -6,6 +6,7 @@ import Errors from '../components/Errors'
 import BuildInfo from '../components/BuildInfo'
 import Progress from '../components/Progress'
 import Screen from '../components/Screen'
+import Title from '../components/Title'
 
 import useCtx from '../hooks/useAppStyles'
 
@@ -17,6 +18,13 @@ const App: FunctionComponent<{
   warnings: Compilation.Stats.Warnings
 }> = ({bud, stats, progress, errors}) => {
   const {dimensions, col, ctx} = useCtx()
+  const displayName = bud.disk
+    .get('project')
+    .exists('package.json')
+    ? (bud.disk.current.readJson('package.json') as {
+        name: string
+      }).name
+    : 'Bud'
 
   return (
     <Box
@@ -28,7 +36,11 @@ const App: FunctionComponent<{
       justifyContent="space-between">
       <Screen title={bud.name}>
         <Box flexDirection="column">
-          {errors?.length > 0 && (
+          <Box flexDirection="column" marginBottom={1}>
+            <Title>{displayName}</Title>
+          </Box>
+
+          {errors && (
             <Box flexDirection="column" marginBottom={1}>
               <Errors errors={errors} />
             </Box>

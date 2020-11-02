@@ -4,6 +4,9 @@ description: The Bud container component is a swiss-army knife for collecting an
 
 # Container
 
+::: warning Work-in-progress
+Documentation is incomplete. :::
+
 Many of the objects you will most frequently be using when working with Bud are an instance or extension of `@roots/container`.
 
 Values are stored in `container.repository`. The rest of the `container` class provides an interface to work with these values.
@@ -148,6 +151,14 @@ This is a more succint, functional replacement for relatively common tasks that 
 3. calling `container.set` to replace it.
 
 ## Conditionals
+
+### container.has
+
+Returns `true` if the given string matches the name of a repository property. Returns `false` otherwise.
+
+```ts
+container.has('item', true)
+```
 
 ### container.true
 

@@ -1,11 +1,20 @@
 import _ from 'lodash'
 import {Base, Container} from '../Base'
+import {instance} from '../instance'
 
 export class Indexed extends Base implements Container.Indexed {
   repository: Container.KeyedRepository
 
   constructor(repository?: Container.KeyedRepository) {
     super(repository || {})
+
+    Object.getOwnPropertyNames(this)
+      .filter(name => name !== 'repository')
+      .forEach(name =>
+        Object.defineProperty(this, name, {enumerable: false}),
+      )
+
+    return instance.bind(this)()
   }
 
   public push(key: string, item: Container.Item): void {

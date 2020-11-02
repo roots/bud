@@ -7,7 +7,7 @@ export const ingestConfig = (
   source: unknown,
 ): void => {
   Object.entries(source).map(([k, v]) => {
-    disk.get(key).repository
+    disk.get(key).entries().length <= 0
       ? disk.get(k).set(k, v)
       : disk.set(k, v)
   })

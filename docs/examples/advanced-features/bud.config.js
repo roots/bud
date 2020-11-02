@@ -1,100 +1,48 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const bud = require('@roots/bud')
-
-/**
- * Modes
- */
+import {build, hooks, mode} from '@roots/bud'
 
 // Build mode
-bud.mode.set('production') // manually trigger production mode
-bud.mode.set('development') // manually trigger development mode
-bud.mode.set('none') // explicitly leave mode unspecified
-
-// Run Bud in CI (flag: --ci)
-bud.features.enable('ci') // bud's rich terminal experience does not work in the absence of rawMode.
-bud.features.disable('ci') // the ci flag simplifies bud's output for those environments
-
-/**
- * Hooks
- */
+mode.set('production') // manually trigger production mode
+mode.set('development') // manually trigger development mode
+mode.set('none') // explicitly leave mode unspecified
 
 // Modify entrypoints
-bud.hooks.filter('webpack.entry', entry => ({
+hooks.filter('webpack.entry', entry => ({
   ...entry,
   entrypoint: ['script.js'],
 }))
 
 // modify the webpack module rules
-bud.hooks.on('webpack.module.rules', rules => rules)
+hooks.on('webpack.module.rules', rules => rules)
 
 // Modify externals
-bud.hooks.on('webpack.externals', externals => ({
+hooks.on('webpack.externals', externals => ({
   ...externals,
 }))
 
 // Modify the CSS loaders
-bud.hooks.on('webpack.module.rules.css.use', loaders => [
+hooks.on('webpack.module.rules.css.oneOf.use', loaders => [
   ...loaders,
 ])
 
-// etc. there are hundreds of filters.
-
-/**
- * Config API
- */
-
-// Add a new function to bud
-bud.apply('newFunction', function (option = 'fallback') {
-  this.fs.write('example.md', option)
-  return this
-})
-
-// call the function we just added
-bud.newFunction('test')
-
-/**
- * Server
- */
-
-bud.hooks.on('server.use', (req, res, next) => {
-  // add middleware to the development server
+hooks.on('server.use', (req, res, next) => {
   next()
 })
 
-/**
- * Containers
- *
- * Options, Features, Environment vars, Loaders, Arguments
- */
+console.log(build.config.all()) // webpack config
 
-console.log(bud.options.entries()) // get all options
-
-bud.options.get('webpack') // get all webpack options
-bud.options.get('webpack.entry') // get webpack entry options
-bud.options.set('webpack.optimization.splitChunks.minChunks', 5) // set an option directly
-bud.options.merge('webpack.entry', {new: ['example']}) // merge options
-bud.options.delete('webpack.entry.new') // delete an option
-bud.options.is('webpack.entry', {new: 'test'}) // do a conditional check on an option value
-bud.options.has('webpack.entry') // do a conditional check on if an option exists
-bud.options.set('custom.value', ['value', 500]) // new options can be added by just attempting to set something that doesn't exist
-bud.options.map('custom.value', entry => entry) // map values to a function callback
-
-bud.features.set('hot', true) // toggle a feature on
-bud.features.enable('hot') // in a couple different ways
+build.config.get('entry')
+build.config.set('optimization.splitChunks.minChunks', 5)
+build.config.merge('entry', {new: ['example']}) // merge options
+build.config.delete('entry.new')
+build.config.is('entry', {new: 'test'})
+build.config.has('entry')
+build.config.set('custom.value', ['value', 500])
+build.config.map('custom.value', entry => entry) // map to fn callback
 
 bud.env.has('SOME_ENV_VALUE') // read & write env values
-
 bud.features.set('hot', false) // toggle a feature off
 bud.features.disable('hot') // in a couple different ways
-
-bud.args.entries() // all command-line arguments
-
-bud.loaderModules.entries() // loader modules (style-loader, babel-loader, etc.)
-bud.loaderModules.set('custom-loader', 'my-custom-loader') // add a new loader to the repository
-
-bud.loaders.get('babel') // babel loader
-bud.loaders.merge('babel.options.plugins', ['some-plugin']) // merge babel plugins
-bud.loaders.merge('postcss.options.plugins', ['postcss-plugin']) // merge postcss plugins
 
 bud.patterns.get('ts') // regular expression matching typescript
 bud.patterns.get('cssModules') // regular expression matching css modules

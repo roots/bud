@@ -1,4 +1,4 @@
-import {Bud} from '@roots/bud-framework'
+import Bud from '@roots/bud-framework'
 
 import * as api from '@roots/bud-api'
 import * as containers from './containers'
@@ -16,7 +16,7 @@ const bud: Framework.Bud = new Bud({
   containers,
   plugins,
   services,
-})
+}).getInstance()
 
 bud
   .when(

@@ -65,29 +65,9 @@ Bud, by itself, provides an intentionally sparse, baseline configuration. In fac
 
 The point being that users will likely want to install at least one or two extensions. But, this is not required.
 
-### Usage
-
-Extensions are registered using the `bud.use` method. Extensions will be called in the order provided.
-
-```js
-bud.use('@roots/bud-eslint')
-```
-
-We recommend adding all the extensions you want to use at the very top of your configuration file. For many extensions the oder in which they are called is a non-issue, but for other extensions the ordering may be important. For instance, if you are adding React support to your application with `@roots/bud-react`, you are going to want to add that extension after `@roots/bud-babel`. Likewise, `@roots/bud-purgecss` adds a postcss plugin and so it should be included after `@roots/bud-postcss`.
-
-In the future it is likely there will be an API for extension authors to declare dependencies so that Bud can infer an order without the user having to know what depends on what. But, for now, this is the case.
-
-Some extensions may attach additional configuration functions to the `bud` object for you to utilize.
-
-```js
-bud.use('@roots/bud-purgecss').purgecss({
-  /** purgecss configuration */
-})
-```
-
 ### First-party extensions
 
-There are a number of Roots maintained extensions available to kickstart your projects.
+There are a number of Roots maintained extensions available to kickstart your projects. For more information on using them refer to [the documentation on `bud.use`](https://github.com/roots/bud/tree/master/docs/config-use.md) and the extension README.
 
 | Name                   | Description                                                                                                      | Usage                                                                                                      |
 | ---------------------- | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
@@ -109,13 +89,13 @@ More advanced users may want to configure Bud's options more directly. The `@roo
 Set the webpack context:
 
 ```js
-bud.config.set('context', path.join(__dirname, 'src'))
+bud.build.config.set('context', path.join(__dirname, 'src'))
 ```
 
 Set filetypes for webpack to resolve:
 
 ```js
-bud.config.mutate('resolve.extensions', extensions => [
+bud.build.config.mutate('resolve.extensions', extensions => [
   ...extensions,
   '.ts',
   '.tsx',
@@ -131,10 +111,6 @@ bud.features.set('hot', true)
 ## Framework
 
 Users who want even less boilerplate can start by installing `@roots/bud-framework` instead of `@roots/bud`. This will allow them to configure everything, including their development server, transpiler etc., exactly to their liking. Those users may wish to fork `@roots/bud` so as to have a starting point to configure from.
-
-## Writing extensions
-
-An extension can be defined either as an object or an es module. Bud's core extensions are defined as modules, and this is the preferred approach. Typescript makes this pretty easy to do while remaining cross compatible with older module APIs.
 
 ## Contributing
 

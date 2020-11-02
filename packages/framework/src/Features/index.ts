@@ -5,8 +5,6 @@ export class Features extends Container {
   repository: Container.Repository
 
   public constructor() {
-    super()
-
-    this.repository = store
+    super({...store})
   }
 }

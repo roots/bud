@@ -13,16 +13,15 @@ export class Server {
   public config: Framework.Server.Config = config
 
   public constructor({bud}: Framework.Bud) {
-    this.bud = bud
-
-    this.instance = express()
-    this.instance.set('x-powered-by', false)
-
     this.setConfig = this.setConfig.bind(this)
     this.addMiddleware = this.addMiddleware.bind(this)
     this.addDevMiddleware = this.addDevMiddleware.bind(this)
     this.addHotMiddleware = this.addHotMiddleware.bind(this)
     this.addProxyMiddleware = this.addProxyMiddleware.bind(this)
+
+    this.bud = bud
+    this.instance = express()
+    this.instance.set('x-powered-by', false)
   }
 
   public getInstance(): Framework.Server.Instance {

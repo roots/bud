@@ -22,7 +22,10 @@ const Bar: BarComponent = ({
 
   const drawBar = () => {
     const width = ctx([col(12), col(10), col(11)])
-    const max = Math.min(Math.floor(width * percent), width)
+    const max = Math.min(
+      Math.floor((width * percent) / 100),
+      width,
+    )
 
     return is(max > 0, character.repeat(max))
   }

@@ -57,6 +57,13 @@ class FileContainer extends Container {
       }),
       {},
     )
+
+    Object.getOwnPropertyNames(this).map(name => {
+      if (name === 'repository') return
+      Object.defineProperty(this, name, {
+        enumerable: false,
+      })
+    })
   }
 
   public ls(key?: string): Container.Item {

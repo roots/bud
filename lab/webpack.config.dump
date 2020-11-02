@@ -51,8 +51,8 @@ module.exports = () => ({
                 loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/cache-loader/dist/cjs.js'
               },
               {
-                ident: 'minicss',
-                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/mini-css-extract-plugin/dist/loader.js'
+                ident: 'style',
+                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/style-loader/dist/cjs.js'
               },
               {
                 ident: 'css',
@@ -226,9 +226,6 @@ module.exports = () => ({
         transformExtensions: /^(gz|map)$/i,
         writeToFileEmit: true
       }
-    },
-    {
-      options: { filename: '[name].css', chunkFilename: '[name].css' }
     },
     {
       nodeModulesPath: '/Users/kellymears/code/projects/cli/bud/bud/lab/node_modules'

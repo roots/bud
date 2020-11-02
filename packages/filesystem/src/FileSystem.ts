@@ -10,6 +10,13 @@ export class FileSystem extends Container {
 
   constructor() {
     super()
+
+    Object.getOwnPropertyNames(this).map(name => {
+      if (name !== 'repository') return
+      Object.defineProperty(this, name, {
+        enumerable: false,
+      })
+    })
   }
 
   public get: Container.Get = function (key) {

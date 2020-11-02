@@ -7,7 +7,7 @@ import logger from './util/logger'
 import format from './util/format'
 import pretty from './util/pretty'
 
-export class Bud implements Framework.Bud {
+export default class Bud implements Framework.Bud {
   [key: string]: any // 🚨
 
   public build: Framework.Build
@@ -41,54 +41,98 @@ export class Bud implements Framework.Bud {
     pretty,
   }
 
-  public constructor(params?: {
-    api?: Framework.Index<[string, CallableFunction]>
-    builders?: Framework.Builders
-    containers?: Framework.Index<Framework.Index<any>>
-    plugins?: Framework.Index<Framework.Extension>
-    services?: Framework.Services
-  }) {
-    this.set = this.set.bind(this)
-    this.register = this.register.bind(this)
-    this.mapCallables = this.mapCallables.bind(this)
-    this.mapBuilders = this.mapBuilders.bind(this)
-    this.mapContainers = this.mapContainers.bind(this)
-    this.mapServices = this.mapServices.bind(this)
-
-    this.params = params
-
-    this.register({
-      api: this.params?.api ?? null,
-      builders: this.params?.builders ?? null,
-      containers: this.params?.containers ?? null,
-      services: this.params?.services?.bind(this)() ?? null,
-      plugins: this.params?.plugins ?? null,
+  public constructor(params: ConstructorParameters) {
+    ;[
+      'getInstance',
+      'mapServices',
+      'mapBuilders',
+      'mapContainers',
+      'mapCallables',
+      'run',
+      'assign',
+    ].forEach(name => {
+      this[name] = this[name].bind(this)
     })
+
+    params.services &&
+      (instance => {
+        instance.mapServices(params.services.bind(instance)())
+      })(this)
+
+    params.containers && this.mapContainers(params.containers)
+    params.builders && this.mapBuilders(params.builders)
+    params.api && this.mapCallables(params.api)
+    params.plugins && this.extensions.boot(params.plugins)
+
+    this.tidy.bind(this)()
+  }
+
+  public getInstance = function (
+    this: Framework.Bud,
+  ): Framework.Bud {
+    if (this.instance) {
+      return this.instance
+    }
+
+    return (this.instance = new Proxy(this, {
+      apply(target, fn, arg) {
+        const value = target[fn].bind(target)(arg ?? null)
+
+        target.logger.info(
+          {
+            fn,
+            arg,
+            value,
+          },
+          `Accessing bud.${fn as string}`,
+        )
+
+        return value
+      },
+
+      get(target, prop) {
+        const value = target[prop as string]
+
+        target.logger.info(
+          {target, prop},
+          `Accessing bud property: ${prop as string}`,
+        )
+
+        return typeof value === 'function'
+          ? value.bind(target)
+          : value
+      },
+
+      set(target, prop, val) {
+        target.logger.info(
+          {prop, val},
+          `Setting bud.${prop.toString()} to ${val.toString()}`,
+        )
+
+        return (target[prop.toString()] = val ? true : false)
+      },
+    }))
   }
 
   /**
-   * Initialize class.
+   * Assign values.
    */
-  public register = function ({
-    api,
-    builders,
-    containers,
-    services,
-    plugins,
-  }: {
-    api?: Framework.Index<[string, CallableFunction]>
-    builders?: Framework.Builders
-    containers?: Framework.Index<Framework.Index<any>>
-    services?: Framework.Services
-    plugins?: Framework.Index<Framework.Extension>
-  }): void {
-    services && this.mapServices(services)
-    containers && this.mapContainers(containers)
-    builders && this.mapBuilders(builders)
-    api && this.mapCallables(api)
-    plugins && this.extensions.boot(plugins)
+  public assign(value: unknown): void {
+    Object.assign(this, {value})
   }
 
+  /**
+   * Make a new container.
+   */
+  public makeContainer(
+    repository?: Container.Repository,
+  ): Container {
+    return new Container(repository ?? {})
+  }
+
+  /**
+   * Run the build.
+   */
   public run = function (this: Framework.Bud): void {
     this.compiler.compile()
 
@@ -101,20 +145,6 @@ export class Bud implements Framework.Bud {
     }
 
     this.cli.run()
-  }
-
-  /**
-   * Assign values.
-   */
-  public assign(value: unknown): void {
-    Object.assign(this, {value})
-  }
-
-  /**
-   * Set values.
-   */
-  public set(key: string, value: unknown): void {
-    this[key] = value
   }
 
   /**
@@ -144,7 +174,7 @@ export class Bud implements Framework.Bud {
   ): Promise<void> {
     Object.entries(callables).map(
       ([name, fn]: [string, CallableFunction]) => {
-        this.set(name, fn.bind(this))
+        this[name] = fn.bind(this)
       },
     )
   }
@@ -155,10 +185,19 @@ export class Bud implements Framework.Bud {
   public mapServices = async function (
     this: Framework.Bud,
     services: Framework.Services,
-  ): Promise<void> {
-    Object.entries(services).map(
+  ): Promise<Array<string>> {
+    return Object.entries(services).map(
       ([name, [service, dependencies]]) => {
-        this.set(name, new service(dependencies))
+        this[name] = new service(dependencies)
+        this[name].dump = function () {
+          console.log(this)
+        }.bind(this[name])
+
+        Object.defineProperty(this[name], 'bud', {
+          enumerable: false,
+        })
+
+        return name
       },
     )
   }
@@ -171,8 +210,118 @@ export class Bud implements Framework.Bud {
   ): Promise<void> {
     Object.entries(containers).map(
       ([name, repository]: [string, Framework.Index<any>]) => {
-        this.set(name, new Container(repository))
+        this[name] = new Container(repository)
       },
     )
   }
+
+  public tidy = function () {
+    const mute = [
+      [
+        this,
+        [
+          'tidy',
+          'util',
+          'logger',
+          'getInstance',
+          'mapServices',
+          'mapBuilders',
+          'mapContainers',
+          'mapCallables',
+          'run',
+          'assign',
+        ],
+      ],
+      [
+        this.server,
+        [
+          'instance',
+          'setConfig',
+          'addMiddleware',
+          'addDevMiddleware',
+          'addHotMiddleware',
+          'addProxyMiddleware',
+        ],
+      ],
+      [
+        this.hooks,
+        ['logger', 'make', 'entries', 'on', 'filter'],
+      ],
+      [
+        this.extensions,
+        [
+          'bindApi',
+          'getExtension',
+          'boot',
+          'makePlugins',
+          'processRules',
+          'processOptions',
+          'processLoaders',
+          'processRuleItems',
+        ],
+      ],
+      [
+        this.fs,
+        [
+          'fs',
+          'glob',
+          'path',
+          'from',
+          'watcher',
+          'setBase',
+          'getBase',
+          'exists',
+          'read',
+          'setDisk',
+          'dump',
+        ],
+      ],
+      [
+        this.disk.current,
+        [
+          'fs',
+          'glob',
+          'path',
+          'from',
+          'watcher',
+          'setBase',
+          'getBase',
+          'exists',
+          'read',
+          'setDisk',
+          'dump',
+        ],
+      ],
+    ]
+
+    mute.forEach(([target, methods]: [any, Array<string>]) => {
+      if (!target) return
+
+      methods.forEach(method => {
+        Object.defineProperty(target, method, {
+          enumerable: false,
+        })
+      })
+    })
+
+    Object.getOwnPropertyNames(this).forEach(name => {
+      this[name].hasOwnProperty('dump') &&
+        Object.defineProperty(this[name], 'dump', {
+          enumerable: false,
+        })
+
+      this[name].hasOwnProperty('bud') &&
+        Object.defineProperty(this[name], 'bud', {
+          enumerable: false,
+        })
+    })
+  }
+}
+
+declare interface ConstructorParameters {
+  api?: Framework.Index<CallableFunction>
+  builders?: Framework.Builders
+  containers?: Framework.Index<Framework.Index<any>>
+  plugins?: Framework.Index<Framework.Extension>
+  services?: Framework.Services
 }

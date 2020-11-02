@@ -15,7 +15,4 @@ bud
   .entry('foo', ['foo.js'])
   .gzip()
 
-console.log(bud.env.all())
-process.exit()
-
 bud.run()
