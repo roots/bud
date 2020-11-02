@@ -14,4 +14,8 @@ bud
   .library(['react', 'react-dom'])
   .entry('foo', ['foo.js'])
   .gzip()
-  .run()
+
+console.log(bud.env.all())
+process.exit()
+
+bud.run()
