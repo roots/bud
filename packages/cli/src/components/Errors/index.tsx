@@ -2,7 +2,7 @@ import React, {FunctionComponent} from 'react'
 import {Box, Text} from 'ink'
 
 interface ErrorProps {
-  errors: any
+  errors: string[]
 }
 
 const Errors: FunctionComponent<ErrorProps> = ({errors}) => (
@@ -11,8 +11,9 @@ const Errors: FunctionComponent<ErrorProps> = ({errors}) => (
       flexDirection="column"
       borderColor="red"
       borderStyle="round"
+      marginBottom={1}
       padding={1}>
-      {errors.map((err, id) => (
+      {errors?.map((err, id) => (
         <Text key={id} wrap="wrap">
           {err}
         </Text>

@@ -30,7 +30,7 @@ export const useFocus: (
   useEffect(() => {
     mutate('focus', {
       ...Object.entries(data.items).reduce(
-        (acc, [name, focused]: [string, boolean]) => ({
+        (acc, [name]: [string, boolean]) => ({
           ...acc,
           [name]: false,
         }),

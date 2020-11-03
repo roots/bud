@@ -15,10 +15,8 @@ const App: FunctionComponent<{
   bud: Framework.Bud
   stats: Compilation.Stats
   progress: Compilation.Progress
-  errors: Compilation.Stats.Errors
-  warnings: Compilation.Stats.Warnings
-}> = ({bud, stats, progress, errors, warnings}) => {
-  const {dimensions, col, ctx} = useCtx()
+}> = ({bud, stats, progress}) => {
+  const {bounds, col} = useCtx()
 
   const displayName = bud.disk
     .get('project')
@@ -30,40 +28,39 @@ const App: FunctionComponent<{
 
   return (
     <Box
-      width={ctx([col(12)])}
-      minHeight={dimensions.height}
+      minHeight={bounds.height}
       paddingRight={1}
-      paddingBottom={2}
-      paddingTop={1}
       justifyContent="space-between">
       <Screen title={bud.name}>
         <Box flexDirection="column">
-          <Box flexDirection="column" marginBottom={1}>
+          <Box flexDirection="column">
             <Title>{displayName}</Title>
-            <Nav />
+            {bud.mode.is('development') && <Nav />}
           </Box>
 
-          {errors && (
-            <Box flexDirection="column" marginBottom={1}>
-              <Errors errors={errors} />
-            </Box>
+          {stats?.errors && stats?.errors[0] && (
+            <Errors errors={stats.errors} />
           )}
 
-          {warnings && (
-            <Box flexDirection="column" marginBottom={1}>
-              <Errors errors={warnings} />
-            </Box>
+          {stats?.warnings && stats?.warnings[0] && (
+            <Errors errors={stats.warnings} />
           )}
 
-          <>
-            <Box flexDirection="column" marginBottom={1}>
+          <Box flexDirection="column">
+            <Box
+              width={col(12)}
+              flexDirection="column"
+              marginBottom={1}>
               <Assets assets={stats?.assets} />
             </Box>
 
-            <Box flexDirection="column" marginBottom={1}>
-              <Progress progress={progress} />
+            <Box
+              width={col(12)}
+              flexDirection="column"
+              marginBottom={1}>
+              <Progress {...progress} />
             </Box>
-          </>
+          </Box>
 
           <Box flexDirection="column" marginBottom={1}>
             <BuildInfo stats={stats} />

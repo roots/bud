@@ -33,7 +33,7 @@ const useTransform: Transform = assets => {
         ).length > 0,
     }))
 
-  return transform(assets)
+  return transform(assets) ?? []
 }
 
 export {useTransform as default}

@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom'
 
 const root = document.querySelector('#root')
 
-const MyApp = () => {
+const myApp = () => {
   const [state, setState] = useState('')
 
   return (
@@ -12,7 +12,7 @@ const MyApp = () => {
         <input
           onChange={e => setState(e.value)}
           type="text"
-          placeholder="foobarns"
+          placeholder='foobarns'
           value={state}
         />
       </div>
@@ -20,9 +20,9 @@ const MyApp = () => {
   )
 }
 
-ReactDOM.render(<MyApp />, root)
+ReactDOM.render(myApp, root)
 
 module?.hot &&
   module.hot.accept(err => {
-    console.error(err)
+    console.error('err")
   })

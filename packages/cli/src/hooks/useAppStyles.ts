@@ -2,96 +2,91 @@ import useStdOutDimensions from 'ink-use-stdout-dimensions'
 import {useState, useEffect} from 'react'
 
 export interface Styles {
-  unit: number
-  dimensions: {
+  spacing: number
+  bounds: {
     width: number
     height: number
   }
-  screen: string
-  colors: Palette
-  ctx: CallableFunction
-  col: CallableFunction
-  is: CallableFunction
-  size: (query: unknown) => boolean
-}
-
-export interface Palette {
-  [key: string]: string
+  screen: number
+  colors: {[key: string]: string}
+  ctx: (screens: Array<string | number>) => any
+  col: (count: number) => number
+  is: (testCase: boolean, trueCase: any, falseCase: any) => any
 }
 
 export interface Theme {
-  spacer: number
-  palette: Palette
-}
-
-const defaultTheme: Theme = {
-  spacer: 1,
-  palette: {
-    primary: '#545DD7',
-    error: '#dc3545',
-    warning: '#fd7e14',
-    faded: '#6C758F',
-  },
+  spacing: number
+  palette: {[key: string]: string}
+  screens: Array<[number, number]>
+  columns: number
 }
 
 export const useAppStyles: (themeProps?: Theme) => Styles = (
-  themeProps = defaultTheme,
+  themeProps = {
+    spacing: 1,
+    palette: {
+      primary: '#545DD7',
+      error: '#dc3545',
+      warning: '#fd7e14',
+      faded: '#6C758F',
+    },
+    screens: [
+      [0, 40],
+      [41, 60],
+      [61, 80],
+      [81, Infinity],
+    ],
+    columns: 12,
+  },
 ) => {
-  const [width, height] = useStdOutDimensions()
-  const [screen, setScreen] = useState('loading')
-  const [unit, setUnit] = useState(null)
   const [theme] = useState(themeProps)
+  const [width, height] = useStdOutDimensions()
+  const [screen, setScreen] = useState(null)
+  const [unit, setUnit] = useState(null)
+  const [bounds, setBounds]: React.ComponentState = useState({
+    width: width - theme.spacing * 2,
+    height: height - theme.spacing * 2,
+  })
 
   useEffect(() => {
-    if (width < 40) setScreen('sm')
-    else if (width < 60) setScreen('md')
-    else if (width < 80) setScreen('lg')
-    else setScreen('xl')
-  }, [width])
+    setBounds({
+      width: width - theme.spacing * 2,
+      height: height - theme.spacing * 2,
+    })
+  }, [width, height])
 
   useEffect(() => {
-    width && setUnit(width / 12)
-  }, [width])
+    setUnit(bounds.width / theme.columns)
+  }, [bounds])
 
-  const col = count => {
-    return count * unit - theme.spacer * 2
+  useEffect(() => {
+    theme.screens.map(([lower, upper], iteration) => {
+      bounds.width > lower &&
+        bounds.width < upper &&
+        setScreen(iteration)
+    })
+  }, [bounds])
+
+  const col = (count: number): number => {
+    return unit * count
   }
 
-  const ctx = ([sm, md = sm, lg = md, xl = lg]) => {
-    switch (screen) {
-      case 'sm':
-        return sm
-      case 'md':
-        return md
-      case 'lg':
-        return lg
-      case 'xl':
-        return xl
-    }
+  const ctx: Styles['ctx'] = (screens): any => {
+    const value = screens[screen] ?? screens[screens.length - 1]
+    return typeof value == 'number' ? Math.floor(value) : value
   }
 
-  const size = (query: unknown): boolean => screen == query
-
-  const is = (
-    query: unknown,
-    forTrue: unknown,
-    forFalse: unknown,
-  ) => (query ? forTrue : forFalse ?? null)
-
-  const dimensions = {
-    width: width - theme.spacer * 2,
-    height: height - theme.spacer * 2,
-  }
+  const is: Styles['is'] = (testCase, trueCase, falseCase) =>
+    testCase ? trueCase : falseCase
 
   return {
     col,
-    unit,
     is,
     ctx,
-    dimensions,
+    bounds,
     screen,
-    size,
     colors: theme.palette,
+    spacing: theme.spacing,
   }
 }
 

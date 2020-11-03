@@ -19,7 +19,7 @@ const Compile: FunctionComponent<{bud: Framework.Bud}> = ({
   useEffect(() => {
     if (
       compilation?.stats?.assets?.length > 0 &&
-      compilation?.progress?.percentage == 100
+      compilation?.progress?.percentage.decimal == 1
     ) {
       app.exit()
       process.exit()
@@ -27,13 +27,13 @@ const Compile: FunctionComponent<{bud: Framework.Bud}> = ({
   }, [compilation])
 
   return (
-    <App
-      bud={bud}
-      errors={compilation?.errors}
-      stats={compilation?.stats}
-      progress={compilation?.progress}
-      warnings={compilation?.warnings}
-    />
+    <>
+      <App
+        bud={bud}
+        stats={compilation?.stats}
+        progress={compilation?.progress}
+      />
+    </>
   )
 }
 

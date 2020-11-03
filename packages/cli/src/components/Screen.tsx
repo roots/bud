@@ -18,7 +18,9 @@ const Screen: FunctionComponent<ScreenInterface> = ({
 }) => (
   <Box
     display={display ? 'flex' : 'none'}
-    margin={1}
+    marginTop={0}
+    marginBottom={1}
+    marginLeft={1}
     justifyContent="flex-start"
     flexDirection="column">
     {title && <Title>{title}</Title>}

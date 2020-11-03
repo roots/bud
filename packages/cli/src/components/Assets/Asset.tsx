@@ -17,16 +17,15 @@ const Asset: FunctionComponent<AssetInterface> = ({
   size,
   hot,
 }) => {
-  const {ctx, is, col} = useAppStyles()
+  const {ctx, is} = useAppStyles()
 
   const roundedSize = Math.round(size / 1000)
 
   return (
     <Box
-      flexDirection={ctx(['row'])}
-      justifyContent={ctx(['space-between', 'flex-start'])}
-      width={col(12)}>
-      <Box width={ctx([col(12)])}>
+      flexDirection={'row'}
+      justifyContent={ctx(['space-between', 'flex-start'])}>
+      <Box>
         <Text
           wrap="truncate-end"
           color={active ? 'white' : 'gray'}>
@@ -35,9 +34,7 @@ const Asset: FunctionComponent<AssetInterface> = ({
         </Text>
       </Box>
 
-      <Box
-        justifyContent={ctx(['flex-end'])}
-        width={ctx([col(12), col(6)])}>
+      <Box justifyContent={'flex-end'}>
         <Text wrap="truncate" dimColor={true}>
           {roundedSize}kb
         </Text>

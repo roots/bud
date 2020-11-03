@@ -1,31 +1,25 @@
-import React, {FunctionComponent} from 'react'
-import {Stats} from 'webpack'
-
+import React from 'react'
+import {Box} from 'ink'
 import Asset from './Asset'
-
 import useAssetTransform from './useAssetTransform'
+import useAppStyles from '../../hooks/useAppStyles'
 
-interface AssetsProps {
-  assets: Stats.ToJsonOutput['assets']
-}
-
-const Assets: FunctionComponent<AssetsProps> = ({assets}) => {
+const Assets = ({assets}) => {
   const processedAssets = useAssetTransform(assets)
+  const {col} = useAppStyles()
 
   return (
-    <>
-      {processedAssets?.length
-        ? processedAssets.map((asset, id) => (
-            <Asset
-              key={id}
-              name={asset.name}
-              size={asset.size}
-              active={asset.emitted}
-              hot={asset.hot}
-            />
-          ))
-        : []}
-    </>
+    <Box flexDirection="column" width={col(12)}>
+      {processedAssets?.map(({name, size, emitted, hot}, id) => (
+        <Asset
+          key={id}
+          name={name}
+          size={size}
+          active={emitted}
+          hot={hot}
+        />
+      )) ?? null}
+    </Box>
   )
 }
 

@@ -1,12 +1,12 @@
 import React from 'react'
 import {useApp, useInput} from 'ink'
-import useDevServer from './hooks/useDevServer'
+import useCompilation from './hooks/useCompilation'
 import App from './containers/App'
 
 const Serve: Framework.CLI.Serve = ({bud}) => {
   const app = useApp()
 
-  const {stats, progress, errors, warnings} = useDevServer(bud)
+  const compilation = useCompilation(bud)
 
   useInput(input => {
     if (input == 'q') {
@@ -19,10 +19,8 @@ const Serve: Framework.CLI.Serve = ({bud}) => {
     <>
       <App
         bud={bud}
-        errors={errors}
-        stats={stats}
-        progress={progress}
-        warnings={warnings}
+        stats={compilation?.stats}
+        progress={compilation?.progress}
       />
     </>
   )

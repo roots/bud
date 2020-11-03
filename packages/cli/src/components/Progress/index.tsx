@@ -5,36 +5,47 @@ import Bar from './Bar'
 import useAppStyles from '../../hooks/useAppStyles'
 
 type ProgressComponentProps = {
-  progress: {
-    percentage: number
-    msg: string
+  percentage: {
+    decimal: number
+    display: string
   }
+  msg: string
 }
 
 const Progress: FunctionComponent<ProgressComponentProps> = ({
-  progress,
+  percentage,
+  msg,
 }) => {
-  const {col, ctx, is} = useAppStyles()
+  const {col, ctx, bounds} = useAppStyles()
+  const labelMax = ctx([col(12), col(1) / 2])
+  const barMax = Math.min(
+    Math.floor(bounds.width - labelMax),
+    bounds.width,
+  )
 
   return (
     <Box
-      display={is(progress.percentage < 100, 'flex', 'none')}
+      display={'flex'}
       width={col(12)}
-      flexDirection={ctx(['column'])}>
+      flexDirection={'column'}>
       <Box flexDirection={ctx(['column', 'row'])}>
-        <Box width={ctx([col(12), col(2), col(1)])}>
-          <Text>{progress.percentage}%</Text>
+        <Box width={labelMax}>
+          <Text>
+            {percentage.display}
+            {'  '}
+          </Text>
         </Box>
 
         <Bar
+          maxWidth={barMax}
           backgroundColor="none"
           color="#545DD7"
-          percent={progress.percentage}
+          percent={percentage.decimal}
         />
       </Box>
 
       <Box>
-        <Text>{progress.msg}</Text>
+        <Text>{msg}</Text>
       </Box>
     </Box>
   )

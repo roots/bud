@@ -8,10 +8,6 @@ export class Compiler {
 
   public compilation: Framework.Webpack.Compiler
 
-  public watchOptions: Framework.Webpack.Options.WatchOptions
-
-  public watching: Framework.Webpack.Watching
-
   constructor(params?: Framework.Index<Framework.Bud>) {
     this.bud = params.bud
 
@@ -19,7 +15,6 @@ export class Compiler {
 
     this.compile = this.compile.bind(this)
     this.run = this.run.bind(this)
-    this.watch = this.watch.bind(this)
     this.getCompilation = this.getCompilation.bind(this)
     this.setCompilation = this.setCompilation.bind(this)
   }
@@ -42,17 +37,6 @@ export class Compiler {
     handler: Framework.Webpack.ICompiler.Handler,
   ): void {
     this.getCompilation().run(handler)
-  }
-
-  public watch(
-    handler: Framework.Webpack.ICompiler.Handler,
-  ): Framework.Webpack.Watching {
-    this.watching = this.getCompilation().watch(
-      this.watchOptions,
-      handler,
-    )
-
-    return this.watching
   }
 
   public applyPlugins(
