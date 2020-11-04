@@ -49,7 +49,7 @@ export * from './Build'
  * Framework.Cli
  * @package @roots/bud-cli
  */
-export * from './Cli'
+export * from './CLI'
 
 /**
  * Framework.Compiler
