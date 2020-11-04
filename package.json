@@ -51,12 +51,9 @@
     ]
   },
   "scripts": {
-    "yarn:install": "install",
-    "yarn:install:production": "install --production --force",
-    "make": "run-s clean install build",
-    "clean": "lerna clean -y",
-    "bootstrap": "lerna bootstrap --hoist",
     "build": "lerna run build",
+    "watch": "node ./scripts/watch",
+    "make": "lerna exec -- rm -rf node_modules tsconfig.tsbuildinfo lib types && rm -rf node_modules && yarn install --force --no-cache && yarn build",
     "lint": "run-s lint:*",
     "lint:eslint": "eslint 'packages/**/*.{js,ts,tsx}' --fix",
     "lint:prettier": "prettier 'packages/**/src/**/*'  --write",
@@ -66,11 +63,11 @@
     "release:next:pre": "lerna publish prerelease --ignore-scripts --pre-dist-tag next",
     "release:latest": "lerna publish --ignore-scripts",
     "release:latest:pre": "lerna publish --ignore-scripts --pre-dist-tag rc",
-    "test": "jest --verbose",
-    "tsc": "tsc --build"
+    "test": "jest --verbose"
   },
   "devDependencies": {
     "@roots/bud-typings": "2.0.0-next.24",
+    "@tinypixelco/gitio": "^1.0.3",
     "@types/autoprefixer": "^9.7.2",
     "@types/fs-extra": "^9.0.1",
     "@types/globby": "^9.1.0",
@@ -90,13 +87,16 @@
     "eslint-plugin-prettier": "^3.1.4",
     "eslint-plugin-react": "^7.20.5",
     "eslint-plugin-react-hooks": "^4.1.0",
+    "fb-watchman": "^2.0.1",
     "husky": "^4.3.0",
     "ink-testing-library": "^2.0.1",
     "jest": "^26.4.2",
     "lerna": "^3.22.1",
+    "nodemon": "^2.0.6",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
+    "sane": "^4.1.0",
     "semantic-release": "^15.8.0",
     "typescript": "^4.0.2"
   }

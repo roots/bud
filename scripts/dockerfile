@@ -1,17 +1,16 @@
-FROM node
-
-ADD yarn.lock /yarn.lock
-ADD package.json /package.json
+FROM node:14
 
 ENV NODE_PATH=/node_modules
 ENV PATH=$PATH:/node_modules/.bin
-RUN yarn
 
-WORKDIR /packages
-ADD . /app
+WORKDIR /bud
+
+ADD ../ .
+
+RUN yarn
 
 EXPOSE 3000
 EXPOSE 35729
 
-ENTRYPOINT ["/bin/bash", "/app/run.sh"]
+ENTRYPOINT ["/bin/bash"]
 CMD ["start"]
