@@ -1,5 +1,4 @@
 import type {Bud} from '../Bud'
-import type {Extension} from '../Extension'
 import {Webpack} from '../Webpack'
 
 export as namespace Extensions

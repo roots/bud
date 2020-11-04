@@ -1,16 +1,13 @@
 import {Webpack} from '../Webpack'
-import type {Bud, Container, Index, Item, Rule} from '../'
 
 /**
- * Framework.Build is responsible for producing
- * the webpack configuration utilized by Framework.Compiler
- * and Framework.Server.
+ * Framework.Build produces the final webpack configuration object.
  */
 export declare class Build {
   /**
    * The Bud application instance.
    */
-  public bud: Bud
+  public bud: Framework.Bud
 
   /**
    * The builders which do the work.
@@ -20,27 +17,27 @@ export declare class Build {
   /**
    * Loaders
    */
-  public loaders: Index<Build.Loader>
+  public loaders: Framework.Index<Build.Loader>
 
   /**
    * Items (loader implementations)
    */
-  public items: Index<Item>
+  public items: Framework.Index<Framework.Item>
 
   /**
    * Rules (sets of Framework.Build.Items used under certain conditions)
    */
-  public rules: Index<Rule>
+  public rules: Framework.Index<Framework.Rule>
 
   /**
    * THe final built configuration object.
    */
-  public config: Container
+  public config: Framework.Indexed
 
   /**
    * Class constructor.
    */
-  public constructor(arguments: Index<Bud>)
+  public constructor(arguments: Framework.Index<Framework.Bud>)
 
   /**
    * Function producing the final webpack configuration.
@@ -68,14 +65,17 @@ export declare class Build {
   /**
    * Add or override an item by key.
    */
-  public setItem(name: string, module: Item.Module): Item
+  public setItem(
+    name: string,
+    module: Framework.Item.Module,
+  ): Framework.Item
 
   /**
    * Merge values onto an existing item.
    */
   public mergeItem(
     item: string,
-    value: Partial<Item.Module>,
+    value: Partial<Framework.Item.Module>,
   ): void
 
   /**
@@ -88,13 +88,13 @@ export declare class Build {
    */
   public setRule(
     name: string,
-    module: Rule.Module,
+    module: Framework.Rule.Module,
   ): Framework.Rule
 
   /**
    * Merge values onto an existing rule.
    */
-  public mergeRule(name: string, rule: Rule.Module)
+  public mergeRule(name: string, rule: Framework.Rule.Module)
 }
 
 /**
@@ -105,12 +105,6 @@ export namespace Build {
    * @see {webpack.Loader}
    */
   export type Loader = string
-  export namespace Loader {
-    /**
-     * Loaders are keyed values so they can be manipulated by name.
-     */
-    export type Repository = Index<Loader>
-  }
 
   /**
    * The final product.
@@ -119,64 +113,24 @@ export namespace Build {
   export type Configuration = Webpack.Configuration
 
   /**
-   * Output produced by the builders.
-   */
-  export namespace Product {
-    /**
-     * @see {webpack.Configuration['entry']}
-     */
-    export type Entry = Webpack.Entry | Webpack.EntryFunc
-
-    /**
-     * @see {webpack.Configuration['externals']}
-     */
-    export type Externals = Webpack.ExternalsObjectElement
-
-    /**
-     * @see {webpack.Configuration['module']}
-     */
-    export type Module = Webpack.Module
-
-    /**
-     * @see {webpack.Configuration['resolve']}
-     */
-    export type Resolve = Webpack.Resolve
-    export type Optimization = Webpack.Options.Optimization
-    export type Output = Webpack.Output
-    export type Plugins = Webpack.Plugin[]
-
-    export type General = Omit<
-      Configuration,
-      | 'entry'
-      | 'externals'
-      | 'module'
-      | 'resolve'
-      | 'optimization'
-      | 'plugins'
-      | 'output'
-      | 'string'
-    >
-  }
-
-  /**
    * Builds webpack's entrypoint configuration
    */
   export type Entry = (
-    state?: Container.Repository,
+    args?: Framework.Index<any>,
   ) => Product.Entry
 
   /**
    * Builds webpack's externals configuration
    */
   export type Externals = (
-    state?: Container.Repository,
+    args?: Framework.Index<any>,
   ) => Product.Externals
 
   /**
    * Builds webpack's module configuration
    */
   export type Module = (
-    build?: Container.Repository,
+    args?: Framework.Index<any>,
   ) => {module: Webpack.Module}
 
   /**
@@ -185,36 +139,36 @@ export namespace Build {
    * Builds webpack's rules configuration
    */
   export type Rules = (
-    build?: Container.Repository,
+    args?: Framework.Index<any>,
   ) => Product.Module['rules']
 
   /**
    * Builds webpack's resolve configuration.
    */
   export type Resolve = (
-    state?: Container.Repository,
-  ) => Index<Product.Resolve>
+    args?: Framework.Index<any>,
+  ) => Framework.Index<Product.Resolve>
 
   /**
    * Builds webpack's optimization configuration
    */
   export type Optimization = (
-    state?: Container.Repository,
+    args?: Framework.Index<any>,
   ) => Product.Optimization
 
   /**
    * Builds webpack's plugins configuration
    */
   export type Plugins = (
-    state?: Container.Repository,
-  ) => Index<Product.Plugins>
+    args?: Framework.Index<any>,
+  ) => Framework.Index<Product.Plugins>
 
   /**
    * Builds webpack's output configuration
    */
   export type Output = (
-    state?: Container.Repository,
-  ) => Index<Product.Output>
+    args?: Framework.Index<any>,
+  ) => Framework.Index<Product.Output>
 
   /**
    * Webpack has a lot of top level keys which are
@@ -243,19 +197,87 @@ export namespace Build {
     | Build.Output
     | Build.General
 
+  /**
+   * Output produced by the builders.
+   */
+  export namespace Product {
+    /**
+     * @see {webpack.Configuration['entry']}
+     */
+    export type Entry = Webpack.Entry | Webpack.EntryFunc
+
+    /**
+     * @see {webpack.Configuration['externals']}
+     */
+    export type Externals = Webpack.ExternalsObjectElement
+
+    /**
+     * @see {webpack.Configuration['module']}
+     */
+    export type Module = Webpack.Module
+
+    /**
+     * @see {webpack.Configuration['resolve']}
+     */
+    export type Resolve = Webpack.Resolve
+
+    /**
+     * @see {webpack.Configuration['optimization']}
+     */
+    export type Optimization = Webpack.Options.Optimization
+
+    /**
+     * @see {webpack.Configuration['output']}
+     */
+    export type Output = Webpack.Output
+
+    /**
+     * @see {webpack.Configuration['plugin']}
+     */
+    export type Plugins = Webpack.Plugin[]
+
+    /**
+     * @see {webpack.Configuration}
+     */
+    export type General = Omit<
+      Configuration,
+      | 'entry'
+      | 'externals'
+      | 'module'
+      | 'resolve'
+      | 'optimization'
+      | 'plugins'
+      | 'output'
+      | 'string'
+    >
+  }
+
+  export namespace Loader {
+    /**
+     * Loaders are keyed values so they can be manipulated by name.
+     */
+    export type Repository = Framework.Index<Loader>
+  }
+
+  /**
+   * @see {Framework.Rule.Module}
+   */
   export type RuleSetLoader = {
     /**
      * Loader name
      */
     loader?: string
+
     /**
      * Loader options
      */
     options?: Framework.Index<any>
+
     /**
      * Unique loader identifier
      */
     ident?: string
+
     /**
      * Loader query
      */

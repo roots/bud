@@ -5,16 +5,10 @@
     "outDir": "./lib",
     "baseUrl": ".",
     "declaration": true,
-    "declarationDir": "types",
+    "declarationDir": "./lib/types",
     "declarationMap": true
-  },
-  "typeAcquisition": {
-    "enable": true
   },
   "compileOnSave": true,
   "include": ["./src"],
-  "exclude": ["./lib"],
-  "references": [
-    {"@roots/bud-framework": "../framework"},
-  ]
+  "exclude": ["./lib"]
 }

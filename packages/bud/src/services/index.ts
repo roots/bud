@@ -1,7 +1,5 @@
 import {Compiler} from '@roots/bud-compiler'
-import {FileContainer, FileSystem} from '@roots/filesystem'
-
-import {App} from '@roots/bud-cli'
+import {Server} from '@roots/bud-server'
 import {
   Build,
   Hooks,
@@ -9,8 +7,12 @@ import {
   Features,
   Mode,
 } from '@roots/bud-framework'
-import {Server} from '@roots/bud-server'
+import * as Teletype from '@roots/bud-cli'
+import {FileSystem, FileContainer} from '@roots/filesystem'
 
+/**
+ * Services
+ */
 export const services: Framework.Services = function (
   this: Framework.Bud,
 ) {
@@ -24,6 +26,6 @@ export const services: Framework.Services = function (
     compiler: [Compiler, {bud: this}],
     server: [Server, {bud: this}],
     extensions: [Extensions, {bud: this}],
-    cli: [App, {bud: this}],
+    cli: [Teletype.Build, {bud: this}],
   }
 }

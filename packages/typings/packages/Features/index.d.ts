@@ -1,1 +1,1 @@
-export type Features = Framework.Container
+export type Features = Framework.Indexed

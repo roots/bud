@@ -4,7 +4,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
-    "directory": "packages/bud-wordpress-manifests"
+    "directory": "packages/webpack-wordpress-externals-plugin"
   },
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
@@ -20,10 +20,7 @@
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "lib",
-    "types"
-  ],
+  "files": ["./lib", "./src"],
   "main": "./lib/index.js",
   "types": "./lib/types/index.d.ts",
   "scripts": {
@@ -32,6 +29,5 @@
     "clean:modules": "rimraf ./node_modules",
     "tsc": "tsc -p ./tsconfig.json",
     "lint": "eslint ."
-  },
-  "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5"
+  }
 }

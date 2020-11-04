@@ -6,7 +6,7 @@ import {lodash as _} from '@roots/bud-support'
 export const mergePresets: Babel.Config = function (
   presets: Babel.Plugin[],
 ) {
-  const {options} = this.bud.build.getItem('babel') as any // 😇
+  const {options} = this.bud.build.getItem('babel')
 
   this.bud.build.mergeItem('babel', {
     options: {

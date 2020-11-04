@@ -4,18 +4,6 @@
     "rootDir": "./",
     "outDir": "./types",
     "declaration": true,
-    "declarationDir": "types",
-  },
-  "references": [
-    {"@roots/container": "../container"},
-    {"@roots/dependencies": "../dependencies"},
-    {"@roots/filesystem": "../filesystem"},
-    {"@roots/bud-support": "../support"},
-    {"@roots/bud-api": "../api"},
-    {"@roots/bud-build": "../build"},
-    {"@roots/bud-cli": "../cli"},
-    {"@roots/bud-compiler": "../compiler"},
-    {"@roots/bud-server": "../server"},
-    {"@roots/bud-framework": "../framework"},
-  ],
+    "declarationDir": "./types"
+  }
 }

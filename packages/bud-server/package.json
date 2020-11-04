@@ -1,0 +1,47 @@
+{
+  "name": "@roots/bud-server",
+  "description": "Development server for @roots/bud",
+  "version": "2.0.0-next.24",
+  "homepage": "https://roots.io/bud",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "packages/bud-server"
+  },
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "license": "MIT",
+  "contributors": [
+    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
+  ],
+  "engines": {
+    "node": ">=12"
+  },
+  "files": ["./lib", "./src"],
+  "main": "./lib/index.js",
+  "types": "./lib/types/index.d.ts",
+  "scripts": {
+    "build": "tsc --build",
+    "clean:lib": "rimraf ./lib",
+    "clean:modules": "rimraf ./node_modules",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@roots/bud-compiler": "2.0.0-next.24",
+    "@roots/bud-support": "2.0.0-next.24",
+    "@roots/container": "2.0.0-next.24",
+    "@roots/filesystem": "2.0.0-next.24",
+    "express": "^4.17.1",
+    "http-proxy-middleware": "^1.0.5",
+    "webpack": "^4.44.1",
+    "webpack-dev-middleware": "^3.7.2",
+    "webpack-hot-client": "^4.1.3",
+    "webpack-hot-middleware": "^2.25.0",
+    "zlib": "^1.0.5"
+  }
+}

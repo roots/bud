@@ -17,7 +17,7 @@ export const when: Framework.Extension.When = ({features}) =>
 
 declare type Options = {
   replacements: {
-    [key: string]: string
+    [key: string]: any
   }
 }
 

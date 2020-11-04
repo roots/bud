@@ -1,5 +1,5 @@
 import type Webpack from 'webpack'
-import { Build } from '../Build'
+import {Build} from '../Build'
 
 export {Item}
 
@@ -15,10 +15,7 @@ declare class Item {
   query?: Item.MaybeCallable<Item.Module.Query>
 
   propMap: () => Framework.Index<
-    [
-      Item.Property,
-      Framework.Index<string> | Framework.Bud,
-    ]
+    [Item.Property, Framework.Index<string> | Framework.Bud]
   >
 
   getIdent: Item.Getter<Item.Module.Ident>
@@ -48,10 +45,10 @@ declare namespace Item {
   export type Setter<T> = (prop: T) => void
 
   export type Product = {
-    ident?: MaybeCallable<string>,
-    loader?: MaybeCallable<string>,
+    ident?: MaybeCallable<string>
+    loader?: MaybeCallable<string>
     options?: MaybeCallable<Build.RuleSetLoader['options']>
-    query?: MaybeCallable<Module.Query>,
+    query?: MaybeCallable<Module.Query>
   }
 
   export type Factory<OutType> = (any) => OutType
@@ -61,23 +58,25 @@ declare namespace Item {
   export type Yield<P> = () => P
 
   export type Module = {
-    ident?: Module.Ident,
-    loader?: Module.Loader,
-    options?: Module.Options,
-    query?: Module.Query,
+    ident?: Module.Ident
+    loader?: Module.Loader
+    options?: Module.Options
+    query?: Module.Query
   }
 
   export namespace Module {
     export type Ident = MaybeCallable<string>
     export type Loader = MaybeCallable<string>
-    export type Options = MaybeCallable<Build.RuleSetLoader['options']>
+    export type Options = MaybeCallable<
+      Build.RuleSetLoader['options']
+    >
     export type Query = MaybeCallable<Webpack.RuleSetQuery>
   }
 
   export type Property =
     | string
     | string
-    | { [k: string]: any } // do not support 'string' from query
+    | {[k: string]: any} // do not support 'string' from query
     | Webpack.RuleSetLoader['query']
 
   export type Untapped = MaybeCallable<Property>

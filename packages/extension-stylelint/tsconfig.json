@@ -10,7 +10,5 @@
   "compileOnSave": true,
   "include": ["./src"],
   "exclude": ["./lib"],
-  "references": [
-    {"@roots/bud-typings": "../typings"},
-  ]
+  "references": [{"@roots/bud-typings": "../typings"}]
 }

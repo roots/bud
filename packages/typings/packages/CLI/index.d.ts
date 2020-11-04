@@ -10,7 +10,12 @@ export namespace CLI {
   /**
    * The CLI instance
    */
-  export type App = Ink.Instance
+  export type Build = Ink.Instance
+
+  /**
+   * Error display component.
+   */
+  export type Error = Ink.Instance
 
   /**
    * Controller interface used to start and stop
@@ -18,11 +23,14 @@ export namespace CLI {
    */
   export interface Controller {
     bud: Framework.Bud
-    instance?: App
+    instance?: Build
     run: () => void
     kill: () => void
   }
 
+  /**
+   * Serve container.
+   */
   export type Serve = FunctionComponent<{bud: Framework.Bud}>
 
   /**

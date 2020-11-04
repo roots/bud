@@ -1,8 +1,8 @@
 import _ from 'lodash'
-import {Base, Container} from '../Base'
 import {instance} from '../instance'
+import {Container} from '../Container'
 
-export class Indexed extends Base implements Container.Indexed {
+export class Indexed extends Container {
   repository: Container.KeyedRepository
 
   constructor(repository?: Container.KeyedRepository) {

@@ -3,17 +3,12 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./lib",
+    "baseUrl": ".",
     "declaration": true,
     "declarationDir": "./lib/types",
     "declarationMap": true
   },
   "compileOnSave": true,
   "include": ["./src"],
-  "exclude": ["./lib"],
-  "references": [
-    {"@roots/bud-typings": "../typings"},
-    {"@roots/wordpress-entrypoints-plugin": "../webpack-entrypoints-plugin"},
-    {"@roots/wordpress-merged-manifest-plugin": "../webpack-merged-manifest-plugin"},
-    {"@roots/wordpress-wordpress-externals-plugin": "../webpack-wordpress-externals-plugin"},
-  ]
+  "exclude": ["./lib"]
 }

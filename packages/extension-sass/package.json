@@ -6,7 +6,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
-    "directory": "packages/bud"
+    "directory": "packages/extension-sass"
   },
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
@@ -22,11 +22,7 @@
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "lib",
-    "types",
-    "src"
-  ],
+  "files": ["./lib", "./src"],
   "main": "./lib/index.js",
   "types": "./lib/types/index.d.ts",
   "scripts": {
@@ -43,9 +39,5 @@
     "node-sass": "^4.14.1",
     "postcss-scss": "^3.0.2",
     "sass-loader": "^10.0.3"
-  },
-  "devDependencies": {
-    "@roots/bud-typings": "2.0.0-next.24"
-  },
-  "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5"
+  }
 }

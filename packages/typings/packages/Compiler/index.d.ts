@@ -27,7 +27,11 @@ export declare class Compiler {
   /**
    * Set the activated compiler
    */
-  setCompilation: (compiler: Framework.Webpack.Compiler | Framework.Webpack.MultiCompiler) => void
+  setCompilation: (
+    compiler:
+      | Framework.Webpack.Compiler
+      | Framework.Webpack.MultiCompiler,
+  ) => void
 
   /**
    * Runs the compiler.
@@ -37,7 +41,9 @@ export declare class Compiler {
   /**
    * Runs the compiler in watch mode.
    */
-  watch: (callback: Framework.Webpack.ICompiler.Handler) => Framework.Webpack.Watching
+  watch: (
+    callback: Framework.Webpack.ICompiler.Handler,
+  ) => Framework.Webpack.Watching
 
   /**
    * Close and invalidation methods for the watch process
@@ -52,5 +58,7 @@ export declare class Compiler {
   /**
    * Apply progress handler and overlay plugins.
    */
-  applyPlugins: (handler: Framework.Webpack.ProgressPlugin.Handler) => void
+  applyPlugins: (
+    handler: Framework.Webpack.ProgressPlugin.Handler,
+  ) => void
 }

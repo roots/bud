@@ -1,17 +1,14 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "allowJs": true,
     "rootDir": "./src",
     "outDir": "./lib",
+    "baseUrl": ".",
     "declaration": true,
-    "declarationDir": "./types",
+    "declarationDir": "./lib/types",
     "declarationMap": true
   },
   "compileOnSave": true,
   "include": ["./src"],
-  "exclude": ["./lib"],
-  "references": [
-    {"@roots/bud-typings": "../typings"},
-  ]
+  "exclude": ["./lib"]
 }

@@ -1,4 +1,8 @@
-import {Express as Application, Handler, RequestHandler} from 'express'
+import {
+  Express as Application,
+  Handler,
+  RequestHandler,
+} from 'express'
 
 /**
  * Express typings.

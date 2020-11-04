@@ -1,7 +1,7 @@
-import {Base, Container} from '../Base'
 import {instance} from '../instance'
+import {Container} from '../Container'
 
-export class Arrayed extends Base {
+export class Arrayed extends Container {
   public repository: Container.ArrayedRepository
 
   public constructor(repo?: Container.ArrayedRepository) {

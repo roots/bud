@@ -1,10 +1,6 @@
-import type {Container} from './Base'
-import {Indexed} from './Indexed'
-import {Arrayed} from './Arrayed'
+import {Indexed, Arrayed} from './'
 
-export function instance(
-  this: Container.Base | Container.Indexed | Container.Arrayed,
-): Container.Base | Container.Indexed | Container.Arrayed {
+export function instance() {
   return new Proxy(this, {
     get(target, prop) {
       if (

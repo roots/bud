@@ -1,5 +1,6 @@
 import chalk from 'chalk'
 import {lodash as _} from '@roots/bud-support'
+import {Error} from '@roots/bud-cli'
 
 /**
  * User is attempting to configure Tailwind through the Bud API
@@ -8,17 +9,11 @@ import {lodash as _} from '@roots/bud-support'
 export const errorConfig = (config: string): void => {
   const file = chalk.yellow(config)
 
-  console.error(chalk.red.bold(`\nCan't abide.\n`))
+  const title = chalk.red.bold(`\nCan't abide.\n`)
 
-  console.error(
-    chalk`You are already configuring Tailwind in {red.bold ${file}}`,
-  )
+  const body = chalk`You are already configuring Tailwind in {red.bold ${file}}\n Either do your configuration in that file or delete it.\n`
 
-  console.error(
-    'Either do your configuration in that file or delete it.\n',
-  )
-
-  process.exit(1)
+  Error(body, title)
 }
 
 /**
@@ -38,15 +33,9 @@ export const errorDependenciesUnmet = ({
     )
 
   !hasFirstPartyDeps &&
-    console.error(chalk.red.bold('\nDependencies missing\n'))
-
-  console.error(
-    chalk`{bold \`@roots/bud-postcss\` } can't be located.`,
-  )
-
-  console.error(
-    "Please install the package. If you feel like it is installed you may want to consider running your package manager's install command again\n",
-  )
-
-  process.exit(1)
+    (() => {
+      const title = chalk.red.bold('\nDependencies missing\n')
+      const body = chalk`{bold \`@roots/bud-postcss\` } can't be located.\n Please install the package. If you feel like it is installed you may want to consider running your package manager's install command again\n`
+      Error(body, title)
+    })
 }

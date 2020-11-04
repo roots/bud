@@ -12,18 +12,20 @@ export * from './utility'
  * Framework.Container
  * @package @roots/container
  */
-export {
-  Base,
-  Arrayed,
-  Indexed as Container,
-} from '@roots/container'
+export {Container, Indexed, Arrayed} from '../../container/src'
 
 /**
  * Framework.FileContainer
  * Framework.FileSystem
  * @package @roots/filesystem
  */
-export {FileContainer, FileSystem} from '../../filesystem'
+export {FileSystem, FileContainer} from '../../filesystem/src'
+
+/**
+ * Framework.Dependencies
+ * @packages @roots/dependencies
+ */
+export * from '../../dependencies/src'
 
 /**
  * Framework.API
@@ -44,22 +46,16 @@ export * from './Bud'
 export * from './Build'
 
 /**
- * Framework.CLI
+ * Framework.Cli
  * @package @roots/bud-cli
  */
-export * from './CLI'
+export * from './Cli'
 
 /**
  * Framework.Compiler
  * @package @roots/bud-compiler
  */
 export * from './Compiler'
-
-/**
- * Framework.Dependencies
- * @packages @roots/bud-dependencies
- */
-export * from '../../dependencies'
 
 /**
  * Framework.Env

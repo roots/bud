@@ -6,16 +6,9 @@
     "baseUrl": ".",
     "declaration": true,
     "declarationDir": "./lib/types",
-    "declarationMap": true,
-  },
-  "typeAcquisition": {
-    "enable": true
+    "declarationMap": true
   },
   "compileOnSave": true,
   "include": ["./src"],
-  "exclude": ["./lib"],
-  "references": [
-    {"@roots/bud-framework": "../framework"},
-    {"@roots/bud-typings": "../typings"},
-  ],
+  "exclude": ["./lib"]
 }

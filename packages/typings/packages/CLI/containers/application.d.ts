@@ -1,10 +1,9 @@
+import type Framework from '../../'
 import {Stats as WebpackStats} from 'webpack'
 
 export as namespace Compilation
 
 declare interface Compilation {
-  running: boolean
-  watching: boolean
   progress: Progress
   stats: Stats
   errors: Stats.Errors
@@ -13,7 +12,7 @@ declare interface Compilation {
 
 declare type Errors = Stats.Errors
 
-declare type Progress = {percentage: number, msg: string}
+declare type Progress = {percentage: number; msg: string}
 
 declare type Hook = (bud: Framework.Bud) => Compilation
 

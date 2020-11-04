@@ -30,9 +30,13 @@ declare interface Extension {
   register?: Extension.Register
 
   /**
-   * Register Items
+   * Register loader.
    */
   registerLoader?: [string, string]
+
+  /**
+   * Register loaders from a k,v object
+   */
   registerLoaders?: Framework.Index<string>
 
   /**
@@ -56,6 +60,10 @@ declare interface Extension {
    * Register Rules
    */
   registerRule?: [string, Framework.Rule.Module]
+
+  /**
+   * Register Rules from a K,V object
+   */
   registerRules?: Framework.Index<Framework.Rule.Module>
 
   /**
@@ -63,8 +71,10 @@ declare interface Extension {
    */
   boot?: Extension.Boot
 
-  /** @todo typings */
-  api?: Framework.Index<(arguments?: any) => any>
+  /**
+   * Register API callables
+   */
+  api?: Framework.Index<any>
 }
 
 /**

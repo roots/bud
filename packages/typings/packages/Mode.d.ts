@@ -1,5 +1,3 @@
-import type Webpack from 'webpack'
-
 /**
  * Mode
  *
@@ -31,5 +29,5 @@ export declare namespace Mode {
   /**
    * All possible modes ('development' | 'production' | 'none')
    */
-  export type Modes = Webpack.Configuration['mode']
+  export type Modes = Framework.Webpack.Configuration['mode']
 }

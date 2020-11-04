@@ -22,18 +22,16 @@
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "./packages"
-  ],
+  "files": ["./packages"],
   "types": "./packages/index.d.ts",
   "scripts": {
     "build": "tsc"
   },
-  "dependencies": {},
-  "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5",
-  "devDependencies": {
+  "dependencies": {
     "@roots/container": "^2.0.0-next.24",
-    "@roots/filesystem": "^2.0.0-next.24",
+    "@roots/filesystem": "^2.0.0-next.24"
+  },
+  "devDependencies": {
     "@types/node": "^14.11.2",
     "webpack": "^4.44.2",
     "express": "^4.17.1",

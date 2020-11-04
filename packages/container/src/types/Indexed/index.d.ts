@@ -1,0 +1,94 @@
+import {Container} from '../'
+
+export declare class Indexed extends Container {
+  repository: Container.KeyedRepository
+
+  constructor(repository?: Container.KeyedRepository)
+
+  /**
+   * Push an entry onto an arrayed repository item.
+   */
+  push: Container.Using
+
+  /**
+   * Conditional check that repository item matches value.
+   */
+  is: Container.Conditional
+
+  /**
+   * Conditional check that item is true.
+   */
+  isTrue: Container.Conditional
+
+  /**
+   * Conditional check that item is truth-adjacent.
+   */
+  isTruthy: Container.Conditional
+
+  /**
+   * Conditional check that item key exists
+   */
+  has: Container.Conditional
+
+  /**
+   * Merge values onto a repository item.
+   */
+  merge: Container.Using
+
+  /**
+   * For a boolean item, set to true.
+   */
+  enable: Container.Select
+
+  /**
+   * For a boolean item, set to false.
+   */
+  disable: Container.Select
+
+  /**
+   * Check that a boolean value is true.
+   */
+  enabled: Container.Conditional
+
+  /**
+   * Check that a boolean value is false.
+   */
+  disabled: Container.Conditional
+
+  /**
+   * Returns a function
+   */
+  map:
+    | Container.Transform<Container.Repository>
+    | ((handler: (item: unknown) => unknown) => unknown[])
+
+  /**
+   * Do something with each item in the repository
+   */
+  each: Container.IterateUsing
+
+  /**
+   * Return the entire repository contents
+   */
+  all: Container.Transform
+
+  /**
+   * Return repository contents as a tuple (object.entries)
+   */
+  entries: Container.Transform<Array<[string, Container.Item]>>
+
+  /**
+   * Return the repository keys (object.keys)
+   */
+  keys: Container.Transform<string[]>
+
+  /**
+   * Return the repository values (object.values)
+   */
+  values: Container.Transform<Container.Item[]>
+
+  /**
+   * Return an ES6 of the repository.
+   */
+  Map: Container.Transform<Map<string, Container.Item>>
+}

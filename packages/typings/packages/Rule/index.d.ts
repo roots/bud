@@ -1,4 +1,8 @@
-import type {RuleSetRule, RuleSetCondition, Resolve} from 'webpack'
+import type {
+  RuleSetRule,
+  RuleSetCondition,
+  Resolve,
+} from 'webpack'
 import type {Bud, Index, Item, MaybeCallable} from '../'
 
 /**
@@ -110,9 +114,7 @@ export declare class Rule {
    *  - RuleSetRule property,
    *  - Parameters to pass to callables in a given rule.
    */
-  public get: () => Array<
-    [string, Rule.Generic]
-  >
+  public get: () => Array<[string, Rule.Generic]>
 
   /**
    * Produce rule product
@@ -253,11 +255,7 @@ export declare namespace Rule {
   /**
    * OneOf
    */
-  export type OneOf = MaybeCallable<
-    Array<
-      RuleSetRule
-    >
-  >
+  export type OneOf = MaybeCallable<Array<RuleSetRule>>
 
   /**
    * Use
