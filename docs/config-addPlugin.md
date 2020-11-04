@@ -1,5 +1,5 @@
 ---
-description: Quickly add a Webpack plugin to the Webpack configuration.
+description: Use a Webpack plugin.
 ---
 
 # bud.addPlugin

@@ -1,5 +1,5 @@
 ---
-description: Specify the root directory of the project's source files.
+description: Resolve modules with shorthand.
 ---
 
 # bud.alias
