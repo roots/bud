@@ -8,5 +8,5 @@ export const test: Framework.Rule.Factory<Framework.Rule.Conditional> = bud =>
  * Font: Loaders
  */
 export const use: Framework.Rule.Factory<Framework.Rule.Use> = bud => [
-  bud.build.items.file.make(),
+  bud.build.getItem('file'),
 ]

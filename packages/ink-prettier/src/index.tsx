@@ -2,13 +2,11 @@ import React, {FunctionComponent} from 'react'
 import {Box, Text} from 'ink'
 import {format, Options} from 'prettier'
 
-interface PrettierProps extends Options {
+interface Props extends Options {
   children: string
 }
 
-type PrettierFunctionComponent = FunctionComponent<PrettierProps>
-
-const Prettier: PrettierFunctionComponent = props => (
+const Prettier: FunctionComponent<Props> = props => (
   <Box
     marginBottom={1}
     flexDirection="column"
@@ -24,4 +22,4 @@ const Prettier: PrettierFunctionComponent = props => (
   </Box>
 )
 
-export {Prettier as default, PrettierFunctionComponent}
+export {Prettier as default, Prettier}

@@ -16,10 +16,10 @@ export class Extensions implements Framework.Extensions {
   public bud: Bud
 
   /**
-   * Keyed extensions
-   * @type {Index<Extension>}
+   * Extensions container
+   * @type {Framework.Indexed}
    */
-  public extensions: Index<Extension> = {}
+  public extensions: Framework.Indexed
 
   /**
    * Creates an instance of Controller.
@@ -28,6 +28,8 @@ export class Extensions implements Framework.Extensions {
    */
   public constructor(params?: any) {
     this.bud = params.bud
+
+    this.extensions = this.bud.makeContainer({})
 
     this.boot = this.boot.bind(this)
     this.makePlugins = this.makePlugins.bind(this)
@@ -66,6 +68,7 @@ export class Extensions implements Framework.Extensions {
    */
   public use(pkg: string): this {
     const path = require.resolve(pkg)
+
     this.bud.disk.set(pkg, {
       baseDir: this.bud.fs.path.dirname(path),
       glob: ['**/*'],
@@ -83,27 +86,48 @@ export class Extensions implements Framework.Extensions {
    * Register an extension.
    */
   public register(name: string, extension: unknown): this {
-    this.extensions[name] =
+    this.extensions.set(
+      name,
       typeof extension == 'function'
         ? extension(this.bud)
-        : extension
+        : extension,
+    )
 
-    this.extensions[name].hasOwnProperty('register') &&
-      this.extensions[name].register(this.bud)
+    this.extensions.has(`${name}.register`) &&
+      this.extensions.get(`${name}.register`)(this.bud)
 
-    this.processOptions(this.extensions[name])
+    this.extensions.has(`${name}.options`) &&
+      this.extensions.set(
+        `${name}.options`,
+        this.processOptions(this.extensions.get(name)),
+      )
 
-    this.processLoaders(this.extensions[name])
+    this.extensions.has(`${name}.loaders`) &&
+      this.extensions.set(
+        `${name}.loaders`,
+        this.processLoaders(this.extensions.get(name)),
+      )
 
-    this.processRuleItems(this.extensions[name])
+    this.extensions.has(`${name}.registerItem`) &&
+      this.extensions.set(
+        `${name}.registerItem`,
+        this.processRuleItems(this.extensions.get(name)),
+      )
 
-    this.processRules(this.extensions[name])
+    this.extensions.has(`${name}.rules`) &&
+      this.extensions.set(
+        `${name}.rules`,
+        this.processRules(this.extensions.get(name)),
+      )
 
-    this.extensions[name].hasOwnProperty('api') &&
-      this.bindApi(this.extensions[name].api)
+    this.extensions.has(`${name}.api`) &&
+      this.extensions.set(
+        `${name}.api`,
+        this.bindApi(this.extensions.get(name)),
+      )
 
-    this.extensions[name].hasOwnProperty('boot') &&
-      this.extensions[name].boot(this.bud)
+    this.extensions.has(`${name}.boot`) &&
+      this.extensions.get(`${name}.boot`)(this.bud)
 
     return this
   }
@@ -111,7 +135,7 @@ export class Extensions implements Framework.Extensions {
   /**
    * Process options
    */
-  public processOptions(extension: Extension): void {
+  public processOptions(extension: Extension): Extension {
     if (extension.hasOwnProperty('options')) {
       extension.options =
         typeof extension.options == 'function'
@@ -120,12 +144,14 @@ export class Extensions implements Framework.Extensions {
     } else {
       extension.options = {}
     }
+
+    return extension
   }
 
   /**
    * Process loaders
    */
-  public processLoaders(extension: Extension): void {
+  public processLoaders(extension: Extension): Extension {
     extension.hasOwnProperty('registerLoader') &&
       this.bud.build.setLoader(...extension.registerLoader)
 
@@ -133,12 +159,14 @@ export class Extensions implements Framework.Extensions {
       Object.entries(extension.registerLoaders).map(loader =>
         this.bud.build.setLoader(...loader),
       )
+
+    return extension
   }
 
   /**
    * Process rule items.
    */
-  public processRuleItems(extension: Extension): void {
+  public processRuleItems(extension: Extension): Extension {
     extension.hasOwnProperty('registerItem') &&
       this.bud.build.setItem(
         extension.registerItem[0],
@@ -156,6 +184,8 @@ export class Extensions implements Framework.Extensions {
           this.bud.build.setItem(name, item)
         },
       )
+
+    return extension
   }
 
   /**
@@ -193,14 +223,14 @@ export class Extensions implements Framework.Extensions {
    * Get an extension instance.
    */
   public getExtension = function (name: string): Extension {
-    return this.extensions[name]
+    return this.extensions.get(name)
   }
 
   /**
    * Get the options on a booted extensions.
    */
   public getOptions(extension: string): Extension.Options {
-    return this.getExtension(extension).options
+    return this.extensions.get(`${extension}.options`)
   }
 
   /**
@@ -213,10 +243,10 @@ export class Extensions implements Framework.Extensions {
     extension: string,
     options: Index<unknown>,
   ): void {
-    this.getExtension(extension).options = {
-      ...this.getOptions(extension),
+    this.extensions.set(`${extension}.options`, {
+      ...this.extensions.get(`${extension}.options`),
       ...options,
-    }
+    })
   }
 
   public mutateOptions(
@@ -234,9 +264,12 @@ export class Extensions implements Framework.Extensions {
    * @note applies only to webpack plugins
    */
   public makePlugins(): Webpack.Plugin[] {
-    const output = Object.values(this.extensions)
-      .filter(extension => extension.hasOwnProperty('make'))
-      .map(extension => {
+    const output = this.extensions
+      .entries()
+      .filter(([, extension]) =>
+        extension.hasOwnProperty('make'),
+      )
+      .map(([, extension]) => {
         if (
           !extension.when ||
           extension.when == true ||

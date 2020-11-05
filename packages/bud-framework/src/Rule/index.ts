@@ -5,6 +5,7 @@ import type {RuleSetRule} from 'webpack'
  */
 export class Rule implements Framework.Rule {
   public bud: Framework.Bud
+
   public enforce?: Framework.Rule.Enforce
   public exclude?: Framework.Rule.Conditional
   public include?: Framework.Rule.Conditional

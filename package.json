@@ -44,6 +44,7 @@
       "packages/extension-vue",
       "packages/extension-wordpress-manifests",
       "packages/filesystem",
+      "packages/ink-prettier",
       "packages/ink-use-style",
       "packages/typings",
       "packages/webpack-entrypoints-plugin",

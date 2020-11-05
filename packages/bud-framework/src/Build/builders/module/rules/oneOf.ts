@@ -3,7 +3,8 @@ import type Webpack from 'webpack'
 export default function (
   this: Framework.Bud,
 ): Webpack.RuleSetRule[] {
-  return Object.entries(this.build.rules)
+  return this.build.rules
+    .entries()
     .reduce(
       (
         rules: Webpack.RuleSetRule[],

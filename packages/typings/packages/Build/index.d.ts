@@ -17,17 +17,17 @@ export declare class Build {
   /**
    * Loaders
    */
-  public loaders: Framework.Index<Build.Loader>
+  public loaders: Framework.Indexed
 
   /**
    * Items (loader implementations)
    */
-  public items: Framework.Index<Framework.Item>
+  public items: Framework.Indexed
 
   /**
    * Rules (sets of Framework.Build.Items used under certain conditions)
    */
-  public rules: Framework.Index<Framework.Rule>
+  public rules: Framework.Indexed
 
   /**
    * THe final built configuration object.

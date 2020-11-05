@@ -2,7 +2,6 @@ import * as builders from './builders'
 import * as config from './config'
 import type Webpack from 'webpack'
 
-import {Indexed as Container} from '@roots/container'
 import {lodash as _} from '@roots/bud-support'
 
 import {Item} from '../Item'
@@ -13,17 +12,20 @@ export class Build implements Framework.Build {
 
   public builders: Partial<Framework.Build.Builders> = builders
 
-  public loaders: Framework.Index<Framework.Build.Loader> = {}
+  public loaders: Framework.Indexed
 
-  public items: Framework.Index<Framework.Item> = {}
+  public items: Framework.Indexed
 
-  public rules: Framework.Index<Framework.Rule> = {}
+  public rules: Framework.Indexed
 
   public config: Framework.Indexed
 
   public constructor(params?: Framework.Index<Framework.Bud>) {
     this.bud = params.bud
-    this.config = new Container(config)
+    this.config = this.bud.makeContainer(config)
+    this.loaders = this.bud.makeContainer({})
+    this.items = this.bud.makeContainer({})
+    this.rules = this.bud.makeContainer({})
   }
 
   public make(): Webpack.Configuration {
@@ -41,65 +43,55 @@ export class Build implements Framework.Build {
     return this.filterEmpty(config)
   }
 
-  public filterEmpty(object) {
+  public filterEmpty(
+    object: Framework.Index<any>,
+  ): {[key: string]: any} {
     return Object.entries(object).reduce((acc, [key, value]) => {
       return !value || value == {} ? acc : {...acc, [key]: value}
     }, {})
   }
 
   public getLoader(name: string): Framework.Build.Loader {
-    return this.loaders[name]
+    return this.loaders.get(name)
   }
 
   public setLoader(
     name: string,
     loader: Framework.Build.Loader,
   ): Framework.Build.Loader {
-    this.loaders[name] = loader
-
-    return this.loaders[name]
+    this.loaders.set(name, loader)
+    return this.loaders.get(name)
   }
 
   public getItem(name: string): Framework.Build.RuleSetLoader {
-    return this.items[name].make()
+    return this.items.get(name).make()
   }
 
   public setItem(
     name: string,
     module: Framework.Item.Module,
   ): Framework.Item {
-    this.items[name] = new Item(this.bud, module)
-
-    return this.items[name]
+    this.items.set(name, new Item(this.bud, module))
+    return this.items.get(name)
   }
 
   public mergeItem(
-    item: string,
+    name: string,
     value: Partial<Framework.Item.Module>,
   ): void {
-    this.setItem(item, _.merge(this.getItem(item), value))
+    this.setItem(name, _.merge(this.getItem(name), value))
   }
 
   public getRule(name: string): Webpack.RuleSetRule {
-    return this.rules[name].make()
+    return this.rules.get(name).make()
   }
 
-  public setRule(
-    name: string,
-    module: Framework.Rule.Module,
-  ): Rule {
-    this.rules[name] = new Rule(this.bud, module)
-
-    return this.rules[name]
+  public setRule(name: string, module: Framework.Rule): Rule {
+    this.rules.set(name, new Rule(this.bud, module))
+    return this.rules.get(name)
   }
 
-  public mergeRule(
-    rule: string,
-    value: Partial<Framework.Rule>,
-  ): void {
-    const merged: Partial<Framework.Rule> = {}
-    _.merge(merged, this.rules[rule].make(), value)
-
-    this.setRule(rule, merged)
+  public mergeRule(rule: string, value: Framework.Rule): void {
+    this.setRule(name, _.merge(this.getRule(name), value))
   }
 }

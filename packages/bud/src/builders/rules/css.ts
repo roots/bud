@@ -5,7 +5,7 @@ export const exclude: Exclude = ({patterns}) =>
   patterns.get('modules')
 
 export const use: Use = ({build, mode}) => {
-  const use: UseItem = item => build.items[item].make()
+  const use: UseItem = item => build.getItem(item)
   const style = mode.is('production')
     ? use('minicss')
     : use('style')

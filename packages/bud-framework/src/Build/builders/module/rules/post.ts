@@ -5,7 +5,8 @@ export default function (
 ): Webpack.RuleSetRule[] {
   return this.hooks.filter(
     `webpack.module.rules.post`,
-    Object.entries(this.build.rules)
+    this.build.rules
+      .entries()
       .reduce(
         (
           rules: Webpack.RuleSetRule[],

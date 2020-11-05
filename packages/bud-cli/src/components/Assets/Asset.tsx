@@ -1,8 +1,8 @@
 import React, {FunctionComponent} from 'react'
 import {Box, Text} from 'ink'
-import Indicator from '../UI/Indicator'
-
 import {useStyle} from '@roots/ink-use-style'
+
+import {Indicator} from '../UI/Indicator'
 
 interface AssetInterface {
   name: string

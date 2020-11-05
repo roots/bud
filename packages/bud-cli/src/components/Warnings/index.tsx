@@ -1,20 +1,14 @@
 import React from 'react'
-import {Text} from 'ink'
 import Screen from '../Screen'
 import {Warning} from './Warning'
 
-const Warnings = ({warnings}) => (
-  <Screen title="Warnings">
-    {warnings?.length > 0 ? (
-      warnings?.map((warning, i) => (
-        <Warning message={warning} key={i} />
+const Warnings = ({warnings}) =>
+  warnings?.length > 0
+    ? warnings?.map((warning, i) => (
+        <Screen key={i} title="Warnings">
+          <Warning message={warning} key={i} />
+        </Screen>
       ))
-    ) : (
-      <Text color="white" dimColor>
-        No warnings. ✨
-      </Text>
-    )}
-  </Screen>
-)
+    : null
 
 export {Warnings as default}

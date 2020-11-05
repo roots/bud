@@ -147,7 +147,7 @@ export class Item implements Framework.Item {
               // For loaders which are specified as a string
               property == 'loader' && typeof value == 'string'
                 ? // Set the loader from that string
-                  this.bud.build.loaders[value]
+                  this.bud.build.getLoader(value)
                 : // Otherwise, for functions
                 typeof value == 'function'
                 ? // Call them with the param from this.propMap

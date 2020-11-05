@@ -15,9 +15,9 @@ declare class Extensions {
   bud: Bud
 
   /**
-   * @type {Framework.Index<Framework.Extension>}
+   * @type {Framework.Container}
    */
-  extensions: Framework.Index<Framework.Extension>
+  extensions: Framework.Container
 
   /**
    * Register an extension to be utilized during compilation.
