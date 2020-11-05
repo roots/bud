@@ -2,14 +2,14 @@ import React, {FunctionComponent} from 'react'
 import {Box, Text, Spacer} from 'ink'
 import {Stats} from 'webpack'
 
-import useAppStyles from '../hooks/useAppStyles'
+import {useStyle} from '@roots/ink-use-style'
 
 interface InfoProps {
   stats: Stats.ToJsonOutput
 }
 
 const BuildInfo: FunctionComponent<InfoProps> = ({stats}) => {
-  const {col, ctx} = useAppStyles()
+  const {col, ctx} = useStyle()
 
   return (
     <Box

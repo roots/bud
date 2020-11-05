@@ -2,6 +2,9 @@ const {readJson} = require('fs-extra')
 const globby = require('globby')
 const {join} = require('path')
 
+/**
+ * Packages
+ */
 const packages = function () {
   this.repo = {}
   this.baseDir = process.cwd()
@@ -18,15 +21,9 @@ const packages = function () {
     await Promise.all(
       paths.map(async path => {
         const files = await globby([join(path, 'src/**/*')])
+        const {name} = await readJson(join(path, `package.json`))
 
-        const json = await readJson(join(path, `package.json`))
-
-        this.set(path, {
-          name: json.name,
-          files,
-          path,
-          busy: false,
-        })
+        this.set(path, {name, files, path})
       }),
     )
 
@@ -39,15 +36,6 @@ const packages = function () {
 
   this.get = function (path) {
     return this.repo[path.split('/').pop()]
-  }
-
-  this.getFromPath = function (path) {
-    const key = join(
-      this.baseDir,
-      path.replace(this.baseDir, '').split('/')[0],
-    )
-
-    return this.repo[key]
   }
 
   this.set = function (path, value) {

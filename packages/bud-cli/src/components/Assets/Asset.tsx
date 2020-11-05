@@ -2,7 +2,7 @@ import React, {FunctionComponent} from 'react'
 import {Box, Text} from 'ink'
 import Indicator from '../UI/Indicator'
 
-import useAppStyles from '../../hooks/useAppStyles'
+import {useStyle} from '@roots/ink-use-style'
 
 interface AssetInterface {
   name: string
@@ -17,7 +17,7 @@ const Asset: FunctionComponent<AssetInterface> = ({
   size,
   hot,
 }) => {
-  const {ctx, is} = useAppStyles()
+  const {ctx, is} = useStyle()
 
   const roundedSize = Math.round(size / 1000)
 

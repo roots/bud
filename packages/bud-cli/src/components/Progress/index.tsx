@@ -2,7 +2,7 @@ import React, {FunctionComponent} from 'react'
 import {Box, Text} from 'ink'
 import Bar from './Bar'
 
-import useAppStyles from '../../hooks/useAppStyles'
+import {useStyle} from '@roots/ink-use-style'
 
 type ProgressComponentProps = {
   percentage: {
@@ -16,7 +16,7 @@ const Progress: FunctionComponent<ProgressComponentProps> = ({
   percentage,
   msg,
 }) => {
-  const {col, ctx, bounds} = useAppStyles()
+  const {col, ctx, bounds} = useStyle()
   const labelMax = ctx([col(12), col(1) / 2])
   const barMax = Math.min(
     Math.floor(bounds.width - labelMax),

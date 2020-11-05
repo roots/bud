@@ -1,0 +1,1 @@
+export {useStyle} from './useStyle'

@@ -9,14 +9,14 @@ import Screen from '../components/Screen'
 import Title from '../components/Title'
 import {Nav} from '../components/Nav'
 
-import useCtx from '../hooks/useAppStyles'
+import {useStyle} from '@roots/ink-use-style'
 
 const App: FunctionComponent<{
   bud: Framework.Bud
   stats: Compilation.Stats
   progress: Compilation.Progress
 }> = ({bud, stats, progress}) => {
-  const {bounds, col} = useCtx()
+  const {bounds, col} = useStyle()
 
   const displayName = bud.disk
     .get('project')

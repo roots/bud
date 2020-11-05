@@ -6,14 +6,13 @@ const {watchFile} = require('fs-extra')
  * Dev: Watch mode
  */
 ;(async function () {
+  const all = await new packages().init()
+
   console.log('\nWatching for changes in:\n')
-
-  const allPackages = await new packages().init()
-
-  allPackages.entries().map(pkg => console.log(pkg[1].name))
+  all.entries().map(pkg => console.log(pkg[1].name))
 
   await Promise.all(
-    allPackages.entries().map(async ([name, pkg]) => {
+    all.entries().map(async ([name, pkg]) => {
       await Promise.all(
         pkg.files.map(file => {
           return watchFile(file, watcher)

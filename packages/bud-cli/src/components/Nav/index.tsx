@@ -1,10 +1,10 @@
 import React, {FunctionComponent} from 'react'
 import {Box} from 'ink'
 import {Item} from './Item'
-import {useAppStyles} from '../../hooks/useAppStyles'
+import {useStyle} from '@roots/ink-use-style'
 
 const Nav: FunctionComponent = () => {
-  const {ctx, colors} = useAppStyles()
+  const {ctx, colors} = useStyle()
 
   const items = [
     {

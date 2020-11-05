@@ -2,7 +2,7 @@ import React, {FunctionComponent} from 'react'
 import {Text, Box} from 'ink'
 import {Indicator} from '../UI/Indicator'
 import {useFocus} from '../../hooks/useFocus'
-import {useAppStyles} from '../../hooks/useAppStyles'
+import {useStyle} from '@roots/ink-use-style'
 
 export const Item: FunctionComponent<{
   name: string
@@ -10,7 +10,7 @@ export const Item: FunctionComponent<{
   display: string
 }> = ({name, color, display}) => {
   const [focus] = useFocus()
-  const {colors} = useAppStyles()
+  const {colors} = useStyle()
 
   return (
     <Box>
