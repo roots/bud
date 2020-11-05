@@ -10,17 +10,45 @@
 </p>
 
 <h1 align="center">
-  <strong>@roots/bud-server</strong>
+  <strong>@roots/ink-use-style</strong>
 </h1>
 
 ## Overview
 
-Bud's development server.
+Theme hook for React Ink.
 
 ## Installation
 
 ```sh
-yarn add @roots/bud-server
+yarn add @roots/use-ink-style
+```
+
+## Usage
+
+```js
+import React from 'react'
+import {Box, Text} from 'ink'
+import {useStyle} from '@roots/use-ink-style'
+
+const component = () => {
+  const {col, ctx, colors} = useStyle()
+
+  return (
+    <Box width={col(3)}>
+      <Text>3/12 column</Text>
+    </Box>
+
+    <Box width={ctx([col(12), col(6), col(3)])}>
+      <Text>Sm: 12/12 column</Text>
+      <Text>Md: 6/12 column</Text>
+      <Text>Lg: 3/12 column</Text>
+    </Box>
+
+    <Text color={colors.primary}>
+      Colorful.
+    </Text>
+  )
+}
 ```
 
 ## Contributing
