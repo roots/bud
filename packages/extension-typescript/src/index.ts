@@ -29,7 +29,7 @@ export const registerRule = [
     exclude: ({patterns}: Framework.Bud): RegExp =>
       patterns.get('modules'),
     use: (bud: Framework.Bud): Webpack.RuleSetUseItem[] => [
-      bud.build.getItem('ts'),
+      bud.build.items.get('ts'),
     ],
   },
 ]

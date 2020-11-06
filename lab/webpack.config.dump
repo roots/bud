@@ -32,8 +32,8 @@ module.exports = () => ({
                 loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/thread-loader/dist/cjs.js'
               },
               {
-                ident: 'cache',
-                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/cache-loader/dist/cjs.js'
+                ident: 'vue',
+                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/vue-loader/lib/index.js'
               },
               {
                 ident: 'style',
@@ -96,6 +96,7 @@ module.exports = () => ({
             exclude: /(node_modules|bower_components)/,
             test: /\.(js|jsx)$/,
             use: [
+              "<<Circular reference to 'config.module.rules.[0].oneOf.[0].use.[0]'>>",
               {
                 ident: 'babel',
                 loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/babel-loader/lib/index.js',
@@ -118,8 +119,6 @@ module.exports = () => ({
                   ]
                 }
               },
-              "<<Circular reference to 'config.module.rules.[0].oneOf.[0].use.[0]'>>",
-              "<<Circular reference to 'config.module.rules.[0].oneOf.[0].use.[1]'>>",
               "<<Circular reference to 'config.module.rules.[0].oneOf.[2].use'>>"
             ]
           },
@@ -133,6 +132,10 @@ module.exports = () => ({
             ]
           }
         ]
+      },
+      {
+        test: /\.vue$/,
+        use: "<<Circular reference to 'config.module.rules.[0].oneOf.[0].use.[1]'>>"
       }
     ],
     unknownContextRequest: '.',
@@ -239,7 +242,8 @@ module.exports = () => ({
     }
   ],
   resolve: {
-    extensions: [ '.wasm', '.mjs', '.js', '.json', '.css' ],
+    alias: { 'vue$': 'vue/dist/vue.esm.js' },
+    extensions: [ '.wasm', '.mjs', '.js', '.json', '.css', '.vue' ],
     modules: [
       '/Users/kellymears/code/projects/cli/bud/bud/lab/src',
       '/Users/kellymears/code/projects/cli/bud/bud/lab',

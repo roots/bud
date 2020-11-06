@@ -1,58 +1,68 @@
 import {VueLoaderPlugin} from 'vue-loader'
 
 /** Patched compiler.*/
-// eslint-disable-next-line
-const compiler = require('./vue-template-compiler')
-// eslint-disable-next-line
-const loader = require.resolve('vue-loader')
+/* eslint-disable */
+const compiler = require('./vue-template-compiler/index')
 
-const addVueStyle = (loaders: any[]) => [
-  require.resolve('vue-style-loader'),
-  ...loaders,
+export const registerLoader = [
+  'vue',
+  require.resolve('vue-loader'),
+]
+
+export const registerItem = [
+  'vue',
+  {
+    ident: 'vue',
+    loader: 'vue',
+    options: {
+      compiler,
+    },
+  },
 ]
 
 export const boot: Framework.Extension.Boot = (
-  instance: Framework.Bud,
+  bud: Framework.Bud,
 ) => {
-  ;['vue'].map(ext => {
-    !instance.build.config
-      .get('resolve.extensions')
-      .includes(ext) &&
-      instance.build.config.merge('resolve.extensions', [ext])
-  })
+  ;['css', 'sass'].map(
+    rule =>
+      bud.build.rules.has(rule) &&
+      bud.build.rules.mutate(`${rule}.use`, use => [
+        ...use.slice(0, 1),
+        bud.build.items.get('vue'),
+        ...use.slice(2),
+      ]),
+  )
 
-  instance.alias({
-    vue$: 'vue/dist/vue.esm.js',
-  })
-
-  instance.hooks.on('webpack.module.rules', rules => [
+  /**
+   * vue-loader-plugin doesn't recognize the rule
+   * as being set if it is set as a `oneOf` rule.
+   *
+   * So, instead of registering the rule through the normal
+   * export function this hook registers the rule in the
+   * outer `webpack.module.rules` key.
+   */
+  bud.hooks.on('webpack.module.rules', rules => [
     ...rules,
     {
       test: /\.vue$/,
-      use: [
-        {
-          loader,
-          options: {
-            compiler,
-          },
-        },
-      ],
+      use: bud.build.items.get('vue'),
     },
   ])
 
-  instance.extensions.register('vue-loader-plugin', {
+  bud.extensions.register('vue-loader-plugin', {
     make: function () {
       return new VueLoaderPlugin()
     },
   })
 
-  instance.hooks.on('webpack.module.rules.oneOf.css', css => ({
-    ...css,
-    use: addVueStyle(css.use),
-  }))
+  bud.alias({vue$: 'vue/dist/vue.esm.js'})
 
-  instance.hooks.on('webpack.module.rules.oneOf.sass', sass => ({
-    ...sass,
-    use: addVueStyle(sass.use),
-  }))
+  bud.when(
+    !bud.build.config.get('resolve.extensions').includes('.vue'),
+    bud =>
+      bud.build.config.mutate('resolve.extensions', ext => [
+        ...ext,
+        '.vue',
+      ]),
+  )
 }

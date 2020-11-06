@@ -79,7 +79,9 @@ export class FileContainer extends Indexed {
     return this.fs.readFileSync(this.get(key), 'utf8')
   }
 
-  public readJson = function (key: string): unknown {
+  public readJson = function (
+    key: string,
+  ): {[key: string]: any} {
     return this.fs.readJsonSync(this.get(key))
   }
 

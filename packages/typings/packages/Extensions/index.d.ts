@@ -42,6 +42,11 @@ declare class Extensions {
   ): void
 
   /**
+   * Get extension.
+   */
+  get: (key: string) => Framework.Extension
+
+  /**
    * Get plugin options.
    *
    * @param {string} extension

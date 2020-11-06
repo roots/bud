@@ -189,10 +189,7 @@ export class Extensions implements Framework.Extensions {
     extension: string,
     options: Index<unknown>,
   ): void {
-    this.extensions.set(`${extension}.options`, {
-      ...this.extensions.get(`${extension}.options`),
-      ...options,
-    })
+    this.extensions.set(`${extension}.options`, options)
   }
 
   public mutateOptions(

@@ -1,5 +1,4 @@
 import chalk from 'chalk'
-import {lodash as _} from '@roots/bud-support'
 import {Error} from '@roots/bud-cli'
 
 /**
@@ -19,23 +18,8 @@ export const errorConfig = (config: string): void => {
 /**
  * PostCSS inaccessible.
  */
-export const errorDependenciesUnmet = ({
-  dependencies,
-}: {
-  dependencies: {[key: string]: string}
-}): void => {
-  const hasFirstPartyDeps =
-    dependencies &&
-    _.intersectionWith(
-      ['@roots/bud', '@roots/bud-postcss'],
-      Object.keys(dependencies),
-      _.isEqual,
-    )
-
-  !hasFirstPartyDeps &&
-    (() => {
-      const title = chalk.red.bold('\nDependencies missing\n')
-      const body = chalk`{bold \`@roots/bud-postcss\` } can't be located.\n Please install the package. If you feel like it is installed you may want to consider running your package manager's install command again\n`
-      Error(body, title)
-    })
+export const errorDependenciesUnmet = (): void => {
+  const title = chalk.red.bold('\nDependencies missing\n')
+  const body = chalk`{bold \`@roots/bud-postcss\` } can't be located.\n Please install the package. If you feel like it is installed you may want to consider running your package manager's install command again\n`
+  Error(body, title)
 }

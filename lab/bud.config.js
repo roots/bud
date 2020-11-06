@@ -10,6 +10,7 @@ bud
     '@roots/bud-postcss',
     '@roots/bud-wordpress-manifests',
     '@roots/bud-react',
+    '@roots/bud-vue',
   ])
 
   .library(['react', 'react-dom'])
