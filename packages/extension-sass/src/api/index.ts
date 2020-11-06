@@ -4,13 +4,12 @@ import {setConfig} from './setConfig'
 /**
  * bud.sass configuration utility
  */
-export const sassConfig: Sass.Factory = bud => ({
+export const sass: Sass.Factory = bud => ({
   bud,
   methods: [
     ['mergeConfig', mergeConfig],
     ['setConfig', setConfig],
   ],
-
   init() {
     this.methods.map(
       ([name, func]) => (this[name] = func.bind(this)),
@@ -18,8 +17,7 @@ export const sassConfig: Sass.Factory = bud => ({
 
     return this
   },
-
-  next() {
+  then() {
     return this.bud
   },
 })
