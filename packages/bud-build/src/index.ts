@@ -1,7 +1,7 @@
 import * as builders from './builders'
 import * as config from './config'
-import {Item} from '../Item'
-import {Rule} from '../Rule'
+import {Item} from './Item'
+import {Rule} from './Rule'
 
 import type Webpack from 'webpack'
 

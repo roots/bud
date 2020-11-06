@@ -62,6 +62,16 @@ export default class Bud implements Framework.Bud {
     params.plugins && this.extensions.boot(params.plugins)
 
     this.tidy.bind(this)()
+
+    this.disk.set('@roots', {
+      baseDir: this.fs.path.resolve(__dirname, '../../../'),
+      glob: ['**/*'],
+    })
+
+    this.disk.set('project', {
+      baseDir: process.cwd(),
+      glob: ['**/*'],
+    })
   }
 
   /**
@@ -77,26 +87,11 @@ export default class Bud implements Framework.Bud {
     }
 
     return (this.instance = new Proxy(this, {
-      apply(target, fn, arg) {
-        const value = target[fn].bind(target)(arg ?? null)
-
-        target.logger.info(
-          {
-            fn,
-            arg,
-            value,
-          },
-          `Accessing bud.${fn as string}`,
-        )
-
-        return value
-      },
-
       get(target, prop) {
         const value = target[prop as string]
 
         target.logger.info(
-          {target, prop},
+          {prop},
           `Accessing bud property: ${prop as string}`,
         )
 
@@ -149,6 +144,7 @@ export default class Bud implements Framework.Bud {
     args?: Array<unknown>,
   ): unknown {
     args = !args ? [] : Array.isArray(args) ? args : [args]
+
     return typeof item == 'function' && !Array.isArray(item)
       ? item(...args)
       : item
@@ -158,8 +154,6 @@ export default class Bud implements Framework.Bud {
    * Run the build.
    */
   public run = function (this: Framework.Bud): void {
-    this.compiler.compile()
-
     if (this.mode.is('development')) {
       this.server.addDevMiddleware()
       this.server.addHotMiddleware()
@@ -168,6 +162,7 @@ export default class Bud implements Framework.Bud {
         this.server.addProxyMiddleware()
     }
 
+    this.compiler.compile()
     this.cli.run()
   }
 

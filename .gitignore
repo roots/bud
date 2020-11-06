@@ -7,3 +7,4 @@ dist
 **/types
 !**/src/types
 *.tsbuildinfo
+packages/.cache

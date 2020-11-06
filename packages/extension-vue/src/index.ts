@@ -4,11 +4,17 @@ import {VueLoaderPlugin} from 'vue-loader'
 /* eslint-disable */
 const compiler = require('./vue-template-compiler/index')
 
+/**
+ * Register loader
+ */
 export const registerLoader = [
   'vue',
   require.resolve('vue-loader'),
 ]
 
+/**
+ * Register RuleSetUseItem
+ */
 export const registerItem = [
   'vue',
   {
@@ -20,9 +26,15 @@ export const registerItem = [
   },
 ]
 
+/**
+ * Boot the Vue extension.
+ */
 export const boot: Framework.Extension.Boot = (
   bud: Framework.Bud,
 ) => {
+  /**
+   * Add vue loader style rules.
+   */
   ;['css', 'sass'].map(
     rule =>
       bud.build.rules.has(rule) &&
@@ -49,14 +61,23 @@ export const boot: Framework.Extension.Boot = (
     },
   ])
 
+  /**
+   * Register vue-loader-plugin.
+   */
   bud.extensions.register('vue-loader-plugin', {
     make: function () {
       return new VueLoaderPlugin()
     },
   })
 
+  /**
+   * Support vue as an alias
+   */
   bud.alias({vue$: 'vue/dist/vue.esm.js'})
 
+  /**
+   * Resolve the vue file extension.
+   */
   bud.when(
     !bud.build.config.get('resolve.extensions').includes('.vue'),
     bud =>

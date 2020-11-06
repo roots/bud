@@ -55,12 +55,13 @@ export class FileContainer extends Indexed {
       {},
     )
 
-    Object.getOwnPropertyNames(this).map(name => {
-      if (name === 'repository') return
-      Object.defineProperty(this, name, {
-        enumerable: false,
+    Object.getOwnPropertyNames(this)
+      .filter(name => name !== 'repository')
+      .map(name => {
+        Object.defineProperty(this, name, {
+          enumerable: false,
+        })
       })
-    })
   }
 
   public ls = function (key?: string): any {
@@ -75,6 +76,24 @@ export class FileContainer extends Indexed {
     return this.fs.existsSync(this.get(key))
   }
 
+  public ensure = function (
+    this: FileContainer,
+    key: string,
+  ): void {
+    const file = this.path.resolve(this.base, key)
+    this.fs.ensureFileSync(file)
+    this.set(key, file)
+  }
+
+  public ensureDir = function (
+    this: FileContainer,
+    key: string,
+  ): void {
+    const dir = this.path.resolve(this.base, key)
+    this.fs.ensureDirSync(dir)
+    this.set(key, dir)
+  }
+
   public read = function (key: string): string {
     return this.fs.readFileSync(this.get(key), 'utf8')
   }
@@ -86,20 +105,19 @@ export class FileContainer extends Indexed {
   }
 
   public write = function (key: string, content: string): void {
-    this.fs.writeFileSync(
-      this.path.resolve(this.base, key),
-      content,
-    )
+    const file = this.path.resolve(this.base, key)
+    this.fs.writeFileSync(file, content)
+
+    this.set(key, file)
   }
 
   public writeJson = function (
     key: string,
     content: string,
   ): void {
-    this.fs.writeJsonSync(
-      this.path.resolve(this.base, key),
-      content,
-    )
+    const file = this.path.resolve(this.base, key)
+    this.fs.writeJsonSync(file, content)
+    this.set(key, file)
   }
 
   public require = function (key: string): NodeModule {

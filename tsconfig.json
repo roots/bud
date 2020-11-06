@@ -21,8 +21,10 @@
   "references": [
     {"@roots/bud": "bud"},
     {"@roots/bud-api": "bud-api"},
+    {"@roots/bud-build": "bud-build"},
     {"@roots/bud-cli": "bud-cli"},
     {"@roots/bud-compiler": "bud-compiler"},
+    {"@roots/bud-extensions": "bud-extensions"},
     {"@roots/bud-framework": "bud-framework"},
     {"@roots/bud-server": "bud-server"},
     {"@roots/bud-support": "bud-support"},

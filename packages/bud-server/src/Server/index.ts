@@ -76,7 +76,6 @@ export class Server {
       'entry',
       (entry: Webpack.Entry) => injectClient(entry),
     )
-
     this.bud.compiler.compile()
 
     this.instance.use(

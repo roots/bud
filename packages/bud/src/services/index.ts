@@ -1,12 +1,8 @@
 import {Compiler} from '@roots/bud-compiler'
 import {Server} from '@roots/bud-server'
-import {
-  Build,
-  Hooks,
-  Extensions,
-  Features,
-  Mode,
-} from '@roots/bud-framework'
+import {Build} from '@roots/bud-build'
+import {Extensions} from '@roots/bud-extensions'
+import {Hooks, Features, Mode} from '@roots/bud-framework'
 import * as Teletype from '@roots/bud-cli'
 import {FileSystem, FileContainer} from '@roots/filesystem'
 

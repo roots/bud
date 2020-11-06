@@ -47,16 +47,6 @@ bud
   )
   .when(bud.args.has('hash'), (bud: Framework.Bud) => bud.hash())
 
-bud.disk.set('@roots', {
-  baseDir: bud.fs.path.resolve(__dirname, '../../'),
-  glob: ['**/*'],
-})
-
-bud.disk.set('project', {
-  baseDir: process.cwd(),
-  glob: ['**/*'],
-})
-
 bud.projectPath(
   bud.args.has('project')
     ? bud.fs.path.resolve(
