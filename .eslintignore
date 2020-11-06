@@ -1,6 +1,11 @@
-build
-templates
-bud-plugin
-vendor
+node_modules
+dist
 docs
-types
+test
+lab
+scripts
+**/bin
+**/lib
+**/types
+**/*.d.ts
+**/*.json

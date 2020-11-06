@@ -1,0 +1,17 @@
+.donotbuild {
+  .classes-not-included {
+    color: blue;
+  }
+}
+
+.whitelisted {
+  color: green;
+}
+
+.test-class {
+  background-color: #000000;
+
+  .inner-unique-class {
+    color: #ffffff;
+  }
+}

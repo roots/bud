@@ -1,0 +1,53 @@
+{
+  "name": "@roots/bud-typings",
+  "version": "2.0.0-next.24",
+  "description": "Shared typings",
+  "homepage": "https://roots.io/bud",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "packages/typings"
+  },
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "license": "MIT",
+  "contributors": [
+    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
+  ],
+  "engines": {
+    "node": ">=12"
+  },
+  "files": ["./packages"],
+  "types": "./packages/index.d.ts",
+  "scripts": {
+    "build": "tsc"
+  },
+  "dependencies": {
+    "@roots/container": "^2.0.0-next.24",
+    "@roots/filesystem": "^2.0.0-next.24"
+  },
+  "devDependencies": {
+    "@types/node": "^14.11.2",
+    "webpack": "^4.44.2",
+    "express": "^4.17.1",
+    "http-proxy-middleware": "^1.0.6",
+    "ink": "^3.0.0-6",
+    "ink-gradient": "^1.0.0",
+    "ink-link": "^1.1.0",
+    "ink-spinner": "^4.0.0-0",
+    "ink-use-stdout-dimensions": "^1.0.5",
+    "patch-console": "^1.0.0",
+    "prettier": "^2.1.1",
+    "react": "^16.13.1",
+    "react-dev-utils": "^10.2.1",
+    "react-dom": "^16.13.1",
+    "webpack-dev-middleware": "^3.7.2",
+    "webpack-hot-middleware": "^2.25.0",
+    "zlib": "^1.0.5"
+  }
+}

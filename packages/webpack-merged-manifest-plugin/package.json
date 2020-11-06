@@ -1,0 +1,40 @@
+{
+  "name": "@roots/merged-manifest-webpack-plugin",
+  "version": "2.0.0-next.24",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "packages/bud-wordpress-manifests"
+  },
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "license": "MIT",
+  "contributors": [
+    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
+  ],
+  "engines": {
+    "node": ">=12"
+  },
+  "files": [
+    "lib",
+    "types"
+  ],
+  "main": "./lib/index.js",
+  "types": "./lib/types/index.d.ts",
+  "scripts": {
+    "build": "tsc --build",
+    "clean:lib": "rimraf ./lib",
+    "clean:modules": "rimraf ./node_modules",
+    "tsc": "tsc -p ./tsconfig.json",
+    "lint": "eslint ."
+  },
+  "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5",
+  "devDependencies": {
+    "@roots/bud-typings": "2.0.0-next.24"
+  }
+}

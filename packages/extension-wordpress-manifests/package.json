@@ -1,0 +1,40 @@
+{
+  "name": "@roots/bud-wordpress-manifests",
+  "version": "2.0.0-next.24",
+  "description": "Webpack tools",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "packages/extension-wordpress-manifests"
+  },
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "license": "MIT",
+  "contributors": [
+    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
+  ],
+  "keywords": ["bud-extension"],
+  "engines": {
+    "node": ">=12"
+  },
+  "files": ["./lib", "./src"],
+  "main": "./lib/index.js",
+  "types": "./lib/types/index.d.ts",
+  "scripts": {
+    "build": "tsc --build",
+    "clean:lib": "rimraf ./lib",
+    "clean:modules": "rimraf ./node_modules",
+    "tsc": "tsc -p ./tsconfig.json",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@roots/entrypoints-webpack-plugin": "2.0.0-next.24",
+    "@roots/merged-manifest-webpack-plugin": "2.0.0-next.24",
+    "@roots/wordpress-externals-webpack-plugin": "2.0.0-next.24"
+  }
+}

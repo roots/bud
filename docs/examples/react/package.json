@@ -1,0 +1,16 @@
+{
+  "name": "example-react",
+  "private": true,
+  "scripts": {
+    "dev": "node bud.config.js --env development",
+    "build": "node bud.config.js --env production --ci"
+  },
+  "devDependencies": {
+    "@roots/bud": "file:../../packages/bud",
+    "@roots/bud-react": "file:../../packages/bud-react"
+  },
+  "dependencies": {
+    "react": "^16.13.1",
+    "react-dom": "^16.13.1"
+  }
+}

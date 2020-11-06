@@ -1,0 +1,31 @@
+name: publish
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node 14.9
+      uses: actions/setup-node@v1
+      with:
+        node-version: 14.9
+        registry-url: https://registry.npmjs.org/
+    - name: Build package
+      run: |
+        npm install -g yarn
+        yarn install
+        yarn build
+    - name: Register Token
+      run: |
+        echo "//registry.npmjs.org/:_authToken=$NODE_AUTH_TOKEN" > /home/runner/work/_temp/.npmrc
+        echo "_auth=$NODE_AUTH_TOKEN" >>  /home/runner/work/_temp/.npmrc
+        echo "email=<your@email.address>" >>  /home/runner/work/_temp/.npmrc
+        echo "always-auth=true" >>  /home/runner/work/_temp/.npmrc
+      env:
+        NODE_AUTH_TOKEN: ${{secrets.NPM_TOKEN}}
+    - name: Publish
+      run: npm publish

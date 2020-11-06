@@ -1,0 +1,12 @@
+version: '3'
+
+services:
+  dev:
+    image: node:14
+    build:
+      context: ../
+    ports:
+      - 3000:3000
+    command: yarn
+    volumes:
+      - './:/bud'

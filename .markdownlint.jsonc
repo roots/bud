@@ -1,0 +1,19 @@
+{
+  /**
+   * MD033 - Inline HTML
+   */
+  "MD033": {
+    "allowed_elements": [
+      "h1",
+      "p",
+      "img",
+      "a",
+      "strong"
+    ]
+  },
+
+  /**
+   * MD041 - First line in file should be a top level heading
+   */
+  "MD041": false
+}

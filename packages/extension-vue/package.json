@@ -1,0 +1,46 @@
+{
+  "name": "@roots/bud-vue",
+  "version": "2.0.0-next.24",
+  "description": "Adds Vue support to Bud",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "packages/extension-vue"
+  },
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "license": "MIT",
+  "contributors": [
+    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
+  ],
+  "keywords": ["bud-extension"],
+  "engines": {
+    "node": ">=12"
+  },
+  "files": ["./lib", "./src"],
+  "main": "./lib/index.js",
+  "types": "./types/index.d.ts",
+  "scripts": {
+    "build": "tsc --build",
+    "clean:lib": "rimraf ./lib",
+    "clean:modules": "rimraf ./node_modules",
+    "tsc": "tsc -b tsconfig.json",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@roots/bud-support": "2.0.0-next.24",
+    "babel-helper-vue-jsx-merge-props": "^2.0.0",
+    "babel-plugin-transform-vue-jsx": "^3.7.0",
+    "css-loader": "^3.6.0",
+    "de-indent": "^1.0.2",
+    "he": "^1.1.0",
+    "vue": "^2.6.11",
+    "vue-loader": "^15.9.3",
+    "vue-template-compiler": "^2.6.12"
+  }
+}

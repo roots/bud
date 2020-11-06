@@ -1,0 +1,44 @@
+{
+  "name": "@roots/bud-react",
+  "version": "2.0.0-next.24",
+  "description": "A friendly build tool to help manage your project assets.",
+  "homepage": "https://roots.io/bud",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "packages/extension-react"
+  },
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "license": "MIT",
+  "contributors": [
+    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
+  ],
+  "engines": {
+    "node": ">=12"
+  },
+  "files": ["./lib", "./src"],
+  "main": "./lib/index.js",
+  "types": "./lib/types/index.d.ts",
+  "scripts": {
+    "build": "tsc --build",
+    "clean:lib": "rimraf ./lib",
+    "clean:modules": "rimraf ./node_modules",
+    "tsc": "tsc -b tsconfig.json",
+    "lint": "eslint ."
+  },
+  "dependencies": {
+    "@babel/preset-react": "^7.12.1",
+    "@pmmmwh/react-refresh-webpack-plugin": "^0.4.2",
+    "@svgr/webpack": "^5.4.0",
+    "react": "latest",
+    "react-dom": "^17.0.1",
+    "react-refresh": "^0.9.0",
+    "type-fest": "^0.18.0"
+  }
+}

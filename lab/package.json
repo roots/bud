@@ -1,0 +1,16 @@
+{
+  "name": "example-simple",
+  "private": true,
+  "scripts": {
+    "dev": "node bud.config.js --mode development",
+    "hot": "node bud.config.js --mode development --hot",
+    "build": "node bud.config.js --mode production",
+    "test": "jest --verbose"
+  },
+  "devDependencies": {
+    "@roots/bud": "2.0.0-next.24",
+    "@roots/bud-eslint": "2.0.0-next.24",
+    "@roots/bud-sass": "2.0.0-next.24",
+    "@roots/bud-typings": "file: ../packages/typings"
+  }
+}
