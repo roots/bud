@@ -5,6 +5,7 @@ export default function (
 ): Webpack.RuleSetRule[] {
   return this.build.rules
     .entries()
+    .filter(([, {enforce}]) => enforce !== 'pre')
     .reduce(
       (
         rules: Webpack.RuleSetRule[],
@@ -13,12 +14,9 @@ export default function (
         ...rules,
         this.hooks.filter(
           `webpack.module.rules.oneOf.${label}`,
-          rule.make(),
+          rule,
         ),
       ],
       [],
     )
-    .filter(
-      ({enforce}) => enforce !== 'pre',
-    ) as Webpack.RuleSetRule[]
 }

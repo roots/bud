@@ -1,15 +1,15 @@
 import * as babel from './babel'
 import {babelConfig} from './api'
 
-export const boot = (instance: Framework.Bud): void => {
-  instance.build.mergeRule('js', {
-    use: bud => bud.build.getItem('babel'),
-  })
+export const api = (instance: Framework.Bud): any => ({
+  babel: babelConfig(instance).init(),
+})
 
-  Object.assign(instance, {
-    babel: babelConfig(instance).init(),
-  })
-}
+export const boot = ({build}: Framework.Bud): void =>
+  build.rules.set('js.use', [
+    build.getItem('babel'),
+    ...build.rules.get('js.use'),
+  ])
 
 export const registerItem = [babel.ident, babel]
 

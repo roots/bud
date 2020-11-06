@@ -7,15 +7,13 @@ export default function (
     `webpack.module.rules.pre`,
     this.build.rules
       .entries()
+      .filter(([, {enforce}]) => enforce == 'pre')
       .reduce(
         (
           rules: Webpack.RuleSetRule[],
-          [, rule]: [string, {make: () => Webpack.RuleSetRule}],
-        ): Webpack.RuleSetRule[] => [...rules, rule.make()],
+          [, rule]: [string, Webpack.RuleSetRule],
+        ): Webpack.RuleSetRule[] => [...rules, rule],
         [],
-      )
-      .filter(
-        rule => rule.enforce == 'pre',
-      ) as Webpack.RuleSetRule[],
+      ),
   )
 }

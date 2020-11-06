@@ -18,4 +18,5 @@ bud
 
   .minify()
 
+  // console.log(bud.extensions.get('@roots/bud-babel').boot(bud))
   .run()

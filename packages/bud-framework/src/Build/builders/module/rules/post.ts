@@ -7,15 +7,13 @@ export default function (
     `webpack.module.rules.post`,
     this.build.rules
       .entries()
+      .filter(([, {enforce}]) => enforce == 'post')
       .reduce(
         (
           rules: Webpack.RuleSetRule[],
-          [, rule]: [string, {make: () => Webpack.RuleSetRule}],
-        ): Webpack.RuleSetRule[] => [...rules, rule.make()],
+          [, rule]: [string, Webpack.RuleSetRule],
+        ): Webpack.RuleSetRule[] => [...rules, rule],
         [],
-      )
-      .filter(
-        ({enforce}) => enforce == 'post',
-      ) as Webpack.RuleSetRule[],
+      ),
   )
 }

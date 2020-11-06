@@ -33,10 +33,6 @@ export class Extensions implements Framework.Extensions {
 
     this.boot = this.boot.bind(this)
     this.makePlugins = this.makePlugins.bind(this)
-    this.processRules = this.processRules.bind(this)
-    this.processOptions = this.processOptions.bind(this)
-    this.processLoaders = this.processLoaders.bind(this)
-    this.processRuleItems = this.processRuleItems.bind(this)
   }
 
   /**
@@ -86,6 +82,8 @@ export class Extensions implements Framework.Extensions {
    * Register an extension.
    */
   public register(name: string, extension: unknown): this {
+    const {callMeMaybe} = this.bud
+
     this.extensions.set(
       name,
       typeof extension == 'function'
@@ -93,117 +91,65 @@ export class Extensions implements Framework.Extensions {
         : extension,
     )
 
-    this.extensions.has(`${name}.register`) &&
-      this.extensions.get(`${name}.register`)(this.bud)
+    const instance = this.extensions.get(name)
+    const hasProp = prop => instance.hasOwnProperty(prop)
 
-    this.extensions.has(`${name}.options`) &&
-      this.extensions.set(
-        `${name}.options`,
-        this.processOptions(this.extensions.get(name)),
+    this.bud
+      .when(hasProp('register'), () =>
+        callMeMaybe(instance.register, this.bud),
       )
 
-    this.extensions.has(`${name}.loaders`) &&
-      this.extensions.set(
-        `${name}.loaders`,
-        this.processLoaders(this.extensions.get(name)),
+      .when(hasProp('options'), bud => {
+        const options = callMeMaybe(instance.options, bud)
+        options &&
+          this.extensions.set(`${name}.options`, options)
+      })
+
+      .when(hasProp(`registerLoader`), () => {
+        const loader: [string, any] = callMeMaybe(
+          instance.registerLoader,
+          this.bud,
+        )
+
+        this.bud.build.setLoader(...loader)
+      })
+
+      .when(hasProp(`registerItem`), bud =>
+        bud.build.setItem(
+          ...callMeMaybe(instance.registerItem, bud),
+        ),
       )
 
-    this.extensions.has(`${name}.registerItem`) &&
-      this.extensions.set(
-        `${name}.registerItem`,
-        this.processRuleItems(this.extensions.get(name)),
+      .when(hasProp(`registerItems`), bud =>
+        Object.entries(
+          callMeMaybe(instance.registerItems, bud),
+        ).map(item => {
+          item = callMeMaybe(item, bud)
+          bud.build.setItem(...item)
+        }),
       )
 
-    this.extensions.has(`${name}.rules`) &&
-      this.extensions.set(
-        `${name}.rules`,
-        this.processRules(this.extensions.get(name)),
-      )
+      .when(hasProp(`registerRule`), () => {
+        const rule: [string, any] = callMeMaybe(
+          instance.registerRule,
+          this.bud,
+        )
 
-    this.extensions.has(`${name}.api`) &&
-      this.extensions.set(
-        `${name}.api`,
-        this.bindApi(this.extensions.get(name)),
-      )
+        rule && this.bud.build.setRule(...rule)
+      })
 
-    this.extensions.has(`${name}.boot`) &&
-      this.extensions.get(`${name}.boot`)(this.bud)
+    hasProp(`registerRules`) &&
+      Object.entries(
+        callMeMaybe(instance.registerRules, this.bud),
+      ).map((rule: [string, any]) => {
+        rule = callMeMaybe(instance.registerRule, this.bud)
+        rule && this.bud.build.setRule(...rule)
+      })
+
+    hasProp(`api`) && this.bindApi(instance.api)
+    hasProp(`boot`) && callMeMaybe(instance.boot, this.bud)
 
     return this
-  }
-
-  /**
-   * Process options
-   */
-  public processOptions(extension: Extension): Extension {
-    if (extension.hasOwnProperty('options')) {
-      extension.options =
-        typeof extension.options == 'function'
-          ? (extension.options as CallableFunction)(this.bud)
-          : extension.options
-    } else {
-      extension.options = {}
-    }
-
-    return extension
-  }
-
-  /**
-   * Process loaders
-   */
-  public processLoaders(extension: Extension): Extension {
-    extension.hasOwnProperty('registerLoader') &&
-      this.bud.build.setLoader(...extension.registerLoader)
-
-    extension.hasOwnProperty('registerLoaders') &&
-      Object.entries(extension.registerLoaders).map(loader =>
-        this.bud.build.setLoader(...loader),
-      )
-
-    return extension
-  }
-
-  /**
-   * Process rule items.
-   */
-  public processRuleItems(extension: Extension): Extension {
-    extension.hasOwnProperty('registerItem') &&
-      this.bud.build.setItem(
-        extension.registerItem[0],
-        extension.registerItem[1],
-      )
-
-    extension.hasOwnProperty('registerItems') &&
-      Object.entries(extension.registerItems).map(
-        ([, item]: [string, Framework.Item.Module]) => {
-          const name =
-            typeof item.ident == 'function'
-              ? item.ident(this.bud)
-              : item.ident
-
-          this.bud.build.setItem(name, item)
-        },
-      )
-
-    return extension
-  }
-
-  /**
-   * Process rules.
-   */
-  public processRules(extension: Extension): void {
-    extension.hasOwnProperty('registerRule') &&
-      this.bud.build.setRule(
-        extension.registerRule[0],
-        extension.registerRule[1],
-      )
-
-    extension.hasOwnProperty('registerRules') &&
-      Object.entries(extension.registerRules).map(
-        ([name, rule]) => {
-          this.bud.build.setRule(name, rule)
-        },
-      )
   }
 
   /**
@@ -222,7 +168,7 @@ export class Extensions implements Framework.Extensions {
   /**
    * Get an extension instance.
    */
-  public getExtension = function (name: string): Extension {
+  public get = function (name: string): Extension {
     return this.extensions.get(name)
   }
 

@@ -1,12 +1,10 @@
-import {lodash as _} from '@roots/bud-support'
-
 /**
  * Set babel transformOptions
  */
 export const setConfig: Babel.Config = function (
-  options: babel.TransformOptions,
+  opts: babel.TransformOptions,
 ) {
-  this.bud.build.mergeItem('babel', {options})
+  this.bud.build.items.set('babel.options', opts)
 
   return this
 }

@@ -12,7 +12,7 @@ const myApp = () => {
         <input
           onChange={e => setState(e.value)}
           type="text"
-          placeholder='foobarns'
+          placeholder="foobarns"
           value={state}
         />
       </div>
@@ -24,5 +24,5 @@ ReactDOM.render(myApp, root)
 
 module?.hot &&
   module.hot.accept(err => {
-    console.error('err")
+    console.error('err')
   })

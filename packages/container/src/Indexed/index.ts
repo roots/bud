@@ -42,7 +42,7 @@ export class Indexed extends Container {
   }
 
   public has: Container.Conditional = function (key) {
-    return this.repository.hasOwnProperty(key) ? true : false
+    return this.get(key) ? true : false
   }
 
   public merge: Container.Using = function (key, value) {

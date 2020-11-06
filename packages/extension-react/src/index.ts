@@ -12,25 +12,8 @@ export const registerLoader = [
  * Boot bud-jsx extension
  */
 export const boot = (instance: Framework.Bud): void => {
-  /**
-   * Existing babel rules.
-   */
-  const {options} = instance.build.items['babel'].make()
+  if (!instance.mode.is('development')) return
 
-  /**
-   * React babel preset
-   */
-  instance.build.items['babel'].setOptions({
-    ...options,
-    presets: [
-      ...options.presets,
-      [require.resolve('@babel/preset-react')],
-    ],
-  })
-
-  /**
-   * react-refresh webpack plugin
-   */
   instance.extensions.register('react-reresh-webpack-plugin', {
     options: {
       overlay: {
@@ -42,14 +25,10 @@ export const boot = (instance: Framework.Bud): void => {
     when: instance => instance.mode.is('development'),
   })
 
-  /**
-   * react-refresh babel plugin.
-   */
-  Object.assign(instance.build.items['babel'].options, {
-    plugins: [
-      ...options.plugins,
-      instance.mode.is('development') &&
-        require.resolve('react-refresh/babel'),
-    ].filter(Boolean),
-  })
+  instance.build.items.merge('babel.options.presets', [
+    require.resolve('@babel/preset-react'),
+  ])
+  instance.build.items.merge('babel.options.plugins', [
+    require.resolve('react-refresh/babel'),
+  ])
 }

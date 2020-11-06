@@ -71,14 +71,6 @@ export declare class Build {
   ): Framework.Item
 
   /**
-   * Merge values onto an existing item.
-   */
-  public mergeItem(
-    item: string,
-    value: Partial<Framework.Item.Module>,
-  ): void
-
-  /**
    * Get a rule by key.
    */
   public getRule(name: string): Webpack.RuleSetRule
@@ -90,11 +82,6 @@ export declare class Build {
     name: string,
     module: Framework.Rule.Module,
   ): Framework.Rule
-
-  /**
-   * Merge values onto an existing rule.
-   */
-  public mergeRule(name: string, rule: Framework.Rule.Module)
 }
 
 /**

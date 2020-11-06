@@ -1,7 +1,5 @@
 import {lodash as _} from '@roots/bud-support'
-
 import {Indexed as Container} from '@roots/container'
-
 import logger from './util/logger'
 import format from './util/format'
 import pretty from './util/pretty'
@@ -132,6 +130,28 @@ export default class Bud implements Framework.Bud {
     repository?: Container.Repository,
   ): Container {
     return new Container(repository ?? {})
+  }
+
+  public when(
+    test: boolean,
+    trueCase?: CallableFunction,
+    falseCase?: CallableFunction,
+  ): Framework.Bud {
+    _.isEqual(test, true)
+      ? _.isFunction(trueCase) && trueCase(this)
+      : _.isFunction(falseCase) && falseCase(this)
+
+    return this
+  }
+
+  public callMeMaybe(
+    item: CallableFunction | unknown,
+    args?: Array<unknown>,
+  ): unknown {
+    args = !args ? [] : Array.isArray(args) ? args : [args]
+    return typeof item == 'function' && !Array.isArray(item)
+      ? item(...args)
+      : item
   }
 
   /**

@@ -1,11 +1,9 @@
 import * as builders from './builders'
 import * as config from './config'
-import type Webpack from 'webpack'
-
-import {lodash as _} from '@roots/bud-support'
-
 import {Item} from '../Item'
 import {Rule} from '../Rule'
+
+import type Webpack from 'webpack'
 
 export class Build implements Framework.Build {
   public bud: Framework.Bud
@@ -64,34 +62,23 @@ export class Build implements Framework.Build {
   }
 
   public getItem(name: string): Framework.Build.RuleSetLoader {
-    return this.items.get(name).make()
+    return this.items.get(name)
   }
 
   public setItem(
     name: string,
     module: Framework.Item.Module,
   ): Framework.Item {
-    this.items.set(name, new Item(this.bud, module))
+    this.items.set(name, new Item(this.bud, module).make())
     return this.items.get(name)
   }
 
-  public mergeItem(
-    name: string,
-    value: Partial<Framework.Item.Module>,
-  ): void {
-    this.setItem(name, _.merge(this.getItem(name), value))
-  }
-
   public getRule(name: string): Webpack.RuleSetRule {
-    return this.rules.get(name).make()
-  }
-
-  public setRule(name: string, module: Framework.Rule): Rule {
-    this.rules.set(name, new Rule(this.bud, module))
     return this.rules.get(name)
   }
 
-  public mergeRule(rule: string, value: Framework.Rule): void {
-    this.setRule(name, _.merge(this.getRule(name), value))
+  public setRule(name: string, module: Framework.Rule): Rule {
+    this.rules.set(name, new Rule(this.bud, module).make())
+    return this.rules.get(name)
   }
 }
