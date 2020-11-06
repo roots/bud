@@ -1,41 +1,44 @@
+/* eslint-disable @typescript-eslint/no-var-requires */
 import {lodash as _} from '@roots/bud-support'
 
 export const use: Framework.API.Use = function (
-  extensions:
-    | string
-    | string[]
-    | [
-        string,
-        (
-          | Framework.Extension
-          | ((bud: Framework.Bud) => Framework.Extension)
-        ),
-      ]
-    | [
-        string,
-        (
-          | Framework.Extension
-          | ((bud: Framework.Bud) => Framework.Extension)
-        ),
-      ][],
+  extensions: Extensions,
 ) {
-  if (_.isString(extensions)) {
-    this.extensions.use(extensions)
+  const registerFromString = registerStrBinding.bind(this)
 
-    return this
-  }
+  _.isString(extensions)
+    ? registerFromString(extensions)
+    : ensureIterable(extensions).forEach(extension => {
+        if (!_.isArray(extension)) {
+          return registerFromString(extension)
+        }
 
-  ensureIterable(extensions).forEach(ext => {
-    const isTuple = _.isArray(ext)
-
-    !isTuple
-      ? this.extensions.use(ext)
-      : this.extensions.register(...ext)
-  })
+        return this.extensions.register(...extension)
+      })
 
   return this
 }
 
+/**
+ * Register a plugin to be utilized during compilation.
+ */
+function registerStrBinding(
+  this: Framework.Bud,
+  pkg: string,
+): void {
+  const resolved = require.resolve(pkg)
+
+  this.disk.set(pkg, {
+    baseDir: this.fs.path.dirname(resolved),
+    glob: ['**/*'],
+  })
+
+  this.extensions.register(pkg, require(resolved))
+}
+
+/**
+ * Duck typing extension tuple format.
+ */
 function ensureIterable(extensions) {
   return _.isArray(extensions) &&
     extensions[0] &&
@@ -46,3 +49,21 @@ function ensureIterable(extensions) {
     ? [extensions]
     : extensions
 }
+
+export type Extensions =
+  | string
+  | string[]
+  | [
+      string,
+      (
+        | Framework.Extension
+        | ((bud: Framework.Bud) => Framework.Extension)
+      ),
+    ]
+  | [
+      string,
+      (
+        | Framework.Extension
+        | ((bud: Framework.Bud) => Framework.Extension)
+      ),
+    ][]
