@@ -1,49 +1,96 @@
-import webpack from 'webpack'
+import webpack, {ProgressPlugin} from 'webpack'
+import type Webpack from 'webpack'
+import type {Bud} from '@roots/bud-typings'
 
-/**
- * Framework.Compiler
- */
-export class Compiler {
-  public bud: Framework.Bud
+export type Base = Compiler.Abstract
 
-  public compilation: Framework.Webpack.Compiler
+class Compiler implements Base {
+  public bud: Bud
 
-  constructor(params?: Framework.Index<Framework.Bud>) {
-    this.bud = params.bud
+  public compiler: Webpack.Compiler
 
-    this.applyPlugins = this.applyPlugins.bind(this)
+  constructor(options: {bud: Bud}) {
+    this.bud = options.bud
 
-    this.compile = this.compile.bind(this)
+    this.get = this.get.bind(this)
+    this.set = this.set.bind(this)
     this.run = this.run.bind(this)
-    this.getCompilation = this.getCompilation.bind(this)
-    this.setCompilation = this.setCompilation.bind(this)
+    this.compile = this.compile.bind(this)
+    this.applyPlugins = this.applyPlugins.bind(this)
   }
 
   public compile(): void {
-    this.setCompilation(webpack(this.bud.build.make()))
+    this.set(webpack(this.bud.build.make()))
   }
 
-  public getCompilation(): Framework.Webpack.Compiler {
-    return this.compilation
+  public get(): Webpack.Compiler {
+    return this.compiler
   }
 
-  public setCompilation(
-    compilation: Framework.Webpack.Compiler,
-  ): void {
-    this.compilation = compilation
+  public set(compiler: Webpack.Compiler): void {
+    this.compiler = compiler
   }
 
-  public run(
-    handler: Framework.Webpack.ICompiler.Handler,
-  ): void {
-    this.getCompilation().run(handler)
+  public run(handler: Compiler.Handler): void {
+    this.get().run(handler)
   }
 
-  public applyPlugins(
-    progressHandler: Framework.Webpack.ProgressPlugin.Handler,
-  ): void {
-    new webpack.ProgressPlugin(progressHandler).apply(
-      this.getCompilation(),
-    )
+  public applyPlugins(handler: Compiler.ProgressHandler): void {
+    new ProgressPlugin(handler).apply(this.get())
   }
 }
+
+declare namespace Compiler {
+  /**
+   * Constructor options
+   */
+  export interface Options {
+    bud: Bud
+  }
+
+  /**
+   * Compilation callback.
+   */
+  export type Handler = Webpack.Compiler.Handler
+
+  /**
+   * ProgressPlugin callback.
+   */
+  export type ProgressHandler = ProgressPlugin.Handler
+
+  export class Abstract implements Interface {
+    public bud: Interface['bud']
+
+    public compiler: Webpack.Compiler
+
+    public constructor({bud}: Options)
+
+    public compile(): void
+
+    public get(): Webpack.Compiler
+
+    public set(compiler: Webpack.Compiler): void
+
+    public run(handler: Handler): void
+
+    public applyPlugins(handler: ProgressHandler): void
+  }
+
+  export interface Interface {
+    bud: Options['bud']
+
+    compiler: Webpack.Compiler
+
+    compile(): void
+
+    get(): Webpack.Compiler
+
+    set(compiler: Webpack.Compiler): void
+
+    run(handler: Handler): void
+
+    applyPlugins(handler: ProgressHandler): void
+  }
+}
+
+export {Compiler}

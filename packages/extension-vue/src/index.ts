@@ -1,3 +1,4 @@
+import {Webpack} from '@roots/bud-typings'
 import {VueLoaderPlugin} from 'vue-loader'
 
 /** Patched compiler.*/
@@ -53,13 +54,16 @@ export const boot: Framework.Extension.Boot = (
    * export function this hook registers the rule in the
    * outer `webpack.module.rules` key.
    */
-  bud.hooks.on('webpack.module.rules', rules => [
-    ...rules,
-    {
-      test: /\.vue$/,
-      use: bud.build.items.get('vue'),
-    },
-  ])
+  bud.hooks.on(
+    'webpack.module.rules',
+    (rules: Webpack.Module['rules']) => [
+      ...rules,
+      {
+        test: /\.vue$/,
+        use: bud.build.items.get('vue'),
+      },
+    ],
+  )
 
   /**
    * Register vue-loader-plugin.

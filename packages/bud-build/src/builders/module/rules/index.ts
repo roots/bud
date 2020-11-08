@@ -1,3 +1,4 @@
+import {Webpack} from '@roots/bud-typings'
 import oneOf from './oneOf'
 import post from './post'
 import pre from './pre'
@@ -11,5 +12,5 @@ export default function (
       oneOf: oneOf.bind(this)(),
     },
     ...post.bind(this)(),
-  ])
+  ]) as Webpack.Configuration['module']['rules']
 }

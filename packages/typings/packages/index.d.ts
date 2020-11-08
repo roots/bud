@@ -76,12 +76,6 @@ export * from './Extension'
 export * from './Extensions'
 
 /**
- * Framework.Features
- * @package @roots/bud-framework
- */
-export * from './Features'
-
-/**
  * Framework.Hooks
  * @package @roots/bud-framework
  */

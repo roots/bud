@@ -1,4 +1,5 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin'
+import {Extension} from '@roots/bud-typings'
 
 export const options: HtmlWebpackPlugin.Options = ({fs}) => ({
   alwaysWriteToDisk: true,
@@ -10,9 +11,9 @@ export const options: HtmlWebpackPlugin.Options = ({fs}) => ({
   ),
 })
 
-export const make: Framework.Extension.Make = opts =>
+export const make: Extension.Make = opts =>
   new HtmlWebpackPlugin(opts)
 
-export const when: Framework.Extension.When = ({features}) => {
+export const when: Extension.When = ({features}) => {
   return features.enabled('html')
 }

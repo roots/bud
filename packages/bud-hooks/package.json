@@ -1,12 +1,12 @@
 {
-  "name": "@roots/bud-purgecss",
+  "name": "@roots/bud-hooks",
+  "description": "Prettier component for React Ink",
   "version": "2.0.0-next.24",
-  "description": "Adds purgecss support to Bud",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
-    "directory": "packages/bud-purgecss"
+    "directory": "packages/ink-prettier"
   },
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
@@ -29,14 +29,9 @@
     "build": "tsc --build",
     "clean:lib": "rimraf ./lib",
     "clean:modules": "rimraf ./node_modules",
-    "tsc": "tsc -p ./tsconfig.json",
     "lint": "eslint ."
   },
   "dependencies": {
-    "@fullhuman/postcss-purgecss": "^2.3.0",
-    "purgecss-with-wordpress": "^2.3.0"
-  },
-  "devDependencies": {
-    "@roots/bud-typings": "2.0.0-next.24"
+    "@roots/container": "2.0.0-next.24"
   }
 }

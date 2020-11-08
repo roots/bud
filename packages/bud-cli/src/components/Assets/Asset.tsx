@@ -1,22 +1,9 @@
 import React, {FunctionComponent} from 'react'
 import {Box, Text} from 'ink'
 import {useStyle} from '@roots/ink-use-style'
-
 import {Indicator} from '../UI/Indicator'
 
-interface AssetInterface {
-  name: string
-  active: boolean
-  size: number
-  hot: boolean
-}
-
-const Asset: FunctionComponent<AssetInterface> = ({
-  name,
-  active,
-  size,
-  hot,
-}) => {
+const Asset: Asset.Component = ({name, active, size, hot}) => {
   const {ctx, is} = useStyle()
 
   const roundedSize = Math.round(size / 1000)
@@ -41,6 +28,16 @@ const Asset: FunctionComponent<AssetInterface> = ({
       </Box>
     </Box>
   )
+}
+
+declare namespace Asset {
+  export type Component = FunctionComponent<Interface>
+  interface Interface {
+    name: string
+    active: boolean
+    size: number
+    hot: boolean
+  }
 }
 
 export {Asset as default}

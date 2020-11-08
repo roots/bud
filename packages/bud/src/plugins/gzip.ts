@@ -1,4 +1,5 @@
 import CompressionPlugin from 'compression-webpack-plugin'
+import {Extension} from '@roots/bud-typings'
 
 export const options: GzipOptions = {
   algorithm: 'gzip',
@@ -11,13 +12,12 @@ export const options: GzipOptions = {
   minRatio: 0.8,
 }
 
-export const make: Framework.Extension.Make = (
-  options: GzipOptions,
-) => new CompressionPlugin(options)
+export const make: Extension.Make = (options: GzipOptions) =>
+  new CompressionPlugin(options)
 
-export const when: Framework.Extension.When = bud =>
-  bud.features.get('gzip') === true
+export const when: Extension.When = ({features}) =>
+  features.get('gzip') === true
 
-declare type GzipOptions = CompressionPlugin.Options<
+export declare type GzipOptions = CompressionPlugin.Options<
   CompressionPlugin.ZlibOptions
 >

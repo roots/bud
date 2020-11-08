@@ -1,11 +1,10 @@
-import React, {FunctionComponent, useEffect} from 'react'
+import React, {useEffect} from 'react'
 import {useApp, useInput} from 'ink'
-import useCompilation from '../hooks/useCompilation'
-import App from './App'
+import {useCompilation} from '../hooks/useCompilation'
+import {Reporter} from './Reporter'
+import type {Bud} from '@roots/bud-typings'
 
-const Compile: FunctionComponent<{bud: Framework.Bud}> = ({
-  bud,
-}) => {
+const Compile: React.FunctionComponent<{bud: Bud}> = ({bud}) => {
   const app = useApp()
   const compilation = useCompilation(bud)
 
@@ -28,7 +27,7 @@ const Compile: FunctionComponent<{bud: Framework.Bud}> = ({
 
   return (
     <>
-      <App
+      <Reporter
         bud={bud}
         stats={compilation?.stats}
         progress={compilation?.progress}

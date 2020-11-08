@@ -10,17 +10,17 @@
 </p>
 
 <h1 align="center">
-  <strong>@roots/bud-extensions</strong>
+  <strong>@roots/bud-hooks</strong>
 </h1>
 
 ## Overview
 
-Bud extension controller.
+Hooks controller.
 
 ## Installation
 
 ```sh
-yarn add @roots/bud-extensions
+yarn add @roots/bud-hooks
 ```
 
 ## Contributing

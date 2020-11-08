@@ -2,6 +2,7 @@ import cache from 'cache-manager'
 import store from 'cache-manager-fs'
 import md5 from 'md5'
 import path from 'path'
+import type Framework from '@roots/bud-typings'
 
 export class Cache {
   bud: Framework.Bud

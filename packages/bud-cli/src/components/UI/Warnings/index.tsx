@@ -1,5 +1,5 @@
 import React from 'react'
-import Screen from '../Screen'
+import Screen from '../../Screen'
 import {Warning} from './Warning'
 
 const Warnings = ({warnings}) =>

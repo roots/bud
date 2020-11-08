@@ -1,18 +1,9 @@
 import useSWR, {mutate} from 'swr'
 import {useEffect, useState} from 'react'
 
-declare interface DataModel {
-  focus: string
-  items: {
-    [key: string]: boolean
-  }
-}
-
-export const useFocus: (
-  initialData?: DataModel,
-) => [string, (string) => void] = (
-  initialData = {
-    focus: 'assets',
+const INITIAL: {initialData: UseFocus.Focus} = {
+  initialData: {
+    active: 'assets',
     items: {
       assets: true,
       errors: false,
@@ -20,12 +11,11 @@ export const useFocus: (
       dev: false,
     },
   },
-) => {
-  const {data} = useSWR('focus', {
-    initialData,
-  })
+}
 
-  const [focus, setFocus] = useState(data.focus)
+export const useFocus: UseFocus.Hook = (initial = INITIAL) => {
+  const {data} = useSWR('focus', initial)
+  const [focus, setFocus] = useState<UseFocus.Focus>(data)
 
   useEffect(() => {
     mutate('focus', {
@@ -36,11 +26,28 @@ export const useFocus: (
         }),
         data.items,
       ),
-      [focus]: true,
+      [focus.active]: true,
     })
   }, [focus])
 
   return [focus, setFocus]
 }
 
-export default useFocus
+export namespace UseFocus {
+  export interface Hook {
+    (initialData?: {initialData: Focus}): [Focus, Handler]
+  }
+
+  export interface Focus {
+    active: string
+    items: Items
+  }
+
+  export interface Items {
+    [key: string]: boolean
+  }
+
+  export type Handler = React.Dispatch<
+    React.SetStateAction<UseFocus.Focus>
+  >
+}

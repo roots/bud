@@ -1,21 +1,34 @@
-import React, {FunctionComponent} from 'react'
+import React from 'react'
 import {Box} from 'ink'
 
 import Assets from '../components/Assets'
 import Errors from '../components/Errors'
-import BuildInfo from '../components/BuildInfo'
+import {BuildInfo} from '../components/BuildInfo'
 import Progress from '../components/Progress'
 import Screen from '../components/Screen'
 import Title from '../components/Title'
 import {Nav} from '../components/Nav'
-
 import {useStyle} from '@roots/ink-use-style'
 
-const App: FunctionComponent<{
-  bud: Framework.Bud
-  stats: Compilation.Stats
-  progress: Compilation.Progress
-}> = ({bud, stats, progress}) => {
+import type {Bud} from '@roots/bud-typings'
+import type {UseStats} from '../hooks/useStats'
+import type {UseProgress} from '../hooks/useProgress'
+
+declare namespace Reporter {
+  export type Props = {
+    bud: Bud
+    stats: UseStats.Stats
+    progress: UseProgress.Progress
+  }
+
+  export type Component = React.FunctionComponent<Props>
+}
+
+const Reporter: Reporter.Component = ({
+  bud,
+  stats,
+  progress,
+}) => {
   const {bounds, col} = useStyle()
 
   const displayName = bud.disk
@@ -71,4 +84,4 @@ const App: FunctionComponent<{
   )
 }
 
-export {App as default}
+export {Reporter}

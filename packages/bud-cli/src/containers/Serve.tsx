@@ -1,9 +1,10 @@
 import React from 'react'
 import {useApp, useInput} from 'ink'
-import useCompilation from '../hooks/useCompilation'
-import App from './App'
+import {useCompilation} from '../hooks/useCompilation'
+import {Reporter} from './Reporter'
+import type {Bud} from '@roots/bud-typings'
 
-const Serve: Framework.CLI.Serve = ({bud}) => {
+const Serve: React.FunctionComponent<{bud: Bud}> = ({bud}) => {
   const app = useApp()
   const compilation = useCompilation(bud)
 
@@ -16,7 +17,7 @@ const Serve: Framework.CLI.Serve = ({bud}) => {
 
   return (
     <>
-      <App
+      <Reporter
         bud={bud}
         stats={compilation?.stats}
         progress={compilation?.progress}
@@ -25,4 +26,4 @@ const Serve: Framework.CLI.Serve = ({bud}) => {
   )
 }
 
-export {Serve as default}
+export {Serve, Serve as default}

@@ -3,6 +3,7 @@ import {Indexed as Container} from '@roots/container'
 import logger from './util/logger'
 import format from './util/format'
 import pretty from './util/pretty'
+import {Compiler} from '@roots/bud-compiler/src/Compiler'
 
 export default class Bud implements Framework.Bud {
   [key: string]: any // 🚨
@@ -11,15 +12,13 @@ export default class Bud implements Framework.Bud {
 
   public cli: Framework.CLI.Controller
 
-  public compiler: Framework.Compiler
+  public compiler: Compiler.Abstract
 
   public disk: Framework.FileSystem
 
   public env: Framework.Env
 
   public extensions: Framework.Extensions
-
-  public features: Framework.Features
 
   public fs: Framework.FileContainer
 
@@ -262,10 +261,7 @@ export default class Bud implements Framework.Bud {
           'addProxyMiddleware',
         ],
       ],
-      [
-        this.hooks,
-        ['logger', 'make', 'entries', 'on', 'filter'],
-      ],
+      [this.hooks, ['logger', 'on', 'filter']],
       [
         this.extensions,
         [

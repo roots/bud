@@ -7,7 +7,8 @@ export * as api from './api'
 const tailwindcss = require('tailwindcss')
 
 export const boot = (instance: Framework.Bud): void => {
-  !instance.extensions.get('postcss') && errorDependenciesUnmet()
+  const error = errorDependenciesUnmet.bind(instance)
+  !instance.extensions.get('postcss') && error()
 
   instance.build.items.merge(
     `postcss.options.postcssOptions.plugins`,

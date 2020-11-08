@@ -1,5 +1,6 @@
 import {ProvidePlugin} from 'webpack'
+import type {Extension} from '@roots/bud-typings'
 
-export const options: Framework.Extension.Options = {}
-export const make: Framework.Extension.Make = opts =>
+export const options: Extension.Options = {}
+export const make: Extension.Make = opts =>
   new ProvidePlugin(opts)

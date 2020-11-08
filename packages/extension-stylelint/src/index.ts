@@ -1,10 +1,11 @@
 import StylelintPlugin from 'stylelint-webpack-plugin'
+import type {Bud} from '@roots/bud-typings'
 
-export const registerApi = {
+export const api = {
   stylelint: function (
-    this: Framework.Bud,
+    this: Bud,
     options: StylelintPlugin['options'],
-  ): Framework.Bud {
+  ): Bud {
     this.features.enable('stylelint')
     this.extensions.setOptions('@roots/bud-stylelint', options)
 
@@ -12,7 +13,7 @@ export const registerApi = {
   },
 }
 
-export const boot = function (instance: Framework.Bud): void {
+export const boot = function (instance: Bud): void {
   instance.presets.set(
     'stylelint',
     instance.fs.path.resolve(__dirname, './preset/index.js'),

@@ -1,16 +1,16 @@
-import Bud from '@roots/bud-framework'
-
 import * as api from '@roots/bud-api'
 import * as containers from './containers'
 import * as plugins from './plugins'
-
 import {builders} from './builders'
 import {services} from './services'
+
+import {Bud as Instance} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-typings'
 
 /**
  * Instantiate Bud.
  */
-const bud: Framework.Bud = new Bud({
+const bud: Bud = new Instance({
   api,
   builders,
   containers,
@@ -18,61 +18,50 @@ const bud: Framework.Bud = new Bud({
   services,
 }).getInstance()
 
+const {
+  args,
+  fs: {
+    path: {resolve},
+  },
+} = bud
+
 bud
   .when(
-    bud.args.has('mode'),
-    (bud: Framework.Bud) => bud.mode.set(bud.args.get('mode')),
-    (bud: Framework.Bud) => bud.mode.set('none'),
+    args.has('mode'),
+    ({mode}: Bud) => mode.set(args.get('mode')),
+    ({mode}: Bud) => mode.set('none'),
   )
-  .when(bud.args.has('devtool'), (bud: Framework.Bud) =>
-    bud.devtool(
-      bud.args.get('devtool') ?? '#@cheap-eval-source-map',
-    ),
-  )
-  .when(bud.args.has('html'), (bud: Framework.Bud) =>
-    bud.template(),
-  )
-  .when(bud.args.has('minify'), (bud: Framework.Bud) =>
-    bud.minify(),
-  )
-  .when(bud.args.has('gzip'), (bud: Framework.Bud) => bud.gzip())
-  .when(bud.args.has('brotli'), (bud: Framework.Bud) =>
-    bud.brotli(),
-  )
-  .when(bud.args.has('runtime'), (bud: Framework.Bud) =>
-    bud.runtime(),
-  )
-  .when(bud.args.has('vendor'), (bud: Framework.Bud) =>
-    bud.vendor(),
-  )
-  .when(bud.args.has('hash'), (bud: Framework.Bud) => bud.hash())
 
-bud.projectPath(
-  bud.args.has('project')
-    ? bud.fs.path.resolve(
-        bud.disk.baseDir,
-        bud.args.get('project'),
-      )
-    : process.cwd(),
-)
+  .when(
+    args.has('project'),
+    ({projectPath}: Bud) =>
+      projectPath(
+        resolve(bud.disk.baseDir, args.get('project')),
+      ),
+    ({projectPath}) => projectPath(process.cwd()),
+  )
+  .srcPath(args.get('src') ?? 'src')
+  .distPath(args.get('dist') ?? 'dist')
 
-bud.srcPath(bud.args.has('src') ? bud.args.get('src') : 'src')
-
-bud.build.config.set(
-  'output.path',
-  bud.args.has('dist')
-    ? bud.args.get('dist')
-    : bud.fs.path.resolve(process.cwd(), 'dist'),
-)
+  .when(args.has('html'), ({template}: Bud) => template())
+  .when(args.has('minify'), ({minify}: Bud) => minify())
+  .when(args.has('gzip'), ({gzip}: Bud) => gzip())
+  .when(args.has('brotli'), ({brotli}: Bud) => brotli())
+  .when(args.has('runtime'), ({runtime}: Bud) => runtime())
+  .when(args.has('vendor'), ({vendor}: Bud) => vendor())
+  .when(args.has('hash'), ({hash}: Bud) => hash())
+  .when(args.has('devtool'), ({devtool}: Bud) =>
+    devtool(args.get('devtool') ?? '#@cheap-eval-source-map'),
+  )
 
 /**
- * Bud
- * @type {Framework.Bud}
+ * Framework.Bud
+ * @type {Bud}
  */
 export default bud
 
 /**
  * Bud
- * @type {Framework.Bud}
+ * @type {Bud}
  */
 module.exports = bud

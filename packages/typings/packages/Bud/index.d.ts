@@ -1,4 +1,5 @@
 import {BuiltInParserName} from 'prettier'
+import type {Compiler} from '../../../bud-compiler/src/Compiler'
 
 export {Bud}
 
@@ -27,7 +28,7 @@ declare class Bud {
   /**
    * Interface wrapping the webpack compiler.
    */
-  public compiler: Framework.Compiler
+  public compiler: Compiler.Abstract
 
   /**
    * FS instance.
@@ -42,11 +43,6 @@ declare class Bud {
   public env: Framework.Env
 
   /**
-   * Features (boolean flags)
-   */
-  public features: Framework.Features
-
-  /**
    * Filesystem interface.
    *
    * Used for interacting with project, framework and extension files.
@@ -57,11 +53,6 @@ declare class Bud {
    * Extensions controller.
    */
   public extensions: Framework.Extensions
-
-  /**
-   * Features.
-   */
-  public features: Framework.Features
 
   /**
    * Hooks system.

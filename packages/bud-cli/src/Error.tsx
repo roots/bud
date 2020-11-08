@@ -1,9 +1,13 @@
 import React from 'react'
 import {render} from 'ink'
-import {Error as ErrorContainer} from './containers/Error'
+import {Error as Component} from './containers/Error'
 
-const Error = function (body?: string, title?: string): void {
-  render(<ErrorContainer title={title ?? 'Error'} body={body} />)
+declare interface Error {
+  (body?: string, title?: string): void
+}
+
+const Error: Error = function (body?, title?): void {
+  render(<Component title={title ?? 'Error'} body={body} />)
   process.exit(1)
 }
 

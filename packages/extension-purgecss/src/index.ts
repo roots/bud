@@ -1,5 +1,6 @@
 import PurgeCssPlugin from '@fullhuman/postcss-purgecss'
 import * as wp from 'purgecss-with-wordpress'
+import type Framework from '@roots/bud-typings'
 
 export const boot: Framework.Extension.Boot = (
   instance: Framework.Bud,

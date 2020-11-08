@@ -1,7 +1,7 @@
 import React, {FunctionComponent} from 'react'
 import {Box, Text} from 'ink'
 
-const Publish: FunctionComponent<any> = ({file}) => (
+const Publish: FunctionComponent<{file: string}> = ({file}) => (
   <Box
     display="flex"
     margin={1}
