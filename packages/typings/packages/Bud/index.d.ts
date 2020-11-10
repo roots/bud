@@ -1,7 +1,11 @@
-import {BuiltInParserName} from 'prettier'
+import {Build, Env, Logger, Mode, Server, Index} from '..'
 import type {Compiler} from '../../../bud-compiler/src/Compiler'
-
-export {Bud}
+import type {FileContainer, FileSystem} from '@roots/filesystem'
+import type {Hooks} from '../../../bud-hooks/src/Hooks'
+import type {Extensions} from '../../../bud-extensions/src/Extensions'
+import {Extension} from '../../../bud-extensions/src/Extension'
+import {BuiltInParserName} from 'prettier'
+import {Indexed} from '@roots/container'
 
 /**
  * Core unit of the Bud application.
@@ -15,54 +19,46 @@ declare class Bud {
   /**
    * Builds webpack configuration.
    */
-  public build: Framework.Build
-
-  /**
-   * CLI controller interface.
-   *
-   * Gateway to Ink application instance for build and
-   * development reporting.
-   */
-  public cli: Framework.CLI.Controller
+  public build: Build
 
   /**
    * Interface wrapping the webpack compiler.
    */
-  public compiler: Compiler.Abstract
+  public compiler: Compiler.Contract
 
   /**
    * FS instance.
    */
-  public disk: Framework.FileSystem
+  public disk: FileSystem
 
   /**
    * Env variables.
    *
    * @note frozen
    */
-  public env: Framework.Env
+  public env: Env
 
   /**
    * Filesystem interface.
    *
    * Used for interacting with project, framework and extension files.
    */
-  public fs: Framework.FileContainer
+  public fs: FileContainer
 
   /**
    * Extensions controller.
    */
-  public extensions: Framework.Extensions
+  public extensions: Extensions.Contract
 
   /**
    * Hooks system.
    */
-  public hooks: Framework.Hooks
+  public hooks: Hooks.Contract
 
   /**
    * Logger
    */
-  public logger: Framework.Logger
+  public logger: Logger
 
   /**
    * Simple container interface for querying and
@@ -70,7 +66,58 @@ declare class Bud {
    *
    * @see {Webpack.Mode}
    */
-  public mode: Framework.Mode
+  public mode: Mode
+
+  /**
+   * Preset configuration items.
+   */
+  public presets: Indexed
+
+  /**
+   * Run the build.
+   */
+  public run(): void
+
+  /**
+   * WDS wrapper.
+   */
+  public server: Server
+
+  /**
+   * Simple utilities.
+   * @deprecated
+   */
+  public util: Util
+
+  /**
+   * Construct
+   */
+  public constructor(params?: ConstructorOptions)
+
+  /**
+   * Returns a proxy of this class.
+   * Allows running functions calls, accessors and setters through the logger.
+   */
+  public getInstance(this: Bud): Bud
+
+  /**
+   * Bind and assign functions to Bud.
+   */
+  public mapCallables(callables: Index<CallableFunction>): void
+
+  /**
+   * When
+   */
+  public when: When
+
+  /**
+   * Make a new container.
+   */
+  public makeContainer(
+    repository?: Container.Repository,
+  ): Indexed
+
+  public when: When
 
   /**
    * Run the build.
@@ -78,32 +125,19 @@ declare class Bud {
   public run: () => void
 
   /**
-   * WDS wrapper.
+   * Map containers.
    */
-  public server: Framework.Server
+  public mapContainers(containers: Index<Index<unknown>>): void
 
   /**
-   * Simple utilities.
-   * @deprecated
+   * Map builders.
    */
-  public util: Framework.Util
+  public mapBuilders(builders: Index<BuilderDefinition>): void
 
   /**
-   * Construct
+   * Map services.
    */
-  public constructor(params?: {
-    api?: Framework.Index<[string, CallableFunction]>
-    builders?: any
-    containers?: Framework.Index<Framework.Index<any>>
-    services?: any
-  })
-
-  /**
-   * Bind and assign functions to Bud.
-   */
-  public mapCallables(
-    callables: Framework.Index<CallableFunction>,
-  ): void
+  public mapServices(services: Index<Service>): void
 }
 
 export type Util = {
@@ -118,28 +152,40 @@ export type Pretty = (
 
 export type Format = (obj: unknown, options?) => string
 
-export type Builders = Array<
-  [
-    Framework.Index<any>,
-    (
-      this: Bud,
-      [name, loader]: [
-        string,
-        (
-          | Framework.Build.Loader
-          | Framework.Item.Module
-          | Framework.Rule.Module
-        ),
-      ],
-    ) => void,
-  ]
->
-
-export interface Services {
-  (this: Framework.Bud): {
-    [key: string]: [
-      service: NewableFunction,
-      dependenies?: Framework.Index<any>,
-    ]
-  }
+export type Service = {
+  (bud?: Bud): unknown
 }
+
+export type BuilderDefinition<T = any> = [
+  Index<T>,
+  BuilderDefinition.Initializer<T>,
+]
+
+export namespace BuilderDefinition {
+  export interface Args<Type> {
+    this: Bud
+    definition: [string, Type]
+  }
+
+  export type Initializer<Type> = (
+    this: Bud,
+    [name, object]: [string, Type],
+  ) => void
+}
+
+export declare type When = (
+  this: Bud,
+  testCase: boolean,
+  trueCase: (bud: Bud) => unknown,
+  falseCase?: (bud: Bud) => unknown,
+) => Bud
+
+export declare interface ConstructorOptions {
+  api?: Index<CallableFunction>
+  containers?: Index<Index<any>>
+  builders?: Index<BuilderDefinition>
+  plugins?: Index<Extension.Interface>
+  services?: Index<Service>
+}
+
+export {Bud}

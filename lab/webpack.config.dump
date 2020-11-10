@@ -1,5 +1,5 @@
 module.exports = () => ({
-  entry: { foo: [ 'foo.js' ] },
+  entry: { foo: [ 'foo.js', 'foo.scss' ] },
   mode: 'production',
   node: {
     module: 'empty',
@@ -16,11 +16,21 @@ module.exports = () => ({
     __filename: 'mock',
     __dirname: 'mock'
   },
-  stats: true,
   target: 'web',
   context: '/Users/kellymears/code/projects/cli/bud/bud/lab/src',
   module: {
     rules: [
+      {
+        enforce: 'pre',
+        exclude: [ /(node_modules|bower_components)/, /bud/ ],
+        test: /\.(js|jsx)$/,
+        use: [
+          {
+            ident: 'eslint',
+            loader: '/Users/kellymears/code/projects/cli/bud/bud/packages/extension-eslint/node_modules/eslint-loader/dist/cjs.js'
+          }
+        ]
+      },
       {
         oneOf: [
           {
@@ -28,21 +38,13 @@ module.exports = () => ({
             test: /\.css$/,
             use: [
               {
-                ident: 'thread',
-                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/thread-loader/dist/cjs.js'
-              },
-              {
-                ident: 'vue',
-                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/vue-loader/lib/index.js'
-              },
-              {
                 ident: 'style',
                 loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/style-loader/dist/cjs.js'
               },
               {
                 ident: 'css',
                 loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/css-loader/dist/cjs.js',
-                options: { importLoaders: 1 }
+                options: { importLoaders: 2 }
               },
               {
                 ident: 'postcss',
@@ -57,13 +59,18 @@ module.exports = () => ({
                           autoprefixer: { flexbox: 'no-2009' },
                           stage: 3
                         }
-                      ]
+                      ],
+                      {
+                        version: '7.0.35',
+                        postcssPlugin: 'tailwind',
+                        postcssVersion: '7.0.35'
+                      }
                     ]
                   }
                 }
               },
               {
-                ident: 'resolveUrl',
+                ident: 'resolve-url',
                 loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/resolve-url-loader/index.js',
                 options: { sourceMap: true }
               }
@@ -89,23 +96,26 @@ module.exports = () => ({
           {
             test: /\.(png|svg|jpg|jpeg|gif)$/,
             use: [
-              "<<Circular reference to 'config.module.rules.[0].oneOf.[1].use.[0]'>>"
+              "<<Circular reference to 'config.module.rules.[1].oneOf.[1].use.[0]'>>"
             ]
           },
           {
             exclude: /(node_modules|bower_components)/,
             test: /\.(js|jsx)$/,
             use: [
-              "<<Circular reference to 'config.module.rules.[0].oneOf.[0].use.[0]'>>",
+              {
+                ident: 'thread',
+                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/thread-loader/dist/cjs.js'
+              },
+              {
+                ident: 'cache',
+                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/cache-loader/dist/cjs.js'
+              },
               {
                 ident: 'babel',
                 loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/babel-loader/lib/index.js',
                 options: {
-                  presets: [
-                    [
-                      '/Users/kellymears/code/projects/cli/bud/bud/node_modules/@babel/preset-env/lib/index.js'
-                    ]
-                  ],
+                  presets: [ '@babel/preset-react' ],
                   plugins: [
                     [
                       '/Users/kellymears/code/projects/cli/bud/bud/node_modules/@babel/plugin-transform-runtime/lib/index.js'
@@ -119,7 +129,7 @@ module.exports = () => ({
                   ]
                 }
               },
-              "<<Circular reference to 'config.module.rules.[0].oneOf.[2].use'>>"
+              "<<Circular reference to 'config.module.rules.[1].oneOf.[2].use'>>"
             ]
           },
           {
@@ -130,12 +140,28 @@ module.exports = () => ({
                 loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/resolve-url-loader/index.js'
               }
             ]
+          },
+          {
+            exclude: /(node_modules|bower_components)/,
+            test: /\.(scss|sass)$/,
+            use: [
+              "<<Circular reference to 'config.module.rules.[1].oneOf.[0].use.[0]'>>",
+              "<<Circular reference to 'config.module.rules.[1].oneOf.[0].use.[1]'>>",
+              "<<Circular reference to 'config.module.rules.[1].oneOf.[0].use.[2]'>>",
+              {
+                ident: 'sass',
+                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/sass-loader/dist/cjs.js',
+                options: {
+                  implementation: {
+                    info: 'node-sass\t4.14.1\t(Wrapper)\t[JavaScript]\n' +
+                      'libsass  \t3.5.5\t(Sass Compiler)\t[C/C++]'
+                  }
+                }
+              },
+              "<<Circular reference to 'config.module.rules.[1].oneOf.[0].use.[3]'>>"
+            ]
           }
         ]
-      },
-      {
-        test: /\.vue$/,
-        use: "<<Circular reference to 'config.module.rules.[0].oneOf.[0].use.[1]'>>"
       }
     ],
     unknownContextRequest: '.',
@@ -183,15 +209,12 @@ module.exports = () => ({
       cleanOnceBeforeBuildPatterns: [ '**/*', '!dll/*' ],
       outputPath: '/Users/kellymears/code/projects/cli/bud/bud/lab/dist'
     },
-    { ignorePatterns: [ /\.*\.css.?\.js/, /^\.\/locale$/, /moment$/ ] },
+    { ignorePatterns: [ /\.*\.css.\.js/, /^\.\/locale$/, /moment$/ ] },
     {
       outputPath: '/Users/kellymears/code/projects/cli/bud/bud/lab',
       name: 'webpack.config.dump',
       depth: 4,
       keepCircularReferences: true
-    },
-    {
-      definitions: { PUBLIC_URL: '/', APP_NAME: 'App', APP_DESCRIPTION: 'Test' }
     },
     {
       opts: {
@@ -242,8 +265,7 @@ module.exports = () => ({
     }
   ],
   resolve: {
-    alias: { 'vue$': 'vue/dist/vue.esm.js' },
-    extensions: [ '.wasm', '.mjs', '.js', '.json', '.css', '.vue' ],
+    extensions: [ '.scss', '.mjs', '.js', '.json', '.css' ],
     modules: [
       '/Users/kellymears/code/projects/cli/bud/bud/lab/src',
       '/Users/kellymears/code/projects/cli/bud/bud/lab',

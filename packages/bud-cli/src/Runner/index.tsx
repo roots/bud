@@ -1,15 +1,15 @@
 import React from 'react'
 import {render, Instance} from 'ink'
-import Compile from './containers/Compile'
-import {Serve} from './containers/Serve'
+import Compile from '../containers/Compile'
+import {Serve} from '../containers/Serve'
 import type {Bud} from '@roots/bud-typings'
 
-export class Build {
+export class Runner {
   public bud: Bud
   public instance: Instance
 
-  constructor(props: {bud: Bud}) {
-    this.bud = props.bud
+  constructor(bud: Bud) {
+    this.bud = bud
   }
 
   public run = function (): void {

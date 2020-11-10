@@ -1,38 +1,29 @@
-import {Webpack} from '@roots/bud-typings'
+import type Webpack from 'webpack'
 import {VueLoaderPlugin} from 'vue-loader'
+import {Extension} from '../../bud-extensions'
 
 /** Patched compiler.*/
 /* eslint-disable */
 const compiler = require('./vue-template-compiler/index')
 
-/**
- * Register loader
- */
-export const registerLoader = [
-  'vue',
-  require.resolve('vue-loader'),
-]
+export const registerLoaders: Extension.Interface['registerLoaders'] = {
+  vue: require.resolve('vue-loader'),
+}
 
-/**
- * Register RuleSetUseItem
- */
-export const registerItem = [
-  'vue',
-  {
+export const registerItems: Extension.Interface['registerItems'] = {
+  vue: {
     ident: 'vue',
     loader: 'vue',
     options: {
       compiler,
     },
   },
-]
+}
 
 /**
  * Boot the Vue extension.
  */
-export const boot: Framework.Extension.Boot = (
-  bud: Framework.Bud,
-) => {
+export const boot: Extension.Interface['boot'] = bud => {
   /**
    * Add vue loader style rules.
    */
@@ -40,9 +31,9 @@ export const boot: Framework.Extension.Boot = (
     rule =>
       bud.build.rules.has(rule) &&
       bud.build.rules.mutate(`${rule}.use`, use => [
-        ...use.slice(0, 1),
+        ...use.splice(0, 1),
         bud.build.items.get('vue'),
-        ...use.slice(2),
+        ...use.splice(1),
       ]),
   )
 
@@ -68,26 +59,20 @@ export const boot: Framework.Extension.Boot = (
   /**
    * Register vue-loader-plugin.
    */
-  bud.extensions.register('vue-loader-plugin', {
-    make: function () {
-      return new VueLoaderPlugin()
-    },
+  bud.extensions.set('vue-loader-plugin', {
+    make: new VueLoaderPlugin(),
   })
 
-  /**
-   * Support vue as an alias
-   */
-  bud.alias({vue$: 'vue/dist/vue.esm.js'})
-
-  /**
-   * Resolve the vue file extension.
-   */
-  bud.when(
-    !bud.build.config.get('resolve.extensions').includes('.vue'),
-    bud =>
-      bud.build.config.mutate('resolve.extensions', ext => [
-        ...ext,
-        '.vue',
-      ]),
-  )
+  bud
+    .alias({vue$: 'vue/dist/vue.esm.js'})
+    .when(
+      !bud.build.config
+        .get('resolve.extensions')
+        .includes('.vue'),
+      () =>
+        bud.build.config.mutate('resolve.extensions', ext => [
+          ...ext,
+          '.vue',
+        ]),
+    )
 }

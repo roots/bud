@@ -15,7 +15,7 @@ class Server implements Server.Interface {
 
   public config: Server.Config = config
 
-  public constructor({bud}: Bud) {
+  public constructor(bud: Bud) {
     this.setConfig = this.setConfig.bind(this)
     this.addMiddleware = this.addMiddleware.bind(this)
     this.addDevMiddleware = this.addDevMiddleware.bind(this)
@@ -118,11 +118,6 @@ class Server implements Server.Interface {
  */
 declare namespace Server {
   interface Interface {
-    /**
-     * Bud
-     */
-    bud: Bud
-
     /**
      * Express instance.
      */

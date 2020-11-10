@@ -2,15 +2,13 @@ import webpack, {ProgressPlugin} from 'webpack'
 import type Webpack from 'webpack'
 import type {Bud} from '@roots/bud-typings'
 
-export type Base = Compiler.Abstract
-
-class Compiler implements Base {
+class Compiler implements Compiler.Contract {
   public bud: Bud
 
   public compiler: Webpack.Compiler
 
-  constructor(options: {bud: Bud}) {
-    this.bud = options.bud
+  constructor(bud: Bud) {
+    this.bud = bud
 
     this.get = this.get.bind(this)
     this.set = this.set.bind(this)
@@ -42,13 +40,6 @@ class Compiler implements Base {
 
 declare namespace Compiler {
   /**
-   * Constructor options
-   */
-  export interface Options {
-    bud: Bud
-  }
-
-  /**
    * Compilation callback.
    */
   export type Handler = Webpack.Compiler.Handler
@@ -58,12 +49,10 @@ declare namespace Compiler {
    */
   export type ProgressHandler = ProgressPlugin.Handler
 
-  export class Abstract implements Interface {
-    public bud: Interface['bud']
-
+  export class Contract implements Interface {
     public compiler: Webpack.Compiler
 
-    public constructor({bud}: Options)
+    public constructor(bud: Bud)
 
     public compile(): void
 
@@ -77,8 +66,6 @@ declare namespace Compiler {
   }
 
   export interface Interface {
-    bud: Options['bud']
-
     compiler: Webpack.Compiler
 
     compile(): void

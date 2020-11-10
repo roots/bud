@@ -7,10 +7,17 @@ import path from 'path'
 
 class WordPressExternalsWebpackPlugin {
   public name = 'wordpress-externals'
-  public plugin
-  public externalsPlugin: ExternalsPlugin
+
+  public plugin: {
+    name: string
+    stage: number
+  }
+
   public output: Output
+
   public options: Options
+
+  public externalsPlugin: ExternalsPlugin
 
   constructor(
     options: Options = {

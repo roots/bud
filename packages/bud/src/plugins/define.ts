@@ -1,32 +1,20 @@
-import {DefinePlugin} from 'webpack'
+import {DefinePlugin as Plugin} from 'webpack'
+import type {Extension} from '@roots/bud-extensions'
 
-export const options: OptionsFactory = bud => {
-  return (
-    bud.env
-      .entries()
-      .filter(
-        ([key]: [string, string]) => !key.includes('SECRET'),
-      )
-      .reduce(
-        (acc, [key, value]) => ({
-          ...acc,
-          [key]: value,
-        }),
-        {},
-      ) ?? {}
-  )
-}
+export const make: Make = opt => new Plugin(opt.all())
 
-export const make: Framework.Extension.Make = (opts: Options) =>
-  new DefinePlugin(opts)
+export const when: When = (_bud, opts) =>
+  opts.entries()?.length > 0
 
-export const when: Framework.Extension.When = (_bud, opts) =>
-  opts ? true : false
+export const options: RawOptions = bud =>
+  bud.env
+    .entries()
+    .filter(([k]: [string, unknown]) => !k.includes('SECRET'))
+    .reduce((a, [k, v]) => ({...a, [k]: v}), {})
 
-export type OptionsFactory = (
-  bud: Framework.Bud,
-) => Framework.Index<DefinePlugin.CodeValueObject>
-
-export type Options = Framework.Index<
-  DefinePlugin.CodeValueObject
->
+declare type Make = Extension.Make<Plugin, Options>
+declare type When = Extension.When<Options>
+declare type Options = Extension.Options<RawOptions>
+declare type RawOptions = Extension.RawOptions<{
+  [key: string]: Plugin.CodeValueObject
+}>

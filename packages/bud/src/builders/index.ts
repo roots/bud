@@ -1,54 +1,31 @@
 import type {
-  Bud,
-  Index,
-  Item,
+  BuilderDefinition,
   Build,
+  Item,
   Rule,
 } from '@roots/bud-typings'
 
-import * as loaders from './loaders'
-import * as items from './items'
-import * as rules from './rules'
+import {loaders as loaderDictionary} from './loaders'
+import {items as itemDictionary} from './items'
+import {rules as ruleDictionary} from './rules'
 
-export const builders: Builders = [
-  [
-    loaders,
-    function (
-      this: Bud,
-      [name, loader]: [string, Build.Loader],
-    ): void {
-      this.build.setLoader(name, loader)
-    },
-  ],
-  [
-    items,
-    function (
-      this: Bud,
-      [name, item]: [string, Item.Module],
-    ): void {
-      this.build.setItem(name, item)
-    },
-  ],
-  [
-    rules,
-    function (
-      this: Bud,
-      [name, rule]: [string, Rule.Module],
-    ): void {
-      this.build.setRule(name, rule)
-    },
-  ],
+export const loaders: BuilderDefinition<Build.Loader> = [
+  loaderDictionary,
+  function (args: [string, Build.Loader]): void {
+    this.build.setLoader(...args)
+  },
 ]
 
-export type Builders = Array<
-  [
-    Index<any>,
-    (
-      this: Bud,
-      [name, loader]: [
-        string,
-        Build.Loader | Item.Module | Rule.Module,
-      ],
-    ) => void,
-  ]
->
+export const items: BuilderDefinition<Item.Module> = [
+  itemDictionary,
+  function (args: [string, Item.Module]): void {
+    this.build.setItem(...args)
+  },
+]
+
+export const rules: BuilderDefinition<Rule.Module> = [
+  ruleDictionary,
+  function (args: [string, Rule.Module]): void {
+    this.build.setRule(...args)
+  },
+]

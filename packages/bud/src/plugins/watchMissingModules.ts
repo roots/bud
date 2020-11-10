@@ -1,8 +1,17 @@
-import {WatchMissingNodeModulesPlugin} from '@roots/bud-support'
+import type {Extension} from '@roots/bud-extensions'
+import {WatchMissingNodeModulesPlugin as Plugin} from '@roots/bud-support'
 
-export const options: Framework.Extension.Options = ({
-  project,
-}) => project('node_modules')
+export const options: RawOptions = ({project}) => ({
+  watchDir: project('node_modules'),
+})
 
-export const make: Framework.Extension.Make = (opts: string) =>
-  new WatchMissingNodeModulesPlugin(opts)
+export const make: Make = (opt: PluginOptions) =>
+  new Plugin(opt.get('watchDir'))
+
+declare type Make = Extension.Make<Plugin, PluginOptions>
+
+declare type RawOptions = Extension.RawOptions<{
+  watchDir: string
+}>
+
+declare type PluginOptions = Extension.Options<RawOptions>

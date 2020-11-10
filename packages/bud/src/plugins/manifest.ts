@@ -1,16 +1,19 @@
+import {Extension} from '@roots/bud-extensions'
 import ManifestPlugin from 'webpack-manifest-plugin'
 
-export const options: (
-  bud: Framework.Bud,
-) => ManifestPlugin.Options = ({build}) => ({
+export const options: Extension.RawOptions<ManifestPlugin.Options> = ({
+  build,
+}) => ({
   publicPath: build.config.get('output.publicPath'),
   fileName: 'manifest.json',
   writeToFileEmit: true,
 })
 
-export const make: (
-  opts: ManifestPlugin.Options,
-) => ManifestPlugin = opts => new ManifestPlugin(opts)
+export const make: Extension.Make<
+  ManifestPlugin,
+  ManifestPlugin.Options
+> = (options: ManifestPlugin.Options) =>
+  new ManifestPlugin(options.all())
 
-export const when: Framework.Extension.When = ({features}) =>
+export const when: Extension.When = ({features}) =>
   features.enabled('manifest')

@@ -1,8 +1,8 @@
 import * as api from '@roots/bud-api'
 import * as containers from './containers'
-import * as plugins from './plugins'
-import {builders} from './builders'
-import {services} from './services'
+import * as builders from './builders'
+import * as services from './services'
+import {plugins} from './plugins'
 
 import {Bud as Instance} from '@roots/bud-framework'
 import type {Bud} from '@roots/bud-typings'
@@ -31,7 +31,6 @@ bud
     ({mode}: Bud) => mode.set(args.get('mode')),
     ({mode}: Bud) => mode.set('none'),
   )
-
   .when(
     args.has('project'),
     ({projectPath}: Bud) =>

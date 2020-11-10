@@ -1,5 +1,3 @@
-import '@roots/bud-typings'
-
 import type {
   AcceptedPlugin,
   Syntax,
@@ -7,6 +5,7 @@ import type {
   Parser,
   Stringifier,
 } from 'postcss'
+import type {Bud, Fluent} from '@roots/bud-typings'
 
 export as namespace PostCss
 
@@ -22,21 +21,21 @@ export {
  * PostCss
  */
 export interface PostCss {
-  bud: Framework.Bud
+  bud: Bud
   methods: Array<[string, PostCss.Config]>
-  init: Framework.Fluent<PostCss>
-  next: (this: PostCss) => Framework.Bud
+  init: Fluent<PostCss>
+  next: (this: PostCss) => Bud
 }
 
 /**
  * PostCss configuration utility.
  */
-export type Config = Framework.Fluent<PostCss>
+export type Config = Fluent<PostCss>
 
 /**
  * PostCss configuration utility constructor.
  */
-export type Factory = (bud: Framework.Bud) => PostCss
+export type Factory = (bud: Bud) => PostCss
 
 export interface Options {
   syntax?: Syntax
@@ -54,5 +53,3 @@ export interface PluginTuple {
 export interface PluginStore {
   [key: string]: PluginTuple
 }
-
-export type Adapter = Framework.Extension

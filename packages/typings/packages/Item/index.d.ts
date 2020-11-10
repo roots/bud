@@ -6,13 +6,13 @@ export {Item}
 declare class Item {
   bud: Framework.Bud
 
-  ident?: Item.MaybeCallable<Item.Module.Ident>
+  ident?: Item.Module.Ident
 
-  loader?: Item.MaybeCallable<Item.Module.Loader>
+  loader?: Item.Module.Loader
 
   options?: Item.Module.Options
 
-  query?: Item.MaybeCallable<Item.Module.Query>
+  query?: Item.Module.Query
 
   propMap: () => Framework.Index<
     [Item.Property, Framework.Index<string> | Framework.Bud]

@@ -1,17 +1,27 @@
+import chalk from 'chalk'
 import {lodash as _} from '@roots/bud-support'
-import {errorDependenciesUnmet} from './errors'
 
 export * as api from './api'
 
-// eslint-disable-next-line @typescript-eslint/no-var-requires
-const tailwindcss = require('tailwindcss')
+export const boot = (bud: Framework.Bud): void => {
+  !bud.build.items.get('postcss') &&
+    (() => {
+      Error(
+        [
+          chalk.red.bold('\nDependencies missing\n'),
+          chalk`{bold \`@roots/bud-postcss\` } can't be located.\n Please install the package. If you feel like it is installed you may want to consider running your package manager's install command again\n`,
+        ].join('\n\n'),
+      )
+    })()
 
-export const boot = (instance: Framework.Bud): void => {
-  const error = errorDependenciesUnmet.bind(instance)
-  !instance.extensions.get('postcss') && error()
-
-  instance.build.items.merge(
+  bud.build.items.mutate(
     `postcss.options.postcssOptions.plugins`,
-    tailwindcss(instance.fs.get('tailwind.config.js') ?? null),
+    plugins => [
+      ...plugins,
+      // eslint-disable-next-line @typescript-eslint/no-var-requires
+      require('tailwindcss')(
+        bud.fs.get('tailwind.config.js') ?? null,
+      ),
+    ],
   )
 }

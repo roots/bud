@@ -5,5 +5,5 @@ export const project: Framework.API.Project = function (
     ? this.disk.get('project')
       ? this.disk.current.get(segment)
       : this.fs.path.join(process.cwd(), segment)
-    : this.disk.get('project').base ?? process.cwd()
+    : this.disk.get('project').getBase() ?? process.cwd()
 }

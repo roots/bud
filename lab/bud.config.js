@@ -8,16 +8,20 @@ bud
     '@roots/bud-babel',
     '@roots/bud-eslint',
     '@roots/bud-postcss',
+    '@roots/bud-sass',
+    '@roots/bud-tailwindcss',
     '@roots/bud-wordpress-manifests',
     '@roots/bud-react',
-    '@roots/bud-vue',
   ])
 
   .library(['react', 'react-dom'])
 
-  .entry('foo', ['foo.js'])
+  .entry('foo', ['foo.js', 'foo.scss'])
 
   .minify()
 
-  // console.log(bud.extensions.get('@roots/bud-babel').boot(bud))
   .run()
+
+/* console.log(bud.disk.get('@roots/bud-eslint').get())
+console.log(bud.extensions.get('@roots/bud-eslint').all())
+ */

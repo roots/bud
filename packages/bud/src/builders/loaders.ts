@@ -1,11 +1,13 @@
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
-export const css = require.resolve('css-loader')
-export const file = require.resolve('file-loader')
-export const minicss = MiniCssExtractPlugin.loader
-export const raw = require.resolve('raw-loader')
-export const resolveUrl = require.resolve('resolve-url-loader')
-export const style = require.resolve('style-loader')
-export const url = require.resolve('url-loader')
-export const cache = require.resolve('cache-loader')
-export const thread = require.resolve('thread-loader')
+export const loaders = {
+  [`css-loader`]: require.resolve('css-loader'),
+  [`file-loader`]: require.resolve('file-loader'),
+  [`mini-css-loader`]: MiniCssExtractPlugin.loader,
+  [`raw-loader`]: require.resolve('raw-loader'),
+  [`resolve-url-loader`]: require.resolve('resolve-url-loader'),
+  [`style-loader`]: require.resolve('style-loader'),
+  [`url-loader`]: require.resolve('url-loader'),
+  [`cache-loader`]: require.resolve('cache-loader'),
+  [`thread-loader`]: require.resolve('thread-loader'),
+}

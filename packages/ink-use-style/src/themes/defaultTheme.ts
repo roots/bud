@@ -1,4 +1,4 @@
-import type {Theme} from '../types'
+import type {Theme} from './'
 
 export const spacing: Theme['spacing'] = 1
 

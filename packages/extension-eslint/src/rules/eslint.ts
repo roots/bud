@@ -10,4 +10,4 @@ export const enforce: Framework.Rule.Enforce = 'pre'
 
 export const use: Framework.Rule.Factory<Framework.Rule.Use> = ({
   build,
-}) => [build.getItem('eslint')]
+}) => [build.items.get('eslint')]

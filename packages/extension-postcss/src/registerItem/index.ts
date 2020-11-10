@@ -1,6 +1,6 @@
 export const ident: Framework.Item['ident'] = 'postcss'
 
-export const loader: Framework.Item['loader'] = 'postcss'
+export const loader: Framework.Item['loader'] = 'postcss-loader'
 
 export const options: Framework.Item['options'] = (
   bud: Framework.Bud,

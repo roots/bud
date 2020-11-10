@@ -1,5 +1,5 @@
 import {HotModuleReplacementPlugin} from 'webpack'
-import type {Extension} from '@roots/bud-typings'
+import type {Extension} from '@roots/bud-extensions'
 
 export const make: Extension.Make = () =>
   new HotModuleReplacementPlugin()

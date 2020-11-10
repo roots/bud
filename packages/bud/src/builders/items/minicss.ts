@@ -1,2 +1,2 @@
-export const ident: Framework.Item['ident'] = 'minicss'
-export const loader: Framework.Item['loader'] = 'minicss'
+export const ident: Framework.Item['ident'] = 'mini-css'
+export const loader: Framework.Item['loader'] = 'mini-css-loader'

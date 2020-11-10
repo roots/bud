@@ -52,24 +52,6 @@ export namespace API {
   export type SrcPath = Framework.Fluent<Framework.Bud>
 
   /**
-   * Add a webpack plugin.
-   * @param
-   */
-  export type AddPlugin =
-    | Framework.Fluent<
-        Framework.Bud,
-        string,
-        Framework.Extension.Make,
-        Framework.Extension.Conditional
-      >
-    | ((
-        this: Framework.Bud,
-        name: string,
-        make: Framework.Extension.Make,
-        when?: Framework.Extension.Conditional,
-      ) => Framework.Bud)
-
-  /**
    * Alias windows variables or path shorthands.
    * @see {Webpack.Configuration['alias']}
    */
@@ -183,41 +165,6 @@ export namespace API {
     this: Framework.Bud,
     options: Options.Template,
   ) => Framework.Bud
-
-  /**
-   * Register an extension or set of extensions to use.
-   *
-   * Extensions can be specified by:
-   *
-   * - a resolvable package name
-   * - an array of resolvable package names
-   * - a module path
-   * - an array of module paths
-   * - extension object formatted as a tuple [extension name, object]
-   * - an array of extension objects in the same tuple format.
-   */
-  export type Use =
-    | Framework.Fluent<Framework.Bud>
-    | ((
-        this: Framework.Bud,
-        extensions:
-          | string
-          | string[]
-          | [
-              string,
-              (
-                | Framework.Extension
-                | ((bud: Framework.Bud) => Framework.Extension)
-              ),
-            ]
-          | [
-              string,
-              (
-                | Framework.Extension
-                | ((bud: Framework.Bud) => Framework.Extension)
-              ),
-            ][],
-      ) => Framework.Bud)
 
   /**
    * Separate vendor code from application code.

@@ -1,6 +1,6 @@
 import React from 'react'
 import {render} from 'ink'
-import {Error as Component} from './containers/Error'
+import {Error as Component} from '../containers/Error'
 
 declare interface Error {
   (body?: string, title?: string): void

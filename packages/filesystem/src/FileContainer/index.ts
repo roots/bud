@@ -7,9 +7,9 @@ import __ from 'lodash'
 import {Indexed} from '@roots/container'
 
 export class FileContainer extends Indexed {
-  public fs: typeof fs = fs
+  public fs: typeof fs
 
-  public repository: Container.Repository
+  public repository: Container.Repository<string>
 
   public glob: typeof globby = globby
 
@@ -23,6 +23,8 @@ export class FileContainer extends Indexed {
 
   constructor(baseDir?: string) {
     super()
+
+    this.fs = fs
 
     this.setBase = this.setBase.bind(this)
     this.exists = this.exists.bind(this)

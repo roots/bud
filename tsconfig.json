@@ -37,7 +37,7 @@
     {"@roots/bud-purgecss": "extension-purgecss"},
     {"@roots/bud-react": "extension-react"},
     {"@roots/bud-sass": "extension-sass"},
-    {"@roots/bud-stylelint": "extensions-stylelint"},
+    {"@roots/bud-stylelint": "extension-stylelint"},
     {"@roots/bud-tailwindcss": "extension-tailwindcss"},
     {"@roots/bud-typescript": "extension-typescript"},
     {"@roots/bud-vue": "extension-vue"},

@@ -8,6 +8,7 @@ export const general: Framework.Build.General = function ({
   watch,
   context,
   devtool,
+  performance,
 }) {
   return {
     mode: this.hooks.filter(
@@ -39,6 +40,11 @@ export const general: Framework.Build.General = function ({
       'webpack.context',
       context,
     ) as Webpack.Configuration['context'],
+
+    performance: this.hooks.filter(
+      'webpack.performance',
+      performance ?? {},
+    ) as Webpack.Configuration['performance'],
 
     devtool: this.hooks.filter(
       'webpack.devtool',

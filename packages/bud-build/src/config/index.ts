@@ -25,11 +25,11 @@ export const plugins: Configuration['plugins'] = []
 
 export const profile: Configuration['profile'] = false
 
-export const stats: Configuration['stats'] = true
+export const stats: Configuration['stats'] = false
 
 export const target: Configuration['target'] = 'web'
 
-export const bail: Configuration['bail'] = false
+export const bail: Configuration['bail'] = true
 
 export const parallelism: Configuration['parallelism'] = 1
 

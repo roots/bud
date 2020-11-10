@@ -1,8 +1,10 @@
 import HtmlHardDiskPlugin from 'html-webpack-harddisk-plugin'
+import type {Extension} from '@roots/bud-extensions'
 
-export const make: Framework.Extension.Make = () =>
-  new HtmlHardDiskPlugin()
+export const options: Extension.Options = null
 
-export const when: Framework.Extension.When = ({features}) => {
-  return features.enabled('html')
-}
+export const make: Extension.Make = opts =>
+  new HtmlHardDiskPlugin(opts)
+
+export const when: Extension.When = ({features}) =>
+  features.enabled('html')

@@ -1,9 +1,9 @@
+import type {Bud} from '@roots/bud-typings'
+
 /**
  * @constructs Framework.Mode
  */
-export const Mode = function ({
-  bud,
-}: Framework.Index<Framework.Bud>): void {
+export const Mode = function (bud: Bud): void {
   this.bud = bud
   this.mode = bud.build.config.get('mode')
 

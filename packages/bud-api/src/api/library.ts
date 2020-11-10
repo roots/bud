@@ -7,19 +7,19 @@ export const library: Framework.API.Library = function (
 ) {
   this.use([
     [
-      'dll',
+      'autodll-webpack-plugin',
       {
-        make: () =>
-          new AutoDllPlugin({
-            inject: true,
-            filename: '[name].[hash].js',
-            entry: {
-              library: modules,
-            },
-            path: 'dll',
-            inherit: true,
-            context: this.project(),
-          }),
+        options: {
+          inject: true,
+          filename: '[name].[hash].js',
+          entry: {
+            library: modules,
+          },
+          path: 'dll',
+          inherit: true,
+          context: this.project(),
+        },
+        make: options => new AutoDllPlugin(options.all()),
       },
     ],
   ])

@@ -1,3 +1,4 @@
+import {Extension} from '@roots/bud-extensions'
 import TerserPlugin, {
   TerserPluginOptions,
 } from 'terser-webpack-plugin'
@@ -25,9 +26,9 @@ export const options: TerserPluginOptions = {
   parallel: true,
 }
 
-export const make: Framework.Extension.Make = (
-  opts: TerserPluginOptions,
-) => new TerserPlugin(opts)
+export const make: Extension.Make = (
+  options: Extension.Options<TerserPluginOptions>,
+) => new TerserPlugin(options.all())
 
-export const when: Framework.Extension.When = ({features}) =>
+export const when: Extension.When = ({features}) =>
   features.enabled('minify')

@@ -1,2 +1,2 @@
-export {Build} from './Build'
+export {Runner} from './Runner'
 export {Error} from './Error'

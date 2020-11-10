@@ -1,6 +1,6 @@
 export const ident: Framework.Item['ident'] = 'sass'
 
-export const loader: Framework.Item['loader'] = 'sass'
+export const loader: Framework.Item['loader'] = 'sass-loader'
 
 export const options: Framework.Item['options'] = {
   implementation: (() => {

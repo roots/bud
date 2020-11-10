@@ -25,7 +25,9 @@ export const boot = (instance: Framework.Bud): void => {
     !instance.build.config
       .get('resolve.extensions')
       .includes(ext) &&
-      instance.build.config.merge('resolve.extensions', [ext])
+      instance.build.config.merge('resolve.extensions', [
+        `.${ext}`,
+      ])
   })
 }
 
@@ -33,6 +35,6 @@ export const boot = (instance: Framework.Bud): void => {
  * Register sass loader
  */
 export const registerLoader = [
-  'sass',
+  'sass-loader',
   require.resolve('sass-loader'),
 ]

@@ -1,24 +1,27 @@
 import {eslintFormatter as formatter} from '@roots/bud-support'
 
-export const boot: Framework.Extension.Register = bud => {
+export const options = bud => {
   const project = bud.disk.get('project')
-  const extension = bud.disk.get('@roots/bud-eslint')
 
   const configPath = project.has('eslintrc.js')
     ? project.get('eslintrc.js')
-    : extension.get('lib/presets/roots.js')
+    : project.has('eslint.config.js')
+    ? project.get('eslint.config.js')
+    : project.has('.eslintrc')
+    ? project.get('eslintrc')
+    : ''
 
-  bud.extensions.setOptions('@roots/bud-eslint', {
+  return {
     eslintPath: require.resolve('eslint'),
     configPath,
     formatter,
     failOnError: true,
     fix: false,
-  })
+  }
 }
 
 export const registerLoader = [
-  'eslint',
+  'eslint-loader',
   require.resolve('eslint-loader'),
 ]
 

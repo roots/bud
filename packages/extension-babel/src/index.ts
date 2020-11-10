@@ -1,20 +1,19 @@
 import * as babel from './babel'
 import {babelConfig} from './api'
+import {Bud} from '@roots/bud-typings'
 
-export const api = (instance: Framework.Bud): any => ({
-  babel: babelConfig(instance).init(),
-})
+export const registerItems = {babel}
 
-export const boot = ({build}: Framework.Bud): void =>
-  build.rules.set('js.use', [
-    ...build.rules.get('js.use').slice(0, 1),
-    build.getItem('babel'),
-    ...build.rules.get('js.use').slice(2),
+export const registerLoaders = {
+  [`babel-loader`]: require.resolve('babel-loader'),
+}
+
+export function boot(bud: Bud): void {
+  bud.babel = babelConfig(bud).init()
+
+  bud.build.rules.set('js.use', [
+    ...bud.build.rules.get('js.use').slice(0, 2),
+    bud.build.items.get('babel'),
+    ...bud.build.rules.get('js.use').slice(2),
   ])
-
-export const registerItem = [babel.ident, babel]
-
-export const registerLoader = [
-  'babel',
-  require.resolve('babel-loader'),
-]
+}

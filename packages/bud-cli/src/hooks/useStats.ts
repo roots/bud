@@ -7,10 +7,14 @@ export const useStats: UseStats.Hook = () => {
     React.Dispatch<UseStats.Stats>,
   ] = useState<UseStats.Stats>(null)
 
-  const handler: UseStats.Handler = useCallback(
-    (_err, stats) => setStats(stats.toJson()),
-    [],
-  )
+  const handler: UseStats.Handler = useCallback((err, stats) => {
+    if (err) {
+      console.log(err)
+      throw Error('Whoops')
+    }
+
+    setStats(stats.toJson())
+  }, [])
 
   return [stats, handler]
 }

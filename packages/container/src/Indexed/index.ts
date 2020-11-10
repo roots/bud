@@ -1,5 +1,4 @@
 import _ from 'lodash'
-import {instance} from '../instance'
 import {Container} from '../Container'
 
 export class Indexed extends Container {
@@ -7,21 +6,13 @@ export class Indexed extends Container {
 
   constructor(repository?: Container.KeyedRepository) {
     super(repository || {})
-
-    Object.getOwnPropertyNames(this)
-      .filter(name => name !== 'repository')
-      .forEach(name =>
-        Object.defineProperty(this, name, {enumerable: false}),
-      )
-
-    return instance.bind(this)()
   }
 
   public push(key: string, item: Container.Item): void {
     this.repository[key].push(item)
   }
 
-  public get: Container.Get = function (key: string) {
+  public get: Container.Get = function (key: string[]) {
     return _.get(this.repository, key)
   }
 
@@ -79,8 +70,17 @@ export class Indexed extends Container {
     Object.values(this.get(key)).forEach(handler)
   }
 
-  public all: Container.Transform = function () {
-    return this.repository
+  public all: Container.Transform = function (
+    args?: Container.Repository,
+  ) {
+    return args ? (this.repository = args) : this.repository
+  }
+
+  public setRepository = function (
+    values: Container.Repository,
+  ): Container {
+    this.repository = values
+    return this
   }
 
   public entries: Container.Transform<

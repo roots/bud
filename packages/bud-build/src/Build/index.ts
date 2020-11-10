@@ -4,23 +4,23 @@ import {Item} from '../Item'
 import {Rule} from '../Rule'
 
 import type Webpack from 'webpack'
-import Framework, {Bud, Index, Indexed} from '@roots/bud-typings'
+import type Framework from '@roots/bud-typings'
 
 export class Build implements Framework.Build {
-  public bud: Bud
+  public bud: Framework.Bud
 
   public builders: Partial<Framework.Build.Builders> = builders
 
-  public loaders: Indexed
+  public loaders: Framework.Indexed
 
-  public items: Indexed
+  public items: Framework.Indexed
 
-  public rules: Indexed
+  public rules: Framework.Indexed
 
-  public config: Indexed
+  public config: Framework.Indexed
 
-  public constructor(params?: Index<Framework.Bud>) {
-    this.bud = params.bud
+  public constructor(bud: Framework.Bud) {
+    this.bud = bud
     this.config = this.bud.makeContainer(config)
     this.loaders = this.bud.makeContainer({})
     this.items = this.bud.makeContainer({})
@@ -42,7 +42,9 @@ export class Build implements Framework.Build {
     return this.filterEmpty(config)
   }
 
-  public filterEmpty(object: Index<any>): {[key: string]: any} {
+  public filterEmpty(
+    object: Framework.Index<any>,
+  ): {[key: string]: any} {
     return Object.entries(object).reduce((acc, [key, value]) => {
       return !value || value == {} ? acc : {...acc, [key]: value}
     }, {})
@@ -53,6 +55,7 @@ export class Build implements Framework.Build {
   }
 
   public setLoader(
+    this: Build,
     name: string,
     loader: Framework.Build.Loader,
   ): Framework.Build.Loader {

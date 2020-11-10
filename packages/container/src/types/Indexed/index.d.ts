@@ -1,9 +1,9 @@
 import {Container} from '../'
 
-export declare class Indexed extends Container {
+export declare class Indexed<T = unknown> extends Container {
   repository: Container.KeyedRepository
 
-  constructor(repository?: Container.KeyedRepository)
+  constructor(repository?: Container.KeyedRepository<T>)
 
   /**
    * Push an entry onto an arrayed repository item.
@@ -71,6 +71,11 @@ export declare class Indexed extends Container {
    * Return the entire repository contents
    */
   all: Container.Transform
+
+  /**
+   * Completely replace the repository values.
+   */
+  setRepository: (value: Container.Repository) => this
 
   /**
    * Return repository contents as a tuple (object.entries)
