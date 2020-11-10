@@ -12,3 +12,4 @@
 // export const unknownContextRegExp = null
 
 export const rules: Framework.Webpack.Configuration['module']['rules'] = []
+export const noParse: Framework.Webpack.Configuration['module']['noParse'] = /jquery|lodash|moment|react|vue/

@@ -1,4 +1,4 @@
-import {Webpack} from '@roots/bud-typings'
+import {Build} from '@roots/bud-typings'
 
 export const general: Framework.Build.General = function ({
   mode,
@@ -9,46 +9,45 @@ export const general: Framework.Build.General = function ({
   context,
   devtool,
   performance,
-}) {
-  return {
-    mode: this.hooks.filter(
+}): Build.Configuration {
+  return this.hooks.filter<Build.Configuration>('webpack', {
+    mode: this.hooks.filter<Build.Configuration['mode']>(
       'webpack.mode',
       mode,
-    ) as Webpack.Configuration['mode'],
+    ),
 
-    node: this.hooks.filter(
+    node: this.hooks.filter<Build.Configuration['node']>(
       'webpack.node',
       node,
-    ) as Webpack.Configuration['node'],
+    ),
 
-    stats: this.hooks.filter(
+    stats: this.hooks.filter<Build.Configuration['stats']>(
       'webpack.stats',
       stats,
-    ) as Webpack.Configuration['stats'],
+    ),
 
-    target: this.hooks.filter(
+    target: this.hooks.filter<Build.Configuration['target']>(
       'webpack.target',
       target,
-    ) as Webpack.Configuration['target'],
+    ),
 
-    watch: this.hooks.filter(
+    watch: this.hooks.filter<Build.Configuration['watch']>(
       'webpack.watch',
       watch,
-    ) as Webpack.Configuration['watch'],
+    ),
 
-    context: this.hooks.filter(
+    context: this.hooks.filter<Build.Configuration['context']>(
       'webpack.context',
       context,
-    ) as Webpack.Configuration['context'],
+    ),
 
-    performance: this.hooks.filter(
-      'webpack.performance',
-      performance ?? {},
-    ) as Webpack.Configuration['performance'],
+    performance: this.hooks.filter<
+      Build.Configuration['performance']
+    >('webpack.performance', performance),
 
-    devtool: this.hooks.filter(
+    devtool: this.hooks.filter<Build.Configuration['devtool']>(
       'webpack.devtool',
-      devtool ?? false,
-    ) as Webpack.Configuration['devtool'],
-  }
+      devtool,
+    ),
+  })
 }

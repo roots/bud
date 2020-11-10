@@ -1,9 +1,9 @@
 export const vendor: Framework.API.Vendor = function (options) {
   options &&
-    this.build.config.set(
+    this.config.set(
       'optimization.splitChunks.cacheGroups.vendor',
       {
-        ...this.build.config.get(
+        ...this.config.get(
           'webpack.optimization.splitChunks.cacheGroups.vendor',
         ),
         ...options,

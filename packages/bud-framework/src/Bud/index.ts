@@ -94,10 +94,7 @@ export default class Bud implements Application {
       get(target, prop) {
         const value = target[prop as string]
 
-        target.logger.info(
-          {prop},
-          `Accessing bud property: ${prop as string}`,
-        )
+        target.logger.info({prop}, `Accessing bud property`)
 
         return typeof value === 'function'
           ? value.bind(target)
@@ -107,7 +104,7 @@ export default class Bud implements Application {
       set(target, prop, val) {
         target.logger.info(
           {prop, val},
-          `Setting bud.${prop.toString()} to ${val.toString()}`,
+          `Setting bud.${prop.toString()}`,
         )
 
         return (target[prop.toString()] = val ? true : false)

@@ -2,9 +2,9 @@ import {Extension} from '@roots/bud-extensions'
 import ManifestPlugin from 'webpack-manifest-plugin'
 
 export const options: Extension.RawOptions<ManifestPlugin.Options> = ({
-  build,
+  config,
 }) => ({
-  publicPath: build.config.get('output.publicPath'),
+  publicPath: config.get('output.publicPath'),
   fileName: 'manifest.json',
   writeToFileEmit: true,
 })

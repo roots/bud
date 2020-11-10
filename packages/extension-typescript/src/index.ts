@@ -49,9 +49,7 @@ export const api = {
 export const boot = (instance: Bud): void => {
   instance.patterns.set('typescript', /\.(ts|tsx)$/)
   ;['ts', 'tsx'].map(ext => {
-    !instance.build.config
-      .get('resolve.extensions')
-      .includes(ext) &&
-      instance.build.config.merge('resolve.extensions', [ext])
+    !instance.config.get('resolve.extensions').includes(ext) &&
+      instance.config.merge('resolve.extensions', [ext])
   })
 }

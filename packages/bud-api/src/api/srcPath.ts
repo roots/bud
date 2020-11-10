@@ -4,7 +4,7 @@ export const srcPath: Framework.API.SrcPath = function (
 ) {
   if (this.args.dist) return this
 
-  this.build.config.set(
+  this.config.set(
     'context',
     this.disk.get('project').get(segment),
   )

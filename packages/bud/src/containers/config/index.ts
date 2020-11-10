@@ -25,7 +25,12 @@ export const plugins: Configuration['plugins'] = []
 
 export const profile: Configuration['profile'] = false
 
-export const stats: Configuration['stats'] = false
+export const recordsPath: Configuration['recordsPath'] = join(
+  process.cwd(),
+  'build.json',
+)
+
+export const stats: Configuration['stats'] = 'none'
 
 export const target: Configuration['target'] = 'web'
 

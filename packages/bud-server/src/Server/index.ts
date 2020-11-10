@@ -73,9 +73,8 @@ class Server implements Server.Interface {
   }
 
   public addHotMiddleware(): this {
-    this.bud.build.config.mutate(
-      'entry',
-      (entry: Webpack.Entry) => injectClient(entry),
+    this.bud.config.mutate('entry', (entry: Webpack.Entry) =>
+      injectClient(entry),
     )
     this.bud.compiler.compile()
 

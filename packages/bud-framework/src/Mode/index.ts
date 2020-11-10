@@ -5,22 +5,21 @@ import type {Bud} from '@roots/bud-typings'
  */
 export const Mode = function (bud: Bud): void {
   this.bud = bud
-  this.mode = bud.build.config.get('mode')
 
   this.get = function (): Framework.Webpack.Configuration['mode'] {
-    return this.mode
+    return this.bud.config.get('mode')
   }
 
   this.set = function (
     mode: Framework.Webpack.Configuration['mode'],
   ): Framework.Bud {
-    this.bud.build.config.set('mode', mode)
+    this.bud.config.set('mode', mode)
     return this.bud
   }
 
   this.is = function (
     check: Framework.Webpack.Configuration['mode'],
   ) {
-    return this.mode === check
+    return this.bud.config.is('mode', check)
   }
 }

@@ -1,10 +1,7 @@
-import {postcssConfig} from './api'
 import {Extension} from '@roots/bud-extensions'
 import * as postcss from './registerItem'
 
 export const boot: Boot = bud => {
-  bud.css = postcssConfig(bud).init()
-
   bud.build.rules.mutate('css.use', css => [
     ...css.splice(0, css.length - 1),
     bud.build.items.get('postcss'),
@@ -12,10 +9,7 @@ export const boot: Boot = bud => {
   ])
 }
 
-export const registerItem: Item = [
-  postcss.ident as string,
-  postcss,
-]
+export const registerItem: Item = ['postcss', postcss]
 
 export const registerLoader: Loader = [
   'postcss-loader',

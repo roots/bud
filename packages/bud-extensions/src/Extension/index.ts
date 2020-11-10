@@ -76,9 +76,9 @@ class Extension extends Indexed implements Extension.Controller {
 
   public fromProp: (
     prop: string,
-    dep?: any,
-  ) => [string, unknown] = function (prop, dep = this.bud) {
-    return this.callMeMaybe(this.module[prop], dep)
+    dep?: unknown[],
+  ) => [string, unknown] = function (prop, ...dep) {
+    return this.callMeMaybe(this.module[prop], ...dep)
   }
 
   public hasModuleProp = function (name: string): boolean {
@@ -133,11 +133,18 @@ class Extension extends Indexed implements Extension.Controller {
     builders.map(([name, handler]) => {
       if (!this.hasModuleProp(name)) return
 
-      isArray(this.fromProp(name))
-        ? handler(...(this.fromProp(name) as [string, unknown]))
-        : Object.entries(this.fromProp(name)).map(([k, v]) => {
-            handler(k, this.callMeMaybe(v, this.bud))
-          })
+      isArray(this.fromProp(name, this.bud))
+        ? handler(
+            ...(this.fromProp(name, this.bud) as [
+              string,
+              unknown,
+            ]),
+          )
+        : Object.entries(this.fromProp(name, this.bud)).map(
+            ([k, v]) => {
+              handler(k, this.callMeMaybe(v, this.bud))
+            },
+          )
     })
   }
 }

@@ -5,7 +5,7 @@ export const distPath: Framework.API.DistPath = function (
   /** Bounce early if dist is overwritten from CLI */
   if (this.args.output) return this
 
-  this.build.config.set('output.path', this.project(segment))
+  this.config.set('output.path', this.project(segment))
 
   return this
 }

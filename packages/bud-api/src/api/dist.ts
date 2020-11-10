@@ -4,8 +4,8 @@ export const dist: Framework.API.Dist = function (
 ) {
   return path
     ? this.fs.path.resolve(
-        this.build.config.get('output.path'),
+        this.config.get('output.path'),
         path as string,
       )
-    : this.build.config.get('output.path')
+    : this.config.get('output.path')
 }

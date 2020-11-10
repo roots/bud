@@ -8,7 +8,7 @@ class Hooks extends Indexed implements Hooks.Contract {
     this.logger = logger
   }
 
-  public on: Hooks.Register = function (name, hook) {
+  public on(name: string, hook: Hooks.Hook<unknown>): this {
     this.repository[name] = this.repository[name]
       ? [this.repository[name], hook]
       : [hook]
@@ -16,16 +16,18 @@ class Hooks extends Indexed implements Hooks.Contract {
     return this
   }
 
-  public filter: Hooks.Filter = function (name, value) {
-    return !this.repository[name]
-      ? value
-      : this.repository[name].reduce(...this.waterfall(value))
+  public action<T = unknown>(name: string, binding: T): void {
+    this.repository[name].map(hook => hook.bind(binding))
   }
 
-  public waterfall: Hooks.Waterfall = data => [
-    (_res, hook) => hook(data),
-    null,
-  ]
+  public filter<T = unknown>(name: string, value: T): T {
+    return !this.repository[name]
+      ? value
+      : this.repository[name].reduce(
+          (val: T, hook: Hooks.Hook<T>) => hook(val),
+          null,
+        )
+  }
 }
 
 /**
@@ -41,14 +43,14 @@ namespace Hooks {
     implements Interface {
     logger: Logger
     constructor({logger}: Options)
-    on: Register
-    filter: Filter
+    on<T>(name: string, hook: Hook<T>): Contract
+    filter<T>(name: string, value: T): T
   }
 
   export interface Interface {
     logger: Logger
-    on: Register
-    filter: Filter
+    on<T>(name: string, hook: Hook<T>): Contract
+    filter<T>(name: string, value: T): T
   }
 
   /**
@@ -77,7 +79,10 @@ namespace Hooks {
    *
    * @see {Waterfall}
    */
-  export type Register = (name: string, hook: Hook) => Contract
+  export type Register<T> = (
+    name: string,
+    hook: Hook<T>,
+  ) => Contract
 
   /**
    * Runs all the hooks registered to the given name on the given value
@@ -85,14 +90,7 @@ namespace Hooks {
    *
    * @see {Waterfall}
    */
-  export type Filter = (name: string, value: unknown) => unknown
-
-  /**
-   * Accumulator passing each hook value on to the next.
-   */
-  export type Waterfall = (
-    data: unknown,
-  ) => [(_res: unknown, hook: Hook) => unknown, null]
+  export type Filter<T> = (name: string, value: T) => T
 
   /**
    * Hook
@@ -104,7 +102,7 @@ namespace Hooks {
    * value is either returned to the filter or passed to the next
    * registered hook (if more than one hook has been registered).
    */
-  export type Hook = (data: unknown) => unknown
+  export type Hook<T> = (data: unknown) => T
 }
 
 export {Hooks}

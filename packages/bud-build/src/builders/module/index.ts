@@ -6,9 +6,12 @@ export const module: Framework.Build.Module = function (
   build: Framework.Build.Configuration,
 ): {module: Webpack.Configuration['module']} {
   return {
-    module: this.hooks.filter('webpack.module', {
-      ...build.module,
-      rules: rules.bind(this)(),
-    }) as Webpack.Configuration['module'],
+    module: this.hooks.filter<Webpack.Configuration['module']>(
+      'webpack.module',
+      {
+        ...build.module,
+        rules: rules.bind(this)(),
+      },
+    ),
   }
 }

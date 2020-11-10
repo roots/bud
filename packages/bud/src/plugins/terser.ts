@@ -8,11 +8,7 @@ export const options: TerserPluginOptions = {
     parse: {
       ecma: 2018,
     },
-    compress: {
-      ecma: 5,
-      comparisons: false,
-      inline: 2,
-    },
+    compress: false,
     mangle: {
       safari10: true,
     },

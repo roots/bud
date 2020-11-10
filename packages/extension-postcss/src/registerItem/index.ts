@@ -5,9 +5,8 @@ export const loader: Framework.Item['loader'] = 'postcss-loader'
 export const options: Framework.Item['options'] = (
   bud: Framework.Bud,
 ) => {
-  const project = bud.disk.get('project')
-  const postConfig = project.has('postcss.config.js')
-    ? project.get('postcss.config.js')
+  const postConfig = bud.fs.has('postcss.config.js')
+    ? bud.fs.get('postcss.config.js')
     : false
 
   if (postConfig) {

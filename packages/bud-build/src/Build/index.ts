@@ -1,5 +1,4 @@
 import * as builders from '../builders'
-import * as config from '../config'
 import {Item} from '../Item'
 import {Rule} from '../Rule'
 
@@ -21,7 +20,6 @@ export class Build implements Framework.Build {
 
   public constructor(bud: Framework.Bud) {
     this.bud = bud
-    this.config = this.bud.makeContainer(config)
     this.loaders = this.bud.makeContainer({})
     this.items = this.bud.makeContainer({})
     this.rules = this.bud.makeContainer({})
@@ -34,7 +32,7 @@ export class Build implements Framework.Build {
         [, builder]: [string, Framework.Build.Builders],
       ) => ({
         ...config,
-        ...builder.bind(this.bud)(this.config.all()),
+        ...builder.bind(this.bud)(this.bud.config.all()),
       }),
       {},
     )
