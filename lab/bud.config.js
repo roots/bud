@@ -1,9 +1,15 @@
 /**
  * @type {Framework.Bud}
  */
-const bud = require('../packages/bud/lib')
+const {
+  buildCache,
+  entry,
+  minify,
+  run,
+  use,
+} = require('../packages/bud/lib')
 
-bud.use([
+use([
   '@roots/bud-babel',
   '@roots/bud-eslint',
   '@roots/bud-postcss',
@@ -11,8 +17,7 @@ bud.use([
   '@roots/bud-react',
 ])
 
-bud
-  .buildCache()
-  .entry('foo', ['foo.js', 'foo.css'])
-  .minify()
-  .run()
+buildCache()
+entry('foo', ['foo.js', 'foo.css'])
+minify()
+run()

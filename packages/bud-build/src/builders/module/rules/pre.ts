@@ -15,5 +15,5 @@ export default function (
         ): Webpack.RuleSetRule[] => [...rules, rule],
         [],
       ),
-  ) as Webpack.Configuration['module']['rules']
+  )
 }

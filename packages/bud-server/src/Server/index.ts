@@ -162,11 +162,6 @@ declare namespace Server {
     index?: WebpackDevMiddleware.Options['index']
 
     /**
-     * Should hot middleware be used?
-     */
-    hot?: boolean
-
-    /**
      * The path that the middleware is bound to.
      */
     publicPath?: WebpackDevMiddleware.Options['publicPath']

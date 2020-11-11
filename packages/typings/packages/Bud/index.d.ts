@@ -70,6 +70,11 @@ declare class Bud {
   public mode: Mode
 
   /**
+   * Services registered to the framework.
+   */
+  public registered: Indexed
+
+  /**
    * Preset configuration items.
    */
   public presets: Indexed
@@ -91,15 +96,14 @@ declare class Bud {
   public util: Util
 
   /**
+   * Proxy (for container logging)
+   */
+  public proxy: (bud: Bud, target: any) => typeof target
+
+  /**
    * Construct
    */
   public constructor(params?: ConstructorOptions)
-
-  /**
-   * Returns a proxy of this class.
-   * Allows running functions calls, accessors and setters through the logger.
-   */
-  public getInstance(this: Bud): Bud
 
   /**
    * Bind and assign functions to Bud.
@@ -176,14 +180,15 @@ export namespace BuilderDefinition {
 
 export declare type When = (
   this: Bud,
-  testCase: boolean,
-  trueCase: (bud: Bud) => unknown,
-  falseCase?: (bud: Bud) => unknown,
+  test: boolean,
+  isTrue: (bud: Bud) => unknown,
+  isFalse?: (bud: Bud) => unknown,
 ) => Bud
 
 export declare interface ConstructorOptions {
   api?: Index<CallableFunction>
   containers?: Index<Index<any>>
+  disks?: Index<any>
   builders?: Index<BuilderDefinition>
   plugins?: Index<Extension.Interface>
   services?: Index<Service>

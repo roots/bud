@@ -9,8 +9,8 @@ import {FileSystem, FileContainer} from '@roots/filesystem'
 import {Runner} from '@roots/bud-cli'
 import {Cache} from '@roots/bud-cache'
 
-export const disk: Service = () => new FileSystem({})
 export const fs: Service = () => new FileContainer({})
+export const disk: Service = () => new FileSystem({})
 export const build: Service = bud => new Build(bud)
 export const mode: Service = bud => new Mode(bud)
 export const hooks: Service = ({logger}) => new Hooks({logger})

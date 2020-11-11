@@ -22,17 +22,7 @@ export const use = function (
   _.isString(extensions)
     ? this.extensions.use(extensions)
     : ensureIterable(extensions).forEach(
-        (
-          extension:
-            | string
-            | [
-                string,
-                (
-                  | Extension.Interface
-                  | ((bud: Bud) => Extension.Interface)
-                ),
-              ],
-        ) => {
+        (extension: string | ExtensionTuple) => {
           if (!_.isArray(extension)) {
             return this.extensions.use(extension)
           }
@@ -60,14 +50,13 @@ function ensureIterable(extensions) {
     : extensions
 }
 
+export type ExtensionTuple = [
+  string,
+  Extension.Interface | ((bud: Bud) => Extension.Interface),
+]
+
 export type Extensions =
   | string
   | string[]
-  | [
-      string,
-      Extension.Interface | ((bud: Bud) => Extension.Interface),
-    ]
-  | [
-      string,
-      Extension.Interface | ((bud: Bud) => Extension.Interface),
-    ][]
+  | ExtensionTuple
+  | ExtensionTuple[]
