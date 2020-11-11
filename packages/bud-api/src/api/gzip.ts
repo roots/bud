@@ -4,9 +4,17 @@ export const gzip: Framework.API.Gzip = function (
   this.features.enable('gzip')
 
   options &&
-    this.extensions
-      .get('compression-webpack-plugin[gzip]')
-      .all(options)
+    (() => {
+      const opts = this.extensions
+        .get('compression-webpack-plugin-gzip')
+        .all()
 
+      this.extensions
+        .get('compression-webpack-plugin-gzip')
+        .setRepository({
+          ...opts,
+          ...options,
+        })
+    })()
   return this
 }

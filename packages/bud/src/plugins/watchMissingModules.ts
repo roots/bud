@@ -1,10 +1,9 @@
 import {Extension} from '@roots/bud-extensions'
 import {WatchMissingNodeModulesPlugin as Plugin} from '@roots/bud-support'
 
-export const options: RawOptions = ({project}) => ({
-  watchDir: project('node_modules'),
+export const options: RawOptions = bud => ({
+  watchDir: bud.project('node_modules'),
 })
-
 export const make: Make = opt => new Plugin(opt.get('watchDir'))
 
 declare type Make = Extension.Make<Plugin, Options>

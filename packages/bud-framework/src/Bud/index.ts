@@ -70,13 +70,14 @@ export default class Bud implements Application {
       ? this.mapBuilders(builders)
       : new Error('Builders not instantiable')
 
+    this.fs.setBase(process.cwd())
     this.disk.set('@roots', {
       baseDir: this.fs.path.resolve(__dirname, '../../../'),
       glob: ['**/*'],
     })
 
     this.disk.set('project', {
-      baseDir: process.cwd(),
+      baseDir: this.fs.getBase(),
       glob: ['**/*'],
     })
 

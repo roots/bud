@@ -69,6 +69,10 @@ declare class FileContainer extends Indexed {
    */
   get: Container.Get
 
+  ensure: (this: FileContainer, key: string) => void
+
+  ensureDir: (this: FileContainer, key: string) => void
+
   /**
    * Check if file exists in disk.
    */

@@ -3,9 +3,9 @@ import * as postcss from './registerItem'
 
 export const boot: Boot = bud => {
   bud.build.rules.mutate('css.use', css => [
-    ...css.splice(0, css.length - 1),
+    ...css.splice(0, css.length - 2),
     bud.build.items.get('postcss'),
-    ...css.splice(css.length - 1),
+    ...css.splice(css.length - 2),
   ])
 }
 

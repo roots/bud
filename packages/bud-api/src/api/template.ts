@@ -3,6 +3,7 @@ export const template: Framework.API.Template = function (options?: {
   replacements: Framework.Index<string>
 }) {
   this.features.enable('html')
+
   const plugin = this.extensions.get('html-webpack-plugin')
 
   options?.template && plugin.merge('template', options.template)

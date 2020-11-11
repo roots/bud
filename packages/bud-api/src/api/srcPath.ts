@@ -2,12 +2,9 @@ export const srcPath: Framework.API.SrcPath = function (
   this: Framework.Bud,
   segment: string,
 ) {
-  if (this.args.dist) return this
+  if (this.args.src) return this
 
-  this.config.set(
-    'context',
-    this.disk.get('project').get(segment),
-  )
+  this.config.set('context', this.project(segment))
 
   return this
 }

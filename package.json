@@ -26,6 +26,7 @@
       "packages/bud",
       "packages/bud-api",
       "packages/bud-build",
+      "packages/bud-cache",
       "packages/bud-cli",
       "packages/bud-compiler",
       "packages/bud-extensions",

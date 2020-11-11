@@ -73,7 +73,7 @@ export * from './Rule'
  * Framework.Server
  * @package @roots/bud-framework
  */
-export * from './Server'
+export * from './../../bud-server/src'
 
 /**
  * Framework.Express

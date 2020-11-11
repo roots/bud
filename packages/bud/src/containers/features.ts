@@ -1,4 +1,9 @@
 /**
+ * Build cache
+ */
+export const buildCache = false
+
+/**
  * Clean build directory before each run.
  */
 export const clean = true

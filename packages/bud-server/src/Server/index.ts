@@ -1,5 +1,4 @@
 import * as middleware from '../middleware'
-import * as config from './config'
 import {injectClient} from './injectClient'
 import {lodash as _} from '@roots/bud-support'
 import express, {Handler, Express} from 'express'
@@ -7,16 +6,16 @@ import type Webpack from 'webpack'
 import type {Bud} from '@roots/bud-typings'
 import * as WebpackDevMiddleware from 'webpack-dev-middleware'
 import {Options as ProxyOptions} from 'http-proxy-middleware'
+import type {Indexed} from '@roots/container'
 
 class Server implements Server.Interface {
   public bud: Bud
 
   public instance: Server.Instance = express()
 
-  public config: Server.Config = config
+  public config: Indexed
 
   public constructor(bud: Bud) {
-    this.setConfig = this.setConfig.bind(this)
     this.addMiddleware = this.addMiddleware.bind(this)
     this.addDevMiddleware = this.addDevMiddleware.bind(this)
     this.addHotMiddleware = this.addHotMiddleware.bind(this)
@@ -25,34 +24,11 @@ class Server implements Server.Interface {
     this.bud = bud
     this.instance = express()
     this.instance.set('x-powered-by', false)
+    this.config = this.bud.serverConfig
   }
 
   public getInstance(): Server.Instance {
     return this.instance
-  }
-
-  public getConfig(): Server.Config {
-    return this.config
-  }
-
-  public getConfigItem(key: string): Partial<Server.Config> {
-    return this.config[key]
-  }
-
-  public setConfig(config: Server.Config): this {
-    this.config = config
-
-    return this
-  }
-
-  public mergeConfigItem(
-    key: string,
-    value: Partial<Server.Config>,
-  ): void {
-    this.config[key] = {
-      ...this.getConfigItem(key),
-      ...value,
-    }
   }
 
   public addMiddleware(middleware: Handler): this {
@@ -65,7 +41,7 @@ class Server implements Server.Interface {
     this.instance.use(
       middleware.dev({
         compiler: this.bud.compiler.get(),
-        config: this.config,
+        config: this.config.all(),
       }),
     )
 
@@ -81,14 +57,14 @@ class Server implements Server.Interface {
     this.instance.use(
       middleware.dev({
         compiler: this.bud.compiler.get(),
-        config: this.config,
+        config: this.config.all(),
       }),
     )
 
     this.instance.use(middleware.hot(this.bud.compiler.get()))
 
     this.bud.features.enabled('proxy') &&
-      this.instance.use(middleware.proxy(this.config))
+      this.instance.use(middleware.proxy(this.config.all()))
 
     this.listen()
 
@@ -96,15 +72,17 @@ class Server implements Server.Interface {
   }
 
   public addProxyMiddleware(): this {
-    this.addMiddleware(middleware.proxy(this.config))
+    this.addMiddleware(middleware.proxy(this.config.all()))
 
     return this
   }
 
   public listen(): void {
     this.instance.listen(
-      this.config?.port ?? 3000,
-      this.config?.host ?? 'localhost',
+      this.config.has('port') ? this.config.get('port') : 3000,
+      this.config.has('host')
+        ? this.config.get('host')
+        : 'localhost',
     )
   }
 }
@@ -125,20 +103,9 @@ declare namespace Server {
     /**
      * Server configuration.
      */
-    config: Server.Config
+    config: Indexed
 
     getInstance(): Server.Instance
-
-    getConfig(): Server.Config
-
-    getConfigItem(key: string): Partial<Server.Config>
-
-    setConfig(config: Server.Config): this
-
-    mergeConfigItem: (
-      key: string,
-      value: Partial<Server.Config>,
-    ) => void
 
     addMiddleware: (middleware: Handler) => this
 

@@ -1,24 +1,21 @@
+import Server from '@roots/bud-server'
+
 export const dev: Framework.API.Dev = function (
   this: Framework.Bud,
-  config,
+  config: Server.Config,
 ) {
-  if (!config) return this
-
-  if (
-    config.proxy?.hasOwnProperty('host') ||
-    config.proxy?.hasOwnProperty('port')
-  ) {
+  if (config?.proxy?.host || config?.proxy?.port) {
     this.features.enable('proxy')
   }
 
-  if (config.hot) {
+  if (config?.hot) {
     this.features.enable('hot')
   }
 
-  this.server.setConfig({
-    ...this.server.getConfig(),
+  this.server.config.repository = {
+    ...this.server.config.all(),
     ...config,
-  })
+  }
 
   return this
 }

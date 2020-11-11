@@ -1,17 +1,20 @@
 import {lodash as _} from '@roots/bud-support'
-import type {Extension} from '@roots/bud-extensions'
 import type {Bud} from '@roots/bud-framework'
 
 export const provide: Provide = function (options) {
-  const pluginOpts = this.extensions.get(
-    'webpack[provide].options',
-  ) as Extension.Options
+  const providePlugin = this.extensions.get(
+    'webpack-provide-plugin',
+  )
+
+  const pluginOpts = providePlugin.all()
 
   Object.entries(options).forEach(([key, alias]) => {
     _.isString(alias) && pluginOpts.merge(alias, key)
     _.isArray(alias) &&
       alias.map(alias => pluginOpts.merge(alias, key))
   })
+
+  providePlugin.repository = pluginOpts
 
   return this
 }

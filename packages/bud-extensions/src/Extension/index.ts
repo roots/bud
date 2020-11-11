@@ -164,7 +164,7 @@ namespace Extension {
 
     boot?: (bud: Bud) => void
 
-    api?: (bud: Bud) => void
+    api?: (bud: Bud) => {[key: string]: CallableFunction}
 
     registerLoader?:
       | ((bud?: Bud) => [string, Build.Loader])

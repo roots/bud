@@ -16,8 +16,7 @@ export const path: Configuration['output']['path'] = join(
   'dist',
 )
 
-// export const library: Configuration['output']['library'] = undefined
-
+//library: undefined
 // devtoolNamespace: undefined,
 // globalObject: 'window',
 // hashDigest: 'hex',

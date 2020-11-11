@@ -4,5 +4,5 @@ import type {Extension} from '@roots/bud-extensions'
 export const make: Extension.Make = () =>
   new HotModuleReplacementPlugin()
 
-export const when: Extension.When = ({mode, server}) =>
-  mode.is('development') && server.getConfigItem('hot') == true
+export const when: Extension.When = ({mode}) =>
+  mode.is('development')

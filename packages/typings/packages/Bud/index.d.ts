@@ -1,4 +1,4 @@
-import {Build, Env, Logger, Mode, Server, Index} from '..'
+import {Build, Env, Logger, Mode, Index} from '..'
 import type {Compiler} from '../../../bud-compiler/src/Compiler'
 import type {FileContainer, FileSystem} from '@roots/filesystem'
 import type {Hooks} from '../../../bud-hooks/src/Hooks'
@@ -6,6 +6,7 @@ import type {Extensions} from '../../../bud-extensions/src/Extensions'
 import {Extension} from '../../../bud-extensions/src/Extension'
 import {BuiltInParserName} from 'prettier'
 import {Indexed} from '@roots/container'
+import {Server} from '../../../bud-server/src'
 
 /**
  * Core unit of the Bud application.

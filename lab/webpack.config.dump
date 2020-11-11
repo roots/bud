@@ -1,6 +1,9 @@
 module.exports = () => ({
-  entry: { foo: [ 'foo.js', 'foo.scss' ] },
+  entry: { foo: [ 'foo.js', 'foo.css' ] },
+  bail: true,
+  context: '/Users/kellymears/code/projects/cli/bud/bud/lab/src',
   mode: 'production',
+  name: '@roots/bud',
   node: {
     module: 'empty',
     dns: 'mock',
@@ -16,22 +19,12 @@ module.exports = () => ({
     __filename: 'mock',
     __dirname: 'mock'
   },
+  performance: { maxAssetSize: Infinity, maxEntrypointSize: 250000 },
+  recordsPath: '/Users/kellymears/code/projects/cli/bud/bud/lab/.bud/records.json',
   stats: 'none',
   target: 'web',
-  context: '/Users/kellymears/code/projects/cli/bud/bud/lab/src',
   module: {
     rules: [
-      {
-        enforce: 'pre',
-        exclude: [ /(node_modules|bower_components)/, /bud/ ],
-        test: /\.(js|jsx)$/,
-        use: [
-          {
-            ident: 'eslint',
-            loader: '/Users/kellymears/code/projects/cli/bud/bud/packages/extension-eslint/node_modules/eslint-loader/dist/cjs.js'
-          }
-        ]
-      },
       {
         oneOf: [
           {
@@ -41,11 +34,6 @@ module.exports = () => ({
               {
                 ident: 'style',
                 loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/style-loader/dist/cjs.js'
-              },
-              {
-                ident: 'css',
-                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/css-loader/dist/cjs.js',
-                options: { importLoaders: 2 }
               },
               {
                 ident: 'postcss',
@@ -69,6 +57,11 @@ module.exports = () => ({
                     ]
                   }
                 }
+              },
+              {
+                ident: 'css',
+                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/css-loader/dist/cjs.js',
+                options: { importLoaders: 2 }
               },
               {
                 ident: 'resolve-url',
@@ -97,7 +90,7 @@ module.exports = () => ({
           {
             test: /\.(png|svg|jpg|jpeg|gif)$/,
             use: [
-              "<<Circular reference to 'config.module.rules.[1].oneOf.[1].use.[0]'>>"
+              "<<Circular reference to 'config.module.rules.[0].oneOf.[1].use.[0]'>>"
             ]
           },
           {
@@ -130,7 +123,7 @@ module.exports = () => ({
                   ]
                 }
               },
-              "<<Circular reference to 'config.module.rules.[1].oneOf.[2].use'>>"
+              "<<Circular reference to 'config.module.rules.[0].oneOf.[2].use'>>"
             ]
           },
           {
@@ -140,29 +133,6 @@ module.exports = () => ({
                 ident: 'svg',
                 loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/resolve-url-loader/index.js'
               }
-            ]
-          },
-          {
-            exclude: /(node_modules|bower_components)/,
-            test: /\.(scss|sass)$/,
-            use: [
-              {
-                ident: 'mini-css',
-                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/mini-css-extract-plugin/dist/loader.js'
-              },
-              "<<Circular reference to 'config.module.rules.[1].oneOf.[0].use.[1]'>>",
-              "<<Circular reference to 'config.module.rules.[1].oneOf.[0].use.[2]'>>",
-              {
-                ident: 'sass',
-                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/sass-loader/dist/cjs.js',
-                options: {
-                  implementation: {
-                    info: 'node-sass\t4.14.1\t(Wrapper)\t[JavaScript]\n' +
-                      'libsass  \t3.5.5\t(Sass Compiler)\t[C/C++]'
-                  }
-                }
-              },
-              "<<Circular reference to 'config.module.rules.[1].oneOf.[0].use.[3]'>>"
             ]
           }
         ]
@@ -221,6 +191,9 @@ module.exports = () => ({
       keepCircularReferences: true
     },
     {
+      definitions: { PUBLIC_URL: '/', APP_NAME: 'App', APP_DESCRIPTION: 'Test' }
+    },
+    {
       opts: {
         publicPath: '/',
         fileName: 'manifest.json',
@@ -247,31 +220,15 @@ module.exports = () => ({
       nodeModulesPath: '/Users/kellymears/code/projects/cli/bud/bud/lab/node_modules'
     },
     {
-      name: 'wordpress-externals',
-      options: { name: 'wordpress.json', writeToFileEmit: true },
-      output: { name: 'wordpress.json' },
-      plugin: { name: 'WordPressExternalsWebpackPlugin', stage: Infinity },
-      externalsPlugin: { type: 'this' }
-    },
-    {
-      options: { name: 'entrypoints.json', writeToFileEmit: true },
-      output: { name: 'entrypoints.json' },
-      plugin: { name: 'EntrypointsManifestPlugin', stage: Infinity }
-    },
-    { plugin: { name: 'MergedManifestPlugin' } },
-    {
-      _originalSettings: {
-        inject: true,
-        filename: '[name].[hash].js',
-        entry: { library: [ 'react', 'react-dom' ] },
-        path: 'dll',
-        inherit: true,
-        context: '/Users/kellymears/code/projects/cli/bud/bud/lab'
+      options: {
+        extensions: 'js',
+        context: '/Users/kellymears/code/projects/cli/bud/bud/lab',
+        eslintPath: '/Users/kellymears/code/projects/cli/bud/bud/packages/extension-eslint/node_modules/eslint/lib/api.js'
       }
     }
   ],
   resolve: {
-    extensions: [ '.scss', '.mjs', '.js', '.json', '.css' ],
+    extensions: [ '.wasm', '.mjs', '.js', '.json', '.css' ],
     modules: [
       '/Users/kellymears/code/projects/cli/bud/bud/lab/src',
       '/Users/kellymears/code/projects/cli/bud/bud/lab',
@@ -314,9 +271,9 @@ module.exports = () => ({
     concatenateModules: true,
     noEmitOnErrors: true,
     checkWasmTypes: true,
+    portableRecords: true,
     nodeEnv: 'production'
   },
-  performance: { maxAssetSize: 250000, maxEntrypointSize: 250000, hints: 'warning' },
   resolveLoader: {
     unsafeCache: true,
     mainFields: [ 'loader', 'main' ],

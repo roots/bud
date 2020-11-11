@@ -1,5 +1,9 @@
 import {Configuration} from 'webpack'
 
+export const namedModules: Configuration['optimization']['namedModules'] = true
+
+export const noEmitOnErrors: Configuration['optimization']['noEmitOnErrors'] = true
+
 export const runtimeChunk: Configuration['optimization']['runtimeChunk'] = {
   name: (entrypoint: any): string =>
     `runtime/${entrypoint.name}`,
@@ -16,13 +20,13 @@ export const splitChunks: Configuration['optimization']['splitChunks'] = {
   cacheGroups: {
     vendor: {
       test: /[\\/]node_modules[\\/]/,
-      name: vendorName,
+      name,
       chunks: 'async',
     },
   },
 }
 
-function vendorName(
+function name(
   chunks: {name: string}[],
   cacheGroupKey: string,
 ): string {
