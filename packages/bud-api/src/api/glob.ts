@@ -13,7 +13,7 @@ export const glob: Framework.API.Glob = function (
     options ?? {expandDirectories: true},
   )
 
-  this.build.config.merge(
+  this.config.merge(
     'entry',
     results.reduce((acc, curr) => {
       const entryPath = name ? `${name}/` : '/'

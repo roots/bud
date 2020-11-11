@@ -1,24 +1,21 @@
-import {postcssConfig} from './api'
-
+import {Extension} from '@roots/bud-extensions'
 import * as postcss from './registerItem'
 
-export const api = (
-  instance: Framework.Bud,
-): Framework.Index<any> => ({
-  css: postcssConfig(instance).init(),
-})
-
-export const boot = ({build}: Framework.Bud): void => {
-  build.rules.mutate('css.use', css => [
-    ...css.splice(0, css.length - 1),
-    build.items.get('postcss'),
-    ...css.splice(css.length - 1),
+export const boot: Boot = bud => {
+  bud.build.rules.mutate('css.use', css => [
+    ...css.splice(0, css.length - 2),
+    bud.build.items.get('postcss'),
+    ...css.splice(css.length - 2),
   ])
 }
 
-export const registerItem = [postcss.ident, postcss]
+export const registerItem: Item = ['postcss', postcss]
 
-export const registerLoader = [
-  postcss.ident,
+export const registerLoader: Loader = [
+  'postcss-loader',
   require.resolve('postcss-loader'),
 ]
+
+declare type Boot = Extension.Interface['boot']
+declare type Item = Extension.Interface['registerItem']
+declare type Loader = Extension.Interface['registerLoader']

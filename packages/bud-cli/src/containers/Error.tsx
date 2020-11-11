@@ -1,10 +1,13 @@
-import React, {FunctionComponent} from 'react'
+import React from 'react'
 import {Box, Text} from 'ink'
+declare namespace Error {
+  export type Component = React.FunctionComponent<{
+    title?: string
+    body: string
+  }>
+}
 
-const Error: FunctionComponent<{
-  title?: string
-  body: string
-}> = ({title = 'Error', body}) => (
+const Error: Error.Component = ({title = 'Error', body}) => (
   <Box flexDirection="column">
     <Box
       flexDirection="column"

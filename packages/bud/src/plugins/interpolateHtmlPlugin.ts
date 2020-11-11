@@ -1,24 +1,22 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import {InterpolateHtmlPlugin} from '@roots/bud-support'
+import {Extension} from '@roots/bud-extensions'
 
-export const options: OptionsFactory = bud => ({
-  replacements: {
-    ...bud.env,
-  },
+export const options: Extension.RawOptions<PluginOptions> = bud => ({
+  replacements: bud.env.all(),
 })
 
-export const make: (
-  options: Options,
-) => InterpolateHtmlPlugin = ({replacements}) =>
-  new InterpolateHtmlPlugin(HtmlWebpackPlugin, replacements)
+export const make: Extension.Make<
+  InterpolateHtmlPlugin,
+  PluginOptions
+> = (options: Extension.Options) =>
+  new InterpolateHtmlPlugin(HtmlWebpackPlugin, options.all())
 
-export const when: Framework.Extension.When = ({features}) =>
-  features.get('html') == true
+export const when: Extension.When = bud =>
+  bud.features.enabled('html')
 
-declare type Options = {
+export interface PluginOptions {
   replacements: {
-    [key: string]: any
+    [key: string]: string
   }
 }
-
-declare type OptionsFactory = (bud: Framework.Bud) => Options

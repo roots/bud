@@ -6,7 +6,7 @@ export const entry: Framework.API.Entry = function (
 ) {
   assets = _.isString(assets) ? [assets] : assets
 
-  this.build.config.merge('entry', {
+  this.config.merge('entry', {
     [name]: assets,
   })
 

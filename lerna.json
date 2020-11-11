@@ -9,6 +9,7 @@
     "packages/bud-compiler",
     "packages/bud-extensions",
     "packages/bud-framework",
+    "packages/bud-hooks",
     "packages/bud-server",
     "packages/bud-support",
     "packages/container",

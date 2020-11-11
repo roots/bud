@@ -22,7 +22,7 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["./lib", "./types", "./src"],
+  "files": ["./lib", "./src"],
   "main": "./lib/index.js",
   "types": "./lib/types/index.d.ts",
   "scripts": {
@@ -30,6 +30,9 @@
     "clean:lib": "rimraf ./lib",
     "clean:modules": "rimraf ./node_modules",
     "lint": "eslint ."
+  },
+  "devDependencies": {
+    "@roots/bud-typings": "2.0.0-next.24"
   },
   "dependencies": {
     "@roots/bud-api": "2.0.0-next.24",
@@ -39,6 +42,7 @@
     "@roots/bud-compiler": "2.0.0-next.24",
     "@roots/bud-extensions": "2.0.0-next.24",
     "@roots/bud-framework": "2.0.0-next.24",
+    "@roots/bud-hooks": "2.0.0-next.24",
     "@roots/bud-postcss": "2.0.0-next.24",
     "@roots/bud-server": "2.0.0-next.24",
     "@roots/bud-support": "2.0.0-next.24",
@@ -70,6 +74,5 @@
     "webpack-config-dump-plugin": "^3.0.1",
     "webpack-manifest-plugin": "^2.2.0",
     "write-file-webpack-plugin": "^4.5.1"
-  },
-  "gitHead": "a05ef3f17edacd8b52e4f885b91470e59becddf5"
+  }
 }

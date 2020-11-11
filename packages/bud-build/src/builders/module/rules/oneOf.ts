@@ -9,10 +9,10 @@ export default function (
     .reduce(
       (
         rules: Webpack.RuleSetRule[],
-        [label, rule]: [string, Framework.Rule],
+        [label, rule]: [string, Webpack.RuleSetRule],
       ): Webpack.RuleSetRule[] => [
         ...rules,
-        this.hooks.filter(
+        this.hooks.filter<Webpack.RuleSetRule>(
           `webpack.module.rules.oneOf.${label}`,
           rule,
         ),

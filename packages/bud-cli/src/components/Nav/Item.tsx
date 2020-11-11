@@ -14,10 +14,12 @@ export const Item: FunctionComponent<{
 
   return (
     <Box>
-      <Indicator active={focus == name} primary={color} />
+      <Indicator active={focus.active == name} primary={color} />
       <Text
         color={
-          focus == name ? color ?? colors.primary : colors.faded
+          focus.active == name
+            ? color ?? colors.primary
+            : colors.faded
         }>
         {' '}
         {display}

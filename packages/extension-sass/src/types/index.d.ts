@@ -21,7 +21,7 @@ export interface Sass {
   bud: Framework.Bud
   methods: Array<[string, Sass.Config]>
   init: Framework.Fluent<Sass>
-  next: (this: Sass) => Framework.Bud
+  then: (this: Sass) => Framework.Bud
 }
 
 /**

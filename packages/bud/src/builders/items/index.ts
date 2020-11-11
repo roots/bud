@@ -1,9 +1,35 @@
-export * as cache from './cache'
-export * as css from './css'
-export * as file from './file'
-export * as minicss from './minicss'
-export * as raw from './raw'
-export * as resolveUrl from './resolveUrl'
-export * as style from './style'
-export * as svg from './svg'
-export * as thread from './thread'
+import type {Item} from '@roots/bud-typings'
+
+import * as cache from './cache'
+import * as css from './css'
+import * as file from './file'
+import * as minicss from './minicss'
+import * as raw from './raw'
+import * as resolveUrl from './resolveUrl'
+import * as style from './style'
+import * as svg from './svg'
+import * as thread from './thread'
+
+const modules: Item.Module[] = [
+  cache,
+  css,
+  file,
+  minicss,
+  raw,
+  resolveUrl,
+  style,
+  svg,
+  thread,
+]
+
+const collate = (
+  dictionary: {[key: string]: Item.Module},
+  v: Item.Module,
+): {[key: string]: Item.Module} => ({
+  ...dictionary,
+  [`${v.ident}`]: v,
+})
+
+export const items: {
+  [key: string]: Item.Module
+} = modules.reduce(collate, {})

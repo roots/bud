@@ -1,21 +1,16 @@
-import React, {FunctionComponent} from 'react'
+import React from 'react'
 import {Box, Text} from 'ink'
-import Bar from './Bar'
-
+import {Bar} from './Bar'
 import {useStyle} from '@roots/ink-use-style'
+import type {UseProgress} from '../../hooks/useProgress'
 
-type ProgressComponentProps = {
-  percentage: {
-    decimal: number
-    display: string
-  }
-  msg: string
+declare namespace Progress {
+  export type Component = (
+    props: UseProgress.Progress,
+  ) => JSX.Element
 }
 
-const Progress: FunctionComponent<ProgressComponentProps> = ({
-  percentage,
-  msg,
-}) => {
+const Progress: Progress.Component = ({percentage, msg}) => {
   const {col, ctx, bounds} = useStyle()
   const labelMax = ctx([col(12), col(1) / 2])
   const barMax = Math.min(

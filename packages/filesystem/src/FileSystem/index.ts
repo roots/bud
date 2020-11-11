@@ -6,7 +6,7 @@ import {FileContainer} from '..'
 export class FileSystem extends Indexed {
   public current: FileContainer
 
-  public repository: Indexed['repository']
+  public repository: Container.Repository<FileContainer>
 
   constructor() {
     super()
@@ -21,7 +21,7 @@ export class FileSystem extends Indexed {
 
   public get: Container['get'] = function (key) {
     this.current = _.get(this.repository, key)
-    return this.current
+    return _.get(this.repository, key)
   }
 
   public ls = function (key?: string): any {

@@ -1,14 +1,17 @@
 import React, {FunctionComponent} from 'react'
 import {Box, Text, Spacer} from 'ink'
-import {Stats} from 'webpack'
-
 import {useStyle} from '@roots/ink-use-style'
+import type {UseStats} from '../hooks/useStats'
 
-interface InfoProps {
-  stats: Stats.ToJsonOutput
+declare namespace BuildInfo {
+  interface InfoProps {
+    stats: UseStats.Stats
+  }
+
+  type Component = FunctionComponent<InfoProps>
 }
 
-const BuildInfo: FunctionComponent<InfoProps> = ({stats}) => {
+const BuildInfo: BuildInfo.Component = ({stats}) => {
   const {col, ctx} = useStyle()
 
   return (
@@ -32,4 +35,4 @@ const BuildInfo: FunctionComponent<InfoProps> = ({stats}) => {
   )
 }
 
-export {BuildInfo as default}
+export {BuildInfo}

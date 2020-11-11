@@ -1,9 +1,3 @@
-/**
- * Common RegExp patterns.
- *
- * @exports Patterns
- */
-
 export const js = /\.(js|jsx)$/
 export const ts = /\.(ts|tsx)$/
 export const vue = /\.vue$/

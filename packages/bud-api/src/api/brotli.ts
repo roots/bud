@@ -6,7 +6,9 @@ export const brotli: Framework.API.Brotli = function (
 
   if (!options) return
 
-  this.extensions.setOptions('brotli', options)
+  this.extensions
+    .get('compression-webpack-plugin[brotli]')
+    .all(options)
 
   return this
 }

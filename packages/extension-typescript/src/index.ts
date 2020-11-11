@@ -1,56 +1,55 @@
-import {Webpack} from '@roots/bud-typings'
+import {Bud} from '@roots/bud-typings'
 import {LoaderOptions} from 'ts-loader/dist/interfaces'
+import {Extension} from '@roots/bud-extensions'
 
-export const options = (instance: Framework.Bud) => ({
+export const options = (instance: Bud) => ({
   configFile: instance.fs.get('tsconfig.json') ?? null,
 })
 
-export const registerLoader = [
+export const registerLoader: Extension.Interface['registerLoader'] = [
   'ts-loader',
   require.resolve('ts-loader'),
 ]
 
-export const registerItem = [
-  'ts',
-  {
+export const registerItem: Extension.Interface['registerItems'] = {
+  [`typescript`]: {
     loader: 'ts-loader',
-    options: (
-      bud: Framework.Bud,
-    ): Partial<LoaderOptions> | LoaderOptions =>
-      bud.extensions.getOptions('@roots/bud-typescript'),
-  },
-]
 
-export const registerRule = [
+    options: (
+      bud: Bud,
+    ): Partial<LoaderOptions> | LoaderOptions =>
+      bud.extensions.get('@roots/bud-typescript').all(),
+  },
+}
+
+export const registerRule: Extension.Interface['registerRule'] = [
   'typescript',
   {
-    test: ({patterns}: Framework.Bud): RegExp =>
+    test: ({patterns}: Bud): RegExp =>
       patterns.get('typescript'),
-    exclude: ({patterns}: Framework.Bud): RegExp =>
+
+    exclude: ({patterns}: Bud): RegExp =>
       patterns.get('modules'),
-    use: (bud: Framework.Bud): Webpack.RuleSetUseItem[] => [
-      bud.build.items.get('ts'),
-    ],
+
+    use: (bud: Bud) => [bud.build.items.get('ts')],
   },
 ]
 
 export const api = {
   typescript: function (
-    this: Framework.Bud,
+    this: Bud,
     options: Partial<LoaderOptions> | LoaderOptions,
-  ): Framework.Bud {
-    this.extensions.setOptions('@roots/bud-typescript', options)
+  ): Bud {
+    this.extensions.get('@roots/bud-typescript').all(options)
 
     return this
   },
 }
 
-export const boot = (instance: Framework.Bud): void => {
+export const boot = (instance: Bud): void => {
   instance.patterns.set('typescript', /\.(ts|tsx)$/)
   ;['ts', 'tsx'].map(ext => {
-    !instance.build.config
-      .get('resolve.extensions')
-      .includes(ext) &&
-      instance.build.config.merge('resolve.extensions', [ext])
+    !instance.config.get('resolve.extensions').includes(ext) &&
+      instance.config.merge('resolve.extensions', [ext])
   })
 }

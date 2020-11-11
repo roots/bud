@@ -1,5 +1,3 @@
-import '@roots/bud-typings'
-
 /**
  * ## bud.purge
  *

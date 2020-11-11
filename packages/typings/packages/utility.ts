@@ -7,21 +7,6 @@ export interface Constructor<T> {
   new (params: any): T
 }
 
-export namespace Service {
-  /**
-   * A service constructor.
-   */
-  export interface Constructor<T>
-    extends Framework.Constructor<T> {
-    new (params?: Index<any>): T
-  }
-
-  export type Dependency = [string, unknown]
-  export type Dependencies = Array<Dependency> | Dependency
-
-  export type Tuple = [Constructor<any>, Dependencies]
-}
-
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export type Fluent<
   T,

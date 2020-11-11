@@ -1,6 +1,9 @@
 module.exports = () => ({
-  entry: { foo: [ 'foo.js' ] },
+  entry: { foo: [ 'foo.js', 'foo.css' ] },
+  bail: true,
+  context: '/Users/kellymears/code/projects/cli/bud/bud/lab/src',
   mode: 'production',
+  name: '@roots/bud',
   node: {
     module: 'empty',
     dns: 'mock',
@@ -16,9 +19,10 @@ module.exports = () => ({
     __filename: 'mock',
     __dirname: 'mock'
   },
-  stats: true,
+  performance: { maxAssetSize: Infinity, maxEntrypointSize: 250000 },
+  recordsPath: '/Users/kellymears/code/projects/cli/bud/bud/lab/.bud/records.json',
+  stats: 'none',
   target: 'web',
-  context: '/Users/kellymears/code/projects/cli/bud/bud/lab/src',
   module: {
     rules: [
       {
@@ -28,21 +32,8 @@ module.exports = () => ({
             test: /\.css$/,
             use: [
               {
-                ident: 'thread',
-                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/thread-loader/dist/cjs.js'
-              },
-              {
-                ident: 'vue',
-                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/vue-loader/lib/index.js'
-              },
-              {
                 ident: 'style',
                 loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/style-loader/dist/cjs.js'
-              },
-              {
-                ident: 'css',
-                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/css-loader/dist/cjs.js',
-                options: { importLoaders: 1 }
               },
               {
                 ident: 'postcss',
@@ -57,13 +48,23 @@ module.exports = () => ({
                           autoprefixer: { flexbox: 'no-2009' },
                           stage: 3
                         }
-                      ]
+                      ],
+                      {
+                        version: '7.0.35',
+                        postcssPlugin: 'tailwind',
+                        postcssVersion: '7.0.35'
+                      }
                     ]
                   }
                 }
               },
               {
-                ident: 'resolveUrl',
+                ident: 'css',
+                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/css-loader/dist/cjs.js',
+                options: { importLoaders: 2 }
+              },
+              {
+                ident: 'resolve-url',
                 loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/resolve-url-loader/index.js',
                 options: { sourceMap: true }
               }
@@ -96,16 +97,19 @@ module.exports = () => ({
             exclude: /(node_modules|bower_components)/,
             test: /\.(js|jsx)$/,
             use: [
-              "<<Circular reference to 'config.module.rules.[0].oneOf.[0].use.[0]'>>",
+              {
+                ident: 'thread',
+                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/thread-loader/dist/cjs.js'
+              },
+              {
+                ident: 'cache',
+                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/cache-loader/dist/cjs.js'
+              },
               {
                 ident: 'babel',
                 loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/babel-loader/lib/index.js',
                 options: {
-                  presets: [
-                    [
-                      '/Users/kellymears/code/projects/cli/bud/bud/node_modules/@babel/preset-env/lib/index.js'
-                    ]
-                  ],
+                  presets: [ '@babel/preset-react' ],
                   plugins: [
                     [
                       '/Users/kellymears/code/projects/cli/bud/bud/node_modules/@babel/plugin-transform-runtime/lib/index.js'
@@ -132,10 +136,6 @@ module.exports = () => ({
             ]
           }
         ]
-      },
-      {
-        test: /\.vue$/,
-        use: "<<Circular reference to 'config.module.rules.[0].oneOf.[0].use.[1]'>>"
       }
     ],
     unknownContextRequest: '.',
@@ -183,7 +183,7 @@ module.exports = () => ({
       cleanOnceBeforeBuildPatterns: [ '**/*', '!dll/*' ],
       outputPath: '/Users/kellymears/code/projects/cli/bud/bud/lab/dist'
     },
-    { ignorePatterns: [ /\.*\.css.?\.js/, /^\.\/locale$/, /moment$/ ] },
+    { ignorePatterns: [ /\.*\.css.\.js/, /^\.\/locale$/, /moment$/ ] },
     {
       outputPath: '/Users/kellymears/code/projects/cli/bud/bud/lab',
       name: 'webpack.config.dump',
@@ -202,13 +202,15 @@ module.exports = () => ({
       }
     },
     {
+      options: { filename: '[name].css', chunkFilename: '[name].css' }
+    },
+    {
       options: {
         test: /\.m?js(\?.*)?$/i,
         cache: true,
         parallel: true,
         terserOptions: {
           parse: { ecma: 2018 },
-          compress: { ecma: 5, inline: 2 },
           mangle: { safari10: true },
           output: { ecma: 5, ascii_only: true }
         }
@@ -218,32 +220,15 @@ module.exports = () => ({
       nodeModulesPath: '/Users/kellymears/code/projects/cli/bud/bud/lab/node_modules'
     },
     {
-      name: 'wordpress-externals',
-      options: { name: 'wordpress.json', writeToFileEmit: true },
-      output: { name: 'wordpress.json' },
-      plugin: { name: 'WordPressExternalsWebpackPlugin', stage: Infinity },
-      externalsPlugin: { type: 'this' }
-    },
-    {
-      options: { name: 'entrypoints.json', writeToFileEmit: true },
-      output: { name: 'entrypoints.json' },
-      plugin: { name: 'EntrypointsManifestPlugin', stage: Infinity }
-    },
-    { plugin: { name: 'MergedManifestPlugin' } },
-    {
-      _originalSettings: {
-        inject: true,
-        filename: '[name].[hash].js',
-        entry: { library: [ 'react', 'react-dom' ] },
-        path: 'dll',
-        inherit: true,
-        context: '/Users/kellymears/code/projects/cli/bud/bud/lab'
+      options: {
+        extensions: 'js',
+        context: '/Users/kellymears/code/projects/cli/bud/bud/lab',
+        eslintPath: '/Users/kellymears/code/projects/cli/bud/bud/packages/extension-eslint/node_modules/eslint/lib/api.js'
       }
     }
   ],
   resolve: {
-    alias: { 'vue$': 'vue/dist/vue.esm.js' },
-    extensions: [ '.wasm', '.mjs', '.js', '.json', '.css', '.vue' ],
+    extensions: [ '.wasm', '.mjs', '.js', '.json', '.css' ],
     modules: [
       '/Users/kellymears/code/projects/cli/bud/bud/lab/src',
       '/Users/kellymears/code/projects/cli/bud/bud/lab',
@@ -286,9 +271,9 @@ module.exports = () => ({
     concatenateModules: true,
     noEmitOnErrors: true,
     checkWasmTypes: true,
+    portableRecords: true,
     nodeEnv: 'production'
   },
-  performance: { maxAssetSize: 250000, maxEntrypointSize: 250000, hints: 'warning' },
   resolveLoader: {
     unsafeCache: true,
     mainFields: [ 'loader', 'main' ],

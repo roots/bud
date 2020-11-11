@@ -1,13 +1,12 @@
 import {useState, useEffect} from 'react'
 import {useProgress} from './useProgress'
 import {useStats} from './useStats'
+import type {UseProgress} from './useProgress'
+import type {UseStats} from './useStats'
 
-const useCompilation: Hooks.Compilation.Compiler = ({
-  compiler,
-}) => {
+const useCompilation: UseCompilation.Hook = ({compiler}) => {
   const [applied, setApplied] = useState<boolean>(false)
   const [tapped, setTapped] = useState<boolean>(null)
-
   const [stats, statsHandler] = useStats()
   const [progress, progressHandler] = useProgress()
 
@@ -31,4 +30,15 @@ const useCompilation: Hooks.Compilation.Compiler = ({
   }
 }
 
-export {useCompilation as default}
+export namespace UseCompilation {
+  export interface Hook {
+    (bud: Framework.Bud): Compilation
+  }
+
+  export interface Compilation {
+    progress: UseProgress.Progress
+    stats: UseStats.Stats
+  }
+}
+
+export {useCompilation, useCompilation as default}

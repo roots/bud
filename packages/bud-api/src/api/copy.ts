@@ -11,23 +11,14 @@ export const copy: Framework.API.Copy = function (
     },
   },
 ) {
-  context = context ?? this.src()
-  to = to ?? this.distPath()
-  globOptions = globOptions ?? {
-    ignore: '.*',
-  }
-
-  this.extensions.setOptions('copy', {
-    patterns: [
-      ...this.extensions.getOptions('copy').patterns,
-      {
-        from,
-        context,
-        to,
-        globOptions,
-        noErrorOnMissing: true,
-      },
-    ],
+  this.extensions.get(`copy-webpack-plugin`).push('patterns', {
+    from,
+    context: context ?? this.src(),
+    to: to ?? this.distPath(),
+    globOptions: globOptions ?? {
+      ignore: '.*',
+    },
+    noErrorOnMissing: true,
   })
 
   return this

@@ -9,6 +9,5 @@
   },
   "compileOnSave": true,
   "include": ["./src"],
-  "exclude": ["./lib"],
-  "references": [{"@roots/bud-typings": "../typings"}]
+  "exclude": ["./lib"]
 }

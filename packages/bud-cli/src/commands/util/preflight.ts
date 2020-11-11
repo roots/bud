@@ -4,7 +4,7 @@
 export const dev = function (bud: Framework.Bud): void {
   /*
     bud.server
-    .setCompiler(bud.compiler.getCompilation())
+    .setCompiler(bud.compiler.get())
     .setConfig(bud.store['server'].repository)
     .addDevMiddleware()
 

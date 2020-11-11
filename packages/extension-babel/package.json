@@ -43,6 +43,7 @@
     "babel-plugin-add-module-exports": "^1.0.4"
   },
   "devDependencies": {
+    "@roots/bud-extensions": "2.0.0-next.24",
     "webpack": "^4.44.2"
   }
 }

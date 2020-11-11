@@ -4,19 +4,13 @@ export const test: Conditional = ({patterns}) =>
 export const exclude: Exclude = ({patterns}) =>
   patterns.get('modules')
 
-export const use: Use = ({build, mode}) => {
-  const use: UseItem = item => build.getItem(item)
-  const style = mode.is('production')
-    ? use('minicss')
+export const use: Use = bud => {
+  const use: UseItem = item => bud.build.getItem(item)
+  const style = bud.mode.is('production')
+    ? use('mini-css')
     : use('style')
 
-  return [
-    use('thread'),
-    use('cache'),
-    style,
-    use('css'),
-    use('resolveUrl'),
-  ]
+  return [style, use('css'), use('resolve-url')]
 }
 
 declare type Conditional = Framework.Rule.Factory<

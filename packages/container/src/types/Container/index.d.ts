@@ -3,16 +3,16 @@ export as namespace Container
 /**
  * A basic container object.
  */
-export declare class Container {
+export declare class Container<T = any> {
   /**
    * Store.
    */
-  repository: Container.Repository
+  repository: Container.Repository<T>
 
   /**
    * Class constructor.
    */
-  constructor(repository?: Container.Repository)
+  constructor(repository?: Container.Repository<T>)
 
   /**
    * Get an item from the repo.
@@ -49,24 +49,26 @@ export declare class Container {
 /**
  * Container iem.
  */
-export type Item = any | Repository | Repository[]
+export type Item<T = any> = T
 
 /**
  * Container value store.
  */
-export type Repository = KeyedRepository | ArrayedRepository
+export type Repository<T = any> =
+  | KeyedRepository<T>
+  | ArrayedRepository<T>
 
 /**
  * Indexed container value store.
  */
-export type KeyedRepository = {
-  [key: string]: Item
+export type KeyedRepository<T = any> = {
+  [key: string]: Item<T>
 }
 
 /**
  * Arrayed container value store.
  */
-export type ArrayedRepository = Array<any>
+export type ArrayedRepository<T = any> = Array<T>
 
 /**
  * Do something with a repository item.
@@ -89,7 +91,7 @@ export type Select = (key: string | number) => void
 /**
  * Get a repository item by key.
  */
-export type Get = (key: string | number) => Item
+export type Get = (key: string | number | string[]) => Item
 
 /**
  * Handler for iterable methods.

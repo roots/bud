@@ -1,4 +1,6 @@
 import {Webpack} from '../Webpack'
+import type {Hooks} from '@roots/bud-hooks/src/Hooks'
+import {Bud} from '../Bud'
 
 /**
  * Framework.Build produces the final webpack configuration object.
@@ -37,7 +39,7 @@ export declare class Build {
   /**
    * Class constructor.
    */
-  public constructor(arguments: Framework.Index<Framework.Bud>)
+  public constructor(bud: Framework.Bud)
 
   /**
    * Function producing the final webpack configuration.
@@ -147,8 +149,9 @@ export namespace Build {
    * Builds webpack's plugins configuration
    */
   export type Plugins = (
+    this: Bud,
     args?: Framework.Index<any>,
-  ) => Framework.Index<Product.Plugins>
+  ) => {[key: string]: Webpack.Configuration['plugins']}
 
   /**
    * Builds webpack's output configuration
@@ -168,7 +171,7 @@ export namespace Build {
   export type General = (
     this: Framework.Bud,
     build: Partial<Framework.Build.Configuration>,
-    hooks: Framework.Hooks,
+    hooks: Hooks.Contract,
   ) => Product.General
 
   /**
@@ -221,7 +224,7 @@ export namespace Build {
     /**
      * @see {webpack.Configuration['plugin']}
      */
-    export type Plugins = Webpack.Plugin[]
+    export type Plugins = Webpack.Configuration['plugins']
 
     /**
      * @see {webpack.Configuration}

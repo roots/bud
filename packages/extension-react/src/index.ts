@@ -1,34 +1,49 @@
 import ReactRefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 
 /**
- * @svgr loader
- */
-export const registerLoader = [
-  '@svgr',
-  require.resolve('@svgr/webpack'),
-]
-
-/**
  * Boot bud-jsx extension
  */
-export const boot = (instance: Framework.Bud): void => {
-  if (!instance.mode.is('development')) return
+export const boot = (bud: Framework.Bud): void => {
+  /** Add babel preset */
+  bud.build.items.merge('babel.options.presets', [
+    '@babel/preset-react',
+  ])
 
-  instance.extensions.register('react-reresh-webpack-plugin', {
+  /** Everything else is dev only */
+  if (!bud.mode.is('development')) return
+
+  /** Add react-refresh webpack plugin */
+  bud.extensions.set('react-reresh', {
     options: {
       overlay: {
         sockIntegration: 'whm',
       },
     },
-    make: (opts: ReactRefreshPlugin['options']) =>
-      new ReactRefreshPlugin(opts),
-    when: instance => instance.mode.is('development'),
+    make: (opts: RefreshOptions) => new ReactRefreshPlugin(opts),
+    when: bud => bud.mode.is('development'),
   })
 
-  instance.build.items.merge('babel.options.presets', [
-    require.resolve('@babel/preset-react'),
-  ])
-  instance.build.items.merge('babel.options.plugins', [
+  /** Add react-refresh babel plugin */
+  bud.build.items.merge('babel.options.plugins', [
     require.resolve('react-refresh/babel'),
   ])
 }
+
+/**
+ * @svgr loader
+ */
+export const registerLoader = [
+  '@svgr-loader',
+  require.resolve('@svgr/webpack'),
+]
+
+export const registerItem = [
+  '@svgr',
+  {
+    test: ({patterns}: Framework.Bud): RegExp =>
+      patterns.get('svg'),
+    use: ['@svgr-loader'],
+  },
+]
+
+export type RefreshOptions = ReactRefreshPlugin['options']

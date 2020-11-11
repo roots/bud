@@ -22,12 +22,12 @@ export declare class Compiler {
   /**
    * Get the (activated) compiler
    */
-  getCompilation: () => Framework.Webpack.Compiler
+  get: () => Framework.Webpack.Compiler
 
   /**
    * Set the activated compiler
    */
-  setCompilation: (
+  set: (
     compiler:
       | Framework.Webpack.Compiler
       | Framework.Webpack.MultiCompiler,

@@ -10,17 +10,17 @@
 </p>
 
 <h1 align="center">
-  <strong>@roots/bud-cache</strong>
+  <strong>@roots/bud-extensions</strong>
 </h1>
 
 ## Overview
 
-Config caching utility.
+Bud extension controller.
 
 ## Installation
 
 ```sh
-yarn add @roots/bud-cache
+yarn add @roots/bud-extensions
 ```
 
 ## Contributing

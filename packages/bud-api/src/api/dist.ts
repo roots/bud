@@ -3,9 +3,6 @@ export const dist: Framework.API.Dist = function (
   path?: string,
 ) {
   return path
-    ? this.fs.path.resolve(
-        this.build.config.get('output.path'),
-        path as string,
-      )
-    : this.build.config.get('output.path')
+    ? this.fs.path.join(this.config.get('output.path'), path)
+    : this.config.get('output.path')
 }

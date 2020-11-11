@@ -1,22 +1,36 @@
-import {sassConfig} from './api'
-
+import {sass} from './api'
 export * as registerRules from './registerRules'
 export * as registerItems from './registerItems'
 
-export const boot = (instance: Framework.Bud): void => {
-  ;['sass', 'scss'].map(ext => {
-    !instance.build.config
-      .get('resolve.extensions')
-      .includes(ext) &&
-      instance.build.config.merge('resolve.extensions', [ext])
-  })
+/**
+ * Register configuration object.
+ */
+export const api = {
+  sass,
+}
 
-  Object.assign(instance, {
-    sass: sassConfig(instance).init(),
+/**
+ * Boot extension
+ */
+export const boot = (bud: Framework.Bud): void => {
+  /**
+   * Initialize configuration object.
+   */
+  bud.sass = bud.sass(bud).init()
+
+  /**
+   * Resolve sass and scss extensions
+   */
+  ;['sass', 'scss'].map(ext => {
+    !bud.config.get('resolve.extensions').includes(ext) &&
+      bud.config.merge('resolve.extensions', [`.${ext}`])
   })
 }
 
+/**
+ * Register sass loader
+ */
 export const registerLoader = [
-  'sass',
+  'sass-loader',
   require.resolve('sass-loader'),
 ]

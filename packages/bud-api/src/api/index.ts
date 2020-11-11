@@ -1,6 +1,7 @@
 export {addPlugin} from './addPlugin'
 export {alias} from './alias'
 export {brotli} from './brotli'
+export {buildCache} from './buildCache'
 export {copy} from './copy'
 export {define} from './define'
 export {dev} from './dev'

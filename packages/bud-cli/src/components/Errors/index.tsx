@@ -1,11 +1,7 @@
 import React, {FunctionComponent} from 'react'
 import {Box, Text} from 'ink'
 
-interface ErrorProps {
-  errors: string[]
-}
-
-const Errors: FunctionComponent<ErrorProps> = ({errors}) => (
+const Errors: FunctionComponent<Props> = ({errors}) => (
   <Box flexDirection="column">
     <Box
       flexDirection="column"
@@ -21,5 +17,9 @@ const Errors: FunctionComponent<ErrorProps> = ({errors}) => (
     </Box>
   </Box>
 )
+
+interface Props {
+  errors: string[]
+}
 
 export {Errors as default}

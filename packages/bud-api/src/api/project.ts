@@ -1,9 +1,12 @@
-export const project: Framework.API.Project = function (
-  segment,
-) {
+import {Bud} from '@roots/bud-typings'
+
+export const project: Project = function (segment) {
   return segment
-    ? this.disk.get('project')
-      ? this.disk.current.get(segment)
-      : this.fs.path.join(process.cwd(), segment)
-    : this.disk.get('project').base ?? process.cwd()
+    ? this.fs.path.join(this.fs.getBase(), segment)
+    : this.fs.getBase() ?? process.cwd()
 }
+
+export type Project = (
+  this: Bud,
+  path?: string | undefined,
+) => string | void
