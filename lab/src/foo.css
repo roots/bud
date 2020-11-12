@@ -1,6 +1,3 @@
-@tailwind base;
-@tailwind components;
-
 html,
 body {
   margin: 0;
@@ -13,5 +10,3 @@ body {
   @apply w-full;
   @apply m-0;
 }
-
-@import 'tailwindcss/utilities';

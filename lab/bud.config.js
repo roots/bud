@@ -3,13 +3,9 @@
  */
 const bud = require('../packages/bud/lib')
 
-bud.use([
-  '@roots/bud-babel',
-  '@roots/bud-eslint',
-  '@roots/bud-postcss',
-  '@roots/bud-tailwindcss',
-  '@roots/bud-react',
-])
+bud.use(['@roots/bud-babel', '@roots/bud-react'])
+
+bud.library(['react', 'react-dom'])
 
 bud
   .buildCache()

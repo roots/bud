@@ -1,6 +1,7 @@
 import {Indexed} from '@roots/container'
 
 class Hooks extends Indexed implements Hooks.Contract {
+  repository: Indexed
   logger: Hooks.Logger
 
   public constructor({logger}: Hooks.Options) {
@@ -8,7 +9,7 @@ class Hooks extends Indexed implements Hooks.Contract {
     this.logger = logger
   }
 
-  public on(name: string, hook: Hooks.Hook<unknown>): this {
+  public on<T = any>(name: string, hook: Hooks.Hook<T>): this {
     this.repository[name] = this.repository[name]
       ? [this.repository[name], hook]
       : [hook]
@@ -17,7 +18,9 @@ class Hooks extends Indexed implements Hooks.Contract {
   }
 
   public action<T = unknown>(name: string, binding: T): void {
-    this.repository[name].map(hook => hook.bind(binding))
+    this.repository[name].map((hook: Hooks.Hook<T>) =>
+      hook.bind(binding),
+    )
   }
 
   public filter<T = unknown>(name: string, value: T): T {
@@ -34,8 +37,8 @@ class Hooks extends Indexed implements Hooks.Contract {
  * Callback registry opening internal values, functions and events
  * to runtime modification.
  *
- * Hooks are registered with `hooks.on`
- * Hooks are called with `hooks.filter`
+ * Hooks are registered with `hooks.on`.
+ * Hooks are called with `hooks.filter`.
  */
 namespace Hooks {
   export declare class Contract
@@ -43,13 +46,13 @@ namespace Hooks {
     implements Interface {
     logger: Logger
     constructor({logger}: Options)
-    on<T>(name: string, hook: Hook<T>): Contract
+    on<T = any>(name: string, hook: Hooks.Hook<T>): this
     filter<T>(name: string, value: T): T
   }
 
   export interface Interface {
     logger: Logger
-    on<T>(name: string, hook: Hook<T>): Contract
+    on<T = any>(name: string, hook: Hooks.Hook<T>): this
     filter<T>(name: string, value: T): T
   }
 
@@ -102,7 +105,7 @@ namespace Hooks {
    * value is either returned to the filter or passed to the next
    * registered hook (if more than one hook has been registered).
    */
-  export type Hook<T> = (data: unknown) => T
+  export type Hook<T> = (data: T) => T
 }
 
 export {Hooks}

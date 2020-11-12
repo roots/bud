@@ -4,47 +4,36 @@ export const glob: Framework.API.Glob = function (
   files,
   options,
 ) {
-  /** Prep and run glob operation. */
-  const glob = prepareGlob.bind(this)(files)
-
-  /** Results */
-  const results = this.fs.glob.sync(
-    glob,
-    options ?? {expandDirectories: true},
-  )
-
   this.config.merge(
     'entry',
-    results.reduce((acc, curr) => {
-      const entryPath = name ? `${name}/` : '/'
-      const entryName = basedName.bind(this)(curr)
+    this.fs.glob
+      .sync(
+        (search => {
+          switch (typeof search) {
+            case 'string':
+              return [search]
+            case 'object':
+              return search.map(file => file)
+          }
+        })(files),
+        options ?? {expandDirectories: true},
+      )
+      .reduce((acc, curr) => {
+        const basedName = (file: string): string => {
+          const ext = `.${file.split('.').pop()}`
 
-      const entry = this.fs.path.join(entryPath, entryName)
+          return this.fs.path.basename(file, ext)
+        }
 
-      return {...acc, [entry]: curr}
-    }, {}),
+        return {
+          ...acc,
+          [this.fs.path.join(
+            name ? `${name}/` : '/',
+            basedName(curr),
+          )]: curr,
+        }
+      }, {}),
   )
 
   return this
-}
-
-/**
- * Remove extension from path-like string
- */
-function basedName(file: string): string {
-  const ext = `.${file.split('.').pop()}`
-  return this.fs.path.basename(file, ext)
-}
-
-/**
- * Prepare globbing fn props
- * @see Bud.fs.glob
- */
-function prepareGlob(search: string | string[]): string[] {
-  switch (typeof search) {
-    case 'string':
-      return [search]
-    case 'object':
-      return search.map(file => file)
-  }
 }

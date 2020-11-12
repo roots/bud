@@ -1,5 +1,3 @@
-import {lodash as _, yargs} from '@roots/bud-support'
+import {yargs} from '@roots/bud-support'
 
-const {argv: args} = yargs
-
-export {args}
+export const {argv: args} = yargs

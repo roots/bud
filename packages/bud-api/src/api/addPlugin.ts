@@ -1,21 +1,13 @@
-import {Extension} from '@roots/bud-extensions/src/Extension'
-import {lodash as _} from '@roots/bud-support'
-import type {Bud, Fluent} from '@roots/bud-typings'
+import type {Bud} from '@roots/bud-typings'
 
-export const addPlugin: AddPlugin = function (
-  args: Extension.Controller,
-) {
-  this.extensions.set(name, args)
+export function addPlugin<T>(
+  this: Bud,
+  name: string,
+  make: T,
+): Bud {
+  this.extensions.set(name, {
+    make,
+  })
 
   return this
 }
-
-/**
- * Add a webpack plugin.
- */
-export type AddPlugin = Fluent<
-  Bud,
-  string,
-  Extension.Make,
-  Extension.Conditional
->

@@ -26,8 +26,6 @@ export const headers: Server.Config['headers'] = {
     'X-Requested-With, content-type, Authorization',
 }
 
-export const hot: Server.Config['hot'] = true
-
 /**
  * Hostname to use for dev server.
  */

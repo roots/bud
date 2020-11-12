@@ -21,7 +21,8 @@
   "modules": {
     "byIdentifier": {
       "multi foo.js foo.scss": 0,
-      "multi foo.js foo.css": 0
+      "multi foo.js foo.css": 0,
+      "dll library": 0
     },
     "usedIds": {
       "0": 0
@@ -29,10 +30,12 @@
   },
   "chunks": {
     "byName": {
-      "foo": 0
+      "foo": 0,
+      "library": 1
     },
     "bySource": {
-      "0 foo": 0
+      "0 foo": 0,
+      "0 library": 1
     },
     "usedIds": [
       0

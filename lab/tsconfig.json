@@ -13,9 +13,9 @@
     "moduleResolution": "node",
     "module": "commonjs",
     "noUnusedLocals": true,
-    "noEmitOnError":false,
+    "noEmitOnError": false,
     "sourceMap": true,
-    "target": "ES6",
+    "target": "ES6"
   },
   "base": "packages",
   "references": [
@@ -41,9 +41,13 @@
     {"@roots/bud-sage": "../packages/extensions/sage"},
     {"@roots/bud-sass": "../packages/extensions/sass"},
     {"@roots/bud-stylelint": "../packages/extensions/stylelint"},
-    {"@roots/bud-tailwindcss": "../packages/extensions/tailwindcss"},
-    {"@roots/bud-typescript": "../packages/extensions/typescript"},
-    {"@roots/bud-vue": "../packages/extensions/vue"},
+    {
+      "@roots/bud-tailwindcss": "../packages/extensions/tailwindcss"
+    },
+    {
+      "@roots/bud-typescript": "../packages/extensions/typescript"
+    },
+    {"@roots/bud-vue": "../packages/extensions/vue"}
   ],
-  "files": [],
+  "files": []
 }
