@@ -1,6 +1,6 @@
 export {entry} from './entry'
 export {general} from './general'
-export {module} from './module'
+export {moduleBuilder as module} from './module'
 export {externals} from './externals'
 export {output} from './output'
 export {plugins} from './plugins'

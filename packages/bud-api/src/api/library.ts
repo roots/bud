@@ -13,7 +13,7 @@ export const library: Framework.API.Library = function (
       },
       path: 'dll',
       inherit: true,
-      context: this.project(),
+      context: this.src(),
     },
     make: opts => new AutoDllPlugin(opts.all()),
   })

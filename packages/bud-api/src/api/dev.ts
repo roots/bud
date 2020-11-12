@@ -8,10 +8,6 @@ export const dev: Framework.API.Dev = function (
     this.features.enable('proxy')
   }
 
-  if (config?.hot) {
-    this.features.enable('hot')
-  }
-
   this.server.config.repository = {
     ...this.server.config.all(),
     ...config,
