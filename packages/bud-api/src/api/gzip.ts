@@ -11,7 +11,7 @@ export const gzip: Framework.API.Gzip = function (
 
       this.extensions
         .get('compression-webpack-plugin-gzip')
-        .setRepository({
+        .setOptions({
           ...opts,
           ...options,
         })

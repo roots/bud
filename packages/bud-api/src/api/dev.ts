@@ -1,9 +1,6 @@
-import Server from '@roots/bud-server'
+import {Bud, Server} from '@roots/bud-typings'
 
-export const dev: Framework.API.Dev = function (
-  this: Framework.Bud,
-  config: Server.Config,
-) {
+export const dev: Dev = function (config) {
   if (config?.proxy?.host || config?.proxy?.port) {
     this.features.enable('proxy')
   }
@@ -15,3 +12,8 @@ export const dev: Framework.API.Dev = function (
 
   return this
 }
+
+export type Dev = (
+  this: Bud.Contract,
+  config: Server.Config,
+) => Bud.Contract

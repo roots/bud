@@ -46,7 +46,7 @@ class Extensions implements Extensions.Contract {
   /**
    * Register a batch of extensions.
    */
-  public make(extensions: Index<Extension.Interface>): void {
+  public make(extensions: Index<Extension.Contract>): void {
     Object.entries(extensions).map(([name, extension]) =>
       this.set(name, extension),
     )
@@ -77,8 +77,8 @@ class Extensions implements Extensions.Contract {
   public set(
     name: string,
     extension:
-      | Extension.Interface
-      | ((bud: Bud) => Extension.Interface),
+      | Extension.Contract
+      | ((bud: Bud) => Extension.Contract),
   ): this {
     const initialized =
       typeof extension == 'function'
@@ -114,15 +114,15 @@ declare namespace Extensions {
 
     public constructor(bud: Bud)
 
-    public make(extensions: Index<Extension.Interface>): void
+    public make(extensions: Index<Extension.Contract>): void
 
     public get: (name: string) => Extension.Controller
 
     public set: (
       name: string,
       extension:
-        | Extension.Interface
-        | ((bud: Bud) => Extension.Interface),
+        | Extension.Contract
+        | ((bud: Bud) => Extension.Contract),
     ) => this
 
     public use(pkg: string): this
@@ -141,7 +141,7 @@ declare namespace Extensions {
     /**
      * Register a batch of extensions.
      */
-    make(extensions: Index<Extension.Interface>): void
+    make(extensions: Index<Extension.Contract>): void
 
     /**
      * Register a plugin to be utilized during compilation.
@@ -154,8 +154,8 @@ declare namespace Extensions {
     set: (
       name: string,
       extension:
-        | Extension.Interface
-        | ((bud: Bud) => Extension.Interface),
+        | Extension.Contract
+        | ((bud: Bud) => Extension.Contract),
     ) => this
 
     /**

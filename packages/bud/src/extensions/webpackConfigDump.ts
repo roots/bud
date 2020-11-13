@@ -1,8 +1,8 @@
 import {WebpackConfigDumpPlugin} from 'webpack-config-dump-plugin'
 import type {Extension} from '@roots/bud-extensions'
 
-export const options: RawOptions = ({project}) => ({
-  outputPath: project(),
+export const options: RawOptions = ({fs}) => ({
+  outputPath: fs.path.join(fs.getBase(), '.bud'),
   keepCircularReferences: true,
 })
 

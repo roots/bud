@@ -10,7 +10,7 @@ export const api = {
     this.features.enable('stylelint')
     this.extensions
       .get('@roots/bud-stylelint')
-      .setRepository(options)
+      .setOptions(options)
 
     return this
   },

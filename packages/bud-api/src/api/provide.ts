@@ -1,7 +1,7 @@
 import {lodash as _} from '@roots/bud-support'
-import type {Bud} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-typings'
 
-export const provide: Provide = function (options) {
+export const provide: provide = function (options) {
   const providePlugin = this.extensions.get(
     'webpack-provide-plugin',
   )
@@ -22,7 +22,7 @@ export const provide: Provide = function (options) {
 /**
  * Make a module globally available throughout the application.
  */
-export type Provide = (
+export type provide = (
   this: Bud,
   options: {
     [key: string]: string[]

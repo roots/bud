@@ -1,4 +1,4 @@
-import type {Extension} from '@roots/bud-extensions'
+import type {Extension} from '@roots/bud-typings'
 
 export const terser: Framework.API.Terser = function (options) {
   if (options) {

@@ -1,19 +1,15 @@
 import _ from 'lodash'
 import {Container} from '../Container'
 
-export class Indexed extends Container {
-  repository: Container.KeyedRepository
+export class Indexed<T = any> extends Container {
+  repository: Container.KeyedRepository<T>
 
-  constructor(repository?: Container.KeyedRepository) {
+  constructor(repository?: Container.KeyedRepository<T>) {
     super(repository || {})
   }
 
-  public push(key: string, item: Container.Item): void {
-    this.repository[key].push(item)
-  }
-
-  public get: Container.Get = function (key: string[]) {
-    return _.get(this.repository, key)
+  public push(key: string, item: Container.Item): this {
+    return this.mutate(key, val => ({...val, item}))
   }
 
   public is: Container.Conditional = function (key, value) {
@@ -28,10 +24,6 @@ export class Indexed extends Container {
     return this.get(key) == true
   }
 
-  public set: Container.Using = function (key, value) {
-    _.set(this.repository, key, value)
-  }
-
   public has: Container.Conditional = function (key) {
     return this.get(key) ? true : false
   }
@@ -40,12 +32,8 @@ export class Indexed extends Container {
     this.set(key, _.merge(this.get(key), value))
   }
 
-  public delete: Container.Select = function (key) {
-    delete this.repository[key]
-  }
-
   public enable: Container.Select = function (key) {
-    this.repository[key] = true
+    this.set(key, true)
   }
 
   public disable: Container.Select = function (key) {
@@ -62,52 +50,22 @@ export class Indexed extends Container {
 
   public map: Container.Transform<
     Container.Repository
-  > = function (handler: (item: unknown) => unknown) {
+  > = function (handler: (item: any) => any) {
     return this.entries().map(handler)
   }
 
-  public each: Container.IterateUsing = function (key, handler) {
-    Object.values(this.get(key)).forEach(handler)
-  }
+  public each = function (
+    key: string,
+    handler: CallableFunction,
+  ): void {
+    this.get(key).forEach(handler)
 
-  public all: Container.Transform = function (
-    args?: Container.Repository,
-  ) {
-    return args ? (this.repository = args) : this.repository
-  }
-
-  public setRepository = function (
-    values: Container.Repository,
-  ): Container {
-    this.repository = values
     return this
   }
 
-  public entries: Container.Transform<
-    Array<[string, Container.Item]>
-  > = function () {
-    return Object.entries(this.repository)
-  }
-
-  public keys: Container.Transform<string[]> = function () {
-    return Object.keys(this.repository)
-  }
-
-  public values: Container.Transform<
-    Container.Item[]
-  > = function () {
-    return Object.values(this.repository)
-  }
-
-  public Map: Container.Transform<
-    Map<string, Container.Item>
-  > = function () {
-    return this.all().reduce(
-      (
-        map: Map<string, Container.Repository>,
-        [key, value]: [string, Container.Repository],
-      ) => map.set(key, value),
-      new Map(),
-    )
+  public all(
+    args?: Container.Repository,
+  ): Container.Repository | this {
+    return args ? this.setStore(args) : this.repository
   }
 }

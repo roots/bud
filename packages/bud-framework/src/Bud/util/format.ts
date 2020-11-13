@@ -1,9 +1,6 @@
 import prettyFormat from 'pretty-format'
 
-const format: Framework.Format = (
-  obj: unknown,
-  options = {},
-): string =>
+export const format: Format = (obj, options = {}): string =>
   prettyFormat(obj, {
     callToJSON: true,
     highlight: true,
@@ -11,4 +8,7 @@ const format: Framework.Format = (
     ...options,
   })
 
-export {format as default}
+export type Format = (
+  obj: unknown,
+  options: Partial<prettyFormat.Options>,
+) => string

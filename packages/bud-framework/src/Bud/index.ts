@@ -1,165 +1,248 @@
-import {lodash as _} from '@roots/bud-support'
+import type {Env, Hooks, Index} from '@roots/bud-typings'
 import {Indexed as Container} from '@roots/container'
-import util from './util'
-import type {
-  Bud as Application,
-  ConstructorOptions,
-  Index,
-} from '@roots/bud-typings'
+import {FileContainer, FileSystem} from '@roots/filesystem'
+import {Mode} from './Mode'
+import * as util from './util'
 
-export default class Bud implements Application {
+export {Bud, Bud as default}
+
+class Bud implements Bud.Contract {
   [key: string]: any
 
-  public registered: Application['registered']
+  public registered: Container<any>
 
-  public build: Application['build']
+  public disk: FileSystem
 
-  public cli: Application['cli']
+  public fs: FileContainer
 
-  public compiler: Application['compiler']
+  public env: Env.Contract
 
-  public disk: Application['disk']
+  public hooks: Hooks.Contract
 
-  public env: Application['env']
+  public mode: Bud.Contract['mode']
 
-  public fs: Application['fs']
+  public logger: Bud.Logger.Contract = util.logger
 
-  public extensions: Application['extensions']
+  public constructor(registrables: Bud.ConstructorParameters) {
+    this.makeContainer = this.makeContainer.bind(this)
+    this.registered = this.makeContainer()
 
-  public hooks: Application['hooks']
+    Object.entries(registrables).forEach(
+      ([name, registrable]) => {
+        this.registered.set(name, registrable)
+      },
+    )
 
-  public mode: Application['mode']
+    this.register = this.register.bind(this)
+    this.boot = this.boot.bind(this)
+  }
 
-  public presets: Application['presets'] = new Container({})
-
-  public server: Application['server']
-
-  public instance: Application['instance']
-
-  public util: Application['util'] = util
-
-  public logger: Application['logger'] = util.logger
-
-  public proxy: Application['proxy'] = util.proxy
-
-  public when: Application['when'] = util.when
-
-  public constructor(options: ConstructorOptions) {
-    ;[
-      'mapServices',
-      'mapBuilders',
-      'mapContainers',
-      'mapCallables',
-      'mapDisks',
-      'makeContainer',
-      'run',
-      'bootstrap',
-    ].forEach(name => {
-      this[name] = this[name].bind(this)
+  public register(registerFn: {
+    [key: string]: CallableFunction
+  }): this {
+    Object.entries(registerFn).map(([, fn]) => {
+      fn.bind(this)()
     })
 
-    this.registered = this.makeContainer(options)
-  }
+    this.mode = new Mode(this)
 
-  public bootstrap(): this {
-    this.mapContainers(this.registered.get('containers'))
-
-    this.mapServices(this.registered.get('services'))
-
-    this.mapBuilders(this.registered.get('builders'))
-
-    this.mapDisks(this.registered.get('disks'))
-
-    this.mapCallables(this.registered.get('api'))
-
-    this.extensions.make(this.registered.get('plugins'))
-
-    return this
-  }
-
-  public mapDisks = function (disks): void {
+    this.disk.set('project', {
+      baseDir: process.cwd(),
+      glob: ['**/*'],
+    })
+    this.disk.set('@roots', {
+      baseDir: this.fs.path.resolve(__dirname, '../../../'),
+      glob: ['**/*'],
+    })
     this.fs.setBase(process.cwd())
 
-    Object.entries(disks(this)).map(([name, options]) => {
-      this.disk.set(name, options)
+    return this
+  }
+
+  public boot(bootFn: {[key: string]: CallableFunction}): this {
+    Object.entries(bootFn).map(([, fn]) => {
+      fn.bind(this)()
     })
-  }
-
-  /**
-   * Make a new container.
-   */
-  public makeContainer: Application['makeContainer'] = function (
-    repository,
-  ) {
-    return new Container(repository)
-  }
-
-  public when: Application['when'] = function (
-    test,
-    isTrue,
-    isFalse,
-  ) {
-    _.isEqual(test, true)
-      ? _.isFunction(isTrue) && isTrue(this)
-      : _.isFunction(isFalse) && isFalse(this)
 
     return this
   }
 
-  public run: Application['run'] = function () {
-    if (this.mode.is('development')) {
-      this.server.addDevMiddleware()
-      this.server.addHotMiddleware()
+  public makeContainer: Bud.Contract['makeContainer'] = function <
+    T = any
+  >(repository) {
+    return new Container<T>(repository)
+  }
+}
 
-      !_.isUndefined(this.server.getConfigItem('proxy')) &&
-        this.server.addProxyMiddleware()
+namespace Bud {
+  /**
+   * Core unit of the Bud application.
+   */
+  export declare class Contract {
+    /**
+     * @note I'm not sure how to type something this flexible.
+     */
+    [key: string]: any
+
+    /**
+     * Services registered to the framework.
+     */
+    public registered: Container<Service>
+
+    /**
+     * Register
+     */
+    public register: (fns: {
+      [key: string]: CallableFunction
+    }) => this
+
+    /**
+     * Boot
+     */
+    public boot(bootFn: {[key: string]: CallableFunction}): this
+
+    /**
+     * Disks.
+     */
+    public disk: FileSystem
+
+    /**
+     * Project files.
+     */
+    public fs: FileContainer
+
+    /**
+     * Env variables.
+     */
+    public env: Env.Contract
+
+    /**
+     * Hooks system.
+     */
+    public hooks: Hooks.Contract
+
+    /**
+     * Logger
+     */
+    public logger: Logger.Contract
+
+    /**
+     * Simple container interface for querying and
+     * modifying Webpack mode.
+     */
+    public mode: Mode.Contract
+
+    /**
+     * Construct
+     */
+    public constructor(options: ConstructorParameters)
+
+    /**
+     * Make a new container.
+     */
+    public makeContainer<T>(
+      repository?: Container.Repository<T>,
+    ): Container
+  }
+
+  export type Format = (obj: unknown, options?) => string
+
+  export type BuilderDefinition<T = any> = [
+    Index<T>,
+    BuilderDefinition.Initializer<T>,
+  ]
+
+  export namespace BuilderDefinition {
+    export interface Args<Type> {
+      this: Bud
+      definition: [string, Type]
     }
 
-    this.compiler.compile()
-    this.cli.run()
+    export type Initializer<Type> = (
+      this: Bud,
+      [name, object]: [string, Type],
+    ) => void
   }
 
-  public mapContainers: Application['mapContainers'] = function (
-    containers,
-  ) {
-    Object.entries(containers).map(
-      ([name, repository]: [string, Index<unknown>]) => {
-        this[name] = this.makeContainer(repository)
-      },
-    )
+  export declare type When = (
+    this: Bud,
+    test: boolean,
+    isTrue: (bud: Bud) => unknown,
+    isFalse?: (bud: Bud) => unknown,
+  ) => Bud
+
+  export declare type Bootstrap = (
+    initFn: (this: Bud.Contract) => void,
+  ) => Bud.Contract
+
+  export declare interface ConstructorParameters {
+    [key: string]: any
   }
 
-  public mapBuilders: Application['mapBuilders'] = function (
-    builders,
-  ) {
-    Object.values(builders).map(([definitions, initializer]) => {
-      Object.entries(definitions).map(definition => {
-        initializer.bind(this)(definition)
-      })
-    }, {})
+  export type DiskDefinition = {
+    [key: string]: {glob: string[]; baseDir: string}
   }
 
-  public mapCallables: Application['mapCallables'] = function (
-    callables,
-  ) {
-    Object.entries(callables).map(
-      ([name, fn]: [string, CallableFunction]) => {
-        this[name] = fn.bind(this)
-      },
-    )
-  }
+  export type Service<T = unknown> = T
 
-  public mapServices: Application['mapServices'] = function (
-    services,
-  ) {
-    Object.entries(services).map(([name, initializer]) => {
-      Object.assign(this, {
-        [name]: initializer(this),
-      })
+  /**
+   * Environment variables utility.
+   */
+  export namespace Logger {
+    export interface LogFn {
+      // eslint-disable-next-line @typescript-eslint/ban-types
+      <T extends object>(
+        obj: T,
+        msg?: string,
+        ...args: any[]
+      ): void
+      (msg: string, ...args: any[]): void
+    }
 
-      Object.defineProperty(this[name], 'bud', {
-        enumerable: false,
-      })
-    })
+    export interface Contract {
+      /**
+       * Log at `'fatal'` level the given msg. If the first argument is an object, all its properties will be included in the JSON line.
+       * If more args follows `msg`, these will be used to format `msg` using `util.format`.
+       *
+       * @typeParam T: the interface of the object being serialized. Default is object.
+       * @param obj: object to be serialized
+       * @param msg: the log message to write
+       * @param ...args: format string values when `msg` is a format string
+       */
+      fatal: LogFn
+
+      /**
+       * Log at `'error'` level the given msg. If the first argument is an object, all its properties will be included in the JSON line.
+       * If more args follows `msg`, these will be used to format `msg` using `util.format`.
+       *
+       * @typeParam T: the interface of the object being serialized. Default is object.
+       * @param obj: object to be serialized
+       * @param msg: the log message to write
+       * @param ...args: format string values when `msg` is a format string
+       */
+      error: LogFn
+
+      /**
+       * Log at `'warn'` level the given msg. If the first argument is an object, all its properties will be included in the JSON line.
+       * If more args follows `msg`, these will be used to format `msg` using `util.format`.
+       *
+       * @typeParam T: the interface of the object being serialized. Default is object.
+       * @param obj: object to be serialized
+       * @param msg: the log message to write
+       * @param ...args: format string values when `msg` is a format string
+       */
+      warn: LogFn
+
+      /**
+       * Log at `'info'` level the given msg. If the first argument is an object, all its properties will be included in the JSON line.
+       * If more args follows `msg`, these will be used to format `msg` using `util.format`.
+       *
+       * @typeParam T: the interface of the object being serialized. Default is object.
+       * @param obj: object to be serialized
+       * @param msg: the log message to write
+       * @param ...args: format string values when `msg` is a format string
+       */
+      info: LogFn
+    }
   }
 }

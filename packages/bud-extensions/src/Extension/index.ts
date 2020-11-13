@@ -3,18 +3,18 @@ import * as Webpack from 'webpack'
 import {Indexed} from '@roots/container'
 import {isArray, isFunction} from 'lodash'
 
-export {Extension}
+export {Extension, Extension as default}
 
 class Extension extends Indexed implements Extension.Controller {
-  public bud: Bud
+  public bud: Bud.Contract
 
   public initialized = false
 
-  public module: Extension.Interface
+  public module: Extension.Contract
 
   public builders: [string, CallableFunction][]
 
-  constructor(bud: Bud, extension: Extension.Interface) {
+  constructor(bud: Bud.Contract, extension: Extension.Contract) {
     super({})
 
     this.bud = bud
@@ -53,10 +53,10 @@ class Extension extends Indexed implements Extension.Controller {
     ]
   }
 
-  public initialize = function (): Extension.Interface {
+  public initialize = function (): Extension.Contract {
     this.module.register && this.register()
 
-    this.module.options && this.setOptions()
+    this.module.options && this.setOptions(this.module.options)
 
     this.setApi()
 
@@ -116,14 +116,13 @@ class Extension extends Indexed implements Extension.Controller {
       )
   }
 
-  public setOptions = function (): void {
-    this.module.options &&
-      this.setRepository(
-        this.callMeMaybe(this.module.options, this.bud),
-      )
+  public setOptions = function (
+    options: Container.Repository,
+  ): void {
+    this.setStore(this.callMeMaybe(options, this.bud))
   }
 
-  public getOptions = function (): void {
+  public getOptions = function (): Container.Repository {
     return this.repository
   }
 
@@ -153,41 +152,43 @@ namespace Extension {
   /**
    * Extension
    */
-  export interface Interface {
-    bud?: Bud
+  export interface Contract {
+    bud?: Bud.Contract
 
     initialized?: boolean
 
     options?: {[key: string]: any}
 
-    register?: (bud: Bud) => void
+    register?: (bud: Bud.Contract) => void
 
-    boot?: (bud: Bud) => void
+    boot?: (bud: Bud.Contract) => void
 
-    api?: (bud: Bud) => {[key: string]: CallableFunction}
+    api?: (
+      bud: Bud.Contract,
+    ) => {[key: string]: CallableFunction}
 
     registerLoader?:
-      | ((bud?: Bud) => [string, Build.Loader])
+      | ((bud?: Bud.Contract) => [string, Build.Loader])
       | [string, Build.Loader]
 
     registerLoaders?:
-      | ((bud?: Bud) => {[key: string]: Build.Loader})
+      | ((bud?: Bud.Contract) => {[key: string]: Build.Loader})
       | {[key: string]: Build.Loader}
 
     registerRule?:
-      | ((bud?: Bud) => [string, Rule.Module])
+      | ((bud?: Bud.Contract) => [string, Rule.Module])
       | [string, Rule.Module]
 
     registerRules?:
-      | ((bud?: Bud) => {[key: string]: Rule.Module})
+      | ((bud?: Bud.Contract) => {[key: string]: Rule.Module})
       | {[key: string]: Rule.Module}
 
     registerItem?:
-      | ((bud?: Bud) => [string, Item.Module])
+      | ((bud?: Bud.Contract) => [string, Item.Module])
       | [string, Item.Module]
 
     registerItems?:
-      | ((bud?: Bud) => {[key: string]: Item.Module})
+      | ((bud?: Bud.Contract) => {[key: string]: Item.Module})
       | {[key: string]: Item.Module}
 
     make?: Extension.Make
@@ -196,11 +197,11 @@ namespace Extension {
   }
 
   export interface Controller
-    extends Extension.Interface,
+    extends Extension.Contract,
       Indexed {
-    module?: Extension.Interface
+    module?: Extension.Contract
 
-    initialize?: () => Extension.Interface
+    initialize?: () => Extension.Contract
 
     callMeMaybe?: (value: unknown, args: unknown[]) => unknown
 
@@ -212,21 +213,23 @@ namespace Extension {
 
     makePlugin?: () => Webpack.Plugin
 
-    setOptions?: () => void
+    setOptions?: (options: Container.Repository) => void
 
-    getOptions?: () => void
+    getOptions?: () => Container.Repository
 
     setBuilders?: (
       builders: [string, CallableFunction][],
     ) => void
   }
 
-  export type Register = (bud: Bud) => void
+  export type Register = (bud: Bud.Contract) => void
 
   /**
    * Raw Extension options
    */
-  export type RawOptions<T = any> = T | ((bud?: Bud) => T)
+  export type RawOptions<T = any> =
+    | T
+    | ((bud?: Bud.Contract) => T)
 
   export type Options<T = unknown> = Indexed<T>
 
@@ -246,16 +249,18 @@ namespace Extension {
    * Plugin make when
    */
   export type When<T = unknown> =
-    | ((bud: Bud, options: T) => boolean)
+    | ((bud: Bud.Contract, options: T) => boolean)
     | boolean
 
   /**
    * Plugin conditional
    */
-  export type Conditional = ((bud?: Bud) => boolean) | boolean
+  export type Conditional =
+    | ((bud?: Bud.Contract) => boolean)
+    | boolean
 
   /**
    * Do stuff after registration
    */
-  export type Boot = (bud: Bud) => void
+  export type Boot = (bud: Bud.Contract) => void
 }

@@ -19,6 +19,12 @@ export declare class Container<T = any> {
    */
   public get: Container.Get
 
+  public use: (key?: string) => Container
+
+  public asEntries: (key?: string) => [string, unknown][]
+
+  public asValues: (key?: string) => [string, unknown][]
+
   /**
    * Set an item on the repo.
    */
@@ -33,6 +39,18 @@ export declare class Container<T = any> {
    * Delete an item from the repo.
    */
   public delete: Container.Select
+
+  /**
+   * Get store.
+   */
+  public getStore(): Container.Repository
+
+  /**
+   * Set store.
+   */
+  public setStore<T>(
+    repository: Container.Repository<T>,
+  ): Container
 
   /**
    * Overwrite a repository value with the result of a callback.
@@ -96,7 +114,7 @@ export type Get = (key: string | number | string[]) => Item
 /**
  * Handler for iterable methods.
  */
-export type Handler = (params: unknown) => unknown
+export type Handler = (params: any) => any
 
 /**
  * Do something
@@ -104,7 +122,7 @@ export type Handler = (params: unknown) => unknown
 export type IterateUsing = (
   key: string | number,
   handler: Handler,
-) => unknown
+) => any
 
 /**
  * Transform a repository item.

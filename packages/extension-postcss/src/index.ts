@@ -16,6 +16,6 @@ export const registerLoader: Loader = [
   require.resolve('postcss-loader'),
 ]
 
-declare type Boot = Extension.Interface['boot']
-declare type Item = Extension.Interface['registerItem']
-declare type Loader = Extension.Interface['registerLoader']
+declare type Boot = Extension.Contract['boot']
+declare type Item = Extension.Contract['registerItem']
+declare type Loader = Extension.Contract['registerLoader']

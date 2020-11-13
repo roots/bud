@@ -6,7 +6,7 @@ export const when: When = ({features}) =>
   features?.enabled('gzip')
 export const options: RawOptions = {
   algorithm: 'gzip',
-  filename: '[path].gz[query]',
+  filename: '[name].gz',
   test: /\.js$|\.css$|\.html$/,
   compressionOptions: {
     level: 9,

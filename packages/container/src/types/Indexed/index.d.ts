@@ -1,6 +1,6 @@
 import {Container} from '../'
 
-export declare class Indexed<T = unknown> extends Container {
+export declare class Indexed<T = any> extends Container {
   repository: Container.KeyedRepository
 
   constructor(repository?: Container.KeyedRepository<T>)
@@ -58,14 +58,12 @@ export declare class Indexed<T = unknown> extends Container {
   /**
    * Returns a function
    */
-  map:
-    | Container.Transform<Container.Repository>
-    | ((handler: (item: unknown) => unknown) => unknown[])
+  map<I = any, O = I>(item: I): O
 
   /**
    * Do something with each item in the repository
    */
-  each: Container.IterateUsing
+  each(key: string, handler: any): this
 
   /**
    * Return the entire repository contents

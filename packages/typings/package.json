@@ -22,7 +22,9 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["./packages"],
+  "files": [
+    "./packages"
+  ],
   "types": "./packages/index.d.ts",
   "scripts": {
     "build": "tsc"
@@ -33,7 +35,7 @@
   },
   "devDependencies": {
     "@types/node": "^14.11.2",
-    "webpack": "^4.44.2",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "http-proxy-middleware": "^1.0.6",
     "ink": "^3.0.0-6",
@@ -46,6 +48,7 @@
     "react": "^16.13.1",
     "react-dev-utils": "^10.2.1",
     "react-dom": "^16.13.1",
+    "webpack": "^4.44.2",
     "webpack-dev-middleware": "^3.7.2",
     "webpack-hot-middleware": "^2.25.0",
     "zlib": "^1.0.5"

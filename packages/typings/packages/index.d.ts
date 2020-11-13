@@ -31,7 +31,8 @@ export * from '../../dependencies/src'
  * Framework.API
  * @package @roots/bud-api
  */
-export {API} from './api'
+export * from './api'
+export * from '../../bud-api/src'
 
 /**
  * Framework.Bud
@@ -52,22 +53,35 @@ export * from './Build'
 export * from './Env'
 
 /**
- * Framework.Item
- * @package @roots/bud-framework
+ * @package @roots/bud-extensions
+ */
+export * from './Extensions'
+
+/**
+ * @roots/bud-hooks
+ */
+export * from './Hooks'
+
+/**
+ * @roots/bud-build
  */
 export * from './Item'
+
+/**
+ * @roots/bud-build
+ */
+export * from './Rule'
+
+/**
+ * Logger
+ */
+export * from './Logger'
 
 /**
  * Framework.Mode
  * @package @roots/bud-framework
  */
 export * from './Mode'
-
-/**
- * Framework.Rule
- * @package @roots/bud-framework
- */
-export * from './Rule'
 
 /**
  * Framework.Server
@@ -86,9 +100,3 @@ export * from './Express'
  * @see {webpack}
  */
 export * from './Webpack'
-
-/**
- * Framework.Logger
- * @see {pino}
- */
-export {Logger} from 'pino'

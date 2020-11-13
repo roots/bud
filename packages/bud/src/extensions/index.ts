@@ -1,4 +1,4 @@
-import type {Extension} from '@roots/bud-extensions'
+import type {Extension} from '@roots/bud-typings'
 
 import * as cleanWebpack from './cleanWebpack'
 import * as gzip from './gzip'
@@ -18,7 +18,7 @@ import * as terser from './terser'
 import * as watchMissingModules from './watchMissingModules'
 import * as writeFile from './writeFile'
 
-const plugins: {[key: string]: Extension.Interface} = {
+export const mapped: {[key: string]: Extension.Contract} = {
   [`clean-webpack-plugin`]: cleanWebpack,
   [`compression-webpack-plugin-gzip`]: gzip,
   [`compression-webpack-plugin-brotli`]: brotli,
@@ -38,4 +38,22 @@ const plugins: {[key: string]: Extension.Interface} = {
   [`write-file-webpack-plugin`]: writeFile,
 }
 
-export {plugins}
+export {
+  cleanWebpack,
+  gzip,
+  brotli,
+  ignoreEmit,
+  configDump,
+  copy,
+  define,
+  hotModuleReplacement,
+  html,
+  htmlHardDisk,
+  interpolateHtml,
+  manifest,
+  miniCssExtract,
+  provide,
+  terser,
+  watchMissingModules,
+  writeFile,
+}

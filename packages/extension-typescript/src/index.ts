@@ -6,12 +6,12 @@ export const options = (instance: Bud) => ({
   configFile: instance.fs.get('tsconfig.json') ?? null,
 })
 
-export const registerLoader: Extension.Interface['registerLoader'] = [
+export const registerLoader: Extension.Contract['registerLoader'] = [
   'ts-loader',
   require.resolve('ts-loader'),
 ]
 
-export const registerItem: Extension.Interface['registerItems'] = {
+export const registerItem: Extension.Contract['registerItems'] = {
   [`typescript`]: {
     loader: 'ts-loader',
 
@@ -22,7 +22,7 @@ export const registerItem: Extension.Interface['registerItems'] = {
   },
 }
 
-export const registerRule: Extension.Interface['registerRule'] = [
+export const registerRule: Extension.Contract['registerRule'] = [
   'typescript',
   {
     test: ({patterns}: Bud): RegExp =>

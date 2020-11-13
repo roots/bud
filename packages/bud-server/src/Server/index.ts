@@ -1,6 +1,5 @@
 import * as middleware from '../middleware'
 import {injectClient} from './injectClient'
-import {lodash as _} from '@roots/bud-support'
 import express, {Handler, Express} from 'express'
 import type Webpack from 'webpack'
 import type {Bud} from '@roots/bud-typings'
@@ -8,14 +7,16 @@ import * as WebpackDevMiddleware from 'webpack-dev-middleware'
 import {Options as ProxyOptions} from 'http-proxy-middleware'
 import type {Indexed} from '@roots/container'
 
-class Server implements Server.Interface {
-  public bud: Bud
+export {Server, Server as default}
+
+class Server implements Server.Contract {
+  public bud: Bud.Contract
 
   public instance: Server.Instance = express()
 
   public config: Indexed
 
-  public constructor(bud: Bud) {
+  public constructor(bud: Bud.Contract) {
     this.addMiddleware = this.addMiddleware.bind(this)
     this.addDevMiddleware = this.addDevMiddleware.bind(this)
     this.addHotMiddleware = this.addHotMiddleware.bind(this)
@@ -94,7 +95,7 @@ class Server implements Server.Interface {
  * for local development.
  */
 declare namespace Server {
-  interface Interface {
+  interface Contract {
     /**
      * Express instance.
      */
@@ -252,5 +253,3 @@ declare namespace Server {
     entrypoints: Webpack.Entry,
   ) => Webpack.Entry
 }
-
-export {Server}

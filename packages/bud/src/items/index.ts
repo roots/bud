@@ -5,31 +5,30 @@ import * as css from './css'
 import * as file from './file'
 import * as minicss from './minicss'
 import * as raw from './raw'
-import * as resolveUrl from './resolveUrl'
+import * as resolve from './resolveUrl'
 import * as style from './style'
 import * as svg from './svg'
 import * as thread from './thread'
 
-const modules: Item.Module[] = [
+export const mapped: {[key: string]: Item.Module} = {
+  ['cache']: cache,
+  ['css']: css,
+  ['file']: file,
+  ['mini-css']: minicss,
+  ['raw']: raw,
+  ['resolve-url']: resolve,
+  ['svg']: svg,
+  ['thread']: thread,
+}
+
+export {
   cache,
   css,
   file,
   minicss,
   raw,
-  resolveUrl,
-  style,
+  resolve,
   svg,
+  style,
   thread,
-]
-
-const collate = (
-  dictionary: {[key: string]: Item.Module},
-  v: Item.Module,
-): {[key: string]: Item.Module} => ({
-  ...dictionary,
-  [`${v.ident}`]: v,
-})
-
-export const items: {
-  [key: string]: Item.Module
-} = modules.reduce(collate, {})
+}

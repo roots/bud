@@ -6,11 +6,11 @@ import {Extension} from '../../bud-extensions'
 /* eslint-disable */
 const compiler = require('./vue-template-compiler/index')
 
-export const registerLoaders: Extension.Interface['registerLoaders'] = {
+export const registerLoaders: Extension.Contract['registerLoaders'] = {
   vue: require.resolve('vue-loader'),
 }
 
-export const registerItems: Extension.Interface['registerItems'] = {
+export const registerItems: Extension.Contract['registerItems'] = {
   vue: {
     ident: 'vue',
     loader: 'vue',
@@ -23,7 +23,7 @@ export const registerItems: Extension.Interface['registerItems'] = {
 /**
  * Boot the Vue extension.
  */
-export const boot: Extension.Interface['boot'] = bud => {
+export const boot: Extension.Contract['boot'] = bud => {
   /**
    * Add vue loader style rules.
    */

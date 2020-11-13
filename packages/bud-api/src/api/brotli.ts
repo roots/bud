@@ -1,7 +1,6 @@
-export const brotli: Framework.API.Brotli = function (
-  this: Framework.Bud,
-  options,
-) {
+import {Bud} from '@roots/bud-typings'
+
+export const brotli: brotli = function (options) {
   this.features.set('brotli', true)
 
   if (!options) return
@@ -12,3 +11,8 @@ export const brotli: Framework.API.Brotli = function (
 
   return this
 }
+
+export type brotli = (
+  this: Bud.Contract,
+  options: any,
+) => Bud.Contract

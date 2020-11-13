@@ -1,7 +1,6 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import {lodash as _} from '@roots/bud-support'
-import {Bud} from '@roots/bud-typings'
-import {Extension} from '@roots/bud-extensions'
+import {Bud, Extension} from '@roots/bud-typings'
 
 /**
  * Register an extension or set of extensions to use.
@@ -16,9 +15,9 @@ import {Extension} from '@roots/bud-extensions'
  * - an array of extension objects in the same tuple format.
  */
 export const use = function (
-  this: Bud,
+  this: Bud.Contract,
   extensions: Extensions,
-): Bud {
+): Bud.Contract {
   _.isString(extensions)
     ? this.extensions.use(extensions)
     : ensureIterable(extensions).forEach(
@@ -28,7 +27,7 @@ export const use = function (
           }
 
           return this.extensions.set(
-            ...(extension as [string, Extension.Interface]),
+            ...(extension as [string, Extension.Contract]),
           )
         },
       )
@@ -52,7 +51,7 @@ function ensureIterable(extensions) {
 
 export type ExtensionTuple = [
   string,
-  Extension.Interface | ((bud: Bud) => Extension.Interface),
+  Extension.Contract | ((bud: Bud) => Extension.Contract),
 ]
 
 export type Extensions =

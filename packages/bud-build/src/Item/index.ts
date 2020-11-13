@@ -1,17 +1,17 @@
-/**
- * Build Item
- */
-export class Item implements Framework.Item {
-  bud: Framework.Bud
-  ident?: Framework.Item['ident']
-  loader?: Framework.Item['loader']
-  options?: Framework.Item['options']
-  query?: Framework.Item['query']
+import {Bud} from '@roots/bud-typings'
+import type Webpack from 'webpack'
+import {Build} from '../Build'
 
-  constructor(
-    bud: Framework.Bud,
-    module: Framework.Item.Module,
-  ) {
+export {Item, Item as default}
+
+class Item implements Item.Contract {
+  bud: Bud.Contract
+  ident?: Item.Contract['ident']
+  loader?: Item.Contract['loader']
+  options?: Item.Contract['options']
+  query?: Item.Contract['query']
+
+  constructor(bud: Bud.Contract, module: Item.Module) {
     this.bud = bud
 
     this.set(module)
@@ -23,7 +23,7 @@ export class Item implements Framework.Item {
   /**
    * Prop map
    */
-  public propMap: Framework.Item['propMap'] = function () {
+  public propMap: Item.Contract['propMap'] = function () {
     return {
       ident: [this.ident, this.bud],
       query: [this.query, this.bud],
@@ -35,8 +35,8 @@ export class Item implements Framework.Item {
   /**
    * Set the loader definition
    */
-  public set: Framework.Item['set'] = function (
-    module: Framework.Item.Module,
+  public set: Item.Contract['set'] = function (
+    module: Item.Module,
   ): void {
     Object.entries(module).map(([key, item]) => {
       this[key] = item
@@ -46,15 +46,15 @@ export class Item implements Framework.Item {
   /**
    * Get the loader ident
    */
-  public getIdent: Framework.Item['getIdent'] = function () {
+  public getIdent: Item.Contract['getIdent'] = function () {
     return this.ident
   }
 
   /**
    * Set the loader ident
    */
-  public setIdent: Framework.Item['setIdent'] = function (
-    ident: Framework.Item.Module.Ident,
+  public setIdent: Item.Contract['setIdent'] = function (
+    ident: Item.Module.Ident,
   ): void {
     this.ident = ident
   }
@@ -62,15 +62,15 @@ export class Item implements Framework.Item {
   /**
    * Get the loader ident
    */
-  public getOptions: Framework.Item['getOptions'] = function () {
+  public getOptions: Item.Contract['getOptions'] = function () {
     return this.options
   }
 
   /**
    * Set the loader options
    */
-  public setOptions: Framework.Item['setOptions'] = function (
-    options: Framework.Item.Module.Options,
+  public setOptions: Item.Contract['setOptions'] = function (
+    options: Item.Module.Options,
   ): void {
     this.options = options
   }
@@ -78,7 +78,7 @@ export class Item implements Framework.Item {
   /**
    * Get the loader ident
    */
-  public getQuery: Framework.Item['getQuery'] = function () {
+  public getQuery: Item.Contract['getQuery'] = function () {
     return typeof this.query == 'function'
       ? this.query()
       : this.query
@@ -87,8 +87,8 @@ export class Item implements Framework.Item {
   /**
    * Set the loader query
    */
-  public setQuery: Framework.Item['setQuery'] = function (
-    query: Framework.Item.Module.Query,
+  public setQuery: Item.Contract['setQuery'] = function (
+    query: Item.Module.Query,
   ): void {
     this.query = query
   }
@@ -96,15 +96,15 @@ export class Item implements Framework.Item {
   /**
    * Get the loader ident
    */
-  public getLoader: Framework.Item['getLoader'] = function () {
+  public getLoader: Item.Contract['getLoader'] = function () {
     return this.loader
   }
 
   /**
    * Set the loader
    */
-  public setLoader: Framework.Item['setLoader'] = function (
-    loader: Framework.Item.Module.Loader,
+  public setLoader: Item.Contract['setLoader'] = function (
+    loader: Item.Module.Loader,
   ): void {
     this.loader = loader
   }
@@ -112,18 +112,16 @@ export class Item implements Framework.Item {
   /**
    * Make an item for use in a rule.
    */
-  public make: Framework.Item['make'] = function (
-    this: Framework.Item,
+  public make: Item.Contract['make'] = function (
+    this: Item.Contract,
   ) {
     return (
       // Get the map of props to items
       Object.entries(this.propMap())
         // First out nullish values, etc.
         .filter(
-          ([, [value]]: [
-            string,
-            [Framework.Item.Property, unknown],
-          ]) => value !== null && value !== undefined,
+          ([, [value]]: [string, [Item.Property, unknown]]) =>
+            value !== null && value !== undefined,
         )
         // Then, reduce the set, tapping callables during translation
         .reduce(
@@ -131,12 +129,7 @@ export class Item implements Framework.Item {
             fields: Framework.Build.RuleSetLoader,
             [property, [value, param]]: [
               string,
-              [
-                Framework.Item.MaybeCallable<
-                  Framework.Item.Property
-                >,
-                unknown,
-              ],
+              [Item.MaybeCallable<Item.Property>, unknown],
             ],
           ): Framework.Build.RuleSetLoader => {
             /**
@@ -164,4 +157,87 @@ export class Item implements Framework.Item {
         )
     )
   }
+}
+
+namespace Item {
+  export class Contract {
+    bud: Bud.Contract
+
+    ident?: Item.Module.Ident
+
+    loader?: Item.Module.Loader
+
+    options?: Item.Module.Options
+
+    query?: Item.Module.Query
+
+    propMap: () => Framework.Index<
+      [Item.Property, Framework.Index<string> | Bud.Contract]
+    >
+
+    getIdent: Item.Getter<Item.Module.Ident>
+
+    getLoader: Item.Getter<Item.Module.Loader>
+
+    getOptions: Item.Getter<Item.Module.Options>
+
+    getQuery: Item.Getter<Item.Module.Query>
+
+    set: Item.Setter<Item.Module>
+
+    setIdent: Item.Setter<Item.Module.Ident>
+
+    setLoader: Item.Setter<Item.Module.Loader>
+
+    setOptions: Item.Setter<Item.Module.Options>
+
+    setQuery: Item.Setter<Item.Module.Query>
+
+    make: () => Framework.Build.RuleSetLoader
+  }
+
+  export type Getter<T> = () => T
+
+  export type Setter<T> = (prop: T) => void
+
+  export type Product = {
+    ident?: MaybeCallable<string>
+    loader?: MaybeCallable<string>
+    options?: MaybeCallable<Build.RuleSetLoader['options']>
+    query?: MaybeCallable<Module.Query>
+  }
+
+  export type Factory<OutType> = (any) => OutType
+
+  export type MaybeCallable<P> = Factory<P> | P
+
+  export type Yield<P> = () => P
+
+  export type Module = {
+    ident?: Module.Ident
+    loader?: Module.Loader
+    options?: Module.Options
+    query?: Module.Query
+  }
+
+  export namespace Module {
+    export type Ident = MaybeCallable<string>
+    export type Loader = MaybeCallable<string>
+    export type Options = MaybeCallable<
+      Build.RuleSetLoader['options']
+    >
+    export type Query = MaybeCallable<Webpack.RuleSetQuery>
+  }
+
+  export type Property =
+    | string
+    | string
+    | {[k: string]: any} // do not support 'string' from query
+    | Webpack.RuleSetLoader['query']
+
+  export type Untapped = MaybeCallable<Property>
+
+  export type PropertyTuple = [string, MaybeCallable<Property>]
+
+  export type Valid = Omit<Untapped, undefined | null>[]
 }

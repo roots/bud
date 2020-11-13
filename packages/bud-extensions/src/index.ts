@@ -1,2 +1,2 @@
-export {Extension} from './Extension'
-export {Extensions} from './Extensions'
+export * from './Extension'
+export * from './Extensions'

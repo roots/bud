@@ -1,3 +1,5 @@
+import {Indexed} from '@roots/bud-typings'
+
 /**
  * Build cache
  */
@@ -57,3 +59,5 @@ export const splitChunks = false
  * Separate runtime chunk.
  */
 export const runtimeChunk = false
+
+export type Features = Indexed<boolean>

@@ -7,7 +7,7 @@ import * as image from './image'
 import * as js from './js'
 import * as svg from './svg'
 
-export const rules: {
+export const mapped: {
   [key: string]: Rule.Module
 } = Object.entries({
   css,
@@ -26,3 +26,5 @@ export const rules: {
   }),
   {},
 )
+
+export {css, font, html, image, js, svg}
