@@ -1,6 +1,8 @@
-export const test: Framework.Rule.Factory<Framework.Rule.Conditional> = bud =>
+import type Framework from '@roots/bud-typings'
+
+export const test: Framework.Factory<Framework.Rule.Conditional> = bud =>
   bud.patterns.get('image')
 
-export const use: Framework.Rule.Factory<Framework.Rule.Conditional> = bud => [
+export const use: Framework.Factory<Framework.Rule.Conditional> = bud => [
   bud.build.getItem('file'),
 ]

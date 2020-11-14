@@ -9,8 +9,8 @@ export const externals: Externals = function (externals) {
  * Redefine the module resolution strategy for particular modules.
  */
 export type Externals = (
-  this: Bud,
+  this: Bud.Contract,
   externals: {
     [key: string]: any
   },
-) => Bud
+) => Bud.Contract

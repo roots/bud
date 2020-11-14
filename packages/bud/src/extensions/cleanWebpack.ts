@@ -2,15 +2,13 @@ import {
   CleanWebpackPlugin as Plugin,
   Options as PluginOptions,
 } from 'clean-webpack-plugin'
-import type {Extension} from '@roots/bud-extensions'
+import type {Extension} from '@roots/bud-typings'
 
-export const make: Make = opt => new Plugin(opt.all())
-export const when: When = bud => bud.features.enabled('clean')
-export const options: RawOptions = {
+export const make: Extension.Make = opt => new Plugin(opt.all())
+
+export const when: Extension.When = bud =>
+  bud.features.enabled('clean')
+
+export const options: Extension.Options<PluginOptions> = {
   cleanOnceBeforeBuildPatterns: ['**/*', '!dll/*'],
 }
-
-declare type Make = Extension.Make<Plugin, Options>
-declare type RawOptions = Extension.RawOptions<PluginOptions>
-declare type Options = Extension.Options<RawOptions>
-declare type When = Extension.When<Options>

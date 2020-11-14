@@ -1,6 +1,6 @@
 import type {Extension} from '@roots/bud-typings'
 
-export const terser: Framework.API.Terser = function (options) {
+export const terser = function (options) {
   if (options) {
     const terserOptions = this.extensions.get(
       'terser.options',

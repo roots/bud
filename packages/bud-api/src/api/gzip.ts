@@ -1,7 +1,10 @@
-export const gzip: Framework.API.Gzip = function (
+import {Bud} from '@roots/bud-typings'
+
+export const gzip = function (
+  this: Bud.Contract,
   options?: any,
-) {
-  this.features.enable('gzip')
+): Bud.Contract {
+  this.features.set('gzip', true)
 
   options &&
     (() => {

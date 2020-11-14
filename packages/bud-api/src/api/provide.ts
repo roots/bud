@@ -1,7 +1,9 @@
 import {lodash as _} from '@roots/bud-support'
 import type {Bud} from '@roots/bud-typings'
 
-export const provide: provide = function (options) {
+export const provide: provide = function (
+  options,
+): Bud.Contract {
   const providePlugin = this.extensions.get(
     'webpack-provide-plugin',
   )
@@ -23,8 +25,8 @@ export const provide: provide = function (options) {
  * Make a module globally available throughout the application.
  */
 export type provide = (
-  this: Bud,
+  this: Bud.Contract,
   options: {
     [key: string]: string[]
   },
-) => Bud
+) => Bud.Contract

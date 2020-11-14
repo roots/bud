@@ -1,4 +1,4 @@
-import {Indexed} from '@roots/bud-typings'
+import {Container} from '@roots/bud-typings'
 
 export const css = /\.css$/
 export const cssModule = /\.module\.css$/
@@ -13,4 +13,4 @@ export const svg = /\.svg$/
 export const ts = /\.(ts|tsx)$/
 export const vue = /\.vue$/
 
-export type Patterns = Indexed<RegExp>
+export type Patterns = Container

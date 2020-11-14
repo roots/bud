@@ -16,7 +16,7 @@ import type {UseProgress} from '../hooks/useProgress'
 
 declare namespace Reporter {
   export type Props = {
-    bud: Bud
+    bud: Bud.Contract
     stats: UseStats.Stats
     progress: UseProgress.Progress
   }

@@ -1,4 +1,4 @@
-import {Extension} from '@roots/bud-extensions'
+import {Extension} from '@roots/bud-typings'
 import * as postcss from './registerItem'
 
 export const boot: Boot = bud => {

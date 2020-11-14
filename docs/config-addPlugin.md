@@ -8,7 +8,9 @@ Webpack plugins can be added to the configuration using this method.
 
 ## Usage
 
-Import your plugin in the manner described by the plugin documentation. Depending on what version of node you're running and how you've configured your project importing the plugin probably looks something like this:
+Import your plugin in the manner described by the plugin documentation.
+
+Depending on what version of node you're running and how you've configured your project importing the plugin probably looks something like this:
 
 ```js
 // commonjs require

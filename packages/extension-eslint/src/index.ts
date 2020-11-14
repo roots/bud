@@ -1,5 +1,4 @@
-import type {Extension} from '@roots/bud-extensions'
-import {Bud} from '@roots/bud-typings'
+import Framework from '@roots/bud-typings'
 import Plugin, {
   Options as PluginOptions,
 } from 'eslint-webpack-plugin'
@@ -25,7 +24,7 @@ export const boot: Boot = bud => {
 /**
  * Eslint class options.
  */
-export const options: RawOptions = bud => ({
+export const options: Options = bud => ({
   context: bud.project(),
   eslintPath: require.resolve('eslint'),
   fix: false,
@@ -59,12 +58,19 @@ export const api: Api = () => ({
   },
 })
 
-declare type RawOptions = Extension.RawOptions<PluginOptions>
-declare type Options = Extension.Options<RawOptions>
-declare type Make = Extension.Make<Plugin, Options>
-declare type When = Extension.When<Options>
-declare type Boot = Extension.Boot
-export declare type Api = (bud: Bud) => EslintConfig
+declare type RawOptions = Framework.Extension.Options<
+  PluginOptions
+>
+declare type Options = Framework.Extension.Options<RawOptions>
+declare type Make = Framework.Extension.Make<
+  Plugin,
+  Framework.Container
+>
+declare type When = Framework.Extension.When
+declare type Boot = Framework.Extension.Boot
+export declare type Api = (
+  bud: Framework.Bud.Contract,
+) => EslintConfig
 export declare type EslintConfig = {
   enableEslint: ToggleEslint
   eslintConfig: ConfigureEslint
@@ -74,14 +80,14 @@ export declare type EslintConfig = {
  * Configure ESLint options
  */
 export declare type ConfigureEslint = (
-  this: Bud,
+  this: Framework.Bud.Contract,
   opts: PluginOptions,
-) => Bud
+) => Framework.Bud.Contract
 
 /**
  * Toggle Eslint on and off
  */
 export declare type ToggleEslint = (
-  this: Bud,
+  this: Framework.Bud.Contract,
   enabled?: boolean,
-) => Bud
+) => Framework.Bud.Contract

@@ -1,4 +1,4 @@
-import {Indexed} from '@roots/container'
+import {Container} from '@roots/container'
 import dotenv from 'dotenv'
 import {join} from 'path'
 
@@ -10,4 +10,4 @@ export const env =
     path: join(process.cwd(), '.env'),
   }).parsed ?? {}
 
-export type Env = Indexed<typeof env>
+export type Env = Container

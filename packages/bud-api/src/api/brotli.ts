@@ -7,7 +7,7 @@ export const brotli: brotli = function (options) {
 
   this.extensions
     .get('compression-webpack-plugin[brotli]')
-    .all(options)
+    .setStore(options)
 
   return this
 }

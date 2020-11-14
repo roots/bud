@@ -31,9 +31,7 @@
     "clean:modules": "rimraf ./node_modules",
     "lint": "eslint ."
   },
-  "dependencies": {
-    "cache-manager": "^3.4.0",
-    "cache-manager-fs": "^1.0.8",
-    "md5": "^2.3.0"
+  "devDependencies": {
+    "@roots/bud-typings": "2.0.0-next.24"
   }
 }

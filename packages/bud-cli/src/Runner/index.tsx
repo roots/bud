@@ -5,10 +5,10 @@ import {Serve} from '../containers/Serve'
 import type {Bud} from '@roots/bud-typings'
 
 export class Runner {
-  public bud: Bud
+  public bud: Bud.Contract
   public instance: Instance
 
-  constructor(bud: Bud) {
+  constructor(bud: Bud.Contract) {
     this.bud = bud
   }
 

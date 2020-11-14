@@ -1,62 +1,52 @@
 import _ from 'lodash'
 import {resolve} from 'path'
-import {Container, Indexed} from '@roots/container'
 import {FileContainer} from '..'
 
-export class FileSystem extends Indexed {
+export class FileSystem {
   public current: FileContainer
 
-  public repository: Container.Repository<FileContainer>
+  public repository: {[key: string]: FileContainer}
 
-  constructor() {
-    super()
-
-    Object.getOwnPropertyNames(this).map(name => {
-      if (name !== 'repository') return
-      Object.defineProperty(this, name, {
-        enumerable: false,
-      })
-    })
+  public constructor() {
+    this.repository = {}
   }
 
-  public get: Container['get'] = function (key) {
+  public get(key?: string): any {
     this.current = _.get(this.repository, key)
-    return _.get(this.repository, key)
+
+    return this.current
   }
 
-  public ls = function (key?: string): any {
+  public has(key: string): boolean {
+    return _.has(this.repository, key)
+  }
+
+  public ls(key?: string): any {
     return key ? _.get(this.repository, key) : this.repository
   }
 
-  public get baseDir(): string {
-    return this.current.getBase()
-  }
-
-  public set = function (
+  public set(
     key: string,
-    options: {
-      baseDir: string
-      glob: string[]
-    },
-  ): FileContainer {
-    const disk = new FileContainer(options.baseDir)
+    options: {base: string; glob: string[]},
+  ): this['current'] {
+    const base = options.base
 
-    const glob = options.glob.map(item =>
-      resolve(options.baseDir, item),
-    )
+    const disk = new FileContainer(base)
 
-    glob.push(`!${resolve(options.baseDir, '**/types/**/*')}`)
-    glob.push(`!${resolve(options.baseDir, '**/*.map')}`)
-    glob.push(`!${resolve(options.baseDir, '**/*.d.ts')}`)
-    glob.push(
-      `!${resolve(options.baseDir, '**/node_modules/**/*')}`,
-    )
-    glob.push(`!${resolve(options.baseDir, '**/vendor/**/*')}`)
+    const glob = options.glob.map(item => resolve(base, item))
+
+    glob.push(`!${resolve(base, '**/types/**/*')}`)
+    glob.push(`!${resolve(base, '**/*.map')}`)
+    glob.push(`!${resolve(base, '**/*.d.ts')}`)
+    glob.push(`!${resolve(base, '**/node_modules/**/*')}`)
+    glob.push(`!${resolve(base, '**/vendor/**/*')}`)
 
     disk.setDisk(glob)
 
-    this.repository[key] = disk
+    _.set(this.repository, key, disk)
 
-    return (this.current = this.get(key))
+    this.current = this.get(key)
+
+    return this.current
   }
 }

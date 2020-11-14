@@ -1,70 +1,63 @@
-import {Build} from '@roots/bud-typings'
+import {Bud, Container, Webpack} from '@roots/bud-typings'
 
-export const general: Framework.Build.General = function ({
-  bail,
-  context,
-  devtool,
-  mode,
-  name,
-  node,
-  performance,
-  recordsPath,
-  stats,
-  target,
-  watch,
-}): Build.Configuration {
-  return this.hooks.filter<Build.Configuration>('webpack', {
-    bail: this.hooks.filter<Build.Configuration['bail']>(
+type Cfg = Webpack.Configuration
+type General = (this: Bud.App, config: Container) => Partial<Cfg>
+
+export const general: General = function (config) {
+  return this.hooks.filter<Cfg>('webpack', {
+    bail: this.hooks.filter<Cfg['bail']>(
       'webpack.bail',
-      bail,
+      config.get('bail'),
     ),
 
-    context: this.hooks.filter<Build.Configuration['context']>(
+    context: this.hooks.filter<Cfg['context']>(
       'webpack.context',
-      context,
+      config.get('context'),
     ),
 
-    devtool: this.hooks.filter<Build.Configuration['devtool']>(
+    devtool: this.hooks.filter<Cfg['devtool']>(
       'webpack.devtool',
-      devtool,
+      config.get('devtool'),
     ),
 
-    mode: this.hooks.filter<Build.Configuration['mode']>(
+    mode: this.hooks.filter<Cfg['mode']>(
       'webpack.mode',
-      mode,
+      config.get('mode'),
     ),
 
-    name: this.hooks.filter<Build.Configuration['name']>(
+    name: this.hooks.filter<Cfg['name']>(
       'webpack.name',
-      name,
+      config.get('name'),
     ),
 
-    node: this.hooks.filter<Build.Configuration['node']>(
+    node: this.hooks.filter<Cfg['node']>(
       'webpack.node',
-      node,
+      config.get('node'),
     ),
 
-    performance: this.hooks.filter<
-      Build.Configuration['performance']
-    >('webpack.performance', performance),
+    performance: this.hooks.filter<Cfg['performance']>(
+      'webpack.performance',
+      config.get('performance'),
+    ),
 
-    recordsPath: this.hooks.filter<
-      Build.Configuration['recordsPath']
-    >('webpack.recordsPath', recordsPath),
+    recordsPath: this.hooks.filter<Cfg['recordsPath']>(
+      'webpack.recordsPath',
+      config.get('recordsPath'),
+    ),
 
-    stats: this.hooks.filter<Build.Configuration['stats']>(
+    stats: this.hooks.filter<Cfg['stats']>(
       'webpack.stats',
-      stats,
+      config.get('stats'),
     ),
 
-    target: this.hooks.filter<Build.Configuration['target']>(
+    target: this.hooks.filter<Cfg['target']>(
       'webpack.target',
-      target,
+      config.get('target'),
     ),
 
-    watch: this.hooks.filter<Build.Configuration['watch']>(
+    watch: this.hooks.filter<Cfg['watch']>(
       'webpack.watch',
-      watch,
+      config.get('watch'),
     ),
   })
 }

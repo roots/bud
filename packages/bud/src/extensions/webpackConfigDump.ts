@@ -1,20 +1,15 @@
 import {WebpackConfigDumpPlugin} from 'webpack-config-dump-plugin'
-import type {Extension} from '@roots/bud-extensions'
+import type {Extension} from '@roots/bud-typings'
 
-export const options: RawOptions = ({fs}) => ({
+export const options: Options = ({fs}) => ({
   outputPath: fs.path.join(fs.getBase(), '.bud'),
   keepCircularReferences: true,
 })
 
-export const make: Make = opt =>
+export const make: Extension.Make = opt =>
   new WebpackConfigDumpPlugin(opt.all())
 
-declare type Make = Extension.Make<
-  WebpackConfigDumpPlugin,
-  Options
->
-declare type Options = Extension.Options<RawOptions>
-declare type RawOptions = Extension.RawOptions<{
+declare type Options = Extension.Options<{
   outputPath?: string
   name?: string
   depth?: number

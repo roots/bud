@@ -1,12 +1,12 @@
 import {Bud} from '@roots/bud-typings'
 
 export const buildCache = function (
-  this: Bud,
+  this: Bud.Contract,
   path?: string,
-): Bud {
+): Bud.Contract {
   path && this.config.set('recordsPath', path)
 
-  this.features.enable('buildCache')
+  this.features.set('buildCache', true)
 
   return this
 }

@@ -1,7 +1,8 @@
 import {lodash as _} from '@roots/bud-support'
+import {Bud} from '@roots/bud-typings'
 
-export const copy: Framework.API.Copy = function (
-  this: Framework.Bud,
+export const copy = function (
+  this: Bud.Contract,
   {
     from,
     context = null,
@@ -9,17 +10,30 @@ export const copy: Framework.API.Copy = function (
     globOptions = {
       ignore: '.*',
     },
+  }: {
+    from: string
+    context: string
+    to: string
+    globOptions: {
+      [key: string]: any
+    }
+    noErrorOnMissing: boolean
   },
-) {
-  this.extensions.get(`copy-webpack-plugin`).push('patterns', {
-    from,
-    context: context ?? this.src(),
-    to: to ?? this.distPath(),
-    globOptions: globOptions ?? {
-      ignore: '.*',
-    },
-    noErrorOnMissing: true,
-  })
+): Bud.Contract {
+  this.extensions
+    .get(`copy-webpack-plugin`)
+    .mutate('patterns', patterns => [
+      ...patterns,
+      {
+        from,
+        context: context ?? this.src(),
+        to: to ?? this.distPath(),
+        globOptions: globOptions ?? {
+          ignore: '.*',
+        },
+        noErrorOnMissing: true,
+      },
+    ])
 
   return this
 }

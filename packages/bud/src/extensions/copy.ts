@@ -1,5 +1,5 @@
 import Plugin from 'copy-webpack-plugin'
-import type {Extension} from '@roots/bud-extensions'
+import type {Extension} from '@roots/bud-typings'
 
 export const options: RawOptions = {
   patterns: [],
@@ -10,7 +10,7 @@ export const when: When = (_, opt) =>
 
 declare type Options = Extension.Options<RawOptions>
 declare type Make = Extension.Make<Plugin, Options>
-declare type When = Extension.When<Options>
+declare type When = Extension.When
 declare interface RawOptions {
   patterns: ReadonlyArray<
     | string

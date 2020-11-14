@@ -3,13 +3,12 @@ import * as fs from 'fs-extra'
 import globby from 'globby'
 import resolveFrom from 'resolve-from'
 import watcher from '../watcher'
-import __ from 'lodash'
-import {Indexed} from '@roots/container'
+import _ from 'lodash'
 
-export class FileContainer extends Indexed {
+export class FileContainer {
   public fs: typeof fs
 
-  public repository: Container.Repository<string>
+  public repository: {[key: string]: string}
 
   public glob: typeof globby = globby
 
@@ -22,8 +21,6 @@ export class FileContainer extends Indexed {
   public base: string = process.cwd()
 
   constructor(baseDir?: string) {
-    super()
-
     this.fs = fs
 
     this.setBase = this.setBase.bind(this)
@@ -67,11 +64,19 @@ export class FileContainer extends Indexed {
   }
 
   public ls = function (key?: string): any {
-    return key ? __.get(this.repository, key) : this.repository
+    return key ? _.get(this.repository, key) : this.repository
   }
 
   public get = function (key: string): any {
-    return __.get(this.repository, key)
+    return _.get(this.repository, key)
+  }
+
+  public has = function (key: string): boolean {
+    return _.has(this.repository, key)
+  }
+
+  public set = function (key: string, value: any): any {
+    return _.set(this.repository, key, value)
   }
 
   public exists = function (key: string): boolean {
@@ -84,6 +89,7 @@ export class FileContainer extends Indexed {
   ): void {
     const file = this.path.resolve(this.base, key)
     this.fs.ensureFileSync(file)
+
     this.set(key, file)
   }
 
@@ -93,6 +99,7 @@ export class FileContainer extends Indexed {
   ): void {
     const dir = this.path.resolve(this.base, key)
     this.fs.ensureDirSync(dir)
+
     this.set(key, dir)
   }
 

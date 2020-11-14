@@ -1,6 +1,6 @@
 import {yargs} from '@roots/bud-support'
-import {Indexed} from '@roots/bud-typings'
+import {Container} from '@roots/bud-typings'
 
 export const {argv: args} = yargs
 
-export type Args = Indexed<typeof args>
+export type Args = Container

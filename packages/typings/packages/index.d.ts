@@ -1,5 +1,5 @@
 /**
- * Bud Framework core typings.
+ * Framework
  */
 export as namespace Framework
 
@@ -9,94 +9,131 @@ export as namespace Framework
 export * from './utility'
 
 /**
- * Framework.Container
+ * Dotenv lib.
+ */
+import type Dotenv from 'dotenv'
+export {Dotenv}
+
+/**
+ * Webpack lib.
+ */
+import type Webpack from 'webpack'
+export type {Webpack}
+
+/**
+ * Express lib.
+ */
+import * as Express from 'express'
+export type {Express}
+
+/**
+ * Container
+ *
  * @package @roots/container
  */
-export {Container, Indexed, Arrayed} from '../../container/src'
+export type {Container} from '../../container/src'
 
 /**
- * Framework.FileContainer
- * Framework.FileSystem
+ * File container
+ *
  * @package @roots/filesystem
  */
-export {FileSystem, FileContainer} from '../../filesystem/src'
+export type {FileContainer} from '../../filesystem/src/FileContainer'
 
 /**
- * Framework.Dependencies
- * @packages @roots/dependencies
+ * FileSystem
+ *
+ * @package @roots/filesystem
  */
-export * from '../../dependencies/src'
+export type {FileSystem} from '../../filesystem/src/FileSystem'
 
 /**
- * Framework.API
- * @package @roots/bud-api
+ * Dependencies
+ *
+ * @package @roots/dependencies
  */
-export * from './api'
-export * from '../../bud-api/src'
+export * as Dependencies from '../../dependencies/src'
 
 /**
- * Framework.Bud
+ * Bud
+ *
  * @package @roots/bud-framework
  */
-export * from './Bud'
+export * as Bud from './Bud'
 
 /**
- * Framework.Build
- * @package @roots/bud-framework
+ * Build
+ *
+ * @package @roots/bud-build
  */
-export * from './Build'
+export * as Build from './Build'
+export * as Item from './Item'
+export * as Rule from './Rule'
 
 /**
- * Framework.Env
- * @package @roots/bud-framework
+ * Cache
+ * @package @roots/bud-cache
  */
-export * from './Env'
+export * as Cache from './Cache'
 
 /**
+ * CLI
+ *
+ * @package @roots/bud-cli
+ */
+export * as CLI from './CLI'
+
+/**
+ * Compiler
+ *
+ * @package @roots/bud-compiler
+ */
+export * as Compiler from './Compiler'
+
+/**
+ * Env
+ */
+export * as Env from './Env'
+
+/**
+ * Extension controller.
  * @package @roots/bud-extensions
  */
-export * from './Extensions'
+export * as Extension from './Extension'
 
 /**
- * @roots/bud-hooks
+ * Extensions manager.
+ * @package @roots/bud-extensions
  */
-export * from './Hooks'
+export * as Extensions from './Extensions'
 
 /**
- * @roots/bud-build
+ * Hooks
+ *
+ * Callback registry opening internal values, functions and events
+ * to runtime modification.
+ *
+ * @package @roots/bud-hooks
  */
-export * from './Item'
-
-/**
- * @roots/bud-build
- */
-export * from './Rule'
+export * as Hooks from './Hooks'
 
 /**
  * Logger
+ *
+ * @see {pino}
  */
-export * from './Logger'
+export * as Logger from './Logger'
 
 /**
- * Framework.Mode
+ * Mode
+ *
  * @package @roots/bud-framework
  */
-export * from './Mode'
+export * as Mode from './Mode'
 
 /**
- * Framework.Server
- * @package @roots/bud-framework
+ * Server
+ *
+ * @package @roots/bud-server
  */
-export * from './../../bud-server/src'
-
-/**
- * Framework.Express
- * @see {express}
- */
-export * from './Express'
-
-/**
- * Framework.Webpack
- * @see {webpack}
- */
-export * from './Webpack'
+export * as Server from './Server'

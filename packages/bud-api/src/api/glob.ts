@@ -32,8 +32,8 @@ export const glob: Glob = function (name, files, options) {
  * @example bud.glob('app', ['components/*.js'], {cwd: 'scripts'})
  */
 export type Glob = (
-  this: Bud,
+  this: Bud.Contract,
   name: string,
   files: GlobTask['pattern'],
   options: GlobTask['options'],
-) => Bud
+) => Bud.Contract

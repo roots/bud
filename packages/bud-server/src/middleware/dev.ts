@@ -1,4 +1,5 @@
 import middleware from 'webpack-dev-middleware'
+import Framework from '@roots/bud-typings'
 
 export interface DevFactoryOptions {
   compiler: Framework.Webpack.Compiler

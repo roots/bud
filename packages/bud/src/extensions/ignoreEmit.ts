@@ -1,7 +1,7 @@
-import {Extension} from '@roots/bud-extensions'
+import {Extension} from '@roots/bud-typings'
 import {IgnoreEmitPlugin as Plugin} from 'ignore-emit-webpack-plugin'
 
-export const options: RawOptions = {
+export const options: Options = {
   ignorePatterns: [
     /**
      * Prevent Webpack 4 from creating useless .css.js files
@@ -19,16 +19,13 @@ export const options: RawOptions = {
   ],
 }
 
-export const make: Make = opt =>
+export const make: Extension.Make = opt =>
   new Plugin(opt.get('ignorePatterns'))
 
-export const when: When = (_bud, opt) =>
+export const when: Extension.When = (_bud, opt) =>
   opt?.has('ignorePatterns') &&
   opt.get('ignorePatterns').length > 0
 
-declare type RawOptions = Extension.RawOptions<{
+declare type Options = Extension.Options<{
   ignorePatterns: Plugin['ignorePatterns']
 }>
-declare type Options = Extension.Options<RawOptions>
-declare type When = Extension.When<Options>
-declare type Make = Extension.Make<Plugin, Extension.Options>

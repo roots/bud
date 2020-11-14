@@ -6,32 +6,35 @@ import {setConfig} from './setConfig'
 import {setPresets} from './setPresets'
 import {mergePresets} from './mergePresets'
 import {addPreset} from './addPreset'
+import {Bud} from '@roots/bud-typings'
 
-/**
- * bud.babel configuration utility
- */
-export const babelConfig: Babel.Factory = bud => ({
-  bud,
-  methods: [
-    ['mergeConfig', mergeConfig],
-    ['setConfig', setConfig],
-    ['mergePlugins', mergePlugins],
-    ['setPlugins', setPlugins],
-    ['addPlugin', addPlugin],
-    ['mergePresets', mergePresets],
-    ['setPresets', setPresets],
-    ['addPreset', addPreset],
-  ],
+export const make: (bud: Bud.App) => void = bud => {
+  const babel = {}
 
-  init() {
-    this.methods.map(
-      ([name, func]) => (this[name] = func.bind(this)),
-    )
+  new Set([
+    mergeConfig,
+    setConfig,
+    mergePlugins,
+    setPlugins,
+    addPlugin,
+    mergePresets,
+    setPresets,
+    addPreset,
+  ]).forEach((fn: Fluent<Bud.App>) => {
+    Object.assign(babel, {
+      [fn.name]: fn.bind(bud),
+    })
+  })
 
-    return this
-  },
+  Object.assign(bud, {
+    babel: Object.create(babel),
+  })
+}
 
-  next() {
-    return this.bud
-  },
-})
+export type Fluent<T> = (this: T, ...rest: any[]) => T
+
+export interface BabelConfig {
+  bud: Bud.App
+  mergeConfig: typeof mergeConfig
+  setPlugins: typeof setPlugins
+}

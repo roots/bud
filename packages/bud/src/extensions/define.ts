@@ -1,20 +1,14 @@
 import {DefinePlugin as Plugin} from 'webpack'
-import type {Extension} from '@roots/bud-extensions'
+import type {Extension} from '@roots/bud-typings'
 
-export const make: Make = opt => new Plugin(opt.all())
+export const make: Extension.Make = opt =>
+  new Plugin(opt.getStore())
 
-export const when: When = (_bud, opts) =>
-  opts.entries()?.length > 0
+export const when: Extension.When = (_bud, opts) =>
+  opts.getEntries()?.length > 0
 
-export const options: RawOptions = bud =>
+export const options: Extension.Options = bud =>
   bud.env
-    .entries()
+    .getEntries()
     .filter(([k]: [string, unknown]) => !k.includes('SECRET'))
     .reduce((a, [k, v]) => ({...a, [k]: v}), {})
-
-declare type Make = Extension.Make<Plugin, Options>
-declare type When = Extension.When<Options>
-declare type Options = Extension.Options<RawOptions>
-declare type RawOptions = Extension.RawOptions<{
-  [key: string]: Plugin.CodeValueObject
-}>

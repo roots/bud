@@ -1,5 +1,13 @@
-export const entry: Framework.Build.Entry = function ({entry}) {
+import {Bud, Container, Webpack} from '@roots/bud-typings'
+
+type Entry = Webpack.Configuration['entry']
+type Build = (this: Bud.App, config: Container) => {entry: Entry}
+
+export const entry: Build = function (config) {
   return {
-    entry: this.hooks.filter('webpack.entry', entry),
+    entry: this.hooks.filter<Entry>(
+      'webpack.entry',
+      config.get('entry'),
+    ),
   }
 }

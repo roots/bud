@@ -1,11 +1,14 @@
+import type {Bud} from '@roots/bud-typings'
+import type {TransformOptions} from '@babel/core'
+
 /**
  * Merge babel transformOptions
  */
-export const mergeConfig: Babel.Config = function (
-  opts: Babel.TransformOptions,
-) {
+export const mergeConfig = function (
+  opts: TransformOptions,
+): Bud.App {
   opts.presets &&
-    this.bud.build.items.merge(
+    this.build.items.merge(
       'babel.options.presets',
       opts.presets.map(preset =>
         typeof preset === 'object' ? preset : [preset],
@@ -13,14 +16,14 @@ export const mergeConfig: Babel.Config = function (
     )
 
   opts.plugins &&
-    this.bud.build.items.merge(
+    this.build.items.merge(
       'babel.options.plugins',
       opts.plugins.map(plugins =>
         typeof plugins === 'object' ? plugins : [plugins],
       ),
     )
 
-  this.bud.build.items.merge('babel.options', opts)
+  this.build.items.merge('babel.options', opts)
 
   return this
 }

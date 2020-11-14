@@ -1,19 +1,16 @@
 import _ from 'lodash'
 import {FileContainer} from '../FileContainer'
-import {Container, Indexed} from '@roots/container'
 
 export {FileSystem}
 
-declare class FileSystem extends Indexed {
+declare class FileSystem {
   current: FileContainer
 
-  repository: Container.Repository
+  repository: {[key: string]: FileContainer}
 
   baseDir: string
 
-  get: Container['get']
-
-  ls: (key?: string) => Container['repository']
+  ls: (key?: string) => FileSystem['repository']
 
   set: (
     key: string,
@@ -21,5 +18,5 @@ declare class FileSystem extends Indexed {
       baseDir: string
       glob: string[]
     },
-  ) => FileContainer
+  ) => FileSystem['current']
 }

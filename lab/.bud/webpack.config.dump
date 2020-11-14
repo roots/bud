@@ -210,8 +210,7 @@ module.exports = () => ({
     extensions: [ '.wasm', '.mjs', '.js', '.json', '.css' ],
     modules: [
       '/Users/kellymears/code/projects/cli/bud/bud/lab/src',
-      '/Users/kellymears/code/projects/cli/bud/bud/lab',
-      '/Users/kellymears/code/projects/cli/bud/bud/node_modules'
+      '/Users/kellymears/code/projects/cli/bud/bud/lab/node_modules'
     ],
     unsafeCache: true,
     mainFiles: [ 'index' ],
@@ -238,7 +237,7 @@ module.exports = () => ({
       name: true
     },
     minimize: true,
-    moduleIds: 'hashed',
+    removeAvailableModules: true,
     removeEmptyChunks: true,
     mergeDuplicateChunks: true,
     providedExports: true,

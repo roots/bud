@@ -1,9 +1,10 @@
+import {Bud} from '@roots/bud-typings'
 import ReactRefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 
 /**
  * Boot bud-jsx extension
  */
-export const boot = (bud: Framework.Bud): void => {
+export const boot = (bud: Bud.Contract): void => {
   /** Add babel preset */
   bud.build.items.merge('babel.options.presets', [
     '@babel/preset-react',
@@ -40,7 +41,7 @@ export const registerLoader = [
 export const registerItem = [
   '@svgr',
   {
-    test: ({patterns}: Framework.Bud): RegExp =>
+    test: ({patterns}: Bud.Contract): RegExp =>
       patterns.get('svg'),
     use: ['@svgr-loader'],
   },

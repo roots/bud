@@ -1,12 +1,8 @@
-import type Dotenv from 'dotenv'
-import type {Indexed, Container} from '@roots/container'
+import type {Container, Dotenv} from '.'
 
 /**
- * Environment variables utility.
+ * Dotenv parsed contents.
  */
-export namespace Env {
-  export type Data = Dotenv.DotenvParseOutput
-  export class Contract extends Indexed implements Container {
-    repository: Container.Repository<Dotenv.DotenvParseOutput>
-  }
-}
+export type Data = Dotenv.DotenvParseOutput
+
+export class Contract extends Container {}

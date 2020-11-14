@@ -1,3 +1,5 @@
+import type Framework from '@roots/bud-typings'
+
 export const test: Conditional = ({patterns}) =>
   patterns.get('css')
 
@@ -13,13 +15,13 @@ export const use: Use = bud => {
   return [style, use('css'), use('resolve-url')]
 }
 
-declare type Conditional = Framework.Rule.Factory<
+declare type Conditional = Framework.Factory<
   Framework.Rule.Conditional
 >
 
-declare type Exclude = Framework.Rule.Factory<
+declare type Exclude = Framework.Factory<
   Framework.Rule.Conditional
 >
 
-declare type Use = Framework.Rule.Factory<Framework.Rule.Use>
+declare type Use = Framework.Factory<Framework.Rule.Use>
 declare type UseItem = (item: string) => Framework.Rule.Generic

@@ -1,4 +1,4 @@
-import {Extension} from '@roots/bud-extensions'
+import {Extension} from '@roots/bud-typings'
 import TerserPlugin, {
   TerserPluginOptions,
 } from 'terser-webpack-plugin'

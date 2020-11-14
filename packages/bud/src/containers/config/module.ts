@@ -1,3 +1,5 @@
+import type Framework from '@roots/bud-typings'
+
 // export const exprContextCritical: Framework.Webpack.Configuration['module']['exprContextCritical'] = true
 // export const exprContextRecursive: Framework.Webpack.Configuration['module']['exprContextRecursive'] = true
 // export const exprContextRequest: Framework.Webpack.Configuration['module']['exprContextRequest'] = '.'

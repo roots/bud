@@ -1,12 +1,9 @@
-import type {Bud} from '@roots/bud-typings'
-import {Indexed} from '@roots/container'
-import {Webpack} from '@roots/bud-typings'
+import Framework from '@roots/bud-typings'
 
-export class Cache {
-  public bud: Bud
-  public options: Indexed
+export class Cache implements Framework.Cache.Contract {
+  public bud: Framework.Bud.Contract
 
-  constructor(bud: Bud) {
+  constructor(bud: Framework.Bud.Contract) {
     this.bud = bud
   }
 
@@ -15,10 +12,10 @@ export class Cache {
       this.bud.fs.exists(
         this.bud.config.get('webpack.recordsPath'),
       ) &&
-      this.bud.hooks.on<Webpack.Configuration['cache']>(
+      this.bud.hooks.on(
         'webpack.cache',
-        () =>
-          this.bud.disk
+        (bud: Framework.Bud.Contract) =>
+          bud.disk
             .get('project')
             .readJson(
               this.bud.config.get('webpack.recordsPath'),

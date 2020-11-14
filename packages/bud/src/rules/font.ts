@@ -1,12 +1,8 @@
-/**
- * Font test
- */
-export const test: Framework.Rule.Factory<Framework.Rule.Conditional> = bud =>
+import type Framework from '@roots/bud-typings'
+
+export const test: Framework.Factory<Framework.Rule.Conditional> = bud =>
   bud.patterns.get('font')
 
-/**
- * Font: Loaders
- */
-export const use: Framework.Rule.Factory<Framework.Rule.Use> = ({
+export const use: Framework.Factory<Framework.Rule.Use> = ({
   build,
 }) => [build.getItem('file')]

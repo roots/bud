@@ -1,8 +1,10 @@
-export const template: Framework.API.Template = function (options?: {
+import type Framework from '@roots/bud-typings'
+
+export const template = function (options?: {
   template: string
   replacements: Framework.Index<string>
-}) {
-  this.features.enable('html')
+}): Framework.Bud.Contract {
+  this.features.set('html', true)
 
   const plugin = this.extensions.get('html-webpack-plugin')
 

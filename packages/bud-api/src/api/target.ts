@@ -1,6 +1,8 @@
+import {Bud} from '@roots/bud-typings'
+
 export const target: (
   target: string,
-) => Framework.Bud = function (target) {
+) => Bud.Contract = function (target) {
   this.config.set('target', target)
 
   return this

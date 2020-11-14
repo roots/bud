@@ -1,7 +1,9 @@
-export const test: Framework.Rule.Factory<Framework.Rule.Conditional> = ({
+import type Framework from '@roots/bud-typings'
+
+export const test: Framework.Factory<Framework.Rule.Conditional> = ({
   patterns,
 }) => patterns.get('svg')
 
-export const use: Framework.Rule.Factory<Framework.Rule.Conditional> = ({
+export const use: Framework.Factory<Framework.Rule.Conditional> = ({
   build,
 }) => [build.getItem('svg')]

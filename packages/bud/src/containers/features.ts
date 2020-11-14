@@ -1,4 +1,4 @@
-import {Indexed} from '@roots/bud-typings'
+import {Container} from '@roots/bud-typings'
 
 /**
  * Build cache
@@ -60,4 +60,7 @@ export const splitChunks = false
  */
 export const runtimeChunk = false
 
-export type Features = Indexed<boolean>
+/**
+ * Enabled features
+ */
+export type Features = Container

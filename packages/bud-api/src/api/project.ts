@@ -7,6 +7,6 @@ export const project: Project = function (segment) {
 }
 
 export type Project = (
-  this: Bud,
+  this: Bud.Contract,
   path?: string | undefined,
 ) => string | void

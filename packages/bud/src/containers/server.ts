@@ -1,4 +1,4 @@
-import type {Server} from '@roots/bud-server'
+import type {Server} from '@roots/bud-typings'
 
 /**
  * Automatically rewrite hostname over proxy connection.

@@ -1,15 +1,14 @@
-import type {Bud} from '..'
+import Framework from '@roots/bud-typings'
 import type {Configuration} from 'webpack'
 
 export {Mode, Mode as default}
 
-/**
- * @constructs Mode
- */
-class Mode implements Mode.Contract {
-  bud: Bud.Contract
+class Mode implements Framework.Mode.Contract {
+  bud: Framework.Bud.App | Framework.Bud.Contract
 
-  public constructor(bud: Bud.Contract) {
+  public constructor(
+    bud: Framework.Bud.App | Framework.Bud.Contract,
+  ) {
     this.bud = bud
   }
 
@@ -17,7 +16,9 @@ class Mode implements Mode.Contract {
     return this.bud.config.get('mode')
   }
 
-  set(mode: Configuration['mode']): Bud.Contract {
+  set(
+    mode: Configuration['mode'],
+  ): Framework.Bud.App | Framework.Bud.Contract {
     this.bud.config.set('mode', mode)
 
     return this.bud
@@ -25,15 +26,5 @@ class Mode implements Mode.Contract {
 
   is(check: Configuration['mode']): boolean {
     return this.bud.config.is('mode', check)
-  }
-}
-
-namespace Mode {
-  export interface Contract {
-    get(): Configuration['mode']
-
-    set(mode: Configuration['mode']): Bud.Contract
-
-    is(check: Configuration['mode']): boolean
   }
 }

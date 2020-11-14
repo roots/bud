@@ -3,6 +3,7 @@ import {useProgress} from './useProgress'
 import {useStats} from './useStats'
 import type {UseProgress} from './useProgress'
 import type {UseStats} from './useStats'
+import {Bud} from '@roots/bud-typings'
 
 const useCompilation: UseCompilation.Hook = ({compiler}) => {
   const [applied, setApplied] = useState<boolean>(false)
@@ -32,7 +33,7 @@ const useCompilation: UseCompilation.Hook = ({compiler}) => {
 
 export namespace UseCompilation {
   export interface Hook {
-    (bud: Framework.Bud): Compilation
+    (bud: Bud.Contract): Compilation
   }
 
   export interface Compilation {

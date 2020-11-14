@@ -5,7 +5,8 @@ import type {
   Parser,
   Stringifier,
 } from 'postcss'
-import type {Bud, Fluent} from '@roots/bud-typings'
+
+import type Framework from '@roots/bud-typings'
 
 export as namespace PostCss
 
@@ -21,21 +22,21 @@ export {
  * PostCss
  */
 export interface PostCss {
-  bud: Bud
+  bud: Framework.Bud.Contract
   methods: Array<[string, PostCss.Config]>
-  init: Fluent<PostCss>
-  next: (this: PostCss) => Bud
+  init: Framework.Fluent<PostCss>
+  next: (this: PostCss) => Framework.Bud.Contract
 }
 
 /**
  * PostCss configuration utility.
  */
-export type Config = Fluent<PostCss>
+export type Config = Framework.Fluent<PostCss>
 
 /**
  * PostCss configuration utility constructor.
  */
-export type Factory = (bud: Bud) => PostCss
+export type Factory = (bud: Framework.Bud.Contract) => PostCss
 
 export interface Options {
   syntax?: Syntax

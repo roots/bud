@@ -46,4 +46,7 @@ export const run: Run = function (safeMode = false) {
   }
 }
 
-export type Run = (this: Bud, safeMode?: boolean) => void
+export type Run = (
+  this: Bud.Contract,
+  safeMode?: boolean,
+) => void

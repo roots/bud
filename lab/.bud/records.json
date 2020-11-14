@@ -22,10 +22,20 @@
     "byIdentifier": {
       "multi foo.js foo.scss": 0,
       "multi foo.js foo.css": 0,
-      "dll library": 0
+      "dll library": 0,
+      "../../node_modules/thread-loader/dist/cjs.js!../../node_modules/cache-loader/dist/cjs.js!../../node_modules/babel-loader/lib/index.js??babel!../../node_modules/raw-loader/dist/cjs.js!foo.js": 1,
+      "../../node_modules/style-loader/dist/cjs.js!../../node_modules/css-loader/dist/cjs.js??css!../../node_modules/resolve-url-loader/index.js??resolve-url!foo.css": 2,
+      "../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js": 3,
+      "../../node_modules/css-loader/dist/cjs.js??css!../../node_modules/resolve-url-loader/index.js??resolve-url!foo.css": 4,
+      "../../node_modules/css-loader/dist/runtime/api.js": 5
     },
     "usedIds": {
-      "0": 0
+      "0": 0,
+      "1": 1,
+      "2": 2,
+      "3": 3,
+      "4": 4,
+      "5": 5
     }
   },
   "chunks": {

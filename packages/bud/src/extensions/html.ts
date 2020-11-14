@@ -1,5 +1,5 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import {Extension} from '@roots/bud-extensions'
+import {Extension} from '@roots/bud-typings'
 
 export const options: HtmlWebpackPlugin.Options = ({fs}) => ({
   alwaysWriteToDisk: true,

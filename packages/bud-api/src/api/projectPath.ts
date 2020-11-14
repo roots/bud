@@ -7,4 +7,7 @@ export const projectPath: ProjectPath = function (dir) {
   return this
 }
 
-type ProjectPath = (this: Bud, dir: string) => Bud
+type ProjectPath = (
+  this: Bud.Contract,
+  dir: string,
+) => Bud.Contract

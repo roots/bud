@@ -1,3 +1,4 @@
+import Framework from '@roots/bud-typings'
 import WebpackHotMiddleware from 'webpack-hot-middleware'
 
 const hot = (

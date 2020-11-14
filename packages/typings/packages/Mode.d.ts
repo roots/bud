@@ -1,3 +1,6 @@
+import {Configuration} from 'webpack'
+import {Bud} from '.'
+
 /**
  * Mode
  *
@@ -5,29 +8,11 @@
  *
  * @see {Webpack.Mode}
  */
-export declare type Mode = {
-  /**
-   * Check the currently set mode.
-   */
-  is: (check: Mode.Modes) => boolean
 
-  /**
-   * Get the currently set mode
-   */
-  get: () => Mode.Modes
+export interface Contract {
+  get(): Configuration['mode']
 
-  /**
-   * Set the mode.
-   */
-  set: (check: Mode.Modes) => void
-}
+  set(mode: Configuration['mode']): Bud.Contract
 
-/**
- * Mode
- */
-export declare namespace Mode {
-  /**
-   * All possible modes ('development' | 'production' | 'none')
-   */
-  export type Modes = Framework.Webpack.Configuration['mode']
+  is(check: Configuration['mode']): boolean
 }
