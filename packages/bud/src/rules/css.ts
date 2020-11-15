@@ -8,6 +8,7 @@ export const exclude: Exclude = ({patterns}) =>
 
 export const use: Use = bud => {
   const use: UseItem = item => bud.build.getItem(item)
+  console.log(bud.mode.is('production'))
   const style = bud.mode.is('production')
     ? use('mini-css')
     : use('style')

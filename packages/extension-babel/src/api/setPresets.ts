@@ -5,9 +5,9 @@ import {PluginTarget, PluginOptions} from '@babel/core'
  * Merge babel plugins
  */
 export const setPresets = function (
-  this: Bud.App,
+  this: Bud.Contract,
   presets: Array<[PluginTarget, PluginOptions]>,
-): Bud.App {
+): Bud.Contract {
   this.build.items.set('babel.options.presets', presets)
 
   return this

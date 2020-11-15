@@ -4,7 +4,7 @@ description: Define vars available to application code.
 
 # bud.define
 
-Define variables available to application code.
+Make modules and variables global for the application.
 
 ## Usage
 

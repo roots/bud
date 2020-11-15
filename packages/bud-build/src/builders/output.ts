@@ -1,7 +1,10 @@
 import {Bud, Container, Webpack} from '@roots/bud-typings'
 
 type Cfg = Webpack.Configuration['output']
-type Output = (this: Bud.App, config: Container) => {output: Cfg}
+type Output = (
+  this: Bud.Contract,
+  config: Container,
+) => {output: Cfg}
 
 export const output: Output = function (config) {
   const path = this.hooks.filter<Cfg['path']>(

@@ -15,14 +15,19 @@ import {
   Server,
 } from './'
 
-export interface App extends Contract {
+/**
+ * Bud Framework
+ */
+export interface Contract extends Core {
+  [key: string]: any
+
   /**
    * argv
    */
   args: Container
 
   /**
-   * webpack configuration
+   * Webpack Configuration
    */
   config: Container
 
@@ -79,23 +84,23 @@ export interface App extends Contract {
   /**
    * Initialize disks
    */
-  disks: () => this
+  disks: () => Contract
 
   /**
    * Register
    */
-  register: () => this
+  register: () => Contract
 
   /**
    * Boot
    */
-  boot: () => this
+  boot: () => Contract
 }
 
 /**
  * Core unit of the Bud application.
  */
-export interface Contract {
+export interface Core {
   [key: string]: any
 
   /**
@@ -132,9 +137,14 @@ export interface Contract {
   makeContainer(repository?: {[key: string]: any}): Container
 
   /**
+   * Make a new disk
+   */
+  makeDisk(name: string, base: string, glob?: string[]): void
+
+  /**
    * Make a new container.
    */
-  init(): this
+  init(): Contract
 }
 
 export type Format = (obj: unknown, options?) => string

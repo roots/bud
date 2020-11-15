@@ -2,10 +2,10 @@ import type {Webpack, Bud} from '@roots/bud-typings'
 
 declare type Rule = Webpack.RuleSetRule
 
-declare type BuildOneOf = (this: Bud.App) => Rule[]
+declare type BuildOneOf = (this: Bud.Contract) => Rule[]
 
 declare type OneOfReducer = (
-  this: Bud.App,
+  this: Bud.Contract,
   rules: Rule[],
   [label, rule]: [string, Rule],
 ) => Rule[]

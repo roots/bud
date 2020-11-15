@@ -14,7 +14,7 @@ import {eslintFormatter as formatter} from '@roots/bud-support'
 export const boot: Boot = bud => {
   const path = bud.disk.get('@roots/bud-eslint')
 
-  bud.features.enable('eslint')
+  bud.features.set('eslint', true)
 
   bud.presets.set('eslint.roots', path.get('presets/roots.js'))
   bud.presets.set('eslint.react', path.get('presets/react.js'))

@@ -1,7 +1,7 @@
 import {Build, Extension, Webpack, Bud} from '@roots/bud-typings'
 
 export const plugins: Build.Plugins = function (
-  this: Bud.App,
+  this: Bud.Contract,
 ): {plugins: Webpack.Configuration['plugins']} {
   const plugins: Webpack.Plugin[] = this.hooks.filter<
     Webpack.Configuration['plugins']

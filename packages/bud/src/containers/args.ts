@@ -1,6 +1,5 @@
-import {yargs} from '@roots/bud-support'
-import {Container} from '@roots/bud-typings'
+import {parse} from 'yargs'
 
-export const {argv: args} = yargs
+const args = parse(process.argv.slice(1))
 
-export type Args = Container
+export {args}

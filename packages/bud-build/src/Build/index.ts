@@ -6,7 +6,7 @@ import {Rule} from '../Rule'
 type Cfg = Framework.Webpack.Configuration
 
 export class Build implements Framework.Build.Contract {
-  public bud: Framework.Bud.App
+  public bud: Framework.Bud.Contract
 
   public builders: Partial<Framework.Build.Builders> = builders
 
@@ -18,7 +18,7 @@ export class Build implements Framework.Build.Contract {
 
   public config
 
-  public constructor(bud: Framework.Bud.App) {
+  public constructor(bud: Framework.Bud.Contract) {
     this.bud = bud
 
     this.loaders = this.bud.makeContainer()
@@ -32,7 +32,7 @@ export class Build implements Framework.Build.Contract {
         config,
         [, builder]: [
           string,
-          (this: Framework.Bud.App) => Partial<Cfg>,
+          (this: Framework.Bud.Contract) => Partial<Cfg>,
         ],
       ) => ({
         ...config,

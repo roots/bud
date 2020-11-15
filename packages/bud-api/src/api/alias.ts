@@ -1,7 +1,7 @@
 import type {Bud} from '@roots/bud-typings'
 
 /**
- * ### Alias
+ * ### bud.alias
  *
  * > Register shorthand for resolving modules
  * using webpack aliases. Useful for
@@ -28,8 +28,8 @@ export const alias: Alias = function (alias) {
 }
 
 export type Alias = (
-  this: Bud.App,
+  this: Bud.Contract,
   aliases: {
     [key: string]: string
   },
-) => Bud.App
+) => Bud.Contract

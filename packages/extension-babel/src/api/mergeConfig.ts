@@ -6,7 +6,7 @@ import type {TransformOptions} from '@babel/core'
  */
 export const mergeConfig = function (
   opts: TransformOptions,
-): Bud.App {
+): Bud.Contract {
   opts.presets &&
     this.build.items.merge(
       'babel.options.presets',

@@ -27,7 +27,23 @@
       "../../node_modules/style-loader/dist/cjs.js!../../node_modules/css-loader/dist/cjs.js??css!../../node_modules/resolve-url-loader/index.js??resolve-url!foo.css": 2,
       "../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js": 3,
       "../../node_modules/css-loader/dist/cjs.js??css!../../node_modules/resolve-url-loader/index.js??resolve-url!foo.css": 4,
-      "../../node_modules/css-loader/dist/runtime/api.js": 5
+      "../../node_modules/css-loader/dist/runtime/api.js": 5,
+      "../../node_modules/react/index.js": 1,
+      "../../node_modules/react/cjs/react.development.js": 2,
+      "../../node_modules/object-assign/index.js": 3,
+      "../../node_modules/prop-types/checkPropTypes.js": 4,
+      "../../node_modules/prop-types/lib/ReactPropTypesSecret.js": 5,
+      "../../node_modules/react-dom/index.js": 6,
+      "../../node_modules/react-dom/cjs/react-dom.development.js": 7,
+      "../../node_modules/scheduler/index.js": 8,
+      "../../node_modules/scheduler/cjs/scheduler.development.js": 9,
+      "../../node_modules/scheduler/tracing.js": 10,
+      "../../node_modules/scheduler/cjs/scheduler-tracing.development.js": 11,
+      "../../node_modules/style-loader/dist/cjs.js!../../packages/extension-postcss/node_modules/postcss-loader/dist/cjs.js??postcss!../../node_modules/css-loader/dist/cjs.js??css!../../node_modules/resolve-url-loader/index.js??resolve-url!foo.css": 2,
+      "../../packages/extension-postcss/node_modules/postcss-loader/dist/cjs.js??postcss!../../node_modules/css-loader/dist/cjs.js??css!../../node_modules/resolve-url-loader/index.js??resolve-url!foo.css": 4,
+      "../../node_modules/style-loader/dist/cjs.js!../../node_modules/css-loader/dist/cjs.js??css!../../packages/extension-postcss/node_modules/postcss-loader/dist/cjs.js??postcss!../../node_modules/resolve-url-loader/index.js??resolve-url!foo.css": 2,
+      "../../node_modules/css-loader/dist/cjs.js??css!../../packages/extension-postcss/node_modules/postcss-loader/dist/cjs.js??postcss!../../node_modules/resolve-url-loader/index.js??resolve-url!foo.css": 4,
+      "../../node_modules/mini-css-extract-plugin/dist/loader.js!../../node_modules/css-loader/dist/cjs.js??css!../../packages/extension-postcss/node_modules/postcss-loader/dist/cjs.js??postcss!../../node_modules/resolve-url-loader/index.js??resolve-url!foo.css": 2
     },
     "usedIds": {
       "0": 0,
@@ -35,7 +51,13 @@
       "2": 2,
       "3": 3,
       "4": 4,
-      "5": 5
+      "5": 5,
+      "6": 6,
+      "7": 7,
+      "8": 8,
+      "9": 9,
+      "10": 10,
+      "11": 11
     }
   },
   "chunks": {
@@ -50,5 +72,53 @@
     "usedIds": [
       0
     ]
-  }
+  },
+  "HtmlWebpackCompiler": [
+    {
+      "modules": {
+        "byIdentifier": {
+          "../../node_modules/html-webpack-plugin/lib/loader.js!../../node_modules/raw-loader/dist/cjs.js!../../packages/bud-support/publish/template.html": 0
+        },
+        "usedIds": {
+          "0": 0
+        }
+      },
+      "chunks": {
+        "byName": {
+          "HtmlWebpackPlugin_0": 0
+        },
+        "bySource": {
+          "0 HtmlWebpackPlugin_0": 0
+        },
+        "usedIds": [
+          0
+        ]
+      }
+    }
+  ],
+  "mini-css-extract-plugin ../../node_modules/css-loader/dist/cjs.js??css!../../packages/extension-postcss/node_modules/postcss-loader/dist/cjs.js??postcss!../../node_modules/resolve-url-loader/index.js??resolve-url!foo.css": [
+    {
+      "modules": {
+        "byIdentifier": {
+          "../../node_modules/css-loader/dist/cjs.js??css!../../packages/extension-postcss/node_modules/postcss-loader/dist/cjs.js??postcss!../../node_modules/resolve-url-loader/index.js??resolve-url!foo.css": 0,
+          "../../node_modules/css-loader/dist/runtime/api.js": 1
+        },
+        "usedIds": {
+          "0": 0,
+          "1": 1
+        }
+      },
+      "chunks": {
+        "byName": {
+          "mini-css-extract-plugin": 0
+        },
+        "bySource": {
+          "0 mini-css-extract-plugin": 0
+        },
+        "usedIds": [
+          0
+        ]
+      }
+    }
+  ]
 }

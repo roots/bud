@@ -1,7 +1,10 @@
 import {Bud, Container, Webpack} from '@roots/bud-typings'
 
 type Cfg = Webpack.Configuration
-type General = (this: Bud.App, config: Container) => Partial<Cfg>
+type General = (
+  this: Bud.Contract,
+  config: Container,
+) => Partial<Cfg>
 
 export const general: General = function (config) {
   return this.hooks.filter<Cfg>('webpack', {

@@ -2,7 +2,7 @@ import {Bud, Container, Webpack} from '@roots/bud-typings'
 
 type Cfg = Webpack.Configuration['optimization']
 type Optimization = (
-  this: Bud.App,
+  this: Bud.Contract,
   config: Container,
 ) => {optimization: Cfg}
 

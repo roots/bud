@@ -6,7 +6,7 @@ export const dev: Dev = function (config) {
   }
 
   this.server.config.repository = {
-    ...this.server.config.all(),
+    ...this.server.config.getStore(),
     ...config,
   }
 

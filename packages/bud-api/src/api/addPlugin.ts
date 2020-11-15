@@ -1,17 +1,22 @@
-import type {Bud} from '@roots/bud-typings'
+import type {Bud, Webpack} from '@roots/bud-typings'
 
 /**
- * Import your plugin in the manner described
- *  by the plugin documentation.
+ * ### bud.addPlugin  [💁 _Fluent_]
  *
- * Now, pass an identifier for the plugin and the
- * plugin instance.
+ * Import your plugin in the manner described by
+ * the plugin documentation. Then, pass an identifier
+ * for the plugin and the plugin instance.
+ *
+ * [🔗 Docs](https://git.io/JTNGA)
+ *
+ * ### Usage
+ *
+ * **Add a plugin to the webpack configuration**
  *
  * ```js
  * bud.addPlugin('my-plugin', new myPlugin())
  * ```
  *
- * @see {{Docs: /addPlugin}}
  */
 export const addPlugin: AddPlugin = function (name, make) {
   this.extensions.set(name, {make})
@@ -22,5 +27,5 @@ export const addPlugin: AddPlugin = function (name, make) {
 export type AddPlugin = (
   this: Bud.Contract,
   name: string,
-  make: any,
+  make: Webpack.Plugin | CallableFunction,
 ) => Bud.Contract

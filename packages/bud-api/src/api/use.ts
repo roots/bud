@@ -2,22 +2,7 @@
 import {lodash as _} from '@roots/bud-support'
 import {Bud, Extension} from '@roots/bud-typings'
 
-/**
- * Register an extension or set of extensions to use.
- *
- * Extensions can be specified by:
- *
- * - a resolvable package name
- * - an array of resolvable package names
- * - a module path
- * - an array of module paths
- * - extension object formatted as a tuple [extension name, object]
- * - an array of extension objects in the same tuple format.
- */
-export const use = function (
-  this: Bud.Contract,
-  extensions: Extensions,
-): Bud.Contract {
+export const use: Use = function (extensions) {
   _.isString(extensions)
     ? this.extensions.use(extensions)
     : ensureIterable(extensions).forEach(
@@ -62,3 +47,8 @@ export type Extensions =
   | string[]
   | ExtensionTuple
   | ExtensionTuple[]
+
+export type Use = (
+  this: Bud.Contract,
+  extensions: Extensions,
+) => Bud.Contract

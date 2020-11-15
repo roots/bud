@@ -2,7 +2,7 @@ import {Bud, Build, Container, Webpack} from '@roots/bud-typings'
 
 type Resolve = Webpack.Configuration['resolve']
 type Build = (
-  this: Bud.App,
+  this: Bud.Contract,
   config: Container,
 ) => {resolve: Resolve}
 
@@ -19,7 +19,7 @@ export const resolve: Build = function (config) {
       ),
       modules: this.hooks.filter<Resolve['modules']>(
         'webpack.resolve.modules',
-        [this.src(), this.project('node_modules')],
+        [this.src()],
       ),
     },
   }

@@ -4,7 +4,7 @@ import post from './post'
 import pre from './pre'
 
 type Rules = Webpack.Configuration['module']['rules']
-type Build = (this: Bud.App) => {rules: Rules}
+type Build = (this: Bud.Contract) => {rules: Rules}
 
 export const rules: Build = function () {
   return {

@@ -7,7 +7,7 @@ import type {PluginTarget, PluginOptions} from '@babel/core'
 export const addPreset = function (
   name: PluginTarget,
   opts?: PluginOptions,
-): Bud.App {
+): Bud.Contract {
   const preset = [name]
   opts && preset.push(opts)
 

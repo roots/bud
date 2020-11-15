@@ -1,19 +1,26 @@
 import {lodash as _} from '@roots/bud-support'
-import {Bud} from '@roots/bud-typings'
+import type {Bud} from '@roots/bud-typings'
 
-export const entry = function (
-  this: Bud.Contract,
-  name: string,
-  assets: string | string[] | {[key: string]: string | string[]},
-): Bud.Contract {
+export const entry: Entry = function (bundle, assets) {
   this.config.merge(
     'entry',
     _.isString(assets) || _.isArray(assets)
       ? {
-          [name]: assets,
+          [bundle]: assets,
         }
       : assets,
   )
 
   return this
 }
+
+export type Entry = (
+  this: Bud.Contract,
+  bundleName: string,
+  assets:
+    | string
+    | string[]
+    | {
+        [key: string]: string | string[]
+      },
+) => Bud.Contract

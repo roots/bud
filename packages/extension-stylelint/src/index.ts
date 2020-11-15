@@ -6,7 +6,7 @@ export const api = {
     this: Bud.Contract,
     options: StylelintPlugin['options'],
   ): Bud.Contract {
-    this.features.enable('stylelint')
+    this.features.set('stylelint', true)
     this.extensions
       .get('@roots/bud-stylelint')
       .setOptions(options)
@@ -24,7 +24,7 @@ export const register: Extension.Register = function (
   )
 
   bud.when(bud.fs.get('stylelint.config.js'), () =>
-    bud.features.enable('stylelint'),
+    bud.features.set('stylelint', true),
   )
 
   bud.extensions.set('stylelint-webpack-plugin', {

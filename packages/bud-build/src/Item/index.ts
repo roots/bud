@@ -7,7 +7,7 @@ type Module = Framework.Item.Module
 type RuleSetLoader = Framework.Build.RuleSetLoader
 
 class Item implements Contract {
-  bud: Framework.Bud.App
+  bud: Framework.Bud.Contract
 
   ident?: Contract['ident']
 
@@ -17,7 +17,7 @@ class Item implements Contract {
 
   query?: Contract['query']
 
-  constructor(bud: Framework.Bud.App, module: Module) {
+  constructor(bud: Framework.Bud.Contract, module: Module) {
     this.set = this.set.bind(this)
     this.make = this.make.bind(this)
 

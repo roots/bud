@@ -4,11 +4,9 @@ import type {Configuration} from 'webpack'
 export {Mode, Mode as default}
 
 class Mode implements Framework.Mode.Contract {
-  bud: Framework.Bud.App | Framework.Bud.Contract
+  bud: Framework.Bud.Contract
 
-  public constructor(
-    bud: Framework.Bud.App | Framework.Bud.Contract,
-  ) {
+  public constructor(bud: Framework.Bud.Contract) {
     this.bud = bud
   }
 
@@ -16,9 +14,7 @@ class Mode implements Framework.Mode.Contract {
     return this.bud.config.get('mode')
   }
 
-  set(
-    mode: Configuration['mode'],
-  ): Framework.Bud.App | Framework.Bud.Contract {
+  set(mode: Configuration['mode']): Framework.Bud.Contract {
     this.bud.config.set('mode', mode)
 
     return this.bud

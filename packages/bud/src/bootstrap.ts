@@ -7,12 +7,6 @@ import * as items from './items'
 import * as loaders from './loaders'
 import * as rules from './rules'
 
-import {Features} from './containers/features'
-import {Patterns} from './containers/patterns'
-
-export type {Features}
-export type {Patterns}
-
 const bud = new Bud({
   containers,
   loaders: {
@@ -99,4 +93,30 @@ const bud = new Bud({
   },
 }).init()
 
-export {bud, bud as default}
+bud
+  .when(
+    bud.args.has('project'),
+    ({args, projectPath, fs}) =>
+      projectPath(
+        fs.path.resolve(fs.getBase(), args.get('project')),
+      ),
+    ({projectPath}) => projectPath(process.cwd()),
+  )
+  .srcPath(bud.args.get('src') ?? 'src')
+  .distPath(bud.args.get('dist') ?? 'dist')
+
+  .when(bud.args.has('html'), ({template}) => template())
+  .when(bud.args.has('minify'), ({minify}) => minify())
+  .when(bud.args.has('gzip'), ({gzip}) => gzip())
+  .when(bud.args.has('brotli'), ({brotli}) => brotli())
+  .when(bud.args.has('runtime'), ({runtime}) => runtime())
+  .when(bud.args.has('vendor'), ({vendor}) => vendor())
+  .when(bud.args.has('hash'), ({hash}) => hash())
+  .when(bud.args.has('devtool'), ({devtool}) =>
+    devtool(
+      bud.args.get('devtool') ?? '#@cheap-eval-source-map',
+    ),
+  )
+
+export {bud}
+export type {Bud}

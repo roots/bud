@@ -2,7 +2,7 @@ import {Bud, Container, Webpack} from '@roots/bud-typings'
 
 type Externals = Webpack.Configuration['externals']
 type Build = (
-  this: Bud.App,
+  this: Bud.Contract,
   config: Container,
 ) => {externals: Externals}
 

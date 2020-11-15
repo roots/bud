@@ -2,7 +2,7 @@ module.exports = () => ({
   entry: { foo: [ 'foo.js', 'foo.css' ] },
   bail: true,
   context: '/Users/kellymears/code/projects/cli/bud/bud/lab/src',
-  mode: 'none',
+  mode: 'production',
   name: '@roots/bud',
   node: {
     module: 'empty',
@@ -32,13 +32,31 @@ module.exports = () => ({
             test: /\.css$/,
             use: [
               {
-                ident: 'style',
-                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/style-loader/dist/cjs.js'
+                ident: 'mini-css',
+                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/mini-css-extract-plugin/dist/loader.js'
               },
               {
                 ident: 'css',
                 loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/css-loader/dist/cjs.js',
                 options: { importLoaders: 2 }
+              },
+              {
+                ident: 'postcss',
+                loader: '/Users/kellymears/code/projects/cli/bud/bud/packages/extension-postcss/node_modules/postcss-loader/dist/cjs.js',
+                options: {
+                  postcssOptions: {
+                    plugins: [
+                      'postcss-flexbugs-fixes',
+                      [
+                        'postcss-preset-env',
+                        {
+                          autoprefixer: { flexbox: 'no-2009' },
+                          stage: 3
+                        }
+                      ]
+                    ]
+                  }
+                }
               },
               {
                 ident: 'resolve-url',
@@ -168,9 +186,7 @@ module.exports = () => ({
       keepCircularReferences: true
     },
     {
-      definitions: {
-        env: { PUBLIC_URL: '/', APP_NAME: 'App', APP_DESCRIPTION: 'Test' }
-      }
+      definitions: { PUBLIC_URL: '/', APP_NAME: 'App', APP_DESCRIPTION: 'Test' }
     },
     {
       opts: {
@@ -179,6 +195,9 @@ module.exports = () => ({
         transformExtensions: /^(gz|map)$/i,
         writeToFileEmit: true
       }
+    },
+    {
+      options: { filename: '[name].css', chunkFilename: '[name].css' }
     },
     {
       options: {
@@ -194,24 +213,11 @@ module.exports = () => ({
     },
     {
       nodeModulesPath: '/Users/kellymears/code/projects/cli/bud/bud/lab/node_modules'
-    },
-    {
-      _originalSettings: {
-        inject: true,
-        filename: '[name].[hash].js',
-        entry: { library: [ 'react', 'react-dom' ] },
-        path: 'dll',
-        inherit: true,
-        context: '/Users/kellymears/code/projects/cli/bud/bud/lab/src'
-      }
     }
   ],
   resolve: {
     extensions: [ '.wasm', '.mjs', '.js', '.json', '.css' ],
-    modules: [
-      '/Users/kellymears/code/projects/cli/bud/bud/lab/src',
-      '/Users/kellymears/code/projects/cli/bud/bud/lab/node_modules'
-    ],
+    modules: [ '/Users/kellymears/code/projects/cli/bud/bud/lab/src' ],
     unsafeCache: true,
     mainFiles: [ 'index' ],
     aliasFields: [ 'browser' ],
@@ -227,22 +233,30 @@ module.exports = () => ({
           priority: -10
         }
       },
+      hidePathInfo: true,
       chunks: 'async',
-      minSize: 10000,
+      minSize: 30000,
       minChunks: 1,
-      maxAsyncRequests: Infinity,
+      maxAsyncRequests: 5,
       automaticNameDelimiter: '~',
       automaticNameMaxLength: 109,
-      maxInitialRequests: Infinity,
+      maxInitialRequests: 3,
       name: true
     },
     minimize: true,
     removeAvailableModules: true,
     removeEmptyChunks: true,
     mergeDuplicateChunks: true,
+    flagIncludedChunks: true,
+    occurrenceOrder: true,
+    sideEffects: true,
     providedExports: true,
+    usedExports: true,
+    concatenateModules: true,
+    noEmitOnErrors: true,
+    checkWasmTypes: true,
     portableRecords: true,
-    nodeEnv: 'none'
+    nodeEnv: 'production'
   },
   resolveLoader: {
     unsafeCache: true,

@@ -1,19 +1,22 @@
-import type Framework from '@roots/bud-typings'
+import type {Bud, Webpack} from '@roots/bud-typings'
 
 export default function (
-  this: Framework.Bud.Contract,
-): Framework.Webpack.RuleSetRule[] {
+  this: Bud.Contract,
+): Webpack.RuleSetRule[] {
   return this.hooks.filter(
     `webpack.module.rules.pre`,
     this.build.rules
       .getEntries()
-      .filter(([, {enforce}]) => enforce == 'pre')
+      .filter(
+        ([, {enforce}]: [string, Webpack.RuleSetRule]) =>
+          enforce == 'pre',
+      )
       .reduce(
         (
-          rules: Framework.Webpack.RuleSetRule[],
-          [, rule]: [string, Framework.Webpack.RuleSetRule],
-        ): Framework.Webpack.RuleSetRule[] => [...rules, rule],
+          rules: Webpack.RuleSetRule[],
+          [, rule]: [string, Webpack.RuleSetRule],
+        ): Webpack.RuleSetRule[] => [...rules, rule],
         [],
       ),
-  ) as Framework.Webpack.Configuration['module']['rules']
+  ) as Webpack.Configuration['module']['rules']
 }

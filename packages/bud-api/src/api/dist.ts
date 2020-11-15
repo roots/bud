@@ -1,10 +1,9 @@
-import {Bud} from '@roots/bud-typings'
+import type {Bud} from '@roots/bud-typings'
 
-export const dist = function (
-  this: Bud.Contract,
-  path?: string,
-): string {
+export const dist: Dist = function (path?) {
   return path
     ? this.fs.path.join(this.config.get('output.path'), path)
     : this.config.get('output.path')
 }
+
+export type Dist = (this: Bud.Contract, path?: string) => string

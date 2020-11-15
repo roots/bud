@@ -6,7 +6,7 @@ import * as util from './util'
 
 export {Bud, Bud as default}
 
-class Bud implements Framework.Bud.Contract {
+class Bud implements Framework.Bud.Core {
   public registry: Framework.Container
 
   public disk: Framework.FileSystem
@@ -25,14 +25,7 @@ class Bud implements Framework.Bud.Contract {
     registrables: Framework.Bud.ConstructorParameters,
   ) {
     this.makeContainer = this.makeContainer.bind(this)
-
     this.registry = this.makeContainer(registrables)
-
-    this.disk = new FileSystem()
-
-    this.fs = new FileContainer(process.cwd())
-
-    this.mode = new Mode(this)
   }
 
   public makeContainer(repository?: {
@@ -41,16 +34,29 @@ class Bud implements Framework.Bud.Contract {
     return new Container(repository)
   }
 
-  public makeDisk(name: string, dir: string): void {
+  public makeDisk(
+    name: string,
+    dir: string,
+    glob?: string[],
+  ): void {
     this.disk.set(name, {
       base: this.fs.path.resolve(__dirname, dir),
-      glob: ['**/*'],
+      glob: glob ?? ['**/*'],
     })
   }
 
-  public init: () => this = function () {
+  public init: () => Framework.Bud.Contract = function () {
+    this.disk = new FileSystem()
+
+    this.fs = new FileContainer(process.cwd())
+
+    this.mode = new Mode(this)
+
     const res = this.disks().register().boot()
 
+    delete this.disks
+    delete this.boot
+    delete this.register
     delete this.registry
 
     return res
