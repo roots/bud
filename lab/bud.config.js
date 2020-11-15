@@ -14,6 +14,7 @@ bud.hooks.on('webpack.resolve.module', modules => [
   bud.fs.path.join(bud.fs.base, '../node_modules'),
 ])
 
+bud.template
 bud.use('@roots/bud-postcss')
 bud.use('@roots/bud-babel')
 bud.use('@roots/bud-react')

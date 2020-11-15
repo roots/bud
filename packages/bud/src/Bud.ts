@@ -130,9 +130,7 @@ export class Bud extends Core implements Framework.Bud.Contract {
    *
    * Collection of common RegExp objects. The advantage of using them in
    * a container object is that they can be easily redefined by extensions.
-   *
-   * [🔗 Docs on bud.patterns]()
-   * [🔗 Docs on containers]()
+   * [🔗 Docs on bud.patterns]() [🔗 Docs on containers]()
    *
    * #### Usage
    *
@@ -170,7 +168,7 @@ export class Bud extends Core implements Framework.Bud.Contract {
   public cache: Framework.Cache.Contract
 
   /**
-   * ### bud.env
+   * ### bud.env [🍱 Container]
    *
    */
   public env: Framework.Env.Contract
@@ -196,8 +194,25 @@ export class Bud extends Core implements Framework.Bud.Contract {
   /**
    * ### bud.server
    *
+   * Express application server used for development.
+   *
+   * [🔗 Docs]()
+   *
    */
   public server: Framework.Server.Contract
+
+  /**
+   * ### bud.serverConfig [🍱 Container]
+   *
+   * Configures `bud.server` instance.
+   *
+   * [🔗 Docs]()
+   *
+   * @see {@property bud.server}
+   * @see {@function bud.dev}
+   *
+   */
+  public serverConfig: Framework.Container
 
   /**
    * ### bud.addPlugin  [💁 _Fluent_]
@@ -408,6 +423,29 @@ export class Bud extends Core implements Framework.Bud.Contract {
   /**
    * ### bud.dist  [💁 _Fluent_]
    *
+   * With no arguments, this function returns the path where built assets wil
+   * be written.
+   *
+   * Optionally, **bud.dist** may be passed a path relative to the project dist
+   * directory. In this case it will return the path as an abspath.
+   *
+   * The root path used by this function is set by
+   * [bud.distPath](config-distPath.md).
+
+   * #### Usage
+   *
+   * Absolute path to the dist directory:
+   *
+   * ```js
+   * bud.dist()
+   * ```
+   *
+   * Absolute path to `scripts/app.js` in the dist directory:
+   *
+   * ```js
+   * bud.dist('scripts/app.js')
+   *  ```
+   *
    */
   public dist: typeof api.dist
 
@@ -450,11 +488,37 @@ export class Bud extends Core implements Framework.Bud.Contract {
   /**
    * ### bud.library  [💁 _Fluent_]
    *
+   * Enables DLL ([dynamic link library](https://en.wikipedia.org/wiki/Dynamic-link_library)) caching of specified modules.
+   *
+   * [🔗 Docs]()
+   *
+   * #### Usage
+   *
+   * Pass `bud.library` the module you would like to add to the DLL cache:
+   *
+   * ```js
+   * bud.library('jquery')
+   * ```
+   *
+   * Multiple modules can be added at once by passing an array
+   *
+   * ```js
+   * bud.library(['react', 'react-dom'])
+   * ```
+   *
    */
   public library: typeof api.library
 
   /**
    * ### bud.minify  [💁 _Fluent_]
+   *
+   * `bud.minify` enables minification of static assets. [🔗 Docs]()
+   *
+   * #### Usage
+   *
+   * ```js
+   * bud.minify()
+   * ```
    *
    */
   public minify: typeof api.minify
@@ -498,6 +562,19 @@ export class Bud extends Core implements Framework.Bud.Contract {
   /**
    * ### bud.src  [💁 _Fluent_]
    *
+   * With no arguments, this function returns the project's src path.
+   * Optionally, **bud.src** may be passed a path relative to the project src
+   * directory. In this case it returns the absolute path of whatever it was
+   * passed.
+   *
+   * Root path used by this function is set by [bud.srcPath](). [🔗 Docs]()
+   *
+   * #### Usage
+   *
+   * ```js
+   * bud.src('scripts/app.js')
+   * ```
+   *
    */
   public src: typeof api.src
 
@@ -516,11 +593,21 @@ export class Bud extends Core implements Framework.Bud.Contract {
   /**
    * ### bud.template  [💁 _Fluent_]
    *
+   * Generate and/or configure boilerplate HTML for your project.
+   *
+   * This HTML includes the path to your built assets automatically. So,
+   * it is especially when the filenames of your assets can't be known
+   * in advance of the build (such as is the case with hashing.) [🔗 Docs]()
+   *
    */
   public template: typeof api.template
 
   /**
    * ### bud.terser  [💁 _Fluent_]
+   *
+   * Bud uses `terser` to minify js assets. This function lets you configure *
+   * terser options. For more information [see the Webpack documentation for
+   * configuring Terser](https://webpack.js.org/plugins/terser-webpack-plugin/). [🔗 Docs]()
    *
    */
   public terser: typeof api.terser
@@ -528,18 +615,7 @@ export class Bud extends Core implements Framework.Bud.Contract {
   /**
    * ### bud.use [💁 _Fluent_]
    *
-   * Register an extension or set of extensions to use.
-   *
-   * [🔗 Docs]()
-   *
-   * Extensions may be specified with one of several schemas:
-   *
-   * - a resolvable package name
-   * - an array of resolvable package names
-   * - a module path
-   * - an array of module paths
-   * - tuple `[extension name, object]`
-   * - array of objects formatted as tuples `[extension name, object]`
+   * Register an extension or set of extensions to use. [🔗 Docs]()
    *
    */
   public use: typeof api.use
@@ -579,6 +655,7 @@ export class Bud extends Core implements Framework.Bud.Contract {
 
   /**
    * Setup FS abstractions.
+   * @ignore
    */
   public disks(): this {
     this.fs.setBase(process.cwd())
@@ -591,6 +668,7 @@ export class Bud extends Core implements Framework.Bud.Contract {
 
   /**
    * Register containers and api methods (static)
+   * @ignore
    */
   public register: () => this = function () {
     this.registry
@@ -613,6 +691,7 @@ export class Bud extends Core implements Framework.Bud.Contract {
   /**
    * Register parts of the application that
    * might rely on having container access (dynamic)
+   * @ignore
    */
   public boot(): this {
     this.when(

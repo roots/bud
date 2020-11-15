@@ -93,29 +93,28 @@ const bud = new Bud({
   },
 }).init()
 
-bud
-  .when(
-    bud.args.has('project'),
-    ({args, projectPath, fs}) =>
-      projectPath(
-        fs.path.resolve(fs.getBase(), args.get('project')),
-      ),
-    ({projectPath}) => projectPath(process.cwd()),
-  )
-  .srcPath(bud.args.get('src') ?? 'src')
-  .distPath(bud.args.get('dist') ?? 'dist')
+const {args, when} = bud
 
-  .when(bud.args.has('html'), ({template}) => template())
-  .when(bud.args.has('minify'), ({minify}) => minify())
-  .when(bud.args.has('gzip'), ({gzip}) => gzip())
-  .when(bud.args.has('brotli'), ({brotli}) => brotli())
-  .when(bud.args.has('runtime'), ({runtime}) => runtime())
-  .when(bud.args.has('vendor'), ({vendor}) => vendor())
-  .when(bud.args.has('hash'), ({hash}) => hash())
-  .when(bud.args.has('devtool'), ({devtool}) =>
-    devtool(
-      bud.args.get('devtool') ?? '#@cheap-eval-source-map',
+when(
+  args.has('project'),
+  ({args, projectPath, fs}) =>
+    projectPath(
+      fs.path.resolve(fs.getBase(), args.get('project')),
     ),
+  ({projectPath}) => projectPath(process.cwd()),
+)
+  .srcPath(args.get('src') ?? 'src')
+  .distPath(args.get('dist') ?? 'dist')
+
+  .when(args.has('html'), ({template}) => template())
+  .when(args.has('minify'), ({minify}) => minify())
+  .when(args.has('gzip'), ({gzip}) => gzip())
+  .when(args.has('brotli'), ({brotli}) => brotli())
+  .when(args.has('runtime'), ({runtime}) => runtime())
+  .when(args.has('vendor'), ({vendor}) => vendor())
+  .when(args.has('hash'), ({hash}) => hash())
+  .when(args.has('devtool'), ({devtool}) =>
+    devtool(args.get('devtool') ?? '#@cheap-eval-source-map'),
   )
 
 export {bud}
