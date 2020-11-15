@@ -10,7 +10,7 @@ export const gzip = function (
     (() => {
       const opts = this.extensions
         .get('compression-webpack-plugin-gzip')
-        .all()
+        .getStore()
 
       this.extensions
         .get('compression-webpack-plugin-gzip')

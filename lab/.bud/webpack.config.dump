@@ -189,6 +189,29 @@ module.exports = () => ({
       definitions: { PUBLIC_URL: '/', APP_NAME: 'App', APP_DESCRIPTION: 'Test' }
     },
     {
+      options: {
+        template: '/Users/kellymears/code/projects/cli/bud/bud/packages/bud-support/publish/template.html',
+        filename: 'index.html',
+        publicPath: '/',
+        inject: 'body',
+        scriptLoading: 'blocking',
+        compile: true,
+        minify: 'auto',
+        cache: true,
+        showErrors: true,
+        chunks: 'all',
+        chunksSortMode: 'auto',
+        title: 'Webpack App',
+        alwaysWriteToDisk: true
+      },
+      version: 4
+    },
+    {
+      replacements: {
+        replacements: { PUBLIC_URL: '/', APP_NAME: 'App', APP_DESCRIPTION: 'Test' }
+      }
+    },
+    {
       opts: {
         publicPath: '/',
         fileName: 'manifest.json',

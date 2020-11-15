@@ -1,28 +1,15 @@
-import type Framework from '@roots/bud-typings'
+import type {Factory, Rule} from '@roots/bud-typings'
 
-export const test: Conditional = ({patterns}) =>
+export const test: Factory<Rule.Conditional> = ({patterns}) =>
   patterns.get('css')
 
-export const exclude: Exclude = ({patterns}) =>
+export const exclude: Factory<Rule.Conditional> = ({patterns}) =>
   patterns.get('modules')
 
-export const use: Use = bud => {
-  const use: UseItem = item => bud.build.getItem(item)
-  console.log(bud.mode.is('production'))
-  const style = bud.mode.is('production')
-    ? use('mini-css')
-    : use('style')
-
-  return [style, use('css'), use('resolve-url')]
-}
-
-declare type Conditional = Framework.Factory<
-  Framework.Rule.Conditional
->
-
-declare type Exclude = Framework.Factory<
-  Framework.Rule.Conditional
->
-
-declare type Use = Framework.Factory<Framework.Rule.Use>
-declare type UseItem = (item: string) => Framework.Rule.Generic
+export const use: Factory<Rule.Use> = bud => [
+  bud.mode.is('production')
+    ? bud.build.getItem('mini-css')
+    : bud.build.getItem('style'),
+  bud.build.getItem('css'),
+  bud.build.getItem('resolve-url'),
+]

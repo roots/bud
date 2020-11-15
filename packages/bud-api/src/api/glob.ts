@@ -25,12 +25,6 @@ export const glob: Glob = function (name, files, options) {
   return this
 }
 
-/**
- * Add matching files as an entrypoint
- *
- * @example bud.glob('app', ['*.js'])
- * @example bud.glob('app', ['components/*.js'], {cwd: 'scripts'})
- */
 export type Glob = (
   this: Bud.Contract,
   name: string,

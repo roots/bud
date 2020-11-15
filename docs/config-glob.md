@@ -8,8 +8,6 @@ Generate an entrypoint from assets matching a [fast-glob](https://github.com/mrm
 
 ## Globbing
 
-Internally, Bud uses [globby](https://github.com/sindresorhus/globby#readme) to handle the matching.
-
 **Supported patterns:**
 
 - `*` matches any number of characters, but not `/`
@@ -20,7 +18,7 @@ Internally, Bud uses [globby](https://github.com/sindresorhus/globby#readme) to 
 
 ## Usage
 
-Just roll up all
+Create an app bundle comprised of all js assets:
 
 ```js
 bud.glob('app', '**/*.js')

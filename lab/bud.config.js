@@ -1,7 +1,7 @@
 // @ts-check
 
 /** @type {import('../packages/bud/lib/types').Bud} bud */
-const bud = require('../packages/bud/lib')
+const bud = require('@roots/bud')
 
 /**
  * Critical local dev only
@@ -14,12 +14,13 @@ bud.hooks.on('webpack.resolve.module', modules => [
   bud.fs.path.join(bud.fs.base, '../node_modules'),
 ])
 
-bud.template
+bud.template()
+
 bud.use('@roots/bud-postcss')
 bud.use('@roots/bud-babel')
 bud.use('@roots/bud-react')
 
-console.log(Object.keys(bud))
+/* console.log(Object.keys(bud))
 
 console.log(bud.serverConfig.getStore())
 
@@ -31,6 +32,7 @@ bud.extensions
     .make()
     .module.rules.pop()
     .oneOf.map(plugin => console.log(plugin))
+ */
 
 bud
   .buildCache()

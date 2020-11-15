@@ -1,7 +1,4 @@
-import type Framework from '@roots/bud-typings'
+import type {Item} from '@roots/bud-typings'
 
-export const ident: Ident = 'mini-css'
-export const loader: Loader = 'mini-css-loader'
-
-declare type Loader = Framework.Item.Contract['loader']
-declare type Ident = Framework.Item.Contract['ident']
+export const ident: Item.Contract['ident'] = 'mini-css'
+export const loader: Item.Contract['loader'] = 'mini-css-loader'
