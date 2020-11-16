@@ -6,7 +6,7 @@ export const src: Src = function (segment?) {
     : this.config.get('context')
 }
 
-export type Src = (
-  this: Bud.Contract,
+export type Src<T = Bud.Contract> = (
+  this: T,
   segment?: string,
 ) => string

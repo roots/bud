@@ -6,7 +6,7 @@ import pre from './pre'
 type Rules = Webpack.Configuration['module']['rules']
 type Build = (this: Bud.Contract) => {rules: Rules}
 
-export const rules: Build = function() {
+export const rules: Build = function () {
   return {
     rules: this.hooks.filter<Rules>('webpack.module.rules', [
       ...pre.bind(this)(),

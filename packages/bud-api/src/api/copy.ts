@@ -1,24 +1,7 @@
 import {lodash as _} from '@roots/bud-support'
 import {Bud} from '@roots/bud-typings'
 
-export namespace Copy {
-  export interface Options {
-    from: string
-    context: string
-    to: string
-    globOptions: {
-      [key: string]: any
-    }
-    noErrorOnMissing: boolean
-  }
-}
-
-export type Copy = (
-  this: Bud.Contract,
-  {from, context, to, globOptions}: Copy.Options,
-) => Bud.Contract
-
-export const copy: Copy = function({
+export const copy: Copy = function ({
   from,
   context = null,
   to = null,
@@ -43,3 +26,20 @@ export const copy: Copy = function({
 
   return this
 }
+
+export namespace Copy {
+  export interface Options {
+    from: string
+    context: string
+    to: string
+    globOptions: {
+      [key: string]: any
+    }
+    noErrorOnMissing: boolean
+  }
+}
+
+export type Copy<T = Bud.Contract> = (
+  this: T,
+  {from, context, to, globOptions}: Copy.Options,
+) => T

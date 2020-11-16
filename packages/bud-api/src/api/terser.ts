@@ -1,7 +1,7 @@
 import type {Bud, Extension} from '@roots/bud-typings'
 import {TerserPluginOptions} from 'terser-webpack-plugin'
 
-export const terser = function (options) {
+export const terser: Terser = function (options) {
   if (options) {
     const terserOptions = this.extensions.get(
       'terser.options',
@@ -15,7 +15,7 @@ export const terser = function (options) {
   return this
 }
 
-export type Terser = (
-  this: Bud.Contract,
+export type Terser<T = Bud.Contract> = (
+  this: T,
   options: TerserPluginOptions,
-) => Bud.Contract
+) => T

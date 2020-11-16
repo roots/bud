@@ -2,7 +2,7 @@
 import {lodash as _} from '@roots/bud-support'
 import {Bud, Extension} from '@roots/bud-typings'
 
-export const use: Use = function(extensions) {
+export const use: Use = function (extensions) {
   _.isString(extensions)
     ? this.extensions.use(extensions)
     : ensureIterable(extensions).forEach(

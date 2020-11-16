@@ -9,7 +9,7 @@ export const define: Define = function (values) {
   return this
 }
 
-export type Define = (
-  this: Bud.Contract,
+export type Define<T = Bud.Contract> = (
+  this: T,
   values: Index<any>,
-) => Bud.Contract
+) => T

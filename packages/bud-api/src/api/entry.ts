@@ -14,8 +14,8 @@ export const entry: Entry = function (bundle, assets) {
   return this
 }
 
-export type Entry = (
-  this: Bud.Contract,
+export type Entry<T = Bud.Contract> = (
+  this: T,
   bundleName: string,
   assets:
     | string
@@ -23,4 +23,4 @@ export type Entry = (
     | {
         [key: string]: string | string[]
       },
-) => Bud.Contract
+) => T

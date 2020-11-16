@@ -1,7 +1,7 @@
 // @ts-check
 
-/** @type {import('../packages/bud/lib/types').Bud} bud */
-const bud = require('@roots/bud')
+/** @type {import('../packages/bud/lib/types').Bud}  */
+const {bud} = require('@roots/bud')
 
 /**
  * Critical local dev only

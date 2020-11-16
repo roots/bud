@@ -6,8 +6,8 @@ export const addPlugin: AddPlugin = function (name, make) {
   return this
 }
 
-export type AddPlugin = (
-  this: Bud.Contract,
+export type AddPlugin<T = Bud.Contract> = (
+  this: T,
   name: string,
   make: Webpack.Plugin | CallableFunction,
-) => Bud.Contract
+) => T

@@ -6,7 +6,7 @@ type Output = (
   config: Container,
 ) => {output: Cfg}
 
-export const output: Output = function(config) {
+export const output: Output = function (config) {
   const path = this.hooks.filter<Cfg['path']>(
     'webpack.output.path',
     config.get('output.path'),

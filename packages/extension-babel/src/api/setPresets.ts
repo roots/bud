@@ -4,7 +4,7 @@ import {PluginTarget, PluginOptions} from '@babel/core'
 /**
  * Merge babel plugins
  */
-export const setPresets = function(
+export const setPresets = function (
   this: Bud.Contract,
   presets: Array<[PluginTarget, PluginOptions]>,
 ): Bud.Contract {

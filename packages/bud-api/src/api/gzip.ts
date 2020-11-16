@@ -1,25 +1,18 @@
 import {Bud} from '@roots/bud-typings'
 
-export const gzip: Gzip = function(options?) {
+export const gzip: Gzip = function (options?) {
   this.features.set('gzip', true)
 
-  options &&
-    (() => {
-      const opts = this.extensions
-        .get('compression-webpack-plugin-gzip')
-        .getStore()
+  if (!options) return
 
-      this.extensions
-        .get('compression-webpack-plugin-gzip')
-        .setOptions({
-          ...opts,
-          ...options,
-        })
-    })()
+  this.extensions
+    .get('compression-webpack-plugin-gzip')
+    .setOptions(options)
+
   return this
 }
 
-export type Gzip = (
-  this: Bud.Contract,
+export type Gzip<T = Bud.Contract> = (
+  this: T,
   options?: any,
-) => Bud.Contract
+) => T

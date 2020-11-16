@@ -63,14 +63,17 @@
   "chunks": {
     "byName": {
       "foo": 0,
-      "library": 1
+      "library": 1,
+      "runtime/foo": 1
     },
     "bySource": {
-      "0 foo": 0,
-      "0 library": 1
+      "0 foo": 1,
+      "0 library": 1,
+      "1 foo": 0
     },
     "usedIds": [
-      0
+      0,
+      1
     ]
   },
   "HtmlWebpackCompiler": [

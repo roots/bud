@@ -1,9 +1,8 @@
 import Framework from '@roots/bud-typings'
 import {Bud as Core} from '@roots/bud-framework'
 
-import * as api from '@roots/bud-api'
-
-export class Base extends Core
+export class Base
+  extends Core
   implements Framework.Bud.Contract {
   /**
    * ## bud.config [🍱 _Container_]
@@ -217,6 +216,10 @@ export class Base extends Core
    */
   serverConfig: Framework.Container
 
+  public constructor(registrable?: any) {
+    super(registrable)
+  }
+
   /**
    * Setup FS abstractions.
    * @ignore
@@ -243,10 +246,6 @@ export class Base extends Core
           this[name] = this.makeContainer({...repo})
         },
       )
-
-    Object.keys(api).map(fnName => {
-      this[fnName] = this[fnName].bind(this)
-    })
 
     return this
   }

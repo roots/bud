@@ -6,7 +6,7 @@ type Build = (
   config: Container,
 ) => {externals: Externals}
 
-export const externals: Build = function(config) {
+export const externals: Build = function (config) {
   return {
     externals: this.hooks.filter<Externals>(
       'webpack.externals',

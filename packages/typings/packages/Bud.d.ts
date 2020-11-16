@@ -144,7 +144,7 @@ export interface Core {
   /**
    * Make a new container.
    */
-  init(): Contract
+  init(): unknown
 }
 
 export type Format = (obj: unknown, options?) => string

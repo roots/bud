@@ -1,12 +1,12 @@
 import {Bud} from '@roots/bud-typings'
 
-export const hash: Hash = function(enabled?) {
+export const hash: Hash = function (enabled?) {
   this.features.set('hash', enabled)
 
   return this
 }
 
-export type Hash = (
-  this: Bud.Contract,
+export type Hash<T = Bud.Contract> = (
+  this: T,
   enabled?: boolean,
-) => Bud.Contract
+) => T

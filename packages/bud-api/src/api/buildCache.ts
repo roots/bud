@@ -1,6 +1,6 @@
 import {Bud} from '@roots/bud-typings'
 
-export const buildCache: BuildCache = function(path?) {
+export const buildCache: BuildCache = function (path?) {
   path && this.config.set('recordsPath', path)
 
   this.features.set('buildCache', true)
@@ -8,7 +8,7 @@ export const buildCache: BuildCache = function(path?) {
   return this
 }
 
-export type BuildCache = (
-  this: Bud.Contract,
+export type BuildCache<T = Bud.Contract> = (
+  this: T,
   path?: string,
-) => Bud.Contract
+) => T

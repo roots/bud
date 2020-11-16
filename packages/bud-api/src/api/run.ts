@@ -1,7 +1,7 @@
 import {ProgressPlugin} from 'webpack'
 import {Bud} from '@roots/bud-typings'
 
-export const run: Run = function(safeMode = false) {
+export const run: Run = function (safeMode = false) {
   if (this.mode.is('development')) {
     this.server.addDevMiddleware()
     this.server.addHotMiddleware()
@@ -46,7 +46,7 @@ export const run: Run = function(safeMode = false) {
   }
 }
 
-export type Run = (
-  this: Bud.Contract,
+export type Run<T = Bud.Contract> = (
+  this: T,
   safeMode?: boolean,
 ) => void

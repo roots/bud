@@ -1,7 +1,7 @@
 import {Bud} from '@roots/bud-typings'
 import {GlobTask} from 'globby'
 
-export const glob: Glob = function(name, files, options) {
+export const glob: Glob = function (name, files, options) {
   this.config.merge(
     'entry',
     this.fs.glob
@@ -25,9 +25,9 @@ export const glob: Glob = function(name, files, options) {
   return this
 }
 
-export type Glob = (
-  this: Bud.Contract,
+export type Glob<T = Bud.Contract> = (
+  this: T,
   name: string,
   files: GlobTask['pattern'],
   options: GlobTask['options'],
-) => Bud.Contract
+) => T

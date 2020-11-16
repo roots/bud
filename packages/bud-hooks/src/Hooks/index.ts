@@ -3,7 +3,8 @@ import {Container} from '@roots/container'
 
 export {Hooks, Hooks as default}
 
-class Hooks extends Container
+class Hooks
+  extends Container
   implements Framework.Hooks.Contract {
   logger: Framework.Logger.Contract
 

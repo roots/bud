@@ -178,6 +178,28 @@ module.exports = () => ({
       cleanOnceBeforeBuildPatterns: [ '**/*', '!dll/*' ],
       outputPath: '/Users/kellymears/code/projects/cli/bud/bud/lab/dist'
     },
+    {
+      options: {
+        test: /\.js$|\.css$|\.html$/,
+        cache: true,
+        algorithm: 'gzip',
+        compressionOptions: { level: 9 },
+        filename: '[name].gz',
+        threshold: 10240,
+        minRatio: 0.8
+      }
+    },
+    {
+      options: {
+        test: /\.js$|\.css$|\.html$|\.html$/,
+        cache: true,
+        algorithm: 'brotliCompress',
+        compressionOptions: { level: 11 },
+        filename: '[name].br[query]',
+        threshold: 10240,
+        minRatio: 0.8
+      }
+    },
     { ignorePatterns: [ /\.*\.css.\.js/, /^\.\/locale$/, /moment$/ ] },
     {
       outputPath: '/Users/kellymears/code/projects/cli/bud/bud/lab/.bud',

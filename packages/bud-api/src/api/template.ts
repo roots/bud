@@ -12,10 +12,10 @@ export const template: Template = function (options?) {
   return this
 }
 
-export type Template = (
-  this: Bud.Contract,
+export type Template<T = Bud.Contract> = (
+  this: T,
   options?: {
     template: string
     replacements: Index<string>
   },
-) => Bud.Contract
+) => T
