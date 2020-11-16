@@ -6,7 +6,7 @@ type Build = (
   config: Container,
 ) => {entry: Entry}
 
-export const entry: Build = function (config) {
+export const entry: Build = function(config) {
   return {
     entry: this.hooks.filter<Entry>(
       'webpack.entry',

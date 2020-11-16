@@ -1,6 +1,6 @@
 import {Bud} from '@roots/bud-typings'
 
-export const brotli: Brotli = function (options) {
+export const brotli: Brotli = function(options) {
   this.features.set('brotli', true)
 
   if (!options) return

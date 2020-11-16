@@ -32,15 +32,15 @@ export class FileContainer {
     }
   }
 
-  public setBase = function (dir: string): void {
+  public setBase = function(dir: string): void {
     this.base = dir
   }
 
-  public getBase = function (): string {
+  public getBase = function(): string {
     return this.base
   }
 
-  public setDisk = function (glob: string[]): void {
+  public setDisk = function(glob: string[]): void {
     const files = this.glob.sync(glob, {
       onlyFiles: false,
       expandDirectories: true,
@@ -63,27 +63,27 @@ export class FileContainer {
       })
   }
 
-  public ls = function (key?: string): any {
+  public ls = function(key?: string): any {
     return key ? _.get(this.repository, key) : this.repository
   }
 
-  public get = function (key: string): any {
+  public get = function(key: string): any {
     return _.get(this.repository, key)
   }
 
-  public has = function (key: string): boolean {
+  public has = function(key: string): boolean {
     return _.has(this.repository, key)
   }
 
-  public set = function (key: string, value: any): any {
+  public set = function(key: string, value: any): any {
     return _.set(this.repository, key, value)
   }
 
-  public exists = function (key: string): boolean {
+  public exists = function(key: string): boolean {
     return this.fs.existsSync(this.get(key))
   }
 
-  public ensure = function (
+  public ensure = function(
     this: FileContainer,
     key: string,
   ): void {
@@ -93,7 +93,7 @@ export class FileContainer {
     this.set(key, file)
   }
 
-  public ensureDir = function (
+  public ensureDir = function(
     this: FileContainer,
     key: string,
   ): void {
@@ -103,24 +103,22 @@ export class FileContainer {
     this.set(key, dir)
   }
 
-  public read = function (key: string): string {
+  public read = function(key: string): string {
     return this.fs.readFileSync(this.get(key), 'utf8')
   }
 
-  public readJson = function (
-    key: string,
-  ): {[key: string]: any} {
+  public readJson = function(key: string): {[key: string]: any} {
     return this.fs.readJsonSync(this.get(key))
   }
 
-  public write = function (key: string, content: string): void {
+  public write = function(key: string, content: string): void {
     const file = this.path.resolve(this.base, key)
     this.fs.writeFileSync(file, content)
 
     this.set(key, file)
   }
 
-  public writeJson = function (
+  public writeJson = function(
     key: string,
     content: string,
   ): void {
@@ -129,7 +127,7 @@ export class FileContainer {
     this.set(key, file)
   }
 
-  public require = function (key: string): NodeModule {
+  public require = function(key: string): NodeModule {
     return require(this.get(key))
   }
 }

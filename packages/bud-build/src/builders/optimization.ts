@@ -12,7 +12,7 @@ const key = val =>
     v => `${val.length > 1 ? '.' : ''}${v}`,
   )}`
 
-export const optimization: Optimization = function (config) {
+export const optimization: Optimization = function(config) {
   // Runtime chunk
   const runtimeChunk = this.features.enabled(`runtimeChunk`)
     ? this.hooks.filter<Cfg['runtimeChunk']>(

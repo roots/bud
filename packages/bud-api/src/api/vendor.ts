@@ -1,6 +1,4 @@
-import {Bud} from '@roots/bud-typings'
-
-export const vendor = function (options) {
+export const vendor: Vendor = function(options) {
   options &&
     this.config.set(
       'optimization.splitChunks.cacheGroups.vendor',
@@ -15,7 +13,7 @@ export const vendor = function (options) {
   return this
 }
 
-export type Vendor = (
-  this: Bud.Contract,
+export type Vendor<T = Framework.Bud.Contract> = (
+  this: T,
   options?: any,
-) => Bud.Contract
+) => T

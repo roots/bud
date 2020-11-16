@@ -222,6 +222,7 @@ module.exports = () => ({
     {
       options: { filename: '[name].css', chunkFilename: '[name].css' }
     },
+    { definitions: { '$': 'jquery' } },
     {
       options: {
         test: /\.m?js(\?.*)?$/i,

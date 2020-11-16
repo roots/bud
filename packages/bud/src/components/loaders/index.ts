@@ -10,7 +10,7 @@ const url = require.resolve('url-loader')
 const cache = require.resolve('cache-loader')
 const thread = require.resolve('thread-loader')
 
-export const mapped = {
+export const loaders = {
   [`css-loader`]: css,
   [`file-loader`]: file,
   [`mini-css-loader`]: minicss,
@@ -20,16 +20,4 @@ export const mapped = {
   [`url-loader`]: url,
   [`cache-loader`]: cache,
   [`thread-loader`]: thread,
-}
-
-export {
-  css,
-  file,
-  minicss,
-  raw,
-  resolve,
-  style,
-  url,
-  cache,
-  thread,
 }

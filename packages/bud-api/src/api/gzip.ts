@@ -1,9 +1,6 @@
 import {Bud} from '@roots/bud-typings'
 
-export const gzip = function (
-  this: Bud.Contract,
-  options?: any,
-): Bud.Contract {
+export const gzip: Gzip = function(options?) {
   this.features.set('gzip', true)
 
   options &&
@@ -21,3 +18,8 @@ export const gzip = function (
     })()
   return this
 }
+
+export type Gzip = (
+  this: Bud.Contract,
+  options?: any,
+) => Bud.Contract

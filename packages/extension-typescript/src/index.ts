@@ -37,7 +37,7 @@ export const registerRule: Extension.Contract['registerRule'] = [
 ]
 
 export const api = {
-  typescript: function (
+  typescript: function(
     this: Bud.Contract,
     options: Partial<LoaderOptions> | LoaderOptions,
   ): Bud.Contract {

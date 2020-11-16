@@ -6,7 +6,7 @@ type Build = (
   config: Container,
 ) => {resolve: Resolve}
 
-export const resolve: Build = function (config) {
+export const resolve: Build = function(config) {
   return {
     resolve: {
       alias: this.hooks.filter<Resolve['alias']>(

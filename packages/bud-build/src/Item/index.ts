@@ -28,7 +28,7 @@ class Item implements Contract {
   /**
    * Prop map
    */
-  public propMap: Contract['propMap'] = function () {
+  public propMap: Contract['propMap'] = function() {
     return {
       ident: [this.ident, this.bud],
       query: [this.query, this.bud],
@@ -40,7 +40,7 @@ class Item implements Contract {
   /**
    * Set the loader definition
    */
-  public set: Contract['set'] = function (module: Module): void {
+  public set: Contract['set'] = function(module: Module): void {
     Object.entries(module).map(([key, item]) => {
       this[key] = item
     })
@@ -49,28 +49,28 @@ class Item implements Contract {
   /**
    * Get the loader ident
    */
-  public getIdent: Contract['getIdent'] = function () {
+  public getIdent: Contract['getIdent'] = function() {
     return this.ident
   }
 
   /**
    * Set the loader ident
    */
-  public setIdent = function (ident: Module['ident']): void {
+  public setIdent = function(ident: Module['ident']): void {
     this.ident = ident
   }
 
   /**
    * Get the loader ident
    */
-  public getOptions = function (): Module['options'] {
+  public getOptions = function(): Module['options'] {
     return this.options
   }
 
   /**
    * Set the loader options
    */
-  public setOptions = function (
+  public setOptions = function(
     options: Module['options'],
   ): void {
     this.options = options
@@ -79,7 +79,7 @@ class Item implements Contract {
   /**
    * Get the loader ident
    */
-  public getQuery = function (): Item['query'] {
+  public getQuery = function(): Item['query'] {
     return typeof this.query == 'function'
       ? this.query()
       : this.query
@@ -88,21 +88,21 @@ class Item implements Contract {
   /**
    * Set the loader query
    */
-  public setQuery = function (query: Module['query']): void {
+  public setQuery = function(query: Module['query']): void {
     this.query = query
   }
 
   /**
    * Get the loader ident
    */
-  public getLoader = function (): Item['loader'] {
+  public getLoader = function(): Item['loader'] {
     return this.loader
   }
 
   /**
    * Set the loader
    */
-  public setLoader: Contract['setLoader'] = function (
+  public setLoader: Contract['setLoader'] = function(
     loader: Module['loader'],
   ): void {
     this.loader = loader
@@ -111,7 +111,7 @@ class Item implements Contract {
   /**
    * Make an item for use in a rule.
    */
-  public make: Contract['make'] = function (this: Contract) {
+  public make: Contract['make'] = function(this: Contract) {
     return (
       // Get the map of props to items
       Object.entries(this.propMap())

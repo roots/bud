@@ -1,9 +1,12 @@
 import {Bud} from '@roots/bud-typings'
 
-export const target: (
-  target: string,
-) => Bud.Contract = function (target) {
+export const target: Target = function(target) {
   this.config.set('target', target)
 
   return this
 }
+
+export type Target = (
+  this: Bud.Contract,
+  target: string,
+) => Bud.Contract

@@ -1,7 +1,9 @@
 import {Bud} from '@roots/bud-typings'
 
-export const minify = function (): Bud.Contract {
+export const minify: Minify = function() {
   this.features.set('minify', true)
 
   return this
 }
+
+export type Minify = () => Bud.Contract

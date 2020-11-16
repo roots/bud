@@ -2,7 +2,7 @@
 import {lodash as _} from '@roots/bud-support'
 import {Bud, Extension} from '@roots/bud-typings'
 
-export const use: Use = function (extensions) {
+export const use: Use = function(extensions) {
   _.isString(extensions)
     ? this.extensions.use(extensions)
     : ensureIterable(extensions).forEach(
@@ -42,13 +42,11 @@ export type ExtensionTuple = [
   ),
 ]
 
-export type Extensions =
-  | string
-  | string[]
-  | ExtensionTuple
-  | ExtensionTuple[]
-
-export type Use = (
-  this: Bud.Contract,
-  extensions: Extensions,
-) => Bud.Contract
+export type Use<T = Bud.Contract> = (
+  this: T,
+  extensions:
+    | string
+    | string[]
+    | ExtensionTuple
+    | ExtensionTuple[],
+) => T

@@ -3,7 +3,7 @@ import {Bud} from '@roots/bud-typings'
 /**
  * Server setup
  */
-export const dev = function (bud: Bud.Contract): void {
+export const dev = function(bud: Bud.Contract): void {
   /*
     bud.server
     .setCompiler(bud.compiler.get())

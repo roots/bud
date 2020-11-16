@@ -18,7 +18,7 @@ export type Copy = (
   {from, context, to, globOptions}: Copy.Options,
 ) => Bud.Contract
 
-export const copy: Copy = function ({
+export const copy: Copy = function({
   from,
   context = null,
   to = null,

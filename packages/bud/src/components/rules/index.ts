@@ -5,4 +5,4 @@ import * as image from './image'
 import * as js from './js'
 import * as svg from './svg'
 
-export {css, font, html, image, js, svg}
+export const rules = {css, font, html, image, js, svg}

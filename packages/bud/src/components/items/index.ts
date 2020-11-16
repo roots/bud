@@ -10,25 +10,14 @@ import * as style from './style'
 import * as svg from './svg'
 import * as thread from './thread'
 
-export const mapped: {[key: string]: Item.Module} = {
+export const items: {[key: string]: Item.Module} = {
   ['cache']: cache,
   ['css']: css,
   ['file']: file,
   ['mini-css']: minicss,
   ['raw']: raw,
   ['resolve-url']: resolve,
+  ['style']: style,
   ['svg']: svg,
   ['thread']: thread,
-}
-
-export {
-  cache,
-  css,
-  file,
-  minicss,
-  raw,
-  resolve,
-  svg,
-  style,
-  thread,
 }

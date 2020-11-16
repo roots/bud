@@ -7,7 +7,7 @@ type Module = (
   config: Container,
 ) => {module: Cfg}
 
-export const moduleBuilder: Module = function (config) {
+export const moduleBuilder: Module = function(config) {
   return {
     module: this.hooks.filter<Cfg>('webpack.module', {
       ...config.get('module'),

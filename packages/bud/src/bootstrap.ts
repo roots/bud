@@ -1,121 +1,62 @@
 import {Bud} from './Bud'
 
-import * as api from '@roots/bud-api'
-import * as containers from './containers'
-import * as extensions from './extensions'
-import * as items from './items'
-import * as loaders from './loaders'
-import * as rules from './rules'
+import * as containers from './components/containers'
+import {extensions} from './components/extensions'
+import {items} from './components/items'
+import {loaders} from './components/loaders'
+import {rules} from './components/rules'
 
-const bud = new Bud({
+export const bud: Bud = new Bud({
   containers,
-  loaders: {
-    [`css-loader`]: loaders.css,
-    [`file-loader`]: loaders.file,
-    [`mini-css-loader`]: loaders.minicss,
-    [`raw-loader`]: loaders.raw,
-    [`resolve-url-loader`]: loaders.resolve,
-    [`style-loader`]: loaders.style,
-    [`url-loader`]: loaders.url,
-    [`cache-loader`]: loaders.cache,
-    [`thread-loader`]: loaders.thread,
-  },
-  items: {
-    ['cache']: items.cache,
-    ['css']: items.css,
-    ['file']: items.file,
-    ['mini-css']: items.minicss,
-    ['raw']: items.raw,
-    ['resolve-url']: items.resolve,
-    ['style']: items.style,
-    ['svg']: items.svg,
-    ['thread']: items.thread,
-  },
-  rules: {
-    css: rules.css,
-    font: rules.font,
-    html: rules.html,
-    image: rules.image,
-    js: rules.js,
-    svg: rules.svg,
-  },
-  extensions: {
-    [`clean-webpack-plugin`]: extensions.cleanWebpack,
-    [`compression-webpack-plugin-gzip`]: extensions.gzip,
-    [`compression-webpack-plugin-brotli`]: extensions.brotli,
-    [`ignore-emit-webpack-plugin`]: extensions.ignoreEmit,
-    [`webpack-config-dump-plugin`]: extensions.configDump,
-    [`copy-webpack-plugin`]: extensions.copy,
-    [`webpack-define-plugin`]: extensions.define,
-    [`webpack-hot-module-replacement-plugin]`]: extensions.hotModuleReplacement,
-    [`html-webpack-plugin`]: extensions.html,
-    [`html-hard-disk-plugin`]: extensions.htmlHardDisk,
-    [`interpolate-html`]: extensions.interpolateHtml,
-    [`webpack-manifest-plugin`]: extensions.manifest,
-    [`mini-css-extract-plugin`]: extensions.miniCssExtract,
-    [`webpack-provide-plugin`]: extensions.provide,
-    [`terser-webpack-plugin`]: extensions.terser,
-    [`watch-missing-modules`]: extensions.watchMissingModules,
-    [`write-file-webpack-plugin`]: extensions.writeFile,
-  },
-  api: {
-    addPlugin: api.addPlugin,
-    alias: api.alias,
-    brotli: api.brotli,
-    buildCache: api.buildCache,
-    copy: api.copy,
-    define: api.define,
-    dev: api.dev,
-    devtool: api.devtool,
-    dist: api.dist,
-    distPath: api.distPath,
-    entry: api.entry,
-    externals: api.externals,
-    hash: api.hash,
-    gzip: api.gzip,
-    glob: api.glob,
-    library: api.library,
-    minify: api.minify,
-    project: api.project,
-    projectPath: api.projectPath,
-    provide: api.provide,
-    publicPath: api.publicPath,
-    run: api.run,
-    runtime: api.runtime,
-    src: api.src,
-    srcPath: api.srcPath,
-    template: api.template,
-    use: api.use,
-    target: api.target,
-    terser: api.terser,
-    vendor: api.vendor,
-    when: api.when,
-  },
-}).init()
+  loaders,
+  items,
+  rules,
+  extensions,
+})
+  .init()
+  .use([
+    [
+      'roots-provide-jquery',
+      {
+        boot: ({provide}) => provide({jquery: '$'}),
+      },
+    ],
+    [
+      'roots-args',
+      {
+        boot: bud => {
+          bud.args.has('html') && bud.template()
+          bud.args.has('minify') && bud.minify()
+          bud.args.has('gzip') && bud.gzip()
+          bud.args.has('brotli') && bud.brotli()
+          bud.args.has('runtime') && bud.runtime()
+          bud.args.has('vendor') && bud.vendor()
+          bud.args.has('hash') && bud.hash()
+          bud.args.has('devtool') &&
+            bud.devtool(
+              bud.args.get('devtool') ??
+                '#@cheap-eval-source-map',
+            )
+        },
+      },
+    ],
+    [
+      'roots-project-path',
+      {
+        boot: bud => {
+          !bud.args.has('project')
+            ? bud.projectPath(process.cwd())
+            : bud.projectPath(
+                bud.fs.path.resolve(
+                  bud.fs.getBase(),
+                  bud.args.get('project'),
+                ),
+              )
 
-const {args, when} = bud
-
-when(
-  args.has('project'),
-  ({args, projectPath, fs}) =>
-    projectPath(
-      fs.path.resolve(fs.getBase(), args.get('project')),
-    ),
-  ({projectPath}) => projectPath(process.cwd()),
-)
-  .srcPath(args.get('src') ?? 'src')
-  .distPath(args.get('dist') ?? 'dist')
-
-  .when(args.has('html'), ({template}) => template())
-  .when(args.has('minify'), ({minify}) => minify())
-  .when(args.has('gzip'), ({gzip}) => gzip())
-  .when(args.has('brotli'), ({brotli}) => brotli())
-  .when(args.has('runtime'), ({runtime}) => runtime())
-  .when(args.has('vendor'), ({vendor}) => vendor())
-  .when(args.has('hash'), ({hash}) => hash())
-  .when(args.has('devtool'), ({devtool}) =>
-    devtool(args.get('devtool') ?? '#@cheap-eval-source-map'),
-  )
-
-export {bud}
-export type {Bud}
+          bud
+            .srcPath(bud.args.get('src') ?? 'src')
+            .distPath(bud.args.get('dist') ?? 'dist')
+        },
+      },
+    ],
+  ])

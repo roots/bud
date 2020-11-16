@@ -22,7 +22,11 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["./lib", "./types", "./src"],
+  "files": [
+    "./lib",
+    "./types",
+    "./src"
+  ],
   "main": "lib/index.js",
   "types": "./lib/types/index.d.ts",
   "scripts": {
@@ -37,11 +41,12 @@
     "@roots/container": "^2.0.0-next.24"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^2.0.0-next.24",
     "@roots/bud-extensions": "^2.0.0-next.24",
     "@roots/bud-framework": "^2.0.0-next.24",
     "@roots/bud-server": "^2.0.0-next.24",
+    "@roots/bud-typings": "^2.0.0-next.24",
     "terser": "^5.3.4",
+    "terser-webpack-plugin": "^5.0.3",
     "webpack": "^4.44.2"
   }
 }

@@ -45,14 +45,16 @@ class Bud implements Framework.Bud.Core {
     })
   }
 
-  public init: () => Framework.Bud.Contract = function () {
+  public init: () => Framework.Bud.Contract = function() {
     this.disk = new FileSystem()
 
     this.fs = new FileContainer(process.cwd())
 
     this.mode = new Mode(this)
 
-    const res = this.disks().register().boot()
+    const res = this.disks()
+      .register()
+      .boot()
 
     delete this.disks
     delete this.boot

@@ -2,8 +2,7 @@ import Framework from '@roots/bud-typings'
 import {Container} from '@roots/container'
 import {isArray, isFunction} from 'lodash'
 
-export class Extension
-  extends Container
+export class Extension extends Container
   implements Framework.Extension.Controller {
   public bud: Framework.Bud.Contract
 
@@ -55,7 +54,7 @@ export class Extension
     ]
   }
 
-  public initialize = function (): Framework.Extension.Contract {
+  public initialize = function(): Framework.Extension.Contract {
     this.module.register && this.register()
 
     this.module.options && this.setOptions(this.module.options)
@@ -72,65 +71,65 @@ export class Extension
   public callMeMaybe: (
     value: unknown,
     ...args: unknown[]
-  ) => unknown = function (value, ...args) {
+  ) => unknown = function(value, ...args) {
     return isFunction(value) ? value(...args) : value
   }
 
   public fromProp: (
     prop: string,
     dep?: unknown[],
-  ) => [string, unknown] = function (prop, ...dep) {
+  ) => [string, unknown] = function(prop, ...dep) {
     return this.callMeMaybe(this.module[prop], ...dep)
   }
 
-  public hasModuleProp = function (name: string): boolean {
+  public hasModuleProp = function(name: string): boolean {
     return this.module[name] ? true : false
   }
 
-  public register = function (
+  public register = function(
     this: Framework.Extension.Controller,
   ): void {
     this.module.register && this.module.register(this.bud)
   }
 
-  public boot = function (): void {
+  public boot = function(): void {
     this.module.boot && this.module.boot(this.bud)
   }
 
-  public makePlugin = function (): Framework.Webpack.Plugin {
+  public makePlugin = function(): Framework.Webpack.Plugin {
     return this.isPlugin() && this.isPluginEnabled()
       ? this.callMeMaybe(this.module.make, this)
       : false
   }
 
-  public isPlugin = function (): boolean {
+  public isPlugin = function(): boolean {
     return this.module.make ? true : false
   }
 
-  public isPluginEnabled = function (): boolean {
+  public isPluginEnabled = function(): boolean {
     return !this.module.when
       ? true
       : this.callMeMaybe(this.module.when, this.bud, this)
   }
 
-  public setApi = function (): void {
+  public setApi = function(): void {
     this.module.api &&
       this.bud.mapCallables(
         this.callMeMaybe(this.module.api, this.bud),
       )
   }
 
-  public setOptions = function (
+  public setOptions = function(
     options: Framework.Container['repository'],
   ): void {
     this.setStore(this.callMeMaybe(options, this.bud))
   }
 
-  public getOptions = function (): Framework.Container['repository'] {
+  public getOptions = function(): Framework.Container['repository'] {
     return this.repository
   }
 
-  public setBuilders = function (
+  public setBuilders = function(
     builders: [string, CallableFunction][],
   ): void {
     builders.map(([name, handler]) => {

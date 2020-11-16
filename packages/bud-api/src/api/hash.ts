@@ -1,6 +1,6 @@
 import {Bud} from '@roots/bud-typings'
 
-export const hash: Hash = function (enabled?) {
+export const hash: Hash = function(enabled?) {
   this.features.set('hash', enabled)
 
   return this

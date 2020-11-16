@@ -18,7 +18,7 @@ import * as terser from './terser'
 import * as watchMissingModules from './watchMissingModules'
 import * as writeFile from './writeFile'
 
-export const mapped: {[key: string]: Extension.Contract} = {
+export const extensions: {[key: string]: Extension.Contract} = {
   [`clean-webpack-plugin`]: cleanWebpack,
   [`compression-webpack-plugin-gzip`]: gzip,
   [`compression-webpack-plugin-brotli`]: brotli,
@@ -36,24 +36,4 @@ export const mapped: {[key: string]: Extension.Contract} = {
   [`terser-webpack-plugin`]: terser,
   [`watch-missing-modules`]: watchMissingModules,
   [`write-file-webpack-plugin`]: writeFile,
-}
-
-export {
-  cleanWebpack,
-  gzip,
-  brotli,
-  ignoreEmit,
-  configDump,
-  copy,
-  define,
-  hotModuleReplacement,
-  html,
-  htmlHardDisk,
-  interpolateHtml,
-  manifest,
-  miniCssExtract,
-  provide,
-  terser,
-  watchMissingModules,
-  writeFile,
 }

@@ -6,7 +6,7 @@ type General = (
   config: Container,
 ) => Partial<Cfg>
 
-export const general: General = function (config) {
+export const general: General = function(config) {
   return this.hooks.filter<Cfg>('webpack', {
     bail: this.hooks.filter<Cfg['bail']>(
       'webpack.bail',

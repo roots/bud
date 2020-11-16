@@ -46,13 +46,13 @@ export const when: When = ({features}) =>
  * Extend config file API
  */
 export const api: Api = () => ({
-  eslintConfig: function (opts) {
+  eslintConfig: function(opts) {
     const plugin = this.extensions.get('@roots/bud-eslint')
     Object.entries(opts).map(([k, v]) => plugin.set(k, v))
 
     return this
   },
-  enableEslint: function (enabled = true) {
+  enableEslint: function(enabled = true) {
     this.features[enabled ? `enable` : `disable`]('eslint')
     return this
   },

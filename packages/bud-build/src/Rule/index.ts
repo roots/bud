@@ -59,7 +59,7 @@ class Rule implements Framework.Rule.Contract {
 
   public get: () => Array<
     [string, Framework.Rule.Generic]
-  > = function () {
+  > = function() {
     return Object.entries({
       enforce: this.enforce,
       exclude: this.exclude,
