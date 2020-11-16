@@ -5,8 +5,8 @@ export const dev: Dev = function (config) {
     this.features.set('proxy', true)
   }
 
-  this.server.config.repository = {
-    ...this.server.config.getStore(),
+  this.serverConfig.repository = {
+    ...this.serverConfig.getStore(),
     ...config,
   }
 

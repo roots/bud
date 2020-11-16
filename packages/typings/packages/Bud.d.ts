@@ -18,7 +18,7 @@ import {
 /**
  * Bud Framework
  */
-export interface Contract extends Core {
+export interface Contract<I = any> extends Core {
   [key: string]: any
 
   /**
@@ -64,7 +64,7 @@ export interface Contract extends Core {
   /**
    * Hooks
    */
-  hooks: Hooks.Contract
+  hooks: Hooks.Contract<I>
 
   /**
    * Extensions controller instance.

@@ -19,7 +19,11 @@ export const resolve: Build = function (config) {
       ),
       modules: this.hooks.filter<Resolve['modules']>(
         'webpack.resolve.modules',
-        [this.src()],
+        [
+          this.src(),
+          this.disk.get('project').base,
+          this.disk.get('@roots').base,
+        ],
       ),
     },
   }

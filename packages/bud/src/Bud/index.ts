@@ -1,15 +1,12 @@
 import Framework from '@roots/bud-typings'
-import {Compiler} from '@roots/bud-compiler'
-import {Extensions} from '@roots/bud-extensions'
-import {Server} from '@roots/bud-server'
-import {Hooks} from '@roots/bud-hooks'
-import {Build} from '@roots/bud-build'
-import {Runner} from '@roots/bud-cli'
-import {Cache} from '@roots/bud-cache'
+import {Base} from '../Base'
 
 import * as api from '@roots/bud-api'
 
-import {Base} from '../Base'
+export type Config<
+  C = Bud,
+  A = Framework.Bud.Contract<Bud>
+> = Partial<C | A>
 
 /**
  * ## Bud
@@ -38,7 +35,7 @@ export class Bud extends Base {
    * bud.addPlugin('my-plugin', new myPlugin())
    * ```
    */
-  public addPlugin: api.AddPlugin<Config<this>> = api.addPlugin
+  public addPlugin: api.AddPlugin<Config> = api.addPlugin
 
   /**
    * ## bud.alias  [💁 Fluent]
@@ -56,7 +53,7 @@ export class Bud extends Base {
    * })
    * ```
    */
-  public alias: api.Alias<Config<this>> = api.alias
+  public alias: api.Alias<Config> = api.alias
 
   /**
    * ## bud.buildCache  [💁 Fluent]
@@ -75,8 +72,7 @@ export class Bud extends Base {
    * bud.buildCache(bud.project('./.build'))
    * ```
    */
-  public buildCache: api.BuildCache<Config<this>> =
-    api.buildCache
+  public buildCache: api.BuildCache<Config> = api.buildCache
 
   /**
    * ## bud.brotli  [💁 Fluent]
@@ -113,7 +109,7 @@ export class Bud extends Base {
    * })
    * ```
    */
-  public brotli: api.Brotli<Config<this>> = api.brotli
+  public brotli: api.Brotli<Config> = api.brotli
 
   /**
    * ## bud.copy  [💁 Fluent]
@@ -149,7 +145,7 @@ export class Bud extends Base {
    * })
    * ```
    */
-  public copy: api.Copy<Config<this>> = api.copy
+  public copy: api.Copy<Config> = api.copy
 
   /**
    * ## bud.define  [💁 Fluent]
@@ -183,7 +179,7 @@ export class Bud extends Base {
    * </html>
    * ```
    */
-  public define: api.Define<Config<this>> = api.define
+  public define: api.Define<Config> = api.define
 
   /**
    * ## bud.dev  [💁 Fluent]
@@ -199,7 +195,7 @@ export class Bud extends Base {
    * })
    * ```
    */
-  public dev: api.Dev<Config<this>> = api.dev
+  public dev: api.Dev<Config> = api.dev
 
   /**
    * ## bud.devtool  [💁 Fluent]
@@ -215,7 +211,7 @@ export class Bud extends Base {
    * bud.devtool('inline-cheap-module-source-map')
    * ```
    */
-  public devtool: api.Devtool<Config<this>> = api.devtool
+  public devtool: api.Devtool<Config> = api.devtool
 
   /**
    * ## bud.dist  [💁 Fluent]
@@ -240,7 +236,7 @@ export class Bud extends Base {
    * bud.dist('scripts/app.js')
    *  ```
    */
-  public dist: api.Dist<Config<this>> = api.dist
+  public dist: api.Dist<Config> = api.dist
 
   /**
    * ## bud.distPath [💁 Fluent]
@@ -255,7 +251,7 @@ export class Bud extends Base {
    * bud.distPath('build')
    * ```
    */
-  public distPath: api.DistPath<Config<this>> = api.distPath
+  public distPath: api.DistPath<Config> = api.distPath
 
   /**
    * ## bud.entry  [💁 Fluent]
@@ -279,7 +275,7 @@ export class Bud extends Base {
    * })
    * ```
    */
-  public entry: api.Entry<Config<this>> = api.entry
+  public entry: api.Entry<Config> = api.entry
 
   /**
    * ## bud.externals  [💁 Fluent]
@@ -294,7 +290,7 @@ export class Bud extends Base {
    *   'jQuery': 'window.jquery',
    * })
    */
-  public externals: api.Externals<Config<this>> = api.externals
+  public externals: api.Externals<Config> = api.externals
 
   /**
    * ## bud.glob  [💁 Fluent]
@@ -320,14 +316,14 @@ export class Bud extends Base {
    * bud.glob('app', '*.js')
    * ```
    */
-  public glob: api.Glob<Config<this>> = api.glob
+  public glob: api.Glob<Config> = api.glob
 
   /**
    * ## bud.gzip  [💁 Fluent]
    *
    * Gzip static assets. [🔗 Documentation](#)
    */
-  public gzip: api.Gzip<Config<this>> = api.gzip
+  public gzip: api.Gzip<Config> = api.gzip
 
   /**
    * ## bud.hash  [💁 Fluent]
@@ -340,7 +336,7 @@ export class Bud extends Base {
    * bud.hash()
    * ```
    */
-  public hash: api.Hash<Config<this>> = api.hash
+  public hash: api.Hash<Config> = api.hash
 
   /**
    * ## bud.library  [💁 Fluent]
@@ -362,7 +358,7 @@ export class Bud extends Base {
    * bud.library(['react', 'react-dom'])
    * ```
    */
-  public library: api.Library<Config<this>> = api.library
+  public library: api.Library<Config> = api.library
 
   /**
    * ## bud.minify  [💁 Fluent]
@@ -375,7 +371,7 @@ export class Bud extends Base {
    * bud.minify()
    * ```
    */
-  public minify: api.Minify<Config<this>> = api.minify
+  public minify: api.Minify<Config> = api.minify
 
   /**
    * ## bud.pipe [💁 Fluent]
@@ -383,7 +379,7 @@ export class Bud extends Base {
    * Execute an array of functions. Each will be passed a fresh
    * copy of the bud object.
    */
-  public pipe: api.Pipe<Config<this>> = api.pipe
+  public pipe: api.Pipe<Config> = api.pipe
 
   /**
    * ## bud.project  [💁 Fluent]
@@ -404,7 +400,7 @@ export class Bud extends Base {
    * bud.project('node_modules')
    * ```
    */
-  public project: api.Project<Config<this>> = api.project
+  public project: api.Project<Config> = api.project
 
   /**
    * ## bud.projectPath [💁 Fluent]
@@ -419,8 +415,7 @@ export class Bud extends Base {
    * bud.projectPath('build')
    * ```
    */
-  public projectPath: api.ProjectPath<Config<this>> =
-    api.projectPath
+  public projectPath: api.ProjectPath<Config> = api.projectPath
 
   /**
    * ## bud.provide  [💁 Fluent]
@@ -436,7 +431,7 @@ export class Bud extends Base {
    * })
    * ```
    */
-  public provide: api.Provide<Config<this>> = api.provide
+  public provide: api.Provide<Config> = api.provide
 
   /**
    * ## bud.publicPath  [💁 Fluent]
@@ -453,8 +448,7 @@ export class Bud extends Base {
    * bud.publicPath('/app/themes/sage/dist')
    * ```
    */
-  public publicPath: api.PublicPath<Config<this>> =
-    api.publicPath
+  public publicPath: api.PublicPath<Config> = api.publicPath
 
   /**
    * ## bud.run  [💁 Fluent]
@@ -473,7 +467,7 @@ export class Bud extends Base {
    * bud.run(true)
    * ```
    */
-  public run: api.Run<Config<this>> = api.run
+  public run: api.Run<Config> = api.run
 
   /**
    * ## bud.runtime  [💁 Fluent]
@@ -488,7 +482,7 @@ export class Bud extends Base {
    * bud.runtime()
    * ```
    */
-  public runtime: api.Runtime<Config<this>> = api.runtime
+  public runtime: api.Runtime<Config> = api.runtime
 
   /**
    * ## bud.src  [💁 Fluent]
@@ -506,7 +500,7 @@ export class Bud extends Base {
    * bud.src('scripts/app.js')
    * ```
    */
-  public src: api.Src<Config<this>> = api.src
+  public src: api.Src<Config> = api.src
 
   /**
    * ## bud.srcPath [💁 Fluent]
@@ -521,7 +515,7 @@ export class Bud extends Base {
    * bud.srcPath('build')
    * ```
    */
-  public srcPath: api.SrcPath<Config<this>> = api.srcPath
+  public srcPath: api.SrcPath<Config> = api.srcPath
 
   /**
    * ## bud.target  [💁 Fluent]
@@ -532,7 +526,7 @@ export class Bud extends Base {
    * bud.target('web')
    * ```
    */
-  public target: api.Target<Config<this>> = api.target
+  public target: api.Target<Config> = api.target
 
   /**
    * ## bud.template  [💁 Fluent]
@@ -552,7 +546,7 @@ export class Bud extends Base {
    * })
    * ```
    */
-  public template: api.Template<Config<this>> = api.template
+  public template: api.Template<Config> = api.template
 
   /**
    * ## bud.terser  [💁 Fluent]
@@ -562,7 +556,7 @@ export class Bud extends Base {
    * For more information on options [see the
    * terser-webpack-plugin docs](https://webpack.js.org/plugins/terser-webpack-plugin/).
    */
-  public terser: api.Terser<Config<this>> = api.terser
+  public terser: api.Terser<Config> = api.terser
 
   /**
    * ## bud.use [💁 Fluent]
@@ -576,7 +570,7 @@ export class Bud extends Base {
    * bud.use(['@roots/bud-babel', '@roots/bud-react'])
    * ```
    */
-  public use: api.Use<Config<this>> = api.use
+  public use: api.Use<Config> = api.use
 
   /**
    * ## bud.vendor  [💁 Fluent]
@@ -595,7 +589,7 @@ export class Bud extends Base {
    * bud.vendor('third-party')
    * ```
    */
-  public vendor: api.Vendor<Config<this>> = api.vendor
+  public vendor: api.Vendor<Config> = api.vendor
 
   /**
    * ## bud.when  [💁 Fluent]
@@ -612,7 +606,7 @@ export class Bud extends Base {
    * bud.when(bud.mode.is('production'), () => bud.vendor())
    * ```
    */
-  public when: api.When<Config<this>> = api.when
+  public when: api.When<Config> = api.when
 
   /**
    * Class constructor
@@ -623,21 +617,5 @@ export class Bud extends Base {
     Object.keys(api).map(fnName => {
       this[fnName] = this[fnName].bind(this)
     })
-
-    this.hooks = new Hooks(this)
-
-    this.build = new Build(this)
-
-    this.cache = new Cache(this)
-
-    this.cli = new Runner(this)
-
-    this.compiler = new Compiler(this)
-
-    this.server = new Server(this)
-
-    this.extensions = new Extensions(this)
   }
 }
-
-export type Config<T> = Partial<T | Framework.Bud.Contract>

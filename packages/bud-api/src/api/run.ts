@@ -3,11 +3,7 @@ import {Bud} from '@roots/bud-typings'
 
 export const run: Run = function (safeMode = false) {
   if (this.mode.is('development')) {
-    this.server.addDevMiddleware()
-    this.server.addHotMiddleware()
-
-    this.server.config.is('proxy', undefined) &&
-      this.server.addProxyMiddleware()
+    this.server.run()
   }
 
   this.compiler.compile()

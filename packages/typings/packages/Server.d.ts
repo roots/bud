@@ -9,33 +9,9 @@ import {Options as ProxyOptions} from 'http-proxy-middleware'
  * for local development.
  */
 export interface Contract {
-  /**
-   * Express instance.
-   */
-  instance: Express.Application
+  instance: Framework.Server.Instance
 
-  /**
-   * Server configuration.
-   */
-  config: Container
-
-  /**
-   * Get the Express server instance.
-   */
-  getInstance(): Instance
-
-  /**
-   * Add middleware to compilation.
-   */
-  addMiddleware: (middleware: Express.Handler) => this
-
-  addDevMiddleware: () => this
-
-  addHotMiddleware: () => this
-
-  addProxyMiddleware: () => this
-
-  listen: () => void
+  run(cb?: Express.Handler): this
 }
 
 /**

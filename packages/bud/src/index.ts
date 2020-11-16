@@ -6,7 +6,7 @@ import {items} from './components/items'
 import {loaders} from './components/loaders'
 import {rules} from './components/rules'
 
-export const bud: Bud = new Bud({
+const bud: Bud = new Bud({
   containers,
   loaders,
   items,
@@ -34,3 +34,6 @@ export const bud: Bud = new Bud({
           : fs.getBase(),
       ),
   ])
+
+export {bud}
+module.exports = {bud}

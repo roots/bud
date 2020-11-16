@@ -11,8 +11,8 @@ declare namespace Progress {
 }
 
 const Progress: Progress.Component = ({percentage, msg}) => {
-  const {col, ctx, bounds} = useStyle()
-  const labelMax = ctx([col(12), col(1) / 2])
+  const {col, ctx, bounds, colors} = useStyle()
+  const labelMax = ctx([col(12), col(1)])
   const barMax = Math.min(
     Math.floor(bounds.width - labelMax),
     bounds.width,
@@ -34,7 +34,7 @@ const Progress: Progress.Component = ({percentage, msg}) => {
         <Bar
           maxWidth={barMax}
           backgroundColor="none"
-          color="#545DD7"
+          color={colors.primary}
           percent={percentage.decimal}
         />
       </Box>

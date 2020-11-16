@@ -1,47 +1,12 @@
-import {Logger} from '.'
+export interface Contract<I> {
+  has(name: string): boolean
 
-export declare class Contract {
-  logger: Logger.Contract
+  on<T = any>(name: string, hook: Hook<T>): I | this
 
-  constructor({logger}: Options)
+  action<T = unknown>(name: string, binding: T): void
 
-  public on<T = any>(name: string, hook: Hook<T>): this
-
-  public action<T = unknown>(name: string, binding: T): void
-
-  public filter<T = unknown>(name: string, value: T): T
+  filter<T = unknown>(name: string, value: T): T
 }
-
-/**
- * Requires a logger to be supplied.
- */
-export declare interface Options {
-  logger: Logger.Contract
-}
-
-/**
- * Register a callback to a name.
- *
- * If a filter calls for this name the function is then run,
- * passing whatever data along for modification. If more than one
- * hook is registered to a name, they will be called sequentially
- * in the order they were registered, with each hook's output used
- * as the input for the next.
- *
- * @see {Waterfall}
- */
-export type Register<T> = (
-  name: string,
-  hook: Hook<T>,
-) => Contract
-
-/**
- * Runs all the hooks registered to the given name on the given value
- * through a reducer
- *
- * @see {Waterfall}
- */
-export type Filter<T> = (name: string, value: T) => T
 
 /**
  * Hook
@@ -53,4 +18,11 @@ export type Filter<T> = (name: string, value: T) => T
  * value is either returned to the filter or passed to the next
  * registered hook (if more than one hook has been registered).
  */
-export type Hook<T> = (data: T) => T
+export type Hook<T = unknown> = (data: T) => T
+
+/**
+ * Store
+ *
+ * Hook k=>v store.
+ */
+export type Store = {[key: string]: Hook[]}

@@ -86,16 +86,17 @@ export class Container {
   }
 
   public has(key: string): boolean {
-    return this.repository[key] ? true : false
+    return _.has(this.repository, key) ? true : false
   }
 
   public delete(key: string): this {
     this.has(key) && delete this.repository[key]
+
     return this
   }
 
   public is(key: string, value: any): boolean {
-    return this.get(key) === value
+    return this.has(key) && this.get(key) == value
   }
 
   public isTrue(key: string): boolean {

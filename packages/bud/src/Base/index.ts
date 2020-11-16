@@ -1,5 +1,13 @@
-import Framework from '@roots/bud-typings'
+import type Framework from '@roots/bud-typings'
 import {Bud as Core} from '@roots/bud-framework'
+
+import {Build} from '@roots/bud-build'
+import {Cache} from '@roots/bud-cache'
+import {Compiler} from '@roots/bud-compiler'
+import {Extensions} from '@roots/bud-extensions'
+import {Hooks} from '@roots/bud-hooks'
+import {Runner} from '@roots/bud-cli'
+import {Server} from '@roots/bud-server'
 
 export class Base
   extends Core
@@ -184,7 +192,7 @@ export class Base
    * )
    * ```
    */
-  hooks: Framework.Hooks.Contract
+  hooks: Hooks<Base>
 
   /**
    * ## bud.extensions
@@ -218,6 +226,20 @@ export class Base
 
   public constructor(registrable?: any) {
     super(registrable)
+
+    this.hooks = new Hooks(this)
+
+    this.build = new Build(this)
+
+    this.cache = new Cache(this)
+
+    this.cli = new Runner(this)
+
+    this.compiler = new Compiler(this)
+
+    this.server = new Server(this)
+
+    this.extensions = new Extensions(this)
   }
 
   /**
@@ -226,18 +248,12 @@ export class Base
    */
   public disks(): this {
     this.fs.setBase(process.cwd())
-
     this.makeDisk('project', this.fs.base)
-
     this.makeDisk('@roots', '../../..')
 
     return this
   }
 
-  /**
-   * Register containers and api methods (static)
-   * @ignore
-   */
   public register(): this {
     this.registry
       .getEntries('containers')
