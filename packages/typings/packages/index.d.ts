@@ -25,6 +25,8 @@ export * as Build from './Build'
 
 export * as Item from './Item'
 
+export {Loader} from './Loader'
+
 export * as Rule from './Rule'
 
 export * as Cache from './Cache'

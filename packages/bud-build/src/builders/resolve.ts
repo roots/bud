@@ -1,21 +1,19 @@
-import {Bud, Build, Container, Webpack} from '@roots/bud-typings'
+import {Bud, Build, Webpack} from '@roots/bud-typings'
 
 type Resolve = Webpack.Configuration['resolve']
-type Build = (
-  this: Bud.Contract,
-  config: Container,
-) => {resolve: Resolve}
 
-export const resolve: Build = function (config) {
+type Build = (this: Bud.Contract) => {resolve: Resolve}
+
+export const resolve: Build = function () {
   return {
     resolve: {
       alias: this.hooks.filter<Resolve['alias']>(
         'webpack.resolve.alias',
-        config.get('resolve.alias'),
+        this.config.get('resolve.alias'),
       ),
       extensions: this.hooks.filter<Resolve['extensions']>(
         'webpack.resolve.extensions',
-        config.get('resolve.extensions'),
+        this.config.get('resolve.extensions'),
       ),
       modules: this.hooks.filter<Resolve['modules']>(
         'webpack.resolve.modules',

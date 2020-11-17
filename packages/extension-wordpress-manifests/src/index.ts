@@ -9,8 +9,11 @@ export const boot: Extension.Boot = bud => {
     [`@roots/entrypoints-webpack-plugin`]: EntrypointsWebpackPlugin,
     [`@roots/merged-manifest-webpack-plugin`]: MergedManifestWebpackPlugin,
   }).map(([label, Plugin]) => {
-    bud.extensions.set(label, {
-      make: new Plugin(),
-    })
+    bud.use([
+      label,
+      {
+        make: new Plugin(),
+      },
+    ])
   })
 }

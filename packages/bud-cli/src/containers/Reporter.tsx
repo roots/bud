@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useState} from 'react'
 import {Box} from 'ink'
 
 import Assets from '../components/Assets'
@@ -16,7 +16,7 @@ import type {UseProgress} from '../hooks/useProgress'
 
 declare namespace Reporter {
   export type Props = {
-    bud: Bud.Contract
+    framework: Bud.Ref
     stats: UseStats.Stats
     progress: UseProgress.Progress
   }
@@ -25,10 +25,11 @@ declare namespace Reporter {
 }
 
 const Reporter: Reporter.Component = ({
-  bud,
+  framework,
   stats,
   progress,
 }) => {
+  const [bud] = useState(framework())
   const {bounds, col} = useStyle()
 
   const displayName = bud.disk

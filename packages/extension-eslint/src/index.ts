@@ -1,7 +1,5 @@
-import Framework from '@roots/bud-typings'
-import Plugin, {
-  Options as PluginOptions,
-} from 'eslint-webpack-plugin'
+import Plugin from 'eslint-webpack-plugin'
+import {Options, Make, When, Boot, Api} from './types'
 
 /**
  * Bud custom formatter for teletype logging.
@@ -34,7 +32,7 @@ export const options: Options = bud => ({
 /**
  * Make the plugin from its options.
  */
-export const make: Make = opts => new Plugin(opts.all())
+export const make: Make = opts => new Plugin(opts.getStore())
 
 /**
  * Make when
@@ -57,37 +55,3 @@ export const api: Api = () => ({
     return this
   },
 })
-
-declare type RawOptions = Framework.Extension.Options<
-  PluginOptions
->
-declare type Options = Framework.Extension.Options<RawOptions>
-declare type Make = Framework.Extension.Make<
-  Plugin,
-  Framework.Container
->
-declare type When = Framework.Extension.When
-declare type Boot = Framework.Extension.Boot
-export declare type Api = (
-  bud: Framework.Bud.Contract,
-) => EslintConfig
-export declare type EslintConfig = {
-  enableEslint: ToggleEslint
-  eslintConfig: ConfigureEslint
-}
-
-/**
- * Configure ESLint options
- */
-export declare type ConfigureEslint = (
-  this: Framework.Bud.Contract,
-  opts: PluginOptions,
-) => Framework.Bud.Contract
-
-/**
- * Toggle Eslint on and off
- */
-export declare type ToggleEslint = (
-  this: Framework.Bud.Contract,
-  enabled?: boolean,
-) => Framework.Bud.Contract

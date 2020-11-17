@@ -3,70 +3,114 @@ import * as builders from '../builders'
 import {Item} from '../Item'
 import {Rule} from '../Rule'
 
-type Cfg = Framework.Webpack.Configuration
+export type Configuration = Framework.Webpack.Configuration
 
+/**
+ * ## bud.build
+ *
+ * Webpack configuration builder for the @roots/bud framework
+ *
+ * [🏡 Project home](https://roots.io/bud)
+ * [🧑‍💻 roots/bud/packages/server](https://git.io/JkCQG)
+ * [📦 @roots/bud-server](https://www.npmjs.com/package/@roots/bud-build)
+ * [🔗 Documentation](#)
+ */
 export class Build implements Framework.Build.Contract {
-  public bud: Framework.Bud.Contract
+  public bud: Framework.Bud.Ref
 
-  public builders: Partial<Framework.Build.Builders> = builders
+  /**
+   * ## bud.build.builders
+   *
+   * Collection of functions processing loaders, items and rules
+   * into a finalized webpack configuration.
+   */
+  public builders: Partial<Framework.Build.Builder> = builders
 
-  public loaders: Framework.Container
+  /**
+   * ## bud.build.loaders
+   *
+   * @see {webpack.Loader}
+   */
+  public loaders: Framework.Container<Framework.Loader>
 
-  public items: Framework.Container
+  /**
+   * ## bud.build.items
+   *
+   * @see {webpack.Configuration}
+   */
+  public items: Framework.Container<Framework.Item.Module>
 
-  public rules: Framework.Container
+  /**
+   * ## bud.build.items
+   *
+   * @see {webpack.Configuration}
+   */
+  public rules: Framework.Container<Framework.Rule.Module>
 
-  public config
-
+  /**
+   * Constructor
+   */
   public constructor(bud: Framework.Bud.Contract) {
-    this.bud = bud
+    this.bud = bud.get
 
-    this.loaders = this.bud.makeContainer()
-    this.items = this.bud.makeContainer()
-    this.rules = this.bud.makeContainer()
+    this.loaders = bud.makeContainer<Framework.Loader>()
+    this.items = bud.makeContainer<Framework.Item.Module>({})
+    this.rules = bud.makeContainer<Framework.Rule.Module>({})
   }
 
-  public make(): Cfg {
-    this.config = Object.entries(builders).reduce(
+  /**
+   * ## bud.build.make
+   *
+   * Produce a final webpack config.
+   */
+  public make(): Configuration {
+    const config = Object.entries(builders).reduce(
       (
         config,
         [, builder]: [
           string,
-          (this: Framework.Bud.Contract) => Partial<Cfg>,
+          (
+            this: Framework.Bud.Contract,
+          ) => Partial<Configuration>,
         ],
       ) => ({
         ...config,
-        ...builder.bind(this.bud)(this.bud.config),
+        ...builder.bind(this.bud())(),
       }),
       {},
     )
 
-    return this.filterEmpty(this.config)
+    return this.filterEmpty(config)
   }
 
+  /**
+   * ### bud.build.filterEmpty
+   *
+   * Filter rubbish config items.
+   */
   public filterEmpty(
-    object: Framework.Index<any>,
-  ): {[key: string]: any} {
+    object: Partial<Configuration>,
+  ): Partial<Configuration> {
     return Object.entries(object).reduce((acc, [key, value]) => {
       return !value || value == {} ? acc : {...acc, [key]: value}
     }, {})
   }
 
-  public getLoader(name: string): Framework.Build.Loader {
+  public getLoader(name: string): Framework.Loader {
     return this.loaders.get(name)
   }
 
   public setLoader(
     this: Build,
     name: string,
-    loader: Framework.Build.Loader,
-  ): Framework.Build.Loader {
+    loader: Framework.Loader,
+  ): Framework.Loader {
     this.loaders.set(name, loader)
 
     return this.loaders.get(name)
   }
 
-  public getItem(name: string): Framework.Build.RuleSetLoader {
+  public getItem(name: string): Framework.Item.RuleSetLoader {
     return this.items.get(name)
   }
 
@@ -74,7 +118,7 @@ export class Build implements Framework.Build.Contract {
     name: string,
     module: Framework.Item.Module,
   ): Item {
-    this.items.set(name, new Item(this.bud, module).make())
+    this.items.set(name, new Item(this.bud(), module).make())
 
     return this.items.get(name)
   }
@@ -87,7 +131,7 @@ export class Build implements Framework.Build.Contract {
     name: string,
     module: Framework.Rule.Module,
   ): Framework.Rule.Contract {
-    this.rules.set(name, new Rule(this.bud, module).make())
+    this.rules.set(name, new Rule(this.bud(), module).make())
 
     return this.rules.get(name)
   }

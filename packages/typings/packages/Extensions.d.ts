@@ -1,15 +1,15 @@
-import type {Bud, Index, Extension, Container} from '.'
+import type {Bud, Extension, Container} from '.'
 
 export class Contract implements Interface {
-  public repository: Container
+  public repository: Container<Extension.Contract>
 
   public constructor(bud: Bud.Contract)
 
-  public make(extensions: Index<Extension.Contract>): void
+  public make(extensions: Container<Extension.Contract>): void
 
   public get: (name: string) => Extension.Controller
 
-  public getStore: () => Container
+  public getStore: () => Container<Extension.Contract>
 
   public set: (
     name: string,
@@ -25,12 +25,12 @@ export interface Interface {
   /**
    * Extensions container
    */
-  repository: Container
+  repository: Container<Extension.Contract>
 
   /**
    * Register a batch of extensions.
    */
-  make(extensions: Index<Extension.Contract>): void
+  make(extensions: Container<Extension.Contract>): void
 
   /**
    * Register a plugin to be utilized during compilation.

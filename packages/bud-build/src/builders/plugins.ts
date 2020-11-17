@@ -1,8 +1,12 @@
-import {Build, Extension, Webpack, Bud} from '@roots/bud-typings'
+import {Extension, Webpack, Bud} from '@roots/bud-typings'
 
-export const plugins: Build.Plugins = function (
-  this: Bud.Contract,
-): {plugins: Webpack.Configuration['plugins']} {
+export namespace Plugins {
+  export type Build = (
+    this: Bud.Contract,
+  ) => {plugins: Webpack.Configuration['plugins']}
+}
+
+export const plugins: Plugins.Build = function () {
   const plugins: Webpack.Plugin[] = this.hooks.filter<
     Webpack.Configuration['plugins']
   >(

@@ -1,7 +1,7 @@
-import type {Bud, Build, Index, Webpack} from '.'
+import type {Bud, Build, Index, MaybeCallable, Webpack} from '.'
 
-export class Contract {
-  bud: Bud.Contract
+export declare class Contract {
+  bud: Bud.Bud
 
   ident?: Module.Ident
 
@@ -11,7 +11,7 @@ export class Contract {
 
   query?: Module.Query
 
-  propMap: () => Index<[Property, Index<string> | Bud.Contract]>
+  propMap: () => Index<[Property, Index<string> | Bud.Bud]>
 
   getIdent: Getter<Module.Ident>
 
@@ -31,7 +31,32 @@ export class Contract {
 
   setQuery: Setter<Module.Query>
 
-  make: () => Build.RuleSetLoader
+  make: () => RuleSetLoader
+}
+
+/**
+ * @see {Rule.Module}
+ */
+export type RuleSetLoader = {
+  /**
+   * Unique loader identifier
+   */
+  ident?: string
+
+  /**
+   * Loader name
+   */
+  loader?: string
+
+  /**
+   * Loader options
+   */
+  options?: Index<any>
+
+  /**
+   * Loader query
+   */
+  query?: Webpack.RuleSetQuery
 }
 
 export type Getter<T> = () => T
@@ -46,10 +71,6 @@ export type Product = {
 }
 
 export type Factory<OutType> = (any) => OutType
-
-export type MaybeCallable<P> = Factory<P> | P
-
-export type Yield<P> = () => P
 
 export type Module = {
   ident?: Module.Ident

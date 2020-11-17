@@ -5,25 +5,23 @@ import type {
   Index,
   Rule,
   Item,
+  Loader,
   Webpack,
   When,
 } from '.'
 
-/**
- * Extension
- */
-export interface Contract {
-  options?: {[key: string]: any}
+export interface Contract<T = any> {
+  options?: T
 
-  register?: (bud: Bud.Contract) => void
+  register?: (bud: Bud.Bud) => void
 
-  boot?: (bud: Bud.Contract) => void
+  boot?: (bud: Bud.Bud) => void
 
-  api?: (bud: Bud.Contract) => {[key: string]: CallableFunction}
+  api?: (bud: Bud.Bud) => {[key: string]: CallableFunction}
 
-  registerLoader?: RegisterOne<Build.Loader>
+  registerLoader?: RegisterOne<Loader>
 
-  registerLoaders?: RegisterMany<Build.Loader>
+  registerLoaders?: RegisterMany<Loader>
 
   registerRule?: RegisterOne<Rule.Module>
 
@@ -38,8 +36,8 @@ export interface Contract {
   when?: When
 }
 
-export declare class Controller extends Container {
-  bud: Bud.Contract
+export declare class Controller<T = unknown> extends Container {
+  bud: Bud.Ref
 
   module?: Contract
 
@@ -55,43 +53,30 @@ export declare class Controller extends Container {
 
   makePlugin?: () => Webpack.Plugin
 
-  setOptions?: (options: Index<any>) => void
+  setOptions?: (options: Index<T>) => void
 
-  getOptions?: () => Index<any>
+  getOptions?: () => Container<T>
 
   setBuilders?: (builders: [string, CallableFunction][]) => void
 }
 
-export type Register = (bud: Bud.Contract) => void
+export type Register = (bud: Bud.Bud) => void
 
 export type RegisterOne<T> =
-  | ((bud?: Bud.Contract) => [string, T])
+  | ((bud?: Bud.Bud) => [string, T])
   | [string, T]
 
 export type RegisterMany<T> =
-  | ((bud?: Bud.Contract) => {[key: string]: T})
+  | ((bud?: Bud.Bud) => {[key: string]: T})
   | {[key: string]: T}
 
-/**
- * Raw Extension options
- */
-export type Options<T = any> = T | ((bud?: Bud.Contract) => T)
+export type RawOptions<T = any> = T | ((bud?: Bud.Bud) => T)
+export type Options<T = any> = Container<RawOptions<T>>
 
-/**
- * Possible extension products
- */
-export type Product = Webpack.Plugin
-
-/**
- * Plugin make
- */
 export type Make<P = unknown, T = Options> =
-  | ((options: T) => P)
+  | ((options: Container<T>) => P)
   | P
 
 export type {When} from '.'
 
-/**
- * Do stuff after registration
- */
-export type Boot = (bud: Bud.Contract) => void
+export type Boot = (bud: Bud.Bud) => void

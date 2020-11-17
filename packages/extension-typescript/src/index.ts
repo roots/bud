@@ -2,7 +2,7 @@ import {Bud, Extension} from '@roots/bud-typings'
 import {LoaderOptions} from 'ts-loader/dist/interfaces'
 
 export const options = (
-  instance: Bud.Contract,
+  instance: Bud.Bud,
 ): Partial<LoaderOptions> | LoaderOptions => ({
   configFile: instance.fs.get('tsconfig.json') ?? null,
 })
@@ -15,9 +15,8 @@ export const registerLoader: Extension.Contract['registerLoader'] = [
 export const registerItem: Extension.Contract['registerItems'] = {
   [`typescript`]: {
     loader: 'ts-loader',
-
     options: (
-      bud: Bud.Contract,
+      bud: Bud.Bud,
     ): Partial<LoaderOptions> | LoaderOptions =>
       bud.extensions.get('@roots/bud-typescript').all(),
   },
@@ -26,21 +25,21 @@ export const registerItem: Extension.Contract['registerItems'] = {
 export const registerRule: Extension.Contract['registerRule'] = [
   'typescript',
   {
-    test: ({patterns}: Bud.Contract): RegExp =>
+    test: ({patterns}: Bud.Bud): RegExp =>
       patterns.get('typescript'),
 
-    exclude: ({patterns}: Bud.Contract): RegExp =>
+    exclude: ({patterns}: Bud.Bud): RegExp =>
       patterns.get('modules'),
 
-    use: (bud: Bud.Contract) => [bud.build.items.get('ts')],
+    use: (bud: Bud.Bud) => [bud.build.items.get('ts')],
   },
 ]
 
 export const api = {
   typescript: function (
-    this: Bud.Contract,
+    this: Bud.Bud,
     options: Partial<LoaderOptions> | LoaderOptions,
-  ): Bud.Contract {
+  ): Bud.Bud {
     this.extensions
       .get('@roots/bud-typescript')
       .setStore(options)
@@ -49,7 +48,7 @@ export const api = {
   },
 }
 
-export const boot = (instance: Bud.Contract): void => {
+export const boot = (instance: Bud.Bud): void => {
   instance.patterns.set('typescript', /\.(ts|tsx)$/)
   ;['ts', 'tsx'].map(ext => {
     !instance.config.get('resolve.extensions').includes(ext) &&

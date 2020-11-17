@@ -2,7 +2,7 @@ import Plugin from 'compression-webpack-plugin'
 import {BrotliOptions} from 'zlib'
 import {Container, Extension} from '@roots/bud-typings'
 
-export const options: RawOptions = {
+export const options: Plugin.Options<BrotliOptions> = {
   filename: '[path].br[query]',
   algorithm: 'brotliCompress',
   test: /\.js$|\.css$|\.html$|\.html$/,
@@ -17,15 +17,11 @@ export const options: RawOptions = {
 export const make: Make = opt => new Plugin(opt.getStore())
 
 export const when: When = ({features}) =>
-  features.enabled('brotli')
+  features.is('brotli', true)
 
-declare type RawOptions = Extension.Options<
-  Plugin.Options<BrotliOptions>
->
-
-declare type Make = Extension.Make<
+export type Make = Extension.Make<
   Plugin,
   Container<Plugin.Options<BrotliOptions>>
 >
 
-declare type When = Extension.When
+export type When = Extension.When

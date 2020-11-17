@@ -5,50 +5,137 @@ import {Extension} from '../Extension'
 export {Extensions}
 
 /**
- * Boots and handles extension lifecycle concerns.
+ * ## bud.extensions
+ *
+ * Extensions controller for the Bud framework.
+ *
+ * [🏡 Project home](https://roots.io/bud)
+ * [🧑‍💻 roots/bud](https://git.io/Jkli3)
+ * [📦 @roots/bud-extensions](https://github.io/roots/bud-extensions)
+ * [🔗 Documentation](#)
  */
 class Extensions implements Framework.Extensions.Contract {
   /**
    * The Bud instance.
    */
-  public bud: Framework.Bud.Contract
+  public bud: Framework.Bud.Ref
 
   /**
    * Extensions container
    */
-  public repository: Framework.Container
+  public repository: Framework.Container<
+    Framework.Extension.Contract
+  >
 
   /**
-   * Creates an instance of Controller.
+   * Class constructor.
    */
   public constructor(bud: Framework.Bud.Contract) {
-    this.bud = bud
+    this.bud = bud.get
 
     this.make = this.make.bind(this)
 
-    this.repository = this.bud.makeContainer({})
+    this.repository = this.bud().makeContainer<
+      Framework.Extension.Contract
+    >({})
   }
 
+  /**
+   * ## bud.extensions.getStore
+   *
+   * Returns all extensions.
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.extensions.getStore()
+   * ```
+   */
   public getStore(): Framework.Container {
     return this.repository
   }
 
   /**
-   * Get an extension instance.
+   * ## bud.extensions.all
+   *
+   * Returns all extensions.
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.extensions.all()
+   * ```
    */
-  public get(name: string, query?: string): Extension {
-    if (!name.includes('.') || !query) {
-      return this.repository.get(name)
-    }
-
-    return this.repository.get(name).get(name.split('.').pop())
+  public all(): Framework.Container {
+    return this.getStore()
   }
 
   /**
-   * Register a batch of extensions.
+   * ## bud.extensions.get
+   *
+   * Retrieve an extension
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.extensions.all()
+   * ```
+   */
+  public get(name: string, query?: string): Extension {
+    return this.repository.get(name)
+  }
+
+  /**
+   * ## bud.extensions.set
+   *
+   * Register an extension
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.extensions.set('my-extension', {make: new Plugin()})
+   * ```
+   */
+  public set(
+    name: string,
+    extension: Framework.MaybeCallable<
+      Framework.Extension.Contract
+    >,
+  ): this {
+    const initialized =
+      typeof extension == 'function'
+        ? new Extension<unknown>(
+            this.bud(),
+            extension(this.bud()),
+          ).initialize()
+        : new Extension(this.bud(), extension).initialize()
+
+    this.repository.set(name, initialized)
+
+    return this
+  }
+
+  /**
+   * ## bud.extensions.make
+   *
+   * Register extensions from a container collection.
+   *
+   * ### Usage
+   *
+   * ```js
+   * const extensions = bud.makeContainer({
+   *   [`my-extension`]: {
+   *     make: new Plugin()
+   *   },
+   * })
+   *
+   * bud.extensions.make(extensions)
+   * ```
    */
   public make(
-    extensions: Framework.Index<Framework.Extension.Contract>,
+    extensions: Framework.Container<
+      Framework.Extension.Contract
+    >,
   ): void {
     Object.entries(extensions).map(([name, extension]) =>
       this.set(name, extension),
@@ -56,13 +143,21 @@ class Extensions implements Framework.Extensions.Contract {
   }
 
   /**
-   * Register a plugin to be utilized during compilation.
+   * ## bud.extensions.use
+   *
+   * Register an extension from a module name string.
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.extensions.use('@roots/bud-react')
+   * ```
    */
   public use(pkg: string): this {
     const path = require.resolve(pkg)
 
-    this.bud.disk.set(pkg, {
-      base: this.bud.fs.path.dirname(path),
+    this.bud().disk.set(pkg, {
+      base: this.bud().fs.path.dirname(path),
       glob: ['**/*'],
     })
 
@@ -70,30 +165,6 @@ class Extensions implements Framework.Extensions.Contract {
     const extension = require(path)
 
     this.set(pkg, extension)
-
-    return this
-  }
-
-  /**
-   * Register an extension.
-   */
-  public set(
-    name: string,
-    extension:
-      | Framework.Extension.Contract
-      | ((
-          bud: Framework.Bud.Contract,
-        ) => Framework.Extension.Contract),
-  ): this {
-    const initialized =
-      typeof extension == 'function'
-        ? new Extension(
-            this.bud,
-            extension(this.bud),
-          ).initialize()
-        : new Extension(this.bud, extension).initialize()
-
-    this.repository.set(name, initialized)
 
     return this
   }

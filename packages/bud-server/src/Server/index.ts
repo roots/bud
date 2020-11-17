@@ -20,7 +20,7 @@ class Server implements Framework.Server.Contract {
   /**
    * Bud instance.
    */
-  public bud: Framework.Bud.Contract
+  public bud: Framework.Bud.Ref
 
   /**
    * Express application instance.
@@ -31,7 +31,7 @@ class Server implements Framework.Server.Contract {
    * Constructor
    */
   public constructor(bud: Framework.Bud.Contract) {
-    this.bud = bud
+    this.bud = bud.get
     this.instance = express()
     this.instance.set('x-powered-by', false)
   }
@@ -42,24 +42,26 @@ class Server implements Framework.Server.Contract {
    * Run development server.
    */
   public run(callback?: () => void): this {
-    this.bud.compiler.compile()
+    const bud = this.bud()
 
-    this.bud.config.mutate('entry', (entry: Webpack.Entry) =>
+    bud.compiler.compile()
+
+    bud.config.mutate('entry', (entry: Webpack.Entry) =>
       injectClient(entry),
     )
 
     this.instance.use(
       middleware.dev({
-        compiler: this.bud.compiler.get(),
-        config: this.bud.serverConfig.getStore(),
+        compiler: bud.compiler.get(),
+        config: bud.serverConfig.getStore(),
       }),
     )
 
-    this.instance.use(middleware.hot(this.bud.compiler.get()))
+    this.instance.use(middleware.hot(bud.compiler.get()))
 
-    this.bud.features.enabled('proxy') &&
+    bud.features.enabled('proxy') &&
       this.instance.use(
-        middleware.proxy(this.bud.serverConfig.getStore()),
+        middleware.proxy(bud.serverConfig.getStore()),
       )
 
     this.listen(callback)
@@ -73,12 +75,14 @@ class Server implements Framework.Server.Contract {
    * Listen for connections.
    */
   public listen(callback?: () => void): void {
+    const bud = this.bud()
+
     this.instance.listen(
-      this.bud.serverConfig.has('port')
-        ? this.bud.serverConfig.get('port')
+      bud.serverConfig.has('port')
+        ? bud.serverConfig.get('port')
         : 3000,
-      this.bud.serverConfig.has('host')
-        ? this.bud.serverConfig.get('host')
+      bud.serverConfig.has('host')
+        ? bud.serverConfig.get('host')
         : 'localhost',
       callback ??
         function () {

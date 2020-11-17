@@ -4,10 +4,10 @@ export {Item, Item as default}
 
 type Contract = Framework.Item.Contract
 type Module = Framework.Item.Module
-type RuleSetLoader = Framework.Build.RuleSetLoader
+type RuleSetLoader = Framework.Item.RuleSetLoader
 
 class Item implements Contract {
-  bud: Framework.Bud.Contract
+  bud: Framework.Bud.Bud
 
   ident?: Contract['ident']
 
@@ -17,7 +17,7 @@ class Item implements Contract {
 
   query?: Contract['query']
 
-  constructor(bud: Framework.Bud.Contract, module: Module) {
+  constructor(bud: Framework.Bud.Bud, module: Module) {
     this.set = this.set.bind(this)
     this.make = this.make.bind(this)
 
@@ -111,7 +111,7 @@ class Item implements Contract {
   /**
    * Make an item for use in a rule.
    */
-  public make: Contract['make'] = function (this: Contract) {
+  public make: Contract['make'] = function () {
     return (
       // Get the map of props to items
       Object.entries(this.propMap())
@@ -129,9 +129,7 @@ class Item implements Contract {
             [property, [value, param]]: [
               string,
               [
-                Framework.Item.MaybeCallable<
-                  Framework.Item.Property
-                >,
+                Framework.MaybeCallable<Framework.Item.Property>,
                 unknown,
               ],
             ],

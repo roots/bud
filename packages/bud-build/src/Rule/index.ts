@@ -3,7 +3,7 @@ import Framework from '@roots/bud-typings'
 export {Rule, Rule as default}
 
 class Rule implements Framework.Rule.Contract {
-  public bud: Framework.Bud.Contract
+  public bud: Framework.Bud.Bud
 
   public enforce?: Framework.Rule.Enforce
   public exclude?: Framework.Rule.Conditional
@@ -23,7 +23,7 @@ class Rule implements Framework.Rule.Contract {
   public test?: Framework.Rule.Conditional
   public use?: Framework.Rule.Use
 
-  constructor(bud: Framework.Bud.Contract, rule?: unknown) {
+  constructor(bud: Framework.Bud.Bud, rule?: unknown) {
     this.bud = bud
 
     this.register = this.register.bind(this)

@@ -9,6 +9,7 @@ import {Runner} from '@roots/bud-cli'
 import {Server} from '@roots/bud-server'
 
 import * as api from '@roots/bud-api'
+import {Webpack} from '@roots/bud-typings'
 
 export type Config<C = Bud> = C | Framework.Bud.Contract
 
@@ -23,7 +24,9 @@ export type Config<C = Bud> = C | Framework.Bud.Contract
  * [📦 @roots/bud](https://github.io/roots/bud)
  * [🔗 Documentation](#)
  */
-export class Bud extends Core implements Framework.Bud.Contract {
+export class Bud
+  extends Core
+  implements Framework.Bud.Contract<Config> {
   /**
    * ## bud.addPlugin  [💁 Fluent]
    *
@@ -620,7 +623,7 @@ export class Bud extends Core implements Framework.Bud.Contract {
    * [🔗 Documentation on bud.config](#)
    * [🔗 Documentation on containers](#)
    */
-  config: Framework.Container
+  public config: Framework.Container<Webpack.Configuration>
 
   /**
    * ## bud.args [🍱 _Container_]
@@ -664,7 +667,7 @@ export class Bud extends Core implements Framework.Bud.Contract {
    * bud.args.get('bento') // => ['uni', 'rainbow', 'edamame']
    * ```
    */
-  args: Framework.Container
+  public args: Framework.Container
 
   /**
    * ## bud.features [🍱 _Container_]
@@ -695,7 +698,7 @@ export class Bud extends Core implements Framework.Bud.Contract {
    * bud.features.set('gzip', false) // disable `gzip` feature flag
    * ```
    */
-  features: Framework.Container
+  public features: Framework.Container
 
   /**
    * ## bud.patterns [🍱 _Container_]
@@ -718,7 +721,7 @@ export class Bud extends Core implements Framework.Bud.Contract {
    * bud.patterns.set('cssModule', /\.module\.css$/)
    * ```
    */
-  patterns: Framework.Container
+  public patterns: Framework.Container
 
   /**
    * ## bud.cli
@@ -726,21 +729,21 @@ export class Bud extends Core implements Framework.Bud.Contract {
    * The CLI interface also exposes methods for displaying
    * configuration progress, reports and errors.  [🔗 Documentation](#)
    */
-  cli: Framework.CLI.Runner
+  public cli: Framework.CLI.Runner
 
   /**
    * ## bud.build
    *
    * Webpack configuration builder class. [🔗 Documentation](#)
    */
-  build: Framework.Build.Contract
+  public build: Framework.Build.Contract
 
   /**
    * ## bud.cache
    *
    * Cache controller class. [🔗 Documentation](#)
    */
-  cache: Framework.Cache.Contract
+  public cache: Framework.Cache.Contract
 
   /**
    * ## bud.env [🍱 _Container_]
@@ -752,7 +755,7 @@ export class Bud extends Core implements Framework.Bud.Contract {
    * bud.env.get('APP_NAME')
    * ```
    */
-  env: Framework.Env.Contract
+  public env: Framework.Env.Contract
 
   /**
    * ## bud.hooks
@@ -792,28 +795,28 @@ export class Bud extends Core implements Framework.Bud.Contract {
    * )
    * ```
    */
-  hooks: Hooks<Bud>
+  public hooks: Hooks<Bud>
 
   /**
    * ## bud.extensions
    *
    * Bud extension controller class. [🔗 Documentation](#)
    */
-  extensions: Framework.Extensions.Contract
+  public extensions: Framework.Extensions.Contract
 
   /**
    * ## bud.compiler
    *
    * Webpack compilation controller class. [🔗 Documentation](#)
    */
-  compiler: Framework.Compiler.Contract
+  public compiler: Framework.Compiler.Contract
 
   /**
    * ## bud.server
    *
    * Express application server used for development. [🔗 Documentation](#)
    */
-  server: Framework.Server.Contract
+  public server: Framework.Server.Contract
 
   /**
    * ## bud.serverConfig [🍱 _Container_]
@@ -822,13 +825,17 @@ export class Bud extends Core implements Framework.Bud.Contract {
    * find it easier to do light configuration using
    * the `bud.dev` function. [🔗 Documentation](#)
    */
-  serverConfig: Framework.Container
+  public serverConfig: Framework.Container
 
   /**
    * Class constructor
    */
   public constructor(registrable?: any) {
     super(registrable)
+
+    Object.keys(api).map(fnName => {
+      this[fnName] = this[fnName].bind(this)
+    })
 
     this.hooks = new Hooks(this)
 
@@ -843,19 +850,16 @@ export class Bud extends Core implements Framework.Bud.Contract {
     this.server = new Server(this)
 
     this.extensions = new Extensions(this)
-
-    Object.keys(api).map(fnName => {
-      this[fnName] = this[fnName].bind(this)
-    })
   }
 
   /**
    * Setup FS abstractions.
-   * @ignore
    */
   public disks(): this {
     this.fs.setBase(process.cwd())
+
     this.makeDisk('project', this.fs.base)
+
     this.makeDisk('@roots', '../../..')
 
     return this
@@ -885,7 +889,7 @@ export class Bud extends Core implements Framework.Bud.Contract {
 
     this.registry
       .getEntries('loaders')
-      .map((args: [string, Framework.Build.Loader]) => {
+      .map((args: [string, Framework.Loader]) => {
         this.build.setLoader(...args)
       })
 

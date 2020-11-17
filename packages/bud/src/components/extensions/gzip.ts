@@ -3,11 +3,13 @@ import {Extension} from '@roots/bud-typings'
 
 export const make: Extension.Make = opt =>
   new CompressionPlugin(opt.all())
+
 export const when: Extension.When = ({features}) =>
-  features?.enabled('gzip')
+  features.is('gzip', true)
+
 export const options: Options = {
   algorithm: 'gzip',
-  filename: '[name].gz',
+  filename: '[path].gz[query]',
   test: /\.js$|\.css$|\.html$/,
   compressionOptions: {
     level: 9,

@@ -1,7 +1,8 @@
 import _ from 'lodash'
 import type * as Abstract from './types'
 
-export class Container<T = any> implements Abstract.Container {
+export class Container<T = unknown>
+  implements Abstract.Container {
   public repository: Abstract.Repository<T>
 
   constructor(repository: Abstract.Repository<T>) {
@@ -112,7 +113,7 @@ export class Container<T = any> implements Abstract.Container {
   }
 
   public is(key: string, value: any): boolean {
-    return this.has(key) && this.get(key) == value
+    return this.get(key) === value
   }
 
   public isTrue(key: string): boolean {
@@ -129,6 +130,14 @@ export class Container<T = any> implements Abstract.Container {
 
   public disabled(key: string): boolean {
     return this.isFalse(key)
+  }
+
+  public enable(key: string): void {
+    this.set(key, true)
+  }
+
+  public disable(key: string): void {
+    this.set(key, false)
   }
 
   public isIndexed(key?: string): boolean {

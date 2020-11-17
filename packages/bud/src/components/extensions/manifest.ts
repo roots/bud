@@ -1,7 +1,7 @@
 import {Extension} from '@roots/bud-typings'
 import ManifestPlugin from 'webpack-manifest-plugin'
 
-export const options: Extension.Options<ManifestPlugin.Options> = ({
+export const options: Extension.RawOptions<ManifestPlugin.Options> = ({
   config,
 }) => ({
   publicPath: config.get('output.publicPath'),

@@ -15,12 +15,13 @@ const bud: Bud = new Bud({
 })
   .init()
   .pipe([
-    ({args, template}) => args.has('html' && template()),
-    ({args, gzip}) => args.has('gzip' && gzip()),
-    ({args, brotli}) => args.has('brotli' && brotli()),
-    ({args, runtime}) => args.has('runtime' && runtime()),
-    ({args, vendor}) => args.has('vendor' && vendor()),
-    ({args, hash}) => args.has('hash' && hash()),
+    ({args, template}) => args.has('html') && template(),
+    ({args, gzip}) => args.has('gzip') && gzip(),
+    ({args, brotli}) => args.has('brotli') && brotli(),
+    ({args, minify}) => args.has('minify') && minify(),
+    ({args, runtime}) => args.has('runtime') && runtime(),
+    ({args, vendor}) => args.has('vendor') && vendor(),
+    ({args, hash}) => args.has('hash') && hash(),
     ({provide}) => provide({jquery: '$'}),
     ({args, srcPath}) => srcPath(args.get('src') ?? 'src'),
     ({args, distPath}) => distPath(args.get('dist') ?? 'dist'),

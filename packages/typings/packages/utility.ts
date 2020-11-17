@@ -18,13 +18,15 @@ export interface Fluent<T> {
 /**
  * Produces a value.
  */
-export type Factory<O = unknown> = (any) => O
+export type Factory<O = unknown, I = unknown> = (args: I) => O
 
 /**
  * Might be a function that produces a value, might be
  * the value itself.
  */
-export type MaybeCallable<T = unknown> = Factory<T> | T
+export type MaybeCallable<O = unknown, A = unknown> =
+  | Factory<O, A>
+  | O
 
 /**
  * Plugin make when

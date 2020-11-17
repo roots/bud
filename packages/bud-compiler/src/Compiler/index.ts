@@ -2,12 +2,12 @@ import webpack, {ProgressPlugin} from 'webpack'
 import type Framework from '@roots/bud-typings'
 
 class Compiler implements Framework.Compiler.Contract {
-  public bud: Framework.Bud.Contract
+  public bud: Framework.Bud.Ref
 
   public compiler: Framework.Webpack.Compiler
 
   constructor(bud: Framework.Bud.Contract) {
-    this.bud = bud
+    this.bud = bud.get
 
     this.get = this.get.bind(this)
     this.set = this.set.bind(this)
@@ -17,7 +17,7 @@ class Compiler implements Framework.Compiler.Contract {
   }
 
   public compile(): void {
-    this.set(webpack(this.bud.build.make()))
+    this.set(webpack(this.bud().build.make()))
   }
 
   public get(): Framework.Webpack.Compiler {

@@ -1,6 +1,11 @@
 import {Container} from '@roots/bud-typings'
 
 /**
+ * Compress with Brotli
+ */
+export const brotli = false
+
+/**
  * Build cache
  */
 export const buildCache = false
@@ -24,11 +29,6 @@ export const devtool = false
  * Generate HTML template
  */
 export const html = false
-
-/**
- * Compress with Brotli
- */
-export const brotli = false
 
 /**
  * Compress with Gzip

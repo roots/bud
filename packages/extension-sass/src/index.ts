@@ -2,7 +2,7 @@ import type {
   Bud,
   Extension,
   Item,
-  Build,
+  Loader,
   Rule,
 } from '@roots/bud-typings'
 
@@ -18,7 +18,7 @@ export const registerRule: Extension.RegisterOne<Rule.Module> = [
   'sass',
   rule,
 ]
-export const registerLoader: Extension.RegisterOne<Build.Loader> = [
+export const registerLoader: Extension.RegisterOne<Loader> = [
   'sass-loader',
   require.resolve('sass-loader'),
 ]

@@ -1,7 +1,7 @@
-import type Framework from '@roots/bud-typings'
+import type {Factory, Rule} from '@roots/bud-typings'
 
-export const test: Framework.Factory<Framework.Rule.Conditional> = bud =>
-  bud.patterns.get('html')
+export const test: Factory<Rule.Conditional> = ({patterns}) =>
+  patterns.get('html')
 
-export const use: Framework.Factory<Framework.Rule.Conditional> = bud =>
-  bud.build.getItem('raw')
+export const use: Factory<Rule.Conditional> = ({build}) =>
+  build.getItem('raw')

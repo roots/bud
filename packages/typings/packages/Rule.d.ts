@@ -11,7 +11,7 @@ export class Contract {
   /**
    * The Bud instance.
    */
-  public bud: Bud.Contract
+  public bud: Bud.Bud
 
   /**
    * Enforce rule as 'pre' or 'post'

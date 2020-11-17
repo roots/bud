@@ -1,10 +1,12 @@
-import {Bud, Container, Webpack} from '@roots/bud-typings'
+import {Bud, Webpack} from '@roots/bud-typings'
 
-type Cfg = Webpack.Configuration['optimization']
-type Optimization = (
-  this: Bud.Contract,
-  config: Container,
-) => {optimization: Cfg}
+export type Optimization = Webpack.Configuration['optimization']
+
+export namespace Optimization {
+  export type Build = (
+    this: Bud.Contract,
+  ) => {optimization: Optimization}
+}
 
 /** Annoying to type */
 const key = val =>
@@ -12,12 +14,12 @@ const key = val =>
     v => `${val.length > 1 ? '.' : ''}${v}`,
   )}`
 
-export const optimization: Optimization = function (config) {
+export const optimization: Optimization.Build = function () {
   // Runtime chunk
   const runtimeChunk = this.features.enabled(`runtimeChunk`)
-    ? this.hooks.filter<Cfg['runtimeChunk']>(
+    ? this.hooks.filter<Optimization['runtimeChunk']>(
         key`runtimeChunk`,
-        config.get(`optimization.runtimeChunk`),
+        this.config.get(`optimization.runtimeChunk`),
       )
     : false
 
@@ -28,14 +30,14 @@ export const optimization: Optimization = function (config) {
         // Webpack.Options.SplitChunksOptions.CacheGroups.vendor ??
       >(
         key`splitChunks.cacheGroups.vendor`,
-        config.get(
+        this.config.get(
           `optimization.splitChunks.cacheGroups.vendor`,
         ),
       )
     : false
 
   // Main
-  return this.hooks.filter<{optimization: Cfg}>(key``, {
+  return this.hooks.filter<{optimization: Optimization}>(key``, {
     optimization: {
       // See above
       runtimeChunk,
@@ -47,21 +49,21 @@ export const optimization: Optimization = function (config) {
         },
       },
 
-      minimize: this.hooks.filter<Cfg['minimize']>(
+      minimize: this.hooks.filter<Optimization['minimize']>(
         key`minimize`,
         this.features.enabled(`minify`),
       ),
 
       removeAvailableModules: this.hooks.filter<
-        Cfg['removeAvailableModules']
+        Optimization['removeAvailableModules']
       >(
         key`removeAvailableModules`,
-        config.get('optimization.removeAvailableModules'),
+        this.config.get('optimization.removeAvailableModules'),
       ),
 
-      moduleIds: this.hooks.filter<Cfg['moduleIds']>(
+      moduleIds: this.hooks.filter<Optimization['moduleIds']>(
         key`moduleIds`,
-        config.get('optimization.moduleIds'),
+        this.config.get('optimization.moduleIds'),
       ),
     },
   })

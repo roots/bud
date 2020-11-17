@@ -2,59 +2,71 @@ import Framework from '@roots/bud-typings'
 import {Container} from '@roots/container'
 import {isArray, isFunction} from 'lodash'
 
-export class Extension
+/**
+ * Extensions controller class.
+ *
+ * Extensions controller for the Bud framework.
+ *
+ * [🏡 Project home](https://roots.io/bud)
+ * [🧑‍💻 roots/bud](https://git.io/Jkli3)
+ * [📦 @roots/bud-extensions](https://github.io/roots/bud-extensions)
+ * [🔗 Documentation](#)
+ */
+export class Extension<T = any>
   extends Container
   implements Framework.Extension.Controller {
-  public bud: Framework.Bud.Contract
+  /**
+   * Bud reference
+   */
+  public bud: Framework.Bud.Ref
 
+  /**
+   * Flag tracking if the controlled extension has
+   * been initialized
+   */
   public initialized = false
 
+  /**
+   * The controlled extension
+   */
   public module: Framework.Extension.Contract
 
   public builders: [string, CallableFunction][]
 
+  /**
+   * Class constructor.
+   */
   constructor(
-    bud: Framework.Bud.Contract,
+    bud: Framework.Bud.Bud,
     extension: Framework.Extension.Contract,
   ) {
     super({})
 
-    this.bud = bud
+    this.bud = bud.get
+
     this.module = extension
 
     this.register = this.register.bind(this)
+
     this.initialize = this.initialize.bind(this)
+
     this.callMeMaybe = this.callMeMaybe.bind(this)
+
     this.setBuilders = this.setBuilders.bind(this)
 
     this.builders = [
-      [
-        'registerLoader',
-        this.bud.build.setLoader.bind(this.bud.build),
-      ],
-      [
-        'registerLoaders',
-        this.bud.build.setLoader.bind(this.bud.build),
-      ],
-      [
-        'registerItem',
-        this.bud.build.setItem.bind(this.bud.build),
-      ],
-      [
-        'registerItems',
-        this.bud.build.setItem.bind(this.bud.build),
-      ],
-      [
-        'registerRule',
-        this.bud.build.setRule.bind(this.bud.build),
-      ],
-      [
-        'registerRules',
-        this.bud.build.setRule.bind(this.bud.build),
-      ],
+      ['registerLoader', bud.build.setLoader.bind(bud.build)],
+      ['registerLoaders', bud.build.setLoader.bind(bud.build)],
+      ['registerItem', bud.build.setItem.bind(bud.build)],
+      ['registerItems', bud.build.setItem.bind(bud.build)],
+      ['registerRule', bud.build.setRule.bind(bud.build)],
+      ['registerRules', bud.build.setRule.bind(bud.build)],
     ]
   }
 
+  /**
+   * Initialize extension.
+   */
   public initialize = function (): Framework.Extension.Contract {
     this.module.register && this.register()
 
@@ -90,11 +102,11 @@ export class Extension
   public register = function (
     this: Framework.Extension.Controller,
   ): void {
-    this.module.register && this.module.register(this.bud)
+    this.module.register && this.module.register(this.bud())
   }
 
   public boot = function (): void {
-    this.module.boot && this.module.boot(this.bud)
+    this.module.boot && this.module.boot(this.bud())
   }
 
   public makePlugin = function (): Framework.Webpack.Plugin {
@@ -110,23 +122,44 @@ export class Extension
   public isPluginEnabled = function (): boolean {
     return !this.module.when
       ? true
-      : this.callMeMaybe(this.module.when, this.bud, this)
+      : this.callMeMaybe(this.module.when, this.bud(), this)
   }
 
   public setApi = function (): void {
     this.module.api &&
-      this.bud.mapCallables(
-        this.callMeMaybe(this.module.api, this.bud),
+      Object.assign(
+        this.bud(),
+        this.callMeMaybe(this.module.api, this.bud()),
       )
   }
 
+  /**
+   * ## extension.setOptions
+   *
+   * Set extension instance options.
+   *
+   * ```js
+   * bud.extensions.get('my-extension').setOptions({
+   *   optionalValue: true,
+   * })
+   * ```
+   */
   public setOptions = function (
-    options: Framework.Container['repository'],
+    options: Framework.Index<T>,
   ): void {
-    this.setStore(this.callMeMaybe(options, this.bud))
+    this.setStore(this.callMeMaybe(options, this.bud()))
   }
 
-  public getOptions = function (): Framework.Container['repository'] {
+  /**
+   * ## extension.getOptions
+   *
+   * Get extension instance options.
+   *
+   * ```js
+   * bud.extensions.get('my-extension').getOptions()
+   * ```
+   */
+  public getOptions = function (): Framework.Container<T> {
     return this.repository
   }
 
@@ -136,16 +169,16 @@ export class Extension
     builders.map(([name, handler]) => {
       if (!this.hasModuleProp(name)) return
 
-      isArray(this.fromProp(name, this.bud))
+      isArray(this.fromProp(name, this.bud()))
         ? handler(
-            ...(this.fromProp(name, this.bud) as [
+            ...(this.fromProp(name, this.bud()) as [
               string,
               unknown,
             ]),
           )
-        : Object.entries(this.fromProp(name, this.bud)).map(
+        : Object.entries(this.fromProp(name, this.bud())).map(
             ([k, v]) => {
-              handler(k, this.callMeMaybe(v, this.bud))
+              handler(k, this.callMeMaybe(v, this.bud()))
             },
           )
     })

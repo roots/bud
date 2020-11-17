@@ -1,7 +1,7 @@
 import {Bud} from '.'
 
 export interface Contract {
-  bud: Bud.Contract
+  bud: Bud.Ref
 
   setCache(): void
 }

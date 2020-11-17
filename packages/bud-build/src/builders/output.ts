@@ -1,23 +1,23 @@
-import {Bud, Container, Webpack} from '@roots/bud-typings'
+import {Bud, Webpack} from '@roots/bud-typings'
 
-type Cfg = Webpack.Configuration['output']
-type Output = (
-  this: Bud.Contract,
-  config: Container,
-) => {output: Cfg}
+export type Output = Webpack.Configuration['output']
 
-export const output: Output = function (config) {
-  const path = this.hooks.filter<Cfg['path']>(
+export namespace Output {
+  export type Build = (this: Bud.Contract) => {output: Output}
+}
+
+export const output: Output.Build = function () {
+  const path = this.hooks.filter<Output['path']>(
     'webpack.output.path',
-    config.get('output.path'),
+    this.config.get('output.path'),
   )
 
-  const publicPath = this.hooks.filter<Cfg['publicPath']>(
+  const publicPath = this.hooks.filter<Output['publicPath']>(
     'webpack.output.publicPath',
-    config.get('output.publicPath'),
+    this.config.get('output.publicPath'),
   )
 
-  const filename = this.hooks.filter<Cfg['filename']>(
+  const filename = this.hooks.filter<Output['filename']>(
     'webpack.output.filename',
     this.features.enabled('hash')
       ? `[name].[hash].js`

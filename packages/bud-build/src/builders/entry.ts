@@ -1,16 +1,16 @@
-import {Bud, Container, Webpack} from '@roots/bud-typings'
+import {Bud, Webpack} from '@roots/bud-typings'
 
-type Entry = Webpack.Configuration['entry']
-type Build = (
-  this: Bud.Contract,
-  config: Container,
-) => {entry: Entry}
+export type Entry = Webpack.Configuration['entry']
 
-export const entry: Build = function (config) {
+export namespace Entry {
+  export type Build = (this: Bud.Contract) => {entry: Entry}
+}
+
+export const entry: Entry.Build = function () {
   return {
     entry: this.hooks.filter<Entry>(
       'webpack.entry',
-      config.get('entry'),
+      this.config.get('entry'),
     ),
   }
 }

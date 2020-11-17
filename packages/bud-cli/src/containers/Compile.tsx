@@ -4,11 +4,11 @@ import {useCompilation} from '../hooks/useCompilation'
 import {Reporter} from './Reporter'
 import type {Bud} from '@roots/bud-typings'
 
-const Compile: React.FunctionComponent<{bud: Bud.Contract}> = ({
-  bud,
+const Compile: React.FunctionComponent<{framework: Bud.Ref}> = ({
+  framework,
 }) => {
   const app = useApp()
-  const compilation = useCompilation(bud)
+  const compilation = useCompilation(framework)
 
   useInput(input => {
     if (input == 'q') {
@@ -30,7 +30,7 @@ const Compile: React.FunctionComponent<{bud: Bud.Contract}> = ({
   return (
     <>
       <Reporter
-        bud={bud}
+        framework={framework}
         stats={compilation?.stats}
         progress={compilation?.progress}
       />

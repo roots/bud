@@ -66,11 +66,9 @@ export const boot: Framework.Extension.Contract['boot'] = bud => {
   bud
     .alias({vue$: 'vue/dist/vue.esm.js'})
     .when(
-      !bud.build.config
-        .get('resolve.extensions')
-        .includes('.vue'),
+      !bud.config.get('resolve.extensions').includes('.vue'),
       () =>
-        bud.build.config.mutate('resolve.extensions', ext => [
+        bud.config.mutate('resolve.extensions', ext => [
           ...ext,
           '.vue',
         ]),

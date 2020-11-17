@@ -6,7 +6,12 @@ export {Hooks, Hooks as default}
  * ## bud.hooks
  *
  * Bud provides a system of 'hooks' to expose values
- * for easier modification.  [🔗 Documentation](#)
+ * for easier modification.
+ *
+ * [🏡 Project home](https://roots.io/bud)
+ * [🧑‍💻 roots/bud/packages/server](https://git.io/JkCQG)
+ * [📦 @roots/bud-server](https://www.npmjs.com/package/@roots/bud-build)
+ * [🔗 Documentation](#)
  *
  * ### Usage
  *
@@ -44,15 +49,15 @@ class Hooks<I> implements Framework.Hooks.Contract<I> {
   /**
    * ## bud.hooks.hooks [🏠 Internal]
    *
-   * Stored hooks.
+   * Hooks store.
    */
-  private hooks: Framework.Hooks.Store
+  private store: Framework.Hooks.Store
 
   /**
    * Class constructor
    */
   public constructor(bud: Framework.Bud.Contract) {
-    this.hooks = {}
+    this.store = {}
   }
 
   /**
@@ -68,7 +73,7 @@ class Hooks<I> implements Framework.Hooks.Contract<I> {
    * ```
    */
   public has(name: string): boolean {
-    return Object.keys(this.hooks).includes(name)
+    return Object.keys(this.store).includes(name)
   }
 
   /**
@@ -95,8 +100,8 @@ class Hooks<I> implements Framework.Hooks.Contract<I> {
     name: string,
     hook: Framework.Hooks.Hook<T>,
   ): I | this {
-    this.hooks[name] = this.has(name)
-      ? [...this.hooks[name], hook]
+    this.store[name] = this.has(name)
+      ? [...this.store[name], hook]
       : [hook]
 
     return this
@@ -123,7 +128,7 @@ class Hooks<I> implements Framework.Hooks.Contract<I> {
    */
   public action<T = unknown>(name: string, binding: T): void {
     this.has(name)
-      ? this.hooks[name].map((hook: Framework.Hooks.Hook<T>) =>
+      ? this.store[name].map((hook: Framework.Hooks.Hook<T>) =>
           hook.bind(binding),
         )
       : null
@@ -153,7 +158,7 @@ class Hooks<I> implements Framework.Hooks.Contract<I> {
       return value
     }
 
-    return this.hooks[name].reduce(
+    return this.store[name].reduce(
       (val: T, hook: Framework.Hooks.Hook<T>) => hook(val),
       value,
     )

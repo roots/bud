@@ -63,7 +63,7 @@
   },
   "chunks": {
     "byName": {
-      "foo": 0,
+      "foo": 1,
       "library": 1,
       "runtime/foo": 1
     },
@@ -73,7 +73,6 @@
       "1 foo": 0
     },
     "usedIds": [
-      0,
       1
     ]
   },
@@ -125,9 +124,9 @@
       }
     }
   ],
-  "prepreHash": "f5f7afc7087a4b5dd64f",
-  "preHash": "ebb13a208f9608a30ab6",
-  "hash": "418fb66d484b13dccb4d",
+  "prepreHash": "418fb66d484b13dccb4d",
+  "preHash": "e351711a0d34da9830f9",
+  "hash": "8225b1a95b7ea6a999c5",
   "moduleHashs": {
     "multi /Users/kellymears/code/projects/cli/bud/bud/packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ReactRefreshEntry.js /Users/kellymears/code/projects/cli/bud/bud/node_modules/webpack-hot-middleware/client.js?path=/__webpack_hmr&timeout=2000 /Users/kellymears/code/projects/cli/bud/bud/packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ErrorOverlayEntry.js foo.js foo.css": "b918d4095d1ff2a01782a48658bae8f5",
     "/Users/kellymears/code/projects/cli/bud/bud/node_modules/thread-loader/dist/cjs.js!/Users/kellymears/code/projects/cli/bud/bud/node_modules/cache-loader/dist/cjs.js!/Users/kellymears/code/projects/cli/bud/bud/node_modules/babel-loader/lib/index.js??babel!/Users/kellymears/code/projects/cli/bud/bud/node_modules/raw-loader/dist/cjs.js!/Users/kellymears/code/projects/cli/bud/bud/lab/src/foo.js": "584a8748d3ef0d2222749dc50f68b1be",
@@ -177,11 +176,10 @@
     "/Users/kellymears/code/projects/cli/bud/bud/packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/sockets/WHMEventSource.js": "dc00d697f3905b5a80eeb5c7d15e0acc"
   },
   "chunkHashs": {
-    "0": "a2171a9338e159de5e9e56df557cf08c",
-    "1": "17904173c78fabbd1df4fce1a95874d5"
+    "1": "7ee504e06152990c05ea19eb0fcd5e3e"
   },
   "chunkModuleIds": {
-    "0": [
+    "1": [
       0,
       "../../node_modules/ansi-html/index.js",
       "../../node_modules/ansi-regex/index.js",
@@ -228,7 +226,6 @@
       3,
       4,
       5
-    ],
-    "1": []
+    ]
   }
 }

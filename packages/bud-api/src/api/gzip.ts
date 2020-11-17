@@ -3,7 +3,7 @@ import Plugin from 'compression-webpack-plugin'
 import type {Gzip as GzipOptions} from 'zlib'
 
 export const gzip: Gzip = function (options?) {
-  this.features.set('gzip', true)
+  this.features.enable('gzip')
 
   if (!options) return
 

@@ -11,12 +11,14 @@ export {Bud, Bud as default}
  *
  * Framework class intended to be extended by a
  * more concrete initializing class.
+ *
+ *
  */
 class Bud implements Framework.Bud.Core {
   /**
    * ## bud.registry [🍱 _Container_]
    *
-   * Registry for services initialization.
+   * Registry for services to be held before initialization.
    */
   public registry: Framework.Container
 
@@ -77,12 +79,34 @@ class Bud implements Framework.Bud.Core {
   public logger: Framework.Logger.Contract = util.logger
 
   /**
+   * ## bud.callMeMaybe
+   *
+   * If a value is a function it will call that
+   * function and return the result.
+   *
+   * If the value is not a function it will return its value.
+   *
+   * ```js
+   * const isAFunction = (option) => `option value: ${option}`
+   * const isAValue = `option value: true`
+   *
+   * bud.callMeMaybe(isAFunction, true)
+   * // => `option value: true`
+   *
+   * bud.callMeMaybe(isAValue)
+   * // => `option value: true`
+   * ```
+   */
+  public callMeMaybe: Framework.MaybeCallable = util.callMeMaybe
+
+  /**
    * Class constructor
    */
   public constructor(
     registrables: Framework.Bud.ConstructorParameters,
   ) {
     this.makeContainer = this.makeContainer.bind(this)
+    this.get = this.get.bind(this)
 
     this.registry = this.makeContainer(registrables)
   }
@@ -94,10 +118,10 @@ class Bud implements Framework.Bud.Core {
    *
    * [🔗 Documentation on containers](#)
    */
-  public makeContainer(repository?: {
-    [key: string]: any
-  }): Framework.Container {
-    return new Container(repository ?? {})
+  public makeContainer<T = any>(
+    repository?: Framework.Index<T>,
+  ): Framework.Container<T> {
+    return new Container<T>(repository ?? {})
   }
 
   /**
@@ -143,8 +167,52 @@ class Bud implements Framework.Bud.Core {
     this.fs = new FileContainer(process.cwd())
 
     // Fallback if class hasn't been extended.
-    return this.disks && this.register && this.boot
-      ? this.disks().register().boot()
-      : this
+    const value =
+      this.disks && this.register && this.boot
+        ? this.disks().register().boot()
+        : this
+
+    /**
+     * Cleanup
+     */
+    delete this.disks
+    delete this.register
+    delete this.boot
+    delete this.registry
+
+    this.logger &&
+      Object.defineProperty(this, 'logger', {
+        enumerable: false,
+      })
+
+    this.server.instance &&
+      Object.defineProperty(this.server, 'instance', {
+        enumerable: false,
+      })
+
+    this.fs.fs &&
+      Object.defineProperties(this.fs, {
+        fs: {enumerable: false},
+        glob: {enumerable: false},
+        path: {enumerable: false},
+      })
+
+    /**
+     * Return initialized object
+     */
+    return value
+  }
+
+  /**
+   * ## bud.get  [🏠 Internal]
+   *
+   * Scope binding for bud.get
+   *
+   * ```js
+   * bud.get()
+   * ```
+   */
+  public get(): Framework.Bud.Bud {
+    return this
   }
 }

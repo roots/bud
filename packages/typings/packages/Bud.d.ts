@@ -9,6 +9,7 @@ import {
   Env,
   Hooks,
   Index,
+  MaybeCallable,
   Logger,
   Mode,
   CLI,
@@ -18,7 +19,7 @@ import {
 /**
  * Bud Framework
  */
-export interface Contract<I = any> extends Core {
+export interface Contract<I = unknown> extends Core {
   [key: string]: any
 
   /**
@@ -97,54 +98,33 @@ export interface Contract<I = any> extends Core {
   boot: () => Contract
 }
 
+export type Bud = Contract | Core
+export type Ref = () => Bud
 /**
  * Core unit of the Bud application.
  */
 export interface Core {
   [key: string]: any
 
-  /**
-   * Services registered to the framework.
-   */
   registry: Container
 
-  /**
-   * Disks.
-   */
   disk: FileSystem
 
-  /**
-   * Project files.
-   */
   fs: FileContainer
 
-  /**
-   * Logger
-   */
   logger: Logger.Contract
 
-  /**
-   * ## Mode
-   *
-   * Simple container interface for querying and
-   * modifying Webpack mode.
-   */
   mode: Mode.Contract
 
-  /**
-   * Make a new container.
-   */
-  makeContainer(repository?: {[key: string]: any}): Container
+  makeContainer<T = any>(repository?: {
+    [key: string]: any
+  }): Container<T>
 
-  /**
-   * Make a new disk
-   */
   makeDisk(name: string, base: string, glob?: string[]): void
 
-  /**
-   * Make a new container.
-   */
   init(): unknown
+
+  get(): Framework.Bud.Bud
 }
 
 export type Format = (obj: unknown, options?) => string
