@@ -11,9 +11,9 @@ export type Handler = Webpack.Compiler.Handler
 export type ProgressHandler = Webpack.ProgressPlugin.Handler
 
 export class Contract implements Interface {
-  public compiler: Webpack.Compiler
+  public instance: Webpack.Compiler
 
-  public constructor(bud: Bud.Contract)
+  public constructor(bud: Bud.Bud)
 
   public compile(): void
 
@@ -27,7 +27,7 @@ export class Contract implements Interface {
 }
 
 export interface Interface {
-  compiler: Webpack.Compiler
+  instance: Webpack.Compiler
 
   compile(): void
 
