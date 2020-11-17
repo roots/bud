@@ -1,24 +1,38 @@
 import _ from 'lodash'
+import type * as Abstract from './types'
 
-export type Repository = {[key: string]: any}
+export class Container<T = any> implements Abstract.Container {
+  public repository: Abstract.Repository<T>
 
-export class Container {
-  public repository: {[key: string]: any}
-
-  constructor(repository: Repository) {
+  constructor(repository: Abstract.Repository<T>) {
     this.setStore(repository ?? {})
   }
 
-  public getStore(): Repository {
+  public getStore(): Abstract.Repository<T> {
     return this.repository
   }
 
-  public setStore(repository: Repository): this {
+  public setStore(repository: Abstract.Repository<T>): this {
     this.repository = repository
 
     return this
   }
 
+  /**
+   * ## container.get
+   *
+   * Get a value from the container.
+   *
+   * ### Usage
+   *
+   * ```js
+   * container.get('container.container-item')
+   * ```
+   *
+   * ```js
+   * container.get('['container', 'container-item'])
+   * ```
+   */
   public get(key: string): any {
     return _.get(this.repository, key)
   }
@@ -35,13 +49,15 @@ export class Container {
     return Object.keys(key ? this.get(key) : this.getStore())
   }
 
-  public getMap(key?: string): Map<string, Repository> {
+  public getMap(
+    key?: string,
+  ): Map<string, Abstract.Repository<T>> {
     const value = key ? this.get(key) : this.getStore()
 
     return value.reduce(
       (
-        map: Map<string, Repository>,
-        [key, value]: [string, Repository],
+        map: Map<string, Abstract.Repository<T>>,
+        [key, value]: [string, Abstract.Repository<T>],
       ) => map.set(key, value),
       new Map(),
     )
@@ -50,7 +66,7 @@ export class Container {
   /**
    * @deprecated
    */
-  public all(): Repository {
+  public all(): Abstract.Repository<T> {
     return this.getStore()
   }
 

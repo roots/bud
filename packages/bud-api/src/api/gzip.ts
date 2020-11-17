@@ -1,4 +1,6 @@
 import {Bud} from '@roots/bud-typings'
+import Plugin from 'compression-webpack-plugin'
+import type {Gzip as GzipOptions} from 'zlib'
 
 export const gzip: Gzip = function (options?) {
   this.features.set('gzip', true)
@@ -14,5 +16,9 @@ export const gzip: Gzip = function (options?) {
 
 export type Gzip<T = Bud.Contract> = (
   this: T,
-  options?: any,
+  options?: Gzip.Options,
 ) => T
+
+export namespace Gzip {
+  export type Options = Plugin.Options<GzipOptions>
+}

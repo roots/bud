@@ -10,11 +10,11 @@ export class Build implements Framework.Build.Contract {
 
   public builders: Partial<Framework.Build.Builders> = builders
 
-  public loaders
+  public loaders: Framework.Container
 
-  public items
+  public items: Framework.Container
 
-  public rules
+  public rules: Framework.Container
 
   public config
 
@@ -27,7 +27,7 @@ export class Build implements Framework.Build.Contract {
   }
 
   public make(): Cfg {
-    const config = Object.entries(builders).reduce(
+    this.config = Object.entries(builders).reduce(
       (
         config,
         [, builder]: [
@@ -41,7 +41,7 @@ export class Build implements Framework.Build.Contract {
       {},
     )
 
-    return this.filterEmpty(config)
+    return this.filterEmpty(this.config)
   }
 
   public filterEmpty(

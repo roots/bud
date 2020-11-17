@@ -1,7 +1,7 @@
 import type {Bud} from '@roots/bud-typings'
 
 export const alias: Alias = function (alias) {
-  this.config.getEntries('resolve.alias').length > 1
+  this.config.has('resolve.alias')
     ? this.config.mutate('resolve.alias', cfg => ({
         ...cfg,
         ...alias,

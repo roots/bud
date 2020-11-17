@@ -1,14 +1,8 @@
 module.exports = () => ({
-  entry: {
-    foo: [
-      '/Users/kellymears/code/projects/cli/bud/bud/node_modules/webpack-hot-middleware/client.js?path=/__webpack_hmr&timeout=2000',
-      'foo.js',
-      'foo.css'
-    ]
-  },
+  entry: { foo: [ 'foo.js', 'foo.css' ] },
   bail: true,
   context: '/Users/kellymears/code/projects/cli/bud/bud/lab/src',
-  mode: 'development',
+  mode: 'production',
   name: '@roots/bud',
   node: {
     module: 'empty',
@@ -38,8 +32,8 @@ module.exports = () => ({
             test: /\.css$/,
             use: [
               {
-                ident: 'style',
-                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/style-loader/dist/cjs.js'
+                ident: 'mini-css',
+                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/mini-css-extract-plugin/dist/loader.js'
               },
               {
                 ident: 'css',
@@ -112,7 +106,15 @@ module.exports = () => ({
                 options: {
                   presets: [ '@babel/preset-react' ],
                   plugins: [
-                    '/Users/kellymears/code/projects/cli/bud/bud/node_modules/react-refresh/babel.js'
+                    [
+                      '/Users/kellymears/code/projects/cli/bud/bud/node_modules/@babel/plugin-transform-runtime/lib/index.js'
+                    ],
+                    [
+                      '/Users/kellymears/code/projects/cli/bud/bud/node_modules/@babel/plugin-proposal-object-rest-spread/lib/index.js'
+                    ],
+                    [
+                      '/Users/kellymears/code/projects/cli/bud/bud/node_modules/@babel/plugin-syntax-dynamic-import/lib/index.js'
+                    ]
                   ]
                 }
               },
@@ -139,7 +141,6 @@ module.exports = () => ({
     exprContextCritical: true,
     wrappedContextRegExp: /.*/,
     wrappedContextRecursive: true,
-    unsafeCache: true,
     defaultRules: [
       { type: 'javascript/auto' },
       {
@@ -162,7 +163,6 @@ module.exports = () => ({
     chunkCallbackName: 'webpackChunk',
     globalObject: 'window',
     libraryTarget: 'var',
-    pathinfo: true,
     sourceMapFilename: '[file].map[query]',
     hotUpdateChunkFilename: '[id].[hash].hot-update.js',
     hotUpdateMainFilename: '[hash].hot-update.json',
@@ -195,7 +195,7 @@ module.exports = () => ({
         cache: true,
         algorithm: 'brotliCompress',
         compressionOptions: { level: 11 },
-        filename: '[name].br[query]',
+        filename: '[path].br[query]',
         threshold: 10240,
         minRatio: 0.8
       }
@@ -210,7 +210,6 @@ module.exports = () => ({
     {
       definitions: { PUBLIC_URL: '/', APP_NAME: 'App', APP_DESCRIPTION: 'Test' }
     },
-    { fullBuildTimeout: 200, requestTimeout: 10000 },
     {
       options: {
         template: '/Users/kellymears/code/projects/cli/bud/bud/packages/bud-support/publish/template.html',
@@ -242,36 +241,18 @@ module.exports = () => ({
         writeToFileEmit: true
       }
     },
+    {
+      options: { filename: '[name].css', chunkFilename: '[name].css' }
+    },
     { definitions: { '$': 'jquery' } },
     {
-      options: {
-        test: /\.m?js(\?.*)?$/i,
-        cache: true,
-        parallel: true,
-        terserOptions: {
-          parse: { ecma: 2018 },
-          mangle: { safari10: true },
-          output: { ecma: 5, ascii_only: true },
-          ecma: 5
-        }
-      }
-    },
-    {
       nodeModulesPath: '/Users/kellymears/code/projects/cli/bud/bud/lab/node_modules'
-    },
-    {
-      options: {
-        overlay: {
-          sockIntegration: 'whm',
-          entry: '/Users/kellymears/code/projects/cli/bud/bud/packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ErrorOverlayEntry.js',
-          module: '/Users/kellymears/code/projects/cli/bud/bud/packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/index.js'
-        },
-        exclude: /node_modules/i,
-        include: /\.([jt]sx?|flow)$/i
-      }
     }
   ],
   resolve: {
+    alias: {
+      '@scripts': '/Users/kellymears/code/projects/cli/bud/bud/lab/src/scripts'
+    },
     extensions: [ '.wasm', '.mjs', '.js', '.json', '.css' ],
     modules: [
       '/Users/kellymears/code/projects/cli/bud/bud/lab/src',
@@ -294,26 +275,30 @@ module.exports = () => ({
           priority: -10
         }
       },
+      hidePathInfo: true,
       chunks: 'async',
-      minSize: 10000,
+      minSize: 30000,
       minChunks: 1,
-      maxAsyncRequests: Infinity,
+      maxAsyncRequests: 5,
       automaticNameDelimiter: '~',
       automaticNameMaxLength: 109,
-      maxInitialRequests: Infinity,
+      maxInitialRequests: 3,
       name: true
     },
-    minimize: true,
+    removeAvailableModules: true,
     removeEmptyChunks: true,
     mergeDuplicateChunks: true,
+    flagIncludedChunks: true,
+    occurrenceOrder: true,
+    sideEffects: true,
     providedExports: true,
-    namedModules: true,
-    namedChunks: true,
+    usedExports: true,
+    concatenateModules: true,
+    noEmitOnErrors: true,
+    checkWasmTypes: true,
     portableRecords: true,
-    nodeEnv: 'development'
+    nodeEnv: 'production'
   },
-  devtool: 'eval',
-  cache: true,
   resolveLoader: {
     unsafeCache: true,
     mainFields: [ 'loader', 'main' ],

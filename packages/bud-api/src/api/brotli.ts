@@ -1,4 +1,6 @@
 import {Bud} from '@roots/bud-typings'
+import Plugin from 'compression-webpack-plugin'
+import {BrotliOptions} from 'zlib'
 
 export const brotli: Brotli = function (options?) {
   this.features.set('brotli', true)
@@ -6,7 +8,7 @@ export const brotli: Brotli = function (options?) {
   if (!options) return
 
   this.extensions
-    .get('compression-webpack-plugin[brotli]')
+    .get('compression-webpack-plugin-brotli')
     .setStore(options)
 
   return this
@@ -14,5 +16,9 @@ export const brotli: Brotli = function (options?) {
 
 export type Brotli<T = Bud.Contract> = (
   this: T,
-  options?: any,
+  options?: Brotli.Options,
 ) => T
+
+export namespace Brotli {
+  export type Options = Plugin.Options<BrotliOptions>
+}

@@ -1,14 +1,12 @@
 /**
  * A basic container object.
  */
-export interface Container {
-  repository: {[key: string]: any}
+export interface Container<T = any> {
+  repository: Repository<T>
 
-  constructor(repository: Repository)
+  getStore: () => Repository<T>
 
-  getStore: () => Repository
-
-  setStore: (repository: Repository) => this
+  setStore: (repository: Repository<T>) => this
 
   get: (key: string) => any
 
@@ -18,12 +16,12 @@ export interface Container {
 
   getKeys: (key?: string) => unknown[]
 
-  getMap: (key?: string) => Map<string, Repository>
+  getMap: (key?: string) => Map<string, Repository<T>>
 
   /**
    * @deprecated
    */
-  all: () => Repository
+  all: () => Repository<T>
 
   length: (key: string) => number | boolean
 
@@ -65,41 +63,3 @@ export type Item<T = any> = T
 export type Repository<T = any> = {
   [key: string]: Item<T>
 }
-
-/**
- * Do something with a repository item.
- */
-export type Using = (key: string, value: Item) => void
-
-/**
- * Do a conditional check against a repository item by key.
- */
-export type Conditional = (
-  key: string,
-  comparison?: any,
-) => boolean
-
-/**
- * Do something with a repository item by key.
- */
-export type Select = (key: string) => void
-
-/**
- * Get a repository item by key.
- */
-export type Get = (key: string | string[]) => Item
-
-/**
- * Handler for iterable methods.
- */
-export type Handler = (params: any) => any
-
-/**
- * Do something
- */
-export type IterateUsing = (key: string, handler: Handler) => any
-
-/**
- * Transform a repository item.
- */
-export type Transform<T = any> = (args?: any) => T

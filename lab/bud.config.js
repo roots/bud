@@ -1,21 +1,16 @@
-// @ts-check
-
 const localFix = require('./localFix')
 const snippets = require('./snippets')
 
-/** @type {{bud: import('../packages/bud/lib/types/Bud').Bud}}  */
 const {bud} = require('@roots/bud')
 
-bud.pipe([
-  localFix,
-  ({use}) =>
-    use([
-      '@roots/bud-postcss',
-      '@roots/bud-babel',
-      '@roots/bud-react',
-    ]),
-  ({buildCache}) => buildCache(),
-  ({entry}) => entry('foo', ['foo.js', 'foo.css']),
-  ({minify}) => minify(),
-  ({run}) => run(),
-])
+bud
+  .use([
+    '@roots/bud-postcss',
+    '@roots/bud-babel',
+    '@roots/bud-react',
+  ])
+  .pipe([localFix])
+
+bud.alias({'@scripts': bud.src('scripts/')})
+bud.entry('foo', ['foo.js', 'foo.css'])
+bud.run()

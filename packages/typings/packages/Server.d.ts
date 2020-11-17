@@ -11,7 +11,9 @@ import {Options as ProxyOptions} from 'http-proxy-middleware'
 export interface Contract {
   instance: Framework.Server.Instance
 
-  run(cb?: Express.Handler): this
+  run(callback?: () => void): this
+
+  listen(callback?: () => void): void
 }
 
 /**

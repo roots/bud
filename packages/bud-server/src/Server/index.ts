@@ -1,24 +1,49 @@
 import * as middleware from '../middleware'
 import {injectClient} from './injectClient'
-import express, {Express} from 'express'
+import express from 'express'
 import type Webpack from 'webpack'
 import Framework from '@roots/bud-typings'
 
 export {Server, Server as default}
 
+/**
+ * ## bud.server
+ *
+ * Development server for the @roots/bud framework.
+ *
+ * [🏡 Project home](https://roots.io/bud)
+ * [🧑‍💻 roots/bud/packages/server](https://git.io/JkCQG)
+ * [📦 @roots/bud-server](https://www.npmjs.com/package/@roots/bud-server)
+ * [🔗 Documentation](#)
+ */
 class Server implements Framework.Server.Contract {
+  /**
+   * Bud instance.
+   */
   public bud: Framework.Bud.Contract
 
+  /**
+   * Express application instance.
+   */
   public instance: Framework.Server.Instance
 
+  /**
+   * Constructor
+   */
   public constructor(bud: Framework.Bud.Contract) {
     this.bud = bud
     this.instance = express()
     this.instance.set('x-powered-by', false)
   }
 
-  public run(callback?: Express.Handler): this {
+  /**
+   * ## bud.server.run
+   *
+   * Run development server.
+   */
+  public run(callback?: () => void): this {
     this.bud.compiler.compile()
+
     this.bud.config.mutate('entry', (entry: Webpack.Entry) =>
       injectClient(entry),
     )
@@ -42,7 +67,12 @@ class Server implements Framework.Server.Contract {
     return this
   }
 
-  public listen(callback: CallableFunction): void {
+  /**
+   * ## bud.server.listen
+   *
+   * Listen for connections.
+   */
+  public listen(callback?: () => void): void {
     this.instance.listen(
       this.bud.serverConfig.has('port')
         ? this.bud.serverConfig.get('port')

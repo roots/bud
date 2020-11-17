@@ -125,12 +125,12 @@
       }
     }
   ],
-  "prepreHash": "x",
-  "preHash": "446da54d54fbe0b77f33",
-  "hash": "f5f7afc7087a4b5dd64f",
+  "prepreHash": "f5f7afc7087a4b5dd64f",
+  "preHash": "ebb13a208f9608a30ab6",
+  "hash": "418fb66d484b13dccb4d",
   "moduleHashs": {
     "multi /Users/kellymears/code/projects/cli/bud/bud/packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ReactRefreshEntry.js /Users/kellymears/code/projects/cli/bud/bud/node_modules/webpack-hot-middleware/client.js?path=/__webpack_hmr&timeout=2000 /Users/kellymears/code/projects/cli/bud/bud/packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ErrorOverlayEntry.js foo.js foo.css": "b918d4095d1ff2a01782a48658bae8f5",
-    "/Users/kellymears/code/projects/cli/bud/bud/node_modules/thread-loader/dist/cjs.js!/Users/kellymears/code/projects/cli/bud/bud/node_modules/cache-loader/dist/cjs.js!/Users/kellymears/code/projects/cli/bud/bud/node_modules/babel-loader/lib/index.js??babel!/Users/kellymears/code/projects/cli/bud/bud/node_modules/raw-loader/dist/cjs.js!/Users/kellymears/code/projects/cli/bud/bud/lab/src/foo.js": "d45d2cff2b76634584a2fe1cbbca211b",
+    "/Users/kellymears/code/projects/cli/bud/bud/node_modules/thread-loader/dist/cjs.js!/Users/kellymears/code/projects/cli/bud/bud/node_modules/cache-loader/dist/cjs.js!/Users/kellymears/code/projects/cli/bud/bud/node_modules/babel-loader/lib/index.js??babel!/Users/kellymears/code/projects/cli/bud/bud/node_modules/raw-loader/dist/cjs.js!/Users/kellymears/code/projects/cli/bud/bud/lab/src/foo.js": "584a8748d3ef0d2222749dc50f68b1be",
     "/Users/kellymears/code/projects/cli/bud/bud/node_modules/style-loader/dist/cjs.js!/Users/kellymears/code/projects/cli/bud/bud/node_modules/css-loader/dist/cjs.js??css!/Users/kellymears/code/projects/cli/bud/bud/packages/extension-postcss/node_modules/postcss-loader/dist/cjs.js??postcss!/Users/kellymears/code/projects/cli/bud/bud/node_modules/resolve-url-loader/index.js??resolve-url!/Users/kellymears/code/projects/cli/bud/bud/lab/src/foo.css": "2be020afd6ca4b42f022cbd9e5b66dda",
     "/Users/kellymears/code/projects/cli/bud/bud/node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js": "219dbaf33f9eb046377e946b257847dc",
     "/Users/kellymears/code/projects/cli/bud/bud/node_modules/css-loader/dist/cjs.js??css!/Users/kellymears/code/projects/cli/bud/bud/packages/extension-postcss/node_modules/postcss-loader/dist/cjs.js??postcss!/Users/kellymears/code/projects/cli/bud/bud/node_modules/resolve-url-loader/index.js??resolve-url!/Users/kellymears/code/projects/cli/bud/bud/lab/src/foo.css": "631b61077777e6a8c098a0178f4f552e",
@@ -177,8 +177,8 @@
     "/Users/kellymears/code/projects/cli/bud/bud/packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/sockets/WHMEventSource.js": "dc00d697f3905b5a80eeb5c7d15e0acc"
   },
   "chunkHashs": {
-    "0": "af919d8204979e89a36828f709f5cb36",
-    "1": "befb08f6494c4680c05af205393714ac"
+    "0": "a2171a9338e159de5e9e56df557cf08c",
+    "1": "17904173c78fabbd1df4fce1a95874d5"
   },
   "chunkModuleIds": {
     "0": [
