@@ -14,6 +14,4 @@ bud
 bud.alias({'@scripts': bud.src('scripts/')})
 bud.entry('foo', ['foo.js', 'foo.css'])
 
-console.log(bud)
-
-//bud.run()
+bud.run()

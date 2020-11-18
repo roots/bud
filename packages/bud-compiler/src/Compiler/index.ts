@@ -14,12 +14,6 @@ import type Framework from '@roots/bud-typings'
 class Compiler implements Framework.Compiler.Contract {
   /**
    * Reference to bud [🏠 Internal]
-   *
-   * ### Usage
-   *
-   * ```js
-   * bud() // => bud
-   * ```
    */
   public bud: Framework.Bud.Ref
 

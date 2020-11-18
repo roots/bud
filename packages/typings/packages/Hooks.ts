@@ -1,7 +1,7 @@
-export interface Contract<I> {
+export interface Contract {
   has(name: string): boolean
 
-  on<T = any>(name: string, hook: Hook<T>): I | this
+  on<T = any>(name: string, hook: Hook<T>): this
 
   action<T = unknown>(name: string, binding: T): void
 

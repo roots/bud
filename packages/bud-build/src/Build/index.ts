@@ -16,10 +16,11 @@ export type Configuration = Framework.Webpack.Configuration
  * [🔗 Documentation](#)
  */
 export class Build implements Framework.Build.Contract {
+  /** Bud reference [🏠 Internal] */
   public bud: Framework.Bud.Ref
 
   /**
-   * ## bud.build.builders
+   * ## bud.build.builders [🏠 Internal]
    *
    * Collection of functions processing loaders, items and rules
    * into a finalized webpack configuration.
@@ -29,23 +30,29 @@ export class Build implements Framework.Build.Contract {
   /**
    * ## bud.build.loaders
    *
+   * Container of available loaders.
+   *
    * @see {webpack.Loader}
    */
-  public loaders: Framework.Container<Framework.Loader>
+  public loaders: Framework.Container
 
   /**
    * ## bud.build.items
    *
-   * @see {webpack.Configuration}
-   */
-  public items: Framework.Container<Framework.Item.Module>
-
-  /**
-   * ## bud.build.items
+   * Container of available RuleSetRule['use'] items.
    *
    * @see {webpack.Configuration}
    */
-  public rules: Framework.Container<Framework.Rule.Module>
+  public items: Framework.Container
+
+  /**
+   * ## bud.build.rules
+   *
+   * Container of available RuleSetRules
+   *
+   * @see {webpack.Configuration}
+   */
+  public rules: Framework.Container
 
   /**
    * Constructor
@@ -53,9 +60,9 @@ export class Build implements Framework.Build.Contract {
   public constructor(bud: Framework.Bud.Contract) {
     this.bud = bud.get
 
-    this.loaders = bud.makeContainer<Framework.Loader>()
-    this.items = bud.makeContainer<Framework.Item.Module>({})
-    this.rules = bud.makeContainer<Framework.Rule.Module>({})
+    this.loaders = bud.makeContainer()
+    this.items = bud.makeContainer({})
+    this.rules = bud.makeContainer({})
   }
 
   /**
@@ -84,7 +91,7 @@ export class Build implements Framework.Build.Contract {
   }
 
   /**
-   * ### bud.build.filterEmpty
+   * ### bud.build.filterEmpty [🏠 Internal]
    *
    * Filter rubbish config items.
    */
@@ -96,10 +103,20 @@ export class Build implements Framework.Build.Contract {
     }, {})
   }
 
+  /**
+   * ### bud.build.getLoader
+   *
+   * Get a loader from the store.
+   */
   public getLoader(name: string): Framework.Loader {
     return this.loaders.get(name)
   }
 
+  /**
+   * ### bud.build.setLoader
+   *
+   * Set a loader to the store. Returns the set loader.
+   */
   public setLoader(
     this: Build,
     name: string,
@@ -110,23 +127,43 @@ export class Build implements Framework.Build.Contract {
     return this.loaders.get(name)
   }
 
-  public getItem(name: string): Framework.Item.RuleSetLoader {
+  /**
+   * ### bud.build.getItem
+   *
+   * Get an item  from the store.
+   */
+  public getItem(name: string): Framework.Item.Contract {
     return this.items.get(name)
   }
 
+  /**
+   * ### bud.build.setItem
+   *
+   * Set an item to the store. Returns the set item.
+   */
   public setItem(
     name: string,
     module: Framework.Item.Module,
-  ): Item {
+  ): Framework.Item.Contract {
     this.items.set(name, new Item(this.bud(), module).make())
 
     return this.items.get(name)
   }
 
-  public getRule(name: string): Framework.Webpack.RuleSetRule {
+  /**
+   * ### bud.build.getRule
+   *
+   * Get a rule from the store.
+   */
+  public getRule(name: string): Framework.Rule.Contract {
     return this.rules.get(name)
   }
 
+  /**
+   * ### bud.build.setRule
+   *
+   * Set a rule to the store. Returns the set rule.
+   */
   public setRule(
     name: string,
     module: Framework.Rule.Module,

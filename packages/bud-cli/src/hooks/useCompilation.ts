@@ -1,12 +1,27 @@
 import {useState, useEffect} from 'react'
-import {useProgress} from './useProgress'
-import {useStats} from './useStats'
-import type {UseProgress} from './useProgress'
-import type {UseStats} from './useStats'
-import {Bud, Compiler} from '@roots/bud-typings'
+import {useProgress, UseProgress} from './useProgress'
+import {useStats, UseStats} from './useStats'
+import {useBud} from './useBud'
 
-const useCompilation: UseCompilation.Hook = (bud: Bud.Ref) => {
-  const [compiler] = useState<Compiler.Contract>(bud().compiler)
+import type {Bud, Compiler} from '@roots/bud-typings'
+
+export namespace UseCompilation {
+  export interface Hook {
+    (bud: Bud.Ref): Compilation
+  }
+
+  export interface Compilation {
+    progress: UseProgress.Progress
+    stats: UseStats.Stats
+  }
+}
+
+const useCompilation: UseCompilation.Hook = (
+  budRef: Bud.Ref,
+) => {
+  const bud = useBud(budRef)
+  const [compiler] = useState<Compiler.Contract>(bud.compiler)
+
   const [applied, setApplied] = useState<boolean>(false)
   const [tapped, setTapped] = useState<boolean>(null)
   const [stats, statsHandler] = useStats()
@@ -29,17 +44,6 @@ const useCompilation: UseCompilation.Hook = (bud: Bud.Ref) => {
   return {
     progress,
     stats,
-  }
-}
-
-export namespace UseCompilation {
-  export interface Hook {
-    (bud: Bud.Ref): Compilation
-  }
-
-  export interface Compilation {
-    progress: UseProgress.Progress
-    stats: UseStats.Stats
   }
 }
 

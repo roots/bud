@@ -11,10 +11,10 @@ export {Mode, Mode as default}
  * [🔗 Documentation on bud.mode](#)
  */
 class Mode implements Framework.Mode.Contract {
-  bud: Framework.Bud.Contract
+  bud: Framework.Bud.Ref
 
-  public constructor(bud: Framework.Bud.Contract) {
-    this.bud = bud
+  public constructor(bud: Framework.Bud.Bud) {
+    this.bud = bud.get
   }
 
   /**
@@ -29,7 +29,7 @@ class Mode implements Framework.Mode.Contract {
    * ```
    */
   get(): Configuration['mode'] {
-    return this.bud.config.get('mode')
+    return this.bud().config.get('mode')
   }
 
   /**
@@ -45,10 +45,10 @@ class Mode implements Framework.Mode.Contract {
    * bud.mode.set('production')
    * ```
    */
-  set(mode: Configuration['mode']): Framework.Bud.Contract {
-    this.bud.config.set('mode', mode)
+  set(mode: Configuration['mode']): Framework.Bud.Bud {
+    this.bud().config.set('mode', mode)
 
-    return this.bud
+    return this.bud()
   }
 
   /**
@@ -66,6 +66,6 @@ class Mode implements Framework.Mode.Contract {
    * ```
    */
   is(check: Configuration['mode']): boolean {
-    return this.bud.config.is('mode', check)
+    return this.bud().config.is('mode', check)
   }
 }

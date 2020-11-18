@@ -23,9 +23,7 @@ class Extensions implements Framework.Extensions.Contract {
   /**
    * Extensions container
    */
-  public repository: Framework.Container<
-    Framework.Extension.Contract
-  >
+  public repository: Framework.Container
 
   /**
    * Class constructor.
@@ -35,9 +33,7 @@ class Extensions implements Framework.Extensions.Contract {
 
     this.make = this.make.bind(this)
 
-    this.repository = this.bud().makeContainer<
-      Framework.Extension.Contract
-    >({})
+    this.repository = this.bud().makeContainer({})
   }
 
   /**
@@ -81,7 +77,7 @@ class Extensions implements Framework.Extensions.Contract {
    * bud.extensions.all()
    * ```
    */
-  public get(name: string, query?: string): Extension {
+  public get(name: string): Framework.Extension.Controller {
     return this.repository.get(name)
   }
 
@@ -116,7 +112,7 @@ class Extensions implements Framework.Extensions.Contract {
   }
 
   /**
-   * ## bud.extensions.make
+   * ## bud.extensions.make [🏠 Internal]
    *
    * Register extensions from a container collection.
    *
@@ -132,20 +128,19 @@ class Extensions implements Framework.Extensions.Contract {
    * bud.extensions.make(extensions)
    * ```
    */
-  public make(
-    extensions: Framework.Container<
-      Framework.Extension.Contract
-    >,
-  ): void {
+  public make(extensions: Framework.Container): void {
     Object.entries(extensions).map(([name, extension]) =>
       this.set(name, extension),
     )
   }
 
   /**
-   * ## bud.extensions.use
+   * ## bud.extensions.use [🏠 Internal]
    *
    * Register an extension from a module name string.
+   *
+   * Projects shoul duse `bud.use` instead of
+   * using this directly.
    *
    * ### Usage
    *

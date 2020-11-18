@@ -9,7 +9,11 @@ import {Runner} from '@roots/bud-cli'
 import {Server} from '@roots/bud-server'
 
 import * as api from '@roots/bud-api'
-import {Webpack} from '@roots/bud-typings'
+import {
+  Bud as Abstract,
+  Logger,
+  MaybeCallable,
+} from '@roots/bud-typings'
 
 export type Config<C = Bud> = C | Framework.Bud.Contract
 
@@ -24,15 +28,15 @@ export type Config<C = Bud> = C | Framework.Bud.Contract
  * [📦 @roots/bud](https://github.io/roots/bud)
  * [🔗 Documentation](#)
  */
-export class Bud
-  extends Core
-  implements Framework.Bud.Contract<Config> {
+export class Bud extends Core implements Abstract.Contract {
   /**
    * ## bud.addPlugin  [💁 Fluent]
    *
    * Import your plugin in the manner described by
    * the plugin documentation. Then, pass an identifier
-   * for the plugin and the plugin instance. [🔗 Documentation](https://git.io/JTNGA)
+   * for the plugin and the plugin instance.
+   *
+   * [🔗 Documentation](https://git.io/JTNGA)
    *
    * ### Usage
    *
@@ -42,7 +46,7 @@ export class Bud
    * bud.addPlugin('my-plugin', new myPlugin())
    * ```
    */
-  public addPlugin: api.AddPlugin<Config> = api.addPlugin
+  public addPlugin: api.AddPlugin<Abstract.Bud> = api.addPlugin
 
   /**
    * ## bud.alias  [💁 Fluent]
@@ -60,7 +64,7 @@ export class Bud
    * })
    * ```
    */
-  public alias: api.Alias<Config> = api.alias
+  public alias: api.Alias<Abstract.Bud> = api.alias
 
   /**
    * ## bud.buildCache  [💁 Fluent]
@@ -79,7 +83,8 @@ export class Bud
    * bud.buildCache(bud.project('./.build'))
    * ```
    */
-  public buildCache: api.BuildCache<Config> = api.buildCache
+  public buildCache: api.BuildCache<Abstract.Bud> =
+    api.buildCache
 
   /**
    * ## bud.brotli  [💁 Fluent]
@@ -116,7 +121,7 @@ export class Bud
    * })
    * ```
    */
-  public brotli: api.Brotli<Config> = api.brotli
+  public brotli: api.Brotli<Abstract.Bud> = api.brotli
 
   /**
    * ## bud.copy  [💁 Fluent]
@@ -152,7 +157,7 @@ export class Bud
    * })
    * ```
    */
-  public copy: api.Copy<Config> = api.copy
+  public copy: api.Copy<Abstract.Bud> = api.copy
 
   /**
    * ## bud.define  [💁 Fluent]
@@ -186,7 +191,7 @@ export class Bud
    * </html>
    * ```
    */
-  public define: api.Define<Config> = api.define
+  public define: api.Define<Abstract.Bud> = api.define
 
   /**
    * ## bud.dev  [💁 Fluent]
@@ -202,7 +207,7 @@ export class Bud
    * })
    * ```
    */
-  public dev: api.Dev<Config> = api.dev
+  public dev: api.Dev<Abstract.Bud> = api.dev
 
   /**
    * ## bud.devtool  [💁 Fluent]
@@ -218,7 +223,7 @@ export class Bud
    * bud.devtool('inline-cheap-module-source-map')
    * ```
    */
-  public devtool: api.Devtool<Config> = api.devtool
+  public devtool: api.Devtool<Abstract.Bud> = api.devtool
 
   /**
    * ## bud.dist  [💁 Fluent]
@@ -243,7 +248,7 @@ export class Bud
    * bud.dist('scripts/app.js')
    *  ```
    */
-  public dist: api.Dist<Config> = api.dist
+  public dist: api.Dist<Abstract.Bud> = api.dist
 
   /**
    * ## bud.distPath [💁 Fluent]
@@ -258,7 +263,7 @@ export class Bud
    * bud.distPath('build')
    * ```
    */
-  public distPath: api.DistPath<Config> = api.distPath
+  public distPath: api.DistPath<Abstract.Bud> = api.distPath
 
   /**
    * ## bud.entry  [💁 Fluent]
@@ -282,7 +287,7 @@ export class Bud
    * })
    * ```
    */
-  public entry: api.Entry<Config> = api.entry
+  public entry: api.Entry<Abstract.Bud> = api.entry
 
   /**
    * ## bud.externals  [💁 Fluent]
@@ -297,7 +302,7 @@ export class Bud
    *   'jQuery': 'window.jquery',
    * })
    */
-  public externals: api.Externals<Config> = api.externals
+  public externals: api.Externals<Abstract.Bud> = api.externals
 
   /**
    * ## bud.glob  [💁 Fluent]
@@ -323,14 +328,14 @@ export class Bud
    * bud.glob('app', '*.js')
    * ```
    */
-  public glob: api.Glob<Config> = api.glob
+  public glob: api.Glob<Abstract.Bud> = api.glob
 
   /**
    * ## bud.gzip  [💁 Fluent]
    *
    * Gzip static assets. [🔗 Documentation](#)
    */
-  public gzip: api.Gzip<Config> = api.gzip
+  public gzip: api.Gzip<Abstract.Bud> = api.gzip
 
   /**
    * ## bud.hash  [💁 Fluent]
@@ -343,7 +348,7 @@ export class Bud
    * bud.hash()
    * ```
    */
-  public hash: api.Hash<Config> = api.hash
+  public hash: api.Hash<Abstract.Bud> = api.hash
 
   /**
    * ## bud.library  [💁 Fluent]
@@ -365,7 +370,7 @@ export class Bud
    * bud.library(['react', 'react-dom'])
    * ```
    */
-  public library: api.Library<Config> = api.library
+  public library: api.Library<Abstract.Bud> = api.library
 
   /**
    * ## bud.minify  [💁 Fluent]
@@ -378,7 +383,7 @@ export class Bud
    * bud.minify()
    * ```
    */
-  public minify: api.Minify<Config> = api.minify
+  public minify: api.Minify<Abstract.Bud> = api.minify
 
   /**
    * ## bud.pipe [💁 Fluent]
@@ -386,7 +391,7 @@ export class Bud
    * Execute an array of functions. Each will be passed a fresh
    * copy of the bud object.
    */
-  public pipe: api.Pipe<Config> = api.pipe
+  public pipe: api.Pipe<Abstract.Bud> = api.pipe
 
   /**
    * ## bud.project  [💁 Fluent]
@@ -407,7 +412,7 @@ export class Bud
    * bud.project('node_modules')
    * ```
    */
-  public project: api.Project<Config> = api.project
+  public project: api.Project<Abstract.Bud> = api.project
 
   /**
    * ## bud.projectPath [💁 Fluent]
@@ -422,7 +427,8 @@ export class Bud
    * bud.projectPath('build')
    * ```
    */
-  public projectPath: api.ProjectPath<Config> = api.projectPath
+  public projectPath: api.ProjectPath<Abstract.Bud> =
+    api.projectPath
 
   /**
    * ## bud.provide  [💁 Fluent]
@@ -438,7 +444,7 @@ export class Bud
    * })
    * ```
    */
-  public provide: api.Provide<Config> = api.provide
+  public provide: api.Provide<Abstract.Bud> = api.provide
 
   /**
    * ## bud.publicPath  [💁 Fluent]
@@ -455,7 +461,8 @@ export class Bud
    * bud.publicPath('/app/themes/sage/dist')
    * ```
    */
-  public publicPath: api.PublicPath<Config> = api.publicPath
+  public publicPath: api.PublicPath<Abstract.Bud> =
+    api.publicPath
 
   /**
    * ## bud.run  [💁 Fluent]
@@ -474,7 +481,7 @@ export class Bud
    * bud.run(true)
    * ```
    */
-  public run: api.Run<Config> = api.run
+  public run: api.Run<Abstract.Bud> = api.run
 
   /**
    * ## bud.runtime  [💁 Fluent]
@@ -489,7 +496,7 @@ export class Bud
    * bud.runtime()
    * ```
    */
-  public runtime: api.Runtime<Config> = api.runtime
+  public runtime: api.Runtime<Abstract.Bud> = api.runtime
 
   /**
    * ## bud.src  [💁 Fluent]
@@ -507,7 +514,7 @@ export class Bud
    * bud.src('scripts/app.js')
    * ```
    */
-  public src: api.Src<Config> = api.src
+  public src: api.Src<Abstract.Bud> = api.src
 
   /**
    * ## bud.srcPath [💁 Fluent]
@@ -522,7 +529,7 @@ export class Bud
    * bud.srcPath('build')
    * ```
    */
-  public srcPath: api.SrcPath<Config> = api.srcPath
+  public srcPath: api.SrcPath<Abstract.Bud> = api.srcPath
 
   /**
    * ## bud.target  [💁 Fluent]
@@ -533,7 +540,7 @@ export class Bud
    * bud.target('web')
    * ```
    */
-  public target: api.Target<Config> = api.target
+  public target: api.Target<Abstract.Bud> = api.target
 
   /**
    * ## bud.template  [💁 Fluent]
@@ -553,7 +560,7 @@ export class Bud
    * })
    * ```
    */
-  public template: api.Template<Config> = api.template
+  public template: api.Template<Abstract.Bud> = api.template
 
   /**
    * ## bud.terser  [💁 Fluent]
@@ -563,7 +570,7 @@ export class Bud
    * For more information on options [see the
    * terser-webpack-plugin docs](https://webpack.js.org/plugins/terser-webpack-plugin/).
    */
-  public terser: api.Terser<Config> = api.terser
+  public terser: api.Terser<Abstract.Bud> = api.terser
 
   /**
    * ## bud.use [💁 Fluent]
@@ -577,7 +584,7 @@ export class Bud
    * bud.use(['@roots/bud-babel', '@roots/bud-react'])
    * ```
    */
-  public use: api.Use<Config> = api.use
+  public use: api.Use<Abstract.Bud> = api.use
 
   /**
    * ## bud.vendor  [💁 Fluent]
@@ -623,7 +630,7 @@ export class Bud
    * [🔗 Documentation on bud.config](#)
    * [🔗 Documentation on containers](#)
    */
-  public config: Framework.Container<Webpack.Configuration>
+  public config: Framework.Container
 
   /**
    * ## bud.args [🍱 _Container_]
@@ -795,7 +802,7 @@ export class Bud
    * )
    * ```
    */
-  public hooks: Hooks<Bud>
+  public hooks: Hooks
 
   /**
    * ## bud.extensions
@@ -830,30 +837,28 @@ export class Bud
   /**
    * Class constructor
    */
-  public constructor(registrable?: any) {
+  public constructor(registrable?: {[key: string]: unknown}) {
     super(registrable)
 
     Object.keys(api).map(fnName => {
       this[fnName] = this[fnName].bind(this)
     })
 
-    this.hooks = new Hooks(this)
-
+    this.hooks = new Hooks()
     this.build = new Build(this)
-
     this.cache = new Cache(this)
-
     this.cli = new Runner(this)
-
     this.compiler = new Compiler(this)
-
     this.server = new Server(this)
-
     this.extensions = new Extensions(this)
   }
 
   /**
+   * ## bud.disks
+   *
    * Setup FS abstractions.
+   *
+   * @ignore
    */
   public disks(): this {
     this.fs.setBase(process.cwd())
@@ -865,6 +870,13 @@ export class Bud
     return this
   }
 
+  /**
+   * ## bud.register [🏠 Internal]
+   *
+   * Register framework components.
+   *
+   * @ignore
+   */
   public register(): this {
     this.registry
       .getEntries('containers')
@@ -878,8 +890,11 @@ export class Bud
   }
 
   /**
+   * ## bud.boot [🏠 Internal]
+   *
    * Register parts of the application that
    * might rely on having container access (dynamic)
+   *
    * @ignore
    */
   public boot(): this {

@@ -16,11 +16,11 @@ export declare class Contract {
 
   public builders: Partial<Builder>
 
-  public loaders: Container<Loader>
+  public loaders: Container
 
-  public items: Container<Item.Module>
+  public items: Container
 
-  public rules: Container<Rule.Module>
+  public rules: Container
 
   public constructor(bud: Bud.Contract)
 
@@ -39,7 +39,7 @@ export declare class Contract {
   /**
    * Ge an item by key.
    */
-  public getItem(name: string): Item.RuleSetLoader
+  public getItem(name: string): Item.Contract
 
   /**  /**
    * Add or override an item by key.
@@ -52,15 +52,15 @@ export declare class Contract {
   /**
    * Get a rule by key.
    */
-  public getRule(name: string): Webpack.RuleSetRule
+  public getRule(name: string): Framework.Rule.Contract
 
   /**
    * Add or override a rule by key.
    */
   public setRule(
     name: string,
-    module: Rule.Module,
-  ): Rule.Contract
+    module: Framework.Rule.Module,
+  ): Framework.Rule.Contract
 }
 
 /**
@@ -68,5 +68,5 @@ export declare class Contract {
  */
 export type Builder = (
   this: Bud.Contract,
-  config: Container<Webpack.Configuration>,
+  config: Container,
 ) => Partial<Webpack.Configuration>

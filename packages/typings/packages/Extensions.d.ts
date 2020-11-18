@@ -1,21 +1,19 @@
 import type {Bud, Extension, Container} from '.'
 
 export class Contract implements Interface {
-  public repository: Container<Extension.Contract>
+  public repository: Container
 
   public constructor(bud: Bud.Contract)
 
-  public make(extensions: Container<Extension.Contract>): void
+  public make(extensions: Container): void
 
   public get: (name: string) => Extension.Controller
 
-  public getStore: () => Container<Extension.Contract>
+  public getStore: () => Container
 
   public set: (
     name: string,
-    extension:
-      | Extension.Contract
-      | ((bud: Bud.Contract) => Extension.Contract),
+    extension: Framework.MaybeCallable,
   ) => this
 
   public use(pkg: string): this
@@ -25,12 +23,12 @@ export interface Interface {
   /**
    * Extensions container
    */
-  repository: Container<Extension.Contract>
+  repository: Container
 
   /**
    * Register a batch of extensions.
    */
-  make(extensions: Container<Extension.Contract>): void
+  make(extensions: Container): void
 
   /**
    * Register a plugin to be utilized during compilation.
@@ -40,12 +38,7 @@ export interface Interface {
   /**
    * Register an extension.
    */
-  set: (
-    name: string,
-    extension:
-      | Extension.Contract
-      | ((bud: Bud.Contract) => Extension.Contract),
-  ) => this
+  set: (name: string, extension: Framework.MaybeCallable) => this
 
   /**
    * Get an extension instance.

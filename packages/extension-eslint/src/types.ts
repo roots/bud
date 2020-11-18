@@ -9,21 +9,21 @@ export type EslintConfig = {
 }
 
 export type ConfigureEslint = (
-  this: Bud.Contract,
+  this: Bud.Bud,
   opts: PluginOptions,
-) => Bud.Contract
+) => Bud.Bud
 
 export type ToggleEslint = (
-  this: Bud.Contract,
+  this: Bud.Bud,
   enabled?: boolean,
-) => Bud.Contract
+) => Bud.Bud
 
-export type Options = Extension.Options<PluginOptions>
+export type Options = (bud: Bud.Bud) => PluginOptions
 
-export type Make = (opts: Container<PluginOptions>) => Plugin
+export type Make = (opts: Container) => Plugin
 
 export type When = Extension.When
 
 export type Boot = Extension.Boot
 
-export type Api = (bud: Bud.Contract) => EslintConfig
+export type Api = (bud: Bud.Bud) => EslintConfig

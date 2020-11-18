@@ -11,7 +11,7 @@ export class Contract {
   /**
    * The Bud instance.
    */
-  public bud: Bud.Bud
+  public bud: Bud.Ref
 
   /**
    * Enforce rule as 'pre' or 'post'
@@ -140,7 +140,90 @@ export class Contract {
  * A modular rule implementation
  */
 export type Module = {
-  [key: string]: MaybeCallable<Products>
+  /**
+   * Enforce rule as 'pre' or 'post'
+   */
+  enforce?: MaybeCallable<Enforce>
+
+  /**
+   * Exclude
+   */
+  exclude?: MaybeCallable<Conditional>
+
+  /**
+   * Include
+   */
+  include?: MaybeCallable<Conditional>
+
+  /**
+   * Issuer
+   */
+  issuer?: MaybeCallable<Conditional>
+
+  /**
+   * OneOf
+   */
+  oneOf?: MaybeCallable<OneOf>
+
+  /**
+   * Options
+   */
+  options?: MaybeCallable<{[key: string]: any}>
+
+  /**
+   * Options for parsing
+   */
+  parser?: MaybeCallable<Parser>
+
+  /**
+   * Options for the resolver
+   */
+  resolve?: MaybeCallable<Resolve>
+
+  /**
+   * Flags a module as with or without side effects
+   */
+  sideEffects?: MaybeCallable<SideEffects>
+
+  /**
+   * Shortcut for use.query
+   */
+  query?: MaybeCallable<Query>
+
+  /**
+   * Module type to use for the module
+   */
+  type?: MaybeCallable<Type>
+
+  /**
+   * Match the resource path of the module
+   */
+  resource?: MaybeCallable<Conditional>
+
+  /**
+   * Match the resource query of the module
+   */
+  resourceQuery?: MaybeCallable<Conditional>
+
+  /**
+   * Compiler
+   */
+  compiler?: MaybeCallable<Conditional>
+
+  /**
+   * Rules
+   */
+  rules?: MaybeCallable<OneOf>
+
+  /**
+   * Test
+   */
+  test?: MaybeCallable<Conditional>
+
+  /**
+   * Use
+   */
+  use?: MaybeCallable<Array<{[key: string]: any}>>
 }
 
 /**

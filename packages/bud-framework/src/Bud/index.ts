@@ -1,4 +1,10 @@
-import Framework from '@roots/bud-typings'
+import {
+  Bud as Abstract,
+  Build,
+  Hooks,
+  Logger,
+  MaybeCallable,
+} from '@roots/bud-typings'
 import {FileContainer, FileSystem} from '@roots/filesystem'
 import {Container} from '@roots/container'
 import {Mode} from './Mode'
@@ -9,18 +15,29 @@ export {Bud, Bud as default}
 /**
  * # Bud Framework
  *
- * Framework class intended to be extended by a
- * more concrete initializing class.
+ * Framework base class.
  *
- *
+ * [🏡 Project home](https://roots.io/bud)
+ * [🧑‍💻 roots/bud/packages/framework](#)
+ * [📦 @roots/bud-framework](https://www.npmjs.com/package/@roots/bud-framework)
+ * [🔗 Documentation](#)
  */
-class Bud implements Framework.Bud.Core {
+class Bud implements Abstract.Core {
   /**
    * ## bud.registry [🍱 _Container_]
    *
    * Registry for services to be held before initialization.
+   *
+   * Implementation should be provided by extending class.
    */
-  public registry: Framework.Container
+  public registry
+
+  /**
+   * ## bud.config  [🍱 _Container_]
+   *
+   * Implementation should be provided by extending class.
+   */
+  public config: Container
 
   /**
    * ## bud.disk
@@ -48,7 +65,7 @@ class Bud implements Framework.Bud.Core {
    * bud.disk.get(`@roots`).get('bud-framework/src/Bud/index.js')
    * ```
    */
-  public disk: Framework.FileSystem
+  public disk: FileSystem
 
   /**
    * ## bud.fs
@@ -63,20 +80,20 @@ class Bud implements Framework.Bud.Core {
    * bud.fs.has('src/index.js')
    * ```
    */
-  public fs: Framework.FileContainer
+  public fs: FileContainer
 
-  public build: Framework.Build.Contract
+  public build: Build.Contract
 
-  public hooks: Framework.Hooks.Contract<Framework.Bud.Core>
+  public hooks: Hooks.Contract
 
-  public mode: Framework.Mode.Contract
+  public mode: Mode
 
   /**
    * ## bud.logger
    *
    * [pino](#) logger instance
    */
-  public logger: Framework.Logger.Contract = util.logger
+  public logger: Logger.Contract = util.logger
 
   /**
    * ## bud.callMeMaybe
@@ -97,18 +114,29 @@ class Bud implements Framework.Bud.Core {
    * // => `option value: true`
    * ```
    */
-  public callMeMaybe: Framework.MaybeCallable = util.callMeMaybe
+  public callMeMaybe: MaybeCallable = util.callMeMaybe
 
   /**
    * Class constructor
    */
-  public constructor(
-    registrables: Framework.Bud.ConstructorParameters,
-  ) {
+  public constructor(registrables: {[key: string]: unknown}) {
     this.makeContainer = this.makeContainer.bind(this)
     this.get = this.get.bind(this)
 
     this.registry = this.makeContainer(registrables)
+  }
+
+  /**
+   * ## bud.get  [🏠 Internal]
+   *
+   * Scope binding for bud.get
+   *
+   * ```js
+   * bud.get()
+   * ```
+   */
+  public get(): Abstract.Bud {
+    return this
   }
 
   /**
@@ -118,10 +146,10 @@ class Bud implements Framework.Bud.Core {
    *
    * [🔗 Documentation on containers](#)
    */
-  public makeContainer<T = any>(
-    repository?: Framework.Index<T>,
-  ): Framework.Container<T> {
-    return new Container<T>(repository ?? {})
+  public makeContainer(repository?: {
+    [key: string]: any
+  }): Framework.Container {
+    return new Container(repository)
   }
 
   /**
@@ -157,28 +185,31 @@ class Bud implements Framework.Bud.Core {
    * Initializes base functions and yields the implementation class
    * if available.
    */
-  public init(
-    this: Framework.Bud.Contract,
-  ): Framework.Bud.Contract {
+  public init(this: Framework.Bud.Contract): Abstract.Bud {
     this.mode = new Mode(this)
 
     this.disk = new FileSystem()
 
     this.fs = new FileContainer(process.cwd())
 
-    // Fallback if class hasn't been extended.
-    const value =
-      this.disks && this.register && this.boot
-        ? this.disks().register().boot()
-        : this
+    if (this.disks) {
+      this.disks()
+      delete this.disks
+    }
 
-    /**
-     * Cleanup
-     */
-    delete this.disks
-    delete this.register
-    delete this.boot
-    delete this.registry
+    if (this.register) {
+      this.register()
+      delete this.register
+    }
+
+    if (this.boot) {
+      this.boot()
+      delete this.boot
+    }
+
+    if (this.registry) {
+      delete this.registry
+    }
 
     this.logger &&
       Object.defineProperty(this, 'logger', {
@@ -197,22 +228,6 @@ class Bud implements Framework.Bud.Core {
         path: {enumerable: false},
       })
 
-    /**
-     * Return initialized object
-     */
-    return value
-  }
-
-  /**
-   * ## bud.get  [🏠 Internal]
-   *
-   * Scope binding for bud.get
-   *
-   * ```js
-   * bud.get()
-   * ```
-   */
-  public get(): Framework.Bud.Bud {
     return this
   }
 }

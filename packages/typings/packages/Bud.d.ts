@@ -9,104 +9,60 @@ import {
   Env,
   Hooks,
   Index,
-  MaybeCallable,
   Logger,
   Mode,
   CLI,
   Server,
 } from './'
 
+export type Bud<T = Contract> = Partial<T>
+
+export type Ref = () => Bud
+
 /**
  * Bud Framework
  */
-export interface Contract<I = unknown> extends Core {
+export interface Contract extends Core {
   [key: string]: any
 
-  /**
-   * argv
-   */
   args: Container
 
-  /**
-   * Webpack Configuration
-   */
   config: Container
 
-  /**
-   * feature flags
-   */
   features: Container
 
-  /**
-   * shared regular expressions
-   */
   patterns: Container
 
-  /**
-   * Builds webpack config.
-   */
   build: Build.Contract
 
-  /**
-   * Cache
-   */
   cache: Cache.Contract
 
-  /**
-   * CLI
-   */
   cli: CLI.Runner
 
-  /**
-   * env
-   */
   env: Env.Contract
 
-  /**
-   * Hooks
-   */
-  hooks: Hooks.Contract<I>
+  hooks: Hooks.Contract
 
-  /**
-   * Extensions controller instance.
-   */
   extensions: Extensions.Contract
 
-  /**
-   * Compiler controller instance.
-   */
-  compiler: Compiler.Contract
+  compiler: Compiler.Interface
 
-  /**
-   * Server controller instance.
-   */
   server: Server.Contract
 
-  /**
-   * Initialize disks
-   */
-  disks: () => Contract
+  disks: () => this
 
-  /**
-   * Register
-   */
-  register: () => Contract
+  register: () => this
 
-  /**
-   * Boot
-   */
-  boot: () => Contract
+  boot: () => this
 }
 
-export type Bud = Contract | Core
-export type Ref = () => Bud
 /**
  * Core unit of the Bud application.
  */
 export interface Core {
-  [key: string]: any
-
   registry: Container
+
+  config: Container
 
   disk: FileSystem
 
@@ -116,15 +72,15 @@ export interface Core {
 
   mode: Mode.Contract
 
-  makeContainer<T = any>(repository?: {
-    [key: string]: any
-  }): Container<T>
+  makeContainer<T = unknown>(repository?: {
+    [key: string]: T
+  }): Container
 
   makeDisk(name: string, base: string, glob?: string[]): void
 
-  init(): unknown
+  init(): Bud
 
-  get(): Framework.Bud.Bud
+  get(): Bud
 }
 
 export type Format = (obj: unknown, options?) => string
@@ -156,10 +112,6 @@ export type When = (
 export type Bootstrap = (
   initFn: (this: Contract) => void,
 ) => Contract
-
-export interface ConstructorParameters {
-  [key: string]: any
-}
 
 export type DiskDefinition = {
   [key: string]: {glob: string[]; baseDir: string}

@@ -18,7 +18,7 @@ export {Server, Server as default}
  */
 class Server implements Framework.Server.Contract {
   /**
-   * Bud instance.
+   * Bud instance ref
    */
   public bud: Framework.Bud.Ref
 
@@ -37,9 +37,20 @@ class Server implements Framework.Server.Contract {
   }
 
   /**
-   * ## bud.server.run
+   * ## bud.server.run [🏠 Internal]
    *
-   * Run development server.
+   * Run the development server.
+   *
+   * Projects should use `bud.run` unless they want
+   * to supply their own Webpack stats handler.
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.server.run((err, stats) => {
+   *  // ...
+   * })
+   * ```
    */
   public run(callback?: () => void): this {
     const bud = this.bud()
@@ -70,7 +81,7 @@ class Server implements Framework.Server.Contract {
   }
 
   /**
-   * ## bud.server.listen
+   * ## bud.server.listen [🏠 Internal]
    *
    * Listen for connections.
    */

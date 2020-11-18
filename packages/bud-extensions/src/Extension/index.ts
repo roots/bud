@@ -159,7 +159,7 @@ export class Extension<T = any>
    * bud.extensions.get('my-extension').getOptions()
    * ```
    */
-  public getOptions = function (): Framework.Container<T> {
+  public getOptions = function (): Framework.Container {
     return this.repository
   }
 

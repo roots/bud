@@ -3,7 +3,7 @@ import Framework from '@roots/bud-typings'
 export {Rule, Rule as default}
 
 class Rule implements Framework.Rule.Contract {
-  public bud: Framework.Bud.Bud
+  public bud: Framework.Bud.Ref
 
   public enforce?: Framework.Rule.Enforce
   public exclude?: Framework.Rule.Conditional
@@ -24,7 +24,7 @@ class Rule implements Framework.Rule.Contract {
   public use?: Framework.Rule.Use
 
   constructor(bud: Framework.Bud.Bud, rule?: unknown) {
-    this.bud = bud
+    this.bud = bud.get
 
     this.register = this.register.bind(this)
     this.getProp = this.getProp.bind(this)
@@ -43,16 +43,15 @@ class Rule implements Framework.Rule.Contract {
     return this
   }
 
-  public getProp(
-    prop: string,
-  ): Framework.Rule.Property<Framework.Rule.Generic> {
+  public getProp<
+    T = Framework.Rule.Property<Framework.Rule.Generic>
+  >(prop: string): T {
     return this[prop]
   }
 
-  public setProp(
-    prop: string,
-    value: Framework.Rule.Property<Framework.Rule.Generic>,
-  ): this {
+  public setProp<
+    T = Framework.Rule.Property<Framework.Rule.Generic>
+  >(prop: string, value: T): this {
     this[prop] = value
     return this
   }
@@ -101,7 +100,9 @@ class Rule implements Framework.Rule.Contract {
              * Prop might be callable. If so, pass it the appropriate param(s).
              */
             [label]:
-              typeof prop == 'function' ? prop(this.bud) : prop,
+              typeof prop == 'function'
+                ? prop(this.bud())
+                : prop,
           }),
           {},
         )

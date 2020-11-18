@@ -202,13 +202,6 @@ module.exports = () => ({
     { definitions: { '$': 'jquery' } },
     {
       nodeModulesPath: '/Users/kellymears/code/projects/cli/bud/bud/lab/node_modules'
-    },
-    {
-      options: {
-        extensions: 'js',
-        context: '/Users/kellymears/code/projects/cli/bud/bud/lab',
-        eslintPath: '/Users/kellymears/code/projects/cli/bud/bud/packages/extension-eslint/node_modules/eslint/lib/api.js'
-      }
     }
   ],
   resolve: {

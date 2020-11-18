@@ -36,7 +36,7 @@ export interface Contract<T = any> {
   when?: When
 }
 
-export declare class Controller<T = unknown> extends Container {
+export declare class Controller extends Container {
   bud: Bud.Ref
 
   module?: Contract
@@ -53,9 +53,9 @@ export declare class Controller<T = unknown> extends Container {
 
   makePlugin?: () => Webpack.Plugin
 
-  setOptions?: (options: Index<T>) => void
+  setOptions?: (options: Index<any>) => void
 
-  getOptions?: () => Container<T>
+  getOptions?: () => Container
 
   setBuilders?: (builders: [string, CallableFunction][]) => void
 }
@@ -71,10 +71,10 @@ export type RegisterMany<T> =
   | {[key: string]: T}
 
 export type RawOptions<T = any> = T | ((bud?: Bud.Bud) => T)
-export type Options<T = any> = Container<RawOptions<T>>
+export type Options<T = any> = Container
 
 export type Make<P = unknown, T = Options> =
-  | ((options: Container<T>) => P)
+  | ((options: Container) => P)
   | P
 
 export type {When} from '.'

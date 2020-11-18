@@ -45,7 +45,7 @@ export {Hooks, Hooks as default}
  * )
  * ```
  */
-class Hooks<I> implements Framework.Hooks.Contract<I> {
+class Hooks implements Framework.Hooks.Contract {
   /**
    * ## bud.hooks.hooks [🏠 Internal]
    *
@@ -56,7 +56,7 @@ class Hooks<I> implements Framework.Hooks.Contract<I> {
   /**
    * Class constructor
    */
-  public constructor(bud: Framework.Bud.Contract) {
+  public constructor() {
     this.store = {}
   }
 
@@ -99,7 +99,7 @@ class Hooks<I> implements Framework.Hooks.Contract<I> {
   public on<T = unknown>(
     name: string,
     hook: Framework.Hooks.Hook<T>,
-  ): I | this {
+  ): this {
     this.store[name] = this.has(name)
       ? [...this.store[name], hook]
       : [hook]
