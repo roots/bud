@@ -5,7 +5,7 @@ const hot = (
   compiler: Framework.Webpack.Compiler,
 ): Framework.Express.RequestHandler => {
   const options: WebpackHotMiddleware.MiddlewareOptions = {
-    log: console.log,
+    log: false,
     path: '/__webpack_hmr',
     heartbeat: 1000,
   }

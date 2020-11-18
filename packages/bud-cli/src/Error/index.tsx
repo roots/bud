@@ -6,7 +6,7 @@ declare interface Error {
   (body?: string, title?: string): void
 }
 
-const Error: Error = function (body?, title?): void {
+const Error: Error = function(body?, title?): void {
   render(<Component title={title ?? 'Error'} body={body} />)
   process.exit(1)
 }

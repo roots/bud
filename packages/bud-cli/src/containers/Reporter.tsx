@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import {Box} from 'ink'
 
 import Assets from '../components/Assets'
@@ -7,8 +7,8 @@ import {BuildInfo} from '../components/BuildInfo'
 import Progress from '../components/Progress'
 import Screen from '../components/Screen'
 import Title from '../components/Title'
-import {Nav} from '../components/Nav'
 import {useStyle} from '@roots/ink-use-style'
+import {useBud} from '../hooks/useBud'
 
 import type {Bud} from '@roots/bud-typings'
 import type {UseStats} from '../hooks/useStats'
@@ -29,27 +29,22 @@ const Reporter: Reporter.Component = ({
   stats,
   progress,
 }) => {
-  const [bud] = useState(framework())
-  const {bounds, col} = useStyle()
+  const {disk, name} = useBud(framework)
+  const {col} = useStyle()
 
-  const displayName = bud.disk
-    .get('project')
-    .exists('package.json')
-    ? (bud.disk.current.readJson('package.json') as {
+  const displayName = disk.get('project').exists('package.json')
+    ? (disk.current.readJson('package.json') as {
         name: string
       }).name
     : 'Bud'
 
   return (
-    <Box
-      minHeight={bounds.height}
-      paddingRight={1}
-      justifyContent="space-between">
-      <Screen title={bud.name}>
+    <Box paddingRight={1} justifyContent="space-between">
+      <Screen title={name}>
         <Box flexDirection="column">
           <Box flexDirection="column">
             <Title>{displayName}</Title>
-            {bud.mode.is('development') && <Nav />}
+            {/* mode.is('development') && <Nav /> */}
           </Box>
 
           {stats?.errors && stats?.errors[0] && (

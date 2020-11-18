@@ -30,7 +30,7 @@ class Bud implements Abstract.Core {
    *
    * Implementation should be provided by extending class.
    */
-  public registry
+  public registry: Container
 
   /**
    * ## bud.config  [🍱 _Container_]
@@ -194,16 +194,19 @@ class Bud implements Abstract.Core {
 
     if (this.disks) {
       this.disks()
+
       delete this.disks
     }
 
     if (this.register) {
       this.register()
+
       delete this.register
     }
 
     if (this.boot) {
       this.boot()
+
       delete this.boot
     }
 

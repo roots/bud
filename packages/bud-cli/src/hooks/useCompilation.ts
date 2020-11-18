@@ -1,9 +1,8 @@
 import {useState, useEffect} from 'react'
 import {useProgress, UseProgress} from './useProgress'
 import {useStats, UseStats} from './useStats'
-import {useBud} from './useBud'
 
-import type {Bud, Compiler} from '@roots/bud-typings'
+import type {Bud} from '@roots/bud-typings'
 
 export namespace UseCompilation {
   export interface Hook {
@@ -19,27 +18,24 @@ export namespace UseCompilation {
 const useCompilation: UseCompilation.Hook = (
   budRef: Bud.Ref,
 ) => {
-  const bud = useBud(budRef)
-  const [compiler] = useState<Compiler.Contract>(bud.compiler)
-
   const [applied, setApplied] = useState<boolean>(false)
   const [tapped, setTapped] = useState<boolean>(null)
-  const [stats, statsHandler] = useStats()
+  const [stats, statsHandler] = useStats([budRef().compiler])
   const [progress, progressHandler] = useProgress()
 
   useEffect(() => {
-    if (!compiler || applied) return
+    if (!budRef().compiler || applied) return
 
     setApplied(true)
-    compiler.applyPlugins(progressHandler)
-  }, [compiler])
+    budRef().compiler.applyPlugins(progressHandler)
+  }, [budRef().compiler])
 
   useEffect(() => {
-    if (!compiler || tapped) return
+    if (!budRef().compiler || tapped) return
 
-    compiler.run(statsHandler)
+    budRef().compiler.run(statsHandler)
     setTapped(true)
-  }, [compiler])
+  }, [budRef().compiler])
 
   return {
     progress,

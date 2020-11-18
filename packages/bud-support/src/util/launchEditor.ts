@@ -290,7 +290,7 @@ function printInstructions(fileName, errorMessage) {
 }
 
 let _childProcess = null
-export default function (
+export default function(
   fileName: string,
   lineNumber: number,
   colNumber: number,
@@ -399,7 +399,7 @@ export default function (
     })
   }
 
-  _childProcess.on('exit', function (errorCode) {
+  _childProcess.on('exit', function(errorCode) {
     _childProcess = null
 
     if (errorCode) {
@@ -407,7 +407,7 @@ export default function (
     }
   })
 
-  _childProcess.on('error', function (error) {
+  _childProcess.on('error', function(error) {
     printInstructions(fileName, error.message)
   })
 }

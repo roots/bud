@@ -12,8 +12,7 @@ import {isArray, isFunction} from 'lodash'
  * [📦 @roots/bud-extensions](https://github.io/roots/bud-extensions)
  * [🔗 Documentation](#)
  */
-export class Extension<T = any>
-  extends Container
+export class Extension<T = any> extends Container
   implements Framework.Extension.Controller {
   /**
    * Bud reference
@@ -67,7 +66,7 @@ export class Extension<T = any>
   /**
    * Initialize extension.
    */
-  public initialize = function (): Framework.Extension.Contract {
+  public initialize = function(): Framework.Extension.Contract {
     this.module.register && this.register()
 
     this.module.options && this.setOptions(this.module.options)
@@ -84,48 +83,48 @@ export class Extension<T = any>
   public callMeMaybe: (
     value: unknown,
     ...args: unknown[]
-  ) => unknown = function (value, ...args) {
+  ) => unknown = function(value, ...args) {
     return isFunction(value) ? value(...args) : value
   }
 
   public fromProp: (
     prop: string,
     dep?: unknown[],
-  ) => [string, unknown] = function (prop, ...dep) {
+  ) => [string, unknown] = function(prop, ...dep) {
     return this.callMeMaybe(this.module[prop], ...dep)
   }
 
-  public hasModuleProp = function (name: string): boolean {
+  public hasModuleProp = function(name: string): boolean {
     return this.module[name] ? true : false
   }
 
-  public register = function (
+  public register = function(
     this: Framework.Extension.Controller,
   ): void {
     this.module.register && this.module.register(this.bud())
   }
 
-  public boot = function (): void {
+  public boot = function(): void {
     this.module.boot && this.module.boot(this.bud())
   }
 
-  public makePlugin = function (): Framework.Webpack.Plugin {
+  public makePlugin = function(): Framework.Webpack.Plugin {
     return this.isPlugin() && this.isPluginEnabled()
       ? this.callMeMaybe(this.module.make, this)
       : false
   }
 
-  public isPlugin = function (): boolean {
+  public isPlugin = function(): boolean {
     return this.module.make ? true : false
   }
 
-  public isPluginEnabled = function (): boolean {
+  public isPluginEnabled = function(): boolean {
     return !this.module.when
       ? true
       : this.callMeMaybe(this.module.when, this.bud(), this)
   }
 
-  public setApi = function (): void {
+  public setApi = function(): void {
     this.module.api &&
       Object.assign(
         this.bud(),
@@ -144,7 +143,7 @@ export class Extension<T = any>
    * })
    * ```
    */
-  public setOptions = function (
+  public setOptions = function(
     options: Framework.Index<T>,
   ): void {
     this.setStore(this.callMeMaybe(options, this.bud()))
@@ -159,11 +158,11 @@ export class Extension<T = any>
    * bud.extensions.get('my-extension').getOptions()
    * ```
    */
-  public getOptions = function (): Framework.Container {
+  public getOptions = function(): Framework.Container {
     return this.repository
   }
 
-  public setBuilders = function (
+  public setBuilders = function(
     builders: [string, CallableFunction][],
   ): void {
     builders.map(([name, handler]) => {

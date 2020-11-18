@@ -1,6 +1,6 @@
 import {lodash as _} from '@roots/bud-support'
 
-export const when: When = function (test, isTrue, isFalse) {
+export const when: When = function(test, isTrue, isFalse) {
   _.isEqual(test, true)
     ? _.isFunction(isTrue) && isTrue(this)
     : _.isFunction(isFalse) && isFalse(this)

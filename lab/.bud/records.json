@@ -124,9 +124,9 @@
       }
     }
   ],
-  "prepreHash": "418fb66d484b13dccb4d",
+  "prepreHash": "2cee5dd4945d653aff7b",
   "preHash": "e351711a0d34da9830f9",
-  "hash": "8225b1a95b7ea6a999c5",
+  "hash": "b60b1e8af1c086e7ba7b",
   "moduleHashs": {
     "multi /Users/kellymears/code/projects/cli/bud/bud/packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ReactRefreshEntry.js /Users/kellymears/code/projects/cli/bud/bud/node_modules/webpack-hot-middleware/client.js?path=/__webpack_hmr&timeout=2000 /Users/kellymears/code/projects/cli/bud/bud/packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ErrorOverlayEntry.js foo.js foo.css": "b918d4095d1ff2a01782a48658bae8f5",
     "/Users/kellymears/code/projects/cli/bud/bud/node_modules/thread-loader/dist/cjs.js!/Users/kellymears/code/projects/cli/bud/bud/node_modules/cache-loader/dist/cjs.js!/Users/kellymears/code/projects/cli/bud/bud/node_modules/babel-loader/lib/index.js??babel!/Users/kellymears/code/projects/cli/bud/bud/node_modules/raw-loader/dist/cjs.js!/Users/kellymears/code/projects/cli/bud/bud/lab/src/foo.js": "584a8748d3ef0d2222749dc50f68b1be",

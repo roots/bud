@@ -7,7 +7,7 @@ export namespace Externals {
   ) => {externals: Externals}
 }
 
-export const externals: Externals.Build = function () {
+export const externals: Externals.Build = function() {
   return {
     externals: this.hooks.filter<Externals>(
       'webpack.externals',

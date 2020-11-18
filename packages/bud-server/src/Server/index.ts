@@ -28,12 +28,50 @@ class Server implements Framework.Server.Contract {
   public instance: Framework.Server.Instance
 
   /**
+   * Server config
+   */
+  public config: Framework.Container
+
+  /**
    * Constructor
    */
   public constructor(bud: Framework.Bud.Contract) {
     this.bud = bud.get
     this.instance = express()
     this.instance.set('x-powered-by', false)
+    this.config = bud.makeContainer({})
+  }
+
+  /**
+   * ## bud.server.getConfig [🏠 Internal]
+   *
+   * Get the server config.
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.server.getConfig()
+   * ```
+   */
+  public getConfig(): Framework.Container['repository'] {
+    return this.config.getStore()
+  }
+
+  /**
+   * ## bud.server.setConfig [🏠 Internal]
+   *
+   * Set the server config.
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.server.setConfig(config)
+   * ```
+   */
+  public setConfig(
+    config: Framework.Container['repository'],
+  ): void {
+    this.config.setStore(config)
   }
 
   /**
@@ -64,16 +102,14 @@ class Server implements Framework.Server.Contract {
     this.instance.use(
       middleware.dev({
         compiler: bud.compiler.get(),
-        config: bud.serverConfig.getStore(),
+        config: this.config.getStore(),
       }),
     )
 
     this.instance.use(middleware.hot(bud.compiler.get()))
 
     bud.features.enabled('proxy') &&
-      this.instance.use(
-        middleware.proxy(bud.serverConfig.getStore()),
-      )
+      this.instance.use(middleware.proxy(this.config.getStore()))
 
     this.listen(callback)
 
@@ -86,14 +122,10 @@ class Server implements Framework.Server.Contract {
    * Listen for connections.
    */
   public listen(callback?: () => void): void {
-    const bud = this.bud()
-
     this.instance.listen(
-      bud.serverConfig.has('port')
-        ? bud.serverConfig.get('port')
-        : 3000,
-      bud.serverConfig.has('host')
-        ? bud.serverConfig.get('host')
+      this.config.has('port') ? this.config.get('port') : 3000,
+      this.config.has('host')
+        ? this.config.get('host')
         : 'localhost',
       callback ??
         function () {

@@ -1,7 +1,7 @@
 import {useState, useCallback} from 'react'
 import type Webpack from 'webpack'
 
-export const useStats: UseStats.Hook = () => {
+export const useStats: UseStats.Hook = (deps: any[]) => {
   const [stats, setStats]: [
     UseStats.Stats,
     React.Dispatch<UseStats.Stats>,
@@ -14,7 +14,7 @@ export const useStats: UseStats.Hook = () => {
     }
 
     setStats(stats.toJson())
-  }, [])
+  }, deps)
 
   return [stats, handler]
 }
@@ -24,7 +24,7 @@ export namespace UseStats {
    * UseStats interface.
    */
   export interface Hook {
-    (): Tuple
+    (deps: any[]): Tuple
   }
 
   export type Tuple = [Stats, Handler]

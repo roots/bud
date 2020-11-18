@@ -44,7 +44,7 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.getStore
+   * ## container.all
    *
    * Does the same thing as container.getStore
    *
@@ -73,6 +73,86 @@ export class Container<I = any> {
    */
   public setStore(repository: Repository): this {
     this.repository = repository
+
+    return this
+  }
+
+  /**
+   * ## container.mergeStore
+   *
+   * Merge values onto the container store.
+   *
+   * ### Usage
+   *
+   * ```js
+   * container.mergeStore({test: 'foo'})
+   * ```
+   */
+  public mergeStore(values: Repository): this {
+    this.setStore({
+      ...this.getStore(),
+      ...values,
+    })
+
+    return this
+  }
+
+  /**
+   * ## container.transformStore
+   *
+   * Retrieve the container store, running it through the supplied fn.
+   *
+   * Returns the transformed value.
+   *
+   * ### Usage
+   *
+   * ```js
+   * container.transform('key', currentValue => modifiedValue)
+   * ```
+   */
+  public transformStore(transformFn: (value: any) => any): any {
+    return transformFn(this.getStore())
+  }
+
+  /**
+   * ## container.mutateStore
+   *
+   * Mutate the container store.
+   *
+   * ### Usage
+   *
+   * ```js
+   * container.mutate('key', currentValue => modifiedValue)
+   * ```
+   */
+  public mutateStore<T = any>(
+    mutationFn: (value?: T) => T,
+  ): this {
+    this.setStore(this.transformStore(mutationFn))
+
+    return this
+  }
+
+  /**
+   * ## container.mutateStore
+   *
+   * Mutate the container store.
+   *
+   * ### Usage
+   *
+   * ```js
+   * container.mutateStoreEntries((key, value) => value + 1)
+   * ```
+   */
+  public mutateStoreEntries<T = any>(
+    mutateFn: (key: string, value: T) => T,
+  ): this {
+    this.fromEntries(
+      this.getEntries().map(([key, value]: [string, T]) => [
+        key,
+        mutateFn(key, value),
+      ]),
+    )
 
     return this
   }
@@ -117,6 +197,77 @@ export class Container<I = any> {
    */
   public getEntries<T = any>(key?: string): [string, T][] {
     return Object.entries(key ? this.get(key) : this.getStore())
+  }
+
+  /**
+   * ## container.fromEntries
+   *
+   * Set container value from [K, V] tuples.
+   *
+   * If no key is passed the container store will be used.
+   *
+   * ### Usage
+   *
+   * ```js
+   * container.getEntries()
+   * ```
+   *
+   * ```js
+   * container.getEntries('key')
+   * ```
+   */
+  public fromEntries<T = any>(entries: [string, T][]): this {
+    this.mergeStore(Object.fromEntries(entries))
+
+    return this
+  }
+
+  /**
+   * ## container.withEntries
+   *
+   * Use each value as parameters in a supplied callback
+   *
+   * ### Usage
+   *
+   * ```js
+   * container.withEntries('key', (key, value) => doSomething)
+   * ```
+   */
+  public each<T = any>(
+    key: string,
+    callFn?: (key: string, value: T) => T,
+  ): this {
+    this.getEntries(key).forEach(([key, value]: [string, T]) => [
+      key,
+      callFn(key, value),
+    ])
+
+    return this
+  }
+
+  /**
+   * ## container.mutateEntries
+   *
+   * Mutate each value via a supplied mutagen.
+   *
+   * ### Usage
+   *
+   * ```js
+   * container.mutateEntries('key', (key, value) => value + 1)
+   * ```
+   */
+  public mutateEntries<T = any>(
+    key: string,
+    mutateFn?: (key: string, value: T) => T,
+  ): this {
+    this.fromEntries(
+      this.getEntries(key).map(([key, value]: [string, T]) => [
+        key,
+        mutateFn(key, value),
+      ]),
+    )
+
+    return this
   }
 
   /**
@@ -216,6 +367,26 @@ export class Container<I = any> {
   }
 
   /**
+   * ## container.transform
+   *
+   * Retrieve a container item, running it through the supplied fn.
+   *
+   * Returns the transformed value.
+   *
+   * ### Usage
+   *
+   * ```js
+   * container.transform('key', currentValue => modifiedValue)
+   * ```
+   */
+  public transform<T = any>(
+    key: string,
+    transformFn: (value?: T) => T,
+  ): T {
+    return transformFn(this.get(key))
+  }
+
+  /**
    * ## container.mutate
    *
    * Mutate a container item.
@@ -229,12 +400,10 @@ export class Container<I = any> {
   public mutate<T = any>(
     key: string,
     mutationFn: (value?: T) => T,
-  ): T {
-    const value = mutationFn(this.get(key))
+  ): this {
+    this.set<T>(key, this.transform(key, mutationFn))
 
-    this.set<T>(key, value)
-
-    return value
+    return this
   }
 
   /**
@@ -419,7 +588,11 @@ export class Container<I = any> {
    */
   public isIndexed(key?: string): boolean {
     const value = key ? this.get(key) : this.getStore()
-    return _.isObject(value) && !_.isArrayLikeObject(value)
+    return (
+      this.has(key) &&
+      _.isObject(value) &&
+      !_.isArrayLikeObject(value)
+    )
   }
 
   /**
@@ -435,7 +608,23 @@ export class Container<I = any> {
    * ```
    */
   public isArray(key: string): boolean {
-    return _.isArray(this.get(key))
+    return this.has(key) && _.isArray(this.get(key))
+  }
+
+  /**
+   * ## container.isNotArray
+   *
+   * Return true if object is not an array.
+   *
+   * ### Usage
+   *
+   * ```js
+   * container.isNotArray('my-key')
+   * // True if container.repository['my-key'] is not an array
+   * ```
+   */
+  public isNotArray(key: string): boolean {
+    return this.has(key) && !_.isArray(this.get(key))
   }
 
   /**
@@ -451,11 +640,27 @@ export class Container<I = any> {
    * ```
    */
   public isString(key: string): boolean {
-    return _.isString(this.get(key))
+    return this.has(key) && _.isString(this.get(key))
   }
 
   /**
-   * ## container.isArray
+   * ## container.isNotString
+   *
+   * Return true if object is a string.
+   *
+   * ### Usage
+   *
+   * ```js
+   * container.isString('my-key')
+   * // True if container.repository['my-key'] is not a string
+   * ```
+   */
+  public isNotString(key: string): boolean {
+    return this.has(key) && !_.isString(this.get(key))
+  }
+
+  /**
+   * ## container.isNumber
    *
    * Return true if object is a number.
    *
@@ -467,7 +672,23 @@ export class Container<I = any> {
    * ```
    */
   public isNumber(key: string): boolean {
-    return _.isNumber(this.get(key))
+    return this.has(key) && _.isNumber(this.get(key))
+  }
+
+  /**
+   * ## container.isNotNumber
+   *
+   * Return true if object is not a number.
+   *
+   * ### Usage
+   *
+   * ```js
+   * container.isNumber('my-key')
+   * // True if container.repository['my-key'] is not a number
+   * ```
+   */
+  public isNotNumber(key: string): boolean {
+    return this.has(key) && !_.isNumber(this.get(key))
   }
 
   /**
@@ -483,6 +704,54 @@ export class Container<I = any> {
    * ```
    */
   public isNull(key: string): boolean {
-    return _.isNull(this.get(key))
+    return this.has(key) && _.isNull(this.get(key))
+  }
+
+  /**
+   * ## container.isNotNull
+   *
+   * Return true if object is not null.
+   *
+   * ### Usage
+   *
+   * ```js
+   * container.isNotNull('my-key')
+   * // True if container.repository['my-key'] is not null
+   * ```
+   */
+  public isNotNull(key: string): boolean {
+    return this.has(key) && !_.isNull(this.get(key))
+  }
+
+  /**
+   * ## container.isDefined
+   *
+   * Return true if object is defined.
+   *
+   * ### Usage
+   *
+   * ```js
+   * container.isDefined('my-key')
+   * // True if container has a 'my-key' entry with a definite value.
+   * ```
+   */
+  public isDefined(key: string): boolean {
+    return this.has(key) && !_.isUndefined(this.get(key))
+  }
+
+  /**
+   * ## container.isUndefined
+   *
+   * Return true if object is defined.
+   *
+   * ### Usage
+   *
+   * ```js
+   * container.isDefined('my-key')
+   * // True if container has a 'my-key' entry with a definite value.
+   * ```
+   */
+  public isUndefined(key: string): boolean {
+    return !this.has(key) || _.isUndefined(this.get(key))
   }
 }

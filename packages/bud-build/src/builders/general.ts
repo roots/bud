@@ -16,7 +16,7 @@ export namespace General {
   export type Build = (this: Bud.Contract) => Config
 }
 
-export const general: General.Build = function () {
+export const general: General.Build = function() {
   return this.hooks.filter<Config>('webpack', {
     bail: this.hooks.filter<Config['bail']>(
       'webpack.bail',

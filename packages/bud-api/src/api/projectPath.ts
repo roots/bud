@@ -1,6 +1,6 @@
 import {Bud} from '@roots/bud-typings'
 
-export const projectPath: ProjectPath = function (dir) {
+export const projectPath: ProjectPath = function(dir) {
   this.disk.get('project').setBase(dir)
   this.fs.setBase(dir)
 

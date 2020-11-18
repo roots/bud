@@ -1,3 +1,4 @@
+import {Bud as Abstract} from '@roots/bud-typings'
 import {Bud as Core} from '@roots/bud-framework'
 
 import {Build} from '@roots/bud-build'
@@ -9,11 +10,6 @@ import {Runner} from '@roots/bud-cli'
 import {Server} from '@roots/bud-server'
 
 import * as api from '@roots/bud-api'
-import {
-  Bud as Abstract,
-  Logger,
-  MaybeCallable,
-} from '@roots/bud-typings'
 
 export type Config<C = Bud> = C | Framework.Bud.Contract
 
@@ -826,15 +822,6 @@ export class Bud extends Core implements Abstract.Contract {
   public server: Framework.Server.Contract
 
   /**
-   * ## bud.serverConfig [🍱 _Container_]
-   *
-   * Config store for the `bud.server` instance. You might
-   * find it easier to do light configuration using
-   * the `bud.dev` function. [🔗 Documentation](#)
-   */
-  public serverConfig: Framework.Container
-
-  /**
    * Class constructor
    */
   public constructor(registrable?: {[key: string]: unknown}) {
@@ -854,7 +841,7 @@ export class Bud extends Core implements Abstract.Contract {
   }
 
   /**
-   * ## bud.disks
+   * ## bud.disks [🏠 Internal]
    *
    * Setup FS abstractions.
    *
@@ -878,13 +865,33 @@ export class Bud extends Core implements Abstract.Contract {
    * @ignore
    */
   public register(): this {
-    this.registry
-      .getEntries('containers')
+    const containers = this.registry.getEntries('containers')
+
+    containers
+      .filter(
+        ([name]: [string, Framework.Container['repository']]) =>
+          name !== 'serverConfig',
+      )
       .map(
-        ([name, repo]: [string, Framework.Index<unknown>]) => {
+        ([name, repo]: [
+          string,
+          Framework.Container['repository'],
+        ]) => {
           this[name] = this.makeContainer({...repo})
         },
       )
+
+    this.server.setConfig(
+      containers
+        .filter(
+          ([name]: [
+            string,
+            Framework.Container['repository'],
+          ]) => name == 'serverConfig',
+        )
+        .pop()
+        .pop(),
+    )
 
     return this
   }
@@ -903,27 +910,17 @@ export class Bud extends Core implements Abstract.Contract {
       : this.mode.set('none')
 
     this.registry
-      .getEntries('loaders')
-      .map((args: [string, Framework.Loader]) => {
-        this.build.setLoader(...args)
+      .each('loaders', (k, v) => {
+        this.build.setLoader(k, v)
       })
-
-    this.registry
-      .getEntries('items')
-      .map((args: [string, Framework.Item.Module]) => {
-        this.build.setItem(...args)
+      .each('items', (k, v) => {
+        this.build.setItem(k, v)
       })
-
-    this.registry
-      .getEntries('rules')
-      .map((args: [string, Framework.Rule.Module]) => {
-        this.build.setRule(...args)
+      .each('rules', (k, v) => {
+        this.build.setRule(k, v)
       })
-
-    this.registry
-      .getEntries('extensions')
-      .map((args: [string, Framework.Extension.Contract]) => {
-        this.extensions.set(...args)
+      .each('extensions', (k, v) => {
+        this.extensions.set(k, v)
       })
 
     return this

@@ -11,9 +11,15 @@ import {Options as ProxyOptions} from 'http-proxy-middleware'
 export interface Contract {
   instance: Framework.Server.Instance
 
+  config: Framework.Container
+
   run(callback?: () => void): this
 
   listen(callback?: () => void): void
+
+  getConfig(): Container['repository']
+
+  setConfig(config: Container['repository']): void
 }
 
 /**
