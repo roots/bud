@@ -4,15 +4,22 @@ import {Bud, Extension, Container} from '@roots/bud-typings'
 
 export const options = (
   bud: Bud.Contract,
-): {replacements: Container['repository']} => ({
-  replacements: bud.env.getStore(),
+): Container['repository'] => ({
+  ...Object.fromEntries(
+    bud.env
+      .getEntries()
+      .filter(([string]) => string.includes('APP_')),
+  ),
 })
 
 export const make: Extension.Make<
   InterpolateHtmlPlugin,
   Container
 > = (options: Extension.Options) =>
-  new InterpolateHtmlPlugin(HtmlWebpackPlugin, options.all())
+  new InterpolateHtmlPlugin(
+    HtmlWebpackPlugin,
+    options.getStore(),
+  )
 
 export const when: Extension.When = bud =>
   bud.features.enabled('html')

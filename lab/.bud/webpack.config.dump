@@ -1,11 +1,5 @@
 module.exports = () => ({
-  entry: {
-    foo: [
-      '/Users/kellymears/code/projects/cli/bud/bud/node_modules/webpack-hot-middleware/client.js?path=/__webpack_hmr&timeout=2000',
-      'foo.js',
-      'foo.css'
-    ]
-  },
+  entry: { foo: [ 'foo.js', 'foo.css' ] },
   bail: true,
   context: '/Users/kellymears/code/projects/cli/bud/bud/lab/src',
   mode: 'development',
@@ -186,9 +180,28 @@ module.exports = () => ({
       keepCircularReferences: true
     },
     {
-      definitions: { PUBLIC_URL: '/', APP_NAME: 'App', APP_DESCRIPTION: 'Test' }
+      definitions: { PUBLIC_URL: '/', APP_TITLE: 'App', APP_DESCRIPTION: 'Test' }
     },
     { fullBuildTimeout: 200, requestTimeout: 10000 },
+    {
+      options: {
+        template: '/Users/kellymears/code/projects/cli/bud/bud/packages/bud-support/publish/template.html',
+        filename: 'index.html',
+        publicPath: '/',
+        inject: 'body',
+        scriptLoading: 'blocking',
+        compile: true,
+        minify: 'auto',
+        cache: true,
+        showErrors: true,
+        chunks: 'all',
+        chunksSortMode: 'auto',
+        title: 'Webpack App',
+        alwaysWriteToDisk: true
+      },
+      version: 4
+    },
+    { replacements: { APP_TITLE: 'Foo bar', APP_DESCRIPTION: 'Test' } },
     {
       opts: {
         publicPath: '/',
@@ -215,7 +228,7 @@ module.exports = () => ({
   ],
   resolve: {
     alias: {
-      '@scripts': '/Users/kellymears/code/projects/cli/bud/bud/lab/src/scripts'
+      '@scripts/': '/Users/kellymears/code/projects/cli/bud/bud/lab/src/scripts'
     },
     extensions: [ '.wasm', '.mjs', '.js', '.json', '.css' ],
     modules: [

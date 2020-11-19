@@ -11,7 +11,12 @@ bud
   ])
   .pipe([localFix])
 
-bud.alias({'@scripts': bud.src('scripts/')})
+bud.alias({'@scripts/': bud.src('scripts')})
 bud.entry('foo', ['foo.js', 'foo.css'])
+bud.template({
+  replacements: {
+    APP_TITLE: 'Foo bar',
+  },
+})
 
 bud.run()

@@ -11,7 +11,7 @@ import type {Bud} from '@roots/bud-typings'
  */
 export class Runner {
   /** Bud reference */
-  public bud: Bud.Ref
+  public bud: Bud.Bud
 
   /**
    * ## bud.cli.instance
@@ -24,16 +24,18 @@ export class Runner {
    * Class constructor.
    */
   constructor(bud: Bud.Bud) {
-    this.bud = bud.get
+    this.bud = bud
+
+    this.run = this.run.bind(this)
   }
 
   /**
    * Run the compilation.
    */
   public run = function (): void {
-    this.instance = this.bud().mode.is('development')
-      ? render(<Serve framework={this.bud} />)
-      : render(<Compile framework={this.bud} />)
+    this.instance = this.bud.mode.is('development')
+      ? render(<Serve bud={this.bud} />)
+      : render(<Compile bud={this.bud} />)
   }
 
   public kill = function (): void {

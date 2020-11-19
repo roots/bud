@@ -33,6 +33,11 @@ class Server implements Framework.Server.Contract {
   public config: Framework.Container
 
   /**
+   * Is server running
+   */
+  public running = false
+
+  /**
    * Constructor
    */
   public constructor(bud: Framework.Bud.Contract) {
@@ -91,24 +96,23 @@ class Server implements Framework.Server.Contract {
    * ```
    */
   public run(callback?: () => void): this {
-    const bud = this.bud()
+    this.running = true
 
-    bud.compiler.compile()
-
-    bud.config.mutate('entry', (entry: Webpack.Entry) =>
+    this.bud().config.mutate('entry', (entry: Webpack.Entry) =>
       injectClient(entry),
     )
+    this.bud().compiler.compile()
 
     this.instance.use(
       middleware.dev({
-        compiler: bud.compiler.get(),
+        compiler: this.bud().compiler.get(),
         config: this.config.getStore(),
       }),
     )
 
-    this.instance.use(middleware.hot(bud.compiler.get()))
+    this.instance.use(middleware.hot(this.bud().compiler.get()))
 
-    bud.features.enabled('proxy') &&
+    this.bud().features.enabled('proxy') &&
       this.instance.use(middleware.proxy(this.config.getStore()))
 
     this.listen(callback)
@@ -127,10 +131,6 @@ class Server implements Framework.Server.Contract {
       this.config.has('host')
         ? this.config.get('host')
         : 'localhost',
-      callback ??
-        function () {
-          return null
-        },
     )
   }
 }

@@ -13,6 +13,8 @@ export interface Contract {
 
   config: Framework.Container
 
+  running: boolean
+
   run(callback?: () => void): this
 
   listen(callback?: () => void): void

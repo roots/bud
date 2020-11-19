@@ -67,7 +67,7 @@ class Compiler implements Framework.Compiler.Contract {
   ): Framework.Webpack.Compiler {
     this.set(webpack(config ?? this.bud().build.make()))
 
-    return this.get()
+    return this.instance
   }
 
   /**
@@ -112,7 +112,7 @@ class Compiler implements Framework.Compiler.Contract {
    * ```
    */
   public run(handler: Framework.Compiler.Handler): void {
-    this.get().run(handler)
+    this.instance.run(handler)
   }
 
   /**
@@ -129,7 +129,7 @@ class Compiler implements Framework.Compiler.Contract {
   public applyPlugins(
     handler: Framework.Compiler.ProgressHandler,
   ): void {
-    new ProgressPlugin(handler).apply(this.get())
+    new ProgressPlugin(handler).apply(this.instance)
   }
 }
 

@@ -6,7 +6,7 @@ import type {Bud} from '@roots/bud-typings'
 
 export namespace UseCompilation {
   export interface Hook {
-    (bud: Bud.Ref): Compilation
+    (bud: Bud.Bud): Compilation
   }
 
   export interface Compilation {
@@ -15,27 +15,27 @@ export namespace UseCompilation {
   }
 }
 
-const useCompilation: UseCompilation.Hook = (
-  budRef: Bud.Ref,
-) => {
+const useCompilation: UseCompilation.Hook = (bud: Bud.Bud) => {
   const [applied, setApplied] = useState<boolean>(false)
-  const [tapped, setTapped] = useState<boolean>(null)
-  const [stats, statsHandler] = useStats([budRef().compiler])
+  const [tapped, setTapped] = useState<boolean>(false)
+  const [stats, statsHandler] = useStats()
   const [progress, progressHandler] = useProgress()
 
   useEffect(() => {
-    if (!budRef().compiler || applied) return
+    if (applied) return
 
     setApplied(true)
-    budRef().compiler.applyPlugins(progressHandler)
-  }, [budRef().compiler])
+
+    bud.compiler.applyPlugins(progressHandler)
+  })
 
   useEffect(() => {
-    if (!budRef().compiler || tapped) return
+    if (tapped) return
 
-    budRef().compiler.run(statsHandler)
     setTapped(true)
-  }, [budRef().compiler])
+
+    bud.compiler.run(statsHandler)
+  })
 
   return {
     progress,

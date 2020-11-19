@@ -7,8 +7,8 @@ import {BuildInfo} from '../components/BuildInfo'
 import Progress from '../components/Progress'
 import Screen from '../components/Screen'
 import Title from '../components/Title'
+import {Debug} from '../components/Debug'
 import {useStyle} from '@roots/ink-use-style'
-import {useBud} from '../hooks/useBud'
 
 import type {Bud} from '@roots/bud-typings'
 import type {UseStats} from '../hooks/useStats'
@@ -16,7 +16,7 @@ import type {UseProgress} from '../hooks/useProgress'
 
 declare namespace Reporter {
   export type Props = {
-    framework: Bud.Ref
+    bud: Bud.Bud
     stats: UseStats.Stats
     progress: UseProgress.Progress
   }
@@ -25,11 +25,10 @@ declare namespace Reporter {
 }
 
 const Reporter: Reporter.Component = ({
-  framework,
+  bud: {disk, name, ...bud},
   stats,
   progress,
 }) => {
-  const {disk, name} = useBud(framework)
   const {col} = useStyle()
 
   const displayName = disk.get('project').exists('package.json')
@@ -74,6 +73,8 @@ const Reporter: Reporter.Component = ({
           <Box flexDirection="column" marginBottom={1}>
             <BuildInfo stats={stats} />
           </Box>
+
+          {bud.args.has('debug') && <Debug bud={bud} />}
         </Box>
       </Screen>
     </Box>

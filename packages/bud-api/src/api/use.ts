@@ -4,11 +4,11 @@ import {Bud, Extension} from '@roots/bud-typings'
 
 export const use: Use = function(extensions) {
   _.isString(extensions)
-    ? this.extensions.use(extensions)
+    ? this.extensions.use(extensions as string)
     : ensureIterable(extensions).forEach(
         (extension: string | ExtensionTuple) => {
-          if (!_.isArray(extension)) {
-            return this.extensions.use(extension)
+          if (_.isString(extension)) {
+            return this.extensions.use(extension as string)
           }
 
           return this.extensions.set(

@@ -15,12 +15,6 @@ Hooks are defined as functions. Hook functions are registered with `bud.hooks.on
 - The `name` of the `filter` being hooked.
 - The `function` to filter with.
 
-### Signature
-
-```ts
-function (name: string, function: (any) => any)
-```
-
 ### Usage examples
 
 Add a new entry to the `webpack.externals` configuration:
@@ -99,6 +93,7 @@ Documentation is incomplete. :::
 | `webpack.resolve.extensions`                          | `Framework.Bud.Build` |
 | `webpack.resolve.modules`                             | `Framework.Bud.Build` |
 | `webpack.plugins`                                     | `Framework.Bud.Build` |
+| `webpack.plugins.{plugin}`                            | `Framework.Bud.Build` |
 | `webpack.module.rules`                                | `Framework.Bud.Build` |
 | `webpack.module.rules.oneOf`                          | `Framework.Bud.Build` |
 | `webpack.module.rules.oneOf.{filetype}`               | `Framework.Bud.Build` |

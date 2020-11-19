@@ -31,7 +31,7 @@ export const extensions: {
   [`webpack-hot-module-replacement-plugin]`]: hotModuleReplacement,
   [`html-webpack-plugin`]: html,
   [`html-hard-disk-plugin`]: htmlHardDisk,
-  [`interpolate-html`]: interpolateHtml,
+  [`interpolate-html-plugin`]: interpolateHtml,
   [`webpack-manifest-plugin`]: manifest,
   [`mini-css-extract-plugin`]: miniCssExtract,
   [`webpack-provide-plugin`]: provide,

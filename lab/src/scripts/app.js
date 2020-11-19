@@ -1,7 +1,6 @@
 import React, {useState} from 'react'
-import ReactDOM from 'react-dom'
 
-const myApp = () => {
+export const myApp = () => {
   const [state, setState] = useState('')
 
   return (
@@ -17,5 +16,3 @@ const myApp = () => {
     </div>
   )
 }
-
-export {myApp}
