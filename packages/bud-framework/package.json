@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-framework",
-  "version": "2.0.0-next.24",
+  "version": "2.0.0-next.25",
   "description": "A friendly build tool to help manage your project assets.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -22,7 +22,10 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["./lib", "./src"],
+  "files": [
+    "lib",
+    "src"
+  ],
   "main": "./lib/index.js",
   "types": "./lib/types/index.d.ts",
   "scripts": {
@@ -32,15 +35,15 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@roots/bud-compiler": "2.0.0-next.24",
-    "@roots/bud-cli": "2.0.0-next.24",
-    "@roots/bud-extensions": "2.0.0-next.24",
-    "@roots/bud-hooks": "2.0.0-next.24",
-    "@roots/bud-support": "2.0.0-next.24",
-    "@roots/bud-typings": "2.0.0-next.24",
-    "@roots/container": "2.0.0-next.24",
-    "@roots/dependencies": "2.0.0-next.24",
-    "@roots/filesystem": "2.0.0-next.24",
+    "@roots/bud-cli": "^2.0.0-next.25",
+    "@roots/bud-compiler": "^2.0.0-next.25",
+    "@roots/bud-extensions": "^2.0.0-next.25",
+    "@roots/bud-hooks": "^2.0.0-next.25",
+    "@roots/bud-support": "^2.0.0-next.25",
+    "@roots/bud-typings": "^2.0.0-next.25",
+    "@roots/container": "^2.0.0-next.25",
+    "@roots/dependencies": "^2.0.0-next.25",
+    "@roots/filesystem": "^2.0.0-next.25",
     "pino": "^6.7.0",
     "pino-pretty": "^4.3.0",
     "webpack": "^4.44.2"

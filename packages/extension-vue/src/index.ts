@@ -1,16 +1,16 @@
 import type Webpack from 'webpack'
 import {VueLoaderPlugin} from 'vue-loader'
-import {Extension} from '../../bud-extensions'
+import {Extension} from '@roots/bud-typings'
 
 /** Patched compiler.*/
 /* eslint-disable */
 const compiler = require('./vue-template-compiler/index')
 
-export const registerLoaders: Extension.Interface['registerLoaders'] = {
+export const registerLoaders: Extension.Contract['registerLoaders'] = {
   vue: require.resolve('vue-loader'),
 }
 
-export const registerItems: Extension.Interface['registerItems'] = {
+export const registerItems: Extension.Contract['registerItems'] = {
   vue: {
     ident: 'vue',
     loader: 'vue',
@@ -23,7 +23,7 @@ export const registerItems: Extension.Interface['registerItems'] = {
 /**
  * Boot the Vue extension.
  */
-export const boot: Extension.Interface['boot'] = bud => {
+export const boot: Extension.Contract['boot'] = bud => {
   /**
    * Add vue loader style rules.
    */
@@ -45,9 +45,9 @@ export const boot: Extension.Interface['boot'] = bud => {
    * export function this hook registers the rule in the
    * outer `webpack.module.rules` key.
    */
-  bud.hooks.on(
+  bud.hooks.on<Webpack.Module['rules']>(
     'webpack.module.rules',
-    (rules: Webpack.Module['rules']) => [
+    rules => [
       ...rules,
       {
         test: /\.vue$/,
@@ -66,11 +66,9 @@ export const boot: Extension.Interface['boot'] = bud => {
   bud
     .alias({vue$: 'vue/dist/vue.esm.js'})
     .when(
-      !bud.build.config
-        .get('resolve.extensions')
-        .includes('.vue'),
+      !bud.config.get('resolve.extensions').includes('.vue'),
       () =>
-        bud.build.config.mutate('resolve.extensions', ext => [
+        bud.config.mutate('resolve.extensions', ext => [
           ...ext,
           '.vue',
         ]),

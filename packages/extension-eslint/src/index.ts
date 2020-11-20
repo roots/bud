@@ -1,8 +1,5 @@
-import type {Extension} from '@roots/bud-extensions'
-import {Bud} from '@roots/bud-typings'
-import Plugin, {
-  Options as PluginOptions,
-} from 'eslint-webpack-plugin'
+import Plugin from 'eslint-webpack-plugin'
+import {Options, Make, When, Boot, Api} from './types'
 
 /**
  * Bud custom formatter for teletype logging.
@@ -15,7 +12,7 @@ import {eslintFormatter as formatter} from '@roots/bud-support'
 export const boot: Boot = bud => {
   const path = bud.disk.get('@roots/bud-eslint')
 
-  bud.features.enable('eslint')
+  bud.features.set('eslint', true)
 
   bud.presets.set('eslint.roots', path.get('presets/roots.js'))
   bud.presets.set('eslint.react', path.get('presets/react.js'))
@@ -25,7 +22,7 @@ export const boot: Boot = bud => {
 /**
  * Eslint class options.
  */
-export const options: RawOptions = bud => ({
+export const options: Options = bud => ({
   context: bud.project(),
   eslintPath: require.resolve('eslint'),
   fix: false,
@@ -35,7 +32,7 @@ export const options: RawOptions = bud => ({
 /**
  * Make the plugin from its options.
  */
-export const make: Make = opts => new Plugin(opts.all())
+export const make: Make = opts => new Plugin(opts.getStore())
 
 /**
  * Make when
@@ -58,30 +55,3 @@ export const api: Api = () => ({
     return this
   },
 })
-
-declare type RawOptions = Extension.RawOptions<PluginOptions>
-declare type Options = Extension.Options<RawOptions>
-declare type Make = Extension.Make<Plugin, Options>
-declare type When = Extension.When<Options>
-declare type Boot = Extension.Boot
-export declare type Api = (bud: Bud) => EslintConfig
-export declare type EslintConfig = {
-  enableEslint: ToggleEslint
-  eslintConfig: ConfigureEslint
-}
-
-/**
- * Configure ESLint options
- */
-export declare type ConfigureEslint = (
-  this: Bud,
-  opts: PluginOptions,
-) => Bud
-
-/**
- * Toggle Eslint on and off
- */
-export declare type ToggleEslint = (
-  this: Bud,
-  enabled?: boolean,
-) => Bud

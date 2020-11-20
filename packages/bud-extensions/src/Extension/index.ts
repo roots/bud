@@ -1,62 +1,76 @@
-import {Bud, Build, Rule, Item} from '@roots/bud-typings'
-import * as Webpack from 'webpack'
-import {Indexed} from '@roots/container'
+import Framework from '@roots/bud-typings'
+import {Container} from '@roots/container'
 import {isArray, isFunction} from 'lodash'
 
-export {Extension}
+/**
+ * Extensions controller class.
+ *
+ * Extensions controller for the Bud framework.
+ *
+ * [🏡 Project home](https://roots.io/bud)
+ * [🧑‍💻 roots/bud](https://git.io/Jkli3)
+ * [📦 @roots/bud-extensions](https://github.io/roots/bud-extensions)
+ * [🔗 Documentation](#)
+ */
+export class Extension<T = any>
+  extends Container
+  implements Framework.Extension.Controller {
+  /**
+   * Bud reference
+   */
+  public bud: Framework.Bud.Ref
 
-class Extension extends Indexed implements Extension.Controller {
-  public bud: Bud
-
+  /**
+   * Flag tracking if the controlled extension has
+   * been initialized
+   */
   public initialized = false
 
-  public module: Extension.Interface
+  /**
+   * The controlled extension
+   */
+  public module: Framework.Extension.Contract
 
   public builders: [string, CallableFunction][]
 
-  constructor(bud: Bud, extension: Extension.Interface) {
+  /**
+   * Class constructor.
+   */
+  constructor(
+    bud: Framework.Bud.Bud,
+    extension: Framework.Extension.Contract,
+  ) {
     super({})
 
-    this.bud = bud
+    this.bud = bud.get
+
     this.module = extension
 
     this.register = this.register.bind(this)
+
     this.initialize = this.initialize.bind(this)
+
     this.callMeMaybe = this.callMeMaybe.bind(this)
+
     this.setBuilders = this.setBuilders.bind(this)
 
     this.builders = [
-      [
-        'registerLoader',
-        this.bud.build.setLoader.bind(this.bud.build),
-      ],
-      [
-        'registerLoaders',
-        this.bud.build.setLoader.bind(this.bud.build),
-      ],
-      [
-        'registerItem',
-        this.bud.build.setItem.bind(this.bud.build),
-      ],
-      [
-        'registerItems',
-        this.bud.build.setItem.bind(this.bud.build),
-      ],
-      [
-        'registerRule',
-        this.bud.build.setRule.bind(this.bud.build),
-      ],
-      [
-        'registerRules',
-        this.bud.build.setRule.bind(this.bud.build),
-      ],
+      ['registerLoader', bud.build.setLoader.bind(bud.build)],
+      ['registerLoaders', bud.build.setLoader.bind(bud.build)],
+      ['registerItem', bud.build.setItem.bind(bud.build)],
+      ['registerItems', bud.build.setItem.bind(bud.build)],
+      ['registerRule', bud.build.setRule.bind(bud.build)],
+      ['registerRules', bud.build.setRule.bind(bud.build)],
     ]
   }
 
-  public initialize = function (): Extension.Interface {
+  /**
+   * Initialize extension.
+   */
+  public initialize = function (): Framework.Extension.Contract {
     this.module.register && this.register()
 
-    this.module.options && this.setOptions()
+    this.module.options && this.setOptions(this.module.options)
 
     this.setApi()
 
@@ -85,15 +99,17 @@ class Extension extends Indexed implements Extension.Controller {
     return this.module[name] ? true : false
   }
 
-  public register = function (this: Extension.Controller): void {
-    this.module.register && this.module.register(this.bud)
+  public register = function (
+    this: Framework.Extension.Controller,
+  ): void {
+    this.module.register && this.module.register(this.bud())
   }
 
   public boot = function (): void {
-    this.module.boot && this.module.boot(this.bud)
+    this.module.boot && this.module.boot(this.bud())
   }
 
-  public makePlugin = function (): Webpack.Plugin {
+  public makePlugin = function (): Framework.Webpack.Plugin {
     return this.isPlugin() && this.isPluginEnabled()
       ? this.callMeMaybe(this.module.make, this)
       : false
@@ -106,24 +122,44 @@ class Extension extends Indexed implements Extension.Controller {
   public isPluginEnabled = function (): boolean {
     return !this.module.when
       ? true
-      : this.callMeMaybe(this.module.when, this.bud, this)
+      : this.callMeMaybe(this.module.when, this.bud(), this)
   }
 
   public setApi = function (): void {
     this.module.api &&
-      this.bud.mapCallables(
-        this.callMeMaybe(this.module.api, this.bud),
+      Object.assign(
+        this.bud(),
+        this.callMeMaybe(this.module.api, this.bud()),
       )
   }
 
-  public setOptions = function (): void {
-    this.module.options &&
-      this.setRepository(
-        this.callMeMaybe(this.module.options, this.bud),
-      )
+  /**
+   * ## extension.setOptions
+   *
+   * Set extension instance options.
+   *
+   * ```js
+   * bud.extensions.get('my-extension').setOptions({
+   *   optionalValue: true,
+   * })
+   * ```
+   */
+  public setOptions = function (
+    options: Framework.Index<T>,
+  ): void {
+    this.setStore(this.callMeMaybe(options, this.bud()))
   }
 
-  public getOptions = function (): void {
+  /**
+   * ## extension.getOptions
+   *
+   * Get extension instance options.
+   *
+   * ```js
+   * bud.extensions.get('my-extension').getOptions()
+   * ```
+   */
+  public getOptions = function (): Framework.Container {
     return this.repository
   }
 
@@ -133,129 +169,18 @@ class Extension extends Indexed implements Extension.Controller {
     builders.map(([name, handler]) => {
       if (!this.hasModuleProp(name)) return
 
-      isArray(this.fromProp(name, this.bud))
+      isArray(this.fromProp(name, this.bud()))
         ? handler(
-            ...(this.fromProp(name, this.bud) as [
+            ...(this.fromProp(name, this.bud()) as [
               string,
               unknown,
             ]),
           )
-        : Object.entries(this.fromProp(name, this.bud)).map(
+        : Object.entries(this.fromProp(name, this.bud())).map(
             ([k, v]) => {
-              handler(k, this.callMeMaybe(v, this.bud))
+              handler(k, this.callMeMaybe(v, this.bud()))
             },
           )
     })
   }
-}
-
-namespace Extension {
-  /**
-   * Extension
-   */
-  export interface Interface {
-    bud?: Bud
-
-    initialized?: boolean
-
-    options?: {[key: string]: any}
-
-    register?: (bud: Bud) => void
-
-    boot?: (bud: Bud) => void
-
-    api?: (bud: Bud) => {[key: string]: CallableFunction}
-
-    registerLoader?:
-      | ((bud?: Bud) => [string, Build.Loader])
-      | [string, Build.Loader]
-
-    registerLoaders?:
-      | ((bud?: Bud) => {[key: string]: Build.Loader})
-      | {[key: string]: Build.Loader}
-
-    registerRule?:
-      | ((bud?: Bud) => [string, Rule.Module])
-      | [string, Rule.Module]
-
-    registerRules?:
-      | ((bud?: Bud) => {[key: string]: Rule.Module})
-      | {[key: string]: Rule.Module}
-
-    registerItem?:
-      | ((bud?: Bud) => [string, Item.Module])
-      | [string, Item.Module]
-
-    registerItems?:
-      | ((bud?: Bud) => {[key: string]: Item.Module})
-      | {[key: string]: Item.Module}
-
-    make?: Extension.Make
-
-    when?: Extension.When
-  }
-
-  export interface Controller
-    extends Extension.Interface,
-      Indexed {
-    module?: Extension.Interface
-
-    initialize?: () => Extension.Interface
-
-    callMeMaybe?: (value: unknown, args: unknown[]) => unknown
-
-    fromProp?: (prop: string, dep?: any) => [string, unknown]
-
-    hasModuleProp?: (name: string) => boolean
-
-    setApi?: () => void
-
-    makePlugin?: () => Webpack.Plugin
-
-    setOptions?: () => void
-
-    getOptions?: () => void
-
-    setBuilders?: (
-      builders: [string, CallableFunction][],
-    ) => void
-  }
-
-  export type Register = (bud: Bud) => void
-
-  /**
-   * Raw Extension options
-   */
-  export type RawOptions<T = any> = T | ((bud?: Bud) => T)
-
-  export type Options<T = unknown> = Indexed<T>
-
-  /**
-   * Possible extension products
-   */
-  export type Product = Webpack.Plugin
-
-  /**
-   * Plugin make
-   */
-  export type Make<P = unknown, T = Options> =
-    | ((options: Options<T>) => P)
-    | P
-
-  /**
-   * Plugin make when
-   */
-  export type When<T = unknown> =
-    | ((bud: Bud, options: T) => boolean)
-    | boolean
-
-  /**
-   * Plugin conditional
-   */
-  export type Conditional = ((bud?: Bud) => boolean) | boolean
-
-  /**
-   * Do stuff after registration
-   */
-  export type Boot = (bud: Bud) => void
 }

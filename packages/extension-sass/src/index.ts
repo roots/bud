@@ -1,36 +1,36 @@
-import {sass} from './api'
-export * as registerRules from './registerRules'
-export * as registerItems from './registerItems'
+import type {
+  Bud,
+  Extension,
+  Item,
+  Loader,
+  Rule,
+} from '@roots/bud-typings'
 
-/**
- * Register configuration object.
- */
-export const api = {
-  sass,
-}
+import * as rule from './rules'
+import * as item from './items'
 
-/**
- * Boot extension
- */
-export const boot = (bud: Framework.Bud): void => {
-  /**
-   * Initialize configuration object.
-   */
-  bud.sass = bud.sass(bud).init()
+export const registerItem: Extension.RegisterOne<Item.Module> = [
+  'sass',
+  item,
+]
 
+export const registerRule: Extension.RegisterOne<Rule.Module> = [
+  'sass',
+  rule,
+]
+export const registerLoader: Extension.RegisterOne<Loader> = [
+  'sass-loader',
+  require.resolve('sass-loader'),
+]
+
+export const boot: Extension.Boot = (
+  bud: Bud.Contract,
+): void => {
   /**
    * Resolve sass and scss extensions
    */
-  ;['sass', 'scss'].map(ext => {
+  ;['sass', 'scss'].forEach(ext => {
     !bud.config.get('resolve.extensions').includes(ext) &&
       bud.config.merge('resolve.extensions', [`.${ext}`])
   })
 }
-
-/**
- * Register sass loader
- */
-export const registerLoader = [
-  'sass-loader',
-  require.resolve('sass-loader'),
-]

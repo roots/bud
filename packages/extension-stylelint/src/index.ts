@@ -1,23 +1,22 @@
 import StylelintPlugin from 'stylelint-webpack-plugin'
-import type {Extension} from '@roots/bud-extensions'
-import type {Bud} from '@roots/bud-typings'
+import type {Bud, Extension} from '@roots/bud-typings'
 
 export const api = {
   stylelint: function (
-    this: Bud,
+    this: Bud.Contract,
     options: StylelintPlugin['options'],
-  ): Bud {
-    this.features.enable('stylelint')
+  ): Bud.Contract {
+    this.features.set('stylelint', true)
     this.extensions
       .get('@roots/bud-stylelint')
-      .setRepository(options)
+      .setOptions(options)
 
     return this
   },
 }
 
 export const register: Extension.Register = function (
-  bud: Bud,
+  bud: Bud.Contract,
 ): void {
   bud.presets.set(
     'stylelint',
@@ -25,14 +24,14 @@ export const register: Extension.Register = function (
   )
 
   bud.when(bud.fs.get('stylelint.config.js'), () =>
-    bud.features.enable('stylelint'),
+    bud.features.set('stylelint', true),
   )
 
   bud.extensions.set('stylelint-webpack-plugin', {
     make: function (options) {
       return new StylelintPlugin(options.all())
     },
-    when: function ({features}: Bud) {
+    when: function ({features}: Bud.Contract) {
       return features.enabled('stylelint')
     },
   })

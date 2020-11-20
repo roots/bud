@@ -1,65 +1,158 @@
-import type {Bud, Index} from '@roots/bud-typings'
-import type {Indexed} from '@roots/container'
+import type Framework from '@roots/bud-typings'
+
 import {Extension} from '../Extension'
 
 export {Extensions}
 
 /**
- * Boots and handles extension lifecycle concerns.
+ * ## bud.extensions
+ *
+ * Extensions controller for the Bud framework.
+ *
+ * [🏡 Project home](https://roots.io/bud)
+ * [🧑‍💻 roots/bud](https://git.io/Jkli3)
+ * [📦 @roots/bud-extensions](https://github.io/roots/bud-extensions)
+ * [🔗 Documentation](#)
  */
-class Extensions implements Extensions.Contract {
+class Extensions implements Framework.Extensions.Contract {
   /**
    * The Bud instance.
    */
-  public bud: Bud
+  public bud: Framework.Bud.Ref
 
   /**
    * Extensions container
    */
-  public extensions: Indexed<Extension.Controller>
+  public repository: Framework.Container
 
   /**
-   * Creates an instance of Controller.
+   * Class constructor.
    */
-  public constructor(bud: Bud) {
-    this.bud = bud
+  public constructor(bud: Framework.Bud.Contract) {
+    this.bud = bud.get
 
     this.make = this.make.bind(this)
 
-    this.extensions = this.bud.makeContainer()
+    this.repository = this.bud().makeContainer({})
   }
 
   /**
-   * Get an extension instance.
+   * ## bud.extensions.getStore
+   *
+   * Returns all extensions.
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.extensions.getStore()
+   * ```
    */
-  public get(
+  public getStore(): Framework.Container {
+    return this.repository
+  }
+
+  /**
+   * ## bud.extensions.all
+   *
+   * Returns all extensions.
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.extensions.all()
+   * ```
+   */
+  public all(): Framework.Container {
+    return this.getStore()
+  }
+
+  /**
+   * ## bud.extensions.get
+   *
+   * Retrieve an extension
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.extensions.all()
+   * ```
+   */
+  public get(name: string): Framework.Extension.Controller {
+    return this.repository.get(name)
+  }
+
+  /**
+   * ## bud.extensions.set
+   *
+   * Register an extension
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.extensions.set('my-extension', {make: new Plugin()})
+   * ```
+   */
+  public set(
     name: string,
-    query?: string,
-  ): Extension.Controller {
-    if (!name.includes('.') || !query) {
-      return this.extensions.get(name)
-    }
+    extension: Framework.MaybeCallable<
+      Framework.Extension.Contract
+    >,
+  ): this {
+    const initialized =
+      typeof extension == 'function'
+        ? new Extension<unknown>(
+            this.bud(),
+            extension(this.bud()),
+          ).initialize()
+        : new Extension(this.bud(), extension).initialize()
 
-    return this.extensions.get(name).get(name.split('.').pop())
+    this.repository.set(name, initialized)
+
+    return this
   }
 
   /**
-   * Register a batch of extensions.
+   * ## bud.extensions.make [🏠 Internal]
+   *
+   * Register extensions from a container collection.
+   *
+   * ### Usage
+   *
+   * ```js
+   * const extensions = bud.makeContainer({
+   *   [`my-extension`]: {
+   *     make: new Plugin()
+   *   },
+   * })
+   *
+   * bud.extensions.make(extensions)
+   * ```
    */
-  public make(extensions: Index<Extension.Interface>): void {
+  public make(extensions: Framework.Container): void {
     Object.entries(extensions).map(([name, extension]) =>
       this.set(name, extension),
     )
   }
 
   /**
-   * Register a plugin to be utilized during compilation.
+   * ## bud.extensions.use [🏠 Internal]
+   *
+   * Register an extension from a module name string.
+   *
+   * Projects shoul duse `bud.use` instead of
+   * using this directly.
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.extensions.use('@roots/bud-react')
+   * ```
    */
   public use(pkg: string): this {
     const path = require.resolve(pkg)
 
-    this.bud.disk.set(pkg, {
-      baseDir: this.bud.fs.path.dirname(path),
+    this.bud().disk.set(pkg, {
+      base: this.bud().fs.path.dirname(path),
       glob: ['**/*'],
     })
 
@@ -69,103 +162,5 @@ class Extensions implements Extensions.Contract {
     this.set(pkg, extension)
 
     return this
-  }
-
-  /**
-   * Register an extension.
-   */
-  public set(
-    name: string,
-    extension:
-      | Extension.Interface
-      | ((bud: Bud) => Extension.Interface),
-  ): this {
-    const initialized =
-      typeof extension == 'function'
-        ? new Extension(
-            this.bud,
-            extension(this.bud),
-          ).initialize()
-        : new Extension(this.bud, extension).initialize()
-
-    this.extensions.set(name, initialized)
-
-    return this
-  }
-
-  public store(): Indexed<Extension.Controller> {
-    return this.extensions
-  }
-
-  /**
-   * Return Bud (Fluent helper)
-   */
-  public next(): Bud {
-    return this.bud
-  }
-}
-
-declare namespace Extensions {
-  export type Call<O = unknown, I = unknown> = (I) => O
-  export type MaybeCall<T = unknown> = Call<T> | T
-
-  export class Contract implements Interface {
-    public extensions: Indexed
-
-    public constructor(bud: Bud)
-
-    public make(extensions: Index<Extension.Interface>): void
-
-    public get: (name: string) => Extension.Controller
-
-    public set: (
-      name: string,
-      extension:
-        | Extension.Interface
-        | ((bud: Bud) => Extension.Interface),
-    ) => this
-
-    public use(pkg: string): this
-
-    public store(): Indexed<Extension.Controller>
-
-    public next(): Bud
-  }
-
-  export interface Interface {
-    /**
-     * Extensions container
-     */
-    extensions: Indexed
-
-    /**
-     * Register a batch of extensions.
-     */
-    make(extensions: Index<Extension.Interface>): void
-
-    /**
-     * Register a plugin to be utilized during compilation.
-     */
-    use(pkg: string): this
-
-    /**
-     * Register an extension.
-     */
-    set: (
-      name: string,
-      extension:
-        | Extension.Interface
-        | ((bud: Bud) => Extension.Interface),
-    ) => this
-
-    /**
-     * Get an extension instance.
-     */
-    get(name: string): Extension.Controller
-
-    /**
-     * Next
-     */
-    next(): Bud
   }
 }

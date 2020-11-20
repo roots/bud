@@ -1,83 +1,131 @@
 import * as middleware from '../middleware'
 import {injectClient} from './injectClient'
-import {lodash as _} from '@roots/bud-support'
-import express, {Handler, Express} from 'express'
+import express from 'express'
 import type Webpack from 'webpack'
-import type {Bud} from '@roots/bud-typings'
-import * as WebpackDevMiddleware from 'webpack-dev-middleware'
-import {Options as ProxyOptions} from 'http-proxy-middleware'
-import type {Indexed} from '@roots/container'
+import Framework from '@roots/bud-typings'
 
-class Server implements Server.Interface {
-  public bud: Bud
+export {Server, Server as default}
 
-  public instance: Server.Instance = express()
+/**
+ * ## bud.server
+ *
+ * Development server for the @roots/bud framework.
+ *
+ * [🏡 Project home](https://roots.io/bud)
+ * [🧑‍💻 roots/bud/packages/server](https://git.io/JkCQG)
+ * [📦 @roots/bud-server](https://www.npmjs.com/package/@roots/bud-server)
+ * [🔗 Documentation](#)
+ */
+class Server implements Framework.Server.Contract {
+  /**
+   * Bud instance ref
+   */
+  public bud: Framework.Bud.Ref
 
-  public config: Indexed
+  /**
+   * Express application instance.
+   */
+  public instance: Framework.Server.Instance
 
-  public constructor(bud: Bud) {
-    this.addMiddleware = this.addMiddleware.bind(this)
-    this.addDevMiddleware = this.addDevMiddleware.bind(this)
-    this.addHotMiddleware = this.addHotMiddleware.bind(this)
-    this.addProxyMiddleware = this.addProxyMiddleware.bind(this)
+  /**
+   * Server config
+   */
+  public config: Framework.Container
 
-    this.bud = bud
+  /**
+   * Is server running
+   */
+  public running = false
+
+  /**
+   * Constructor
+   */
+  public constructor(bud: Framework.Bud.Contract) {
+    this.bud = bud.get
     this.instance = express()
     this.instance.set('x-powered-by', false)
-    this.config = this.bud.serverConfig
+    this.config = bud.makeContainer({})
   }
 
-  public getInstance(): Server.Instance {
-    return this.instance
+  /**
+   * ## bud.server.getConfig [🏠 Internal]
+   *
+   * Get the server config.
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.server.getConfig()
+   * ```
+   */
+  public getConfig(): Framework.Container['repository'] {
+    return this.config.getStore()
   }
 
-  public addMiddleware(middleware: Handler): this {
-    this.instance.use(middleware)
-
-    return this
+  /**
+   * ## bud.server.setConfig [🏠 Internal]
+   *
+   * Set the server config.
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.server.setConfig(config)
+   * ```
+   */
+  public setConfig(
+    config: Framework.Container['repository'],
+  ): void {
+    this.config.setStore(config)
   }
 
-  public addDevMiddleware(): this {
-    this.instance.use(
-      middleware.dev({
-        compiler: this.bud.compiler.get(),
-        config: this.config.all(),
-      }),
-    )
+  /**
+   * ## bud.server.run [🏠 Internal]
+   *
+   * Run the development server.
+   *
+   * Projects should use `bud.run` unless they want
+   * to supply their own Webpack stats handler.
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.server.run((err, stats) => {
+   *  // ...
+   * })
+   * ```
+   */
+  public run(callback?: () => void): this {
+    this.running = true
 
-    return this
-  }
-
-  public addHotMiddleware(): this {
-    this.bud.config.mutate('entry', (entry: Webpack.Entry) =>
+    this.bud().config.mutate('entry', (entry: Webpack.Entry) =>
       injectClient(entry),
     )
-    this.bud.compiler.compile()
+    this.bud().compiler.compile()
 
     this.instance.use(
       middleware.dev({
-        compiler: this.bud.compiler.get(),
-        config: this.config.all(),
+        compiler: this.bud().compiler.get(),
+        config: this.config.getStore(),
       }),
     )
 
-    this.instance.use(middleware.hot(this.bud.compiler.get()))
+    this.instance.use(middleware.hot(this.bud().compiler.get()))
 
-    this.bud.features.enabled('proxy') &&
-      this.instance.use(middleware.proxy(this.config.all()))
+    this.bud().features.enabled('proxy') &&
+      this.instance.use(middleware.proxy(this.config.getStore()))
 
-    this.listen()
-
-    return this
-  }
-
-  public addProxyMiddleware(): this {
-    this.addMiddleware(middleware.proxy(this.config.all()))
+    this.listen(callback)
 
     return this
   }
 
-  public listen(): void {
+  /**
+   * ## bud.server.listen [🏠 Internal]
+   *
+   * Listen for connections.
+   */
+  public listen(callback?: () => void): void {
     this.instance.listen(
       this.config.has('port') ? this.config.get('port') : 3000,
       this.config.has('host')
@@ -86,171 +134,3 @@ class Server implements Server.Interface {
     )
   }
 }
-
-/**
- * Framework.Server
- *
- * Express instance configured with WDS middleware
- * for local development.
- */
-declare namespace Server {
-  interface Interface {
-    /**
-     * Express instance.
-     */
-    instance: Express.Application
-
-    /**
-     * Server configuration.
-     */
-    config: Indexed
-
-    getInstance(): Server.Instance
-
-    addMiddleware: (middleware: Handler) => this
-
-    addDevMiddleware: () => this
-
-    addHotMiddleware: () => this
-
-    addProxyMiddleware: () => this
-
-    listen: () => void
-  }
-
-  /**
-   * Express application.
-   */
-  export type Instance = Express.Application
-
-  /**
-   * Server configuration
-   */
-  export interface Config {
-    /**
-     * The development server host
-     * @example example.test
-     */
-    host?: string
-
-    /**
-     * The development server port
-     * @example 3000
-     */
-    port?: number
-
-    /**
-     * Proxy destination
-     */
-    proxy?: {
-      /**
-       * Proxy destination host
-       * @example localhost
-       */
-      host?: string
-
-      /**
-       * Proxy destination port
-       * @example 3000
-       */
-      port?: number
-    }
-
-    /**
-     * The index path for web server, defaults to "index.html".
-     */
-    index?: WebpackDevMiddleware.Options['index']
-
-    /**
-     * The path that the middleware is bound to.
-     */
-    publicPath?: WebpackDevMiddleware.Options['publicPath']
-
-    /**
-     * Proxy setting: object passed to  https.createServer
-     */
-    ssl?: ProxyOptions['ssl']
-
-    /**
-     * Proxy setting: set to true to verify SSL certificates
-     */
-    secure?: ProxyOptions['secure']
-
-    /**
-     * Proxy setting: proxy websockets.
-     */
-    ws?: ProxyOptions['ws']
-
-    /**
-     * Proxy setting: rewrite the location host/port on (301/302/307/308) redirects based on requested host/port.
-     */
-    autoRewrite?: ProxyOptions['autoRewrite']
-
-    /**
-     * Proxy setting: change the origin of the host header to the target URL
-     */
-    changeOrigin?: ProxyOptions['changeOrigin']
-
-    /**
-     * Escape hatch for Webpack's host check security feature.
-     */
-    disableHostCheck?: WebpackDevMiddleware.Options[]
-
-    /**
-     * Proxy setting: specify whether you want to follow redirects
-     */
-    followRedirects?: ProxyOptions['followRedirects']
-
-    /**
-     * Filename to serve as index.
-     */
-    filename?: WebpackDevMiddleware.Options['filename']
-
-    /**
-     * This property allows a user to pass custom HTTP headers on each request. eg. { "X-Custom-Header": "yes" }
-     */
-    headers?: WebpackDevMiddleware.Options['headers']
-
-    /**
-     * This property allows a user to pass the list of HTTP request methods accepted by the server.
-     * @default [ 'GET', 'HEAD' ]
-     */
-    methods?: WebpackDevMiddleware.Options['methods']
-
-    /**
-     * This property allows a user to register custom mime types or extension mappings
-     * @default null
-     */
-    mimeTypes?:
-      | WebpackDevMiddleware.MimeTypeMap
-      | WebpackDevMiddleware.OverrideMimeTypeMap
-      | null
-
-    /**
-     * Instructs the module to enable or disable the server-side rendering mode
-     */
-    serverSideRender?: WebpackDevMiddleware.Options['serverSideRender']
-
-    /**
-     * Specify polling, etc.
-     */
-    watchOptions?: Framework.Webpack.Options.WatchOptions
-
-    /**
-     * If true, the option will instruct the module to write files to
-     * the configured location on disk as specified in your webpack config file
-     * This option also accepts a Function value, which can be used to
-     * filter which files are written to disk
-     */
-    writeToDisk?: WebpackDevMiddleware.Options['writeToDisk']
-  }
-
-  /**
-   * Inject webpack entrypoints with client HMR handling script(s).
-   */
-  export type InjectClient = (
-    entrypoints: Webpack.Entry,
-  ) => Webpack.Entry
-}
-
-export {Server}

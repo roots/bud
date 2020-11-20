@@ -17,7 +17,7 @@ const destination: boolean | string =
 /**
  * Instantiate the logger.
  */
-const logger: pino.Logger = pino(
+export const logger: pino.Logger = pino(
   {
     base: null,
     enabled: argv.hasOwnProperty('log') ? true : false,
@@ -27,5 +27,3 @@ const logger: pino.Logger = pino(
   },
   pino.destination(),
 )
-
-export {logger as default}

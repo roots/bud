@@ -1,14 +1,61 @@
-import type {Extension} from '@roots/bud-extensions'
+import type {Bud, MaybeCallable} from '@roots/bud-typings'
+import type {MinifyOptions} from 'terser'
 
-export const terser: Framework.API.Terser = function (options) {
-  if (options) {
-    const terserOptions = this.extensions.get(
-      'terser.options',
-    ) as Extension.Options
-    Object.entries(options).map(([opt, val]) => {
-      terserOptions.merge(opt, val)
-    })
-  }
+export const terser: Terser = function (options) {
+  const terserOptions = this.extensions.get('terser').getStore()
+
+  Object.entries(options).map(([opt, val]) => {
+    terserOptions.merge(opt, val)
+  })
 
   return this
 }
+
+export type Terser<T = Bud.Contract> = (
+  this: T,
+  options: {
+    /**
+     * Test to match files against.
+     * @default /\.m?js(\?.*)?$/i
+     */
+    test?: string | RegExp | Array<string | RegExp>
+
+    /**
+     * Files to include.
+     * @default undefined
+     */
+    include?: string | RegExp | Array<string | RegExp>
+
+    /**
+     * Files to exclude.
+     * @default undefined
+     */
+    exclude?: string | RegExp | Array<string | RegExp>
+
+    /**
+     * Enable/disable multi-process parallel running.
+     * Use multi-process parallel running to improve the build speed. Default number of concurrent runs: os.cpus().length - 1.
+     * @default true
+     */
+    parallel?: boolean | number
+
+    /**
+     * Terser minify {@link https://github.com/terser/terser#minify-options|options}.
+     */
+    terserOptions?: MinifyOptions
+
+    /**
+     * Whether comments shall be extracted to a separate file, (see details).
+     * By default extract only comments using /^\**!|@preserve|@license|@cc_on/i regexp condition and remove remaining comments.
+     * If the original file is named foo.js, then the comments will be stored to foo.js.LICENSE.txt.
+     * The terserOptions.output.comments option specifies whether the comment will be preserved,
+     * i.e. it is possible to preserve some comments (e.g. annotations) while extracting others or even preserving comments that have been extracted
+     * @default true
+     */
+    extractComments?:
+      | boolean
+      | string
+      | RegExp
+      | MaybeCallable<boolean | string | RegExp>
+  },
+) => T

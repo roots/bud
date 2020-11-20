@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-tailwindcss",
-  "version": "2.0.0-next.24",
+  "version": "2.0.0-next.25",
   "description": "Adds tailwindcss support to Bud",
   "repository": {
     "type": "git",
@@ -18,11 +18,16 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": ["bud-extension"],
+  "keywords": [
+    "bud-extension"
+  ],
   "engines": {
     "node": ">=12"
   },
-  "files": ["./lib", "./src"],
+  "files": [
+    "lib",
+    "src"
+  ],
   "main": "./lib/index.js",
   "types": "./lib/types/index.d.ts",
   "scripts": {
@@ -33,8 +38,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@roots/bud-support": "2.0.0-next.24",
-    "@roots/bud-cli": "2.0.0-next.24",
+    "@roots/bud-cli": "^2.0.0-next.25",
+    "@roots/bud-support": "^2.0.0-next.25",
     "tailwindcss": "^1.9.6"
   }
 }

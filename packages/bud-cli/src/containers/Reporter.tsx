@@ -7,7 +7,7 @@ import {BuildInfo} from '../components/BuildInfo'
 import Progress from '../components/Progress'
 import Screen from '../components/Screen'
 import Title from '../components/Title'
-import {Nav} from '../components/Nav'
+import {Debug} from '../components/Debug'
 import {useStyle} from '@roots/ink-use-style'
 
 import type {Bud} from '@roots/bud-typings'
@@ -16,7 +16,7 @@ import type {UseProgress} from '../hooks/useProgress'
 
 declare namespace Reporter {
   export type Props = {
-    bud: Bud
+    bud: Bud.Bud
     stats: UseStats.Stats
     progress: UseProgress.Progress
   }
@@ -25,30 +25,25 @@ declare namespace Reporter {
 }
 
 const Reporter: Reporter.Component = ({
-  bud,
+  bud: {disk, name, ...bud},
   stats,
   progress,
 }) => {
-  const {bounds, col} = useStyle()
+  const {col} = useStyle()
 
-  const displayName = bud.disk
-    .get('project')
-    .exists('package.json')
-    ? (bud.disk.current.readJson('package.json') as {
+  const displayName = disk.get('project').exists('package.json')
+    ? (disk.current.readJson('package.json') as {
         name: string
       }).name
     : 'Bud'
 
   return (
-    <Box
-      minHeight={bounds.height}
-      paddingRight={1}
-      justifyContent="space-between">
-      <Screen title={bud.name}>
+    <Box paddingRight={1} justifyContent="space-between">
+      <Screen title={name}>
         <Box flexDirection="column">
           <Box flexDirection="column">
             <Title>{displayName}</Title>
-            {bud.mode.is('development') && <Nav />}
+            {/* mode.is('development') && <Nav /> */}
           </Box>
 
           {stats?.errors && stats?.errors[0] && (
@@ -78,6 +73,8 @@ const Reporter: Reporter.Component = ({
           <Box flexDirection="column" marginBottom={1}>
             <BuildInfo stats={stats} />
           </Box>
+
+          {bud.args.has('debug') && <Debug bud={bud} />}
         </Box>
       </Screen>
     </Box>

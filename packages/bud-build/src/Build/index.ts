@@ -1,38 +1,88 @@
+import type Framework from '@roots/bud-typings'
 import * as builders from '../builders'
 import {Item} from '../Item'
 import {Rule} from '../Rule'
 
-import type Webpack from 'webpack'
-import type Framework from '@roots/bud-typings'
+export type Configuration = Framework.Webpack.Configuration
 
-export class Build implements Framework.Build {
-  public bud: Framework.Bud
+/**
+ * ## bud.build
+ *
+ * Webpack configuration builder for the @roots/bud framework
+ *
+ * [🏡 Project home](https://roots.io/bud)
+ * [🧑‍💻 roots/bud/packages/server](https://git.io/JkCQG)
+ * [📦 @roots/bud-server](https://www.npmjs.com/package/@roots/bud-build)
+ * [🔗 Documentation](#)
+ */
+export class Build implements Framework.Build.Contract {
+  /** Bud reference [🏠 Internal] */
+  public bud: Framework.Bud.Ref
 
-  public builders: Partial<Framework.Build.Builders> = builders
+  /**
+   * ## bud.build.builders [🏠 Internal]
+   *
+   * Collection of functions processing loaders, items and rules
+   * into a finalized webpack configuration.
+   */
+  public builders: Partial<Framework.Build.Builder> = builders
 
-  public loaders: Framework.Indexed
+  /**
+   * ## bud.build.loaders
+   *
+   * Container of available loaders.
+   *
+   * @see {webpack.Loader}
+   */
+  public loaders: Framework.Container
 
-  public items: Framework.Indexed
+  /**
+   * ## bud.build.items
+   *
+   * Container of available RuleSetRule['use'] items.
+   *
+   * @see {webpack.Configuration}
+   */
+  public items: Framework.Container
 
-  public rules: Framework.Indexed
+  /**
+   * ## bud.build.rules
+   *
+   * Container of available RuleSetRules
+   *
+   * @see {webpack.Configuration}
+   */
+  public rules: Framework.Container
 
-  public config: Framework.Indexed
+  /**
+   * Constructor
+   */
+  public constructor(bud: Framework.Bud.Contract) {
+    this.bud = bud.get
 
-  public constructor(bud: Framework.Bud) {
-    this.bud = bud
-    this.loaders = this.bud.makeContainer({})
-    this.items = this.bud.makeContainer({})
-    this.rules = this.bud.makeContainer({})
+    this.loaders = bud.makeContainer()
+    this.items = bud.makeContainer({})
+    this.rules = bud.makeContainer({})
   }
 
-  public make(): Webpack.Configuration {
+  /**
+   * ## bud.build.make
+   *
+   * Produce a final webpack config.
+   */
+  public make(): Configuration {
     const config = Object.entries(builders).reduce(
       (
         config,
-        [, builder]: [string, Framework.Build.Builders],
+        [, builder]: [
+          string,
+          (
+            this: Framework.Bud.Contract,
+          ) => Partial<Configuration>,
+        ],
       ) => ({
         ...config,
-        ...builder.bind(this.bud)(this.bud.config.all()),
+        ...builder.bind(this.bud())(),
       }),
       {},
     )
@@ -40,45 +90,86 @@ export class Build implements Framework.Build {
     return this.filterEmpty(config)
   }
 
+  /**
+   * ### bud.build.filterEmpty [🏠 Internal]
+   *
+   * Filter rubbish config items.
+   */
   public filterEmpty(
-    object: Framework.Index<any>,
-  ): {[key: string]: any} {
+    object: Partial<Configuration>,
+  ): Partial<Configuration> {
     return Object.entries(object).reduce((acc, [key, value]) => {
       return !value || value == {} ? acc : {...acc, [key]: value}
     }, {})
   }
 
-  public getLoader(name: string): Framework.Build.Loader {
+  /**
+   * ### bud.build.getLoader
+   *
+   * Get a loader from the store.
+   */
+  public getLoader(name: string): Framework.Loader {
     return this.loaders.get(name)
   }
 
+  /**
+   * ### bud.build.setLoader
+   *
+   * Set a loader to the store. Returns the set loader.
+   */
   public setLoader(
     this: Build,
     name: string,
-    loader: Framework.Build.Loader,
-  ): Framework.Build.Loader {
+    loader: Framework.Loader,
+  ): Framework.Loader {
     this.loaders.set(name, loader)
+
     return this.loaders.get(name)
   }
 
-  public getItem(name: string): Framework.Build.RuleSetLoader {
+  /**
+   * ### bud.build.getItem
+   *
+   * Get an item  from the store.
+   */
+  public getItem(name: string): Framework.Item.Contract {
     return this.items.get(name)
   }
 
+  /**
+   * ### bud.build.setItem
+   *
+   * Set an item to the store. Returns the set item.
+   */
   public setItem(
     name: string,
     module: Framework.Item.Module,
-  ): Framework.Item {
-    this.items.set(name, new Item(this.bud, module).make())
+  ): Framework.Item.Contract {
+    this.items.set(name, new Item(this.bud(), module).make())
+
     return this.items.get(name)
   }
 
-  public getRule(name: string): Webpack.RuleSetRule {
+  /**
+   * ### bud.build.getRule
+   *
+   * Get a rule from the store.
+   */
+  public getRule(name: string): Framework.Rule.Contract {
     return this.rules.get(name)
   }
 
-  public setRule(name: string, module: Framework.Rule): Rule {
-    this.rules.set(name, new Rule(this.bud, module).make())
+  /**
+   * ### bud.build.setRule
+   *
+   * Set a rule to the store. Returns the set rule.
+   */
+  public setRule(
+    name: string,
+    module: Framework.Rule.Module,
+  ): Framework.Rule.Contract {
+    this.rules.set(name, new Rule(this.bud(), module).make())
+
     return this.rules.get(name)
   }
 }

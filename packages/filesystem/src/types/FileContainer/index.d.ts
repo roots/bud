@@ -3,11 +3,10 @@ import * as fs from 'fs-extra'
 import globby from 'globby'
 import resolveFrom from 'resolve-from'
 import __ from 'lodash'
-import {Container, Indexed} from '@roots/container'
 
 export {FileContainer}
 
-declare class FileContainer extends Indexed {
+declare class FileContainer {
   /**
    * FS Extra utilities.
    */
@@ -16,7 +15,7 @@ declare class FileContainer extends Indexed {
   /**
    * FileContainer contents.
    */
-  repository: Container.Repository
+  repository: {[key: string]: string}
 
   /**
    * Globby.
@@ -62,12 +61,14 @@ declare class FileContainer extends Indexed {
   /**
    * List files.
    */
-  ls: (key?: string) => Container.Item
+  ls: (key?: string) => any
 
   /**
    * Get a file path by key.
    */
-  get: Container.Get
+  get: (key?: string) => any
+
+  has: (key: string) => boolean
 
   ensure: (this: FileContainer, key: string) => void
 

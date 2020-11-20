@@ -1,13 +1,13 @@
-import type {Bud} from '@roots/bud-typings'
+import type {Bud, Webpack} from '@roots/bud-typings'
 
-export function addPlugin<T>(
-  this: Bud,
-  name: string,
-  make: T,
-): Bud {
-  this.extensions.set(name, {
-    make,
-  })
+export const addPlugin: AddPlugin = function (name, make) {
+  this.extensions.set(name, {make})
 
   return this
 }
+
+export type AddPlugin<T = Bud.Contract> = (
+  this: T,
+  name: string,
+  make: Webpack.Plugin | CallableFunction,
+) => T

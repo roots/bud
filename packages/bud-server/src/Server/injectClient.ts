@@ -1,6 +1,5 @@
 import {lodash as _} from '@roots/bud-support'
-import type {Server} from '@roots/bud-typings'
-import type Webpack from 'webpack'
+import Framework from '@roots/bud-typings'
 
 const toInject = require
   .resolve('webpack-hot-middleware/client')
@@ -9,8 +8,8 @@ const toInject = require
 /**
  * Injects webpack.entry items with hot module scripts.
  */
-export const injectClient: Server.InjectClient = (
-  entrypoints: Webpack.Entry,
+export const injectClient: Framework.Server.InjectClient = (
+  entrypoints: Framework.Webpack.Entry,
 ) =>
   Object.entries(entrypoints).reduce(
     (acc, [name, entry]) => ({

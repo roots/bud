@@ -1,8 +1,13 @@
-export const projectPath: Framework.API.ProjectPath = function (
-  dir,
-) {
+import {Bud} from '@roots/bud-typings'
+
+export const projectPath: ProjectPath = function (dir) {
   this.disk.get('project').setBase(dir)
   this.fs.setBase(dir)
 
   return this
 }
+
+export type ProjectPath<T = Bud.Contract> = (
+  this: T,
+  dir: string,
+) => T

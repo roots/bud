@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-cache",
   "description": "Config caching",
-  "version": "2.0.0-next.24",
+  "version": "2.0.0-next.25",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -22,7 +22,10 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["./lib", "./src"],
+  "files": [
+    "lib",
+    "src"
+  ],
   "main": "./lib/index.js",
   "types": "./lib/types/index.d.ts",
   "scripts": {
@@ -31,9 +34,7 @@
     "clean:modules": "rimraf ./node_modules",
     "lint": "eslint ."
   },
-  "dependencies": {
-    "cache-manager": "^3.4.0",
-    "cache-manager-fs": "^1.0.8",
-    "md5": "^2.3.0"
+  "devDependencies": {
+    "@roots/bud-typings": "^2.0.0-next.25"
   }
 }

@@ -1,7 +1,7 @@
-import {Bud as Application} from '@roots/bud-typings'
+import {Bud} from '@roots/bud-typings'
 
-export const proxy: Application['proxy'] = function (
-  bud: Application,
+export const proxy: Proxy = function (
+  bud: Bud.Contract,
   proxyTarget: any,
 ) {
   return new Proxy(proxyTarget, {
@@ -22,3 +22,8 @@ export const proxy: Application['proxy'] = function (
     },
   })
 }
+
+export type Proxy = (
+  bud: Bud.Contract,
+  proxyTarget: any,
+) => Proxy

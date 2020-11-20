@@ -1,9 +1,10 @@
 import chalk from 'chalk'
 import {lodash as _} from '@roots/bud-support'
+import {Bud} from '@roots/bud-typings'
 
 export * as api from './api'
 
-export const boot = (bud: Framework.Bud): void => {
+export const boot = (bud: Bud.Contract): void => {
   !bud.build.items.get('postcss') &&
     (() => {
       Error(

@@ -1,94 +1,50 @@
-/**
- * Bud Framework core typings.
- */
 export as namespace Framework
 
-/**
- * Common utility types.
- */
 export * from './utility'
 
-/**
- * Framework.Container
- * @package @roots/container
- */
-export {Container, Indexed, Arrayed} from '../../container/src'
+import type Dotenv from 'dotenv'
+export {Dotenv}
 
-/**
- * Framework.FileContainer
- * Framework.FileSystem
- * @package @roots/filesystem
- */
-export {FileSystem, FileContainer} from '../../filesystem/src'
+import type Webpack from 'webpack'
+export type {Webpack}
 
-/**
- * Framework.Dependencies
- * @packages @roots/dependencies
- */
-export * from '../../dependencies/src'
+import * as Express from 'express'
+export type {Express}
 
-/**
- * Framework.API
- * @package @roots/bud-api
- */
-export {API} from './api'
+export type {Container} from '../../container/src'
 
-/**
- * Framework.Bud
- * @package @roots/bud-framework
- */
-export * from './Bud'
+export type {FileContainer} from '../../filesystem/src/FileContainer'
 
-/**
- * Framework.Build
- * @package @roots/bud-framework
- */
-export * from './Build'
+export type {FileSystem} from '../../filesystem/src/FileSystem'
 
-/**
- * Framework.Env
- * @package @roots/bud-framework
- */
-export * from './Env'
+export * as Dependencies from '../../dependencies/src'
 
-/**
- * Framework.Item
- * @package @roots/bud-framework
- */
-export * from './Item'
+export * as Bud from './Bud'
 
-/**
- * Framework.Mode
- * @package @roots/bud-framework
- */
-export * from './Mode'
+export * as Build from './Build'
 
-/**
- * Framework.Rule
- * @package @roots/bud-framework
- */
-export * from './Rule'
+export * as Item from './Item'
 
-/**
- * Framework.Server
- * @package @roots/bud-framework
- */
-export * from './../../bud-server/src'
+export {Loader} from './Loader'
 
-/**
- * Framework.Express
- * @see {express}
- */
-export * from './Express'
+export * as Rule from './Rule'
 
-/**
- * Framework.Webpack
- * @see {webpack}
- */
-export * from './Webpack'
+export * as Cache from './Cache'
 
-/**
- * Framework.Logger
- * @see {pino}
- */
-export {Logger} from 'pino'
+export * as CLI from './CLI'
+
+export * as Compiler from './Compiler'
+
+export * as Env from './Env'
+
+export * as Extension from './Extension'
+
+export * as Extensions from './Extensions'
+
+export * as Hooks from './Hooks'
+
+export * as Logger from './Logger'
+
+export * as Mode from './Mode'
+
+export * as Server from './Server'

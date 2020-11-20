@@ -1,11 +1,9 @@
-export const runtime: Framework.API.Runtime = function (name) {
-  this.features.set('runtimeChunk', true)
+import {Bud} from '@roots/bud-typings'
 
-  name &&
-    this.config.set(
-      'optimization.runtimeChunk.name',
-      name ?? this.config.get('optimization.runtimeChunk.name'),
-    )
+export const runtime = function (): Bud.Contract {
+  this.features.set('runtimeChunk', true)
 
   return this
 }
+
+export type Runtime<T = Bud.Contract> = (this: T) => T

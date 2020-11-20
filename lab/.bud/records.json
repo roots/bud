@@ -22,23 +22,203 @@
     "byIdentifier": {
       "multi foo.js foo.scss": 0,
       "multi foo.js foo.css": 0,
-      "dll library": 0
+      "dll library": 0,
+      "../../node_modules/thread-loader/dist/cjs.js!../../node_modules/cache-loader/dist/cjs.js!../../node_modules/babel-loader/lib/index.js??babel!../../node_modules/raw-loader/dist/cjs.js!foo.js": 1,
+      "../../node_modules/style-loader/dist/cjs.js!../../node_modules/css-loader/dist/cjs.js??css!../../node_modules/resolve-url-loader/index.js??resolve-url!foo.css": 2,
+      "../../node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js": 3,
+      "../../node_modules/css-loader/dist/cjs.js??css!../../node_modules/resolve-url-loader/index.js??resolve-url!foo.css": 4,
+      "../../node_modules/css-loader/dist/runtime/api.js": 5,
+      "../../node_modules/react/index.js": 1,
+      "../../node_modules/react/cjs/react.development.js": 2,
+      "../../node_modules/object-assign/index.js": 3,
+      "../../node_modules/prop-types/checkPropTypes.js": 4,
+      "../../node_modules/prop-types/lib/ReactPropTypesSecret.js": 5,
+      "../../node_modules/react-dom/index.js": 6,
+      "../../node_modules/react-dom/cjs/react-dom.development.js": 7,
+      "../../node_modules/scheduler/index.js": 8,
+      "../../node_modules/scheduler/cjs/scheduler.development.js": 9,
+      "../../node_modules/scheduler/tracing.js": 10,
+      "../../node_modules/scheduler/cjs/scheduler-tracing.development.js": 11,
+      "../../node_modules/style-loader/dist/cjs.js!../../packages/extension-postcss/node_modules/postcss-loader/dist/cjs.js??postcss!../../node_modules/css-loader/dist/cjs.js??css!../../node_modules/resolve-url-loader/index.js??resolve-url!foo.css": 2,
+      "../../packages/extension-postcss/node_modules/postcss-loader/dist/cjs.js??postcss!../../node_modules/css-loader/dist/cjs.js??css!../../node_modules/resolve-url-loader/index.js??resolve-url!foo.css": 4,
+      "../../node_modules/style-loader/dist/cjs.js!../../node_modules/css-loader/dist/cjs.js??css!../../packages/extension-postcss/node_modules/postcss-loader/dist/cjs.js??postcss!../../node_modules/resolve-url-loader/index.js??resolve-url!foo.css": 2,
+      "../../node_modules/css-loader/dist/cjs.js??css!../../packages/extension-postcss/node_modules/postcss-loader/dist/cjs.js??postcss!../../node_modules/resolve-url-loader/index.js??resolve-url!foo.css": 4,
+      "../../node_modules/mini-css-extract-plugin/dist/loader.js!../../node_modules/css-loader/dist/cjs.js??css!../../packages/extension-postcss/node_modules/postcss-loader/dist/cjs.js??postcss!../../node_modules/resolve-url-loader/index.js??resolve-url!foo.css": 2,
+      "multi ../../packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ReactRefreshEntry.js ../../node_modules/webpack-hot-middleware/client.js?path=/__webpack_hmr&timeout=2000 ../../packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ErrorOverlayEntry.js foo.js foo.css": 0,
+      "multi ../../packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ReactRefreshEntry.js ../../packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ErrorOverlayEntry.js foo.js foo.css": 0
     },
     "usedIds": {
-      "0": 0
+      "0": 0,
+      "1": 1,
+      "2": 2,
+      "3": 3,
+      "4": 4,
+      "5": 5,
+      "6": 6,
+      "7": 7,
+      "8": 8,
+      "9": 9,
+      "10": 10,
+      "11": 11
     }
   },
   "chunks": {
     "byName": {
-      "foo": 0,
-      "library": 1
+      "foo": 1,
+      "library": 1,
+      "runtime/foo": 1
     },
     "bySource": {
-      "0 foo": 0,
-      "0 library": 1
+      "0 foo": 1,
+      "0 library": 1,
+      "1 foo": 0
     },
     "usedIds": [
-      0
+      1
+    ]
+  },
+  "HtmlWebpackCompiler": [
+    {
+      "modules": {
+        "byIdentifier": {
+          "../../node_modules/html-webpack-plugin/lib/loader.js!../../node_modules/raw-loader/dist/cjs.js!../../packages/bud-support/publish/template.html": 0
+        },
+        "usedIds": {
+          "0": 0
+        }
+      },
+      "chunks": {
+        "byName": {
+          "HtmlWebpackPlugin_0": 0
+        },
+        "bySource": {
+          "0 HtmlWebpackPlugin_0": 0
+        },
+        "usedIds": [
+          0
+        ]
+      }
+    }
+  ],
+  "mini-css-extract-plugin ../../node_modules/css-loader/dist/cjs.js??css!../../packages/extension-postcss/node_modules/postcss-loader/dist/cjs.js??postcss!../../node_modules/resolve-url-loader/index.js??resolve-url!foo.css": [
+    {
+      "modules": {
+        "byIdentifier": {
+          "../../node_modules/css-loader/dist/cjs.js??css!../../packages/extension-postcss/node_modules/postcss-loader/dist/cjs.js??postcss!../../node_modules/resolve-url-loader/index.js??resolve-url!foo.css": 0,
+          "../../node_modules/css-loader/dist/runtime/api.js": 1
+        },
+        "usedIds": {
+          "0": 0,
+          "1": 1
+        }
+      },
+      "chunks": {
+        "byName": {
+          "mini-css-extract-plugin": 0
+        },
+        "bySource": {
+          "0 mini-css-extract-plugin": 0
+        },
+        "usedIds": [
+          0
+        ]
+      }
+    }
+  ],
+  "prepreHash": "641361067f89124713d5",
+  "preHash": "4a2663148bb35e8e5375",
+  "hash": "7ac63c8c3a05b0672612",
+  "moduleHashs": {
+    "multi /Users/kellymears/code/projects/cli/bud/bud/packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ReactRefreshEntry.js /Users/kellymears/code/projects/cli/bud/bud/packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ErrorOverlayEntry.js foo.js foo.css": "eeefd5d559d6e9f3d764e98ac142464d",
+    "/Users/kellymears/code/projects/cli/bud/bud/node_modules/thread-loader/dist/cjs.js!/Users/kellymears/code/projects/cli/bud/bud/node_modules/cache-loader/dist/cjs.js!/Users/kellymears/code/projects/cli/bud/bud/node_modules/babel-loader/lib/index.js??babel!/Users/kellymears/code/projects/cli/bud/bud/node_modules/raw-loader/dist/cjs.js!/Users/kellymears/code/projects/cli/bud/bud/lab/src/foo.js": "7a262e6c0d3baf01878aef4d32deb681",
+    "/Users/kellymears/code/projects/cli/bud/bud/node_modules/style-loader/dist/cjs.js!/Users/kellymears/code/projects/cli/bud/bud/node_modules/css-loader/dist/cjs.js??css!/Users/kellymears/code/projects/cli/bud/bud/packages/extension-postcss/node_modules/postcss-loader/dist/cjs.js??postcss!/Users/kellymears/code/projects/cli/bud/bud/node_modules/resolve-url-loader/index.js??resolve-url!/Users/kellymears/code/projects/cli/bud/bud/lab/src/foo.css": "2be020afd6ca4b42f022cbd9e5b66dda",
+    "/Users/kellymears/code/projects/cli/bud/bud/node_modules/style-loader/dist/runtime/injectStylesIntoStyleTag.js": "219dbaf33f9eb046377e946b257847dc",
+    "/Users/kellymears/code/projects/cli/bud/bud/node_modules/css-loader/dist/cjs.js??css!/Users/kellymears/code/projects/cli/bud/bud/packages/extension-postcss/node_modules/postcss-loader/dist/cjs.js??postcss!/Users/kellymears/code/projects/cli/bud/bud/node_modules/resolve-url-loader/index.js??resolve-url!/Users/kellymears/code/projects/cli/bud/bud/lab/src/foo.css": "631b61077777e6a8c098a0178f4f552e",
+    "/Users/kellymears/code/projects/cli/bud/bud/node_modules/css-loader/dist/runtime/api.js": "8ae5954b5a32c7ba8e3e66dff7b32d97",
+    "/Users/kellymears/code/projects/cli/bud/bud/node_modules/ansi-html/index.js": "4f30debc20abd19e41a89214ff203efc",
+    "/Users/kellymears/code/projects/cli/bud/bud/node_modules/ansi-regex/index.js": "c0054aa13d0d96e4d96257f9cdc6200b",
+    "/Users/kellymears/code/projects/cli/bud/bud/node_modules/error-stack-parser/error-stack-parser.js": "066d3ec266db7ec23c04c4b8d1a21076",
+    "/Users/kellymears/code/projects/cli/bud/bud/node_modules/html-entities/lib/html4-entities.js": "0fc7faa60a1abf4ac10a8d2e2cd17b6f",
+    "/Users/kellymears/code/projects/cli/bud/bud/node_modules/html-entities/lib/html5-entities.js": "1410224d164dcf38919e70a118eb02ec",
+    "/Users/kellymears/code/projects/cli/bud/bud/node_modules/html-entities/lib/index.js": "3f4081c2dd68d9f9c345e58aa7416c0d",
+    "/Users/kellymears/code/projects/cli/bud/bud/node_modules/html-entities/lib/xml-entities.js": "557fd8b5bb02f9e35bc98e88f459ae7c",
+    "/Users/kellymears/code/projects/cli/bud/bud/node_modules/react-refresh/cjs/react-refresh-runtime.development.js": "e7945e0113bca480cb8ad51198bc76b9",
+    "/Users/kellymears/code/projects/cli/bud/bud/node_modules/react-refresh/runtime.js": "833cc549b0feebea02b80e856f68f249",
+    "/Users/kellymears/code/projects/cli/bud/bud/node_modules/stackframe/stackframe.js": "7e3fb380bd375a69a9afea83562b8c66",
+    "/Users/kellymears/code/projects/cli/bud/bud/node_modules/strip-ansi/index.js": "b737e868e5f62d7ddf9f3f3936af74d0",
+    "/Users/kellymears/code/projects/cli/bud/bud/node_modules/webpack-hot-middleware/client-overlay.js": "45e2dab236c35fc6ccfa0e0e4de30a48",
+    "/Users/kellymears/code/projects/cli/bud/bud/node_modules/webpack-hot-middleware/client.js": "d560c8a206d457724bce7f0c1be8a01f",
+    "/Users/kellymears/code/projects/cli/bud/bud/node_modules/webpack-hot-middleware/process-update.js": "1e4d97e5d299e1d601e4dad71f3b8d5c",
+    "/Users/kellymears/code/projects/cli/bud/bud/node_modules/webpack/buildin/global.js": "b85b1ee15b51aa8c68cc8fc9d5767fcb",
+    "/Users/kellymears/code/projects/cli/bud/bud/node_modules/webpack/buildin/module.js": "dde9336adc3f2d973a3450db5dfd7c3d",
+    "/Users/kellymears/code/projects/cli/bud/bud/packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ErrorOverlayEntry.js": "ea6558ab200b7bc04bc86447921abad8",
+    "/Users/kellymears/code/projects/cli/bud/bud/packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ReactRefreshEntry.js": "a85186523c182660ea33f93457668dcb",
+    "/Users/kellymears/code/projects/cli/bud/bud/packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/utils/errorEventHandlers.js": "06ff5af5737da885f9874a15715ae3d9",
+    "/Users/kellymears/code/projects/cli/bud/bud/packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/utils/formatWebpackErrors.js": "4f94887bccd176dadc00ecb11ed3acaf",
+    "/Users/kellymears/code/projects/cli/bud/bud/packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/utils/safeThis.js": "3193736d4b8bbb6f24e414aa10c63a9b",
+    "/Users/kellymears/code/projects/cli/bud/bud/packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js": "b116b98c18a0822ff64a9da901413989",
+    "/Users/kellymears/code/projects/cli/bud/bud/packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/components/CompileErrorTrace.js": "3f91248d60768ffc9d33817dc811b0f1",
+    "/Users/kellymears/code/projects/cli/bud/bud/packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/components/PageHeader.js": "ecd94e8771f4a5bab06b8e5f26bfe53e",
+    "/Users/kellymears/code/projects/cli/bud/bud/packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/components/RuntimeErrorFooter.js": "c5fd47f36a921b3a51a5ae90a51b5a9e",
+    "/Users/kellymears/code/projects/cli/bud/bud/packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/components/RuntimeErrorHeader.js": "57eff8a2f4c77bfdeae45cc3e2e48d05",
+    "/Users/kellymears/code/projects/cli/bud/bud/packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/components/RuntimeErrorStack.js": "45a39f05cb6f1b6fc6d6fdd2685d117a",
+    "/Users/kellymears/code/projects/cli/bud/bud/packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/components/Spacer.js": "19e1e43eb37755c5d8a31ed746acc767",
+    "/Users/kellymears/code/projects/cli/bud/bud/packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/containers/CompileErrorContainer.js": "e51430e77b1e957be280f0668f904f40",
+    "/Users/kellymears/code/projects/cli/bud/bud/packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/containers/RuntimeErrorContainer.js": "7409c7bbe4d27e0acc18f4aa0c437895",
+    "/Users/kellymears/code/projects/cli/bud/bud/packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/index.js": "66324d9554023a6a0c0ba7023eff1227",
+    "/Users/kellymears/code/projects/cli/bud/bud/packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/theme.js": "c050d81a44978891e1c19888993226dd",
+    "/Users/kellymears/code/projects/cli/bud/bud/packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/utils/debounce.js": "d59806520be28095eb6efea289f01fd9",
+    "/Users/kellymears/code/projects/cli/bud/bud/packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/utils/formatFilename.js": "0a41c0904d47a58b94ec0d829a5d4fe2",
+    "/Users/kellymears/code/projects/cli/bud/bud/packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/utils/removeAllChildren.js": "7562c02af773705f0bcd9b9ea7e19766",
+    "/Users/kellymears/code/projects/cli/bud/bud/packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/sockets/WHMEventSource.js": "dc00d697f3905b5a80eeb5c7d15e0acc"
+  },
+  "chunkHashs": {
+    "1": "2f9c40d24f3ddc00bea026cdeeead5b9"
+  },
+  "chunkModuleIds": {
+    "1": [
+      0,
+      "../../node_modules/ansi-html/index.js",
+      "../../node_modules/ansi-regex/index.js",
+      "../../node_modules/error-stack-parser/error-stack-parser.js",
+      "../../node_modules/html-entities/lib/html4-entities.js",
+      "../../node_modules/html-entities/lib/html5-entities.js",
+      "../../node_modules/html-entities/lib/index.js",
+      "../../node_modules/html-entities/lib/xml-entities.js",
+      "../../node_modules/react-refresh/cjs/react-refresh-runtime.development.js",
+      "../../node_modules/react-refresh/runtime.js",
+      "../../node_modules/stackframe/stackframe.js",
+      "../../node_modules/strip-ansi/index.js",
+      "../../node_modules/webpack-hot-middleware/client-overlay.js",
+      "../../node_modules/webpack-hot-middleware/client.js",
+      "../../node_modules/webpack-hot-middleware/process-update.js",
+      "../../node_modules/webpack/buildin/global.js",
+      "../../node_modules/webpack/buildin/module.js",
+      "../../packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ErrorOverlayEntry.js",
+      "../../packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ReactRefreshEntry.js",
+      "../../packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/utils/errorEventHandlers.js",
+      "../../packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/utils/formatWebpackErrors.js",
+      "../../packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/utils/safeThis.js",
+      "../../packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/lib/runtime/RefreshUtils.js",
+      "../../packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/components/CompileErrorTrace.js",
+      "../../packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/components/PageHeader.js",
+      "../../packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/components/RuntimeErrorFooter.js",
+      "../../packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/components/RuntimeErrorHeader.js",
+      "../../packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/components/RuntimeErrorStack.js",
+      "../../packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/components/Spacer.js",
+      "../../packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/containers/CompileErrorContainer.js",
+      "../../packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/containers/RuntimeErrorContainer.js",
+      "../../packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/index.js",
+      "../../packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/theme.js",
+      "../../packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/utils/debounce.js",
+      "../../packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/utils/formatFilename.js",
+      "../../packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/utils/removeAllChildren.js",
+      "../../packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/sockets/WHMEventSource.js",
+      1,
+      2,
+      3,
+      4,
+      5
     ]
   }
 }

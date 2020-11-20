@@ -1,165 +1,240 @@
-import {lodash as _} from '@roots/bud-support'
-import {Indexed as Container} from '@roots/container'
-import util from './util'
-import type {
-  Bud as Application,
-  ConstructorOptions,
-  Index,
+import {
+  Bud as Abstract,
+  Build,
+  Hooks,
+  Logger,
+  MaybeCallable,
 } from '@roots/bud-typings'
+import {FileContainer, FileSystem} from '@roots/filesystem'
+import {Container} from '@roots/container'
+import {Mode} from './Mode'
+import * as util from './util'
 
-export default class Bud implements Application {
-  [key: string]: any
+export {Bud, Bud as default}
 
-  public registered: Application['registered']
+/**
+ * # Bud Framework
+ *
+ * Framework base class.
+ *
+ * [🏡 Project home](https://roots.io/bud)
+ * [🧑‍💻 roots/bud/packages/framework](#)
+ * [📦 @roots/bud-framework](https://www.npmjs.com/package/@roots/bud-framework)
+ * [🔗 Documentation](#)
+ */
+class Bud implements Abstract.Core {
+  /**
+   * ## bud.registry [🍱 _Container_]
+   *
+   * Registry for services to be held before initialization.
+   *
+   * Implementation should be provided by extending class.
+   */
+  public registry: Container
 
-  public build: Application['build']
+  /**
+   * ## bud.config  [🍱 _Container_]
+   *
+   * Implementation should be provided by extending class.
+   */
+  public config: Container
 
-  public cli: Application['cli']
+  /**
+   * ## bud.disk
+   *
+   * Index of virtual filesystems. Allows for swapping
+   * "disks". Each disk is the same class as `bud.fs` (which
+   * is always set to the `bud.project` rootDir).
+   *
+   * @note disks do not index `.gitignore` matches by default
+   * @note disks do not index `node_modules` by default
+   *
+   * [🔗 Documentation on bud.disk](#)
+   *
+   * ### Usage
+   *
+   * #### List file contents of project
+   *
+   * ```js
+   * bud.disk.get('project').ls()
+   * ```
+   *
+   * #### Get the absolute path of this class.
+   *
+   * ```js
+   * bud.disk.get(`@roots`).get('bud-framework/src/Bud/index.js')
+   * ```
+   */
+  public disk: FileSystem
 
-  public compiler: Application['compiler']
+  /**
+   * ## bud.fs
+   *
+   * Project filesystem. [🔗 Documentation on bud.fs](#)
+   *
+   * ```js
+   * bud.fs.readJson('project.json')
+   * ```
+   *
+   * ```js
+   * bud.fs.has('src/index.js')
+   * ```
+   */
+  public fs: FileContainer
 
-  public disk: Application['disk']
+  public build: Build.Contract
 
-  public env: Application['env']
+  public hooks: Hooks.Contract
 
-  public fs: Application['fs']
+  public mode: Mode
 
-  public extensions: Application['extensions']
+  /**
+   * ## bud.logger
+   *
+   * [pino](#) logger instance
+   */
+  public logger: Logger.Contract = util.logger
 
-  public hooks: Application['hooks']
+  /**
+   * ## bud.callMeMaybe
+   *
+   * If a value is a function it will call that
+   * function and return the result.
+   *
+   * If the value is not a function it will return its value.
+   *
+   * ```js
+   * const isAFunction = (option) => `option value: ${option}`
+   * const isAValue = `option value: true`
+   *
+   * bud.callMeMaybe(isAFunction, true)
+   * // => `option value: true`
+   *
+   * bud.callMeMaybe(isAValue)
+   * // => `option value: true`
+   * ```
+   */
+  public callMeMaybe: <I = unknown>(
+    value: MaybeCallable<I>,
+    ...args: unknown[]
+  ) => I = util.callMeMaybe
 
-  public mode: Application['mode']
+  /**
+   * Class constructor
+   */
+  public constructor(registrables: {[key: string]: unknown}) {
+    this.callMeMaybe = this.callMeMaybe.bind(this)
+    this.makeContainer = this.makeContainer.bind(this)
+    this.get = this.get.bind(this)
 
-  public presets: Application['presets'] = new Container({})
-
-  public server: Application['server']
-
-  public instance: Application['instance']
-
-  public util: Application['util'] = util
-
-  public logger: Application['logger'] = util.logger
-
-  public proxy: Application['proxy'] = util.proxy
-
-  public when: Application['when'] = util.when
-
-  public constructor(options: ConstructorOptions) {
-    ;[
-      'mapServices',
-      'mapBuilders',
-      'mapContainers',
-      'mapCallables',
-      'mapDisks',
-      'makeContainer',
-      'run',
-      'bootstrap',
-    ].forEach(name => {
-      this[name] = this[name].bind(this)
-    })
-
-    this.registered = this.makeContainer(options)
+    this.registry = this.makeContainer(registrables)
   }
 
-  public bootstrap(): this {
-    this.mapContainers(this.registered.get('containers'))
-
-    this.mapServices(this.registered.get('services'))
-
-    this.mapBuilders(this.registered.get('builders'))
-
-    this.mapDisks(this.registered.get('disks'))
-
-    this.mapCallables(this.registered.get('api'))
-
-    this.extensions.make(this.registered.get('plugins'))
-
+  /**
+   * ## bud.get  [🏠 Internal]
+   *
+   * Scope binding for bud.get
+   *
+   * ```js
+   * bud.get()
+   * ```
+   */
+  public get(): Abstract.Bud {
     return this
   }
 
-  public mapDisks = function (disks): void {
-    this.fs.setBase(process.cwd())
+  /**
+   * ## bud.makeContainer
+   *
+   * Create a new container. May be passed an initial set of values.
+   *
+   * [🔗 Documentation on containers](#)
+   */
+  public makeContainer(repository?: {
+    [key: string]: any
+  }): Framework.Container {
+    return new Container(repository)
+  }
 
-    Object.entries(disks(this)).map(([name, options]) => {
-      this.disk.set(name, options)
+  /**
+   * ## bud.makeDisk
+   *
+   * Create a new disk. Provide a name, root directory, and -- optionally --
+   * a custom glob array. [🔗 Documentation on bud.disk](#)
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.makeDisk(
+   *   'icons',
+   *   bud.project('assets/icons'),
+   *   ['*.svg'],
+   * )
+   * ```
+   */
+  public makeDisk(
+    name: string,
+    dir: string,
+    glob?: string[],
+  ): void {
+    this.disk.set(name, {
+      base: this.fs.path.resolve(__dirname, dir),
+      glob: glob ?? ['**/*'],
     })
   }
 
   /**
-   * Make a new container.
+   * ## bud.init [🏠 Internal]
+   *
+   * Initializes base functions and yields the implementation class
+   * if available.
    */
-  public makeContainer: Application['makeContainer'] = function (
-    repository,
-  ) {
-    return new Container(repository)
-  }
+  public init(this: Framework.Bud.Contract): Abstract.Bud {
+    this.mode = new Mode(this)
 
-  public when: Application['when'] = function (
-    test,
-    isTrue,
-    isFalse,
-  ) {
-    _.isEqual(test, true)
-      ? _.isFunction(isTrue) && isTrue(this)
-      : _.isFunction(isFalse) && isFalse(this)
+    this.disk = new FileSystem()
 
-    return this
-  }
+    this.fs = new FileContainer(process.cwd())
 
-  public run: Application['run'] = function () {
-    if (this.mode.is('development')) {
-      this.server.addDevMiddleware()
-      this.server.addHotMiddleware()
+    if (this.disks) {
+      this.disks()
 
-      !_.isUndefined(this.server.getConfigItem('proxy')) &&
-        this.server.addProxyMiddleware()
+      delete this.disks
     }
 
-    this.compiler.compile()
-    this.cli.run()
-  }
+    if (this.register) {
+      this.register()
 
-  public mapContainers: Application['mapContainers'] = function (
-    containers,
-  ) {
-    Object.entries(containers).map(
-      ([name, repository]: [string, Index<unknown>]) => {
-        this[name] = this.makeContainer(repository)
-      },
-    )
-  }
+      delete this.register
+    }
 
-  public mapBuilders: Application['mapBuilders'] = function (
-    builders,
-  ) {
-    Object.values(builders).map(([definitions, initializer]) => {
-      Object.entries(definitions).map(definition => {
-        initializer.bind(this)(definition)
-      })
-    }, {})
-  }
+    if (this.boot) {
+      this.boot()
 
-  public mapCallables: Application['mapCallables'] = function (
-    callables,
-  ) {
-    Object.entries(callables).map(
-      ([name, fn]: [string, CallableFunction]) => {
-        this[name] = fn.bind(this)
-      },
-    )
-  }
+      delete this.boot
+    }
 
-  public mapServices: Application['mapServices'] = function (
-    services,
-  ) {
-    Object.entries(services).map(([name, initializer]) => {
-      Object.assign(this, {
-        [name]: initializer(this),
-      })
+    if (this.registry) {
+      delete this.registry
+    }
 
-      Object.defineProperty(this[name], 'bud', {
+    this.logger &&
+      Object.defineProperty(this, 'logger', {
         enumerable: false,
       })
-    })
+
+    this.server.instance &&
+      Object.defineProperty(this.server, 'instance', {
+        enumerable: false,
+      })
+
+    this.fs.fs &&
+      Object.defineProperties(this.fs, {
+        fs: {enumerable: false},
+        glob: {enumerable: false},
+        path: {enumerable: false},
+      })
+
+    return this
   }
 }

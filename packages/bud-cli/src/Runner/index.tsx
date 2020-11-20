@@ -4,14 +4,34 @@ import Compile from '../containers/Compile'
 import {Serve} from '../containers/Serve'
 import type {Bud} from '@roots/bud-typings'
 
+/**
+ * ## bud.cli
+ *
+ * Ink application controller.
+ */
 export class Runner {
-  public bud: Bud
+  /** Bud reference */
+  public bud: Bud.Bud
+
+  /**
+   * ## bud.cli.instance
+   *
+   * Ink instance
+   */
   public instance: Instance
 
-  constructor(bud: Bud) {
+  /**
+   * Class constructor.
+   */
+  constructor(bud: Bud.Bud) {
     this.bud = bud
+
+    this.run = this.run.bind(this)
   }
 
+  /**
+   * Run the compilation.
+   */
   public run = function (): void {
     this.instance = this.bud.mode.is('development')
       ? render(<Serve bud={this.bud} />)

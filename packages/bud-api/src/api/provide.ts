@@ -1,30 +1,21 @@
 import {lodash as _} from '@roots/bud-support'
-import type {Bud} from '@roots/bud-framework'
+import type {Bud} from '@roots/bud-typings'
 
 export const provide: Provide = function (options) {
-  const providePlugin = this.extensions.get(
-    'webpack-provide-plugin',
-  )
+  const plugin = this.extensions.get('webpack-provide-plugin')
 
-  const pluginOpts = providePlugin.all()
-
-  Object.entries(options).forEach(([key, alias]) => {
-    _.isString(alias) && pluginOpts.merge(alias, key)
-    _.isArray(alias) &&
-      alias.map(alias => pluginOpts.merge(alias, key))
+  Object.entries(options).forEach(([module, alias]) => {
+    _.isString(alias)
+      ? plugin.set(alias, module)
+      : alias.map(alias => plugin.set(alias, module))
   })
-
-  providePlugin.repository = pluginOpts
 
   return this
 }
 
-/**
- * Make a module globally available throughout the application.
- */
-export type Provide = (
-  this: Bud,
+export type Provide<T = Bud.Contract> = (
+  this: T,
   options: {
-    [key: string]: string[]
+    [key: string]: string | string[]
   },
-) => Bud
+) => T

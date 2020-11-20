@@ -1,23 +1,34 @@
+/**
+ * String keyed value.
+ */
 export type Index<T> = {[key: string]: T}
 
 /**
  * Constructable function/class yielding T type
  */
 export interface Constructor<T> {
-  new (params: any): T
+  new (params?: unknown): T
 }
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
-export type Fluent<
-  T,
-  P = void,
-  P1 = void,
-  P2 = void,
-  P3 = void,
-  P4 = void,
-  P5 = void,
-  P6 = void
-> = (this: T, P?, P1?, P2?, P3?, P4?, P5?, P6?) => T
+export interface Fluent<T> {
+  (this: T): T
+}
 
-export type Factory<OutType> = (any) => OutType
-export type MaybeCallable<T> = Factory<T> | T
+/**
+ * Produces a value.
+ */
+export type Factory<O = unknown, I = unknown> = (args: I) => O
+
+/**
+ * Might be a function that produces a value, might be
+ * the value itself.
+ */
+export type MaybeCallable<O = unknown, A = unknown> =
+  | Factory<O, A>
+  | O
+
+/**
+ * Plugin make when
+ */
+export type When = ((...params: any) => boolean) | boolean

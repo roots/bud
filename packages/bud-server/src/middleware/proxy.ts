@@ -3,6 +3,7 @@ import {
   RequestHandler,
   Options,
 } from 'http-proxy-middleware'
+import Framework from '@roots/bud-typings'
 
 import url from 'url'
 import zlib from 'zlib'

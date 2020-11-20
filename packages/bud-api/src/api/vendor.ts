@@ -1,4 +1,4 @@
-export const vendor: Framework.API.Vendor = function (options) {
+export const vendor: Vendor = function (options) {
   options &&
     this.config.set(
       'optimization.splitChunks.cacheGroups.vendor',
@@ -12,3 +12,8 @@ export const vendor: Framework.API.Vendor = function (options) {
 
   return this
 }
+
+export type Vendor<T = Framework.Bud.Contract> = (
+  this: T,
+  options?: any,
+) => T

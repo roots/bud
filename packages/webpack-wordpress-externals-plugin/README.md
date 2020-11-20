@@ -26,7 +26,8 @@ This plugin is standalone and can be used separately from the Bud framework.
 
 Contributions are welcome from everyone.
 
-We have [contributing guidelines](https://github.com/roots/guidelines/blob/master/CONTRIBUTING.md) to help you get started.
+We have [contributing guidelines](https://github.com/roots/guidelines/blob/master/CONTRIBUTING.md)
+to help you get started.
 
 ## Bud sponsors
 

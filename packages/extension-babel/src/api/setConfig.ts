@@ -1,10 +1,11 @@
+import {Bud} from '@roots/bud-typings'
+import {TransformOptions} from '@babel/core'
+
 /**
  * Set babel transformOptions
  */
-export const setConfig: Babel.Config = function (
-  opts: babel.TransformOptions,
-) {
-  this.bud.build.items.set('babel.options', opts)
+export function setConfig(opts: TransformOptions): Bud.Contract {
+  this.build.items.set('babel.options', opts)
 
   return this
 }

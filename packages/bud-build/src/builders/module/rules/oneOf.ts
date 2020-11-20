@@ -1,22 +1,26 @@
-import type Webpack from 'webpack'
+import type {Webpack, Bud} from '@roots/bud-typings'
 
-export default function (
-  this: Framework.Bud,
-): Webpack.RuleSetRule[] {
+declare type Rule = Webpack.RuleSetRule
+
+declare type BuildOneOf = (this: Bud.Contract) => Rule[]
+
+declare type OneOfReducer = (
+  this: Bud.Contract,
+  rules: Rule[],
+  [label, rule]: [string, Rule],
+) => Rule[]
+
+/**
+ * Filter and reduce rules into  webpack.oneOf array
+ */
+export const oneOf: BuildOneOf = function () {
   return this.build.rules
-    .entries()
-    .filter(([, {enforce}]) => enforce !== 'pre')
-    .reduce(
-      (
-        rules: Webpack.RuleSetRule[],
-        [label, rule]: [string, Webpack.RuleSetRule],
-      ): Webpack.RuleSetRule[] => [
-        ...rules,
-        this.hooks.filter<Webpack.RuleSetRule>(
-          `webpack.module.rules.oneOf.${label}`,
-          rule,
-        ),
-      ],
-      [],
-    )
+    .getEntries()
+    .filter(([, {enforce}]: [string, Rule]) => enforce !== 'pre')
+    .reduce(reducer.bind(this), [])
+}
+
+const hook = label => `webpack.module.rules.oneOf.${label}`
+const reducer: OneOfReducer = function (rules, [label, rule]) {
+  return [...rules, this.hooks.filter<Rule>(hook(label), rule)]
 }

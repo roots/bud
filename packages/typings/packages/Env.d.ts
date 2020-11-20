@@ -1,4 +1,8 @@
+import type {Container, Dotenv} from '.'
+
 /**
- * Environment variables utility.
+ * Dotenv parsed contents.
  */
-export type Env = Framework.Indexed
+export type Data = Dotenv.DotenvParseOutput
+
+export class Contract extends Container {}

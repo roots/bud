@@ -35,8 +35,6 @@ bud.entry('app', ['app.js']).run()
 
 Users with a modern version of Node can do this in a more modular way:
 
-> _For the rest of the README we'll use `import` syntax but no destructuring in a bid to reduce confusion in a divided community. So, if your project still uses `require` syntax for modules just replace the imports. And, if you use `imports`, keep in mind that you can destructure them as you wish._
-
 ```js
 import {entry, run} from '@roots/bud'
 
@@ -74,8 +72,6 @@ bud
 
   .run()
 ```
-
-This does a whole lot! Hopefully, it doesn't overwhelm you too much.
 
 ## Running a build
 

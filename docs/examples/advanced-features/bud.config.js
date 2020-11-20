@@ -1,10 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-import {build, hooks, mode} from '@roots/bud'
-
-// Build mode
-mode.set('production') // manually trigger production mode
-mode.set('development') // manually trigger development mode
-mode.set('none') // explicitly leave mode unspecified
+import {build, hooks} from '@roots/bud'
 
 // Modify entrypoints
 hooks.filter('webpack.entry', entry => ({
@@ -48,7 +43,7 @@ bud.patterns.get('ts') // regular expression matching typescript
 bud.patterns.get('cssModules') // regular expression matching css modules
 
 // create your own container
-bud.customContainer = new bud.container({
+bud.customContainer = bud.makeContainer({
   initial: 'values',
   passed: ['to', 'constructor'],
 })
@@ -62,8 +57,8 @@ bud.customContainer.get('passed') // => ['to', 'constructor']
 // get the absolute path to the package.json file
 const pathToPackage = bud.fs.get('package.json')
 
-// get a file as a string
-let currentFile = bud.fs.read('bud.config.js')
+// get a file contents as a string
+const currentFile = bud.fs.read('bud.config.js')
 
 // get package.json as an object
 let package = bud.fs.readJson('package.json')
@@ -92,12 +87,6 @@ console.log(
 
 someFn = () => someFn()
 console.log(bud.util.format(someFn)) // safely log objects even if they are wiley/recursive
-
-bud.util.notify({
-  title: 'ding',
-  message: 'message text',
-  sound: false,
-}) // system level notification
 
 bud.terminate() // shutdown this instance of bud
 

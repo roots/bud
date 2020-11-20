@@ -1,6 +1,1 @@
-import Bud from './Bud'
-
-export {Bud}
-export {Mode} from './Mode'
-
-export default Bud
+export {Bud, Bud as default} from './Bud'

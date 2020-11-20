@@ -1,6 +1,6 @@
 {
   "name": "@roots/container",
-  "version": "2.0.0-next.24",
+  "version": "2.0.0-next.25",
   "description": "Collections utility",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -22,9 +22,12 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["./lib", "./types"],
+  "files": [
+    "./lib",
+    "./types"
+  ],
   "main": "./lib/index.js",
-  "types": "./src/types/index.d.ts",
+  "types": "./lib/types/index.d.ts",
   "scripts": {
     "build": "tsc",
     "clean:lib": "rimraf ./lib",

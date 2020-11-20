@@ -1,31 +1,49 @@
-import type {RuleSetRule} from 'webpack'
+import Framework from '@roots/bud-typings'
+
+export {Rule, Rule as default}
 
 /**
- * @yields {Webpack.RuleSetRule}
+ * Webpack RuleSet
  */
-export class Rule implements Framework.Rule {
-  public bud: Framework.Bud
+class Rule implements Framework.Rule.Contract {
+  public bud: Framework.Bud.Ref
 
   public enforce?: Framework.Rule.Enforce
+
   public exclude?: Framework.Rule.Conditional
+
   public include?: Framework.Rule.Conditional
+
   public issuer?: Framework.Rule.Conditional
+
   public oneOf?: Framework.Rule.OneOf
+
   public options?: Framework.Rule.Options
+
   public parser?: Framework.Rule.Parser
+
   public resolve?: Framework.Rule.Resolve
+
   public sideEffects?: Framework.Rule.SideEffects
+
   public query?: Framework.Rule.Query
+
   public type?: Framework.Rule.Type
+
   public resource?: Framework.Rule.Conditional
+
   public resourceQuery?: Framework.Rule.Conditional
+
   public compiler?: Framework.Rule.Conditional
+
   public rules?: Framework.Rule.OneOf
+
   public test?: Framework.Rule.Conditional
+
   public use?: Framework.Rule.Use
 
-  constructor(bud: Framework.Bud, rule?: unknown) {
-    this.bud = bud
+  constructor(bud: Framework.Bud.Bud, rule?: unknown) {
+    this.bud = bud.get
 
     this.register = this.register.bind(this)
     this.getProp = this.getProp.bind(this)
@@ -44,16 +62,15 @@ export class Rule implements Framework.Rule {
     return this
   }
 
-  public getProp(
-    prop: string,
-  ): Framework.Rule.Property<Framework.Rule.Generic> {
+  public getProp<
+    T = Framework.Rule.Property<Framework.Rule.Generic>
+  >(prop: string): T {
     return this[prop]
   }
 
-  public setProp(
-    prop: string,
-    value: Framework.Rule.Property<Framework.Rule.Generic>,
-  ): this {
+  public setProp<
+    T = Framework.Rule.Property<Framework.Rule.Generic>
+  >(prop: string, value: T): this {
     this[prop] = value
     return this
   }
@@ -78,7 +95,7 @@ export class Rule implements Framework.Rule {
     })
   }
 
-  public make(): RuleSetRule {
+  public make(): Framework.Webpack.RuleSetRule {
     return (
       this.get()
 
@@ -89,11 +106,11 @@ export class Rule implements Framework.Rule {
         )
 
         /**
-         * ...reduce the remaining down to a Webpack RuleSetRule
+         * ...reduce the remaining down to a Webpack.RuleSetRule
          */
         .reduce(
           (
-            accumulator: RuleSetRule,
+            accumulator: Framework.Webpack.RuleSetRule,
             [label, prop]: Framework.Rule.MakeIn,
           ) => ({
             ...accumulator,
@@ -101,8 +118,7 @@ export class Rule implements Framework.Rule {
             /**
              * Prop might be callable. If so, pass it the appropriate param(s).
              */
-            [label]:
-              typeof prop == 'function' ? prop(this.bud) : prop,
+            [label]: this.bud().callMeMaybe(prop),
           }),
           {},
         )

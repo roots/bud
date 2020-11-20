@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-eslint",
-  "version": "2.0.0-next.24",
+  "version": "2.0.0-next.25",
   "description": "Adds eslint support to Bud",
   "repository": {
     "type": "git",
@@ -16,11 +16,16 @@
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
-  "keywords": ["bud-extension"],
+  "keywords": [
+    "bud-extension"
+  ],
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib", "types"],
+  "files": [
+    "lib",
+    "types"
+  ],
   "main": "./lib/index.js",
   "types": "./types/index.d.ts",
   "scripts": {
@@ -31,7 +36,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@roots/bud-support": "^2.0.0-next.24",
+    "@roots/bud-support": "^2.0.0-next.25",
     "babel-eslint": "8",
     "eslint": "^7.8.1",
     "eslint-loader": "^4.0.2",
@@ -42,9 +47,9 @@
     "eslint-webpack-plugin": "^2.2.1"
   },
   "devDependencies": {
-    "@roots/bud-extensions": "^2.0.0-next.24",
-    "@roots/bud-framework": "^2.0.0-next.24",
-    "@roots/bud-typings": "^2.0.0-next.24",
+    "@roots/bud-extensions": "^2.0.0-next.25",
+    "@roots/bud-framework": "^2.0.0-next.25",
+    "@roots/bud-typings": "^2.0.0-next.25",
     "webpack": "^4.44.2"
   }
 }

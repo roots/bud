@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-typings",
-  "version": "2.0.0-next.24",
+  "version": "2.0.0-next.25",
   "description": "Shared typings",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -22,18 +22,19 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["./packages"],
+  "files": [
+    "./packages"
+  ],
   "types": "./packages/index.d.ts",
   "scripts": {
     "build": "tsc"
   },
-  "dependencies": {
-    "@roots/container": "^2.0.0-next.24",
-    "@roots/filesystem": "^2.0.0-next.24"
-  },
   "devDependencies": {
+    "@roots/container": "^2.0.0-next.25",
+    "@roots/filesystem": "^2.0.0-next.25",
+    "@types/express": "^4.17.9",
     "@types/node": "^14.11.2",
-    "webpack": "^4.44.2",
+    "dotenv": "^8.2.0",
     "express": "^4.17.1",
     "http-proxy-middleware": "^1.0.6",
     "ink": "^3.0.0-6",
@@ -46,6 +47,7 @@
     "react": "^16.13.1",
     "react-dev-utils": "^10.2.1",
     "react-dom": "^16.13.1",
+    "webpack": "^4.44.2",
     "webpack-dev-middleware": "^3.7.2",
     "webpack-hot-middleware": "^2.25.0",
     "zlib": "^1.0.5"

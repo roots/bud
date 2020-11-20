@@ -1,27 +1,14 @@
-export const glob: Framework.API.Glob = function (
-  this: Framework.Bud,
-  name,
-  files,
-  options,
-) {
+import {Bud} from '@roots/bud-typings'
+import {GlobTask} from 'globby'
+
+export const glob: Glob = function (name, files, options) {
   this.config.merge(
     'entry',
     this.fs.glob
-      .sync(
-        (search => {
-          switch (typeof search) {
-            case 'string':
-              return [search]
-            case 'object':
-              return search.map(file => file)
-          }
-        })(files),
-        options ?? {expandDirectories: true},
-      )
+      .sync(files, options ?? {expandDirectories: true})
       .reduce((acc, curr) => {
         const basedName = (file: string): string => {
           const ext = `.${file.split('.').pop()}`
-
           return this.fs.path.basename(file, ext)
         }
 
@@ -37,3 +24,10 @@ export const glob: Framework.API.Glob = function (
 
   return this
 }
+
+export type Glob<T = Bud.Contract> = (
+  this: T,
+  name: string,
+  files: GlobTask['pattern'],
+  options: GlobTask['options'],
+) => T

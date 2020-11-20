@@ -13,13 +13,9 @@
   <strong>@roots/bud-typings</strong>
 </h1>
 
-<h3 align="center">
-  <em>Bud is a high-level webpack framework combining the best parts of Laravel Mix and Symfony Encore.</em>
-</h3>
-
 ## Overview
 
-This package contains typings for the core Framework packages.
+This package contains typescript deifnitions for the core Framework packages.
 
 ## Details
 

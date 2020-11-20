@@ -1,9 +1,7 @@
+import {Bud} from '@roots/bud-typings'
 import AutoDllPlugin from 'autodll-webpack-plugin'
 
-export const library: Framework.API.Library = function (
-  this: Framework.Bud,
-  modules: string[],
-) {
+export const library: Library = function (modules) {
   this.extensions.set('autodll-webpack-plugin', {
     options: {
       inject: true,
@@ -20,3 +18,8 @@ export const library: Framework.API.Library = function (
 
   return this
 }
+
+export type Library<T = Bud.Contract> = (
+  this: T,
+  modules: string[],
+) => T

@@ -1,11 +1,15 @@
-export const distPath: Framework.API.DistPath = function (
-  this: Framework.Bud,
-  segment: string,
-) {
+import type {Bud} from '@roots/bud-typings'
+
+export const distPath: DistPath = function (segment) {
   /** Bounce early if dist is overwritten from CLI */
-  if (this.args.dist) return this
+  if (this.args.isString('dist')) return this
 
   this.config.set('output.path', this.project(segment))
 
   return this
 }
+
+export type DistPath<T = Bud.Contract> = (
+  this: T,
+  segment: string,
+) => T

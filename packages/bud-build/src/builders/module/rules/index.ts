@@ -1,16 +1,19 @@
-import {Webpack} from '@roots/bud-typings'
-import oneOf from './oneOf'
+import {Webpack, Bud} from '@roots/bud-typings'
+import {oneOf} from './oneOf'
 import post from './post'
 import pre from './pre'
 
-export default function (
-  this: Framework.Bud,
-): Framework.Webpack.Configuration['module']['rules'] {
-  return this.hooks.filter('webpack.module.rules', [
-    ...pre.bind(this)(),
-    {
-      oneOf: oneOf.bind(this)(),
-    },
-    ...post.bind(this)(),
-  ]) as Webpack.Configuration['module']['rules']
+type Rules = Webpack.Configuration['module']['rules']
+type Build = (this: Bud.Contract) => {rules: Rules}
+
+export const rules: Build = function () {
+  return {
+    rules: this.hooks.filter<Rules>('webpack.module.rules', [
+      ...pre.bind(this)(),
+      {
+        oneOf: oneOf.bind(this)(),
+      },
+      ...post.bind(this)(),
+    ]),
+  }
 }

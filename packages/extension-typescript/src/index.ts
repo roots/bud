@@ -1,52 +1,54 @@
-import {Bud} from '@roots/bud-typings'
+import {Bud, Extension} from '@roots/bud-typings'
 import {LoaderOptions} from 'ts-loader/dist/interfaces'
-import {Extension} from '@roots/bud-extensions'
 
-export const options = (instance: Bud) => ({
+export const options = (
+  instance: Bud.Bud,
+): Partial<LoaderOptions> | LoaderOptions => ({
   configFile: instance.fs.get('tsconfig.json') ?? null,
 })
 
-export const registerLoader: Extension.Interface['registerLoader'] = [
+export const registerLoader: Extension.Contract['registerLoader'] = [
   'ts-loader',
   require.resolve('ts-loader'),
 ]
 
-export const registerItem: Extension.Interface['registerItems'] = {
+export const registerItem: Extension.Contract['registerItems'] = {
   [`typescript`]: {
     loader: 'ts-loader',
-
     options: (
-      bud: Bud,
+      bud: Bud.Bud,
     ): Partial<LoaderOptions> | LoaderOptions =>
       bud.extensions.get('@roots/bud-typescript').all(),
   },
 }
 
-export const registerRule: Extension.Interface['registerRule'] = [
+export const registerRule: Extension.Contract['registerRule'] = [
   'typescript',
   {
-    test: ({patterns}: Bud): RegExp =>
+    test: ({patterns}: Bud.Bud): RegExp =>
       patterns.get('typescript'),
 
-    exclude: ({patterns}: Bud): RegExp =>
+    exclude: ({patterns}: Bud.Bud): RegExp =>
       patterns.get('modules'),
 
-    use: (bud: Bud) => [bud.build.items.get('ts')],
+    use: (bud: Bud.Bud) => [bud.build.items.get('ts')],
   },
 ]
 
 export const api = {
   typescript: function (
-    this: Bud,
+    this: Bud.Bud,
     options: Partial<LoaderOptions> | LoaderOptions,
-  ): Bud {
-    this.extensions.get('@roots/bud-typescript').all(options)
+  ): Bud.Bud {
+    this.extensions
+      .get('@roots/bud-typescript')
+      .setStore(options)
 
     return this
   },
 }
 
-export const boot = (instance: Bud): void => {
+export const boot = (instance: Bud.Bud): void => {
   instance.patterns.set('typescript', /\.(ts|tsx)$/)
   ;['ts', 'tsx'].map(ext => {
     !instance.config.get('resolve.extensions').includes(ext) &&

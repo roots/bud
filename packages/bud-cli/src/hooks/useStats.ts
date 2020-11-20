@@ -1,4 +1,4 @@
-import {useState, useCallback} from 'react'
+import {useState} from 'react'
 import type Webpack from 'webpack'
 
 export const useStats: UseStats.Hook = () => {
@@ -7,14 +7,14 @@ export const useStats: UseStats.Hook = () => {
     React.Dispatch<UseStats.Stats>,
   ] = useState<UseStats.Stats>(null)
 
-  const handler: UseStats.Handler = useCallback((err, stats) => {
+  const handler: UseStats.Handler = (err, stats) => {
     if (err) {
       console.log(err)
       throw Error('Whoops')
     }
 
     setStats(stats.toJson())
-  }, [])
+  }
 
   return [stats, handler]
 }

@@ -1,11 +1,11 @@
-import {Extension} from '@roots/bud-extensions'
+import {Extension} from '@roots/bud-typings'
 import * as postcss from './registerItem'
 
 export const boot: Boot = bud => {
   bud.build.rules.mutate('css.use', css => [
-    ...css.splice(0, css.length - 2),
+    ...css.splice(0, css.length - 1),
     bud.build.items.get('postcss'),
-    ...css.splice(css.length - 2),
+    ...css.splice(css.length - 1),
   ])
 }
 
@@ -16,6 +16,8 @@ export const registerLoader: Loader = [
   require.resolve('postcss-loader'),
 ]
 
-declare type Boot = Extension.Interface['boot']
-declare type Item = Extension.Interface['registerItem']
-declare type Loader = Extension.Interface['registerLoader']
+declare type Boot = Extension.Contract['boot']
+
+declare type Item = Extension.Contract['registerItem']
+
+declare type Loader = Extension.Contract['registerLoader']

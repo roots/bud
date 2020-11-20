@@ -3,10 +3,3 @@ body {
   margin: 0;
   padding: 0;
 }
-
-#root {
-  @apply bg-green-800;
-  @apply h-screen;
-  @apply w-full;
-  @apply m-0;
-}

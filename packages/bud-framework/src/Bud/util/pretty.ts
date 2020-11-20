@@ -1,7 +1,10 @@
 import prettier from 'prettier'
 
-const pretty: Framework.Pretty = (contents, parser) => {
+export const pretty: Pretty = (contents, parser) => {
   return prettier.format(contents, parser ? {parser} : undefined)
 }
 
-export default pretty
+export type Pretty = (
+  contents: string,
+  parser: prettier.BuiltInParserName,
+) => string

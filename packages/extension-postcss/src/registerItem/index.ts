@@ -1,9 +1,12 @@
-export const ident: Framework.Item['ident'] = 'postcss'
+import Framework from '@roots/bud-typings'
 
-export const loader: Framework.Item['loader'] = 'postcss-loader'
+export const ident: Framework.Item.Contract['ident'] = 'postcss'
 
-export const options: Framework.Item['options'] = (
-  bud: Framework.Bud,
+export const loader: Framework.Item.Contract['loader'] =
+  'postcss-loader'
+
+export const options: Framework.Item.Contract['options'] = (
+  bud: Framework.Bud.Contract,
 ) => {
   const postConfig = bud.fs.has('postcss.config.js')
     ? bud.fs.get('postcss.config.js')

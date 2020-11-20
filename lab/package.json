@@ -3,7 +3,7 @@
   "private": true,
   "scripts": {
     "dev": "node bud.config.js --mode development",
-    "hot": "node bud.config.js --mode development --hot",
+    "hot": "node bud.config.js --mode development",
     "build": "node bud.config.js --mode production",
     "test": "jest --verbose"
   },

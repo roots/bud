@@ -1,34 +1,18 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 import {lodash as _} from '@roots/bud-support'
-import {Bud} from '@roots/bud-typings'
-import {Extension} from '@roots/bud-extensions'
+import {Bud, Extension} from '@roots/bud-typings'
 
-/**
- * Register an extension or set of extensions to use.
- *
- * Extensions can be specified by:
- *
- * - a resolvable package name
- * - an array of resolvable package names
- * - a module path
- * - an array of module paths
- * - extension object formatted as a tuple [extension name, object]
- * - an array of extension objects in the same tuple format.
- */
-export const use = function (
-  this: Bud,
-  extensions: Extensions,
-): Bud {
+export const use: Use = function (extensions) {
   _.isString(extensions)
-    ? this.extensions.use(extensions)
+    ? this.extensions.use(extensions as string)
     : ensureIterable(extensions).forEach(
         (extension: string | ExtensionTuple) => {
-          if (!_.isArray(extension)) {
-            return this.extensions.use(extension)
+          if (_.isString(extension)) {
+            return this.extensions.use(extension as string)
           }
 
           return this.extensions.set(
-            ...(extension as [string, Extension.Interface]),
+            ...(extension as [string, Extension.Contract]),
           )
         },
       )
@@ -52,11 +36,17 @@ function ensureIterable(extensions) {
 
 export type ExtensionTuple = [
   string,
-  Extension.Interface | ((bud: Bud) => Extension.Interface),
+  (
+    | Extension.Contract
+    | ((bud: Bud.Contract) => Extension.Contract)
+  ),
 ]
 
-export type Extensions =
-  | string
-  | string[]
-  | ExtensionTuple
-  | ExtensionTuple[]
+export type Use<T = Bud.Contract> = (
+  this: T,
+  extensions:
+    | string
+    | string[]
+    | ExtensionTuple
+    | ExtensionTuple[],
+) => T

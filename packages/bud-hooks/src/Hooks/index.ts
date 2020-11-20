@@ -1,78 +1,85 @@
-import {Indexed} from '@roots/container'
+import Framework from '@roots/bud-typings'
 
-class Hooks extends Indexed implements Hooks.Contract {
-  repository: Indexed
-  logger: Hooks.Logger
-
-  public constructor({logger}: Hooks.Options) {
-    super()
-    this.logger = logger
-  }
-
-  public on<T = any>(name: string, hook: Hooks.Hook<T>): this {
-    this.repository[name] = this.repository[name]
-      ? [this.repository[name], hook]
-      : [hook]
-
-    return this
-  }
-
-  public action<T = unknown>(name: string, binding: T): void {
-    this.repository[name].map((hook: Hooks.Hook<T>) =>
-      hook.bind(binding),
-    )
-  }
-
-  public filter<T = unknown>(name: string, value: T): T {
-    return !this.repository[name]
-      ? value
-      : this.repository[name].reduce(
-          (val: T, hook: Hooks.Hook<T>) => hook(val),
-          null,
-        )
-  }
-}
+export {Hooks, Hooks as default}
 
 /**
- * Callback registry opening internal values, functions and events
- * to runtime modification.
+ * ## bud.hooks
  *
- * Hooks are registered with `hooks.on`.
- * Hooks are called with `hooks.filter`.
+ * Bud provides a system of 'hooks' to expose values
+ * for easier modification.
+ *
+ * [🏡 Project home](https://roots.io/bud)
+ * [🧑‍💻 roots/bud/packages/server](https://git.io/JkCQG)
+ * [📦 @roots/bud-server](https://www.npmjs.com/package/@roots/bud-build)
+ * [🔗 Documentation](#)
+ *
+ * ### Usage
+ *
+ * ####  Add a new entry to the `webpack.externals` configuration:
+ *
+ * ```js
+ * bud.hooks.on(
+ *   'webpack.externals',
+ *   externals => ({
+ *     ...externals,
+ *     $: 'jquery',
+ *   }),
+ * )
+ * ```
+ *
+ * #### Change the `webpack.output.filename` format:
+ *
+ * ```js
+ * bud.hooks.on(
+ *   'webpack.output.filename',
+ *   () => '[name].[hash:4]',
+ * )
+ * ```
+ *
+ * #### Replace the regular expression used for CSS modules:
+ *
+ * ```js
+ * bud.hooks.on(
+ *   'webpack.module.rules.oneOf.css.test',
+ *   () => /\.css$/,
+ * )
+ * ```
  */
-namespace Hooks {
-  export declare class Contract
-    extends Indexed
-    implements Interface {
-    logger: Logger
-    constructor({logger}: Options)
-    on<T = any>(name: string, hook: Hooks.Hook<T>): this
-    filter<T>(name: string, value: T): T
-  }
-
-  export interface Interface {
-    logger: Logger
-    on<T = any>(name: string, hook: Hooks.Hook<T>): this
-    filter<T>(name: string, value: T): T
-  }
-
+class Hooks implements Framework.Hooks.Contract {
   /**
-   * Requires a logger to be supplied.
+   * ## bud.hooks.hooks [🏠 Internal]
+   *
+   * Hooks store.
    */
-  export interface Options {
-    logger: Logger
-  }
+  private store: Framework.Hooks.Store
 
   /**
-   * Simple logger, just needs an info and error interface.
+   * Class constructor
    */
-  export type Logger = {
-    info: (message: string) => void
-    error: (message: string) => void
+  public constructor() {
+    this.store = {}
   }
 
   /**
-   * Register a callback to a name.
+   * ## bud.hooks.has
+   *
+   * Check if anything is hooked to a given name
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.hooks.has('namespace.name.value')
+   * // => `true` if there is a hook.
+   * ```
+   */
+  public has(name: string): boolean {
+    return Object.keys(this.store).includes(name)
+  }
+
+  /**
+   * ## bud.hooks.on
+   *
+   * Register a function to filter a value being produced by Bud.
    *
    * If a filter calls for this name the function is then run,
    * passing whatever data along for modification. If more than one
@@ -80,32 +87,80 @@ namespace Hooks {
    * in the order they were registered, with each hook's output used
    * as the input for the next.
    *
-   * @see {Waterfall}
+   * ### Usage
+   *
+   * ```js
+   * bud.hooks.on(
+   *   'namespace.name.value',
+   *   value => 'replaced by this string',
+   * )
+   * ```
    */
-  export type Register<T> = (
+  public on<T = unknown>(
     name: string,
-    hook: Hook<T>,
-  ) => Contract
+    hook: Framework.Hooks.Hook<T>,
+  ): this {
+    this.store[name] = this.has(name)
+      ? [...this.store[name], hook]
+      : [hook]
+
+    return this
+  }
 
   /**
-   * Runs all the hooks registered to the given name on the given value
-   * through a reducer
+   * ## bud.hooks.action
    *
-   * @see {Waterfall}
+   * Register a function to be executed during a specific bud lifecycle event.
+   *
+   * This function will have its `this` lexical context bound to the `bud`
+   * object. You cannot use an arrow function.
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.hooks.action(
+   *   'namespace.name.event',
+   *   function() {
+   *     console.log(`${this} is bud`)
+   *   },
+   * )
+   * ```
    */
-  export type Filter<T> = (name: string, value: T) => T
+  public action<T = unknown>(name: string, binding: T): void {
+    this.has(name)
+      ? this.store[name].map((hook: Framework.Hooks.Hook<T>) =>
+          hook.bind(binding),
+        )
+      : null
+  }
 
   /**
-   * Hook
+   * ## bud.hooks.filter
    *
-   * Function to mutate a runtime value.
+   * Make a value filterable by hooks.
    *
-   * Receives a value from a filter reducer and does something
-   * with it (or based on it). The returned
-   * value is either returned to the filter or passed to the next
-   * registered hook (if more than one hook has been registered).
+   * Provide the name of the hook and the initial value. If any
+   * `bud.hooks.on` functions are "hooked" to the provided name, the
+   * value will be passed through them before being returned to your
+   * calling code.
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.hooks.filter(
+   *   'namespace.name.event',
+   *   ['array', 'of', 'items'],
+   * )
+   * ```
    */
-  export type Hook<T> = (data: T) => T
+  public filter<T = unknown>(name: string, value: T): T {
+    if (!this.has(name)) {
+      return value
+    }
+
+    return this.store[name].reduce(
+      (val: T, hook: Framework.Hooks.Hook<T>) => hook(val),
+      value,
+    )
+  }
 }
-
-export {Hooks}

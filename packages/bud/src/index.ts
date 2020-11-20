@@ -1,69 +1,40 @@
-import * as api from '@roots/bud-api'
-import * as containers from './containers'
-import * as builders from './builders'
-import {disks} from './disks'
-import * as services from './services'
-import {plugins} from './plugins'
+import {Bud} from './Bud'
 
-import {Bud as Instance} from '@roots/bud-framework'
-import type {Bud} from '@roots/bud-typings'
+import * as containers from './components/containers'
+import {extensions} from './components/extensions'
+import {items} from './components/items'
+import {loaders} from './components/loaders'
+import {rules} from './components/rules'
 
-/**
- * Instantiate Bud.
- */
-const bud: Bud = new Instance({
-  api,
-  builders,
+const bud: Bud = new Bud({
   containers,
-  disks,
-  plugins,
-  services,
-}).bootstrap()
-
-const {
-  args,
-  fs: {
-    path: {resolve},
-  },
-} = bud
-
-bud
-  .when(
-    args.has('project'),
-    ({projectPath}: Bud) =>
+  loaders,
+  items,
+  rules,
+  extensions,
+})
+  .init()
+  .pipe([
+    ({args, template}) => args.has('html') && template(),
+    ({args, gzip}) => args.has('gzip') && gzip(),
+    ({args, brotli}) => args.has('brotli') && brotli(),
+    ({args, minify}) => args.has('minify') && minify(),
+    ({args, runtime}) => args.has('runtime') && runtime(),
+    ({args, vendor}) => args.has('vendor') && vendor(),
+    ({args, hash}) => args.has('hash') && hash(),
+    ({provide}) => provide({jquery: '$'}),
+    ({args, srcPath}) => srcPath(args.get('src') ?? 'src'),
+    ({args, distPath}) => distPath(args.get('dist') ?? 'dist'),
+    ({args, devtool}) =>
+      args.has('devtool') &&
+      devtool(args.get('devtool') ?? '#@cheap-eval-source-map'),
+    ({args, fs, projectPath}) =>
       projectPath(
-        resolve(bud.fs.getBase(), args.get('project')),
+        args.has('project')
+          ? fs.path.resolve(fs.getBase(), args.get('project'))
+          : fs.getBase(),
       ),
-    ({projectPath}) => projectPath(process.cwd()),
-  )
-  .srcPath(args.get('src') ?? 'src')
-  .distPath(args.get('dist') ?? 'dist')
+  ])
 
-  .when(
-    args.has('mode'),
-    ({mode}: Bud) => mode.set(args.get('mode')),
-    ({mode}: Bud) => mode.set('none'),
-  )
-
-  .when(args.has('html'), ({template}) => template())
-  .when(args.has('minify'), ({minify}) => minify())
-  .when(args.has('gzip'), ({gzip}) => gzip())
-  .when(args.has('brotli'), ({brotli}) => brotli())
-  .when(args.has('runtime'), ({runtime}) => runtime())
-  .when(args.has('vendor'), ({vendor}) => vendor())
-  .when(args.has('hash'), ({hash}) => hash())
-  .when(args.has('devtool'), ({devtool}) =>
-    devtool(args.get('devtool') ?? '#@cheap-eval-source-map'),
-  )
-
-/**
- * Framework.Bud
- * @type {Bud}
- */
-export default bud
-
-/**
- * Bud
- * @type {Bud}
- */
-module.exports = bud
+export {bud}
+module.exports = {bud}

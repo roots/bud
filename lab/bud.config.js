@@ -1,14 +1,22 @@
-/**
- * @type {Framework.Bud}
- */
-const bud = require('../packages/bud/lib')
+const localFix = require('./localFix')
+const snippets = require('./snippets')
 
-bud.use(['@roots/bud-babel', '@roots/bud-react'])
-
-bud.library(['react', 'react-dom'])
+const {bud} = require('@roots/bud')
 
 bud
-  .buildCache()
-  .entry('foo', ['foo.js', 'foo.css'])
-  .minify()
-  .run()
+  .use([
+    '@roots/bud-postcss',
+    '@roots/bud-babel',
+    '@roots/bud-react',
+  ])
+  .pipe([localFix])
+
+bud.alias({'@scripts/': bud.src('scripts')})
+bud.entry('foo', ['foo.js', 'foo.css'])
+bud.template({
+  replacements: {
+    APP_TITLE: 'Foo bar',
+  },
+})
+
+bud.run()

@@ -1,14 +1,25 @@
-export const template: Framework.API.Template = function (options?: {
-  template: string
-  replacements: Framework.Index<string>
-}) {
-  this.features.enable('html')
+import type {Index, Bud} from '@roots/bud-typings'
 
-  const plugin = this.extensions.get('html-webpack-plugin')
+export const template: Template = function (options?) {
+  this.features.set('html', true)
 
-  options?.template && plugin.merge('template', options.template)
+  options?.template &&
+    this.extensions
+      .get('html-webpack-plugin')
+      .merge('template', options.template)
+
   options?.replacements &&
-    plugin.merge('replacements', options.replacements)
+    this.extensions
+      .get('interpolate-html-plugin')
+      .mergeStore(options.replacements)
 
   return this
 }
+
+export type Template<T = Bud.Contract> = (
+  this: T,
+  options?: {
+    template: string
+    replacements: Index<string>
+  },
+) => T

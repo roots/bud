@@ -1,29 +1,41 @@
-/**
- * Build Item
- */
-export class Item implements Framework.Item {
-  bud: Framework.Bud
-  ident?: Framework.Item['ident']
-  loader?: Framework.Item['loader']
-  options?: Framework.Item['options']
-  query?: Framework.Item['query']
+import Framework from '@roots/bud-typings'
 
-  constructor(
-    bud: Framework.Bud,
-    module: Framework.Item.Module,
-  ) {
+export {Item, Item as default}
+
+type Contract = Framework.Item.Contract
+type Module = Framework.Item.Module
+type RuleSetLoader = Framework.Item.RuleSetLoader
+
+/**
+ * Webpack RuleSetUseItem
+ */
+class Item implements Contract {
+  bud: Framework.Bud.Bud
+
+  ident?: Contract['ident']
+
+  loader?: Contract['loader']
+
+  options?: Contract['options']
+
+  query?: Contract['query']
+
+  /**
+   * Class constructor.
+   */
+  constructor(bud: Framework.Bud.Bud, module: Module) {
+    this.set = this.set.bind(this)
+    this.make = this.make.bind(this)
+
     this.bud = bud
 
     this.set(module)
-
-    this.set = this.set.bind(this)
-    this.make = this.make.bind(this)
   }
 
   /**
    * Prop map
    */
-  public propMap: Framework.Item['propMap'] = function () {
+  public propMap: Contract['propMap'] = function () {
     return {
       ident: [this.ident, this.bud],
       query: [this.query, this.bud],
@@ -35,9 +47,7 @@ export class Item implements Framework.Item {
   /**
    * Set the loader definition
    */
-  public set: Framework.Item['set'] = function (
-    module: Framework.Item.Module,
-  ): void {
+  public set: Contract['set'] = function (module: Module): void {
     Object.entries(module).map(([key, item]) => {
       this[key] = item
     })
@@ -46,31 +56,29 @@ export class Item implements Framework.Item {
   /**
    * Get the loader ident
    */
-  public getIdent: Framework.Item['getIdent'] = function () {
+  public getIdent: Contract['getIdent'] = function () {
     return this.ident
   }
 
   /**
    * Set the loader ident
    */
-  public setIdent: Framework.Item['setIdent'] = function (
-    ident: Framework.Item.Module.Ident,
-  ): void {
+  public setIdent = function (ident: Module['ident']): void {
     this.ident = ident
   }
 
   /**
    * Get the loader ident
    */
-  public getOptions: Framework.Item['getOptions'] = function () {
+  public getOptions = function (): Module['options'] {
     return this.options
   }
 
   /**
    * Set the loader options
    */
-  public setOptions: Framework.Item['setOptions'] = function (
-    options: Framework.Item.Module.Options,
+  public setOptions = function (
+    options: Module['options'],
   ): void {
     this.options = options
   }
@@ -78,7 +86,7 @@ export class Item implements Framework.Item {
   /**
    * Get the loader ident
    */
-  public getQuery: Framework.Item['getQuery'] = function () {
+  public getQuery = function (): Item['query'] {
     return typeof this.query == 'function'
       ? this.query()
       : this.query
@@ -87,24 +95,22 @@ export class Item implements Framework.Item {
   /**
    * Set the loader query
    */
-  public setQuery: Framework.Item['setQuery'] = function (
-    query: Framework.Item.Module.Query,
-  ): void {
+  public setQuery = function (query: Module['query']): void {
     this.query = query
   }
 
   /**
    * Get the loader ident
    */
-  public getLoader: Framework.Item['getLoader'] = function () {
+  public getLoader = function (): Item['loader'] {
     return this.loader
   }
 
   /**
    * Set the loader
    */
-  public setLoader: Framework.Item['setLoader'] = function (
-    loader: Framework.Item.Module.Loader,
+  public setLoader: Contract['setLoader'] = function (
+    loader: Module['loader'],
   ): void {
     this.loader = loader
   }
@@ -112,12 +118,11 @@ export class Item implements Framework.Item {
   /**
    * Make an item for use in a rule.
    */
-  public make: Framework.Item['make'] = function (
-    this: Framework.Item,
-  ) {
+  public make: Contract['make'] = function () {
     return (
       // Get the map of props to items
       Object.entries(this.propMap())
+
         // First out nullish values, etc.
         .filter(
           ([, [value]]: [
@@ -125,20 +130,19 @@ export class Item implements Framework.Item {
             [Framework.Item.Property, unknown],
           ]) => value !== null && value !== undefined,
         )
+
         // Then, reduce the set, tapping callables during translation
         .reduce(
           (
-            fields: Framework.Build.RuleSetLoader,
+            fields: RuleSetLoader,
             [property, [value, param]]: [
               string,
               [
-                Framework.Item.MaybeCallable<
-                  Framework.Item.Property
-                >,
+                Framework.MaybeCallable<Framework.Item.Property>,
                 unknown,
               ],
             ],
-          ): Framework.Build.RuleSetLoader => {
+          ): RuleSetLoader => {
             /**
              * A property value can be calculated
              * in a couple different ways.

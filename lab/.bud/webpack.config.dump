@@ -1,0 +1,284 @@
+module.exports = () => ({
+  entry: { foo: [ 'foo.js', 'foo.css' ] },
+  bail: true,
+  context: '/Users/kellymears/code/projects/cli/bud/bud/lab/src',
+  mode: 'production',
+  name: '@roots/bud',
+  node: {
+    module: 'empty',
+    dns: 'mock',
+    fs: 'empty',
+    http2: 'empty',
+    net: 'empty',
+    tls: 'empty',
+    child_process: 'empty',
+    process: true,
+    global: true,
+    Buffer: true,
+    setImmediate: true,
+    __filename: 'mock',
+    __dirname: 'mock'
+  },
+  performance: { maxAssetSize: Infinity, maxEntrypointSize: 250000 },
+  recordsPath: '/Users/kellymears/code/projects/cli/bud/bud/lab/.bud/records.json',
+  stats: 'none',
+  target: 'web',
+  module: {
+    rules: [
+      {
+        oneOf: [
+          {
+            exclude: /(node_modules|bower_components)/,
+            test: /\.css$/,
+            use: [
+              {
+                ident: 'mini-css',
+                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/mini-css-extract-plugin/dist/loader.js'
+              },
+              {
+                ident: 'css',
+                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/css-loader/dist/cjs.js',
+                options: { importLoaders: 2 }
+              },
+              {
+                ident: 'postcss',
+                loader: '/Users/kellymears/code/projects/cli/bud/bud/packages/extension-postcss/node_modules/postcss-loader/dist/cjs.js',
+                options: {
+                  postcssOptions: {
+                    plugins: [
+                      'postcss-flexbugs-fixes',
+                      [
+                        'postcss-preset-env',
+                        {
+                          autoprefixer: { flexbox: 'no-2009' },
+                          stage: 3
+                        }
+                      ]
+                    ]
+                  }
+                }
+              },
+              {
+                ident: 'resolve-url',
+                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/resolve-url-loader/index.js',
+                options: { sourceMap: true }
+              }
+            ]
+          },
+          {
+            test: /\.(ttf|otf|eot|woff2?|png|jpe?g|gif|ico)$/,
+            use: [
+              {
+                ident: 'file',
+                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/file-loader/dist/cjs.js',
+                options: { name: '[path][name].[ext]' }
+              }
+            ]
+          },
+          {
+            test: /\.(html?)$/,
+            use: {
+              ident: 'raw',
+              loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/raw-loader/dist/cjs.js'
+            }
+          },
+          {
+            test: /\.(png|svg|jpg|jpeg|gif)$/,
+            use: [
+              "<<Circular reference to 'config.module.rules.[0].oneOf.[1].use.[0]'>>"
+            ]
+          },
+          {
+            exclude: /(node_modules|bower_components)/,
+            test: /\.(js|jsx)$/,
+            use: [
+              {
+                ident: 'thread',
+                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/thread-loader/dist/cjs.js'
+              },
+              {
+                ident: 'cache',
+                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/cache-loader/dist/cjs.js'
+              },
+              {
+                ident: 'babel',
+                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/babel-loader/lib/index.js',
+                options: {
+                  presets: [ '@babel/preset-react' ],
+                  plugins: [
+                    [
+                      '/Users/kellymears/code/projects/cli/bud/bud/node_modules/@babel/plugin-transform-runtime/lib/index.js'
+                    ],
+                    [
+                      '/Users/kellymears/code/projects/cli/bud/bud/node_modules/@babel/plugin-proposal-object-rest-spread/lib/index.js'
+                    ],
+                    [
+                      '/Users/kellymears/code/projects/cli/bud/bud/node_modules/@babel/plugin-syntax-dynamic-import/lib/index.js'
+                    ]
+                  ]
+                }
+              },
+              "<<Circular reference to 'config.module.rules.[0].oneOf.[2].use'>>"
+            ]
+          },
+          {
+            test: /\.svg$/,
+            use: [
+              {
+                ident: 'svg',
+                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/resolve-url-loader/index.js'
+              }
+            ]
+          }
+        ]
+      }
+    ],
+    unknownContextRequest: '.',
+    unknownContextRecursive: true,
+    unknownContextCritical: true,
+    exprContextRequest: '.',
+    exprContextRecursive: true,
+    exprContextCritical: true,
+    wrappedContextRegExp: /.*/,
+    wrappedContextRecursive: true,
+    defaultRules: [
+      { type: 'javascript/auto' },
+      {
+        test: /\.mjs$/i,
+        type: 'javascript/esm',
+        resolve: { mainFields: [ 'browser', 'main' ] }
+      },
+      { test: /\.json$/i, type: 'json' },
+      { test: /\.wasm$/i, type: 'webassembly/experimental' }
+    ]
+  },
+  output: {
+    path: '/Users/kellymears/code/projects/cli/bud/bud/lab/dist',
+    publicPath: '/',
+    filename: '[name].js',
+    chunkFilename: '[name].js',
+    webassemblyModuleFilename: '[modulehash].module.wasm',
+    hotUpdateFunction: 'webpackHotUpdate',
+    jsonpFunction: 'webpackJsonp',
+    chunkCallbackName: 'webpackChunk',
+    globalObject: 'window',
+    libraryTarget: 'var',
+    sourceMapFilename: '[file].map[query]',
+    hotUpdateChunkFilename: '[id].[hash].hot-update.js',
+    hotUpdateMainFilename: '[hash].hot-update.json',
+    chunkLoadTimeout: 120000,
+    hashFunction: 'md4',
+    hashDigest: 'hex',
+    hashDigestLength: 20
+  },
+  plugins: [
+    {
+      cleanStaleWebpackAssets: true,
+      protectWebpackAssets: true,
+      cleanOnceBeforeBuildPatterns: [ '**/*', '!dll/*' ],
+      outputPath: '/Users/kellymears/code/projects/cli/bud/bud/lab/dist'
+    },
+    { ignorePatterns: [ /\.*\.css.\.js/, /^\.\/locale$/, /moment$/ ] },
+    {
+      outputPath: '/Users/kellymears/code/projects/cli/bud/bud/lab/.bud',
+      name: 'webpack.config.dump',
+      depth: 4,
+      keepCircularReferences: true
+    },
+    {
+      definitions: { PUBLIC_URL: '/', APP_TITLE: 'App', APP_DESCRIPTION: 'Test' }
+    },
+    {
+      options: {
+        template: '/Users/kellymears/code/projects/cli/bud/bud/packages/bud-support/publish/template.html',
+        filename: 'index.html',
+        publicPath: '/',
+        inject: 'body',
+        scriptLoading: 'blocking',
+        compile: true,
+        minify: 'auto',
+        cache: true,
+        showErrors: true,
+        chunks: 'all',
+        chunksSortMode: 'auto',
+        title: 'Webpack App',
+        alwaysWriteToDisk: true
+      },
+      version: 4
+    },
+    { replacements: { APP_TITLE: 'Foo bar', APP_DESCRIPTION: 'Test' } },
+    {
+      opts: {
+        publicPath: '/',
+        fileName: 'manifest.json',
+        transformExtensions: /^(gz|map)$/i,
+        writeToFileEmit: true
+      }
+    },
+    {
+      options: { filename: '[name].css', chunkFilename: '[name].css' }
+    },
+    { definitions: { '$': 'jquery' } },
+    {
+      nodeModulesPath: '/Users/kellymears/code/projects/cli/bud/bud/lab/node_modules'
+    }
+  ],
+  resolve: {
+    alias: {
+      '@scripts/': '/Users/kellymears/code/projects/cli/bud/bud/lab/src/scripts'
+    },
+    extensions: [ '.wasm', '.mjs', '.js', '.json', '.css' ],
+    modules: [
+      '/Users/kellymears/code/projects/cli/bud/bud/lab/src',
+      '/Users/kellymears/code/projects/cli/bud/bud/lab',
+      '/Users/kellymears/code/projects/cli/bud/bud/packages',
+      '/Users/kellymears/code/projects/cli/bud/bud/node_modules'
+    ],
+    unsafeCache: true,
+    mainFiles: [ 'index' ],
+    aliasFields: [ 'browser' ],
+    mainFields: [ 'browser', 'module', 'main' ]
+  },
+  optimization: {
+    splitChunks: {
+      cacheGroups: {
+        default: { reuseExistingChunk: true, minChunks: 2, priority: -20 },
+        vendors: {
+          automaticNamePrefix: 'vendors',
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10
+        }
+      },
+      hidePathInfo: true,
+      chunks: 'async',
+      minSize: 30000,
+      minChunks: 1,
+      maxAsyncRequests: 5,
+      automaticNameDelimiter: '~',
+      automaticNameMaxLength: 109,
+      maxInitialRequests: 3,
+      name: true
+    },
+    removeAvailableModules: true,
+    removeEmptyChunks: true,
+    mergeDuplicateChunks: true,
+    flagIncludedChunks: true,
+    occurrenceOrder: true,
+    sideEffects: true,
+    providedExports: true,
+    usedExports: true,
+    concatenateModules: true,
+    noEmitOnErrors: true,
+    checkWasmTypes: true,
+    portableRecords: true,
+    nodeEnv: 'production'
+  },
+  resolveLoader: {
+    unsafeCache: true,
+    mainFields: [ 'loader', 'main' ],
+    extensions: [ '.js', '.json' ],
+    mainFiles: [ 'index' ],
+    roots: [ '/Users/kellymears/code/projects/cli/bud/bud/lab/src' ]
+  },
+  infrastructureLogging: { level: 'info' }
+})

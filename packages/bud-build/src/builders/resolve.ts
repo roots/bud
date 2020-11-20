@@ -1,27 +1,28 @@
-export const resolve: Framework.Build.Resolve = function ({
-  resolve,
-  context,
-}) {
+import {Bud, Build, Webpack} from '@roots/bud-typings'
+
+type Resolve = Webpack.Configuration['resolve']
+
+type Build = (this: Bud.Contract) => {resolve: Resolve}
+
+export const resolve: Build = function () {
   return {
     resolve: {
-      alias: this.hooks.filter(
+      alias: this.hooks.filter<Resolve['alias']>(
         'webpack.resolve.alias',
-        resolve.alias,
+        this.config.get('resolve.alias'),
       ),
-
-      extensions: this.hooks.filter(
+      extensions: this.hooks.filter<Resolve['extensions']>(
         'webpack.resolve.extensions',
-        resolve.extensions,
+        this.config.get('resolve.extensions'),
       ),
-
-      modules: this.hooks.filter('webpack.resolve.modules', [
-        resolve.modules ?? context,
-        this.disk.get('project').getBase(),
-        this.fs.path.resolve(
-          this.disk.get('@roots').getBase(),
-          '../node_modules',
-        ),
-      ]),
+      modules: this.hooks.filter<Resolve['modules']>(
+        'webpack.resolve.modules',
+        [
+          this.src(),
+          this.disk.get('project').base,
+          this.disk.get('@roots').base,
+        ],
+      ),
     },
   }
 }
