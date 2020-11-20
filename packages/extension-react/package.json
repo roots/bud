@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-react",
-  "version": "2.0.0-next.24",
+  "version": "2.0.0-next.25",
   "description": "A friendly build tool to help manage your project assets.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -22,7 +22,10 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib", "src"],
+  "files": [
+    "lib",
+    "src"
+  ],
   "main": "./lib/index.js",
   "types": "./lib/types/index.d.ts",
   "scripts": {
@@ -42,7 +45,7 @@
     "type-fest": "^0.18.0"
   },
   "devDependencies": {
-    "@roots/bud-hooks": "2.0.0-next.24",
-    "@roots/bud-extensions": "^2.0.0-next.24"
+    "@roots/bud-extensions": "^2.0.0-next.25",
+    "@roots/bud-hooks": "^2.0.0-next.25"
   }
 }
