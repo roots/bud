@@ -1,6 +1,6 @@
 import {Bud, Server} from '@roots/bud-typings'
 
-export const dev: Dev = function(config) {
+export const dev: Dev = function (config) {
   if (config?.proxy?.host || config?.proxy?.port) {
     this.features.set('proxy', true)
   }

@@ -6,7 +6,7 @@ export namespace Entry {
   export type Build = (this: Bud.Contract) => {entry: Entry}
 }
 
-export const entry: Entry.Build = function() {
+export const entry: Entry.Build = function () {
   return {
     entry: this.hooks.filter<Entry>(
       'webpack.entry',

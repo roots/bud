@@ -6,7 +6,7 @@ export namespace Plugins {
   ) => {plugins: Webpack.Configuration['plugins']}
 }
 
-export const plugins: Plugins.Build = function() {
+export const plugins: Plugins.Build = function () {
   const plugins: Webpack.Plugin[] = this.hooks.filter<
     Webpack.Configuration['plugins']
   >(

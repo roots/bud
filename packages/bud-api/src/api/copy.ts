@@ -1,7 +1,7 @@
 import {lodash as _} from '@roots/bud-support'
 import {Bud} from '@roots/bud-typings'
 
-export const copy: Copy = function({
+export const copy: Copy = function ({
   from,
   context = null,
   to = null,

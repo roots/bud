@@ -1,6 +1,6 @@
 import {Bud} from '@roots/bud-typings'
 
-export const proxy: Proxy = function(
+export const proxy: Proxy = function (
   bud: Bud.Contract,
   proxyTarget: any,
 ) {

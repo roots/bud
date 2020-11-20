@@ -6,7 +6,7 @@ export namespace Output {
   export type Build = (this: Bud.Contract) => {output: Output}
 }
 
-export const output: Output.Build = function() {
+export const output: Output.Build = function () {
   const path = this.hooks.filter<Output['path']>(
     'webpack.output.path',
     this.config.get('output.path'),

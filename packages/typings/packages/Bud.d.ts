@@ -10,6 +10,7 @@ import {
   Hooks,
   Index,
   Logger,
+  MaybeCallable,
   Mode,
   CLI,
   Server,
@@ -48,6 +49,11 @@ export interface Contract extends Core {
   compiler: Compiler.Interface
 
   server: Server.Contract
+
+  callMeMaybe: <I = unknown>(
+    value: MaybeCallable<I>,
+    ...args: unknown[]
+  ) => I
 
   disks: () => this
 

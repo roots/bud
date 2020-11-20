@@ -832,11 +832,17 @@ export class Bud extends Core implements Abstract.Contract {
     })
 
     this.hooks = new Hooks()
+
     this.build = new Build(this)
+
     this.cache = new Cache(this)
+
     this.cli = new Runner(this)
+
     this.compiler = new Compiler(this)
+
     this.server = new Server(this)
+
     this.extensions = new Extensions(this)
   }
 

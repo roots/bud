@@ -4,7 +4,7 @@ type Resolve = Webpack.Configuration['resolve']
 
 type Build = (this: Bud.Contract) => {resolve: Resolve}
 
-export const resolve: Build = function() {
+export const resolve: Build = function () {
   return {
     resolve: {
       alias: this.hooks.filter<Resolve['alias']>(

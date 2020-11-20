@@ -8,14 +8,15 @@ export namespace Optimization {
   ) => {optimization: Optimization}
 }
 
-/** Annoying to type because of the length of keys */
+/**
+ * Annoying to type because of the length of keys
+ */
 const key = val =>
   `webpack.optimization${val.map(
     v => `${val.length > 1 ? '.' : ''}${v}`,
   )}`
 
-export const optimization: Optimization.Build = function() {
-  // Runtime chunk
+export const optimization: Optimization.Build = function () {
   const runtimeChunk = this.features.enabled(`runtimeChunk`)
     ? this.hooks.filter<Optimization['runtimeChunk']>(
         key`runtimeChunk`,
@@ -23,7 +24,6 @@ export const optimization: Optimization.Build = function() {
       )
     : false
 
-  // Vendor cacheGroup
   const vendor = this.features.enabled(`vendor`)
     ? this.hooks.filter<
         any

@@ -114,12 +114,16 @@ class Bud implements Abstract.Core {
    * // => `option value: true`
    * ```
    */
-  public callMeMaybe: MaybeCallable = util.callMeMaybe
+  public callMeMaybe: <I = unknown>(
+    value: MaybeCallable<I>,
+    ...args: unknown[]
+  ) => I = util.callMeMaybe
 
   /**
    * Class constructor
    */
   public constructor(registrables: {[key: string]: unknown}) {
+    this.callMeMaybe = this.callMeMaybe.bind(this)
     this.makeContainer = this.makeContainer.bind(this)
     this.get = this.get.bind(this)
 
