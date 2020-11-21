@@ -23,9 +23,8 @@
     "node": ">=12"
   },
   "files": [
-    "./lib",
-    "./types",
-    "./src"
+    "lib",
+    "src"
   ],
   "main": "lib/index.js",
   "types": "./lib/types/index.d.ts",
