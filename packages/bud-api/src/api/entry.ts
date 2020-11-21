@@ -6,7 +6,7 @@ export const entry: Entry = function (bundle, assets) {
     'entry',
     _.isString(assets) || _.isArray(assets)
       ? {
-          [bundle]: assets,
+          [`${bundle}`]: assets,
         }
       : assets,
   )

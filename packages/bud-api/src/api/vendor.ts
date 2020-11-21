@@ -1,5 +1,5 @@
 export const vendor: Vendor = function () {
-  this.features.enable('vendor')
+  this.features.set('vendor', true)
 
   return this
 }

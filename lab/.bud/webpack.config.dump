@@ -236,6 +236,31 @@ module.exports = () => ({
   },
   optimization: {
     removeAvailableModules: true,
+    splitChunks: {
+      chunks: 'async',
+      minSize: 20000,
+      minChunks: 1,
+      maxAsyncRequests: 30,
+      maxInitialRequests: 30,
+      automaticNameDelimiter: '~',
+      cacheGroups: {
+        vendor: {
+          enforce: true,
+          priority: -10,
+          test: /[\\/]node_modules[\\/]/,
+          chunks: 'all'
+        },
+        default: { reuseExistingChunk: true, minChunks: 2, priority: -20 },
+        vendors: {
+          automaticNamePrefix: 'vendors',
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10
+        }
+      },
+      hidePathInfo: true,
+      automaticNameMaxLength: 109,
+      name: true
+    },
     removeEmptyChunks: true,
     mergeDuplicateChunks: true,
     flagIncludedChunks: true,
@@ -244,25 +269,6 @@ module.exports = () => ({
     providedExports: true,
     usedExports: true,
     concatenateModules: true,
-    splitChunks: {
-      hidePathInfo: true,
-      chunks: 'async',
-      minSize: 30000,
-      minChunks: 1,
-      maxAsyncRequests: 5,
-      automaticNameDelimiter: '~',
-      automaticNameMaxLength: 109,
-      maxInitialRequests: 3,
-      name: true,
-      cacheGroups: {
-        default: { reuseExistingChunk: true, minChunks: 2, priority: -20 },
-        vendors: {
-          automaticNamePrefix: 'vendors',
-          test: /[\\/]node_modules[\\/]/,
-          priority: -10
-        }
-      }
-    },
     noEmitOnErrors: true,
     checkWasmTypes: true,
     portableRecords: true,

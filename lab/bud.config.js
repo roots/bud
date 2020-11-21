@@ -8,6 +8,8 @@ require('@roots/bud')
     require('./localFix'),
     ({alias}) => alias({'@scripts': './scripts'}),
     ({entry}) => entry('foo', ['foo.js', 'foo.css']),
+    ({vendor}) => vendor(),
+    ({runtime}) => runtime(),
     ({template}) => template(),
   ])
   .run()
