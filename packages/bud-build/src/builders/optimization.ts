@@ -53,16 +53,10 @@ export const optimization: Optimization.Build = function () {
   }
 
   if (this.features.enabled('vendor')) {
-    output.optimization.splitChunks = {
-      cacheGroups: {
-        vendor: this.hooks.filter<any>(
-          key`splitChunks.cacheGroups.vendor`,
-          this.config.get(
-            `optimization.splitChunks.cacheGroups.vendor`,
-          ),
-        ),
-      },
-    }
+    output.optimization.splitChunks = this.hooks.filter<any>(
+      key`splitChunks`,
+      this.config.get(`optimization.splitChunks`),
+    )
   }
 
   return output
