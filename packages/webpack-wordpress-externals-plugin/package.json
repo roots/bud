@@ -32,5 +32,8 @@
     "clean:modules": "rimraf ./node_modules",
     "tsc": "tsc -p ./tsconfig.json",
     "lint": "eslint ."
+  },
+  "dependencies": {
+    "node-fetch": "^2.6.1"
   }
 }

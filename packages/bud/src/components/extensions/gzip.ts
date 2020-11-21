@@ -9,7 +9,7 @@ export const when: Extension.When = ({features}) =>
 
 export const options: Options = {
   algorithm: 'gzip',
-  filename: '[path].gz[query]',
+  filename: '[name][ext].gz[query]',
   test: /\.js$|\.css$|\.html$/,
   compressionOptions: {
     level: 9,

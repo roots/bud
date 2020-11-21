@@ -44,6 +44,7 @@
     "@roots/container": "^2.0.0-next.27",
     "@roots/dependencies": "^2.0.0-next.26",
     "@roots/filesystem": "^2.0.0-next.27",
+    "dotenv": "^8.2.0",
     "pino": "^6.7.0",
     "pino-pretty": "^4.3.0",
     "pretty-format": "^26.6.2",
