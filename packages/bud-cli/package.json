@@ -23,9 +23,9 @@
     "node": ">=12"
   },
   "files": [
-    "./lib",
-    "./bin",
-    "./src"
+    "lib",
+    "bin",
+    "src"
   ],
   "bin": {
     "bud": "bin/bud.js"
