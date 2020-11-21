@@ -45,7 +45,11 @@
       "../../node_modules/css-loader/dist/cjs.js??css!../../packages/extension-postcss/node_modules/postcss-loader/dist/cjs.js??postcss!../../node_modules/resolve-url-loader/index.js??resolve-url!foo.css": 4,
       "../../node_modules/mini-css-extract-plugin/dist/loader.js!../../node_modules/css-loader/dist/cjs.js??css!../../packages/extension-postcss/node_modules/postcss-loader/dist/cjs.js??postcss!../../node_modules/resolve-url-loader/index.js??resolve-url!foo.css": 2,
       "multi ../../packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ReactRefreshEntry.js ../../node_modules/webpack-hot-middleware/client.js?path=/__webpack_hmr&timeout=2000 ../../packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ErrorOverlayEntry.js foo.js foo.css": 0,
-      "multi ../../packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ReactRefreshEntry.js ../../packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ErrorOverlayEntry.js foo.js foo.css": 0
+      "multi ../../packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ReactRefreshEntry.js ../../packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ErrorOverlayEntry.js foo.js foo.css": 0,
+      "../../node_modules/react/cjs/react.production.min.js": 4,
+      "../../node_modules/react-dom/cjs/react-dom.production.min.js": 5,
+      "../../node_modules/scheduler/cjs/scheduler.production.min.js": 7,
+      "../../node_modules/thread-loader/dist/cjs.js!../../node_modules/cache-loader/dist/cjs.js!../../node_modules/babel-loader/lib/index.js??babel!foo.js d47b89a775ac9996c8de5f8b3a30423f": 9
     },
     "usedIds": {
       "0": 0,

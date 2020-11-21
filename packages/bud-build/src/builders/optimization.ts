@@ -16,37 +16,14 @@ const key = val =>
     v => `${val.length > 1 ? '.' : ''}${v}`,
   )}`
 
+/**
+ * Webpack.Optimization
+ */
 export const optimization: Optimization.Build = function () {
-  const runtimeChunk = this.features.enabled(`runtimeChunk`)
-    ? this.hooks.filter<Optimization['runtimeChunk']>(
-        key`runtimeChunk`,
-        this.config.get(`optimization.runtimeChunk`),
-      )
-    : false
-
-  const vendor = this.features.enabled(`vendor`)
-    ? this.hooks.filter<
-        any
-        // This doesn't seem to be typed.
-        // Webpack.Options.SplitChunksOptions.CacheGroups.vendor ??
-      >(
-        key`splitChunks.cacheGroups.vendor`,
-        this.config.get(
-          `optimization.splitChunks.cacheGroups.vendor`,
-        ),
-      )
-    : false
-
-  // Main
-  return this.hooks.filter<{optimization: Optimization}>(key``, {
+  const output = this.hooks.filter<{
+    optimization: Optimization
+  }>(key``, {
     optimization: {
-      runtimeChunk,
-      splitChunks: {
-        cacheGroups: {
-          vendor,
-        },
-      },
-
       minimize: this.hooks.filter<Optimization['minimize']>(
         key`minimize`,
         this.features.enabled(`minify`),
@@ -65,4 +42,28 @@ export const optimization: Optimization.Build = function () {
       ),
     },
   })
+
+  if (this.features.enabled(`runtimeChunk`)) {
+    output.optimization.runtimeChunk = this.hooks.filter<
+      Optimization['runtimeChunk']
+    >(
+      key`runtimeChunk`,
+      this.config.get(`optimization.runtimeChunk`),
+    )
+  }
+
+  if (this.features.enabled('vendor')) {
+    output.optimization.splitChunks = {
+      cacheGroups: {
+        vendor: this.hooks.filter<any>(
+          key`splitChunks.cacheGroups.vendor`,
+          this.config.get(
+            `optimization.splitChunks.cacheGroups.vendor`,
+          ),
+        ),
+      },
+    }
+  }
+
+  return output
 }
