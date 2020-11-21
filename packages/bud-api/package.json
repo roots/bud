@@ -35,11 +35,6 @@
     "clean:modules": "rimraf ./node_modules",
     "lint": "eslint ."
   },
-  "dependencies": {
-    "@roots/bud-server": "^2.0.0-next.25",
-    "@roots/bud-support": "^2.0.0-next.25",
-    "@roots/container": "^2.0.0-next.25"
-  },
   "devDependencies": {
     "@roots/bud-extensions": "^2.0.0-next.25",
     "@roots/bud-framework": "^2.0.0-next.25",
@@ -50,5 +45,10 @@
     "terser": "^5.3.4",
     "terser-webpack-plugin": "^5.0.3",
     "webpack": "^4.44.2"
+  },
+  "dependencies": {
+    "@roots/bud-server": "^2.0.0-next.25",
+    "@roots/bud-support": "^2.0.0-next.25",
+    "@roots/container": "^2.0.0-next.25"
   }
 }

@@ -35,6 +35,11 @@
     "tsc": "tsc -b tsconfig.json",
     "lint": "eslint ."
   },
+  "devDependencies": {
+    "@roots/bud-extensions": "^2.0.0-next.25",
+    "@roots/bud-hooks": "^2.0.0-next.25",
+    "@roots/bud-typings": "^2.0.0-next.25"
+  },
   "dependencies": {
     "@babel/preset-react": "^7.12.1",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.4.2",
@@ -43,9 +48,5 @@
     "react-dom": "^17.0.1",
     "react-refresh": "^0.9.0",
     "type-fest": "^0.18.0"
-  },
-  "devDependencies": {
-    "@roots/bud-extensions": "^2.0.0-next.25",
-    "@roots/bud-hooks": "^2.0.0-next.25"
   }
 }

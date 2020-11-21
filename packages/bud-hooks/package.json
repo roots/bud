@@ -34,6 +34,9 @@
     "clean:modules": "rimraf ./node_modules",
     "lint": "eslint ."
   },
+  "devDependencies": {
+    "@roots/bud-typings": "^2.0.0-next.25"
+  },
   "dependencies": {
     "@roots/container": "^2.0.0-next.25"
   }

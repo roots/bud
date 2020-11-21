@@ -37,6 +37,9 @@
     "tsc": "tsc -b tsconfig.json",
     "lint": "eslint ."
   },
+  "devDependencies": {
+    "@roots/bud-typings": "^2.0.0-next.25"
+  },
   "dependencies": {
     "@roots/bud-support": "^2.0.0-next.25",
     "babel-helper-vue-jsx-merge-props": "^2.0.0",
@@ -47,8 +50,5 @@
     "vue": "^2.6.11",
     "vue-loader": "^15.9.3",
     "vue-template-compiler": "^2.6.12"
-  },
-  "devDependencies": {
-    "@roots/bud-extensions": "^2.0.0-next.25"
   }
 }

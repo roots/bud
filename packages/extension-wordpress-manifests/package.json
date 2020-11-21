@@ -37,6 +37,9 @@
     "tsc": "tsc -p ./tsconfig.json",
     "lint": "eslint ."
   },
+  "devDependencies": {
+    "@roots/bud-typings": "^2.0.0-next.25"
+  },
   "dependencies": {
     "@roots/entrypoints-webpack-plugin": "^2.0.0-next.25",
     "@roots/merged-manifest-webpack-plugin": "^2.0.0-next.25",
