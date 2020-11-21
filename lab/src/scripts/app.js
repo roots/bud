@@ -1,6 +1,6 @@
 import React, {useState} from 'react'
 
-export const myApp = () => {
+export const MyApp = () => {
   const [state, setState] = useState('')
 
   return (
