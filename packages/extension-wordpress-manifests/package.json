@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-wordpress-manifests",
-  "version": "2.0.0-next.27",
+  "version": "2.0.0-next.29",
   "description": "Webpack tools",
   "repository": {
     "type": "git",
@@ -43,6 +43,6 @@
   "dependencies": {
     "@roots/entrypoints-webpack-plugin": "^2.0.0-next.27",
     "@roots/merged-manifest-webpack-plugin": "^2.0.0-next.27",
-    "@roots/wordpress-externals-webpack-plugin": "^2.0.0-next.26"
+    "@roots/wordpress-externals-webpack-plugin": "^2.0.0-next.29"
   }
 }
