@@ -12,8 +12,8 @@ export function boot(bud: Bud.Contract): void {
   make(bud)
 
   bud.build.rules.set('js.use', [
-    ...bud.build.rules.get('js.use').slice(0, 2),
+    bud.build.items.get('thread'),
+    bud.build.items.get('cache'),
     bud.build.items.get('babel'),
-    ...bud.build.rules.get('js.use').slice(2),
   ])
 }

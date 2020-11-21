@@ -2,7 +2,7 @@ module.exports = () => ({
   entry: { foo: [ 'foo.js', 'foo.css' ] },
   bail: true,
   context: '/Users/kellymears/code/projects/cli/bud/bud/lab/src',
-  mode: 'production',
+  mode: 'development',
   name: '@roots/bud',
   node: {
     module: 'empty',
@@ -32,8 +32,8 @@ module.exports = () => ({
             test: /\.css$/,
             use: [
               {
-                ident: 'mini-css',
-                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/mini-css-extract-plugin/dist/loader.js'
+                ident: 'style',
+                loader: '/Users/kellymears/code/projects/cli/bud/bud/node_modules/style-loader/dist/cjs.js'
               },
               {
                 ident: 'css',
@@ -106,19 +106,10 @@ module.exports = () => ({
                 options: {
                   presets: [ '@babel/preset-react' ],
                   plugins: [
-                    [
-                      '/Users/kellymears/code/projects/cli/bud/bud/node_modules/@babel/plugin-transform-runtime/lib/index.js'
-                    ],
-                    [
-                      '/Users/kellymears/code/projects/cli/bud/bud/node_modules/@babel/plugin-proposal-object-rest-spread/lib/index.js'
-                    ],
-                    [
-                      '/Users/kellymears/code/projects/cli/bud/bud/node_modules/@babel/plugin-syntax-dynamic-import/lib/index.js'
-                    ]
+                    '/Users/kellymears/code/projects/cli/bud/bud/node_modules/react-refresh/babel.js'
                   ]
                 }
-              },
-              "<<Circular reference to 'config.module.rules.[0].oneOf.[2].use'>>"
+              }
             ]
           },
           {
@@ -141,6 +132,7 @@ module.exports = () => ({
     exprContextCritical: true,
     wrappedContextRegExp: /.*/,
     wrappedContextRecursive: true,
+    unsafeCache: true,
     defaultRules: [
       { type: 'javascript/auto' },
       {
@@ -163,6 +155,7 @@ module.exports = () => ({
     chunkCallbackName: 'webpackChunk',
     globalObject: 'window',
     libraryTarget: 'var',
+    pathinfo: true,
     sourceMapFilename: '[file].map[query]',
     hotUpdateChunkFilename: '[id].[hash].hot-update.js',
     hotUpdateMainFilename: '[hash].hot-update.json',
@@ -188,6 +181,7 @@ module.exports = () => ({
     {
       definitions: { PUBLIC_URL: '/', APP_TITLE: 'App', APP_DESCRIPTION: 'Test' }
     },
+    { fullBuildTimeout: 200, requestTimeout: 10000 },
     {
       options: {
         template: '/Users/kellymears/code/projects/cli/bud/bud/packages/bud-support/publish/template.html',
@@ -215,18 +209,24 @@ module.exports = () => ({
         writeToFileEmit: true
       }
     },
-    {
-      options: { filename: '[name].css', chunkFilename: '[name].css' }
-    },
     { definitions: { '$': 'jquery' } },
     {
       nodeModulesPath: '/Users/kellymears/code/projects/cli/bud/bud/lab/node_modules'
+    },
+    {
+      options: {
+        overlay: {
+          sockIntegration: 'whm',
+          entry: '/Users/kellymears/code/projects/cli/bud/bud/packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/client/ErrorOverlayEntry.js',
+          module: '/Users/kellymears/code/projects/cli/bud/bud/packages/extension-react/node_modules/@pmmmwh/react-refresh-webpack-plugin/overlay/index.js'
+        },
+        exclude: /node_modules/i,
+        include: /\.([jt]sx?|flow)$/i
+      }
     }
   ],
   resolve: {
-    alias: {
-      '@scripts/': '/Users/kellymears/code/projects/cli/bud/bud/lab/src/scripts'
-    },
+    alias: { '@scripts': './scripts' },
     extensions: [ '.wasm', '.mjs', '.js', '.json', '.css' ],
     modules: [
       '/Users/kellymears/code/projects/cli/bud/bud/lab/src',
@@ -249,30 +249,25 @@ module.exports = () => ({
           priority: -10
         }
       },
-      hidePathInfo: true,
       chunks: 'async',
-      minSize: 30000,
+      minSize: 10000,
       minChunks: 1,
-      maxAsyncRequests: 5,
+      maxAsyncRequests: Infinity,
       automaticNameDelimiter: '~',
       automaticNameMaxLength: 109,
-      maxInitialRequests: 3,
+      maxInitialRequests: Infinity,
       name: true
     },
-    removeAvailableModules: true,
     removeEmptyChunks: true,
     mergeDuplicateChunks: true,
-    flagIncludedChunks: true,
-    occurrenceOrder: true,
-    sideEffects: true,
     providedExports: true,
-    usedExports: true,
-    concatenateModules: true,
-    noEmitOnErrors: true,
-    checkWasmTypes: true,
+    namedModules: true,
+    namedChunks: true,
     portableRecords: true,
-    nodeEnv: 'production'
+    nodeEnv: 'development'
   },
+  devtool: 'eval',
+  cache: true,
   resolveLoader: {
     unsafeCache: true,
     mainFields: [ 'loader', 'main' ],
