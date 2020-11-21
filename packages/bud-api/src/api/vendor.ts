@@ -1,4 +1,6 @@
 export const vendor: Vendor = function (options) {
+  this.features.enable('vendor')
+
   options &&
     this.config.set(
       'optimization.splitChunks.cacheGroups.vendor',
