@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-eslint",
-  "version": "2.0.0-next.27",
+  "version": "2.0.0-next.28",
   "description": "Adds eslint support to Bud",
   "repository": {
     "type": "git",
@@ -37,7 +37,7 @@
   },
   "devDependencies": {
     "@roots/bud-extensions": "^2.0.0-next.27",
-    "@roots/bud-framework": "^2.0.0-next.27",
+    "@roots/bud-framework": "^2.0.0-next.28",
     "@roots/bud-typings": "^2.0.0-next.27",
     "webpack": "^4.44.2"
   },

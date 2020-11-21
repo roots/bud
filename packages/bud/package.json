@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud",
-  "version": "2.0.0-next.27",
+  "version": "2.0.0-next.28",
   "description": "A friendly build tool to help manage your project assets.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -39,16 +39,16 @@
     "@types/compression-webpack-plugin": "^4.0.1"
   },
   "dependencies": {
-    "@roots/bud-api": "^2.0.0-next.27",
+    "@roots/bud-api": "^2.0.0-next.28",
     "@roots/bud-babel": "^2.0.0-next.27",
     "@roots/bud-build": "^2.0.0-next.27",
     "@roots/bud-cache": "^2.0.0-next.27",
-    "@roots/bud-cli": "^2.0.0-next.27",
+    "@roots/bud-cli": "^2.0.0-next.28",
     "@roots/bud-compiler": "^2.0.0-next.27",
     "@roots/bud-extensions": "^2.0.0-next.27",
-    "@roots/bud-framework": "^2.0.0-next.27",
+    "@roots/bud-framework": "^2.0.0-next.28",
     "@roots/bud-hooks": "^2.0.0-next.27",
-    "@roots/bud-postcss": "^2.0.0-next.27",
+    "@roots/bud-postcss": "^2.0.0-next.28",
     "@roots/bud-server": "^2.0.0-next.27",
     "@roots/bud-support": "^2.0.0-next.26",
     "@roots/container": "^2.0.0-next.27",
