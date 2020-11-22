@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-cache",
   "description": "Config caching",
-  "version": "2.0.1",
+  "version": "2.0.2-next.0",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -35,6 +35,6 @@
     "lint": "eslint ."
   },
   "devDependencies": {
-    "@roots/bud-typings": "^2.0.1"
+    "@roots/bud-typings": "^2.0.2-next.0"
   }
 }

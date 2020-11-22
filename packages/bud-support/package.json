@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-support",
-  "version": "2.0.1",
+  "version": "2.0.2-next.0",
   "description": "Internal utilities for the @roots/bud monorepo.",
   "homepage": "https://roots.io/bud",
   "repository": {
