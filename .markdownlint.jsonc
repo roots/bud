@@ -13,6 +13,11 @@
   },
 
   /**
+   * MD103 - Line length
+   */
+  "MD013": false,
+
+  /**
    * MD041 - First line in file should be a top level heading
    */
   "MD041": false

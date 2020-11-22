@@ -1,2 +1,3 @@
-#!/usr/bin/node
-require('./../lib/bud')
+#!/usr/bin/env node
+
+require('../@roots/bud-cli/lib/bud')

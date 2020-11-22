@@ -22,17 +22,19 @@ export const bud: Bud = new Bud({
     ({args, runtime}) => args.has('runtime') && runtime(),
     ({args, vendor}) => args.has('vendor') && vendor(),
     ({args, hash}) => args.has('hash') && hash(),
-    ({args, srcPath}) => srcPath(args.get('src') ?? 'src'),
-    ({args, distPath}) => distPath(args.get('dist') ?? 'dist'),
-    ({args, devtool}) =>
-      args.has('devtool') &&
-      devtool(args.get('devtool') ?? '#@cheap-eval-source-map'),
+    ({args, features}) =>
+      args.has('debug') && features.enable('debug'),
     ({args, fs, projectPath}) =>
       projectPath(
         args.has('project')
           ? fs.path.resolve(fs.getBase(), args.get('project'))
           : fs.getBase(),
       ),
+    ({args, srcPath}) => srcPath(args.get('src') ?? 'src'),
+    ({args, distPath}) => distPath(args.get('dist') ?? 'dist'),
+    ({args, devtool}) =>
+      args.has('devtool') &&
+      devtool(args.get('devtool') ?? '#@cheap-eval-source-map'),
   ])
 
 export default bud

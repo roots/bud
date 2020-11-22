@@ -7,6 +7,8 @@ description: bud.fs allows for reading and writing project files.
 ::: warning Work-in-progress
 Documentation is incomplete. :::
 
+`bud.fs` is a specialized container
+
 ## Methods
 
 ### bud.fs.get

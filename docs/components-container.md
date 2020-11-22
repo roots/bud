@@ -11,138 +11,198 @@ Many of the objects you will most frequently be using when working with Bud are 
 
 Values are stored in `container.repository`. The rest of the `container` class provides an interface to work with these values.
 
+[[toc]]
+
 ## Instantiate
 
 ```ts
-const tutorial = bud.makeContainer({
+bud.makeContainer({
   introduction: 'Many of the objects...',
 })
 ```
 
-## Getters
+## container.getStore
 
-### container.get
-
-Returns the value associated with a given key.
+Get the store contents
 
 ```ts
-tutorial.get('introduction')
-// 'Many of the objects...'
+container.getStore()
 ```
 
-You can request a nested value using dot notation syntax.
+## container.all
 
-So, this lengthy destructuring:
+Alias for `container.getStore`
 
 ```ts
-const {
-  deeply: {
-    nested: {value},
-  },
-} = tutorial.get('some')
+container.all()
 ```
 
-Can instead be expressed as:
+## container.setStore
+
+Replace the store with an all new set of values
 
 ```ts
-tutorial.get('some.deeply.nested.value')
+container.setStore({
+  new: ['store', 'contents'],
+})
 ```
 
-### container.all
+## container.mergeStore
 
-Returns the repository contents as they are.
+Merge values onto the container store.
 
 ```ts
-const items = tutorial.all()
-// => {introduction: 'Many of the objects..'}
+container.mergeStore({test: 'foo'})
 ```
 
-### container.entries
+## container.transformStore
 
-Returns the repository in `[key, value]` format.
+Retrieve the container store, running it through the supplied fn before
+returning the value. Does not mutate the store.
 
 ```ts
-const items = tutorial.entries()
-// => [['introduction', 'Many of the objects...']]
+const storeSansKey = container.transformStore(store => {
+  delete store.key
+  return store
+})
 ```
 
-### container.keys
+## container.mutateStore
 
-Returns an array of the `repository` keys.
+Retrieve the container store, running it through the supplied fn before
+returning the value. Mutates the store.
 
 ```ts
-const items = tutorial.keys()
-// => ['introduction']
+container.mutateStore(store => {
+  delete store[key]
+  return store
+})
+
+container.has(key)
+// => false
 ```
 
-### container.values
+## container.mutateStoreEntries
 
-Returns an array of the `repository` values.
+Retrieve the container store as `Object.entries` tuples, running each tuple through the supplied fn before returning the value. Mutates the store.
 
 ```ts
-const items = tutorial.values()
-// => ['Many of of the objects...']
+container.mutateStoreEntries((key, value) => value + 1)
+// All store values incremented by 1 (... or concatenaed)
 ```
 
-## Setters
+## container.get
 
-### container.set
-
-Sets the value associated with a given key.
+Get a value from the container. Nested objects can be retrieved using dot notation.
 
 ```ts
-webpack.set('entry', {app: ['app.js']})
+container.get('container.container-item')
 ```
 
-You can set a nested value using dot notation syntax. This is particularly useful when modifying a nested value while trying to preserve the rest of the object.
+## container.getEntries
 
-For instance:
+Get container value as an array of [K, V] tuples.
 
 ```ts
-const some = tutorial.get('some')
-
-some.deeply.nested.value = 'phew'
-
-tutorial.set('some', some)
+container.getEntries('some-key')
 ```
 
-Can be simplifed to:
+If no key is passed, the store itself will be returned in the same format:
 
 ```ts
-tutorial.set('some.deeply.nested.value', 'phew')
+container.getEntries()
 ```
 
-### container.merge
+## container.fromEntries
 
-Objects can be merged by key
+Set container values from [K, V] tuples.
 
 ```ts
-tutorial.merge('entry', {admin: ['admin.js']})
+container.fromEntries([
+  ['key', value],
+  ['another-key', anotherValue],
+])
 ```
 
-After the merge, `tutorial.get('entry')` yields:
+## container.withEntries
+
+Get the store values as [K, V] tuples. Pass each one to a supplied callback.
 
 ```ts
-{
-  app: ['app.js'],
-  admin: ['admin.js'],
-}
+container.withEntries('key', (key, value) =>
+  doSomething.with(key).and(value),
+)
 ```
 
-## Mutations
+## container.mutateEntries
 
-### container.mutate
-
-Mutate a value using a callback.
+Mutate each value via a supplied mutagen.
 
 ```ts
-webpack.mutate('entry', entry => ({
-  ...entry,
-  mapbox: ['mapbox.js'],
-}))
+container.mutateEntries('key', (key, value) => value + 1)
 ```
 
-The callback is passed the value associated with the requested key and returns the replacement value.
+## container.getValues
+
+Get an item's values
+
+```ts
+container.getValues('some.key')
+```
+
+If no key is supplied the values from the entire store will be returned as an array.
+
+```ts
+container.getValues()
+```
+
+## container.getKeys
+
+Get an item's keys
+
+```ts
+container.getKeys('some.key')
+```
+
+If no key is supplied the keys from the entire store will be returned as an array.
+
+```ts
+container.getKeys()
+```
+
+## container.getMap
+
+Get an item a a Map datatype.
+
+```ts
+container.getMap('item')
+```
+
+If no key is supplied a map will be made of the entire store.
+
+```ts
+container.getMap()
+```
+
+## container.set
+
+Set a value on a container item.
+
+```ts
+container.set('key', value)
+```
+
+## container.transform
+
+Retrieve a container item, running its value through the supplied function.
+
+```ts
+container.transform('key', value => value + 1)
+```
+
+## container.mutate
+
+Retrieve a container item, running its value through the supplied mutagen.
 
 This is a more succint, functional replacement for relatively common tasks that would otherwise require:
 
@@ -150,46 +210,182 @@ This is a more succint, functional replacement for relatively common tasks that 
 2. performing an operation on that value.
 3. calling `container.set` to replace it.
 
-## Conditionals
-
-### container.has
-
-Returns `true` if the given string matches the name of a repository property. Returns `false` otherwise.
-
 ```ts
-container.has('item', true)
+container.mutate('key', current => updated)
 ```
 
-### container.true
+## container.merge
 
-Returns `true` if the associated value is literally `true`. Returns `false` otherwise.
+Merge a container item.
 
 ```ts
-container.set('enabled', true)
-container.true('enabled')
-// => true
+container.merge('key', {value: 'to merge'})
 ```
 
+## container.has
+
+Return a boolean indicating if a given key exists in the repository.
+
 ```ts
-container.set('enabled', 1)
-container.true('enabled')
-// => false
+container.has('key')
+// => true if repository['key'] exists
 ```
 
-### container.truthy
+## container.remove
 
-Returns `true` if the associated value resembles `true` [according to various woefully complicated and somewhat artbitary criterion](https://developer.mozilla.org/en-US/docs/Glossary/Truthy). Returns `false` if it isn't even in the ballpark.
-
-The fast-and-loose version of `container.true`. Allows for type coercion.
+Delete an item from the repository
 
 ```ts
-container.set('enabled', true)
-container.true('enabled')
-// => true
+container.remove('key')
+// same as: delete container.repository['key']
 ```
 
+## container.is
+
+Return a boolean indicating if the given key matches the given value.
+
 ```ts
-container.set('enabled', 1)
-container.true('enabled')
-// => true
+container.is('my-key', {whatever: 'value'})
+// True if container.repository['my-key'] === {whatever: 'value'}
+```
+
+## container.isTrue
+
+Return a boolean indicating if the given key's value is `true`.
+
+```ts
+container.isTrue('my-key')
+// True if container.repository['my-key'] === true
+```
+
+## container.enabled
+
+Alias for [container.isTrue](#container.isTrue)
+
+## container.isFalse
+
+Return a boolean indicating if the given key's value is `false`.
+
+```ts
+container.isFalse'my-key')
+// True if container.repository['my-key'] === false
+```
+
+## container.disabled
+
+Alias for [container.isFalse](#container.isFalse)
+
+## container.enable
+
+Set the value of the given key to `true`.
+
+```ts
+container.enable('my-key')
+```
+
+## container.disable
+
+Set the value of the given key to `false`.
+
+```ts
+container.disable('my-key')
+```
+
+## container.isIndexed
+
+Return true if object is likely a vanilla object with string keys
+
+```ts
+container.isIndexed('my-key')
+// => True if container.repository['my-key'] appears to be an object.
+```
+
+## container.isArray
+
+Return true if value is an array.
+
+```ts
+container.isArray('my-key')
+// => true if container.repository['my-key'] is an array.
+```
+
+## container.isNotArray
+
+Return true if value is not an array.
+
+```ts
+container.isNotArray('my-key')
+// => true if container.repository['my-key'] is not an array.
+```
+
+## container.isString
+
+Return true if value is an string.
+
+```ts
+container.isString('my-key')
+// => true if container.repository['my-key'] is a string.
+```
+
+## container.isNotString
+
+Return true if value is not an string.
+
+```ts
+container.isNotString('my-key')
+// => true if container.repository['my-key'] is not a string.
+```
+
+## container.isNumber
+
+Return true if value is an number.
+
+```ts
+container.isNumber('my-key')
+// => true if container.repository['my-key'] is a number.
+```
+
+## container.isNotNumber
+
+Return true if value is not an number.
+
+```ts
+container.isNotNumber('my-key')
+// => true if container.repository['my-key'] is not a number.
+```
+
+## container.isNull
+
+Return true if value is null.
+
+```ts
+container.isNull('my-key')
+// => true if container.repository['my-key'] is a null.
+```
+
+## container.isNotNull
+
+Return true if value is not null.
+
+```ts
+container.isNotNull('my-key')
+// => true if container.repository['my-key'] is not a null.
+```
+
+## container.isDefined
+
+Return true if value is defined.
+
+```ts
+container.isDefined('my-key')
+// => true if container.repository['my-key'] is a defined.
+```
+
+## container.isNotDefined
+
+Return true if value is not defined.
+
+```ts
+container.isNotDefined('my-key')
+// => true if container.repository['my-key'] is not a defined.
 ```

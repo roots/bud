@@ -7,32 +7,43 @@ description: bud.disk is a meta container of `bud.fs` containers
 ::: warning Work-in-progress
 Documentation is incomplete. :::
 
-There are many `bud.fs` instances created by Bud for easy filesystem access throughout the core packages, project directories and any registered extensions.
+For interacting with project files, there is a `@roots/filesystem` instance available: `bud.fs`. If you are only wanting to work with project files it's easiest to just use that.
 
-`bud.disk` allows for accessing these various `fs` instances.
+However, there are many other `FileContainer` instances created by Bud for easy filesystem access to packages and various project subdirectories.
+
+`bud.disk` is the means of accessing these various `FileContainer` instances. It essentially allows for you to "swap" in a registered `FileContainer` to work with. The most recently used `FileContainer` can be quickly accessed from `bud.disk.current`.
+
+The `bud.disk` object is a [bud.container instance](components-container.md).
 
 ## bud.disk.get
 
-Use an `fs` instance. Out of the box `project` and `@roots` are available.
+Retrieve an `fs` instance. Out of the box `project` and `@roots` are available.
 
-Extensions will also have a `bud.fs` instance generated for them during registration. These are accessible using the extension's `package.json` name field (the same string it was registered with).
+| disk    | path                   | notes                                                         |
+| ------- | ---------------------- | ------------------------------------------------------------- |
+| project | project root directory | same as `bud.fs`                                              |
+| @roots  | node_modules/@roots    | [@roots scope directory](https://docs.npmjs.com/about-scopes) |
+
+Every extension, when registered as a module, has a `FileContainer` instance generated as a part of registration. These are accessible using the extension's `package.json` name field (the same string it was registered with).
 
 ### Usage
 
 Retrieve a `fs` instance indexing the project root.
 
 ```ts
-const project = bud.disk.get('project')
+const projectFiles = bud.disk.get('project')
 ```
 
-Retrieve a `fs` instance indexing the `@roots` [scope](https://docs.npmjs.com/about-scopes)
+Retrieve a `fs` instance indexing the `@roots` package scope.
 
 ```ts
-const library = bud.disk.get('@roots')
+const rootsFiles = bud.disk.get('@roots')
 ```
 
-Retrieve a `fs` instance indexing an extension root (assuming the extension has been registered with [`bud.use`](config-use.md)).
+Retrieve a `fs` instance indexing an extension name.
 
 ```ts
-const extensionFs = bud.disk.get('@roots/bud-eslint')
+const extensionFiles = bud.disk.get('@roots/bud-eslint')
 ```
+
+For more information on using the retrieved disk, please refer to the [FileSystem documentation](components-filesystem.md).

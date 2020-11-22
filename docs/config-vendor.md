@@ -12,16 +12,10 @@ Bundle vendored modules separately from application code.
 bud.vendor()
 ```
 
-Optionally, give the vendor bundle a specific name:
-
-```js
-bud.vendor('third-party')
-```
-
 ## Signature
 
 ```ts
-function (name?: string): Bud
+function (): Bud
 ```
 
 ## Returns
@@ -30,4 +24,4 @@ function (name?: string): Bud
 
 ## Related
 
-- [bud.inlineManifest](config-inlineManifest.md)
+- [bud.runtime](config-runtime.md)
