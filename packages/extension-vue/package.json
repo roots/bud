@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-vue",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Adds Vue support to Bud",
   "repository": {
     "type": "git",
@@ -38,10 +38,10 @@
     "lint": "eslint ."
   },
   "devDependencies": {
-    "@roots/bud-typings": "^2.0.0"
+    "@roots/bud-typings": "^2.0.1"
   },
   "dependencies": {
-    "@roots/bud-support": "^2.0.0",
+    "@roots/bud-support": "^2.0.1",
     "babel-helper-vue-jsx-merge-props": "^2.0.0",
     "babel-plugin-transform-vue-jsx": "^3.7.0",
     "css-loader": "^3.6.0",
