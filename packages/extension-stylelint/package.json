@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-stylelint",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Adds stylelint support to Bud",
   "repository": {
     "type": "git",
@@ -38,8 +38,8 @@
     "lint": "eslint ."
   },
   "devDependencies": {
-    "@roots/bud-extensions": "^2.0.0",
-    "@roots/bud-typings": "^2.0.0"
+    "@roots/bud-extensions": "^2.0.1",
+    "@roots/bud-typings": "^2.0.1"
   },
   "dependencies": {
     "stylelint": "^13.6.1",

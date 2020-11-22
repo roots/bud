@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-eslint",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Adds eslint support to Bud",
   "repository": {
     "type": "git",
@@ -36,13 +36,13 @@
     "lint": "eslint ."
   },
   "devDependencies": {
-    "@roots/bud-extensions": "^2.0.0",
-    "@roots/bud-framework": "^2.0.0",
-    "@roots/bud-typings": "^2.0.0",
+    "@roots/bud-extensions": "^2.0.1",
+    "@roots/bud-framework": "^2.0.1",
+    "@roots/bud-typings": "^2.0.1",
     "webpack": "^4.44.2"
   },
   "dependencies": {
-    "@roots/bud-support": "^2.0.0",
+    "@roots/bud-support": "^2.0.1",
     "babel-eslint": "8",
     "eslint": "^7.8.1",
     "eslint-loader": "^4.0.2",
