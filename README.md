@@ -81,38 +81,6 @@ With your config file in place run the following command:
 
 You should see your built assets in the `dist` directory of your project.
 
-## Configuration API
-
-| Tool            | Description                         | Documentation                                      |
-| --------------- | ----------------------------------- | -------------------------------------------------- |
-| bud.addPlugin   | Use a Webpack plugin                | [docs/config-addPlugin.md](https://git.io/JTNGA)   |
-| bud.alias       | Easy module imports                 | [docs/config-alias.md](https://git.io/JTNGh)       |
-| bud.brotli      | Apply brotli compression            | [docs/config-brotli.md](https://git.io/JTNZv)      |
-| bud.copy        | Copy files                          | [docs/config-copy.md](https://git.io/JTNGb)        |
-| bud.define      | Define global constants             | [docs/config-define.md](https://git.io/JTNZk)      |
-| bud.dev         | Configure dev server                | [docs/config-dev.md](https://git.io/JTNGb)         |
-| bud.devtool     | Configure sourcemaps                | [docs/config-devtool.md](https://git.io/JTNGb)     |
-| bud.dist        | Get the `dist` dir path             | [docs/config-dist.md](https://git.io/JTNGF)        |
-| bud.distPath    | Define the `dist` dir path          | [docs/config-distPath.md](https://git.io/JTNGQ)    |
-| bud.entry       | Add source files                    | [docs/config-entry.md](https://git.io/JTNG9)       |
-| bud.glob        | Create an entrypoint with wildcards | [docs/config-glob.md](https://git.io/JTNGS)        |
-| bud.gzip        | Apply gzip compression              | [docs/config-gzip.md](https://git.io/JTNGD)        |
-| bud.hash        | Add version string to assets        | [docs/config-glob.md](https://git.io/JTNGP)        |
-| bud.library     | Create a DLL                        | [docs/config-library.md](https://git.io/JTNZO)     |
-| bud.minify      | Minify assets                       | [docs/config-minify.md](https://git.io/JTNZl)      |
-| bud.project     | Get the project root                | [docs/config-project.md](https://git.io/JTNZ0)     |
-| bud.projectPath | Define the project root dir         | [docs/config-projectPath.md](https://git.io/JTNnl) |
-| bud.provide     | Make a module available globally    | [docs/config-provide.md](https://git.io/JTNnC)     |
-| bud.publicPath  | Define the browser URI of assets.   | [docs/config-publicPath.md](https://git.io/JTNns)  |
-| bud.runtime     | Code split with a runtime chunk     | [docs/config-runtime.md](https://git.io/JTNnT)     |
-| bud.src         | Get the `src` dir path              | [docs/config-src.md](https://git.io/JTNnf)         |
-| bud.srcPath     | Define the `src` dir path           | [docs/config-srcPath.md](https://git.io/JTNnv)     |
-| bud.template    | Generate HTML boilerplate           | [docs/config-template.md](https://git.io/JTNZj)    |
-| bud.terser      | Configure the terser minifier       | [docs/config-terser.md](https://git.io/JTNZx)      |
-| bud.use         | Extend Bud's core functionality     | [docs/config-use.md](https://git.io/JTNZA)         |
-| bud.vendor      | Separate vendor code from app code  | [docs/config-vendor.md](https://git.io/JTNZN)      |
-| bud.when        | Conditional control of build steps  | [docs/config-when.md](https://git.io/JTNZ0)        |
-
 ## Extensions
 
 Bud, by itself, provides an intentionally sparse set of features.
@@ -123,178 +91,69 @@ Suffice to say, extensibility is a fundamental design tenant of Bud as software.
 
 ### First-party extensions
 
-There are a number of Roots maintained extensions available to kickstart your projects. For more information on using them refer to [the documentation on `bud.use`](https://github.com/roots/bud/tree/master/docs/config-use.md) and the extension README.
+There are a number of Roots maintained extensions available to kickstart your projects. For more information on using them refer to [the documentation on `bud.use`](https://github.com/roots/bud/tree/stable/docs/config-use.md) and the individual extension's README.
 
 | Name                           | Description                     | Usage                                                                                                      |
 | ------------------------------ | ------------------------------- | ---------------------------------------------------------------------------------------------------------- |
-| @roots/bud-babel               | Adds babel support.             | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/extension-babel/README.md)       |
-| @roots/bud-eslint              | Adds eslint support.            | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/extension-eslint/README.md)      |
-| @roots/bud-wordpress-manifests | WP specific build tooling.      | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/extension-manifests/README.md)   |
-| @roots/bud-purgecss            | Adds purgecss support.          | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/extension-purgecss/README.md)    |
-| @roots/bud-react               | Adds react support.             | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/extension-react/README.md)       |
-| @roots/bud-sass                | Adds sass preprocessor support. | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/extension-sass/README.md)        |
-| @roots/bud-stylelint           | Adds stylelint support.         | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/extension-stylelint/README.md)   |
-| @roots/bud-tailwindcss         | Adds tailwindcss support.       | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/extension-tailwindcss/README.md) |
-| @roots/bud-typescript          | Adds typescript support.        | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/extension-typescript/README.md)  |
-| @roots/bud-vue                 | Adds Vue framework support.     | [Usage ↗](https://github.com/roots/bud-support/blob/%40roots/bud/packages/extension-vue/README.md)         |
+| @roots/bud-babel               | Adds babel support.             | [Usage ↗](https://github.com/roots/bud/tree/stable/packages/extension-babel/README.md)       |
+| @roots/bud-eslint              | Adds eslint support.            | [Usage ↗](https://github.com/roots/bud/tree/stable/packages/extension-eslint/README.md)      |
+| @roots/bud-wordpress-manifests | WP specific build tooling.      | [Usage ↗](https://github.com/roots/bud/tree/stable/packages/extension-wordpress-manifests/README.md)   |
+| @roots/bud-purgecss            | Adds purgecss support.          | [Usage ↗](https://github.com/roots/bud/tree/stable/packages/extension-purgecss/README.md)    |
+| @roots/bud-react               | Adds react support.             | [Usage ↗](https://github.com/roots/bud/tree/stable/packages/extension-react/README.md)       |
+| @roots/bud-sass                | Adds sass preprocessor support. | [Usage ↗](https://github.com/roots/bud/tree/stable/packages/extension-sass/README.md)        |
+| @roots/bud-stylelint           | Adds stylelint support.         | [Usage ↗](https://github.com/roots/bud/tree/stable/packages/extension-stylelint/README.md)   |
+| @roots/bud-tailwindcss         | Adds tailwindcss support.       | [Usage ↗](https://github.com/roots/bud/tree/stable/packages/extension-tailwindcss/README.md) |
+| @roots/bud-typescript          | Adds typescript support.        | [Usage ↗](https://github.com/roots/bud/tree/stable/packages/extension-typescript/README.md)  |
+| @roots/bud-vue                 | Adds Vue framework support.     | [Usage ↗](https://github.com/roots/bud/tree/stable/packages/extension-vue/README.md)         |
 
-## Configuring development vs. production
+## Documentation
 
-Use `bud.mode` to get, set and check the compiler mode. For more information [see the `bud.mode` docs](https://github.com/roots/bud/tree/master/docs/components-mode). If you're uncertain what this is for _at all_, you should read [the webpack docs](https://webpack.js.org/configuration/mode/) (this is a critical concept for webpack).
+- [Configuring your project](https://github.com/roots/bud/tree/stable/docs/guide-config.md)
+- [Building your project](https://github.com/roots/bud/tree/stable/docs/cli-build.md)
+- [Working with containers](https://github.com/roots/bud/tree/stable/docs/components-container.md)
+- [Working with env values](https://github.com/roots/bud/tree/stable/docs/components-env.md)
+- [Working with the filesystem](https://github.com/roots/bud/tree/stable/docs/components-filesystem.md)
+- [Using hooks](https://github.com/roots/bud/tree/stable/docs/components-hooks.md)
+- [Setting the compilation mode](https://github.com/roots/bud/tree/stable/docs/components-mode.md)
 
-### bud.mode.get
+### Configuration API documentation
 
-Returns the mode as a `string`.
+| Tool            | Description                         | Documentation                                      |
+| --------------- | ----------------------------------- | -------------------------------------------------- |
+| bud.addPlugin   | Use a Webpack plugin                | [docs/config-addPlugin.md](https://github.com/roots/bud/tree/stable/docs/config-addPlugin.md)   |
+| bud.alias       | Easy module imports                 | [docs/config-alias.md](https://github.com/roots/bud/tree/stable/docs/config-alias.md)       |
+| bud.brotli      | Apply brotli compression            | [docs/config-brotli.md](https://github.com/roots/bud/tree/stable/docs/config-brotli.md)      |
+| bud.copy        | Copy files                          | [docs/config-copy.md](https://github.com/roots/bud/tree/stable/docs/config-copy.md)        |
+| bud.define      | Define global constants             | [docs/config-define.md](https://github.com/roots/bud/tree/stable/docs/config-define.md)       |
+| bud.dev         | Configure dev server                | [docs/config-dev.md](https://github.com/roots/bud/tree/stable/docs/config-dev.md)         |
+| bud.devtool     | Configure sourcemaps                | [docs/config-devtool.md](https://github.com/roots/bud/tree/stable/docs/config-devtool.md)      |
+| bud.dist        | Get the `dist` dir path             | [docs/config-dist.md](https://github.com/roots/bud/tree/stable/docs/config-dist.md)         |
+| bud.distPath    | Define the `dist` dir path          | [docs/config-distPath.md](https://github.com/roots/bud/tree/stable/docs/config-distPath.md)    |
+| bud.entry       | Add source files                    | [docs/config-entry.md](https://github.com/roots/bud/tree/stable/docs/config-entry.md)       |
+| bud.glob        | Create an entrypoint with wildcards | [docs/config-glob.md](https://github.com/roots/bud/tree/stable/docs/config-glob.md)         |
+| bud.gzip        | Apply gzip compression              | [docs/config-gzip.md](https://github.com/roots/bud/tree/stable/docs/config-gzip.md)       |
+| bud.hash        | Add version string to assets        | [docs/config-glob.md](https://github.com/roots/bud/tree/stable/docs/config-hash.md)        |
+| bud.library     | Create a DLL                        | [docs/config-library.md](https://github.com/roots/bud/tree/stable/docs/config-library.md)      |
+| bud.minify      | Minify assets                       | [docs/config-minify.md](https://github.com/roots/bud/tree/stable/docs/config-minify.md)       |
+| bud.project     | Get the project root                | [docs/config-project.md](https://github.com/roots/bud/tree/stable/docs/config-project.md)     |
+| bud.projectPath | Define the project root dir         | [docs/config-projectPath.md](https://github.com/roots/bud/tree/stable/docs/config-projectPath.md)  |
+| bud.provide     | Make a module available globally    | [docs/config-provide.md](https://github.com/roots/bud/tree/stable/docs/config-provide.md)     |
+| bud.publicPath  | Define the browser URI of assets.   | [docs/config-publicPath.md](https://github.com/roots/bud/tree/stable/docs/config-publicPath.md)   |
+| bud.runtime     | Code split with a runtime chunk     | [docs/config-runtime.md](https://github.com/roots/bud/tree/stable/docs/config-runtime.md)     |
+| bud.src         | Get the `src` dir path              | [docs/config-src.md](https://github.com/roots/bud/tree/stable/docs/config-src.md)         |
+| bud.srcPath     | Define the `src` dir path           | [docs/config-srcPath.md](https://github.com/roots/bud/tree/stable/docs/config-srcPath.md)     |
+| bud.template    | Generate HTML boilerplate           | [docs/config-template.md](https://github.com/roots/bud/tree/stable/docs/config-template.md)     |
+| bud.terser      | Configure the terser minifier       | [docs/config-terser.md](https://github.com/roots/bud/tree/stable/docs/config-terser.md)       |
+| bud.use         | Extend Bud's core functionality     | [docs/config-use.md](https://github.com/roots/bud/tree/stable/docs/config-use.md)         |
+| bud.vendor      | Separate vendor code from app code  | [docs/config-vendor.md](https://github.com/roots/bud/tree/stable/docs/config-vendor.md)      |
+| bud.when        | Conditional control of build steps  | [docs/config-when.md](https://github.com/roots/bud/tree/stable/docs/config-when.md)         |
 
-```js
-bud.mode.get()
-```
-
-### bud.mode.set
-
-Sets the mode. Valid options: `production`, `development`, `none`
-
-```js
-bud.mode.set('production')
-```
-
-### bud.mode.is
-
-Returns boolean `true` if mode matches the query arg.
-
-```js
-bud.mode.is('development')
-  ? () => // only in dev,
-  : () => // production time
-```
-
-## Hooks
-
-Bud provides a system of 'hooks' to expose values for easier modification.
-
-As an example, this hook adds a new entry to the `webpack.externals` configuration:
-
-```js
-bud.hooks.on('webpack.externals', externals => ({
-  ...externals,
-  $: 'jquery',
-})
-```
-
-For more information on hooks, including a list of available hooks, reference [the documentation on hooks](https://github.com/roots/bud-support/tree/master/docs/components-hooks.md).
-
-## Environment variables
-
-You can use variables defined in a `.env` in your build with no extra configuration needed.
-
-```js
-bud.env.has('APP_NAME') ? bud.env.get('APP_NAME') : 'Fallback'
-```
-
-You can also use them in your application code.
-
-```js
-import {APP_NAME} from 'window'
-console.log(APP_NAME)
-```
-
-### Making an env value secret
-
-To keep an env value out of your application code, include the string `SECRET` in the variable name:
-
-```env
-SECRET_LICENSE_KEY="867-5309"
-```
-
-## Reading and writing files
-
-The `bud.fs` and `bud.disk` objects make it a cinch to read and write to the filesystem.
-
-Get the contents of a JSON file as an object:
-
-```js
-const package = bud.fs.readJson('package.json')
-```
-
-Change it up:
-
-```js
-bud.fs.writeJson('package.json', {
-  ...package,
-  features: ['easy', 'file', 'handling'],
-})
-```
-
-Write pretty markdown (uses `prettier`):
-
-```js
-bud.fs.write(
-  'README.md',
-  bud.util.pretty(`
-    # Hi, mom!
-    No reason to even fret all that blank space at the start
-        of the line.
-  `),
-)
-```
-
-For more information on filesystem handling reference [the documentation](https://github.com/roots/bud-support/tree/master/docs/components-disk.md).
-
-## Command-line flags
-
-### --mode
-
-Set the mode.
-
-`$ bud build --mode production`
-
-### --minify
-
-Minify built assets
-
-`$ bud build --minify`
-
-### --runtime
-
-Generate a runtime manifest
-
-`$ bud build --runtime`
-
-### --src
-
-Set the src path (relative to cwd)
-
-`$ bud --src "assets/js"`
-
-### --dist
-
-Set the dist path (relative to cwd)
-
-`$ bud --dist "build"`
-
-### --gzip
-
-Enable gzip compression
-
-`$ bud --gzip`
-
-### --brotli
-
-Enable brotli compression
-
-`$ bud --brotli`
-
-### --html
-
-Enables template generation.
-
-`$ bud build --html`
 
 ## Contributing
 
 Contributions are welcome from everyone.
 
-We have [contributing guidelines](https://github.com/roots/guidelines/blob/master/CONTRIBUTING.md) to help you get started.
+We have [contributing guidelines](https://github.com/roots/guidelines/tree/stable/@ter/CONTRIBUTING.md) to help you get started.
 
 ## Bud sponsors
 
@@ -309,15 +168,3 @@ Keep track of development and community news.
 - Read and subscribe to the [Roots Blog](https://roots.io/blog/)
 - Subscribe to the [Roots Newsletter](https://roots.io/subscribe/)
 - Listen to the [Roots Radio podcast](https://roots.io/podcast/)
-
-```
-
-```
-
-```
-
-```
-
-```
-
-```
