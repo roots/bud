@@ -9,6 +9,12 @@ export const moduleBuilder: Module = function () {
     module: this.hooks.filter<Cfg>('webpack.module', {
       ...this.config.get('module'),
       ...rules.bind(this)(),
+      noParse: this.hooks.filter<
+        Webpack.Configuration['module']['noParse']
+      >(
+        'webpack.module.noParse',
+        this.config.get('module.noParse'),
+      ),
     }),
   }
 }

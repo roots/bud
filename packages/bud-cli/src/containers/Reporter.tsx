@@ -1,18 +1,18 @@
 import React from 'react'
 import {Box} from 'ink'
+import {useStyle} from '@roots/ink-use-style'
 
 import Assets from '../components/Assets'
 import Errors from '../components/Errors'
 import {BuildInfo} from '../components/BuildInfo'
 import Progress from '../components/Progress'
 import Screen from '../components/Screen'
-import Title from '../components/Title'
 import {Debug} from '../components/Debug'
-import {useStyle} from '@roots/ink-use-style'
 
 import type {Bud} from '@roots/bud-typings'
 import type {UseStats} from '../hooks/useStats'
 import type {UseProgress} from '../hooks/useProgress'
+import {usePackageJson} from '../hooks/usePackageJson'
 
 declare namespace Reporter {
   export type Props = {
@@ -25,27 +25,17 @@ declare namespace Reporter {
 }
 
 const Reporter: Reporter.Component = ({
-  bud: {disk, name, ...bud},
+  bud,
   stats,
   progress,
 }) => {
+  const pkg = usePackageJson(bud)
   const {col} = useStyle()
-
-  const displayName = disk.get('project').exists('package.json')
-    ? (disk.current.readJson('package.json') as {
-        name: string
-      }).name
-    : 'Bud'
 
   return (
     <Box paddingRight={1} justifyContent="space-between">
-      <Screen title={name}>
+      <Screen title={pkg.name}>
         <Box flexDirection="column">
-          <Box flexDirection="column">
-            <Title>{displayName}</Title>
-            {/* mode.is('development') && <Nav /> */}
-          </Box>
-
           {stats?.errors && stats?.errors[0] && (
             <Errors errors={stats.errors} />
           )}

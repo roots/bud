@@ -6,7 +6,7 @@ import {items} from './components/items'
 import {loaders} from './components/loaders'
 import {rules} from './components/rules'
 
-const bud: Bud = new Bud({
+export const bud: Bud = new Bud({
   containers,
   loaders,
   items,
@@ -22,7 +22,6 @@ const bud: Bud = new Bud({
     ({args, runtime}) => args.has('runtime') && runtime(),
     ({args, vendor}) => args.has('vendor') && vendor(),
     ({args, hash}) => args.has('hash') && hash(),
-    ({provide}) => provide({jquery: '$'}),
     ({args, srcPath}) => srcPath(args.get('src') ?? 'src'),
     ({args, distPath}) => distPath(args.get('dist') ?? 'dist'),
     ({args, devtool}) =>
@@ -36,5 +35,5 @@ const bud: Bud = new Bud({
       ),
   ])
 
-export {bud}
-module.exports = {bud}
+export default bud
+module.exports = bud

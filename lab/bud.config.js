@@ -1,22 +1,15 @@
-const localFix = require('./localFix')
-const snippets = require('./snippets')
-
-const {bud} = require('@roots/bud')
-
-bud
+require('@roots/bud')
   .use([
     '@roots/bud-postcss',
     '@roots/bud-babel',
     '@roots/bud-react',
   ])
-  .pipe([localFix])
-
-bud.alias({'@scripts': './scripts'})
-bud.entry('foo', ['foo.js', 'foo.css'])
-bud.template({
-  replacements: {
-    APP_TITLE: 'Foo bar',
-  },
-})
-
-bud.run()
+  .pipe([
+    require('./localFix'),
+    ({alias}) => alias({'@scripts': './scripts'}),
+    ({entry}) => entry('foo', ['foo.js', 'foo.css']),
+    ({vendor}) => vendor(),
+    ({runtime}) => runtime(),
+    ({template}) => template(),
+  ])
+  .run()

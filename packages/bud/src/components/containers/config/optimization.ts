@@ -6,7 +6,7 @@ export const noEmitOnErrors: Configuration['optimization']['noEmitOnErrors'] = t
 
 export const runtimeChunk: Configuration['optimization']['runtimeChunk'] = {
   name: (entrypoint: any): string =>
-    `runtime/${entrypoint.name}`,
+    `${entrypoint.name}/runtime`,
 }
 
 export const splitChunks: Configuration['optimization']['splitChunks'] = {
@@ -19,20 +19,17 @@ export const splitChunks: Configuration['optimization']['splitChunks'] = {
   automaticNameDelimiter: '~',
   cacheGroups: {
     vendor: {
+      enforce: true,
+      priority: -10,
       test: /[\\/]node_modules[\\/]/,
-      name,
-      chunks: 'async',
+      name: (module, chunks) =>
+        `${chunks
+          .map(item => item.name)
+          .join('~')}/vendor/${module
+          .identifier()
+          .split('/')
+          .reduceRight(item => item.replace('.js', ''))}`,
+      chunks: 'all',
     },
   },
-}
-
-function name(
-  chunks: {name: string}[],
-  cacheGroupKey: string,
-): string {
-  return chunks?.length && chunks.length > 0
-    ? `${cacheGroupKey}/${chunks}`
-    : `${cacheGroupKey}/${chunks
-        .map(item => item.name)
-        .join('~')}`
 }
