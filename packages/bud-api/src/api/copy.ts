@@ -3,9 +3,9 @@ import {Bud} from '@roots/bud-typings'
 
 export const copy: Copy = function (
   from,
-  to = null,
-  context = null,
   options = {
+    to: null,
+    context: null,
     noErrorOnMissing: true,
     globOptions: {
       ignore: '.*',
@@ -18,9 +18,10 @@ export const copy: Copy = function (
       ...patterns,
       {
         from,
-        to: to ?? this.dist(),
-        context: context ?? this.src(),
-        ...options,
+        to: options.to ?? this.dist(),
+        context: options.context ?? this.src(),
+        globOptions: options.globOptions,
+        noErrorOnMissing: options.noErrorOnMissing ?? true,
       },
     ])
 
