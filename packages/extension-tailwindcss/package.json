@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-tailwindcss",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Adds tailwindcss support to Bud",
   "repository": {
     "type": "git",
@@ -38,10 +38,10 @@
     "lint": "eslint ."
   },
   "devDependencies": {
-    "@roots/bud-typings": "^2.0.1"
+    "@roots/bud-typings": "^2.0.2"
   },
   "dependencies": {
-    "@roots/bud-cli": "^2.0.1",
+    "@roots/bud-cli": "^2.0.2",
     "@roots/bud-support": "^2.0.1",
     "tailwindcss": "^1.9.6"
   }
