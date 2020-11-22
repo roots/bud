@@ -60,12 +60,11 @@ functions to help locate your assets.
 /** First, set the project path */
 bud.projectPath('/abs/path/to/project')
 
-/** Now, it is safe to set the src and dist directories */
+/** Now, it is safe to set the src and dist paths */
 bud.srcPath('resources/assets').distPath('dist')
 ```
 
-The reason is that the value set by `bud.projectPath` is utilized as the
-base value for `bud.srcPath` and `bud.distPath`.
+The reason is that the value set by `bud.projectPath` is utilized as the base value for `bud.srcPath` and `bud.distPath`.
 
 ## Specifying source files
 
@@ -73,16 +72,15 @@ base value for `bud.srcPath` and `bud.distPath`.
 bud.entry('app', ['scripts/app.js', 'styles/app.css'])
 ```
 
-[bud.entry](config-entry.md) is used to group your source assets into distinct
-distributables. It takes two arguments, indicating:
+[bud.entry](config-entry.md) is used to group your source
+assets into distinct distributables. It takes two arguments, indicating:
 
 1. the entrypoint name; and
 2. the source files to include.
 
 An `entry` or `entrypoint` may be referred to in other ways, depending on context.
-Often, you'll here people describe a "root" file or the "main" file. These terms
-all mean the same thing, but in the context of webpack, `entry` is the most
-common one you'll find.
+
+Often, you'll here people describe a "root" file or the "main" file. These terms all mean the same thing, but in the context of webpack, `entry` is the most common one you'll find.
 
 ### 1. The entry name
 
@@ -135,25 +133,32 @@ The last step runs the build and outputs the build results using the bud cli.
 
 If you want to use vanilla webpack to run your build, more power to you!
 
-You can either export the final configuration as a module and run it with
-webpack yourself, or have `bud` pipe the output of webpack directly to your
-terminal (no `bud-cli`).
+You can either export the final configuration as a module and run it with webpack yourself, or have `bud` pipe the output of webpack directly to your terminal (no `bud-cli`).
 
-To have Bud still run the build but not use the `bud-cli` renderer, pass a boolean
-`true` as a parameter to `bud.run`. This indicates you want to run the build in
-`safe mode`:
+#### Running the build in safe mode
 
-```js
-bud.run(true)
-```
+It is possible, depending on your environment, that Bud's CLI output causes issues. In particular, it's usage of tty `raw mode` can cause issues with CI tools.
+
+To have Bud still run the build but not use the `bud-cli` raw mode renderer, pass a boolean `true` as a parameter to `bud.run`. This indicates you want to run the build in `safe mode`.
+
+In safe mode Bud will pass the build off to webpack to compile, rather than using the Bud CLI module.
+
+#### Running the build with webpack-cli
 
 If you want to run the build with webpack yourself, no sweat --
 
-Rename your file `webpack.config.js` and change the final line to export
-the configuration directly.
+Change the final line to export the configuration directly.
 
 ```js
 module.exports = bud.build.make()
 ```
 
 Now you can use your configuration file with the `webpack-cli`.
+
+Note that some functionality from Bud packages may not work with this setup.
+
+You will, for instance, need to provde your own `ProgressPlugin` in your
+configuration (if you want one). The Bud CLI renders the progress bar using a
+callback passed to the compiler on initialization.
+
+None of that will be called when using a different compiler flow.

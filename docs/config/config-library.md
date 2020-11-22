@@ -22,17 +22,24 @@ Pass `bud.library` the module you would like to add to the DLL cache:
 bud.library('jquery')
 ```
 
-Multiple modules can be added at once by passing an array:
+Multiple modules can be added using an array:
 
 ```js
 bud.library(['jquery', 'bootstrap'])
 ```
 
-This functionality is untested when used alongside code splitting &mdash; if you are concerned about your bundle size or are using lazy loading techniques, you may wish to set `bud.library` to apply only in development. You have to judge for yourself if it is worth it or not. But, using a DLL can cut off 90%+ of your build time.
+This functionality is untested when used alongside code splitting &mdash; if
+you are concerned about your bundle size or are using lazy-loading
+techniques ([`bud.runtime`](config-runtime.md) for example), you may wish to
+set `bud.library` to apply only in development.
+
+You have to judge for yourself if it is worth it or not. But, using a DLL
+can cut off 90%+ of your build time.
 
 ```ts
-bud.when(bud.mode.is('development'), () =>
-  bud.library(['react', 'react-dom']),
+bud.when(
+  bud.mode.is('development'),
+  ({library}) => library(['react', 'react-dom']),
 )
 ```
 

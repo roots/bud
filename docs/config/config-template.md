@@ -4,7 +4,11 @@ description: Generate HTML boilerplate.
 
 # bud.template
 
-This function allows you to generate and/or configure boilerplate HTML generated for your project. This HTML includes the path to your built assets automatically. It is especially useful when building hashed assets with [`bud.hash`](config-hash.md).
+This function allows you to generate and/or configure boilerplate
+HTML generated for your project. This HTML includes the path to
+your built assets automatically.
+
+It is especially useful when building hashed assets with [`bud.hash`](config-hash.md).
 
 In the example below, we:
 
