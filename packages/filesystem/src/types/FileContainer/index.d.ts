@@ -34,11 +34,6 @@ declare class FileContainer {
   from: typeof resolveFrom
 
   /**
-   * File watcher (Watchman)
-   */
-  watcher: any
-
-  /**
    * Base directory (doesn't actually exist but we need to pretend like it does so Typescript doesn't get upset.)
    */
   base: string
