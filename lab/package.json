@@ -8,9 +8,9 @@
     "test": "jest --verbose"
   },
   "devDependencies": {
-    "@roots/bud": "2.0.0-next.24",
-    "@roots/bud-eslint": "2.0.0-next.24",
-    "@roots/bud-sass": "2.0.0-next.24",
-    "@roots/bud-typings": "file: ../packages/typings"
+    "@roots/bud": "^2.0.1",
+    "@roots/bud-eslint": "^2.0.1",
+    "@roots/bud-sass": "^2.0.1",
+    "@roots/bud-typings": "^2.0.1"
   }
 }

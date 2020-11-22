@@ -16,6 +16,11 @@ export const buildCache = false
 export const clean = true
 
 /**
+ * Clean build directory before each run.
+ */
+export const debug = false
+
+/**
  * Create manifest.json
  */
 export const manifest = true
