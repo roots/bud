@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-wordpress-manifests",
-  "version": "2.0.0-next.29",
+  "version": "2.0.0",
   "description": "Webpack tools",
   "repository": {
     "type": "git",
@@ -38,11 +38,11 @@
     "lint": "eslint ."
   },
   "devDependencies": {
-    "@roots/bud-typings": "^2.0.0-next.27"
+    "@roots/bud-typings": "^2.0.0"
   },
   "dependencies": {
-    "@roots/entrypoints-webpack-plugin": "^2.0.0-next.27",
-    "@roots/merged-manifest-webpack-plugin": "^2.0.0-next.27",
-    "@roots/wordpress-externals-webpack-plugin": "^2.0.0-next.29"
+    "@roots/entrypoints-webpack-plugin": "^2.0.0",
+    "@roots/merged-manifest-webpack-plugin": "^2.0.0",
+    "@roots/wordpress-externals-webpack-plugin": "^2.0.0"
   }
 }
