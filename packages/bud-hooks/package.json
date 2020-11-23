@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-hooks",
   "description": "Prettier component for React Ink",
-  "version": "2.0.3-next.0",
+  "version": "2.0.3",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -35,9 +35,9 @@
     "lint": "eslint ."
   },
   "devDependencies": {
-    "@roots/bud-typings": "^2.0.3-next.0"
+    "@roots/bud-typings": "^2.0.3"
   },
   "dependencies": {
-    "@roots/container": "^2.0.2-next.0"
+    "@roots/container": "^2.0.3"
   }
 }
