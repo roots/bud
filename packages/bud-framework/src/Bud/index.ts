@@ -228,7 +228,8 @@ class Bud implements Abstract.Core {
         enumerable: false,
       })
 
-    this.fs.fs &&
+    this.fs &&
+      this.fs.fs &&
       Object.defineProperties(this.fs, {
         fs: {enumerable: false},
         glob: {enumerable: false},

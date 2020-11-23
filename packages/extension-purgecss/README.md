@@ -26,30 +26,34 @@ yarn add @roots/bud-purgecss --dev
 ## Usage
 
 ```js
-const {purgecss} = require('@roots/bud-purgecss')
-
-bud.use([purgecss])
+bud.use(['@roots/bud-purgecss'])
 ```
 
 ```js
-bud.purgecss({
-  enabled: bud.mode.is('production'),
-  options: {
-    // ...purge options
-  },
+bud.purge({
+  // ...purge options
 })
 ```
 
 ## Usage with WordPress presets
 
-The `purgecss-with-wordpress` preset is included along with the plugin. You can import it along with `purgecss`.
+The `purgecss-with-wordpress` preset is included.
 
 ```js
-const {purgecss, presets} = require('@roots/bud-purgecss')
+bud
+  .use(['@roots/bud-purgecss'])
+  .purge(bud.presets.get('purgecss.wp'))
+```
 
-bud.use([purgecss]).purgecss({
-  enabled: bud.mode.is('production'),
-  options: presets.wordpress,
+You can customize the preset by only using certain parts of the preset and/or using the spread operator to override the preset in part or in whole.
+
+```js
+bud.purge({
+  whitelist: bud.presets.get('purgecss.wp.whitelist'),
+  whitelistPatterns: [
+    ...bud.presets.get('purgecss.wp.whitelistPatterns'),
+    /^custom-addition$/,
+  ]
 })
 ```
 

@@ -28,6 +28,21 @@ Extends Bud with PostCSS functionality.
 
 `yarn add @roots/bud-postcss --dev`
 
+## Default plugins
+
+- postcss-flexbugs-fixes
+- postcss-preset-env
+- autoprefixer
+
+## Configuring
+
+```js
+bud.build.items.merge(
+  'postcss.options.postcssOptions.plugins',
+  [Plugin, pluginOptions]
+)
+```
+
 ## Contributing
 
 Contributions are welcome from everyone.

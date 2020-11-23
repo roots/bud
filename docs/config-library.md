@@ -37,9 +37,8 @@ You have to judge for yourself if it is worth it or not. But, using a DLL
 can cut off 90%+ of your build time.
 
 ```ts
-bud.when(
-  bud.mode.is('development'),
-  ({library}) => library(['react', 'react-dom']),
+bud.when(bud.mode.is('development'), ({library}) =>
+  library(['react', 'react-dom']),
 )
 ```
 

@@ -31,14 +31,6 @@ bud.extend([require('@roots/bud-sass')])
 
 You should now be good to include `.sass` and `.scss` files in your project.
 
-If you need to provide additional options to the sass-loader you can do so with the `bud.sass()` configuration function.
-
-```js
-bud.sass({
-  sourceMaps: false,
-})
-```
-
 ## Contributing
 
 Contributions are welcome from everyone.
