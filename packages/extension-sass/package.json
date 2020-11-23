@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-sass",
-  "version": "2.0.2",
+  "version": "2.0.3-next.0",
   "description": "Sass support",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -36,10 +36,10 @@
     "lint": "eslint ."
   },
   "devDependencies": {
-    "@roots/bud-typings": "^2.0.2"
+    "@roots/bud-typings": "^2.0.3-next.0"
   },
   "dependencies": {
-    "@roots/bud-postcss": "^2.0.2",
+    "@roots/bud-postcss": "^2.0.3-next.0",
     "@roots/bud-support": "^2.0.1",
     "fibers": "^5.0.0",
     "node-sass": "^4.14.1",

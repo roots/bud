@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-postcss",
-  "version": "2.0.2",
+  "version": "2.0.3-next.0",
   "description": "A friendly build tool to help manage your project assets.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -36,11 +36,11 @@
     "lint": "eslint ."
   },
   "devDependencies": {
-    "@roots/bud-typings": "^2.0.2"
+    "@roots/bud-typings": "^2.0.3-next.0"
   },
   "dependencies": {
-    "@roots/bud-extensions": "^2.0.2",
-    "@roots/bud-framework": "^2.0.2",
+    "@roots/bud-extensions": "^2.0.3-next.0",
+    "@roots/bud-framework": "^2.0.3-next.0",
     "autoprefixer": "^9.8.5",
     "postcss": "^8.1.1",
     "postcss-flexbugs-fixes": "^4.2.1",
