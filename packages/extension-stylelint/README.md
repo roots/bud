@@ -26,7 +26,7 @@ yarn add @roots/bud-stylelint --dev
 ## Usage
 
 ```js
-bud.extend([require('@roots/bud-stylelint')])
+bud.use(['@roots/bud-stylelint'])
 ```
 
 You're all set.

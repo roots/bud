@@ -7,8 +7,6 @@ description: Generate a runtime chunk.
 Generate a runtime chunk intended to be inlined on the page.
 Useful for code splitting and dynamic imports.
 
-
-
 ## Usage
 
 ```js
@@ -18,7 +16,7 @@ bud.runtime()
 ## Signature
 
 ```ts
-() => Bud
+;() => Bud
 ```
 
 ## Returns

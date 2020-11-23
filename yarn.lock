@@ -2926,10 +2926,46 @@
     schema-utils "^2.6.5"
     source-map "^0.7.3"
 
+"@roots/bud-support@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@roots/bud-support/-/bud-support-2.0.1.tgz#0844b918ab07781e4b1e12de4d86d2b9b7f8778c"
+  integrity sha512-q7kbw20vlcy7At/oZNvTtpLtWIhGE/n8/ZnBbYvYNTLmt75BDWKzbSp7S33HEDOsYyGotKhYa9B1ZdXpjdc7/g==
+  dependencies:
+    chalk "^4.1.0"
+    execa "^4.0.3"
+    find-up "^5.0.0"
+    fs-extra "^9.0.1"
+    futil-js "^1.67.2"
+    globby "^11.0.1"
+    lodash "^4.17.20"
+    node-notifier "^8.0.0"
+    react-dev-utils "^10.2.1"
+    update-notifier "^4.1.1"
+    yargs "^16.0.3"
+
 "@roots/bud-typings@2.0.0-next.24":
   version "2.0.0-next.24"
   resolved "https://registry.yarnpkg.com/@roots/bud-typings/-/bud-typings-2.0.0-next.24.tgz#792760140e45046317ba8ad99a2afcae13126ede"
   integrity sha512-JLXvo6wTVBf7np1n29iXR1DvtIUS5YDRAbm6sYcLAmXktm2rLCawTgi2Yk/QjEgt8Mx9zVmD8ZvIp6poPJxqag==
+
+"@roots/container@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@roots/container/-/container-2.0.1.tgz#28158820aa2c7da4c956b2941eef07ba3dc6e962"
+  integrity sha512-rRvqtyATeJDaGE+3Ma2VWDJfa7ASAYERfEbdECgLOpT7eHZdc8UubdsTgKKsVBdOWDlWjIvXY7dhHU8mZIMEMQ==
+  dependencies:
+    lodash "^4.17.19"
+
+"@roots/dependencies@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@roots/dependencies/-/dependencies-2.0.1.tgz#5a6ec398a9a2c0354da7eb91690cefa0177621cc"
+  integrity sha512-ANYJBzaXOtShYjJANkNPmS7tdpBeGuky5R/RPHEd/WN4PnvF6Rj7t78nvf2ahto21OEAgc/R7LFsSOaJJ2K1Kg==
+
+"@roots/wordpress-externals-webpack-plugin@^2.0.1":
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/@roots/wordpress-externals-webpack-plugin/-/wordpress-externals-webpack-plugin-2.0.1.tgz#5bbd95e1318d75a5cdf27b6490b5414ad240fb51"
+  integrity sha512-y+p3s3FA35GCt7P54XXEmWG/OzCxWf9UbqbJoGZSn76MOT8b1SyXqovWu0Z8TtJoR+cpl7K+YyAdm1zdirCuzw==
+  dependencies:
+    node-fetch "^2.6.1"
 
 "@semantic-release/commit-analyzer@^6.1.0":
   version "6.3.3"
@@ -3361,6 +3397,13 @@
   resolved "https://registry.yarnpkg.com/@types/lodash/-/lodash-4.14.161.tgz#a21ca0777dabc6e4f44f3d07f37b765f54188b18"
   integrity sha512-EP6O3Jkr7bXvZZSZYlsgt5DIjiGr0dXP1/jVEwVLTFgg0d+3lWVQkRavYVQszV7dYUwvg0B8R0MBDpcmXg7XIA==
 
+"@types/memory-fs@*":
+  version "0.3.2"
+  resolved "https://registry.yarnpkg.com/@types/memory-fs/-/memory-fs-0.3.2.tgz#5d4753f9b390cb077c8c8af97bc96463399ceccd"
+  integrity sha512-j5AcZo7dbMxHoOimcHEIh0JZe5e1b8q8AqGSpZJrYc7xOgCIP79cIjTdx5jSDLtySnQDwkDTqwlC7Xw7uXw7qg==
+  dependencies:
+    "@types/node" "*"
+
 "@types/mime@*":
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@types/mime/-/mime-2.0.3.tgz#c893b73721db73699943bfc3653b1deb7faa4a3a"
@@ -3510,6 +3553,16 @@
   version "2.0.3"
   resolved "https://registry.yarnpkg.com/@types/unist/-/unist-2.0.3.tgz#9c088679876f374eb5983f150d4787aa6fb32d7e"
   integrity sha512-FvUupuM3rlRsRtCN+fDudtmytGO6iHJuuRKS1Ss0pG5z8oX0diNEw94UEL7hgDbpN94rgaK5R7sWm6RrSkZuAQ==
+
+"@types/webpack-dev-middleware@^3.7.2":
+  version "3.7.2"
+  resolved "https://registry.yarnpkg.com/@types/webpack-dev-middleware/-/webpack-dev-middleware-3.7.2.tgz#31030c7cca7f98d56debfd859bb57f9040f0d3c5"
+  integrity sha512-PvETiS//pjVZBK48aJfbxzT7+9LIxanbnk9eXXYUfefGyPdsCkNrMDxRlOVrBvxukXUhD5B6N/pkPMdWrtuFkA==
+  dependencies:
+    "@types/connect" "*"
+    "@types/memory-fs" "*"
+    "@types/webpack" "*"
+    loglevel "^1.6.2"
 
 "@types/webpack-hot-middleware@^2.25.3":
   version "2.25.3"
@@ -11156,6 +11209,11 @@ log-symbols@^4.0.0:
   integrity sha512-FN8JBzLx6CzeMrB0tg6pqlGU1wCrXW+ZXGH481kfsBqer0hToTIiHdjH4Mq8xJUbvATujKCvaREGWpGUionraA==
   dependencies:
     chalk "^4.0.0"
+
+loglevel@^1.6.2:
+  version "1.7.0"
+  resolved "https://registry.yarnpkg.com/loglevel/-/loglevel-1.7.0.tgz#728166855a740d59d38db01cf46f042caa041bb0"
+  integrity sha512-i2sY04nal5jDcagM3FMfG++T69GEEM8CYuOfeOIvmXzOIcwE9a/CJPR0MFM97pYMj/u10lzz7/zd7+qwhrBTqQ==
 
 loglevelnext@^1.0.1, loglevelnext@^1.0.2:
   version "1.0.5"

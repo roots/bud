@@ -24,9 +24,7 @@
 
 Extends Bud with React support.
 
-## Requirements
-
-`@roots/bud-framework` must be installed.
+When run in development mode `@pmmmwh/react-refresh-webpack-plugin` provides hot module reloading.
 
 ## Installation
 
@@ -35,12 +33,7 @@ Extends Bud with React support.
 ## Usage
 
 ```js
-const bud = require('@roots/bud-framework')
-
-bud.extensions.use('@roots/bud-react')
-
-bud.entry('foo', ['foo.js'])
-
+bud.use('@roots/bud-react')
 ```
 
 ## Contributing
