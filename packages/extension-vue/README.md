@@ -15,7 +15,7 @@
 
 ## Overview
 
-The @roots/bud-vue plugin adds support for Vue single file components to the @roots/bud framework.
+Adds support for Vue single file components to the @roots/bud framework.
 
 ## Installation
 
@@ -26,12 +26,10 @@ yarn add @roots/bud-vue --dev
 ## Usage
 
 ```js
-const {vue} = require('@roots/bud-vue')
-
-bud.use([vue])
+bud.use(['@roots/bud-vue'])
 ```
 
-You should now be good to utilize .vue components in your project.
+You should now be good to utilize .vue SFCs in your project.
 
 ## Contributing
 

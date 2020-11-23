@@ -36,7 +36,8 @@
   },
   "devDependencies": {
     "@roots/bud-typings": "^2.0.2",
-    "@types/compression-webpack-plugin": "^4.0.1"
+    "@types/compression-webpack-plugin": "^4.0.1",
+    "@types/webpack-dev-middleware": "^3.7.2"
   },
   "dependencies": {
     "@roots/bud-api": "^2.0.2",

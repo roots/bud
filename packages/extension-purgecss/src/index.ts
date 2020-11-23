@@ -1,4 +1,4 @@
-import PurgeCssPlugin from '@fullhuman/postcss-purgecss'
+import Plugin from '@fullhuman/postcss-purgecss'
 import * as wp from 'purgecss-with-wordpress'
 import type {Bud, Extension} from '@roots/bud-typings'
 
@@ -13,7 +13,7 @@ export const api: Extension.Contract['api'] = () => ({
   ): Bud.Contract {
     this.build.items.mutate(
       'postcss.options.postcssOptions.plugins',
-      plugins => [...plugins, PurgeCssPlugin(userOptions)],
+      plugins => [...plugins, Plugin(userOptions)],
     )
 
     return this

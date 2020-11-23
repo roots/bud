@@ -29,9 +29,7 @@ yarn add @roots/bud-tailwindcss --dev
 bud.use('@roots/bud-tailwindcss')
 ```
 
-You should now be good to utilize tailwind in your project. You can use it with
-scss or postcss. The parser used is based on the extension you save the
-source file with.
+You should now be good to utilize tailwind in your project. You can use it with scss or postcss. The parser used is based on the extension you save the source file with.
 
 ## Configuration
 
@@ -43,9 +41,6 @@ Use the `tailwind` config function to specify a tailwindcss file to use in your 
 
 This only applies if your tailwind file is **not**
 locatable in the root of your project with the name `tailwind.config.js`.
-
-If the tailwind config file exists trying to use this
-function will cause errors to be thrown.
 
 ```js
   bud.tailwind(bud.project('path/to/config.js'))

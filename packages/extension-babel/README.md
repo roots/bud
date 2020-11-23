@@ -24,13 +24,6 @@
 
 Extends Bud with Babel.
 
-## Requirements
-
-`@roots/bud-framework` must be installed.
-
-If you are using `@roots/bud` this extension is available
-upon import (you don't need to register it yourself).
-
 ## Installation
 
 `yarn add @roots/bud-babel --dev`
@@ -38,62 +31,7 @@ upon import (you don't need to register it yourself).
 ## Usage
 
 ```js
-const bud = require('@roots/bud-framework')
-
-/**
- * Use the babel module.
- */
-bud.extensions
-  .use('@roots/bud-babel')
-  .next()
-
-/**
- * Configure babel
- */
-.babel
-
-/**
- * Merge plugins
- */
-.mergePlugins([
-  '@babel/plugin-proposal-object-rest-spread',
-  ['@babel/plugin-syntax-dynamic-import', {options: false}],
-])
-
-/**
- * Completely overwrite plugins.
- */
-.setPlugins([
-  '@babel/plugin-syntax-dynamic-import'
-])
-
-/**
- * Add a single plugin
- */
-.addPlugin(
-  '@babel/plugin-proposal-object-rest-spread',
-  {options: 'some'},
-)
-
-/**
- * Same API for presets
- */
-.setPresets([
-  ['@babel/preset-env', {modules: false}],
-])
-
-.mergePresets([
-  ['@babel/preset-env'],
-])
-
-.addPreset('babel/preset-env', {module: false})
-
-/**
- * call next to continue chaining with bud
- */
-.next()
-  .entry('foo', ['foo.js'])
-
+bud.use('@roots/bud-babel')
 ```
 
 ## Contributing

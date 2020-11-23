@@ -10,12 +10,12 @@
 </p>
 
 <h1 align="center">
-  <strong>@roots/bud-webpack-tools</strong>
+  <strong>@roots/bud-wordpress-manifests</strong>
 </h1>
 
 ## Overview
 
-Internally maintained Webpack plugins and loaders.
+WordPress asset manifest and Gutenberg editor support.
 
 ## Contributing
 
