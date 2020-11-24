@@ -8,7 +8,7 @@ const Publish: FunctionComponent<{file: string}> = ({file}) => (
     justifyContent="flex-start"
     flexDirection="column">
     <Box display="flex" margin={1} justifyContent="flex-start">
-      <>
+      <Text>
         <Text color="green" bold>
           {file}
         </Text>{' '}
@@ -16,7 +16,7 @@ const Publish: FunctionComponent<{file: string}> = ({file}) => (
         <Text color="green" bold>
           {process.cwd()}/publish/{file}
         </Text>
-      </>
+      </Text>
     </Box>
   </Box>
 )

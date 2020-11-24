@@ -1,18 +1,21 @@
-require('@roots/bud')
-  .use([
+const {bud} = require('@roots/bud')
+
+bud.pipe([
+  ({use}) => use([
     '@roots/bud-postcss',
     '@roots/bud-babel',
     '@roots/bud-react',
     '@roots/bud-purgecss',
-  ])
-  .pipe([
-    require('./localFix'),
-    bud => bud.buildCache(bud.project('storage/bud/records.json')),
-    ({purge, presets}) =>  purge(presets.get('purgecss.wp')),
-    ({alias}) => alias({'@scripts': './scripts'}),
-    ({entry}) => entry('foo', ['foo.js', 'foo.css']),
-    ({vendor}) => vendor(),
-    ({runtime}) => runtime(),
-    ({template}) => template(),
-  ])
-  .run()
+  ]),
+  require('./localFix'),
+])
+
+bud.buildCache(bud.project('storage/bud/records.json'))
+bud.purge(bud.presets.get('purgecss.wp'))
+bud.alias({'@scripts': './scripts'})
+bud.entry('foo', ['foo.js', 'foo.css'])
+bud.vendor()
+bud.runtime()
+bud.template()
+
+bud.run()

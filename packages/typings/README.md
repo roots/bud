@@ -20,11 +20,7 @@ This package contains typescript deifnitions for the core Framework packages.
 ## Details
 
 These types are included separately to allow framework packages and the core
-framework to reference types bi-directionally without producing cyclical dependency
-issues.
-
-The `packages` directory exists as a merged namespace for frequently utilized,
-shared, or otherwise fundamental typings.
+framework to reference types bi-directionally without producing cyclical dependency issues.
 
 ## Contributing
 
