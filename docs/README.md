@@ -10,24 +10,54 @@
 </p>
 
 <h1 align="center">
-  <strong>@roots/bud</strong>
+  <strong>Documentation</strong>
 </h1>
 
 ## Overview
 
 A webpack framework combining the best parts of Laravel Mix and Symfony Encore.
 
-## Docs
+## Contents
 
-- [Configuring your project](guide-config.md)
-- [Building your project](cli-build.md)
+- [Configuration](config.md)
+  - [fn: bud.alias](config-alias.md)
+  - [fn: bud.brotli](config-brotli.md)
+  - [fn: bud.copy](config-copy.md)
+  - [fn: bud.define](config-define.md)
+  - [fn: bud.dev](config-dev.md)
+  - [fn: bud.devtool](config-devtool.md)
+  - [fn: bud.dist](config-dist.md)
+  - [fn: bud.distPath](config-distPath.md)
+  - [fn: bud.entry](config-entry.md)
+  - [fn: bud.glob](config-glob.md)
+  - [fn: bud.gzip](config-gzip.md)
+  - [fn: bud.hash](config-hash.md)
+  - [fn: bud.library](config-library.md)
+  - [fn: bud.minify](config-minify.md)
+  - [fn: bud.pipe](config-pipe.md)
+  - [fn: bud.project](config-project.md)
+  - [fn: bud.provide](config-provide.md)
+  - [fn: bud.publicPath](config-publicPath.md)
+  - [fn: bud.runtime](config-runtime.md)
+  - [fn: bud.src](config-src.md)
+  - [fn: bud.srcPath](config-srcPath.md)
+  - [fn: bud.template](config-template.md)
+  - [fn: bud.terser](config-terser.md)
+  - [fn: bud.use](config-use.md)
+  - [fn: bud.vendor](config-vendor.md)
+  - [fn: bud.when](config-when.md)
 - [Setting the compilation mode](components-mode.md)
 - [Working with containers](components-container.md)
 - [Working with env values](components-env.md)
 - [Toggling feature flags](components-features.md)
 - [Working with the filesystem](components-filesystem.md)
 - [Using hooks](components-hooks.md)
-- [Bud CLI commands](cli.md)
+- [Working with extensions](extending.md)
+  - [Using extensions](extending-using-extensions.md)
+  - [Authoring extensions](extending-authoring.md)
+- [Use the Bud CLI](cli.md)
+  - [command: bud build](cli-build.md)
+  - [command: bud publish](cli-publish.md)
 
 ## Contributing
 

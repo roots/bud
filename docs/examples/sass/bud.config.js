@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const bud = require('@roots/bud')
+const {bud} = require('@roots/bud')
 
 bud
   .extend([require('@roots/bud-sass')])

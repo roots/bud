@@ -26,7 +26,7 @@ my-project
 Our minimal `bud.config.js` file might look something like this:
 
 ```js
-const bud = require('@roots/bud')
+const {bud} = require('@roots/bud')
 
 bud
   .srcPath('resources')
@@ -50,13 +50,15 @@ functions to help locate your assets.
   explicitly set this. However, if you are running the config outside the project
   root, you will need to make this explicit.
 
-- [bud.srcPath](config-srcPath.md) indicates where the project source files are located.
+- [bud.srcPath](config-srcPath.md) indicates where the project source files are
+  located.
 
 - [bud.distPath](config-distPath.md) indicates the directory to emit compiled
   assets. Since our directory name matches the presumed default `dist` directory,
   we don't need to explicitly set this.
 
-- [bud.publicPath](config-publicPath.md) is another optional configuration function.
+- [bud.publicPath](config-publicPath.md) is another optional configuration
+  function. This function indicates the path to the asset when accessing the compiled distributable using a browser. For our example, we'll assume the distributables are available in root (`/`), so we can skip this function.
 
 ```js
 /** First, set the project path */

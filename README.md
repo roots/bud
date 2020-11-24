@@ -27,9 +27,7 @@
   - [Running for production](#running-in-production-mode)
   - [Running for development](#running-in-development-mode)
 - [Extensions](#extending-core)
-  - [First party extensions](#first-party-extensions)
-  - [Third party extensions](#third-party-extensions)
-- [Documentation](#documentation)
+- [Documentation](#details)
 
 ## Overview
 
@@ -54,7 +52,7 @@ Bud centers around a configuration file situated in the root of the project.
 Dead simple example:
 
 ```js
-const bud = require('@roots/bud')
+const {bud} = require('@roots/bud')
 
 bud.entry('app', ['app.js']).run()
 ```
@@ -64,7 +62,7 @@ The framework can do many more things. But a central philosophy of the framework
 A more advanced configuration might look like this:
 
 ```js
-const bud = require('@roots/bud')
+const {bud} = require('@roots/bud')
 
 bud
   .use([
@@ -173,15 +171,16 @@ There are a number of Roots maintained extensions available to kickstart your pr
 
 Have you produced a Bud extension and want to share it here? Please, create an issue sharing information about your project.
 
-## Documentation
+## Details
 
-- [Configuring your project](https://github.com/roots/bud/tree/stable/docs/guide-config.md)
-- [Building your project](https://github.com/roots/bud/tree/stable/docs/cli-build.md)
-- [Working with containers](https://github.com/roots/bud/tree/stable/docs/components-container.md)
-- [Working with env values](https://github.com/roots/bud/tree/stable/docs/components-env.md)
-- [Working with the filesystem](https://github.com/roots/bud/tree/stable/docs/components-filesystem.md)
-- [Using hooks](https://github.com/roots/bud/tree/stable/docs/components-hooks.md)
-- [Setting the compilation mode](https://github.com/roots/bud/tree/stable/docs/components-mode.md)
+- [Configuration](config.md)
+- [Setting the compilation mode](components-mode.md)
+- [Working with containers](components-container.md)
+- [Working with env values](components-env.md)
+- [Toggling feature flags](components-features.md)
+- [Working with the filesystem](components-filesystem.md)
+- [Using hooks](components-hooks.md)
+- [Bud CLI](cli.md)
 
 ## Contributing
 
