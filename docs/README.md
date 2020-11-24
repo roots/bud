@@ -19,14 +19,15 @@ A webpack framework combining the best parts of Laravel Mix and Symfony Encore.
 
 ## Docs
 
-- [Configuring your project](https://github.com/roots/bud/tree/stable/docs/guide-config.md)
-- [Building your project](https://github.com/roots/bud/tree/stable/docs/cli-build.md)
-- [Setting the compilation mode](https://github.com/roots/bud/tree/stable/docs/components-mode.md)
-- [Working with containers](https://github.com/roots/bud/tree/stable/docs/components-container.md)
-- [Working with env values](https://github.com/roots/bud/tree/stable/docs/components-env.md)
-- [Toggling feature flags](https://github.com/roots/bud/tree/stable/docs/components-features.md)
-- [Working with the filesystem](https://github.com/roots/bud/tree/stable/docs/components-filesystem.md)
-- [Using hooks](https://github.com/roots/bud/tree/stable/docs/components-hooks.md)
+- [Configuring your project](guide-config.md)
+- [Building your project](cli-build.md)
+- [Setting the compilation mode](components-mode.md)
+- [Working with containers](components-container.md)
+- [Working with env values](components-env.md)
+- [Toggling feature flags](components-features.md)
+- [Working with the filesystem](components-filesystem.md)
+- [Using hooks](components-hooks.md)
+- [Bud CLI commands](cli.md)
 
 ## Contributing
 
