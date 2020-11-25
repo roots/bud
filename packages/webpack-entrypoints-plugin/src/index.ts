@@ -4,124 +4,176 @@ import path from 'path'
 import {SyncWaterfallHook} from 'tapable'
 
 class EntrypointsWebpackPlugin {
-  public output: Output
-
-  public plugin: {
-    name: string
-    stage: number
+  /**
+   * Plugin ident
+   */
+  public plugin = {
+    name: 'EntrypointsManifestPlugin',
+    stage: Infinity,
   }
 
-  public options: Options
+  /**
+   * Hook to webpack compilation output.
+   */
+  public hook = ['compilation', 'output']
 
+  /**
+   * Emitted filename
+   */
+  public name: string
+
+  /**
+   * Emitted file path
+   */
+  public path: string
+
+  /**
+   * Emitted file
+   */
+  public file: string
+
+  /**
+   * Public path of emitted assets
+   */
+  public publicPath: string
+
+  /**
+   * Emitted contents
+   */
+  public output: Output = {}
+
+  /**
+   * Should manifest be emitted
+   */
+  public writeToFileEmit: boolean
+
+  /**
+   * Class constructor
+   */
   constructor(
     options: Options = {
       name: 'entrypoints.json',
       writeToFileEmit: true,
     },
   ) {
-    this.options = {
-      name: options.name,
-      writeToFileEmit: options.writeToFileEmit,
-    }
-
-    this.output = {
-      dir: '',
-      name: this.options.name,
-      file: '',
-      publicPath: '',
-      content: {},
-    }
-
-    this.plugin = {
-      name: 'EntrypointsManifestPlugin',
-      stage: Infinity,
-    }
+    Object.assign(this, options)
 
     this.emit = this.emit.bind(this)
+    this.apply = this.apply.bind(this)
+    this.makeEntry = this.makeEntry.bind(this)
+    this.pushChunk = this.pushChunk.bind(this)
+    this.entrypoints = this.entrypoints.bind(this)
   }
 
+  /**
+   * Webpack apply plugin
+   */
   apply(compiler: Webpack.Compiler): void {
-    this.output.dir = compiler.options.output.path
-    this.output.publicPath = compiler.options.output.publicPath
-    this.output.file = path.resolve(
-      this.output.dir,
-      this.output.name,
+    this.publicPath = compiler.options.output.publicPath
+
+    this.path = path.resolve(
+      compiler.options.output.path,
+      this.name,
     )
 
-    this.output.name = path.relative(
-      this.output.dir,
-      this.output.file,
+    this.file = path.relative(
+      compiler.options.output.path,
+      this.path,
     )
 
     compiler.hooks.emit.tapAsync(this.plugin, this.emit)
   }
 
+  /**
+   * Emit manifest
+   */
   async emit(
     compilation: Webpack.compilation.Compilation,
     callback: () => void,
   ): Promise<void> {
-    const {assets, entrypoints, hooks}: any = compilation
-
-    hooks.entrypoints = new SyncWaterfallHook([
-      'compilation',
-      'output',
-    ])
-
-    hooks.entrypoints.tap(
-      this.plugin,
-      this.entrypoints.bind(this),
-    )
-
-    this.output = hooks.entrypoints.call(
+    const {
+      assets,
       entrypoints,
-      this.output,
-    )
+      hooks,
+    }: {
+      assets: Webpack.compilation.Compilation['assets']
+      entrypoints: Webpack.compilation.Compilation['entrypoints']
+      hooks: any // Webpack.compilation.Compilation['hooks']
+    } = compilation
 
-    if (this.options.writeToFileEmit) {
-      assets[this.output.name] = new RawSource(
-        JSON.stringify(this.output.content),
+    hooks.entrypoints = new SyncWaterfallHook(this.hook)
+    hooks.entrypoints.tap(this.plugin, this.entrypoints)
+    hooks.entrypoints.call(entrypoints, this.output)
+
+    if (this.writeToFileEmit) {
+      assets[this.file] = new RawSource(
+        JSON.stringify(this.output),
       )
     }
 
     callback()
   }
 
-  entrypoints(entrypoints, output: Output): Output {
-    entrypoints.forEach(entrypoint => {
-      output.content[entrypoint.name] = entrypoint.chunks.reduce(
-        (entries, chunk) => ({
-          ...entries,
-          [chunk.name]: path.resolve(
-            output.publicPath,
-            chunk.files[0],
-          ),
-        }),
-        {},
-      )
-    })
+  /**
+   * Map entrypoints to output
+   */
+  public entrypoints(
+    entrypoints: SyncWaterfallHook['call']['arguments'],
+  ): void {
+    entrypoints.forEach(entry => {
+      this.makeEntry(entry.name)
 
-    return output
+      entry.chunks.map(chunk => {
+        this.pushChunk(
+          entry.name,
+          chunk.files[0].split('.').pop(),
+          path.resolve(this.publicPath, chunk.files[0]),
+        )
+      })
+    })
+  }
+
+  /**
+   * Assign entrypoint to output property
+   */
+  public makeEntry(name: string): void {
+    this.output[name] = {
+      js: [],
+      css: [],
+    }
+  }
+
+  /**
+   * Push chunk onto existing manifest entry.
+   */
+  public pushChunk(
+    name: string,
+    type: string,
+    entry: string,
+  ): void {
+    this.output[name][type].push(entry)
   }
 }
 
-type Content =
-  | {
-      [key: string]: string | string[]
-    }
-  | {
-      [key: string]: string | string[]
-    }[]
-  | null
-
-type Output = {
-  dir: string
-  name: string
-  file: string
-  publicPath: string
-  content: Content
+/**
+ * Schema for manifest entry
+ */
+export type EntrySchema = {
+  css: string[]
+  js: string[]
 }
 
-type Options = {
+/**
+ * Manifest structure
+ */
+export type Output = {
+  [key: string]: EntrySchema
+}
+
+/**
+ * Constructor params
+ */
+export type Options = {
   name: string
   writeToFileEmit: boolean
 }

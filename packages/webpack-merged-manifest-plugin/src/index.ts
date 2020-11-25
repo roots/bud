@@ -8,20 +8,24 @@ class MergedManifestWebpackPlugin {
   public plugin: any
   public dir: string
 
-  constructor() {
+  public constructor() {
     this.plugin = {
       name: 'MergedManifestPlugin',
     }
+
     this.done = this.done.bind(this)
   }
 
-  apply(compiler: Webpack.Compiler): void {
+  public apply(compiler: Webpack.Compiler): void {
     this.dir = compiler.options.output.path
 
     compiler.hooks.done.tapAsync(this.plugin, this.done)
   }
 
-  async done(compilation, callback) {
+  public async done(
+    _compilation,
+    callback,
+  ): Promise<CallableFunction> {
     if (
       !fs.existsSync(
         path.resolve(this.dir, 'entrypoints.json'),
@@ -54,6 +58,7 @@ class MergedManifestWebpackPlugin {
                   },
                 }),
               ),
+
               Object.entries(wordpress).map(
                 ([entrypoint, dependencies]) => ({
                   [entrypoint]: {
