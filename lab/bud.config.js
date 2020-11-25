@@ -15,6 +15,7 @@ bud.buildCache(bud.project('storage/bud/records.json'))
 bud.purge(bud.presets.get('purgecss.wp'))
 
 bud.alias({'@scripts': './scripts'})
+
 bud.entry('foo', ['foo.js', 'foo.css'])
 
 bud.vendor()
