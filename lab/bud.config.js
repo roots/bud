@@ -2,6 +2,7 @@ const {bud} = require('@roots/bud')
 
 bud.pipe([
   ({use}) => use([
+    '@roots/bud-wordpress-manifests',
     '@roots/bud-postcss',
     '@roots/bud-babel',
     '@roots/bud-react',

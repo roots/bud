@@ -103,7 +103,7 @@ export const handler: yargs.CommandModule['handler'] = (args: {
     require(cfgPath)
   } catch (error) {
     Error(
-      `To generate a new config file try \`bud publish bud.config.js\`\nIf you are using a config file named something other than bud.config.js  you must specify its name with the --config option.`,
+      `To generate a new config file try \`bud publish bud.config.js\`\nIf you are using a config file named something other than bud.config.js  you must specify its name with the --config option.\n\n${error}`,
       `There was a problem loading ${cfgPath}`,
     )
   }
