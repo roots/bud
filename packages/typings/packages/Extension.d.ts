@@ -78,7 +78,7 @@ export type RawOptions<T = any> = T | ((bud?: Bud.Bud) => T)
 export type Options<T = any> = Container
 
 export type Make<P = unknown, T = Options> =
-  | ((options: Container) => P)
+  | ((options: Container<T>, bud?: Bud.Bud) => P)
   | P
 
 export type {When} from '.'

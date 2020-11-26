@@ -14,10 +14,13 @@ bud.buildCache(bud.project('storage/bud/records.json'))
 
 bud.purge(bud.presets.get('purgecss.wp'))
 
+bud.publicPath('app/themes/sage/dist')
 bud.alias({'@scripts': './scripts'})
 
 bud.entry('foo', ['foo.js', 'foo.css'])
 
+bud.hash()
+bud.minify()
 bud.vendor()
 bud.runtime()
 

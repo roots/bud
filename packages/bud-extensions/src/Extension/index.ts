@@ -111,7 +111,7 @@ export class Extension<T = any>
 
   public makePlugin = function (): Framework.Webpack.Plugin {
     return this.isPlugin() && this.isPluginEnabled()
-      ? this.callMeMaybe(this.module.make, this)
+      ? this.callMeMaybe(this.module.make, this, this.bud())
       : false
   }
 
@@ -125,6 +125,9 @@ export class Extension<T = any>
       : this.callMeMaybe(this.module.when, this.bud(), this)
   }
 
+  /**
+   * ## extension.setApi
+   */
   public setApi = function (): void {
     this.module.api &&
       Object.assign(
@@ -163,6 +166,9 @@ export class Extension<T = any>
     return this.repository
   }
 
+  /**
+   * ## extension.setBuilders
+   */
   public setBuilders = function (
     builders: [string, CallableFunction][],
   ): void {

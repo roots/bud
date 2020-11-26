@@ -128,7 +128,7 @@ class EntrypointsWebpackPlugin {
           this.pushChunk(
             entry.name,
             file.split('.').pop(),
-            path.resolve(this.publicPath, file),
+            path.join(this.publicPath, file),
           )
         })
       })

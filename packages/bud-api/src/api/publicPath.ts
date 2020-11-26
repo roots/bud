@@ -1,12 +1,16 @@
 import {Bud} from '@roots/bud-typings'
+import {normalize} from 'path'
 
-export const publicPath: PublicPath = function (path) {
-  this.config.set('output.publicPath', path)
+export const publicPath: PublicPath = function (publicPath) {
+  this.config.set(
+    'output.publicPath',
+    normalize(`/${publicPath}/`),
+  )
 
   return this
 }
 
 export type PublicPath<T = Bud.Contract> = (
   this: T,
-  path: string,
+  publicPath: string,
 ) => T
