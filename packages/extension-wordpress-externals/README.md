@@ -10,19 +10,45 @@
 </p>
 
 <h1 align="center">
-  <strong>@roots/merged-manifest-webpack-plugin</strong>
+  <strong>@roots/bud-wordpress-externals</strong>
 </h1>
 
 ## Overview
 
-When utilizing both `@roots/entrypoints-webpack-plugin` and
-`@roots/wordpress-externals-webpack-plugin` redundant manifests
-are generated.
+Bud extension implementing `@roots/wordpress-externals-webpack-plugin`.
 
-This plugin merges these manifests in a separate `assets.json` manifest.
-It then deletes the precursor JSON files.
+It generates a JSON manifest containing WordPress script
+dependencies indexed by entrypoint.
 
-This plugin is standalone and can be used separately from the Bud framework.
+Intended to be used as an alternative to `@wordpress/dependency-extraction-manifest-plugin`.
+
+## Installation
+
+```sh
+yarn add @roots/bud-wordpress-externals --dev
+```
+
+## Usage
+
+```js
+bud.use(['@roots/bud-wordpress-externals'])
+```
+
+## Configuration
+
+```js
+bud.entrypoints({
+  name: 'wordpress.json',
+  writeToFileEmit: true,
+  useElementAsReact: true,
+})
+```
+
+| Option            | Type      | Description                         | Default          |
+| ----------------- | --------- | ----------------------------------- | ---------------- |
+| name              | `string`  | manifest filename                   | `wordpress.json` |
+| writeToFileEmit   | `boolean` | `true` to emit manifest file        | `true`           |
+| useElementAsReact | `boolean` | `true` to compile with `wp-element` | `true`           |
 
 ## Contributing
 

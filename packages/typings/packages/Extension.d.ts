@@ -1,6 +1,5 @@
 import type {
   Bud,
-  Build,
   Container,
   Index,
   Rule,
@@ -75,7 +74,7 @@ export type RegisterMany<T> =
   | {[key: string]: T}
 
 export type RawOptions<T = any> = T | ((bud?: Bud.Bud) => T)
-export type Options<T = any> = Container
+export type Options<T = any> = Container<T>
 
 export type Make<P = unknown, T = Options> =
   | ((options: Container<T>, bud?: Bud.Bud) => P)

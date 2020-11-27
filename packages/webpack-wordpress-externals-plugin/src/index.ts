@@ -5,7 +5,7 @@ import {RawSource} from 'webpack-sources'
 import Webpack, {ExternalsPlugin} from 'webpack'
 import path from 'path'
 
-class WordPressExternalsWebpackPlugin {
+export class Plugin {
   /**
    * Plugin ident
    */
@@ -136,5 +136,3 @@ export type Options = {
    */
   useElementAsReact: boolean
 }
-
-export {WordPressExternalsWebpackPlugin as default}

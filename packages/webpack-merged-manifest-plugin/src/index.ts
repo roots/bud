@@ -2,6 +2,7 @@ import Webpack from 'webpack'
 import fs from 'fs-extra'
 import path from 'path'
 import {format} from 'prettier'
+import type {Extension} from '@roots/bud-typings'
 import type {Output as Entrypoints} from '@roots/entrypoints-webpack-plugin'
 
 class MergedManifestWebpackPlugin {
@@ -27,10 +28,19 @@ class MergedManifestWebpackPlugin {
    */
   public path: string
 
+  public entrypointsName: string
+
+  public externalsName: string
+
   /**
    * Class constructor
    */
-  public constructor(file = 'assets.json') {
+  public constructor(
+    [entrypointsPlugin, externalsPlugin]: Array<
+      Extension.Controller
+    >,
+    file = 'assets.json',
+  ) {
     this.file = file
 
     this.done = this.done.bind(this)
@@ -40,6 +50,9 @@ class MergedManifestWebpackPlugin {
     this.manifestPath = this.manifestPath.bind(this)
     this.manifestExists = this.manifestExists.bind(this)
     this.manifestContent = this.manifestContent.bind(this)
+
+    this.entrypointsName = entrypointsPlugin.get('name')
+    this.externalsName = externalsPlugin.get('name')
   }
 
   /**
@@ -71,10 +84,11 @@ class MergedManifestWebpackPlugin {
        * Read manifests.
        */
       const entrypointsManifest = await this.manifestContent(
-        'entrypoints.json',
+        this.entrypointsName,
       )
+
       const wordpressManifest = await this.manifestContent(
-        'wordpress.json',
+        this.externalsName,
       )
 
       /**
@@ -99,8 +113,8 @@ class MergedManifestWebpackPlugin {
       /**
        * Remove merged manifests.
        */
-      await fs.remove(this.manifestPath('entrypoints.json'))
-      await fs.remove(this.manifestPath('wordpress.json'))
+      await fs.remove(this.manifestPath(this.entrypointsName))
+      await fs.remove(this.manifestPath(this.externalsName))
     } catch (err) {
       console.error(err)
     }
@@ -127,8 +141,8 @@ class MergedManifestWebpackPlugin {
    */
   public isBuildable = function (): boolean {
     return (
-      this.manifestExists('entrypoints.json') &&
-      this.manifestExists('wordpress.json')
+      this.manifestExists(this.entrypointsName) &&
+      this.manifestExists(this.externalsName)
     )
   }
 

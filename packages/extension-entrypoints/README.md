@@ -10,19 +10,38 @@
 </p>
 
 <h1 align="center">
-  <strong>@roots/merged-manifest-webpack-plugin</strong>
+  <strong>@roots/bud-entrypoints</strong>
 </h1>
 
 ## Overview
 
-When utilizing both `@roots/entrypoints-webpack-plugin` and
-`@roots/wordpress-externals-webpack-plugin` redundant manifests
-are generated.
+Bud extension implementing `@roots/entrypoints-webpack-plugin`.
 
-This plugin merges these manifests in a separate `assets.json` manifest.
-It then deletes the precursor JSON files.
+## Installation
 
-This plugin is standalone and can be used separately from the Bud framework.
+```sh
+yarn add @roots/bud-entrypoints --dev
+```
+
+## Usage
+
+```js
+bud.use(['@roots/bud-entrypoints'])
+```
+
+## Configuration
+
+```js
+bud.entrypoints({
+  name: 'entrypoints.json',
+  writeToFileEmit: true,
+})
+```
+
+| Option            | Type      | Description                         | Default          |
+| ----------------- | --------- | ----------------------------------- | ---------------- |
+| name              | `string`  | manifest filename                   | `entrypoints.json` |
+| writeToFileEmit   | `boolean` | `true` to emit manifest file        | `true`           |
 
 ## Contributing
 

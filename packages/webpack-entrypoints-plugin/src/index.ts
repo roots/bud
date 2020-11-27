@@ -3,7 +3,7 @@ import Webpack from 'webpack'
 import path from 'path'
 import {SyncWaterfallHook} from 'tapable'
 
-class EntrypointsWebpackPlugin {
+export class Plugin {
   /**
    * Plugin ident
    */
@@ -179,5 +179,3 @@ export type Options = {
   name: string
   writeToFileEmit: boolean
 }
-
-export {EntrypointsWebpackPlugin as default}

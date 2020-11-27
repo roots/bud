@@ -25,6 +25,7 @@
     "packages/extension-typescript",
     "packages/extension-vue",
     "packages/extension-wordpress-manifests",
+    "packages/extension-wordpress-externals",
     "packages/filesystem",
     "packages/ink-prettier",
     "packages/ink-use-style",
