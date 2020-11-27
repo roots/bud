@@ -1,7 +1,4 @@
 exclude_patterns:
-  - "tests/"
+  - "lab"
   - "node_modules"
-  - "**/node_modules/"
-  - "**/test"
-  - "**/lib"
-  - "packages/bud-vue/src/vue-template-compiler"
+  - "packages/extension-vue/src/vue-template-compiler/index.js"

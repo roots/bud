@@ -2926,46 +2926,10 @@
     schema-utils "^2.6.5"
     source-map "^0.7.3"
 
-"@roots/bud-support@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@roots/bud-support/-/bud-support-2.0.1.tgz#0844b918ab07781e4b1e12de4d86d2b9b7f8778c"
-  integrity sha512-q7kbw20vlcy7At/oZNvTtpLtWIhGE/n8/ZnBbYvYNTLmt75BDWKzbSp7S33HEDOsYyGotKhYa9B1ZdXpjdc7/g==
-  dependencies:
-    chalk "^4.1.0"
-    execa "^4.0.3"
-    find-up "^5.0.0"
-    fs-extra "^9.0.1"
-    futil-js "^1.67.2"
-    globby "^11.0.1"
-    lodash "^4.17.20"
-    node-notifier "^8.0.0"
-    react-dev-utils "^10.2.1"
-    update-notifier "^4.1.1"
-    yargs "^16.0.3"
-
 "@roots/bud-typings@2.0.0-next.24":
   version "2.0.0-next.24"
   resolved "https://registry.yarnpkg.com/@roots/bud-typings/-/bud-typings-2.0.0-next.24.tgz#792760140e45046317ba8ad99a2afcae13126ede"
   integrity sha512-JLXvo6wTVBf7np1n29iXR1DvtIUS5YDRAbm6sYcLAmXktm2rLCawTgi2Yk/QjEgt8Mx9zVmD8ZvIp6poPJxqag==
-
-"@roots/container@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@roots/container/-/container-2.0.1.tgz#28158820aa2c7da4c956b2941eef07ba3dc6e962"
-  integrity sha512-rRvqtyATeJDaGE+3Ma2VWDJfa7ASAYERfEbdECgLOpT7eHZdc8UubdsTgKKsVBdOWDlWjIvXY7dhHU8mZIMEMQ==
-  dependencies:
-    lodash "^4.17.19"
-
-"@roots/dependencies@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@roots/dependencies/-/dependencies-2.0.1.tgz#5a6ec398a9a2c0354da7eb91690cefa0177621cc"
-  integrity sha512-ANYJBzaXOtShYjJANkNPmS7tdpBeGuky5R/RPHEd/WN4PnvF6Rj7t78nvf2ahto21OEAgc/R7LFsSOaJJ2K1Kg==
-
-"@roots/wordpress-externals-webpack-plugin@^2.0.1":
-  version "2.0.1"
-  resolved "https://registry.yarnpkg.com/@roots/wordpress-externals-webpack-plugin/-/wordpress-externals-webpack-plugin-2.0.1.tgz#5bbd95e1318d75a5cdf27b6490b5414ad240fb51"
-  integrity sha512-y+p3s3FA35GCt7P54XXEmWG/OzCxWf9UbqbJoGZSn76MOT8b1SyXqovWu0Z8TtJoR+cpl7K+YyAdm1zdirCuzw==
-  dependencies:
-    node-fetch "^2.6.1"
 
 "@semantic-release/commit-analyzer@^6.1.0":
   version "6.3.3"

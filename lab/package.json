@@ -2,15 +2,9 @@
   "name": "example-simple",
   "private": true,
   "scripts": {
-    "dev": "node bud.config.js --mode development",
-    "hot": "node bud.config.js --mode development",
-    "build": "node bud.config.js --mode production",
+    "bud": "../node_modules/.bin/bud",
+    "dev": "yarn bud build --mode development",
+    "build": "yarn bud build --mode production",
     "test": "jest --verbose"
-  },
-  "devDependencies": {
-    "@roots/bud": "^2.0.1",
-    "@roots/bud-eslint": "^2.0.1",
-    "@roots/bud-sass": "^2.0.1",
-    "@roots/bud-typings": "^2.0.1"
   }
 }

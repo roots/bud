@@ -26,7 +26,7 @@ my-project
 Our minimal `bud.config.js` file might look something like this:
 
 ```js
-const bud = require('@roots/bud')
+const {bud} = require('@roots/bud')
 
 bud
   .srcPath('resources')
@@ -50,11 +50,15 @@ functions to help locate your assets.
   explicitly set this. However, if you are running the config outside the project
   root, you will need to make this explicit.
 
-- [bud.srcPath](config-srcPath.md) indicates where the project source files are located.
+- [bud.srcPath](config-srcPath.md) indicates where the project source files are
+  located.
 
 - [bud.distPath](config-distPath.md) indicates the directory to emit compiled
   assets. Since our directory name matches the presumed default `dist` directory,
   we don't need to explicitly set this.
+
+- [bud.publicPath](config-publicPath.md) is another optional configuration
+  function. This function indicates the path to the asset when accessing the compiled distributable using a browser. For our example, we'll assume the distributables are available in root (`/`), so we can skip this function.
 
 ```js
 /** First, set the project path */
@@ -82,7 +86,7 @@ An `entry` or `entrypoint` may be referred to in other ways, depending on contex
 
 Often, you'll here people describe a "root" file or the "main" file. These terms all mean the same thing, but in the context of webpack, `entry` is the most common one you'll find.
 
-### 1. The entry name
+### The entry name
 
 ```js
 bud.entry('app', 'scripts/app.js')
@@ -103,7 +107,7 @@ do so by including a `/` in the bundle name:
 bud.entry('scripts/app', 'scripts/app.js')
 ```
 
-#### 2. The entry source(s)
+#### The entry source(s)
 
 ```js
 bud.entry('app', 'scripts/app.js')
@@ -123,7 +127,7 @@ bud.entry('app', ['scripts/app.js', 'styles/app.css'])
 If a set of sources can't be concatenated, as is the case with the script and
 style sources above, there will be multiple output files generated.
 
-### 3. Run the build
+## Run the build
 
 ```js
 bud.run()
@@ -131,11 +135,7 @@ bud.run()
 
 The last step runs the build and outputs the build results using the bud cli.
 
-If you want to use vanilla webpack to run your build, more power to you!
-
-You can either export the final configuration as a module and run it with webpack yourself, or have `bud` pipe the output of webpack directly to your terminal (no `bud-cli`).
-
-#### Running the build in safe mode
+### Running the build in safe mode
 
 It is possible, depending on your environment, that Bud's CLI output causes issues. In particular, it's usage of tty `raw mode` can cause issues with CI tools.
 
@@ -143,7 +143,7 @@ To have Bud still run the build but not use the `bud-cli` raw mode renderer, pas
 
 In safe mode Bud will pass the build off to webpack to compile, rather than using the Bud CLI module.
 
-#### Running the build with webpack-cli
+### Running the build with webpack-cli
 
 If you want to run the build with webpack yourself, no sweat --
 
@@ -160,5 +160,3 @@ Note that some functionality from Bud packages may not work with this setup.
 You will, for instance, need to provde your own `ProgressPlugin` in your
 configuration (if you want one). The Bud CLI renders the progress bar using a
 callback passed to the compiler on initialization.
-
-None of that will be called when using a different compiler flow.

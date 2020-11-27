@@ -1,21 +1,31 @@
+## Type of change
+
+- [] MAJOR: breaking change
+- [] MINOR: feature
+- [] PATCH: bugfix
+
+## Affected packages
+
 <!--
-Before making a PR, please read our contributing guidelines
-https://github.com/babel/babel/blob/main/CONTRIBUTING.md
-
-For issue references: Add a comma-separated list of a [closing word](https://help.github.com/articles/closing-issues-via-commit-messages/) followed by the ticket number fixed by the PR. (it should be underlined in the preview if done correctly)
-
-If you are making a change that should have a docs update: submit another PR to https://github.com/roots/docs
+- @roots/bud
+- @roots/container
+- @roots/bud-babel
 -->
 
-| Q                        | A <!--(Can use an emoji 👍) -->
-| ------------------------ | ---
-| Fixed Issues?            | `Fixes #1, Fixes #2` <!-- remove the (`) quotes and write "Fixes" before the number to link the issues -->
-| Patch: Bug Fix?          |
-| Major: Breaking Change?  |
-| Minor: New Feature?      |
-| Tests Added + Pass?      | Yes
-| Documentation PR Link    | <!-- If only readme change, add `[skip ci]` to your commits -->
-| Any Dependency Changes?  |
-| License                  | MIT
+## Dependencies added
 
-<!-- Describe your changes below in as much detail as possible -->
+<!--
+- [dependency](https://npmjs.com/roots/bud)
+- ...
+-->
+
+## Issues fixed
+
+<!--
+- Fixes #1
+- ...
+-->
+
+## Details
+
+<!-- Describe your changes in as much detail as possible -->

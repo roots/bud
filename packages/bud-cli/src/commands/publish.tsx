@@ -3,7 +3,7 @@ import {render} from 'ink'
 import Publish from '../containers/Publish'
 import {join, dirname} from 'path'
 import {copyFile, ensureDir} from 'fs-extra'
-import {assert} from 'console'
+import {Error} from '../'
 
 import {yargs} from '@roots/bud-support'
 
@@ -29,7 +29,17 @@ export const handler: yargs.CommandModule['handler'] = async (args: {
   _: string[]
 }): Promise<void> => {
   const selection = args._[1]
-  assert(typeof selection == 'string')
+
+  /**
+   * Bail early if command isn't proper.
+   * Hit the user with an error message so they know what they did wrong
+   */
+  if (!selection || typeof selection !== 'string') {
+    Error(
+      `Try \`bud publish --help\` for a list of available templates.`,
+      `You must specify a template to publish`,
+    )
+  }
 
   const template = join(
     dirname(require.resolve('@roots/bud-support')),
@@ -44,6 +54,9 @@ export const handler: yargs.CommandModule['handler'] = async (args: {
 
     render(<Publish file={selection} />)
   } catch (err) {
-    console.error(err)
+    Error(
+      `Are you sure you got the name right? Try \`bud publish --help\` for a list of available templates.`,
+      `The requested template can't be published.`,
+    )
   }
 }

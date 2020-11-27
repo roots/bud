@@ -1,4 +1,4 @@
-const bud = require('@roots/bud')
+const {bud} = require('@roots/bud')
 
 bud
   .use('@roots/bud-eslint')

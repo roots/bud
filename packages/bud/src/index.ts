@@ -36,6 +36,3 @@ export const bud: Bud = new Bud({
       args.has('devtool') &&
       devtool(args.get('devtool') ?? '#@cheap-eval-source-map'),
   ])
-
-export default bud
-module.exports = bud
