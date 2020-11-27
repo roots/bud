@@ -4,10 +4,11 @@ import MergedManifestPlugin from '@roots/merged-manifest-webpack-plugin'
 const mergedManifestExtension = [
   `@roots/merged-manifest-webpack-plugin`,
   {
-    make: (_opts, bud) => new MergedManifestPlugin([
-      bud.extensions.get('@roots/bud-entrypoints'),
-      bud.extensions.get('@roots/bud-wordpress-externals'),
-    ]),
+    make: (_opts, bud) =>
+      new MergedManifestPlugin([
+        bud.extensions.get('@roots/bud-entrypoints'),
+        bud.extensions.get('@roots/bud-wordpress-externals'),
+      ]),
   },
 ]
 

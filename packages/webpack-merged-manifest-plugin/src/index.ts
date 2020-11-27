@@ -28,8 +28,14 @@ class MergedManifestWebpackPlugin {
    */
   public path: string
 
+  /**
+   * Entrypoints filename
+   */
   public entrypointsName: string
 
+  /**
+   * Externals filename
+   */
   public externalsName: string
 
   /**
@@ -43,6 +49,9 @@ class MergedManifestWebpackPlugin {
   ) {
     this.file = file
 
+    this.entrypointsName = entrypointsPlugin.get('name')
+    this.externalsName = externalsPlugin.get('name')
+
     this.done = this.done.bind(this)
     this.format = this.format.bind(this)
     this.isBuildable = this.isBuildable.bind(this)
@@ -50,9 +59,6 @@ class MergedManifestWebpackPlugin {
     this.manifestPath = this.manifestPath.bind(this)
     this.manifestExists = this.manifestExists.bind(this)
     this.manifestContent = this.manifestContent.bind(this)
-
-    this.entrypointsName = entrypointsPlugin.get('name')
-    this.externalsName = externalsPlugin.get('name')
   }
 
   /**
@@ -125,7 +131,7 @@ class MergedManifestWebpackPlugin {
   /**
    * Format manifest.
    */
-  public format = function (object: {
+  public format(object: {
     [key: string]: {
       [key: string]: string[]
     }
@@ -139,7 +145,7 @@ class MergedManifestWebpackPlugin {
   /**
    * Return true if all manifests are present.
    */
-  public isBuildable = function (): boolean {
+  public isBuildable(): boolean {
     return (
       this.manifestExists(this.entrypointsName) &&
       this.manifestExists(this.externalsName)
@@ -149,21 +155,21 @@ class MergedManifestWebpackPlugin {
   /**
    * Return full path of manifest.
    */
-  public manifestPath = function (file: string): string {
+  public manifestPath(file: string): string {
     return path.resolve(this.dir, file)
   }
 
   /**
    * Return true if manifest is present.
    */
-  public manifestExists = function (file: string): boolean {
+  public manifestExists(file: string): boolean {
     return fs.existsSync(this.manifestPath(file))
   }
 
   /**
    * Return manifest contents as an object.
    */
-  public manifestContent = async function (
+  public async manifestContent(
     file: string,
   ): Promise<Entrypoints> {
     return await fs.readJson(this.manifestPath(file))
