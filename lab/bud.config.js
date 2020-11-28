@@ -23,6 +23,8 @@ bud.runtime()
 bud.hash()
 bud.template()
 
+bud.imagemin()
+
 bud.imagemin([
   ['gifsicle', {interlaced: true}],
   ['jpegtran', {progressive: true}],

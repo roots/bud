@@ -11,7 +11,7 @@ import {Server} from '@roots/bud-server'
 
 import * as api from '@roots/bud-api'
 
-import ImageMin from 'imagemin'
+import * as Imagemin from '../components/extensions/imagemin/typings'
 
 export type Config<C = Bud> = C | Framework.Bud.Contract
 
@@ -351,8 +351,9 @@ export class Bud extends Core implements Abstract.Contract {
   /**
    * ## bud.imagemin [💁 Fluent]
    *
-   * Optimize images. Replace default imagemin plugins
-   * with an optional array argument.
+   * Losslessly images with imagemin.
+   *
+   * [🔗 Documentation](#)
    *
    * ### Usage
    *
@@ -360,10 +361,42 @@ export class Bud extends Core implements Abstract.Contract {
    * bud.imagemin()
    * ```
    *
-   * With plugins (shown with defaults):
+   * ```js
+   * bud.imagemin(false) // disable
+   * ```
+   */
+  public imagemin: Imagemin.Api.Imagemin
+
+  /**
+   * ## bud.imageminOption [💁 Fluent]
+   *
+   * Configure imagmin setting
+   *
+   * [🔗 bud.imagemin documentation](#)
+   *
+   * [🔗 image-minimizer-webpack-plugin documentation](https://webpack.js.org/plugins/image-minimizer-webpack-plugin/)
+   *
+   * ### Usage
    *
    * ```js
-   * bud.imagemin([
+   * bud.imageminOption('severityError', 'warning')
+   * ```
+   */
+  public imageminOption: Imagemin.Api.ImageminOption
+
+  /**
+   * ## bud.imageminPlugins [💁 Fluent]
+   *
+   * Customize imagemin plugins.
+   *
+   * - [🔗 Documentation](#)
+   *
+   * ### Usage
+   *
+   * Shown with defaults:
+   *
+   * ```js
+   * bud.imageminPlugins([
    *   ['gifsicle', {interlaced: true}],
    *   ['jpegtran', {progressive: true}],
    *   ['optipng', {optimizationLevel: 5}],
@@ -380,16 +413,15 @@ export class Bud extends Core implements Abstract.Contract {
    * ])
    * ```
    */
-  public imagemin: (
-    this: Abstract.Bud,
-    plugins?: ImageMin.Options['plugins'],
-  ) => Abstract.Bud
+  public imageminPlugins: Imagemin.Api.ImageminPlugins
 
   /**
    * ## bud.library  [💁 Fluent]
    *
    * Enables DLL ([dynamic link library](https://en.wikipedia.org/wiki/Dynamic-link_library))
-   * caching of specified modules. [🔗 Documentation](#)
+   * caching of specified modules.
+   *
+   * - [🔗 Documentation](#)
    *
    * ### Usage
    *
@@ -747,7 +779,9 @@ export class Bud extends Core implements Abstract.Contract {
    *
    * Collection of common RegExp objects. The advantage of using them in
    * a container object is that they can be easily redefined by extensions.
-   * [🔗 Documentation on bud.patterns](#) [🔗 Documentation on containers](#)
+   *
+   * - [🔗 Documentation on bud.patterns](#)
+   * - [🔗 Documentation on containers](#)
    *
    * ### Usage
    *
@@ -769,7 +803,9 @@ export class Bud extends Core implements Abstract.Contract {
    * ## bud.cli
    *
    * The CLI interface also exposes methods for displaying
-   * configuration progress, reports and errors.  [🔗 Documentation](#)
+   * configuration progress, reports and errors.
+   *
+   * - [🔗 Documentation](#)
    */
   public cli: Framework.CLI.Runner
 
@@ -783,14 +819,18 @@ export class Bud extends Core implements Abstract.Contract {
   /**
    * ## bud.cache
    *
-   * Cache controller class. [🔗 Documentation](#)
+   * Cache controller class.
+   *
+   * - [🔗 Documentation](#)
    */
   public cache: Framework.Cache.Contract
 
   /**
    * ## bud.env [🍱 _Container_]
    *
-   * Framework.Container for definitions founds in the application `.env` file [🔗 Documentation](#)
+   * Framework.Container for definitions founds in the application `.env` file *
+   *
+   * - [🔗 Documentation](#)
    *
    * ### Usage
    * ```js
@@ -803,7 +843,9 @@ export class Bud extends Core implements Abstract.Contract {
    * ## bud.hooks
    *
    * Bud provides a system of 'hooks' to expose values
-   * for easier modification.  [🔗 Documentation](#)
+   * for easier modification.
+   *
+   * - [🔗 Documentation](#)
    *
    * ### Usage
    *
@@ -842,21 +884,27 @@ export class Bud extends Core implements Abstract.Contract {
   /**
    * ## bud.extensions
    *
-   * Bud extension controller class. [🔗 Documentation](#)
+   * Bud extension controller class.
+   *
+   * - [🔗 Documentation](#)
    */
   public extensions: Framework.Extensions.Contract
 
   /**
    * ## bud.compiler
    *
-   * Webpack compilation controller class. [🔗 Documentation](#)
+   * Webpack compilation controller class.
+   *
+   * - [🔗 Documentation](#)
    */
   public compiler: Framework.Compiler.Contract
 
   /**
    * ## bud.server
    *
-   * Express application server used for development. [🔗 Documentation](#)
+   * Express application server used for development.
+   *
+   * - [🔗 Documentation](#)
    */
   public server: Framework.Server.Contract
 
