@@ -7,6 +7,7 @@ import * as ignoreEmit from './ignoreEmit'
 import * as configDump from './webpackConfigDump'
 import * as copy from './copy'
 import * as define from './define'
+import * as hashedModuleIds from './hashedModuleIds'
 import * as hotModuleReplacement from './hotModuleReplacement'
 import * as html from './html'
 import * as htmlHardDisk from './htmlHardDisk'
@@ -25,6 +26,7 @@ export const extensions: {
   [`clean-webpack-plugin`]: cleanWebpack,
   [`compression-webpack-plugin-gzip`]: gzip,
   [`compression-webpack-plugin-brotli`]: brotli,
+  [`hashed-module-ids-plugin`]: hashedModuleIds,
   [`ignore-emit-webpack-plugin`]: ignoreEmit,
   [`webpack-config-dump-plugin`]: configDump,
   [`copy-webpack-plugin`]: copy,

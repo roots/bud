@@ -6,42 +6,39 @@ import Webpack, {ExternalsPlugin} from 'webpack'
 import path from 'path'
 
 class WordPressExternalsWebpackPlugin {
-  public name = 'wordpress-externals'
-
-  public plugin: {
-    name: string
-    stage: number
+  /**
+   * Plugin ident
+   */
+  public plugin = {
+    name: 'WordPressExternalsWebpackPlugin',
+    stage: Infinity,
   }
 
-  public output: Output
+  public output: Output = {
+    dir: '',
+    name: '',
+    file: '',
+    publicPath: '',
+    content: {},
+  }
 
   public options: Options
 
   public externalsPlugin: ExternalsPlugin
 
+  /**
+   * Class constructor
+   */
   constructor(
     options: Options = {
       name: 'wordpress.json',
       writeToFileEmit: true,
+      useElementAsReact: true,
     },
   ) {
-    this.options = {
-      name: options.name,
-      writeToFileEmit: options.writeToFileEmit,
-    }
+    this.options = options
 
-    this.output = {
-      dir: '',
-      name: this.options.name,
-      file: '',
-      publicPath: '',
-      content: {},
-    }
-
-    this.plugin = {
-      name: 'WordPressExternalsWebpackPlugin',
-      stage: Infinity,
-    }
+    this.output.name = this.options.name
 
     this.externalsPlugin = new ExternalsPlugin(
       'this',
@@ -54,6 +51,7 @@ class WordPressExternalsWebpackPlugin {
   apply(compiler: Webpack.Compiler): void {
     this.output.dir = compiler.options.output.path
     this.output.publicPath = compiler.options.output.publicPath
+
     this.output.file = path.resolve(
       this.output.dir,
       this.output.name,
@@ -76,7 +74,9 @@ class WordPressExternalsWebpackPlugin {
     compilation: Webpack.compilation.Compilation,
     callback: () => void,
   ): Promise<void> {
-    const externals: Hash = await fetchExternals()
+    const externals: Hash = await fetchExternals(
+      this.options.useElementAsReact,
+    )
 
     compilation.entrypoints.forEach(entrypoint => {
       const dependencies = []
@@ -102,16 +102,13 @@ class WordPressExternalsWebpackPlugin {
   }
 }
 
-type Content =
-  | {
-      [key: string]: string | string[]
-    }
-  | {
-      [key: string]: string | string[]
-    }[]
-  | null
+export type EntrySchema = {
+  [key: string]: string | string[]
+}
 
-type Output = {
+export type Content = EntrySchema | EntrySchema[] | null
+
+export type Output = {
   dir: string
   name: string
   file: string
@@ -119,9 +116,25 @@ type Output = {
   content: Content
 }
 
-type Options = {
+/**
+ * Plugin options
+ */
+export type Options = {
+  /**
+   * Name of outputted file.
+   */
   name: string
+
+  /**
+   * Should manifest be written to disk.
+   */
   writeToFileEmit: boolean
+
+  /**
+   * Transform requests for 'react' and 'react-dom'
+   * to '@wordpress/element'
+   */
+  useElementAsReact: boolean
 }
 
 export {WordPressExternalsWebpackPlugin as default}

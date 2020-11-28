@@ -20,9 +20,7 @@ const key = val =>
  * Webpack.Optimization
  */
 export const optimization: Optimization.Build = function () {
-  const output = this.hooks.filter<{
-    optimization: Optimization
-  }>(key``, {
+  const output: {optimization: Optimization} = {
     optimization: {
       minimize: this.hooks.filter<Optimization['minimize']>(
         key`minimize`,
@@ -41,7 +39,7 @@ export const optimization: Optimization.Build = function () {
         this.config.get('optimization.moduleIds'),
       ),
     },
-  })
+  }
 
   if (this.features.enabled(`runtimeChunk`)) {
     output.optimization.runtimeChunk = this.hooks.filter<
@@ -59,5 +57,8 @@ export const optimization: Optimization.Build = function () {
     )
   }
 
-  return output
+  return this.hooks.filter<{optimization: Optimization}>(
+    key``,
+    output,
+  )
 }

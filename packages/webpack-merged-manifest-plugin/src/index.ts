@@ -78,7 +78,7 @@ class MergedManifestWebpackPlugin {
       )
 
       /**
-       * Reduce aggregate manifest and write to file
+       * Reduce aggregate manifest and write to file.
        */
       await fs.outputFile(
         this.path,
@@ -97,7 +97,7 @@ class MergedManifestWebpackPlugin {
       )
 
       /**
-       * Remove merged manifests
+       * Remove merged manifests.
        */
       await fs.remove(this.manifestPath('entrypoints.json'))
       await fs.remove(this.manifestPath('wordpress.json'))
@@ -133,14 +133,14 @@ class MergedManifestWebpackPlugin {
   }
 
   /**
-   * Return full path of manifest
+   * Return full path of manifest.
    */
   public manifestPath = function (file: string): string {
     return path.resolve(this.dir, file)
   }
 
   /**
-   * Return true if manifest is present
+   * Return true if manifest is present.
    */
   public manifestExists = function (file: string): boolean {
     return fs.existsSync(this.manifestPath(file))

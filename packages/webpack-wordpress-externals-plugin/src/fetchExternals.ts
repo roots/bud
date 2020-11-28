@@ -8,12 +8,30 @@ enum Gutenberg {
 /**
  * Fetch declared dependencies from the wordpress/gutenberg repo
  */
-const fetchExternals: Packages.Fetch = async () => {
+const fetchExternals: Packages.Fetch = async (
+  useElementAsReact = true,
+) => {
   try {
     const data = await fetch(Gutenberg.json)
     const {dependencies} = await data.json()
 
-    return transformPkgNames(dependencies)
+    const packages = {
+      ...transformPkgNames(dependencies),
+    }
+
+    if (useElementAsReact) {
+      packages['react'] = {
+        window: 'wp.element',
+        enqueue: 'wp-element',
+      }
+
+      packages['react-dom'] = {
+        window: 'wp.element',
+        enqueue: 'wp-element',
+      }
+    }
+
+    return packages
   } catch (err) {
     throw err
   }
@@ -69,8 +87,12 @@ export interface Hash {
 }
 
 namespace Packages {
-  export type Fetch = () => Promise<Hash>
+  export type Fetch = (
+    useElementAsReact?: boolean,
+  ) => Promise<Hash>
+
   export type Transform = (hash: Hash) => Hash
+
   export type Reduce = (
     accumulated: Hash,
     current: string,
@@ -79,5 +101,6 @@ namespace Packages {
 
 namespace PackageName {
   export type Transform = (name: string) => string
+
   export type Test = (name: string) => boolean
 }

@@ -124,11 +124,13 @@ class EntrypointsWebpackPlugin {
       this.makeEntry(entry.name)
 
       entry.chunks.map(chunk => {
-        this.pushChunk(
-          entry.name,
-          chunk.files[0].split('.').pop(),
-          path.resolve(this.publicPath, chunk.files[0]),
-        )
+        chunk.files.map(file => {
+          this.pushChunk(
+            entry.name,
+            file.split('.').pop(),
+            path.resolve(this.publicPath, file),
+          )
+        })
       })
     })
   }
