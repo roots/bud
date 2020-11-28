@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-entrypoints",
-  "version": "2.0.0-next.25",
+  "version": "2.0.4",
   "description": "Webpack tools",
   "repository": {
     "type": "git",
@@ -38,9 +38,9 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@roots/entrypoints-webpack-plugin": "^2.0.0-next.25"
+    "@roots/entrypoints-webpack-plugin": "^2.0.4"
   },
   "devDependencies": {
-    "@roots/bud-typings": "2.0.3"
+    "@roots/bud-typings": "2.0.4"
   }
 }

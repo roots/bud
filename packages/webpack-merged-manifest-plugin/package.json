@@ -34,8 +34,8 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@roots/bud-wordpress-externals": "^2.0.0-next.25",
-    "@roots/bud-entrypoints": "^2.0.0-next.25"
+    "@roots/bud-wordpress-externals": "^2.0.4",
+    "@roots/bud-entrypoints": "^2.0.4"
   },
   "devDependencies": {
     "@roots/bud-typings": "^2.0.6"
