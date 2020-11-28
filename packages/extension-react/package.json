@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-react",
-  "version": "2.0.4",
+  "version": "2.0.5",
   "description": "A friendly build tool to help manage your project assets.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -36,9 +36,9 @@
     "lint": "eslint ."
   },
   "devDependencies": {
-    "@roots/bud-extensions": "^2.0.4",
-    "@roots/bud-hooks": "^2.0.4",
-    "@roots/bud-typings": "^2.0.4"
+    "@roots/bud-extensions": "^2.0.5",
+    "@roots/bud-hooks": "^2.0.5",
+    "@roots/bud-typings": "^2.0.5"
   },
   "dependencies": {
     "@babel/preset-react": "^7.12.1",
