@@ -11,7 +11,7 @@ Customize imagemin plugins.
 Shown with defaults:
 
 ```js
-bud.imagemin(bud.imageminPlugins([
+bud.imageminPlugins([
   ['gifsicle', {interlaced: true}],
   ['jpegtran', {progressive: true}],
   ['optipng', {optimizationLevel: 5}],
@@ -21,7 +21,7 @@ bud.imagemin(bud.imageminPlugins([
       plugins: [{removeViewBox: false}],
     },
   ],
-]))
+])
 ```
 
 ## Signature
