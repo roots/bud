@@ -11,6 +11,8 @@ import {Server} from '@roots/bud-server'
 
 import * as api from '@roots/bud-api'
 
+import ImageMin from 'imagemin'
+
 export type Config<C = Bud> = C | Framework.Bud.Contract
 
 /**
@@ -345,6 +347,43 @@ export class Bud extends Core implements Abstract.Contract {
    * ```
    */
   public hash: api.Hash<Abstract.Bud> = api.hash
+
+  /**
+   * ## bud.imagemin [💁 Fluent]
+   *
+   * Optimize images. Replace default imagemin plugins
+   * with an optional array argument.
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.imagemin()
+   * ```
+   *
+   * With plugins (shown with defaults):
+   *
+   * ```js
+   * bud.imagemin([
+   *   ['gifsicle', {interlaced: true}],
+   *   ['jpegtran', {progressive: true}],
+   *   ['optipng', {optimizationLevel: 5}],
+   *   [
+   *     'svgo',
+   *     {
+   *       plugins: [
+   *         {
+   *           removeViewBox: false,
+   *         },
+   *       ],
+   *     },
+   *   ],
+   * ])
+   * ```
+   */
+  public imagemin: (
+    this: Abstract.Bud,
+    plugins?: ImageMin.Options['plugins'],
+  ) => Abstract.Bud
 
   /**
    * ## bud.library  [💁 Fluent]

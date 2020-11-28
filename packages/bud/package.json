@@ -37,6 +37,7 @@
   "devDependencies": {
     "@roots/bud-typings": "^2.0.4",
     "@types/compression-webpack-plugin": "^4.0.1",
+    "@types/imagemin": "^7.0.0",
     "@types/webpack-dev-middleware": "^3.7.2"
   },
   "dependencies": {
@@ -65,7 +66,12 @@
     "html-webpack-harddisk-plugin": "^1.0.2",
     "html-webpack-plugin": "^4.4.1",
     "ignore-emit-webpack-plugin": "^2.0.3",
+    "image-minimizer-webpack-plugin": "^1.0.0",
     "imagemin": "^6.0.1",
+    "imagemin-gifsicle": "^7.0.0",
+    "imagemin-jpegtran": "^7.0.0",
+    "imagemin-optipng": "^8.0.0",
+    "imagemin-svgo": "^8.0.0",
     "img-loader": "^3.0.0",
     "mini-css-extract-plugin": "^0.11.3",
     "mini-svg-data-uri": "^1.2.3",

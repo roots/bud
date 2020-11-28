@@ -10,6 +10,7 @@ import * as define from './define'
 import * as hotModuleReplacement from './hotModuleReplacement'
 import * as html from './html'
 import * as htmlHardDisk from './htmlHardDisk'
+import * as imagemin from './imagemin'
 import * as interpolateHtml from './interpolateHtmlPlugin'
 import * as manifest from './manifest'
 import * as miniCssExtract from './miniCssExtract'
@@ -31,6 +32,7 @@ export const extensions: {
   [`webpack-hot-module-replacement-plugin]`]: hotModuleReplacement,
   [`html-webpack-plugin`]: html,
   [`html-hard-disk-plugin`]: htmlHardDisk,
+  [`image-minimizer-webpack-plugin`]: imagemin,
   [`interpolate-html-plugin`]: interpolateHtml,
   [`webpack-manifest-plugin`]: manifest,
   [`mini-css-extract-plugin`]: miniCssExtract,

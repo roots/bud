@@ -17,7 +17,7 @@ export interface Contract<T = any> {
 
   boot?: (bud: Bud.Bud) => void
 
-  api?: (bud: Bud.Bud) => {[key: string]: CallableFunction}
+  api?: Api
 
   registerLoader?: RegisterOne<Loader>
 
@@ -59,6 +59,8 @@ export declare class Controller extends Container {
 
   setBuilders?: (builders: [string, CallableFunction][]) => void
 }
+
+export type Api = (bud?: Bud.Bud) => {[key: string]: CallableFunction}
 
 export type Register = (bud: Bud.Bud) => void
 
