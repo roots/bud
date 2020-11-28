@@ -89,36 +89,40 @@ bud
 
 ### Configuration API
 
-| Tool            | Description                         | Documentation                                                                                     |
-| --------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------- |
-| bud.addPlugin   | Use a Webpack plugin                | [docs/config-addPlugin.md](https://github.com/roots/bud/tree/stable/docs/config-addPlugin.md)     |
-| bud.alias       | Easy module imports                 | [docs/config-alias.md](https://github.com/roots/bud/tree/stable/docs/config-alias.md)             |
-| bud.brotli      | Apply brotli compression            | [docs/config-brotli.md](https://github.com/roots/bud/tree/stable/docs/config-brotli.md)           |
-| bud.copy        | Copy files                          | [docs/config-copy.md](https://github.com/roots/bud/tree/stable/docs/config-copy.md)               |
-| bud.define      | Define global constants             | [docs/config-define.md](https://github.com/roots/bud/tree/stable/docs/config-define.md)           |
-| bud.dev         | Configure dev server                | [docs/config-dev.md](https://github.com/roots/bud/tree/stable/docs/config-dev.md)                 |
-| bud.devtool     | Configure sourcemaps                | [docs/config-devtool.md](https://github.com/roots/bud/tree/stable/docs/config-devtool.md)         |
-| bud.dist        | Get the `dist` dir path             | [docs/config-dist.md](https://github.com/roots/bud/tree/stable/docs/config-dist.md)               |
-| bud.distPath    | Define the `dist` dir path          | [docs/config-distPath.md](https://github.com/roots/bud/tree/stable/docs/config-distPath.md)       |
-| bud.entry       | Add source files                    | [docs/config-entry.md](https://github.com/roots/bud/tree/stable/docs/config-entry.md)             |
-| bud.glob        | Create an entrypoint with wildcards | [docs/config-glob.md](https://github.com/roots/bud/tree/stable/docs/config-glob.md)               |
-| bud.gzip        | Apply gzip compression              | [docs/config-gzip.md](https://github.com/roots/bud/tree/stable/docs/config-gzip.md)               |
-| bud.hash        | Add version string to assets        | [docs/config-glob.md](https://github.com/roots/bud/tree/stable/docs/config-hash.md)               |
-| bud.library     | Create a DLL                        | [docs/config-library.md](https://github.com/roots/bud/tree/stable/docs/config-library.md)         |
-| bud.minify      | Minify assets                       | [docs/config-minify.md](https://github.com/roots/bud/tree/stable/docs/config-minify.md)           |
-| bud.pipe        | Declare a series of build steps     | [docs/config-pipe.md](https://github.com/roots/bud/tree/stable/docs/config-pipe.md)               |
-| bud.project     | Get the project root                | [docs/config-project.md](https://github.com/roots/bud/tree/stable/docs/config-project.md)         |
-| bud.projectPath | Define the project root dir         | [docs/config-projectPath.md](https://github.com/roots/bud/tree/stable/docs/config-projectPath.md) |
-| bud.provide     | Make a module available globally    | [docs/config-provide.md](https://github.com/roots/bud/tree/stable/docs/config-provide.md)         |
-| bud.publicPath  | Define the browser URI of assets.   | [docs/config-publicPath.md](https://github.com/roots/bud/tree/stable/docs/config-publicPath.md)   |
-| bud.runtime     | Code split with a runtime chunk     | [docs/config-runtime.md](https://github.com/roots/bud/tree/stable/docs/config-runtime.md)         |
-| bud.src         | Get the `src` dir path              | [docs/config-src.md](https://github.com/roots/bud/tree/stable/docs/config-src.md)                 |
-| bud.srcPath     | Define the `src` dir path           | [docs/config-srcPath.md](https://github.com/roots/bud/tree/stable/docs/config-srcPath.md)         |
-| bud.template    | Generate HTML boilerplate           | [docs/config-template.md](https://github.com/roots/bud/tree/stable/docs/config-template.md)       |
-| bud.terser      | Configure the terser minifier       | [docs/config-terser.md](https://github.com/roots/bud/tree/stable/docs/config-terser.md)           |
-| bud.use         | Extend Bud's core functionality     | [docs/config-use.md](https://github.com/roots/bud/tree/stable/docs/config-use.md)                 |
-| bud.vendor      | Separate vendor code from app code  | [docs/config-vendor.md](https://github.com/roots/bud/tree/stable/docs/config-vendor.md)           |
-| bud.when        | Conditional control of build steps  | [docs/config-when.md](https://github.com/roots/bud/tree/stable/docs/config-when.md)               |
+| Tool                | Description                         | Documentation                                                                                             |
+| ------------------- | ----------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| bud.addPlugin       | Use a Webpack plugin                | [docs/config-addPlugin.md](https://github.com/roots/bud/tree/stable/docs/config-addPlugin.md)             |
+| bud.alias           | Easy module imports                 | [docs/config-alias.md](https://github.com/roots/bud/tree/stable/docs/config-alias.md)                     |
+| bud.brotli          | Apply brotli compression            | [docs/config-brotli.md](https://github.com/roots/bud/tree/stable/docs/config-brotli.md)                   |
+| bud.copy            | Copy files                          | [docs/config-copy.md](https://github.com/roots/bud/tree/stable/docs/config-copy.md)                       |
+| bud.define          | Define global constants             | [docs/config-define.md](https://github.com/roots/bud/tree/stable/docs/config-define.md)                   |
+| bud.dev             | Configure dev server                | [docs/config-dev.md](https://github.com/roots/bud/tree/stable/docs/config-dev.md)                         |
+| bud.devtool         | Configure sourcemaps                | [docs/config-devtool.md](https://github.com/roots/bud/tree/stable/docs/config-devtool.md)                 |
+| bud.dist            | Get the `dist` dir path             | [docs/config-dist.md](https://github.com/roots/bud/tree/stable/docs/config-dist.md)                       |
+| bud.distPath        | Define the `dist` dir path          | [docs/config-distPath.md](https://github.com/roots/bud/tree/stable/docs/config-distPath.md)               |
+| bud.entry           | Add source files                    | [docs/config-entry.md](https://github.com/roots/bud/tree/stable/docs/config-entry.md)                     |
+| bud.glob            | Create an entrypoint with wildcards | [docs/config-glob.md](https://github.com/roots/bud/tree/stable/docs/config-glob.md)                       |
+| bud.gzip            | Apply gzip compression              | [docs/config-gzip.md](https://github.com/roots/bud/tree/stable/docs/config-gzip.md)                       |
+| bud.hash            | Add version string to assets        | [docs/config-glob.md](https://github.com/roots/bud/tree/stable/docs/config-hash.md)                       |
+| bud.imagemin        | Enable/disable image minification   | [docs/config-imagemin.md](https://github.com/roots/bud/tree/stable/docs/config-imagemin.md)               |
+| bud.imageminOption  | Set imagemin option                 | [docs/config-imageminOption.md](https://github.com/roots/bud/tree/stable/docs/config-imageminOption.md)   |
+| bud.imageminPlugins | Customize imagemin plugins          | [docs/config-imageminPlugins.md](https://github.com/roots/bud/tree/stable/docs/config-imageminPlugins.md) |
+| bud.imagemin        | Enable/disable image minification   | [docs/config-imagemin.md](https://github.com/roots/bud/tree/stable/docs/config-imagemin.md)               |
+| bud.library         | Create a DLL                        | [docs/config-library.md](https://github.com/roots/bud/tree/stable/docs/config-library.md)                 |
+| bud.minify          | Minify assets                       | [docs/config-minify.md](https://github.com/roots/bud/tree/stable/docs/config-minify.md)                   |
+| bud.pipe            | Declare a series of build steps     | [docs/config-pipe.md](https://github.com/roots/bud/tree/stable/docs/config-pipe.md)                       |
+| bud.project         | Get the project root                | [docs/config-project.md](https://github.com/roots/bud/tree/stable/docs/config-project.md)                 |
+| bud.projectPath     | Define the project root dir         | [docs/config-projectPath.md](https://github.com/roots/bud/tree/stable/docs/config-projectPath.md)         |
+| bud.provide         | Make a module available globally    | [docs/config-provide.md](https://github.com/roots/bud/tree/stable/docs/config-provide.md)                 |
+| bud.publicPath      | Define the browser URI of assets.   | [docs/config-publicPath.md](https://github.com/roots/bud/tree/stable/docs/config-publicPath.md)           |
+| bud.runtime         | Code split with a runtime chunk     | [docs/config-runtime.md](https://github.com/roots/bud/tree/stable/docs/config-runtime.md)                 |
+| bud.src             | Get the `src` dir path              | [docs/config-src.md](https://github.com/roots/bud/tree/stable/docs/config-src.md)                         |
+| bud.srcPath         | Define the `src` dir path           | [docs/config-srcPath.md](https://github.com/roots/bud/tree/stable/docs/config-srcPath.md)                 |
+| bud.template        | Generate HTML boilerplate           | [docs/config-template.md](https://github.com/roots/bud/tree/stable/docs/config-template.md)               |
+| bud.terser          | Configure the terser minifier       | [docs/config-terser.md](https://github.com/roots/bud/tree/stable/docs/config-terser.md)                   |
+| bud.use             | Extend Bud's core functionality     | [docs/config-use.md](https://github.com/roots/bud/tree/stable/docs/config-use.md)                         |
+| bud.vendor          | Separate vendor code from app code  | [docs/config-vendor.md](https://github.com/roots/bud/tree/stable/docs/config-vendor.md)                   |
+| bud.when            | Conditional control of build steps  | [docs/config-when.md](https://github.com/roots/bud/tree/stable/docs/config-when.md)                       |
 
 ## Running a build
 
