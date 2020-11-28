@@ -32,7 +32,7 @@
     {"@roots/bud-support": "bud-support"},
     {"@roots/bud-babel": "extension-babel"},
     {"@roots/bud-eslint": "extension-eslint"},
-    {"@roots/bud-manifests": "extension-manifests"},
+    {"@roots/bud-wordpress-manifests": "extension-wordpress-manifests"},
     {"@roots/bud-postcss": "extension-postcss"},
     {"@roots/bud-purgecss": "extension-purgecss"},
     {"@roots/bud-react": "extension-react"},
@@ -51,10 +51,10 @@
       "@roots/entrypoints-webpack-plugin": "webpack-entrypoints-plugin"
     },
     {
-      "@roots/merged-manifest-plugin": "webpack-merged-manifest-plugin"
+      "@roots/merged-manifest-webpack-plugin": "webpack-merged-manifest-plugin"
     },
     {
-      "@roots/wordpress-externals-plugin": "webpack-wordpress-externals-plugin"
+      "@roots/wordpress-externals-webpack-plugin": "webpack-wordpress-externals-plugin"
     }
   ],
   "files": []
