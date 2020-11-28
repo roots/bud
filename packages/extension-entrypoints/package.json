@@ -41,6 +41,6 @@
     "@roots/entrypoints-webpack-plugin": "^2.0.0-next.25"
   },
   "devDependencies": {
-    "@roots/bud-typings": "2.0.0-next.25"
+    "@roots/bud-typings": "2.0.3"
   }
 }

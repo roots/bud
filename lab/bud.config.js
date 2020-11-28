@@ -12,8 +12,6 @@ bud.use([
 
 bud.buildCache(bud.project('storage/bud/records.json'))
 
-bud.purge(bud.presets.get('purgecss.wp'))
-
 bud.entrypoints({
   name: 'file.json',
 })
