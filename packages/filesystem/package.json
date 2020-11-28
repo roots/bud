@@ -1,6 +1,6 @@
 {
   "name": "@roots/filesystem",
-  "version": "2.0.6-next.1",
+  "version": "2.0.6",
   "description": "Automated package installation",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -36,7 +36,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@roots/container": "^2.0.6-next.1",
+    "@roots/container": "^2.0.6",
     "fs-extra": "^9.0.1",
     "globby": "^11.0.1",
     "resolve-from": "^5.0.0"

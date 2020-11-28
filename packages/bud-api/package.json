@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-api",
-  "version": "2.0.6-next.1",
+  "version": "2.0.6",
   "description": "Bud configuration API",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -35,10 +35,10 @@
     "lint": "eslint ."
   },
   "devDependencies": {
-    "@roots/bud-extensions": "^2.0.6-next.1",
-    "@roots/bud-framework": "^2.0.6-next.1",
+    "@roots/bud-extensions": "^2.0.6",
+    "@roots/bud-framework": "^2.0.6",
     "@roots/bud-server": "^2.0.0-next.24",
-    "@roots/bud-typings": "^2.0.6-next.1",
+    "@roots/bud-typings": "^2.0.6",
     "@types/terser": "^3.12.0",
     "compression-webpack-plugin": "^6.0.2",
     "terser": "^5.3.4",
@@ -46,8 +46,8 @@
     "webpack": "^4.44.2"
   },
   "dependencies": {
-    "@roots/bud-server": "^2.0.6-next.1",
-    "@roots/bud-support": "^2.0.6-next.1",
-    "@roots/container": "^2.0.6-next.1"
+    "@roots/bud-server": "^2.0.6",
+    "@roots/bud-support": "^2.0.6",
+    "@roots/container": "^2.0.6"
   }
 }

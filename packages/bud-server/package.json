@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-server",
   "description": "Development server for @roots/bud",
-  "version": "2.0.6-next.1",
+  "version": "2.0.6",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -35,10 +35,10 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@roots/bud-compiler": "^2.0.6-next.1",
-    "@roots/bud-support": "^2.0.6-next.1",
-    "@roots/container": "^2.0.6-next.1",
-    "@roots/filesystem": "^2.0.6-next.1",
+    "@roots/bud-compiler": "^2.0.6",
+    "@roots/bud-support": "^2.0.6",
+    "@roots/container": "^2.0.6",
+    "@roots/filesystem": "^2.0.6",
     "express": "^4.17.1",
     "http-proxy-middleware": "^1.0.5",
     "strip-ansi": "^6.0.0",
@@ -49,7 +49,7 @@
     "zlib": "^1.0.5"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^2.0.6-next.1",
+    "@roots/bud-typings": "^2.0.6",
     "@types/webpack-hot-middleware": "^2.25.3"
   }
 }

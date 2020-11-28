@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-typescript",
-  "version": "2.0.6-next.1",
+  "version": "2.0.6",
   "description": "Adds Typescript support to Bud.",
   "repository": {
     "type": "git",
@@ -38,11 +38,11 @@
     "lint": "eslint ."
   },
   "devDependencies": {
-    "@roots/bud-extensions": "^2.0.6-next.1",
-    "@roots/bud-typings": "^2.0.6-next.1"
+    "@roots/bud-extensions": "^2.0.6",
+    "@roots/bud-typings": "^2.0.6"
   },
   "dependencies": {
-    "@roots/bud-support": "^2.0.6-next.1",
+    "@roots/bud-support": "^2.0.6",
     "ts-loader": "^8.0.2",
     "tslib": "^2.0.1",
     "typescript": "^4.0.2"
