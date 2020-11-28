@@ -47,6 +47,6 @@
     "sass-loader": "^10.0.3"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^2.0.0-next.25"
+    "@roots/bud-typings": "^2.0.4"
   }
 }
