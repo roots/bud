@@ -12,7 +12,7 @@ export * as api from './api'
  * Only applied in development.
  */
 export const boot: Boot = ({build, mode}) => {
-  !mode.is('development') &&
+  mode.is('development') &&
     build.items.merge('babel.options.plugins', [
       require.resolve('react-refresh/babel'),
     ])
