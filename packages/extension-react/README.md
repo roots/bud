@@ -36,6 +36,20 @@ When run in development mode `@pmmmwh/react-refresh-webpack-plugin` provides hot
 bud.use('@roots/bud-react')
 ```
 
+## Configuration
+
+You may configure `@pmmmwh/react-refresh-webpack-plugin` by passing plugin options to `bud.reactRefresh`, which is registered by this package.
+
+Default configuration:
+
+```js
+bud.reactRefresh({
+  overlay: {
+    sockIntegration: 'whm',
+  },
+})
+```
+
 ## Contributing
 
 Contributions are welcome from everyone.
