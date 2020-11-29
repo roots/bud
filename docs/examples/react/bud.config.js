@@ -1,7 +1,20 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
-const build = require('@roots/bud')
+const {bud} = require('@roots/bud')
 
-build
-  .extend([require('@roots/bud-react')])
-  .bundle('create-bud-app', [build.src('app.js')])
-  .compile()
+// This fix only pertains to the bud monorepo
+// You do not need to include it in your project
+const fix = require('../fix')
+fix.modulePath(bud, '../../../node_modules')
+
+/**
+ * Example: react single page application
+ */
+bud.use([
+  '@roots/bud-babel',
+  '@roots/bud-react',
+])
+
+bud
+  .entry('create-bud-app', ['app.js'])
+  .template()
+  .run()
