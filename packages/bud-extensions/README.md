@@ -7,6 +7,9 @@
   <a href="https://twitter.com/rootswp">
     <img alt="Follow Roots" src="https://img.shields.io/twitter/follow/rootswp.svg?style=flat-square&color=1da1f2" />
   </a>
+  <a href="https://www.npmjs.com/package/@roots/bud-extensions">
+    <img src="https://img.shields.io/npm/v/@roots/bud-extensions.svg?color=%23525ddc&style=flat-square" />
+  </a>
 </p>
 
 <h1 align="center">

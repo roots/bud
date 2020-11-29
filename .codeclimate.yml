@@ -1,4 +1,5 @@
 exclude_patterns:
   - "lab"
   - "node_modules"
-  - "packages/extension-vue/src/vue-template-compiler/index.js"
+  - "packages/extension-vue/src/vue-template-compiler"
+  - "packages/**/publish"
