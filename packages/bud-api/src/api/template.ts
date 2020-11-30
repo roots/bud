@@ -6,7 +6,7 @@ export const template: Template = function (options?) {
   options?.template &&
     this.extensions
       .get('html-webpack-plugin')
-      .merge('template', options.template)
+      .set('template', options.template)
 
   options?.replacements &&
     this.extensions

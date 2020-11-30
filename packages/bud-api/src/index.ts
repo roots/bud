@@ -70,6 +70,9 @@ export type {Run} from './api/run'
 export {runtime} from './api/runtime'
 export type {Runtime} from './api/runtime'
 
+export {string} from './api/string'
+export type {Stringify} from './api/string'
+
 export {src} from './api/src'
 export type {Src} from './api/src'
 
