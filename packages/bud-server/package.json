@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-server",
   "description": "Development server for @roots/bud",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -35,7 +35,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@roots/bud-compiler": "^2.0.6",
+    "@roots/bud-compiler": "^2.0.7",
     "@roots/bud-support": "^2.0.6",
     "@roots/container": "^2.0.6",
     "@roots/filesystem": "^2.0.6",

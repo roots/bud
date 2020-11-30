@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-framework",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "A friendly build tool to help manage your project assets.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -35,9 +35,9 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@roots/bud-cli": "^2.0.6",
-    "@roots/bud-compiler": "^2.0.6",
-    "@roots/bud-extensions": "^2.0.6",
+    "@roots/bud-cli": "^2.0.7",
+    "@roots/bud-compiler": "^2.0.7",
+    "@roots/bud-extensions": "^2.0.7",
     "@roots/bud-hooks": "^2.0.6",
     "@roots/bud-support": "^2.0.6",
     "@roots/bud-typings": "^2.0.6",
