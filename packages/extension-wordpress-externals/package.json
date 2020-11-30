@@ -5,7 +5,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
-    "directory": "packages/extension-entrypoints"
+    "directory": "packages/extension-wordpress-externals"
   },
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
@@ -38,9 +38,9 @@
     "lint": "eslint ."
   },
   "dependencies": {
-    "@roots/wordpress-externals-webpack-plugin": "^2.0.4"
+    "@roots/wordpress-externals-webpack-plugin": "^2.0.6"
   },
   "devDependencies": {
-    "@roots/bud-typings": "2.0.4"
+    "@roots/bud-typings": "2.0.6"
   }
 }

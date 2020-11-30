@@ -22,29 +22,11 @@ bud.alias({'@scripts': './scripts'})
 bud.entry('foo', ['foo.js', 'foo.css'])
 
 bud.hash()
+bud.imagemin()
 bud.minify()
 bud.vendor()
 bud.runtime()
 
-bud.hash()
 bud.template()
-
-bud.imagemin()
-
-bud.imagemin([
-  ['gifsicle', {interlaced: true}],
-  ['jpegtran', {progressive: true}],
-  ['optipng', {optimizationLevel: 5}],
-  [
-    'svgo',
-    {
-      plugins: [
-        {
-          removeViewBox: false,
-        },
-      ],
-    },
-  ],
-])
 
 bud.run()

@@ -25,9 +25,18 @@ bud.use([
 ])
 
 /**
+ * Set public path of theme directory.
+ */
+bud.publicPath('/wp-content/themes/example/dist')
+
+/**
  * Set application source files.
  */
 bud.entry('app', ['app.js'])
+
+bud.define({
+  appName: bud.string(bud.env.get('APP_TITLE')),
+})
 
 /**
  * Production optimizations.

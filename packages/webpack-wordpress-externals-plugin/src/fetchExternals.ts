@@ -15,20 +15,13 @@ const fetchExternals: Packages.Fetch = async (
     const data = await fetch(Gutenberg.json)
     const {dependencies} = await data.json()
 
-    const packages = {
-      ...transformPkgNames(dependencies),
+    if (useElementAsReact) {
+      dependencies['react'] = '@wordpress/element'
+      dependencies['react-dom'] = '@wordpress/element'
     }
 
-    if (useElementAsReact) {
-      packages['react'] = {
-        window: 'wp.element',
-        enqueue: 'wp-element',
-      }
-
-      packages['react-dom'] = {
-        window: 'wp.element',
-        enqueue: 'wp-element',
-      }
+    const packages = {
+      ...transformPkgNames(dependencies),
     }
 
     return packages

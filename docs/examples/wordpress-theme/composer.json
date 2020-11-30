@@ -1,7 +1,7 @@
 {
   "name": "roots/bud-example-theme",
   "require": {
-    "illuminate/support": "^8.16"
+    "tightenco/collect": "^8.15"
   },
   "license": "MIT",
   "authors": [
