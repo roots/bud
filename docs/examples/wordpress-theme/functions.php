@@ -65,57 +65,58 @@ function getAssetManifest() {
  */
 function parseAssets() {
   /**
-   * Map entrypoints
+   * Get the manifest contents and map its entrypoints.
    */
-  return getAssetManifest()->map(function ($entrypoint, $name) {
-    /**
-     * Parse modules from each entrypoint.
-     */
-    return Collection::make($entrypoint)->map(
-      function ($modules, $type)
-        use ($entrypoint, $name) {
-        $dependencies = Collection::make($entrypoint->dependencies);
-        $modules = Collection::make($modules);
+  return getAssetManifest()->map(
+    function ($entrypoint, $name) {
+      /**
+       * Parse modules from each entrypoint.
+       */
+      return Collection::make($entrypoint)->map(
+        function ($modules, $type)
+          use ($entrypoint, $name) {
+          $dependencies = Collection::make($entrypoint->dependencies);
+          $modules = Collection::make($modules);
 
-        /**
-         * We'll add the info we need to enqueue
-         * directly to each module.
-         */
-        return $modules->map(
-          function ($module, $index)
-            use ($dependencies, $name, $type) {
-            // first, create an identifier for wp
-            $ident = "{$name}/{$type}/{$index}";
-            // and save a reference to the dependencies
-            $deps = $dependencies->all();
-            // then, push current module onto the pile
-            $dependencies->push($ident);
+          /**
+           * Make an object
+           */
+          return $modules->map(
+            function ($module, $index)
+              use ($dependencies, $name, $type) {
+              // first, make a reference to the current deps.
+              $requirements = $dependencies->all();
 
-            // finally, make and return the module obj.
-            return (object) [
-              'name' => $dependencies->last(),
-              'order' => $index,
-              'enqueue' => sprintf(
-                "wp_enqueue_%s",
-                $type == 'js' ? 'script' : 'style',
-              ),
-              'uri' => $module,
-              'deps' => $deps,
-            ];
-          }
-        );
-      }
-    )
+              // then, add the current module to the collection obj.
+              // ensuring each module depends on all
+              // that preceeded it.
+              $dependencies->push("{$name}/{$type}/{$index}");
 
-    /**
-     * Exclude the deps key, which is now redundant.
-     */
-    ->except('dependencies')
+              // finally, make and return the module obj.
+              return (object) [
+                'name' => $dependencies->last(),
+                'uri' => $module,
+                'deps' => $requirements,
+                'enqueue' => sprintf(
+                  "wp_enqueue_%s",
+                  $type == 'js' ? 'script' : 'style',
+                ),
+              ];
+            }
+          );
+        }
+      )
 
-    /**
-     * Flatten the results, as the outer structure
-     * is now redundant.
-     */
-    ->flatten();
-  });
+      /**
+       * Exclude the deps key, which is now redundant.
+       */
+      ->except('dependencies')
+
+      /**
+       * Flatten the results, as the outer structure
+       * is now redundant.
+       */
+      ->flatten();
+    }
+  );
 }
