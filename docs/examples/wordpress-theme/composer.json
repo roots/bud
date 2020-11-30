@@ -1,0 +1,13 @@
+{
+  "name": "roots/bud-example-theme",
+  "require": {
+    "illuminate/support": "^8.16"
+  },
+  "license": "MIT",
+  "authors": [
+    {
+      "name": "Kelly Mears",
+      "email": "developers@tinypixel.dev"
+    }
+  ]
+}

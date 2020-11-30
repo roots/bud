@@ -19,28 +19,15 @@ bud.hooks.on('webpack.resolve.modules', modules => [
  * Use babel and react extensions.
  */
 bud.use([
-  '@roots/bud-postcss',
   '@roots/bud-babel',
   '@roots/bud-react',
+  '@roots/bud-wordpress-manifests',
 ])
 
 /**
  * Set application source files.
  */
-bud.entry('create-bud-app', [
-  'app.js',
-  'global.css',
-])
-
-/**
- * Define `appName` variable used in components/index.js
- * Explicitly cast as a string to avoid errors.
- */
-bud.define({
-  'appName': bud.string(
-    bud.env.get('APP_TITLE')
-  ),
-})
+bud.entry('app', ['app.js'])
 
 /**
  * Production optimizations.
@@ -50,13 +37,6 @@ if (bud.mode.is('production')) {
   bud.vendor()
   bud.runtime()
 }
-
-/**
- * Set HTML template
- */
-bud.template({
-  template: bud.project('public/index.html'),
-})
 
 /**
  * Run build.

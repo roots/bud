@@ -23,9 +23,8 @@
   <strong>Example configurations</strong>
 </h1>
 
-Configurations include a function directly after bud is imported. You can ignore this in your project.
-
-This function is only included because in the bud monorepo the relative path from any of the example configs to `node_modules` is `../../../node_modules`. The function adds this path to the array of paths to resolve modules from.
+- [React single page application](https://github.com/roots/bud/tree/stable/docs/examples/react)
+- [WordPress theme](https://github.com/roots/bud/tree/stable/docs/examples/wordpress-theme)
 
 ## Contributing
 

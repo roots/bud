@@ -2,3 +2,17 @@ html, body {
   padding: 0;
   margin: 0;
 }
+
+.app {
+  align-items: center;
+  background: black;
+  color: white;
+  display: flex;
+  font-family: sans-serif;
+  height: 100vh;
+  justify-content: center;
+  letter-spacing: 0.2em;
+  text-align: center;
+  text-transform: uppercase;
+  width: 100vw;
+}
