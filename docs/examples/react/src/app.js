@@ -1,8 +1,6 @@
 import React from 'react'
 import {render} from 'react-dom'
 
-const App = () => {
-  return <div>Create Bud App!</div>
-}
+import {App} from './components'
 
 render(<App />, document.getElementById('root'))

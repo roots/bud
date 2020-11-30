@@ -599,6 +599,20 @@ export class Bud extends Core implements Abstract.Contract {
   public srcPath: api.SrcPath<Abstract.Bud> = api.srcPath
 
   /**
+   * ## bud.string
+   *
+   * Interpolate to string.
+   *
+   * ### Usage
+   *
+   * ```js
+   * const value = bud.env.get('some_env')
+   * const stringValue = bud.string(value)
+   * ```
+   */
+  public string: api.Stringify<Abstract.Bud> = api.string
+
+  /**
    * ## bud.target  [💁 Fluent]
    *
    * Set the webpack build target. Default is 'web'. [🔗 Documentation](#)
