@@ -1,6 +1,12 @@
-## (2020-11-29)
+## v2.0.7
 
+affects: @roots/bud-api, @roots/bud-react
+
+- docs(examples): example react spa configuration (#29) ([5dbc7ea](https://github.com/roots/bud/commit/5dbc7ea)), closes [#29](https://github.com/roots/bud/issues/29)
+- docs(examples): example configurations ([6ce07e9](https://github.com/roots/bud/commit/6ce07e9))
 - docs(README): include npm badges in README ([322fa6e](https://github.com/roots/bud/commit/322fa6e))
+- docs(README): README and CHANGELOG updates ([1d58327](https://github.com/roots/bud/commit/1d58327))
+- refactor(@roots/bud-react) (#28) ([aaee19c](https://github.com/roots/bud/commit/aaee19c)), closes [#28](https://github.com/roots/bud/issues/28)
 - chore(codeclimate): codeclimate config ([8884bf6](https://github.com/roots/bud/commit/8884bf6))
 
 ## v2.0.6
