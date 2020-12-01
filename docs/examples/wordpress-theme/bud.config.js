@@ -32,20 +32,9 @@ bud.publicPath('/wp-content/themes/example/dist')
 /**
  * Set application source files.
  */
-bud.entry('app', ['app.js'])
+bud.entry('app', ['app.js', 'app.css'])
 
-bud.define({
-  appName: bud.string(bud.env.get('APP_TITLE')),
-})
-
-/**
- * Production optimizations.
- */
-if (bud.mode.is('production')) {
-  bud.minify()
-  bud.vendor()
-  bud.runtime()
-}
+bud.env.is('production') && bud.vendor().runtime().hash().minify()
 
 /**
  * Run build.

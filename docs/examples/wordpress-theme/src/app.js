@@ -1,5 +1,11 @@
 import React from 'react'
-import {render} from 'react-dom'
+import ReactDOM from 'react-dom'
 import {App} from './components'
+import domReady from '@wordpress/dom-ready'
 
-render(<App />, document.getElementById('root'))
+domReady(() => {
+  ReactDOM.render(
+    <App />,
+    document.getElementById('root')
+  )
+})

@@ -18,6 +18,11 @@ export class Plugin {
   public hook = ['compilation', 'output']
 
   /**
+   * Build hash
+   */
+  public hash: Webpack.compilation.Compilation['hash']
+
+  /**
    * Emitted filename
    */
   public name: string
@@ -40,7 +45,7 @@ export class Plugin {
   /**
    * Emitted contents
    */
-  public output: Output = {}
+  public output: EntrySchema = {}
 
   /**
    * Should manifest be emitted
@@ -61,7 +66,6 @@ export class Plugin {
     this.emit = this.emit.bind(this)
     this.apply = this.apply.bind(this)
     this.makeEntry = this.makeEntry.bind(this)
-    this.pushChunk = this.pushChunk.bind(this)
     this.entrypoints = this.entrypoints.bind(this)
   }
 
@@ -95,11 +99,15 @@ export class Plugin {
       assets,
       entrypoints,
       hooks,
+      hash,
     }: {
       assets: Webpack.compilation.Compilation['assets']
       entrypoints: Webpack.compilation.Compilation['entrypoints']
       hooks: any // Webpack.compilation.Compilation['hooks']
+      hash?: Webpack.compilation.Compilation['hash']
     } = compilation
+
+    this.hash = hash ?? null
 
     hooks.entrypoints = new SyncWaterfallHook(this.hook)
     hooks.entrypoints.tap(this.plugin, this.entrypoints)
@@ -142,6 +150,7 @@ export class Plugin {
     this.output[name] = {
       js: [],
       css: [],
+      version: this.hash,
     }
   }
 
@@ -161,16 +170,19 @@ export class Plugin {
  * Schema for manifest entry
  */
 export type EntrySchema = {
-  css: string[]
-  js: string[]
+  [key: string]: {
+    version?: string
+    js?: Array<string>
+    css?: Array<string>
+  }
 }
 
 /**
- * Manifest structure
+ * Literally the same
+ * @todo transition to EntrySchema
+ * @deprecated
  */
-export type Output = {
-  [key: string]: EntrySchema
-}
+export type Output = EntrySchema
 
 /**
  * Constructor params

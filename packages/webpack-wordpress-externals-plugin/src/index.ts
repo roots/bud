@@ -41,7 +41,7 @@ export class Plugin {
     this.output.name = this.options.name
 
     this.externalsPlugin = new ExternalsPlugin(
-      'this',
+      'wp',
       externalsPlugin.bind(this),
     )
 
@@ -70,28 +70,22 @@ export class Plugin {
     )
   }
 
-  async emit(
+  public async emit(
     compilation: Webpack.compilation.Compilation,
     callback: () => void,
   ): Promise<void> {
-    const externals: Hash = await fetchExternals(
-      this.options.useElementAsReact,
-    )
+    const externals: Hash = await fetchExternals()
 
-    compilation.entrypoints.forEach(entrypoint => {
-      const dependencies = []
-      const outputKey = entrypoint.name
-
-      entrypoint.chunks.forEach(chunk => {
-        chunk.modulesIterable.forEach(module => {
-          externals[module.userRequest] &&
-            dependencies.push(
-              externals[module.userRequest].enqueue,
-            )
-        })
+    compilation.entrypoints.forEach(entry => {
+      entry.chunks.forEach(chunk => {
+        this.output.content[entry.name] = Array.from(
+          chunk.modulesIterable,
+        ).reduce((acc: any, module: any) => {
+          return externals[module.userRequest]
+            ? [...acc, externals[module.userRequest].enqueue]
+            : acc
+        }, [])
       })
-
-      this.output.content[outputKey] = dependencies
     })
 
     compilation.assets[this.output.name] = new RawSource(

@@ -8,115 +8,125 @@
  * asset management solution.
  *
  * Try [@roots/sage](https://github.com/roots/sage).
- *
  */
 
 require_once __DIR__ . '/vendor/autoload.php';
-
-use \Illuminate\Support\Collection;
+use Illuminate\Support\Collection;
 
 /**
- * partial
+ * basic theme partial fn
  *
  * @param  {string} $partial
  * @return {void}
  */
 function partial(string $partial): void {
-  require_once get_theme_file_path("partials/{$partial}.php");
+  $templateFile = realpath(
+    get_theme_file_path(
+      "partials/{$partial}.php"
+    )
+  );
+
+  $templateFile &&
+    require_once $templateFile;
 }
 
+/**
+ * Enqueue JS.
+ */
+$js = function ($item) {
+  $item->js->each(function ($entry) {
+    wp_enqueue_script(...[
+      $entry->name,
+      $entry->uri,
+      $entry->deps,
+      null,
+      false,
+    ]);
+  });
+};
+
+/**
+ * Enqueue CSS.
+ */
+$css = function ($item) {
+  $item->css->each(function ($entry) {
+    wp_enqueue_style(...[
+      $entry->name,
+      $entry->uri,
+      $entry->deps,
+      null,
+      false,
+    ]);
+  });
+};
+
+/**
+ * Prep manifest items.
+ */
+$prep = function ($item, $name) {
+  return (object) [
+    'js' => formatItem($name, 'js', $item),
+    'css' => formatItem($name, 'css', $item)
+  ];
+};
+
+/**
+ * Enqueue hook.
+ */
+$enqueueHook = function () use ($prep, $js, $css) {
+  getManifest()
+    ->map($prep)
+    ->each($js)
+    ->each($css);
+};
 
 /**
  * Enqueue assets.
  */
-add_action('wp_enqueue_scripts', function () {
-  parseAssets()->each(function ($entry) {
-    $entry->each(function ($asset) {
-      $enqueueAsset = $asset->enqueue;
-      $enqueueAsset(
-        $asset->name,
-        $asset->uri,
-        $asset->deps,
-        ...[null, true]
-      );
-    });
-  });
-});
+add_action(
+  'wp_enqueue_scripts',
+  $enqueueHook
+);
+
+/**
+ * formatItem
+ */
+function formatItem($name, $type, $item) {
+  $items = Collection::make($item->$type);
+
+  return $items->map(
+    function ($uri, $index) use ($item, $type, $name) {
+      $name = "{$type}.{$name}.{$index}";
+
+      $hasDeps = $type == 'js' &&
+        property_exists($item, 'dependencies');
+
+      if ($deps = $hasDeps ? $item->dependencies : false) {
+        array_push($item->dependencies, $name);
+      } else {
+        $deps = [];
+      };
+
+      return (object) [
+        'name' => $name,
+        'uri' => $uri,
+        'deps' => $deps,
+      ];
+    }
+  );
+}
 
 /**
  * Get asset manifest.
  *
  * @return {Collection} asset manifest
  */
-function getAssetManifest() {
+function getManifest() {
   return Collection::make(
     json_decode(
       file_get_contents(
         get_theme_file_path('dist/assets.json')
       )
     )
-  );
-}
-
-/**
- * parseAssets
- *
- * @return {Collection} prepped assets
- */
-function parseAssets() {
-  /**
-   * Get the manifest contents and map its entrypoints.
-   */
-  return getAssetManifest()->map(
-    function ($entrypoint, $name) {
-      /**
-       * Parse modules from each entrypoint.
-       */
-      return Collection::make($entrypoint)->map(
-        function ($modules, $type)
-          use ($entrypoint, $name) {
-          $dependencies = Collection::make($entrypoint->dependencies);
-          $modules = Collection::make($modules);
-
-          /**
-           * Make an object
-           */
-          return $modules->map(
-            function ($module, $index)
-              use ($dependencies, $name, $type) {
-              // first, make a reference to the current deps.
-              $requirements = $dependencies->all();
-
-              // then, add the current module to the collection obj.
-              // ensuring each module depends on all
-              // that preceeded it.
-              $dependencies->push("{$name}/{$type}/{$index}");
-
-              // finally, make and return the module obj.
-              return (object) [
-                'name' => $dependencies->last(),
-                'uri' => $module,
-                'deps' => $requirements,
-                'enqueue' => sprintf(
-                  "wp_enqueue_%s",
-                  $type == 'js' ? 'script' : 'style',
-                ),
-              ];
-            }
-          );
-        }
-      )
-
-      /**
-       * Exclude the deps key, which is now redundant.
-       */
-      ->except('dependencies')
-
-      /**
-       * Flatten the results, as the outer structure
-       * is now redundant.
-       */
-      ->flatten();
-    }
   );
 }

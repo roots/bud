@@ -4,6 +4,6 @@
 
   <body>
     <?php partial('body'); ?>
-    <?php wp_footer(); ?>
+    <?php partial('footer'); ?>
   </body>
 </html>

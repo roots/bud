@@ -1,6 +1,14 @@
 import fetchExternals from './fetchExternals'
 import {ExternalsFunctionElement} from 'webpack'
 
+const packaged = {
+  lodash: 'lodash',
+  'lodash-es': 'lodash',
+  jquery: 'jQuery',
+  react: 'React',
+  'react-dom': 'ReactDOM',
+}
+
 const externalsPlugin: ExternalsFunctionElement = async (
   _context,
   request,
@@ -8,10 +16,9 @@ const externalsPlugin: ExternalsFunctionElement = async (
 ) => {
   const externalsMap = await fetchExternals()
 
-  if (externalsMap[request]) {
-    return callback(null, {
-      this: externalsMap[request].window,
-    })
+  if (externalsMap[request] || packaged[request]) {
+    const external = externalsMap[request] ?? packaged[request]
+    return callback(null, external.window)
   }
 
   return callback()

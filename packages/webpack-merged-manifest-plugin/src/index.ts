@@ -108,7 +108,7 @@ class MergedManifestWebpackPlugin {
               ...acc,
               [key]: {
                 ...value,
-                dependencies: wordpressManifest[key],
+                ...{dependencies: wordpressManifest[key]},
               },
             }),
             {},
@@ -119,8 +119,8 @@ class MergedManifestWebpackPlugin {
       /**
        * Remove merged manifests.
        */
-      await fs.remove(this.manifestPath(this.entrypointsName))
-      await fs.remove(this.manifestPath(this.externalsName))
+      // await fs.remove(this.manifestPath(this.entrypointsName))
+      //await fs.remove(this.manifestPath(this.externalsName))
     } catch (err) {
       console.error(err)
     }
