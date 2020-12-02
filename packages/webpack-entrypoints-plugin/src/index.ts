@@ -148,9 +148,9 @@ export class Plugin {
    */
   public makeEntry(name: string): void {
     this.output[name] = {
+      version: this.hash,
       js: [],
       css: [],
-      version: this.hash,
     }
   }
 

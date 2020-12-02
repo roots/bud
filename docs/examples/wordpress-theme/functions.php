@@ -31,62 +31,19 @@ function partial(string $partial): void {
 }
 
 /**
- * Enqueue JS.
+ * Get manifest.
+ *
+ * @return {Collection} entrypoint manifest
  */
-$js = function ($item) {
-  $item->js->each(function ($entry) {
-    wp_enqueue_script(...[
-      $entry->name,
-      $entry->uri,
-      $entry->deps,
-      null,
-      false,
-    ]);
-  });
+function getManifest () {
+  return Collection::make(
+    json_decode(
+      file_get_contents(
+        get_theme_file_path('dist/entrypoints.json')
+      )
+    )
+  );
 };
-
-/**
- * Enqueue CSS.
- */
-$css = function ($item) {
-  $item->css->each(function ($entry) {
-    wp_enqueue_style(...[
-      $entry->name,
-      $entry->uri,
-      $entry->deps,
-      null,
-      false,
-    ]);
-  });
-};
-
-/**
- * Prep manifest items.
- */
-$prep = function ($item, $name) {
-  return (object) [
-    'js' => formatItem($name, 'js', $item),
-    'css' => formatItem($name, 'css', $item)
-  ];
-};
-
-/**
- * Enqueue hook.
- */
-$enqueueHook = function () use ($prep, $js, $css) {
-  getManifest()
-    ->map($prep)
-    ->each($js)
-    ->each($css);
-};
-
-/**
- * Enqueue assets.
- */
-add_action(
-  'wp_enqueue_scripts',
-  $enqueueHook
-);
 
 /**
  * formatItem
@@ -96,16 +53,17 @@ function formatItem($name, $type, $item) {
 
   return $items->map(
     function ($uri, $index) use ($item, $type, $name) {
+      // Unique name for identifying asset in wp
       $name = "{$type}.{$name}.{$index}";
 
+      // True if file depends on wp assets, or runtime/vendor chunks.
       $hasDeps = $type == 'js' &&
         property_exists($item, 'dependencies');
 
-      if ($deps = $hasDeps ? $item->dependencies : false) {
+      // If there were dependencies, add the current file to them.
+      if ($deps = $hasDeps ? $item->dependencies : []) {
         array_push($item->dependencies, $name);
-      } else {
-        $deps = [];
-      };
+      }
 
       return (object) [
         'name' => $name,
@@ -117,16 +75,50 @@ function formatItem($name, $type, $item) {
 }
 
 /**
- * Get asset manifest.
- *
- * @return {Collection} asset manifest
+ * Enqueue hook.
  */
-function getManifest() {
-  return Collection::make(
-    json_decode(
-      file_get_contents(
-        get_theme_file_path('dist/assets.json')
-      )
-    )
-  );
-}
+$enqueue = function () {
+  // Enqueue scripts
+  $js = function ($item) {
+    $item->js->each(function ($entry) {
+      wp_enqueue_script(...[
+        $entry->name,
+        $entry->uri,
+        $entry->deps,
+        null,
+        false,
+      ]);
+    });
+  };
+
+  // Enqueue styles
+  $css = function ($item) {
+    $item->css->each(function ($entry) {
+      wp_enqueue_style(...[
+        $entry->name,
+        $entry->uri,
+        $entry->deps,
+        null,
+        false,
+      ]);
+    });
+  };
+
+  // Prepare manifest entries for enqueue
+  $prep = function ($item, $name) {
+    return (object) [
+      'js' => formatItem($name, 'js', $item),
+      'css' => formatItem($name, 'css', $item)
+    ];
+  };
+
+  return getManifest()
+    ->map($prep)
+    ->each($js)
+    ->each($css);
+};
+
+/**
+ * Enqueue assets.
+ */
+add_action('wp_enqueue_scripts', $enqueue);

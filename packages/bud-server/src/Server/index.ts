@@ -127,10 +127,9 @@ class Server implements Framework.Server.Contract {
    */
   public listen(callback?: () => void): void {
     this.instance.listen(
-      this.config.has('port') ? this.config.get('port') : 3000,
-      this.config.has('host')
-        ? this.config.get('host')
-        : 'localhost',
+      this.config.has('proxy.port')
+        ? this.config.get('proxy.port')
+        : 3000,
     )
   }
 }

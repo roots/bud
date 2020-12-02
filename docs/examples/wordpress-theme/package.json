@@ -9,6 +9,7 @@
     "@roots/bud": "latest",
     "@roots/bud-babel": "latest",
     "@roots/bud-react": "latest",
-    "@roots/bud-wordpress-manifests": "latest"
+    "@roots/bud-wordpress-manifests": "latest",
+    "@roots/bud-entrypoints": "latest"
   }
 }

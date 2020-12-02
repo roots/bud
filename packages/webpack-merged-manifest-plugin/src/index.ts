@@ -45,7 +45,7 @@ class MergedManifestWebpackPlugin {
     [entrypointsPlugin, externalsPlugin]: Array<
       Extension.Controller
     >,
-    file = 'assets.json',
+    file = 'entrypoints.json',
   ) {
     this.file = file
 
@@ -119,8 +119,7 @@ class MergedManifestWebpackPlugin {
       /**
        * Remove merged manifests.
        */
-      // await fs.remove(this.manifestPath(this.entrypointsName))
-      //await fs.remove(this.manifestPath(this.externalsName))
+      await fs.remove(this.manifestPath(this.externalsName))
     } catch (err) {
       console.error(err)
     }
