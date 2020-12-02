@@ -34,12 +34,15 @@ export const host: Server.Config['host'] = 'localhost'
 /**
  * Port to use for dev server.
  */
-export const port: Server.Config['port'] = 3000
+export const port: Server.Config['port'] = 8000
 
 /**
  * Proxy destination
  */
-export const proxy: Server.Config['proxy'] = undefined
+export const proxy: Server.Config['proxy'] = {
+  host: 'localhost',
+  port: 3000,
+}
 
 /**
  * Filename of html used for WDS file index at root.

@@ -30,6 +30,15 @@ const proxy = (
   }
 
   /**
+   * Custom headers
+   */
+  const headers = {
+    'X-Powered-By': '@roots/bud',
+    'X-Bud-Proxy-From': source.host,
+    'X-Bud-Proxy-Secure': config.ssl,
+  }
+
+  /**
    * Fabricate URL from provided options.
    */
   const getUrl = target => {
@@ -46,15 +55,6 @@ const proxy = (
     }
 
     return `${protocol}${hostname}${port(target.port)}`
-  }
-
-  /**
-   * Custom headers
-   */
-  const headers = {
-    'X-Powered-By': '@roots/bud',
-    'X-Bud-Proxy-From': source.host,
-    'X-Bud-Proxy-Secure': config.ssl,
   }
 
   /**
@@ -76,13 +76,7 @@ const proxy = (
       body = Buffer.concat([body, data])
     })
 
-    /**
-     * Send response
-     */
     proxyRes.on('end', () => {
-      /**
-       * Set headers
-       */
       res.set({
         ...proxyRes.headers,
         'content-type': proxyRes.headers['content-type'],
@@ -94,15 +88,14 @@ const proxy = (
        */
       if (proxyRes.headers['content-encoding'] == 'gzip') {
         res.set({'content-encoding': 'gzip'})
+
         res.send(
           zlib.gzipSync(
             transformBody(zlib.gunzipSync(body).toString()),
           ),
         )
       } else {
-        /**
-         * Handle non-gzipped responses.
-         */
+        // Not gzip
         res.send(Buffer.from(transformBody(body.toString())))
       }
 
@@ -129,8 +122,6 @@ const proxy = (
     ws: config.ws ?? true,
     selfHandleResponse: true,
   }
-
-  console.log(proxyOptions)
 
   return createProxyMiddleware(proxyOptions)
 }

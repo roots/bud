@@ -61,6 +61,9 @@ export type {ProjectPath} from './api/projectPath'
 export {provide} from './api/provide'
 export type {Provide} from './api/provide'
 
+export {proxy} from './api/proxy'
+export type {Proxy} from './api/proxy'
+
 export {publicPath} from './api/publicPath'
 export type {PublicPath} from './api/publicPath'
 

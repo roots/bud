@@ -514,6 +514,23 @@ export class Bud extends Core implements Abstract.Contract {
   public provide: api.Provide<Abstract.Bud> = api.provide
 
   /**
+   * ## bud.proxy  [💁 Fluent]
+   *
+   * Set proxy settings for the development server.
+   *
+   * - [🔗 Documentation](#)
+   *
+   * ### Usage
+   *
+   * #### Set the default public path for a [@roots/sage project](https://github.com/roots/sage)
+   *
+   * ```js
+   * bud.publicPath('/app/themes/sage/dist')
+   * ```
+   */
+  public proxy: api.Proxy<Abstract.Bud> = api.proxy
+
+  /**
    * ## bud.publicPath  [💁 Fluent]
    *
    * By default it is assumed that assets are served from webroot (`/`).

@@ -101,19 +101,20 @@ class Server implements Framework.Server.Contract {
     this.bud().config.mutate('entry', (entry: Webpack.Entry) =>
       injectClient(entry),
     )
+
     this.bud().compiler.compile()
 
     this.instance.use(
       middleware.dev({
         compiler: this.bud().compiler.get(),
-        config: this.config.getStore(),
+        config: this.config.all(),
       }),
     )
 
     this.instance.use(middleware.hot(this.bud().compiler.get()))
 
     this.bud().features.enabled('proxy') &&
-      this.instance.use(middleware.proxy(this.config.getStore()))
+      this.instance.use(middleware.proxy(this.config.all()))
 
     this.listen(callback)
 
@@ -127,9 +128,9 @@ class Server implements Framework.Server.Contract {
    */
   public listen(callback?: () => void): void {
     this.instance.listen(
-      this.config.has('proxy.port')
-        ? this.config.get('proxy.port')
-        : 3000,
+      this.config.get('proxy.port'),
+      this.config.get('proxy.host'),
+      callback ?? (() => null),
     )
   }
 }
