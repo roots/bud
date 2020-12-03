@@ -21,7 +21,11 @@ export const splitChunks: Configuration['optimization']['splitChunks'] = {
       priority: -10,
       test: /[\\/]node_modules[\\/]/,
       chunks: 'all',
-      name(module, _chunks, cacheGroupKey) {
+      name(
+        module: any,
+        _chunks: any,
+        cacheGroupKey: any,
+      ): string {
         const moduleFileNameParts = module
           .identifier()
           .split('/')

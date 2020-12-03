@@ -15,7 +15,7 @@
     "noUnusedLocals": true,
     "noEmitOnError": false,
     "sourceMap": true,
-    "target": "ES6"
+    "target": "ES6",
   },
   "base": "packages",
   "references": [
