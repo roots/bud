@@ -13,6 +13,11 @@ export class Plugin {
   }
 
   /**
+   * Compilation context.
+   */
+  public context: Webpack.compilation.Compilation['context']
+
+  /**
    * Hook to webpack compilation output.
    */
   public hook = ['compilation', 'output']

@@ -6,7 +6,7 @@ import * as refresh from './react-refresh'
 /**
  * @roots/bud-react extension
  */
-export const boot: Boot = ({build, use}) => {
+export const boot: Boot = ({build, mode, use}) => {
   /**
    * Register @babel/preset-react
    */
@@ -15,12 +15,21 @@ export const boot: Boot = ({build, use}) => {
   ])
 
   /**
+   * Register @svgr-loader
+   */
+  use(['@svgr', svgr])
+
+  /**
+   * The rest of the boot process only applies in dev.
+   */
+  if (!mode.is('development')) return
+
+  /**
    * Register @pmmmwh/react-refresh-webpack-plugin
    */
   use(['@pmmmwh/react-refresh-webpack-plugin', refresh])
 
-  /**
-   * Register @svgr-loader
-   */
-  use(['@svgr', svgr])
+  build.items.merge('babel.options.plugins', [
+    require.resolve('react-refresh/babel'),
+  ])
 }

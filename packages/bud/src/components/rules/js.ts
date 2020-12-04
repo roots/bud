@@ -10,8 +10,4 @@ export const exclude: Framework.Factory<Framework.Rule.Conditional> = ({
 
 export const use: Framework.Factory<Framework.Rule.Use> = ({
   build,
-}) => [
-  build.getItem('thread'),
-  build.getItem('cache'),
-  build.getItem('raw'),
-]
+}) => [build.getItem('raw')]

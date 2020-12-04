@@ -39,7 +39,7 @@ bud.publicPath('/wp-content/themes/example/dist')
 /**
  * In development, proxy on this port.
  */
-bud.proxy({port: 3000})
+bud.mode.is('development') && bud.proxy()
 
 /**
  * Set entrypoints

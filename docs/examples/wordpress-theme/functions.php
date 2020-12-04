@@ -10,8 +10,11 @@
  * Try [@roots/sage](https://github.com/roots/sage).
  */
 
+namespace App;
+
 require_once __DIR__ . '/vendor/autoload.php';
-use Illuminate\Support\Collection;
+
+use \Illuminate\Support\Collection;
 
 /**
  * basic theme partial fn
@@ -48,27 +51,30 @@ function getManifest () {
 /**
  * formatItem
  */
-function formatItem($name, $type, $item) {
-  $items = Collection::make($item->$type);
+function entrypoint($name, $type, $entrypoint) {
+  $entrypoint->modules = Collection::make($entrypoint->$type);
 
-  return $items->map(
-    function ($uri, $index) use ($item, $type, $name) {
-      // Unique name for identifying asset in wp
+  $hasDependencies = $type == 'js' &&
+    property_exists($entrypoint, 'dependencies');
+
+  $entrypoint->dependencies = Collection::make(
+    $hasDependencies
+      ? $entrypoint->dependencies
+      : [],
+  );
+
+  return $entrypoint->modules->map(
+    function ($module, $index) use ($type, $name, $entrypoint) {
       $name = "{$type}.{$name}.{$index}";
 
-      // True if file depends on wp assets, or runtime/vendor chunks.
-      $hasDeps = $type == 'js' &&
-        property_exists($item, 'dependencies');
+      $dependencies = $entrypoint->dependencies->all();
 
-      // If there were dependencies, add the current file to them.
-      if ($deps = $hasDeps ? $item->dependencies : []) {
-        array_push($item->dependencies, $name);
-      }
+      $entrypoint->dependencies->push($name);
 
       return (object) [
         'name' => $name,
-        'uri' => $uri,
-        'deps' => $deps,
+        'uri' => $module,
+        'deps' => $dependencies,
       ];
     }
   );
@@ -86,7 +92,7 @@ $enqueue = function () {
         $entry->uri,
         $entry->deps,
         null,
-        false,
+        true,
       ]);
     });
   };
@@ -99,7 +105,6 @@ $enqueue = function () {
         $entry->uri,
         $entry->deps,
         null,
-        false,
       ]);
     });
   };
@@ -107,8 +112,8 @@ $enqueue = function () {
   // Prepare manifest entries for enqueue
   $prep = function ($item, $name) {
     return (object) [
-      'js' => formatItem($name, 'js', $item),
-      'css' => formatItem($name, 'css', $item)
+      'js' => entrypoint($name, 'js', $item),
+      'css' => entrypoint($name, 'css', $item)
     ];
   };
 

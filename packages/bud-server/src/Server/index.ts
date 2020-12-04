@@ -128,8 +128,8 @@ class Server implements Framework.Server.Contract {
    */
   public listen(callback?: () => void): void {
     this.instance.listen(
-      this.config.get('proxy.port'),
-      this.config.get('proxy.host'),
+      this.config.get('port'),
+      this.config.get('host'),
       callback ?? (() => null),
     )
   }

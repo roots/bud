@@ -4,13 +4,14 @@ import AutoDllPlugin from 'autodll-webpack-plugin'
 export const library: Library = function (modules) {
   this.extensions.set('autodll-webpack-plugin', {
     options: {
-      inject: true,
+      debug: false,
+      inject: false,
       filename: '[name].[hash].js',
       entry: {
         library: modules,
       },
       path: 'dll',
-      inherit: true,
+      inherit: false,
       context: this.src(),
     },
     make: opts => new AutoDllPlugin(opts.all()),

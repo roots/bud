@@ -25,8 +25,8 @@ const proxy = (
    * Proxy to location
    */
   const proxy = {
-    host: config.proxy?.host,
-    port: config.proxy?.port,
+    host: config.proxy.host,
+    port: config.proxy.port,
   }
 
   /**
@@ -62,8 +62,8 @@ const proxy = (
    */
   const transformBody = (body: string): string =>
     body.replace(
-      new RegExp(`${source.host}:${source.port}`, 'g'),
-      `${proxy.host}:${proxy.port}`,
+      new RegExp(`${proxy.host}:${proxy.port}`, 'g'),
+      `${source.host}:${source.port}`,
     )
 
   /**
@@ -88,7 +88,6 @@ const proxy = (
        */
       if (proxyRes.headers['content-encoding'] == 'gzip') {
         res.set({'content-encoding': 'gzip'})
-
         res.send(
           zlib.gzipSync(
             transformBody(zlib.gunzipSync(body).toString()),
@@ -112,8 +111,8 @@ const proxy = (
   const proxyOptions: Options = {
     onProxyRes,
     headers,
-    target: getUrl(source),
-    hostRewrite: `${proxy.host}:${proxy.port}`,
+    target: getUrl(proxy),
+    hostRewrite: `${source.host}:${source.port}`,
     autoRewrite: config.autoRewrite,
     changeOrigin: config.changeOrigin,
     logLevel: 'silent',

@@ -457,6 +457,15 @@ export class Bud extends Core implements Abstract.Contract {
    *
    * Execute an array of functions. Each will be passed a fresh
    * copy of the bud object.
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.pipe([
+   *   bud => bud.srcPath('resources'),
+   *   bud => bud.proxy(),
+   * ])
+   * ```
    */
   public pipe: api.Pipe<Abstract.Bud> = api.pipe
 
@@ -522,10 +531,15 @@ export class Bud extends Core implements Abstract.Contract {
    *
    * ### Usage
    *
-   * #### Set the default public path for a [@roots/sage project](https://github.com/roots/sage)
+   * ```js
+   * bud.proxy()
+   * ```
    *
    * ```js
-   * bud.publicPath('/app/themes/sage/dist')
+   * bud.proxy({
+   *  host: 'example.test',
+   *  port: 3000,
+   * })
    * ```
    */
   public proxy: api.Proxy<Abstract.Bud> = api.proxy
@@ -1037,12 +1051,15 @@ export class Bud extends Core implements Abstract.Contract {
       .each('loaders', (k, v) => {
         this.build.setLoader(k, v)
       })
+
       .each('items', (k, v) => {
         this.build.setItem(k, v)
       })
+
       .each('rules', (k, v) => {
         this.build.setRule(k, v)
       })
+
       .each('extensions', (k, v) => {
         this.extensions.set(k, v)
       })
