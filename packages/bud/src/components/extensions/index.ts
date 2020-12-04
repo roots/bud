@@ -8,7 +8,7 @@ import * as configDump from './webpackConfigDump'
 import * as copy from './copy'
 import * as define from './define'
 import * as hashedModuleIds from './hashedModuleIds'
-import * as hotModuleReplacement from './hotModuleReplacement'
+import * as hotModuleReplacement from './hmr'
 import * as html from './html'
 import * as htmlHardDisk from './htmlHardDisk'
 import * as imagemin from './imagemin'
@@ -19,6 +19,9 @@ import * as provide from './provide'
 import * as terser from './terser'
 import * as watchMissingModules from './watchMissingModules'
 import * as writeFile from './writeFile'
+
+export * as Brotli from './brotli/typings'
+export * as Imagemin from './imagemin/typings'
 
 export const extensions: {
   [key: string]: Extension.Contract

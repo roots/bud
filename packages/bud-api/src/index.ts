@@ -4,9 +4,6 @@ export type {AddPlugin} from './api/addPlugin'
 export {alias} from './api/alias'
 export type {Alias} from './api/alias'
 
-export {brotli} from './api/brotli'
-export type {Brotli} from './api/brotli'
-
 export {buildCache} from './api/buildCache'
 export type {BuildCache} from './api/buildCache'
 

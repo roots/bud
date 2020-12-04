@@ -6,6 +6,12 @@ import {Bud} from '@roots/bud-typings'
 export const brotli = ({args, brotli}: Bud.Bud): void =>
   args.has('brotli') && brotli()
 
+export const ci = ({args, mode}: Bud.Bud): void => {
+  if (args.has('ci')) {
+    mode.ci = true
+  }
+}
+
 /**
  * Debug flag
  */

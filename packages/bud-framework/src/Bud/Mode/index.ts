@@ -13,8 +13,11 @@ export {Mode, Mode as default}
 class Mode implements Framework.Mode.Contract {
   bud: Framework.Bud.Ref
 
+  ci: boolean
+
   public constructor(bud: Framework.Bud.Bud) {
     this.bud = bud.get
+    this.ci = false
   }
 
   /**

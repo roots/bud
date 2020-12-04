@@ -11,7 +11,7 @@ import {Server} from '@roots/bud-server'
 
 import * as api from '@roots/bud-api'
 
-import * as Imagemin from '../components/extensions/imagemin/typings'
+import type {Brotli, Imagemin} from '../components/extensions'
 
 export type Config<C = Bud> = C | Framework.Bud.Contract
 
@@ -119,7 +119,7 @@ export class Bud extends Core implements Abstract.Contract {
    * })
    * ```
    */
-  public brotli: api.Brotli<Abstract.Bud> = api.brotli
+  public brotli: Brotli.Config
 
   /**
    * ## bud.copy  [💁 Fluent]
@@ -365,7 +365,7 @@ export class Bud extends Core implements Abstract.Contract {
    * bud.imagemin(false) // disable
    * ```
    */
-  public imagemin: Imagemin.Api.Imagemin
+  public imagemin: Imagemin.Config
 
   /**
    * ## bud.imageminOption [💁 Fluent]
@@ -382,7 +382,7 @@ export class Bud extends Core implements Abstract.Contract {
    * bud.imageminOption('severityError', 'warning')
    * ```
    */
-  public imageminOption: Imagemin.Api.ImageminOption
+  public imageminOption: Imagemin.ConfigOption
 
   /**
    * ## bud.imageminPlugins [💁 Fluent]
@@ -413,7 +413,7 @@ export class Bud extends Core implements Abstract.Contract {
    * ])
    * ```
    */
-  public imageminPlugins: Imagemin.Api.ImageminPlugins
+  public imageminPlugins: Imagemin.ConfigPlugins
 
   /**
    * ## bud.library  [💁 Fluent]

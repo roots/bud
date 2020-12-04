@@ -1,12 +1,16 @@
-import type {Api} from './typings'
+import type {
+  Config,
+  ConfigPlugins,
+  ConfigOption,
+} from './typings'
 
-export const imagemin: Api.Imagemin = function (enabled) {
+export const imagemin: Config = function (enabled) {
   this.features.set('imagemin', enabled ?? true)
 
   return this
 }
 
-export const imageminPlugins: Api.ImageminPlugins = function (
+export const imageminPlugins: ConfigPlugins = function (
   plugins,
 ) {
   plugins &&
@@ -17,7 +21,7 @@ export const imageminPlugins: Api.ImageminPlugins = function (
   return this
 }
 
-export const imageminOption: Api.ImageminOption = function (
+export const imageminOption: ConfigOption = function (
   key,
   value,
 ) {

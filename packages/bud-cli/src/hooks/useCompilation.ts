@@ -28,7 +28,6 @@ const useCompilation: UseCompilation.Hook = (bud: Bud.Bud) => {
     setApplied(true)
 
     bud.compiler.compile()
-
     bud.compiler.applyPlugins(progressHandler)
   })
 
@@ -40,7 +39,7 @@ const useCompilation: UseCompilation.Hook = (bud: Bud.Bud) => {
   })
 
   useEffect(() => {
-    if (running) return
+    if (!tapped || running) return
     setRunning(true)
 
     bud.mode.is('development')
