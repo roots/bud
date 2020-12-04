@@ -26,11 +26,6 @@ bud.use([
 ])
 
 /**
- * Set application source files.
- */
-bud.entry('create-bud-app', ['app.js', 'global.css'])
-
-/**
  * Define `appName` variable used in components/index.js
  * Explicitly cast as a string to avoid errors.
  */
@@ -39,20 +34,25 @@ bud.define({
 })
 
 /**
- * Production optimizations.
- */
-if (bud.mode.is('production')) {
-  bud.minify()
-  bud.vendor()
-  bud.runtime()
-}
-
-/**
  * Set HTML template
  */
 bud.template({
   template: bud.project('public/index.html'),
 })
+
+/**
+ * Set application source files.
+ */
+bud.entry('create-bud-app', ['app.js', 'global.css'])
+
+/**
+ * Production optimizations.
+ */
+bud.mode.is('production') && bud.pipe([
+  ({minify}) => minify(),
+  ({vendor}) => vendor(),
+  ({runtime}) => runtime(),
+])
 
 /**
  * Run build.

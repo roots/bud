@@ -2958,11 +2958,6 @@
     schema-utils "^2.6.5"
     source-map "^0.7.3"
 
-"@roots/bud-typings@2.0.0-next.24":
-  version "2.0.0-next.24"
-  resolved "https://registry.yarnpkg.com/@roots/bud-typings/-/bud-typings-2.0.0-next.24.tgz#792760140e45046317ba8ad99a2afcae13126ede"
-  integrity sha512-JLXvo6wTVBf7np1n29iXR1DvtIUS5YDRAbm6sYcLAmXktm2rLCawTgi2Yk/QjEgt8Mx9zVmD8ZvIp6poPJxqag==
-
 "@roots/bud-typings@2.0.7":
   version "2.0.6"
 
@@ -14740,6 +14735,11 @@ prettier@^2.0.5, prettier@^2.1.1:
   version "2.1.2"
   resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.1.2.tgz#3050700dae2e4c8b67c4c3f666cdb8af405e1ce5"
   integrity sha512-16c7K+x4qVlJg9rEbXl7HEGmQyZlG4R9AgP+oHKRMsMsuk8s+ATStlf1NpDqyBI1HpVyfjLOeMhH2LvuNvV5Vg==
+
+prettier@^2.2.1:
+  version "2.2.1"
+  resolved "https://registry.yarnpkg.com/prettier/-/prettier-2.2.1.tgz#795a1a78dd52f073da0cd42b21f9c91381923ff5"
+  integrity sha512-PqyhM2yCjg/oKkFPtTGUojv7gnZAoG80ttl45O6x2Ug/rMJw4wcc9k6aaf2hibP7BGVCCM33gZoGjyvt9mm16Q==
 
 pretty-error@^2.1.1:
   version "2.1.1"

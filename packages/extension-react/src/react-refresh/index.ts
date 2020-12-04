@@ -1,4 +1,4 @@
-import type {Boot, Make, Options, When} from '../types'
+import type {Make, Options, When} from '../types'
 import ReactRefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 
 /**

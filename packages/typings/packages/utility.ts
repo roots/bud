@@ -12,7 +12,7 @@ export interface Constructor<T> {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface Fluent<T> {
-  (this: T): T
+  function(this: T): T
 }
 
 /**

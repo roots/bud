@@ -72,7 +72,6 @@
     "test": "jest --verbose"
   },
   "devDependencies": {
-    "@roots/bud-typings": "2.0.0-next.24",
     "@skypack/package-check": "^0.2.2",
     "@tinypixelco/gitio": "^1.0.3",
     "@types/autoprefixer": "^9.7.2",
