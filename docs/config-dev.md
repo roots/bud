@@ -16,7 +16,7 @@ By default the server is available in `development` mode at this address:
 | port       | 3000      |
 | publicPath | `/`       |
 
-These default values are customizable using this function, `bud.dev`.
+These default values are customizable using this function, `bud.dev`. You will need to handle resolving the domain yourself.
 
 ## Usage
 
@@ -27,11 +27,15 @@ bud.dev({
 })
 ```
 
-Users building on top of an existing backend framework like WordPress, Laravel, RoR, etc. will likely want to proxy their established development server. An example config for a hypothetical `example.test` domain might look like:
+## Proxying
+
+Users building on top of an existing backend framework like WordPress, Laravel, RoR, etc. will likely want to proxy their established development server.
+
+Bud has a function specfically for configuring a proxy server: [`bud.proxy`](/docs/config-proxy.md). But you may also configure the proxy from `bud.dev` if that works better for you.
 
 ```js
 bud.dev({
-  host: 'localhost',
+  host: 'example.test',
   port: 3000,
   proxy: {
     host: 'example.test',
@@ -40,51 +44,17 @@ bud.dev({
 })
 ```
 
-Users who's assets are not served from web root should specify the `publicPath` option. For instance, if your main JS file is accessed in a browser at `mysite.com/assets/app.js` your publicPath should be set to `assets`.
-
-This example covers the typical publicPath of assets for a [@roots/sage](https://github.com/roots/sage) theme:
-
-```ts
-bud.dev({
-  publicPath: 'app/themes/sage/dist',
-})
-```
-
-## Signature
-
-```ts
-function (options: {
-  host?: string
-  port?: number
-  proxy?: {
-    host?: string
-    port?: number
-  }
-  index?: WebpackDevMiddleware.Options['index']
-  publicPath?: WebpackDevMiddleware.Options['publicPath']
-  ssl?: ProxyOptions['ssl']
-  secure?: ProxyOptions['secure']
-  ws?: ProxyOptions['ws']
-  autoRewrite?: ProxyOptions['autoRewrite']
-  changeOrigin?: ProxyOptions['changeOrigin']
-  disableHostCheck?: WebpackDevMiddleware.Options[]
-  followRedirects?: ProxyOptions['followRedirects']
-  filename?: WebpackDevMiddleware.Options['filename']
-  headers?: WebpackDevMiddleware.Options['headers']
-  methods?: WebpackDevMiddleware.Options['methods']
-  writeToDisk?: WebpackDevMiddleware.Options['writeToDisk']
-}): Framework.Bud
-```
+The only advantage `bud.proxy` has is its optional `enabled` property -- which is used to explicitly toggle the proxy server on and off.
 
 ## Parameters
 
 | Name                       | Type                                                     |
 | -------------------------- | -------------------------------------------------------- |
-| `options.host`             | The development server host                              |
-| `options.port`             | The development server port                              |
+| `options.host`             | Host host                                                |
+| `options.port`             | Port                                                     |
 | `options.proxy`            | Proxy destination                                        |
-| `options.proxy.host`       | Proxy destination host                                   |
-| `options.proxy.port`       | Proxy destination port                                   |
+| `options.proxy.host`       | Proxy host                                               |
+| `options.proxy.port`       | Proxy port port                                          |
 | `options.index`            | The index path for web server, defaults to "index.html". |
 | `options.publicPath`       | The path that the middleware is bound to.                |
 | `options.ssl`              | Object passed to https.createServer                      |
@@ -98,6 +68,32 @@ function (options: {
 | `options.headers`          | Custom HTTP headers                                      |
 | `options.methods`          | HTTP request methods accepted by the server.             |
 | `options.writeToDisk`      | Should files be written to disk.                         |
+
+## Signature
+
+```ts
+function (options: {
+  host?: string
+  port?: number
+  index?: WebpackDevMiddleware.Options['index']
+  publicPath?: WebpackDevMiddleware.Options['publicPath']
+  ssl?: ProxyOptions['ssl']
+  secure?: ProxyOptions['secure']
+  ws?: ProxyOptions['ws']
+  autoRewrite?: ProxyOptions['autoRewrite']
+  changeOrigin?: ProxyOptions['changeOrigin']
+  disableHostCheck?: WebpackDevMiddleware.Options[]
+  followRedirects?: ProxyOptions['followRedirects']
+  filename?: WebpackDevMiddleware.Options['filename']
+  headers?: WebpackDevMiddleware.Options['headers']
+  methods?: WebpackDevMiddleware.Options['methods']
+  writeToDisk?: WebpackDevMiddleware.Options['writeToDisk']
+  proxy?: {
+    host?: string
+    port?: number
+  }
+}): Framework.Bud
+```
 
 ## Returns
 

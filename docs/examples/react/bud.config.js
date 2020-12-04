@@ -2,6 +2,7 @@
  * Example: React single page application
  */
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const {bud} = require('@roots/bud')
 
 /**
@@ -16,7 +17,7 @@ bud.hooks.on('webpack.resolve.modules', modules => [
 ])
 
 /**
- * Use babel and react extensions.
+ * Extensions
  */
 bud.use([
   '@roots/bud-postcss',
@@ -27,19 +28,14 @@ bud.use([
 /**
  * Set application source files.
  */
-bud.entry('create-bud-app', [
-  'app.js',
-  'global.css',
-])
+bud.entry('create-bud-app', ['app.js', 'global.css'])
 
 /**
  * Define `appName` variable used in components/index.js
  * Explicitly cast as a string to avoid errors.
  */
 bud.define({
-  'appName': bud.string(
-    bud.env.get('APP_TITLE')
-  ),
+  appName: bud.string(bud.env.get('APP_TITLE')),
 })
 
 /**

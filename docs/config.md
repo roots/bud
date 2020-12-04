@@ -57,8 +57,8 @@ functions to help locate your assets.
   assets. Since our directory name matches the presumed default `dist` directory,
   we don't need to explicitly set this.
 
-- [bud.publicPath](config-publicPath.md) is another optional configuration
-  function. This function indicates the path to the asset when accessing the compiled distributable using a browser. For our example, we'll assume the distributables are available in root (`/`), so we can skip this function.
+- [bud.publicPath](config-publicPath.md) is another optional configuration function.
+  This function indicates the path to the asset when accessing the compiled distributable using a browser. For our example, we'll assume the distributables are available in root (`/`), so we can skip this function.
 
 ```js
 /** First, set the project path */
