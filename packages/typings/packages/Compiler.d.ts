@@ -15,13 +15,13 @@ export class Contract implements Interface {
 
   public constructor(bud: Bud.Bud)
 
-  public compile(): void
+  public compile(): Webpack.Compiler
 
   public get(): Webpack.Compiler
 
   public set(compiler: Webpack.Compiler): void
 
-  public run(handler: Handler): void
+  public run(): void
 
   public applyPlugins(handler: ProgressHandler): void
 }
@@ -29,13 +29,13 @@ export class Contract implements Interface {
 export interface Interface {
   instance: Webpack.Compiler
 
-  compile(): void
+  compile(): Webpack.Compiler
 
   get(): Webpack.Compiler
 
   set(compiler: Webpack.Compiler): void
 
-  run(handler: Handler): void
+  run(): void
 
   applyPlugins(handler: ProgressHandler): void
 }

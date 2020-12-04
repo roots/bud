@@ -42,8 +42,10 @@ class Server implements Framework.Server.Contract {
    */
   public constructor(bud: Framework.Bud.Contract) {
     this.bud = bud.get
+
     this.instance = express()
     this.instance.set('x-powered-by', false)
+
     this.config = bud.makeContainer({})
   }
 
@@ -95,28 +97,29 @@ class Server implements Framework.Server.Contract {
    * })
    * ```
    */
-  public run(callback?: () => void): this {
+  public run(): this {
     this.running = true
 
-    this.bud().config.mutate('entry', (entry: Webpack.Entry) =>
+    const bud = this.bud()
+    const config = this.config.all()
+
+    bud.config.mutate('entry', (entry: Webpack.Entry) =>
       injectClient(entry),
     )
 
-    this.bud().compiler.compile()
-
     this.instance.use(
       middleware.dev({
-        compiler: this.bud().compiler.get(),
-        config: this.config.all(),
+        config,
+        compiler: bud.compiler.instance,
       }),
     )
 
-    this.instance.use(middleware.hot(this.bud().compiler.get()))
+    this.instance.use(middleware.hot(bud.compiler.instance))
 
-    this.bud().features.enabled('proxy') &&
-      this.instance.use(middleware.proxy(this.config.all()))
+    bud.features.enabled('proxy') &&
+      this.instance.use(middleware.proxy(config))
 
-    this.listen(callback)
+    this.listen()
 
     return this
   }
@@ -126,11 +129,10 @@ class Server implements Framework.Server.Contract {
    *
    * Listen for connections.
    */
-  public listen(callback?: () => void): void {
+  public listen(): void {
     this.instance.listen(
       this.config.get('port'),
       this.config.get('host'),
-      callback ?? (() => null),
     )
   }
 }

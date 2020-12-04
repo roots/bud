@@ -7,13 +7,13 @@ export const useStats: UseStats.Hook = () => {
     React.Dispatch<UseStats.Stats>,
   ] = useState<UseStats.Stats>(null)
 
-  const handler: UseStats.Handler = (err, stats) => {
-    if (err) {
-      console.log(err)
+  const handler: UseStats.Handler = stats => {
+    if (stats.hasErrors()) {
+      console.log(stats.toJson().errors)
       throw Error('Whoops')
     }
 
-    setStats(stats.toJson())
+    stats && setStats(stats.toJson())
   }
 
   return [stats, handler]
@@ -37,10 +37,7 @@ export namespace UseStats {
   /**
    * Process raw webpack stats.
    */
-  export type Handler = (
-    err: Error,
-    stats: Webpack.Stats,
-  ) => void
+  export type Handler = (stats: Webpack.Stats) => void
 
   /**
    * Reported assets.

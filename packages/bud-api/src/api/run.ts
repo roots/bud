@@ -2,15 +2,8 @@ import {ProgressPlugin} from 'webpack'
 import {Bud} from '@roots/bud-typings'
 
 export const run: Run = function (safeMode = false) {
-  if (this.mode.is('development')) {
-    this.server.run()
-  }
-
-  this.compiler.compile()
-
   if (!safeMode) {
     this.cli.run()
-
     return
   }
 
@@ -25,7 +18,7 @@ export const run: Run = function (safeMode = false) {
     }),
   )
 
-  this.compiler.get().run((err, stats) => {
+  this.compiler.run((err, stats) => {
     if (err) {
       console.error(err)
       process.exit(1)
