@@ -19,9 +19,7 @@ export type Make = Extension.Make<
 /**
  * Extension options
  */
-export type Options = Extension.RawOptions<
-  ReactRefreshPluginOptions
->
+export type Options = Extension.RawOptions<ReactRefreshPluginOptions>
 
 /**
  * Extension conditions

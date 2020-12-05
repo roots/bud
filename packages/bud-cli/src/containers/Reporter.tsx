@@ -68,7 +68,7 @@ const Reporter: Reporter.Component = ({
                 </Text>
               ) : stats?.hash ? (
                 <Text italic dimColor>
-                   {stats.hash}
+                  {stats.hash}
                 </Text>
               ) : (
                 <></>

@@ -42,9 +42,10 @@ class MergedManifestWebpackPlugin {
    * Class constructor
    */
   public constructor(
-    [entrypointsPlugin, externalsPlugin]: Array<
-      Extension.Controller
-    >,
+    [
+      entrypointsPlugin,
+      externalsPlugin,
+    ]: Array<Extension.Controller>,
     file = 'entrypoints.json',
   ) {
     this.file = file

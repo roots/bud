@@ -94,9 +94,7 @@ class Extensions implements Framework.Extensions.Contract {
    */
   public set(
     name: string,
-    extension: Framework.MaybeCallable<
-      Framework.Extension.Contract
-    >,
+    extension: Framework.MaybeCallable<Framework.Extension.Contract>,
   ): this {
     const initialized =
       typeof extension == 'function'
