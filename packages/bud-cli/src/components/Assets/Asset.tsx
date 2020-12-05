@@ -4,13 +4,11 @@ import {Indicator} from '../UI/Indicator'
 import {useStyle} from '@roots/ink-use-style'
 
 const Asset = ({name, active, size, hot, info}) => {
-  const {ctx, col, colors} = useStyle()
+  const {col, colors} = useStyle()
 
   return (
-    <Box
-      flexDirection={'row'}
-      justifyContent={ctx(['flex-start', 'space-between'])}>
-      <Box width={col(6)}>
+    <Box flexDirection={'row'} justifyContent={'space-between'}>
+      <Box width={col(7)}>
         <Text
           wrap="truncate-end"
           color={active ? 'white' : 'gray'}>
@@ -20,15 +18,11 @@ const Asset = ({name, active, size, hot, info}) => {
       </Box>
 
       <Box
-        width={col(4)}
+        width={col(3)}
         alignItems="flex-end"
         justifyContent="flex-end">
-        <Text wrap="truncate" color={'white'}>
-          {Object.keys(info).map((item, id) => (
-            <Text color={colors.accent} key={id}>
-              [{item}]{' '}
-            </Text>
-          ))}
+        <Text wrap="truncate" color={colors.accent}>
+          {info}
         </Text>
       </Box>
 
@@ -51,7 +45,7 @@ declare namespace Asset {
     active: boolean
     size: number
     hot: boolean
-    info?: string[]
+    info?: string
   }
 }
 

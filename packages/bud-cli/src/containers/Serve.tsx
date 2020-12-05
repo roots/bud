@@ -13,6 +13,7 @@ const Serve: React.FunctionComponent<{bud: Bud.Bud}> = ({
   useInput(input => {
     if (input == 'q') {
       app.exit()
+      console.clear()
       process.exit()
     }
   })

@@ -20,14 +20,14 @@ const BuildInfo: BuildInfo.Component = ({stats}) => {
       width={col(12)}
       justifyContent="flex-start">
       {stats?.hash && (
-        <>
+        <Text>
           <Text bold color={colors.success}>
             ✓{' '}
           </Text>
           <Text bold color={colors.white} italic>
             Build ID {stats.hash}
           </Text>
-        </>
+        </Text>
       )}
     </Box>
   )

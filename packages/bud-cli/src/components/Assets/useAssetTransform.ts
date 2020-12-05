@@ -2,10 +2,13 @@ import {Stats} from 'webpack'
 
 const useTransform: Transform = assets => {
   const transform: (
-    assets: Stats.ToJsonOutput['assets'],
+    assets: BudStats['assets'],
   ) => BudStats['assets'] = assets =>
     assets?.map(asset => ({
       ...asset,
+      info: Object.keys(asset.info)
+        .filter(key => key !== 'hotModuleReplacement')
+        .reduce((acc, item) => `${acc} [${item}]`, ``),
       hot:
         assets.filter(
           check =>
@@ -25,8 +28,8 @@ interface Asset {
   isOverSizeLimit?: boolean
   name: string
   size: number
-  hot: boolean
-  info?: string[]
+  hot?: boolean
+  info?: string
 }
 
 interface BudStats {

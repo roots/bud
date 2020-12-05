@@ -10,7 +10,7 @@ const Assets: Assets.Component = ({assets}) => {
   const {col} = useStyle()
 
   return (
-    <Box flexDirection="column" width={col(12)} marginTop={1}>
+    <Box flexDirection="column" width={col(12)}>
       {processedAssets?.map(
         ({name, size, info, emitted, hot}, id) => (
           <Asset

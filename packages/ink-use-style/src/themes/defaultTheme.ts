@@ -9,6 +9,7 @@ export const colors: Theme['colors'] = {
   faded: '#6C758F',
   success: '#46D46A',
   accent: '#ff69b4',
+  flavor: '#78C5D7',
 }
 
 export const screens: Theme['screens'] = [

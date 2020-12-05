@@ -1,6 +1,6 @@
 import React, {FunctionComponent, ReactElement} from 'react'
 import {Box} from 'ink'
-import Title from './Title'
+import {Title} from './Title'
 
 interface ScreenInterface {
   title?: string
