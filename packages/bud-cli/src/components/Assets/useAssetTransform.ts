@@ -26,6 +26,7 @@ interface Asset {
   name: string
   size: number
   hot: boolean
+  info?: string[]
 }
 
 interface BudStats {
@@ -36,4 +37,4 @@ interface Transform {
   (assets: Stats.ToJsonOutput['assets']): BudStats['assets']
 }
 
-export {useTransform as default}
+export {useTransform}

@@ -1,5 +1,5 @@
 import React from 'react'
-import {Box} from 'ink'
+import {Box, Text, Spacer} from 'ink'
 import {useStyle} from '@roots/ink-use-style'
 
 import Assets from '../components/Assets'
@@ -12,7 +12,6 @@ import {Debug} from '../components/Debug'
 import type {Bud} from '@roots/bud-typings'
 import type {UseStats} from '../hooks/useStats'
 import type {UseProgress} from '../hooks/useProgress'
-import {usePackageJson} from '../hooks/usePackageJson'
 
 declare namespace Reporter {
   export type Props = {
@@ -31,19 +30,19 @@ const Reporter: Reporter.Component = ({
   progress,
   errors,
 }) => {
-  const pkg = usePackageJson(bud)
-  const {col} = useStyle()
+  const {col, colors} = useStyle()
 
   return (
     <Box paddingRight={1} justifyContent="space-between">
-      <Screen title={pkg.name}>
-        <Box flexDirection="column">
+      <Screen>
+        <>
+          <Box flexDirection="column" marginTop={1}>
+            <BuildInfo stats={stats} />
+          </Box>
+
           <Box flexDirection="column">
             {(!errors || !errors[0]) && (
-              <Box
-                width={col(12)}
-                flexDirection="column"
-                marginBottom={1}>
+              <Box flexDirection="column" marginBottom={1}>
                 <Assets assets={stats?.assets} />
               </Box>
             )}
@@ -54,20 +53,42 @@ const Reporter: Reporter.Component = ({
               <Errors errors={stats.warnings} />
             )}
 
-            <Box
-              width={col(12)}
-              flexDirection="column"
-              marginBottom={1}>
+            <Box width={col(12)} flexDirection="column">
               <Progress {...progress} />
+              <Box flexDirection="row" marginTop={1}>
+                {stats?.time ? (
+                  <>
+                    <Text bold>Compiled in </Text>
+                    <Text bold color={colors.success}>
+                      {stats.time / 1000}s
+                    </Text>
+                  </>
+                ) : (
+                  <Spacer />
+                )}
+              </Box>
             </Box>
-          </Box>
 
-          <Box flexDirection="column" marginBottom={1}>
-            <BuildInfo stats={stats} />
-          </Box>
+            {stats?.time && bud.mode.is('development') && (
+              <Box marginBottom={1}>
+                <Text bold>
+                  {`Served over `}
+                  <Text bold color={colors.accent}>
+                    {`${
+                      bud.server.config.get('ssl')
+                        ? 'https://'
+                        : 'http://'
+                    }${bud.server.config.get(
+                      'host',
+                    )}:${bud.server.config.get('port')}`}
+                  </Text>
+                </Text>
+              </Box>
+            )}
 
-          {bud.args.has('debug') && <Debug bud={bud} />}
-        </Box>
+            {bud.args.has('debug') && <Debug bud={bud} />}
+          </Box>
+        </>
       </Screen>
     </Box>
   )

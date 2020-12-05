@@ -20,15 +20,15 @@ export type StatsOutput = {
 
 const commonStatsOptions = {
   all: false,
-  version: false,
-  hash: false,
+  version: true,
+  hash: true,
   timings: true,
   builtAt: false,
   assets: true,
   chunks: false,
   children: false,
-  entrypoints: false,
   errors: true,
+  entrypoints: true,
 }
 
 /**
@@ -61,7 +61,10 @@ class Compiler implements Framework.Compiler.Contract {
    * Webpack compiler statsOptionsed stats.
    */
   public _statsOptions: StatsOptions = {
-    json: commonStatsOptions,
+    json: {
+      ...commonStatsOptions,
+      cachedAssets: true,
+    },
     string: {
       ...commonStatsOptions,
       colors: true,

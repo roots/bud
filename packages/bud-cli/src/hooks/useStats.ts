@@ -19,7 +19,7 @@ export const useStats: UseStats.Hook = options => {
       setErrors(null)
     }
 
-    stats && setStats(stats.toJson(options.json))
+    stats && setStats({...stats.toJson(options.json)})
   }
 
   return [stats, errors, handler]

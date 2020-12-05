@@ -1,5 +1,6 @@
 import React from 'react'
-import {Box, Text} from 'ink'
+import Spinner from 'ink-spinner'
+import {Box, Text, Newline} from 'ink'
 import {Bar} from './Bar'
 import {useStyle} from '@roots/ink-use-style'
 import type {UseProgress} from '../../hooks/useProgress'
@@ -12,7 +13,8 @@ declare namespace Progress {
 
 const Progress: Progress.Component = ({percentage, msg}) => {
   const {col, ctx, bounds, colors} = useStyle()
-  const labelMax = ctx([col(12), col(1)])
+
+  const labelMax = 5
   const barMax = Math.min(
     Math.floor(bounds.width - labelMax),
     bounds.width,
@@ -27,7 +29,7 @@ const Progress: Progress.Component = ({percentage, msg}) => {
         <Box width={labelMax}>
           <Text>
             {percentage.display}
-            {'  '}
+            {''}
           </Text>
         </Box>
 
@@ -39,9 +41,17 @@ const Progress: Progress.Component = ({percentage, msg}) => {
         />
       </Box>
 
-      <Box>
-        <Text>{msg}</Text>
-      </Box>
+      {msg ? (
+        <Box>
+          <Text>
+            <Newline />
+            <Text color="green">
+              <Spinner type="dots" />
+            </Text>
+            {` ${msg}`}
+          </Text>
+        </Box>
+      ) : null}
     </Box>
   )
 }

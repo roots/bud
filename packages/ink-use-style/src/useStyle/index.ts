@@ -141,7 +141,7 @@ export interface Styles {
   }
   screen: number
   colors: {[key: string]: string}
-  ctx: (screens: Array<string | number>) => any
+  ctx: (screens: Array<any>) => any
   col: (count: number) => number
   is: (testCase: boolean, trueCase: any, falseCase: any) => any
   setColors: (colors: Theme['colors']) => void

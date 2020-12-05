@@ -1,5 +1,5 @@
 import React, {FunctionComponent} from 'react'
-import {Box, Text, Spacer} from 'ink'
+import {Box, Text} from 'ink'
 import {useStyle} from '@roots/ink-use-style'
 import type {UseStats} from '../hooks/useStats'
 
@@ -12,24 +12,22 @@ declare namespace BuildInfo {
 }
 
 const BuildInfo: BuildInfo.Component = ({stats}) => {
-  const {col, ctx} = useStyle()
+  const {col, ctx, colors} = useStyle()
 
   return (
     <Box
       flexDirection={ctx(['column', 'row'])}
       width={col(12)}
-      justifyContent="space-between">
-      {stats?.time && (
-        <Text bold color="white">
-          Finished {stats.errors.length > 0 && 'with errors '}in{' '}
-          {stats.time / 1000}s
-        </Text>
-      )}
-
-      <Spacer />
-
+      justifyContent="flex-start">
       {stats?.hash && (
-        <Text color="#6C758F">Build {stats.hash}</Text>
+        <>
+          <Text bold color={colors.success}>
+            ✓{' '}
+          </Text>
+          <Text bold color={colors.white} italic>
+            Build ID {stats.hash}
+          </Text>
+        </>
       )}
     </Box>
   )

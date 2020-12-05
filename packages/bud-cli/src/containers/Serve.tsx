@@ -18,14 +18,12 @@ const Serve: React.FunctionComponent<{bud: Bud.Bud}> = ({
   })
 
   return (
-    <>
-      <Reporter
-        bud={bud}
-        stats={compilation?.stats}
-        errors={compilation?.errors}
-        progress={compilation?.progress}
-      />
-    </>
+    <Reporter
+      bud={bud}
+      stats={compilation?.stats}
+      errors={compilation?.errors}
+      progress={compilation?.progress}
+    />
   )
 }
 

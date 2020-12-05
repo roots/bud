@@ -1,25 +1,28 @@
 import React, {FunctionComponent} from 'react'
 import {Box} from 'ink'
 import Asset from './Asset'
-import useAssetTransform from './useAssetTransform'
-import {useStyle} from '@roots/ink-use-style'
 import {UseCompilation} from '../../hooks/useCompilation'
+import {useTransform} from './useAssetTransform'
+import {useStyle} from '@roots/ink-use-style'
 
 const Assets: Assets.Component = ({assets}) => {
-  const processedAssets = useAssetTransform(assets)
+  const processedAssets = useTransform(assets)
   const {col} = useStyle()
 
   return (
-    <Box flexDirection="column" width={col(12)}>
-      {processedAssets?.map(({name, size, emitted, hot}, id) => (
-        <Asset
-          key={id}
-          name={name}
-          size={size}
-          active={emitted}
-          hot={hot}
-        />
-      )) ?? null}
+    <Box flexDirection="column" width={col(12)} marginTop={1}>
+      {processedAssets?.map(
+        ({name, size, info, emitted, hot}, id) => (
+          <Asset
+            key={id}
+            name={name}
+            size={size}
+            info={info}
+            active={emitted}
+            hot={hot}
+          />
+        ),
+      )}
     </Box>
   )
 }

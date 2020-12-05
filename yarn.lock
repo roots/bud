@@ -9825,6 +9825,15 @@ ink-gradient@^1.0.0:
     gradient-string "^1.2.0"
     prop-types "^15.7.2"
 
+ink-gradient@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/ink-gradient/-/ink-gradient-2.0.0.tgz#2e2b040ab41f96f61b397d87cd56fd6ce9ef59cc"
+  integrity sha512-d2BK/EzzBRoDL54NWkS3JGE4J8xtzwRVWxDAIkQ/eQ60XIzrFMtT5JlUqgV05Qlt32Jvk50qW51YqxGJggTuqA==
+  dependencies:
+    gradient-string "^1.2.0"
+    prop-types "^15.7.2"
+    strip-ansi "^6.0.0"
+
 ink-link@^1.1.0:
   version "1.1.0"
   resolved "https://registry.yarnpkg.com/ink-link/-/ink-link-1.1.0.tgz#e00bd68dfd163a9392baecc0808391fd07e6cfbb"
@@ -9839,6 +9848,13 @@ ink-spinner@^4.0.0-0:
   integrity sha512-2eYtzzUPb22Z0Cn2bGvE4BteYjcqDhgrHnCzGJM81EHXXlyNU7aYfucPgZs2CZPy0LWz/5hwoecFhd0mj1hrbw==
   dependencies:
     cli-spinners "^2.3.0"
+
+ink-table@^3.0.0:
+  version "3.0.0"
+  resolved "https://registry.yarnpkg.com/ink-table/-/ink-table-3.0.0.tgz#109fb2ce0709567f0e38d14b2b82f311277a3628"
+  integrity sha512-RtcYjenHKZWjnwVNQ6zSYWMOLKwkWscDAJsqUQXftyjkYho1gGrluGss87NOoIzss0IKr74lKasd6MtlQYALiA==
+  dependencies:
+    object-hash "^2.0.3"
 
 ink-testing-library@^2.0.1:
   version "2.1.0"

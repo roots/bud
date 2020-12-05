@@ -25,7 +25,6 @@ export class Runner {
    */
   constructor(bud: Bud.Bud) {
     this.bud = bud
-
     this.run = this.run.bind(this)
   }
 

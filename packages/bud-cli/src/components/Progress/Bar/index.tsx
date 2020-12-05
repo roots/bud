@@ -1,5 +1,6 @@
 import React from 'react'
 import {Text} from 'ink'
+import Gradient from 'ink-gradient'
 
 declare namespace Bar {
   export interface Props {
@@ -16,16 +17,23 @@ declare namespace Bar {
 const Bar: Bar.Component = ({
   color = 'white',
   percent,
-  backgroundColor = 'transparent',
-  character = '\u2588',
   maxWidth,
-}: Bar.Props) =>
-  percent <= 0 ? null : (
-    <Text backgroundColor={backgroundColor} color={color}>
-      {character.repeat(
-        Math.min(Math.floor(maxWidth * percent), maxWidth),
-      )}
+}: Bar.Props) => {
+  const fill = Math.min(Math.floor(maxWidth * percent), maxWidth)
+
+  const background = maxWidth - fill
+
+  return percent <= 0 ? null : (
+    <Text>
+      <Gradient colors={[color, '#663399']}>
+        {'█'.repeat(fill)}
+      </Gradient>
+
+      <Text backgroundColor="white" dimColor>
+        {'░'.repeat(background)}
+      </Text>
     </Text>
   )
+}
 
 export {Bar, Bar as default}
