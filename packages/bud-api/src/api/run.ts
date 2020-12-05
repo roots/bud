@@ -1,13 +1,23 @@
 import {Bud} from '@roots/bud-typings'
-import {Error} from '@roots/bud-cli'
 
 export const run: Run = function (safeMode = false) {
   if (!safeMode && !this.mode.ci) {
-    this.cli.run()
-    return
+    return this.cli.run()
   }
 
-  this.compiler.compile()
+  this.compiler.compile().hooks.done.tap('stats', stats => {
+    if (stats.hasErrors() && this.mode.is('development')) {
+      console.error(
+        stats.toString(this.compiler.statsOptions.string),
+      )
+      console.log(`\n`)
+    } else {
+      console.log(
+        stats.toString(this.compiler.statsOptions.string),
+      )
+      console.log(`\n`)
+    }
+  })
 
   this.when(
     this.mode.is('production'),
@@ -24,15 +34,6 @@ const ci = {
    * Production build
    */
   production: function (this: Bud.Bud) {
-    this.hooks
-      .on('compiler.stats', stats => {
-        console.log(stats.string)
-        return stats
-      })
-      .on('compiler.error', error => {
-        new Error(error, 'Compilation error\n', true)
-      })
-
     this.compiler.run()
   },
 
@@ -40,24 +41,6 @@ const ci = {
    * Development build
    */
   development: function (this: Bud.Bud) {
-
-    this.compiler.compile().hooks.done.tap('stats', stats => {
-      if (stats.hasErrors()) {
-        console.error(
-          stats.toString(this.compiler.statsOptions.string),
-        )
-        console.log(`\n`)
-      } else {
-        stats &&
-          console.log(
-            stats.toString(this.compiler.statsOptions.string),
-          )
-        console.log(`\n`)
-      }
-
-      return stats
-    })
-
     this.server.run()
   },
 }

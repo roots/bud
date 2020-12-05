@@ -1,4 +1,5 @@
 import type {Bud, Webpack} from '.'
+import type {Instance} from 'ink'
 
 /**
  * Compilation callback.
@@ -41,11 +42,13 @@ export class Contract implements Interface {
 
   public set statsOptions(options: StatsOptions)
 
-  public get error(): string
+  public get error(): Instance
 
-  public set error(error: string)
+  public set error(error: Instance)
 
   public run(): void
+
+  public makeError(err: string): void
 
   public applyPlugins(handler: ProgressHandler): void
 }
@@ -63,9 +66,11 @@ export interface Interface {
 
   statsOptions: StatsOptions
 
-  error: string
+  error: Instance
 
   run(): void
+
+  makeError(err: string): void
 
   applyPlugins(handler: ProgressHandler): void
 }

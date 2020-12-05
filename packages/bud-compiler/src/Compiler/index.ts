@@ -5,6 +5,8 @@ import type {
   Stats,
 } from 'webpack'
 import type Framework from '@roots/bud-typings'
+import type {Instance} from 'ink'
+import {Error} from '@roots/bud-cli'
 
 export type StatsOptions = {
   json: Stats.ToJsonOptions
@@ -69,7 +71,7 @@ class Compiler implements Framework.Compiler.Contract {
   /**
    * Webpack compiler error
    */
-  public _error: string
+  public _error: Instance
 
   /**
    * Class constructor
@@ -115,15 +117,12 @@ class Compiler implements Framework.Compiler.Contract {
     this._statsOptions = options
   }
 
-  public get error(): string {
+  public get error(): Instance {
     return this._error
   }
 
-  public set error(error: string) {
-    this._error = this.bud().hooks.filter<string>(
-      'compiler.error',
-      error,
-    )
+  public set error(error: Instance) {
+    this._error = error
   }
 
   /**
@@ -196,14 +195,10 @@ class Compiler implements Framework.Compiler.Contract {
    */
   public run(): void {
     this.instance.run((err, stats) => {
-      if (stats.hasErrors()) {
-        this.error = stats
-          .toJson(this.statsOptions.json)
-          .errors.toString()
+      if (stats.hasErrors() && !this.bud().mode.ci) {
+        console.error(stats.toString(this.statsOptions.string))
 
         return
-      } else {
-        this.error = null
       }
 
       this.stats = {
@@ -211,6 +206,13 @@ class Compiler implements Framework.Compiler.Contract {
         json: stats.toJson(this.statsOptions.json),
       }
     })
+  }
+
+  /**
+   * ## bud.makeError
+   */
+  public makeError(err: string): void {
+    this.error = new Error(err, `Compilation error\n`, false)
   }
 
   /**

@@ -1,7 +1,6 @@
 import React from 'react'
 import {render} from 'ink'
 import {Error as Component} from '../containers/Error'
-import {Instance} from 'ink'
 
 declare interface Error {
   (body?: string, title?: string, fatal?: boolean): void
@@ -11,14 +10,17 @@ const Error: Error = function (
   body,
   title,
   fatal = true,
-): Instance {
-  const instance = render(
+): string {
+  const error = render(
     <Component title={title ?? 'Error'} body={body} />,
   )
 
-  fatal && process.exit(1)
+  if (fatal) {
+    console.error(error)
+    process.exit(1)
+  }
 
-  return instance
+  return error.toString()
 }
 
 export {Error}

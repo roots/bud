@@ -22,6 +22,7 @@ const Serve: React.FunctionComponent<{bud: Bud.Bud}> = ({
       <Reporter
         bud={bud}
         stats={compilation?.stats}
+        errors={compilation?.errors}
         progress={compilation?.progress}
       />
     </>

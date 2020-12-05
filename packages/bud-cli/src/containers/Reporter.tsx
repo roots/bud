@@ -19,6 +19,7 @@ declare namespace Reporter {
     bud: Bud.Bud
     stats: UseStats.Stats
     progress: UseProgress.Progress
+    errors?: string[]
   }
 
   export type Component = React.FunctionComponent<Props>
@@ -28,6 +29,7 @@ const Reporter: Reporter.Component = ({
   bud,
   stats,
   progress,
+  errors,
 }) => {
   const pkg = usePackageJson(bud)
   const {col} = useStyle()
@@ -36,21 +38,21 @@ const Reporter: Reporter.Component = ({
     <Box paddingRight={1} justifyContent="space-between">
       <Screen title={pkg.name}>
         <Box flexDirection="column">
-          {stats?.errors && stats?.errors[0] && (
-            <Errors errors={stats.errors} />
-          )}
-
-          {stats?.warnings && stats?.warnings[0] && (
-            <Errors errors={stats.warnings} />
-          )}
-
           <Box flexDirection="column">
-            <Box
-              width={col(12)}
-              flexDirection="column"
-              marginBottom={1}>
-              <Assets assets={stats?.assets} />
-            </Box>
+            {(!errors || !errors[0]) && (
+              <Box
+                width={col(12)}
+                flexDirection="column"
+                marginBottom={1}>
+                <Assets assets={stats?.assets} />
+              </Box>
+            )}
+
+            {errors && errors[0] && <Errors errors={errors} />}
+
+            {stats?.warnings && stats?.warnings[0] && (
+              <Errors errors={stats.warnings} />
+            )}
 
             <Box
               width={col(12)}

@@ -12,6 +12,7 @@ export namespace UseCompilation {
   export interface Compilation {
     progress: UseProgress.Progress
     stats: UseStats.Stats
+    errors?: string[]
   }
 }
 
@@ -20,7 +21,10 @@ const useCompilation: UseCompilation.Hook = (bud: Bud.Bud) => {
   const [tapped, setTapped] = useState<boolean>(false)
   const [running, setRunning] = useState<boolean>(false)
 
-  const [stats, statsHandler] = useStats()
+  const [stats, errors, statsHandler] = useStats(
+    bud.compiler.statsOptions,
+  )
+
   const [progress, progressHandler] = useProgress()
 
   useEffect(() => {
@@ -50,6 +54,7 @@ const useCompilation: UseCompilation.Hook = (bud: Bud.Bud) => {
   return {
     progress,
     stats,
+    errors,
   }
 }
 

@@ -7,7 +7,7 @@ html, body {
   align-items: center;
   background: black;
   color: white;
-  display: flex;
+  display: flex
   font-family: sans-serif;
   height: 100vh;
   justify-content: center;
