@@ -7,6 +7,7 @@ const init = {
   dirty: null,
   branch: '',
   unstaged: '',
+  remote: '',
 }
 
 export const useGit = () => {
@@ -15,6 +16,7 @@ export const useGit = () => {
   useEffect(() => {
     setGit({
       short: gitRev.short(),
+      remote: gitRev.remoteUrl(),
       long: gitRev.long(),
       dirty: gitRev.isDirty(),
       branch: gitRev.branch(),

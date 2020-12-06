@@ -127,24 +127,7 @@ const Reporter: Reporter.Component = ({
               color={colors.white}
               backgroundColor={colors.primary}>
               {' '}
-              {git.branch}{' '}
-            </Text>{' '}
-            <Text>
-              {git.dirty ? (
-                <Text
-                  color={colors.white}
-                  backgroundColor={colors.error}>
-                  {' '}
-                  Dirty{' '}
-                </Text>
-              ) : (
-                <Text
-                  color={colors.white}
-                  backgroundColor={colors.success}>
-                  {' '}
-                  Clean{' '}
-                </Text>
-              )}
+              {git.remote}{' '}
             </Text>{' '}
             <Text>
               {git.unstaged ? (
@@ -152,14 +135,14 @@ const Reporter: Reporter.Component = ({
                   color={colors.white}
                   backgroundColor={colors.error}>
                   {' '}
-                  Unstaged{' '}
+                  $!{' '}
                 </Text>
               ) : (
                 <Text
                   color={colors.white}
                   backgroundColor={colors.success}>
                   {' '}
-                  {git.long}{' '}
+                  {git.short}{' '}
                 </Text>
               )}
             </Text>
