@@ -11,7 +11,7 @@ const Git: Git = () => {
   const git = useGit()
   const {colors} = useStyle()
 
-  return !git?.err ? (
+  return !git?.hasError ? (
     <Box flexDirection="row" justifyContent="space-between">
       {git.branch ? (
         <Text
