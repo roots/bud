@@ -39,13 +39,15 @@ export const useGit: UseGit = () => {
     }, 1000)
   }, [])
 
+  const changed = status?.stdout?.split('\n').length
+
   const hasError =
     [head, branch, status].filter(res => res?.stderr)?.length > 0
 
   return {
     head: head?.stdout,
     branch: branch?.stdout,
-    status: status?.stdout?.split('\n').length ?? null,
+    status: changed > 0 ? changed : null,
     hasError,
   }
 }
