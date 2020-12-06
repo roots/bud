@@ -43,6 +43,7 @@
     "@roots/bud-support": "^2.0.6",
     "@roots/ink-prettier": "^2.0.6",
     "@roots/ink-use-style": "^2.0.6",
+    "@roots/dependencies": "^2.0.6",
     "current-git-branch": "^1.1.0",
     "git-rev-sync": "^3.0.1",
     "ink": "^3.0.0-6",

@@ -33,7 +33,7 @@ const Reporter: Reporter.Component = ({
   errors,
 }) => {
   const pkg = usePackageJson(bud)
-  const git = useGit(bud)
+  const {git} = useGit(bud)
   const {bounds, colors} = useStyle()
 
   return (
