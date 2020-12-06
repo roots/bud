@@ -139,7 +139,7 @@ const Reporter: Reporter.Component = ({
               {git.head ? (
                 <Text backgroundColor={colors.success}>
                   <Text> </Text>
-                  <Text color={colors.white}>@{git.head}</Text>
+                  <Text color={colors.white}>{git.head}</Text>
                   <Text> </Text>
                 </Text>
               ) : (
