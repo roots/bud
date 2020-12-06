@@ -5,9 +5,13 @@ import Framework from '@roots/bud-typings'
  */
 export as namespace Sass
 
-export declare type Conditional = Framework.Factory<Framework.Rule.Conditional>
+export declare type Conditional = Framework.Factory<
+  Framework.Rule.Conditional
+>
 
-export declare type Exclude = Framework.Factory<Framework.Rule.Conditional>
+export declare type Exclude = Framework.Factory<
+  Framework.Rule.Conditional
+>
 
 export declare type UseLoader = (
   loader: string,
