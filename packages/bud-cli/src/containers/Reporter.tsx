@@ -129,26 +129,26 @@ const Reporter: Reporter.Component = ({
               {git.branch && (
                 <Text backgroundColor={colors.primary}>
                   {' '}
-                  {git.branch && (
-                    <Text color={colors.white}>
-                      {git.branch}
-                    </Text>
-                  )}{' '}
-                  {git.head && (
-                    <Text color={colors.white}>{git.head}</Text>
-                  )}{' '}
+                  <Text color={colors.white}>
+                    {git.branch}
+                  </Text>{' '}
+                </Text>
+              )}
+              {git.head && (
+                <Text backgroundColor={colors.success}>
+                  {' '}
+                  <Text color={colors.white}>
+                    @{git.head}
+                  </Text>{' '}
                 </Text>
               )}
               {(git.dirty || git.status) && (
-                <Text>
+                <Text
+                  color={colors.white}
+                  backgroundColor={colors.error}>
+                  {git.status && <Text> ?</Text>}
+                  {git.dirty && <Text> M</Text>}
                   <Text> </Text>
-                  <Text
-                    color={colors.white}
-                    backgroundColor={colors.error}>
-                    {' '}
-                    {git.status && <Text>$!</Text>}
-                    {git.dirty && <Text>+</Text>}{' '}
-                  </Text>
                 </Text>
               )}
             </Box>
