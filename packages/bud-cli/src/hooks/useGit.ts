@@ -1,5 +1,6 @@
 import useSWR from 'swr'
 import execa from 'execa'
+import { useCallback } from 'react'
 
 export interface CmdRes {
   stdout?: string
@@ -29,10 +30,33 @@ const fetch = async (...params: string[]) => {
 }
 
 export const useGit: UseGit = () => {
-  const {data: head} = useSWR<GitStatus>(params.head, fetch)
-  const {data: branch} = useSWR<GitStatus>(params.branch, fetch)
-  const {data: dirty} = useSWR<GitStatus>(params.dirty, fetch)
-  const {data: status} = useSWR<GitStatus>(params.status, fetch)
+  const {data: head, mutate: setHead} = useSWR<GitStatus>(
+    params.head,
+    fetch,
+  )
+
+  const {data: branch, mutate: setBranch} = useSWR<GitStatus>(
+    params.branch,
+    fetch,
+  )
+
+  const {data: dirty, mutate: setDirty} = useSWR<GitStatus>(
+    params.dirty,
+    fetch,
+  )
+  const {data: status, mutate: setStatus} = useSWR<GitStatus>(
+    params.status,
+    fetch,
+  )
+
+  useCallback(() => {
+    setInterval(() => {
+      setHead()
+      setBranch()
+      setDirty()
+      setStatus()
+    }, 1000)
+  }, [head, branch, dirty, status])
 
   const hasError =
     [head, branch, dirty, status].filter(res => res?.stderr)
