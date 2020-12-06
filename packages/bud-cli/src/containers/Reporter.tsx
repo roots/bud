@@ -127,20 +127,22 @@ const Reporter: Reporter.Component = ({
               flexDirection="row"
               justifyContent="space-between">
               {git.branch ? (
-                <Text backgroundColor={colors.primary}>
-                  <Text> </Text>
-                  <Text color={colors.white}>{git.branch}</Text>
-                  <Text> </Text>
+                <Text
+                  backgroundColor={colors.primary}
+                  color={colors.white}>
+                  {' '}
+                  {git.branch}{' '}
                 </Text>
               ) : (
                 []
               )}
 
               {git.head ? (
-                <Text backgroundColor={colors.success}>
-                  <Text> </Text>
-                  <Text color={colors.white}>{git.head}</Text>
-                  <Text> </Text>
+                <Text
+                  backgroundColor={colors.success}
+                  color={colors.white}>
+                  {' '}
+                  {git.head}{' '}
                 </Text>
               ) : (
                 []
@@ -150,9 +152,8 @@ const Reporter: Reporter.Component = ({
                 <Text
                   color={colors.white}
                   backgroundColor={colors.error}>
-                  {git.status && <Text> ?</Text>}
-                  {git.dirty && <Text> M</Text>}
-                  <Text> </Text>
+                  {git.status ? <Text> ? </Text> : []}
+                  {git.dirty ? <Text> M </Text> : []}
                 </Text>
               ) : (
                 []
