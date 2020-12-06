@@ -27,11 +27,11 @@ const Assets: Assets.Component = ({assets}) => {
   )
 }
 
-export declare namespace Assets {
+declare namespace Assets {
   export type Component = FunctionComponent<Props>
   export interface Props {
     assets: UseCompilation.Compilation['stats']['assets']
   }
 }
 
-export {Assets as default}
+export {Assets}

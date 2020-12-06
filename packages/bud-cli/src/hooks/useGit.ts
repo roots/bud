@@ -1,18 +1,27 @@
 import {useEffect, useState} from 'react'
 import {watchFile} from 'fs-extra'
 import execa from 'execa'
-import globby from 'globby'
 
 const params = {
   root: ['rev-parse', '--show-toplevel'],
+  files: ['ls-tree', '--full-tree', '-r', '--name-only', 'HEAD'],
   head: ['rev-parse', '--short', 'HEAD'],
   branch: ['branch', '--show-current'],
   dirty: ['diff', 'HEAD'],
   status: ['status', '--short'],
 }
 
-export const useGit = () => {
-  const [dir, setDir] = useState(null)
+export type GitStatus = {
+  head: string
+  branch: string
+  dirty: string
+  status: string
+  err: boolean
+}
+
+export type UseGit = () => GitStatus
+
+export const useGit: UseGit = () => {
   const [head, setHead] = useState(null)
   const [status, setStatus] = useState(null)
   const [branch, setBranch] = useState(null)
@@ -27,19 +36,18 @@ export const useGit = () => {
       return
     }
 
-    !dir &&
-      (async () => {
-        try {
-          const {stdout: root} = await execa('git', params.root)
-          setDir(root)
-        } catch (err) {
-          setErr(true)
-        }
-      })()
-  }, [dir, err, valid])
+    ;(async () => {
+      try {
+        const {stdout: files} = await execa('git', params.files)
+        setFiles(files.split('\n'))
+      } catch (err) {
+        setErr(true)
+      }
+    })()
+  }, [files, err, valid])
 
   useEffect(() => {
-    if (!dir || err) {
+    if (!files || err) {
       return
     }
 
@@ -49,13 +57,11 @@ export const useGit = () => {
         return true
       })
 
-    dir &&
+    files &&
       (async () => {
-        const files = await globby([dir])
         await Promise.all(files.map(watch))
-        setFiles(files)
       })()
-  }, [dir])
+  }, [files])
 
   useEffect(() => {
     if (!files || err || valid) {
@@ -90,5 +96,5 @@ export const useGit = () => {
     setStatus(null)
   }, [err])
 
-  return {head, branch, dirty, status, dir, err}
+  return {head, branch, dirty, status, err}
 }

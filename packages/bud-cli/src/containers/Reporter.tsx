@@ -4,9 +4,8 @@ import Spinner from 'ink-spinner'
 
 import {usePackageJson} from '../hooks/usePackageJson'
 import {useStyle} from '@roots/ink-use-style'
-import {useGit} from '../hooks/useGit'
 
-import Assets from '../components/Assets'
+import {Assets} from '../components/Assets'
 import Errors from '../components/Errors'
 import Progress from '../components/Progress'
 import {Debug} from '../components/Debug'
@@ -14,6 +13,8 @@ import {Debug} from '../components/Debug'
 import type {Bud} from '@roots/bud-typings'
 import type {UseStats} from '../hooks/useStats'
 import type {UseProgress} from '../hooks/useProgress'
+import {useDisk} from '../hooks/useDisk'
+import {Git} from '../components/Git'
 
 declare namespace Reporter {
   export type Props = {
@@ -32,8 +33,8 @@ const Reporter: Reporter.Component = ({
   progress,
   errors,
 }) => {
-  const git = useGit()
-  const pkg = usePackageJson(bud)
+  const [disk] = useDisk(bud)
+  const pkg = usePackageJson(disk)
   const {bounds, colors} = useStyle()
 
   return (
@@ -122,44 +123,7 @@ const Reporter: Reporter.Component = ({
             </Text>
           )}
 
-          {git && (
-            <Box
-              flexDirection="row"
-              justifyContent="space-between">
-              {git.branch ? (
-                <Text
-                  backgroundColor={colors.primary}
-                  color={colors.white}>
-                  {' '}
-                  {git.branch}{' '}
-                </Text>
-              ) : (
-                []
-              )}
-
-              {git.head ? (
-                <Text
-                  backgroundColor={colors.success}
-                  color={colors.white}>
-                  {' '}
-                  {git.head}{' '}
-                </Text>
-              ) : (
-                []
-              )}
-
-              {git.dirty || git.status ? (
-                <Text
-                  color={colors.white}
-                  backgroundColor={colors.error}>
-                  {git.status ? <Text> ? </Text> : []}
-                  {git.dirty ? <Text> M </Text> : []}
-                </Text>
-              ) : (
-                []
-              )}
-            </Box>
-          )}
+          <Git />
         </Box>
       </Box>
     </Box>
