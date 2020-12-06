@@ -128,19 +128,17 @@ const Reporter: Reporter.Component = ({
               justifyContent="space-between">
               {git.branch && (
                 <Text backgroundColor={colors.primary}>
-                  {' '}
-                  <Text color={colors.white}>
-                    {git.branch}
-                  </Text>{' '}
+                  <Text> </Text>
+                  <Text color={colors.white}>{git.branch}</Text>
+                  <Text> </Text>
                 </Text>
               )}
 
               {git.head && (
                 <Text backgroundColor={colors.success}>
-                  {' '}
-                  <Text color={colors.white}>
-                    @{git.head}
-                  </Text>{' '}
+                  <Text> </Text>
+                  <Text color={colors.white}>@{git.head}</Text>
+                  <Text> </Text>
                 </Text>
               )}
 
