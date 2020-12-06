@@ -32,8 +32,8 @@ const Reporter: Reporter.Component = ({
   progress,
   errors,
 }) => {
+  const git = useGit()
   const pkg = usePackageJson(bud)
-  const {git} = useGit(bud)
   const {bounds, colors} = useStyle()
 
   return (
@@ -122,20 +122,32 @@ const Reporter: Reporter.Component = ({
             </Text>
           )}
 
-          <Text>
-            <Text
-              color={colors.white}
-              backgroundColor={colors.primary}>
-              {' '}
-              {git.remote}{' '}
-            </Text>{' '}
+          {git && (
             <Text>
-              {git.unstaged ? (
+              {git.err && (
+                <Text>
+                  <Text color={colors.error}> {git.err} </Text>{' '}
+                </Text>
+              )}
+
+              {git.head && (
+                <Text>
+                  <Text
+                    color={colors.white}
+                    backgroundColor={colors.primary}>
+                    {' '}
+                    {git.head}{' '}
+                  </Text>{' '}
+                </Text>
+              )}
+
+              {git.dirty || git.status ? (
                 <Text
                   color={colors.white}
                   backgroundColor={colors.error}>
                   {' '}
-                  $!{' '}
+                  {git.status && <Text>$!</Text>}
+                  {git.dirty && <Text>+</Text>}{' '}
                 </Text>
               ) : (
                 <Text
@@ -146,7 +158,7 @@ const Reporter: Reporter.Component = ({
                 </Text>
               )}
             </Text>
-          </Text>
+          )}
         </Box>
       </Box>
     </Box>
