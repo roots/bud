@@ -57,10 +57,9 @@ export const useGit: UseGit = () => {
         return true
       })
 
-    files &&
-      (async () => {
-        await Promise.all(files.map(watch))
-      })()
+    ;(async () => {
+      await Promise.all(files.map(watch))
+    })()
   }, [files])
 
   useEffect(() => {
