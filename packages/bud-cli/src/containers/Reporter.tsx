@@ -134,6 +134,7 @@ const Reporter: Reporter.Component = ({
                   </Text>{' '}
                 </Text>
               )}
+
               {git.head && (
                 <Text backgroundColor={colors.success}>
                   {' '}
@@ -142,6 +143,7 @@ const Reporter: Reporter.Component = ({
                   </Text>{' '}
                 </Text>
               )}
+
               {(git.dirty || git.status) && (
                 <Text
                   color={colors.white}
