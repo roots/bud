@@ -130,7 +130,9 @@ const Reporter: Reporter.Component = ({
                 <Text backgroundColor={colors.primary}>
                   {' '}
                   {git.branch && (
-                    <Text color={colors.white}>{git.branch}</Text>
+                    <Text color={colors.white}>
+                      {git.branch}
+                    </Text>
                   )}{' '}
                   {git.head && (
                     <Text color={colors.white}>{git.head}</Text>
