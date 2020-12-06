@@ -123,41 +123,33 @@ const Reporter: Reporter.Component = ({
           )}
 
           {git && (
-            <Text>
-              {git.err && (
-                <Text>
-                  <Text color={colors.error}> {git.err} </Text>{' '}
+            <Box
+              flexDirection="row"
+              justifyContent="space-between">
+              {git.branch && (
+                <Text backgroundColor={colors.primary}>
+                  {' '}
+                  {git.branch && (
+                    <Text color={colors.white}>{git.branch}</Text>
+                  )}{' '}
+                  {git.head && (
+                    <Text color={colors.white}>{git.head}</Text>
+                  )}{' '}
                 </Text>
               )}
-
-              {git.head && (
+              {(git.dirty || git.status) && (
                 <Text>
+                  <Text> </Text>
                   <Text
                     color={colors.white}
-                    backgroundColor={colors.primary}>
+                    backgroundColor={colors.error}>
                     {' '}
-                    {git.head}{' '}
-                  </Text>{' '}
+                    {git.status && <Text>$!</Text>}
+                    {git.dirty && <Text>+</Text>}{' '}
+                  </Text>
                 </Text>
               )}
-
-              {git.dirty || git.status ? (
-                <Text
-                  color={colors.white}
-                  backgroundColor={colors.error}>
-                  {' '}
-                  {git.status && <Text>$!</Text>}
-                  {git.dirty && <Text>+</Text>}{' '}
-                </Text>
-              ) : (
-                <Text
-                  color={colors.white}
-                  backgroundColor={colors.success}>
-                  {' '}
-                  {git.short}{' '}
-                </Text>
-              )}
-            </Text>
+            </Box>
           )}
         </Box>
       </Box>
