@@ -80,13 +80,14 @@ export const useGit = () => {
   }, [files, err, valid])
 
   useEffect(() => {
-    err &&
-      (() => {
-        setHead(null)
-        setBranch(null)
-        setDirty(null)
-        setStatus(null)
-      })()
+    if (!err) {
+      return
+    }
+
+    setHead(null)
+    setBranch(null)
+    setDirty(null)
+    setStatus(null)
   }, [err])
 
   return {head, branch, dirty, status, dir, err}
