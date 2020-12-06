@@ -63,10 +63,17 @@ export const useGit = () => {
       await Promise.all(
         Object.entries(params).map(async ([key, params]) => {
           const {stdout} = await execa('git', params)
-          setGit({
-            ...git,
-            [key]: stdout,
-          })
+          if (key == 'dirty') {
+            setGit({
+              ...git,
+              [key]: stdout == '' ? false : true,
+            })
+          } else {
+            setGit({
+              ...git,
+              [key]: stdout,
+            })
+          }
         }),
       )
 
