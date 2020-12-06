@@ -1,4 +1,5 @@
-import type {Bud, FileContainer} from '@roots/bud-typings'
+import type {Bud} from '@roots/bud-typings'
+import {useDisk} from './useDisk'
 import {useEffect, useState} from 'react'
 
 export type PkgFields = {
@@ -7,14 +8,10 @@ export type PkgFields = {
 }
 
 export const usePackageJson = (bud: Bud.Bud): PkgFields => {
-  const [disk, setDisk] = useState<FileContainer>()
+  const [disk] = useDisk(bud)
   const [pkg, setPkg] = useState<PkgFields>({
     name: '@roots/bud',
   })
-
-  useEffect(() => {
-    setDisk(bud.disk.get('project'))
-  }, [bud])
 
   useEffect(() => {
     if (!disk) return
@@ -24,7 +21,7 @@ export const usePackageJson = (bud: Bud.Bud): PkgFields => {
         ...pkg,
         ...disk.readJson('package.json'),
       })
-  }, [bud, disk])
+  }, [disk])
 
   return pkg
 }

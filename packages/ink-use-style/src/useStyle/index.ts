@@ -1,17 +1,22 @@
 import useStdOutDimensions from 'ink-use-stdout-dimensions'
+import useSWR, {mutate} from 'swr'
 import {ComponentState, useState, useEffect} from 'react'
-import {defaultTheme} from '../themes'
-import type {Theme} from '../themes'
+import type {Styles, Theme, UseStyle} from '../typings'
 
+import {defaultTheme} from '../themes'
+
+/**
+ * Use style.
+ */
 export const useStyle: UseStyle = (
-  themeProps = defaultTheme,
+  initialData = defaultTheme,
 ) => {
   /**
    * Theme values
    */
-  const [theme, setTheme]: ComponentState = useState<Theme>(
-    themeProps,
-  )
+  const {data: theme} = useSWR('theme', {
+    initialData,
+  })
 
   /**
    * Width and height of terminal viewport.
@@ -21,7 +26,7 @@ export const useStyle: UseStyle = (
   /**
    * Active screen size
    */
-  const [screen, setScreen]: ComponentState = useState(null)
+  const [screen, setScreen]: ComponentState = useState()
 
   /**
    * Width of one column.
@@ -59,7 +64,7 @@ export const useStyle: UseStyle = (
    * Determine which screen size is currently active.
    */
   useEffect(() => {
-    theme.screens.map(([lower, upper], iteration) => {
+    theme.screens.forEach(([lower, upper], iteration) => {
       bounds.width > lower &&
         bounds.width < upper &&
         setScreen(iteration)
@@ -68,7 +73,6 @@ export const useStyle: UseStyle = (
 
   /**
    * Col
-   *
    * Function that returns the width for x columns
    */
   const col = (count: number): number => {
@@ -87,20 +91,12 @@ export const useStyle: UseStyle = (
   }
 
   /**
-   * Is
-   *
-   * Sugary conditional helper.
-   */
-  const is: Styles['is'] = (testCase, trueCase, falseCase) =>
-    testCase ? trueCase : falseCase
-
-  /**
    * Set colors
    *
    * Merges colors onto theme.
    */
   const setColors = (colors: Theme['colors']) => {
-    setTheme({
+    mutate('theme', {
       ...theme,
       colors: {
         ...theme.colors,
@@ -115,7 +111,7 @@ export const useStyle: UseStyle = (
    * Merges colors onto theme.
    */
   const setScreens = (screens: Theme['screens']) => {
-    setTheme({
+    mutate('theme', {
       ...theme,
       screens: [...theme.screens, ...screens],
     })
@@ -128,24 +124,6 @@ export const useStyle: UseStyle = (
     ...theme,
     setColors,
     setScreens,
-    is,
     ctx,
   }
 }
-
-export interface Styles {
-  spacing: number
-  bounds: {
-    width: number
-    height: number
-  }
-  screen: number
-  colors: {[key: string]: string}
-  ctx: (screens: Array<any>) => any
-  col: (count: number) => number
-  is: (testCase: boolean, trueCase: any, falseCase: any) => any
-  setColors: (colors: Theme['colors']) => void
-  setScreens: (screens: Theme['screens']) => void
-}
-
-export type UseStyle = (themeProps?: Theme) => Styles

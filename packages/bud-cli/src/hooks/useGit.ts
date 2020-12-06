@@ -1,6 +1,8 @@
 import {useEffect, useState} from 'react'
 import gitRev from 'git-rev-sync'
 
+import {useDisk} from './useDisk'
+
 const init = {
   short: '',
   long: '',
@@ -10,7 +12,8 @@ const init = {
   remote: '',
 }
 
-export const useGit = () => {
+export const useGit = bud => {
+  const [disk] = useDisk(bud)
   const [git, setGit] = useState(init)
 
   useEffect(() => {
@@ -22,7 +25,7 @@ export const useGit = () => {
       branch: gitRev.branch(),
       unstaged: gitRev.hasUnstagedChanges(),
     })
-  }, [])
+  }, [bud, disk?.fs])
 
   return git
 }
