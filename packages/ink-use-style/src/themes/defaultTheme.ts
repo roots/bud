@@ -5,7 +5,7 @@ export const spacing: Theme['spacing'] = 1
 export const colors: Theme['colors'] = {
   primary: '#545DD7',
   error: '#dc3545',
-  warning: '#CCD479',
+  warning: '#FF611A',
   faded: '#6C758F',
   success: '#46D46A',
   accent: '#ff69b4',

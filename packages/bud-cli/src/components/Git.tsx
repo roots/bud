@@ -23,13 +23,15 @@ const Git: Git = () => {
       ) : (
         <Text color={colors.white}>
           {' '}
-          <Spinner /> Loading git status{' '}
+          <Spinner /> Loading{' '}
         </Text>
       )}
 
       {git.head ? (
         <Text
-          backgroundColor={colors.success}
+          backgroundColor={
+            git.status ? colors.warning : colors.success
+          }
           color={colors.white}>
           {' '}
           {git.head}{' '}
@@ -38,12 +40,12 @@ const Git: Git = () => {
         []
       )}
 
-      {git.dirty || git.status ? (
+      {git.status ? (
         <Text
           color={colors.white}
           backgroundColor={colors.error}>
-          {git.status ? <Text> ? </Text> : []}
-          {git.dirty ? <Text> M </Text> : []}
+          {' '}
+          {git.status}{' '}
         </Text>
       ) : (
         []
