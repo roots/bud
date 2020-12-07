@@ -39,7 +39,9 @@ export const useGit: UseGit = () => {
     }, 1000)
   }, [])
 
-  const changed = status?.stdout?.split('\n').length
+  const changed = status?.stdout
+    ?.split('\n')
+    .filter(item => item !== '').length
 
   const hasError =
     [head, branch, status].filter(res => res?.stderr)?.length > 0
