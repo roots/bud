@@ -18,14 +18,14 @@ class MergedManifestWebpackPlugin {
   public dir: string
 
   /**
-   * Output filename
-   */
-  public file: string
-
-  /**
    * Output filepath
    */
   public path: string
+
+  /**
+   * Output filename
+   */
+  public file = 'entrypoints.json'
 
   /**
    * Entrypoints filename

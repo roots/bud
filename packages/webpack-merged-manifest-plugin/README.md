@@ -15,13 +15,19 @@
 
 ## Overview
 
-When utilizing both `@roots/entrypoints-webpack-plugin` and
-`@roots/wordpress-externals-webpack-plugin` redundant manifests
-are generated.
+When utilizing both `@roots/entrypoints-webpack-plugin` and `@roots/wordpress-externals-webpack-plugin` redundant manifests are generated.
 
 This plugin merges the dependencies arrays from `wordpress.json` into the `entrypoints.json` manifest. It then deletes `wordpress.json`.
 
 This plugin can be used separately from the Bud framework.
+
+## Really, three plugins?
+
+Yes, because:
+
+1. `entrypoints.json` has utility outside of WordPress ecosystem.
+2. `wordpress.json` has utility even if you prefer using the bog standard `manifest.json`.
+3. If using both plugins then you end up with three manifest artifacts, `entrypoints.json`, `manifest.json` and `wordpress.json`. This is unnecessary.
 
 ## Requirements
 

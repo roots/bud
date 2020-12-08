@@ -2961,6 +2961,17 @@
 "@roots/bud-typings@2.0.7":
   version "2.0.6"
 
+"@roots/entrypoints-webpack-plugin@^2.0.7":
+  version "2.0.6"
+
+"@roots/merged-manifest-webpack-plugin@^2.0.7":
+  version "2.0.6"
+
+"@roots/wordpress-externals-webpack-plugin@^2.0.7":
+  version "2.0.6"
+  dependencies:
+    node-fetch "^2.6.1"
+
 "@semantic-release/commit-analyzer@^6.1.0":
   version "6.3.3"
   resolved "https://registry.yarnpkg.com/@semantic-release/commit-analyzer/-/commit-analyzer-6.3.3.tgz#885f7e46e2f0aef23a23be0904dbf18d6ece45ca"
