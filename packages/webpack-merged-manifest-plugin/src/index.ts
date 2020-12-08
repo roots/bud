@@ -2,8 +2,7 @@ import Webpack from 'webpack'
 import fs from 'fs-extra'
 import path from 'path'
 import {format} from 'prettier'
-import type {Extension} from '@roots/bud-typings'
-import type {Output as Entrypoints} from '@roots/entrypoints-webpack-plugin'
+import type {EntrySchema} from '@roots/entrypoints-webpack-plugin'
 
 class MergedManifestWebpackPlugin {
   /**
@@ -31,26 +30,25 @@ class MergedManifestWebpackPlugin {
   /**
    * Entrypoints filename
    */
-  public entrypointsName: string
+  public entrypointsName = 'entrypoints.json'
 
   /**
    * Externals filename
    */
-  public externalsName: string
+  public wordpressName = 'wordpress.json'
 
   /**
    * Class constructor
    */
-  public constructor(
-    [entrypointsPlugin, externalsPlugin]: Array<
-      Extension.Controller
-    >,
-    file = 'entrypoints.json',
-  ) {
-    this.file = file
-
-    this.entrypointsName = entrypointsPlugin.get('name')
-    this.externalsName = externalsPlugin.get('name')
+  public constructor(options?: {
+    entrypointsName?: string
+    wordpressName?: string
+    file?: string
+  }) {
+    options &&
+      Object.keys(options).map(prop => {
+        Object.assign(this, {[prop]: options[prop]})
+      })
 
     this.done = this.done.bind(this)
     this.format = this.format.bind(this)
@@ -72,9 +70,9 @@ class MergedManifestWebpackPlugin {
   }
 
   /**
-   * Webpack compilationHook: done
+   * Webpack.compilation.CompilerHooks['done']['tapAsync']
    */
-  public async done(
+  public done = async function (
     _compilation,
     callback,
   ): Promise<CallableFunction> {
@@ -82,20 +80,20 @@ class MergedManifestWebpackPlugin {
      * Callback early if a required manifest is missing.
      */
     if (!this.isBuildable()) {
-      return callback()
+      return callback
     }
 
+    /**
+     * Read manifests.
+     */
     try {
-      /**
-       * Read manifests.
-       */
-      const entrypointsManifest = await this.manifestContent(
-        this.entrypointsName,
-      )
+      const entrypointsManifest: {
+        [key: string]: {js: string; css: string}
+      } = await this.manifestContent(this.entrypointsName)
 
-      const wordpressManifest = await this.manifestContent(
-        this.externalsName,
-      )
+      const wordpressManifest: {
+        [key: string]: Array<string>
+      } = await this.manifestContent(this.wordpressName)
 
       /**
        * Reduce aggregate manifest and write to file.
@@ -117,9 +115,9 @@ class MergedManifestWebpackPlugin {
       )
 
       /**
-       * Remove merged manifests.
+       * Remove wordpress.json manifest.
        */
-      await fs.remove(this.manifestPath(this.externalsName))
+      await fs.remove(this.manifestPath(this.wordpressName))
     } catch (err) {
       console.error(err)
     }
@@ -147,7 +145,7 @@ class MergedManifestWebpackPlugin {
   public isBuildable(): boolean {
     return (
       this.manifestExists(this.entrypointsName) &&
-      this.manifestExists(this.externalsName)
+      this.manifestExists(this.wordpressName)
     )
   }
 
@@ -170,7 +168,7 @@ class MergedManifestWebpackPlugin {
    */
   public async manifestContent(
     file: string,
-  ): Promise<Entrypoints> {
+  ): Promise<EntrySchema> {
     return await fs.readJson(this.manifestPath(file))
   }
 }

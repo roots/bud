@@ -10,7 +10,7 @@
     "url": "https://github.com/roots/bud/issues"
   },
   "funding": {
-    "type": "github sponsors",
+    "type": "gith ub sponsors",
     "url": "https://github.com/sponsors/roots"
   },
   "license": "MIT",
@@ -33,11 +33,9 @@
     "tsc": "tsc -p ./tsconfig.json",
     "lint": "eslint ."
   },
-  "dependencies": {
-    "@roots/bud-wordpress-externals": "^2.0.4",
-    "@roots/bud-entrypoints": "^2.0.4"
-  },
   "devDependencies": {
-    "@roots/bud-typings": "^2.0.6"
+    "@roots/bud-typings": "^2.0.6",
+    "@roots/entrypoints-webpack-plugin": "^2.0.6"
+
   }
 }

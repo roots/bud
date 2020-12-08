@@ -18,7 +18,7 @@ export class Plugin {
   public context: Webpack.compilation.Compilation['context']
 
   /**
-   * Hook to webpack compilation output.
+   * Hook: webpack compilation output.
    */
   public hook = ['compilation', 'output']
 
