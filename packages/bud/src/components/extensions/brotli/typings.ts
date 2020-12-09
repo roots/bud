@@ -11,7 +11,7 @@ export type Options = Plugin.Options<BrotliOptions>
 
 export type When = Extension.When
 
-export type Config<T = Bud.Bud> = (
+export type Config<T = Bud> = (
   this: T,
   options?: BrotliOptions,
 ) => T

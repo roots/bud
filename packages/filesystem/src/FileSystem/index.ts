@@ -33,15 +33,14 @@ export class FileSystem {
 
     const disk = new FileContainer(base)
 
-    const glob = options.glob.map(item => resolve(base, item))
-
-    glob.push(`!${resolve(base, '**/types/**/*')}`)
-    glob.push(`!${resolve(base, '**/*.map')}`)
-    glob.push(`!${resolve(base, '**/*.d.ts')}`)
-    glob.push(`!${resolve(base, '**/node_modules/**/*')}`)
-    glob.push(`!${resolve(base, '**/vendor/**/*')}`)
-
-    disk.setDisk(glob)
+    disk.setDisk([
+      ...options.glob.map(item => resolve(base, item)),
+      `!${resolve(base, '**/types/**/*')}`,
+      `!${resolve(base, '**/*.map')}`,
+      `!${resolve(base, '**/*.d.ts')}`,
+      `!${resolve(base, '**/node_modules/**/*')}`,
+      `!${resolve(base, '**/vendor/**/*')}`,
+    ])
 
     _.set(this.repository, key, disk)
 

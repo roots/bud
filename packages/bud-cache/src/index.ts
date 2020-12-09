@@ -14,7 +14,7 @@ export class Cache implements Abstract.Contract {
   /**
    * Class constructor.
    */
-  constructor(bud: Bud.Bud) {
+  constructor(bud: Bud) {
     this.enabled = this.enabled.bind(bud)
     this.setCache = this.setCache.bind(bud)
   }
@@ -32,7 +32,7 @@ export class Cache implements Abstract.Contract {
    * // => true if cache is enabled
    * ```
    */
-  public enabled(this: Bud.Bud): boolean {
+  public enabled(this: Bud): boolean {
     return (
       this.features.enabled('buildCache') &&
       this.fs.exists(
@@ -46,9 +46,9 @@ export class Cache implements Abstract.Contract {
    *
    * Sets the cache object in the webpack configuration.
    */
-  public setCache(this: Bud.Bud): void {
+  public setCache(this: Bud): void {
     this.cache.enabled() &&
-      this.hooks.on('webpack.cache', (bud: Bud.Bud) =>
+      this.hooks.on('webpack.cache', (bud: Bud) =>
         bud.disk
           .get('project')
           .readJson(this.config.get('webpack.recordsPath')),

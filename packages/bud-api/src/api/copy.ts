@@ -42,7 +42,4 @@ export namespace Copy {
   }
 }
 
-export type Copy<T = Bud.Contract> = (
-  this: T,
-  options: Copy.Options,
-) => T
+export type Copy<T = Bud> = (this: T, options: Copy.Options) => T

@@ -39,13 +39,13 @@ export type RegisterLoader = Extension.RegisterOne<Loader>
 export type RegisterRule = [
   string,
   {
-    test: (bud: Bud.Bud) => RegExp
-    use: (bud: Bud.Bud) => Rule.Module['use']
+    test: (bud: Bud) => RegExp
+    use: (bud: Bud) => Rule.Module['use']
   },
 ]
 export namespace RegisterRule {
-  export type Test = (bud: Bud.Bud) => RegExp
-  export type Use = (bud: Bud.Bud) => Rule.Module['use']
+  export type Test = (bud: Bud) => RegExp
+  export type Use = (bud: Bud) => Rule.Module['use']
 }
 
 /**
@@ -63,7 +63,7 @@ export type Boot = Extension.Boot
  */
 export namespace API {
   export type ReactRefresh = (
-    this: Bud.Bud,
+    this: Bud,
     options: ReactRefreshPluginOptions,
-  ) => Bud.Bud
+  ) => Bud
 }

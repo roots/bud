@@ -28,4 +28,4 @@ export const presetEnv: PresetEnv = function (options = {}) {
  * bud.presetEnv(MyPlugin, {plugin: 'options'})
  * ```
  */
-export type PresetEnv = (this: Bud.Bud, options: any) => Bud.Bud
+export type PresetEnv = (this: Bud, options: any) => Bud

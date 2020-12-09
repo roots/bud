@@ -7,12 +7,17 @@ import {items} from './components/items'
 import {loaders} from './components/loaders'
 import {rules} from './components/rules'
 
-export const bud: Bud = new Bud({
-  containers,
-  loaders,
-  items,
-  rules,
-  extensions,
-})
+import * as api from '@roots/bud-api'
+
+export const bud: Bud = new Bud(
+  {
+    containers,
+    loaders,
+    items,
+    rules,
+    extensions,
+  },
+  api,
+)
   .init()
   .pipe(Object.values(args))

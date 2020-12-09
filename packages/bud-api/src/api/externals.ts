@@ -5,7 +5,7 @@ export const externals: Externals = function (externals) {
   return this
 }
 
-export type Externals<T = Bud.Contract> = (
+export type Externals<T = Bud> = (
   this: T,
   externals: {
     [key: string]: any

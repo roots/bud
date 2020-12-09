@@ -3,9 +3,9 @@ import type {Bud, Extension} from '@roots/bud-typings'
 
 export const api = {
   stylelint: function (
-    this: Bud.Contract,
+    this: Bud,
     options: StylelintPlugin['options'],
-  ): Bud.Contract {
+  ): Bud {
     this.features.set('stylelint', true)
     this.extensions
       .get('@roots/bud-stylelint')
@@ -16,7 +16,7 @@ export const api = {
 }
 
 export const register: Extension.Register = function (
-  bud: Bud.Contract,
+  bud: Bud,
 ): void {
   bud.presets.set(
     'stylelint',
@@ -31,7 +31,7 @@ export const register: Extension.Register = function (
     make: function (options) {
       return new StylelintPlugin(options.all())
     },
-    when: function ({features}: Bud.Contract) {
+    when: function ({features}: Bud) {
       return features.enabled('stylelint')
     },
   })

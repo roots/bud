@@ -7,7 +7,7 @@ export const make: Extension.Make<Plugin, PluginOptions> = opt =>
 export const when: Extension.When = ({mode}) =>
   mode.is('production')
 
-export const options: (bud: Bud.Bud) => PluginOptions = ({
+export const options: (bud: Bud) => PluginOptions = ({
   features,
 }) => ({
   filename: features.enabled('hash')

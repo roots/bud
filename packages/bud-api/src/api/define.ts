@@ -6,7 +6,4 @@ export const define: Define = function (values) {
   return this
 }
 
-export type Define<T = Bud.Contract> = (
-  this: T,
-  values: Index<any>,
-) => T
+export type Define<T = Bud> = (this: T, values: Index<any>) => T

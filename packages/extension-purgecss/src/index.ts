@@ -8,9 +8,9 @@ export const boot: Extension.Boot = bud => {
 
 export const api: Extension.Contract['api'] = () => ({
   purge: function configuration(
-    this: Bud.Contract,
+    this: Bud,
     userOptions: Purge.UserOptions,
-  ): Bud.Contract {
+  ): Bud {
     this.build.items.mutate(
       'postcss.options.postcssOptions.plugins',
       plugins => [...plugins, Plugin(userOptions)],

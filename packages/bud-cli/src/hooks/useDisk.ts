@@ -3,7 +3,7 @@ import {useEffect, useState} from 'react'
 
 export type Disk = [FileContainer, React.Dispatch<string>]
 
-export const useDisk = (bud: Bud.Bud): Disk => {
+export const useDisk = (bud: Bud): Disk => {
   const [target, setTarget] = useState<string>('project')
   const [disk, setDisk] = useState<FileContainer>(null)
 

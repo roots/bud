@@ -2,7 +2,7 @@ import {Extension, Webpack, Bud} from '@roots/bud-typings'
 
 export namespace Plugins {
   export type Build = (
-    this: Bud.Contract,
+    this: Bud,
   ) => {plugins: Webpack.Configuration['plugins']}
 }
 

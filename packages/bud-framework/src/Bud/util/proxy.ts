@@ -1,10 +1,13 @@
 import {Bud} from '@roots/bud-typings'
 
-export const proxy: Proxy = function (
-  bud: Bud.Contract,
-  proxyTarget: any,
-) {
-  return new Proxy(proxyTarget, {
+/**
+ * Currently unused.
+ *
+ * The ultimate goal is to use this class as
+ * an aspect-oriented programming util.
+ */
+export const proxy: Proxy = function (bud: Bud, target: any) {
+  return new Proxy(target, {
     get(target, prop) {
       const value = target[prop as string]
 
@@ -23,7 +26,4 @@ export const proxy: Proxy = function (
   })
 }
 
-export type Proxy = (
-  bud: Bud.Contract,
-  proxyTarget: any,
-) => Proxy
+export type Proxy = (bud: Bud, target: any) => Proxy

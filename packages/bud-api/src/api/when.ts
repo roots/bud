@@ -8,7 +8,7 @@ export const when: When = function (test, isTrue, isFalse) {
   return this
 }
 
-export type When<T = Framework.Bud.Contract> = (
+export type When<T = Framework.Bud> = (
   test: boolean,
   isTrue: (bud: T) => unknown,
   isFalse: (bud: T) => unknown,

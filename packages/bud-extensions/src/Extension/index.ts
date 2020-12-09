@@ -37,7 +37,7 @@ export class Extension<T = any>
    * Class constructor.
    */
   constructor(
-    bud: Framework.Bud.Bud,
+    bud: Framework.Bud,
     extension: Framework.Extension.Contract,
   ) {
     super({})

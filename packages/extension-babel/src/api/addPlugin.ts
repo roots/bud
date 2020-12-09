@@ -7,7 +7,7 @@ import type Framework from '@roots/bud-typings'
 export const addPlugin = function (
   name: PluginTarget,
   opts?: PluginOptions,
-): Framework.Bud.Contract {
+): Framework.Bud {
   const plugin = [name]
 
   opts && plugin.push(opts)

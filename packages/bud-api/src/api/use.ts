@@ -36,13 +36,10 @@ function ensureIterable(extensions) {
 
 export type ExtensionTuple = [
   string,
-  (
-    | Extension.Contract
-    | ((bud: Bud.Contract) => Extension.Contract)
-  ),
+  Extension.Contract | ((bud: Bud) => Extension.Contract),
 ]
 
-export type Use<T = Bud.Contract> = (
+export type Use<T = Bud> = (
   this: T,
   extensions:
     | string

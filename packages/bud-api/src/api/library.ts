@@ -20,7 +20,4 @@ export const library: Library = function (modules) {
   return this
 }
 
-export type Library<T = Bud.Contract> = (
-  this: T,
-  modules: string[],
-) => T
+export type Library<T = Bud> = (this: T, modules: string[]) => T

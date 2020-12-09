@@ -19,7 +19,7 @@ export const make: Extension.Make<
 export const when: Extension.When = ({features}) =>
   features.enabled('debug')
 
-declare type Options = (bud: Bud.Bud) => PluginOptions
+declare type Options = (bud: Bud) => PluginOptions
 
 export type PluginOptions = {
   outputPath?: string

@@ -1,16 +1,16 @@
-import {
-  Bud as Abstract,
-  Build,
-  Hooks,
-  Logger,
-  MaybeCallable,
-} from '@roots/bud-typings'
+import * as util from './util'
+
+import {Build} from '@roots/bud-build'
+import {Cache} from '@roots/bud-cache'
+import {Compiler} from '@roots/bud-compiler'
+import {Extensions} from '@roots/bud-extensions'
+import {Framework} from './Framework'
+import {Hooks} from '@roots/bud-hooks'
+import {Runner} from '@roots/bud-cli'
+import {Server} from '@roots/bud-server'
 import {FileContainer, FileSystem} from '@roots/filesystem'
 import {Container} from '@roots/container'
 import {Mode} from './Mode'
-import * as util from './util'
-
-export {Bud, Bud as default}
 
 /**
  * # Bud Framework
@@ -22,22 +22,95 @@ export {Bud, Bud as default}
  * [📦 @roots/bud-framework](https://www.npmjs.com/package/@roots/bud-framework)
  * [🔗 Documentation](#)
  */
-class Bud implements Abstract.Core {
+class Bud extends Framework {
   /**
-   * ## bud.registry [🍱 _Container_]
+   * ## bud.args [🍱 _Container_]
    *
-   * Registry for services to be held before initialization.
+   * Collection of the arguments passed to the Framework and their values.
    *
-   * Implementation should be provided by extending class.
+   * [🔗 Documentation on bud.args](#)
+   * [🔗 Documentation on containers](#)
+   *
+   * ### Usage
+   *
+   * #### Flags
+   *
+   * ```sh
+   * $ bud build --html
+   * ```
+   *
+   * ```js
+   * bud.args.has('html') // => true
+   * ```
+   *
+   * #### Values
+   *
+   * ```sh
+   * $ bud build --html dist/index.html
+   * ```
+   *
+   * ```js
+   * bud.args.get('html') // => 'dist/index.html'
+   * ```
+   *
+   * #### Arrayed
+   *
+   * ```sh
+   * $ bud build --bento uni rainbow edamame
+   * # or
+   * $ bud build --bento uni --bento rainbow --bento edamame
+   * ```
+   *
+   * ```js
+   * bud.args.get('bento') // => ['uni', 'rainbow', 'edamame']
+   * ```
    */
-  public registry: Container
+  public args: Framework['args']
 
   /**
-   * ## bud.config  [🍱 _Container_]
+   * ## bud.cache
    *
-   * Implementation should be provided by extending class.
+   * Cache controller class.
+   *
+   * - [🔗 Documentation](#)
    */
-  public config: Container
+  public cache: Framework['cache']
+
+  /**
+   * ## bud.cli
+   *
+   * The CLI interface also exposes methods for displaying
+   * configuration progress, reports and errors.
+   *
+   * - [🔗 Documentation](#)
+   */
+  public cli: Framework['cli']
+
+  /**
+   * ## bud.compiler
+   *
+   * Webpack compilation controller class.
+   *
+   * - [🔗 Documentation](#)
+   */
+  public compiler: Framework['compiler']
+
+  /**
+   * ## bud.config [🍱 _Container_]
+   *
+   * Webpack configuration settings
+   *
+   * [🔗 Documentation on bud.config](#)
+   * [🔗 Documentation on containers](#)
+   */
+  public config: Framework['config']
+
+  /**
+   * ## bud.build
+   *
+   * Webpack configuration builder class. [🔗 Documentation](#)
+   */
+  public build: Framework['build']
 
   /**
    * ## bud.disk
@@ -65,7 +138,52 @@ class Bud implements Abstract.Core {
    * bud.disk.get(`@roots`).get('bud-framework/src/Bud/index.js')
    * ```
    */
-  public disk: FileSystem
+  public disk: Framework['disk']
+
+  /**
+   * ## bud.env [🍱 _Container_]
+   *
+   * Container for definitions founds in the application `.env` file *
+   *
+   * - [🔗 Documentation](#)
+   *
+   * ### Usage
+   * ```js
+   * bud.env.get('APP_NAME')
+   * ```
+   */
+  public env: Framework['env']
+
+  /**
+   * ## bud.features [🍱 _Container_]
+   *
+   * Collection of feature flags each indicating whether or not a
+   * particular feature is enabled or disabled.
+   *
+   * [🔗 Documentation on bud.features](#)
+   * [🔗 Documentation on containers](#)
+   *
+   * ### Usage
+   *
+   * **Get the features store**
+   *
+   * ```js
+   * bud.features.getStore() // returns all the features as a `k => v` obj.
+   * ```
+   *
+   * **Check if a given feature is enabled**
+   *
+   * ```js
+   * bud.features.enabled('minify') // `true` if `minify` flag is on
+   * ```
+   *
+   * **Toggle a feature**
+   *
+   * ```js
+   * bud.features.set('gzip', false) // disable `gzip` feature flag
+   * ```
+   */
+  public features: Container
 
   /**
    * ## bud.fs
@@ -80,20 +198,159 @@ class Bud implements Abstract.Core {
    * bud.fs.has('src/index.js')
    * ```
    */
-  public fs: FileContainer
+  public fs: Framework['fs']
 
-  public build: Build.Contract
+  /**
+   * ## bud.hooks
+   *
+   * Bud provides a system of 'hooks' to expose values
+   * for easier modification.
+   *
+   * - [🔗 Documentation](#)
+   *
+   * ### Usage
+   *
+   * ####  Add a new entry to the `webpack.externals` configuration:
+   *
+   * ```js
+   * bud.hooks.on(
+   *   'webpack.externals',
+   *   externals => ({
+   *     ...externals,
+   *     $: 'jquery',
+   *   }),
+   * )
+   * ```
+   *
+   * #### Change the `webpack.output.filename` format:
+   *
+   * ```js
+   * bud.hooks.on(
+   *   'webpack.output.filename',
+   *   () => '[name].[hash:4]',
+   * )
+   * ```
+   *
+   * #### Replace the regular expression used for CSS modules:
+   *
+   * ```js
+   * bud.hooks.on(
+   *   'webpack.module.rules.oneOf.css.test',
+   *   () => /\.css$/,
+   * )
+   * ```
+   */
+  public hooks: Framework['hooks']
 
-  public hooks: Hooks.Contract
+  /**
+   * ## bud.extensions
+   *
+   * Bud extension controller class.
+   *
+   * - [🔗 Documentation](#)
+   */
+  public extensions: Framework['extensions']
 
-  public mode: Mode
+  /**
+   * ## bud.server
+   *
+   * Express application server used for development.
+   *
+   * - [🔗 Documentation](#)
+   */
+  public server: Framework['server']
+
+  /**
+   * Bud options.
+   */
+  public options: Container
+
+  /**
+   * ## bud.patterns [🍱 _Container_]
+   *
+   * Collection of common RegExp objects. The advantage of using them in
+   * a container object is that they can be easily redefined by extensions.
+   *
+   * - [🔗 Documentation on bud.patterns](#)
+   * - [🔗 Documentation on containers](#)
+   *
+   * ### Usage
+   *
+   * **Get a regular expression matching files with `.js` extension**
+   *
+   * ```js
+   * bud.patterns.get('js')
+   * ```
+   *
+   * **Redefine a regular expression**
+   *
+   * ```js
+   * bud.patterns.set('cssModule', /\.module\.css$/)
+   * ```
+   */
+  public patterns: Container
+
+  /**
+   * ## bud.registry [🍱 _Container_]
+   *
+   * Registry for services to be held before initialization.
+   */
+  public registry: Container
+
+  /**
+   * Mode
+   */
+  public mode: Framework['mode']
 
   /**
    * ## bud.logger
    *
    * [pino](#) logger instance
    */
-  public logger: Logger.Contract = util.logger
+  public logger: Framework['logger'] = util.logger
+
+  /**
+   * Class constructor
+   */
+  public constructor(
+    services: {[key: string]: unknown},
+    api: {[key: string]: unknown},
+  ) {
+    super()
+
+    this.callMeMaybe = this.callMeMaybe.bind(this)
+    this.makeContainer = this.makeContainer.bind(this)
+    this.get = this.get.bind(this)
+
+    Object.entries(api).map(
+      ([name, fn]: [string, CallableFunction]) => {
+        this[name] = fn.bind(this)
+      },
+    )
+
+    this.registry = this.makeContainer(services)
+
+    this.build = new Build(this)
+    this.cache = new Cache(this)
+    this.cli = new Runner(this)
+    this.compiler = new Compiler(this)
+    this.hooks = new Hooks(this)
+    this.server = new Server(this)
+    this.extensions = new Extensions(this)
+  }
+
+  /**
+   * ## bud.get  [🏠 Internal]
+   *
+   * Scope binding for bud.get
+   *
+   * ```js
+   * bud.get()
+   * ```
+   */
+  public get(): this {
+    return this
+  }
 
   /**
    * ## bud.callMeMaybe
@@ -114,34 +371,7 @@ class Bud implements Abstract.Core {
    * // => `option value: true`
    * ```
    */
-  public callMeMaybe: <I = unknown>(
-    value: MaybeCallable<I>,
-    ...args: unknown[]
-  ) => I = util.callMeMaybe
-
-  /**
-   * Class constructor
-   */
-  public constructor(registrables: {[key: string]: unknown}) {
-    this.callMeMaybe = this.callMeMaybe.bind(this)
-    this.makeContainer = this.makeContainer.bind(this)
-    this.get = this.get.bind(this)
-
-    this.registry = this.makeContainer(registrables)
-  }
-
-  /**
-   * ## bud.get  [🏠 Internal]
-   *
-   * Scope binding for bud.get
-   *
-   * ```js
-   * bud.get()
-   * ```
-   */
-  public get(): Abstract.Bud {
-    return this
-  }
+  public callMeMaybe: Framework['callMeMaybe'] = util.callMeMaybe
 
   /**
    * ## bud.makeContainer
@@ -152,7 +382,7 @@ class Bud implements Abstract.Core {
    */
   public makeContainer(repository?: {
     [key: string]: any
-  }): Framework.Container {
+  }): Container {
     return new Container(repository)
   }
 
@@ -184,58 +414,146 @@ class Bud implements Abstract.Core {
   }
 
   /**
+   * ## bud.pipe [💁 Fluent]
+   *
+   * Execute an array of functions. Each will be passed a fresh
+   * copy of the bud object.
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.pipe([
+   *   bud => bud.srcPath('resources'),
+   *   bud => bud.proxy(),
+   * ])
+   * ```
+   */
+  public pipe(fns): this {
+    fns.reduce((_val, fn) => {
+      return fn(this)
+    }, this)
+
+    return this
+  }
+
+  /**
    * ## bud.init [🏠 Internal]
    *
    * Initializes base functions and yields the implementation class
    * if available.
    */
-  public init(this: Framework.Bud.Contract): Abstract.Bud {
+  public init(): this {
     this.mode = new Mode(this)
 
     this.disk = new FileSystem()
 
     this.fs = new FileContainer(process.cwd())
 
-    if (this.disks) {
-      this.disks()
+    this._disks()
 
-      delete this.disks
-    }
+    this._register()
 
-    if (this.register) {
-      this.register()
+    this._boot()
 
-      delete this.register
-    }
+    delete this._disks
+    delete this._register
+    delete this._boot
+    delete this.registry
 
-    if (this.boot) {
-      this.boot()
+    Object.defineProperty(this, 'logger', {
+      enumerable: false,
+    })
 
-      delete this.boot
-    }
+    Object.defineProperty(this.server, 'instance', {
+      enumerable: false,
+    })
 
-    if (this.registry) {
-      delete this.registry
-    }
-
-    this.logger &&
-      Object.defineProperty(this, 'logger', {
-        enumerable: false,
-      })
-
-    this.server.instance &&
-      Object.defineProperty(this.server, 'instance', {
-        enumerable: false,
-      })
-
-    this.fs &&
-      this.fs.fs &&
-      Object.defineProperties(this.fs, {
-        fs: {enumerable: false},
-        glob: {enumerable: false},
-        path: {enumerable: false},
-      })
+    Object.defineProperties(this.fs, {
+      fs: {enumerable: false},
+      glob: {enumerable: false},
+      path: {enumerable: false},
+    })
 
     return this
   }
+
+  protected _register(): this {
+    const containers: [string, any][] = this.registry.getEntries(
+      'containers',
+    )
+
+    containers
+      .filter(
+        ([name]: [string, Container['repository']]) =>
+          name !== 'serverConfig',
+      )
+      .map(([name, repo]: [string, Container['repository']]) => {
+        this[name] = this.makeContainer({...repo})
+      })
+
+    this.register(containers)
+    delete this.register
+
+    return this
+  }
+
+  protected register(containers: [string, any][]): void {
+    // implement in extending class
+  }
+
+  protected _boot(): this {
+    this.args.has('mode')
+      ? this.mode.set(this.args.get('mode'))
+      : this.mode.set('none')
+
+    this.boot()
+    delete this.boot
+
+    return this
+  }
+
+  protected boot(): void {
+    // implement in extending class
+  }
+
+  protected _disks(): void {
+    this.fs.setBase(process.cwd())
+    this.makeDisk('project', this.fs.base)
+    this.makeDisk('@roots', '../../..')
+  }
 }
+
+/**
+ * Framework namespace
+ */
+declare namespace Bud {
+  export type Ref = () => Bud
+
+  export type Format = (obj: unknown, options?) => string
+  export type BuilderDefinition<T = any> = [
+    Framework.Index<T>,
+    BuilderDefinition.Initializer<T>,
+  ]
+
+  export namespace BuilderDefinition {
+    export interface Args<Type> {
+      this: Bud
+      definition: [string, Type]
+    }
+
+    export type Initializer<Type> = (
+      this: Bud,
+      [name, object]: [string, Type],
+    ) => void
+  }
+
+  export type Bootstrap = (initFn: (this: Bud) => void) => Bud
+
+  export type DiskDefinition = {
+    [key: string]: {glob: string[]; baseDir: string}
+  }
+
+  export type Service<T = unknown> = T
+}
+
+export {Bud}

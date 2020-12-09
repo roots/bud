@@ -18,13 +18,13 @@ export declare type UseLoader = (
 ) => Framework.Rule.Contract
 
 export interface Sass {
-  bud: Framework.Bud.Contract
-  methods: Array<[string, (cfg: any) => Framework.Bud.Contract]>
+  bud: Framework.Bud
+  methods: Array<[string, (cfg: any) => Framework.Bud]>
   init: Framework.Fluent<Sass>
-  then: (this: Sass) => Framework.Bud.Contract
+  then: (this: Sass) => Framework.Bud
 }
 
 /**
  * Sass configuration utility constructor.
  */
-export type Factory = (bud: Framework.Bud.Contract) => Sass
+export type Factory = (bud: Framework.Bud) => Sass

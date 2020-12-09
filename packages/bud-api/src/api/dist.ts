@@ -6,7 +6,4 @@ export const dist: Dist = function (path?) {
     : this.config.get('output.path')
 }
 
-export type Dist<T = Bud.Contract> = (
-  this: T,
-  path?: string,
-) => string
+export type Dist<T = Bud> = (this: T, path?: string) => string

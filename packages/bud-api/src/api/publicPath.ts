@@ -10,7 +10,7 @@ export const publicPath: PublicPath = function (publicPath) {
   return this
 }
 
-export type PublicPath<T = Bud.Contract> = (
+export type PublicPath<T = Bud> = (
   this: T,
   publicPath: string,
 ) => T

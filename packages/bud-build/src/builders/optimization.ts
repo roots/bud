@@ -3,9 +3,7 @@ import {Bud, Webpack} from '@roots/bud-typings'
 export type Optimization = Webpack.Configuration['optimization']
 
 export namespace Optimization {
-  export type Build = (
-    this: Bud.Contract,
-  ) => {optimization: Optimization}
+  export type Build = (this: Bud) => {optimization: Optimization}
 }
 
 /**

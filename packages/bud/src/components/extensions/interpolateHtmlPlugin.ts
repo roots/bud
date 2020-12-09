@@ -2,9 +2,7 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import {InterpolateHtmlPlugin} from '@roots/bud-support'
 import {Bud, Extension, Container} from '@roots/bud-typings'
 
-export const options = (
-  bud: Bud.Contract,
-): Container['repository'] => ({
+export const options = (bud: Bud): Container['repository'] => ({
   ...Object.fromEntries(
     bud.env
       .getEntries()

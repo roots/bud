@@ -6,7 +6,7 @@ import type {Bud} from '@roots/bud-typings'
 
 export namespace UseCompilation {
   export interface Hook {
-    (bud: Bud.Bud): Compilation
+    (bud: Bud): Compilation
   }
 
   export interface Compilation {
@@ -16,7 +16,7 @@ export namespace UseCompilation {
   }
 }
 
-const useCompilation: UseCompilation.Hook = (bud: Bud.Bud) => {
+const useCompilation: UseCompilation.Hook = (bud: Bud) => {
   const [applied, setApplied] = useState<boolean>(false)
 
   const [stats, errors, statsHandler] = useStats(

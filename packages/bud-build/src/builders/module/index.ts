@@ -2,7 +2,7 @@ import {Webpack, Bud} from '@roots/bud-typings'
 import {rules} from './rules'
 
 type Cfg = Webpack.Configuration['module']
-type Module = (this: Bud.Contract) => {module: Cfg}
+type Module = (this: Bud) => {module: Cfg}
 
 export const moduleBuilder: Module = function () {
   return {

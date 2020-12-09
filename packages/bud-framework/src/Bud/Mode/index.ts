@@ -1,4 +1,4 @@
-import Framework from '@roots/bud-typings'
+import type {Bud, Mode as IMode} from '@roots/bud-typings'
 import type {Configuration} from 'webpack'
 
 export {Mode, Mode as default}
@@ -10,12 +10,12 @@ export {Mode, Mode as default}
  *
  * [🔗 Documentation on bud.mode](#)
  */
-class Mode implements Framework.Mode.Contract {
-  bud: Framework.Bud.Ref
+class Mode implements IMode.Contract {
+  bud: () => Bud
 
   ci: boolean
 
-  public constructor(bud: Framework.Bud.Bud) {
+  public constructor(bud: Bud) {
     this.bud = bud.get
     this.ci = false
   }
@@ -48,7 +48,7 @@ class Mode implements Framework.Mode.Contract {
    * bud.mode.set('production')
    * ```
    */
-  set(mode: Configuration['mode']): Framework.Bud.Bud {
+  set(mode: Configuration['mode']): Bud {
     this.bud().config.set('mode', mode)
 
     return this.bud()

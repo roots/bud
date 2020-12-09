@@ -8,7 +8,7 @@ export const registerLoaders = {
   [`babel-loader`]: require.resolve('babel-loader'),
 }
 
-export function boot(bud: Bud.Contract): void {
+export function boot(bud: Bud): void {
   make(bud)
 
   bud.build.rules.set('js.use', [

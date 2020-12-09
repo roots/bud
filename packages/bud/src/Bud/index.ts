@@ -1,19 +1,6 @@
-import {Bud as Abstract} from '@roots/bud-typings'
-import {Bud as Core} from '@roots/bud-framework'
-
-import {Build} from '@roots/bud-build'
-import {Cache} from '@roots/bud-cache'
-import {Compiler} from '@roots/bud-compiler'
-import {Extensions} from '@roots/bud-extensions'
-import {Hooks} from '@roots/bud-hooks'
-import {Runner} from '@roots/bud-cli'
-import {Server} from '@roots/bud-server'
-
-import * as api from '@roots/bud-api'
-
+import {Bud as Base, Instance} from '@roots/bud-framework'
+import type * as Api from '@roots/bud-api'
 import type {Brotli, Imagemin} from '../components/extensions'
-
-export type Config<C = Bud> = C | Framework.Bud.Contract
 
 /**
  * ## Bud
@@ -26,7 +13,7 @@ export type Config<C = Bud> = C | Framework.Bud.Contract
  * [📦 @roots/bud](https://github.io/roots/bud)
  * [🔗 Documentation](#)
  */
-export class Bud extends Core implements Abstract.Contract {
+export class Bud extends Base implements Instance {
   /**
    * ## bud.addPlugin  [💁 Fluent]
    *
@@ -44,7 +31,7 @@ export class Bud extends Core implements Abstract.Contract {
    * bud.addPlugin('my-plugin', new myPlugin())
    * ```
    */
-  public addPlugin: api.AddPlugin<Abstract.Bud> = api.addPlugin
+  public addPlugin: Api.AddPlugin
 
   /**
    * ## bud.alias  [💁 Fluent]
@@ -62,7 +49,7 @@ export class Bud extends Core implements Abstract.Contract {
    * })
    * ```
    */
-  public alias: api.Alias<Abstract.Bud> = api.alias
+  public alias: Api.Alias
 
   /**
    * ## bud.buildCache  [💁 Fluent]
@@ -81,8 +68,7 @@ export class Bud extends Core implements Abstract.Contract {
    * bud.buildCache(bud.project('./.build'))
    * ```
    */
-  public buildCache: api.BuildCache<Abstract.Bud> =
-    api.buildCache
+  public buildCache: Api.BuildCache
 
   /**
    * ## bud.brotli  [💁 Fluent]
@@ -155,7 +141,7 @@ export class Bud extends Core implements Abstract.Contract {
    * })
    * ```
    */
-  public copy: api.Copy<Abstract.Bud> = api.copy
+  public copy: Api.Copy
 
   /**
    * ## bud.define  [💁 Fluent]
@@ -189,7 +175,7 @@ export class Bud extends Core implements Abstract.Contract {
    * </html>
    * ```
    */
-  public define: api.Define<Abstract.Bud> = api.define
+  public define: Api.Define
 
   /**
    * ## bud.dev  [💁 Fluent]
@@ -205,7 +191,7 @@ export class Bud extends Core implements Abstract.Contract {
    * })
    * ```
    */
-  public dev: api.Dev<Abstract.Bud> = api.dev
+  public dev: Api.Dev
 
   /**
    * ## bud.devtool  [💁 Fluent]
@@ -221,7 +207,7 @@ export class Bud extends Core implements Abstract.Contract {
    * bud.devtool('inline-cheap-module-source-map')
    * ```
    */
-  public devtool: api.Devtool<Abstract.Bud> = api.devtool
+  public devtool: Api.Devtool
 
   /**
    * ## bud.dist  [💁 Fluent]
@@ -246,7 +232,7 @@ export class Bud extends Core implements Abstract.Contract {
    * bud.dist('scripts/app.js')
    *  ```
    */
-  public dist: api.Dist<Abstract.Bud> = api.dist
+  public dist: Api.Dist
 
   /**
    * ## bud.distPath [💁 Fluent]
@@ -261,7 +247,7 @@ export class Bud extends Core implements Abstract.Contract {
    * bud.distPath('build')
    * ```
    */
-  public distPath: api.DistPath<Abstract.Bud> = api.distPath
+  public distPath: Api.DistPath
 
   /**
    * ## bud.entry  [💁 Fluent]
@@ -285,7 +271,7 @@ export class Bud extends Core implements Abstract.Contract {
    * })
    * ```
    */
-  public entry: api.Entry<Abstract.Bud> = api.entry
+  public entry: Api.Entry
 
   /**
    * ## bud.externals  [💁 Fluent]
@@ -300,7 +286,7 @@ export class Bud extends Core implements Abstract.Contract {
    *   'jQuery': 'window.jquery',
    * })
    */
-  public externals: api.Externals<Abstract.Bud> = api.externals
+  public externals: Api.Externals
 
   /**
    * ## bud.glob  [💁 Fluent]
@@ -326,14 +312,14 @@ export class Bud extends Core implements Abstract.Contract {
    * bud.glob('app', '*.js')
    * ```
    */
-  public glob: api.Glob<Abstract.Bud> = api.glob
+  public glob: Api.Glob
 
   /**
    * ## bud.gzip  [💁 Fluent]
    *
    * Gzip static assets. [🔗 Documentation](#)
    */
-  public gzip: api.Gzip<Abstract.Bud> = api.gzip
+  public gzip: Api.Gzip
 
   /**
    * ## bud.hash  [💁 Fluent]
@@ -346,7 +332,7 @@ export class Bud extends Core implements Abstract.Contract {
    * bud.hash()
    * ```
    */
-  public hash: api.Hash<Abstract.Bud> = api.hash
+  public hash: Api.Hash
 
   /**
    * ## bud.imagemin [💁 Fluent]
@@ -437,7 +423,7 @@ export class Bud extends Core implements Abstract.Contract {
    * bud.library(['react', 'react-dom'])
    * ```
    */
-  public library: api.Library<Abstract.Bud> = api.library
+  public library: Api.Library
 
   /**
    * ## bud.minify  [💁 Fluent]
@@ -450,24 +436,7 @@ export class Bud extends Core implements Abstract.Contract {
    * bud.minify()
    * ```
    */
-  public minify: api.Minify<Abstract.Bud> = api.minify
-
-  /**
-   * ## bud.pipe [💁 Fluent]
-   *
-   * Execute an array of functions. Each will be passed a fresh
-   * copy of the bud object.
-   *
-   * ### Usage
-   *
-   * ```js
-   * bud.pipe([
-   *   bud => bud.srcPath('resources'),
-   *   bud => bud.proxy(),
-   * ])
-   * ```
-   */
-  public pipe: api.Pipe<Abstract.Bud> = api.pipe
+  public minify: Api.Minify
 
   /**
    * ## bud.project  [💁 Fluent]
@@ -488,7 +457,7 @@ export class Bud extends Core implements Abstract.Contract {
    * bud.project('node_modules')
    * ```
    */
-  public project: api.Project<Abstract.Bud> = api.project
+  public project: Api.Project
 
   /**
    * ## bud.projectPath [💁 Fluent]
@@ -503,8 +472,7 @@ export class Bud extends Core implements Abstract.Contract {
    * bud.projectPath('build')
    * ```
    */
-  public projectPath: api.ProjectPath<Abstract.Bud> =
-    api.projectPath
+  public projectPath: Api.ProjectPath
 
   /**
    * ## bud.provide  [💁 Fluent]
@@ -520,7 +488,7 @@ export class Bud extends Core implements Abstract.Contract {
    * })
    * ```
    */
-  public provide: api.Provide<Abstract.Bud> = api.provide
+  public provide: Api.Provide
 
   /**
    * ## bud.proxy  [💁 Fluent]
@@ -542,7 +510,7 @@ export class Bud extends Core implements Abstract.Contract {
    * })
    * ```
    */
-  public proxy: api.Proxy<Abstract.Bud> = api.proxy
+  public proxy: Api.Proxy
 
   /**
    * ## bud.publicPath  [💁 Fluent]
@@ -559,8 +527,7 @@ export class Bud extends Core implements Abstract.Contract {
    * bud.publicPath('/app/themes/sage/dist')
    * ```
    */
-  public publicPath: api.PublicPath<Abstract.Bud> =
-    api.publicPath
+  public publicPath: Api.PublicPath
 
   /**
    * ## bud.run  [💁 Fluent]
@@ -579,7 +546,7 @@ export class Bud extends Core implements Abstract.Contract {
    * bud.run(true)
    * ```
    */
-  public run: api.Run<Abstract.Bud> = api.run
+  public run: Api.Run
 
   /**
    * ## bud.runtime  [💁 Fluent]
@@ -594,7 +561,7 @@ export class Bud extends Core implements Abstract.Contract {
    * bud.runtime()
    * ```
    */
-  public runtime: api.Runtime<Abstract.Bud> = api.runtime
+  public runtime: Api.Runtime
 
   /**
    * ## bud.src  [💁 Fluent]
@@ -612,7 +579,7 @@ export class Bud extends Core implements Abstract.Contract {
    * bud.src('scripts/app.js')
    * ```
    */
-  public src: api.Src<Abstract.Bud> = api.src
+  public src: Api.Src
 
   /**
    * ## bud.srcPath [💁 Fluent]
@@ -627,7 +594,7 @@ export class Bud extends Core implements Abstract.Contract {
    * bud.srcPath('build')
    * ```
    */
-  public srcPath: api.SrcPath<Abstract.Bud> = api.srcPath
+  public srcPath: Api.SrcPath
 
   /**
    * ## bud.string
@@ -641,7 +608,7 @@ export class Bud extends Core implements Abstract.Contract {
    * const stringValue = bud.string(value)
    * ```
    */
-  public string: api.Stringify<Abstract.Bud> = api.string
+  public string: Api.Stringify
 
   /**
    * ## bud.target  [💁 Fluent]
@@ -652,7 +619,7 @@ export class Bud extends Core implements Abstract.Contract {
    * bud.target('web')
    * ```
    */
-  public target: api.Target<Abstract.Bud> = api.target
+  public target: Api.Target
 
   /**
    * ## bud.template  [💁 Fluent]
@@ -672,7 +639,7 @@ export class Bud extends Core implements Abstract.Contract {
    * })
    * ```
    */
-  public template: api.Template<Abstract.Bud> = api.template
+  public template: Api.Template
 
   /**
    * ## bud.terser  [💁 Fluent]
@@ -682,7 +649,7 @@ export class Bud extends Core implements Abstract.Contract {
    * For more information on options [see the
    * terser-webpack-plugin docs](https://webpack.js.org/plugins/terser-webpack-plugin/).
    */
-  public terser: api.Terser<Abstract.Bud> = api.terser
+  public terser: Api.Terser
 
   /**
    * ## bud.use [💁 Fluent]
@@ -696,7 +663,7 @@ export class Bud extends Core implements Abstract.Contract {
    * bud.use(['@roots/bud-babel', '@roots/bud-react'])
    * ```
    */
-  public use: api.Use<Abstract.Bud> = api.use
+  public use: Api.Use
 
   /**
    * ## bud.vendor  [💁 Fluent]
@@ -715,7 +682,7 @@ export class Bud extends Core implements Abstract.Contract {
    * bud.vendor('third-party')
    * ```
    */
-  public vendor: api.Vendor<Config> = api.vendor
+  public vendor: Api.Vendor
 
   /**
    * ## bud.when  [💁 Fluent]
@@ -732,267 +699,16 @@ export class Bud extends Core implements Abstract.Contract {
    * bud.when(bud.mode.is('production'), () => bud.vendor())
    * ```
    */
-  public when: api.When<Config> = api.when
-
-  /**
-   * ## bud.config [🍱 _Container_]
-   *
-   * Webpack configuration settings
-   *
-   * [🔗 Documentation on bud.config](#)
-   * [🔗 Documentation on containers](#)
-   */
-  public config: Framework.Container
-
-  /**
-   * ## bud.args [🍱 _Container_]
-   *
-   * Collection of the arguments passed to the Framework and their values.
-   *
-   * [🔗 Documentation on bud.args](#)
-   * [🔗 Documentation on containers](#)
-   *
-   * ### Usage
-   *
-   * #### Flags
-   *
-   * ```sh
-   * $ bud build --html
-   * ```
-   *
-   * ```js
-   * bud.args.has('html') // => true
-   * ```
-   *
-   * #### Values
-   *
-   * ```sh
-   * $ bud build --html dist/index.html
-   * ```
-   *
-   * ```js
-   * bud.args.get('html') // => 'dist/index.html'
-   * ```
-   *
-   * #### Arrayed
-   *
-   * ```sh
-   * $ bud build --bento uni rainbow edamame
-   * # or
-   * $ bud build --bento uni --bento rainbow --bento edamame
-   * ```
-   *
-   * ```js
-   * bud.args.get('bento') // => ['uni', 'rainbow', 'edamame']
-   * ```
-   */
-  public args: Framework.Container
-
-  /**
-   * ## bud.features [🍱 _Container_]
-   *
-   * Collection of feature flags each indicating whether or not a
-   * particular feature is enabled or disabled.
-   *
-   * [🔗 Documentation on bud.features](#)
-   * [🔗 Documentation on containers](#)
-   *
-   * ### Usage
-   *
-   * **Get the features store**
-   *
-   * ```js
-   * bud.features.getStore() // returns all the features as a `k => v` obj.
-   * ```
-   *
-   * **Check if a given feature is enabled**
-   *
-   * ```js
-   * bud.features.enabled('minify') // `true` if `minify` flag is on
-   * ```
-   *
-   * **Toggle a feature**
-   *
-   * ```js
-   * bud.features.set('gzip', false) // disable `gzip` feature flag
-   * ```
-   */
-  public features: Framework.Container
-
-  /**
-   * ## bud.patterns [🍱 _Container_]
-   *
-   * Collection of common RegExp objects. The advantage of using them in
-   * a container object is that they can be easily redefined by extensions.
-   *
-   * - [🔗 Documentation on bud.patterns](#)
-   * - [🔗 Documentation on containers](#)
-   *
-   * ### Usage
-   *
-   * **Get a regular expression matching files with `.js` extension**
-   *
-   * ```js
-   * bud.patterns.get('js')
-   * ```
-   *
-   * **Redefine a regular expression**
-   *
-   * ```js
-   * bud.patterns.set('cssModule', /\.module\.css$/)
-   * ```
-   */
-  public patterns: Framework.Container
-
-  /**
-   * ## bud.cli
-   *
-   * The CLI interface also exposes methods for displaying
-   * configuration progress, reports and errors.
-   *
-   * - [🔗 Documentation](#)
-   */
-  public cli: Framework.CLI.Runner
-
-  /**
-   * ## bud.build
-   *
-   * Webpack configuration builder class. [🔗 Documentation](#)
-   */
-  public build: Framework.Build.Contract
-
-  /**
-   * ## bud.cache
-   *
-   * Cache controller class.
-   *
-   * - [🔗 Documentation](#)
-   */
-  public cache: Framework.Cache.Contract
-
-  /**
-   * ## bud.env [🍱 _Container_]
-   *
-   * Framework.Container for definitions founds in the application `.env` file *
-   *
-   * - [🔗 Documentation](#)
-   *
-   * ### Usage
-   * ```js
-   * bud.env.get('APP_NAME')
-   * ```
-   */
-  public env: Framework.Env.Contract
-
-  /**
-   * ## bud.hooks
-   *
-   * Bud provides a system of 'hooks' to expose values
-   * for easier modification.
-   *
-   * - [🔗 Documentation](#)
-   *
-   * ### Usage
-   *
-   * ####  Add a new entry to the `webpack.externals` configuration:
-   *
-   * ```js
-   * bud.hooks.on(
-   *   'webpack.externals',
-   *   externals => ({
-   *     ...externals,
-   *     $: 'jquery',
-   *   }),
-   * )
-   * ```
-   *
-   * #### Change the `webpack.output.filename` format:
-   *
-   * ```js
-   * bud.hooks.on(
-   *   'webpack.output.filename',
-   *   () => '[name].[hash:4]',
-   * )
-   * ```
-   *
-   * #### Replace the regular expression used for CSS modules:
-   *
-   * ```js
-   * bud.hooks.on(
-   *   'webpack.module.rules.oneOf.css.test',
-   *   () => /\.css$/,
-   * )
-   * ```
-   */
-  public hooks: Hooks
-
-  /**
-   * ## bud.extensions
-   *
-   * Bud extension controller class.
-   *
-   * - [🔗 Documentation](#)
-   */
-  public extensions: Framework.Extensions.Contract
-
-  /**
-   * ## bud.compiler
-   *
-   * Webpack compilation controller class.
-   *
-   * - [🔗 Documentation](#)
-   */
-  public compiler: Framework.Compiler.Contract
-
-  /**
-   * ## bud.server
-   *
-   * Express application server used for development.
-   *
-   * - [🔗 Documentation](#)
-   */
-  public server: Framework.Server.Contract
+  public when: Api.When
 
   /**
    * Class constructor
    */
-  public constructor(registrable?: {[key: string]: unknown}) {
-    super(registrable)
-
-    Object.keys(api).map(fnName => {
-      this[fnName] = this[fnName].bind(this)
-    })
-
-    this.hooks = new Hooks()
-
-    this.build = new Build(this)
-
-    this.cache = new Cache(this)
-
-    this.cli = new Runner(this)
-
-    this.compiler = new Compiler(this)
-
-    this.server = new Server(this)
-
-    this.extensions = new Extensions(this)
-  }
-
-  /**
-   * ## bud.disks [🏠 Internal]
-   *
-   * Setup FS abstractions.
-   *
-   * @ignore
-   */
-  public disks(): this {
-    this.fs.setBase(process.cwd())
-
-    this.makeDisk('project', this.fs.base)
-
-    this.makeDisk('@roots', '../../..')
-
-    return this
+  public constructor(
+    services?: {[key: string]: unknown},
+    api?: {[key: string]: unknown},
+  ) {
+    super(services, api)
   }
 
   /**
@@ -1002,23 +718,7 @@ export class Bud extends Core implements Abstract.Contract {
    *
    * @ignore
    */
-  public register(): this {
-    const containers = this.registry.getEntries('containers')
-
-    containers
-      .filter(
-        ([name]: [string, Framework.Container['repository']]) =>
-          name !== 'serverConfig',
-      )
-      .map(
-        ([name, repo]: [
-          string,
-          Framework.Container['repository'],
-        ]) => {
-          this[name] = this.makeContainer({...repo})
-        },
-      )
-
+  public register(containers: [string, any][]): void {
     this.server.setConfig(
       containers
         .filter(
@@ -1030,8 +730,6 @@ export class Bud extends Core implements Abstract.Contract {
         .pop()
         .pop(),
     )
-
-    return this
   }
 
   /**
@@ -1042,28 +740,19 @@ export class Bud extends Core implements Abstract.Contract {
    *
    * @ignore
    */
-  public boot(): this {
-    this.args.has('mode')
-      ? this.mode.set(this.args.get('mode'))
-      : this.mode.set('none')
-
+  public boot(): void {
     this.registry
       .each('loaders', (k, v) => {
         this.build.setLoader(k, v)
       })
-
       .each('items', (k, v) => {
         this.build.setItem(k, v)
       })
-
       .each('rules', (k, v) => {
         this.build.setRule(k, v)
       })
-
       .each('extensions', (k, v) => {
         this.extensions.set(k, v)
       })
-
-    return this
   }
 }

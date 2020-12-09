@@ -6,7 +6,7 @@ export interface Contract {
 
   get(): Configuration['mode']
 
-  set(mode: Configuration['mode']): Bud.Bud
+  set(mode: Configuration['mode']): Bud
 
   is(check: Configuration['mode']): boolean
 }

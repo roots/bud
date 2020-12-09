@@ -6,7 +6,7 @@ import type {PluginTarget, PluginOptions} from '@babel/core'
  */
 export const mergePresets = function (
   presets: [PluginTarget, PluginOptions][],
-): Bud.Contract {
+): Bud {
   this.build.items.merge(
     'babel.options.presets',
     presets.map(preset =>

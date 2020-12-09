@@ -10,7 +10,7 @@ export const options: Extension.RawOptions = {
 export const make: Extension.Make<
   Extension.RawOptions,
   HashedModuleIdsPlugin
-> = (opt, {config}: Bud.Bud) =>
+> = (opt, {config}: Bud) =>
   new HashedModuleIdsPlugin({
     ...opt.all(),
     context: config.get('context'),

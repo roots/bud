@@ -6,7 +6,7 @@ export const test: Sass.Conditional = ({patterns}) =>
 export const exclude: Sass.Exclude = ({patterns}) =>
   patterns.get('modules')
 
-export const use: Factory<Rule.Use> = (bud: Bud.Bud) => [
+export const use: Factory<Rule.Use> = (bud: Bud) => [
   bud.mode.is('production')
     ? bud.build.items.get('mini-css')
     : bud.build.items.get('style'),

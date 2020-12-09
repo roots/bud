@@ -5,4 +5,4 @@ export const vendor: Vendor = function () {
   return this
 }
 
-export type Vendor<T = Bud.Contract> = (this: T) => T
+export type Vendor<T = Bud> = (this: T) => T

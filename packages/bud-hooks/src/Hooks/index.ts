@@ -56,7 +56,7 @@ class Hooks implements Framework.Hooks.Contract {
   /**
    * Class constructor
    */
-  public constructor() {
+  public constructor(bud: Framework.Bud) {
     this.store = {}
   }
 

@@ -9,7 +9,4 @@ export const distPath: DistPath = function (segment) {
   return this
 }
 
-export type DistPath<T = Bud.Contract> = (
-  this: T,
-  segment: string,
-) => T
+export type DistPath<T = Bud> = (this: T, segment: string) => T

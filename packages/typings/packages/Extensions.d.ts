@@ -3,7 +3,7 @@ import type {Bud, Extension, Container} from '.'
 export class Contract implements Interface {
   public repository: Container
 
-  public constructor(bud: Bud.Contract)
+  public constructor(bud: Bud)
 
   public make(extensions: Container): void
 

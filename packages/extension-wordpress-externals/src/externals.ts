@@ -1,9 +1,9 @@
 import {Bud, Extension} from '@roots/bud-typings'
 
 export function externals(
-  this: Bud.Bud,
+  this: Bud,
   options: Extension.RawOptions,
-): Bud.Bud {
+): Bud {
   const externals = this.extensions.get(
     '@roots/bud-wordpress-externals',
   )

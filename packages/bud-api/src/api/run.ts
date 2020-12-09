@@ -33,19 +33,16 @@ const ci = {
   /**
    * Production build
    */
-  production: function (this: Bud.Bud) {
+  production: function (this: Bud) {
     this.compiler.run()
   },
 
   /**
    * Development build
    */
-  development: function (this: Bud.Bud) {
+  development: function (this: Bud) {
     this.server.run()
   },
 }
 
-export type Run<T = Bud.Contract> = (
-  this: T,
-  safeMode?: boolean,
-) => void
+export type Run<T = Bud> = (this: T, safeMode?: boolean) => void

@@ -11,7 +11,7 @@ export const options: HtmlWebpackPlugin.Options = ({fs}) => ({
   ),
 })
 
-export const make: Extension.Make = (opts, {config}: Bud.Bud) =>
+export const make: Extension.Make = (opts, {config}: Bud) =>
   new HtmlWebpackPlugin({
     ...opts.all(),
     publicPath: config.get('output.publicPath'),

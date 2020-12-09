@@ -6,15 +6,14 @@ import type {
   Item,
   Loader,
   Webpack,
-  When,
 } from '.'
 
 export interface Contract<T = any> {
   options?: T
 
-  register?: (bud: Bud.Bud) => void
+  register?: (bud: Bud) => void
 
-  boot?: (bud: Bud.Bud) => void
+  boot?: (bud: Bud) => void
 
   api?: Api
 
@@ -61,25 +60,25 @@ export declare class Controller extends Container {
 
 export type Api =
   | {[key: string]: CallableFunction}
-  | ((bud?: Bud.Bud) => {[key: string]: CallableFunction})
+  | ((bud?: Bud) => {[key: string]: CallableFunction})
 
-export type Register = (bud: Bud.Bud) => void
+export type Register = (bud: Bud) => void
 
 export type RegisterOne<T> =
-  | ((bud?: Bud.Bud) => [string, T])
+  | ((bud?: Bud) => [string, T])
   | [string, T]
 
 export type RegisterMany<T> =
-  | ((bud?: Bud.Bud) => {[key: string]: T})
+  | ((bud?: Bud) => {[key: string]: T})
   | {[key: string]: T}
 
-export type RawOptions<T = any> = T | ((bud?: Bud.Bud) => T)
+export type RawOptions<T = any> = T | ((bud?: Bud) => T)
 export type Options<T = any> = Container<T>
 
 export type Make<P = unknown, T = Options> =
-  | ((options: Container<T>, bud?: Bud.Bud) => P)
+  | ((options: Container<T>, bud?: Bud) => P)
   | P
 
-export type {When} from '.'
+export type When = (bud: Bud, opt?: Container) => boolean
 
-export type Boot = (bud: Bud.Bud) => void
+export type Boot = (bud: Bud) => void

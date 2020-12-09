@@ -22,7 +22,7 @@ export type StatsOptions = {
 }
 
 export class Contract implements Interface {
-  public constructor(bud: Bud.Bud)
+  public constructor(bud: Bud)
 
   public compile(): Webpack.Compiler
 

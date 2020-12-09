@@ -25,7 +25,7 @@ export const postPlugin: PostPlugin = function (
  * ```
  */
 export type PostPlugin = (
-  this: Bud.Bud,
+  this: Bud,
   plugin: AcceptedPlugin,
   options?: unknown,
-) => Bud.Bud
+) => Bud

@@ -36,9 +36,7 @@ const fallbackOptions = {
 /**
  * Postcss options
  */
-export const options: Item.Contract['options'] = (
-  bud: Bud.Bud,
-) => {
+export const options: Item.Contract['options'] = (bud: Bud) => {
   const config = bud.fs.has('postcss.config.js')
     ? bud.fs.get('postcss.config.js')
     : null

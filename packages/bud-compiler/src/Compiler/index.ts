@@ -79,7 +79,7 @@ class Compiler implements Framework.Compiler.Contract {
   /**
    * Class constructor
    */
-  constructor(bud: Framework.Bud.Bud) {
+  constructor(bud: Framework.Bud) {
     this.bud = bud.get
 
     this.run = this.run.bind(this)

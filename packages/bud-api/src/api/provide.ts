@@ -13,7 +13,7 @@ export const provide: Provide = function (options) {
   return this
 }
 
-export type Provide<T = Bud.Contract> = (
+export type Provide<T = Bud> = (
   this: T,
   options: {
     [key: string]: string | string[]

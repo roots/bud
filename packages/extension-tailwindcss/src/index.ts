@@ -4,7 +4,7 @@ import {Bud} from '@roots/bud-typings'
 
 export * as api from './api'
 
-export const boot = (bud: Bud.Contract): void => {
+export const boot = (bud: Bud): void => {
   !bud.build.items.get('postcss') &&
     (() => {
       Error(

@@ -14,7 +14,7 @@ export const gzip: Gzip = function (options?) {
   return this
 }
 
-export type Gzip<T = Bud.Contract> = (
+export type Gzip<T = Bud> = (
   this: T,
   options?: Gzip.Options,
 ) => T

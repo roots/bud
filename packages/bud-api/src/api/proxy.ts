@@ -14,7 +14,7 @@ export const proxy: Proxy = function (config) {
   return this
 }
 
-export type Proxy<T = Bud.Contract> = (
+export type Proxy<T = Bud> = (
   this: T,
   config?: {
     enabled?: boolean

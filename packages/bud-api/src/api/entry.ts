@@ -14,7 +14,7 @@ export const entry: Entry = function (bundle, assets) {
   return this
 }
 
-export type Entry<T = Bud.Contract> = (
+export type Entry<T = Bud> = (
   this: T,
   bundleName: string,
   assets:

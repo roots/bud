@@ -23,9 +23,7 @@ export const registerLoader: Extension.RegisterOne<Loader> = [
   require.resolve('sass-loader'),
 ]
 
-export const boot: Extension.Boot = (
-  bud: Bud.Contract,
-): void => {
+export const boot: Extension.Boot = (bud: Bud): void => {
   /**
    * Resolve sass and scss extensions
    */

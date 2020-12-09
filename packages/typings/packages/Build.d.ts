@@ -5,7 +5,6 @@ import {
   Loader,
   Item,
   Rule,
-  Build,
 } from '.'
 
 /**
@@ -22,7 +21,7 @@ export declare class Contract {
 
   public rules: Container
 
-  public constructor(bud: Bud.Contract)
+  public constructor(bud: Bud)
 
   public make(): Webpack.Configuration
 
@@ -52,21 +51,21 @@ export declare class Contract {
   /**
    * Get a rule by key.
    */
-  public getRule(name: string): Framework.Rule.Contract
+  public getRule(name: string): Rule.Contract
 
   /**
    * Add or override a rule by key.
    */
   public setRule(
     name: string,
-    module: Framework.Rule.Module,
-  ): Framework.Rule.Contract
+    module: Rule.Module,
+  ): Rule.Contract
 }
 
 /**
  * Builder
  */
 export type Builder = (
-  this: Bud.Contract,
+  this: Bud,
   config: Container,
 ) => Partial<Webpack.Configuration>

@@ -9,7 +9,4 @@ export const srcPath: SrcPath = function (segment) {
   return this
 }
 
-export type SrcPath<T = Bud.Contract> = (
-  this: T,
-  segment: string,
-) => T
+export type SrcPath<T = Bud> = (this: T, segment: string) => T

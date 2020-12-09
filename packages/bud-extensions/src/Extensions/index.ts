@@ -28,7 +28,7 @@ class Extensions implements Framework.Extensions.Contract {
   /**
    * Class constructor.
    */
-  public constructor(bud: Framework.Bud.Contract) {
+  public constructor(bud: Framework.Bud) {
     this.bud = bud.get
 
     this.make = this.make.bind(this)

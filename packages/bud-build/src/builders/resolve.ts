@@ -2,7 +2,7 @@ import {Bud, Build, Webpack} from '@roots/bud-typings'
 
 type Resolve = Webpack.Configuration['resolve']
 
-type Build = (this: Bud.Contract) => {resolve: Resolve}
+type Build = (this: Bud) => {resolve: Resolve}
 
 export const resolve: Build = function () {
   return {

@@ -111,7 +111,7 @@ export class FileContainer {
     this.repository = files.reduce(
       (acc: FileContainer['repository'], curr: any) => ({
         ...acc,
-        [curr.replace(`${this.base}/`, '')]: curr,
+        [curr.replace(`${this.base}`, '')]: curr,
       }),
       {},
     )

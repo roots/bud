@@ -40,7 +40,7 @@ class Server implements Framework.Server.Contract {
   /**
    * Constructor
    */
-  public constructor(bud: Framework.Bud.Contract) {
+  public constructor(bud: Framework.Bud) {
     this.bud = bud.get
 
     this.instance = express()

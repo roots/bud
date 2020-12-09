@@ -18,7 +18,7 @@ import {Git} from '../components/Git'
 
 declare namespace Reporter {
   export type Props = {
-    bud: Bud.Bud
+    bud: Bud
     stats: UseStats.Stats
     progress: UseProgress.Progress
     errors?: string[]

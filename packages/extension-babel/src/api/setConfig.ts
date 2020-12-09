@@ -4,7 +4,7 @@ import {TransformOptions} from '@babel/core'
 /**
  * Set babel transformOptions
  */
-export function setConfig(opts: TransformOptions): Bud.Contract {
+export function setConfig(opts: TransformOptions): Bud {
   this.build.items.set('babel.options', opts)
 
   return this

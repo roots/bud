@@ -9,7 +9,7 @@ export const options: Extension.RawOptions<ManifestPlugin.Options> = {
 export const make: Extension.Make<
   ManifestPlugin,
   ManifestPlugin.Options
-> = (options: ManifestPlugin.Options, {config}: Bud.Bud) =>
+> = (options: ManifestPlugin.Options, {config}: Bud) =>
   new ManifestPlugin({
     ...options.all(),
     publicPath: config.get('output.publicPath'),

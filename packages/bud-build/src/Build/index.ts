@@ -57,7 +57,7 @@ export class Build implements Framework.Build.Contract {
   /**
    * Constructor
    */
-  public constructor(bud: Framework.Bud.Contract) {
+  public constructor(bud: Framework.Bud) {
     this.bud = bud.get
 
     this.loaders = bud.makeContainer()
@@ -76,9 +76,7 @@ export class Build implements Framework.Build.Contract {
         config,
         [, builder]: [
           string,
-          (
-            this: Framework.Bud.Contract,
-          ) => Partial<Configuration>,
+          (this: Framework.Bud) => Partial<Configuration>,
         ],
       ) => ({
         ...config,

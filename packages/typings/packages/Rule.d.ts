@@ -101,7 +101,7 @@ export class Contract {
   /**
    * Class constructor
    */
-  constructor(bud: Bud.Contract, rule: Generic)
+  constructor(bud: Bud, rule: Generic)
 
   /**
    * Rule as iterable tuples.

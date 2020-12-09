@@ -13,7 +13,4 @@ export const buildCache: BuildCache = function (path?) {
   return this
 }
 
-export type BuildCache<T = Bud.Contract> = (
-  this: T,
-  path?: string,
-) => T
+export type BuildCache<T = Bud> = (this: T, path?: string) => T

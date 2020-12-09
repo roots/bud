@@ -48,23 +48,20 @@ export type When = Extension.When
 /**
  * Configuration API.
  */
-export declare type Config = (
-  this: Bud.Bud,
-  enabled: boolean,
-) => Bud.Bud
+export declare type Config = (this: Bud, enabled: boolean) => Bud
 
 export declare type ConfigOption = (
-  this: Bud.Bud,
+  this: Bud,
   key: string,
   value: any,
-) => Bud.Bud
+) => Bud
 
 export declare type ConfigOptions = (
-  this: Bud.Bud,
+  this: Bud,
   options?: Options.MinimizerOptions,
-) => Bud.Bud
+) => Bud
 
 export declare type ConfigPlugins = (
-  this: Bud.Bud,
+  this: Bud,
   plugins?: Options.Plugins,
-) => Bud.Bud
+) => Bud

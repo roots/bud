@@ -11,7 +11,7 @@ import type {Bud} from '@roots/bud-typings'
  */
 export class Runner {
   /** Bud reference */
-  public bud: Bud.Bud
+  public bud: Bud
 
   /**
    * ## bud.cli.instance
@@ -23,7 +23,7 @@ export class Runner {
   /**
    * Class constructor.
    */
-  constructor(bud: Bud.Bud) {
+  constructor(bud: Bud) {
     this.bud = bud
     this.run = this.run.bind(this)
   }

@@ -1,9 +1,9 @@
 import {Bud, Extension} from '@roots/bud-typings'
 
 export function entrypoints(
-  this: Bud.Bud,
+  this: Bud,
   options: Extension.RawOptions,
-): Bud.Bud {
+): Bud {
   const entrypoints = this.extensions.get(
     '@roots/bud-entrypoints',
   )
