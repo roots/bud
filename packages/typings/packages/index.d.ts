@@ -5,53 +5,50 @@ export as namespace Framework
  */
 export * from './utility'
 
-/**
- * External types.
- */
-import type Dotenv from 'dotenv'
-export type {Dotenv}
-
-import type Webpack from 'webpack'
-export type {Webpack}
+import Webpack from 'webpack'
+export {Webpack}
 
 import * as Express from 'express'
-export type {Express}
+export {Express}
 
 /**
- * Bud
+ * @roots/bud
  */
 export {Bud, Instance} from '../../bud-framework/src'
 
 /**
- * Build
+ * @roots/bud-build
  */
 export {Build} from '../../bud-build/src/typings'
 
 /**
- * Cache
+ * @roots/bud-cache
  */
-export {Cache} from './Cache'
+export {Cache} from '../../bud-cache/src/typings'
 
 /**
- * CLI
+ * @roots/bud-cli
  */
 export * as CLI from './CLI'
 
 /**
- * Compiler
+ * @roots/bud-compiler
  */
-export {Compiler} from './Compiler'
+export {Compiler} from '../../bud-compiler/src/typings'
 
 /**
- * Container
+ * @roots/container
  */
-export type {Container} from '../../container/src'
+export {Container} from '../../container/src'
 
+/**
+ * @roots/dependencies
+ */
 export * as Dependencies from '../../dependencies/src'
 
-export type {FileContainer} from '../../filesystem/src/FileContainer'
+export {FileContainer} from '../../filesystem/src/FileContainer'
 
-export type {FileSystem} from '../../filesystem/src/FileSystem'
+export {FileSystem} from '../../filesystem/src/FileSystem'
 
 export * as Item from './Item'
 

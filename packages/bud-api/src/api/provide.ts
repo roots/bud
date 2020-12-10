@@ -8,7 +8,7 @@ export const provide: Provide = function (options) {
     _.isString(alias)
       ? plugin.set(alias as string, module)
       : (alias as string[]).map(alias =>
-          plugin.set(alias, module)
+          plugin.set(alias, module),
         )
   })
 

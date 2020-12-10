@@ -1,6 +1,9 @@
-import type {Bud, Webpack} from '.'
+import type {Bud, Webpack} from '@roots/bud-typings'
 import type {Instance} from 'ink'
 
+/**
+ * Compiler
+ */
 declare class Compiler {
   public constructor(bud: Bud)
 
@@ -14,13 +17,13 @@ declare class Compiler {
 
   public set instance(compiler: Webpack.Compiler)
 
-  public get stats(): Compiler.Stats
+  public get stats(): Compiler.Stats.Output
 
-  public set stats(stats: Compiler.Stats)
+  public set stats(stats: Compiler.Stats.Output)
 
-  public get statsOptions(): Compiler.StatsOptions
+  public get statsOptions(): Compiler.Stats.Options
 
-  public set statsOptions(options: Compiler.StatsOptions)
+  public set statsOptions(options: Compiler.Stats.Options)
 
   public get error(): Instance
 
@@ -33,6 +36,9 @@ declare class Compiler {
   public applyPlugins(handler: Compiler.ProgressHandler): void
 }
 
+/**
+ * Compiler namespace
+ */
 declare namespace Compiler {
   /**
    * Compilation callback.
@@ -45,19 +51,24 @@ declare namespace Compiler {
   export type ProgressHandler = Webpack.ProgressPlugin.Handler
 
   /**
-   * Compiler stats.
+   * Compilation stats
    */
-  export type Stats = {
-    string: string
-    json: Webpack.Stats.ToJsonOutput
-  }
+  export namespace Stats {
+    /**
+     * Compilation stats options
+     */
+    export type Options = {
+      json: Webpack.Stats.ToJsonOptions
+      string: Webpack.Stats.ToStringOptions
+    }
 
-  /**
-   * Compiler stats options.
-   */
-  export type StatsOptions = {
-    string: Webpack.Stats.ToStringOptions
-    json: Webpack.Stats.ToJsonOptions
+    /**
+     * Compilation stats output
+     */
+    export type Output = {
+      string: string
+      json: Webpack.Stats.ToJsonOutput
+    }
   }
 }
 

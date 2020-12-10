@@ -1,4 +1,5 @@
-import {Bud, Cache as AbstractCache} from '@roots/bud-typings'
+import {Bud} from '@roots/bud-typings'
+import type {Cache as ICache} from './typings'
 
 /**
  * ## bud.cache [🏠 Internal]
@@ -10,7 +11,7 @@ import {Bud, Cache as AbstractCache} from '@roots/bud-typings'
  * [📦 @roots/bud-cache](#)
  * [🔗 Documentation](#)
  */
-export class Cache implements AbstractCache {
+export class Cache implements ICache {
   /**
    * Class constructor.
    */
