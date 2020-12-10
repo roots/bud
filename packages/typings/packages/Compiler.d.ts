@@ -1,27 +1,7 @@
 import type {Bud, Webpack} from '.'
 import type {Instance} from 'ink'
 
-/**
- * Compilation callback.
- */
-export type Handler = Webpack.Compiler.Handler
-
-/**
- * ProgressPlugin callback.
- */
-export type ProgressHandler = Webpack.ProgressPlugin.Handler
-
-export type Stats = {
-  string: string
-  json: Webpack.Stats.ToJsonOutput
-}
-
-export type StatsOptions = {
-  string: Webpack.Stats.ToStringOptions
-  json: Webpack.Stats.ToJsonOptions
-}
-
-export class Contract implements Interface {
+declare class Compiler {
   public constructor(bud: Bud)
 
   public compile(): Webpack.Compiler
@@ -34,13 +14,13 @@ export class Contract implements Interface {
 
   public set instance(compiler: Webpack.Compiler)
 
-  public get stats(): Stats
+  public get stats(): Compiler.Stats
 
-  public set stats(stats: Stats)
+  public set stats(stats: Compiler.Stats)
 
-  public get statsOptions(): StatsOptions
+  public get statsOptions(): Compiler.StatsOptions
 
-  public set statsOptions(options: StatsOptions)
+  public set statsOptions(options: Compiler.StatsOptions)
 
   public get error(): Instance
 
@@ -50,27 +30,35 @@ export class Contract implements Interface {
 
   public makeError(err: string): void
 
-  public applyPlugins(handler: ProgressHandler): void
+  public applyPlugins(handler: Compiler.ProgressHandler): void
 }
 
-export interface Interface {
-  compile(): Webpack.Compiler
+declare namespace Compiler {
+  /**
+   * Compilation callback.
+   */
+  export type Handler = Webpack.Compiler.Handler
 
-  get(): Webpack.Compiler
+  /**
+   * ProgressPlugin callback.
+   */
+  export type ProgressHandler = Webpack.ProgressPlugin.Handler
 
-  set(compiler: Webpack.Compiler): void
+  /**
+   * Compiler stats.
+   */
+  export type Stats = {
+    string: string
+    json: Webpack.Stats.ToJsonOutput
+  }
 
-  instance: Webpack.Compiler
-
-  stats: Stats
-
-  statsOptions: StatsOptions
-
-  error: Instance
-
-  run(): void
-
-  makeError(err: string): void
-
-  applyPlugins(handler: ProgressHandler): void
+  /**
+   * Compiler stats options.
+   */
+  export type StatsOptions = {
+    string: Webpack.Stats.ToStringOptions
+    json: Webpack.Stats.ToJsonOptions
+  }
 }
+
+export {Compiler}

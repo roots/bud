@@ -5,15 +5,12 @@ import {
   Loader,
   Item,
   Rule,
-} from '.'
+} from '@roots/bud-typings'
 
-/**
- * Build produces the final webpack configuration object.
- */
-export declare class Contract {
+declare class Build {
   public bud: Bud.Ref
 
-  public builders: Partial<Builder>
+  public builders: Partial<Build.Builder>
 
   public loaders: Container
 
@@ -62,10 +59,14 @@ export declare class Contract {
   ): Rule.Contract
 }
 
-/**
- * Builder
- */
-export type Builder = (
-  this: Bud,
-  config: Container,
-) => Partial<Webpack.Configuration>
+declare namespace Build {
+  /**
+   * Builder
+   */
+  export type Builder = (
+    this: Bud,
+    config: Container,
+  ) => Partial<Webpack.Configuration>
+}
+
+export {Build}

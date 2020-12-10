@@ -1,15 +1,14 @@
 import type {
   Bud,
   Container,
-  Index,
   Rule,
+  Index,
   Item,
   Loader,
-  Webpack,
 } from '.'
 
 export interface Contract<T = any> {
-  options?: T
+  options?: Index<any>
 
   register?: (bud: Bud) => void
 
@@ -34,29 +33,7 @@ export interface Contract<T = any> {
   when?: When
 }
 
-export declare class Controller extends Container {
-  bud: Bud.Ref
-
-  module?: Contract
-
-  initialize?: () => Contract
-
-  callMeMaybe?: (value: unknown, args: unknown[]) => unknown
-
-  fromProp?: (prop: string, dep?: any) => [string, unknown]
-
-  hasModuleProp?: (name: string) => boolean
-
-  setApi?: () => void
-
-  makePlugin?: () => Webpack.Plugin
-
-  setOptions?: (options: Index<any>) => void
-
-  getOptions?: () => Container
-
-  setBuilders?: (builders: [string, CallableFunction][]) => void
-}
+export type {Extension as Controller} from '../../bud-extensions/src/Extension'
 
 export type Api =
   | {[key: string]: CallableFunction}

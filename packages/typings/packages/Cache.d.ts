@@ -1,7 +1,4 @@
-import {Bud} from '.'
-
-export interface Contract {
+export interface Cache {
   setCache(): void
-
   enabled(): boolean
 }

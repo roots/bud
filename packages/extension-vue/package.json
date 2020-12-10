@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-vue",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "Adds Vue support to Bud",
   "repository": {
     "type": "git",
@@ -18,30 +18,42 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": [
-    "bud-extension"
-  ],
+  "keywords": ["webpack", "bud"],
   "engines": {
     "node": ">=12"
   },
   "files": [
-    "lib",
-    "src"
+    "lib/",
+    "types/",
+    "src/"
   ],
-  "main": "./lib/index.js",
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "exports": {
+    "require": "./lib/cjs/index.js",
+    "import": "./lib/esm/index-esm.js"
+  },
   "types": "./types/index.d.ts",
   "scripts": {
-    "build": "tsc --build",
+    "build": "run-s build:*",
+    "build:cjm": "tsc --build tsconfig.json",
+    "build:ejm": "tsc --build tsconfig-ejs.json",
+    "lint": "run-s lint:*",
+    "lint:eslint": "eslint 'src/**/*.{js,ts,tsx}' --fix",
+    "lint:prettier": "prettier 'src/**/*'  --write",
+    "clean": "run-s clean:*",
     "clean:lib": "rimraf ./lib",
     "clean:modules": "rimraf ./node_modules",
-    "tsc": "tsc -b tsconfig.json",
-    "lint": "eslint ."
+    "pkg": "run-s pkg:*",
+    "pkg:check": "package-check --verbose",
+    "pkg:format": "prettier './lib/**/*.{js,ts}' --write",
+    "prepublish": "clean:lib lint build pkg"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^2.0.6"
+    "@roots/bud-typings": "^2.0.7"
   },
   "dependencies": {
-    "@roots/bud-support": "^2.0.6",
+    "@roots/bud-support": "^2.0.7",
     "babel-helper-vue-jsx-merge-props": "^2.0.0",
     "babel-plugin-transform-vue-jsx": "^3.7.0",
     "css-loader": "^3.6.0",

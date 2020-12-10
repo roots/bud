@@ -14,6 +14,8 @@ import type {Brotli, Imagemin} from '../components/extensions'
  * [🔗 Documentation](#)
  */
 export class Bud extends Base implements Instance {
+  [key: string]: any
+
   /**
    * ## bud.addPlugin  [💁 Fluent]
    *
@@ -702,21 +704,21 @@ export class Bud extends Base implements Instance {
   public when: Api.When
 
   /**
-   * Class constructor
+   * Class constructor.
    */
-  public constructor(
-    services?: {[key: string]: unknown},
-    api?: {[key: string]: unknown},
-  ) {
-    super(services, api)
+  public constructor(implementations: {
+    api: {[key: string]: CallableFunction}
+    components: {[key: string]: unknown}
+    presets: {[key: string]: unknown}
+    services: {[key: string]: unknown}
+  }) {
+    super(implementations)
   }
 
   /**
    * ## bud.register [🏠 Internal]
    *
    * Register framework components.
-   *
-   * @ignore
    */
   public register(containers: [string, any][]): void {
     this.server.setConfig(
@@ -737,20 +739,21 @@ export class Bud extends Base implements Instance {
    *
    * Register parts of the application that
    * might rely on having container access (dynamic)
-   *
-   * @ignore
    */
   public boot(): void {
-    this.registry
+    this.components
       .each('loaders', (k, v) => {
         this.build.setLoader(k, v)
       })
+
       .each('items', (k, v) => {
         this.build.setItem(k, v)
       })
+
       .each('rules', (k, v) => {
         this.build.setRule(k, v)
       })
+
       .each('extensions', (k, v) => {
         this.extensions.set(k, v)
       })

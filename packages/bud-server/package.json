@@ -19,26 +19,42 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
+  "keywords": ["webpack"],
   "engines": {
     "node": ">=12"
   },
   "files": [
-    "lib",
-    "src"
+    "lib/",
+    "types/",
+    "src/"
   ],
-  "main": "./lib/index.js",
-  "types": "./lib/types/index.d.ts",
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    "require": "./lib/cjs/index.js",
+    "import": "./lib/esm/index-esm.js"
+  },
   "scripts": {
-    "build": "tsc --build",
+    "build": "run-s build:*",
+    "build:cjm": "tsc --build tsconfig.json",
+    "build:ejm": "tsc --build tsconfig-ejs.json",
+    "lint": "run-s lint:*",
+    "lint:eslint": "eslint 'src/**/*.{js,ts,tsx}' --fix",
+    "lint:prettier": "prettier 'src/**/*'  --write",
+    "clean": "run-s clean:*",
     "clean:lib": "rimraf ./lib",
     "clean:modules": "rimraf ./node_modules",
-    "lint": "eslint ."
+    "pkg": "run-s pkg:*",
+    "pkg:check": "package-check --verbose",
+    "pkg:format": "prettier './lib/**/*.{js,ts}' --write",
+    "prepublish": "clean:lib lint build pkg"
   },
   "dependencies": {
     "@roots/bud-compiler": "^2.0.7",
-    "@roots/bud-support": "^2.0.6",
-    "@roots/container": "^2.0.6",
-    "@roots/filesystem": "^2.0.6",
+    "@roots/bud-support": "^2.0.7",
+    "@roots/container": "^2.0.7",
+    "@roots/filesystem": "^2.0.7",
     "express": "^4.17.1",
     "http-proxy-middleware": "^1.0.5",
     "strip-ansi": "^6.0.0",
@@ -49,7 +65,7 @@
     "zlib": "^1.0.5"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^2.0.6",
+    "@roots/bud-typings": "^2.0.7",
     "@types/webpack-hot-middleware": "^2.25.3"
   }
 }

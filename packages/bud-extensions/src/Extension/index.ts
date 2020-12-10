@@ -1,4 +1,7 @@
-import Framework from '@roots/bud-typings'
+import type {
+  Bud,
+  Extension as IExtension,
+} from '@roots/bud-typings'
 import {Container} from '@roots/container'
 import {isArray, isFunction} from 'lodash'
 
@@ -12,13 +15,11 @@ import {isArray, isFunction} from 'lodash'
  * [📦 @roots/bud-extensions](https://github.io/roots/bud-extensions)
  * [🔗 Documentation](#)
  */
-export class Extension<T = any>
-  extends Container
-  implements Framework.Extension.Controller {
+export class Extension extends Container {
   /**
    * Bud reference
    */
-  public bud: Framework.Bud.Ref
+  public bud: Bud.Ref
 
   /**
    * Flag tracking if the controlled extension has
@@ -29,17 +30,17 @@ export class Extension<T = any>
   /**
    * The controlled extension
    */
-  public module: Framework.Extension.Contract
+  public module: IExtension.Contract
 
+  /**
+   * Builders.
+   */
   public builders: [string, CallableFunction][]
 
   /**
    * Class constructor.
    */
-  constructor(
-    bud: Framework.Bud,
-    extension: Framework.Extension.Contract,
-  ) {
+  constructor(bud: Bud, extension: IExtension.Contract) {
     super({})
 
     this.bud = bud.get
@@ -67,7 +68,7 @@ export class Extension<T = any>
   /**
    * Initialize extension.
    */
-  public initialize = function (): Framework.Extension.Contract {
+  public initialize = function (): IExtension.Contract {
     this.module.register && this.register()
 
     this.module.options && this.setOptions(this.module.options)
@@ -148,7 +149,7 @@ export class Extension<T = any>
    * ```
    */
   public setOptions = function (
-    options: Framework.Index<T>,
+    options: Framework.Index<any>,
   ): void {
     this.setStore(this.callMeMaybe(options, this.bud()))
   }
@@ -162,7 +163,7 @@ export class Extension<T = any>
    * bud.extensions.get('my-extension').getOptions()
    * ```
    */
-  public getOptions = function (): Framework.Container {
+  public getOptions = function (): Container {
     return this.repository
   }
 

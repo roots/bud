@@ -1,16 +1,8 @@
-import * as util from './util'
-
-import {Build} from '@roots/bud-build'
-import {Cache} from '@roots/bud-cache'
-import {Compiler} from '@roots/bud-compiler'
-import {Extensions} from '@roots/bud-extensions'
-import {Framework} from './Framework'
-import {Hooks} from '@roots/bud-hooks'
-import {Runner} from '@roots/bud-cli'
-import {Server} from '@roots/bud-server'
-import {FileContainer, FileSystem} from '@roots/filesystem'
 import {Container} from '@roots/container'
+import {FileContainer, FileSystem} from '@roots/filesystem'
+import * as util from './util'
 import {Mode} from './Mode'
+import {Framework} from './Framework'
 
 /**
  * # Bud Framework
@@ -23,6 +15,8 @@ import {Mode} from './Mode'
  * [🔗 Documentation](#)
  */
 class Bud extends Framework {
+  [key: string]: any
+
   /**
    * ## bud.args [🍱 _Container_]
    *
@@ -155,6 +149,15 @@ class Bud extends Framework {
   public env: Framework['env']
 
   /**
+   * ## bud.extensions
+   *
+   * Bud extension controller class.
+   *
+   * - [🔗 Documentation](#)
+   */
+  public extensions: Framework['extensions']
+
+  /**
    * ## bud.features [🍱 _Container_]
    *
    * Collection of feature flags each indicating whether or not a
@@ -243,13 +246,16 @@ class Bud extends Framework {
   public hooks: Framework['hooks']
 
   /**
-   * ## bud.extensions
+   * ## bud.logger
    *
-   * Bud extension controller class.
-   *
-   * - [🔗 Documentation](#)
+   * [pino](#) logger instance
    */
-  public extensions: Framework['extensions']
+  public logger: Framework['logger'] = util.logger
+
+  /**
+   * Mode
+   */
+  public mode: Framework['mode']
 
   /**
    * ## bud.server
@@ -290,53 +296,35 @@ class Bud extends Framework {
    */
   public patterns: Container
 
+  public presets: Container
+
   /**
-   * ## bud.registry [🍱 _Container_]
+   * ## bud.components [🍱 _Container_]
    *
    * Registry for services to be held before initialization.
    */
-  public registry: Container
-
-  /**
-   * Mode
-   */
-  public mode: Framework['mode']
-
-  /**
-   * ## bud.logger
-   *
-   * [pino](#) logger instance
-   */
-  public logger: Framework['logger'] = util.logger
+  public api: Container
+  public components: Container
+  public services: Container
 
   /**
    * Class constructor
    */
-  public constructor(
-    services: {[key: string]: unknown},
-    api: {[key: string]: unknown},
-  ) {
+  public constructor(implementations: {
+    api: {[key: string]: CallableFunction}
+    components: {[key: string]: unknown}
+    presets: {[key: string]: unknown}
+    services: {[key: string]: unknown}
+  }) {
     super()
 
+    this.get = this.get.bind(this)
     this.callMeMaybe = this.callMeMaybe.bind(this)
     this.makeContainer = this.makeContainer.bind(this)
-    this.get = this.get.bind(this)
 
-    Object.entries(api).map(
-      ([name, fn]: [string, CallableFunction]) => {
-        this[name] = fn.bind(this)
-      },
-    )
-
-    this.registry = this.makeContainer(services)
-
-    this.build = new Build(this)
-    this.cache = new Cache(this)
-    this.cli = new Runner(this)
-    this.compiler = new Compiler(this)
-    this.hooks = new Hooks(this)
-    this.server = new Server(this)
-    this.extensions = new Extensions(this)
+    Object.entries(implementations).forEach(([name, set]) => {
+      this[name] = this.makeContainer(set)
+    })
   }
 
   /**
@@ -445,20 +433,24 @@ class Bud extends Framework {
   public init(): this {
     this.mode = new Mode(this)
 
-    this.disk = new FileSystem()
+    this.api.every((name, fn) => {
+      this[name] = fn.bind(this)
+    })
 
+    this.components.every((name, component) => {
+      this[name] = component
+    })
+
+    this.services.every((name, Service) => {
+      this[name] = new Service(this)
+    })
+
+    this.disk = new FileSystem()
     this.fs = new FileContainer(process.cwd())
 
     this._disks()
-
     this._register()
-
     this._boot()
-
-    delete this._disks
-    delete this._register
-    delete this._boot
-    delete this.registry
 
     Object.defineProperty(this, 'logger', {
       enumerable: false,
@@ -474,25 +466,31 @@ class Bud extends Framework {
       path: {enumerable: false},
     })
 
+    delete this._disks
+    delete this._register
+    delete this._boot
+    delete this.boot
+    delete this.register
+    delete this.components
+
     return this
   }
 
   protected _register(): this {
-    const containers: [string, any][] = this.registry.getEntries(
-      'containers',
-    )
+    const containers = this.components.getEntries('containers')
 
     containers
       .filter(
         ([name]: [string, Container['repository']]) =>
           name !== 'serverConfig',
       )
-      .map(([name, repo]: [string, Container['repository']]) => {
-        this[name] = this.makeContainer({...repo})
-      })
+      .forEach(
+        ([name, repo]: [string, Container['repository']]) => {
+          this[name] = this.makeContainer({...repo})
+        },
+      )
 
     this.register(containers)
-    delete this.register
 
     return this
   }
@@ -507,7 +505,6 @@ class Bud extends Framework {
       : this.mode.set('none')
 
     this.boot()
-    delete this.boot
 
     return this
   }
@@ -531,7 +528,7 @@ declare namespace Bud {
 
   export type Format = (obj: unknown, options?) => string
   export type BuilderDefinition<T = any> = [
-    Framework.Index<T>,
+    {[key: string]: T},
     BuilderDefinition.Initializer<T>,
   ]
 

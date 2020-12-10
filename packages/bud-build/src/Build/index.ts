@@ -1,4 +1,11 @@
-import type Framework from '@roots/bud-typings'
+import type {
+  Bud,
+  Container,
+  Loader,
+  Item as ItemDefinition,
+  Rule as RuleDefinition,
+} from '@roots/bud-typings'
+import {Build as IBuild} from '../typings'
 import * as builders from '../builders'
 import {Item} from '../Item'
 import {Rule} from '../Rule'
@@ -15,9 +22,9 @@ export type Configuration = Framework.Webpack.Configuration
  * [📦 @roots/bud-server](https://www.npmjs.com/package/@roots/bud-build)
  * [🔗 Documentation](#)
  */
-export class Build implements Framework.Build.Contract {
+export class Build implements IBuild {
   /** Bud reference [🏠 Internal] */
-  public bud: Framework.Bud.Ref
+  public bud: Bud.Ref
 
   /**
    * ## bud.build.builders [🏠 Internal]
@@ -25,7 +32,7 @@ export class Build implements Framework.Build.Contract {
    * Collection of functions processing loaders, items and rules
    * into a finalized webpack configuration.
    */
-  public builders: Partial<Framework.Build.Builder> = builders
+  public builders: Partial<IBuild.Builder> = builders
 
   /**
    * ## bud.build.loaders
@@ -34,7 +41,7 @@ export class Build implements Framework.Build.Contract {
    *
    * @see {webpack.Loader}
    */
-  public loaders: Framework.Container
+  public loaders: Container
 
   /**
    * ## bud.build.items
@@ -43,7 +50,7 @@ export class Build implements Framework.Build.Contract {
    *
    * @see {webpack.Configuration}
    */
-  public items: Framework.Container
+  public items: Container
 
   /**
    * ## bud.build.rules
@@ -52,12 +59,12 @@ export class Build implements Framework.Build.Contract {
    *
    * @see {webpack.Configuration}
    */
-  public rules: Framework.Container
+  public rules: Container
 
   /**
    * Constructor
    */
-  public constructor(bud: Framework.Bud) {
+  public constructor(bud: Bud) {
     this.bud = bud.get
 
     this.loaders = bud.makeContainer()
@@ -76,7 +83,7 @@ export class Build implements Framework.Build.Contract {
         config,
         [, builder]: [
           string,
-          (this: Framework.Bud) => Partial<Configuration>,
+          (this: Bud) => Partial<Configuration>,
         ],
       ) => ({
         ...config,
@@ -106,7 +113,7 @@ export class Build implements Framework.Build.Contract {
    *
    * Get a loader from the store.
    */
-  public getLoader(name: string): Framework.Loader {
+  public getLoader(name: string): Loader {
     return this.loaders.get(name)
   }
 
@@ -130,7 +137,7 @@ export class Build implements Framework.Build.Contract {
    *
    * Get an item  from the store.
    */
-  public getItem(name: string): Framework.Item.Contract {
+  public getItem(name: string): ItemDefinition.Contract {
     return this.items.get(name)
   }
 
@@ -141,8 +148,8 @@ export class Build implements Framework.Build.Contract {
    */
   public setItem(
     name: string,
-    module: Framework.Item.Module,
-  ): Framework.Item.Contract {
+    module: ItemDefinition.Module,
+  ): ItemDefinition.Contract {
     this.items.set(name, new Item(this.bud(), module).make())
 
     return this.items.get(name)
@@ -153,7 +160,7 @@ export class Build implements Framework.Build.Contract {
    *
    * Get a rule from the store.
    */
-  public getRule(name: string): Framework.Rule.Contract {
+  public getRule(name: string): RuleDefinition.Contract {
     return this.rules.get(name)
   }
 
@@ -164,8 +171,8 @@ export class Build implements Framework.Build.Contract {
    */
   public setRule(
     name: string,
-    module: Framework.Rule.Module,
-  ): Framework.Rule.Contract {
+    module: RuleDefinition.Module,
+  ): RuleDefinition.Contract {
     this.rules.set(name, new Rule(this.bud(), module).make())
 
     return this.rules.get(name)

@@ -1,9 +1,12 @@
 export as namespace Framework
 
+/**
+ * Utility types.
+ */
 export * from './utility'
 
 /**
- * External
+ * External types.
  */
 import type Dotenv from 'dotenv'
 export type {Dotenv}
@@ -17,16 +20,31 @@ export type {Express}
 /**
  * Bud
  */
-export {Bud} from './Bud'
+export {Bud, Instance} from '../../bud-framework/src'
 
-export * as Build from './Build'
+/**
+ * Build
+ */
+export {Build} from '../../bud-build/src/typings'
 
-export * as Cache from './Cache'
+/**
+ * Cache
+ */
+export {Cache} from './Cache'
 
+/**
+ * CLI
+ */
 export * as CLI from './CLI'
 
-export * as Compiler from './Compiler'
+/**
+ * Compiler
+ */
+export {Compiler} from './Compiler'
 
+/**
+ * Container
+ */
 export type {Container} from '../../container/src'
 
 export * as Dependencies from '../../dependencies/src'

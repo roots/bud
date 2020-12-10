@@ -1,4 +1,4 @@
-import {Bud, Cache as Abstract} from '@roots/bud-typings'
+import {Bud, Cache as AbstractCache} from '@roots/bud-typings'
 
 /**
  * ## bud.cache [🏠 Internal]
@@ -10,7 +10,7 @@ import {Bud, Cache as Abstract} from '@roots/bud-typings'
  * [📦 @roots/bud-cache](#)
  * [🔗 Documentation](#)
  */
-export class Cache implements Abstract.Contract {
+export class Cache implements AbstractCache {
   /**
    * Class constructor.
    */

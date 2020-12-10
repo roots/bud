@@ -19,34 +19,46 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
+  "keywords": ["webpack", "bud"],
   "engines": {
     "node": ">=12"
   },
   "files": [
-    "lib",
-    "src"
+    "lib/",
+    "types/",
+    "src/"
   ],
-  "main": "./lib/index.js",
-  "types": "./lib/types/index.d.ts",
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "exports": {
+    "require": "./lib/cjs/index.js",
+    "import": "./lib/esm/index-esm.js"
+  },
+  "types": "./types/index.d.ts",
   "scripts": {
-    "build": "tsc --build",
+    "build": "run-s build:*",
+    "build:cjm": "tsc --build tsconfig.json",
+    "build:ejm": "tsc --build tsconfig-ejs.json",
+    "lint": "run-s lint:*",
+    "lint:eslint": "eslint 'src/**/*.{js,ts,tsx}' --fix",
+    "lint:prettier": "prettier 'src/**/*'  --write",
+    "clean": "run-s clean:*",
     "clean:lib": "rimraf ./lib",
     "clean:modules": "rimraf ./node_modules",
-    "tsc": "tsc -b tsconfig.json",
-    "lint": "eslint ."
-  },
-  "devDependencies": {
-    "@roots/bud-typings": "^2.0.6"
+    "pkg": "run-s pkg:*",
+    "pkg:check": "package-check --verbose",
+    "pkg:format": "prettier './lib/**/*.{js,ts}' --write",
+    "prepublish": "clean:lib lint build pkg"
   },
   "dependencies": {
     "@roots/bud-postcss": "^2.0.7",
-    "@roots/bud-support": "^2.0.6",
+    "@roots/bud-support": "^2.0.7",
     "fibers": "^5.0.0",
     "node-sass": "^4.14.1",
     "postcss-scss": "^3.0.2",
     "sass-loader": "^10.0.3"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^2.0.4"
+    "@roots/bud-typings": "^2.0.7"
   }
 }

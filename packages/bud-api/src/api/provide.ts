@@ -6,8 +6,10 @@ export const provide: Provide = function (options) {
 
   Object.entries(options).forEach(([module, alias]) => {
     _.isString(alias)
-      ? plugin.set(alias, module)
-      : alias.map(alias => plugin.set(alias, module))
+      ? plugin.set(alias as string, module)
+      : (alias as string[]).map(alias =>
+          plugin.set(alias, module)
+        )
   })
 
   return this

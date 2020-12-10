@@ -1,24 +1,16 @@
 import webpack, {ProgressPlugin} from 'webpack'
-import type {
-  Configuration,
-  Compiler as WebpackCompiler,
-  Stats,
-} from 'webpack'
-import type Framework from '@roots/bud-typings'
-import type {Instance} from 'ink'
 import {Error} from '@roots/bud-cli'
+import type {
+  WebpackCompiler,
+  WebpackConfiguration,
+  Stats,
+} from '..'
+import type {Instance} from 'ink'
 
-export type StatsOptions = {
-  json: Stats.ToJsonOptions
-  string: Stats.ToStringOptions
-}
-
-export type StatsOutput = {
-  string: string
-  json: Stats.ToJsonOutput
-}
-
-const commonStatsOptions = {
+/**
+ * Stats common
+ */
+const commonStats = {
   all: false,
   version: true,
   hash: true,
@@ -32,6 +24,20 @@ const commonStatsOptions = {
 }
 
 /**
+ * Stats options.
+ */
+const options = {
+  json: {
+    ...commonStats,
+    cachedAssets: true,
+  },
+  string: {
+    ...commonStats,
+    colors: true,
+  },
+}
+
+/**
  * ## bud.compiler
  *
  * Compiler controller for the @roots/bud framework.
@@ -41,7 +47,7 @@ const commonStatsOptions = {
  * [📦 @roots/bud-extensions](https://github.io/roots/bud-extensions)
  * [🔗 Documentation](#)
  */
-class Compiler implements Framework.Compiler.Contract {
+class Compiler implements Framework.Compiler {
   /**
    * Reference to bud [🏠 Internal]
    */
@@ -55,21 +61,12 @@ class Compiler implements Framework.Compiler.Contract {
   /**
    * Webpack compiler stats.
    */
-  public _stats: StatsOutput
+  public _stats: Stats.Output
 
   /**
    * Webpack compiler statsOptionsed stats.
    */
-  public _statsOptions: StatsOptions = {
-    json: {
-      ...commonStatsOptions,
-      cachedAssets: true,
-    },
-    string: {
-      ...commonStatsOptions,
-      colors: true,
-    },
-  }
+  public _statsOptions: Stats.Options = options
 
   /**
    * Webpack compiler error
@@ -100,23 +97,23 @@ class Compiler implements Framework.Compiler.Contract {
 
   public get stats(): {
     string: string
-    json: Stats.ToJsonOutput
+    json: Stats.Output['json']
   } {
     return this._stats
   }
 
-  public set stats(stats: StatsOutput) {
-    this._stats = this.bud().hooks.filter<StatsOutput>(
+  public set stats(stats: Stats.Output) {
+    this._stats = this.bud().hooks.filter<Stats.Output>(
       'compiler.stats',
       stats,
     )
   }
 
-  public get statsOptions(): StatsOptions {
+  public get statsOptions(): Stats.Options {
     return this._statsOptions
   }
 
-  public set statsOptions(options: StatsOptions) {
+  public set statsOptions(options: Stats.Options) {
     this._statsOptions = options
   }
 
@@ -179,7 +176,9 @@ class Compiler implements Framework.Compiler.Contract {
    * })
    * ```
    */
-  public compile(config?: Configuration): WebpackCompiler {
+  public compile(
+    config?: WebpackConfiguration,
+  ): WebpackCompiler {
     this.instance = webpack(config ?? this.bud().build.make())
 
     return this.instance

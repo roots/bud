@@ -1,6 +1,6 @@
 {
   "name": "@roots/container",
-  "version": "2.0.6",
+  "version": "2.0.7",
   "description": "Collections utility",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -23,15 +23,31 @@
     "node": ">=12"
   },
   "files": [
-    "lib"
+    "lib/",
+    "types/",
+    "src/"
   ],
-  "main": "./lib/index.js",
-  "types": "./lib/types/index.d.ts",
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "exports": {
+    "require": "./lib/cjs/index.js",
+    "import": "./lib/esm/index-esm.js"
+  },
+  "types": "./types/index.d.ts",
   "scripts": {
-    "build": "tsc",
+    "build": "run-s build:*",
+    "build:cjm": "tsc --build tsconfig.json",
+    "build:ejm": "tsc --build tsconfig-ejs.json",
+    "lint": "run-s lint:*",
+    "lint:eslint": "eslint 'src/**/*.{js,ts,tsx}' --fix",
+    "lint:prettier": "prettier 'src/**/*'  --write",
+    "clean": "run-s clean:*",
     "clean:lib": "rimraf ./lib",
     "clean:modules": "rimraf ./node_modules",
-    "lint": "eslint ."
+    "pkg": "run-s pkg:*",
+    "pkg:check": "package-check --verbose",
+    "pkg:format": "prettier './lib/**/*.{js,ts}' --write",
+    "prepublish": "clean:lib lint build pkg"
   },
   "dependencies": {
     "lodash": "^4.17.19"

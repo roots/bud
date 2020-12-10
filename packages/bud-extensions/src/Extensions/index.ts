@@ -1,8 +1,12 @@
-import type Framework from '@roots/bud-typings'
+import type {
+  Bud,
+  Container,
+  Extension as IExtension,
+  Extensions as IExtensions,
+  MaybeCallable,
+} from '@roots/bud-typings'
 
 import {Extension} from '../Extension'
-
-export {Extensions}
 
 /**
  * ## bud.extensions
@@ -14,21 +18,21 @@ export {Extensions}
  * [📦 @roots/bud-extensions](https://github.io/roots/bud-extensions)
  * [🔗 Documentation](#)
  */
-class Extensions implements Framework.Extensions.Contract {
+export class Extensions implements IExtensions.Contract {
   /**
    * The Bud instance.
    */
-  public bud: Framework.Bud.Ref
+  public bud: Bud.Ref
 
   /**
    * Extensions container
    */
-  public repository: Framework.Container
+  public repository: Container
 
   /**
    * Class constructor.
    */
-  public constructor(bud: Framework.Bud) {
+  public constructor(bud: Bud) {
     this.bud = bud.get
 
     this.make = this.make.bind(this)
@@ -47,7 +51,7 @@ class Extensions implements Framework.Extensions.Contract {
    * bud.extensions.getStore()
    * ```
    */
-  public getStore(): Framework.Container {
+  public getStore(): Container {
     return this.repository
   }
 
@@ -62,7 +66,7 @@ class Extensions implements Framework.Extensions.Contract {
    * bud.extensions.all()
    * ```
    */
-  public all(): Framework.Container {
+  public all(): Container {
     return this.getStore()
   }
 
@@ -77,7 +81,7 @@ class Extensions implements Framework.Extensions.Contract {
    * bud.extensions.all()
    * ```
    */
-  public get(name: string): Framework.Extension.Controller {
+  public get(name: string): IExtension.Controller {
     return this.repository.get(name)
   }
 
@@ -94,13 +98,11 @@ class Extensions implements Framework.Extensions.Contract {
    */
   public set(
     name: string,
-    extension: Framework.MaybeCallable<
-      Framework.Extension.Contract
-    >,
+    extension: MaybeCallable<IExtension.Contract>,
   ): this {
     const initialized =
       typeof extension == 'function'
-        ? new Extension<unknown>(
+        ? new Extension(
             this.bud(),
             extension(this.bud()),
           ).initialize()

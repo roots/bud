@@ -13,21 +13,7 @@ const fetchExternals: Packages.Fetch = async () => {
     const data = await fetch(Gutenberg.json)
     const {dependencies} = await data.json()
 
-    return {
-      ...transformPkgNames(dependencies),
-      react: {
-        window: 'React',
-        enqueue: 'react',
-      },
-      [`react-dom`]: {
-        window: 'ReactDOM',
-        enqueue: 'react-dom',
-      },
-      [`jquery`]: {
-        window: 'jQuery',
-        enqueue: 'jquery',
-      },
-    }
+    return transformPkgNames(dependencies)
   } catch (err) {
     throw err
   }
