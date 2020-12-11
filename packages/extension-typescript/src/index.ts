@@ -1,4 +1,10 @@
-import {Bud, Extension} from '@roots/bud-typings'
+import {
+  Bud,
+  Extension,
+  Item,
+  Loader,
+  Rule,
+} from '@roots/bud-typings'
 import {LoaderOptions} from 'ts-loader/dist/interfaces'
 
 export const options = (
@@ -7,12 +13,12 @@ export const options = (
   configFile: instance.fs.get('tsconfig.json') ?? null,
 })
 
-export const registerLoader: Extension.Contract['registerLoader'] = [
+export const registerLoader: Extension.Module.RegisterOne<Loader> = [
   'ts-loader',
   require.resolve('ts-loader'),
 ]
 
-export const registerItem: Extension.Contract['registerItems'] = {
+export const registerItem: Extension.Module.RegisterMany<Item.Module> = {
   [`typescript`]: {
     loader: 'ts-loader',
     options: (
@@ -22,7 +28,7 @@ export const registerItem: Extension.Contract['registerItems'] = {
   },
 }
 
-export const registerRule: Extension.Contract['registerRule'] = [
+export const registerRule: Extension.Module.RegisterOne<Rule.Module> = [
   'typescript',
   {
     test: ({patterns}: Bud): RegExp =>

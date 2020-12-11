@@ -33,15 +33,15 @@ export abstract class Framework {
 
   public abstract disk: FileSystem
 
-  public abstract env: Env.Contract
+  public abstract env: Env
 
-  public abstract extensions: Extensions.Contract
+  public abstract extensions: Extensions
 
   public abstract features: Container
 
   public abstract fs: FileContainer
 
-  public abstract hooks: Hooks.Contract
+  public abstract hooks: Hooks
 
   public abstract logger: Logger.Contract
 

@@ -1,11 +1,11 @@
 import React from 'react'
 import {render} from 'ink'
-import Publish from '../containers/Publish'
 import {join, dirname} from 'path'
 import {copyFile, ensureDir} from 'fs-extra'
-import {Error} from '../'
+import yargs from 'yargs'
 
-import {yargs} from '@roots/bud-support'
+import {Error} from '../'
+import Publish from '../containers/Publish'
 
 const cwd = process.cwd()
 

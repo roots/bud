@@ -54,6 +54,7 @@
     "@roots/bud-typings": "^2.0.7"
   },
   "dependencies": {
-    "@roots/container": "^2.0.7"
+    "@roots/container": "^2.0.7",
+    "@roots/bud-support": "^2.0.7"
   }
 }

@@ -50,6 +50,7 @@
     "prepublish": "clean:lib lint build pkg"
   },
   "dependencies": {
+    "@roots/bud-support": "^2.0.7",
     "@roots/wordpress-externals-webpack-plugin": "^2.0.7"
   },
   "devDependencies": {

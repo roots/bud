@@ -1,5 +1,5 @@
-import {Bud} from '@roots/bud-typings'
-import type {Cache as ICache} from './typings'
+import {CacheService} from './CacheService'
+import type {Bud} from '@roots/bud-typings'
 
 /**
  * ## bud.cache [🏠 Internal]
@@ -11,13 +11,14 @@ import type {Cache as ICache} from './typings'
  * [📦 @roots/bud-cache](#)
  * [🔗 Documentation](#)
  */
-export class Cache implements ICache {
+export class Cache extends CacheService {
   /**
    * Class constructor.
    */
-  constructor(bud: Bud) {
-    this.enabled = this.enabled.bind(bud)
-    this.setCache = this.setCache.bind(bud)
+  public constructor(bud: Bud) {
+    super(bud)
+    this.enabled = this.enabled.bind(this)
+    this.setCache = this.setCache.bind(this)
   }
 
   /**
@@ -33,11 +34,12 @@ export class Cache implements ICache {
    * // => true if cache is enabled
    * ```
    */
-  public enabled(this: Bud): boolean {
+  public enabled(): boolean {
+    const bud = this.bud()
     return (
-      this.features.enabled('buildCache') &&
-      this.fs.exists(
-        this.config.get('webpack.recordsPath') as string,
+      bud.features.enabled('buildCache') &&
+      bud.fs.exists(
+        bud.config.get('webpack.recordsPath') as string,
       )
     )
   }
@@ -47,12 +49,14 @@ export class Cache implements ICache {
    *
    * Sets the cache object in the webpack configuration.
    */
-  public setCache(this: Bud): void {
-    this.cache.enabled() &&
-      this.hooks.on('webpack.cache', (bud: Bud) =>
+  public setCache(): void {
+    const bud = this.bud()
+
+    this.enabled() &&
+      bud.hooks.on('webpack.cache', (bud: Bud) =>
         bud.disk
           .get('project')
-          .readJson(this.config.get('webpack.recordsPath')),
+          .readJson(bud.config.get('webpack.recordsPath')),
       )
   }
 }

@@ -8,9 +8,9 @@ export const make: Make = opt => new Plugin(opt.getStore())
 export const when: When = (_, opt) =>
   opt?.has('patterns') && opt.get('patterns').length > 0
 
-declare type Options = Extension.Options<RawOptions>
-declare type Make = Extension.Make<Plugin, Options>
-declare type When = Extension.When
+declare type Options = Extension.Module.Options
+declare type Make = Extension.Module.Make<Plugin, Options>
+declare type When = Extension.Module.When
 declare interface RawOptions {
   patterns: ReadonlyArray<
     | string

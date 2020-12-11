@@ -19,7 +19,10 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": ["bud", "webpack"],
+  "keywords": [
+    "bud",
+    "webpack"
+  ],
   "engines": {
     "node": ">=12"
   },
@@ -51,7 +54,9 @@
     "prepublish": "clean:lib lint build pkg"
   },
   "dependencies": {
-    "@roots/container": "^2.0.7"
+    "@roots/bud-support": "^2.0.7",
+    "@roots/container": "^2.0.7",
+    "lodash": "^4.17.20"
   },
   "devDependencies": {
     "@roots/bud-typings": "^2.0.7"

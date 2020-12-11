@@ -15,7 +15,7 @@ export const api = {
   },
 }
 
-export const register: Extension.Register = function (
+export const register: Extension.Module.Register = function (
   bud: Bud,
 ): void {
   bud.presets.set(

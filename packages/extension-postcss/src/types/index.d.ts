@@ -6,7 +6,12 @@ import type {
   Stringifier,
 } from 'postcss'
 
-import type {Extension, Fluent} from '@roots/bud-typings'
+import type {
+  Extension,
+  Item,
+  Loader,
+  Fluent,
+} from '@roots/bud-typings'
 
 export {
   AcceptedPlugin,
@@ -15,6 +20,12 @@ export {
   Parser,
   Stringifier,
 }
+
+export type Boot = Extension.Module.Boot
+export type RegisterItem = Extension.Module.RegisterOne<
+  Item.Module
+>
+export type RegisterLoader = Extension.Module.RegisterOne<Loader>
 
 export type {Fluent}
 
@@ -34,7 +45,3 @@ export interface PluginTuple {
 export interface PluginStore {
   [key: string]: PluginTuple
 }
-
-export type Boot = Extension.Boot
-export type Item = Extension.Contract['registerItem']
-export type Loader = Extension.Contract['registerLoader']

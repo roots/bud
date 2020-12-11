@@ -24,7 +24,7 @@ export * as Brotli from './brotli/typings'
 export * as Imagemin from './imagemin/typings'
 
 export const extensions: {
-  [key: string]: Extension.Contract
+  [key: string]: Extension.Module
 } = {
   [`clean-webpack-plugin`]: cleanWebpack,
   [`compression-webpack-plugin-gzip`]: gzip,

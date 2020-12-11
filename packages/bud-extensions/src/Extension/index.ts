@@ -1,9 +1,8 @@
-import type {
-  Bud,
-  Extension as IExtension,
-} from '@roots/bud-typings'
 import {Container} from '@roots/container'
 import {isArray, isFunction} from 'lodash'
+
+import type {Bud, Index, Webpack} from '@roots/bud-typings'
+import type {Module} from './Module'
 
 /**
  * Extensions controller class.
@@ -15,7 +14,7 @@ import {isArray, isFunction} from 'lodash'
  * [📦 @roots/bud-extensions](https://github.io/roots/bud-extensions)
  * [🔗 Documentation](#)
  */
-export class Extension extends Container {
+class Extension extends Container {
   /**
    * Bud reference
    */
@@ -30,7 +29,7 @@ export class Extension extends Container {
   /**
    * The controlled extension
    */
-  public module: IExtension.Contract
+  public module: Extension.Module
 
   /**
    * Builders.
@@ -40,7 +39,7 @@ export class Extension extends Container {
   /**
    * Class constructor.
    */
-  constructor(bud: Bud, extension: IExtension.Contract) {
+  constructor(bud: Bud, extension: Extension.Module) {
     super({})
 
     this.bud = bud.get
@@ -68,7 +67,7 @@ export class Extension extends Container {
   /**
    * Initialize extension.
    */
-  public initialize = function (): IExtension.Contract {
+  public initialize = function (): Extension.Module {
     this.module.register && this.register()
 
     this.module.options && this.setOptions(this.module.options)
@@ -83,7 +82,7 @@ export class Extension extends Container {
   }
 
   public callMeMaybe: (
-    value: unknown,
+    value: CallableFunction | any,
     ...args: unknown[]
   ) => unknown = function (value, ...args) {
     return isFunction(value) ? value(...args) : value
@@ -96,13 +95,11 @@ export class Extension extends Container {
     return this.callMeMaybe(this.module[prop], ...dep)
   }
 
-  public hasModuleProp = function (name: string): boolean {
+  public hasProp = function (name: string): boolean {
     return this.module[name] ? true : false
   }
 
-  public register = function (
-    this: Framework.Extension.Controller,
-  ): void {
+  public register = function (): void {
     this.module.register && this.module.register(this.bud())
   }
 
@@ -110,7 +107,7 @@ export class Extension extends Container {
     this.module.boot && this.module.boot(this.bud())
   }
 
-  public makePlugin = function (): Framework.Webpack.Plugin {
+  public makePlugin = function (): Webpack.Plugin {
     return this.isPlugin() && this.isPluginEnabled()
       ? this.callMeMaybe(this.module.make, this, this.bud())
       : false
@@ -148,9 +145,7 @@ export class Extension extends Container {
    * })
    * ```
    */
-  public setOptions = function (
-    options: Framework.Index<any>,
-  ): void {
+  public setOptions = function (options: Index<any>): void {
     this.setStore(this.callMeMaybe(options, this.bud()))
   }
 
@@ -174,7 +169,7 @@ export class Extension extends Container {
     builders: [string, CallableFunction][],
   ): void {
     builders.map(([name, handler]) => {
-      if (!this.hasModuleProp(name)) return
+      if (!this.hasProp(name)) return
 
       isArray(this.fromProp(name, this.bud()))
         ? handler(
@@ -191,3 +186,9 @@ export class Extension extends Container {
     })
   }
 }
+
+declare namespace Extension {
+  export {Module}
+}
+
+export {Extension}

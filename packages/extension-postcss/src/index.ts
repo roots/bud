@@ -1,5 +1,5 @@
 import {postcss} from './register'
-import type {Boot, Item} from './types'
+import type {Boot, RegisterItem} from './types'
 
 /**
  * Config methods
@@ -14,7 +14,7 @@ export {registerLoader} from './register'
 /**
  * PostCSS rulesetuse item
  */
-export const registerItem: Item = ['postcss', postcss]
+export const registerItem: RegisterItem = ['postcss', postcss]
 
 /**
  * Use PostCSS with css extension.

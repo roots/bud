@@ -2,7 +2,7 @@ import {Bud} from '@roots/bud-typings'
 import AutoDllPlugin from 'autodll-webpack-plugin'
 
 export const library: Library = function (modules) {
-  this.extensions.set('autodll-webpack-plugin', {
+  this.use('autodll-webpack-plugin', {
     options: {
       debug: false,
       inject: false,

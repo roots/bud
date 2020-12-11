@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-compiler",
-  "description": "developer CLI",
+  "description": "Compilation handler",
   "version": "2.0.7",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -30,11 +30,11 @@
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
-  "types": "./types/index.d.ts",
   "exports": {
     "require": "./lib/cjs/index.js",
     "import": "./lib/esm/index-esm.js"
   },
+  "types": "./types/index.d.ts",
   "scripts": {
     "build": "run-s build:*",
     "build:cjm": "tsc --build tsconfig.json",
@@ -51,6 +51,8 @@
     "prepublish": "clean:lib lint build pkg"
   },
   "dependencies": {
+    "@roots/bud-cli": "^2.0.7",
+    "@roots/bud-support": "^2.0.7",
     "webpack": "^4.44.2"
   },
   "devDependencies": {

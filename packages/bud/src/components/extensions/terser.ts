@@ -22,9 +22,9 @@ export const options: TerserPluginOptions = {
   parallel: true,
 }
 
-export const make: Extension.Make = (
-  options: Extension.Options<TerserPluginOptions>,
+export const make: Extension.Module.Make = (
+  options: Extension.Module.RawOptions<TerserPluginOptions>,
 ) => new TerserPlugin(options.all())
 
-export const when: Extension.When = ({features}) =>
+export const when: Extension.Module.When = ({features}) =>
   features.enabled('minify')

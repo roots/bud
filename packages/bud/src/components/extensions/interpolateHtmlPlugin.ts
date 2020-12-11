@@ -10,14 +10,14 @@ export const options = (bud: Bud): Container['repository'] => ({
   ),
 })
 
-export const make: Extension.Make<
+export const make: Extension.Module.Make<
   InterpolateHtmlPlugin,
   Container
-> = (options: Extension.Options) =>
+> = (options: Extension.Module.Options) =>
   new InterpolateHtmlPlugin(
     HtmlWebpackPlugin,
     options.getStore(),
   )
 
-export const when: Extension.When = bud =>
+export const when: Extension.Module.When = bud =>
   bud.features.enabled('html')

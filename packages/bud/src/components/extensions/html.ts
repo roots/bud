@@ -11,11 +11,14 @@ export const options: HtmlWebpackPlugin.Options = ({fs}) => ({
   ),
 })
 
-export const make: Extension.Make = (opts, {config}: Bud) =>
+export const make: Extension.Module.Make = (
+  opts,
+  {config}: Bud,
+) =>
   new HtmlWebpackPlugin({
     ...opts.all(),
     publicPath: config.get('output.publicPath'),
   })
 
-export const when: Extension.When = ({features}) =>
+export const when: Extension.Module.When = ({features}) =>
   features.enabled('html')

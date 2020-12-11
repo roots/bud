@@ -15,10 +15,7 @@ export const plugins: Plugins.Build = function () {
       .getStore()
       .getEntries()
       .map(
-        ([name, ext]: [
-          string,
-          Extension.Controller,
-        ]): Webpack.Plugin =>
+        ([name, ext]: [string, Extension]): Webpack.Plugin =>
           this.hooks.filter<Webpack.Plugin>(
             `webpack.plugins.${name}`,
             ext.makePlugin ? ext.makePlugin() : null,

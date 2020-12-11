@@ -11,12 +11,12 @@ export const options: Options = ({config}) => ({
   keepCircularReferences: true,
 })
 
-export const make: Extension.Make<
+export const make: Extension.Module.Make<
   WebpackConfigDumpPlugin,
   PluginOptions
 > = opt => new WebpackConfigDumpPlugin(opt.getStore())
 
-export const when: Extension.When = ({features}) =>
+export const when: Extension.Module.When = ({features}) =>
   features.enabled('debug')
 
 declare type Options = (bud: Bud) => PluginOptions

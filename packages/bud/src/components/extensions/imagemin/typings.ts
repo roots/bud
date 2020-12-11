@@ -35,7 +35,7 @@ export namespace Options {
 /**
  * Make.
  */
-export type Make = Extension.Make<
+export type Make = Extension.Module.Make<
   Plugin,
   Options.MinimizerOptions
 >
@@ -43,7 +43,7 @@ export type Make = Extension.Make<
 /**
  * Conditional.
  */
-export type When = Extension.When
+export type When = Extension.Module.When
 
 /**
  * Configuration API.

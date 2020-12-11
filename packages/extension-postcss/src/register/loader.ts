@@ -1,6 +1,6 @@
-import type {Loader} from '../types'
+import type {RegisterLoader} from '../types'
 
-export const registerLoader: Loader = [
+export const registerLoader: RegisterLoader = [
   'postcss-loader',
   require.resolve('postcss-loader'),
 ]

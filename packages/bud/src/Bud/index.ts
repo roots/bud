@@ -704,18 +704,6 @@ export class Bud extends Base implements Instance {
   public when: Api.When
 
   /**
-   * Class constructor.
-   */
-  public constructor(implementations: {
-    api: {[key: string]: CallableFunction}
-    components: {[key: string]: unknown}
-    presets: {[key: string]: unknown}
-    services: {[key: string]: unknown}
-  }) {
-    super(implementations)
-  }
-
-  /**
    * ## bud.register [🏠 Internal]
    *
    * Register framework components.

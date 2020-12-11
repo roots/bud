@@ -6,4 +6,4 @@ import {Container} from '.'
  */
 export type Data = Dotenv.DotenvParseOutput
 
-export class Env extends Container {}
+export abstract class Env extends Container {}

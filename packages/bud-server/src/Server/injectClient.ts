@@ -1,4 +1,4 @@
-import {lodash as _} from '@roots/bud-support'
+import {isArray} from '@roots/bud-support'
 import Framework from '@roots/bud-typings'
 
 const toInject = require
@@ -14,10 +14,7 @@ export const injectClient: Framework.Server.InjectClient = (
   Object.entries(entrypoints).reduce(
     (acc, [name, entry]) => ({
       ...acc,
-      [name]: [
-        toInject,
-        ...(_.isArray(entry) ? entry : [entry]),
-      ],
+      [name]: [toInject, ...(isArray(entry) ? entry : [entry])],
     }),
     {},
   )

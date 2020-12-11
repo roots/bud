@@ -19,10 +19,12 @@ export const options: PluginOptions = {
   ],
 }
 
-export const make: Extension.Make<Plugin, PluginOptions> = opt =>
-  new Plugin(opt.get('ignorePatterns'))
+export const make: Extension.Module.Make<
+  Plugin,
+  PluginOptions
+> = opt => new Plugin(opt.get('ignorePatterns'))
 
-export const when: Extension.When = (_bud, opt) =>
+export const when: Extension.Module.When = (_bud, opt) =>
   opt?.has('ignorePatterns') &&
   opt.get('ignorePatterns').length > 0
 

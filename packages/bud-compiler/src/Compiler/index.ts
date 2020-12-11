@@ -1,8 +1,8 @@
+import {CompilerService} from './CompilerService'
+import {CompilerInterface} from './CompilerInterface'
 import webpack, {ProgressPlugin} from 'webpack'
-import {Error} from '@roots/bud-cli'
 
 import type Webpack from 'webpack'
-import type {Compiler as ICompiler} from '../typings'
 import type {Instance} from 'ink'
 
 /**
@@ -45,12 +45,7 @@ const options = {
  * [📦 @roots/bud-extensions](https://github.io/roots/bud-extensions)
  * [🔗 Documentation](#)
  */
-class Compiler implements ICompiler {
-  /**
-   * Reference to bud [🏠 Internal]
-   */
-  public bud: Framework.Bud.Ref
-
+class Compiler extends CompilerService {
   /**
    * Webpack compiler instance.
    */
@@ -59,12 +54,12 @@ class Compiler implements ICompiler {
   /**
    * Webpack compiler stats.
    */
-  public _stats: ICompiler.Stats.Output
+  public _stats: CompilerInterface.Stats.Output
 
   /**
    * Webpack compiler statsOptionsed stats.
    */
-  public _statsOptions: ICompiler.Stats.Options = options
+  public _statsOptions: CompilerInterface.Stats.Options = options
 
   /**
    * Webpack compiler error
@@ -75,6 +70,8 @@ class Compiler implements ICompiler {
    * Class constructor
    */
   constructor(bud: Framework.Bud) {
+    super(bud)
+
     this.bud = bud.get
 
     this.run = this.run.bind(this)
@@ -95,22 +92,24 @@ class Compiler implements ICompiler {
 
   public get stats(): {
     string: string
-    json: ICompiler.Stats.Output['json']
+    json: CompilerInterface.Stats.Output['json']
   } {
     return this._stats
   }
 
-  public set stats(stats: ICompiler.Stats.Output) {
+  public set stats(stats: CompilerInterface.Stats.Output) {
     this._stats = this.bud().hooks.filter<
-      ICompiler.Stats.Output
+      CompilerInterface.Stats.Output
     >('compiler.stats', stats)
   }
 
-  public get statsOptions(): ICompiler.Stats.Options {
+  public get statsOptions(): CompilerInterface.Stats.Options {
     return this._statsOptions
   }
 
-  public set statsOptions(options: ICompiler.Stats.Options) {
+  public set statsOptions(
+    options: CompilerInterface.Stats.Options,
+  ) {
     this._statsOptions = options
   }
 
@@ -211,7 +210,7 @@ class Compiler implements ICompiler {
    * ## bud.makeError
    */
   public makeError(err: string): void {
-    this.error = new Error(err, `Compilation error\n`, false)
+    new Error(err)
   }
 
   /**
@@ -225,7 +224,9 @@ class Compiler implements ICompiler {
    * bud.compiler.applyPlugin((progressArgs) => progressHandler())
    * ```
    */
-  public applyPlugins(handler: ICompiler.ProgressHandler): void {
+  public applyPlugins(
+    handler: CompilerInterface.ProgressHandler,
+  ): void {
     new ProgressPlugin(handler).apply(this.instance)
   }
 }

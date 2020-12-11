@@ -8,34 +8,19 @@ import {
 import ReactRefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin'
 import {ReactRefreshPluginOptions} from '@pmmmwh/react-refresh-webpack-plugin/types/types'
 
-/**
- * Make extension
- */
-export type Make = Extension.Make<
+export type Boot = Extension.Module.Boot
+export type When = Extension.Module.When
+export type RegisterLoader = Extension.Module.RegisterOne<Loader>
+
+export type Make = Extension.Module.Make<
   ReactRefreshPlugin,
   ReactRefreshPluginOptions
 >
 
-/**
- * Extension options
- */
-export type Options = Extension.RawOptions<
+export type Options = Extension.Module.RawOptions<
   ReactRefreshPluginOptions
 >
 
-/**
- * Extension conditions
- */
-export type When = Extension.When
-
-/**
- * Register Loader
- */
-export type RegisterLoader = Extension.RegisterOne<Loader>
-
-/**
- * Register Rule
- */
 export type RegisterRule = [
   string,
   {
@@ -43,24 +28,16 @@ export type RegisterRule = [
     use: (bud: Bud) => Rule.Module['use']
   },
 ]
+
 export namespace RegisterRule {
   export type Test = (bud: Bud) => RegExp
   export type Use = (bud: Bud) => Rule.Module['use']
 }
 
-/**
- * Register Item
- */
-export type RegisterItem = Extension.RegisterOne<Item.Module>
+export type RegisterItem = Extension.Module.RegisterOne<
+  Item.Module
+>
 
-/**
- * Extension Boot alias
- */
-export type Boot = Extension.Boot
-
-/**
- * API
- */
 export namespace API {
   export type ReactRefresh = (
     this: Bud,

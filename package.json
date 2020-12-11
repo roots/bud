@@ -79,7 +79,7 @@
     "@types/globby": "^9.1.0",
     "@types/lodash": "^4.14.161",
     "@types/mini-css-extract-plugin": "^0.9.1",
-    "@types/node": "^14.11.2",
+    "@types/node": "^14.14.12",
     "@types/pino": "^6.3.2",
     "@types/shell-quote": "^1.7.0",
     "@typescript-eslint/eslint-plugin": "^4.2.0",
