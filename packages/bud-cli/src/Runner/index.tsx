@@ -28,6 +28,10 @@ export class Runner {
     this.run = this.run.bind(this)
   }
 
+  public init(): void {
+    return
+  }
+
   /**
    * Run the compilation.
    */

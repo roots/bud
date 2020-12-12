@@ -49,15 +49,9 @@
     {"@roots/filesystem": "filesystem"},
     {"@roots/ink-use-style": "ink-use-style"},
     {"@roots/ink-prettier": "ink-prettier"},
-    {
-      "@roots/entrypoints-webpack-plugin": "webpack-entrypoints-plugin"
-    },
-    {
-      "@roots/merged-manifest-webpack-plugin": "webpack-merged-manifest-plugin"
-    },
-    {
-      "@roots/wordpress-externals-webpack-plugin": "webpack-wordpress-externals-plugin"
-    }
+    {"@roots/entrypoints-webpack-plugin": "webpack-entrypoints-plugin"},
+    {"@roots/merged-manifest-webpack-plugin": "webpack-merged-manifest-plugin"},
+    {"@roots/wordpress-externals-webpack-plugin": "webpack-wordpress-externals-plugin"},
   ],
   "files": []
 }

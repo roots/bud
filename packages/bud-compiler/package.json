@@ -19,7 +19,9 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": ["webpack"],
+  "keywords": [
+    "webpack"
+  ],
   "engines": {
     "node": ">=12"
   },
@@ -45,6 +47,7 @@
     "clean": "run-s clean:*",
     "clean:lib": "rimraf ./lib",
     "clean:modules": "rimraf ./node_modules",
+    "clean:types": "rimraf ./types",
     "pkg": "run-s pkg:*",
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write",
@@ -52,10 +55,10 @@
   },
   "dependencies": {
     "@roots/bud-cli": "^2.0.7",
-    "@roots/bud-support": "^2.0.7",
     "webpack": "^4.44.2"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^2.0.7"
+    "@roots/bud-typings": "^2.0.7",
+    "ink": "^3.0.8"
   }
 }

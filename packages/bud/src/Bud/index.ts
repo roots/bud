@@ -1,4 +1,4 @@
-import {Bud as Base, Instance} from '@roots/bud-framework'
+import {Bud as Instance} from '@roots/bud-framework'
 import type * as Api from '@roots/bud-api'
 import type {Brotli, Imagemin} from '../components/extensions'
 
@@ -13,9 +13,7 @@ import type {Brotli, Imagemin} from '../components/extensions'
  * [📦 @roots/bud](https://github.io/roots/bud)
  * [🔗 Documentation](#)
  */
-export class Bud extends Base implements Instance {
-  [key: string]: any
-
+export class Bud extends Instance {
   /**
    * ## bud.addPlugin  [💁 Fluent]
    *
@@ -708,7 +706,7 @@ export class Bud extends Base implements Instance {
    *
    * Register framework components.
    */
-  public register(containers: [string, any][]): void {
+  protected register(containers: [string, any][]): void {
     this.server.setConfig(
       containers
         .filter(
@@ -728,7 +726,7 @@ export class Bud extends Base implements Instance {
    * Register parts of the application that
    * might rely on having container access (dynamic)
    */
-  public boot(): void {
+  protected boot(): void {
     this.components
       .each('loaders', (k, v) => {
         this.build.setLoader(k, v)

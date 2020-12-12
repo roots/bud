@@ -1,5 +1,5 @@
-import {CompilerService} from './CompilerService'
-import {CompilerInterface} from './CompilerInterface'
+import Service from './Service'
+import Contract from './Contract'
 import webpack, {ProgressPlugin} from 'webpack'
 
 import type Webpack from 'webpack'
@@ -45,7 +45,7 @@ const options = {
  * [📦 @roots/bud-extensions](https://github.io/roots/bud-extensions)
  * [🔗 Documentation](#)
  */
-class Compiler extends CompilerService {
+export class Compiler extends Service implements Contract {
   /**
    * Webpack compiler instance.
    */
@@ -54,12 +54,12 @@ class Compiler extends CompilerService {
   /**
    * Webpack compiler stats.
    */
-  public _stats: CompilerInterface.Stats.Output
+  public _stats: Contract.Stats.Output
 
   /**
    * Webpack compiler statsOptionsed stats.
    */
-  public _statsOptions: CompilerInterface.Stats.Options = options
+  public _statsOptions: Contract.Stats.Options = options
 
   /**
    * Webpack compiler error
@@ -71,15 +71,6 @@ class Compiler extends CompilerService {
    */
   constructor(bud: Framework.Bud) {
     super(bud)
-
-    this.bud = bud.get
-
-    this.run = this.run.bind(this)
-    this.get = this.get.bind(this)
-    this.set = this.set.bind(this)
-
-    this.compile = this.compile.bind(this)
-    this.applyPlugins = this.applyPlugins.bind(this)
   }
 
   public get instance(): Webpack.Compiler {
@@ -92,24 +83,23 @@ class Compiler extends CompilerService {
 
   public get stats(): {
     string: string
-    json: CompilerInterface.Stats.Output['json']
+    json: Contract.Stats.Output['json']
   } {
     return this._stats
   }
 
-  public set stats(stats: CompilerInterface.Stats.Output) {
-    this._stats = this.bud().hooks.filter<
-      CompilerInterface.Stats.Output
-    >('compiler.stats', stats)
+  public set stats(stats: Contract.Stats.Output) {
+    this._stats = this.bud.hooks.filter<Contract.Stats.Output>(
+      'compiler.stats',
+      stats,
+    )
   }
 
-  public get statsOptions(): CompilerInterface.Stats.Options {
+  public get statsOptions(): Contract.Stats.Options {
     return this._statsOptions
   }
 
-  public set statsOptions(
-    options: CompilerInterface.Stats.Options,
-  ) {
+  public set statsOptions(options: Contract.Stats.Options) {
     this._statsOptions = options
   }
 
@@ -175,7 +165,7 @@ class Compiler extends CompilerService {
   public compile(
     config?: Webpack.Configuration,
   ): Webpack.Compiler {
-    this.instance = webpack(config ?? this.bud().build.make())
+    this.instance = webpack(config ?? this.bud.build.make())
 
     return this.instance
   }
@@ -193,7 +183,7 @@ class Compiler extends CompilerService {
    */
   public run(): void {
     this.instance.run((_err, stats) => {
-      if (stats.hasErrors() && !this.bud().mode.ci) {
+      if (stats.hasErrors() && !this.bud.mode.ci) {
         console.error(stats.toString(this.statsOptions.string))
 
         return
@@ -224,11 +214,7 @@ class Compiler extends CompilerService {
    * bud.compiler.applyPlugin((progressArgs) => progressHandler())
    * ```
    */
-  public applyPlugins(
-    handler: CompilerInterface.ProgressHandler,
-  ): void {
+  public applyPlugins(handler: Contract.ProgressHandler): void {
     new ProgressPlugin(handler).apply(this.instance)
   }
 }
-
-export {Compiler}

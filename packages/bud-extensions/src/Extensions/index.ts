@@ -1,11 +1,7 @@
+import Service from './Service'
+import Contract from './Contract'
 import {Extension} from '../Extension'
-import {ExtensionsService} from './ExtensionsService'
-
-import type {
-  Bud,
-  Container,
-  MaybeCallable,
-} from '@roots/bud-typings'
+import type {Container, MaybeCallable} from '@roots/bud-typings'
 
 /**
  * ## bud.extensions
@@ -17,17 +13,7 @@ import type {
  * [📦 @roots/bud-extensions](https://github.io/roots/bud-extensions)
  * [🔗 Documentation](#)
  */
-export class Extensions extends ExtensionsService {
-  /**
-   * Class constructor.
-   */
-  public constructor(bud: Bud) {
-    super(bud)
-
-    this.make = this.make.bind(this)
-    this.repository = this.bud().makeContainer({})
-  }
-
+export class Extensions extends Service implements Contract {
   /**
    * ## bud.extensions.getStore
    *
@@ -88,15 +74,15 @@ export class Extensions extends ExtensionsService {
     name: string,
     extension: MaybeCallable<Extension.Module>,
   ): this {
-    const initialized =
+    const module =
       typeof extension == 'function'
-        ? new Extension(
-            this.bud(),
-            extension(this.bud()),
-          ).initialize()
-        : new Extension(this.bud(), extension).initialize()
+        ? extension(this.bud)
+        : extension
 
-    this.repository.set(name, initialized)
+    this.repository.set(
+      name,
+      new Extension(this.bud, module).initialize(),
+    )
 
     return this
   }
@@ -141,8 +127,8 @@ export class Extensions extends ExtensionsService {
   public use(pkg: string): this {
     const path = require.resolve(pkg)
 
-    this.bud().disk.set(pkg, {
-      base: this.bud().fs.path.dirname(path),
+    this.bud.disk.set(pkg, {
+      base: this.bud.fs.path.dirname(path),
       glob: ['**/*'],
     })
 

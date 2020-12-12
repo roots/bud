@@ -1,15 +1,17 @@
 import type {Bud} from '@roots/bud-typings'
 
-class Service {
-  public bud: Service.Container
+export abstract class Service {
+  public _bud: Bud.Ref
 
   public constructor(bud: Bud) {
-    this.bud = bud.get
+    this._bud = bud.get
+  }
+
+  public get bud(): Bud {
+    return this._bud()
+  }
+
+  public set bud(bud: Bud) {
+    this.bud = bud
   }
 }
-
-declare namespace Service {
-  export type Container = Bud.Ref
-}
-
-export {Service}

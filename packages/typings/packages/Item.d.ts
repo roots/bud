@@ -1,4 +1,4 @@
-import type {Bud, Build, Index, MaybeCallable, Webpack} from '.'
+import type {Bud, Index, MaybeCallable, Webpack} from '.'
 
 export declare class Contract {
   bud: Bud

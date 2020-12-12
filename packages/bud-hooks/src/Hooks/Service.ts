@@ -1,5 +1,4 @@
-import Contract from './Contract'
-import {Service} from '@roots/bud-support'
+import type Contract from './Contract'
 
 /**
  * ## bud.hooks
@@ -44,9 +43,14 @@ import {Service} from '@roots/bud-support'
  * )
  * ```
  */
-export default abstract class
-  extends Service
-  implements Contract {
+export default abstract class implements Contract {
+  /**
+   * Fulfill Service contract
+   */
+  public init(): void {
+    return
+  }
+
   /**
    * ## Hooks.store [🏠 Internal]
    *

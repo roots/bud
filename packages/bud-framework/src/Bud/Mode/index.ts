@@ -1,7 +1,17 @@
-import type {Bud, Mode as IMode} from '@roots/bud-typings'
+import type {Bud} from '@roots/bud-typings'
 import type {Configuration} from 'webpack'
 
-export {Mode, Mode as default}
+declare interface Mode {
+  bud: Bud.Ref
+
+  ci: boolean
+
+  get(): Configuration['mode']
+
+  set(mode: Configuration['mode']): Bud
+
+  is(check: Configuration['mode']): boolean
+}
 
 /**
  * ## bud.mode
@@ -10,8 +20,8 @@ export {Mode, Mode as default}
  *
  * [🔗 Documentation on bud.mode](#)
  */
-class Mode implements IMode.Contract {
-  bud: () => Bud
+export default class implements Mode {
+  bud: Bud.Ref
 
   ci: boolean
 

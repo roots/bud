@@ -22,7 +22,7 @@ export type {Env} from './Env'
 /**
  * @roots/bud
  */
-export type {Bud, Instance} from '../../bud-framework/src'
+export type {Bud} from '../../bud-framework/src'
 
 /**
  * @roots/bud-build
@@ -45,17 +45,17 @@ export * as CLI from './CLI'
 /**
  * @roots/bud-compiler
  */
-export type {Compiler} from '../../bud-compiler/src'
+export type {Compiler} from '../../bud-compiler/src/Compiler'
 
 /**
  * @roots/container
  */
-export type {Container} from '../../container/src'
+export type {Container} from '../../container/src/Container'
 
 /**
  * @roots/dependencies
  */
-export * as Dependencies from '../../dependencies/src'
+export * as Dependencies from '../../dependencies/src/dependencies'
 
 /**
  * @roots/bud-extensions
@@ -72,17 +72,12 @@ export type {FileSystem} from '../../filesystem/src/FileSystem'
 /**
  * @roots/bud-hooks
  */
-export type {Hooks} from '../../bud-hooks/src'
+export type {Hooks} from '../../bud-hooks/src/Hooks'
 
 /**
  * Logger
  */
-export * as Logger from './Logger'
-
-/**
- * Mode
- */
-export * as Mode from './Mode'
+export type {Logger} from './Logger'
 
 /**
  * @roots/bud-server

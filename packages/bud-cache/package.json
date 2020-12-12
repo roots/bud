@@ -45,13 +45,11 @@
     "clean": "run-s clean:*",
     "clean:lib": "rimraf ./lib",
     "clean:modules": "rimraf ./node_modules",
+    "clean:types": "rimraf ./types",
     "pkg": "run-s pkg:*",
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write",
     "prepublish": "clean:lib lint build pkg"
-  },
-  "dependencies": {
-    "@roots/bud-support": "^2.0.7"
   },
   "devDependencies": {
     "@roots/bud-typings": "^2.0.7"

@@ -1,9 +1,20 @@
 import {Container} from '@roots/container'
 import {FileContainer, FileSystem} from '@roots/filesystem'
 
-import {Mode} from './Mode'
 import {Framework} from './Framework'
+import Mode from './Mode'
+
 import * as util from './util'
+
+import {
+  Build,
+  CLI,
+  Compiler,
+  Extensions,
+  Hooks,
+  MaybeCallable,
+  Server,
+} from '@roots/bud-typings'
 
 /**
  * # Bud Framework
@@ -15,52 +26,8 @@ import * as util from './util'
  * [📦 @roots/bud-framework](https://www.npmjs.com/package/@roots/bud-framework)
  * [🔗 Documentation](#)
  */
-class Bud extends Framework {
+abstract class Bud extends Framework {
   [key: string]: any
-
-  /**
-   * ## bud.args [🍱 _Container_]
-   *
-   * Collection of the arguments passed to the Framework and their values.
-   *
-   * [🔗 Documentation on bud.args](#)
-   * [🔗 Documentation on containers](#)
-   *
-   * ### Usage
-   *
-   * #### Flags
-   *
-   * ```sh
-   * $ bud build --html
-   * ```
-   *
-   * ```js
-   * bud.args.has('html') // => true
-   * ```
-   *
-   * #### Values
-   *
-   * ```sh
-   * $ bud build --html dist/index.html
-   * ```
-   *
-   * ```js
-   * bud.args.get('html') // => 'dist/index.html'
-   * ```
-   *
-   * #### Arrayed
-   *
-   * ```sh
-   * $ bud build --bento uni rainbow edamame
-   * # or
-   * $ bud build --bento uni --bento rainbow --bento edamame
-   * ```
-   *
-   * ```js
-   * bud.args.get('bento') // => ['uni', 'rainbow', 'edamame']
-   * ```
-   */
-  public args: Framework['args']
 
   /**
    * ## bud.cache
@@ -69,7 +36,7 @@ class Bud extends Framework {
    *
    * - [🔗 Documentation](#)
    */
-  public cache: Framework['cache']
+  public cache: Container
 
   /**
    * ## bud.cli
@@ -79,7 +46,7 @@ class Bud extends Framework {
    *
    * - [🔗 Documentation](#)
    */
-  public cli: Framework['cli']
+  public cli: CLI.Runner
 
   /**
    * ## bud.compiler
@@ -88,7 +55,7 @@ class Bud extends Framework {
    *
    * - [🔗 Documentation](#)
    */
-  public compiler: Framework['compiler']
+  public compiler: Compiler
 
   /**
    * ## bud.config [🍱 _Container_]
@@ -98,56 +65,14 @@ class Bud extends Framework {
    * [🔗 Documentation on bud.config](#)
    * [🔗 Documentation on containers](#)
    */
-  public config: Framework['config']
+  public config: Container
 
   /**
    * ## bud.build
    *
    * Webpack configuration builder class. [🔗 Documentation](#)
    */
-  public build: Framework['build']
-
-  /**
-   * ## bud.disk
-   *
-   * Index of virtual filesystems. Allows for swapping
-   * "disks". Each disk is the same class as `bud.fs` (which
-   * is always set to the `bud.project` rootDir).
-   *
-   * @note disks do not index `.gitignore` matches by default
-   * @note disks do not index `node_modules` by default
-   *
-   * [🔗 Documentation on bud.disk](#)
-   *
-   * ### Usage
-   *
-   * #### List file contents of project
-   *
-   * ```js
-   * bud.disk.get('project').ls()
-   * ```
-   *
-   * #### Get the absolute path of this class.
-   *
-   * ```js
-   * bud.disk.get(`@roots`).get('bud-framework/src/Bud/index.js')
-   * ```
-   */
-  public disk: Framework['disk']
-
-  /**
-   * ## bud.env [🍱 _Container_]
-   *
-   * Container for definitions founds in the application `.env` file *
-   *
-   * - [🔗 Documentation](#)
-   *
-   * ### Usage
-   * ```js
-   * bud.env.get('APP_NAME')
-   * ```
-   */
-  public env: Framework['env']
+  public build: Build
 
   /**
    * ## bud.extensions
@@ -156,7 +81,7 @@ class Bud extends Framework {
    *
    * - [🔗 Documentation](#)
    */
-  public extensions: Framework['extensions']
+  public extensions: Extensions
 
   /**
    * ## bud.features [🍱 _Container_]
@@ -202,7 +127,7 @@ class Bud extends Framework {
    * bud.fs.has('src/index.js')
    * ```
    */
-  public fs: Framework['fs']
+  public fs: FileContainer
 
   /**
    * ## bud.hooks
@@ -244,19 +169,13 @@ class Bud extends Framework {
    * )
    * ```
    */
-  public hooks: Framework['hooks']
+  public hooks: Hooks
 
-  /**
-   * ## bud.logger
-   *
-   * [pino](#) logger instance
-   */
-  public logger: Framework['logger'] = util.logger
 
   /**
    * Mode
    */
-  public mode: Framework['mode']
+  public mode: Mode
 
   /**
    * ## bud.server
@@ -265,12 +184,7 @@ class Bud extends Framework {
    *
    * - [🔗 Documentation](#)
    */
-  public server: Framework['server']
-
-  /**
-   * Bud options.
-   */
-  public options: Container
+  public server: Server.Contract
 
   /**
    * ## bud.patterns [🍱 _Container_]
@@ -297,48 +211,17 @@ class Bud extends Framework {
    */
   public patterns: Container
 
+  /**
+   * Presets
+   */
   public presets: Container
 
   /**
-   * ## bud.components [🍱 _Container_]
-   *
-   * Registry for services to be held before initialization.
+   * Constructor
    */
-  public api: Container
-  public components: Container
-  public services: Container
-
-  /**
-   * Class constructor
-   */
-  public constructor(implementations: {
-    api: {[key: string]: CallableFunction}
-    components: {[key: string]: unknown}
-    presets: {[key: string]: unknown}
-    services: {[key: string]: unknown}
-  }) {
-    super()
-
-    this.get = this.get.bind(this)
+  public constructor(implementations) {
+    super(implementations)
     this.callMeMaybe = this.callMeMaybe.bind(this)
-    this.makeContainer = this.makeContainer.bind(this)
-
-    Object.entries(implementations).forEach(([name, set]) => {
-      this[name] = this.makeContainer(set)
-    })
-  }
-
-  /**
-   * ## bud.get  [🏠 Internal]
-   *
-   * Scope binding for bud.get
-   *
-   * ```js
-   * bud.get()
-   * ```
-   */
-  public get(): this {
-    return this
   }
 
   /**
@@ -360,70 +243,9 @@ class Bud extends Framework {
    * // => `option value: true`
    * ```
    */
-  public callMeMaybe: Framework['callMeMaybe'] = util.callMeMaybe
-
-  /**
-   * ## bud.makeContainer
-   *
-   * Create a new container. May be passed an initial set of values.
-   *
-   * [🔗 Documentation on containers](#)
-   */
-  public makeContainer(repository?: {
-    [key: string]: any
-  }): Container {
-    return new Container(repository)
-  }
-
-  /**
-   * ## bud.makeDisk
-   *
-   * Create a new disk. Provide a name, root directory, and -- optionally --
-   * a custom glob array. [🔗 Documentation on bud.disk](#)
-   *
-   * ### Usage
-   *
-   * ```js
-   * bud.makeDisk(
-   *   'icons',
-   *   bud.project('assets/icons'),
-   *   ['*.svg'],
-   * )
-   * ```
-   */
-  public makeDisk(
-    name: string,
-    dir: string,
-    glob?: string[],
-  ): void {
-    this.disk.set(name, {
-      base: this.fs.path.resolve(__dirname, dir),
-      glob: glob ?? ['**/*'],
-    })
-  }
-
-  /**
-   * ## bud.pipe [💁 Fluent]
-   *
-   * Execute an array of functions. Each will be passed a fresh
-   * copy of the bud object.
-   *
-   * ### Usage
-   *
-   * ```js
-   * bud.pipe([
-   *   bud => bud.srcPath('resources'),
-   *   bud => bud.proxy(),
-   * ])
-   * ```
-   */
-  public pipe(fns): this {
-    fns.reduce((_val, fn) => {
-      return fn(this)
-    }, this)
-
-    return this
-  }
+  public callMeMaybe: <I = unknown>(
+    value: MaybeCallable<I>,
+  ) => I = util.callMeMaybe
 
   /**
    * ## bud.init [🏠 Internal]
@@ -444,6 +266,7 @@ class Bud extends Framework {
 
     this.services.every((name, Service) => {
       this[name] = new Service(this)
+      this[name].init()
     })
 
     this.disk = new FileSystem()
@@ -496,10 +319,6 @@ class Bud extends Framework {
     return this
   }
 
-  protected register(containers: [string, any][]): void {
-    // implement in extending class
-  }
-
   protected _boot(): this {
     this.args.has('mode')
       ? this.mode.set(this.args.get('mode'))
@@ -508,10 +327,6 @@ class Bud extends Framework {
     this.boot()
 
     return this
-  }
-
-  protected boot(): void {
-    // implement in extending class
   }
 
   protected _disks(): void {
@@ -544,8 +359,6 @@ declare namespace Bud {
       [name, object]: [string, Type],
     ) => void
   }
-
-  export type Bootstrap = (initFn: (this: Bud) => void) => Bud
 
   export type DiskDefinition = {
     [key: string]: {glob: string[]; baseDir: string}

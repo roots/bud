@@ -1,12 +1,12 @@
 {
   "name": "@roots/bud-hooks",
-  "description": "Prettier component for React Ink",
+  "description": "Hooks controller for Bud",
   "version": "2.0.7",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
-    "directory": "packages/ink-prettier"
+    "directory": "packages/bud-hooks"
   },
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
@@ -19,7 +19,7 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": ["webpack"],
+  "keywords": ["bud", "webpack"],
   "engines": {
     "node": ">=12"
   },
@@ -45,6 +45,7 @@
     "clean": "run-s clean:*",
     "clean:lib": "rimraf ./lib",
     "clean:modules": "rimraf ./node_modules",
+    "clean:types": "rimraf ./types",
     "pkg": "run-s pkg:*",
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write",
@@ -54,7 +55,6 @@
     "@roots/bud-typings": "^2.0.7"
   },
   "dependencies": {
-    "@roots/container": "^2.0.7",
-    "@roots/bud-support": "^2.0.7"
+    "@roots/container": "^2.0.7"
   }
 }

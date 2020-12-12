@@ -1,25 +1,28 @@
 import {Extension} from '../Extension'
-import {Service} from '@roots/bud-support'
 import type {
   Bud,
   Container,
   MaybeCallable,
 } from '@roots/bud-typings'
 
-/**
- * Extensions
- */
-export abstract class ExtensionsService extends Service {
+export default abstract class {
+  public _bud: Bud.Ref
+
   /**
    * Extensions container
    */
   public repository: Container
 
-  /**
-   * Class constructor.
-   */
   public constructor(bud: Bud) {
-    super(bud)
+    this._bud = bud.get
+  }
+
+  public get bud(): Bud {
+    return this._bud()
+  }
+
+  public init(): void {
+    this.repository = this.bud.makeContainer({})
   }
 
   /**

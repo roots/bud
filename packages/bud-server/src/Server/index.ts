@@ -49,6 +49,10 @@ class Server implements Framework.Server.Contract {
     this.config = bud.makeContainer({})
   }
 
+  public init(): void {
+    return
+  }
+
   /**
    * ## bud.server.getConfig [🏠 Internal]
    *

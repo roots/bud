@@ -17,7 +17,7 @@ export class Hooks extends Service implements Contract {
     return this
   }
 
-  public action: Contract.Action = function <T = unknown>(
+  public action: Contract.Action = function <T>(
     name: string,
     binding: T,
   ) {
@@ -27,7 +27,7 @@ export class Hooks extends Service implements Contract {
     this.has(name) && this.store[name].map(map)
   }
 
-  public filter: Contract.Filter = function <T = unknown>(
+  public filter: Contract.Filter = function <T>(
     name: string,
     value: T,
   ) {

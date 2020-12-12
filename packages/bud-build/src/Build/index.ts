@@ -26,6 +26,10 @@ export class Build implements IBuild {
   /** Bud reference [🏠 Internal] */
   public bud: Bud.Ref
 
+  public init(): void {
+    return
+  }
+
   /**
    * ## bud.build.builders [🏠 Internal]
    *

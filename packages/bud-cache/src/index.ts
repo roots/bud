@@ -1,4 +1,4 @@
-import {CacheService} from './CacheService'
+import Service from './Service'
 import type {Bud} from '@roots/bud-typings'
 
 /**
@@ -11,16 +11,7 @@ import type {Bud} from '@roots/bud-typings'
  * [📦 @roots/bud-cache](#)
  * [🔗 Documentation](#)
  */
-export class Cache extends CacheService {
-  /**
-   * Class constructor.
-   */
-  public constructor(bud: Bud) {
-    super(bud)
-    this.enabled = this.enabled.bind(this)
-    this.setCache = this.setCache.bind(this)
-  }
-
+export class Cache extends Service {
   /**
    * ## bud.cache.enabled [🏠 Internal]
    *
@@ -35,11 +26,10 @@ export class Cache extends CacheService {
    * ```
    */
   public enabled(): boolean {
-    const bud = this.bud()
     return (
-      bud.features.enabled('buildCache') &&
-      bud.fs.exists(
-        bud.config.get('webpack.recordsPath') as string,
+      this.bud.features.enabled('buildCache') &&
+      this.bud.fs.exists(
+        this.bud.config.get('webpack.recordsPath') as string,
       )
     )
   }
@@ -50,10 +40,8 @@ export class Cache extends CacheService {
    * Sets the cache object in the webpack configuration.
    */
   public setCache(): void {
-    const bud = this.bud()
-
     this.enabled() &&
-      bud.hooks.on('webpack.cache', (bud: Bud) =>
+      this.bud.hooks.on('webpack.cache', (bud: Bud) =>
         bud.disk
           .get('project')
           .readJson(bud.config.get('webpack.recordsPath')),
