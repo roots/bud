@@ -13,8 +13,40 @@ import {
   Extensions,
   Hooks,
   MaybeCallable,
+  Logger,
   Server,
 } from '@roots/bud-typings'
+
+/**
+ * Framework namespace
+ */
+declare namespace Bud {
+  export type Ref = () => Bud
+
+  export type Format = (obj: unknown, options?) => string
+  export type BuilderDefinition<T = any> = [
+    {[key: string]: T},
+    BuilderDefinition.Initializer<T>,
+  ]
+
+  export namespace BuilderDefinition {
+    export interface Args<Type> {
+      this: Bud
+      definition: [string, Type]
+    }
+
+    export type Initializer<Type> = (
+      this: Bud,
+      [name, object]: [string, Type],
+    ) => void
+  }
+
+  export type DiskDefinition = {
+    [key: string]: {glob: string[]; baseDir: string}
+  }
+
+  export type Service<T = unknown> = T
+}
 
 /**
  * # Bud Framework
@@ -171,6 +203,15 @@ abstract class Bud extends Framework {
    */
   public hooks: Hooks
 
+  /**
+   * ## Logger
+   */
+  public logger: Logger = util.logger
+
+  /**
+   * ## Options
+   */
+  public options: Container
 
   /**
    * Mode
@@ -276,27 +317,6 @@ abstract class Bud extends Framework {
     this._register()
     this._boot()
 
-    Object.defineProperty(this, 'logger', {
-      enumerable: false,
-    })
-
-    Object.defineProperty(this.server, 'instance', {
-      enumerable: false,
-    })
-
-    Object.defineProperties(this.fs, {
-      fs: {enumerable: false},
-      glob: {enumerable: false},
-      path: {enumerable: false},
-    })
-
-    delete this._disks
-    delete this._register
-    delete this._boot
-    delete this.boot
-    delete this.register
-    delete this.components
-
     return this
   }
 
@@ -334,37 +354,6 @@ abstract class Bud extends Framework {
     this.makeDisk('project', this.fs.base)
     this.makeDisk('@roots', '../../..')
   }
-}
-
-/**
- * Framework namespace
- */
-declare namespace Bud {
-  export type Ref = () => Bud
-
-  export type Format = (obj: unknown, options?) => string
-  export type BuilderDefinition<T = any> = [
-    {[key: string]: T},
-    BuilderDefinition.Initializer<T>,
-  ]
-
-  export namespace BuilderDefinition {
-    export interface Args<Type> {
-      this: Bud
-      definition: [string, Type]
-    }
-
-    export type Initializer<Type> = (
-      this: Bud,
-      [name, object]: [string, Type],
-    ) => void
-  }
-
-  export type DiskDefinition = {
-    [key: string]: {glob: string[]; baseDir: string}
-  }
-
-  export type Service<T = unknown> = T
 }
 
 export {Bud}
