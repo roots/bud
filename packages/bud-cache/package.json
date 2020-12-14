@@ -52,6 +52,6 @@
     "prepublish": "clean:lib lint build pkg"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^2.0.7"
+    "@roots/bud-typings": "^2.0.6"
   }
 }

@@ -52,18 +52,18 @@
     "prepublish": "clean:lib lint build pkg"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^2.0.7"
+    "@roots/bud-typings": "^2.0.6"
   },
   "dependencies": {
     "@roots/bud-cli": "^2.0.7",
     "@roots/bud-compiler": "^2.0.7",
     "@roots/bud-extensions": "^2.0.7",
-    "@roots/bud-hooks": "^2.0.7",
-    "@roots/bud-support": "^2.0.7",
-    "@roots/bud-typings": "^2.0.7",
-    "@roots/container": "^2.0.7",
-    "@roots/dependencies": "^2.0.7",
-    "@roots/filesystem": "^2.0.7",
+    "@roots/bud-hooks": "^2.0.6",
+    "@roots/bud-support": "^2.0.6",
+    "@roots/bud-typings": "^2.0.6",
+    "@roots/container": "^2.0.6",
+    "@roots/dependencies": "^2.0.6",
+    "@roots/filesystem": "^2.0.6",
     "dotenv": "^8.2.0",
     "pino": "^6.7.0",
     "pino-pretty": "^4.3.0",

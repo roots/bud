@@ -53,8 +53,8 @@
   },
   "dependencies": {
     "@roots/bud-compiler": "^2.0.7",
-    "@roots/container": "^2.0.7",
-    "@roots/filesystem": "^2.0.7",
+    "@roots/container": "^2.0.6",
+    "@roots/filesystem": "^2.0.6",
     "express": "^4.17.1",
     "http-proxy-middleware": "^1.0.5",
     "strip-ansi": "^6.0.0",
@@ -65,7 +65,7 @@
     "zlib": "^1.0.5"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^2.0.7",
+    "@roots/bud-typings": "^2.0.6",
     "@types/webpack-hot-middleware": "^2.25.3"
   }
 }

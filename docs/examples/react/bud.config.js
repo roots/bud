@@ -48,11 +48,12 @@ bud.entry('create-bud-app', ['app.js', 'global.css'])
 /**
  * Production optimizations.
  */
-bud.mode.is('production') && bud.pipe([
-  ({minify}) => minify(),
-  ({vendor}) => vendor(),
-  ({runtime}) => runtime(),
-])
+bud.mode.is('production') &&
+  bud.pipe([
+    ({minify}) => minify(),
+    ({vendor}) => vendor(),
+    ({runtime}) => runtime(),
+  ])
 
 /**
  * Run build.

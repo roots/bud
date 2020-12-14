@@ -57,7 +57,7 @@
   "devDependencies": {
     "@roots/bud-extensions": "^2.0.7",
     "@roots/bud-framework": "^2.0.7",
-    "@roots/bud-typings": "^2.0.7"
+    "@roots/bud-typings": "^2.0.6"
   },
   "dependencies": {
     "autoprefixer": "^9.8.5",
