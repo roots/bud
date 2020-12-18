@@ -1,6 +1,8 @@
 import {Bud as Instance} from '@roots/bud-framework'
 import type * as Api from '@roots/bud-api'
-import type {Brotli, Imagemin} from '../components/extensions'
+import type {Brotli} from '../components/extensions'
+import type {Imagemin} from '@roots/bud-imagemin'
+import type {Container} from '@roots/bud-typings'
 
 /**
  * ## Bud
@@ -706,7 +708,20 @@ export class Bud extends Instance {
    *
    * Register framework components.
    */
-  protected register(containers: [string, any][]): void {
+  protected register(): void {
+    const containers = this.components.getEntries('containers')
+
+    containers
+      .filter(
+        ([name]: [string, Container['repository']]) =>
+          name !== 'serverConfig',
+      )
+      .forEach(
+        ([name, repo]: [string, Container['repository']]) => {
+          this[name] = this.makeContainer({...repo})
+        },
+      )
+
     this.server.setConfig(
       containers
         .filter(

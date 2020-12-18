@@ -8,5 +8,6 @@
     "declarationDir": "./types",
     "declarationMap": true
   },
-  "include": ["src"]
+  "include": ["./src"],
+  "exclude": ["./lib"]
 }

@@ -1,17 +1,6 @@
 import type {Bud} from '@roots/bud-typings'
 import type {Configuration} from 'webpack'
-
-declare interface Mode {
-  bud: Bud.Ref
-
-  ci: boolean
-
-  get(): Configuration['mode']
-
-  set(mode: Configuration['mode']): Bud
-
-  is(check: Configuration['mode']): boolean
-}
+import Service from './Service'
 
 /**
  * ## bud.mode
@@ -20,16 +9,7 @@ declare interface Mode {
  *
  * [🔗 Documentation on bud.mode](#)
  */
-export default class implements Mode {
-  bud: Bud.Ref
-
-  ci: boolean
-
-  public constructor(bud: Bud) {
-    this.bud = bud.get
-    this.ci = false
-  }
-
+export default class extends Service {
   /**
    * ## bud.mode.get
    *
@@ -41,8 +21,8 @@ export default class implements Mode {
    * bud.mode.get()
    * ```
    */
-  get(): Configuration['mode'] {
-    return this.bud().config.get('mode')
+  public get(): Configuration['mode'] {
+    return this.bud.config.get('mode')
   }
 
   /**
@@ -58,10 +38,10 @@ export default class implements Mode {
    * bud.mode.set('production')
    * ```
    */
-  set(mode: Configuration['mode']): Bud {
-    this.bud().config.set('mode', mode)
+  public set(mode: Configuration['mode']): Bud {
+    this.bud.config.set('mode', mode)
 
-    return this.bud()
+    return this.bud
   }
 
   /**
@@ -78,7 +58,7 @@ export default class implements Mode {
    * // returns true if bud.mode.get() === 'production'
    * ```
    */
-  is(check: Configuration['mode']): boolean {
-    return this.bud().config.is('mode', check)
+  public is(check: Configuration['mode']): boolean {
+    return this.bud.config.is('mode', check)
   }
 }

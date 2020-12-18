@@ -2,7 +2,7 @@ import {Container} from '@roots/container'
 import {isArray, isFunction} from 'lodash'
 
 import type {Bud, Index, Webpack} from '@roots/bud-typings'
-import type {Module} from './Module'
+import type {Module} from '../Module'
 
 /**
  * Extensions controller class.

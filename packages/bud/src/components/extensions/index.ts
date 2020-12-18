@@ -11,7 +11,6 @@ import * as hashedModuleIds from './hashedModuleIds'
 import * as hotModuleReplacement from './hmr'
 import * as html from './html'
 import * as htmlHardDisk from './htmlHardDisk'
-import * as imagemin from './imagemin'
 import * as interpolateHtml from './interpolateHtmlPlugin'
 import * as manifest from './manifest'
 import * as miniCssExtract from './miniCssExtract'
@@ -21,7 +20,6 @@ import * as watchMissingModules from './watchMissingModules'
 import * as writeFile from './writeFile'
 
 export * as Brotli from './brotli/typings'
-export * as Imagemin from './imagemin/typings'
 
 export const extensions: {
   [key: string]: Extension.Module
@@ -37,7 +35,6 @@ export const extensions: {
   [`webpack-hot-module-replacement-plugin]`]: hotModuleReplacement,
   [`html-webpack-plugin`]: html,
   [`html-hard-disk-plugin`]: htmlHardDisk,
-  [`image-minimizer-webpack-plugin`]: imagemin,
   [`interpolate-html-plugin`]: interpolateHtml,
   [`webpack-manifest-plugin`]: manifest,
   [`mini-css-extract-plugin`]: miniCssExtract,

@@ -39,6 +39,7 @@
       "packages/extension-babel",
       "packages/extension-entrypoints",
       "packages/extension-eslint",
+      "packages/extension-imagemin",
       "packages/extension-postcss",
       "packages/extension-purgecss",
       "packages/extension-react",

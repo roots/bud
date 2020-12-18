@@ -28,6 +28,7 @@ const fallbackOptions = {
           },
           stage: 3,
         },
+        'postcss-nested',
       ],
     ],
   },

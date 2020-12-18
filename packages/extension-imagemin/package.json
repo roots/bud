@@ -1,25 +1,22 @@
 {
-  "name": "@roots/bud-compiler",
-  "description": "Compilation handler",
+  "name": "@roots/bud-imagemin",
   "version": "2.0.7",
-  "homepage": "https://roots.io/bud",
+  "description": "Adds imagemin support to Bud",
   "repository": {
     "type": "git",
-    "url": "https://github.com/roots/bud.git",
-    "directory": "packages/bud-compiler"
+    "url": "git://github.com/roots/bud.git",
+    "directory": "packages/extension-imagemin"
   },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
-  "funding": {
-    "type": "github sponsors",
-    "url": "https://github.com/sponsors/roots"
-  },
-  "license": "MIT",
-  "contributors": [
-    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
-  ],
-  "keywords": ["webpack"],
+  "keywords": ["webpack", "bud"],
   "engines": {
     "node": ">=12"
   },
@@ -47,12 +44,16 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write",
     "prepublish": "clean:lib lint build pkg"
   },
-  "dependencies": {
-    "@roots/bud-cli": "^2.0.7",
-    "webpack": "^4.44.2"
-  },
   "devDependencies": {
-    "@roots/bud-typings": "^2.0.6",
-    "ink": "^3.0.8"
+    "@roots/bud-typings": "^2.0.6"
+  },
+  "dependencies": {
+    "@roots/bud-support": "^2.0.6",
+    "image-minimizer-webpack-plugin": "^1.0.0",
+    "imagemin": "^6.0.1",
+    "imagemin-gifsicle": "^7.0.0",
+    "imagemin-jpegtran": "^7.0.0",
+    "imagemin-optipng": "^8.0.0",
+    "imagemin-svgo": "^8.0.0"
   }
 }

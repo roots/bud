@@ -1,16 +1,12 @@
-import type {
-  Config,
-  ConfigPlugins,
-  ConfigOption,
-} from './typings'
+import type {Imagemin} from './imagemin/typings'
 
-export const imagemin: Config = function (enabled) {
+export const imagemin: Imagemin.Config = function (enabled) {
   this.features.set('imagemin', enabled ?? true)
 
   return this
 }
 
-export const imageminPlugins: ConfigPlugins = function (
+export const imageminPlugins: Imagemin.ConfigPlugins = function (
   plugins,
 ) {
   plugins &&
@@ -21,7 +17,7 @@ export const imageminPlugins: ConfigPlugins = function (
   return this
 }
 
-export const imageminOption: ConfigOption = function (
+export const imageminOption: Imagemin.ConfigOption = function (
   key,
   value,
 ) {

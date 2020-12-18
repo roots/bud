@@ -6,6 +6,9 @@ import type {
 } from '@roots/bud-typings'
 
 export default abstract class {
+  /**
+   * Bud reference.
+   */
   public _bud: Bud.Ref
 
   /**

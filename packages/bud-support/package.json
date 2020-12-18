@@ -23,11 +23,7 @@
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "lib/",
-    "src/",
-    "publish/"
-  ],
+  "files": ["lib/", "src/", "publish/"],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "exports": {

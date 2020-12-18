@@ -14,8 +14,6 @@ declare interface Compiler {
 
   statsOptions: Compiler.Stats.Options
 
-  error: Compiler.Instance
-
   run(): void
 
   makeError(err: string): void

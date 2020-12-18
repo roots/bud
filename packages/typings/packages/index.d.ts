@@ -15,11 +15,6 @@ export type {Express}
 export * from './utility'
 
 /**
- * Env
- */
-export type {Env} from './Env'
-
-/**
  * @roots/bud
  */
 export type {Bud} from '../../bud-framework/src'
@@ -56,6 +51,11 @@ export type {Container} from '../../container/src/Container'
  * @roots/dependencies
  */
 export * as Dependencies from '../../dependencies/src/dependencies'
+
+/**
+ * Env
+ */
+export type {Env} from './Env'
 
 /**
  * @roots/bud-extensions

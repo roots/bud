@@ -2,11 +2,14 @@ import {Bud, Webpack} from '@roots/bud-typings'
 import Compiler from './Contract'
 
 /**
- * Compiler
+ * ## bud.compiler
+ *
+ * [🏡 Project home](https://roots.io/bud)
+ * [🧑‍💻 roots/bud/packages/compiler](https://git.io/JkCQG)
+ * [📦 @roots/bud-compiler](https://www.npmjs.com/package/@roots/bud-compiler)
+ * [🔗 Documentation](#)
  */
 export default abstract class {
-  protected _bud: Bud.Ref
-
   /**
    * Class constructor
    */
@@ -20,6 +23,11 @@ export default abstract class {
     this.compile = this.compile.bind(this)
     this.applyPlugins = this.applyPlugins.bind(this)
   }
+
+  /**
+   * Bud reference.
+   */
+  protected _bud: Bud.Ref
 
   public get bud(): Bud {
     return this._bud()
@@ -48,10 +56,6 @@ export default abstract class {
   public abstract set statsOptions(
     options: Compiler.Stats.Options,
   )
-
-  public abstract get error(): Compiler.Instance
-
-  public abstract set error(error: Compiler.Instance)
 
   public abstract run(): void
 

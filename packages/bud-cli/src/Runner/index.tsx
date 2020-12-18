@@ -1,8 +1,9 @@
 import React from 'react'
-import {render, Instance} from 'ink'
+import {render} from 'ink'
 import Compile from '../containers/Compile'
 import {Serve} from '../containers/Serve'
 import type {Bud} from '@roots/bud-typings'
+import type {Instance} from 'ink'
 
 /**
  * ## bud.cli

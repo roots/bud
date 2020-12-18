@@ -67,20 +67,22 @@ export class Compiler extends Service implements Contract {
   public _error: Instance
 
   /**
-   * Class constructor
+   * Get the compiler instance.
    */
-  constructor(bud: Framework.Bud) {
-    super(bud)
-  }
-
   public get instance(): Webpack.Compiler {
     return this._instance
   }
 
+  /**
+   * Set the compiler instance.
+   */
   public set instance(compiler: Webpack.Compiler) {
     this._instance = compiler
   }
 
+  /**
+   * Get the current compilation stats
+   */
   public get stats(): {
     string: string
     json: Contract.Stats.Output['json']
@@ -88,6 +90,9 @@ export class Compiler extends Service implements Contract {
     return this._stats
   }
 
+  /**
+   * Set the current compilation stats.
+   */
   public set stats(stats: Contract.Stats.Output) {
     this._stats = this.bud.hooks.filter<Contract.Stats.Output>(
       'compiler.stats',
@@ -95,20 +100,18 @@ export class Compiler extends Service implements Contract {
     )
   }
 
+  /**
+   * Get the stats options.
+   */
   public get statsOptions(): Contract.Stats.Options {
     return this._statsOptions
   }
 
+  /**
+   * Set the stats options.
+   */
   public set statsOptions(options: Contract.Stats.Options) {
     this._statsOptions = options
-  }
-
-  public get error(): Instance {
-    return this._error
-  }
-
-  public set error(error: Instance) {
-    this._error = error
   }
 
   /**

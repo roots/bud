@@ -1,65 +1,82 @@
 import {Container} from '@roots/container'
 import {FileContainer, FileSystem} from '@roots/filesystem'
-
-import {Framework} from './Framework'
-import Mode from './Mode'
-
-import * as util from './util'
+import Mode from '../Mode'
+import * as util from '../util'
+import {resolve} from 'path'
 
 import {
   Build,
   CLI,
   Compiler,
+  Env,
   Extensions,
   Hooks,
-  MaybeCallable,
   Logger,
+  MaybeCallable,
   Server,
 } from '@roots/bud-typings'
 
 /**
- * Framework namespace
- */
-declare namespace Bud {
-  export type Ref = () => Bud
-
-  export type Format = (obj: unknown, options?) => string
-  export type BuilderDefinition<T = any> = [
-    {[key: string]: T},
-    BuilderDefinition.Initializer<T>,
-  ]
-
-  export namespace BuilderDefinition {
-    export interface Args<Type> {
-      this: Bud
-      definition: [string, Type]
-    }
-
-    export type Initializer<Type> = (
-      this: Bud,
-      [name, object]: [string, Type],
-    ) => void
-  }
-
-  export type DiskDefinition = {
-    [key: string]: {glob: string[]; baseDir: string}
-  }
-
-  export type Service<T = unknown> = T
-}
-
-/**
- * # Bud Framework
- *
- * Framework base class.
+ * # Bud base class
  *
  * [🏡 Project home](https://roots.io/bud)
  * [🧑‍💻 roots/bud/packages/framework](#)
  * [📦 @roots/bud-framework](https://www.npmjs.com/package/@roots/bud-framework)
  * [🔗 Documentation](#)
  */
-abstract class Bud extends Framework {
+abstract class Bud {
   [key: string]: any
+
+  /**
+   * ## bud.args [🍱 _Container_]
+   *
+   * CLI arguments passed to the Framework.
+   *
+   * [🔗 Documentation on bud.args](#)
+   * [🔗 Documentation on containers](#)
+   *
+   * ### Usage
+   *
+   * #### Flags
+   *
+   * ```sh
+   * $ bud build --html
+   * ```
+   *
+   * ```js
+   * bud.args.has('html') // => true
+   * ```
+   *
+   * #### Values
+   *
+   * ```sh
+   * $ bud build --html dist/index.html
+   * ```
+   *
+   * ```js
+   * bud.args.get('html') // => 'dist/index.html'
+   * ```
+   *
+   * #### Arrayed
+   *
+   * ```sh
+   * $ bud build --bento uni rainbow edamame
+   * # or
+   * $ bud build --bento uni --bento rainbow --bento edamame
+   * ```
+   *
+   * ```js
+   * bud.args.get('bento') // => ['uni', 'rainbow', 'edamame']
+   * ```
+   */
+  public args: Container
+
+  /**
+   * ## bud.build
+   *
+   * Webpack configuration builder class. [🔗 Documentation](#)
+   */
+  public build: Build
 
   /**
    * ## bud.cache
@@ -100,11 +117,47 @@ abstract class Bud extends Framework {
   public config: Container
 
   /**
-   * ## bud.build
+   * ## bud.disk
    *
-   * Webpack configuration builder class. [🔗 Documentation](#)
+   * Index of virtual filesystems. Allows for swapping
+   * "disks". Each disk is the same class as `bud.fs` (which
+   * is always set to the `bud.project` rootDir).
+   *
+   * @note disks do not index `.gitignore` matches by default
+   * @note disks do not index `node_modules` by default
+   *
+   * [🔗 Documentation on bud.disk](#)
+   *
+   * ### Usage
+   *
+   * #### List file contents of project
+   *
+   * ```js
+   * bud.disk.get('project').ls()
+   * ```
+   *
+   * #### Get the absolute path of this class.
+   *
+   * ```js
+   * bud.disk.get(`@roots`).get('bud-framework/src/Bud/index.js')
+   * ```
    */
-  public build: Build
+  public disk: FileSystem
+
+  /**
+   * ## bud.env [🍱 _Container_]
+   *
+   * Container for definitions founds in the
+   * application `.env` file *
+   *
+   * - [🔗 Documentation](#)
+   *
+   * ### Usage
+   * ```js
+   * bud.env.get('APP_NAME')
+   * ```
+   */
+  public env: Env
 
   /**
    * ## bud.extensions
@@ -118,8 +171,9 @@ abstract class Bud extends Framework {
   /**
    * ## bud.features [🍱 _Container_]
    *
-   * Collection of feature flags each indicating whether or not a
-   * particular feature is enabled or disabled.
+   * Collection of feature flags each indicating
+   * whether or not a  particular feature
+   * is enabled or disabled.
    *
    * [🔗 Documentation on bud.features](#)
    * [🔗 Documentation on containers](#)
@@ -204,34 +258,25 @@ abstract class Bud extends Framework {
   public hooks: Hooks
 
   /**
-   * ## Logger
+   * ## bud.logger
+   *
+   * [pino](#) logger instance
    */
   public logger: Logger = util.logger
 
   /**
-   * ## Options
-   */
-  public options: Container
-
-  /**
-   * Mode
+   * ## bud.mode
    */
   public mode: Mode
 
   /**
-   * ## bud.server
-   *
-   * Express application server used for development.
-   *
-   * - [🔗 Documentation](#)
-   */
-  public server: Server.Contract
-
-  /**
    * ## bud.patterns [🍱 _Container_]
    *
-   * Collection of common RegExp objects. The advantage of using them in
-   * a container object is that they can be easily redefined by extensions.
+   * Collection of common RegExp objects.
+   *
+   * The advantage of using them in
+   * a container object is that they can be
+   * easily redefined by extensions.
    *
    * - [🔗 Documentation on bud.patterns](#)
    * - [🔗 Documentation on containers](#)
@@ -258,11 +303,79 @@ abstract class Bud extends Framework {
   public presets: Container
 
   /**
+   * ## bud.server
+   *
+   * Express application server used for development.
+   *
+   * - [🔗 Documentation](#)
+   */
+  public server: Server.Contract
+
+  /**
+   * ## bud.services
+   */
+  public services: Container
+
+  /**
    * Constructor
    */
-  public constructor(implementations) {
-    super(implementations)
+  public constructor(implementations: {
+    [key: string]: {[key: string]: unknown}
+  }) {
+    this.get = this.get.bind(this)
+    this.makeContainer = this.makeContainer.bind(this)
     this.callMeMaybe = this.callMeMaybe.bind(this)
+
+    this.disk = new FileSystem()
+    this.fs = new FileContainer()
+
+    Object.entries(implementations).forEach(([name, set]) => {
+      this[name] = this.makeContainer(set)
+    })
+
+    this.setup()
+  }
+
+  /**
+   * ## bud.setup [🏠 Internal]
+   *
+   * Initializes base objects.
+   */
+  protected setup(): void {
+    this.mode = new Mode(this)
+
+    this.fs.setBase(process.cwd())
+
+    this.makeDisk('project', this.fs.base)
+    this.makeDisk('@roots', '../../..')
+
+    this.api.every((name, fn) => {
+      this[name] = fn.bind(this)
+    })
+
+    this.components.every((name, component) => {
+      this[name] = component
+    })
+
+    this.services.every((name, Service) => {
+      this[name] = new Service(this)
+      this[name].init && this[name].init()
+    })
+  }
+
+  /**
+   * Initialize class
+   */
+  public init(): this {
+    this.register()
+
+    this.args.has('mode')
+      ? this.mode.set(this.args.get('mode'))
+      : this.mode.set('none')
+
+    this.boot()
+
+    return this
   }
 
   /**
@@ -275,7 +388,7 @@ abstract class Bud extends Framework {
    *
    * ```js
    * const isAFunction = (option) => `option value: ${option}`
-   * const isAValue = `option value: true`
+   * const isAValue = 'option value: true'
    *
    * bud.callMeMaybe(isAFunction, true)
    * // => `option value: true`
@@ -289,71 +402,108 @@ abstract class Bud extends Framework {
   ) => I = util.callMeMaybe
 
   /**
-   * ## bud.init [🏠 Internal]
+   * ## bud.get  [🏠 Internal]
    *
-   * Initializes base functions and yields the implementation class
-   * if available.
+   * Scope binding for bud.get
+   *
+   * ```js
+   * bud.get()
+   * ```
    */
-  public init(): this {
-    this.mode = new Mode(this)
-
-    this.api.every((name, fn) => {
-      this[name] = fn.bind(this)
-    })
-
-    this.components.every((name, component) => {
-      this[name] = component
-    })
-
-    this.services.every((name, Service) => {
-      this[name] = new Service(this)
-      this[name].init()
-    })
-
-    this.disk = new FileSystem()
-    this.fs = new FileContainer(process.cwd())
-
-    this._disks()
-    this._register()
-    this._boot()
-
+  public get(): this {
     return this
   }
 
-  protected _register(): this {
-    const containers = this.components.getEntries('containers')
+  /**
+   * ## bud.makeContainer
+   *
+   * Create a new container. May be passed an initial set of values.
+   *
+   * [🔗 Documentation on containers](#)
+   */
+  public makeContainer(repository?: {
+    [key: string]: any
+  }): Container {
+    return new Container(repository)
+  }
 
-    containers
-      .filter(
-        ([name]: [string, Container['repository']]) =>
-          name !== 'serverConfig',
-      )
-      .forEach(
-        ([name, repo]: [string, Container['repository']]) => {
-          this[name] = this.makeContainer({...repo})
-        },
-      )
+  /**
+   * ## bud.makeDisk
+   *
+   * Create a new disk. Provide a name, root directory, and -- optionally --
+   * a custom glob array. [🔗 Documentation on bud.disk](#)
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.makeDisk(
+   *   'icons',
+   *   bud.project('assets/icons'),
+   *   ['*.svg'],
+   * )
+   * ```
+   */
+  public makeDisk(
+    name: string,
+    dir: string,
+    glob?: string[],
+  ): void {
+    this.disk.set(name, {
+      base: resolve(__dirname, dir),
+      glob: glob ?? ['**/*'],
+    })
+  }
 
-    this.register(containers)
+  /**
+   * ## bud.pipe [💁 Fluent]
+   *
+   * Execute an array of functions. Each will be passed a fresh
+   * copy of the bud object.
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.pipe([
+   *   bud => bud.srcPath('resources'),
+   *   bud => bud.proxy(),
+   * ])
+   * ```
+   */
+  public pipe(fns): this {
+    fns.reduce((_val, fn) => {
+      return fn(this)
+    }, this)
 
     return this
   }
+}
 
-  protected _boot(): this {
-    this.args.has('mode')
-      ? this.mode.set(this.args.get('mode'))
-      : this.mode.set('none')
+declare namespace Bud {
+  export type Ref = () => Bud
 
-    this.boot()
+  export type Format = (obj: unknown, options?) => string
+  export type BuilderDefinition<T = any> = [
+    {[key: string]: T},
+    BuilderDefinition.Initializer<T>,
+  ]
 
-    return this
+  export namespace BuilderDefinition {
+    export interface Args<Type> {
+      this: Bud
+      definition: [string, Type]
+    }
+
+    export type Initializer<Type> = (
+      this: Bud,
+      [name, object]: [string, Type],
+    ) => void
   }
 
-  protected _disks(): void {
-    this.fs.setBase(process.cwd())
-    this.makeDisk('project', this.fs.base)
-    this.makeDisk('@roots', '../../..')
+  export type DiskDefinition = {
+    [key: string]: {glob: string[]; baseDir: string}
   }
+
+  export type Service<T = unknown> = T
 }
 
 export {Bud}

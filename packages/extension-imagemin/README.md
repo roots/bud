@@ -7,35 +7,26 @@
   <a href="https://twitter.com/rootswp">
     <img alt="Follow Roots" src="https://img.shields.io/twitter/follow/rootswp.svg?style=flat-square&color=1da1f2" />
   </a>
-  <a href="https://www.npmjs.com/package/@roots/bud-compiler">
-    <img src="https://img.shields.io/npm/v/@roots/bud-compiler.svg?color=%23525ddc&style=flat-square" />
-  </a>
 </p>
 
 <h1 align="center">
-  <strong>@roots/bud-compiler</strong>
+  <strong>@roots/bud-imagemin</strong>
 </h1>
 
 ## Overview
 
-The compiler provides controls and renders Bud's built-in development server.
+Minimize image assets in @roots/bud projects.
 
 ## Installation
 
 ```sh
-yarn add @roots/bud-compiler --dev
+yarn add @roots/bud-imagemin --dev
 ```
 
 ## Usage
 
-The compiler is called as a function and expects a valid webpack configuration and an instance of Bud.
-
-It returns an object that includes a `compile` function. This initiates the compiler.
-
 ```js
-const {compiler} = require('@roots/bud-compiler')
-const instance = compiler(bud, config)
-instance.compile()
+bud.use(['@roots/bud-imagemin'])
 ```
 
 ## Contributing

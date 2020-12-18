@@ -20,8 +20,9 @@ bud.hooks.on('webpack.resolve.modules', modules => [
  * Extensions
  */
 bud.use([
-  '@roots/bud-postcss',
   '@roots/bud-babel',
+  '@roots/bud-postcss',
+  '@roots/bud-imagemin',
   '@roots/bud-react',
 ])
 

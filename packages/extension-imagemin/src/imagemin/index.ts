@@ -1,14 +1,12 @@
 import Plugin from 'image-minimizer-webpack-plugin'
-import {Make, Options, When} from './typings'
+import type {Imagemin} from './typings'
 
-export * as api from './api'
+export const make: Imagemin.Make = opt => new Plugin(opt.all())
 
-export const make: Make = opt => new Plugin(opt.getStore())
-
-export const when: When = ({features}) =>
+export const when: Imagemin.When = ({features}) =>
   features.enabled('imagemin')
 
-export const options: Options = {
+export const options: Imagemin.Options = {
   minimizerOptions: {
     plugins: [
       ['gifsicle', {interlaced: true}],

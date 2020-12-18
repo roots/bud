@@ -18,7 +18,8 @@ interface Extensions {
   use(pkg: string): this
 
   /**
-   * Create a new controller instance wrapping an extension module.
+   * Create a new controller instance
+   * wrapping an extension module.
    */
   make(extensions: Container): void
 

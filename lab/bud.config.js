@@ -4,8 +4,9 @@ require('./localFix')(bud)
 
 bud.use([
   '@roots/bud-wordpress-manifests',
-  '@roots/bud-postcss',
   '@roots/bud-babel',
+  '@roots/bud-imagemin',
+  '@roots/bud-postcss',
   '@roots/bud-react',
   '@roots/bud-purgecss',
 ])
