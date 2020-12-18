@@ -19,7 +19,7 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "tags": ["bud", "postcss", "webpack"],
+  "keywords": ["bud", "postcss", "webpack"],
   "engines": {
     "node": ">=12"
   },
@@ -33,7 +33,7 @@
   },
   "scripts": {
     "build": "run-s build:*",
-    "build:cjm": "tsc --build tsconfig.json",
+    "build:cjs": "tsc --build tsconfig.json",
     "build:ejm": "tsc --build tsconfig-ejs.json",
     "lint": "run-s lint:*",
     "lint:eslint": "eslint 'src/**/*.{js,ts,tsx}' --fix",

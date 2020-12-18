@@ -37,7 +37,7 @@
   "types": "./types/index.d.ts",
   "scripts": {
     "build": "run-s build:*",
-    "build:cjm": "tsc --build tsconfig.json",
+    "build:cjs": "tsc --build tsconfig.json",
     "build:ejm": "tsc --build tsconfig-ejs.json",
     "lint": "run-s lint:*",
     "lint:eslint": "eslint 'src/**/*.{js,ts,tsx}' --fix",

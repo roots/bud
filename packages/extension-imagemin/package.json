@@ -16,6 +16,7 @@
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
+  "license": "MIT",
   "keywords": ["webpack", "bud"],
   "engines": {
     "node": ">=12"
@@ -30,7 +31,7 @@
   "types": "./types/index.d.ts",
   "scripts": {
     "build": "run-s build:*",
-    "build:cjm": "tsc --build tsconfig.json",
+    "build:cjs": "tsc --build tsconfig.json",
     "build:ejm": "tsc --build tsconfig-ejs.json",
     "lint": "run-s lint:*",
     "lint:eslint": "eslint 'src/**/*.{js,ts,tsx}' --fix",
