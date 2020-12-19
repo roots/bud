@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-vue",
-  "version": "2.0.7",
+  "version": "2.1.0",
   "description": "Adds Vue support to Bud",
   "repository": {
     "type": "git",
@@ -18,7 +18,10 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": ["webpack", "bud"],
+  "keywords": [
+    "webpack",
+    "bud"
+  ],
   "engines": {
     "node": ">=12"
   },
@@ -51,10 +54,10 @@
     "prepublish": "clean:lib lint build pkg"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^2.0.6"
+    "@roots/bud-typings": "^2.1.0"
   },
   "dependencies": {
-    "@roots/bud-support": "^2.0.6",
+    "@roots/bud-support": "^2.1.0",
     "babel-helper-vue-jsx-merge-props": "^2.0.0",
     "babel-plugin-transform-vue-jsx": "^3.7.0",
     "css-loader": "^3.6.0",

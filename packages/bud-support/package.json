@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-support",
-  "version": "2.0.6",
+  "version": "2.1.0",
   "description": "Internal utilities for the @roots/bud monorepo.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -19,11 +19,18 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": ["bud", "webpack"],
+  "keywords": [
+    "bud",
+    "webpack"
+  ],
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib/", "src/", "publish/"],
+  "files": [
+    "lib/",
+    "src/",
+    "publish/"
+  ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "exports": {

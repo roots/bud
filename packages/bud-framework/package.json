@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-framework",
-  "version": "2.0.7",
+  "version": "2.1.0",
   "description": "A friendly build tool to help manage your project assets.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -19,11 +19,17 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": ["webpack"],
+  "keywords": [
+    "webpack"
+  ],
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib/", "types/", "src/"],
+  "files": [
+    "lib/",
+    "types/",
+    "src/"
+  ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
@@ -51,15 +57,15 @@
     "@roots/bud-typings": "^2.0.6"
   },
   "dependencies": {
-    "@roots/bud-cli": "^2.0.7",
-    "@roots/bud-compiler": "^2.0.7",
-    "@roots/bud-extensions": "^2.0.7",
-    "@roots/bud-hooks": "^2.0.6",
-    "@roots/bud-support": "^2.0.6",
-    "@roots/bud-typings": "^2.0.6",
-    "@roots/container": "^2.0.6",
-    "@roots/dependencies": "^2.0.6",
-    "@roots/filesystem": "^2.0.6",
+    "@roots/bud-cli": "^2.1.0",
+    "@roots/bud-compiler": "^2.1.0",
+    "@roots/bud-extensions": "^2.1.0",
+    "@roots/bud-hooks": "^2.1.0",
+    "@roots/bud-support": "^2.1.0",
+    "@roots/bud-typings": "^2.1.0",
+    "@roots/container": "^2.1.0",
+    "@roots/dependencies": "^2.1.0",
+    "@roots/filesystem": "^2.1.0",
     "dotenv": "^8.2.0",
     "pino": "^6.7.0",
     "pino-pretty": "^4.3.0",

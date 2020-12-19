@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-purgecss",
-  "version": "2.0.7",
+  "version": "2.1.0",
   "description": "Adds purgecss support to Bud",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -19,7 +19,10 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": ["webpack", "bud"],
+  "keywords": [
+    "webpack",
+    "bud"
+  ],
   "engines": {
     "node": ">=12"
   },
@@ -56,7 +59,7 @@
     "purgecss-with-wordpress": "^2.3.0"
   },
   "devDependencies": {
-    "@roots/bud-extensions": "^2.0.7",
-    "@roots/bud-typings": "^2.0.6"
+    "@roots/bud-extensions": "^2.1.0",
+    "@roots/bud-typings": "^2.1.0"
   }
 }

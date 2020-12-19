@@ -1,6 +1,6 @@
 {
   "name": "@roots/dependencies",
-  "version": "2.0.7",
+  "version": "2.1.0",
   "description": "Automated package installation",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -22,7 +22,9 @@
   "engines": {
     "node": ">=12"
   },
-  "keywords": ["utilities"],
+  "keywords": [
+    "utilities"
+  ],
   "files": [
     "lib/",
     "types/",

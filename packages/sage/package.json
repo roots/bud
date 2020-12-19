@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-sage",
-  "version": "2.0.7",
+  "version": "2.1.0",
   "description": "Sage preset configuration",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -19,11 +19,16 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": ["webpack"],
+  "keywords": [
+    "webpack"
+  ],
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib/", "types/"],
+  "files": [
+    "lib/",
+    "types/"
+  ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
@@ -48,16 +53,16 @@
     "prepublish": "clean:lib lint build pkg"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^2.0.6"
+    "@roots/bud-typings": "^2.1.0"
   },
   "dependencies": {
-    "@roots/bud": "^2.0.7",
-    "@roots/bud-babel": "^2.0.7",
-    "@roots/bud-imagemin": "^2.0.7",
-    "@roots/bud-postcss": "^2.0.7",
-    "@roots/bud-purgecss": "^2.0.7",
-    "@roots/bud-react": "^2.0.7",
-    "@roots/bud-sass": "^2.0.7",
-    "@roots/bud-wordpress-manifests": "^2.0.6"
+    "@roots/bud": "^2.1.0",
+    "@roots/bud-babel": "^2.1.0",
+    "@roots/bud-imagemin": "^2.1.0",
+    "@roots/bud-postcss": "^2.1.0",
+    "@roots/bud-purgecss": "^2.1.0",
+    "@roots/bud-react": "^2.1.0",
+    "@roots/bud-sass": "^2.1.0",
+    "@roots/bud-wordpress-manifests": "^2.1.0"
   }
 }
