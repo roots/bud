@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-babel",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "A friendly build tool to help manage your project assets.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -60,13 +60,13 @@
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/plugin-transform-runtime": "^7.11.5",
     "@babel/preset-env": "^7.11.5",
-    "@roots/bud-support": "^2.1.1",
+    "@roots/bud-support": "^2.1.2",
     "babel-loader": "^8.1.0",
     "babel-plugin-add-module-exports": "^1.0.4"
   },
   "devDependencies": {
-    "@roots/bud-extensions": "^2.1.1",
-    "@roots/bud-typings": "^2.1.1",
+    "@roots/bud-extensions": "^2.1.2",
+    "@roots/bud-typings": "^2.1.2",
     "webpack": "^4.44.2"
   },
   "gitHead": "9d736f0b44384c1f66b94462145c11e618aa166d"

@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-typings",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Shared typings",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -22,7 +22,9 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["./packages"],
+  "files": [
+    "./packages"
+  ],
   "types": "./packages/index.d.ts",
   "scripts": {
     "build": "tsc"

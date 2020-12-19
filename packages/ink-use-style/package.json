@@ -1,7 +1,7 @@
 {
   "name": "@roots/ink-use-style",
   "description": "Themes and styles for React Ink",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -19,11 +19,18 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": ["webpack", "bud"],
+  "keywords": [
+    "webpack",
+    "bud"
+  ],
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib/", "types/", "src/"],
+  "files": [
+    "lib/",
+    "types/",
+    "src/"
+  ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "exports": {
@@ -47,7 +54,7 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "dependencies": {
-    "@roots/bud-support": "^2.1.1"
+    "@roots/bud-support": "^2.1.2"
   },
   "gitHead": "9d736f0b44384c1f66b94462145c11e618aa166d"
 }

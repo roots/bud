@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-sage",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Sage preset configuration",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -52,17 +52,17 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^2.1.1"
+    "@roots/bud-typings": "^2.1.2"
   },
   "dependencies": {
-    "@roots/bud": "^2.1.1",
-    "@roots/bud-babel": "^2.1.1",
-    "@roots/bud-imagemin": "^2.1.1",
-    "@roots/bud-postcss": "^2.1.1",
-    "@roots/bud-purgecss": "^2.1.1",
-    "@roots/bud-react": "^2.1.1",
-    "@roots/bud-sass": "^2.1.1",
-    "@roots/bud-wordpress-manifests": "^2.1.1"
+    "@roots/bud": "^2.1.2",
+    "@roots/bud-babel": "^2.1.2",
+    "@roots/bud-imagemin": "^2.1.2",
+    "@roots/bud-postcss": "^2.1.2",
+    "@roots/bud-purgecss": "^2.1.2",
+    "@roots/bud-react": "^2.1.2",
+    "@roots/bud-sass": "^2.1.2",
+    "@roots/bud-wordpress-manifests": "^2.1.2"
   },
   "gitHead": "9d736f0b44384c1f66b94462145c11e618aa166d"
 }

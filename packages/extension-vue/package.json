@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-vue",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "description": "Adds Vue support to Bud",
   "repository": {
     "type": "git",
@@ -53,10 +53,10 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^2.1.1"
+    "@roots/bud-typings": "^2.1.2"
   },
   "dependencies": {
-    "@roots/bud-support": "^2.1.1",
+    "@roots/bud-support": "^2.1.2",
     "babel-helper-vue-jsx-merge-props": "^2.0.0",
     "babel-plugin-transform-vue-jsx": "^3.7.0",
     "css-loader": "^3.6.0",

@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-server",
   "description": "Development server for @roots/bud",
-  "version": "2.1.1",
+  "version": "2.1.2",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -19,11 +19,17 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": ["webpack"],
+  "keywords": [
+    "webpack"
+  ],
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib/", "types/", "src/"],
+  "files": [
+    "lib/",
+    "types/",
+    "src/"
+  ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
@@ -47,12 +53,12 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "dependencies": {
-    "@roots/bud-compiler": "^2.1.1",
-    "@roots/container": "^2.1.1",
-    "@roots/filesystem": "^2.1.1"
+    "@roots/bud-compiler": "^2.1.2",
+    "@roots/container": "^2.1.2",
+    "@roots/filesystem": "^2.1.2"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^2.1.1"
+    "@roots/bud-typings": "^2.1.2"
   },
   "gitHead": "9d736f0b44384c1f66b94462145c11e618aa166d"
 }
