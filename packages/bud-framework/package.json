@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-framework",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "A friendly build tool to help manage your project assets.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -56,15 +56,15 @@
     "@roots/bud-typings": "^2.0.6"
   },
   "dependencies": {
-    "@roots/bud-cli": "^2.1.0",
-    "@roots/bud-compiler": "^2.1.0",
-    "@roots/bud-extensions": "^2.1.0",
-    "@roots/bud-hooks": "^2.1.0",
-    "@roots/bud-support": "^2.1.0",
-    "@roots/bud-typings": "^2.1.0",
-    "@roots/container": "^2.1.0",
-    "@roots/dependencies": "^2.1.0",
-    "@roots/filesystem": "^2.1.0",
+    "@roots/bud-cli": "^2.1.1",
+    "@roots/bud-compiler": "^2.1.1",
+    "@roots/bud-extensions": "^2.1.1",
+    "@roots/bud-hooks": "^2.1.1",
+    "@roots/bud-support": "^2.1.1",
+    "@roots/bud-typings": "^2.1.1",
+    "@roots/container": "^2.1.1",
+    "@roots/dependencies": "^2.1.1",
+    "@roots/filesystem": "^2.1.1",
     "dotenv": "^8.2.0",
     "pino": "^6.7.0",
     "pino-pretty": "^4.3.0",

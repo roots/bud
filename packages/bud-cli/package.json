@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-cli",
   "description": "CLI tools for Bud.",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -58,10 +58,10 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "dependencies": {
-    "@roots/bud-support": "^2.1.0",
-    "@roots/dependencies": "^2.1.0",
-    "@roots/ink-prettier": "^2.1.0",
-    "@roots/ink-use-style": "^2.1.0",
+    "@roots/bud-support": "^2.1.1",
+    "@roots/dependencies": "^2.1.1",
+    "@roots/ink-prettier": "^2.1.1",
+    "@roots/ink-use-style": "^2.1.1",
     "fs-extra": "^9.0.1",
     "ink": "^3.0.0-6",
     "ink-gradient": "^2.0.0",
@@ -77,7 +77,7 @@
     "yargs": "^16.2.0"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^2.1.0",
+    "@roots/bud-typings": "^2.1.1",
     "@types/react": "^16.9.50"
   },
   "gitHead": "112fe4425c9e825060944f2d5dcd999401daa333"

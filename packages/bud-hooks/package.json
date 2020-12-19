@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-hooks",
   "description": "Hooks controller for Bud",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -54,10 +54,10 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^2.1.0"
+    "@roots/bud-typings": "^2.1.1"
   },
   "dependencies": {
-    "@roots/container": "^2.1.0"
+    "@roots/container": "^2.1.1"
   },
   "gitHead": "112fe4425c9e825060944f2d5dcd999401daa333"
 }

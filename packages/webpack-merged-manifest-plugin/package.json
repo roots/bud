@@ -1,6 +1,6 @@
 {
   "name": "@roots/merged-manifest-webpack-plugin",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
@@ -52,8 +52,8 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^2.1.0",
-    "@roots/entrypoints-webpack-plugin": "^2.1.0"
+    "@roots/bud-typings": "^2.1.1",
+    "@roots/entrypoints-webpack-plugin": "^2.1.1"
   },
   "gitHead": "112fe4425c9e825060944f2d5dcd999401daa333"
 }

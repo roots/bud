@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-wordpress-externals",
-  "version": "2.1.0",
+  "version": "2.1.1",
   "description": "Webpack tools",
   "repository": {
     "type": "git",
@@ -53,11 +53,11 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "dependencies": {
-    "@roots/bud-support": "^2.1.0",
-    "@roots/wordpress-externals-webpack-plugin": "^2.1.0"
+    "@roots/bud-support": "^2.1.1",
+    "@roots/wordpress-externals-webpack-plugin": "^2.1.1"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^2.1.0"
+    "@roots/bud-typings": "^2.1.1"
   },
   "gitHead": "112fe4425c9e825060944f2d5dcd999401daa333"
 }
