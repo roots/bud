@@ -35,6 +35,7 @@
     {"@roots/bud-postcss": "extension-postcss"},
     {"@roots/bud-purgecss": "extension-purgecss"},
     {"@roots/bud-react": "extension-react"},
+    {"@roots/bud-sage": "sage"},
     {"@roots/bud-sass": "extension-sass"},
     {"@roots/bud-server": "bud-server"},
     {"@roots/bud-support": "bud-support"},

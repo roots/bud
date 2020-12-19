@@ -80,11 +80,13 @@ export class Plugin {
       entry.chunks.forEach(chunk => {
         this.output.content[entry.name] = Array.from(
           chunk.modulesIterable,
-        ).reduce((acc: any, module: any) => {
-          return externals[module.userRequest]
-            ? [...acc, externals[module.userRequest].enqueue]
-            : acc
-        }, [])
+        ).reduce(
+          (acc: any, module: any) =>
+            externals[module.userRequest]
+              ? [...acc, externals[module.userRequest].enqueue]
+              : acc,
+          [],
+        )
       })
     })
 

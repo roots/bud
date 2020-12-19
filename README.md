@@ -158,10 +158,6 @@ The following is a (hopefully) exhaustive list of the utilities designed to make
 | bud.glob            | Create an entrypoint with wildcards | [docs/config-glob.md](https://github.com/roots/bud/tree/stable/docs/config-glob.md)                       |
 | bud.gzip            | Apply gzip compression              | [docs/config-gzip.md](https://github.com/roots/bud/tree/stable/docs/config-gzip.md)                       |
 | bud.hash            | Add version string to assets        | [docs/config-glob.md](https://github.com/roots/bud/tree/stable/docs/config-hash.md)                       |
-| bud.imagemin        | Enable/disable image minification   | [docs/config-imagemin.md](https://github.com/roots/bud/tree/stable/docs/config-imagemin.md)               |
-| bud.imageminOption  | Set imagemin option                 | [docs/config-imageminOption.md](https://github.com/roots/bud/tree/stable/docs/config-imageminOption.md)   |
-| bud.imageminPlugins | Customize imagemin plugins          | [docs/config-imageminPlugins.md](https://github.com/roots/bud/tree/stable/docs/config-imageminPlugins.md) |
-| bud.imagemin        | Enable/disable image minification   | [docs/config-imagemin.md](https://github.com/roots/bud/tree/stable/docs/config-imagemin.md)               |
 | bud.library         | Create and utilize a DLL            | [docs/config-library.md](https://github.com/roots/bud/tree/stable/docs/config-library.md)                 |
 | bud.minify          | Minify assets                       | [docs/config-minify.md](https://github.com/roots/bud/tree/stable/docs/config-minify.md)                   |
 | bud.pipe            | Declare a series of build steps     | [docs/config-pipe.md](https://github.com/roots/bud/tree/stable/docs/config-pipe.md)                       |

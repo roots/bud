@@ -1,19 +1,21 @@
 import fetch from 'node-fetch'
+import {windowVariables} from './windowVariables'
 
 /** Gutenberg repo package.json @ master */
-enum Gutenberg {
-  json = 'https://raw.githubusercontent.com/WordPress/gutenberg/master/package.json',
-}
+const GUTENBERG_PACKAGE_JSON = 'https://raw.githubusercontent.com/WordPress/gutenberg/master/package.json'
 
 /**
  * Fetch declared dependencies from the wordpress/gutenberg repo
  */
 const fetchExternals: Packages.Fetch = async () => {
   try {
-    const data = await fetch(Gutenberg.json)
+    const data = await fetch(GUTENBERG_PACKAGE_JSON)
     const {dependencies} = await data.json()
 
-    return transformPkgNames(dependencies)
+    return {
+      ...transformPkgNames(dependencies),
+      ...windowVariables,
+    }
   } catch (err) {
     throw err
   }

@@ -14,3 +14,5 @@ export const bud: Bud = new Bud({
 })
   .init()
   .pipe(Object.values(args))
+
+export {Bud}

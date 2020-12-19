@@ -53,6 +53,7 @@
       "packages/filesystem",
       "packages/ink-prettier",
       "packages/ink-use-style",
+      "packages/sage",
       "packages/typings",
       "packages/webpack-entrypoints-plugin",
       "packages/webpack-merged-manifest-plugin",

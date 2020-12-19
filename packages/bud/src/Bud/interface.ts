@@ -1,22 +1,9 @@
 import {Framework} from '@roots/bud-framework'
-import type Contract from './interface'
-import type {Container} from '@roots/container'
-import type * as Api from '@roots/bud-api'
-import type {Brotli} from '../components/extensions'
-import type {Imagemin} from '@roots/bud-imagemin'
+import * as Api from '@roots/bud-api'
+import {Imagemin} from '@roots/bud-imagemin'
+import {Brotli} from '../components/extensions'
 
-/**
- * ## Bud
- *
- * A webpack framework combining the best parts of
- * Laravel Mix and Symfony Encore.
- *
- * [🏡 Project home](https://roots.io/bud)
- * [🧑‍💻 roots/bud](https://github.io/roots/bud)
- * [📦 @roots/bud](https://github.io/roots/bud)
- * [🔗 Documentation](#)
- */
-class Bud extends Framework implements Contract {
+export default interface Bud extends Framework {
   /**
    * ## bud.addPlugin  [💁 Fluent]
    *
@@ -34,7 +21,7 @@ class Bud extends Framework implements Contract {
    * bud.addPlugin('my-plugin', new myPlugin())
    * ```
    */
-  public addPlugin: Api.AddPlugin
+  addPlugin: Api.AddPlugin
 
   /**
    * ## bud.alias  [💁 Fluent]
@@ -52,7 +39,7 @@ class Bud extends Framework implements Contract {
    * })
    * ```
    */
-  public alias: Api.Alias
+  alias: Api.Alias
 
   /**
    * ## bud.buildCache  [💁 Fluent]
@@ -71,7 +58,7 @@ class Bud extends Framework implements Contract {
    * bud.buildCache(bud.project('./.build'))
    * ```
    */
-  public buildCache: Api.BuildCache
+  buildCache: Api.BuildCache
 
   /**
    * ## bud.brotli  [💁 Fluent]
@@ -108,7 +95,7 @@ class Bud extends Framework implements Contract {
    * })
    * ```
    */
-  public brotli: Brotli.Config
+  brotli: Brotli.Config
 
   /**
    * ## bud.copy  [💁 Fluent]
@@ -144,7 +131,7 @@ class Bud extends Framework implements Contract {
    * })
    * ```
    */
-  public copy: Api.Copy
+  copy: Api.Copy
 
   /**
    * ## bud.define  [💁 Fluent]
@@ -178,7 +165,7 @@ class Bud extends Framework implements Contract {
    * </html>
    * ```
    */
-  public define: Api.Define
+  define: Api.Define
 
   /**
    * ## bud.dev  [💁 Fluent]
@@ -194,7 +181,7 @@ class Bud extends Framework implements Contract {
    * })
    * ```
    */
-  public dev: Api.Dev
+  dev: Api.Dev
 
   /**
    * ## bud.devtool  [💁 Fluent]
@@ -210,7 +197,7 @@ class Bud extends Framework implements Contract {
    * bud.devtool('inline-cheap-module-source-map')
    * ```
    */
-  public devtool: Api.Devtool
+  devtool: Api.Devtool
 
   /**
    * ## bud.dist  [💁 Fluent]
@@ -235,7 +222,7 @@ class Bud extends Framework implements Contract {
    * bud.dist('scripts/app.js')
    *  ```
    */
-  public dist: Api.Dist
+  dist: Api.Dist
 
   /**
    * ## bud.distPath [💁 Fluent]
@@ -250,7 +237,7 @@ class Bud extends Framework implements Contract {
    * bud.distPath('build')
    * ```
    */
-  public distPath: Api.DistPath
+  distPath: Api.DistPath
 
   /**
    * ## bud.entry  [💁 Fluent]
@@ -274,7 +261,7 @@ class Bud extends Framework implements Contract {
    * })
    * ```
    */
-  public entry: Api.Entry
+  entry: Api.Entry
 
   /**
    * ## bud.externals  [💁 Fluent]
@@ -289,7 +276,7 @@ class Bud extends Framework implements Contract {
    *   'jQuery': 'window.jquery',
    * })
    */
-  public externals: Api.Externals
+  externals: Api.Externals
 
   /**
    * ## bud.glob  [💁 Fluent]
@@ -315,14 +302,14 @@ class Bud extends Framework implements Contract {
    * bud.glob('app', '*.js')
    * ```
    */
-  public glob: Api.Glob
+  glob: Api.Glob
 
   /**
    * ## bud.gzip  [💁 Fluent]
    *
    * Gzip static assets. [🔗 Documentation](#)
    */
-  public gzip: Api.Gzip
+  gzip: Api.Gzip
 
   /**
    * ## bud.hash  [💁 Fluent]
@@ -335,7 +322,7 @@ class Bud extends Framework implements Contract {
    * bud.hash()
    * ```
    */
-  public hash: Api.Hash
+  hash: Api.Hash
 
   /**
    * ## bud.imagemin [💁 Fluent]
@@ -354,7 +341,7 @@ class Bud extends Framework implements Contract {
    * bud.imagemin(false) // disable
    * ```
    */
-  public imagemin: Imagemin.Config
+  imagemin: Imagemin.Config
 
   /**
    * ## bud.imageminOption [💁 Fluent]
@@ -371,7 +358,7 @@ class Bud extends Framework implements Contract {
    * bud.imageminOption('severityError', 'warning')
    * ```
    */
-  public imageminOption: Imagemin.ConfigOption
+  imageminOption: Imagemin.ConfigOption
 
   /**
    * ## bud.imageminPlugins [💁 Fluent]
@@ -402,7 +389,7 @@ class Bud extends Framework implements Contract {
    * ])
    * ```
    */
-  public imageminPlugins: Imagemin.ConfigPlugins
+  imageminPlugins: Imagemin.ConfigPlugins
 
   /**
    * ## bud.library  [💁 Fluent]
@@ -426,7 +413,7 @@ class Bud extends Framework implements Contract {
    * bud.library(['react', 'react-dom'])
    * ```
    */
-  public library: Api.Library
+  library: Api.Library
 
   /**
    * ## bud.minify  [💁 Fluent]
@@ -439,7 +426,7 @@ class Bud extends Framework implements Contract {
    * bud.minify()
    * ```
    */
-  public minify: Api.Minify
+  minify: Api.Minify
 
   /**
    * ## bud.project  [💁 Fluent]
@@ -460,7 +447,7 @@ class Bud extends Framework implements Contract {
    * bud.project('node_modules')
    * ```
    */
-  public project: Api.Project
+  project: Api.Project
 
   /**
    * ## bud.projectPath [💁 Fluent]
@@ -475,7 +462,7 @@ class Bud extends Framework implements Contract {
    * bud.projectPath('build')
    * ```
    */
-  public projectPath: Api.ProjectPath
+  projectPath: Api.ProjectPath
 
   /**
    * ## bud.provide  [💁 Fluent]
@@ -491,7 +478,7 @@ class Bud extends Framework implements Contract {
    * })
    * ```
    */
-  public provide: Api.Provide
+  provide: Api.Provide
 
   /**
    * ## bud.proxy  [💁 Fluent]
@@ -513,7 +500,7 @@ class Bud extends Framework implements Contract {
    * })
    * ```
    */
-  public proxy: Api.Proxy
+  proxy: Api.Proxy
 
   /**
    * ## bud.publicPath  [💁 Fluent]
@@ -530,7 +517,7 @@ class Bud extends Framework implements Contract {
    * bud.publicPath('/app/themes/sage/dist')
    * ```
    */
-  public publicPath: Api.PublicPath
+  publicPath: Api.PublicPath
 
   /**
    * ## bud.run  [💁 Fluent]
@@ -549,7 +536,7 @@ class Bud extends Framework implements Contract {
    * bud.run(true)
    * ```
    */
-  public run: Api.Run
+  run: Api.Run
 
   /**
    * ## bud.runtime  [💁 Fluent]
@@ -564,7 +551,7 @@ class Bud extends Framework implements Contract {
    * bud.runtime()
    * ```
    */
-  public runtime: Api.Runtime
+  runtime: Api.Runtime
 
   /**
    * ## bud.src  [💁 Fluent]
@@ -582,7 +569,7 @@ class Bud extends Framework implements Contract {
    * bud.src('scripts/app.js')
    * ```
    */
-  public src: Api.Src
+  src: Api.Src
 
   /**
    * ## bud.srcPath [💁 Fluent]
@@ -597,7 +584,7 @@ class Bud extends Framework implements Contract {
    * bud.srcPath('build')
    * ```
    */
-  public srcPath: Api.SrcPath
+  srcPath: Api.SrcPath
 
   /**
    * ## bud.string
@@ -611,7 +598,7 @@ class Bud extends Framework implements Contract {
    * const stringValue = bud.string(value)
    * ```
    */
-  public string: Api.Stringify
+  string: Api.Stringify
 
   /**
    * ## bud.target  [💁 Fluent]
@@ -622,7 +609,7 @@ class Bud extends Framework implements Contract {
    * bud.target('web')
    * ```
    */
-  public target: Api.Target
+  target: Api.Target
 
   /**
    * ## bud.template  [💁 Fluent]
@@ -642,7 +629,7 @@ class Bud extends Framework implements Contract {
    * })
    * ```
    */
-  public template: Api.Template
+  template: Api.Template
 
   /**
    * ## bud.terser  [💁 Fluent]
@@ -652,7 +639,7 @@ class Bud extends Framework implements Contract {
    * For more information on options [see the
    * terser-webpack-plugin docs](https://webpack.js.org/plugins/terser-webpack-plugin/).
    */
-  public terser: Api.Terser
+  terser: Api.Terser
 
   /**
    * ## bud.use [💁 Fluent]
@@ -666,7 +653,7 @@ class Bud extends Framework implements Contract {
    * bud.use(['@roots/bud-babel', '@roots/bud-react'])
    * ```
    */
-  public use: Api.Use
+  use: Api.Use
 
   /**
    * ## bud.vendor  [💁 Fluent]
@@ -685,7 +672,7 @@ class Bud extends Framework implements Contract {
    * bud.vendor('third-party')
    * ```
    */
-  public vendor: Api.Vendor
+  vendor: Api.Vendor
 
   /**
    * ## bud.when  [💁 Fluent]
@@ -702,66 +689,5 @@ class Bud extends Framework implements Contract {
    * bud.when(bud.mode.is('production'), () => bud.vendor())
    * ```
    */
-  public when: Api.When
-
-  /**
-   * ## bud.register [🏠 Internal]
-   *
-   * Register framework components.
-   */
-  protected register(): void {
-    const containers = this.components.getEntries('containers')
-
-    containers
-      .filter(
-        ([name]: [string, Container['repository']]) =>
-          name !== 'serverConfig',
-      )
-      .forEach(
-        ([name, repo]: [string, Container['repository']]) => {
-          this[name] = this.makeContainer({...repo})
-        },
-      )
-
-    this.server.setConfig(
-      containers
-        .filter(
-          ([name]: [string, Framework['repository']]) =>
-            name == 'serverConfig',
-        )
-        .pop()
-        .pop(),
-    )
-  }
-
-  /**
-   * ## bud.boot [🏠 Internal]
-   *
-   * Register parts of the application that
-   * might rely on having container access (dynamic)
-   */
-  protected boot(): void {
-    this.components
-      .each('loaders', (k, v) => {
-        this.build.setLoader(k, v)
-      })
-
-      .each('items', (k, v) => {
-        this.build.setItem(k, v)
-      })
-
-      .each('rules', (k, v) => {
-        this.build.setRule(k, v)
-      })
-
-      .each('extensions', (k, v) => {
-        this.extensions.set(k, v)
-      })
-  }
+  when: Api.When
 }
-
-declare namespace Bud {
-  export type {Contract}
-}
-
-export {Bud}

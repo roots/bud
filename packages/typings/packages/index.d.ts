@@ -17,7 +17,7 @@ export * from './utility'
 /**
  * @roots/bud
  */
-export type {Bud} from '../../bud-framework/src'
+export type {Framework as Bud} from '../../bud-framework/src'
 
 /**
  * @roots/bud-build

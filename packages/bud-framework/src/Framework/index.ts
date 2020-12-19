@@ -24,7 +24,7 @@ import {
  * [📦 @roots/bud-framework](https://www.npmjs.com/package/@roots/bud-framework)
  * [🔗 Documentation](#)
  */
-abstract class Bud {
+abstract class Framework {
   [key: string]: any
 
   /**
@@ -341,7 +341,7 @@ abstract class Bud {
    *
    * Initializes base objects.
    */
-  protected setup(): void {
+  public setup(): void {
     this.mode = new Mode(this)
 
     this.fs.setBase(process.cwd())
@@ -478,8 +478,8 @@ abstract class Bud {
   }
 }
 
-declare namespace Bud {
-  export type Ref = () => Bud
+declare namespace Framework {
+  export type Ref = () => Framework
 
   export type Format = (obj: unknown, options?) => string
   export type BuilderDefinition<T = any> = [
@@ -489,12 +489,12 @@ declare namespace Bud {
 
   export namespace BuilderDefinition {
     export interface Args<Type> {
-      this: Bud
+      this: Framework
       definition: [string, Type]
     }
 
     export type Initializer<Type> = (
-      this: Bud,
+      this: Framework,
       [name, object]: [string, Type],
     ) => void
   }
@@ -506,4 +506,4 @@ declare namespace Bud {
   export type Service<T = unknown> = T
 }
 
-export {Bud}
+export {Framework}

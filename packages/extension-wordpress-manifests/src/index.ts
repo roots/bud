@@ -23,8 +23,8 @@ const mergedManifestExtension = [
 /**
  * @roots/bud-wordpress-manifests boot
  */
-export const boot: Extension.Module.Boot = ({use}) => {
-  use([
+export const boot: Extension.Module.Boot = bud => {
+  bud.use([
     '@roots/bud-entrypoints',
     '@roots/bud-wordpress-externals',
     mergedManifestExtension,

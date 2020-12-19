@@ -7,35 +7,31 @@
   <a href="https://twitter.com/rootswp">
     <img alt="Follow Roots" src="https://img.shields.io/twitter/follow/rootswp.svg?style=flat-square&color=1da1f2" />
   </a>
+  <a href="https://www.npmjs.com/package/@roots/bud">
+    <img src="https://img.shields.io/npm/v/@roots/bud.svg?color=%23525ddc&style=flat-square" />
+  </a>
 </p>
 
 <h1 align="center">
-  <strong>@roots/bud-imagemin</strong>
+  <strong>@roots/bud-sage</strong>
 </h1>
 
 ## Overview
 
-Minimize image assets in @roots/bud projects.
+Preset for [@roots/sage v10](https://github.com/roots/sage).
 
 ## Installation
 
-```sh
-yarn add @roots/bud-imagemin --dev
-```
+`yarn add @roots/bud-sage --dev`
 
 ## Usage
 
 ```js
-bud.use(['@roots/bud-imagemin'])
+const {bud} = require('@roots/bud-sage')
+
+bud.entry('app', ['scripts/app.js'])
+bud.run()
 ```
-
-## Config
-
-| Tool                | Description                         | Documentation                                                                                             |
-| ------------------- | ----------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| bud.imagemin        | Enable/disable image minification   | [docs/index.md](https://github.com/roots/bud/tree/stable/docs/config-imagemin.md)               |
-| bud.imageminOption  | Set imagemin option                 | [docs/config-imageminOption.md](https://github.com/roots/bud/tree/stable/docs/config-imageminOption.md)   |
-| bud.imageminPlugins | Customize imagemin plugins          | [docs/config-imageminPlugins.md](https://github.com/roots/bud/tree/stable/docs/config-imageminPlugins.md) |
 
 ## Contributing
 

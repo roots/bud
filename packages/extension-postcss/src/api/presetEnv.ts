@@ -7,6 +7,7 @@ export const presetEnv: PresetEnv = function (options = {}) {
 
   // plugins[0]: flexbugs
   // plugins[1]: preset-env
+  // plugins[2]: postcss-nested
   plugins[1][1] = options
 
   this.build.items.set(
