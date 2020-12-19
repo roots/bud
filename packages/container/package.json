@@ -51,10 +51,10 @@
     "clean:types": "rimraf ./types",
     "pkg": "run-s pkg:*",
     "pkg:check": "package-check --verbose",
-    "pkg:format": "prettier './lib/**/*.{js,ts}' --write",
-    "prepublish": "clean:lib lint build pkg"
+    "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "dependencies": {
     "lodash": "^4.17.19"
-  }
+  },
+  "gitHead": "112fe4425c9e825060944f2d5dcd999401daa333"
 }

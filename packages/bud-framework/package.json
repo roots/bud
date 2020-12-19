@@ -50,8 +50,7 @@
     "clean:types": "rimraf ./types",
     "pkg": "run-s pkg:*",
     "pkg:check": "package-check --verbose",
-    "pkg:format": "prettier './lib/**/*.{js,ts}' --write",
-    "prepublish": "clean:lib lint build pkg"
+    "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
     "@roots/bud-typings": "^2.0.6"
@@ -71,5 +70,6 @@
     "pino-pretty": "^4.3.0",
     "pretty-format": "^26.6.2",
     "webpack": "^4.44.2"
-  }
+  },
+  "gitHead": "112fe4425c9e825060944f2d5dcd999401daa333"
 }

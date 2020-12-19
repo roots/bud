@@ -49,5 +49,6 @@
     "webpack-dev-middleware": "^3.7.2",
     "webpack-hot-middleware": "^2.25.0",
     "zlib": "^1.0.5"
-  }
+  },
+  "gitHead": "112fe4425c9e825060944f2d5dcd999401daa333"
 }

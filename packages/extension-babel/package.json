@@ -52,8 +52,7 @@
     "clean:types": "rimraf ./types",
     "pkg": "run-s pkg:*",
     "pkg:check": "package-check --verbose",
-    "pkg:format": "prettier './lib/**/*.{js,ts}' --write",
-    "prepublish": "clean:lib lint build pkg"
+    "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "dependencies": {
     "@babel/core": "^7.11.5",
@@ -69,5 +68,6 @@
     "@roots/bud-extensions": "^2.1.0",
     "@roots/bud-typings": "^2.1.0",
     "webpack": "^4.44.2"
-  }
+  },
+  "gitHead": "112fe4425c9e825060944f2d5dcd999401daa333"
 }

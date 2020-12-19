@@ -50,8 +50,7 @@
     "clean:types": "rimraf ./types",
     "pkg": "run-s pkg:*",
     "pkg:check": "package-check --verbose",
-    "pkg:format": "prettier './lib/**/*.{js,ts}' --write",
-    "prepublish": "clean:lib lint build pkg"
+    "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
     "@roots/bud-typings": "^2.1.0",
@@ -97,5 +96,6 @@
     "webpack-config-dump-plugin": "^3.0.1",
     "webpack-manifest-plugin": "^2.2.0",
     "write-file-webpack-plugin": "^4.5.1"
-  }
+  },
+  "gitHead": "112fe4425c9e825060944f2d5dcd999401daa333"
 }
