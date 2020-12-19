@@ -53,15 +53,15 @@ export type {Container} from '../../container/src/Container'
 export * as Dependencies from '../../dependencies/src/dependencies'
 
 /**
+ * @roots/bud-extensions
+ */
+export {Extension} from '../../bud-extensions/src/Extension'
+export {Extensions} from '../../bud-extensions/src/Extensions'
+
+/**
  * Env
  */
 export type {Env} from './Env'
-
-/**
- * @roots/bud-extensions
- */
-export type {Extension} from '../../bud-extensions/src/Extension'
-export type {Extensions} from '../../bud-extensions/src/Extensions'
 
 /**
  * @roots/filesystem

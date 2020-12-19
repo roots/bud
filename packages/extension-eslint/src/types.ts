@@ -1,4 +1,5 @@
-import {Extension, Container, Bud} from '@roots/bud-typings'
+import {Container, Bud} from '@roots/bud-typings'
+import {Extension} from '@roots/bud-extensions'
 import Plugin, {
   Options as PluginOptions,
 } from 'eslint-webpack-plugin'

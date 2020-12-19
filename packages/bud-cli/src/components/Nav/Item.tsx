@@ -1,5 +1,9 @@
-import React, {FunctionComponent} from 'react'
-import {Text, Box} from 'ink'
+import {
+  React,
+  FunctionComponent,
+  Text,
+  Box,
+} from '@roots/bud-support'
 import {Indicator} from '../UI/Indicator'
 import {useFocus} from '../../hooks/useFocus'
 import {useStyle} from '@roots/ink-use-style'

@@ -1,9 +1,9 @@
-import middleware from 'webpack-dev-middleware'
-import Framework from '@roots/bud-typings'
+import {webpackDevMiddleware} from '@roots/bud-support'
+import {Express, Webpack, Server} from '@roots/bud-typings'
 
 export interface DevFactoryOptions {
-  compiler: Framework.Webpack.Compiler
-  config: Framework.Server.Config
+  compiler: Webpack.Compiler
+  config: Server.Config
 }
 
 const BUD_HEADERS = {
@@ -13,12 +13,12 @@ const BUD_HEADERS = {
 const dev = ({
   compiler,
   config,
-}: DevFactoryOptions): Framework.Express.RequestHandler =>
-  middleware(compiler, options(config))
+}: DevFactoryOptions): Express.RequestHandler =>
+  webpackDevMiddleware(compiler, options(config))
 
 const options = (
-  config: Framework.Server.Config,
-): middleware.Options => {
+  config: Server.Config,
+): webpackDevMiddleware.Options => {
   return {
     publicPath: '/',
     headers: BUD_HEADERS,

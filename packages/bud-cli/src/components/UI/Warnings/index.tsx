@@ -1,4 +1,4 @@
-import React from 'react'
+import {React} from '@roots/bud-support'
 import Screen from '../../Screen'
 import {Warning} from './Warning'
 

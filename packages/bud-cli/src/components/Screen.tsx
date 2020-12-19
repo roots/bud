@@ -1,5 +1,10 @@
-import React, {FunctionComponent, ReactElement} from 'react'
-import {Box} from 'ink'
+import {
+  React,
+  FunctionComponent,
+  ReactElement,
+  Box,
+} from '@roots/bud-support'
+
 import {Title} from './Title'
 
 interface ScreenInterface {

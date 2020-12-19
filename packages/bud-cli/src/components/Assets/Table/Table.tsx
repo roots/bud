@@ -1,10 +1,13 @@
-import React, {FunctionComponent} from 'react'
-import {Box} from 'ink'
-import Table from 'ink-table'
+import {
+  Box,
+  React,
+  FunctionComponent,
+  Table,
+} from '@roots/bud-support'
+import {useStyle} from '@roots/ink-use-style'
 import * as table from './tableParts'
 import {UseCompilation} from '../../../hooks/useCompilation'
 import {useTransform} from './tableTransform'
-import {useStyle} from '@roots/ink-use-style'
 
 const AssetsTable: Assets.Component = ({assets}) => {
   const data = useTransform(assets)

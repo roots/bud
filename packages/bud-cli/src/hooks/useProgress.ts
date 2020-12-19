@@ -1,4 +1,4 @@
-import {useState} from 'react'
+import {useState} from '@roots/bud-support'
 
 const INITIAL_STATE: UseProgress.Progress = {
   percentage: {

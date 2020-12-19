@@ -5,9 +5,6 @@ export default abstract class {
 
   public constructor(bud: Bud) {
     this._bud = bud.get
-
-    this.enabled = this.enabled.bind(this)
-    this.setCache = this.setCache.bind(this)
   }
 
   public get bud(): Bud {
@@ -15,7 +12,8 @@ export default abstract class {
   }
 
   public init(): void {
-    return
+    this.enabled = this.enabled.bind(this)
+    this.setCache = this.setCache.bind(this)
   }
 
   public abstract enabled(): boolean

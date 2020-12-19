@@ -1,6 +1,11 @@
-import React, {FunctionComponent} from 'react'
-import {Box, Text} from 'ink'
+import {
+  React,
+  FunctionComponent,
+  Box,
+  Text,
+} from '@roots/bud-support'
 import {useStyle} from '@roots/ink-use-style'
+
 import type {UseStats} from '../hooks/useStats'
 
 declare namespace BuildInfo {

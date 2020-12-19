@@ -1,5 +1,9 @@
-import React, {FunctionComponent} from 'react'
-import {Box, Text} from 'ink'
+import {
+  React,
+  FunctionComponent,
+  Box,
+  Text,
+} from '@roots/bud-support'
 import {Indicator} from '../UI/Indicator'
 import {useStyle} from '@roots/ink-use-style'
 
@@ -49,4 +53,4 @@ declare namespace Asset {
   }
 }
 
-export {Asset as default}
+export {Asset}

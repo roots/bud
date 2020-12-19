@@ -1,5 +1,5 @@
+import {useEffect, useState} from '@roots/bud-support'
 import type {Bud, FileContainer} from '@roots/bud-typings'
-import {useEffect, useState} from 'react'
 
 export type Disk = [FileContainer, React.Dispatch<string>]
 

@@ -1,6 +1,11 @@
-import notifier from 'node-notifier'
-import React, {useEffect, FunctionComponent} from 'react'
-import {Box, Text} from 'ink'
+import {
+  React,
+  useEffect,
+  FunctionComponent,
+  Box,
+  Text,
+  notify,
+} from '@roots/bud-support'
 
 interface WarningProps {
   message: string
@@ -11,7 +16,7 @@ type WarningComponent = FunctionComponent<WarningProps>
 const Warning: WarningComponent = ({message}) => {
   useEffect(() => {
     message &&
-      notifier.notify({
+      notify({
         title: 'Warning',
         message,
       })

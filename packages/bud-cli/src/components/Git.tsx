@@ -1,9 +1,13 @@
-import React, {FunctionComponent} from 'react'
-import {Text, Box} from 'ink'
+import {
+  React,
+  FunctionComponent,
+  Text,
+  Box,
+  Spinner,
+} from '@roots/bud-support'
 import {useStyle} from '@roots/ink-use-style'
 
 import {useGit} from '../hooks/useGit'
-import Spinner from 'ink-spinner'
 
 declare type Git = FunctionComponent
 

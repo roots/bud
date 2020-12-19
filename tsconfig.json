@@ -37,6 +37,7 @@
     {"@roots/bud-react": "extension-react"},
     {"@roots/bud-sage": "sage"},
     {"@roots/bud-sass": "extension-sass"},
+    {"@roots/bud-service": "bud-service"},
     {"@roots/bud-server": "bud-server"},
     {"@roots/bud-support": "bud-support"},
     {"@roots/bud-stylelint": "extension-stylelint"},

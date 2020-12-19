@@ -1,5 +1,9 @@
-import useSWR, {mutate} from 'swr'
-import {useEffect, useState} from 'react'
+import {
+  useEffect,
+  useState,
+  useSwr,
+  mutate,
+} from '@roots/bud-support'
 
 const INITIAL: {initialData: UseFocus.Focus} = {
   initialData: {
@@ -14,7 +18,7 @@ const INITIAL: {initialData: UseFocus.Focus} = {
 }
 
 export const useFocus: UseFocus.Hook = (initial = INITIAL) => {
-  const {data} = useSWR('focus', initial)
+  const {data} = useSwr('focus', initial)
   const [focus, setFocus] = useState<UseFocus.Focus>(data)
 
   useEffect(() => {

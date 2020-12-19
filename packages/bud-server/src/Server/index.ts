@@ -1,8 +1,7 @@
 import * as middleware from '../middleware'
 import {injectClient} from './injectClient'
-import express from 'express'
-import type Webpack from 'webpack'
-import Framework from '@roots/bud-typings'
+import Framework, {Webpack} from '@roots/bud-typings'
+import {express} from '@roots/bud-support'
 
 export {Server, Server as default}
 

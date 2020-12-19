@@ -1,7 +1,7 @@
-import React, {FunctionComponent} from 'react'
-import {Box} from 'ink'
-import {Item} from './Item'
+import {React, FunctionComponent, Box} from '@roots/bud-support'
 import {useStyle} from '@roots/ink-use-style'
+
+import {Item} from './Item'
 
 const Nav: FunctionComponent = () => {
   const {ctx, colors} = useStyle()

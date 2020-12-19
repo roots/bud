@@ -1,4 +1,4 @@
-import {useState, useEffect} from 'react'
+import {useState, useEffect} from '@roots/bud-support'
 import {useProgress, UseProgress} from './useProgress'
 import {useStats, UseStats} from './useStats'
 

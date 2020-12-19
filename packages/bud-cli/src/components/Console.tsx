@@ -1,6 +1,9 @@
-import React, {useState} from 'react'
-import {Text} from 'ink'
-import patchConsole from 'patch-console'
+import {
+  React,
+  useState,
+  patchConsole,
+  Text,
+} from '@roots/bud-support'
 
 const Console = () => {
   const [lastConsole, setLastConsole] = useState(null)

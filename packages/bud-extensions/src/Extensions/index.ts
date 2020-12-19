@@ -1,5 +1,5 @@
 import Service from './Service'
-import Contract from './Contract'
+import {Extensions as Contract} from './Contract'
 import {Extension} from '../Extension'
 import type {Container, MaybeCallable} from '@roots/bud-typings'
 

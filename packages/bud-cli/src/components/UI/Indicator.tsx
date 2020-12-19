@@ -1,5 +1,4 @@
-import React, {FunctionComponent} from 'react'
-import {Text} from 'ink'
+import {React, FunctionComponent, Text} from '@roots/bud-support'
 
 interface IndicatorProps {
   active: boolean

@@ -1,6 +1,9 @@
-import execa from 'execa'
-import useSWR, {mutate} from 'swr'
-import {useEffect} from 'react'
+import {
+  useEffect,
+  useSwr,
+  mutate,
+  execa,
+} from '@roots/bud-support'
 
 export interface Res {
   stdout?: string
@@ -27,9 +30,9 @@ const fetch = async key => {
 }
 
 export const useGit: UseGit = () => {
-  const {data: head} = useSWR<Res>('git.head', fetch)
-  const {data: branch} = useSWR<Res>('git.branch', fetch)
-  const {data: status} = useSWR<Res>('git.status', fetch)
+  const {data: head} = useSwr<Res>('git.head', fetch)
+  const {data: branch} = useSwr<Res>('git.branch', fetch)
+  const {data: status} = useSwr<Res>('git.status', fetch)
 
   useEffect(() => {
     setInterval(() => {

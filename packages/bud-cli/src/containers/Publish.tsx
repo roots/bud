@@ -1,5 +1,9 @@
-import React, {FunctionComponent} from 'react'
-import {Box, Text} from 'ink'
+import {
+  React,
+  FunctionComponent,
+  Box,
+  Text,
+} from '@roots/bud-support'
 
 const Publish: FunctionComponent<{file: string}> = ({file}) => (
   <Box

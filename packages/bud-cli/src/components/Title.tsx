@@ -1,10 +1,14 @@
-import React, {FunctionComponent} from 'react'
-import {Box, Text} from 'ink'
+import {
+  React,
+  FunctionComponent,
+  Box,
+  Text,
+  BoxProps,
+} from '@roots/bud-support'
 import {useStyle} from '@roots/ink-use-style'
-import {Props} from 'ink/build/components/Box'
 
 interface TitleInterface {
-  frame?: Props
+  frame?: BoxProps
   children: string
 }
 

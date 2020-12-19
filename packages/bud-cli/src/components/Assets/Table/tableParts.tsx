@@ -1,5 +1,4 @@
-import {Text} from 'ink'
-import React from 'react'
+import {React, Text} from '@roots/bud-support'
 import {useStyle} from '@roots/ink-use-style'
 
 export const cell = ({children}) => {

@@ -1,7 +1,7 @@
-import React from 'react'
-import {Box, Text} from 'ink'
-import {Bar} from './Bar'
+import {React, Box, Text} from '@roots/bud-support'
 import {useStyle} from '@roots/ink-use-style'
+
+import {Bar} from './Bar'
 import type {UseProgress} from '../../hooks/useProgress'
 
 declare namespace Progress {

@@ -1,5 +1,5 @@
+import {fs} from '@roots/bud-support'
 import * as preflight from './preflight'
-import {statSync} from 'fs-extra'
 
 export const tryBuild = async (
   cfgPath: string,
@@ -8,7 +8,7 @@ export const tryBuild = async (
    * Is this even an actual file?
    */
   try {
-    statSync(cfgPath)
+    fs.statSync(cfgPath)
   } catch (err) {
     console.error(err)
     process.exit()

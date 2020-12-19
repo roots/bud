@@ -22,16 +22,8 @@
   "engines": {
     "node": ">=12"
   },
-  "keywords": [
-    "webpack",
-    "bud"
-  ],
-  "files": [
-    "lib",
-    "types",
-    "bin",
-    "src"
-  ],
+  "keywords": ["webpack", "bud"],
+  "files": ["lib", "types", "bin", "src"],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "exports": {
@@ -42,7 +34,7 @@
   "scripts": {
     "build": "run-s build:*",
     "build:cjs": "tsc --build tsconfig.json",
-    "build:ejm": "tsc --build tsconfig-ejs.json",
+    "build:esm": "tsc --build tsconfig-ejs.json",
     "lint": "run-s lint:*",
     "lint:eslint": "eslint 'src/**/*.{js,ts,tsx}' --fix",
     "lint:prettier": "prettier 'src/**/*'  --write",
@@ -61,13 +53,12 @@
     "@types/terser": "^3.12.0",
     "compression-webpack-plugin": "^6.0.2",
     "terser": "^5.3.4",
-    "terser-webpack-plugin": "^5.0.3",
-    "webpack": "^4.44.2"
+    "terser-webpack-plugin": "^5.0.3"
   },
   "dependencies": {
     "@roots/bud-server": "^2.1.1",
     "@roots/bud-support": "^2.1.1",
     "@roots/container": "^2.1.1"
   },
-  "gitHead": "112fe4425c9e825060944f2d5dcd999401daa333"
+  "gitHead": "9d736f0b44384c1f66b94462145c11e618aa166d"
 }

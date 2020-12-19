@@ -1,5 +1,5 @@
 import {Bud} from '@roots/bud-typings'
-import {GlobTask} from 'globby'
+import {GlobTask} from '@roots/bud-support'
 
 export const glob: Glob = function (name, files, options) {
   this.config.merge(

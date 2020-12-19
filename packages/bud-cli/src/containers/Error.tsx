@@ -1,7 +1,12 @@
-import React from 'react'
-import {Box, Text} from 'ink'
+import {
+  React,
+  Box,
+  Text,
+  FunctionComponent,
+} from '@roots/bud-support'
+
 declare namespace Error {
-  export type Component = React.FunctionComponent<{
+  export type Component = FunctionComponent<{
     title?: string
     body: string
   }>

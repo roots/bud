@@ -1,5 +1,10 @@
-import React, {FunctionComponent} from 'react'
-import {Box, Text, Spacer} from 'ink'
+import {
+  React,
+  FunctionComponent,
+  Box,
+  Text,
+  Spacer,
+} from '@roots/bud-support'
 
 const BudWarning: FunctionComponent = () => (
   <Box

@@ -1,18 +1,12 @@
-import {
-  createProxyMiddleware,
-  RequestHandler,
-  Options,
-} from 'http-proxy-middleware'
+import {proxyMiddleware, zlib} from '@roots/bud-support'
 import Framework from '@roots/bud-typings'
-
-import zlib from 'zlib'
 
 /**
  * Proxy middleware factory
  */
 const proxy = (
   config: Framework.Server.Config,
-): RequestHandler => {
+): proxyMiddleware.RequestHandler => {
   /**
    * Source location
    */
@@ -108,7 +102,7 @@ const proxy = (
   /**
    * Proxy middleware configuration
    */
-  const proxyOptions: Options = {
+  const proxyOptions: proxyMiddleware.Options = {
     onProxyRes,
     headers,
     target: getUrl(proxy),
@@ -122,7 +116,7 @@ const proxy = (
     selfHandleResponse: true,
   }
 
-  return createProxyMiddleware(proxyOptions)
+  return proxyMiddleware.createProxyMiddleware(proxyOptions)
 }
 
 export {proxy}

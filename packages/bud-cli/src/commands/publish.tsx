@@ -1,8 +1,5 @@
-import React from 'react'
-import {render} from 'ink'
+import {React, render, fs, yargs} from '@roots/bud-support'
 import {join, dirname} from 'path'
-import {copyFile, ensureDir} from 'fs-extra'
-import yargs from 'yargs'
 
 import {Error} from '../'
 import Publish from '../containers/Publish'
@@ -49,8 +46,8 @@ export const handler: yargs.CommandModule['handler'] = async (args: {
   const dest = join(cwd, 'publish', selection)
 
   try {
-    await ensureDir(dirname(dest))
-    await copyFile(template, dest)
+    await fs.ensureDir(dirname(dest))
+    await fs.copyFile(template, dest)
 
     render(<Publish file={selection} />)
   } catch (err) {

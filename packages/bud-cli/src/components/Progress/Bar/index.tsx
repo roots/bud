@@ -1,6 +1,4 @@
-import React from 'react'
-import {Text} from 'ink'
-import Gradient from 'ink-gradient'
+import {React, Text, Gradient} from '@roots/bud-support'
 
 declare namespace Bar {
   export interface Props {

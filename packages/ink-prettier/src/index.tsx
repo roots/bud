@@ -1,8 +1,12 @@
-import React, {FunctionComponent} from 'react'
-import {Box, Text} from 'ink'
-import {format, Options} from 'prettier'
+import {
+  React,
+  FunctionComponent,
+  Box,
+  Text,
+  prettier,
+} from '@roots/bud-support'
 
-interface Props extends Options {
+interface Props extends prettier.Options {
   children: string
 }
 
@@ -14,7 +18,7 @@ const Prettier: FunctionComponent<Props> = props => (
     alignItems="flex-start"
     alignSelf="flex-start">
     <Text>
-      {format(props.children, {
+      {prettier.format(props.children, {
         parser: props.parser ?? 'babel',
         ...props,
       })}

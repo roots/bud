@@ -1,5 +1,9 @@
-import React, {useEffect} from 'react'
-import {useApp, useInput} from 'ink'
+import {
+  React,
+  useEffect,
+  useApp,
+  useInput,
+} from '@roots/bud-support'
 import {useCompilation} from '../hooks/useCompilation'
 import {Reporter} from './Reporter'
 import type {Bud} from '@roots/bud-typings'

@@ -1,4 +1,4 @@
-import {Stats} from 'webpack'
+import {Stats} from '@roots/bud-support'
 
 const useTransform: Transform = assets => {
   const transform: (

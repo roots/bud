@@ -1,5 +1,4 @@
-import React from 'react'
-import {render} from 'ink'
+import {React, render} from '@roots/bud-support'
 import {Error as Component} from '../containers/Error'
 
 declare interface Error {

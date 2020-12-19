@@ -1,5 +1,4 @@
-import {Stats} from 'webpack'
-import {isArray} from 'lodash'
+import {isArray, Stats} from '@roots/bud-support'
 
 const useTransform: Transform = assets => {
   const transform: (

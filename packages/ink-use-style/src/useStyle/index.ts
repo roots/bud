@@ -1,6 +1,11 @@
-import useStdOutDimensions from 'ink-use-stdout-dimensions'
-import useSWR, {mutate} from 'swr'
-import {ComponentState, useState, useEffect} from 'react'
+import {
+  ComponentState,
+  useState,
+  useEffect,
+  useStdoutDimensions,
+  useSwr,
+  mutate,
+} from '@roots/bud-support'
 import type {Styles, Theme, UseStyle} from '../typings'
 
 import {defaultTheme} from '../themes'
@@ -14,14 +19,16 @@ export const useStyle: UseStyle = (
   /**
    * Theme values
    */
-  const {data: theme} = useSWR('theme', {
+  const {data: theme} = useSwr('theme', {
     initialData,
+    refreshInterval: 0,
+    revalidateOnFocus: false,
   })
 
   /**
    * Width and height of terminal viewport.
    */
-  const [width, height]: ComponentState = useStdOutDimensions()
+  const [width, height]: ComponentState = useStdoutDimensions()
 
   /**
    * Active screen size

@@ -1,20 +1,18 @@
-import React from 'react'
-import {Box, Text} from 'ink'
-import Spinner from 'ink-spinner'
-
-import {usePackageJson} from '../hooks/usePackageJson'
-import {useStyle} from '@roots/ink-use-style'
+import {React, Box, Text, Spinner} from '@roots/bud-support'
 
 import {Assets} from '../components/Assets'
 import Errors from '../components/Errors'
 import Progress from '../components/Progress'
 import {Debug} from '../components/Debug'
+import {Git} from '../components/Git'
+
+import {useStyle} from '@roots/ink-use-style'
+import {useDisk} from '../hooks/useDisk'
+import {usePackageJson} from '../hooks/usePackageJson'
 
 import type {Bud} from '@roots/bud-typings'
 import type {UseStats} from '../hooks/useStats'
 import type {UseProgress} from '../hooks/useProgress'
-import {useDisk} from '../hooks/useDisk'
-import {Git} from '../components/Git'
 
 declare namespace Reporter {
   export type Props = {

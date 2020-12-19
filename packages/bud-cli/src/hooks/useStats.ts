@@ -1,5 +1,4 @@
-import {useState} from 'react'
-import type Webpack from 'webpack'
+import {useState, webpack} from '@roots/bud-support'
 
 export const useStats: UseStats.Hook = options => {
   const [stats, setStats]: [
@@ -38,12 +37,12 @@ export namespace UseStats {
   /**
    * Stats JSON
    */
-  export type Stats = Webpack.Stats.ToJsonOutput
+  export type Stats = webpack.Stats.ToJsonOutput
 
   /**
    * Process raw webpack stats.
    */
-  export type Handler = (stats: Webpack.Stats) => void
+  export type Handler = (stats: webpack.Stats) => void
 
   /**
    * Reported assets.

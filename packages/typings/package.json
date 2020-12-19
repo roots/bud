@@ -22,9 +22,7 @@
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "./packages"
-  ],
+  "files": ["./packages"],
   "types": "./packages/index.d.ts",
   "scripts": {
     "build": "tsc"
@@ -50,5 +48,5 @@
     "webpack-hot-middleware": "^2.25.0",
     "zlib": "^1.0.5"
   },
-  "gitHead": "112fe4425c9e825060944f2d5dcd999401daa333"
+  "gitHead": "9d736f0b44384c1f66b94462145c11e618aa166d"
 }

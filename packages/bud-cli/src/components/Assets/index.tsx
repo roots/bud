@@ -1,9 +1,9 @@
-import React, {FunctionComponent} from 'react'
-import {Box} from 'ink'
-import Asset from './Asset'
+import {React, FunctionComponent, Box} from '@roots/bud-support'
+import {useStyle} from '@roots/ink-use-style'
+
+import {Asset} from './Asset'
 import {UseCompilation} from '../../hooks/useCompilation'
 import {useTransform} from './useAssetTransform'
-import {useStyle} from '@roots/ink-use-style'
 
 const Assets: Assets.Component = ({assets}) => {
   const processedAssets = useTransform(assets)

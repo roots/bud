@@ -40,7 +40,7 @@
   "scripts": {
     "build": "run-s build:*",
     "build:cjs": "tsc --build tsconfig.json",
-    "build:ejm": "tsc --build tsconfig-ejs.json",
+    "build:esm": "tsc --build tsconfig-ejs.json",
     "lint": "run-s lint:*",
     "lint:eslint": "eslint 'src/**/*.{js,ts,tsx}' --fix",
     "lint:prettier": "prettier 'src/**/*'  --write",
@@ -60,5 +60,5 @@
     "@roots/merged-manifest-webpack-plugin": "^2.1.1",
     "@roots/wordpress-externals-webpack-plugin": "^2.1.1"
   },
-  "gitHead": "112fe4425c9e825060944f2d5dcd999401daa333"
+  "gitHead": "9d736f0b44384c1f66b94462145c11e618aa166d"
 }

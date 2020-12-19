@@ -1,5 +1,5 @@
+import {yargs} from '@roots/bud-support'
 import {join} from 'path'
-import yargs from 'yargs'
 import {Error} from '../'
 
 const cwd = process.cwd()
