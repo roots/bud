@@ -17,9 +17,7 @@ export type Make = Extension.Module.Make<
   ReactRefreshPluginOptions
 >
 
-export type Options = Extension.Module.RawOptions<
-  ReactRefreshPluginOptions
->
+export type Options = Extension.Module.RawOptions<ReactRefreshPluginOptions>
 
 export type RegisterRule = [
   string,
@@ -34,9 +32,7 @@ export namespace RegisterRule {
   export type Use = (bud: Bud) => Rule.Module['use']
 }
 
-export type RegisterItem = Extension.Module.RegisterOne<
-  Item.Module
->
+export type RegisterItem = Extension.Module.RegisterOne<Item.Module>
 
 export namespace API {
   export type ReactRefresh = (

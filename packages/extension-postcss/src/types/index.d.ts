@@ -22,9 +22,7 @@ export {
 }
 
 export type Boot = Extension.Module.Boot
-export type RegisterItem = Extension.Module.RegisterOne<
-  Item.Module
->
+export type RegisterItem = Extension.Module.RegisterOne<Item.Module>
 export type RegisterLoader = Extension.Module.RegisterOne<Loader>
 
 export type {Fluent}
