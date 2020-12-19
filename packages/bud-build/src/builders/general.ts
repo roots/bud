@@ -13,7 +13,7 @@ type Config = Omit<
 >
 
 export namespace General {
-  export type Build = (this: Bud.Contract) => Config
+  export type Build = (this: Bud) => Config
 }
 
 export const general: General.Build = function () {

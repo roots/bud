@@ -15,28 +15,42 @@ bud.hooks.on('webpack.resolve.modules', modules => [
   bud.fs.path.join(bud.fs.base, './../../../node_modules'),
 ])
 
-/**
- * Use babel and react extensions.
- */
-bud.use([
-  '@roots/bud-babel',
-  '@roots/bud-react',
-  '@roots/bud-wordpress-manifests',
-])
+// Use babel and react extensions.
+bud.use(['@roots/bud-babel', '@roots/bud-imagemin', '@roots/bud-react'])
 
 /**
- * Set application source files.
+ * For production, we'll want to use the React included with WP.
+ * @roots/bud-wordpress-manifests will alias imports to their wp equivalencies.
+ *
+ * For development, aliasing React breaks HMR. So, we'll use our own
+ * copy of React when running the dev server.
  */
-bud.entry('app', ['app.js'])
+bud.when(
+  bud.mode.is('production'),
+  bud => bud.use(['@roots/bud-wordpress-manifests']),
+  bud => bud.use(['@roots/bud-entrypoints']),
+)
 
 /**
- * Production optimizations.
+ * Set theme dist path for enqueues.
  */
-if (bud.mode.is('production')) {
-  bud.minify()
-  bud.vendor()
-  bud.runtime()
-}
+bud.publicPath('/wp-content/themes/example/dist')
+
+/**
+ * In development, proxy on this port.
+ */
+bud.mode.is('development') && bud.proxy()
+
+/**
+ * Set entrypoints
+ */
+bud.entry('app', ['app.js', 'app.css'])
+
+/**
+ * Optimize for production.
+ */
+bud.mode.is('production') &&
+  bud.vendor().runtime().hash().minify()
 
 /**
  * Run build.

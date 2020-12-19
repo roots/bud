@@ -5,7 +5,6 @@ import {
 } from 'http-proxy-middleware'
 import Framework from '@roots/bud-typings'
 
-import url from 'url'
 import zlib from 'zlib'
 
 /**
@@ -14,40 +13,48 @@ import zlib from 'zlib'
 const proxy = (
   config: Framework.Server.Config,
 ): RequestHandler => {
-  const dev = {
-    host: config.host ?? 'localhost',
-    port: config.port ?? 8000,
-    ssl: config.ssl ?? false,
+  /**
+   * Source location
+   */
+  const source = {
+    host: config.host,
+    port: config.port,
   }
 
   /**
-   * Proxy server
+   * Proxy to location
    */
   const proxy = {
-    host: config.proxy?.host ?? config.host ?? 'localhost',
-    port: config.proxy?.port ?? 3000,
-    ssl: config.ssl ?? false,
+    host: config.proxy.host,
+    port: config.proxy.port,
   }
-
-  /**
-   * Fabricate URL from provided options.
-   */
-  const getUrl = target =>
-    url.format({
-      protocol: target.ssl ?? dev.ssl ? 'https' : 'http',
-
-      hostname: /^[a-zA-Z]+:\/\//.test(target.host)
-        ? target.host.replace(/^[a-zA-Z]+:\/\//, '')
-        : target.host,
-    })
 
   /**
    * Custom headers
    */
   const headers = {
     'X-Powered-By': '@roots/bud',
-    'X-Bud-Proxy-From': dev.host,
-    'X-Bud-Proxy-Secure': dev.ssl,
+    'X-Bud-Proxy-From': source.host,
+    'X-Bud-Proxy-Secure': config.ssl,
+  }
+
+  /**
+   * Fabricate URL from provided options.
+   */
+  const getUrl = target => {
+    const protocol = config.ssl ? 'https://' : 'http://'
+
+    const hostname = /^[a-zA-Z]+:\/\//.test(target.host)
+      ? target.host.replace(/^[a-zA-Z]+:\/\//, '')
+      : target.host
+
+    const port = port => {
+      return port && (port !== 8000 || port !== 443)
+        ? `:${port}`
+        : ``
+    }
+
+    return `${protocol}${hostname}${port(target.port)}`
   }
 
   /**
@@ -55,8 +62,8 @@ const proxy = (
    */
   const transformBody = (body: string): string =>
     body.replace(
-      new RegExp(dev.host, 'g'),
-      `${proxy.host}:${proxy.port}`,
+      new RegExp(`${proxy.host}:${proxy.port}`, 'g'),
+      `${source.host}:${source.port}`,
     )
 
   /**
@@ -69,13 +76,7 @@ const proxy = (
       body = Buffer.concat([body, data])
     })
 
-    /**
-     * Send response
-     */
     proxyRes.on('end', () => {
-      /**
-       * Set headers
-       */
       res.set({
         ...proxyRes.headers,
         'content-type': proxyRes.headers['content-type'],
@@ -93,9 +94,7 @@ const proxy = (
           ),
         )
       } else {
-        /**
-         * Handle non-gzipped responses.
-         */
+        // Not gzip
         res.send(Buffer.from(transformBody(body.toString())))
       }
 
@@ -110,21 +109,16 @@ const proxy = (
    * Proxy middleware configuration
    */
   const proxyOptions: Options = {
-    target: getUrl(dev),
-    forward: getUrl(proxy),
-    autoRewrite: config.autoRewrite,
+    onProxyRes,
     headers,
-    hostRewrite: `${proxy.host}:${proxy.port}`,
+    target: getUrl(proxy),
+    hostRewrite: `${source.host}:${source.port}`,
+    autoRewrite: config.autoRewrite,
     changeOrigin: config.changeOrigin,
-    followRedirects: config.followRedirects,
     logLevel: 'silent',
     ssl: config.ssl ?? false,
     secure: config.ssl ?? false,
     ws: config.ws ?? true,
-    cookieDomainRewrite: {
-      [dev.host]: proxy.host,
-    },
-    onProxyRes,
     selfHandleResponse: true,
   }
 

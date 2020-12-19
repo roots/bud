@@ -1,3 +1,5 @@
+import {Bud} from '../'
+
 /**
  * String keyed value.
  */
@@ -12,7 +14,7 @@ export interface Constructor<T> {
 
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface Fluent<T> {
-  (this: T): T
+  function(this: T): T
 }
 
 /**
@@ -31,4 +33,9 @@ export type MaybeCallable<O = unknown, A = unknown> =
 /**
  * Plugin make when
  */
-export type When = ((...params: any) => boolean) | boolean
+export type When = (
+  this: Bud,
+  test: boolean,
+  isTrue: (bud: Bud) => unknown,
+  isFalse?: (bud: Bud) => unknown,
+) => Bud

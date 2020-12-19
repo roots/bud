@@ -1,8 +1,9 @@
 <!doctype html>
 <html lang="en">
-  <?php partial('head'); ?>
+  <?php App\partial('head'); ?>
 
   <body>
-    <?php partial('body'); ?>
+    <?php App\partial('body'); ?>
+    <?php App\partial('footer'); ?>
   </body>
 </html>

@@ -5,8 +5,7 @@ export const namedModules: Configuration['optimization']['namedModules'] = true
 export const noEmitOnErrors: Configuration['optimization']['noEmitOnErrors'] = true
 
 export const runtimeChunk: Configuration['optimization']['runtimeChunk'] = {
-  name: (entrypoint: any): string =>
-    `${entrypoint.name}/runtime`,
+  name: entrypoint => `runtime/${entrypoint.name}`,
 }
 
 export const splitChunks: Configuration['optimization']['splitChunks'] = {
@@ -16,20 +15,30 @@ export const splitChunks: Configuration['optimization']['splitChunks'] = {
   minChunks: 1,
   maxAsyncRequests: 30,
   maxInitialRequests: 30,
-  automaticNameDelimiter: '~',
   cacheGroups: {
     vendor: {
       enforce: true,
       priority: -10,
       test: /[\\/]node_modules[\\/]/,
-      name: (module, chunks) =>
-        `${chunks
-          .map(item => item.name)
-          .join('~')}/vendor/${module
+      chunks: 'all',
+      name(
+        module: any,
+        _chunks: any,
+        cacheGroupKey: any,
+      ): string {
+        const moduleFileNameParts = module
           .identifier()
           .split('/')
-          .reduceRight(item => item.replace('.js', ''))}`,
-      chunks: 'all',
+          .reduceRight(item => item)
+          .split('.')
+
+        const file = moduleFileNameParts
+          .slice(0, moduleFileNameParts.length - 1)
+          .join('.')
+
+        return `${cacheGroupKey}/${file}`
+      },
+      reuseExistingChunk: true,
     },
   },
 }

@@ -1,5 +1,39 @@
+import Service from './Service'
+import Contract from './Contract'
 import webpack, {ProgressPlugin} from 'webpack'
-import type Framework from '@roots/bud-typings'
+
+import type Webpack from 'webpack'
+import type {Instance} from 'ink'
+
+/**
+ * Stats common
+ */
+const commonStats = {
+  all: false,
+  version: true,
+  hash: true,
+  timings: true,
+  builtAt: false,
+  assets: true,
+  chunks: false,
+  children: false,
+  errors: true,
+  entrypoints: true,
+}
+
+/**
+ * Stats options.
+ */
+const options = {
+  json: {
+    ...commonStats,
+    cachedAssets: true,
+  },
+  string: {
+    ...commonStats,
+    colors: true,
+  },
+}
 
 /**
  * ## bud.compiler
@@ -11,36 +45,103 @@ import type Framework from '@roots/bud-typings'
  * [📦 @roots/bud-extensions](https://github.io/roots/bud-extensions)
  * [🔗 Documentation](#)
  */
-class Compiler implements Framework.Compiler.Contract {
+export class Compiler extends Service implements Contract {
   /**
-   * Reference to bud [🏠 Internal]
-   */
-  public bud: Framework.Bud.Ref
-
-  /**
-   * ## bud.compiler.instance
-   *
    * Webpack compiler instance.
-   *
-   * @see {Webpack.Compiler}
    */
-  public instance: Framework.Webpack.Compiler
+  public _instance: Webpack.Compiler
 
   /**
-   * Class constructor
+   * Webpack compiler stats.
    */
-  constructor(bud: Framework.Bud.Bud) {
-    this.bud = bud.get
+  public _stats: Contract.Stats.Output
 
-    this.get = this.get.bind(this)
+  /**
+   * Webpack compiler statsOptionsed stats.
+   */
+  public _statsOptions: Contract.Stats.Options = options
 
-    this.set = this.set.bind(this)
+  /**
+   * Webpack compiler error
+   */
+  public _error: Instance
 
-    this.run = this.run.bind(this)
+  /**
+   * Get the compiler instance.
+   */
+  public get instance(): Webpack.Compiler {
+    return this._instance
+  }
 
-    this.compile = this.compile.bind(this)
+  /**
+   * Set the compiler instance.
+   */
+  public set instance(compiler: Webpack.Compiler) {
+    this._instance = compiler
+  }
 
-    this.applyPlugins = this.applyPlugins.bind(this)
+  /**
+   * Get the current compilation stats
+   */
+  public get stats(): {
+    string: string
+    json: Contract.Stats.Output['json']
+  } {
+    return this._stats
+  }
+
+  /**
+   * Set the current compilation stats.
+   */
+  public set stats(stats: Contract.Stats.Output) {
+    this._stats = this.bud.hooks.filter<Contract.Stats.Output>(
+      'compiler.stats',
+      stats,
+    )
+  }
+
+  /**
+   * Get the stats options.
+   */
+  public get statsOptions(): Contract.Stats.Options {
+    return this._statsOptions
+  }
+
+  /**
+   * Set the stats options.
+   */
+  public set statsOptions(options: Contract.Stats.Options) {
+    this._statsOptions = options
+  }
+
+  /**
+   * ## get bud.compiler.instance
+   *
+   * Return the current compiler instance. [🔗 Documentation](#)
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.compiler.get()
+   * ```
+   */
+  public get(): Webpack.Compiler {
+    return this.instance
+  }
+
+  /**
+   * ## set bud.compiler.instance
+   *
+   * Set the stored instance. [🔗 Documentation](#)
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.compiler.set(compilerInstance)
+   * ```
+   */
+  public set(compiler: Webpack.Compiler): void {
+    this.instance = compiler
   }
 
   /**
@@ -59,45 +160,17 @@ class Compiler implements Framework.Compiler.Contract {
    * ```
    *
    * ```js
-   * bud.compiler.compile({entry: {app: 'foo.js'}})
+   * bud.compiler.compile({
+   *   entry: {app: 'foo.js'}
+   * })
    * ```
    */
   public compile(
-    config?: Framework.Webpack.Configuration,
-  ): Framework.Webpack.Compiler {
-    this.set(webpack(config ?? this.bud().build.make()))
+    config?: Webpack.Configuration,
+  ): Webpack.Compiler {
+    this.instance = webpack(config ?? this.bud.build.make())
 
     return this.instance
-  }
-
-  /**
-   * ## bud.compiler.get
-   *
-   * Return the current compiler instance. [🔗 Documentation](#)
-   *
-   * ### Usage
-   *
-   * ```js
-   * bud.compiler.get()
-   * ```
-   */
-  public get(): Framework.Webpack.Compiler {
-    return this.instance
-  }
-
-  /**
-   * ## bud.compiler.set
-   *
-   * Set the stored instance. [🔗 Documentation](#)
-   *
-   * ### Usage
-   *
-   * ```js
-   * bud.compiler.set(compilerInstance)
-   * ```
-   */
-  public set(compiler: Framework.Webpack.Compiler): void {
-    this.instance = compiler
   }
 
   /**
@@ -111,8 +184,26 @@ class Compiler implements Framework.Compiler.Contract {
    * bud.compiler.run((err, stats) => {...})
    * ```
    */
-  public run(handler: Framework.Compiler.Handler): void {
-    this.instance.run(handler)
+  public run(): void {
+    this.instance.run((_err, stats) => {
+      if (stats.hasErrors() && !this.bud.mode.ci) {
+        console.error(stats.toString(this.statsOptions.string))
+
+        return
+      }
+
+      this.stats = {
+        string: stats.toString(this.statsOptions.string),
+        json: stats.toJson(this.statsOptions.json),
+      }
+    })
+  }
+
+  /**
+   * ## bud.makeError
+   */
+  public makeError(err: string): void {
+    new Error(err)
   }
 
   /**
@@ -126,11 +217,7 @@ class Compiler implements Framework.Compiler.Contract {
    * bud.compiler.applyPlugin((progressArgs) => progressHandler())
    * ```
    */
-  public applyPlugins(
-    handler: Framework.Compiler.ProgressHandler,
-  ): void {
+  public applyPlugins(handler: Contract.ProgressHandler): void {
     new ProgressPlugin(handler).apply(this.instance)
   }
 }
-
-export {Compiler}

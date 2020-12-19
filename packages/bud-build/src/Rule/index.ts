@@ -42,7 +42,7 @@ class Rule implements Framework.Rule.Contract {
 
   public use?: Framework.Rule.Use
 
-  constructor(bud: Framework.Bud.Bud, rule?: unknown) {
+  constructor(bud: Framework.Bud, rule?: unknown) {
     this.bud = bud.get
 
     this.register = this.register.bind(this)

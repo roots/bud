@@ -39,7 +39,10 @@ export const port: Server.Config['port'] = 3000
 /**
  * Proxy destination
  */
-export const proxy: Server.Config['proxy'] = undefined
+export const proxy: Server.Config['proxy'] = {
+  host: 'localhost',
+  port: 8000,
+}
 
 /**
  * Filename of html used for WDS file index at root.

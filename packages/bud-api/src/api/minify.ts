@@ -6,4 +6,4 @@ export const minify: Minify = function () {
   return this
 }
 
-export type Minify<T = Bud.Contract> = (this: T) => T
+export type Minify<T = Bud> = (this: T) => T

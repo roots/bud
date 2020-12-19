@@ -40,6 +40,7 @@ A webpack framework combining the best parts of Laravel Mix and Symfony Encore.
   - [fn: bud.pipe](config-pipe.md)
   - [fn: bud.project](config-project.md)
   - [fn: bud.provide](config-provide.md)
+  - [fn: bud.proxy](config-proxy.md)
   - [fn: bud.publicPath](config-publicPath.md)
   - [fn: bud.runtime](config-runtime.md)
   - [fn: bud.src](config-src.md)

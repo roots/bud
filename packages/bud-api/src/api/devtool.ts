@@ -7,7 +7,7 @@ export const devtool: Devtool = function (devtool?) {
   return this
 }
 
-export type Devtool<T = Bud.Contract> = (
+export type Devtool<T = Bud> = (
   this: T,
   devtool?: Webpack.Configuration['devtool'],
 ) => T

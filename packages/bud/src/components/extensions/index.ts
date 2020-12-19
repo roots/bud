@@ -7,10 +7,10 @@ import * as ignoreEmit from './ignoreEmit'
 import * as configDump from './webpackConfigDump'
 import * as copy from './copy'
 import * as define from './define'
-import * as hotModuleReplacement from './hotModuleReplacement'
+import * as hashedModuleIds from './hashedModuleIds'
+import * as hotModuleReplacement from './hmr'
 import * as html from './html'
 import * as htmlHardDisk from './htmlHardDisk'
-import * as imagemin from './imagemin'
 import * as interpolateHtml from './interpolateHtmlPlugin'
 import * as manifest from './manifest'
 import * as miniCssExtract from './miniCssExtract'
@@ -19,12 +19,15 @@ import * as terser from './terser'
 import * as watchMissingModules from './watchMissingModules'
 import * as writeFile from './writeFile'
 
+export * as Brotli from './brotli/typings'
+
 export const extensions: {
-  [key: string]: Extension.Contract
+  [key: string]: Extension.Module
 } = {
   [`clean-webpack-plugin`]: cleanWebpack,
   [`compression-webpack-plugin-gzip`]: gzip,
   [`compression-webpack-plugin-brotli`]: brotli,
+  [`hashed-module-ids-plugin`]: hashedModuleIds,
   [`ignore-emit-webpack-plugin`]: ignoreEmit,
   [`webpack-config-dump-plugin`]: configDump,
   [`copy-webpack-plugin`]: copy,
@@ -32,7 +35,6 @@ export const extensions: {
   [`webpack-hot-module-replacement-plugin]`]: hotModuleReplacement,
   [`html-webpack-plugin`]: html,
   [`html-hard-disk-plugin`]: htmlHardDisk,
-  [`image-minimizer-webpack-plugin`]: imagemin,
   [`interpolate-html-plugin`]: interpolateHtml,
   [`webpack-manifest-plugin`]: manifest,
   [`mini-css-extract-plugin`]: miniCssExtract,

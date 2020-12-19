@@ -10,7 +10,7 @@ type RuleSetLoader = Framework.Item.RuleSetLoader
  * Webpack RuleSetUseItem
  */
 class Item implements Contract {
-  bud: Framework.Bud.Bud
+  bud: Framework.Bud
 
   ident?: Contract['ident']
 
@@ -23,7 +23,7 @@ class Item implements Contract {
   /**
    * Class constructor.
    */
-  constructor(bud: Framework.Bud.Bud, module: Module) {
+  constructor(bud: Framework.Bud, module: Module) {
     this.set = this.set.bind(this)
     this.make = this.make.bind(this)
 

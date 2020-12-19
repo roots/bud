@@ -234,13 +234,35 @@ export class Container<I = any> {
    * ```
    */
   public each<T = any>(
-    key: string,
+    key?: string,
     callFn?: (key: string, value: T) => T,
   ): this {
-    this.getEntries(key).forEach(([key, value]: [string, T]) => [
+    ;(key
+      ? this.getEntries(key)
+      : this.getEntries()
+    ).forEach(([key, value]: [string, T]) => [
       key,
       callFn(key, value),
     ])
+
+    return this
+  }
+
+  /**
+   * ## container.every
+   *
+   * Use each value as parameters in a supplied callback
+   *
+   * ### Usage
+   *
+   * ```js
+   * container.withEntries('key', (key, value) => doSomething)
+   * ```
+   */
+  public every(fn: (key: string, value: any) => any): this {
+    this.getEntries().forEach(([key, value]: [string, any]) => {
+      fn(key, value)
+    })
 
     return this
   }

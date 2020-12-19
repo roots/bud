@@ -6,9 +6,12 @@ import type {
   Stringifier,
 } from 'postcss'
 
-import type Framework from '@roots/bud-typings'
-
-export as namespace PostCss
+import type {
+  Extension,
+  Item,
+  Loader,
+  Fluent,
+} from '@roots/bud-typings'
 
 export {
   AcceptedPlugin,
@@ -18,25 +21,13 @@ export {
   Stringifier,
 }
 
-/**
- * PostCss
- */
-export interface PostCss {
-  bud: Framework.Bud.Contract
-  methods: Array<[string, PostCss.Config]>
-  init: Framework.Fluent<PostCss>
-  next: (this: PostCss) => Framework.Bud.Contract
-}
+export type Boot = Extension.Module.Boot
+export type RegisterItem = Extension.Module.RegisterOne<
+  Item.Module
+>
+export type RegisterLoader = Extension.Module.RegisterOne<Loader>
 
-/**
- * PostCss configuration utility.
- */
-export type Config = Framework.Fluent<PostCss>
-
-/**
- * PostCss configuration utility constructor.
- */
-export type Factory = (bud: Framework.Bud.Contract) => PostCss
+export type {Fluent}
 
 export interface Options {
   syntax?: Syntax

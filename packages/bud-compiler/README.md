@@ -18,7 +18,7 @@
 
 ## Overview
 
-The compiler provides controls and renders Bud's built-in development server. It is a lower-level utility and there is no reason to include it in your Bud project.
+The compiler provides controls and renders Bud's built-in development server.
 
 ## Installation
 

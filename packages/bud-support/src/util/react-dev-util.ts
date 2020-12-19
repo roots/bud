@@ -9,21 +9,20 @@
  * @see https://www.npmjs.com/package/react-dev-utils
  */
 
-const launchEditorEndpoint = '/__open-stack-frame-in-editor'
-
-import formatWebpackMessages from './formatWebpackMessages'
-import launchEditor from './launchEditor'
 import WatchMissingNodeModulesPlugin from 'react-dev-utils/WatchMissingNodeModulesPlugin'
 import checkRequiredFiles from 'react-dev-utils/checkRequiredFiles'
 import eslintFormatter from 'react-dev-utils/eslintFormatter'
-import InterpolateHtmlPlugin = require('react-dev-utils/InterpolateHtmlPlugin')
+import InterpolateHtmlPlugin from 'react-dev-utils/InterpolateHtmlPlugin'
 
 export {
+  WatchMissingNodeModulesPlugin,
   checkRequiredFiles,
   eslintFormatter,
-  launchEditor,
-  launchEditorEndpoint,
-  formatWebpackMessages,
-  WatchMissingNodeModulesPlugin,
   InterpolateHtmlPlugin,
 }
+
+export const launchEditorEndpoint =
+  '/__open-stack-frame-in-editor'
+
+export {formatWebpackMessages} from './formatWebpackMessages'
+export {launchEditor} from './launchEditor'

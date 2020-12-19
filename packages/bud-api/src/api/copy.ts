@@ -1,5 +1,4 @@
-import {lodash as _} from '@roots/bud-support'
-import {Bud} from '@roots/bud-typings'
+import type {Bud} from '@roots/bud-typings'
 
 export const copy: Copy = function (
   from,
@@ -42,7 +41,4 @@ export namespace Copy {
   }
 }
 
-export type Copy<T = Bud.Contract> = (
-  this: T,
-  options: Copy.Options,
-) => T
+export type Copy<T = Bud> = (this: T, options: Copy.Options) => T

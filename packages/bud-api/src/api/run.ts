@@ -1,50 +1,48 @@
-import {ProgressPlugin} from 'webpack'
 import {Bud} from '@roots/bud-typings'
 
 export const run: Run = function (safeMode = false) {
-  if (this.mode.is('development')) {
-    this.server.run()
+  if (!safeMode && !this.mode.ci) {
+    return this.cli.run()
   }
 
-  this.compiler.compile()
-
-  if (!safeMode) {
-    this.cli.run()
-
-    return
-  }
-
-  this.addPlugin(
-    'progress-plugin',
-    new ProgressPlugin({
-      activeModules: false,
-      entries: true,
-      modules: true,
-      modulesCount: 5000,
-      profile: false,
-    }),
-  )
-
-  this.compiler.get().run((err, stats) => {
-    if (err) {
-      console.error(err)
-      process.exit(1)
+  this.compiler.compile().hooks.done.tap('stats', stats => {
+    if (stats.hasErrors() && this.mode.is('development')) {
+      console.error(
+        stats.toString(this.compiler.statsOptions.string),
+      )
+      console.log(`\n`)
+    } else {
+      console.log(
+        stats.toString(this.compiler.statsOptions.string),
+      )
+      console.log(`\n`)
     }
-
-    console.log(
-      stats.toString({
-        all: false,
-        version: true,
-        hash: true,
-        builtAt: true,
-        assets: true,
-        colors: true,
-      }),
-    )
   })
+
+  this.when(
+    this.mode.is('production'),
+    ci.production.bind(this),
+    ci.development.bind(this),
+  )
 }
 
-export type Run<T = Bud.Contract> = (
-  this: T,
-  safeMode?: boolean,
-) => void
+/**
+ * CI / Raw mode compatible
+ */
+const ci = {
+  /**
+   * Production build
+   */
+  production: function (this: Bud) {
+    this.compiler.run()
+  },
+
+  /**
+   * Development build
+   */
+  development: function (this: Bud) {
+    this.server.run()
+  },
+}
+
+export type Run<T = Bud> = (this: T, safeMode?: boolean) => void

@@ -3,7 +3,7 @@ import {Bud, Webpack} from '@roots/bud-typings'
 export type Output = Webpack.Configuration['output']
 
 export namespace Output {
-  export type Build = (this: Bud.Contract) => {output: Output}
+  export type Build = (this: Bud) => {output: Output}
 }
 
 export const output: Output.Build = function () {

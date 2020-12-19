@@ -12,7 +12,9 @@ const Indicator: FunctionComponent<IndicatorProps> = ({
   primary = '#545DD7',
   secondary = '#6C758F',
 }) => {
-  return <Text color={active ? primary : secondary}>⦿</Text>
+  return (
+    <Text color={active ? primary : secondary}>⦿{'  '}</Text>
+  )
 }
 
 export {Indicator as default, Indicator}

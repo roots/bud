@@ -1,5 +1,6 @@
 import fetchExternals from './fetchExternals'
 import {ExternalsFunctionElement} from 'webpack'
+import {windowVariables} from './windowVariables'
 
 const externalsPlugin: ExternalsFunctionElement = async (
   _context,
@@ -8,10 +9,11 @@ const externalsPlugin: ExternalsFunctionElement = async (
 ) => {
   const externalsMap = await fetchExternals()
 
-  if (externalsMap[request]) {
-    return callback(null, {
-      this: externalsMap[request].window,
-    })
+  if (externalsMap[request] || windowVariables[request]) {
+    return callback(
+      null,
+      externalsMap[request] ?? windowVariables[request],
+    )
   }
 
   return callback()

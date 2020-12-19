@@ -2,6 +2,7 @@
  * Example: React single page application
  */
 
+// eslint-disable-next-line @typescript-eslint/no-var-requires
 const {bud} = require('@roots/bud')
 
 /**
@@ -16,20 +17,13 @@ bud.hooks.on('webpack.resolve.modules', modules => [
 ])
 
 /**
- * Use babel and react extensions.
+ * Extensions
  */
 bud.use([
-  '@roots/bud-postcss',
   '@roots/bud-babel',
+  '@roots/bud-postcss',
+  '@roots/bud-imagemin',
   '@roots/bud-react',
-])
-
-/**
- * Set application source files.
- */
-bud.entry('create-bud-app', [
-  'app.js',
-  'global.css',
 ])
 
 /**
@@ -37,19 +31,8 @@ bud.entry('create-bud-app', [
  * Explicitly cast as a string to avoid errors.
  */
 bud.define({
-  'appName': bud.string(
-    bud.env.get('APP_TITLE')
-  ),
+  appName: bud.string(bud.env.get('APP_TITLE')),
 })
-
-/**
- * Production optimizations.
- */
-if (bud.mode.is('production')) {
-  bud.minify()
-  bud.vendor()
-  bud.runtime()
-}
 
 /**
  * Set HTML template
@@ -57,6 +40,21 @@ if (bud.mode.is('production')) {
 bud.template({
   template: bud.project('public/index.html'),
 })
+
+/**
+ * Set application source files.
+ */
+bud.entry('create-bud-app', ['app.js', 'global.css'])
+
+/**
+ * Production optimizations.
+ */
+bud.mode.is('production') &&
+  bud.pipe([
+    ({minify}) => minify(),
+    ({vendor}) => vendor(),
+    ({runtime}) => runtime(),
+  ])
 
 /**
  * Run build.

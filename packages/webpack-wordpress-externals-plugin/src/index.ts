@@ -5,46 +5,43 @@ import {RawSource} from 'webpack-sources'
 import Webpack, {ExternalsPlugin} from 'webpack'
 import path from 'path'
 
-class WordPressExternalsWebpackPlugin {
-  public name = 'wordpress-externals'
-
-  public plugin: {
-    name: string
-    stage: number
+export class Plugin {
+  /**
+   * Plugin ident
+   */
+  public plugin = {
+    name: 'WordPressExternalsWebpackPlugin',
+    stage: Infinity,
   }
 
-  public output: Output
+  public output: Output = {
+    dir: '',
+    name: '',
+    file: '',
+    publicPath: '',
+    content: {},
+  }
 
   public options: Options
 
   public externalsPlugin: ExternalsPlugin
 
+  /**
+   * Class constructor
+   */
   constructor(
     options: Options = {
       name: 'wordpress.json',
       writeToFileEmit: true,
+      useElementAsReact: true,
     },
   ) {
-    this.options = {
-      name: options.name,
-      writeToFileEmit: options.writeToFileEmit,
-    }
+    this.options = options
 
-    this.output = {
-      dir: '',
-      name: this.options.name,
-      file: '',
-      publicPath: '',
-      content: {},
-    }
-
-    this.plugin = {
-      name: 'WordPressExternalsWebpackPlugin',
-      stage: Infinity,
-    }
+    this.output.name = this.options.name
 
     this.externalsPlugin = new ExternalsPlugin(
-      'this',
+      'wp',
       externalsPlugin.bind(this),
     )
 
@@ -54,6 +51,7 @@ class WordPressExternalsWebpackPlugin {
   apply(compiler: Webpack.Compiler): void {
     this.output.dir = compiler.options.output.path
     this.output.publicPath = compiler.options.output.publicPath
+
     this.output.file = path.resolve(
       this.output.dir,
       this.output.name,
@@ -72,26 +70,24 @@ class WordPressExternalsWebpackPlugin {
     )
   }
 
-  async emit(
+  public async emit(
     compilation: Webpack.compilation.Compilation,
     callback: () => void,
   ): Promise<void> {
     const externals: Hash = await fetchExternals()
 
-    compilation.entrypoints.forEach(entrypoint => {
-      const dependencies = []
-      const outputKey = entrypoint.name
-
-      entrypoint.chunks.forEach(chunk => {
-        chunk.modulesIterable.forEach(module => {
-          externals[module.userRequest] &&
-            dependencies.push(
-              externals[module.userRequest].enqueue,
-            )
-        })
+    compilation.entrypoints.forEach(entry => {
+      entry.chunks.forEach(chunk => {
+        this.output.content[entry.name] = Array.from(
+          chunk.modulesIterable,
+        ).reduce(
+          (acc: any, module: any) =>
+            externals[module.userRequest]
+              ? [...acc, externals[module.userRequest].enqueue]
+              : acc,
+          [],
+        )
       })
-
-      this.output.content[outputKey] = dependencies
     })
 
     compilation.assets[this.output.name] = new RawSource(
@@ -102,16 +98,13 @@ class WordPressExternalsWebpackPlugin {
   }
 }
 
-type Content =
-  | {
-      [key: string]: string | string[]
-    }
-  | {
-      [key: string]: string | string[]
-    }[]
-  | null
+export type EntrySchema = {
+  [key: string]: string | string[]
+}
 
-type Output = {
+export type Content = EntrySchema | EntrySchema[] | null
+
+export type Output = {
   dir: string
   name: string
   file: string
@@ -119,9 +112,23 @@ type Output = {
   content: Content
 }
 
-type Options = {
+/**
+ * Plugin options
+ */
+export type Options = {
+  /**
+   * Name of outputted file.
+   */
   name: string
-  writeToFileEmit: boolean
-}
 
-export {WordPressExternalsWebpackPlugin as default}
+  /**
+   * Should manifest be written to disk.
+   */
+  writeToFileEmit: boolean
+
+  /**
+   * Transform requests for 'react' and 'react-dom'
+   * to '@wordpress/element'
+   */
+  useElementAsReact: boolean
+}

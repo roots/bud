@@ -1,15 +1,13 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "allowJs": true,
     "rootDir": "./src",
-    "outDir": "./lib",
+    "outDir": "./lib/cjs",
     "baseUrl": ".",
     "declaration": true,
-    "declarationDir": "./lib/types",
+    "declarationDir": "./types",
     "declarationMap": true
   },
-  "compileOnSave": true,
   "include": ["./src"],
   "exclude": ["./lib"]
 }

@@ -2,7 +2,7 @@ import {Extension, Webpack, Bud} from '@roots/bud-typings'
 
 export namespace Plugins {
   export type Build = (
-    this: Bud.Contract,
+    this: Bud,
   ) => {plugins: Webpack.Configuration['plugins']}
 }
 
@@ -15,10 +15,7 @@ export const plugins: Plugins.Build = function () {
       .getStore()
       .getEntries()
       .map(
-        ([name, ext]: [
-          string,
-          Extension.Controller,
-        ]): Webpack.Plugin =>
+        ([name, ext]: [string, Extension]): Webpack.Plugin =>
           this.hooks.filter<Webpack.Plugin>(
             `webpack.plugins.${name}`,
             ext.makePlugin ? ext.makePlugin() : null,

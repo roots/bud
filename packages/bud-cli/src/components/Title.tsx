@@ -1,18 +1,27 @@
 import React, {FunctionComponent} from 'react'
 import {Box, Text} from 'ink'
+import {useStyle} from '@roots/ink-use-style'
+import {Props} from 'ink/build/components/Box'
 
 interface TitleInterface {
+  frame?: Props
   children: string
 }
 
 const Title: FunctionComponent<TitleInterface> = ({
+  frame,
   children,
-}) => (
-  <Box flexDirection="column" paddingTop={2} marginBottom={1}>
-    <Text backgroundColor={'#545DD7'} color={'white'}>
-      {` ${children} `}
-    </Text>
-  </Box>
-)
+}) => {
+  const {colors} = useStyle()
+  return (
+    <Box {...(frame ?? [])} flexDirection="column">
+      <Text
+        backgroundColor={colors.primary}
+        color={colors.white}>
+        {` ${children} `}
+      </Text>
+    </Box>
+  )
+}
 
-export {Title as default}
+export {Title}

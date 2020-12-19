@@ -11,7 +11,7 @@ export const terser: Terser = function (options) {
   return this
 }
 
-export type Terser<T = Bud.Contract> = (
+export type Terser<T = Bud> = (
   this: T,
   options: {
     /**

@@ -6,7 +6,4 @@ export const project: Project = function (segment) {
     : this.fs.getBase() ?? process.cwd()
 }
 
-export type Project<T = Bud.Contract> = (
-  this: T,
-  path?: string,
-) => string
+export type Project<T = Bud> = (this: T, path?: string) => string

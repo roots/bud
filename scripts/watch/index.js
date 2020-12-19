@@ -9,6 +9,7 @@ const {watchFile} = require('fs-extra')
   const all = await new packages().init()
 
   console.log('\nWatching for changes in:\n')
+
   all.entries().map(pkg => console.log(pkg[1].name))
 
   await Promise.all(

@@ -10,7 +10,4 @@ export const dev: Dev = function (config) {
   return this
 }
 
-export type Dev<T = Bud.Contract> = (
-  this: T,
-  config: Server.Config,
-) => T
+export type Dev<T = Bud> = (this: T, config: Server.Config) => T

@@ -290,7 +290,8 @@ function printInstructions(fileName, errorMessage) {
 }
 
 let _childProcess = null
-export default function (
+
+export const launchEditor = function (
   fileName: string,
   lineNumber: number,
   colNumber: number,

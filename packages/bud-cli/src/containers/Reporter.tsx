@@ -1,24 +1,27 @@
 import React from 'react'
-import {Box} from 'ink'
+import {Box, Text} from 'ink'
+import Spinner from 'ink-spinner'
+
+import {usePackageJson} from '../hooks/usePackageJson'
 import {useStyle} from '@roots/ink-use-style'
 
-import Assets from '../components/Assets'
+import {Assets} from '../components/Assets'
 import Errors from '../components/Errors'
-import {BuildInfo} from '../components/BuildInfo'
 import Progress from '../components/Progress'
-import Screen from '../components/Screen'
 import {Debug} from '../components/Debug'
 
 import type {Bud} from '@roots/bud-typings'
 import type {UseStats} from '../hooks/useStats'
 import type {UseProgress} from '../hooks/useProgress'
-import {usePackageJson} from '../hooks/usePackageJson'
+import {useDisk} from '../hooks/useDisk'
+import {Git} from '../components/Git'
 
 declare namespace Reporter {
   export type Props = {
-    bud: Bud.Bud
+    bud: Bud
     stats: UseStats.Stats
     progress: UseProgress.Progress
+    errors?: string[]
   }
 
   export type Component = React.FunctionComponent<Props>
@@ -28,45 +31,101 @@ const Reporter: Reporter.Component = ({
   bud,
   stats,
   progress,
+  errors,
 }) => {
-  const pkg = usePackageJson(bud)
-  const {col} = useStyle()
+  const [disk] = useDisk(bud)
+  const pkg = usePackageJson(disk)
+  const {bounds, colors} = useStyle()
 
   return (
-    <Box paddingRight={1} justifyContent="space-between">
-      <Screen title={pkg.name}>
+    <Box
+      display="flex"
+      flexDirection="column"
+      height={bounds.height}
+      alignItems="center"
+      justifyContent="space-between">
+      <Box flexDirection="column" justifyContent="space-between">
+        <Box flexDirection="row" marginTop={1} marginBottom={1}>
+          <Box flexDirection="row">
+            <Text
+              backgroundColor={colors.primary}
+              color={colors.white}>
+              {' '}
+              {progress.msg ? (
+                <Spinner />
+              ) : stats?.hash ? (
+                '✓'
+              ) : (
+                ''
+              )}{' '}
+              {pkg?.name}{' '}
+            </Text>
+
+            <Text dimColor color={colors.white} italic>
+              {' '}
+              {progress.msg ? (
+                <Text italic dimColor>
+                  {progress.msg}
+                </Text>
+              ) : stats?.hash ? (
+                <Text italic dimColor>
+                  {stats.hash}
+                </Text>
+              ) : (
+                <></>
+              )}
+            </Text>
+          </Box>
+        </Box>
+
         <Box flexDirection="column">
-          {stats?.errors && stats?.errors[0] && (
-            <Errors errors={stats.errors} />
+          {(!errors || !errors[0]) && (
+            <Box flexDirection="column" marginBottom={1}>
+              <Assets assets={stats?.assets} />
+            </Box>
           )}
+
+          {errors && errors[0] && <Errors errors={errors} />}
 
           {stats?.warnings && stats?.warnings[0] && (
             <Errors errors={stats.warnings} />
           )}
 
-          <Box flexDirection="column">
-            <Box
-              width={col(12)}
-              flexDirection="column"
-              marginBottom={1}>
-              <Assets assets={stats?.assets} />
-            </Box>
-
-            <Box
-              width={col(12)}
-              flexDirection="column"
-              marginBottom={1}>
-              <Progress {...progress} />
-            </Box>
-          </Box>
-
-          <Box flexDirection="column" marginBottom={1}>
-            <BuildInfo stats={stats} />
-          </Box>
+          {stats?.time && (
+            <>
+              <Text>
+                Compiled in{' '}
+                <Text bold color={colors.success}>
+                  {stats.time / 1000}s
+                </Text>
+              </Text>
+            </>
+          )}
 
           {bud.args.has('debug') && <Debug bud={bud} />}
         </Box>
-      </Screen>
+      </Box>
+
+      <Box flexDirection="column">
+        <Progress {...progress} />
+        <Box
+          marginTop={1}
+          flexDirection="row"
+          justifyContent="space-between">
+          {bud.mode.is('development') && (
+            <Text bold color={colors.accent}>
+              {'🌐  '}
+              {bud.server.config.get('ssl')
+                ? 'https://'
+                : 'http://'}
+              {bud.server.config.get('host')}:
+              {bud.server.config.get('port')}
+            </Text>
+          )}
+
+          <Git />
+        </Box>
+      </Box>
     </Box>
   )
 }

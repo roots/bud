@@ -5,9 +5,9 @@ import type {PluginTarget, PluginOptions} from '@babel/core'
  * Merge babel plugins
  */
 export const setPlugins = function (
-  this: Bud.Contract,
+  this: Bud,
   plugins: Array<[PluginTarget, PluginOptions]>,
-): Bud.Contract {
+): Bud {
   this.build.items.set('babel.options.plugins', plugins)
 
   return this

@@ -6,19 +6,23 @@ import type {Bud} from '@roots/bud-typings'
 
 export namespace UseCompilation {
   export interface Hook {
-    (bud: Bud.Bud): Compilation
+    (bud: Bud): Compilation
   }
 
   export interface Compilation {
     progress: UseProgress.Progress
     stats: UseStats.Stats
+    errors?: string[]
   }
 }
 
-const useCompilation: UseCompilation.Hook = (bud: Bud.Bud) => {
+const useCompilation: UseCompilation.Hook = (bud: Bud) => {
   const [applied, setApplied] = useState<boolean>(false)
-  const [tapped, setTapped] = useState<boolean>(false)
-  const [stats, statsHandler] = useStats()
+
+  const [stats, errors, statsHandler] = useStats(
+    bud.compiler.statsOptions,
+  )
+
   const [progress, progressHandler] = useProgress()
 
   useEffect(() => {
@@ -26,20 +30,19 @@ const useCompilation: UseCompilation.Hook = (bud: Bud.Bud) => {
 
     setApplied(true)
 
+    bud.compiler.compile()
     bud.compiler.applyPlugins(progressHandler)
-  })
+    bud.compiler.instance.hooks.done.tap('stats', statsHandler)
 
-  useEffect(() => {
-    if (tapped) return
-
-    setTapped(true)
-
-    bud.compiler.run(statsHandler)
-  })
+    bud.mode.is('development')
+      ? bud.server.run()
+      : bud.compiler.run()
+  }, [bud])
 
   return {
     progress,
     stats,
+    errors,
   }
 }
 

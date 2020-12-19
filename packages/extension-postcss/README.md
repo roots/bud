@@ -22,7 +22,7 @@
 
 ## Overview
 
-Extends Bud with PostCSS functionality.
+Use PostCSS in Bud projects.
 
 ## Installation
 
@@ -33,14 +33,33 @@ Extends Bud with PostCSS functionality.
 - postcss-flexbugs-fixes
 - postcss-preset-env
 - autoprefixer
+- postcss-nested
 
 ## Configuring
 
+Configure directly:
+
 ```js
-bud.build.items.merge(
-  'postcss.options.postcssOptions.plugins',
-  [Plugin, pluginOptions]
-)
+bud.build.items.merge('postcss.options.postcssOptions.plugins', [
+  Plugin,
+  pluginOptions,
+])
+```
+
+Add a postcss plugin:
+
+```js
+bud.postPlugin(MyPlugin, {plugin: 'options'})
+```
+
+Supply a custom presetEnv configuration:
+
+```js
+bud.presetEnv({
+  autoprefixer: {
+    flexbox: 'no-2009',
+  },
+})
 ```
 
 ## Contributing

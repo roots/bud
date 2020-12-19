@@ -16,7 +16,7 @@ export const template: Template = function (options?) {
   return this
 }
 
-export type Template<T = Bud.Contract> = (
+export type Template<T = Bud> = (
   this: T,
   options?: {
     template: string

@@ -1,8 +1,9 @@
-import type {Container, Dotenv} from '.'
+import Dotenv from 'dotenv'
+import {Container} from '.'
 
 /**
  * Dotenv parsed contents.
  */
 export type Data = Dotenv.DotenvParseOutput
 
-export class Contract extends Container {}
+export abstract class Env extends Container {}

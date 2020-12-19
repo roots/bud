@@ -1,0 +1,11 @@
+{
+  "name": "bud-example-react",
+  "private": true,
+  "scripts": {
+    "dev": "node bud.config.js --mode development",
+    "build": "node bud.config.js --mode production"
+  },
+  "devDependencies": {
+    "@roots/bud-sage": "^2.0.7"
+  }
+}

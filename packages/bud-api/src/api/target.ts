@@ -6,7 +6,4 @@ export const target: Target = function (target) {
   return this
 }
 
-export type Target<T = Bud.Contract> = (
-  this: T,
-  target: string,
-) => T
+export type Target<T = Bud> = (this: T, target: string) => T

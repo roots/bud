@@ -6,9 +6,11 @@
     "build": "node bud.config.js --mode production"
   },
   "devDependencies": {
-    "@roots/bud": "latest",
-    "@roots/bud-babel": "latest",
-    "@roots/bud-react": "latest",
-    "@roots/bud-wordpress-manifests": "latest"
+    "@roots/bud": "^2.0.7",
+    "@roots/bud-babel": "^2.0.7",
+    "@roots/bud-entrypoints": "^2.0.6",
+    "@roots/bud-postcss": "^2.0.7",
+    "@roots/bud-react": "^2.0.7",
+    "@roots/bud-wordpress-manifests": "^2.0.6"
   }
 }

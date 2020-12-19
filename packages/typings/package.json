@@ -30,8 +30,6 @@
     "build": "tsc"
   },
   "devDependencies": {
-    "@roots/container": "^2.0.6",
-    "@roots/filesystem": "^2.0.6",
     "@types/express": "^4.17.9",
     "@types/node": "^14.11.2",
     "dotenv": "^8.2.0",

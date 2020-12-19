@@ -1,22 +1,28 @@
 import {useState} from 'react'
 import type Webpack from 'webpack'
 
-export const useStats: UseStats.Hook = () => {
+export const useStats: UseStats.Hook = options => {
   const [stats, setStats]: [
     UseStats.Stats,
     React.Dispatch<UseStats.Stats>,
   ] = useState<UseStats.Stats>(null)
 
-  const handler: UseStats.Handler = (err, stats) => {
-    if (err) {
-      console.log(err)
-      throw Error('Whoops')
+  const [errors, setErrors]: [
+    string[],
+    React.Dispatch<string[]>,
+  ] = useState<string[]>(null)
+
+  const handler: UseStats.Handler = stats => {
+    if (stats?.hasErrors()) {
+      stats && setErrors(stats.toJson(options.json).errors)
+    } else {
+      setErrors(null)
     }
 
-    setStats(stats.toJson())
+    stats && setStats({...stats.toJson(options.json)})
   }
 
-  return [stats, handler]
+  return [stats, errors, handler]
 }
 
 export namespace UseStats {
@@ -24,10 +30,10 @@ export namespace UseStats {
    * UseStats interface.
    */
   export interface Hook {
-    (): Tuple
+    (options: any): Tuple
   }
 
-  export type Tuple = [Stats, Handler]
+  export type Tuple = [Stats, string[], Handler]
 
   /**
    * Stats JSON
@@ -37,10 +43,7 @@ export namespace UseStats {
   /**
    * Process raw webpack stats.
    */
-  export type Handler = (
-    err: Error,
-    stats: Webpack.Stats,
-  ) => void
+  export type Handler = (stats: Webpack.Stats) => void
 
   /**
    * Reported assets.

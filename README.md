@@ -108,7 +108,14 @@ bud
   .run()
 ```
 
-There are [plenty of examples available for reference here](docs/examples/README.md).
+## Example implementations
+
+There are [example implementations available for reference in `/docs/examples`](/docs/examples).
+
+- [React single-page application](/docs/examples/react)
+- [WordPress theme](/docs/examples/wordpress-theme)
+
+More will be added.
 
 ## Running a build
 
@@ -151,16 +158,13 @@ The following is a (hopefully) exhaustive list of the utilities designed to make
 | bud.glob            | Create an entrypoint with wildcards | [docs/config-glob.md](https://github.com/roots/bud/tree/stable/docs/config-glob.md)                       |
 | bud.gzip            | Apply gzip compression              | [docs/config-gzip.md](https://github.com/roots/bud/tree/stable/docs/config-gzip.md)                       |
 | bud.hash            | Add version string to assets        | [docs/config-glob.md](https://github.com/roots/bud/tree/stable/docs/config-hash.md)                       |
-| bud.imagemin        | Enable/disable image minification   | [docs/config-imagemin.md](https://github.com/roots/bud/tree/stable/docs/config-imagemin.md)               |
-| bud.imageminOption  | Set imagemin option                 | [docs/config-imageminOption.md](https://github.com/roots/bud/tree/stable/docs/config-imageminOption.md)   |
-| bud.imageminPlugins | Customize imagemin plugins          | [docs/config-imageminPlugins.md](https://github.com/roots/bud/tree/stable/docs/config-imageminPlugins.md) |
-| bud.imagemin        | Enable/disable image minification   | [docs/config-imagemin.md](https://github.com/roots/bud/tree/stable/docs/config-imagemin.md)               |
-| bud.library         | Create and utilize a DLL                        | [docs/config-library.md](https://github.com/roots/bud/tree/stable/docs/config-library.md)                 |
+| bud.library         | Create and utilize a DLL            | [docs/config-library.md](https://github.com/roots/bud/tree/stable/docs/config-library.md)                 |
 | bud.minify          | Minify assets                       | [docs/config-minify.md](https://github.com/roots/bud/tree/stable/docs/config-minify.md)                   |
 | bud.pipe            | Declare a series of build steps     | [docs/config-pipe.md](https://github.com/roots/bud/tree/stable/docs/config-pipe.md)                       |
 | bud.project         | Get the project root                | [docs/config-project.md](https://github.com/roots/bud/tree/stable/docs/config-project.md)                 |
 | bud.projectPath     | Define the project root dir         | [docs/config-projectPath.md](https://github.com/roots/bud/tree/stable/docs/config-projectPath.md)         |
 | bud.provide         | Make a module available globally    | [docs/config-provide.md](https://github.com/roots/bud/tree/stable/docs/config-provide.md)                 |
+| bud.proxy           | Toggle/configure proxy server       | [docs/config-proxy.md](https://github.com/roots/bud/tree/stable/docs/config-proxy.md)                     |
 | bud.publicPath      | Define the browser URI of assets.   | [docs/config-publicPath.md](https://github.com/roots/bud/tree/stable/docs/config-publicPath.md)           |
 | bud.runtime         | Code split with a runtime chunk     | [docs/config-runtime.md](https://github.com/roots/bud/tree/stable/docs/config-runtime.md)                 |
 | bud.src             | Get the `src` dir path              | [docs/config-src.md](https://github.com/roots/bud/tree/stable/docs/config-src.md)                         |
@@ -185,18 +189,20 @@ Suffice to say, extensibility is a fundamental design tenant of Bud as software.
 
 There are a number of Roots maintained extensions available to kickstart your projects. For more information on using them refer to [the documentation on the bud.use function](https://github.com/roots/bud/tree/stable/docs/config-use.md) and the extension's README.
 
-| Name                           | Description                     | Usage                                                                                                | Package                                                                                                                              |
-| ------------------------------ | ------------------------------- | ---------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
-| @roots/bud-babel               | Adds babel support.             | [README ↗](https://github.com/roots/bud/tree/stable/packages/extension-babel/README.md)               | ![@roots/bud-babel](https://img.shields.io/npm/v/@roots/bud-babel.svg?color=%23525ddc&style=flat-square)                             |
-| @roots/bud-eslint              | Adds eslint support.            | [README ↗](https://github.com/roots/bud/tree/stable/packages/extension-eslint/README.md)              | ![@roots/bud-eslint](https://img.shields.io/npm/v/@roots/bud-eslint.svg?color=%23525ddc&style=flat-square)                           |
-| @roots/bud-wordpress-manifests | WP specific build tooling.      | [README ↗](https://github.com/roots/bud/tree/stable/packages/extension-wordpress-manifests/README.md) | ![@roots/bud-wordpress-manifests](https://img.shields.io/npm/v/@roots/bud-wordpress-manifests.svg?color=%23525ddc&style=flat-square) |
-| @roots/bud-purgecss            | Adds purgecss support.          | [README ↗](https://github.com/roots/bud/tree/stable/packages/extension-purgecss/README.md)            | ![@roots/bud-purgecss](https://img.shields.io/npm/v/@roots/bud-purgecss.svg?color=%23525ddc&style=flat-square)                             |
-| @roots/bud-react               | Adds react support.             | [README ↗](https://github.com/roots/bud/tree/stable/packages/extension-react/README.md)               | ![@roots/bud-react](https://img.shields.io/npm/v/@roots/bud-react.svg?color=%23525ddc&style=flat-square)                             |
-| @roots/bud-sass                | Adds sass preprocessor support. | [README ↗](https://github.com/roots/bud/tree/stable/packages/extension-sass/README.md)                | ![@roots/bud-sass](https://img.shields.io/npm/v/@roots/bud-sass.svg?color=%23525ddc&style=flat-square)                     |
-| @roots/bud-stylelint           | Adds stylelint support.         | [README ↗](https://github.com/roots/bud/tree/stable/packages/extension-stylelint/README.md)           | ![@roots/bud-styelint](https://img.shields.io/npm/v/@roots/bud-stylelint.svg?color=%23525ddc&style=flat-square)                 |
-| @roots/bud-tailwindcss         | Adds tailwindcss support.       | [README ↗](https://github.com/roots/bud/tree/stable/packages/extension-tailwindcss/README.md)         | ![@roots/bud-tailwindcss](https://img.shields.io/npm/v/@roots/bud-tailwindcss.svg?color=%23525ddc&style=flat-square)                   |
-| @roots/bud-typescript          | Adds typescript support.        | [README ↗](https://github.com/roots/bud/tree/stable/packages/extension-typescript/README.md)          | ![@roots/bud-typescript](https://img.shields.io/npm/v/@roots/bud-typescript.svg?color=%23525ddc&style=flat-square)                                 |
-| @roots/bud-vue                 | Adds Vue framework support.     | [README ↗](https://github.com/roots/bud/tree/stable/packages/extension-vue/README.md)                 | ![@roots/bud-vue](https://img.shields.io/npm/v/@roots/bud-vue.svg?color=%23525ddc&style=flat-square)                             |
+| Name             | Description         | Usage                                                                                   | Package                                                                                                  |
+| ---------------- | ------------------- | --------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------- |
+| @roots/bud-babel | Adds babel support. | [README ↗](https://github.com/roots/bud/tree/stable/packages/extension-babel/README.md) | ![@roots/bud-babel](https://img.shields.io/npm/v/@roots/bud-babel.svg?color=%23525ddc&style=flat-square) |
+| @roots/bud-eslint | Adds eslint support. | [README ↗](https://github.com/roots/bud/tree/stable/packages/extension-eslint/README.md) | ![@roots/bud-eslint](https://img.shields.io/npm/v/@roots/bud-eslint.svg?color=%23525ddc&style=flat-square) |
+| @roots/bud-entrypoints | `entrypoints.json` asset manifest | [README ↗](https://github.com/roots/bud/tree/stable/packages/extension-entrypoints/README.md) | ![@roots/bud-entrypoints](https://img.shields.io/npm/v/@roots/bud-entrypoints.svg?color=%23525ddc&style=flat-square) |
+| @roots/bud-wordpress-externals | Utilize wp provided dependencies in production | [README ↗](https://github.com/roots/bud/tree/stable/packages/extension-wordpress-externals/README.md) | ![@roots/bud-wordpress-externals](https://img.shields.io/npm/v/@roots/bud-wordpress-externals.svg?color=%23525ddc&style=flat-square) |
+| @roots/bud-wordpress-manifests | `wordpress.json` asset manifest. | [README ↗](https://github.com/roots/bud/tree/stable/packages/extension-wordpress-manifests/README.md) | ![@roots/bud-wordpress-manifests](https://img.shields.io/npm/v/@roots/bud-wordpress-manifests.svg?color=%23525ddc&style=flat-square) |
+| @roots/bud-purgecss | Adds purgecss support. | [README ↗](https://github.com/roots/bud/tree/stable/packages/extension-purgecss/README.md) | ![@roots/bud-purgecss](https://img.shields.io/npm/v/@roots/bud-purgecss.svg?color=%23525ddc&style=flat-square) |
+| @roots/bud-react | Adds react support. | [README ↗](https://github.com/roots/bud/tree/stable/packages/extension-react/README.md) | ![@roots/bud-react](https://img.shields.io/npm/v/@roots/bud-react.svg?color=%23525ddc&style=flat-square) |
+| @roots/bud-sass | Adds sass preprocessor support. | [README ↗](https://github.com/roots/bud/tree/stable/packages/extension-sass/README.md) | ![@roots/bud-sass](https://img.shields.io/npm/v/@roots/bud-sass.svg?color=%23525ddc&style=flat-square) |
+| @roots/bud-stylelint | Adds stylelint support. | [README ↗](https://github.com/roots/bud/tree/stable/packages/extension-stylelint/README.md) | ![@roots/bud-styelint](https://img.shields.io/npm/v/@roots/bud-stylelint.svg?color=%23525ddc&style=flat-square) |
+| @roots/bud-tailwindcss | Adds tailwindcss support. | [README ↗](https://github.com/roots/bud/tree/stable/packages/extension-tailwindcss/README.md) | ![@roots/bud-tailwindcss](https://img.shields.io/npm/v/@roots/bud-tailwindcss.svg?color=%23525ddc&style=flat-square) |
+| @roots/bud-typescript | Adds typescript support. | [README ↗](https://github.com/roots/bud/tree/stable/packages/extension-typescript/README.md) | ![@roots/bud-typescript](https://img.shields.io/npm/v/@roots/bud-typescript.svg?color=%23525ddc&style=flat-square) |
+| @roots/bud-vue | Adds Vue framework support. | [README ↗](https://github.com/roots/bud/tree/stable/packages/extension-vue/README.md) | ![@roots/bud-vue](https://img.shields.io/npm/v/@roots/bud-vue.svg?color=%23525ddc&style=flat-square) |
 
 ### Third-party extensions
 

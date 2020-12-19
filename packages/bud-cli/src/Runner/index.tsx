@@ -1,8 +1,9 @@
 import React from 'react'
-import {render, Instance} from 'ink'
+import {render} from 'ink'
 import Compile from '../containers/Compile'
 import {Serve} from '../containers/Serve'
 import type {Bud} from '@roots/bud-typings'
+import type {Instance} from 'ink'
 
 /**
  * ## bud.cli
@@ -11,7 +12,7 @@ import type {Bud} from '@roots/bud-typings'
  */
 export class Runner {
   /** Bud reference */
-  public bud: Bud.Bud
+  public bud: Bud
 
   /**
    * ## bud.cli.instance
@@ -23,10 +24,13 @@ export class Runner {
   /**
    * Class constructor.
    */
-  constructor(bud: Bud.Bud) {
+  constructor(bud: Bud) {
     this.bud = bud
-
     this.run = this.run.bind(this)
+  }
+
+  public init(): void {
+    return
   }
 
   /**

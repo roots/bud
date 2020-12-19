@@ -1,23 +1,27 @@
-import type {Bud} from '@roots/bud-typings'
 import {useEffect, useState} from 'react'
+import {FileContainer} from '@roots/bud-typings'
 
 export type PkgFields = {
   [key: string]: any
   name: string
 }
 
-export const usePackageJson = (bud: Bud.Bud): PkgFields => {
+export const usePackageJson = (
+  disk: FileContainer,
+): PkgFields => {
   const [pkg, setPkg] = useState<PkgFields>({
     name: '@roots/bud',
   })
 
   useEffect(() => {
-    bud.fs.exists('package.json') &&
+    if (!disk) return
+
+    disk.exists('package.json') &&
       setPkg({
         ...pkg,
-        ...bud.fs.readJson('package.json'),
+        ...disk.readJson('package.json'),
       })
-  })
+  }, [disk])
 
   return pkg
 }

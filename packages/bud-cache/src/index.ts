@@ -1,4 +1,5 @@
-import {Bud, Cache as Abstract} from '@roots/bud-typings'
+import Service from './Service'
+import type {Bud} from '@roots/bud-typings'
 
 /**
  * ## bud.cache [🏠 Internal]
@@ -10,15 +11,7 @@ import {Bud, Cache as Abstract} from '@roots/bud-typings'
  * [📦 @roots/bud-cache](#)
  * [🔗 Documentation](#)
  */
-export class Cache implements Abstract.Contract {
-  /**
-   * Class constructor.
-   */
-  constructor(bud: Bud.Bud) {
-    this.enabled = this.enabled.bind(bud)
-    this.setCache = this.setCache.bind(bud)
-  }
-
+export class Cache extends Service {
   /**
    * ## bud.cache.enabled [🏠 Internal]
    *
@@ -32,11 +25,11 @@ export class Cache implements Abstract.Contract {
    * // => true if cache is enabled
    * ```
    */
-  public enabled(this: Bud.Bud): boolean {
+  public enabled(): boolean {
     return (
-      this.features.enabled('buildCache') &&
-      this.fs.exists(
-        this.config.get('webpack.recordsPath') as string,
+      this.bud.features.enabled('buildCache') &&
+      this.bud.fs.exists(
+        this.bud.config.get('webpack.recordsPath') as string,
       )
     )
   }
@@ -46,12 +39,12 @@ export class Cache implements Abstract.Contract {
    *
    * Sets the cache object in the webpack configuration.
    */
-  public setCache(this: Bud.Bud): void {
-    this.cache.enabled() &&
-      this.hooks.on('webpack.cache', (bud: Bud.Bud) =>
+  public setCache(): void {
+    this.enabled() &&
+      this.bud.hooks.on('webpack.cache', (bud: Bud) =>
         bud.disk
           .get('project')
-          .readJson(this.config.get('webpack.recordsPath')),
+          .readJson(bud.config.get('webpack.recordsPath')),
       )
   }
 }

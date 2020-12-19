@@ -1,12 +1,12 @@
 {
   "name": "@roots/bud-postcss",
   "version": "2.0.7",
-  "description": "A friendly build tool to help manage your project assets.",
+  "description": "Adds postcss support to @roots/bud projects",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
-    "directory": "packages/bud-postcss"
+    "directory": "packages/extension-postcss"
   },
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
@@ -19,32 +19,45 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
+  "keywords": ["bud", "postcss", "webpack"],
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "lib",
-    "src"
-  ],
-  "main": "./lib/index.js",
-  "types": "./lib/types/index.d.ts",
+  "files": ["lib", "src"],
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    "require": "./lib/cjs/index.js",
+    "import": "./lib/esm/index-esm.js"
+  },
   "scripts": {
-    "build": "tsc --build",
+    "build": "run-s build:*",
+    "build:cjs": "tsc --build tsconfig.json",
+    "build:ejm": "tsc --build tsconfig-ejs.json",
+    "lint": "run-s lint:*",
+    "lint:eslint": "eslint 'src/**/*.{js,ts,tsx}' --fix",
+    "lint:prettier": "prettier 'src/**/*'  --write",
+    "clean": "run-s clean:*",
     "clean:lib": "rimraf ./lib",
     "clean:modules": "rimraf ./node_modules",
-    "tsc": "tsc -b tsconfig.json",
-    "lint": "eslint ."
+    "clean:types": "rimraf ./types",
+    "pkg": "run-s pkg:*",
+    "pkg:check": "package-check --verbose",
+    "pkg:format": "prettier './lib/**/*.{js,ts}' --write",
+    "prepublish": "clean:lib lint build pkg"
   },
   "devDependencies": {
+    "@roots/bud-extensions": "^2.0.7",
+    "@roots/bud-framework": "^2.0.7",
     "@roots/bud-typings": "^2.0.6"
   },
   "dependencies": {
-    "@roots/bud-extensions": "^2.0.7",
-    "@roots/bud-framework": "^2.0.7",
     "autoprefixer": "^9.8.5",
     "postcss": "^8.1.1",
     "postcss-flexbugs-fixes": "^4.2.1",
     "postcss-loader": "^4.0.4",
+    "postcss-nested": "^5.0.3",
     "postcss-preset-env": "^6.7.0"
   }
 }

@@ -25,7 +25,7 @@ export const glob: Glob = function (name, files, options) {
   return this
 }
 
-export type Glob<T = Bud.Contract> = (
+export type Glob<T = Bud> = (
   this: T,
   name: string,
   files: GlobTask['pattern'],

@@ -1,14 +1,16 @@
-import {Bud} from '@roots/bud-typings'
+import {Extension, Item, Loader} from '@roots/bud-typings'
 import {make} from './api'
 import * as babel from './babel'
 
-export const registerItems = {babel}
+export const registerItems: Extension.Module.RegisterMany<Item.Module> = {
+  babel,
+}
 
-export const registerLoaders = {
+export const registerLoaders: Extension.Module.RegisterMany<Loader> = {
   [`babel-loader`]: require.resolve('babel-loader'),
 }
 
-export function boot(bud: Bud.Contract): void {
+export const boot: Extension.Module.Boot = bud => {
   make(bud)
 
   bud.build.rules.set('js.use', [

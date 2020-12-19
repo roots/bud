@@ -1,5 +1,6 @@
 #!/usr/bin/env node
-import {yargs} from '@roots/bud-support'
+
+import yargs from 'yargs'
 import * as build from './commands/build'
 import * as publish from './commands/publish'
 
@@ -20,4 +21,3 @@ const cli = yargs
   .epilog('https://github.com/roots/bud').argv
 
 export {cli as bud}
-module.exports = {bud: cli}

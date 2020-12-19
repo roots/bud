@@ -1,8 +1,14 @@
 import execa from 'execa'
-import lodash from 'lodash'
-import yargs from 'yargs'
-import globby from 'globby'
-import fsExtra from 'fs-extra'
-import futil from 'futil-js'
+export {execa}
 
-export {lodash, futil, execa, fsExtra as fs, globby, yargs}
+import fs from 'fs-extra'
+export {fs}
+
+import lodash from 'lodash'
+export {lodash}
+
+import yargs from 'yargs'
+export {yargs}
+
+import globby from 'globby'
+export {globby}

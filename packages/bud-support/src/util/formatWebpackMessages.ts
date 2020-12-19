@@ -95,7 +95,7 @@ const formatMessage = (message: string) => {
     .trim()
 }
 
-export default (json: {
+export const formatWebpackMessages = (json: {
   [key: string]: any
 }): {[key: string]: any} => ({
   errors: filterForSyntaxErrors(json.errors.map(formatMessage)),

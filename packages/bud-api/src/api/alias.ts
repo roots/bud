@@ -11,7 +11,7 @@ export const alias: Alias = function (alias) {
   return this
 }
 
-export type Alias<T = Bud.Contract> = (
+export type Alias<T = Bud> = (
   this: T,
   aliases: {
     [key: string]: string

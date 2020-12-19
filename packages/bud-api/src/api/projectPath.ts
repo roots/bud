@@ -7,7 +7,4 @@ export const projectPath: ProjectPath = function (dir) {
   return this
 }
 
-export type ProjectPath<T = Bud.Contract> = (
-  this: T,
-  dir: string,
-) => T
+export type ProjectPath<T = Bud> = (this: T, dir: string) => T

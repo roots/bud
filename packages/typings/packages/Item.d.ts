@@ -1,7 +1,7 @@
-import type {Bud, Build, Index, MaybeCallable, Webpack} from '.'
+import type {Bud, Index, MaybeCallable, Webpack} from '.'
 
 export declare class Contract {
-  bud: Bud.Bud
+  bud: Bud
 
   ident?: Module.Ident
 
@@ -11,7 +11,7 @@ export declare class Contract {
 
   query?: Module.Query
 
-  propMap: () => Index<[Property, Index<string> | Bud.Bud]>
+  propMap: () => Index<[Property, Index<string> | Bud]>
 
   getIdent: Getter<Module.Ident>
 

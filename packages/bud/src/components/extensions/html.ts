@@ -1,5 +1,5 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import {Extension} from '@roots/bud-typings'
+import {Bud, Extension} from '@roots/bud-typings'
 
 export const options: HtmlWebpackPlugin.Options = ({fs}) => ({
   alwaysWriteToDisk: true,
@@ -11,8 +11,14 @@ export const options: HtmlWebpackPlugin.Options = ({fs}) => ({
   ),
 })
 
-export const make: Extension.Make = opts =>
-  new HtmlWebpackPlugin(opts.all())
+export const make: Extension.Module.Make = (
+  opts,
+  {config}: Bud,
+) =>
+  new HtmlWebpackPlugin({
+    ...opts.all(),
+    publicPath: config.get('output.publicPath'),
+  })
 
-export const when: Extension.When = ({features}) =>
+export const when: Extension.Module.When = ({features}) =>
   features.enabled('html')

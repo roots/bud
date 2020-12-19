@@ -10,38 +10,30 @@ declare namespace Progress {
   ) => JSX.Element
 }
 
-const Progress: Progress.Component = ({percentage, msg}) => {
-  const {col, ctx, bounds, colors} = useStyle()
-  const labelMax = ctx([col(12), col(1)])
+const Progress: Progress.Component = ({percentage}) => {
+  const {col, bounds, colors} = useStyle()
+
+  const labelMax = 5
   const barMax = Math.min(
     Math.floor(bounds.width - labelMax),
     bounds.width,
   )
 
   return (
-    <Box
-      display={'flex'}
-      width={col(12)}
-      flexDirection={'column'}>
-      <Box flexDirection={ctx(['column', 'row'])}>
-        <Box width={labelMax}>
-          <Text>
-            {percentage.display}
-            {'  '}
-          </Text>
-        </Box>
-
-        <Bar
-          maxWidth={barMax}
-          backgroundColor="none"
-          color={colors.primary}
-          percent={percentage.decimal}
-        />
+    <Box display={'flex'} width={col(12)} flexDirection={'row'}>
+      <Box width={labelMax}>
+        <Text>
+          {percentage.display}
+          {''}
+        </Text>
       </Box>
 
-      <Box>
-        <Text>{msg}</Text>
-      </Box>
+      <Bar
+        maxWidth={barMax}
+        backgroundColor="none"
+        color={colors.primary}
+        percent={percentage.decimal}
+      />
     </Box>
   )
 }

@@ -4,9 +4,7 @@ import {useStyle} from '@roots/ink-use-style'
 import {Bud} from '@roots/bud-typings'
 import {Prettier} from '@roots/ink-prettier'
 
-export const Debug: FunctionComponent<{bud: Bud.Bud}> = ({
-  bud,
-}) => {
+export const Debug: FunctionComponent<{bud: Bud}> = ({bud}) => {
   const {col, ctx} = useStyle()
 
   return (

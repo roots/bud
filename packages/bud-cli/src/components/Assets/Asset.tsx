@@ -1,29 +1,37 @@
 import React, {FunctionComponent} from 'react'
 import {Box, Text} from 'ink'
-import {useStyle} from '@roots/ink-use-style'
 import {Indicator} from '../UI/Indicator'
+import {useStyle} from '@roots/ink-use-style'
 
-const Asset: Asset.Component = ({name, active, size, hot}) => {
-  const {ctx, is} = useStyle()
-
-  const roundedSize = Math.round(size / 1000)
+const Asset = ({name, active, size, hot, info}) => {
+  const {col, colors} = useStyle()
 
   return (
-    <Box
-      flexDirection={'row'}
-      justifyContent={ctx(['space-between', 'flex-start'])}>
-      <Box>
+    <Box flexDirection={'row'} justifyContent={'space-between'}>
+      <Box width={col(7)}>
         <Text
           wrap="truncate-end"
           color={active ? 'white' : 'gray'}>
           <Indicator active={active} />
-          {is(hot, `🔥 ${name} `, ` ${name} `)}
+          {name}{' '}
         </Text>
       </Box>
 
-      <Box justifyContent={'flex-end'}>
-        <Text wrap="truncate" dimColor={true}>
-          {roundedSize}kb
+      <Box
+        width={col(3)}
+        alignItems="flex-end"
+        justifyContent="flex-end">
+        <Text wrap="truncate" color={colors.accent}>
+          {info}
+        </Text>
+      </Box>
+
+      <Box
+        width={col(2)}
+        alignItems="flex-end"
+        justifyContent="flex-end">
+        <Text wrap="truncate-end" color={colors.success}>
+          {size / 1000}kb
         </Text>
       </Box>
     </Box>
@@ -37,6 +45,7 @@ declare namespace Asset {
     active: boolean
     size: number
     hot: boolean
+    info?: string
   }
 }
 

@@ -1,8 +1,7 @@
-import type Framework from '@roots/bud-typings'
-
+import Service from './Service'
+import Contract from './Contract'
 import {Extension} from '../Extension'
-
-export {Extensions}
+import type {Container, MaybeCallable} from '@roots/bud-typings'
 
 /**
  * ## bud.extensions
@@ -14,28 +13,7 @@ export {Extensions}
  * [📦 @roots/bud-extensions](https://github.io/roots/bud-extensions)
  * [🔗 Documentation](#)
  */
-class Extensions implements Framework.Extensions.Contract {
-  /**
-   * The Bud instance.
-   */
-  public bud: Framework.Bud.Ref
-
-  /**
-   * Extensions container
-   */
-  public repository: Framework.Container
-
-  /**
-   * Class constructor.
-   */
-  public constructor(bud: Framework.Bud.Contract) {
-    this.bud = bud.get
-
-    this.make = this.make.bind(this)
-
-    this.repository = this.bud().makeContainer({})
-  }
-
+export class Extensions extends Service implements Contract {
   /**
    * ## bud.extensions.getStore
    *
@@ -47,7 +25,7 @@ class Extensions implements Framework.Extensions.Contract {
    * bud.extensions.getStore()
    * ```
    */
-  public getStore(): Framework.Container {
+  public getStore(): Container {
     return this.repository
   }
 
@@ -62,7 +40,7 @@ class Extensions implements Framework.Extensions.Contract {
    * bud.extensions.all()
    * ```
    */
-  public all(): Framework.Container {
+  public all(): Container {
     return this.getStore()
   }
 
@@ -77,7 +55,7 @@ class Extensions implements Framework.Extensions.Contract {
    * bud.extensions.all()
    * ```
    */
-  public get(name: string): Framework.Extension.Controller {
+  public get(name: string): Extension {
     return this.repository.get(name)
   }
 
@@ -94,19 +72,17 @@ class Extensions implements Framework.Extensions.Contract {
    */
   public set(
     name: string,
-    extension: Framework.MaybeCallable<
-      Framework.Extension.Contract
-    >,
+    extension: MaybeCallable<Extension.Module>,
   ): this {
-    const initialized =
+    const module =
       typeof extension == 'function'
-        ? new Extension<unknown>(
-            this.bud(),
-            extension(this.bud()),
-          ).initialize()
-        : new Extension(this.bud(), extension).initialize()
+        ? extension(this.bud)
+        : extension
 
-    this.repository.set(name, initialized)
+    this.repository.set(
+      name,
+      new Extension(this.bud, module).initialize(),
+    )
 
     return this
   }
@@ -128,7 +104,7 @@ class Extensions implements Framework.Extensions.Contract {
    * bud.extensions.make(extensions)
    * ```
    */
-  public make(extensions: Framework.Container): void {
+  public make(extensions: Container): void {
     Object.entries(extensions).map(([name, extension]) =>
       this.set(name, extension),
     )
@@ -151,8 +127,8 @@ class Extensions implements Framework.Extensions.Contract {
   public use(pkg: string): this {
     const path = require.resolve(pkg)
 
-    this.bud().disk.set(pkg, {
-      base: this.bud().fs.path.dirname(path),
+    this.bud.disk.set(pkg, {
+      base: this.bud.fs.path.dirname(path),
       glob: ['**/*'],
     })
 

@@ -15,7 +15,23 @@
 
 ## Overview
 
-WordPress asset manifest and Gutenberg editor support.
+When `@roots/bud-entrypoints` and `@roots/bud-wordpress-externals` are used together it is necessary to refer to multiple manifests in order to handle assets. This extension provides both extensions and merges their manifest outputs.
+
+## Installation
+
+```sh
+yarn add @roots/bud-wordpress-manifests --dev
+```
+
+## Usage
+
+```js
+bud.use(['@roots/bud-wordpress-manifests'])
+```
+
+## Configuration
+
+Refer to the [@roots/bud-entrypoints](https://github.com/roots/bud/tree/stable/bud-entrypoints) and [@roots/bud-wordpress-externals](https://github.com/roots/bud/tree/stable/bud-wordpress-externals) documentation for configuration options.
 
 ## Contributing
 
