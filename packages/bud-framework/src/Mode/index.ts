@@ -21,7 +21,7 @@ export default class extends Service {
    * ```
    */
   public get(): Webpack.Configuration['mode'] {
-    return this.bud.config.get('mode')
+    return this.app.config.get('mode')
   }
 
   /**
@@ -38,9 +38,9 @@ export default class extends Service {
    * ```
    */
   public set(mode: Webpack.Configuration['mode']): Framework {
-    this.bud.config.set('mode', mode)
+    this.app.config.set('mode', mode)
 
-    return this.bud
+    return this.app
   }
 
   /**
@@ -58,6 +58,6 @@ export default class extends Service {
    * ```
    */
   public is(check: Webpack.Configuration['mode']): boolean {
-    return this.bud.config.is('mode', check)
+    return this.app.config.is('mode', check)
   }
 }

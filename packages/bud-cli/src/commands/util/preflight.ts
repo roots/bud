@@ -1,9 +1,7 @@
-import {Framework} from '@roots/bud-typings'
-
 /**
  * Server setup
  */
-export const dev = function (bud: Framework): void {
+export const dev = function (): void {
   /*
     bud.server
     .setCompiler(bud.compiler.get())

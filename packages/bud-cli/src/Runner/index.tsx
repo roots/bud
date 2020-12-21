@@ -1,4 +1,9 @@
-import {React, render, Instance} from '@roots/bud-support'
+import {
+  React,
+  render,
+  Instance,
+  Service,
+} from '@roots/bud-support'
 import Compile from '../containers/Compile'
 import {Serve} from '../containers/Serve'
 import type {Framework} from '@roots/bud-typings'
@@ -8,39 +13,33 @@ import type {Framework} from '@roots/bud-typings'
  *
  * Ink application controller.
  */
-export class Runner {
-  /** Bud reference */
-  public bud: Framework
-
+export class Runner extends Service<Framework> {
   /**
-   * ## bud.cli.instance
-   *
    * Ink instance
    */
   public instance: Instance
 
   /**
-   * Class constructor.
+   * Initialize service.
    */
-  constructor(bud: Framework) {
-    this.bud = bud
-    this.run = this.run.bind(this)
-  }
-
   public init(): void {
-    return
+    this.run = this.run.bind(this)
+    this.kill = this.kill.bind(this)
   }
 
   /**
-   * Run the compilation.
+   * Run the dashboard.
    */
-  public run = function (): void {
-    this.instance = this.bud.mode.is('development')
-      ? render(<Serve bud={this.bud} />)
-      : render(<Compile bud={this.bud} />)
+  public run(): void {
+    this.instance = this.app.mode.is('development')
+      ? render(<Serve bud={this.app} />)
+      : render(<Compile bud={this.app} />)
   }
 
-  public kill = function (): void {
-    this.instance.quit()
+  /**
+   * Kill CLI instance
+   */
+  public kill(): void {
+    this.instance.unmount()
   }
 }

@@ -1,39 +1,9 @@
 import Service from './Service'
 import Contract from './Contract'
-import webpack, {ProgressPlugin} from 'webpack'
+import options from './options'
 
-import type Webpack from 'webpack'
-import type {Instance} from 'ink'
-
-/**
- * Stats common
- */
-const commonStats = {
-  all: false,
-  version: true,
-  hash: true,
-  timings: true,
-  builtAt: false,
-  assets: true,
-  chunks: false,
-  children: false,
-  errors: true,
-  entrypoints: true,
-}
-
-/**
- * Stats options.
- */
-const options = {
-  json: {
-    ...commonStats,
-    cachedAssets: true,
-  },
-  string: {
-    ...commonStats,
-    colors: true,
-  },
-}
+import {webpack, ProgressPlugin} from '@roots/bud-support'
+import type {Webpack} from '@roots/bud-typings'
 
 /**
  * ## bud.compiler
@@ -47,24 +17,9 @@ const options = {
  */
 export class Compiler extends Service implements Contract {
   /**
-   * Webpack compiler instance.
-   */
-  public _instance: Webpack.Compiler
-
-  /**
-   * Webpack compiler stats.
-   */
-  public _stats: Contract.Stats.Output
-
-  /**
-   * Webpack compiler statsOptionsed stats.
+   * Stats options.
    */
   public _statsOptions: Contract.Stats.Options = options
-
-  /**
-   * Webpack compiler error
-   */
-  public _error: Instance
 
   /**
    * Get the compiler instance.
@@ -94,7 +49,7 @@ export class Compiler extends Service implements Contract {
    * Set the current compilation stats.
    */
   public set stats(stats: Contract.Stats.Output) {
-    this._stats = this.bud.hooks.filter<Contract.Stats.Output>(
+    this._stats = this.app.hooks.filter<Contract.Stats.Output>(
       'compiler.stats',
       stats,
     )
@@ -168,7 +123,7 @@ export class Compiler extends Service implements Contract {
   public compile(
     config?: Webpack.Configuration,
   ): Webpack.Compiler {
-    this.instance = webpack(config ?? this.bud.build.make())
+    this.instance = webpack(config ?? this.app.build.make())
 
     return this.instance
   }
@@ -186,7 +141,7 @@ export class Compiler extends Service implements Contract {
    */
   public run(): void {
     this.instance.run((_err, stats) => {
-      if (stats.hasErrors() && !this.bud.mode.ci) {
+      if (stats.hasErrors() && !this.app.mode.ci) {
         console.error(stats.toString(this.statsOptions.string))
 
         return

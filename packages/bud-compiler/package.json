@@ -19,17 +19,11 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": [
-    "webpack"
-  ],
+  "keywords": ["webpack"],
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "lib/",
-    "types/",
-    "src/"
-  ],
+  "files": ["lib/", "types/", "src/"],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "exports": {
@@ -52,13 +46,17 @@
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
+  "peerDependencies": {
+    "@roots/bud-cli": "*",
+    "@roots/bud-support": "*",
+    "@roots/bud-typings": "*"
+  },
   "dependencies": {
-    "@roots/bud-cli": "^2.1.2",
-    "webpack": "^4.44.2"
+    "@roots/bud-support": "^2.1.2",
+    "@roots/bud-cli": "^2.1.2"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^2.1.2",
-    "ink": "^3.0.8"
+    "@roots/bud-typings": "^2.1.2"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
 }

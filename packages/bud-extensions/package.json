@@ -53,8 +53,7 @@
   },
   "dependencies": {
     "@roots/bud-support": "^2.1.2",
-    "@roots/container": "^2.1.2",
-    "lodash": "^4.17.20"
+    "@roots/container": "^2.1.2"
   },
   "devDependencies": {
     "@roots/bud-typings": "^2.1.2"

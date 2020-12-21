@@ -47,20 +47,16 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "peerDependencies": {
-    "@roots/bud-compiler": "*",
     "@roots/bud-support": "*",
     "@roots/container": "*",
-    "@roots/filesystem": "*",
     "@roots/bud-typings": "*"
   },
   "devDependencies": {
     "@roots/bud-typings": "^2.1.2"
   },
   "dependencies": {
-    "@roots/bud-compiler": "^2.1.2",
     "@roots/container": "^2.1.2",
-    "@roots/bud-support": "^2.1.2",
-    "@roots/filesystem": "^2.1.2"
+    "@roots/bud-support": "^2.1.2"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
 }

@@ -4,7 +4,7 @@ import type {
   Loader,
   Webpack,
 } from '@roots/bud-typings'
-import Base from './Build'
+import Base from './Service'
 import Contract from './Contract'
 import Item from '../Item'
 import Rule from '../Rule'
@@ -30,31 +30,13 @@ class Build extends Base implements Contract {
   public builders: Partial<Build.Builder> = builders
 
   /**
-   * ## bud.build.loaders
-   *
-   * Container of available loaders.
-   *
-   * @see {webpack.Loader}
+   * Initialize class.
    */
-  public loaders: Container
-
-  /**
-   * ## bud.build.items
-   *
-   * Container of available RuleSetRule['use'] items.
-   *
-   * @see {webpack.Configuration}
-   */
-  public items: Container
-
-  /**
-   * ## bud.build.rules
-   *
-   * Container of available RuleSetRules
-   *
-   * @see {webpack.Configuration}
-   */
-  public rules: Container
+  public init(): void {
+    this.loaders = this.app.makeContainer()
+    this.items = this.app.makeContainer({})
+    this.rules = this.app.makeContainer({})
+  }
 
   /**
    * ## bud.build.make
@@ -71,7 +53,7 @@ class Build extends Base implements Contract {
         ],
       ) => ({
         ...config,
-        ...builder.bind(this.bud)(),
+        ...builder.bind(this.app)(),
       }),
       {},
     )
@@ -131,7 +113,7 @@ class Build extends Base implements Contract {
    * Set an item to the store. Returns the set item.
    */
   public setItem(name: string, module: Item.Module): Item {
-    this.items.set(name, new Item(this.bud, module).make())
+    this.items.set(name, new Item(this.app, module).make())
 
     return this.items.get(name)
   }
@@ -151,7 +133,7 @@ class Build extends Base implements Contract {
    * Set a rule to the store. Returns the set rule.
    */
   public setRule(name: string, module: Rule.Module): Rule {
-    this.rules.set(name, new Rule(this.bud, module).make())
+    this.rules.set(name, new Rule(this.app, module).make())
 
     return this.rules.get(name)
   }

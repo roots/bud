@@ -1,3 +1,4 @@
+import {Service, Instance} from '@roots/bud-support'
 import {Framework, Webpack} from '@roots/bud-typings'
 import Compiler from './Contract'
 
@@ -9,18 +10,31 @@ import Compiler from './Contract'
  * [📦 @roots/bud-compiler](https://www.npmjs.com/package/@roots/bud-compiler)
  * [🔗 Documentation](#)
  */
-export default abstract class {
+export default abstract class extends Service<Framework> {
   /**
-   * Bud reference.
+   * Webpack compiler instance.
    */
-  protected _bud: () => Framework
+  public _instance: Webpack.Compiler
+
+  /**
+   * Webpack compiler stats.
+   */
+  public _stats: Compiler.Stats.Output
+
+  /**
+   * Webpack compiler statsOptionsed stats.
+   */
+  public _statsOptions: Compiler.Stats.Options
+
+  /**
+   * Webpack compiler error
+   */
+  public _error: Instance
 
   /**
    * Class constructor
    */
-  public constructor(bud: Framework) {
-    this._bud = bud.get
-
+  public init(): void {
     this.run = this.run.bind(this)
     this.get = this.get.bind(this)
     this.set = this.set.bind(this)
@@ -29,29 +43,11 @@ export default abstract class {
     this.applyPlugins = this.applyPlugins.bind(this)
   }
 
-  public get bud(): Framework {
-    return this._bud()
-  }
-
-  public init(): void {
-    return
-  }
-
   public abstract compile(): Webpack.Compiler
 
   public abstract get(): Webpack.Compiler
 
   public abstract set(compiler: Webpack.Compiler): void
-
-  public abstract get instance(): Webpack.Compiler
-
-  public abstract set instance(compiler: Webpack.Compiler)
-
-  public abstract get stats(): Compiler.Stats.Output
-
-  public abstract set stats(stats: Compiler.Stats.Output)
-
-  public abstract get statsOptions(): Compiler.Stats.Options
 
   public abstract set statsOptions(
     options: Compiler.Stats.Options,

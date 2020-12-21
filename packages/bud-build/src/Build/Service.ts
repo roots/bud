@@ -1,36 +1,45 @@
-import {Container, Framework, Webpack} from '@roots/bud-typings'
-import Build from './'
+import {Service} from '@roots/bud-support'
+import Build from '../Build'
 import Loader from '../Loader'
 import Item from '../Item'
 import Rule from '../Rule'
+import {Container, Framework, Webpack} from '@roots/bud-typings'
 
-export default abstract class {
-  public _bud: Framework.Ref
+export default abstract class extends Service<Framework> {
+  /**
+   * ## bud.build.builders [🏠 Internal]
+   *
+   * Collection of functions processing loaders, items and rules
+   * into a finalized webpack configuration.
+   */
+  public abstract builders: Partial<Build.Builder>
 
-  public builders: Partial<Build.Builder>
-
+  /**
+   * ## bud.build.loaders
+   *
+   * Container of available loaders.
+   *
+   * @see {webpack.Loader}
+   */
   public loaders: Container
 
+  /**
+   * ## bud.build.items
+   *
+   * Container of available RuleSetRule['use'] items.
+   *
+   * @see {webpack.Configuration}
+   */
   public items: Container
 
+  /**
+   * ## bud.build.rules
+   *
+   * Container of available RuleSetRules
+   *
+   * @see {webpack.Configuration}
+   */
   public rules: Container
-
-  /**
-   * Class constructor
-   */
-  public constructor(bud: Framework) {
-    this._bud = bud.get
-    this.loaders = bud.makeContainer()
-    this.items = bud.makeContainer({})
-    this.rules = bud.makeContainer({})
-  }
-
-  /**
-   * Bud accessor.
-   */
-  public get bud(): Framework {
-    return this._bud()
-  }
 
   /**
    * Make build.

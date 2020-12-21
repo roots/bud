@@ -8,6 +8,7 @@
   "devDependencies": {
     "@roots/bud": "^2.1.2",
     "@roots/bud-babel": "^2.1.2",
+    "@roots/bud-library": "^2.1.2",
     "@roots/bud-react": "^2.1.2",
     "@roots/bud-imagemin": "^2.1.2"
   }

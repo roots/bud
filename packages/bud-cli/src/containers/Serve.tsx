@@ -5,7 +5,9 @@ import {Reporter} from './Reporter'
 
 import type {Framework} from '@roots/bud-typings'
 
-const Serve: React.FunctionComponent<{bud: Framework}> = ({bud}) => {
+const Serve: React.FunctionComponent<{bud: Framework}> = ({
+  bud,
+}) => {
   const app = useApp()
   const compilation = useCompilation(bud)
 

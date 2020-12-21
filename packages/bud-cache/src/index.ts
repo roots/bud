@@ -27,9 +27,9 @@ export class Cache extends Service {
    */
   public enabled(): boolean {
     return (
-      this.bud.features.enabled('buildCache') &&
-      this.bud.fs.exists(
-        this.bud.config.get('webpack.recordsPath') as string,
+      this.app.features.enabled('buildCache') &&
+      this.app.fs.exists(
+        this.app.config.get('webpack.recordsPath') as string,
       )
     )
   }
@@ -41,7 +41,7 @@ export class Cache extends Service {
    */
   public setCache(): void {
     this.enabled() &&
-      this.bud.hooks.on('webpack.cache', (bud: Framework) =>
+      this.app.hooks.on('webpack.cache', (bud: Framework) =>
         bud.disk
           .get('project')
           .readJson(bud.config.get('webpack.recordsPath')),

@@ -3,7 +3,9 @@ import {useStyle} from '@roots/ink-use-style'
 import {Prettier} from '@roots/ink-prettier'
 import {Framework} from '@roots/bud-typings'
 
-export const Debug: FunctionComponent<{bud: Framework}> = ({bud}) => {
+export const Debug: FunctionComponent<{bud: Framework}> = ({
+  bud,
+}) => {
   const {col, ctx} = useStyle()
 
   return (

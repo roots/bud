@@ -1,5 +1,6 @@
 import Extension from '../Extension'
 import Extensions from './Contract'
+import {Service} from '@roots/bud-support'
 
 import type {
   Framework,
@@ -7,36 +8,19 @@ import type {
   MaybeCallable,
 } from '@roots/bud-typings'
 
-export default abstract class implements Extensions {
-  /**
-   * Bud reference.
-   */
-  public _bud: () => Framework
-
+export default abstract class
+  extends Service<Framework>
+  implements Extensions {
   /**
    * Extensions container
    */
   public repository: Container
 
   /**
-   * Class constructor
-   */
-  public constructor(bud: Framework) {
-    this._bud = bud.get
-  }
-
-  /**
-   * Framework.Ref accessor
-   */
-  public get bud(): Framework {
-    return this._bud()
-  }
-
-  /**
    * Service initializer
    */
   public init(): void {
-    this.repository = this.bud.makeContainer({})
+    this.repository = this.app.makeContainer({})
   }
 
   /**

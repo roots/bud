@@ -10,6 +10,7 @@ import lodash, {
   isFunction,
   isEqual,
   get,
+  has,
   set,
   merge,
 } from 'lodash'
@@ -48,7 +49,7 @@ import Spinner from 'ink-spinner'
 import Table from 'ink-table'
 import Gradient from 'ink-gradient'
 import useStdoutDimensions from 'ink-use-stdout-dimensions'
-import webpack, {Stats} from 'webpack'
+import webpack, {Stats, ProgressPlugin} from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import ProxyMiddleware, {
@@ -98,6 +99,7 @@ export {
   isFunction,
   isEqual,
   get,
+  has,
   set,
   merge,
   /**
@@ -116,6 +118,7 @@ export {
    * Webpack
    */
   webpack,
+  ProgressPlugin,
   Stats,
   /**
    * Middlewares
@@ -169,6 +172,11 @@ export {
   Table,
   useStdoutDimensions,
 }
+
+/**
+ * Application services
+ */
+export {Service, ServiceContainer} from './Service'
 
 /**
  * Grab bag

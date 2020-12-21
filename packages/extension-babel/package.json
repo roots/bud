@@ -19,19 +19,11 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": [
-    "bud",
-    "babel",
-    "webpack"
-  ],
+  "keywords": ["bud", "babel", "webpack"],
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "lib/",
-    "types/",
-    "src/"
-  ],
+  "files": ["lib/", "types/", "src/"],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "exports": {
@@ -54,6 +46,14 @@
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
+  "peerDependencies": {
+    "@roots/bud-extensions": "*",
+    "@roots/bud-typings": "*"
+  },
+  "devDependencies": {
+    "@roots/bud-extensions": "^2.1.2",
+    "@roots/bud-typings": "^2.1.2"
+  },
   "dependencies": {
     "@babel/core": "^7.11.5",
     "@babel/plugin-proposal-object-rest-spread": "^7.11.0",
@@ -63,11 +63,6 @@
     "@roots/bud-support": "^2.1.2",
     "babel-loader": "^8.1.0",
     "babel-plugin-add-module-exports": "^1.0.4"
-  },
-  "devDependencies": {
-    "@roots/bud-extensions": "^2.1.2",
-    "@roots/bud-typings": "^2.1.2",
-    "webpack": "^4.44.2"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
 }

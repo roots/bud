@@ -2,17 +2,17 @@ import type {Instance} from 'ink'
 import type {Webpack} from '@roots/bud-typings'
 
 declare interface Compiler {
-  compile(): Webpack.Compiler
-
-  get(): Webpack.Compiler
-
-  set(compiler: Webpack.Compiler): void
-
   instance: Webpack.Compiler
 
   stats: Compiler.Stats.Output
 
   statsOptions: Compiler.Stats.Options
+
+  compile(): Webpack.Compiler
+
+  get(): Webpack.Compiler
+
+  set(compiler: Webpack.Compiler): void
 
   run(): void
 

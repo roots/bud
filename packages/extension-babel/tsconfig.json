@@ -8,5 +8,5 @@
     "declarationDir": "./types",
     "declarationMap": true
   },
-  "include": ["src"],
+  "include": ["src"]
 }

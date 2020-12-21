@@ -6,9 +6,9 @@ import Rule from '../Rule'
 
 export default interface Contract {
   /**
-   * Bud ref.
+   * Bud reference
    */
-  bud: Framework
+  app: Framework
 
   /**
    * Builders container

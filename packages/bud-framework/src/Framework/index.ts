@@ -3,7 +3,6 @@ import {FileContainer, FileSystem} from '@roots/filesystem'
 import Env from '../Env'
 import Mode from '../Mode'
 import Logger from '../Logger'
-import {MaybeCallable} from '@roots/bud-typings/packages/utility'
 import {isEqual, isFunction} from '@roots/bud-support'
 import {
   Build,
@@ -12,6 +11,7 @@ import {
   Hooks,
   CLI,
   Server,
+  MaybeCallable,
 } from '@roots/bud-typings'
 
 /**
@@ -258,12 +258,18 @@ abstract class Framework {
   /**
    * ## bud.logger
    *
-   * [pino](#) logger instance
+   * Logging utility
+   *
+   * [🔗 Documentation on bud.mode](#)
    */
   public logger: typeof Logger = Logger
 
   /**
    * ## bud.mode
+   *
+   * Utility for working with the webpack compiler's mode setting.
+   *
+   * [🔗 Documentation on bud.mode](#)
    */
   public mode: Mode
 
@@ -321,6 +327,7 @@ abstract class Framework {
     [key: string]: {[key: string]: unknown}
   }) {
     this.get = this.get.bind(this)
+    this.setup = this.setup.bind(this)
     this.makeContainer = this.makeContainer.bind(this)
     this.callMeMaybe = this.callMeMaybe.bind(this)
 
@@ -356,35 +363,41 @@ abstract class Framework {
     /**
      * Instantiate bud.mode
      */
-    this.mode = new Mode(this)
+    this.mode = new Mode({app: this})
 
     /**
      * Instantiate fs and disks
      */
     this.fs.setBase(process.cwd())
+
     this.makeDisk('project', this.fs.base)
     this.makeDisk('@roots', '../../..')
 
     /**
      * Set API methods
      */
-    this.api.every((name, fn) => {
+    this.api.every((name: string, fn: CallableFunction) => {
       this[name] = fn.bind(this)
+      this.logger.info(fn, `api: bound ${name}`)
     })
 
     /**
      * Set components
      */
-    this.components.every((name, component) => {
+    this.components.every((name: string, component: unknown) => {
       this[name] = component
+      this.logger.info(this[name], `component: assigned ${name}`)
     })
 
     /**
      * Set services
      */
-    this.services.every((name, Service) => {
-      this[name] = new Service(this)
-      this[name].init && this[name].init()
+    this.services.every((name: string, Service) => {
+      this[name] = new Service({app: this})
+      this.logger.info(
+        this[name],
+        `service: instantiated ${name}`,
+      )
     })
   }
 

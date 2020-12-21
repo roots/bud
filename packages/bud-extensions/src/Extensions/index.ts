@@ -78,12 +78,15 @@ export default class extends Service implements Extensions {
   ): this {
     const module =
       typeof extension == 'function'
-        ? extension(this.bud)
+        ? extension(this.app)
         : extension
 
     this.repository.set(
       name,
-      new Extension(this.bud, module).initialize(),
+      new Extension({
+        app: this.app,
+        module,
+      }),
     )
 
     return this
@@ -129,8 +132,8 @@ export default class extends Service implements Extensions {
   public use(pkg: string): this {
     const path = require.resolve(pkg)
 
-    this.bud.disk.set(pkg, {
-      base: this.bud.fs.path.dirname(path),
+    this.app.disk.set(pkg, {
+      base: this.app.fs.path.dirname(path),
       glob: ['**/*'],
     })
 

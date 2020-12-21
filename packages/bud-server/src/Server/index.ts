@@ -1,34 +1,33 @@
-import * as middleware from '../middleware'
-import {injectClient} from './injectClient'
-import {
-  Express,
-  Container,
-  Framework,
-  Webpack,
-} from '@roots/bud-typings'
 import {
   express,
   webpackDevMiddleware,
   ProxyMiddleware,
+  Service,
 } from '@roots/bud-support'
+
 import Contract from './Contract'
+
+import * as middleware from '../middleware'
+import {injectClient} from '../util/injectClient'
+
+import type {
+  Framework,
+  Express,
+  Container,
+  Webpack,
+} from '@roots/bud-typings'
 
 /**
  * ## bud.server
  *
- * Development server for the @roots/bud framework.
+ * Express development server.
  *
  * [🏡 Project home](https://roots.io/bud)
  * [🧑‍💻 roots/bud/packages/server](https://git.io/JkCQG)
  * [📦 @roots/bud-server](https://www.npmjs.com/package/@roots/bud-server)
  * [🔗 Documentation](#)
  */
-class Server implements Contract {
-  /**
-   * Bud instance ref
-   */
-  public bud: Framework.Ref
-
+class Server extends Service<Framework> implements Contract {
   /**
    * Express application instance.
    */
@@ -45,19 +44,12 @@ class Server implements Contract {
   public running = false
 
   /**
-   * Constructor
+   * Class initializer.
    */
-  public constructor(bud: Framework) {
-    this.bud = bud.get
-
+  public init(): void {
     this.instance = express()
     this.instance.set('x-powered-by', false)
-
-    this.config = bud.makeContainer({})
-  }
-
-  public init(): void {
-    return
+    this.config = this.app.makeContainer({})
   }
 
   /**
@@ -109,23 +101,22 @@ class Server implements Contract {
   public run(): this {
     this.running = true
 
-    const bud = this.bud()
     const config = this.config.all()
 
-    bud.config.mutate('entry', (entry: Webpack.Entry) =>
+    this.app.config.mutate('entry', (entry: Webpack.Entry) =>
       injectClient(entry),
     )
 
     this.instance.use(
       middleware.dev({
         config,
-        compiler: bud.compiler.instance,
+        compiler: this.app.compiler.instance,
       }),
     )
 
-    this.instance.use(middleware.hot(bud.compiler.instance))
+    this.instance.use(middleware.hot(this.app.compiler.instance))
 
-    bud.features.enabled('proxy') &&
+    this.app.features.enabled('proxy') &&
       this.instance.use(middleware.proxy(config))
 
     this.listen()
@@ -236,19 +227,32 @@ namespace Server {
     filename?: webpackDevMiddleware.Options['filename']
 
     /**
-     * This property allows a user to pass custom HTTP headers on each request. eg. { "X-Custom-Header": "yes" }
+     * This property for  passing  custom
+     * HTTP headers on each request.
+     *
+     * ### Example
+     *
+     * ```json
+     * { "X-Custom-Header": "yes" }
+     * ```
      */
     headers?: webpackDevMiddleware.Options['headers']
 
     /**
-     * This property allows a user to pass the list of HTTP request methods accepted by the
-     * @default [ 'GET', 'HEAD' ]
+     * This property for  passing  the
+     * list of HTTP request methods accepted
+     *
+     * ### Example
+     *
+     * ```json
+     * ['GET', 'HEAD']
+     * ```
      */
     methods?: webpackDevMiddleware.Options['methods']
 
     /**
-     * This property allows a user to register custom mime types or extension mappings
-     * @default null
+     * This property for  to register custom
+     * mime types or extension mappings
      */
     mimeTypes?:
       | webpackDevMiddleware.MimeTypeMap
@@ -256,7 +260,8 @@ namespace Server {
       | null
 
     /**
-     * Instructs the module to enable or disable the server-side rendering mode
+     * Instructs the module to enable or disable the s
+     * erver-side rendering mode
      */
     serverSideRender?: webpackDevMiddleware.Options['serverSideRender']
 
@@ -266,8 +271,10 @@ namespace Server {
     watchOptions?: Webpack.Options.WatchOptions
 
     /**
-     * If true, the option will instruct the module to write files to
-     * the configured location on disk as specified in your webpack config file
+     * If true, the option will instruct the module
+     * to write files to the configured location on disk
+     * as specified in your webpack config file.
+     *
      * This option also accepts a Function value, which can be used to
      * filter which files are written to disk
      */

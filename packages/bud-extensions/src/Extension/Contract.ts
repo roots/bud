@@ -1,48 +1,38 @@
 import Module from '../Module'
 import {
-  Container,
   Framework,
+  Container,
   Index,
-  Webpack,
+  MaybeCallable,
 } from '@roots/bud-typings'
 
 interface Extension {
-  bud: Framework
+  readonly app: Framework
 
   initialized: boolean
 
   module: Module
 
-  builders: [string, CallableFunction][]
+  init(): void
 
-  initialize: () => Module
-
-  callMeMaybe: (
+  callMeMaybe(
     value: CallableFunction | any,
     ...args: unknown[]
-  ) => unknown
+  ): unknown
 
-  fromProp: (prop: string, dep?: unknown[]) => [string, unknown]
+  fromProp(prop: string, dep?: unknown[]): [string, unknown]
 
-  hasProp: (name: string) => boolean
+  makePlugin(): MaybeCallable<any> | boolean
 
-  register: () => void
+  isPlugin(): boolean
 
-  boot: () => void
+  isPluginEnabled(): boolean
 
-  makePlugin: () => Webpack.Plugin
+  setOptions(options: Index<any>): void
 
-  isPlugin: () => boolean
+  getOptions(): Container
 
-  isPluginEnabled: () => boolean
-
-  setApi: () => void
-
-  setOptions: (options: Index<any>) => void
-
-  getOptions: () => Container
-
-  setBuilders: (builders: [string, CallableFunction][]) => void
+  setBuilders(builders: [string, CallableFunction][]): void
 }
 
 export default Extension

@@ -19,18 +19,11 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": [
-    "bud",
-    "postcss",
-    "webpack"
-  ],
+  "keywords": ["bud", "postcss", "webpack"],
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "lib",
-    "src"
-  ],
+  "files": ["lib", "src"],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
