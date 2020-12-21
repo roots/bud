@@ -1,9 +1,9 @@
-import {Bud, Webpack} from '@roots/bud-typings'
+import {Framework, Webpack} from '@roots/bud-typings'
 
 type Resolve = Webpack.Configuration['resolve']
 
 export const resolve: (
-  this: Bud,
+  this: Framework,
 ) => {resolve: Resolve} = function () {
   return {
     resolve: {

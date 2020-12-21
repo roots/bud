@@ -1,4 +1,4 @@
-import type {Bud} from '@roots/bud-typings'
+import type {Framework} from '@roots/bud-typings'
 
 export const dist: Dist = function (path?) {
   return path
@@ -6,4 +6,4 @@ export const dist: Dist = function (path?) {
     : this.config.get('output.path')
 }
 
-export type Dist<T = Bud> = (this: T, path?: string) => string
+export type Dist = (this: Framework, path?: string) => string

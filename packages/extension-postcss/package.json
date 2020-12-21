@@ -36,12 +36,12 @@
   "types": "./types/index.d.ts",
   "exports": {
     "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index-esm.js"
+    "import": "./lib/esm/index.js"
   },
   "scripts": {
     "build": "run-s build:*",
     "build:cjs": "tsc --build tsconfig.json",
-    "build:esm": "tsc --build tsconfig-ejs.json",
+    "build:esm": "tsc --build tsconfig-esm.json",
     "lint": "run-s lint:*",
     "lint:eslint": "eslint 'src/**/*.{js,ts,tsx}' --fix",
     "lint:prettier": "prettier 'src/**/*'  --write",
@@ -66,5 +66,5 @@
     "postcss-nested": "^5.0.3",
     "postcss-preset-env": "^6.7.0"
   },
-  "gitHead": "9d736f0b44384c1f66b94462145c11e618aa166d"
+  "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
 }

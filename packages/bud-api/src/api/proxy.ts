@@ -1,4 +1,4 @@
-import {Bud, Server} from '@roots/bud-typings'
+import {Framework, Server} from '@roots/bud-typings'
 
 const props = ['host', 'port']
 
@@ -14,11 +14,11 @@ export const proxy: Proxy = function (config) {
   return this
 }
 
-export type Proxy<T = Bud> = (
-  this: T,
+export type Proxy = (
+  this: Framework,
   config?: {
     enabled?: boolean
     host?: Server.Config['proxy']['host']
     port?: Server.Config['proxy']['port']
   },
-) => T
+) => Framework

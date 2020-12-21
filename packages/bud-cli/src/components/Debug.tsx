@@ -1,9 +1,9 @@
 import {React, FunctionComponent, Box} from '@roots/bud-support'
 import {useStyle} from '@roots/ink-use-style'
 import {Prettier} from '@roots/ink-prettier'
-import {Bud} from '@roots/bud-typings'
+import {Framework} from '@roots/bud-typings'
 
-export const Debug: FunctionComponent<{bud: Bud}> = ({bud}) => {
+export const Debug: FunctionComponent<{bud: Framework}> = ({bud}) => {
   const {col, ctx} = useStyle()
 
   return (

@@ -1,1 +1,2 @@
-export {Framework} from './Framework'
+import Framework from './Framework'
+export {Framework}

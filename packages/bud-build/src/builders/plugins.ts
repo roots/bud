@@ -1,8 +1,8 @@
-import {Extension, Webpack, Bud} from '@roots/bud-typings'
+import {Extension, Webpack, Framework} from '@roots/bud-typings'
 
 export namespace Plugins {
   export type Build = (
-    this: Bud,
+    this: Framework,
   ) => {plugins: Webpack.Configuration['plugins']}
 }
 

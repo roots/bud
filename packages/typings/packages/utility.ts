@@ -1,4 +1,4 @@
-import {Bud} from '../'
+import {Framework} from '../'
 
 /**
  * String keyed value.
@@ -34,8 +34,8 @@ export type MaybeCallable<O = unknown, A = unknown> =
  * Plugin make when
  */
 export type When = (
-  this: Bud,
+  this: Framework,
   test: boolean,
-  isTrue: (bud: Bud) => unknown,
-  isFalse?: (bud: Bud) => unknown,
-) => Bud
+  isTrue: (bud: Framework) => unknown,
+  isFalse?: (bud: Framework) => unknown,
+) => Framework

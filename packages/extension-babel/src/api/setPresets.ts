@@ -1,13 +1,13 @@
-import {Bud} from '@roots/bud-typings'
+import {Framework} from '@roots/bud-typings'
 import {PluginTarget, PluginOptions} from '@babel/core'
 
 /**
  * Merge babel plugins
  */
 export const setPresets = function (
-  this: Bud,
+  this: Framework,
   presets: Array<[PluginTarget, PluginOptions]>,
-): Bud {
+): Framework {
   this.build.items.set('babel.options.presets', presets)
 
   return this

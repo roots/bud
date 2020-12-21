@@ -1,6 +1,8 @@
+import Extensions from './Contract'
+import Extension from '../Extension'
+import Module from '../Module'
 import Service from './Service'
-import {Extensions as Contract} from './Contract'
-import {Extension} from '../Extension'
+
 import type {Container, MaybeCallable} from '@roots/bud-typings'
 
 /**
@@ -13,7 +15,7 @@ import type {Container, MaybeCallable} from '@roots/bud-typings'
  * [📦 @roots/bud-extensions](https://github.io/roots/bud-extensions)
  * [🔗 Documentation](#)
  */
-export class Extensions extends Service implements Contract {
+export default class extends Service implements Extensions {
   /**
    * ## bud.extensions.getStore
    *
@@ -72,7 +74,7 @@ export class Extensions extends Service implements Contract {
    */
   public set(
     name: string,
-    extension: MaybeCallable<Extension.Module>,
+    extension: MaybeCallable<Module>,
   ): this {
     const module =
       typeof extension == 'function'

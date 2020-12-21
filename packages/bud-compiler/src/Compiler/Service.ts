@@ -1,4 +1,4 @@
-import {Bud, Webpack} from '@roots/bud-typings'
+import {Framework, Webpack} from '@roots/bud-typings'
 import Compiler from './Contract'
 
 /**
@@ -11,9 +11,14 @@ import Compiler from './Contract'
  */
 export default abstract class {
   /**
+   * Bud reference.
+   */
+  protected _bud: () => Framework
+
+  /**
    * Class constructor
    */
-  public constructor(bud: Bud) {
+  public constructor(bud: Framework) {
     this._bud = bud.get
 
     this.run = this.run.bind(this)
@@ -24,12 +29,7 @@ export default abstract class {
     this.applyPlugins = this.applyPlugins.bind(this)
   }
 
-  /**
-   * Bud reference.
-   */
-  protected _bud: Bud.Ref
-
-  public get bud(): Bud {
+  public get bud(): Framework {
     return this._bud()
   }
 

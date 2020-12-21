@@ -1,19 +1,21 @@
-import {Container, Bud} from '@roots/bud-typings'
-import {Extension} from '@roots/bud-extensions'
+import {Container, Framework, Module} from '@roots/bud-typings'
 import Plugin, {
   Options as PluginOptions,
 } from 'eslint-webpack-plugin'
 
-export type When = Extension.Module.When
-export type Boot = Extension.Module.Boot
+export type When = Module.When
+export type Boot = Module.Boot
 
-export type ToggleEslint = (this: Bud, enabled?: boolean) => Bud
+export type ToggleEslint = (
+  this: Framework,
+  enabled?: boolean,
+) => Framework
 
-export type Options = (bud: Bud) => PluginOptions
+export type Options = (bud: Framework) => PluginOptions
 
 export type Make = (opts: Container) => Plugin
 
-export type Api = (bud: Bud) => EslintConfig
+export type Api = (bud: Framework) => EslintConfig
 
 export type EslintConfig = {
   enableEslint: ToggleEslint
@@ -21,6 +23,6 @@ export type EslintConfig = {
 }
 
 export type ConfigureEslint = (
-  this: Bud,
+  this: Framework,
   opts: PluginOptions,
-) => Bud
+) => Framework

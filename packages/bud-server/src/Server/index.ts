@@ -1,9 +1,17 @@
 import * as middleware from '../middleware'
 import {injectClient} from './injectClient'
-import Framework, {Webpack} from '@roots/bud-typings'
-import {express} from '@roots/bud-support'
-
-export {Server, Server as default}
+import {
+  Express,
+  Container,
+  Framework,
+  Webpack,
+} from '@roots/bud-typings'
+import {
+  express,
+  webpackDevMiddleware,
+  ProxyMiddleware,
+} from '@roots/bud-support'
+import Contract from './Contract'
 
 /**
  * ## bud.server
@@ -15,21 +23,21 @@ export {Server, Server as default}
  * [📦 @roots/bud-server](https://www.npmjs.com/package/@roots/bud-server)
  * [🔗 Documentation](#)
  */
-class Server implements Framework.Server.Contract {
+class Server implements Contract {
   /**
    * Bud instance ref
    */
-  public bud: Framework.Bud.Ref
+  public bud: Framework.Ref
 
   /**
    * Express application instance.
    */
-  public instance: Framework.Server.Instance
+  public instance: Server.Instance
 
   /**
    * Server config
    */
-  public config: Framework.Container
+  public config: Container
 
   /**
    * Is server running
@@ -39,7 +47,7 @@ class Server implements Framework.Server.Contract {
   /**
    * Constructor
    */
-  public constructor(bud: Framework.Bud) {
+  public constructor(bud: Framework) {
     this.bud = bud.get
 
     this.instance = express()
@@ -63,7 +71,7 @@ class Server implements Framework.Server.Contract {
    * bud.server.getConfig()
    * ```
    */
-  public getConfig(): Framework.Container['repository'] {
+  public getConfig(): Container['repository'] {
     return this.config.getStore()
   }
 
@@ -78,9 +86,7 @@ class Server implements Framework.Server.Contract {
    * bud.server.setConfig(config)
    * ```
    */
-  public setConfig(
-    config: Framework.Container['repository'],
-  ): void {
+  public setConfig(config: Container['repository']): void {
     this.config.setStore(config)
   }
 
@@ -139,3 +145,134 @@ class Server implements Framework.Server.Contract {
     )
   }
 }
+
+namespace Server {
+  /**
+   * Express application.
+   */
+  export type Instance = Express.Application
+
+  /**
+   * Server configuration
+   */
+  export interface Config {
+    /**
+     * The development server host
+     * @example example.test
+     */
+    host?: string
+
+    /**
+     * The development server port
+     * @example 3000
+     */
+    port?: number
+
+    /**
+     * Proxy destination
+     */
+    proxy?: {
+      /**
+       * Proxy destination host
+       * @example localhost
+       */
+      host?: string
+
+      /**
+       * Proxy destination port
+       * @example 3000
+       */
+      port?: number
+    }
+
+    /**
+     * The index path for web server, defaults to "index.html".
+     */
+    index?: webpackDevMiddleware.Options['index']
+
+    /**
+     * The path that the middleware is bound to.
+     */
+    publicPath?: webpackDevMiddleware.Options['publicPath']
+
+    /**
+     * Proxy setting: object passed to  https.createServer
+     */
+    ssl?: ProxyMiddleware.Options['ssl']
+
+    /**
+     * Proxy setting: set to true to verify SSL certificates
+     */
+    secure?: ProxyMiddleware.Options['secure']
+
+    /**
+     * Proxy setting: proxy websockets.
+     */
+    ws?: ProxyMiddleware.Options['ws']
+
+    /**
+     * Proxy setting: rewrite the location host/port on (301/302/307/308) redirects based on requested host/port.
+     */
+    autoRewrite?: ProxyMiddleware.Options['autoRewrite']
+
+    /**
+     * Proxy setting: change the origin of the host header to the target URL
+     */
+    changeOrigin?: ProxyMiddleware.Options['changeOrigin']
+
+    /**
+     * Escape hatch for Webpack's host check security feature.
+     */
+    disableHostCheck?: webpackDevMiddleware.Options[]
+
+    /**
+     * Proxy setting: specify whether you want to follow redirects
+     */
+    followRedirects?: ProxyMiddleware.Options['followRedirects']
+
+    /**
+     * Filename to serve as index.
+     */
+    filename?: webpackDevMiddleware.Options['filename']
+
+    /**
+     * This property allows a user to pass custom HTTP headers on each request. eg. { "X-Custom-Header": "yes" }
+     */
+    headers?: webpackDevMiddleware.Options['headers']
+
+    /**
+     * This property allows a user to pass the list of HTTP request methods accepted by the
+     * @default [ 'GET', 'HEAD' ]
+     */
+    methods?: webpackDevMiddleware.Options['methods']
+
+    /**
+     * This property allows a user to register custom mime types or extension mappings
+     * @default null
+     */
+    mimeTypes?:
+      | webpackDevMiddleware.MimeTypeMap
+      | webpackDevMiddleware.OverrideMimeTypeMap
+      | null
+
+    /**
+     * Instructs the module to enable or disable the server-side rendering mode
+     */
+    serverSideRender?: webpackDevMiddleware.Options['serverSideRender']
+
+    /**
+     * Specify polling, etc.
+     */
+    watchOptions?: Webpack.Options.WatchOptions
+
+    /**
+     * If true, the option will instruct the module to write files to
+     * the configured location on disk as specified in your webpack config file
+     * This option also accepts a Function value, which can be used to
+     * filter which files are written to disk
+     */
+    writeToDisk?: webpackDevMiddleware.Options['writeToDisk']
+  }
+}
+
+export default Server

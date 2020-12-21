@@ -1,6 +1,5 @@
-import type Framework from '@roots/bud-typings'
+import type {Item} from '@roots/bud-typings'
 
-export const ident: Framework.Item.Contract['ident'] = 'thread'
+export const ident: Item['ident'] = 'thread'
 
-export const loader: Framework.Item.Contract['loader'] =
-  'thread-loader'
+export const loader: Item['loader'] = 'thread-loader'

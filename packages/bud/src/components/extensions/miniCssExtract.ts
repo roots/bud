@@ -1,15 +1,13 @@
-import type {Bud, Extension} from '@roots/bud-typings'
+import type {Framework, Module} from '@roots/bud-typings'
 import Plugin, {PluginOptions} from 'mini-css-extract-plugin'
 
-export const make: Extension.Module.Make<
-  Plugin,
-  PluginOptions
-> = opt => new Plugin(opt.getStore())
+export const make: Module.Make<Plugin, PluginOptions> = opt =>
+  new Plugin(opt.getStore())
 
-export const when: Extension.Module.When = ({mode}) =>
+export const when: Module.When = ({mode}) =>
   mode.is('production')
 
-export const options: (bud: Bud) => PluginOptions = ({
+export const options: (bud: Framework) => PluginOptions = ({
   features,
 }) => ({
   filename: features.enabled('hash')

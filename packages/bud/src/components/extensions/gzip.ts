@@ -1,10 +1,10 @@
 import CompressionPlugin from 'compression-webpack-plugin'
-import {Extension} from '@roots/bud-typings'
+import {Module} from '@roots/bud-typings'
 
-export const make: Extension.Module.Make = opt =>
+export const make: Module.Make = opt =>
   new CompressionPlugin(opt.all())
 
-export const when: Extension.Module.When = ({features}) =>
+export const when: Module.When = ({features}) =>
   features.is('gzip', true)
 
 export const options: Options = {
@@ -18,4 +18,6 @@ export const options: Options = {
   minRatio: 0.8,
 }
 
-export declare type Options = CompressionPlugin.Options<CompressionPlugin.ZlibOptions>
+export declare type Options = CompressionPlugin.Options<
+  CompressionPlugin.ZlibOptions
+>

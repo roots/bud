@@ -1,4 +1,4 @@
-import type Framework from '@roots/bud-typings'
+import type {Item} from '@roots/bud-typings'
 
 export const ident: Item['ident'] = 'sass'
 
@@ -17,5 +17,3 @@ export const options: Item['options'] = {
     return implementation
   })(),
 }
-
-declare type Item = Framework.Item.Contract

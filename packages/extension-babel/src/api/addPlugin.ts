@@ -1,5 +1,5 @@
 import type {PluginTarget, PluginOptions} from '@babel/core'
-import type Framework from '@roots/bud-typings'
+import type {Framework} from '@roots/bud-typings'
 
 /**
  * Merge babel plugins
@@ -7,7 +7,7 @@ import type Framework from '@roots/bud-typings'
 export const addPlugin = function (
   name: PluginTarget,
   opts?: PluginOptions,
-): Framework.Bud {
+): Framework {
   const plugin = [name]
 
   opts && plugin.push(opts)

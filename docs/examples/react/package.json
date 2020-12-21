@@ -6,8 +6,9 @@
     "build": "node bud.config.js --mode production"
   },
   "devDependencies": {
-    "@roots/bud": "latest",
-    "@roots/bud-babel": "latest",
-    "@roots/bud-react": "latest"
+    "@roots/bud": "^2.1.2",
+    "@roots/bud-babel": "^2.1.2",
+    "@roots/bud-react": "^2.1.2",
+    "@roots/bud-imagemin": "^2.1.2"
   }
 }

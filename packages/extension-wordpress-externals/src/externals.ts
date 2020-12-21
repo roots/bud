@@ -1,9 +1,9 @@
-import {Bud, Extension} from '@roots/bud-typings'
+import {Framework, Module} from '@roots/bud-typings'
 
 export function externals(
-  this: Bud,
-  options: Extension.Module.RawOptions,
-): Bud {
+  this: Framework,
+  options: Module.RawOptions,
+): Framework {
   const externals = this.extensions.get(
     '@roots/bud-wordpress-externals',
   )

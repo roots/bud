@@ -1,4 +1,4 @@
-import {Bud} from '@roots/bud-typings'
+import {Framework} from '@roots/bud-typings'
 import {GlobTask} from '@roots/bud-support'
 
 export const glob: Glob = function (name, files, options) {
@@ -25,9 +25,9 @@ export const glob: Glob = function (name, files, options) {
   return this
 }
 
-export type Glob<T = Bud> = (
-  this: T,
+export type Glob = (
+  this: Framework,
   name: string,
   files: GlobTask['pattern'],
   options: GlobTask['options'],
-) => T
+) => Framework

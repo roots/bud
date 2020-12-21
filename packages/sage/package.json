@@ -19,27 +19,22 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": [
-    "webpack"
-  ],
+  "keywords": ["webpack"],
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "lib/",
-    "types/"
-  ],
+  "files": ["lib/", "types/"],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index-esm.js"
+    "import": "./lib/esm/index.js"
   },
   "scripts": {
     "build": "run-s build:*",
     "build:cjs": "tsc --build tsconfig.json",
-    "build:esm": "tsc --build tsconfig-ejs.json",
+    "build:esm": "tsc --build tsconfig-esm.json",
     "lint": "run-s lint:*",
     "lint:eslint": "eslint 'src/**/*.{js,ts,tsx}' --fix",
     "lint:prettier": "prettier 'src/**/*'  --write",
@@ -64,5 +59,5 @@
     "@roots/bud-sass": "^2.1.2",
     "@roots/bud-wordpress-manifests": "^2.1.2"
   },
-  "gitHead": "9d736f0b44384c1f66b94462145c11e618aa166d"
+  "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
 }

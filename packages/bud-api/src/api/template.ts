@@ -1,4 +1,4 @@
-import type {Index, Bud} from '@roots/bud-typings'
+import type {Index, Framework} from '@roots/bud-typings'
 
 export const template: Template = function (options?) {
   this.features.set('html', true)
@@ -16,10 +16,10 @@ export const template: Template = function (options?) {
   return this
 }
 
-export type Template<T = Bud> = (
-  this: T,
+export type Template = (
+  this: Framework,
   options?: {
     template: string
     replacements: Index<string>
   },
-) => T
+) => Framework

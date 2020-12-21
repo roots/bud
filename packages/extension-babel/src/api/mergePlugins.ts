@@ -1,13 +1,13 @@
-import {Bud} from '@roots/bud-typings'
+import {Framework} from '@roots/bud-typings'
 import type {PluginTarget, PluginOptions} from '@babel/core'
 
 /**
  * Merge babel plugins
  */
 export const mergePlugins = function (
-  this: Bud,
+  this: Framework,
   plugins: [PluginTarget, PluginOptions][],
-): Bud {
+): Framework {
   this.build.items.merge(
     'babel.options.plugins',
     plugins.map(plugin =>

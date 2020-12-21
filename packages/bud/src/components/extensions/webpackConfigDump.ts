@@ -1,5 +1,5 @@
 import {WebpackConfigDumpPlugin} from 'webpack-config-dump-plugin'
-import type {Bud, Extension} from '@roots/bud-typings'
+import type {Framework, Module} from '@roots/bud-typings'
 
 export const options: Options = ({config}) => ({
   name: 'webpack.debug.js',
@@ -11,15 +11,15 @@ export const options: Options = ({config}) => ({
   keepCircularReferences: true,
 })
 
-export const make: Extension.Module.Make<
+export const make: Module.Make<
   WebpackConfigDumpPlugin,
   PluginOptions
 > = opt => new WebpackConfigDumpPlugin(opt.getStore())
 
-export const when: Extension.Module.When = ({features}) =>
+export const when: Module.When = ({features}) =>
   features.enabled('debug')
 
-declare type Options = (bud: Bud) => PluginOptions
+declare type Options = (bud: Framework) => PluginOptions
 
 export type PluginOptions = {
   outputPath?: string

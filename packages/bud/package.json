@@ -19,28 +19,22 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": [
-    "webpack"
-  ],
+  "keywords": ["webpack"],
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "lib/",
-    "types/",
-    "src/"
-  ],
+  "files": ["lib/", "types/", "src/"],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index-esm.js"
+    "import": "./lib/esm/index.js"
   },
   "scripts": {
     "build": "run-s build:*",
     "build:cjs": "tsc --build tsconfig.json",
-    "build:esm": "tsc --build tsconfig-ejs.json",
+    "build:esm": "tsc --build tsconfig-esm.json",
     "lint": "run-s lint:*",
     "lint:eslint": "eslint 'src/**/*.{js,ts,tsx}' --fix",
     "lint:prettier": "prettier 'src/**/*'  --write",
@@ -52,11 +46,26 @@
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
+  "peerDependencies": {
+    "@roots/bud-api": "*",
+    "@roots/bud-build": "*",
+    "@roots/bud-cache": "*",
+    "@roots/bud-cli": "*",
+    "@roots/bud-compiler": "*",
+    "@roots/bud-extensions": "*",
+    "@roots/bud-framework": "*",
+    "@roots/bud-hooks": "*",
+    "@roots/bud-server": "*",
+    "@roots/bud-support": "*",
+    "@roots/bud-terser": "*",
+    "@roots/bud-typings": "*",
+    "@roots/container": "*",
+    "@roots/dependencies": "*",
+    "@roots/filesystem": "*"
+  },
   "devDependencies": {
     "@roots/bud-typings": "^2.1.2",
-    "@types/compression-webpack-plugin": "^4.0.1",
-    "@types/imagemin": "^7.0.0",
-    "@types/webpack-dev-middleware": "^3.7.2"
+    "@types/compression-webpack-plugin": "^4.0.1"
   },
   "dependencies": {
     "@roots/bud-api": "^2.1.2",
@@ -72,7 +81,6 @@
     "@roots/container": "^2.1.2",
     "@roots/dependencies": "^2.1.2",
     "@roots/filesystem": "^2.1.2",
-    "autodll-webpack-plugin": "^0.4.2",
     "cache-loader": "^4.1.0",
     "clean-webpack-plugin": "^3.0.0",
     "compression-webpack-plugin": "^6.0.2",
@@ -90,12 +98,11 @@
     "resolve-url-loader": "^3.1.1",
     "source-map-loader": "^1.0.1",
     "style-loader": "^1.2.1",
-    "terser-webpack-plugin": "^4.2.2",
     "thread-loader": "^3.0.1",
     "url-loader": "^4.1.0",
     "webpack-config-dump-plugin": "^3.0.1",
     "webpack-manifest-plugin": "^2.2.0",
     "write-file-webpack-plugin": "^4.5.1"
   },
-  "gitHead": "9d736f0b44384c1f66b94462145c11e618aa166d"
+  "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
 }

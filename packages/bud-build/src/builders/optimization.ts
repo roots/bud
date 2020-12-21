@@ -1,9 +1,11 @@
-import {Bud, Webpack} from '@roots/bud-typings'
+import {Framework, Webpack} from '@roots/bud-typings'
 
 export type Optimization = Webpack.Configuration['optimization']
 
 export namespace Optimization {
-  export type Build = (this: Bud) => {optimization: Optimization}
+  export type Build = (
+    this: Framework,
+  ) => {optimization: Optimization}
 }
 
 /**

@@ -1,9 +1,9 @@
 import chalk from 'chalk'
-import {Bud} from '@roots/bud-typings'
+import {Framework} from '@roots/bud-typings'
 
 export * as api from './api'
 
-export const boot = (bud: Bud): void => {
+export const boot = (bud: Framework): void => {
   !bud.build.items.get('postcss') &&
     (() => {
       Error(

@@ -1,4 +1,4 @@
-import type {Bud} from '@roots/bud-typings'
+import type {Framework} from '@roots/bud-typings'
 import {isString} from '@roots/bud-support'
 
 export const provide: Provide = function (options) {
@@ -15,9 +15,9 @@ export const provide: Provide = function (options) {
   return this
 }
 
-export type Provide<T = Bud> = (
-  this: T,
+export type Provide = (
+  this: Framework,
   options: {
     [key: string]: string | string[]
   },
-) => T
+) => Framework

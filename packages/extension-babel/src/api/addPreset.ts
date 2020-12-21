@@ -1,4 +1,4 @@
-import type {Bud} from '@roots/bud-typings'
+import type {Framework} from '@roots/bud-typings'
 import type {PluginTarget, PluginOptions} from '@babel/core'
 
 /**
@@ -7,7 +7,7 @@ import type {PluginTarget, PluginOptions} from '@babel/core'
 export const addPreset = function (
   name: PluginTarget,
   opts?: PluginOptions,
-): Bud {
+): Framework {
   const preset = [name]
   opts && preset.push(opts)
 

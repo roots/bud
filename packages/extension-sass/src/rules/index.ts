@@ -1,4 +1,4 @@
-import type {Bud, Factory, Rule} from '@roots/bud-typings'
+import type {Framework, Factory, Rule} from '@roots/bud-typings'
 
 export const test: Sass.Conditional = ({patterns}) =>
   patterns.get('sass')
@@ -6,7 +6,7 @@ export const test: Sass.Conditional = ({patterns}) =>
 export const exclude: Sass.Exclude = ({patterns}) =>
   patterns.get('modules')
 
-export const use: Factory<Rule.Use> = (bud: Bud) => [
+export const use: Factory<Rule.Use> = (bud: Framework) => [
   bud.mode.is('production')
     ? bud.build.items.get('mini-css')
     : bud.build.items.get('style'),

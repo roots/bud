@@ -1,4 +1,4 @@
-import {Bud} from '@roots/bud-typings'
+import {Framework} from '@roots/bud-typings'
 
 export const hash: Hash = function (enabled?) {
   this.features.set('hash', enabled ?? true)
@@ -6,4 +6,7 @@ export const hash: Hash = function (enabled?) {
   return this
 }
 
-export type Hash<T = Bud> = (this: T, enabled?: boolean) => T
+export type Hash = (
+  this: Framework,
+  enabled?: boolean,
+) => Framework

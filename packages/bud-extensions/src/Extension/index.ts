@@ -1,8 +1,9 @@
 import {Container} from '@roots/container'
 import {isArray, isFunction} from 'lodash'
 
-import type {Bud, Index, Webpack} from '@roots/bud-typings'
-import type {Module} from '../Module'
+import Extension from './Contract'
+import Module from '../Module'
+import type {Framework, Index, Webpack} from '@roots/bud-typings'
 
 /**
  * Extensions controller class.
@@ -14,11 +15,11 @@ import type {Module} from '../Module'
  * [📦 @roots/bud-extensions](https://github.io/roots/bud-extensions)
  * [🔗 Documentation](#)
  */
-class Extension extends Container {
+export default class extends Container implements Extension {
   /**
    * Bud reference
    */
-  public bud: Bud.Ref
+  public _bud: () => Framework
 
   /**
    * Flag tracking if the controlled extension has
@@ -29,7 +30,7 @@ class Extension extends Container {
   /**
    * The controlled extension
    */
-  public module: Extension.Module
+  public module: Module
 
   /**
    * Builders.
@@ -39,10 +40,10 @@ class Extension extends Container {
   /**
    * Class constructor.
    */
-  constructor(bud: Bud, extension: Extension.Module) {
+  constructor(bud: Framework, extension: Module) {
     super({})
 
-    this.bud = bud.get
+    this._bud = bud.get
 
     this.module = extension
 
@@ -64,10 +65,14 @@ class Extension extends Container {
     ]
   }
 
+  public get bud(): Framework {
+    return this._bud()
+  }
+
   /**
    * Initialize extension.
    */
-  public initialize = function (): Extension.Module {
+  public initialize = function (): Module {
     this.module.register && this.register()
 
     this.module.options && this.setOptions(this.module.options)
@@ -100,27 +105,36 @@ class Extension extends Container {
   }
 
   public register = function (): void {
-    this.module.register && this.module.register(this.bud())
+    this.module.register && this.module.register(this.bud)
   }
 
   public boot = function (): void {
-    this.module.boot && this.module.boot(this.bud())
+    this.module.boot && this.module.boot(this.bud)
   }
 
+  /**
+   * Make plugin.
+   */
   public makePlugin = function (): Webpack.Plugin {
     return this.isPlugin() && this.isPluginEnabled()
-      ? this.callMeMaybe(this.module.make, this, this.bud())
+      ? this.callMeMaybe(this.module.make, this, this.bud)
       : false
   }
 
+  /**
+   * Is this extension a plugin?
+   */
   public isPlugin = function (): boolean {
     return this.module.make ? true : false
   }
 
+  /**
+   * Is plugin enabled?
+   */
   public isPluginEnabled = function (): boolean {
     return !this.module.when
       ? true
-      : this.callMeMaybe(this.module.when, this.bud(), this)
+      : this.callMeMaybe(this.module.when, this.bud, this)
   }
 
   /**
@@ -129,8 +143,8 @@ class Extension extends Container {
   public setApi = function (): void {
     this.module.api &&
       Object.assign(
-        this.bud(),
-        this.callMeMaybe(this.module.api, this.bud()),
+        this.bud,
+        this.callMeMaybe(this.module.api, this.bud),
       )
   }
 
@@ -146,7 +160,7 @@ class Extension extends Container {
    * ```
    */
   public setOptions = function (options: Index<any>): void {
-    this.setStore(this.callMeMaybe(options, this.bud()))
+    this.setStore(this.callMeMaybe(options, this.bud))
   }
 
   /**
@@ -171,24 +185,18 @@ class Extension extends Container {
     builders.map(([name, handler]) => {
       if (!this.hasProp(name)) return
 
-      isArray(this.fromProp(name, this.bud()))
+      isArray(this.fromProp(name, this.bud))
         ? handler(
-            ...(this.fromProp(name, this.bud()) as [
+            ...(this.fromProp(name, this.bud) as [
               string,
               unknown,
             ]),
           )
-        : Object.entries(this.fromProp(name, this.bud())).map(
+        : Object.entries(this.fromProp(name, this.bud)).map(
             ([k, v]) => {
-              handler(k, this.callMeMaybe(v, this.bud()))
+              handler(k, this.callMeMaybe(v, this.bud))
             },
           )
     })
   }
 }
-
-declare namespace Extension {
-  export {Module}
-}
-
-export {Extension}

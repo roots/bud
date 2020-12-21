@@ -1,4 +1,4 @@
-import {Extension} from '@roots/bud-typings'
+import {Module} from '@roots/bud-typings'
 import {IgnoreEmitPlugin as Plugin} from 'ignore-emit-webpack-plugin'
 
 export const options: PluginOptions = {
@@ -19,12 +19,10 @@ export const options: PluginOptions = {
   ],
 }
 
-export const make: Extension.Module.Make<
-  Plugin,
-  PluginOptions
-> = opt => new Plugin(opt.get('ignorePatterns'))
+export const make: Module.Make<Plugin, PluginOptions> = opt =>
+  new Plugin(opt.get('ignorePatterns'))
 
-export const when: Extension.Module.When = (_bud, opt) =>
+export const when: Module.When = (_bud, opt) =>
   opt?.has('ignorePatterns') &&
   opt.get('ignorePatterns').length > 0
 

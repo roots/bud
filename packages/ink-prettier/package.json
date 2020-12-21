@@ -19,29 +19,22 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": [
-    "webpack",
-    "bud"
-  ],
+  "keywords": ["webpack", "bud"],
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "lib/",
-    "types/",
-    "src/"
-  ],
+  "files": ["lib/", "types/", "src/"],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "exports": {
     "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index-esm.js"
+    "import": "./lib/esm/index.js"
   },
   "types": "./types/index.d.ts",
   "scripts": {
     "build": "run-s build:*",
     "build:cjs": "tsc --build tsconfig.json",
-    "build:esm": "tsc --build tsconfig-ejs.json",
+    "build:esm": "tsc --build tsconfig-esm.json",
     "lint": "run-s lint:*",
     "lint:eslint": "eslint 'src/**/*.{js,ts,tsx}' --fix",
     "lint:prettier": "prettier 'src/**/*'  --write",
@@ -53,8 +46,11 @@
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
+  "peerDependencies": {
+    "@roots/bud-support": "*"
+  },
   "dependencies": {
     "@roots/bud-support": "^2.1.2"
   },
-  "gitHead": "9d736f0b44384c1f66b94462145c11e618aa166d"
+  "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
 }

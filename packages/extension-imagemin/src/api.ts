@@ -1,5 +1,4 @@
 import type {Imagemin} from './imagemin/typings'
-
 /**
  * Enable imagemin
  */

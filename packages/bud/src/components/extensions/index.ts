@@ -1,4 +1,4 @@
-import type {Extension} from '@roots/bud-typings'
+import type {Index, Module} from '@roots/bud-typings'
 
 import * as cleanWebpack from './cleanWebpack'
 import * as gzip from './gzip'
@@ -15,15 +15,11 @@ import * as interpolateHtml from './interpolateHtmlPlugin'
 import * as manifest from './manifest'
 import * as miniCssExtract from './miniCssExtract'
 import * as provide from './provide'
-import * as terser from './terser'
-import * as watchMissingModules from './watchMissingModules'
 import * as writeFile from './writeFile'
 
 export * as Brotli from './brotli/typings'
 
-export const extensions: {
-  [key: string]: Extension.Module
-} = {
+export const extensions: Index<Module> = {
   [`clean-webpack-plugin`]: cleanWebpack,
   [`compression-webpack-plugin-gzip`]: gzip,
   [`compression-webpack-plugin-brotli`]: brotli,
@@ -39,7 +35,5 @@ export const extensions: {
   [`webpack-manifest-plugin`]: manifest,
   [`mini-css-extract-plugin`]: miniCssExtract,
   [`webpack-provide-plugin`]: provide,
-  [`terser-webpack-plugin`]: terser,
-  [`watch-missing-modules`]: watchMissingModules,
   [`write-file-webpack-plugin`]: writeFile,
 }

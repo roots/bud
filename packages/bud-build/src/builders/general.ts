@@ -1,4 +1,4 @@
-import {Bud, Webpack} from '@roots/bud-typings'
+import {Framework, Webpack} from '@roots/bud-typings'
 
 type Config = Omit<
   Webpack.Configuration,
@@ -13,7 +13,7 @@ type Config = Omit<
 >
 
 export namespace General {
-  export type Build = (this: Bud) => Config
+  export type Build = (this: Framework) => Config
 }
 
 export const general: General.Build = function () {

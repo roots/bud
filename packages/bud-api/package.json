@@ -36,13 +36,13 @@
   "module": "./lib/esm/index.js",
   "exports": {
     "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index-esm.js"
+    "import": "./lib/esm/index.js"
   },
   "types": "./types/index.d.ts",
   "scripts": {
     "build": "run-s build:*",
     "build:cjs": "tsc --build tsconfig.json",
-    "build:esm": "tsc --build tsconfig-ejs.json",
+    "build:esm": "tsc --build tsconfig-esm.json",
     "lint": "run-s lint:*",
     "lint:eslint": "eslint 'src/**/*.{js,ts,tsx}' --fix",
     "lint:prettier": "prettier 'src/**/*'  --write",
@@ -54,19 +54,24 @@
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
+  "peerDependencies": {
+    "@roots/bud-extensions": "*",
+    "@roots/bud-framework": "*",
+    "@roots/bud-server": "*",
+    "@roots/bud-support": "*",
+    "@roots/bud-typings": "*",
+    "@roots/container": "*"
+  },
   "devDependencies": {
     "@roots/bud-extensions": "^2.1.2",
     "@roots/bud-framework": "^2.1.2",
+    "@roots/bud-server": "^2.1.2",
     "@roots/bud-typings": "^2.1.2",
-    "@types/terser": "^3.12.0",
-    "compression-webpack-plugin": "^6.0.2",
-    "terser": "^5.3.4",
-    "terser-webpack-plugin": "^5.0.3"
+    "@roots/container": "^2.1.2",
+    "compression-webpack-plugin": "^6.0.2"
   },
   "dependencies": {
-    "@roots/bud-server": "^2.1.2",
-    "@roots/bud-support": "^2.1.2",
-    "@roots/container": "^2.1.2"
+    "@roots/bud-support": "^2.1.2"
   },
-  "gitHead": "9d736f0b44384c1f66b94462145c11e618aa166d"
+  "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
 }

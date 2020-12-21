@@ -1,91 +1,101 @@
-import {Bud} from '@roots/bud-typings'
+import type Bud from './Bud'
 
 /**
  * Brotli flag
  */
-export const brotli = ({args, brotli}: Bud): void =>
-  args.has('brotli') && brotli()
+export const brotli = (bud: Bud): void => {
+  bud.args.has('brotli') && bud.brotli()
+}
 
 /**
  * CI flag
  */
 export const ci = ({args, mode}: Bud): void => {
-  if (args.has('ci')) {
-    mode.ci = true
-  }
+  mode.ci = args.has('ci')
 }
 
 /**
  * Debug flag
  */
-export const debug = ({args, features}: Bud): void =>
-  args.has('debug') && features.enable('debug')
+export const debug = (bud: Bud): void =>
+  bud.args.has('debug') && bud.features.enable('debug')
 
 /**
  * Devtool flag/argument
  */
-export const devtool = ({args, devtool}: Bud): void =>
-  args.has('devtool') &&
-  devtool(args.get('devtool') ?? '#@cheap-eval-source-map')
+export const devtool = (bud: Bud): void => {
+  bud.args.has('devtool') &&
+    bud.devtool(
+      bud.args.get('devtool') ?? '#@cheap-eval-source-map',
+    )
+}
 
 /**
  * Gzip flag
  */
-export const gzip = ({args, gzip}: Bud): void =>
-  args.has('gzip') && gzip()
+export const gzip = (bud: Bud): void => {
+  bud.args.has('gzip') && bud.gzip()
+}
 
 /**
  * Hash flag
  */
-export const hash = ({args, hash}: Bud): void =>
-  args.has('hash') && hash()
+export const hash = (bud: Bud): void => {
+  bud.args.has('hash') && bud.hash()
+}
 
 /**
  * Minify flag
  */
-export const minify = ({args, minify}: Bud): void =>
-  args.has('minify') && minify()
+export const minify = (bud: Bud): void => {
+  bud.args.has('minify') && bud.minify()
+}
 
 /**
  * Runtime flag
  */
-export const runtime = ({args, runtime}: Bud): void =>
-  args.has('runtime') && runtime()
+export const runtime = (bud: Bud): void => {
+  bud.args.has('runtime') && bud.runtime()
+}
 
 /**
  * Template flag
  */
-export const template = ({args, template}: Bud): void =>
-  args.has('html') && template()
+export const template = (bud: Bud): void => {
+  bud.args.has('html') && bud.template()
+}
 
 /**
  * Vendor flag
  */
-export const vendor = ({args, vendor}: Bud): void =>
-  args.has('vendor') && vendor()
+export const vendor = (bud: Bud): void => {
+  bud.args.has('vendor') && bud.vendor()
+}
 
 /**
  * Project path
  */
-export const projectPath = ({
-  args,
-  fs,
-  projectPath,
-}: Bud): void =>
-  projectPath(
-    args.has('project')
-      ? fs.path.resolve(fs.getBase(), args.get('project'))
-      : fs.getBase(),
+export const projectPath = (bud: Bud): void => {
+  bud.projectPath(
+    bud.args.has('project')
+      ? bud.fs.path.resolve(
+          bud.fs.getBase(),
+          bud.args.get('project'),
+        )
+      : bud.fs.getBase(),
   )
+}
 
 /**
  * Src path
  */
-export const srcPath = ({args, srcPath}: Bud): void =>
-  srcPath(args.get('src') ?? 'src')
+export const srcPath = (bud: Bud): void => {
+  bud.srcPath(bud.args.get('src') ?? 'src')
+}
 
 /**
  * Dist path
  */
-export const distPath = ({args, distPath}: Bud): void =>
-  distPath(args.get('dist') ?? 'dist')
+export const distPath = (bud: Bud): void => {
+  bud.distPath(bud.args.get('dist') ?? 'dist')
+}

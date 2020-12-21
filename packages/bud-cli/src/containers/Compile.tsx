@@ -6,9 +6,9 @@ import {
 } from '@roots/bud-support'
 import {useCompilation} from '../hooks/useCompilation'
 import {Reporter} from './Reporter'
-import type {Bud} from '@roots/bud-typings'
+import type {Framework} from '@roots/bud-typings'
 
-const Compile: React.FunctionComponent<{bud: Bud}> = ({bud}) => {
+const Compile: React.FunctionComponent<{bud: Framework}> = ({bud}) => {
   const app = useApp()
   const compilation = useCompilation(bud)
 

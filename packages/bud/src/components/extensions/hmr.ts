@@ -1,8 +1,8 @@
 import {HotModuleReplacementPlugin} from 'webpack'
-import type {Extension} from '@roots/bud-typings'
+import type {Module} from '@roots/bud-typings'
 
-export const make: Extension.Module.Make = () =>
+export const make: Module.Make = () =>
   new HotModuleReplacementPlugin()
 
-export const when: Extension.Module.When = ({mode}) =>
+export const when: Module.When = ({mode}) =>
   mode.is('development')

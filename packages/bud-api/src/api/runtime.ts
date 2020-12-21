@@ -1,9 +1,9 @@
-import {Bud} from '@roots/bud-typings'
+import {Framework} from '@roots/bud-typings'
 
-export const runtime = function (): Bud {
+export const runtime = function (): Framework {
   this.features.set('runtimeChunk', true)
 
   return this
 }
 
-export type Runtime<T = Bud> = (this: T) => T
+export type Runtime = (this: Framework) => Framework

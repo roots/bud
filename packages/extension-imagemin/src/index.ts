@@ -1,13 +1,9 @@
-import type {Extension} from '@roots/bud-typings'
-
-export type {Imagemin} from './imagemin/typings'
-
-import * as ImageminPlugin from './imagemin'
-
+/**
+ * Extension config methods
+ */
 export * as api from './api'
 
-export const boot: Extension.Module.Boot = ({use}) =>
-  use([
-    'image-minimizer-webpack-plugin',
-    ImageminPlugin,
-  ]).imagemin()
+/**
+ * Extension boot
+ */
+export {boot} from './boot'

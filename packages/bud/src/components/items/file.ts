@@ -1,12 +1,11 @@
-import type Framework from '@roots/bud-typings'
+import type {Item} from '@roots/bud-typings'
 
-export const ident: Framework.Item.Contract['ident'] = 'file'
+export const ident: Item['ident'] = 'file'
 
-export const loader: Framework.Item.Contract['loader'] =
-  'file-loader'
+export const loader: Item['loader'] = 'file-loader'
 
-export const options: Framework.Item.Contract['options'] = {
+export const options: Item['options'] = {
   name: '[path][name].[ext]',
 }
 
-export const query: Framework.Item.Contract['query'] = undefined
+export const query: Item['query'] = undefined

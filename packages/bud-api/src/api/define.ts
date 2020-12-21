@@ -1,4 +1,4 @@
-import type {Bud, Index} from '@roots/bud-typings'
+import type {Framework, Index} from '@roots/bud-typings'
 
 export const define: Define = function (values) {
   this.extensions.get('webpack-define-plugin').mergeStore(values)
@@ -6,4 +6,7 @@ export const define: Define = function (values) {
   return this
 }
 
-export type Define<T = Bud> = (this: T, values: Index<any>) => T
+export type Define = (
+  this: Framework,
+  values: Index<any>,
+) => Framework

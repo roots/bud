@@ -1,4 +1,4 @@
-import {Bud} from '@roots/bud-typings'
+import {Framework} from '@roots/bud-typings'
 
 export const projectPath: ProjectPath = function (dir) {
   this.disk.get('project').setBase(dir)
@@ -7,4 +7,7 @@ export const projectPath: ProjectPath = function (dir) {
   return this
 }
 
-export type ProjectPath<T = Bud> = (this: T, dir: string) => T
+export type ProjectPath = (
+  this: Framework,
+  dir: string,
+) => Framework

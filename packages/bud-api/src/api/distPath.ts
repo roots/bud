@@ -1,4 +1,4 @@
-import type {Bud} from '@roots/bud-typings'
+import type {Framework} from '@roots/bud-typings'
 
 export const distPath: DistPath = function (segment) {
   /** Bounce early if dist is overwritten from CLI */
@@ -9,4 +9,7 @@ export const distPath: DistPath = function (segment) {
   return this
 }
 
-export type DistPath<T = Bud> = (this: T, segment: string) => T
+export type DistPath = (
+  this: Framework,
+  segment: string,
+) => Framework

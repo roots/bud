@@ -1,3 +1,4 @@
+import {Framework} from '@roots/bud-typings'
 import {isFunction, isEqual} from '@roots/bud-support'
 
 export const when: When = function (test, isTrue, isFalse) {
@@ -8,8 +9,8 @@ export const when: When = function (test, isTrue, isFalse) {
   return this
 }
 
-export type When<T = Framework.Bud> = (
+export type When = (
   test: boolean,
-  isTrue: (bud: T) => unknown,
-  isFalse: (bud: T) => unknown,
-) => T
+  isTrue: (bud: Framework) => unknown,
+  isFalse: (bud: Framework) => unknown,
+) => Framework

@@ -7,7 +7,7 @@ import type {
 } from 'postcss'
 
 import type {
-  Extension,
+  Module,
   Item,
   Loader,
   Fluent,
@@ -21,9 +21,9 @@ export {
   Stringifier,
 }
 
-export type Boot = Extension.Module.Boot
-export type RegisterItem = Extension.Module.RegisterOne<Item.Module>
-export type RegisterLoader = Extension.Module.RegisterOne<Loader>
+export type Boot = Module.Boot
+export type RegisterItem = Module.RegisterOne<Item.Module>
+export type RegisterLoader = Module.RegisterOne<Loader>
 
 export type {Fluent}
 

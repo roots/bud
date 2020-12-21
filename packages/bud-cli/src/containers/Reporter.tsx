@@ -10,13 +10,13 @@ import {useStyle} from '@roots/ink-use-style'
 import {useDisk} from '../hooks/useDisk'
 import {usePackageJson} from '../hooks/usePackageJson'
 
-import type {Bud} from '@roots/bud-typings'
+import type {Framework} from '@roots/bud-typings'
 import type {UseStats} from '../hooks/useStats'
 import type {UseProgress} from '../hooks/useProgress'
 
 declare namespace Reporter {
   export type Props = {
-    bud: Bud
+    bud: Framework
     stats: UseStats.Stats
     progress: UseProgress.Progress
     errors?: string[]

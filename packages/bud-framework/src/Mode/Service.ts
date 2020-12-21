@@ -1,16 +1,15 @@
-import type {Bud} from '@roots/bud-typings'
-import type {Configuration} from 'webpack'
+import type {Framework, Webpack} from '@roots/bud-typings'
 
 export default abstract class {
   /**
    * Bud reference
    */
-  _bud: Bud.Ref
+  _bud: () => Framework
 
   /**
    * Mode
    */
-  _mode: Configuration['mode']
+  _mode: Webpack.Configuration['mode']
 
   /**
    * CI enabled
@@ -20,7 +19,7 @@ export default abstract class {
   /**
    * Class constructor
    */
-  public constructor(bud: Bud) {
+  public constructor(bud: Framework) {
     this._bud = bud.get
   }
 
@@ -31,16 +30,16 @@ export default abstract class {
     return
   }
 
-  public get bud(): Bud {
+  public get bud(): Framework {
     return this._bud()
   }
 
-  public get mode(): Configuration['mode'] {
+  public get mode(): Webpack.Configuration['mode'] {
     return this._mode
   }
 
-  public set mode(mode: Configuration['mode']) {
-    this.mode = mode
+  public set mode(mode: Webpack.Configuration['mode']) {
+    this._mode = mode
   }
 
   public get ci(): boolean {
@@ -48,12 +47,14 @@ export default abstract class {
   }
 
   public set ci(ci: boolean) {
-    this.ci = ci
+    this._ci = ci
   }
 
-  public abstract get(): Configuration['mode']
+  public abstract get(): Webpack.Configuration['mode']
 
-  public abstract set(mode: Configuration['mode']): void
+  public abstract set(mode: Webpack.Configuration['mode']): void
 
-  public abstract is(check: Configuration['mode']): boolean
+  public abstract is(
+    check: Webpack.Configuration['mode'],
+  ): boolean
 }

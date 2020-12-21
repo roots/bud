@@ -1,20 +1,16 @@
 import chalk from 'chalk'
 
 const friendlySyntaxErrorLabel = 'Syntax error:'
-
-const isLikelyASyntaxError = message =>
+const isLikelySyntaxError = (message: string) =>
   message.indexOf(friendlySyntaxErrorLabel) !== -1
 
-const filterForSyntaxErrors = errors =>
-  errors.some(isLikelyASyntaxError)
-    ? errors.filter(isLikelyASyntaxError)
+const filterSyntaxErrors = (errors: string[]) =>
+  errors.some(isLikelySyntaxError)
+    ? errors.filter(isLikelySyntaxError)
     : errors
 
-/**
- * @see https://github.com/webpack/webpack/blob/master/lib/ModuleError.js
- */
-const formatMessage = (message: string) => {
-  const lines = message
+const processMessage = (message: string) => {
+  return message
     .split('\n')
     .filter(line => !/Module [A-z ]+\(from/.test(line))
     .map(line => {
@@ -53,6 +49,13 @@ const formatMessage = (message: string) => {
       `Attempted import error: '$1' is not exported from '$3' (imported as '$2').`,
     )
     .split('\n')
+}
+
+/**
+ * @see https://github.com/webpack/webpack/blob/master/lib/ModuleError.js
+ */
+const formatMessage = (message: string) => {
+  const lines = processMessage(message)
 
   lines.length > 2 &&
     lines[1].trim() === '' &&
@@ -95,9 +98,11 @@ const formatMessage = (message: string) => {
     .trim()
 }
 
-export const formatWebpackMessages = (json: {
+export default (json: {
   [key: string]: any
-}): {[key: string]: any} => ({
-  errors: filterForSyntaxErrors(json.errors.map(formatMessage)),
-  warnings: json.warnings.map(formatMessage),
-})
+}): {[key: string]: any} => {
+  return {
+    errors: filterSyntaxErrors(json.errors.map(formatMessage)),
+    warnings: json.warnings.map(formatMessage),
+  }
+}

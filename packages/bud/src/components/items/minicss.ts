@@ -1,4 +1,5 @@
 import type {Item} from '@roots/bud-typings'
 
-export const ident: Item.Contract['ident'] = 'mini-css'
-export const loader: Item.Contract['loader'] = 'mini-css-loader'
+export const ident: Item['ident'] = 'mini-css'
+
+export const loader: Item['loader'] = 'mini-css-loader'

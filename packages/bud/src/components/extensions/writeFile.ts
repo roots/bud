@@ -1,4 +1,4 @@
 import WriteFilePlugin from 'write-file-webpack-plugin'
-import type {Extension} from '@roots/bud-typings'
+import type {Module} from '@roots/bud-typings'
 
-export const make: Extension.Module.Make<WriteFilePlugin> = new WriteFilePlugin()
+export const make: Module.Make<WriteFilePlugin> = new WriteFilePlugin()

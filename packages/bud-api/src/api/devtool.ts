@@ -1,4 +1,4 @@
-import type {Bud, Webpack} from '@roots/bud-typings'
+import type {Framework, Webpack} from '@roots/bud-typings'
 
 export const devtool: Devtool = function (devtool?) {
   this.features.set('devtool', true)
@@ -7,7 +7,7 @@ export const devtool: Devtool = function (devtool?) {
   return this
 }
 
-export type Devtool<T = Bud> = (
-  this: T,
+export type Devtool = (
+  this: Framework,
   devtool?: Webpack.Configuration['devtool'],
-) => T
+) => Framework

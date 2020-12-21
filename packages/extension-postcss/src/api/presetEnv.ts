@@ -1,4 +1,4 @@
-import {Bud} from '@roots/bud-typings'
+import {Framework} from '@roots/bud-typings'
 
 export const presetEnv: PresetEnv = function (options = {}) {
   const plugins = this.build.items.get(
@@ -29,4 +29,7 @@ export const presetEnv: PresetEnv = function (options = {}) {
  * bud.presetEnv(MyPlugin, {plugin: 'options'})
  * ```
  */
-export type PresetEnv = (this: Bud, options: any) => Bud
+export type PresetEnv = (
+  this: Framework,
+  options: any,
+) => Framework

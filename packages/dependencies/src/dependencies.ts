@@ -42,4 +42,4 @@ class Dependencies {
   }
 }
 
-export {Dependencies as default}
+export default Dependencies

@@ -1,10 +1,10 @@
-import {Webpack, Bud} from '@roots/bud-typings'
+import {Webpack, Framework} from '@roots/bud-typings'
 import {oneOf} from './oneOf'
 import post from './post'
 import pre from './pre'
 
 type Rules = Webpack.Configuration['module']['rules']
-type Build = (this: Bud) => {rules: Rules}
+type Build = (this: Framework) => {rules: Rules}
 
 export const rules: Build = function () {
   return {

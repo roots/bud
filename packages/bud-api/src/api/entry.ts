@@ -1,4 +1,4 @@
-import type {Bud} from '@roots/bud-typings'
+import type {Framework} from '@roots/bud-typings'
 import {isArray, isString} from '@roots/bud-support'
 
 export const entry: Entry = function (bundle, assets) {
@@ -14,8 +14,8 @@ export const entry: Entry = function (bundle, assets) {
   return this
 }
 
-export type Entry<T = Bud> = (
-  this: T,
+export type Entry = (
+  this: Framework,
   bundleName: string,
   assets:
     | string
@@ -23,4 +23,4 @@ export type Entry<T = Bud> = (
     | {
         [key: string]: string | string[]
       },
-) => T
+) => Framework

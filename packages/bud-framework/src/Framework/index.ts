@@ -1,18 +1,16 @@
 import {Container} from '@roots/container'
 import {FileContainer, FileSystem} from '@roots/filesystem'
+import Env from '../Env'
 import Mode from '../Mode'
-import * as util from '../util'
-import {resolve} from 'path'
-
+import Logger from '../Logger'
+import {MaybeCallable} from '@roots/bud-typings/packages/utility'
+import {isEqual, isFunction} from '@roots/bud-support'
 import {
   Build,
-  CLI,
   Compiler,
-  Env,
   Extensions,
   Hooks,
-  Logger,
-  MaybeCallable,
+  CLI,
   Server,
 } from '@roots/bud-typings'
 
@@ -262,7 +260,7 @@ abstract class Framework {
    *
    * [pino](#) logger instance
    */
-  public logger: Logger = util.logger
+  public logger: typeof Logger = Logger
 
   /**
    * ## bud.mode
@@ -309,7 +307,7 @@ abstract class Framework {
    *
    * - [🔗 Documentation](#)
    */
-  public server: Server.Contract
+  public server: Server
 
   /**
    * ## bud.services
@@ -327,10 +325,11 @@ abstract class Framework {
     this.callMeMaybe = this.callMeMaybe.bind(this)
 
     this.disk = new FileSystem()
+    this.env = new Env({})
     this.fs = new FileContainer()
 
-    Object.entries(implementations).forEach(([name, set]) => {
-      this[name] = this.makeContainer(set)
+    Object.entries(implementations).forEach(([name, obj]) => {
+      this[name] = this.makeContainer(obj)
     })
 
     this.setup()
@@ -342,21 +341,47 @@ abstract class Framework {
    * Initializes base objects.
    */
   public setup(): void {
+    /**
+     * This "fixes" resize emitter warnings
+     * @todo actually fix this
+     */
+    process.setMaxListeners(0)
+
+    /**
+     * This fixes issues with SWR thinking its in the browser.
+     */
+    isEqual(typeof global.navigator, 'undefined') &&
+      Object.assign(global, {navigator: {}})
+
+    /**
+     * Instantiate bud.mode
+     */
     this.mode = new Mode(this)
 
+    /**
+     * Instantiate fs and disks
+     */
     this.fs.setBase(process.cwd())
-
     this.makeDisk('project', this.fs.base)
     this.makeDisk('@roots', '../../..')
 
+    /**
+     * Set API methods
+     */
     this.api.every((name, fn) => {
       this[name] = fn.bind(this)
     })
 
+    /**
+     * Set components
+     */
     this.components.every((name, component) => {
       this[name] = component
     })
 
+    /**
+     * Set services
+     */
     this.services.every((name, Service) => {
       this[name] = new Service(this)
       this[name].init && this[name].init()
@@ -379,6 +404,19 @@ abstract class Framework {
   }
 
   /**
+   * ## bud.get  [🏠 Internal]
+   *
+   * Scope binding for bud.get
+   *
+   * ```js
+   * bud.get()
+   * ```
+   */
+  public get(): this {
+    return this
+  }
+
+  /**
    * ## bud.callMeMaybe
    *
    * If a value is a function it will call that
@@ -397,21 +435,10 @@ abstract class Framework {
    * // => `option value: true`
    * ```
    */
-  public callMeMaybe: <I = unknown>(
-    value: MaybeCallable<I>,
-  ) => I = util.callMeMaybe
-
-  /**
-   * ## bud.get  [🏠 Internal]
-   *
-   * Scope binding for bud.get
-   *
-   * ```js
-   * bud.get()
-   * ```
-   */
-  public get(): this {
-    return this
+  public callMeMaybe<I = unknown>(value: MaybeCallable<I>): I {
+    return isFunction(value)
+      ? (value as CallableFunction)(this)
+      : value
   }
 
   /**
@@ -449,7 +476,7 @@ abstract class Framework {
     glob?: string[],
   ): void {
     this.disk.set(name, {
-      base: resolve(__dirname, dir),
+      base: this.fs.path.resolve(__dirname, dir),
       glob: glob ?? ['**/*'],
     })
   }
@@ -481,29 +508,10 @@ abstract class Framework {
 declare namespace Framework {
   export type Ref = () => Framework
 
-  export type Format = (obj: unknown, options?) => string
-  export type BuilderDefinition<T = any> = [
-    {[key: string]: T},
-    BuilderDefinition.Initializer<T>,
-  ]
-
-  export namespace BuilderDefinition {
-    export interface Args<Type> {
-      this: Framework
-      definition: [string, Type]
-    }
-
-    export type Initializer<Type> = (
-      this: Framework,
-      [name, object]: [string, Type],
-    ) => void
-  }
-
-  export type DiskDefinition = {
-    [key: string]: {glob: string[]; baseDir: string}
-  }
-
-  export type Service<T = unknown> = T
+  export {Env}
+  export {Logger}
+  export {Server}
+  export {Compiler}
 }
 
-export {Framework}
+export default Framework

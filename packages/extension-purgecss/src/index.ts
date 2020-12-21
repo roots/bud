@@ -1,17 +1,17 @@
 import Plugin from '@fullhuman/postcss-purgecss'
 import * as wp from 'purgecss-with-wordpress'
-import type {Bud, Extension} from '@roots/bud-typings'
+import type {Framework, Module} from '@roots/bud-typings'
 import type {Purge} from './typings'
 
-export const boot: Extension.Module.Boot = bud => {
+export const boot: Module.Boot = bud => {
   bud.presets.set('purgecss', {wp})
 }
 
-export const api: Extension.Module.Api = () => ({
+export const api: Module.Api = () => ({
   purge: function configuration(
-    this: Bud,
+    this: Framework,
     userOptions: Purge.UserOptions,
-  ): Bud {
+  ): Framework {
     this.build.items.mutate(
       'postcss.options.postcssOptions.plugins',
       plugins => [...plugins, Plugin(userOptions)],

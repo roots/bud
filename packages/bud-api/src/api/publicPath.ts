@@ -1,16 +1,15 @@
-import {Bud} from '@roots/bud-typings'
-import {normalize} from 'path'
+import {Framework} from '@roots/bud-typings'
 
 export const publicPath: PublicPath = function (publicPath) {
   this.config.set(
     'output.publicPath',
-    normalize(`/${publicPath}/`),
+    this.fs.path.normalize(`/${publicPath}/`),
   )
 
   return this
 }
 
-export type PublicPath<T = Bud> = (
-  this: T,
+export type PublicPath = (
+  this: Framework,
   publicPath: string,
-) => T
+) => Framework

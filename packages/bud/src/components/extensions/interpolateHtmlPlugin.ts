@@ -1,8 +1,10 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import {InterpolateHtmlPlugin} from '@roots/bud-support'
-import {Bud, Extension, Container} from '@roots/bud-typings'
+import {Framework, Module, Container} from '@roots/bud-typings'
 
-export const options = (bud: Bud): Container['repository'] => ({
+export const options = (
+  bud: Framework,
+): Container['repository'] => ({
   ...Object.fromEntries(
     bud.env
       .getEntries()
@@ -10,14 +12,14 @@ export const options = (bud: Bud): Container['repository'] => ({
   ),
 })
 
-export const make: Extension.Module.Make<
+export const make: Module.Make<
   InterpolateHtmlPlugin,
   Container
-> = (options: Extension.Module.Options) =>
+> = (options: Module.Options) =>
   new InterpolateHtmlPlugin(
     HtmlWebpackPlugin,
     options.getStore(),
   )
 
-export const when: Extension.Module.When = bud =>
+export const when: Module.When = bud =>
   bud.features.enabled('html')

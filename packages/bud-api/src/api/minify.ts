@@ -1,4 +1,4 @@
-import {Bud} from '@roots/bud-typings'
+import {Framework} from '@roots/bud-typings'
 
 export const minify: Minify = function () {
   this.features.set('minify', true)
@@ -6,4 +6,4 @@ export const minify: Minify = function () {
   return this
 }
 
-export type Minify<T = Bud> = (this: T) => T
+export type Minify = (this: Framework) => Framework

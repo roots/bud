@@ -1,5 +1,5 @@
 import {isArray} from '@roots/bud-support'
-import Framework from '@roots/bud-typings'
+import {Webpack} from '@roots/bud-typings'
 
 const toInject = require
   .resolve('webpack-hot-middleware/client')
@@ -8,8 +8,8 @@ const toInject = require
 /**
  * Injects webpack.entry items with hot module scripts.
  */
-export const injectClient: Framework.Server.InjectClient = (
-  entrypoints: Framework.Webpack.Entry,
+export const injectClient: InjectClient = (
+  entrypoints: Webpack.Entry,
 ) =>
   Object.entries(entrypoints).reduce(
     (acc, [name, entry]) => ({
@@ -18,3 +18,11 @@ export const injectClient: Framework.Server.InjectClient = (
     }),
     {},
   )
+
+/**
+ * Inject webpack entrypoints with
+ * client HMR handling script(s).
+ */
+export type InjectClient = (
+  entrypoints: Webpack.Entry,
+) => Webpack.Entry

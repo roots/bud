@@ -1,5 +1,4 @@
-import type {Bud} from '@roots/bud-typings'
-import type {Configuration} from 'webpack'
+import type {Framework, Webpack} from '@roots/bud-typings'
 import Service from './Service'
 
 /**
@@ -21,7 +20,7 @@ export default class extends Service {
    * bud.mode.get()
    * ```
    */
-  public get(): Configuration['mode'] {
+  public get(): Webpack.Configuration['mode'] {
     return this.bud.config.get('mode')
   }
 
@@ -38,7 +37,7 @@ export default class extends Service {
    * bud.mode.set('production')
    * ```
    */
-  public set(mode: Configuration['mode']): Bud {
+  public set(mode: Webpack.Configuration['mode']): Framework {
     this.bud.config.set('mode', mode)
 
     return this.bud
@@ -58,7 +57,7 @@ export default class extends Service {
    * // returns true if bud.mode.get() === 'production'
    * ```
    */
-  public is(check: Configuration['mode']): boolean {
+  public is(check: Webpack.Configuration['mode']): boolean {
     return this.bud.config.is('mode', check)
   }
 }

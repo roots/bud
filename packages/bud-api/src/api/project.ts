@@ -1,4 +1,4 @@
-import {Bud} from '@roots/bud-typings'
+import {Framework} from '@roots/bud-typings'
 
 export const project: Project = function (segment) {
   return segment
@@ -6,4 +6,4 @@ export const project: Project = function (segment) {
     : this.fs.getBase() ?? process.cwd()
 }
 
-export type Project<T = Bud> = (this: T, path?: string) => string
+export type Project = (this: Framework, path?: string) => string

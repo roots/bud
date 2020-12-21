@@ -1,4 +1,4 @@
-import type {Bud} from '@roots/bud-typings'
+import type {Framework} from '@roots/bud-typings'
 
 export const copy: Copy = function (
   from,
@@ -41,4 +41,7 @@ export namespace Copy {
   }
 }
 
-export type Copy<T = Bud> = (this: T, options: Copy.Options) => T
+export type Copy = (
+  this: Framework,
+  options: Copy.Options,
+) => Framework

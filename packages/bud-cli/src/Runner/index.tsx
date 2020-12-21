@@ -1,7 +1,7 @@
 import {React, render, Instance} from '@roots/bud-support'
 import Compile from '../containers/Compile'
 import {Serve} from '../containers/Serve'
-import type {Bud} from '@roots/bud-typings'
+import type {Framework} from '@roots/bud-typings'
 
 /**
  * ## bud.cli
@@ -10,7 +10,7 @@ import type {Bud} from '@roots/bud-typings'
  */
 export class Runner {
   /** Bud reference */
-  public bud: Bud
+  public bud: Framework
 
   /**
    * ## bud.cli.instance
@@ -22,7 +22,7 @@ export class Runner {
   /**
    * Class constructor.
    */
-  constructor(bud: Bud) {
+  constructor(bud: Framework) {
     this.bud = bud
     this.run = this.run.bind(this)
   }

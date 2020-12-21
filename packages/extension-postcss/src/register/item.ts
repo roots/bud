@@ -1,14 +1,14 @@
-import {Item, Bud} from '@roots/bud-typings'
+import {Item, Framework} from '@roots/bud-typings'
 
 /**
  * PostCSS identifer
  */
-export const ident: Item.Contract['ident'] = 'postcss'
+export const ident: Item['ident'] = 'postcss'
 
 /**
  * PostCSS loader
  */
-export const loader: Item.Contract['loader'] = 'postcss-loader'
+export const loader: Item['loader'] = 'postcss-loader'
 
 /**
  * Fallback options if no postcss.config.js is found.
@@ -37,7 +37,7 @@ const fallbackOptions = {
 /**
  * Postcss options
  */
-export const options: Item.Contract['options'] = (bud: Bud) => {
+export const options: Item['options'] = (bud: Framework) => {
   const config = bud.fs.has('postcss.config.js')
     ? bud.fs.get('postcss.config.js')
     : null

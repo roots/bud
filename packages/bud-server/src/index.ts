@@ -1,1 +1,2 @@
-export * from './Server'
+import Server from './Server'
+export {Server}

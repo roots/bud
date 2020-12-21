@@ -1,4 +1,4 @@
-import {Bud} from '@roots/bud-typings'
+import {Framework} from '@roots/bud-typings'
 
 export const run: Run = function (safeMode = false) {
   if (!safeMode && !this.mode.ci) {
@@ -33,16 +33,16 @@ const ci = {
   /**
    * Production build
    */
-  production: function (this: Bud) {
+  production: function (this: Framework) {
     this.compiler.run()
   },
 
   /**
    * Development build
    */
-  development: function (this: Bud) {
+  development: function (this: Framework) {
     this.server.run()
   },
 }
 
-export type Run<T = Bud> = (this: T, safeMode?: boolean) => void
+export type Run = (this: Framework, safeMode?: boolean) => void

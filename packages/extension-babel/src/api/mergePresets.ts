@@ -1,4 +1,4 @@
-import {Bud} from '@roots/bud-typings'
+import {Framework} from '@roots/bud-typings'
 import type {PluginTarget, PluginOptions} from '@babel/core'
 
 /**
@@ -6,7 +6,7 @@ import type {PluginTarget, PluginOptions} from '@babel/core'
  */
 export const mergePresets = function (
   presets: [PluginTarget, PluginOptions][],
-): Bud {
+): Framework {
   this.build.items.merge(
     'babel.options.presets',
     presets.map(preset =>

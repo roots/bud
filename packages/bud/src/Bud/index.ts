@@ -1,9 +1,8 @@
 import {Framework} from '@roots/bud-framework'
-import type Contract from './interface'
+import * as Api from '@roots/bud-api'
+
 import type {Container} from '@roots/container'
-import type * as Api from '@roots/bud-api'
 import type {Brotli} from '../components/extensions'
-import type {Imagemin} from '@roots/bud-imagemin'
 
 /**
  * ## Bud
@@ -16,7 +15,7 @@ import type {Imagemin} from '@roots/bud-imagemin'
  * [📦 @roots/bud](https://github.io/roots/bud)
  * [🔗 Documentation](#)
  */
-class Bud extends Framework implements Contract {
+export default class Bud extends Framework {
   /**
    * ## bud.addPlugin  [💁 Fluent]
    *
@@ -53,25 +52,6 @@ class Bud extends Framework implements Contract {
    * ```
    */
   public alias: Api.Alias
-
-  /**
-   * ## bud.buildCache  [💁 Fluent]
-   *
-   * Cache module output that remains unchanged between builds. [🔗 Documentation](#)
-   *
-   * ### Usage
-   *
-   * ```js
-   * bud.buildCache()
-   * ```
-   *
-   * #### Specify an output path for the JSON used for cache busting
-   *
-   * ```js
-   * bud.buildCache(bud.project('./.build'))
-   * ```
-   */
-  public buildCache: Api.BuildCache
 
   /**
    * ## bud.brotli  [💁 Fluent]
@@ -338,97 +318,6 @@ class Bud extends Framework implements Contract {
   public hash: Api.Hash
 
   /**
-   * ## bud.imagemin [💁 Fluent]
-   *
-   * Losslessly images with imagemin.
-   *
-   * [🔗 Documentation](#)
-   *
-   * ### Usage
-   *
-   * ```js
-   * bud.imagemin()
-   * ```
-   *
-   * ```js
-   * bud.imagemin(false) // disable
-   * ```
-   */
-  public imagemin: Imagemin.Config
-
-  /**
-   * ## bud.imageminOption [💁 Fluent]
-   *
-   * Configure imagmin setting
-   *
-   * [🔗 bud.imagemin documentation](#)
-   *
-   * [🔗 image-minimizer-webpack-plugin documentation](https://webpack.js.org/plugins/image-minimizer-webpack-plugin/)
-   *
-   * ### Usage
-   *
-   * ```js
-   * bud.imageminOption('severityError', 'warning')
-   * ```
-   */
-  public imageminOption: Imagemin.ConfigOption
-
-  /**
-   * ## bud.imageminPlugins [💁 Fluent]
-   *
-   * Customize imagemin plugins.
-   *
-   * - [🔗 Documentation](#)
-   *
-   * ### Usage
-   *
-   * Shown with defaults:
-   *
-   * ```js
-   * bud.imageminPlugins([
-   *   ['gifsicle', {interlaced: true}],
-   *   ['jpegtran', {progressive: true}],
-   *   ['optipng', {optimizationLevel: 5}],
-   *   [
-   *     'svgo',
-   *     {
-   *       plugins: [
-   *         {
-   *           removeViewBox: false,
-   *         },
-   *       ],
-   *     },
-   *   ],
-   * ])
-   * ```
-   */
-  public imageminPlugins: Imagemin.ConfigPlugins
-
-  /**
-   * ## bud.library  [💁 Fluent]
-   *
-   * Enables DLL ([dynamic link library](https://en.wikipedia.org/wiki/Dynamic-link_library))
-   * caching of specified modules.
-   *
-   * - [🔗 Documentation](#)
-   *
-   * ### Usage
-   *
-   * Pass `bud.library` the module you would like to add to the DLL cache:
-   *
-   * ```js
-   * bud.library('jquery')
-   * ```
-   *
-   * Multiple modules can be added at once by passing an array
-   *
-   * ```js
-   * bud.library(['react', 'react-dom'])
-   * ```
-   */
-  public library: Api.Library
-
-  /**
    * ## bud.minify  [💁 Fluent]
    *
    * `bud.minify` enables minification of static assets. [🔗 Documentation](#)
@@ -614,6 +503,25 @@ class Bud extends Framework implements Contract {
   public string: Api.Stringify
 
   /**
+   * ## bud.storage  [💁 Fluent]
+   *
+   * Cache module output that remains unchanged between builds. [🔗 Documentation](#)
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.storage()
+   * ```
+   *
+   * #### Specify an output path for the JSON used for cache busting
+   *
+   * ```js
+   * bud.storage(bud.project('./.build'))
+   * ```
+   */
+  public storage: Api.Storage
+
+  /**
    * ## bud.target  [💁 Fluent]
    *
    * Set the webpack build target. Default is 'web'. [🔗 Documentation](#)
@@ -643,16 +551,6 @@ class Bud extends Framework implements Contract {
    * ```
    */
   public template: Api.Template
-
-  /**
-   * ## bud.terser  [💁 Fluent]
-   *
-   * Configure the minifier. [🔗 Documentation](#)
-   *
-   * For more information on options [see the
-   * terser-webpack-plugin docs](https://webpack.js.org/plugins/terser-webpack-plugin/).
-   */
-  public terser: Api.Terser
 
   /**
    * ## bud.use [💁 Fluent]
@@ -710,9 +608,8 @@ class Bud extends Framework implements Contract {
    * Register framework components.
    */
   protected register(): void {
-    const containers = this.components.getEntries('containers')
-
-    containers
+    this.containers
+      .getEntries()
       .filter(
         ([name]: [string, Container['repository']]) =>
           name !== 'serverConfig',
@@ -724,7 +621,8 @@ class Bud extends Framework implements Contract {
       )
 
     this.server.setConfig(
-      containers
+      this.containers
+        .getEntries()
         .filter(
           ([name]: [string, Framework['repository']]) =>
             name == 'serverConfig',
@@ -759,9 +657,3 @@ class Bud extends Framework implements Contract {
       })
   }
 }
-
-declare namespace Bud {
-  export type {Contract}
-}
-
-export {Bud}

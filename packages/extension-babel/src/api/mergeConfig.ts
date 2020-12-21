@@ -1,4 +1,4 @@
-import type {Bud} from '@roots/bud-typings'
+import type {Framework} from '@roots/bud-typings'
 import type {TransformOptions} from '@babel/core'
 
 /**
@@ -6,7 +6,7 @@ import type {TransformOptions} from '@babel/core'
  */
 export const mergeConfig = function (
   opts: TransformOptions,
-): Bud {
+): Framework {
   opts.presets &&
     this.build.items.merge(
       'babel.options.presets',

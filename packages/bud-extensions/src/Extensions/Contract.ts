@@ -1,7 +1,8 @@
-import {Extension} from '../Extension'
+import Extension from '../Extension'
+
 import type {Container, MaybeCallable} from '@roots/bud-typings'
 
-declare interface Extensions {
+interface Extensions {
   /**
    * Get an extension instance.
    */
@@ -29,4 +30,4 @@ declare interface Extensions {
   getStore(): Container
 }
 
-export {Extensions}
+export default Extensions

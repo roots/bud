@@ -1,11 +1,10 @@
 import type {Item} from '@roots/bud-typings'
 
-export const ident: Item.Contract['ident'] = 'resolve-url'
+export const ident: Item['ident'] = 'resolve-url'
 
-export const loader: Item.Contract['loader'] =
-  'resolve-url-loader'
+export const loader: Item['loader'] = 'resolve-url-loader'
 
-export const options: Item.Contract['options'] = {
+export const options: Item['options'] = {
   root: '',
   sourceMap: true,
 }

@@ -1,4 +1,4 @@
-import {Bud, Server} from '@roots/bud-typings'
+import type {Framework, Server} from '@roots/bud-typings'
 
 export const dev: Dev = function (config) {
   if (config?.proxy?.host || config?.proxy?.port) {
@@ -10,4 +10,7 @@ export const dev: Dev = function (config) {
   return this
 }
 
-export type Dev<T = Bud> = (this: T, config: Server.Config) => T
+export type Dev = (
+  this: Framework,
+  config: Server.Config,
+) => Framework

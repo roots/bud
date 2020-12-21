@@ -17,6 +17,12 @@ import fs from 'fs-extra'
 import globby, {GlobTask, GlobbyOptions} from 'globby'
 import yargs from 'yargs'
 import execa from 'execa'
+import express from 'express'
+import prettier from 'prettier'
+import dotenv from 'dotenv'
+import pino from 'pino'
+import prettyFormat from 'pretty-format'
+import zlib from 'zlib'
 import React, {
   useEffect,
   useCallback,
@@ -45,36 +51,41 @@ import useStdoutDimensions from 'ink-use-stdout-dimensions'
 import webpack, {Stats} from 'webpack'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
-import proxyMiddleware from 'http-proxy-middleware'
-import express from 'express'
+import ProxyMiddleware, {
+  createProxyMiddleware,
+} from 'http-proxy-middleware'
 
-import prettier from 'prettier'
-import zlib from 'zlib'
 import useSwr, {mutate} from 'swr'
 
+import * as build from './build'
+
 export {
+  /**
+   * Build utilities (bud devo)
+   */
+  build,
   /**
    * Execa
    */
   execa,
   /**
-   * FS Extra
+   * Dotenv
+   */
+  dotenv,
+  /**
+   * Express
+   */
+  express,
+  /**
+   * fs-extra
    */
   fs,
   /**
-   * Globby
+   * globby
    */
   globby,
   GlobTask,
   GlobbyOptions,
-  /**
-   * Prettier
-   */
-  prettier,
-  /**
-   * Yargs
-   */
-  yargs,
   /**
    * Lodash
    */
@@ -90,6 +101,38 @@ export {
   set,
   merge,
   /**
+   * pino
+   */
+  pino,
+  /**
+   * Prettier
+   */
+  prettier,
+  /**
+   * pretty-format
+   */
+  prettyFormat,
+  /**
+   * Webpack
+   */
+  webpack,
+  Stats,
+  /**
+   * Middlewares
+   */
+  webpackDevMiddleware,
+  webpackHotMiddleware,
+  ProxyMiddleware,
+  createProxyMiddleware,
+  /**
+   * Yargs
+   */
+  yargs,
+  /**
+   * Etc.
+   */
+  zlib,
+  /**
    * React
    */
   React,
@@ -100,6 +143,11 @@ export {
   ComponentState,
   FunctionComponent,
   ReactElement,
+  /**
+   * SWR
+   */
+  useSwr,
+  mutate,
   /**
    * Ink
    */
@@ -120,41 +168,14 @@ export {
   Spinner,
   Table,
   useStdoutDimensions,
-  /**
-   * SWR
-   */
-  useSwr,
-  mutate,
-  /**
-   * Express
-   */
-  express,
-  /**
-   * Webpack
-   */
-  webpack,
-  Stats,
-  /**
-   * Middlewares
-   */
-  webpackDevMiddleware,
-  webpackHotMiddleware,
-  proxyMiddleware,
-  /**
-   * Etc.
-   */
-  zlib,
 }
 
 /**
  * Grab bag
  */
 export {eslintFormatter} from './util'
-export {launchEditor} from './util'
-export {launchEditorEndpoint} from './util'
-export {notify} from './util'
-export {formatWebpackMessages} from './util'
-export {WatchMissingNodeModulesPlugin} from './util'
-export {InterpolateHtmlPlugin} from './util'
-export {checkRequiredFiles, dump} from './util'
-export {processHandler} from './util'
+export {notify} from './util/notify'
+export {dump} from './util/dump'
+
+import InterpolateHtmlPlugin from './util/InterpolateHtmlPlugin'
+export {InterpolateHtmlPlugin}

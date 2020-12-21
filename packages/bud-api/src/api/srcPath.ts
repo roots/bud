@@ -1,4 +1,4 @@
-import {Bud} from '@roots/bud-typings'
+import type {Framework} from '@roots/bud-typings'
 
 export const srcPath: SrcPath = function (segment) {
   /** Bounce early if src is overwritten from CLI */
@@ -9,4 +9,7 @@ export const srcPath: SrcPath = function (segment) {
   return this
 }
 
-export type SrcPath<T = Bud> = (this: T, segment: string) => T
+export type SrcPath = (
+  this: Framework,
+  segment: string,
+) => Framework

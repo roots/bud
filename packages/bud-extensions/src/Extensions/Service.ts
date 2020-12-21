@@ -1,29 +1,40 @@
-import {Extension} from '../Extension'
+import Extension from '../Extension'
+import Extensions from './Contract'
+
 import type {
-  Bud,
+  Framework,
   Container,
   MaybeCallable,
 } from '@roots/bud-typings'
 
-export default abstract class {
+export default abstract class implements Extensions {
   /**
    * Bud reference.
    */
-  public _bud: Bud.Ref
+  public _bud: () => Framework
 
   /**
    * Extensions container
    */
   public repository: Container
 
-  public constructor(bud: Bud) {
+  /**
+   * Class constructor
+   */
+  public constructor(bud: Framework) {
     this._bud = bud.get
   }
 
-  public get bud(): Bud {
+  /**
+   * Framework.Ref accessor
+   */
+  public get bud(): Framework {
     return this._bud()
   }
 
+  /**
+   * Service initializer
+   */
   public init(): void {
     this.repository = this.bud.makeContainer({})
   }

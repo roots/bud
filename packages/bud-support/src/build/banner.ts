@@ -14,4 +14,4 @@ const banner = (pkg: any): string => `/**
 
  `
 
-export {banner}
+export default banner

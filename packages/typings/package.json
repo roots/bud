@@ -22,9 +22,7 @@
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "./packages"
-  ],
+  "files": ["./packages"],
   "types": "./packages/index.d.ts",
   "scripts": {
     "build": "tsc"
@@ -32,23 +30,8 @@
   "devDependencies": {
     "@types/express": "^4.17.9",
     "@types/node": "^14.11.2",
-    "dotenv": "^8.2.0",
-    "express": "^4.17.1",
-    "http-proxy-middleware": "^1.0.6",
     "ink": "^3.0.0-6",
-    "ink-gradient": "^1.0.0",
-    "ink-link": "^1.1.0",
-    "ink-spinner": "^4.0.0-0",
-    "ink-use-stdout-dimensions": "^1.0.5",
-    "patch-console": "^1.0.0",
-    "prettier": "^2.1.1",
-    "react": "^16.13.1",
-    "react-dev-utils": "^10.2.1",
-    "react-dom": "^16.13.1",
-    "webpack": "^4.44.2",
-    "webpack-dev-middleware": "^3.7.2",
-    "webpack-hot-middleware": "^2.25.0",
-    "zlib": "^1.0.5"
+    "webpack": "^4.44.2"
   },
-  "gitHead": "9d736f0b44384c1f66b94462145c11e618aa166d"
+  "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
 }

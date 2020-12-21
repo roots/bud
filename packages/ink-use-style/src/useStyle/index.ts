@@ -21,7 +21,6 @@ export const useStyle: UseStyle = (
    */
   const {data: theme} = useSwr('theme', {
     initialData,
-    refreshInterval: 0,
     revalidateOnFocus: false,
   })
 

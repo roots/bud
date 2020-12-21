@@ -1,12 +1,10 @@
-export as namespace Framework
-
 /**
  * Externals
  */
-import Webpack from 'webpack'
+import type Webpack from 'webpack'
 export type {Webpack}
 
-import * as Express from 'express'
+import type Express from 'express'
 export type {Express}
 
 /**
@@ -15,17 +13,30 @@ export type {Express}
 export * from './utility'
 
 /**
- * @roots/bud
+ * @roots/bud-framework
  */
-export type {Framework as Bud} from '../../bud-framework/src'
+export type {Framework} from '../../bud-framework/src'
+
+/**
+ * Env
+ */
+import type Env from '../../bud-framework/src/Env'
+export type {Env}
+
+/**
+ * Logger
+ */
+import type Logger from '../../bud-framework/src/Logger'
+export type {Logger}
 
 /**
  * @roots/bud-build
  */
-export type {Build} from '../../bud-build/src/typings'
-export * as Item from './Item'
-export type {Loader} from './Loader'
-export * as Rule from './Rule'
+import type Build from '../../bud-build/src/Build'
+import type Item from '../../bud-build/src/Item'
+import type Rule from '../../bud-build/src/Rule'
+import type Loader from '../../bud-build/src/Loader'
+export type {Build, Item, Loader, Rule}
 
 /**
  * @roots/bud-cache
@@ -35,7 +46,12 @@ export type {Cache} from '../../bud-cache/src'
 /**
  * @roots/bud-cli
  */
-export * as CLI from './CLI'
+import type {Error} from '../../bud-cli/src/Error'
+import type {Runner} from '../../bud-cli/src/Runner'
+
+export namespace CLI {
+  export type {Error, Runner}
+}
 
 /**
  * @roots/bud-compiler
@@ -50,18 +66,16 @@ export type {Container} from '../../container/src/Container'
 /**
  * @roots/dependencies
  */
-export * as Dependencies from '../../dependencies/src/dependencies'
+import type Dependencies from '../../dependencies/src/dependencies'
+export type {Dependencies}
 
 /**
  * @roots/bud-extensions
  */
-export {Extension} from '../../bud-extensions/src/Extension'
-export {Extensions} from '../../bud-extensions/src/Extensions'
-
-/**
- * Env
- */
-export type {Env} from './Env'
+import type Extension from '../../bud-extensions/src/Extension'
+import type Extensions from '../../bud-extensions/src/Extensions'
+import type Module from '../../bud-extensions/src/Module'
+export type {Extension, Extensions, Module}
 
 /**
  * @roots/filesystem
@@ -75,11 +89,6 @@ export type {FileSystem} from '../../filesystem/src/FileSystem'
 export type {Hooks} from '../../bud-hooks/src/Hooks'
 
 /**
- * Logger
- */
-export type {Logger} from './Logger'
-
-/**
  * @roots/bud-server
  */
-export * as Server from './Server'
+export type {Server} from '../../bud-server/src'

@@ -1,41 +1,26 @@
-import Framework from '@roots/bud-typings'
-
-export {Item, Item as default}
-
-type Contract = Framework.Item.Contract
-type Module = Framework.Item.Module
-type RuleSetLoader = Framework.Item.RuleSetLoader
+import Base from './Item'
+import Contract from './Contract'
+import {
+  Index,
+  Framework,
+  MaybeCallable,
+  Webpack,
+} from '@roots/bud-typings'
 
 /**
  * Webpack RuleSetUseItem
  */
-class Item implements Contract {
-  bud: Framework.Bud
+class Item extends Base implements Contract {
+  public constructor(bud: Framework, module: Item.Module) {
+    super(bud)
 
-  ident?: Contract['ident']
-
-  loader?: Contract['loader']
-
-  options?: Contract['options']
-
-  query?: Contract['query']
-
-  /**
-   * Class constructor.
-   */
-  constructor(bud: Framework.Bud, module: Module) {
     this.set = this.set.bind(this)
     this.make = this.make.bind(this)
-
-    this.bud = bud
 
     this.set(module)
   }
 
-  /**
-   * Prop map
-   */
-  public propMap: Contract['propMap'] = function () {
+  public propMap: Item.PropMap = function () {
     return {
       ident: [this.ident, this.bud],
       query: [this.query, this.bud],
@@ -47,7 +32,7 @@ class Item implements Contract {
   /**
    * Set the loader definition
    */
-  public set: Contract['set'] = function (module: Module): void {
+  public set: Item.Setter<Item.Module> = function (module) {
     Object.entries(module).map(([key, item]) => {
       this[key] = item
     })
@@ -56,30 +41,34 @@ class Item implements Contract {
   /**
    * Get the loader ident
    */
-  public getIdent: Contract['getIdent'] = function () {
+  public getIdent: Item.Getter<Item.Module.Ident> = function () {
     return this.ident
   }
 
   /**
    * Set the loader ident
    */
-  public setIdent = function (ident: Module['ident']): void {
+  public setIdent: Item.Setter<Item.Module.Ident> = function (
+    ident,
+  ) {
     this.ident = ident
   }
 
   /**
    * Get the loader ident
    */
-  public getOptions = function (): Module['options'] {
+  public getOptions: Item.Getter<
+    Item.Module.Options
+  > = function () {
     return this.options
   }
 
   /**
    * Set the loader options
    */
-  public setOptions = function (
-    options: Module['options'],
-  ): void {
+  public setOptions: Item.Setter<
+    Item.Module.Options
+  > = function (options): void {
     this.options = options
   }
 
@@ -95,22 +84,26 @@ class Item implements Contract {
   /**
    * Set the loader query
    */
-  public setQuery = function (query: Module['query']): void {
+  public setQuery: Item.Setter<Item.Module.Query> = function (
+    query,
+  ) {
     this.query = query
   }
 
   /**
    * Get the loader ident
    */
-  public getLoader = function (): Item['loader'] {
+  public getLoader: Item.Getter<
+    Item.Module.Loader
+  > = function () {
     return this.loader
   }
 
   /**
    * Set the loader
    */
-  public setLoader: Contract['setLoader'] = function (
-    loader: Module['loader'],
+  public setLoader: Item.Setter<Item.Module.Loader> = function (
+    loader,
   ): void {
     this.loader = loader
   }
@@ -118,31 +111,26 @@ class Item implements Contract {
   /**
    * Make an item for use in a rule.
    */
-  public make: Contract['make'] = function () {
+  public make: () => Item.RuleSetLoader = function () {
     return (
       // Get the map of props to items
       Object.entries(this.propMap())
 
         // First out nullish values, etc.
         .filter(
-          ([, [value]]: [
-            string,
-            [Framework.Item.Property, unknown],
-          ]) => value !== null && value !== undefined,
+          ([, [value]]: [string, [Item.Property, unknown]]) =>
+            value !== null && value !== undefined,
         )
 
         // Then, reduce the set, tapping callables during translation
         .reduce(
           (
-            fields: RuleSetLoader,
+            fields: Item.RuleSetLoader,
             [property, [value, param]]: [
               string,
-              [
-                Framework.MaybeCallable<Framework.Item.Property>,
-                unknown,
-              ],
+              [MaybeCallable<Item.Property>, unknown],
             ],
-          ): RuleSetLoader => {
+          ): Item.RuleSetLoader => {
             /**
              * A property value can be calculated
              * in a couple different ways.
@@ -169,3 +157,77 @@ class Item implements Contract {
     )
   }
 }
+
+declare namespace Item {
+  /**
+   * @see {Rule.Module}
+   */
+  export type RuleSetLoader = {
+    /**
+     * Unique loader identifier
+     */
+    ident?: string
+
+    /**
+     * Loader name
+     */
+    loader?: string
+
+    /**
+     * Loader options
+     */
+    options?: Index<any>
+
+    /**
+     * Loader query
+     */
+    query?: Webpack.RuleSetQuery
+  }
+
+  export type PropMap = () => Index<
+    [Item.Property, Index<string> | Framework]
+  >
+
+  export type Getter<T> = () => T
+
+  export type Setter<T> = (prop: T) => void
+
+  export type Product = {
+    ident?: MaybeCallable<string>
+    loader?: MaybeCallable<string>
+    options?: MaybeCallable<Webpack.RuleSetLoader['options']>
+    query?: MaybeCallable<Module.Query>
+  }
+
+  export type Factory<OutType> = (any) => OutType
+
+  export type Module = {
+    ident?: Module.Ident
+    loader?: Module.Loader
+    options?: Module.Options
+    query?: Module.Query
+  }
+
+  export namespace Module {
+    export type Ident = MaybeCallable<string>
+    export type Loader = MaybeCallable<string>
+    export type Options = MaybeCallable<
+      Webpack.RuleSetLoader['options']
+    >
+    export type Query = MaybeCallable<Webpack.RuleSetQuery>
+  }
+
+  export type Property =
+    | string
+    | string
+    | {[k: string]: any} // do not support 'string' from query
+    | Webpack.RuleSetLoader['query']
+
+  export type Untapped = MaybeCallable<Property>
+
+  export type PropertyTuple = [string, MaybeCallable<Property>]
+
+  export type Valid = Omit<Untapped, undefined | null>[]
+}
+
+export default Item

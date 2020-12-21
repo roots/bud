@@ -1,19 +1,21 @@
-import {Factory, Fluent, Rule, Bud} from '@roots/bud-typings'
+import {
+  Factory,
+  Fluent,
+  Rule,
+  Framework,
+} from '@roots/bud-typings'
 
-/**
- * Bud.Sass
- */
 export as namespace Sass
 
 export declare type Conditional = Factory<Rule.Conditional>
 
 export declare type Exclude = Factory<Rule.Conditional>
 
-export declare type UseLoader = (loader: string) => Rule.Contract
+export declare type UseLoader = (loader: string) => Rule
 
 export interface Sass {
-  bud: Bud
-  methods: Array<[string, (cfg: any) => Bud]>
+  bud: Framework
+  methods: Array<[string, (cfg: any) => Framework]>
   init: Fluent<Sass>
-  then: (this: Sass) => Bud
+  then: (this: Sass) => Framework
 }

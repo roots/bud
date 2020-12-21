@@ -1,6 +1,8 @@
-import type {Bud, Webpack} from '@roots/bud-typings'
+import type {Framework, Webpack} from '@roots/bud-typings'
 
-export default function (this: Bud): Webpack.RuleSetRule[] {
+export default function (
+  this: Framework,
+): Webpack.RuleSetRule[] {
   return this.hooks.filter(
     `webpack.module.rules.pre`,
     this.build.rules

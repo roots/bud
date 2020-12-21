@@ -1,16 +1,14 @@
 import type {
-  Bud,
+  Framework,
   Container,
   Loader,
-  Item as ItemDefinition,
-  Rule as RuleDefinition,
+  Webpack,
 } from '@roots/bud-typings'
-import {Build as IBuild} from '../typings'
+import Base from './Build'
+import Contract from './Contract'
+import Item from '../Item'
+import Rule from '../Rule'
 import * as builders from '../builders'
-import {Item} from '../Item'
-import {Rule} from '../Rule'
-
-export type Configuration = Framework.Webpack.Configuration
 
 /**
  * ## bud.build
@@ -22,21 +20,14 @@ export type Configuration = Framework.Webpack.Configuration
  * [📦 @roots/bud-server](https://www.npmjs.com/package/@roots/bud-build)
  * [🔗 Documentation](#)
  */
-export class Build implements IBuild {
-  /** Bud reference [🏠 Internal] */
-  public bud: Bud.Ref
-
-  public init(): void {
-    return
-  }
-
+class Build extends Base implements Contract {
   /**
    * ## bud.build.builders [🏠 Internal]
    *
    * Collection of functions processing loaders, items and rules
    * into a finalized webpack configuration.
    */
-  public builders: Partial<IBuild.Builder> = builders
+  public builders: Partial<Build.Builder> = builders
 
   /**
    * ## bud.build.loaders
@@ -66,32 +57,21 @@ export class Build implements IBuild {
   public rules: Container
 
   /**
-   * Constructor
-   */
-  public constructor(bud: Bud) {
-    this.bud = bud.get
-
-    this.loaders = bud.makeContainer()
-    this.items = bud.makeContainer({})
-    this.rules = bud.makeContainer({})
-  }
-
-  /**
    * ## bud.build.make
    *
    * Produce a final webpack config.
    */
-  public make(): Configuration {
+  public make(): Webpack.Configuration {
     const config = Object.entries(builders).reduce(
       (
         config,
         [, builder]: [
           string,
-          (this: Bud) => Partial<Configuration>,
+          (this: Framework) => Partial<Webpack.Configuration>,
         ],
       ) => ({
         ...config,
-        ...builder.bind(this.bud())(),
+        ...builder.bind(this.bud)(),
       }),
       {},
     )
@@ -105,8 +85,8 @@ export class Build implements IBuild {
    * Filter rubbish config items.
    */
   public filterEmpty(
-    object: Partial<Configuration>,
-  ): Partial<Configuration> {
+    object: Partial<Webpack.Configuration>,
+  ): Partial<Webpack.Configuration> {
     return Object.entries(object).reduce((acc, [key, value]) => {
       return !value || value == {} ? acc : {...acc, [key]: value}
     }, {})
@@ -129,8 +109,8 @@ export class Build implements IBuild {
   public setLoader(
     this: Build,
     name: string,
-    loader: Framework.Loader,
-  ): Framework.Loader {
+    loader: Loader,
+  ): Loader {
     this.loaders.set(name, loader)
 
     return this.loaders.get(name)
@@ -141,7 +121,7 @@ export class Build implements IBuild {
    *
    * Get an item  from the store.
    */
-  public getItem(name: string): ItemDefinition.Contract {
+  public getItem(name: string): Item {
     return this.items.get(name)
   }
 
@@ -150,11 +130,8 @@ export class Build implements IBuild {
    *
    * Set an item to the store. Returns the set item.
    */
-  public setItem(
-    name: string,
-    module: ItemDefinition.Module,
-  ): ItemDefinition.Contract {
-    this.items.set(name, new Item(this.bud(), module).make())
+  public setItem(name: string, module: Item.Module): Item {
+    this.items.set(name, new Item(this.bud, module).make())
 
     return this.items.get(name)
   }
@@ -164,7 +141,7 @@ export class Build implements IBuild {
    *
    * Get a rule from the store.
    */
-  public getRule(name: string): RuleDefinition.Contract {
+  public getRule(name: string): Rule {
     return this.rules.get(name)
   }
 
@@ -173,12 +150,18 @@ export class Build implements IBuild {
    *
    * Set a rule to the store. Returns the set rule.
    */
-  public setRule(
-    name: string,
-    module: RuleDefinition.Module,
-  ): RuleDefinition.Contract {
-    this.rules.set(name, new Rule(this.bud(), module).make())
+  public setRule(name: string, module: Rule.Module): Rule {
+    this.rules.set(name, new Rule(this.bud, module).make())
 
     return this.rules.get(name)
   }
 }
+
+declare namespace Build {
+  export type Builder = (
+    this: Framework,
+    config: Container,
+  ) => Partial<Webpack.Configuration>
+}
+
+export default Build

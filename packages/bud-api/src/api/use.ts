@@ -1,11 +1,10 @@
-/* eslint-disable @typescript-eslint/no-var-requires */
 import {
   isArray,
   isArrayLike,
   isObject,
   isString,
 } from '@roots/bud-support'
-import type {Bud, Extension} from '@roots/bud-typings'
+import type {Framework, Module} from '@roots/bud-typings'
 
 export const use: Use = function (extensions) {
   isString(extensions)
@@ -17,7 +16,7 @@ export const use: Use = function (extensions) {
           }
 
           return this.extensions.set(
-            ...(extension as [string, Extension.Module]),
+            ...(extension as [string, Module]),
           )
         },
       )
@@ -41,14 +40,14 @@ function ensureIterable(extensions) {
 
 export type ExtensionTuple = [
   string,
-  Extension.Module | ((bud: Bud) => Extension.Module),
+  Module | ((bud: Framework) => Module),
 ]
 
-export type Use<T = Bud> = (
-  this: T,
+export type Use = (
+  this: Framework,
   extensions:
     | string
     | string[]
     | ExtensionTuple
     | ExtensionTuple[],
-) => T
+) => Framework

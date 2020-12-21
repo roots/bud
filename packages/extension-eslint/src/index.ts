@@ -4,7 +4,7 @@ import {Options, Make, When, Boot, Api} from './types'
 /**
  * Bud custom formatter for teletype logging.
  */
-import {eslintFormatter as formatter} from '@roots/bud-support'
+import {eslintFormatter} from '@roots/bud-support'
 
 /**
  * On boot, set defaults and add presets.
@@ -26,7 +26,7 @@ export const options: Options = bud => ({
   context: bud.project(),
   eslintPath: require.resolve('eslint'),
   fix: false,
-  formatter,
+  formatter: eslintFormatter,
 })
 
 /**

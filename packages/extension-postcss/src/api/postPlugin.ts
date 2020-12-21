@@ -1,4 +1,4 @@
-import {Bud} from '@roots/bud-typings'
+import {Framework} from '@roots/bud-typings'
 import {AcceptedPlugin} from '../types'
 
 export const postPlugin: PostPlugin = function (
@@ -25,7 +25,7 @@ export const postPlugin: PostPlugin = function (
  * ```
  */
 export type PostPlugin = (
-  this: Bud,
+  this: Framework,
   plugin: AcceptedPlugin,
   options?: unknown,
-) => Bud
+) => Framework

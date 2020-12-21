@@ -1,13 +1,13 @@
-import {Bud} from '@roots/bud-typings'
+import {Framework} from '@roots/bud-typings'
 
 export default abstract class {
-  _bud: Bud.Ref
+  _bud: () => Framework
 
-  public constructor(bud: Bud) {
+  public constructor(bud: Framework) {
     this._bud = bud.get
   }
 
-  public get bud(): Bud {
+  public get bud(): Framework {
     return this._bud()
   }
 

@@ -1,16 +1,15 @@
-import type Webpack from 'webpack'
 import {VueLoaderPlugin} from 'vue-loader'
-import {Extension, Item, Loader} from '@roots/bud-typings'
+import {Module, Item, Loader, Webpack} from '@roots/bud-typings'
 
 /** Patched compiler.*/
 /* eslint-disable */
 const compiler = require('./vue-template-compiler/index')
 
-export const registerLoaders: Extension.Module.RegisterMany<Loader> = {
+export const registerLoaders: Module.RegisterMany<Loader> = {
   vue: require.resolve('vue-loader'),
 }
 
-export const registerItems: Extension.Module.RegisterMany<Item.Module> = {
+export const registerItems: Module.RegisterMany<Item.Module> = {
   vue: {
     ident: 'vue',
     loader: 'vue',
@@ -23,7 +22,7 @@ export const registerItems: Extension.Module.RegisterMany<Item.Module> = {
 /**
  * Boot the Vue extension.
  */
-export const boot: Extension.Module.Boot = bud => {
+export const boot: Module.Boot = bud => {
   /**
    * Add vue loader style rules.
    */

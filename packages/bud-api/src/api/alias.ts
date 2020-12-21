@@ -1,4 +1,4 @@
-import type {Bud} from '@roots/bud-typings'
+import type {Framework} from '@roots/bud-typings'
 
 export const alias: Alias = function (alias) {
   this.config.has('resolve.alias')
@@ -11,9 +11,9 @@ export const alias: Alias = function (alias) {
   return this
 }
 
-export type Alias<T = Bud> = (
-  this: T,
+export type Alias = (
+  this: Framework,
   aliases: {
     [key: string]: string
   },
-) => T
+) => Framework

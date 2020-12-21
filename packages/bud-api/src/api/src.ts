@@ -1,4 +1,4 @@
-import type {Bud} from '@roots/bud-typings'
+import type {Framework} from '@roots/bud-typings'
 
 export const src: Src = function (segment?) {
   return segment
@@ -6,4 +6,4 @@ export const src: Src = function (segment?) {
     : this.config.get('context')
 }
 
-export type Src<T = Bud> = (this: T, segment?: string) => string
+export type Src = (this: Framework, segment?: string) => string
