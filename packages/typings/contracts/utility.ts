@@ -1,4 +1,4 @@
-import {Framework, Module} from '../'
+import {Framework} from './'
 
 /**
  * String keyed value.
@@ -24,8 +24,8 @@ export type Use = (
 
 export namespace Use {
   export type Tuple =
-    | [string, Module]
-    | [string, Factory<Framework, Module>]
+    | [string, Framework.Module]
+    | [string, Factory<Framework, Framework.Module>]
 }
 
 export type When = (
