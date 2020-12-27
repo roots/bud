@@ -1,3 +1,3 @@
 #!/usr/bin/env node
 
-require('../lib/bud')
+require('../lib/cjs/bud')
