@@ -1,4 +1,4 @@
-name: test
+name: build
 
 on:
   push:
@@ -22,15 +22,14 @@ jobs:
   test:
     strategy:
       matrix:
-        platform: [ubuntu-latest, macOS-latest, windows-latest]
+        platform: [ubuntu-latest]
         node: ['14.9.0']
     name: test ${{matrix.node}}/${{matrix.platform}}
     runs-on: ${{matrix.platform}}
     steps:
-    - uses: actions/checkout@master
-    - uses: actions/setup-node@master
-      with:
-        node-version: ${{matrix.node}}
-    - run: npm install -g lerna
-    - run: lerna bootstrap
-    - run: lerna run build
+      - uses: actions/checkout@master
+      - uses: actions/setup-node@master
+        with:
+          node-version: ${{matrix.node}}
+      - run: yarn
+      - run: yarn build
