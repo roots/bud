@@ -1,7 +1,5 @@
 import {Service} from '@roots/bud-support'
-import type {Framework} from '@roots/bud-typings'
-
-import type Contract from './Contract'
+import type {Framework, Hooks} from '@roots/bud-typings'
 
 /**
  * ## bud.hooks
@@ -48,13 +46,13 @@ import type Contract from './Contract'
  */
 export default abstract class
   extends Service<Framework>
-  implements Contract {
+  implements Hooks {
   /**
    * ## Hooks.store [🏠 Internal]
    *
    * Hooks store.
    */
-  protected store: Contract.Store = {}
+  protected store: Hooks.Store = {}
 
   /**
    * ## bud.hooks.has
@@ -68,7 +66,7 @@ export default abstract class
    * // => `true` if there is a hook.
    * ```
    */
-  public abstract has: Contract.Has
+  public abstract has: Hooks.Has
 
   /**
    * ## bud.hooks.on
@@ -90,7 +88,7 @@ export default abstract class
    * )
    * ```
    */
-  public abstract on: Contract.On
+  public abstract on: Hooks.On
 
   /**
    * ## bud.hooks.action
@@ -111,7 +109,7 @@ export default abstract class
    * )
    * ```
    */
-  public abstract action: Contract.Action
+  public abstract action: Hooks.Action
 
   /**
    * ## bud.hooks.filter
@@ -132,5 +130,5 @@ export default abstract class
    * )
    * ```
    */
-  public abstract filter: Contract.Filter
+  public abstract filter: Hooks.Filter
 }

@@ -32,6 +32,7 @@ const useCompilation: UseCompilation.Hook = (bud: Framework) => {
 
     bud.compiler.compile()
     bud.compiler.applyPlugins(progressHandler)
+
     bud.compiler.instance.hooks.done.tap('stats', statsHandler)
 
     bud.mode.is('development')

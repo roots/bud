@@ -3,12 +3,12 @@ import {Item, Framework} from '@roots/bud-typings'
 /**
  * PostCSS identifer
  */
-export const ident: Item['ident'] = 'postcss'
+export const ident: Item.Module.Ident = 'postcss'
 
 /**
  * PostCSS loader
  */
-export const loader: Item['loader'] = 'postcss-loader'
+export const loader: Item.Module.Loader = 'postcss-loader'
 
 /**
  * Fallback options if no postcss.config.js is found.
@@ -24,7 +24,7 @@ const fallbackOptions = {
             flexbox: 'no-2009',
           },
           features: {
-            ['custom-properties']: false,
+            [`custom-properties`]: false,
           },
           stage: 3,
         },
@@ -37,7 +37,7 @@ const fallbackOptions = {
 /**
  * Postcss options
  */
-export const options: Item['options'] = (bud: Framework) => {
+export const options: Item.Module.Options = (bud: Framework) => {
   const config = bud.fs.has('postcss.config.js')
     ? bud.fs.get('postcss.config.js')
     : null

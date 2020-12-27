@@ -6,7 +6,11 @@
     "baseUrl": ".",
     "declaration": true,
     "declarationDir": "./types",
-    "declarationMap": true
+    "declarationMap": true,
+    "paths": {
+      "*": ["./src/*", "./src/@types/*"]
+    }
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["types", "lib"]
 }

@@ -234,13 +234,10 @@ export class Container<I = any> {
    * ```
    */
   public each<T = any>(
-    key?: string,
-    callFn?: (key: string, value: T) => T,
+    key: string,
+    callFn: (key: string, value: T) => void,
   ): this {
-    ;(key
-      ? this.getEntries(key)
-      : this.getEntries()
-    ).forEach(([key, value]: [string, T]) => [
+    this.getEntries(key).forEach(([key, value]: [string, T]) => [
       key,
       callFn(key, value),
     ])
@@ -280,7 +277,7 @@ export class Container<I = any> {
    */
   public mutateEntries<T = any>(
     key: string,
-    mutateFn?: (key: string, value: T) => T,
+    mutateFn: (key: string, value: T) => T,
   ): this {
     this.fromEntries(
       this.getEntries(key).map(([key, value]: [string, T]) => [
@@ -403,9 +400,9 @@ export class Container<I = any> {
    */
   public transform<T = any>(
     key: string,
-    transformFn: (value?: T) => T,
+    mutationFn: (value?: T) => T,
   ): T {
-    return transformFn(this.get(key))
+    return mutationFn(this.get(key))
   }
 
   /**

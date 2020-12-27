@@ -9,6 +9,8 @@ import lodash, {
   isString,
   isFunction,
   isEqual,
+  isNull,
+  isUndefined,
   get,
   has,
   set,
@@ -33,6 +35,7 @@ import React, {
   FunctionComponent,
   ReactElement,
 } from 'react'
+import useSwr, {mutate} from 'swr'
 import {
   Box,
   Instance,
@@ -49,18 +52,33 @@ import Spinner from 'ink-spinner'
 import Table from 'ink-table'
 import Gradient from 'ink-gradient'
 import useStdoutDimensions from 'ink-use-stdout-dimensions'
+
 import webpack, {Stats, ProgressPlugin} from 'webpack'
+type Webpack = typeof webpack
+
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import ProxyMiddleware, {
   createProxyMiddleware,
 } from 'http-proxy-middleware'
 
-import useSwr, {mutate} from 'swr'
+import {eslintFormatter} from './util'
+import {notify} from './util/notify'
+import {dump} from './util/dump'
+import InterpolateHtmlPlugin from './util/InterpolateHtmlPlugin'
 
+/**
+ * Application services
+ */
+import {Service, ServiceContainer} from './Service'
 import * as build from './build'
 
 export {
+  /**
+   * Framework service base class.
+   */
+  Service,
+  ServiceContainer,
   /**
    * Build utilities (bud devo)
    */
@@ -98,6 +116,8 @@ export {
   isString,
   isFunction,
   isEqual,
+  isNull,
+  isUndefined,
   get,
   has,
   set,
@@ -171,19 +191,13 @@ export {
   Spinner,
   Table,
   useStdoutDimensions,
+  /**
+   * Grab bag
+   */
+  eslintFormatter,
+  notify,
+  dump,
+  InterpolateHtmlPlugin,
 }
 
-/**
- * Application services
- */
-export {Service, ServiceContainer} from './Service'
-
-/**
- * Grab bag
- */
-export {eslintFormatter} from './util'
-export {notify} from './util/notify'
-export {dump} from './util/dump'
-
-import InterpolateHtmlPlugin from './util/InterpolateHtmlPlugin'
-export {InterpolateHtmlPlugin}
+export type {Webpack}

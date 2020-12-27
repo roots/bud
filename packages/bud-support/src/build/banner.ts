@@ -1,5 +1,5 @@
 /* eslint-disable */
-const banner = (pkg: any): string => `/**
+export const banner = (pkg: any): string => `/**
  * ${pkg.name} v.${pkg.version} {@link ${pkg.homepage}}
  *
  * ${pkg.description}
@@ -13,5 +13,3 @@ const banner = (pkg: any): string => `/**
  */
 
  `
-
-export default banner

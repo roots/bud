@@ -6,14 +6,13 @@ import {
 } from '@roots/bud-support'
 import Compile from '../containers/Compile'
 import {Serve} from '../containers/Serve'
-import type {Framework} from '@roots/bud-typings'
 
 /**
  * ## bud.cli
  *
  * Ink application controller.
  */
-export class Runner extends Service<Framework> {
+export class Runner extends Service {
   /**
    * Ink instance
    */

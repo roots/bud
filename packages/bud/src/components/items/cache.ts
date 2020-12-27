@@ -1,5 +1,5 @@
 import type {Item} from '@roots/bud-typings'
 
-export const ident: Item['ident'] = 'cache'
+export const ident: Item.Module.Ident = 'cache'
 
-export const loader: Item['loader'] = 'cache-loader'
+export const loader: Item.Module.Loader = 'cache-loader'

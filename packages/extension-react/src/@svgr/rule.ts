@@ -1,8 +1,8 @@
-import type {RegisterRule} from '../types'
+import type {Rule} from '@roots/bud-typings'
 
-export const test: RegisterRule.Test = ({patterns}) =>
+export const test: Rule.Module['test'] = ({patterns}) =>
   patterns.get('svg')
 
-export const use: RegisterRule.Use = ({build}) => [
+export const use: Rule.Module['use'] = ({build}) => [
   build.items.get('@svgr'),
 ]

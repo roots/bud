@@ -1,17 +1,13 @@
-import {Framework, Module} from '@roots/bud-typings'
+import {Framework} from '@roots/bud-framework'
+import {Module} from '@roots/bud-typings'
 
 export function entrypoints(
   this: Framework,
   options: Module.RawOptions,
 ): Framework {
-  const entrypoints = this.extensions.get(
-    '@roots/bud-entrypoints',
-  )
-
-  entrypoints.setOptions({
-    ...entrypoints.getOptions(),
-    ...options,
-  })
+  this.extensions
+    .get('@roots/bud-entrypoints')
+    .mergeStore(options)
 
   return this
 }

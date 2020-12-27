@@ -1,0 +1,113 @@
+module.exports = () => ({
+  entry: { 'create-bud-app': [ 'app.js', 'global.css' ] },
+  bail: true,
+  context: '/Users/kellymears/code/projects/cli/bud/bud/docs/examples/react/src',
+  mode: 'production',
+  name: '@roots/bud',
+  node: {
+    module: 'empty',
+    dns: 'mock',
+    fs: 'empty',
+    http2: 'empty',
+    net: 'empty',
+    tls: 'empty',
+    child_process: 'empty',
+    process: true,
+    global: true,
+    Buffer: true,
+    setImmediate: true,
+    __filename: 'mock',
+    __dirname: 'mock'
+  },
+  performance: { maxAssetSize: Infinity, maxEntrypointSize: 250000 },
+  recordsPath: '/Users/kellymears/code/projects/cli/bud/bud/docs/examples/react/.bud/records.json',
+  stats: 'none',
+  target: 'web',
+  module: {
+    unknownContextRequest: '.',
+    unknownContextRecursive: true,
+    unknownContextCritical: true,
+    exprContextRequest: '.',
+    exprContextRecursive: true,
+    exprContextCritical: true,
+    wrappedContextRegExp: /.*/,
+    wrappedContextRecursive: true
+  },
+  output: {
+    path: '/Users/kellymears/code/projects/cli/bud/bud/docs/examples/react/dist',
+    publicPath: '/',
+    filename: '[name].js',
+    chunkFilename: '[name].js',
+    webassemblyModuleFilename: '[modulehash].module.wasm',
+    hotUpdateFunction: 'webpackHotUpdate',
+    jsonpFunction: 'webpackJsonp',
+    chunkCallbackName: 'webpackChunk',
+    globalObject: 'window',
+    libraryTarget: 'var',
+    sourceMapFilename: '[file].map[query]',
+    hotUpdateChunkFilename: '[id].[hash].hot-update.js',
+    hotUpdateMainFilename: '[hash].hot-update.json',
+    chunkLoadTimeout: 120000,
+    hashFunction: 'md4',
+    hashDigest: 'hex',
+    hashDigestLength: 20
+  },
+  plugins: [
+    {
+      cleanStaleWebpackAssets: true,
+      protectWebpackAssets: true,
+      outputPath: '/Users/kellymears/code/projects/cli/bud/bud/docs/examples/react/dist'
+    },
+    { outputPath: './', name: 'webpack.config.dump', depth: 4 },
+    { version: 4 }
+  ],
+  resolve: {
+    extensions: [ '.wasm', '.mjs', '.js', '.json', '.css' ],
+    modules: [
+      '/Users/kellymears/code/projects/cli/bud/bud/docs/examples/react/src',
+      'node_modules',
+      '/Users/kellymears/code/projects/cli/bud/bud/node_modules'
+    ],
+    unsafeCache: true,
+    mainFiles: [ 'index' ],
+    aliasFields: [ 'browser' ],
+    mainFields: [ 'browser', 'module', 'main' ]
+  },
+  optimization: {
+    minimize: true,
+    removeAvailableModules: true,
+    removeEmptyChunks: true,
+    mergeDuplicateChunks: true,
+    flagIncludedChunks: true,
+    occurrenceOrder: true,
+    sideEffects: true,
+    providedExports: true,
+    usedExports: true,
+    concatenateModules: true,
+    splitChunks: {
+      hidePathInfo: true,
+      chunks: 'async',
+      minSize: 30000,
+      minChunks: 1,
+      maxAsyncRequests: 5,
+      automaticNameDelimiter: '~',
+      automaticNameMaxLength: 109,
+      maxInitialRequests: 3,
+      name: true
+    },
+    noEmitOnErrors: true,
+    checkWasmTypes: true,
+    portableRecords: true,
+    nodeEnv: 'production'
+  },
+  resolveLoader: {
+    unsafeCache: true,
+    mainFields: [ 'loader', 'main' ],
+    extensions: [ '.js', '.json' ],
+    mainFiles: [ 'index' ],
+    roots: [
+      '/Users/kellymears/code/projects/cli/bud/bud/docs/examples/react/src'
+    ]
+  },
+  infrastructureLogging: { level: 'info' }
+})

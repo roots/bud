@@ -1,4 +1,2 @@
-import Service from './Service'
-import ServiceContainer from './ServiceContainer'
-
-export {Service, ServiceContainer}
+export {Service} from './Service'
+export {ServiceContainer} from './ServiceContainer'

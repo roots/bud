@@ -2,25 +2,27 @@ import type {Webpack, Framework} from '@roots/bud-typings'
 
 declare type Rule = Webpack.RuleSetRule
 
-declare type BuildOneOf = (this: Framework) => Rule[]
+declare type Build = (this: Framework) => Rule[]
 
-declare type OneOfReducer = (
+declare type Reducer = (
   this: Framework,
   rules: Rule[],
   [label, rule]: [string, Rule],
 ) => Rule[]
 
+const hook = (label: string) =>
+  `webpack.module.rules.oneOf.${label}`
+
+const reducer: Reducer = function (rules, [label, rule]) {
+  return [...rules, this.hooks.filter<Rule>(hook(label), rule)]
+}
+
 /**
  * Filter and reduce rules into  webpack.oneOf array
  */
-export const oneOf: BuildOneOf = function () {
+export const oneOf: Build = function () {
   return this.build.rules
     .getEntries()
     .filter(([, {enforce}]: [string, Rule]) => enforce !== 'pre')
     .reduce(reducer.bind(this), [])
-}
-
-const hook = label => `webpack.module.rules.oneOf.${label}`
-const reducer: OneOfReducer = function (rules, [label, rule]) {
-  return [...rules, this.hooks.filter<Rule>(hook(label), rule)]
 }

@@ -16,7 +16,11 @@ bud.hooks.on('webpack.resolve.modules', modules => [
 ])
 
 // Use babel and react extensions.
-bud.use(['@roots/bud-babel', '@roots/bud-imagemin', '@roots/bud-react'])
+bud.use([
+  '@roots/bud-babel',
+  '@roots/bud-imagemin',
+  '@roots/bud-react',
+])
 
 /**
  * For production, we'll want to use the React included with WP.

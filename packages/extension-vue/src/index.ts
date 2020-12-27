@@ -62,14 +62,14 @@ export const boot: Module.Boot = bud => {
     make: new VueLoaderPlugin(),
   })
 
-  bud
-    .alias({vue$: 'vue/dist/vue.esm.js'})
-    .when(
-      !bud.config.get('resolve.extensions').includes('.vue'),
-      () =>
-        bud.config.mutate('resolve.extensions', ext => [
-          ...ext,
-          '.vue',
-        ]),
-    )
+  bud.config.mutate('resolve.alias', cfg => ({
+    ...cfg,
+    vue$: 'vue/dist/vue.esm.js',
+  }))
+
+  !bud.config.get('resolve.extensions').includes('.vue') &&
+    bud.config.mutate('resolve.extensions', ext => [
+      ...ext,
+      '.vue',
+    ])
 }

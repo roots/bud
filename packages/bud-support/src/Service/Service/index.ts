@@ -3,16 +3,16 @@ import {has} from 'lodash'
 /**
  * Application service base
  */
-abstract class Service<T = Service.Application<any>> {
+abstract class Service<T = any> {
   /**
    * Application reference
    */
-  public readonly _app: Service.Ref<T>
+  public readonly _app: () => T
 
   /**
    * Constructor
    */
-  public constructor(items?: Service.ParameterItems) {
+  public constructor(items?: Service.ParameterItems<T>) {
     this._app = items.app.get
 
     Object.entries(items)
@@ -41,12 +41,7 @@ abstract class Service<T = Service.Application<any>> {
   }
 }
 
-interface Service<T = Service.Application> {
-  /**
-   * Application ref.
-   */
-  readonly _app: Service.Ref<T>
-
+interface Service<T = any> {
   /**
    * Application reference
    */
@@ -68,15 +63,9 @@ interface Service<T = Service.Application> {
  */
 namespace Service {
   export interface ParameterItems<T = any> {
-    app: T
+    app: {get: () => T}
     [key: string]: any
-  }
-
-  export type Ref<T = any> = () => T
-
-  export interface Application<T = any> {
-    get(): T
   }
 }
 
-export default Service
+export {Service}

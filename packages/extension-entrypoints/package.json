@@ -43,14 +43,16 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "peerDependencies": {
-    "@roots/bud-typings": "*",
+    "@roots/bud-framework": "*",
+    "@roots/bud-extensions": "*",
     "@roots/entrypoints-webpack-plugin": "*"
   },
   "dependencies": {
     "@roots/entrypoints-webpack-plugin": "^2.1.2"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^2.1.2"
+    "@roots/bud-framework": "^2.1.2",
+    "@roots/bud-extensions": "^2.1.2"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
 }

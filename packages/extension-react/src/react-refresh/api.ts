@@ -1,6 +1,6 @@
-import type {API} from '../types'
+import type {Framework} from '@roots/bud-typings'
 
-export const reactRefresh: API.ReactRefresh = function (
+export const reactRefresh: Framework.Api.ReactRefresh = function (
   options,
 ) {
   this.extensions

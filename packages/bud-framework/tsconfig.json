@@ -6,7 +6,14 @@
     "baseUrl": ".",
     "declaration": true,
     "declarationDir": "./types",
-    "declarationMap": true
+    "declarationMap": true,
+    "paths": {
+      "*": ["*", "./src/*"]
+    }
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["lib", "types"],
+  "typeAcquisition": {
+    "enable": true
+  }
 }

@@ -12,7 +12,6 @@ export const plugins: Plugins.Build = function () {
   >(
     'webpack.plugins',
     this.extensions
-      .getStore()
       .getEntries()
       .map(
         ([name, ext]: [string, Extension]): Webpack.Plugin =>

@@ -1,17 +1,19 @@
-import Plugin from 'compression-webpack-plugin'
-import {BrotliOptions} from 'zlib'
-import {Framework, Container, Module} from '@roots/bud-typings'
+import type {
+  CompressionPlugin,
+  Framework,
+  Module,
+  zlib,
+} from '@roots/bud-typings'
 
-export type Make = Module.Make<
-  Plugin,
-  Container<Plugin.Options<BrotliOptions>>
+export type Make = Module.Make<CompressionPlugin, Options>
+
+export type Options = CompressionPlugin.Options<
+  zlib.BrotliOptions
 >
-
-export type Options = Plugin.Options<BrotliOptions>
 
 export type When = Module.When
 
 export type Config = (
   this: Framework,
-  options?: BrotliOptions,
+  options?: zlib.BrotliOptions,
 ) => Framework

@@ -3,7 +3,7 @@ import {
   createProxyMiddleware,
   zlib,
 } from '@roots/bud-support'
-import Server from '../Server'
+import type {Server} from '@roots/bud-typings'
 
 /**
  * Proxy middleware factory

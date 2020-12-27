@@ -1,5 +1,5 @@
 import {pino, yargs} from '@roots/bud-support'
-import Contract from './Contract'
+import {Logger} from '@roots/bud-typings'
 
 /**
  * CLI arg for log might be:
@@ -19,7 +19,7 @@ const destination: boolean | string =
 /**
  * Instantiate the logger.
  */
-const Logger: Contract = pino(
+const Logger: Logger = pino(
   {
     base: null,
     enabled: yargs.argv.hasOwnProperty('log') ? true : false,

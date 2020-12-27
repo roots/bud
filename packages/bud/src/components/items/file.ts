@@ -1,11 +1,11 @@
 import type {Item} from '@roots/bud-typings'
 
-export const ident: Item['ident'] = 'file'
+export const ident: Item.Module.Ident = 'file'
 
-export const loader: Item['loader'] = 'file-loader'
+export const loader: Item.Module.Loader = 'file-loader'
 
-export const options: Item['options'] = {
+export const options: Item.Module.Options = {
   name: '[path][name].[ext]',
 }
 
-export const query: Item['query'] = undefined
+export const query: Item.Module.Query = undefined

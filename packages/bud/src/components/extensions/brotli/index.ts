@@ -1,8 +1,7 @@
 import Plugin from 'compression-webpack-plugin'
 import type {Make, Options, When} from './typings'
 
-export const make: Make = options =>
-  new Plugin(options.getStore())
+export const make: Make = options => new Plugin(options.all())
 
 export const when: When = ({features}) =>
   features.is('brotli', true)

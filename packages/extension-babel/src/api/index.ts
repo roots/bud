@@ -9,9 +9,7 @@ import {addPreset} from './addPreset'
 import {Framework} from '@roots/bud-typings'
 
 export const make: (bud: Framework) => void = bud => {
-  const babel = {}
-
-  new Set([
+  bud.set('babel', {
     mergeConfig,
     setConfig,
     mergePlugins,
@@ -20,18 +18,8 @@ export const make: (bud: Framework) => void = bud => {
     mergePresets,
     setPresets,
     addPreset,
-  ]).forEach((fn: Fluent<Framework>) => {
-    Object.assign(babel, {
-      [fn.name]: fn.bind(bud),
-    })
-  })
-
-  Object.assign(bud, {
-    babel: Object.create(babel),
   })
 }
-
-export type Fluent<T> = (this: T, ...rest: any[]) => T
 
 export interface BabelConfig {
   bud: Framework

@@ -23,7 +23,7 @@ export const boot: Boot = bud => {
  * Eslint class options.
  */
 export const options: Options = bud => ({
-  context: bud.project(),
+  context: (bud as any).project(),
   eslintPath: require.resolve('eslint'),
   fix: false,
   formatter: eslintFormatter,

@@ -1,16 +1,15 @@
-import Extension from './Contract'
-import Module from '../Module'
+import {
+  Framework,
+  Extension,
+  Module,
+  Index,
+  MaybeCallable,
+} from '@roots/bud-typings'
 import {
   ServiceContainer,
   isArray,
   isFunction,
 } from '@roots/bud-support'
-import type {
-  Framework,
-  Container,
-  Index,
-  MaybeCallable,
-} from '@roots/bud-typings'
 
 /**
  * Extensions controller class.
@@ -108,14 +107,14 @@ export default class
    * Is this extension a plugin?
    */
   public isPlugin(): boolean {
-    return this.module.make ? true : false
+    return this.hasProp(`module.make`)
   }
 
   /**
    * Is plugin enabled?
    */
   public isPluginEnabled(): boolean {
-    return !this.module.when
+    return !this.hasProp(`module.when`)
       ? true
       : this.callMeMaybe(this.module.when, this.app, this)
   }
@@ -140,19 +139,6 @@ export default class
    */
   public setOptions(options: Index<any>): void {
     this.setStore(this.callMeMaybe(options, this.app))
-  }
-
-  /**
-   * ## extension.getOptions
-   *
-   * Get extension instance options.
-   *
-   * ```js
-   * this.app.extensions.get('my-extension').getOptions()
-   * ```
-   */
-  public getOptions(): Container {
-    return this
   }
 
   /**

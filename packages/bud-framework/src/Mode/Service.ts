@@ -1,23 +1,11 @@
-import type {Framework, Webpack} from '@roots/bud-typings'
+import type {Webpack} from '@roots/bud-typings'
 import {Service} from '@roots/bud-support'
+import Framework from '../Framework'
 
 export default abstract class extends Service<Framework> {
-  /**
-   * Mode
-   */
   _mode: Webpack.Configuration['mode']
 
-  /**
-   * CI enabled
-   */
   _ci: boolean
-
-  /**
-   * Initialize service.
-   */
-  public init(): void {
-    return
-  }
 
   public get mode(): Webpack.Configuration['mode'] {
     return this._mode

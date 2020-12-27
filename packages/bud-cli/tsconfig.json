@@ -8,5 +8,8 @@
     "declarationDir": "./types",
     "declarationMap": true
   },
-  "include": ["src"]
+  "include": ["src"],
+  "typeAcquisition": {
+    "enable": true
+  }
 }

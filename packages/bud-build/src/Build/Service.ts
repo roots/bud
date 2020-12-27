@@ -1,84 +1,37 @@
 import {Service} from '@roots/bud-support'
-import Build from '../Build'
-import Loader from '../Loader'
-import Item from '../Item'
-import Rule from '../Rule'
-import {Container, Framework, Webpack} from '@roots/bud-typings'
+import type {Webpack, Framework} from '@roots/bud-typings'
 
-export default abstract class extends Service<Framework> {
-  /**
-   * ## bud.build.builders [🏠 Internal]
-   *
-   * Collection of functions processing loaders, items and rules
-   * into a finalized webpack configuration.
-   */
-  public abstract builders: Partial<Build.Builder>
+export default abstract class
+  extends Service<Framework>
+  implements Framework.Build {
+  public builders: Partial<Framework.Build.Builder>
 
-  /**
-   * ## bud.build.loaders
-   *
-   * Container of available loaders.
-   *
-   * @see {webpack.Loader}
-   */
-  public loaders: Container
+  public loaders: Framework.Container
 
-  /**
-   * ## bud.build.items
-   *
-   * Container of available RuleSetRule['use'] items.
-   *
-   * @see {webpack.Configuration}
-   */
-  public items: Container
+  public items: Framework.Container
 
-  /**
-   * ## bud.build.rules
-   *
-   * Container of available RuleSetRules
-   *
-   * @see {webpack.Configuration}
-   */
-  public rules: Container
+  public rules: Framework.Container
 
-  /**
-   * Make build.
-   */
   public abstract make(): Webpack.Configuration
 
-  /**
-   * Add or override a loader by key.
-   */
-  public abstract setLoader(name: string, loader: Loader): Loader
+  public abstract setLoader(
+    name: string,
+    loader: Framework.Loader,
+  ): Framework.Loader
 
-  /**
-   * Get a loader by key
-   */
-  public abstract getLoader(name: string): Loader
+  public abstract getLoader(name: string): Framework.Loader
 
-  /**
-   * Ge an item by key.
-   */
-  public abstract getItem(name: string): Item
+  public abstract getItem(name: string): Framework.Item
 
-  /**
-   * Add or override an item by key.
-   */
   public abstract setItem(
     name: string,
-    module: Item.Module,
-  ): Item
+    module: Framework.Item.Module,
+  ): Framework.Item
 
-  /**
-   * Get a rule by key.
-   */
-  public abstract getRule(name: string): Rule
+  public abstract getRule(name: string): Framework.Rule
 
-  /**
-   * Add or override a rule by key.
-   */
   public abstract setRule(
     name: string,
-    module: Rule.Module,
-  ): Rule
+    module: Framework.Rule.Module,
+  ): Framework.Rule
 }

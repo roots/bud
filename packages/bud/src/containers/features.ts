@@ -1,4 +1,4 @@
-import {Container} from '@roots/bud-typings'
+import {Container} from '@roots/container'
 
 /**
  * Compress with Brotli

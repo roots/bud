@@ -50,7 +50,6 @@
     "@roots/bud-support": "*",
     "@roots/bud-typings": "*",
     "@roots/container": "*",
-    "@roots/dependencies": "*",
     "@roots/filesystem": "*"
   },
   "devDependencies": {
@@ -59,7 +58,6 @@
   "dependencies": {
     "@roots/bud-support": "^2.1.2",
     "@roots/container": "^2.1.2",
-    "@roots/dependencies": "^2.1.2",
     "@roots/filesystem": "^2.1.2"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"

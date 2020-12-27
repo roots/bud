@@ -1,3 +1,4 @@
+// @ts-check
 /**
  * Example: React single page application
  */
@@ -12,6 +13,7 @@ const {bud} = require('@roots/bud')
  * configuration file.
  */
 bud.hooks.on('webpack.resolve.modules', modules => [
+  // @ts-ignore
   ...modules,
   bud.fs.path.join(bud.fs.base, './../../../node_modules'),
 ])
@@ -24,6 +26,7 @@ bud.use([
   '@roots/bud-postcss',
   '@roots/bud-imagemin',
   '@roots/bud-react',
+  '@roots/bud-library',
 ])
 
 /**

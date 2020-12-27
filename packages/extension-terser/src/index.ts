@@ -5,7 +5,7 @@ import type {Terser} from './typings'
 export * as api from './api'
 
 export const boot: Module.Boot = bud => {
-  bud.use(['terser-webpack-plugin', terserWebpackPlugin])
+  bud.use([['terser-webpack-plugin', terserWebpackPlugin]])
 }
 
 export declare interface Bud {

@@ -10,8 +10,8 @@ export const brotli = (bud: Bud): void => {
 /**
  * CI flag
  */
-export const ci = ({args, mode}: Bud): void => {
-  mode.ci = args.has('ci')
+export const ci = (bud: Bud): void => {
+  bud.mode.ci = bud.args.has('ci')
 }
 
 /**

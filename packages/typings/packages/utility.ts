@@ -1,4 +1,4 @@
-import {Framework} from '../'
+import {Framework, Module} from '../'
 
 /**
  * String keyed value.
@@ -17,6 +17,24 @@ export interface Fluent<T> {
   function(this: T): T
 }
 
+export type Use = (
+  this: Framework,
+  extensions: Array<string | Use.Tuple>,
+) => Framework
+
+export namespace Use {
+  export type Tuple =
+    | [string, Module]
+    | [string, Factory<Framework, Module>]
+}
+
+export type When = (
+  this: Framework,
+  test: boolean,
+  isTrue: (bud: Framework) => unknown,
+  isFalse?: (bud: Framework) => unknown,
+) => Framework
+
 /**
  * Produces a value.
  */
@@ -29,13 +47,3 @@ export type Factory<O = unknown, I = unknown> = (args: I) => O
 export type MaybeCallable<O = unknown, A = unknown> =
   | Factory<O, A>
   | O
-
-/**
- * Plugin make when
- */
-export type When = (
-  this: Framework,
-  test: boolean,
-  isTrue: (bud: Framework) => unknown,
-  isFalse?: (bud: Framework) => unknown,
-) => Framework

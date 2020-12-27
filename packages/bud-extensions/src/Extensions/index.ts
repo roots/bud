@@ -1,9 +1,12 @@
-import Extensions from './Contract'
 import Extension from '../Extension'
-import Module from '../Module'
 import Service from './Service'
-
-import type {Container, MaybeCallable} from '@roots/bud-typings'
+import {isFunction, set} from '@roots/bud-support'
+import type {
+  Extensions,
+  Container,
+  Module,
+  MaybeCallable,
+} from '@roots/bud-typings'
 
 /**
  * ## bud.extensions
@@ -16,51 +19,6 @@ import type {Container, MaybeCallable} from '@roots/bud-typings'
  * [🔗 Documentation](#)
  */
 export default class extends Service implements Extensions {
-  /**
-   * ## bud.extensions.getStore
-   *
-   * Returns all extensions.
-   *
-   * ### Usage
-   *
-   * ```js
-   * bud.extensions.getStore()
-   * ```
-   */
-  public getStore(): Container {
-    return this.repository
-  }
-
-  /**
-   * ## bud.extensions.all
-   *
-   * Returns all extensions.
-   *
-   * ### Usage
-   *
-   * ```js
-   * bud.extensions.all()
-   * ```
-   */
-  public all(): Container {
-    return this.getStore()
-  }
-
-  /**
-   * ## bud.extensions.get
-   *
-   * Retrieve an extension
-   *
-   * ### Usage
-   *
-   * ```js
-   * bud.extensions.all()
-   * ```
-   */
-  public get(name: string): Extension {
-    return this.repository.get(name)
-  }
-
   /**
    * ## bud.extensions.set
    *
@@ -76,16 +34,14 @@ export default class extends Service implements Extensions {
     name: string,
     extension: MaybeCallable<Module>,
   ): this {
-    const module =
-      typeof extension == 'function'
-        ? extension(this.app)
-        : extension
-
-    this.repository.set(
+    set(
+      this.repository,
       name,
       new Extension({
         app: this.app,
-        module,
+        module: isFunction(extension)
+          ? extension(this.app)
+          : extension,
       }),
     )
 
@@ -129,7 +85,7 @@ export default class extends Service implements Extensions {
    * bud.extensions.use('@roots/bud-react')
    * ```
    */
-  public use(pkg: string): this {
+  public async use(pkg: string): Promise<this> {
     const path = require.resolve(pkg)
 
     this.app.disk.set(pkg, {
@@ -137,8 +93,7 @@ export default class extends Service implements Extensions {
       glob: ['**/*'],
     })
 
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    const extension = require(path)
+    const extension = await import(path)
 
     this.set(pkg, extension)
 

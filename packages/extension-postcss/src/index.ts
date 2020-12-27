@@ -1,5 +1,5 @@
 import {postcss} from './register'
-import type {Boot, RegisterItem} from './types'
+import type {Framework, Item, Module} from '@roots/bud-typings'
 
 /**
  * Config methods
@@ -14,15 +14,18 @@ export {registerLoader} from './register'
 /**
  * PostCSS rulesetuse item
  */
-export const registerItem: RegisterItem = ['postcss', postcss]
+export const registerItem: Module.RegisterOne<Item.Module> = [
+  'postcss',
+  postcss,
+]
 
 /**
  * Use PostCSS with css extension.
  */
-export const boot: Boot = ({build}) => {
-  build.rules.mutate('css.use', css => [
+export const boot: Module.Boot = (bud: Framework) => {
+  bud.build.rules.mutate('css.use', css => [
     ...css.splice(0, css.length - 1),
-    build.items.get('postcss'),
+    bud.build.items.get('postcss'),
     ...css.splice(css.length - 1),
   ])
 }

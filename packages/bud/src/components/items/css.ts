@@ -1,7 +1,7 @@
 import type {Item} from '@roots/bud-typings'
 
-export const ident: Item['ident'] = 'css'
+export const ident: Item.Module.Ident = 'css'
 
-export const loader: Item['loader'] = 'css-loader'
+export const loader: Item.Module.Loader = 'css-loader'
 
-export const options: Item['options'] = {importLoaders: 2}
+export const options: Item.Module.Options = {importLoaders: 2}

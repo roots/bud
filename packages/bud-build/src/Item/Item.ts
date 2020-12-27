@@ -1,44 +1,83 @@
-import {Framework} from '@roots/bud-typings'
-import Item from './'
+import {Framework, Item} from '@roots/bud-typings'
+import {Service, isFunction} from '@roots/bud-support'
 
-export default abstract class {
-  public _bud: Framework.Ref
+export default abstract class
+  extends Service<Framework>
+  implements Item {
+  /**
+   * Item module
+   */
+  protected module: Item.Module
 
-  public ident?: Item.Module.Ident
+  /**
+   * Register item module.
+   */
+  public abstract register(module: Item.Module): void
 
-  public loader?: Item.Module.Loader
+  /**
+   * Make the item for use in a rule.
+   */
+  public abstract make(): Item.RuleSetLoader
 
-  public options?: Item.Module.Options
-
-  public query?: Item.Module.Query
-
-  public constructor(bud: Framework) {
-    this._bud = bud.get
+  /**
+   * Get the loader ident
+   */
+  public get ident(): Item.Module.Ident {
+    return isFunction(this.module['ident'])
+      ? this.module['ident'](this.app)
+      : this.module['ident']
   }
 
-  public get bud(): Framework {
-    return this._bud()
+  /**
+   * Set the loader ident
+   */
+  public set ident(ident: Item.Module.Ident) {
+    this.module['ident'] = ident
   }
 
-  public abstract propMap: Item.PropMap
+  /**
+   * Get the loader ident
+   */
+  public get options(): Item.Module.Options {
+    return isFunction(this.module['options'])
+      ? this.module['options'](this.app)
+      : this.module['options']
+  }
 
-  public abstract getIdent: Item.Getter<Item.Module.Ident>
+  /**
+   * Set the loader options
+   */
+  public set options(options: Item.Module.Options) {
+    this.module['options'] = options
+  }
 
-  public abstract getLoader: Item.Getter<Item.Module.Loader>
+  /**
+   * Get the loader ident
+   */
+  public get query(): Item.Module.Query {
+    return isFunction(this.module['query'])
+      ? this.module['query'](this.app)
+      : this.module['query']
+  }
 
-  public abstract getOptions: Item.Getter<Item.Module.Options>
+  /**
+   * Set the loader query
+   */
+  public set query(query: Item.Module.Query) {
+    this.module['query'] = query
+  }
 
-  public abstract getQuery: Item.Getter<Item.Module.Query>
+  /**
+   * Get the loader ident
+   */
+  public get loader(): Item.Module.Loader {
+    return this.app.build.getLoader(this.module['loader'])
+  }
 
-  public abstract set: Item.Setter<Item.Module>
-
-  public abstract setIdent: Item.Setter<Item.Module.Ident>
-
-  public abstract setLoader: Item.Setter<Item.Module.Loader>
-
-  public abstract setOptions: Item.Setter<Item.Module.Options>
-
-  public abstract setQuery: Item.Setter<Item.Module.Query>
-
-  public abstract make: () => Item.RuleSetLoader
+  /**
+   * Set the loader
+   */
+  public set loader(loader: Item.Module.Loader) {
+    this.module['loader'] = loader
+  }
 }

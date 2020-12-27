@@ -1,3 +1,1 @@
-import banner from './banner'
-
-export {banner}
+export {banner} from './banner'

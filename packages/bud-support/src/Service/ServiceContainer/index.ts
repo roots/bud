@@ -4,18 +4,16 @@ import {has} from 'lodash'
 /**
  * Application service base
  */
-abstract class ServiceContainer<
-  T = ServiceContainer.Application<any>
-> extends Container {
+abstract class ServiceContainer<T = any> extends Container {
   /**
    * Application reference
    */
-  public readonly _app: ServiceContainer.Ref<T>
+  public readonly _app: () => T
 
   /**
    * Constructor
    */
-  public constructor(items: ServiceContainer.ParameterItems) {
+  public constructor(items: ServiceContainer.ParameterItems<T>) {
     super({})
 
     this._app = items.app.get
@@ -46,11 +44,11 @@ abstract class ServiceContainer<
   }
 }
 
-interface ServiceContainer<T = ServiceContainer.Application> {
+interface ServiceContainer<T = any> {
   /**
    * Application ref.
    */
-  readonly _app: ServiceContainer.Ref<T>
+  readonly _app: () => T
 
   /**
    * Application reference
@@ -71,17 +69,12 @@ interface ServiceContainer<T = ServiceContainer.Application> {
 /**
  * Application service namespace
  */
+
 namespace ServiceContainer {
   export interface ParameterItems<T = any> {
-    app: T
+    app: {get: () => T}
     [key: string]: any
-  }
-
-  export type Ref<T = any> = () => T
-
-  export interface Application<T = any> {
-    get(): T
   }
 }
 
-export default ServiceContainer
+export {ServiceContainer}

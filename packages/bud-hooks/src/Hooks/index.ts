@@ -1,14 +1,14 @@
 import Service from './Service'
-import Contract from './Contract'
+import type {Hooks} from '@roots/bud-typings'
 
-export class Hooks extends Service implements Contract {
-  public has: Contract.Has = function (name) {
+export default class extends Service implements Hooks {
+  public has: Hooks.Has = function (name) {
     return Object.keys(this.store).includes(name)
   }
 
-  public on: Contract.On = function <T>(
+  public on: Hooks.On = function <T>(
     name: string,
-    hook: Contract.Hook<T>,
+    hook: Hooks.Hook<T>,
   ) {
     this.store[name] = this.has(name)
       ? [...this.store[name], hook]
@@ -17,21 +17,20 @@ export class Hooks extends Service implements Contract {
     return this
   }
 
-  public action: Contract.Action = function <T>(
+  public action: Hooks.Action = function <T>(
     name: string,
     binding: T,
   ) {
-    const map: Contract.Action.Map<T> = hook =>
-      hook.bind(binding)
+    const map: Hooks.Action.Map<T> = hook => hook.bind(binding)
 
     this.has(name) && this.store[name].map(map)
   }
 
-  public filter: Contract.Filter = function <T>(
+  public filter: Hooks.Filter = function <T>(
     name: string,
     value: T,
   ) {
-    const reducer: Contract.Filter.Reducer<T> = (val, hook) =>
+    const reducer: Hooks.Filter.Reducer<T> = (val, hook) =>
       hook(val)
 
     return this.has(name)

@@ -45,8 +45,14 @@
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
+  "peerDependencies": {
+    "@roots/bud-typings": "*",
+    "@roots/entrypoints-webpack-plugin": "*",
+    "@roots/merged-manifest-webpack-plugin": "*",
+    "@roots/wordpress-externals-webpack-plugin": "*"
+  },
   "devDependencies": {
-    "@roots/bud-typings": "^2.1.2"
+    "@roots/bud-typings": "*"
   },
   "dependencies": {
     "@roots/entrypoints-webpack-plugin": "^2.1.2",

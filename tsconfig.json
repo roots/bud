@@ -15,7 +15,7 @@
     "noUnusedLocals": true,
     "noEmitOnError": true,
     "sourceMap": true,
-    "target": "ES6",
+    "target": "ES6"
   },
   "base": "packages",
   "references": [
@@ -36,7 +36,6 @@
     {"@roots/bud-postcss": "extension-postcss"},
     {"@roots/bud-purgecss": "extension-purgecss"},
     {"@roots/bud-react": "extension-react"},
-    {"@roots/bud-sage": "sage"},
     {"@roots/bud-sass": "extension-sass"},
     {"@roots/bud-service": "bud-service"},
     {"@roots/bud-server": "bud-server"},
@@ -47,16 +46,26 @@
     {"@roots/bud-typescript": "extension-typescript"},
     {"@roots/bud-typings": "typings"},
     {"@roots/bud-vue": "extension-vue"},
-    {"@roots/bud-wordpress-externals": "extension-wordpress-externals"},
-    {"@roots/bud-wordpress-manifests": "extension-wordpress-manifests"},
+    {
+      "@roots/bud-wordpress-externals": "extension-wordpress-externals"
+    },
+    {
+      "@roots/bud-wordpress-manifests": "extension-wordpress-manifests"
+    },
     {"@roots/container": "container"},
     {"@roots/dependencies": "dependencies"},
     {"@roots/filesystem": "filesystem"},
     {"@roots/ink-use-style": "ink-use-style"},
     {"@roots/ink-prettier": "ink-prettier"},
-    {"@roots/entrypoints-webpack-plugin": "webpack-entrypoints-plugin"},
-    {"@roots/merged-manifest-webpack-plugin": "webpack-merged-manifest-plugin"},
-    {"@roots/wordpress-externals-webpack-plugin": "webpack-wordpress-externals-plugin"},
+    {
+      "@roots/entrypoints-webpack-plugin": "webpack-entrypoints-plugin"
+    },
+    {
+      "@roots/merged-manifest-webpack-plugin": "webpack-merged-manifest-plugin"
+    },
+    {
+      "@roots/wordpress-externals-webpack-plugin": "webpack-wordpress-externals-plugin"
+    }
   ],
-  "files": [],
+  "files": []
 }
