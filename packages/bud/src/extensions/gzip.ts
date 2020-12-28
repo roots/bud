@@ -18,4 +18,6 @@ export const options: Options = {
   minRatio: 0.8,
 }
 
-export declare type Options = CompressionPlugin.Options<CompressionPlugin.ZlibOptions>
+export declare type Options = CompressionPlugin.Options<
+  CompressionPlugin.ZlibOptions
+>
