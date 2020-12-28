@@ -21,7 +21,7 @@ export const useStats: UseStats.Hook = options => {
     stats && setStats({...stats.toJson(options.json)})
   }
 
-  return [stats, errors, handler]
+  return {stats, errors, handler}
 }
 
 export namespace UseStats {
@@ -29,10 +29,12 @@ export namespace UseStats {
    * UseStats interface.
    */
   export interface Hook {
-    (options: any): Tuple
+    (options: any): {
+      stats: Stats
+      errors: string[]
+      handler: Handler
+    }
   }
-
-  export type Tuple = [Stats, string[], Handler]
 
   /**
    * Stats JSON

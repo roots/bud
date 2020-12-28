@@ -5,7 +5,7 @@ import {Env, Mode} from '@roots/bud-framework'
 import {Extensions} from '@roots/bud-extensions'
 import {FileContainer, FileSystem} from '@roots/filesystem'
 import {Hooks} from '@roots/bud-hooks'
-import {Runner} from '@roots/bud-cli'
+import {CLI} from '@roots/bud-cli'
 import {Server} from '@roots/bud-server'
 
 export const services: {
@@ -13,7 +13,7 @@ export const services: {
 } = {
   build: Build,
   cache: Cache,
-  cli: Runner,
+  cli: CLI,
   compiler: Compiler,
   disk: FileSystem,
   env: Env,

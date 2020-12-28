@@ -19,6 +19,7 @@ export default abstract class extends Service<Framework> {
       actions: new Items({app}),
     }
   }
+
   /**
    * Get store accessor
    */

@@ -142,6 +142,8 @@ export default abstract class extends Base implements Framework {
     this.args.has('mode')
       ? this.mode.set(this.args.get('mode'))
       : this.mode.set('none')
+
+    this.cli.run()
   }
 
   public get(): this {

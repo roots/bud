@@ -1,37 +1,32 @@
 import {React, Text, Gradient} from '@roots/bud-support'
 
-declare namespace Bar {
-  export interface Props {
-    color?: string
-    backgroundColor?: string
-    percent: number
-    character?: string
-    maxWidth?: number
-  }
-
-  export type Component = React.FunctionComponent<Props>
-}
-
-const Bar: Bar.Component = ({
-  color = 'white',
+export const Bar: React.FunctionComponent<{
+  colors?: [string, string]
+  backgroundColor?: string
+  backgroundCharacter?: string
+  percent: number
+  character?: string
+  maxWidth?: number
+}> = ({
+  character = '█',
+  colors = ['white', 'white'],
+  backgroundCharacter = '░',
+  backgroundColor = 'white',
   percent,
   maxWidth,
-}: Bar.Props) => {
+}) => {
   const fill = Math.min(Math.floor(maxWidth * percent), maxWidth)
-
   const background = maxWidth - fill
 
   return percent <= 0 ? null : (
     <Text>
-      <Gradient colors={[color, '#663399']}>
-        {'█'.repeat(fill)}
+      <Gradient colors={colors}>
+        {character.repeat(fill)}
       </Gradient>
 
-      <Text backgroundColor="white" dimColor>
-        {'░'.repeat(background)}
+      <Text backgroundColor={backgroundColor} dimColor>
+        {backgroundCharacter.repeat(background)}
       </Text>
     </Text>
   )
 }
-
-export {Bar, Bar as default}

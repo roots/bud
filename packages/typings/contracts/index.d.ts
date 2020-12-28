@@ -4,7 +4,8 @@ export type {
   GlobTask,
   Webpack,
   zlib,
-} from '@roots/bud-support'
+} from '../../bud-support/src'
+
 export type {
   Constructor,
   Factory,
@@ -15,14 +16,6 @@ export type {
   Use,
   When,
 } from './utility'
-
-/**
- * @roots/bud-framework
- */
-export type {Framework} from './Framework'
-export type {Env} from './Env'
-export type {Logger} from './Logger'
-export type {Mode} from './Mode'
 
 /**
  * @roots/container
@@ -36,6 +29,14 @@ export type {
   FileContainer,
   FileSystem,
 } from '../../filesystem/src'
+
+/**
+ * @roots/bud-framework
+ */
+export type {Framework} from './Framework'
+export type {Env} from './Env'
+export type {Logger} from './Logger'
+export type {Mode} from './Mode'
 
 /**
  * @roots/bud-support

@@ -5,7 +5,7 @@ import {
   Text,
 } from '@roots/bud-support'
 
-const Console = () => {
+export const Console = () => {
   const [lastConsole, setLastConsole] = useState(null)
   const [text, setText] = useState('')
 
@@ -19,5 +19,3 @@ const Console = () => {
 
   return <Text>{text ?? ''}</Text>
 }
-
-export {Console as default}

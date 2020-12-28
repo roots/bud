@@ -1,4 +1,7 @@
-import {Framework} from './'
+import {Framework} from '../Framework'
+import {Filter} from './Filter'
+import {Action} from './Action'
+import {Store} from './Store'
 
 /**
  * ## bud.hooks
@@ -43,7 +46,7 @@ import {Framework} from './'
  * )
  * ```
  */
-export interface Hooks extends Framework.Service<Framework> {
+declare interface Hooks extends Framework.Service<Framework> {
   /**
    * ## bud.hooks.on
    *
@@ -64,7 +67,7 @@ export interface Hooks extends Framework.Service<Framework> {
    * )
    * ```
    */
-  on: Hooks.Filter.On
+  on: Filter.On
 
   /**
    * ## bud.hooks.when
@@ -86,7 +89,7 @@ export interface Hooks extends Framework.Service<Framework> {
    * )
    * ```
    */
-  when: Hooks.Action.When
+  when: Action.When
 
   /**
    * ## bud.hooks.action
@@ -94,7 +97,7 @@ export interface Hooks extends Framework.Service<Framework> {
    * Register a function to be executed during a specific bud lifecycle event.
    *
    */
-  action: Hooks.Action
+  action: Action
 
   /**
    * ## bud.hooks.filter
@@ -115,7 +118,7 @@ export interface Hooks extends Framework.Service<Framework> {
    * )
    * ```
    */
-  filter: Hooks.Filter
+  filter: Filter
 
   /**
    * ## bud.hooks.reduceFilters
@@ -126,61 +129,10 @@ export interface Hooks extends Framework.Service<Framework> {
   reduceFilters: Hooks.Filter.Reducer
 }
 
-export namespace Hooks {
-  /**
-   * Filter
-   */
-  export type Filter<T = unknown> = (name: string, value: T) => T
-
-  export namespace Filter {
-    export type Reducer<T = any> = (
-      val: T,
-      hook: Filter.Fn<T>,
-    ) => T
-    export type Fn<T = any> = (val: T) => T
-    export type On<T = any> = (
-      name: string,
-      hook: Filter.Fn<T>,
-    ) => void
-  }
-
-  /**
-   * Action
-   */
-  export type Action = (
-    name: string,
-    action: Action.When,
-  ) => void
-  export namespace Action {
-    export type Fn<T = any> = (bud: Framework, value: T) => T
-    export type When<T = any> = (
-      name: string,
-      action: Action.Fn<T>,
-    ) => void
-  }
-
-  /**
-   * Items
-   */
-  export interface Store
-    extends Framework.ServiceContainer<Framework> {}
-
-  export namespace Store {
-    /**
-     * Store
-     */
-    export type Items = {
-      [key: string]: Filters | Actions
-    }
-
-    /**
-     * Filters
-     */
-    export interface Filters extends Store {}
-
-    /**
-     * Actions
-     */
-    export interface Actions extends Store {}
-  }
+declare namespace Hooks {
+  export {Filter}
+  export {Action}
+  export {Store}
 }
+
+export {Hooks}

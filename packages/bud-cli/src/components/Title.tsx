@@ -7,15 +7,10 @@ import {
 } from '@roots/bud-support'
 import {useStyle} from '@roots/ink-use-style'
 
-interface TitleInterface {
+export const Title: FunctionComponent<{
   frame?: BoxProps
   children: string
-}
-
-const Title: FunctionComponent<TitleInterface> = ({
-  frame,
-  children,
-}) => {
+}> = ({frame, children}) => {
   const {colors} = useStyle()
   return (
     <Box {...(frame ?? [])} flexDirection="column">
@@ -27,5 +22,3 @@ const Title: FunctionComponent<TitleInterface> = ({
     </Box>
   )
 }
-
-export {Title}

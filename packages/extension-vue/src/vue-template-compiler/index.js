@@ -427,28 +427,27 @@ function parseHTML(html, options) {
           '([\\s\\S]*?)(</' + stackedTag + '[^>]*>)',
           'i',
         ))
-      const rest$1 = html.replace(reStackedTag, function (
-        all,
-        text,
-        endTag,
-      ) {
-        endTagLength = endTag.length
-        if (
-          !isPlainTextElement(stackedTag) &&
-          stackedTag !== 'noscript'
-        ) {
-          text = text
-            .replace(/<!\--([\s\S]*?)-->/g, '$1') // #7298
-            .replace(/<!\[CDATA\[([\s\S]*?)]]>/g, '$1')
-        }
-        if (shouldIgnoreFirstNewline(stackedTag, text)) {
-          text = text.slice(1)
-        }
-        if (options.chars) {
-          options.chars(text)
-        }
-        return ''
-      })
+      const rest$1 = html.replace(
+        reStackedTag,
+        function (all, text, endTag) {
+          endTagLength = endTag.length
+          if (
+            !isPlainTextElement(stackedTag) &&
+            stackedTag !== 'noscript'
+          ) {
+            text = text
+              .replace(/<!\--([\s\S]*?)-->/g, '$1') // #7298
+              .replace(/<!\[CDATA\[([\s\S]*?)]]>/g, '$1')
+          }
+          if (shouldIgnoreFirstNewline(stackedTag, text)) {
+            text = text.slice(1)
+          }
+          if (options.chars) {
+            options.chars(text)
+          }
+          return ''
+        },
+      )
       index += html.length - rest$1.length
       html = rest$1
       parseEndTag(stackedTag, index - endTagLength, index)

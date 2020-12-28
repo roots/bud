@@ -3,10 +3,13 @@ import type {Theme} from '../typings'
 export const spacing: Theme['spacing'] = 1
 
 export const colors: Theme['colors'] = {
-  primary: '#545DD7',
-  error: '#dc3545',
-  warning: '#FF611A',
+  foreground: '#FFFFFF',
   faded: '#6C758F',
+  primary: '#545DD7',
+  primaryAlt: '#663399',
+  error: '#dc3545',
+  errorAlt: '#b22222',
+  warning: '#FF611A',
   success: '#46D46A',
   accent: '#ff69b4',
   flavor: '#78C5D7',

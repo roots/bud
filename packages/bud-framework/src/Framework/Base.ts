@@ -28,7 +28,7 @@ export default abstract class implements Framework {
 
   public cache: Framework.Cache
 
-  public cli: Framework.CLI.Runner
+  public cli: Framework.CLI
 
   public compiler: Framework.Compiler
 

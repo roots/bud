@@ -1,5 +1,5 @@
 import {VueLoaderPlugin} from 'vue-loader'
-import {Module, Item, Loader, Webpack} from '@roots/bud-typings'
+import {Module, Item, Loader} from '@roots/bud-typings'
 
 /** Patched compiler.*/
 /* eslint-disable */
@@ -44,16 +44,13 @@ export const boot: Module.Boot = bud => {
    * export function this hook registers the rule in the
    * outer `webpack.module.rules` key.
    */
-  bud.hooks.on<Webpack.Module['rules']>(
-    'webpack.module.rules',
-    rules => [
-      ...rules,
-      {
-        test: /\.vue$/,
-        use: bud.build.items.get('vue'),
-      },
-    ],
-  )
+  bud.hooks.on('webpack.module.rules', rules => [
+    ...rules,
+    {
+      test: /\.vue$/,
+      use: bud.build.items.get('vue'),
+    },
+  ])
 
   /**
    * Register vue-loader-plugin.

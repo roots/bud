@@ -3,7 +3,7 @@ import {
   ProxyMiddleware,
   webpackDevMiddleware,
 } from '@roots/bud-support'
-import {Webpack} from './'
+import {Express, Webpack} from './'
 
 /**
  * ## bud.server

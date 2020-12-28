@@ -197,7 +197,7 @@ export declare interface Framework extends Framework.Api {
    *
    * - [🔗 Documentation](#)
    */
-  cli: Framework.CLI.Runner
+  cli: Framework.CLI
 
   /**
    * ## bud.disk

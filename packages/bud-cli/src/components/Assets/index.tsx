@@ -1,37 +1,21 @@
 import {React, FunctionComponent, Box} from '@roots/bud-support'
 import {useStyle} from '@roots/ink-use-style'
 
+import {CompilationAsset} from '../../hooks/useCompilation'
 import {Asset} from './Asset'
-import {UseCompilation} from '../../hooks/useCompilation'
-import {useTransform} from './useAssetTransform'
 
-const Assets: Assets.Component = ({assets}) => {
-  const processedAssets = useTransform(assets)
+const Assets: FunctionComponent<{
+  assets: Array<CompilationAsset>
+}> = ({assets}) => {
   const {col} = useStyle()
 
   return (
     <Box flexDirection="column" width={col(12)}>
-      {processedAssets?.map(
-        ({name, size, info, emitted, hot}, id) => (
-          <Asset
-            key={id}
-            name={name}
-            size={size}
-            info={info}
-            active={emitted}
-            hot={hot}
-          />
-        ),
-      )}
+      {assets?.map((asset, id) => (
+        <Asset key={id} {...asset} />
+      ))}
     </Box>
   )
-}
-
-declare namespace Assets {
-  export type Component = FunctionComponent<Props>
-  export interface Props {
-    assets: UseCompilation.Compilation['stats']['assets']
-  }
 }
 
 export {Assets}

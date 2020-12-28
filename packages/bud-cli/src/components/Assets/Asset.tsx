@@ -6,8 +6,14 @@ import {
 } from '@roots/bud-support'
 import {Indicator} from '../UI/Indicator'
 import {useStyle} from '@roots/ink-use-style'
+import {CompilationAsset} from '../../hooks/useCompilation'
 
-const Asset = ({name, active, size, hot, info}) => {
+export const Asset: FunctionComponent<CompilationAsset> = ({
+  name,
+  active,
+  size,
+  info,
+}) => {
   const {col, colors} = useStyle()
 
   return (
@@ -15,7 +21,7 @@ const Asset = ({name, active, size, hot, info}) => {
       <Box width={col(7)}>
         <Text
           wrap="truncate-end"
-          color={active ? 'white' : 'gray'}>
+          color={active ? colors.foreground : colors.faded}>
           <Indicator active={active} />
           {name}{' '}
         </Text>
@@ -41,16 +47,3 @@ const Asset = ({name, active, size, hot, info}) => {
     </Box>
   )
 }
-
-declare namespace Asset {
-  export type Component = FunctionComponent<Interface>
-  interface Interface {
-    name: string
-    active: boolean
-    size: number
-    hot: boolean
-    info?: string
-  }
-}
-
-export {Asset}

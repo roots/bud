@@ -5,7 +5,9 @@ import {
   Text,
 } from '@roots/bud-support'
 
-const Errors: FunctionComponent<Props> = ({errors}) => (
+export const Errors: FunctionComponent<{
+  errors: string[]
+}> = ({errors}) => (
   <Box flexDirection="column">
     <Box
       flexDirection="column"
@@ -21,9 +23,3 @@ const Errors: FunctionComponent<Props> = ({errors}) => (
     </Box>
   </Box>
 )
-
-interface Props {
-  errors: string[]
-}
-
-export {Errors as default}

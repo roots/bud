@@ -1,5 +1,4 @@
-import {Framework} from './'
-import {Webpack} from './'
+import {Framework, Webpack} from './'
 
 /**
  * ## bud.compiler

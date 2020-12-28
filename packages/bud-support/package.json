@@ -47,11 +47,7 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "peerDependencies": {
-    "@roots/container": "*",
-    "@roots/bud-typings": "*"
-  },
-  "devDependencies": {
-    "@roots/bud-typings": "^2.1.2"
+    "@roots/container": "*"
   },
   "dependencies": {
     "@roots/container": "^2.1.2",

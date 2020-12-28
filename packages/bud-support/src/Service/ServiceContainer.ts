@@ -1,18 +1,33 @@
+import {Container} from '@roots/container'
 import {has} from 'lodash'
 
 /**
  * Application service base
  */
-abstract class Service<T = any> {
+export abstract class ServiceContainer<
+  T = any
+> extends Container {
   /**
    * Application reference
    */
   public readonly _app: () => T
 
   /**
+   * Initialize class
+   */
+  public init(): void {
+    return
+  }
+
+  /**
    * Constructor
    */
-  public constructor(items?: Service.ParameterItems<T>) {
+  public constructor(items: {
+    app: {get: () => T}
+    [key: string]: any
+  }) {
+    super({})
+
     this._app = items.app.get
 
     Object.entries(items)
@@ -23,7 +38,7 @@ abstract class Service<T = any> {
         this[key] = value
       })
 
-    this.init && this.init()
+    this.init()
   }
 
   /**
@@ -40,32 +55,3 @@ abstract class Service<T = any> {
     return has(this, name)
   }
 }
-
-interface Service<T = any> {
-  /**
-   * Application reference
-   */
-  app: T
-
-  /**
-   * Initializer.
-   */
-  init?(): void
-
-  /**
-   * Has prop?
-   */
-  hasProp: (name: string) => boolean
-}
-
-/**
- * Application service namespace
- */
-namespace Service {
-  export interface ParameterItems<T = any> {
-    app: {get: () => T}
-    [key: string]: any
-  }
-}
-
-export {Service}

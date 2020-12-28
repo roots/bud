@@ -1,18 +1,20 @@
 import {React, Box, Text} from '@roots/bud-support'
-import {useStyle} from '@roots/ink-use-style'
-
 import {Bar} from './Bar'
+
 import type {UseProgress} from '../../hooks/useProgress'
+import type {Styles} from '@roots/ink-use-style'
 
-declare namespace Progress {
-  export type Component = (
-    props: UseProgress.Progress,
-  ) => JSX.Element
-}
-
-const Progress: Progress.Component = ({percentage}) => {
-  const {col, bounds, colors} = useStyle()
-
+export function Progress({
+  progress,
+  bounds,
+  col,
+  colors,
+}: {
+  progress: UseProgress.Progress
+  bounds: Styles['bounds']
+  col: Styles['col']
+  colors: Styles['colors']
+}): JSX.Element {
   const labelMax = 5
   const barMax = Math.min(
     Math.floor(bounds.width - labelMax),
@@ -23,7 +25,7 @@ const Progress: Progress.Component = ({percentage}) => {
     <Box display={'flex'} width={col(12)} flexDirection={'row'}>
       <Box width={labelMax}>
         <Text>
-          {percentage.display}
+          {progress.percentage.display}
           {''}
         </Text>
       </Box>
@@ -31,11 +33,9 @@ const Progress: Progress.Component = ({percentage}) => {
       <Bar
         maxWidth={barMax}
         backgroundColor="none"
-        color={colors.primary}
-        percent={percentage.decimal}
+        colors={[colors.primary, colors.primaryAlt]}
+        percent={progress.percentage.decimal}
       />
     </Box>
   )
 }
-
-export {Progress as default}
