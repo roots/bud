@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-framework",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "description": "A friendly build tool to help manage your project assets.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -19,11 +19,17 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": ["webpack"],
+  "keywords": [
+    "webpack"
+  ],
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib/", "types/", "src/"],
+  "files": [
+    "lib/",
+    "types/",
+    "src/"
+  ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
@@ -53,12 +59,12 @@
     "@roots/filesystem": "*"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^2.1.2"
+    "@roots/bud-typings": "^2.2.0"
   },
   "dependencies": {
-    "@roots/bud-support": "^2.1.2",
-    "@roots/container": "^2.1.2",
-    "@roots/filesystem": "^2.1.2"
+    "@roots/bud-support": "^2.2.0",
+    "@roots/container": "^2.2.0",
+    "@roots/filesystem": "^2.2.0"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
 }

@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-build",
   "description": "Bud webpack config build controller",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -22,8 +22,16 @@
   "engines": {
     "node": ">=12"
   },
-  "keywords": ["webpack", "bud"],
-  "files": ["lib", "types", "bin", "src"],
+  "keywords": [
+    "webpack",
+    "bud"
+  ],
+  "files": [
+    "lib",
+    "types",
+    "bin",
+    "src"
+  ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "exports": {
@@ -52,11 +60,11 @@
     "@roots/bud-typings": "*"
   },
   "devDependencies": {
-    "@roots/bud-extensions": "^2.1.2",
-    "@roots/bud-typings": "^2.1.2"
+    "@roots/bud-extensions": "^2.2.0",
+    "@roots/bud-typings": "^2.2.0"
   },
   "dependencies": {
-    "@roots/bud-support": "^2.1.2"
+    "@roots/bud-support": "^2.2.0"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
 }

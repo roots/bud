@@ -1,6 +1,6 @@
 {
   "name": "@roots/container",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "description": "Collections utility",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -22,8 +22,15 @@
   "engines": {
     "node": ">=12"
   },
-  "keywords": ["container", "utility"],
-  "files": ["lib/", "types/", "src/"],
+  "keywords": [
+    "container",
+    "utility"
+  ],
+  "files": [
+    "lib/",
+    "types/",
+    "src/"
+  ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "exports": {

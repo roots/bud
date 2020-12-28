@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-imagemin",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "description": "Adds imagemin support to Bud",
   "repository": {
     "type": "git",
@@ -17,11 +17,18 @@
     "url": "https://github.com/roots/bud/issues"
   },
   "license": "MIT",
-  "keywords": ["webpack", "bud"],
+  "keywords": [
+    "webpack",
+    "bud"
+  ],
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib/", "types/", "src/"],
+  "files": [
+    "lib/",
+    "types/",
+    "src/"
+  ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "exports": {
@@ -49,10 +56,10 @@
     "@roots/bud-typings": "*"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^2.1.2"
+    "@roots/bud-typings": "^2.2.0"
   },
   "dependencies": {
-    "@roots/bud-support": "^2.1.2",
+    "@roots/bud-support": "^2.2.0",
     "image-minimizer-webpack-plugin": "^1.0.0",
     "imagemin": "^6.0.1",
     "imagemin-gifsicle": "^7.0.0",

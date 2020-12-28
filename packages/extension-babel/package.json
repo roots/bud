@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-babel",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "description": "A friendly build tool to help manage your project assets.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -19,11 +19,19 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": ["bud", "babel", "webpack"],
+  "keywords": [
+    "bud",
+    "babel",
+    "webpack"
+  ],
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib/", "types/", "src/"],
+  "files": [
+    "lib/",
+    "types/",
+    "src/"
+  ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "exports": {
@@ -51,8 +59,8 @@
     "@roots/bud-typings": "*"
   },
   "devDependencies": {
-    "@roots/bud-extensions": "^2.1.2",
-    "@roots/bud-typings": "^2.1.2"
+    "@roots/bud-extensions": "^2.2.0",
+    "@roots/bud-typings": "^2.2.0"
   },
   "dependencies": {
     "@babel/core": "^7.11.5",
@@ -60,7 +68,7 @@
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/plugin-transform-runtime": "^7.11.5",
     "@babel/preset-env": "^7.11.5",
-    "@roots/bud-support": "^2.1.2",
+    "@roots/bud-support": "^2.2.0",
     "babel-loader": "^8.1.0",
     "babel-plugin-add-module-exports": "^1.0.4"
   },

@@ -1,6 +1,6 @@
 {
   "name": "@roots/merged-manifest-webpack-plugin",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
@@ -17,11 +17,18 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": ["webpack", "bud"],
+  "keywords": [
+    "webpack",
+    "bud"
+  ],
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib/", "types/", "src/"],
+  "files": [
+    "lib/",
+    "types/",
+    "src/"
+  ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "exports": {
@@ -45,8 +52,8 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^2.1.2",
-    "@roots/entrypoints-webpack-plugin": "^2.1.2"
+    "@roots/bud-typings": "^2.2.0",
+    "@roots/entrypoints-webpack-plugin": "^2.2.0"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
 }

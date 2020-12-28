@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-cli",
   "description": "CLI tools for Bud.",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -22,8 +22,16 @@
   "engines": {
     "node": ">=12"
   },
-  "keywords": ["webpack", "bud"],
-  "files": ["lib", "types", "bin", "src"],
+  "keywords": [
+    "webpack",
+    "bud"
+  ],
+  "files": [
+    "lib",
+    "types",
+    "bin",
+    "src"
+  ],
   "main": "./lib/cjs/index.js",
   "exports": {
     "require": "./lib/cjs/index.js",
@@ -51,17 +59,17 @@
   },
   "peerDependencies": {
     "@roots/bud-support": "*",
+    "@roots/bud-typings": "*",
     "@roots/ink-prettier": "*",
-    "@roots/ink-use-style": "*",
-    "@roots/bud-typings": "*"
+    "@roots/ink-use-style": "*"
   },
   "dependencies": {
-    "@roots/bud-support": "^2.1.2",
-    "@roots/ink-prettier": "^2.1.2",
-    "@roots/ink-use-style": "^2.1.2"
+    "@roots/bud-support": "^2.2.0",
+    "@roots/ink-prettier": "^2.2.0",
+    "@roots/ink-use-style": "^2.2.0"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^2.1.2"
+    "@roots/bud-typings": "^2.2.0"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
 }

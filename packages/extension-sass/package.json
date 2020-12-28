@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-sass",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "description": "Sass support",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -19,11 +19,18 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": ["webpack", "bud"],
+  "keywords": [
+    "webpack",
+    "bud"
+  ],
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib/", "types/", "src/"],
+  "files": [
+    "lib/",
+    "types/",
+    "src/"
+  ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "exports": {
@@ -47,11 +54,11 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^2.1.2"
+    "@roots/bud-typings": "^2.2.0"
   },
   "dependencies": {
-    "@roots/bud-postcss": "^2.1.2",
-    "@roots/bud-support": "^2.1.2",
+    "@roots/bud-postcss": "^2.2.0",
+    "@roots/bud-support": "^2.2.0",
     "fibers": "^5.0.0",
     "node-sass": "^4.14.1",
     "postcss-scss": "^3.0.2",

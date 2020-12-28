@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-typings",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "description": "Shared typings",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -22,7 +22,9 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["./contracts"],
+  "files": [
+    "./contracts"
+  ],
   "types": "./contracts/index.d.ts",
   "scripts": {
     "build": "tsc"
@@ -31,10 +33,10 @@
     "@roots/bud-support": "*"
   },
   "devDependencies": {
+    "@roots/bud-support": "^2.2.0",
     "child_process": "^1.0.2",
     "ink": "^3.0.0-6",
-    "webpack": "^4.44.1",
-    "@roots/bud-support": "^2.1.2"
+    "webpack": "^4.44.1"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
 }

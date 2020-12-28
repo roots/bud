@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-wordpress-manifests",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "description": "Webpack tools",
   "repository": {
     "type": "git",
@@ -18,11 +18,18 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": ["webpack", "bud"],
+  "keywords": [
+    "webpack",
+    "bud"
+  ],
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib/", "types/", "src/"],
+  "files": [
+    "lib/",
+    "types/",
+    "src/"
+  ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "exports": {
@@ -52,12 +59,12 @@
     "@roots/wordpress-externals-webpack-plugin": "*"
   },
   "devDependencies": {
-    "@roots/bud-typings": "*"
+    "@roots/bud-typings": "^2.2.0"
   },
   "dependencies": {
-    "@roots/entrypoints-webpack-plugin": "^2.1.2",
-    "@roots/merged-manifest-webpack-plugin": "^2.1.2",
-    "@roots/wordpress-externals-webpack-plugin": "^2.1.2"
+    "@roots/entrypoints-webpack-plugin": "^2.2.0",
+    "@roots/merged-manifest-webpack-plugin": "^2.2.0",
+    "@roots/wordpress-externals-webpack-plugin": "^2.2.0"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
 }
