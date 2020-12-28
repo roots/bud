@@ -12,9 +12,18 @@ export interface Constructor<T> {
   new (params?: unknown): T
 }
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
 export interface Fluent<T> {
   function(this: T): T
+}
+
+export type Providers = {
+  api: Index<CallableFunction>
+  containers: Index<any>
+  items: Index<Framework.Item.Module>
+  loaders: Index<Framework.Loader>
+  rules: Index<Framework.Rule.Module>
+  services: Index<any>
+  extensions: Index<Framework.Module>
 }
 
 export type Use = (

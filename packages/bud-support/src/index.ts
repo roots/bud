@@ -54,8 +54,8 @@ import Gradient from 'ink-gradient'
 import useStdoutDimensions from 'ink-use-stdout-dimensions'
 
 import webpack, {Stats, ProgressPlugin} from 'webpack'
-type Webpack = typeof webpack
-
+import Webpack from 'webpack'
+import CompressionPlugin from 'compression-webpack-plugin'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import webpackHotMiddleware from 'webpack-hot-middleware'
 import ProxyMiddleware, {
@@ -138,8 +138,13 @@ export {
    * Webpack
    */
   webpack,
+  Webpack,
   ProgressPlugin,
   Stats,
+  /**
+   * Webpack plugins
+   */
+  CompressionPlugin,
   /**
    * Middlewares
    */
@@ -199,5 +204,3 @@ export {
   dump,
   InterpolateHtmlPlugin,
 }
-
-export type {Webpack}

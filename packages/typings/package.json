@@ -22,12 +22,15 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["./contracts"],
+  "files": [
+    "./contracts"
+  ],
   "types": "./contracts/index.d.ts",
   "scripts": {
     "build": "tsc"
   },
   "devDependencies": {
+    "child_process": "^1.0.2",
     "ink": "^3.0.0-6",
     "webpack": "^4.44.1"
   },

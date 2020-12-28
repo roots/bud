@@ -31,11 +31,11 @@ bud.use(['@roots/bud-imagemin'])
 
 ## Config
 
-| Tool                | Description                         | Documentation                                                                                             |
-| ------------------- | ----------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| bud.imagemin        | Enable/disable image minification   | [docs/index.md](https://github.com/roots/bud/tree/stable/docs/config-imagemin.md)               |
-| bud.imageminOption  | Set imagemin option                 | [docs/config-imageminOption.md](https://github.com/roots/bud/tree/stable/docs/config-imageminOption.md)   |
-| bud.imageminPlugins | Customize imagemin plugins          | [docs/config-imageminPlugins.md](https://github.com/roots/bud/tree/stable/docs/config-imageminPlugins.md) |
+| Tool                | Description                       | Documentation                                                                                             |
+| ------------------- | --------------------------------- | --------------------------------------------------------------------------------------------------------- |
+| bud.imagemin        | Enable/disable image minification | [docs/index.md](https://github.com/roots/bud/tree/stable/docs/config-imagemin.md)                         |
+| bud.imageminOption  | Set imagemin option               | [docs/config-imageminOption.md](https://github.com/roots/bud/tree/stable/docs/config-imageminOption.md)   |
+| bud.imageminPlugins | Customize imagemin plugins        | [docs/config-imageminPlugins.md](https://github.com/roots/bud/tree/stable/docs/config-imageminPlugins.md) |
 
 ## Contributing
 

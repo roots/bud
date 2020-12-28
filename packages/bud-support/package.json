@@ -56,6 +56,7 @@
   "dependencies": {
     "@roots/container": "^2.1.2",
     "chalk": "^4.1.0",
+    "compression-webpack-plugin": "^7.1.1",
     "dotenv": "^8.2.0",
     "escape-string-regexp": "^4.0.0",
     "execa": "^4.0.3",

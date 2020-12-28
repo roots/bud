@@ -60,6 +60,14 @@ export interface Extension
   setBuilders(builders: [string, CallableFunction][]): void
 }
 
+/**
+ * Extension module
+ *
+ * [🏡 Project home](https://roots.io/bud)
+ * [🧑‍💻 roots/bud/packages/server](https://git.io/JkCQG)
+ * [📦 @roots/bud-server](https://www.npmjs.com/package/@roots/bud-build)
+ * [🔗 Documentation](#)
+ */
 export interface Module {
   options?: Module.RawOptions
 
@@ -86,14 +94,6 @@ export interface Module {
   when?: Module.When
 }
 
-/**
- * Extension module
- *
- * [🏡 Project home](https://roots.io/bud)
- * [🧑‍💻 roots/bud/packages/server](https://git.io/JkCQG)
- * [📦 @roots/bud-server](https://www.npmjs.com/package/@roots/bud-build)
- * [🔗 Documentation](#)
- */
 export namespace Module {
   export type Api =
     | {[key: string]: CallableFunction}

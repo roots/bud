@@ -4,9 +4,9 @@ import {when} from './when'
 import {Framework} from '@roots/bud-typings'
 
 export default abstract class implements Framework {
-  protected _api: Container = new Container<CallableFunction>({})
+  protected _providers: Container<Framework.Providers>
 
-  protected _dependencies: Container = new Container({})
+  protected _api: Container = new Container<CallableFunction>({})
 
   protected _services: Container = new Container({})
 
@@ -111,21 +111,26 @@ export default abstract class implements Framework {
   /**
    * Base constructor.
    */
-  public constructor() {
+  public constructor(providers: Framework.Providers) {
     this.get = this.get.bind(this)
     this.use = this.use.bind(this)
     this.when = this.when.bind(this)
     this.pipe = this.pipe.bind(this)
     this.makeContainer = this.makeContainer.bind(this)
     this.callMeMaybe = this.callMeMaybe.bind(this)
+    this.providers = this.makeContainer(providers)
   }
 
-  protected get dependencies(): Framework.Container {
-    return this._dependencies
+  protected get providers(): Framework.Container<
+    Framework.Providers
+  > {
+    return this._providers
   }
 
-  protected set dependencies(dependencies: Framework.Container) {
-    this._dependencies = dependencies
+  protected set providers(
+    providers: Framework.Container<Framework.Providers>,
+  ) {
+    this._providers = providers
   }
 
   protected get api(): Framework.Container {

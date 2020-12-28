@@ -17,23 +17,16 @@ import {
 } from '@roots/bud-typings'
 
 export default abstract class extends Base implements Framework {
-  public constructor(props: {[key: string]: Index<unknown>}) {
-    super()
+  public constructor(providers: Framework.Providers) {
+    super(providers)
 
-    this.dependencies
-      .setStore(props)
-      .mutate('services', services => ({
-        ...{
-          disk: FileSystem,
-          fs: FileContainer,
-          mode: Mode,
-          env: Env,
-        },
-        ...services,
-      }))
-      .every((name: string, value: Index<any>) => {
-        this.set(name, this.makeContainer(value))
-      })
+    this.providers.mutate('services', services => ({
+      disk: FileSystem,
+      fs: FileContainer,
+      mode: Mode,
+      env: Env,
+      ...services,
+    }))
 
     /**
      * This "fixes" resize emitter warnings
@@ -57,7 +50,15 @@ export default abstract class extends Base implements Framework {
   }
 
   public register(): void {
-    this.dependencies
+    this.providers
+      /**
+       * Register api, services, stores, loaders,
+       * items, rules & extensions containers
+       */
+      .every((name: string, value: Index<any>) => {
+        this.set(name, this.makeContainer(value))
+      })
+
       /**
        * Register API functions
        */

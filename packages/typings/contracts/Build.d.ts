@@ -1,5 +1,4 @@
 import {Framework} from './'
-import {Webpack} from './'
 
 /**
  * ## bud.build
@@ -40,7 +39,7 @@ export interface Build extends Framework.Service<Framework> {
    *
    * Produce a final webpack config.
    */
-  make(): Webpack.Configuration
+  make(): Framework.Webpack.Configuration
 
   /**
    * ## bud.build.getLoader
@@ -92,5 +91,5 @@ export namespace Build {
   export type Builder = (
     this: Framework,
     config: Framework.Container,
-  ) => Partial<Webpack.Configuration>
+  ) => Partial<Framework.Webpack.Configuration>
 }

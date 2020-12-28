@@ -1,40 +1,36 @@
 import Service from './Service'
-import type {Hooks} from '@roots/bud-typings'
+import type {Framework} from '@roots/bud-typings'
 
-export default class extends Service implements Hooks {
-  public has: Hooks.Has = function (name) {
-    return Object.keys(this.store).includes(name)
+export default class extends Service implements Framework.Hooks {
+  public on<T>(
+    name: string,
+    filter: Framework.Hooks.Filter.Fn<T>,
+  ): void {
+    this.filters.set(name, filter)
   }
 
-  public on: Hooks.On = function <T>(
+  public when<T>(
     name: string,
-    hook: Hooks.Hook<T>,
-  ) {
-    this.store[name] = this.has(name)
-      ? [...this.store[name], hook]
-      : [hook]
-
-    return this
+    action: Framework.Hooks.Action.Fn<T>,
+  ): void {
+    this.actions.set(name, action)
   }
 
-  public action: Hooks.Action = function <T>(
-    name: string,
-    binding: T,
-  ) {
-    const map: Hooks.Action.Map<T> = hook => hook.bind(binding)
-
-    this.has(name) && this.store[name].map(map)
+  public action<T>(name: string, binding: T): void {
+    this.actions.has(name) &&
+      this.actions.get(name).map(action => action.bind(binding))
   }
 
-  public filter: Hooks.Filter = function <T>(
-    name: string,
-    value: T,
-  ) {
-    const reducer: Hooks.Filter.Reducer<T> = (val, hook) =>
-      hook(val)
-
-    return this.has(name)
-      ? this.store[name].reduce(reducer, value)
+  public filter<T>(name: string, value: T): void {
+    return this.filters.has(name)
+      ? this.filters.get(name).reduce(this.reduceFilters, value)
       : value
+  }
+
+  public reduceFilters<T>(
+    val: T,
+    filter: Framework.Hooks.Filter.Fn<T>,
+  ): T {
+    return filter(val)
   }
 }

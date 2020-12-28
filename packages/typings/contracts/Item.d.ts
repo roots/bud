@@ -1,5 +1,4 @@
 import {Framework} from './'
-import {Webpack} from './'
 
 /**
  * Item
@@ -31,7 +30,7 @@ export namespace Item {
 
     options?: Framework.Index<any>
 
-    query?: Webpack.RuleSetQuery
+    query?: Framework.Webpack.RuleSetQuery
   }
 
   export type Module = {
@@ -49,8 +48,8 @@ export namespace Item {
 
     export type Loader = string
 
-    export type Options = Webpack.RuleSetLoader['options']
+    export type Options = Framework.Webpack.RuleSetLoader['options']
 
-    export type Query = Webpack.RuleSetQuery
+    export type Query = Framework.Webpack.RuleSetQuery
   }
 }

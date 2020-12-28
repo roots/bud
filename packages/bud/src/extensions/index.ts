@@ -1,4 +1,4 @@
-import type {Index, Module} from '@roots/bud-typings'
+import type {Framework} from '@roots/bud-typings'
 
 import * as cleanWebpack from './cleanWebpack'
 import * as gzip from './gzip'
@@ -19,7 +19,7 @@ import * as writeFile from './writeFile'
 
 export * as Brotli from './brotli/typings'
 
-export const extensions: Index<Module> = {
+export const extensions: Framework.Index<Framework.Module> = {
   [`clean-webpack-plugin`]: cleanWebpack,
   [`compression-webpack-plugin-gzip`]: gzip,
   [`compression-webpack-plugin-brotli`]: brotli,
