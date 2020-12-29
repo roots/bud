@@ -9,9 +9,7 @@ export class CLI extends Service {
   }
 
   public run(): void {
-    this.dashboard = render(
-      <Dashboard bud={this.app} mode={this.app.mode.get()} />,
-    )
+    this.dashboard = render(<Dashboard bud={this.app} />)
   }
 
   public kill(): void {

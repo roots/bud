@@ -16,19 +16,12 @@
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
-  "keywords": [
-    "webpack",
-    "bud"
-  ],
+  "keywords": ["webpack", "bud"],
   "engines": {
     "node": ">=12"
   },
   "license": "MIT",
-  "files": [
-    "lib/",
-    "types/",
-    "src/"
-  ],
+  "files": ["lib/", "types/", "src/"],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "exports": {
@@ -59,7 +52,7 @@
   },
   "dependencies": {
     "@roots/bud-support": "^2.2.0",
-    "babel-eslint": "8",
+    "babel-eslint": "^10.1.0",
     "eslint": "^7.8.1",
     "eslint-loader": "^4.0.2",
     "eslint-plugin-import": "^2.22.0",

@@ -105,6 +105,15 @@ export default abstract class extends Base implements Framework {
         })
       })
 
+    /**
+     * We need to have the compilation mode set before building
+     * out the loaders & rules.
+     */
+    this.args.has('mode')
+      ? this.mode.set(this.args.get('mode'))
+      : this.mode.set('none')
+
+    this.providers
       /**
        * Register loaders
        */
@@ -138,10 +147,6 @@ export default abstract class extends Base implements Framework {
     this.fs.setBase(process.cwd())
     this.makeDisk('project', this.fs.base)
     this.makeDisk('@roots', '../../..')
-
-    this.args.has('mode')
-      ? this.mode.set(this.args.get('mode'))
-      : this.mode.set('none')
 
     this.cli.run()
   }

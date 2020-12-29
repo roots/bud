@@ -22,14 +22,8 @@
   "engines": {
     "node": ">=12"
   },
-  "keywords": [
-    "utilities"
-  ],
-  "files": [
-    "lib/",
-    "types/",
-    "src/"
-  ],
+  "keywords": ["utilities"],
+  "files": ["lib/", "types/", "src/"],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "exports": {
@@ -51,9 +45,6 @@
     "pkg": "run-s pkg:*",
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
-  },
-  "devDependencies": {
-    "@types/node": "^14.11.2"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
 }

@@ -7,9 +7,9 @@ export const exclude: Rule.Module['exclude'] = ({patterns}) =>
   patterns.get('modules')
 
 export const use: Rule.Module['use'] = (bud: Framework) => [
-  bud.mode.is('production')
-    ? bud.build.items.get('mini-css')
-    : bud.build.items.get('style'),
+  bud.build.items.get(
+    bud.mode.is('production') ? 'mini-css' : 'style',
+  ),
   bud.build.items.get('css'),
   bud.build.items.get('postcss'),
   bud.build.items.get('sass'),

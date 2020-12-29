@@ -22,16 +22,8 @@
   "engines": {
     "node": ">=12"
   },
-  "keywords": [
-    "webpack",
-    "bud"
-  ],
-  "files": [
-    "lib",
-    "types",
-    "bin",
-    "src"
-  ],
+  "keywords": ["webpack", "bud"],
+  "files": ["lib", "types", "bin", "src"],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "exports": {
@@ -68,7 +60,7 @@
     "@roots/bud-server": "^2.2.0",
     "@roots/bud-typings": "^2.2.0",
     "@roots/container": "^2.2.0",
-    "compression-webpack-plugin": "^6.0.2"
+    "compression-webpack-plugin": "^7.1.1"
   },
   "dependencies": {
     "@roots/bud-support": "^2.2.0"

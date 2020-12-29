@@ -19,18 +19,11 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": [
-    "webpack",
-    "bud"
-  ],
+  "keywords": ["webpack", "bud"],
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "lib/",
-    "types/",
-    "src/"
-  ],
+  "files": ["lib/", "types/", "src/"],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "exports": {
@@ -60,7 +53,7 @@
     "@roots/bud-postcss": "^2.2.0",
     "@roots/bud-support": "^2.2.0",
     "fibers": "^5.0.0",
-    "node-sass": "^4.14.1",
+    "node-sass": "^5.0.0",
     "postcss-scss": "^3.0.2",
     "sass-loader": "^10.0.3"
   },

@@ -19,18 +19,11 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": [
-    "bud",
-    "postcss",
-    "webpack"
-  ],
+  "keywords": ["bud", "postcss", "webpack"],
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "lib",
-    "src"
-  ],
+  "files": ["lib", "src"],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
@@ -59,10 +52,10 @@
     "@roots/bud-typings": "^2.2.0"
   },
   "dependencies": {
-    "autoprefixer": "^9.8.5",
-    "postcss": "^8.1.1",
-    "postcss-flexbugs-fixes": "^4.2.1",
-    "postcss-loader": "^4.0.4",
+    "autoprefixer": "^10.1.0",
+    "postcss": "^8.2.1",
+    "postcss-flexbugs-fixes": "^5.0.2",
+    "postcss-loader": "^4.1.0",
     "postcss-nested": "^5.0.3",
     "postcss-preset-env": "^6.7.0"
   },

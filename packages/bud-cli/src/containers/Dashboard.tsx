@@ -17,8 +17,7 @@ import type {Framework} from '@roots/bud-typings'
 
 export const Dashboard: FunctionComponent<{
   bud: Framework
-  mode: Framework.Webpack.Configuration['mode']
-}> = ({bud, mode}) => {
+}> = ({bud}) => {
   const app = useApp()
   const [disk] = useDisk(bud)
   const compilation = useCompilation(bud)
@@ -38,7 +37,7 @@ export const Dashboard: FunctionComponent<{
    */
   useEffect(() => {
     if (
-      isEqual(mode, 'production') &&
+      bud.mode.is('production') &&
       compilation?.assets?.length > 0 &&
       isEqual(compilation?.progress?.percentage.decimal, 1)
     ) {
