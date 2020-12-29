@@ -1,0 +1,8 @@
+{
+  "name": "bud-example-sass",
+  "private": true,
+  "scripts": {
+    "dev": "node bud.config.js --mode development",
+    "build": "node bud.config.js --mode production"
+  }
+}
