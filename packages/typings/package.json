@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-typings",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Shared typings",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -33,7 +33,7 @@
     "@roots/bud-support": "*"
   },
   "devDependencies": {
-    "@roots/bud-support": "^2.2.0",
+    "@roots/bud-support": "^2.2.1",
     "child_process": "^1.0.2",
     "ink": "^3.0.0-6",
     "webpack": "^4.44.1"

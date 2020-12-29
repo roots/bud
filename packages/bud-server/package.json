@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-server",
   "description": "Development server for @roots/bud",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -58,10 +58,10 @@
     "@roots/container": "*"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^2.2.0"
+    "@roots/bud-typings": "^2.2.1"
   },
   "dependencies": {
-    "@roots/bud-support": "^2.2.0",
+    "@roots/bud-support": "^2.2.1",
     "@roots/container": "^2.2.0"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"

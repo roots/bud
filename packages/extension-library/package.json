@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-library",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "Adds dynamic link library support to Bud",
   "repository": {
     "type": "git",
@@ -55,7 +55,7 @@
     "@roots/bud": "*"
   },
   "devDependencies": {
-    "@roots/bud": "^2.2.0"
+    "@roots/bud": "^2.2.1"
   },
   "dependencies": {
     "autodll-webpack-plugin": "0.4.2"

@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud",
-  "version": "2.2.0",
+  "version": "2.2.1",
   "description": "A friendly build tool to help manage your project assets.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -19,11 +19,17 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": ["webpack"],
+  "keywords": [
+    "webpack"
+  ],
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib/", "types/", "src/"],
+  "files": [
+    "lib/",
+    "types/",
+    "src/"
+  ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
@@ -63,20 +69,20 @@
     "@roots/filesystem": "*"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^2.2.0",
+    "@roots/bud-typings": "^2.2.1",
     "@types/compression-webpack-plugin": "^4.0.1"
   },
   "dependencies": {
-    "@roots/bud-api": "^2.2.0",
-    "@roots/bud-build": "^2.2.0",
-    "@roots/bud-cache": "^2.2.0",
-    "@roots/bud-cli": "^2.2.0",
-    "@roots/bud-compiler": "^2.2.0",
-    "@roots/bud-extensions": "^2.2.0",
-    "@roots/bud-framework": "^2.2.0",
-    "@roots/bud-hooks": "^2.2.0",
-    "@roots/bud-server": "^2.2.0",
-    "@roots/bud-support": "^2.2.0",
+    "@roots/bud-api": "^2.2.1",
+    "@roots/bud-build": "^2.2.1",
+    "@roots/bud-cache": "^2.2.1",
+    "@roots/bud-cli": "^2.2.1",
+    "@roots/bud-compiler": "^2.2.1",
+    "@roots/bud-extensions": "^2.2.1",
+    "@roots/bud-framework": "^2.2.1",
+    "@roots/bud-hooks": "^2.2.1",
+    "@roots/bud-server": "^2.2.1",
+    "@roots/bud-support": "^2.2.1",
     "@roots/container": "^2.2.0",
     "@roots/filesystem": "^2.2.0",
     "cache-loader": "^4.1.0",
