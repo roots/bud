@@ -8,9 +8,6 @@
     "declaration": true,
     "declarationDir": "./types",
     "declarationMap": true,
-    "paths": {
-      "*": ["./src/*", "./src/@types/*"]
-    }
   },
   "include": ["src"]
 }

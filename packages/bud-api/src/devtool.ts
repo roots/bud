@@ -1,8 +1,8 @@
 import {Api} from '@roots/bud-typings'
 
 export const devtool: Api.Devtool = function (devtool?) {
-  this.features.set('devtool', true)
-  devtool && this.config.set('devtool', devtool)
+  this.store.set('features.devtool', true)
+  devtool && this.store.set('webpack.devtool', devtool)
 
   return this
 }

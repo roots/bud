@@ -17,20 +17,18 @@ export interface Item extends Framework.Service<Framework> {
 
   query?: Item.Module.Query
 
-  register(module: Item.Module): void
-
   make: () => Item.RuleSetLoader
 }
 
 export namespace Item {
   export type RuleSetLoader = {
-    ident?: string
+    ident?: Module.Ident
 
-    loader?: string
+    loader?: Module.Loader
 
-    options?: Framework.Index<any>
+    options?: Module.Options
 
-    query?: Framework.Webpack.RuleSetQuery
+    query?: Module.Query
   }
 
   export type Module = {

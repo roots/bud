@@ -38,8 +38,8 @@ const fallbackOptions = {
  * Postcss options
  */
 export const options: Item.Module.Options = (bud: Framework) => {
-  const config = bud.fs.has('postcss.config.js')
-    ? bud.fs.get('postcss.config.js')
+  const config = bud.disk.get('project').has('postcss.config.js')
+    ? bud.disk.get('project').get('postcss.config.js')
     : null
 
   return config ?? fallbackOptions

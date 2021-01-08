@@ -19,12 +19,12 @@ export class Container<I = any> {
   /**
    * The container store
    */
-  public repository: Repository<I>
+  repository: Repository<I>
 
   /**
    * Class constructor
    */
-  constructor(repository: Repository) {
+  constructor(repository?: Repository) {
     this.setStore(repository ?? {})
   }
 

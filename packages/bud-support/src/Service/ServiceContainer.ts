@@ -1,44 +1,61 @@
-import {Container} from '@roots/container'
 import {has} from 'lodash'
+import {Container} from '@roots/container'
 
 /**
  * Application service base
  */
 export abstract class ServiceContainer<
-  T = any
+  T = unknown
 > extends Container {
+  [key: string]: any
+
   /**
    * Application reference
    */
   public readonly _app: () => T
 
   /**
-   * Initialize class
-   */
-  public init(): void {
-    return
-  }
-
-  /**
    * Constructor
    */
   public constructor(items: {
-    app: {get: () => T}
     [key: string]: any
+    app: T
+    containers?: {[key: string]: Container['repository']}
   }) {
     super({})
 
-    this._app = items.app.get
+    this._app = () => items.app
+
+    if (items.containers) {
+      Object.entries(items.containers).forEach(
+        ([name, repo]: [
+          string,
+          {[key: string]: Container['repository']},
+        ]) => (this[name] = new Container(repo)),
+      )
+    }
 
     Object.entries(items)
-      .filter(([key]) => {
-        return key !== 'app'
+      .filter(([key]: [string, any]) => {
+        return key !== 'app' && key !== 'containers'
       })
       .forEach(([key, value]) => {
         this[key] = value
       })
+  }
 
-    this.init()
+  /**
+   * Register service
+   */
+  public register(): void {
+    return
+  }
+
+  /**
+   * Boot service
+   */
+  public boot(): void {
+    return
   }
 
   /**

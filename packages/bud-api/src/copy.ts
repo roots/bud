@@ -11,9 +11,9 @@ export const copy: Api.Copy = function (
     },
   },
 ) {
-  this.extensions
-    .get(`copy-webpack-plugin`)
-    .mutate('patterns', patterns => [
+  this.extensions.mutate(
+    `copy-webpack-plugin.patterns`,
+    patterns => [
       ...patterns,
       {
         from,
@@ -22,7 +22,8 @@ export const copy: Api.Copy = function (
         globOptions: options.globOptions,
         noErrorOnMissing: options.noErrorOnMissing ?? true,
       },
-    ])
+    ],
+  )
 
   return this
 }

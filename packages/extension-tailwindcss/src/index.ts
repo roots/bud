@@ -20,7 +20,8 @@ export const boot = (bud: Framework): void => {
       ...plugins,
       // eslint-disable-next-line @typescript-eslint/no-var-requires
       require('tailwindcss')(
-        bud.fs.get('tailwind.config.js') ?? null,
+        bud.disk.get('project').get('tailwind.config.js') ??
+          null,
       ),
     ],
   )

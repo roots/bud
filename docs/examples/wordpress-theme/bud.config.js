@@ -17,9 +17,8 @@ bud.hooks.on('webpack.resolve.modules', modules => [
 
 // Use babel and react extensions.
 bud.use([
-  '@roots/bud-babel',
-  '@roots/bud-imagemin',
-  '@roots/bud-react',
+  require('@roots/bud-babel'),
+  require('@roots/bud-react'),
 ])
 
 /**
@@ -31,19 +30,17 @@ bud.use([
  */
 bud.when(
   bud.mode.is('production'),
-  bud => bud.use(['@roots/bud-wordpress-manifests']),
-  bud => bud.use(['@roots/bud-entrypoints']),
+  bud =>
+    bud.pipe([
+      bud =>
+        bud.use([require('@roots/bud-wordpress-manifests')]),
+    ]),
+  bud =>
+    bud.pipe([
+      bud => bud.use([require('@roots/bud-entrypoints')]),
+      bud => bud.proxy(),
+    ]),
 )
-
-/**
- * Set theme dist path for enqueues.
- */
-bud.publicPath('/wp-content/themes/example/dist')
-
-/**
- * In development, proxy on this port.
- */
-bud.mode.is('development') && bud.proxy()
 
 /**
  * Set entrypoints

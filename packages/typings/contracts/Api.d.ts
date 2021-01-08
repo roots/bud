@@ -18,7 +18,7 @@ export declare class Api {
    * })
    * ```
    */
-  public addPlugin: Api.AddPlugin
+  public addPlugin: Api.AddPlugin<Framework>
 
   /**
    * ## bud.alias  [💁 Fluent]
@@ -36,7 +36,7 @@ export declare class Api {
    * })
    * ```
    */
-  public alias: Api.Alias
+  public alias: Api.Alias<Framework>
 
   /**
    * ## bud.copy  [💁 Fluent]
@@ -72,7 +72,7 @@ export declare class Api {
    * })
    * ```
    */
-  public copy: Api.Copy
+  public copy: Api.Copy<Framework>
 
   /**
    * ## bud.define  [💁 Fluent]
@@ -106,7 +106,7 @@ export declare class Api {
    * </html>
    * ```
    */
-  public define: Api.Define
+  public define: Api.Define<Framework>
 
   /**
    * ## bud.dev  [💁 Fluent]
@@ -122,7 +122,7 @@ export declare class Api {
    * })
    * ```
    */
-  public dev: Api.Dev
+  public dev: Api.Dev<Framework>
 
   /**
    * ## bud.devtool  [💁 Fluent]
@@ -138,7 +138,7 @@ export declare class Api {
    * bud.devtool('inline-cheap-module-source-map')
    * ```
    */
-  public devtool: Api.Devtool
+  public devtool: Api.Devtool<Framework>
 
   /**
    * ## bud.dist  [💁 Fluent]
@@ -163,7 +163,7 @@ export declare class Api {
    * bud.dist('scripts/app.js')
    *  ```
    */
-  public dist: Api.Dist
+  public dist: Api.Dist<Framework>
 
   /**
    * ## bud.distPath [💁 Fluent]
@@ -178,7 +178,7 @@ export declare class Api {
    * bud.distPath('build')
    * ```
    */
-  public distPath: Api.DistPath
+  public distPath: Api.DistPath<Framework>
 
   /**
    * ## bud.entry  [💁 Fluent]
@@ -202,7 +202,7 @@ export declare class Api {
    * })
    * ```
    */
-  public entry: Api.Entry
+  public entry: Api.Entry<Framework>
 
   /**
    * ## bud.externals  [💁 Fluent]
@@ -217,7 +217,7 @@ export declare class Api {
    *   'jQuery': 'window.jquery',
    * })
    */
-  public externals: Api.Externals
+  public externals: Api.Externals<Framework>
 
   /**
    * ## bud.glob  [💁 Fluent]
@@ -243,14 +243,14 @@ export declare class Api {
    * bud.glob('app', '*.js')
    * ```
    */
-  public glob: Api.Glob
+  public glob: Api.Glob<Framework>
 
   /**
    * ## bud.gzip  [💁 Fluent]
    *
    * Gzip static assets. [🔗 Documentation](#)
    */
-  public gzip: Api.Gzip
+  public gzip: Api.Gzip<Framework>
 
   /**
    * ## bud.hash  [💁 Fluent]
@@ -263,7 +263,7 @@ export declare class Api {
    * bud.hash()
    * ```
    */
-  public hash: Api.Hash
+  public hash: Api.Hash<Framework>
 
   /**
    * ## bud.minify  [💁 Fluent]
@@ -276,7 +276,7 @@ export declare class Api {
    * bud.minify()
    * ```
    */
-  public minify: Api.Minify
+  public minify: Api.Minify<Framework>
 
   /**
    * ## bud.project  [💁 Fluent]
@@ -297,7 +297,7 @@ export declare class Api {
    * bud.project('node_modules')
    * ```
    */
-  public project: Api.Project
+  public project: Api.Project<Framework>
 
   /**
    * ## bud.projectPath [💁 Fluent]
@@ -312,7 +312,7 @@ export declare class Api {
    * bud.projectPath('build')
    * ```
    */
-  public projectPath: Api.ProjectPath
+  public projectPath: Api.ProjectPath<Framework>
 
   /**
    * ## bud.provide  [💁 Fluent]
@@ -328,7 +328,7 @@ export declare class Api {
    * })
    * ```
    */
-  public provide: Api.Provide
+  public provide: Api.Provide<Framework>
 
   /**
    * ## bud.proxy  [💁 Fluent]
@@ -350,7 +350,7 @@ export declare class Api {
    * })
    * ```
    */
-  public proxy: Api.Proxy
+  public proxy: Api.Proxy<Framework>
 
   /**
    * ## bud.publicPath  [💁 Fluent]
@@ -367,7 +367,7 @@ export declare class Api {
    * bud.publicPath('/app/themes/sage/dist')
    * ```
    */
-  public publicPath: Api.PublicPath
+  public publicPath: Api.PublicPath<Framework>
 
   /**
    * ## bud.run  [💁 Fluent]
@@ -386,7 +386,7 @@ export declare class Api {
    * bud.run(true)
    * ```
    */
-  public run: Api.Run
+  public run: Api.Run<Framework>
 
   /**
    * ## bud.runtime  [💁 Fluent]
@@ -401,7 +401,7 @@ export declare class Api {
    * bud.runtime()
    * ```
    */
-  public runtime: Api.Runtime
+  public runtime: Api.Runtime<Framework>
 
   /**
    * ## bud.src  [💁 Fluent]
@@ -419,7 +419,7 @@ export declare class Api {
    * bud.src('scripts/app.js')
    * ```
    */
-  public src: Api.Src
+  public src: Api.Src<Framework>
 
   /**
    * ## bud.srcPath [💁 Fluent]
@@ -434,7 +434,7 @@ export declare class Api {
    * bud.srcPath('build')
    * ```
    */
-  public srcPath: Api.SrcPath
+  public srcPath: Api.SrcPath<Framework>
 
   /**
    * ## bud.string
@@ -448,26 +448,7 @@ export declare class Api {
    * const stringValue = bud.string(value)
    * ```
    */
-  public string: Api.Stringify
-
-  /**
-   * ## bud.storage  [💁 Fluent]
-   *
-   * Cache module output that remains unchanged between builds. [🔗 Documentation](#)
-   *
-   * ### Usage
-   *
-   * ```js
-   * bud.storage()
-   * ```
-   *
-   * #### Specify an output path for the JSON used for cache busting
-   *
-   * ```js
-   * bud.storage(bud.project('./.build'))
-   * ```
-   */
-  public storage: Api.Storage
+  public string: Api.Stringify<Framework>
 
   /**
    * ## bud.target  [💁 Fluent]
@@ -478,7 +459,7 @@ export declare class Api {
    * bud.target('web')
    * ```
    */
-  public target: Api.Target
+  public target: Api.Target<Framework>
 
   /**
    * ## bud.template  [💁 Fluent]
@@ -498,7 +479,7 @@ export declare class Api {
    * })
    * ```
    */
-  public template: Api.Template
+  public template: Api.Template<Framework>
 
   /**
    * ## bud.vendor  [💁 Fluent]
@@ -521,23 +502,23 @@ export declare class Api {
 }
 
 export namespace Api {
-  export type AddPlugin = (
-    this: Framework,
+  export type AddPlugin<T = Framework> = (
+    this: T,
     name: string,
     make: Webpack.Plugin | CallableFunction,
-  ) => Framework
+  ) => T
 
-  export type Alias = (
-    this: Framework,
+  export type Alias<T = Framework> = (
+    this: T,
     aliases: {
       [key: string]: string
     },
-  ) => Framework
+  ) => T
 
-  export type Copy = (
-    this: Framework,
+  export type Copy<T = Framework> = (
+    this: T,
     options: Copy.Options,
-  ) => Framework
+  ) => T
 
   export namespace Copy {
     export interface Options {
@@ -553,30 +534,33 @@ export namespace Api {
     }
   }
 
-  export type Define = (
-    this: Framework,
+  export type Define<T = Framework> = (
+    this: T,
     values: Framework.Index<any>,
-  ) => Framework
+  ) => T
 
-  export type Dev = (
-    this: Framework,
-    config: Framework.Server.Config,
-  ) => Framework
+  export type Dev<T = Framework> = (
+    this: T,
+    config: Framework.Server.Options,
+  ) => T
 
-  export type Devtool = (
-    this: Framework,
+  export type Devtool<T = Framework> = (
+    this: T,
     devtool?: Webpack.Configuration['devtool'],
-  ) => Framework
+  ) => T
 
-  export type Dist = (this: Framework, path?: string) => string
+  export type Dist<T = Framework> = (
+    this: T,
+    path?: string,
+  ) => string
 
-  export type DistPath = (
-    this: Framework,
+  export type DistPath<T = Framework> = (
+    this: T,
     segment: string,
-  ) => Framework
+  ) => T
 
-  export type Entry = (
-    this: Framework,
+  export type Entry<T = Framework> = (
+    this: T,
     bundleName: string,
     assets:
       | string
@@ -584,26 +568,26 @@ export namespace Api {
       | {
           [key: string]: string | string[]
         },
-  ) => Framework
+  ) => T
 
-  export type Externals = (
-    this: Framework,
+  export type Externals<T = Framework> = (
+    this: T,
     externals: {
       [key: string]: any
     },
-  ) => Framework
+  ) => T
 
-  export type Glob = (
-    this: Framework,
+  export type Glob<T = Framework> = (
+    this: T,
     name: string,
     files: GlobTask['pattern'],
     options: GlobTask['options'],
-  ) => Framework
+  ) => T
 
-  export type Gzip = (
-    this: Framework,
-    options?: Gzip.Options,
-  ) => Framework
+  export type Gzip<T = Framework> = (
+    this: T,
+    options?: Framework.Module.Options<Gzip.Options>,
+  ) => T
 
   namespace Gzip {
     export type Options = CompressionPlugin.Options<
@@ -611,77 +595,83 @@ export namespace Api {
     >
   }
 
-  export type Hash = (
-    this: Framework,
+  export type Hash<T = Framework> = (
+    this: T,
     enabled?: boolean,
-  ) => Framework
+  ) => T
 
-  export type Minify = (this: Framework) => Framework
+  export type Minify<T = Framework> = (this: T) => T
 
-  export type ProjectPath = (
-    this: Framework,
+  export type ProjectPath<T = Framework> = (
+    this: T,
     dir: string,
-  ) => Framework
+  ) => T
 
-  export type Provide = (
-    this: Framework,
+  export type Provide<T = Framework> = (
+    this: T,
     options: {
       [key: string]: string | string[]
     },
-  ) => Framework
+  ) => T
 
-  export type Project = (
-    this: Framework,
+  export type Project<T = Framework> = (
+    this: T,
     path?: string,
   ) => string
 
-  export type Proxy = (
-    this: Framework,
+  export type Proxy<T = Framework> = (
+    this: T,
     config?: {
       enabled?: boolean
-      host?: Framework.Server.Config['proxy']['host']
-      port?: Framework.Server.Config['proxy']['port']
+      host?: Framework.Server.Options['proxy']['host']
+      port?: Framework.Server.Options['proxy']['port']
     },
-  ) => Framework
+  ) => T
 
-  export type PublicPath = (
-    this: Framework,
+  export type PublicPath<T = Framework> = (
+    this: T,
     publicPath: string,
-  ) => Framework
+  ) => T
 
-  export type Run = (this: Framework, safeMode?: boolean) => void
+  export type Run<T = Framework> = (
+    this: T,
+    safeMode?: boolean,
+  ) => void
 
-  export type Runtime = (this: Framework) => Framework
+  export type Runtime<T = Framework> = (this: T) => T
 
-  export type Src = (this: Framework, segment?: string) => string
+  export type Src<T = Framework> = (
+    this: T,
+    segment?: string,
+  ) => string
 
-  export type Storage = (
-    this: Framework,
+  export type Storage<T = Framework> = (
+    this: T,
     path?: string,
-  ) => Framework
+  ) => T
 
-  export type Stringify = (
-    this: Framework,
+  export type Stringify<T = Framework> = (
+    this: T,
     string: unknown,
   ) => string
 
-  export type SrcPath = (
-    this: Framework,
+  export type SrcPath<T = Framework> = (
+    this: T,
     segment: string,
-  ) => Framework
+  ) => T
 
-  export type Target = (
-    this: Framework,
+  export type Target<T = Framework> = (
+    this: T,
     target: string,
-  ) => Framework
+  ) => T
 
-  export type Template = (
-    this: Framework,
-    options?: {
+  export type Template<T = Framework> = (
+    this: T,
+    options?: Framework.Module.Options<{
       template?: string
       replacements?: Framework.Index<string>
-    },
-  ) => Framework
+    }>,
+  ) => T
 
-  export type Vendor = (this: Framework) => Framework
+  export type Vendor<T = Framework> = (this: T) => T
 }

@@ -9,23 +9,24 @@ import type {
 import * as rule from './rules'
 import * as item from './items'
 
-export const registerItem: Module.RegisterOne<Item.Module> = [
-  'sass',
-  item,
-]
+export const register: Module.Boot = (bud: Framework): void => {
+  ;['sass', 'scss'].forEach(ext => {
+    !bud.store
+      .get('webpack.resolve.extensions')
+      .includes(`.${ext}`)
+      ? bud.store.mutate('webpack.resolve.extensions', exts => [
+          ...exts,
+          `.${ext}`,
+        ])
+      : null
+  })
+}
 
-export const registerRule: Module.RegisterOne<Rule.Module> = [
-  'sass',
-  rule,
-]
-export const registerLoader: Module.RegisterOne<Loader> = [
+export const setItems: Module.Register<Item> = ['sass', item]
+
+export const setRules: Module.Register<Rule> = ['sass', rule]
+
+export const setLoaders: Module.Register<Loader> = [
   'sass-loader',
   require.resolve('sass-loader'),
 ]
-
-export const boot: Module.Boot = (bud: Framework): void => {
-  ;['sass', 'scss'].forEach(ext => {
-    !bud.config.get('resolve.extensions').includes(ext) &&
-      bud.config.merge('resolve.extensions', [`.${ext}`])
-  })
-}

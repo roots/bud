@@ -1,12 +1,4 @@
 import type {Imagemin} from './imagemin/typings'
-/**
- * Enable imagemin
- */
-export const imagemin: Imagemin.Config = function (enabled) {
-  this.features.set('imagemin', enabled ?? true)
-
-  return this
-}
 
 /**
  * Configure imagemin plugins.
@@ -15,9 +7,10 @@ export const imageminPlugins: Imagemin.ConfigPlugins = function (
   plugins,
 ) {
   plugins &&
-    this.extensions
-      .get('image-minimizer-webpack-plugin')
-      .set('minimizerOptions.plugins', plugins)
+    this.extensions.set(
+      'image-minimizer-webpack-plugin.options.minimizerOptions.plugins',
+      plugins,
+    )
 
   return this
 }
@@ -29,9 +22,10 @@ export const imageminOption: Imagemin.ConfigOption = function (
   key,
   value,
 ) {
-  this.extensions
-    .get('image-minimizer-webpack-plugin')
-    .set(key, value)
+  this.extensions.set(
+    `image-minimizer-webpack-plugin.options.${key}`,
+    value,
+  )
 
   return this
 }

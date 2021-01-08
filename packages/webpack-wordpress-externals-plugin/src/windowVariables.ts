@@ -1,21 +1,21 @@
 export const windowVariables = {
-  [`lodash`]: {
+  ['lodash']: {
     window: 'lodash',
     enqueue: 'lodash',
   },
-  [`lodash-es`]: {
+  ['lodash-es']: {
     window: 'lodash',
     enqueue: 'lodash',
   },
-  [`jquery`]: {
+  ['jquery']: {
     window: 'jQuery',
     enqueue: 'jquery',
   },
-  [`react`]: {
+  ['react']: {
     window: 'React',
     enqueue: 'react',
   },
-  [`react-dom`]: {
+  ['react-dom']: {
     window: 'ReactDOM',
     enqueue: 'react-dom',
   },

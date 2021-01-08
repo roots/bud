@@ -13,11 +13,6 @@ export interface Rule
   extends Framework.Service<Framework>,
     Framework.Rule.Module {
   /**
-   * Register module
-   */
-  register(rule: Rule.Module): this
-
-  /**
    * Produce rulesetrule
    *
    * @see RuleSetRule
@@ -71,7 +66,7 @@ export namespace Rule {
     >
   }
 
-  export type Resolve = Framework.Index<Webpack.Resolve>
+  export type Resolve = Framework.Index<Webpack.Configuration['resolve']>
 
   export type Type =
     | 'javascript/auto'

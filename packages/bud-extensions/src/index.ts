@@ -1,3 +1,3 @@
-import Extension from './Extension'
+import Extension from './Extensions/Extension'
 import Extensions from './Extensions'
-export {Extension, Extensions}
+export {Extensions, Extension}

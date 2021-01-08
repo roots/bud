@@ -9,17 +9,17 @@ export namespace Output {
 export const output: Output.Build = function () {
   const path = this.hooks.filter<Output['path']>(
     'webpack.output.path',
-    this.config.get('output.path'),
+    this.store.get('webpack.output.path'),
   )
 
   const publicPath = this.hooks.filter<Output['publicPath']>(
     'webpack.output.publicPath',
-    this.config.get('output.publicPath'),
+    this.store.get('webpack.output.publicPath'),
   )
 
   const filename = this.hooks.filter<Output['filename']>(
     'webpack.output.filename',
-    this.features.enabled('hash')
+    this.store.enabled('features.hash')
       ? `[name].[hash].js`
       : `[name].js`,
   )

@@ -5,9 +5,12 @@
  * registered filter functions. The mutated value is returned
  * in place of the original.
  */
-declare type Filter = <T = any>(name: string, value: T) => T
+export declare type Filter = <T = any>(
+  name: string,
+  value: T,
+) => T
 
-declare namespace Filter {
+export declare namespace Filter {
   /**
    * Reduce the original value through registered filters.
    */
@@ -23,5 +26,3 @@ declare namespace Filter {
    */
   export type On = <T = any>(name: string, hook: Fn<T>) => void
 }
-
-export {Filter}

@@ -9,7 +9,7 @@ export const externals: Externals.Build = function () {
   return {
     externals: this.hooks.filter<Externals>(
       'webpack.externals',
-      this.config.get('externals'),
+      this.store.get('webpack.externals'),
     ),
   }
 }

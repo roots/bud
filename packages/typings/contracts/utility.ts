@@ -12,23 +12,16 @@ export interface Constructor<T> {
   new (params?: unknown): T
 }
 
+/**
+ * Chainable
+ */
 export interface Fluent<T> {
   function(this: T): T
 }
 
-export type Providers = {
-  api: Index<CallableFunction>
-  containers: Index<any>
-  items: Index<Framework.Item.Module>
-  loaders: Index<Framework.Loader>
-  rules: Index<Framework.Rule.Module>
-  services: Index<any>
-  extensions: Index<Framework.Module>
-}
-
 export type Use = (
   this: Framework,
-  extensions: Array<string | Use.Tuple>,
+  extensions: Framework.Module[keyof Framework.Module],
 ) => Framework
 
 export namespace Use {
@@ -44,15 +37,38 @@ export type When = (
   isFalse?: (bud: Framework) => unknown,
 ) => Framework
 
-/**
- * Produces a value.
- */
-export type Factory<O = unknown, I = unknown> = (args: I) => O
+export type Factory<ReturnType = unknown, Args = unknown> = (
+  args?: Args,
+) => ReturnType
+
+export type OneOrMany<T> = T | T[]
 
 /**
  * Might be a function that produces a value, might be
  * the value itself.
  */
-export type MaybeCallable<O = unknown, A = unknown> =
-  | Factory<O, A>
-  | O
+export type MaybeCallable<T = unknown, A = unknown> =
+  | Factory<T, A>
+  | T
+
+export namespace MappedType {
+  export declare type One<T> = {
+    [K in keyof T]: T[K]
+  }
+
+  export declare type OneOrMany<T> = {
+    [K in keyof T]: T[K] | T[K][]
+  }
+
+  export declare type Many<T> = {
+    [K in keyof T]: T[K][]
+  }
+
+  export declare type Callable<T, A> = {
+    [K in keyof T]: (args: A) => T[K]
+  }
+
+  export declare type MaybeCallable<T, A> = {
+    [K in keyof T]: Callable<T, A>[K] | T[K]
+  }
+}

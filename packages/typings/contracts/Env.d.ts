@@ -1,5 +1,5 @@
 import {Framework} from './'
-import {dotenv} from '@roots/bud-support'
+import dotenv from 'dotenv'
 
 /**
  * ## bud.env

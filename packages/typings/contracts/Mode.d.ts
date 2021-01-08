@@ -11,20 +11,6 @@ import {Webpack} from './'
 export declare interface Mode
   extends Framework.Service<Framework> {
   /**
-   * ## bud.mode.mode
-   *
-   * Webpack compilation mode.
-   */
-  mode: Webpack.Configuration['mode']
-
-  /**
-   * ## bud.mode.ci
-   *
-   * Is CI mode enabled?
-   */
-  ci: boolean
-
-  /**
    * ## bud.mode.get
    *
    * Returns the currently set mode.
@@ -50,7 +36,7 @@ export declare interface Mode
    * bud.mode.set('production')
    * ```
    */
-  set(mode: Webpack.Configuration['mode']): Framework
+  set(mode: Webpack.Configuration['mode']): void
 
   /**
    * ## bud.mode.is

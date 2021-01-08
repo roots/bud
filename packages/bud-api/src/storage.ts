@@ -2,13 +2,15 @@ import {Api} from '@roots/bud-typings'
 
 export const storage: Api.Storage = function (path?) {
   if (path) {
-    this.config.set('recordsPath', path)
-    this.extensions
-      .get('webpack-config-dump-plugin')
-      .set('outputPath', this.project('storage/bud'))
+    this.store.set('webpack.recordsPath', path)
+
+    this.extensions.set(
+      'webpack-config-dump-plugin.options.outputPath',
+      path,
+    )
   }
 
-  this.features.set('buildCache', true)
+  this.store.set('features.buildCache', true)
 
   return this
 }

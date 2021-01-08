@@ -9,20 +9,26 @@ const {bud} = require('@roots/bud')
  * configuration file.
  */
 bud.hooks.on('webpack.resolve.modules', modules => [
-  // @ts-ignore
   ...modules,
-  bud.fs.path.join(bud.fs.base, './../../../node_modules'),
+  bud.disk.path.join(
+    bud.disk.baseDir,
+    './../../../node_modules',
+  ),
 ])
 
-/**
- * Extensions
- */
-bud.use(['@roots/bud-babel', '@roots/bud-postcss'])
+// @ts-ignore
+bud.use('@roots/bud-sass')
 
 /**
  * Set application source files.
  */
-bud.entry('app', ['app.js', 'app.css'])
+bud.entry('app', ['app.js', 'app.scss'])
+
+/* bud.build.loaders
+  .getEntries()
+  .forEach(loader => console.log(loader))
+
+process.exit() */
 
 /**
  * Run build.

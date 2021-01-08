@@ -1,13 +1,14 @@
 import {Api} from '@roots/bud-typings'
 
 export const gzip: Api.Gzip = function (options?) {
-  this.features.enable('gzip')
+  this.store.get('features').enable('gzip')
 
   if (!options) return
 
-  this.extensions
-    .get('compression-webpack-plugin-gzip')
-    .setOptions(options)
+  this.extensions.set(
+    'compression-webpack-plugin-gzip.options',
+    options,
+  )
 
   return this
 }

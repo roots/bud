@@ -60,9 +60,10 @@
     "@roots/bud-postcss": "^2.2.1",
     "@roots/bud-support": "^2.2.1",
     "fibers": "^5.0.0",
-    "node-sass": "^5.0.0",
-    "postcss-scss": "^3.0.2",
-    "sass-loader": "^10.0.3"
+    "node-sass": "^4.14.1",
+    "postcss-scss": "^3.0.4",
+    "sass": "^1.32.0",
+    "sass-loader": "^10.1.0"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
 }

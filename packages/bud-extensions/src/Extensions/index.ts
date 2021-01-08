@@ -1,12 +1,7 @@
-import Extension from '../Extension'
+import {Extensions} from '@roots/bud-typings'
+import {set} from '@roots/bud-support'
+import Extension from './Extension'
 import Service from './Service'
-import {isFunction, set} from '@roots/bud-support'
-import type {
-  Extensions,
-  Container,
-  Module,
-  MaybeCallable,
-} from '@roots/bud-typings'
 
 /**
  * ## bud.extensions
@@ -20,6 +15,22 @@ import type {
  */
 export default class extends Service implements Extensions {
   /**
+   * Service register
+   */
+  public register(): void {
+    this.setStore(this.extensions)
+  }
+
+  /**
+   * Service boot
+   */
+  public boot(): void {
+    this.getEntries().map(([name, ext]) => {
+      this.set<Extension>(name, ext)
+    })
+  }
+
+  /**
    * ## bud.extensions.set
    *
    * Register an extension
@@ -30,49 +41,21 @@ export default class extends Service implements Extensions {
    * bud.extensions.set('my-extension', {make: new Plugin()})
    * ```
    */
-  public set(
-    name: string,
-    extension: MaybeCallable<Module>,
-  ): this {
+  public set<T = Extension>(name: string, extension: T): this {
     set(
       this.repository,
       name,
       new Extension({
         app: this.app,
-        module: isFunction(extension)
-          ? extension(this.app)
-          : extension,
-      }),
+        extension,
+      }).init(),
     )
 
     return this
   }
 
   /**
-   * ## bud.extensions.make [🏠 Internal]
-   *
-   * Register extensions from a container collection.
-   *
-   * ### Usage
-   *
-   * ```js
-   * const extensions = bud.makeContainer({
-   *   [`my-extension`]: {
-   *     make: new Plugin()
-   *   },
-   * })
-   *
-   * bud.extensions.make(extensions)
-   * ```
-   */
-  public make(extensions: Container): void {
-    Object.entries(extensions).map(([name, extension]) =>
-      this.set(name, extension),
-    )
-  }
-
-  /**
-   * ## bud.extensions.use [🏠 Internal]
+   * ## bud.extensionensions.use [🏠 Internal]
    *
    * Register an extension from a module name string.
    *
@@ -85,17 +68,16 @@ export default class extends Service implements Extensions {
    * bud.extensions.use('@roots/bud-react')
    * ```
    */
-  public async use(pkg: string): Promise<this> {
+  public use(pkg: string): this {
     const path = require.resolve(pkg)
 
     this.app.disk.set(pkg, {
-      base: this.app.fs.path.dirname(path),
+      base: this.app.disk.path.dirname(path),
       glob: ['**/*'],
     })
 
-    const extension = await import(path)
-
-    this.set(pkg, extension)
+    // eslint-disable-next-line @typescript-eslint/no-var-requires
+    this.set<Extension>(pkg, require(path))
 
     return this
   }

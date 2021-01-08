@@ -15,7 +15,7 @@ export class Plugin {
   /**
    * Compilation context.
    */
-  public context: Webpack.compilation.Compilation['context']
+  public context: Webpack.Compilation.Compilation['context']
 
   /**
    * Hook: webpack compilation output.
@@ -25,7 +25,7 @@ export class Plugin {
   /**
    * Build hash
    */
-  public hash: Webpack.compilation.Compilation['hash']
+  public hash: Webpack.Compilation.Compilation['hash']
 
   /**
    * Emitted filename
@@ -97,7 +97,7 @@ export class Plugin {
    * Emit manifest
    */
   async emit(
-    compilation: Webpack.compilation.Compilation,
+    compilation: Webpack.Compilation.Compilation,
     callback: () => void,
   ): Promise<void> {
     const {
@@ -106,10 +106,10 @@ export class Plugin {
       hooks,
       hash,
     }: {
-      assets: Webpack.compilation.Compilation['assets']
-      entrypoints: Webpack.compilation.Compilation['entrypoints']
-      hooks: any // Webpack.compilation.Compilation['hooks']
-      hash?: Webpack.compilation.Compilation['hash']
+      assets: Webpack.Compilation.Compilation['assets']
+      entrypoints: Webpack.Compilation.Compilation['entrypoints']
+      hooks: any // Webpack.Compilation.Compilation['hooks']
+      hash?: Webpack.Compilation.Compilation['hash']
     } = compilation
 
     this.hash = hash ?? null

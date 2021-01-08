@@ -4,7 +4,7 @@ import type {Framework, Module} from '@roots/bud-typings'
 import type {Purge} from './interfaces'
 
 export const boot: Module.Boot = bud => {
-  bud.presets.set('purgecss', {wp})
+  bud.store.set('presets.purgecss', {wp})
 }
 
 const purge: Purge.Config = function configuration(

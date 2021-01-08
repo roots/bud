@@ -1,4 +1,3 @@
-import {Framework} from '../Framework'
 import {Filter} from './Filter'
 import {Action} from './Action'
 import {Store} from './Store'
@@ -46,7 +45,7 @@ import {Store} from './Store'
  * )
  * ```
  */
-declare interface Hooks extends Framework.Service<Framework> {
+export declare interface Hooks {
   /**
    * ## bud.hooks.on
    *
@@ -119,20 +118,10 @@ declare interface Hooks extends Framework.Service<Framework> {
    * ```
    */
   filter: Filter
-
-  /**
-   * ## bud.hooks.reduceFilters
-   *
-   * For an array of filters, process value with each filter sequentially,
-   * passing the result on to the next filter.
-   */
-  reduceFilters: Hooks.Filter.Reducer
 }
 
-declare namespace Hooks {
-  export {Filter}
-  export {Action}
+export declare namespace Hooks {
   export {Store}
+  export {Action}
+  export {Filter}
 }
-
-export {Hooks}

@@ -7,9 +7,8 @@
     "declaration": true,
     "declarationDir": "./types",
     "declarationMap": true,
-    "paths": {
-      "*": ["*", "./src/@types/*"]
-    }
   },
-  "include": ["src"]
+  "typeAcquisition": {
+    "enable": true
+  },
 }

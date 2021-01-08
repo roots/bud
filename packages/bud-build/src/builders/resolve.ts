@@ -9,15 +9,15 @@ export const resolve: (
     resolve: {
       alias: this.hooks.filter<Resolve['alias']>(
         'webpack.resolve.alias',
-        this.config.get('resolve.alias'),
+        this.store.get('webpack.resolve.alias'),
       ),
       extensions: this.hooks.filter<Resolve['extensions']>(
         'webpack.resolve.extensions',
-        this.config.get('resolve.extensions'),
+        this.store.get('webpack.resolve.extensions'),
       ),
       modules: this.hooks.filter<Resolve['modules']>(
         'webpack.resolve.modules',
-        [this.config.get('context'), 'node_modules'],
+        [this.store.get('webpack.context'), 'node_modules'],
       ),
     },
   }

@@ -12,11 +12,18 @@ import {eslintFormatter} from '@roots/bud-support'
 export const boot: Boot = bud => {
   const path = bud.disk.get('@roots/bud-eslint')
 
-  bud.features.set('eslint', true)
+  bud.store.enable('features.eslint')
 
-  bud.presets.set('eslint.roots', path.get('presets/roots.js'))
-  bud.presets.set('eslint.react', path.get('presets/react.js'))
-  bud.presets.set('eslint.wp', path.get('presets/wp.js'))
+  bud.store.set(
+    'presets.eslint.roots',
+    path.get('presets/roots.js'),
+  )
+  bud.store.set(
+    'presets.eslint.react',
+    path.get('presets/react.js'),
+  )
+
+  bud.store.set('presets.eslint.wp', path.get('presets/wp.js'))
 }
 
 /**
@@ -37,8 +44,8 @@ export const make: Make = opts => new Plugin(opts.getStore())
 /**
  * Make when
  */
-export const when: When = ({features}) =>
-  features.enabled('eslint')
+export const when: When = ({store}) =>
+  store.enabled('features.slint')
 
 /**
  * Extend config file API
@@ -51,7 +58,7 @@ export const api: Api = () => ({
     return this
   },
   enableEslint: function (enabled = true) {
-    this.features[enabled ? `enable` : `disable`]('eslint')
+    this.store[enabled ? `enable` : `disable`]('eslint')
     return this
   },
 })

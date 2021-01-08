@@ -1,9 +1,7 @@
 import {Framework} from './'
-import {
-  ProxyMiddleware,
-  webpackDevMiddleware,
-} from '@roots/bud-support'
 import {Express, Webpack} from './'
+import webpackDevMiddleware from 'webpack-dev-middleware'
+import ProxyMiddleware from 'http-proxy-middleware'
 
 /**
  * ## bud.server
@@ -13,20 +11,52 @@ import {Express, Webpack} from './'
  * [📦 @roots/bud-server](https://www.npmjs.com/package/@roots/bud-build)
  * [🔗 Documentation](#)
  */
-export interface Server extends Framework.Service<Framework> {
+export interface Server {
+  /**
+   * Instance
+   */
   instance: Server.Instance
 
-  config: Framework.Container
+  /**
+   * Config
+   */
+  config: Server.Config
 
-  run(callback?: () => void): this
+  /**
+   * Running
+   */
+  running: boolean
 
-  listen(callback?: () => void): void
+  injectHmr(): void
+
+  /**
+   * ## bud.server.run [🏠 Internal]
+   *
+   * Run the development server.
+   *
+   * Projects should use `bud.run` unless they want
+   * to supply their own Webpack stats handler.
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.server.run((err, stats) => {
+   *  // ...
+   * })
+   * ```
+   */
+  run(compiler: any): this
 }
 
 export namespace Server {
   export type Instance = Express.Application
 
-  export interface Config {
+  export type Config = Framework.Container<Options>
+
+  /**
+   * Options
+   */
+  export interface Options {
     /**
      * The development server host
      * @example example.test
@@ -60,6 +90,11 @@ export namespace Server {
      * The index path for web server, defaults to "index.html".
      */
     index?: webpackDevMiddleware.Options['index']
+
+    /**
+     * Set the default file system which will be used by webpack as primary destination of generated files
+     */
+    fs?: webpackDevMiddleware.Options['fs']
 
     /**
      * The path that the middleware is bound to.
@@ -148,7 +183,7 @@ export namespace Server {
     /**
      * Specify polling, etc.
      */
-    watchOptions?: Webpack.Options.WatchOptions
+    watchOptions?: Webpack.Configuration['watchOptions']
 
     /**
      * If true, the option will instruct the module

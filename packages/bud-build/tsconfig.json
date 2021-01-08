@@ -11,5 +11,6 @@
       "*": ["./src/*", "./src/@types/*"]
     }
   },
-  "include": ["src"]
+  "include": ["src"],
+  "exclude": ["lib", "types"]
 }

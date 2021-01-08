@@ -9,56 +9,57 @@ import {
 import {Assets} from '../components/Assets'
 import {Errors} from '../components/Errors'
 import {Progress} from '../components/Progress'
-import {Debug} from '../components/Debug'
 import {Git} from '../components/Git'
+import {Console} from '../components/Console'
 
-import type {UseStats} from '../hooks/useStats'
-import type {UseProgress} from '../hooks/useProgress'
 import type {Styles} from '@roots/ink-use-style'
-import type {Framework} from '@roots/bud-typings'
+import type {
+  Webpack,
+  Framework,
+  Compiler,
+} from '@roots/bud-typings'
+import {Compilation} from '../hooks/useCompilation'
 
 const Reporter: FunctionComponent<{
   bud: Framework
-  stats: UseStats.Stats
-  assets: Array<{
-    name: string
-    active: boolean
-    size: number
-    hot: boolean
-    info?: string
-  }>
+  mode: Framework.Mode
   pkg: {[key: string]: any}
-  progress: UseProgress.Progress
-  errors?: string[]
   bounds: Styles['bounds']
   colors: Styles['colors']
   col: Styles['col']
+  stats: Webpack.Stats.ToJsonOutput
+  progress: Compiler.Progress
+  errors: Compilation['errors']
 }> = ({
   bud,
-  stats,
-  assets,
-  progress,
-  errors,
   pkg,
   bounds,
   col,
   colors,
+  errors,
+  mode,
+  stats,
+  progress,
 }) => {
-  return (
+  const debug = bud.get().store.enabled('features.debug')
+
+  return debug ? (
+    <Console />
+  ) : (
     <Box
       display="flex"
       flexDirection="column"
-      height={bounds.height}
+      height={debug ? null : bounds?.height}
       alignItems="center"
       justifyContent="space-between">
       <Box flexDirection="column" justifyContent="space-between">
         <Box flexDirection="row" marginTop={1} marginBottom={1}>
           <Box flexDirection="row">
             <Text
-              backgroundColor={colors.primary}
-              color={colors.white}>
+              backgroundColor={colors?.primary ?? 'transparent'}
+              color={colors?.white ?? 'transparent'}>
               {' '}
-              {progress.msg ? (
+              {progress?.message ? (
                 <Spinner />
               ) : stats?.hash ? (
                 '✓'
@@ -68,15 +69,15 @@ const Reporter: FunctionComponent<{
               {pkg?.name}{' '}
             </Text>
 
-            <Text dimColor color={colors.white} italic>
+            <Text dimColor color={colors?.white} italic>
               {' '}
-              {progress.msg ? (
-                <Text italic color={colors.subdued}>
-                  {progress.msg}
+              {progress?.message ? (
+                <Text italic color={colors?.subdued}>
+                  {progress?.message}
                 </Text>
               ) : stats?.hash ? (
-                <Text italic color={colors.subdued}>
-                  {stats.hash}
+                <Text italic color={colors?.subdued}>
+                  {stats?.hash}
                 </Text>
               ) : (
                 <></>
@@ -86,16 +87,14 @@ const Reporter: FunctionComponent<{
         </Box>
 
         <Box flexDirection="column">
-          {(!errors || !errors[0]) && (
-            <Box flexDirection="column" marginBottom={1}>
-              <Assets assets={assets} />
-            </Box>
-          )}
+          <Box flexDirection="column" marginBottom={1}>
+            <Assets assets={stats?.assets} />
+          </Box>
 
-          {errors && errors[0] && <Errors errors={errors} />}
+          {errors && <Errors errors={errors} />}
 
           {stats?.warnings && stats?.warnings[0] && (
-            <Errors errors={stats.warnings} />
+            <Errors errors={stats?.warnings} />
           )}
 
           {stats?.time && (
@@ -103,13 +102,11 @@ const Reporter: FunctionComponent<{
               <Text>
                 Compiled in{' '}
                 <Text bold color={colors.success}>
-                  {stats.time / 1000}s
+                  {stats?.time / 1000}s
                 </Text>
               </Text>
             </>
           )}
-
-          {bud.args.has('debug') && <Debug bud={bud} />}
         </Box>
       </Box>
 
@@ -120,22 +117,23 @@ const Reporter: FunctionComponent<{
           bounds={bounds}
           col={col}
         />
+
         <Box
           marginTop={1}
           flexDirection="row"
           justifyContent="space-between">
-          {bud.mode.is('development') && (
+          {mode?.is('development') && (
             <Text bold color={colors.accent}>
               {'🌐  '}
-              {bud.server.config.get('ssl')
+              {bud.store.get('server.ssl')
                 ? 'https://'
                 : 'http://'}
-              {bud.server.config.get('host')}:
-              {bud.server.config.get('port')}
+              {bud.store.get('server.host')}:
+              {bud.store.get('server.port')}
             </Text>
           )}
 
-          {bud.mode.is('development') && <Git />}
+          {mode?.is('development') && <Git />}
         </Box>
       </Box>
     </Box>

@@ -1,4 +1,4 @@
-import {Service, Instance} from '@roots/bud-support'
+import {Service} from '@roots/bud-support'
 import type {
   Compiler,
   Framework,
@@ -14,41 +14,13 @@ import type {
  * [🔗 Documentation](#)
  */
 export default abstract class extends Service<Framework> {
-  protected _instance: Webpack.Compiler
+  public instance: Webpack.Compiler
 
-  protected _stats: Compiler.Stats.Output
+  public stats: Compiler.Stats.Output
 
-  protected _statsOptions: Compiler.Stats.Options
+  public statsOptions: Compiler.Stats.Options
 
-  protected _error: Instance
+  public errors: string[]
 
-  /**
-   * Initialize Compiler
-   */
-  public init(): void {
-    this.run = this.run.bind(this)
-    this.get = this.get.bind(this)
-    this.set = this.set.bind(this)
-
-    this.compile = this.compile.bind(this)
-    this.applyPlugins = this.applyPlugins.bind(this)
-  }
-
-  public abstract get(): Webpack.Compiler
-
-  public abstract set statsOptions(
-    options: Compiler.Stats.Options,
-  )
-
-  public abstract compile(): Webpack.Compiler
-
-  public abstract set(compiler: Webpack.Compiler): void
-
-  public abstract run(): void
-
-  public abstract makeError(err: string): void
-
-  public abstract applyPlugins(
-    handler: Compiler.ProgressHandler,
-  ): void
+  public progress: Compiler.Progress
 }

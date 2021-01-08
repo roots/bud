@@ -1,5 +1,5 @@
 import {Framework} from '@roots/bud-framework'
-import type {Brotli} from '../extensions'
+import type {Brotli} from '../services/extensions'
 
 /**
  * ## Bud

@@ -1,9 +1,14 @@
-import {
-  ProxyMiddleware,
+import ProxyMiddleware, {
   createProxyMiddleware,
-  zlib,
-} from '@roots/bud-support'
+} from 'http-proxy-middleware'
+import zlib from 'zlib'
+
 import type {Server} from '@roots/bud-typings'
+
+declare type Target = {
+  host: string
+  port: number
+}
 
 /**
  * Proxy middleware factory
@@ -11,45 +16,37 @@ import type {Server} from '@roots/bud-typings'
 const proxy = (
   config: Server.Config,
 ): ProxyMiddleware.RequestHandler => {
-  /**
-   * Source location
-   */
-  const source = {
-    host: config.host,
-    port: config.port,
+  // Source host & proxy
+  const source: Target = {
+    host: config.get('host'),
+    port: config.get('port'),
   }
 
-  /**
-   * Proxy to location
-   */
-  const proxy = {
-    host: config.proxy.host,
-    port: config.proxy.port,
+  // Proxy host & proxy
+  const proxy: Target = {
+    host: config.get('proxy.host'),
+    port: config.get('proxy.port'),
   }
 
-  /**
-   * Custom headers
-   */
+  // Headers
   const headers = {
     'X-Powered-By': '@roots/bud',
     'X-Bud-Proxy-From': source.host,
-    'X-Bud-Proxy-Secure': config.ssl,
+    'X-Bud-Proxy-Secure': `${config.enabled('ssl')}`,
   }
 
-  /**
-   * Fabricate URL from provided options.
-   */
-  const getUrl = target => {
-    const protocol = config.ssl ? 'https://' : 'http://'
+  // Fabricate URL from provided options.
+  const getUrl = (target: Target): string => {
+    const protocol = config.enabled('ssl')
+      ? 'https://'
+      : 'http://'
 
     const hostname = /^[a-zA-Z]+:\/\//.test(target.host)
       ? target.host.replace(/^[a-zA-Z]+:\/\//, '')
       : target.host
 
-    const port = port => {
-      return port && (port !== 8000 || port !== 443)
-        ? `:${port}`
-        : ``
+    const port = (port: number) => {
+      return port !== 8000 || 443 ? `:${port}` : ``
     }
 
     return `${protocol}${hostname}${port(target.port)}`
@@ -107,17 +104,20 @@ const proxy = (
    * Proxy middleware configuration
    */
   const proxyOptions: ProxyMiddleware.Options = {
+    autoRewrite: config.get('autoRewrite'),
+    changeOrigin: config.get('changeOrigin'),
+    cookieDomainRewrite: {
+      [source.host]: proxy.host,
+    },
     onProxyRes,
-    headers,
-    target: getUrl(proxy),
-    hostRewrite: `${source.host}:${source.port}`,
-    autoRewrite: config.autoRewrite,
-    changeOrigin: config.changeOrigin,
-    logLevel: 'silent',
-    ssl: config.ssl ?? false,
-    secure: config.ssl ?? false,
-    ws: config.ws ?? true,
     selfHandleResponse: true,
+    target: getUrl(proxy),
+    headers,
+    hostRewrite: `${source.host}:${source.port}`,
+    logLevel: 'silent',
+    ssl: config.enabled('ssl'),
+    secure: config.enabled('ssl'),
+    ws: config.enabled('ws'),
   }
 
   return createProxyMiddleware(proxyOptions)

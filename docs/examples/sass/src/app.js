@@ -1,1 +1,1 @@
-console.log('works')
+import './app.scss'

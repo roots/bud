@@ -5,5 +5,5 @@
     "module": "ES2020"
   },
   "include": ["src"],
-  "exclude": ["lib", "node_modules", "types"]
+  "exclude": ["lib", "types"]
 }

@@ -14,8 +14,6 @@ module.exports = {
   },
   extends: [
     'plugin:react/recommended',
-    'plugin:@typescript-eslint/recommended',
-    'prettier/@typescript-eslint',
     'plugin:prettier/recommended',
     'plugin:import/errors',
     'plugin:import/warnings',
@@ -23,8 +21,6 @@ module.exports = {
   ],
   rules: {
     'import/no-unresolved': 0,
-    '@typescript-eslint/no-namespace': 0,
-    '@typescript-eslint/no-explicit-any': 1,
     'react/prop-types': 'off',
     'no-console': 0,
     'react/prop-types': 0,

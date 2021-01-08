@@ -2,20 +2,23 @@ import {Module, Item, Loader} from '@roots/bud-typings'
 import {make} from './api'
 import * as babel from './babel'
 
-export const registerItems: Module.RegisterMany<Item.Module> = {
-  babel,
-}
-
-export const registerLoaders: Module.RegisterMany<Loader> = {
+export const setLoaders: Module.Register<Loader> = {
   [`babel-loader`]: require.resolve('babel-loader'),
 }
 
-export const boot: Module.Boot = bud => {
-  make(bud)
+export const setItems: Module.Register<Item> = {
+  babel,
+}
 
-  bud.build.rules.set('js.use', [
-    bud.build.items.get('thread'),
-    bud.build.items.get('cache'),
-    bud.build.items.get('babel'),
-  ])
+export const boot: Module.Boot = app => {
+  make(app)
+
+  app.build.rules.mutate('js', js => ({
+    ...js,
+    use: [
+      app.build.items.get('thread'),
+      app.build.items.get('cache'),
+      app.build.items.get('babel'),
+    ].filter(Boolean),
+  }))
 }

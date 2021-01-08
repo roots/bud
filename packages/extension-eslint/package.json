@@ -16,19 +16,12 @@
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
-  "keywords": [
-    "webpack",
-    "bud"
-  ],
+  "keywords": ["webpack", "bud"],
   "engines": {
     "node": ">=12"
   },
   "license": "MIT",
-  "files": [
-    "lib/",
-    "types/",
-    "src/"
-  ],
+  "files": ["lib/", "types/", "src/"],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "exports": {
@@ -51,14 +44,7 @@
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
-  "devDependencies": {
-    "@roots/bud-extensions": "^2.2.1",
-    "@roots/bud-framework": "^2.2.1",
-    "@roots/bud-typings": "^2.2.1",
-    "webpack": "^4.44.2"
-  },
-  "dependencies": {
-    "@roots/bud-support": "^2.2.1",
+  "peerDependencies": {
     "babel-eslint": "^10.1.0",
     "eslint": "^7.8.1",
     "eslint-loader": "^4.0.2",
@@ -66,7 +52,16 @@
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-react": "^7.20.5",
     "eslint-plugin-react-hooks": "^4.0.8",
-    "eslint-webpack-plugin": "^2.2.1"
+    "eslint-webpack-plugin": "^2.4.1"
+  },
+  "devDependencies": {
+    "@roots/bud-extensions": "^2.2.1",
+    "@roots/bud-framework": "^2.2.1",
+    "@roots/bud-support": "^2.2.1",
+    "@roots/bud-typings": "^2.2.1"
+  },
+  "dependencies": {
+    "@roots/bud-support": "^2.2.1"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
 }

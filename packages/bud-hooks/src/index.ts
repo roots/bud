@@ -1,2 +1,2 @@
-import Hooks from './Hooks'
-export {Hooks}
+export {Hooks} from './Hooks'
+export {hooks} from './store'

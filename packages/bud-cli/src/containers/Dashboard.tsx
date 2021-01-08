@@ -9,18 +9,19 @@ import {
 import {useStyle} from '@roots/ink-use-style'
 
 import {Reporter} from './Reporter'
-import {useCompilation} from '../hooks/useCompilation'
 import {useDisk} from '../hooks/useDisk'
 import {usePackageJson} from '../hooks/usePackageJson'
-
+import {useCompilation} from '../hooks/useCompilation'
+import {useBud} from '../hooks/useBud'
 import type {Framework} from '@roots/bud-typings'
 
 export const Dashboard: FunctionComponent<{
   bud: Framework
 }> = ({bud}) => {
   const app = useApp()
+  const {mode} = useBud(bud)
   const [disk] = useDisk(bud)
-  const compilation = useCompilation(bud)
+  const {stats, progress, errors} = useCompilation(bud)
   const pkg = usePackageJson(disk)
   const style = useStyle()
 
@@ -38,17 +39,25 @@ export const Dashboard: FunctionComponent<{
   useEffect(() => {
     if (
       bud.mode.is('production') &&
-      compilation?.assets?.length > 0 &&
-      isEqual(compilation?.progress?.percentage.decimal, 1)
+      stats?.assets?.length > 0 &&
+      isEqual(progress?.decimal, 1)
     ) {
       setTimeout(() => {
         app.exit()
         process.exit()
       }, 100)
     }
-  }, [compilation])
+  }, [bud])
 
   return (
-    <Reporter bud={bud} pkg={pkg} {...compilation} {...style} />
+    <Reporter
+      errors={errors}
+      bud={bud}
+      mode={mode}
+      stats={stats}
+      progress={progress}
+      pkg={pkg}
+      {...style}
+    />
   )
 }

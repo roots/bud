@@ -5,6 +5,9 @@ import {
   Text,
 } from '@roots/bud-support'
 
+/**
+ * Publish
+ */
 const Publish: FunctionComponent<{file: string}> = ({file}) => (
   <Box
     display="flex"

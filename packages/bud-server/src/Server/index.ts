@@ -1,10 +1,10 @@
 import Service from './Service'
+import express from 'express'
 
-import {express} from '@roots/bud-support'
 import * as middleware from '../middleware'
 import {injectClient} from '../util/injectClient'
 
-import type {Server, Webpack} from '@roots/bud-typings'
+import type {Framework, Server} from '@roots/bud-typings'
 
 /**
  * ## bud.server
@@ -17,63 +17,44 @@ import type {Server, Webpack} from '@roots/bud-typings'
  * [🔗 Documentation](#)
  */
 export default class extends Service implements Server {
-  /**
-   * Class initializer.
-   */
-  public init(): void {
+  public register(): void {
+    this.run = this.run.bind(this)
+
     this.instance = express()
-    this.instance.set('x-powered-by', false)
+
+    this.app.when(
+      this.app.store.has('args.proxy'),
+      ({store}: Framework) => store.enable('features.proxy'),
+    )
   }
 
-  /**
-   * ## bud.server.run [🏠 Internal]
-   *
-   * Run the development server.
-   *
-   * Projects should use `bud.run` unless they want
-   * to supply their own Webpack stats handler.
-   *
-   * ### Usage
-   *
-   * ```js
-   * bud.server.run((err, stats) => {
-   *  // ...
-   * })
-   * ```
-   */
-  public run(): this {
-    const config = this.config.all()
-
-    this.app.config.mutate('entry', (entry: Webpack.Entry) =>
-      injectClient(entry),
+  public injectHmr(): void {
+    this.app.store.set(
+      'webpack.entry',
+      injectClient(this.app.store),
     )
+  }
+
+  public run(compiler: Framework.Webpack.Compiler): this {
+    const config = this.config
 
     this.instance.use(
       middleware.dev({
         config,
-        compiler: this.app.compiler.instance,
+        compiler,
       }),
     )
 
-    this.instance.use(middleware.hot(this.app.compiler.instance))
+    this.instance.use(middleware.hot(compiler))
 
-    this.app.features.enabled('proxy') &&
-      this.instance.use(middleware.proxy(config))
+    this.app.store.enabled('features.proxy') &&
+      this.instance.use(middleware.proxy(this.config))
 
-    this.listen()
-
-    return this
-  }
-
-  /**
-   * ## bud.server.listen [🏠 Internal]
-   *
-   * Listen for connections.
-   */
-  public listen(): void {
     this.instance.listen(
       this.config.get('port'),
       this.config.get('host'),
     )
+
+    return this
   }
 }

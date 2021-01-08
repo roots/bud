@@ -13,9 +13,10 @@
     "moduleResolution": "node",
     "module": "commonjs",
     "noUnusedLocals": true,
-    "noEmitOnError": true,
+    "noEmitOnError": false,
     "sourceMap": true,
-    "target": "ES6"
+    "target": "ES6",
+    "strict": false,
   },
   "base": "packages",
   "references": [
@@ -67,5 +68,5 @@
       "@roots/wordpress-externals-webpack-plugin": "webpack-wordpress-externals-plugin"
     }
   ],
-  "files": []
+  "include": ["./packages/*/src"]
 }

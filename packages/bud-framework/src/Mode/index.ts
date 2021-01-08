@@ -1,18 +1,39 @@
 import Service from './Service'
-import {Framework, Mode, Webpack} from '@roots/bud-typings'
+import {Mode, Webpack} from '@roots/bud-typings'
 
 export default class extends Service implements Mode {
+  /**
+   * Service registration
+   */
+  public register(): void {
+    //
+  }
+
+  /**
+   * Service boot
+   */
+  public boot(): void {
+    //
+  }
+
+  /**
+   * Get mode
+   */
   public get(): Webpack.Configuration['mode'] {
-    return this.app.config.get('mode')
+    return this.app.store.get('args.mode')
   }
 
-  public set(mode: Webpack.Configuration['mode']): Framework {
-    this.app.config.set('mode', mode)
-
-    return this.app
+  /**
+   * Set mode
+   */
+  public set(mode: Webpack.Configuration['mode']): void {
+    this.app.store.set('args.mode', mode)
   }
 
+  /**
+   * Conditional check
+   */
   public is(check: Webpack.Configuration['mode']): boolean {
-    return this.app.config.is('mode', check)
+    return this.app.store.is('args.mode', check)
   }
 }

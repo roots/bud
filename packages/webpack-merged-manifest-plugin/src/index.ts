@@ -70,7 +70,7 @@ class MergedManifestWebpackPlugin {
   }
 
   /**
-   * Webpack.compilation.CompilerHooks['done']['tapAsync']
+   * Webpack.Compilation.CompilerHooks['done']['tapAsync']
    */
   public done = async function (
     _compilation,

@@ -1,22 +1,56 @@
 import _ from 'lodash'
 import {FileContainer} from '../FileContainer'
 
-export {FileSystem}
+/**
+ * Filesystem
+ */
+export declare class FileSystem {
+  /**
+   * Current disk
+   */
+  public current: FileContainer
 
-declare class FileSystem {
-  current: FileContainer
+  /**
+   * Base dir
+   */
+  public baseDir: string
 
-  repository: {[key: string]: FileContainer}
+  /**
+   * Get disk
+   *
+   * Call without a key to get all disks.
+   * Pass a key to get a specific disk.
+   */
+  public getDisk(key?: string): FileContainer
 
-  baseDir: string
-
-  ls: (key?: string) => FileSystem['repository']
-
-  set: (
+  /**
+   * Set disk
+   *
+   * Create a new disk. Provide a name, root directory, and -- optionally --
+   * a custom glob array. [🔗 Documentation on bud.disk](#)
+   *
+   * ### Usage
+   *
+   * ```js
+   * fs.makeDisk(
+   *   'icons',
+   *   bud.project('assets/icons'),
+   *   ['*.svg'],
+   * )
+   * ```
+   */
+  public setDisk(
     key: string,
-    options: {
-      baseDir: string
-      glob: string[]
-    },
-  ) => FileSystem['current']
+    options?: {baseDir?: string; glob?: string[]},
+  ): this['current']
+
+  /**
+   * Use disk
+   */
+  public useDisk(key: string): FileSystem
+
+  /**
+   * Has disk?
+   */
+  public hasDisk(key: string): boolean
 }

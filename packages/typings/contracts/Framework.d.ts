@@ -1,4 +1,4 @@
-import type {
+import {
   Api,
   Build,
   Cache,
@@ -12,8 +12,7 @@ import type {
   Extensions,
   Extension,
   Factory,
-  FileSystem,
-  FileContainer,
+  Disk,
   Fluent,
   GlobTask,
   Module,
@@ -29,6 +28,7 @@ import type {
   Server,
   Service,
   ServiceContainer,
+  Store,
   Use,
   Webpack,
   When,
@@ -43,134 +43,17 @@ import type {
  * [📦 @roots/bud-framework](https://www.npmjs.com/package/@roots/bud-framework)
  * [🔗 Documentation](#)
  */
+
 export declare interface Framework extends Framework.Api {
   /**
-   * ## bud.args [🍱 _Container_]
+   * ## bud.store [🍱 _Container_]
    *
-   * CLI arguments passed to Bud.
-   *
-   * [🔗 Documentation on bud.args](#)
-   * [🔗 Documentation on containers](#)
-   *
-   * ### Usage
-   *
-   * #### Flags
-   *
-   * ```sh
-   * $ bud build --html
-   * ```
-   *
-   * ```js
-   * bud.args.has('html') // => true
-   * ```
-   *
-   * #### Values
-   *
-   * ```sh
-   * $ bud build --html dist/index.html
-   * ```
-   *
-   * ```js
-   * bud.args.get('html') // => 'dist/index.html'
-   * ```
-   *
-   * #### Arrayed
-   *
-   * ```sh
-   * $ bud build --bento uni rainbow edamame
-   * # or
-   * $ bud build --bento uni --bento rainbow --bento edamame
-   * ```
-   *
-   * ```js
-   * bud.args.get('bento') // => ['uni', 'rainbow', 'edamame']
-   * ```
-   */
-  args: Framework.Container
-
-  /**
-   * ## bud.config [🍱 _Container_]
-   *
-   * Webpack configuration settings
+   * Meta container for configs, data, etc.
    *
    * [🔗 Documentation on bud.config](#)
    * [🔗 Documentation on containers](#)
    */
-  config: Framework.Container
-
-  /**
-   * ## bud.features [🍱 _Container_]
-   *
-   * Collection of feature flags each indicating
-   * whether or not a  particular feature
-   * is enabled or disabled.
-   *
-   * [🔗 Documentation on bud.features](#)
-   * [🔗 Documentation on containers](#)
-   *
-   * ### Usage
-   *
-   * **Get the features store**
-   *
-   * ```js
-   * bud.features.all() // returns all the features as a `k => v` obj.
-   * ```
-   *
-   * **Check if a given feature is enabled**
-   *
-   * ```js
-   * bud.features.enabled('minify') // `true` if `minify` flag is on
-   * ```
-   *
-   * **Toggle a feature**
-   *
-   * ```js
-   * bud.features.set('gzip', false) // disable `gzip` feature flag
-   * ```
-   */
-  features: Framework.Container
-
-  /**
-   * ## bud.patterns [🍱 _Container_]
-   *
-   * Collection of common RegExp objects.
-   *
-   * The advantage of using them in
-   * a container object is that they can be
-   * easily redefined by extensions.
-   *
-   * - [🔗 Documentation on bud.patterns](#)
-   * - [🔗 Documentation on containers](#)
-   *
-   * ### Usage
-   *
-   * **Get a regular expression matching files with `.js` extension**
-   *
-   * ```js
-   * bud.patterns.get('js')
-   * ```
-   *
-   * **Redefine a regular expression**
-   *
-   * ```js
-   * bud.patterns.set('cssModule', /\.module\.css$/)
-   * ```
-   */
-  patterns: Framework.Container
-
-  /**
-   * ## bud.presets [🍱 _Container_]
-   *
-   * Preset configuration container
-   */
-  presets: Framework.Container
-
-  /**
-   * ## bud.serverConfig [🍱 _Container_]
-   *
-   * Server configuration container
-   */
-  serverConfig: Framework.Container
+  store: Framework.Container<Framework.Store.Source>
 
   /**
    * ## bud.build
@@ -219,13 +102,13 @@ export declare interface Framework extends Framework.Api {
    * bud.disk.get('project').ls()
    * ```
    *
-   * #### Get the absolute path of this class.
+   * #### Get the absolute path of Framework class.
    *
    * ```js
    * bud.disk.get(`@roots`).get('bud-framework/src/Bud/index.js')
    * ```
    */
-  disk: Framework.FileSystem
+  disk: Framework.Disk
 
   /**
    * ## bud.env [🍱 _Container_]
@@ -250,21 +133,6 @@ export declare interface Framework extends Framework.Api {
    * - [🔗 Documentation](#)
    */
   extensions: Framework.Extensions
-
-  /**
-   * ## bud.fs
-   *
-   * Project filesystem. [🔗 Documentation on bud.fs](#)
-   *
-   * ```js
-   * bud.fs.readJson('project.json')
-   * ```
-   *
-   * ```js
-   * bud.fs.has('src/index.js')
-   * ```
-   */
-  fs: Framework.FileContainer
 
   /**
    * ## bud.hooks
@@ -332,6 +200,11 @@ export declare interface Framework extends Framework.Api {
   server: Framework.Server
 
   /**
+   * ## bud.services
+   */
+  services: Container<Framework.Service>
+
+  /**
    * ## bud.use [💁 Fluent]
    *
    * Register an extension or set of extensions [🔗 Documentation](#)
@@ -347,7 +220,7 @@ export declare interface Framework extends Framework.Api {
   /**
    * Initialize class
    */
-  init(): Framework
+  init(): this
 
   /**
    * ## bud.get  [🏠 Internal]
@@ -356,19 +229,10 @@ export declare interface Framework extends Framework.Api {
    * bud.get()
    * ```
    */
-  get(): Framework
+  get(): this
 
   /**
-   * ## bud.set  [🏠 Internal]
-   *
-   * ```js
-   * bud.set()
-   * ```
-   */
-  set<T = any>(prop: string, value: T): void
-
-  /**
-   * ## bud.callMeMaybe
+   * ## bud.access
    *
    * If a value is a function it will call that
    * function and return the result.
@@ -379,14 +243,14 @@ export declare interface Framework extends Framework.Api {
    * const isAFunction = (option) => `option value: ${option}`
    * const isAValue = 'option value: true'
    *
-   * bud.callMeMaybe(isAFunction, true)
+   * bud.access(isAFunction, true)
    * // => `option value: true`
    *
-   * bud.callMeMaybe(isAValue)
+   * bud.access(isAValue)
    * // => `option value: true`
    * ```
    */
-  callMeMaybe<I = unknown>(value: Framework.MaybeCallable<I>): I
+  access<I = unknown>(value: Framework.MaybeCallable<I>): I
 
   /**
    * ## bud.makeContainer
@@ -395,27 +259,7 @@ export declare interface Framework extends Framework.Api {
    *
    * [🔗 Documentation on containers](#)
    */
-  makeContainer(
-    repository?: Framework.Index<any>,
-  ): Framework.Container
-
-  /**
-   * ## bud.makeDisk
-   *
-   * Create a new disk. Provide a name, root directory, and -- optionally --
-   * a custom glob array. [🔗 Documentation on bud.disk](#)
-   *
-   * ### Usage
-   *
-   * ```js
-   * bud.makeDisk(
-   *   'icons',
-   *   bud.project('assets/icons'),
-   *   ['*.svg'],
-   * )
-   * ```
-   */
-  makeDisk(name: string, dir: string, glob?: string[]): void
+  makeContainer<I>(repository?: Index<I>): Framework.Container<I>
 
   /**
    * ## bud.pipe [💁 Fluent]
@@ -452,17 +296,16 @@ export declare interface Framework extends Framework.Api {
   when: Framework.When
 }
 
-export namespace Framework {
+export declare namespace Framework {
   export {Api}
   export {Build}
   export {Cache}
   export {CLI}
   export {Compiler}
   export {Container}
+  export {Disk}
   export {Env}
   export {Extensions, Extension}
-  export {FileContainer}
-  export {FileSystem}
   export {Item}
   export {Mode}
   export {Module}
@@ -473,6 +316,7 @@ export namespace Framework {
   export {Rule}
   export {Server}
   export {Service}
+  export {Store}
   export {ServiceContainer}
   export {
     CompressionPlugin,

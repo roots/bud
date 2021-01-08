@@ -3,7 +3,7 @@ import {Api} from '@roots/bud-typings'
 const props = ['host', 'port']
 
 export const proxy: Api.Proxy = function (config) {
-  this.features.set('proxy', config?.enabled ?? true)
+  this.store.set('features.proxy', config?.enabled ?? true)
 
   config &&
     props.forEach(prop => {

@@ -10,15 +10,16 @@ import {LoaderOptions} from 'ts-loader/dist/interfaces'
 export const options = (
   instance: Framework,
 ): Partial<LoaderOptions> | LoaderOptions => ({
-  configFile: instance.fs.get('tsconfig.json') ?? null,
+  configFile:
+    instance.disk.get('project').get('tsconfig.json') ?? null,
 })
 
-export const registerLoader: Module.RegisterOne<Loader> = [
+export const setLoaders: Module.Register<Loader> = [
   'ts-loader',
   require.resolve('ts-loader'),
 ]
 
-export const registerItem: Module.RegisterMany<Item.Module> = {
+export const setItems: Module.Register<Item> = {
   [`typescript`]: {
     loader: 'ts-loader',
     options: (
@@ -28,13 +29,13 @@ export const registerItem: Module.RegisterMany<Item.Module> = {
   },
 }
 
-export const registerRules: Module.RegisterMany<Rule.Module> = {
+export const setRules: Module.Register<Rule.Module> = {
   [`typescript`]: {
-    test: ({patterns}: Framework): RegExp =>
-      patterns.get('typescript'),
+    test: ({store}: Framework): RegExp =>
+      store.get('patterns.typescript'),
 
-    exclude: ({patterns}: Framework): RegExp =>
-      patterns.get('modules'),
+    exclude: ({store}: Framework): RegExp =>
+      store.get('patterns.modules'),
 
     use: (bud: Framework): Item.Module[] => [
       bud.build.items.get('ts'),
@@ -47,18 +48,16 @@ export const api = {
     this: Framework,
     options: Partial<LoaderOptions> | LoaderOptions,
   ): Framework {
-    this.extensions
-      .get('@roots/bud-typescript')
-      .setStore(options)
+    this.extensions.set('@roots/bud-typescript.options', options)
 
     return this
   },
 }
 
-export const boot = (instance: Framework): void => {
-  instance.patterns.set('typescript', /\.(ts|tsx)$/)
+export const boot = (app: Framework): void => {
+  app.store.set('typescript', /\.(ts|tsx)$/)
   ;['ts', 'tsx'].map(ext => {
-    !instance.config.get('resolve.extensions').includes(ext) &&
-      instance.config.merge('resolve.extensions', [ext])
+    !app.store.get('webpack.resolve.extensions').includes(ext) &&
+      app.store.merge('webpack.resolve.extensions', [ext])
   })
 }

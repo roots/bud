@@ -10,7 +10,7 @@ export const entry: Entry.Build = function () {
   return {
     entry: this.hooks.filter<Entry>(
       'webpack.entry',
-      this.config.get('entry'),
+      this.store.get('webpack.entry'),
     ),
   }
 }

@@ -3,8 +3,27 @@ import options from './options'
 import {webpack, ProgressPlugin} from '@roots/bud-support'
 import type {Compiler, Webpack} from '@roots/bud-typings'
 
+/**
+ * Compiler
+ */
 export default class extends Service implements Compiler {
-  protected _statsOptions: Compiler.Stats.Options = options
+  public statsOptions: Compiler.Stats.Options = options
+
+  public instance: Webpack.Compiler
+
+  public stats: Compiler.Stats.Output
+
+  public errors: string[]
+
+  public progress: Compiler.Progress
+
+  public register(): void {
+    this.get = this.get.bind(this)
+    this.run = this.run.bind(this)
+    this.set = this.set.bind(this)
+    this.compile = this.compile.bind(this)
+    this.applyPlugins = this.applyPlugins.bind(this)
+  }
 
   public get(): Webpack.Compiler {
     return this.instance
@@ -14,53 +33,15 @@ export default class extends Service implements Compiler {
     this.instance = compiler
   }
 
-  public get instance(): Webpack.Compiler {
-    return this._instance
-  }
-
-  public set instance(compiler: Webpack.Compiler) {
-    this._instance = compiler
-  }
-
-  public get stats(): {
-    string: string
-    json: Compiler.Stats.Output['json']
-  } {
-    return this._stats
-  }
-
-  public set stats(stats: Compiler.Stats.Output) {
-    this._stats = this.app.hooks.filter<Compiler.Stats.Output>(
-      'compiler.stats',
-      stats,
-    )
-  }
-
-  public get statsOptions(): Compiler.Stats.Options {
-    return this._statsOptions
-  }
-
-  public set statsOptions(options: Compiler.Stats.Options) {
-    this._statsOptions = options
-  }
-
-  public compile(
-    config?: Webpack.Configuration,
-  ): Webpack.Compiler {
-    this.instance = webpack(config ?? this.app.build.make())
-
-    return this.instance
+  public compile(): Webpack.Compiler {
+    return (this.instance = webpack(this.app.build.make()))
   }
 
   public run(): void {
     this.instance.run((_err, stats) => {
-      if (stats.hasErrors() && !this.app.mode.ci) {
-        console.error(stats.toString(this.statsOptions.string))
-      }
-
       this.stats = {
-        string: stats.toString(this.statsOptions.string),
-        json: stats.toJson(this.statsOptions.json),
+        string: stats.toString(),
+        json: stats.toJson(),
       }
     })
   }

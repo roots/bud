@@ -1,10 +1,10 @@
-import * as Externals from '@roots/wordpress-externals-webpack-plugin'
+import * as Externals from '@roots/externals-webpack-plugin'
 import type {Options, Make} from './typings'
 
 export * as api from './externals'
 
 export const make: Make = opts =>
-  new Externals.Plugin(opts.getStore())
+  new Externals.Plugin(opts.all())
 
 export const options: Options = {
   name: 'wordpress.json',

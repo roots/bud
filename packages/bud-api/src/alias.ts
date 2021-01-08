@@ -1,12 +1,12 @@
 import {Api} from '@roots/bud-typings'
 
 export const alias: Api.Alias = function (alias) {
-  this.config.has('resolve.alias')
-    ? this.config.mutate('resolve.alias', cfg => ({
+  this.store.get('config').has('resolve.alias')
+    ? this.store.mutate('webpack.resolve.alias', cfg => ({
         ...cfg,
         ...alias,
       }))
-    : this.config.set('resolve.alias', alias)
+    : this.store.set('webpack.resolve.alias', alias)
 
   return this
 }

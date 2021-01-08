@@ -1,28 +1,4 @@
-import {useState, webpack} from '@roots/bud-support'
-
-export const useStats: UseStats.Hook = options => {
-  const [stats, setStats]: [
-    UseStats.Stats,
-    React.Dispatch<UseStats.Stats>,
-  ] = useState<UseStats.Stats>(null)
-
-  const [errors, setErrors]: [
-    string[],
-    React.Dispatch<string[]>,
-  ] = useState<string[]>(null)
-
-  const handler: UseStats.Handler = stats => {
-    if (stats?.hasErrors()) {
-      stats && setErrors(stats.toJson(options.json).errors)
-    } else {
-      setErrors(null)
-    }
-
-    stats && setStats({...stats.toJson(options.json)})
-  }
-
-  return {stats, errors, handler}
-}
+import {webpack} from '@roots/bud-support'
 
 export namespace UseStats {
   /**
@@ -61,5 +37,3 @@ export namespace UseStats {
    */
   export type Errors = Stats['errors']
 }
-
-export default useStats

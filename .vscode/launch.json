@@ -1,17 +1,15 @@
 {
   "version": "0.2.0",
   "configurations": [
-  {
-    "name": "Attach by Process ID",
-    "processId": "${command:PickProcess}",
-    "request": "attach",
-    "skipFiles": [
-      "<node_internals>/**"
-    ],
-    "type": "pwa-node"
-  },
     {
-      "command": "yarn build",
+      "name": "Attach by Process ID",
+      "processId": "${command:PickProcess}",
+      "request": "attach",
+      "skipFiles": ["<node_internals>/**"],
+      "type": "pwa-node"
+    },
+    {
+      "command": "cd ./docs/examples/sass && node ./bud.config.js --mode production",
       "name": "Run yarn build",
       "request": "launch",
       "type": "node-terminal"

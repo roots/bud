@@ -1,16 +1,14 @@
 import {Service} from '@roots/bud-support'
 import type {Webpack, Framework} from '@roots/bud-typings'
 
-export default abstract class
-  extends Service<Framework>
-  implements Framework.Build {
+export default abstract class extends Service<Framework> {
   public builders: Partial<Framework.Build.Builder>
 
-  public loaders: Framework.Container
+  public loaders
 
-  public items: Framework.Container
+  public items
 
-  public rules: Framework.Container
+  public rules
 
   public abstract make(): Webpack.Configuration
 

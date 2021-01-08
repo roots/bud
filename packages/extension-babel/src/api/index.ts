@@ -8,8 +8,8 @@ import {mergePresets} from './mergePresets'
 import {addPreset} from './addPreset'
 import {Framework} from '@roots/bud-typings'
 
-export const make: (bud: Framework) => void = bud => {
-  bud.set('babel', {
+export const make: (app: Framework) => void = app => {
+  app['babel'] = {
     mergeConfig,
     setConfig,
     mergePlugins,
@@ -18,11 +18,11 @@ export const make: (bud: Framework) => void = bud => {
     mergePresets,
     setPresets,
     addPreset,
-  })
+  }
 }
 
 export interface BabelConfig {
-  bud: Framework
+  app: Framework
   mergeConfig: typeof mergeConfig
   setPlugins: typeof setPlugins
 }

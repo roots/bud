@@ -27,10 +27,12 @@ export class Cache extends Service {
    */
   public enabled(): boolean {
     return (
-      this.app.features.enabled('buildCache') &&
-      this.app.fs.exists(
-        this.app.config.get('webpack.recordsPath') as string,
-      )
+      this.app.store.get('features.buildCache') &&
+      this.app.disk
+        .get('project')
+        .exists(
+          this.app.store.get('webpack.webpack.recordsPath'),
+        )
     )
   }
 
@@ -42,9 +44,11 @@ export class Cache extends Service {
   public setCache(): void {
     this.enabled() &&
       this.app.hooks.on('webpack.cache', (bud: Framework) =>
-        bud.disk
+        this.app.disk
           .get('project')
-          .readJson(bud.config.get('webpack.recordsPath')),
+          .readJson(
+            bud.store.get('webpack.webpack.recordsPath'),
+          ),
       )
   }
 }

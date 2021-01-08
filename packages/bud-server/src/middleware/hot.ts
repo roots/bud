@@ -1,16 +1,14 @@
-import {Webpack, Express} from '@roots/bud-typings'
 import {webpackHotMiddleware} from '@roots/bud-support'
+import type {WebpackHotMiddleware} from '@roots/bud-support'
+import type Framework from '@roots/bud-typings'
 
-const hot = (
-  compiler: Webpack.Compiler,
-): Express.RequestHandler => {
-  const options: webpackHotMiddleware.MiddlewareOptions = {
-    log: false,
-    path: '/__webpack_hmr',
-    heartbeat: 1000,
-  }
-
-  return webpackHotMiddleware(compiler, options)
+const options: WebpackHotMiddleware.MiddlewareOptions = {
+  log: false,
+  path: '/__webpack_hmr',
+  heartbeat: 1000,
 }
 
-export {hot}
+export const hot = (
+  compiler: Framework.Webpack.Compiler,
+): Framework.Express.RequestHandler =>
+  webpackHotMiddleware(compiler, options)

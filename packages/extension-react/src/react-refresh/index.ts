@@ -13,7 +13,7 @@ export * as api from './api'
 export const make: Module.Make<
   ReactRefreshPlugin,
   ReactRefreshPluginOptions
-> = opts => new ReactRefreshPlugin(opts.getStore())
+> = opts => new ReactRefreshPlugin(opts.all())
 
 /**
  * @pmmmwh/react-refresh-webpack-plugin conditions

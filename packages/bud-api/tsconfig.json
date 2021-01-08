@@ -12,5 +12,5 @@
     }
   },
   "include": ["src"],
-  "exclude": ["types", "lib"]
+  "exclude": ["lib", "types"]
 }

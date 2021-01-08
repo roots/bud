@@ -1,29 +1,23 @@
 import {ServiceContainer} from '@roots/bud-support'
-import type {
-  Extensions,
-  Framework,
-  MaybeCallable,
-  Container,
-} from '@roots/bud-typings'
+import type {Framework, Extensions} from '@roots/bud-typings'
+import type Extension from './Extension'
 
 export default abstract class
   extends ServiceContainer<Framework>
   implements Extensions {
   /**
-   * Register an extension.
+   * Register a plugin to be utilized during compilation.
    */
-  public abstract set(
-    name: string,
-    extension: MaybeCallable,
-  ): this
-
+  public abstract register(): void
   /**
    * Register a plugin to be utilized during compilation.
    */
-  public abstract use(pkg: string): Promise<this>
-
+  public abstract set<T = Extension>(
+    name: string,
+    extension: T,
+  ): this
   /**
-   * Create a new controller instance wrapping an extension module.
+   * Register a plugin to be utilized during compilation.
    */
-  public abstract make(extensions: Container): void
+  public abstract use(pkg: string): this
 }

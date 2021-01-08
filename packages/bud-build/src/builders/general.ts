@@ -20,57 +20,57 @@ export const general: General.Build = function () {
   return this.hooks.filter<Config>('webpack', {
     bail: this.hooks.filter<Config['bail']>(
       'webpack.bail',
-      this.config.get('bail'),
+      this.store.get('webpack.bail'),
     ),
 
     context: this.hooks.filter<Config['context']>(
       'webpack.context',
-      this.config.get('context'),
+      this.store.get('webpack.context'),
     ),
 
     devtool: this.hooks.filter<Config['devtool']>(
       'webpack.devtool',
-      this.config.get('devtool'),
+      this.store.get('webpack.devtool'),
     ),
 
     mode: this.hooks.filter<Config['mode']>(
       'webpack.mode',
-      this.config.get('mode'),
+      this.store.get('webpack.mode'),
     ),
 
     name: this.hooks.filter<Config['name']>(
       'webpack.name',
-      this.config.get('name'),
+      this.store.get('webpack.name'),
     ),
 
     node: this.hooks.filter<Config['node']>(
       'webpack.node',
-      this.config.get('node'),
+      this.store.get('webpack.node'),
     ),
 
     performance: this.hooks.filter<Config['performance']>(
       'webpack.performance',
-      this.config.get('performance'),
+      this.store.get('webpack.performance'),
     ),
 
     recordsPath: this.hooks.filter<Config['recordsPath']>(
       'webpack.recordsPath',
-      this.config.get('recordsPath'),
+      this.store.get('webpack.recordsPath'),
     ),
 
     stats: this.hooks.filter<Config['stats']>(
       'webpack.stats',
-      this.config.get('stats'),
+      this.store.get('webpack.stats'),
     ),
 
     target: this.hooks.filter<Config['target']>(
       'webpack.target',
-      this.config.get('target'),
+      this.store.get('webpack.target'),
     ),
 
     watch: this.hooks.filter<Config['watch']>(
       'webpack.watch',
-      this.config.get('watch'),
+      this.store.get('webpack.watch'),
     ),
   })
 }

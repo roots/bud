@@ -1,4 +1,6 @@
-import {Framework} from './'
+import Webpack from 'webpack'
+import {RequireExactlyOne, SetOptional, ValueOf} from 'type-fest'
+import {Framework, MappedType} from './'
 
 /**
  * ## bud.extensions
@@ -14,12 +16,19 @@ export interface Extensions
   extends Framework.ServiceContainer<Framework> {
   set(
     name: string,
-    extension: Framework.MaybeCallable<Module>,
+    extension:
+      | Framework.MaybeCallable<Module>
+      | Module.Options
+      | Module.Boot
+      | Module.Register
+      | Module.Registrable.Source[
+          | 'setLoaders'
+          | 'setItems'
+          | 'setRules']
+      | string,
   ): this
 
-  use(pkg: string): Promise<this>
-
-  make(extensions: Framework.Container): void
+  use(pkg: string): this
 }
 
 /**
@@ -32,24 +41,10 @@ export interface Extensions
  * [📦 @roots/bud-extensions](https://github.io/roots/bud-extensions)
  * [🔗 Documentation](#)
  */
-export interface Extension
-  extends Framework.ServiceContainer<Framework> {
+export interface Extension extends Framework.ServiceContainer {
   readonly app: Framework
 
-  initialized: boolean
-
-  module: Module
-
-  init(): void
-
-  callMeMaybe(
-    value: CallableFunction | any,
-    ...args: unknown[]
-  ): unknown
-
-  fromProp(prop: string, dep?: unknown[]): [string, unknown]
-
-  makePlugin(): Framework.MaybeCallable<any> | boolean
+  make(): Webpack.Plugin
 
   isPlugin(): boolean
 
@@ -61,33 +56,22 @@ export interface Extension
 }
 
 /**
- * Extension module
- *
- * [🏡 Project home](https://roots.io/bud)
- * [🧑‍💻 roots/bud/packages/server](https://git.io/JkCQG)
- * [📦 @roots/bud-server](https://www.npmjs.com/package/@roots/bud-build)
- * [🔗 Documentation](#)
+ * Extension module (source)
  */
 export interface Module {
-  options?: Module.RawOptions
+  register?: (app: Framework) => void
 
-  register?: Module.Register
+  options?: Module.Options
 
   boot?: Module.Boot
 
   api?: Module.Api
 
-  registerLoader?: Module.RegisterOne<Framework.Loader>
+  setLoaders?: Module.Registrable.Source['setLoaders']
 
-  registerLoaders?: Module.RegisterMany<Framework.Loader>
+  setItems?: Module.Registrable.Source['setItems']
 
-  registerRule?: Module.RegisterOne<Framework.Rule.Module>
-
-  registerRules?: Module.RegisterMany<Framework.Rule.Module>
-
-  registerItem?: Module.RegisterOne<Framework.Item.Module>
-
-  registerItems?: Module.RegisterMany<Framework.Item.Module>
+  setRules?: Module.Registrable.Source['setRules']
 
   make?: Module.Make
 
@@ -95,23 +79,97 @@ export interface Module {
 }
 
 export namespace Module {
+  /**
+   * Registration signature for Loader, Rule, Item
+   */
+  export type Register<K = Module> = SetOptional<ValueOf<K>>
+
+  export type Registrable = {
+    setItems: Framework.Item.Module
+    setRules: Framework.Rule.Module
+    setLoaders: Framework.Loader.Module | string
+  }
+
+  export namespace Registrable {
+    /**
+     * Base keys
+     */
+    export type Key = 'setItems' | 'setRules' | 'setLoaders'
+
+    /**
+     * Base values
+     */
+    export type Value =
+      | Framework.Item.Module
+      | Framework.Rule.Module
+      | Framework.Loader.Module
+
+    export type Source = SetOptional<
+      {
+        [K in keyof Registrable]: MappedType.MaybeCallable<
+          MappedType.One<
+            | [string, Registrable[K]]
+            | [string, Registrable[K]][]
+            | {[key: string]: Registrable[K]}
+            | {[key: string]: Registrable[K]}[]
+          >,
+          Framework
+        >
+      }
+    >
+
+    export namespace Source {
+      export type Value =
+        | [string, Registrable.Value]
+        | Array<[string, Registrable.Value]>
+        | {[key: string]: Registrable.Value}
+    }
+
+    export type Normalized = {
+      [K in keyof Registrable]: Entries.Tuple[K]
+    }
+
+    export type Tuple = [string, Value]
+
+    export namespace Entries {
+      export type Index = SetOptional<
+        {
+          [K in keyof Registrable]: Registrable[K]
+        }
+      >
+
+      export type Tuple = SetOptional<
+        {
+          [K in keyof Registrable]: [string, Registrable[K]]
+        }
+      >
+
+      export type ArrayedTuple = SetOptional<
+        {
+          [K in keyof Registrable]: MappedType.Many<
+            Array<[string, Registrable[K]]>
+          >
+        }
+      >
+    }
+
+    export type Product = SetOptional<
+      {
+        [K in keyof Registrable]: {[key: string]: Registrable[K]}
+      }
+    >
+  }
+
   export type Api =
     | {[key: string]: CallableFunction}
     | ((bud?: Framework) => {[key: string]: CallableFunction})
 
-  export type Register = (bud: Framework) => void
+  export type Boot = (bud: Framework) => void
 
-  export type RegisterOne<T> =
-    | ((bud?: Framework) => [string, T])
-    | [string, T]
-
-  export type RegisterMany<T> =
-    | ((bud?: Framework) => {[key: string]: T})
-    | {[key: string]: T}
-
-  export type RawOptions<T = any> = T | ((bud?: Framework) => T)
-
-  export type Options = {[key: string]: any}
+  export type Options<T = any> =
+    | T
+    | ((app: Framework) => T)
+    | any
 
   export type Make<P = unknown, T = Options> =
     | ((options: Framework.Container<T>, bud?: Framework) => P)
@@ -121,6 +179,4 @@ export namespace Module {
     bud: Framework,
     opt?: Framework.Container,
   ) => boolean
-
-  export type Boot = (bud: Framework) => void
 }

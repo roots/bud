@@ -9,12 +9,12 @@ export * as api from './api'
 /**
  * PostCSS loader
  */
-export {registerLoader} from './register'
+export {setLoader} from './register'
 
 /**
  * PostCSS rulesetuse item
  */
-export const registerItem: Module.RegisterOne<Item.Module> = [
+export const setItem: Module.Register<Item> = [
   'postcss',
   postcss,
 ]
@@ -23,9 +23,9 @@ export const registerItem: Module.RegisterOne<Item.Module> = [
  * Use PostCSS with css extension.
  */
 export const boot: Module.Boot = (bud: Framework) => {
-  bud.build.rules.mutate('css.use', css => [
-    ...css.splice(0, css.length - 1),
+  bud.build.rules.mutate('css.use', use => [
+    ...use.splice(0, use.length - 1),
     bud.build.items.get('postcss'),
-    ...css.splice(css.length - 1),
+    ...use.splice(use.length - 1),
   ])
 }

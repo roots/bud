@@ -1,30 +1,28 @@
-import fetchExternals, {Hash} from './fetchExternals'
-import externalsPlugin from './externalsPlugin'
-
 import {RawSource} from 'webpack-sources'
 import Webpack, {ExternalsPlugin} from 'webpack'
 import path from 'path'
 
+import fetchExternals, {Hash} from './fetchExternals'
+import {externals} from './externals'
+
 export class Plugin {
-  /**
-   * Plugin ident
-   */
+  // Ident
   public plugin = {
     name: 'WordPressExternalsWebpackPlugin',
     stage: Infinity,
   }
 
-  public output: Output = {
+  public output = {
     dir: '',
     name: '',
     file: '',
-    publicPath: '',
+    publicPath: null,
     content: {},
   }
 
   public options: Options
 
-  public externalsPlugin: ExternalsPlugin
+  public externals: ExternalsPlugin
 
   /**
    * Class constructor
@@ -40,9 +38,9 @@ export class Plugin {
 
     this.output.name = this.options.name
 
-    this.externalsPlugin = new ExternalsPlugin(
+    this.externals = new ExternalsPlugin(
       'wp',
-      externalsPlugin.bind(this),
+      externals.bind(this),
     )
 
     this.emit = this.emit.bind(this)
@@ -62,7 +60,7 @@ export class Plugin {
       this.output.file,
     )
 
-    this.externalsPlugin.apply(compiler)
+    this.externals.apply(compiler)
 
     compiler.hooks.emit.tapAsync(
       this.constructor.name,
@@ -103,14 +101,6 @@ export type EntrySchema = {
 }
 
 export type Content = EntrySchema | EntrySchema[] | null
-
-export type Output = {
-  dir: string
-  name: string
-  file: string
-  publicPath: string
-  content: Content
-}
 
 /**
  * Plugin options

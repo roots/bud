@@ -1,15 +1,9 @@
-import type {
-  Module,
-  Rule,
-  Item,
-  Loader,
-  Framework,
-} from '@roots/bud-typings'
+import type {Module, Rule, Framework} from '@roots/bud-typings'
 
 /**
  * @svgr-loader register loader
  */
-export const registerLoader: Module.RegisterOne<Loader> = [
+export const setLoaders: Module['setLoaders'] = [
   '@svgr-loader',
   require.resolve('@svgr/webpack'),
 ]
@@ -17,7 +11,7 @@ export const registerLoader: Module.RegisterOne<Loader> = [
 /**
  * @svgr-loader register loader
  */
-export const registerItem: Module.RegisterOne<Item.Module> = [
+export const setItems: Module['setItems'] = [
   '@svgr',
   {
     ident: '@svgr',
@@ -28,12 +22,14 @@ export const registerItem: Module.RegisterOne<Item.Module> = [
 /**
  * @svgr-loader register use
  */
-export const registerRule: Module.RegisterOne<Rule.Module> = [
+export const setRules: Module['setRules'] = [
   '@svgr',
   {
-    test: (bud: Framework): RegExp => bud.patterns.get('svg'),
-    use: (bud: Framework): Rule[] => [
-      bud.build.items.get('@svgr'),
-    ],
+    test({store}: Framework): RegExp {
+      return store.get('patterns.svg')
+    },
+    use({build}: Framework): Rule[] {
+      return [build.items.get('@svgr')]
+    },
   },
 ]

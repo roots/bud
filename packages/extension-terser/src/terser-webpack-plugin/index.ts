@@ -23,8 +23,8 @@ export const options: TerserPluginOptions = {
 }
 
 export const make: Module.Make = (
-  options: Module.RawOptions<TerserPluginOptions>,
+  options: Module.Options<TerserPluginOptions>,
 ) => new TerserPlugin(options.all())
 
-export const when: Module.When = ({features}) =>
-  features.enabled('minify')
+export const when: Module.When = ({store}) =>
+  store.enabled('features.minify')

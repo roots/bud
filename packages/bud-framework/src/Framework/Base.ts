@@ -1,28 +1,7 @@
-import {Container} from '@roots/container'
-import {use} from './use'
-import {when} from './when'
 import {Framework} from '@roots/bud-typings'
 
-export default abstract class implements Framework {
-  protected _providers: Container<Framework.Providers>
-
-  protected _api: Container = new Container<CallableFunction>({})
-
-  protected _services: Container = new Container({})
-
-  protected _store: Container<Container> = new Container({})
-
-  public args: Framework.Container
-
-  public config: Framework.Container
-
-  public features: Framework.Container
-
-  public patterns: Framework.Container
-
-  public presets: Framework.Container
-
-  public serverConfig: Framework.Container
+export default abstract class {
+  public name = '@roots/bud'
 
   public build: Framework.Build
 
@@ -32,13 +11,11 @@ export default abstract class implements Framework {
 
   public compiler: Framework.Compiler
 
-  public disk: Framework.FileSystem
+  public disk: Framework.Disk
 
   public env: Framework.Env
 
   public extensions: Framework.Extensions
-
-  public fs: Framework.FileContainer
 
   public hooks: Framework.Hooks
 
@@ -48,142 +25,75 @@ export default abstract class implements Framework {
 
   public server: Framework.Server
 
-  public use: Framework.Use = use
+  public store: Framework.Store
 
-  public when: Framework.When = when
+  public use: Framework.Use
 
-  public addPlugin: Framework.Api.AddPlugin
+  public when: Framework.When
 
-  public alias: Framework.Api.Alias
+  public addPlugin: Framework.Api.AddPlugin<this>
 
-  public copy: Framework.Api.Copy
+  public alias: Framework.Api.Alias<this>
 
-  public define: Framework.Api.Define
+  public copy: Framework.Api.Copy<this>
 
-  public dev: Framework.Api.Dev
+  public define: Framework.Api.Define<this>
 
-  public devtool: Framework.Api.Devtool
+  public dev: Framework.Api.Dev<this>
 
-  public dist: Framework.Api.Dist
+  public devtool: Framework.Api.Devtool<this>
 
-  public distPath: Framework.Api.DistPath
+  public dist: Framework.Api.Dist<this>
 
-  public entry: Framework.Api.Entry
+  public distPath: Framework.Api.DistPath<this>
 
-  public externals: Framework.Api.Externals
+  public entry: Framework.Api.Entry<this>
 
-  public glob: Framework.Api.Glob
+  public externals: Framework.Api.Externals<this>
 
-  public gzip: Framework.Api.Gzip
+  public glob: Framework.Api.Glob<this>
 
-  public hash: Framework.Api.Hash
+  public gzip: Framework.Api.Gzip<this>
 
-  public minify: Framework.Api.Minify
+  public hash: Framework.Api.Hash<this>
 
-  public project: Framework.Api.Project
+  public minify: Framework.Api.Minify<this>
 
-  public projectPath: Framework.Api.ProjectPath
+  public project: Framework.Api.Project<this>
 
-  public provide: Framework.Api.Provide
+  public projectPath: Framework.Api.ProjectPath<this>
 
-  public proxy: Framework.Api.Proxy
+  public provide: Framework.Api.Provide<this>
 
-  public publicPath: Framework.Api.PublicPath
+  public proxy: Framework.Api.Proxy<this>
 
-  public run: Framework.Api.Run
+  public publicPath: Framework.Api.PublicPath<this>
 
-  public runtime: Framework.Api.Runtime
+  public run: Framework.Api.Run<this>
 
-  public src: Framework.Api.Src
+  public runtime: Framework.Api.Runtime<this>
 
-  public srcPath: Framework.Api.SrcPath
+  public src: Framework.Api.Src<this>
 
-  public string: Framework.Api.Stringify
+  public srcPath: Framework.Api.SrcPath<this>
 
-  public storage: Framework.Api.Storage
+  public string: Framework.Api.Stringify<this>
 
-  public target: Framework.Api.Target
+  public target: Framework.Api.Target<this>
 
-  public template: Framework.Api.Template
+  public template: Framework.Api.Template<this>
 
-  public vendor: Framework.Api.Vendor
-
-  /**
-   * Base constructor.
-   */
-  public constructor(providers: Framework.Providers) {
-    this.get = this.get.bind(this)
-    this.use = this.use.bind(this)
-    this.when = this.when.bind(this)
-    this.pipe = this.pipe.bind(this)
-    this.makeContainer = this.makeContainer.bind(this)
-    this.callMeMaybe = this.callMeMaybe.bind(this)
-    this.providers = this.makeContainer(providers)
-  }
-
-  protected get providers(): Framework.Container<
-    Framework.Providers
-  > {
-    return this._providers
-  }
-
-  protected set providers(
-    providers: Framework.Container<Framework.Providers>,
-  ) {
-    this._providers = providers
-  }
-
-  protected get api(): Framework.Container {
-    return this._api
-  }
-
-  protected set api(api: Framework.Container) {
-    this._api = api
-  }
-
-  protected get store(): Framework.Container<
-    Framework.Container
-  > {
-    return this._store
-  }
-
-  protected set store(
-    store: Framework.Container<Framework.Container>,
-  ) {
-    this._store = store
-  }
-
-  protected get services(): Framework.Container {
-    return this._services
-  }
-
-  protected set services(services: Framework.Container) {
-    this._services = services
-  }
-
-  public abstract init(): this
-
-  public abstract register(): void
-
-  public abstract boot(): void
+  public vendor: Framework.Api.Vendor<this>
 
   public abstract get(): this
 
-  public abstract set<T = any>(prop: string, value: T): void
-
-  public abstract callMeMaybe<I = unknown>(
+  public abstract access<I = unknown>(
     value: Framework.MaybeCallable<I>,
   ): I
 
-  public abstract makeContainer(repository?: {
-    [key: string]: any
-  }): Framework.Container
-
-  public abstract makeDisk(
-    name: string,
-    dir: string,
-    glob?: string[],
-  ): void
+  public abstract makeContainer<T>(
+    repository?: Framework.Container<T>['repository'],
+  ): Framework.Container<T>
 
   public abstract pipe(fns: CallableFunction[]): this
 }

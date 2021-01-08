@@ -22,8 +22,8 @@ export {
 }
 
 export type Boot = Module.Boot
-export type RegisterItem = Module.RegisterOne<Item.Module>
-export type RegisterLoader = Module.RegisterOne<Loader>
+export type setItem = Module.Register<Item>
+export type setLoader = Module.Register<Loader>
 
 export type {Fluent}
 

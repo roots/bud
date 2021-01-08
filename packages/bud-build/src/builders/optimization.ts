@@ -9,56 +9,31 @@ export namespace Optimization {
 }
 
 /**
- * Annoying to type because of the length of keys
- */
-const key = val =>
-  `webpack.optimization${val.map(
-    v => `${val.length > 1 ? '.' : ''}${v}`,
-  )}`
-
-/**
  * Webpack.Optimization
  */
 export const optimization: Optimization.Build = function () {
   const output: {optimization: Optimization} = {
-    optimization: {
-      minimize: this.hooks.filter<Optimization['minimize']>(
-        key`minimize`,
-        this.features.enabled(`minify`),
-      ),
-
-      removeAvailableModules: this.hooks.filter<
-        Optimization['removeAvailableModules']
-      >(
-        key`removeAvailableModules`,
-        this.config.get('optimization.removeAvailableModules'),
-      ),
-
-      moduleIds: this.hooks.filter<Optimization['moduleIds']>(
-        key`moduleIds`,
-        this.config.get('optimization.moduleIds'),
-      ),
-    },
+    optimization: this.hooks.filter<Optimization>(
+      `webpack.optimization`,
+      this.store.get('webpack.optimization'),
+    ),
   }
 
-  if (this.features.enabled(`runtimeChunk`)) {
+  if (this.store.enabled(`features.runtimeChunk`)) {
     output.optimization.runtimeChunk = this.hooks.filter<
       Optimization['runtimeChunk']
     >(
-      key`runtimeChunk`,
-      this.config.get(`optimization.runtimeChunk`),
+      `webpack.optimization.runtimeChunk`,
+      this.store.get(`webpack.optimization.runtimeChunk`),
     )
   }
 
-  if (this.features.enabled('vendor')) {
+  if (this.store.enabled('features.vendor')) {
     output.optimization.splitChunks = this.hooks.filter<any>(
-      key`splitChunks`,
-      this.config.get(`optimization.splitChunks`),
+      `webpack.optimization.splitChunks`,
+      this.store.get(`webpack.optimization.splitChunks`),
     )
   }
 
-  return this.hooks.filter<{optimization: Optimization}>(
-    key``,
-    output,
-  )
+  return output
 }

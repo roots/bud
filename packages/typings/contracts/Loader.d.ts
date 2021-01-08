@@ -6,11 +6,11 @@
  * [📦 @roots/bud-server](https://www.npmjs.com/package/@roots/bud-build)
  * [🔗 Documentation](#)
  */
-export type Loader = string
+export type Loader = Loader.Module
 
 export namespace Loader {
   export interface Module {
-    ident: string
+    ident?: string
     loader: Loader
   }
 }

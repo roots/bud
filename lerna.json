@@ -28,16 +28,9 @@
     "packages/extension-terser",
     "packages/extension-typescript",
     "packages/extension-vue",
-    "packages/extension-wordpress-manifests",
-    "packages/extension-wordpress-externals",
     "packages/filesystem",
     "packages/ink-prettier",
-    "packages/ink-use-style",
-    "packages/sage",
-    "packages/typings",
-    "packages/webpack-entrypoints-plugin",
-    "packages/webpack-merged-manifest-plugin",
-    "packages/webpack-wordpress-externals-plugin"
+    "packages/ink-use-style"
   ],
   "npmClient": "yarn",
   "useWorkspaces": true

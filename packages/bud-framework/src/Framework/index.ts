@@ -1,186 +1,174 @@
 import {Container} from '@roots/container'
-import {FileContainer, FileSystem} from '@roots/filesystem'
-import {isEqual, isFunction} from '@roots/bud-support'
-
+import {isFunction, isEqual} from '@roots/bud-support'
+import {use} from './use'
+import {when} from './when'
 import Base from './Base'
-import Env from '../Env'
-import Mode from '../Mode'
 
 import {
   Framework,
   Index,
-  Loader,
-  Module,
-  Rule,
-  Item,
   MaybeCallable,
 } from '@roots/bud-typings'
 
 export default abstract class extends Base implements Framework {
-  public constructor(providers: Framework.Providers) {
-    super(providers)
+  public providers: Framework.Container
+  public services: Framework.Container
+  public store: Framework.Container
 
-    this.providers.mutate('services', services => ({
-      disk: FileSystem,
-      fs: FileContainer,
-      mode: Mode,
-      env: Env,
-      ...services,
-    }))
+  public use: Framework.Use
+  public when: Framework.When
+
+  constructor(providers: Framework.Index<any>) {
+    super()
+
+    /**
+     * Bindings
+     */
+    this.bootstrap = this.bootstrap.bind(this)
+    this.get = this.get.bind(this)
+    this.use = use.bind(this)
+    this.when = when.bind(this)
+    this.pipe = this.pipe.bind(this)
+    this.makeContainer = this.makeContainer.bind(this)
+    this.access = this.access.bind(this)
+    this.init = this.init.bind(this)
+    this.register = this.register.bind(this)
+    this.boot = this.boot.bind(this)
+
+    /**
+     * Essential containers
+     */
+    this.store = this.makeContainer()
+    this.services = this.makeContainer()
+    this.providers = this.makeContainer()
+
+    /**
+     * Set providers
+     */
+    this.providers.setStore({...providers})
 
     /**
      * This "fixes" resize emitter warnings
      * @todo actually fix this
      */
-    process.setMaxListeners(0)
+    // process.setMaxListeners(0)
 
     /**
      * This fixes issues with SWR thinking its in the browser.
      * @todo does this fix the vue extension issue?
      */
     isEqual(typeof global.navigator, 'undefined') &&
-      Object.assign(global, {navigator: {}})
+      Object.assign(global, {})
   }
 
-  public init(): this {
+  init(): this {
+    this.bootstrap()
+
     this.register()
+
     this.boot()
 
     return this
   }
 
-  public register(): void {
+  bootstrap(): void {
     this.providers
       /**
-       * Register api, services, stores, loaders,
-       * items, rules & extensions containers
+       * Make stores
        */
-      .every((name: string, value: Index<any>) => {
-        this.set(name, this.makeContainer(value))
+      .each('store', (name, store) => {
+        this.store.set(name, store)
       })
 
       /**
-       * Register API functions
+       * Make API
        */
-      .each('api', (name: string) => {
-        Object.defineProperty(this, name, {
-          get: function () {
-            return this.api.get(name).bind(this)
-          },
-          set: function (value) {
-            this.api.set(name, value)
-          },
-        })
-      })
-
-      /**
-       * Register framework services
-       */
-      .each('services', (name: string, service: any) => {
-        this.services.set(name, new service({app: this}))
-
-        Object.defineProperty(this, name, {
-          get: function () {
-            return this.services.get(name)
-          },
-          set: function (value) {
-            this.services.set(name, value)
-          },
-        })
-      })
-
-      /**
-       * Register stores
-       */
-      .each('containers', (name: string, repo: Index<any>) => {
-        this.store.set(name, this.makeContainer(repo))
-
-        Object.defineProperty(this, name, {
-          get: function () {
-            return this.store.get(name)
-          },
-          set: function (value) {
-            this.store.set(name, value)
-          },
-        })
+      .each('api', (name, fn) => {
+        this[name] = fn.bind(this)
       })
 
     /**
-     * We need to have the compilation mode set before building
-     * out the loaders & rules.
+     * Set features from CLI args
+     * These need to be set before instantiating services
      */
-    this.args.has('mode')
-      ? this.mode.set(this.args.get('mode'))
-      : this.mode.set('none')
+    this.store.each('args', (name: string, value: any) => {
+      this.store.set(`features.${name}`, value)
+    })
 
+    /**
+     * Instantiate framework services
+     */
     this.providers
-      /**
-       * Register loaders
-       */
-      .each('loaders', (name: string, loader: Loader) => {
-        this.build.setLoader(name, loader)
-      })
+      .get('services')
+      .forEach(([name, Service, dependencies]) => {
+        this.services.set(
+          name,
+          new Service({
+            app: this,
+            ...dependencies,
+          }),
+        )
 
-      /**
-       * Register items
-       */
-      .each('items', (name: string, item: Item) => {
-        this.build.setItem(name, item)
-      })
+        /**
+         * Service getters and setters
+         */
+        if (this[name]) {
+          throw Error(
+            `${name} is already registered on ${this.name}`,
+          )
+        }
+        Object.defineProperty(this, name, {
+          get() {
+            return this.services.get(name)
+          },
 
-      /**
-       * Register rules
-       */
-      .each('rules', (name: string, rule: Rule) => {
-        this.build.setRule(name, rule)
-      })
-
-      /**
-       * Register extensions
-       */
-      .each('extensions', (name: string, extension: Module) => {
-        this.extensions.set(name, extension)
+          set(value) {
+            this.services.set(value)
+          },
+        })
       })
   }
 
-  public boot(): void {
-    this.fs.setBase(process.cwd())
-    this.makeDisk('project', this.fs.base)
-    this.makeDisk('@roots', '../../..')
+  /**
+   * Lifecycle: registration
+   */
+  register(): void {
+    this.services.get('hooks').register()
+    this.services.get('build').register()
 
-    this.cli.run()
+    this.services.every(name => {
+      if (['hooks', 'builders'].includes(name)) return
+
+      Object.keys(this).includes(name) && this[name].register()
+    })
   }
 
-  public get(): this {
+  boot(): void {
+    this.services.get('hooks').boot()
+    this.services.get('build').boot()
+
+    this.services.every(name => {
+      if (['hooks', 'builders'].includes(name)) return
+
+      Object.keys(this).includes(name) && this[name].boot()
+    })
+  }
+
+  get(): this {
     return this
   }
 
-  public set<T = any>(prop: string, value: T): void {
-    this[prop] = value
-  }
-
-  public callMeMaybe<I = unknown>(value: MaybeCallable<I>): I {
+  access<I = unknown>(value: MaybeCallable<I>): I {
     return isFunction(value)
       ? (value as CallableFunction)(this)
       : value
   }
 
-  public makeContainer(repository?: Index<any>): Container {
+  makeContainer(repository?: Index<any>): Container {
     return new Container(repository ?? {})
   }
 
-  public makeDisk(
-    name: string,
-    dir: string,
-    glob?: string[],
-  ): void {
-    this.disk.set(name, {
-      base: this.fs.path.resolve(__dirname, dir),
-      glob: glob ?? ['**/*'],
-    })
-  }
-
-  public pipe(fns: CallableFunction[]): this {
+  pipe(fns: CallableFunction[]): this {
     fns.reduce((_val, fn) => {
       return fn(this)
     }, this)

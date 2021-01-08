@@ -1,75 +1,59 @@
 import type Bud from './Bud'
-
 /**
  * Brotli flag
  */
 export const brotli = (bud: Bud): void => {
-  bud.args.has('brotli') && bud.brotli()
+  bud.store.has('args.brotli') && bud.brotli()
 }
-
-/**
- * CI flag
- */
-export const ci = (bud: Bud): void => {
-  bud.mode.ci = bud.args.has('ci')
-}
-
-/**
- * Debug flag
- */
-export const debug = (bud: Bud): void =>
-  bud.args.has('debug') && bud.features.enable('debug')
 
 /**
  * Devtool flag/argument
  */
 export const devtool = (bud: Bud): void => {
-  bud.args.has('devtool') &&
-    bud.devtool(
-      bud.args.get('devtool') ?? '#@cheap-eval-source-map',
-    )
+  bud.store.has('args.devtool') &&
+    devtool(bud.store.get('args.devtool'))
 }
 
 /**
  * Gzip flag
  */
 export const gzip = (bud: Bud): void => {
-  bud.args.has('gzip') && bud.gzip()
+  bud.store.isTrue('args.gzip') && bud.gzip()
 }
 
 /**
  * Hash flag
  */
 export const hash = (bud: Bud): void => {
-  bud.args.has('hash') && bud.hash()
+  bud.store.has('args.hash') && bud.hash()
 }
 
 /**
  * Minify flag
  */
 export const minify = (bud: Bud): void => {
-  bud.args.has('minify') && bud.minify()
+  bud.store.has('args.minify') && bud.minify()
 }
 
 /**
  * Runtime flag
  */
 export const runtime = (bud: Bud): void => {
-  bud.args.has('runtime') && bud.runtime()
+  bud.store.has('args.runtime') && bud.runtime()
 }
 
 /**
  * Template flag
  */
 export const template = (bud: Bud): void => {
-  bud.args.has('html') && bud.template()
+  bud.store.has('args.html') && bud.template()
 }
 
 /**
  * Vendor flag
  */
 export const vendor = (bud: Bud): void => {
-  bud.args.has('vendor') && bud.vendor()
+  bud.store.has('args.vendor') && bud.vendor()
 }
 
 /**
@@ -77,12 +61,14 @@ export const vendor = (bud: Bud): void => {
  */
 export const projectPath = (bud: Bud): void => {
   bud.projectPath(
-    bud.args.has('project')
-      ? bud.fs.path.resolve(
-          bud.fs.getBase(),
-          bud.args.get('project'),
-        )
-      : bud.fs.getBase(),
+    bud.store.has('args.project')
+      ? bud.disk
+          .get('project')
+          .path.resolve(
+            bud.disk.baseDir,
+            bud.store.get('args.project'),
+          )
+      : bud.disk.baseDir,
   )
 }
 
@@ -90,12 +76,20 @@ export const projectPath = (bud: Bud): void => {
  * Src path
  */
 export const srcPath = (bud: Bud): void => {
-  bud.srcPath(bud.args.get('src') ?? 'src')
+  bud.srcPath(
+    bud.store.has('args.src')
+      ? bud.store.get('args.src')
+      : 'src',
+  )
 }
 
 /**
  * Dist path
  */
 export const distPath = (bud: Bud): void => {
-  bud.distPath(bud.args.get('dist') ?? 'dist')
+  bud.distPath(
+    bud.store.has('args.dist')
+      ? bud.store.get('args.dist')
+      : 'dist',
+  )
 }

@@ -1,9 +1,9 @@
 import {Api} from '@roots/bud-typings'
 
 export const publicPath: Api.PublicPath = function (publicPath) {
-  this.config.set(
-    'output.publicPath',
-    this.fs.path.normalize(`/${publicPath}/`),
+  this.store.set(
+    'webpack.output.publicPath',
+    this.disk.path.normalize(`/${publicPath}/`),
   )
 
   return this

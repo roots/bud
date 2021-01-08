@@ -9,3 +9,4 @@ scripts
 **/types
 **/*.d.ts
 **/*.json
+node_modules

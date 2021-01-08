@@ -10,11 +10,14 @@ declare type Reducer = (
   [label, rule]: [string, Rule],
 ) => Rule[]
 
-const hook = (label: string) =>
-  `webpack.module.rules.oneOf.${label}`
-
 const reducer: Reducer = function (rules, [label, rule]) {
-  return [...rules, this.hooks.filter<Rule>(hook(label), rule)]
+  return [
+    ...rules,
+    this.hooks.filter<Rule>(
+      `webpack.module.rules.oneOf${label}`,
+      rule,
+    ),
+  ]
 }
 
 /**
@@ -25,4 +28,5 @@ export const oneOf: Build = function () {
     .getEntries()
     .filter(([, {enforce}]: [string, Rule]) => enforce !== 'pre')
     .reduce(reducer.bind(this), [])
+    .filter(Boolean)
 }

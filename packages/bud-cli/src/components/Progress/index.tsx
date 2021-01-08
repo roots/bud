@@ -1,8 +1,8 @@
 import {React, Box, Text} from '@roots/bud-support'
 import {Bar} from './Bar'
 
-import type {UseProgress} from '../../hooks/useProgress'
 import type {Styles} from '@roots/ink-use-style'
+import type {Compiler} from '@roots/bud-typings'
 
 export function Progress({
   progress,
@@ -10,7 +10,7 @@ export function Progress({
   col,
   colors,
 }: {
-  progress: UseProgress.Progress
+  progress: Compiler.Progress
   bounds: Styles['bounds']
   col: Styles['col']
   colors: Styles['colors']
@@ -25,7 +25,7 @@ export function Progress({
     <Box display={'flex'} width={col(12)} flexDirection={'row'}>
       <Box width={labelMax}>
         <Text>
-          {progress.percentage.display}
+          {progress?.percentage}
           {''}
         </Text>
       </Box>
@@ -34,7 +34,7 @@ export function Progress({
         maxWidth={barMax}
         backgroundColor="none"
         colors={[colors.primary, colors.primaryAlt]}
-        percent={progress.percentage.decimal}
+        percent={progress?.decimal}
       />
     </Box>
   )

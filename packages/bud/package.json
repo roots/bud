@@ -68,10 +68,6 @@
     "@roots/container": "*",
     "@roots/filesystem": "*"
   },
-  "devDependencies": {
-    "@roots/bud-typings": "^2.2.1",
-    "@types/compression-webpack-plugin": "^4.0.1"
-  },
   "dependencies": {
     "@roots/bud-api": "^2.2.1",
     "@roots/bud-build": "^2.2.1",

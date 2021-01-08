@@ -1,15 +1,15 @@
 import {VueLoaderPlugin} from 'vue-loader'
-import {Module, Item, Loader} from '@roots/bud-typings'
+import {Module} from '@roots/bud-typings'
 
 /** Patched compiler.*/
 /* eslint-disable */
 const compiler = require('./vue-template-compiler/index')
 
-export const registerLoaders: Module.RegisterMany<Loader> = {
+export const setLoaders = {
   vue: require.resolve('vue-loader'),
 }
 
-export const registerItems: Module.RegisterMany<Item.Module> = {
+export const setItems = {
   vue: {
     ident: 'vue',
     loader: 'vue',
@@ -59,13 +59,15 @@ export const boot: Module.Boot = bud => {
     make: new VueLoaderPlugin(),
   })
 
-  bud.config.mutate('resolve.alias', cfg => ({
+  bud.store.mutate('webpack.resolve.alias', cfg => ({
     ...cfg,
     vue$: 'vue/dist/vue.esm.js',
   }))
 
-  !bud.config.get('resolve.extensions').includes('.vue') &&
-    bud.config.mutate('resolve.extensions', ext => [
+  !bud.store
+    .get('webpack.resolve.extensions')
+    .includes('.vue') &&
+    bud.store.mutate('webpack.resolve.extensions', ext => [
       ...ext,
       '.vue',
     ])

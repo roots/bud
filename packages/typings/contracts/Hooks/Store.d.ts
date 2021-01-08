@@ -1,27 +1,11 @@
-import {Framework} from '../Framework'
+import {Framework} from '../'
 
 /**
- * Items
+ * Store
  */
-export interface Store
-  extends Framework.ServiceContainer<Framework> {}
-
-export namespace Store {
-  /**
-   * Store
-   */
-  export type Items = {
-    filters: Filters
-    actions: Actions
+export declare interface Store extends Framework.Container {
+  repository: {
+    actions: Framework.Container<Framework.Hooks.Action>
+    filters: Framework.Container<Framework.Hooks.Filter>
   }
-
-  /**
-   * Filters
-   */
-  export interface Filters extends Store {}
-
-  /**
-   * Actions
-   */
-  export interface Actions extends Store {}
 }

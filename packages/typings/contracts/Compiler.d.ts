@@ -22,9 +22,19 @@ export interface Compiler extends Framework.Service<Framework> {
   stats: Compiler.Stats.Output
 
   /**
-   * Compiler statsa configuration
+   * Webpack stats configuration
    */
   statsOptions: Compiler.Stats.Options
+
+  /**
+   * Formatted progress plugin
+   */
+  progress: Compiler.Progress
+
+  /**
+   * Compiler errors
+   */
+  errors: string[]
 
   /**
    * Get the compiler instance
@@ -95,6 +105,11 @@ export namespace Compiler {
   export type Handler = Webpack.Compiler.Handler
 
   export type ProgressHandler = Webpack.ProgressPlugin.Handler
+  export type Progress = {
+    percentage: string
+    message: string
+    decimal: number
+  }
 
   export namespace Stats {
     export type Options = {

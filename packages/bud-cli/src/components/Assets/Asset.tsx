@@ -6,13 +6,21 @@ import {
 } from '@roots/bud-support'
 import {Indicator} from '../UI/Indicator'
 import {useStyle} from '@roots/ink-use-style'
-import {CompilationAsset} from '../../hooks/useCompilation'
 
-export const Asset: FunctionComponent<CompilationAsset> = ({
-  name,
-  active,
+export const Asset: FunctionComponent<{
+  chunks: Array<number | string>
+  chunkNames: string[]
+  emitted: boolean
+  isOverSizeLimit?: boolean
+  name: string
+  size: number
+}> = ({
   size,
-  info,
+  name,
+  isOverSizeLimit,
+  emitted,
+  chunkNames,
+  chunks,
 }) => {
   const {col, colors} = useStyle()
 
@@ -21,8 +29,8 @@ export const Asset: FunctionComponent<CompilationAsset> = ({
       <Box width={col(7)}>
         <Text
           wrap="truncate-end"
-          color={active ? colors.foreground : colors.faded}>
-          <Indicator active={active} />
+          color={emitted ? colors.foreground : colors.faded}>
+          <Indicator active={emitted} />
           {name}{' '}
         </Text>
       </Box>
@@ -32,7 +40,7 @@ export const Asset: FunctionComponent<CompilationAsset> = ({
         alignItems="flex-end"
         justifyContent="flex-end">
         <Text wrap="truncate" color={colors.accent}>
-          {info}
+          {chunkNames.toString()}
         </Text>
       </Box>
 

@@ -9,7 +9,8 @@
     "declarationMap": true
   },
   "include": ["src"],
+  "exclude": ["lib", "types"],
   "typeAcquisition": {
     "enable": true
-  }
+  },
 }

@@ -1,6 +1,6 @@
 import {Api} from '@roots/bud-typings'
 
 export const externals: Api.Externals = function (externals) {
-  this.config.merge('externals', externals)
+  this.store.merge('webpack.externals', externals)
   return this
 }
