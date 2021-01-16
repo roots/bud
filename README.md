@@ -91,7 +91,7 @@ bud
   })
 
   /**
-   * WHen building for production, minify assets.
+   * When building for production, minify assets.
    * When in development, use verbose source-maps.
    */
   .when(
@@ -226,7 +226,7 @@ Have you produced a Bud extension and want to share it here? Please, create an i
 
 ## Typescript
 
-Bud is written in typescript but supports JS and TS projects. For TS users most project typings can be sourced from [@roots/bud-typings](packages/typings).
+Bud is written in Typescript but supports JS and TS projects. For TS users most project typings can be sourced from [@roots/bud-typings](packages/typings).
 
 ## Contributing
 
