@@ -12,7 +12,7 @@ import {eslintFormatter} from '@roots/bud-support'
 export const boot: Boot = bud => {
   const path = bud.disk.get('@roots/bud-eslint')
 
-  bud.store.enable('features.eslint')
+  bud.options.enable('eslint')
 
   bud.store.set(
     'presets.eslint.roots',
@@ -44,8 +44,7 @@ export const make: Make = opts => new Plugin(opts.getStore())
 /**
  * Make when
  */
-export const when: When = ({store}) =>
-  store.enabled('features.slint')
+export const when: When = ({options}) => options.enabled('slint')
 
 /**
  * Extend config file API

@@ -1,31 +1,76 @@
-import {postcss} from './register'
-import type {Framework, Item, Module} from '@roots/bud-typings'
+import {assignPostCss} from './api'
+import {Bud} from '@roots/bud'
+import {FileContainer} from '@roots/bud-typings'
 
 /**
- * Config methods
+ * Types
  */
-export * as api from './api'
+export * from './types'
 
 /**
- * PostCSS loader
+ * Extension name
  */
-export {setLoader} from './register'
+export const name = '@roots/bud-postcss'
 
 /**
- * PostCSS rulesetuse item
+ * Fallback options if no postcss.config.js is found.
  */
-export const setItem: Module.Register<Item> = [
-  'postcss',
-  postcss,
-]
+const defaultOptions = {
+  postcssOptions: {
+    plugins: [
+      'postcss-flexbugs-fixes',
+      [
+        'postcss-preset-env',
+        {
+          autoprefixer: {
+            flexbox: 'no-2009',
+          },
+          features: {
+            [`custom-properties`]: false,
+          },
+          stage: 3,
+        },
+      ],
+      'postcss-nested',
+    ],
+  },
+}
 
 /**
- * Use PostCSS with css extension.
+ * Register postcss RuleSet item
  */
-export const boot: Module.Boot = (bud: Framework) => {
-  bud.build.rules.mutate('css.use', use => [
-    ...use.splice(0, use.length - 1),
-    bud.build.items.get('postcss'),
-    ...use.splice(use.length - 1),
+export const setItems = (app: Bud) => {
+  const options = app.disk
+    .get<FileContainer>('project')
+    .exists('postcss.config.js')
+    ? {
+        config: app.disk
+          .get<FileContainer>('project')
+          .get(`postcss.config.js`),
+      }
+    : {...defaultOptions}
+
+  return [
+    'postcss',
+    {
+      ident: 'postcss',
+      loader: require.resolve('postcss-loader'),
+      options,
+    },
+  ]
+}
+
+/**
+ * Replace default css implementation
+ */
+export const boot = (bud: Bud) => {
+  bud = assignPostCss(bud)
+
+  bud.build.set('rules.css.use', [
+    bud.options.is('mode', 'production')
+      ? bud.build.get('items.minicss')
+      : bud.build.get('items.style'),
+    bud.build.get('items.css'),
+    bud.build.get('items.postcss'),
   ])
 }

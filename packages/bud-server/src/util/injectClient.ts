@@ -1,34 +1,32 @@
 import {isArray} from 'lodash'
-import {Store, Webpack} from '@roots/bud-typings'
+import {Framework, Webpack} from '@roots/bud-typings'
 
 /**
  * Inject webpack entrypoints with
  * client HMR handling script(s).
  */
-export declare type InjectClient = (
-  store: Store,
-) => Webpack.Entry
+export declare type InjectClient = (app: Framework) => void
 
 /**
- * Client script
+ * Injects webpack entrypoints with HMR client scripts.
+ *
+ * Filters on `webpack.entry`
  */
-const toInject =
-  'webpack-hot-middleware/client?path=/__webpack_hmr&timeout=2000'
-
-/**
- * Injects webpack.entry items with hot module scripts.
- */
-export const injectClient: InjectClient = store =>
-  Object.entries(store.get('webpack.entry')).reduce(
-    (
-      entries,
-      [name, assets]: [string, [Webpack.Configuration['entry']]],
-    ) => ({
-      ...entries,
-      [name]: [
-        toInject,
-        ...(isArray(assets) ? assets : [assets]),
-      ],
-    }),
-    {client: [toInject]},
+export const injectClient: InjectClient = app =>
+  app.hooks.on('webpack.entry', entry =>
+    Object.entries(entry).reduce(
+      (
+        entries: Webpack.Entry,
+        [name, assets]: [string, string | string[]],
+      ) => ({
+        ...entries,
+        [name]: [
+          require.resolve('webpack-hot-middleware/client'),
+          ...(isArray(app.access(assets))
+            ? app.access(assets)
+            : [app.access(assets)]),
+        ],
+      }),
+      {},
+    ),
   )

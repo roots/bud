@@ -1,5 +1,4 @@
-import {Framework} from './'
-import {Express, Webpack} from './'
+import {Framework, Service, Express, Webpack} from './'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import ProxyMiddleware from 'http-proxy-middleware'
 
@@ -11,22 +10,12 @@ import ProxyMiddleware from 'http-proxy-middleware'
  * [📦 @roots/bud-server](https://www.npmjs.com/package/@roots/bud-build)
  * [🔗 Documentation](#)
  */
-export interface Server {
-  /**
-   * Instance
-   */
+export interface Server extends Service {
   instance: Server.Instance
 
   /**
-   * Config
+   * Inject HMR service into individual bundles.
    */
-  config: Server.Config
-
-  /**
-   * Running
-   */
-  running: boolean
-
   injectHmr(): void
 
   /**
@@ -152,6 +141,11 @@ export namespace Server {
      * ```
      */
     headers?: webpackDevMiddleware.Options['headers']
+
+    /**
+     * Defines the level of messages logged by Express/WDS middleware
+     */
+    logLevel?: webpackDevMiddleware.Options['logLevel']
 
     /**
      * This property for  passing  the

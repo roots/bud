@@ -1,33 +1,64 @@
 import Service from './Service'
-import {Hooks as Contract} from '@roots/bud-typings'
+import {Hooks as Contract, Webpack} from '@roots/bud-typings'
 
 /**
  * Hooks
  */
 
 export class Hooks extends Service implements Contract {
-  public on<T = unknown>(
-    name: string,
-    filter: Contract.Filter.Fn<T>,
-  ): void {
-    this.filters.set(name, filter)
+  /**
+   * Register service
+   */
+  public register() {
+    //
   }
 
-  public when<T = unknown>(
+  /**
+   * Boot service
+   */
+  public boot() {
+    //
+  }
+
+  public on<T = any>(
+    name: Keys & string,
+    filter: Contract.Filter.Fn<T>,
+  ): void {
+    this.set(
+      `filters.${name}`,
+      this.get(`filters.${name}`)
+        ? [...this.get(`filters.${name}`), filter]
+        : [filter],
+    )
+  }
+
+  public when<T = any>(
     name: string,
     action: Contract.Action.Fn<T>,
   ): void {
-    this.actions.set(name, action)
+    this.set(
+      `actions.${name}`,
+      this.get(`actions.${name}`)
+        ? [...this.get(`actions.${name}`), action]
+        : [action],
+    )
   }
 
-  public action<T = unknown>(name: string, binding: T): void {
-    this.actions.has(name) &&
-      this.actions.get(name).map(action => action.bind(binding))
+  public action<T = any>(name: string, binding: T): void {
+    this.has(`actions.${name}`) &&
+      this.get(`actions.${name}`).map(action =>
+        action.bind(binding),
+      )
   }
 
-  public filter<T = unknown>(name: string, value: T): T {
-    return this.filters.has(name) && this.filters.isArray(name)
-      ? this.filters.get(name).reduce((v, f) => f(v), [])
+  public filter<T = any>(name: string, value: T): T {
+    return this.has(`filters.${name}`) &&
+      this.isArray(`filters.${name}`)
+      ? this.get(`filters.${name}`).reduce((v, f) => f(v), value)
       : value
   }
 }
+
+declare type Keys =
+  | `webpack.${keyof Webpack.Configuration}`
+  | string

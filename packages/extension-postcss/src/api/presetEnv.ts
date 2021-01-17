@@ -1,35 +1,22 @@
-import {Framework} from '@roots/bud-typings'
+import {Bud} from '@roots/bud'
 
-export const presetEnv: PresetEnv = function (options = {}) {
-  const plugins = this.build.items.get(
-    'postcss.options.postcssOptions.plugins',
+export const presetEnv: Bud.PostCss.PresetEnv = function (
+  options = {},
+) {
+  const plugins = this.build.get(
+    'items.postcss.options.postcssOptions.plugins',
   )
 
   // plugins[0]: flexbugs
   // plugins[1]: preset-env
   // plugins[2]: postcss-nested
+
   plugins[1][1] = options
 
-  this.build.items.set(
-    'postcss.options.postcssOptions.plugins',
+  this.build.set(
+    'items.postcss.options.postcssOptions.plugins',
     plugins,
   )
 
   return this
 }
-
-/**
- * ## bud.presetEnv
- *
- * Configure postcss preset-env
- *
- * ### Usage
- *
- * ```js
- * bud.presetEnv(MyPlugin, {plugin: 'options'})
- * ```
- */
-export type PresetEnv = (
-  this: Framework,
-  options: any,
-) => Framework

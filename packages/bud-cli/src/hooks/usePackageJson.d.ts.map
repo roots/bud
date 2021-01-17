@@ -1,1 +1,0 @@
-{"version":3,"file":"usePackageJson.d.ts","sourceRoot":"","sources":["usePackageJson.ts"],"names":[],"mappings":"AACA,OAAO,EAAC,aAAa,EAAC,MAAM,oBAAoB,CAAA;AAEhD,oBAAY,SAAS,GAAG;IACtB,CAAC,GAAG,EAAE,MAAM,GAAG,GAAG,CAAA;IAClB,IAAI,EAAE,MAAM,CAAA;CACb,CAAA;AAED,eAAO,MAAM,cAAc,SACnB,aAAa,KAClB,SAgBF,CAAA"}

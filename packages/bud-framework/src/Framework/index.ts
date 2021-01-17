@@ -1,178 +1,234 @@
-import {Container} from '@roots/container'
-import {isFunction, isEqual} from '@roots/bud-support'
-import {use} from './use'
-import {when} from './when'
+import events from 'events'
 import Base from './Base'
+import {isFunction, isEqual} from '@roots/bud-support'
+import {Container} from '@roots/container'
+import {Framework, MaybeCallable} from '@roots/bud-typings'
+import {run} from './run'
+import {when} from './when'
+import {use} from './use'
 
-import {
-  Framework,
-  Index,
-  MaybeCallable,
-} from '@roots/bud-typings'
+/**
+ * This "fixes" resize emitter warnings
+ * @todo actually fix this
+ */
+events.EventEmitter.defaultMaxListeners = 20
 
-export default abstract class extends Base implements Framework {
+/**
+ * This fixes issues with SWR thinking its in the browser.
+ * @todo does this fix the vue extension issue?
+ */
+isEqual(typeof global.navigator, 'undefined') &&
+  Object.assign(global, {})
+
+/**
+ * Bud framework base class
+ */
+export default abstract class<T = any>
+  extends Base
+  implements Framework<T> {
+  /**
+   * Providers
+   */
   public providers: Framework.Container
+
+  /**
+   * Services
+   */
   public services: Framework.Container
-  public store: Framework.Container
 
-  public use: Framework.Use
-  public when: Framework.When
+  /**
+   * Store
+   */
+  public store: Framework.Store
 
-  constructor(providers: Framework.Index<any>) {
+  /**
+   * Constructor
+   */
+  constructor(props: {
+    providers: Framework.Providers.Definition
+    api: Framework.Index<any>
+  }) {
     super()
 
     /**
      * Bindings
      */
+    this.access = this.access.bind(this)
+    this.boot = this.boot.bind(this)
     this.bootstrap = this.bootstrap.bind(this)
     this.get = this.get.bind(this)
-    this.use = use.bind(this)
-    this.when = when.bind(this)
-    this.pipe = this.pipe.bind(this)
     this.makeContainer = this.makeContainer.bind(this)
-    this.access = this.access.bind(this)
-    this.init = this.init.bind(this)
+    this.newService = this.newService.bind(this)
+    this.pipe = this.pipe.bind(this)
     this.register = this.register.bind(this)
-    this.boot = this.boot.bind(this)
+    this.run = this.run.bind(this)
+    this.use = this.use.bind(this)
+    this.when = this.when.bind(this)
 
     /**
      * Essential containers
      */
-    this.store = this.makeContainer()
-    this.services = this.makeContainer()
-    this.providers = this.makeContainer()
+    this.api = this.makeContainer(props.api)
+    this.providers = this.makeContainer(props.providers)
 
-    /**
-     * Set providers
-     */
-    this.providers.setStore({...providers})
-
-    /**
-     * This "fixes" resize emitter warnings
-     * @todo actually fix this
-     */
-    // process.setMaxListeners(0)
-
-    /**
-     * This fixes issues with SWR thinking its in the browser.
-     * @todo does this fix the vue extension issue?
-     */
-    isEqual(typeof global.navigator, 'undefined') &&
-      Object.assign(global, {})
+    this.bootstrap().register().boot()
   }
 
-  init(): this {
-    this.bootstrap()
-
-    this.register()
-
-    this.boot()
-
-    return this
-  }
-
-  bootstrap(): void {
-    this.providers
-      /**
-       * Make stores
-       */
-      .each('store', (name, store) => {
-        this.store.set(name, store)
-      })
-
-      /**
-       * Make API
-       */
-      .each('api', (name, fn) => {
-        this[name] = fn.bind(this)
-      })
-
-    /**
-     * Set features from CLI args
-     * These need to be set before instantiating services
-     */
-    this.store.each('args', (name: string, value: any) => {
-      this.store.set(`features.${name}`, value)
+  /**
+   * Lifecycle: bootstrap
+   */
+  bootstrap(): this {
+    this.api.every((name, fn) => {
+      this[name] = fn.bind(this)
     })
 
-    /**
-     * Instantiate framework services
-     */
-    this.providers
-      .get('services')
-      .forEach(([name, Service, dependencies]) => {
-        this.services.set(
-          name,
-          new Service({
-            app: this,
-            ...dependencies,
-          }),
-        )
+    this.providers.every(this.newService)
 
-        /**
-         * Service getters and setters
-         */
-        if (this[name]) {
-          throw Error(
-            `${name} is already registered on ${this.name}`,
-          )
-        }
-        Object.defineProperty(this, name, {
-          get() {
-            return this.services.get(name)
-          },
-
-          set(value) {
-            this.services.set(value)
-          },
-        })
-      })
+    return this
   }
 
   /**
    * Lifecycle: registration
    */
-  register(): void {
-    this.services.get('hooks').register()
-    this.services.get('build').register()
-
-    this.services.every(name => {
-      if (['hooks', 'builders'].includes(name)) return
-
-      Object.keys(this).includes(name) && this[name].register()
+  register(): this {
+    this.providers.every(name => {
+      this[name].register && this[name].register()
     })
-  }
 
-  boot(): void {
-    this.services.get('hooks').boot()
-    this.services.get('build').boot()
-
-    this.services.every(name => {
-      if (['hooks', 'builders'].includes(name)) return
-
-      Object.keys(this).includes(name) && this[name].boot()
-    })
-  }
-
-  get(): this {
     return this
   }
 
-  access<I = unknown>(value: MaybeCallable<I>): I {
-    return isFunction(value)
-      ? (value as CallableFunction)(this)
-      : value
+  /**
+   * Lifecycle boot.
+   */
+  public boot(): this {
+    this.providers.every(name => {
+      this[name].boot && this[name].boot()
+    })
+
+    return this
   }
 
-  makeContainer(repository?: Index<any>): Container {
+  /**
+   * Get framework.
+   */
+  public get(): this {
+    return this
+  }
+
+  /**
+   * Access
+   *
+   * Access a Framework component or datatype
+   * that might be a function taking a single app parameter
+   */
+  public access<I = unknown>(value: MaybeCallable<I>): I {
+    return isFunction(value) ? value(this) : value
+  }
+
+  /**
+   * ## bud.makeContainer
+   *
+   * Make a new container
+   *
+   * ### Usage
+   *
+   * ```js
+   * const container = bud.makeContainer({data: 'stuff'})
+   * container.get('data') // => 'stuff'
+   * ```
+   */
+  public makeContainer(repository?: any): Container {
     return new Container(repository ?? {})
   }
 
-  pipe(fns: CallableFunction[]): this {
+  /**
+   * ## bud.run  [💁 Fluent]
+   *
+   * Run the build [🔗 Documentation](#)
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.run()
+   * ```
+   *
+   * Disable the custom dashboard (use webpack default output)
+   *
+   * ```js
+   * bud.run(true)
+   * ```
+   */
+  public run: Framework.Run = run
+
+  /**
+   * ## bud.use [💁 Fluent]
+   *
+   * Register an extension or set of extensions [🔗 Documentation](#)
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.use(['@roots/bud-babel', '@roots/bud-react'])
+   * ```
+   */
+  public use: Framework.Use<T> = use
+
+  /**
+   * ## bud.when  [💁 Fluent]
+   *
+   * Executes a function if a given test is `true`. [🔗 Documentation](#)
+   *
+   * - The first parameter is the conditional check.
+   * - The second parameter is the function to be run if `true`.
+   * - The third paramter is optional; ran if not `true`.
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.when(bud.mode.is('production'), () => bud.vendor())
+   * ```
+   */
+  public when: Framework.When<T> = when
+
+  /**
+   * Pipe
+   */
+  public pipe(fns: CallableFunction[]): this {
     fns.reduce((_val, fn) => {
       return fn(this)
     }, this)
 
     return this
+  }
+
+  /**
+   * Create new service
+   */
+  public newService(
+    name: string,
+    service: [
+      Framework.Providers.Constructor,
+      Framework.Providers.Options,
+    ],
+  ): void {
+    const [Service, options] = service
+
+    this[name] &&
+      (() => {
+        throw Error(
+          `${name} is already registered to ${console.dir(
+            this.name,
+          )}`,
+        )
+      })()
+
+    this[name] = new Service(
+      this.get,
+      options?.containers ?? null,
+      options?.dependencies ?? null,
+    )
+
+    options?.onInit && options?.onInit.bind(this)()
   }
 }

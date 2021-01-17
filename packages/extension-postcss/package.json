@@ -19,25 +19,18 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": [
-    "bud",
-    "postcss",
-    "webpack"
-  ],
+  "keywords": ["bud", "postcss", "webpack"],
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "lib",
-    "src"
-  ],
+  "files": ["lib", "src"],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
-  "types": "./types/index.d.ts",
   "exports": {
     "require": "./lib/cjs/index.js",
     "import": "./lib/esm/index.js"
   },
+  "types": "./lib/types/index.d.ts",
   "scripts": {
     "build": "run-s build:*",
     "build:cjs": "tsc --build tsconfig.json",
@@ -53,9 +46,12 @@
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
+  "peerDependencies": {
+    "@roots/bud": "*",
+    "@roots/bud-typings": "*"
+  },
   "devDependencies": {
-    "@roots/bud-extensions": "^2.2.1",
-    "@roots/bud-framework": "^2.2.1",
+    "@roots/bud": "2.2.1",
     "@roots/bud-typings": "^2.2.1"
   },
   "dependencies": {

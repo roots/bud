@@ -37,7 +37,7 @@
     "require": "./lib/cjs/index.js",
     "import": "./lib/esm/index.js"
   },
-  "types": "./types/index.d.ts",
+  "types": "./lib/types/index.d.ts",
   "scripts": {
     "build": "run-s build:*",
     "build:cjs": "tsc --build tsconfig.json",
@@ -48,13 +48,14 @@
     "clean": "run-s clean:*",
     "clean:lib": "rimraf ./lib",
     "clean:modules": "rimraf ./node_modules",
-    "clean:types": "rimraf ./types",
     "pkg": "run-s pkg:*",
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "dependencies": {
-    "@roots/bud-support": "^2.2.1"
+    "ink-use-stdout-dimensions": "^1.0.5",
+    "react": "^17.0.1",
+    "swr": "^0.4.0"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
 }

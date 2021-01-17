@@ -1,6 +1,6 @@
 import Webpack from 'webpack'
-import {RequireExactlyOne, SetOptional, ValueOf} from 'type-fest'
-import {Framework, MappedType} from './'
+import {SetOptional, ValueOf} from 'type-fest'
+import {Framework, MappedType, Service} from './'
 
 /**
  * ## bud.extensions
@@ -12,23 +12,16 @@ import {Framework, MappedType} from './'
  * [📦 @roots/bud-extensions](https://github.io/roots/bud-extensions)
  * [🔗 Documentation](#)
  */
-export interface Extensions
-  extends Framework.ServiceContainer<Framework> {
-  set(
-    name: string,
-    extension:
-      | Framework.MaybeCallable<Module>
-      | Module.Options
-      | Module.Boot
-      | Module.Register
-      | Module.Registrable.Source[
-          | 'setLoaders'
-          | 'setItems'
-          | 'setRules']
-      | string,
-  ): this
+export declare interface Extensions extends Service {
+  add(name, extension): void
+
+  set<Extension>(name: string, extension: Extension): this
 
   use(pkg: string): this
+
+  make(plugin: string): Webpack.Plugin
+
+  makeAll(): Webpack.Plugin[]
 }
 
 /**
@@ -41,7 +34,7 @@ export interface Extensions
  * [📦 @roots/bud-extensions](https://github.io/roots/bud-extensions)
  * [🔗 Documentation](#)
  */
-export interface Extension extends Framework.ServiceContainer {
+export interface Extension extends Framework.Service {
   readonly app: Framework
 
   make(): Webpack.Plugin

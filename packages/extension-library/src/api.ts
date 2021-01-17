@@ -43,7 +43,7 @@ export const library: Library = function (modules) {
           },
           path: 'dll',
           inherit: false,
-          context: this.src(),
+          context: this.project(),
         }),
         make: opts => new AutoDllPlugin(opts.all()),
       },

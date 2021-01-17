@@ -16,13 +16,13 @@ declare type Target = {
 const proxy = (
   config: Server.Config,
 ): ProxyMiddleware.RequestHandler => {
-  // Source host & proxy
+  // Source host & port
   const source: Target = {
     host: config.get('host'),
     port: config.get('port'),
   }
 
-  // Proxy host & proxy
+  // Proxy host & port
   const proxy: Target = {
     host: config.get('proxy.host'),
     port: config.get('proxy.port'),

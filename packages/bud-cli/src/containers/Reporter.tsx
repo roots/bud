@@ -22,7 +22,7 @@ import {Compilation} from '../hooks/useCompilation'
 
 const Reporter: FunctionComponent<{
   bud: Framework
-  mode: Framework.Mode
+  mode: Webpack.Configuration['mode']
   pkg: {[key: string]: any}
   bounds: Styles['bounds']
   colors: Styles['colors']
@@ -41,7 +41,7 @@ const Reporter: FunctionComponent<{
   stats,
   progress,
 }) => {
-  const debug = bud.get().store.enabled('features.debug')
+  const debug = bud.get().options.enabled('debug')
 
   return debug ? (
     <Console />
@@ -122,7 +122,7 @@ const Reporter: FunctionComponent<{
           marginTop={1}
           flexDirection="row"
           justifyContent="space-between">
-          {mode?.is('development') && (
+          {bud.get().options.is('mode', 'development') && (
             <Text bold color={colors.accent}>
               {'🌐  '}
               {bud.store.get('server.ssl')
@@ -133,7 +133,9 @@ const Reporter: FunctionComponent<{
             </Text>
           )}
 
-          {mode?.is('development') && <Git />}
+          {bud.get().options.is('mode', 'development') && (
+            <Git />
+          )}
         </Box>
       </Box>
     </Box>

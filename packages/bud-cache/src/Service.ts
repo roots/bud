@@ -1,7 +1,27 @@
-import {Service} from '@roots/bud-support'
-import {Framework} from '@roots/bud-typings'
+import {Service} from '@roots/bud-framework'
 
-export default abstract class extends Service<Framework> {
+export default abstract class extends Service {
+  /**
+   * Cache enabled
+   */
   public abstract enabled(): boolean
+
+  /**
+   * Set cache
+   */
   public abstract setCache(): void
+
+  /**
+   * Service register
+   */
+  public register(): void {
+    //
+  }
+
+  /**
+   * Service boot
+   */
+  public boot(): void {
+    //
+  }
 }

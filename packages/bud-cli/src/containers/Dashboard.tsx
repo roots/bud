@@ -16,7 +16,7 @@ import {useBud} from '../hooks/useBud'
 import type {Framework} from '@roots/bud-typings'
 
 export const Dashboard: FunctionComponent<{
-  bud: Framework
+  bud: Framework<any>
 }> = ({bud}) => {
   const app = useApp()
   const {mode} = useBud(bud)
@@ -38,7 +38,7 @@ export const Dashboard: FunctionComponent<{
    */
   useEffect(() => {
     if (
-      bud.mode.is('production') &&
+      mode === 'production' &&
       stats?.assets?.length > 0 &&
       isEqual(progress?.decimal, 1)
     ) {

@@ -27,7 +27,7 @@ export class Cache extends Service {
    */
   public enabled(): boolean {
     return (
-      this.app.store.get('features.buildCache') &&
+      this.app.options.get('buildCache') &&
       this.app.disk
         .get('project')
         .exists(

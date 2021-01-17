@@ -19,23 +19,25 @@ export interface Fluent<T> {
   function(this: T): T
 }
 
-export type Use = (
-  this: Framework,
+export type Run = () => void
+
+export type Use<T> = (
+  this: T,
   extensions: Framework.Module[keyof Framework.Module],
-) => Framework
+) => T
 
 export namespace Use {
-  export type Tuple =
+  export type Tuple<T> =
     | [string, Framework.Module]
-    | [string, Factory<Framework, Framework.Module>]
+    | [string, Factory<T, Framework.Module>]
 }
 
-export type When = (
-  this: Framework,
+export type When<T> = (
+  this: T,
   test: boolean,
-  isTrue: (bud: Framework) => unknown,
-  isFalse?: (bud: Framework) => unknown,
-) => Framework
+  isTrue: (bud: T) => unknown,
+  isFalse?: (bud: T) => unknown,
+) => T
 
 export type Factory<ReturnType = unknown, Args = unknown> = (
   args?: Args,

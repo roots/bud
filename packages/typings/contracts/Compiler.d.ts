@@ -10,7 +10,7 @@ import {Framework, Webpack} from './'
  * [📦 @roots/bud-extensions](https://github.io/roots/bud-extensions)
  * [🔗 Documentation](#)
  */
-export interface Compiler extends Framework.Service<Framework> {
+export interface Compiler extends Framework.Service {
   /**
    * The compiler instance
    */
@@ -35,16 +35,6 @@ export interface Compiler extends Framework.Service<Framework> {
    * Compiler errors
    */
   errors: string[]
-
-  /**
-   * Get the compiler instance
-   */
-  get(): Webpack.Compiler
-
-  /**
-   * Set the compiler instance
-   */
-  set(compiler: Webpack.Compiler): void
 
   /**
    * ## bud.compiler.compile

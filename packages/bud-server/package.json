@@ -26,7 +26,7 @@
   "files": ["lib/", "types/", "src/"],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
-  "types": "./types/index.d.ts",
+  "types": "./lib/types/index.d.ts",
   "exports": {
     "require": "./lib/cjs/index.js",
     "import": "./lib/esm/index.js"
@@ -49,14 +49,16 @@
   "peerDependencies": {
     "@roots/bud-support": "*",
     "@roots/bud-typings": "*",
-    "@roots/container": "*"
+    "@roots/container": "*",
+    "@roots/bud-framework": "*"
   },
   "devDependencies": {
     "@roots/bud-typings": "^2.2.1"
   },
   "dependencies": {
     "@roots/bud-support": "^2.2.1",
-    "@roots/container": "^2.2.0"
+    "@roots/container": "^2.2.0",
+    "@roots/bud-framework": "^2.2.1"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
 }

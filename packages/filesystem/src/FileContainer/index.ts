@@ -123,6 +123,8 @@ export class FileContainer {
           enumerable: false,
         })
       })
+
+    return this
   }
 
   /**
@@ -149,7 +151,7 @@ export class FileContainer {
    * ```
    */
   public get = function (key: string): any {
-    return _.get(this.repository, key)
+    return this.repository[key]
   }
 
   /**
@@ -164,7 +166,7 @@ export class FileContainer {
    * ```
    */
   public has = function (key: string): boolean {
-    return _.has(this.repository, key)
+    return this.repository[key]
   }
 
   /**
@@ -179,7 +181,7 @@ export class FileContainer {
    * ```
    */
   public set = function (key: string, value: string): void {
-    _.set(this.repository, key, value)
+    this.repository[key] = value
   }
 
   /**

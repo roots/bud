@@ -1,9 +1,5 @@
-import {Service} from '@roots/bud-support'
-import type {
-  Compiler,
-  Framework,
-  Webpack,
-} from '@roots/bud-typings'
+import {Service} from '@roots/bud-framework'
+import type {Compiler, Webpack} from '@roots/bud-typings'
 
 /**
  * ## bud.compiler
@@ -13,7 +9,7 @@ import type {
  * [📦 @roots/bud-compiler](https://www.npmjs.com/package/@roots/bud-compiler)
  * [🔗 Documentation](#)
  */
-export default abstract class extends Service<Framework> {
+export default abstract class extends Service {
   public instance: Webpack.Compiler
 
   public stats: Compiler.Stats.Output

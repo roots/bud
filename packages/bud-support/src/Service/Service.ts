@@ -1,4 +1,3 @@
-import {has, isEqual} from 'lodash'
 import {Container} from '@roots/container'
 
 /**
@@ -15,29 +14,23 @@ export abstract class Service<T = any> {
   /**
    * Constructor
    */
-  public constructor(items: {
-    [key: string]: any
-    app: T
-    containers?: {[key: string]: Container['repository']}
-  }) {
-    this._app = () => items.app
+  public constructor(
+    get: () => T,
+    containers?: {[key: string]: Container['repository']},
+    theRest?: {[key: string]: any},
+  ) {
+    this._app = get
 
-    if (items.containers) {
-      Object.entries(items.containers).forEach(
+    containers &&
+      Object.entries(containers).forEach(
         ([name, repo]: [
           string,
           {[key: string]: Container['repository']},
         ]) => (this[name] = new Container(repo)),
       )
-    }
 
-    Object.entries(items)
-      .filter(([key]: [string, any]) => {
-        return (
-          !isEqual(key, 'app') && !isEqual(key, 'containers')
-        )
-      })
-      .forEach(([key, value]) => {
+    theRest &&
+      Object.entries(theRest).forEach(([key, value]) => {
         this[key] = value
       })
   }
@@ -61,12 +54,5 @@ export abstract class Service<T = any> {
    */
   public get app(): T {
     return this._app()
-  }
-
-  /**
-   * Has prop?
-   */
-  public hasProp = function (name: string): boolean {
-    return has(this, name)
   }
 }

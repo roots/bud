@@ -8,7 +8,7 @@ export const setPresets = function (
   this: Framework,
   presets: Array<[PluginTarget, PluginOptions]>,
 ): Framework {
-  this.build.items.set('babel.options.presets', presets)
+  this.build.set('items.babel.options.presets', presets)
 
   return this
 }

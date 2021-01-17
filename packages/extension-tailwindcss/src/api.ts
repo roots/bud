@@ -1,14 +1,9 @@
-import {Framework} from '@roots/bud-typings'
-import type {Config} from './types/tailwindcss'
+import {Bud} from '@roots/bud'
 
-export const tailwind = function (
-  params: Omit<Config, null>,
-): Framework {
-  this.build.items.merge(
-    'postcss.options.postcssOptions.plugins',
-    // eslint-disable-next-line @typescript-eslint/no-var-requires
-    [require('tailwindcss')(params)],
-  )
+export const tailwind: Bud.Tailwind.Configure = function (
+  params,
+) {
+  this.postcss.addPlugin(require('tailwindcss'), params)
 
   return this
 }

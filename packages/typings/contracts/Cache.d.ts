@@ -8,7 +8,7 @@ import {Framework} from './'
  * [📦 @roots/bud-server](https://www.npmjs.com/package/@roots/bud-build)
  * [🔗 Documentation](#)
  */
-export interface Cache extends Framework.Service<Framework> {
+export interface Cache extends Framework.Service {
   /**
    * Is cache enabled?
    */

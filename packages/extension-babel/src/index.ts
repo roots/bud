@@ -1,24 +1,38 @@
-import {Module, Item, Loader} from '@roots/bud-typings'
-import {make} from './api'
-import * as babel from './babel'
+import {Bud} from '@roots/bud'
+import {assignBabel} from './api'
 
-export const setLoaders: Module.Register<Loader> = {
-  [`babel-loader`]: require.resolve('babel-loader'),
-}
+export * from './types'
 
-export const setItems: Module.Register<Item> = {
-  babel,
-}
+/**
+ * Extension ident
+ */
+export const name = '@roots/bud-babel'
 
-export const boot: Module.Boot = app => {
-  make(app)
+/**
+ * Register babel
+ */
+export function register(app: Bud): void {
+  assignBabel(app)
+    .build.set('items.babel', {
+      loader: require.resolve('babel-loader'),
+      options: {
+        presets: [],
+        plugins: [],
+      },
+    })
+    .mutate('rules.js.use', use => [
+      app.build.get('items.cache'),
+      app.build.get('items.thread'),
+      app.build.get('items.babel'),
+    ])
 
-  app.build.rules.mutate('js', js => ({
-    ...js,
-    use: [
-      app.build.items.get('thread'),
-      app.build.items.get('cache'),
-      app.build.items.get('babel'),
-    ].filter(Boolean),
-  }))
+  app.babel
+    .addPreset('@babel/preset-env')
+    .babel.addPlugin('@babel/plugin-transform-runtime', {
+      helpers: false,
+    })
+    .babel.setOptions({
+      root: app.project(),
+      cacheDirectory: app.project(app.options.get('storage')),
+    })
 }

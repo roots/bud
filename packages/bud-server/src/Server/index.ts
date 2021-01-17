@@ -1,15 +1,16 @@
 import Service from './Service'
-import express from 'express'
-
-import * as middleware from '../middleware'
 import {injectClient} from '../util/injectClient'
-
-import type {Framework, Server} from '@roots/bud-typings'
+import * as middleware from '../middleware'
+import type {
+  Webpack,
+  Container,
+  Server,
+} from '@roots/bud-typings'
 
 /**
  * ## bud.server
  *
- * Express development server.
+ * Development server.
  *
  * [🏡 Project home](https://roots.io/bud)
  * [🧑‍💻 roots/bud/packages/server](https://git.io/JkCQG)
@@ -17,25 +18,41 @@ import type {Framework, Server} from '@roots/bud-typings'
  * [🔗 Documentation](#)
  */
 export default class extends Service implements Server {
+  /**
+   * Application dev server instance.
+   */
+  public instance: Server.Instance
+
+  /**
+   * Service registration
+   */
   public register(): void {
     this.run = this.run.bind(this)
-
-    this.instance = express()
-
-    this.app.when(
-      this.app.store.has('args.proxy'),
-      ({store}: Framework) => store.enable('features.proxy'),
-    )
+    this.instance = this.instance.bind(this)
   }
 
+  /**
+   * Service boot
+   */
+  public boot(): void {
+    //
+  }
+
+  public get config(): Container<Server.Options> {
+    return this.app.makeContainer(this.app.store.get('server'))
+  }
+
+  /**
+   * Inject HMR
+   */
   public injectHmr(): void {
-    this.app.store.set(
-      'webpack.entry',
-      injectClient(this.app.store),
-    )
+    injectClient(this.app)
   }
 
-  public run(compiler: Framework.Webpack.Compiler): this {
+  /**
+   * Run server
+   */
+  public run(compiler: Webpack.Compiler): this {
     const config = this.config
 
     this.instance.use(
@@ -47,13 +64,10 @@ export default class extends Service implements Server {
 
     this.instance.use(middleware.hot(compiler))
 
-    this.app.store.enabled('features.proxy') &&
+    this.app.options.enabled('proxy') &&
       this.instance.use(middleware.proxy(this.config))
 
-    this.instance.listen(
-      this.config.get('port'),
-      this.config.get('host'),
-    )
+    this.instance.listen(this.config.get('port'))
 
     return this
   }

@@ -1,71 +1,97 @@
-import {FileSystem} from '@roots/filesystem'
-import {Service, has} from '@roots/bud-support'
-import type {
-  Framework,
-  Container,
-  Index,
-} from '@roots/bud-typings'
+import Service from '../Service'
+import {fs, globby, lodash as _} from '@roots/bud-support'
+import path from 'path'
+import {FileContainer} from '@roots/filesystem'
 
-export default class
-  extends FileSystem
-  implements Service<Framework> {
+/**
+ * Disk
+ */
+export default class extends Service {
   /**
-   * Application reference
+   * fs util
+   *
+   * @see fs-extra
    */
-  public readonly _app: () => Framework
+  public fs: typeof fs = fs
 
   /**
-   * Constructor
+   * Globby library.
    */
-  public constructor(items: {
-    app: Framework
-    containers?: Index<Container['repository']>
-  }) {
-    super()
-
-    this._app = items.app.get
-
-    try {
-      this.app
-        .makeContainer(items.containers.disks)
-        .every((name, options) => {
-          this.make(name, {
-            glob: ['**/*', '*'],
-            baseDir: process.cwd(),
-            ...options,
-          })
-        })
-    } catch (err) {
-      console.error(err)
-      process.exit(1)
-    }
-  }
+  public glob: typeof globby = globby
 
   /**
-   * Register service
+   * cwd
+   */
+  public path: typeof path = path
+
+  /**
+   * Base directory
+   */
+  protected _baseDir: string = process.cwd()
+
+  /**
+   * Service register
    */
   public register(): void {
-    return
+    this.register = this.register.bind(this)
+    this.make = this.make.bind(this)
+
+    this.every((name, disk) => {
+      this.make(name, {
+        baseDir: disk.baseDir ?? process.cwd(),
+        glob: disk.glob ?? ['*'],
+      })
+    })
   }
 
   /**
-   * Boot service
+   * Service boot
    */
   public boot(): void {
-    return
+    //
   }
 
   /**
-   * Application
+   * Make
+   *
+   * Create a new disk. Provide a name, root directory, and -- optionally --
+   * a custom glob array. [🔗 Documentation on bud.disk](#)
+   *
+   * ### Usage
+   *
+   * ```js
+   * fs.set(
+   *   'icons',
+   *   bud.project('assets/icons'),
+   *   ['*.svg'],
+   * )
+   * ```
    */
-  public get app(): Framework {
-    return this._app()
+  public make(
+    key: string,
+    options?: {baseDir?: string; glob?: string[]},
+  ): FileContainer {
+    const baseDir = options?.baseDir ?? this.baseDir
+
+    this.set(
+      key,
+      new FileContainer(baseDir).setDisk(
+        options?.glob ?? ['*', '**/*'],
+      ),
+    )
+
+    return this.get(key)
   }
 
-  /**
-   * Has prop?
-   */
-  public hasProp = function (name: string): boolean {
-    return has(this, name)
+  public get<FileContainer>(key: string): FileContainer {
+    return this.repository[key]
+  }
+
+  public get baseDir(): string {
+    return this._baseDir
+  }
+
+  public set baseDir(baseDir: string) {
+    this._baseDir = baseDir
   }
 }

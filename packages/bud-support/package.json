@@ -23,14 +23,14 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib/", "src/", "publish/"],
+  "files": ["lib/", "src/", "publish/", "types/"],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "exports": {
     "require": "./lib/cjs/index.js",
     "import": "./lib/esm/index.js"
   },
-  "types": "./types/index.d.ts",
+  "types": "./lib/types/index.d.ts",
   "scripts": {
     "build": "run-s build:*",
     "build:cjs": "tsc --build tsconfig.json",

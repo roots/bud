@@ -9,7 +9,7 @@ export {build, dump, killPort}
 /**
  * Application services base.
  */
-export {Service, ServiceContainer} from './Service'
+export {Service} from './Service'
 
 /**
  * Application util

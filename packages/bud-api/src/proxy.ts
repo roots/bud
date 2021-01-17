@@ -1,15 +1,16 @@
 import {Api} from '@roots/bud-typings'
 
-const props = ['host', 'port']
-
 export const proxy: Api.Proxy = function (config) {
-  this.store.set('features.proxy', config?.enabled ?? true)
+  this.options.set('proxy', config?.enabled ?? true)
 
-  config &&
+  if (config) {
+    const props = ['host', 'port']
+
     props.forEach(prop => {
       config[prop] &&
-        this.server.config.set(`proxy.${prop}`, config[prop])
+        this.store.set(`server.proxy.${prop}`, config[prop])
     })
+  }
 
   return this
 }

@@ -22,12 +22,12 @@ import {
   Loader,
   Logger,
   MaybeCallable,
-  Mode,
+  Options,
   Providers,
+  Run,
   Rule,
   Server,
   Service,
-  ServiceContainer,
   Store,
   Use,
   Webpack,
@@ -44,7 +44,7 @@ import {
  * [🔗 Documentation](#)
  */
 
-export declare interface Framework extends Framework.Api {
+export declare interface Framework<T = any> {
   /**
    * ## bud.store [🍱 _Container_]
    *
@@ -53,7 +53,7 @@ export declare interface Framework extends Framework.Api {
    * [🔗 Documentation on bud.config](#)
    * [🔗 Documentation on containers](#)
    */
-  store: Framework.Container<Framework.Store.Source>
+  store: Framework.Store
 
   /**
    * ## bud.build
@@ -186,9 +186,9 @@ export declare interface Framework extends Framework.Api {
   logger: Framework.Logger
 
   /**
-   * ## bud.mode
+   * ## bud.options
    */
-  mode: Framework.Mode
+  options: Framework.Options
 
   /**
    * ## bud.server
@@ -202,25 +202,7 @@ export declare interface Framework extends Framework.Api {
   /**
    * ## bud.services
    */
-  services: Container<Framework.Service>
-
-  /**
-   * ## bud.use [💁 Fluent]
-   *
-   * Register an extension or set of extensions [🔗 Documentation](#)
-   *
-   * ### Usage
-   *
-   * ```js
-   * bud.use(['@roots/bud-babel', '@roots/bud-react'])
-   * ```
-   */
-  use: Framework.Use
-
-  /**
-   * Initialize class
-   */
-  init(): this
+  services: Container<any>
 
   /**
    * ## bud.get  [🏠 Internal]
@@ -250,7 +232,7 @@ export declare interface Framework extends Framework.Api {
    * // => `option value: true`
    * ```
    */
-  access<I = unknown>(value: Framework.MaybeCallable<I>): I
+  access<I = unknown>(value: MaybeCallable<I>): I
 
   /**
    * ## bud.makeContainer
@@ -259,7 +241,7 @@ export declare interface Framework extends Framework.Api {
    *
    * [🔗 Documentation on containers](#)
    */
-  makeContainer<I>(repository?: Index<I>): Framework.Container<I>
+  makeContainer(repository?: any): Container
 
   /**
    * ## bud.pipe [💁 Fluent]
@@ -279,6 +261,33 @@ export declare interface Framework extends Framework.Api {
   pipe(fns: CallableFunction[]): this
 
   /**
+   * ## bud.run
+   *
+   * Finalize configuration and run build. No configuration changes
+   * can be made after this point.
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.run()
+   * ```
+   */
+  run: Framework.Run
+
+  /**
+   * ## bud.use [💁 Fluent]
+   *
+   * Register an extension or set of extensions [🔗 Documentation](#)
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.use(['@roots/bud-babel', '@roots/bud-react'])
+   * ```
+   */
+  use: Framework.Use<T>
+
+  /**
    * ## bud.when  [💁 Fluent]
    *
    * Executes a function if a given test is `true`. [🔗 Documentation](#)
@@ -293,7 +302,135 @@ export declare interface Framework extends Framework.Api {
    * bud.when(bud.mode.is('production'), () => bud.vendor())
    * ```
    */
-  when: Framework.When
+  when: Framework.When<T>
+}
+
+/**
+ * Keys
+ */
+declare interface ServiceKeys {
+  [key: string]: any
+
+  /**
+   * ## bud.args [🍱 _Container_]
+   *
+   * CLI arguments passed to Bud.
+   *
+   * [🔗 Documentation on bud.args](#)
+   * [🔗 Documentation on containers](#)
+   *
+   * ### Usage
+   *
+   * #### Flags
+   *
+   * ```sh
+   * $ bud build --html
+   * ```
+   *
+   * ```js
+   * bud.args.has('html') // => true
+   * ```
+   *
+   * #### Values
+   *
+   * ```sh
+   * $ bud build --html dist/index.html
+   * ```
+   *
+   * ```js
+   * bud.args.get('html') // => 'dist/index.html'
+   * ```
+   *
+   * #### Arrayed
+   *
+   * ```sh
+   * $ bud build --bento uni rainbow edamame
+   * # or
+   * $ bud build --bento uni --bento rainbow --bento edamame
+   * ```
+   *
+   * ```js
+   * bud.args.get('bento') // => ['uni', 'rainbow', 'edamame']
+   * ```
+   */
+  args: Framework.Index<string | boolean | unknown>
+
+  /**
+   * ## bud.config [🍱 _Container_]
+   */
+  webpack: Framework.Webpack.Configuration
+
+  /**
+   * ## bud.features [🍱 _Container_]
+   *
+   * Collection of feature flags each indicating
+   * whether or not a  particular feature
+   * is enabled or disabled.
+   *
+   * [🔗 Documentation on bud.features](#)
+   * [🔗 Documentation on containers](#)
+   *
+   * ### Usage
+   *
+   * **Get the features store**
+   *
+   * ```js
+   * bud.features.all() // returns all the features as a `k => v` obj.
+   * ```
+   *
+   * **Check if a given feature is enabled**
+   *
+   * ```js
+   * bud.features.enabled('minify') // `true` if `minify` flag is on
+   * ```
+   *
+   * **Toggle a feature**
+   *
+   * ```js
+   * bud.features.set('gzip', false) // disable `gzip` feature flag
+   * ```
+   */
+  features: Framework.Index<boolean>
+
+  /**
+   * ## bud.patterns [🍱 _Container_]
+   *
+   * Collection of common RegExp objects.
+   *
+   * The advantage of using them in
+   * a container object is that they can be
+   * easily redefined by extensions.
+   *
+   * - [🔗 Documentation on bud.patterns](#)
+   * - [🔗 Documentation on containers](#)
+   *
+   * ### Usage
+   *
+   * **Get a regular expression matching files with `.js` extension**
+   *
+   * ```js
+   * bud.patterns.get('js')
+   * ```
+   *
+   * **Redefine a regular expression**
+   *
+   * ```js
+   * bud.patterns.set('cssModule', /\.module\.css$/)
+   * ```
+   */
+  patterns: Framework.Index<RegExp>
+
+  /**
+   * ## bud.presets [🍱 _Container_]
+   *
+   * Preset configuration container
+   */
+  presets: Framework.Index<any>
+
+  /**
+   * ## Server config repository
+   */
+  server: Framework.Server.Options
 }
 
 export declare namespace Framework {
@@ -307,17 +444,18 @@ export declare namespace Framework {
   export {Env}
   export {Extensions, Extension}
   export {Item}
-  export {Mode}
   export {Module}
   export {Hooks}
   export {Loader}
   export {Logger}
+  export {Options}
   export {Providers}
   export {Rule}
+  export {Run}
   export {Server}
   export {Service}
+  export {ServiceKeys}
   export {Store}
-  export {ServiceContainer}
   export {
     CompressionPlugin,
     Constructor,

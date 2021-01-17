@@ -1,59 +1,92 @@
-import type {Use} from '@roots/bud-typings'
-import {
-  isArray,
-  isArrayLike,
-  isEqual,
-  isObject,
-  isString,
-} from '@roots/bud-support'
-import {Framework, Module} from '@roots/bud-typings'
+import type {Extension, MaybeCallable} from '@roots/bud-typings'
+import {isArray, isString} from '@roots/bud-support'
 
-export const use: Use = function (
-  this: Framework,
-  extensions: Module.Registrable.Source,
+export const use = function (
+  source: MaybeCallable<
+    | string
+    | string[]
+    | [string, Extension]
+    | [string, Extension][]
+    | {[key: string]: Extension}
+    | Extension
+    | Extension[]
+  >,
 ) {
-  if (isString(extensions)) {
-    this.extensions.use(extensions)
-    return this
-  }
+  let definition:
+    | string
+    | string[]
+    | [string, Extension]
+    | [string, Extension][]
+    | {
+        [key: string]: Extension
+      }
+    | Extension
+    | Extension[]
 
-  const isArrayed = isArray(extensions[0])
+  /**
+   * (app: Framework) => ... ?
+   */
+  definition = this.access(source)
 
-  const isObjectDefinition =
-    isObject(extensions) && !isArrayLike(extensions)
-
-  if (isArrayed) {
-    /**
-     * Single import ['@roots/bud-sass]
-     */
-    const isSingleImport =
-      isEqual(extensions[0].length, 1) && // is only one item in array
-      isString(extensions[0]) // it is a string
-
-    isSingleImport && this.extensions.use(extensions as string)
-
-    /**
-     * Multiple tuple [`personalPlugin`, {options: {meh}}]
-     */
-    const isMultiTuple =
-      isEqual(extensions[0].length, 2) && // has aname and a registrable
-      isString(extensions[0]) // is a string
-
-    isMultiTuple &&
-      (extensions as [string, Module][]).forEach(module => {
-        this.extensions.set(...module)
-      })
+  /**
+   * string
+   */
+  if (isString(definition)) {
+    this.extensions.use(definition)
 
     return this
   }
 
-  if (isObjectDefinition) {
-    Object.entries(
-      extensions as {[key: string]: Module.Registrable},
-    ).forEach(([name, ext]: [string, Module.Registrable]) =>
-      this.extensions.set(name, ext),
-    )
+  if (!isArray(definition)) {
+    /**
+     * Require/import
+     */
+    if (!isString(definition) && definition.name) {
+      this.extensions.add(definition.name, definition)
+
+      return this
+    }
+
+    /**
+     * {key: extension}
+     */
+    Object.entries(definition).forEach(([name, extension]) => {
+      this.extensions.add(name, extension)
+    })
+
+    return this
   }
+
+  /**
+   * [string, extension]
+   */
+  if (isArray(definition)) {
+    if (
+      definition.length == 2 &&
+      typeof definition[1] !== 'string'
+    ) {
+      let [name, extension] = definition
+      this.extensions.add(name, extension)
+
+      return this
+    }
+  }
+
+  /**
+   * string[] or [string, extension][]
+   */
+  definition.forEach(def => {
+    if (Array.isArray(def)) {
+      let [name, extension] = def
+      return this.extensions.add(name, extension)
+    }
+
+    if (def.name) {
+      return this.extensions.add(def.name, def)
+    }
+
+    this.extensions.use(def)
+  })
 
   return this
 }

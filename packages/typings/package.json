@@ -22,12 +22,11 @@
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "./contracts"
-  ],
+  "files": ["./contracts"],
   "types": "./contracts/index.d.ts",
   "scripts": {
-    "build": "tsc"
+    "build": "echo \"⚡️\"",
+    "clean": "echo \"⚡️\""
   },
   "peerDependencies": {
     "@roots/bud-support": "*"

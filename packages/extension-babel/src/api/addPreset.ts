@@ -1,17 +1,14 @@
-import type {Framework} from '@roots/bud-typings'
-import type {PluginTarget, PluginOptions} from '@babel/core'
+import type {Bud} from '@roots/bud'
 
-/**
- * Merge babel plugins
- */
-export const addPreset = function (
-  name: PluginTarget,
-  opts?: PluginOptions,
-): Framework {
-  const preset = [name]
-  opts && preset.push(opts)
-
-  this.bud.build.items.merge('babel.options.presets', preset)
+export const addPreset: Bud.Babel.AddPreset = function (
+  this: Bud,
+  name,
+  opts,
+): Bud {
+  this.build.mutate('items.babel.options.presets', presets => [
+    ...presets,
+    [name, opts ?? {}],
+  ])
 
   return this
 }

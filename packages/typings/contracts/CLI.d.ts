@@ -1,3 +1,4 @@
+import type {Framework, Instance} from './'
 /**
  * ## bud.cli
  *
@@ -7,4 +8,25 @@
  * [🔗 Documentation](#)
  */
 export type {Error} from '../../bud-cli/src/Error'
-export type {CLI} from '../../bud-cli/src/CLI'
+
+export interface CLI extends Framework.Service {
+  /**
+   * CLI instance
+   */
+  dashboard: Instance
+
+  /**
+   * Register service
+   */
+  register(): void
+
+  /**
+   * Mount CLI
+   */
+  run(): void
+
+  /**
+   * Unmount CLI
+   */
+  kill(): void
+}

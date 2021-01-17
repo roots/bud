@@ -30,7 +30,7 @@
     "require": "./lib/cjs/index.js",
     "import": "./lib/esm/index.js"
   },
-  "types": "./types/index.d.ts",
+  "types": "./lib/types/index.d.ts",
   "scripts": {
     "build": "run-s build:*",
     "build:cjs": "tsc --build tsconfig.json",
@@ -53,11 +53,11 @@
     "@roots/container": "*"
   },
   "dependencies": {
+    "@roots/bud-framework": "^2.2.1",
     "@roots/bud-support": "^2.2.1",
     "@roots/container": "^2.2.0"
   },
   "devDependencies": {
-    "@roots/bud-framework": "^2.2.1",
     "@roots/bud-typings": "^2.2.1"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"

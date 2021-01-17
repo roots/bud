@@ -58,7 +58,7 @@ export const useCompilation = (bud: Framework) => {
     /**
      * Exec
      */
-    !bud.mode.is('development')
+    !bud.options.is('mode', 'development')
       ? bud.compiler.instance.run((err, stats: any) => {
           if (stats?.hasErrors()) {
             setErrors([...errors])

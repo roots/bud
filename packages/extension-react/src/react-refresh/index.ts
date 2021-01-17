@@ -1,6 +1,8 @@
+import Plugin from '@pmmmwh/react-refresh-webpack-plugin'
+
+import {Bud} from '@roots/bud'
 import type {Module} from '@roots/bud-typings'
-import ReactRefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin'
-import {ReactRefreshPluginOptions} from '@pmmmwh/react-refresh-webpack-plugin/types/types'
+import {ReactRefreshPluginOptions as Options} from '@pmmmwh/react-refresh-webpack-plugin/types/types'
 
 /**
  * Adds bud.reactRefresh() config handler.
@@ -8,22 +10,30 @@ import {ReactRefreshPluginOptions} from '@pmmmwh/react-refresh-webpack-plugin/ty
 export * as api from './api'
 
 /**
+ * Boot
+ */
+export const boot: Module.Boot = ({babel, options}: Bud) =>
+  options.is('mode', 'development') &&
+  babel.addPlugin('@babel/preset-react')
+
+/**
  * @pmmmwh/react-refresh-webpack-plugin implementation
  */
-export const make: Module.Make<
-  ReactRefreshPlugin,
-  ReactRefreshPluginOptions
-> = opts => new ReactRefreshPlugin(opts.all())
+export const make: Module.Make<Plugin, Options> = options =>
+  new Plugin(options.all())
 
 /**
  * @pmmmwh/react-refresh-webpack-plugin conditions
+ * (development only)
  */
-export const when: Module.When = ({mode}) =>
-  mode.is('development')
+export const when: Module.When = ({options}) =>
+  options.is('mode', 'development')
 
 /**
  * @pmmmwh/react-refresh-webpack-plugin options
  */
-export const options: Module.Options = {
-  overlay: false,
+export const options: Options = {
+  overlay: {
+    sockIntegration: 'whm',
+  },
 }

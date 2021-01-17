@@ -11,15 +11,16 @@ export const use = (bud: Framework): Framework =>
     [
       '@roots/merged-manifest-webpack-plugin',
       {
-        make: (_opts, bud) =>
+        make: (options, bud: Framework) =>
           new Plugin({
             entrypointsName: bud.extensions.get(
               '@roots/bud-entrypoints.options.name',
             ),
             wordpressName: bud.extensions.get(
-              '@roots/bud-wordpress-externals.opotions.name',
+              '@roots/bud-wordpress-externals.options.name',
             ),
             file: 'entrypoints.json',
+            ...options,
           }),
       },
     ],

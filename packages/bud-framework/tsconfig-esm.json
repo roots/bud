@@ -1,20 +1,7 @@
 {
-  "extends": "../../tsconfig.json",
+  "extends": "./tsconfig.json",
   "compilerOptions": {
-    "rootDir": "./src",
     "outDir": "./lib/esm",
-    "module": "ES2020",
-    "baseUrl": ".",
-    "declaration": true,
-    "declarationDir": "./types",
-    "declarationMap": true,
-    "paths": {
-      "*": ["*", "./src/*"]
-    }
-  },
-  "include": ["src"],
-  "exclude": ["lib", "types"],
-  "typeAcquisition": {
-    "enable": true
+    "module": "ES2020"
   }
 }

@@ -30,7 +30,7 @@
     "import": "./lib/esm/index.js"
   },
   "module": "./lib/esm/index.js",
-  "types": "./types/index.d.ts",
+  "types": "./lib/types/index.d.ts",
   "bin": {
     "bud": "bin/bud.js"
   },
@@ -50,12 +50,14 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "peerDependencies": {
+    "@roots/bud-framework": "*",
     "@roots/bud-support": "*",
     "@roots/bud-typings": "*",
     "@roots/ink-prettier": "*",
     "@roots/ink-use-style": "*"
   },
   "dependencies": {
+    "@roots/bud-framework": "^2.2.1",
     "@roots/bud-support": "^2.2.1",
     "@roots/ink-prettier": "^2.2.1",
     "@roots/ink-use-style": "^2.2.1"

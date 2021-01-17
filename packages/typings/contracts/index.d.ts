@@ -4,6 +4,7 @@ export {
   GlobTask,
   Webpack,
   zlib,
+  Instance,
 } from '../../bud-support/src'
 
 import {
@@ -12,6 +13,7 @@ import {
   Fluent,
   Index,
   MaybeCallable,
+  Run,
   Use,
   MappedType,
   When,
@@ -23,6 +25,7 @@ export {
   Index,
   MaybeCallable,
   MappedType,
+  Run,
   Use,
   When,
 }
@@ -44,15 +47,14 @@ export {Disk} from '../../bud-framework/src'
 export {Framework} from './Framework'
 export {Env} from './Env'
 export {Logger} from './Logger'
-export {Mode} from './Mode'
-export {Store} from './Store'
+export {Options} from './Options'
 export {Providers} from './Providers'
+export {Service} from './Service'
 
 /**
  * @roots/bud-support
  */
-export {Service} from '../../bud-support/src/Service/Service'
-export {ServiceContainer} from '../../bud-support/src/Service/ServiceContainer'
+export {Store} from './Store'
 
 /**
  * @roots/bud-api

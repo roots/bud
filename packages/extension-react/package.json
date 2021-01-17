@@ -19,25 +19,18 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": [
-    "webpack",
-    "bud"
-  ],
+  "keywords": ["webpack", "bud"],
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "lib/",
-    "types/",
-    "src/"
-  ],
+  "files": ["lib/", "src/"],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "exports": {
     "require": "./lib/cjs/index.js",
     "import": "./lib/esm/index.js"
   },
-  "types": "./types/index.d.ts",
+  "types": "./lib/types/index.d.ts",
   "scripts": {
     "build": "run-s build:*",
     "build:cjs": "tsc --build tsconfig.json",
@@ -54,19 +47,22 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "peerDependencies": {
-    "@roots/bud-extensions": "*",
-    "@roots/bud-hooks": "*",
+    "@roots/bud": "*",
+    "@roots/bud-babel": "*",
+    "@roots/bud-support": "*",
     "@roots/bud-typings": "*"
   },
   "devDependencies": {
-    "@roots/bud-extensions": "^2.2.1",
-    "@roots/bud-hooks": "^2.2.1",
+    "@roots/bud": "^2.2.1",
+    "@roots/bud-babel": "^2.2.1",
     "@roots/bud-typings": "^2.2.1"
   },
   "dependencies": {
     "@babel/preset-react": "^7.12.10",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
-    "@svgr/webpack": "^5.4.0",
+    "@roots/bud-support": "^2.2.1",
+    "@svgr/core": "^5.5.0",
+    "@svgr/webpack": "^5.5.0",
     "react": "^17.0.1",
     "react-dom": "^17.0.1",
     "react-hot-loader": "^4.13.0",

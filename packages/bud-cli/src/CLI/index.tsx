@@ -1,7 +1,8 @@
 import {React, render} from '@roots/bud-support'
-import {Dashboard} from '../containers/Dashboard'
-import Service from './Service'
 import {Framework} from '@roots/bud-typings'
+
+import Service from './Service'
+import {Dashboard} from '../containers/Dashboard'
 
 /**
  * CLI

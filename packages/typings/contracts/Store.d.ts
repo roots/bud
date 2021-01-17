@@ -1,142 +1,82 @@
-import {Framework} from './'
+import {RequireExactlyOne, ValueOf} from 'type-fest'
+import {Container, Framework, Webpack} from './'
 
-/**
- * Options and config store
- */
-export type Store = Framework.Container<Store.Source>
+export interface Store extends Container {
+  app: Framework
 
-/**
- * Container
- */
-export type Repo<T> = {
-  [K in keyof T]: Framework.Index<T[K]>
+  access<T = any>(key: string): T
+
+  get<T = any>(path: Store.Keys): T
 }
 
-export declare namespace Store {
-  export type Repository = Repo<Source>
+declare namespace Store {
+  type PathImpl<T, Key extends keyof T> = Key extends string
+    ? T[Key] extends Record<string, any>
+      ?
+          | `${Key}.${PathImpl<
+              T[Key],
+              Exclude<keyof T[Key], keyof any[]>
+            > &
+              string}`
+          | `${Key}.${Exclude<keyof T[Key], keyof any[]> &
+              string}`
+      : never
+    : never
 
-  export interface Source {
-    [key: string]: unknown
+  type PathImpl2<T> = PathImpl<T, keyof T> | keyof T
 
-    /**
-     * ## bud.args [🍱 _Container_]
-     *
-     * CLI arguments passed to Bud.
-     *
-     * [🔗 Documentation on bud.args](#)
-     * [🔗 Documentation on containers](#)
-     *
-     * ### Usage
-     *
-     * #### Flags
-     *
-     * ```sh
-     * $ bud build --html
-     * ```
-     *
-     * ```js
-     * bud.args.has('html') // => true
-     * ```
-     *
-     * #### Values
-     *
-     * ```sh
-     * $ bud build --html dist/index.html
-     * ```
-     *
-     * ```js
-     * bud.args.get('html') // => 'dist/index.html'
-     * ```
-     *
-     * #### Arrayed
-     *
-     * ```sh
-     * $ bud build --bento uni rainbow edamame
-     * # or
-     * $ bud build --bento uni --bento rainbow --bento edamame
-     * ```
-     *
-     * ```js
-     * bud.args.get('bento') // => ['uni', 'rainbow', 'edamame']
-     * ```
-     */
-    args: Framework.Index<string | boolean | unknown>
+  type Path<T> = PathImpl2<T> extends string | keyof T
+    ? PathImpl2<T>
+    : keyof T
 
-    /**
-     * ## bud.config [🍱 _Container_]
-     */
-    webpack: Framework.Webpack.Configuration
+  type PathValue<
+    T,
+    P extends Path<T>
+  > = P extends `${infer Key}.${infer Rest}`
+    ? Key extends keyof T
+      ? Rest extends Path<T[Key]>
+        ? PathValue<T[Key], Rest>
+        : never
+      : never
+    : P extends keyof T
+    ? T[P]
+    : never
 
-    /**
-     * ## bud.features [🍱 _Container_]
-     *
-     * Collection of feature flags each indicating
-     * whether or not a  particular feature
-     * is enabled or disabled.
-     *
-     * [🔗 Documentation on bud.features](#)
-     * [🔗 Documentation on containers](#)
-     *
-     * ### Usage
-     *
-     * **Get the features store**
-     *
-     * ```js
-     * bud.features.all() // returns all the features as a `k => v` obj.
-     * ```
-     *
-     * **Check if a given feature is enabled**
-     *
-     * ```js
-     * bud.features.enabled('minify') // `true` if `minify` flag is on
-     * ```
-     *
-     * **Toggle a feature**
-     *
-     * ```js
-     * bud.features.set('gzip', false) // disable `gzip` feature flag
-     * ```
-     */
-    features: Framework.Index<boolean>
+  type Argument = string
 
-    /**
-     * ## bud.patterns [🍱 _Container_]
-     *
-     * Collection of common RegExp objects.
-     *
-     * The advantage of using them in
-     * a container object is that they can be
-     * easily redefined by extensions.
-     *
-     * - [🔗 Documentation on bud.patterns](#)
-     * - [🔗 Documentation on containers](#)
-     *
-     * ### Usage
-     *
-     * **Get a regular expression matching files with `.js` extension**
-     *
-     * ```js
-     * bud.patterns.get('js')
-     * ```
-     *
-     * **Redefine a regular expression**
-     *
-     * ```js
-     * bud.patterns.set('cssModule', /\.module\.css$/)
-     * ```
-     */
-    patterns: Framework.Index<RegExp>
+  type Envvar = string
 
-    /**
-     * ## bud.presets [🍱 _Container_]
-     *
-     * Preset configuration container
-     */
-    presets: Framework.Index<any>
+  type Pattern = string
 
-    /**
-     * ## Server config repository
-     */
-    server: Framework.Server.Options
-  }
+  type Keys =
+    | `webpack.entry`
+    | `webpack.devtool`
+    | `webpack.plugins.${Store.Path<
+        Webpack.Configuration['plugins']
+      >}`
+    | `webpack.stats.${Store.Path<
+        Webpack.Configuration['stats']
+      >}`
+    | `webpack.module.${Store.Path<
+        Webpack.Configuration['module']
+      >}`
+    | `webpack.optimization.${Store.Path<
+        Webpack.Configuration['optimization']
+      >}`
+    | `webpack.performance.${Store.Path<
+        Webpack.Configuration['performance']
+      >}`
+    | `webpack.resolve.${Store.Path<
+        Webpack.Configuration['resolve']
+      >}`
+    | `webpack.${keyof Webpack.Configuration}`
+    | `webpack`
+    | `args.${Store.Argument}`
+    | `args`
+    | `env.${string}`
+    | `server.${string}`
+    | `server`
+    | `env`
+    | `patterns.${string}`
+    | `compilation.${string}`
 }

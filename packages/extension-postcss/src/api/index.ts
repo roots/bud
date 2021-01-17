@@ -2,8 +2,24 @@
  * Configuration API
  */
 
-export {postPlugin} from './postPlugin'
-export type {PostPlugin} from './postPlugin'
+import {Bud} from '@roots/bud'
+import {addPlugin} from './addPlugin'
+import {presetEnv} from './presetEnv'
 
-export {presetEnv} from './presetEnv'
-export type {PresetEnv} from './presetEnv'
+export function assignPostCss(app: Bud): Bud {
+  Object.assign(app, {
+    postcss: {
+      /**
+       * Set transform/loader options.
+       */
+      addPlugin: addPlugin.bind(app),
+
+      /**
+       * Plugins.
+       */
+      presetEnv: presetEnv.bind(app),
+    },
+  })
+
+  return app
+}

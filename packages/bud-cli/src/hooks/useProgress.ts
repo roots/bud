@@ -1,31 +1,5 @@
 import {useState} from '@roots/bud-support'
 
-const INITIAL_STATE: UseProgress.Progress = {
-  percentage: {
-    decimal: 0,
-    display: `${0}%`,
-  },
-  msg: '',
-}
-
-const useProgress: UseProgress.Hook = () => {
-  const [state, setState] = useState(INITIAL_STATE)
-
-  const handler: UseProgress.Handler = (percentage, msg) => {
-    if (typeof percentage !== 'number') return
-
-    setState({
-      percentage: {
-        decimal: percentage,
-        display: `${Math.floor(percentage * 100)}%`,
-      },
-      msg: msg ?? state.msg,
-    })
-  }
-
-  return [state, handler]
-}
-
 export namespace UseProgress {
   /**
    * UseProgress
@@ -57,6 +31,32 @@ export namespace UseProgress {
     display: string
     decimal: number
   }
+}
+
+const INITIAL_STATE: UseProgress.Progress = {
+  percentage: {
+    decimal: 0,
+    display: `${0}%`,
+  },
+  msg: '',
+}
+
+const useProgress: UseProgress.Hook = () => {
+  const [state, setState] = useState(INITIAL_STATE)
+
+  const handler: UseProgress.Handler = (percentage, msg) => {
+    if (typeof percentage !== 'number') return
+
+    setState({
+      percentage: {
+        decimal: percentage,
+        display: `${Math.floor(percentage * 100)}%`,
+      },
+      msg: msg ?? state.msg,
+    })
+  }
+
+  return [state, handler]
 }
 
 export {useProgress}

@@ -3,6 +3,7 @@ import fs from 'fs-extra'
 import path from 'path'
 import {FileContainer} from '..'
 import {Container} from '@roots/container'
+import globby from 'globby'
 
 export class FileSystem extends Container<FileContainer> {
   /**
@@ -13,27 +14,19 @@ export class FileSystem extends Container<FileContainer> {
   public fs: typeof fs = fs
 
   /**
+   * Globby library.
+   */
+  public glob: typeof globby = globby
+
+  /**
    * cwd
    */
   public path: typeof path = path
 
   /**
-   * Current disk
-   */
-  public current: FileContainer
-
-  /**
    * Base directory
    */
   protected _baseDir: string = process.cwd()
-
-  public get baseDir(): string {
-    return this._baseDir
-  }
-
-  public set baseDir(baseDir: string) {
-    this._baseDir = baseDir
-  }
 
   /**
    * Get
@@ -41,8 +34,8 @@ export class FileSystem extends Container<FileContainer> {
    * Call without a key to get all disks.
    * Pass a key to get a specific disk.
    */
-  public get(key?: string): FileContainer {
-    return key ? _.get(this.repository, key) : this.current
+  public get<T = FileContainer>(key?: string): T {
+    return (_.get(this.repository, key) as unknown) as T
   }
 
   /**
@@ -64,11 +57,11 @@ export class FileSystem extends Container<FileContainer> {
   public make(
     key: string,
     options?: {baseDir?: string; glob?: string[]},
-  ): this['current'] {
-    const baseDir = options?.baseDir ?? this.baseDir
+  ): FileContainer {
+    const baseDir = this.baseDir
 
     this.set(
-      key, // with this key
+      key,
       new FileContainer(baseDir).setDisk([
         ...(options?.glob ?? ['*', '**/*']).map(globStr =>
           this.path.resolve(baseDir, globStr),
@@ -76,8 +69,14 @@ export class FileSystem extends Container<FileContainer> {
       ]),
     )
 
-    this.current = this.get(key)
+    return this.get(key)
+  }
 
-    return this.current
+  public get baseDir(): string {
+    return this._baseDir
+  }
+
+  public set baseDir(baseDir: string) {
+    this._baseDir = baseDir
   }
 }

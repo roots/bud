@@ -1,7 +1,7 @@
 import {Api} from '@roots/bud-typings'
 
 export const runtime: Api.Runtime = function () {
-  this.store.set('features.runtimeChunk', true)
+  this.options.set('runtimeChunk', true)
 
   return this
 }

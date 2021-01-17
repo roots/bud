@@ -1,19 +1,31 @@
-import {Module} from '@roots/bud-typings'
+import {Extension} from './types'
 import * as Entrypoints from '@roots/entrypoints-webpack-plugin'
 
-export * as api from './entrypoints'
+/**
+ * Typings
+ */
+export * from './types'
 
-export const make: Module.Make<
-  Entrypoints.Plugin,
-  Options
-> = opts => new Entrypoints.Plugin(opts.all() as Options)
+/**
+ * Extension name
+ */
+export const name = '@roots/bud-entrypoints'
 
-export const options: Options = {
+/**
+ * Extension cfg fns
+ */
+export * as api from './api'
+
+/**
+ * Webpack plugin
+ */
+export const make: Extension.Make = options =>
+  new Entrypoints.Plugin(options.all())
+
+/**
+ * Webpack plugin options
+ */
+export const options: Entrypoints.Options = {
   name: 'entrypoints.json',
   writeToFileEmit: true,
-}
-
-export interface Options {
-  name: string
-  writeToFileEmit: boolean
 }

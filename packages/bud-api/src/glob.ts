@@ -1,27 +1,25 @@
 import {Api} from '@roots/bud-typings'
 
 export const glob: Api.Glob = function (name, files, options) {
-  const project = this.disk.get('project')
-
-  this.store.get('config').merge(
-    'entry',
-    project.glob
+  this.hooks.on(`webpack.entry`, entry => ({
+    ...entry,
+    ...this.disk.glob
       .sync(files, options ?? {expandDirectories: true})
       .reduce((acc, curr) => {
         const basedName = (file: string): string => {
           const ext = `.${file.split('.').pop()}`
-          return project.path.basename(file, ext)
+          return this.disk.path.basename(file, ext)
         }
 
         return {
           ...acc,
-          [project.path.join(
+          [this.disk.path.join(
             name ? `${name}/` : '/',
             basedName(curr),
           )]: curr,
         }
       }, {}),
-  )
+  }))
 
   return this
 }

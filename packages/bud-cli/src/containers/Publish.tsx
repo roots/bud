@@ -8,7 +8,9 @@ import {
 /**
  * Publish
  */
-const Publish: FunctionComponent<{file: string}> = ({file}) => (
+const Publish: FunctionComponent<{file: string | number}> = ({
+  file,
+}) => (
   <Box
     display="flex"
     margin={1}

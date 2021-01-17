@@ -22,15 +22,8 @@
   "engines": {
     "node": ">=12"
   },
-  "keywords": [
-    "container",
-    "utility"
-  ],
-  "files": [
-    "lib/",
-    "types/",
-    "src/"
-  ],
+  "keywords": ["container", "utility"],
+  "files": ["lib/", "types/", "src/"],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "exports": {

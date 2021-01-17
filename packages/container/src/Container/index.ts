@@ -1,15 +1,11 @@
 import _ from 'lodash'
-
-/**
- * Container iem.
- */
-export type Item<T = any> = T
+import {ValueOf} from 'type-fest'
 
 /**
  * Indexed container value store.
  */
 export type Repository<I = any> = {
-  [key: string]: Item<I>
+  [key: string]: I
 }
 
 /**
@@ -19,12 +15,12 @@ export class Container<I = any> {
   /**
    * The container store
    */
-  repository: Repository<I>
+  repository: any
 
   /**
    * Class constructor
    */
-  constructor(repository?: Repository) {
+  constructor(repository?: I) {
     this.setStore(repository ?? {})
   }
 
@@ -39,7 +35,7 @@ export class Container<I = any> {
    * container.getStore()
    * ```
    */
-  public getStore(): Repository {
+  public getStore() {
     return this.repository
   }
 
@@ -54,8 +50,8 @@ export class Container<I = any> {
    * container.all()
    * ```
    */
-  public all(): Repository {
-    return this.getStore()
+  public all() {
+    return this.repository
   }
 
   /**
@@ -125,9 +121,7 @@ export class Container<I = any> {
    * container.mutate('key', currentValue => modifiedValue)
    * ```
    */
-  public mutateStore<T = any>(
-    mutationFn: (value?: T) => T,
-  ): this {
+  public mutateStore(mutationFn: (value?: I) => I): this {
     this.setStore(this.transformStore(mutationFn))
 
     return this
@@ -144,11 +138,11 @@ export class Container<I = any> {
    * container.mutateStoreEntries((key, value) => value + 1)
    * ```
    */
-  public mutateStoreEntries<T = any>(
-    mutateFn: (key: string, value: T) => T,
+  public mutateStoreEntries(
+    mutateFn: (key: string, value: I) => I,
   ): this {
     this.fromEntries(
-      this.getEntries().map(([key, value]: [string, T]) => [
+      this.getEntries().map(([key, value]: [string, I]) => [
         key,
         mutateFn(key, value),
       ]),
@@ -174,8 +168,8 @@ export class Container<I = any> {
    * container.get(['container', 'container-item'])
    * ```
    */
-  public get(key: string): any {
-    return _.get(this.repository, key)
+  public get<T = any>(key) {
+    return _.get(this.repository, key) as T
   }
 
   /**
@@ -195,8 +189,12 @@ export class Container<I = any> {
    * container.getEntries('key')
    * ```
    */
-  public getEntries<T = any>(key?: string): [string, T][] {
-    return Object.entries(key ? this.get(key) : this.getStore())
+  public getEntries<T = any>(
+    key?: keyof T,
+  ): [keyof T, ValueOf<T>][] {
+    return Object.entries(
+      key ? this.get(key as string) : this.getStore(),
+    ) as [keyof T, ValueOf<T>][]
   }
 
   /**
@@ -216,7 +214,7 @@ export class Container<I = any> {
    * container.getEntries('key')
    * ```
    */
-  public fromEntries<T = any>(entries: [string, T][]): this {
+  public fromEntries(entries: [string, any][]): this {
     this.mergeStore(Object.fromEntries(entries))
 
     return this
@@ -233,11 +231,8 @@ export class Container<I = any> {
    * container.withEntries('key', (key, value) => doSomething)
    * ```
    */
-  public each<T = any>(
-    key: string,
-    callFn: (key: string, value: T) => void,
-  ): this {
-    this.getEntries(key).forEach(([key, value]: [string, T]) => [
+  public each(key: string, callFn: (key, value) => void): this {
+    this.getEntries(key).forEach(([key, value]) => [
       key,
       callFn(key, value),
     ])
@@ -264,6 +259,23 @@ export class Container<I = any> {
     return this
   }
 
+  public findKey(...searchItem: any): any {
+    return _.findKey(this.repository, ...searchItem)
+  }
+
+  public findKeyOf(key: string, ...searchItem: any[]): any {
+    const parseInner = v =>
+      (!_.isArray(v) ? Object.entries(v) : v).reduce(
+        (a, [k, v]) => ({
+          ...a,
+          [k]: v,
+        }),
+        {},
+      )
+
+    return _.findKey(parseInner(this.get(key)), ...searchItem)
+  }
+
   /**
    * ## container.mutateEntries
    *
@@ -275,12 +287,12 @@ export class Container<I = any> {
    * container.mutateEntries('key', (key, value) => value + 1)
    * ```
    */
-  public mutateEntries<T = any>(
+  public mutateEntries(
     key: string,
-    mutateFn: (key: string, value: T) => T,
+    mutateFn: (key: string, value: any) => any,
   ): this {
     this.fromEntries(
-      this.getEntries(key).map(([key, value]: [string, T]) => [
+      this.getEntries(key).map(([key, value]: [string, any]) => [
         key,
         mutateFn(key, value),
       ]),
@@ -307,7 +319,7 @@ export class Container<I = any> {
    * // => returns values from entire store
    * ```
    */
-  public getValues(key?: string): unknown[] {
+  public getValues(key?: string): any[] {
     return Object.values(key ? this.get(key) : this.getStore())
   }
 
@@ -353,10 +365,13 @@ export class Container<I = any> {
    * // => returns a map of container.repository
    * ```
    */
-  public getMap<T = unknown>(key?: string): Map<string, T> {
+  public getMap(key?: string): Map<string, any> {
     const reducer: [
-      (acc: Map<string, T>, curr: [string, T]) => Map<string, T>,
-      Map<string, T>,
+      (
+        acc: Map<string, any>,
+        curr: [string, any],
+      ) => Map<string, any>,
+      Map<string, any>,
     ] = [
       (map, [key, value]) => {
         map.set(key, value)
@@ -379,7 +394,7 @@ export class Container<I = any> {
    * container.set('key', value)
    * ```
    */
-  public set<T = any>(key: string, value: T): this {
+  public set(key: string, value: any): this {
     _.set(this.repository, key, value)
 
     return this
@@ -398,10 +413,10 @@ export class Container<I = any> {
    * container.transform('key', currentValue => modifiedValue)
    * ```
    */
-  public transform<T = any>(
+  public transform(
     key: string,
-    mutationFn: (value?: T) => T,
-  ): T {
+    mutationFn: (value?: any) => any,
+  ): any {
     return mutationFn(this.get(key))
   }
 
@@ -416,11 +431,11 @@ export class Container<I = any> {
    * container.mutate('key', currentValue => modifiedValue)
    * ```
    */
-  public mutate<T = any>(
+  public mutate(
     key: string,
-    mutationFn: (value?: T) => T,
+    mutationFn: (value?: any) => any,
   ): this {
-    this.set<T>(key, this.transform(key, mutationFn))
+    this.set(key, this.transform(key, mutationFn))
 
     return this
   }
@@ -436,8 +451,8 @@ export class Container<I = any> {
    * container.merge('key', {merge: values})
    * ```
    */
-  public merge<T = any>(key: string, value: T): this {
-    this.set<T>(key, _.merge(this.get(key), value))
+  public merge(key: string, value: any): this {
+    this.set(key, _.merge(this.get(key), value))
 
     return this
   }
@@ -488,7 +503,7 @@ export class Container<I = any> {
    * // True if container.repository['my-key'] === {whatever: 'value'}
    * ```
    */
-  public is<T = any>(key: string, value: T): boolean {
+  public is(key: string, value: any): boolean {
     return this.get(key) === value
   }
 
@@ -505,7 +520,7 @@ export class Container<I = any> {
    * ```
    */
   public isTrue(key: string): boolean {
-    return this.is<boolean>(key, true)
+    return this.is(key, true || 'true')
   }
 
   /**
@@ -523,7 +538,7 @@ export class Container<I = any> {
    * ```
    */
   public enabled(key: string): boolean {
-    return this.isTrue(key)
+    return this.is(key, true || 'true')
   }
 
   /**
@@ -539,7 +554,7 @@ export class Container<I = any> {
    * ```
    */
   public isFalse(key: string): boolean {
-    return this.is<boolean>(key, false)
+    return this.is(key, false || 'false')
   }
 
   /**
@@ -557,7 +572,7 @@ export class Container<I = any> {
    * ```
    */
   public disabled(key: string): boolean {
-    return this.isFalse(key)
+    return this.isFalse(key || 'false')
   }
 
   /**
@@ -573,7 +588,7 @@ export class Container<I = any> {
    * ```
    */
   public enable(key: string): void {
-    this.set<boolean>(key, true)
+    this.set(key, true)
   }
 
   /**
@@ -772,5 +787,9 @@ export class Container<I = any> {
    */
   public isUndefined(key: string): boolean {
     return !this.has(key) || _.isUndefined(this.get(key))
+  }
+
+  public isFunction(key: string): boolean {
+    return _.isFunction(this.get(key))
   }
 }

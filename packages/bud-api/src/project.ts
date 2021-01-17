@@ -1,7 +1,7 @@
 import {Api} from '@roots/bud-typings'
 
-export const project: Api.Project = function (segment) {
+export const project: Api.Project = function (segment?) {
   return segment
-    ? this.disk.path.join(this.disk.baseDir, segment)
-    : this.disk.baseDir ?? process.cwd()
+    ? this.disk.path.join(this.options.get('project'), segment)
+    : this.options.get('project')
 }

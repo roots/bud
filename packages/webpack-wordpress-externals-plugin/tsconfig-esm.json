@@ -3,7 +3,5 @@
   "compilerOptions": {
     "outDir": "./lib/esm",
     "module": "ES2020"
-  },
-  "include": ["src"],
-  "exclude": ["lib", "types"]
+  }
 }

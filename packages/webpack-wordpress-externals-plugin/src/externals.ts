@@ -18,5 +18,5 @@ export async function externals(
     )
   }
 
-  return callback()
+  return callback
 }

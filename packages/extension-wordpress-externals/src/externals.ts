@@ -1,8 +1,9 @@
+import * as Externals from '@roots/wordpress-externals-webpack-plugin'
 import {Framework, Module} from '@roots/bud-typings'
 
 export function externals(
   this: Framework,
-  options: Module.Options,
+  options: Module.Options<Externals.Options>,
 ): Framework {
   this.extensions.merge(
     '@roots/bud-wordpress-externals.options',

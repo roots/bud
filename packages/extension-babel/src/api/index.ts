@@ -1,28 +1,30 @@
-import {mergePlugins} from './mergePlugins'
-import {setPlugins} from './setPlugins'
 import {addPlugin} from './addPlugin'
-import {mergeConfig} from './mergeConfig'
-import {setConfig} from './setConfig'
-import {setPresets} from './setPresets'
-import {mergePresets} from './mergePresets'
+import {setOptions} from './setOptions'
 import {addPreset} from './addPreset'
-import {Framework} from '@roots/bud-typings'
+import {Bud} from '@roots/bud'
 
-export const make: (app: Framework) => void = app => {
-  app['babel'] = {
-    mergeConfig,
-    setConfig,
-    mergePlugins,
-    setPlugins,
-    addPlugin,
-    mergePresets,
-    setPresets,
-    addPreset,
-  }
-}
+export function assignBabel(app: Bud): Bud {
+  Object.assign(app, {
+    /**
+     * Babel config object.
+     */
+    babel: {
+      /**
+       * Set transform/loader options.
+       */
+      setOptions: setOptions.bind(app),
 
-export interface BabelConfig {
-  app: Framework
-  mergeConfig: typeof mergeConfig
-  setPlugins: typeof setPlugins
+      /**
+       * Plugins.
+       */
+      addPlugin: addPlugin.bind(app),
+
+      /**
+       * Presets.
+       */
+      addPreset: addPreset.bind(app),
+    },
+  })
+
+  return app
 }

@@ -1,7 +1,7 @@
 import {Api} from '@roots/bud-typings'
 
 export const target: Api.Target = function (target) {
-  this.store.get('config').set('target', target)
+  this.hooks.on('config.target', () => target)
 
   return this
 }

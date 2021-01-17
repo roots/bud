@@ -16,7 +16,7 @@
     "noEmitOnError": false,
     "sourceMap": true,
     "target": "ES6",
-    "strict": false,
+    "strict": false
   },
   "base": "packages",
   "references": [

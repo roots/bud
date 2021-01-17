@@ -1,6 +1,4 @@
-import {Api} from '@roots/bud-typings'
-
-export const copy: Api.Copy = function (
+export function copy<T>(
   from,
   options = {
     to: null,
@@ -10,7 +8,7 @@ export const copy: Api.Copy = function (
       ignore: '.*',
     },
   },
-) {
+): T {
   this.extensions.mutate(
     `copy-webpack-plugin.patterns`,
     patterns => [

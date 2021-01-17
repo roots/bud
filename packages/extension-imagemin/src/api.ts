@@ -1,30 +1,12 @@
-import type {Imagemin} from './imagemin/typings'
+import {Bud} from '@roots/bud'
 
 /**
  * Configure imagemin plugins.
  */
-export const imageminPlugins: Imagemin.ConfigPlugins = function (
-  plugins,
-) {
-  plugins &&
-    this.extensions.set(
-      'image-minimizer-webpack-plugin.options.minimizerOptions.plugins',
-      plugins,
-    )
-
-  return this
-}
-
-/**
- * Configure imagemin options
- */
-export const imageminOption: Imagemin.ConfigOption = function (
-  key,
-  value,
-) {
+export const imagemin: Bud.Imagemin = function (options) {
   this.extensions.set(
-    `image-minimizer-webpack-plugin.options.${key}`,
-    value,
+    'image-minimizer-webpack-plugin.options.minimizerOptions',
+    options,
   )
 
   return this

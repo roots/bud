@@ -1,32 +1,24 @@
-import type {
-  Framework,
-  Module,
-  Item,
-  Loader,
-  Rule,
-} from '@roots/bud-typings'
+import * as sass from './sass'
+import type {Module, Item, Rule} from '@roots/bud-typings'
 
-import * as rule from './rules'
-import * as item from './items'
+export const setItems: Module.Register<Item> = [
+  'sass',
+  {
+    loader: require.resolve('sass-loader'),
+    options: {
+      implementation: require('sass'),
+    },
+  },
+]
 
-export const register: Module.Boot = (bud: Framework): void => {
-  ;['sass', 'scss'].forEach(ext => {
-    !bud.store
-      .get('webpack.resolve.extensions')
-      .includes(`.${ext}`)
-      ? bud.store.mutate('webpack.resolve.extensions', exts => [
-          ...exts,
-          `.${ext}`,
-        ])
-      : null
+export const setRules: Module.Register<Rule> = ['sass', sass]
+
+export const register: Module.Register = app => {
+  ;['.sass', '.scss'].forEach(ext => {
+    !app.store.get('webpack.resolve.extensions').includes(ext) &&
+      app.store.mutate('webpack.resolve.extensions', exts => [
+        ...exts,
+        ext,
+      ])
   })
 }
-
-export const setItems: Module.Register<Item> = ['sass', item]
-
-export const setRules: Module.Register<Rule> = ['sass', rule]
-
-export const setLoaders: Module.Register<Loader> = [
-  'sass-loader',
-  require.resolve('sass-loader'),
-]

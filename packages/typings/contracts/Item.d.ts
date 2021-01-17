@@ -8,7 +8,7 @@ import {Framework} from './'
  * [📦 @roots/bud-server](https://www.npmjs.com/package/@roots/bud-build)
  * [🔗 Documentation](#)
  */
-export interface Item extends Framework.Service<Framework> {
+export interface Item extends Framework.Service {
   ident?: Item.Module.Ident
 
   loader?: Item.Module.Loader

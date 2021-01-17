@@ -2,9 +2,12 @@ import {Api} from '@roots/bud-typings'
 
 export const src: Api.Src = function (segment?) {
   return segment
-    ? this.disk.path.resolve(
-        this.store.get('webpack.context'),
+    ? this.disk.path.join(
+        this.options.access('project'),
         segment,
       )
-    : this.store.get('webpack.context')
+    : this.disk.path.join(
+        this.options.access('project'),
+        this.options.access('src'),
+      )
 }

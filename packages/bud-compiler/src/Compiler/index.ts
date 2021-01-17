@@ -9,7 +9,7 @@ import type {Compiler, Webpack} from '@roots/bud-typings'
 export default class extends Service implements Compiler {
   public statsOptions: Compiler.Stats.Options = options
 
-  public instance: Webpack.Compiler
+  public _compiler: Webpack.Compiler
 
   public stats: Compiler.Stats.Output
 
@@ -18,19 +18,17 @@ export default class extends Service implements Compiler {
   public progress: Compiler.Progress
 
   public register(): void {
-    this.get = this.get.bind(this)
     this.run = this.run.bind(this)
-    this.set = this.set.bind(this)
     this.compile = this.compile.bind(this)
     this.applyPlugins = this.applyPlugins.bind(this)
   }
 
-  public get(): Webpack.Compiler {
-    return this.instance
+  public get compiler(): Webpack.Compiler {
+    return this._compiler
   }
 
-  public set(compiler: Webpack.Compiler): void {
-    this.instance = compiler
+  public set compiler(compiler: Webpack.Compiler) {
+    this.compiler = compiler
   }
 
   public compile(): Webpack.Compiler {

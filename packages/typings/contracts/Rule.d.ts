@@ -10,7 +10,7 @@ import {Webpack} from './'
  * [🔗 Documentation](#)
  */
 export interface Rule
-  extends Framework.Service<Framework>,
+  extends Framework.Service,
     Framework.Rule.Module {
   /**
    * Produce rulesetrule
@@ -66,7 +66,9 @@ export namespace Rule {
     >
   }
 
-  export type Resolve = Framework.Index<Webpack.Configuration['resolve']>
+  export type Resolve = Framework.Index<
+    Webpack.Configuration['resolve']
+  >
 
   export type Type =
     | 'javascript/auto'
