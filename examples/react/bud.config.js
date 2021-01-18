@@ -11,8 +11,6 @@ bud.hooks.on('webpack.resolve.modules', modules => {
   return [...modules, bud.project('./../../node_modules')]
 })
 
-bud.store.get('webpack.plugins.find')
-
 bud.use([
   require('@roots/bud-entrypoints'),
   require('@roots/bud-babel'),
@@ -20,8 +18,14 @@ bud.use([
   require('@roots/bud-react'),
   require('@roots/bud-imagemin'),
   require('@roots/bud-tailwindcss'),
+  require('@roots/bud-library'),
+  require('@roots/bud-terser'),
+  require('@roots/bud-vue'),
 ])
 
-bud.postcss.presetEnv({})
+bud.library(['react', 'react-dom', 'vue'])
 
-bud.entry('create-bud-app', ['app.js', 'global.css']).run()
+bud
+  .entry('create-bud-app', ['app.js', 'global.css'])
+  .entry('create-vue-bud', ['components/test.vue'])
+  .run()

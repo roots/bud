@@ -37,109 +37,110 @@ const Reporter: FunctionComponent<{
   col,
   colors,
   errors,
-  mode,
   stats,
   progress,
-}) => {
-  const debug = bud.get().options.enabled('debug')
+}) => (
+  <Box
+    display="flex"
+    flexDirection="column"
+    height={bounds?.height}
+    alignItems="center"
+    justifyContent="space-between">
+    <Box flexDirection="column" justifyContent="space-between">
+      <Box flexDirection="row" marginTop={1} marginBottom={1}>
+        <Box flexDirection="row">
+          <Text
+            backgroundColor={colors?.primary ?? 'transparent'}
+            color={colors?.white ?? 'transparent'}>
+            {' '}
+            {progress?.message ? (
+              <Spinner />
+            ) : stats?.hash ? (
+              '✓'
+            ) : (
+              ''
+            )}{' '}
+            {pkg?.name}{' '}
+          </Text>
 
-  return debug ? (
-    <Console />
-  ) : (
-    <Box
-      display="flex"
-      flexDirection="column"
-      height={debug ? null : bounds?.height}
-      alignItems="center"
-      justifyContent="space-between">
-      <Box flexDirection="column" justifyContent="space-between">
-        <Box flexDirection="row" marginTop={1} marginBottom={1}>
-          <Box flexDirection="row">
-            <Text
-              backgroundColor={colors?.primary ?? 'transparent'}
-              color={colors?.white ?? 'transparent'}>
-              {' '}
-              {progress?.message ? (
-                <Spinner />
-              ) : stats?.hash ? (
-                '✓'
-              ) : (
-                ''
-              )}{' '}
-              {pkg?.name}{' '}
-            </Text>
-
-            <Text dimColor color={colors?.white} italic>
-              {' '}
-              {progress?.message ? (
-                <Text italic color={colors?.subdued}>
-                  {progress?.message}
-                </Text>
-              ) : stats?.hash ? (
-                <Text italic color={colors?.subdued}>
-                  {stats?.hash}
-                </Text>
-              ) : (
-                <></>
-              )}
-            </Text>
-          </Box>
-        </Box>
-
-        <Box flexDirection="column">
-          <Box flexDirection="column" marginBottom={1}>
-            <Assets assets={stats?.assets} />
-          </Box>
-
-          {errors && <Errors errors={errors} />}
-
-          {stats?.warnings && stats?.warnings[0] && (
-            <Errors errors={stats?.warnings} />
-          )}
-
-          {stats?.time && (
-            <>
-              <Text>
-                Compiled in{' '}
-                <Text bold color={colors.success}>
-                  {stats?.time / 1000}s
-                </Text>
+          <Text dimColor color={colors?.white} italic>
+            {' '}
+            {progress?.message ? (
+              <Text italic color={colors?.subdued}>
+                {progress?.message}
               </Text>
-            </>
-          )}
+            ) : stats?.hash ? (
+              <Text italic color={colors?.subdued}>
+                {stats?.hash}
+              </Text>
+            ) : (
+              <></>
+            )}
+          </Text>
         </Box>
       </Box>
 
       <Box flexDirection="column">
-        <Progress
-          progress={progress}
-          colors={colors}
-          bounds={bounds}
-          col={col}
-        />
-
-        <Box
-          marginTop={1}
-          flexDirection="row"
-          justifyContent="space-between">
-          {bud.get().options.is('mode', 'development') && (
-            <Text bold color={colors.accent}>
-              {'🌐  '}
-              {bud.store.get('server.ssl')
-                ? 'https://'
-                : 'http://'}
-              {bud.store.get('server.host')}:
-              {bud.store.get('server.port')}
-            </Text>
-          )}
-
-          {bud.get().options.is('mode', 'development') && (
-            <Git />
-          )}
+        <Box flexDirection="column" marginBottom={1}>
+          <Assets assets={stats?.assets} />
         </Box>
+
+        {errors && <Errors errors={errors} />}
+
+        {stats?.warnings && stats?.warnings[0] && (
+          <Errors errors={stats?.warnings} />
+        )}
+
+        <Box flexDirection="column">
+          <Box
+            flexDirection="column"
+            marginBottom={1}
+            marginLeft={1}
+            marginRight={1}>
+            <Console />
+          </Box>
+        </Box>
+
+        {stats?.time && (
+          <>
+            <Text>
+              Compiled in{' '}
+              <Text bold color={colors.success}>
+                {stats?.time / 1000}s
+              </Text>
+            </Text>
+          </>
+        )}
       </Box>
     </Box>
-  )
-}
+
+    <Box flexDirection="column">
+      <Progress
+        progress={progress}
+        colors={colors}
+        bounds={bounds}
+        col={col}
+      />
+
+      <Box
+        marginTop={1}
+        flexDirection="row"
+        justifyContent="space-between">
+        {bud.get().options.is('mode', 'development') && (
+          <Text bold color={colors.accent}>
+            {'🌐  '}
+            {bud.store.get('server.ssl')
+              ? 'https://'
+              : 'http://'}
+            {bud.store.get('server.host')}:
+            {bud.store.get('server.port')}
+          </Text>
+        )}
+
+        {bud.get().options.is('mode', 'development') && <Git />}
+      </Box>
+    </Box>
+  </Box>
+)
 
 export {Reporter}

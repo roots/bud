@@ -4,7 +4,7 @@
 
 import {Bud} from '@roots/bud'
 import {addPlugin} from './addPlugin'
-import {presetEnv} from './presetEnv'
+import {setPluginOptions} from './setPluginOptions'
 
 export function assignPostCss(app: Bud): Bud {
   Object.assign(app, {
@@ -17,7 +17,7 @@ export function assignPostCss(app: Bud): Bud {
       /**
        * Plugins.
        */
-      presetEnv: presetEnv.bind(app),
+      setPluginOptions: setPluginOptions.bind(app),
     },
   })
 

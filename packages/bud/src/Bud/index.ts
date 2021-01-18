@@ -346,6 +346,30 @@ class Bud extends Base<Bud> implements Contract {
   public minify: Api.Minify<this>
 
   /**
+   * ## bud.mode  [💁 Fluent]
+   *
+   * Get or set the webpack compilation mode
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.mode() // get mode as set
+   * ```
+   *
+   * Optionally, set the mode by passing a value:
+   *
+   * ```js
+   * bud.mode('development')
+   * ```
+   *
+   * ### Supported modes
+   * - 'development'
+   * - 'production'
+   * - 'none' (only applies to Webpack 4)
+   */
+  public mode: Bud.Api.Mode
+
+  /**
    * ## bud.project  [💁 Fluent]
    *
    * With no arguments, this function returns the project's root path.
@@ -868,6 +892,30 @@ interface Contract extends Framework<Bud>, Base<Bud> {
   minify: Api.Minify<this>
 
   /**
+   * ## bud.mode  [💁 Fluent]
+   *
+   * Get or set the webpack compilation mode
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.mode() // get mode as set
+   * ```
+   *
+   * Optionally, set the mode by passing a value:
+   *
+   * ```js
+   * bud.mode('development')
+   * ```
+   *
+   * ### Supported modes
+   * - 'development'
+   * - 'production'
+   * - 'none' (only applies to Webpack 4)
+   */
+  mode: Bud.Api.Mode
+
+  /**
    * ## bud.project  [💁 Fluent]
    *
    * With no arguments, this function returns the project's root path.
@@ -1052,6 +1100,13 @@ interface Contract extends Framework<Bud>, Base<Bud> {
 }
 
 declare namespace Bud {
+  namespace Api {
+    export type Mode = (
+      this: Bud,
+      mode?: Bud.Webpack.Configuration['mode'],
+    ) => Bud | Bud.Webpack.Configuration['mode']
+  }
+
   export {Api}
   export {Build}
   export {Cache}

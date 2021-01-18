@@ -1,6 +1,6 @@
-import type {Terser} from './typings'
+import {Bud} from '@roots/bud'
 
-export const terser: Terser = function (options) {
+export const terser: Bud.Terser.Configure = function (options) {
   const terserOptions = this.extensions
     .get('terser')
     .getOptions()

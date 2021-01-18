@@ -14,11 +14,9 @@ export const setItems: Module.Register<Item> = [
 export const setRules: Module.Register<Rule> = ['sass', sass]
 
 export const register: Module.Register = app => {
-  ;['.sass', '.scss'].forEach(ext => {
-    !app.store.get('webpack.resolve.extensions').includes(ext) &&
-      app.store.mutate('webpack.resolve.extensions', exts => [
-        ...exts,
-        ext,
-      ])
-  })
+  app.filters.on('webpack.resolve.extensions', exts => [
+    ...exts,
+    '.sass',
+    '.scss',
+  ])
 }

@@ -47,9 +47,11 @@
   },
   "peerDependencies": {
     "@roots/bud-support": "*",
-    "@roots/bud-typings": "*"
+    "@roots/bud-typings": "*",
+    "@roots/bud-vue": "*"
   },
   "devDependencies": {
+    "@roots/bud-vue": "*",
     "@roots/bud-typings": "^2.2.1",
     "css-loader": "^5.0.1"
   },
@@ -59,8 +61,8 @@
     "babel-plugin-transform-vue-jsx": "^3.7.0",
     "de-indent": "^1.0.2",
     "he": "^1.1.0",
-    "vue": "^2.6.11",
-    "vue-loader": "^15.9.3",
+    "vue": "^2.6.12",
+    "vue-loader": "^15.9.6",
     "vue-template-compiler": "^2.6.12"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"

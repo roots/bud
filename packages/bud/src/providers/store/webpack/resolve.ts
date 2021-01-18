@@ -5,12 +5,16 @@ export const alias = (app: Bud) =>
   app.hooks.filter('webpack.resolve.alias', {})
 
 export const extensions = (app: Bud) =>
-  app.hooks.filter(`webpack.resolve.extensions`, [
-    '.wasm',
-    '.mjs',
-    '.js',
-    '.json',
-  ])
+  app.hooks
+    .filter(`webpack.resolve.extensions`, [
+      '.wasm',
+      '.mjs',
+      '.js',
+      '.json',
+    ])
+    .filter(
+      (value, index, self) => self.indexOf(value) === index,
+    )
 
 export const modules: (
   app: Bud,

@@ -1,5 +1,11 @@
 import {Container} from '@roots/container'
-import {Framework, Service, Store} from '@roots/bud-typings'
+import {
+  FileContainer,
+  Framework,
+  Service,
+  Options,
+  Disk,
+} from '@roots/bud-typings'
 
 /**
  * Framework service
@@ -32,13 +38,29 @@ export default class extends Container implements Service {
   }
 
   /**
+   * Access disk
+   */
+  public disk(diskName?: string): Disk | FileContainer {
+    return diskName ? this.app.disk.get(diskName) : this.app.disk
+  }
+
+  /**
+   * Access options
+   */
+  public options(method?: string, ...params: any[]): Options {
+    return method
+      ? this.app.options[method](...params)
+      : this.app.options
+  }
+
+  /**
    * Access store property (which may or may not be callable.)
    */
   public access<T = any>(
     /**
      * Container key
      */
-    key: Store.Keys,
+    key: any,
     /**
      * If true, result is returned as a new container
      */

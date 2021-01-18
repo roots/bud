@@ -1,23 +1,16 @@
 import * as terserWebpackPlugin from './terser-webpack-plugin'
-import type {Module} from '@roots/bud-typings'
-import type {Terser} from './typings'
+import {Bud} from '@roots/bud'
 
+// Extension name
+export const name = '@roots/bud-terser'
+
+// Extension interface
+export * from './interfaces'
+
+// Extension config api
 export * as api from './api'
 
-export const boot: Module.Boot = bud => {
-  bud.use([['terser-webpack-plugin', terserWebpackPlugin]])
+// Extension boot
+export const boot: Bud.Module.Boot = bud => {
+  bud.use(['terser-webpack-plugin', terserWebpackPlugin])
 }
-
-export declare interface Bud {
-  /**
-   * ## bud.terser  [💁 Fluent]
-   *
-   * Configure the minifier. [🔗 Documentation](#)
-   *
-   * For more information on options [see the
-   * terser-webpack-plugin docs](https://webpack.js.org/plugins/terser-webpack-plugin/).
-   */
-  terser: Terser
-}
-
-export type {Terser}

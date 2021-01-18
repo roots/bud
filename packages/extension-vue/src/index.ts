@@ -1,41 +1,20 @@
 import {VueLoaderPlugin} from 'vue-loader'
+import {Bud} from '@roots/bud'
 import {Module} from '@roots/bud-typings'
 
-/** Patched compiler.*/
-/* eslint-disable */
-const compiler = require('./vue-template-compiler/index')
+// Extension name
+export const name = '@roots/bud-vue'
 
-export const setLoaders = {
-  vue: require.resolve('vue-loader'),
-}
-
+// Extension rulesetItem
 export const setItems = {
-  vue: {
-    ident: 'vue',
-    loader: 'vue',
-    options: {
-      compiler,
-    },
-  },
+  vue: require.resolve('vue-loader'),
+  [`vue-style`]: (app: Bud) => ({
+    loader: 'vue-style-loader',
+  }),
 }
 
-/**
- * Boot the Vue extension.
- */
-export const boot: Module.Boot = bud => {
-  /**
-   * Add vue loader style rules.
-   */
-  ;['css', 'sass'].map(
-    rule =>
-      bud.build.rules.has(rule) &&
-      bud.build.rules.mutate(`${rule}.use`, use => [
-        ...use.splice(0, 1),
-        bud.build.items.get('vue'),
-        ...use.splice(1),
-      ]),
-  )
-
+// Extension boot
+export const boot: Module.Boot = app => {
   /**
    * vue-loader-plugin doesn't recognize the rule
    * as being set if it is set as a `oneOf` rule.
@@ -44,31 +23,43 @@ export const boot: Module.Boot = bud => {
    * export function this hook registers the rule in the
    * outer `webpack.module.rules` key.
    */
-  bud.hooks.on('webpack.module.rules', rules => [
-    ...rules,
+  app.hooks.on('webpack.module.rules', rules => [
     {
-      test: /\.vue$/,
-      use: bud.build.items.get('vue'),
+      test: app.store.get('patterns.vue'),
+      use: [app.build.get('items.vue')],
     },
+    ...rules,
   ])
 
-  /**
-   * Register vue-loader-plugin.
-   */
-  bud.extensions.set('vue-loader-plugin', {
-    make: new VueLoaderPlugin(),
+  // Register vue-loader-plugin
+  app.extensions.add('vue-loader-plugin', {
+    make: () => new VueLoaderPlugin(),
   })
 
-  bud.store.mutate('webpack.resolve.alias', cfg => ({
-    ...cfg,
+  // Add vue alias
+  app.hooks.on('webpack.resolve.alias', aliases => ({
+    ...aliases,
     vue$: 'vue/dist/vue.esm.js',
   }))
 
-  !bud.store
-    .get('webpack.resolve.extensions')
-    .includes('.vue') &&
-    bud.store.mutate('webpack.resolve.extensions', ext => [
-      ...ext,
-      '.vue',
+  // Add vue extension
+  app.hooks.on('webpack.resolve.extensions', extensions => [
+    ...extensions,
+    '.vue',
+  ])
+
+  // Vue stylesheet handling
+  const addStyleSupport = (rule: string): void => {
+    const useItems = app.build.access(`rules.${rule}.use`)
+
+    app.build.set(`rules.${rule}.use`, [
+      app.build.access('items.vue-style'),
+      ...useItems.splice(1),
     ])
+  }
+
+  // Css support
+  addStyleSupport('css')
+  // Sass support (where applicable)
+  app.build.has('rules.sass') && addStyleSupport('sass')
 }

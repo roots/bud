@@ -18,6 +18,7 @@ export const boot: Boot = bud => {
     'presets.eslint.roots',
     path.get('presets/roots.js'),
   )
+
   bud.store.set(
     'presets.eslint.react',
     path.get('presets/react.js'),
@@ -39,7 +40,7 @@ export const options: Options = bud => ({
 /**
  * Make the plugin from its options.
  */
-export const make: Make = opts => new Plugin(opts.getStore())
+export const make: Make = opts => new Plugin(opts.all())
 
 /**
  * Make when

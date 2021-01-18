@@ -1,6 +1,5 @@
 import {assignPostCss} from './api'
 import {Bud} from '@roots/bud'
-import {FileContainer} from '@roots/bud-typings'
 
 /**
  * Types
@@ -13,64 +12,68 @@ export * from './types'
 export const name = '@roots/bud-postcss'
 
 /**
- * Fallback options if no postcss.config.js is found.
- */
-const defaultOptions = {
-  postcssOptions: {
-    plugins: [
-      'postcss-flexbugs-fixes',
-      [
-        'postcss-preset-env',
-        {
-          autoprefixer: {
-            flexbox: 'no-2009',
-          },
-          features: {
-            [`custom-properties`]: false,
-          },
-          stage: 3,
-        },
-      ],
-      'postcss-nested',
-    ],
-  },
-}
-
-/**
  * Register postcss RuleSet item
  */
 export const setItems = (app: Bud) => {
-  const options = app.disk
-    .get<FileContainer>('project')
-    .exists('postcss.config.js')
-    ? {
-        config: app.disk
-          .get<FileContainer>('project')
-          .get(`postcss.config.js`),
-      }
-    : {...defaultOptions}
+  const options: {[key: string]: any} = {
+    postcssOptions: {},
+  }
+
+  // Source rules from postcss.config.js if it exists
+  if (app.disk.get('project').exists('postcss.config.js')) {
+    options.config = app.disk
+      .get('project')
+      .get('postcss.config.js')
+  }
+
+  app.options.set('postcss', options)
 
   return [
     'postcss',
-    {
+    app => ({
       ident: 'postcss',
       loader: require.resolve('postcss-loader'),
-      options,
-    },
+      options: {
+        ...app.options.get('postcss'),
+        postcssOptions: {
+          ...app.options.get('postcss.postcssOptions'),
+          plugins: [
+            ...app.options.getValues(
+              'postcss.postcssOptions.plugins',
+            ),
+          ],
+        },
+      },
+    }),
   ]
 }
 
 /**
  * Replace default css implementation
  */
-export const boot = (bud: Bud) => {
-  bud = assignPostCss(bud)
-
-  bud.build.set('rules.css.use', [
-    bud.options.is('mode', 'production')
-      ? bud.build.get('items.minicss')
-      : bud.build.get('items.style'),
-    bud.build.get('items.css'),
-    bud.build.get('items.postcss'),
+export const boot = (app: Bud) => {
+  // insert loader
+  app.build.set('rules.css.use', app => [
+    app.options.is('mode', 'production')
+      ? app.build.access('items.minicss')
+      : app.build.access('items.style'),
+    app.build.access('items.css'),
+    app.build.access('items.postcss'),
   ])
+
+  // assign postcss
+  // and configure defaults
+  assignPostCss(app)
+    .postcss.addPlugin('postcss-flexbugs-fixes')
+    .postcss.addPlugin('postcss-preset-env')
+    .postcss.setPluginOptions('postcss-preset-env', {
+      autoprefixer: {
+        flexbox: 'no-2009',
+      },
+      features: {
+        ['custom-properties']: false,
+      },
+      stage: 3,
+    })
+    .postcss.addPlugin('postcss-nested')
 }

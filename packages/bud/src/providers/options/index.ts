@@ -31,8 +31,8 @@ export const options: {
   /**
    * Webpack features
    */
+  mode: {fallback: 'production'},
   'webpack.devool': {argument: 'devtool'},
-  'webpack.mode': {argument: 'mode', fallback: 'none'},
   'webpack.optimization.splitChunks': {argument: 'vendor'},
   'webpack.optimization.runtimeChunk': {argument: 'runtime'},
   'webpack.optimization.minify': {argument: 'minify'},

@@ -83,7 +83,7 @@ export default class extends Service {
     return this.get(key)
   }
 
-  public get<FileContainer>(key: string): FileContainer {
+  public get(key: string) {
     return this.repository[key]
   }
 

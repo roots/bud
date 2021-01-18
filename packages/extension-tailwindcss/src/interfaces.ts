@@ -7,8 +7,17 @@ declare module '@roots/bud' {
      * ## bud.tailwindcss
      *
      * Configure tailwindcss.
+     *
+     * ### Usage
+     *
+     * ```js
+     * bud.tailwindcss({
+     *   theme: {
+     *     // etc
+     *   }
+     * })
      */
-    tailwindcss: Bud.Tailwind.Configure
+    tailwind: Bud.Tailwind.Configure
   }
 
   namespace Bud.Tailwind {
@@ -17,21 +26,20 @@ declare module '@roots/bud' {
     ) => Bud
 
     export interface Config {
-      [key: string]: UserDef
-      purge: string[]
-      target: string
-      prefix: string
-      important: boolean
-      separator: string
-      presets: string[]
-      theme: {
+      purge?: string[]
+      target?: string
+      prefix?: string
+      important?: boolean
+      separator?: string
+      presets?: string[]
+      theme?: {
         [key: string]: UserDef
       }
-      variants: {
+      variants?: {
         [key: string]: Variant[]
       }
-      corePlugins: {}
-      plugins: []
+      corePlugins?: {}
+      plugins?: []
     }
 
     export type UserDef<

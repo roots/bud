@@ -1,9 +1,10 @@
 import {Bud} from '@roots/bud'
+import tailwindcss from 'tailwindcss'
 
 export const tailwind: Bud.Tailwind.Configure = function (
-  params,
+  config,
 ) {
-  this.postcss.addPlugin(require('tailwindcss'), params)
+  this.postcss.addPlugin(tailwindcss, config)
 
   return this
 }

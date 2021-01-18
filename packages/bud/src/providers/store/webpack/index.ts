@@ -93,7 +93,7 @@ export const infrastructureLogging = ({hooks}: Bud) =>
 export const mode = ({hooks, options}: Bud) =>
   hooks.filter(
     `webpack.mode`,
-    options.get('webpack.mode') ?? 'production',
+    options.get('mode') ?? 'production',
   )
 
 /**
@@ -157,12 +157,6 @@ export const performance = ({hooks, options}: Bud): boolean =>
  */
 export const parallelism = ({hooks}: Bud) =>
   hooks.filter(`webpack.parallelism`, 1)
-
-/**
- * Plugins
- */
-export const plugins = ({extensions}: Bud) =>
-  extensions.makeAll()
 
 /**
  * Profile
@@ -234,3 +228,9 @@ export const watch = ({hooks, options}: Bud) =>
 export function module(app: Bud) {
   return app.hooks.filter(`webpack.module`, {rules: rules(app)})
 }
+
+/**
+ * Plugins
+ */
+export const plugins = ({extensions}: Bud) =>
+  extensions.makeAll()

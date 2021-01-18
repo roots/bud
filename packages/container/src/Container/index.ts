@@ -25,24 +25,9 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.getStore
-   *
-   * Get the store contents
-   *
-   * ### Usage
-   *
-   * ```js
-   * container.getStore()
-   * ```
-   */
-  public getStore() {
-    return this.repository
-  }
-
-  /**
    * ## container.all
    *
-   * Does the same thing as container.getStore
+   * Does the same thing as container.all
    *
    * ### Usage
    *
@@ -86,7 +71,7 @@ export class Container<I = any> {
    */
   public mergeStore(values: Repository): this {
     this.setStore({
-      ...this.getStore(),
+      ...this.all(),
       ...values,
     })
 
@@ -107,7 +92,7 @@ export class Container<I = any> {
    * ```
    */
   public transformStore(transformFn: (value: any) => any): any {
-    return transformFn(this.getStore())
+    return transformFn(this.all())
   }
 
   /**
@@ -168,7 +153,7 @@ export class Container<I = any> {
    * container.get(['container', 'container-item'])
    * ```
    */
-  public get<T = any>(key) {
+  public get<T = any>(key: any) {
     return _.get(this.repository, key) as T
   }
 
@@ -193,7 +178,7 @@ export class Container<I = any> {
     key?: keyof T,
   ): [keyof T, ValueOf<T>][] {
     return Object.entries(
-      key ? this.get(key as string) : this.getStore(),
+      key ? this.get(key as string) : this.all(),
     ) as [keyof T, ValueOf<T>][]
   }
 
@@ -320,7 +305,7 @@ export class Container<I = any> {
    * ```
    */
   public getValues(key?: string): any[] {
-    return Object.values(key ? this.get(key) : this.getStore())
+    return Object.values(key ? this.get(key) : this.all())
   }
 
   /**
@@ -343,7 +328,7 @@ export class Container<I = any> {
    * ```
    */
   public getKeys(key?: string): string[] {
-    return Object.keys(key ? this.get(key) : this.getStore())
+    return Object.keys(key ? this.get(key) : this.all())
   }
 
   /**
@@ -396,6 +381,36 @@ export class Container<I = any> {
    */
   public set(key: string, value: any): this {
     _.set(this.repository, key, value)
+
+    return this
+  }
+
+  /**
+   * ## container.push
+   *
+   * Push an item or entry onto the container
+   *
+   * ```js
+   * container.unique('containerKey') // unique values of containerKey
+   * ```
+   *
+   * ```js
+   * container.unique() // unique values of container
+   * ```
+   */
+  public push(value: any, key?: any) {
+    if (key) {
+      this.mutate(key, k => k.push(value))
+      return this
+    }
+
+    if (!_.isArray(this.all())) {
+      throw new Error(
+        'Type mismatch: Attempted to push onto object container as if it were an array.',
+      )
+    }
+
+    this.setStore(this.all().push(value))
 
     return this
   }
@@ -621,7 +636,7 @@ export class Container<I = any> {
    * ```
    */
   public isIndexed(key?: string): boolean {
-    const value = key ? this.get(key) : this.getStore()
+    const value = key ? this.get(key) : this.all()
     return (
       this.has(key) &&
       _.isObject(value) &&
@@ -789,6 +804,18 @@ export class Container<I = any> {
     return !this.has(key) || _.isUndefined(this.get(key))
   }
 
+  /**
+   * ## container.isFunction
+   *
+   * Return true if object is a function
+   *
+   * ### Usage
+   *
+   * ```js
+   * container.isFunction('my-key')
+   * // True if object associated with 'my-key' is a fn.
+   * ````
+   */
   public isFunction(key: string): boolean {
     return _.isFunction(this.get(key))
   }

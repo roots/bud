@@ -37,15 +37,20 @@ declare module '@roots/bud' {
      * })
      * ```
      */
-    presetEnv: Bud.PostCss.PresetEnv
+    setPluginOptions: Bud.PostCss.SetPluginOptions
   }
 
   namespace Bud.PostCss {
     type AddPlugin = (
-      name: string,
+      plugin: any,
       opts?: {[key: string]: any},
     ) => Bud
 
-    type PresetEnv = (options: {[key: string]: any}) => Bud
+    type SetPluginOptions = (
+      name: string,
+      options: {
+        [key: string]: any
+      },
+    ) => Bud
   }
 }
