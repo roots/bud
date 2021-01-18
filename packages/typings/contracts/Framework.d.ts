@@ -89,11 +89,6 @@ export declare interface Framework<T = any> {
    * "disks". Each disk is the same class as `bud.fs` (which
    * is always set to the `bud.project` rootDir).
    *
-   * @note disks do not index `.gitignore` matches by default
-   * @note disks do not index `node_modules` by default
-   *
-   * [🔗 Documentation on bud.disk](#)
-   *
    * ### Usage
    *
    * #### List file contents of project
@@ -203,6 +198,8 @@ export declare interface Framework<T = any> {
    * ## bud.services
    */
   services: Container<any>
+
+  stdout: string[]
 
   /**
    * ## bud.get  [🏠 Internal]

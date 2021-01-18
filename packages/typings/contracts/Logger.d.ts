@@ -54,11 +54,10 @@ export interface Logger {
 
 export namespace Logger {
   export interface LogFn {
-    <T extends object>(
-      obj: T,
+    (
+      obj: {[key: string]: any},
       msg?: string,
       ...args: any[]
     ): void
-    (msg: string, ...args: any[]): void
   }
 }

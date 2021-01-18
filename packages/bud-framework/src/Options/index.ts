@@ -31,10 +31,10 @@ export default class extends Service implements Options {
       BABEL_ENV: this.get('mode'),
     })
 
-    this.enabled('log') &&
-      !this.is('log', 'true') &&
-      !this.is('log', 'false') &&
-      this.set('ci', true)
+    this.app.logger.info(
+      {options: this.all()},
+      'Options available',
+    )
   }
 
   /**

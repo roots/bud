@@ -1,33 +1,93 @@
 import {pino, yargs} from '@roots/bud-support'
 import {Logger} from '@roots/bud-typings'
+import Service from '../Service'
 
 /**
- * CLI arg for log might be:
- * - a boolean (whether or not to log at all)
- * - a string (relpath to output file for logger)
+ * Logger service
  */
-const log: boolean | string = yargs.argv.log as boolean | string
+export default class extends Service implements Logger {
+  /**
+   * Pino
+   */
+  public logger: pino.Logger
 
-/**
- * Ducktype the log argv
- */
-const destination: boolean | string =
-  yargs.argv?.log && typeof yargs.argv.log == 'boolean'
-    ? false
-    : log
+  /**
+   * Boot service
+   */
+  public register(): void {
+    this.logger = pino({
+      enabled: yargs.argv.hasOwnProperty('log') ? true : false,
+      prettyPrint: {
+        colorize: true,
+      },
+    })
+  }
 
-/**
- * Instantiate the logger.
- */
-const Logger: Logger = pino(
-  {
-    base: null,
-    enabled: yargs.argv.hasOwnProperty('log') ? true : false,
-    prettyPrint: {
-      colorize: !destination ? true : false,
-    },
-  },
-  pino.destination(),
-)
+  /**
+   * Log at `'info'` level the given msg. If the first argument is an object, all its properties will be included in the JSON line.
+   * If more args follows `msg`, these will be used to format `msg` using `util.format`.
+   *
+   * @typeParam T: the interface of the object being serialized. Default is object.
+   * @param obj: object to be serialized
+   * @param msg: the log message to write
+   * @param ...args: format string values when `msg` is a format string
+   */
+  public info(
+    obj: {[key: string]: any},
+    msg?: string,
+    ...args: any[]
+  ) {
+    this.logger.info(obj, msg, ...args)
+  }
 
-export default Logger
+  /**
+   * Log at `'fatal'` level the given msg. If the first argument is an object, all its properties will be included in the JSON line.
+   * If more args follows `msg`, these will be used to format `msg` using `util.format`.
+   *
+   * @typeParam T: the interface of the object being serialized. Default is object.
+   * @param obj: object to be serialized
+   * @param msg: the log message to write
+   * @param ...args: format string values when `msg` is a format string
+   */
+  public fatal(
+    obj: {[key: string]: any},
+    msg?: string,
+    ...args: any[]
+  ) {
+    this.logger.fatal(obj, msg, ...args)
+  }
+
+  /**
+   * Log at `'error'` level the given msg. If the first argument is an object, all its properties will be included in the JSON line.
+   * If more args follows `msg`, these will be used to format `msg` using `util.format`.
+   *
+   * @typeParam T: the interface of the object being serialized. Default is object.
+   * @param obj: object to be serialized
+   * @param msg: the log message to write
+   * @param ...args: format string values when `msg` is a format string
+   */
+  public error(
+    obj: {[key: string]: any},
+    msg?: string,
+    ...args: any[]
+  ) {
+    this.logger.error(obj, msg, ...args)
+  }
+
+  /**
+   * Log at `'warn'` level the given msg. If the first argument is an object, all its properties will be included in the JSON line.
+   * If more args follows `msg`, these will be used to format `msg` using `util.format`.
+   *
+   * @typeParam T: the interface of the object being serialized. Default is object.
+   * @param obj: object to be serialized
+   * @param msg: the log message to write
+   * @param ...args: format string values when `msg` is a format string
+   */
+  public warn(
+    obj: {[key: string]: any},
+    msg?: string,
+    ...args: any[]
+  ) {
+    this.logger.warn(obj, msg, ...args)
+  }
+}

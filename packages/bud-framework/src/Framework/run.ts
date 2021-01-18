@@ -4,6 +4,8 @@ import {ProgressPlugin, chalk} from '@roots/bud-support'
  * Framework.Run
  */
 export function run(): void {
+  this.logger.info({app: this}, 'bud.run called')
+
   /**
    * Inject HMR scripts if running in dev.
    *

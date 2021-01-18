@@ -13,7 +13,7 @@ export const Debug: FunctionComponent<{bud: Framework}> = ({
       flexDirection={ctx(['row', 'column'])}
       width={col(12)}
       justifyContent="space-between">
-      <Console />
+      <Console bud={bud} />
     </Box>
   ) : (
     <Box></Box>

@@ -4,8 +4,9 @@ import {
   patchConsole,
   Text,
 } from '@roots/bud-support'
+import {Framework} from '@roots/bud-typings'
 
-export const Console = () => {
+export const Console = ({bud}: {bud: Framework}) => {
   const [lastConsole, setLastConsole] = useState(null)
   const [text, setText] = useState('')
 
@@ -14,6 +15,7 @@ export const Console = () => {
 
     const frameOut =
       lastConsole !== data ? `${text}${data}` : text
+
     setText(frameOut)
   })
 

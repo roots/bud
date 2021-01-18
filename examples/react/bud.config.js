@@ -21,6 +21,7 @@ bud.use([
   require('@roots/bud-library'),
   require('@roots/bud-terser'),
   require('@roots/bud-vue'),
+  require('@roots/bud-wordpress-manifests'),
 ])
 
 bud.library(['react', 'react-dom', 'vue'])

@@ -71,6 +71,8 @@ export default class extends Service {
     key: string,
     options?: {baseDir?: string; glob?: string[]},
   ): FileContainer {
+    this.app.logger.info({key, options}, 'Making vdisk')
+
     const baseDir = options?.baseDir ?? this.baseDir
 
     this.set(

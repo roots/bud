@@ -1,6 +1,6 @@
 import Plugin from 'image-minimizer-webpack-plugin'
 import type {Imagemin} from '../types'
-import type {Module} from '@roots/bud-typings'
+import type {Bud} from '@roots/bud'
 
 /**
  * Plugin name
@@ -33,7 +33,7 @@ export const options: Imagemin.Options = {
 /**
  * Plugin
  */
-export const make: Module.Make<
+export const make: Bud.Module.Make<
   Plugin,
   Imagemin.Options
 > = options => new Plugin(options.all())
@@ -41,5 +41,5 @@ export const make: Module.Make<
 /**
  * Usage conditions
  */
-export const when: Module.When = ({options}) =>
+export const when: Bud.Module.When = ({options}) =>
   options.is('mode', 'development')

@@ -42,6 +42,11 @@ export default abstract class<T = any>
   public store: Framework.Store
 
   /**
+   * Stdout
+   */
+  public stdout: string[]
+
+  /**
    * Constructor
    */
   constructor(props: {
@@ -103,6 +108,8 @@ export default abstract class<T = any>
    */
   public boot(): this {
     this.providers.every(name => {
+      this.logger.info({name}, 'Booting service')
+
       this[name].boot && this[name].boot()
     })
 

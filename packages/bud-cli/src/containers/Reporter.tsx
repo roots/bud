@@ -97,7 +97,7 @@ const Reporter: FunctionComponent<{
             marginBottom={1}
             marginLeft={1}
             marginRight={1}>
-            <Console />
+            <Console bud={bud.get()} />
           </Box>
         </Box>
 

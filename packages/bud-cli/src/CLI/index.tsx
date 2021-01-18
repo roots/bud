@@ -22,6 +22,8 @@ export class CLI extends Service {
   public run(): void {
     if (this.app.store.get('args.ci')) return
 
+    this.app.logger.info({}, 'Beginning CLI execution')
+
     this.dashboard = render(
       <Dashboard bud={this.app as Framework} />,
     )

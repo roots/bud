@@ -21,23 +21,22 @@ export default class extends Service {
     this.use = this.use.bind(this)
     this.make = this.make.bind(this)
     this.makeAll = this.makeAll.bind(this)
-
-    this.mutateStoreEntries((name, extension) => {
-      return new Extension(this.app.get, extension).register()
-    })
   }
 
   /**
    * Service boot
    */
   public boot(): void {
-    this.mutateStoreEntries((name, ext) => ext.boot())
+    this.mutateStoreEntries((name, extension) => {
+      return this.add(name, extension)
+    })
   }
 
   /**
    * Add an extension
    */
-  public add(name, extension): void {
+  public add(name, extension: Extension): void {
+    this.app.logger.info({name}, 'Adding extension')
     this.set(
       name,
       new Extension(this.app.get, extension).register().boot(),
@@ -57,12 +56,11 @@ export default class extends Service {
    * Returns a webpack-ready array
    */
   public makeAll(): Webpack.Plugin[] {
-    let plugins: Webpack.Plugin[] | null[] = []
+    let plugins: (Webpack.Plugin | null)[] = []
 
-    this.every((name, extension) => {
-      extension?.makePlugin
-        ? plugins.push(extension.makePlugin())
-        : console.error(name, extension)
+    this.every((name, extension: Extension) => {
+      if (extension?.makePlugin)
+        plugins.push(extension.makePlugin())
     })
 
     return plugins.filter(extension => !isNull(extension))
