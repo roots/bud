@@ -11,10 +11,14 @@ bud.hooks.on('webpack.resolve.modules', modules => {
   return [...modules, bud.project('./../../node_modules')]
 })
 
-bud.library(['react', 'react-dom', 'vue'])
+bud.use([
+  require('@roots/bud-babel'),
+  require('@roots/bud-react'),
+])
 
 bud
-  .entry('create-bud-app', ['app.js', 'global.css'])
-  .entry('create-vue-bud', ['components/test.vue'])
-  .entry('create-ts-bud', ['test.ts'])
+  .html({
+    template: 'public/index.html',
+  })
+  .entry('create-app', ['app.js'])
   .run()

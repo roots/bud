@@ -9,9 +9,6 @@ export const make: Module.Make<
   PluginOptions
 > = options => new Plugin(options.all())
 
-export const when: Module.When = (bud, options) =>
-  bud.options.enabled('clean') && options.getEntries().length > 0
-
-export const options: Module.Options<PluginOptions> = {
-  cleanOnceBeforeBuildPatterns: ['**/*', '!dll/*'],
-}
+export const options: Module.Options<PluginOptions> = () => ({
+  cleanOnceBeforeBuildPatterns: ['**/*', '!dll'],
+})

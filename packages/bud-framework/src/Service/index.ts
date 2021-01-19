@@ -4,7 +4,6 @@ import {
   Framework,
   Service,
   Options,
-  Disk,
 } from '@roots/bud-typings'
 
 /**
@@ -40,8 +39,22 @@ export default class extends Container implements Service {
   /**
    * Access disk
    */
-  public disk<T = Disk | FileContainer>(diskName?: string): T {
+  public disk<T = FileContainer>(diskName?: string): T {
     return diskName ? this.app.disk.get(diskName) : this.app.disk
+  }
+
+  /**
+   * Access generic service
+   */
+  public service<T = Service | Container>(
+    serviceName?: string,
+    itemName?: string,
+  ): T {
+    return serviceName
+      ? itemName
+        ? this.app[serviceName].get(itemName)
+        : this.app[serviceName]
+      : this.app
   }
 
   /**

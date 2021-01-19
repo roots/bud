@@ -12,14 +12,12 @@ import {Reporter} from './Reporter'
 import {useDisk} from '../hooks/useDisk'
 import {usePackageJson} from '../hooks/usePackageJson'
 import {useCompilation} from '../hooks/useCompilation'
-import {useBud} from '../hooks/useBud'
-import type {Framework} from '@roots/bud-typings'
+import {Framework} from '@roots/bud-typings'
 
 export const Dashboard: FunctionComponent<{
   bud: Framework<any>
 }> = ({bud}) => {
   const app = useApp()
-  const {mode} = useBud(bud)
   const [disk] = useDisk(bud)
   const {stats, progress, errors} = useCompilation(bud)
   const pkg = usePackageJson(disk)
@@ -38,12 +36,13 @@ export const Dashboard: FunctionComponent<{
    */
   useEffect(() => {
     if (
-      mode === 'production' &&
-      stats?.assets?.length > 0 &&
+      bud.get().options.is('mode', 'production') &&
+      (stats?.assets?.length > 0 || errors) &&
       isEqual(progress?.decimal, 1)
     ) {
       setTimeout(() => {
         app.exit()
+        console.clear()
         process.exit()
       }, 100)
     }
@@ -53,7 +52,6 @@ export const Dashboard: FunctionComponent<{
     <Reporter
       errors={errors}
       bud={bud}
-      mode={mode}
       stats={stats}
       progress={progress}
       pkg={pkg}

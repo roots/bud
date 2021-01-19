@@ -12,7 +12,10 @@ declare namespace Error {
   }>
 }
 
-const Error: Error.Component = ({title = 'Error', body}) => (
+export const Error: Error.Component = ({
+  title = 'Error',
+  body,
+}) => (
   <Box flexDirection="column">
     <Box
       flexDirection="column"
@@ -20,12 +23,10 @@ const Error: Error.Component = ({title = 'Error', body}) => (
       borderStyle="round"
       marginBottom={1}
       padding={1}>
-      <Text bold wrap="wrap">
+      <Text wrap="wrap" bold>
         {title}
       </Text>
       <Text wrap="wrap">{body}</Text>
     </Box>
   </Box>
 )
-
-export {Error}

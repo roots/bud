@@ -23,20 +23,30 @@ import type {Configuration as Cfg} from 'webpack'
  * @flags   {--bail}
  */
 export const bail = ({hooks, options}: Bud) =>
-  hooks.filter(
-    `webpack.bail`,
-    options.get('webpack.bail') ?? true,
-  )
+  hooks.filter(`webpack.bail`, options.get('bail') ?? true)
 
 /**
  * Cache
  *
  * @default {false}
  */
-export const cache = ({hooks, options}: Bud) =>
-  hooks.filter(
+export const cache = (app: Bud) =>
+  app.hooks.filter(
     `webpack.cache`,
-    options.get('webpack.cache') ?? false,
+    app.options.disabled('cache')
+      ? false
+      : {
+          type: 'filesystem',
+          name: 'bud',
+          cacheLocation: app.disk.path.resolve(
+            app.options.get('project'),
+            app.options.get('storage'),
+          ),
+          cacheDirectory: app.disk.path.resolve(
+            app.options.get('project'),
+            app.options.get('storage'),
+          ),
+        },
   )
 
 /**
@@ -55,7 +65,7 @@ export const context = ({hooks, options}) =>
  * @default {none}
  */
 export const devtool = ({hooks, options}: Bud) =>
-  hooks.filter('webpack.devtool', options.get('webpack.devtool'))
+  hooks.filter('webpack.devtool', options.get('devtool'))
 
 /**
  * Entry
@@ -91,10 +101,7 @@ export const infrastructureLogging = ({hooks}: Bud) =>
  * @default {'production'}
  */
 export const mode = ({hooks, options}: Bud) =>
-  hooks.filter(
-    `webpack.mode`,
-    options.get('mode') ?? 'production',
-  )
+  hooks.filter(`mode`, options.get('mode') ?? 'production')
 
 /**
  * Name
@@ -116,12 +123,12 @@ export function optimization(app: Bud) {
     noEmitOnErrors: noEmitOnErrors(app),
   }
 
-  app.options.enabled('webpack.optimization.runtimeChunk') &&
+  app.options.enabled('runtime') &&
     Object.assign(optimization, {
       runtimeChunk: runtimeChunk(app),
     })
 
-  app.options.enabled('webpack.optimization.splitChunks') &&
+  app.options.enabled('vendor') &&
     Object.assign(optimization, {
       splitChunks: splitChunks(app),
     })

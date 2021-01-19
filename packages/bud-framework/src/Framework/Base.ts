@@ -38,6 +38,4 @@ export default abstract class {
   public abstract makeContainer(
     repository?: any,
   ): Framework.Container
-
-  public abstract pipe(fns: CallableFunction[]): this
 }

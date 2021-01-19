@@ -29,12 +29,16 @@ export default class extends Service {
     this.setApp = this.setApp.bind(this)
     this.setBuilders = this.setBuilders.bind(this)
 
+    this.has('api') && this.setApp(this.access('api'))
+
+    this.registerExtension()
     this.setBuilders()
 
-    this.has('api') && this.setApp(this.access('api'))
-    this.has('register') && this.access('register')
-
     return this
+  }
+
+  public registerExtension(): void {
+    this.has('register') && this.access('register')
   }
 
   /**
@@ -125,33 +129,33 @@ export default class extends Service {
       /**
        * Loop through each entry
        */
-      .map(
-        ([name, obj]: [
-          string,
-          (
-            | [string, Item | Rule | Loader]
-            | {
-                [key: string]: Item | Loader | Rule
-              }
-          ),
-        ]) => {
-          const register = (
-            identifier,
-            [objName, objValue]: [string, Item | Rule | Loader],
-          ) =>
-            this.app.build.set(
-              `${identifier}.${objName}`,
-              objValue,
-            )
+      .map(([name, obj]: ExtensionProp) => {
+        const register = (
+          identifier: string,
+          [objName, objValue]: [string, Item | Rule | Loader],
+        ) =>
+          this.app.build.set(
+            `${identifier}.${objName}`,
+            objValue,
+          )
 
-          Array.isArray(obj)
-            ? register(name, obj)
-            : Object.entries(obj).forEach(([objName, obj]) => {
-                register(name, [objName, obj])
-              })
+        Array.isArray(obj)
+          ? register(name, obj)
+          : Object.entries(obj).forEach(([objName, obj]) => {
+              register(name, [objName, obj])
+            })
 
-          return null
-        },
-      )
+        return null
+      })
   }
 }
+
+declare type ExtensionProp = [
+  string,
+  (
+    | [string, Item | Rule | Loader]
+    | {
+        [key: string]: Item | Loader | Rule
+      }
+  ),
+]

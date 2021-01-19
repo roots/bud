@@ -1,6 +1,4 @@
 import Plugin from '@pmmmwh/react-refresh-webpack-plugin'
-
-import {Bud} from '@roots/bud'
 import type {Module} from '@roots/bud-typings'
 import {ReactRefreshPluginOptions as Options} from '@pmmmwh/react-refresh-webpack-plugin/types/types'
 
@@ -8,13 +6,6 @@ import {ReactRefreshPluginOptions as Options} from '@pmmmwh/react-refresh-webpac
  * Adds bud.reactRefresh() config handler.
  */
 export * as api from './api'
-
-/**
- * Boot
- */
-export const boot: Module.Boot = ({babel, options}: Bud) =>
-  options.is('mode', 'development') &&
-  babel.addPlugin('@babel/preset-react')
 
 /**
  * @pmmmwh/react-refresh-webpack-plugin implementation

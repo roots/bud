@@ -202,21 +202,22 @@ export default abstract class<T = any>
   /**
    * Pipe functions
    */
-  public pipe<T = any>(fns: CallableFunction[]): T {
-    return fns.reduce((val, fn) => {
+  public pipe<T = any, R = any>(
+    fns: CallableFunction[],
+    value: T,
+  ): R {
+    return (value = fns.reduce((val, fn) => {
       return fn(val)
-    }, this)
+    }, value))
   }
 
   /**
    * Sequence functions
    */
-  public sequence(fns: CallableFunction[]): this {
+  public sequence(fns: CallableFunction[]): void {
     fns.reduce((_val, fn) => {
       return fn(this)
     }, this)
-
-    return this
   }
 
   /**

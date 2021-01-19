@@ -4,7 +4,7 @@ import {Bud} from '@roots/bud'
 export const name = '@roots/bud-typescript'
 
 // Extension interfaces
-export * from './interfaces'
+import './interfaces'
 
 // Extension api
 export * as api from './api'
@@ -17,9 +17,29 @@ const tsConfig: string = `{
 }`
 
 // Extension boot
-export const boot = ({build, disk, store, hooks}: Bud): void => {
-  !disk.get('project').exists('tsconfig.json') &&
+export const boot = ({
+  build,
+  disk,
+  store,
+  hooks,
+  logger,
+  options,
+}: Bud): void => {
+  !disk.glob.sync(['tsconfig.json']) &&
     disk.get('project').write('tsconfig.json', tsConfig)
+
+  const hasTs =
+    disk.glob.sync(['*.ts', '*.tsx', '**/*.ts', '**/*.tsx'], {
+      cwd: disk.path.join(
+        disk.get('project').base,
+        options.get('src'),
+      ),
+    }).length > 0
+
+  if (!hasTs) {
+    logger.warn({hasTs, msg: 'No ts found, skipping.'})
+    return
+  }
 
   // Set regexp pattern for ts
   store.set('patterns.ts', /\.(ts|tsx)$/)

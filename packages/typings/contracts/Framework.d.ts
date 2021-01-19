@@ -256,7 +256,7 @@ export declare interface Framework<T = any> {
    * ])
    * ```
    */
-  pipe<T = any>(fns: CallableFunction[]): T
+  pipe<V = any, R = any>(fns: CallableFunction[], value: V): R
 
   /**
    * ## bud.sequence [💁 Fluent]
@@ -275,7 +275,7 @@ export declare interface Framework<T = any> {
    * ])
    * ```
    */
-  sequence(fns: CallableFunction[]): this
+  sequence(fns: CallableFunction[]): void
 
   /**
    * ## bud.run

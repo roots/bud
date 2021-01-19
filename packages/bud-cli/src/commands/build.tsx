@@ -69,6 +69,11 @@ export const builder: yargs.CommandModule['builder'] = ({
       type: 'string',
       default: 'localhost',
     })
+    .option('minify', {
+      describe: 'Minify assets',
+      type: 'boolean',
+      default: false,
+    })
     .option('proxy', {
       describe: 'Hostname to proxy',
       type: 'string',

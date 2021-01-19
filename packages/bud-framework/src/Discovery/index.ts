@@ -1,9 +1,6 @@
 import {Container} from '@roots/container'
 import Service from '../Service'
 
-/**
- * Environment variables
- */
 export default class extends Service {
   /**
    * Service register
@@ -44,7 +41,7 @@ export default class extends Service {
           } = this.app.disk.fs.readJSONSync(pkg)
           this.app.logger.info(
             {name: extension.name},
-            'Autodiscovery',
+            'Autodiscover',
           )
 
           return extension.keywords?.includes('bud-extension')

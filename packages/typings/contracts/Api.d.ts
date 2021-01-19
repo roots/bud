@@ -19,6 +19,11 @@ export namespace Api {
     },
   ) => T
 
+  export type Cache<T = Framework> = (
+    this: T,
+    enable: boolean,
+  ) => T
+
   export type Copy<T = Framework> = (
     this: T,
     options: Copy.Options,

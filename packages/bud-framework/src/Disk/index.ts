@@ -2,6 +2,7 @@ import Service from '../Service'
 import {fs, globby, lodash as _} from '@roots/bud-support'
 import path from 'path'
 import {FileContainer} from '@roots/filesystem'
+import Logger from '../Logger'
 
 /**
  * Disk
@@ -75,7 +76,10 @@ export default class extends Service {
     key: string,
     options?: {baseDir?: string; glob?: string[]},
   ): FileContainer {
-    this.app.logger.info({key, options}, 'Making vdisk')
+    this.service<Logger>('logger').info(
+      {key, options},
+      'Making vdisk',
+    )
 
     const baseDir = options?.baseDir ?? this.baseDir
 

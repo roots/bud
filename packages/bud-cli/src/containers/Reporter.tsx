@@ -22,7 +22,6 @@ import {Compilation} from '../hooks/useCompilation'
 
 const Reporter: FunctionComponent<{
   bud: Framework
-  mode: Webpack.Configuration['mode']
   pkg: {[key: string]: any}
   bounds: Styles['bounds']
   colors: Styles['colors']

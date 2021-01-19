@@ -15,7 +15,6 @@ const Error: Error = function (
   )
 
   if (fatal) {
-    console.error(error)
     process.exit(1)
   }
 

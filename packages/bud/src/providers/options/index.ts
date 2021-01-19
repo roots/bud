@@ -7,7 +7,7 @@ export const options: {
   project: {fallback: process.cwd()},
   src: {fallback: 'src'},
   dist: {fallback: 'dist'},
-  storage: {fallback: '.bud/'},
+  storage: {fallback: '.bud'},
   publicPath: {fallback: '/'},
   records: {fallback: 'records'},
   modules: {fallback: 'node_modules'},
@@ -15,9 +15,9 @@ export const options: {
   /**
    * Default enabled
    */
-  clean: {fallback: true},
+  clean: {argument: 'clean', fallback: true},
   manifest: {fallback: true},
-  autodiscover: {fallback: true},
+  autodiscover: {fallback: false},
 
   /**
    * Options
@@ -25,20 +25,19 @@ export const options: {
   ci: {},
   debug: {},
   brotli: {},
+  cache: {fallback: true},
+  devtool: {},
+  entrypoints: {fallback: true},
   hash: {},
   gzip: {},
-  log: {},
+  library: {},
   minify: {},
-  html: {},
-
-  /**
-   * Webpack features
-   */
   mode: {fallback: 'production'},
-  'webpack.devool': {argument: 'devtool'},
-  'webpack.optimization.splitChunks': {argument: 'vendor'},
-  'webpack.optimization.runtimeChunk': {argument: 'runtime'},
-  'webpack.optimization.minify': {argument: 'minify'},
+  log: {},
+  html: {},
+  runtime: {},
+  sass: {},
+  vendor: {},
 
   /**
    * Server features

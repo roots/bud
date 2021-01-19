@@ -1,5 +1,4 @@
 import Service from './Service'
-import {lodash} from '@roots/bud-support'
 import {Options, Store} from '@roots/bud-typings'
 
 /**
@@ -10,17 +9,16 @@ export default class extends Service implements Options {
    * Service registration
    */
   public register(): void {
-    this.every(
-      (
-        prop: string,
-        options: {argument?: string; fallback?: any},
-      ) =>
-        this.source({
-          prop,
-          argument: options.argument ?? prop,
-          fallback: options.fallback ?? false,
-        }),
-    )
+    this.source.bind(this)
+    this.boot.bind(this)
+
+    this.getEntries().forEach(([name, entry]) => {
+      this.source({
+        prop: name,
+        argument: entry.argument ?? name,
+        fallback: entry.fallback ?? false,
+      })
+    })
   }
 
   /**
@@ -34,24 +32,6 @@ export default class extends Service implements Options {
   }
 
   /**
-   * ## container.set
-   *
-   * Set a value on a container item.
-   *
-   * ### Usage
-   *
-   * ```js
-   * container.set('key', value)
-   * ```
-   */
-  public set(key: string, value: any): this {
-    this.app.logger.info({[key]: value, msg: 'Set option'})
-    lodash.set(this.repository, key, value)
-
-    return this
-  }
-
-  /**
    * Initial configuration options
    *
    * CLI overrides env
@@ -61,10 +41,6 @@ export default class extends Service implements Options {
     prop,
     argument,
     fallback = false,
-  }: {
-    prop: Store.Argument
-    argument?: Store.Envvar
-    fallback?: T | boolean
   }): this {
     this.set(
       prop,

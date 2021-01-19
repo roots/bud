@@ -10,8 +10,8 @@ export const name = '@roots/bud-react'
 /**
  * Extension register
  */
-export const register = (bud: Bud) => {
-  bud.babel
+export const boot = (app: Bud) => {
+  app.babel
     .addPreset('@babel/preset-react')
     .extensions.add(
       '@pmmmwh/react-refresh-webpack-plugin',

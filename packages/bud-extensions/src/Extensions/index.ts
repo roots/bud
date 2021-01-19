@@ -1,3 +1,4 @@
+import {Logger} from '@roots/bud-framework'
 import {Webpack, isNull} from '@roots/bud-support'
 import Extension from './Extension'
 import Service from './Service'
@@ -29,7 +30,7 @@ export default class extends Service {
    * Service boot
    */
   public boot(): void {
-    this.mutateStoreEntries((name, extension) => {
+    this.every((name, extension) => {
       return this.add(name, extension)
     })
   }
@@ -38,19 +39,12 @@ export default class extends Service {
    * Add an extension
    */
   public add(name, extension: Extension): void {
-    this.processed.has(name) &&
-      this.app.logger.error(
-        {name, processed: this.processed.all()},
-        'Extension already added',
-      )
-
     this.app.logger.info({name}, 'Adding extension')
 
-    const built = new Extension(this.app.get, extension)
-      .register()
-      .boot()
-
-    this.set(name, built)
+    this.set(
+      name,
+      new Extension(this.app.get, extension).register().boot(),
+    )
     this.processed.set(name, true)
   }
 
@@ -67,14 +61,23 @@ export default class extends Service {
    * Returns a webpack-ready array
    */
   public makeAll(): Webpack.Plugin[] {
-    let plugins: (Webpack.Plugin | null)[] = []
+    const plugins = this.processed
+      .getKeys()
+      .map(name =>
+        this.get(name)?.makePlugin ? this.make(name) : null,
+      )
+      .filter(
+        extension => !isNull(extension),
+      ) as Webpack.Plugin[]
 
-    this.every((name, extension: Extension) => {
-      if (extension?.makePlugin)
-        plugins.push(extension.makePlugin())
+    this.service<Logger>('logger').info({
+      plugins,
+      count: plugins?.length,
+      extensionsState: this,
+      msg: 'make plugins',
     })
 
-    return plugins.filter(extension => !isNull(extension))
+    return plugins
   }
 
   /**

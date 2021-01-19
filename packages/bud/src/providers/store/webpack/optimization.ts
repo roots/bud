@@ -61,6 +61,9 @@ export const splitChunks: Setting<'splitChunks'> = ({
         priority: -10,
         test: /[\\/]node_modules[\\/]/,
         chunks: 'all',
+        /**
+         * Places in runtime/ dir
+         */
         name(
           module: any,
           _chunks: any,

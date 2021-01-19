@@ -47,8 +47,8 @@ const disks = {
 export const providers: Providers = {
   env: [Env],
   logger: [Logger],
-  disk: [Disk, {containers: disks}],
   discovery: [Discovery],
+  disk: [Disk, {containers: disks}],
   options: [Options, {containers: options}],
   hooks: [Hooks, {containers: hooks}],
   build: [Build, {containers: {items, rules}}],

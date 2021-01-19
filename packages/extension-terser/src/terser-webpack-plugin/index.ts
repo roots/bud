@@ -1,7 +1,7 @@
 import {Bud} from '@roots/bud'
 import TerserPlugin from 'terser-webpack-plugin'
 
-export const options: Bud.Terser.Options = {
+export const options: Bud.Terser.Options = app => ({
   terserOptions: {
     parse: {
       ecma: 2018,
@@ -18,7 +18,7 @@ export const options: Bud.Terser.Options = {
   },
   extractComments: false,
   parallel: true,
-}
+})
 
 export const make: Bud.Module.Make<
   TerserPlugin,

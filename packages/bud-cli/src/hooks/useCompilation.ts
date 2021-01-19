@@ -38,10 +38,7 @@ export const useCompilation = (bud: Framework) => {
 
     bud.compiler.instance.hooks.done.tap('bud', stats => {
       if (stats.hasErrors()) {
-        setErrors([
-          ...errors,
-          stats?.toString(bud.compiler.statsOptions.json),
-        ])
+        setErrors(stats?.toJson('errors-only').errors)
       }
 
       setStats(stats.toJson(bud.compiler.statsOptions.json))

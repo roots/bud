@@ -5,12 +5,14 @@ import {Bud} from '@roots/bud'
 export const name = '@roots/bud-terser'
 
 // Extension interface
-export * from './interfaces'
+import './interfaces'
 
 // Extension config api
 export * as api from './api'
 
 // Extension boot
 export const boot: Bud.Module.Boot = bud => {
-  bud.use(['terser-webpack-plugin', terserWebpackPlugin])
+  bud.options.enabled('minify') &&
+    bud.options.is('mode', 'production') &&
+    bud.use(['terser-webpack-plugin', terserWebpackPlugin])
 }

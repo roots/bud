@@ -1,8 +1,4 @@
-// eslint-disable-next-line
-const bud = require('@roots/bud')
+// @ts-check
+const {bud} = require('@roots/bud')
 
-bud
-  .entry('app', ['index.js'])
-  .template()
-  .when(bud.mode.is('production'), () => bud.minify())
-  .run()
+bud.entry('app', ['index.js']).run()

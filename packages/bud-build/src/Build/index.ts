@@ -1,9 +1,11 @@
+import {Options} from '@roots/bud-framework/src'
 import type {
   Container,
   Webpack,
   Build,
   Store,
 } from '@roots/bud-typings'
+import {isObject} from 'lodash'
 import Service from './Service'
 
 declare type Cfg = Webpack.Configuration
@@ -45,7 +47,7 @@ export default class extends Service implements Build {
    * Produce a final webpack config.
    */
   public make(): Cfg {
-    this.app.store.each('webpack', (key: keyof Cfg) => {
+    this.service('store').each('webpack', (key: keyof Cfg) => {
       this.makeWebpackProp(key)
     })
 
@@ -57,19 +59,30 @@ export default class extends Service implements Build {
    */
   public makeWebpackProp(configKey: keyof Cfg): void {
     if (
-      this.app.options.has(`webpack.${configKey}`) &&
-      this.app.options.disabled(`webpack${configKey}`)
+      this.service<Options>('options').has(
+        `webpack.${configKey}`,
+      ) &&
+      this.service<Options>('options').disabled(
+        `webpack.${configKey}`,
+      )
     ) {
+      this.app.logger.warn({
+        configKey,
+        msg: 'Webpack prop disabled.',
+      })
       return
     }
 
     const value = this.app.access(
-      this.app.store.get(`webpack.${configKey}` as Store.Keys),
+      this.service<Store>('store').get(
+        `webpack.${configKey}` as Store.Keys,
+      ),
     )
 
     this.app.logger.info({
-      [configKey]: value?.toString(),
-      msg: `Webpack output: ${configKey}`,
+      configKey,
+      value: isObject(value) ? Object.entries(value) : value,
+      msg: `Webpack output`,
     })
 
     this.webpack.set(configKey, value)

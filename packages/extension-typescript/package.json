@@ -22,7 +22,7 @@
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib/", "types/", "src/"],
+  "files": ["lib/", "src/", "publish/"],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "exports": {
@@ -54,6 +54,7 @@
   },
   "dependencies": {
     "@roots/bud-support": "^2.2.1",
+    "@typescript-eslint/parser": "^4.14.0",
     "fork-ts-checker-webpack-plugin": "^6.1.0",
     "ts-loader": "^8.0.2",
     "tslib": "^2.0.1",

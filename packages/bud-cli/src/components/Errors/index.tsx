@@ -1,7 +1,7 @@
 import {React, Box, Text} from '@roots/bud-support'
 
 export const Errors = ({errors}) =>
-  errors.length > 1 ? (
+  errors ? (
     <Box flexDirection="column">
       <Box
         flexDirection="column"

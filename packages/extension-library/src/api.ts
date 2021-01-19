@@ -16,7 +16,11 @@ export const library: Bud.Library.Configure = function (
             ? '[name].[hash].js'
             : '[name].js',
           entry: {
-            library: modules,
+            library:
+              modules ??
+              Array.isArray(app.options.get('library'))
+                ? app.options.get('library')
+                : [],
           },
           path: 'dll',
           inherit: false,

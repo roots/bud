@@ -1,7 +1,9 @@
 import {Bud} from '@roots/bud'
-import {assignBabel} from './api'
+import {addPlugin} from './api/addPlugin'
+import {setOptions} from './api/setOptions'
+import {addPreset} from './api/addPreset'
 
-export * from './types'
+import './types'
 
 /**
  * Extension ident
@@ -11,9 +13,31 @@ export const name = '@roots/bud-babel'
 /**
  * Register babel
  */
-export function register(app: Bud): void {
-  assignBabel(app)
-    .build.set('items.babel', {
+export const boot = (app: Bud) => {
+  Object.assign(app, {
+    /**
+     * Babel config object.
+     */
+    babel: {
+      /**
+       * Set transform/loader options.
+       */
+      setOptions: setOptions.bind(app),
+
+      /**
+       * Plugins.
+       */
+      addPlugin: addPlugin.bind(app),
+
+      /**
+       * Presets.
+       */
+      addPreset: addPreset.bind(app),
+    },
+  })
+
+  app.build
+    .set('items.babel', {
       loader: require.resolve('babel-loader'),
       options: {
         presets: [],
@@ -21,9 +45,9 @@ export function register(app: Bud): void {
       },
     })
     .mutate('rules.js.use', use => [
-      app.build.get('items.cache'),
-      app.build.get('items.thread'),
-      app.build.get('items.babel'),
+      app.build.access('items.cache'),
+      app.build.access('items.thread'),
+      app.build.access('items.babel'),
     ])
 
   app.babel

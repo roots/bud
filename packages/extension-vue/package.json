@@ -46,13 +46,11 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "peerDependencies": {
-    "@roots/bud-support": "*",
-    "@roots/bud-typings": "*",
-    "@roots/bud-vue": "*"
+    "@roots/bud": "*",
+    "@roots/bud-support": "*"
   },
   "devDependencies": {
-    "@roots/bud-vue": "*",
-    "@roots/bud-typings": "^2.2.1",
+    "@roots/bud": "^2.2.1",
     "css-loader": "^5.0.1"
   },
   "dependencies": {

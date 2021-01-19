@@ -13,17 +13,17 @@ const Publish: FunctionComponent<{file: string | number}> = ({
 }) => (
   <Box
     display="flex"
-    margin={1}
     justifyContent="flex-start"
     flexDirection="column">
-    <Box display="flex" margin={1} justifyContent="flex-start">
+    <Box display="flex" justifyContent="flex-start">
       <Text>
-        <Text color="green" bold>
-          {file}
+        Template named
+        <Text color="blue" bold>
+          &nbsp;{file}
         </Text>{' '}
         copied to{' '}
         <Text color="green" bold>
-          {process.cwd()}/publish/{file}
+          publish/{file}
         </Text>
       </Text>
     </Box>

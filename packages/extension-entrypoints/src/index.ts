@@ -29,3 +29,5 @@ export const options: Entrypoints.Options = {
   name: 'entrypoints.json',
   writeToFileEmit: true,
 }
+
+export const when = app => app.options.enabled('entrypoints')

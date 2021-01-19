@@ -9,9 +9,21 @@ export const name = '@roots/bud-wordpress-manifests'
 // Extension webpack plugins
 export const boot: Bud.Module.Boot = ({
   extensions,
+  disk,
 }: Bud): void => {
+  if (
+    !disk.get('project').has('style.css') ||
+    !disk
+      .get('project')
+      .readFile('style.css')
+      .includes('Theme name:')
+  ) {
+    return
+  }
+
   !extensions.has(EntrypointsPlugin.name) &&
     extensions.add(EntrypointsPlugin.name, EntrypointsPlugin)
+
   !extensions.has(ExternalsPlugin.name) &&
     extensions.add(ExternalsPlugin.name, ExternalsPlugin)
 

@@ -12,9 +12,22 @@ export * from './types'
 export const name = '@roots/bud-postcss'
 
 /**
- * Register postcss RuleSet item
+ * Replace default css implementation
  */
-export const setItems = (app: Bud) => {
+export const boot = (app: Bud) => {
+  const hasCss =
+    app.disk.glob.sync(['*.css', '**/*.css'], {
+      cwd: app.disk.path.join(
+        app.disk.get('project').base,
+        app.options.get('src'),
+      ),
+    }).length > 0
+
+  if (!hasCss) {
+    app.logger.warn({hasCss, msg: 'No css found, skipping.'})
+    return
+  }
+
   const options: {[key: string]: any} = {
     postcssOptions: {},
   }
@@ -28,7 +41,7 @@ export const setItems = (app: Bud) => {
 
   app.options.set('postcss', options)
 
-  return [
+  app.build.set('items.postcss', [
     'postcss',
     app => ({
       ident: 'postcss',
@@ -45,13 +58,8 @@ export const setItems = (app: Bud) => {
         },
       },
     }),
-  ]
-}
+  ])
 
-/**
- * Replace default css implementation
- */
-export const boot = (app: Bud) => {
   // insert loader
   app.build.set('rules.css.use', app => [
     app.options.is('mode', 'production')
