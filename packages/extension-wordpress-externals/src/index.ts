@@ -1,5 +1,7 @@
-import {Plugin} from '@roots/wordpress-externals-webpack-plugin'
-import {WordPressExternals} from '@roots/wordpress-externals-webpack-plugin'
+import {
+  Plugin,
+  WordPressExternals,
+} from '@roots/wordpress-externals-webpack-plugin'
 import type {Bud} from '@roots/bud'
 
 // extension identifier
@@ -16,7 +18,7 @@ export const when = bud => {
     bud.disk.get('project').has('style.css') &&
     bud.disk
       .get('project')
-      .readFile('style.css')
+      .read('style.css')
       .includes('Theme name:')
   )
 }

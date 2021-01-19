@@ -2,10 +2,6 @@
  * Add to the top of your config for better intellisense.
  */
 // @ts-check
-
-/**
- * Example: React single page application
- */
 const {bud} = require('@roots/bud')
 
 /**
@@ -19,6 +15,6 @@ bud.hooks.on('webpack.resolve.modules', modules => {
 })
 
 bud
-  .use(['@roots/bud-babel', '@roots/bud-postcss'])
+  .use([require('@roots/bud-babel')])
   .entry('create-bud-app', ['app.js', 'global.css'])
   .run()

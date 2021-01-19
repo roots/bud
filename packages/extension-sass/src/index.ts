@@ -1,23 +1,6 @@
 import {Bud} from '@roots/bud'
-import type {Module, Item} from '@roots/bud-typings'
 
-export const setItems: Module.Register<Item> = [
-  'sass',
-  {
-    loader: require.resolve('sass-loader'),
-    options: {
-      implementation: require('sass'),
-    },
-  },
-]
-
-export const register: Module.Register = (bud: Bud) => {
-  bud.hooks.on('webpack.resolve.extensions', exts => [
-    ...exts,
-    '.sass',
-    '.scss',
-  ])
-
+export const register: Bud.Module.Register = (bud: Bud) => {
   const hasSass =
     bud.disk.glob.sync(
       ['*.scss', '*.sass', '**/*.scss', '**/*.sass'],
@@ -34,6 +17,12 @@ export const register: Module.Register = (bud: Bud) => {
     return
   }
 
+  bud.hooks.on('webpack.resolve.extensions', exts => [
+    ...exts,
+    '.sass',
+    '.scss',
+  ])
+
   bud.sequence([
     () =>
       bud.build.set('items.sass', {
@@ -49,11 +38,11 @@ export const register: Module.Register = (bud: Bud) => {
           store.access('patterns.modules'),
         use: ({options, build}: Bud) => [
           options.is('mode', 'production')
-            ? build.access('items.minicss')
-            : build.access('items.style'),
-          build.access('items.css'),
-          build.access('items.sass'),
-          build.access('items.resolveUrl'),
+            ? build.get('items.minicss')
+            : build.get('items.style'),
+          build.get('items.css'),
+          build.get('items.sass'),
+          build.get('items.resolveUrl'),
         ],
       }),
   ])

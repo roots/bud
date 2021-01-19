@@ -15,7 +15,7 @@ export const boot: Bud.Module.Boot = ({
     !disk.get('project').has('style.css') ||
     !disk
       .get('project')
-      .readFile('style.css')
+      .read('style.css')
       .includes('Theme name:')
   ) {
     return

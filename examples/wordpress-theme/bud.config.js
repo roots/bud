@@ -1,7 +1,4 @@
-/**
- * Example: React single page application
- */
-
+// @ts-check
 const {bud} = require('@roots/bud')
 
 /**
@@ -10,28 +7,30 @@ const {bud} = require('@roots/bud')
  * You do not need to include this hook in your project
  * configuration file.
  */
-bud.hooks.on('webpack.resolve.modules', modules => [
-  ...modules,
-  bud.fs.path.join(bud.fs.base, './../../node_modules'),
-])
+bud.hooks.on('webpack.resolve.modules', modules => {
+  return [...modules, bud.project('./../../node_modules')]
+})
 
-// Use babel and react extensions.
+/**
+ * Required extensions
+ */
 bud.use([
-  '@roots/bud-babel',
-  '@roots/bud-react',
-  '@roots/bud-entrypoints',
+  require('@roots/bud-babel'),
+  require('@roots/bud-react'),
+  require('@roots/bud-postcss'),
+  require('@roots/bud-entrypoints'),
 ])
 
 /**
- * For production, we'll want to use the React included with WP.
- * @roots/bud-wordpress-manifests will alias imports to their wp equivalencies.
- *
- * For development, aliasing React breaks HMR. So, we'll use our own
- * copy of React when running the dev server.
+ * Replace bundled React with WP react in production
  */
-bud.when(bud.options.is('mode', 'development'), bud =>
-  bud.use(['@roots/bud-wordpress-externals']).proxy(),
-)
+bud.options.is('mode', 'production') &&
+  require('@roots/bud-wordpress-manifests')
+
+/**
+ * Enable proxying
+ */
+bud.proxy()
 
 /**
  * Set entrypoints

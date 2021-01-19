@@ -1,1 +1,1 @@
-import './testImports'
+import './test'

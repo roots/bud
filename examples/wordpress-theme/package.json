@@ -3,13 +3,12 @@
   "private": true,
   "scripts": {
     "dev": "node bud.config.js --mode development",
-    "build": "node bud.config.js --mode production"
+    "build": "node bud.config.js --mode production",
+    "setup": "node setup.js"
   },
-  "devDependencies": {
+  "dependencies": {
     "@roots/bud": "^2.1.2",
     "@roots/bud-babel": "^2.1.2",
-    "@roots/bud-entrypoints": "^2.1.2",
-    "@roots/bud-postcss": "^2.1.2",
     "@roots/bud-react": "^2.1.2",
     "@roots/bud-wordpress-manifests": "^2.1.2"
   }

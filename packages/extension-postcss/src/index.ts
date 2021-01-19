@@ -41,24 +41,20 @@ export const boot = (app: Bud) => {
 
   app.options.set('postcss', options)
 
-  app.build.set('items.postcss', [
-    'postcss',
-    app => ({
-      ident: 'postcss',
-      loader: require.resolve('postcss-loader'),
-      options: {
-        ...app.options.get('postcss'),
-        postcssOptions: {
-          ...app.options.get('postcss.postcssOptions'),
-          plugins: [
-            ...app.options.getValues(
-              'postcss.postcssOptions.plugins',
-            ),
-          ],
-        },
+  app.build.set('items.postcss', (app: Bud) => ({
+    loader: require.resolve('postcss-loader'),
+    options: {
+      ...app.options.get('postcss'),
+      postcssOptions: {
+        ...app.options.get('postcss.postcssOptions'),
+        plugins: [
+          ...app.options.getValues(
+            'postcss.postcssOptions.plugins',
+          ),
+        ],
       },
-    }),
-  ])
+    },
+  }))
 
   // insert loader
   app.build.set('rules.css.use', app => [

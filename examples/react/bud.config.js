@@ -14,11 +14,12 @@ bud.hooks.on('webpack.resolve.modules', modules => {
 bud.use([
   require('@roots/bud-babel'),
   require('@roots/bud-react'),
+  require('@roots/bud-postcss'),
 ])
 
 bud
   .html({
     template: 'public/index.html',
   })
-  .entry('create-app', ['app.js'])
+  .entry('create-app', ['app.js', 'app.css'])
   .run()

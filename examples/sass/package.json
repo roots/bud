@@ -1,12 +1,10 @@
 {
-  "name": "bud-example-react",
+  "name": "bud-example-sass",
   "scripts": {
-    "dev": "node bud.config.js --mode development",
-    "build": "node bud.config.js --mode production"
+    "bud": "node ../../node_modules/.bin/bud"
   },
-  "devDependencies": {
+  "dependencies": {
     "@roots/bud": "^2.1.1",
-    "@roots/bud-babel": "^2.1.1",
     "@roots/bud-sass": "^2.1.1"
   }
 }

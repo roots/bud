@@ -1,5 +1,4 @@
 // @ts-check
-// eslint-disable-next-line @typescript-eslint/no-var-requires
 const {bud} = require('@roots/bud')
 
 /**
@@ -13,6 +12,6 @@ bud.hooks.on('webpack.resolve.modules', modules => {
 })
 
 bud
-  .use('@roots/bud-sass')
-  .entry('app', ['app.js', 'app.scss'])
+  .use([require('@roots/bud-sass')])
+  .entry('app', ['app.scss'])
   .run()

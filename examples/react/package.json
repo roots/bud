@@ -1,7 +1,5 @@
 {
   "scripts": {
-    "dev": "node bud.config.js --mode development",
-    "build": "node bud.config.js --mode production",
     "bud": "node ../../node_modules/.bin/bud"
   },
   "devDependencies": {
