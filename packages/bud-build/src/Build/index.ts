@@ -56,22 +56,10 @@ export default class extends Service implements Build {
    * Make webpack config key value
    */
   public makeWebpackProp(configKey: keyof Cfg): void {
-    if (this.app.options.has(`webpack.${configKey}`)) {
-      this.app.logger.warn(
-        {},
-        `webpack.${configKey} not specified. Utilizing.`,
-      )
-    }
-
     if (
       this.app.options.has(`webpack.${configKey}`) &&
       this.app.options.disabled(`webpack${configKey}`)
     ) {
-      this.app.logger.warn(
-        {},
-        `webpack.${configKey} specified as false. Skipping.`,
-      )
-
       return
     }
 
@@ -79,7 +67,10 @@ export default class extends Service implements Build {
       this.app.store.get(`webpack.${configKey}` as Store.Keys),
     )
 
-    this.app.logger.info({[configKey]: value}, 'Webpack output')
+    this.app.logger.info({
+      [configKey]: value?.toString(),
+      msg: `Webpack output: ${configKey}`,
+    })
 
     this.webpack.set(configKey, value)
   }

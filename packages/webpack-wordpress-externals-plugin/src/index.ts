@@ -1,34 +1,35 @@
+import fetchExternals from './fetchExternals'
+import externalsPlugin from './externalsPlugin'
+
 import {RawSource} from 'webpack-sources'
 import Webpack, {ExternalsPlugin} from 'webpack'
 import path from 'path'
 
-import fetchExternals, {Hash} from './fetchExternals'
-import {externals} from './externals'
+import {WordPressExternals} from './interfaces'
 
+export * from './interfaces'
 export class Plugin {
-  // Ident
-  public plugin = {
-    name: 'WordPressExternalsWebpackPlugin',
-    stage: Infinity,
-  }
+  public name = 'WordPressExternalsWebpackPlugin'
 
-  public output = {
+  public stage = Infinity
+
+  public output: WordPressExternals.Output = {
     dir: '',
     name: '',
     file: '',
-    publicPath: null,
+    publicPath: '',
     content: {},
   }
 
-  public options: Options
+  public options: WordPressExternals.Options
 
-  public externals: ExternalsPlugin
+  public externalsPlugin: ExternalsPlugin
 
   /**
    * Class constructor
    */
   constructor(
-    options: Options = {
+    options: WordPressExternals.Options = {
       name: 'wordpress.json',
       writeToFileEmit: true,
       useElementAsReact: true,
@@ -38,9 +39,9 @@ export class Plugin {
 
     this.output.name = this.options.name
 
-    this.externals = new ExternalsPlugin(
+    this.externalsPlugin = new ExternalsPlugin(
       'wp',
-      externals.bind(this),
+      externalsPlugin.bind(this),
     )
 
     this.emit = this.emit.bind(this)
@@ -60,7 +61,7 @@ export class Plugin {
       this.output.file,
     )
 
-    this.externals.apply(compiler)
+    this.externalsPlugin.apply(compiler)
 
     compiler.hooks.emit.tapAsync(
       this.constructor.name,
@@ -72,7 +73,7 @@ export class Plugin {
     compilation: Webpack.compilation.Compilation,
     callback: () => void,
   ): Promise<void> {
-    const externals: Hash = await fetchExternals()
+    const externals: WordPressExternals.Hash = await fetchExternals()
 
     compilation.entrypoints.forEach(entry => {
       entry.chunks.forEach(chunk => {
@@ -94,31 +95,4 @@ export class Plugin {
 
     callback()
   }
-}
-
-export type EntrySchema = {
-  [key: string]: string | string[]
-}
-
-export type Content = EntrySchema | EntrySchema[] | null
-
-/**
- * Plugin options
- */
-export type Options = {
-  /**
-   * Name of outputted file.
-   */
-  name: string
-
-  /**
-   * Should manifest be written to disk.
-   */
-  writeToFileEmit: boolean
-
-  /**
-   * Transform requests for 'react' and 'react-dom'
-   * to '@wordpress/element'
-   */
-  useElementAsReact: boolean
 }

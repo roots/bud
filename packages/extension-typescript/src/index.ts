@@ -1,63 +1,49 @@
-import {
-  Framework,
-  Module,
-  Item,
-  Loader,
-  Rule,
-} from '@roots/bud-typings'
-import {LoaderOptions} from 'ts-loader/dist/interfaces'
+import {Bud} from '@roots/bud'
 
-export const options = (
-  instance: Framework,
-): Partial<LoaderOptions> | LoaderOptions => ({
-  configFile:
-    instance.disk.get('project').get('tsconfig.json') ?? null,
-})
+// Extension identifier
+export const name = '@roots/bud-typescript'
 
-export const setLoaders: Module.Register<Loader> = [
-  'ts-loader',
-  require.resolve('ts-loader'),
-]
+// Extension interfaces
+export * from './interfaces'
 
-export const setItems: Module.Register<Item> = {
-  [`typescript`]: {
-    loader: 'ts-loader',
-    options: (
-      bud: Framework,
-    ): Partial<LoaderOptions> | LoaderOptions =>
-      bud.extensions.get('@roots/bud-typescript').all(),
-  },
-}
+// Extension api
+export * as api from './api'
 
-export const setRules: Module.Register<Rule.Module> = {
-  [`typescript`]: {
-    test: ({store}: Framework): RegExp =>
-      store.get('patterns.typescript'),
+// Fallback tsconfig in case user doesn't have one
+const tsConfig: string = `{
+  "compilerOptions": {
+    "sourceMap": true
+  }
+}`
 
-    exclude: ({store}: Framework): RegExp =>
+// Extension boot
+export const boot = ({build, disk, store, hooks}: Bud): void => {
+  !disk.get('project').exists('tsconfig.json') &&
+    disk.get('project').write('tsconfig.json', tsConfig)
+
+  // Set regexp pattern for ts
+  store.set('patterns.ts', /\.(ts|tsx)$/)
+
+  // Add tsx? to resolvable extensions
+  hooks.on('webpack.resolve.extensions', extensions => [
+    ...extensions,
+    '.ts',
+    '.tsx',
+  ])
+
+  // Set ts-loader
+  build.set('items.ts', {loader: 'ts-loader'})
+
+  // Set ts rules
+  build.set('rules.ts', {
+    test: ({store}: Bud): RegExp => store.get('patterns.ts'),
+
+    exclude: ({store}: Bud): RegExp =>
       store.get('patterns.modules'),
 
-    use: (bud: Framework): Item.Module[] => [
-      bud.build.items.get('ts'),
+    use: ({build}: Bud): Bud.Item[] => [
+      build.access('items.cache'),
+      build.access('items.ts'),
     ],
-  },
-}
-
-export const api = {
-  typescript: function (
-    this: Framework,
-    options: Partial<LoaderOptions> | LoaderOptions,
-  ): Framework {
-    this.extensions.set('@roots/bud-typescript.options', options)
-
-    return this
-  },
-}
-
-export const boot = (app: Framework): void => {
-  app.store.set('typescript', /\.(ts|tsx)$/)
-  ;['ts', 'tsx'].map(ext => {
-    !app.store.get('webpack.resolve.extensions').includes(ext) &&
-      app.store.merge('webpack.resolve.extensions', [ext])
   })
 }

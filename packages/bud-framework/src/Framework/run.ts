@@ -1,10 +1,11 @@
 import {ProgressPlugin, chalk} from '@roots/bud-support'
+import {Framework} from '@roots/bud-typings'
 
 /**
  * Framework.Run
  */
-export function run(): void {
-  this.logger.info({app: this}, 'bud.run called')
+export function run(this: Framework): void {
+  this.logger.info({}, 'Running build.')
 
   /**
    * Inject HMR scripts if running in dev.
@@ -43,13 +44,19 @@ export function run(): void {
    * Instantiate a new progress plugin and apply it
    * to the compilation instance.
    */
-  new ProgressPlugin((percentage, message) =>
-    this.store.set('compilation.progress', {
+  new ProgressPlugin((percentage, message) => {
+    const progress = {
       decimal: percentage,
       percentage: `${Math.floor(percentage * 100)}%`,
       message,
-    }),
-  ).apply(this.compiler.instance)
+    }
+
+    this.logger.info({
+      msg: progress.message,
+      percentage: progress.percentage,
+    })
+    this.store.set('compilation.progress', progress)
+  }).apply(this.compiler.instance)
 
   /**
    * When in production, just run the build.
@@ -60,11 +67,6 @@ export function run(): void {
     () => this.compiler.instance.run(runCallback.bind(this)),
     () => this.server.run(this.compiler.instance),
   )
-
-  /**
-   * Keep the process alive while output is displayed.
-   */
-  displayCompilation.bind(this)()
 }
 
 /**
@@ -77,14 +79,22 @@ function displayCompilation(): void {
   }
 
   this.store.has(`compilation.stats.string`) &&
-    console.log(this.store.get(`compilation.stats.string`))
+    (() => {
+      console.log(this.store.get(`compilation.stats.string`))
+      this.store.delete(`compilation.stats.string`)
+    })()
 
   this.store.has('compilation.progress') &&
-    console.log(
-      `${chalk.green(
-        `[${this.store.get(`compilation.progress.percentage`)}]`,
-      )} ${this.store.get(`compilation.progress.message`)}\r`,
-    )
+    (() => {
+      console.log(
+        `${chalk.green(
+          `[${this.store.get(
+            `compilation.progress.percentage`,
+          )}]`,
+        )} ${this.store.get(`compilation.progress.message`)}\r`,
+      )
+      this.store.delete(`compilation.progress`)
+    })()
 }
 
 /**
@@ -97,6 +107,11 @@ function error(res) {
       .toJson(this.compiler.statsOptions.json)
       .errors.toString(),
   )
+
+  /**
+   * Keep the process alive while output is displayed.
+   */
+  displayCompilation.bind(this)()
 }
 
 /**
@@ -107,6 +122,11 @@ function response(res): void {
     string: res.toString(this.compiler.statsOptions.string),
     json: res.toJson(this.compiler.statsOptions.json),
   })
+
+  /**
+   * Keep the process alive while output is displayed.
+   */
+  displayCompilation.bind(this)()
 }
 
 /**
@@ -123,7 +143,12 @@ function compilerHook(res): void {
  * Handles stats for production builds.
  */
 function runCallback(err, res): void {
+  this.logger.info({
+    msg: 'Production compilation callback (CI)',
+  })
+
   err?.stack && this.store.set('compilation.errors', err.stack)
+
   if (!res) return
 
   res.toJson && res?.hasErrors() && error.bind(this)(res)

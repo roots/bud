@@ -1,37 +1,18 @@
 import Plugin from 'eslint-webpack-plugin'
-import {Options, Make, When, Boot, Api} from './types'
-
-/**
- * Bud custom formatter for teletype logging.
- */
+import {Options, Make, When} from './types'
+import {Bud} from '@roots/bud'
+// Bud custom formatter
 import {eslintFormatter} from '@roots/bud-support'
 
 /**
- * On boot, set defaults and add presets.
+ * Extension identifier
  */
-export const boot: Boot = bud => {
-  const path = bud.disk.get('@roots/bud-eslint')
-
-  bud.options.enable('eslint')
-
-  bud.store.set(
-    'presets.eslint.roots',
-    path.get('presets/roots.js'),
-  )
-
-  bud.store.set(
-    'presets.eslint.react',
-    path.get('presets/react.js'),
-  )
-
-  bud.store.set('presets.eslint.wp', path.get('presets/wp.js'))
-}
+export const name = '@roots/bud-eslint'
 
 /**
  * Eslint class options.
  */
 export const options: Options = bud => ({
-  context: (bud as any).project(),
   eslintPath: require.resolve('eslint'),
   fix: false,
   formatter: eslintFormatter,
@@ -45,20 +26,19 @@ export const make: Make = opts => new Plugin(opts.all())
 /**
  * Make when
  */
-export const when: When = ({options}) => options.enabled('slint')
+export const when: When = ({options}: Bud) =>
+  options.enabled('eslint')
 
 /**
  * Extend config file API
  */
-export const api: Api = () => ({
+export const api = () => ({
   eslintConfig: function (opts) {
     const plugin = this.extensions.get('@roots/bud-eslint')
-    Object.entries(opts).map(([k, v]) => plugin.set(k, v))
+    Object.entries(opts).map(([k, v]) =>
+      plugin.set(`options.${k}`, v),
+    )
 
-    return this
-  },
-  enableEslint: function (enabled = true) {
-    this.store[enabled ? `enable` : `disable`]('eslint')
     return this
   },
 })

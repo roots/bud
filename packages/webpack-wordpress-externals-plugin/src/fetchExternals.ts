@@ -1,5 +1,6 @@
 import fetch from 'node-fetch'
 import {windowVariables} from './windowVariables'
+import {WordPressExternals} from './interfaces'
 
 /** Gutenberg repo package.json @ master */
 const GUTENBERG_PACKAGE_JSON =
@@ -8,7 +9,7 @@ const GUTENBERG_PACKAGE_JSON =
 /**
  * Fetch declared dependencies from the wordpress/gutenberg repo
  */
-const fetchExternals: Packages.Fetch = async () => {
+const fetchExternals: WordPressExternals.Package.Fetch = async () => {
   try {
     const data = await fetch(GUTENBERG_PACKAGE_JSON)
     const {dependencies} = await data.json()
@@ -25,7 +26,7 @@ const fetchExternals: Packages.Fetch = async () => {
 /**
  * Filter and transform fetched packages
  */
-const transformPkgNames: Packages.Transform = entries =>
+const transformPkgNames: WordPressExternals.Package.Transform = entries =>
   Object.keys(entries)
     .filter(isWpDependency)
     .reduce(pkgNameReducer, {})
@@ -33,14 +34,14 @@ const transformPkgNames: Packages.Transform = entries =>
 /**
  * Return true if package is in wordpress org scope
  */
-const isWpDependency: PackageName.Test = dep =>
+const isWpDependency: WordPressExternals.Package.Name.Test = dep =>
   /^@wordpress\//.test(dep)
 
 /**
  * Reduce scoped module names to a hash matching
  * them against their equivalent window var
  */
-const pkgNameReducer: Packages.Reduce = (
+const pkgNameReducer: WordPressExternals.Package.Reduce = (
   mappedPkgs,
   pkgName,
 ) => ({
@@ -54,37 +55,15 @@ const pkgNameReducer: Packages.Reduce = (
 /**
  * Transform module names.
  */
-const enqueueName: PackageName.Transform = name =>
+const enqueueName: WordPressExternals.Package.Name.Transform = name =>
   name.replace(/^@wordpress\/(.*)$/, (m, g) => `wp-${g}`)
 
 /**
  * Transform module names.
  */
-const windowName: PackageName.Transform = name =>
+const windowName: WordPressExternals.Package.Name.Transform = name =>
   name
     .replace(/^@wordpress\/(.*)$/, (m, g) => `wp.${g}`)
     .replace(/-(.)/g, (m, g) => g.toUpperCase())
 
 export {fetchExternals as default}
-
-export interface Hash {
-  [key: string]: any
-}
-
-namespace Packages {
-  export type Fetch = (
-    useElementAsReact?: boolean,
-  ) => Promise<Hash>
-
-  export type Transform = (hash: Hash) => Hash
-
-  export type Reduce = (
-    accumulated: Hash,
-    current: string,
-  ) => Hash
-}
-
-namespace PackageName {
-  export type Transform = (name: string) => string
-  export type Test = (name: string) => boolean
-}

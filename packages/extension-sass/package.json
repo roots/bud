@@ -19,7 +19,7 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": ["webpack", "bud"],
+  "keywords": ["webpack", "bud", "bud-extension"],
   "engines": {
     "node": ">=12"
   },
@@ -46,7 +46,12 @@
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
+  "peerDependencies": {
+    "@roots/bud": "*",
+    "@roots/bud-typings": "*"
+  },
   "devDependencies": {
+    "@roots/bud": "^2.2.1",
     "@roots/bud-typings": "^2.2.1"
   },
   "dependencies": {

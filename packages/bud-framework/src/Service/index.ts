@@ -40,7 +40,7 @@ export default class extends Container implements Service {
   /**
    * Access disk
    */
-  public disk(diskName?: string): Disk | FileContainer {
+  public disk<T = Disk | FileContainer>(diskName?: string): T {
     return diskName ? this.app.disk.get(diskName) : this.app.disk
   }
 

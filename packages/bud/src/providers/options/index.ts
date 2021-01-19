@@ -10,12 +10,14 @@ export const options: {
   storage: {fallback: '.bud/'},
   publicPath: {fallback: '/'},
   records: {fallback: 'records'},
+  modules: {fallback: 'node_modules'},
 
   /**
    * Default enabled
    */
   clean: {fallback: true},
   manifest: {fallback: true},
+  autodiscover: {fallback: true},
 
   /**
    * Options
@@ -25,6 +27,7 @@ export const options: {
   brotli: {},
   hash: {},
   gzip: {},
+  log: {},
   minify: {},
   html: {},
 

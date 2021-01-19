@@ -16,11 +16,18 @@ export default class extends Service implements Logger {
    */
   public register(): void {
     this.logger = pino({
+      safe: true,
+      name: `bud`,
       enabled: yargs.argv.hasOwnProperty('log') ? true : false,
       prettyPrint: {
         colorize: true,
       },
     })
+  }
+
+  public boot(): void {
+    this.app.options.enabled('log') &&
+      this.app.options.enable('ci')
   }
 
   /**

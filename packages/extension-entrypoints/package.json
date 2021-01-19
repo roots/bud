@@ -15,7 +15,7 @@
     "url": "https://github.com/sponsors/roots"
   },
   "license": "MIT",
-  "keywords": ["webpack", "bud"],
+  "keywords": ["webpack", "bud-extension", "bud"],
   "engines": {
     "node": ">=12"
   },

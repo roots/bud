@@ -1,13 +1,15 @@
 {
   "scripts": {
     "dev": "node bud.config.js --mode development",
-    "build": "node bud.config.js --mode production"
+    "build": "node bud.config.js --mode production",
+    "bud": "node ../../node_modules/.bin/bud"
   },
   "devDependencies": {
     "@roots/bud": "^2.2.1",
     "@roots/bud-babel": "^2.2.1",
     "@roots/bud-react": "^2.2.1",
     "@roots/bud-postcss": "^2.2.1",
-    "@roots/bud-tailwindcss": "^2.2.1"
+    "@roots/bud-tailwindcss": "^2.2.1",
+    "@roots/bud-typescript": "^2.2.1"
   }
 }

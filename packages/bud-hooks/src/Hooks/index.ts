@@ -24,7 +24,7 @@ export class Hooks extends Service implements Contract {
     name: Keys & string,
     filter: Contract.Filter.Fn<T>,
   ): void {
-    this.app.logger.info({name, filter}, 'Filter registered')
+    this.app.logger.info({name, msg: 'Filter registered'})
     this.set(
       `filters.${name}`,
       this.get(`filters.${name}`)
@@ -37,7 +37,7 @@ export class Hooks extends Service implements Contract {
     name: string,
     action: Contract.Action.Fn<T>,
   ): void {
-    this.app.logger.info(action, 'Action registered')
+    this.app.logger.info({name, msg: 'Action registered'})
 
     this.set(
       `actions.${name}`,
@@ -48,7 +48,7 @@ export class Hooks extends Service implements Contract {
   }
 
   public action<T = any>(name: string, binding: T): void {
-    this.app.logger.info({name}, 'Action called')
+    this.app.logger.info({name, msg: 'Action called'})
 
     this.has(`actions.${name}`) &&
       this.get(`actions.${name}`).map(action =>
@@ -57,7 +57,7 @@ export class Hooks extends Service implements Contract {
   }
 
   public filter<T = any>(name: string, value: T): T {
-    this.app.logger.info({name, value}, 'Filter called')
+    this.app.logger.info({name, msg: 'Filter called'})
 
     return this.has(`filters.${name}`) &&
       this.isArray(`filters.${name}`)

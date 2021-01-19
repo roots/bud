@@ -80,6 +80,8 @@ class MergedManifestWebpackPlugin {
      * Callback early if a required manifest is missing.
      */
     if (!this.isBuildable()) {
+      console.error('is not buildable')
+      process.exit()
       return callback
     }
 
@@ -117,7 +119,7 @@ class MergedManifestWebpackPlugin {
       /**
        * Remove wordpress.json manifest.
        */
-      await fs.remove(this.manifestPath(this.wordpressName))
+      // await fs.remove(this.manifestPath(this.wordpressName))
     } catch (err) {
       console.error(err)
     }

@@ -1,6 +1,12 @@
 import {resolve} from 'path'
 
-import {Env, Options, Disk, Logger} from '@roots/bud-framework'
+import {
+  Env,
+  Options,
+  Discovery,
+  Disk,
+  Logger,
+} from '@roots/bud-framework'
 import {Cache} from '@roots/bud-cache'
 import {Compiler} from '@roots/bud-compiler'
 import {Hooks, hooks} from '@roots/bud-hooks'
@@ -42,6 +48,7 @@ export const providers: Providers = {
   env: [Env],
   logger: [Logger],
   disk: [Disk, {containers: disks}],
+  discovery: [Discovery],
   options: [Options, {containers: options}],
   hooks: [Hooks, {containers: hooks}],
   build: [Build, {containers: {items, rules}}],

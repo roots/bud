@@ -19,7 +19,7 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": ["bud", "postcss", "webpack"],
+  "keywords": ["bud", "bud-extension", "postcss"],
   "engines": {
     "node": ">=12"
   },

@@ -17,7 +17,7 @@
     "url": "https://github.com/roots/bud/issues"
   },
   "license": "MIT",
-  "keywords": ["webpack", "bud"],
+  "keywords": ["webpack", "bud", "bud-extension"],
   "engines": {
     "node": ">=12"
   },

@@ -48,7 +48,11 @@ export default class extends Service {
    * Service boot
    */
   public boot(): void {
-    //
+    const pkg = this.get('project').readJson('package.json')
+    this.app.logger.info({
+      dependencies: pkg.dependencies ?? 'none',
+      devDependencies: pkg.devDependencies ?? 'none',
+    })
   }
 
   /**
@@ -60,7 +64,7 @@ export default class extends Service {
    * ### Usage
    *
    * ```js
-   * fs.set(
+   * disk.make(
    *   'icons',
    *   bud.project('assets/icons'),
    *   ['*.svg'],

@@ -1,4 +1,5 @@
 import Service from './Service'
+import {lodash} from '@roots/bud-support'
 import {Options, Store} from '@roots/bud-typings'
 
 /**
@@ -30,11 +31,24 @@ export default class extends Service implements Options {
       NODE_ENV: this.get('mode'),
       BABEL_ENV: this.get('mode'),
     })
+  }
 
-    this.app.logger.info(
-      {options: this.all()},
-      'Options available',
-    )
+  /**
+   * ## container.set
+   *
+   * Set a value on a container item.
+   *
+   * ### Usage
+   *
+   * ```js
+   * container.set('key', value)
+   * ```
+   */
+  public set(key: string, value: any): this {
+    this.app.logger.info({[key]: value, msg: 'Set option'})
+    lodash.set(this.repository, key, value)
+
+    return this
   }
 
   /**

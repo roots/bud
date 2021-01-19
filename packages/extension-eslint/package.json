@@ -16,7 +16,7 @@
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
-  "keywords": ["webpack", "bud"],
+  "keywords": ["bud", "bud-extension", "eslint"],
   "engines": {
     "node": ">=12"
   },

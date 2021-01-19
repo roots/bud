@@ -65,6 +65,7 @@ export default abstract class<T = any>
     this.makeContainer = this.makeContainer.bind(this)
     this.newService = this.newService.bind(this)
     this.pipe = this.pipe.bind(this)
+    this.sequence = this.sequence.bind(this)
     this.register = this.register.bind(this)
     this.run = this.run.bind(this)
     this.use = this.use.bind(this)
@@ -199,9 +200,18 @@ export default abstract class<T = any>
   public when: Framework.When<T> = when
 
   /**
-   * Pipe
+   * Pipe functions
    */
-  public pipe(fns: CallableFunction[]): this {
+  public pipe<T = any>(fns: CallableFunction[]): T {
+    return fns.reduce((val, fn) => {
+      return fn(val)
+    }, this)
+  }
+
+  /**
+   * Sequence functions
+   */
+  public sequence(fns: CallableFunction[]): this {
     fns.reduce((_val, fn) => {
       return fn(this)
     }, this)

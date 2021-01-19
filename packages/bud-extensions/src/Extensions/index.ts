@@ -21,6 +21,8 @@ export default class extends Service {
     this.use = this.use.bind(this)
     this.make = this.make.bind(this)
     this.makeAll = this.makeAll.bind(this)
+
+    this.processed = this.app.makeContainer()
   }
 
   /**
@@ -36,11 +38,20 @@ export default class extends Service {
    * Add an extension
    */
   public add(name, extension: Extension): void {
+    this.processed.has(name) &&
+      this.app.logger.error(
+        {name, processed: this.processed.all()},
+        'Extension already added',
+      )
+
     this.app.logger.info({name}, 'Adding extension')
-    this.set(
-      name,
-      new Extension(this.app.get, extension).register().boot(),
-    )
+
+    const built = new Extension(this.app.get, extension)
+      .register()
+      .boot()
+
+    this.set(name, built)
+    this.processed.set(name, true)
   }
 
   /**

@@ -1,4 +1,5 @@
 import * as sass from './sass'
+import {Bud} from '@roots/bud'
 import type {Module, Item, Rule} from '@roots/bud-typings'
 
 export const setItems: Module.Register<Item> = [
@@ -13,8 +14,8 @@ export const setItems: Module.Register<Item> = [
 
 export const setRules: Module.Register<Rule> = ['sass', sass]
 
-export const register: Module.Register = app => {
-  app.filters.on('webpack.resolve.extensions', exts => [
+export const register: Module.Register = ({hooks}: Bud) => {
+  hooks.on('webpack.resolve.extensions', exts => [
     ...exts,
     '.sass',
     '.scss',

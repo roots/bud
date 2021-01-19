@@ -199,8 +199,6 @@ export declare interface Framework<T = any> {
    */
   services: Container<any>
 
-  stdout: string[]
-
   /**
    * ## bud.get  [🏠 Internal]
    *
@@ -243,8 +241,11 @@ export declare interface Framework<T = any> {
   /**
    * ## bud.pipe [💁 Fluent]
    *
-   * Execute an array of functions. Each will be passed a fresh
-   * copy of the bud object.
+   * Execute an array of functions. The first is passed the
+   * bud object Each will be the result of
+   * the one preceeding it.
+   *
+   * Returns the final result.
    *
    * ### Usage
    *
@@ -255,7 +256,26 @@ export declare interface Framework<T = any> {
    * ])
    * ```
    */
-  pipe(fns: CallableFunction[]): this
+  pipe<T = any>(fns: CallableFunction[]): T
+
+  /**
+   * ## bud.sequence [💁 Fluent]
+   *
+   * Execute an array of functions. Each will be passed
+   * bud.
+   *
+   * Returns the final result.
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.pipe([
+   *   bud => ,
+   *   bud => bud.proxy(),
+   * ])
+   * ```
+   */
+  sequence(fns: CallableFunction[]): this
 
   /**
    * ## bud.run

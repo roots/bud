@@ -32,7 +32,6 @@ export default class extends Service {
     this.setBuilders()
 
     this.has('api') && this.setApp(this.access('api'))
-
     this.has('register') && this.access('register')
 
     return this
