@@ -139,7 +139,7 @@ The last step runs the build and outputs the build results using the bud cli.
 
 It is possible, depending on your environment, that Bud's CLI output causes issues. In particular, it's usage of tty `raw mode` can cause issues with CI tools.
 
-To have Bud still run the build but not use the `bud-cli` raw mode renderer, pass a boolean `true` as a parameter to `bud.run`. This indicates you want to run the build in `safe mode`.
+To have Bud still run the build but not use the `bud-cli` raw mode renderer, either use the `--ci` flag or pass a boolean `true` as a parameter to `bud.run`. This indicates you want to run the build in `safe mode`.
 
 In safe mode Bud will pass the build off to webpack to compile, rather than using the Bud CLI module.
 
@@ -155,8 +155,7 @@ module.exports = bud.build.make()
 
 Now you can use your configuration file with the `webpack-cli`.
 
-Note that some functionality from Bud packages may not work with this setup.
+Note that some (non-essential) functionality from Bud packages may not work with this setup.
 
 You will, for instance, need to provde your own `ProgressPlugin` in your
-configuration (if you want one). The Bud CLI renders the progress bar using a
-callback passed to the compiler on initialization.
+configuration (if you want one).

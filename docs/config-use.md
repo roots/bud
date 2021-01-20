@@ -4,7 +4,7 @@ description: Extend Bud with additional packaged functionality.
 
 # bud.use
 
-Registers a [Bud extensions](guide-using-extensions.md).
+Registers a [Bud extension](extending-using-extensions.md).
 
 ## Usage
 

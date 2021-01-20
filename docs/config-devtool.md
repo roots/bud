@@ -15,7 +15,7 @@ bud.devtool('inline-cheap-module-source-map')
 ## Signature
 
 ```ts
-function (devtool: string): Framework.Bud
+function (devtool: string): Bud
 ```
 
 ## Parameters
@@ -26,4 +26,4 @@ function (devtool: string): Framework.Bud
 
 ## Returns
 
-`Framework.Bud`: The Bud instance
+`Bud`: The Bud instance

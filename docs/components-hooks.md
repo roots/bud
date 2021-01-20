@@ -15,7 +15,7 @@ Hooks are defined as functions. Hook functions are registered with `bud.hooks.on
 - The `name` of the `filter` being hooked.
 - The `function` to filter with.
 
-### Usage examples
+### Usage
 
 Add a new entry to the `webpack.externals` configuration:
 

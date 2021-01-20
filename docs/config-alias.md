@@ -35,7 +35,7 @@ This can prove especially useful if later we have cause to move `scripts/my-feat
 ```ts
 function ({
   [{key: string}]: {path: string},
-}[]): Framework.Bud
+}): Bud
 ```
 
 ## Parameters
@@ -47,4 +47,4 @@ function ({
 
 ## Returns
 
-`Framework.Bud` - The Bud instance
+`Bud` - The Bud instance

@@ -41,11 +41,10 @@ A webpack framework combining the best parts of Laravel Mix and Symfony Encore.
   - [fn: bud.runtime](config-runtime.md)
   - [fn: bud.src](config-src.md)
   - [fn: bud.srcPath](config-srcPath.md)
-  - [fn: bud.terser](config-terser.md)
+  - [fn: bud.storage](config-storage.md)
   - [fn: bud.use](config-use.md)
   - [fn: bud.vendor](config-vendor.md)
 
-- [Setting the compilation mode](components-mode.md)
 - [Working with containers](components-container.md)
 - [Working with env values](components-env.md)
 - [Toggling feature flags](components-features.md)

@@ -49,7 +49,7 @@ Trying to access `window.SECRET_AUTH_PASS` within the application will show that
 ```ts
 function (variables: {
   [key: string]: any
-}): Framework.Bud
+}): Bud
 ```
 
 ## Parameters
@@ -60,4 +60,4 @@ function (variables: {
 
 ## Returns
 
-`Framework.Bud`: The Bud instance
+`Bud`: The Bud instance

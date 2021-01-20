@@ -20,7 +20,7 @@ function (): Bud
 
 ## Returns
 
-`Framework.Bud`: The Bud instance
+`Bud`: The Bud instance
 
 ## Related
 

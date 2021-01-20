@@ -47,7 +47,7 @@ bud.when(bud.mode.is('development'), ({library}) =>
 ```ts
 function (
   modules: string | string[]
-): Framework.Bud
+): Bud
 ```
 
 ## Arguments
@@ -58,4 +58,4 @@ function (
 
 ## Returns
 
-`Framework.Bud`: Bud instance
+`Bud`: Bud instance

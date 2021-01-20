@@ -15,9 +15,9 @@ bud.minify()
 ## Signature
 
 ```ts
-function (): Framework.Bud
+function (): Bud
 ```
 
 ## Returns
 
-`Framework.Bud`: Bud instance
+`Bud`: Bud instance

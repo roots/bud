@@ -533,17 +533,6 @@ class Bud extends Base<Bud> implements Contract {
   public string: Api.Stringify<this>
 
   /**
-   * ## bud.target  [💁 Fluent]
-   *
-   * Set the webpack build target. Default is 'web'. [🔗 Documentation](#)
-   *
-   * ```js
-   * bud.target('web')
-   * ```
-   */
-  public target: Api.Target<this>
-
-  /**
    * ## bud.html  [💁 Fluent]
    *
    * Generate and/or configure boilerplate HTML for your project. [🔗 Documentation](#)

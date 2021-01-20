@@ -54,7 +54,7 @@ function (
     globOptions?: {[key: string]: any}
     noErrorOnMissing?: boolean
   },
-): Framework.Bud
+): Bud
 ```
 
 ## Parameters

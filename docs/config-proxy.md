@@ -41,7 +41,7 @@ To configure SSL, you will need to use `bud.proxy` in conjunction with [`bud.dev
 function (options: {
   host?: string
   port?: number
-}): Framework.Bud
+}): Bud
 ```
 
 ## Parameters
@@ -54,4 +54,4 @@ function (options: {
 
 ## Returns
 
-`Framework.Bud`: The Bud instance
+`Bud`: The Bud instance

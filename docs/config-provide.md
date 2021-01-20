@@ -42,5 +42,5 @@ bud.provide({
 ```ts
 function ({
   [key: string]: string | string[]
-}): Framework.Bud
+}): Bud
 ```

@@ -92,9 +92,9 @@ function (options: {
     host?: string
     port?: number
   }
-}): Framework.Bud
+}): Bud
 ```
 
 ## Returns
 
-`Framework.Bud`: The Bud instance
+`Bud`: The Bud instance

@@ -7,95 +7,172 @@ description: Compile project assets by running bud.config.js with Node.
 Assets are compiled with the bud cli's `build` command.
 
 ```sh
-$ bud build
+bud build
 ```
 
-## Compiling in `production` mode
+If run without any arguments it is the equivalent of entering:
 
 ```sh
-$ bud build --mode production
+bud build --mode production --manifest --cache
 ```
 
-## Compiling in `development` mode
+Many options are booleans:
 
 ```sh
-$ bud build --mode development
+# true
+bud build --arg
+
+# true
+bud build --arg true
+
+# false
+bud build --arg false
 ```
 
-## Debugging
-
-Dumps extra information and build objects to terminal and disk.
+Some arguments are strings:
 
 ```sh
-$ bud build --debug
+# 'value'
+bud build --arg value
 ```
 
-## Minify assets
+Some arguments are arrays:
 
 ```sh
-$ bud build --minify
+# ['value', 'foo']
+bud build --arg value foo
+
+# ['foo', 'value']
+bud build --arg foo --arg value
 ```
 
-## Compress built assets with gzip
+Any argument key/value pairings can also be expressed with `=`,
+and strings can be explicitly deliniated with `"`s:
 
 ```sh
-$ bud build --gzip
+bud build --arg=true
+
+bud build --arg="value1" --arg="another value"
 ```
 
-## Compress built assets with brotli
+## Arguments
+
+### Compiling in `production` mode
 
 ```sh
-$ bud build --brotli
+bud build --mode production
 ```
 
-## Hash filename output
+### Compiling in `development` mode
 
 ```sh
-$ bud build --hash
+bud build --mode development
 ```
 
-## Produce a `vendor` bundle
+### Run in CI mode
+
+Simpler output for better compatibility and build artifacts.
 
 ```sh
-$ bud build --vendor
+bud build --ci
 ```
 
-## Produce a `runtime` bundle
+### Debugging
+
+Dumps extra information and build objects to disk (`.bud/records`).
 
 ```sh
-$ bud build --runtime
+bud build --debug
 ```
 
-## Specify a `project` directory
+### Logging
+
+Log verbose output for debugging
 
 ```sh
-$ bud build --project /absolute/path/to/project
+bud build --log
 ```
 
-## Specify a `src` directory
+### Autodiscover
+
+Automatically discover and utilize installed packages.
 
 ```sh
-$ bud build --src resources
+bud build --autodiscover
 ```
 
-## Specify a `dist` directory
+### Minify assets
 
 ```sh
-$ bud build --dist distributables
+bud build --minify
 ```
 
-## Produce with an html template
+### Hash compiled asset filenames
 
 ```sh
-$ bud build --html
+bud build --hash
 ```
 
-## Use a bud config with the standard webpack CLI
+### Produce a `vendor` bundle
 
-Alternatively, you can generate the configuration and pass it to Webpack yourself.
-The simplest way is to export the config as a module for consumption by the `webpack-cli`.
+```sh
+bud build --vendor
+```
 
-```js
-// ...config
-module.exports = bud.build.make()
+### Produce a `runtime` bundle
+
+```sh
+bud build --runtime
+```
+
+### Specify a devtool (source-maps)
+
+```sh
+# Enable source-maps
+bud build --devtool
+
+# Specify a specific devtool
+bud build --devtool cheap-eval-source-map
+```
+
+### Specify `project` directory
+
+```sh
+bud build --project /absolute/path/to/project
+```
+
+### Specify `src` directory
+
+```sh
+bud build --src resources
+```
+
+### Specify `dist` directory
+
+```sh
+bud build --dist distributables
+```
+
+### Specify `node_modules` directory
+
+```sh
+bud build --modules ../path-to-node_modules
+```
+
+### Specify `storage` directory
+
+```sh
+bud build --storage new/storage/dir
+```
+
+### Produce with an html template
+
+```sh
+bud build --html
+```
+
+### Produce a manifest
+
+```sh
+bud build --manifest
 ```
