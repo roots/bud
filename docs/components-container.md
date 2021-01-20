@@ -21,14 +21,6 @@ bud.makeContainer({
 })
 ```
 
-## container.getStore
-
-Get the store contents
-
-```ts
-container.getStore()
-```
-
 ## container.all
 
 Alias for `container.getStore`

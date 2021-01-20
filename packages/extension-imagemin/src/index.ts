@@ -1,7 +1,7 @@
+import './interfaces'
+
 import * as Plugin from './imagemin'
 import {Bud} from '@roots/bud'
-
-export * from './types'
 
 /**
  * Extension name

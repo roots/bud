@@ -1,24 +1,7 @@
 import type {Module} from '@roots/bud-typings'
 import type Plugin from 'image-minimizer-webpack-plugin'
 
-export namespace Imagemin {
-  export type Options = {
-    minimizerOptions: {
-      plugins: [string, {[key: string]: any}][]
-    }
-  }
-
-  /**
-   * Make.
-   */
-  export type Make = Module.Make<Plugin, Options>
-}
-
 declare module '@roots/bud' {
-  type Imagemin = (
-    options: Imagemin.Options['minimizerOptions'],
-  ) => Bud
-
   export interface Bud {
     /**
      * ## bud.imagemin
@@ -35,10 +18,24 @@ declare module '@roots/bud' {
      * })
      * ```
      */
-    imagemin: Bud.Imagemin
+    imagemin: Bud.Imagemin.Configure
   }
 
-  export namespace Bud {
-    export {Imagemin}
+  export namespace Bud.Imagemin {
+    type Configure = (
+      this: Bud,
+      options: Imagemin.Options['minimizerOptions'],
+    ) => Bud
+
+    export type Options = {
+      minimizerOptions: {
+        plugins: [string, {[key: string]: any}][]
+      }
+    }
+
+    /**
+     * Make.
+     */
+    export type Make = Module.Make<Plugin, Options>
   }
 }

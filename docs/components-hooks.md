@@ -1,12 +1,12 @@
 ---
-description: Manipulate and expose internal values from the Framework and extensions.
+description: Expose and manipulate exposed values during config and compilation.
 ---
 
 # Hooks
 
-Bud provides a system of 'hooks' to expose values for easier modification.
+Bud provides a system of 'hooks' to expose values for modification.
 
-## bud.hooks.on: modify compile-time values
+## bud.hooks.on
 
 Hooks are defined as functions. Hook functions are registered with `bud.hooks.on`
 
@@ -66,36 +66,53 @@ bud.hooks.on('my.filter.key', value => value.shift())
 
 ## Available hooks
 
-::: warning Work-in-progress
-Documentation is incomplete. :::
+| Name                                          |
+| --------------------------------------------- |
+| `webpack.bail`                                |
+| `webpack.cache`                               |
+| `webpack.context`                             |
+| `webpack.devtool`                             |
+| `webpack.entry`                               |
+| `webpack.externals`                           |
+| `webpack.infrastructureLogging`               |
+| `webpack.mode`                                |
+| `webpack.module`                              |
+| `webpack.module.rules`                        |
+| `webpack.module.rules.oneOf`                  |
+| `webpack.module.rules.oneOf.{fileType}`       |
+| `webpack.name`                                |
+| `webpack.node`                                |
+| `webpack.optimization`                        |
+| `webpack.optimization.minimize`               |
+| `webpack.optimization.noEmitOnErrors`         |
+| `webpack.optimization.namedModules`           |
+| `webpack.optimization.removeAvailableModules` |
+| `webpack.optimization.runtimeChunk`           |
+| `webpack.optimization.splitChunks`            |
+| `webpack.output`                              |
+| `webpack.output.filename`                     |
+| `webpack.output.path`                         |
+| `webpack.output.publicPath`                   |
+| `webpack.stats`                               |
+| `webpack.target`                              |
+| `webpack.parallelism`                         |
+| `webpack.performance`                         |
+| `webpack.plugins`                             |
+| `webpack.plugins.{pluginName}`                |
+| `webpack.profile`                             |
+| `webpack.recordsPath`                         |
+| `webpack.resolve`                             |
+| `webpack.resolve.alias`                       |
+| `webpack.resolve.extensions`                  |
+| `webpack.resolve.modules`                     |
+| `webpack.stats`                               |
+| `webpack.target`                              |
+| `webpack.watch`                               |
 
-| Name                                          | Called from           |
-| --------------------------------------------- | --------------------- |
-| `webpack.mode`                                | `Framework.Bud.Build` |
-| `webpack.node`                                | `Framework.Bud.Build` |
-| `webpack.stats`                               | `Framework.Bud.Build` |
-| `webpack.target`                              | `Framework.Bud.Build` |
-| `webpack.watch`                               | `Framework.Bud.Build` |
-| `webpack.context`                             | `Framework.Bud.Build` |
-| `webpack.devtool`                             | `Framework.Bud.Build` |
-| `webpack.externals`                           | `Framework.Bud.Build` |
-| `webpack.optimization`                        | `Framework.Bud.Build` |
-| `webpack.optimization.minimize`               | `Framework.Bud.Build` |
-| `webpack.optimization.removeAvailableModules` | `Framework.Bud.Build` |
-| `webpack.optimization.moduleId`               | `Framework.Bud.Build` |
-| `webpack.optimization.splitChunks`            | `Framework.Bud.Build` |
-| `webpack.optimization.runtimeChunk`           | `Framework.Bud.Build` |
-| `webpack.entry`                               | `Framework.Bud.Build` |
-| `webpack.output.path`                         | `Framework.Bud.Build` |
-| `webpack.output.publicPath`                   | `Framework.Bud.Build` |
-| `webpack.output.filename`                     | `Framework.Bud.Build` |
-| `webpack.resolve.alias`                       | `Framework.Bud.Build` |
-| `webpack.resolve.extensions`                  | `Framework.Bud.Build` |
-| `webpack.resolve.modules`                     | `Framework.Bud.Build` |
-| `webpack.plugins`                             | `Framework.Bud.Build` |
-| `webpack.plugins.{plugin}`                    | `Framework.Bud.Build` |
-| `webpack.module.rules`                        | `Framework.Bud.Build` |
-| `webpack.module.rules.oneOf`                  | `Framework.Bud.Build` |
-| `webpack.module.rules.oneOf.{filetype}`       | `Framework.Bud.Build` |
-| `webpack.module.rules.pre`                    | `Framework.Bud.Build` |
-| `webpack.module.rules.post`                   | `Framework.Bud.Build` |
+## TypeScript
+
+You can specify the expected return type using a TS generic:
+
+```ts
+bud.hooks.on<string>('my.filter.key', value => `${value}!`)
+```

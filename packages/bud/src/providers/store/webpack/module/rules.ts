@@ -23,28 +23,31 @@ export const rules: BuildRules = (app: Bud) =>
       /**
        * OneOf ruleset reducer
        */
-      oneOf: app.build
-        .getEntries('rules')
-        .reduce(
-          (rules, [label, rule]) => [
-            ...rules,
-            /**
-             * @filter
-             * @name webpack.module.rules.{item}
-             */
-            app.hooks.filter(
-              `webpack.module.rules.${label}`,
-              Object.entries(app.access(rule)).reduce(
-                (rule, [prop, value]) => ({
-                  ...rule,
-                  [prop]: app.access(value),
-                }),
-                {},
+      oneOf: app.hooks.filter(
+        'webpack.module.rules.oneOf',
+        app.build
+          .getEntries('rules')
+          .reduce(
+            (rules, [label, rule]) => [
+              ...rules,
+              /**
+               * @filter
+               * @name webpack.module.rules.{item}
+               */
+              app.hooks.filter(
+                `webpack.module.rules.oneOf.${label}`,
+                Object.entries(app.access(rule)).reduce(
+                  (rule, [prop, value]) => ({
+                    ...rule,
+                    [prop]: app.access(value),
+                  }),
+                  {},
+                ),
               ),
-            ),
-          ],
-          [],
-        )
-        .filter(Boolean),
+            ],
+            [],
+          )
+          .filter(Boolean),
+      ),
     },
   ])

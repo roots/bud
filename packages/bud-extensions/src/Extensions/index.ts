@@ -64,7 +64,10 @@ export default class extends Service {
     const plugins = this.processed
       .getKeys()
       .map(name =>
-        this.get(name)?.makePlugin ? this.make(name) : null,
+        this.app.hooks.filter<Webpack.Plugin>(
+          `webpack.plugins.${name}`,
+          this.get(name)?.makePlugin ? this.make(name) : null,
+        ),
       )
       .filter(
         extension => !isNull(extension),

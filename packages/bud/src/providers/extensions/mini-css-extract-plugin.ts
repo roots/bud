@@ -1,4 +1,4 @@
-import type {Module, Item} from '@roots/bud-typings'
+import type {Module} from '@roots/bud-typings'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
 /**
@@ -21,10 +21,9 @@ export const when: Module.When = bud =>
 /**
  * Register mini-css-extract-plugin ruleset item
  */
-export const setItems: Module.Register<Item> = [
-  'minicss',
-  {
+export const boot: Module.Boot = app => {
+  app.build.set('items.minicss', {
     loader: MiniCssExtractPlugin.loader,
     options: {},
-  },
-]
+  })
+}

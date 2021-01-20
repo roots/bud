@@ -11,6 +11,7 @@ import {
   modules as resolveModules,
 } from './resolve'
 import {rules} from './module/rules'
+import * as nodeSettings from './node'
 
 import type {Bud} from '../../../Bud'
 import type {Configuration as Cfg} from 'webpack'
@@ -111,6 +112,12 @@ export const name = ({hooks, options}: Bud) =>
     `webpack.name`,
     options.get('name') ?? '@roots/bud',
   )
+
+/**
+ * Node
+ */
+export const node = ({hooks}: Bud) =>
+  hooks.filter(`webpack.node`, {...nodeSettings})
 
 /**
  * Optimization

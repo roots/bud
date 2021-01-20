@@ -2,44 +2,42 @@
 description: Generate HTML boilerplate.
 ---
 
-# bud.template
+# bud.html
 
-This function allows you to generate and/or configure boilerplate
-HTML generated for your project. This HTML includes the path to
-your built assets automatically.
+This function allows you to generate and/or configure boilerplate HTML generated for your project. This HTML includes the path to your built assets automatically.
 
 It is especially useful when building hashed assets with [`bud.hash`](config-hash.md).
 
-In the example below, we:
-
-- Specify our own template to use over the default using `template`.
-- Add additional variables using `replacements`.
-
-In addition to the variables specified in `replacements` any top level key from `package.json` and any `.env` variables are also made available to the template -- you don't need to specify anything.
-
-You can use any of these variables in the template by surrounding the variable name with `%` characters. Example: `%VARIABLE_NAME%`.
-
 ## Usage
 
+Passed with no arguments the default HTML template will be used and all variables will be sourced from `.env`.
+
 ```js
-const {name, description} = bud.fs.readJson('package.json')
+bud.html()
+```
+
+In the example below, we:
+
+- Specify our own html to use over the default using the `template` prop.
+- Add additional variables using the `replacements` prop.
+
+You can use any of these variables in the html by surrounding the variable name with `%` characters. Example: `%VARIABLE_NAME%`.
+
+```js
+const {name, description} = bud.disk.fs.readJson('package.json')
 bud.template({
   template: bud.project('public/index.html'),
   replacements: {
     APP_NAME: name,
     APP_DESCRIPTION: description,
-    PUBLIC_URL: bud.env.get('PUBLIC_URL'),
+    PUBLIC_URL: '/app/theme',
   },
 })
 ```
 
-## Reference: example .env file
+## Sourcing from .env
 
-```env
-APP_NAME=Test
-APP_DESCRIPTION="My application"
-PUBLIC_URL=http://localhost:3000
-```
+In addition to the variables specified in `replacements` any `.env` variables are also made available to the html -- you don't need to specify anything.
 
 ## Reference: the default HTML boilerplate
 
