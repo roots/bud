@@ -12,9 +12,9 @@ description: Extend Bud with your own packaged functionality.
   - [Registering loaders](#register-items-loaders)
   - [Registering rules](#register-rules)
   - [Register Webpack plugins](#register-a-webpack-plugin)
-  - [Adding config functions to `Bud`](#adding-config-functions-to-bud)
-  - [Intellisense](#intellisense)
-  - [Adding publishable templates](#adding-publishable-templates)
+- [Adding config functions to `Bud`](#adding-config-functions-to-bud)
+- [Intellisense](#intellisense)
+- [Adding publishable templates](#adding-publishable-templates)
 
 Bud extensions are collections of functions exported by a JS module. They are very simple to write and have a very unopinionated API.
 
