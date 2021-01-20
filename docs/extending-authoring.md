@@ -59,7 +59,7 @@ You can see from the extensions included in the `@roots/bud` repository that we'
 
 Extensions should begin with `bud-`. This isn't a strict requirement, but extensions which do not follow this guideline will not be able to add publishable templates and are not usable wth the `--autodiscover` flag (automatic enabling of installed extensions). This might cause confusion with users and so we ask that you name your extension accordingly.
 
-If your extension is under an npm organizational scope, that is fine. Your extension will still work with `--autodiscover` and can still publish templates provided you
+If your extension is under an npm organizational scope, that is fine. Your extension will still work with `--autodiscover` and can still publish templates provided you otherwise adhere to the `bud-` convention.
 
 ## TypeScript
 
@@ -70,6 +70,8 @@ Bud is a TypeScript project but knowing Typescript is not required to write an e
 ### Name
 
 This is used to identify your extension when it is imported or required.
+
+This is technically the only required part of a bud extension.
 
 ```ts
 export const name = 'my-bud-extension`
