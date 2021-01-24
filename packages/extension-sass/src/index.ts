@@ -30,7 +30,7 @@ export const register: Bud.Module.Register = (bud: Bud) => {
         bud.build.set('items.sass', {
           loader: require.resolve('sass-loader'),
           options: {
-            implementation: require('sass'),
+            implementation: require('node-sass'),
           },
         })
       } catch (err) {

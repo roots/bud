@@ -1,23 +1,9 @@
-import events from 'events'
-import {isFunction, isEqual, Webpack} from '@roots/bud-support'
+import {isFunction, Webpack} from '@roots/bud-support'
 import {Container} from '@roots/container'
 import {Framework, MaybeCallable} from '@roots/bud-typings'
 import {run} from './run'
 import {when} from './when'
 import {use} from './use'
-
-/**
- * This "fixes" resize emitter warnings
- * @todo actually fix this
- */
-events.EventEmitter.defaultMaxListeners = 20
-
-/**
- * This fixes issues with SWR thinking its in the browser.
- * @todo does this fix the vue extension issue?
- */
-isEqual(typeof global.navigator, 'undefined') &&
-  Object.assign(global, undefined)
 
 /**
  * Bud framework base class
