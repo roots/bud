@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-wordpress-manifests",
-  "version": "2.2.1",
+  "version": "3.0.0-alpha.0",
   "description": "Webpack tools",
   "repository": {
     "type": "git",
@@ -18,11 +18,19 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": ["webpack", "bud", "bud-extension"],
+  "keywords": [
+    "webpack",
+    "bud",
+    "bud-extension"
+  ],
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib/", "types/", "src/"],
+  "files": [
+    "lib/",
+    "types/",
+    "src/"
+  ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "exports": {
@@ -47,19 +55,19 @@
   },
   "peerDependencies": {
     "@roots/bud": "*",
-    "@roots/bud-typings": "*",
     "@roots/bud-entrypoints": "*",
+    "@roots/bud-typings": "*",
     "@roots/bud-wordpress-externals": "*",
     "@roots/merged-manifest-webpack-plugin": "*"
   },
   "devDependencies": {
-    "@roots/bud": "^2.2.1",
-    "@roots/bud-typings": "^2.2.1"
+    "@roots/bud": "^3.0.0-alpha.0",
+    "@roots/bud-typings": "^3.0.0-alpha.0"
   },
   "dependencies": {
-    "@roots/bud-wordpress-externals": "^2.2.1",
-    "@roots/bud-entrypoints": "^2.2.1",
-    "@roots/merged-manifest-webpack-plugin": "^2.2.1"
+    "@roots/bud-entrypoints": "^3.0.0-alpha.0",
+    "@roots/bud-wordpress-externals": "^3.0.0-alpha.0",
+    "@roots/merged-manifest-webpack-plugin": "^3.0.0-alpha.0"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
 }

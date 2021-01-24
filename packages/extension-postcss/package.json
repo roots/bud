@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-postcss",
-  "version": "2.2.1",
+  "version": "3.0.0-alpha.0",
   "description": "Adds postcss support to @roots/bud projects",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -19,11 +19,18 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": ["bud", "bud-extension", "postcss"],
+  "keywords": [
+    "bud",
+    "bud-extension",
+    "postcss"
+  ],
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib", "src"],
+  "files": [
+    "lib",
+    "src"
+  ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "exports": {
@@ -50,7 +57,7 @@
     "@roots/bud": "*"
   },
   "devDependencies": {
-    "@roots/bud": "2.2.1"
+    "@roots/bud": "^3.0.0-alpha.0"
   },
   "dependencies": {
     "autoprefixer": "^10.1.0",

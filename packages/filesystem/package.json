@@ -1,6 +1,6 @@
 {
   "name": "@roots/filesystem",
-  "version": "2.2.0",
+  "version": "3.0.0-alpha.0",
   "description": "Automated package installation",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -19,11 +19,18 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": ["webpack", "bud"],
+  "keywords": [
+    "webpack",
+    "bud"
+  ],
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib/", "types/", "src/"],
+  "files": [
+    "lib/",
+    "types/",
+    "src/"
+  ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "exports": {
@@ -50,7 +57,7 @@
     "@roots/container": "*"
   },
   "dependencies": {
-    "@roots/container": "^2.2.0",
+    "@roots/container": "^3.0.0-alpha.0",
     "fs-extra": "^9.0.1",
     "globby": "^11.0.1",
     "resolve-from": "^5.0.0"

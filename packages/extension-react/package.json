@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-react",
-  "version": "2.2.1",
+  "version": "3.0.0-alpha.0",
   "description": "A friendly build tool to help manage your project assets.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -19,11 +19,18 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": ["webpack", "bud", "bud-extension"],
+  "keywords": [
+    "webpack",
+    "bud",
+    "bud-extension"
+  ],
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib/", "src/"],
+  "files": [
+    "lib/",
+    "src/"
+  ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "exports": {
@@ -51,13 +58,13 @@
     "@roots/bud-babel": "*"
   },
   "devDependencies": {
-    "@roots/bud": "^2.2.1",
-    "@roots/bud-babel": "^2.2.1"
+    "@roots/bud": "^3.0.0-alpha.0",
+    "@roots/bud-babel": "^3.0.0-alpha.0"
   },
   "dependencies": {
     "@babel/preset-react": "^7.12.10",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
-    "@roots/bud-support": "^2.2.1",
+    "@roots/bud-support": "^3.0.0-alpha.0",
     "@svgr/core": "^5.5.0",
     "@svgr/webpack": "^5.5.0",
     "react": "^17.0.1",
