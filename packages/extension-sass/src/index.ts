@@ -1,4 +1,5 @@
 import {Bud} from '@roots/bud'
+import {lodash as _} from '@roots/bud-support'
 
 export const register: Bud.Module.Register = (bud: Bud) => {
   const hasSass =
@@ -24,13 +25,19 @@ export const register: Bud.Module.Register = (bud: Bud) => {
   ])
 
   bud.sequence([
-    () =>
-      bud.build.set('items.sass', {
-        loader: require.resolve('sass-loader'),
-        options: {
-          implementation: require('sass'),
-        },
-      }),
+    () => {
+      try {
+        bud.build.set('items.sass', {
+          loader: require.resolve('sass-loader'),
+          options: {
+            implementation: require('sass'),
+          },
+        })
+      } catch (err) {
+        console.error(err)
+        process.exit()
+      }
+    },
     () =>
       bud.build.set('rules.sass', {
         test: ({store}: Bud) => store.access('patterns.sass'),

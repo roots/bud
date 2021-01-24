@@ -17,7 +17,7 @@ events.EventEmitter.defaultMaxListeners = 20
  * @todo does this fix the vue extension issue?
  */
 isEqual(typeof global.navigator, 'undefined') &&
-  Object.assign(global, {})
+  Object.assign(global, undefined)
 
 /**
  * Bud framework base class
