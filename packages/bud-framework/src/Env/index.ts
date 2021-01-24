@@ -6,6 +6,8 @@ import {join} from 'path'
  * Environment variables
  */
 export default class extends Service {
+  public name = 'env'
+
   /**
    * Service register
    */

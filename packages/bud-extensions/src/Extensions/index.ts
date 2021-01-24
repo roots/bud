@@ -1,4 +1,3 @@
-import {Logger} from '@roots/bud-framework'
 import {Webpack, isNull} from '@roots/bud-support'
 import Extension from './Extension'
 import Service from './Service'
@@ -14,7 +13,12 @@ import Service from './Service'
  */
 export default class extends Service {
   /**
-   * Service register
+   * Service ident.
+   */
+  public name = 'extensions'
+
+  /**
+   * Service register.
    */
   public register(): void {
     this.boot = this.boot.bind(this)
@@ -39,7 +43,7 @@ export default class extends Service {
    * Add an extension
    */
   public add(name, extension: Extension): void {
-    this.app.logger.info({name}, 'Adding extension')
+    this.info({msg: 'Adding extension'})
 
     this.set(
       name,
@@ -73,7 +77,7 @@ export default class extends Service {
         extension => !isNull(extension),
       ) as Webpack.Plugin[]
 
-    this.service<Logger>('logger').info({
+    this.info({
       plugins,
       count: plugins?.length,
       extensionsState: this,

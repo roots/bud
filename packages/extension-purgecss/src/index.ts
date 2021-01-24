@@ -4,7 +4,7 @@ import type {Module} from '@roots/bud-typings'
 /**
  * Extension interface
  */
-export * from './interfaces'
+import './interfaces'
 
 /**
  * Extension name

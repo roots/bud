@@ -2,32 +2,45 @@ import {Container} from '@roots/container'
 import Service from '../Service'
 
 export default class extends Service {
+  public name: string = 'discover'
+
   /**
    * Service register
    */
-  public register(): void {}
+  public register(): void {
+    this.isEnabled = this.isEnabled.bind(this)
+    this.modulePath = this.modulePath.bind(this)
+    this.packages = this.packages.bind(this)
+  }
 
   /**
    * Service boot.
    */
   public boot(): void {
-    this.app.options.enabled('autodiscover') &&
+    this.info({
+      enabled: this.isEnabled(),
+    })
+
+    this.isEnabled() &&
       this.packages().every((name, pkg) => {
-        this.app.disk.make(pkg.name, {
+        this.service('disk').make(pkg.name, {
           baseDir: pkg.path,
         })
 
-        this.app.extensions.set(name, require(name))
+        this.service('extensions').set(name, require(name))
       })
   }
 
+  /**
+   * Collected packages.
+   */
   public packages(): Container<{
     name: string
     [key: string]: string | string[]
   }> {
     return this.app.makeContainer(
-      this.app.disk.glob
-        .sync([
+      this.service('disk')
+        .glob.sync([
           this.modulePath('bud-*/package.json'),
           this.modulePath('**/bud-*/package.json'),
         ])
@@ -38,11 +51,9 @@ export default class extends Service {
           const extension: {
             name: string
             [key: string]: string | string[]
-          } = this.app.disk.fs.readJSONSync(pkg)
-          this.app.logger.info(
-            {name: extension.name},
-            'Autodiscover',
-          )
+          } = this.service('disk').fs.readJSONSync(pkg)
+
+          this.info({extension})
 
           return extension.keywords?.includes('bud-extension')
             ? {
@@ -57,13 +68,23 @@ export default class extends Service {
     )
   }
 
-  protected modulePath(path) {
-    return this.app.disk.path.posix.join(
-      this.app.disk.path.resolve(
-        this.app.disk.get('project').base,
-        this.app.options.get('modules'),
+  /**
+   * module path
+   */
+  protected modulePath(path: string): string {
+    return this.service('disk').path.posix.join(
+      this.service('disk').path.resolve(
+        this.disk('project').base,
+        this.service('options').get('modules'),
       ),
       path,
     )
+  }
+
+  /**
+   * Is autodiscover enabled?
+   */
+  public isEnabled(): boolean {
+    return this.service('options').enabled('autodiscover')
   }
 }

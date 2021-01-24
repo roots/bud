@@ -48,14 +48,11 @@
   },
   "peerDependencies": {
     "@roots/bud": "*",
-    "@roots/bud-babel": "*",
-    "@roots/bud-support": "*",
-    "@roots/bud-typings": "*"
+    "@roots/bud-babel": "*"
   },
   "devDependencies": {
     "@roots/bud": "^2.2.1",
-    "@roots/bud-babel": "^2.2.1",
-    "@roots/bud-typings": "^2.2.1"
+    "@roots/bud-babel": "^2.2.1"
   },
   "dependencies": {
     "@babel/preset-react": "^7.12.10",

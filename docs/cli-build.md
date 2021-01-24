@@ -4,7 +4,7 @@ description: Compile project assets by running bud.config.js with Node.
 
 # Compiling assets
 
-Assets are compiled with the bud cli's `build` command.
+Assets are compiled with the `bud build` command.
 
 ```sh
 bud build

@@ -48,14 +48,14 @@
   },
   "peerDependencies": {
     "@roots/bud": "*",
-    "@roots/bud-typings": "*"
+    "@roots/bud-postcss": "*",
+    "@roots/bud-support": "*"
   },
   "devDependencies": {
     "@roots/bud": "^2.2.1",
-    "@roots/bud-typings": "^2.2.1"
+    "@roots/bud-postcss": "^2.2.1"
   },
   "dependencies": {
-    "@roots/bud-postcss": "^2.2.1",
     "@roots/bud-support": "^2.2.1",
     "fibers": "^5.0.0",
     "node-sass": "^4.14.1",

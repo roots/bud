@@ -21,6 +21,11 @@ declare type Cfg = Webpack.Configuration
  */
 export default class extends Service implements Build {
   /**
+   * Service ident
+   */
+  public name = 'build'
+
+  /**
    * Configuration continer
    */
   public webpack: Container<Webpack.Configuration>
@@ -66,20 +71,21 @@ export default class extends Service implements Build {
         `webpack.${configKey}`,
       )
     ) {
-      this.app.logger.warn({
+      this.warn({
         configKey,
         msg: 'Webpack prop disabled.',
       })
+
       return
     }
 
     const value = this.app.access(
-      this.service<Store>('store').get(
-        `webpack.${configKey}` as Store.Keys,
-      ),
+      this.app
+        .get<Store>('store')
+        .get(`webpack.${configKey}` as Store.Keys),
     )
 
-    this.app.logger.info({
+    this.info({
       configKey,
       value: isObject(value) ? Object.entries(value) : value,
       msg: `Webpack output`,

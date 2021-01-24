@@ -206,7 +206,7 @@ export declare interface Framework<T = any> {
    * bud.get()
    * ```
    */
-  get(): this
+  get<T = any>(service?: string): (T & Service) | (T & this)
 
   /**
    * ## bud.access
@@ -320,6 +320,27 @@ export declare interface Framework<T = any> {
    * ```
    */
   when: Framework.When<T>
+
+  /**
+   * ## bud.mode
+   *
+   * Get and set webpack compilation mode
+   */
+  mode: Webpack.Configuration['mode']
+
+  /**
+   * ## bud.isProduction
+   *
+   * True if Webpack.Configuration['mode'] is 'production'
+   */
+  readonly isProduction: boolean
+
+  /**
+   * ## bud.isDevelopment
+   *
+   * True if Webpack.Configuration['mode'] is 'development'
+   */
+  readonly isDevelopment: boolean
 }
 
 /**

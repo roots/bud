@@ -24,6 +24,9 @@ export interface Compilation {
   errors?: string[]
 }
 
+/**
+ * Use compilation
+ */
 export const useCompilation = (bud: Framework) => {
   const [stats, setStats] = useState(bud?.compiler?.stats?.json)
   const [errors, setErrors] = useState<string[]>(null)

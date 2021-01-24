@@ -1,10 +1,20 @@
 import {assignPostCss} from './api'
 import {Bud} from '@roots/bud'
 
+const defaultPresetEnv = {
+  autoprefixer: {
+    flexbox: 'no-2009',
+  },
+  features: {
+    ['custom-properties']: false,
+  },
+  stage: 3,
+}
+
 /**
  * Types
  */
-export * from './types'
+import './interfaces'
 
 /**
  * Extension name
@@ -66,18 +76,15 @@ export const boot = (app: Bud) => {
   ])
 
   // assign postcss
-  // and configure defaults
   assignPostCss(app)
-    .postcss.addPlugin('postcss-flexbugs-fixes')
+
+  // configure defaults
+  app.postcss
+    .addPlugin('postcss-flexbugs-fixes')
     .postcss.addPlugin('postcss-preset-env')
-    .postcss.setPluginOptions('postcss-preset-env', {
-      autoprefixer: {
-        flexbox: 'no-2009',
-      },
-      features: {
-        ['custom-properties']: false,
-      },
-      stage: 3,
-    })
+    .postcss.setPluginOptions(
+      'postcss-preset-env',
+      defaultPresetEnv,
+    )
     .postcss.addPlugin('postcss-nested')
 }

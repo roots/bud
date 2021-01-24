@@ -13,6 +13,11 @@ import {Framework} from '@roots/bud-typings'
  */
 export class Cache extends Service {
   /**
+   * Service ident
+   */
+  public name = 'cache'
+
+  /**
    * ## bud.cache.enabled [🏠 Internal]
    *
    * Returns boolean true if cache is enabled
@@ -27,9 +32,9 @@ export class Cache extends Service {
    */
   public enabled(): boolean {
     return (
-      this.options('get', 'buildCache') &&
+      this.service('options').get('storage') &&
       this.disk('project').exists(
-        this.options('get', 'webpack.recordsPath'),
+        this.service('options').get('webpack.recordsPath'),
       )
     )
   }
@@ -43,7 +48,7 @@ export class Cache extends Service {
     this.enabled() &&
       this.app.hooks.on('webpack.cache', (bud: Framework) =>
         this.disk('project').readJson(
-          this.options('get', 'webpack.recordsPath'),
+          this.service('options').get('webpack.recordsPath'),
         ),
       )
   }

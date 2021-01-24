@@ -10,32 +10,34 @@
 </p>
 
 <h1 align="center">
-  <strong>@roots/bud-imagemin</strong>
+  <strong>@roots/bud-library</strong>
 </h1>
 
 ## Overview
 
-Minimize image assets in @roots/bud projects.
+Fast compilation using a dynamic link library.
 
 ## Installation
 
 ```sh
-yarn add @roots/bud-imagemin --dev
+yarn add @roots/bud-library --dev
 ```
 
 ## Usage
 
+Include the extension
+
 ```js
-bud.use(['@roots/bud-imagemin'])
+bud.use(['@roots/bud-library'])
 ```
 
-## Config
+Specify the packages you would like to include in the DLL
 
-| Tool                | Description                         | Documentation                                                                                             |
-| ------------------- | ----------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| bud.imagemin        | Enable/disable image minification   | [docs/index.md](https://github.com/roots/bud/tree/stable/docs/config-imagemin.md)               |
-| bud.imageminOption  | Set imagemin option                 | [docs/config-imageminOption.md](https://github.com/roots/bud/tree/stable/docs/config-imageminOption.md)   |
-| bud.imageminPlugins | Customize imagemin plugins          | [docs/config-imageminPlugins.md](https://github.com/roots/bud/tree/stable/docs/config-imageminPlugins.md) |
+```js
+bud.library(['react', 'react-dom'])
+```
+
+The first build with a DLL will take longer to compile. Subsequent builds should be much faster.
 
 ## Contributing
 
@@ -56,3 +58,7 @@ Keep track of development and community news.
 - Read and subscribe to the [Roots Blog](https://roots.io/blog/)
 - Subscribe to the [Roots Newsletter](https://roots.io/subscribe/)
 - Listen to the [Roots Radio podcast](https://roots.io/podcast/)
+
+```
+
+```

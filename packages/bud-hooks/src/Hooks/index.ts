@@ -7,6 +7,11 @@ import {Hooks as Contract, Webpack} from '@roots/bud-typings'
 
 export class Hooks extends Service implements Contract {
   /**
+   * Service ident
+   */
+  public name = 'hooks'
+
+  /**
    * Register service
    */
   public register() {

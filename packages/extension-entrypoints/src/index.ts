@@ -1,10 +1,10 @@
-import {Extension} from './types'
+import {Extension} from './interfaces'
 import * as Entrypoints from '@roots/entrypoints-webpack-plugin'
 
 /**
  * Typings
  */
-export * from './types'
+export * from './interfaces'
 
 /**
  * Extension name
@@ -29,5 +29,3 @@ export const options: Entrypoints.Options = {
   name: 'entrypoints.json',
   writeToFileEmit: true,
 }
-
-export const when = app => app.options.enabled('entrypoints')

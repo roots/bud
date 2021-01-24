@@ -25,13 +25,8 @@
 </p>
 
 <h1 align="center">
-  <strong>Example configurations</strong>
+  <strong>Example: Sass</strong>
 </h1>
-
-- [Sass support](https://github.com/roots/bud/tree/stable/examples/sass)
-- [React single page application](https://github.com/roots/bud/tree/stable/examples/react)
-- [WordPress theme](https://github.com/roots/bud/tree/stable/examples/wordpress-theme)
-- [TypeScript app](https://github.com/roots/bud/tree/stable/examples/typescript)
 
 ## Contributing
 

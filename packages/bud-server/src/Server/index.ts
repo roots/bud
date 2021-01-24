@@ -19,6 +19,11 @@ import type {
  */
 export default class extends Service implements Server {
   /**
+   * Service ident.
+   */
+  public name = 'server'
+
+  /**
    * Application dev server instance.
    */
   public instance: Server.Instance

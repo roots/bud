@@ -2,12 +2,16 @@ import Service from '../Service'
 import {fs, globby, lodash as _} from '@roots/bud-support'
 import path from 'path'
 import {FileContainer} from '@roots/filesystem'
-import Logger from '../Logger'
 
 /**
  * Disk
  */
 export default class extends Service {
+  /**
+   * Service ident
+   */
+  public name: string = 'disk'
+
   /**
    * fs util
    *
@@ -49,11 +53,7 @@ export default class extends Service {
    * Service boot
    */
   public boot(): void {
-    const pkg = this.get('project').readJson('package.json')
-    this.app.logger.info({
-      dependencies: pkg.dependencies ?? 'none',
-      devDependencies: pkg.devDependencies ?? 'none',
-    })
+    this.info({...this.get('project').readJson('package.json')})
   }
 
   /**
@@ -76,12 +76,9 @@ export default class extends Service {
     key: string,
     options?: {baseDir?: string; glob?: string[]},
   ): FileContainer {
-    this.service<Logger>('logger').info(
-      {key, options},
-      'Making vdisk',
-    )
-
     const baseDir = options?.baseDir ?? this.baseDir
+
+    this.info({msg: 'Making disk', key, options})
 
     this.set(
       key,
@@ -93,14 +90,23 @@ export default class extends Service {
     return this.get(key)
   }
 
+  /**
+   * Get a vdisk
+   */
   public get(key: string) {
     return this.repository[key]
   }
 
+  /**
+   * Get baseDir
+   */
   public get baseDir(): string {
     return this._baseDir
   }
 
+  /**
+   * Set baseDir
+   */
   public set baseDir(baseDir: string) {
     this._baseDir = baseDir
   }

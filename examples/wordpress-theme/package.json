@@ -2,9 +2,7 @@
   "name": "bud-example-react",
   "private": true,
   "scripts": {
-    "dev": "node bud.config.js --mode development",
-    "build": "node bud.config.js --mode production",
-    "setup": "node setup.js"
+    "bud": "node ../../node_modules/.bin/bud"
   },
   "dependencies": {
     "@roots/bud": "^2.1.2",

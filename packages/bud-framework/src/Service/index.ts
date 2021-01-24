@@ -2,8 +2,8 @@ import {Container} from '@roots/container'
 import {
   FileContainer,
   Framework,
+  Logger,
   Service,
-  Options,
 } from '@roots/bud-typings'
 
 /**
@@ -11,6 +11,8 @@ import {
  */
 export default class extends Container implements Service {
   [key: string]: any
+
+  public name: string
 
   _app: () => Framework
 
@@ -37,33 +39,17 @@ export default class extends Container implements Service {
   }
 
   /**
+   * Application service
+   */
+  public service<T = any>(serviceName: string): T {
+    return this.app.get(serviceName)
+  }
+
+  /**
    * Access disk
    */
-  public disk<T = FileContainer>(diskName?: string): T {
-    return diskName ? this.app.disk.get(diskName) : this.app.disk
-  }
-
-  /**
-   * Access generic service
-   */
-  public service<T = Service | Container>(
-    serviceName?: string,
-    itemName?: string,
-  ): T {
-    return serviceName
-      ? itemName
-        ? this.app[serviceName].get(itemName)
-        : this.app[serviceName]
-      : this.app
-  }
-
-  /**
-   * Access options
-   */
-  public options(method?: string, ...params: any[]): Options {
-    return method
-      ? this.app.options[method](...params)
-      : this.app.options
+  public disk<T = FileContainer>(diskName: string): T {
+    return this.app.disk.get(diskName)
   }
 
   /**
@@ -97,5 +83,26 @@ export default class extends Container implements Service {
     }
 
     return null
+  }
+
+  /**
+   * Log info message
+   */
+  public info(obj: {[key: string]: any}) {
+    this.app.get<Logger>('logger').info(obj, this.name)
+  }
+
+  /**
+   * Log warning message
+   */
+  public warning(obj: {[key: string]: any}) {
+    this.app.get<Logger>('logger').info(obj, this.name)
+  }
+
+  /**
+   * Log error message
+   */
+  public error(obj: {[key: string]: any}) {
+    this.app.get<Logger>('logger').error(obj, this.name)
   }
 }

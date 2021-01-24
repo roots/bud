@@ -6,6 +6,8 @@ import Service from '../Service'
  * Logger service
  */
 export default class extends Service implements Logger {
+  public name = 'logger'
+
   /**
    * Pino
    */

@@ -1,7 +1,6 @@
 /**
  * Configuration API
  */
-
 import {Bud} from '@roots/bud'
 import {addPlugin} from './addPlugin'
 import {setPluginOptions} from './setPluginOptions'

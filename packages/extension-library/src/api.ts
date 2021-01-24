@@ -1,6 +1,6 @@
 import {Bud} from '@roots/bud'
 import AutoDllPlugin from 'autodll-webpack-plugin'
-import {isString} from 'lodash'
+import {lodash as _} from '@roots/bud-support'
 
 export const library: Bud.Library.Configure = function (
   modules,
@@ -13,12 +13,7 @@ export const library: Bud.Library.Configure = function (
         ? '[name].[hash].js'
         : '[name].js',
       entry: {
-        library:
-          modules ?? Array.isArray(app.options.get('library'))
-            ? app.options.get('library')
-            : isString(modules)
-            ? [modules]
-            : [],
+        library: _.isString(modules) ? [modules] : modules,
       },
       path: 'dll',
       inherit: false,

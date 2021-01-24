@@ -34,6 +34,34 @@ Extends Bud with Babel.
 bud.use('@roots/bud-babel')
 ```
 
+## Configuration
+
+Babel can either be configured using the `bud` api or with a standard babel config file.
+
+### With `bud`
+
+Add a babel preset:
+
+```js
+bud.babel.addPreset('@babel/preset-env')
+```
+
+Add a babel plugin:
+
+```js
+bud.babel.addPlugin('@babel/plugin-transform-runtime')
+```
+
+Set babel-loader options
+
+```js
+bud.babel.setOptions({root: bud.project()})
+```
+
+### With a config file
+
+Place a `.babelrc` or `babel.config.js` file in your project rootDir, as normal. This configuration file, if present, will overwrite the defaults.
+
 ## Contributing
 
 Contributions are welcome from everyone.
@@ -53,3 +81,7 @@ Keep track of development and community news.
 - Read and subscribe to the [Roots Blog](https://roots.io/blog/)
 - Subscribe to the [Roots Newsletter](https://roots.io/subscribe/)
 - Listen to the [Roots Radio podcast](https://roots.io/podcast/)
+
+```
+
+```

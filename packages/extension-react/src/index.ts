@@ -1,6 +1,7 @@
 import {Bud} from '@roots/bud'
-
 import * as ReactRefreshWebpackPlugin from './react-refresh'
+
+import './interfaces'
 
 /**
  * Extension name

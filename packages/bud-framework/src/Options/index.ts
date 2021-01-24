@@ -5,6 +5,7 @@ import {Options, Store} from '@roots/bud-typings'
  * Options
  */
 export default class extends Service implements Options {
+  public name = 'options'
   /**
    * Service registration
    */

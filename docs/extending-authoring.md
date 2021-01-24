@@ -18,46 +18,9 @@ description: Extend Bud with your own packaged functionality.
 
 Bud extensions are collections of functions exported by a JS module. They are very simple to write and have a very unopinionated API.
 
-In fact, while they were designed around a modular API you're very much free to wrtie your extension as a JS object or use class syntax if that's more comfortable.
-
-In the end, it doesn't really matter as long as when Bud imports the default object there are units of functionality which can be destructured from it.
-
-That is to say, from Bud's perspective, these are all equivalent:
-
-```js
-/**
- * Exports an object as default
- */
-
-export default = {
-  boot: bud => {
-    // ...
-  },
-  register: bud => {
-    // ...
-  },
-}
-```
-
-```js
-/**
- * Treats the module as the containing object.
- */
-
-export boot = bud => {
-  // ...
-}
-
-export register = bud => {
-  // ...
-}
-```
-
-You can see from the extensions included in the `@roots/bud` repository that we're fans of the second option. This is also the syntax used in this guide. But, ultimately, you should do what pleases you.
-
 ## Naming your extension
 
-Extensions should begin with `bud-`. This isn't a strict requirement, but extensions which do not follow this guideline will not be able to add publishable templates and are not usable wth the `--autodiscover` flag (automatic enabling of installed extensions). This might cause confusion with users and so we ask that you name your extension accordingly.
+Extension package names should begin with `bud-`. This isn't a strict requirement, but extensions which do not follow this guideline will not be able to add publishable templates and are not usable wth the `--autodiscover` flag (automatic enabling of installed extensions). This might cause confusion with users and so we ask that you name your extension accordingly.
 
 If your extension is under an npm organizational scope, that is fine. Your extension will still work with `--autodiscover` and can still publish templates provided you otherwise adhere to the `bud-` convention.
 
@@ -71,10 +34,10 @@ Bud is a TypeScript project but knowing Typescript is not required to write an e
 
 This is used to identify your extension when it is imported or required.
 
-This is technically the only required part of a bud extension.
+This is technically the only required element of a bud extension.
 
 ```ts
-export const name = 'my-bud-extension`
+export const name = 'my-bud-extension'
 ```
 
 ### Register
@@ -117,9 +80,16 @@ export const register = ({build}) => {
     loader: require.resolve('some-loader'),
   })
 }
+
+// Typed
+export const register: Bud.Module.Register = ({build}: Bud) => {
+  build.set('items.some-loader', {
+    loader: require.resolve('some-loader'),
+  })
+}
 ```
 
-### Register rules
+### Registering Webpack rules
 
 Register a Webpack RuleSetRule use entry. The only real requirement to be aware of here is with `use`. It should always be defined as an array, even if there is only one loader being applied.
 
@@ -133,13 +103,17 @@ export const register = ({build}) => {
 }
 ```
 
-### Register a webpack plugin
+### Registering a webpack plugin
 
-There are three functions/properties used to define a Webpack plugin:
+There are three functions used to define a Webpack plugin
 
-- make &mdash; returns the instantiated plugin
-- options &mdash; either a function or plain object of plugin options.
-- when &mdash; Function returning a `boolean`. If `true` the plugin is used. Plugin is skipped if `false`.
+| Fn      | Description                                                                      |
+| ------- | -------------------------------------------------------------------------------- |
+| make    | Returns the instantiated plugin                                                  |
+| options | Returns the plugin options                                                       |
+| when    | Return a `boolean` representing if the plugin should be used during compilation. |
+
+It is also acceptable to pass a plain object to any of these properties (instead of a function).
 
 #### Make
 
@@ -168,7 +142,7 @@ export const register = ({extensions}) => {
 
 #### Options
 
-And, if there are options to pass which might be configurable, we can use `options`:
+If there are parts of the plugin which are configurable, we can use `options` instead of passing them directly to the constructor:
 
 ```ts
 export const register = ({extensions}) => {
@@ -181,7 +155,7 @@ export const register = ({extensions}) => {
 }
 ```
 
-Options will be passed to `make` as a [`bud.container`](components-container.md), which is also reflected above. Note that `options` will also be passed to `when` (as the second param, since far more frequently it is some store value which will wind up controlling whether the function is disabled/enabled). This is also reflected above, but not really used by the `when` function.
+Options will be passed to `make` as a [`bud.container`](components-container.md). Note that `options` will also be passed to `when` (as the second param, since far more frequently it is some store value which will wind up controlling whether the function is disabled/enabled). This is also reflected above, but not really used by the `when` function.
 
 You can also define the plugin handlers outside of `register` or `boot` by simply exporting them. Below is the code used by the `mini-css-extract-plugin` used in Bud core:
 
@@ -223,10 +197,9 @@ You can see that there is also a `boot` method included above. Plugins are reall
 
 Either export an object called `api` or include an `api` extension object containing the functions you wish to surface.
 
-The syntactic scope of this function is bound to `bud`.
+The syntactic scope of this function is bound to the `bud` object.
 
 ```ts
-// as part of a module
 export const api = {
   myFunction: function (param) {
     this.options.set('foo', param)
@@ -235,14 +208,12 @@ export const api = {
   },
 }
 
-// or, as a prop on your default export
-export default {
-  api: {
-    myFunction: function (param) {
-      this.options.set('foo', param)
+// typed
+export const api: Bud.Module.Api = {
+  myFunction: function (this: Bud, param: any): Bud {
+    this.options.set('foo', param)
 
-      return this
-    },
+    return this
   },
 }
 ```
@@ -259,17 +230,20 @@ declare module '@roots/bud' {
     /**
      * ## bud.library  [💁 Fluent]
      *
-     * Enables DLL (dynamic link library) caching of specified modules.
+     * Enables DLL (dynamic link library) caching
+     * of specified modules.
      *
      * ### Usage
      *
-     * Supply `bud.library` the module you would like to add to the DLL.
+     * Supply `bud.library` the module you
+     * would like to add to the DLL.
      *
      * ```js
      * bud.library('jquery')
      * ```
      *
-     * Multiple modules can be added at once by passing an array
+     * Multiple modules can be added at once by
+     * passing an array.
      *
      * ```js
      * bud.library(['react', 'react-dom'])
@@ -284,7 +258,7 @@ declare module '@roots/bud' {
 }
 ````
 
-Be sure to apply the type to the object it defines and you're set.
+Lastly, be sure to apply the type to the object it defines and you're set.
 
 ```ts
 import {Bud} from '@roots/bud'

@@ -24,8 +24,9 @@ bud.use([
 /**
  * Replace bundled React with WP react in production
  */
-bud.options.is('mode', 'production') &&
-  require('@roots/bud-wordpress-manifests')
+bud.when(bud.isProduction, () =>
+  bud.use([require('@roots/bud-wordpress-manifests')]),
+)
 
 /**
  * Enable proxying

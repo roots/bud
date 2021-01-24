@@ -1,6 +1,5 @@
 import events from 'events'
-import Base from './Base'
-import {isFunction, isEqual} from '@roots/bud-support'
+import {isFunction, isEqual, Webpack} from '@roots/bud-support'
 import {Container} from '@roots/container'
 import {Framework, MaybeCallable} from '@roots/bud-typings'
 import {run} from './run'
@@ -23,9 +22,67 @@ isEqual(typeof global.navigator, 'undefined') &&
 /**
  * Bud framework base class
  */
-export default abstract class<T = any>
-  extends Base
-  implements Framework<T> {
+export default abstract class<T = any> implements Framework<T> {
+  /**
+   * Name
+   */
+  public name = '@roots/bud'
+
+  /**
+   * API
+   */
+  public api: Framework.Index<any>
+
+  /**
+   * Build
+   */
+  public build: Framework.Build
+
+  /**
+   * Cache
+   */
+  public cache: Framework.Cache
+
+  /**
+   * CLI
+   */
+  public cli: Framework.CLI
+
+  /**
+   * Compiler
+   */
+  public compiler: Framework.Compiler
+
+  /**
+   * Disk
+   */
+  public disk: Framework.Disk
+
+  /**
+   * Env
+   */
+  public env: Framework.Env
+
+  /**
+   * Extensions
+   */
+  public extensions: Framework.Extensions
+
+  /**
+   * Hooks
+   */
+  public hooks: Framework.Hooks
+
+  /**
+   * Logger
+   */
+  public logger: Framework.Logger
+
+  /**
+   * Options
+   */
+  public options: Framework.Options
+
   /**
    * Providers
    */
@@ -35,6 +92,11 @@ export default abstract class<T = any>
    * Services
    */
   public services: Framework.Container
+
+  /**
+   * Server
+   */
+  public server: Framework.Server
 
   /**
    * Store
@@ -53,11 +115,7 @@ export default abstract class<T = any>
     providers: Framework.Providers.Definition
     api: Framework.Index<any>
   }) {
-    super()
-
-    /**
-     * Bindings
-     */
+    // Bindings
     this.access = this.access.bind(this)
     this.boot = this.boot.bind(this)
     this.bootstrap = this.bootstrap.bind(this)
@@ -120,8 +178,10 @@ export default abstract class<T = any>
   /**
    * Get framework.
    */
-  public get(): this {
-    return this
+  public get<T = any>(
+    service?: string,
+  ): (T & Framework.Service) | (T & this) {
+    return service ? this[service] : this
   }
 
   /**
@@ -248,5 +308,32 @@ export default abstract class<T = any>
     )
 
     options?.onInit && options?.onInit.bind(this)()
+  }
+
+  /**
+   * Mode
+   */
+  public get mode(): Webpack.Configuration['mode'] {
+    return this.options.get('mode')
+  }
+  public set mode(mode: Webpack.Configuration['mode']) {
+    this.options.set('mode', mode)
+  }
+
+  /**
+   * ## bud.isProduction
+   *
+   * True if Webpack.Configuration['mode'] is 'production'
+   */
+  public get isProduction(): boolean {
+    return this.options.is('mode', 'production')
+  }
+  /**
+   * ## bud.isDevelopment
+   *
+   * True if Webpack.Configuration['mode'] is 'development'
+   */
+  public get isDevelopment(): boolean {
+    return this.options.is('mode', 'development')
   }
 }

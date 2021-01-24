@@ -45,10 +45,12 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "peerDependencies": {
+    "@roots/bud": "*",
     "@roots/bud-support": "*",
     "@roots/bud-typings": "*"
   },
   "devDependencies": {
+    "@roots/bud": "*",
     "@roots/bud-typings": "^2.2.1"
   },
   "dependencies": {

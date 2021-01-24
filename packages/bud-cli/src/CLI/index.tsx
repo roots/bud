@@ -9,6 +9,11 @@ import {Dashboard} from '../containers/Dashboard'
  */
 export class CLI extends Service {
   /**
+   * Service ident
+   */
+  public name = 'cli'
+
+  /**
    * Register service
    */
   public register(): void {
@@ -22,7 +27,7 @@ export class CLI extends Service {
   public run(): void {
     if (this.app.store.get('args.ci')) return
 
-    this.app.logger.info({}, 'Beginning CLI execution')
+    this.info({msg: 'Beginning CLI execution'})
 
     this.dashboard = render(
       <Dashboard bud={this.app as Framework} />,
