@@ -167,7 +167,8 @@ export class Plugin {
     type: string,
     entry: string,
   ): void {
-    this.output[name][type].push(entry)
+    this.output[name][type] &&
+      this.output[name][type].push(entry)
   }
 }
 

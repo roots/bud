@@ -15,7 +15,7 @@
 
 ## Overview
 
-When `@roots/bud-entrypoints` and `@roots/bud-wordpress-externals` are used together it is necessary to refer to multiple manifests in order to handle assets. This extension provides both extensions and merges their manifest outputs.
+When `@roots/bud-entrypoints` and `@roots/bud-wordpress-externals` are used together it is necessary to refer to multiple manifests in order to handle assets. This extension merges their manifest outputs.
 
 ## Installation
 
@@ -25,8 +25,19 @@ yarn add @roots/bud-wordpress-manifests --dev
 
 ## Usage
 
+Include both the entrypoints extension and wordpress externals extension:
+
 ```js
-bud.use(['@roots/bud-wordpress-manifests'])
+bud.use([
+  require('@roots/bud-entrypoints'),
+  require('@roots/bud-wordpress-externals'),
+])
+```
+
+Register the manifests plugin:
+
+```js
+bud.use(require('@roots/bud-wordpress-manifests'))
 ```
 
 ## Configuration
