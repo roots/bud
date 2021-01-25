@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-purgecss",
-  "version": "3.0.3-alpha.0",
+  "version": "3.0.4-alpha.0",
   "description": "Adds purgecss support to Bud",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -65,10 +65,10 @@
     "purgecss-with-wordpress": "^2.3.0"
   },
   "devDependencies": {
-    "@roots/bud": "^3.0.3-alpha.0",
-    "@roots/bud-extensions": "^3.0.3-alpha.0",
-    "@roots/bud-postcss": "^3.0.3-alpha.0",
-    "@roots/bud-typings": "^3.0.3-alpha.0"
+    "@roots/bud": "^3.0.4-alpha.0",
+    "@roots/bud-extensions": "^3.0.4-alpha.0",
+    "@roots/bud-postcss": "^3.0.4-alpha.0",
+    "@roots/bud-typings": "^3.0.4-alpha.0"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
 }
