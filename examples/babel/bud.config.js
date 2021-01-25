@@ -1,8 +1,5 @@
-/**
- * Add to the top of your config for better intellisense.
- */
 // @ts-check
-const {bud} = require('@roots/bud')
+const {bud} = require('./../../packages/bud')
 
 /**
  * This is specific for the Bud monorepo only.
@@ -17,4 +14,5 @@ bud.hooks.on('webpack.resolve.modules', modules => {
 bud
   .use([require('@roots/bud-babel')])
   .entry('create-bud-app', ['app.js', 'global.css'])
-  .run()
+
+bud.run()

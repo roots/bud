@@ -20,6 +20,7 @@ export * as Brotli from './brotli/typings'
 export * as Gzip from './gzip/typings'
 
 export const extensions: Framework.Index<Framework.Module> = {
+  [`webpack-provide-plugin`]: provide,
   [`clean-webpack-plugin`]: cleanWebpack,
   [`compression-webpack-plugin-gzip`]: gzip,
   [`compression-webpack-plugin-brotli`]: brotli,
@@ -33,6 +34,5 @@ export const extensions: Framework.Index<Framework.Module> = {
   [`interpolate-html-plugin`]: interpolateHtml,
   [`webpack-manifest-plugin`]: manifest,
   [`mini-css-extract-plugin`]: MiniCssExtractPlugin,
-  [`webpack-provide-plugin`]: provide,
   [`write-file-webpack-plugin`]: writeFile,
 }

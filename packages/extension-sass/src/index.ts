@@ -2,22 +2,6 @@ import {Bud} from '@roots/bud'
 import {lodash as _} from '@roots/bud-support'
 
 export const register: Bud.Module.Register = (bud: Bud) => {
-  const hasSass =
-    bud.disk.glob.sync(
-      ['*.scss', '*.sass', '**/*.scss', '**/*.sass'],
-      {
-        cwd: bud.disk.path.join(
-          bud.disk.get('project').base,
-          bud.options.get('src'),
-        ),
-      },
-    ).length > 0
-
-  if (!hasSass) {
-    bud.logger.warn({hasSass, msg: 'No sass found, skipping.'})
-    return
-  }
-
   bud.hooks.on('webpack.resolve.extensions', exts => [
     ...exts,
     '.sass',
@@ -25,13 +9,10 @@ export const register: Bud.Module.Register = (bud: Bud) => {
   ])
 
   bud.sequence([
-    () => {
+    (bud: Bud) => {
       try {
         bud.build.set('items.sass', {
           loader: require.resolve('sass-loader'),
-          options: {
-            implementation: require('node-sass'),
-          },
         })
       } catch (err) {
         console.error(err)

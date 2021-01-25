@@ -1,1 +1,3 @@
 import './test'
+
+console.log($)

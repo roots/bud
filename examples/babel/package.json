@@ -1,11 +1,13 @@
 {
   "name": "bud-example-react",
   "scripts": {
-    "dev": "node bud.config.js --mode development",
-    "build": "node bud.config.js --mode production"
+    "bud": "node ../../node_modules/.bin/bud"
   },
   "devDependencies": {
     "@roots/bud": "^2.1.2",
     "@roots/bud-babel": "^2.1.2"
+  },
+  "dependencies": {
+    "jquery": "^3.5.1"
   }
 }

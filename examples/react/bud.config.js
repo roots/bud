@@ -1,5 +1,5 @@
 // @ts-check
-const {bud} = require('@roots/bud')
+const {bud} = require('./../../packages/bud')
 
 /**
  * This is specific for the Bud monorepo only.
@@ -17,9 +17,8 @@ bud.use([
   require('@roots/bud-postcss'),
 ])
 
-bud
-  .html({
-    template: 'public/index.html',
-  })
-  .entry('create-app', ['app.js', 'app.css'])
-  .run()
+bud.html({
+  template: 'public/index.html',
+})
+
+bud.entry('create-app', ['app.js', 'app.css']).run()

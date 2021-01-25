@@ -1,9 +1,32 @@
-export {alias} from './alias'
+/**
+ * Copy
+ */
+import './copy'
 export {copy} from './copy'
+
+/**
+ * Src
+ */
+import './src'
+export {src} from './src'
+
+/**
+ * Dist
+ */
+import './dist'
+export {dist} from './dist'
+
+/**
+ * Alias
+ */
+export {alias} from './alias'
+
+/**
+ * Define
+ */
 export {define} from './define'
 export {dev} from './dev'
 export {devtool} from './devtool'
-export {dist} from './dist'
 export {distPath} from './distPath'
 export {entry} from './entry'
 export {externals} from './externals'
@@ -12,13 +35,21 @@ export {hash} from './hash'
 export {minify} from './minify'
 export {project} from './project'
 export {projectPath} from './projectPath'
+
+/**
+ * Provide
+ */
+import './provide'
 export {provide} from './provide'
+
+/**
+ * Proxy
+ */
 export {proxy} from './proxy'
 export {publicPath} from './publicPath'
 export {runtime} from './runtime'
 export {storage} from './storage'
 export {string} from './string'
-export {src} from './src'
 export {srcPath} from './srcPath'
 export {html} from './html'
 export {vendor} from './vendor'

@@ -24,25 +24,6 @@ export namespace Api {
     enable: boolean,
   ) => T
 
-  export type Copy<T = Framework> = (
-    this: T,
-    options: Copy.Options,
-  ) => T
-
-  export namespace Copy {
-    export interface Options {
-      from: string
-      to: string
-      context: string
-      options: {
-        noErrorOnMissing: boolean
-        globOptions: {
-          ignore: string
-        }
-      }
-    }
-  }
-
   export type Define<T = any> = (
     this: Framework<T>,
     values: Framework.Index<any>,
@@ -112,13 +93,6 @@ export namespace Api {
   export type ProjectPath<T = Framework> = (
     this: T,
     dir: string,
-  ) => T
-
-  export type Provide<T = Framework> = (
-    this: T,
-    options: {
-      [key: string]: string | string[]
-    },
   ) => T
 
   export type Project<T = Framework> = (

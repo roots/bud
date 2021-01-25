@@ -1,3 +1,4 @@
+import '@roots/bud-api'
 import {Framework as Base, Discovery} from '@roots/bud-framework'
 import type {
   Api,
@@ -48,24 +49,6 @@ import type {Brotli, Gzip} from '../providers/extensions'
  */
 class Bud extends Base<Bud> implements Contract {
   /**
-   * ## bud.alias  [💁 Fluent]
-   *
-   * Register shorthand for resolving modules
-   * using webpack aliases. Useful for
-   * situations that may otherwise require
-   * brittle relative paths. [🔗 Documentation](#)
-   *
-   * ### Usage
-   *
-   * ```js
-   * bud.alias({
-   *   '@scripts': bud.src('scripts'),
-   * })
-   * ```
-   */
-  public alias: Api.Alias<this>
-
-  /**
    * ## bud.brotli  [💁 Fluent]
    *
    * Compress static assets with brotli compression.
@@ -103,42 +86,6 @@ class Bud extends Base<Bud> implements Contract {
    * ```
    */
   public brotli: Brotli.Config
-
-  /**
-   * ## bud.copy  [💁 Fluent]
-   *
-   * Copy static assets to your output directory.
-   *
-   * You may specify a path to a specific file or
-   * use glob syntax to match many files at once. [🔗 Documentation](#)
-   *
-   * ### Usage
-   *
-   * **Copy all files from `src/images`**
-   *
-   * ```js
-   * bud.copy({from: 'images/*'})
-   * ```
-   *
-   * **Copy all files from a path outside of `bud.src`**
-   *
-   * ```js
-   * bud.copy({
-   *   from: 'images/*',
-   *   context: bud.project('assets')
-   * })
-   * ```
-   *
-   * **Copy all files to a path outside of `bud.dist`**
-   *
-   * ```js
-   * bud.copy({
-   *   from: 'images/*',
-   *   to: '/app/cdn/media'
-   * })
-   * ```
-   */
-  public copy: Api.Copy<this>
 
   /**
    * ## bud.define  [💁 Fluent]
@@ -205,31 +152,6 @@ class Bud extends Base<Bud> implements Contract {
    * ```
    */
   public devtool: Api.Devtool<this>
-
-  /**
-   * ## bud.dist  [💁 Fluent]
-   *
-   * With no arguments, this function returns the path where built assets will
-   * be written.
-   *
-   * Optionally, **bud.dist** may be passed a path relative to the project dist
-   * directory. In this case it will return the path as an abspath. [🔗 Documentation](#)
-   *
-   * ### Usage
-   *
-   * Absolute path to the dist directory:
-   *
-   * ```js
-   * bud.dist()
-   * ```
-   *
-   * Absolute path to `scripts/app.js` in the dist directory:
-   *
-   * ```js
-   * bud.dist('scripts/app.js')
-   *  ```
-   */
-  public dist: Api.Dist<this>
 
   /**
    * ## bud.distPath [💁 Fluent]
@@ -381,22 +303,6 @@ class Bud extends Base<Bud> implements Contract {
   public projectPath: Api.ProjectPath<this>
 
   /**
-   * ## bud.provide  [💁 Fluent]
-   *
-   * Makes a variable/module available throughout the entire
-   * application without needing to import it explicitly. [🔗 Documentation](#)
-   *
-   * ### Usage
-   *
-   * ```js
-   * bud.provide({
-   *   jquery: '$',
-   * })
-   * ```
-   */
-  public provide: Api.Provide<this>
-
-  /**
    * ## bud.proxy  [💁 Fluent]
    *
    * Set proxy settings for the development server.
@@ -460,24 +366,6 @@ class Bud extends Base<Bud> implements Contract {
    * ```
    */
   public storage: Api.Storage<this>
-
-  /**
-   * ## bud.src  [💁 Fluent]
-   *
-   * With no arguments, this function returns the project's src path.
-   * Optionally, **bud.src** may be passed a path relative to the project src
-   * directory. In this case it returns the absolute path of whatever it was
-   * passed.
-   *
-   * Root path used by this function is set by [bud.srcPath](#). [🔗 Documentation](#)
-   *
-   * ### Usage
-   *
-   * ```js
-   * bud.src('scripts/app.js')
-   * ```
-   */
-  public src: Api.Src<this>
 
   /**
    * ## bud.srcPath [💁 Fluent]
