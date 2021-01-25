@@ -84,9 +84,14 @@ function entrypoint($name, $type, $entrypoint) {
  * Enqueue hook.
  */
 $enqueue = function () {
+  // Filter HMR entries
+  $filterHot = function($entry) {
+    return !strpos($entry->uri, 'hot-update');
+  };
+
   // Enqueue scripts
-  $js = function ($item) {
-    $item->js->each(function ($entry) {
+  $js = function ($item) use ($filterHot) {
+    $item->js->filter($filterHot)->each(function ($entry) {
       wp_enqueue_script(...[
         $entry->name,
         $entry->uri,
@@ -98,8 +103,8 @@ $enqueue = function () {
   };
 
   // Enqueue styles
-  $css = function ($item) {
-    $item->css->each(function ($entry) {
+  $css = function ($item) use ($filterHot) {
+    $item->css->filter($filterHot)->each(function ($entry) {
       wp_enqueue_style(...[
         $entry->name,
         $entry->uri,

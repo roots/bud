@@ -14,7 +14,7 @@ bud.hooks.on('webpack.resolve.modules', modules => {
 /**
  * Set public path
  */
-bud.publicPath(bud.env.get('APP_PUBLIC_PATH'))
+bud.publicPath(bud.env.get('APP_PUBLIC'))
 
 /**
  * Required extensions
