@@ -19,6 +19,7 @@ export const when = bud => {
     bud.disk
       .get('project')
       .read('style.css')
-      .includes('Theme name:')
+      .toLowerCase()
+      .includes('theme name:')
   )
 }
