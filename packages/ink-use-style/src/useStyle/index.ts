@@ -16,6 +16,12 @@ export const useStyle: UseStyle = (
   const {data: theme} = useSwr('theme', {
     initialData,
     revalidateOnFocus: false,
+    isOnline() {
+      return true
+    },
+    isDocumentVisible() {
+      return true
+    },
   })
 
   /**

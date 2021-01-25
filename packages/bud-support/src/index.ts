@@ -1,4 +1,9 @@
 /**
+ * Patch globals
+ */
+import './patch'
+
+/**
  * Application dev util
  */
 import * as build from './build'

@@ -14,4 +14,4 @@ global.navigator = {}
  * This "fixes" resize emitter warnings
  * @todo actually fix this
  */
-require('events').EventEmitter.defaultMaxListeners = 20
+require('events').defaultMaxListeners = 20
