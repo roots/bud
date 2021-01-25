@@ -1,5 +1,5 @@
 // @ts-check
-const {bud} = require('@roots/bud')
+const {bud} = require('../../packages/bud')
 
 /**
  * This is specific for the Bud monorepo only.
@@ -12,6 +12,11 @@ bud.hooks.on('webpack.resolve.modules', modules => {
 })
 
 /**
+ * Set public path
+ */
+bud.publicPath(bud.env.get('APP_PUBLIC_PATH'))
+
+/**
  * Required extensions
  */
 bud.use([
@@ -19,14 +24,9 @@ bud.use([
   require('@roots/bud-react'),
   require('@roots/bud-postcss'),
   require('@roots/bud-entrypoints'),
+  require('@roots/bud-wordpress-externals'),
+  require('@roots/bud-wordpress-manifests'),
 ])
-
-/**
- * Replace bundled React with WP react in production
- */
-bud.when(bud.isProduction, () =>
-  bud.use([require('@roots/bud-wordpress-manifests')]),
-)
 
 /**
  * Enable proxying

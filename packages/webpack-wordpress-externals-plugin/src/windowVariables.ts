@@ -3,10 +3,6 @@ export const windowVariables = {
     window: 'lodash',
     enqueue: 'lodash',
   },
-  'lodash-es': {
-    window: 'lodash',
-    enqueue: 'lodash',
-  },
   jquery: {
     window: 'jQuery',
     enqueue: 'jquery',

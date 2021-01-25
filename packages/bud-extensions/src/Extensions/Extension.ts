@@ -31,9 +31,6 @@ export default class extends Service {
 
     this.has('api') && this.setApp(this.access('api'))
 
-    this.registerExtension()
-    this.setBuilders()
-
     return this
   }
 
@@ -104,7 +101,7 @@ export default class extends Service {
   /**
    * ## extension.setBuilders
    */
-  protected setBuilders(): void {
+  public setBuilders(): this {
     const builders = ['loaders', 'items', 'rules']
 
     const registerFn = (str: string) =>
@@ -147,6 +144,8 @@ export default class extends Service {
 
         return null
       })
+
+    return this
   }
 }
 

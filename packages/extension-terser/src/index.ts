@@ -12,7 +12,8 @@ export * as api from './api'
 
 // Extension boot
 export const boot: Bud.Module.Boot = bud => {
-  bud.options.enabled('minify') &&
-    bud.options.is('mode', 'production') &&
-    bud.use(['terser-webpack-plugin', terserWebpackPlugin])
+  bud.extensions.add(
+    'terser-webpack-plugin',
+    terserWebpackPlugin,
+  )
 }

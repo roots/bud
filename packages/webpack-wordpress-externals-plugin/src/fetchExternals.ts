@@ -1,6 +1,6 @@
 import fetch from 'node-fetch'
-import {windowVariables} from './windowVariables'
 import {WordPressExternals} from './interfaces'
+import {windowVariables} from './windowVariables'
 
 /** Gutenberg repo package.json @ master */
 const GUTENBERG_PACKAGE_JSON =

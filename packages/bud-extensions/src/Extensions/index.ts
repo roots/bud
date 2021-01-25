@@ -47,8 +47,12 @@ export default class extends Service {
 
     this.set(
       name,
-      new Extension(this.app.get, extension).register().boot(),
+      new Extension(this.app.get, extension)
+        .register()
+        .setBuilders()
+        .boot(),
     )
+
     this.processed.set(name, true)
   }
 
@@ -73,9 +77,7 @@ export default class extends Service {
           this.get(name)?.makePlugin ? this.make(name) : null,
         ),
       )
-      .filter(
-        extension => !isNull(extension),
-      ) as Webpack.Plugin[]
+      .filter(ext => !isNull(ext)) as Webpack.Plugin[]
 
     this.info({
       plugins,

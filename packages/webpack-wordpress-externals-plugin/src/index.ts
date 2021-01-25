@@ -40,7 +40,7 @@ export class Plugin {
     this.output.name = this.options.name
 
     this.externalsPlugin = new ExternalsPlugin(
-      'wp',
+      'this',
       externalsPlugin.bind(this),
     )
 
