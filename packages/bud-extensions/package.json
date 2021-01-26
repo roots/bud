@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-extensions",
   "description": "Bud extensions controller",
-  "version": "3.0.12-alpha.0",
+  "version": "3.0.13-alpha.0",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -60,12 +60,12 @@
     "@roots/container": "*"
   },
   "dependencies": {
-    "@roots/bud-framework": "^3.0.12-alpha.0",
-    "@roots/bud-support": "^3.0.12-alpha.0",
-    "@roots/container": "^3.0.12-alpha.0"
+    "@roots/bud-framework": "^3.0.13-alpha.0",
+    "@roots/bud-support": "^3.0.13-alpha.0",
+    "@roots/container": "^3.0.13-alpha.0"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^3.0.12-alpha.0"
+    "@roots/bud-typings": "^3.0.13-alpha.0"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
 }

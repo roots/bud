@@ -1,6 +1,6 @@
 {
   "name": "@roots/sage",
-  "version": "3.0.12-alpha.0",
+  "version": "3.0.13-alpha.0",
   "description": "Sage starter theme build tooling",
   "repository": {
     "type": "git",
@@ -52,22 +52,36 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "peerDependencies": {
-    "@roots/bud": "*"
+    "@roots/bud": "*",
+    "@roots/bud-babel": "*",
+    "@roots/bud-entrypoints": "*",
+    "@roots/bud-eslint": "*",
+    "@roots/bud-imagemin": "*",
+    "@roots/bud-postcss": "*",
+    "@roots/bud-purgecss": "*",
+    "@roots/bud-react": "*",
+    "@roots/bud-sass": "*",
+    "@roots/bud-stylelint": "*",
+    "@roots/bud-terser": "*",
+    "@roots/bud-wordpress-dependencies": "*",
+    "@roots/bud-wordpress-externals": "*",
+    "@roots/bud-wordpress-manifests": "*"
   },
   "dependencies": {
-    "@roots/bud": "^3.0.12-alpha.0",
-    "@roots/bud-babel": "^3.0.12-alpha.0",
-    "@roots/bud-entrypoints": "^3.0.12-alpha.0",
-    "@roots/bud-eslint": "^3.0.12-alpha.0",
-    "@roots/bud-imagemin": "^3.0.12-alpha.0",
-    "@roots/bud-postcss": "^3.0.12-alpha.0",
-    "@roots/bud-purgecss": "^3.0.12-alpha.0",
-    "@roots/bud-react": "^3.0.12-alpha.0",
-    "@roots/bud-sass": "^3.0.12-alpha.0",
-    "@roots/bud-stylelint": "^3.0.12-alpha.0",
-    "@roots/bud-terser": "^3.0.12-alpha.0",
-    "@roots/bud-wordpress-externals": "^3.0.12-alpha.0",
-    "@roots/bud-wordpress-manifests": "^3.0.12-alpha.0"
+    "@roots/bud": "^3.0.13-alpha.0",
+    "@roots/bud-babel": "^3.0.13-alpha.0",
+    "@roots/bud-entrypoints": "^3.0.13-alpha.0",
+    "@roots/bud-eslint": "^3.0.13-alpha.0",
+    "@roots/bud-imagemin": "^3.0.13-alpha.0",
+    "@roots/bud-postcss": "^3.0.13-alpha.0",
+    "@roots/bud-purgecss": "^3.0.13-alpha.0",
+    "@roots/bud-react": "^3.0.13-alpha.0",
+    "@roots/bud-sass": "^3.0.13-alpha.0",
+    "@roots/bud-stylelint": "^3.0.13-alpha.0",
+    "@roots/bud-terser": "^3.0.13-alpha.0",
+    "@roots/bud-wordpress-dependencies": "^3.0.13-alpha.0",
+    "@roots/bud-wordpress-externals": "^3.0.13-alpha.0",
+    "@roots/bud-wordpress-manifests": "^3.0.13-alpha.0"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
 }
