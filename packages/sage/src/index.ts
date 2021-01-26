@@ -40,7 +40,7 @@ sage
     sage.proxy({host: sage.env.get('APP_PROXY_HOST')}),
   )
   .when(sage.env.has('APP_PROXY_PORT'), () =>
-    sage.proxy({host: sage.env.get('APP_PROXY_PORT')}),
+    sage.proxy({port: sage.env.get('APP_PROXY_PORT')}),
   )
 
 /**
