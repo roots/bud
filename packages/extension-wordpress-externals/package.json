@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-wordpress-externals",
-  "version": "3.0.11-alpha.0",
+  "version": "3.0.12-alpha.0",
   "description": "Webpack tools",
   "repository": {
     "type": "git",
@@ -18,11 +18,19 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": ["webpack", "bud", "bud-extension"],
+  "keywords": [
+    "webpack",
+    "bud",
+    "bud-extension"
+  ],
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib/", "types/", "src/"],
+  "files": [
+    "lib/",
+    "types/",
+    "src/"
+  ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "exports": {
@@ -51,11 +59,11 @@
     "@roots/wordpress-externals-webpack-plugin": "*"
   },
   "dependencies": {
-    "@roots/bud-support": "^3.0.11-alpha.0",
-    "@roots/wordpress-externals-webpack-plugin": "^3.0.11-alpha.0"
+    "@roots/bud-support": "^3.0.12-alpha.0",
+    "@roots/wordpress-externals-webpack-plugin": "^3.0.12-alpha.0"
   },
   "devDependencies": {
-    "@roots/bud": "^3.0.11-alpha.0"
+    "@roots/bud": "^3.0.12-alpha.0"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
 }
