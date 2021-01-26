@@ -51,14 +51,17 @@
       "packages/extension-terser",
       "packages/extension-typescript",
       "packages/extension-vue",
-      "packages/extension-wordpress-manifests",
+      "packages/extension-wordpress-dependencies",
       "packages/extension-wordpress-externals",
+      "packages/extension-wordpress-manifests",
       "packages/filesystem",
       "packages/ink-prettier",
       "packages/ink-use-style",
+      "packages/sage",
       "packages/typings",
       "packages/webpack-entrypoints-plugin",
       "packages/webpack-merged-manifest-plugin",
+      "packages/webpack-wordpress-dependencies-plugin",
       "packages/webpack-wordpress-externals-plugin"
     ]
   },

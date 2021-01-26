@@ -47,26 +47,19 @@
     {"@roots/bud-typescript": "extension-typescript"},
     {"@roots/bud-typings": "typings"},
     {"@roots/bud-vue": "extension-vue"},
-    {
-      "@roots/bud-wordpress-externals": "extension-wordpress-externals"
-    },
-    {
-      "@roots/bud-wordpress-manifests": "extension-wordpress-manifests"
-    },
+    {"@roots/bud-wordpress-externals": "extension-wordpress-externals"},
+    {"@roots/bud-wordpress-dependencies": "extension-wordpress-dependencies"},
+    {"@roots/bud-wordpress-manifests": "extension-wordpress-manifests"},
     {"@roots/container": "container"},
     {"@roots/dependencies": "dependencies"},
     {"@roots/filesystem": "filesystem"},
     {"@roots/ink-use-style": "ink-use-style"},
     {"@roots/ink-prettier": "ink-prettier"},
-    {
-      "@roots/entrypoints-webpack-plugin": "webpack-entrypoints-plugin"
-    },
-    {
-      "@roots/merged-manifest-webpack-plugin": "webpack-merged-manifest-plugin"
-    },
-    {
-      "@roots/wordpress-externals-webpack-plugin": "webpack-wordpress-externals-plugin"
-    }
+    {"@roots/entrypoints-webpack-plugin": "webpack-entrypoints-plugin"},
+    {"@roots/merged-manifest-webpack-plugin":"webpack-merged-manifest-plugin"},
+    {"@roots/sage": "sage"},
+    {"@roots/wordpress-externals-webpack-plugin": "webpack-wordpress-externals-plugin"},
+    {"@roots/wordpress-dependencies-webpack-plugin": "webpack-wordpress-dependencies-plugin"}
   ],
   "include": ["./packages/*/src"]
 }

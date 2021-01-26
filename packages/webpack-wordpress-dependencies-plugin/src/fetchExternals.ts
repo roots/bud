@@ -1,4 +1,3 @@
-import {WordPressExternals} from './interfaces'
 import {windowVariables} from './windowVariables'
 import {packages} from './packages'
 /**
@@ -46,7 +45,7 @@ const pkgNameReducer: WordPressExternals.Package.Reduce = (
  * Transform module names.
  */
 const enqueueName: WordPressExternals.Package.Name.Transform = name =>
-  name.replace(/^@wordpress\/(.*)$/, (m, g) => `wp-${g}`)
+  name.replace(/^@wordpress\/(.*)$/, (m, g) => `${g}`)
 
 /**
  * Transform module names.

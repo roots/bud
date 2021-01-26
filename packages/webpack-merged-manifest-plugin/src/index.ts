@@ -82,7 +82,6 @@ class MergedManifestWebpackPlugin {
     if (!this.isBuildable()) {
       console.error('is not buildable')
       process.exit()
-      return callback
     }
 
     /**

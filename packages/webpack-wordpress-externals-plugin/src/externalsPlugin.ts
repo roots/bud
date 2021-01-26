@@ -9,7 +9,7 @@ const externalsPlugin: ExternalsFunctionElement = async (
   request: any,
   callback: ExternalsFunctionCallback,
 ) => {
-  const externals = await fetchExternals()
+  const externals = fetchExternals()
 
   if (externals[request]) {
     return callback(null, {

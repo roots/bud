@@ -1,4 +1,4 @@
-export namespace WordPressExternals {
+declare namespace WordPressExternals {
   export type Output = {
     dir: string
     name: string
@@ -12,27 +12,6 @@ export namespace WordPressExternals {
   }
 
   export type Content = EntrySchema | EntrySchema[] | null
-
-  /**
-   * Plugin options
-   */
-  export type Options = {
-    /**
-     * Name of outputted file.
-     */
-    name: string
-
-    /**
-     * Should manifest be written to disk.
-     */
-    writeToFileEmit: boolean
-
-    /**
-     * Transform requests for 'react' and 'react-dom'
-     * to '@wordpress/element'
-     */
-    useElementAsReact: boolean
-  }
 
   export interface Hash {
     [key: string]: any

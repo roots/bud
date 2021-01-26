@@ -1,27 +1,26 @@
 {
-  "name": "@roots/bud-wordpress-externals",
+  "name": "@roots/sage",
   "version": "3.0.11-alpha.0",
-  "description": "Webpack tools",
+  "description": "Sage starter theme build tooling",
   "repository": {
     "type": "git",
-    "url": "https://github.com/roots/bud.git",
-    "directory": "packages/extension-wordpress-externals"
+    "url": "git://github.com/roots/bud.git",
+    "directory": "packages/sage"
   },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
-  "funding": {
-    "type": "github sponsors",
-    "url": "https://github.com/sponsors/roots"
-  },
-  "license": "MIT",
-  "contributors": [
-    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
-  ],
-  "keywords": ["webpack", "bud", "bud-extension"],
+  "keywords": ["bud", "sage"],
   "engines": {
     "node": ">=12"
   },
+  "license": "MIT",
   "files": ["lib/", "types/", "src/"],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -29,7 +28,7 @@
     "require": "./lib/cjs/index.js",
     "import": "./lib/esm/index.js"
   },
-  "types": "./lib/types/index.d.ts",
+  "types": "./types/index.d.ts",
   "scripts": {
     "build": "run-s build:*",
     "build:cjs": "tsc --build tsconfig.json",
@@ -46,16 +45,22 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "peerDependencies": {
-    "@roots/bud": "*",
-    "@roots/bud-support": "*",
-    "@roots/wordpress-externals-webpack-plugin": "*"
+    "@roots/bud": "*"
   },
   "dependencies": {
-    "@roots/bud-support": "^3.0.11-alpha.0",
-    "@roots/wordpress-externals-webpack-plugin": "^3.0.11-alpha.0"
-  },
-  "devDependencies": {
-    "@roots/bud": "^3.0.11-alpha.0"
+    "@roots/bud": "^3.0.11-alpha.0",
+    "@roots/bud-babel": "^3.0.11-alpha.0",
+    "@roots/bud-entrypoints": "^3.0.11-alpha.0",
+    "@roots/bud-eslint": "^3.0.11-alpha.0",
+    "@roots/bud-imagemin": "^3.0.11-alpha.0",
+    "@roots/bud-postcss": "^3.0.11-alpha.0",
+    "@roots/bud-purgecss": "^3.0.11-alpha.0",
+    "@roots/bud-react": "^3.0.11-alpha.0",
+    "@roots/bud-sass": "^3.0.11-alpha.0",
+    "@roots/bud-stylelint": "^3.0.11-alpha.0",
+    "@roots/bud-terser": "^3.0.11-alpha.0",
+    "@roots/bud-wordpress-externals": "^3.0.11-alpha.0",
+    "@roots/bud-wordpress-manifests": "^3.0.11-alpha.0"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
 }

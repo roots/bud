@@ -1,6 +1,8 @@
 import {Bud} from '@roots/bud'
 import {lodash as _} from '@roots/bud-support'
 
+export const name = '@roots/bud-sass'
+
 export const register: Bud.Module.Register = (bud: Bud) => {
   bud.hooks.on('webpack.resolve.extensions', exts => [
     ...exts,
