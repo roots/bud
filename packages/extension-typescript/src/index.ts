@@ -31,7 +31,7 @@ export const boot = ({
   const hasTs =
     disk.glob.sync(['*.ts', '*.tsx', '**/*.ts', '**/*.tsx'], {
       cwd: disk.path.join(
-        disk.get('project').base,
+        disk.get('project').baseDir,
         options.get('src'),
       ),
     }).length > 0

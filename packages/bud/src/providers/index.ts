@@ -1,4 +1,4 @@
-import {resolve} from 'path'
+import path from 'path'
 
 import {
   Env,
@@ -38,8 +38,14 @@ export declare interface Providers {
  * Default disks
  */
 const disks = {
-  ['@roots']: {baseDir: resolve(__dirname, './../../../')},
-  ['project']: {baseDir: process.cwd()},
+  ['@roots']: {
+    baseDir: path.resolve(process.cwd(), 'node_modules/@roots'),
+    glob: ['**/*', '*', '!**/node_modules', '*.map'],
+  },
+  ['project']: {
+    baseDir: process.cwd(),
+    glob: ['**/*', '*', '!vendor', '!node_modules'],
+  },
 }
 
 /**

@@ -58,15 +58,13 @@ export class FileSystem extends Container<FileContainer> {
     key: string,
     options?: {baseDir?: string; glob?: string[]},
   ): FileContainer {
-    const baseDir = this.baseDir
+    const baseDir = options?.baseDir ?? this.baseDir
 
     this.set(
       key,
-      new FileContainer(baseDir).setDisk([
-        ...(options?.glob ?? ['*', '**/*']).map(globStr =>
-          this.path.resolve(baseDir, globStr),
-        ), // disk base (default to cwd)
-      ]),
+      new FileContainer(baseDir).setDisk(
+        options?.glob ?? ['*', '**/*'],
+      ),
     )
 
     return this.get(key)

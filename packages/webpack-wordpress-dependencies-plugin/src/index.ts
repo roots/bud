@@ -1,13 +1,12 @@
 import './interfaces'
 
-import fetchExternals from './fetchExternals'
-
+import path from 'path'
 import {RawSource} from 'webpack-sources'
 import Webpack, {ExternalsPlugin} from 'webpack'
-import path from 'path'
+import {wpPkgs} from '@roots/bud-support'
 
 export class Plugin {
-  public name = 'WordPressExternalsWebpackPlugin'
+  public name = 'WordPressDependenciesWebpackPlugin'
 
   public stage = Infinity
 
@@ -62,19 +61,19 @@ export class Plugin {
     compilation: Webpack.compilation.Compilation,
     callback: () => void,
   ): Promise<void> {
-    const externals = fetchExternals()
-
     compilation.entrypoints.forEach(entry => {
       entry.chunks.forEach(chunk => {
         this.output.content[entry.name] = Array.from(
           chunk.modulesIterable,
-        ).reduce(
-          (acc: any, module: any) =>
-            externals[module.userRequest]
-              ? [...acc, externals[module.userRequest].enqueue]
-              : acc,
-          [],
-        )
+        ).reduce((acc: any, module: any) => {
+          return module?.userRequest &&
+            wpPkgs.isProvided(module.userRequest)
+            ? [
+                ...acc,
+                wpPkgs.transform(module.userRequest).enqueue,
+              ]
+            : acc
+        }, [])
       })
     })
 

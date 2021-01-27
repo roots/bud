@@ -3,6 +3,7 @@ import * as fs from 'fs-extra'
 import globby from 'globby'
 import resolveFrom from 'resolve-from'
 import _ from 'lodash'
+import {Container} from '@roots/container'
 
 /**
  * FileContainer
@@ -15,11 +16,11 @@ import _ from 'lodash'
  * [📦 @roots/filesystem](https://www.npmjs.com/package/@roots/filesystem)
  * [🔗 Documentation](#)
  */
-export class FileContainer {
+export class FileContainer extends Container {
   /**
    * FS-Extra library
    */
-  public fs: typeof fs
+  public fs: typeof fs = fs
 
   /**
    * Globby library.
@@ -32,11 +33,6 @@ export class FileContainer {
   public path: PlatformPath = path
 
   /**
-   * Virtual filesystem repository
-   */
-  public repository: {[key: string]: string}
-
-  /**
    * resolveFrom (better resolve)
    */
   public from: typeof resolveFrom = resolveFrom
@@ -44,21 +40,16 @@ export class FileContainer {
   /**
    * Base directory
    */
-  public base: string = process.cwd()
+  public _baseDir: string = process.cwd()
 
   /**
    * Class constructor.
    */
   constructor(baseDir?: string) {
-    this.fs = fs
+    super()
 
-    this.setBase = this.setBase.bind(this)
-    this.exists = this.exists.bind(this)
+    this._baseDir = baseDir
     this.setDisk = this.setDisk.bind(this)
-
-    if (baseDir) {
-      this.setBase(baseDir)
-    }
   }
 
   /**
@@ -72,8 +63,8 @@ export class FileContainer {
    * fsInstance.setBase(__dirname)
    * ```
    */
-  public setBase = function (dir: string): void {
-    this.base = dir
+  public set baseDir(dir: string) {
+    this._baseDir = dir
   }
 
   /**
@@ -87,8 +78,8 @@ export class FileContainer {
    * fsInstance.getBase()
    * ```
    */
-  public getBase = function (): string {
-    return this.base
+  public get baseDir(): string {
+    return this._baseDir
   }
 
   /**
@@ -103,25 +94,14 @@ export class FileContainer {
    * ```
    */
   public setDisk = function (glob: string[]): void {
-    const files = this.glob.sync(glob, {
-      onlyFiles: false,
-      expandDirectories: true,
-    })
-
-    this.repository = files.reduce(
-      (acc: FileContainer['repository'], curr: any) => ({
-        ...acc,
-        [curr.replace(`${this.base}`, '')]: curr,
-      }),
-      {},
-    )
-
-    Object.getOwnPropertyNames(this)
-      .filter(name => name !== 'repository')
-      .map(name => {
-        Object.defineProperty(this, name, {
-          enumerable: false,
-        })
+    this.glob
+      .sync(glob ?? ['*', '**/*', '!vendor', '!node_modules'], {
+        onlyFiles: false,
+        cwd: this._baseDir,
+        expandDirectories: true,
+      })
+      .map((file: any) => {
+        this.set(file, path.join(this.baseDir, file))
       })
 
     return this
@@ -140,21 +120,6 @@ export class FileContainer {
   }
 
   /**
-   * ## get
-   *
-   * Get the path of a matching key
-   *
-   * ### Usage
-   *
-   * ```js
-   * fsInstance.get('some/file.js')
-   * ```
-   */
-  public get = function (key: string): any {
-    return this.repository[key]
-  }
-
-  /**
    * ## has
    *
    * Return boolean `true` if key is a match.
@@ -166,7 +131,7 @@ export class FileContainer {
    * ```
    */
   public has = function (key: string): boolean {
-    return this.repository[key]
+    return _.has(this.repository, key)
   }
 
   /**
@@ -180,8 +145,10 @@ export class FileContainer {
    * fsInstance.set('some/file.js', '/absolute/path/to/some/file.js')
    * ```
    */
-  public set = function (key: string, value: string): void {
-    this.repository[key] = value
+  public set(key: string, value: any): this {
+    _.set(this.repository, [`${key}`], value)
+
+    return this
   }
 
   /**
@@ -215,7 +182,7 @@ export class FileContainer {
   public ensure = function (key: string): void {
     const file = this.has(key)
       ? this.get(key)
-      : this.path.resolve(this.base, key)
+      : this.path.resolve(this.baseDir, key)
 
     this.fs.ensureFileSync(file)
     this.set(key, file)
@@ -236,7 +203,7 @@ export class FileContainer {
   public ensureDir = function (key: string): void {
     const dir = this.has(key)
       ? this.get(key)
-      : this.path.resolve(this.base, key)
+      : this.path.resolve(this.baseDir, key)
 
     this.fs.ensureDirSync(dir)
 
@@ -290,7 +257,7 @@ export class FileContainer {
   public write = function (key: string, content: string): void {
     const file = this.has(key)
       ? this.get(key)
-      : this.path.resolve(this.base, key)
+      : this.path.resolve(this.baseDir, key)
 
     this.fs.writeFileSync(file, content)
 
@@ -317,7 +284,7 @@ export class FileContainer {
   ): void {
     const file = this.has(key)
       ? this.get(key)
-      : this.path.resolve(this.base, key)
+      : this.path.resolve(this.baseDir, key)
 
     this.fs.writeJsonSync(file, content)
     this.set(key, file)

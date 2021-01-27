@@ -16,20 +16,4 @@ declare namespace WordPressExternals {
   export interface Hash {
     [key: string]: any
   }
-
-  export namespace Package {
-    export type Fetch = (useElementAsReact?: boolean) => Hash
-
-    export type Transform = (hash: Hash) => Hash
-
-    export type Reduce = (
-      accumulated: Hash,
-      current: string,
-    ) => Hash
-
-    export namespace Name {
-      export type Transform = (name: string) => string
-      export type Test = (name: string) => boolean
-    }
-  }
 }

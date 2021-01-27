@@ -22,6 +22,7 @@ export {Service} from './Service'
 export {eslintFormatter} from './util'
 export {notify} from './util/notify'
 export {maybeAppend} from './util/maybeAppend'
+export * as wpPkgs from './util/wordpressPkgs'
 
 /**
  * Webpack

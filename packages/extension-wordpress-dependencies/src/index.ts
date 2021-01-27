@@ -7,14 +7,3 @@ export const name =
 
 // @roots/wordpress-externals-webpack-plugin
 export const make: Bud.Module.Make<Plugin> = () => new Plugin()
-
-export const when = bud => {
-  return (
-    bud.disk.get('project').has('style.css') &&
-    bud.disk
-      .get('project')
-      .read('style.css')
-      .toLowerCase()
-      .includes('theme name:')
-  )
-}

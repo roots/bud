@@ -1,4 +1,4 @@
-import externalsPlugin from './externalsPlugin'
+import {externals} from './externals'
 
 import Webpack, {ExternalsPlugin} from 'webpack'
 
@@ -8,19 +8,19 @@ export class Plugin {
 
   public stage = Infinity
 
-  public externalsPlugin: ExternalsPlugin
+  public externals: ExternalsPlugin
 
   /**
    * Class constructor
    */
   constructor() {
-    this.externalsPlugin = new ExternalsPlugin(
+    this.externals = new ExternalsPlugin(
       'this',
-      externalsPlugin.bind(this),
+      externals.bind(this),
     )
   }
 
   apply(compiler: Webpack.Compiler): void {
-    this.externalsPlugin.apply(compiler)
+    this.externals.apply(compiler)
   }
 }

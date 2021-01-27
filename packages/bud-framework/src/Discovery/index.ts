@@ -74,7 +74,7 @@ export default class extends Service {
   protected modulePath(path: string): string {
     return this.service('disk').path.posix.join(
       this.service('disk').path.resolve(
-        this.disk('project').base,
+        this.disk('project').baseDir,
         this.service('options').get('modules'),
       ),
       path,

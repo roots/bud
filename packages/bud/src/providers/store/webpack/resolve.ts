@@ -10,6 +10,7 @@ export const extensions = (app: Bud) =>
       '.wasm',
       '.mjs',
       '.js',
+      '.css',
       '.json',
     ])
     .filter(

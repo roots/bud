@@ -16,19 +16,15 @@
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
-  "keywords": [
-    "bud",
-    "sage"
-  ],
+  "keywords": ["bud", "sage"],
   "engines": {
     "node": ">=12"
   },
   "license": "MIT",
-  "files": [
-    "lib/",
-    "types/",
-    "src/"
-  ],
+  "files": ["lib/", "types/", "src/", "bin/"],
+  "bin": {
+    "sage": "bin/sage.js"
+  },
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "exports": {

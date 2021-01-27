@@ -11,7 +11,7 @@ export const boot = app => {
   const usesVue = app =>
     app.disk.glob.sync(['*.vue', '**/*.vue'], {
       cwd: app.disk.path.join(
-        app.disk.get('project').base,
+        app.disk.get('project').baseDir,
         app.options.get('src'),
       ),
     }).length > 0

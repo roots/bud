@@ -182,13 +182,6 @@ class Bud extends Base<Bud> implements Contract {
    * ```js
    * bud.entry('app', ['app.js', 'app.css'])
    * ```
-   *
-   * ```js
-   * bud.config.set('entry', {
-   *   app: ['app.js', 'app.css'],
-   *   another: ['another.js'],
-   * })
-   * ```
    */
   public entry: Api.Entry<this>
 

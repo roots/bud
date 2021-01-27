@@ -43,8 +43,13 @@ export default class extends Service {
 
     this.every((name, disk) => {
       this.make(name, {
-        baseDir: disk.baseDir ?? process.cwd(),
-        glob: disk.glob ?? ['*'],
+        baseDir: disk.baseDir ?? this.baseDir,
+        glob: disk.glob ?? [
+          '**/*',
+          '*',
+          '!vendor',
+          '!node_modules',
+        ],
       })
     })
   }
@@ -76,25 +81,23 @@ export default class extends Service {
     key: string,
     options?: {baseDir?: string; glob?: string[]},
   ): FileContainer {
-    const baseDir = options?.baseDir ?? this.baseDir
-
     this.info({msg: 'Making disk', key, options})
 
     this.set(
       key,
-      new FileContainer(baseDir).setDisk(
-        options?.glob ?? ['*', '**/*'],
+      new FileContainer(
+        options?.baseDir ?? this.baseDir,
+      ).setDisk(
+        options?.glob ?? [
+          '**/*',
+          '*',
+          '!vendor',
+          '!node_modules',
+        ],
       ),
     )
 
     return this.get(key)
-  }
-
-  /**
-   * Get a vdisk
-   */
-  public get(key: string) {
-    return this.repository[key]
   }
 
   /**

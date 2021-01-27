@@ -28,7 +28,7 @@ export const boot = (app: Bud) => {
   const hasCss =
     app.disk.glob.sync(['*.css', '**/*.css'], {
       cwd: app.disk.path.join(
-        app.disk.get('project').base,
+        app.disk.get('project').baseDir,
         app.options.get('src'),
       ),
     }).length > 0
