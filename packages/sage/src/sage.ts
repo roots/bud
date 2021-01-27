@@ -71,13 +71,28 @@ sage
      * entrypoints.json
      */
     entrypoints,
+
+    /**
+     * dependencies
+     */
+    dependencies,
+
+    /**
+     * externals
+     */
+    externals,
+
+    /**
+     * merge wordpress.json with entrypoints.json
+     */
+    manifests,
   ])
 
   /**
    * Production extensions
    */
   .when(sage.isProduction, () => {
-    sage.use([dependencies, externals, manifests, terser])
+    sage.use([terser])
     sage.minify()
     sage.hash()
     sage.vendor()

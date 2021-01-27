@@ -12,20 +12,23 @@ export const name = '@roots/bud-react'
  * Extension register
  */
 export const boot = (app: Bud) => {
-  app.hooks.on('webpack.entry', entry =>
-    Object.entries(entry).reduce(
-      (a, [name, assets]: [string, string[]]) => ({
-        ...a,
-        [name]: [...assets, 'react-refresh/runtime'],
-      }),
-      {},
-    ),
-  )
+  app.babel.addPreset('@babel/preset-react')
 
-  app.babel
-    .addPreset('@babel/preset-react')
-    .extensions.add(
-      '@pmmmwh/react-refresh-webpack-plugin',
-      ReactRefreshWebpackPlugin,
-    )
+  app.store.enabled('args.react-refresh') &&
+    (() => {
+      app.extensions.add(
+        '@pmmmwh/react-refresh-webpack-plugin',
+        ReactRefreshWebpackPlugin,
+      )
+
+      app.hooks.on('webpack.entry', entry =>
+        Object.entries(entry).reduce(
+          (a, [name, assets]: [string, string[]]) => ({
+            ...a,
+            [name]: [...assets, 'react-refresh/runtime'],
+          }),
+          {},
+        ),
+      )
+    })
 }
