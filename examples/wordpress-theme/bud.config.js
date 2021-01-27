@@ -23,21 +23,9 @@ bud.use([
   require('@roots/bud-babel'),
   require('@roots/bud-react'),
   require('@roots/bud-postcss'),
-  /**
-   * Creates entrypoints.json for easier enqueues.
-   */
   require('@roots/bud-entrypoints'),
-  /**
-   * Utilizes window variables for wordpress packages
-   */
   require('@roots/bud-wordpress-externals'),
-  /**
-   * Adds consumed externals to wordpress.json manifest.
-   */
   require('@roots/bud-wordpress-dependencies'),
-  /**
-   * Merges entrypoints.json and wordpress.json
-   */
   require('@roots/bud-wordpress-manifests'),
 ])
 
@@ -49,7 +37,8 @@ bud.proxy()
 /**
  * Set entrypoints
  */
-bud.entry('create-bud-wp-app', ['app.js', 'app.css'])
+bud.entry('bud-app', ['app.js', 'app.css'])
+bud.entry('bud-editor', ['editor.js'])
 
 /**
  * Run build.

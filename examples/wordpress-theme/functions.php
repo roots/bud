@@ -33,102 +33,165 @@ function partial(string $partial): void {
     require_once $templateFile;
 }
 
+
 /**
  * Get manifest.
  *
- * @return {Collection} entrypoint manifest
+ * @return {Collection}
  */
-function getManifest () {
-  return Collection::make(
-    json_decode(
-      file_get_contents(
-        get_theme_file_path('dist/entrypoints.json')
-      )
-    )
-  );
+function getManifest(): Collection {
+    $path = realpath(get_theme_file_path('dist/entrypoints.json'));
+    if (!$path) {
+        throw new \WP_Error('Run yarn build');
+    }
+
+    return Collection::make(
+        json_decode(
+            file_get_contents(
+                get_theme_file_path('dist/entrypoints.json')
+            )
+        )
+    );
 };
 
 /**
- * formatItem
+ * Do entrypoint.
+ *
+ * @param  {string} name
+ * @param  {string} type
+ * @param  {object} entrypoint
+ *
+ * @return {Collection}
  */
-function entrypoint($name, $type, $entrypoint) {
-  $entrypoint->modules = Collection::make($entrypoint->$type);
+function entrypoint(
+    string $name,
+    string $type,
+    Object $entrypoint
+): Collection {
+    $entrypoint->modules = Collection::make(
+        $entrypoint->$type
+    );
 
-  $hasDependencies = $type == 'js' &&
-    property_exists($entrypoint, 'dependencies');
+    $hasDependencies = $type == 'js' &&
+        property_exists($entrypoint, 'dependencies');
 
-  $entrypoint->dependencies = Collection::make(
-    $hasDependencies
-      ? $entrypoint->dependencies
-      : [],
-  );
+    $entrypoint->dependencies = Collection::make(
+        $hasDependencies
+            ? $entrypoint->dependencies
+            : [],
+    );
 
-  return $entrypoint->modules->map(
-    function ($module, $index) use ($type, $name, $entrypoint) {
-      $name = "{$type}.{$name}.{$index}";
+    return $entrypoint->modules->map(
+        function ($module, $index)
+            use ($type, $name, $entrypoint) {
+            $name = "{$type}.{$name}.{$index}";
 
-      $dependencies = $entrypoint->dependencies->all();
+            $dependencies = $entrypoint->dependencies->all();
 
-      $entrypoint->dependencies->push($name);
+            $entrypoint->dependencies->push($name);
 
-      return (object) [
-        'name' => $name,
-        'uri' => $module,
-        'deps' => $dependencies,
-      ];
-    }
-  );
+            return (object) [
+                'name' => $name,
+                'uri' => $module,
+                'deps' => $dependencies,
+            ];
+        }
+    );
 }
 
 /**
- * Enqueue hook.
+ * Enqueue all assets from a bundle key.
+ *
+ * @param  {string} bundleName
+ * @return void
  */
-$enqueue = function () {
-  // Filter HMR entries
-  $filterHot = function($entry) {
-    return !strpos($entry->uri, 'hot-update');
-  };
+function bundle (string $bundleName): void {
+    /**
+     * Filter specified bundle
+     */
+    $filterBundle = function ($_a, $key) use ($bundleName) {
+        return $key === $bundleName;
+    };
 
-  // Enqueue scripts
-  $js = function ($item) use ($filterHot) {
-    $item->js->filter($filterHot)->each(function ($entry) {
-      wp_enqueue_script(...[
-        $entry->name,
-        $entry->uri,
-        $entry->deps,
-        null,
-        true,
-      ]);
-    });
-  };
+    /**
+     * Prepare entrypoints
+     */
+    $prepEntry = function ($item, $name): object {
+        return (object) [
+            'js' => entrypoint($name, 'js', $item),
+            'css' => entrypoint($name, 'css', $item)
+        ];
+    };
 
-  // Enqueue styles
-  $css = function ($item) use ($filterHot) {
-    $item->css->filter($filterHot)->each(function ($entry) {
-      wp_enqueue_style(...[
-        $entry->name,
-        $entry->uri,
-        $entry->deps,
-        null,
-      ]);
-    });
-  };
+    /**
+     * Filter out HMR assets
+     */
+    $filterHot = function ($entry): bool {
+        return !strpos($entry->uri, 'hot-update');
+    };
 
-  // Prepare manifest entries for enqueue
-  $prep = function ($item, $name) {
-    return (object) [
-      'js' => entrypoint($name, 'js', $item),
-      'css' => entrypoint($name, 'css', $item)
-    ];
-  };
 
-  return getManifest()
-    ->map($prep)
-    ->each($js)
-    ->each($css);
+    /**
+     * Manifest source
+     */
+    getManifest()
+
+        /**
+         * Filter for requested bundle
+         */
+        ->filter($filterBundle)
+
+        /**
+         * Prepare entrypoints
+         */
+        ->map($prepEntry)
+
+        /**
+         * Enqueue scripts
+         */
+        ->each(function ($entrypoint)
+            use ($filterHot): void {
+            $entrypoint
+                ->js
+                ->filter($filterHot)
+                ->each(function ($entry) {
+                    wp_enqueue_script(...[
+                        $entry->name,
+                        $entry->uri,
+                        $entry->deps,
+                        null,
+                        true,
+                    ]);
+                });
+
+            $entrypoint
+                ->css
+                ->filter($filterHot)
+                ->each(function ($entry) {
+                    wp_enqueue_style(...[
+                        $entry->name,
+                        $entry->uri,
+                        $entry->deps,
+                        null,
+                    ]);
+                });
+        });
 };
 
 /**
- * Enqueue assets.
+ * Register the theme assets.
+ *
+ * @return void
  */
-add_action('wp_enqueue_scripts', $enqueue);
+add_action('wp_enqueue_scripts', function () {
+    bundle('bud-app');
+}, 100);
+
+/**
+ * Register the theme assets with the block editor.
+ *
+ * @return void
+ */
+add_action('enqueue_block_editor_assets', function () {
+   bundle('bud-editor');
+}, 100);

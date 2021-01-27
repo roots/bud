@@ -1,19 +1,14 @@
-import {wpPkgs} from '@roots/bud-support'
 import {
   ExternalsFunctionElement,
   ExternalsFunctionCallback,
 } from 'webpack'
+import {wpPkgs} from '@roots/bud-support'
 
-const externals: ExternalsFunctionElement = async (
+export const externals: ExternalsFunctionElement = async (
   _context: any,
   request: any,
   callback: ExternalsFunctionCallback,
-) => {
-  if (wpPkgs.isProvided(request)) {
-    return callback(null, wpPkgs.transform(request).window)
-  }
-
-  return callback()
-}
-
-export {externals}
+) =>
+  wpPkgs.isProvided(request)
+    ? callback(null, wpPkgs.transform(request).window)
+    : callback()

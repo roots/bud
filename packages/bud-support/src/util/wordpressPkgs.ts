@@ -34,7 +34,7 @@ const transformPkgName = pkg =>
  * Is pkg string a wordpress window var match
  */
 export const isProvided: (pkg: string) => boolean = pkg =>
-  pkg.includes('@wordpress/') ||
+  pkg.startsWith('@wordpress/') ||
   ['jquery', 'react', 'react-dom', 'lodash'].includes(pkg)
 
 /**
@@ -64,10 +64,7 @@ export const transform = (pkg: Pkgs) => {
       }
     default:
       return {
-        window: join(
-          ['wp', camelize(transformPkgName(pkg))],
-          '.',
-        ),
+        window: ['wp', camelize(transformPkgName(pkg))],
         enqueue: join(['wp', transformPkgName(pkg)], '-'),
       }
   }

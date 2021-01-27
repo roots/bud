@@ -14,21 +14,18 @@ export const name = '@roots/bud-react'
 export const boot = (app: Bud) => {
   app.babel.addPreset('@babel/preset-react')
 
-  app.store.enabled('args.react-refresh') &&
-    (() => {
-      app.extensions.add(
-        '@pmmmwh/react-refresh-webpack-plugin',
-        ReactRefreshWebpackPlugin,
-      )
+  app.extensions.add(
+    '@pmmmwh/react-refresh-webpack-plugin',
+    ReactRefreshWebpackPlugin,
+  )
 
-      app.hooks.on('webpack.entry', entry =>
-        Object.entries(entry).reduce(
-          (a, [name, assets]: [string, string[]]) => ({
-            ...a,
-            [name]: [...assets, 'react-refresh/runtime'],
-          }),
-          {},
-        ),
-      )
-    })
+  app.hooks.on('webpack.entry', entry =>
+    Object.entries(entry).reduce(
+      (a, [name, assets]: [string, string[]]) => ({
+        ...a,
+        [name]: [...assets, 'react-refresh/runtime'],
+      }),
+      {},
+    ),
+  )
 }
