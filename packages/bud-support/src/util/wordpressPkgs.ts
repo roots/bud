@@ -44,22 +44,22 @@ export const transform = (pkg: Pkgs) => {
   switch (pkg) {
     case 'jquery':
       return {
-        window: 'jQuery',
+        window: join(['jQuery'], '.'),
         enqueue: 'jquery',
       }
     case 'lodash':
       return {
-        window: 'lodash',
+        window: join(['lodash'], '.'),
         enqueue: 'lodash',
       }
     case 'react':
       return {
-        window: 'React',
+        window: join(['React'], '.'),
         enqueue: 'react',
       }
     case 'react-dom':
       return {
-        window: 'ReactDOM',
+        window: join(['ReactDOM'], '.'),
         enqueue: 'react-dom',
       }
     default:

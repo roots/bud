@@ -10,9 +10,7 @@ const externals: ExternalsFunctionElement = async (
   callback: ExternalsFunctionCallback,
 ) => {
   if (wpPkgs.isProvided(request)) {
-    return callback(null, {
-      this: wpPkgs.transform(request).window,
-    })
+    return callback(null, wpPkgs.transform(request).window)
   }
 
   return callback()
