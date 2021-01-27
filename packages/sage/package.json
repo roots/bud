@@ -1,6 +1,6 @@
 {
   "name": "@roots/sage",
-  "version": "3.0.13-alpha.0",
+  "version": "3.0.14-alpha.0",
   "description": "Sage starter theme build tooling",
   "repository": {
     "type": "git",
@@ -16,12 +16,20 @@
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
-  "keywords": ["bud", "sage"],
+  "keywords": [
+    "bud",
+    "sage"
+  ],
   "engines": {
     "node": ">=12"
   },
   "license": "MIT",
-  "files": ["lib/", "types/", "src/", "bin/"],
+  "files": [
+    "lib/",
+    "types/",
+    "src/",
+    "bin/"
+  ],
   "bin": {
     "sage": "bin/sage.js"
   },
@@ -64,20 +72,20 @@
     "@roots/bud-wordpress-manifests": "*"
   },
   "dependencies": {
-    "@roots/bud": "^3.0.13-alpha.0",
-    "@roots/bud-babel": "^3.0.13-alpha.0",
-    "@roots/bud-entrypoints": "^3.0.13-alpha.0",
-    "@roots/bud-eslint": "^3.0.13-alpha.0",
-    "@roots/bud-imagemin": "^3.0.13-alpha.0",
-    "@roots/bud-postcss": "^3.0.13-alpha.0",
-    "@roots/bud-purgecss": "^3.0.13-alpha.0",
-    "@roots/bud-react": "^3.0.13-alpha.0",
-    "@roots/bud-sass": "^3.0.13-alpha.0",
-    "@roots/bud-stylelint": "^3.0.13-alpha.0",
-    "@roots/bud-terser": "^3.0.13-alpha.0",
-    "@roots/bud-wordpress-dependencies": "^3.0.13-alpha.0",
-    "@roots/bud-wordpress-externals": "^3.0.13-alpha.0",
-    "@roots/bud-wordpress-manifests": "^3.0.13-alpha.0"
+    "@roots/bud": "^3.0.14-alpha.0",
+    "@roots/bud-babel": "^3.0.14-alpha.0",
+    "@roots/bud-entrypoints": "^3.0.14-alpha.0",
+    "@roots/bud-eslint": "^3.0.14-alpha.0",
+    "@roots/bud-imagemin": "^3.0.14-alpha.0",
+    "@roots/bud-postcss": "^3.0.14-alpha.0",
+    "@roots/bud-purgecss": "^3.0.14-alpha.0",
+    "@roots/bud-react": "^3.0.14-alpha.0",
+    "@roots/bud-sass": "^3.0.14-alpha.0",
+    "@roots/bud-stylelint": "^3.0.14-alpha.0",
+    "@roots/bud-terser": "^3.0.14-alpha.0",
+    "@roots/bud-wordpress-dependencies": "^3.0.14-alpha.0",
+    "@roots/bud-wordpress-externals": "^3.0.14-alpha.0",
+    "@roots/bud-wordpress-manifests": "^3.0.14-alpha.0"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
 }
