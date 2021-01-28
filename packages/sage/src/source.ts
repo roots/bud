@@ -1,5 +1,5 @@
 import {Sage} from './interface'
-import {sage} from './sage'
+import {bud as sage} from '@roots/bud'
 
 /**
  * Preflight check
