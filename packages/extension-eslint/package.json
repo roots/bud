@@ -16,20 +16,12 @@
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
-  "keywords": [
-    "bud",
-    "bud-extension",
-    "eslint"
-  ],
+  "keywords": ["bud", "bud-extension", "eslint"],
   "engines": {
     "node": ">=12"
   },
   "license": "MIT",
-  "files": [
-    "lib/",
-    "types/",
-    "src/"
-  ],
+  "files": ["lib/", "types/", "src/"],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "exports": {
@@ -76,7 +68,8 @@
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-react": "^7.20.5",
     "eslint-plugin-react-hooks": "^4.0.8",
-    "eslint-webpack-plugin": "^2.4.1"
+    "eslint-webpack-plugin": "^2.4.1",
+    "get-bin-path": "^5.1.0"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
 }

@@ -85,7 +85,11 @@
     "@roots/bud-terser": "^3.0.18-alpha.0",
     "@roots/bud-wordpress-dependencies": "^3.0.18-alpha.0",
     "@roots/bud-wordpress-externals": "^3.0.18-alpha.0",
-    "@roots/bud-wordpress-manifests": "^3.0.18-alpha.0"
+    "@roots/bud-wordpress-manifests": "^3.0.18-alpha.0",
+    "cross-env": "^7.0.2",
+    "get-bin-path": "^5.1.0",
+    "npm-run-all": "^4.1",
+    "rimraf": "^3.0.2"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
 }

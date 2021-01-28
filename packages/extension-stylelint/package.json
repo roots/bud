@@ -18,19 +18,11 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": [
-    "webpack",
-    "bud",
-    "bud-extension"
-  ],
+  "keywords": ["webpack", "bud", "bud-extension"],
   "engines": {
     "node": ">=12"
   },
-  "files": [
-    "lib/",
-    "types/",
-    "src/"
-  ],
+  "files": ["lib/", "types/", "src/"],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "exports": {
@@ -53,9 +45,11 @@
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
+  "peerDependencies": {
+    "@roots/bud": "*"
+  },
   "devDependencies": {
-    "@roots/bud-extensions": "^3.0.18-alpha.0",
-    "@roots/bud-typings": "^3.0.18-alpha.0"
+    "@roots/bud": "^3.0.18-alpha.0"
   },
   "dependencies": {
     "stylelint": "^13.6.1",

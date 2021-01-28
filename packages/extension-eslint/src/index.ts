@@ -1,5 +1,10 @@
+// Interface
+import './interface'
+
+import {Bud} from '@roots/bud'
+
+// Eslint webpack plugin
 import Plugin from 'eslint-webpack-plugin'
-import {Options, PluginOptions} from './types'
 
 // Bud custom formatter
 import {eslintFormatter} from '@roots/bud-support'
@@ -12,9 +17,10 @@ export const name = '@roots/bud-eslint'
 /**
  * Eslint class options.
  */
-export const options: Options = app => {
-  const options: PluginOptions = {
+export const options: Bud.Module.Options = app => {
+  const options: Bud.Eslint.Options = {
     eslintPath: require.resolve('eslint'),
+    extensions: ['js', 'jsx'],
     fix: false,
     cache: true,
     cacheLocation: app.disk.path.join(
@@ -80,18 +86,22 @@ export const options: Options = app => {
 /**
  * Make the plugin from its options.
  */
-export const make = opts => new Plugin(opts.all())
+export const make: Bud.Module.Make = opts =>
+  new Plugin(opts.all())
 
 /**
  * Extend config file API
  */
-export const api = () => ({
-  eslint: function (opts) {
-    const plugin = this.extensions.get('@roots/bud-eslint')
-    Object.entries(opts).map(([k, v]) =>
-      plugin.set(`options.${k}`, v),
+export const api: Bud.Eslint.Api = {
+  eslint: function (userOpts) {
+    this.extensions.mutate(
+      '@roots/bud-eslint.options',
+      (options: Bud.Eslint.Options) => ({
+        ...options,
+        ...userOpts,
+      }),
     )
 
     return this
   },
-})
+}

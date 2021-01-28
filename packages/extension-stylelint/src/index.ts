@@ -1,47 +1,39 @@
-import StylelintPlugin from 'stylelint-webpack-plugin'
-import type {
-  Container,
-  Framework,
-  Module,
-} from '@roots/bud-typings'
+import './interface'
 
-export const api = {
-  stylelint: function (
-    this: Framework,
-    options: StylelintPlugin['options'],
-  ): Framework {
-    this.options.set('stylelint', true)
-    this.extensions.set('@roots/bud-stylelint.options', options)
+import {Bud} from '@roots/bud'
+
+import StylelintPlugin from 'stylelint-webpack-plugin'
+
+/**
+ * Extension name
+ */
+export const name = 'stylelint-webpack-plugin'
+
+/**
+ * Extension options
+ */
+export const options = {}
+
+/**
+ * Extension make
+ */
+export const make = (
+  options: Bud.Container<Bud.Stylelint.Options>,
+) => new StylelintPlugin(options.all())
+
+/**
+ * Extension config fn
+ */
+export const api: Bud.Stylelint.Api = {
+  stylelint: function (userOpts) {
+    this.extensions.mutate(
+      `${name}.options`,
+      (options: Bud.Stylelint.Options) => ({
+        ...options,
+        ...userOpts,
+      }),
+    )
 
     return this
   },
-}
-
-export const register: Module.Register = function ({
-  disk,
-  store,
-  options,
-  extensions,
-}: Framework): void {
-  store.set(
-    'presets.stylelint',
-    disk
-      .get('project')
-      .path.resolve(__dirname, './preset/index.js'),
-  )
-
-  disk.get('project').has('stylelint.config.js') &&
-    options.set('stylelint', true)
-
-  extensions.add('stylelint-webpack-plugin', {
-    options: {},
-    make: function (
-      options: Container<StylelintPlugin['options']>,
-    ) {
-      return new StylelintPlugin(options.all())
-    },
-    when: function ({options}: Framework) {
-      return options.enabled('stylelint')
-    },
-  })
 }

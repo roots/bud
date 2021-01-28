@@ -32,7 +32,7 @@ export namespace Use {
     | [string, Factory<T, Framework.Module>]
 }
 
-export type When<T> = (
+export type When<T = Framework> = (
   this: T,
   test: boolean,
   isTrue: (bud: T) => unknown,

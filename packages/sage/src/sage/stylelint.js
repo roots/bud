@@ -1,4 +1,4 @@
-export default {
+export const stylelintConfig = {
   extends: 'stylelint-config-standard',
   rules: {
     'declaration-colon-newline-after': null,

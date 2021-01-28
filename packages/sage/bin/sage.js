@@ -49,9 +49,6 @@ const route = async () => {
     case 'translate:js':
       return await translateJs()
 
-    case 'make':
-      return await make()
-
     default:
   }
 }
@@ -68,7 +65,7 @@ const build = async () => {
  * Clean dist
  */
 const cleanDist = async () => {
-  return await execa.command(`rimraf dist/*`, options)
+  return await execa.command(`yarn rimraf dist/*`, options)
 }
 
 /**
@@ -76,7 +73,7 @@ const cleanDist = async () => {
  */
 const cleanStorage = async () => {
   return await execa.command(
-    `rimraf 'storage/framework/cache/*php' \
+    `yarn rimraf 'storage/framework/cache/*php' \
     'storage/framework/cache/data/*.php' \
     'storage/bud/*'`,
     options,
@@ -108,7 +105,7 @@ const clean = async () => {
  */
 const lintScripts = async () => {
   return await execa.command(
-    `eslint 'resources/assets/scripts'`,
+    `yarn eslint 'resources/assets/scripts'`,
     options,
   )
 }
@@ -118,7 +115,7 @@ const lintScripts = async () => {
  */
 const lintStyles = async () => {
   return await execa.command(
-    `stylelint \
+    `yarn stylelint \
     'resources/assets/**/*.{vue,css,sass,scss,less}'`,
     options,
   )
@@ -169,7 +166,7 @@ const translate = async () => {
 const production = async () => {
   await cleanDist()
   await cleanStorage()
-  await build({mode: 'production', ci: true})
+  await build()
 }
 
 /**

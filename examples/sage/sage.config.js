@@ -1,5 +1,5 @@
 // @ts-check
-const {sage} = require('@roots/sage')
+const {sage} = require('../../packages/sage')
 
 /**
  * This is specific for the Bud monorepo only.

@@ -10,11 +10,17 @@ import * as babel from '@roots/bud-babel'
 import * as sass from '@roots/bud-sass'
 import * as react from '@roots/bud-react'
 import * as terser from '@roots/bud-terser'
+import * as eslint from '@roots/bud-eslint'
+import * as stylelint from '@roots/bud-stylelint'
+
+// Configs
+import {eslintConfig} from './eslint'
 
 /**
  * Sage WordPress starter theme
  */
 sage
+
   /**
    * Artifacts/cache store
    *
@@ -86,27 +92,47 @@ sage
      * merge wordpress.json with entrypoints.json
      */
     manifests,
+
+    /**
+     * Eslint
+     */
+    eslint,
+
+    /**
+     * Stylelint
+     */
+    stylelint,
   ])
 
-  /**
-   * Production extensions
-   */
-  .when(sage.isProduction, () => {
-    sage.use([terser])
-    sage.minify()
-    sage.hash()
-    sage.vendor()
-    sage.runtime()
-  })
+/**
+ * Production extensions
+ */
+sage.when(sage.isProduction, () => {
+  sage.use([terser])
+  sage.minify()
+  sage.hash()
+  sage.vendor()
+  sage.runtime()
+})
 
-  /**
-   * Sage webpack aliases
-   */
-  .alias({
-    '@scripts': 'scripts',
-    '@styles': 'styles',
-    '@fonts': 'fonts',
-    '@images': 'images',
-  })
+/**
+ * Sage webpack aliases
+ */
+sage.alias({
+  '@scripts': 'scripts',
+  '@styles': 'styles',
+  '@fonts': 'fonts',
+  '@images': 'images',
+})
+
+/**
+ * Eslint configuration
+ */
+sage.eslint(eslintConfig)
+
+/**
+ * Stylelint
+ */
+sage.stylelint({configFile: require.resolve('./stylelint')})
 
 export {sage}
