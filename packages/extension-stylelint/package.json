@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-stylelint",
-  "version": "3.0.18-alpha.0",
+  "version": "3.0.19-alpha.0",
   "description": "Adds stylelint support to Bud",
   "repository": {
     "type": "git",
@@ -18,11 +18,19 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": ["webpack", "bud", "bud-extension"],
+  "keywords": [
+    "webpack",
+    "bud",
+    "bud-extension"
+  ],
   "engines": {
     "node": ">=12"
   },
-  "files": ["lib/", "types/", "src/"],
+  "files": [
+    "lib/",
+    "types/",
+    "src/"
+  ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
   "exports": {
@@ -49,7 +57,7 @@
     "@roots/bud": "*"
   },
   "devDependencies": {
-    "@roots/bud": "^3.0.18-alpha.0"
+    "@roots/bud": "^3.0.19-alpha.0"
   },
   "dependencies": {
     "stylelint": "^13.6.1",
