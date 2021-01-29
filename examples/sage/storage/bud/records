@@ -1,0 +1,43 @@
+{
+  "mini-css-extract-plugin ../../packages/bud/node_modules/css-loader/dist/cjs.js!../../node_modules/sass-loader/dist/cjs.js!../../node_modules/resolve-url-loader/index.js??ref--4-oneOf-6-3!resources/assets/styles/app.scss": [
+    {
+      "modules": {
+        "byIdentifier": {},
+        "usedIds": {}
+      },
+      "chunks": {
+        "byName": {
+          "mini-css-extract-plugin": 0
+        },
+        "bySource": {
+          "0 mini-css-extract-plugin": 0
+        },
+        "usedIds": [
+          0
+        ]
+      }
+    }
+  ],
+  "modules": {
+    "byIdentifier": {
+      "multi styles/app.scss scripts/app.js": 0
+    },
+    "usedIds": {
+      "0": 0
+    }
+  },
+  "chunks": {
+    "byName": {
+      "app": 0,
+      "runtime/app": 1
+    },
+    "bySource": {
+      "1 app": 0,
+      "0 app": 1
+    },
+    "usedIds": [
+      0,
+      1
+    ]
+  }
+}

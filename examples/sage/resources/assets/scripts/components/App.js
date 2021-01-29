@@ -1,5 +1,5 @@
-import React from 'react'
-import logo from './logo.svg'
+import React from 'react';
+import logo from './logo.svg';
 
 export const App = () => {
   return (
@@ -12,5 +12,5 @@ export const App = () => {
         </p>
       </header>
     </div>
-  )
-}
+  );
+};

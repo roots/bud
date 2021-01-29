@@ -12,7 +12,7 @@ import {eslintFormatter} from '@roots/bud-support'
 /**
  * Extension identifier
  */
-export const name = '@roots/bud-eslint'
+export const name = 'eslint-webpack-plugin'
 
 /**
  * Eslint class options.
@@ -20,7 +20,7 @@ export const name = '@roots/bud-eslint'
 export const options: Bud.Module.Options = app => {
   const options: Bud.Eslint.Options = {
     eslintPath: require.resolve('eslint'),
-    extensions: ['js', 'jsx'],
+    extensions: ['js', 'jsx', 'ts', 'tsx'],
     fix: false,
     cache: true,
     cacheLocation: app.disk.path.join(
@@ -95,7 +95,7 @@ export const make: Bud.Module.Make = opts =>
 export const api: Bud.Eslint.Api = {
   eslint: function (userOpts) {
     this.extensions.mutate(
-      '@roots/bud-eslint.options',
+      'eslint-webpack-plugin.options',
       (options: Bud.Eslint.Options) => ({
         ...options,
         ...userOpts,

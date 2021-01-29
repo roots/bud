@@ -43,6 +43,7 @@
       "packages/extension-imagemin",
       "packages/extension-library",
       "packages/extension-postcss",
+      "packages/extension-prettier",
       "packages/extension-purgecss",
       "packages/extension-react",
       "packages/extension-sass",

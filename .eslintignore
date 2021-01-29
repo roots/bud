@@ -10,3 +10,4 @@ scripts
 **/*.d.ts
 **/*.json
 node_modules
+tsconfig.json

@@ -1,0 +1,33 @@
+{
+  "remainingRequest": "/Users/kellymears/code/projects/cli/bud/bud/node_modules/thread-loader/dist/cjs.js!/Users/kellymears/code/projects/cli/bud/bud/node_modules/babel-loader/lib/index.js??ref--4-oneOf-4-2!/Users/kellymears/code/projects/cli/bud/bud/examples/sage/resources/assets/scripts/components/App.js",
+  "dependencies": [
+    {
+      "path": "/Users/kellymears/code/projects/cli/bud/bud/examples/sage/resources/assets/scripts/components/App.js",
+      "mtime": 1611922472762
+    },
+    {
+      "path": "/Users/kellymears/code/projects/cli/bud/bud/node_modules/@pmmmwh/react-refresh-webpack-plugin/loader/index.js",
+      "mtime": 1610344774074
+    },
+    {
+      "path": "/Users/kellymears/code/projects/cli/bud/bud/node_modules/cache-loader/dist/cjs.js",
+      "mtime": 1610344757622
+    },
+    {
+      "path": "/Users/kellymears/code/projects/cli/bud/bud/node_modules/thread-loader/dist/cjs.js",
+      "mtime": 1610344757942
+    },
+    {
+      "path": "/Users/kellymears/code/projects/cli/bud/bud/node_modules/babel-loader/lib/index.js",
+      "mtime": 1610344773742
+    }
+  ],
+  "contextDependencies": [],
+  "result": [
+    {
+      "type": "Buffer",
+      "data": "base64:aW1wb3J0IFJlYWN0IGZyb20gJ3JlYWN0JzsKaW1wb3J0IGxvZ28gZnJvbSAnLi9sb2dvLnN2Zyc7CmV4cG9ydCB2YXIgQXBwID0gZnVuY3Rpb24gQXBwKCkgewogIHJldHVybiAvKiNfX1BVUkVfXyovUmVhY3QuY3JlYXRlRWxlbWVudCgiZGl2IiwgewogICAgY2xhc3NOYW1lOiAiQXBwIgogIH0sIC8qI19fUFVSRV9fKi9SZWFjdC5jcmVhdGVFbGVtZW50KCJoZWFkZXIiLCB7CiAgICBjbGFzc05hbWU6ICJoZWFkZXIiCiAgfSwgLyojX19QVVJFX18qL1JlYWN0LmNyZWF0ZUVsZW1lbnQoImltZyIsIHsKICAgIHNyYzogbG9nbywKICAgIGNsYXNzTmFtZTogImxvZ28iLAogICAgYWx0OiAibG9nbyIKICB9KSwgLyojX19QVVJFX18qL1JlYWN0LmNyZWF0ZUVsZW1lbnQoInAiLCBudWxsLCAiRWRpdCAiLCAvKiNfX1BVUkVfXyovUmVhY3QuY3JlYXRlRWxlbWVudCgiY29kZSIsIG51bGwsICJzcmMvY29tcG9uZW50cy9BcHAuanMiKSwgIiBhbmQgc2F2ZSB0byByZWxvYWQuIikpKTsKfTs="
+    },
+    null
+  ]
+}

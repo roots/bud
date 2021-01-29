@@ -40,6 +40,9 @@ const route = async () => {
     case 'lint:styles':
       return await lintStyles()
 
+    case 'prettier':
+      return await prettier()
+
     case 'translate':
       return await translate()
 
@@ -127,6 +130,14 @@ const lintStyles = async () => {
 const lint = async () => {
   await lintScripts()
   await lintStyles()
+  await prettier()
+}
+
+/**
+ * prettier
+ */
+const prettier = async () => {
+  return await execa.command(`yarn prettier --write .`, options)
 }
 
 /**

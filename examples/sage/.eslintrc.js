@@ -1,8 +1,10 @@
-export const eslintConfig = {
+module.exports = {
   root: true,
-  extensions: ['js', 'jsx'],
-  extends: ['eslint:recommended', 'plugin:react/recommended'],
-  parser: 'babel-eslint',
+  extends: [
+    'plugin:prettier/recommended',
+    'eslint:recommended',
+    'plugin:react/recommended',
+  ],
   globals: {
     wp: true,
   },
@@ -13,11 +15,15 @@ export const eslintConfig = {
     browser: true,
     jquery: true,
   },
+  parser: 'babel-eslint',
   parserOptions: {
     ecmaFeatures: {
+      experimentalObjectRestSpread: true,
       globalReturn: true,
       generators: false,
+      impliedStrict: true,
       objectLiteralDuplicateProperties: false,
+      jsx: true,
     },
     ecmaVersion: 2017,
     sourceType: 'module',
@@ -46,4 +52,4 @@ export const eslintConfig = {
       },
     ],
   },
-}
+};

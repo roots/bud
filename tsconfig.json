@@ -35,6 +35,7 @@
     {"@roots/bud-imagemin": "extension-imagemin"},
     {"@roots/bud-library": "extension-library"},
     {"@roots/bud-postcss": "extension-postcss"},
+    {"@roots/bud-prettier": "extension-prettier"},
     {"@roots/bud-purgecss": "extension-purgecss"},
     {"@roots/bud-react": "extension-react"},
     {"@roots/bud-sass": "extension-sass"},

@@ -1,4 +1,4 @@
-export const stylelintConfig = {
+module.exports = {
   extends: 'stylelint-config-standard',
   rules: {
     'declaration-colon-newline-after': null,
@@ -34,4 +34,4 @@ export const stylelintConfig = {
       },
     ],
   },
-}
+};

@@ -9,12 +9,11 @@ import * as manifests from '@roots/bud-wordpress-manifests'
 import * as babel from '@roots/bud-babel'
 import * as sass from '@roots/bud-sass'
 import * as react from '@roots/bud-react'
+import * as imagemin from '@roots/bud-imagemin'
 import * as terser from '@roots/bud-terser'
 import * as eslint from '@roots/bud-eslint'
+import * as prettier from '@roots/bud-prettier'
 import * as stylelint from '@roots/bud-stylelint'
-
-// Configs
-import {eslintConfig} from './eslint'
 
 /**
  * Sage WordPress starter theme
@@ -74,6 +73,11 @@ sage
     react,
 
     /**
+     * Image minification
+     */
+    imagemin,
+
+    /**
      * entrypoints.json
      */
     entrypoints,
@@ -97,6 +101,11 @@ sage
      * Eslint
      */
     eslint,
+
+    /**
+     * Prettier
+     */
+    prettier,
 
     /**
      * Stylelint
@@ -124,15 +133,5 @@ sage.alias({
   '@fonts': 'fonts',
   '@images': 'images',
 })
-
-/**
- * Eslint configuration
- */
-sage.eslint(eslintConfig)
-
-/**
- * Stylelint
- */
-sage.stylelint({configFile: require.resolve('./stylelint')})
 
 export {sage}
