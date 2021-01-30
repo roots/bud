@@ -6,10 +6,9 @@ import {Bud} from '@roots/bud'
 export const imagemin: Bud.Imagemin.Configure = function (
   options,
 ) {
-  this.extensions.add(
-    'image-minimizer-webpack-plugin.options.minimizerOptions',
-    options,
-  )
+  this.extensions
+    .get('image-minimizer-webpack-plugin')
+    .merge('options.minimizerOptions', options)
 
   return this
 }

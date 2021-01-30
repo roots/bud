@@ -26,10 +26,18 @@ yarn add @roots/bud-eslint --dev
 ## Usage
 
 ```js
-bud.use(['@roots/bud-eslint'])
+bud.use(require('@roots/bud-eslint'))
 ```
 
-You're all set. Bud will automatically detect a eslint config in your project root and give you feedback during compilation.
+Learn more about configuring eslint rules in [the official Eslint user guide](https://eslint.org/docs/user-guide/configuring).
+
+## Starter configuration
+
+You can publish a starter eslint config to your project using the bud cli.
+
+```sh
+bud publish @roots/bud-eslint eslint.config.js
+```
 
 ## Contributing
 

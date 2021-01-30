@@ -3,7 +3,7 @@ import {Framework} from '@roots/bud-framework'
 declare module '@roots/bud-framework' {
   interface Framework<T> {
     /**
-     * ## bud.alias  [💁 Fluent]
+     * ## app.alias  [💁 Fluent]
      *
      * Register shorthand for resolving modules
      * using webpack aliases. Useful for
@@ -13,8 +13,8 @@ declare module '@roots/bud-framework' {
      * ### Usage
      *
      * ```js
-     * bud.alias({
-     *   '@scripts': bud.src('scripts'),
+     * app.alias({
+     *   '@scripts': app.src('scripts'),
      * })
      * ```
      */

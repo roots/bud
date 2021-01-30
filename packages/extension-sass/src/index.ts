@@ -3,7 +3,7 @@ import {lodash as _} from '@roots/bud-support'
 
 export const name = '@roots/bud-sass'
 
-export const register: Bud.Module.Register = (bud: Bud) => {
+export const boot: Bud.Module.Register = (bud: Bud) => {
   bud.hooks.on('webpack.resolve.extensions', exts => [
     ...exts,
     '.sass',
@@ -26,14 +26,23 @@ export const register: Bud.Module.Register = (bud: Bud) => {
         test: ({store}: Bud) => store.access('patterns.sass'),
         exclude: ({store}: Bud) =>
           store.access('patterns.modules'),
-        use: ({options, build}: Bud) => [
-          options.is('mode', 'production')
-            ? build.get('items.minicss')
-            : build.get('items.style'),
-          build.get('items.css'),
-          build.get('items.sass'),
-          build.get('items.resolveUrl'),
-        ],
+        use: ({options, build}: Bud) => {
+          const postCss = build.access('items.postcss')
+
+          postCss.options.postcssOptions.plugins = Object.values(
+            postCss.options.postcssOptions.plugins,
+          )
+
+          return [
+            options.is('mode', 'production')
+              ? build.access('items.minicss')
+              : build.access('items.style'),
+            build.access('items.css'),
+            postCss ?? false,
+            build.access('items.sass'),
+            build.access('items.resolveUrl'),
+          ].filter(Boolean)
+        },
       }),
   ])
 }

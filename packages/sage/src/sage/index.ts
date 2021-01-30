@@ -14,6 +14,8 @@ import * as terser from '@roots/bud-terser'
 import * as eslint from '@roots/bud-eslint'
 import * as prettier from '@roots/bud-prettier'
 import * as stylelint from '@roots/bud-stylelint'
+import * as postcss from '@roots/bud-postcss'
+import * as purgecss from '@roots/bud-purgecss'
 
 /**
  * Sage WordPress starter theme
@@ -61,6 +63,11 @@ sage
      * Babel
      */
     babel,
+
+    /**
+     * Postcss
+     */
+    postcss,
 
     /**
      * Sass
@@ -117,11 +124,8 @@ sage
  * Production extensions
  */
 sage.when(sage.isProduction, () => {
-  sage.use([terser])
-  sage.minify()
-  sage.hash()
-  sage.vendor()
-  sage.runtime()
+  sage.use([terser, purgecss])
+  sage.minify().hash().vendor().runtime()
 })
 
 /**
@@ -132,6 +136,13 @@ sage.alias({
   '@styles': 'styles',
   '@fonts': 'fonts',
   '@images': 'images',
+})
+
+/**
+ * Provided libraries
+ */
+sage.provide({
+  jquery: ['$', 'jQuery'],
 })
 
 export {sage}

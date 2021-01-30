@@ -145,7 +145,7 @@ const prettier = async () => {
  */
 const translatePot = async () => {
   return await execa.command(
-    'wp i18n make-pot ./resources/languages --no-purge --pretty-print',
+    'wp i18n make-pot ./resources/languages --pretty-print',
     options,
   )
 }
@@ -157,7 +157,6 @@ const translateJs = async () => {
   return await execa.command(
     `wp i18n make-json . \
     ./resources/languages/sage.pot \
-    --ignore-domain \
     --include="app,resources/assets,resources/views"`,
     options,
   )

@@ -43,7 +43,7 @@ declare module '@roots/bud' {
   namespace Bud.PostCss {
     type AddPlugin = (
       plugin: any,
-      opts?: {[key: string]: any},
+      options?: {[key: string]: unknown},
     ) => Bud
 
     type SetPluginOptions = (

@@ -1,4 +1,10 @@
 /**
+ * Alias
+ */
+import './alias'
+export {alias} from './alias'
+
+/**
  * Copy
  */
 import './copy'
@@ -17,14 +23,15 @@ import './dist'
 export {dist} from './dist'
 
 /**
- * Alias
- */
-export {alias} from './alias'
-
-/**
  * Define
  */
+import './define'
 export {define} from './define'
+
+/**
+ * Dev
+ */
+import './dev'
 export {dev} from './dev'
 export {devtool} from './devtool'
 export {distPath} from './distPath'

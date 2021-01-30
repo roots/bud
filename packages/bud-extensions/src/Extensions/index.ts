@@ -79,13 +79,6 @@ export default class extends Service {
       )
       .filter(ext => !isNull(ext)) as Webpack.Plugin[]
 
-    this.info({
-      plugins,
-      count: plugins?.length,
-      extensionsState: this,
-      msg: 'make plugins',
-    })
-
     return plugins
   }
 

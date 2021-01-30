@@ -14,6 +14,12 @@ export const name = '@roots/bud-react'
 export const boot = (app: Bud) => {
   app.babel.addPreset('@babel/preset-react')
 
+  // The rest of the boot method pertains only to dev
+  // Exit early if not applicable
+  if (!app.isDevelopment) {
+    return
+  }
+
   app.extensions.add(
     '@pmmmwh/react-refresh-webpack-plugin',
     ReactRefreshWebpackPlugin,

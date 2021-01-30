@@ -63,11 +63,6 @@ export declare interface Framework<T = any> {
   build: Framework.Build
 
   /**
-   * ## bud.cache
-   */
-  cache: Framework.Cache
-
-  /**
    * ## bud.compiler
    */
   compiler: Framework.Compiler

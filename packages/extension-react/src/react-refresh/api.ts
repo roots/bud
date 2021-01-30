@@ -2,10 +2,9 @@ import {ReactRefreshPluginOptions} from '@pmmmwh/react-refresh-webpack-plugin/ty
 import {Bud} from '@roots/bud'
 
 export const reactRefresh: ReactRefresh = function (options) {
-  this.extensions.set(
-    '@pmmmwh/react-refresh-webpack-plugin.options',
-    options,
-  )
+  this.extensions
+    .get('@pmmmwh/react-refresh-webpack-plugin')
+    .set('options', options)
 
   return this
 }

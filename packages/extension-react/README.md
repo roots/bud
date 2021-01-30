@@ -33,7 +33,7 @@ When run in development mode `@pmmmwh/react-refresh-webpack-plugin` provides hot
 ## Usage
 
 ```js
-bud.use('@roots/bud-react')
+bud.use(require('@roots/bud-react'))
 ```
 
 ## Configuration

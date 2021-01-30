@@ -26,12 +26,28 @@ yarn add @roots/bud-stylelint --dev
 ## Usage
 
 ```js
-bud.use(['@roots/bud-stylelint'])
+bud.use(require('@roots/bud-stylelint'))
 ```
 
-You're all set.
+Learn more about configuring stylelint rules in [the official Stylelint user guide](https://stylelint.io/user-guide/configure).
 
-Bud will automatically detect a stylelint config in your project root and give you feedback during compilation.
+## Starter configuration
+
+You can publish a starter stylelint config to your project using the bud cli.
+
+```sh
+bud publish @roots/bud-stylelint stylelint.config.js
+```
+
+## Modifying stylelint webpack options
+
+Stylelint service is provided via `stylelint-webpack-plugin`. You can modify its options using the `bud.stylelint` function in your build config file.
+
+```js
+bud.stylelint({
+  /** stylelint options */
+})
+```
 
 ## Contributing
 
@@ -52,3 +68,7 @@ Keep track of development and community news.
 - Read and subscribe to the [Roots Blog](https://roots.io/blog/)
 - Subscribe to the [Roots Newsletter](https://roots.io/subscribe/)
 - Listen to the [Roots Radio podcast](https://roots.io/podcast/)
+
+```
+
+```

@@ -6,29 +6,6 @@ import {Framework} from './'
  */
 
 export namespace Api {
-  export type AddPlugin<T = Framework> = (
-    this: T,
-    name: string,
-    make: Webpack.Plugin | CallableFunction,
-  ) => T
-
-  export type Alias<T = Framework> = (
-    this: T,
-    aliases: {
-      [key: string]: string
-    },
-  ) => T
-
-  export type Cache<T = Framework> = (
-    this: T,
-    enable: boolean,
-  ) => T
-
-  export type Define<T = any> = (
-    this: Framework<T>,
-    values: Framework.Index<any>,
-  ) => Framework<T>
-
   export type Dev<T = Framework> = (
     this: T,
     config: Framework.Server.Options,
@@ -144,14 +121,6 @@ export namespace Api {
   export type Target<T = Framework> = (
     this: T,
     target: string,
-  ) => T
-
-  export type Html<T = Framework> = (
-    this: T,
-    options?: Framework.Module.Options<{
-      template?: string
-      replacements?: Framework.Index<string>
-    }>,
   ) => T
 
   export type Vendor<T = Framework> = (this: T) => T

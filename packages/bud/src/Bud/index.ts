@@ -78,40 +78,6 @@ declare module '@roots/bud-framework' {
     brotli: Brotli.Config
 
     /**
-     * ## bud.define  [💁 Fluent]
-     *
-     * Make modules and variables global for the application.
-     *
-     * [🔗 Documentation](https://git.io/JTNZk)
-     *
-     * ### Usage
-     *
-     * #### Define values
-     *
-     * ```ts
-     * bud.define({
-     *   APP_NAME: 'My Application',
-     * })
-     * ```
-     *
-     * #### Use them in application code
-     *
-     * ```ts
-     * const {APP_NAME} = window
-     * ```
-     *
-     * #### Use them in generated templates
-     *
-     * ```html
-     * <html>
-     *   <title>%APP_NAME%</title>
-     *   <!-- ... -->
-     * </html>
-     * ```
-     */
-    define: Api.Define<this>
-
-    /**
      * ## bud.dev  [💁 Fluent]
      *
      * Configure Framework's development server. [🔗 Documentation](#)
@@ -340,17 +306,6 @@ declare module '@roots/bud-framework' {
     runtime: Api.Runtime<this>
 
     /**
-     * ## bud.storage [💁 Fluent]
-     *
-     * Directory to use for build artifacts.
-     *
-     * ```js
-     * bud.storage('.custom-dir')
-     * ```
-     */
-    storage: Api.Storage<this>
-
-    /**
      * ## bud.srcPath [💁 Fluent]
      *
      * Sets the root directory for source files.
@@ -378,26 +333,6 @@ declare module '@roots/bud-framework' {
      * ```
      */
     string: Api.Stringify<this>
-
-    /**
-     * ## bud.html  [💁 Fluent]
-     *
-     * Generate and/or configure boilerplate HTML for your project. [🔗 Documentation](#)
-     *
-     * ### Usage
-     *
-     * ```js
-     * bud.html({
-     *   template: bud.project('public/index.html'),
-     *   replacements: {
-     *     APP_NAME: name,
-     *     APP_DESCRIPTION: description,
-     *     PUBLIC_URL: bud.env.get('PUBLIC_URL'),
-     *   },
-     * })
-     * ```
-     */
-    html: Api.Html<this>
 
     /**
      * ## bud.vendor  [💁 Fluent]

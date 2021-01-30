@@ -10,7 +10,6 @@ export interface Options {
          * Allows to configure the glob pattern matching library used by the plugin.
          * {@link https://webpack.js.org/plugins/copy-webpack-plugin/#globoptions}
          */
-        // eslint-disable-next-line @typescript-eslint/ban-types
         globOptions?: object
 
         /**
@@ -51,7 +50,6 @@ export interface Options {
          * Enable/disable and configure caching. Default path to cache directory: node_modules/.cache/copy-webpack-plugin.
          * @default false
          */
-        // eslint-disable-next-line @typescript-eslint/ban-types
         cacheTransform?: boolean | string | object
 
         /**

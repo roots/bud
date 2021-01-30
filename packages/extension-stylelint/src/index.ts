@@ -12,7 +12,9 @@ export const name = 'stylelint-webpack-plugin'
 /**
  * Extension options
  */
-export const options = {}
+export const options = app => ({
+  context: app.src(),
+})
 
 /**
  * Extension make
@@ -26,13 +28,12 @@ export const make = (
  */
 export const api: Bud.Stylelint.Api = {
   stylelint: function (userOpts) {
-    this.extensions.mutate(
-      `${name}.options`,
-      (options: Bud.Stylelint.Options) => ({
+    this.extensions
+      .get(name)
+      .mutate('options', (options: Bud.Stylelint.Options) => ({
         ...options,
         ...userOpts,
-      }),
-    )
+      }))
 
     return this
   },

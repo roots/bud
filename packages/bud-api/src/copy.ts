@@ -3,35 +3,32 @@ import {Framework} from '@roots/bud-framework'
 declare module '@roots/bud-framework' {
   interface Framework<T> {
     /**
-     * ## bud.copy  [💁 Fluent]
+     * ## app.copy  [💁 Fluent]
      *
      * Copy static assets to your output directory.
      *
-     * You may specify a path to a specific file or
-     * use glob syntax to match many files at once. [🔗 Documentation](#)
+     * You may specify paths with a string literal or glob pattern.
      *
      * ### Usage
      *
      * **Copy all files from `src/images`**
      *
      * ```js
-     * bud.copy({from: 'images/*'})
+     * app.copy('images/*')
      * ```
      *
-     * **Copy all files from a path outside of `bud.src`**
+     * **Copy all files from a path outside of `app.src`**
      *
      * ```js
-     * bud.copy({
-     *   from: 'images/*',
-     *   context: bud.project('assets')
+     * app.copy('images/*', {
+     *   context: app.project('assets')
      * })
      * ```
      *
-     * **Copy all files to a path outside of `bud.dist`**
+     * **Copy all files to a path outside of `app.dist`**
      *
      * ```js
-     * bud.copy({
-     *   from: 'images/*',
+     * app.copy('images/*', {
      *   to: '/app/cdn/media'
      * })
      * ```
@@ -42,18 +39,15 @@ declare module '@roots/bud-framework' {
   namespace Framework.Api {
     export type Copy = (
       this: Framework,
-      from: string,
-      options: Copy.Options,
+      from: string | Array<string>,
+      options?: Copy.Options,
     ) => Framework
 
     namespace Copy {
       export interface Options {
         to: string
         context: string
-        noErrorOnMissing: boolean
-        globOptions: {
-          ignore: string
-        }
+        [key: string]: any
       }
     }
   }
@@ -63,19 +57,25 @@ export const copy: Framework.Api.Copy = function (
   from,
   options,
 ) {
-  this.extensions.mutate(
-    `copy-webpack-plugin.patterns`,
-    patterns => [
-      ...patterns,
-      {
-        from,
-        to: options.to ?? this.dist(),
-        context: options.context ?? this.src(),
-        globOptions: options.globOptions,
-        noErrorOnMissing: options.noErrorOnMissing ?? true,
-      },
-    ],
-  )
+  const copy = (from: string, options?) =>
+    this.extensions
+      .get(`copy-webpack-plugin`)
+      .mutate('options.patterns', patterns => [
+        ...patterns,
+        {
+          from,
+          context: options?.context ?? this.src(),
+          to: options?.to ?? this.dist(),
+          ...options,
+        },
+      ])
+
+  if (Array.isArray(from)) {
+    from.forEach(job => copy(job, options ?? null))
+    return this
+  }
+
+  copy(from, options)
 
   return this
 }
