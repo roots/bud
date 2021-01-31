@@ -1,6 +1,6 @@
 {
   "name": "@roots/filesystem",
-  "version": "3.0.20-alpha.0",
+  "version": "3.0.21-alpha.0",
   "description": "Automated package installation",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -57,7 +57,7 @@
     "@roots/container": "*"
   },
   "dependencies": {
-    "@roots/container": "^3.0.20-alpha.0",
+    "@roots/container": "^3.0.21-alpha.0",
     "fs-extra": "^9.0.1",
     "globby": "^11.0.1",
     "resolve-from": "^5.0.0"

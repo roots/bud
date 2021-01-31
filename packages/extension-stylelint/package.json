@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-stylelint",
-  "version": "3.0.20-alpha.0",
+  "version": "3.0.21-alpha.0",
   "description": "Adds stylelint support to Bud",
   "repository": {
     "type": "git",
@@ -57,7 +57,7 @@
     "@roots/bud": "*"
   },
   "devDependencies": {
-    "@roots/bud": "^3.0.20-alpha.0"
+    "@roots/bud": "^3.0.21-alpha.0"
   },
   "dependencies": {
     "stylelint": "^13.6.1",

@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-framework",
-  "version": "3.0.20-alpha.0",
+  "version": "3.0.21-alpha.0",
   "description": "A friendly build tool to help manage your project assets.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -58,12 +58,12 @@
     "@roots/filesystem": "*"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^3.0.20-alpha.0"
+    "@roots/bud-typings": "^3.0.21-alpha.0"
   },
   "dependencies": {
-    "@roots/bud-support": "^3.0.20-alpha.0",
-    "@roots/container": "^3.0.20-alpha.0",
-    "@roots/filesystem": "^3.0.20-alpha.0"
+    "@roots/bud-support": "^3.0.21-alpha.0",
+    "@roots/container": "^3.0.21-alpha.0",
+    "@roots/filesystem": "^3.0.21-alpha.0"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
 }
