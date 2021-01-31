@@ -35,8 +35,6 @@
 
 > A webpack framework combining the best parts of Laravel Mix and Symfony Encore.
 
-Despite recently releasing v3.0.
-
 ## Installation
 
 ```sh
