@@ -1,5 +1,5 @@
 /**
- * Sage - Base
+ * Sage - Bootstrap preset
  */
 
 // Core
@@ -11,7 +11,6 @@ import * as dependencies from '@roots/bud-wordpress-dependencies'
 import * as externals from '@roots/bud-wordpress-externals'
 import * as manifests from '@roots/bud-wordpress-manifests'
 import * as babel from '@roots/bud-babel'
-import * as sass from '@roots/bud-sass'
 import * as react from '@roots/bud-react'
 import * as imagemin from '@roots/bud-imagemin'
 import * as terser from '@roots/bud-terser'
@@ -19,6 +18,9 @@ import * as eslint from '@roots/bud-eslint'
 import * as prettier from '@roots/bud-prettier'
 import * as stylelint from '@roots/bud-stylelint'
 import * as postcss from '@roots/bud-postcss'
+import * as sass from '@roots/bud-sass'
+import * as purgecss from '@roots/bud-purgecss'
+import * as withWordPress from 'purgecss-with-wordpress'
 
 /**
  * Sage WordPress starter theme
@@ -58,118 +60,68 @@ sage
     sage.proxy({port: sage.env.get('APP_PROXY_PORT')}),
   )
 
-  /**
-   * Extensions
-   */
+/**
+ * Extensions
+ */
+sage
   .use([
     /**
-     * Babel
+     * Script transpilation
      */
     babel,
-
-    /**
-     * Postcss
-     */
-    postcss,
-
-    /**
-     * Sass
-     */
-    sass,
-
-    /**
-     * JSX/react
-     */
     react,
 
     /**
-     * Image minification
+     * Style transpilation
      */
-    imagemin,
+    postcss,
+    sass,
+    purgecss,
 
     /**
-     * entrypoints.json
-     */
-    entrypoints,
-
-    /**
-     * dependencies
-     */
-    dependencies,
-
-    /**
-     * externals
-     */
-    externals,
-
-    /**
-     * merge wordpress.json with entrypoints.json
-     */
-    manifests,
-
-    /**
-     * Eslint
+     * Linting
      */
     eslint,
-
-    /**
-     * Prettier
-     */
     prettier,
+    stylelint,
 
     /**
-     * Stylelint
+     * Manifests
      */
-    stylelint,
+    entrypoints,
+    dependencies,
+    externals,
+    manifests,
   ])
-
-  /**
-   * Production extensions
-   */
-  .when(sage.isProduction, () => {
-    sage.use([terser])
-    sage.minify().hash().vendor().runtime()
-  })
 
   /**
    * Sage webpack aliases
    */
   .alias({
-    '@scripts': 'scripts',
-    '@styles': 'styles',
     '@fonts': 'fonts',
     '@images': 'images',
+    '@scripts': 'scripts',
+    '@styles': 'styles',
+    '@svg': 'svg',
   })
 
-  /**
-   * Copy images
-   */
-  .when(
-    sage.disk.get('project').has('resources/assets/images'),
-    () => sage.copy('images/*'),
-  )
-
-  /**
-   * Copy fonts
-   */
-  .when(
-    sage.disk.get('project').has('resources/assets/fonts'),
-    () => sage.copy('fonts/*'),
-  )
-
-  /**
-   * Copy svg
-   */
-  .when(
-    sage.disk.get('project').has('resources/assets/svg'),
-    () => sage.copy('svg/*'),
-  )
-
-  /**
-   * Provided libraries
-   */
-  .provide({
-    jquery: ['$', 'jQuery'],
-  })
+/**
+ * Production optim
+ */
+sage.isProduction &&
+  sage
+    .use([imagemin, terser])
+    .minify()
+    .hash()
+    .vendor()
+    .runtime()
+    .purge({
+      content: [
+        'resources/views/**/*',
+        'resources/assets/scripts/**/*',
+      ],
+      css: ['resources/assets/styles/**/*'],
+      ...withWordPress,
+    })
 
 export {sage}

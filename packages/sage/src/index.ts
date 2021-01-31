@@ -2,8 +2,7 @@ import './interface'
 
 export {isStatic, json, api, preflight} from './source'
 
-import {sage} from './sage/base'
-import {sage as purged} from './sage/purged'
-import {sage as tailwind} from './sage/tailwind'
+import {sage as bootstrap} from './sage/bootstrap'
+import {sage as tailwind} from './sage/log1x'
 
-export {sage, sage as default, purged, tailwind}
+export {bootstrap, tailwind}

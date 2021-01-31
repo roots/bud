@@ -1,0 +1,11 @@
+{
+  "app": {
+    "version": "c5338ca7b31420de0988",
+    "js": [
+      "/wp-content/themes/example/dist/runtime/app.c5338ca7b31420de0988.js",
+      "/wp-content/themes/example/dist/app.c5338ca7b31420de0988.js"
+    ],
+    "css": ["/wp-content/themes/example/dist/app.css"],
+    "dependencies": ["react", "react-dom"]
+  }
+}

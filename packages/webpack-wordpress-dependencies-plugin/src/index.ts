@@ -1,4 +1,4 @@
-import './interfaces'
+import './interface'
 
 import path from 'path'
 import {RawSource} from 'webpack-sources'
