@@ -13,5 +13,12 @@ sage.hooks.on('webpack.resolve.modules', (modules) => {
 
 sage
   .entry('app', ['styles/app.scss', 'scripts/app.js'])
-  .copy(['images/*', 'fonts/*'])
+  .copy(['images/*'])
+  .purge({
+    content: [
+      'resources/views/**/*',
+      'resources/assets/scripts/**/*',
+    ],
+    css: ['resources/assets/styles/**/*'],
+  })
   .run();
