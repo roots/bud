@@ -20,7 +20,7 @@ import * as stylelint from '@roots/bud-stylelint'
 import * as postcss from '@roots/bud-postcss'
 import * as sass from '@roots/bud-sass'
 import * as purgecss from '@roots/bud-purgecss'
-import * as withWordPress from 'purgecss-with-wordpress'
+import withWordPress from 'purgecss-with-wordpress'
 
 /**
  * Sage WordPress starter theme
@@ -102,7 +102,6 @@ sage
     '@images': 'images',
     '@scripts': 'scripts',
     '@styles': 'styles',
-    '@svg': 'svg',
   })
 
 /**
