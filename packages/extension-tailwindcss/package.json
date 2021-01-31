@@ -73,7 +73,7 @@
   "dependencies": {
     "@roots/bud-cli": "^3.0.20-alpha.0",
     "@roots/bud-support": "^3.0.20-alpha.0",
-    "tailwindcss": "^1.9.6"
+    "tailwindcss": "^2.0.2"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
 }

@@ -91,6 +91,7 @@
     "cross-env": "^7.0.2",
     "get-bin-path": "^5.1.0",
     "npm-run-all": "^4.1",
+    "purgecss-with-wordpress": "^4.0.0",
     "rimraf": "^3.0.2"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"

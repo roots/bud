@@ -1,3 +1,7 @@
+/**
+ * Sage - Base
+ */
+
 // Core
 import {bud as sage} from '@roots/bud'
 
@@ -15,7 +19,6 @@ import * as eslint from '@roots/bud-eslint'
 import * as prettier from '@roots/bud-prettier'
 import * as stylelint from '@roots/bud-stylelint'
 import * as postcss from '@roots/bud-postcss'
-import * as purgecss from '@roots/bud-purgecss'
 
 /**
  * Sage WordPress starter theme
@@ -120,29 +123,53 @@ sage
     stylelint,
   ])
 
-/**
- * Production extensions
- */
-sage.when(sage.isProduction, () => {
-  sage.use([terser, purgecss])
-  sage.minify().hash().vendor().runtime()
-})
+  /**
+   * Production extensions
+   */
+  .when(sage.isProduction, () => {
+    sage.use([terser])
+    sage.minify().hash().vendor().runtime()
+  })
 
-/**
- * Sage webpack aliases
- */
-sage.alias({
-  '@scripts': 'scripts',
-  '@styles': 'styles',
-  '@fonts': 'fonts',
-  '@images': 'images',
-})
+  /**
+   * Sage webpack aliases
+   */
+  .alias({
+    '@scripts': 'scripts',
+    '@styles': 'styles',
+    '@fonts': 'fonts',
+    '@images': 'images',
+  })
 
-/**
- * Provided libraries
- */
-sage.provide({
-  jquery: ['$', 'jQuery'],
-})
+  /**
+   * Copy images
+   */
+  .when(
+    sage.disk.get('project').has('resources/assets/images'),
+    () => sage.copy('images/*'),
+  )
+
+  /**
+   * Copy fonts
+   */
+  .when(
+    sage.disk.get('project').has('resources/assets/fonts'),
+    () => sage.copy('fonts/*'),
+  )
+
+  /**
+   * Copy svg
+   */
+  .when(
+    sage.disk.get('project').has('resources/assets/svg'),
+    () => sage.copy('svg/*'),
+  )
+
+  /**
+   * Provided libraries
+   */
+  .provide({
+    jquery: ['$', 'jQuery'],
+  })
 
 export {sage}

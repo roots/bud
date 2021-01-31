@@ -1,6 +1,9 @@
 import './interface'
 
-import {sage} from './sage'
-import {isStatic, json, api, preflight} from './source'
+export {isStatic, json, api, preflight} from './source'
 
-export {api, isStatic, preflight, json, sage, sage as default}
+import {sage} from './sage/base'
+import {sage as purged} from './sage/purged'
+import {sage as tailwind} from './sage/tailwind'
+
+export {sage, sage as default, purged, tailwind}
