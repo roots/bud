@@ -1,4 +1,4 @@
-import {GlobTask, Webpack} from './'
+import {GlobTask} from './'
 import {Framework} from './'
 
 /**
@@ -6,37 +6,6 @@ import {Framework} from './'
  */
 
 export namespace Api {
-  export type Dev<T = Framework> = (
-    this: T,
-    config: Framework.Server.Options,
-  ) => T
-
-  export type Devtool<T = Framework> = (
-    this: T,
-    devtool?: Webpack.Configuration['devtool'],
-  ) => T
-
-  export type Dist<T = Framework> = (
-    this: T,
-    path?: string,
-  ) => string
-
-  export type DistPath<T = Framework> = (
-    this: T,
-    segment: string,
-  ) => T
-
-  export type Entry<T = Framework> = (
-    this: T,
-    bundleName: string,
-    assets:
-      | string
-      | string[]
-      | {
-          [key: string]: string | string[]
-        },
-  ) => T
-
   export type Externals<T = Framework> = (
     this: T,
     externals: {

@@ -1,7 +1,7 @@
 declare module '@roots/bud-framework' {
   interface Framework<T> {
     /**
-     * ## app.copy  [💁 Fluent]
+     * ## copy  [💁 Fluent]
      *
      * Copy static assets to your output directory.
      *

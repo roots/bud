@@ -40,10 +40,31 @@ export {dist} from './dist'
 import './distPath'
 export {distPath} from './distPath'
 
+/**
+ * Entry
+ */
+import './entry'
 export {entry} from './entry'
+
+/**
+ * Externals
+ */
+import './externals'
 export {externals} from './externals'
+
+/**
+ * Glob
+ */
 export {glob} from './glob'
+
+/**
+ * Hash
+ */
 export {hash} from './hash'
+
+/**
+ * Minify
+ */
 export {minify} from './minify'
 
 /**

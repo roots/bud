@@ -1,7 +1,7 @@
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## app.alias  [💁 Fluent]
+     * ## alias  [💁 Fluent]
      *
      * Register shorthand for resolving modules
      * using webpack aliases. Useful for

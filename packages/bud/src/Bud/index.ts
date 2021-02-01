@@ -37,54 +37,6 @@ import {Framework, Discovery} from '@roots/bud-framework'
 declare module '@roots/bud-framework' {
   export interface Framework {
     /**
-     * ## bud.devtool  [💁 Fluent]
-     *
-     * Enable and configure sourcemaps using any of Webpack's
-     * [devtool utilities](https://webpack.js.org/configuration/devtool/).
-     *
-     * [🔗 Documentation](#)
-     *
-     * ### Usage
-     *
-     * ```js
-     * bud.devtool('inline-cheap-module-source-map')
-     * ```
-     */
-    devtool: Api.Devtool<this>
-
-    /**
-     * ## bud.distPath [💁 Fluent]
-     *
-     * Sets the directory where assets will be built to.
-     *
-     * By default this directory is set as `dist`. [🔗 Documentation](#)
-     *
-     * ### Usage
-     *
-     * ```js
-     * bud.distPath('build')
-     * ```
-     */
-    distPath: Api.DistPath<this>
-
-    /**
-     * ## bud.entry  [💁 Fluent]
-     *
-     * Define groups of files to be bundled together. [🔗 Documentation](#)
-     *
-     * ### Usage
-     *
-     * ```js
-     * bud.entry('app', 'app.js')
-     * ```
-     *
-     * ```js
-     * bud.entry('app', ['app.js', 'app.css'])
-     * ```
-     */
-    entry: Api.Entry<this>
-
-    /**
      * ## bud.externals  [💁 Fluent]
      *
      * Specify a non-standard resolution strategy for modules

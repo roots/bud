@@ -1,14 +1,14 @@
 declare module '@roots/bud-framework' {
   export interface Framework {
     /**
-     * ## bud.dev  [💁 Fluent]
+     * ## dev  [💁 Fluent]
      *
-     * Configure Framework's development server. [🔗 Documentation](#)
+     * Configure development server.
      *
      * ### Usage
      *
      * ```js
-     * bud.dev({
+     * app.dev({
      *   host: 'my-local-site.example',
      *   port: 5000,
      * })
