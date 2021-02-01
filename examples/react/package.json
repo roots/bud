@@ -1,10 +1,5 @@
 {
   "scripts": {
     "bud": "node ../../node_modules/.bin/bud"
-  },
-  "devDependencies": {
-    "@roots/bud": "^2.2.1",
-    "@roots/bud-babel": "^2.2.1",
-    "@roots/bud-react": "^2.2.1"
   }
 }

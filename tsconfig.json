@@ -26,6 +26,7 @@
     {"@roots/bud-cache": "bud-cache"},
     {"@roots/bud-cli": "bud-cli"},
     {"@roots/bud-compiler": "bud-compiler"},
+    {"@roots/bud-compress": "extension-compress"},
     {"@roots/bud-extensions": "bud-extensions"},
     {"@roots/bud-framework": "bud-framework"},
     {"@roots/bud-hooks": "bud-hooks"},

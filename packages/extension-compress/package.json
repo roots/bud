@@ -1,0 +1,62 @@
+{
+  "name": "@roots/bud-compress",
+  "version": "3.0.24-alpha.0",
+  "description": "Adds gzip and brotli compression to Bud",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/roots/bud.git",
+    "directory": "packages/extension-compress"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "license": "MIT",
+  "keywords": [
+    "webpack",
+    "bud",
+    "bud-extension"
+  ],
+  "engines": {
+    "node": ">=12"
+  },
+  "files": [
+    "lib/",
+    "src/"
+  ],
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "exports": {
+    "require": "./lib/cjs/index.js",
+    "import": "./lib/esm/index.js"
+  },
+  "types": "./lib/types/index.d.ts",
+  "scripts": {
+    "build": "run-s build:*",
+    "build:cjs": "tsc --build tsconfig.json",
+    "build:esm": "tsc --build tsconfig-esm.json",
+    "lint": "run-s lint:*",
+    "lint:eslint": "eslint 'src/**/*.{js,ts,tsx}' --fix",
+    "lint:prettier": "prettier 'src/**/*'  --write",
+    "clean": "run-s clean:*",
+    "clean:lib": "rimraf ./lib",
+    "clean:modules": "rimraf ./node_modules",
+    "clean:types": "rimraf ./types",
+    "pkg": "run-s pkg:*",
+    "pkg:check": "package-check --verbose",
+    "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
+  },
+  "devDependencies": {
+    "@roots/bud": "^3.0.24-alpha.0",
+    "@types/compression-webpack-plugin": "^6.0.4"
+  },
+  "dependencies": {
+    "compression-webpack-plugin": "7.1.2"
+  },
+  "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
+}

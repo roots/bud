@@ -1,7 +1,5 @@
 import './interface'
-
 import {Bud} from '@roots/bud'
-
 import StylelintPlugin from 'stylelint-webpack-plugin'
 
 /**
@@ -19,14 +17,12 @@ export const options = app => ({
 /**
  * Extension make
  */
-export const make = (
-  options: Bud.Container<Bud.Stylelint.Options>,
-) => new StylelintPlugin(options.all())
+export const make = options => new StylelintPlugin(options.all())
 
 /**
  * Extension config fn
  */
-export const api: Bud.Stylelint.Api = {
+export const api: {[key: string]: Bud.Stylelint.Config} = {
   stylelint: function (userOpts) {
     this.extensions
       .get(name)

@@ -1,10 +1,4 @@
-import {Extension} from './interfaces'
 import * as Entrypoints from '@roots/entrypoints-webpack-plugin'
-
-/**
- * Typings
- */
-export * from './interfaces'
 
 /**
  * Extension name
@@ -12,14 +6,9 @@ export * from './interfaces'
 export const name = '@roots/bud-entrypoints'
 
 /**
- * Extension cfg fns
- */
-export * as api from './api'
-
-/**
  * Webpack plugin
  */
-export const make: Extension.Make = options =>
+export const make = options =>
   new Entrypoints.Plugin(options.all())
 
 /**

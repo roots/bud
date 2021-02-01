@@ -50,17 +50,9 @@
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
-  "peerDependencies": {
-    "@roots/bud": "*",
-    "@roots/bud-framework": "*",
-    "@roots/entrypoints-webpack-plugin": "*"
-  },
   "dependencies": {
     "@roots/bud": "^3.0.24-alpha.0",
     "@roots/entrypoints-webpack-plugin": "^3.0.24-alpha.0"
-  },
-  "devDependencies": {
-    "@roots/bud-framework": "^3.0.24-alpha.0"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
 }

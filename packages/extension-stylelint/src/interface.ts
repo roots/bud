@@ -9,10 +9,6 @@ declare module '@roots/bud' {
   }
 
   export namespace Bud.Stylelint {
-    export interface Api {
-      stylelint: Config
-    }
-
     export type Options = any
 
     export type Config = (

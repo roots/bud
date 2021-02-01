@@ -35,9 +35,8 @@ export type {Webpack}
 // Plugins
 export {ProgressPlugin, Stats} from 'webpack'
 
-import CompressionPlugin from 'compression-webpack-plugin'
 import InterpolateHtmlPlugin from './util/InterpolateHtmlPlugin'
-export {CompressionPlugin, InterpolateHtmlPlugin}
+export {InterpolateHtmlPlugin}
 
 // Middlewares
 import webpackDevMiddleware from 'webpack-dev-middleware'
@@ -142,7 +141,6 @@ import pino from 'pino'
 import prettier from 'prettier'
 import prettyFormat from 'pretty-format'
 import yargs from 'yargs'
-import zlib from 'zlib'
 export {
   chalk,
   dotenv,
@@ -154,7 +152,6 @@ export {
   prettier,
   prettyFormat,
   yargs,
-  zlib,
 }
 export type {execa as Execa}
 export type {GlobTask, GlobbyOptions} from 'globby'

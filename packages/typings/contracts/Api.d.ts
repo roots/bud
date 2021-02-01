@@ -1,4 +1,4 @@
-import {CompressionPlugin, GlobTask, Webpack, zlib} from './'
+import {GlobTask, Webpack} from './'
 import {Framework} from './'
 
 /**
@@ -51,15 +51,6 @@ export namespace Api {
     options: GlobTask['options'],
   ) => T
 
-  export type Gzip<T = Framework> = (
-    this: T,
-    options?: Framework.Module.Options<Gzip.Options>,
-  ) => T
-
-  namespace Gzip {
-    export type Options = CompressionPlugin.Options<zlib.ZlibOptions>
-  }
-
   export type Hash<T = Framework> = (
     this: T,
     enabled?: boolean,
@@ -71,11 +62,6 @@ export namespace Api {
     this: T,
     dir: string,
   ) => T
-
-  export type Project<T = Framework> = (
-    this: T,
-    path?: string,
-  ) => string
 
   export type Proxy<T = Framework> = (
     this: T,

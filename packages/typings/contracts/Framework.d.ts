@@ -4,7 +4,6 @@ import {
   Cache,
   CLI,
   Compiler,
-  CompressionPlugin,
   Constructor,
   Container,
   Env,
@@ -32,7 +31,6 @@ import {
   Use,
   Webpack,
   When,
-  zlib,
 } from './'
 
 /**
@@ -454,13 +452,6 @@ declare interface ServiceKeys {
   patterns: Framework.Index<RegExp>
 
   /**
-   * ## bud.presets [🍱 _Container_]
-   *
-   * Preset configuration container
-   */
-  presets: Framework.Index<any>
-
-  /**
    * ## Server config repository
    */
   server: Framework.Server.Options
@@ -490,7 +481,6 @@ export declare namespace Framework {
   export {ServiceKeys}
   export {Store}
   export {
-    CompressionPlugin,
     Constructor,
     Express,
     Factory,
@@ -501,6 +491,5 @@ export declare namespace Framework {
     Use,
     When,
     Webpack,
-    zlib,
   }
 }

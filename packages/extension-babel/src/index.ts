@@ -1,9 +1,9 @@
+import './interface'
 import {Bud} from '@roots/bud'
+
 import {addPlugin} from './api/addPlugin'
 import {setOptions} from './api/setOptions'
 import {addPreset} from './api/addPreset'
-
-import './types'
 
 /**
  * Extension ident

@@ -53,14 +53,12 @@
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
-  "peerDependencies": {
-    "@roots/bud": "*"
-  },
   "devDependencies": {
     "@roots/bud": "^3.0.24-alpha.0"
   },
   "dependencies": {
     "autoprefixer": "^10.1.0",
+    "cssnano": "^4.1.10",
     "postcss": "^8.2.1",
     "postcss-flexbugs-fixes": "^5.0.2",
     "postcss-import": "^14.0.0",

@@ -1,10 +1,8 @@
-import {addPlugin, setPluginOptions} from './api'
+import './interface'
 import {Bud} from '@roots/bud'
+import {PostCssConfig} from './api'
 
-/**
- * Types
- */
-import './interfaces'
+import postEnv from 'postcss-preset-env'
 
 /**
  * Preset env
@@ -13,7 +11,6 @@ const defaultPresetEnv = {
   autoprefixer: {
     flexbox: 'no-2009',
   },
-  stage: 1,
 }
 
 /**
@@ -25,51 +22,40 @@ export const name = '@roots/bud-postcss'
  * Replace default css implementation
  */
 export const boot = (app: Bud) => {
-  Object.assign(app, {
-    /**
-     * PostCss config object.
-     */
-    postcss: {
-      /**
-       * Plugins.
-       */
-      addPlugin: addPlugin.bind(app),
-      /**
-       * Presets.
-       */
-      setPluginOptions: setPluginOptions.bind(app),
-    },
-  })
+  /**
+   * PostCss configurator.
+   */
+  const postcssConfig = new PostCssConfig({app})
+  Object.assign(app, {postcss: postcssConfig})
 
-  app.build.set('items.postcss', {
+  app.build.set('items.postcss', (app: Bud) => ({
     loader: require.resolve('postcss-loader'),
     options: {
-      postcssOptions: {
-        plugins: [],
-      },
+      postcssOptions: app.postcss.getConfig(),
     },
-  })
-
-  app.build.set('rules.css.use', (app: Bud) => {
-    const postCss = app.build.access('items.postcss')
-
-    postCss.options.postcssOptions.plugins = Object.values(
-      postCss.options.postcssOptions.plugins,
-    )
-
-    return [
-      app.isProduction
-        ? app.build.access('items.minicss')
-        : app.build.access('items.style'),
-      app.build.access('items.css'),
-      postCss,
-      app.build.access('items.resolveUrl'),
-    ].filter(Boolean)
-  })
+  }))
 
   // configure defaults
-  app.postcss
-    .addPlugin('postcss-flexbugs-fixes')
-    .postcss.addPlugin('postcss-preset-env', defaultPresetEnv)
-    .postcss.addPlugin('postcss-import')
+  app.postcss.setConfig({
+    plugins: [
+      'postcss-flexbugs-fixes',
+      postEnv(defaultPresetEnv),
+      'postcss-nested',
+      'postcss-import',
+    ],
+  })
+
+  app.build.set(
+    'rules.css.use',
+    ({build, isProduction}: Bud) => {
+      return [
+        isProduction
+          ? build.access('items.minicss')
+          : build.access('items.style'),
+        build.access('items.css'),
+        build.access('items.postcss'),
+        build.access('items.resolveUrl'),
+      ]
+    },
+  )
 }

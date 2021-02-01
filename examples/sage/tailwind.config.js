@@ -4,9 +4,7 @@ module.exports = {
     // purgeLayersByDefault: true,
   },
   purge: [
-    './resources/**/*.php',
-    './resources/**/*.html',
-    './resources/**/*.blade.php',
+    './{app,resources}/**/*.{css,scss,html,js,php,vue,js,ts,tsx}',
   ],
   theme: {
     extend: {},

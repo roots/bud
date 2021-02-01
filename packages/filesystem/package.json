@@ -53,9 +53,6 @@
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
-  "peerDependencies": {
-    "@roots/container": "*"
-  },
   "dependencies": {
     "@roots/container": "^3.0.24-alpha.0",
     "fs-extra": "^9.0.1",

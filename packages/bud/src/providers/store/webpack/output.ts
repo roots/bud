@@ -25,10 +25,10 @@ export const publicPath = ({hooks, options}: Bud) =>
 /**
  * webpack.output.path
  */
-export const path = ({disk, options}: Bud) =>
-  disk.path.join(
-    options.access('project'),
-    options.access('dist'),
+export const path = ({disk, hooks, options}: Bud) =>
+  hooks.filter(
+    'webpack.output.path',
+    disk.path.join(options.get('project'), options.get('dist')),
   )
 
 /**

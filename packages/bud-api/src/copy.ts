@@ -1,5 +1,3 @@
-import {Framework} from '@roots/bud-framework'
-
 declare module '@roots/bud-framework' {
   interface Framework<T> {
     /**
@@ -52,6 +50,8 @@ declare module '@roots/bud-framework' {
     }
   }
 }
+
+import {Framework} from '@roots/bud-framework'
 
 export const copy: Framework.Api.Copy = function (
   from,

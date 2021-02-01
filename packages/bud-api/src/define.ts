@@ -1,6 +1,3 @@
-import {Framework} from '@roots/bud-framework'
-import {Webpack} from '@roots/bud-support'
-
 declare module '@roots/bud-framework' {
   interface Framework<T> {
     /**
@@ -26,6 +23,9 @@ declare module '@roots/bud-framework' {
     ) => Framework
   }
 }
+
+import {Framework} from '@roots/bud-framework'
+import {Webpack} from '@roots/bud-support'
 
 export const define: Framework.Api.Define = function (values) {
   this.extensions

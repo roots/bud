@@ -1,7 +1,7 @@
 {
-  "app.css": "/wp-content/themes/example/dist/app.css",
-  "app.js": "/wp-content/themes/example/dist/app.c5338ca7b31420de0988.js",
-  "runtime/app.js": "/wp-content/themes/example/dist/runtime/app.c5338ca7b31420de0988.js",
-  "90f8e81e645e8f2f3fcdf13d1d125551.svg": "/wp-content/themes/example/dist/90f8e81e645e8f2f3fcdf13d1d125551.svg",
-  "wordpress.json": "/wp-content/themes/example/dist/wordpress.json"
+  "app.css": "/wp-content/themes/example/public/app.css",
+  "app.js": "/wp-content/themes/example/public/app.abdaec9929090eea50fc.js",
+  "runtime/app.js": "/wp-content/themes/example/public/runtime/app.abdaec9929090eea50fc.js",
+  "90f8e81e645e8f2f3fcdf13d1d125551.svg": "/wp-content/themes/example/public/90f8e81e645e8f2f3fcdf13d1d125551.svg",
+  "wordpress.json": "/wp-content/themes/example/public/wordpress.json"
 }

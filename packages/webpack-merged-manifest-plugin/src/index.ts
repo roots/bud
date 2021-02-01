@@ -76,12 +76,8 @@ class MergedManifestWebpackPlugin {
     _compilation,
     callback,
   ): Promise<CallableFunction> {
-    /**
-     * Callback early if a required manifest is missing.
-     */
     if (!this.isBuildable()) {
-      console.error('is not buildable')
-      process.exit()
+      return callback()
     }
 
     /**

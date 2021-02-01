@@ -54,14 +54,6 @@
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
-  "peerDependencies": {
-    "@roots/bud-extensions": "*",
-    "@roots/bud-framework": "*",
-    "@roots/bud-server": "*",
-    "@roots/bud-support": "*",
-    "@roots/bud-typings": "*",
-    "@roots/container": "*"
-  },
   "devDependencies": {
     "@roots/bud-extensions": "^3.0.24-alpha.0",
     "@roots/bud-framework": "^3.0.24-alpha.0",

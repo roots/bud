@@ -51,22 +51,6 @@
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
-  "peerDependencies": {
-    "@roots/bud-api": "*",
-    "@roots/bud-build": "*",
-    "@roots/bud-cache": "*",
-    "@roots/bud-cli": "*",
-    "@roots/bud-compiler": "*",
-    "@roots/bud-extensions": "*",
-    "@roots/bud-framework": "*",
-    "@roots/bud-hooks": "*",
-    "@roots/bud-server": "*",
-    "@roots/bud-support": "*",
-    "@roots/bud-terser": "*",
-    "@roots/bud-typings": "*",
-    "@roots/container": "*",
-    "@roots/filesystem": "*"
-  },
   "devDependencies": {
     "@roots/bud-typings": "^3.0.24-alpha.0"
   },
@@ -91,7 +75,6 @@
     "source-map-loader": "^1.0.1",
     "style-loader": "^2.0.0",
     "thread-loader": "^3.0.1",
-    "ts-node": "^9.1.1",
     "url-loader": "^4.1.0",
     "webpack-config-dump-plugin": "^3.0.1",
     "webpack-manifest-plugin": "^2.2.0",

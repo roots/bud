@@ -1,5 +1,5 @@
 // Extension interface
-import './interfaces'
+import './interface'
 
 // Extension name
 export const name = '@roots/bud-library'

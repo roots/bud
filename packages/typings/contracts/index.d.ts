@@ -1,9 +1,7 @@
 export {
-  CompressionPlugin,
   express as Express,
   GlobTask,
   Webpack,
-  zlib,
   Instance,
 } from '../../bud-support/src'
 
@@ -18,6 +16,7 @@ import {
   MappedType,
   When,
 } from './utility'
+
 export {
   Constructor,
   Factory,

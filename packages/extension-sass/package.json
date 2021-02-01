@@ -54,11 +54,6 @@
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
-  "peerDependencies": {
-    "@roots/bud": "*",
-    "@roots/bud-postcss": "*",
-    "@roots/bud-support": "*"
-  },
   "devDependencies": {
     "@roots/bud": "^3.0.24-alpha.0",
     "@roots/bud-postcss": "^3.0.24-alpha.0"

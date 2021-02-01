@@ -53,10 +53,6 @@
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
-  "peerDependencies": {
-    "@roots/bud": "*",
-    "@roots/bud-babel": "*"
-  },
   "devDependencies": {
     "@roots/bud": "^3.0.24-alpha.0",
     "@roots/bud-babel": "^3.0.24-alpha.0"
@@ -64,7 +60,6 @@
   "dependencies": {
     "@babel/preset-react": "^7.12.10",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
-    "@roots/bud-support": "^3.0.24-alpha.0",
     "@svgr/core": "^5.5.0",
     "@svgr/webpack": "^5.5.0",
     "react": "^17.0.1",

@@ -1,7 +1,5 @@
-import {Framework} from '@roots/bud-framework'
-
 declare module '@roots/bud-framework' {
-  interface Framework<T> {
+  interface Framework {
     /**
      * ## app.alias  [💁 Fluent]
      *
@@ -21,7 +19,7 @@ declare module '@roots/bud-framework' {
     alias: Framework.Api.Alias
   }
 
-  namespace Framework.Api {
+  export namespace Framework.Api {
     export type Alias = (
       this: Framework,
       aliases: {
@@ -30,6 +28,8 @@ declare module '@roots/bud-framework' {
     ) => Framework
   }
 }
+
+import {Framework} from '@roots/bud-framework'
 
 export const alias: Framework.Api.Alias = function (alias) {
   this.hooks.on('webpack.resolve.alias', aliases => ({

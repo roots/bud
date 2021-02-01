@@ -10,7 +10,10 @@ import {run} from './Framework/run'
 import {when} from './Framework/when'
 import {use} from './Framework/use'
 
+import {Compiler} from '@roots/bud-typings'
+
 export {
+  Compiler,
   Discovery,
   Disk,
   Env,

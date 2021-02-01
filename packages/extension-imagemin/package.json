@@ -52,14 +52,8 @@
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
-  "peerDependencies": {
-    "@roots/bud": "*",
-    "@roots/bud-support": "*",
-    "@roots/bud-typings": "*"
-  },
   "devDependencies": {
-    "@roots/bud": "^3.0.24-alpha.0",
-    "@roots/bud-typings": "^3.0.24-alpha.0"
+    "@roots/bud": "^3.0.24-alpha.0"
   },
   "dependencies": {
     "@roots/bud-support": "^3.0.24-alpha.0",

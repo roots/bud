@@ -16,6 +16,7 @@
     "packages/container",
     "packages/dependencies",
     "packages/extension-babel",
+    "packages/extension-compress",
     "packages/extension-entrypoints",
     "packages/extension-eslint",
     "packages/extension-imagemin",

@@ -5,7 +5,6 @@ import type {
   Cache,
   CLI,
   Compiler,
-  CompressionPlugin,
   Constructor,
   Container,
   Env,
@@ -32,67 +31,11 @@ import type {
   Use,
   Webpack,
   When,
-  zlib,
 } from '@roots/bud-typings'
-import type {Brotli, Gzip} from '../providers/extensions'
+import {Framework, Discovery} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
-  interface Framework {
-    /**
-     * ## bud.brotli  [💁 Fluent]
-     *
-     * Compress static assets with brotli compression.
-     *
-     * It's arguments are optional. For more information on
-     * configuration consult [the compression webpack
-     * plugin documentation](#).
-     *
-     * [🔗 Documentation](#)
-     *
-     * ### Usage
-     *
-     * **Simplest way to get started is to just call it**
-     *
-     * This is likely a fine default config.
-     *
-     * ```js
-     * bud.brotli()
-     * ```
-     *
-     * #### Shown with default options
-     *
-     * ```js
-     * bud.brotli({
-     *   filename: '[name].br[query]',
-     *   algorithm: 'brotliCompress',
-     *   test: /\.js$|\.css$|\.html$|\.html$/,
-     *   compressionOptions: {
-     *     level: 11,
-     *   },
-     *   threshold: 10240,
-     *   minRatio: 0.8,
-     *   deleteOriginalAssets: false,
-     * })
-     * ```
-     */
-    brotli: Brotli.Config
-
-    /**
-     * ## bud.dev  [💁 Fluent]
-     *
-     * Configure Framework's development server. [🔗 Documentation](#)
-     *
-     * ### Usage
-     *
-     * ```js
-     * bud.dev({
-     *   host: 'my-local-site.example',
-     *   port: 5000,
-     * })
-     * ```
-     */
-    dev: Api.Dev<this>
-
+  export interface Framework {
     /**
      * ## bud.devtool  [💁 Fluent]
      *
@@ -183,13 +126,6 @@ declare module '@roots/bud-framework' {
     glob: Api.Glob<this>
 
     /**
-     * ## bud.gzip  [💁 Fluent]
-     *
-     * Gzip static assets. [🔗 Documentation](#)
-     */
-    gzip: Gzip.Config
-
-    /**
      * ## bud.hash  [💁 Fluent]
      *
      * Enable filename hashing of built assets. [🔗 Documentation](#)
@@ -214,27 +150,6 @@ declare module '@roots/bud-framework' {
      * ```
      */
     minify: Api.Minify<this>
-
-    /**
-     * ## bud.project  [💁 Fluent]
-     *
-     * With no arguments, this function returns the project's root path.
-     *
-     * Optionally, **bud.project** may be passed a path relative to the project root.
-     *
-     * In this case it returns the absolute path. [🔗 Documentation](#)
-     *
-     * ### Usage
-     *
-     * ```js
-     * bud.project()
-     * ```
-     *
-     * ```js
-     * bud.project('node_modules')
-     * ```
-     */
-    project: Api.Project<this>
 
     /**
      * ## bud.projectPath [💁 Fluent]
@@ -352,17 +267,8 @@ declare module '@roots/bud-framework' {
      * ```
      */
     vendor: Api.Vendor<this>
-
-    /**
-     * ## bud.discovery
-     *
-     * Internal utilty used to auto-discover Bud extensions
-     */
-    discovery: Bud.Discovery
   }
 }
-
-import {Framework, Discovery} from '@roots/bud-framework'
 
 /**
  * ## Bud
@@ -373,7 +279,14 @@ import {Framework, Discovery} from '@roots/bud-framework'
  * [🏡 Project home](https://roots.io/bud)
  * [📦 @roots/bud](https://github.io/roots/bud)
  */
-class Bud extends Framework {}
+class Bud extends Framework {
+  /**
+   * ## bud.discovery
+   *
+   * Internal utilty used to auto-discover Bud extensions
+   */
+  discovery: Bud.Discovery
+}
 
 declare namespace Bud {
   namespace Api {
@@ -405,7 +318,6 @@ declare namespace Bud {
   export {Server}
   export {Service}
   export {
-    CompressionPlugin,
     Constructor,
     Express,
     Factory,
@@ -416,7 +328,6 @@ declare namespace Bud {
     Use,
     When,
     Webpack,
-    zlib,
   }
 }
 

@@ -1,14 +1,27 @@
 // @ts-check
-const {tailwind: sage} = require('../../packages/sage');
+const Sage = require('../../packages/sage');
+
+/**
+ * Sage - tailwind preset
+ */
+const theme = Sage.tailwind();
 
 /**
  * This is specific for the Bud monorepo only.
  *
- * You do not need to include this hook in your project
+ * You do not need to include this hook in your projeqct
  * configuration file.
  */
-sage.hooks.on('webpack.resolve.modules', (modules) => {
-  return [...modules, sage.project('./../../node_modules')];
+theme.hooks.on('webpack.resolve.modules', function (modules) {
+  return [
+    ...modules,
+    require('path').resolve('./../../node_modules'),
+  ];
 });
 
-sage.entry('app', ['styles/app.scss', 'scripts/app.js']).run();
+/**
+ * Sage theme build
+ */
+theme
+  .entry('app', ['styles/app.scss', 'scripts/app.js'])
+  .run();

@@ -3,72 +3,76 @@
  */
 
 // Core
-import {bud as sage} from '@roots/bud'
+import {bud, Bud} from '@roots/bud'
 
-// Extensions
+// Transpilers
 import * as babel from '@roots/bud-babel'
+import * as react from '@roots/bud-react'
 import * as postcss from '@roots/bud-postcss'
 import * as sass from '@roots/bud-sass'
-import * as react from '@roots/bud-react'
-import * as imagemin from '@roots/bud-imagemin'
-import * as terser from '@roots/bud-terser'
+import * as tailwindcss from '@roots/bud-tailwindcss'
+
+// Linting
 import * as eslint from '@roots/bud-eslint'
 import * as prettier from '@roots/bud-prettier'
 import * as stylelint from '@roots/bud-stylelint'
-import * as tailwindcss from '@roots/bud-tailwindcss'
+
+// Manifests
 import * as entrypoints from '@roots/bud-entrypoints'
 import * as dependencies from '@roots/bud-wordpress-dependencies'
 import * as externals from '@roots/bud-wordpress-externals'
 import * as manifests from '@roots/bud-wordpress-manifests'
 
-/**
- * Sage WordPress starter theme
- */
-sage
-
-  /**
-   * Artifacts/cache store
-   *
-   * Set to Acorn standard location
-   */
-  .storage('storage/bud')
-
-  /**
-   * Src path
-   */
-  .srcPath('resources')
-
-  /**
-   * Dist path
-   */
-  .distPath('public')
-
-  /**
-   * Public path:
-   */
-  .when(sage.env.has('APP_PUBLIC_PATH'), () =>
-    sage.publicPath(sage.env.get('APP_PUBLIC_PATH')),
-  )
-
-  /**
-   * Proxy host
-   */
-  .when(sage.env.has('APP_PROXY_HOST'), () =>
-    sage.proxy({host: sage.env.get('APP_PROXY_HOST')}),
-  )
-
-  /**
-   * Proxy port
-   */
-  .when(sage.env.has('APP_PROXY_PORT'), () =>
-    sage.proxy({port: sage.env.get('APP_PROXY_PORT')}),
-  )
+// Optimization
+import * as imagemin from '@roots/bud-imagemin'
+import * as terser from '@roots/bud-terser'
 
 /**
- * Extensions
+ * Sage - tailwind preset
  */
-sage
-  .use([
+export const tailwind: () => Bud = () => {
+  const sage = bud
+
+  sage
+    /**
+     * Artifacts/cache store
+     *
+     * Set to Acorn standard location
+     */
+    .storage('storage/bud')
+
+    /**
+     * Src path
+     */
+    .srcPath('resources')
+
+    /**
+     * Dist path
+     */
+    .distPath('public')
+
+    /**
+     * Public path:
+     */
+    .when(sage.env.has('APP_PUBLIC_PATH'), () =>
+      sage.publicPath(sage.env.get('APP_PUBLIC_PATH')),
+    )
+
+    /**
+     * Proxy host
+     */
+    .when(sage.env.has('APP_PROXY_HOST'), () =>
+      sage.proxy({host: sage.env.get('APP_PROXY_HOST')}),
+    )
+
+    /**
+     * Proxy port
+     */
+    .when(sage.env.has('APP_PROXY_PORT'), () =>
+      sage.proxy({port: sage.env.get('APP_PROXY_PORT')}),
+    )
+
+  sage.use([
     /**
      * Script transpilation
      */
@@ -99,20 +103,37 @@ sage
   ])
 
   /**
-   * Webpack aliases
+   * Sage webpack aliases
    */
-  .alias({
+  sage.alias({
     '@fonts': 'fonts',
     '@images': 'images',
     '@scripts': 'scripts',
     '@styles': 'styles',
-    '@svg': 'svg',
   })
 
-/**
- * Production optim
- */
-sage.isProduction &&
-  sage.use([imagemin, terser]).minify().hash().vendor().runtime()
+  /**
+   * Provide vars
+   */
+  sage.provide({
+    jquery: ['$', 'jQuery'],
+  })
 
-export {sage}
+  /**
+   * Production optim
+   */
+  sage.when(sage.isProduction, () => {
+    sage.use([terser, imagemin])
+
+    sage.postcss.addPlugin(
+      require('cssNano')({preset: 'default'}),
+    )
+
+    sage.minify()
+    sage.hash()
+    sage.vendor()
+    sage.runtime()
+  })
+
+  return sage
+}

@@ -1,7 +1,6 @@
 import './interfaces'
 
 import * as Plugin from './imagemin'
-import {Bud} from '@roots/bud'
 
 /**
  * Extension name
@@ -16,6 +15,6 @@ export * as api from './api'
 /**
  * Extension boot
  */
-export const boot: Bud.Module.Boot = bud => {
+export const boot = bud => {
   bud.use(Plugin)
 }

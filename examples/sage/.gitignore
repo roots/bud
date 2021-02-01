@@ -1,7 +1,7 @@
 .env
 /node_modules
 /vendor
-/dist
+/public
 npm-debug.log
 yarn-error.log
 storage/bud/*
