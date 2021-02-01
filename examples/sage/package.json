@@ -1,9 +1,0 @@
-{
-  "private": true,
-  "scripts": {
-    "sage": "node ./../../node_modules/.bin/sage",
-    "dev": "yarn sage build --mode development",
-    "build": "yarn sage build --mode production",
-    "debug": "yarn sage build --mode production --log --debug --ci"
-  }
-}

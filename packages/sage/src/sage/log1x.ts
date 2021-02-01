@@ -58,20 +58,6 @@ export const tailwind: () => Bud = () => {
       sage.publicPath(sage.env.get('APP_PUBLIC_PATH')),
     )
 
-    /**
-     * Proxy host
-     */
-    .when(sage.env.has('APP_PROXY_HOST'), () =>
-      sage.proxy({host: sage.env.get('APP_PROXY_HOST')}),
-    )
-
-    /**
-     * Proxy port
-     */
-    .when(sage.env.has('APP_PROXY_PORT'), () =>
-      sage.proxy({port: sage.env.get('APP_PROXY_PORT')}),
-    )
-
   sage.use([
     /**
      * Script transpilation
@@ -122,18 +108,38 @@ export const tailwind: () => Bud = () => {
   /**
    * Production optim
    */
-  sage.when(sage.isProduction, () => {
-    sage.use([terser, imagemin])
+  sage.when(
+    sage.isProduction,
 
-    sage.postcss.addPlugin(
-      require('cssNano')({preset: 'default'}),
-    )
+    /**
+     * Production concerns.
+     */
+    () => {
+      sage.use([terser, imagemin])
 
-    sage.minify()
-    sage.hash()
-    sage.vendor()
-    sage.runtime()
-  })
+      sage.postcss.addPlugin(
+        require('cssNano')({preset: 'default'}),
+      )
+
+      sage.minify()
+      sage.hash()
+      sage.vendor()
+      sage.runtime()
+    },
+
+    /**
+     * Development concerns.
+     */
+    () => {
+      sage
+        .when(sage.env.has('APP_PROXY_HOST'), () =>
+          sage.proxy({host: sage.env.get('APP_PROXY_HOST')}),
+        )
+        .when(sage.env.has('APP_PROXY_PORT'), () =>
+          sage.proxy({port: sage.env.get('APP_PROXY_PORT')}),
+        )
+    },
+  )
 
   return sage
 }

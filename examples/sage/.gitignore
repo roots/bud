@@ -1,7 +1,0 @@
-.env
-/node_modules
-/vendor
-/public
-npm-debug.log
-yarn-error.log
-storage/bud/*
