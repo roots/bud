@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-wordpress-dependencies",
-  "version": "3.0.24-alpha.0",
+  "version": "3.0.25-alpha.0",
   "description": "Webpack tools",
   "repository": {
     "type": "git",
@@ -54,11 +54,11 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "dependencies": {
-    "@roots/bud-support": "^3.0.24-alpha.0",
-    "@roots/wordpress-dependencies-webpack-plugin": "^3.0.24-alpha.0"
+    "@roots/bud-support": "^3.0.25-alpha.0",
+    "@roots/wordpress-dependencies-webpack-plugin": "^3.0.25-alpha.0"
   },
   "devDependencies": {
-    "@roots/bud": "^3.0.24-alpha.0"
+    "@roots/bud": "^3.0.25-alpha.0"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
 }
