@@ -9,5 +9,5 @@ const options: webpackHotMiddleware.MiddlewareOptions = {
 
 export const hot = (
   compiler: Webpack.Compiler,
-): Express.RequestHandler =>
+): webpackHotMiddleware.EventStream & Express.Handler =>
   webpackHotMiddleware(compiler, options)

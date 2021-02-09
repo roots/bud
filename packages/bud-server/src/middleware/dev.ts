@@ -50,7 +50,8 @@ const options = (
       .filter(
         ([key, option]: [string, unknown]) =>
           middlewareConfigKeys.includes(key) &&
-          !isUndefined(option) && !isNull(option),
+          !isUndefined(option) &&
+          !isNull(option),
       ),
   )
 

@@ -35,6 +35,7 @@ export const options: {
   runtime: {},
   sass: {},
   vendor: {},
+  watch: {},
 
   /**
    * Server features

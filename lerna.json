@@ -18,6 +18,7 @@
     "packages/extension-babel",
     "packages/extension-compress",
     "packages/extension-entrypoints",
+    "packages/extesnion-esbuild",
     "packages/extension-eslint",
     "packages/extension-imagemin",
     "packages/extension-library",

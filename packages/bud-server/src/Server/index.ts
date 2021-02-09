@@ -58,19 +58,20 @@ export default class extends Service implements Server {
    * Run server
    */
   public run(compiler: Webpack.Compiler): this {
-    const config = this.config
-
-    this.instance.use(
-      middleware.dev({
-        config,
+    const middlewares = {
+      dev: middleware.dev({
+        config: this.config,
         compiler,
       }),
-    )
+      hot: middleware.hot(compiler),
+      proxy: middleware.proxy(this.config),
+    }
 
-    this.instance.use(middleware.hot(compiler))
+    this.instance.use(middlewares.dev)
+    this.instance.use(middlewares.hot)
 
     this.app.options.enabled('proxy') &&
-      this.instance.use(middleware.proxy(this.config))
+      this.instance.use(middlewares.proxy)
 
     this.instance.listen(this.config.get('port'))
 

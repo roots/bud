@@ -7,8 +7,9 @@ import {bud, Bud} from '@roots/bud'
 
 // Transpilers
 import * as babel from '@roots/bud-babel'
-import * as react from '@roots/bud-react'
+import * as esbuild from '@roots/bud-esbuild'
 import * as postcss from '@roots/bud-postcss'
+import * as react from '@roots/bud-react'
 import * as sass from '@roots/bud-sass'
 
 // Linting
@@ -24,7 +25,6 @@ import * as manifests from '@roots/bud-wordpress-manifests'
 
 // Optimization
 import * as imagemin from '@roots/bud-imagemin'
-import * as terser from '@roots/bud-terser'
 import * as purgecss from '@roots/bud-purgecss'
 
 /**
@@ -68,15 +68,34 @@ export const bootstrap: () => Bud = () => {
     )
 
     /**
+     * ESBuild doesn't support HMR. it is purely a transpiler.
+     *
+     * - snowpack & vite each have their own HMR solutions.
+     * - snowpack provides their solution as an
+     *   [ESM spec proposal](https://github.com/snowpackjs/esm-hmr)
+     * - [Related article from Dan Abramov](https://medium.com/@dan_abramov/hot-reloading-in-react-1140438583bf)
+     *
+     * Losing hmr in development is not worth the theoretical
+     * lost time in dev, for most users.
+     *
+     * Thus, Sage uses esbuild@production, babel/hmr@development.
+     */
+    .when(
+      bud.isDevelopment,
+      (bud: Bud) => {
+        bud.use(babel)
+        bud.use(react)
+      },
+      (bud: Bud) => {
+        bud.use(esbuild)
+        bud.esbuild.jsx()
+      },
+    )
+
+    /**
      * Extensions
      */
     .use([
-      /**
-       * Script transpilation
-       */
-      babel,
-      react,
-
       /**
        * Style transpilation
        */
@@ -120,7 +139,7 @@ export const bootstrap: () => Bud = () => {
    * Production optim
    */
   sage.when(sage.isProduction, () => {
-    sage.use([terser, imagemin, purgecss])
+    sage.use([imagemin, purgecss])
 
     sage.postcss.addPlugin(
       require('cssNano')({preset: 'default'}),

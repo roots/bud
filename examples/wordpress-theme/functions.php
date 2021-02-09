@@ -25,7 +25,7 @@ use \Illuminate\Support\Collection;
 function partial(string $partial): void {
   $templateFile = realpath(
     get_theme_file_path(
-      "partials/{$partial}.php"
+      "src/partials/{$partial}.php"
     )
   );
 

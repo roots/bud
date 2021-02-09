@@ -32,6 +32,7 @@
     {"@roots/bud-hooks": "bud-hooks"},
     {"@roots/bud-babel": "extension-babel"},
     {"@roots/bud-entrypoints": "extension-entrypoints"},
+    {"@roots/bud-esbuild": "extension-esbuild"},
     {"@roots/bud-eslint": "extension-eslint"},
     {"@roots/bud-imagemin": "extension-imagemin"},
     {"@roots/bud-library": "extension-library"},

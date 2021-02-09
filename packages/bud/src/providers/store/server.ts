@@ -1,11 +1,6 @@
 import type {Server} from '@roots/bud-typings'
 
 /**
- * Filename
- */
-export const filename: Server.Options['filename'] = undefined
-
-/**
  * The index path for web server,
  *
  * If falsy (but not undefined), the server will not respond

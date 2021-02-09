@@ -40,6 +40,7 @@
       "packages/extension-babel",
       "packages/extension-compress",
       "packages/extension-entrypoints",
+      "packages/extension-esbuild",
       "packages/extension-eslint",
       "packages/extension-imagemin",
       "packages/extension-library",

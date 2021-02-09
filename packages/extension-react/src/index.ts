@@ -12,7 +12,8 @@ export const name = '@roots/bud-react'
  * Extension register
  */
 export const boot = (app: Bud) => {
-  app.babel.addPreset('@babel/preset-react')
+  app.babel?.addPreset &&
+    app.babel.addPreset('@babel/preset-react')
 
   // The rest of the boot method pertains only to dev
   // Exit early if not applicable

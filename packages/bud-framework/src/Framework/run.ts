@@ -13,8 +13,7 @@ export function run(this: Framework): void {
    * @note This is the last moment before CLI/non-CLI builds lose
    * shared context.
    */
-  this.options.is('mode', 'development') &&
-    this.server.injectHmr()
+  this.isDevelopment && this.server.injectHmr()
 
   /**
    * When using the Bud dashboard we can just call the CLI

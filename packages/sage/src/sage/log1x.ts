@@ -7,8 +7,9 @@ import {bud, Bud} from '@roots/bud'
 
 // Transpilers
 import * as babel from '@roots/bud-babel'
-import * as react from '@roots/bud-react'
+import * as esbuild from '@roots/bud-esbuild'
 import * as postcss from '@roots/bud-postcss'
+import * as react from '@roots/bud-react'
 import * as sass from '@roots/bud-sass'
 import * as tailwindcss from '@roots/bud-tailwindcss'
 
@@ -25,7 +26,6 @@ import * as manifests from '@roots/bud-wordpress-manifests'
 
 // Optimization
 import * as imagemin from '@roots/bud-imagemin'
-import * as terser from '@roots/bud-terser'
 
 /**
  * Sage - tailwind preset
@@ -58,88 +58,107 @@ export const tailwind: () => Bud = () => {
       sage.publicPath(sage.env.get('APP_PUBLIC_PATH')),
     )
 
-  sage.use([
     /**
-     * Script transpilation
+     * ESBuild doesn't support HMR. it is purely a transpiler.
+     *
+     * - snowpack & vite each have their own HMR solutions.
+     * - snowpack provides their solution as an
+     *   [ESM spec proposal](https://github.com/snowpackjs/esm-hmr)
+     * - [Related article from Dan Abramov](https://medium.com/@dan_abramov/hot-reloading-in-react-1140438583bf)
+     *
+     * Losing hmr in development is not worth the theoretical
+     * lost time in dev, for most users.
+     *
+     * Thus, Sage uses esbuild@production, babel/hmr@development.
      */
-    babel,
-    react,
+    .when(
+      bud.isDevelopment,
+      (bud: Bud) => {
+        bud.use(babel)
+        bud.use(react)
+      },
+      (bud: Bud) => {
+        bud.use(esbuild)
+        bud.esbuild.jsx()
+      },
+    )
 
-    /**
-     * Style transpilation
-     */
-    postcss,
-    sass,
-    tailwindcss,
+    .use([
+      /**
+       * Style transpilation
+       */
+      postcss,
+      sass,
+      tailwindcss,
 
-    /**
-     * Linting
-     */
-    eslint,
-    prettier,
-    stylelint,
+      /**
+       * Linting
+       */
+      eslint,
+      prettier,
+      stylelint,
 
-    /**
-     * Manifests
-     */
-    entrypoints,
-    dependencies,
-    externals,
-    manifests,
-  ])
-
-  /**
-   * Sage webpack aliases
-   */
-  sage.alias({
-    '@fonts': 'fonts',
-    '@images': 'images',
-    '@scripts': 'scripts',
-    '@styles': 'styles',
-  })
-
-  /**
-   * Provide vars
-   */
-  sage.provide({
-    jquery: ['$', 'jQuery'],
-  })
-
-  /**
-   * Production optim
-   */
-  sage.when(
-    sage.isProduction,
+      /**
+       * Manifests
+       */
+      entrypoints,
+      dependencies,
+      externals,
+      manifests,
+    ])
 
     /**
-     * Production concerns.
+     * Sage webpack aliases
      */
-    () => {
-      sage.use([terser, imagemin])
-
-      sage.postcss.addPlugin(
-        require('cssNano')({preset: 'default'}),
-      )
-
-      sage.minify()
-      sage.hash()
-      sage.vendor()
-      sage.runtime()
-    },
+    .alias({
+      '@fonts': 'fonts',
+      '@images': 'images',
+      '@scripts': 'scripts',
+      '@styles': 'styles',
+    })
 
     /**
-     * Development concerns.
+     * Provide vars
      */
-    () => {
-      sage
-        .when(sage.env.has('APP_PROXY_HOST'), () =>
-          sage.proxy({host: sage.env.get('APP_PROXY_HOST')}),
+    .provide({
+      jquery: ['$', 'jQuery'],
+    })
+
+    /**
+     * Production optim
+     */
+    .when(
+      sage.isProduction,
+
+      /**
+       * Production concerns.
+       */
+      (sage: Bud) => {
+        sage.use([imagemin])
+
+        sage.postcss.addPlugin(
+          require('cssNano')({preset: 'default'}),
         )
-        .when(sage.env.has('APP_PROXY_PORT'), () =>
-          sage.proxy({port: sage.env.get('APP_PROXY_PORT')}),
-        )
-    },
-  )
+
+        sage.minify()
+        sage.hash()
+        sage.vendor()
+        sage.runtime()
+      },
+
+      /**
+       * Development concerns.
+       */
+      (sage: Bud) => {
+        sage
+          .when(sage.env.has('APP_PROXY_HOST'), () =>
+            sage.proxy({host: sage.env.get('APP_PROXY_HOST')}),
+          )
+          .when(sage.env.has('APP_PROXY_PORT'), () =>
+            sage.proxy({port: sage.env.get('APP_PROXY_PORT')}),
+          )
+      },
+    )
 
   return sage
 }

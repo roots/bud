@@ -220,7 +220,7 @@ export const stats = ({hooks}: Bud) =>
 export const target = ({hooks, options}: Bud) =>
   hooks.filter(
     `webpack.target`,
-    options.access('webpack.target') ?? 'web',
+    options.access('target') ?? 'web',
   )
 
 /**
@@ -231,10 +231,20 @@ export const target = ({hooks, options}: Bud) =>
  * @default {false}
  */
 export const watch = ({hooks, options}: Bud) =>
-  hooks.filter(
-    `webpack.watch`,
-    options.access('webpack.watch') ?? false,
-  )
+  hooks.filter(`webpack.watch`, options.access('watch') ?? false)
+
+/**
+ * Watch options
+ *
+ * @filter  {webpack.watchOptions}
+ * @flags   {--watch}
+ * @default {false}
+ */
+export const watchOptions = ({hooks, store}: Bud) =>
+  hooks.filter(`webpack.watchOptions`, {
+    ignored: [store.get('patterns.modules')],
+    poll: 1000,
+  })
 
 /**
  * Module
