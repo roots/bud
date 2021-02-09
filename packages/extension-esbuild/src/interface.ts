@@ -49,10 +49,26 @@ declare module '@roots/bud' {
        * ```
        */
       setOptions: Bud.ESBuild.SetOptions
+
+      /**
+       * ## bud.esbuild.jsx
+       *
+       * Toggle esbuild jsx/tsx parsing
+       *
+       * ### Usage
+       *
+       * Disable:
+       *
+       * ```js
+       * bud.esbuild.jsx(false)
+       * ```
+       */
+      jsx: Bud.ESBuild.JSX
     }
 
     export namespace ESBuild {
       export type SetOptions = (opts?: LoaderOptions) => Bud
+      export type JSX = (enabled?: boolean) => Bud
     }
   }
 }
