@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-tailwindcss",
-  "version": "3.0.25-alpha.0",
+  "version": "3.0.26-alpha.0",
   "description": "Adds tailwindcss support to Bud",
   "repository": {
     "type": "git",
@@ -59,8 +59,8 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
-    "@roots/bud": "^3.0.25-alpha.0",
-    "@roots/bud-postcss": "^3.0.25-alpha.0"
+    "@roots/bud": "^3.0.26-alpha.0",
+    "@roots/bud-postcss": "^3.0.26-alpha.0"
   },
   "dependencies": {
     "tailwindcss": "^2.0.2"
