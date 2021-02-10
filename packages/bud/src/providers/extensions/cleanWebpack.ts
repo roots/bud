@@ -2,13 +2,13 @@ import {
   CleanWebpackPlugin as Plugin,
   Options as PluginOptions,
 } from 'clean-webpack-plugin'
-import {Module} from '@roots/bud-typings'
+import {Bud} from '../../Bud'
 
-export const make: Module.Make<
+export const make: Bud.Module.Make<
   Plugin,
   PluginOptions
 > = options => new Plugin(options.all())
 
-export const options: Module.Options<PluginOptions> = () => ({
+export const options: Bud.Module.Options<PluginOptions> = () => ({
   cleanOnceBeforeBuildPatterns: ['**/*', '!dll'],
 })

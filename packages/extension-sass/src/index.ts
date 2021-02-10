@@ -1,7 +1,5 @@
 import './interface'
-
 import {Bud} from '@roots/bud'
-import {lodash as _} from '@roots/bud-support'
 
 export const name = '@roots/bud-sass'
 

@@ -52,32 +52,6 @@ declare module '@roots/bud-framework' {
     externals: Api.Externals<this>
 
     /**
-     * ## bud.glob  [💁 Fluent]
-     *
-     * Generate an entrypoint from assets matching a
-     * [fast-glob](https://git.io/JkGbw) formatted string. [🔗 Documentation](#)
-     *
-     * ### Globbing
-     *
-     * **Supported patterns**
-     *
-     * - `*` matches any number of characters, but not `/`
-     * - `?` matches a single character, but not `/`
-     * - `**` matches any number of characters, including `/`, as long as it's theonly thing in a path part
-     * - `{}` allows for a comma-separated list of "or" expressions
-     * - `!` at the beginning of a pattern will negate the match
-     *
-     * ### Usage
-     *
-     * Create an app bundle comprised of all js assets in the src root:
-     *
-     * ```js
-     * bud.glob('app', '*.js')
-     * ```
-     */
-    glob: Api.Glob<this>
-
-    /**
      * ## bud.hash  [💁 Fluent]
      *
      * Enable filename hashing of built assets. [🔗 Documentation](#)
@@ -171,21 +145,6 @@ declare module '@roots/bud-framework' {
      * ```
      */
     runtime: Api.Runtime<this>
-
-    /**
-     * ## bud.srcPath [💁 Fluent]
-     *
-     * Sets the root directory for source files.
-     *
-     * By default this directory is set as `src`. [🔗 Documentation](#)
-     *
-     * ### Usage
-     *
-     * ```js
-     * bud.srcPath('build')
-     * ```
-     */
-    srcPath: Api.SrcPath<this>
 
     /**
      * ## bud.string

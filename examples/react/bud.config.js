@@ -35,4 +35,4 @@ bud.html({
   template: 'public/index.html',
 })
 
-bud.entry('create-app', ['app.js', 'app.css']).run()
+bud.glob('**/*').run()

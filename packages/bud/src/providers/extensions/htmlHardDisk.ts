@@ -1,5 +1,4 @@
 import HtmlHardDiskPlugin from 'html-webpack-harddisk-plugin'
-import type {Module} from '@roots/bud-typings'
 import {Bud} from '../../Bud'
 
 interface HtmlWebpackHarddiskPluginOptions {
@@ -9,16 +8,14 @@ interface HtmlWebpackHarddiskPluginOptions {
   outputPath?: string
 }
 
-export const options: Module.Options<HtmlWebpackHarddiskPluginOptions> = (
-  app: Bud,
-) => ({
+export const options: Bud.Module.Options<HtmlWebpackHarddiskPluginOptions> = app => ({
   outputPath: app.dist(),
 })
 
-export const make: Module.Make<
+export const make: Bud.Module.Make<
   typeof HtmlHardDiskPlugin,
   HtmlWebpackHarddiskPluginOptions
 > = options => new HtmlHardDiskPlugin(options.all())
 
-export const when: Module.When = ({options}) =>
+export const when: Bud.Module.When = ({options}) =>
   options.enabled('html')

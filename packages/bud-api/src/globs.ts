@@ -4,7 +4,7 @@ import {GlobTask, isArray} from '@roots/bud-support'
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## glob  [💁 Fluent]
+     * ## globs  [💁 Fluent]
      *
      * Generate an entrypoint from assets matching a
      * [fast-glob](https://git.io/JkGbw) formatted string.
@@ -24,25 +24,22 @@ declare module '@roots/bud-framework' {
      * Create an app bundle comprised of all js assets in the src root:
      *
      * ```js
-     * app.glob('app', '*.js')
+     * app.globs({
+     *   'app': '*.js',
+     *})
      * ```
      */
-    glob: Framework.Api.Glob
+    globs: Framework.Api.Globs
   }
 
   namespace Framework.Api {
-    export type Glob = (
-      this: Framework,
-      name: string,
-      pattern: GlobTask['pattern'],
-    ) => Framework
+    export type Globs = (patterns: {
+      [key: string]: GlobTask['pattern'] | string
+    }) => Framework
   }
 }
 
-export const glob: Framework.Api.Glob = function (
-  name,
-  pattern,
-) {
+export const globs: Framework.Api.Globs = function (patterns) {
   const options = {
     cwd: this.src(),
     expandDirectories: true,
@@ -51,15 +48,21 @@ export const glob: Framework.Api.Glob = function (
   /**
    * Add entrypoints
    */
-  const task = isArray(pattern) ? pattern : [pattern]
-  const assets = this.disk.glob.sync(task, options)
-  const valid = assets?.length && assets?.length > 0
+  const assets = Object.entries(patterns).reduce(
+    (a, [name, task]) => ({
+      ...a,
+      [name]: this.disk.glob.sync(
+        isArray(task) ? task : [task],
+        options,
+      ),
+    }),
+    {},
+  )
 
-  valid &&
-    this.hooks.on(`webpack.entry`, entry => ({
-      ...entry,
-      [name]: assets,
-    }))
+  this.hooks.on(`webpack.entry`, entry => ({
+    ...entry,
+    ...assets,
+  }))
 
   return this
 }

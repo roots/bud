@@ -1,6 +1,32 @@
-import {Api} from '@roots/bud-typings'
+import {Framework} from '@roots/bud-framework'
 
-export const srcPath: Api.SrcPath = function (segment) {
+declare module '@roots/bud-framework' {
+  interface Framework {
+    /**
+     * ## srcPath [💁 Fluent]
+     *
+     * Sets the root directory for source files.
+     *
+     * By default this directory is set as `src`.
+     *
+     * ### Usage
+     *
+     * ```js
+     * app.srcPath('build')
+     * ```
+     */
+    srcPath: Framework.Api.SrcPath
+  }
+
+  namespace Framework.Api {
+    export type SrcPath = (
+      this: Framework,
+      path: string,
+    ) => Framework
+  }
+}
+
+export const srcPath: Framework.Api.SrcPath = function (path) {
   /** Bounce early if src is overwritten from CLI */
   if (
     this.store.has('args.src') &&
@@ -8,7 +34,7 @@ export const srcPath: Api.SrcPath = function (segment) {
   )
     return this
 
-  this.options.set('src', segment)
+  this.options.set('src', path)
 
   return this
 }

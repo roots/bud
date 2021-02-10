@@ -13,13 +13,6 @@ export namespace Api {
     },
   ) => T
 
-  export type Glob<T = Framework> = (
-    this: T,
-    name: string,
-    files: GlobTask['pattern'],
-    options: GlobTask['options'],
-  ) => T
-
   export type Hash<T = Framework> = (
     this: T,
     enabled?: boolean,
@@ -67,11 +60,6 @@ export namespace Api {
     this: T,
     string: unknown,
   ) => string
-
-  export type SrcPath<T = Framework> = (
-    this: T,
-    segment: string,
-  ) => T
 
   export type Target<T = Framework> = (
     this: T,

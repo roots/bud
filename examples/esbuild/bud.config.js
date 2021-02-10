@@ -11,14 +11,8 @@ bud.hooks.on('webpack.resolve.modules', modules => {
   return [...modules, bud.project('./../../node_modules')]
 })
 
-bud.srcPath('src')
+bud.use([require('@roots/bud-esbuild')])
 
-bud.use([require('@roots/bud-babel')])
-
-bud.globs({
-  'scripts/app': '*.{js,jsx,ts,tsx}',
-})
-
-bud.glob('styles/app', '*.{css,scss}')
+bud.glob('scripts/app', '*.{js,jsx,ts,tsx}')
 
 bud.run()

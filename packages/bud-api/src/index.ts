@@ -55,7 +55,14 @@ export {externals} from './externals'
 /**
  * Glob
  */
+import './glob'
 export {glob} from './glob'
+
+/**
+ * Glob
+ */
+import './globs'
+export {globs} from './globs'
 
 /**
  * Hash
@@ -96,10 +103,15 @@ export {proxy} from './proxy'
 import './src'
 export {src} from './src'
 
+/**
+ * SrcPath
+ */
+import './srcPath'
+export {srcPath} from './srcPath'
+
 export {publicPath} from './publicPath'
 export {runtime} from './runtime'
 export {storage} from './storage'
 export {string} from './string'
-export {srcPath} from './srcPath'
 export {html} from './html'
 export {vendor} from './vendor'
