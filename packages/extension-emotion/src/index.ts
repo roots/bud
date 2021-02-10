@@ -4,7 +4,7 @@ import {Bud} from '@roots/bud'
 /**
  * Extension ident
  */
-export const name = '@roots/bud-babel'
+export const name = '@roots/bud-emotion'
 
 /**
  * Register @emotion
