@@ -69,6 +69,7 @@
     "@roots/bud-sass": "^3.0.27-alpha.0",
     "@roots/bud-stylelint": "^3.0.27-alpha.0",
     "@roots/bud-tailwindcss": "^3.0.27-alpha.0",
+    "@roots/bud-typescript": "^3.0.27-alpha.0",
     "@roots/bud-wordpress-dependencies": "^3.0.27-alpha.0",
     "@roots/bud-wordpress-externals": "^3.0.27-alpha.0",
     "@roots/bud-wordpress-manifests": "^3.0.27-alpha.0",

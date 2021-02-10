@@ -11,6 +11,7 @@ import * as esbuild from '@roots/bud-esbuild'
 import * as postcss from '@roots/bud-postcss'
 import * as react from '@roots/bud-react'
 import * as sass from '@roots/bud-sass'
+import * as typescript from '@roots/bud-typescript'
 
 // Linting
 import * as eslint from '@roots/bud-eslint'
@@ -83,6 +84,7 @@ export const bootstrap: () => Bud = () => {
     .when(
       bud.isDevelopment,
       (bud: Bud) => {
+        bud.use(typescript)
         bud.use(babel)
         bud.use(react)
       },
