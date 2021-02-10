@@ -14,17 +14,14 @@ bud.hooks.on('webpack.resolve.modules', function (modules) {
   ]
 })
 
-bud.when(
-  bud.isDevelopment,
-  bud => {
-    bud.use(require('@roots/bud-babel'))
-    bud.use(require('@roots/bud-react'))
-  },
-  bud => {
-    bud.use(require('@roots/bud-esbuild'))
-    bud.esbuild.jsx()
-  },
-)
+bud.isDevelopment &&
+  bud.use([
+    require('@roots/bud-babel'),
+    require('@roots/bud-react'),
+  ])
+
+bud.isProduction &&
+  bud.use([require('@roots/bud-esbuild')]).esbuild.jsx()
 
 bud.use([
   require('@roots/bud-emotion'),
@@ -35,4 +32,8 @@ bud.html({
   template: 'public/index.html',
 })
 
-bud.glob('**/*').run()
+bud.copy({
+  svg: 'src/components/*.svg',
+})
+
+bud.glob('app', '**/*.{js,css}').run()

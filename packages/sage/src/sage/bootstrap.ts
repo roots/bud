@@ -27,6 +27,7 @@ import * as manifests from '@roots/bud-wordpress-manifests'
 // Optimization
 import * as imagemin from '@roots/bud-imagemin'
 import * as purgecss from '@roots/bud-purgecss'
+import cssnano from 'cssnano'
 
 /**
  * Sage WordPress starter theme
@@ -143,9 +144,10 @@ export const bootstrap: () => Bud = () => {
   sage.when(sage.isProduction, () => {
     sage.use([imagemin, purgecss])
 
-    sage.postcss.addPlugin(
-      require('cssNano')({preset: 'default'}),
-    )
+    sage.postcss.setPlugin([
+      'cssnano',
+      cssnano({preset: 'default'}),
+    ])
 
     sage.minify()
     sage.hash()

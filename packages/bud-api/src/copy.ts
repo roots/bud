@@ -1,33 +1,21 @@
+import {Framework} from '@roots/bud-framework'
+
 declare module '@roots/bud-framework' {
   interface Framework<T> {
     /**
      * ## copy  [💁 Fluent]
      *
-     * Copy static assets to your output directory.
+     * Copy files during compilation.
      *
      * You may specify paths with a string literal or glob pattern.
      *
      * ### Usage
      *
-     * **Copy all files from `src/images`**
+     * **Copy src/images to dist/images**
      *
      * ```js
-     * app.copy('images/*')
-     * ```
-     *
-     * **Copy all files from a path outside of `app.src`**
-     *
-     * ```js
-     * app.copy('images/*', {
-     *   context: app.project('assets')
-     * })
-     * ```
-     *
-     * **Copy all files to a path outside of `app.dist`**
-     *
-     * ```js
-     * app.copy('images/*', {
-     *   to: '/app/cdn/media'
+     * app.copy({
+     *   images: 'src/images/*.{png,gif,jpeg,jpg,webp}'
      * })
      * ```
      */
@@ -37,45 +25,33 @@ declare module '@roots/bud-framework' {
   namespace Framework.Api {
     export type Copy = (
       this: Framework,
-      from: string | Array<string>,
-      options?: Copy.Options,
+      jobs: {[key: string]: string},
     ) => Framework
-
-    namespace Copy {
-      export interface Options {
-        to: string
-        context: string
-        [key: string]: any
-      }
-    }
   }
 }
 
-import {Framework} from '@roots/bud-framework'
-
-export const copy: Framework.Api.Copy = function (
-  from,
-  options,
-) {
-  const copy = (from: string, options?) =>
-    this.extensions
-      .get(`copy-webpack-plugin`)
-      .mutate('options.patterns', patterns => [
-        ...patterns,
-        {
-          from,
-          context: options?.context ?? this.src(),
-          to: options?.to ?? this.dist(),
-          ...options,
-        },
-      ])
-
-  if (Array.isArray(from)) {
-    from.forEach(job => copy(job, options ?? null))
-    return this
-  }
-
-  copy(from, options)
+export const copy: Framework.Api.Copy = function (jobs) {
+  Object.entries(jobs).forEach(
+    ([to, from]: [string, string]) => {
+      this.disk.glob.sync(from).forEach(path => {
+        this.extensions
+          .get(`copy-webpack-plugin`)
+          .mutate(
+            'options.patterns',
+            (
+              patterns: {[key: string]: string}[],
+            ): {[key: string]: string}[] => [
+              ...patterns,
+              {
+                context: this.project(),
+                from: path,
+                to,
+              },
+            ],
+          )
+      })
+    },
+  )
 
   return this
 }

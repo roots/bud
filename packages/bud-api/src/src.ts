@@ -28,9 +28,9 @@ declare module '@roots/bud-framework' {
 
 export const src: Framework.Api.Src = function (path) {
   return path
-    ? this.disk.path.join(this.options.access('project'), path)
+    ? this.disk.path.join(this.options.get('project'), path)
     : this.disk.path.join(
-        this.options.access('project'),
-        this.options.access('src'),
+        this.options.get('project'),
+        this.options.get('src'),
       )
 }

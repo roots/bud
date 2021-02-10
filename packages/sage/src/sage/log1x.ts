@@ -27,6 +27,7 @@ import * as manifests from '@roots/bud-wordpress-manifests'
 
 // Optimization
 import * as imagemin from '@roots/bud-imagemin'
+import * as cssnano from 'cssnano'
 
 /**
  * Sage - tailwind preset
@@ -136,11 +137,12 @@ export const tailwind: () => Bud = () => {
        * Production concerns.
        */
       (sage: Bud) => {
-        sage.use([imagemin])
+        sage.use(imagemin)
 
-        sage.postcss.addPlugin(
-          require('cssNano')({preset: 'default'}),
-        )
+        sage.postcss.setPlugin([
+          'cssnano',
+          cssnano({preset: 'default'}),
+        ])
 
         sage.minify()
         sage.hash()
