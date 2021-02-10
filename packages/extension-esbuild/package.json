@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-esbuild",
-  "version": "3.0.29-alpha.0",
+  "version": "3.0.30-alpha.0",
   "description": "A friendly build tool to help manage your project assets.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -55,10 +55,10 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
-    "@roots/bud": "^3.0.29-alpha.0"
+    "@roots/bud": "^3.0.30-alpha.0"
   },
   "dependencies": {
-    "@roots/bud-support": "^3.0.29-alpha.0",
+    "@roots/bud-support": "^3.0.30-alpha.0",
     "esbuild-loader": "^2.9.1"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
