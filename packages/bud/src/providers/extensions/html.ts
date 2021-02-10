@@ -1,19 +1,13 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import {Framework, Module} from '@roots/bud-typings'
+import {Module} from '@roots/bud-typings'
 
 /**
  * Options
  */
-export const options: Module.Options<HtmlWebpackPlugin.Options> = app => ({
+export const options: Module.Options<HtmlWebpackPlugin.Options> = {
   alwaysWriteToDisk: true,
-  base: app.project(),
   inject: true,
-  publicPath: app.options.get('publicPath'),
-  template: app.disk.path.resolve(
-    require.resolve('@roots/bud-support'),
-    '../../../publish/template.html',
-  ),
-})
+}
 
 /**
  * Make plugin
@@ -21,8 +15,13 @@ export const options: Module.Options<HtmlWebpackPlugin.Options> = app => ({
 export const make: Module.Make<
   HtmlWebpackPlugin,
   Module.Options<HtmlWebpackPlugin.Options>
-> = (options, app: Framework) =>
+> = (options, app) =>
   new HtmlWebpackPlugin({
+    base: app.store.get('webpack.context'),
+    template: app.disk.path.resolve(
+      require.resolve('@roots/bud-support'),
+      '../../../publish/template.html',
+    ),
     ...options.all(),
   })
 

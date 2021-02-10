@@ -22,6 +22,7 @@ declare module '@roots/bud' {
 
   namespace Bud.Tailwind {
     export type Configure = (
+      this: Bud,
       params: Omit<Tailwind.Config, null>,
     ) => Bud
 

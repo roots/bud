@@ -11,5 +11,5 @@ export * as api from './api'
 
 // Boot extension
 export const boot = (app: Bud): void => {
-  app.postcss.addPlugin(tailwindcss)
+  app.postcss.setPlugin(['tailwindcss', tailwindcss])
 }

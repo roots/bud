@@ -23,17 +23,7 @@ declare module '@roots/bud' {
        * bud.postcss.addPlugin(MyPlugin, {plugin: 'options'})
        * ```
        */
-      addPlugin: PostCss.AddPlugin
-
-      /**
-       * ## postcss.config
-       */
-      getConfig: PostCss.GetConfig
-
-      /**
-       * ## postcss.setConfig
-       */
-      setConfig: PostCss.SetConfig
+      setPlugin: PostCss.SetPlugin
 
       /**
        * ## postcss.options
@@ -47,22 +37,25 @@ declare module '@roots/bud' {
        *
        * Get the postcss plugins as set.
        */
-      plugins: PostCss.Plugins
+      plugins: PostCss.Registry
     }
 
     namespace PostCss {
-      type AddPlugin = (
-        plugin: any,
-        options?: {[key: string]: unknown},
-      ) => Bud
+      type SetPlugin = (
+        plugin: Bud.PostCss.Registrable,
+      ) => PostCss
 
-      type GetConfig = () => any
+      type Options = {
+        plugins: Plugin[]
+      }
 
-      type SetConfig = (options: {[key: string]: any}) => Bud
+      type Plugin = string | [string, any] | CallableFunction
 
-      type Options = any
+      type Registrable = string | [string, any]
 
-      type Plugins = any
+      interface Registry {
+        [key: string]: Plugin
+      }
     }
   }
 }

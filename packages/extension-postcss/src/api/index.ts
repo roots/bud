@@ -1,4 +1,10 @@
 import {Bud} from '@roots/bud'
+import {isString} from 'lodash'
+
+/**
+ *  return this.app.build.get(this.optionKey('plugins'))
+    this.app.build.set(this.optionKey('plugins'), plugins)
+ */
 
 /**
  * PostCSSConfig API
@@ -6,51 +12,49 @@ import {Bud} from '@roots/bud'
 export class PostCssConfig implements Bud.PostCss {
   public app: Bud
 
-  public key = 'items.postcss.options.postcssOptions'
+  public _plugins: Bud.PostCss.Registry = {}
 
   public constructor({app}: {app: Bud}) {
     this.app = app
-    this.addPlugin.bind(this)
-    this.getConfig.bind(this)
-    this.setConfig.bind(this)
+    this.setPlugin = this.setPlugin.bind(this)
+    this.unsetPlugin = this.unsetPlugin.bind(this)
+    this.setPluginOptions = this.setPluginOptions.bind(this)
   }
 
-  public addPlugin(plugin: any, options: any) {
-    this.plugins = [
+  public setPlugin(plugin: Bud.PostCss.Registrable) {
+    this.plugins = {
       ...this.plugins,
-      options ? [plugin, options] : plugin,
-    ]
+      ...(isString(plugin)
+        ? {[plugin]: plugin}
+        : {[plugin[0]]: plugin[1]}),
+    }
 
-    return this.app
+    return this
   }
 
-  public getConfig() {
-    return this.options
+  public unsetPlugin(plugin: string) {
+    delete this.plugins[plugin]
+
+    return this
   }
 
-  public setConfig(options: any) {
-    this.options = options
+  public setPluginOptions(plugin: string, options: any) {
+    this.plugins[plugin] = [this.plugins[plugin][0], options]
 
-    return this.app
-  }
-
-  public get options() {
-    return this.app.build.get(this.key)
-  }
-
-  public set options(options: any) {
-    this.app.build.set(this.key, options)
+    return this
   }
 
   public get plugins() {
-    return this.app.build.get(this.optionKey('plugins'))
+    return this._plugins
   }
 
-  public set plugins(plugins: any) {
-    this.app.build.set(this.optionKey('plugins'), plugins)
+  public set plugins(plugins) {
+    this._plugins = plugins
   }
 
-  protected optionKey(key: string) {
-    return `${this.key}.${key}`
+  public get options() {
+    return {
+      plugins: Object.values(this.plugins),
+    }
   }
 }
