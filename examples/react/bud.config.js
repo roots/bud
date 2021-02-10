@@ -14,9 +14,20 @@ bud.hooks.on('webpack.resolve.modules', function (modules) {
   ]
 })
 
+bud.when(
+  bud.isDevelopment,
+  bud => {
+    bud.use(require('@roots/bud-babel'))
+    bud.use(require('@roots/bud-react'))
+  },
+  bud => {
+    bud.use(require('@roots/bud-esbuild'))
+    bud.esbuild.jsx()
+  },
+)
+
 bud.use([
-  require('@roots/bud-babel'),
-  require('@roots/bud-react'),
+  require('@roots/bud-emotion'),
   require('@roots/bud-postcss'),
 ])
 

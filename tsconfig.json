@@ -31,6 +31,7 @@
     {"@roots/bud-framework": "bud-framework"},
     {"@roots/bud-hooks": "bud-hooks"},
     {"@roots/bud-babel": "extension-babel"},
+    {"@roots/bud-emotion": "extension-emotion"},
     {"@roots/bud-entrypoints": "extension-entrypoints"},
     {"@roots/bud-esbuild": "extension-esbuild"},
     {"@roots/bud-eslint": "extension-eslint"},

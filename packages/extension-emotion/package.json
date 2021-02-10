@@ -1,0 +1,67 @@
+{
+  "name": "@roots/bud-emotion",
+  "version": "3.0.26-alpha.0",
+  "description": "A friendly build tool to help manage your project assets.",
+  "homepage": "https://roots.io/bud",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "packages/extension-emotion"
+  },
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "license": "MIT",
+  "contributors": [
+    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
+  ],
+  "keywords": [
+    "bud",
+    "bud-extension",
+    "emotion"
+  ],
+  "engines": {
+    "node": ">=12"
+  },
+  "files": [
+    "lib/",
+    "types/",
+    "src/"
+  ],
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "exports": {
+    "require": "./lib/cjs/index.js",
+    "import": "./lib/esm/index.js"
+  },
+  "types": "./lib/types/index.d.ts",
+  "scripts": {
+    "build": "run-s build:*",
+    "build:cjs": "tsc --build tsconfig.json",
+    "build:esm": "tsc --build tsconfig-esm.json",
+    "lint": "run-s lint:*",
+    "lint:eslint": "eslint 'src/**/*.{js,ts,tsx}' --fix",
+    "lint:prettier": "prettier 'src/**/*'  --write",
+    "clean": "run-s clean:*",
+    "clean:lib": "rimraf ./lib",
+    "clean:modules": "rimraf ./node_modules",
+    "clean:types": "rimraf ./types",
+    "pkg": "run-s pkg:*",
+    "pkg:check": "package-check --verbose",
+    "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
+  },
+  "devDependencies": {
+    "@roots/bud": "^3.0.26-alpha.0",
+    "@roots/bud-babel": "^3.0.26-alpha.0"
+  },
+  "dependencies": {
+    "@emotion/css": "^11.1.3",
+    "@emotion/react": "^11.1.5",
+    "@emotion/styled": "^11.1.5"
+  },
+  "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
+}

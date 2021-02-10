@@ -17,50 +17,24 @@
 </p>
 
 <h1 align="center">
-  <strong>@roots/bud-babel</strong>
+  <strong>@roots/bud-emotion</strong>
 </h1>
 
 ## Overview
 
-Extends Bud with Babel.
+CSS-in-JS with 👩🏼‍🎤 emotion.
+
+For information on how to use Emotion, check [the official documentation](https://emotion.sh/docs/introduction).
 
 ## Installation
 
-`yarn add @roots/bud-babel --dev`
+`yarn add @roots/bud-emotion --dev`
 
 ## Usage
 
 ```js
-bud.use('@roots/bud-babel')
+bud.use('@roots/bud-emotion')
 ```
-
-## Configuration
-
-Babel can either be configured using the `bud` api or with a standard babel config file.
-
-### With `bud`
-
-Add a babel preset:
-
-```js
-bud.babel.addPreset('@babel/preset-env')
-```
-
-Add a babel plugin:
-
-```js
-bud.babel.addPlugin('@babel/plugin-transform-runtime')
-```
-
-Set babel-loader options
-
-```js
-bud.babel.setOptions({root: bud.project()})
-```
-
-### With a config file
-
-Place a `.babelrc` or `babel.config.js` file in your project rootDir, as normal. This configuration file, if present, will overwrite the defaults.
 
 ## Contributing
 

@@ -17,6 +17,7 @@
     "packages/dependencies",
     "packages/extension-babel",
     "packages/extension-compress",
+    "packages/extension-emotion",
     "packages/extension-entrypoints",
     "packages/extesnion-esbuild",
     "packages/extension-eslint",
