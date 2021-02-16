@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-prettier",
-  "version": "3.0.31-alpha.0",
+  "version": "3.0.32-alpha.0",
   "description": "Adds prettier support to Bud",
   "repository": {
     "type": "git",
