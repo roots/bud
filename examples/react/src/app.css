@@ -14,10 +14,15 @@ code {
 }
 
 .App {
+  width: 100vw;
+  height: 100vh;
   text-align: center;
+  display: flex;
+  justify-content: center;
+  align-content: center;
 
   .logo {
-    height: 40vmin;
+    height: 30vmin;
     pointer-events: none;
     margin-bottom: 2rem;
   }
@@ -29,8 +34,9 @@ code {
   }
 
   .header {
+    min-height: 80vh;
+    width: 100%;
     background-color: #282c34;
-    min-height: 100vh;
     display: flex;
     flex-direction: column;
     align-items: center;

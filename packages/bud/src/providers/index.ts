@@ -61,7 +61,7 @@ export const providers: Providers = {
   build: [Build, {containers: {items, rules}}],
   extensions: [Extensions, {containers: extensions}],
   cache: [Cache],
-  cli: [Dashboard],
+  dashboard: [Dashboard],
   compiler: [Compiler],
   server: [Server, {dependencies: {instance: express()}}],
   store: [Store, {containers: repositories}],

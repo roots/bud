@@ -21,7 +21,11 @@ bud.isDevelopment &&
   ])
 
 bud.isProduction &&
-  bud.use([require('@roots/bud-esbuild')]).esbuild.jsx()
+  bud
+    .use([require('@roots/bud-esbuild')])
+    .esbuild.jsx()
+    .hash()
+    .minify()
 
 bud.use([
   require('@roots/bud-emotion'),
