@@ -1,2 +1,2 @@
-export {CLI} from './CLI'
+export {Dashboard} from './Dashboard'
 export {Error} from './Error'

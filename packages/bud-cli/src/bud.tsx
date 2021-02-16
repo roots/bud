@@ -15,7 +15,7 @@ const cli = yargs
     1,
     'You must specify a command. See `bud --help` for usage.\n',
   )
-  .usage('\nBud-CLI \n\nbud [command] [options]')
+  .usage('\nBud \n\nbud [command] [options]')
   .version()
   .wrap(yargs.terminalWidth())
   .epilog('https://github.com/roots/bud').argv

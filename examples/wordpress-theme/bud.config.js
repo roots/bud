@@ -13,17 +13,14 @@ app.hooks.on('webpack.resolve.modules', modules => {
 
 app.publicPath(app.env.get('APP_PUBLIC'))
 
-app.when(
-  app.isDevelopment,
-  app => {
-    app.use(require('@roots/bud-babel'))
-    app.use(require('@roots/bud-react'))
-  },
-  app => {
-    app.use(require('@roots/bud-esbuild'))
-    app.esbuild.jsx()
-  },
-)
+app.isDevelopment &&
+  app.use([
+    require('@roots/bud-babel'),
+    require('@roots/bud-react'),
+  ])
+
+app.isProduction &&
+  app.use(require('@roots/bud-esbuild')).esbuild.jsx().hash()
 
 app
   .use([

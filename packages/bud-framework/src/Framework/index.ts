@@ -30,9 +30,9 @@ export default abstract class<T = any> implements Framework<T> {
   public cache: Framework.Cache
 
   /**
-   * CLI
+   * CLI Dashboard
    */
-  public cli: Framework.CLI
+  public dashboard: Framework.Dashboard
 
   /**
    * Compiler

@@ -22,4 +22,4 @@ export const make: Module.Make<
   })
 
 export const when: Module.When = bud =>
-  bud.options.enabled('hash') && bud.isProduction
+  bud.options.enabled('hash')

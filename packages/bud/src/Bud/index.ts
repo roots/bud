@@ -3,10 +3,10 @@ import type {
   Api,
   Build,
   Cache,
-  CLI,
   Compiler,
   Constructor,
   Container,
+  Dashboard,
   Env,
   Express,
   Extensions,
@@ -210,7 +210,7 @@ declare namespace Bud {
   export {Api}
   export {Build}
   export {Cache}
-  export {CLI}
+  export {Dashboard}
   export {Compiler}
   export {Container}
   export {Discovery}

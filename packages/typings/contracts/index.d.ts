@@ -76,7 +76,7 @@ export {Cache} from './Cache'
 /**
  * @roots/bud-cli
  */
-export {CLI} from './CLI'
+export {Dashboard} from './Dashboard'
 
 /**
  * @roots/bud-compiler

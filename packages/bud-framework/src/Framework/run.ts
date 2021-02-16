@@ -20,7 +20,7 @@ export function run(this: Framework): void {
    * and bounce early.
    */
   if (!this.options.enabled('ci')) {
-    this.cli.run()
+    this.dashboard.run()
     return
   }
 

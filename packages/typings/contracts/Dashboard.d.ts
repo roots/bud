@@ -9,7 +9,7 @@ import type {Framework, Instance} from './'
  */
 export type {Error} from '../../bud-cli/src/Error'
 
-export interface CLI extends Framework.Service {
+export interface Dashboard extends Framework.Service {
   /**
    * CLI instance
    */

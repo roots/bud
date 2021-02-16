@@ -2,7 +2,7 @@ import {
   Api,
   Build,
   Cache,
-  CLI,
+  Dashboard,
   Compiler,
   Constructor,
   Container,
@@ -66,14 +66,11 @@ export declare interface Framework<T = any> {
   compiler: Framework.Compiler
 
   /**
-   * ## bud.cli
+   * ## bud.dashboard
    *
-   * The CLI interface also exposes methods for displaying
-   * configuration progress, reports and errors.
-   *
-   * - [🔗 Documentation](#)
+   * The CLI interface.
    */
-  cli: Framework.CLI
+  dashboard: Framework.Dashboard
 
   /**
    * ## bud.disk
@@ -461,7 +458,7 @@ export declare namespace Framework {
   export {Api}
   export {Build}
   export {Cache}
-  export {CLI}
+  export {Dashboard}
   export {Compiler}
   export {Container}
   export {Disk}

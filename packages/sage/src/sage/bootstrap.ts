@@ -83,15 +83,15 @@ export const bootstrap: () => Bud = () => {
      * Thus, Sage uses esbuild@production, babel/hmr@development.
      */
     .when(
-      bud.isDevelopment,
-      (bud: Bud) => {
-        bud.use(typescript)
-        bud.use(babel)
-        bud.use(react)
+      sage.isDevelopment,
+      () => {
+        sage.use(typescript)
+        sage.use(babel)
+        sage.use(react)
       },
-      (bud: Bud) => {
-        bud.use(esbuild)
-        bud.esbuild.jsx()
+      () => {
+        sage.use(esbuild)
+        sage.esbuild.jsx()
       },
     )
 

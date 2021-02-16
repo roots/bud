@@ -1,13 +1,11 @@
 import {React, render} from '@roots/bud-support'
-import {Framework} from '@roots/bud-typings'
-
 import Service from './Service'
-import {Dashboard} from '../containers/Dashboard'
+import {Dashboard as Component} from '../containers/Dashboard'
 
 /**
- * CLI
+ * Dashboard
  */
-export class CLI extends Service {
+export class Dashboard extends Service {
   /**
    * Service ident
    */
@@ -25,13 +23,15 @@ export class CLI extends Service {
    * Mount CLI
    */
   public run(): void {
-    if (this.app.store.get('args.ci')) return
+    if (this.app.store.get('args.ci')) {
+      return
+    }
 
-    this.info({msg: 'Beginning CLI execution'})
+    this.info({
+      msg: 'Beginning CLI execution',
+    })
 
-    this.dashboard = render(
-      <Dashboard bud={this.app as Framework} />,
-    )
+    this.dashboard = render(<Component bud={this.app.get()} />)
   }
 
   /**
