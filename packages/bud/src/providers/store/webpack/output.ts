@@ -3,23 +3,21 @@ import {Bud} from '../../../Bud'
 /**
  * webpack.output.filename
  */
-export const filename = ({hooks, options}: Bud) =>
-  hooks.filter(
+export const filename = (bud: Bud) =>
+  bud.hooks.filter(
     `webpack.output.filename`,
-    options.isString('hash')
-      ? options.access('hash')
-      : options.enabled('hash')
-      ? `[name].[hash].js`
+    bud.options.isTrue('hash')
+      ? `[name].[contenthash].js`
       : '[name].js',
   )
 
 /**
  * webpack.output.publicPath
  */
-export const publicPath = ({hooks, options}: Bud) =>
-  hooks.filter(
+export const publicPath = (bud: Bud) =>
+  bud.hooks.filter(
     'webpack.output.publicPath',
-    options.access('publicPath') ?? '/',
+    bud.options.access('publicPath') ?? '/',
   )
 
 /**
@@ -37,6 +35,7 @@ export const path = ({disk, hooks, options}: Bud) =>
 // globalObject: 'window'
 
 /**
- * @deprecated webpack5
+ * @webpack5
+ * @deprecated
  */
 // export const devtoolLineToLine: false
