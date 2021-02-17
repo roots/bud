@@ -53,18 +53,6 @@ import './externals'
 export {externals} from './externals'
 
 /**
- * Glob
- */
-import './glob'
-export {glob} from './glob'
-
-/**
- * Glob
- */
-import './globs'
-export {globs} from './globs'
-
-/**
  * Hash
  */
 export {hash} from './hash'

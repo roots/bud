@@ -31,7 +31,9 @@ export class Dashboard extends Service {
       msg: 'Beginning CLI execution',
     })
 
-    this.dashboard = render(<Component bud={this.app.get()} />)
+    console.clear()
+
+    this.dashboard = render(<Component bud={this.app} />)
   }
 
   /**

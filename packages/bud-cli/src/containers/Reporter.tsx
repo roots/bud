@@ -4,6 +4,8 @@ import {
   Box,
   Text,
   Spinner,
+  isArray,
+  isString,
 } from '@roots/bud-support'
 
 import {Assets} from '../components/Assets'
@@ -49,20 +51,20 @@ const Reporter: FunctionComponent<{
       <Box flexDirection="row" marginTop={1} marginBottom={1}>
         <Box flexDirection="row">
           <Text
-            backgroundColor={colors?.primary ?? 'transparent'}
-            color={colors?.white ?? 'transparent'}>
+            backgroundColor={colors?.primary}
+            color={colors?.white}>
             {' '}
             {progress?.message ? (
               <Spinner />
             ) : stats?.hash ? (
               '✓'
             ) : (
-              ''
+              ' '
             )}{' '}
             {pkg?.name}{' '}
           </Text>
 
-          <Text dimColor color={colors?.white} italic>
+          <Text dimColor italic>
             {' '}
             {progress?.message ? (
               <Text italic color={colors?.subdued}>
@@ -84,7 +86,8 @@ const Reporter: FunctionComponent<{
           <Assets assets={stats?.assets} />
         </Box>
 
-        {errors && <Errors errors={errors} />}
+        {(isArray(errors) && errors.length > 0) ||
+          (isString(errors) && <Errors errors={errors} />)}
 
         {stats?.warnings && stats?.warnings[0] && (
           <Errors errors={stats?.warnings} />
@@ -125,18 +128,20 @@ const Reporter: FunctionComponent<{
         marginTop={1}
         flexDirection="row"
         justifyContent="space-between">
-        {bud.get().options.is('mode', 'development') && (
-          <Text bold color={colors.accent}>
-            {'🌐  '}
-            {bud.store.get('server.ssl')
-              ? 'https://'
-              : 'http://'}
-            {bud.store.get('server.host')}:
-            {bud.store.get('server.port')}
-          </Text>
-        )}
+        {bud.isDevelopment && (
+          <>
+            <Text bold color={colors.accent}>
+              {'🌐 '}
+              {bud.store.get('server.ssl')
+                ? 'https://'
+                : 'http://'}
+              {bud.store.get('server.host')}:
+              {bud.store.get('server.port')}
+            </Text>
 
-        {bud.get().options.is('mode', 'development') && <Git />}
+            <Git />
+          </>
+        )}
       </Box>
     </Box>
   </Box>

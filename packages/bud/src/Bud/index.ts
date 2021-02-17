@@ -200,13 +200,6 @@ class Bud extends Framework {
 }
 
 declare namespace Bud {
-  namespace Api {
-    export type Mode = (
-      this: Bud,
-      mode?: Bud.Webpack.Configuration['mode'],
-    ) => Bud | Bud.Webpack.Configuration['mode']
-  }
-
   export {Api}
   export {Build}
   export {Cache}

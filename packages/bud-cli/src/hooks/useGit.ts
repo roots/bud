@@ -21,8 +21,8 @@ export type UseGit = () => GitStatus
 
 const fetch = async key => {
   const params = {
-    head: ['rev-parse', '--short', 'HEAD'],
-    branch: ['branch', '--show-current'],
+    head: ['rev-parse', '--short', 'HEAD', '--no-color'],
+    branch: ['branch', '--show-current', '--no-color'],
     status: ['status', '--short'],
   }
 
@@ -50,8 +50,8 @@ export const useGit: UseGit = () => {
     [head, branch, status].filter(res => res?.stderr)?.length > 0
 
   return {
-    head: head?.stdout,
-    branch: branch?.stdout,
+    head: head?.stdout.toString(),
+    branch: branch?.stdout.toString(),
     status: changed > 0 ? changed : null,
     hasError,
   }

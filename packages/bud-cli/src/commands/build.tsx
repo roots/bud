@@ -10,90 +10,14 @@ export const describe: yargs.CommandModule['describe'] =
   'Compile source assets.'
 
 export const builder: yargs.CommandModule['builder'] = ({
-  option,
+  example,
 }) =>
-  option('config', {
-    describe: 'Specify a custom configuration file',
-    default: 'bud.config.js',
-  })
-    .option('env', {
-      describe: 'Build mode',
-      choices: ['development', 'production', 'none'],
-      default: 'none',
-    })
-    .option('minify', {
-      describe: 'Minify assets',
-      type: 'boolean',
-      default: false,
-    })
-    .option('gzip', {
-      describe: 'Gzip static assets',
-      type: 'boolean',
-      default: false,
-    })
-    .option('hash', {
-      describe: 'Hash asset filenames',
-      type: 'boolean',
-      default: false,
-    })
-    .option('brotli', {
-      describe: 'Apply brotli compression to static assets',
-      type: 'boolean',
-      default: false,
-    })
-    .option('runtime', {
-      describe: 'Generate runtime chunk',
-      type: 'boolean',
-      default: false,
-    })
-    .option('vendor', {
-      describe: 'Generate vendor chunk',
-      type: 'boolean',
-      default: false,
-    })
-    .option('src', {
-      describe: 'Override src directory',
-      type: 'string',
-    })
-    .option('dist', {
-      describe: 'Override dist directory',
-      type: 'string',
-    })
-    .option('port', {
-      describe: 'Dev port',
-      type: 'number',
-      default: 3000,
-    })
-    .option('host', {
-      describe: 'Dev host',
-      type: 'string',
-      default: 'localhost',
-    })
-    .option('minify', {
-      describe: 'Minify assets',
-      type: 'boolean',
-      default: false,
-    })
-    .option('proxy', {
-      describe: 'Hostname to proxy',
-      type: 'string',
-    })
-    .option('html', {
-      describe: 'Use an HTML5 boilerplate',
-      type: 'boolean',
-    })
-    .option('log', {
-      describe: 'Specify filepath to log to',
-      type: 'string',
-    })
-    .example('Dev', 'bud build --env development')
-    .example(
-      'Build',
-      'bud build --env production --runtime --vendor --minify --gzip',
-    )
+  example(
+    'Build',
+    'bud build --mode production --runtime --vendor --minify',
+  )
     .hide('help')
     .hide('version')
-    .showHelpOnFail(true)
 
 /**
  * handler: bud build
@@ -101,12 +25,15 @@ export const builder: yargs.CommandModule['builder'] = ({
 export const handler: yargs.CommandModule['handler'] = (args: {
   [config: string]: unknown
 }): void => {
-  const cfg = args.config ?? 'bud.config.js'
-  const cfgPath = join(cwd, cfg as string)
+  const cfgName = ((args.config ??
+    'bud.config.js') as unknown) as string
+
+  const cfgPath = join(cwd, cfgName)
 
   try {
     require(cfgPath)
   } catch (error) {
     Error(error.toString())
+    process.exit()
   }
 }

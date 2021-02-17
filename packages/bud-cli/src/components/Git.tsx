@@ -1,63 +1,50 @@
 import {
   React,
-  FunctionComponent,
   Text,
   Box,
-  Spinner,
+  FunctionComponent,
 } from '@roots/bud-support'
 import {useStyle} from '@roots/ink-use-style'
-
 import {useGit} from '../hooks/useGit'
 
-declare type Git = FunctionComponent
-
-const Git: Git = () => {
+export const Git: FunctionComponent<{}> = () => {
   const git = useGit()
   const {colors} = useStyle()
 
-  return !git?.hasError ? (
+  return (
     <Box flexDirection="row" justifyContent="space-between">
-      {git.branch ? (
-        <Text
-          backgroundColor={colors.primary}
-          color={colors.white}>
-          {' '}
-          {git.branch}{' '}
-        </Text>
-      ) : (
-        <Text color={colors.white}>
-          {' '}
-          <Spinner /> Loading{' '}
-        </Text>
-      )}
-
-      {git.head ? (
-        <Text
-          backgroundColor={
-            git.status ? colors.warning : colors.success
-          }
-          color={colors.white}>
-          {' '}
-          {git.head}{' '}
-        </Text>
-      ) : (
-        []
-      )}
-
-      {git.status ? (
-        <Text
-          color={colors.white}
-          backgroundColor={colors.error}>
-          {' '}
-          {git.status}{' '}
-        </Text>
-      ) : (
-        []
-      )}
+      <Branch git={git} colors={colors} />
+      <Head git={git} colors={colors} />
+      <Status git={git} colors={colors} />
     </Box>
-  ) : (
-    <Text>Git unreachable</Text>
   )
 }
 
-export {Git}
+const Branch = ({git, colors}) =>
+  git.branch ? (
+    <Text backgroundColor={colors.primary}> {git.branch} </Text>
+  ) : (
+    <Space />
+  )
+
+const Status = ({git, colors}) =>
+  git.status ? (
+    <Text backgroundColor={colors.accent}> {git.status} </Text>
+  ) : (
+    <Space />
+  )
+
+const Head = ({git, colors}) =>
+  git.head ? (
+    <Text
+      backgroundColor={
+        git.status ? colors.warning : colors.success
+      }>
+      {' '}
+      {git.head}{' '}
+    </Text>
+  ) : (
+    <Space />
+  )
+
+const Space = () => <Text> </Text>

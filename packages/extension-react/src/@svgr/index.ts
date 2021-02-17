@@ -17,6 +17,7 @@ export const setRules: Bud.Module['setRules'] = [
     test(app: Bud): RegExp {
       return app.store.get('patterns.svg')
     },
+
     use(app: Bud): Bud.Rule[] {
       return [app.build.get('items.svgr')]
     },

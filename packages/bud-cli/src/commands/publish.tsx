@@ -11,6 +11,7 @@ import {join, dirname} from 'path'
 
 import {Error} from '../'
 import Publish from '../containers/Publish'
+
 const cwd = process.cwd()
 
 const publishables = [
@@ -30,6 +31,7 @@ export const describe: yargs.CommandModule['describe'] = `Publish a template to 
       'node_modules/',
       '',
     )
+
     const template = file
       .replace(`${ext}/publish/`, '')
       .replace('node_modules/', '')

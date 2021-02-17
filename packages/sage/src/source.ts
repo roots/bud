@@ -1,5 +1,6 @@
 import {Sage} from './interface'
 import {bud as sage} from '@roots/bud'
+import {Error} from '@roots/bud-cli'
 
 /**
  * Preflight check
@@ -8,9 +9,10 @@ export const preflight = () => {
   sage.disk.get('project').has('sage.config.json') &&
     sage.disk.get('project').has('sage.config.js') &&
     (() => {
-      console.error(
+      new Error(
         'Project contains both a sage.config.json and sage.config.js file. They are mutually exclusive.',
       )
+
       process.exit(1)
     })()
 }
@@ -25,14 +27,28 @@ export const isStatic = () =>
  * JSON config
  */
 export const json = () => {
-  const config: Sage.Config = sage.disk
+  const staticCfg = sage.disk
     .get('project')
+    .has('sage.config.json')
     .readJson('sage.config.json')
 
-  Object.entries(config.entrypoints).forEach(entrypoint => {
-    sage.entry(...entrypoint)
-  })
+  const packageJson = sage.disk
+    .get('project')
+    .has('package.json')
+    .readJson('package.json')
 
+  const config: Sage.Config =
+    staticCfg ?? packageJson.sage ?? null
+
+  if (!config) {
+    new Error(`Sage configuration is unreadable`)
+
+    console.error(staticCfg, packageJson, config)
+
+    process.exit()
+  }
+
+  sage.entry(config.entrypoints)
   sage.run()
 }
 

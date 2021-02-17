@@ -55,6 +55,10 @@
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
+  "devDependencies": {
+    "@roots/bud-api": "^3.0.32-alpha.0",
+    "@roots/bud-framework": "^3.0.32-alpha.0"
+  },
   "dependencies": {
     "@roots/bud": "^3.0.32-alpha.0",
     "@roots/bud-babel": "^3.0.32-alpha.0",

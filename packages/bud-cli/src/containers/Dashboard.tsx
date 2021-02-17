@@ -36,7 +36,7 @@ export const Dashboard: FunctionComponent<{
    */
   useEffect(() => {
     if (
-      bud.get().options.is('mode', 'production') &&
+      bud.isProduction &&
       (stats?.assets?.length > 0 || errors) &&
       isEqual(progress?.decimal, 1)
     ) {

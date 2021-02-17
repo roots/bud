@@ -1,8 +1,7 @@
-#!/usr/bin/env node
-
 import {yargs} from '@roots/bud-support'
-import * as build from './commands/build'
-import * as publish from './commands/publish'
+
+import * as build from './build'
+import * as publish from './publish'
 
 /**
  * $bud
