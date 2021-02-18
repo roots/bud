@@ -16,6 +16,7 @@ bud.hooks.on('webpack.resolve.modules', function (modules) {
 
 bud.use([
   require('@roots/bud-postcss'),
+  require('@roots/bud-sass'),
   require('@roots/bud-tailwindcss'),
 ])
 
@@ -23,4 +24,4 @@ bud.html({
   template: bud.project('public/index.html'),
 })
 
-bud.entry('bud-tailwind', ['app.css']).run()
+bud.entry('bud-tailwind', ['app.scss', 'editor.scss']).run()

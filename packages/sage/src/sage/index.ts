@@ -27,7 +27,7 @@ import * as manifests from '@roots/bud-wordpress-manifests'
 
 // Optimization
 import * as imagemin from '@roots/bud-imagemin'
-import * as cssnano from 'cssnano'
+import cssnano from 'cssnano'
 
 /**
  * Sage - tailwind preset

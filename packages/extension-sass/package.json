@@ -60,8 +60,8 @@
   },
   "dependencies": {
     "@roots/bud-support": "^3.0.35-alpha.0",
-    "node-sass": "^4.14.1",
     "postcss-scss": "^3.0.4",
+    "sass": "^1.32.7",
     "sass-loader": "^10.1.0"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
