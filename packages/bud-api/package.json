@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-api",
-  "version": "3.0.34-alpha.0",
+  "version": "3.0.35-alpha.0",
   "description": "Bud configuration API",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -55,14 +55,14 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
-    "@roots/bud-extensions": "^3.0.34-alpha.0",
-    "@roots/bud-framework": "^3.0.34-alpha.0",
-    "@roots/bud-server": "^3.0.34-alpha.0",
-    "@roots/bud-typings": "^3.0.34-alpha.0",
-    "@roots/container": "^3.0.34-alpha.0"
+    "@roots/bud-extensions": "^3.0.35-alpha.0",
+    "@roots/bud-framework": "^3.0.35-alpha.0",
+    "@roots/bud-server": "^3.0.35-alpha.0",
+    "@roots/bud-typings": "^3.0.35-alpha.0",
+    "@roots/container": "^3.0.35-alpha.0"
   },
   "dependencies": {
-    "@roots/bud-support": "^3.0.34-alpha.0"
+    "@roots/bud-support": "^3.0.35-alpha.0"
   },
   "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
 }
