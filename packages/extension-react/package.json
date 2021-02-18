@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-react",
-  "version": "3.0.33-alpha.0",
+  "version": "3.0.34-alpha.0",
   "description": "A friendly build tool to help manage your project assets.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -54,8 +54,8 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
-    "@roots/bud": "^3.0.33-alpha.0",
-    "@roots/bud-babel": "^3.0.33-alpha.0"
+    "@roots/bud": "^3.0.34-alpha.0",
+    "@roots/bud-babel": "^3.0.34-alpha.0"
   },
   "dependencies": {
     "@babel/preset-react": "^7.12.10",
