@@ -2,20 +2,13 @@ import React from 'react'
 import styled from '@emotion/styled'
 import logo from './logo.svg'
 
-const transition = `
+const Header = styled.div`
+  border: 10px solid white;
   transition: all 0.2s ease-in-out;
 
   &:hover {
-    transition: all 0.2s ease-in-out;
-  }
-`
-
-const Header = styled.div`
-  border: 10px solid white;
-  ${transition}
-
-  &:hover {
     border-color: #4f69c6;
+    transition: all 0.2s ease-in-out;
   }
 `
 

@@ -26,7 +26,6 @@
   "license": "MIT",
   "files": [
     "lib/",
-    "types/",
     "src/",
     "bin/"
   ],

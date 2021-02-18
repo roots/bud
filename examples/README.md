@@ -28,6 +28,8 @@
   <strong>Example configurations</strong>
 </h1>
 
+- [Babel app](https://github.com/roots/bud/tree/stable/examples/babel)
+- [ESBuild](https://github.com/roots/bud/tree/stable/examples/esbuild)
 - [Sass support](https://github.com/roots/bud/tree/stable/examples/sass)
 - [React single page application](https://github.com/roots/bud/tree/stable/examples/react)
 - [WordPress theme](https://github.com/roots/bud/tree/stable/examples/wordpress-theme)

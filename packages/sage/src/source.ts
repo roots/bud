@@ -3,11 +3,23 @@ import {bud as sage} from '@roots/bud'
 import {Error} from '@roots/bud-cli'
 
 /**
+ * Is static
+ */
+export const isStatic = () =>
+  sage.disk.get('project').has('sage.config.json')
+
+/**
+ * Is fluent
+ */
+export const isFluent = () =>
+  sage.disk.get('project').has('sage.config.js')
+
+/**
  * Preflight check
  */
 export const preflight = () => {
-  sage.disk.get('project').has('sage.config.json') &&
-    sage.disk.get('project').has('sage.config.js') &&
+  isStatic() &&
+    isFluent() &&
     (() => {
       new Error(
         'Project contains both a sage.config.json and sage.config.js file. They are mutually exclusive.',
@@ -18,12 +30,6 @@ export const preflight = () => {
 }
 
 /**
- * Is static
- */
-export const isStatic = () =>
-  sage.disk.get('project').has('sage.config.json')
-
-/**
  * JSON config
  */
 export const json = () => {
@@ -32,21 +38,12 @@ export const json = () => {
     .has('sage.config.json')
     .readJson('sage.config.json')
 
-  const packageJson = sage.disk
+  const pkgJson = sage.disk
     .get('project')
     .has('package.json')
     .readJson('package.json')
 
-  const config: Sage.Config =
-    staticCfg ?? packageJson.sage ?? null
-
-  if (!config) {
-    new Error(`Sage configuration is unreadable`)
-
-    console.error(staticCfg, packageJson, config)
-
-    process.exit()
-  }
+  const config: Sage.Config = staticCfg ?? pkgJson.sage ?? null
 
   sage.entry(config.entrypoints)
   sage.run()

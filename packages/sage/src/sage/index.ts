@@ -1,5 +1,5 @@
 /**
- * Sage - Bootstrap preset
+ * Sage - Tailwind preset
  */
 
 // Core
@@ -11,6 +11,7 @@ import * as esbuild from '@roots/bud-esbuild'
 import * as postcss from '@roots/bud-postcss'
 import * as react from '@roots/bud-react'
 import * as sass from '@roots/bud-sass'
+import * as tailwindcss from '@roots/bud-tailwindcss'
 import * as typescript from '@roots/bud-typescript'
 
 // Linting
@@ -26,15 +27,12 @@ import * as manifests from '@roots/bud-wordpress-manifests'
 
 // Optimization
 import * as imagemin from '@roots/bud-imagemin'
-import * as purgecss from '@roots/bud-purgecss'
-import cssnano from 'cssnano'
+import * as cssnano from 'cssnano'
 
 /**
- * Sage WordPress starter theme
+ * Sage - tailwind preset
  */
-export const bootstrap: () => Bud = () => {
-  const sage = bud
-
+export const sage: Bud = ((sage: Bud) => {
   sage
     /**
      * Artifacts/cache store
@@ -46,27 +44,18 @@ export const bootstrap: () => Bud = () => {
     /**
      * Src path
      */
-    .srcPath('resources/assets')
+    .srcPath('resources')
+
+    /**
+     * Dist path
+     */
+    .distPath('public')
 
     /**
      * Public path:
      */
-    .when(bud.env.has('APP_PUBLIC_PATH'), () =>
-      bud.publicPath(bud.env.get('APP_PUBLIC_PATH')),
-    )
-
-    /**
-     * Proxy host
-     */
-    .when(bud.env.has('APP_PROXY_HOST'), () =>
-      bud.proxy({host: bud.env.get('APP_PROXY_HOST')}),
-    )
-
-    /**
-     * Proxy port
-     */
-    .when(bud.env.has('APP_PROXY_PORT'), () =>
-      bud.proxy({port: bud.env.get('APP_PROXY_PORT')}),
+    .when(sage.env.has('APP_PUBLIC_PATH'), () =>
+      sage.publicPath(sage.env.get('APP_PUBLIC_PATH')),
     )
 
     /**
@@ -83,27 +72,25 @@ export const bootstrap: () => Bud = () => {
      * Thus, Sage uses esbuild@production, babel/hmr@development.
      */
     .when(
-      sage.isDevelopment,
-      () => {
-        sage.use(typescript)
-        sage.use(babel)
-        sage.use(react)
+      bud.isDevelopment,
+      (bud: Bud) => {
+        bud.use(typescript)
+        bud.use(babel)
+        bud.use(react)
       },
-      () => {
-        sage.use(esbuild)
-        sage.esbuild.jsx()
+      (bud: Bud) => {
+        bud.use(esbuild)
+        bud.esbuild.jsx()
       },
     )
 
-    /**
-     * Extensions
-     */
     .use([
       /**
        * Style transpilation
        */
       postcss,
       sass,
+      tailwindcss,
 
       /**
        * Linting
@@ -138,32 +125,42 @@ export const bootstrap: () => Bud = () => {
       jquery: ['$', 'jQuery'],
     })
 
-  /**
-   * Production optim
-   */
-  sage.when(sage.isProduction, () => {
-    sage.use([imagemin, purgecss])
+    /**
+     * Production optim
+     */
+    .when(
+      sage.isProduction,
 
-    sage.postcss.setPlugin([
-      'cssnano',
-      cssnano({preset: 'default'}),
-    ])
+      /**
+       * Production concerns.
+       */
+      (sage: Bud) => {
+        sage.use(imagemin)
 
-    sage.minify()
-    sage.hash()
-    sage.vendor()
-    sage.runtime()
+        sage.postcss.setPlugin([
+          'cssnano',
+          cssnano({preset: 'default'}),
+        ])
 
-    sage.purge({
-      content: [
-        sage.src('scripts/**/*'),
-        sage.project('resources/views/**/*.php'),
-        sage.project('app/**/*.php'),
-      ],
-      css: [sage.src('styles/**/*.{css,scss}')],
-      ...require('purgecss-with-wordpress'),
-    })
-  })
+        sage.minify()
+        sage.hash()
+        sage.vendor()
+        sage.runtime()
+      },
+
+      /**
+       * Development concerns.
+       */
+      (sage: Bud) => {
+        sage
+          .when(sage.env.has('APP_PROXY_HOST'), () =>
+            sage.proxy({host: sage.env.get('APP_PROXY_HOST')}),
+          )
+          .when(sage.env.has('APP_PROXY_PORT'), () =>
+            sage.proxy({port: sage.env.get('APP_PROXY_PORT')}),
+          )
+      },
+    )
 
   return sage
-}
+})(bud)

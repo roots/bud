@@ -18,7 +18,7 @@ my-project
 ├── bud.config.js
 ├── dist
 ├── package.json
-└── resources
+└── src
     ├── scripts
     └── styles
 ```
@@ -28,10 +28,9 @@ Our minimal `bud.config.js` file might look something like this:
 ```js
 const {bud} = require('@roots/bud')
 
-bud
-  .srcPath('resources')
-  .entry('app', ['scripts/app.js', 'styles/app.css'])
-  .run()
+bud.entry('app', ['scripts/app.js', 'styles/app.css'])
+
+bud.run()
 ```
 
 Let's break down what is happening.
@@ -42,13 +41,12 @@ Let's break down what is happening.
 bud.projectPath(__dirname).srcPath('resources')
 ```
 
-First, we set the paths of important project directories. Bud includes a few
-functions to help locate your assets.
+First, we set the paths of important project directories. We
+actually skippd this step because our example paths align with the
+Bud defaults (`src`, `dist`, relative to the `process.cwd()`)
 
 - [bud.projectPath](config-projectPath.md) indicates the root path of the project.
-  Since our config file is already in the project root, we don't need to
-  explicitly set this. However, if you are running the config outside the project
-  root, you will need to make this explicit.
+  Since our config file is already in the project root, we don't need to explicitly set this. However, if you are running the config outside the project root, you will need to make this explicit.
 
 - [bud.srcPath](config-srcPath.md) indicates where the project source files are
   located.

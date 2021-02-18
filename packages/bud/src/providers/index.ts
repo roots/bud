@@ -11,7 +11,7 @@ import {
 import {Cache} from '@roots/bud-cache'
 import {Compiler} from '@roots/bud-compiler'
 import {Hooks, hooks} from '@roots/bud-hooks'
-import {Dashboard} from '@roots/bud-cli'
+import {CLI, Dashboard} from '@roots/bud-cli'
 import {Server} from '@roots/bud-server'
 import {express} from '@roots/bud-support'
 import {Providers} from '@roots/bud-typings'
@@ -61,6 +61,7 @@ export const providers: Providers = {
   build: [Build, {containers: {items, rules}}],
   extensions: [Extensions, {containers: extensions}],
   cache: [Cache],
+  cli: [CLI],
   dashboard: [Dashboard],
   compiler: [Compiler],
   server: [Server, {dependencies: {instance: express()}}],

@@ -15,39 +15,23 @@ bud.hooks.on('webpack.resolve.modules', function (modules) {
 })
 
 bud
-  .makeContainer({
-    development: () =>
-      bud.use([
-        require('@roots/bud-babel'),
-        require('@roots/bud-react'),
-      ]),
-    production: () => {
-      bud.use([require('@roots/bud-esbuild')]).esbuild.jsx()
-      bud.hash().minify()
-    },
+  .when(bud.isDevelopment, () => {
+    bud.use([
+      require('@roots/bud-babel'),
+      require('@roots/bud-react'),
+    ])
   })
-  .get(bud.mode)
-
-bud.use([
-  require('@roots/bud-emotion'),
-  require('@roots/bud-postcss'),
-])
-
-bud.html({
-  template: 'public/index.html',
-})
-
-bud.theme.colors({
-  foreground: '#FFFFFF',
-  faded: '#6C758F',
-  primary: '#545DD7',
-  primaryAlt: '#663399',
-  error: '#dc3545',
-  errorAlt: '#b22222',
-  warning: '#FF611A',
-  success: '#46D46A',
-  accent: '#ff69b4',
-  flavor: '#78C5D7',
-})
-
-bud.entry({app: '**/*.{js,css}'}).run()
+  .when(bud.isProduction, () => {
+    bud.use([require('@roots/bud-esbuild')])
+    bud.esbuild.jsx()
+    bud.hash().minify()
+  })
+  .use([
+    require('@roots/bud-emotion'),
+    require('@roots/bud-postcss'),
+  ])
+  .html({
+    template: 'public/index.html',
+  })
+  .entry({app: 'app.{js,css}'})
+  .run()

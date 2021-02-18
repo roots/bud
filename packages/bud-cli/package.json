@@ -27,10 +27,8 @@
     "bud"
   ],
   "files": [
-    "lib",
-    "types",
-    "bin",
-    "src"
+    "lib/",
+    "src/"
   ],
   "main": "./lib/cjs/index.js",
   "exports": {
@@ -39,9 +37,6 @@
   },
   "module": "./lib/esm/index.js",
   "types": "./lib/types/index.d.ts",
-  "bin": {
-    "bud": "bin/bud.js"
-  },
   "scripts": {
     "build": "run-s build:*",
     "build:cjs": "tsc --build tsconfig.json",

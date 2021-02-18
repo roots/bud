@@ -8,8 +8,7 @@ import {
 } from '@roots/bud-support'
 import {isNumber} from 'lodash'
 import {join, dirname} from 'path'
-
-import {Error, Publish} from '../'
+import {Error, Publish} from '../..'
 
 const cwd = process.cwd()
 
@@ -66,7 +65,9 @@ export const handler: yargs.CommandModule['handler'] = (args: {
 
     /**
      * Bail early if command isn't proper.
-     * Hit the user with an error message so they know what they did wrong
+     *
+     * Hit the user with an error message
+     * so they know what they did wrong
      */
     if (!extension || typeof extension !== 'string') {
       Error(
@@ -75,13 +76,13 @@ export const handler: yargs.CommandModule['handler'] = (args: {
       )
     }
 
-    const srcFile = `${process.cwd()}/node_modules/${extension}/publish/${template}`
+    const src = `${process.cwd()}/node_modules/${extension}/publish/${template}`
 
     const dest = join(cwd, 'publish', `${template}`)
 
     try {
       await fs.ensureDir(dirname(dest))
-      await fs.copyFile(srcFile, dest)
+      await fs.copyFile(src, dest)
 
       render(<Publish file={template} />)
     } catch (err) {

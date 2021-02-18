@@ -1,0 +1,6 @@
+{
+  "name": "bud-example-advaned",
+  "scripts": {
+    "bud": "node ../../node_modules/.bin/bud"
+  }
+}

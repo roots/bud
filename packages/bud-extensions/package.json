@@ -28,7 +28,6 @@
   },
   "files": [
     "lib/",
-    "types/",
     "src/"
   ],
   "main": "./lib/cjs/index.js",
