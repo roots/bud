@@ -4,8 +4,7 @@ import {
   Box,
   Text,
 } from '@roots/bud-support'
-import {Indicator} from '../UI/Indicator'
-import {useStyle} from '@roots/ink-use-style'
+import {Indicator} from '../Indicator'
 
 export const Asset: FunctionComponent<{
   chunks: Array<number | string>
@@ -14,23 +13,24 @@ export const Asset: FunctionComponent<{
   isOverSizeLimit?: boolean
   name: string
   size: number
+  col: any
+  colors: any
 }> = ({
   size,
   name,
   isOverSizeLimit,
   emitted,
   chunkNames,
-  chunks,
-}) => {
-  const {col, colors} = useStyle()
-
-  return (
+  col,
+  colors,
+}) =>
+  !name.includes('.json') ? (
     <Box flexDirection={'row'} justifyContent={'space-between'}>
       <Box width={col(7)}>
         <Text
           wrap="truncate-end"
           color={emitted ? colors.foreground : colors.faded}>
-          <Indicator active={emitted} />
+          <Indicator {...colors} active={emitted} />
           {name}{' '}
         </Text>
       </Box>
@@ -53,5 +53,4 @@ export const Asset: FunctionComponent<{
         </Text>
       </Box>
     </Box>
-  )
-}
+  ) : null

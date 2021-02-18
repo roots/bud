@@ -8,9 +8,9 @@ import {
 /**
  * Publish
  */
-const Publish: FunctionComponent<{file: string | number}> = ({
-  file,
-}) => (
+export const Publish: FunctionComponent<{
+  file: string | number
+}> = ({file}) => (
   <Box
     display="flex"
     justifyContent="flex-start"
@@ -29,5 +29,3 @@ const Publish: FunctionComponent<{file: string | number}> = ({
     </Box>
   </Box>
 )
-
-export {Publish as default}

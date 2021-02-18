@@ -1,5 +1,5 @@
 import {React, render} from '@roots/bud-support'
-import {Error as Component} from '../containers/Error'
+import {Error as Component} from './Error'
 
 declare interface Error {
   (body?: string, title?: string): void

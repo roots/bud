@@ -73,6 +73,8 @@ declare namespace Store {
     | `webpack`
     | `args.${Store.Argument}`
     | `args`
+    | `theme`
+    | `theme.${string}`
     | `env.${string}`
     | `server.${string}`
     | `server`

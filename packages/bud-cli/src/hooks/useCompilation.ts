@@ -76,5 +76,6 @@ export const useCompilation = (bud: Framework) => {
     progress,
     stats,
     errors,
+    mode: bud.options.get('mode'),
   }
 }

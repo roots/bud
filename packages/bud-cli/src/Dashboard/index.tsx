@@ -1,6 +1,8 @@
+import './interface'
 import {React, render} from '@roots/bud-support'
 import Service from './Service'
-import {Dashboard as Component} from '../containers/Dashboard'
+import {Render} from './Render'
+import {Theme} from './api'
 
 /**
  * Dashboard
@@ -9,12 +11,16 @@ export class Dashboard extends Service {
   /**
    * Service ident
    */
-  public name = 'cli'
+  public name = 'dashboard'
 
   /**
    * Register service
    */
   public register(): void {
+    Object.assign(this.app, {
+      theme: new Theme(this.app.get()),
+    })
+
     this.kill = this.kill.bind(this)
     this.run = this.run.bind(this)
   }
@@ -31,9 +37,7 @@ export class Dashboard extends Service {
       msg: 'Beginning CLI execution',
     })
 
-    console.clear()
-
-    this.dashboard = render(<Component bud={this.app} />)
+    this.dashboard = render(<Render bud={this.app.get()} />)
   }
 
   /**

@@ -1,16 +1,15 @@
 import {React, FunctionComponent, Box} from '@roots/bud-support'
-import {useStyle} from '@roots/ink-use-style'
 import {Asset} from './Asset'
 
 const Assets: FunctionComponent<{
   assets: any
-}> = ({assets}) => {
-  const {col} = useStyle()
-
+  colors: any
+  col: any
+}> = ({assets, colors, col}) => {
   return (
     <Box flexDirection="column" width={col(12)}>
       {assets?.map((asset, id) => (
-        <Asset key={id} {...asset} />
+        <Asset col={col} colors={colors} key={id} {...asset} />
       ))}
     </Box>
   )

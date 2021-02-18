@@ -4,24 +4,23 @@ import {
   useEffect,
   useApp,
   useInput,
-  isEqual,
 } from '@roots/bud-support'
-import {useStyle} from '@roots/ink-use-style'
-
-import {Reporter} from './Reporter'
-import {useDisk} from '../hooks/useDisk'
-import {usePackageJson} from '../hooks/usePackageJson'
-import {useCompilation} from '../hooks/useCompilation'
 import {Framework} from '@roots/bud-typings'
 
-export const Dashboard: FunctionComponent<{
+import {Reporter} from './Reporter'
+import {useStyle} from '@roots/ink-use-style'
+import {useDisk} from '../../hooks/useDisk'
+import {usePackageJson} from '../../hooks/usePackageJson'
+import {useCompilation} from '../../hooks/useCompilation'
+
+export const Render: FunctionComponent<{
   bud: Framework<any>
 }> = ({bud}) => {
   const app = useApp()
+  const style = useStyle(bud.store.get('theme'))
   const [disk] = useDisk(bud)
   const {stats, progress, errors} = useCompilation(bud)
   const pkg = usePackageJson(disk)
-  const style = useStyle()
 
   useInput(input => {
     if (input == 'q') {
@@ -31,22 +30,17 @@ export const Dashboard: FunctionComponent<{
     }
   })
 
-  /**
-   * @todo setTimeout here is bad
-   */
   useEffect(() => {
-    if (
-      bud.isProduction &&
-      (stats?.assets?.length > 0 || errors) &&
-      isEqual(progress?.decimal, 1)
-    ) {
+    if (!bud.isProduction) return
+
+    const hasErrors = errors?.length > 0
+    const isComplete = progress?.decimal >= 1
+
+    ;(isComplete || hasErrors) &&
       setTimeout(() => {
         app.exit()
-        console.clear()
-        process.exit()
       }, 100)
-    }
-  }, [bud])
+  }, [stats, progress, errors])
 
   return (
     <Reporter

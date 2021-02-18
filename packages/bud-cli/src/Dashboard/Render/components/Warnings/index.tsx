@@ -1,5 +1,5 @@
 import {React} from '@roots/bud-support'
-import Screen from '../../Screen'
+import Screen from '../Screen'
 import {Warning} from './Warning'
 
 const Warnings = ({warnings}) =>

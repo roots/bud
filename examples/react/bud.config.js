@@ -14,18 +14,19 @@ bud.hooks.on('webpack.resolve.modules', function (modules) {
   ]
 })
 
-const dev = () =>
-  bud.use([
-    require('@roots/bud-babel'),
-    require('@roots/bud-react'),
-  ])
-
-const prod = () => {
-  bud.use([require('@roots/bud-esbuild')]).esbuild.jsx()
-  bud.hash().minify()
-}
-
-bud.when(bud.isDevelopment, dev, prod)
+bud
+  .makeContainer({
+    development: () =>
+      bud.use([
+        require('@roots/bud-babel'),
+        require('@roots/bud-react'),
+      ]),
+    production: () => {
+      bud.use([require('@roots/bud-esbuild')]).esbuild.jsx()
+      bud.hash().minify()
+    },
+  })
+  .get(bud.mode)
 
 bud.use([
   require('@roots/bud-emotion'),
@@ -36,8 +37,17 @@ bud.html({
   template: 'public/index.html',
 })
 
-bud
-  .entry({
-    app: '**/*.{js,css}',
-  })
-  .run()
+bud.theme.colors({
+  foreground: '#FFFFFF',
+  faded: '#6C758F',
+  primary: '#545DD7',
+  primaryAlt: '#663399',
+  error: '#dc3545',
+  errorAlt: '#b22222',
+  warning: '#FF611A',
+  success: '#46D46A',
+  accent: '#ff69b4',
+  flavor: '#78C5D7',
+})
+
+bud.entry({app: '**/*.{js,css}'}).run()

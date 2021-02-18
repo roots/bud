@@ -9,8 +9,7 @@ import {
 import {isNumber} from 'lodash'
 import {join, dirname} from 'path'
 
-import {Error} from '../'
-import Publish from '../containers/Publish'
+import {Error, Publish} from '../'
 
 const cwd = process.cwd()
 
