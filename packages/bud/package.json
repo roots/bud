@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud",
-  "version": "3.0.36-alpha.0",
+  "version": "3.0.37-alpha.0",
   "description": "A friendly build tool to help manage your project assets.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -56,21 +56,21 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^3.0.36-alpha.0"
+    "@roots/bud-typings": "^3.0.37-alpha.0"
   },
   "dependencies": {
-    "@roots/bud-api": "^3.0.36-alpha.0",
-    "@roots/bud-build": "^3.0.36-alpha.0",
-    "@roots/bud-cache": "^3.0.36-alpha.0",
-    "@roots/bud-cli": "^3.0.36-alpha.0",
-    "@roots/bud-compiler": "^3.0.36-alpha.0",
-    "@roots/bud-extensions": "^3.0.36-alpha.0",
-    "@roots/bud-framework": "^3.0.36-alpha.0",
-    "@roots/bud-hooks": "^3.0.36-alpha.0",
-    "@roots/bud-server": "^3.0.36-alpha.0",
-    "@roots/bud-support": "^3.0.36-alpha.0",
-    "@roots/container": "^3.0.36-alpha.0",
-    "@roots/filesystem": "^3.0.36-alpha.0",
+    "@roots/bud-api": "^3.0.37-alpha.0",
+    "@roots/bud-build": "^3.0.37-alpha.0",
+    "@roots/bud-cache": "^3.0.37-alpha.0",
+    "@roots/bud-cli": "^3.0.37-alpha.0",
+    "@roots/bud-compiler": "^3.0.37-alpha.0",
+    "@roots/bud-extensions": "^3.0.37-alpha.0",
+    "@roots/bud-framework": "^3.0.37-alpha.0",
+    "@roots/bud-hooks": "^3.0.37-alpha.0",
+    "@roots/bud-server": "^3.0.37-alpha.0",
+    "@roots/bud-support": "^3.0.37-alpha.0",
+    "@roots/container": "^3.0.37-alpha.0",
+    "@roots/filesystem": "^3.0.37-alpha.0",
     "mini-css-extract-plugin": "^0.11.3",
     "mini-svg-data-uri": "^1.2.3",
     "optimize-css-assets-webpack-plugin": "^5.0.1",
@@ -84,5 +84,5 @@
     "webpack-manifest-plugin": "^2.2.0",
     "write-file-webpack-plugin": "^4.5.1"
   },
-  "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
+  "gitHead": "c1939ef43f4911df95621a55ef0d569f121ae61f"
 }

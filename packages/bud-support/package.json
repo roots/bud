@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-support",
-  "version": "3.0.36-alpha.0",
+  "version": "3.0.37-alpha.0",
   "description": "Internal utilities for the @roots/bud monorepo.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -58,7 +58,7 @@
     "@roots/container": "*"
   },
   "dependencies": {
-    "@roots/container": "^3.0.36-alpha.0",
+    "@roots/container": "^3.0.37-alpha.0",
     "cache-loader": "^4.1.0",
     "chalk": "^4.1.0",
     "clean-webpack-plugin": "^3.0.0",
@@ -99,7 +99,7 @@
     "yargs": "^16.0.3",
     "zlib": "^1.0.5"
   },
-  "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45",
+  "gitHead": "c1939ef43f4911df95621a55ef0d569f121ae61f",
   "devDependencies": {
     "@types/webpack-dev-middleware": "^3.7.2"
   }

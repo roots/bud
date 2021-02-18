@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-stylelint",
-  "version": "3.0.36-alpha.0",
+  "version": "3.0.37-alpha.0",
   "description": "Adds stylelint support to Bud",
   "repository": {
     "type": "git",
@@ -54,12 +54,12 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
-    "@roots/bud": "^3.0.36-alpha.0"
+    "@roots/bud": "^3.0.37-alpha.0"
   },
   "dependencies": {
     "stylelint": "^13.6.1",
     "stylelint-config-standard": "^20.0.0",
     "stylelint-webpack-plugin": "^2.1.0"
   },
-  "gitHead": "9fb629f2bf9565389ba5daba35ff7759d384cd45"
+  "gitHead": "c1939ef43f4911df95621a55ef0d569f121ae61f"
 }
