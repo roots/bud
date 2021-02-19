@@ -1,5 +1,5 @@
 import {Service} from '@roots/bud-framework'
-import type {Server} from '@roots/bud-typings'
+import type {Server, Webpack} from '@roots/bud-typings'
 
 /**
  * ## Server service provider.
@@ -13,11 +13,27 @@ import type {Server} from '@roots/bud-typings'
  * [🔗 Documentation](#)
  */
 export default abstract class extends Service implements Server {
+  /**
+   * Server application instance.
+   */
   public abstract instance: Server.Instance
+
+  /**
+   * Client bundle assets (for injection)
+   */
+  public abstract assets: string[]
+
   /**
    * Inject HMR service into individual bundles.
    */
-  public abstract injectHmr(): void
+  public abstract inject(): void
+
+  /**
+   * Make middleware
+   */
+  public abstract makeMiddleware(
+    compiler: Webpack.Compiler,
+  ): void
 
   /**
    * ## bud.server.run [🏠 Internal]

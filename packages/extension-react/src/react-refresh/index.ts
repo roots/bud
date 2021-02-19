@@ -24,7 +24,5 @@ export const when: Module.When = ({options}) =>
  * @pmmmwh/react-refresh-webpack-plugin options
  */
 export const options: Options = {
-  overlay: {
-    sockIntegration: 'whm',
-  },
+  overlay: false,
 }

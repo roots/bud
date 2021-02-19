@@ -39,8 +39,8 @@ const dev = ({
  */
 const options = (
   config: Server['config'],
-): webpackDevMiddleware.Options =>
-  Object.fromEntries(
+): webpackDevMiddleware.Options => ({
+  ...Object.fromEntries(
     config
       .mutate('headers', headers => ({
         ...headers,
@@ -53,6 +53,7 @@ const options = (
           !isUndefined(option) &&
           !isNull(option),
       ),
-  )
+  ),
+})
 
 export {dev}

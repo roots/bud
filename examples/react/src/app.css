@@ -37,7 +37,7 @@ code {
   .header {
     min-height: 80vh;
     width: 100%;
-    background-color: #282c34;
+    background-color: rgba(96, 165, 250, 1);
     display: flex;
     flex-direction: column;
     align-items: center;

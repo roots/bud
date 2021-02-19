@@ -36,6 +36,14 @@ export const mimeTypes: Server.Options['mimeTypes'] = null
  */
 // export const publicPath: Server.Options['publicPath'] = '/'
 
+export const watchFiles = [
+  '**/*.htm(l)?',
+  '**/*.php',
+  '.ejs',
+  '!node_modules',
+  '!vendor',
+]
+
 /**
  * If true, the option will instruct the module to write files to the configured
  * location on disk as specified in your webpack config file

@@ -11,12 +11,25 @@ import ProxyMiddleware from 'http-proxy-middleware'
  * [🔗 Documentation](#)
  */
 export interface Server extends Service {
+  /**
+   * Server application instance.
+   */
   instance: Server.Instance
+
+  /**
+   * Client bundle assets (for injection)
+   */
+  assets: string[]
 
   /**
    * Inject HMR service into individual bundles.
    */
-  injectHmr(): void
+  inject(): void
+
+  /**
+   * Make middleware
+   */
+  makeMiddleware(compiler: Webpack.Compiler): void
 
   /**
    * ## bud.server.run [🏠 Internal]

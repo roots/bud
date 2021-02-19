@@ -1,11 +1,13 @@
-import Service from './Service'
-import {injectClient} from '../util/injectClient'
-import * as middleware from '../middleware'
 import type {
   Webpack,
   Container,
   Server,
 } from '@roots/bud-typings'
+import Service from './Service'
+import {injectClient} from '../util/injectClient'
+import * as middleware from '../middleware'
+import {globby, chokidar} from '@roots/bud-support'
+import {resolve} from 'path'
 
 /**
  * ## bud.server
@@ -13,20 +15,34 @@ import type {
  * Development server.
  *
  * [🏡 Project home](https://roots.io/bud)
- * [🧑‍💻 roots/bud/packages/server](https://git.io/JkCQG)
+ * [🧑‍💻 roots/bud/packages/bud-server](https://git.io/JkCQG)
  * [📦 @roots/bud-server](https://www.npmjs.com/package/@roots/bud-server)
- * [🔗 Documentation](#)
  */
 export default class extends Service implements Server {
   /**
    * Service ident.
    */
-  public name = 'server'
+  public name = '@roots/bud-server'
 
   /**
    * Application dev server instance.
    */
   public instance: Server.Instance
+
+  /**
+   * Client bundle assets (for injection)
+   */
+  public assets = [resolve(__dirname, '../client/index.js')]
+
+  /**
+   * Middlewares
+   */
+  public middlewares = {
+    dev: null,
+    hot: null,
+    proxy: null,
+    budClient: null,
+  }
 
   /**
    * Service registration
@@ -43,38 +59,72 @@ export default class extends Service implements Server {
     //
   }
 
+  /**
+   * Server config values
+   */
   public get config(): Container<Server.Options> {
     return this.app.makeContainer(this.app.store.get('server'))
   }
 
   /**
-   * Inject HMR
+   * Express middlewares
    */
-  public injectHmr(): void {
-    injectClient(this.app)
-  }
-
-  /**
-   * Run server
-   */
-  public run(compiler: Webpack.Compiler): this {
-    const middlewares = {
+  public makeMiddleware(compiler: Webpack.Compiler): void {
+    Object.assign(this.middlewares, {
       dev: middleware.dev({
         config: this.config,
         compiler,
       }),
       hot: middleware.hot(compiler),
       proxy: middleware.proxy(this.config),
-    }
+    })
+  }
 
-    this.instance.use(middlewares.dev)
-    this.instance.use(middlewares.hot)
+  /**
+   * Run server
+   */
+  public run(compiler: Webpack.Compiler): this {
+    this.makeMiddleware(compiler)
+
+    this.instance.use(this.middlewares.dev)
+    this.instance.use(this.middlewares.hot)
 
     this.app.options.enabled('proxy') &&
-      this.instance.use(middlewares.proxy)
+      this.instance.use(this.middlewares.proxy)
 
     this.instance.listen(this.config.get('port'))
 
+    this.watcher.on('change', path => {
+      this.middlewares.hot.publish({
+        action: 'reload',
+        message: `Detected file change: ${path}. Reloading window.`,
+      })
+    })
+
     return this
+  }
+
+  /**
+   * Inject HMR
+   */
+  public inject(): void {
+    injectClient(this.app, this.assets)
+  }
+
+  /**
+   * Watch fs
+   */
+  public get watcher() {
+    return chokidar.watch(
+      globby.sync(
+        this.config
+          .get('watchFiles')
+          .map(file => this.app.get().project(file)),
+      ),
+      {
+        ignored: /(^|[\/\\])\../, // ignore dotfiles
+        persistent: true,
+      },
+    )
   }
 }

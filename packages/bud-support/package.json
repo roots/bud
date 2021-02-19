@@ -61,6 +61,7 @@
     "@roots/container": "^3.0.37-alpha.0",
     "cache-loader": "^4.1.0",
     "chalk": "^4.1.0",
+    "chokidar": "^3.5.1",
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "^6.2.0",
     "css-loader": "^3.6.0",

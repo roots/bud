@@ -19,7 +19,7 @@ export {Service} from './Service'
 /**
  * Application util
  */
-export {eslintFormatter} from './util'
+export {eslintFormatter, formatWebpackMessages} from './util'
 export {notify} from './util/notify'
 export {maybeAppend} from './util/maybeAppend'
 export * as wpPkgs from './util/wordpressPkgs'
@@ -132,6 +132,7 @@ export {
  * Dependencies
  */
 import chalk from 'chalk'
+import chokidar from 'chokidar'
 import dotenv from 'dotenv'
 import execa from 'execa'
 import express from 'express'
@@ -143,6 +144,7 @@ import prettyFormat from 'pretty-format'
 import yargs from 'yargs'
 export {
   chalk,
+  chokidar,
   dotenv,
   execa,
   express,
