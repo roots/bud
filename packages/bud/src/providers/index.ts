@@ -8,18 +8,18 @@ import {
   Logger,
 } from '@roots/bud-framework'
 
+import {Build} from '@roots/bud-build'
 import {Cache} from '@roots/bud-cache'
 import {Compiler} from '@roots/bud-compiler'
 import {Hooks, hooks} from '@roots/bud-hooks'
-import {CLI, Dashboard} from '@roots/bud-cli'
+import {Dashboard} from '@roots/bud-dashboard'
+import {Extensions} from '@roots/bud-extensions'
 import {Server} from '@roots/bud-server'
 import {express} from '@roots/bud-support'
 import {Providers} from '@roots/bud-typings'
 
-import {Extensions} from '@roots/bud-extensions'
 import {extensions} from './extensions'
 
-import {Build} from '@roots/bud-build'
 import Store, {repositories} from './store'
 import {options} from './options'
 import * as items from './items'
@@ -61,7 +61,6 @@ export const providers: Providers = {
   build: [Build, {containers: {items, rules}}],
   extensions: [Extensions, {containers: extensions}],
   cache: [Cache],
-  cli: [CLI],
   dashboard: [Dashboard],
   compiler: [Compiler],
   server: [Server, {dependencies: {instance: express()}}],

@@ -3,9 +3,8 @@
   "compilerOptions": {
     "rootDir": "./src",
     "outDir": "./lib/cjs",
-    "baseUrl": ".",
-    "declaration": true,
     "declarationDir": "./lib/types",
+    "declaration": true,
     "declarationMap": true
   },
   "include": ["./src"],

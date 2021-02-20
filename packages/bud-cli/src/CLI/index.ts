@@ -1,15 +1,9 @@
 import {yargs} from '@roots/bud-support'
-import Service from './Service'
 
 /**
  * CLI
  */
-export class CLI extends Service {
-  /**
-   * Service ident
-   */
-  public name = 'Framework.CLI'
-
+export class CLI {
   /**
    * Yargs
    */
@@ -28,33 +22,38 @@ export class CLI extends Service {
   /**
    * Commands
    */
-  public subcommands = [
+  public commands = [
     require('./commands/build'),
     require('./commands/publish'),
   ]
 
   /**
+   * No command passed
+   */
+  public epilog = 'https://github.com/roots/bud'
+  public demandCommand = `
+    You must specify a command. See \`${this.command} --help\` for usage.
+  `
+
+  /**
    * Add command
    */
   public addCommand(cmd) {
-    this.subcommands.push(cmd)
+    this.commands.push(cmd)
   }
 
   /**
    * Invoke command line stdout
    */
   public invoke(): void {
-    this.subcommands.map(cmd => this.instance.command(cmd))
+    this.commands.map(cmd => this.instance.command(cmd))
 
     this.instance
       .recommendCommands()
-      .demandCommand(
-        1,
-        'You must specify a command. See `bud --help` for usage.\n',
-      )
-      .usage('\nBud \n\nbud [command] [options]')
+      .demandCommand(1, `${this.demandCommand}\n`)
+      .usage(this.command)
       .version()
       .wrap(this.instance.terminalWidth())
-      .epilog('https://github.com/roots/bud').argv
+      .epilog(this.epilog).argv
   }
 }

@@ -28,7 +28,8 @@
   ],
   "files": [
     "lib/",
-    "src/"
+    "src/",
+    "bin/"
   ],
   "main": "./lib/cjs/index.js",
   "exports": {
@@ -37,6 +38,9 @@
   },
   "module": "./lib/esm/index.js",
   "types": "./lib/types/index.d.ts",
+  "bin": {
+    "bud": "bin/bud.js"
+  },
   "scripts": {
     "build": "run-s build:*",
     "build:cjs": "tsc --build tsconfig.json",
@@ -53,10 +57,9 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "dependencies": {
-    "@roots/bud-framework": "^3.0.37-alpha.0",
-    "@roots/bud-support": "^3.0.37-alpha.0",
-    "@roots/ink-prettier": "^3.0.37-alpha.0",
-    "@roots/ink-use-style": "^3.0.37-alpha.0"
+    "@roots/bud": "^3.0.37-alpha.0",
+    "@roots/bud-dashboard": "^3.0.37-alpha.0",
+    "@roots/bud-support": "^3.0.37-alpha.0"
   },
   "devDependencies": {
     "@roots/bud-typings": "^3.0.37-alpha.0"

@@ -27,6 +27,7 @@
     {"@roots/bud-cli": "bud-cli"},
     {"@roots/bud-compiler": "bud-compiler"},
     {"@roots/bud-compress": "extension-compress"},
+    {"@roots/bud-dashboard": "bud-dashboard"},
     {"@roots/bud-extensions": "bud-extensions"},
     {"@roots/bud-framework": "bud-framework"},
     {"@roots/bud-hooks": "bud-hooks"},
@@ -65,5 +66,5 @@
     {"@roots/wordpress-externals-webpack-plugin": "webpack-wordpress-externals-plugin"},
     {"@roots/wordpress-dependencies-webpack-plugin": "webpack-wordpress-dependencies-plugin"}
   ],
-  "include": ["./packages/*/src"]
+  "include": ["./packages/*/src", "packages/bud-dashboard/types/index.d.ts"]
 }

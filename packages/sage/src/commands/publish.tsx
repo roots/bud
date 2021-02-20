@@ -3,7 +3,6 @@ import {
   render,
   fs,
   lodash,
-  yargs,
   globby,
   chalk,
 } from '@roots/bud-support'
@@ -20,10 +19,7 @@ const publishables = [
     ),
 ]
 
-export const aliases: yargs.CommandModule['aliases'] =
-  'publish <file>'
-
-export const describe: yargs.CommandModule['describe'] = `Publish a template to your project.\n${publishables.reduce(
+export const describe = `Publish a template to your project.\n${publishables.reduce(
   (a, file) => {
     const ext = dirname(dirname(file)).replace(
       'node_modules/',
@@ -41,25 +37,23 @@ export const describe: yargs.CommandModule['describe'] = `Publish a template to 
   ``,
 )}`
 
-export const builder: yargs.CommandModule['builder'] = yargs =>
+export const builder = yargs =>
   yargs
     .positional('file', {
       describe: 'template file to publish',
       type: 'string',
     })
-    .usage('$0 publish <file>')
+    .usage('sage publish <file>')
 
-export const handler: yargs.CommandModule['handler'] = (args: {
-  _: (string | number)[]
-}): void => {
+export const handler = ({_}): void => {
   ;(async () => {
-    const extension: string = lodash.isNumber(args._[1])
-      ? args._[1].toString()
-      : args._[1]
+    const extension: string = lodash.isNumber(_[1])
+      ? _[1].toString()
+      : _[1]
 
-    const template: string = lodash.isNumber(args._[2])
-      ? args._[2].toString()
-      : args._[2]
+    const template: string = lodash.isNumber(_[2])
+      ? _[2].toString()
+      : _[2]
 
     /**
      * Bail early if command isn't proper.
@@ -69,13 +63,12 @@ export const handler: yargs.CommandModule['handler'] = (args: {
      */
     if (!extension || typeof extension !== 'string') {
       Error(
-        `Try \`bud publish --help\` for a list of available templates.`,
+        `Try \`sage publish --help\` for a list of available templates.`,
         `You must specify a template to publish`,
       )
     }
 
     const src = `${process.cwd()}/node_modules/${extension}/publish/${template}`
-
     const dest = join(cwd, 'publish', `${template}`)
 
     try {
@@ -85,7 +78,7 @@ export const handler: yargs.CommandModule['handler'] = (args: {
       render(<Publish file={template} />)
     } catch (err) {
       Error(
-        `Are you sure you got the name right? Try \`bud or bud publish --help\` for a list of available srcFiles.`,
+        `Are you sure you got the name right? Try \`sage or sage publish --help\` for a list of available srcFiles.`,
         `The requested template can't be published.`,
       )
     }

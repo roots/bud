@@ -1,32 +1,33 @@
 import {yargs} from '@roots/bud-support'
+import {Error} from '@roots/bud-dashboard'
 import {join} from 'path'
-import {Error} from '../../'
 
 const cwd = process.cwd()
 
-export const aliases: yargs.CommandModule['aliases'] = 'build'
-export const describe: yargs.CommandModule['describe'] =
-  'Compile source assets.'
+export const describe: Describe = 'Compile source assets.'
 
-export const builder: yargs.CommandModule['builder'] = ({
-  example,
-}) =>
+export const builder: Builder = ({example}) =>
   example('Build', 'bud build --mode production')
     .hide('help')
     .hide('version')
 
-export const handler: yargs.CommandModule['handler'] = (args: {
+export const handler: Handler = (args: {
   [config: string]: unknown
 }): void => {
-  const cfgName = ((args.config ??
-    'bud.config.js') as unknown) as string
-
-  const cfgPath = join(cwd, cfgName)
-
   try {
-    require(cfgPath)
+    require(join(
+      cwd,
+      (args.config ?? ('bud.config.js' as unknown)) as string,
+    ))
   } catch (error) {
-    Error(error.toString())
-    process.exit()
+    Error(error.toString(), `Error`)
   }
 }
+
+declare type Builder = yargs.CommandModule['builder'] &
+  (({example}) => void)
+
+declare type Describe = yargs.CommandModule['describe']
+
+declare type Handler = yargs.CommandModule['handler'] &
+  ((args: {[config: string]: unknown}) => void)

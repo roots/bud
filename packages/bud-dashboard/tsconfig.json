@@ -4,10 +4,10 @@
     "baseUrl": ".",
     "rootDir": "./src",
     "outDir": "./lib/cjs",
-    "declaration": true,
     "declarationDir": "./lib/types",
+    "declaration": true,
     "declarationMap": true
   },
-  "include": ["src"],
-  "exclude": ["lib", "types"]
+  "include": ["**/*.ts", "**/*.tsx", "**/*.d.ts"],
+  "exclude": ["./lib/**/*", "./node_modules/**/*"],
 }

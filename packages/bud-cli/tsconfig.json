@@ -5,9 +5,9 @@
     "outDir": "./lib/cjs",
     "baseUrl": ".",
     "declaration": true,
-    "declarationDir": "./lib/types",
+    "declarationDir": "./types",
     "declarationMap": true
   },
-  "include": ["./src"],
-  "exclude": ["./lib"]
+  "include": ["src"],
+  "exclude": ["lib", "types"]
 }

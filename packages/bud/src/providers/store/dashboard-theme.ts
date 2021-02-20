@@ -1,4 +1,4 @@
-import {Theme} from '@roots/bud-cli'
+import {Theme} from '@roots/bud-dashboard'
 
 export const spacing: Theme['spacing'] = 1
 

@@ -1,6 +1,6 @@
 import {Sage} from './interface'
 import {bud as sage} from '@roots/bud'
-import {Error} from '@roots/bud-cli'
+import {Error} from '@roots/bud-dashboard'
 
 /**
  * Is static
@@ -21,11 +21,10 @@ export const preflight = () => {
   isStatic() &&
     isFluent() &&
     (() => {
-      new Error(
+      Error(
         'Project contains both a sage.config.json and sage.config.js file. They are mutually exclusive.',
+        'Multiple config sources found.',
       )
-
-      process.exit(1)
     })()
 }
 

@@ -1,12 +1,12 @@
 {
-  "name": "@roots/bud",
+  "name": "@roots/bud-dashboard",
+  "description": "Bud CLI dashboard",
   "version": "3.0.37-alpha.0",
-  "description": "A friendly build tool to help manage your project assets.",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
-    "directory": "packages/bud"
+    "directory": "packages/bud-dashboard"
   },
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
@@ -19,23 +19,24 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "keywords": [
-    "webpack"
-  ],
   "engines": {
     "node": ">=12"
   },
+  "keywords": [
+    "webpack",
+    "bud"
+  ],
   "files": [
     "lib/",
     "src/"
   ],
   "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
-  "types": "./lib/types/index.d.ts",
   "exports": {
     "require": "./lib/cjs/index.js",
     "import": "./lib/esm/index.js"
   },
+  "module": "./lib/esm/index.js",
+  "types": "./lib/types/index.d.ts",
   "scripts": {
     "build": "run-s build:*",
     "build:cjs": "tsc --build tsconfig.json",
@@ -51,22 +52,14 @@
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
+  "dependencies": {
+    "@roots/bud-framework": "^3.0.37-alpha.0",
+    "@roots/bud-support": "^3.0.37-alpha.0",
+    "@roots/ink-prettier": "^3.0.37-alpha.0",
+    "@roots/ink-use-style": "^3.0.37-alpha.0"
+  },
   "devDependencies": {
     "@roots/bud-typings": "^3.0.37-alpha.0"
-  },
-  "dependencies": {
-    "@roots/bud-api": "^3.0.37-alpha.0",
-    "@roots/bud-build": "^3.0.37-alpha.0",
-    "@roots/bud-cache": "^3.0.37-alpha.0",
-    "@roots/bud-compiler": "^3.0.37-alpha.0",
-    "@roots/bud-dashboard": "^3.0.37-alpha.0",
-    "@roots/bud-extensions": "^3.0.37-alpha.0",
-    "@roots/bud-framework": "^3.0.37-alpha.0",
-    "@roots/bud-hooks": "^3.0.37-alpha.0",
-    "@roots/bud-server": "^3.0.37-alpha.0",
-    "@roots/bud-support": "^3.0.37-alpha.0",
-    "@roots/container": "^3.0.37-alpha.0",
-    "@roots/filesystem": "^3.0.37-alpha.0"
   },
   "gitHead": "c1939ef43f4911df95621a55ef0d569f121ae61f"
 }
