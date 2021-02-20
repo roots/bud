@@ -1,5 +1,5 @@
 // @ts-check
-const {bud} = require('./../../packages/bud')
+const {bud} = require('./../../packages/@roots/bud')
 
 /**
  * This is specific for the Bud monorepo only.
@@ -15,10 +15,10 @@ bud.srcPath('src')
 
 bud.use([require('@roots/bud-babel')])
 
-bud.globs({
-  'scripts/app': '*.{js,jsx,ts,tsx}',
-})
-
-bud.glob('styles/app', '*.{css,scss}')
+bud
+  .entry({
+    'scripts/app': '*.{js,jsx,ts,tsx}',
+  })
+  .entry('styles/app', '*.{css,scss}')
 
 bud.run()

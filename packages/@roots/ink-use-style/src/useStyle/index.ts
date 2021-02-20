@@ -43,8 +43,8 @@ export const useStyle: UseStyle = (
    * Width and height of application.
    */
   const [bounds, setBounds]: ComponentState = useState({
-    width: width - theme.spacing * 2,
-    height: height - theme.spacing * 2,
+    width,
+    height,
   })
 
   /**
@@ -53,8 +53,8 @@ export const useStyle: UseStyle = (
    */
   useEffect(() => {
     setBounds({
-      width: width - theme.spacing * 2,
-      height: height - theme.spacing * 2,
+      width,
+      height,
     })
   }, [width, height])
 

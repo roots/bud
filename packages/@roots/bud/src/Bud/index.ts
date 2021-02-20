@@ -37,21 +37,6 @@ import {Framework, Discovery} from '@roots/bud-framework'
 declare module '@roots/bud-framework' {
   export interface Framework {
     /**
-     * ## bud.externals  [💁 Fluent]
-     *
-     * Specify a non-standard resolution strategy for modules
-     * with a matching name. [🔗 Documentation](#)
-     *
-     * ### Usage
-     *
-     * ```js
-     * bud.externals({
-     *   'jQuery': 'window.jquery',
-     * })
-     */
-    externals: Api.Externals<this>
-
-    /**
      * ## bud.hash  [💁 Fluent]
      *
      * Enable filename hashing of built assets. [🔗 Documentation](#)

@@ -3,7 +3,6 @@ import {
   useEffect,
   ProgressPlugin,
 } from '@roots/bud-support'
-
 import type {Framework, Compiler} from '@roots/bud-typings'
 
 export type CompilationAsset = {
@@ -40,11 +39,11 @@ export const useCompilation = (bud: Framework) => {
     if (!bud?.compiler?.instance) return
 
     bud.compiler.instance.hooks.done.tap('bud', stats => {
-      if (stats.hasErrors()) {
-        setErrors(stats?.toJson('errors-only').errors)
-      }
-
       setStats(stats.toJson(bud.compiler.statsOptions.json))
+
+      stats.hasErrors()
+        ? setErrors(stats?.toJson('errors-only').errors)
+        : setErrors(null)
     })
 
     new ProgressPlugin((percentage, message): void => {
@@ -58,16 +57,16 @@ export const useCompilation = (bud: Framework) => {
     /**
      * Exec
      */
-    !bud.options.is('mode', 'development')
+    !bud.isDevelopment
       ? bud.compiler.instance.run((err, stats: any) => {
-          if (stats?.hasErrors()) {
-            setErrors([...errors])
-          }
-
           stats &&
             setStats(
               stats.toJson(bud.compiler.statsOptions.json),
             )
+
+          stats?.hasErrors()
+            ? setErrors(stats?.toJson('errors-only').errors)
+            : setErrors(null)
         })
       : bud.server.run(bud.compiler.instance)
   }, [bud])

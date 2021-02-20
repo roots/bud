@@ -6,13 +6,6 @@ import {Framework} from './'
  */
 
 export namespace Api {
-  export type Externals<T = Framework> = (
-    this: T,
-    externals: {
-      [key: string]: any
-    },
-  ) => T
-
   export type Hash<T = Framework> = (
     this: T,
     enabled?: boolean,

@@ -55,11 +55,13 @@ export {externals} from './externals'
 /**
  * Hash
  */
+import './hash'
 export {hash} from './hash'
 
 /**
  * Minify
  */
+import './minify'
 export {minify} from './minify'
 
 /**
@@ -83,6 +85,7 @@ export {projectPath} from './projectPath'
 /**
  * Proxy
  */
+import './proxy'
 export {proxy} from './proxy'
 
 /**
@@ -97,9 +100,38 @@ export {src} from './src'
 import './srcPath'
 export {srcPath} from './srcPath'
 
+/**
+ * publicPath
+ */
+import './publicPath'
 export {publicPath} from './publicPath'
+
+/**
+ * Runtime
+ */
+import './runtime'
 export {runtime} from './runtime'
+
+/**
+ * Storage
+ */
+import './storage'
 export {storage} from './storage'
+
+/**
+ * String
+ */
+import './string'
 export {string} from './string'
+
+/**
+ * HTML
+ */
+import './html'
 export {html} from './html'
+
+/**
+ * Vendor
+ */
+import './vendor'
 export {vendor} from './vendor'

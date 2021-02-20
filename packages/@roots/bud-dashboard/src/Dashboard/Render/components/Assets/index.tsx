@@ -7,7 +7,7 @@ const Assets: FunctionComponent<{
   col: any
 }> = ({assets, colors, col}) => {
   return (
-    <Box flexDirection="column" width={col(12)}>
+    <Box marginY={1} flexDirection="column" width={col(12)}>
       {assets?.map((asset, id) => (
         <Asset col={col} colors={colors} key={id} {...asset} />
       ))}

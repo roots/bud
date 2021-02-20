@@ -1,4 +1,5 @@
 import {
+  Box,
   React,
   useState,
   patchConsole,
@@ -19,5 +20,9 @@ export const Console = ({bud}: {bud: Framework}) => {
     setText(frameOut)
   })
 
-  return <Text>{text ?? ''}</Text>
+  return (
+    <Box flexDirection="column">
+      <Text>{text ?? ''}</Text>
+    </Box>
+  )
 }
