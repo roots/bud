@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-library",
-  "version": "3.0.37-alpha.0",
+  "version": "3.0.38-alpha.0",
   "description": "Adds dynamic link library support to Bud",
   "repository": {
     "type": "git",
@@ -53,10 +53,10 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
-    "@roots/bud": "^3.0.37-alpha.0"
+    "@roots/bud": "^3.0.38-alpha.0"
   },
   "dependencies": {
-    "@roots/bud-support": "^3.0.37-alpha.0",
+    "@roots/bud-support": "^3.0.38-alpha.0",
     "autodll-webpack-plugin": "0.4.2"
   },
   "gitHead": "c1939ef43f4911df95621a55ef0d569f121ae61f"
