@@ -6,6 +6,7 @@ import {
   Compiler,
   Constructor,
   Container,
+  Discovery,
   Env,
   Express,
   Extensions,
@@ -23,14 +24,11 @@ import {
   MaybeCallable,
   Options,
   Providers,
-  Run,
   Rule,
   Server,
   Service,
   Store,
-  Use,
   Webpack,
-  When,
 } from './'
 
 /**
@@ -39,10 +37,8 @@ import {
  * [🏡 Project home](https://roots.io/bud)
  * [🧑‍💻 roots/bud/packages/framework](#)
  * [📦 @roots/bud-framework](https://www.npmjs.com/package/@roots/bud-framework)
- * [🔗 Documentation](#)
  */
-
-export declare interface Framework<T = any> {
+export declare interface Framework<T = unknown> extends Mode {
   /**
    * ## bud.store [🍱 _Container_]
    *
@@ -162,44 +158,45 @@ export declare interface Framework<T = any> {
   hooks: Framework.Hooks
 
   /**
-   * ## bud.logger
+   * ## logger
    *
    * Logging utility
-   *
-   * [🔗 Documentation on bud.mode](#)
    */
   logger: Framework.Logger
 
   /**
-   * ## bud.options
+   * ## options
    */
   options: Framework.Options
 
   /**
-   * ## bud.server
+   * ## server
    *
    * Express application server used for development.
-   *
-   * - [🔗 Documentation](#)
    */
   server: Framework.Server
 
   /**
-   * ## bud.services
+   * ## services
    */
   services: Container<any>
 
   /**
-   * ## bud.get  [🏠 Internal]
+   * ## discovery
+   */
+  discovery: Discovery
+
+  /**
+   * ## get
    *
    * ```js
    * bud.get()
    * ```
    */
-  get<T = any>(service?: string): (T & Service) | (T & this)
+  get<I = any>(service?: string): I & T
 
   /**
-   * ## bud.access
+   * ## access
    *
    * If a value is a function it will call that
    * function and return the result.
@@ -217,7 +214,7 @@ export declare interface Framework<T = any> {
    * // => `option value: true`
    * ```
    */
-  access<I = unknown>(value: MaybeCallable<I>): I
+  access<T = any>(value: T | ((app: Framework) => T)): T
 
   /**
    * ## bud.makeContainer
@@ -259,13 +256,13 @@ export declare interface Framework<T = any> {
    * ### Usage
    *
    * ```js
-   * bud.pipe([
+   * bud.sequence([
    *   bud => ,
    *   bud => bud.proxy(),
    * ])
    * ```
    */
-  sequence(fns: CallableFunction[]): void
+  sequence(fns: CallableFunction[]): this
 
   /**
    * ## bud.run
@@ -279,7 +276,7 @@ export declare interface Framework<T = any> {
    * bud.run()
    * ```
    */
-  run: Framework.Run
+  run(this: T): unknown
 
   /**
    * ## bud.use [💁 Fluent]
@@ -292,15 +289,27 @@ export declare interface Framework<T = any> {
    * bud.use(['@roots/bud-babel', '@roots/bud-react'])
    * ```
    */
-  use: Framework.Use<T>
+  use(
+    this: T,
+    source:
+      | [string, Module]
+      | [string, Module][]
+      | {[key: string]: Module}
+      | Module
+      | Module[],
+  ): T
 
   /**
    * ## bud.when  [💁 Fluent]
    *
-   * Executes a function if a given test is `true`. [🔗 Documentation](#)
+   * Executes a function if a given test is `true`.
    *
    * - The first parameter is the conditional check.
+   *     - It can be a boolean statement (app.inDevelopment)
+   *     - It can be a fn, which is passed the app and returns the boolean
+   *
    * - The second parameter is the function to be run if `true`.
+   *
    * - The third paramter is optional; ran if not `true`.
    *
    * ### Usage
@@ -309,8 +318,14 @@ export declare interface Framework<T = any> {
    * bud.when(bud.mode.is('production'), () => bud.vendor())
    * ```
    */
-  when: Framework.When<T>
+  when(
+    test: boolean | ((app: T) => boolean),
+    isTrue: (app: T) => unknown,
+    isFalse?: (app: T) => unknown,
+  ): T
+}
 
+declare interface Mode {
   /**
    * ## bud.mode
    *
@@ -461,6 +476,7 @@ export declare namespace Framework {
   export {Dashboard}
   export {Compiler}
   export {Container}
+  export {Discovery}
   export {Disk}
   export {Env}
   export {Extensions, Extension}
@@ -472,7 +488,6 @@ export declare namespace Framework {
   export {Options}
   export {Providers}
   export {Rule}
-  export {Run}
   export {Server}
   export {Service}
   export {ServiceKeys}
@@ -485,8 +500,6 @@ export declare namespace Framework {
     GlobTask,
     Index,
     MaybeCallable,
-    Use,
-    When,
     Webpack,
   }
 }

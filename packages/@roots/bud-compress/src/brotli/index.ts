@@ -1,10 +1,8 @@
 import {Bud} from '@roots/bud'
-
 import Plugin from 'compression-webpack-plugin'
+import * as api from './api'
 
 export const name = 'compression-webpack-plugin-brotli'
-
-export * as api from './api'
 
 export const make: Bud.Compress.Brotli.Make = options =>
   new Plugin(options.all())
@@ -23,3 +21,5 @@ export const options: Bud.Compress.Brotli.Options = {
   minRatio: 0.8,
   deleteOriginalAssets: false,
 }
+
+export {api}

@@ -19,22 +19,18 @@ declare module '@roots/bud-framework' {
   }
 
   namespace Framework.Api {
-    export type SrcPath = (
-      this: Framework,
-      path: string,
-    ) => Framework
+    export {SrcPath}
   }
 }
 
-export const srcPath: Framework.Api.SrcPath = function (path) {
-  /** Bounce early if src is overwritten from CLI */
-  if (
-    this.store.has('args.src') &&
-    this.store.isString('args.src')
-  )
-    return this
+type SrcPath = (this: Framework, path: string) => Framework
 
-  this.options.set('src', path)
+export const srcPath: SrcPath = function (path) {
+  this.when(
+    !this.store.has('args.src') &&
+      !this.store.isString('args.src'),
+    () => this.options.set('src', path),
+  )
 
   return this
 }

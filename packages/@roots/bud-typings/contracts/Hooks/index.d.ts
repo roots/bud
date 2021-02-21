@@ -66,7 +66,7 @@ export declare interface Hooks {
    * )
    * ```
    */
-  on: Filter.On
+  on<T = any>(name: string, hook: Hooks.Filter.Fn<T>): void
 
   /**
    * ## bud.hooks.when

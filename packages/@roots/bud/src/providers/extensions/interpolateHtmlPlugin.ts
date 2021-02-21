@@ -2,6 +2,8 @@ import HtmlWebpackPlugin from 'html-webpack-plugin'
 import {InterpolateHtmlPlugin} from '@roots/bud-support'
 import {Framework, Module} from '@roots/bud-typings'
 
+export const name = `interpolate-html-plugin`
+
 export const options: Framework.Module.Options<{
   [key: string]: RegExp
 }> = bud =>

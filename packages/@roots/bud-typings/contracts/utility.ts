@@ -1,5 +1,3 @@
-import {Framework} from './'
-
 /**
  * String keyed value.
  */
@@ -18,26 +16,6 @@ export interface Constructor<T> {
 export interface Fluent<T> {
   function(this: T): T
 }
-
-export type Run = () => void
-
-export type Use<T> = (
-  this: T,
-  extensions: Framework.Module[keyof Framework.Module],
-) => T
-
-export namespace Use {
-  export type Tuple<T> =
-    | [string, Framework.Module]
-    | [string, Factory<T, Framework.Module>]
-}
-
-export type When<T = Framework> = (
-  this: T,
-  test: boolean,
-  isTrue: (bud: T) => unknown,
-  isFalse?: (bud: T) => unknown,
-) => T
 
 export type Factory<ReturnType = unknown, Args = unknown> = (
   args?: Args,

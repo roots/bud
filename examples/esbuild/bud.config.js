@@ -11,8 +11,12 @@ bud.hooks.on('webpack.resolve.modules', modules => {
   return [...modules, bud.project('./../../node_modules')]
 })
 
+bud.when(bud.isDevelopment, ({dashboard}) => {
+  dashboard.run()
+})
+
 bud.use([require('@roots/bud-esbuild')])
 
-bud.glob('scripts/app', '*.{js,jsx,ts,tsx}')
+bud.entry('scripts/app', '*.{js,jsx,ts,tsx}')
 
 bud.run()

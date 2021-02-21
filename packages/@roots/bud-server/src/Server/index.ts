@@ -121,10 +121,7 @@ export default class extends Service implements Server {
           .get('watchFiles')
           .map(file => this.app.get().project(file)),
       ),
-      {
-        ignored: /(^|[\/\\])\../, // ignore dotfiles
-        persistent: true,
-      },
+      {persistent: true},
     )
   }
 }

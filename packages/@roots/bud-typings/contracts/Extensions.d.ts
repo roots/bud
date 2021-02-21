@@ -52,6 +52,8 @@ export interface Extension extends Framework.Service {
  * Extension module (source)
  */
 export interface Module {
+  name: string
+
   register?: (app: Framework) => void
 
   options?: Module.Options
@@ -157,7 +159,7 @@ export namespace Module {
     | {[key: string]: CallableFunction}
     | ((bud?: Framework) => {[key: string]: CallableFunction})
 
-  export type Boot = (bud: Framework) => void
+  export type Boot = (bud: Framework) => unknown
 
   export type Options<T = any> =
     | T

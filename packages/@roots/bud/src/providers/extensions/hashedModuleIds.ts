@@ -13,6 +13,8 @@ export const options: Options = {
   hashDigestLength: 20,
 }
 
+export const name = `hashed-module-ids-plugin`
+
 export const make: Module.Make<
   HashedModuleIdsPlugin,
   Options

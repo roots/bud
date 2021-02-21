@@ -1,6 +1,8 @@
 import {WebpackConfigDumpPlugin} from 'webpack-config-dump-plugin'
 import type {Module} from '@roots/bud-typings'
 
+export const name = `webpack-config-dump-plugin`
+
 export const make: Module.Make<
   WebpackConfigDumpPlugin,
   PluginOptions

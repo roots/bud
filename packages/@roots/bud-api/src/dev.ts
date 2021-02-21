@@ -1,5 +1,8 @@
+import {Framework} from '@roots/bud-framework'
+import {Server} from '@roots/bud-typings'
+
 declare module '@roots/bud-framework' {
-  export interface Framework {
+  interface Framework {
     /**
      * ## dev  [💁 Fluent]
      *
@@ -17,18 +20,14 @@ declare module '@roots/bud-framework' {
     dev: Framework.Api.Dev
   }
 
-  export namespace Framework.Api {
-    export type Dev = (
-      this: Framework,
-      values: Server.Options,
-    ) => Framework
+  namespace Framework.Api {
+    export {Dev}
   }
 }
 
-import {Framework} from '@roots/bud-framework'
-import {Server} from '@roots/bud-typings'
+type Dev = (this: Framework, config: Server.Options) => Framework
 
-export const dev: Framework.Api.Dev = function (config) {
+export const dev: Dev = function (config) {
   this.store.merge('server.config', config)
 
   return this

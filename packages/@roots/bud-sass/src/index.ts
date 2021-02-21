@@ -1,21 +1,21 @@
 import './interface'
 import {Bud} from '@roots/bud'
+import {Webpack} from '@roots/bud-support'
 
 export const name = '@roots/bud-sass'
 
-global.navigator = undefined
-
-export const boot: Bud.Module.Register = (app: Bud) => {
-  app.hooks.on('webpack.resolve.extensions', exts => [
-    ...exts,
-    '.sass',
-    '.scss',
-  ])
+export const boot: Bud.Module.Boot = (app: Bud) => {
+  app.hooks.on<Webpack.Configuration['resolve']['extensions']>(
+    'webpack.resolve.extensions',
+    exts => [...exts, '.sass', '.scss'],
+  )
 
   app.sequence([
-    (bud: Bud) => {
+    (app: Bud) => {
+      global.navigator = undefined
+
       try {
-        bud.build
+        app.build
           .set(
             'items.sass.loader',
             require.resolve('sass-loader'),
@@ -28,14 +28,13 @@ export const boot: Bud.Module.Register = (app: Bud) => {
           .set('items.css.options.sourceMap', true)
       } catch (err) {
         console.error(err)
-
         process.exit()
       }
 
       global.navigator = {}
     },
-    (bud: Bud) =>
-      bud.build.set('rules.sass', {
+    (app: Bud) =>
+      app.build.set('rules.sass', {
         test: ({store}: Bud) => store.get('patterns.sass'),
         exclude: ({store}: Bud) => store.get('patterns.modules'),
         use: (app: Bud) => {

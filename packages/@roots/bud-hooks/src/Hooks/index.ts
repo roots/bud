@@ -4,7 +4,6 @@ import {Hooks as Contract, Webpack} from '@roots/bud-typings'
 /**
  * Hooks
  */
-
 export class Hooks extends Service implements Contract {
   /**
    * Service ident
@@ -12,23 +11,29 @@ export class Hooks extends Service implements Contract {
   public name = 'hooks'
 
   /**
-   * Register service
+   * ## hooks.on
+   *
+   * Register a function to filter a value.
+   *
+   * If a filter calls for this name the function is then run,
+   * passing whatever data along for modification. If more than one
+   * hook is registered to a name, they will be called sequentially
+   * in the order they were registered, with each hook's output used
+   * as the input for the next.
+   *
+   * ### Usage
+   *
+   * ```js
+   * app.hooks.on(
+   *   'namespace.name.value',
+   *   value => 'replaced by this string',
+   * )
+   * ```
    */
-  public register() {
-    //
-  }
-
-  /**
-   * Boot service
-   */
-  public boot() {
-    //
-  }
-
   public on<T = any>(
-    name: Keys & string,
+    name: string,
     filter: Contract.Filter.Fn<T>,
-  ): void {
+  ) {
     this.app.logger.info({name, msg: 'Filter registered'})
     this.set(
       `filters.${name}`,
@@ -38,6 +43,26 @@ export class Hooks extends Service implements Contract {
     )
   }
 
+  /**
+   * ## hooks.when
+   *
+   * Register a function to execute during a framework lifecycle event.
+   *
+   * If an action calls for the supplied key, the function will be run.
+   * If more than one action is registered to a key, they will be called
+   * sequentially in the order they were registered.
+   *
+   * ### Usage
+   *
+   * ```js
+   * app.hooks.action(
+   *   'namespace.name.event',
+   *   (app, value) {
+   *     console.log(value)
+   *   },
+   * )
+   * ```
+   */
   public when<T = any>(
     name: string,
     action: Contract.Action.Fn<T>,

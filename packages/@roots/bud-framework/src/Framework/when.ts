@@ -1,14 +1,14 @@
 import {isFunction, isEqual} from '@roots/bud-support'
+import {Framework} from '../'
 
-export function when<T>(
-  this: T,
-  test: boolean,
-  isTrue: (bud: T) => unknown,
-  isFalse?: (bud: T) => unknown,
-): T {
-  isEqual(test, true)
-    ? isFunction(isTrue) && isTrue(this)
-    : isFunction(isFalse) && isFalse(this)
+export const when: Framework['when'] = function (
+  test,
+  isTrue,
+  isFalse?,
+) {
+  isEqual(this.access(test), true)
+    ? isFunction(isTrue) && isTrue.bind(this)(this)
+    : isFunction(isFalse) && isFalse.bind(this)(this)
 
   return this
 }

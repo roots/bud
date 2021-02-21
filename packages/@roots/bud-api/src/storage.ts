@@ -1,7 +1,7 @@
 import {Framework} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
-  interface Framework {
+  export interface Framework {
     /**
      * ## bud.storage [💁 Fluent]
      *
@@ -15,14 +15,13 @@ declare module '@roots/bud-framework' {
   }
 
   namespace Framework.Api {
-    export type Storage = (
-      this: Framework,
-      path: string,
-    ) => Framework
+    export {Storage}
   }
 }
 
-export const storage: Framework.Api.Storage = function (path?) {
+type Storage = (this: Framework, path: string) => Framework
+
+export const storage: Storage = function (path?) {
   if (path) {
     this.options.set('storage', path)
   }

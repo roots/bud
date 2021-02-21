@@ -1,7 +1,7 @@
 import './interface'
 import {React, render} from '@roots/bud-support'
 import Service from './Service'
-import {Render} from './Render'
+import {Reporter} from './Reporter'
 import {Theme} from './api'
 
 /**
@@ -39,7 +39,7 @@ export class Dashboard extends Service {
 
     console.clear()
 
-    this.dashboard = render(<Render bud={this.app.get()} />)
+    this.dashboard = render(<Reporter bud={this.app.get()} />)
   }
 
   /**

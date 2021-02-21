@@ -8,7 +8,8 @@ import {use} from './use'
 /**
  * Bud framework base class
  */
-export default abstract class<T = any> implements Framework<T> {
+export default abstract class<T = Framework>
+  implements Framework<T> {
   /**
    * Name
    */
@@ -38,6 +39,11 @@ export default abstract class<T = any> implements Framework<T> {
    * Compiler
    */
   public compiler: Framework.Compiler
+
+  /**
+   * Discovery
+   */
+  public discovery: Framework.Discovery
 
   /**
    * Disk
@@ -95,6 +101,67 @@ export default abstract class<T = any> implements Framework<T> {
   public stdout: string[]
 
   /**
+   * ## bud.run  [💁 Fluent]
+   *
+   * Run the build
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.run()
+   * ```
+   *
+   * Disable the custom dashboard (use webpack default output)
+   *
+   * ```js
+   * bud.run(true)
+   * ```
+   */
+  public run: (this: T) => unknown
+
+  /**
+   * ## bud.when  [💁 Fluent]
+   *
+   * Executes a function if a given test is `true`.
+   *
+   * - The first parameter is the conditional check.
+   * - The second parameter is the function to be run if `true`.
+   * - The third paramter is optional; ran if not `true`.
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.when(bud.mode.is('production'), () => bud.vendor())
+   * ```
+   */
+  public when: (
+    test: boolean | ((app: T & Framework) => boolean),
+    isTrue: (app: T & Framework) => unknown,
+    isFalse?: (app: T & Framework) => unknown,
+  ) => T
+
+  /**
+   * ## bud.use [💁 Fluent]
+   *
+   * Register an extension or set of extensions
+   *
+   * ### Usage
+   *
+   * ```js
+   * bud.use(['@roots/bud-babel', '@roots/bud-react'])
+   * ```
+   */
+
+  public use: (
+    source:
+      | [string, Framework.Module]
+      | [string, Framework.Module][]
+      | {[key: string]: Framework.Module}
+      | Framework.Module
+      | Framework.Module[],
+  ) => T
+
+  /**
    * Constructor
    */
   constructor(props: {
@@ -111,9 +178,10 @@ export default abstract class<T = any> implements Framework<T> {
     this.pipe = this.pipe.bind(this)
     this.sequence = this.sequence.bind(this)
     this.register = this.register.bind(this)
-    this.run = this.run.bind(this)
-    this.use = this.use.bind(this)
-    this.when = this.when.bind(this)
+
+    this.run = run.bind(this)
+    this.use = use.bind(this)
+    this.when = when.bind(this)
 
     /**
      * Essential containers
@@ -197,60 +265,11 @@ export default abstract class<T = any> implements Framework<T> {
   }
 
   /**
-   * ## bud.run  [💁 Fluent]
-   *
-   * Run the build [🔗 Documentation](#)
-   *
-   * ### Usage
-   *
-   * ```js
-   * bud.run()
-   * ```
-   *
-   * Disable the custom dashboard (use webpack default output)
-   *
-   * ```js
-   * bud.run(true)
-   * ```
-   */
-  public run: Framework.Run = run
-
-  /**
-   * ## bud.use [💁 Fluent]
-   *
-   * Register an extension or set of extensions [🔗 Documentation](#)
-   *
-   * ### Usage
-   *
-   * ```js
-   * bud.use(['@roots/bud-babel', '@roots/bud-react'])
-   * ```
-   */
-  public use: Framework.Use<T> = use
-
-  /**
-   * ## bud.when  [💁 Fluent]
-   *
-   * Executes a function if a given test is `true`. [🔗 Documentation](#)
-   *
-   * - The first parameter is the conditional check.
-   * - The second parameter is the function to be run if `true`.
-   * - The third paramter is optional; ran if not `true`.
-   *
-   * ### Usage
-   *
-   * ```js
-   * bud.when(bud.mode.is('production'), () => bud.vendor())
-   * ```
-   */
-  public when: Framework.When<T> = when
-
-  /**
    * Pipe functions
    */
-  public pipe<T = any, R = any>(
+  public pipe<I = any, R = any>(
     fns: CallableFunction[],
-    value: T,
+    value: I,
   ): R {
     return (value = fns.reduce((val, fn) => {
       return fn(val)
@@ -260,10 +279,12 @@ export default abstract class<T = any> implements Framework<T> {
   /**
    * Sequence functions
    */
-  public sequence(fns: CallableFunction[]): void {
+  public sequence(fns: CallableFunction[]): this {
     fns.reduce((_val, fn) => {
       return fn(this)
     }, this)
+
+    return this
   }
 
   /**
@@ -302,6 +323,10 @@ export default abstract class<T = any> implements Framework<T> {
   public get mode(): Webpack.Configuration['mode'] {
     return this.options.get('mode')
   }
+
+  /**
+   * Mode setter
+   */
   public set mode(mode: Webpack.Configuration['mode']) {
     this.options.set('mode', mode)
   }

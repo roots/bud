@@ -1,7 +1,7 @@
 import {Framework} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
-  interface Framework<T> {
+  interface Framework {
     /**
      * ## copy  [💁 Fluent]
      *
@@ -23,14 +23,16 @@ declare module '@roots/bud-framework' {
   }
 
   namespace Framework.Api {
-    export type Copy = (
-      this: Framework,
-      jobs: {[key: string]: string},
-    ) => Framework
+    export type {Copy}
   }
 }
 
-export const copy: Framework.Api.Copy = function (jobs) {
+type Copy = (
+  this: Framework,
+  jobs: {[key: string]: string},
+) => Framework
+
+export const copy: Copy = function (jobs) {
   Object.entries(jobs).forEach(
     ([to, from]: [string, string]) => {
       this.disk.glob.sync(from).forEach(path => {

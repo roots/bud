@@ -1,6 +1,6 @@
+import '@roots/bud-api'
 import {Bud} from '@roots/bud'
 import {Framework} from '@roots/bud-framework'
-import '@roots/bud-api'
 
 declare interface Sage extends Bud {}
 

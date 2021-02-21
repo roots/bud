@@ -2,28 +2,28 @@ import {Container, Framework} from './'
 /**
  * Application service base
  */
-export interface Service extends Container {
+export abstract class Service extends Container {
   [key: string]: any
 
   /**
    * Application reference
    */
-  app: Framework
+  public app: Framework
 
   /**
    * Register service
    */
-  register?(): void
+  public register?(): void
 
   /**
    * Boot service
    */
-  boot?(): void
+  public boot?(): void
 
   /**
    * Safely access potentially callable values
    */
-  access<Expects = any>(
+  public access<Expects = any>(
     key: string,
     containerize?: boolean,
   ): Expects | null

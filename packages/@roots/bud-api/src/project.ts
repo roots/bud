@@ -1,3 +1,5 @@
+import {Framework} from '@roots/bud-framework'
+
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
@@ -30,8 +32,6 @@ declare module '@roots/bud-framework' {
     ) => string
   }
 }
-
-import {Framework} from '@roots/bud-framework'
 
 export const project: Framework.Api.Project = function (
   segment?,

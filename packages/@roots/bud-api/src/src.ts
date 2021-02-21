@@ -1,7 +1,7 @@
 import {Framework} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
-  interface Framework<T> {
+  interface Framework {
     /**
      * ## bud.src  [💁 Fluent]
      *
@@ -10,7 +10,7 @@ declare module '@roots/bud-framework' {
      * directory. In this case it returns the absolute path of whatever it was
      * passed.
      *
-     * Root path used by this function is set by [bud.srcPath](#). [🔗 Documentation](#)
+     * Root path used by this function is set by [bud.srcPath](#)
      *
      * ### Usage
      *
@@ -18,15 +18,17 @@ declare module '@roots/bud-framework' {
      * bud.src('scripts/app.js')
      * ```
      */
-    src: Framework.Api.Src
+    src: Framework.Src
   }
 
-  namespace Framework.Api {
-    export type Src = (this: Framework, path?: string) => string
+  namespace Framework {
+    export type {Src}
   }
 }
 
-export const src: Framework.Api.Src = function (path) {
+type Src = (this: Framework, path?: string) => string
+
+export const src: Src = function (path) {
   return path
     ? this.disk.path.join(this.options.get('project'), path)
     : this.disk.path.join(

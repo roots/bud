@@ -10,8 +10,8 @@ export const Bar: React.FunctionComponent<{
 }> = ({
   character = '█',
   colors = ['white', 'white'],
-  backgroundCharacter = '░',
-  backgroundColor = 'white',
+  backgroundCharacter = '█',
+  backgroundColor = 'rgba(255, 255, 255, 0.1)',
   percent,
   maxWidth,
 }) => {

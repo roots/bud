@@ -11,10 +11,7 @@ import {
   Fluent,
   Index,
   MaybeCallable,
-  Run,
-  Use,
   MappedType,
-  When,
 } from './utility'
 
 export {
@@ -24,9 +21,6 @@ export {
   Index,
   MaybeCallable,
   MappedType,
-  Run,
-  Use,
-  When,
 }
 
 /**
@@ -43,6 +37,7 @@ export {FileContainer} from '../../filesystem/src'
  * @roots/bud-framework
  */
 export {Disk} from '../../bud-framework/src'
+export {Discovery} from './Discovery'
 export {Framework} from './Framework'
 export {Env} from './Env'
 export {Logger} from './Logger'

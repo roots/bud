@@ -8,6 +8,8 @@ interface HtmlWebpackHarddiskPluginOptions {
   outputPath?: string
 }
 
+export const name = `html-hard-disk-plugin`
+
 export const options: Bud.Module.Options<HtmlWebpackHarddiskPluginOptions> = app => ({
   outputPath: app.dist(),
 })

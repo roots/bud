@@ -54,17 +54,15 @@
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
-  "devDependencies": {
-    "@roots/bud-api": "^3.0.38-alpha.0",
-    "@roots/bud-framework": "^3.0.38-alpha.0"
-  },
   "dependencies": {
     "@roots/bud": "^3.0.38-alpha.0",
+    "@roots/bud-api": "^3.0.38-alpha.0",
     "@roots/bud-babel": "^3.0.38-alpha.0",
     "@roots/bud-cli": "^3.0.38-alpha.0",
     "@roots/bud-entrypoints": "^3.0.38-alpha.0",
     "@roots/bud-esbuild": "^3.0.38-alpha.0",
     "@roots/bud-eslint": "^3.0.38-alpha.0",
+    "@roots/bud-framework": "^3.0.38-alpha.0",
     "@roots/bud-imagemin": "^3.0.38-alpha.0",
     "@roots/bud-postcss": "^3.0.38-alpha.0",
     "@roots/bud-prettier": "^3.0.38-alpha.0",

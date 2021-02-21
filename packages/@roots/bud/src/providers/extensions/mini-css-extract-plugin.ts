@@ -1,9 +1,8 @@
 import type {Module} from '@roots/bud-typings'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
-/**
- * MiniCssExtractPlugin
- */
+export const name = `mini-css-extract-plugin`
+
 export const make: Module.Make = (options, bud) =>
   new MiniCssExtractPlugin({
     filename: bud.options.enabled('hash')
@@ -15,14 +14,8 @@ export const make: Module.Make = (options, bud) =>
     ...options.all(),
   })
 
-/**
- * Run in production
- */
 export const options: Module.Options = {}
 
-/**
- * Register mini-css-extract-plugin ruleset item
- */
 export const boot: Module.Boot = app => {
   app.build.set('items.minicss', {
     loader: MiniCssExtractPlugin.loader,
@@ -30,7 +23,4 @@ export const boot: Module.Boot = app => {
   })
 }
 
-/**
- * Run in production
- */
 export const when: Module.When = bud => bud.isProduction

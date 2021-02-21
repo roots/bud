@@ -1,18 +1,20 @@
 import {join} from 'path'
 import {Error} from '@roots/bud-dashboard'
 
-export const build = CLI => {
-  const command = 'build'
+export const dev = CLI => {
+  const command = 'dev'
 
-  const describe = 'Compile assets'
+  const describe = 'Compile in development mode'
 
   const builder = ({example}) =>
-    example('Build', `${CLI.command} build --mode production`)
+    example('Build', `${CLI.command} dev`)
       .hide('help')
       .hide('version')
 
   const handler = ({config}: {[key: string]: unknown}): void => {
     try {
+      process.env.mode == 'development'
+
       require(join(
         process.cwd(),
         (config ??

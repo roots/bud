@@ -1,9 +1,25 @@
 import {yargs} from '@roots/bud-support'
 
+// Commands
+import {build} from './commands/build'
+import {dev} from './commands/dev'
+import {production} from './commands/production'
+import {publish} from './commands/publish'
+
 /**
  * CLI
  */
 export class CLI {
+  /**
+   * Command invocation
+   */
+  public command = 'bud'
+
+  /**
+   * Project URL
+   */
+  public projectUrl = 'https://github.com/roots/bud'
+
   /**
    * Yargs
    */
@@ -15,25 +31,9 @@ export class CLI {
   public cwd = process.cwd()
 
   /**
-   * Command invocation
-   */
-  public command = 'bud'
-
-  /**
    * Commands
    */
-  public commands = [
-    require('./commands/build'),
-    require('./commands/publish'),
-  ]
-
-  /**
-   * No command passed
-   */
-  public epilog = 'https://github.com/roots/bud'
-  public demandCommand = `
-    You must specify a command. See \`${this.command} --help\` for usage.
-  `
+  public commands = [build, dev, publish, production]
 
   /**
    * Add command
@@ -46,14 +46,17 @@ export class CLI {
    * Invoke command line stdout
    */
   public invoke(): void {
-    this.commands.map(cmd => this.instance.command(cmd))
+    this.commands.map(cmd => this.instance.command(cmd(this)))
 
     this.instance
       .recommendCommands()
-      .demandCommand(1, `${this.demandCommand}\n`)
+      .demandCommand(
+        1,
+        `You must specify a command. See \`${this.command} --help\` for usage.\n`,
+      )
       .usage(this.command)
       .version()
       .wrap(this.instance.terminalWidth())
-      .epilog(this.epilog).argv
+      .epilog(this.projectUrl).argv
   }
 }

@@ -1,14 +1,7 @@
-import type {Extension} from '@roots/bud-typings'
+import {Framework} from '../'
 import {isArray} from '@roots/bud-support'
 
-export const use = function (
-  source:
-    | [string, Extension]
-    | [string, Extension][]
-    | {[key: string]: Extension}
-    | Extension
-    | Extension[],
-) {
+export const use: Framework['use'] = function (source) {
   if (!isArray(source)) {
     /**
      * Require/import

@@ -1,10 +1,9 @@
 import Plugin from 'copy-webpack-plugin'
 import {Bud} from '../../..'
-import type {Options} from './typings'
 
-export const options: Bud.Module.Options<Options> = {
-  patterns: [],
-}
+export const name = `copy-webpack-plugin`
+
+export const options = {patterns: []}
 
 export const make: Bud.Module.Make = options =>
   new Plugin(options.all())

@@ -1,6 +1,30 @@
-import {Api} from '@roots/bud-typings'
+import {Framework} from '@roots/bud-framework'
 
-export const hash: Api.Hash = function (enabled?) {
+let hash: Framework.Api.Hash
+export {hash}
+
+declare module '@roots/bud-framework' {
+  interface Framework {
+    /**
+     * ## bud.hash  [💁 Fluent]
+     *
+     * Enable filename hashing of built assets. [🔗 Documentation](#)
+     *
+     * ### Usage
+     *
+     * ```js
+     * bud.hash()
+     * ```
+     */
+    hash: Framework.Api.Hash
+  }
+
+  namespace Framework.Api {
+    type Hash = (this: Framework, enabled?: boolean) => Framework
+  }
+}
+
+hash = function (enabled?) {
   this.options.set('hash', enabled === false ? false : true)
 
   return this

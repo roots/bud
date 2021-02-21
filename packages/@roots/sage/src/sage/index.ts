@@ -54,8 +54,10 @@ export const sage: Bud = ((sage: Bud) => {
     /**
      * Public path:
      */
-    .when(sage.env.has('APP_PUBLIC_PATH'), () =>
-      sage.publicPath(sage.env.get('APP_PUBLIC_PATH')),
+    .when(
+      ({env}: Bud) => env.has('APP_PUBLIC_PATH'),
+      ({publicPath, env}: Bud) =>
+        publicPath(env.get('APP_PUBLIC_PATH')),
     )
 
     /**
@@ -69,21 +71,15 @@ export const sage: Bud = ((sage: Bud) => {
      * Losing hmr in development is not worth the theoretical
      * lost time in dev, for most users.
      *
-     * Thus, Sage uses esbuild@production, babel/hmr@development.
+     * Thus, Sage uses esbuild in production, and babel/hmr in development.
      */
     .when(
-      bud.isDevelopment,
-      (bud: Bud) => {
-        bud.use(typescript)
-        bud.use(babel)
-        bud.use(react)
-      },
-      (bud: Bud) => {
-        bud.use(esbuild)
-        bud.esbuild.jsx()
-      },
+      ({isDevelopment}) => isDevelopment,
+      ({use}: Bud) => use(typescript).use(babel).use(react),
+      ({use}: Bud) => use(esbuild).esbuild.jsx(),
     )
 
+  sage
     .use([
       /**
        * Style transpilation
@@ -126,40 +122,30 @@ export const sage: Bud = ((sage: Bud) => {
     })
 
     /**
-     * Production optim
+     * Production optimizations
      */
     .when(
-      sage.isProduction,
-
-      /**
-       * Production concerns.
-       */
-      (sage: Bud) => {
-        sage.use(imagemin)
-
-        sage.postcss.setPlugin([
-          'cssnano',
-          cssnano({preset: 'default'}),
-        ])
-
-        sage.minify()
-        sage.hash()
-        sage.vendor()
-        sage.runtime()
-      },
-
-      /**
-       * Development concerns.
-       */
-      (sage: Bud) => {
-        sage
-          .when(sage.env.has('APP_PROXY_HOST'), () =>
-            sage.proxy({host: sage.env.get('APP_PROXY_HOST')}),
-          )
-          .when(sage.env.has('APP_PROXY_PORT'), () =>
-            sage.proxy({port: sage.env.get('APP_PROXY_PORT')}),
-          )
-      },
+      ({isProduction}) => isProduction,
+      ({sequence}: Bud) =>
+        sequence([
+          ({use}) => use(imagemin),
+          ({postcss}) =>
+            postcss.setPlugin([
+              'cssnano',
+              cssnano({preset: 'default'}),
+            ]),
+          ({minify, hash, vendor, runtime}) =>
+            minify() && hash() && vendor() && runtime(),
+        ]),
+      ({sequence}: Bud) =>
+        sequence([
+          ({env, proxy}: Bud) =>
+            env.has('APP_PROXY_HOST') &&
+            proxy({host: env.get('APP_PROXY_HOST')}),
+          ({env, proxy}: Bud) =>
+            env.has('APP_PROXY_PORT') &&
+            proxy({port: sage.env.get('APP_PROXY_PORT')}),
+        ]),
     )
 
   return sage

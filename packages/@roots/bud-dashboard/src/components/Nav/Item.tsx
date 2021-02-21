@@ -6,7 +6,7 @@ import {
 } from '@roots/bud-support'
 
 import {Indicator} from '../Indicator'
-import {useFocus} from '../../../../hooks/useFocus'
+import {useFocus} from '../../hooks/useFocus'
 import {useStyle} from '@roots/ink-use-style'
 
 export const Item: FunctionComponent<{

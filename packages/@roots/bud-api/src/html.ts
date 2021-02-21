@@ -1,7 +1,7 @@
 import {Framework} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
-  interface Framework<T> {
+  interface Framework {
     /**
      * ## html  [💁 Fluent]
      *

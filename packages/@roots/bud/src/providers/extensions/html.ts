@@ -1,6 +1,8 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import {Module} from '@roots/bud-typings'
 
+export const name = `html-webpack-plugin`
+
 /**
  * Options
  */

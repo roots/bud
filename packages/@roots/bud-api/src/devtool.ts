@@ -1,6 +1,11 @@
 import {Framework} from '@roots/bud-framework'
 import {Webpack} from '@roots/bud-support'
 
+type Devtool = (
+  this: Framework,
+  devtool?: Webpack.Configuration['devtool'],
+) => Framework
+
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
@@ -15,18 +20,11 @@ declare module '@roots/bud-framework' {
      * app.devtool('inline-cheap-module-source-map')
      * ```
      */
-    alias: Framework.Api.Alias
-  }
-
-  export namespace Framework.Api {
-    export type Devtool = (
-      this: Framework,
-      devtool?: Webpack.Configuration['devtool'],
-    ) => Framework
+    devtool: Devtool
   }
 }
 
-export const devtool: Framework.Api.Alias = function (devtool?) {
+export const devtool: Devtool = function (devtool?) {
   this.options.enable('devtool')
   this.hooks.on('webpack.devtool', () => devtool ?? true)
 

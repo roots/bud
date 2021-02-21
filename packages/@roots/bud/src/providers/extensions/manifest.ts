@@ -1,6 +1,8 @@
 import {Framework, Module} from '@roots/bud-typings'
 import ManifestPlugin from 'webpack-manifest-plugin'
 
+export const name = `webpack-manifest-plugin`
+
 export const options: Module.Options<ManifestPlugin.Options> = {
   fileName: 'manifest.json',
   writeToFileEmit: true,

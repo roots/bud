@@ -1,7 +1,14 @@
 import {Framework} from '@roots/bud-framework'
 
+type Provide = (
+  this: Framework,
+  packages?: {
+    [key: string]: string | string[]
+  },
+) => Framework
+
 declare module '@roots/bud-framework' {
-  interface Framework<T> {
+  export interface Framework {
     /**
      * ## bud.provide  [💁 Fluent]
      *
@@ -16,25 +23,14 @@ declare module '@roots/bud-framework' {
      * })
      * ```
      */
-    provide: Framework.Api.Provide
-  }
-
-  namespace Framework.Api {
-    export type Provide = (
-      this: Framework,
-      packages?: {
-        [key: string]: string | string[]
-      },
-    ) => Framework
+    provide: Provide
   }
 }
 
-export const provide: Framework.Api.Provide = function (
-  packages,
-) {
-  const op = this.extensions.get(
-    'webpack-provide-plugin'
-  ).has('options')
+export const provide: Provide = function (packages) {
+  const op = this.extensions
+    .get('webpack-provide-plugin')
+    .has('options')
     ? 'merge'
     : 'set'
 

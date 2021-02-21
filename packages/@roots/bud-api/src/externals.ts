@@ -1,5 +1,12 @@
 import {Framework} from '@roots/bud-framework'
 
+type Externals = (
+  this: Framework,
+  externals: {
+    [key: string]: any
+  },
+) => Framework
+
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
@@ -15,22 +22,11 @@ declare module '@roots/bud-framework' {
      *   'jQuery': 'window.jquery',
      * })
      */
-    externals: Framework.Api.Externals
-  }
-
-  namespace Framework.Api {
-    export type Externals<T = Framework> = (
-      this: Framework,
-      externals: {
-        [key: string]: any
-      },
-    ) => Framework
+    externals: Externals
   }
 }
 
-export const externals: Framework.Api.Externals = function (
-  externals,
-) {
+export const externals: Externals = function (externals) {
   this.hooks.on('webpack.externals', value => ({
     ...value,
     ...externals,

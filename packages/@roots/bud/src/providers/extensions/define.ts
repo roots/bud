@@ -1,6 +1,8 @@
 import {DefinePlugin} from 'webpack'
 import type {Module} from '@roots/bud-typings'
 
+export const name = `webpack-define-plugin`
+
 export const make: Module.Make<
   DefinePlugin,
   PluginOptions

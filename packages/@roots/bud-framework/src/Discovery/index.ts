@@ -1,7 +1,11 @@
+import {Discovery} from '@roots/bud-typings'
 import {Container} from '@roots/container'
 import Service from '../Service'
 
-export default class extends Service {
+export default class extends Service implements Discovery {
+  /**
+   * Service ident
+   */
   public name: string = 'discover'
 
   /**
