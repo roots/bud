@@ -1,10 +1,9 @@
 import {ProgressPlugin, chalk} from '@roots/bud-support'
-import {Framework} from '@roots/bud-typings'
 
 /**
  * Framework.Run
  */
-export function run(this: Framework): void {
+export function run(): void {
   this.logger.info({}, 'Running build.')
 
   /**

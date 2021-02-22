@@ -8,8 +8,7 @@ import {use} from './use'
 /**
  * Bud framework base class
  */
-export default abstract class<T = Framework>
-  implements Framework<T> {
+export default abstract class implements Framework {
   /**
    * Name
    */
@@ -117,7 +116,7 @@ export default abstract class<T = Framework>
    * bud.run(true)
    * ```
    */
-  public run: (this: T) => unknown
+  public run: () => void
 
   /**
    * ## bud.when  [💁 Fluent]
@@ -135,10 +134,10 @@ export default abstract class<T = Framework>
    * ```
    */
   public when: (
-    test: boolean | ((app: T & Framework) => boolean),
-    isTrue: (app: T & Framework) => unknown,
-    isFalse?: (app: T & Framework) => unknown,
-  ) => T
+    test: boolean | ((app: this) => boolean),
+    isTrue: (app: this) => unknown,
+    isFalse?: (app: this) => unknown,
+  ) => this
 
   /**
    * ## bud.use [💁 Fluent]
@@ -151,15 +150,9 @@ export default abstract class<T = Framework>
    * bud.use(['@roots/bud-babel', '@roots/bud-react'])
    * ```
    */
-
   public use: (
-    source:
-      | [string, Framework.Module]
-      | [string, Framework.Module][]
-      | {[key: string]: Framework.Module}
-      | Framework.Module
-      | Framework.Module[],
-  ) => T
+    source: Framework.Module | Framework.Module[],
+  ) => this
 
   /**
    * Constructor
@@ -232,9 +225,7 @@ export default abstract class<T = Framework>
   /**
    * Get framework.
    */
-  public get<T = any>(
-    service?: string,
-  ): (T & Framework.Service) | (T & this) {
+  public get<T = this>(service?: string): T {
     return service ? this[service] : this
   }
 
@@ -279,9 +270,9 @@ export default abstract class<T = Framework>
   /**
    * Sequence functions
    */
-  public sequence(fns: CallableFunction[]): this {
+  public sequence(fns: Array<(app: this) => any>): this {
     fns.reduce((_val, fn) => {
-      return fn(this)
+      return fn.bind(this)(this)
     }, this)
 
     return this

@@ -1,7 +1,7 @@
-import type {Bud} from '@roots/bud'
+import type {Framework} from '@roots/bud-framework'
 import {isEqual} from '@roots/bud-support'
 
-export const jsx: Bud.ESBuild.JSX = function (enabled) {
+export const jsx: Framework.ESBuild.JSX = function (enabled) {
   this.build
     .set(
       'items.esbuild-js.options.loader',

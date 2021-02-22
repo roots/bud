@@ -25,11 +25,8 @@ declare module '@roots/bud-framework' {
     project: Framework.Api.Project
   }
 
-  export namespace Framework.Api {
-    export type Project = (
-      this: Framework,
-      path?: string,
-    ) => string
+  namespace Framework.Api {
+    type Project = (this: Framework, path?: string) => string
   }
 }
 

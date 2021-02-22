@@ -1,9 +1,9 @@
 import {Plugin} from '@roots/wordpress-dependencies-webpack-plugin'
-import type {Bud} from '@roots/bud'
+import type {Module} from '@roots/bud-typings'
 
 // extension identifier
-export const name =
+export const name: Module['name'] =
   '@roots/wordpress-dependencies-webpack-plugin'
 
 // @roots/wordpress-externals-webpack-plugin
-export const make: Bud.Module.Make<Plugin> = () => new Plugin()
+export const make: Module.Make<Plugin> = () => new Plugin()

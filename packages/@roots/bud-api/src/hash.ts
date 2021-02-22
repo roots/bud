@@ -20,11 +20,11 @@ declare module '@roots/bud-framework' {
   }
 
   namespace Framework.Api {
-    type Hash = (this: Framework, enabled?: boolean) => Framework
+    type Hash = (enabled?: boolean) => Framework
   }
 }
 
-hash = function (enabled?) {
+hash = function (enabled) {
   this.options.set('hash', enabled === false ? false : true)
 
   return this

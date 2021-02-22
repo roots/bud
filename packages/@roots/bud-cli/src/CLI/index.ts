@@ -1,11 +1,5 @@
 import {yargs} from '@roots/bud-support'
 
-// Commands
-import {build} from './commands/build'
-import {dev} from './commands/dev'
-import {production} from './commands/production'
-import {publish} from './commands/publish'
-
 /**
  * CLI
  */
@@ -33,7 +27,11 @@ export class CLI {
   /**
    * Commands
    */
-  public commands = [build, dev, publish, production]
+  public commands = [
+    require('./commands/build').default,
+    require('./commands/publish/publish').default,
+    require('./commands/publish/list').default,
+  ]
 
   /**
    * Add command

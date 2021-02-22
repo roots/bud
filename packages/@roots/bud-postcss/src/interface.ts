@@ -1,16 +1,16 @@
-import '@roots/bud'
+import '@roots/bud-framework'
 
-declare module '@roots/bud' {
-  interface Bud {
+declare module '@roots/bud-framework' {
+  interface Framework {
     /**
      * ## bud.postcss
      *
      * Configure postcss.
      */
-    postcss: Bud.PostCss
+    postcss: Framework.PostCss
   }
 
-  namespace Bud {
+  namespace Framework {
     interface PostCss {
       /**
        * ## postcss.addPlugin
@@ -42,7 +42,7 @@ declare module '@roots/bud' {
 
     namespace PostCss {
       type SetPlugin = (
-        plugin: Bud.PostCss.Registrable,
+        plugin: Framework.PostCss.Registrable,
       ) => PostCss
 
       type Options = {

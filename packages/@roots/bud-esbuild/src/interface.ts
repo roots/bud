@@ -23,17 +23,17 @@ interface LoaderOptions {
   jsxFragment?: string
 }
 
-declare module '@roots/bud' {
-  export interface Bud {
+declare module '@roots/bud-framework' {
+  interface Framework {
     /**
      * ## bud.esbuild
      *
      * Configure ESBuild.
      */
-    esbuild: Bud.ESBuild
+    esbuild: Framework.ESBuild
   }
 
-  export namespace Bud {
+  namespace Framework {
     interface ESBuild {
       /**
        * ## bud.esbuild.setOptions
@@ -48,7 +48,7 @@ declare module '@roots/bud' {
        * })
        * ```
        */
-      setOptions: Bud.ESBuild.SetOptions
+      setOptions: Framework.ESBuild.SetOptions
 
       /**
        * ## bud.esbuild.jsx
@@ -63,12 +63,12 @@ declare module '@roots/bud' {
        * bud.esbuild.jsx(false)
        * ```
        */
-      jsx: Bud.ESBuild.JSX
+      jsx: Framework.ESBuild.JSX
     }
 
-    export namespace ESBuild {
-      export type SetOptions = (opts?: LoaderOptions) => Bud
-      export type JSX = (enabled?: boolean) => Bud
+    namespace ESBuild {
+      type SetOptions = (opts?: LoaderOptions) => Framework
+      type JSX = (enabled?: boolean) => Framework
     }
   }
 }

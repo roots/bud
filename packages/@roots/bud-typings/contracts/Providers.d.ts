@@ -30,7 +30,7 @@ declare namespace Providers {
   }
 
   export type Options = {
-    onInit?(this: Framework): void
+    onInit?(): void
     containers?: Framework.Index<unknown>
     dependencies?: Framework.Index<unknown>
   }

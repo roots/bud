@@ -1,10 +1,10 @@
-import {Bud} from '../../..'
+import {Framework} from '@roots/bud-typings'
 import {Configuration} from 'webpack'
 
 declare type Value<T> = Configuration['optimization'][T &
   keyof Configuration['optimization']]
 
-declare type Setting<T> = (app: Bud) => Value<T>
+declare type Setting<T> = (app: Framework) => Value<T>
 
 /**
  * Namespace util
@@ -47,7 +47,7 @@ export const runtimeChunk: Setting<'runtimeChunk'> = ({hooks}) =>
  */
 export const splitChunks: Setting<'splitChunks'> = ({
   hooks,
-}: Bud) =>
+}: Framework) =>
   hooks.filter(ns('splitChunks'), {
     chunks: 'async',
     minSize: 20000,

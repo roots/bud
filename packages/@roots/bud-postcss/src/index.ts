@@ -1,17 +1,18 @@
 import './interface'
-import {Bud} from '@roots/bud'
+import {Framework} from '@roots/bud-framework'
+import {Module} from '@roots/bud-typings'
 import {PostCssConfig} from './api'
 import presetEnv from 'postcss-preset-env'
 
 /**
  * Extension name
  */
-export const name = '@roots/bud-postcss'
+export const name: Module['name'] = '@roots/bud-postcss'
 
 /**
  * Replace default css implementation
  */
-export const boot = (app: Bud) => {
+export const boot: Module['boot'] = (app: Framework) => {
   /**
    * PostCss configurator.
    */
@@ -19,16 +20,16 @@ export const boot = (app: Bud) => {
   Object.assign(app, {postcss})
 
   app.build
-    .set('loaders.postcss', (app: Bud) =>
+    .set('loaders.postcss', (app: Framework) =>
       require.resolve('postcss-loader'),
     )
-    .set('items.postcss', (app: Bud) => ({
+    .set('items.postcss', (app: Framework) => ({
       loader: app.build.access('loaders.postcss'),
       options: {
         postcssOptions: app.postcss.options,
       },
     }))
-    .set('rules.css.use', ({build, isProduction}: Bud) => {
+    .set('rules.css.use', ({build, isProduction}: Framework) => {
       return [
         isProduction
           ? build.access('items.minicss')

@@ -1,9 +1,9 @@
-import {Bud} from '@roots/bud'
+import {Module} from '@roots/bud-typings'
 
 /**
  * @svgr-loader register loader
  */
-export const setItems: Bud.Module['setItems'] = [
+export const setItems: Module['setItems'] = [
   'svgr',
   {loader: require.resolve('@svgr/webpack')},
 ]
@@ -11,15 +11,10 @@ export const setItems: Bud.Module['setItems'] = [
 /**
  * @svgr-loader register use
  */
-export const setRules: Bud.Module['setRules'] = [
+export const setRules: Module['setRules'] = [
   'svg',
   {
-    test(app: Bud): RegExp {
-      return app.store.get('patterns.svg')
-    },
-
-    use(app: Bud): Bud.Rule[] {
-      return [app.build.get('items.svgr')]
-    },
+    test: ({store}) => store.get('patterns.svg'),
+    use: ({build}) => [build.get('items.svgr')],
   },
 ]

@@ -41,6 +41,8 @@ export class Hooks extends Service implements Contract {
         ? [...this.get(`filters.${name}`), filter]
         : [filter],
     )
+
+    return this.app.get()
   }
 
   /**
@@ -66,7 +68,7 @@ export class Hooks extends Service implements Contract {
   public when<T = any>(
     name: string,
     action: Contract.Action.Fn<T>,
-  ): void {
+  ) {
     this.app.logger.info({name, msg: 'Action registered'})
 
     this.set(
@@ -75,6 +77,8 @@ export class Hooks extends Service implements Contract {
         ? [...this.get(`actions.${name}`), action]
         : [action],
     )
+
+    return this.app.get()
   }
 
   public action<T = any>(name: string, binding: T): void {

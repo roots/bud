@@ -63,8 +63,6 @@ declare module '@roots/bud-framework' {
      */
     interface Entry {
       (
-        this: Framework,
-
         /**
          * Entrypoint name (string)
          */
@@ -82,11 +80,6 @@ declare module '@roots/bud-framework' {
      */
     interface Entry {
       (
-        /**
-         * Build framework
-         */
-        this: Framework,
-
         /**
          * Entrypoint name as key;
          * Values may be a string or array of strings.

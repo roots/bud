@@ -1,17 +1,18 @@
 import './interface'
-import {Bud} from '@roots/bud'
+import {Framework} from '@roots/bud-framework'
+import {Module} from '@roots/bud-typings'
 import {Webpack} from '@roots/bud-support'
 
 export const name = '@roots/bud-sass'
 
-export const boot: Bud.Module.Boot = (app: Bud) => {
+export const boot: Module.Boot = (app: Framework) => {
   app.hooks.on<Webpack.Configuration['resolve']['extensions']>(
     'webpack.resolve.extensions',
     exts => [...exts, '.sass', '.scss'],
   )
 
   app.sequence([
-    (app: Bud) => {
+    app => {
       global.navigator = undefined
 
       try {
@@ -33,11 +34,11 @@ export const boot: Bud.Module.Boot = (app: Bud) => {
 
       global.navigator = {}
     },
-    (app: Bud) =>
+    app =>
       app.build.set('rules.sass', {
-        test: ({store}: Bud) => store.get('patterns.sass'),
-        exclude: ({store}: Bud) => store.get('patterns.modules'),
-        use: (app: Bud) => {
+        test: ({store}) => store.get('patterns.sass'),
+        exclude: ({store}) => store.get('patterns.modules'),
+        use: (app: Framework) => {
           return [
             app.isProduction
               ? app.build.access('items.minicss')

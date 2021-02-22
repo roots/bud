@@ -1,58 +1,15 @@
-import {
-  React,
-  render,
-  fs,
-  lodash,
-  globby,
-  chalk,
-} from '@roots/bud-support'
+import {React, render, fs, lodash} from '@roots/bud-support'
 import {Error, Publish} from '@roots/bud-dashboard'
 import {join, dirname} from 'path'
 
 /**
- * Publishable matches (glob pattern)
- */
-const publishables = [
-  ...globby
-    .sync([
-      '**/node_modules/bud-*/publish/*',
-      '**/node_modules/*/bud-*/publish/*',
-    ])
-    .filter(
-      (value, index, self) => self.indexOf(value) === index,
-    ),
-]
-
-/**
  * [command] publish
  */
-export const publish = CLI => {
+export default CLI => {
   const command = 'publish'
 
-  /**
-   * publish describe
-   */
-  const describe = `Publish a template to your project.\n${publishables.reduce(
-    (a, file) => {
-      const ext = dirname(dirname(file)).replace(
-        'node_modules/',
-        '',
-      )
+  const describe = `Publish a template to your project.`
 
-      const template = file
-        .replace(`${ext}/publish/`, '')
-        .replace('node_modules/', '')
-
-      return `${a} \n${chalk.blue(ext)} ${chalk.green(
-        template,
-      )}   ${chalk.dim(`bud publish ${ext} ${template}`)}`
-    },
-    ``,
-  )}`
-
-  /**
-   * publish command builder
-   */
   const builder = yargs =>
     yargs
       .positional('file', {
@@ -61,9 +18,6 @@ export const publish = CLI => {
       })
       .usage('$0 publish <file>')
 
-  /**
-   * publish handler
-   */
   const handler = (args: {_: (string | number)[]}): void => {
     ;(async () => {
       const extension: string = lodash.isNumber(args._[1])
@@ -74,6 +28,12 @@ export const publish = CLI => {
         ? args._[2].toString()
         : args._[2]
 
+      const destination: string = args._[3]
+        ? lodash.isNumber(args._[3])
+          ? args._[3].toString()
+          : args._[3]
+        : null
+
       /**
        * Bail early if command isn't proper.
        *
@@ -82,13 +42,16 @@ export const publish = CLI => {
        */
       if (!extension || typeof extension !== 'string') {
         Error(
-          `Try \`${CLI.command} publish --help\` for a list of available templates.`,
+          `Try \`${CLI.command} publish:list\` for a list of available files.`,
           `You must specify a template to publish`,
         )
       }
 
       const src = `${CLI.cwd}/node_modules/${extension}/publish/${template}`
-      const dest = join(CLI.cwd, 'publish', `${template}`)
+      const dest = join(
+        CLI.cwd,
+        `${destination ?? `publish/${template}`}`,
+      )
 
       try {
         await fs.ensureDir(dirname(dest))
@@ -96,8 +59,9 @@ export const publish = CLI => {
 
         render(<Publish file={template} />)
       } catch (err) {
+        console.log(err)
         Error(
-          `Are you sure you got the name right? Try \`${CLI.command} or ${CLI.command} publish --help\` for a list of available srcFiles.`,
+          `Are you sure you got the name right? Try \`${CLI.command} publish:list\` for a list of available files.`,
           `The requested template can't be published.`,
         )
       }

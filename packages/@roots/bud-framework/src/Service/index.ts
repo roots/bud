@@ -42,7 +42,7 @@ export default class extends Container implements Service {
    * Application service
    */
   public service<T = any>(serviceName: string): T {
-    return this.app.get(serviceName)
+    return this.app.get<T>(serviceName)
   }
 
   /**

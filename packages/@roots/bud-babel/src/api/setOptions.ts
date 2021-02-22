@@ -1,6 +1,8 @@
-import type {Bud} from '@roots/bud'
+import {Framework} from '@roots/bud-framework'
 
-export const setOptions: Bud.Babel.SetOptions = function (opts) {
+export const setOptions: Framework.Babel.SetOptions = function (
+  opts,
+) {
   this.build.merge('items.babel.options', opts)
 
   return this

@@ -1,3 +1,4 @@
+import {Framework} from '../'
 import {Filter} from './Filter'
 import {Action} from './Action'
 import {Store} from './Store'
@@ -66,7 +67,7 @@ export declare interface Hooks {
    * )
    * ```
    */
-  on<T = any>(name: string, hook: Hooks.Filter.Fn<T>): void
+  on<T = any>(name: string, hook: Hooks.Filter.Fn<T>): Framework
 
   /**
    * ## bud.hooks.when

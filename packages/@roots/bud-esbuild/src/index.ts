@@ -1,11 +1,12 @@
 import './interface'
-import {Bud} from '@roots/bud'
+import {Framework} from '@roots/bud-framework'
+import {Module, Webpack} from '@roots/bud-typings'
 import {ESBuildPlugin, ESBuildMinifyPlugin} from 'esbuild-loader'
 import * as configApi from './api'
 
-export const name = '@roots/bud-esbuild'
+export const name: Module['name'] = '@roots/bud-esbuild'
 
-export const boot = (app: Bud) => {
+export const boot: Module['boot'] = (app: Framework) => {
   /**
    * Source tsconf from project (if available)
    */
@@ -34,8 +35,8 @@ export const boot = (app: Bud) => {
   app.hooks.on(
     'webpack.optimization',
     (
-      optimization: Bud.Webpack.Configuration['optimization'],
-    ): Bud.Webpack.Configuration['optimization'] => ({
+      optimization: Webpack.Configuration['optimization'],
+    ): Webpack.Configuration['optimization'] => ({
       ...optimization,
       minimizer: [
         new ESBuildMinifyPlugin({
@@ -50,7 +51,7 @@ export const boot = (app: Bud) => {
    * Set esbuild as the default loader for jsx? tsx? rules
    */
   app.build
-    .set('loaders.esbuild', app =>
+    .set('loaders.esbuild', (app: Framework) =>
       require.resolve('esbuild-loader'),
     )
 
@@ -72,8 +73,8 @@ export const boot = (app: Bud) => {
     })
 
     .set('rules.ts', {
-      test: (app: Bud) => app.store.access('patterns.ts'),
-      use: (app: Bud) => [app.build.access('items.esbuild-ts')],
+      test: ({store}) => store.access('patterns.ts'),
+      use: ({build}) => [build.access('items.esbuild-ts')],
     })
 
     .set('rules.js.use', [app.build.access('items.esbuild-js')])

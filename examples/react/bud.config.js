@@ -1,5 +1,5 @@
 // @ts-check
-const {bud} = require('./../../packages/@roots/bud')
+const {bud} = require('../../packages/@roots/bud')
 
 /**
  * This is specific for the Bud monorepo only.
@@ -7,25 +7,26 @@ const {bud} = require('./../../packages/@roots/bud')
  * You do not need to include this hook in your project
  * configuration file.
  */
-bud.hooks.on('webpack.resolve.modules', function (modules) {
-  return [
-    ...modules,
-    require('path').resolve('./../../node_modules'),
-  ]
-})
+bud.hooks.on('webpack.resolve.modules', modules => [
+  ...modules,
+  require('path').resolve('./../../node_modules'),
+])
 
-bud
-  .when(bud.isDevelopment, () => {
-    bud.use([
+const target = {
+  dev: ({use}) =>
+    use([
       require('@roots/bud-babel'),
       require('@roots/bud-react'),
-    ])
-  })
-  .when(bud.isProduction, () => {
-    bud.use([require('@roots/bud-esbuild')])
-    bud.esbuild.jsx()
-    bud.hash().minify()
-  })
+    ]),
+  prod: ({use}) =>
+    use(require('@roots/bud-esbuild'))
+      .esbuild.jsx()
+      .hash()
+      .minify(),
+}
+
+bud
+  .when(bud.isDevelopment, target.dev, target.prod)
   .use([
     require('@roots/bud-emotion'),
     require('@roots/bud-postcss'),

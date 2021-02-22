@@ -1,9 +1,9 @@
-import {Bud} from '../../../Bud'
+import {Framework} from '@roots/bud-framework'
 
 /**
  * webpack.output.filename
  */
-export const filename = (bud: Bud) =>
+export const filename = (bud: Framework) =>
   bud.hooks.filter(
     `webpack.output.filename`,
     bud.options.isTrue('hash')
@@ -14,16 +14,16 @@ export const filename = (bud: Bud) =>
 /**
  * webpack.output.publicPath
  */
-export const publicPath = (bud: Bud) =>
-  bud.hooks.filter(
+export const publicPath = (app: Framework) =>
+  app.hooks.filter(
     'webpack.output.publicPath',
-    bud.options.access('publicPath') ?? '/',
+    app.options.access('publicPath') ?? '/',
   )
 
 /**
  * webpack.output.path
  */
-export const path = ({disk, hooks, options}: Bud) =>
+export const path = ({disk, hooks, options}: Framework) =>
   hooks.filter(
     'webpack.output.path',
     disk.path.join(options.get('project'), options.get('dist')),

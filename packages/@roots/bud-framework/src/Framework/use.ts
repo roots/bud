@@ -1,7 +1,9 @@
-import {Framework} from '../'
+import {Framework} from '@roots/bud-typings'
 import {isArray} from '@roots/bud-support'
 
-export const use: Framework['use'] = function (source) {
+export const use = function (
+  source: Framework.Module | Array<Framework.Module>,
+) {
   if (!isArray(source)) {
     /**
      * Require/import

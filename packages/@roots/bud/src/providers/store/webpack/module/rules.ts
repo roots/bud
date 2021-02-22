@@ -1,14 +1,14 @@
 import {Webpack} from '@roots/bud-typings'
-import {Bud} from '../../../../Bud'
+import {Framework} from '@roots/bud-framework'
 
 declare type Rule = Webpack.RuleSetRule
 declare type Rules = Rule[]
-declare type BuildRules = (app: Bud) => Rules
+declare type BuildRules = (app: Framework) => Rules
 
 /**
  * webpack.module.rules build function
  */
-export const rules: BuildRules = (app: Bud) =>
+export const rules: BuildRules = (app: Framework) =>
   /**
    * @filter
    * @name webpack.module.rules

@@ -1,4 +1,4 @@
-import {Bud} from '@roots/bud'
+import {Framework} from '@roots/bud-framework'
 import {isString} from 'lodash'
 
 /**
@@ -9,19 +9,19 @@ import {isString} from 'lodash'
 /**
  * PostCSSConfig API
  */
-export class PostCssConfig implements Bud.PostCss {
-  public app: Bud
+export class PostCssConfig implements Framework.PostCss {
+  public app: Framework
 
-  public _plugins: Bud.PostCss.Registry = {}
+  public _plugins: Framework.PostCss.Registry = {}
 
-  public constructor({app}: {app: Bud}) {
+  public constructor({app}: {app: Framework}) {
     this.app = app
     this.setPlugin = this.setPlugin.bind(this)
     this.unsetPlugin = this.unsetPlugin.bind(this)
     this.setPluginOptions = this.setPluginOptions.bind(this)
   }
 
-  public setPlugin(plugin: Bud.PostCss.Registrable) {
+  public setPlugin(plugin: Framework.PostCss.Registrable) {
     this.plugins = {
       ...this.plugins,
       ...(isString(plugin)

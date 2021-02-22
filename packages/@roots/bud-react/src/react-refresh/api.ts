@@ -1,15 +1,11 @@
-import {ReactRefreshPluginOptions} from '@pmmmwh/react-refresh-webpack-plugin/types/types'
-import {Bud} from '@roots/bud'
+import {Framework} from '@roots/bud-framework'
 
-export const reactRefresh: ReactRefresh = function (options) {
+export const reactRefresh: Framework['reactRefresh'] = function (
+  options,
+) {
   this.extensions
     .get('@pmmmwh/react-refresh-webpack-plugin')
     .set('options', options)
 
   return this
 }
-
-export type ReactRefresh = (
-  this: Bud,
-  options: ReactRefreshPluginOptions,
-) => Bud

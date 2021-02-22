@@ -2,13 +2,14 @@ import {
   Plugin,
   WordPressExternals,
 } from '@roots/wordpress-externals-webpack-plugin'
-import type {Bud} from '@roots/bud'
+import {Module} from '@roots/bud-typings'
 
 // extension identifier
-export const name = '@roots/wordpress-externals-webpack-plugin'
+export const name: Module['name'] =
+  '@roots/wordpress-externals-webpack-plugin'
 
 // @roots/wordpress-externals-webpack-plugin
-export const make: Bud.Module.Make<
+export const make: Module.Make<
   Plugin,
   WordPressExternals.Options
 > = () => new Plugin()

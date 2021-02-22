@@ -10,98 +10,112 @@ interface LoaderOptions extends TransformOptions {
   cacheDirectory: string
 }
 
-declare module '@roots/bud' {
-  export interface Bud {
+declare module '@roots/bud-framework' {
+  interface Framework {
     /**
-     * ## bud.babel
+     * ## app.babel
      *
      * Configure babel.
      */
-    babel: Bud.Babel
+    babel: Framework.Babel
   }
 
-  export namespace Bud {
+  namespace Framework {
     interface Babel {
       /**
-       * ## bud.babel.addPlugin
+       * ## app.babel.addPlugin
        *
        * Add a babel plugin.
        *
        * ### Usage
        *
        * ```js
-       * bud.babel.addPlugin(
+       * app.babel.addPlugin(
        *   '@babel/plugin-transform-runtime',
        *   {helpers: false,}
        * )
        * ```
        */
-      addPlugin: Bud.Babel.AddPlugin
+      addPlugin: Framework.Babel.AddPlugin
 
       /**
-       * ## bud.babel.addPlugin
+       * ## app.babel.addPlugin
        *
        * Add a babel plugin.
        *
        * ### Usage
        *
        * ```js
-       * bud.babel.addPreset(
+       * app.babel.addPreset(
        *   '@babel/react-preset',
        *   {loose: true}
        * )
        * ```
        */
-      addPreset: Bud.Babel.AddPreset
+      addPreset: Framework.Babel.AddPreset
 
       /**
-       * ## bud.babel.setOptions
+       * ## app.babel.setOptions
        *
        * Configure babel transform options
        *
        * ### Usage
        *
        * ```js
-       * bud.babel.setOptions({
+       * app.babel.setOptions({
        *  configFile: 'babel.config.js',
        * })
        * ```
        */
-      setOptions: Bud.Babel.SetOptions
+      setOptions: Framework.Babel.SetOptions
 
       /**
-       * ## bud.babel.setPlugins
+       * ## app.babel.setPlugins
        *
        * Set babel plugins (will override existing values)
        *
        * ### Usage
        *
        * ```js
-       * bud.babel.setPlugins([
+       * app.babel.setPlugins([
        *  ['@babel/react-preset', {loose: true}],
        * ])
        * ```
        */
-      setPlugins: Bud.Babel.SetPlugins
+      setPlugins: Framework.Babel.SetPlugins
+
+      /**
+       * ## app.babel.setPresets
+       *
+       * Set babel presets (will override existing values)
+       *
+       * ### Usage
+       *
+       * ```js
+       * app.babel.setPresets([
+       *  ['@babel/react-preset', {loose: true}],
+       * ])
+       * ```
+       */
+      setPresets: Framework.Babel.SetPlugins
     }
 
-    export namespace Babel {
-      export type AddPlugin = (
+    namespace Babel {
+      type AddPlugin = (
         name: PluginTarget,
         opts?: PluginOptions,
-      ) => Bud
+      ) => Framework
 
-      export type AddPreset = (
+      type AddPreset = (
         name: PluginTarget,
         opts?: PluginOptions,
-      ) => Bud
+      ) => Framework
 
-      export type SetPlugins = (
-        this: Bud,
+      type SetPlugins = (
         plugins: Array<[PluginTarget, PluginOptions]>,
-      ) => Bud
+      ) => Framework
 
-      export type SetOptions = (opts?: LoaderOptions) => Bud
+      type SetOptions = (opts?: LoaderOptions) => Framework
     }
   }
 }

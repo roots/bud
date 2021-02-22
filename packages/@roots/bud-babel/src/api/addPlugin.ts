@@ -1,7 +1,6 @@
-import type {Bud} from '@roots/bud'
+import {Framework} from '@roots/bud-framework'
 
-export const addPlugin: Bud.Babel.AddPlugin = function (
-  this: Bud,
+export const addPlugin: Framework.Babel.AddPlugin = function (
   name,
   opts,
 ) {

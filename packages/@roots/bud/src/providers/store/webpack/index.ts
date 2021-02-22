@@ -12,8 +12,7 @@ import {
 } from './resolve'
 import {rules} from './module/rules'
 import * as nodeSettings from './node'
-
-import type {Bud} from '../../../Bud'
+import type {Framework} from '@roots/bud-framework'
 import type {Configuration as Cfg} from 'webpack'
 
 /**
@@ -23,7 +22,7 @@ import type {Configuration as Cfg} from 'webpack'
  * @filter  {webpack.bail}
  * @flags   {--bail}
  */
-export const bail = ({hooks, options}: Bud) =>
+export const bail = ({hooks, options}: Framework) =>
   hooks.filter(`webpack.bail`, options.get('bail') ?? true)
 
 /**
@@ -31,7 +30,7 @@ export const bail = ({hooks, options}: Bud) =>
  *
  * @default {false}
  */
-export const cache = (app: Bud) =>
+export const cache = (app: Framework) =>
   app.hooks.filter(
     `webpack.cache`,
     app.options.disabled('cache')
@@ -65,7 +64,7 @@ export const context = ({hooks, options}) =>
  *
  * @default {none}
  */
-export const devtool = ({hooks, options}: Bud) =>
+export const devtool = ({hooks, options}: Framework) =>
   hooks.filter('webpack.devtool', options.get('devtool'))
 
 /**
@@ -73,7 +72,7 @@ export const devtool = ({hooks, options}: Bud) =>
  *
  * @default {}
  */
-export const entry = ({hooks}: Bud) =>
+export const entry = ({hooks}: Framework) =>
   hooks.filter('webpack.entry', {})
 
 /**
@@ -82,7 +81,7 @@ export const entry = ({hooks}: Bud) =>
  * @filter  {webpack.externals}
  * @default {}
  */
-export const externals = ({hooks}: Bud) =>
+export const externals = ({hooks}: Framework) =>
   hooks.filter('webpack.externals', {})
 
 /**
@@ -91,7 +90,7 @@ export const externals = ({hooks}: Bud) =>
  * @filter  {webpack.infrastructureLogging}
  * @default {level: none}
  */
-export const infrastructureLogging = ({hooks}: Bud) =>
+export const infrastructureLogging = ({hooks}: Framework) =>
   hooks.filter('webpack.infrastructureLogging', {level: 'none'})
 
 /**
@@ -101,13 +100,13 @@ export const infrastructureLogging = ({hooks}: Bud) =>
  * @flags   {--mode}
  * @default {'production'}
  */
-export const mode = ({hooks, options}: Bud) =>
+export const mode = ({hooks, options}: Framework) =>
   hooks.filter(`mode`, options.get('mode') ?? 'production')
 
 /**
  * Name
  */
-export const name = ({hooks, options}: Bud) =>
+export const name = ({hooks, options}: Framework) =>
   hooks.filter(
     `webpack.name`,
     options.get('name') ?? '@roots/bud',
@@ -116,7 +115,7 @@ export const name = ({hooks, options}: Bud) =>
 /**
  * Node
  */
-export const node = ({hooks}: Bud) =>
+export const node = ({hooks}: Framework) =>
   hooks.filter(`webpack.node`, {...nodeSettings})
 
 /**
@@ -124,7 +123,7 @@ export const node = ({hooks}: Bud) =>
  *
  * @filter {webpack.optimization}
  */
-export function optimization(app: Bud) {
+export function optimization(app: Framework) {
   const optimization: Cfg['optimization'] = {
     namedModules: namedModules(app),
     noEmitOnErrors: noEmitOnErrors(app),
@@ -146,7 +145,7 @@ export function optimization(app: Bud) {
 /**
  * Output
  */
-export function output(app: Bud) {
+export function output(app: Framework) {
   return app.hooks.filter(`webpack.output`, {
     filename: filename(app),
     path: path(app),
@@ -157,7 +156,10 @@ export function output(app: Bud) {
 /**
  * Performance
  */
-export const performance = ({hooks, options}: Bud): boolean =>
+export const performance = ({
+  hooks,
+  options,
+}: Framework): boolean =>
   hooks.filter(
     `wepback.performance`,
     options.get('webpack.performance') ?? false,
@@ -169,37 +171,35 @@ export const performance = ({hooks, options}: Bud): boolean =>
  * @filter  {webpack.parallelism}
  * @default {1}
  */
-export const parallelism = ({hooks}: Bud) =>
+export const parallelism = ({hooks}: Framework) =>
   hooks.filter(`webpack.parallelism`, 1)
 
 /**
  * Profile
  */
-export const profile = ({hooks}: Bud) =>
+export const profile = ({hooks}: Framework) =>
   hooks.filter(`webpack.profile`, false)
 
 /**
  * Records Path
  */
-export const recordsPath = (app: Bud) => {
-  return app.project(
+export const recordsPath = (app: Framework) =>
+  app.project(
     app.disk.path.join(
       app.options.get('storage'),
       app.options.get('records'),
     ),
   )
-}
 
 /**
  * Resolve
  */
-export function resolve(app: Bud) {
-  return app.hooks.filter('webpack.resolve', {
+export const resolve = (app: Framework) =>
+  app.hooks.filter('webpack.resolve', {
     alias: alias(app),
     extensions: extensions(app),
     modules: resolveModules(app),
   })
-}
 
 /**
  * Stats
@@ -207,7 +207,7 @@ export function resolve(app: Bud) {
  * @filter  {webpack.stats}
  * @default {false}
  */
-export const stats = ({hooks}: Bud) =>
+export const stats = ({hooks}: Framework) =>
   hooks.filter(`webpack.stats`, false)
 
 /**
@@ -217,7 +217,7 @@ export const stats = ({hooks}: Bud) =>
  * @flags   {--target}
  * @default {false}
  */
-export const target = ({hooks, options}: Bud) =>
+export const target = ({hooks, options}: Framework) =>
   hooks.filter(
     `webpack.target`,
     options.access('target') ?? 'web',
@@ -230,7 +230,7 @@ export const target = ({hooks, options}: Bud) =>
  * @flags   {--watch}
  * @default {false}
  */
-export const watch = ({hooks, options}: Bud) =>
+export const watch = ({hooks, options}: Framework) =>
   hooks.filter(`webpack.watch`, options.access('watch') ?? false)
 
 /**
@@ -240,7 +240,7 @@ export const watch = ({hooks, options}: Bud) =>
  * @flags   {--watch}
  * @default {false}
  */
-export const watchOptions = ({hooks, store}: Bud) =>
+export const watchOptions = ({hooks, store}: Framework) =>
   hooks.filter(`webpack.watchOptions`, {
     ignored: [store.get('patterns.modules')],
     poll: 1000,
@@ -249,12 +249,12 @@ export const watchOptions = ({hooks, store}: Bud) =>
 /**
  * Module
  */
-export function module(app: Bud) {
+export function module(app: Framework) {
   return app.hooks.filter(`webpack.module`, {rules: rules(app)})
 }
 
 /**
  * Plugins
  */
-export const plugins = ({extensions}: Bud) =>
+export const plugins = ({extensions}: Framework) =>
   extensions.makeAll()

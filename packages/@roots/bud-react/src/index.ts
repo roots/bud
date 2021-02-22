@@ -1,17 +1,17 @@
-import {Bud} from '@roots/bud'
-import * as ReactRefreshWebpackPlugin from './react-refresh'
-
 import './interfaces'
+import {Framework} from '@roots/bud-framework'
+import {Module} from '@roots/bud-typings'
+import * as ReactRefreshWebpackPlugin from './react-refresh'
 
 /**
  * Extension name
  */
-export const name = '@roots/bud-react'
+export const name: Module['name'] = '@roots/bud-react'
 
 /**
  * Extension register
  */
-export const boot = (app: Bud) => {
+export const boot: Module['boot'] = (app: Framework) => {
   app.babel?.addPreset &&
     app.babel.addPreset('@babel/preset-react')
 

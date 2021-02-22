@@ -52,7 +52,7 @@ export const sage: Bud = ((sage: Bud) => {
     .distPath('public')
 
     /**
-     * Public path:
+     * Public path
      */
     .when(
       ({env}: Bud) => env.has('APP_PUBLIC_PATH'),
@@ -79,7 +79,9 @@ export const sage: Bud = ((sage: Bud) => {
       ({use}: Bud) => use(esbuild).esbuild.jsx(),
     )
 
-  sage
+    /**
+     * General extensions
+     */
     .use([
       /**
        * Style transpilation
@@ -115,18 +117,18 @@ export const sage: Bud = ((sage: Bud) => {
     })
 
     /**
-     * Provide vars
+     * Provide
      */
     .provide({
       jquery: ['$', 'jQuery'],
     })
 
     /**
-     * Production optimizations
+     * Additional options
      */
     .when(
       ({isProduction}) => isProduction,
-      ({sequence}: Bud) =>
+      ({sequence}) =>
         sequence([
           ({use}) => use(imagemin),
           ({postcss}) =>
@@ -134,15 +136,14 @@ export const sage: Bud = ((sage: Bud) => {
               'cssnano',
               cssnano({preset: 'default'}),
             ]),
-          ({minify, hash, vendor, runtime}) =>
-            minify() && hash() && vendor() && runtime(),
+          (sage: Bud) => sage.minify().hash().vendor().runtime(),
         ]),
-      ({sequence}: Bud) =>
+      ({sequence}) =>
         sequence([
-          ({env, proxy}: Bud) =>
+          ({env, proxy}) =>
             env.has('APP_PROXY_HOST') &&
             proxy({host: env.get('APP_PROXY_HOST')}),
-          ({env, proxy}: Bud) =>
+          ({env, proxy}) =>
             env.has('APP_PROXY_PORT') &&
             proxy({port: sage.env.get('APP_PROXY_PORT')}),
         ]),

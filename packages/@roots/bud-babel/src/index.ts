@@ -1,19 +1,21 @@
 import './interface'
-import {Bud} from '@roots/bud'
+import {Framework} from '@roots/bud-framework'
+import {Module} from '@roots/bud-typings'
 
 import {addPlugin} from './api/addPlugin'
 import {setOptions} from './api/setOptions'
 import {addPreset} from './api/addPreset'
+import {setPresets} from './api/setPresets'
 
 /**
  * Extension ident
  */
-export const name = '@roots/bud-babel'
+export const name: Module['name'] = '@roots/bud-babel'
 
 /**
  * Register babel
  */
-export const boot = (app: Bud) => {
+export const boot: Module['boot'] = (app: Framework) => {
   Object.assign(app, {
     /**
      * Babel config object.
@@ -33,6 +35,11 @@ export const boot = (app: Bud) => {
        * Presets.
        */
       addPreset: addPreset.bind(app),
+
+      /**
+       * Set presets
+       */
+      setPresets: setPresets.bind(app),
     },
   })
 

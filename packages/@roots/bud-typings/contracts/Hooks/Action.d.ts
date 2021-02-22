@@ -21,7 +21,7 @@ declare namespace Action {
   export type When<T = any> = (
     name: string,
     action: Action.Fn<T>,
-  ) => void
+  ) => Framework
 }
 
 export {Action}

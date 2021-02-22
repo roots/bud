@@ -38,7 +38,7 @@ import {
  * [🧑‍💻 roots/bud/packages/framework](#)
  * [📦 @roots/bud-framework](https://www.npmjs.com/package/@roots/bud-framework)
  */
-export declare interface Framework<T = unknown> extends Mode {
+export declare interface Framework extends Mode {
   /**
    * ## bud.store [🍱 _Container_]
    *
@@ -193,7 +193,7 @@ export declare interface Framework<T = unknown> extends Mode {
    * bud.get()
    * ```
    */
-  get<I = any>(service?: string): I & T
+  get<I = any>(service?: string): I
 
   /**
    * ## access
@@ -276,7 +276,7 @@ export declare interface Framework<T = unknown> extends Mode {
    * bud.run()
    * ```
    */
-  run(this: T): unknown
+  run(): unknown
 
   /**
    * ## bud.use [💁 Fluent]
@@ -289,15 +289,7 @@ export declare interface Framework<T = unknown> extends Mode {
    * bud.use(['@roots/bud-babel', '@roots/bud-react'])
    * ```
    */
-  use(
-    this: T,
-    source:
-      | [string, Module]
-      | [string, Module][]
-      | {[key: string]: Module}
-      | Module
-      | Module[],
-  ): T
+  use(source: Module | Module[]): Framework
 
   /**
    * ## bud.when  [💁 Fluent]
@@ -319,10 +311,10 @@ export declare interface Framework<T = unknown> extends Mode {
    * ```
    */
   when(
-    test: boolean | ((app: T) => boolean),
-    isTrue: (app: T) => unknown,
-    isFalse?: (app: T) => unknown,
-  ): T
+    test: boolean | ((app: Framework) => boolean),
+    isTrue: (app: Framework) => unknown,
+    isFalse?: (app: Framework) => unknown,
+  ): Framework
 }
 
 declare interface Mode {

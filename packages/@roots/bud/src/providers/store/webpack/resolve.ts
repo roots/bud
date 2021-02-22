@@ -1,10 +1,10 @@
 import {Configuration} from 'webpack'
-import {Bud} from '../../../Bud'
+import {Framework} from '@roots/bud-framework'
 
-export const alias = (app: Bud) =>
+export const alias = (app: Framework) =>
   app.hooks.filter('webpack.resolve.alias', {})
 
-export const extensions = (app: Bud) =>
+export const extensions = (app: Framework) =>
   app.hooks
     .filter(`webpack.resolve.extensions`, [
       '.wasm',
@@ -18,7 +18,7 @@ export const extensions = (app: Bud) =>
     )
 
 export const modules: (
-  app: Bud,
+  app: Framework,
 ) => Configuration['resolve']['modules'] = app =>
   app.hooks.filter(`webpack.resolve.modules`, [
     app.src(),

@@ -1,10 +1,9 @@
-import type {Bud} from '@roots/bud'
+import type {Framework} from '@roots/bud-framework'
 
-export const addPreset: Bud.Babel.AddPreset = function (
-  this: Bud,
+export const addPreset: Framework.Babel.AddPreset = function (
   name,
   opts,
-): Bud {
+) {
   this.build.mutate('items.babel.options.presets', presets => [
     ...presets,
     [name, opts ?? {}],

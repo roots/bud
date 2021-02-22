@@ -1,10 +1,7 @@
-// Interface
 import './interface'
-// Core typings
-import {Bud} from '@roots/bud'
-// Eslint webpack plugin
+import {Framework} from '@roots/bud-framework'
+import {Module} from '@roots/bud-typings'
 import Plugin from 'eslint-webpack-plugin'
-// Bud custom formatter
 import {eslintFormatter} from '@roots/bud-support'
 
 /**
@@ -15,8 +12,8 @@ export const name = 'eslint-webpack-plugin'
 /**
  * Eslint class options.
  */
-export const options: Bud.Module.Options = app => {
-  const options: Bud.Eslint.Options = {
+export const options: Module.Options = app => {
+  const options: Framework.Eslint.Options = {
     extensions: ['js', 'jsx', 'ts', 'tsx'],
     cache: true,
     cacheLocation: app.disk.path.join(
@@ -34,5 +31,4 @@ export const options: Bud.Module.Options = app => {
 /**
  * Make the plugin from its options.
  */
-export const make: Bud.Module.Make = opts =>
-  new Plugin(opts.all())
+export const make: Module.Make = opts => new Plugin(opts.all())

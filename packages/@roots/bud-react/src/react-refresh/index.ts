@@ -17,8 +17,8 @@ export const make: Module.Make<Plugin, Options> = options =>
  * @pmmmwh/react-refresh-webpack-plugin conditions
  * (development only)
  */
-export const when: Module.When = ({options}) =>
-  options.is('mode', 'development')
+export const when: Module.When = ({isDevelopment}) =>
+  isDevelopment
 
 /**
  * @pmmmwh/react-refresh-webpack-plugin options
