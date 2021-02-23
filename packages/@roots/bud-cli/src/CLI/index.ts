@@ -28,15 +28,15 @@ export class CLI {
    * Commands
    */
   public commands = [
-    require('./commands/build').default,
-    require('./commands/publish/publish').default,
-    require('./commands/publish/list').default,
+    require('./commands/build'),
+    require('./commands/publish/publish'),
+    require('./commands/publish/list'),
   ]
 
   /**
    * Add command
    */
-  public addCommand(cmd) {
+  public addCommand(cmd: {cmd: yargs.CommandModule}) {
     this.commands.push(cmd)
   }
 
@@ -44,7 +44,9 @@ export class CLI {
    * Invoke command line stdout
    */
   public invoke(): void {
-    this.commands.map(cmd => this.instance.command(cmd(this)))
+    this.commands.map(({cmd}) =>
+      this.instance.command(cmd(this)),
+    )
 
     this.instance
       .recommendCommands()

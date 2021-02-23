@@ -3,22 +3,14 @@ import {formatted} from './util'
 /**
  * [command] publish list
  */
-export default function (CLI) {
-  const command = `publish:list`
+export const cmd = CLI => ({
+  command: `publish:list`,
 
-  const describe = `List available publishable files.`
+  describe: `List available publishable files.`,
 
-  const builder = yargs =>
-    yargs.usage(`${CLI.command} publish:list`)
+  builder: ({usage}) => usage(`${CLI.command} publish:list`),
 
-  const handler = (): void => {
+  handler: (): void => {
     console.log(formatted)
-  }
-
-  return {
-    command,
-    describe,
-    builder,
-    handler,
-  }
-}
+  },
+})

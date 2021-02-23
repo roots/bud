@@ -1,18 +1,15 @@
 import {join} from 'path'
 import {Error} from '@roots/bud-dashboard'
 
-export default function (CLI) {
-  const command = 'build'
-
-  const describe = 'Compile assets'
-
-  const builder = ({example}) =>
+export const cmd = CLI => ({
+  command: 'build',
+  describe: 'Compile assets',
+  builder: ({example}) =>
     example('Build', `${CLI.command} build --mode production`)
       .hide('help')
-      .hide('version')
-      .usage(`${CLI.command} ${command} --mode production`)
+      .hide('version'),
 
-  const handler = ({config}) => {
+  handler: ({config}) => {
     try {
       require(join(
         process.cwd(),
@@ -22,12 +19,5 @@ export default function (CLI) {
     } catch (error) {
       Error(error.toString(), `Error`)
     }
-  }
-
-  return {
-    command,
-    describe,
-    builder,
-    handler,
-  }
-}
+  },
+})

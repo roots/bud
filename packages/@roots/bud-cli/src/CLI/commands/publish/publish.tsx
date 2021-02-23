@@ -5,20 +5,20 @@ import {join, dirname} from 'path'
 /**
  * [command] publish
  */
-export default function (CLI) {
-  const command = 'publish'
+export const cmd = CLI => ({
+  command: 'publish',
 
-  const describe = `Publish a template to your project.`
+  describe: `Publish a template to your project.`,
 
-  const builder = yargs =>
+  builder: yargs =>
     yargs
       .positional('file', {
         describe: 'template file to publish',
         type: 'string',
       })
-      .usage('$0 publish <file>')
+      .usage('$0 publish <file>'),
 
-  const handler = (args: {_: (string | number)[]}): void => {
+  handler: (args: {_: (string | number)[]}): void => {
     ;(async () => {
       const extension: string = lodash.isNumber(args._[1])
         ? args._[1].toString()
@@ -60,18 +60,12 @@ export default function (CLI) {
         render(<Publish file={template} />)
       } catch (err) {
         console.log(err)
+
         Error(
           `Are you sure you got the name right? Try \`${CLI.command} publish:list\` for a list of available files.`,
           `The requested template can't be published.`,
         )
       }
     })()
-  }
-
-  return {
-    command,
-    describe,
-    builder,
-    handler,
-  }
-}
+  },
+})
