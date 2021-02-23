@@ -7,4 +7,4 @@ const sageCLI = new budCLI()
 sageCLI.command = `sage`
 sageCLI.projectUrl = `https://github.com/roots/sage`
 
-sageCLI.invoke()
+sageCLI.heading().invoke()

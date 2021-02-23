@@ -2,4 +2,4 @@
 
 const CLI = require('../lib/cjs').CLI
 
-new CLI().invoke()
+new CLI().heading().invoke()

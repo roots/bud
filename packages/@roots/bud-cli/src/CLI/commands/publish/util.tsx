@@ -22,5 +22,5 @@ export const formatted = publishables.reduce((a, file) => {
     .replace(`${ext}/publish/`, '')
     .replace('node_modules/', '')
 
-  return `${a} \n${chalk.blue(ext)} ${chalk.green(template)}`
+  return `${a} \n ◦ ${chalk.blue(ext)} ${chalk.green(template)}`
 }, ``)

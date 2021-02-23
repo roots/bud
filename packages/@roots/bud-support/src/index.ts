@@ -102,17 +102,19 @@ export type {
  * Ink
  */
 export {Box, Spacer, Text, render, useApp, useInput} from 'ink'
+export {render as staticRender} from 'ink-testing-library'
 export type {Props as BoxProps} from 'ink/build/components/Box'
 export type {Instance} from 'ink'
 
 /**
  * Ink extensions
  */
+import BigText from 'ink-big-text'
 import Link from 'ink-link'
 import Spinner from 'ink-spinner'
 import Table from 'ink-table'
 import Gradient from 'ink-gradient'
-export {Link, Spinner, Table, Gradient}
+export {BigText, Link, Spinner, Table, Gradient}
 
 /**
  * React hooks/util.

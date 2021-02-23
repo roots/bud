@@ -1,7 +1,5 @@
+import {Mark} from '@roots/bud-dashboard'
 import {yargs} from '@roots/bud-support'
-import {cmd as build} from './commands/build'
-import {cmd as publish} from './commands/publish/publish'
-import {cmd as publishList} from './commands/publish/list'
 
 /**
  * CLI
@@ -30,24 +28,30 @@ export class CLI {
   /**
    * Commands
    */
-  public commands = [build, publish, publishList]
+  public commands = [
+    require('./commands/build'),
+    require('./commands/publish/publish'),
+    require('./commands/publish/list'),
+  ]
+
+  public heading(): this {
+    console.log(Mark(this.command))
+
+    return this
+  }
 
   /**
    * Invoke command line stdout
    */
   public invoke(): void {
-    this.commands.map(cmd => this.instance.command(cmd(this)))
+    this.commands.map(cmd => this.instance.command(cmd))
 
     this.instance
-      .describe(`bud`, `${this.command} <subcommand>`)
-      .usage(`${this.command} <subcommand>`)
+      .scriptName(this.command)
       .version()
-      .help()
       .recommendCommands()
-      .demandCommand(
-        1,
-        `You must specify a command. See \`${this.command} --help\` for usage.\n`,
-      )
+      .demandCommand(1, `You must specify a command.\n`)
+      .help()
       .wrap(this.instance.terminalWidth())
       .epilog(this.projectUrl).argv
   }

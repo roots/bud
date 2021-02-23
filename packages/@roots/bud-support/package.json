@@ -78,6 +78,7 @@
     "http-proxy-middleware": "^1.0.6",
     "img-loader": "^3.0.0",
     "ink": "^3.0.0-6",
+    "ink-big-text": "^1.2.0",
     "ink-gradient": "^2.0.0",
     "ink-link": "^2.0.0",
     "ink-spinner": "^4.0.0-0",
