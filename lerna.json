@@ -1,5 +1,5 @@
 {
-  "version": "3.0.41-alpha.0",
+  "version": "3.0.42-alpha.0",
   "packages": [
     "packages/@roots/bud",
     "packages/@roots/bud-api",
