@@ -1,19 +1,19 @@
 import '@roots/bud'
+import '@roots/bud-framework'
 
-declare module '@roots/bud' {
-  export interface Bud {
+declare module '@roots/bud-framework' {
+  export interface Framework {
     /***
      * Configure stylelint
      */
-    stylelint: Bud.Stylelint.Config
+    stylelint: Framework.Stylelint.Config
   }
 
-  export namespace Bud.Stylelint {
+  export namespace Framework.Stylelint {
     export type Options = any
 
     export type Config = (
-      this: Bud,
       options: Stylelint.Options,
-    ) => Bud
+    ) => Framework
   }
 }

@@ -1,6 +1,6 @@
-import {Bud} from '@roots/bud'
+import {Framework} from '@roots/bud-framework'
 
-export const brotli: Bud.Compress.Brotli.Config = function (
+export const brotli: Framework.Compress.Brotli.Config = function (
   options,
 ) {
   this.options.set('brotli', true)

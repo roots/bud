@@ -5,7 +5,7 @@
   "repository": {
     "type": "git",
     "url": "git://github.com/roots/bud.git",
-    "directory": "packages/extension-prettier"
+    "directory": "packages/bud-prettier"
   },
   "licenses": [
     {

@@ -1,7 +1,7 @@
-import {Bud} from '@roots/bud'
+import {Framework} from '@roots/bud-framework'
 import tailwindcss from 'tailwindcss'
 
-export const tailwind: Bud.Tailwind.Configure = function (
+export const tailwind: Framework.Tailwind.Configure = function (
   config,
 ) {
   this.postcss.setPlugin(['tailwindcss', tailwindcss(config)])

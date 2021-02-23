@@ -1,31 +1,30 @@
 import type {Module} from '@roots/bud-typings'
 import type Plugin from 'image-minimizer-webpack-plugin'
 
-declare module '@roots/bud' {
-  export interface Bud {
+declare module '@roots/bud-framework' {
+  export interface Framework {
     /**
-     * ## bud.imagemin
+     * ## imagemin
      *
      * Modify image minimizer options.
      *
      * ### Usage
      *
      * ```js
-     * bud.imagemin({
+     * app.imagemin({
      *   plugins: [
      *    // ...
      *   ]
      * })
      * ```
      */
-    imagemin: Bud.Imagemin.Configure
+    imagemin: Framework.Imagemin.Configure
   }
 
-  export namespace Bud.Imagemin {
+  export namespace Framework.Imagemin {
     type Configure = (
-      this: Bud,
       options: Imagemin.Options['minimizerOptions'],
-    ) => Bud
+    ) => Framework
 
     export type Options = {
       minimizerOptions: {

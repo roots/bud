@@ -1,19 +1,17 @@
 import '@roots/bud'
-
+import {Module} from '@roots/bud-typings'
 import Plugin from 'compression-webpack-plugin'
 
-declare module '@roots/bud' {
-  interface Bud {
+declare module '@roots/bud-framework' {
+  interface Framework {
     /**
-     * ## bud.brotli  [💁 Fluent]
+     * ## brotli  [💁 Fluent]
      *
      * Compress static assets with brotli compression.
      *
      * It's arguments are optional. For more information on
      * configuration consult [the compression webpack
      * plugin documentation](#).
-     *
-     * [🔗 Documentation](#)
      *
      * ### Usage
      *
@@ -41,35 +39,35 @@ declare module '@roots/bud' {
      * })
      * ```
      */
-    brotli: Bud.Compress.Brotli.Config
+    brotli: Framework.Compress.Brotli.Config
 
     /**
-     * ## bud.gzip  [💁 Fluent]
+     * ## gzip  [💁 Fluent]
      *
-     * Gzip static assets. [🔗 Documentation](#)
+     * Gzip static assets.
      */
-    gzip: Bud.Compress.Gzip.Config
+    gzip: Framework.Compress.Gzip.Config
   }
 
-  export namespace Bud.Compress {
+  export namespace Framework.Compress {
     export namespace Brotli {
-      export type Options = Bud.Module.Options<any>
+      export type Options = Module.Options<any>
 
-      export type Make = Bud.Module.Make<Plugin, Options>
+      export type Make = Module.Make<Plugin, Options>
 
-      export type When = Bud.Module.When
+      export type When = Module.When
 
-      export type Config = (this: Bud, options?: any) => Bud
+      export type Config = (options?: any) => Framework
     }
 
     export namespace Gzip {
-      export type Options = Bud.Module.Options<any>
+      export type Options = Module.Options<any>
 
-      export type Make = Bud.Module.Make<Plugin, Options>
+      export type Make = Module.Make<Plugin, Options>
 
-      export type When = Bud.Module.When
+      export type When = Module.When
 
-      export type Config = (this: Bud, options?: any) => Bud
+      export type Config = (options?: any) => Framework
     }
   }
 }

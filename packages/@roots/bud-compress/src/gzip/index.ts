@@ -1,14 +1,14 @@
-import {Bud} from '@roots/bud'
+import {Framework} from '@roots/bud-framework'
 import Plugin from 'compression-webpack-plugin'
 
 export const name = 'compression-webpack-plugin-gzip'
 
 export * as api from './api'
 
-export const when: Bud.Compress.Gzip.When = app =>
+export const when: Framework.Compress.Gzip.When = app =>
   app.options.enabled('gzip')
 
-export const options: Bud.Compress.Gzip.Options = {
+export const options: Framework.Compress.Gzip.Options = {
   algorithm: 'gzip',
   filename: '[name][ext].gz[query]',
   test: /\.js$|\.css$|\.html$/,
@@ -19,5 +19,5 @@ export const options: Bud.Compress.Gzip.Options = {
   minRatio: 0.8,
 }
 
-export const make: Bud.Compress.Gzip.Make = options =>
+export const make: Framework.Compress.Gzip.Make = options =>
   new Plugin(options.all())

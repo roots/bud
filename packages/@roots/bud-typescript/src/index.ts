@@ -1,13 +1,7 @@
-import {Bud} from '@roots/bud'
-
-// Extension identifier
-export const name = '@roots/bud-typescript'
-
-// Extension interfaces
 import './interfaces'
-
-// Extension api
-export * as api from './api'
+import {Framework} from '@roots/bud-framework'
+import {Item, Module} from '@roots/bud-typings'
+import * as apiFns from './api'
 
 // Fallback tsconfig in case user doesn't have one
 const tsConfig: string = `{
@@ -15,6 +9,12 @@ const tsConfig: string = `{
     "sourceMap": true
   }
 }`
+
+// Extension identifier
+export const name: Module['name'] = '@roots/bud-typescript'
+
+// Extension api
+export const api: Module['api'] = apiFns
 
 // Extension boot
 export const boot = ({
@@ -24,7 +24,7 @@ export const boot = ({
   hooks,
   logger,
   options,
-}: Bud): void => {
+}: Framework): void => {
   !disk.glob.sync(['tsconfig.json']) &&
     disk.get('project').write('tsconfig.json', tsConfig)
 
@@ -56,12 +56,13 @@ export const boot = ({
 
   // Set ts rules
   build.set('rules.ts', {
-    test: ({store}: Bud): RegExp => store.get('patterns.ts'),
+    test: ({store}: Framework): RegExp =>
+      store.get('patterns.ts'),
 
-    exclude: ({store}: Bud): RegExp =>
+    exclude: ({store}: Framework): RegExp =>
       store.get('patterns.modules'),
 
-    use: ({build}: Bud): Bud.Item[] => [
+    use: ({build}: Framework): Item[] => [
       build.access('items.cache'),
       build.access('items.ts'),
     ],

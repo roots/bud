@@ -16,45 +16,6 @@ If run without any arguments it is the equivalent of entering:
 bud build --mode production --manifest --cache
 ```
 
-Many options are booleans:
-
-```sh
-# true
-bud build --arg
-
-# true
-bud build --arg true
-
-# false
-bud build --arg false
-```
-
-Some arguments are strings:
-
-```sh
-# 'value'
-bud build --arg value
-```
-
-Some arguments are arrays:
-
-```sh
-# ['value', 'foo']
-bud build --arg value foo
-
-# ['foo', 'value']
-bud build --arg foo --arg value
-```
-
-Any argument key/value pairings can also be expressed with `=`,
-and strings can be explicitly deliniated with `"`s:
-
-```sh
-bud build --arg=true
-
-bud build --arg="value1" --arg="another value"
-```
-
 ## Arguments
 
 ### Compiling in `production` mode
@@ -133,12 +94,6 @@ bud build --devtool
 
 # Specify a specific devtool
 bud build --devtool cheap-eval-source-map
-```
-
-### Specify `project` directory
-
-```sh
-bud build --project /absolute/path/to/project
 ```
 
 ### Specify `src` directory

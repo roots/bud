@@ -1,9 +1,9 @@
-import {Bud} from '@roots/bud'
+import {Framework} from '@roots/bud-framework'
 
 /**
  * Configure imagemin plugins.
  */
-export const imagemin: Bud.Imagemin.Configure = function (
+export const imagemin: Framework.Imagemin.Configure = function (
   options,
 ) {
   this.extensions

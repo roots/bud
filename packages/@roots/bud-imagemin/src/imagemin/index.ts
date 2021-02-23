@@ -1,15 +1,17 @@
-import type {Bud} from '@roots/bud'
+import type {Framework} from '@roots/bud-framework'
+import type {Module} from '@roots/bud-typings'
 import Plugin from 'image-minimizer-webpack-plugin'
 
 /**
  * Plugin name
  */
-export const name = 'image-minimizer-webpack-plugin'
+export const name: Module['name'] =
+  'image-minimizer-webpack-plugin'
 
 /**
  * Plugin options
  */
-export const options: Bud.Imagemin.Options = {
+export const options: Framework.Imagemin.Options = {
   minimizerOptions: {
     plugins: [
       ['gifsicle', {interlaced: true}],
@@ -32,13 +34,13 @@ export const options: Bud.Imagemin.Options = {
 /**
  * Plugin
  */
-export const make: Bud.Module.Make<
+export const make: Module.Make<
   Plugin,
-  Bud.Imagemin.Options
+  Framework.Imagemin.Options
 > = options => new Plugin(options.all())
 
 /**
  * Usage conditions
  */
-export const when: Bud.Module.When = ({options}) =>
+export const when: Module.When = ({options}) =>
   options.is('mode', 'development')

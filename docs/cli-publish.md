@@ -6,33 +6,38 @@ description: Publish template files.
 
 Bud core and extensions may provide templates to use in your project.
 
-By default Bud provides an HTML template starter and a `bud.config.js` starter.
-
-Published templates will be written to a `publish` directory in your project root.
-
 ## Usage instructions
 
-```sh
-bud publish {extension name} {template}
-```
-
-See a listing of available scaffolds
+See a listing of available scaffolds:
 
 ```sh
-bud
+bud publish:list
 ```
+
+Publish a template:
 
 ```sh
-bud publish --help
+bud publish [pkg name] [template filename]
 ```
 
-## Starter configuration file
+Optionally, you can specify a path to publish to.
+By default the template will be published to a `publish` directory in the root of your project.
+
+```sh
+bud publish [pkg name] [template filename] [filepath]
+```
+
+## Examples
+
+Both of the following ship with Bud core:
+
+### Starter configuration file
 
 ```sh
 bud publish @roots/bud-support bud.config.js
 ```
 
-## Starter HTML template
+### Starter HTML template
 
 ```sh
 bud publish @roots/bud-support index.html

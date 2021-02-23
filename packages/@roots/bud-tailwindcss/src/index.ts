@@ -1,17 +1,19 @@
 import './interface'
-import {Bud} from '@roots/bud'
+import {Framework} from '@roots/bud-framework'
+import {Module} from '@roots/bud-typings'
 import tailwindcss from 'tailwindcss'
 import fallback from './tailwind.config'
+import * as apiFns from './api'
 
 // Extension ident
-export const name = '@roots/bud-tailwindcss'
+export const name: Module['name'] = '@roots/bud-tailwindcss'
 
 // Extension config
-export * as api from './api'
+export const api: Module['api'] = apiFns
 
 // Boot extension
-export const boot = (app: Bud): void => {
-  app.postcss.setPlugin(['tailwindcss', tailwindcss])
+export const boot: Module['boot'] = ({postcss}: Framework) => {
+  postcss.setPlugin(['tailwindcss', tailwindcss])
 }
 
 /**

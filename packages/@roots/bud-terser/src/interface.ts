@@ -1,8 +1,7 @@
-import '@roots/bud'
 import type {TerserPluginOptions} from 'terser-webpack-plugin'
 
-declare module '@roots/bud' {
-  interface Bud {
+declare module '@roots/bud-framework' {
+  interface Framework {
     /**
      * ## bud.terser  [💁 Fluent]
      *
@@ -11,14 +10,13 @@ declare module '@roots/bud' {
      * For more information on options [see the
      * terser-webpack-plugin docs](https://webpack.js.org/plugins/terser-webpack-plugin/).
      */
-    terser: Bud.Terser.Configure
+    terser: Framework.Terser.Configure
   }
 
-  export namespace Bud.Terser {
+  export namespace Framework.Terser {
     export type Configure = (
-      this: Bud,
-      options: Bud.Terser.Options,
-    ) => Bud
+      options: Framework.Terser.Options,
+    ) => Framework
 
     export type Options = TerserPluginOptions
   }

@@ -38,6 +38,7 @@
     {"@roots/bud-eslint": "bud-eslint"},
     {"@roots/bud-imagemin": "bud-imagemin"},
     {"@roots/bud-library": "bud-library"},
+    {"@roots/bud-mdx": "bud-mdx"},
     {"@roots/bud-postcss": "bud-postcss"},
     {"@roots/bud-prettier": "bud-prettier"},
     {"@roots/bud-purgecss": "bud-purgecss"},

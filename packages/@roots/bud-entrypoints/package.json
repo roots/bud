@@ -5,7 +5,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
-    "directory": "packages/extension-entrypoints"
+    "directory": "packages/bud-entrypoints"
   },
   "bugs": {
     "url": "https://github.com/roots/bud/issues"

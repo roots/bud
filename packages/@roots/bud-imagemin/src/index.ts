@@ -1,20 +1,19 @@
 import './interfaces'
-
+import {Module} from '@roots/bud-typings'
 import * as Plugin from './imagemin'
+import * as configFns from './api'
 
 /**
  * Extension name
  */
-export const name = '@roots/bud-imagemin'
+export const name: Module['name'] = '@roots/bud-imagemin'
 
 /**
  * Extension config methods
  */
-export * as api from './api'
+export const api: Module['api'] = configFns
 
 /**
  * Extension boot
  */
-export const boot = bud => {
-  bud.use(Plugin)
-}
+export const boot: Module['boot'] = ({use}) => use(Plugin)

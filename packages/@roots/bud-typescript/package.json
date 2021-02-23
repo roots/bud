@@ -54,7 +54,9 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
-    "@roots/bud": "^3.0.39-alpha.0"
+    "@roots/bud": "^3.0.39-alpha.0",
+    "@roots/bud-framework": "^3.0.39-alpha.0",
+    "@roots/bud-typings": "^3.0.39-alpha.0"
   },
   "dependencies": {
     "@roots/bud-support": "^3.0.39-alpha.0",

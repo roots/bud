@@ -1,5 +1,3 @@
-import {Framework} from '@roots/bud-framework'
-
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
@@ -26,7 +24,7 @@ declare module '@roots/bud-framework' {
   }
 }
 
-type Src = (this: Framework, path?: string) => string
+type Src = (path?: string) => string
 
 export const src: Src = function (path) {
   return path

@@ -1,16 +1,17 @@
-import {Bud} from '@roots/bud'
+import {Framework} from '@roots/bud-framework'
 import Plugin from 'compression-webpack-plugin'
 import * as api from './api'
 
 export const name = 'compression-webpack-plugin-brotli'
 
-export const make: Bud.Compress.Brotli.Make = options =>
+export const make: Framework.Compress.Brotli.Make = options =>
   new Plugin(options.all())
 
-export const when: Bud.Compress.Brotli.When = ({options}) =>
-  options.enabled('brotli')
+export const when: Framework.Compress.Brotli.When = ({
+  options,
+}) => options.enabled('brotli')
 
-export const options: Bud.Compress.Brotli.Options = {
+export const options: Framework.Compress.Brotli.Options = {
   filename: '[name].br[query]',
   algorithm: 'brotliCompress',
   test: /\.js$|\.css$|\.html$|\.htm$/,

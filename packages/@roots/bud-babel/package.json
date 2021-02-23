@@ -6,7 +6,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
-    "directory": "packages/extension-babel"
+    "directory": "packages/bud-babel"
   },
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
@@ -54,7 +54,8 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
-    "@roots/bud": "^3.0.39-alpha.0"
+    "@roots/bud-framework": "^3.0.39-alpha.0",
+    "@roots/bud-typings": "^3.0.39-alpha.0"
   },
   "dependencies": {
     "@babel/core": "^7.12.10",

@@ -1,7 +1,8 @@
-import {Bud} from '@roots/bud'
+import {Framework} from '@roots/bud-framework'
+import {Module} from '@roots/bud-typings'
 import TerserPlugin from 'terser-webpack-plugin'
 
-export const options: Bud.Terser.Options = app => ({
+export const options: Framework.Terser.Options = app => ({
   terserOptions: {
     parse: {
       ecma: 2018,
@@ -20,11 +21,11 @@ export const options: Bud.Terser.Options = app => ({
   parallel: true,
 })
 
-export const make: Bud.Module.Make<
+export const make: Module.Make<
   TerserPlugin,
-  Bud.Terser.Options
-> = (options: Bud.Terser.Options) =>
+  Framework.Terser.Options
+> = (options: Framework.Terser.Options) =>
   new TerserPlugin(options.all())
 
-export const when: Bud.Module.When = ({options}) =>
+export const when: Module.When = ({options}) =>
   options.enabled('minify') && options.is('mode', 'production')

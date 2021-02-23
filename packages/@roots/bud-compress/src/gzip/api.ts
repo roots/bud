@@ -1,6 +1,6 @@
-import {Bud} from '@roots/bud'
+import {Framework} from '@roots/bud-framework'
 
-export const gzip: Bud.Compress.Gzip.Config = function (
+export const gzip: Framework.Compress.Gzip.Config = function (
   options,
 ) {
   this.options.enable('gzip')

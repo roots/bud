@@ -1,14 +1,9 @@
-import {Bud} from '@roots/bud'
+import './interface'
+import {Framework} from '@roots/bud-framework'
+import {Module} from '@roots/bud-typings'
 import * as brotli from './brotli'
 import * as gzip from './gzip'
 
-// Extension name
-export const name = '@roots/bud-compress'
-
-// Extension interface
-import './interface'
-
-// Extension boot
-export const boot = (app: Bud) => {
+export const name: Module['name'] = '@roots/bud-compress'
+export const boot: Module['boot'] = (app: Framework) =>
   app.use([brotli, gzip])
-}

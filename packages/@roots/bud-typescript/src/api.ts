@@ -1,6 +1,6 @@
-import {Bud} from '@roots/bud'
+import {Framework} from '@roots/bud-framework'
 
-export const typescript: Bud.Typescript.Config = function (
+export const typescript: Framework.Typescript.Config = function (
   options,
 ) {
   this.extensions

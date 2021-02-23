@@ -6,7 +6,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
-    "directory": "packages/extension-emotion"
+    "directory": "packages/bud-emotion"
   },
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
@@ -55,7 +55,8 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
-    "@roots/bud": "^3.0.39-alpha.0",
+    "@roots/bud-framework": "^3.0.39-alpha.0",
+    "@roots/bud-typings": "^3.0.39-alpha.0",
     "@roots/bud-babel": "^3.0.39-alpha.0"
   },
   "dependencies": {

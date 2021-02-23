@@ -1,33 +1,35 @@
 {
-  "name": "@roots/bud-compress",
+  "name": "@roots/bud-mdx",
   "version": "3.0.39-alpha.0",
-  "description": "Adds gzip and brotli compression to Bud",
+  "description": "Adds mdx support to @roots/bud projects",
+  "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
-    "url": "git://github.com/roots/bud.git",
-    "directory": "packages/bud-compress"
+    "url": "https://github.com/roots/bud.git",
+    "directory": "packages/bud-mdx"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://opensource.org/licenses/MIT"
-    }
-  ],
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
   "license": "MIT",
+  "contributors": [
+    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
+  ],
   "keywords": [
-    "webpack",
     "bud",
-    "bud-extension"
+    "bud-extension",
+    "mdx"
   ],
   "engines": {
     "node": ">=12"
   },
   "files": [
-    "lib/",
-    "src/"
+    "lib",
+    "src"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -53,11 +55,10 @@
   },
   "devDependencies": {
     "@roots/bud-framework": "^3.0.39-alpha.0",
-    "@roots/bud-typings": "^3.0.39-alpha.0",
-    "@types/compression-webpack-plugin": "^6.0.4"
+    "@roots/bud-typings": "^3.0.39-alpha.0"
   },
+  "gitHead": "c1939ef43f4911df95621a55ef0d569f121ae61f",
   "dependencies": {
-    "compression-webpack-plugin": "7.1.2"
-  },
-  "gitHead": "c1939ef43f4911df95621a55ef0d569f121ae61f"
+    "@mdx-js/loader": "^1.6.22"
+  }
 }

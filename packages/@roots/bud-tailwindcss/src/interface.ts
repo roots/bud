@@ -1,8 +1,8 @@
 import '@roots/bud'
 import '@roots/bud-postcss'
 
-declare module '@roots/bud' {
-  interface Bud {
+declare module '@roots/bud-framework' {
+  interface Framework {
     /**
      * ## bud.tailwindcss
      *
@@ -17,14 +17,13 @@ declare module '@roots/bud' {
      *   }
      * })
      */
-    tailwind: Bud.Tailwind.Configure
+    tailwind: Framework.Tailwind.Configure
   }
 
-  namespace Bud.Tailwind {
+  namespace Framework.Tailwind {
     export type Configure = (
-      this: Bud,
       params: Omit<Tailwind.Config, null>,
-    ) => Bud
+    ) => Framework
 
     export interface Config {
       purge?: string[]

@@ -5,7 +5,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
-    "directory": "packages/extension-tailwindcss"
+    "directory": "packages/bud-tailwindcss"
   },
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
@@ -60,6 +60,7 @@
   },
   "devDependencies": {
     "@roots/bud": "^3.0.39-alpha.0",
+    "@roots/bud-framework": "^3.0.39-alpha.0",
     "@roots/bud-postcss": "^3.0.39-alpha.0"
   },
   "dependencies": {

@@ -84,17 +84,14 @@ bud.library(['react', 'react-dom'])
 /**
  * Compile two separate sets of files.
  */
-bud.entry({
-  app: ['app.js', 'app.css'],
-  landing: 'landing.js',
-})
+bud.entry({app: ['app.{js|css}']})
 
 /**
  * When building for production, minify assets.
  * When in development, use verbose source-maps.
  */
 bud.when(
-  bud.options.is('mode', 'production')
+  bud.isProduction,
   bud => bud.minify(),
   bud => bud.devtool('eval-source-map'),
 )
@@ -176,24 +173,30 @@ Suffice to say, extensibility is a fundamental design tenant of Bud as software.
 
 There are a number of Roots maintained extensions available to kickstart your projects. For more information on using them refer to the extension's documentation.
 
-| Name                           | Description            | Usage                                              | Package                                                                                                   |
-| ------------------------------ | ---------------------- | -------------------------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| @roots/bud-babel               | Babel support.         | [README ↗](packages/extension-babel)               | ![npm](https://img.shields.io/npm/v/@roots/bud-babel.svg?color=%23525ddc&style=flat-square)               |
-| @roots/bud-entrypoints         | Asset manifest.        | [README ↗](packages/extension-entrypoints)         | ![npm](https://img.shields.io/npm/v/@roots/bud-entrypoints.svg?color=%23525ddc&style=flat-square)         |
-| @roots/bud-eslint              | Adds eslint support.   | [README ↗](packages/extension-eslint)              | ![npm](https://img.shields.io/npm/v/@roots/bud-eslint.svg?color=%23525ddc&style=flat-square)              |
-| @roots/bud-imagemin            | Compress image assets  | [README ↗](packages/extension-imagemin)            | ![npm](https://img.shields.io/npm/v/@roots/bud-imagemin.svg?color=%23525ddc&style=flat-square)            |
-| @roots/bud-library             | DLL support            | [README ↗](packages/extension-library)             | ![npm](https://img.shields.io/npm/v/@roots/bud-library.svg?color=%23525ddc&style=flat-square)             |
-| @roots/bud-postcss             | PostCss support.       | [README ↗](packages/extension-postcss)             | ![npm](https://img.shields.io/npm/v/@roots/bud-postcss.svg?color=%23525ddc&style=flat-square)             |
-| @roots/bud-purgecss            | PurgeCss support.      | [README ↗](packages/extension-purgecss)            | ![npm](https://img.shields.io/npm/v/@roots/bud-purgecss.svg?color=%23525ddc&style=flat-square)            |
-| @roots/bud-react               | React support.         | [README ↗](packages/extension-react)               | ![npm](https://img.shields.io/npm/v/@roots/bud-react.svg?color=%23525ddc&style=flat-square)               |
-| @roots/bud-sass                | Sass support.          | [README ↗](packages/extension-sass)                | ![npm](https://img.shields.io/npm/v/@roots/bud-sass.svg?color=%23525ddc&style=flat-square)                |
-| @roots/bud-stylelint           | Stylelint support.     | [README ↗](packages/extension-stylelint)           | ![npm](https://img.shields.io/npm/v/@roots/bud-stylelint.svg?color=%23525ddc&style=flat-square)           |
-| @roots/bud-tailwindcss         | Tailwindcss support.   | [README ↗](packages/extension-tailwindcss)         | ![npm](https://img.shields.io/npm/v/@roots/bud-tailwindcss.svg?color=%23525ddc&style=flat-square)         |
-| @roots/bud-terser              | Terser support.        | [README ↗](packages/extension-terser)              | ![npm](https://img.shields.io/npm/v/@roots/bud-terser.svg?color=%23525ddc&style=flat-square)              |
-| @roots/bud-typescript          | TypeScript support.    | [README ↗](packages/extension-typescript)          | ![npm](https://img.shields.io/npm/v/@roots/bud-typescript.svg?color=%23525ddc&style=flat-square)          |
-| @roots/bud-vue                 | Vue framework support. | [README ↗](packages/extension-vue)                 | ![npm](https://img.shields.io/npm/v/@roots/bud-vue.svg?color=%23525ddc&style=flat-square)                 |
-| @roots/bud-wordpress-externals | WP dependencies.       | [README ↗](packages/extension-wordpress-externals) | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-externals.svg?color=%23525ddc&style=flat-square) |
-| @roots/bud-wordpress-manifests | WP asset manifest.     | [README ↗](packages/extension-wordpress-manifests) | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-manifests.svg?color=%23525ddc&style=flat-square) |
+| Name                              | Description               | Usage                                                  | Package                                                                                                      |
+| --------------------------------- | ------------------------- | ------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------ |
+| @roots/bud-babel                  | Babel support.            | [README ↗](packages/@roots/bud-babel)                  | ![npm](https://img.shields.io/npm/v/@roots/bud-babel.svg?color=%23525ddc&style=flat-square)                  |
+| @roots/bud-compress               | Gzip/Brotli compression.. | [README ↗](packages/@roots/bud-compress)               | ![npm](https://img.shields.io/npm/v/@roots/bud-compress.svg?color=%23525ddc&style=flat-square)               |
+| @roots/bud-emotion                | Adds emotion.             | [README ↗](packages/@roots/bud-emotion)                | ![npm](https://img.shields.io/npm/v/@roots/bud-emotion.svg?color=%23525ddc&style=flat-square)                |
+| @roots/bud-entrypoints            | Asset manifest.           | [README ↗](packages/@roots/bud-entrypoints)            | ![npm](https://img.shields.io/npm/v/@roots/bud-entrypoints.svg?color=%23525ddc&style=flat-square)            |
+| @roots/bud-esbuild                | Adds esbuild.             | [README ↗](packages/@roots/bud-esbuild)                | ![npm](https://img.shields.io/npm/v/@roots/bud-esbuild.svg?color=%23525ddc&style=flat-square)                |
+| @roots/bud-eslint                 | Adds eslint support.      | [README ↗](packages/@roots/bud-eslint)                 | ![npm](https://img.shields.io/npm/v/@roots/bud-eslint.svg?color=%23525ddc&style=flat-square)                 |
+| @roots/bud-imagemin               | Compress image assets     | [README ↗](packages/@roots/bud-imagemin)               | ![npm](https://img.shields.io/npm/v/@roots/bud-imagemin.svg?color=%23525ddc&style=flat-square)               |
+| @roots/bud-library                | DLL support               | [README ↗](packages/@roots/bud-library)                | ![npm](https://img.shields.io/npm/v/@roots/bud-library.svg?color=%23525ddc&style=flat-square)                |
+| @roots/bud-mdx                    | DLL support               | [README ↗](packages/@roots/bud-mdx)                    | ![npm](https://img.shields.io/npm/v/@roots/bud-mdx.svg?color=%23525ddc&style=flat-square)                    |
+| @roots/bud-postcss                | PostCss support.          | [README ↗](packages/@roots/bud-postcss)                | ![npm](https://img.shields.io/npm/v/@roots/bud-postcss.svg?color=%23525ddc&style=flat-square)                |
+| @roots/bud-prettier               | Prettier support.         | [README ↗](packages/@roots/bud-prettier)               | ![npm](https://img.shields.io/npm/v/@roots/bud-prettier.svg?color=%23525ddc&style=flat-square)               |
+| @roots/bud-purgecss               | PurgeCss support.         | [README ↗](packages/@roots/bud-purgecss)               | ![npm](https://img.shields.io/npm/v/@roots/bud-purgecss.svg?color=%23525ddc&style=flat-square)               |
+| @roots/bud-react                  | React support.            | [README ↗](packages/@roots/bud-react)                  | ![npm](https://img.shields.io/npm/v/@roots/bud-react.svg?color=%23525ddc&style=flat-square)                  |
+| @roots/bud-sass                   | Sass support.             | [README ↗](packages/@roots/bud-sass)                   | ![npm](https://img.shields.io/npm/v/@roots/bud-sass.svg?color=%23525ddc&style=flat-square)                   |
+| @roots/bud-stylelint              | Stylelint support.        | [README ↗](packages/@roots/bud-stylelint)              | ![npm](https://img.shields.io/npm/v/@roots/bud-stylelint.svg?color=%23525ddc&style=flat-square)              |
+| @roots/bud-tailwindcss            | Tailwindcss support.      | [README ↗](packages/@roots/bud-tailwindcss)            | ![npm](https://img.shields.io/npm/v/@roots/bud-tailwindcss.svg?color=%23525ddc&style=flat-square)            |
+| @roots/bud-terser                 | Terser support.           | [README ↗](packages/@roots/bud-terser)                 | ![npm](https://img.shields.io/npm/v/@roots/bud-terser.svg?color=%23525ddc&style=flat-square)                 |
+| @roots/bud-typescript             | TypeScript support.       | [README ↗](packages/@roots/bud-typescript)             | ![npm](https://img.shields.io/npm/v/@roots/bud-typescript.svg?color=%23525ddc&style=flat-square)             |
+| @roots/bud-vue                    | Vue framework support.    | [README ↗](packages/@roots/bud-vue)                    | ![npm](https://img.shields.io/npm/v/@roots/bud-vue.svg?color=%23525ddc&style=flat-square)                    |
+| @roots/bud-wordpress-dependencies | WP dependencies.          | [README ↗](packages/@roots/bud-wordpress-dependencies) | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-dependencies.svg?color=%23525ddc&style=flat-square) |
+| @roots/bud-wordpress-externals    | WP externals.             | [README ↗](packages/@roots/bud-wordpress-externals)    | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-externals.svg?color=%23525ddc&style=flat-square)    |
+| @roots/bud-wordpress-manifests    | WP asset manifest.        | [README ↗](packages/@roots/bud-wordpress-manifests)    | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-manifests.svg?color=%23525ddc&style=flat-square)    |
 
 ### Third-party extensions
 
