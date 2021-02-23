@@ -1,7 +1,7 @@
 import {join} from 'path'
 import {Error} from '@roots/bud-dashboard'
 
-export default CLI => {
+export default function (CLI) {
   const command = 'build'
 
   const describe = 'Compile assets'

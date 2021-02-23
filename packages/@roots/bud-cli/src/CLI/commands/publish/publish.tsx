@@ -5,7 +5,7 @@ import {join, dirname} from 'path'
 /**
  * [command] publish
  */
-export default CLI => {
+export default function (CLI) {
   const command = 'publish'
 
   const describe = `Publish a template to your project.`
