@@ -23,15 +23,17 @@ export const builder = yargs => {
     .positional('extension', {
       describe: 'Source extension',
       required: true,
+      type: 'string',
     })
     .positional('file', {
       describe: 'File to publish',
       required: true,
+      type: 'string',
     })
     .positional('dir', {
       describe: 'Path to publish to',
       default: 'publish',
-      required: false,
+      type: 'string',
     })
     .demand(['extension, file'])
 }

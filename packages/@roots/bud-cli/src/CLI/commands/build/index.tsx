@@ -1,5 +1,5 @@
-import {join} from 'path'
 import {Error} from '@roots/bud-dashboard'
+import * as source from './source'
 
 export const command = 'build <mode> [...options]'
 
@@ -14,10 +14,6 @@ export const builder = yargs =>
       describe: 'Compilation mode',
       required: true,
       choices: ['development', 'production'],
-    })
-    .option('config', {
-      describe: 'Custom config file location',
-      default: `bud.config.js`,
     })
     .option('cache', {
       describe: 'Cache build',
@@ -52,14 +48,10 @@ export const builder = yargs =>
       default: 'node_modules',
     })
 
-export const handler = argv => {
+export const handler = () => {
   try {
-    const cfgPath = join(
-      process.cwd(),
-      (argv.config ?? (`bud.config.js` as unknown)) as string,
-    )
-
-    require(cfgPath)
+    source.preflight()
+    source.isStatic() ? source.json() : source.api()
   } catch (error) {
     Error(error.toString(), `Error`)
   }

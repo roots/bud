@@ -34,6 +34,9 @@ export class CLI {
     require('./commands/publish/list'),
   ]
 
+  /**
+   * Heading
+   */
   public heading(): this {
     console.log(Mark(this.command))
 

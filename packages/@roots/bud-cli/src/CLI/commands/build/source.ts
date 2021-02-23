@@ -25,6 +25,8 @@ export const preflight = () => {
         'Multiple config sources found.',
       )
     })()
+
+  return true
 }
 
 /**

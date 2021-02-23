@@ -9241,7 +9241,7 @@ ink-table@^3.0.0:
   dependencies:
     object-hash "^2.0.3"
 
-ink-testing-library@^2.0.1:
+ink-testing-library@^2.0.1, ink-testing-library@^2.1.0:
   version "2.1.0"
   resolved "https://registry.yarnpkg.com/ink-testing-library/-/ink-testing-library-2.1.0.tgz#b5ffd1ef1049550ae4d2f008b8770e7ece6e0313"
   integrity sha512-7TNlOjJlJXB33vG7yVa+MMO7hCjaC1bCn+zdpSjknWoLbOWMaFdKc7LJvqVkZ0rZv2+akhjXPrcR/dbxissjUw==
