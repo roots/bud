@@ -20,6 +20,13 @@ export const options: {
   autodiscover: {fallback: false},
 
   /**
+   * Mode
+   */
+  mode: {fallback: 'production'},
+  development: {},
+  production: {},
+
+  /**
    * Options
    */
   ci: {},
@@ -29,7 +36,6 @@ export const options: {
   devtool: {},
   hash: {},
   minify: {},
-  mode: {fallback: 'production'},
   log: {},
   html: {},
   runtime: {},

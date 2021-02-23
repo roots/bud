@@ -22,10 +22,27 @@ export default class extends Service implements Options {
     })
   }
 
+  public positional(positional: string): boolean {
+    return this.app.store.get('args._').includes(positional)
+  }
+
   /**
    * Service boot
    */
   public boot(): void {
+    this.positional('production') &&
+      this.positional('development') &&
+      this.app['error'](
+        'Mode must be set to either production or development',
+        'Mode misconfigured',
+      )
+
+    this.positional('production') &&
+      this.set('mode', 'production')
+
+    this.positional('development') &&
+      this.set('mode', 'development')
+
     Object.assign(process.env, {
       NODE_ENV: this.get('mode'),
       BABEL_ENV: this.get('mode'),

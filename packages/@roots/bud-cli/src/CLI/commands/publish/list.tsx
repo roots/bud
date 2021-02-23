@@ -8,9 +8,7 @@ export const cmd = CLI => ({
 
   describe: `List available publishable files.`,
 
-  builder: ({usage}) => usage(`${CLI.command} publish:list`),
-
-  handler: (): void => {
+  handler: () => {
     console.log(formatted)
   },
 })

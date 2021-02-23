@@ -3,6 +3,7 @@ import {React, render} from '@roots/bud-support'
 import Service from './Service'
 import {Reporter} from './Reporter'
 import {Theme} from './api'
+import {Error} from './../Error'
 
 /**
  * Dashboard
@@ -19,6 +20,7 @@ export class Dashboard extends Service {
   public register(): void {
     Object.assign(this.app, {
       theme: new Theme(this.app.get()),
+      error: Error,
     })
 
     this.kill = this.kill.bind(this)

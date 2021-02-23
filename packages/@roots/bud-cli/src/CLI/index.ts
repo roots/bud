@@ -1,4 +1,7 @@
 import {yargs} from '@roots/bud-support'
+import {cmd as build} from './commands/build'
+import {cmd as publish} from './commands/publish/publish'
+import {cmd as publishList} from './commands/publish/list'
 
 /**
  * CLI
@@ -27,35 +30,24 @@ export class CLI {
   /**
    * Commands
    */
-  public commands = [
-    require('./commands/build'),
-    require('./commands/publish/publish'),
-    require('./commands/publish/list'),
-  ]
-
-  /**
-   * Add command
-   */
-  public addCommand(cmd: {cmd: yargs.CommandModule}) {
-    this.commands.push(cmd)
-  }
+  public commands = [build, publish, publishList]
 
   /**
    * Invoke command line stdout
    */
   public invoke(): void {
-    this.commands.map(({cmd}) =>
-      this.instance.command(cmd(this)),
-    )
+    this.commands.map(cmd => this.instance.command(cmd(this)))
 
     this.instance
+      .describe(`bud`, `${this.command} <subcommand>`)
+      .usage(`${this.command} <subcommand>`)
+      .version()
+      .help()
       .recommendCommands()
       .demandCommand(
         1,
         `You must specify a command. See \`${this.command} --help\` for usage.\n`,
       )
-      .usage(this.command)
-      .version()
       .wrap(this.instance.terminalWidth())
       .epilog(this.projectUrl).argv
   }

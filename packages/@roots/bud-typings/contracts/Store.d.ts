@@ -71,7 +71,7 @@ declare namespace Store {
       >}`
     | `webpack.${keyof Webpack.Configuration}`
     | `webpack`
-    | `args.${Store.Argument}`
+    | `args.${string}`
     | `args`
     | `theme`
     | `theme.${string}`
