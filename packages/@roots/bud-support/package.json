@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-support",
-  "version": "3.0.44-alpha.0",
+  "version": "3.0.45-alpha.0",
   "description": "Internal utilities for the @roots/bud monorepo.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -58,7 +58,7 @@
     "@roots/container": "*"
   },
   "dependencies": {
-    "@roots/container": "^3.0.44-alpha.0",
+    "@roots/container": "^3.0.45-alpha.0",
     "cache-loader": "^4.1.0",
     "chalk": "^4.1.0",
     "chokidar": "^3.5.1",
@@ -83,6 +83,7 @@
     "ink-link": "^2.0.0",
     "ink-spinner": "^4.0.0-0",
     "ink-table": "^3.0.0",
+    "ink-testing-library": "^2.1.0",
     "ink-use-stdout-dimensions": "^1.0.5",
     "lodash": "^4.17.20",
     "mini-css-extract-plugin": "^0.11.3",
