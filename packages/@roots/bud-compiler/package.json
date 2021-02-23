@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-compiler",
   "description": "Compilation handler",
-  "version": "3.0.40-alpha.0",
+  "version": "3.0.41-alpha.0",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -53,11 +53,11 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "dependencies": {
-    "@roots/bud-framework": "^3.0.40-alpha.0",
-    "@roots/bud-support": "^3.0.40-alpha.0"
+    "@roots/bud-framework": "^3.0.41-alpha.0",
+    "@roots/bud-support": "^3.0.41-alpha.0"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^3.0.40-alpha.0"
+    "@roots/bud-typings": "^3.0.41-alpha.0"
   },
   "gitHead": "c1939ef43f4911df95621a55ef0d569f121ae61f"
 }
