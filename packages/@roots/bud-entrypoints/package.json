@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-entrypoints",
-  "version": "3.0.51-alpha.0",
+  "version": "3.0.52-alpha.0",
   "description": "Webpack tools",
   "repository": {
     "type": "git",
@@ -51,8 +51,8 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "dependencies": {
-    "@roots/bud": "^3.0.51-alpha.0",
-    "@roots/entrypoints-webpack-plugin": "^3.0.51-alpha.0"
+    "@roots/bud": "^3.0.52-alpha.0",
+    "@roots/entrypoints-webpack-plugin": "^3.0.52-alpha.0"
   },
   "gitHead": "c1939ef43f4911df95621a55ef0d569f121ae61f"
 }
