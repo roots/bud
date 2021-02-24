@@ -4,7 +4,7 @@ export abstract class Discovery extends Service {
   /**
    * Service ident
    */
-  name: string
+  name: string | number
 
   /**
    * Collected packages.

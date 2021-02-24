@@ -12,7 +12,7 @@ import {
 export default class extends Container implements Service {
   [key: string]: any
 
-  public name: string
+  public name: string | number
 
   _app: () => Framework
 
@@ -41,14 +41,14 @@ export default class extends Container implements Service {
   /**
    * Application service
    */
-  public service<T = any>(serviceName: string): T {
+  public service<T = any>(serviceName: string | number): T {
     return this.app.get<T>(serviceName)
   }
 
   /**
    * Access disk
    */
-  public disk<T = FileContainer>(diskName: string): T {
+  public disk<T = FileContainer>(diskName: string | number): T {
     return this.app.disk.get(diskName)
   }
 

@@ -1,6 +1,5 @@
 module.exports = {
-  clearMocks: true,
-  coverageDirectory: 'coverage',
-  coverageReporters: ['lcov'],
+  preset: 'ts-jest',
   testEnvironment: 'node',
+  testPathIgnorePatterns: ['/node_modules/'],
 }

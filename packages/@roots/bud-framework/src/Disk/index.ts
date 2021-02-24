@@ -10,14 +10,14 @@ export default class extends Service {
   /**
    * Service ident
    */
-  public name: string = 'disk'
+  public name = 'disk'
 
   /**
    * fs util
    *
    * @see fs-extra
    */
-  public fs: typeof fs = fs
+  public fs = fs
 
   /**
    * Globby library.
@@ -27,7 +27,7 @@ export default class extends Service {
   /**
    * cwd
    */
-  public path: typeof path = path
+  public path = path
 
   /**
    * Base directory
@@ -78,7 +78,7 @@ export default class extends Service {
    * ```
    */
   public make(
-    key: string,
+    key: string | number,
     options?: {baseDir?: string; glob?: string[]},
   ): FileContainer {
     this.info({msg: 'Making disk', key, options})

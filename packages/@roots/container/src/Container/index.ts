@@ -6,6 +6,7 @@ import {ValueOf} from 'type-fest'
  */
 export type Repository<I = any> = {
   [key: string]: I
+  [key: number]: I
 }
 
 /**
@@ -88,7 +89,7 @@ export class Container<I = any> {
    * ### Usage
    *
    * ```js
-   * container.transform('key', currentValue => modifiedValue)
+   * container.transform(store=> modifiedStore)
    * ```
    */
   public transformStore(transformFn: (value: any) => any): any {
@@ -124,7 +125,7 @@ export class Container<I = any> {
    * ```
    */
   public mutateStoreEntries(
-    mutateFn: (key: string, value: I) => I,
+    mutateFn: (key: string | number, value: I) => I,
   ): this {
     this.fromEntries(
       this.getEntries().map(([key, value]: [string, I]) => [
@@ -153,7 +154,7 @@ export class Container<I = any> {
    * container.get(['container', 'container-item'])
    * ```
    */
-  public get<T = any>(key: any) {
+  public get<T = any>(key: string | number | number) {
     return _.get(this.repository, key) as T
   }
 
@@ -175,11 +176,22 @@ export class Container<I = any> {
    * ```
    */
   public getEntries<T = any>(
-    key?: keyof T,
-  ): [keyof T, ValueOf<T>][] {
-    return Object.entries(
-      key ? this.get(key as string) : this.all(),
-    ) as [keyof T, ValueOf<T>][]
+    key?: string | number,
+  ): [string, ValueOf<T>][] {
+    let data = []
+
+    if (!key) {
+      this.all() &&
+        Object.entries(this.all()).map(entry => data.push(entry))
+    } else {
+      this.has(key) &&
+        this.isIndexed(key) &&
+        Object.entries(this.get(key)).map(entry =>
+          data.push(entry),
+        )
+    }
+
+    return data as [string, ValueOf<T>][]
   }
 
   /**
@@ -216,7 +228,10 @@ export class Container<I = any> {
    * container.withEntries('key', (key, value) => doSomething)
    * ```
    */
-  public each(key: string, callFn: (key, value) => void): this {
+  public each(
+    key: string | number,
+    callFn: (key, value) => void,
+  ): this {
     this.getEntries(key).forEach(([key, value]) => [
       key,
       callFn(key, value),
@@ -236,7 +251,9 @@ export class Container<I = any> {
    * container.withEntries('key', (key, value) => doSomething)
    * ```
    */
-  public every(fn: (key: string, value: any) => any): this {
+  public every(
+    fn: (key: string | number, value: any) => any,
+  ): this {
     this.getEntries().forEach(([key, value]: [string, any]) => {
       fn(key, value)
     })
@@ -248,7 +265,10 @@ export class Container<I = any> {
     return _.findKey(this.repository, ...searchItem)
   }
 
-  public findKeyOf(key: string, ...searchItem: any[]): any {
+  public findKeyOf(
+    key: string | number,
+    ...searchItem: any[]
+  ): any {
     const parseInner = v =>
       (!_.isArray(v) ? Object.entries(v) : v).reduce(
         (a, [k, v]) => ({
@@ -273,8 +293,8 @@ export class Container<I = any> {
    * ```
    */
   public mutateEntries(
-    key: string,
-    mutateFn: (key: string, value: any) => any,
+    key: string | number,
+    mutateFn: (key: string | number, value: any) => any,
   ): this {
     this.fromEntries(
       this.getEntries(key).map(([key, value]: [string, any]) => [
@@ -379,7 +399,7 @@ export class Container<I = any> {
    * container.set('key', value)
    * ```
    */
-  public set(key: string, value: any): this {
+  public set(key: string | number, value: any): this {
     _.set(this.repository, key, value)
 
     return this
@@ -429,7 +449,7 @@ export class Container<I = any> {
    * ```
    */
   public transform(
-    key: string,
+    key: string | number,
     mutationFn: (value?: any) => any,
   ): any {
     return mutationFn(this.get(key))
@@ -447,7 +467,7 @@ export class Container<I = any> {
    * ```
    */
   public mutate(
-    key: string,
+    key: string | number,
     mutationFn: (value?: any) => any,
   ): this {
     this.set(key, this.transform(key, mutationFn))
@@ -466,7 +486,7 @@ export class Container<I = any> {
    * container.merge('key', {merge: values})
    * ```
    */
-  public merge(key: string, value: any): this {
+  public merge(key: string | number, value: any): this {
     this.set(key, _.merge(this.get(key), value))
 
     return this
@@ -484,7 +504,7 @@ export class Container<I = any> {
    * // true if container.repository['my-key'] exists
    * ```
    */
-  public has(key: string): boolean {
+  public has(key: string | number | number): boolean {
     return _.has(this.repository, key) ? true : false
   }
 
@@ -500,7 +520,7 @@ export class Container<I = any> {
    * // Remove container.repository['my-key']
    * ```
    */
-  public remove(key: string): this {
+  public remove(key: string | number): this {
     delete this.repository[key]
 
     return this
@@ -518,7 +538,7 @@ export class Container<I = any> {
    * // True if container.repository['my-key'] === {whatever: 'value'}
    * ```
    */
-  public is(key: string, value: any): boolean {
+  public is(key: string | number, value: any): boolean {
     return this.get(key) === value
   }
 
@@ -534,7 +554,7 @@ export class Container<I = any> {
    * // True if container.repository['my-key'] === true
    * ```
    */
-  public isTrue(key: string): boolean {
+  public isTrue(key: string | number): boolean {
     return this.is(key, true || 'true')
   }
 
@@ -552,7 +572,7 @@ export class Container<I = any> {
    * // True if container.repository['my-key'] === true
    * ```
    */
-  public enabled(key: string): boolean {
+  public enabled(key: string | number): boolean {
     return this.is(key, true || 'true')
   }
 
@@ -568,7 +588,7 @@ export class Container<I = any> {
    * // True if container.repository['my-key'] === false
    * ```
    */
-  public isFalse(key: string): boolean {
+  public isFalse(key: string | number): boolean {
     return this.is(key, false || 'false')
   }
 
@@ -586,7 +606,7 @@ export class Container<I = any> {
    * // True if container.repository['my-key'] === false
    * ```
    */
-  public disabled(key: string): boolean {
+  public disabled(key: string | number): boolean {
     return this.isFalse(key || 'false')
   }
 
@@ -602,7 +622,7 @@ export class Container<I = any> {
    * // => container.repository['my-key'] === false
    * ```
    */
-  public enable(key: string): void {
+  public enable(key: string | number): void {
     this.set(key, true)
   }
 
@@ -618,7 +638,7 @@ export class Container<I = any> {
    * // => container.repository['my-key'] === false
    * ```
    */
-  public disable(key: string): void {
+  public disable(key: string | number): void {
     this.set(key, false)
   }
 
@@ -635,7 +655,7 @@ export class Container<I = any> {
    * // True if container.repository['my-key'] appears to be an object.
    * ```
    */
-  public isIndexed(key?: string): boolean {
+  public isIndexed(key?: string | number): boolean {
     const value = key ? this.get(key) : this.all()
     return (
       this.has(key) &&
@@ -656,7 +676,7 @@ export class Container<I = any> {
    * // True if container.repository['my-key'] is an array
    * ```
    */
-  public isArray(key: string): boolean {
+  public isArray(key: string | number): boolean {
     return this.has(key) && _.isArray(this.get(key))
   }
 
@@ -672,7 +692,7 @@ export class Container<I = any> {
    * // True if container.repository['my-key'] is not an array
    * ```
    */
-  public isNotArray(key: string): boolean {
+  public isNotArray(key: string | number): boolean {
     return this.has(key) && !_.isArray(this.get(key))
   }
 
@@ -688,7 +708,7 @@ export class Container<I = any> {
    * // True if container.repository['my-key'] is a string
    * ```
    */
-  public isString(key: string): boolean {
+  public isString(key: string | number): boolean {
     return this.has(key) && _.isString(this.get(key))
   }
 
@@ -704,7 +724,7 @@ export class Container<I = any> {
    * // True if container.repository['my-key'] is not a string
    * ```
    */
-  public isNotString(key: string): boolean {
+  public isNotString(key: string | number): boolean {
     return this.has(key) && !_.isString(this.get(key))
   }
 
@@ -720,7 +740,7 @@ export class Container<I = any> {
    * // True if container.repository['my-key'] is a number
    * ```
    */
-  public isNumber(key: string): boolean {
+  public isNumber(key: string | number): boolean {
     return this.has(key) && _.isNumber(this.get(key))
   }
 
@@ -736,7 +756,7 @@ export class Container<I = any> {
    * // True if container.repository['my-key'] is not a number
    * ```
    */
-  public isNotNumber(key: string): boolean {
+  public isNotNumber(key: string | number): boolean {
     return this.has(key) && !_.isNumber(this.get(key))
   }
 
@@ -752,7 +772,7 @@ export class Container<I = any> {
    * // True if container.repository['my-key'] is null
    * ```
    */
-  public isNull(key: string): boolean {
+  public isNull(key: string | number): boolean {
     return this.has(key) && _.isNull(this.get(key))
   }
 
@@ -768,7 +788,7 @@ export class Container<I = any> {
    * // True if container.repository['my-key'] is not null
    * ```
    */
-  public isNotNull(key: string): boolean {
+  public isNotNull(key: string | number): boolean {
     return this.has(key) && !_.isNull(this.get(key))
   }
 
@@ -784,7 +804,7 @@ export class Container<I = any> {
    * // True if container has a 'my-key' entry with a definite value.
    * ```
    */
-  public isDefined(key: string): boolean {
+  public isDefined(key: string | number): boolean {
     return this.has(key) && !_.isUndefined(this.get(key))
   }
 
@@ -800,7 +820,7 @@ export class Container<I = any> {
    * // True if container has a 'my-key' entry with a definite value.
    * ```
    */
-  public isUndefined(key: string): boolean {
+  public isUndefined(key: string | number): boolean {
     return !this.has(key) || _.isUndefined(this.get(key))
   }
 
@@ -816,7 +836,7 @@ export class Container<I = any> {
    * // True if object associated with 'my-key' is a fn.
    * ````
    */
-  public isFunction(key: string): boolean {
+  public isFunction(key: string | number): boolean {
     return _.isFunction(this.get(key))
   }
 }

@@ -56,7 +56,7 @@ export namespace Logger {
   export interface LogFn {
     (
       obj: {[key: string]: any},
-      msg?: string,
+      msg?: string | number,
       ...args: any[]
     ): void
   }

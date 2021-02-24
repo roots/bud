@@ -28,7 +28,7 @@ export class CLI {
   /**
    * Commands
    */
-  public _commands: {
+  public commands: {
     [key: string]: yargs.CommandModule
   }
 
@@ -68,16 +68,6 @@ export class CLI {
       .help()
       .wrap(this.instance.terminalWidth())
       .epilog(this.projectUrl).argv
-  }
-
-  public get commands(): {[key: string]: yargs.CommandModule} {
-    return this._commands
-  }
-
-  public set commands(commands: {
-    [key: string]: yargs.CommandModule
-  }) {
-    this._commands = commands
   }
 
   /**

@@ -1,6 +1,4 @@
 import './interface'
 
 export {sage} from './sage'
-
-import * as build from './commands/build'
-export {build}
+export {command as build} from './commands/build'

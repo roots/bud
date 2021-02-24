@@ -1,13 +1,15 @@
 #!/usr/bin/env node
 
-const BudCLI = require('@roots/bud-cli')
+const {CLI} = require('@roots/bud-cli')
 
-new BudCLI.CLI({
+new CLI({
   command: 'sage',
   projectUrl: 'https://github.com/roots/sage',
   commands: {
-    ...BudCLI.commands,
     build: require('../lib/cjs/commands/build').command,
+    build: require('../lib/cjs/commands/publish/publish')
+      .command,
+    build: require('../lib/cjs/commands/publish/list').command,
   },
 })
   .mast()

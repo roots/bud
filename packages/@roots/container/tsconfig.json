@@ -8,6 +8,6 @@
     "declarationDir": "./types",
     "declarationMap": true
   },
-  "include": ["src"],
+  "include": ["src", "test/container.spec.ts"],
   "exclude": ["lib", "types"]
 }

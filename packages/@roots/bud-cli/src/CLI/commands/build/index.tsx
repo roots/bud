@@ -1,6 +1,6 @@
 import {Error} from '@roots/bud-dashboard'
 import {Argv} from 'yargs'
-import * as source from './source'
+import {source} from './source'
 
 export const command = {
   command: 'build <mode>',

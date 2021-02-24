@@ -6,7 +6,7 @@ export default class extends Service implements Discovery {
   /**
    * Service ident
    */
-  public name: string = 'discover'
+  public name: string | number = 'discover'
 
   /**
    * Service register
@@ -31,7 +31,10 @@ export default class extends Service implements Discovery {
           baseDir: pkg.path,
         })
 
-        this.service('extensions').set(name, require(name))
+        this.service('extensions').set(
+          name,
+          require(name as string),
+        )
       })
   }
 

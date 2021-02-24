@@ -193,7 +193,7 @@ export declare interface Framework extends Mode {
    * bud.get()
    * ```
    */
-  get<I = any>(service?: string): I
+  get<I = any>(service?: string | number): I
 
   /**
    * ## access

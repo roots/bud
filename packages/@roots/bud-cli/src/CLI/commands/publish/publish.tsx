@@ -82,35 +82,3 @@ export const command = {
     })()
   },
 }
-
-export const handler = args => {
-  ;(async () => {
-    const ext: string = args._['extension'].toString()
-    const file: string = args._['file'].toString()
-    const dir: string = args._['dir'].toString()
-
-    const src = join(
-      process.cwd(),
-      'node_modules',
-      ext,
-      'publish',
-      file,
-    )
-
-    const dest = join(process.cwd(), dir ?? `publish`, file)
-
-    try {
-      await fs.ensureDir(dirname(dest))
-      await fs.copyFile(src, dest)
-
-      render(<Publish file={file} />)
-    } catch (err) {
-      console.log(err)
-
-      Error(
-        `Are you sure you got the name right? Try \`bud publish:list\` for a list of available files.`,
-        `The requested file can't be published.`,
-      )
-    }
-  })()
-}

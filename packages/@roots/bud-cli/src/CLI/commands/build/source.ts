@@ -4,19 +4,19 @@ import {Error} from '@roots/bud-dashboard'
 /**
  * Is static
  */
-export const isStatic = () =>
+const isStatic = () =>
   bud.disk.get('project').has('bud.config.json')
 
 /**
  * Is fluent
  */
-export const isFluent = () =>
+const isFluent = () =>
   bud.disk.get('project').has('bud.config.js')
 
 /**
  * Preflight check
  */
-export const preflight = () => {
+const preflight = () => {
   isStatic() &&
     isFluent() &&
     (() => {
@@ -32,7 +32,7 @@ export const preflight = () => {
 /**
  * JSON config
  */
-export const json = () => {
+const json = () => {
   const config =
     bud.disk
       .get('project')
@@ -51,6 +51,8 @@ export const json = () => {
 /**
  * API config
  */
-export const api = () => {
+const api = () => {
   require(bud.disk.get('project').get('bud.config.js'))
 }
+
+export const source = {isStatic, isFluent, preflight, json, api}

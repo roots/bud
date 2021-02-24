@@ -1,3 +1,3 @@
-import './test'
+import './demo'
 
 console.log($)
