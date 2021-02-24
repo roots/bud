@@ -167,7 +167,7 @@ export default abstract class implements Framework {
     this.bootstrap = this.bootstrap.bind(this)
     this.get = this.get.bind(this)
     this.makeContainer = this.makeContainer.bind(this)
-    this.newService = this.newService.bind(this)
+    this.makeService = this.makeService.bind(this)
     this.pipe = this.pipe.bind(this)
     this.sequence = this.sequence.bind(this)
     this.register = this.register.bind(this)
@@ -193,7 +193,7 @@ export default abstract class implements Framework {
       this[name] = fn.bind(this)
     })
 
-    this.providers.every(this.newService)
+    this.providers.every(this.makeService)
 
     return this
   }
@@ -281,7 +281,7 @@ export default abstract class implements Framework {
   /**
    * Create new service
    */
-  public newService(
+  public makeService(
     name: string,
     service: [
       Framework.Providers.Constructor,

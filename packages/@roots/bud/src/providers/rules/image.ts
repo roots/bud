@@ -5,5 +5,5 @@ export const test = function (app: Framework) {
 }
 
 export const use = function (app: Framework) {
-  return [app.build.get('items.file')]
+  return [app.build.access('items.file')]
 }

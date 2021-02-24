@@ -9,5 +9,5 @@ export const exclude = function (app: Framework) {
 }
 
 export const use = function (app: Framework) {
-  return [app.build.get('items.raw')]
+  return [app.build.access('items.raw')]
 }

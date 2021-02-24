@@ -7,8 +7,8 @@ export const exclude = (app: Framework) =>
   app.store.get('patterns.modules')
 
 export const use = (app: Framework) => [
-  app.options.is('mode', 'production')
-    ? app.build.get('items.minicss')
-    : app.build.get('items.style'),
-  app.build.get('items.css'),
+  app.isProduction
+    ? app.build.access('items.minicss')
+    : app.build.access('items.style'),
+  app.build.access('items.css'),
 ]

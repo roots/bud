@@ -9,5 +9,5 @@ export const test: Framework.Rule['test'] = function (
 export const use: Framework.Rule['use'] = function (
   app: Framework,
 ) {
-  return [app.build.get('items.svg')]
+  return [app.build.access('items.svg')]
 }
