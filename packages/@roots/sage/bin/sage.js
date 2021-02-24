@@ -1,10 +1,10 @@
 #!/usr/bin/env node
 
-const budCLI = require('@roots/bud-cli').CLI
+const {CLI} = require('@roots/bud-cli')
 
-const sageCLI = new budCLI()
-
-sageCLI.command = `sage`
-sageCLI.projectUrl = `https://github.com/roots/sage`
-
-sageCLI.heading().invoke()
+new CLI({
+  command: 'sage',
+  projectUrl: 'https://github.com/roots/sage',
+})
+  .mast()
+  .invoke()

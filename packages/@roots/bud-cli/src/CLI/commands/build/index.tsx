@@ -1,51 +1,127 @@
 import {Error} from '@roots/bud-dashboard'
+import {Argv} from 'yargs'
 import * as source from './source'
 
-export const command = 'build <mode> [...options]'
+export const command = 'build <mode>'
 
-export const describe = 'Compile assets'
+export const describe =
+  'Compile assets and/or initialize development server'
 
-export const builder = yargs =>
+export const builder = (yargs: Argv) =>
   yargs
-    .example('Compile for production', `$0 build production`)
-    .example(`Compile for development`, `$0 build development`)
+    .example('$0 build', 'Compile assets')
+    .example(
+      '$0 build development',
+      'Compile assets for development',
+    )
     .positional('mode', {
       default: 'production',
       describe: 'Compilation mode',
-      required: true,
       choices: ['development', 'production'],
+      required: true,
     })
-    .option('cache', {
-      describe: 'Cache build',
-      default: true,
-    })
-    .option('project', {
-      describe: 'Project dir',
-      default: 'process.cwd',
-    })
-    .option('src', {
-      describe: 'Src directory',
-      default: 'src',
-    })
-    .option('dist', {
-      describe: 'Dist directory',
-      default: 'dist',
-    })
-    .option('pubilcPath', {
-      describe: 'Public path',
-      default: '/',
-    })
-    .option('storage', {
-      describe: 'Storage directory',
-      default: '.bud',
-    })
-    .options('records', {
-      describe: 'Records directory',
-      default: 'records',
-    })
-    .options('modules', {
-      describe: '`node_modules` directory',
-      default: 'node_modules',
+    .options({
+      src: {
+        describe: 'Src directory',
+        default: 'src',
+        type: 'string',
+        group: 'Locations:',
+      },
+      dist: {
+        describe: 'Dist directory',
+        default: 'dist',
+        type: 'string',
+        group: 'Locations:',
+      },
+      storage: {
+        describe: 'Storage directory',
+        default: 'storage',
+        type: 'string',
+        group: 'Locations:',
+      },
+      records: {
+        describe: 'Build artifact for caching',
+        default: 'records',
+        type: 'string',
+        group: 'Locations:',
+      },
+      node_modules: {
+        alias: 'modules',
+        describe: 'Node modules directory',
+        default: 'node_modules',
+        type: 'string',
+        group: 'Locations:',
+      },
+      publicPath: {
+        alias: 'public',
+        describe: 'Public path',
+        default: '/',
+        type: 'string',
+        group: 'Locations:',
+      },
+      cache: {
+        describe: 'Cache built modules',
+        default: true,
+        type: 'boolean',
+        group: 'Features:',
+      },
+      ci: {
+        describe: 'CI mode: run build without the bud dashboard',
+        default: false,
+        type: 'boolean',
+        group: 'Build:',
+      },
+      debug: {
+        describe:
+          'Enable debug mode. Enables logger and generates a webpack config artifact (saved to `storage`)',
+        default: false,
+        type: 'boolean',
+        group: 'Build:',
+      },
+      clean: {
+        describe: 'Clean stale assets from build dir',
+        default: true,
+        type: 'boolean',
+        group: 'Build:',
+      },
+      devtool: {
+        alias: 'sourcemap',
+        describe: 'Specify sourcemap strategy',
+        default: 'none',
+        type: 'string',
+        group: 'Features:',
+      },
+      log: {
+        describe: "Display bud's logging output",
+        default: false,
+        type: 'boolean',
+        group: 'Build:',
+      },
+      manifest: {
+        describe: 'Generate a webpack manifest.json',
+        default: true,
+        type: 'boolean',
+        group: 'Features:',
+      },
+      minify: {
+        describe: 'Minify compiled assets',
+        default: false,
+        type: 'boolean',
+        group: 'Optimize:',
+      },
+      runtime: {
+        describe: 'Generate a runtime entry',
+        default: false,
+        type: 'boolean',
+        group: 'Optimize:',
+      },
+      vendor: {
+        describe:
+          'Bundle modules separately from application code',
+        default: false,
+        type: 'boolean',
+        group: 'Optimize:',
+      },
     })
 
 export const handler = () => {

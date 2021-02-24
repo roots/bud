@@ -12,7 +12,7 @@ export const Mark = (text: string): string => {
       flexDirection="column"
       justifyContent="flex-start">
       <BigText
-        font="simple3d"
+        font="tiny"
         gradient={['blue', 'cyan']}
         text={text}
       />

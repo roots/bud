@@ -31,15 +31,13 @@ export const options: {
    */
   ci: {},
   debug: {},
-  brotli: {},
   cache: {fallback: true},
-  devtool: {},
+  devtool: {fallback: 'none'},
   hash: {},
   minify: {},
   log: {},
   html: {},
   runtime: {},
-  sass: {},
   vendor: {},
   watch: {},
 

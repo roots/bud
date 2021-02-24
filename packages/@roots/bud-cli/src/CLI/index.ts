@@ -1,5 +1,5 @@
-import {Mark} from '@roots/bud-dashboard'
 import {yargs} from '@roots/bud-support'
+import {Mark} from '@roots/bud-dashboard'
 
 /**
  * CLI
@@ -26,6 +26,16 @@ export class CLI {
   public cwd = process.cwd()
 
   /**
+   * Constructor
+   */
+  public constructor(args?: {
+    command?: 'bud'
+    projectUrl?: 'https://github.com/roots/bud'
+  }) {
+    args && Object.assign(this, args)
+  }
+
+  /**
    * Commands
    */
   public commands = [
@@ -37,9 +47,8 @@ export class CLI {
   /**
    * Heading
    */
-  public heading(): this {
+  public mast(): this {
     console.log(Mark(this.command))
-
     return this
   }
 
@@ -50,6 +59,15 @@ export class CLI {
     this.commands.map(cmd => this.instance.command(cmd))
 
     this.instance
+      .example(`${this.command} build`, 'Compile assets')
+      .example(
+        `${this.command} build development`,
+        'Compile project assets and start development server',
+      )
+      .example(
+        `${this.command} publish:list`,
+        `List available scaffolds`,
+      )
       .scriptName(this.command)
       .version()
       .recommendCommands()

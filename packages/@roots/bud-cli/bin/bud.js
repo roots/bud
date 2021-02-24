@@ -1,5 +1,5 @@
 #!/usr/bin/env node
 
-const CLI = require('../lib/cjs').CLI
+const {CLI} = require('../lib/cjs/CLI')
 
-new CLI().heading().invoke()
+new CLI().mast().invoke()
