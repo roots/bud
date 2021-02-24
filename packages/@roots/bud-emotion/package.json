@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-emotion",
-  "version": "3.0.52-alpha.0",
+  "version": "3.0.53-alpha.0",
   "description": "A friendly build tool to help manage your project assets.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -55,9 +55,9 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
-    "@roots/bud-babel": "^3.0.52-alpha.0",
-    "@roots/bud-framework": "^3.0.52-alpha.0",
-    "@roots/bud-typings": "^3.0.52-alpha.0"
+    "@roots/bud-babel": "^3.0.53-alpha.0",
+    "@roots/bud-framework": "^3.0.53-alpha.0",
+    "@roots/bud-typings": "^3.0.53-alpha.0"
   },
   "dependencies": {
     "@emotion/css": "^11.1.3",

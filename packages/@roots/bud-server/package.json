@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-server",
   "description": "Development server for @roots/bud",
-  "version": "3.0.52-alpha.0",
+  "version": "3.0.53-alpha.0",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -59,14 +59,14 @@
     "@roots/container": "*"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^3.0.52-alpha.0",
+    "@roots/bud-typings": "^3.0.53-alpha.0",
     "@types/json-stringify-safe": "^5.0.0",
     "@types/ws": "^7.4.0"
   },
   "dependencies": {
-    "@roots/bud-framework": "^3.0.52-alpha.0",
-    "@roots/bud-support": "^3.0.52-alpha.0",
-    "@roots/container": "^3.0.52-alpha.0",
+    "@roots/bud-framework": "^3.0.53-alpha.0",
+    "@roots/bud-support": "^3.0.53-alpha.0",
+    "@roots/container": "^3.0.53-alpha.0",
     "json-stringify-safe": "^5.0.1",
     "ws": "^7.4.3"
   },
