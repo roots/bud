@@ -8,12 +8,12 @@ export class CLI {
   /**
    * Command invocation
    */
-  public command = 'bud'
+  public command: string
 
   /**
    * Project URL
    */
-  public projectUrl = 'https://github.com/roots/bud'
+  public projectUrl: string
 
   /**
    * Yargs
@@ -26,37 +26,30 @@ export class CLI {
   public cwd = process.cwd()
 
   /**
+   * Commands
+   */
+  public _commands: {
+    [key: string]: yargs.CommandModule
+  }
+
+  /**
    * Constructor
    */
   public constructor(args?: {
     command?: 'bud'
     projectUrl?: 'https://github.com/roots/bud'
+    commands?: {[key: string]: yargs.CommandModule}
   }) {
     args && Object.assign(this, args)
-  }
-
-  /**
-   * Commands
-   */
-  public commands = [
-    require('./commands/build'),
-    require('./commands/publish/publish'),
-    require('./commands/publish/list'),
-  ]
-
-  /**
-   * Heading
-   */
-  public mast(): this {
-    console.log(Mark(this.command))
-    return this
   }
 
   /**
    * Invoke command line stdout
    */
   public invoke(): void {
-    this.commands.map(cmd => this.instance.command(cmd))
+    Object.values(this.commands).map(cmd =>
+      this.instance.command(cmd),
+    )
 
     this.instance
       .example(`${this.command} build`, 'Compile assets')
@@ -75,5 +68,24 @@ export class CLI {
       .help()
       .wrap(this.instance.terminalWidth())
       .epilog(this.projectUrl).argv
+  }
+
+  public get commands(): {[key: string]: yargs.CommandModule} {
+    return this._commands
+  }
+
+  public set commands(commands: {
+    [key: string]: yargs.CommandModule
+  }) {
+    this._commands = commands
+  }
+
+  /**
+   * CLI banner
+   */
+  public mast(): this {
+    console.log(Mark(this.command))
+
+    return this
   }
 }

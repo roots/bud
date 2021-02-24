@@ -1,4 +1,4 @@
-import {Sage} from './interface'
+import {Sage} from '../interface'
 import {bud as sage} from '@roots/bud'
 import {Error} from '@roots/bud-dashboard'
 
