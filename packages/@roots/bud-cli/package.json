@@ -37,7 +37,7 @@
     "import": "./lib/esm/index.js"
   },
   "module": "./lib/esm/index.js",
-  "types": "./lib/types/index.d.ts",
+  "types": "./types/index.d.ts",
   "bin": {
     "bud": "bin/bud.js"
   },

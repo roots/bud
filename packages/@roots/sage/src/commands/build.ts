@@ -1,6 +1,6 @@
 import {Error} from '@roots/bud-dashboard'
+import {commands} from '@roots/bud-cli'
 import * as source from './source'
-import {commands} from '@roots/bud-CLI'
 
 export const command = commands.build.command
 

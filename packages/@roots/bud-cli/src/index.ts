@@ -1,20 +1,19 @@
-/**
- * CLI app
- */
-export {CLI} from './CLI'
+// Argv parser
+import {CLI} from './CLI'
 
-/**
- * CLI commands
- */
-export * as commands from './CLI/commands'
+// Commands
+import * as commands from './CLI/commands'
 
-/**
- * Bootstrap utils
- */
-export {
+// Bootstrap
+import {
   isStatic,
   isFluent,
   preflight,
   json,
   api,
 } from './CLI/commands/build/source'
+
+/**
+ * Exports
+ */
+export {CLI, commands, isStatic, isFluent, preflight, json, api}
