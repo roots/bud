@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-mdx",
-  "version": "3.0.50-alpha.0",
+  "version": "3.0.51-alpha.0",
   "description": "Adds mdx support to @roots/bud projects",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -54,8 +54,8 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
-    "@roots/bud-framework": "^3.0.50-alpha.0",
-    "@roots/bud-typings": "^3.0.50-alpha.0"
+    "@roots/bud-framework": "^3.0.51-alpha.0",
+    "@roots/bud-typings": "^3.0.51-alpha.0"
   },
   "gitHead": "c1939ef43f4911df95621a55ef0d569f121ae61f",
   "dependencies": {
