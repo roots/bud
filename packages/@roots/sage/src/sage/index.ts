@@ -135,6 +135,6 @@ export const sage = bud
           proxy({host: env.get('APP_PROXY_HOST')}),
         ({env, proxy}) =>
           env.has('APP_PROXY_PORT') &&
-          proxy({port: sage.env.get('APP_PROXY_PORT')}),
+          proxy({port: env.get('APP_PROXY_PORT')}),
       ]),
   )
