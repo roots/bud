@@ -7,7 +7,7 @@ new BudCLI.CLI({
   projectUrl: 'https://github.com/roots/sage',
   commands: {
     ...BudCLI.commands,
-    build: require('../lib/cjs/commands/build'),
+    build: require('../lib/cjs/commands/build').command,
   },
 })
   .mast()

@@ -4,7 +4,7 @@ import {Mark} from '@roots/bud-dashboard'
 /**
  * CLI
  */
-class CLI {
+export class CLI {
   /**
    * Command invocation
    */
@@ -89,5 +89,3 @@ class CLI {
     return this
   }
 }
-
-export {CLI}
