@@ -2,7 +2,7 @@ import {Error} from '@roots/bud-dashboard'
 import * as source from './source'
 
 export const command = {
-  command: 'build <mode>',
+  command: '$0 build <mode>',
   describe:
     'Compile assets and/or initialize development server',
   builder: yargs =>

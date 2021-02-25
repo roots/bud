@@ -5,7 +5,7 @@ export const command = {
   /**
    * Command
    */
-  command: `publish:list`,
+  command: `$0 publish:list`,
 
   /**
    * Describe

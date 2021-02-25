@@ -9,7 +9,7 @@ export const command = {
   /**
    * Command
    */
-  command: 'publish [extension] [file] [dir]',
+  command: '$0 publish [extension] [file] [dir]',
 
   /**
    * Describe
