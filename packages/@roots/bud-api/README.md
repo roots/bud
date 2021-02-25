@@ -4,24 +4,28 @@
 
 <p align="center">
   <img alt="MIT License" src="https://img.shields.io/github/license/roots/bud?color=%23525ddc&style=flat-square">
-  <a href="https://twitter.com/rootswp">
-    <img alt="Follow Roots" src="https://img.shields.io/twitter/follow/rootswp.svg?style=flat-square&color=1da1f2" />
-  </a>
   <a href="https://www.npmjs.com/package/@roots/bud-api">
     <img src="https://img.shields.io/npm/v/@roots/bud-api.svg?color=%23525ddc&style=flat-square" />
+  </a>
+  <a href="https://codeclimate.com/github/roots/bud-support/maintainability">
+    <img src="https://img.shields.io/codeclimate/maintainability/roots/bud-support?color=%23525ddc&style=flat-square" />
+  </a>
+  <img alt="Lerna" src="https://img.shields.io/github/lerna-json/v/roots/bud?color=%23525ddc&style=flat-square">
+  <a href="Typescript" src="https://github.com/roots/bud/tree/stable/typings">
+    <img src="https://img.shields.io/badge/typings-%40roots%2Fbud--typings-%23525ddc" />
+  </a>
+  <a href="https://twitter.com/rootswp">
+    <img alt="Follow Roots" src="https://img.shields.io/twitter/follow/rootswp.svg?color=%23525ddc&style=flat-square" />
   </a>
 </p>
 
 <h1 align="center">
   <strong>@roots/bud-api</strong>
 </h1>
-<h3 align="center">
-  <em>Bud is a high-level webpack framework combining the best parts of Laravel Mix and Symfony Encore.</em>
-</h3>
 
 ## Overview
 
-This package contains the config utilities intended for use in project-level configuration.
+[@roots/bud-api](https://github.com/roots/bud/tree/stable/packages/@roots/bud-api) contains config utilities intended for use in project-level configuration.
 
 ## Details
 
