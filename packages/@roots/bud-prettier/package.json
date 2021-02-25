@@ -27,8 +27,7 @@
   "license": "MIT",
   "files": [
     "lib/",
-    "types/",
-    "src/"
+    "types/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -38,7 +37,7 @@
   },
   "types": "./lib/types/index.d.ts",
   "scripts": {
-    "build": "run-s build:*",
+    "build": "run-s build:cjs build:esm",
     "build:cjs": "tsc --build tsconfig.json",
     "build:esm": "tsc --build tsconfig-esm.json",
     "lint": "run-s lint:*",
@@ -47,7 +46,6 @@
     "clean": "run-s clean:*",
     "clean:lib": "rimraf ./lib",
     "clean:modules": "rimraf ./node_modules",
-    "clean:types": "rimraf ./types",
     "pkg": "run-s pkg:*",
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
@@ -56,5 +54,11 @@
     "eslint-plugin-prettier": "^3.3.1",
     "prettier": "^2.2.1"
   },
-  "gitHead": "c1939ef43f4911df95621a55ef0d569f121ae61f"
+  "gitHead": "c1939ef43f4911df95621a55ef0d569f121ae61f",
+  "devDependencies": {
+    "@types/node": "^14.14.31",
+    "@types/webpack": "^4.41.26",
+    "run-s": "^0.0.0",
+    "type-fest": "^0.21.2"
+  }
 }

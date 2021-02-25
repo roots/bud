@@ -6,8 +6,9 @@
     "baseUrl": ".",
     "declaration": true,
     "declarationDir": "./lib/types",
-    "declarationMap": true
+    "declarationMap": true,
+    "allowJs": false,
   },
-  "include": ["./src"],
-  "exclude": ["./lib"]
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["lib", "node_modules", "bin", "**/*.d.ts"]
 }

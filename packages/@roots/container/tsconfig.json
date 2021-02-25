@@ -5,9 +5,9 @@
     "outDir": "./lib/cjs",
     "baseUrl": ".",
     "declaration": true,
-    "declarationDir": "./types",
+    "declarationDir": "./lib/types",
     "declarationMap": true
   },
-  "include": ["src", "test/container.spec.ts"],
-  "exclude": ["lib", "types"]
+  "include": ["src"],
+  "exclude": ["lib"]
 }

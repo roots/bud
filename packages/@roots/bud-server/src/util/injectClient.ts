@@ -16,7 +16,7 @@ export declare type InjectClient = (
  * Filters on `webpack.entry`
  */
 export const injectClient: InjectClient = (app, injection) =>
-  app.hooks.on('webpack.entry', entry =>
+  app.hooks.on('webpack.entry', (entry: Webpack.Entry) =>
     Object.entries(entry).reduce(
       (
         entries: Webpack.Entry,

@@ -9,5 +9,5 @@
     "declarationMap": true
   },
   "include": ["./src"],
-  "exclude": ["./lib"]
+  "exclude": ["./lib", "./node_modules", "./bin"]
 }

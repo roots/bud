@@ -27,9 +27,7 @@
     "utility"
   ],
   "files": [
-    "lib/",
-    "types/",
-    "src/"
+    "lib/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -37,9 +35,9 @@
     "require": "./lib/cjs/index.js",
     "import": "./lib/esm/index.js"
   },
-  "types": "./types/index.d.ts",
+  "types": "./lib/types/index.d.ts",
   "scripts": {
-    "build": "run-s build:*",
+    "build": "run-s build:cjs build:esm",
     "build:cjs": "tsc --build tsconfig.json",
     "build:esm": "tsc --build tsconfig-esm.json",
     "lint": "run-s lint:*",
@@ -56,5 +54,11 @@
   "dependencies": {
     "lodash": "^4.17.19"
   },
-  "gitHead": "c1939ef43f4911df95621a55ef0d569f121ae61f"
+  "gitHead": "c1939ef43f4911df95621a55ef0d569f121ae61f",
+  "devDependencies": {
+    "@types/node": "^14.14.31",
+    "@types/webpack": "^4.41.26",
+    "run-s": "^0.0.0",
+    "type-fest": "^0.21.2"
+  }
 }

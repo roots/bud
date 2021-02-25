@@ -44,14 +44,15 @@ export const boot: Module['boot'] = (app: Framework) => {
   })
 
   app.build
+    .set('loaders.babel', require.resolve('babel-loader'))
     .set('items.babel', {
-      loader: require.resolve('babel-loader'),
+      loader: app.build.get('loaders.babel'),
       options: {
         presets: [],
         plugins: [],
       },
     })
-    .mutate('rules.js.use', use => [
+    .mutate('rules.js.use', () => [
       app.build.access('items.cache'),
       app.build.access('items.thread'),
       app.build.access('items.babel'),

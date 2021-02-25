@@ -3,6 +3,7 @@ import {Framework} from '@roots/bud-framework'
 import {Module} from '@roots/bud-typings'
 import {PostCssConfig} from './api'
 import presetEnv from 'postcss-preset-env'
+import cssnano from 'cssnano'
 
 /**
  * Extension name
@@ -53,4 +54,5 @@ export const boot: Module['boot'] = (app: Framework) => {
     ])
     .setPlugin('postcss-nested')
     .setPlugin('postcss-import')
+    .setPlugin(['css-nano', cssnano({preset: 'default'})])
 }

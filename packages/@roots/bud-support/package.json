@@ -40,7 +40,7 @@
   },
   "types": "./lib/types/index.d.ts",
   "scripts": {
-    "build": "run-s build:*",
+    "build": "run-s build:cjs build:esm",
     "build:cjs": "tsc --build tsconfig.json",
     "build:esm": "tsc --build tsconfig-esm.json",
     "lint": "run-s lint:*",
@@ -116,6 +116,10 @@
   },
   "gitHead": "c1939ef43f4911df95621a55ef0d569f121ae61f",
   "devDependencies": {
-    "@types/webpack-dev-middleware": "^3.7.2"
+    "@types/node": "^14.14.31",
+    "@types/webpack": "^4.41.26",
+    "@types/webpack-dev-middleware": "^3.7.2",
+    "run-s": "^0.0.0",
+    "type-fest": "^0.21.2"
   }
 }

@@ -74,14 +74,13 @@
   "scripts": {
     "build": "lerna run build",
     "dev": "node ./scripts/dev",
-    "make": "lerna exec -- rm -rf node_modules tsconfig.tsbuildinfo lib types && rm -rf node_modules && yarn install --force --no-cache && yarn build",
-    "lint": "run-s lint:*",
+    "ci": "run-s build lint:eslint lint:prettier test pkg",
+    "clean": "lerna exec -- rm -rf node_modules tsconfig.tsbuildinfo lib types && rm -rf node_modules",
+    "pkg": "lerna exec -- yarn run pkg",
+    "lint": "run-s lint:eslint lint:prettier",
     "lint:eslint": "eslint 'packages/**/*.{js,ts,tsx}' --fix",
     "lint:prettier": "prettier 'packages/**/src/**/*'  --write",
-    "lint:docs": "prettier 'docs/*' --write",
     "changelog": "conventional-changelog -i CHANGELOG.md -s -u",
-    "release:next": "lerna publish prerelease --ignore-scripts --dist-tag next --no-push",
-    "release:latest": "lerna publish --ignore-scripts",
     "test": "jest --verbose"
   },
   "devDependencies": {
@@ -96,12 +95,14 @@
     "@types/imagemin": "^7.0.0",
     "@types/jest": "^26.0.20",
     "@types/lodash": "^4.14.161",
-    "@types/node": "^14.14.16",
+    "@types/node": "^14.14.31",
     "@types/node-notifier": "^8.0.0",
     "@types/pino": "^6.3.4",
     "@types/react": "^17.0.0",
     "@types/shell-quote": "^1.7.0",
+    "@types/webpack": "^4.41.26",
     "@types/webpack-hot-middleware": "^2.25.3",
+    "@vercel/ncc": "^0.27.0",
     "babel-jest": "^26.6.3",
     "commitizen": "^4.2.2",
     "conventional-changelog-cli": "^2.1.1",
@@ -117,15 +118,14 @@
     "ink-testing-library": "^2.0.1",
     "jest": "^26.6.3",
     "lerna": "^3.22.1",
-    "npm-run-all": "^4.1.5",
     "prettier": "^2.0.5",
     "rimraf": "^3.0.2",
-    "run-s": "^0.0.0",
     "semantic-release": "^17.3.1",
     "ts-jest": "^26.5.2",
     "ts-node": "^9.1.1",
-    "type-fest": "^0.20.2",
+    "type-fest": "^0.21.2",
     "typescript": "^4.1.3",
-    "webpack-hot-middleware": "^2.25.0"
+    "webpack-hot-middleware": "^2.25.0",
+    "yarn-run-all": "^3.1.1"
   }
 }

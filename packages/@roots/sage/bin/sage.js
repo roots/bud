@@ -1,15 +1,24 @@
 #!/usr/bin/env node
 
-const {CLI} = require('@roots/bud-cli')
+const Bud = require('@roots/bud-cli')
+const source = require('../lib/cjs').source
 
-new CLI({
+new Bud.CLI({
   command: 'sage',
   projectUrl: 'https://github.com/roots/sage',
   commands: {
-    build: require('../lib/cjs/commands/build').command,
-    build: require('../lib/cjs/commands/publish/publish')
-      .command,
-    build: require('../lib/cjs/commands/publish/list').command,
+    ...Bud.commands,
+    build: {
+      ...Bud.commands.build,
+      handler: () => {
+        try {
+          source.preflight()
+          source.isStatic() ? source.json() : source.api()
+        } catch (error) {
+          Error(error.toString(), `Error`)
+        }
+      },
+    },
   },
 })
   .mast()

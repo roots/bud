@@ -27,15 +27,21 @@
   ],
   "types": "./contracts/index.d.ts",
   "scripts": {
-    "build": "echo \"⚡️\"",
-    "clean": "echo \"⚡️\""
+    "build": "echo \"\"",
+    "clean": "echo \"\"",
+    "lint": "echo \"\"",
+    "pkg": "echo \"\""
   },
   "peerDependencies": {
     "@roots/bud-support": "*"
   },
   "devDependencies": {
+    "@types/node": "^14.14.31",
+    "@types/webpack": "^4.41.26",
     "child_process": "^1.0.2",
-    "ink": "^3.0.0-6"
+    "ink": "^3.0.0-6",
+    "run-s": "^0.0.0",
+    "type-fest": "^0.21.2"
   },
   "gitHead": "c1939ef43f4911df95621a55ef0d569f121ae61f"
 }

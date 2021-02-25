@@ -62,11 +62,11 @@ export interface Module {
 
   api?: Module.Api
 
-  setLoaders?: Module.Registrable.Source['setLoaders']
+  setLoaders?: Module.Registrable.Source.Value
 
-  setItems?: Module.Registrable.Source['setItems']
+  setItems?: Module.Registrable.Source.Value
 
-  setRules?: Module.Registrable.Source['setRules']
+  setRules?: Module.Registrable.Source.Value
 
   make?: Module.Make
 
@@ -74,11 +74,6 @@ export interface Module {
 }
 
 export namespace Module {
-  /**
-   * Registration signature for Loader, Rule, Item
-   */
-  export type Register<K = Module> = SetOptional<ValueOf<K>>
-
   export type Registrable = {
     setItems: Framework.Item.Module
     setRules: Framework.Rule.Module
@@ -99,20 +94,6 @@ export namespace Module {
       | Framework.Rule.Module
       | Framework.Loader.Module
 
-    export type Source = SetOptional<
-      {
-        [K in keyof Registrable]: MappedType.MaybeCallable<
-          MappedType.One<
-            | [string, Registrable[K]]
-            | [string, Registrable[K]][]
-            | {[key: string]: Registrable[K]}
-            | {[key: string]: Registrable[K]}[]
-          >,
-          Framework
-        >
-      }
-    >
-
     export namespace Source {
       export type Value =
         | [string, Registrable.Value]
@@ -120,39 +101,9 @@ export namespace Module {
         | {[key: string]: Registrable.Value}
     }
 
-    export type Normalized = {
-      [K in keyof Registrable]: Entries.Tuple[K]
-    }
-
     export type Tuple = [string, Value]
 
-    export namespace Entries {
-      export type Index = SetOptional<
-        {
-          [K in keyof Registrable]: Registrable[K]
-        }
-      >
-
-      export type Tuple = SetOptional<
-        {
-          [K in keyof Registrable]: [string, Registrable[K]]
-        }
-      >
-
-      export type ArrayedTuple = SetOptional<
-        {
-          [K in keyof Registrable]: MappedType.Many<
-            Array<[string, Registrable[K]]>
-          >
-        }
-      >
-    }
-
-    export type Product = SetOptional<
-      {
-        [K in keyof Registrable]: {[key: string]: Registrable[K]}
-      }
-    >
+    export namespace Entries {}
   }
 
   export type Api =

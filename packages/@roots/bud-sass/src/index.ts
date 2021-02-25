@@ -17,15 +17,15 @@ export const boot: Module.Boot = (app: Framework) => {
 
       try {
         app.build
+          .set('loaders.sass', require.resolve('sass-loader'))
           .set(
             'items.sass.loader',
-            require.resolve('sass-loader'),
+            app.build.get('loaders.sass'),
           )
-          .set(
-            'items.sass.options.implementation',
-            (() => require('sass'))(),
-          )
-          .set('items.sass.options.sourceMap', true)
+          .set('items.sass.options', {
+            implementation: (() => require('sass'))(),
+            sourceMap: true,
+          })
           .set('items.css.options.sourceMap', true)
       } catch (err) {
         console.error(err)

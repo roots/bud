@@ -66,6 +66,5 @@
     {"@roots/sage": "sage"},
     {"@roots/wordpress-externals-webpack-plugin": "wordpress-externals-webpack-plugin"},
     {"@roots/wordpress-dependencies-webpack-plugin": "wordpress-dependencies-webpack-plugin"}
-  ],
-  "include": ["./packages/@roots/*/src/"]
+  ]
 }

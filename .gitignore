@@ -7,4 +7,11 @@ dist
 **/types
 !**/src/types
 *.tsbuildinfo
-packages/.cache
+
+# Yarn
+.yarn/*
+!.yarn/cache
+!.yarn/releases
+!.yarn/plugins
+!.yarn/sdks
+!.yarn/versions

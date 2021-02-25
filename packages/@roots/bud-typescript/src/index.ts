@@ -3,13 +3,6 @@ import {Framework} from '@roots/bud-framework'
 import {Item, Module} from '@roots/bud-typings'
 import * as apiFns from './api'
 
-// Fallback tsconfig in case user doesn't have one
-const tsConfig: string = `{
-  "compilerOptions": {
-    "sourceMap": true
-  }
-}`
-
 // Extension identifier
 export const name: Module['name'] = '@roots/bud-typescript'
 
@@ -17,7 +10,7 @@ export const name: Module['name'] = '@roots/bud-typescript'
 export const api: Module['api'] = apiFns
 
 // Extension boot
-export const boot = ({
+export const boot: Module['boot'] = ({
   build,
   disk,
   store,
@@ -25,9 +18,6 @@ export const boot = ({
   logger,
   options,
 }: Framework): void => {
-  !disk.glob.sync(['tsconfig.json']) &&
-    disk.get('project').write('tsconfig.json', tsConfig)
-
   const hasTs =
     disk.glob.sync(['*.ts', '*.tsx', '**/*.ts', '**/*.tsx'], {
       cwd: disk.path.join(

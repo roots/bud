@@ -18,7 +18,6 @@ import * as dependencies from '@roots/bud-wordpress-dependencies'
 import * as externals from '@roots/bud-wordpress-externals'
 import * as manifests from '@roots/bud-wordpress-manifests'
 import * as imagemin from '@roots/bud-imagemin'
-import cssnano from 'cssnano'
 
 /**
  * Sage - tailwind preset
@@ -121,20 +120,14 @@ export const sage = bud
     ({sequence}) =>
       sequence([
         ({use}) => use(imagemin),
-        ({postcss}) =>
-          postcss.setPlugin([
-            'cssnano',
-            cssnano({preset: 'default'}),
-          ]),
         (sage: Bud) => sage.minify().hash().vendor().runtime(),
       ]),
-    ({sequence}) =>
-      sequence([
-        ({env, proxy}) =>
-          env.has('APP_PROXY_HOST') &&
-          proxy({host: env.get('APP_PROXY_HOST')}),
-        ({env, proxy}) =>
-          env.has('APP_PROXY_PORT') &&
-          proxy({port: env.get('APP_PROXY_PORT')}),
-      ]),
+
+    ({env, proxy}) => {
+      env.has('APP_PROXY_HOST') &&
+        proxy({host: env.get('APP_PROXY_HOST')})
+
+      env.has('APP_PROXY_PORT') &&
+        proxy({port: env.get('APP_PROXY_PORT')})
+    },
   )
