@@ -9,9 +9,9 @@ import BaseCommand from '../Command'
 export default class Command extends BaseCommand {
   public name = 'publish'
 
-  public description = `Publish a file to your project.`
-
   public signature = `<pkg> <scaffold> [dir]`
+
+  public description = `Publish a file to your project.`
 
   public arguments = {
     pkg: 'Source package',
@@ -19,14 +19,7 @@ export default class Command extends BaseCommand {
     dir: 'Path to publish to',
   }
 
-  public action({pkg, scaffold, dir}) {
-    if (!pkg || !scaffold) {
-      Error(
-        `You must specify a [pkg] and [scaffold] argument ${this.instance.helpInformation()}`,
-        `CLI argument error\n\n`,
-      )
-    }
-
+  public action(pkg, scaffold, dir, command) {
     ;(async () => {
       const src = join(
         process.cwd(),
@@ -48,10 +41,7 @@ export default class Command extends BaseCommand {
 
         render(<Publish file={scaffold} />)
       } catch (err) {
-        Error(
-          err,
-          `The requested file can't be published.`,
-        )
+        Error(err, `The requested file can't be published.`)
       }
     })()
   }

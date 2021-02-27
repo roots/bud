@@ -3,6 +3,7 @@ import {
   Box,
   BigText,
   staticRender as render,
+  Gradient,
 } from '@roots/bud-support'
 
 export const Mark = (text: string): string => {
@@ -11,11 +12,9 @@ export const Mark = (text: string): string => {
       display="flex"
       flexDirection="column"
       justifyContent="flex-start">
-      <BigText
-        font="tiny"
-        gradient={['blue', 'cyan']}
-        text={text}
-      />
+      <Gradient name="teen">
+        <BigText font="tiny" text={text} />
+      </Gradient>
     </Box>,
   )
 

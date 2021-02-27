@@ -1,19 +1,21 @@
-import Builder from 'commander'
+import Builder, {Help} from 'commander'
 
-export type {Builder}
+export type {Builder, Help}
 
 export interface Output {
   config: Builder.OutputConfiguration
 }
 
 export interface CLIConstructor {
-  command?: string
+  name?: string
   projectUrl?: string
   commands?: Command.Declaration
 }
 
 export interface CLI {
-  command: string
+  name: string
+
+  description: string
 
   projectUrl: string
 
@@ -27,25 +29,21 @@ export interface CLI {
 
   invoke(): void
 
-  process(commands: Command.Declaration): Command.Index
-
-  register(): Builder.Command
-
   mast(): this
 }
 
 export interface Command {
-  instance: Builder.Command
-
-  parent: Command | CLI
-
   name: string
 
   description: string
 
+  usage: string
+
   subcommands?: (new (cli) => Command)[]
 
-  arguments?: { [key: string]: string }
+  help?: Help
+
+  arguments?: {[key: string]: string}
 
   options?: Command.Options
 
@@ -53,25 +51,29 @@ export interface Command {
 
   action(...args: any[]): void | Promise<void>
 
-  command: string
-
   has(query: string | string[]): boolean
-
-  yield(): Builder.Command
 }
 
 export namespace Command {
-  export type Option = [string, string, (string | boolean)?]
-  export type Options = Array<Option>
+  export type Option = {
+    flags: string
+    description: string
+    default?: string | boolean
+    choices?: string[]
+    optional?: boolean
+  }
+
+  export type Options = {
+    [key: string]: Option
+  }
 
   export type Index = {
     [key: string]: Command
   }
 
-  export type Newable = new (cli: CLI) => Command
+  export type Newable = new () => Command
 
   export type Declaration = {
     [key: string]: Newable
   }
 }
-

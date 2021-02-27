@@ -3,12 +3,7 @@
 const Bud = require('@roots/bud-cli')
 
 new Bud.CLI({
-  command: 'sage',
+  name: 'sage',
   projectUrl: 'https://github.com/roots/sage',
-  commands: {
-    ...Bud.commands,
-    Build: require('../lib/cjs/commands/build').default,
-  },
-})
-  .mast()
-  .invoke()
+  commands: Bud.commands,
+}).invoke()
