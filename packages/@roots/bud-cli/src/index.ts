@@ -1,3 +1,5 @@
-// Argv parser
+import Command from './Command'
+export {Command}
+
 export {CLI} from './CLI'
-export * as commands from './commands'
+export {commands} from './commands'

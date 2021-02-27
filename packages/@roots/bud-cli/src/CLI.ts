@@ -1,9 +1,19 @@
-import {yargs} from '@roots/bud-support'
-import {Mark} from '@roots/bud-dashboard'
-import * as commands from './commands'
+import {Error, Mark} from '@roots/bud-dashboard'
+import commander from 'commander'
+import Command from './Command'
+
+type CommandIndex = {
+  [key: string]: Command
+}
+
+type NewableCommand = new (cli: CLI) => Command
+
+type CommandDeclaration = {
+  [key: string]: NewableCommand
+}
 
 /**
- * Bud CLI
+ * CLI
  */
 export class CLI {
   /**
@@ -19,7 +29,7 @@ export class CLI {
   /**
    * Yargs
    */
-  public instance = yargs
+  public instance: commander.Command
 
   /**
    * Cwd
@@ -29,9 +39,7 @@ export class CLI {
   /**
    * Commands
    */
-  public commands: {
-    [key: string]: yargs.CommandModule
-  } = commands
+  public _commands: CommandIndex
 
   /**
    * Constructor
@@ -39,35 +47,75 @@ export class CLI {
   public constructor(args?: {
     command?: 'bud'
     projectUrl?: 'https://github.com/roots/bud'
+    commands?: CommandDeclaration
   }) {
-    args && Object.assign(this, args)
+    this.instance = new commander.Command()
+
+    if (!args) return
+
+    if (args?.command) this.command = args.command
+    if (args?.projectUrl) this.projectUrl = args.projectUrl
+    if (args?.commands)
+      this.commands = this.process(args.commands)
+  }
+
+  /**
+   * Output config
+   */
+  public output(helpInformation): commander.OutputConfiguration {
+    return {
+      writeOut: (str: string) => process.stdout.write(str),
+      writeErr: (str: string) => process.stdout.write(str),
+      outputError: (str: string, write) => {
+        return write(Error(``, helpInformation))
+      },
+    }
   }
 
   /**
    * Invoke command line stdout
    */
   public invoke(): void {
-    Object.values(this.commands).map(cmd =>
-      this.instance.command(cmd),
-    )
+    this.register()
+      .configureOutput(
+        this.output(this.instance.helpInformation()),
+      )
+      .action(() => {
+        this.instance.help()
+      })
+      .parse(process.argv)
+  }
 
-    this.instance
-      .example(`${this.command} build`, 'Compile assets')
-      .example(
-        `${this.command} build development`,
-        'Compile project assets and start development server',
-      )
-      .example(
-        `${this.command} publish:list`,
-        `List available scaffolds`,
-      )
-      .scriptName(this.command)
-      .version()
-      .recommendCommands()
-      .demandCommand(1, `You must specify a command.\n`)
-      .help()
-      .wrap(this.instance.terminalWidth())
-      .epilog(this.projectUrl).argv
+  public get commands(): CommandIndex {
+    return this._commands
+  }
+
+  public set commands(commands: CommandIndex) {
+    this._commands = commands
+  }
+
+  /**
+   * Add commands
+   */
+  public process(commands: CommandDeclaration): CommandIndex {
+    return Object.fromEntries(
+      Object.entries(commands).map(([k, v]): [
+        string,
+        Command,
+      ] => [k, new v(this)]),
+    )
+  }
+
+  /**
+   * Apply commands
+   */
+  public register(): commander.Command {
+    return (this.instance = Object.values(this.commands).reduce(
+      (instance: commander.Command, subcommand: Command) => {
+        return instance.addCommand(subcommand.yield())
+      },
+      this.instance,
+    ))
   }
 
   /**

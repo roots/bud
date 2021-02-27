@@ -59,7 +59,8 @@
     "@roots/bud": "^3.0.55-alpha.0",
     "@roots/bud-dashboard": "^3.0.55-alpha.0",
     "@roots/bud-framework": "^3.0.55-alpha.0",
-    "@roots/bud-support": "^3.0.55-alpha.0"
+    "@roots/bud-support": "^3.0.55-alpha.0",
+    "commander": "^7.1.0"
   },
   "devDependencies": {
     "@roots/bud-typings": "^3.0.55-alpha.0",
