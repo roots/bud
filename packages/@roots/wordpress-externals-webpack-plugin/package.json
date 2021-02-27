@@ -1,6 +1,6 @@
 {
   "name": "@roots/wordpress-externals-webpack-plugin",
-  "version": "3.0.55-alpha.0",
+  "version": "3.0.56-alpha.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
@@ -52,7 +52,7 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "dependencies": {
-    "@roots/bud-support": "^3.0.55-alpha.0",
+    "@roots/bud-support": "^3.0.56-alpha.0",
     "node-fetch": "^2.6.1"
   },
   "devDependencies": {
