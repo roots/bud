@@ -1,75 +1,39 @@
 import {Error} from '@roots/bud-dashboard'
-import BaseCommand from '../Command'
+import Command from '../Command'
 import * as source from '../source'
 
 /**
  * Publish
  */
-export default class Build extends BaseCommand {
-  public name = 'build'
+export default class Build extends Command {
+  public name = `build`
 
-  public signature = '<mode>'
+  public signature: Command['signature'] = '<mode>'
 
-  public description =
+  public description: Command['description'] =
     'Compile assets and/or initialize development server'
 
-  public arguments = {
+  public arguments: Command['arguments'] = {
     mode: '"development" or "production"',
   }
 
-  public options = {
-    src: {
-      description: 'Source assets directory',
-      fn: opt => opt.default('src'),
-    },
-    dist: {
-      description: 'Directory to compile to',
-    },
-    storage: {
-      description:
-        'Directory to store build artifacts, caches, logs',
-    },
-    modules: {
-      description: 'node_modules directory',
-    },
-    publicPath: {
-      description: 'Public path',
-    },
-    cache: {
-      description: 'Enable caching of compiled modules',
-    },
-    ci: {
-      description: 'Run build without the bud dashboard',
-    },
-    debug: {
-      description:
-        'Enable debug mode. Enables logger and generates a webpack config artifact (saved to `storage`)',
-    },
-    clean: {
-      description:
-        'Clean stale assets from dist directory during compilation',
-    },
-    devtool: {
-      description: 'Specify a sourcemap implementation',
-    },
-    log: {
-      description: 'Present logger output in terminal',
-    },
-    manifest: {
-      description: 'Generate a manifest.json file',
-    },
-    minify: {
-      description: 'Minify compiled assets',
-    },
-    runtime: {
-      description: 'Enable code splitting',
-    },
-    vendor: {
-      description: 'Separate application and vendor bundles',
-    },
-  }
+  public options: Command['options'] = [
+    ['--src <src>', 'Directory to compile from', 'src'],
+    ['--dist <dist>', 'Directory to compile to', 'dist'],
+    ['--storage <storage>', 'Directory to store build artifacts, caches, logs, etc.', '.bud'],
+    ['--modules <node_modules>', 'Directory containing modules', 'node_modules'],
+    ['--ci', 'Run in CI mode', false],
+    ['--debug', 'Enable debug mode. Enables logger and generates a webpack config artifact (saved to `storage`)', false],
+    ['--clean', 'Clean stale assets from dist directory during compilation', true],
+    ['--devtool', 'Specify a sourcemap implementation', false],
+    ['--log', 'Present logger output in terminal', false],
+    ['--manifest', 'Generate a manifest.json file', true],
+    ['--minify', 'Minify compiled assets', false],
+    ['--runtime', 'Enable code splitting', false],
+    ['--vendor', 'Separate application and vendor code', false],
+  ]
 
-  public action() {
+  public action({mode}) {
     try {
       source.preflight()
       source.isStatic() ? source.json() : source.api()

@@ -1,16 +1,7 @@
-import {Error, Mark} from '@roots/bud-dashboard'
+import {Mark} from '@roots/bud-dashboard'
 import commander from 'commander'
-import Command from './Command'
-
-type CommandIndex = {
-  [key: string]: Command
-}
-
-type NewableCommand = new (cli: CLI) => Command
-
-type CommandDeclaration = {
-  [key: string]: NewableCommand
-}
+import Output from './Output'
+import {Builder, CLIConstructor, Command} from './interface'
 
 /**
  * CLI
@@ -29,7 +20,12 @@ export class CLI {
   /**
    * Yargs
    */
-  public instance: commander.Command
+  public instance: Builder.Command
+
+  /**
+   * Output
+   */
+  public output: Output
 
   /**
    * Cwd
@@ -39,65 +35,45 @@ export class CLI {
   /**
    * Commands
    */
-  public _commands: CommandIndex
+  public _commands: Command.Index
 
   /**
    * Constructor
    */
-  public constructor(args?: {
-    command?: 'bud'
-    projectUrl?: 'https://github.com/roots/bud'
-    commands?: CommandDeclaration
-  }) {
+  public constructor(args?: CLIConstructor) {
     this.instance = new commander.Command()
+    
+    this.output = new Output(this)
 
     if (!args) return
 
     if (args?.command) this.command = args.command
+
     if (args?.projectUrl) this.projectUrl = args.projectUrl
+
     if (args?.commands)
       this.commands = this.process(args.commands)
-  }
-
-  /**
-   * Output config
-   */
-  public output(helpInformation): commander.OutputConfiguration {
-    return {
-      writeOut: (str: string) => process.stdout.write(str),
-      writeErr: (str: string) => process.stdout.write(str),
-      outputError: (str: string, write) => {
-        return write(Error(``, helpInformation))
-      },
-    }
   }
 
   /**
    * Invoke command line stdout
    */
   public invoke(): void {
-    this.register()
-      .configureOutput(
-        this.output(this.instance.helpInformation()),
-      )
-      .action(() => {
-        this.instance.help()
-      })
-      .parse(process.argv)
+    this.register().helpOption(false).parse()
   }
 
-  public get commands(): CommandIndex {
+  public get commands(): Command.Index {
     return this._commands
   }
 
-  public set commands(commands: CommandIndex) {
+  public set commands(commands: Command.Index) {
     this._commands = commands
   }
 
   /**
    * Add commands
    */
-  public process(commands: CommandDeclaration): CommandIndex {
+  public process(commands: Command.Declaration): Command.Index {
     return Object.fromEntries(
       Object.entries(commands).map(([k, v]): [
         string,
@@ -109,7 +85,7 @@ export class CLI {
   /**
    * Apply commands
    */
-  public register(): commander.Command {
+  public register(): Builder.Command {
     return (this.instance = Object.values(this.commands).reduce(
       (instance: commander.Command, subcommand: Command) => {
         return instance.addCommand(subcommand.yield())

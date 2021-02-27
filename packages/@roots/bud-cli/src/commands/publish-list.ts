@@ -10,6 +10,11 @@ export default class PublishList extends Command {
   public description = 'List available publishable files.'
 
   public action() {
+  	if (formatted == '') {
+  		console.log('Nothing found')
+  		process.exit(1)
+  	}
+  	
     console.log('Available templates')
     console.log(formatted)
     console.log('')

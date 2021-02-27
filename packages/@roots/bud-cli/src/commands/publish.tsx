@@ -2,7 +2,6 @@ import {React, render, fs} from '@roots/bud-support'
 import {Error, Publish} from '@roots/bud-dashboard'
 import {join, dirname} from 'path'
 import BaseCommand from '../Command'
-import List from './publish-list'
 
 /**
  * Publish
@@ -19,8 +18,6 @@ export default class Command extends BaseCommand {
     scaffold: 'File to publish',
     dir: 'Path to publish to',
   }
-
-  public subcommands = [List]
 
   public action({pkg, scaffold, dir}) {
     if (!pkg || !scaffold) {
@@ -51,10 +48,8 @@ export default class Command extends BaseCommand {
 
         render(<Publish file={scaffold} />)
       } catch (err) {
-        console.log(err)
-
         Error(
-          `Are you sure you got the name right? Try \`bud publish:list\` for a list of available files.`,
+          err,
           `The requested file can't be published.`,
         )
       }

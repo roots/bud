@@ -1,4 +1,5 @@
 import commander from 'commander'
+import type { Command as ICommand } from './interface'
 
 /**
  * Command base class
@@ -25,25 +26,14 @@ export default abstract class Command {
   public abstract description: string
 
   /**
-   * Subcommands
-   */
-  public subcommands: (new (cli) => Command)[]
-
-  /**
    * Index of positional arguments
    */
-  public arguments: {[key: string]: string}
+  public arguments: { [key: string]: string }
 
   /**
    * Index of flags
    */
-  public options: {
-    [key: string]: {
-      description: string
-      flags?: string
-      fn?: (opt: commander.Option) => commander.Option
-    }
-  }
+  public options: ICommand.Options
 
   /**
    * Command signature
@@ -61,7 +51,6 @@ export default abstract class Command {
    */
   public constructor(parent) {
     this.parent = parent
-
     this.instance = new commander.Command()
   }
 
@@ -69,7 +58,7 @@ export default abstract class Command {
    * Command
    */
   public get command() {
-    return `${this.name} ${this.signature}`
+    return `${this.name} ${this.signature ?? ``}`
   }
 
   /**
@@ -87,42 +76,23 @@ export default abstract class Command {
    * Yield the instance
    */
   public yield(): commander.Command {
-    this.instance
-      .name(this.name)
-      .configureOutput(
-        this.parent.output(this.instance.helpInformation()),
-      )
+    this.instance = this.instance
+      .command(this.command)
 
-    this.has('arguments')
-      ? this.instance.description(
-          this.description,
-          this.arguments,
-        )
-      : this.instance.description(this.description)
+    this.has('signature') && this.instance.arguments(this.signature)
 
-    this.has('signature') && this.instance.usage(this.signature)
-
-    this.has('options') &&
-      Object.entries(this.options).map(([k, v]) => {
-        const args: [string, string] | [string] = [v.description]
-        if (v.flags) args.push(v.flags)
-
-        this.instance.addOption(
-          v.fn
-            ? v.fn(new commander.Option(...args))
-            : new commander.Option(...args),
-        )
-      })
-
-    this.has('subcommands') &&
-      this.subcommands.map(cmd =>
-        this.instance.addCommand(new cmd(this.parent).yield()),
-      )
-
-    this.has('action') &&
+    if (this.has('action')) {
       this.instance.action((...args) => {
         this.action(...args)
       })
+    }
+
+    this.has('options') &&
+      this.options.map((opt) => {
+        this.instance.option(...opt)
+      })
+
+    this.instance.helpOption('--help', 'Show help')
 
     return this.instance
   }
