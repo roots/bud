@@ -1,12 +1,19 @@
 import {Mark} from '@roots/bud-dashboard'
+import {render} from 'ink-testing-library'
 import Commander from 'commander'
 import Output from './Output'
 import {CLIConstructor, Command} from './interface'
+import Config from './Config'
 
 /**
  * CLI
  */
 export class CLI {
+  /**
+   * Config source
+   */
+  public config: Config
+
   /**
    * Command invocation
    */
@@ -50,7 +57,9 @@ export class CLI {
     this.projectUrl = args.projectUrl
     this.commands = args.commands
 
+    this.config = new Config(args.app, this)
     this.instance = new Commander.Command(this.name)
+
     const output = new Output(this.name, this.instance)
 
     this.instance
@@ -78,41 +87,39 @@ export class CLI {
    * Invoke command line stdout
    */
   public invoke(): void {
-    Object.values(this.commands).map(
-      (Sub: new () => Command) => {
-        const sub = new Sub()
+    Object.values(this.commands).map((Sub: Command.Newable) => {
+      const sub = new Sub(this)
 
-        const command = new Commander.Command()
-          .command(`${sub.name} ${sub.signature}`)
-          .description(sub.description, sub.arguments)
-          .action(sub.action)
-          .usage(sub.usage)
+      const command = new Commander.Command()
+        .command(`${sub.name} ${sub.signature}`)
+        .description(sub.description, sub.arguments)
+        .action(sub.action)
+        .usage(sub.usage)
 
-        command.configureOutput(
-          new Output(this.name, command).config,
-        )
+      command.configureOutput(
+        new Output(this.name, command).config,
+      )
 
-        sub.has('options') &&
-          Object.values(sub.options).map(opt => {
-            const option = new Commander.Option(
-              opt.flags,
-              opt.description,
-            )
+      sub.has('options') &&
+        Object.values(sub.options).map(opt => {
+          const option = new Commander.Option(
+            opt.flags,
+            opt.description,
+          )
 
-            opt.default && option.default(opt.default)
-            opt.choices && option.choices(opt.choices)
+          opt.default && option.default(opt.default)
+          opt.choices && option.choices(opt.choices)
 
-            typeof opt.optional == 'boolean' &&
-              (() => {
-                option.mandatory = !opt.optional
-              })()
+          typeof opt.optional == 'boolean' &&
+            (() => {
+              option.mandatory = !opt.optional
+            })()
 
-            command.addOption(option)
-          })
+          command.addOption(option)
+        })
 
-        this.instance.addCommand(command)
-      },
-    )
+      this.instance.addCommand(command)
+    })
 
     this.instance.parse()
   }
@@ -121,7 +128,8 @@ export class CLI {
    * CLI banner
    */
   public mast(): this {
-    console.log(Mark(this.name))
+    console.log(render(Mark({text: this.name})).lastFrame())
+
     return this
   }
 }

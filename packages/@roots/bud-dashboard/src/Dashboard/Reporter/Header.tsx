@@ -1,10 +1,7 @@
 import {React, Box, Text, Spinner} from '@roots/bud-support'
 
-/**
- * Displays pkg.name, current build status.
- */
 export const Header = ({colors, progress, stats, pkg}) => (
-  <Box flexDirection="row" marginTop={1} marginBottom={1}>
+  <Box flexDirection="row">
     <BuildIndicator
       colors={colors}
       progress={progress}
@@ -24,7 +21,7 @@ export const Header = ({colors, progress, stats, pkg}) => (
  * Icon representing if compilation is happening
  */
 const BuildIndicator = ({colors, progress, stats, pkg}) => (
-  <Text backgroundColor={colors?.primary} color={colors?.white}>
+  <Text color={colors?.white}>
     {' '}
     {progress?.message ? (
       <Spinner />
@@ -45,11 +42,11 @@ const BuildProgressMessage = ({progress, colors, stats}) => (
     {' '}
     {progress?.message ? (
       <Text italic color={colors?.subdued}>
-        {progress?.message}
+        {progress?.message}{' '}
       </Text>
     ) : stats?.hash ? (
       <Text italic color={colors?.subdued}>
-        {stats?.hash}
+        {stats?.hash}{' '}
       </Text>
     ) : (
       <></>

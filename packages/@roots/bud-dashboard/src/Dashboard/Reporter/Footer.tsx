@@ -1,6 +1,6 @@
-import {React, Box} from '@roots/bud-support'
+import {React, Box, Text} from '@roots/bud-support'
 import {Progress} from '../../components/Progress'
-// import {Git} from '../../components/Git'
+import {Git} from '../../components/Git'
 
 /**
  * Footer components
@@ -16,7 +16,7 @@ export const Footer = props => (
 /**
  * Dev URL and Git statuses
  */
-/* const DevelopmentFeatures = ({bud, stats, colors}) => {
+export const DevelopmentFeatures = ({bud, stats, colors}) => {
   const isDevelopment = bud.isDevelopment
   const protocol = bud.store.get('server.ssl')
     ? 'https://'
@@ -33,11 +33,10 @@ export const Footer = props => (
     </Box>
   ) : (
     <Box
-      marginTop={1}
       flexDirection="row"
       justifyContent="space-between"></Box>
   )
-} */
+}
 
 /* const Time = ({stats, colors}) =>
   stats?.time ? (

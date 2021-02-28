@@ -1,8 +1,8 @@
 import {React, Box} from '@roots/bud-support'
 
-export const Main = ({children, height}) => (
+export const Main = ({children, ...props}) => (
   <Box
-    height={height}
+    {...props}
     justifyContent="space-between"
     display="flex"
     flexDirection="column">

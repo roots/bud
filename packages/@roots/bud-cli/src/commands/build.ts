@@ -1,6 +1,5 @@
 import {Error} from '@roots/bud-dashboard'
 import Command from '../Command'
-import * as source from '../source'
 
 /**
  * Publish
@@ -8,12 +7,12 @@ import * as source from '../source'
 export default class Build extends Command {
   public name = `build`
 
-  public signature: Command['signature'] = '<mode>'
+  public signature = '<mode>'
 
-  public description: Command['description'] =
+  public description =
     'Compile assets and/or initialize development server'
 
-  public arguments: Command['arguments'] = {
+  public arguments = {
     mode: '"development" or "production"',
   }
 
@@ -111,11 +110,11 @@ export default class Build extends Command {
     },
   }
 
-  public action({mode}) {
+  public action() {
     try {
-      source.preflight()
-      source.isStatic() ? source.json() : source.api()
+      this.cli.config.run()
     } catch (error) {
+      console.log(error)
       Error(error.toString(), `Error`)
     }
   }

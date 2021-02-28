@@ -14,8 +14,9 @@ import {useCompilation} from '../../hooks/useCompilation'
 
 import {Header} from './Header'
 import {Body} from './Body'
-import {Footer} from './Footer'
+import {Footer, DevelopmentFeatures} from './Footer'
 import {Errors, Main, Screen} from '../../components'
+import {Mark} from '../../Mark'
 
 export const Reporter: FunctionComponent<{
   bud: Framework
@@ -27,6 +28,7 @@ export const Reporter: FunctionComponent<{
     if (input == 'q') {
       console.clear()
       app.exit()
+      process.exit()
     }
   })
 
@@ -45,31 +47,56 @@ export const Reporter: FunctionComponent<{
   const style = useStyle(bud.store.get('theme'))
   const [disk] = useDisk(bud)
   const pkg = usePackageJson(disk)
-
-  const height = !(errors?.length > 0)
-    ? style?.bounds?.height - 2
-    : null
+  const height =
+    !(errors?.length > 0) && style?.bounds?.height
+      ? style.bounds.height - 2
+      : null
 
   return (
-    <Screen width={style?.bounds?.width}>
-      <Header
-        colors={style?.colors}
-        stats={stats}
-        pkg={pkg}
-        progress={progress}
-      />
-
-      <Main height={height}>
-        <Body
-          errors={errors}
-          bud={bud}
-          col={style?.col}
-          colors={style?.colors}
-          stats={stats}
+    <Screen height={height} justifyContent="space-between">
+      <Screen>
+        <Mark
+          text={bud.store.get('args._')[0].split('/').pop()}
         />
 
-        <Errors color={style?.colors.error} errors={errors} />
+        <Header
+          colors={style?.colors}
+          stats={stats}
+          pkg={pkg}
+          progress={progress}
+        />
 
+        <Screen>
+          <Main
+            borderColor="#becede"
+            padding={1}
+            borderStyle="round"
+            maxWidth={style?.bounds?.width}>
+            <Body
+              errors={errors}
+              bud={bud}
+              col={style?.col}
+              colors={style?.colors}
+              stats={stats}
+            />
+
+            <Errors
+              color={style?.colors.error}
+              errors={errors}
+            />
+          </Main>
+        </Screen>
+
+        <Screen margin={1}>
+          <DevelopmentFeatures
+            bud={bud}
+            colors={style?.colors}
+            stats={stats}
+          />
+        </Screen>
+      </Screen>
+
+      <Screen>
         <Footer
           errors={errors}
           bud={bud}
@@ -80,7 +107,7 @@ export const Reporter: FunctionComponent<{
           progress={progress}
           stats={stats}
         />
-      </Main>
+      </Screen>
     </Screen>
   )
 }

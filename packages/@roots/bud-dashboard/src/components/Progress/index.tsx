@@ -20,11 +20,11 @@ export function Progress({
   return !(errors?.length > 0) ? (
     <Box
       display={'flex'}
-      marginTop={1}
+      marginX={1}
       width={col(12)}
       flexDirection={'row'}>
       <Bar
-        maxWidth={bounds.width}
+        maxWidth={bounds.width - 2}
         colors={[colors.primary, colors.primaryAlt]}
         percent={progress?.decimal}
       />

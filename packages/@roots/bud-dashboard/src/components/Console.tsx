@@ -4,25 +4,32 @@ import {
   useState,
   patchConsole,
   Text,
+  Spinner,
 } from '@roots/bud-support'
 import {Framework} from '@roots/bud-typings'
 
 export const Console = ({bud}: {bud: Framework}) => {
-  const [lastConsole, setLastConsole] = useState(null)
   const [text, setText] = useState('')
 
   patchConsole((stream, data) => {
-    setLastConsole(data)
-
-    const frameOut =
-      lastConsole !== data ? `${text}${data}` : text
-
-    setText(frameOut)
+    setText(data)
   })
 
   return (
-    <Box flexDirection="column">
-      <Text>{text ?? ''}</Text>
+    <Box
+      paddingX={1}
+      flexDirection="column"
+      borderColor="dimWhite"
+      borderStyle="round"
+      height={10}>
+      <Text>
+        {text && <Text wrap="truncate-start">{text}</Text>}
+      </Text>
+      <Box marginTop={0}>
+        <Text>
+          <Spinner /> Watching
+        </Text>
+      </Box>
     </Box>
   )
 }

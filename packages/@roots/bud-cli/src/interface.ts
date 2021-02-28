@@ -1,3 +1,4 @@
+import {Framework} from '@roots/bud-framework'
 import Builder, {Help} from 'commander'
 
 export type {Builder, Help}
@@ -9,6 +10,7 @@ export interface Output {
 export interface CLIConstructor {
   name?: string
   projectUrl?: string
+  app?: Framework
   commands?: Command.Declaration
 }
 
@@ -25,7 +27,7 @@ export interface CLI {
 
   cwd: string
 
-  commands: Command.Index
+  commands: Command.Declaration
 
   invoke(): void
 
@@ -36,6 +38,8 @@ export interface Command {
   name: string
 
   description: string
+
+  cli: CLI
 
   usage: string
 
@@ -71,7 +75,7 @@ export namespace Command {
     [key: string]: Command
   }
 
-  export type Newable = new () => Command
+  export type Newable = new (cli: CLI) => Command
 
   export type Declaration = {
     [key: string]: Newable

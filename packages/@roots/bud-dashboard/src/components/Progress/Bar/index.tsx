@@ -10,7 +10,7 @@ export const Bar: React.FunctionComponent<{
 }> = ({
   character = '█',
   colors = ['white', 'white'],
-  backgroundCharacter = '█',
+  backgroundCharacter = ' ',
   backgroundColor = 'rgba(255, 255, 255, 0.1)',
   percent,
   maxWidth,
@@ -20,9 +20,7 @@ export const Bar: React.FunctionComponent<{
 
   return percent <= 0 ? null : (
     <Text>
-      <Gradient colors={colors}>
-        {character.repeat(fill)}
-      </Gradient>
+      <Gradient name="vice">{character.repeat(fill)}</Gradient>
 
       <Text backgroundColor={backgroundColor} dimColor>
         {backgroundCharacter.repeat(background)}

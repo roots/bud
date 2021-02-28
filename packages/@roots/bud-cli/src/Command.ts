@@ -1,3 +1,4 @@
+import {CLI} from './CLI'
 import type {Command as ICommand} from './interface'
 
 /**
@@ -13,6 +14,11 @@ export default abstract class Command {
    * Human readable description of command
    */
   public abstract description: string
+
+  /**
+   * CLI host
+   */
+  public cli: CLI
 
   /**
    * Usage
@@ -39,6 +45,15 @@ export default abstract class Command {
    * Run action handler
    */
   public abstract action(...args: any[]): void | Promise<void>
+
+  /**
+   * Constructor
+   */
+  public constructor(cli: CLI) {
+    this.cli = cli
+
+    this.action = this.action.bind(this)
+  }
 
   /**
    * Ensure a command property is defined
