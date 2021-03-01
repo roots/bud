@@ -46,6 +46,8 @@ export const useCompilation = (bud: Framework) => {
 
       setStats(stats.toJson(bud.compiler.statsOptions.json))
 
+      if (!stats?.hasErrors) return
+
       setHasErrors(stats.hasErrors())
       stats.hasErrors()
         ? setErrors(stats.toJson('errors-only').errors)
@@ -76,15 +78,18 @@ export const useCompilation = (bud: Framework) => {
 
           setStats(stats)
 
-          setHasErrors(stats.hasErrors())
-          stats.hasErrors()
-            ? setErrors(stats.errors)
-            : setErrors(null)
-
-          setHasWarnings(stats.hasWarnings())
-          stats.hasWarnings()
-            ? setWarnings(stats.warnings)
-            : setWarnings(null)
+          if (stats?.hasErrors) {
+            setHasErrors(stats.hasErrors())
+            stats.hasErrors()
+              ? setErrors(stats.errors)
+              : setErrors(null)
+          }
+          if (stats?.hasWarnings) {
+            setHasWarnings(stats.hasWarnings())
+            stats.hasWarnings()
+              ? setWarnings(stats.warnings)
+              : setWarnings(null)
+          }
         })
       : bud.server.run(bud.compiler.instance)
   }, [bud])
