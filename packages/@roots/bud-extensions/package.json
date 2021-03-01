@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-extensions",
   "description": "Bud extensions controller",
-  "version": "3.0.64-alpha.0",
+  "version": "3.0.65-alpha.0",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -53,12 +53,12 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "dependencies": {
-    "@roots/bud-framework": "^3.0.64-alpha.0",
-    "@roots/bud-support": "^3.0.64-alpha.0",
-    "@roots/container": "^3.0.64-alpha.0"
+    "@roots/bud-framework": "^3.0.65-alpha.0",
+    "@roots/bud-support": "^3.0.65-alpha.0",
+    "@roots/container": "^3.0.65-alpha.0"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^3.0.64-alpha.0",
+    "@roots/bud-typings": "^3.0.65-alpha.0",
     "@types/node": "^14.14.31",
     "@types/webpack": "^4.41.26",
     "run-s": "^0.0.0",
