@@ -5,8 +5,7 @@ export const Errors = ({errors, color}) => {
     <Box
       flexDirection="column"
       borderColor={color}
-      borderStyle="round"
-      marginX={1}>
+      borderStyle="round">
       {errors?.map((err, id) => (
         <Text key={id}>{err}</Text>
       ))}

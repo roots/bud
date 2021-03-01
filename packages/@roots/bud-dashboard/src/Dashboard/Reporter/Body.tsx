@@ -7,9 +7,9 @@ import {Console} from '../../components/Console'
 /**
  * Body components
  */
-export const Body = ({bud, errors, col, colors, stats}) => (
+export const Body = ({bud, hasErrors, col, colors, stats}) => (
   <Box
-    display={errors?.length > 0 ? 'none' : 'flex'}
+    display={hasErrors ? 'none' : 'flex'}
     flexDirection="column">
     <Module label="Assets">
       <Assets col={col} colors={colors} assets={stats?.assets} />

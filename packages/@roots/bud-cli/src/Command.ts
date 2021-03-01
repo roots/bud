@@ -1,5 +1,4 @@
 import {CLI} from './CLI'
-import type {Command as ICommand} from './interface'
 
 /**
  * Command base class
@@ -33,7 +32,11 @@ export default abstract class Command {
   /**
    * Index of flags
    */
-  public options: ICommand.Options
+  public options: {
+    [key: string]: {
+      [key: string]: any
+    }
+  }
 
   /**
    * Command signature
@@ -51,7 +54,6 @@ export default abstract class Command {
    */
   public constructor(cli: CLI) {
     this.cli = cli
-
     this.action = this.action.bind(this)
   }
 

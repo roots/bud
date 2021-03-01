@@ -4,9 +4,7 @@ export {format} from './format'
 export {processHandler} from './processHandler'
 
 import eslintFormatter from './eslintFormatter'
-import InterpolateHtmlPlugin from './InterpolateHtmlPlugin'
-import formatWebpackMessages from './formatWebpackMessages'
-
 export {eslintFormatter}
-export {formatWebpackMessages}
+
+import InterpolateHtmlPlugin from './InterpolateHtmlPlugin'
 export {InterpolateHtmlPlugin}

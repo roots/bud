@@ -3,6 +3,7 @@ import {
   FunctionComponent,
   useEffect,
   useApp,
+  Box,
   useInput,
 } from '@roots/bud-support'
 import type {Framework} from '@roots/bud-typings'
@@ -22,7 +23,14 @@ export const Reporter: FunctionComponent<{
   bud: Framework
 }> = ({bud}) => {
   const app = useApp()
-  const {stats, progress, errors} = useCompilation(bud)
+  const {
+    stats,
+    progress,
+    errors,
+    hasErrors,
+    warnings,
+    hasWarnings,
+  } = useCompilation(bud)
 
   useInput(input => {
     if (input == 'q') {
@@ -35,7 +43,6 @@ export const Reporter: FunctionComponent<{
   useEffect(() => {
     if (!bud.isProduction) return
 
-    const hasErrors = errors?.length > 0
     const isComplete = progress?.decimal >= 1
 
     ;(isComplete || hasErrors) &&
@@ -47,66 +54,68 @@ export const Reporter: FunctionComponent<{
   const style = useStyle(bud.store.get('theme'))
   const [disk] = useDisk(bud)
   const pkg = usePackageJson(disk)
-  const height =
-    !(errors?.length > 0) && style?.bounds?.height
-      ? style.bounds.height - 2
-      : null
 
   return (
-    <Screen height={height} justifyContent="space-between">
+    <Screen justifyContent="space-between">
+      <Mark text={bud.store.get('args._')[0].split('/').pop()} />
+
+      <Header
+        hasErrors={hasErrors}
+        colors={style?.colors}
+        stats={stats}
+        pkg={pkg}
+        progress={progress}
+      />
+
       <Screen>
-        <Mark
-          text={bud.store.get('args._')[0].split('/').pop()}
-        />
+        <Main padding={1} maxWidth={style?.bounds?.width}>
+          <Body
+            hasErrors={hasErrors}
+            bud={bud}
+            col={style?.col}
+            colors={style?.colors}
+            stats={stats}
+          />
 
-        <Header
-          colors={style?.colors}
-          stats={stats}
-          pkg={pkg}
-          progress={progress}
-        />
-
-        <Screen>
-          <Main
-            borderColor="#becede"
-            padding={1}
-            borderStyle="round"
-            maxWidth={style?.bounds?.width}>
-            <Body
-              errors={errors}
-              bud={bud}
-              col={style?.col}
-              colors={style?.colors}
-              stats={stats}
-            />
-
+          {hasErrors && errors && (
             <Errors
               color={style?.colors.error}
               errors={errors}
             />
-          </Main>
-        </Screen>
+          )}
 
-        <Screen margin={1}>
-          <DevelopmentFeatures
-            bud={bud}
-            colors={style?.colors}
-            stats={stats}
-          />
-        </Screen>
-      </Screen>
+          {hasWarnings && warnings && (
+            <Errors
+              color={style?.colors.warning}
+              errors={warnings}
+            />
+          )}
 
-      <Screen>
-        <Footer
-          errors={errors}
-          bud={bud}
-          bounds={style?.bounds}
-          col={style?.col}
-          pkg={pkg}
-          colors={style?.colors}
-          progress={progress}
-          stats={stats}
-        />
+          <Box flexDirection="column">
+            <Box margin={1} flexDirection="column">
+              <DevelopmentFeatures
+                bud={bud}
+                colors={style?.colors}
+                stats={stats}
+              />
+            </Box>
+          </Box>
+
+          <Box flexDirection="column">
+            <Box margin={1} flexDirection="column">
+              <Footer
+                hasErrors={hasErrors}
+                bud={bud}
+                bounds={style?.bounds}
+                col={style?.col}
+                pkg={pkg}
+                colors={style?.colors}
+                progress={progress}
+                stats={stats}
+              />
+            </Box>
+          </Box>
+        </Main>
       </Screen>
     </Screen>
   )

@@ -39,8 +39,6 @@ export class Dashboard extends Service {
       msg: 'Beginning CLI execution',
     })
 
-    console.clear()
-
     this.dashboard = render(<Reporter bud={this.app.get()} />)
   }
 

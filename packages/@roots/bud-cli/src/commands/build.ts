@@ -13,54 +13,51 @@ export default class Build extends Command {
     'Compile assets and/or initialize development server'
 
   public arguments = {
-    mode: '"development" or "production"',
+    mode: '[choices: "development" or "production"]',
   }
 
-  public options: Command['options'] = {
+  public options = {
     src: {
       flags: '--src [src]',
-      description: 'Directory to compile from',
+      description: 'Source assets location',
       default: 'src',
       optional: true,
     },
     dist: {
       flags: '--dist [dist]',
-      description: 'Directory to compile to',
+      description: 'Compiled assets location',
       default: 'dist',
       optional: true,
     },
     storage: {
       flags: '--storage [storage]',
-      description:
-        'Directory to store build artifacts, caches, logs, etc.',
+      description: 'Build artifacts/cache location',
       default: '.bud',
       optional: true,
     },
     modules: {
       flags: '--modules [modules]',
-      description: 'node_modules directory',
+      description: 'node_modules location',
       default: 'node_modules',
       optional: true,
     },
     ci: {
       flags: '--ci [ci]',
-      description: 'Run without using the Bud dashboard',
+      description: 'Disable the Bud dashboard',
       default: false,
       optional: true,
       choices: ['true', 'false'],
     },
     debug: {
       flags: '--debug [debug]',
-      description:
-        'Enable debug mode. Enables logger and generates a webpack config artifact (saved to `storage`)',
+      description: 'Enable debug mode',
       default: false,
       optional: true,
       choices: ['true', 'false'],
     },
     clean: {
       flags: '--clean [clean]',
-      description:
-        'Clean stale assets from dist directory during compilation',
+      description: 'Clean stale assets from dist',
       default: true,
 
       optional: true,
@@ -68,28 +65,27 @@ export default class Build extends Command {
     },
     devtool: {
       flags: '--devtool [devtool]',
-      description: 'Specify a sourcemap implementation',
+      description: 'Enable sourcemaps',
       default: false,
       optional: true,
     },
     log: {
       flags: '--log [log]',
-      description: 'Present logger outputin the terminal',
+      description:
+        'Enable logging output. Pass a string to log to a file.',
       default: false,
       optional: true,
-      choices: ['true', 'false'],
     },
     manifest: {
       flags: '--manifest [manifest]',
-      description: 'Generate a manifest.json file',
+      description: 'Produce a manifest.json',
       default: true,
-
       optional: true,
       choices: ['true', 'false'],
     },
     minify: {
       flags: '--minify [minify]',
-      description: 'Minify compiled assets',
+      description: 'Enable minification',
       default: false,
       optional: true,
       choices: ['true', 'false'],
@@ -103,7 +99,7 @@ export default class Build extends Command {
     },
     vendor: {
       flags: '--vendor [vendor]',
-      description: 'Separate application and vendor code',
+      description: 'Produce a vendor bundle',
       default: false,
       optional: true,
       choices: ['true', 'false'],
@@ -115,6 +111,7 @@ export default class Build extends Command {
       this.cli.config.run()
     } catch (error) {
       console.log(error)
+
       Error(error.toString(), `Error`)
     }
   }

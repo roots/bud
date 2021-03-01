@@ -1,8 +1,15 @@
 import {React, Box, Text, Spinner} from '@roots/bud-support'
 
-export const Header = ({colors, progress, stats, pkg}) => (
+export const Header = ({
+  colors,
+  progress,
+  stats,
+  hasErrors,
+  pkg,
+}) => (
   <Box flexDirection="row">
     <BuildIndicator
+      hasErrors={hasErrors}
       colors={colors}
       progress={progress}
       stats={stats}
@@ -20,19 +27,31 @@ export const Header = ({colors, progress, stats, pkg}) => (
 /**
  * Icon representing if compilation is happening
  */
-const BuildIndicator = ({colors, progress, stats, pkg}) => (
-  <Text color={colors?.white}>
-    {' '}
-    {progress?.message ? (
-      <Spinner />
-    ) : stats?.hash ? (
-      '✓'
-    ) : (
-      ' '
-    )}{' '}
-    {pkg?.name}{' '}
-  </Text>
-)
+const BuildIndicator = ({
+  colors,
+  hasErrors,
+  progress,
+  stats,
+  pkg,
+}) => {
+  const showSpinner =
+    progress?.message && !hasErrors && !stats?.hash
+  const showCheck = stats?.hash && !hasErrors
+  const showX = hasErrors
+
+  return (
+    <Text>
+      {' '}
+      {showSpinner && (
+        <Text color={colors?.white}>
+          <Spinner />
+        </Text>
+      )}
+      {showCheck && <Text color={colors?.success}>✓</Text>}
+      {showX && <Text color={colors?.error}>X</Text>} {pkg?.name}{' '}
+    </Text>
+  )
+}
 
 /**
  * Current compilation output

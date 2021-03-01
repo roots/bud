@@ -17,7 +17,7 @@ export class CLI {
   /**
    * Command invocation
    */
-  public name: string
+  public name: string = 'bud'
 
   /**
    * Command description

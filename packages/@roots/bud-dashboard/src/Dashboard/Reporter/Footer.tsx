@@ -5,13 +5,16 @@ import {Git} from '../../components/Git'
 /**
  * Footer components
  */
-export const Footer = props => (
-  <Box
-    display={props?.errors?.length > 0 ? 'none' : 'flex'}
-    flexDirection="column">
-    <Progress {...props} />
-  </Box>
-)
+export const Footer = props => {
+  const {progress, bounds, hasErrors} = props
+  const showProgress = progress && bounds && !hasErrors
+
+  return showProgress ? (
+    <Box flexDirection="column">
+      <Progress {...props} />
+    </Box>
+  ) : null
+}
 
 /**
  * Dev URL and Git statuses
@@ -21,6 +24,7 @@ export const DevelopmentFeatures = ({bud, stats, colors}) => {
   const protocol = bud.store.get('server.ssl')
     ? 'https://'
     : 'http://'
+
   const host = bud.store.get('server.host')
   const port = bud.store.get('server.port')
 

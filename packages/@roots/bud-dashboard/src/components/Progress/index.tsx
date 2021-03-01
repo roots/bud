@@ -1,30 +1,27 @@
-import {React, Box} from '@roots/bud-support'
+import {React, FunctionComponent, Box} from '@roots/bud-support'
 import {Bar} from './Bar'
 
 import type {Styles} from '@roots/ink-use-style'
 import type {Compiler} from '@roots/bud-typings'
 
-export function Progress({
-  progress,
-  bounds,
-  col,
-  colors,
-  errors,
-}: {
+interface Props {
   progress: Compiler.Progress
   bounds: Styles['bounds']
   col: Styles['col']
   colors: Styles['colors']
-  errors: string[]
-}): JSX.Element {
-  return !(errors?.length > 0) && progress?.decimal ? (
-    <Box
-      display={'flex'}
-      marginX={1}
-      width={col(12)}
-      flexDirection={'row'}>
+  hasErrors: boolean
+}
+
+export const Progress: FunctionComponent<Props> = ({
+  progress,
+  bounds,
+  colors,
+  hasErrors,
+}) => {
+  return !hasErrors && progress?.decimal ? (
+    <Box display={'flex'} flexDirection={'row'}>
       <Bar
-        maxWidth={bounds.width - 2}
+        maxWidth={bounds.width - 4}
         colors={[colors.primary, colors.primaryAlt]}
         percent={progress?.decimal}
       />

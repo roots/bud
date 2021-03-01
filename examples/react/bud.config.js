@@ -18,6 +18,7 @@ const target = {
       require('@roots/bud-babel'),
       require('@roots/bud-react'),
     ]),
+
   prod: ({use}) =>
     use(require('@roots/bud-esbuild'))
       .esbuild.jsx()

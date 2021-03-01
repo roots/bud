@@ -20,6 +20,7 @@ function isError(message) {
   if (message.fatal || message.severity === 2) {
     return true
   }
+
   return false
 }
 

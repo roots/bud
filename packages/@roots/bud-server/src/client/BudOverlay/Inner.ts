@@ -1,10 +1,6 @@
 export class Inner extends HTMLElement {
   public rendered: boolean
 
-  static get observedAttributes() {
-    return ['label']
-  }
-
   public render() {
     this.innerHTML = `
       ${this.innerHTML}

@@ -29,6 +29,9 @@ export interface Compilation {
 export const useCompilation = (bud: Framework) => {
   const [stats, setStats] = useState(bud?.compiler?.stats?.json)
   const [errors, setErrors] = useState<string[]>(null)
+  const [hasErrors, setHasErrors] = useState<boolean>(false)
+  const [warnings, setWarnings] = useState<string[]>(null)
+  const [hasWarnings, setHasWarnings] = useState<boolean>(false)
   const [progress, setProgress] = useState(null)
 
   useEffect(() => {
@@ -39,10 +42,13 @@ export const useCompilation = (bud: Framework) => {
     if (!bud?.compiler?.instance) return
 
     bud.compiler.instance.hooks.done.tap('bud', stats => {
+      if (!stats) return
+
       setStats(stats.toJson(bud.compiler.statsOptions.json))
 
+      setHasErrors(stats.hasErrors())
       stats.hasErrors()
-        ? setErrors(stats?.toJson('errors-only').errors)
+        ? setErrors(stats.toJson('errors-only').errors)
         : setErrors(null)
     })
 
@@ -64,14 +70,21 @@ export const useCompilation = (bud: Framework) => {
      */
     !bud.isDevelopment
       ? bud.compiler.instance.run((err, stats: any) => {
-          stats &&
-            setStats(
-              stats.toJson(bud.compiler.statsOptions.json),
-            )
+          if (!stats) return
 
-          stats?.hasErrors()
-            ? setErrors(stats?.toJson('errors-only').errors)
+          stats = stats.toJson(bud.compiler.statsOptions.json)
+
+          setStats(stats)
+
+          setHasErrors(stats.hasErrors())
+          stats.hasErrors()
+            ? setErrors(stats.errors)
             : setErrors(null)
+
+          setHasWarnings(stats.hasWarnings())
+          stats.hasWarnings()
+            ? setWarnings(stats.warnings)
+            : setWarnings(null)
         })
       : bud.server.run(bud.compiler.instance)
   }, [bud])
@@ -80,6 +93,9 @@ export const useCompilation = (bud: Framework) => {
     progress,
     stats,
     errors,
+    hasErrors,
+    warnings,
+    hasWarnings,
     mode: bud.options.get('mode'),
   }
 }
