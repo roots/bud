@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-typings",
-  "version": "3.0.63-alpha.0",
+  "version": "3.0.64-alpha.0",
   "description": "Shared typings",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -43,5 +43,5 @@
     "run-s": "^0.0.0",
     "type-fest": "^0.21.2"
   },
-  "gitHead": "c1939ef43f4911df95621a55ef0d569f121ae61f"
+  "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"
 }

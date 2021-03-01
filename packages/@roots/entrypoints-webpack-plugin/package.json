@@ -1,6 +1,6 @@
 {
   "name": "@roots/entrypoints-webpack-plugin",
-  "version": "3.0.63-alpha.0",
+  "version": "3.0.64-alpha.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
@@ -51,5 +51,5 @@
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
-  "gitHead": "c1939ef43f4911df95621a55ef0d569f121ae61f"
+  "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"
 }
