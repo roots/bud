@@ -1,43 +1,53 @@
 import {React, Box, Text} from '@roots/bud-support'
-
 import {Assets} from '../../components/Assets'
-import {Errors} from '../../components/Errors'
 import {Console} from '../../components/Console'
+import {Module} from '../../components/Module'
 
 /**
- * Body components
+ * Body
  */
-export const Body = ({bud, hasErrors, col, colors, stats}) => (
-  <Box
-    display={hasErrors ? 'none' : 'flex'}
-    flexDirection="column">
+export const Body = ({
+  bud,
+  errors,
+  hasErrors,
+  warnings,
+  hasWarnings,
+  col,
+  colors,
+  stats,
+  progress,
+  bounds,
+}) => (
+  <Box flexDirection="column">
     <Module label="Assets">
-      <Assets col={col} colors={colors} assets={stats?.assets} />
+      <Assets
+        progress={progress}
+        col={col}
+        colors={colors}
+        assets={stats?.assets}
+      />
     </Module>
 
-    <Module label="Warnings" when={stats?.warnings?.length > 0}>
-      <Errors color={colors.warning} errors={stats?.warnings} />
-    </Module>
+    {!hasErrors && (
+      <Module label="Console">
+        <Console bud={bud} progress={progress} />
+      </Module>
+    )}
 
-    <Module label="Console">
-      <Console bud={bud.get()} />
-    </Module>
+    {hasErrors && errors && (
+      <Module color={colors.error} label="Error">
+        {errors?.map((err, id) => (
+          <Text key={id}>{err}</Text>
+        ))}
+      </Module>
+    )}
+
+    {hasWarnings && warnings && (
+      <Module color={colors.warning} label="Warning">
+        {warnings?.map((err, id) => (
+          <Text key={id}>{err}</Text>
+        ))}
+      </Module>
+    )}
   </Box>
 )
-
-export const Module = ({
-  children,
-  label,
-  when = true,
-  fallback = null,
-}) =>
-  when ? (
-    <Box flexDirection="column">
-      <Box marginX={1} flexDirection="column">
-        <Text>{label}</Text>
-      </Box>
-      <Box flexDirection="column">{children}</Box>
-    </Box>
-  ) : (
-    fallback
-  )

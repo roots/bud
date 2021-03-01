@@ -1,25 +1,21 @@
-import {React, Box, Text} from '@roots/bud-support'
-import {Progress} from '../../components/Progress'
+import {React, Box, Text, Spacer} from '@roots/bud-support'
 import {Git} from '../../components/Git'
 
 /**
  * Footer components
  */
 export const Footer = props => {
-  const {progress, bounds, hasErrors} = props
-  const showProgress = progress && bounds && !hasErrors
-
-  return showProgress ? (
+  return (
     <Box flexDirection="column">
-      <Progress {...props} />
+      <DevelopmentFeatures {...props} />
     </Box>
-  ) : null
+  )
 }
 
 /**
  * Dev URL and Git statuses
  */
-export const DevelopmentFeatures = ({bud, stats, colors}) => {
+export const DevelopmentFeatures = ({bud, colors}) => {
   const isDevelopment = bud.isDevelopment
   const protocol = bud.store.get('server.ssl')
     ? 'https://'
@@ -36,9 +32,9 @@ export const DevelopmentFeatures = ({bud, stats, colors}) => {
       <Git colors={colors} />
     </Box>
   ) : (
-    <Box
-      flexDirection="row"
-      justifyContent="space-between"></Box>
+    <Box flexDirection="row" justifyContent="space-between">
+      <Spacer />
+    </Box>
   )
 }
 

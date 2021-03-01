@@ -1,4 +1,4 @@
-import {React, FunctionComponent, Box} from '@roots/bud-support'
+import {React, FunctionComponent} from '@roots/bud-support'
 import {Bar} from './Bar'
 
 import type {Styles} from '@roots/ink-use-style'
@@ -18,13 +18,23 @@ export const Progress: FunctionComponent<Props> = ({
   colors,
   hasErrors,
 }) => {
-  return !hasErrors && progress?.decimal ? (
-    <Box display={'flex'} flexDirection={'row'}>
-      <Bar
-        maxWidth={bounds.width - 4}
-        colors={[colors.primary, colors.primaryAlt]}
-        percent={progress?.decimal}
-      />
-    </Box>
+  const showProgress =
+    progress?.decimal &&
+    bounds?.width &&
+    typeof bounds?.width == 'number'
+
+  const barGradient = !hasErrors
+    ? [colors.primary, colors.primaryAlt]
+    : [colors.error, colors.error]
+
+  const maxWidth = bounds.width - 4
+
+  return showProgress ? (
+    <Bar
+      character={'█'}
+      maxWidth={maxWidth}
+      colors={barGradient}
+      percent={progress?.decimal}
+    />
   ) : null
 }

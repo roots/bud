@@ -3,8 +3,9 @@ import {
   FunctionComponent,
   useEffect,
   useApp,
-  Box,
   useInput,
+  useState,
+  Box,
 } from '@roots/bud-support'
 import type {Framework} from '@roots/bud-typings'
 
@@ -13,16 +14,16 @@ import {useDisk} from '../../hooks/useDisk'
 import {usePackageJson} from '../../hooks/usePackageJson'
 import {useCompilation} from '../../hooks/useCompilation'
 
-import {Header} from './Header'
 import {Body} from './Body'
-import {Footer, DevelopmentFeatures} from './Footer'
-import {Errors, Main, Screen} from '../../components'
+import {Footer} from './Footer'
+import {Main, Screen} from '../../components'
 import {Mark} from '../../Mark'
+import {Progress} from '../../components/Progress'
+import {Module} from '../../components/Module'
 
 export const Reporter: FunctionComponent<{
   bud: Framework
 }> = ({bud}) => {
-  const app = useApp()
   const {
     stats,
     progress,
@@ -31,6 +32,17 @@ export const Reporter: FunctionComponent<{
     warnings,
     hasWarnings,
   } = useCompilation(bud)
+
+  const {bounds, col, colors} = useStyle(bud.store.get('theme'))
+  const [disk] = useDisk(bud)
+  const pkg = usePackageJson(disk)
+  const [themeLoaded, setThemeLoaded] = useState(false)
+  const bin = bud.store.get('args._')[0].split('/').pop()
+
+  /**
+   * Ink app
+   */
+  const app = useApp()
 
   useInput(input => {
     if (input == 'q') {
@@ -51,70 +63,58 @@ export const Reporter: FunctionComponent<{
       }, 100)
   }, [stats, progress, errors])
 
-  const style = useStyle(bud.store.get('theme'))
-  const [disk] = useDisk(bud)
-  const pkg = usePackageJson(disk)
+  /**
+   * Ink theme
+   */
+  useEffect(() => {
+    bounds && col && colors && setThemeLoaded(true)
+  }, [bounds, col, colors])
 
   return (
     <Screen justifyContent="space-between">
-      <Mark text={bud.store.get('args._')[0].split('/').pop()} />
+      <Mark text={bin} />
 
-      <Header
-        hasErrors={hasErrors}
-        colors={style?.colors}
-        stats={stats}
-        pkg={pkg}
-        progress={progress}
-      />
-
-      <Screen>
-        <Main padding={1} maxWidth={style?.bounds?.width}>
+      <Screen paddingX={1} paddingBottom={1}>
+        <Main>
           <Body
-            hasErrors={hasErrors}
             bud={bud}
-            col={style?.col}
-            colors={style?.colors}
+            bounds={bounds}
+            col={col}
+            colors={colors}
             stats={stats}
+            progress={progress}
+            errors={errors}
+            hasErrors={hasErrors}
+            warnings={warnings}
+            hasWarnings={hasWarnings}
           />
 
-          {hasErrors && errors && (
-            <Errors
-              color={style?.colors.error}
-              errors={errors}
-            />
+          {themeLoaded && (
+            <>
+              <Module label="Information">
+                <Footer
+                  hasErrors={hasErrors}
+                  bud={bud}
+                  bounds={bounds}
+                  col={col}
+                  pkg={pkg}
+                  colors={colors}
+                  progress={progress}
+                  stats={stats}
+                />
+              </Module>
+
+              <Box paddingX={1}>
+                <Progress
+                  progress={progress}
+                  bounds={bounds}
+                  col={col}
+                  colors={colors}
+                  hasErrors={hasErrors}
+                />
+              </Box>
+            </>
           )}
-
-          {hasWarnings && warnings && (
-            <Errors
-              color={style?.colors.warning}
-              errors={warnings}
-            />
-          )}
-
-          <Box flexDirection="column">
-            <Box margin={1} flexDirection="column">
-              <DevelopmentFeatures
-                bud={bud}
-                colors={style?.colors}
-                stats={stats}
-              />
-            </Box>
-          </Box>
-
-          <Box flexDirection="column">
-            <Box margin={1} flexDirection="column">
-              <Footer
-                hasErrors={hasErrors}
-                bud={bud}
-                bounds={style?.bounds}
-                col={style?.col}
-                pkg={pkg}
-                colors={style?.colors}
-                progress={progress}
-                stats={stats}
-              />
-            </Box>
-          </Box>
         </Main>
       </Screen>
     </Screen>

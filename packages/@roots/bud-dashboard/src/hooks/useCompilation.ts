@@ -101,6 +101,5 @@ export const useCompilation = (bud: Framework) => {
     hasErrors,
     warnings,
     hasWarnings,
-    mode: bud.options.get('mode'),
   }
 }

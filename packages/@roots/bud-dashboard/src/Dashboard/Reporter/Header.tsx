@@ -40,16 +40,18 @@ const BuildIndicator = ({
   const showX = hasErrors
 
   return (
-    <Text>
-      {' '}
-      {showSpinner && (
-        <Text color={colors?.white}>
-          <Spinner />
-        </Text>
-      )}
-      {showCheck && <Text color={colors?.success}>✓</Text>}
-      {showX && <Text color={colors?.error}>X</Text>} {pkg?.name}{' '}
-    </Text>
+    <Box marginBottom={1}>
+      <Text>
+        {showSpinner && (
+          <Text color={colors?.white}>
+            <Spinner />
+          </Text>
+        )}
+        {showCheck && <Text color={colors?.success}>✓</Text>}
+        {showX && <Text color={colors?.error}>X</Text>}{' '}
+        {pkg?.name}{' '}
+      </Text>
+    </Box>
   )
 }
 
