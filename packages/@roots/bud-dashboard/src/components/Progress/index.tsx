@@ -17,7 +17,7 @@ export function Progress({
   colors: Styles['colors']
   errors: string[]
 }): JSX.Element {
-  return !(errors?.length > 0) ? (
+  return !(errors?.length > 0) && progress?.decimal ? (
     <Box
       display={'flex'}
       marginX={1}

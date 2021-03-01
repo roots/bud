@@ -47,9 +47,14 @@ export const useCompilation = (bud: Framework) => {
     })
 
     new ProgressPlugin((percentage, message): void => {
+      const decimal =
+        percentage && typeof percentage == 'number'
+          ? percentage
+          : 0
+
       setProgress({
-        decimal: percentage,
-        percentage: `${Math.floor(percentage * 100)}%`,
+        decimal,
+        percentage: `${Math.floor(decimal * 100)}%`,
         message,
       })
     }).apply(bud.compiler.instance)
