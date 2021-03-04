@@ -1,14 +1,13 @@
 import type {Server} from '@roots/bud-typings'
 
 /**
- * The index path for web server,
- *
- * If falsy (but not undefined), the server will not respond
- * to requests to the root URL.
- *
- * @default index.html
+ * Enabled middlewares
  */
-// export const index: Server.Options['index'] = undefined
+export const middleware = {
+  proxy: false,
+  hot: true,
+  dev: true,
+}
 
 /**
  * This property allows a user to pass the list
@@ -30,20 +29,6 @@ export const logLevel: Server.Options['logLevel'] = 'silent'
  * @default null
  */
 export const mimeTypes: Server.Options['mimeTypes'] = null
-
-/**
- * Public path (base url)
- */
-// export const publicPath: Server.Options['publicPath'] = '/'
-
-export const watchFiles = [
-  '**/*.htm(l)?',
-  '**/*.php',
-  '.ejs',
-  '!node_modules',
-  '!vendor',
-]
-
 /**
  * If true, the option will instruct the module to write files to the configured
  * location on disk as specified in your webpack config file
@@ -53,7 +38,7 @@ export const watchFiles = [
  *
  * @note Build is still served from RAM even when `true`.
  */
-export const writeToDisk: Server.Options['writeToDisk'] = true
+export const writeToDisk = true
 
 /**
  * Hostname to use for dev server.
@@ -66,39 +51,30 @@ export const host: Server.Options['host'] = 'localhost'
 export const port: Server.Options['port'] = 3000
 
 /**
- * Watch mode options
+ * Proxy destination
  */
-export const watchOptions: Server.Options['watchOptions'] = {
-  /**
-   * Add a delay before rebuilding once the first file changed.
-   * This allows webpack to aggregate any other
-   *
-   * changes made during this time period into one rebuild.
-   * Pass a value in milliseconds.
-   *
-   * @default 300
-   */
-  aggregateTimeout: 300,
-
-  /**
-   * For some systems, watching many file systems can result
-   * in a lot of CPU or memory usage.
-   *
-   * It is possible to exclude a huge folder like node_modules.
-   * It is also possible to use anymatch patterns.
-   */
-  ignored: undefined,
-
-  /**
-   * Turn on polling by passing true,
-   * or specifying a poll interval in milliseconds.
-   */
-  poll: true,
+export const proxy: Server.Options['proxy'] = {
+  host: 'localhost',
+  port: 8000,
 }
 
+export const hot: boolean = true
+
 /**
- * Proxy settings
+ * Watch mode options
  */
+export const watch: Server.Options['watch'] = {
+  files: [
+    '**/*.html',
+    '**/*.php',
+    '**/*.ejs',
+    '!node_modules',
+    '!vendor',
+  ],
+  options: {
+    persistent: true,
+  },
+}
 
 /**
  * Automatically rewrite hostname over proxy connection.
@@ -126,12 +102,4 @@ export const headers: Server.Options['headers'] = {
   'Access-Control-Allow-Origin': '*',
   'Access-Control-Allow-Headers':
     'X-Requested-With, content-type, Authorization',
-}
-
-/**
- * Proxy destination
- */
-export const proxy: Server.Options['proxy'] = {
-  host: 'localhost',
-  port: 8000,
 }

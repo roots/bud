@@ -1,6 +1,7 @@
 import {Framework, Service, Express, Webpack} from './'
 import webpackDevMiddleware from 'webpack-dev-middleware'
 import ProxyMiddleware from 'http-proxy-middleware'
+import {chokidar} from '@roots/bud-support'
 
 /**
  * ## bud.server
@@ -25,11 +26,6 @@ export interface Server extends Service {
    * Inject HMR service into individual bundles.
    */
   inject(): void
-
-  /**
-   * Make middleware
-   */
-  makeMiddleware(compiler: Webpack.Compiler): void
 
   /**
    * ## bud.server.run [🏠 Internal]
@@ -59,6 +55,10 @@ export namespace Server {
    * Options
    */
   export interface Options {
+    middleware?: {
+      [key: string]: boolean
+    }
+
     /**
      * The development server host
      * @example example.test
@@ -112,11 +112,6 @@ export namespace Server {
      * Proxy setting: set to true to verify SSL certificates
      */
     secure?: ProxyMiddleware.Options['secure']
-
-    /**
-     * Proxy setting: proxy websockets.
-     */
-    ws?: ProxyMiddleware.Options['ws']
 
     /**
      * Proxy setting: rewrite the location host/port on (301/302/307/308) redirects based on requested host/port.
@@ -188,18 +183,16 @@ export namespace Server {
     serverSideRender?: webpackDevMiddleware.Options['serverSideRender']
 
     /**
-     * Specify polling, etc.
+     * Files which should reload the browser when changed.
      */
-    watchOptions?: Webpack.Configuration['watchOptions']
+    watch?: {
+      files: string[]
+      options: chokidar.WatchOptions
+    }
 
     /**
-     * If true, the option will instruct the module
-     * to write files to the configured location on disk
-     * as specified in your webpack config file.
-     *
-     * This option also accepts a Function value, which can be used to
-     * filter which files are written to disk
+     * Hot module reloading enabled
      */
-    writeToDisk?: webpackDevMiddleware.Options['writeToDisk']
+    hot?: boolean
   }
 }

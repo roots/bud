@@ -3,11 +3,12 @@ import type {
   Container,
   Server,
 } from '@roots/bud-typings'
-import Service from './Service'
+import {Service} from '@roots/bud-framework'
 import {injectClient} from '../util/injectClient'
 import * as middleware from '../middleware'
 import {globby, chokidar} from '@roots/bud-support'
 import {resolve} from 'path'
+import {FSWatcher} from 'fs-extra'
 
 /**
  * ## bud.server
@@ -35,14 +36,11 @@ export default class extends Service implements Server {
   public assets = [resolve(__dirname, '../client/index.js')]
 
   /**
-   * Middlewares
+   * Middleware
    */
-  public middlewares = {
-    dev: null,
-    hot: null,
-    proxy: null,
-    budClient: null,
-  }
+  public middleware: {[key: string]: any} = {}
+
+  public _watchlist: string[]
 
   /**
    * Service registration
@@ -53,13 +51,6 @@ export default class extends Service implements Server {
   }
 
   /**
-   * Service boot
-   */
-  public boot(): void {
-    //
-  }
-
-  /**
    * Server config values
    */
   public get config(): Container<Server.Options> {
@@ -67,39 +58,36 @@ export default class extends Service implements Server {
   }
 
   /**
-   * Express middlewares
-   */
-  public makeMiddleware(compiler: Webpack.Compiler): void {
-    Object.assign(this.middlewares, {
-      dev: middleware.dev({
-        config: this.config,
-        compiler,
-      }),
-      hot: middleware.hot(compiler),
-      proxy: middleware.proxy(this.config),
-    })
-  }
-
-  /**
    * Run server
    */
   public run(compiler: Webpack.Compiler): this {
-    this.makeMiddleware(compiler)
+    if (this.config.enabled('middleware.dev')) {
+      this.middleware.dev = middleware.dev({
+        config: this.config,
+        compiler,
+      })
+      this.instance.use(this.middleware.dev)
+    }
 
-    this.instance.use(this.middlewares.dev)
-    this.instance.use(this.middlewares.hot)
+    if (this.config.enabled('middleware.hot')) {
+      this.middleware.hot = middleware.hot(compiler)
+      this.instance.use(this.middleware.hot)
+    }
 
-    this.app.options.enabled('proxy') &&
-      this.instance.use(this.middlewares.proxy)
+    if (this.config.enabled('middleware.proxy')) {
+      this.middleware.proxy = middleware.proxy(this.config)
+      this.instance.use(this.middleware.proxy)
+    }
 
     this.instance.listen(this.config.get('port'))
 
-    this.watcher.on('change', path => {
-      this.middlewares.hot.publish({
-        action: 'reload',
-        message: `Detected file change: ${path}. Reloading window.`,
+    this.watchable &&
+      this.watcher?.on('change', path => {
+        this.middleware.hot.publish({
+          action: 'reload',
+          message: `Detected file change: ${path}. Reloading window.`,
+        })
       })
-    })
 
     return this
   }
@@ -111,17 +99,22 @@ export default class extends Service implements Server {
     injectClient(this.app, this.assets)
   }
 
-  /**
-   * Watch fs
-   */
-  public get watcher() {
+  public get watcher(): FSWatcher {
     return chokidar.watch(
-      globby.sync(
-        this.config
-          .get('watchFiles')
-          .map(file => this.app.get().project(file)),
-      ),
-      {persistent: true},
+      globby.sync(this.watchlist),
+      this.config.get('watch.options'),
+    )
+  }
+
+  public get watchlist(): string[] {
+    return this.config
+      .get('watch.files')
+      .map(f => this.app.get().project(f))
+  }
+
+  public get watchable(): boolean {
+    return (
+      Array.isArray(this.watchlist) && this.watchlist.length > 0
     )
   }
 }
