@@ -1,6 +1,6 @@
 import {RawSource} from 'webpack-sources'
 import Webpack from 'webpack'
-import path from 'path'
+import {resolve, relative} from 'path'
 import {SyncWaterfallHook} from 'tapable'
 
 export class Plugin {
@@ -48,6 +48,11 @@ export class Plugin {
   public publicPath: string
 
   /**
+   * Where should the entrypoints manifest be emitted?
+   */
+  public outputPath: string
+
+  /**
    * Emitted contents
    */
   public output: EntrySchema = {}
@@ -64,13 +69,14 @@ export class Plugin {
     options: Options = {
       name: 'entrypoints.json',
       writeToFileEmit: true,
+      publicPath: null,
+      outputPath: null,
     },
   ) {
     Object.assign(this, options)
 
     this.emit = this.emit.bind(this)
     this.apply = this.apply.bind(this)
-    this.makeEntry = this.makeEntry.bind(this)
     this.entrypoints = this.entrypoints.bind(this)
   }
 
@@ -78,17 +84,14 @@ export class Plugin {
    * Webpack apply plugin
    */
   apply(compiler: Webpack.Compiler): void {
-    this.publicPath = compiler.options.output.publicPath
+    this.publicPath =
+      this.publicPath ?? compiler.options.output.publicPath
 
-    this.path = path.resolve(
-      compiler.options.output.path,
-      this.name,
-    )
+    this.outputPath =
+      this.outputPath ?? compiler.options.output.path
 
-    this.file = path.relative(
-      compiler.options.output.path,
-      this.path,
-    )
+    this.path = resolve(this.outputPath, this.name)
+    this.file = relative(this.outputPath, this.path)
 
     compiler.hooks.emit.tapAsync(this.plugin, this.emit)
   }
@@ -133,42 +136,46 @@ export class Plugin {
   public entrypoints(
     entrypoints: SyncWaterfallHook['call']['arguments'],
   ): void {
-    entrypoints.forEach(entry => {
-      this.makeEntry(entry.name)
+    try {
+      entrypoints.forEach(({name, chunks, ...entry}) => {
+        chunks.map(({files}) => {
+          this.output[name] = files.reduce(
+            (a, file) => {
+              const type = file.split('.').pop()
 
-      entry.chunks.map(chunk => {
-        chunk.files.map(file => {
-          this.pushChunk(
-            entry.name,
-            file.split('.').pop(),
-            path.join(this.publicPath, file),
+              return {
+                ...(a ?? {}),
+                [type]: {
+                  ...(a?.[type] ?? {}),
+                  [name]: `${this.publicPath}${file}`,
+                },
+              }
+            },
+
+            entry.runtimeChunk?.files.reduce(
+              (
+                a: {[key: string]: any},
+                file: {[key: string]: any},
+              ) => {
+                const type = file.split('.').pop()
+
+                return {
+                  ...(a ?? {}),
+                  [type]: {
+                    ...(a[type] ?? {}),
+                    [entry.runtimeChunk
+                      .name]: `${this.publicPath}${file}`,
+                  },
+                }
+              },
+              {},
+            ),
           )
         })
       })
-    })
-  }
-
-  /**
-   * Assign entrypoint to output property
-   */
-  public makeEntry(name: string): void {
-    this.output[name] = {
-      version: this.hash,
-      js: [],
-      css: [],
+    } catch (err) {
+      console.error(err)
     }
-  }
-
-  /**
-   * Push chunk onto existing manifest entry.
-   */
-  public pushChunk(
-    name: string,
-    type: string,
-    entry: string,
-  ): void {
-    this.output[name][type] &&
-      this.output[name][type].push(entry)
   }
 }
 
@@ -177,9 +184,9 @@ export class Plugin {
  */
 export type EntrySchema = {
   [key: string]: {
-    version?: string
-    js?: Array<string>
-    css?: Array<string>
+    [type: string]: {
+      [handle: string]: string
+    }
   }
 }
 
@@ -196,4 +203,6 @@ export type Output = EntrySchema
 export type Options = {
   name?: string
   writeToFileEmit?: boolean
+  publicPath?: string
+  outputPath?: string
 }
