@@ -26,8 +26,6 @@ export default class extends Service {
     this.use = this.use.bind(this)
     this.make = this.make.bind(this)
     this.makeAll = this.makeAll.bind(this)
-
-    this.processed = this.app.makeContainer()
   }
 
   /**
@@ -47,13 +45,8 @@ export default class extends Service {
 
     this.set(
       name,
-      new Extension(this.app.get, extension)
-        .register()
-        .setBuilders()
-        .boot(),
+      new Extension(this.app.get, extension)._register()._boot(),
     )
-
-    this.processed.set(name, true)
   }
 
   /**
@@ -69,8 +62,7 @@ export default class extends Service {
    * Returns a webpack-ready array
    */
   public makeAll(): Webpack.Plugin[] {
-    const plugins = this.processed
-      .getKeys()
+    const plugins = this.getKeys()
       .map(name =>
         this.app.hooks.filter<Webpack.Plugin>(
           `webpack.plugins.${name}`,

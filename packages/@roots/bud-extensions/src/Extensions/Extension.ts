@@ -1,12 +1,5 @@
-import {Service} from '@roots/bud-framework'
 import {isFunction, lodash as _} from '@roots/bud-support'
-import {
-  Framework,
-  Index,
-  Loader,
-  Rule,
-  Item,
-} from '@roots/bud-typings'
+import {Framework, Module} from '@roots/bud-typings'
 
 /**
  * Extensions controller class.
@@ -16,21 +9,32 @@ import {
  * [🏡 Project home](https://roots.io/bud)
  * [🧑‍💻 roots/bud](https://git.io/Jkli3)
  * [📦 @roots/bud-extensions](https://github.io/roots/bud-extensions)
- * [🔗 Documentation](#)
  */
-export default class extends Service {
+export default class {
+  public _app: () => Framework
+
+  public register?: Module['register']
+  public boot?: Module['boot']
+  public options?: Module['options']
+  public api?: Module['api']
+  public make?: Module['make']
+  public when?: Module['when']
+
+  public get app() {
+    return this._app()
+  }
+
+  public constructor(_app: Framework['get'], extension) {
+    Object.assign(this, {_app, ...extension})
+
+    this.api && Object.assign(this.app.access(this.api))
+  }
+
   /**
    * Register extension
    */
-  public register(): this {
-    this.makePlugin = this.makePlugin.bind(this)
-    this.isPlugin = this.isPlugin.bind(this)
-    this.isPluginEnabled = this.isPluginEnabled.bind(this)
-    this.setApp = this.setApp.bind(this)
-    this.setBuilders = this.setBuilders.bind(this)
-
-    this.has('api') && this.setApp(this.access('api'))
-    this.has('register') && this.access('register')
+  public _register(): this {
+    this.register && this.app.access(this.register)
 
     return this
   }
@@ -38,8 +42,8 @@ export default class extends Service {
   /**
    * Boot extension
    */
-  public boot(): this {
-    this.has('boot') && this.access('boot')
+  public _boot(): this {
+    this.boot && this.app.access(this.boot)
 
     return this
   }
@@ -48,110 +52,44 @@ export default class extends Service {
    * Make plugin.
    */
   public makePlugin(): Framework.Webpack.Plugin | null {
-    if (!this.isPlugin() || !this.isPluginEnabled()) {
+    if (!this.isPlugin() || !this.enabled) {
       return null
     }
 
-    const options = this.access('options')
+    const options = this.app.access(this.options)
 
-    return this.isFunction('make')
-      ? this.get('make')(
+    return typeof this.make == 'function'
+      ? this.make(
           options ? this.app.makeContainer(options) : null,
           this.app,
         )
-      : this.get('make')
+      : this.make
   }
 
   /**
    * Is this extension a plugin?
    */
   public isPlugin(): boolean {
-    return this.has('make')
+    return this.make ? true : false
   }
 
-  /**
-   * Is plugin enabled?
-   */
-  public isPluginEnabled(): boolean {
-    if (!this.has('when')) return true
+  public _enabled: boolean
 
-    const when = this.get('when')
+  public get enabled() {
+    if (!this.when) return true
 
     const options: Framework.Container = this.app.makeContainer(
-      this.access('options'),
+      this.app.access(this.options),
     )
 
-    if (isFunction(when)) {
-      return when(this.app, options)
+    if (isFunction(this.when)) {
+      return this.when(this.app, options)
     }
 
-    return when
+    return this.when
   }
 
-  /**
-   * ## extension.setApi
-   */
-  protected setApp<T = unknown>(set: Index<T>): void {
-    Object.assign(this.app, this.app.access(set))
-  }
-
-  /**
-   * ## extension.setBuilders
-   */
-  public setBuilders(): this {
-    const builders = ['loaders', 'items', 'rules']
-
-    const registerFn = (str: string) =>
-      `set${_.startCase(_.toLower(str))}`
-
-    builders
-      // only dealing with registrable fns here
-      .filter(name => this.has(registerFn(name)))
-      /**
-       * If the registration is a fn, we'll call it
-       * and be left with the contents.
-       */
-      .map((name: string) => {
-        return [
-          name,
-          this.access<
-            | [string, Item | Rule | Loader]
-            | {[key: string]: Item | Loader | Rule}
-          >(registerFn(name)),
-        ]
-      })
-      /**
-       * Loop through each entry
-       */
-      .map(([name, obj]: ExtensionProp) => {
-        const register = (
-          identifier: string,
-          [objName, objValue]: [string, Item | Rule | Loader],
-        ) =>
-          this.app.build.set(
-            `${identifier}.${objName}`,
-            objValue,
-          )
-
-        Array.isArray(obj)
-          ? register(name, obj)
-          : Object.entries(obj).forEach(([objName, obj]) => {
-              register(name, [objName, obj])
-            })
-
-        return null
-      })
-
-    return this
+  public set enabled(enabled: boolean) {
+    this.when = () => enabled
   }
 }
-
-declare type ExtensionProp = [
-  string,
-  (
-    | [string, Item | Rule | Loader]
-    | {
-        [key: string]: Item | Loader | Rule
-      }
-  ),
-]

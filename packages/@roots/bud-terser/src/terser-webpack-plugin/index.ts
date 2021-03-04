@@ -27,5 +27,5 @@ export const make: Module.Make<
 > = (options: Framework.Terser.Options) =>
   new TerserPlugin(options.all())
 
-export const when: Module.When = ({options}) =>
-  options.enabled('minify') && options.is('mode', 'production')
+export const when: Module.When = ({store, isProduction}) =>
+  store.enabled('options.minify') && isProduction
