@@ -17,18 +17,36 @@ export const Footer = props => {
  */
 export const DevelopmentFeatures = ({bud, colors}) => {
   const isDevelopment = bud.isDevelopment
-  const protocol = bud.store.get('server.ssl')
-    ? 'https://'
-    : 'http://'
-
-  const host = bud.store.get('server.host')
-  const port = bud.store.get('server.port')
-
-  const devAddress = `🌐 ${protocol}${host}:${port}`
+  const server = bud.store.get('server')
 
   return isDevelopment ? (
     <Box flexDirection="row" justifyContent="space-between">
-      <Text dimColor>{devAddress}</Text>
+      <Box flexDirection="column">
+        <Text>
+          {`🧭  serve: `}
+          {server.host}
+          {`:`}
+          {server.port}
+        </Text>
+
+        {server.proxy.enabled ? (
+          <Text>
+            {`🎯  proxy: `}
+            {server.proxy.host}
+            {`:`}
+            {server.proxy.port}
+          </Text>
+        ) : (
+          <Text dimColor>{`🎯  proxy: disabled`}</Text>
+        )}
+
+        {server.middleware.hot ? (
+          <Text>{`🔥    hmr: enabled`}</Text>
+        ) : (
+          <Text dimColor>{`🔥    hmr: disabled`}</Text>
+        )}
+      </Box>
+
       <Git colors={colors} />
     </Box>
   ) : (

@@ -7,7 +7,7 @@ export const useBud = (bud: Framework): {mode: typeof mode} => {
   >(null)
 
   useEffect(() => {
-    setMode(bud.options.get('mode'))
+    setMode(bud.mode)
   })
 
   return {

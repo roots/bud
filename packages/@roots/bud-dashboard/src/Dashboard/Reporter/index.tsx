@@ -91,18 +91,20 @@ export const Reporter: FunctionComponent<{
 
           {themeLoaded && (
             <>
-              <Module label="Information">
-                <Footer
-                  hasErrors={hasErrors}
-                  bud={bud}
-                  bounds={bounds}
-                  col={col}
-                  pkg={pkg}
-                  colors={colors}
-                  progress={progress}
-                  stats={stats}
-                />
-              </Module>
+              {bud.isDevelopment && (
+                <Module label="Information">
+                  <Footer
+                    hasErrors={hasErrors}
+                    bud={bud}
+                    bounds={bounds}
+                    col={col}
+                    pkg={pkg}
+                    colors={colors}
+                    progress={progress}
+                    stats={stats}
+                  />
+                </Module>
+              )}
 
               <Box paddingX={1}>
                 <Progress
