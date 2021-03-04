@@ -28,14 +28,14 @@ declare module '@roots/bud-framework' {
 }
 
 export const provide: Provide = function (packages) {
-  const op = this.extensions
-    .get('webpack-provide-plugin')
-    .has('options')
+  const op = this.extensions.has(
+    'webpack-provide-plugin.options',
+  )
     ? 'merge'
     : 'set'
 
-  this.extensions.get('webpack-provide-plugin')[op](
-    'options',
+  this.extensions[op](
+    'webpack-provide-plugin.options',
     Object.entries(packages).reduce(
       (a, [k, v]) => ({
         ...a,

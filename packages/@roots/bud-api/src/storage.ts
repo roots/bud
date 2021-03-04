@@ -23,7 +23,7 @@ type Storage = (this: Framework, path: string) => Framework
 
 export const storage: Storage = function (path?) {
   if (path) {
-    this.options.set('storage', path)
+    this.store.set('locations.storage', path)
   }
 
   return this

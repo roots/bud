@@ -1,4 +1,3 @@
-import {Options} from '@roots/bud-framework/src'
 import type {
   Container,
   Webpack,
@@ -64,12 +63,8 @@ export default class extends Service implements Build {
    */
   public makeWebpackProp(configKey: keyof Cfg): void {
     if (
-      this.service<Options>('options').has(
-        `webpack.${configKey}`,
-      ) &&
-      this.service<Options>('options').disabled(
-        `webpack.${configKey}`,
-      )
+      this.app.store.has(`webpack.${configKey}`) &&
+      this.app.store.disabled(`webpack.${configKey}`)
     ) {
       this.warn({
         configKey,

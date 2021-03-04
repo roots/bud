@@ -41,7 +41,6 @@ export {Discovery} from './Discovery'
 export {Framework} from './Framework'
 export {Env} from './Env'
 export {Logger} from './Logger'
-export {Options} from './Options'
 export {Providers} from './Providers'
 export {Service} from './Service'
 

@@ -66,3 +66,6 @@ export {html} from './html'
 
 import './vendor'
 export {vendor} from './vendor'
+
+import './watch'
+export {watch} from './watch'

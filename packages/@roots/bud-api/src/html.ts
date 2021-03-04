@@ -35,17 +35,19 @@ declare module '@roots/bud-framework' {
 }
 
 export const html: Framework.Api.Html = function (options?) {
-  this.options.enable('html')
+  this.store.enable('options.html')
 
   options?.template &&
-    this.extensions
-      .get('html-webpack-plugin')
-      .set('options.template', options.template)
+    this.extensions.set(
+      'html-webpack-plugin.options.template',
+      options.template,
+    )
 
   options?.replacements &&
-    this.extensions
-      .get('interpolate-html-plugin')
-      .set('options.replacements', options.replacements)
+    this.extensions.set(
+      'interpolate-html-plugin.options',
+      options.replacements,
+    )
 
   return this
 }

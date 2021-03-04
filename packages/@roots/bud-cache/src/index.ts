@@ -1,5 +1,4 @@
 import Service from './Service'
-import {Framework} from '@roots/bud-typings'
 
 /**
  * ## bud.cache [🏠 Internal]
@@ -32,9 +31,9 @@ export class Cache extends Service {
    */
   public enabled(): boolean {
     return (
-      this.service('options').get('storage') &&
+      this.app.store.get('locations.storage') &&
       this.disk('project').exists(
-        this.service('options').get('webpack.recordsPath'),
+        this.app.store.get('locations.records'),
       )
     )
   }
@@ -46,9 +45,9 @@ export class Cache extends Service {
    */
   public setCache(): void {
     this.enabled() &&
-      this.app.hooks.on('webpack.cache', (bud: Framework) =>
+      this.app.hooks.on('webpack.cache', () =>
         this.disk('project').readJson(
-          this.service('options').get('webpack.recordsPath'),
+          this.app.store.get('locations.records'),
         ),
       )
   }

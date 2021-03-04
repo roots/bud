@@ -3,19 +3,24 @@ import ManifestPlugin from 'webpack-manifest-plugin'
 
 export const name = `webpack-manifest-plugin`
 
-export const options: Module.Options<ManifestPlugin.Options> = {
+export const options: Options = {
   fileName: 'manifest.json',
   writeToFileEmit: true,
 }
 
-export const make: Module.Make<
-  ManifestPlugin,
-  ManifestPlugin.Options
-> = (options: ManifestPlugin.Options, app: Framework) =>
+export const make: Make = (options: Options, app: Framework) =>
   new ManifestPlugin({
+    publicPath: app.store.get('options.publicPath'),
     ...options.all(),
-    publicPath: app.options.get('publicPath'),
   })
 
-export const when: Module.When = ({options}) =>
-  options.enabled('manifest')
+export const when: When = (app: Framework) =>
+  app.store.enabled('options.manifest')
+
+declare type Make = Module.Make<
+  ManifestPlugin,
+  ManifestPlugin.Options
+>
+
+declare type When = Module.When
+declare type Options = ManifestPlugin.Options

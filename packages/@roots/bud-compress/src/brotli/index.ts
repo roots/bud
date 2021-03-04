@@ -4,13 +4,6 @@ import * as api from './api'
 
 export const name = 'compression-webpack-plugin-brotli'
 
-export const make: Framework.Compress.Brotli.Make = options =>
-  new Plugin(options.all())
-
-export const when: Framework.Compress.Brotli.When = ({
-  options,
-}) => options.enabled('brotli')
-
 export const options: Framework.Compress.Brotli.Options = {
   filename: '[name].br[query]',
   algorithm: 'brotliCompress',
@@ -22,5 +15,11 @@ export const options: Framework.Compress.Brotli.Options = {
   minRatio: 0.8,
   deleteOriginalAssets: false,
 }
+
+export const make: Framework.Compress.Brotli.Make = options =>
+  new Plugin(options.all())
+
+export const when: Framework.Compress.Brotli.When = ({store}) =>
+  store.enabled('options.brotli')
 
 export {api}

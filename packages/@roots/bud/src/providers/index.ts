@@ -1,12 +1,6 @@
 import path from 'path'
 import {Providers} from '@roots/bud-typings'
-import {
-  Env,
-  Options,
-  Discovery,
-  Disk,
-  Logger,
-} from '@roots/bud-framework'
+import {Env, Discovery, Disk, Logger} from '@roots/bud-framework'
 import {Build} from '@roots/bud-build'
 import {Cache} from '@roots/bud-cache'
 import {Compiler} from '@roots/bud-compiler'
@@ -18,7 +12,6 @@ import {express} from '@roots/bud-support'
 import {extensions} from './extensions'
 
 import Store, {repositories} from './store'
-import {options} from './options'
 import * as items from './items'
 import * as rules from './rules'
 
@@ -49,7 +42,6 @@ export const providers: {
       },
     },
   ],
-  options: [Options, {containers: options}],
   hooks: [Hooks, {containers: hooks}],
   build: [Build, {containers: {items, rules}}],
   extensions: [Extensions, {containers: extensions}],

@@ -20,7 +20,7 @@ declare module '@roots/bud-framework' {
 }
 
 export const minify: Minify = function () {
-  this.options.enable('minify')
+  this.store.enable('options.minify')
 
   return this
 }

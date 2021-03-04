@@ -3,36 +3,33 @@ import {Framework} from '@roots/bud-framework'
 /**
  * webpack.output.filename
  */
-export const filename = (bud: Framework) =>
-  bud.hooks.filter(
+export const filename = ({hooks, store}: Framework) =>
+  hooks.filter(
     `webpack.output.filename`,
-    bud.options.isTrue('hash')
-      ? `[name].[contenthash].js`
+    store.enabled('options.hash')
+      ? `[name].[hash].js`
       : '[name].js',
   )
 
 /**
  * webpack.output.publicPath
  */
-export const publicPath = (app: Framework) =>
-  app.hooks.filter(
+export const publicPath = ({hooks, store}: Framework) =>
+  hooks.filter(
     'webpack.output.publicPath',
-    app.options.access('publicPath') ?? '/',
+    store.access('locations.publicPath') ?? '/',
   )
 
 /**
  * webpack.output.path
  */
-export const path = ({disk, hooks, options}: Framework) =>
+export const path = ({hooks, store}: Framework) =>
   hooks.filter(
     'webpack.output.path',
-    disk.path.join(options.get('project'), options.get('dist')),
+    `${store.get('locations.project')}${store.get(
+      'locations.dist',
+    )}`,
   )
-
-/**
- * @question set ctx `this`?
- */
-// globalObject: 'window'
 
 /**
  * @webpack5

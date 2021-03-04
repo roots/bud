@@ -19,5 +19,5 @@ export const make: Module.Make<
   Options
 > = options => new HtmlHardDiskPlugin(options.all())
 
-export const when: Module.When = ({options}) =>
-  options.enabled('html')
+export const when: Module.When = ({store}) =>
+  store.enabled('options.html')

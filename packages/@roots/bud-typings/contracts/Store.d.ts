@@ -79,6 +79,11 @@ declare namespace Store {
     | `server.${string}`
     | `server`
     | `env`
+    | `locations`
+    | `locations.${string}`
+    | `patterns`
     | `patterns.${string}`
+    | `options`
+    | `options.${string}`
     | `compilation.${string}`
 }

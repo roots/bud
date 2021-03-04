@@ -23,6 +23,7 @@ export default class extends Service implements Discovery {
   public boot(): void {
     this.info({
       enabled: this.isEnabled(),
+      msg: 'Autodiscover enabled status',
     })
 
     this.isEnabled() &&
@@ -82,7 +83,7 @@ export default class extends Service implements Discovery {
     return this.service('disk').path.posix.join(
       this.service('disk').path.resolve(
         this.disk('project').baseDir,
-        this.service('options').get('modules'),
+        this.app.store.get('options.node_modules'),
       ),
       path,
     )
@@ -92,6 +93,6 @@ export default class extends Service implements Discovery {
    * Is autodiscover enabled?
    */
   public isEnabled(): boolean {
-    return this.service('options').enabled('autodiscover')
+    return this.app.store.enabled('options.autodiscover')
   }
 }

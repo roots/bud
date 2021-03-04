@@ -18,7 +18,7 @@ export function run(): void {
    * When using the Bud dashboard we can just call the CLI
    * and bounce early.
    */
-  if (!this.options.enabled('ci')) {
+  if (!this.store.enabled('options.ci')) {
     this.dashboard.run()
     return
   }
@@ -61,7 +61,7 @@ export function run(): void {
    * When in development, run dev server.
    */
   this.when(
-    !this.options.is('mode', 'development'),
+    !this.isDevelopment,
     () => this.compiler.instance.run(runCallback.bind(this)),
     () => this.server.run(this.compiler.instance),
   )

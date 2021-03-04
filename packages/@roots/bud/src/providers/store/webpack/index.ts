@@ -22,30 +22,31 @@ import type {Configuration as Cfg} from 'webpack'
  * @filter  {webpack.bail}
  * @flags   {--bail}
  */
-export const bail = ({hooks, options}: Framework) =>
-  hooks.filter(`webpack.bail`, options.get('bail') ?? true)
+export const bail = ({hooks, store}: Framework) =>
+  hooks.filter(`webpack.bail`, store.get('options.bail') ?? true)
 
 /**
  * Cache
  *
  * @default {false}
  */
-export const cache = (app: Framework) =>
-  app.hooks.filter(
+export const cache = ({disk, hooks, store}: Framework) =>
+  hooks.filter(
     `webpack.cache`,
-    app.options.disabled('cache')
+    store.disabled('options.cache')
       ? false
       : {
           type: 'filesystem',
           name: 'bud',
-          cacheLocation: app.disk.path.resolve(
-            app.options.get('project'),
-            app.options.get('storage'),
+          cacheLocation: disk.path.resolve(
+            store.get('locations.project'),
+            store.get('locations.storage'),
           ),
-          cacheDirectory: app.disk.path.resolve(
-            app.options.get('project'),
-            app.options.get('storage'),
+          cacheDirectory: disk.path.resolve(
+            store.get('locations.project'),
+            store.get('locations.storage'),
           ),
+          ...store.get('options.cache'),
         },
   )
 
@@ -56,16 +57,19 @@ export const cache = (app: Framework) =>
  * @flags   {--project}
  * @default {process.cwd}
  */
-export const context = ({hooks, options}) =>
-  hooks.filter(`webpack.context`, options.get('project'))
+export const context = ({hooks, store}) =>
+  hooks.filter(`webpack.context`, store.get('locations.project'))
 
 /**
  * Devtool
  *
  * @default {none}
  */
-export const devtool = ({hooks, options}: Framework) =>
-  hooks.filter('webpack.devtool', options.get('devtool'))
+export const devtool = ({hooks, store}: Framework) =>
+  hooks.filter(
+    'webpack.devtool',
+    store.get('options.devtool') ?? 'none',
+  )
 
 /**
  * Entry
@@ -90,8 +94,13 @@ export const externals = ({hooks}: Framework) =>
  * @filter  {webpack.infrastructureLogging}
  * @default {level: none}
  */
-export const infrastructureLogging = ({hooks}: Framework) =>
-  hooks.filter('webpack.infrastructureLogging', {level: 'none'})
+export const infrastructureLogging = ({
+  hooks,
+  store,
+}: Framework) =>
+  hooks.filter('webpack.infrastructureLogging', {
+    level: 'none',
+  })
 
 /**
  * Mode
@@ -100,23 +109,25 @@ export const infrastructureLogging = ({hooks}: Framework) =>
  * @flags   {--mode}
  * @default {'production'}
  */
-export const mode = ({hooks, options}: Framework) =>
-  hooks.filter(`mode`, options.get('mode') ?? 'production')
+export const mode = ({hooks, mode}: Framework) =>
+  hooks.filter(`mode`, mode ?? 'production')
 
 /**
  * Name
  */
-export const name = ({hooks, options}: Framework) =>
+export const name = ({hooks, store}: Framework) =>
   hooks.filter(
     `webpack.name`,
-    options.get('name') ?? '@roots/bud',
+    store.has('options.name')
+      ? store.get('options.name')
+      : '@roots/bud',
   )
 
 /**
  * Node
  */
 export const node = ({hooks}: Framework) =>
-  hooks.filter(`webpack.node`, {...nodeSettings})
+  hooks.filter('webpack.node', nodeSettings)
 
 /**
  * Optimization
@@ -129,12 +140,12 @@ export function optimization(app: Framework) {
     noEmitOnErrors: noEmitOnErrors(app),
   }
 
-  app.options.enabled('runtime') &&
+  app.store.enabled('options.runtime') &&
     Object.assign(optimization, {
       runtimeChunk: runtimeChunk(app),
     })
 
-  app.options.enabled('vendor') &&
+  app.store.enabled('options.vendor') &&
     Object.assign(optimization, {
       splitChunks: splitChunks(app),
     })
@@ -158,11 +169,13 @@ export function output(app: Framework) {
  */
 export const performance = ({
   hooks,
-  options,
+  store,
 }: Framework): boolean =>
   hooks.filter(
     `wepback.performance`,
-    options.get('webpack.performance') ?? false,
+    store.has('options.performance')
+      ? store.get('options.performance')
+      : false,
   )
 
 /**
@@ -171,14 +184,24 @@ export const performance = ({
  * @filter  {webpack.parallelism}
  * @default {1}
  */
-export const parallelism = ({hooks}: Framework) =>
-  hooks.filter(`webpack.parallelism`, 1)
+export const parallelism = ({hooks, store}: Framework) =>
+  hooks.filter(
+    `webpack.parallelism`,
+    store.has('options.parallelism')
+      ? store.get('options.parallelism')
+      : 1,
+  )
 
 /**
  * Profile
  */
-export const profile = ({hooks}: Framework) =>
-  hooks.filter(`webpack.profile`, false)
+export const profile = ({hooks, store}: Framework) =>
+  hooks.filter(
+    `webpack.profile`,
+    store.has('options.profile')
+      ? store.get('options.profile')
+      : false,
+  )
 
 /**
  * Records Path
@@ -186,8 +209,8 @@ export const profile = ({hooks}: Framework) =>
 export const recordsPath = (app: Framework) =>
   app.project(
     app.disk.path.join(
-      app.options.get('storage'),
-      app.options.get('records'),
+      app.store.get('locations.storage'),
+      app.store.get('locations.records'),
     ),
   )
 
@@ -195,7 +218,7 @@ export const recordsPath = (app: Framework) =>
  * Resolve
  */
 export const resolve = (app: Framework) =>
-  app.hooks.filter('webpack.resolve', {
+  app.hooks.filter('options.resolve', {
     alias: alias(app),
     extensions: extensions(app),
     modules: resolveModules(app),
@@ -207,8 +230,13 @@ export const resolve = (app: Framework) =>
  * @filter  {webpack.stats}
  * @default {false}
  */
-export const stats = ({hooks}: Framework) =>
-  hooks.filter(`webpack.stats`, false)
+export const stats = ({hooks, store}: Framework) =>
+  hooks.filter(
+    `webpack.stats`,
+    store.has('options.stats')
+      ? store.get('options.stats')
+      : false,
+  )
 
 /**
  * Target
@@ -217,10 +245,12 @@ export const stats = ({hooks}: Framework) =>
  * @flags   {--target}
  * @default {false}
  */
-export const target = ({hooks, options}: Framework) =>
+export const target = ({hooks, store}: Framework) =>
   hooks.filter(
     `webpack.target`,
-    options.access('target') ?? 'web',
+    store.has('options.target')
+      ? store.get('options.target')
+      : 'web',
   )
 
 /**
@@ -230,8 +260,8 @@ export const target = ({hooks, options}: Framework) =>
  * @flags   {--watch}
  * @default {false}
  */
-export const watch = ({hooks, options}: Framework) =>
-  hooks.filter(`webpack.watch`, options.access('watch') ?? false)
+export const watch = ({hooks, isDevelopment}: Framework) =>
+  hooks.filter(`webpack.watch`, isDevelopment ? true : false)
 
 /**
  * Watch options

@@ -2,8 +2,8 @@ export const cache = app => ({
   loader: require.resolve('cache-loader'),
   options: {
     cacheDirectory: app.disk.path.resolve(
-      app.options.get('project'),
-      app.options.get('storage'),
+      app.store.get('locations.project'),
+      app.store.get('locations.storage'),
     ),
   },
 })

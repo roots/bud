@@ -1,4 +1,5 @@
 import {Framework} from '@roots/bud-framework'
+import {isEqual} from 'lodash'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -30,30 +31,37 @@ declare module '@roots/bud-framework' {
 type Copy = (
   this: Framework,
   jobs: {[key: string]: string},
+  options?: {[key: string]: any},
 ) => Framework
 
-export const copy: Copy = function (jobs) {
-  Object.entries(jobs).forEach(
-    ([to, from]: [string, string]) => {
-      this.disk.glob.sync(from).forEach(path => {
-        this.extensions
-          .get(`copy-webpack-plugin`)
-          .mutate(
-            'options.patterns',
-            (
-              patterns: {[key: string]: string}[],
-            ): {[key: string]: string}[] => [
-              ...patterns,
-              {
-                context: this.project(),
-                from: path,
-                to,
-              },
-            ],
-          )
-      })
-    },
-  )
+export const copy: Copy = function (jobs, options) {
+  Object.entries(jobs).map(([to, from]) => {
+    this.disk.glob.sync(from).forEach(path => {
+      this.extensions.mutate(
+        'webpack-copy-plugin.options.patterns',
+        (
+          patterns: {[key: string]: string}[],
+        ): {[key: string]: string}[] => {
+          const rootStyle = isEqual(to, '/')
+            ? '[name].[contenthash].[ext]'
+            : null
+
+          const dirStyle = isEqual(to.split('').pop(), '/')
+            ? to.concat('[name].[contenthash].[ext]')
+            : ''
+
+          const pattern = {
+            from: path,
+            context: this.project(),
+            to: rootStyle ?? dirStyle ?? to,
+            ...(options ?? {}),
+          }
+
+          return [...patterns, pattern]
+        },
+      )
+    })
+  })
 
   return this
 }

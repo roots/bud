@@ -6,4 +6,5 @@ export const name = `webpack-hot-module-replacement-plugin`
 export const make: Module.Make = () =>
   new HotModuleReplacementPlugin()
 
-export const when: Module.When = bud => bud.isDevelopment
+export const when: Module.When = bud =>
+  bud.isDevelopment && bud.store.enabled('options.hot')

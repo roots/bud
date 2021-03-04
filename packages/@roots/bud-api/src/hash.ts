@@ -25,7 +25,10 @@ declare module '@roots/bud-framework' {
 }
 
 hash = function (enabled) {
-  this.options.set('hash', enabled === false ? false : true)
+  this.store.set(
+    'options.hash',
+    enabled === false ? false : true,
+  )
 
   return this
 }

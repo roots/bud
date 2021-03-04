@@ -6,7 +6,7 @@ export const name = 'compression-webpack-plugin-gzip'
 export * as api from './api'
 
 export const when: Framework.Compress.Gzip.When = app =>
-  app.options.enabled('gzip')
+  app.store.enabled('options.gzip')
 
 export const options: Framework.Compress.Gzip.Options = {
   algorithm: 'gzip',

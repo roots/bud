@@ -24,10 +24,6 @@ declare module '@roots/bud-framework' {
 }
 
 export const publicPath: PublicPath = function (publicPath) {
-  this.options.set(
-    'publicPath',
-    this.disk.path.normalize(publicPath),
-  )
-
+  this.store.set('locations.publicPath', publicPath)
   return this
 }

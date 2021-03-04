@@ -29,7 +29,7 @@ export const srcPath: SrcPath = function (path) {
   this.when(
     !this.store.has('args.src') &&
       !this.store.isString('args.src'),
-    () => this.options.set('src', path),
+    () => this.store.set('locations.src', path),
   )
 
   return this

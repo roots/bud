@@ -16,13 +16,12 @@ export const boot: Module['boot'] = ({
   store,
   hooks,
   logger,
-  options,
 }: Framework): void => {
   const hasTs =
     disk.glob.sync(['*.ts', '*.tsx', '**/*.ts', '**/*.tsx'], {
       cwd: disk.path.join(
         disk.get('project').baseDir,
-        options.get('src'),
+        store.get('locations.src'),
       ),
     }).length > 0
 

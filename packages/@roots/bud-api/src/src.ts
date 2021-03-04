@@ -28,9 +28,12 @@ type Src = (path?: string) => string
 
 export const src: Src = function (path) {
   return path
-    ? this.disk.path.join(this.options.get('project'), path)
+    ? this.disk.path.join(
+        this.store.get('locations.project'),
+        path,
+      )
     : this.disk.path.join(
-        this.options.get('project'),
-        this.options.get('src'),
+        this.store.get('locations.project'),
+        this.store.get('locations.src'),
       )
 }

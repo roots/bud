@@ -9,7 +9,7 @@ type Devtool = (
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## devtool  [💁 Fluent]
+     * ## devtool [💁 Fluent]
      *
      * Enable and configure sourcemaps using any of Webpack's
      * [devtool utilities](https://webpack.js.org/configuration/devtool/).
@@ -25,7 +25,6 @@ declare module '@roots/bud-framework' {
 }
 
 export const devtool: Devtool = function (devtool?) {
-  this.options.enable('devtool')
   this.hooks.on('webpack.devtool', () => devtool ?? true)
 
   return this

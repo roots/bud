@@ -30,9 +30,7 @@ type Define = (
 ) => Framework
 
 export const define: Define = function (values) {
-  this.extensions
-    .get('webpack-define-plugin')
-    .merge('options', values)
+  this.extensions.set('webpack-define-plugin.options', values)
 
   return this
 }

@@ -5,12 +5,12 @@ export const name = `mini-css-extract-plugin`
 
 export const make: Module.Make = (options, bud) =>
   new MiniCssExtractPlugin({
-    filename: bud.options.enabled('hash')
-      ? '[name].[contenthash].css'
+    filename: bud.store.enabled('options.hash')
+      ? '[name].[hash].css'
       : '[name].css',
-    chunkFilename: bud.options.enabled('hash')
-      ? '[id].[contenthash].css'
-      : '[id].css',
+    chunkFilename: bud.store.enabled('options.hash')
+      ? '[name].[id].[hash].css'
+      : '[name].[id].css',
     ...options.all(),
   })
 

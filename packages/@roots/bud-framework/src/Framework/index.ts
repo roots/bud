@@ -70,11 +70,6 @@ export default abstract class implements Framework {
   public logger: Framework.Logger
 
   /**
-   * Options
-   */
-  public options: Framework.Options
-
-  /**
    * Providers
    */
   public providers: Framework.Container
@@ -312,14 +307,14 @@ export default abstract class implements Framework {
    * Mode
    */
   public get mode(): Webpack.Configuration['mode'] {
-    return this.options.get('mode')
+    return this.store.get('options.mode')
   }
 
   /**
    * Mode setter
    */
   public set mode(mode: Webpack.Configuration['mode']) {
-    this.options.set('mode', mode)
+    this.store.set('options.mode', mode)
   }
 
   /**
@@ -328,7 +323,7 @@ export default abstract class implements Framework {
    * True if Webpack.Configuration['mode'] is 'production'
    */
   public get isProduction(): boolean {
-    return this.options.is('mode', 'production')
+    return this.store.is('options.mode', 'production')
   }
   /**
    * ## bud.isDevelopment
@@ -336,6 +331,6 @@ export default abstract class implements Framework {
    * True if Webpack.Configuration['mode'] is 'development'
    */
   public get isDevelopment(): boolean {
-    return this.options.is('mode', 'development')
+    return this.store.is('options.mode', 'development')
   }
 }

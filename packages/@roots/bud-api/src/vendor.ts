@@ -27,9 +27,9 @@ declare module '@roots/bud-framework' {
   }
 }
 
-type Vendor = (this: Framework) => Framework
+type Vendor = () => Framework
 
 export const vendor: Vendor = function () {
-  this.options.enable('vendor')
+  this.store.enable('options.vendor')
   return this
 }

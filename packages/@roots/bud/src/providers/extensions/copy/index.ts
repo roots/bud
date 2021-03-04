@@ -1,7 +1,7 @@
 import Plugin from 'copy-webpack-plugin'
 import {Module} from '@roots/bud-typings'
 
-export const name: Module['name'] = `copy-webpack-plugin`
+export const name: Module['name'] = 'webpack-copy-plugin'
 
 export const options: Module['options'] = {patterns: []}
 

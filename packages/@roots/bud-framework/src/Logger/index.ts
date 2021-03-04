@@ -1,4 +1,4 @@
-import {pino, yargs} from '@roots/bud-support'
+import {pino} from '@roots/bud-support'
 import {Logger} from '@roots/bud-typings'
 import Service from '../Service'
 
@@ -19,8 +19,8 @@ export default class extends Service implements Logger {
   public register(): void {
     this.logger = pino({
       safe: true,
-      name: `bud`,
-      enabled: yargs.argv.hasOwnProperty('log') ? true : false,
+      name: this.app.name ?? `@roots/bud`,
+      enabled: this.app.store.enabled('options.log'),
       prettyPrint: {
         colorize: true,
       },
@@ -28,8 +28,8 @@ export default class extends Service implements Logger {
   }
 
   public boot(): void {
-    this.app.options.enabled('log') &&
-      this.app.options.enable('ci')
+    this.app.store.enabled('options.log') &&
+      this.app.store.enable('options.ci')
   }
 
   /**

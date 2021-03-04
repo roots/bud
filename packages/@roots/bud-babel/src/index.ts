@@ -65,6 +65,8 @@ export const boot: Module['boot'] = (app: Framework) => {
     })
     .babel.setOptions({
       root: app.project(),
-      cacheDirectory: app.project(app.options.get('storage')),
+      cacheDirectory: app.project(
+        app.store.get('locations.storage'),
+      ),
     })
 }

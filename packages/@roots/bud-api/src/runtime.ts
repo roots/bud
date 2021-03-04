@@ -1,4 +1,5 @@
 import {Framework} from '@roots/bud-framework'
+import {Webpack} from '@roots/bud-support'
 
 declare module '@roots/bud-framework' {
   export interface Framework {
@@ -19,10 +20,17 @@ declare module '@roots/bud-framework' {
   }
 }
 
-type Runtime = () => Framework
+type Runtime = (
+  runtime?: Webpack.Configuration['optimization']['runtimeChunk'],
+) => Framework
 
-export const runtime: Runtime = function () {
-  this.options.enable('runtime')
+// Fallback value
+const fallback: Webpack.Configuration['optimization']['runtimeChunk'] = {
+  name: entrypoint => `runtime/${entrypoint.name}`,
+}
+
+export const runtime: Runtime = function (runtime = fallback) {
+  this.hooks.on('webpack.output.runtime', () => runtime)
 
   return this
 }

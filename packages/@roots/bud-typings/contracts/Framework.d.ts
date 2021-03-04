@@ -22,7 +22,6 @@ import {
   Loader,
   Logger,
   MaybeCallable,
-  Options,
   Providers,
   Rule,
   Server,
@@ -39,6 +38,8 @@ import {
  * [📦 @roots/bud-framework](https://www.npmjs.com/package/@roots/bud-framework)
  */
 export declare interface Framework extends Mode {
+  name: string
+
   /**
    * ## bud.store [🍱 _Container_]
    *
@@ -163,11 +164,6 @@ export declare interface Framework extends Mode {
    * Logging utility
    */
   logger: Framework.Logger
-
-  /**
-   * ## options
-   */
-  options: Framework.Options
 
   /**
    * ## server
@@ -477,7 +473,6 @@ export declare namespace Framework {
   export {Hooks}
   export {Loader}
   export {Logger}
-  export {Options}
   export {Providers}
   export {Rule}
   export {Server}

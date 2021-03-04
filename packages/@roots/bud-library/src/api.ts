@@ -8,7 +8,7 @@ export const library: Bud.Library.Configure = function (
     options: (app: Bud) => ({
       debug: false,
       inject: false,
-      filename: app.options.enabled('hash')
+      filename: app.store.enabled('options.hash')
         ? '[name].[hash].js'
         : '[name].js',
       entry: {

@@ -17,8 +17,8 @@ export const options: Module.Options = app => {
     extensions: ['js', 'jsx', 'ts', 'tsx'],
     cache: true,
     cacheLocation: app.disk.path.join(
-      app.options.get('project'),
-      app.options.get('storage'),
+      app.store.get('locations.project'),
+      app.store.get('locations.storage'),
     ),
     quiet: true,
     formatter: eslintFormatter,

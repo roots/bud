@@ -9,11 +9,11 @@ export const boot: Module['boot'] = app => {
   /**
    * Returns true if project utilizes vue
    */
-  const usesVue = ({disk, options}) =>
+  const usesVue = ({disk, store}) =>
     disk.glob.sync(['*.vue', '**/*.vue'], {
       cwd: disk.path.join(
         disk.get('project').baseDir,
-        options.get('src'),
+        store.get('locations.src'),
       ),
     }).length > 0
 

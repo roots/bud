@@ -42,5 +42,5 @@ export const make: Module.Make<
 /**
  * Usage conditions
  */
-export const when: Module.When = ({options}) =>
-  options.is('mode', 'development')
+export const when: Module.When = ({isDevelopment}) =>
+  isDevelopment

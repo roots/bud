@@ -8,19 +8,19 @@ export const make: Module.Make<
   PluginOptions
 > = options => new WebpackConfigDumpPlugin(options.all())
 
-export const when: Module.When = ({options}) =>
-  options.enabled('debug')
+export const when: Module.When = ({store}) =>
+  store.enabled('options.debug')
 
 export const options: Module.Options<PluginOptions> = ({
   store,
 }) => ({
   name: 'webpack.debug.js',
   outputPath: store
-    .access('webpack.recordsPath')
+    .access('locations.records')
     .split('/')
     .splice(
       0,
-      store.access('webpack.recordsPath').split('/').length - 1,
+      store.access('locations.records').split('/').length - 1,
     )
     .join('/'),
   keepCircularReferences: true,
