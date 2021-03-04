@@ -1,0 +1,70 @@
+{
+  "name": "@roots/bud-preset-recommend",
+  "version": "3.0.65-alpha.0",
+  "description": "Recommended preset for Bud projects",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/roots/bud.git",
+    "directory": "packages/@roots/bud-preset-recommend"
+  },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "keywords": [
+    "bud",
+    "preset"
+  ],
+  "engines": {
+    "node": ">=12"
+  },
+  "license": "MIT",
+  "files": [
+    "docs/",
+    "lib/"
+  ],
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "exports": {
+    "require": "./lib/cjs/index.js",
+    "import": "./lib/esm/index.js"
+  },
+  "types": "./types/index.d.ts",
+  "scripts": {
+    "build": "run-s build:cjs build:esm",
+    "build:cjs": "tsc --build tsconfig.json",
+    "build:esm": "tsc --build tsconfig-esm.json",
+    "lint": "run-s lint:*",
+    "lint:eslint": "eslint 'src/**/*.{js,ts,tsx}' --fix",
+    "lint:prettier": "prettier 'src/**/*'  --write",
+    "clean": "run-s clean:*",
+    "clean:lib": "rimraf ./lib",
+    "clean:modules": "rimraf ./node_modules",
+    "clean:types": "rimraf ./types",
+    "pkg": "run-s pkg:*",
+    "pkg:check": "package-check --verbose",
+    "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
+  },
+  "dependencies": {
+    "@roots/bud": "^3.0.65-alpha.0",
+    "@roots/bud-api": "^3.0.65-alpha.0",
+    "@roots/bud-babel": "^3.0.65-alpha.0",
+    "@roots/bud-cli": "^3.0.65-alpha.0",
+    "@roots/bud-entrypoints": "^3.0.65-alpha.0",
+    "@roots/bud-eslint": "^3.0.65-alpha.0",
+    "@roots/bud-framework": "^3.0.65-alpha.0",
+    "@roots/bud-imagemin": "^3.0.65-alpha.0",
+    "@roots/bud-postcss": "^3.0.65-alpha.0",
+    "@roots/bud-prettier": "^3.0.65-alpha.0"
+  },
+  "devDependencies": {
+    "@types/node": "^14.14.31",
+    "@types/webpack": "^4.41.26",
+    "type-fest": "^0.21.2"
+  }
+}

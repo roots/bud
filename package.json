@@ -19,7 +19,7 @@
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
   "engines": {
-    "node": "14.9.0"
+    "node": ">=12.0"
   },
   "workspaces": {
     "packages": [
@@ -43,6 +43,7 @@
       "packages/@roots/bud-library",
       "packages/@roots/bud-mdx",
       "packages/@roots/bud-postcss",
+      "packages/@roots/bud-preset-recommend",
       "packages/@roots/bud-prettier",
       "packages/@roots/bud-purgecss",
       "packages/@roots/bud-react",

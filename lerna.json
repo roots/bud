@@ -21,6 +21,7 @@
     "packages/@roots/bud-library",
     "packages/@roots/bud-mdx",
     "packages/@roots/bud-postcss",
+    "packages/@roots/bud-preset-recommend",
     "packages/@roots/bud-prettier",
     "packages/@roots/bud-purgecss",
     "packages/@roots/bud-react",

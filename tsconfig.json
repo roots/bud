@@ -40,6 +40,7 @@
     {"@roots/bud-library": "bud-library"},
     {"@roots/bud-mdx": "bud-mdx"},
     {"@roots/bud-postcss": "bud-postcss"},
+    {"@roots/bud-preset-recommend": "bud-preset-recommend"},
     {"@roots/bud-prettier": "bud-prettier"},
     {"@roots/bud-purgecss": "bud-purgecss"},
     {"@roots/bud-react": "bud-react"},
