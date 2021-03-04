@@ -1,10 +1,37 @@
-const banner = require('./components/banner')
-const footer = require('./components/footer')
 const {readFileSync, writeFileSync} = require('fs-extra')
 const {format} = require('prettier')
 const {sync: glob} = require('globby')
 const {join} = require('path')
 
+const banner = require('./components/banner')
+const footer = require('./components/footer')
+const docBanner = require('./components/docBanner')
+const docFooter = require('./components/docFooter')
+
+/**
+ * Doc page
+ */
+const doc = ({pkg, from, to}) => {
+  writeFileSync(
+    to,
+    format(
+      `${docBanner(pkg)}\n${readFileSync(
+        from,
+      )}${docFooter}`.replace(
+        new RegExp(/\[\[base\]\]/, 'g'),
+        'https://github.com/roots/bud/tree/stable',
+      ),
+      {
+        parser: 'markdown',
+      },
+    ),
+    'utf8',
+  )
+}
+
+/**
+ * Readme
+ */
 const readme = ({pkg, from, to}) => {
   writeFileSync(
     to,
@@ -32,6 +59,17 @@ glob(['packages/@roots/*/src/docs/README.md']).map(from => {
     pkg: pkgNameFromPkgPath(from),
     from: from,
     to: from.replace(`src/docs/README.md`, `README.md`),
+  })
+})
+
+glob([
+  'packages/@roots/*/src/docs/**.md',
+  '!packages/@roots/*/src/docs/README.md',
+]).map(from => {
+  doc({
+    pkg: pkgNameFromPkgPath(from),
+    from: from,
+    to: from.replace(`src/docs`, `docs`),
   })
 })
 
