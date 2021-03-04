@@ -16,6 +16,7 @@ export const boot: Module['boot'] = (app: Framework) => {
    * PostCss configurator.
    */
   const mdx = new MdxConfig({app})
+
   Object.assign(app, {mdx})
 
   /**

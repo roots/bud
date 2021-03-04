@@ -76,7 +76,7 @@ export const splitChunks: Setting<'splitChunks'> = ({
             .split('.')
 
           const file = moduleFileNameParts
-            .slice(0, moduleFileNameParts.length - 1)
+            .slice(0, moduleFileNameParts.length - 2)
             .join('.')
 
           return `${cacheGroupKey}/${file}`

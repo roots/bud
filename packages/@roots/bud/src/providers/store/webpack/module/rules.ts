@@ -30,6 +30,7 @@ export const rules: BuildRules = (app: Framework) =>
           .reduce(
             (rules, [label, rule]) => [
               ...rules,
+
               /**
                * @filter
                * @name webpack.module.rules.{item}

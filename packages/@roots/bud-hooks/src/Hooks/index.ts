@@ -1,5 +1,5 @@
 import Service from './Service'
-import {Hooks as Contract, Webpack} from '@roots/bud-typings'
+import {Hooks as Contract} from '@roots/bud-typings'
 
 /**
  * Hooks
@@ -34,7 +34,7 @@ export class Hooks extends Service implements Contract {
     name: string,
     filter: Contract.Filter.Fn<T>,
   ) {
-    this.app.logger.info({name, msg: 'Filter registered'})
+    this.info({name, msg: 'Filter registered'})
     this.set(
       `filters.${name}`,
       this.get(`filters.${name}`)
@@ -43,6 +43,22 @@ export class Hooks extends Service implements Contract {
     )
 
     return this.app.get()
+  }
+
+  /**
+   * ## hooks.filter
+   *
+   * The other side of bud.hooks.on. Passes a key and a value. If
+   * any filters are registered on that key they will transform
+   * the output before it is returned.
+   */
+  public filter<T = any>(name: string, value: T): T {
+    this.info({name, msg: 'Filter called'})
+
+    return this.has(`filters.${name}`) &&
+      this.isArray(`filters.${name}`)
+      ? this.get(`filters.${name}`).reduce((v, f) => f(v), value)
+      : value
   }
 
   /**
@@ -69,7 +85,7 @@ export class Hooks extends Service implements Contract {
     name: string,
     action: Contract.Action.Fn<T>,
   ) {
-    this.app.logger.info({name, msg: 'Action registered'})
+    this.info({name, msg: 'Action registered'})
 
     this.set(
       `actions.${name}`,
@@ -81,25 +97,19 @@ export class Hooks extends Service implements Contract {
     return this.app.get()
   }
 
+  /**
+   * ## hooks.action
+   *
+   * The other side of bud.hooks.when. Passes a key and a value. If
+   * any actions are registered on that key they will transform
+   * the output before it is returned.
+   */
   public action<T = any>(name: string, binding: T): void {
-    this.app.logger.info({name, msg: 'Action called'})
+    this.info({name, msg: 'Action called'})
 
     this.has(`actions.${name}`) &&
       this.get(`actions.${name}`).map(action =>
         action.bind(binding),
       )
   }
-
-  public filter<T = any>(name: string, value: T): T {
-    this.app.logger.info({name, msg: 'Filter called'})
-
-    return this.has(`filters.${name}`) &&
-      this.isArray(`filters.${name}`)
-      ? this.get(`filters.${name}`).reduce((v, f) => f(v), value)
-      : value
-  }
 }
-
-declare type Keys =
-  | `webpack.${keyof Webpack.Configuration}`
-  | string

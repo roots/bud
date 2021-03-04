@@ -2,11 +2,6 @@ import {Framework} from '@roots/bud-framework'
 import {isString} from 'lodash'
 
 /**
- *  return this.app.build.get(this.optionKey('plugins'))
-    this.app.build.set(this.optionKey('plugins'), plugins)
- */
-
-/**
  * PostCSSConfig API
  */
 export class PostCssConfig implements Framework.PostCss {

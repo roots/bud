@@ -8,15 +8,6 @@ import {overlay} from './BudOverlay'
 client.useCustomOverlay(overlay)
 
 /**
- * Reload window when non webpack assets change on disk
- */
-
-client.subscribe(payload => {
-  const shouldReload = payload.action == 'reload'
-  shouldReload && window.location.reload()
-})
-
-/**
  * Loading indicator
  */
 ;(() => {
@@ -38,6 +29,9 @@ client.subscribe(payload => {
 
   client.subscribeAll(payload => {
     if (!payload?.action) return
+
+    const shouldReload = payload.action == 'reload'
+    shouldReload && window.location.reload()
 
     console.log(payload)
 
