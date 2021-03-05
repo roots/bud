@@ -1,4 +1,5 @@
 import {Framework} from '@roots/bud-framework'
+import {merge, Webpack} from '@roots/bud-support'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -27,9 +28,19 @@ declare module '@roots/bud-framework' {
   }
 }
 
-type Vendor = () => Framework
+type Vendor = (
+  vendorOptions?: Webpack.Options.CacheGroupsOptions,
+) => Framework
 
-export const vendor: Vendor = function () {
+export const vendor: Vendor = function (vendorOptions) {
   this.store.enable('options.vendor')
+
+  vendorOptions &&
+    this.hooks.on(
+      'webpack.optimization.splitChunks.vendor',
+      (opts: Webpack.Options.CacheGroupsOptions) =>
+        merge(opts, vendorOptions),
+    )
+
   return this
 }

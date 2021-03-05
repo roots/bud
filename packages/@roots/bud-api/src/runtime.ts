@@ -30,7 +30,11 @@ const fallback: Webpack.Configuration['optimization']['runtimeChunk'] = {
 }
 
 export const runtime: Runtime = function (runtime = fallback) {
-  this.hooks.on('webpack.output.runtime', () => runtime)
+  this.store.enable('options.runtime')
 
+  this.hooks.on(
+    'webpack.optimization.runtimeChunk',
+    () => runtime,
+  )
   return this
 }

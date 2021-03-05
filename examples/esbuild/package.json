@@ -4,10 +4,6 @@
     "bud": "node ../../node_modules/.bin/bud"
   },
   "devDependencies": {
-    "@roots/bud": "^2.1.2",
-    "@roots/bud-babel": "^2.1.2"
-  },
-  "dependencies": {
-    "jquery": "^3.5.1"
+    "@roots/bud-preset-recommend": "latest"
   }
 }

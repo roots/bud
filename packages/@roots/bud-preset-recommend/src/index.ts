@@ -1,1 +1,1 @@
-export {bud} from './preset'
+export {app, App} from './preset'

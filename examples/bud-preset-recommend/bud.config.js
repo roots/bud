@@ -1,6 +1,6 @@
 // @ts-check
 const {
-  bud,
+  app,
 } = require('./../../packages/@roots/bud-preset-recommend')
 
 /**
@@ -9,12 +9,12 @@ const {
  * You do not need to include this hook in your project
  * configuration file.
  */
-bud.hooks.on('webpack.resolve.modules', modules => [
+app.hooks.on('webpack.resolve.modules', modules => [
   ...modules,
-  bud.project('./../../node_modules'),
+  app.project('./../../node_modules'),
 ])
 
-bud
+app
   .publicPath('/')
   .alias({
     '@images': 'images',

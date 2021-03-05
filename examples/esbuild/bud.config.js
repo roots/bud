@@ -1,5 +1,7 @@
 // @ts-check
-const {bud} = require('./../../packages/@roots/bud')
+const {
+  app,
+} = require('./../../packages/@roots/bud-preset-recommend')
 
 /**
  * This is specific for the Bud monorepo only.
@@ -7,10 +9,10 @@ const {bud} = require('./../../packages/@roots/bud')
  * You do not need to include this hook in your project
  * configuration file.
  */
-bud.hooks.on('webpack.resolve.modules', modules => {
-  return [...modules, bud.project('./../../node_modules')]
+app.hooks.on('webpack.resolve.modules', modules => {
+  return [...modules, app.project('./../../node_modules')]
 })
 
-bud.use([require('@roots/bud-esbuild')])
-bud.entry('scripts/app', '*.{js,jsx,ts,tsx}')
-bud.run()
+app.use([require('@roots/bud-esbuild')])
+app.entry('scripts/app', '*.{js,jsx,ts,tsx}')
+app.run()

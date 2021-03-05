@@ -33,19 +33,31 @@
 
 ## Overview
 
-> A webpack framework combining the best parts of Laravel Mix and Symfony Encore.
+> A webpack framework combining the best parts of Laravel Mix and
+> Symfony Encore.
 
 ## Installation
 
+There is a recommended preset available to make it as easy as possible
+to get started:
+
 ```sh
-yarn add @roots/bud --dev
+yarn add @roots/bud-preset-recommend --dev
+```
+
+To get started without the preset you'll want to install both `@roots/bud` and `@roots/bud-cli`:
+
+```sh
+yarn add @roots/bud @roots/bud-cli --dev
 ```
 
 ## Getting started
 
-Bud centers around a configuration file situated in the root of the project. By default this file should be named `bud.config.js`.
+Bud centers around a configuration file situated in the root of the project.
+By default this file should be named `bud.config.js`.
 
-You can use the CLI to generate a starter configuration file, if you need a jumping off point:
+You can use the CLI to generate a starter configuration file, if you need
+a jumping off point:
 
 ```sh
 yarn bud publish @roots/bud-support bud.config.js
@@ -54,9 +66,9 @@ yarn bud publish @roots/bud-support bud.config.js
 Dead simple `bud.config.js` example:
 
 ```js
-const { bud } = require("@roots/bud");
+const {bud} = require('@roots/bud')
 
-bud.entry("app", ["app.js"]).run();
+bud.entry('app', ['app.js']).run()
 ```
 
 The framework can do many more things. But, one of Bud's flagpole axioms is that more is not always better for many common use cases. In fact, just using `entry` and `run` you can already compile project files. For many people this may very well be enough.
@@ -64,27 +76,27 @@ The framework can do many more things. But, one of Bud's flagpole axioms is that
 A more advanced configuration might look like this:
 
 ```js
-const { bud } = require("@roots/bud");
+const {bud} = require('@roots/bud')
 
 /**
  * Extend bud with additional functionality
  */
 bud.use([
-  require("@roots/bud-babel"),
-  require("@roots/bud-postcss"),
-  require("@roots/bud-react"),
-]);
+  require('@roots/bud-babel'),
+  require('@roots/bud-postcss'),
+  require('@roots/bud-react'),
+])
 
 /**
  * Create a dynamic link library for fast compilation
  * of the react runtime.
  */
-bud.library(["react", "react-dom"]);
+bud.library(['react', 'react-dom'])
 
 /**
  * Compile two separate sets of files.
  */
-bud.entry({ app: ["app.{js|css}"] });
+bud.entry({app: ['app.{js|css}']})
 
 /**
  * When building for production, minify assets.
@@ -92,15 +104,15 @@ bud.entry({ app: ["app.{js|css}"] });
  */
 bud.when(
   bud.isProduction,
-  (bud) => bud.minify(),
-  (bud) => bud.devtool("eval-source-map")
-);
+  bud => bud.minify(),
+  bud => bud.devtool('eval-source-map'),
+)
 
 /**
  * Run the build and cache the results for
  * faster rebuilds when modules are unchanged.
  */
-bud.run();
+bud.run()
 ```
 
 ## Example implementations
@@ -167,7 +179,7 @@ Bud, by itself, provides an intentionally sparse set of features.
 
 In fact, much of the core of Bud is actually made up of extensions. This is to make it easy for developers and extension authors to swap out parts of the framework as needed.
 
-Suffice to say, extensibility is a fundamental design tenant of Bud as software. You will likely want to utilize extensions in your project.
+Suffice to say, extensibility is a fundamental design tenet of Bud as software. You will likely want to utilize extensions in your project.
 
 ### First-party extensions
 

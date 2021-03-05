@@ -12,6 +12,6 @@ bud.hooks.on('webpack.resolve.modules', modules => {
 })
 
 bud
-  .use([require('@roots/bud-sass')])
+  .use(require('@roots/bud-sass'))
   .entry('app', ['app.scss'])
   .run()

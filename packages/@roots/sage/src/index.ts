@@ -1,1 +1,1 @@
-export {sage} from './sage'
+export {sage, Sage} from './sage'

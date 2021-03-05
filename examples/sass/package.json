@@ -4,7 +4,7 @@
     "bud": "node ../../node_modules/.bin/bud"
   },
   "dependencies": {
-    "@roots/bud": "^2.1.1",
-    "@roots/bud-sass": "^2.1.1"
+    "@roots/bud-preset-recommend": "latest",
+    "@roots/bud-sass": "latest"
   }
 }

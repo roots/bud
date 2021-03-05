@@ -1,6 +1,6 @@
 {
   "name": "@roots/dependencies",
-  "version": "3.0.66-alpha.0",
+  "version": "3.0.67-alpha.0",
   "description": "Automated package installation",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -27,8 +27,7 @@
   ],
   "files": [
     "lib/",
-    "types/",
-    "src/"
+    "types/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -56,7 +55,6 @@
   "devDependencies": {
     "@types/node": "^14.14.31",
     "@types/webpack": "^4.41.26",
-    "run-s": "^0.0.0",
     "type-fest": "^0.21.2"
   }
 }

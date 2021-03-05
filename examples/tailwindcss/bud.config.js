@@ -1,5 +1,7 @@
 // @ts-check
-const {bud} = require('./../../packages/@roots/bud')
+const {
+  app,
+} = require('./../../packages/@roots/bud-preset-recommend')
 
 /**
  * This is specific for the Bud monorepo only.
@@ -7,21 +9,24 @@ const {bud} = require('./../../packages/@roots/bud')
  * You do not need to include this hook in your project
  * configuration file.
  */
-bud.hooks.on('webpack.resolve.modules', function (modules) {
+app.hooks.on('webpack.resolve.modules', function (modules) {
   return [
     ...modules,
     require('path').resolve('./../../node_modules'),
   ]
 })
 
-bud.use([
-  require('@roots/bud-postcss'),
-  require('@roots/bud-sass'),
-  require('@roots/bud-tailwindcss'),
-])
+/**
+ * To use tailwindcss with sass
+ * include the sass extension BEFORE
+ * the @roots/bud-tailwindcss extension
+ */
+// app.use(require('@roots/bud-sass'))
 
-bud.html({
-  template: bud.project('public/index.html'),
-})
-
-bud.entry('bud-tailwind', ['app.scss', 'editor.scss']).run()
+app
+  .use(require('@roots/bud-tailwindcss'))
+  .html({
+    template: app.project('public/index.html'),
+  })
+  .entry('bud-tailwind', ['app.css'])
+  .run()

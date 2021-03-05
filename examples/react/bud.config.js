@@ -1,6 +1,6 @@
 // @ts-check
 const {
-  bud,
+  app,
 } = require('../../packages/@roots/bud-preset-recommend')
 
 /**
@@ -9,14 +9,14 @@ const {
  * You do not need to include this hook in your project
  * configuration file.
  */
-bud.hooks.on('webpack.resolve.modules', modules => [
+app.hooks.on('webpack.resolve.modules', modules => [
   ...modules,
-  bud.disk.path.resolve('./../../node_modules'),
+  app.disk.path.resolve('./../../node_modules'),
 ])
 
-bud
+app
   .when(
-    bud.isDevelopment,
+    app.isDevelopment,
     ({use}) =>
       use([
         require('@roots/bud-babel'),
@@ -29,10 +29,7 @@ bud
         .minify(),
   )
   .dev({port: 3000})
-  .use([
-    require('@roots/bud-emotion'),
-    require('@roots/bud-postcss'),
-  ])
+  .use([require('@roots/bud-emotion')])
   .html({
     template: 'public/index.html',
   })

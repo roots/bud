@@ -1,6 +1,6 @@
 {
   "name": "@roots/merged-manifest-webpack-plugin",
-  "version": "3.0.66-alpha.0",
+  "version": "3.0.67-alpha.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
@@ -26,8 +26,7 @@
   },
   "files": [
     "lib/",
-    "types/",
-    "src/"
+    "types/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -52,10 +51,9 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
-    "@roots/entrypoints-webpack-plugin": "^3.0.66-alpha.0",
+    "@roots/entrypoints-webpack-plugin": "^3.0.67-alpha.0",
     "@types/node": "^14.14.31",
     "@types/webpack": "^4.41.26",
-    "run-s": "^0.0.0",
     "type-fest": "^0.21.2"
   },
   "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"

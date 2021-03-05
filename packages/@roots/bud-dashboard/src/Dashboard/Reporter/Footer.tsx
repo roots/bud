@@ -1,4 +1,13 @@
-import {React, Box, Text, Spacer} from '@roots/bud-support'
+import {
+  React,
+  Box,
+  Text,
+  Spacer,
+  useEffect,
+  useState,
+  Spinner,
+} from '@roots/bud-support'
+import axios from 'axios'
 import {Git} from '../../components/Git'
 
 /**
@@ -17,33 +26,56 @@ export const Footer = props => {
  */
 export const DevelopmentFeatures = ({bud, colors}) => {
   const isDevelopment = bud.isDevelopment
+  const [proxyAlive, setProxyAlive] = useState(null)
+  const [serverAlive, setServerAlive] = useState(null)
   const server = bud.store.get('server')
+
+  useEffect(() => {
+    setInterval(
+      checkStatus(
+        server.middleware.proxy,
+        server.proxy.host,
+        server.proxy.port,
+        setProxyAlive,
+      ),
+      5000,
+    )
+
+    setInterval(
+      checkStatus(
+        server.middleware.dev,
+        server.host,
+        server.port,
+        setServerAlive,
+      ),
+      5000,
+    )
+  }, [])
 
   return isDevelopment ? (
     <Box flexDirection="row" justifyContent="space-between">
       <Box flexDirection="column">
-        <Text>
-          {`🧭  serve: `}
-          {server.host}
-          {`:`}
-          {server.port}
-        </Text>
-
-        {server.proxy.enabled ? (
-          <Text>
-            {`🎯  proxy: `}
-            {server.proxy.host}
-            {`:`}
-            {server.proxy.port}
-          </Text>
-        ) : (
-          <Text dimColor>{`🎯  proxy: disabled`}</Text>
-        )}
+        <Status
+          label={'SERVE'}
+          status={serverAlive}
+          colors={colors}
+          enabled={server.middleware.dev}
+          host={server.host}
+          port={server.port}
+        />
+        <Status
+          label={'PROXY'}
+          status={proxyAlive}
+          colors={colors}
+          enabled={server.middleware.proxy}
+          host={server.proxy.host}
+          port={server.proxy.port}
+        />
 
         {server.middleware.hot ? (
-          <Text>{`🔥    hmr: enabled`}</Text>
+          <Text>{`HMR:   enabled`}</Text>
         ) : (
-          <Text dimColor>{`🔥    hmr: disabled`}</Text>
+          <Text dimColor>{`HMR:   disabled`}</Text>
         )}
       </Box>
 
@@ -54,6 +86,71 @@ export const DevelopmentFeatures = ({bud, colors}) => {
       <Spacer />
     </Box>
   )
+}
+
+/**
+ * Report status code.
+ */
+const Status = ({
+  enabled,
+  host,
+  port,
+  status,
+  label,
+  colors,
+}) => {
+  const statusColor = resCode => {
+    switch (resCode) {
+      case 200:
+        return colors.success
+      case 300:
+        return colors.warning
+      case 400:
+        return colors.warning
+      case 500:
+        return colors.error
+      default:
+        return colors.faded
+    }
+  }
+
+  return enabled ? (
+    <Text>
+      {`${label}: ${host}:${port}`}
+      {status ? (
+        <Text color={statusColor(status)}> [{status}]</Text>
+      ) : (
+        <Text color={statusColor(status)}>
+          {' '}
+          <Spinner />
+        </Text>
+      )}
+    </Text>
+  ) : (
+    <Text dimColor>{`${label}: disabled`}</Text>
+  )
+}
+
+/**
+ * Request server/proxy resources
+ */
+const checkStatus = (
+  enabled: boolean,
+  host: string,
+  port: number,
+  update: CallableFunction,
+) => {
+  return async () => {
+    if (!enabled) return
+
+    try {
+      const res = await axios(`http://${host}:${port}`, {
+        method: 'GET',
+      })
+
+      update(res.status)
+    } catch (err) {}
+  }
 }
 
 /* const Time = ({stats, colors}) =>
