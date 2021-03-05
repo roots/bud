@@ -1,6 +1,9 @@
 import './alias'
 export {alias} from './alias'
 
+import './config'
+export {config} from './config'
+
 import './copy'
 export {copy} from './copy'
 
