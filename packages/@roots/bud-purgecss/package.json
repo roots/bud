@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-purgecss",
-  "version": "3.0.69-alpha.0",
+  "version": "3.0.70-alpha.0",
   "description": "Adds purgecss support to Bud",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -54,9 +54,12 @@
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
+  "peerDependencies": {
+    "postcss": ">=8.0"
+  },
   "devDependencies": {
-    "@roots/bud": "^3.0.69-alpha.0",
-    "@roots/bud-postcss": "^3.0.69-alpha.0",
+    "@roots/bud": "^3.0.70-alpha.0",
+    "@roots/bud-postcss": "^3.0.70-alpha.0",
     "@types/node": "^14.14.31",
     "@types/webpack": "^4.41.26"
   },
