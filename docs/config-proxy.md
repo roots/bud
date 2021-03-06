@@ -4,7 +4,8 @@ description: Develop client assets on top of an existing application.
 
 # bud.proxy
 
-Users building on top of an existing backend framework like WordPress, Laravel, RoR, etc. will likely want to proxy their established development server.
+Users building on top of an existing backend framework like WordPress, Laravel, RoR, etc.
+will likely want to proxy their established development server.
 
 ## Usage
 

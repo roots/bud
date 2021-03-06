@@ -72,7 +72,7 @@ bud.library(['react', 'react-dom'])
 /**
  * Compile two separate sets of files.
  */
-bud.entry({app: ['app.{js|css}']})
+bud.entry({app: ['app.{js,css}']})
 
 /**
  * When building for production, minify assets.

@@ -26,6 +26,11 @@ declare module '@roots/bud-framework' {
       setPlugin: PostCss.SetPlugin
 
       /**
+       * ## postcss.enable
+       */
+      enable: PostCss.Enable
+
+      /**
        * ## postcss.options
        *
        * Get the postcss options as set
@@ -38,6 +43,13 @@ declare module '@roots/bud-framework' {
        * Get the postcss plugins as set.
        */
       plugins: PostCss.Registry
+
+      /**
+       * ## postcss.enabled
+       *
+       * Enabled plugins
+       */
+      enabled: string[]
     }
 
     namespace PostCss {
@@ -51,7 +63,11 @@ declare module '@roots/bud-framework' {
 
       type Plugin = string | [string, any] | CallableFunction
 
+      type Enable = (enable: string[]) => PostCss
+
       type Registrable = string | [string, any]
+
+      type RegistryMutagen = (plugins: Registry) => Registry
 
       interface Registry {
         [key: string]: Plugin

@@ -9,6 +9,8 @@ export class PostCssConfig implements Framework.PostCss {
 
   public _plugins: Framework.PostCss.Registry = {}
 
+  public _enabled: string[] = []
+
   public constructor({app}: {app: Framework}) {
     this.app = app
     this.setPlugin = this.setPlugin.bind(this)
@@ -47,9 +49,23 @@ export class PostCssConfig implements Framework.PostCss {
     this._plugins = plugins
   }
 
+  public get enabled() {
+    return this._enabled
+  }
+
+  public set enabled(enabled) {
+    this._enabled = enabled
+  }
+
+  public enable(plugins: string[]) {
+    this.enabled = plugins
+
+    return this
+  }
+
   public get options() {
     return {
-      plugins: Object.values(this.plugins),
+      plugins: this.enabled.map(plugin => this.plugins[plugin]),
     }
   }
 }

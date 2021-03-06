@@ -12,5 +12,14 @@ export const api: Module['api'] = apiFns
 
 // Boot extension
 export const boot: Module['boot'] = ({postcss}: Framework) => {
-  postcss.setPlugin(['tailwindcss', tailwindcss])
+  postcss
+    .setPlugin(['tailwindcss', tailwindcss])
+    .enable([
+      'postcss-import',
+      'tailwindcss',
+      'postcss-nested',
+      'postcss-custom-properties',
+      'postcss-flexbugs-fixes',
+      'preset-env',
+    ])
 }

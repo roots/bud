@@ -1,4 +1,5 @@
 import {Framework} from '@roots/bud-framework'
+import {isBoolean, isUndefined} from 'lodash'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -26,27 +27,44 @@ declare module '@roots/bud-framework' {
   namespace Framework.Api {
     export type Html = (
       this: Framework,
-      options?: {
-        template?: string
-        replacements?: {[key: string]: any}
-      },
+      options?:
+        | {
+            template?: string
+            replacements?: {[key: string]: any}
+          }
+        | boolean,
     ) => Framework
   }
 }
 
 export const html: Framework.Api.Html = function (options?) {
+  if (isUndefined(options)) {
+    this.store.enable('options.html')
+    return this
+  }
+
+  if (isBoolean(options)) {
+    this.store.set('options.html', options)
+    return this
+  }
+
   this.store.enable('options.html')
 
-  options?.template &&
+  const {template, replacements} = options as {
+    template?: string
+    replacements?: {[key: string]: any}
+  }
+
+  template &&
     this.extensions.set(
       'html-webpack-plugin.options.template',
-      options.template,
+      template,
     )
 
-  options?.replacements &&
+  replacements &&
     this.extensions.set(
       'interpolate-html-plugin.options',
-      options.replacements,
+      replacements,
     )
 
   return this

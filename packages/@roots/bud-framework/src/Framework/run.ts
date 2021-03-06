@@ -4,13 +4,25 @@ import {ProgressPlugin, chalk} from '@roots/bud-support'
  * Framework.Run
  */
 export function run(): void {
-  this.logger.info({}, 'Running build.')
+  /**
+   * Set node env
+   */
+  process.env.NODE_ENV = this.mode
+  process.env.BABEL_ENV = this.mode
+  this.logger.info(
+    {
+      nodeEnv: process.env.NODE_ENV,
+      babelEnv: process.env.BABEL_ENV,
+      budEnv: this.mode,
+    },
+    'Running build.',
+  )
 
   /**
    * Inject HMR scripts if running in dev.
    *
-   * @note This is the last moment before CLI/non-CLI builds lose
-   * shared context.
+   * @note This is the last moment
+   * before CLI/non-CLI builds lose shared context.
    */
   this.isDevelopment && this.server.inject()
 

@@ -17,9 +17,10 @@ import * as imagemin from '@roots/bud-imagemin'
 /**
  * Bud preset: @roots/sage
  */
+export type Sage = Bud
 
-export const sage: Bud = (() =>
-  bud
+export const sage: Sage = (sage =>
+  sage
     /**
      * Artifacts/cache store
      *
@@ -95,10 +96,10 @@ export const sage: Bud = (() =>
      * Sage webpack aliases
      */
     .alias({
-      '@fonts': bud.src('fonts'),
-      '@images': bud.src('images'),
-      '@scripts': bud.src('scripts'),
-      '@styles': bud.src('styles'),
+      '@fonts': 'fonts',
+      '@images': 'images',
+      '@scripts': 'scripts',
+      '@styles': 'styles',
     })
 
     /**
@@ -126,6 +127,5 @@ export const sage: Bud = (() =>
         env.has('APP_PROXY_PORT') &&
           proxy({port: env.get('APP_PROXY_PORT')})
       },
-    ))()
-
-export {Bud as Sage}
+    )
+    .html(false))(bud)

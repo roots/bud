@@ -1,9 +1,8 @@
 import './interface'
 import {Framework} from '@roots/bud-framework'
 import {Module} from '@roots/bud-typings'
-import {PostCssConfig} from './api'
 import presetEnv from 'postcss-preset-env'
-import cssnano from 'cssnano'
+import {PostCssConfig} from './api'
 
 /**
  * Extension name
@@ -18,6 +17,7 @@ export const boot: Module['boot'] = (app: Framework) => {
    * PostCss configurator.
    */
   const postcss = new PostCssConfig({app})
+
   Object.assign(app, {postcss})
 
   app.build
@@ -41,9 +41,16 @@ export const boot: Module['boot'] = (app: Framework) => {
       ]
     })
 
-  // configure defaults
+  /**
+   * Configure defaults
+   */
   app.postcss
-    .setPlugin('postcss-flexbugs-fixes')
+    .setPlugin(['postcss-import', require('postcss-import')])
+    .setPlugin(['postcss-nested', require('postcss-nested')])
+    .setPlugin([
+      'postcss-custom-properties',
+      require('postcss-custom-properties'),
+    ])
     .setPlugin([
       'preset-env',
       presetEnv({
@@ -52,7 +59,10 @@ export const boot: Module['boot'] = (app: Framework) => {
         },
       }),
     ])
-    .setPlugin('postcss-nested')
-    .setPlugin('postcss-import')
-    .setPlugin(['css-nano', cssnano({preset: 'default'})])
+    .enable([
+      'postcss-import',
+      'postcss-nested',
+      'postcss-custom-properties',
+      'preset-env',
+    ])
 }

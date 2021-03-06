@@ -6,5 +6,14 @@ export const tailwind: Framework.Tailwind.Configure = function (
 ) {
   this.postcss.setPlugin(['tailwindcss', tailwindcss(config)])
 
+  this.postcss.enable([
+    'postcss-import',
+    'tailwindcss',
+    'postcss-nested',
+    'postcss-custom-properties',
+    'postcss-flexbugs-fixes',
+    'preset-env',
+  ])
+
   return this
 }
