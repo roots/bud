@@ -1,6 +1,6 @@
 {
   "name": "@roots/entrypoints-webpack-plugin",
-  "version": "3.0.73-alpha.0",
+  "version": "3.0.74-alpha.0",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",

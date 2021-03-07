@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-tailwindcss",
-  "version": "3.0.73-alpha.0",
+  "version": "3.0.74-alpha.0",
   "description": "Adds tailwindcss support to Bud",
   "repository": {
     "type": "git",
@@ -57,16 +57,16 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
-    "@roots/bud": "^3.0.73-alpha.0",
-    "@roots/bud-framework": "^3.0.73-alpha.0",
+    "@roots/bud": "^3.0.74-alpha.0",
+    "@roots/bud-framework": "^3.0.74-alpha.0",
     "@types/node": "^14.14.31",
     "@types/webpack": "^4.41.26",
     "type-fest": "^0.21.2"
   },
   "dependencies": {
     "@fullhuman/postcss-purgecss": "^3.1.3",
-    "@roots/bud-postcss": "^3.0.73-alpha.0",
-    "@roots/bud-support": "^3.0.73-alpha.0",
+    "@roots/bud-postcss": "^3.0.74-alpha.0",
+    "@roots/bud-support": "^3.0.74-alpha.0",
     "autoprefixer": "^10.2.5",
     "cssnano": "^4.1.10",
     "postcss": "^8.2.7",
