@@ -6,7 +6,9 @@ import * as babel from '@roots/bud-babel'
 import * as postcss from '@roots/bud-postcss'
 import * as entrypoints from '@roots/bud-entrypoints'
 
-export const app: Bud = ((bud: Bud): Bud => {
+declare type App = Bud
+
+export const app: App = ((bud: Bud) => {
   bud.use([babel, postcss, entrypoints])
 
   bud.when(
@@ -17,4 +19,4 @@ export const app: Bud = ((bud: Bud): Bud => {
   return bud
 })(bud)
 
-export type {Bud as App}
+export type {App, Bud}

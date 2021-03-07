@@ -45,62 +45,53 @@ export const boot: Module['boot'] = (app: Framework) => {
   /**
    * Configure defaults
    */
-  app.postcss
-    .setPlugin(['cssnano', cssnano({preset: 'default'})])
-    .setPlugin([
-      'postcss-import',
-      require('postcss-import')({
-        path: [
-          app.fs.path.posix.join(
-            app.store.get('locations.project'),
-            app.store.get('locations.modules'),
-          ),
-          ...app.fs.glob.sync(
-            app.fs.path.posix.join(
-              __dirname,
-              '../../../*/node_modules',
-            ),
-            {
-              onlyDirectories: true,
+  !app.disk.get('project').has('postcss.config.js') &&
+    (() => {
+      app.postcss
+        .setPlugin(['cssnano', cssnano({preset: 'default'})])
+        .setPlugin([
+          'postcss-import',
+          require('postcss-import')({
+            path: [
+              app.store.get('locations.modules'),
+              ...app.fs.glob.sync(
+                app.fs.path.posix.join(
+                  __dirname,
+                  '../../../*/node_modules',
+                ),
+                {
+                  onlyDirectories: true,
+                },
+              ),
+            ],
+          }),
+        ])
+        .setPlugin(['postcss-nested', require('postcss-nested')])
+        .setPlugin([
+          'postcss-custom-properties',
+          require('postcss-custom-properties'),
+        ])
+        .setPlugin([
+          'preset-env',
+          presetEnv({
+            autoprefixer: {
+              flexbox: 'no-2009',
             },
-          ),
-        ],
-      }),
-    ])
-    .setPlugin(['postcss-nested', require('postcss-nested')])
-    .setPlugin([
-      'postcss-custom-properties',
-      require('postcss-custom-properties'),
-    ])
-    .setPlugin([
-      'preset-env',
-      presetEnv({
-        autoprefixer: {
-          flexbox: 'no-2009',
+          }),
+        ])
+
+      app.when(
+        app.isProduction,
+        ({postcss}) => {
+          postcss.enabled.unshift('cssnano')
         },
-      }),
-    ])
-
-  app.when(
-    app.isProduction,
-    ({postcss}) =>
-      postcss.enable([
-        'postcss-import',
-        'postcss-nested',
-        'postcss-custom-properties',
-        'preset-env',
-        'cssnano',
-      ]),
-    ({postcss}) =>
-      postcss.enable([
-        'postcss-import',
-        'postcss-nested',
-        'postcss-custom-properties',
-        'preset-env',
-      ]),
-  )
-
-  app.hooks.when('minify', function (this: Framework) {
-    this.postcss.enable(['cssnano'])
-  })
+        ({postcss}) =>
+          postcss.enable([
+            'postcss-import',
+            'postcss-nested',
+            'postcss-custom-properties',
+            'preset-env',
+          ]),
+      )
+    })()
 }

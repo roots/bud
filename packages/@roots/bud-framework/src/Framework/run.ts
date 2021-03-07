@@ -5,20 +5,6 @@ import {ProgressPlugin, chalk} from '@roots/bud-support'
  */
 export function run(): void {
   /**
-   * Set node env
-   */
-  process.env.NODE_ENV = this.mode
-  process.env.BABEL_ENV = this.mode
-  this.logger.info(
-    {
-      nodeEnv: process.env.NODE_ENV,
-      babelEnv: process.env.BABEL_ENV,
-      budEnv: this.mode,
-    },
-    'Running build.',
-  )
-
-  /**
    * Inject HMR scripts if running in dev.
    *
    * @note This is the last moment

@@ -6,46 +6,54 @@ export default class extends Service implements Discovery {
   /**
    * Service ident
    */
-  public name: string | number = 'discover'
+  public name = 'discover'
+
+  /**
+   * Is discover service enabled?
+   */
+  public get active(): boolean {
+    return this.app.store.enabled('options.discover')
+  }
 
   /**
    * Service register
    */
   public register(): void {
     this.modulePath = this.modulePath.bind(this)
-    this.packages = this.packages.bind(this)
   }
 
   /**
    * Service boot.
    */
   public boot(): void {
+    this.extensions()
+
     this.info({
       enabled: this.active,
-      msg: 'Autodiscover enabled status',
+      extensions: this.all(),
+      msg: 'Autodiscover',
     })
 
-    this.active &&
-      this.packages().every((name, pkg) => {
-        this.service('disk').make(pkg.name, {
+    this.every(
+      (name: string, pkg: {name: string; path: string}) => {
+        this.app.disk.make(pkg.name, {
           baseDir: pkg.path,
         })
 
-        this.service('extensions').set(
-          name,
-          require(name as string),
-        )
-      })
+        this.active &&
+          this.app.extensions.set(name, require(name))
+      },
+    )
   }
 
   /**
    * Collected packages.
    */
-  public packages(): Container<{
+  public extensions(): Container<{
     name: string
     [key: string]: string | string[]
   }> {
-    return this.app.makeContainer(
+    this.setStore(
       this.service('disk')
         .glob.sync([
           this.modulePath('bud-*/package.json'),
@@ -67,31 +75,26 @@ export default class extends Service implements Discovery {
                 ...a,
                 [extension.name]: {
                   ...extension,
-                  path: pkg,
+                  path: this.app.fs.path.dirname(pkg),
                 },
               }
             : a
         }, {}),
     )
+
+    return this.all()
   }
 
   /**
    * module path
    */
-  protected modulePath(path: string): string {
-    return this.service('disk').path.posix.join(
-      this.service('disk').path.resolve(
-        this.disk('project').baseDir,
-        this.app.store.get('locations.modules'),
-      ),
-      path,
+  protected modulePath(path?: string): string {
+    const basePath = this.service('disk').path.resolve(
+      this.disk('project').baseDir,
+      this.app.store.get('locations.modules'),
     )
-  }
-
-  /**
-   * Is autodiscover enabled?
-   */
-  public get active(): boolean {
-    return this.app.store.enabled('options.discover')
+    return path
+      ? this.service('disk').path.posix.join(basePath, path)
+      : basePath
   }
 }

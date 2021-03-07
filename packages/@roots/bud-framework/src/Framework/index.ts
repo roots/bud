@@ -213,6 +213,19 @@ export default abstract class implements Framework {
    * Lifecycle boot.
    */
   public boot(): this {
+    /**
+     * Set node env
+     */
+    process.env.NODE_ENV = this.mode
+    process.env.BABEL_ENV = this.mode
+
+    this.logger.info({
+      msg: 'boot process env/mode',
+      nodeEnv: process.env.NODE_ENV,
+      babelEnv: process.env.BABEL_ENV,
+      budEnv: this.mode,
+    })
+
     this.providers.every(name => {
       this.logger.info({name}, 'Booting service')
 

@@ -4,12 +4,12 @@ export abstract class Discovery extends Service {
   /**
    * Service ident
    */
-  name: string | number
+  name
 
   /**
    * Collected packages.
    */
-  packages(): Container<{
+  extensions(): Container<{
     name: string
     [key: string]: string | string[]
   }>

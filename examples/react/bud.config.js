@@ -24,7 +24,6 @@ app
         .hash()
         .minify(),
   )
-  .dev({port: 3000})
   .use([require('@roots/bud-emotion')])
   .html({
     template: 'public/index.html',

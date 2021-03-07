@@ -58,7 +58,8 @@ declare module '@roots/bud-framework' {
       ) => PostCss
 
       type Options = {
-        plugins: Plugin[]
+        plugins?: Plugin[]
+        config?: boolean | string
       }
 
       type Plugin = string | [string, any] | CallableFunction

@@ -78,8 +78,14 @@ export class PostCssConfig implements Framework.PostCss {
   }
 
   public get options() {
-    return {
-      plugins: this.enabled.map(plugin => this.plugins[plugin]),
-    }
+    return !this.app.disk.get('project').has('postcss.config.js')
+      ? {
+          plugins: this.enabled.map(
+            plugin => this.plugins[plugin],
+          ),
+        }
+      : {
+          config: true,
+        }
   }
 }
