@@ -13,22 +13,14 @@ declare module '@roots/bud-framework' {
   namespace Framework {
     interface PostCss {
       /**
-       * ## postcss.addPlugin
-       *
-       * Add a postcss plugin.
-       *
-       * ### Usage
-       *
-       * ```js
-       * bud.postcss.addPlugin(MyPlugin, {plugin: 'options'})
-       * ```
-       */
-      setPlugin: PostCss.SetPlugin
-
-      /**
        * ## postcss.enable
        */
       enable: PostCss.Enable
+
+      /**
+       * ## postcss.disable
+       */
+      disable: PostCss.Disable
 
       /**
        * ## postcss.options
@@ -50,6 +42,32 @@ declare module '@roots/bud-framework' {
        * Enabled plugins
        */
       enabled: string[]
+
+      /**
+       * ## postcss.addPlugin
+       *
+       * Add a postcss plugin.
+       *
+       * ### Usage
+       *
+       * ```js
+       * bud.postcss.addPlugin(MyPlugin, {plugin: 'options'})
+       * ```
+       */
+      setPlugin: PostCss.SetPlugin
+
+      /**
+       * ## postcss.setPluginOptions
+       */
+      setPluginOptions: (plugin: string, options: any) => PostCss
+
+      /**
+       * ## postcss.mutatePluginOptions
+       */
+      mutatePluginOptions: (
+        plugin: string,
+        mutationFn: (options: any) => any,
+      ) => PostCss
     }
 
     namespace PostCss {
@@ -65,6 +83,7 @@ declare module '@roots/bud-framework' {
       type Plugin = string | [string, any] | CallableFunction
 
       type Enable = (enable: string[]) => Framework
+      type Disable = (plugins: string[]) => Framework
 
       type Registrable = string | [string, any]
 

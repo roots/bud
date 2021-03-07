@@ -4,9 +4,10 @@
     "rootDir": "./src",
     "outDir": "./lib/cjs",
     "declarationDir": "./lib/types",
+    "skipLibCheck": true,
     "declaration": true,
     "declarationMap": true
   },
   "include": ["./src"],
-  "exclude": ["./lib"]
+  "exclude": ["./lib", "./node_modules"]
 }

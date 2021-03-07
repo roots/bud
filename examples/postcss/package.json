@@ -1,0 +1,11 @@
+{
+  "name": "bud-example-tailwindcss",
+  "private": true,
+  "scripts": {
+    "bud": "node ../../node_modules/.bin/bud"
+  },
+  "dependencies": {
+    "@roots/bud-preset-recommend": "latest",
+    "@roots/bud-tailwindcss": "latest"
+  }
+}

@@ -11,33 +11,27 @@ export const api: Module['api'] = apiFns
 
 // Boot extension
 export const boot: Module['boot'] = ({
-  when,
   disk,
-  isProduction,
   postcss,
 }: Framework) => {
   if (disk.get('project').has('postcss.config.js')) return
 
   postcss.setPlugin(['tailwindcss', require('tailwindcss')])
 
-  when(
-    isProduction,
-    ({postcss}) =>
-      postcss.enable([
-        'cssnano',
-        'postcss-import',
-        'tailwindcss',
-        'postcss-nested',
-        'postcss-custom-properties',
-        'preset-env',
-      ]),
-    ({postcss}) =>
-      postcss.enable([
-        'postcss-import',
-        'tailwindcss',
-        'postcss-nested',
-        'postcss-custom-properties',
-        'preset-env',
-      ]),
+  const usingImportPlugin = postcss.enabled.includes(
+    'postcss-import',
   )
+
+  if (usingImportPlugin) {
+    const insertAfter =
+      postcss.enabled.indexOf('postcss-import') + 1
+
+    postcss.enabled = [
+      ...postcss.enabled.slice(0, insertAfter),
+      'tailwindcss',
+      ...postcss.enabled.slice(insertAfter),
+    ]
+  } else {
+    postcss.enabled = ['tailwindcss', ...postcss.enabled]
+  }
 }

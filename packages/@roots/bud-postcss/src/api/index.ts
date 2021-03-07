@@ -11,6 +11,18 @@ export class PostCssConfig implements Framework.PostCss {
 
   public _enabled: string[] = []
 
+  public get hasProjectConfig(): boolean {
+    const project = this.app.disk.get('project')
+
+    return (
+      project.has('postcss.config.js') ||
+      project.fs
+        .readJsonSync('package.json')
+        .hasOwnProperty('postcss') ||
+      project.has('postcssrc')
+    )
+  }
+
   public constructor({app}: {app: Framework}) {
     this.app = app
 
@@ -50,6 +62,15 @@ export class PostCssConfig implements Framework.PostCss {
     return this
   }
 
+  public mutatePluginOptions(
+    plugin: string,
+    mutationFn: (options: any) => any,
+  ) {
+    this.plugins[plugin][1] = mutationFn(this.plugins[plugin][1])
+
+    return this
+  }
+
   public get plugins() {
     return this._plugins
   }
@@ -77,8 +98,21 @@ export class PostCssConfig implements Framework.PostCss {
     return this.app
   }
 
+  public disable(plugins: string[]): Framework {
+    this.app.logger.info({
+      msg: `disabling postcss plugins`,
+      plugins,
+    })
+
+    this.enabled = this.enabled.filter(
+      plugin => !plugins.includes(plugin),
+    )
+
+    return this.app
+  }
+
   public get options() {
-    return !this.app.disk.get('project').has('postcss.config.js')
+    return !this.hasProjectConfig
       ? {
           plugins: this.enabled.map(
             plugin => this.plugins[plugin],

@@ -2,19 +2,6 @@
 const {bud} = require('./../../packages/@roots/bud')
 
 /**
- * This is specific for the Bud monorepo only.
- *
- * You do not need to include this hook in your project
- * configuration file.
- */
-bud.hooks.on('webpack.resolve.modules', function (modules) {
-  return [
-    ...modules,
-    require('path').resolve('./../../node_modules'),
-  ]
-})
-
-/**
  * Target node env
  */
 bud.hooks.on('webpack.target', () => 'node')
@@ -32,7 +19,7 @@ bud.hooks.on('webpack.module.rules', rules => {
 bud.extensions.add('tsconfig-checker', {
   register: bud => {
     !bud.disk.get('project').has('tsconfig.json') &&
-      bud.disk.fs.writeJsonSync(bud.project('error.json'), {
+      bud.fs.writeJsonSync(bud.project('error.json'), {
         title: 'misconfiguration',
         body: 'no tsconfig.json was found',
       })
@@ -47,7 +34,7 @@ console.log(bud.extensions.getEntries())
 /**
  * If an error.json file was outputted above, fail the build.
  */
-bud.disk.fs.readJsonSync(bud.project('error.json')) &&
+bud.fs.readJsonSync(bud.project('error.json')) &&
   bud.hooks.on('webpack.entry', entry => {
     console.log('no tsconfig found')
   })
