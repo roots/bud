@@ -5,7 +5,7 @@ import {Framework} from '../Framework'
  *
  * Any functions registered to an action will be performed when called.
  */
-declare type Action = (name: string, action: Action.When) => void
+declare type Action = (name: string, params?: any) => void
 
 declare namespace Action {
   /**
@@ -13,7 +13,7 @@ declare namespace Action {
    *
    * Passed `bud` and whatever other values are passed.
    */
-  export type Fn<T = any> = (bud: Framework, value?: T) => T
+  export type Fn<T = any> = (params?: unknown) => T
 
   /**
    * Register an action.

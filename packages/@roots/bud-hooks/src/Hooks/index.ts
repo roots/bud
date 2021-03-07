@@ -73,7 +73,7 @@ export class Hooks extends Service implements Contract {
    * ### Usage
    *
    * ```js
-   * app.hooks.action(
+   * app.hooks.when(
    *   'namespace.name.event',
    *   (app, value) {
    *     console.log(value)
@@ -94,7 +94,7 @@ export class Hooks extends Service implements Contract {
         : [action],
     )
 
-    return this.app.get()
+    return this.app
   }
 
   /**
@@ -104,12 +104,10 @@ export class Hooks extends Service implements Contract {
    * any actions are registered on that key they will transform
    * the output before it is returned.
    */
-  public action<T = any>(name: string, binding: T): void {
-    this.info({name, msg: 'Action called'})
-
+  public action(name: string): void {
     this.has(`actions.${name}`) &&
-      this.get(`actions.${name}`).map(action =>
-        action.bind(binding),
+      this.get(`actions.${name}`).reduce((v, f) =>
+        f.bind(this.app)(),
       )
   }
 }

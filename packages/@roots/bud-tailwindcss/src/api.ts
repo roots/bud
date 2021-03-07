@@ -1,19 +1,33 @@
 import {Framework} from '@roots/bud-framework'
-import tailwindcss from 'tailwindcss'
 
 export const tailwind: Framework.Tailwind.Configure = function (
   config,
 ) {
-  this.postcss.setPlugin(['tailwindcss', tailwindcss(config)])
-
-  this.postcss.enable([
-    'postcss-import',
+  this.postcss.setPlugin([
     'tailwindcss',
-    'postcss-nested',
-    'postcss-custom-properties',
-    'postcss-flexbugs-fixes',
-    'preset-env',
+    require('tailwindcss')(config),
   ])
+
+  this.when(
+    this.isProduction,
+    ({postcss}) =>
+      postcss.enable([
+        'postcss-import',
+        'tailwindcss',
+        'postcss-nested',
+        'postcss-custom-properties',
+        'preset-env',
+        'cssnano',
+      ]),
+    ({postcss}) =>
+      postcss.enable([
+        'postcss-import',
+        'tailwindcss',
+        'postcss-nested',
+        'postcss-custom-properties',
+        'preset-env',
+      ]),
+  )
 
   return this
 }

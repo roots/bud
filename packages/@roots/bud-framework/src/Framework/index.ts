@@ -60,6 +60,11 @@ export default abstract class implements Framework {
   public extensions: Framework.Extensions
 
   /**
+   * FS
+   */
+  public fs: Framework.FS
+
+  /**
    * Hooks
    */
   public hooks: Framework.Hooks

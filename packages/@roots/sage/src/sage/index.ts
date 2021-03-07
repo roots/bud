@@ -48,6 +48,11 @@ export const sage: Sage = (sage =>
     )
 
     /**
+     * Set CSS urls to be relative
+     */
+    .config({css: {relativeUrls: true}})
+
+    /**
      * ESBuild doesn't support HMR. it is purely a transpiler.
      *
      * - snowpack & vite each have their own HMR solutions.
@@ -114,18 +119,37 @@ export const sage: Sage = (sage =>
      */
     .when(
       ({isProduction}) => isProduction,
-      ({sequence}) =>
-        sequence([
-          ({use}) => use(imagemin),
-          (sage: Bud) => sage.minify().hash().vendor().runtime(),
-        ]),
 
-      ({env, proxy}) => {
+      /**
+       * Production
+       */
+      (sage: Bud) => {
+        sage.use(imagemin).minify().hash().vendor().runtime()
+      },
+
+      /**
+       * Development
+       */
+      ({env, proxy, dev}) => {
+        env.has('APP_HOST') &&
+          dev({
+            host: env.get('APP_HOST'),
+          })
+
+        env.has('APP_PORT') &&
+          dev({
+            port: env.get('APP_PORT'),
+          })
+
         env.has('APP_PROXY_HOST') &&
-          proxy({host: env.get('APP_PROXY_HOST')})
+          proxy({
+            host: env.get('APP_PROXY_HOST'),
+          })
 
         env.has('APP_PROXY_PORT') &&
-          proxy({port: env.get('APP_PROXY_PORT')})
+          proxy({
+            port: env.get('APP_PROXY_PORT'),
+          })
       },
     )
     .html(false))(bud)

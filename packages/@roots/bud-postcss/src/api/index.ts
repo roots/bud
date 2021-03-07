@@ -5,7 +5,7 @@ import {isString} from 'lodash'
  * PostCSSConfig API
  */
 export class PostCssConfig implements Framework.PostCss {
-  public app: Framework
+  public _app: Framework['get']
 
   public _plugins: Framework.PostCss.Registry = {}
 
@@ -13,9 +13,18 @@ export class PostCssConfig implements Framework.PostCss {
 
   public constructor({app}: {app: Framework}) {
     this.app = app
+
     this.setPlugin = this.setPlugin.bind(this)
     this.unsetPlugin = this.unsetPlugin.bind(this)
     this.setPluginOptions = this.setPluginOptions.bind(this)
+  }
+
+  public get app(): Framework {
+    return this._app()
+  }
+
+  public set app(app: Framework) {
+    this._app = app.get
   }
 
   public setPlugin(plugin: Framework.PostCss.Registrable) {
@@ -57,10 +66,15 @@ export class PostCssConfig implements Framework.PostCss {
     this._enabled = enabled
   }
 
-  public enable(plugins: string[]) {
+  public enable(plugins: string[]): Framework {
+    this.app.logger.info({
+      msg: `enabling postcss plugins`,
+      plugins,
+    })
+
     this.enabled = plugins
 
-    return this
+    return this.app
   }
 
   public get options() {

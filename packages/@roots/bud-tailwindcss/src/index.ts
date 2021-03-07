@@ -1,7 +1,6 @@
 import './interface'
 import {Framework} from '@roots/bud-framework'
 import {Module} from '@roots/bud-typings'
-import tailwindcss from 'tailwindcss'
 import * as apiFns from './api'
 
 // Extension ident
@@ -11,15 +10,31 @@ export const name: Module['name'] = '@roots/bud-tailwindcss'
 export const api: Module['api'] = apiFns
 
 // Boot extension
-export const boot: Module['boot'] = ({postcss}: Framework) => {
-  postcss
-    .setPlugin(['tailwindcss', tailwindcss])
-    .enable([
-      'postcss-import',
-      'tailwindcss',
-      'postcss-nested',
-      'postcss-custom-properties',
-      'postcss-flexbugs-fixes',
-      'preset-env',
-    ])
+export const boot: Module['boot'] = ({
+  when,
+  isProduction,
+  postcss,
+}: Framework) => {
+  postcss.setPlugin(['tailwindcss', require('tailwindcss')])
+
+  when(
+    isProduction,
+    ({postcss}) =>
+      postcss.enable([
+        'postcss-import',
+        'tailwindcss',
+        'postcss-nested',
+        'postcss-custom-properties',
+        'preset-env',
+        'cssnano',
+      ]),
+    ({postcss}) =>
+      postcss.enable([
+        'postcss-import',
+        'tailwindcss',
+        'postcss-nested',
+        'postcss-custom-properties',
+        'preset-env',
+      ]),
+  )
 }

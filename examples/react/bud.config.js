@@ -17,11 +17,7 @@ app.hooks.on('webpack.resolve.modules', modules => [
 app
   .when(
     app.isDevelopment,
-    ({use}) =>
-      use([
-        require('@roots/bud-babel'),
-        require('@roots/bud-react'),
-      ]),
+    ({use}) => use([require('@roots/bud-react')]),
     ({use}) =>
       use(require('@roots/bud-esbuild'))
         .esbuild.jsx()

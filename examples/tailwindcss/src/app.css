@@ -1,6 +1,6 @@
-@import 'tailwindcss/base';
+@import '../../../node_modules/@roots/bud-tailwindcss/node_modules/tailwindcss/base';
 
 @import 'common/global';
 
 @import 'tailwindcss/components';
-@import 'tailwindcss/utilities';
+@import '../../../node_modules/@roots/bud-tailwindcss/node_modules/tailwindcss/utilities';

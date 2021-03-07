@@ -63,7 +63,7 @@ declare module '@roots/bud-framework' {
 
       type Plugin = string | [string, any] | CallableFunction
 
-      type Enable = (enable: string[]) => PostCss
+      type Enable = (enable: string[]) => Framework
 
       type Registrable = string | [string, any]
 

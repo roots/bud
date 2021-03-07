@@ -70,7 +70,7 @@ export declare interface Hooks {
   on<T = any>(name: string, hook: Hooks.Filter.Fn<T>): Framework
 
   /**
-   * ## bud.hooks.when
+   * ## hooks.when
    *
    * Register a function to execute at a specific point in Bud's lifecycle.
    *
@@ -81,10 +81,10 @@ export declare interface Hooks {
    * ### Usage
    *
    * ```js
-   * bud.hooks.action(
+   * hooks.when(
    *   'namespace.name.event',
-   *   (bud, value) {
-   *     console.log(value)
+   *   (bud) {
+   *     console.log(bud)
    *   },
    * )
    * ```
@@ -92,7 +92,7 @@ export declare interface Hooks {
   when: Action.When
 
   /**
-   * ## bud.hooks.action
+   * ## hooks.action
    *
    * Register a function to be executed during a specific bud lifecycle event.
    *
@@ -100,7 +100,7 @@ export declare interface Hooks {
   action: Action
 
   /**
-   * ## bud.hooks.filter
+   * ## hooks.filter
    *
    * Make a value filterable by hooks.
    *

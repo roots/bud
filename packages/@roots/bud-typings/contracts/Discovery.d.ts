@@ -13,9 +13,4 @@ export abstract class Discovery extends Service {
     name: string
     [key: string]: string | string[]
   }>
-
-  /**
-   * Is autodiscover enabled?
-   */
-  isEnabled(): boolean
 }

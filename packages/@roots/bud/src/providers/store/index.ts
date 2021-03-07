@@ -1,34 +1,11 @@
 import {Service} from '@roots/bud-framework'
-import {Framework, Store} from '@roots/bud-typings'
+import {Store} from '@roots/bud-typings'
 import {get} from '@roots/bud-support'
 
 import * as webpack from './webpack'
 import * as patterns from './patterns'
 import * as server from './server'
-import {parse} from 'yargs'
-import {isBoolean} from 'lodash'
-
-/**
- * process.argv
- */
-const makeArgs = () => {
-  let raw = parse(process.argv.slice(1))
-  raw = {
-    ...raw,
-    ...raw._.reduce(
-      (a, v, i) => ({
-        ...a,
-        [v]: true,
-      }),
-      {},
-    ),
-  }
-
-  raw.mode = raw.development ? 'development' : 'production'
-  return raw
-}
-
-const args = makeArgs()
+import {isEqual} from 'lodash'
 
 export default class extends Service implements Store {
   public get<T = any>(key: Store.Keys): T {
@@ -36,62 +13,146 @@ export default class extends Service implements Store {
   }
 }
 
-export const repositories: Framework.Index<any> = {
+declare type StoreFactoryArgs = {
+  args: {[key: string]: any}
+  env: {[key: string]: any}
+  source: <T = any>(keys: [string, string], fallback: any) => T
+}
+
+export const repositories: (
+  args: StoreFactoryArgs,
+) => {[key: string]: any} = ({args, env, source}) => ({
   args,
+  env,
   webpack,
   patterns,
   server,
   options: {
-    ci: isBoolean(args.ci) ? args.ci : false,
-    autodiscover: isBoolean(args.autodiscover)
-      ? args.autodiscover
-      : false,
-    bail: isBoolean(args.bail) ? args.bail : true,
-    cache: isBoolean(args.cache) ? args.cache : true,
-    clean: isBoolean(args.clean) ? args.clean : true,
-    devtool: args.devtool ? args.devtool : 'none',
-    hash: isBoolean(args.hash) ? args.hash : false,
-    hot: isBoolean(args.hot) ? args.hot : true,
-    html: isBoolean(args.html) ? args.html : true,
-    log: args.log ? args.log : false,
-    manifest: isBoolean(args.manifest) ? args.manifest : true,
-    minify: isBoolean(args.minify)
-      ? args.minify
-      : args.mode && args.mode == 'production',
-    mode: args.mode,
-    parallelism: args.parallelism ? args.paralellism : 1,
+    ci: source(['ci', 'BUILD_CI'], false),
+    discover: source(['discover', 'BUILD_DISCOVER'], true),
+    bail: source(['bail', 'BUILD_BAIL'], true),
+    cache: source(['cache', 'BUILD_CACHE'], true),
+    clean: source(['clean', 'BUILD_CLEAN'], true),
+    devtool: source(['devtool', 'BUILD_DEVTOOL'], 'none'),
+    hash: source(['hash', 'BUILD_HASH'], false),
+    hot: source(['hot', 'BUILD_HOT'], false),
+    html: source(['html', 'BUILD_HTML'], true),
+    log: source(['log', 'BUILD_LOG'], false),
+    manifest: source(['manifest', 'BUILD_MANIFEST'], true),
+    minify: source(
+      ['minify', 'BUILD_MINIFY'],
+      args.mode && isEqual(args.mode, 'production'),
+    ),
+    mode: source(['mode', 'BUILD_OPT_MODE'], 'production'),
+    parallelism: source(
+      ['parallelism', 'BUILD_OPT_PARALLELISM'],
+      1,
+    ),
   },
   locations: {
-    project: args.project
-      ? process.cwd().concat('/').concat('dist')
-      : process.cwd().concat('/'),
-    src: args.src ?? 'src/',
-    dist: args.dist ?? 'dist/',
-    storage: args.storage ?? '.bud',
-    modules: args.modules ?? 'node_modules',
-    publicPath: args.publicPath ?? '/',
-    records: args.records ?? 'records',
+    project: source(
+      ['location.project', 'BUILD_PROJECT'],
+      process.cwd(),
+    ),
+    src: source(['location.src', 'BUILD_SRC'], 'src'),
+    dist: source(['location.dist', 'BUILD_DIST'], 'dist'),
+    storage: source(
+      ['location.storage', 'BUILD_STORAGE'],
+      '.bud',
+    ),
+    modules: source(
+      ['location.modules', 'BUILD_MODULES'],
+      'node_modules',
+    ),
+    publicPath: source(['location.public', 'BUILD_PUBLIC'], '/'),
+    records: source(['records', 'BUILD_RECORDS'], 'records.js'),
   },
   theme: {
-    spacing: 1,
+    spacing: source(['theme.spacer', 'BUILD_THEME_SPACER'], 1),
     colors: {
-      foreground: '#FFFFFF',
-      faded: '#6C758F',
-      primary: '#545DD7',
-      primaryAlt: '#663399',
-      error: '#dc3545',
-      errorAlt: '#b22222',
-      warning: '#FF611A',
-      success: '#46D46A',
-      accent: '#ff69b4',
-      flavor: '#78C5D7',
+      foreground: source(
+        ['theme.color.foreground', 'BUILD_THEME_FOREGROUND'],
+        '#FFFFFF',
+      ),
+      faded: source(
+        ['theme.color.faded', 'BUILD_THEME_FADED'],
+        '#6C758F',
+      ),
+      primary: source(
+        ['theme.color.primary', 'BUILD_THEME_PRIMARY'],
+        '#545DD7',
+      ),
+      primaryAlt: source(
+        ['theme.color.primary.alt', 'BUILD_THEME_PRIMARY_ALT'],
+        '#663399',
+      ),
+      error: source(
+        ['theme.color.error', 'BUILD_THEME_ERROR'],
+        '#dc3545',
+      ),
+      errorAlt: source(
+        ['theme.color.errorAlt', 'BUILD_THEME_ERROR_ALT'],
+        '#b22222',
+      ),
+      warning: source(
+        ['theme.color.warning', 'BUILD_THEME_WARNING'],
+        '#FF611A',
+      ),
+      success: source(
+        ['theme.color.success', 'BUILD_THEME_SUCCESS'],
+        '#46D46A',
+      ),
+      accent: source(
+        ['theme.color.accent', 'BUILD_THEME_ACCENT'],
+        '#ff69b4',
+      ),
+      flavor: source(
+        ['theme.color.flavor', 'BUILD_THEME_FLAVOR'],
+        '#78C5D7',
+      ),
     },
     screens: [
-      [0, 40],
-      [41, 60],
-      [61, 80],
-      [81, Infinity],
+      [
+        source(
+          ['theme.screens.sm.lower', 'BUILD_THEME_SM_LOWER'],
+          0,
+        ),
+        source(
+          ['theme.screens.sm.upper', 'BUILD_THEME_SM_UPPER'],
+          40,
+        ),
+      ],
+      [
+        source(
+          ['theme.screens.md.lower', 'BUILD_THEME_MD_LOWER'],
+          41,
+        ),
+        source(
+          ['theme.screens.md.upper', 'BUILD_THEME_MD_UPPER'],
+          60,
+        ),
+      ],
+      [
+        source(
+          ['theme.screens.lg.lower', 'BUILD_THEME_LG_LOWER'],
+          61,
+        ),
+        source(
+          ['theme.screens.lg.upper', 'BUILD_THEME_LG_UPPER'],
+          80,
+        ),
+      ],
+      [
+        source(
+          ['theme.screens.xl.lower', 'BUILD_THEME_XL_LOWER'],
+          81,
+        ),
+        source(
+          ['theme.screens.xl.upper', 'BUILD_THEME_XL_UPPER'],
+          Infinity,
+        ),
+      ],
     ],
     columns: 12,
   },
-}
+})

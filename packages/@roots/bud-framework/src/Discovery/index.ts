@@ -12,7 +12,6 @@ export default class extends Service implements Discovery {
    * Service register
    */
   public register(): void {
-    this.isEnabled = this.isEnabled.bind(this)
     this.modulePath = this.modulePath.bind(this)
     this.packages = this.packages.bind(this)
   }
@@ -22,11 +21,11 @@ export default class extends Service implements Discovery {
    */
   public boot(): void {
     this.info({
-      enabled: this.isEnabled(),
+      enabled: this.active,
       msg: 'Autodiscover enabled status',
     })
 
-    this.isEnabled() &&
+    this.active &&
       this.packages().every((name, pkg) => {
         this.service('disk').make(pkg.name, {
           baseDir: pkg.path,
@@ -83,7 +82,7 @@ export default class extends Service implements Discovery {
     return this.service('disk').path.posix.join(
       this.service('disk').path.resolve(
         this.disk('project').baseDir,
-        this.app.store.get('options.node_modules'),
+        this.app.store.get('locations.modules'),
       ),
       path,
     )
@@ -92,7 +91,7 @@ export default class extends Service implements Discovery {
   /**
    * Is autodiscover enabled?
    */
-  public isEnabled(): boolean {
-    return this.app.store.enabled('options.autodiscover')
+  public get active(): boolean {
+    return this.app.store.enabled('options.discover')
   }
 }

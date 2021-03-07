@@ -2,6 +2,7 @@ import Discovery from './Discovery'
 import Disk from './Disk'
 import Env from './Env'
 import Framework from './Framework'
+import FS from './FS'
 import Logger from './Logger'
 import Service from './Service'
 
@@ -17,6 +18,7 @@ export {
   Disk,
   Env,
   Framework,
+  FS,
   Logger,
   Service,
   run,

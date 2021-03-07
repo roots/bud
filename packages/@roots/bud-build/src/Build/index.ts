@@ -51,7 +51,7 @@ export default class extends Service implements Build {
    * Produce a final webpack config.
    */
   public make(): Cfg {
-    this.service('store').each('webpack', (key: keyof Cfg) => {
+    this.app.store.each('webpack', (key: keyof Cfg) => {
       this.makeWebpackProp(key)
     })
 

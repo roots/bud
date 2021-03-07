@@ -19,11 +19,22 @@ export const extensions = (app: Framework) =>
 
 export const modules: (
   app: Framework,
-) => Configuration['resolve']['modules'] = app =>
-  app.hooks.filter(`webpack.resolve.modules`, [
-    app.src(),
-    app.project('node_modules'),
+) => Configuration['resolve']['modules'] = app => {
+  return app.hooks.filter(`webpack.resolve.modules`, [
+    app.store.get('locations.src'),
+    app.store.get('locations.modules'),
+    ...app.extensions
+      .getEntries()
+      .filter(([k, v]) => k.includes('@roots/'))
+      .map(([k, v]) =>
+        app.fs.path.posix.join(
+          app.disk.get('@roots').baseDir,
+          k.replace('@roots/', ''),
+          'node_modules',
+        ),
+      ),
   ])
+}
 
 /**
   @webpack5

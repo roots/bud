@@ -3,9 +3,20 @@ import type {Server} from '@roots/bud-typings'
 /**
  * Enabled middlewares
  */
-export const middleware = {
+export const middleware: Server.Options['middleware'] = {
+  /**
+   * Is proxy middleware enabled?
+   */
   proxy: false,
+
+  /**
+   * Is hot middleware enabled?
+   */
   hot: true,
+
+  /**
+   * Is dev middleware enabled?
+   */
   dev: true,
 }
 
@@ -57,8 +68,6 @@ export const proxy: Server.Options['proxy'] = {
   host: 'localhost',
   port: 8000,
 }
-
-export const hot: boolean = true
 
 /**
  * Watch mode options

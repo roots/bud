@@ -23,12 +23,13 @@ export const publicPath = ({hooks, store}: Framework) =>
 /**
  * webpack.output.path
  */
-export const path = ({hooks, store}: Framework) =>
+export const path = ({fs, hooks, store}: Framework) =>
   hooks.filter(
     'webpack.output.path',
-    `${store.get('locations.project')}${store.get(
-      'locations.dist',
-    )}`,
+    fs.path.posix.join(
+      store.get('locations.project'),
+      store.get('locations.dist'),
+    ),
   )
 
 /**

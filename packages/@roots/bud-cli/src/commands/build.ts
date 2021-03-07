@@ -17,31 +17,38 @@ export default class Build extends Command {
   }
 
   public options = {
-    src: {
-      flags: '--src [src]',
+    ['location.src']: {
+      flags: '--location.src [src]',
       description: 'Source assets location',
       default: 'src',
       optional: true,
     },
-    dist: {
-      flags: '--dist [dist]',
+    ['location.dist']: {
+      flags: '--location.dist [dist]',
       description: 'Compiled assets location',
       default: 'dist',
       optional: true,
     },
-    storage: {
-      flags: '--storage [storage]',
+    ['location.storage']: {
+      flags: '--location.storage [storage]',
       description: 'Build artifacts/cache location',
       default: '.bud',
       optional: true,
     },
-    modules: {
-      flags: '--modules [modules]',
+    ['location.modules']: {
+      flags: '--location.modules [modules]',
       description: 'node_modules location',
       default: 'node_modules',
       optional: true,
     },
-    ci: {
+    ['cache']: {
+      flags: '--cache [cache]',
+      description: 'Disable the Bud dashboard',
+      default: false,
+      optional: true,
+      choices: ['true', 'false'],
+    },
+    ['ci']: {
       flags: '--ci [ci]',
       description: 'Disable the Bud dashboard',
       default: false,

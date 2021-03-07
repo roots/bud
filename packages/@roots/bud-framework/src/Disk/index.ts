@@ -17,17 +17,23 @@ export default class extends Service {
    *
    * @see fs-extra
    */
-  public fs = fs
+  public get fs(): typeof fs {
+    return this.app.fs.util
+  }
 
   /**
    * Globby library.
    */
-  public glob: typeof globby = globby
+  public get glob(): typeof globby {
+    return this.app.fs.glob
+  }
 
   /**
    * cwd
    */
-  public path = path
+  public get path(): typeof path {
+    return this.app.fs.path
+  }
 
   /**
    * Base directory

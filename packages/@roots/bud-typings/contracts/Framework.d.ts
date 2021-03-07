@@ -12,6 +12,7 @@ import {
   Extensions,
   Extension,
   Factory,
+  FS,
   Disk,
   Fluent,
   GlobTask,
@@ -115,6 +116,11 @@ export declare interface Framework extends Mode {
    * - [🔗 Documentation](#)
    */
   extensions: Framework.Extensions
+
+  /**
+   * ## fs
+   */
+  fs: Framework.FS
 
   /**
    * ## bud.hooks
@@ -468,6 +474,7 @@ export declare namespace Framework {
   export {Disk}
   export {Env}
   export {Extensions, Extension}
+  export {FS}
   export {Item}
   export {Module}
   export {Hooks}

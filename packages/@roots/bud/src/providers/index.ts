@@ -1,6 +1,12 @@
 import path from 'path'
 import {Providers} from '@roots/bud-typings'
-import {Env, Discovery, Disk, Logger} from '@roots/bud-framework'
+import {
+  Env,
+  FS,
+  Discovery,
+  Disk,
+  Logger,
+} from '@roots/bud-framework'
 import {Build} from '@roots/bud-build'
 import {Cache} from '@roots/bud-cache'
 import {Compiler} from '@roots/bud-compiler'
@@ -14,6 +20,9 @@ import {extensions} from './extensions'
 import Store, {repositories} from './store'
 import * as items from './items'
 import * as rules from './rules'
+import * as initial from './source'
+
+const params = repositories(initial)
 
 /**
  * Service providers
@@ -21,6 +30,7 @@ import * as rules from './rules'
 export const providers: {
   [key: string]: [Providers.Constructor, Providers.Options?]
 } = {
+  fs: [FS],
   env: [Env],
   logger: [Logger],
   discovery: [Discovery],
@@ -30,13 +40,14 @@ export const providers: {
       containers: {
         ['@roots']: {
           baseDir: path.resolve(
-            process.cwd(),
-            'node_modules/@roots',
+            params.locations.project,
+            params.locations.modules,
+            '@roots',
           ),
           glob: ['**/*', '*', '!**/node_modules', '*.map'],
         },
         ['project']: {
-          baseDir: process.cwd(),
+          baseDir: params.locations.project,
           glob: ['**/*', '*', '!vendor', '!node_modules'],
         },
       },
@@ -49,5 +60,5 @@ export const providers: {
   dashboard: [Dashboard],
   compiler: [Compiler],
   server: [Server, {dependencies: {instance: express()}}],
-  store: [Store, {containers: repositories}],
+  store: [Store, {containers: params}],
 }
