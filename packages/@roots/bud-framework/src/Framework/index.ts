@@ -1,4 +1,8 @@
-import {isFunction, Webpack} from '@roots/bud-support'
+import {
+  isFunction,
+  isUndefined,
+  Webpack,
+} from '@roots/bud-support'
 import {Container} from '@roots/container'
 import {Framework, MaybeCallable} from '@roots/bud-typings'
 import {run} from './run'
@@ -226,7 +230,6 @@ export default abstract class implements Framework {
 
     this.providers.every(name => {
       this.logger.info({name}, 'Booting service')
-
       this[name].boot && this[name].boot()
     })
 
@@ -302,6 +305,7 @@ export default abstract class implements Framework {
     const [Service, options] = service
 
     this[name] &&
+      !isUndefined(this[name]) &&
       (() => {
         throw Error(
           `${name} is already registered to ${console.dir(

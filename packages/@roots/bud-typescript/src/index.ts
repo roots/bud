@@ -9,8 +9,6 @@ export const name: Module['name'] = '@roots/bud-typescript'
 // Extension api
 export const api: Module['api'] = apiFns
 
-export const devDependencies = ['typescript', '@types/node']
-
 // Extension boot
 export const boot: Module['boot'] = ({
   build,
