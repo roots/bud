@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-babel",
-  "version": "3.0.81-alpha.0",
+  "version": "3.0.82-alpha.0",
   "description": "A friendly build tool to help manage your project assets.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -53,9 +53,9 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
-    "@roots/bud": "^3.0.81-alpha.0",
-    "@roots/bud-framework": "^3.0.81-alpha.0",
-    "@roots/bud-typings": "^3.0.81-alpha.0",
+    "@roots/bud": "^3.0.82-alpha.0",
+    "@roots/bud-framework": "^3.0.82-alpha.0",
+    "@roots/bud-typings": "^3.0.82-alpha.0",
     "@types/node": "^14.14.31",
     "@types/webpack": "^4.41.26",
     "type-fest": "^0.21.2"
@@ -66,7 +66,7 @@
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/plugin-transform-runtime": "^7.12.10",
     "@babel/preset-env": "^7.12.11",
-    "@roots/bud-support": "^3.0.81-alpha.0",
+    "@roots/bud-support": "^3.0.82-alpha.0",
     "babel-loader": "^8.2.2",
     "babel-plugin-add-module-exports": "^1.0.4"
   },
