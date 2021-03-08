@@ -1,37 +1,22 @@
 import './interface'
 import {Framework} from '@roots/bud-framework'
 import {Module} from '@roots/bud-typings'
-import * as apiFns from './api'
+import {tailwind} from './api'
 
 // Extension ident
 export const name: Module['name'] = '@roots/bud-tailwindcss'
 
+// Dependencies
+export const devDependencies = [
+  '@roots/bud-postcss',
+  'tailwindcss',
+]
+
 // Extension config
-export const api: Module['api'] = apiFns
+export const api: Module['api'] = {tailwind}
 
 // Boot extension
-export const boot: Module['boot'] = ({
-  disk,
-  postcss,
-}: Framework) => {
-  if (disk.get('project').has('postcss.config.js')) return
-
-  postcss.setPlugin(['tailwindcss', require('tailwindcss')])
-
-  const usingImportPlugin = postcss.enabled.includes(
-    'postcss-import',
-  )
-
-  if (usingImportPlugin) {
-    const insertAfter =
-      postcss.enabled.indexOf('postcss-import') + 1
-
-    postcss.enabled = [
-      ...postcss.enabled.slice(0, insertAfter),
-      'tailwindcss',
-      ...postcss.enabled.slice(insertAfter),
-    ]
-  } else {
-    postcss.enabled = ['tailwindcss', ...postcss.enabled]
-  }
+export const boot: Module['boot'] = (app: Framework) => {
+  if (app.disk.get('project').has('postcss.config.js')) return
+  app.tailwind()
 }

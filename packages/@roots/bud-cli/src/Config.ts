@@ -1,4 +1,4 @@
-import {Bud} from '@roots/bud'
+import {Framework} from '@roots/bud-framework'
 import {Error} from '@roots/bud-dashboard'
 import {CLI} from './CLI'
 
@@ -6,11 +6,11 @@ import {CLI} from './CLI'
  * Command base class
  */
 export default class Config {
-  public app: Bud
+  public app: Framework
   public cli: CLI
 
-  public constructor(app: Bud, cli: CLI) {
-    this.app = app
+  public constructor(app: Framework, cli: CLI) {
+    this.app = app.bootstrap().register().boot()
     this.cli = cli
   }
 

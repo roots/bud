@@ -23,16 +23,9 @@ export const modules: (
   return app.hooks.filter(`webpack.resolve.modules`, [
     app.store.get('locations.src'),
     app.store.get('locations.modules'),
-    ...app.extensions
-      .getEntries()
-      .filter(([k, v]) => k.includes('@roots/'))
-      .map(([k, v]) =>
-        app.fs.path.posix.join(
-          app.disk.get('@roots').baseDir,
-          k.replace('@roots/', ''),
-          'node_modules',
-        ),
-      ),
+    ...app.discovery.getEntries().map(([k, v]) => {
+      return app.fs.path.posix.join(v.path, 'node_modules')
+    }),
   ])
 }
 

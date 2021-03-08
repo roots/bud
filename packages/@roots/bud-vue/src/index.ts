@@ -4,6 +4,9 @@ import {Module, Webpack} from '@roots/bud-typings'
 // Extension name
 export const name: Module['name'] = '@roots/bud-vue'
 
+// Dependencies
+export const dependencies = ['react']
+
 // Extension boot
 export const boot: Module['boot'] = app => {
   /**

@@ -10,23 +10,23 @@ import {PostCssConfig} from './api'
 export const name: Module['name'] = '@roots/bud-postcss'
 
 /**
+ * Extension dependencies
+ */
+export const devDependencies: Module['devDependencies'] = [
+  'postcss',
+]
+
+/**
+ * Extension config
+ */
+export const api: Module['api'] = (app: Framework) => ({
+  postcss: new PostCssConfig({app}),
+})
+
+/**
  * Replace default css implementation
  */
 export const boot: Module['boot'] = (app: Framework) => {
-  /**
-   * PostCss configurator.
-   */
-  const postcss = new PostCssConfig({app})
-
-  Object.assign(app, {postcss})
-
-  const postcssModulePaths = () => [
-    app.store.get('locations.modules'),
-    ...app.discovery.getEntries().map(([k, v]) => {
-      return app.fs.path.posix.join(v.path, 'node_modules')
-    }),
-  ]
-
   app.build
     .set('loaders.postcss', (app: Framework) =>
       require.resolve('postcss-loader'),
@@ -35,6 +35,7 @@ export const boot: Module['boot'] = (app: Framework) => {
       loader: app.build.access('loaders.postcss'),
       options: {
         postcssOptions: app.postcss.options,
+        sourceMap: app.store.enabled('options.devtool'),
       },
     }))
     .set('rules.css.use', ({build, isProduction}: Framework) => {
@@ -55,11 +56,6 @@ export const boot: Module['boot'] = (app: Framework) => {
     app.sequence([
       app => {
         app.postcss.plugins = {
-          ['postcss-import']: require('postcss-import')({
-            path: postcssModulePaths(),
-          }),
-          ['postcss-nested']: require('postcss-nested'),
-          ['postcss-custom-properties']: require('postcss-custom-properties'),
           ['preset-env']: presetEnv({
             autoprefixer: {
               flexbox: 'no-2009',
@@ -67,12 +63,6 @@ export const boot: Module['boot'] = (app: Framework) => {
           }),
         }
       },
-      app =>
-        app.postcss.enable([
-          'postcss-import',
-          'postcss-nested',
-          'postcss-custom-properties',
-          'preset-env',
-        ]),
+      app => app.postcss.enable(['preset-env']),
     ])
 }

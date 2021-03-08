@@ -22,7 +22,7 @@ declare module '@roots/bud-framework' {
 
   namespace Framework.Tailwind {
     export type Configure = (
-      params: Omit<Tailwind.Config, null>,
+      params?: Omit<Tailwind.Config, null>,
     ) => Framework
 
     export interface Config {

@@ -62,12 +62,8 @@
   "dependencies": {
     "@fullhuman/postcss-purgecss": "^3.1.3",
     "@roots/bud-support": "^3.0.76-alpha.0",
-    "autoprefixer": "^10.2.5",
     "postcss": "^8.2.7",
-    "postcss-custom-properties": "11.0.0",
-    "postcss-import": "^14.0.0",
     "postcss-loader": "4.1.0",
-    "postcss-nested": "^5.0.5",
     "postcss-preset-env": "^6.7.0"
   },
   "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"

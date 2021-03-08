@@ -69,7 +69,8 @@
     "eslint-plugin-jsx-a11y": "^6.3.1",
     "eslint-plugin-react": "^7.20.5",
     "eslint-plugin-react-hooks": "^4.0.8",
-    "eslint-webpack-plugin": "^2.4.1"
+    "eslint-webpack-plugin": "^2.4.1",
+    "text-table": "^0.2.0"
   },
   "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"
 }

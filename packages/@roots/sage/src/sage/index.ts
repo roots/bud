@@ -21,6 +21,10 @@ export type Sage = Bud
 
 export const sage: Sage = (sage =>
   sage
+    .bootstrap()
+    .register()
+    .boot()
+
     /**
      * Artifacts/cache store
      *

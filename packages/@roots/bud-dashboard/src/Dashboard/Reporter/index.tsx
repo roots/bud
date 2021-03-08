@@ -17,7 +17,6 @@ import {useCompilation} from '../../hooks/useCompilation'
 import {Body} from './Body'
 import {Footer} from './Footer'
 import {Main, Screen} from '../../components'
-import {Mark} from '../../Mark'
 import {Progress} from '../../components/Progress'
 import {Module} from '../../components/Module'
 
@@ -37,7 +36,6 @@ export const Reporter: FunctionComponent<{
   const [disk] = useDisk(bud)
   const pkg = usePackageJson(disk)
   const [themeLoaded, setThemeLoaded] = useState(false)
-  const bin = bud.store.get('args._')[0].split('/').pop()
 
   /**
    * Ink app
@@ -71,54 +69,50 @@ export const Reporter: FunctionComponent<{
   }, [bounds, col, colors])
 
   return (
-    <Screen justifyContent="space-between">
-      <Mark text={bin} />
+    <Screen paddingX={1} paddingBottom={1}>
+      <Main>
+        <Body
+          bud={bud}
+          bounds={bounds}
+          col={col}
+          colors={colors}
+          stats={stats}
+          progress={progress}
+          errors={errors}
+          hasErrors={hasErrors}
+          warnings={warnings}
+          hasWarnings={hasWarnings}
+        />
 
-      <Screen paddingX={1} paddingBottom={1}>
-        <Main>
-          <Body
-            bud={bud}
-            bounds={bounds}
-            col={col}
-            colors={colors}
-            stats={stats}
-            progress={progress}
-            errors={errors}
-            hasErrors={hasErrors}
-            warnings={warnings}
-            hasWarnings={hasWarnings}
-          />
-
-          {themeLoaded && (
-            <>
-              {bud.isDevelopment && (
-                <Module label="Information">
-                  <Footer
-                    hasErrors={hasErrors}
-                    bud={bud}
-                    bounds={bounds}
-                    col={col}
-                    pkg={pkg}
-                    colors={colors}
-                    progress={progress}
-                    stats={stats}
-                  />
-                </Module>
-              )}
-
-              <Box paddingX={1}>
-                <Progress
-                  progress={progress}
+        {themeLoaded && (
+          <>
+            {bud.isDevelopment && (
+              <Module label="Information">
+                <Footer
+                  hasErrors={hasErrors}
+                  bud={bud}
                   bounds={bounds}
                   col={col}
+                  pkg={pkg}
                   colors={colors}
-                  hasErrors={hasErrors}
+                  progress={progress}
+                  stats={stats}
                 />
-              </Box>
-            </>
-          )}
-        </Main>
-      </Screen>
+              </Module>
+            )}
+
+            <Box paddingX={1}>
+              <Progress
+                progress={progress}
+                bounds={bounds}
+                col={col}
+                colors={colors}
+                hasErrors={hasErrors}
+              />
+            </Box>
+          </>
+        )}
+      </Main>
     </Screen>
   )
 }

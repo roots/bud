@@ -2,7 +2,7 @@ import './interface'
 import {Framework} from '@roots/bud-framework'
 import {Module} from '@roots/bud-typings'
 import Plugin from 'eslint-webpack-plugin'
-import {eslintFormatter} from '@roots/bud-support'
+import formatter from './formatter'
 
 /**
  * Extension identifier
@@ -21,7 +21,7 @@ export const options: Module.Options = app => {
       app.store.get('locations.storage'),
     ),
     quiet: true,
-    formatter: eslintFormatter,
+    formatter,
     context: app.src('*'),
   }
 

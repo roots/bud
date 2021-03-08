@@ -1,11 +1,11 @@
-/**
- * Bud preset: @roots/bud-preset-recommended
- */
 import {bud, Bud} from '@roots/bud'
 import * as babel from '@roots/bud-babel'
 import * as postcss from '@roots/bud-postcss'
 import * as entrypoints from '@roots/bud-entrypoints'
 
+/**
+ * Bud preset: @roots/bud-preset-recommended
+ */
 declare type App = Bud
 
 export const app: App = ((bud: Bud) => {
@@ -17,6 +17,6 @@ export const app: App = ((bud: Bud) => {
   )
 
   return bud
-})(bud)
+})(Object.assign(bud, {name: 'bud'}))
 
 export type {App, Bud}

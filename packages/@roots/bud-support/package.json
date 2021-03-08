@@ -100,7 +100,6 @@
     "source-map-loader": "^1.0.1",
     "style-loader": "^2.0.0",
     "swr": "^0.3.10",
-    "text-table": "^0.2.0",
     "thread-loader": "^3.0.1",
     "url-loader": "^4.1.0",
     "webpack": "^4.44.1",
@@ -118,6 +117,7 @@
     "@types/node": "^14.14.31",
     "@types/webpack": "^4.41.26",
     "@types/webpack-dev-middleware": "^3.7.2",
+    "@types/optimize-css-assets-webpack-plugin": "^5.0.2",
     "type-fest": "^0.21.2"
   }
 }

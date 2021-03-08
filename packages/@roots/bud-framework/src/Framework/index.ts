@@ -181,8 +181,6 @@ export default abstract class implements Framework {
      */
     this.api = this.makeContainer(props.api)
     this.providers = this.makeContainer(props.providers)
-
-    this.bootstrap().register().boot()
   }
 
   /**

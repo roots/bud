@@ -8,6 +8,8 @@ import * as ReactRefreshWebpackPlugin from './react-refresh'
  */
 export const name: Module['name'] = '@roots/bud-react'
 
+export const dependencies = ['react']
+
 /**
  * Extension register
  */

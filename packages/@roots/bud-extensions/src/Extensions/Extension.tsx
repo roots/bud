@@ -1,4 +1,4 @@
-import {isFunction, lodash as _} from '@roots/bud-support'
+import {execa, isFunction, lodash as _} from '@roots/bud-support'
 import {Framework, Module} from '@roots/bud-typings'
 
 /**
@@ -13,12 +13,15 @@ import {Framework, Module} from '@roots/bud-typings'
 export default class {
   public _app: () => Framework
 
+  public name: Module['name']
   public register?: Module['register']
   public boot?: Module['boot']
   public options?: Module['options']
   public api?: Module['api']
   public make?: Module['make']
   public when?: Module['when']
+  public dependencies?: Module['dependencies'] = []
+  public devDependencies?: Module['devDependencies'] = []
 
   public get app() {
     return this._app()
@@ -26,15 +29,57 @@ export default class {
 
   public constructor(_app: Framework['get'], extension) {
     Object.assign(this, {_app, ...extension})
-
-    this.api && Object.assign(this.app.access(this.api))
   }
 
   /**
    * Register extension
    */
   public _register(): this {
+    this.dependencies = this.app.access(this.dependencies)
+    this.devDependencies = this.app.access(this.devDependencies)
+
+    this.app.store.has('args.install') && this.install()
+
     this.register && this.app.access(this.register)
+
+    this.api &&
+      Object.assign(this.app, this.app.access(this.api))
+
+    return this
+  }
+
+  /**
+   * Install extension dependencies
+   */
+  public install(): this {
+    const disk = this.app.disk.get('project')
+    const pkg = disk.readJson('package.json')
+
+    this.dependencies.forEach(dep => {
+      if (
+        pkg.dependencies &&
+        !Object.keys(pkg.dependencies).includes(dep)
+      ) {
+        this.app.dashboard.render(
+          `[${this.name}] Adding ${dep} to project dependencies`,
+        )
+
+        execa.commandSync(`yarn add ${dep} --save`)
+      }
+    })
+
+    this.devDependencies.forEach(dep => {
+      if (
+        !pkg.devDependencies ||
+        !Object.keys(pkg.devDependencies).includes(dep)
+      ) {
+        this.app.dashboard.render(
+          `[${this.name}] Adding ${dep} to project devDependencies`,
+        )
+
+        execa.commandSync(`yarn add ${dep} --save --dev`)
+      }
+    })
 
     return this
   }

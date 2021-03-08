@@ -7,5 +7,8 @@
   "dependencies": {
     "@roots/bud-preset-recommend": "latest",
     "@roots/bud-tailwindcss": "latest"
+  },
+  "devDependencies": {
+    "postcss": "8.2.7"
   }
 }

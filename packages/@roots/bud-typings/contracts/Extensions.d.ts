@@ -71,6 +71,10 @@ export interface Module {
   make?: Module.Make
 
   when?: Module.When
+
+  dependencies?: string[]
+
+  devDependencies?: string[]
 }
 
 export namespace Module {
@@ -107,10 +111,10 @@ export namespace Module {
   }
 
   export type Api =
-    | {[key: string]: CallableFunction}
-    | ((bud?: Framework) => {[key: string]: CallableFunction})
+    | {[key: string]: any}
+    | ((app?: Framework) => {[key: string]: any})
 
-  export type Boot = (bud: Framework) => any | void
+  export type Boot = (app: Framework) => any | void
 
   export type Options<T = any> =
     | T
@@ -118,11 +122,11 @@ export namespace Module {
     | any
 
   export type Make<P = unknown, T = Options> =
-    | ((options: Framework.Container<T>, bud?: Framework) => P)
+    | ((options: Framework.Container<T>, app?: Framework) => P)
     | P
 
   export type When = (
-    bud: Framework,
+    app: Framework,
     opt?: Framework.Container,
   ) => boolean
 }

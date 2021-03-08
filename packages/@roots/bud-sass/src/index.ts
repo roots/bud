@@ -5,6 +5,8 @@ import {Webpack} from '@roots/bud-support'
 
 export const name = '@roots/bud-sass'
 
+export const devDependencies = ['sass', '@roots/bud-postcss']
+
 export const boot: Module.Boot = (app: Framework) => {
   app.hooks.on<Webpack.Configuration['resolve']['extensions']>(
     'webpack.resolve.extensions',

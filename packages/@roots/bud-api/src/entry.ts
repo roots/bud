@@ -1,5 +1,6 @@
 import {Framework} from '@roots/bud-framework'
 import {GlobTask, isArray, isString} from '@roots/bud-support'
+import {Error} from '@roots/bud-dashboard'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -137,81 +138,106 @@ export const entry: Framework.Api.Entry = function (
     | [Framework.Api.Entry.Key, Framework.Api.Entry.Value]
     | [Framework.Api.Entry.Obj]
 ) {
-  const singleEntryHandler = isString(args[0]) && args.length > 1
+  /**
+   * Ducktype entrypoint to determine if it was called like
+   * entry(name, ...assets) or entry({[name]: ...assets})
+   */
+  const isSingleEntry = isString(args[0]) && args.length > 1
 
-  const handler = singleEntryHandler
-    ? single.bind(this)
-    : multi.bind(this)
+  /**
+   * Cast single asset calls to keyed obj
+   */
+  const entrypoints = isSingleEntry
+    ? [{[args[0] as Framework.Api.Entry.Key]: args[1]}]
+    : args
 
-  return handler(...args)
+  /**
+   * Make the entrypoints and return the framework
+   * to the builder
+   */
+  return makeEntrypoints.bind(this)(...entrypoints)
 }
 
 /**
- * Globby options
+ * Make entrypoints
  */
-const makeOptions = function (this: Framework) {
-  return {
-    cwd: this.src(),
-    expandDirectories: true,
-  }
-}
-
-const single = function (
+function makeEntrypoints(
   this: Framework,
-  name: Framework.Api.Entry.Key,
-  pattern: Framework.Api.Entry.Value,
-): Framework {
-  // Globby options
-  const options = makeOptions.bind(this)()
-
-  // Enforce array
-  const task = isArray(pattern) ? pattern : [pattern]
-
-  // Perform glob query
-  const assets = this.disk.glob.sync(task, options)
-
-  // Ensure results
-  const valid = assets?.length && assets?.length > 0
-
-  /**
-   * Build hook
-   */
-  valid &&
-    this.hooks.on(`webpack.entry`, entry => ({
-      ...entry,
-      [name]: assets,
-    }))
-
-  return this
-}
-
-export const multi = function (
   entrypoints: Framework.Api.Entry.Obj,
 ): Framework {
-  // Globby options
-  const options = makeOptions.bind(this)()
-
-  /**
-   * Build hook
-   */
   this.hooks.on(`webpack.entry`, entry => ({
-    // Existing entrypoints
     ...entry,
-
-    /**
-     * Reduce entrypoints from supplied entries
-     */
     ...Object.entries(entrypoints).reduce(
       (a, [name, task]) => ({
         ...a,
-        [name]: this.disk.glob.sync(
-          isArray(task) ? task : [task],
-          options,
-        ),
+        [name]: getAssets.bind(this)(name, task),
       }),
       {},
     ),
   }))
 
   return this
+}
+
+/**
+ * Get entrypoint assets
+ */
+function getAssets(
+  name: string,
+  task: string | string[],
+): string[] {
+  /**
+   * Cast the entrypoint as an array
+   */
+  const files = isArray(task) ? task : [task]
+
+  /**
+   * Find all the matching assets on disk
+   */
+  const assets = this.disk.glob.sync(
+    isArray(task) ? task : [task],
+    {
+      cwd: this.src(),
+      expandDirectories: true,
+    },
+  )
+
+  /**
+   * Found nothing for specified glob
+   */
+  if (!(assets.length > 0)) {
+    Error(
+      `${files.toString()} did not return any results. Make sure these assets are available on disk.`,
+      'Assets not found',
+    )
+  }
+
+  /**
+   * Entrypoints will always generate a JS file even when it is
+   * just boilerplate (css only entrypoint)
+   *
+   * @webpack5 this is no longer necessary
+   */
+  if (isCssOnlyEntrypoint(assets)) {
+    this.extensions.mutate(
+      'ignore-emit-webpack-plugin.options.ignore',
+      (ignore: string[]) => [...ignore, name.concat('.js')],
+    )
+  }
+
+  return assets
+}
+
+/**
+ * Return true if entrypoint is comprised of nothing but css files.
+ *
+ * @webpack5 this is no longer necessary
+ */
+function isCssOnlyEntrypoint(assets: string[]): boolean {
+  const getType = (file: string) => file.split('.').pop()
+  const notCss = (file: string) => getType(file) !== 'css'
+  const cssOnly = (entry: string[]) =>
+    entry.filter(f => notCss(f))?.length == 0
+
+  return cssOnly(assets)
 }

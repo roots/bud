@@ -7,6 +7,13 @@ import {Module} from '@roots/bud-typings'
  */
 export const name: Module['name'] = '@roots/bud-emotion'
 
+export const devDependencies = [
+  '@roots/bud-react',
+  '@emotion/css',
+  '@emotion/react',
+  '@emotion/styled',
+]
+
 /**
  * Register @emotion
  */
