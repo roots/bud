@@ -10,7 +10,7 @@ export default class Config {
   public cli: CLI
 
   public constructor(app: Framework, cli: CLI) {
-    this.app = app.bootstrap().register().boot()
+    this.app = app
     this.cli = cli
   }
 
