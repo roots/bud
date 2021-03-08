@@ -70,9 +70,7 @@
     "@roots/bud-typescript": "^3.0.81-alpha.0",
     "@roots/bud-wordpress-dependencies": "^3.0.81-alpha.0",
     "@roots/bud-wordpress-externals": "^3.0.81-alpha.0",
-    "@roots/bud-wordpress-manifests": "^3.0.81-alpha.0",
-    "postcss": "^8.2.7",
-    "tailwindcss": "^2.0.3"
+    "@roots/bud-wordpress-manifests": "^3.0.81-alpha.0"
   },
   "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684",
   "devDependencies": {

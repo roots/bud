@@ -1,7 +1,6 @@
 import './interface'
 import {Framework} from '@roots/bud-framework'
 import {Module} from '@roots/bud-typings'
-import presetEnv from 'postcss-preset-env'
 import {PostCssConfig} from './api'
 
 /**
@@ -27,6 +26,13 @@ export const api: Module['api'] = (app: Framework) => ({
  * Replace default css implementation
  */
 export const boot: Module['boot'] = (app: Framework) => {
+  const postcssModulePaths = () => [
+    app.store.get('locations.modules'),
+    ...app.discovery.getEntries().map(([k, v]) => {
+      return app.fs.path.posix.join(v.path, 'node_modules')
+    }),
+  ]
+
   app.build
     .set('loaders.postcss', (app: Framework) =>
       require.resolve('postcss-loader'),
@@ -56,13 +62,18 @@ export const boot: Module['boot'] = (app: Framework) => {
     app.sequence([
       app => {
         app.postcss.plugins = {
-          ['preset-env']: presetEnv({
-            autoprefixer: {
-              flexbox: 'no-2009',
-            },
+          ['postcss-import']: require('postcss-import')({
+            path: postcssModulePaths(),
           }),
+          ['postcss-nested']: require('postcss-nested'),
+          ['postcss-custom-properties']: require('postcss-custom-properties'),
         }
       },
-      app => app.postcss.enable(['preset-env']),
+      app =>
+        app.postcss.enable([
+          'postcss-import',
+          'postcss-nested',
+          'postcss-custom-properties',
+        ]),
     ])
 }

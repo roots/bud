@@ -4,11 +4,8 @@
   "scripts": {
     "bud": "node ../../node_modules/.bin/bud"
   },
-  "dependencies": {
-    "@roots/bud-preset-recommend": "latest",
-    "@roots/bud-tailwindcss": "latest"
-  },
   "devDependencies": {
-    "postcss": "8.2.7"
+    "postcss": "^8.2.7",
+    "tailwindcss": "^2.0.3"
   }
 }
