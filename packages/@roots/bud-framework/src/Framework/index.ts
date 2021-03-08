@@ -1,8 +1,4 @@
-import {
-  isFunction,
-  isUndefined,
-  Webpack,
-} from '@roots/bud-support'
+import {isFunction, Webpack} from '@roots/bud-support'
 import {Container} from '@roots/container'
 import {Framework, MaybeCallable} from '@roots/bud-typings'
 import {run} from './run'
@@ -303,16 +299,6 @@ export default abstract class implements Framework {
     ],
   ): void {
     const [Service, options] = service
-
-    this[name] &&
-      !isUndefined(this[name]) &&
-      (() => {
-        throw Error(
-          `${name} is already registered to ${console.dir(
-            this.name,
-          )}`,
-        )
-      })()
 
     this[name] = new Service(
       this.get,

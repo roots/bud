@@ -135,17 +135,21 @@ export const sage: Sage = (sage =>
        * Development
        */
       ({env, proxy, dev}) => {
-        env.has('APP_HOST') &&
-          dev({
-            host: env.get('APP_HOST'),
-          })
+        dev({
+          host: env.has('APP_HOST')
+            ? env.get('APP_HOST')
+            : 'localhost',
+          port: env.has('APP_PORT') ? env.get('APP_PORT') : 3000,
+        })
 
-        env.has('APP_PORT') &&
-          dev({
-            port: env.get('APP_PORT'),
-          })
-
-        proxy()
+        proxy({
+          host: env.has('APP_PROXY_HOST')
+            ? env.get('APP_PROXY_HOST')
+            : 'localhost',
+          port: env.has('APP_PROXY_PORT')
+            ? env.get('APP_PROXY_PORT')
+            : 8000,
+        })
       },
     )
     .html(false))(bud)
