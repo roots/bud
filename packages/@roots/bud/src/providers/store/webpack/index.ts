@@ -68,7 +68,7 @@ export const context = ({hooks, store}) =>
 export const devtool = ({hooks, store}: Framework) =>
   hooks.filter(
     'webpack.devtool',
-    store.get('options.devtool') ?? 'none',
+    store.get('options.devtool.type'),
   )
 
 /**
@@ -76,8 +76,8 @@ export const devtool = ({hooks, store}: Framework) =>
  *
  * @default {}
  */
-export const entry = ({hooks}: Framework) =>
-  hooks.filter('webpack.entry', {})
+export const entry = ({hooks, store}: Framework) =>
+  hooks.filter('webpack.entry', store.get('options.entry'))
 
 /**
  * Externals
@@ -85,8 +85,11 @@ export const entry = ({hooks}: Framework) =>
  * @filter  {webpack.externals}
  * @default {}
  */
-export const externals = ({hooks}: Framework) =>
-  hooks.filter('webpack.externals', {})
+export const externals = ({hooks, store}: Framework) =>
+  hooks.filter(
+    'webpack.externals',
+    store.get('options.externals'),
+  )
 
 /**
  * Infrastructure logging
@@ -110,17 +113,15 @@ export const infrastructureLogging = ({
  * @default {'production'}
  */
 export const mode = ({hooks, mode}: Framework) =>
-  hooks.filter(`mode`, mode ?? 'production')
+  hooks.filter(`mode`, mode ?? 'production') ?? 'production'
 
 /**
  * Name
  */
-export const name = ({hooks, store}: Framework) =>
+export const name = ({hooks, name, store}: Framework) =>
   hooks.filter(
     `webpack.name`,
-    store.has('options.name')
-      ? store.get('options.name')
-      : '@roots/bud',
+    store.has('options.name') ? store.get('options.name') : name,
   )
 
 /**
@@ -140,12 +141,12 @@ export function optimization(app: Framework) {
     noEmitOnErrors: noEmitOnErrors(app),
   }
 
-  app.store.enabled('options.runtime') &&
+  app.store.enabled('options.runtimeChunk.enabled') &&
     Object.assign(optimization, {
       runtimeChunk: runtimeChunk(app),
     })
 
-  app.store.enabled('options.vendor') &&
+  app.store.enabled('options.splitChunks.enabled') &&
     Object.assign(optimization, {
       splitChunks: splitChunks(app),
     })
@@ -173,9 +174,7 @@ export const performance = ({
 }: Framework): boolean =>
   hooks.filter(
     `wepback.performance`,
-    store.has('options.performance')
-      ? store.get('options.performance')
-      : false,
+    store.get('options.performance'),
   )
 
 /**
@@ -187,21 +186,14 @@ export const performance = ({
 export const parallelism = ({hooks, store}: Framework) =>
   hooks.filter(
     `webpack.parallelism`,
-    store.has('options.parallelism')
-      ? store.get('options.parallelism')
-      : 1,
+    store.get('options.parallelism'),
   )
 
 /**
  * Profile
  */
 export const profile = ({hooks, store}: Framework) =>
-  hooks.filter(
-    `webpack.profile`,
-    store.has('options.profile')
-      ? store.get('options.profile')
-      : false,
-  )
+  hooks.filter(`webpack.profile`, store.get('options.profile'))
 
 /**
  * Records Path
@@ -231,12 +223,7 @@ export const resolve = (app: Framework) =>
  * @default {false}
  */
 export const stats = ({hooks, store}: Framework) =>
-  hooks.filter(
-    `webpack.stats`,
-    store.has('options.stats')
-      ? store.get('options.stats')
-      : false,
-  )
+  hooks.filter(`webpack.stats`, store.get('options.stats'))
 
 /**
  * Target
@@ -246,12 +233,7 @@ export const stats = ({hooks, store}: Framework) =>
  * @default {false}
  */
 export const target = ({hooks, store}: Framework) =>
-  hooks.filter(
-    `webpack.target`,
-    store.has('options.target')
-      ? store.get('options.target')
-      : 'web',
-  )
+  hooks.filter(`webpack.target`, store.get('options.target'))
 
 /**
  * Watch

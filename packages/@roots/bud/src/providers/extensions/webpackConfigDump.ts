@@ -15,14 +15,7 @@ export const options: Module.Options<PluginOptions> = ({
   store,
 }) => ({
   name: 'webpack.debug.js',
-  outputPath: store
-    .access('locations.records')
-    .split('/')
-    .splice(
-      0,
-      store.access('locations.records').split('/').length - 1,
-    )
-    .join('/'),
+  outputPath: store.access('locations.storage'),
   keepCircularReferences: true,
 })
 

@@ -64,7 +64,10 @@ export default class extends Service {
    * Service boot
    */
   public boot(): void {
-    this.info({...this.get('project').readJson('package.json')})
+    this.app.store.set(
+      'project',
+      this.get('project').readJson('package.json'),
+    )
   }
 
   /**

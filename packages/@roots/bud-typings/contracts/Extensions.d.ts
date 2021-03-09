@@ -22,6 +22,8 @@ export declare interface Extensions extends Service {
   make(plugin: string): Webpack.Plugin
 
   makeAll(): Webpack.Plugin[]
+
+  discard(pkg: string): Service['app']
 }
 
 /**

@@ -7,6 +7,6 @@ const {bud: app} = require('@roots/bud')
 new CLI({
   name: 'bud',
   projectUrl: 'https://github.com/roots/bud',
-  app: app.bootstrap().register().boot(),
+  app,
   commands,
 }).invoke()

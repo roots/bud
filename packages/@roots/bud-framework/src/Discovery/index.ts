@@ -28,12 +28,6 @@ export default class extends Service implements Discovery {
   public boot(): void {
     this.extensions()
 
-    this.info({
-      enabled: this.active,
-      extensions: this.all(),
-      msg: 'Autodiscover',
-    })
-
     this.every(
       (name: string, pkg: {name: string; path: string}) => {
         this.app.disk.make(pkg.name, {
@@ -67,8 +61,6 @@ export default class extends Service implements Discovery {
             name: string
             [key: string]: string | string[]
           } = this.service('disk').fs.readJSONSync(pkg)
-
-          this.info({extension})
 
           return extension.keywords?.includes('bud-extension')
             ? {

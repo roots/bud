@@ -1,10 +1,18 @@
 import {spawnSync, SpawnSyncReturns} from 'child_process'
-import Dependencies from './dependencies'
 import {IDependencyManager} from './'
 
-class Npm extends Dependencies implements IDependencyManager {
-  install(dev: boolean): SpawnSyncReturns<string> {
-    const args = ['install'].concat(this.dependencies, [
+export class Npm implements IDependencyManager {
+  public path: string
+
+  constructor(path: string = process.cwd()) {
+    this.path = path
+  }
+
+  install(
+    dev: boolean,
+    dependency: string,
+  ): SpawnSyncReturns<string> {
+    const args = ['install'].concat(dependency, [
       '--prefix',
       this.path,
       '--production=false',
@@ -15,13 +23,11 @@ class Npm extends Dependencies implements IDependencyManager {
     return spawnSync('npm', args)
   }
 
-  uninstall(): SpawnSyncReturns<string> {
-    const args = ['uninstall'].concat(this.dependencies, [
+  uninstall(dependency: string): SpawnSyncReturns<string> {
+    const args = ['uninstall'].concat(dependency, [
       '--prefix',
       this.path,
     ])
     return spawnSync('npm', args)
   }
 }
-
-export {Npm as default}

@@ -7,4 +7,4 @@ export const make: Module.Make = () =>
   new HotModuleReplacementPlugin()
 
 export const when: Module.When = bud =>
-  bud.isDevelopment && bud.store.enabled('options.hot')
+  bud.isDevelopment && bud.store.enabled('server.middleware.hot')

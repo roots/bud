@@ -45,6 +45,11 @@ export default abstract class implements Framework {
   public discovery: Framework.Discovery
 
   /**
+   * Dependencies
+   */
+  public dependencies: Framework.Dependencies
+
+  /**
    * Disk
    */
   public disk: Framework.Disk

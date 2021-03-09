@@ -3,6 +3,7 @@ import {Providers} from '@roots/bud-typings'
 import {
   Env,
   FS,
+  Dependencies,
   Discovery,
   Disk,
   Logger,
@@ -20,9 +21,6 @@ import {extensions} from './extensions'
 import Store, {repositories} from './store'
 import * as items from './items'
 import * as rules from './rules'
-import * as initial from './source'
-
-const params = repositories(initial)
 
 /**
  * Service providers
@@ -33,6 +31,7 @@ export const providers: {
   fs: [FS],
   env: [Env],
   logger: [Logger],
+  dependencies: [Dependencies],
   discovery: [Discovery],
   disk: [
     Disk,
@@ -40,14 +39,14 @@ export const providers: {
       containers: {
         ['@roots']: {
           baseDir: path.resolve(
-            params.locations.project,
-            params.locations.modules,
+            repositories.locations.project,
+            repositories.locations.modules,
             '@roots',
           ),
           glob: ['**/*', '*', '!**/node_modules', '*.map'],
         },
         ['project']: {
-          baseDir: params.locations.project,
+          baseDir: repositories.locations.project,
           glob: ['**/*', '*', '!vendor', '!node_modules'],
         },
       },
@@ -60,5 +59,5 @@ export const providers: {
   dashboard: [Dashboard],
   compiler: [Compiler],
   server: [Server, {dependencies: {instance: express()}}],
-  store: [Store, {containers: params}],
+  store: [Store, {containers: repositories}],
 }

@@ -1,29 +1,24 @@
 import {spawnSync} from 'child_process'
 import {IDependencyManager} from './'
-import Yarn from './yarn'
-import Npm from './npm'
+import {Yarn} from './yarn'
+import {Npm} from './npm'
 
-class Dependencies {
-  protected dependencies: string[]
+export class Dependencies {
   protected path: string
 
-  constructor(
-    dependencies: string | string[],
-    path: string = process.cwd(),
-  ) {
-    this.dependencies = [].concat(dependencies as any)
+  constructor(path: string = process.cwd()) {
     this.path = path
   }
 
   get client(): IDependencyManager {
     if (this.isYarn()) {
-      return new Yarn(this.dependencies, this.path)
+      return new Yarn(this.path)
     }
 
-    return new Npm(this.dependencies, this.path)
+    return new Npm(this.path)
   }
 
-  protected isYarn(): boolean {
+  public isYarn(): boolean {
     try {
       // user could have yarn installed, but not be using it
       // this will return false if the user isn't actually using yarn
@@ -41,5 +36,3 @@ class Dependencies {
     return false
   }
 }
-
-export default Dependencies

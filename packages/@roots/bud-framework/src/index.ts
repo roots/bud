@@ -1,5 +1,6 @@
 import Discovery from './Discovery'
 import Disk from './Disk'
+import Dependencies from './Dependencies'
 import Env from './Env'
 import Framework from './Framework'
 import FS from './FS'
@@ -14,6 +15,7 @@ import {Compiler} from '@roots/bud-typings'
 
 export {
   Compiler,
+  Dependencies,
   Discovery,
   Disk,
   Env,

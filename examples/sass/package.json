@@ -6,5 +6,10 @@
   "dependencies": {
     "@roots/bud-preset-recommend": "latest",
     "@roots/bud-sass": "latest"
+  },
+  "devDependencies": {
+    "@roots/bud-postcss": "^3.0.82-alpha.0",
+    "postcss": "^8.2.7",
+    "sass": "^1.32.8"
   }
 }

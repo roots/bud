@@ -31,6 +31,11 @@ export default class extends Service {
 
     this.kill = this.kill.bind(this)
     this.run = this.run.bind(this)
+
+    if (this.app.store.enabled('args.ci')) {
+      this.app.name = 'Loading'
+      this.render(<Text></Text>)
+    }
   }
 
   /**
@@ -45,9 +50,7 @@ export default class extends Service {
       msg: 'Beginning CLI execution',
     })
 
-    this.dashboard = this.render(
-      <Reporter bud={this.app.get()} />,
-    )
+    this.render(<Reporter bud={this.app.get()} />)
   }
 
   /**
@@ -70,11 +73,11 @@ export default class extends Service {
         Component
       )
 
-    return render(
+    return (this.dashboard = render(
       <Screen justifyContent="space-between">
         <Mark text={this.app.get().name} />
         <Output />
       </Screen>,
-    )
+    ))
   }
 }

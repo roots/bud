@@ -1,4 +1,5 @@
 import type {Server} from '@roots/bud-typings'
+import {init} from './source'
 
 /**
  * Enabled middlewares
@@ -7,17 +8,20 @@ export const middleware: Server.Options['middleware'] = {
   /**
    * Is proxy middleware enabled?
    */
-  proxy: false,
+  proxy: init([
+    'server.middleware.proxy',
+    'APP_MIDDLEWARE_PROXY',
+  ]),
 
   /**
    * Is hot middleware enabled?
    */
-  hot: true,
+  hot: init(['server.middleware.hot', 'APP_MIDDLEWARE_HOT']),
 
   /**
    * Is dev middleware enabled?
    */
-  dev: true,
+  dev: init(['server.middleware.dev', 'APP_MIDDLEWARE_DEV']),
 }
 
 /**
@@ -26,12 +30,18 @@ export const middleware: Server.Options['middleware'] = {
  *
  * @default ['GET','HEAD']
  */
-export const methods: Server.Options['methods'] = ['GET', 'HEAD']
+export const methods: Server.Options['methods'] = init([
+  'server.methods',
+  'APP_METHODS',
+])
 
 /**
  * Defines the level of messages logged by Express/WDS middleware
  */
-export const logLevel: Server.Options['logLevel'] = 'silent'
+export const logLevel: Server.Options['logLevel'] = init([
+  'server.loglevel',
+  'APP_SERVER_LOG_LEVEL',
+])
 
 /**
  * This property allows a user to register custom mime
@@ -54,34 +64,34 @@ export const writeToDisk = true
 /**
  * Hostname to use for dev server.
  */
-export const host: Server.Options['host'] = 'localhost'
+export const host: Server.Options['host'] = init([
+  'server.host',
+  'APP_HOST',
+])
 
 /**
  * Port to use for dev server.
  */
-export const port: Server.Options['port'] = 3000
+export const port: Server.Options['port'] = init([
+  'server.port',
+  'APP_PORT',
+])
 
 /**
  * Proxy destination
  */
 export const proxy: Server.Options['proxy'] = {
-  host: 'localhost',
-  port: 8000,
+  host: init(['server.proxy.host', 'APP_PROXY_HOST']),
+  port: init(['server.proxy.port', 'APP_PROXY_PORT']),
 }
 
 /**
  * Watch mode options
  */
 export const watch: Server.Options['watch'] = {
-  files: [
-    '**/*.html',
-    '**/*.php',
-    '**/*.ejs',
-    '!node_modules',
-    '!vendor',
-  ],
+  files: init(['server.watch.files']),
   options: {
-    persistent: true,
+    persistent: init(['server.watch.options']),
   },
 }
 

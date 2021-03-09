@@ -41,7 +41,7 @@ export const boot: Module['boot'] = (app: Framework) => {
       loader: app.build.access('loaders.postcss'),
       options: {
         postcssOptions: app.postcss.options,
-        sourceMap: app.store.enabled('options.devtool'),
+        sourceMap: true,
       },
     }))
     .set('rules.css.use', ({build, isProduction}: Framework) => {

@@ -1,10 +1,18 @@
 import {spawnSync, SpawnSyncReturns} from 'child_process'
-import Dependencies from './dependencies'
 import {IDependencyManager} from './'
 
-class Yarn extends Dependencies implements IDependencyManager {
-  install(dev: boolean): SpawnSyncReturns<string> {
-    const args = ['add'].concat(this.dependencies, [
+export class Yarn implements IDependencyManager {
+  public path: string
+
+  constructor(path: string = process.cwd()) {
+    this.path = path
+  }
+
+  install(
+    dev: boolean,
+    dependency: string,
+  ): SpawnSyncReturns<string> {
+    const args = ['add'].concat(dependency, [
       '--cwd',
       this.path,
       '--production=false',
@@ -16,8 +24,8 @@ class Yarn extends Dependencies implements IDependencyManager {
     return spawnSync('yarn', args)
   }
 
-  uninstall(): SpawnSyncReturns<string> {
-    const args = ['remove'].concat(this.dependencies, [
+  uninstall(dependency: string): SpawnSyncReturns<string> {
+    const args = ['remove'].concat(dependency, [
       '--cwd',
       this.path,
     ])
@@ -25,5 +33,3 @@ class Yarn extends Dependencies implements IDependencyManager {
     return spawnSync('yarn', args)
   }
 }
-
-export {Yarn as default}

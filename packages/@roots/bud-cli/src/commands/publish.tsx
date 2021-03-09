@@ -19,7 +19,7 @@ export default class Command extends BaseCommand {
     dir: 'Path to publish to',
   }
 
-  public action(pkg, scaffold, dir, command) {
+  public action(pkg: string, scaffold: string, dir: string) {
     ;(async () => {
       const src = join(
         process.cwd(),

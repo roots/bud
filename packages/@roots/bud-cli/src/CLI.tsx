@@ -63,6 +63,8 @@ export class CLI {
     const output = new Output(this.name, this.instance)
 
     this.instance
+      .allowUnknownOption()
+      .allowExcessArguments()
       .configureOutput(output.config)
       .usage('[command]')
       .storeOptionsAsProperties(true)
@@ -92,6 +94,8 @@ export class CLI {
 
       const command = new Commander.Command()
         .command(`${sub.name} ${sub.signature}`)
+        .allowUnknownOption()
+        .allowExcessArguments()
         .description(sub.description, sub.arguments)
         .action(sub.action)
         .usage(sub.usage)
@@ -101,27 +105,25 @@ export class CLI {
       )
 
       sub.has('options') &&
-        Object.values(sub.options).map(opt => {
-          const option = new Commander.Option(
-            opt.flags,
-            opt.description,
+        Object.entries(sub.options).map(([k, opt]) => {
+          const option: Commander.Option = new Commander.Option(
+            opt.flags ?? `--${k}`,
           )
 
+          if (opt.description)
+            option.description = opt.description ?? ''
+
           opt.default && option.default(opt.default)
-          opt.choices && option.choices(opt.choices)
-
-          typeof opt.optional == 'boolean' &&
-            (() => {
-              option.mandatory = !opt.optional
-            })()
-
           command.addOption(option)
         })
 
       this.instance.addCommand(command)
     })
 
-    this.instance.parse()
+    this.instance
+      .allowExcessArguments()
+      .allowUnknownOption()
+      .parse()
   }
 
   /**

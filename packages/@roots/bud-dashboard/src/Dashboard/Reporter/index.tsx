@@ -34,8 +34,8 @@ export const Reporter: FunctionComponent<{
 
   const {bounds, col, colors} = useStyle(bud.store.get('theme'))
   const [disk] = useDisk(bud)
-  const pkg = usePackageJson(disk)
   const [themeLoaded, setThemeLoaded] = useState(false)
+  const pkg = usePackageJson(disk)
 
   /**
    * Ink app

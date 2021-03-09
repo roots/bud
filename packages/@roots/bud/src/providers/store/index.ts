@@ -5,8 +5,7 @@ import {get} from '@roots/bud-support'
 import * as webpack from './webpack'
 import * as patterns from './patterns'
 import * as server from './server'
-import {isEqual} from 'lodash'
-import {resolve} from 'path'
+import {args, env, init, projectPath} from './source'
 
 export default class extends Service implements Store {
   public get<T = any>(key: Store.Keys): T {
@@ -14,159 +13,129 @@ export default class extends Service implements Store {
   }
 }
 
-declare type StoreFactoryArgs = {
-  args: {[key: string]: any}
-  env: {[key: string]: any}
-  source: <T = any>(keys: [string, string], fallback: any) => T
-}
-
-export const repositories: (
-  args: StoreFactoryArgs,
-) => {[key: string]: any} = ({args, env, source}) => {
-  const project = resolve(
-    process.cwd(),
-    source(['location.project', 'BUILD_PROJECT'], process.cwd()),
-  )
-
-  return {
-    args,
-    env,
-    webpack,
-    patterns,
-    server,
-    options: {
-      ci: source(['ci', 'BUILD_CI'], false),
-      discover: source(['discover', 'BUILD_DISCOVER'], false),
-      bail: source(['bail', 'BUILD_BAIL'], true),
-      cache: source(['cache', 'BUILD_CACHE'], true),
-      clean: source(['clean', 'BUILD_CLEAN'], true),
-      devtool: source(['devtool', 'BUILD_DEVTOOL'], 'none'),
-      hash: source(['hash', 'BUILD_HASH'], false),
-      hot: source(['hot', 'BUILD_HOT'], true),
-      html: source(['html', 'BUILD_HTML'], true),
-      log: source(['log', 'BUILD_LOG'], false),
-      manifest: source(['manifest', 'BUILD_MANIFEST'], true),
-      minify: source(
-        ['minify', 'BUILD_MINIFY'],
-        args.mode && isEqual(args.mode, 'production'),
-      ),
-      mode: source(['mode', 'BUILD_OPT_MODE'], 'production'),
-      parallelism: source(
-        ['parallelism', 'BUILD_OPT_PARALLELISM'],
-        1,
-      ),
+export const repositories = {
+  args,
+  env,
+  webpack,
+  patterns,
+  server,
+  options: {
+    bail: init(['bail', 'APP_BAIL']),
+    cache: init(['cache', 'APP_CACHE']),
+    ci: init(['ci', 'APP_CI']),
+    clean: init(['clean', 'APP_CLEAN']),
+    debug: init(['debug', 'APP_DEBUG']),
+    define: init(['define']),
+    devtool: {
+      enabled: init(['devtool.enable', 'APP_DEVTOOL_ENABLE']),
+      type: init(['devtool.type', 'APP_DEVTOOL']),
     },
-    locations: {
-      project,
-      src: source(['location.src', 'BUILD_SRC'], 'src'),
-      dist: source(['location.dist', 'BUILD_DIST'], 'dist'),
-      storage: source(
-        ['location.storage', 'BUILD_STORAGE'],
-        '.bud',
-      ),
-      modules: resolve(
-        project,
-        source(
-          ['location.modules', 'BUILD_MODULES'],
-          'node_modules',
-        ),
-      ),
-      publicPath: source(
-        ['location.public', 'BUILD_PUBLIC'],
-        '/',
-      ),
-      records: source(
-        ['records', 'BUILD_RECORDS'],
-        'records.js',
-      ),
+    discover: init(['discover', 'APP_DISCOVER']),
+    externals: init(['externals']),
+    hash: init(['hash', 'APP_HASH']),
+    hashFormat: init(['hashFormat', 'APP_HASH_FORMAT']),
+    hot: init(['server.middleware.hot', 'APP_HOT']),
+    html: {
+      enabled: init(['html.enable', 'APP_HTML']),
+      template: init(['html.template', 'APP_HTML_TEMPLATE']),
     },
-    theme: {
-      spacing: source(['theme.spacer', 'BUILD_THEME_SPACER'], 1),
-      colors: {
-        foreground: source(
-          ['theme.color.foreground', 'BUILD_THEME_FOREGROUND'],
-          '#FFFFFF',
-        ),
-        faded: source(
-          ['theme.color.faded', 'BUILD_THEME_FADED'],
-          '#6C758F',
-        ),
-        primary: source(
-          ['theme.color.primary', 'BUILD_THEME_PRIMARY'],
-          '#545DD7',
-        ),
-        primaryAlt: source(
-          ['theme.color.primary.alt', 'BUILD_THEME_PRIMARY_ALT'],
-          '#663399',
-        ),
-        error: source(
-          ['theme.color.error', 'BUILD_THEME_ERROR'],
-          '#dc3545',
-        ),
-        errorAlt: source(
-          ['theme.color.errorAlt', 'BUILD_THEME_ERROR_ALT'],
-          '#b22222',
-        ),
-        warning: source(
-          ['theme.color.warning', 'BUILD_THEME_WARNING'],
-          '#FF611A',
-        ),
-        success: source(
-          ['theme.color.success', 'BUILD_THEME_SUCCESS'],
-          '#46D46A',
-        ),
-        accent: source(
-          ['theme.color.accent', 'BUILD_THEME_ACCENT'],
-          '#ff69b4',
-        ),
-        flavor: source(
-          ['theme.color.flavor', 'BUILD_THEME_FLAVOR'],
-          '#78C5D7',
-        ),
-      },
-      screens: [
-        [
-          source(
-            ['theme.screens.sm.lower', 'BUILD_THEME_SM_LOWER'],
-            0,
-          ),
-          source(
-            ['theme.screens.sm.upper', 'BUILD_THEME_SM_UPPER'],
-            40,
-          ),
-        ],
-        [
-          source(
-            ['theme.screens.md.lower', 'BUILD_THEME_MD_LOWER'],
-            41,
-          ),
-          source(
-            ['theme.screens.md.upper', 'BUILD_THEME_MD_UPPER'],
-            60,
-          ),
-        ],
-        [
-          source(
-            ['theme.screens.lg.lower', 'BUILD_THEME_LG_LOWER'],
-            61,
-          ),
-          source(
-            ['theme.screens.lg.upper', 'BUILD_THEME_LG_UPPER'],
-            80,
-          ),
-        ],
-        [
-          source(
-            ['theme.screens.xl.lower', 'BUILD_THEME_XL_LOWER'],
-            81,
-          ),
-          source(
-            ['theme.screens.xl.upper', 'BUILD_THEME_XL_UPPER'],
-            Infinity,
-          ),
-        ],
+    entry: init(['entry']),
+    install: init(['install', 'APP_INSTALL']),
+    log: {
+      enabled: init(['log.enable', 'APP_LOG']),
+      file: init(['log.file', 'APP_LOG_FILE']),
+    },
+    manifest: init(['manifest', 'APP_MANIFEST']),
+    minify: init(['minify', 'APP_MINIFY']),
+    mode: init(['mode', 'APP_MODE']),
+    name: init(['name', 'APP_NAME']),
+    namedModules: init(['namedModules', 'APP_NAMED_MODULES']),
+    noEmitOnErrors: init(['noEmit', 'APP_NO_EMIT_ON_ERRORS']),
+    parallelism: init(['parallelism', 'APP_PARALLELISM']),
+    profile: init(['profile', 'APP_PROFILE']),
+    splitChunks: {
+      enabled: init(['splitChunks.enable']),
+      chunks: init(['splitChunks.chunks']),
+      minSize: init(['splitChunks.minSize']),
+      maxSize: init(['splitChunks.maxSize']),
+      minChunks: init(['splitChunks.minChunks']),
+      maxAsyncRequests: init(['splitChunks.maxAsyncRequests']),
+      maxInitialRequests: init([
+        'splitChunks.maxInitialRequests',
+      ]),
+    },
+    runtimeChunk: {
+      enabled: init(['runtimeChunk', 'APP_RUNTIME_CHUNK']),
+      name: entrypoint => `runtime/${entrypoint.name}`,
+    },
+    resolve: {
+      alias: init(['alias']),
+      extensions: init(['resolve.extensions']),
+      modules: init(['resolve.modules']),
+    },
+    stats: init(['stats', 'APP_STATS']),
+    target: init(['target', 'APP_TARGET']),
+    use: init(['use', 'APP_USE']),
+  },
+  locations: {
+    project: projectPath(),
+    src: init(['location.src', 'APP_SRC']),
+    dist: init(['location.dist', 'APP_DIST']),
+    storage: init(['location.storage', 'APP_STORAGE']),
+    modules: init(['location.modules', 'APP_MODULES']),
+    publicPath: init(['location.public', 'APP_PUBLIC']),
+    records: init(['location.records', 'APP_RECORDS']),
+  },
+  theme: {
+    spacing: init(['theme.spacing', 'APP_THEME_SPACING']),
+    colors: {
+      foreground: init([
+        'theme.colors.foreground',
+        'APP_THEME_FOREGROUND',
+      ]),
+      faded: init(['theme.colors.faded', 'APP_THEME_FADED']),
+      primary: init([
+        'theme.colors.primary',
+        'APP_THEME_PRIMARY',
+      ]),
+      primaryAlt: init([
+        'theme.colors.primaryAlt',
+        'APP_THEME_PRIMARY_ALT',
+      ]),
+      error: init(['theme.colors.error', 'APP_THEME_ERROR']),
+      errorAlt: init([
+        'theme.colors.errorAlt',
+        'APP_THEME_ERROR_ALT',
+      ]),
+      warning: init([
+        'theme.colors.warning',
+        'APP_THEME_WARNING',
+      ]),
+      success: init([
+        'theme.colors.success',
+        'APP_THEME_SUCCESS',
+      ]),
+      accent: init(['theme.colors.accent', 'APP_THEME_ACCENT']),
+      flavor: init(['theme.colors.flavor', 'APP_THEME_FLAVOR']),
+    },
+    screens: [
+      [
+        init(['theme.screens[0][0]', 'APP_THEME_SM_LOWER']),
+        init(['theme.screens[0][1]', 'APP_THEME_SM_LOWER']),
       ],
-      columns: 12,
-    },
-  }
+      [
+        init(['theme.screens[1][0]', 'APP_THEME_MD_LOWER']),
+        init(['theme.screens[1][1]', 'APP_THEME_MD_LOWER']),
+      ],
+      [
+        init(['theme.screens[2][0]', 'APP_THEME_LG_LOWER']),
+        init(['theme.screens[2][1]', 'APP_THEME_LG_UPPER']),
+      ],
+      [
+        init(['theme.screens[3][0]', 'APP_THEME_XL_LOWER']),
+        init(['theme.screens[3][1]', 'APP_THEME_XL_UPPER']),
+      ],
+    ],
+    columns: 12,
+  },
 }

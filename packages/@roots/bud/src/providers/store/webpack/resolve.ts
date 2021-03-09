@@ -2,17 +2,17 @@ import {Configuration} from 'webpack'
 import {Framework} from '@roots/bud-framework'
 
 export const alias = (app: Framework) =>
-  app.hooks.filter('webpack.resolve.alias', {})
+  app.hooks.filter(
+    'webpack.resolve.alias',
+    app.store.get('options.resolve.alias'),
+  )
 
 export const extensions = (app: Framework) =>
   app.hooks
-    .filter(`webpack.resolve.extensions`, [
-      '.wasm',
-      '.mjs',
-      '.js',
-      '.css',
-      '.json',
-    ])
+    .filter(
+      `webpack.resolve.extensions`,
+      app.store.get('options.resolve.extensions'),
+    )
     .filter(
       (value, index, self) => self.indexOf(value) === index,
     )
@@ -23,6 +23,7 @@ export const modules: (
   return app.hooks.filter(`webpack.resolve.modules`, [
     app.store.get('locations.src'),
     app.store.get('locations.modules'),
+    ...app.store.get('options.resolve.modules'),
     ...app.discovery.getEntries().map(([k, v]) => {
       return app.fs.path.posix.join(v.path, 'node_modules')
     }),

@@ -1,12 +1,13 @@
 import {SpawnSyncReturns} from 'child_process'
 
-import Npm from './npm'
-import Yarn from './yarn'
-import Dependencies from './dependencies'
+export {Npm} from './npm'
+export {Yarn} from './yarn'
+export {Dependencies} from './dependencies'
 
 export interface IDependencyManager {
-  install(dev: boolean): SpawnSyncReturns<string>
-  uninstall(): SpawnSyncReturns<string>
+  install(
+    dev: boolean,
+    dependency: string,
+  ): SpawnSyncReturns<string>
+  uninstall(dependency: string): SpawnSyncReturns<string>
 }
-
-export {Dependencies as default, Npm, Yarn}

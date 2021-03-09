@@ -24,17 +24,15 @@ type Runtime = (
   runtime?: Webpack.Configuration['optimization']['runtimeChunk'],
 ) => Framework
 
-// Fallback value
-const fallback: Webpack.Configuration['optimization']['runtimeChunk'] = {
-  name: entrypoint => `runtime/${entrypoint.name}`,
-}
-
-export const runtime: Runtime = function (runtime = fallback) {
-  this.store.enable('options.runtime')
+export const runtime: Runtime = function (runtime) {
+  this.store.set('options.runtimeChunk.enabled', true)
 
   this.hooks.on(
     'webpack.optimization.runtimeChunk',
-    () => runtime,
+    () =>
+      runtime ?? {
+        name: this.store.type('options.runtimeChunk.name'),
+      },
   )
   return this
 }

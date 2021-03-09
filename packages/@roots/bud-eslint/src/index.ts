@@ -14,7 +14,7 @@ export const name = 'eslint-webpack-plugin'
  */
 export const options: Module.Options = app => {
   const options: Framework.Eslint.Options = {
-    extensions: ['js', 'jsx', 'ts', 'tsx'],
+    extensions: ['js', 'jsx', 'ts', 'tsx', 'vue'],
     cache: true,
     cacheLocation: app.disk.path.join(
       app.store.get('locations.project'),

@@ -9,4 +9,6 @@ class Bud extends Framework {}
 
 const bud: Bud = new Bud({api, providers})
 
+bud.bootstrap().register().boot()
+
 export {bud, Bud}

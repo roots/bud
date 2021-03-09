@@ -33,7 +33,7 @@ type Vendor = (
 ) => Framework
 
 export const vendor: Vendor = function (vendorOptions) {
-  this.store.enable('options.vendor')
+  this.store.enable('options.splitChunks.enabled')
 
   vendorOptions &&
     this.hooks.on(

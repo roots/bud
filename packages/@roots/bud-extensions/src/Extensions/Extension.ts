@@ -1,5 +1,6 @@
-import {execa, isFunction, lodash as _} from '@roots/bud-support'
+import {isFunction, lodash as _} from '@roots/bud-support'
 import {Framework, Module} from '@roots/bud-typings'
+import {isEmpty} from 'lodash'
 
 /**
  * Extensions controller class.
@@ -35,51 +36,12 @@ export default class {
    * Register extension
    */
   public _register(): this {
-    this.dependencies = this.app.access(this.dependencies)
-    this.devDependencies = this.app.access(this.devDependencies)
-
-    this.app.store.has('args.install') && this.install()
-
     this.register && this.app.access(this.register)
+
+    this.app.store.enabled('options.install') && this.install()
 
     this.api &&
       Object.assign(this.app, this.app.access(this.api))
-
-    return this
-  }
-
-  /**
-   * Install extension dependencies
-   */
-  public install(): this {
-    const disk = this.app.disk.get('project')
-    const pkg = disk.readJson('package.json')
-
-    this.dependencies.forEach(dep => {
-      if (
-        pkg.dependencies &&
-        !Object.keys(pkg.dependencies).includes(dep)
-      ) {
-        this.app.dashboard.render(
-          `[${this.name}] Adding ${dep} to project dependencies`,
-        )
-
-        execa.commandSync(`yarn add ${dep} --save`)
-      }
-    })
-
-    this.devDependencies.forEach(dep => {
-      if (
-        !pkg.devDependencies ||
-        !Object.keys(pkg.devDependencies).includes(dep)
-      ) {
-        this.app.dashboard.render(
-          `[${this.name}] Adding ${dep} to project devDependencies`,
-        )
-
-        execa.commandSync(`yarn add ${dep} --save --dev`)
-      }
-    })
 
     return this
   }
@@ -94,6 +56,23 @@ export default class {
   }
 
   /**
+   * Install package dependencies
+   */
+  public install(): void {
+    this.dependencies && !isEmpty(this.dependencies)
+    this.app.dependencies.install(
+      this.app.access(this.dependencies),
+      this.name,
+    )
+
+    this.devDependencies && !isEmpty(this.devDependencies)
+    this.app.dependencies.installDev(
+      this.app.access(this.devDependencies),
+      this.name,
+    )
+  }
+
+  /**
    * Make plugin.
    */
   public makePlugin(): Framework.Webpack.Plugin | null {
@@ -103,7 +82,7 @@ export default class {
 
     const options = this.app.access(this.options)
 
-    return typeof this.make == 'function'
+    return isFunction(this.make)
       ? this.make(
           options ? this.app.makeContainer(options) : null,
           this.app,

@@ -15,15 +15,26 @@ const ns = (setting: string): string =>
 /**
  * webpack.optimization.namedModules
  */
-export const namedModules: Setting<'namedModules'> = ({hooks}) =>
-  hooks.filter(ns('namedModules'), true)
+export const namedModules: Setting<'namedModules'> = ({
+  hooks,
+  store,
+}) =>
+  hooks.filter(
+    ns('namedModules'),
+    store.get('options.namedModules'),
+  )
 
 /**
  * webpack.optimization.noEmitOnErrors
  */
 export const noEmitOnErrors: Setting<'noEmitOnErrors'> = ({
   hooks,
-}) => hooks.filter(ns('noEmitOnErrors'), true)
+  store,
+}) =>
+  hooks.filter(
+    ns('noEmitOnErrors'),
+    store.get('options.noEmitOnErrors') ?? false,
+  )
 
 /**
  * runtimeChunk
@@ -32,9 +43,12 @@ export const noEmitOnErrors: Setting<'noEmitOnErrors'> = ({
  * @flags  {--runtime}
  * @see    {bud.runtime}
  */
-export const runtimeChunk: Setting<'runtimeChunk'> = ({hooks}) =>
+export const runtimeChunk: Setting<'runtimeChunk'> = ({
+  hooks,
+  store,
+}) =>
   hooks.filter(ns('runtimeChunk'), {
-    name: entrypoint => `runtime/${entrypoint.name}`,
+    name: store.get('options.runtimeChunk.name'),
   })
 
 /**
@@ -47,14 +61,13 @@ export const runtimeChunk: Setting<'runtimeChunk'> = ({hooks}) =>
  */
 export const splitChunks: Setting<'splitChunks'> = ({
   hooks,
-}: Framework) =>
-  hooks.filter(ns('splitChunks'), {
-    chunks: 'async',
-    minSize: 20000,
-    maxSize: 0,
-    minChunks: 1,
-    maxAsyncRequests: 30,
-    maxInitialRequests: 30,
+  store,
+}: Framework) => {
+  const splitChunks = store.get('options.splitChunks')
+  delete splitChunks.enabled
+
+  return hooks.filter(ns('splitChunks'), {
+    ...splitChunks,
     cacheGroups: hooks.filter(ns('splitChunks.cacheGroups'), {
       vendor: hooks.filter(
         ns('splitChunks.cacheGroups.vendor'),
@@ -88,3 +101,4 @@ export const splitChunks: Setting<'splitChunks'> = ({
       ),
     }),
   })
+}

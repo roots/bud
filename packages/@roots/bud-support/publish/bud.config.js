@@ -1,4 +1,4 @@
 // @ts-check
-const {bud} = require('@roots/bud')
+const {app} = require('@roots/bud-preset-recommend')
 
-bud.entry('app', ['index.js']).run()
+app.entry('app', ['index.js']).run()

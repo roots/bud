@@ -54,7 +54,6 @@ export class Hooks extends Service implements Contract {
    */
   public filter<T = any>(name: string, value: T): T {
     this.info({name, msg: 'Filter called'})
-
     return this.has(`filters.${name}`) &&
       this.isArray(`filters.${name}`)
       ? this.get(`filters.${name}`).reduce((v, f) => f(v), value)

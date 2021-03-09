@@ -88,4 +88,11 @@ export default class extends Service {
 
     return this
   }
+
+  public discard(pkg: string): Service['app'] {
+    this.remove(pkg)
+    this.app.disk.remove(pkg)
+
+    return this.app
+  }
 }

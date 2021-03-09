@@ -83,6 +83,8 @@ declare namespace Store {
     | `locations.${string}`
     | `patterns`
     | `patterns.${string}`
+    | `project`
+    | `project.${string}`
     | `options`
     | `options.${string}`
     | `compilation.${string}`

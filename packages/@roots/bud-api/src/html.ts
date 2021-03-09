@@ -39,16 +39,19 @@ declare module '@roots/bud-framework' {
 
 export const html: Framework.Api.Html = function (options?) {
   if (isUndefined(options)) {
-    this.store.enable('options.html')
+    this.store.set('options.html.enabled', true)
     return this
   }
 
   if (isBoolean(options)) {
-    this.store.set('options.html', options)
+    this.store.set('options.html.enabled', options)
     return this
   }
 
-  this.store.enable('options.html')
+  options.template &&
+    this.store.set('options.html.template', options.template)
+
+  this.store.set('options.html.enabled', true)
 
   const {template, replacements} = options as {
     template?: string
@@ -56,10 +59,7 @@ export const html: Framework.Api.Html = function (options?) {
   }
 
   template &&
-    this.extensions.set(
-      'html-webpack-plugin.options.template',
-      template,
-    )
+    this.hooks.on('html-webpack-plugin.template', () => template)
 
   replacements &&
     this.extensions.set(

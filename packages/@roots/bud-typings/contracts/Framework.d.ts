@@ -6,6 +6,7 @@ import {
   Compiler,
   Constructor,
   Container,
+  Dependencies,
   Discovery,
   Env,
   Express,
@@ -69,6 +70,13 @@ export declare interface Framework extends Mode {
    * The CLI interface.
    */
   dashboard: Framework.Dashboard
+
+  /**
+   * ## bud.dependencies
+   *
+   * Install or uninstall dependencies
+   */
+  dependencies: Framework.Dependencies
 
   /**
    * ## bud.disk
@@ -471,6 +479,7 @@ export declare namespace Framework {
   export {Compiler}
   export {Container}
   export {Discovery}
+  export {Dependencies}
   export {Disk}
   export {Env}
   export {Extensions, Extension}

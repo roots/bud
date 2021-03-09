@@ -1,17 +1,9 @@
 // @ts-check
-const {bud} = require('./../../packages/@roots/bud')
+const {
+  app,
+} = require('./../../packages/@roots/bud-preset-recommend')
 
-/**
- * This is specific for the Bud monorepo only.
- *
- * You do not need to include this hook in your project
- * configuration file.
- */
-bud.hooks.on('webpack.resolve.modules', modules => {
-  return [...modules, bud.project('./../../node_modules')]
-})
-
-bud
+app
   .use(require('@roots/bud-sass'))
   .entry('app', ['app.scss'])
   .run()

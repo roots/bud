@@ -14,11 +14,13 @@ export const when: Module.When = (_bud, opts) =>
 
 export const options: Module.Options<Options> = (
   bud: Framework,
-) =>
-  bud.env
+) => ({
+  ...bud.env
     .getEntries()
     .filter(([k]: [string, string]) => !k.includes('SECRET'))
-    .reduce((a, [k, v]) => ({...a, [k]: JSON.stringify(v)}), {})
+    .reduce((a, [k, v]) => ({...a, [k]: JSON.stringify(v)}), {}),
+  ...bud.store.get('options.define'),
+})
 
 interface Options {
   definitions: {

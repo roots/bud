@@ -7,7 +7,7 @@ export const filename = ({hooks, store}: Framework) =>
   hooks.filter(
     `webpack.output.filename`,
     store.enabled('options.hash')
-      ? `[name].[hash].js`
+      ? store.get('options.hashFormat')
       : '[name].js',
   )
 

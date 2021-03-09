@@ -2,7 +2,7 @@ import type {Module} from '@roots/bud-typings'
 import type {Framework} from '@roots/bud-framework'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
-export const name = `mini-css-extract-plugin`
+export const name = 'mini-css-extract-plugin'
 
 export const make: Module.Make = (options, {store}) =>
   new MiniCssExtractPlugin({
@@ -12,6 +12,7 @@ export const make: Module.Make = (options, {store}) =>
     chunkFilename: store.enabled('options.hash')
       ? '[name].[id].[hash].css'
       : '[name].[id].css',
+
     ...options.all(),
   })
 

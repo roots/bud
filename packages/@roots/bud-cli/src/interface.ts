@@ -65,6 +65,7 @@ export namespace Command {
     default?: string | boolean
     choices?: string[]
     optional?: boolean
+    usage?: string[]
   }
 
   export type Options = {

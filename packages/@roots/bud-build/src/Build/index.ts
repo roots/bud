@@ -42,7 +42,6 @@ export default class extends Service implements Build {
    */
   public boot(): void {
     this.webpack = this.app.makeContainer()
-    this.make()
   }
 
   /**

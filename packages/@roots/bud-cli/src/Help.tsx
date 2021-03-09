@@ -1,4 +1,4 @@
-import {React, Box, Text, Gradient} from '@roots/bud-support'
+import {React, Box, Text} from '@roots/bud-support'
 import {render} from 'ink-testing-library'
 
 const List = ({items}: {items: string[][]}) => {
@@ -38,59 +38,38 @@ const Layout = ({
       </Box>
 
       {positionals?.length > 0 && (
-        <Box
-          marginBottom={1}
+        <Block
           width={width}
-          display="flex"
-          flexDirection="column">
-          <Box marginBottom={1}>
-            <Text>
-              <Gradient name="teen">Positionals</Gradient>
-            </Text>
-          </Box>
-          {positionals.map((list, id) => (
-            <List key={id} items={list} />
-          ))}
-        </Box>
+          title="Positionals"
+          pairs={positionals}
+        />
       )}
 
       {options?.length > 0 && (
-        <Box
-          marginBottom={1}
-          width={width}
-          display="flex"
-          flexDirection="column">
-          <Box marginBottom={1}>
-            <Text>
-              <Gradient name="teen">Options</Gradient>
-            </Text>
-          </Box>
-          {options.map((list, id) => (
-            <List key={id} items={list} />
-          ))}
-        </Box>
+        <Block width={width} title="Options" pairs={options} />
       )}
 
       {commands?.length > 0 && (
-        <Box
-          marginBottom={1}
-          width={width}
-          display="flex"
-          flexDirection="column">
-          <Box marginBottom={1}>
-            <Text>
-              <Gradient name="teen">Commands</Gradient>
-            </Text>
-          </Box>
-
-          {commands.map((list, id) => (
-            <List key={id} items={list} />
-          ))}
-        </Box>
+        <Block width={width} title="Commands" pairs={commands} />
       )}
     </Box>
   )
 }
+
+const Block = ({width, pairs, title}) => (
+  <Box
+    marginBottom={1}
+    width={width}
+    display="flex"
+    flexDirection="column">
+    <Box marginBottom={1}>
+      <Text color="green">{title}</Text>
+    </Box>
+    {pairs.map((list, id) => (
+      <List key={id} items={list} />
+    ))}
+  </Box>
+)
 
 export const formatHelp = (cmd, helper) => {
   return render(

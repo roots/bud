@@ -1,8 +1,7 @@
 import {Framework} from '@roots/bud-framework'
-import {Webpack} from '@roots/bud-support'
+import {isNull, Webpack} from '@roots/bud-support'
 
 type Devtool = (
-  this: Framework,
   devtool?: Webpack.Configuration['devtool'],
 ) => Framework
 
@@ -24,8 +23,20 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export const devtool: Devtool = function (devtool?) {
-  this.hooks.on('webpack.devtool', () => devtool ?? true)
+const DEFAULT_SOURCEMAP_TOOL_DEV = 'eval-cheap-module-source-map'
+
+const DEFAULT_SOURCEMAP_TOOL_PROD = 'nosources-source-map'
+
+export const devtool: Devtool = function (devtool = null) {
+  this.store.isFalse('options.devtool.enabled') &&
+    this.hooks.on('webpack.devtool', () =>
+      !isNull(devtool)
+        ? devtool
+        : this.store.get('options.devtool.type') ??
+          this.isDevelopment
+        ? DEFAULT_SOURCEMAP_TOOL_DEV
+        : DEFAULT_SOURCEMAP_TOOL_PROD,
+    )
 
   return this
 }

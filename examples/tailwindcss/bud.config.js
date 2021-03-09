@@ -1,12 +1,11 @@
 // @ts-check
 const {
   app,
+  bud,
 } = require('./../../packages/@roots/bud-preset-recommend')
 
 app
+  .devtool()
   .use(require('@roots/bud-tailwindcss'))
-  .html({
-    template: app.project('public/index.html'),
-  })
-  .entry('bud-tailwind', ['app.css'])
+  .entry('bud-tailwind', ['app.css', 'app.js'])
   .run()

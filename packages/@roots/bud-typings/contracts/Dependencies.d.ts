@@ -1,4 +1,4 @@
-import {SpawnSyncReturns} from 'child_process'
+import {Service} from './'
 
 /**
  * ## bud.dependencies
@@ -8,7 +8,14 @@ import {SpawnSyncReturns} from 'child_process'
  * [📦 @roots/bud-server](https://www.npmjs.com/package/@roots/bud-build)
  * [🔗 Documentation](#)
  */
-export interface Dependencies {
-  install(dev: boolean): SpawnSyncReturns<string>
-  uninstall(): SpawnSyncReturns<string>
+export interface Dependencies extends Service {
+  name: string
+
+  project: {[key: string]: any}
+
+  cwd: string
+
+  installDev(dependencies: string[], source: string): void
+
+  install(dependencies: string[], source: string): void
 }

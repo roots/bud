@@ -8,7 +8,7 @@ const {sage: app} = require('../lib/cjs')
  */
 new Bud.CLI({
   name: 'sage',
-  app,
   projectUrl: 'https://github.com/roots/sage',
+  app,
   commands: Bud.commands,
 }).invoke()

@@ -38,6 +38,7 @@ export {FileContainer} from '../../filesystem/src'
  */
 export {Disk} from '../../bud-framework/src'
 export {Discovery} from './Discovery'
+export {Dependencies} from './Dependencies'
 export {Framework} from './Framework'
 export {Env} from './Env'
 export {FS} from './FS'

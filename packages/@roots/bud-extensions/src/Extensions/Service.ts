@@ -12,4 +12,6 @@ export default abstract class
   public abstract makeAll(): Webpack.Plugin[]
 
   public abstract use(pkg: string): this
+
+  public abstract discard(pkg: string): Service['app']
 }

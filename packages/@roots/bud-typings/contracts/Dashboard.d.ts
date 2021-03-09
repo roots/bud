@@ -1,3 +1,4 @@
+import {render} from 'ink'
 import {Instance, Service} from './'
 
 interface Dashboard extends Service {

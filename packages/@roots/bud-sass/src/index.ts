@@ -5,7 +5,7 @@ import {Webpack} from '@roots/bud-support'
 
 export const name = '@roots/bud-sass'
 
-export const devDependencies = ['sass', '@roots/bud-postcss']
+export const devDependencies = ['sass']
 
 export const boot: Module.Boot = (app: Framework) => {
   app.hooks.on<Webpack.Configuration['resolve']['extensions']>(
@@ -28,7 +28,6 @@ export const boot: Module.Boot = (app: Framework) => {
             implementation: (() => require('sass'))(),
             sourceMap: true,
           })
-          .set('items.css.options.sourceMap', true)
       } catch (err) {
         console.error(err)
         process.exit()

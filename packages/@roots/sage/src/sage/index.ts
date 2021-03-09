@@ -21,9 +21,6 @@ export type Sage = Bud
 
 export const sage: Sage = (sage =>
   sage
-    .bootstrap()
-    .register()
-    .boot()
 
     /**
      * Artifacts/cache store
@@ -134,7 +131,7 @@ export const sage: Sage = (sage =>
       /**
        * Development
        */
-      ({env, proxy, dev}) => {
+      ({env, proxy, dev, devtool}) => {
         dev({
           host: env.has('APP_HOST')
             ? env.get('APP_HOST')
@@ -150,6 +147,8 @@ export const sage: Sage = (sage =>
             ? env.get('APP_PROXY_PORT')
             : 8000,
         })
+
+        devtool()
       },
     )
-    .html(false))(bud)
+    .html(false))(Object.assign(bud, {name: 'sage'}))
