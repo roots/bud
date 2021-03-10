@@ -11,20 +11,22 @@ export const options: Module.Options<Plugin.Options> = (
   assetNameRegExp: /\.css$/g,
   cssProcessor,
   cssProcessorOptions: {
-    map: {
-      inline: (devtool => {
-        return devtool
-          ? devtool.match(/inline-.*/)
-            ? true
-            : false
-          : false
-      })(
-        app.hooks.filter(
-          'webpack.devtool',
-          app.store.get('options.devtool.type'),
-        ),
-      ),
-    },
+    map: app.store.enabled('options.devtool')
+      ? {
+          inline: (devtool => {
+            return devtool
+              ? devtool.match(/inline-.*/)
+                ? true
+                : false
+              : false
+          })(
+            app.hooks.filter(
+              'webpack.devtool',
+              app.store.get('options.devtool'),
+            ),
+          ),
+        }
+      : false,
   },
   cssProcessorPluginOptions: {
     preset: ['default', {discardComments: {removeAll: true}}],

@@ -1,17 +1,8 @@
-import {Service} from '@roots/bud-framework'
-import {Store} from '@roots/bud-typings'
-import {get} from '@roots/bud-support'
-
 import * as webpack from './webpack'
 import * as patterns from './patterns'
 import * as server from './server'
-import {args, env, init, projectPath} from './source'
-
-export default class extends Service implements Store {
-  public get<T = any>(key: Store.Keys): T {
-    return get(this.repository, key)
-  }
-}
+import {args, env, init} from './source'
+import {resolve} from 'path'
 
 export const repositories = {
   args,
@@ -19,6 +10,18 @@ export const repositories = {
   webpack,
   patterns,
   server,
+  locations: {
+    project: init(['location.project', 'APP_PATH']),
+    src: init(['location.src', 'APP_SRC']),
+    dist: init(['location.dist', 'APP_DIST']),
+    storage: init(['location.storage', 'APP_STORAGE']),
+    modules: resolve(
+      init(['location.project', 'APP_PATH']),
+      init(['location.modules', 'APP_MODULES']),
+    ),
+    publicPath: init(['location.publicPath', 'APP_PUBLIC_PATH']),
+    records: init(['location.records', 'APP_RECORDS']),
+  },
   options: {
     bail: init(['bail', 'APP_BAIL']),
     cache: init(['cache', 'APP_CACHE']),
@@ -26,10 +29,7 @@ export const repositories = {
     clean: init(['clean', 'APP_CLEAN']),
     debug: init(['debug', 'APP_DEBUG']),
     define: init(['define']),
-    devtool: {
-      enabled: init(['devtool.enable', 'APP_DEVTOOL_ENABLE']),
-      type: init(['devtool.type', 'APP_DEVTOOL']),
-    },
+    devtool: init(['devtool', 'APP_DEVTOOL']),
     discover: init(['discover', 'APP_DISCOVER']),
     externals: init(['externals']),
     hash: init(['hash', 'APP_HASH']),
@@ -53,6 +53,15 @@ export const repositories = {
     noEmitOnErrors: init(['noEmit', 'APP_NO_EMIT_ON_ERRORS']),
     parallelism: init(['parallelism', 'APP_PARALLELISM']),
     profile: init(['profile', 'APP_PROFILE']),
+    runtimeChunk: {
+      enabled: init(['runtimeChunk', 'APP_RUNTIME_CHUNK']),
+      name: entrypoint => `runtime/${entrypoint.name}`,
+    },
+    resolve: {
+      alias: init(['alias']),
+      extensions: init(['resolve.extensions']),
+      modules: init(['resolve.modules']),
+    },
     splitChunks: {
       enabled: init(['splitChunks.enable']),
       chunks: init(['splitChunks.chunks']),
@@ -64,27 +73,9 @@ export const repositories = {
         'splitChunks.maxInitialRequests',
       ]),
     },
-    runtimeChunk: {
-      enabled: init(['runtimeChunk', 'APP_RUNTIME_CHUNK']),
-      name: entrypoint => `runtime/${entrypoint.name}`,
-    },
-    resolve: {
-      alias: init(['alias']),
-      extensions: init(['resolve.extensions']),
-      modules: init(['resolve.modules']),
-    },
     stats: init(['stats', 'APP_STATS']),
     target: init(['target', 'APP_TARGET']),
     use: init(['use', 'APP_USE']),
-  },
-  locations: {
-    project: projectPath(),
-    src: init(['location.src', 'APP_SRC']),
-    dist: init(['location.dist', 'APP_DIST']),
-    storage: init(['location.storage', 'APP_STORAGE']),
-    modules: init(['location.modules', 'APP_MODULES']),
-    publicPath: init(['location.public', 'APP_PUBLIC']),
-    records: init(['location.records', 'APP_RECORDS']),
   },
   theme: {
     spacing: init(['theme.spacing', 'APP_THEME_SPACING']),

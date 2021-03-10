@@ -1,6 +1,5 @@
 import Service from '../Service'
-import {fs, globby, lodash as _} from '@roots/bud-support'
-import path from 'path'
+import {lodash as _} from '@roots/bud-support'
 import {FileContainer} from '@roots/filesystem'
 
 /**
@@ -11,29 +10,6 @@ export default class extends Service {
    * Service ident
    */
   public name = 'disk'
-
-  /**
-   * fs util
-   *
-   * @see fs-extra
-   */
-  public get fs(): typeof fs {
-    return this.app.fs.util
-  }
-
-  /**
-   * Globby library.
-   */
-  public get glob(): typeof globby {
-    return this.app.fs.glob
-  }
-
-  /**
-   * cwd
-   */
-  public get path(): typeof path {
-    return this.app.fs.path
-  }
 
   /**
    * Base directory

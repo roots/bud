@@ -14,6 +14,11 @@ export type Repository<I = any> = {
  */
 export class Container<I = any> {
   /**
+   * Identify
+   */
+  ident: '@roots/container'
+
+  /**
    * The container store
    */
   repository: any
@@ -154,7 +159,7 @@ export class Container<I = any> {
    * container.get(['container', 'container-item'])
    * ```
    */
-  public get<T = any>(key: string | number | number) {
+  public get<T = any>(key: string | number) {
     return _.get(this.repository, key) as T
   }
 

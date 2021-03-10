@@ -60,10 +60,7 @@ export namespace Rule {
 
     test?: Framework.MaybeCallable<RegExp, Framework>
 
-    use?: Framework.MaybeCallable<
-      Array<Framework.Index<any>>,
-      Framework
-    >
+    use?: Framework.MaybeCallable<Array<any>, Framework>
   }
 
   export type Resolve = Framework.Index<

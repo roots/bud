@@ -4,6 +4,7 @@ import {get, has, merge} from 'lodash'
 import {join} from 'path'
 import {readJsonSync, existsSync} from 'fs-extra'
 import {Theme} from '@roots/ink-use-style'
+import {Webpack} from '@roots/bud-support'
 
 export const projectPath = () => {
   const pathIndex = process.argv.findIndex(v => v == '--project')
@@ -31,10 +32,7 @@ const DEFAULT_CFG: {
   define: {
     [key: string]: any
   }
-  devtool: {
-    enable: false
-    type: 'nosources-source-map'
-  }
+  devtool: Webpack.Configuration['devtool']
   discover: boolean
   hash: boolean
   hashFormat: string
@@ -83,7 +81,13 @@ const DEFAULT_CFG: {
     }
   }
   location: {
-    [key: string]: string
+    project: string
+    src: string
+    dist: string
+    modules: string
+    publicPath: string
+    records: string
+    storage: string
   }
   theme: Theme
 } = {
@@ -95,10 +99,7 @@ const DEFAULT_CFG: {
   clean: true,
   ci: false,
   define: {},
-  devtool: {
-    enable: false,
-    type: 'nosources-source-map',
-  },
+  devtool: 'nosources-source-map',
   discover: false,
   externals: {},
   hash: false,
@@ -117,11 +118,11 @@ const DEFAULT_CFG: {
   stats: false,
   target: 'web',
   location: {
-    project: process.cwd(),
+    project: projectPath(),
     src: 'src',
     dist: 'dist',
     modules: 'node_modules',
-    public: '/',
+    publicPath: '/',
     records: 'records.json',
     storage: '.bud',
   },
@@ -214,12 +215,12 @@ export const cfg = projectDir => {
 /**
  * Process args
  */
-export const makeArgs = projectDir => {
+export const makeArgs = () => {
   let raw: any = yargs
     .parserConfiguration({
       'camel-case-expansion': false,
     })
-    .config(cfg(projectDir))
+    .config(cfg(projectPath()))
     .options({
       name: {
         type: 'string',
@@ -248,11 +249,7 @@ export const makeArgs = projectDir => {
       define: {
         default: {},
       },
-      'devtool.enable': {
-        type: 'boolean',
-        default: false,
-      },
-      'devtool.type': {
+      devtool: {
         type: 'string',
         default: 'nosources-source-map',
       },
@@ -381,7 +378,7 @@ export const makeArgs = projectDir => {
       },
       'location.project': {
         type: 'string',
-        default: projectDir,
+        default: projectPath(),
       },
       'location.src': {
         type: 'string',
@@ -518,7 +515,7 @@ export const makeArgs = projectDir => {
   return raw
 }
 
-export const args = makeArgs(projectPath())
+export const args = makeArgs()
 
 export const env = makeEnv(projectPath())
 

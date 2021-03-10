@@ -1,12 +1,15 @@
 import {React, render, fs} from '@roots/bud-support'
-import {Error, Publish} from '@roots/bud-dashboard'
+import {
+  Error,
+  Publish as PublishComponent,
+} from '@roots/bud-dashboard'
 import {join, dirname} from 'path'
 import BaseCommand from '../Command'
 
 /**
  * Publish
  */
-export default class Command extends BaseCommand {
+export class Publish extends BaseCommand {
   public name = 'publish'
 
   public signature = `<pkg> <scaffold> [dir]`
@@ -39,7 +42,7 @@ export default class Command extends BaseCommand {
         await fs.ensureDir(dirname(dest))
         await fs.copyFile(src, dest)
 
-        render(<Publish file={scaffold} />)
+        render(<PublishComponent file={scaffold} />)
       } catch (err) {
         Error(err, `The requested file can't be published.`)
       }

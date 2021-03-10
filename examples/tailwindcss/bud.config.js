@@ -1,7 +1,6 @@
 // @ts-check
 const {
   app,
-  bud,
 } = require('./../../packages/@roots/bud-preset-recommend')
 
 app

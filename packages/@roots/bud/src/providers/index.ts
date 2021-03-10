@@ -2,11 +2,12 @@ import path from 'path'
 import {Providers} from '@roots/bud-typings'
 import {
   Env,
-  FS,
   Dependencies,
   Discovery,
   Disk,
   Logger,
+  Store,
+  Service,
 } from '@roots/bud-framework'
 import {Build} from '@roots/bud-build'
 import {Cache} from '@roots/bud-cache'
@@ -18,7 +19,7 @@ import {Server} from '@roots/bud-server'
 import {express} from '@roots/bud-support'
 import {extensions} from './extensions'
 
-import Store, {repositories} from './store'
+import {repositories} from './store'
 import * as items from './items'
 import * as rules from './rules'
 
@@ -28,11 +29,12 @@ import * as rules from './rules'
 export const providers: {
   [key: string]: [Providers.Constructor, Providers.Options?]
 } = {
-  fs: [FS],
+  fs: [Service],
+  store: [Store, {containers: repositories}],
   env: [Env],
   logger: [Logger],
-  dependencies: [Dependencies],
   discovery: [Discovery],
+  dependencies: [Dependencies],
   disk: [
     Disk,
     {
@@ -59,5 +61,4 @@ export const providers: {
   dashboard: [Dashboard],
   compiler: [Compiler],
   server: [Server, {dependencies: {instance: express()}}],
-  store: [Store, {containers: repositories}],
 }

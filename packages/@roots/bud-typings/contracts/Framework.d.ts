@@ -3,6 +3,7 @@ import {
   Build,
   Cache,
   Dashboard,
+  CLI,
   Compiler,
   Constructor,
   Container,
@@ -13,7 +14,6 @@ import {
   Extensions,
   Extension,
   Factory,
-  FS,
   Disk,
   Fluent,
   GlobTask,
@@ -60,6 +60,11 @@ export declare interface Framework extends Mode {
   build: Framework.Build
 
   /**
+   * CLI
+   */
+  cli: Framework.CLI
+
+  /**
    * ## bud.compiler
    */
   compiler: Framework.Compiler
@@ -82,8 +87,7 @@ export declare interface Framework extends Mode {
    * ## bud.disk
    *
    * Index of virtual filesystems. Allows for swapping
-   * "disks". Each disk is the same class as `bud.fs` (which
-   * is always set to the `bud.project` rootDir).
+   * "disks".
    *
    * ### Usage
    *
@@ -124,11 +128,6 @@ export declare interface Framework extends Mode {
    * - [🔗 Documentation](#)
    */
   extensions: Framework.Extensions
-
-  /**
-   * ## fs
-   */
-  fs: Framework.FS
 
   /**
    * ## bud.hooks
@@ -195,6 +194,8 @@ export declare interface Framework extends Mode {
    * ## discovery
    */
   discovery: Discovery
+
+  boot(cli?: Framework.CLI)
 
   /**
    * ## get
@@ -476,6 +477,7 @@ export declare namespace Framework {
   export {Build}
   export {Cache}
   export {Dashboard}
+  export {CLI}
   export {Compiler}
   export {Container}
   export {Discovery}
@@ -483,7 +485,6 @@ export declare namespace Framework {
   export {Disk}
   export {Env}
   export {Extensions, Extension}
-  export {FS}
   export {Item}
   export {Module}
   export {Hooks}

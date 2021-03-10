@@ -2,7 +2,8 @@
   "name": "bud-example-tailwindcss",
   "private": true,
   "scripts": {
-    "bud": "node ../../node_modules/.bin/bud"
+    "bud": "node ../../node_modules/.bin/bud",
+    "sage": "node ../../node_modules/.bin/sage"
   },
   "devDependencies": {
     "postcss": "^8.2.7",

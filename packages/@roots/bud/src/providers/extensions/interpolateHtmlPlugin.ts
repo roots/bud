@@ -22,11 +22,14 @@ export const make: Module.Make<
       [key: string]: RegExp
     }>
   >
-> = options =>
+> = (options, app) =>
   new InterpolateHtmlPlugin(
     HtmlWebpackPlugin,
-    options.all() ?? {},
+    app.hooks.filter(
+      'interpolate-html-plugin.options',
+      options.all() ?? {},
+    ),
   )
 
-export const when: Module.When = (app, options) =>
+export const when: Module.When = (app: Framework) =>
   app.store.enabled('options.html')

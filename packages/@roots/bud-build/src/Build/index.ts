@@ -4,7 +4,6 @@ import type {
   Build,
   Store,
 } from '@roots/bud-typings'
-import {isObject} from 'lodash'
 import Service from './Service'
 
 declare type Cfg = Webpack.Configuration
@@ -73,17 +72,9 @@ export default class extends Service implements Build {
       return
     }
 
-    const value = this.app.access(
-      this.app
-        .get<Store>('store')
-        .get(`webpack.${configKey}` as Store.Keys),
+    const value = this.app.store.access(
+      `webpack.${configKey}` as Store.Keys,
     )
-
-    this.info({
-      configKey,
-      value: isObject(value) ? Object.entries(value) : value,
-      msg: `Webpack output`,
-    })
 
     this.webpack.set(configKey, value)
   }

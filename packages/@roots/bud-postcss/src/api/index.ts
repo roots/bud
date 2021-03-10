@@ -16,8 +16,8 @@ export class PostCssConfig implements Framework.PostCss {
 
     return (
       project.has('postcss.config.js') ||
-      project.fs
-        .readJsonSync('package.json')
+      project
+        .readJson('package.json')
         .hasOwnProperty('postcss') ||
       project.has('postcssrc')
     )

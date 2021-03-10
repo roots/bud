@@ -8,7 +8,8 @@ import * as api from '@roots/bud-api'
 class Bud extends Framework {}
 
 const bud: Bud = new Bud({api, providers})
-
-bud.bootstrap().register().boot()
+  .bootstrap()
+  .register()
+  .boot()
 
 export {bud, Bud}

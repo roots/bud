@@ -1,11 +1,8 @@
 import {RequireExactlyOne, ValueOf} from 'type-fest'
-import {Container, Framework, Webpack} from './'
+import {Container, Framework, Webpack, Service} from './'
 
-export interface Store extends Container {
+export interface Store extends Service {
   app: Framework
-
-  access<T = any>(key: string): T
-
   get<T = any>(path: Store.Keys): T
 }
 

@@ -34,10 +34,5 @@ export const when: Module.When = (app, options) =>
  * Should ignore emitted .map files
  */
 function sourcemaps(app: Framework) {
-  return app.hooks.filter(
-    'webpack.devtool',
-    app.store.get('options.devtool'),
-  )
-    ? []
-    : [/.?.map$/]
+  return app.store.get('options.devtool') ? [] : [/.?.map$/]
 }

@@ -3,9 +3,9 @@ import Disk from './Disk'
 import Dependencies from './Dependencies'
 import Env from './Env'
 import Framework from './Framework'
-import FS from './FS'
 import Logger from './Logger'
 import Service from './Service'
+import Store from './Store'
 
 import {run} from './Framework/run'
 import {when} from './Framework/when'
@@ -20,9 +20,9 @@ export {
   Disk,
   Env,
   Framework,
-  FS,
   Logger,
   Service,
+  Store,
   run,
   when,
   use,

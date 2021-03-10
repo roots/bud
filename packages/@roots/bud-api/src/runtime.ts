@@ -31,7 +31,7 @@ export const runtime: Runtime = function (runtime) {
     'webpack.optimization.runtimeChunk',
     () =>
       runtime ?? {
-        name: this.store.type('options.runtimeChunk.name'),
+        name: this.store.access('options.runtimeChunk.name'),
       },
   )
   return this

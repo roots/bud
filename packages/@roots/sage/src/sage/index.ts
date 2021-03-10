@@ -18,7 +18,6 @@ import * as imagemin from '@roots/bud-imagemin'
  * Bud preset: @roots/sage
  */
 export type Sage = Bud
-
 export const sage: Sage = (sage =>
   sage
 
@@ -68,8 +67,8 @@ export const sage: Sage = (sage =>
      */
     .when(
       ({isDevelopment}) => isDevelopment,
-      ({use}: Bud) => use(typescript).use(babel).use(react),
-      ({use}: Bud) => use(esbuild).esbuild.jsx(),
+      ({use}: Sage) => use(typescript).use(babel).use(react),
+      ({use}: Sage) => use(esbuild).esbuild.jsx(),
     )
 
     /**
@@ -124,7 +123,7 @@ export const sage: Sage = (sage =>
       /**
        * Production
        */
-      (sage: Bud) => {
+      (sage: Sage) => {
         sage.use(imagemin).minify().hash().vendor().runtime()
       },
 

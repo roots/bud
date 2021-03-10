@@ -17,7 +17,7 @@
     "url": "https://github.com/roots/bud/issues"
   },
   "keywords": [
-    "bud",
+    "bud-preset",
     "sage"
   ],
   "engines": {
@@ -36,6 +36,11 @@
     "import": "./lib/esm/index.js"
   },
   "types": "./types/index.d.ts",
+  "bud": {
+    "commands": [
+      "lib/esm/commands"
+    ]
+  },
   "scripts": {
     "build": "run-s build:cjs build:esm",
     "build:cjs": "tsc --build tsconfig.json",

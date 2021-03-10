@@ -29,7 +29,10 @@ export const boot: Module['boot'] = (app: Framework) => {
   const postcssModulePaths = () => [
     app.store.get('locations.modules'),
     ...app.discovery.getEntries().map(([k, v]) => {
-      return app.fs.path.posix.join(v.path, 'node_modules')
+      return app.discovery.path.posix.join(
+        v.path,
+        'node_modules',
+      )
     }),
   ]
 

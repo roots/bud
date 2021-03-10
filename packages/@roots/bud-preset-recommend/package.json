@@ -17,8 +17,7 @@
     "url": "https://github.com/roots/bud/issues"
   },
   "keywords": [
-    "bud",
-    "preset"
+    "bud-preset"
   ],
   "engines": {
     "node": ">=12"

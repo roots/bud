@@ -41,6 +41,7 @@ export const cache = ({disk, hooks, store}: Framework) =>
           cacheLocation: disk.path.resolve(
             store.get('locations.project'),
             store.get('locations.storage'),
+            'cache',
           ),
           cacheDirectory: disk.path.resolve(
             store.get('locations.project'),
@@ -66,10 +67,7 @@ export const context = ({hooks, store}) =>
  * @default {none}
  */
 export const devtool = ({hooks, store}: Framework) =>
-  hooks.filter(
-    'webpack.devtool',
-    store.get('options.devtool.type'),
-  )
+  hooks.filter('webpack.devtool', store.get('options.devtool'))
 
 /**
  * Entry
@@ -97,10 +95,7 @@ export const externals = ({hooks, store}: Framework) =>
  * @filter  {webpack.infrastructureLogging}
  * @default {level: none}
  */
-export const infrastructureLogging = ({
-  hooks,
-  store,
-}: Framework) =>
+export const infrastructureLogging = ({hooks}: Framework) =>
   hooks.filter('webpack.infrastructureLogging', {
     level: 'none',
   })
@@ -113,16 +108,13 @@ export const infrastructureLogging = ({
  * @default {'production'}
  */
 export const mode = ({hooks, mode}: Framework) =>
-  hooks.filter(`mode`, mode ?? 'production') ?? 'production'
+  hooks.filter(`mode`, mode) ?? 'production'
 
 /**
  * Name
  */
 export const name = ({hooks, name, store}: Framework) =>
-  hooks.filter(
-    `webpack.name`,
-    store.has('options.name') ? store.get('options.name') : name,
-  )
+  hooks.filter(`webpack.name`, store.get('options.name'))
 
 /**
  * Node
@@ -173,7 +165,7 @@ export const performance = ({
   store,
 }: Framework): boolean =>
   hooks.filter(
-    `wepback.performance`,
+    'wepback.performance',
     store.get('options.performance'),
   )
 
@@ -185,7 +177,7 @@ export const performance = ({
  */
 export const parallelism = ({hooks, store}: Framework) =>
   hooks.filter(
-    `webpack.parallelism`,
+    'webpack.parallelism',
     store.get('options.parallelism'),
   )
 
@@ -193,7 +185,7 @@ export const parallelism = ({hooks, store}: Framework) =>
  * Profile
  */
 export const profile = ({hooks, store}: Framework) =>
-  hooks.filter(`webpack.profile`, store.get('options.profile'))
+  hooks.filter('webpack.profile', store.get('options.profile'))
 
 /**
  * Records Path
@@ -223,7 +215,7 @@ export const resolve = (app: Framework) =>
  * @default {false}
  */
 export const stats = ({hooks, store}: Framework) =>
-  hooks.filter(`webpack.stats`, store.get('options.stats'))
+  hooks.filter('webpack.stats', store.get('options.stats'))
 
 /**
  * Target

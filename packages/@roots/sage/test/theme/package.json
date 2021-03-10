@@ -1,0 +1,23 @@
+{
+  "name": "sage-framework",
+  "private": true,
+  "browserslist": [
+    "extends @wordpress/browserslist-config"
+  ],
+  "engines": {
+    "node": ">=12.14.0"
+  },
+  "scripts": {
+    "sage": "node ../../../../../node_modules/.bin/sage --location.modules ../../../../../node_modules",
+    "sage:info": "node ../../../../../node_modules/.bin/sage info --location.modules ../../../../../node_modules",
+    "sage:dev": "node ../../../../../node_modules/.bin/sage build development --location.modules ../../../../../node_modules",
+    "sage:build": "node ../../../../../node_modules/.bin/sage build production --location.modules ../../../../../node_modules"
+  },
+  "devDependencies": {
+    "@tailwindcss/typography": "^0.4.0",
+    "@wordpress/browserslist-config": "^2.7.0"
+  },
+  "dependencies": {
+    "tailwindcss": "^2.0.3"
+  }
+}

@@ -7,7 +7,7 @@ export const filename = ({hooks, store}: Framework) =>
   hooks.filter(
     `webpack.output.filename`,
     store.enabled('options.hash')
-      ? store.get('options.hashFormat')
+      ? store.access('options.hashFormat')
       : '[name].js',
   )
 
@@ -17,18 +17,18 @@ export const filename = ({hooks, store}: Framework) =>
 export const publicPath = ({hooks, store}: Framework) =>
   hooks.filter(
     'webpack.output.publicPath',
-    store.access('locations.publicPath') ?? '/',
+    store.access('locations.publicPath'),
   )
 
 /**
  * webpack.output.path
  */
-export const path = ({fs, hooks, store}: Framework) =>
+export const path = ({hooks, store}: Framework) =>
   hooks.filter(
     'webpack.output.path',
-    fs.path.posix.join(
-      store.get('locations.project'),
-      store.get('locations.dist'),
+    store.path.posix.join(
+      store.access('locations.project'),
+      store.access('locations.dist'),
     ),
   )
 

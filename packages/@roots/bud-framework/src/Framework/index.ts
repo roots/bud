@@ -30,6 +30,11 @@ export default abstract class implements Framework {
   public cache: Framework.Cache
 
   /**
+   * CLI
+   */
+  public cli: Framework.CLI
+
+  /**
    * CLI Dashboard
    */
   public dashboard: Framework.Dashboard
@@ -63,11 +68,6 @@ export default abstract class implements Framework {
    * Extensions
    */
   public extensions: Framework.Extensions
-
-  /**
-   * FS
-   */
-  public fs: Framework.FS
 
   /**
    * Hooks

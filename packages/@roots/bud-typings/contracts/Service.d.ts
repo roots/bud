@@ -11,6 +11,11 @@ export abstract class Service extends Container {
   public app: Framework
 
   /**
+   * Safely access potentially callable values
+   */
+  public access<I = unknown>(key: string | number): I
+
+  /**
    * Register service
    */
   public register?(): void
@@ -19,12 +24,4 @@ export abstract class Service extends Container {
    * Boot service
    */
   public boot?(): void
-
-  /**
-   * Safely access potentially callable values
-   */
-  public access<Expects = any>(
-    key: string,
-    containerize?: boolean,
-  ): Expects | null
 }

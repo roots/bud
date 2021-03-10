@@ -11,10 +11,12 @@ export interface CLIConstructor {
   name?: string
   projectUrl?: string
   app?: Framework
-  commands?: Command.Declaration
+  commands?: Command.Newable[]
 }
 
 export interface CLI {
+  app: Framework
+
   name: string
 
   description: string
@@ -27,7 +29,9 @@ export interface CLI {
 
   cwd: string
 
-  commands: Command.Declaration
+  commands: Command.Newable[]
+
+  merge(commands: Command.Newable[]): void
 
   invoke(): void
 

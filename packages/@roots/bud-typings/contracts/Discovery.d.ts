@@ -9,8 +9,5 @@ export abstract class Discovery extends Service {
   /**
    * Collected packages.
    */
-  extensions(): Container<{
-    name: string
-    [key: string]: string | string[]
-  }>
+  discoverPackages(): void
 }

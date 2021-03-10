@@ -37,11 +37,11 @@ export {FileContainer} from '../../filesystem/src'
  * @roots/bud-framework
  */
 export {Disk} from '../../bud-framework/src'
+export {CLI} from './CLI'
 export {Discovery} from './Discovery'
 export {Dependencies} from './Dependencies'
 export {Framework} from './Framework'
 export {Env} from './Env'
-export {FS} from './FS'
 export {Logger} from './Logger'
 export {Providers} from './Providers'
 export {Service} from './Service'

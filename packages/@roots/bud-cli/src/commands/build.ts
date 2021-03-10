@@ -2,9 +2,9 @@ import {Error} from '@roots/bud-dashboard'
 import Command from '../Command'
 
 /**
- * Publish
+ * Build
  */
-export default class Build extends Command {
+export class Build extends Command {
   public name = `build`
 
   public signature = '<mode>'
@@ -59,11 +59,7 @@ export default class Build extends Command {
         'Define variables to be included in the application runtime',
       default: false,
     },
-    ['devtool.enable']: {
-      description: 'Specify a devtool to be used',
-      default: true,
-    },
-    ['devtool.type']: {
+    devtool: {
       description: 'Specify a devtool to be used',
       default: true,
     },

@@ -1,4 +1,3 @@
-import {Framework} from '@roots/bud-framework'
 import {Error} from '@roots/bud-dashboard'
 import {CLI} from './CLI'
 
@@ -6,16 +5,14 @@ import {CLI} from './CLI'
  * Command base class
  */
 export default class Config {
-  public app: Framework
   public cli: CLI
 
-  public constructor(app: Framework, cli: CLI) {
-    this.app = app
+  public constructor(cli: CLI) {
     this.cli = cli
   }
 
   public get project() {
-    return this.app.disk.get('project')
+    return this.cli.app.disk.get('project')
   }
 
   public get jsonName() {
@@ -42,12 +39,8 @@ export default class Config {
 
     // Run
     this.project.has(this.fluentName)
-      ? require(this.project.get(this.fluentName))
-      : this.app
-          .entry(
-            this.project.readJson(this.jsonName).entrypoints,
-          )
-          .run()
+      ? require(this.project.get(this.fluentName)).app
+      : this.cli.app.run()
 
     return true
   }

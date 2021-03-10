@@ -1,5 +1,4 @@
 import {Framework} from '@roots/bud-framework'
-import {isEqual} from 'lodash'
 
 type ProjectPath = (this: Framework, path: string) => Framework
 
@@ -27,10 +26,7 @@ declare module '@roots/bud-framework' {
 }
 
 export const projectPath: ProjectPath = function (path?) {
-  this.store.set(
-    'locations.project',
-    isEqual(path.split('').pop(), '/') ? path : `${path}/`,
-  )
+  this.store.set('locations.project', path)
 
   this.srcPath(this.src())
   this.distPath(this.dist())

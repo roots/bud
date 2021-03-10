@@ -5,6 +5,8 @@ import {
   Logger,
   Service,
 } from '@roots/bud-typings'
+import {fs, globby, lodash} from '@roots/bud-support'
+import path from 'path'
 
 /**
  * Framework service
@@ -14,7 +16,15 @@ export default class extends Container implements Service {
 
   public name: string | number
 
-  _app: () => Framework
+  protected _app: () => Framework
+
+  protected _glob: typeof globby = globby
+
+  protected _path: typeof path = path
+
+  protected _fs: typeof fs = fs
+
+  protected _lodash: typeof lodash = lodash
 
   public constructor(
     app: () => Framework,
@@ -39,6 +49,61 @@ export default class extends Container implements Service {
   }
 
   /**
+   * fs util
+   *
+   * @see fs-extra
+   */
+  public get fs(): typeof fs {
+    return this._fs
+  }
+
+  public get _(): typeof lodash {
+    return this._lodash
+  }
+
+  public get readJson(): CallableFunction {
+    return this.fs.readJSONSync
+  }
+
+  /**
+   * Globby library.
+   */
+  public get glob(): typeof globby {
+    return this._glob
+  }
+
+  /**
+   * cwd
+   */
+  public get path(): typeof path {
+    return this._path
+  }
+
+  public get dirname(): CallableFunction {
+    return this.path.dirname
+  }
+
+  public get resolve(): CallableFunction {
+    return this.path.resolve
+  }
+
+  public filterUnique(value, index, self) {
+    return self.indexOf(value) === index
+  }
+
+  /**
+   * Path to node_modules
+   */
+  public modulePath(path?: string): string {
+    const base = this.resolve(
+      this.app.store.get('locations.project'),
+      this.app.store.get('locations.modules'),
+    )
+
+    return path ? this.path.join(base, path) : base
+  }
+
+  /**
    * Application service
    */
   public service<T = any>(serviceName: string | number): T {
@@ -53,36 +118,12 @@ export default class extends Container implements Service {
   }
 
   /**
-   * Access store property (which may or may not be callable.)
+   * Access containerized property (which may or may not be callable.)
    */
-  public access<T = any>(
-    /**
-     * Container key
-     */
-    key: any,
-    /**
-     * If true, result is returned as a new container
-     */
-    containerize?: boolean,
-    /**
-     * Object to bind lexeical scope of returned result
-     */
-    binding?: any,
-  ): T | null {
-    if (this.isFunction(key)) {
-      const value = (binding ? this.get(key) : this.get(key))(
-        this.app,
-      )
-
-      return containerize ? this.app.makeContainer(value) : value
-    }
-
-    if (this.get(key)) {
-      const value = this.get(key)
-      return containerize ? this.app.makeContainer(value) : value
-    }
-
-    return null
+  public access<I = unknown>(key: string | number): I {
+    return this.isFunction(key)
+      ? this.get(key)(this.app)
+      : this.get(key)
   }
 
   /**

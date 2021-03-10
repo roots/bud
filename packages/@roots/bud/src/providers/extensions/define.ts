@@ -14,13 +14,22 @@ export const when: Module.When = (_bud, opts) =>
 
 export const options: Module.Options<Options> = (
   bud: Framework,
-) => ({
-  ...bud.env
+) => {
+  /**
+   * .env values which contain PUBLIC
+   */
+  const fromEnv = bud.env
     .getEntries()
-    .filter(([k]: [string, string]) => !k.includes('SECRET'))
-    .reduce((a, [k, v]) => ({...a, [k]: JSON.stringify(v)}), {}),
-  ...bud.store.get('options.define'),
-})
+    .filter(([k]: [string, string]) => k.includes('APP_PUBLIC'))
+    .reduce((a, [k, v]) => ({...a, [k]: JSON.stringify(v)}), {})
+
+  const fromStore = bud.store.get('options.define')
+
+  return bud.hooks.filter('webpack-define-plugin.options', {
+    ...fromEnv,
+    ...fromStore,
+  })
+}
 
 interface Options {
   definitions: {

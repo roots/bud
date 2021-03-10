@@ -4,7 +4,7 @@ import Command from '../Command'
 /**
  * Publish
  */
-export default class PublishList extends Command {
+export class PublishList extends Command {
   public name = 'publish:list'
 
   public description = 'List available publishable files.'

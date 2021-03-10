@@ -20,6 +20,10 @@ export default class extends Service {
    */
   public dashboard: Instance
 
+  public get ci() {
+    return this.app.store.isTrue('options.ci')
+  }
+
   /**
    * Register service
    */
@@ -31,11 +35,6 @@ export default class extends Service {
 
     this.kill = this.kill.bind(this)
     this.run = this.run.bind(this)
-
-    if (this.app.store.enabled('args.ci')) {
-      this.app.name = 'Loading'
-      this.render(<Text></Text>)
-    }
   }
 
   /**
@@ -49,6 +48,10 @@ export default class extends Service {
     this.info({
       msg: 'Beginning CLI execution',
     })
+
+    if (this.ci) {
+      return
+    }
 
     this.render(<Reporter bud={this.app.get()} />)
   }
@@ -64,6 +67,10 @@ export default class extends Service {
    * Redner
    */
   public render(Component: any): Instance {
+    if (this.ci) {
+      return
+    }
+
     const Output = () =>
       typeof Component == 'string' ? (
         <Text>{Component}</Text>
@@ -75,7 +82,7 @@ export default class extends Service {
 
     return (this.dashboard = render(
       <Screen justifyContent="space-between">
-        <Mark text={this.app.get().name} />
+        <Mark text={this.app.name} />
         <Output />
       </Screen>,
     ))

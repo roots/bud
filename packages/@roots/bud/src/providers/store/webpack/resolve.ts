@@ -25,7 +25,7 @@ export const modules: (
     app.store.get('locations.modules'),
     ...app.store.get('options.resolve.modules'),
     ...app.discovery.getEntries().map(([k, v]) => {
-      return app.fs.path.posix.join(v.path, 'node_modules')
+      return app.disk.path.posix.join(v.path, 'node_modules')
     }),
   ])
 }

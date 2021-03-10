@@ -4,11 +4,17 @@ import Commander from 'commander'
 import Output from './Output'
 import {CLIConstructor, Command} from './interface'
 import Config from './Config'
+import {Framework} from '@roots/bud-framework'
 
 /**
  * CLI
  */
 export class CLI {
+  /**
+   * Application
+   */
+  public app: Framework
+
   /**
    * Config source
    */
@@ -47,17 +53,18 @@ export class CLI {
   /**
    * Commands
    */
-  public _commands: Command.Declaration
+  public _commands: Command.Newable[]
 
   /**
    * Constructor
    */
   public constructor(args?: CLIConstructor) {
     this.name = args.name
+    this.app = args.app
     this.projectUrl = args.projectUrl
     this.commands = args.commands
 
-    this.config = new Config(args.app, this)
+    this.config = new Config(this)
     this.instance = new Commander.Command(this.name)
 
     const output = new Output(this.name, this.instance)
@@ -77,19 +84,23 @@ export class CLI {
       })
   }
 
-  public get commands(): Command.Declaration {
+  public get commands(): Command.Newable[] {
     return this._commands
   }
 
-  public set commands(commands: Command.Declaration) {
+  public set commands(commands: Command.Newable[]) {
     this._commands = commands
+  }
+
+  public merge(commands: Command.Newable[]) {
+    this.commands = [...this.commands, ...commands]
   }
 
   /**
    * Invoke command line stdout
    */
   public invoke(): void {
-    Object.values(this.commands).map((Sub: Command.Newable) => {
+    this.commands.map((Sub: Command.Newable) => {
       const sub = new Sub(this)
 
       const command = new Commander.Command()

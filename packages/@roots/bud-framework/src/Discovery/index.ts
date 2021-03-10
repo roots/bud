@@ -1,7 +1,19 @@
 import {Discovery} from '@roots/bud-typings'
-import {Container} from '@roots/container'
 import Service from '../Service'
 
+declare interface Discovered {
+  [key: string]: ExtensionItem
+}
+declare interface ExtensionItem {
+  path: string
+  type: 'preset' | 'extension'
+  core: boolean
+  [key: string]: any
+}
+
+/**
+ * Discovery
+ */
 export default class extends Service implements Discovery {
   /**
    * Service ident
@@ -9,84 +21,80 @@ export default class extends Service implements Discovery {
   public name = 'discover'
 
   /**
-   * Is discover service enabled?
-   */
-  public get active(): boolean {
-    return this.app.store.enabled('options.discover')
-  }
-
-  /**
    * Service register
    */
   public register(): void {
+    this.filterUnique = this.filterUnique.bind(this)
     this.modulePath = this.modulePath.bind(this)
+    this.discoverPackages = this.discoverPackages.bind(this)
   }
 
   /**
    * Service boot.
    */
   public boot(): void {
-    this.extensions()
+    this.app.sequence([
+      () => this.discoverPackages(),
+      () =>
+        this.every(
+          (name: string, pkg: {name: string; path: string}) => {
+            this.app.disk.make(pkg.name, {
+              baseDir: pkg.path,
+            })
+          },
+        ),
+      () =>
+        this.app.store.enabled('options.discover') &&
+        this.every(
+          (name: string, pkg: {name: string; path: string}) => {
+            if (!this.app.store.enabled('options.discover'))
+              return
 
-    this.every(
-      (name: string, pkg: {name: string; path: string}) => {
-        this.app.disk.make(pkg.name, {
-          baseDir: pkg.path,
-        })
-
-        this.active &&
-          this.app.extensions.set(name, require(name))
-      },
-    )
+            const extension = require(name)
+            this.app.extensions.add(name, extension)
+          },
+        ),
+    ])
   }
 
   /**
-   * Collected packages.
+   * Collect packages.
    */
-  public extensions(): Container<{
-    name: string
-    [key: string]: string | string[]
-  }> {
-    this.setStore(
-      this.service('disk')
-        .glob.sync([
-          this.modulePath('bud-*/package.json'),
-          this.modulePath('**/bud-*/package.json'),
-        ])
-        .filter(
-          (value, index, self) => self.indexOf(value) === index,
-        )
-        .reduce((a, pkg) => {
-          const extension: {
-            name: string
-            [key: string]: string | string[]
-          } = this.service('disk').fs.readJSONSync(pkg)
+  public discoverPackages(): void {
+    const packageReducer = (pkgs: Discovered, pkg: string) => {
+      const extension: {
+        name: string
+        [key: string]: any
+      } = this.fs.readJsonSync(pkg)
 
-          return extension.keywords?.includes('bud-extension')
-            ? {
-                ...a,
-                [extension.name]: {
-                  ...extension,
-                  path: this.app.fs.path.dirname(pkg),
-                },
-              }
-            : a
-        }, {}),
-    )
+      const isCore = extension.name?.includes('@roots/')
+      const isPreset = extension.keywords?.includes('bud-preset')
+      const isExtension = extension.keywords?.includes(
+        'bud-extension',
+      )
 
-    return this.all()
-  }
+      if (!isExtension) return pkgs
 
-  /**
-   * module path
-   */
-  protected modulePath(path?: string): string {
-    const basePath = this.service('disk').path.resolve(
-      this.disk('project').baseDir,
-      this.app.store.get('locations.modules'),
-    )
-    return path
-      ? this.service('disk').path.posix.join(basePath, path)
-      : basePath
+      return {
+        ...pkgs,
+        [extension.name]: {
+          ...extension,
+          path: this.dirname(pkg),
+          type: isExtension ?? isPreset,
+          core: isCore,
+        },
+      }
+    }
+
+    const extensions = this.glob
+      .sync([
+        this.modulePath('@roots/sage/package.json'),
+        this.modulePath('bud-*/package.json'),
+        this.modulePath('**/bud-*/package.json'),
+      ])
+      .filter(this.filterUnique)
+      .reduce(packageReducer, {})
+
+    this.setStore(extensions)
   }
 }
