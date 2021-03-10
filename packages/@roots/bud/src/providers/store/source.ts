@@ -39,6 +39,7 @@ const DEFAULT_CFG: {
   html: {
     enable: true
     template: string
+    replace: {[key: string]: string}
   }
   install: boolean
   log: {
@@ -107,6 +108,7 @@ const DEFAULT_CFG: {
   html: {
     enable: true,
     template: null,
+    replace: {},
   },
   install: false,
   log: {
@@ -278,6 +280,9 @@ export const makeArgs = () => {
       'html.template': {
         type: 'string',
         default: null,
+      },
+      'html.replace': {
+        default: {},
       },
       install: {
         type: 'boolean',

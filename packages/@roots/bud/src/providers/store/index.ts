@@ -38,6 +38,7 @@ export const repositories = {
     html: {
       enabled: init(['html.enable', 'APP_HTML']),
       template: init(['html.template', 'APP_HTML_TEMPLATE']),
+      replacements: init(['html.replace']),
     },
     entry: init(['entry']),
     install: init(['install', 'APP_INSTALL']),
