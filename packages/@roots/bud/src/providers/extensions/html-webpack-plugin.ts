@@ -13,12 +13,9 @@ export const options: Module.Options<HtmlWebpackPlugin.Options> = (
   alwaysWriteToDisk: true,
   base: app.store.get('webpack.context'),
   inject: true,
-  template: app.hooks.filter(
-    'html-webpack-plugin.template',
-    app.disk.path.resolve(
-      require.resolve('@roots/bud-support'),
-      '../../../publish/template.html',
-    ),
+  template: app.disk.path.resolve(
+    require.resolve('@roots/bud-support'),
+    '../../../publish/template.html',
   ),
 })
 
