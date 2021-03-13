@@ -12,7 +12,6 @@ import * as entrypoints from '@roots/bud-entrypoints'
 import * as dependencies from '@roots/bud-wordpress-dependencies'
 import * as externals from '@roots/bud-wordpress-externals'
 import * as manifests from '@roots/bud-wordpress-manifests'
-import * as imagemin from '@roots/bud-imagemin'
 
 /**
  * Bud preset: @roots/sage
@@ -124,7 +123,7 @@ export const sage: Sage = (sage =>
        * Production
        */
       (sage: Sage) => {
-        sage.use(imagemin).minify().hash().vendor().runtime()
+        sage.minify().hash().vendor().runtime('single')
       },
 
       /**
