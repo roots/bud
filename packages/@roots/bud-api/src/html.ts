@@ -69,7 +69,7 @@ export const html: Framework.Api.Html = function (options?) {
           {
             'extension/interpolate-html-plugin/options': opts => ({
               ...opts,
-              replacements: replace,
+              ...replace,
             }),
           },
           'api/html',
@@ -81,10 +81,8 @@ export const html: Framework.Api.Html = function (options?) {
       template &&
         this.publish(
           {
-            'extension/html-webpack-plugin/options': opts => ({
-              ...opts,
+            'extension/html-webpack-plugin/options/template': () =>
               template,
-            }),
           },
           'api/html',
         )

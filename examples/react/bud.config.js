@@ -10,6 +10,9 @@ app
   ])
   .html({
     template: 'public/index.html',
+    replace: {
+      APP_TITLE: 'Test',
+    },
   })
   .entry({app: 'app.{js,css}'})
   .run()

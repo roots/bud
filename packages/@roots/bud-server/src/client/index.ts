@@ -2,12 +2,10 @@ const client = require('webpack-hot-middleware/client?quiet=true')
 import {overlay} from './ErrorOverlay'
 import {indicator} from './Indicator'
 
-/**
- * Bud window
- */
-window.bud = {
-  client: {},
-}
+console.info(`[Bud] Development mode`)
+console.info(
+  `[Bud] You should NOT be seeing this message in production.`,
+)
 
 /**
  * Instantiate overlay

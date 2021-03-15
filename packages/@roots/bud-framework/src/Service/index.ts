@@ -2,7 +2,6 @@ import {Container} from '@roots/container'
 import {
   FileContainer,
   Framework,
-  Logger,
   Service,
 } from '@roots/bud-typings'
 import {fs, globby, lodash} from '@roots/bud-support'
@@ -91,21 +90,6 @@ export default class extends Container implements Service {
   }
 
   /**
-   * Path to node_modules
-   */
-  public modulePath(path?: string): string {
-    const base = this.resolve(
-      this.app.subscribe(
-        'location/project',
-        'framework-service',
-      ),
-      this.subscribe('location/modules', 'framework-service'),
-    )
-
-    return path ? this.path.join(base, path) : base
-  }
-
-  /**
    * Application service
    */
   public service<T = any>(serviceName: string | number): T {
@@ -115,7 +99,7 @@ export default class extends Container implements Service {
   /**
    * Topics
    */
-  public topics() {
+  public get topics() {
     return this.app.topics
   }
 
@@ -129,7 +113,7 @@ export default class extends Container implements Service {
   /**
    * Publish
    */
-  public publish() {
+  public get publish() {
     return this.app.publish
   }
 
@@ -143,41 +127,67 @@ export default class extends Container implements Service {
   /**
    * Access containerized property (which may or may not be callable.)
    */
-  public access<I = unknown>(key: string | number): I {
-    return this.isFunction(key)
-      ? this.get(key)(this.app)
-      : this.get(key)
-  }
-
-  public log(...args) {
-    this.app.logger.framework.scope(this.name).log(...args)
-  }
-
-  /**
-   * Log info message
-   */
-  public info(...args) {
-    this.app.logger.framework.scope(this.name).info(...args)
+  public get access() {
+    return this.app.access
   }
 
   /**
    * Log info message
    */
   public get logger() {
-    return this.app.logger.framework
+    return this.app.logger.instance.scope(this.name)
+  }
+
+  /**
+   * Log message
+   */
+  public get log() {
+    return this.app.logger.instance.scope(this.name).log
+  }
+
+  /**
+   * Log info message
+   */
+  public get info() {
+    return this.app.logger.instance.scope(this.name).info
   }
 
   /**
    * Log warning message
    */
-  public warning(...args) {
-    this.app.logger.framework.scope(this.name).warning(...args)
+  public get warning() {
+    return this.app.logger.instance.scope(this.name).warning
   }
 
   /**
    * Log error message
    */
-  public error(obj: {[key: string]: any}) {
-    this.app.get<Logger>('logger').error(obj, this.name)
+  public get error() {
+    return this.app.logger.instance.scope(this.name).error
+  }
+
+  /**
+   * Log debug message
+   */
+  public get debug() {
+    return this.app.logger.instance.scope(this.name).debug
+  }
+
+  /**
+   * Path to node_modules
+   */
+  public modulePath(path?: string): string {
+    const base = this.resolve(
+      this.app.subscribe(
+        'location/project',
+        '@roots/bud/service/modulePath',
+      ),
+      this.subscribe(
+        'location/modules',
+        '@roots/bud/service/modulePath',
+      ),
+    )
+
+    return path ? this.path.join(base, path) : base
   }
 }

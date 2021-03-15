@@ -32,15 +32,7 @@ declare module '@roots/bud-framework' {
 }
 
 export const alias: Framework.Api.Alias = function (alias) {
-  this.publish(
-    {
-      'build/resolve/alias': (base: typeof alias) => ({
-        ...base,
-        ...alias,
-      }),
-    },
-    'api/alias',
-  )
+  this.store.merge('options.resolve.alias', alias)
 
   return this
 }

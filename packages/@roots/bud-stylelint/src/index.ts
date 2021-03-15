@@ -9,10 +9,27 @@ import StylelintPlugin from 'stylelint-webpack-plugin'
 export const name: Module['name'] = 'stylelint-webpack-plugin'
 
 /**
+ * Extension topics
+ */
+export const topics: Module['topics'] = [
+  'extension/stylelint-webpack-plugin/options/context',
+]
+
+/**
+ * Extension publish
+ */
+export const publish: Module['publish'] = (app: Framework) => ({
+  'extension/stylelint-webpack-plugin/options/context': () =>
+    app.src(),
+})
+
+/**
  * Extension options
  */
 export const options: Module['options'] = (app: Framework) => ({
-  context: app.src(),
+  context: app.subscribe(
+    'extension/stylelint-webpack-plugin/options/context',
+  ),
 })
 
 /**
@@ -20,24 +37,3 @@ export const options: Module['options'] = (app: Framework) => ({
  */
 export const make: Module['make'] = options =>
   new StylelintPlugin(options.all())
-
-/**
- * Extension config fn
- */
-export const api: Module['api'] & {
-  [key: string]: Framework.Stylelint.Config
-} = {
-  stylelint: function (userOpts) {
-    this.extensions
-      .get(name)
-      .mutate(
-        'options',
-        (options: Framework.Stylelint.Options) => ({
-          ...options,
-          ...userOpts,
-        }),
-      )
-
-    return this
-  },
-}

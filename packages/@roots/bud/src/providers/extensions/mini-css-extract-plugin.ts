@@ -29,7 +29,6 @@ export const topics: Module['topics'] = () => [
 
 /** Filter values */
 export const publish: Module['publish'] = ({
-  subscribe,
   store,
 }: Framework) => ({
   [ns('filename')]: () =>
@@ -38,8 +37,8 @@ export const publish: Module['publish'] = ({
       : store.get('options.fileFormat').concat('.css'),
   [ns('chunkFilename')]: () =>
     store.isTrue('options.hash')
-      ? store.get('options.hashFormat').concat('[id].css')
-      : store.get('options.fileFormat').concat('[id].css'),
+      ? store.get('options.hashFormat').concat('.[id].css')
+      : store.get('options.fileFormat').concat('.[id].css'),
 })
 
 declare type Options = Module.Options<MiniCssExtractPlugin.PluginOptions>

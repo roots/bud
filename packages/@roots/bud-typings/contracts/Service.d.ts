@@ -13,7 +13,7 @@ export abstract class Service extends Container {
   /**
    * Safely access potentially callable values
    */
-  public access<I = unknown>(key: string | number): I
+  public access: Framework['access']
 
   /**
    * Register service
@@ -28,15 +28,40 @@ export abstract class Service extends Container {
   /**
    * Topics
    */
-  topics(topics: string[], caller?: string)
+  public get topics(): Framework['topics']
 
   /**
    * Subscriptions
    */
-  subscribe(name: string, caller?: string)
+  public get subscribe(): Framework['subscribe']
 
   /**
    * Publish
    */
-  publish<T = any>(pubs: {[key: string]: any}, caller?: string)
+  public get publish(): Framework['publish']
+
+  /**
+   * Log
+   */
+  public get log(): Framework['log']
+
+  /**
+   * Info
+   */
+  public get info(): Framework['info']
+
+  /**
+   * Error
+   */
+  public get error(): Framework['error']
+
+  /**
+   * Warning
+   */
+  public get warning(): Framework['warning']
+
+  /**
+   * Debug
+   */
+  public get debug(): Framework['debug']
 }

@@ -8,13 +8,29 @@ import {Framework} from '@roots/bud-framework/src'
 export const name = 'ignore-emit-webpack-plugin'
 
 /**
+ * Topics
+ */
+export const topics: Module['topics'] = [
+  'extension/ignore-emit-webpack-plugin/options/ignore',
+]
+
+/**
+ * Publish
+ */
+export const publish: Module['publish'] = (app: Framework) => ({
+  'extension/ignore-emit-webpack-plugin/options/ignore': () =>
+    app.store.isFalse('options.devtool') ? [] : [/.?.map$/],
+})
+
+/**
  * Options
  */
 export const options: Module.Options<{ignore: string[]}> = (
   app: Framework,
 ) => ({
-  ignore:
-    app.subscribe('build/devtool') === false ? [] : [/.?.map$/],
+  ignore: app.subscribe(
+    'extension/ignore-emit-webpack-plugin/options/ignore',
+  ),
 })
 
 /**
@@ -26,7 +42,7 @@ export const make: Module.Make<
 > = options => new Plugin(options.get('ignore'))
 
 /**
- * Use plugin when there is something to ignore
+ * Conditionally load plugin
  */
 export const when: Module.When = (app, options) =>
   options?.getEntries('ignore')?.length > 0

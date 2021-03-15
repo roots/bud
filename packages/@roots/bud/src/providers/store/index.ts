@@ -47,7 +47,7 @@ export const repositories = {
     install: source(['install', 'APP_INSTALL']),
     log: source(['log', 'APP_LOG']),
     manifest: source(['manifest', 'APP_MANIFEST']),
-    minify: source(['minify', 'APP_MINIFY']),
+    minimize: source(['minify', 'APP_MINIFY']),
     mode: source(['mode', 'APP_MODE']),
     name: source(['name', 'APP_NAME']),
     namedModules: source(['namedModules', 'APP_NAMED_MODULES']),

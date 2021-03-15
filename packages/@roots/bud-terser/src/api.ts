@@ -3,9 +3,11 @@ import {Framework} from '@roots/bud-framework'
 export const terser: Framework.Terser.Configure = function (
   options,
 ) {
-  this.options.enable('minify')
+  this.store.enable('options.minify')
 
-  this.extensions.get('terser').merge('options', options)
+  this.publish({
+    'extension/terser/options': () => options,
+  })
 
   return this
 }

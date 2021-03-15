@@ -143,6 +143,7 @@ import pino from 'pino'
 import prettier from 'prettier'
 import prettyFormat from 'pretty-format'
 import yargs from 'yargs'
+import {Signale, SignaleConfig, SignaleOptions} from 'signale'
 export {
   chalk,
   chokidar,
@@ -154,7 +155,11 @@ export {
   pino,
   prettier,
   prettyFormat,
+  Signale,
+  SignaleConfig,
+  SignaleOptions,
   yargs,
 }
+
 export type {execa as Execa}
 export type {GlobTask, GlobbyOptions} from 'globby'
