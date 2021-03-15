@@ -30,38 +30,59 @@ declare module '@roots/bud-framework' {
 
 type Copy = (
   this: Framework,
-  jobs: {[key: string]: string},
+  jobs: {[from: string]: string},
   options?: {[key: string]: any},
 ) => Framework
 
-export const copy: Copy = function (jobs, options) {
-  Object.entries(jobs).map(([to, from]) => {
-    this.disk.glob.sync(from).forEach(path => {
-      this.extensions.mutate(
-        'webpack-copy-plugin.options.patterns',
-        (
-          patterns: {[key: string]: string}[],
-        ): {[key: string]: string}[] => {
-          const rootStyle = isEqual(to, '/')
-            ? '[name].[contenthash].[ext]'
-            : null
+const PLUGIN_HANDLE =
+  'extension/webpack-copy-plugin/options/patterns'
+const CALLER_HANDLE = 'api/copy'
 
-          const dirStyle = isEqual(to.split('').pop(), '/')
-            ? to.concat('[name].[contenthash].[ext]')
-            : ''
+export const copy: Copy = function (jobs) {
+  Object.entries(jobs).map(([dest, from]: [string, string]) => {
+    const fileFormat = this.store.isTrue('options.hash')
+      ? this.store.get('options.hashFormat')
+      : this.store.get('options.fileFormat')
 
-          const pattern = {
-            from: path,
-            context: this.project(),
-            to: rootStyle ?? dirStyle ?? to,
-            ...(options ?? {}),
-          }
+    this.disk.glob.sync(from).map((from: string) => {
+      const pattern = {
+        from,
+        to: parseOutputOption(dest, fileFormat),
+        context: this.subscribe(
+          'location/project',
+          CALLER_HANDLE,
+        ),
+      }
 
-          return [...patterns, pattern]
+      this.publish(
+        {
+          [PLUGIN_HANDLE]: patterns => [
+            ...(patterns ?? []),
+            pattern,
+          ],
         },
+        CALLER_HANDLE,
       )
     })
   })
 
   return this
+}
+
+/**
+ * Parse output option
+ */
+const parseOutputOption = (
+  destination: string,
+  fileFormat: string,
+): string => {
+  if (isEqual(destination, '/')) {
+    return fileFormat
+  }
+
+  if (isEqual(destination.split('').pop(), '/')) {
+    return destination.concat(fileFormat)
+  }
+
+  return destination
 }

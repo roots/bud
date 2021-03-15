@@ -69,6 +69,7 @@
     "de-indent": "^1.0.2",
     "he": "^1.1.0",
     "vue": "^2.6.12",
+    "vue-hot-reload-api": "^2.3.4",
     "vue-loader": "^15.9.6",
     "vue-template-compiler": "^2.6.12"
   },

@@ -12,7 +12,6 @@ import * as entrypoints from '@roots/bud-entrypoints'
 import * as dependencies from '@roots/bud-wordpress-dependencies'
 import * as externals from '@roots/bud-wordpress-externals'
 import * as manifests from '@roots/bud-wordpress-manifests'
-import * as imagemin from '@roots/bud-imagemin'
 
 /**
  * Bud preset: @roots/sage
@@ -124,30 +123,32 @@ export const sage: Sage = (sage =>
        * Production
        */
       (sage: Sage) => {
-        sage.use(imagemin).minify().hash().vendor().runtime()
+        sage.minify().hash().vendor().runtime()
       },
 
       /**
        * Development
        */
-      ({env, proxy, dev, devtool}) => {
-        dev({
-          host: env.has('APP_HOST')
-            ? env.get('APP_HOST')
-            : 'localhost',
-          port: env.has('APP_PORT') ? env.get('APP_PORT') : 3000,
-        })
+      (sage: Sage) => {
+        sage
+          .dev({
+            host: sage.env.has('APP_HOST')
+              ? sage.env.get('APP_HOST')
+              : 'localhost',
+            port: sage.env.has('APP_PORT')
+              ? sage.env.get('APP_PORT')
+              : 3000,
+          })
+          .proxy({
+            host: sage.env.has('APP_PROXY_HOST')
+              ? sage.env.get('APP_PROXY_HOST')
+              : 'localhost',
+            port: sage.env.has('APP_PROXY_PORT')
+              ? sage.env.get('APP_PROXY_PORT')
+              : 8000,
+          })
 
-        proxy({
-          host: env.has('APP_PROXY_HOST')
-            ? env.get('APP_PROXY_HOST')
-            : 'localhost',
-          port: env.has('APP_PROXY_PORT')
-            ? env.get('APP_PROXY_PORT')
-            : 8000,
-        })
-
-        devtool()
+          .devtool('eval')
       },
     )
     .html(false))(Object.assign(bud, {name: 'sage'}))

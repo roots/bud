@@ -1,34 +1,34 @@
 import {Framework} from '@roots/bud-typings'
-import * as cleanWebpack from './cleanWebpack'
-import * as configDump from './webpackConfigDump'
-import * as copy from './copy'
-import * as define from './define'
-import * as hashedModuleIds from './hashedModuleIds'
-import * as hotModuleReplacement from './hmr'
-import * as html from './html-webpack-plugin'
-import * as htmlHardDisk from './htmlHardDisk'
-import * as interpolateHtml from './interpolate-html-plugin'
-import * as ignoreEmitWebpackPlugin from './ignore-emit-webpack-plugin'
-import * as manifest from './manifest'
+import * as CleanWebpackPlugin from './clean-webpack-plugin'
+import * as WebpackConfigDumpPlugin from './webpack-config-dump-plugin'
+import * as CopyWebpackPlugin from './copy-webpack-plugin'
+import * as DefineWebpackPlugin from './define-webpack-plugin'
+import * as HashedModuleIdsPlugin from './hashed-module-ids-plugin'
+import * as HotModuleReplacementPlugin from './webpack-hot-module-replacement-plugin'
+import * as HtmlWebpackPlugin from './html-webpack-plugin'
+import * as HtmlHardDiskPlugin from './html-hard-disk-plugin'
+import * as InterpolateHtmlPlugin from './interpolate-html-plugin'
+import * as IgnoreEmitWebpackPlugin from './ignore-emit-webpack-plugin'
+import * as WebpackManifestPlugin from './manifest'
 import * as MiniCssExtractPlugin from './mini-css-extract-plugin'
-import * as OptimizeCssAssetsWebpackPlugin from './optimize-css-assets-webpack-plugin'
-import * as provide from './provide'
-import * as writeFile from './writeFile'
+import * as OptimizeCssAssetsPlugin from './optimize-css-assets-webpack-plugin'
+import * as WebpackProvidePlugin from './webpack-provide-plugin'
+import * as WriteFileWebpackPlugin from './write-file-webpack-plugin'
 
 export const extensions: Framework.Index<Framework.Module> = {
-  [provide.name]: provide,
-  [cleanWebpack.name]: cleanWebpack,
-  [hashedModuleIds.name]: hashedModuleIds,
-  [configDump.name]: configDump,
-  [copy.name]: copy,
-  [define.name]: define,
-  [hotModuleReplacement.name]: hotModuleReplacement,
-  [html.name]: html,
-  [htmlHardDisk.name]: htmlHardDisk,
-  [ignoreEmitWebpackPlugin.name]: ignoreEmitWebpackPlugin,
-  [interpolateHtml.name]: interpolateHtml,
-  [manifest.name]: manifest,
+  [WebpackProvidePlugin.name]: WebpackProvidePlugin,
+  [CleanWebpackPlugin.name]: CleanWebpackPlugin,
+  [HashedModuleIdsPlugin.name]: HashedModuleIdsPlugin,
+  [WebpackConfigDumpPlugin.name]: WebpackConfigDumpPlugin,
+  [CopyWebpackPlugin.name]: CopyWebpackPlugin,
+  [DefineWebpackPlugin.name]: DefineWebpackPlugin,
+  [HotModuleReplacementPlugin.name]: HotModuleReplacementPlugin,
+  [HtmlWebpackPlugin.name]: HtmlWebpackPlugin,
+  [HtmlHardDiskPlugin.name]: HtmlHardDiskPlugin,
+  [IgnoreEmitWebpackPlugin.name]: IgnoreEmitWebpackPlugin,
+  [InterpolateHtmlPlugin.name]: InterpolateHtmlPlugin,
+  [WebpackManifestPlugin.name]: WebpackManifestPlugin,
   [MiniCssExtractPlugin.name]: MiniCssExtractPlugin,
-  [OptimizeCssAssetsWebpackPlugin.name]: OptimizeCssAssetsWebpackPlugin,
-  [writeFile.name]: writeFile,
+  [OptimizeCssAssetsPlugin.name]: OptimizeCssAssetsPlugin,
+  [WriteFileWebpackPlugin.name]: WriteFileWebpackPlugin,
 }

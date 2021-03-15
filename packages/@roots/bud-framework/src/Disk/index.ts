@@ -50,7 +50,7 @@ export default class extends Service {
    * Make
    *
    * Create a new disk. Provide a name, root directory, and -- optionally --
-   * a custom glob array. [🔗 Documentation on bud.disk](#)
+   * a custom glob array.
    *
    * ### Usage
    *
@@ -66,7 +66,7 @@ export default class extends Service {
     key: string | number,
     options?: {baseDir?: string; glob?: string[]},
   ): FileContainer {
-    this.info({msg: 'Making disk', key, options})
+    this.logger.scope('@roots/bud-disk', key).log('Making disk')
 
     this.set(
       key,

@@ -1,35 +1,72 @@
-import {pino} from '@roots/bud-support'
 import {Logger} from '@roots/bud-typings'
+import {Signale, SignaleConfig, SignaleOptions} from 'signale'
 import Service from '../Service'
 
 /**
  * Logger service
  */
 export default class extends Service implements Logger {
-  public name = 'logger'
+  public name = 'framework/logger'
 
-  /**
-   * Pino
-   */
-  public logger: pino.Logger
+  public _framework: Signale
+
+  public baseOptions: SignaleOptions<'remind'> = {
+    disabled: false,
+    interactive: false,
+    scope: 'framework',
+    secrets: [process.cwd()],
+    stream: process.stdout,
+    logLevel: 'info',
+  }
+
+  public baseConfig: SignaleConfig = {
+    displayScope: true,
+    displayBadge: false,
+    displayDate: false,
+    displayFilename: false,
+    displayLabel: true,
+    displayTimestamp: false,
+    underlineLabel: false,
+    underlineMessage: false,
+    underlinePrefix: false,
+    underlineSuffix: false,
+    uppercaseLabel: false,
+  }
 
   /**
    * Boot service
    */
   public register(): void {
-    this.logger = pino({
-      safe: true,
-      name: this.app.name ?? `@roots/bud`,
-      enabled: this.app.store.enabled('options.log'),
-      prettyPrint: {
-        colorize: true,
-      },
-    })
+    this.framework = this.makeLogger()
   }
 
-  public boot(): void {
-    this.app.store.enabled('options.log') &&
-      this.app.store.enable('options.ci')
+  public makeLogger(props?: {
+    scope?: any
+    options?: any
+    config?: any
+  }) {
+    const options = props?.options ?? this.baseOptions
+    const config = props?.config ?? this.baseConfig
+    const logger = props?.scope
+      ? this.framework.scope(props.scope)
+      : new Signale({
+          ...options,
+          disabled:
+            !this.app.store.isTrue('options.log') &&
+            !this.app.store.isTrue('options.ci'),
+        })
+
+    logger.config(config)
+
+    return logger.scope(props?.scope ?? 'framework')
+  }
+
+  public get framework() {
+    return this._framework
+  }
+
+  public set framework(framework: Signale) {
+    this._framework = framework
   }
 
   /**
@@ -46,7 +83,7 @@ export default class extends Service implements Logger {
     msg?: string,
     ...args: any[]
   ) {
-    this.logger.info(obj, msg, ...args)
+    this.framework.info(obj, msg, ...args)
   }
 
   /**
@@ -63,7 +100,7 @@ export default class extends Service implements Logger {
     msg?: string,
     ...args: any[]
   ) {
-    this.logger.fatal(obj, msg, ...args)
+    this.framework.fatal(obj, msg, ...args)
   }
 
   /**
@@ -80,7 +117,7 @@ export default class extends Service implements Logger {
     msg?: string,
     ...args: any[]
   ) {
-    this.logger.error(obj, msg, ...args)
+    this.framework.error(obj, msg, ...args)
   }
 
   /**
@@ -97,6 +134,6 @@ export default class extends Service implements Logger {
     msg?: string,
     ...args: any[]
   ) {
-    this.logger.warn(obj, msg, ...args)
+    this.framework.warn(obj, msg, ...args)
   }
 }

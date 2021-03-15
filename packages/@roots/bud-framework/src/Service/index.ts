@@ -16,15 +16,7 @@ export default class extends Container implements Service {
 
   public name: string | number
 
-  protected _app: () => Framework
-
-  protected _glob: typeof globby = globby
-
-  protected _path: typeof path = path
-
-  protected _fs: typeof fs = fs
-
-  protected _lodash: typeof lodash = lodash
+  private _app: () => Framework
 
   public constructor(
     app: () => Framework,
@@ -49,42 +41,49 @@ export default class extends Container implements Service {
   }
 
   /**
+   * Store
+   */
+  public get store() {
+    return this.app.store
+  }
+
+  /**
    * fs util
    *
    * @see fs-extra
    */
   public get fs(): typeof fs {
-    return this._fs
+    return fs
   }
 
   public get _(): typeof lodash {
-    return this._lodash
+    return lodash
   }
 
   public get readJson(): CallableFunction {
-    return this.fs.readJSONSync
+    return fs.readJSONSync
   }
 
   /**
    * Globby library.
    */
   public get glob(): typeof globby {
-    return this._glob
+    return globby
   }
 
   /**
    * cwd
    */
   public get path(): typeof path {
-    return this._path
+    return path
   }
 
   public get dirname(): CallableFunction {
-    return this.path.dirname
+    return path.dirname
   }
 
   public get resolve(): CallableFunction {
-    return this.path.resolve
+    return path.resolve
   }
 
   public filterUnique(value, index, self) {
@@ -96,8 +95,11 @@ export default class extends Container implements Service {
    */
   public modulePath(path?: string): string {
     const base = this.resolve(
-      this.app.store.get('locations.project'),
-      this.app.store.get('locations.modules'),
+      this.app.subscribe(
+        'location/project',
+        'framework-service',
+      ),
+      this.subscribe('location/modules', 'framework-service'),
     )
 
     return path ? this.path.join(base, path) : base
@@ -108,6 +110,27 @@ export default class extends Container implements Service {
    */
   public service<T = any>(serviceName: string | number): T {
     return this.app.get<T>(serviceName)
+  }
+
+  /**
+   * Topics
+   */
+  public topics() {
+    return this.app.topics
+  }
+
+  /**
+   * Subscriptions
+   */
+  public get subscribe() {
+    return this.app.subscribe
+  }
+
+  /**
+   * Publish
+   */
+  public publish() {
+    return this.app.publish
   }
 
   /**
@@ -126,18 +149,29 @@ export default class extends Container implements Service {
       : this.get(key)
   }
 
+  public log(...args) {
+    this.app.logger.framework.scope(this.name).log(...args)
+  }
+
   /**
    * Log info message
    */
-  public info(obj: {[key: string]: any}) {
-    this.app.get<Logger>('logger').info(obj, this.name)
+  public info(...args) {
+    this.app.logger.framework.scope(this.name).info(...args)
+  }
+
+  /**
+   * Log info message
+   */
+  public get logger() {
+    return this.app.logger.framework
   }
 
   /**
    * Log warning message
    */
-  public warning(obj: {[key: string]: any}) {
-    this.app.get<Logger>('logger').info(obj, this.name)
+  public warning(...args) {
+    this.app.logger.framework.scope(this.name).warning(...args)
   }
 
   /**

@@ -24,4 +24,19 @@ export abstract class Service extends Container {
    * Boot service
    */
   public boot?(): void
+
+  /**
+   * Topics
+   */
+  topics(topics: string[], caller?: string)
+
+  /**
+   * Subscriptions
+   */
+  subscribe(name: string, caller?: string)
+
+  /**
+   * Publish
+   */
+  publish<T = any>(pubs: {[key: string]: any}, caller?: string)
 }

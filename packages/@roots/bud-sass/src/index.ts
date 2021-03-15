@@ -1,55 +1,82 @@
 import './interface'
 import {Framework} from '@roots/bud-framework'
 import {Module} from '@roots/bud-typings'
-import {Webpack} from '@roots/bud-support'
 
-export const name = '@roots/bud-sass'
+export const name: Module['name'] = '@roots/bud-sass'
 
-export const devDependencies = ['sass']
+export const devDependencies: Module['devDependencies'] = [
+  'sass',
+]
 
-export const boot: Module.Boot = (app: Framework) => {
-  app.hooks.on<Webpack.Configuration['resolve']['extensions']>(
-    'webpack.resolve.extensions',
-    exts => [...exts, '.sass', '.scss'],
-  )
+export const topics: Module['topics'] = (app: Framework) => [
+  'loader/sass',
+  'item/sass',
+  'item/sass/loader',
+  'item/sass/options',
+  'item/sass/options/implementation',
+  'item/sass/options/sourceMap',
+  'rule/sass',
+  'rule/sass/test',
+  'rule/sass/exclude',
+  'rule/sass/use',
+]
 
-  app.sequence([
-    app => {
-      global.navigator = undefined
+export const publish: Module['publish'] = (app: Framework) => ({
+  /**
+   * loader/sass
+   */
+  'loader/sass': () => require.resolve('sass-loader'),
 
-      try {
-        app.build
-          .set('loaders.sass', require.resolve('sass-loader'))
-          .set(
-            'items.sass.loader',
-            app.build.get('loaders.sass'),
-          )
-          .set('items.sass.options', {
-            implementation: (() => require('sass'))(),
-            sourceMap: true,
-          })
-      } catch (err) {
-        console.error(err)
-        process.exit()
-      }
+  /**
+   * item/sass
+   */
+  'item/sass': () => ({
+    loader: app.subscribe('item/sass/loader'),
+    options: app.subscribe('item/sass/options'),
+  }),
+  'item/sass/loader': () => app.subscribe('loader/sass'),
+  'item/sass/options': () => ({
+    implementation: app.subscribe(
+      'item/sass/options/implementation',
+    ),
+    sourceMap: app.subscribe('item/sass/options/sourceMap'),
+  }),
+  'item/sass/options/implementation': () => {
+    global.navigator = undefined
 
-      global.navigator = {}
-    },
-    app =>
-      app.build.set('rules.sass', {
-        test: ({store}) => store.get('patterns.sass'),
-        exclude: ({store}) => store.get('patterns.modules'),
-        use: (app: Framework) => {
-          return [
-            app.isProduction
-              ? app.build.access('items.minicss')
-              : app.build.access('items.style'),
-            app.build.access('items.css'),
-            app.build.access('items.postcss'),
-            app.build.access('items.resolveUrl'),
-            app.build.access('items.sass'),
-          ].filter(Boolean)
-        },
-      }),
-  ])
-}
+    try {
+      require('sass')
+    } catch (err) {
+      app.logger.framework.scope('@roots/sass').error(err)
+      process.exit()
+    }
+
+    global.navigator = {}
+  },
+  'item/sass/options/sourceMap': () => true,
+
+  /**
+   * rule/sass
+   */
+  'rule/sass': () => ({
+    test: app.subscribe('rule/sass/test'),
+    exclude: app.subscribe('rule/sass/exclude'),
+    loader: app.subscribe('rule/sass/loader'),
+  }),
+  'rule/sass/test': () => app.store.get('patterns.sass'),
+  'rule/sass/exclude': () => app.store.get('patterns.modules'),
+  'rule/sass/use': () => [
+    app.isProduction
+      ? app.subscribe('item/minicss')
+      : app.subscribe('item/style'),
+    app.subscribe('item/css'),
+    app.subscribe('item/postcss'),
+    app.subscribe('item/resolveUrl'),
+    app.subscribe('item/sass'),
+  ],
+
+  /**
+   * build/resolve/extensions
+   */
+  'build/resolve/extensions': e => [...e, '.scss'],
+})

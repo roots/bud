@@ -61,9 +61,6 @@ export {runtime} from './runtime'
 import './storage'
 export {storage} from './storage'
 
-import './string'
-export {string} from './string'
-
 import './html'
 export {html} from './html'
 

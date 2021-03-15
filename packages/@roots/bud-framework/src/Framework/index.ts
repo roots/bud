@@ -1,14 +1,17 @@
-import {isFunction, Webpack} from '@roots/bud-support'
+import {isFunction} from '@roots/bud-support'
 import {Container} from '@roots/container'
 import {Framework, MaybeCallable} from '@roots/bud-typings'
 import {run} from './run'
 import {when} from './when'
 import {use} from './use'
+import {noop} from 'lodash'
 
 /**
  * Bud framework base class
  */
 export default abstract class implements Framework {
+  public _mode: 'development' | 'production'
+
   /**
    * Name
    */
@@ -100,11 +103,6 @@ export default abstract class implements Framework {
   public store: Framework.Store
 
   /**
-   * Stdout
-   */
-  public stdout: string[]
-
-  /**
    * ## bud.run  [💁 Fluent]
    *
    * Run the build
@@ -163,10 +161,20 @@ export default abstract class implements Framework {
    * Constructor
    */
   constructor(props: {
+    mode: 'production' | 'development'
     providers: Framework.Providers.Definition
     api: Framework.Index<any>
   }) {
-    // Bindings
+    /**
+     * Mode
+     */
+    this.mode = props?.mode
+    process.env.NODE_ENV = this.mode
+    process.env.BABEL_ENV = this.mode
+
+    /**
+     * Bind
+     */
     this.access = this.access.bind(this)
     this.boot = this.boot.bind(this)
     this.bootstrap = this.bootstrap.bind(this)
@@ -176,6 +184,8 @@ export default abstract class implements Framework {
     this.pipe = this.pipe.bind(this)
     this.sequence = this.sequence.bind(this)
     this.register = this.register.bind(this)
+    this.publish = this.publish.bind(this)
+    this.subscribe = this.subscribe.bind(this)
 
     this.run = run.bind(this)
     this.use = use.bind(this)
@@ -213,24 +223,11 @@ export default abstract class implements Framework {
   }
 
   /**
-   * Lifecycle boot.
+   * Lifecycle boot
    */
   public boot(): this {
-    /**
-     * Set node env
-     */
-    process.env.NODE_ENV = this.mode
-    process.env.BABEL_ENV = this.mode
-
-    this.logger.info({
-      msg: 'boot process env/mode',
-      nodeEnv: process.env.NODE_ENV,
-      babelEnv: process.env.BABEL_ENV,
-      budEnv: this.mode,
-    })
-
     this.providers.every(name => {
-      this.logger.info({name}, 'Booting service')
+      this.logger.framework.log(`Booting ${name}`)
       this[name].boot && this[name].boot()
     })
 
@@ -310,22 +307,46 @@ export default abstract class implements Framework {
       options?.containers ?? null,
       options?.dependencies ?? null,
     )
+  }
 
-    options?.onInit && options?.onInit.bind(this)()
+  /**
+   * Topics
+   */
+  public topics(topics: string[], caller?: string) {
+    topics.map(topic => this.hooks.set(topic, [noop]))
+  }
+
+  /**
+   * Subscriptions
+   */
+  public subscribe(name: string, caller?: string) {
+    return this.hooks.filter(caller ? [caller, name] : name)
+  }
+
+  /**
+   * Publish
+   */
+  public publish<T = any>(
+    pubs: {[key: string]: any},
+    caller?: string,
+  ) {
+    Object.entries(pubs).map(([name, pub]: [string, any]) => {
+      this.hooks.on(caller ? [caller, name] : name, pub)
+    })
   }
 
   /**
    * Mode
    */
-  public get mode(): Webpack.Configuration['mode'] {
-    return this.store.get('options.mode')
+  public get mode(): 'production' | 'development' {
+    return this._mode
   }
 
   /**
-   * Mode setter
+   * Mode
    */
-  public set mode(mode: Webpack.Configuration['mode']) {
-    this.store.set('options.mode', mode)
+  public set mode(mode: 'production' | 'development') {
+    this._mode = mode
   }
 
   /**
@@ -334,7 +355,7 @@ export default abstract class implements Framework {
    * True if Webpack.Configuration['mode'] is 'production'
    */
   public get isProduction(): boolean {
-    return this.store.is('options.mode', 'production')
+    return this.mode === 'production'
   }
   /**
    * ## bud.isDevelopment
@@ -342,6 +363,6 @@ export default abstract class implements Framework {
    * True if Webpack.Configuration['mode'] is 'development'
    */
   public get isDevelopment(): boolean {
-    return this.store.is('options.mode', 'development')
+    return this.mode === 'development'
   }
 }

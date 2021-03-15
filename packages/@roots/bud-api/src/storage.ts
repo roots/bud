@@ -23,7 +23,7 @@ type Storage = (this: Framework, path: string) => Framework
 
 export const storage: Storage = function (path?) {
   if (path) {
-    this.store.set('locations.storage', path)
+    this.publish({'location/storage': path}, 'api/storage')
   }
 
   return this

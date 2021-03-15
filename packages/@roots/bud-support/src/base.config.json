@@ -14,7 +14,7 @@
   "discover": false,
   "externals": {},
   "hash": false,
-  "hashFormat": "[name].[hash].js",
+  "hashFormat": "[name].[hash]",
   "html": {
     "enable": true,
     "template": null

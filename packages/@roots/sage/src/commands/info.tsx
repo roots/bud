@@ -12,7 +12,10 @@ export class Info extends Command {
   public description = `Application information`
 
   public get projectDir() {
-    return this.cli.app.store.get('locations.project')
+    return this.cli.app.subscribe(
+      'location/project',
+      '@roots/bud-cli',
+    )
   }
 
   public action(): void {

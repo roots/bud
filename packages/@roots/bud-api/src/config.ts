@@ -39,14 +39,18 @@ export const config: Framework.Api.Config = function ({css}) {
  * Relativize dist url()
  */
 const _cssRelativeUrls = function (this: Framework) {
-  const publicPath = this.disk.path.posix.normalize(
-    this.disk.path.posix.dirname(
-      this.disk.path.posix.relative(this.dist(), this.src()),
-    ),
+  const relativePath = this.disk.path.posix.relative(
+    this.subscribe('location/dist', 'api/config'),
+    this.subscribe('location/src', 'api/config'),
   )
 
-  this.hooks.on('build.items.minicss.options', opts => ({
-    ...opts,
-    publicPath,
-  }))
+  this.publish(
+    {
+      'item/minicss/options/publicPath': () =>
+        this.disk.path.posix.normalize(
+          this.disk.path.posix.dirname(relativePath),
+        ),
+    },
+    'api/config',
+  )
 }

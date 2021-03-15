@@ -39,7 +39,7 @@ export class Build extends Command {
       description: 'Clean stale built assets between each build',
       default: true,
     },
-    ['ci']: {
+    ci: {
       type: 'boolean',
       description:
         'Present compilation summary as a simple webpack table',
@@ -95,12 +95,12 @@ export class Build extends Command {
         'Supply a string indicating how file should be formatted',
       default: `[name].[hash].js`,
     },
-    'html.enable': {
+    html: {
       type: 'boolean',
       description: 'Generate html boilerplate',
       default: true,
     },
-    'html.template': {
+    template: {
       type: 'string',
       description: 'Template location\n',
       default: null,
@@ -111,13 +111,9 @@ export class Build extends Command {
         'Automatically install missing modules as requested by any installed extensions',
       default: false,
     },
-    'log.enable': {
+    log: {
       type: 'boolean',
       default: false,
-    },
-    'log.file': {
-      type: 'string',
-      default: null,
     },
     manifest: {
       type: 'boolean',

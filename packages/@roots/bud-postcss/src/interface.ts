@@ -23,13 +23,6 @@ declare module '@roots/bud-framework' {
       disable: PostCss.Disable
 
       /**
-       * ## postcss.options
-       *
-       * Get the postcss options as set
-       */
-      options: PostCss.Options
-
-      /**
        * ## postcss.plugins
        *
        * Get the postcss plugins as set.
@@ -54,26 +47,28 @@ declare module '@roots/bud-framework' {
        * bud.postcss.addPlugin(MyPlugin, {plugin: 'options'})
        * ```
        */
-      setPlugin: PostCss.SetPlugin
+      setPlugin: (plugin: Framework.PostCss.Registrable) => this
 
       /**
        * ## postcss.setPluginOptions
        */
-      setPluginOptions: (plugin: string, options: any) => PostCss
+      setPluginOptions: (plugin: string, options: any) => this
 
       /**
-       * ## postcss.mutatePluginOptions
+       * ## postcss.hasProjectConfig
        */
-      mutatePluginOptions: (
-        plugin: string,
-        mutationFn: (options: any) => any,
-      ) => PostCss
+      hasProjectConfig: boolean
+
+      /**
+       * ## postcss.log
+       */
+      log: any
     }
 
     namespace PostCss {
       type SetPlugin = (
         plugin: Framework.PostCss.Registrable,
-      ) => PostCss
+      ) => unknown
 
       type Options = {
         plugins?: Plugin[]
@@ -90,7 +85,7 @@ declare module '@roots/bud-framework' {
       type RegistryMutagen = (plugins: Registry) => Registry
 
       interface Registry {
-        [key: string]: Plugin
+        [key: string]: [string, any]
       }
     }
   }

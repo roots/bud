@@ -25,13 +25,15 @@ type Runtime = (
 ) => Framework
 
 export const runtime: Runtime = function (runtime) {
-  this.store.set('options.runtimeChunk.enabled', true)
+  this.publish({
+    'options/runtimeChunk/enabled': () => true,
+  })
 
   this.hooks.on(
-    'webpack.optimization.runtimeChunk',
+    'build/optimization/runtimeChunk',
     () =>
       runtime ?? {
-        name: this.store.access('options.runtimeChunk.name'),
+        name: this.subscribe('options/runtimeChunk/name'),
       },
   )
   return this

@@ -1,4 +1,4 @@
-import {Framework} from '../'
+import {Framework, Service} from '../'
 import {Filter} from './Filter'
 import {Action} from './Action'
 import {Store} from './Store'
@@ -46,7 +46,7 @@ import {Store} from './Store'
  * )
  * ```
  */
-export declare interface Hooks {
+export declare interface Hooks extends Service {
   /**
    * ## bud.hooks.on
    *
@@ -67,37 +67,11 @@ export declare interface Hooks {
    * )
    * ```
    */
-  on<T = any>(name: string, hook: Hooks.Filter.Fn<T>): Framework
-
-  /**
-   * ## hooks.when
-   *
-   * Register a function to execute at a specific point in Bud's lifecycle.
-   *
-   * If an action calls for this name the function is run. If more than one
-   * action is registered to a name, they will be called sequentially
-   * in the order they were registered.
-   *
-   * ### Usage
-   *
-   * ```js
-   * hooks.when(
-   *   'namespace.name.event',
-   *   (bud) {
-   *     console.log(bud)
-   *   },
-   * )
-   * ```
-   */
-  when: Action.When
-
-  /**
-   * ## hooks.action
-   *
-   * Register a function to be executed during a specific bud lifecycle event.
-   *
-   */
-  action: Action
+  on<T = any>(
+    name: string | string[],
+    hook: Hooks.Filter.Fn<T>,
+  ): Framework
+  on<T = any>(name: string | string[], hook: T): Framework
 
   /**
    * ## hooks.filter

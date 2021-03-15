@@ -7,32 +7,25 @@ export const name = 'optimize-css-assets-webpack-plugin'
 
 export const options: Module.Options<Plugin.Options> = (
   app: Framework,
-) => ({
-  assetNameRegExp: /\.css$/g,
-  cssProcessor,
-  cssProcessorOptions: {
-    map: app.store.enabled('options.devtool')
-      ? {
-          inline: (devtool => {
-            return devtool
-              ? devtool.match(/inline-.*/)
-                ? true
-                : false
-              : false
-          })(
-            app.hooks.filter(
-              'webpack.devtool',
-              app.store.get('options.devtool'),
-            ),
-          ),
-        }
-      : false,
-  },
-  cssProcessorPluginOptions: {
-    preset: ['default', {discardComments: {removeAll: true}}],
-  },
-  canPrint: true,
-})
+) => {
+  const devtool = app.subscribe('build/devtool')
+
+  return {
+    assetNameRegExp: /\.css$/g,
+    cssProcessor,
+    cssProcessorOptions: {
+      map: devtool
+        ? {
+            inline: devtool.match(/inline-.*/) ? true : false,
+          }
+        : false,
+    },
+    cssProcessorPluginOptions: {
+      preset: ['default', {discardComments: {removeAll: true}}],
+    },
+    canPrint: true,
+  }
+}
 
 export const make: Module.Make<
   Plugin,

@@ -1,55 +1,45 @@
+import {Framework} from '@roots/bud-framework'
 import type {Module} from '@roots/bud-typings'
-import type {Framework} from '@roots/bud-framework'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 
-declare type Options = Module.Options<MiniCssExtractPlugin.PluginOptions>
+/** Namespace helper */
+const ns = (str: string) => `${name}/${str}`
 
-export const name = 'mini-css-extract-plugin'
+/** Name */
+export const name: Module['name'] = 'mini-css-extract-plugin'
 
-/**
- * Make MiniCssExtractPlugin
- */
-export const make: Module.Make = (options: Options) =>
+/** Make plugin */
+export const make: Module['make'] = (options: Options) =>
   new MiniCssExtractPlugin(options.all())
 
-/**
- * Plugin options
- *
- * @filter mini-css-extract-plugin.options
- */
-export const options: Options = ({store, hooks}) =>
-  hooks.filter('mini-css-extract-plugin.options', {
-    filename: store.enabled('options.hash')
-      ? '[name].[hash].css'
-      : '[name].css',
-    chunkFilename: store.enabled('options.hash')
-      ? '[name].[id].[hash].css'
-      : '[name].[id].css',
-  })
+/** Plugin options */
+export const options: Options = ({subscribe}) => ({
+  filename: subscribe(ns('filename'), name),
+  chunkFilename: subscribe(ns('chunkFilename'), name),
+})
 
-/**
- * On boot, setup the mini-css-extract-plugin loader
- *
- * @filter build.items.minicss
- * @filter build.items.minicss.loader
- * @filter build.items.minicss.options
- */
-export const boot: Module.Boot = app => {
-  app.build.set('items.minicss', (app: Framework) =>
-    app.hooks.filter('build.items.minicss', {
-      loader: app.hooks.filter(
-        'build.items.minicss.loader',
-        MiniCssExtractPlugin.loader,
-      ),
-      options: app.hooks.filter(
-        'build.items.minicss.options',
-        {},
-      ),
-    }),
-  )
-}
-
-/**
- * Enable in production
- */
+/** When */
 export const when: Module.When = app => app.isProduction
+
+/** Filters */
+export const topics: Module['topics'] = () => [
+  ns('filename'),
+  ns('chunkFilename'),
+]
+
+/** Filter values */
+export const publish: Module['publish'] = ({
+  subscribe,
+  store,
+}: Framework) => ({
+  [ns('filename')]: () =>
+    store.get('options.hash')
+      ? store.get('options.hashFormat').concat('.css')
+      : store.get('options.fileFormat').concat('.css'),
+  [ns('chunkFilename')]: () =>
+    store.isTrue('options.hash')
+      ? store.get('options.hashFormat').concat('[id].css')
+      : store.get('options.fileFormat').concat('[id].css'),
+})
+
+declare type Options = Module.Options<MiniCssExtractPlugin.PluginOptions>

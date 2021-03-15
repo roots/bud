@@ -37,12 +37,12 @@ declare module '@roots/bud-framework' {
 export const dist: Framework.Api.Dist = function (path?) {
   return path
     ? this.disk.path.join(
-        this.store.get('locations.project'),
-        this.store.get('locations.dist'),
+        this.subscribe('location/project'),
+        this.subscribe('location/dist'),
         path,
       )
     : this.disk.path.join(
-        this.store.get('locations.project'),
-        this.store.get('locations.dist'),
+        this.subscribe('location/project'),
+        this.subscribe('location/dist'),
       )
 }

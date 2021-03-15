@@ -9,4 +9,7 @@ app
     template: app.project('public/index.html'),
   })
   .entry('bud', ['app.css'])
-  .run()
+
+console.log(app.subscribe('rule/css'))
+
+app.run()

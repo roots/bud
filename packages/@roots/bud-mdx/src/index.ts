@@ -28,7 +28,7 @@ export const boot: Module['boot'] = (app: Framework) => {
    * Resolve mdx extension
    */
   app.hooks.on<Webpack.Configuration['resolve']['extensions']>(
-    'webpack.resolve.extensions',
+    'webpack/resolve/extensions',
     exts => [...exts, '.mdx'],
   )
 

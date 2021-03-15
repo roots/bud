@@ -13,7 +13,8 @@ export const name = 'ignore-emit-webpack-plugin'
 export const options: Module.Options<{ignore: string[]}> = (
   app: Framework,
 ) => ({
-  ignore: [...sourcemaps(app)],
+  ignore:
+    app.subscribe('build/devtool') === false ? [] : [/.?.map$/],
 })
 
 /**
@@ -28,11 +29,4 @@ export const make: Module.Make<
  * Use plugin when there is something to ignore
  */
 export const when: Module.When = (app, options) =>
-  options.getKeys('ignore')?.length > 0
-
-/**
- * Should ignore emitted .map files
- */
-function sourcemaps(app: Framework) {
-  return app.store.get('options.devtool') ? [] : [/.?.map$/]
-}
+  options?.getEntries('ignore')?.length > 0

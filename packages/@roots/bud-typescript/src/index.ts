@@ -14,19 +14,19 @@ export const boot: Module['boot'] = ({
   build,
   disk,
   store,
-  hooks,
-  logger,
+  subscribe,
+  publish,
 }: Framework): void => {
   const hasTs =
     disk.glob.sync(['*.ts', '*.tsx', '**/*.ts', '**/*.tsx'], {
       cwd: disk.path.join(
-        disk.get('project').baseDir,
-        store.get('locations.src'),
+        subscribe('location/project'),
+        subscribe('location/src'),
       ),
     }).length > 0
 
   if (!hasTs) {
-    logger.warn({hasTs, msg: 'No ts found, skipping.'})
+    disk.logger.warn('No ts found, skipping.')
     return
   }
 
@@ -34,11 +34,16 @@ export const boot: Module['boot'] = ({
   store.set('patterns.ts', /\.(ts|tsx)$/)
 
   // Add tsx? to resolvable extensions
-  hooks.on('webpack.resolve.extensions', extensions => [
-    ...extensions,
-    '.ts',
-    '.tsx',
-  ])
+  publish(
+    {
+      'build/resolve/extensions': extensions => [
+        ...extensions,
+        '.ts',
+        '.tsx',
+      ],
+    },
+    '@roots/bud-typescript',
+  )
 
   // Set ts-loader
   build.set('items.ts', {loader: 'ts-loader'})

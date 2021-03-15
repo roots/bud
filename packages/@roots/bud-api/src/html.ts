@@ -4,7 +4,7 @@ import {isBoolean, isUndefined} from 'lodash'
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## html  [💁 Fluent]
+     * ## html [💁 Fluent]
      *
      * Enable and/or configure a generated HTML template
      *
@@ -13,7 +13,7 @@ declare module '@roots/bud-framework' {
      * ```js
      * app.html({
      *   template: app.project('public/index.html'),
-     *   replacements: {
+     *   replace: {
      *     APP_NAME: name,
      *     APP_DESCRIPTION: description,
      *     PUBLIC_URL: app.env.get('PUBLIC_URL'),
@@ -26,11 +26,10 @@ declare module '@roots/bud-framework' {
 
   namespace Framework.Api {
     export type Html = (
-      this: Framework,
       options?:
         | {
             template?: string
-            replacements?: {[key: string]: any}
+            replace?: {[key: string]: any}
           }
         | boolean,
     ) => Framework
@@ -38,34 +37,59 @@ declare module '@roots/bud-framework' {
 }
 
 export const html: Framework.Api.Html = function (options?) {
-  if (isUndefined(options)) {
-    this.store.set('options.html.enabled', true)
-    return this
-  }
+  /**
+   * If noting specified or a boolean specified,
+   * we're done.
+   */
+  this.when(
+    isUndefined(options) || isBoolean(options),
+    () => {
+      /**
+       * Update the enabled status for the html plugin
+       */
+      this.store.set(
+        'options.html.enabled',
+        isBoolean(options) ? options : true,
+      )
+    },
+    () => {
+      /**
+       * Destructure keyed options
+       */
+      const {replace, template} = options as {
+        template?: string
+        replace?: {[key: string]: any}
+      }
 
-  if (isBoolean(options)) {
-    this.store.set('options.html.enabled', options)
-    return this
-  }
+      /**
+       * Apply any replacements in the interpolation plugin
+       */
+      replace &&
+        this.publish(
+          {
+            'extension/interpolate-html-plugin/options': opts => ({
+              ...opts,
+              replacements: replace,
+            }),
+          },
+          'api/html',
+        )
 
-  options.template &&
-    this.store.set('options.html.template', options.template)
-
-  this.store.set('options.html.enabled', true)
-
-  const {template, replacements} = options as {
-    template?: string
-    replacements?: {[key: string]: any}
-  }
-
-  template &&
-    this.hooks.on('html-webpack-plugin.template', () => template)
-
-  replacements &&
-    this.extensions.set(
-      'interpolate-html-plugin.options',
-      replacements,
-    )
+      /**
+       * Set the html-webpack-plugin template
+       */
+      template &&
+        this.publish(
+          {
+            'extension/html-webpack-plugin/options': opts => ({
+              ...opts,
+              template,
+            }),
+          },
+          'api/html',
+        )
+    },
+  )
 
   return this
 }

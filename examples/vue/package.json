@@ -1,0 +1,6 @@
+{
+  "name": "bud-example-sass",
+  "scripts": {
+    "bud": "node ../../node_modules/.bin/bud"
+  }
+}

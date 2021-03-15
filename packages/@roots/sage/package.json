@@ -65,7 +65,6 @@
     "@roots/bud-esbuild": "^3.0.82-alpha.0",
     "@roots/bud-eslint": "^3.0.82-alpha.0",
     "@roots/bud-framework": "^3.0.82-alpha.0",
-    "@roots/bud-imagemin": "^3.0.82-alpha.0",
     "@roots/bud-postcss": "^3.0.82-alpha.0",
     "@roots/bud-preset-recommend": "^3.0.82-alpha.0",
     "@roots/bud-prettier": "^3.0.82-alpha.0",

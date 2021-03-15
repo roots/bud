@@ -1,4 +1,4 @@
-import Discovery from './Discovery'
+import {Discovery} from './Discovery'
 import Disk from './Disk'
 import Dependencies from './Dependencies'
 import Env from './Env'

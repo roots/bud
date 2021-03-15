@@ -1,4 +1,7 @@
-import {Discovery} from '@roots/bud-typings'
+import {
+  Discovery as Contract,
+  Framework,
+} from '@roots/bud-typings'
 import Service from '../Service'
 
 declare interface Discovered {
@@ -14,11 +17,11 @@ declare interface ExtensionItem {
 /**
  * Discovery
  */
-export default class extends Service implements Discovery {
+export class Discovery extends Service implements Contract {
   /**
    * Service ident
    */
-  public name = 'discover'
+  public name = 'core/discover'
 
   /**
    * Service register
@@ -27,74 +30,125 @@ export default class extends Service implements Discovery {
     this.filterUnique = this.filterUnique.bind(this)
     this.modulePath = this.modulePath.bind(this)
     this.discoverPackages = this.discoverPackages.bind(this)
+    this.install = this.install.bind(this)
+    this.setDisks = this.setDisks.bind(this)
+    this.reducePackages = this.reducePackages.bind(this)
+    this.registerDiscovered = this.registerDiscovered.bind(this)
   }
 
   /**
    * Service boot.
    */
-  public boot(): void {
-    this.app.sequence([
-      () => this.discoverPackages(),
+  public boot(bootSequence = []): void {
+    bootSequence.push(this.discoverPackages)
+    bootSequence.push(this.setDisks)
+    bootSequence.push(this.registerDiscovered)
+    bootSequence.push(
       () =>
-        this.every(
-          (name: string, pkg: {name: string; path: string}) => {
-            this.app.disk.make(pkg.name, {
-              baseDir: pkg.path,
-            })
-          },
-        ),
-      () =>
-        this.app.store.enabled('options.discover') &&
-        this.every(
-          (name: string, pkg: {name: string; path: string}) => {
-            if (!this.app.store.enabled('options.discover'))
-              return
+        this.app.store.isTrue('options.install') &&
+        this.every((name: string) => {
+          this.install(this.app.extensions.get(name))
+        }),
+    )
 
-            const extension = require(name)
-            this.app.extensions.add(name, extension)
-          },
-        ),
-    ])
+    this.app.sequence(bootSequence)
   }
 
   /**
    * Collect packages.
    */
   public discoverPackages(): void {
-    const packageReducer = (pkgs: Discovered, pkg: string) => {
-      const extension: {
-        name: string
-        [key: string]: any
-      } = this.fs.readJsonSync(pkg)
+    this.setStore(
+      this.packagePaths
+        .filter(this.filterUnique)
+        .reduce(this.reducePackages, {}),
+    )
+  }
 
-      const isCore = extension.name?.includes('@roots/')
-      const isPreset = extension.keywords?.includes('bud-preset')
-      const isExtension = extension.keywords?.includes(
-        'bud-extension',
-      )
+  /**
+   * Register package disks
+   */
+  public setDisks() {
+    this.every(
+      (name: string, pkg: {name: string; path: string}) => {
+        this.app.disk.make(name, {
+          baseDir: pkg.path,
+        })
+      },
+    )
+  }
 
-      if (!isExtension) return pkgs
+  /**
+   * Register discovered packages as extensions
+   */
+  public registerDiscovered() {
+    this.app.store.isTrue('options.discover') &&
+      this.every((name: string) => {
+        const extension = require(name)
+        this.app.extensions.add(name, extension)
+      })
+  }
 
-      return {
-        ...pkgs,
-        [extension.name]: {
-          ...extension,
-          path: this.dirname(pkg),
-          type: isExtension ?? isPreset,
-          core: isCore,
-        },
-      }
+  /**
+   * Install package dependencies
+   */
+  public install(extension: Framework.Extension): void {
+    this.app.when(
+      extension.dependencies &&
+        !this._.isEmpty(extension.dependencies),
+      app => {
+        app.dependencies.install(
+          app.access(extension.dependencies),
+          extension.name,
+        )
+      },
+    )
+
+    this.app.when(
+      extension.devDependencies &&
+        !this._.isEmpty(extension.devDependencies),
+      app => {
+        app.dependencies.install(
+          app.access(extension.devDependencies),
+          extension.name,
+        )
+      },
+    )
+  }
+
+  /**
+   * Get package paths
+   */
+  public get packagePaths() {
+    return this.glob.sync([
+      this.modulePath('@roots/sage/package.json'),
+      this.modulePath('bud-*/package.json'),
+      this.modulePath('**/bud-*/package.json'),
+    ])
+  }
+
+  /**
+   * Gather information on packages
+   */
+  public reducePackages(pkgs: Discovered, pkg: string) {
+    const json = this.fs.readJsonSync(pkg)
+
+    Object.assign(json, {
+      isCore: json.name?.includes('@roots/'),
+      isPreset: json.keywords?.includes('bud-preset'),
+      isExtension: json.keywords?.includes('bud-extension'),
+    })
+
+    if (!json.isExtension) return pkgs
+
+    return {
+      ...pkgs,
+      [json.name]: {
+        ...json,
+        path: this.dirname(pkg),
+        type: 'extension',
+        core: json.isCore,
+      },
     }
-
-    const extensions = this.glob
-      .sync([
-        this.modulePath('@roots/sage/package.json'),
-        this.modulePath('bud-*/package.json'),
-        this.modulePath('**/bud-*/package.json'),
-      ])
-      .filter(this.filterUnique)
-      .reduce(packageReducer, {})
-
-    this.setStore(extensions)
   }
 }

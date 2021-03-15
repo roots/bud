@@ -8,7 +8,7 @@ declare module '@roots/bud-framework' {
      * directory. In this case it returns the absolute path of whatever it was
      * passed.
      *
-     * Root path used by this function is set by [bud.srcPath](#)
+     * Root path used by this function is set by [bud.srcPath]
      *
      * ### Usage
      *
@@ -27,13 +27,9 @@ declare module '@roots/bud-framework' {
 type Src = (path?: string) => string
 
 export const src: Src = function (path) {
-  return path
-    ? this.disk.path.join(
-        this.store.get('locations.project'),
-        path,
-      )
-    : this.disk.path.join(
-        this.store.get('locations.project'),
-        this.store.get('locations.src'),
-      )
+  return this.disk.path.join(
+    this.subscribe('location/project'),
+    this.subscribe('location/src'),
+    path ?? '',
+  )
 }

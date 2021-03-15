@@ -1,8 +1,8 @@
 import {Framework} from '@roots/bud-framework'
-import {isNull, Webpack} from '@roots/bud-support'
-import {isBoolean} from 'lodash'
+import {Webpack} from '@roots/bud-support'
 
 type Devtool = (
+  this: Framework,
   devtool?: Webpack.Configuration['devtool'],
 ) => Framework
 
@@ -24,28 +24,8 @@ declare module '@roots/bud-framework' {
   }
 }
 
-const DEFAULT_SOURCEMAP_TOOL_DEV = 'eval-cheap-module-source-map'
-
-const DEFAULT_SOURCEMAP_TOOL_PROD = 'nosources-source-map'
-
-export const devtool: Devtool = function (devtool = null) {
-  if (isNull(devtool)) {
-    this.store.set(
-      'options.devtool',
-      this.isDevelopment
-        ? DEFAULT_SOURCEMAP_TOOL_DEV
-        : DEFAULT_SOURCEMAP_TOOL_PROD,
-    )
-
-    return this
-  }
-
-  if (isBoolean(devtool)) {
-    this.store.set('options.devtool', devtool)
-    return this
-  }
-
-  this.store.set('options.devtool', devtool)
+export const devtool: Devtool = function (devtool = false) {
+  this.publish({'build/devtool': devtool}, 'api/devtool')
 
   return this
 }
