@@ -25,7 +25,7 @@ declare module '@roots/bud-framework' {
 }
 
 export const devtool: Devtool = function (devtool = false) {
-  this.publish({'build/devtool': devtool}, 'api/devtool')
+  this.store.set('options.devtool', devtool)
 
   return this
 }

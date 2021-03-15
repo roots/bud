@@ -1,5 +1,9 @@
 import {Logger} from '@roots/bud-typings'
-import {Signale, SignaleConfig, SignaleOptions} from 'signale'
+import {
+  Signale,
+  SignaleConfig,
+  SignaleOptions,
+} from '@roots/bud-support'
 import Service from '../Service'
 
 /**
@@ -8,7 +12,7 @@ import Service from '../Service'
 export default class extends Service implements Logger {
   public name = 'framework/logger'
 
-  public _framework: Signale
+  public _instance: Signale
 
   public baseOptions: SignaleOptions<'remind'> = {
     disabled: false,
@@ -37,7 +41,7 @@ export default class extends Service implements Logger {
    * Boot service
    */
   public register(): void {
-    this.framework = this.makeLogger()
+    this.instance = this.makeLogger()
   }
 
   public makeLogger(props?: {
@@ -61,79 +65,11 @@ export default class extends Service implements Logger {
     return logger.scope(props?.scope ?? 'framework')
   }
 
-  public get framework() {
-    return this._framework
+  public get instance() {
+    return this._instance
   }
 
-  public set framework(framework: Signale) {
-    this._framework = framework
-  }
-
-  /**
-   * Log at `'info'` level the given msg. If the first argument is an object, all its properties will be included in the JSON line.
-   * If more args follows `msg`, these will be used to format `msg` using `util.format`.
-   *
-   * @typeParam T: the interface of the object being serialized. Default is object.
-   * @param obj: object to be serialized
-   * @param msg: the log message to write
-   * @param ...args: format string values when `msg` is a format string
-   */
-  public info(
-    obj: {[key: string]: any},
-    msg?: string,
-    ...args: any[]
-  ) {
-    this.framework.info(obj, msg, ...args)
-  }
-
-  /**
-   * Log at `'fatal'` level the given msg. If the first argument is an object, all its properties will be included in the JSON line.
-   * If more args follows `msg`, these will be used to format `msg` using `util.format`.
-   *
-   * @typeParam T: the interface of the object being serialized. Default is object.
-   * @param obj: object to be serialized
-   * @param msg: the log message to write
-   * @param ...args: format string values when `msg` is a format string
-   */
-  public fatal(
-    obj: {[key: string]: any},
-    msg?: string,
-    ...args: any[]
-  ) {
-    this.framework.fatal(obj, msg, ...args)
-  }
-
-  /**
-   * Log at `'error'` level the given msg. If the first argument is an object, all its properties will be included in the JSON line.
-   * If more args follows `msg`, these will be used to format `msg` using `util.format`.
-   *
-   * @typeParam T: the interface of the object being serialized. Default is object.
-   * @param obj: object to be serialized
-   * @param msg: the log message to write
-   * @param ...args: format string values when `msg` is a format string
-   */
-  public error(
-    obj: {[key: string]: any},
-    msg?: string,
-    ...args: any[]
-  ) {
-    this.framework.error(obj, msg, ...args)
-  }
-
-  /**
-   * Log at `'warn'` level the given msg. If the first argument is an object, all its properties will be included in the JSON line.
-   * If more args follows `msg`, these will be used to format `msg` using `util.format`.
-   *
-   * @typeParam T: the interface of the object being serialized. Default is object.
-   * @param obj: object to be serialized
-   * @param msg: the log message to write
-   * @param ...args: format string values when `msg` is a format string
-   */
-  public warn(
-    obj: {[key: string]: any},
-    msg?: string,
-    ...args: any[]
-  ) {
-    this.framework.warn(obj, msg, ...args)
+  public set instance(instance: Signale) {
+    this._instance = instance
   }
 }

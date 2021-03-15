@@ -27,15 +27,7 @@ declare module '@roots/bud-framework' {
 }
 
 export const externals: Externals = function (externals) {
-  this.publish(
-    {
-      'build/externals': value => ({
-        ...value,
-        ...externals,
-      }),
-    },
-    'api/externals',
-  )
+  this.store.merge('options.externals', externals)
 
   return this
 }

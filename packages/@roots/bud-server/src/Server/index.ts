@@ -79,24 +79,41 @@ export default class extends Service implements Server {
    */
   public run(compiler: Webpack.Compiler): this {
     if (this.config.enabled('middleware.dev')) {
+      this.info(`Enabling dev middleware`)
+
       this.middleware.dev = middleware.dev({
         config: this.config,
         compiler,
       })
+
       this.instance.use(this.middleware.dev)
     }
 
     if (this.config.enabled('middleware.hot')) {
+      this.info(`Enabling hot middleware`)
+
       this.middleware.hot = middleware.hot(compiler)
       this.instance.use(this.middleware.hot)
     }
 
     if (this.config.enabled('middleware.proxy')) {
+      this.info(`Enabling proxy middleware`)
+
       this.middleware.proxy = middleware.proxy(this.config)
       this.instance.use(this.middleware.proxy)
     }
 
-    this.instance.listen(this.config.get('port'))
+    this.instance.listen(this.config.get('port'), () => {
+      this.info(
+        `Server listening on %s`,
+        this.config.get('port'),
+      )
+
+      this.debug({
+        ...this.config.all(),
+        middleware,
+      })
+    })
 
     this.watchable &&
       this.watcher?.on('change', path => {

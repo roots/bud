@@ -1,71 +1,26 @@
-import {
-  LoaderOptions,
-  CustomResolveModuleName,
-  CustomResolveTypeReferenceDirective,
-  ErrorInfo,
-} from 'ts-loader/dist/interfaces'
-import * as typescript from 'typescript'
-import {chalk} from '@roots/bud-support'
+import '@roots/bud-framework'
+import '@roots/bud-api'
 
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## bud.typscript
+     * ## bud.checkTs
      *
-     * Modify typescript options
+     * Enable typescript type checking
      *
      * ### Usage
      *
-     * See ts-loader for documentation on what you can configure here.
-     *
      * ```js
-     * bud.typescript({
-     *  allowTsInNodeModules: true
-     * })
+     * bud.checkTs()
      * ```
      */
-    typescript: Framework.Typescript.Config
+    typecheck: Framework.Typescript.TypeCheck
   }
 
   namespace Framework.Typescript {
-    export type Options = Partial<LoaderOptions> | LoaderOptions
-
     /**
      * Make.
      */
-    export type Config = (options: {
-      silent: boolean
-      logLevel: LoaderOptions['logLevel']
-      logInfoToStdOut: boolean
-      instance: string
-      compiler: string
-      configFile: string
-      context: string
-      transpileOnly: boolean
-      ignoreDiagnostics: number[]
-      reportFiles: string[]
-      errorFormatter: (
-        message: ErrorInfo,
-        colors: typeof chalk,
-      ) => string
-      onlyCompileBundledFiles: boolean
-      colors: boolean
-      compilerOptions: LoaderOptions['compilerOptions']
-      appendTsSuffixTo: (RegExp | string)[]
-      appendTsxSuffixTo: (RegExp | string)[]
-      happyPackMode: boolean
-      getCustomTransformers:
-        | string
-        | ((
-            program: typescript.Program,
-          ) => typescript.CustomTransformers | undefined)
-      experimentalWatchApi: boolean
-      allowTsInNodeModules: boolean
-      experimentalFileCaching: boolean
-      projectReferences: boolean
-      resolveModuleName: CustomResolveModuleName
-      resolveTypeReferenceDirective: CustomResolveTypeReferenceDirective
-      useCaseSensitiveFileNames?: boolean
-    }) => Framework
+    export type TypeCheck = (enabled?: boolean) => Framework
   }
 }

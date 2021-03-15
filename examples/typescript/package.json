@@ -2,9 +2,5 @@
   "name": "bud-example-typescript",
   "scripts": {
     "bud": "node ../../node_modules/.bin/bud"
-  },
-  "devDependencies": {
-    "@roots/bud": "^2.1.2",
-    "@roots/bud-babel": "^2.1.2"
   }
 }

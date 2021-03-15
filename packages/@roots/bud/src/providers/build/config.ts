@@ -57,7 +57,7 @@ export function config(app: Framework) {
       /**
        * build/bail
        */
-      'build/bail': () => app.store.access('options.bail'),
+      'build/bail': () => app.store.get('options.bail'),
 
       /**
        * build/cache
@@ -99,25 +99,28 @@ export function config(app: Framework) {
       /**
        * build/devtool
        */
-      'build/devtool': () => app.store.access('options.devtool'),
+      'build/devtool': () => app.store.get('options.devtool'),
 
       /**
        * build/entry
        */
-      'build/entry': () => app.store.access('options.entry'),
+      'build/entry': () => app.store.get('options.entry'),
 
       /**
        * build/externals
        */
       'build/externals': () =>
-        app.store.access('options.externals'),
+        app.store.get('options.externals'),
 
       /**
        * build/infrastructureLogging
        */
       'build/infrastructureLogging': () => ({
-        level: 'none',
+        level: app.subscribe(
+          'build/infrastructureLogging/level',
+        ),
       }),
+      'build/infrastructureLogging/level': () => 'none',
 
       /**
        * build/mode
@@ -150,7 +153,7 @@ export function config(app: Framework) {
       /**
        * build/node
        */
-      'build/node': () => app.store.access('options.node'),
+      'build/node': () => app.store.get('options.node'),
 
       /**
        * build/optimization
@@ -162,6 +165,10 @@ export function config(app: Framework) {
         ),
         noEmitOnErrors: app.subscribe(
           'build/optimization/noEmitOnErrors',
+          handle,
+        ),
+        minimize: app.subscribe(
+          'build/optimization/minimize',
           handle,
         ),
         minimizer: app.subscribe(
@@ -177,6 +184,8 @@ export function config(app: Framework) {
         app.store.get('options.namedModules'),
       'build/optimization/noEmitOnErrors': () =>
         app.store.get('options.noEmitOnErrors'),
+      'build/optimization/minimize': () =>
+        app.store.get('options.minimize'),
       'build/optimization/minimizer': () =>
         app.store.get('options.minimizer'),
       'build/optimization/runtimeChunk': () =>
@@ -192,16 +201,39 @@ export function config(app: Framework) {
         ),
       }),
       'build/optimization/splitChunks/cacheGroups/vendor': () => ({
-        enforce: true,
-        priority: -10,
-        test: /[\\/]node_modules[\\/]/,
-        chunks: 'all',
-
-        name(
+        enforce: app.subscribe(
+          'build/optimization/splitChunks/cacheGroups/vendor/priority',
+        ),
+        priority: app.subscribe(
+          'build/optimization/splitChunks/cacheGroups/vendor/priority',
+        ),
+        test: app.subscribe(
+          'build/optimization/splitChunks/cacheGroups/vendor/test',
+        ),
+        chunks: app.subscribe(
+          'build/optimization/splitChunks/cacheGroups/vendor/chunks',
+        ),
+        name: app.subscribe(
+          'build/optimization/splitChunks/cacheGroups/vendor/name',
+        ),
+        reuseExistingChunk: app.subscribe(
+          'build/optimization/splitChunks/cacheGroups/vendor/reuseExistingChunk',
+        ),
+      }),
+      'build/optimization/splitChunks/cacheGroups/vendor/enforce': () =>
+        true,
+      'build/optimization/splitChunks/cacheGroups/vendor/priority': () =>
+        -10,
+      'build/optimization/splitChunks/cacheGroups/vendor/test': () =>
+        /[\\/]node_modules[\\/]/,
+      'build/optimization/splitChunks/cacheGroups/vendor/chunks': () =>
+        'all',
+      'build/optimization/splitChunks/cacheGroups/vendor/name': () =>
+        function (
           module: any,
           _chunks: any,
           cacheGroupKey: any,
-        ): string {
+        ) {
           const moduleFileNameParts = module
             .identifier()
             .split('/')
@@ -214,8 +246,8 @@ export function config(app: Framework) {
 
           return `${cacheGroupKey}/${file}`
         },
-        reuseExistingChunk: true,
-      }),
+      'build/optimization/splitChunks/cacheGroups/vendor/reuseExistingChunk': () =>
+        true,
 
       /**
        * build/output
@@ -249,7 +281,10 @@ export function config(app: Framework) {
       /**
        * build/performance
        */
-      'build/performance': () => false,
+      'build/performance': () =>
+        app.store.has('options.performance')
+          ? app.store.get('options.performance')
+          : false,
 
       /**
        * build/plugins
@@ -260,7 +295,9 @@ export function config(app: Framework) {
        * build/profile
        */
       'build/profile': () =>
-        app.store.get('options.profile') ?? false,
+        app.store.has('options.profile')
+          ? app.store.get('options.profile')
+          : false,
 
       /**
        * build/recordsPath
@@ -281,7 +318,7 @@ export function config(app: Framework) {
         modules: app.subscribe('build/resolve/modules'),
       }),
       'build/resolve/alias': () =>
-        app.subscribe('options.resolve.alias') ?? {},
+        app.store.get('options.resolve.alias') ?? {},
       'build/resolve/extensions': () =>
         app.store
           .get('options.resolve.extensions')
@@ -298,12 +335,12 @@ export function config(app: Framework) {
       /**
        * build/stats
        */
-      'build/stats': () => app.store.access('options.stats'),
+      'build/stats': () => app.store.get('options.stats'),
 
       /**
        * build/target
        */
-      'build/target': () => app.store.access('options.target'),
+      'build/target': () => app.store.get('options.target'),
 
       /**
        * build/watch
@@ -314,7 +351,7 @@ export function config(app: Framework) {
        * build/watch-options
        */
       'build/watchOptions': () => ({
-        ignored: [app.store.access('patterns.modules')],
+        ignored: [app.store.get('patterns.modules')],
         poll: 1000,
       }),
     },

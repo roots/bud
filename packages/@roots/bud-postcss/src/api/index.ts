@@ -27,7 +27,7 @@ export class PostCssConfig implements Framework.PostCss {
 
   public constructor({app}: {app: Framework}) {
     this.app = app
-    this.log = app.logger.framework.scope('@roots/bud-postcss')
+    this.log = app.logger.instance.scope('@roots/bud-postcss')
 
     this.setPlugin = this.setPlugin.bind(this)
     this.unsetPlugin = this.unsetPlugin.bind(this)

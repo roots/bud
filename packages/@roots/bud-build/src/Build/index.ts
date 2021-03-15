@@ -32,6 +32,6 @@ export default class extends Service implements Build {
    * Produce a final webpack config.
    */
   public make(): Webpack.Configuration {
-    return this.app.subscribe('build', '@roots/bud-build/make')
+    return this.subscribe('build', '@roots/bud-build/make')
   }
 }

@@ -18,10 +18,3 @@ export interface Build extends Service {
    */
   make(): Webpack.Configuration
 }
-
-export namespace Build {
-  export type Builder = (
-    this: Framework,
-    config: Service,
-  ) => Partial<Webpack.Configuration>
-}

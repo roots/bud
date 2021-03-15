@@ -63,20 +63,20 @@ export const proxy: Framework.Api.Proxy = function (config) {
    * proxy and return the builder.
    */
   if (isUndefined(config)) {
-    this.store.set('server.middleware.proxy', true)
+    this.server.config.set('middleware.proxy', true)
 
     return this
   }
 
   if (!isUndefined(config.enabled)) {
-    this.store.set('server.middleware.proxy', config.enabled)
+    this.server.config.set('middleware.proxy', config.enabled)
 
     delete config.enabled
   } else {
-    this.store.set('server.middleware.proxy', true)
+    this.server.config.set('middleware.proxy', true)
   }
 
-  this.store.merge(`server.proxy`, config)
+  this.server.config.merge(`proxy`, config)
 
   return this
 }

@@ -1,7 +1,8 @@
+import '@roots/bud-api'
 import '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
-  abstract class Framework {
+  interface Framework {
     /**
      * ## bud.Babel
      *

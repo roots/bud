@@ -47,7 +47,7 @@ export const publish: Module['publish'] = (app: Framework) => ({
     try {
       require('sass')
     } catch (err) {
-      app.logger.framework.scope('@roots/sass').error(err)
+      app.logger.instance.scope('@roots/sass').error(err)
       process.exit()
     }
 

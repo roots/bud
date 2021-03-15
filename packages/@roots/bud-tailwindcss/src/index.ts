@@ -14,6 +14,6 @@ export const api: Module['api'] = {tailwind}
 
 // Boot extension
 export const boot: Module['boot'] = (app: Framework) => {
-  if (app.disk.get('project').has('postcss.config.js')) return
+  if (app.disk.get('project').has('tailwind.config.js')) return
   app.tailwind()
 }

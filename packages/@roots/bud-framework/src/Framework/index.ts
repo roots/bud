@@ -227,7 +227,7 @@ export default abstract class implements Framework {
    */
   public boot(): this {
     this.providers.every(name => {
-      this.logger.framework.log(`Booting ${name}`)
+      this.log(`Booting ${name}`)
       this[name].boot && this[name].boot()
     })
 
@@ -364,5 +364,37 @@ export default abstract class implements Framework {
    */
   public get isDevelopment(): boolean {
     return this.mode === 'development'
+  }
+
+  public log(...args) {
+    this.logger.instance.scope(this.name).log(...args)
+  }
+
+  /**
+   * Log info message
+   */
+  public info(...args) {
+    this.logger.instance.scope(this.name).info(...args)
+  }
+
+  /**
+   * Log warning message
+   */
+  public warning(...args) {
+    this.logger.instance.scope(this.name).warning(...args)
+  }
+
+  /**
+   * Log warning message
+   */
+  public debug(...args) {
+    this.logger.instance.scope(this.name).debug(...args)
+  }
+
+  /**
+   * Log error message
+   */
+  public error(obj: {[key: string]: any}) {
+    this.logger.instance.scope(this.name).error(obj, this.name)
   }
 }

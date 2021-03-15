@@ -32,6 +32,7 @@ export const name = 'interpolate-html-plugin'
  * Options
  */
 export const options: Options = app => ({
+  ...app.store.get('options.html.replacements'),
   ...Object.fromEntries(
     app.env
       .getEntries()
@@ -39,7 +40,6 @@ export const options: Options = app => ({
       [string, RegExp]
     >,
   ),
-  ...app.store.get('options.html.replacements'),
 })
 
 /**

@@ -12,7 +12,10 @@ export const name: Module['name'] = '@roots/bud-react'
  * Extension register
  */
 export const boot: Module['boot'] = (app: Framework) => {
-  app.babel.setPresets(['@babel/preset-react'])
+  app.babel.setPresets([
+    '@babel/preset-env',
+    '@babel/preset-react',
+  ])
 
   /**
    * The rest only pertains to dev

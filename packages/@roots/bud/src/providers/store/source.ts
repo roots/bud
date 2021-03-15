@@ -97,6 +97,7 @@ export const env = dotenv.config({
 
 const DEFAULT_CFG: Config = {
   name: '@roots/bud',
+  bail: true,
   ci: false,
   use: [],
   server: {
@@ -142,7 +143,6 @@ const DEFAULT_CFG: Config = {
   },
   entry: {},
   alias: {},
-  bail: true,
   cache: true,
   clean: true,
   define: {},
