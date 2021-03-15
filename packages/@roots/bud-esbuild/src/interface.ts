@@ -67,7 +67,11 @@ declare module '@roots/bud-framework' {
     }
 
     namespace ESBuild {
-      type SetOptions = (opts?: LoaderOptions) => Framework
+      type SetOptions = (
+        type: 'js' | 'ts',
+        opts: LoaderOptions,
+      ) => Framework
+
       type JSX = (enabled?: boolean) => Framework
     }
   }

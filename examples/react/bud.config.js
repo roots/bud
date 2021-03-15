@@ -4,16 +4,10 @@ const {
 } = require('../../packages/@roots/bud-preset-recommend')
 
 app
-  .when(
-    app.isDevelopment,
-    ({use}) => use([require('@roots/bud-react')]),
-    ({use}) =>
-      use(require('@roots/bud-esbuild'))
-        .esbuild.jsx()
-        .hash()
-        .minify(),
-  )
-  .use([require('@roots/bud-emotion')])
+  .use([
+    require('@roots/bud-react'),
+    require('@roots/bud-emotion'),
+  ])
   .html({
     template: 'public/index.html',
   })

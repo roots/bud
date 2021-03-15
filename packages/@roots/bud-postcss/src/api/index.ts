@@ -11,6 +11,8 @@ export class PostCssConfig implements Framework.PostCss {
 
   public _enabled: string[] = []
 
+  public log
+
   public get hasProjectConfig(): boolean {
     const project = this.app.disk.get('project')
 
@@ -25,6 +27,7 @@ export class PostCssConfig implements Framework.PostCss {
 
   public constructor({app}: {app: Framework}) {
     this.app = app
+    this.log = app.logger.framework.scope('@roots/bud-postcss')
 
     this.setPlugin = this.setPlugin.bind(this)
     this.unsetPlugin = this.unsetPlugin.bind(this)
@@ -39,13 +42,10 @@ export class PostCssConfig implements Framework.PostCss {
     this._app = app.get
   }
 
-  public setPlugin(plugin: Framework.PostCss.Registrable) {
-    this.plugins = {
-      ...this.plugins,
-      ...(isString(plugin)
-        ? {[plugin]: plugin}
-        : {[plugin[0]]: plugin[1]}),
-    }
+  public setPlugin(plugin: Framework.PostCss.Registrable): this {
+    plugin = isString(plugin) ? [plugin, plugin] : plugin
+
+    this.plugins = {...this.plugins, [plugin[0]]: plugin}
 
     return this
   }
@@ -56,17 +56,8 @@ export class PostCssConfig implements Framework.PostCss {
     return this
   }
 
-  public setPluginOptions(plugin: string, options: any) {
+  public setPluginOptions(plugin: string, options: any): this {
     this.plugins[plugin] = [this.plugins[plugin][0], options]
-
-    return this
-  }
-
-  public mutatePluginOptions(
-    plugin: string,
-    mutationFn: (options: any) => any,
-  ) {
-    this.plugins[plugin][1] = mutationFn(this.plugins[plugin][1])
 
     return this
   }
@@ -88,10 +79,7 @@ export class PostCssConfig implements Framework.PostCss {
   }
 
   public enable(plugins: string[]): Framework {
-    this.app.logger.info({
-      msg: `enabling postcss plugins`,
-      plugins,
-    })
+    this.app.extensions.logger.info(`enabling postcss plugins`)
 
     this.enabled = plugins
 
@@ -99,27 +87,12 @@ export class PostCssConfig implements Framework.PostCss {
   }
 
   public disable(plugins: string[]): Framework {
-    this.app.logger.info({
-      msg: `disabling postcss plugins`,
-      plugins,
-    })
+    this.log.info(`disabling postcss plugins`)
 
     this.enabled = this.enabled.filter(
       plugin => !plugins.includes(plugin),
     )
 
     return this.app
-  }
-
-  public get options() {
-    return !this.hasProjectConfig
-      ? {
-          plugins: this.enabled.map(
-            plugin => this.plugins[plugin],
-          ),
-        }
-      : {
-          config: true,
-        }
   }
 }

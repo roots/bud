@@ -11,7 +11,7 @@ export const options: Module.Options<HtmlWebpackPlugin.Options> = (
   app: Framework,
 ) => ({
   alwaysWriteToDisk: true,
-  base: app.store.get('webpack.context'),
+  base: app.subscribe('location/project', 'html-webpack-plugin'),
   inject: true,
   template: app.disk.path.resolve(
     require.resolve('@roots/bud-support'),
@@ -25,13 +25,10 @@ export const options: Module.Options<HtmlWebpackPlugin.Options> = (
 export const make: Module.Make<
   HtmlWebpackPlugin,
   Module.Options<HtmlWebpackPlugin.Options>
-> = (options, app) =>
-  new HtmlWebpackPlugin({
-    ...options.all(),
-  })
+> = options => new HtmlWebpackPlugin(options.all())
 
 /**
  * Conditions
  */
-export const when: Module.When = ({store}) =>
+export const when: Module.When = ({store, subscribe}) =>
   store.isTrue('options.html.enabled')

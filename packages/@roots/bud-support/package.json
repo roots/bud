@@ -97,6 +97,7 @@
     "react-dev-utils": "^11.0.1",
     "react-dom": ">=17.0.1",
     "resolve-url-loader": "^3.1.1",
+    "signale": "^1.4.0",
     "source-map-loader": "^1.0.1",
     "style-loader": "^2.0.0",
     "swr": "^0.3.10",
@@ -118,6 +119,7 @@
     "@types/mini-css-extract-plugin": "^1.2.2",
     "@types/node": "^14.14.31",
     "@types/optimize-css-assets-webpack-plugin": "^5.0.2",
+    "@types/signale": "^1.4.1",
     "@types/webpack": "^4.41.26",
     "@types/webpack-dev-middleware": "^3.7.2",
     "type-fest": "^0.21.2"

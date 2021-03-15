@@ -12,25 +12,30 @@ export const name: Module['name'] = '@roots/bud-react'
  * Extension register
  */
 export const boot: Module['boot'] = (app: Framework) => {
-  app.babel?.addPreset &&
-    app.babel.addPreset('@babel/preset-react')
+  app.babel.setPresets(['@babel/preset-react'])
 
-  // The rest of the boot method pertains only to dev
-  // Exit early if not applicable
-  if (!app.isDevelopment) {
-    return
-  }
+  /**
+   * The rest only pertains to dev
+   * (exit early if not applicable)
+   */
+  if (!app.isDevelopment) return
 
+  /**
+   * Add react-refresh-webpack-plugin
+   */
   app.extensions.add(
     '@pmmmwh/react-refresh-webpack-plugin',
     ReactRefreshWebpackPlugin,
   )
 
-  app.hooks.on('webpack.entry', entry =>
+  /**
+   * Inject react-refresh runtime
+   */
+  app.store.mutate('options.entry', entry =>
     Object.entries(entry).reduce(
       (a, [name, assets]: [string, string[]]) => ({
         ...a,
-        [name]: [...assets, 'react-refresh/runtime'],
+        [name]: ['react-refresh/runtime', ...assets],
       }),
       {},
     ),

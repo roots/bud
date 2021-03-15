@@ -12,16 +12,16 @@ import {
 import {Build} from '@roots/bud-build'
 import {Cache} from '@roots/bud-cache'
 import {Compiler} from '@roots/bud-compiler'
-import {Hooks, hooks} from '@roots/bud-hooks'
+import {Hooks} from '@roots/bud-hooks'
 import {Dashboard} from '@roots/bud-dashboard'
 import {Extensions} from '@roots/bud-extensions'
 import {Server} from '@roots/bud-server'
 import {express} from '@roots/bud-support'
 import {extensions} from './extensions'
 
+import {hooks} from './hooks'
+import * as builders from './build'
 import {repositories} from './store'
-import * as items from './items'
-import * as rules from './rules'
 
 /**
  * Service providers
@@ -29,10 +29,12 @@ import * as rules from './rules'
 export const providers: {
   [key: string]: [Providers.Constructor, Providers.Options?]
 } = {
-  fs: [Service],
   store: [Store, {containers: repositories}],
-  env: [Env],
+  env: [Env, {containers: {env: repositories.env}}],
   logger: [Logger],
+  fs: [Service],
+  hooks: [Hooks, {dependencies: {register: hooks}}],
+  build: [Build, {dependencies: {builders}}],
   discovery: [Discovery],
   dependencies: [Dependencies],
   disk: [
@@ -45,17 +47,15 @@ export const providers: {
             repositories.locations.modules,
             '@roots',
           ),
-          glob: ['**/*', '*', '!**/node_modules', '*.map'],
+          glob: ['**/*', '*', '!node_modules', '*.map'],
         },
         ['project']: {
           baseDir: repositories.locations.project,
-          glob: ['**/*', '*', '!vendor', '!node_modules'],
+          glob: ['**/*', '*', '!node_modules', '!vendor'],
         },
       },
     },
   ],
-  hooks: [Hooks, {containers: hooks}],
-  build: [Build, {containers: {items, rules}}],
   extensions: [Extensions, {containers: extensions}],
   cache: [Cache],
   dashboard: [Dashboard],

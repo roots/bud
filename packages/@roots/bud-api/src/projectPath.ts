@@ -26,10 +26,7 @@ declare module '@roots/bud-framework' {
 }
 
 export const projectPath: ProjectPath = function (path?) {
-  this.store.set('locations.project', path)
-
-  this.srcPath(this.src())
-  this.distPath(this.dist())
+  this.publish({'location/project': path}, 'api/projectPath')
 
   return this
 }

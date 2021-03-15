@@ -228,6 +228,21 @@ export declare interface Framework extends Mode {
   access<T = any>(value: T | ((app: Framework) => T)): T
 
   /**
+   * Topics
+   */
+  topics(topics: string[], caller?: string)
+
+  /**
+   * Subscriptions
+   */
+  subscribe(name: string | string[], caller?: string)
+
+  /**
+   * Publish
+   */
+  publish<T = any>(pubs: {[key: string]: any}, caller?: string)
+
+  /**
    * ## bud.makeContainer
    *
    * Create a new container. May be passed an initial set of values.

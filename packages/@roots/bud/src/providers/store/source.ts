@@ -6,16 +6,10 @@ import {readJsonSync, existsSync} from 'fs-extra'
 import {Theme} from '@roots/ink-use-style'
 import {Webpack} from '@roots/bud-support'
 
-export const projectPath = () => {
-  const pathIndex = process.argv.findIndex(v => v == '--project')
-
-  return pathIndex !== -1
-    ? process.argv[pathIndex]
-    : process.cwd()
-}
-
-const DEFAULT_CFG: {
+declare interface Config {
   name: string
+  install: boolean
+  use: string[]
   entry: {
     [key: string]: any
   }
@@ -32,30 +26,25 @@ const DEFAULT_CFG: {
   define: {
     [key: string]: any
   }
-  devtool: Webpack.Configuration['devtool']
+  devtool: any
   discover: boolean
+  fileFormat: string
   hash: boolean
   hashFormat: string
-  html: {
-    enable: true
-    template: string
-    replace: {[key: string]: string}
-  }
-  install: boolean
-  log: {
-    enable: boolean
-    file: string
-  }
+  html: boolean
+  template: string
+  log: boolean
   noEmit: boolean
   manifest: boolean
   minify: boolean
   mode: 'production' | 'development'
   namedModules: boolean
+  node: Webpack.Configuration['node']
   parallelism: number
   profile: boolean
   runtimeChunk: boolean
+  splitChunksEnabled: boolean
   splitChunks: {
-    enable: boolean
     chunks: string
     minSize: number
     maxSize: number
@@ -65,7 +54,6 @@ const DEFAULT_CFG: {
   }
   stats: boolean
   target: string
-  use: string[]
   resolve: {
     extensions: string[]
     modules: string[]
@@ -91,63 +79,26 @@ const DEFAULT_CFG: {
     storage: string
   }
   theme: Theme
-} = {
+}
+
+/**
+ * Project path
+ */
+const pathIndex = process.argv.findIndex(v => v == '--project')
+const projectPath =
+  pathIndex !== -1 ? process.argv[pathIndex] : process.cwd()
+
+/**
+ * Env
+ */
+export const env = dotenv.config({
+  path: join(projectPath, '.env'),
+}).parsed
+
+const DEFAULT_CFG: Config = {
   name: '@roots/bud',
-  entry: {},
-  alias: {},
-  bail: true,
-  cache: true,
-  clean: true,
   ci: false,
-  define: {},
-  devtool: 'nosources-source-map',
-  discover: false,
-  externals: {},
-  hash: false,
-  hashFormat: `[name].[hash].js`,
-  html: {
-    enable: true,
-    template: null,
-    replace: {},
-  },
-  install: false,
-  log: {
-    enable: false,
-    file: null,
-  },
-  namedModules: true,
-  noEmit: true,
-  stats: false,
-  target: 'web',
-  location: {
-    project: projectPath(),
-    src: 'src',
-    dist: 'dist',
-    modules: 'node_modules',
-    publicPath: '/',
-    records: 'records.json',
-    storage: '.bud',
-  },
-  manifest: true,
-  minify: true,
-  mode: 'production',
-  profile: false,
-  runtimeChunk: false,
-  splitChunks: {
-    enable: false,
-    chunks: 'async',
-    minSize: 20000,
-    maxSize: 0,
-    minChunks: 1,
-    maxAsyncRequests: 30,
-    maxInitialRequests: 30,
-  },
-  parallelism: 1,
   use: [],
-  resolve: {
-    extensions: ['.wasm', '.mjs', '.js', '.css', '.json'],
-    modules: [],
-  },
   server: {
     watch: {
       files: [
@@ -189,44 +140,73 @@ const DEFAULT_CFG: {
     ],
     columns: 12,
   },
+  entry: {},
+  alias: {},
+  bail: true,
+  cache: true,
+  clean: true,
+  define: {},
+  devtool: false,
+  discover: false,
+  externals: {},
+  fileFormat: '[name]',
+  hash: false,
+  hashFormat: `[name].[hash]`,
+  html: true,
+  template: null,
+  install: false,
+  log: false,
+  namedModules: true,
+  noEmit: true,
+  node: {
+    module: 'empty',
+    dns: 'mock',
+    fs: 'empty',
+    http2: 'empty',
+    net: 'empty',
+    tls: 'empty',
+    child_process: 'empty',
+  },
+  stats: false,
+  target: 'web',
+  location: {
+    project: projectPath,
+    src: 'src',
+    dist: 'dist',
+    modules: 'node_modules',
+    publicPath: '/',
+    records: 'records.json',
+    storage: '.bud',
+  },
+  manifest: true,
+  minify: true,
+  mode: 'production',
+  profile: false,
+  runtimeChunk: false,
+  splitChunksEnabled: false,
+  splitChunks: {
+    chunks: 'async',
+    minSize: 20000,
+    maxSize: 0,
+    minChunks: 1,
+    maxAsyncRequests: 30,
+    maxInitialRequests: 30,
+  },
+  parallelism: 1,
+  resolve: {
+    extensions: ['.wasm', '.mjs', '.js', '.css', '.json'],
+    modules: [],
+  },
 }
 
-/**
- * Env
- */
-export const makeEnv = projectDir => {
-  return dotenv.config({
-    path: join(projectDir, '.env'),
-  }).parsed
-}
-
-export const cfg = projectDir => {
-  const projectFile = join(projectDir, 'package.json')
-  const projectData = existsSync(projectFile)
-    ? readJsonSync(projectFile)
-    : null
-
-  const cfgFile = join(projectDir, 'bud.project.json')
-  const cfgExists = existsSync(cfgFile)
-
-  return cfgExists
-    ? readJsonSync(cfgFile)
-    : merge(DEFAULT_CFG, projectData?.bud) ?? DEFAULT_CFG
-}
-
-/**
- * Process args
- */
-export const makeArgs = () => {
-  let raw: any = yargs
-    .parserConfiguration({
-      'camel-case-expansion': false,
-    })
-    .config(cfg(projectPath()))
+export const args: any = Object.entries(
+  yargs(process.argv.slice(2))
+    .parserConfiguration({'camel-case-expansion': false})
+    .config(configuration())
     .options({
       name: {
         type: 'string',
-        default: '@roots/bud',
+        default: 'bud',
       },
       bail: {
         type: 'boolean',
@@ -252,8 +232,7 @@ export const makeArgs = () => {
         default: {},
       },
       devtool: {
-        type: 'string',
-        default: 'nosources-source-map',
+        default: {},
       },
       discover: {
         type: 'boolean',
@@ -265,34 +244,33 @@ export const makeArgs = () => {
       externals: {
         default: {},
       },
+      fileFormat: {
+        type: 'string',
+        default: '[name].js',
+      },
       hash: {
         type: 'boolean',
         default: false,
       },
       hashFormat: {
         type: 'string',
-        default: `[name].[hash].js`,
+        default: `[name].[hash]`,
       },
-      'html.enable': {
+      html: {
         type: 'boolean',
         default: true,
       },
-      'html.template': {
+      template: {
         type: 'string',
         default: null,
-      },
-      'html.replace': {
-        default: {},
       },
       install: {
         type: 'boolean',
         default: false,
       },
       log: {
-        default: {
-          enable: false,
-          file: 'bud.log',
-        },
+        type: 'boolean',
+        default: false,
       },
       manifest: {
         type: 'boolean',
@@ -310,6 +288,17 @@ export const makeArgs = () => {
       namedModules: {
         type: 'boolean',
         default: true,
+      },
+      node: {
+        default: {
+          module: 'empty',
+          dns: 'mock',
+          fs: 'empty',
+          http2: 'empty',
+          net: 'empty',
+          tls: 'empty',
+          child_process: 'empty',
+        },
       },
       noEmit: {
         type: 'boolean',
@@ -331,7 +320,7 @@ export const makeArgs = () => {
         type: 'array',
         default: [],
       },
-      'splitChunks.enable': {
+      splitChunksEnabled: {
         type: 'boolean',
         default: false,
       },
@@ -383,7 +372,7 @@ export const makeArgs = () => {
       },
       'location.project': {
         type: 'string',
-        default: projectPath(),
+        default: projectPath,
       },
       'location.src': {
         type: 'string',
@@ -493,38 +482,36 @@ export const makeArgs = () => {
         type: 'string',
       },
     })
-    .parse(process.argv.slice(2))
+    .parse(),
+).reduce(
+  (a, [k, v]) => ({
+    ...a,
+    [k]: v == 'true' ? true : v == 'false' ? false : v,
+  }),
+  {},
+)
 
-  raw = {
-    ...raw._.reduce(
-      (a, v, i) => ({
-        ...a,
-        [v]: true,
-      }),
-      raw,
-    ),
-  }
+/**
+ * Configuration
+ */
+export function configuration() {
+  const projectFile = join(projectPath, 'package.json')
+  const projectData = existsSync(projectFile)
+    ? readJsonSync(projectFile)
+    : null
 
-  raw = {
-    ...Object.entries(raw).reduce(
-      (a, [k, v]) => ({
-        ...a,
-        [k]: v == 'true' ? true : v == 'false' ? false : v,
-      }),
-      raw,
-    ),
-  }
+  const cfgFile = join(projectPath, 'bud.project.json')
+  const cfgExists = existsSync(cfgFile)
 
-  raw.mode = raw.development ? 'development' : 'production'
-
-  return raw
+  return cfgExists
+    ? readJsonSync(cfgFile)
+    : merge(DEFAULT_CFG, projectData?.bud) ?? DEFAULT_CFG
 }
 
-export const args = makeArgs()
-
-export const env = makeEnv(projectPath())
-
-export const init = (
+/**
+ * Source from args => env => null
+ */
+export const source = (
   key: [string, string?],
   transform?: (value: any) => any,
 ) => {

@@ -10,14 +10,17 @@ export function run(): void {
    * @note This is the last moment
    * before CLI/non-CLI builds lose shared context.
    */
-  this.isDevelopment && this.server.inject()
+  this.isDevelopment &&
+    this.server.config.isTrue('middleware.hot') &&
+    this.server.inject()
 
   /**
    * When using the Bud dashboard we can just call the CLI
    * and bounce early.
    */
-  if (!this.store.enabled('options.ci')) {
+  if (!this.store.isTrue('options.ci')) {
     this.dashboard.run()
+
     return
   }
 
@@ -47,10 +50,10 @@ export function run(): void {
       message,
     }
 
-    this.logger.info({
-      msg: progress.message,
-      percentage: progress.percentage,
-    })
+    this.build.logger.info(
+      `${progress.message} [${progress.percentage}]`,
+    )
+
     this.store.set('compilation.progress', progress)
   }).apply(this.compiler.instance)
 
@@ -70,19 +73,21 @@ export function run(): void {
  */
 function displayCompilation(): void {
   if (this.store.has(`compilation.errors`)) {
-    console.error(this.store.get(`compilation.errors`))
+    this.build.logger.error(this.store.get(`compilation.errors`))
     process.exit()
   }
 
   this.store.has(`compilation.stats.string`) &&
     (() => {
-      console.log(this.store.get(`compilation.stats.string`))
+      this.build.logger.log(
+        this.store.get(`compilation.stats.string`),
+      )
       this.store.delete(`compilation.stats.string`)
     })()
 
   this.store.has('compilation.progress') &&
     (() => {
-      console.log(
+      this.build.logger.log(
         `${chalk.green(
           `[${this.store.get(
             `compilation.progress.percentage`,

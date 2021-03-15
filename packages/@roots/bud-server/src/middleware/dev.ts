@@ -40,6 +40,7 @@ const dev = ({
 const options = (
   config: Server['config'],
 ): webpackDevMiddleware.Options => ({
+  logLevel: 'silent',
   ...Object.fromEntries(
     config
       .mutate('headers', headers => ({

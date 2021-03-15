@@ -1,6 +1,6 @@
-import {isFunction, lodash as _} from '@roots/bud-support'
+import {lodash as _} from '@roots/bud-support'
 import {Framework, Module} from '@roots/bud-typings'
-import {isEmpty} from 'lodash'
+import {isBoolean, isEmpty, isFunction} from 'lodash'
 
 /**
  * Extensions controller class.
@@ -12,45 +12,90 @@ import {isEmpty} from 'lodash'
  * [📦 @roots/bud-extensions](https://github.io/roots/bud-extensions)
  */
 export default class {
-  public _app: () => Framework
+  /**
+   * Module
+   */
+  public module: Module
 
-  public name: Module['name']
-  public register?: Module['register']
-  public boot?: Module['boot']
-  public options?: Module['options']
-  public api?: Module['api']
-  public make?: Module['make']
-  public when?: Module['when']
-  public dependencies?: Module['dependencies'] = []
-  public devDependencies?: Module['devDependencies'] = []
+  /**
+   * App.
+   */
+  public app: Framework
 
-  public get app() {
-    return this._app()
+  /**
+   * Logging
+   */
+  public get logger() {
+    return this.app.extensions.logger
   }
 
-  public constructor(_app: Framework['get'], extension) {
-    Object.assign(this, {_app, ...extension})
+  /**
+   * Constructor.
+   */
+  public constructor(app: Framework, extension: Module) {
+    this.app = app
+    this.module = extension
+
+    this.register = this.register.bind(this)
+    this.boot = this.boot.bind(this)
+    this.install = this.install.bind(this)
+    this.make = this.make.bind(this)
+
+    this.logger
+      .scope(this.module.name)
+      .success('Extension instantiated')
   }
 
   /**
    * Register extension
    */
-  public _register(): this {
-    this.register && this.app.access(this.register)
+  public register(): this {
+    if (this.module.register) {
+      this.app.access(this.module.register)
+      this.app.extensions.log(`Register method found`)
+    }
+
+    this.module.api &&
+      Object.assign(this.app, this.app.access(this.module.api))
+
+    this.module.topics &&
+      this.app.topics(
+        this.app.access<string[]>(this.module.topics),
+      )
+
+    this.module.publish &&
+      this.app.publish(
+        this.app.access<{[key: string]: any}>(
+          this.module.publish,
+        ),
+      )
+
+    this.app.publish(
+      {
+        [`extension/${this.module.name}/options`]: () =>
+          this.app.access(this.module.options),
+      },
+      '@roots/bud-extensions',
+    )
 
     this.app.store.enabled('options.install') && this.install()
 
-    this.api &&
-      Object.assign(this.app, this.app.access(this.api))
+    this.logger
+      .scope(this.module.name)
+      .success('Extension registered')
 
     return this
   }
 
   /**
-   * Boot extension
+   * Boot extension.
    */
-  public _boot(): this {
-    this.boot && this.app.access(this.boot)
+  public boot(): this {
+    this.module.boot && this.app.access(this.module.boot)
+
+    this.logger
+      .scope(this.module.name)
+      .success('Extension booted')
 
     return this
   }
@@ -59,61 +104,45 @@ export default class {
    * Install package dependencies
    */
   public install(): void {
-    this.dependencies && !isEmpty(this.dependencies)
-    this.app.dependencies.install(
-      this.app.access(this.dependencies),
-      this.name,
-    )
+    this.module.dependencies &&
+      !isEmpty(this.module.dependencies) &&
+      this.app.dependencies.install(
+        this.app.access(this.module.dependencies),
+        this.module.name,
+      )
 
-    this.devDependencies && !isEmpty(this.devDependencies)
-    this.app.dependencies.installDev(
-      this.app.access(this.devDependencies),
-      this.name,
+    this.module.devDependencies &&
+      !isEmpty(this.module.devDependencies) &&
+      this.app.dependencies.installDev(
+        this.app.access(this.module.devDependencies),
+        this.module.name,
+      )
+  }
+
+  public get options() {
+    return this.app.makeContainer(
+      this.app.subscribe(
+        `extension/${this.module.name}/options`,
+      ),
     )
   }
 
   /**
    * Make plugin.
    */
-  public makePlugin(): Framework.Webpack.Plugin | null {
-    if (!this.isPlugin() || !this.enabled) {
-      return null
+  public make() {
+    if (!this.module.make) return
+
+    const when = isFunction(this.module.when)
+      ? this.module.when(this.app, this.options)
+      : isBoolean(this.module.when)
+      ? this.module.when
+      : true
+
+    if (when == false) {
+      return
     }
 
-    const options = this.app.access(this.options)
-
-    return isFunction(this.make)
-      ? this.make(
-          options ? this.app.makeContainer(options) : null,
-          this.app,
-        )
-      : this.make
-  }
-
-  /**
-   * Is this extension a plugin?
-   */
-  public isPlugin(): boolean {
-    return this.make ? true : false
-  }
-
-  public _enabled: boolean
-
-  public get enabled() {
-    if (!this.when) return true
-
-    const options: Framework.Container = this.app.makeContainer(
-      this.app.access(this.options),
-    )
-
-    if (isFunction(this.when)) {
-      return this.when(this.app, options)
-    }
-
-    return this.when
-  }
-
-  public set enabled(enabled: boolean) {
-    this.when = () => enabled
+    return this.module.make(this.options, this.app)
   }
 }

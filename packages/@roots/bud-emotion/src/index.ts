@@ -7,6 +7,9 @@ import {Module} from '@roots/bud-typings'
  */
 export const name: Module['name'] = '@roots/bud-emotion'
 
+/**
+ * Dev dependencies
+ */
 export const devDependencies = [
   '@emotion/css',
   '@emotion/react',
@@ -17,5 +20,9 @@ export const devDependencies = [
  * Register @emotion
  */
 export const boot: Module['boot'] = (app: Framework) => {
-  app.babel?.addPlugin && app.babel.addPlugin('@emotion')
+  app.babel?.setPlugins &&
+    app.babel.setPlugins([
+      ['@emotion', {}],
+      ...app.subscribe('item/babel/options/plugins'),
+    ])
 }

@@ -10,7 +10,7 @@ export const options: Options = {
 
 export const make: Make = (options: Options, app: Framework) =>
   new ManifestPlugin({
-    publicPath: app.store.get('options.publicPath'),
+    publicPath: app.subscribe('location/publicPath'),
     ...options.all(),
   })
 

@@ -23,60 +23,80 @@ export const api: Module['api'] = (app: Framework) => ({
 })
 
 /**
+ * Topics
+ */
+export const topics: Module['topics'] = [
+  'item/postcss',
+  'item/postcss/loader',
+  'item/postcss/options',
+  'item/postcss/sourceMap',
+  'item/postcss/postcssOptions',
+  'item/postcss/plugins',
+  'item/postcss/config',
+]
+
+/**
+ * Publishes
+ */
+export const publish: Module['publish'] = (app: Framework) => ({
+  /**
+   * item/postcss
+   */
+  'item/postcss': () => ({
+    loader: app.subscribe('item/postcss/loader'),
+    options: app.subscribe('item/postcss/options'),
+  }),
+  'item/postcss/loader': () => require.resolve('postcss-loader'),
+  'item/postcss/options': () => ({
+    postcssOptions: app.subscribe('item/postcss/postcssOptions'),
+    sourceMap: app.subscribe('item/postcss/sourceMap'),
+  }),
+  'item/postcss/sourceMap': () => true,
+  'item/postcss/postcssOptions': () => ({
+    config: app.subscribe('item/postcss/config'),
+    plugins: app.subscribe('item/postcss/plugins'),
+  }),
+  'item/postcss/config': () => app.postcss.hasProjectConfig,
+  'item/postcss/plugins': () => {
+    return app.postcss.enabled.map(enabled => {
+      const [plugin, options] = app.postcss.plugins[enabled]
+      return require(plugin)(options)
+    })
+  },
+
+  /**
+   * rule/css
+   */
+  'rule/css/use': use => [
+    ...use.splice(0, 2),
+    app.subscribe('item/postcss'),
+    ...use,
+  ],
+})
+
+/**
  * Replace default css implementation
  */
 export const boot: Module['boot'] = (app: Framework) => {
-  const postcssModulePaths = () => [
-    app.store.get('locations.modules'),
-    ...app.discovery.getEntries().map(([k, v]) => {
-      return app.discovery.path.posix.join(
-        v.path,
-        'node_modules',
-      )
-    }),
-  ]
-
-  app.build
-    .set('loaders.postcss', (app: Framework) =>
-      require.resolve('postcss-loader'),
-    )
-    .set('items.postcss', (app: Framework) => ({
-      loader: app.build.access('loaders.postcss'),
-      options: {
-        postcssOptions: app.postcss.options,
-        sourceMap: true,
-      },
-    }))
-    .set('rules.css.use', ({build, isProduction}: Framework) => {
-      return [
-        isProduction
-          ? build.access('items.minicss')
-          : build.access('items.style'),
-        build.access('items.css'),
-        build.access('items.postcss'),
-        build.access('items.resolveUrl'),
-      ]
-    })
-
-  /**
-   * Configure defaults
-   */
-  !app.disk.get('project').has('postcss.config.js') &&
+  !app.postcss.hasProjectConfig &&
     app.sequence([
-      app => {
-        app.postcss.plugins = {
-          ['postcss-import']: require('postcss-import')({
-            path: postcssModulePaths(),
-          }),
-          ['postcss-nested']: require('postcss-nested'),
-          ['postcss-custom-properties']: require('postcss-custom-properties'),
-        }
-      },
       app =>
-        app.postcss.enable([
-          'postcss-import',
-          'postcss-nested',
-          'postcss-custom-properties',
-        ]),
+        app.postcss.log.info(
+          'No project config found. Enabling defaults.',
+        ),
+
+      app =>
+        app.postcss
+          .setPlugin('postcss-nested')
+          .setPlugin('postcss-custom-properties')
+          .setPlugin([
+            'postcss-import',
+            {path: app.subscribe('build/resolve/modules')},
+          ])
+          .enable([
+            'postcss-import',
+            'postcss-nested',
+            'postcss-custom-properties',
+          ]),
     ])
 }

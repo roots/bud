@@ -163,16 +163,16 @@ export const entry: Framework.Api.Entry = function (
  */
 function makeEntrypoints(
   this: Framework,
-  entrypoints: Framework.Api.Entry.Obj,
+  entry: Framework.Api.Entry.Obj,
 ): Framework {
-  this.hooks.on(`webpack.entry`, entry => ({
+  this.store.mutate('options.entry', entrypoints => ({
     ...entry,
-    ...Object.entries(entrypoints).reduce(
+    ...Object.entries(entry).reduce(
       (a, [name, task]) => ({
         ...a,
         [name]: getAssets.bind(this)(name, task),
       }),
-      {},
+      entrypoints,
     ),
   }))
 
@@ -219,9 +219,14 @@ function getAssets(
    * @webpack5 this is no longer necessary
    */
   if (isCssOnlyEntrypoint(assets)) {
-    this.extensions.mutate(
-      'ignore-emit-webpack-plugin.options.ignore',
-      (ignore: string[]) => [...ignore, name.concat('.js')],
+    this.publish(
+      {
+        'extension/ignore-emit-webpack-plugin/options': options => ({
+          ...options,
+          ignore: [...options.ignore, name.concat('.js')],
+        }),
+      },
+      'api/entry',
     )
   }
 

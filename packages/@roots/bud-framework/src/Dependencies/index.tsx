@@ -53,7 +53,7 @@ export default class extends Service {
 
   public boot() {
     this.manager = new Dependencies(
-      this.app.store.get('locations.project'),
+      this.app.subscribe('location/project'),
     )
   }
 

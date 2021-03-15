@@ -19,9 +19,7 @@ export declare interface Extensions extends Service {
 
   use(pkg: string): this
 
-  make(plugin: string): Webpack.Plugin
-
-  makeAll(): Webpack.Plugin[]
+  make(): Webpack.Plugin[]
 
   discard(pkg: string): Service['app']
 }
@@ -77,6 +75,12 @@ export interface Module {
   dependencies?: string[]
 
   devDependencies?: string[]
+
+  topics?: ((app: Framework) => string[]) | string[]
+
+  publish?:
+    | ((app: Framework) => {[key: string]: any})
+    | {[key: string]: any}
 }
 
 export namespace Module {
@@ -123,12 +127,12 @@ export namespace Module {
     | ((app: Framework) => T)
     | any
 
-  export type Make<P = unknown, T = Options> =
-    | ((options: Framework.Container<T>, app?: Framework) => P)
-    | P
+  export type Make<P = unknown, T = Options> = (
+    options: Framework.Container<T>,
+    app?: Framework,
+  ) => P
 
-  export type When = (
-    app: Framework,
-    opt?: Framework.Container,
-  ) => boolean
+  export type When =
+    | ((app: Framework, opt?: Framework.Container) => boolean)
+    | boolean
 }

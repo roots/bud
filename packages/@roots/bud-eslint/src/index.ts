@@ -17,8 +17,8 @@ export const options: Module.Options = app => {
     extensions: ['js', 'jsx', 'ts', 'tsx', 'vue'],
     cache: true,
     cacheLocation: app.disk.path.join(
-      app.store.get('locations.project'),
-      app.store.get('locations.storage'),
+      app.subscribe('location/project'),
+      app.subscribe('location/storage'),
     ),
     quiet: true,
     formatter,

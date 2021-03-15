@@ -31,9 +31,15 @@ export class Cache extends Service {
    */
   public enabled(): boolean {
     return (
-      this.app.store.get('locations.storage') &&
+      this.app.subscribe(
+        'location/storage',
+        '@roots/bud-cache',
+      ) &&
       this.disk('project').exists(
-        this.app.store.get('locations.records'),
+        this.app.subscribe(
+          'location/records',
+          '@roots/bud-cache',
+        ),
       )
     )
   }
@@ -45,9 +51,10 @@ export class Cache extends Service {
    */
   public setCache(): void {
     this.enabled() &&
-      this.app.hooks.on('webpack.cache', () =>
-        this.disk('project').readJson(
-          this.app.store.get('locations.records'),
+      this.app.subscribe(
+        'build/cache',
+        this.readJson(
+          this.subscribe('location/records', '@roots/bud-cache'),
         ),
       )
   }

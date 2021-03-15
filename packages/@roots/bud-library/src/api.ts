@@ -5,12 +5,13 @@ export const library: Bud.Library.Configure = function (
   modules,
 ) {
   this.extensions.add('autodll-webpack-plugin', {
+    name: 'autodll-webpack-plugin',
     options: (app: Bud) => ({
       debug: false,
       inject: false,
-      filename: app.store.enabled('options.hash')
-        ? '[name].[hash].js'
-        : '[name].js',
+      filename: this.store.isTrue('options.hash')
+        ? this.store.get('options.hashFormat')
+        : this.store.get('options.fileFormat'),
       entry: {
         library:
           typeof modules == 'string' ? [modules] : modules,

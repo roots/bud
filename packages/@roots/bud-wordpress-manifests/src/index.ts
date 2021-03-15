@@ -8,6 +8,7 @@ export const name: Module['name'] =
 // Extension webpack plugins
 export const boot: Module.Boot = ({extensions}): void => {
   extensions.add('@roots/merged-manifest-webpack-plugin', {
+    name: '@roots/merged-manifest-webpack-plugin',
     make: () => new MergedManifestPlugin(),
   })
 }

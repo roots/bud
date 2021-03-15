@@ -28,7 +28,7 @@ export default class extends Service implements Server {
   /**
    * Application dev server instance.
    */
-  public instance: Server.Instance
+  public _instance: Server.Instance
 
   /**
    * Client bundle assets (for injection)
@@ -40,7 +40,24 @@ export default class extends Service implements Server {
    */
   public middleware: {[key: string]: any} = {}
 
+  /**
+   * Watchlist
+   */
   public _watchlist: string[]
+
+  /**
+   * Instance getter
+   */
+  public get instance() {
+    return this._instance
+  }
+
+  /**
+   * Instance setter
+   */
+  public set instance(instance) {
+    this._instance = instance
+  }
 
   /**
    * Service registration

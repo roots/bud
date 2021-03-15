@@ -1,5 +1,4 @@
 import {Framework} from '@roots/bud-framework'
-import {Webpack} from '@roots/bud-support'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -33,12 +32,14 @@ declare module '@roots/bud-framework' {
 }
 
 export const alias: Framework.Api.Alias = function (alias) {
-  this.hooks.on<Webpack.Configuration['resolve']['alias']>(
-    'webpack.resolve.alias',
-    aliases => ({
-      ...aliases,
-      ...alias,
-    }),
+  this.publish(
+    {
+      'build/resolve/alias': (base: typeof alias) => ({
+        ...base,
+        ...alias,
+      }),
+    },
+    'api/alias',
   )
 
   return this

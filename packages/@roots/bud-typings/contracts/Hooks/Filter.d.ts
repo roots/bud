@@ -5,10 +5,9 @@
  * registered filter functions. The mutated value is returned
  * in place of the original.
  */
-export declare type Filter = <T = any>(
-  name: string,
-  value: T,
-) => T
+export declare type Filter =
+  | (<T = any>(name: string, value: T) => T)
+  | T
 
 export declare namespace Filter {
   /**

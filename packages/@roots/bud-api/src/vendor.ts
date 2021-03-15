@@ -33,11 +33,11 @@ type Vendor = (
 ) => Framework
 
 export const vendor: Vendor = function (vendorOptions) {
-  this.store.enable('options.splitChunks.enabled')
+  this.store.enable('options.splitChunksEnabled')
 
   vendorOptions &&
     this.hooks.on(
-      'webpack.optimization.splitChunks.vendor',
+      'build/optimization/splitChunks/vendor',
       (opts: Webpack.Options.CacheGroupsOptions) =>
         merge(opts, vendorOptions),
     )

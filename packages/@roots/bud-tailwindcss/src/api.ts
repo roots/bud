@@ -3,25 +3,22 @@ import {Framework} from '@roots/bud-framework'
 export const tailwind: Framework.Tailwind.Configure = function (
   config = null,
 ) {
-  this.postcss.setPlugin([
-    'tailwindcss',
-    require('tailwindcss')(config),
-  ])
+  this.postcss.setPlugin(['tailwindcss', config])
 
-  const enabled = this.postcss.enabled
-  const usingPostCssImport = enabled.includes('postcss-import')
+  if (this.postcss.enabled.includes('postcss-import')) {
+    this.postcss.enable([
+      ...this.postcss.enabled.splice(
+        0,
+        this.postcss.enabled.indexOf('postcss-import') + 1,
+      ),
+      'tailwindcss',
+      ...this.postcss.enabled,
+    ])
 
-  this.postcss.enable(
-    usingPostCssImport
-      ? (() => {
-          const i = enabled.indexOf('postcss-import') + 1
-          const pre = enabled.slice(0, i)
-          const post = enabled.slice(i)
+    return this
+  }
 
-          return [...pre, 'tailwindcss', ...post]
-        })()
-      : [...enabled, 'tailwindcss'],
-  )
+  this.postcss.enable(['tailwindcss', ...this.postcss.enabled])
 
   return this
 }

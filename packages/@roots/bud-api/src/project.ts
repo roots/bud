@@ -35,8 +35,8 @@ export const project: Framework.Api.Project = function (
 ) {
   return segment
     ? this.disk.path.posix.join(
-        this.store.get('locations.project'),
+        this.subscribe('location/project'),
         segment,
       )
-    : this.store.get('locations.project')
+    : this.subscribe('location/project')
 }

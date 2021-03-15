@@ -1,121 +1,98 @@
-import '@roots/bud'
-
-import type {
-  PluginTarget,
-  PluginOptions,
-  TransformOptions,
-} from '@babel/core'
-
-interface LoaderOptions extends TransformOptions {
-  cacheDirectory: string
-}
+import '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
-  interface Framework {
+  abstract class Framework {
     /**
-     * ## app.babel
+     * ## bud.Babel
      *
      * Configure babel.
      */
-    babel: Framework.Babel
+    babel: Babel
   }
 
-  namespace Framework {
-    interface Babel {
-      /**
-       * ## app.babel.addPlugin
-       *
-       * Add a babel plugin.
-       *
-       * ### Usage
-       *
-       * ```js
-       * app.babel.addPlugin(
-       *   '@babel/plugin-transform-runtime',
-       *   {helpers: false,}
-       * )
-       * ```
-       */
-      addPlugin: Framework.Babel.AddPlugin
+  export interface Babel {
+    /**
+     * ## babel.log
+     */
+    log: any
 
-      /**
-       * ## app.babel.addPlugin
-       *
-       * Add a babel plugin.
-       *
-       * ### Usage
-       *
-       * ```js
-       * app.babel.addPreset(
-       *   '@babel/react-preset',
-       *   {loose: true}
-       * )
-       * ```
-       */
-      addPreset: Framework.Babel.AddPreset
+    /**
+     * ## babel.hasProjectConfig
+     */
+    hasProjectConfig: boolean
 
-      /**
-       * ## app.babel.setOptions
-       *
-       * Configure babel transform options
-       *
-       * ### Usage
-       *
-       * ```js
-       * app.babel.setOptions({
-       *  configFile: 'babel.config.js',
-       * })
-       * ```
-       */
-      setOptions: Framework.Babel.SetOptions
+    /**
+     * ## babel.plugins
+     */
+    plugins: Babel.Registry
 
-      /**
-       * ## app.babel.setPlugins
-       *
-       * Set babel plugins (will override existing values)
-       *
-       * ### Usage
-       *
-       * ```js
-       * app.babel.setPlugins([
-       *  ['@babel/react-preset', {loose: true}],
-       * ])
-       * ```
-       */
-      setPlugins: Framework.Babel.SetPlugins
+    /**
+     * ## babel.presets
+     */
+    presets: Babel.Registry
 
-      /**
-       * ## app.babel.setPresets
-       *
-       * Set babel presets (will override existing values)
-       *
-       * ### Usage
-       *
-       * ```js
-       * app.babel.setPresets([
-       *  ['@babel/react-preset', {loose: true}],
-       * ])
-       * ```
-       */
-      setPresets: Framework.Babel.SetPlugins
+    /**
+     * ## babel.setPlugin
+     *
+     * Add a babel plugin.
+     *
+     * ### Usage
+     *
+     * ```js
+     * bud.babel.setPlugin(MyPlugin, {plugin: 'options'})
+     * ```
+     */
+    setPlugin: (plugin: Babel.Registrable) => this
+
+    /**
+     * ## babel.setPlugins
+     */
+    setPlugins(plugins: Array<[string, any?] | string>): this
+
+    /**
+     * ## babel.setPluginOptions
+     */
+    setPluginOptions: (plugin: string, options: any) => this
+
+    /**
+     * ## babel.setPlugin
+     *
+     * Add a babel plugin.
+     *
+     * ### Usage
+     *
+     * ```js
+     * bud.babel.setPlugin(MyPlugin, {plugin: 'options'})
+     * ```
+     */
+    setPreset: (preset: Babel.Registrable) => this
+
+    /**
+     * ## babel.setPresets
+     */
+    setPresets(presets: Array<[string, any?] | string>): this
+
+    /**
+     * ## babel.setPresetOptions
+     */
+    setPresetOptions: (preset: string, options: any) => this
+  }
+
+  export namespace Babel {
+    export type Options = {
+      plugins?: Plugin[]
+      config?: boolean | string
     }
 
-    namespace Babel {
-      type AddPlugin = (
-        name: PluginTarget,
-        opts?: PluginOptions,
-      ) => Framework
+    export type Plugin =
+      | string
+      | [string, any]
+      | CallableFunction
 
-      type AddPreset = (
-        name: PluginTarget,
-        opts?: PluginOptions,
-      ) => Framework
+    export type Registrable = string | [string, any]
 
-      type SetPlugins = (
-        plugins: Array<[PluginTarget, PluginOptions]>,
-      ) => Framework
-
-      type SetOptions = (opts?: LoaderOptions) => Framework
+    export interface Registry {
+      [key: string]: [string, any]
     }
   }
 }
