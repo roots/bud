@@ -45,8 +45,8 @@ export const publish: Module['publish'] = (app: Framework) => ({
     use: app.subscribe('rule/ts/use'),
   }),
   'rule/ts/use': () => [app.subscribe('item/esbuild-ts')],
-  'rule/ts/test': () => app.store.access('patterns.ts'),
-  'rule/ts/exclude': () => app.store.access('patterns.modules'),
+  'rule/ts/test': () => app.store.get('patterns.ts'),
+  'rule/ts/exclude': () => app.store.get('patterns.modules'),
 
   /**
    * rule/js
