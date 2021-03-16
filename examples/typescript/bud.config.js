@@ -7,6 +7,5 @@ bud
     require('@roots/bud-typescript'),
   ])
   .entry('app', ['app.ts'])
-  .typecheck()
   .html()
   .run()

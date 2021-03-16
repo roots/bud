@@ -76,20 +76,32 @@ export function config(app: Framework) {
                 'build/cache/directory',
                 handle,
               ),
+              config: app.subscribe(
+                'build/cache/buildDependencies',
+              ),
             },
       'build/cache/type': () => 'filesystem',
-      'build/cache/name': () => app.name,
+      'build/cache/name': () => 'application',
       'build/cache/location': () =>
         app.store.path.posix.resolve(
           app.subscribe('location/project', handle),
           app.subscribe('location/storage', handle),
-          'cache',
         ),
       'build/cache/directory': () =>
         app.store.path.posix.resolve(
           app.subscribe('location/project', handle),
           app.subscribe('location/storage', handle),
         ),
+      'build/cache/buildDependencies': () => [
+        app.store.path.posix.resolve(
+          app.subscribe('location/project', handle),
+          `${this.name}.config.js`,
+        ),
+        app.store.path.posix.resolve(
+          app.subscribe('location/project', handle),
+          'package.json',
+        ),
+      ],
 
       /**
        * build/context
@@ -306,7 +318,7 @@ export function config(app: Framework) {
         app.store.path.posix.join(
           app.subscribe('location/project', handle),
           app.subscribe('location/storage', handle),
-          app.subscribe('location/records', handle),
+          'records.json',
         ),
 
       /**
