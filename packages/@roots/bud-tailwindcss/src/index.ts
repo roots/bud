@@ -14,6 +14,27 @@ export const api: Module['api'] = {tailwind}
 
 // Boot extension
 export const boot: Module['boot'] = (app: Framework) => {
+  const implementation = require.resolve('@tailwindcss/jit')
+    ? '@tailwindcss/jit'
+    : require.resolve('tailwindcss')
+    ? 'tailwindcss'
+    : null
+
+  if (!implementation) {
+    app.dashboard.error(
+      'You must install tailwindcss or @tailwindcss/jit in order for @roots/bud-tailwindcss to function',
+    )
+  }
+
+  app.store.set(
+    'options.tailwindcss.implementation',
+    implementation,
+  )
+
   if (!app.disk.get('project').has('tailwind.config.js')) return
-  app.tailwind()
+
+  app.tailwind(
+    null,
+    app.store.get('options.tailwindcss.implementation'),
+  )
 }

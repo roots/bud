@@ -394,7 +394,7 @@ export default abstract class implements Framework {
   /**
    * Log error message
    */
-  public error(obj: {[key: string]: any}) {
-    this.logger.instance.scope(this.name).error(obj, this.name)
+  public error(...args) {
+    this.logger.instance.scope(this.name).error(...args)
   }
 }

@@ -1,9 +1,12 @@
 import {Framework} from '@roots/bud-framework'
 
 export const tailwind: Framework.Tailwind.Configure = function (
-  config = null,
+  config: Omit<Framework.Tailwind.Config, null> = null,
+  implementation:
+    | 'tailwindcss'
+    | '@tailwindcss/jit' = 'tailwindcss',
 ) {
-  this.postcss.setPlugin(['tailwindcss', config])
+  this.postcss.setPlugin([implementation, config])
 
   if (this.postcss.enabled.includes('postcss-import')) {
     this.postcss.enable([
@@ -11,14 +14,14 @@ export const tailwind: Framework.Tailwind.Configure = function (
         0,
         this.postcss.enabled.indexOf('postcss-import') + 1,
       ),
-      'tailwindcss',
+      implementation,
       ...this.postcss.enabled,
     ])
 
     return this
   }
 
-  this.postcss.enable(['tailwindcss', ...this.postcss.enabled])
+  this.postcss.enable([implementation, ...this.postcss.enabled])
 
   return this
 }
