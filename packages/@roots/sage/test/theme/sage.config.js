@@ -7,7 +7,4 @@ sage
     editor: ['{scripts,styles}/editor.{js,css}'],
     customizer: ['scripts/customizer.js'],
   })
-  .tailwind({
-    prefix:
-  })
   .run();

@@ -58,7 +58,7 @@ export const sage: Sage = (sage =>
      * - snowpack & vite each have their own HMR solutions.
      * - snowpack provides their solution as an
      *   [ESM spec proposal](https://github.com/snowpackjs/esm-hmr)
-     * - [Related article from Dan Abramov](https://medium.com/@dan_abramov/hot-reloading-in-react-1140438583bf)
+     * - [Related](https://medium.com/@dan_abramov/hot-reloading-in-react-1140438583bf)
      *
      * Losing hmr in development is not worth the theoretical
      * lost time in dev, for most users.
