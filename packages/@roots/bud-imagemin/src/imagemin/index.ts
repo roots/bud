@@ -11,25 +11,16 @@ export const name: Module['name'] =
 /**
  * Plugin options
  */
-export const options: Framework.Imagemin.Options = {
+export const options: () => Framework.Imagemin.Options = () => ({
   minimizerOptions: {
     plugins: [
       ['gifsicle', {interlaced: true}],
       ['jpegtran', {progressive: true}],
       ['optipng', {optimizationLevel: 7}],
-      [
-        'svgo',
-        {
-          plugins: [
-            {
-              removeViewBox: false,
-            },
-          ],
-        },
-      ],
+      ['svgo', {plugins: [{removeViewBox: false}]}],
     ],
   },
-}
+})
 
 /**
  * Plugin
