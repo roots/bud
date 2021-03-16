@@ -38,8 +38,10 @@
 
 ## Installation
 
+Due to changes in PostCss 8 regarding peer dependencies, you should explicitly install `postcss` alongside [@roots/bud-postcss](https://github.com/roots/bud/tree/stable/packages/@roots/bud-postcss)
+
 ```sh
-yarn add @roots/bud-postcss --dev
+yarn add @roots/bud-postcss postcss --dev
 ```
 
 ## Usage
@@ -56,48 +58,71 @@ Out of the box [@roots/bud-postcss](https://github.com/roots/bud/tree/stable/pac
 - `postcss-nested`
 - `postcss-custom-properties`
 
-If this works for you, great! No need to keep reading. But, if you need something more specialized, there is a configuration utility registered by [@roots/bud-postcss](https://github.com/roots/bud/tree/stable/packages/@roots/bud-postcss) designed to help you out.
+If you have a postcss config file set in your project, that configuration will be used instead of the defaults provided by this extension.
 
-### Plugins
+Valid config locations:
+
+- `postcss.config.js` file
+- `.postcssrc` file
+- `postcss` field in your project's `package.json`
+
+## API
+
+A configuration API is registered by [@roots/bud-postcss](https://github.com/roots/bud/tree/stable/packages/@roots/bud-postcss) for your convenience.
+
+All methods return `bud.postcss` for further chaining.
+
+### postcss.set
 
 Add a postcss plugin:
 
 ```js
-bud.postcss.setPlugin("postcss-import");
+bud.postcss.set("postcss-import");
 ```
+
+### postcss.unset
 
 Remove a postcss plugin:
 
 ```js
-bud.postcss.unsetPlugin("postcss-import");
+bud.postcss.unset("postcss-import");
 ```
+
+### postcss.setOptions
 
 Override any plugin options:
 
 ```js
-bud.postcss.setPluginOptions("postcss-import", {
+bud.postcss.setOptions("postcss-import", {
   path: bud.subscribe("build/resolve/modules"),
 });
 ```
 
+### postcss.setOrder
+
+Specify an explicit order in which to load plugins:
+
+```js
+bud.postcss.setOrder(["postcss-import", "postcss-nested"]);
+```
+
+Note that when using `postcss.set`, each plugin is implicitly added to the end of the order.
+
 ### Configuration example
 
-The implementation used by [@roots/bud-postcss](https://github.com/roots/bud/tree/stable/packages/@roots/bud-postcss) internally is identical to the one intended for use in bud config files:
+The implementation used by [@roots/bud-postcss](https://github.com/roots/bud/tree/stable/packages/@roots/bud-postcss) internally is the same one intended for use in the project config:
 
 ```js
 bud.postcss
-  .setPlugin("postcss-nested")
-  .setPlugin("postcss-custom-properties")
-  .setPlugin([
-    "postcss-import",
-    { path: bud.subscribe("build/resolve/modules") },
-  ])
-  .enable(["postcss-import", "postcss-nested", "postcss-custom-properties"]);
+  .set("postcss-nested")
+  .set("postcss-custom-properties")
+  .set(["postcss-import", { path: bud.subscribe("build/resolve/modules") }])
+  .setOrder(["postcss-import", "postcss-nested", "postcss-custom-properties"]);
 ```
 
 ## Hooks
 
-You can also customize the postcss config using hooks registered by [@roots/bud-postcss](https://github.com/roots/bud/tree/stable/packages/@roots/bud-postcss):
+You may also customize the postcss config using hooks registered by [@roots/bud-postcss](https://github.com/roots/bud/tree/stable/packages/@roots/bud-postcss):
 
 | Hooks                      | Description                                                                                                                                                                                                                        |
 | -------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
