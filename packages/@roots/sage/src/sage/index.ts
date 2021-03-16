@@ -44,6 +44,7 @@ export const sage: Sage = (sage =>
       ({env}: Bud) => env.has('APP_PUBLIC_PATH'),
       ({publicPath, env}: Bud) =>
         publicPath(env.get('APP_PUBLIC_PATH')),
+      ({publicPath}) => publicPath('public/'),
     )
 
     /**
