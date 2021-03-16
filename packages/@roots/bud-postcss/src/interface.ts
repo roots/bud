@@ -1,4 +1,5 @@
 import '@roots/bud-framework'
+import {Signale} from '@roots/bud-support'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -13,14 +14,14 @@ declare module '@roots/bud-framework' {
   namespace Framework {
     interface PostCss {
       /**
-       * ## postcss.enable
+       * ## postcss.log
        */
-      enable: PostCss.Enable
+      logger: Signale
 
       /**
-       * ## postcss.disable
+       * ## postcss.hasProjectConfig
        */
-      disable: PostCss.Disable
+      hasProjectConfig: boolean
 
       /**
        * ## postcss.plugins
@@ -30,11 +31,11 @@ declare module '@roots/bud-framework' {
       plugins: PostCss.Registry
 
       /**
-       * ## postcss.enabled
+       * ## postcss.ordered
        *
-       * Enabled plugins
+       * Specific order of plugins
        */
-      enabled: string[]
+      order: string[]
 
       /**
        * ## postcss.addPlugin
@@ -47,22 +48,26 @@ declare module '@roots/bud-framework' {
        * bud.postcss.addPlugin(MyPlugin, {plugin: 'options'})
        * ```
        */
-      setPlugin: (plugin: Framework.PostCss.Registrable) => this
+      set: (plugin: Framework.PostCss.Registrable) => this
 
       /**
        * ## postcss.setPluginOptions
        */
-      setPluginOptions: (plugin: string, options: any) => this
+      setOptions: (plugin: string, options: any) => this
 
       /**
-       * ## postcss.hasProjectConfig
+       * ## postcss.order
+       *
+       * Provide a specific order to load plugins
        */
-      hasProjectConfig: boolean
+      setOrder: (order: string[]) => this
 
       /**
-       * ## postcss.log
+       * ## postcss.makePluginsConfig
+       *
+       * Output final plugins config for postcss
        */
-      log: any
+      makeConfig: () => any
     }
 
     namespace PostCss {
@@ -75,18 +80,13 @@ declare module '@roots/bud-framework' {
         config?: boolean | string
       }
 
-      type Plugin = string | [string, any] | CallableFunction
+      type Plugin = CallableFunction
 
-      type Enable = (enable: string[]) => Framework
-      type Disable = (plugins: string[]) => Framework
-
-      type Registrable = string | [string, any]
-
-      type RegistryMutagen = (plugins: Registry) => Registry
-
-      interface Registry {
-        [key: string]: [string, any]
-      }
+      type Registrable = [string, any] | string
+      type Registry = {[key: string]: any}
+      type RegistryMutagen = (
+        plugins: Registrable,
+      ) => Registrable
     }
   }
 }

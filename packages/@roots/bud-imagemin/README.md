@@ -36,7 +36,7 @@ yarn add @roots/bud-imagemin --dev
 ## Usage
 
 ```js
-bud.use(["@roots/bud-imagemin"]);
+bud.use(['@roots/bud-imagemin'])
 ```
 
 Out of the box [@roots/bud-imagemin](https://github.com/roots/bud/tree/stable/packages/@roots/bud-imagemin) applies the following configuration:
@@ -54,11 +54,11 @@ Customize imagemin plugins with `bud.imagemin`.
 
 ```js
 bud.imagemin([
-  ["gifsicle", { interlaced: true }],
-  ["jpegtran", { progressive: true }],
-  ["optipng", { optimizationLevel: 5 }],
-  ["svgo", { plugins: [{ removeViewBox: false }] }],
-]);
+  ['gifsicle', {interlaced: true}],
+  ['jpegtran', {progressive: true}],
+  ['optipng', {optimizationLevel: 5}],
+  ['svgo', {plugins: [{removeViewBox: false}]}],
+])
 ```
 
 ## Contributing
