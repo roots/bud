@@ -1,19 +1,18 @@
 import './patch'
 import './interface'
 
-import {providers} from './providers'
 import {Framework} from '@roots/bud-framework'
+import {providers} from './services'
 import * as api from '@roots/bud-api'
 
-class Bud extends Framework {}
+/**
+ * Bud: Build tools
+ */
+class Bud extends Framework {
+  public name = 'bud'
+}
 
-const mode =
-  process.argv.includes('development') ||
-  process.argv.includes('dev')
-    ? 'development'
-    : 'production'
-
-const bud: Bud = new Bud({api, mode, providers})
+const bud: Bud = new Bud({api, providers})
   .bootstrap()
   .register()
   .boot()

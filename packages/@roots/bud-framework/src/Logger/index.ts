@@ -1,29 +1,35 @@
-import {Logger} from '@roots/bud-typings'
+import {Logger as Contract} from '@roots/bud-typings'
 import {
   Signale,
   SignaleConfig,
   SignaleOptions,
 } from '@roots/bud-support'
-import Service from '../Service'
 
 /**
  * Logger service
  */
-export default class extends Service implements Logger {
-  public name = 'framework/logger'
+export class Logger implements Contract {
+  /**
+   * Service ident
+   */
+  public name = 'service/logger'
 
-  public _instance: Signale
-
-  public baseOptions: SignaleOptions<'remind'> = {
-    disabled: false,
+  /**
+   * Logger options
+   */
+  public options: SignaleOptions<'remind'> = {
+    disabled: true,
     interactive: false,
     scope: 'framework',
     secrets: [process.cwd()],
     stream: process.stdout,
-    logLevel: 'info',
+    logLevel: 'all',
   }
 
-  public baseConfig: SignaleConfig = {
+  /**
+   * Logger config
+   */
+  public config: SignaleConfig = {
     displayScope: true,
     displayBadge: false,
     displayDate: false,
@@ -38,38 +44,38 @@ export default class extends Service implements Logger {
   }
 
   /**
-   * Boot service
+   * Logger instance
    */
-  public register(): void {
-    this.instance = this.makeLogger()
-  }
-
-  public makeLogger(props?: {
-    scope?: any
-    options?: any
-    config?: any
-  }) {
-    const options = props?.options ?? this.baseOptions
-    const config = props?.config ?? this.baseConfig
-    const logger = props?.scope
-      ? this.framework.scope(props.scope)
-      : new Signale({
-          ...options,
-          disabled:
-            !this.app.store.isTrue('options.log') &&
-            !this.app.store.isTrue('options.ci'),
-        })
-
-    logger.config(config)
-
-    return logger.scope(props?.scope ?? 'framework')
-  }
+  public _instance: Signale
 
   public get instance() {
     return this._instance
   }
 
-  public set instance(instance: Signale) {
+  public set instance(instance) {
     this._instance = instance
+  }
+
+  public constructor(enabled: boolean) {
+    this.makeLogger = this.makeLogger.bind(this)
+
+    this.instance = this.makeLogger()
+
+    if (enabled) {
+      this.instance.enable()
+    }
+  }
+
+  /**
+   * Make logger
+   */
+  public makeLogger() {
+    const logger = new Signale({
+      ...this.options,
+    })
+
+    logger.config(this.config)
+
+    return logger.scope('framework')
   }
 }

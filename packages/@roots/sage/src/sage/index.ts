@@ -152,4 +152,4 @@ export const sage: Sage = (sage =>
           .devtool('eval')
       },
     )
-    .html(false))(Object.assign(bud, {name: 'sage'}))
+    .html({enabled: false}))(Object.assign(bud, {name: 'sage'}))

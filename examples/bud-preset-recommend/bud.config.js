@@ -11,7 +11,6 @@ app
     '@styles': 'styles',
   })
   .html({
-    template: 'public/index.html',
     replace: {
       APP_TITLE: 'Bud Preset Demo',
     },
@@ -19,6 +18,4 @@ app
   .entry({
     app: ['styles/app.css', 'scripts/app.js'],
   })
-  .copy({'svg/': 'src/images/*.svg'})
-  .hash(false)
   .run()

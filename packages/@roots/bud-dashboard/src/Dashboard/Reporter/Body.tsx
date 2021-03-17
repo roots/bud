@@ -16,7 +16,6 @@ export const Body = ({
   colors,
   stats,
   progress,
-  bounds,
 }) => (
   <Box flexDirection="column">
     <Module label="Assets">

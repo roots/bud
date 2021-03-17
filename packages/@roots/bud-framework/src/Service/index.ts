@@ -180,11 +180,12 @@ export default class extends Container implements Service {
     const base = this.resolve(
       this.app.subscribe(
         'location/project',
-        '@roots/bud/service/modulePath',
+        'framework/service@modulePath',
       ),
+
       this.subscribe(
         'location/modules',
-        '@roots/bud/service/modulePath',
+        'framework/service@modulePath',
       ),
     )
 

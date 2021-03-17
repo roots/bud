@@ -1,5 +1,5 @@
 import {Framework} from '@roots/bud-framework'
-import {isBoolean, isUndefined} from 'lodash'
+import {isBoolean} from 'lodash'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -12,7 +12,8 @@ declare module '@roots/bud-framework' {
      *
      * ```js
      * app.html({
-     *   template: app.project('public/index.html'),
+     *   enabled: true, // default: true
+     *   template: 'public/index.html',
      *   replace: {
      *     APP_NAME: name,
      *     APP_DESCRIPTION: description,
@@ -25,69 +26,52 @@ declare module '@roots/bud-framework' {
   }
 
   namespace Framework.Api {
-    export type Html = (
-      options?:
-        | {
-            template?: string
-            replace?: {[key: string]: any}
-          }
-        | boolean,
-    ) => Framework
+    export type Html = (options?: {
+      enabled?: boolean
+      template?: string
+      replace?: {[key: string]: any}
+    }) => Framework
   }
 }
 
 export const html: Framework.Api.Html = function (options?) {
+  if (!options) {
+    this.store.enable('options.html.enabled')
+    return
+  }
+
   /**
-   * If noting specified or a boolean specified,
-   * we're done.
+   * Update the enabled status for the html plugin
    */
-  this.when(
-    isUndefined(options) || isBoolean(options),
-    () => {
-      /**
-       * Update the enabled status for the html plugin
-       */
-      this.store.set(
-        'options.html.enabled',
-        isBoolean(options) ? options : true,
-      )
-    },
-    () => {
-      /**
-       * Destructure keyed options
-       */
-      const {replace, template} = options as {
-        template?: string
-        replace?: {[key: string]: any}
-      }
+  isBoolean(options.enabled)
+    ? this.store.set('options.html.enabled', options.enabled)
+    : this.store.enable('options.html.enabled')
 
-      /**
-       * Apply any replacements in the interpolation plugin
-       */
-      replace &&
-        this.publish(
-          {
-            'extension/interpolate-html-plugin/options': opts => ({
-              ...opts,
-              ...replace,
-            }),
-          },
-          'api/html',
-        )
+  /**
+   * Apply any replacements in the interpolation plugin
+   */
+  options.replace &&
+    this.publish(
+      {
+        'extension/interpolate-html-plugin/options': opts => ({
+          ...opts,
+          ...options.replace,
+        }),
+      },
+      'api/html',
+    )
 
-      /**
-       * Set the html-webpack-plugin template
-       */
-      template &&
-        this.publish(
-          {
-            'extension/html-webpack-plugin/options/template': () =>
-              template,
-          },
-          'api/html',
-        )
-    },
-  )
+  /**
+   * Set the html-webpack-plugin template
+   */
+  options.template &&
+    this.publish(
+      {
+        'extension/html-webpack-plugin/options/template': () =>
+          options.template,
+      },
+      'api/html',
+    )
 
   return this
 }

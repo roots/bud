@@ -4,6 +4,7 @@
     "bud": "node ../../node_modules/.bin/bud"
   },
   "devDependencies": {
-    "@roots/bud-preset-recommend": "latest"
+    "@babel/core": "^7.13.10",
+    "postcss": "^8.2.8"
   }
 }

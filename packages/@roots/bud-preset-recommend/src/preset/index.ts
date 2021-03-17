@@ -8,15 +8,13 @@ import * as entrypoints from '@roots/bud-entrypoints'
  */
 declare type App = Bud
 
-export const app: App = ((bud: Bud) => {
-  bud.use([babel, postcss, entrypoints])
+export const app: App = ((bud: Bud) =>
+  bud
+    .use([babel, postcss, entrypoints])
 
-  bud.when(
-    ({isProduction}) => isProduction,
-    (bud: Bud) => bud.minify(),
-  )
-
-  return bud
-})(Object.assign(bud, {name: 'bud'}))
+    .when(
+      ({isProduction}) => isProduction,
+      (bud: Bud) => bud.minify(),
+    ))(bud)
 
 export type {App, Bud}

@@ -5,11 +5,11 @@ import {
   Webpack,
   webpackDevMiddleware,
 } from '@roots/bud-support'
-import Server from '../Server'
+import {Server} from '@roots/bud-typings'
 
 export interface DevFactoryOptions {
   compiler: Webpack.Compiler
-  config: Server['config']
+  config: Server.Config
 }
 
 const middlewareConfigKeys = [
@@ -38,7 +38,7 @@ const dev = ({
  * Make dev middlware options
  */
 const options = (
-  config: Server['config'],
+  config: Server.Config,
 ): webpackDevMiddleware.Options => ({
   logLevel: 'silent',
   ...Object.fromEntries(

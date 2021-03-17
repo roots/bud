@@ -1,6 +1,8 @@
 import {isFunction} from '@roots/bud-support'
 import {Container} from '@roots/container'
 import {Framework, MaybeCallable} from '@roots/bud-typings'
+
+import {Logger} from '../Logger'
 import {run} from './run'
 import {when} from './when'
 import {use} from './use'
@@ -10,12 +12,15 @@ import {noop} from 'lodash'
  * Bud framework base class
  */
 export default abstract class implements Framework {
+  /**
+   * Mode
+   */
   public _mode: 'development' | 'production'
 
   /**
    * Name
    */
-  public name = '@roots/bud'
+  public name = 'bud'
 
   /**
    * API
@@ -161,17 +166,9 @@ export default abstract class implements Framework {
    * Constructor
    */
   constructor(props: {
-    mode: 'production' | 'development'
     providers: Framework.Providers.Definition
     api: Framework.Index<any>
   }) {
-    /**
-     * Mode
-     */
-    this.mode = props?.mode
-    process.env.NODE_ENV = this.mode
-    process.env.BABEL_ENV = this.mode
-
     /**
      * Bind
      */
@@ -202,6 +199,20 @@ export default abstract class implements Framework {
    * Lifecycle: bootstrap
    */
   bootstrap(): this {
+    this.logger = new Logger(false)
+
+    /**
+     * Mode
+     */
+    this.mode =
+      process.argv.includes('development') ||
+      process.argv.includes('dev')
+        ? 'development'
+        : 'production'
+
+    process.env.NODE_ENV = this.mode
+    process.env.BABEL_ENV = this.mode
+
     this.api.every((name, fn) => {
       this[name] = fn.bind(this)
     })
@@ -216,7 +227,13 @@ export default abstract class implements Framework {
    */
   register(): this {
     this.providers.every(name => {
-      this[name].register && this[name].register()
+      if (!this[name].register) return
+      ;(this.store.enabled('options.log') ||
+        this.store.enabled('options.ci')) &&
+        this.logger.instance.enable()
+
+      !this[name].isRegistered && this[name].register()
+      this[name].isRegistered == true
     })
 
     return this

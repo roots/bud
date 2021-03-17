@@ -18,6 +18,11 @@ export interface Server extends Service {
   instance: Server.Instance
 
   /**
+   * Server application configuration.
+   */
+  config: Server.Config
+
+  /**
    * Client bundle assets (for injection)
    */
   assets: string[]
@@ -48,11 +53,13 @@ export interface Server extends Service {
 
 export namespace Server {
   export type Instance = Express.Application
-
-  export type Config = Framework.Container<Options>
+  /**
+   * @deprecated use Server.Config
+   */
+  export type Config = Container<Options>
 
   /**
-   * Options
+   * Server conf
    */
   export interface Options {
     middleware?: {

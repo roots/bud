@@ -28,14 +28,14 @@ export const DevelopmentFeatures = ({bud, colors}) => {
   const isDevelopment = bud.isDevelopment
   const [proxyAlive, setProxyAlive] = useState(null)
   const [serverAlive, setServerAlive] = useState(null)
-  const server = bud.store.get('server')
+  const server = bud.server.config
 
   useEffect(() => {
     setInterval(
       checkStatus(
-        server.middleware.proxy,
-        server.proxy.host,
-        server.proxy.port,
+        server.get('middleware.proxy'),
+        server.get('proxy.host'),
+        server.get('proxy.port'),
         setProxyAlive,
       ),
       5000,
@@ -43,14 +43,14 @@ export const DevelopmentFeatures = ({bud, colors}) => {
 
     setInterval(
       checkStatus(
-        server.middleware.dev,
-        server.host,
-        server.port,
+        server.get('middleware.dev'),
+        server.get('host'),
+        server.get('port'),
         setServerAlive,
       ),
       5000,
     )
-  }, [])
+  }, [server])
 
   return isDevelopment ? (
     <Box flexDirection="row" justifyContent="space-between">
@@ -59,20 +59,20 @@ export const DevelopmentFeatures = ({bud, colors}) => {
           label={'SERVE'}
           status={serverAlive}
           colors={colors}
-          enabled={server.middleware.dev}
-          host={server.host}
-          port={server.port}
+          enabled={server.get('middleware.dev')}
+          host={server.get('host')}
+          port={server.get('port')}
         />
         <Status
           label={'PROXY'}
           status={proxyAlive}
           colors={colors}
-          enabled={server.middleware.proxy}
-          host={server.proxy.host}
-          port={server.proxy.port}
+          enabled={server.get('middleware.proxy')}
+          host={server.get('proxy.host')}
+          port={server.get('proxy.port')}
         />
 
-        {server.middleware.hot ? (
+        {server.enabled('middleware.hot') ? (
           <Text>{`HMR:   enabled`}</Text>
         ) : (
           <Text dimColor>{`HMR:   disabled`}</Text>

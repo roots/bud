@@ -29,8 +29,8 @@ type Watch = (
 ) => Framework
 
 export const watch: Watch = function (watchlist, watchoptions) {
-  this.store.merge('server.watch.list', watchlist)
-  this.store.merge('server.watch.options', watchoptions)
+  this.server.config.set('watch.list', watchlist)
+  this.server.config.set('watch.options', watchoptions)
 
   return this
 }

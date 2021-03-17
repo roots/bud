@@ -1,8 +1,4 @@
-import type {
-  Webpack,
-  Container,
-  Server,
-} from '@roots/bud-typings'
+import type {Webpack, Server} from '@roots/bud-typings'
 import {Service} from '@roots/bud-framework'
 import {injectClient} from '../util/injectClient'
 import * as middleware from '../middleware'
@@ -29,6 +25,11 @@ export default class extends Service implements Server {
    * Application dev server instance.
    */
   public _instance: Server.Instance
+
+  /**
+   * Config
+   */
+  public _config: Server.Config
 
   /**
    * Client bundle assets (for injection)
@@ -60,18 +61,25 @@ export default class extends Service implements Server {
   }
 
   /**
-   * Service registration
+   * Config getter
    */
-  public register(): void {
-    this.run = this.run.bind(this)
-    this.instance = this.instance.bind(this)
+  public get config(): Server.Config {
+    return this._config
   }
 
   /**
-   * Server config values
+   * Config setter
    */
-  public get config(): Container<Server.Options> {
-    return this.app.makeContainer(this.app.store.get('server'))
+  public set config(config: Server.Config) {
+    this._config = config
+  }
+
+  /**
+   * Service boot
+   */
+  public boot(): void {
+    this.run = this.run.bind(this)
+    this.instance = this.instance.bind(this)
   }
 
   /**

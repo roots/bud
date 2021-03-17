@@ -73,7 +73,6 @@ export const Reporter: FunctionComponent<{
       <Main>
         <Body
           bud={bud}
-          bounds={bounds}
           col={col}
           colors={colors}
           stats={stats}

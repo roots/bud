@@ -14,6 +14,4 @@ export interface Logger {
     options?: any
     config?: any
   }) => void
-
-  register: () => void
 }

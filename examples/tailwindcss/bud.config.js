@@ -6,7 +6,7 @@ const {
 app
   .devtool()
   .html({
-    template: 'public/index.html',
+    template: app.project('public/index.html'),
     replace: {
       APP_TITLE: 'Tailwind Demo',
     },
