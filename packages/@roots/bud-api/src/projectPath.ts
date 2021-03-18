@@ -1,6 +1,6 @@
 import {Framework} from '@roots/bud-framework'
 
-type ProjectPath = (this: Framework, path: string) => Framework
+type ProjectPath = (path: string) => Framework
 
 declare module '@roots/bud-framework' {
   interface Framework {

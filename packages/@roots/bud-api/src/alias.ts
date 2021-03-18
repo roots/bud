@@ -8,7 +8,7 @@ declare module '@roots/bud-framework' {
      * Register shorthand for resolving modules
      * using webpack aliases. Useful for
      * situations that may otherwise require
-     * brittle relative paths. [🔗 Documentation](#)
+     * brittle relative paths.
      *
      * ### Usage
      *
@@ -22,14 +22,11 @@ declare module '@roots/bud-framework' {
   }
 
   namespace Framework.Api {
-    export type Alias = (
-      this: Framework,
-      alias: {
-        [key: string]: string
-      },
-    ) => Framework
+    export type {Alias}
   }
 }
+
+export type Alias = (alias: {[key: string]: string}) => Framework
 
 export const alias: Framework.Api.Alias = function (alias) {
   this.store.merge('options.resolve.alias', alias)

@@ -30,7 +30,7 @@ declare module '@roots/bud-framework' {
   }
 
   namespace Framework.Api {
-    export type Dist = (this: Framework, path?: string) => string
+    export type Dist = (path?: string) => string
   }
 }
 

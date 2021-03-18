@@ -5,8 +5,8 @@ export const brotli: Framework.Compress.Brotli.Config = function (
 ) {
   if (!options) return
 
-  this.extensions.set(
-    'compression-webpack-plugin-brotli.options',
+  this.publish(
+    'extension/compression-webpack-plugin-brotli/options',
     options,
   )
 

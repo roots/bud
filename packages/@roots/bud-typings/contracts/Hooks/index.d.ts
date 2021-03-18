@@ -92,7 +92,7 @@ export declare interface Hooks extends Service {
    * )
    * ```
    */
-  filter: Filter
+  filter<T = any>(id: string | string[]): T
 }
 
 export declare namespace Hooks {

@@ -58,13 +58,11 @@
   },
   "dependencies": {
     "@roots/bud": "^3.0.84-alpha.0",
-    "@roots/bud-api": "^3.0.84-alpha.0",
     "@roots/bud-babel": "^3.0.84-alpha.0",
     "@roots/bud-cli": "^3.0.84-alpha.0",
     "@roots/bud-entrypoints": "^3.0.84-alpha.0",
     "@roots/bud-esbuild": "^3.0.84-alpha.0",
     "@roots/bud-eslint": "^3.0.84-alpha.0",
-    "@roots/bud-framework": "^3.0.84-alpha.0",
     "@roots/bud-postcss": "^3.0.84-alpha.0",
     "@roots/bud-preset-recommend": "^3.0.84-alpha.0",
     "@roots/bud-prettier": "^3.0.84-alpha.0",
@@ -78,6 +76,8 @@
   },
   "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684",
   "devDependencies": {
+    "@roots/bud-framework": "^3.0.84-alpha.0",
+    "@roots/bud-api": "^3.0.84-alpha.0",
     "@types/node": "^14.14.31",
     "@types/webpack": "^4.41.26",
     "type-fest": "^0.21.2"

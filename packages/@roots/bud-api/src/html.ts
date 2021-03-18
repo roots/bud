@@ -27,8 +27,23 @@ declare module '@roots/bud-framework' {
 
   namespace Framework.Api {
     export type Html = (options?: {
+      /**
+       * Enable HTML generation
+       */
       enabled?: boolean
+
+      /**
+       * An HTML template to use. If none is supplied the
+       * default from @roots/bud-support will be used.
+       */
       template?: string
+
+      /**
+       * ### Replacements
+       *
+       * Template variable names are used as keys.
+       * Each key is associated with a replacement value.
+       */
       replace?: {[key: string]: any}
     }) => Framework
   }

@@ -1,4 +1,4 @@
-import '@roots/bud'
+import '@roots/bud-framework'
 
 interface LoaderOptions {
   target?:
@@ -30,49 +30,47 @@ declare module '@roots/bud-framework' {
      *
      * Configure ESBuild.
      */
-    esbuild: Framework.ESBuild
+    esbuild: ESBuild
   }
 
-  namespace Framework {
-    interface ESBuild {
-      /**
-       * ## bud.esbuild.setOptions
-       *
-       * Configure esbuild-loader options
-       *
-       * ### Usage
-       *
-       * ```js
-       * bud.babel.setOptions({
-       *  target: 'es2020',
-       * })
-       * ```
-       */
-      setOptions: Framework.ESBuild.SetOptions
+  interface ESBuild {
+    /**
+     * ## bud.esbuild.setOptions
+     *
+     * Configure esbuild-loader options
+     *
+     * ### Usage
+     *
+     * ```js
+     * bud.babel.setOptions({
+     *  target: 'es2020',
+     * })
+     * ```
+     */
+    setOptions: ESBuild.SetOptions
 
-      /**
-       * ## bud.esbuild.jsx
-       *
-       * Toggle esbuild jsx/tsx parsing
-       *
-       * ### Usage
-       *
-       * Disable:
-       *
-       * ```js
-       * bud.esbuild.jsx(false)
-       * ```
-       */
-      jsx: Framework.ESBuild.JSX
-    }
+    /**
+     * ## bud.esbuild.jsx
+     *
+     * Toggle esbuild jsx/tsx parsing
+     *
+     * ### Usage
+     *
+     * Disable:
+     *
+     * ```js
+     * bud.esbuild.jsx(false)
+     * ```
+     */
+    jsx: ESBuild.JSX
+  }
 
-    namespace ESBuild {
-      type SetOptions = (
-        type: 'js' | 'ts',
-        opts: LoaderOptions,
-      ) => Framework
+  namespace ESBuild {
+    type SetOptions = (
+      type: 'js' | 'ts',
+      opts: LoaderOptions,
+    ) => Framework
 
-      type JSX = (enabled?: boolean) => Framework
-    }
+    type JSX = (enabled?: boolean) => Framework
   }
 }

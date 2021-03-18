@@ -38,7 +38,7 @@ export const config: Framework.Api.Config = function ({css}) {
 /**
  * Relativize dist url()
  */
-const _cssRelativeUrls = function (this: Framework) {
+const _cssRelativeUrls = function () {
   const relativePath = this.disk.path.posix.relative(
     this.subscribe('location/dist', 'api/config'),
     this.subscribe('location/src', 'api/config'),

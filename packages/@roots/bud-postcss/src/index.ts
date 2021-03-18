@@ -23,20 +23,6 @@ export const api: Module['api'] = (app: Framework) => ({
 })
 
 /**
- * Topics
- */
-export const topics: Module['topics'] = [
-  'loader/postcss',
-  'item/postcss',
-  'item/postcss/loader',
-  'item/postcss/options',
-  'item/postcss/sourceMap',
-  'item/postcss/postcssOptions',
-  'item/postcss/plugins',
-  'item/postcss/config',
-]
-
-/**
  * Publishes
  */
 export const publish: Module['publish'] = (app: Framework) => ({

@@ -23,7 +23,7 @@ declare module '@roots/bud-framework' {
   }
 }
 
-type SrcPath = (this: Framework, path: string) => Framework
+type SrcPath = (path: string) => Framework
 
 export const srcPath: SrcPath = function (path) {
   this.when(

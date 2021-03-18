@@ -1,16 +1,17 @@
 // @ts-check
 const {
-  app,
+  bud,
 } = require('./../../packages/@roots/bud-preset-recommend')
 
-app
-  .devtool()
+bud.minify()
+
+bud
   .html({
-    template: app.project('public/index.html'),
+    template: bud.project('public/index.html'),
     replace: {
       APP_TITLE: 'Tailwind Demo',
     },
   })
   .use(require('@roots/bud-tailwindcss'))
-  .entry('bud-tailwind', ['app.css', 'app.js'])
+  .entry('app', ['app.css', 'app.js'])
   .run()

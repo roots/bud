@@ -10,7 +10,6 @@ import Service from './Service'
  *
  * [🏡 Project home](https://roots.io/bud)
  * [🧑‍💻 roots/bud](https://github.com/roots/bud/blob/stable/README.md)
- * [📦 @roots/bud-extensions](https://github.com/roots/bud/blob/stable/packages/bud-extensions/readme.md)
  */
 export default class extends Service {
   /**

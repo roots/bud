@@ -1,35 +1,59 @@
 import {Container} from '@roots/container'
-import {
-  FileContainer,
-  Framework,
-  Service,
-} from '@roots/bud-typings'
+import {Framework} from '../Framework'
 import {fs, globby, lodash} from '@roots/bud-support'
+import {FileContainer} from '@roots/bud-typings'
 import path from 'path'
 
 /**
  * Framework service
  */
-export default class extends Container implements Service {
+export class Service extends Container {
+  /**
+   * Loose
+   */
   [key: string]: any
 
+  /**
+   * Name
+   */
   public name: string | number
 
-  private _app: () => Framework
+  /**
+   * Application
+   */
+  private _app: Framework['get']
 
-  public constructor(
-    app: () => Framework,
-    repository?: Container['repository'],
-    dependencies?: {[key: string]: any},
-  ) {
-    super(repository)
+  /**
+   * Register
+   */
+  public register() {}
 
+  /**
+   * Boot
+   */
+  public boot() {}
+
+  /**
+   * Framework lifecycle: bootstrapped
+   */
+  public bootstrapped(app: Framework) {}
+
+  /**
+   * Framework lifecycle: registered
+   */
+  public registered(app: Framework) {}
+
+  /**
+   * Framework lifecycle: booted
+   */
+  public booted(app: Framework) {}
+
+  /**
+   * Constructor
+   */
+  public constructor(app: Framework['get']) {
+    super()
     this._app = app
-
-    dependencies &&
-      Object.entries(dependencies).forEach(
-        ([name, item]) => (this[name] = item),
-      )
   }
 
   /**
@@ -37,13 +61,6 @@ export default class extends Container implements Service {
    */
   public get app(): Framework {
     return this._app()
-  }
-
-  /**
-   * Store
-   */
-  public get store() {
-    return this.app.store
   }
 
   /**
@@ -55,10 +72,16 @@ export default class extends Container implements Service {
     return fs
   }
 
+  /**
+   * lodash
+   */
   public get _(): typeof lodash {
     return lodash
   }
 
+  /**
+   * read json
+   */
   public get readJson(): CallableFunction {
     return fs.readJSONSync
   }
@@ -77,14 +100,42 @@ export default class extends Container implements Service {
     return path
   }
 
+  /**
+   * Dirname
+   */
   public get dirname(): CallableFunction {
     return path.dirname
   }
 
+  /**
+   * Resolve
+   */
   public get resolve(): CallableFunction {
     return path.resolve
   }
 
+  /**
+   * Path to node_modules
+   */
+  public modulePath(path?: string): string {
+    const base = this.path.posix.resolve(
+      this.app.subscribe(
+        'location/project',
+        'framework/service@modulePath',
+      ),
+
+      this.subscribe(
+        'location/modules',
+        'framework/service@modulePath',
+      ),
+    )
+
+    return path ? this.path.join(base, path) : base
+  }
+
+  /**
+   * Filter unique
+   */
   public filterUnique(value, index, self) {
     return self.indexOf(value) === index
   }
@@ -94,6 +145,13 @@ export default class extends Container implements Service {
    */
   public service<T = any>(serviceName: string | number): T {
     return this.app.get<T>(serviceName)
+  }
+
+  /**
+   * Access disk
+   */
+  public disk<T = FileContainer>(diskName: string | number): T {
+    return this.app.disk.get(diskName)
   }
 
   /**
@@ -115,13 +173,6 @@ export default class extends Container implements Service {
    */
   public get publish() {
     return this.app.publish
-  }
-
-  /**
-   * Access disk
-   */
-  public disk<T = FileContainer>(diskName: string | number): T {
-    return this.app.disk.get(diskName)
   }
 
   /**
@@ -171,24 +222,5 @@ export default class extends Container implements Service {
    */
   public get debug() {
     return this.app.logger.instance.scope(this.name).debug
-  }
-
-  /**
-   * Path to node_modules
-   */
-  public modulePath(path?: string): string {
-    const base = this.resolve(
-      this.app.subscribe(
-        'location/project',
-        'framework/service@modulePath',
-      ),
-
-      this.subscribe(
-        'location/modules',
-        'framework/service@modulePath',
-      ),
-    )
-
-    return path ? this.path.join(base, path) : base
   }
 }

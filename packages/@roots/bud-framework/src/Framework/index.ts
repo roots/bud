@@ -1,223 +1,119 @@
-import {isFunction} from '@roots/bud-support'
+import {
+  Framework as Contract,
+  MaybeCallable,
+  Bootstrapper,
+} from '@roots/bud-typings'
 import {Container} from '@roots/container'
-import {Framework, MaybeCallable} from '@roots/bud-typings'
-
-import {Logger} from '../Logger'
-import {run} from './run'
-import {when} from './when'
-import {use} from './use'
-import {noop} from 'lodash'
+import {Service} from '../Service'
+import {isEqual, isFunction} from 'lodash'
 
 /**
  * Bud framework base class
  */
-export default abstract class implements Framework {
-  /**
-   * Mode
-   */
-  public _mode: 'development' | 'production'
-
-  /**
-   * Name
-   */
+export abstract class Framework implements Contract {
   public name = 'bud'
 
-  /**
-   * API
-   */
-  public api: Framework.Index<any>
+  public services: Container
 
-  /**
-   * Build
-   */
-  public build: Framework.Build
+  public abstract build: Contract.Build
 
-  /**
-   * Cache
-   */
-  public cache: Framework.Cache
+  public abstract cache: Contract.Cache
 
-  /**
-   * CLI
-   */
-  public cli: Framework.CLI
+  public abstract cli: Contract.CLI
 
-  /**
-   * CLI Dashboard
-   */
-  public dashboard: Framework.Dashboard
+  public abstract compiler: Contract.Compiler
 
-  /**
-   * Compiler
-   */
-  public compiler: Framework.Compiler
+  public abstract dashboard: Contract.Dashboard
 
-  /**
-   * Discovery
-   */
-  public discovery: Framework.Discovery
+  public abstract dependencies: Contract.Dependencies
 
-  /**
-   * Dependencies
-   */
-  public dependencies: Framework.Dependencies
+  public abstract discovery: Contract.Discovery
 
-  /**
-   * Disk
-   */
-  public disk: Framework.Disk
+  public abstract disk: Contract.Disk
 
-  /**
-   * Env
-   */
-  public env: Framework.Env
+  public abstract env: Contract.Env
 
-  /**
-   * Extensions
-   */
-  public extensions: Framework.Extensions
+  public abstract extensions: Contract.Extensions
 
-  /**
-   * Hooks
-   */
-  public hooks: Framework.Hooks
+  public abstract hooks: Contract.Hooks
 
-  /**
-   * Logger
-   */
-  public logger: Framework.Logger
+  public abstract logger: Contract.Logger
 
-  /**
-   * Providers
-   */
-  public providers: Framework.Container
+  public abstract server: Contract.Server
 
-  /**
-   * Services
-   */
-  public services: Framework.Container
+  public abstract store: Contract.Store
 
-  /**
-   * Server
-   */
-  public server: Framework.Server
+  public abstract get mode(): 'development' | 'production'
 
-  /**
-   * Store
-   */
-  public store: Framework.Store
+  public abstract get isProduction(): boolean
 
-  /**
-   * ## bud.run  [💁 Fluent]
-   *
-   * Run the build
-   *
-   * ### Usage
-   *
-   * ```js
-   * bud.run()
-   * ```
-   *
-   * Disable the custom dashboard (use webpack default output)
-   *
-   * ```js
-   * bud.run(true)
-   * ```
-   */
-  public run: () => void
+  public abstract get isDevelopment(): boolean
 
-  /**
-   * ## bud.when  [💁 Fluent]
-   *
-   * Executes a function if a given test is `true`.
-   *
-   * - The first parameter is the conditional check.
-   * - The second parameter is the function to be run if `true`.
-   * - The third paramter is optional; ran if not `true`.
-   *
-   * ### Usage
-   *
-   * ```js
-   * bud.when(bud.mode.is('production'), () => bud.vendor())
-   * ```
-   */
-  public when: (
-    test: boolean | ((app: this) => boolean),
-    isTrue: (app: this) => unknown,
-    isFalse?: (app: this) => unknown,
-  ) => this
+  public abstract topics(topics: string[], caller?: string)
 
-  /**
-   * ## bud.use [💁 Fluent]
-   *
-   * Register an extension or set of extensions
-   *
-   * ### Usage
-   *
-   * ```js
-   * bud.use(['@roots/bud-babel', '@roots/bud-react'])
-   * ```
-   */
-  public use: (
-    source: Framework.Module | Framework.Module[],
-  ) => this
+  public abstract subscribe<T = any>(
+    name: string,
+    caller?: string,
+  ): T
+
+  public abstract publish<T = any>(
+    name: {[key: string]: any},
+    caller?: string,
+  )
 
   /**
    * Constructor
    */
-  constructor(props: {
-    providers: Framework.Providers.Definition
-    api: Framework.Index<any>
+  constructor(services: {
+    [key: string]: new (app: Framework['get']) =>
+      | Service
+      | Bootstrapper
   }) {
-    /**
-     * Bind
-     */
     this.access = this.access.bind(this)
     this.boot = this.boot.bind(this)
     this.bootstrap = this.bootstrap.bind(this)
     this.get = this.get.bind(this)
-    this.makeContainer = this.makeContainer.bind(this)
-    this.makeService = this.makeService.bind(this)
+    this.container = this.container.bind(this)
     this.pipe = this.pipe.bind(this)
     this.sequence = this.sequence.bind(this)
     this.register = this.register.bind(this)
-    this.publish = this.publish.bind(this)
-    this.subscribe = this.subscribe.bind(this)
-
-    this.run = run.bind(this)
-    this.use = use.bind(this)
-    this.when = when.bind(this)
+    this.when = this.when.bind(this)
 
     /**
-     * Essential containers
+     * Containerize services
      */
-    this.api = this.makeContainer(props.api)
-    this.providers = this.makeContainer(props.providers)
+    this.services = this.container(services)
   }
 
   /**
    * Lifecycle: bootstrap
    */
   bootstrap(): this {
-    this.logger = new Logger(false)
-
     /**
-     * Mode
+     * NODE_ENV & BABEL_ENV
      */
-    this.mode =
-      process.argv.includes('development') ||
-      process.argv.includes('dev')
-        ? 'development'
-        : 'production'
-
     process.env.NODE_ENV = this.mode
     process.env.BABEL_ENV = this.mode
 
-    this.api.every((name, fn) => {
-      this[name] = fn.bind(this)
-    })
+    /**
+     * Instantiate services
+     */
+    this.services.mutateStoreEntries(
+      (name: string, Instance) =>
+        (this[name] = new Instance(this.get)),
+    )
 
-    this.providers.every(this.makeService)
+    /**
+     * Call end of lifecycle method
+     */
+    this.services.every((service: string | number) =>
+      this.get<Service>(service).bootstrapped(this),
+    )
+
+    /**
+     * Boot
+     */
+    this.register().boot()
 
     return this
   }
@@ -226,14 +122,13 @@ export default abstract class implements Framework {
    * Lifecycle: registration
    */
   register(): this {
-    this.providers.every(name => {
-      if (!this[name].register) return
-      ;(this.store.enabled('options.log') ||
-        this.store.enabled('options.ci')) &&
-        this.logger.instance.enable()
+    this.services.every(service => {
+      this.log(`Registering ${service}`)
+      this.get<Service>(service).register()
+    })
 
-      !this[name].isRegistered && this[name].register()
-      this[name].isRegistered == true
+    this.services.every(service => {
+      this.get<Service>(service).registered(this)
     })
 
     return this
@@ -243,9 +138,13 @@ export default abstract class implements Framework {
    * Lifecycle boot
    */
   public boot(): this {
-    this.providers.every(name => {
-      this.log(`Booting ${name}`)
-      this[name].boot && this[name].boot()
+    this.services.every(service => {
+      this.log(`Booting ${service}`)
+      this.get<Service>(service).boot()
+    })
+
+    this.services.every(service => {
+      this.get<Service>(service).booted(this)
     })
 
     return this
@@ -254,38 +153,66 @@ export default abstract class implements Framework {
   /**
    * Get framework.
    */
-  public get<T = this>(service?: string): T {
+  public get<T = this>(service?: string | number): T {
     return service ? this[service] : this
   }
 
   /**
-   * Access
+   * ## access
    *
-   * Access a Framework component or datatype
-   * that might be a function taking a single app parameter
+   * If a value is a function it will call that
+   * function and return the result.
+   *
+   * If the value is not a function it will return its value.
+   *
+   * ```js
+   * const isAFunction = (option) => `option value: ${option}`
+   * const isAValue = 'option value: true'
+   *
+   * access(isAFunction, true)
+   * // => `option value: true`
+   *
+   * access(isAValue)
+   * // => `option value: true`
+   * ```
    */
   public access<I = unknown>(value: MaybeCallable<I>): I {
     return isFunction(value) ? value(this) : value
   }
 
   /**
-   * ## bud.makeContainer
+   * ## container
    *
    * Make a new container
    *
    * ### Usage
    *
    * ```js
-   * const container = bud.makeContainer({data: 'stuff'})
+   * const container = app.container({data: 'stuff'})
    * container.get('data') // => 'stuff'
    * ```
    */
-  public makeContainer(repository?: any): Container {
+  public container(repository?: any): Container {
     return new Container(repository ?? {})
   }
 
   /**
-   * Pipe functions
+   * ## pipe [💁 Fluent]
+   *
+   * Execute an array of functions. The first is passed the
+   * bud object Each will be the result of
+   * the one preceeding it.
+   *
+   * Returns the final result.
+   *
+   * ### Usage
+   *
+   * ```js
+   * app.pipe([
+   *   bud => app.srcPath('resources'),
+   *   bud => app.proxy(),
+   * ])
+   * ```
    */
   public pipe<I = any, R = any>(
     fns: CallableFunction[],
@@ -308,79 +235,34 @@ export default abstract class implements Framework {
   }
 
   /**
-   * Create new service
-   */
-  public makeService(
-    name: string,
-    service: [
-      Framework.Providers.Constructor,
-      Framework.Providers.Options,
-    ],
-  ): void {
-    const [Service, options] = service
-
-    this[name] = new Service(
-      this.get,
-      options?.containers ?? null,
-      options?.dependencies ?? null,
-    )
-  }
-
-  /**
-   * Topics
-   */
-  public topics(topics: string[], caller?: string) {
-    topics.map(topic => this.hooks.set(topic, [noop]))
-  }
-
-  /**
-   * Subscriptions
-   */
-  public subscribe(name: string, caller?: string) {
-    return this.hooks.filter(caller ? [caller, name] : name)
-  }
-
-  /**
-   * Publish
-   */
-  public publish<T = any>(
-    pubs: {[key: string]: any},
-    caller?: string,
-  ) {
-    Object.entries(pubs).map(([name, pub]: [string, any]) => {
-      this.hooks.on(caller ? [caller, name] : name, pub)
-    })
-  }
-
-  /**
-   * Mode
-   */
-  public get mode(): 'production' | 'development' {
-    return this._mode
-  }
-
-  /**
-   * Mode
-   */
-  public set mode(mode: 'production' | 'development') {
-    this._mode = mode
-  }
-
-  /**
-   * ## bud.isProduction
+   * ## when  [💁 Fluent]
    *
-   * True if Webpack.Configuration['mode'] is 'production'
-   */
-  public get isProduction(): boolean {
-    return this.mode === 'production'
-  }
-  /**
-   * ## bud.isDevelopment
+   * Executes a function if a given test is `true`.
    *
-   * True if Webpack.Configuration['mode'] is 'development'
+   * - The first parameter is the conditional check.
+   *     - It can be a boolean statement (app.inDevelopment)
+   *     - It can be a fn, which is passed the app and returns the boolean
+   *
+   * - The second parameter is the function to be run if `true`.
+   *
+   * - The third paramter is optional; ran if not `true`.
+   *
+   * ### Usage
+   *
+   * ```js
+   * app.when(app.mode.is('production'), () => app.vendor())
+   * ```
    */
-  public get isDevelopment(): boolean {
-    return this.mode === 'development'
+  public when(
+    test: ((app: Framework) => boolean) | boolean,
+    isTrue: (app: Framework) => any,
+    isFalse?: (app: Framework) => any,
+  ): Framework {
+    isEqual(this.access(test), true)
+      ? isFunction(isTrue) && isTrue.bind(this)(this)
+      : isFunction(isFalse) && isFalse.bind(this)(this)
+
+    return this
   }
 
   public log(...args) {

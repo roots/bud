@@ -1,5 +1,4 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin'
-import {Module} from '@roots/bud-typings'
 import {Framework} from '@roots/bud-framework'
 
 /**
@@ -8,19 +7,9 @@ import {Framework} from '@roots/bud-framework'
 export const name = `html-webpack-plugin`
 
 /**
- * Topics
- */
-export const topics: Module['topics'] = [
-  'extension/html-webpack-plugin/options/alwaysWriteToDisk',
-  'extension/html-webpack-plugin/options/base',
-  'extension/html-webpack-plugin/options/template',
-  'extension/html-webpack-plugin/options/inject',
-]
-
-/**
  * Publishes
  */
-export const publish: Module['publish'] = app => ({
+export const publish = app => ({
   ['extension/html-webpack-plugin/options/alwaysWriteToDisk']: () =>
     true,
   ['extension/html-webpack-plugin/options/base']: () =>
@@ -36,9 +25,7 @@ export const publish: Module['publish'] = app => ({
 /**
  * Options
  */
-export const options: Module.Options<HtmlWebpackPlugin.Options> = (
-  app: Framework,
-) => ({
+export const options = (app: Framework) => ({
   alwaysWriteToDisk: app.subscribe(
     'extension/html-webpack-plugin/options/alwaysWriteToDisk',
   ),
@@ -53,13 +40,11 @@ export const options: Module.Options<HtmlWebpackPlugin.Options> = (
 /**
  * Make plugin
  */
-export const make: Module.Make<
-  HtmlWebpackPlugin,
-  Module.Options<HtmlWebpackPlugin.Options>
-> = options => new HtmlWebpackPlugin(options.all())
+export const make = options =>
+  new HtmlWebpackPlugin(options.all())
 
 /**
  * Conditions
  */
-export const when: Module.When = ({store, subscribe}) =>
+export const when = ({store, subscribe}) =>
   store.isTrue('options.html.enabled')

@@ -1,13 +1,11 @@
+import {Framework} from '@roots/bud-framework'
 import Plugin from 'copy-webpack-plugin'
 import {Module} from '@roots/bud-typings'
-import {Framework} from '@roots/bud-framework'
 
 const HOOK_PATTERNS =
   'extension/webpack-copy-plugin/options/patterns'
 
 export const name: Module['name'] = 'webpack-copy-plugin'
-
-export const topics: Module['topics'] = () => [HOOK_PATTERNS]
 
 export const publish: Module['publish'] = app => ({
   [HOOK_PATTERNS]: () => [],

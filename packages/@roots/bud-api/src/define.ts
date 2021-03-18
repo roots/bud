@@ -24,10 +24,9 @@ declare module '@roots/bud-framework' {
   }
 }
 
-type Define = (
-  this: Framework,
-  values: {[key: string]: Webpack.DefinePlugin.CodeValueObject},
-) => Framework
+type Define = (values: {
+  [key: string]: Webpack.DefinePlugin.CodeValueObject
+}) => Framework
 
 export const define: Define = function (values) {
   this.publish({

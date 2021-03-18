@@ -15,4 +15,5 @@ export * as api from './api'
 /**
  * Extension boot
  */
-export const boot: Module['boot'] = ({use}) => use(Plugin)
+export const boot: Module['boot'] = ({extensions}) =>
+  extensions.add('image-minimizer-webpack-plugin', Plugin)

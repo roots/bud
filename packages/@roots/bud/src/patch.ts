@@ -1,12 +1,6 @@
 /**
  * This fixes issues with SWR thinking its in the browser.
  */
-declare module NodeJS {
-  interface Global {
-    navigator: any
-  }
-}
-
 global.navigator = {}
 
 /**

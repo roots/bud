@@ -8,7 +8,7 @@ export const name = 'optimize-css-assets-webpack-plugin'
 export const options: Module.Options<Plugin.Options> = (
   app: Framework,
 ) => {
-  const devtool = app.subscribe('build/devtool')
+  const devtool = app.store.get('options.devtool')
 
   return {
     assetNameRegExp: /\.css$/g,
@@ -33,4 +33,4 @@ export const make: Module.Make<
 > = options => new Plugin(options.all())
 
 export const when: Module.When = app =>
-  app.store.enabled('options.minify')
+  app.store.enabled('options.minimize')

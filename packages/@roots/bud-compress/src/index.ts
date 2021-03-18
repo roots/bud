@@ -5,5 +5,9 @@ import * as brotli from './brotli'
 import * as gzip from './gzip'
 
 export const name: Module['name'] = '@roots/bud-compress'
-export const boot: Module['boot'] = (app: Framework) =>
-  app.use([brotli, gzip])
+export const boot: Module['boot'] = ({
+  extensions,
+}: Framework) => {
+  extensions.add('compression-webpack-plugin-brotli', brotli)
+  extensions.add('compression-webpack-plugin-gzip', gzip)
+}

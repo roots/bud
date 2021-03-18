@@ -11,7 +11,7 @@ declare module '@roots/bud-framework' {
     postcss: Framework.PostCss
   }
 
-  namespace Framework {
+  export namespace Framework {
     interface PostCss {
       /**
        * ## postcss.log

@@ -1,5 +1,8 @@
-import '@roots/bud'
+import '@roots/bud-api'
+import '@roots/bud-framework'
+
 import {Module} from '@roots/bud-typings'
+
 import Plugin from 'compression-webpack-plugin'
 
 declare module '@roots/bud-framework' {

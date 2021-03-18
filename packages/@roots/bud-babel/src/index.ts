@@ -23,20 +23,6 @@ export const devDependencies: Module['devDependencies'] = [
 ]
 
 /**
- * Topics
- */
-export const topics: Module['topics'] = [
-  'item/babel',
-  'item/babel/loader',
-  'item/babel/options',
-  'item/babel/options/root',
-  'item/babel/options/presets',
-  'item/babel/options/plugins',
-  'item/babel/options/cacheDirectory',
-  'loader/babel',
-]
-
-/**
  * Publishes
  */
 export const publish: Module['publish'] = (app: Framework) => ({

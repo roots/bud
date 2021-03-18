@@ -1,20 +1,8 @@
-import './patch'
 import './interface'
-
+import './patch'
+import {Bud as BudConstructor} from './Bud'
 import {Framework} from '@roots/bud-framework'
-import {providers} from './services'
-import * as api from '@roots/bud-api'
+import {services} from './services'
 
-/**
- * Bud: Build tools
- */
-class Bud extends Framework {
-  public name = 'bud'
-}
-
-const bud: Bud = new Bud({api, providers})
-  .bootstrap()
-  .register()
-  .boot()
-
-export {bud, Bud}
+export declare type Bud = Framework
+export const bud: Bud = new BudConstructor(services).bootstrap()

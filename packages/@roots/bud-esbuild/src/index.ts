@@ -1,27 +1,11 @@
 import './interface'
+
 import {Framework} from '@roots/bud-framework'
 import {Module} from '@roots/bud-typings'
 import {ESBuildPlugin, ESBuildMinifyPlugin} from 'esbuild-loader'
 import * as configApi from './api'
 
 export const name: Module['name'] = '@roots/bud-esbuild'
-
-export const topics: Module['topics'] = [
-  'loader/esbuild',
-  'item/esbuild-js',
-  'item/esbuild-js/loader',
-  'item/esbuild-js/options',
-  'item/esbuild-ts',
-  'item/esbuild-ts/loader',
-  'item/esbuild-ts/options',
-  'item/esbuild-ts/options/loader',
-  'item/esbuild-ts/options/target',
-  'item/esbuild-ts/options/tsconfigRaw',
-  'rule/ts',
-  'rule/ts/use',
-  'rule/ts/include',
-  'rule/ts/exclude',
-]
 
 export const publish: Module['publish'] = (app: Framework) => ({
   /**

@@ -1,6 +1,6 @@
 import {Framework} from '@roots/bud-framework'
 
-type Minify = (this: Framework, enabled?: boolean) => Framework
+type Minify = (enabled?: boolean) => Framework
 
 declare module '@roots/bud-framework' {
   export interface Framework {

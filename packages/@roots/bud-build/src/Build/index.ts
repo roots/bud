@@ -18,12 +18,24 @@ export default class extends Service implements Build {
   /**
    * Service registration
    */
-  public boot(): void {
+  public register(): void {
     this.make = this.make.bind(this)
+  }
 
-    this.builders.rules(this.app)
-    this.builders.items(this.app)
-    this.builders.config(this.app)
+  /**
+   * Framework lifecycle
+   */
+  public registered(): void {
+    this.get('rules')(this.app)
+    this.get('items')(this.app)
+    this.get('config')(this.app)
+  }
+
+  /**
+   * Make build
+   */
+  public get build() {
+    return this.subscribe('build', '@roots/bud-build/make')
   }
 
   /**
@@ -32,6 +44,6 @@ export default class extends Service implements Build {
    * Produce a final webpack config.
    */
   public make(): Webpack.Configuration {
-    return this.subscribe('build', '@roots/bud-build/make')
+    return this.build
   }
 }

@@ -19,7 +19,7 @@ declare module '@roots/bud-framework' {
   }
 }
 
-type Storage = (this: Framework, path: string) => Framework
+type Storage = (path: string) => Framework
 
 export const storage: Storage = function (path?) {
   if (path) {

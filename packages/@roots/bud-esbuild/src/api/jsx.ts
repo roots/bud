@@ -1,7 +1,7 @@
-import type {Framework} from '@roots/bud-framework'
+import {ESBuild, Framework} from '@roots/bud-framework'
 import {isEqual} from '@roots/bud-support'
 
-export const jsx: Framework.ESBuild.JSX = function (enabled) {
+export const jsx: ESBuild.JSX = function (enabled): Framework {
   this.publish({
     'item/esbuild-js/options/loader': () =>
       isEqual(enabled, false) ? 'js' : 'jsx',

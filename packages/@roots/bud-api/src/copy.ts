@@ -29,7 +29,6 @@ declare module '@roots/bud-framework' {
 }
 
 type Copy = (
-  this: Framework,
   jobs: {[from: string]: string},
   options?: {[key: string]: any},
 ) => Framework

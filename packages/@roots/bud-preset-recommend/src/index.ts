@@ -1,2 +1,4 @@
-import {app, App} from './preset'
-export {app, App, app as bud, App as Bud}
+import '@roots/bud-api'
+import '@roots/bud-framework'
+
+export {bud, Bud} from './preset'

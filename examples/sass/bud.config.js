@@ -1,9 +1,9 @@
 // @ts-check
 const {
-  app,
+  bud,
 } = require('./../../packages/@roots/bud-preset-recommend')
 
-app
+bud
   .use(require('@roots/bud-sass'))
   .entry('app', ['app.scss'])
   .run()

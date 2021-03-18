@@ -1,11 +1,8 @@
 import {Framework} from '@roots/bud-framework'
 
-type Provide = (
-  this: Framework,
-  packages?: {
-    [key: string]: string | string[]
-  },
-) => Framework
+type Provide = (packages?: {
+  [key: string]: string | string[]
+}) => Framework
 
 declare module '@roots/bud-framework' {
   export interface Framework {

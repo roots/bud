@@ -1,5 +1,6 @@
 import {lodash as _} from '@roots/bud-support'
-import {Framework, Module} from '@roots/bud-typings'
+import {Framework} from '@roots/bud-framework'
+import {Module} from '@roots/bud-typings'
 import {isBoolean, isEmpty, isFunction} from 'lodash'
 
 /**
@@ -58,11 +59,6 @@ export default class {
     this.module.api &&
       Object.assign(this.app, this.app.access(this.module.api))
 
-    this.module.topics &&
-      this.app.topics(
-        this.app.access<string[]>(this.module.topics),
-      )
-
     this.module.publish &&
       this.app.publish(
         this.app.access<{[key: string]: any}>(
@@ -104,6 +100,9 @@ export default class {
    * Install package dependencies
    */
   public install(): void {
+    /**
+     * Production dependencies
+     */
     this.module.dependencies &&
       !isEmpty(this.module.dependencies) &&
       this.app.dependencies.install(
@@ -111,6 +110,9 @@ export default class {
         this.module.name,
       )
 
+    /**
+     * Development dependencies
+     */
     this.module.devDependencies &&
       !isEmpty(this.module.devDependencies) &&
       this.app.dependencies.installDev(
@@ -119,6 +121,9 @@ export default class {
       )
   }
 
+  /**
+   * module.options getter
+   */
   public get options() {
     this.logger.log(
       `Extension options queried: ${this.module.name}`,
@@ -127,7 +132,7 @@ export default class {
       ),
     )
 
-    return this.app.makeContainer(
+    return this.app.container(
       this.app.subscribe(
         `extension/${this.module.name}/options`,
       ),

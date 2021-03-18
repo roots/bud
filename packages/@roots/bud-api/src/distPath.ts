@@ -20,10 +20,7 @@ declare module '@roots/bud-framework' {
   }
 
   namespace Framework.Api {
-    export type DistPath = (
-      this: Framework,
-      segment: string,
-    ) => Framework
+    export type DistPath = (segment: string) => Framework
   }
 }
 

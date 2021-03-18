@@ -53,6 +53,8 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
+    "@roots/container": "^3.0.84-alpha.0",
+    "@roots/bud-framework": "^3.0.84-alpha.0",
     "@roots/bud-typings": "^3.0.84-alpha.0",
     "@types/json-stringify-safe": "^5.0.0",
     "@types/node": "^14.14.31",
@@ -62,9 +64,7 @@
     "type-fest": "^0.21.2"
   },
   "dependencies": {
-    "@roots/bud-framework": "^3.0.84-alpha.0",
     "@roots/bud-support": "^3.0.84-alpha.0",
-    "@roots/container": "^3.0.84-alpha.0",
     "@types/webpack-env": "^1.16.0",
     "json-stringify-safe": "^5.0.1",
     "toastify-js": "^1.9.3",

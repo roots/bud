@@ -43,8 +43,7 @@ export {Dependencies} from './Dependencies'
 export {Framework} from './Framework'
 export {Env} from './Env'
 export {Logger} from './Logger'
-export {Providers} from './Providers'
-export {Service} from './Service'
+export {Bootstrapper, Service, Services} from './Service'
 
 /**
  * @roots/bud-support

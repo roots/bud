@@ -1,44 +1,45 @@
 import {Container, Framework} from './'
+
+export abstract class Bootstrapper {
+  /**
+   * Loose
+   */
+  [key: string]: any
+
+  /**
+   * Register
+   */
+  public register(): unknown
+
+  /**
+   * Boot
+   */
+  public boot(): unknown
+
+  /**
+   * Bootstrap
+   */
+  public bootstrapped(app: Framework): unknown
+
+  /**
+   * Bootstrap
+   */
+  public registered(app: Framework): unknown
+
+  /**
+   * Bootstrap
+   */
+  public booted(app: Framework): unknown
+}
+
 /**
  * Application service base
  */
-export abstract class Service extends Container {
-  [key: string]: any
-
+export abstract class Service extends Bootstrapper {
   /**
    * Application reference
    */
   public app: Framework
-
-  /**
-   * Safely access potentially callable values
-   */
-  public access: Framework['access']
-
-  /**
-   * Register service
-   */
-  public register?(): void
-
-  /**
-   * Boot service
-   */
-  public boot?(): void
-
-  /**
-   * Topics
-   */
-  public get topics(): Framework['topics']
-
-  /**
-   * Subscriptions
-   */
-  public get subscribe(): Framework['subscribe']
-
-  /**
-   * Publish
-   */
-  public get publish(): Framework['publish']
 
   /**
    * Log
@@ -64,4 +65,16 @@ export abstract class Service extends Container {
    * Debug
    */
   public get debug(): Framework['debug']
+}
+
+export namespace Service {
+  export interface Dict {
+    [name: string]: Constructor
+  }
+
+  export interface Constructor {
+    new (app: Framework['get']):
+      | Framework.Bootstrapper
+      | Framework.Service
+  }
 }

@@ -3,7 +3,7 @@ import {Module} from '@roots/bud-typings'
 
 interface Options {
   /**
-   * Path where to save compiled assets
+   * Where to save compiled assets
    */
   outputPath?: string
 }

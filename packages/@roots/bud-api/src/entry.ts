@@ -62,7 +62,7 @@ declare module '@roots/bud-framework' {
     /**
      * An entrypoint expressed as a single name and value.
      */
-    interface Entry {
+    interface Single {
       (
         /**
          * Entrypoint name (string)
@@ -79,7 +79,7 @@ declare module '@roots/bud-framework' {
     /**
      * An entrypoint expressed as a keyed object.
      */
-    interface Entry {
+    interface Multi {
       (
         /**
          * Entrypoint name as key;
@@ -89,6 +89,8 @@ declare module '@roots/bud-framework' {
         entrypoints: Framework.Api.Entry.Obj,
       ): Framework
     }
+
+    type Entry = Single | Multi
 
     namespace Entry {
       /**

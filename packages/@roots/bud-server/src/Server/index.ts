@@ -151,7 +151,12 @@ export default class extends Service implements Server {
   public get watchlist(): string[] {
     return this.config
       .get('watch.files')
-      .map(f => this.app.get().project(f))
+      .map((file: string) =>
+        this.path.posix.join(
+          this.app.subscribe('location/project', this.name),
+          file,
+        ),
+      )
   }
 
   public get watchable(): boolean {

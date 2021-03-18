@@ -1,5 +1,6 @@
 import {isArray} from 'lodash'
-import {Framework, Webpack} from '@roots/bud-typings'
+import {Framework} from '@roots/bud-framework'
+import {Webpack} from '@roots/bud-typings'
 
 /**
  * Inject webpack entrypoints with
