@@ -1,6 +1,11 @@
 import {Service} from '@roots/bud-framework'
 
 export default abstract class extends Service {
+  public constructor(args) {
+    super(args)
+    this.enabled = this.enabled
+  }
+
   /**
    * Cache enabled
    */
@@ -12,16 +17,15 @@ export default abstract class extends Service {
   public abstract setCache(): void
 
   /**
-   * Service register
+   * deserialized
    */
-  public register(): void {
-    //
-  }
+  public abstract deserialize(serializedStr)
 
   /**
-   * Service boot
+   * Memoize
    */
-  public boot(): void {
-    //
-  }
+  public abstract memoize(
+    fn: CallableFunction,
+    ...args: string[]
+  )
 }

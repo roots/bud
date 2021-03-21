@@ -1,7 +1,8 @@
-import '@roots/bud'
+import '@roots/bud-api'
+import '@roots/bud-framework'
 
-declare module '@roots/bud' {
-  interface Bud {
+declare module '@roots/bud-framework' {
+  interface Framework {
     /**
      * ## library  [💁 Fluent]
      *
@@ -21,10 +22,13 @@ declare module '@roots/bud' {
      * app.library(['react', 'react-dom'])
      * ```
      */
-    library: Bud.Library.Configure
+    library: Framework.Library.Configure
   }
 
-  export namespace Bud.Library {
-    export type Configure = (this: Bud, modules: string[]) => Bud
+  export namespace Framework.Library {
+    export type Configure = (
+      this: Framework,
+      modules: string[],
+    ) => Framework
   }
 }

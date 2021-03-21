@@ -34,6 +34,12 @@ export class Discovery extends Service implements Contract {
     this.app.sequence(bootSequence)
   }
 
+  public get projectInfo(): {[key: string]: any} {
+    return this.fs.readJsonSync(
+      this.disk('project').get('package.json'),
+    )
+  }
+
   /**
    * Collect packages.
    */
@@ -65,7 +71,7 @@ export class Discovery extends Service implements Contract {
     this.app.store.isTrue('options.discover') &&
       this.every((name: string) => {
         const extension = require(name)
-        this.app.extensions.add(name, extension)
+        this.app.extensions.add(extension)
       })
   }
 

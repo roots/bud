@@ -1,12 +1,10 @@
-import './Dashboard/api'
+import './interface'
+import './api'
 
-import Dashboard from './Dashboard'
-export {Dashboard}
-
+export {DashboardService as Dashboard} from './service'
 export {Error} from './Error'
-export {Write} from './Write'
-export {Publish} from './Publish'
 export {Mark} from './Mark'
+export {Publish} from './Publish'
 export {Screen} from './components/Screen'
-
-export type {Theme} from '@roots/ink-use-style'
+export {Theme} from '@roots/ink-use-style'
+export {Write} from './Write'

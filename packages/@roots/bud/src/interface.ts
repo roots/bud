@@ -1,10 +1,7 @@
-import '@roots/bud-api'
 import '@roots/bud-framework'
 
 import {Theme} from '@roots/ink-use-style'
 import {Webpack} from '@roots/bud-support'
-import {Api} from './services/Api'
-import {Util} from './services/Util'
 
 /**
  * @fix SWR thinking its in the browser.
@@ -16,15 +13,11 @@ declare module NodeJS {
 }
 
 declare module '@roots/bud-framework' {
-  interface Framework {
-    api: Api
-    util: Util
-  }
-
   namespace Framework {
     interface Pkgs {
       [key: string]: Pkg
     }
+
     interface Pkg {
       path: string
       type: 'preset' | 'extension'
@@ -34,6 +27,11 @@ declare module '@roots/bud-framework' {
 
     interface Config {
       name: string
+      browser: {
+        indicator: true
+        log: true
+        overlay: true
+      }
       install: boolean
       entry: {
         [key: string]: any

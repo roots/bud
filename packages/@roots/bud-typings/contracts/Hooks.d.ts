@@ -1,10 +1,7 @@
-import {Framework, Service} from '../'
-import {Filter} from './Filter'
-import {Action} from './Action'
-import {Store} from './Store'
+import {Framework, Service} from '.'
 
 /**
- * ## bud.hooks
+ * ## hooks
  *
  * Bud provides a system of 'hooks' to expose values
  * for easier modification.
@@ -19,7 +16,7 @@ import {Store} from './Store'
  * ####  Add a new entry to the `webpack.externals` configuration:
  *
  * ```js
- * bud.hooks.on(
+ * hooks.on(
  *   'webpack.externals',
  *   externals => ({
  *     ...externals,
@@ -31,7 +28,7 @@ import {Store} from './Store'
  * #### Change the `webpack.output.filename` format:
  *
  * ```js
- * bud.hooks.on(
+ * hooks.on(
  *   'webpack.output.filename',
  *   () => '[name].[hash:4]',
  * )
@@ -40,7 +37,7 @@ import {Store} from './Store'
  * #### Replace the regular expression used for CSS modules:
  *
  * ```js
- * bud.hooks.on(
+ * hooks.on(
  *   'webpack.module.rules.oneOf.css.test',
  *   () => /\.css$/,
  * )
@@ -48,9 +45,7 @@ import {Store} from './Store'
  */
 export declare interface Hooks extends Service {
   /**
-   * ## bud.hooks.on
-   *
-   * Register a function to filter a value being produced by Bud.
+   * ## hooks.on
    *
    * If a filter calls for this name the function is then run,
    * passing whatever data along for modification. If more than one
@@ -61,7 +56,7 @@ export declare interface Hooks extends Service {
    * ### Usage
    *
    * ```js
-   * bud.hooks.on(
+   * hooks.on(
    *   'namespace.name.value',
    *   value => 'replaced by this string',
    * )
@@ -71,6 +66,7 @@ export declare interface Hooks extends Service {
     name: string | string[],
     hook: Hooks.Filter.Fn<T>,
   ): Framework
+
   on<T = any>(name: string | string[], hook: T): Framework
 
   /**
@@ -93,10 +89,4 @@ export declare interface Hooks extends Service {
    * ```
    */
   filter<T = any>(id: string | string[]): T
-}
-
-export declare namespace Hooks {
-  export {Store}
-  export {Action}
-  export {Filter}
 }

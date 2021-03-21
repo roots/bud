@@ -34,7 +34,7 @@ export const use = function (source: Module | Array<Module>) {
      * Require/import
      */
     if (source.name) {
-      this.extensions.add(source.name, source)
+      this.extensions.add(source)
 
       return this
     }
@@ -42,8 +42,8 @@ export const use = function (source: Module | Array<Module>) {
     /**
      * {key: extension}
      */
-    Object.entries(source).forEach(([name, extension]) => {
-      this.extensions.add(name, extension)
+    Object.entries(source).forEach(extension => {
+      this.extensions.add(extension)
     })
 
     return this
@@ -53,37 +53,12 @@ export const use = function (source: Module | Array<Module>) {
    * [string, extension]
    */
   if (isArray(source)) {
-    if (source.length == 2 && typeof source[0] == 'string') {
-      let [name, extension] = source
-      this.extensions.add(name, extension)
+    source.forEach(extension => {
+      this.extensions.add(extension)
+    })
 
-      return this
-    }
-
-    if (!Array.isArray(source[0])) {
-      source.forEach(def => {
-        this.extensions.add(def.name, def)
-      })
-
-      return this
-    }
+    return this
   }
-
-  /**
-   * [string, extension][]
-   */
-  source.forEach(def => {
-    if (Array.isArray(def)) {
-      let [name, extension] = def
-      return this.extensions.add(name, extension)
-    }
-
-    if (def.name) {
-      return this.extensions.add(def.name, def)
-    }
-
-    this.extensions.use(def)
-  })
 
   return this
 }

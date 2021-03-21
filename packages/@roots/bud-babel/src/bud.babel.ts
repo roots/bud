@@ -43,7 +43,8 @@ export class BabelConfig implements Babel {
   }
 
   public setPlugin(plugin: Babel.Registrable): this {
-    console.log(`Setting babel plugin: ${plugin}`)
+    this.app.log(`Setting babel plugin: ${plugin}`)
+
     plugin = isString(plugin) ? [plugin, {}] : plugin
 
     this.plugins = {...this.plugins, [plugin[0]]: plugin}

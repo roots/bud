@@ -11,5 +11,5 @@ export * as api from './api'
 
 // Extension boot
 export const boot: Module.Boot = ({extensions}: Framework) => {
-  extensions.add('terser-webpack-plugin', terserWebpackPlugin)
+  extensions.add(terserWebpackPlugin)
 }

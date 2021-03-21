@@ -1,17 +1,10 @@
-// @ts-check
-const {
-  bud,
-} = require('./../../packages/@roots/bud-preset-recommend')
-
-bud.minify()
-
-bud
-  .html({
-    template: bud.project('public/index.html'),
-    replace: {
-      APP_TITLE: 'Tailwind Demo',
-    },
-  })
-  .use(require('@roots/bud-tailwindcss'))
-  .entry('app', ['app.css', 'app.js'])
-  .run()
+module.exports = bud =>
+  bud
+    .use([
+      require('@roots/bud-babel'),
+      require('@roots/bud-postcss'),
+      require('@roots/bud-tailwindcss'),
+      require('@roots/bud-entrypoints'),
+    ])
+    .entry('app', ['app.css', 'app.js'])
+    .html()

@@ -24,8 +24,8 @@ declare module '@roots/bud-framework' {
 }
 
 type Watch = (
-  watchlist: Server.Options['watch']['files'],
-  watchoptions: Server.Options['watch']['options'],
+  watchlist: Server.Configuration['watch']['files'],
+  watchoptions: Server.Configuration['watch']['options'],
 ) => Framework
 
 export const watch: Watch = function (watchlist, watchoptions) {

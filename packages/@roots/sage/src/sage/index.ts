@@ -15,6 +15,9 @@ import * as dependencies from '@roots/bud-wordpress-dependencies'
 import * as externals from '@roots/bud-wordpress-externals'
 import * as manifests from '@roots/bud-wordpress-manifests'
 
+const fallback = (obj, key, fall) =>
+  obj.has(key) ? obj.get(key) : fall
+
 /**
  * @module Sage
  */
@@ -72,7 +75,7 @@ const sage: Sage = bud
    * Thus, Sage uses esbuild in production, and babel in development.
    */
   .when(
-    ({isDevelopment}) => isDevelopment,
+    ({mode, util}) => util._.isEqual(mode, 'development'),
     ({use}: Sage) => use([typescript, babel, react]),
     ({use}: Sage) => use([esbuild]).esbuild.jsx(),
   )
@@ -116,9 +119,7 @@ const sage: Sage = bud
   /**
    * Provide
    */
-  .provide({
-    jquery: ['$', 'jQuery'],
-  })
+  .provide({jquery: ['$', 'jQuery']})
 
   /**
    * Additional options
@@ -136,23 +137,14 @@ const sage: Sage = bud
     /**
      * Development
      */
-    (sage: Sage) => {
-      sage
-        .dev({
-          host: sage.env.has('APP_HOST')
-            ? sage.env.get('APP_HOST')
-            : 'localhost',
-          port: sage.env.has('APP_PORT')
-            ? sage.env.get('APP_PORT')
-            : 3000,
-        })
+    ({dev, env}: Sage) => {
+      dev({
+        host: fallback(env, 'APP_HOST', 'localhost'),
+        port: fallback(env, 'APP_PORT', 3000),
+      })
         .proxy({
-          host: sage.env.has('APP_PROXY_HOST')
-            ? sage.env.get('APP_PROXY_HOST')
-            : 'localhost',
-          port: sage.env.has('APP_PROXY_PORT')
-            ? sage.env.get('APP_PROXY_PORT')
-            : 8000,
+          host: fallback(env, 'APP_PROXY_HOST', 'localhost'),
+          port: fallback(env, 'APP_PROXY_PORT', 8000),
         })
         .devtool('eval')
     },

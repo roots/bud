@@ -203,6 +203,15 @@ export const args: any = Object.entries(
         type: 'string',
         default: 'records.json',
       },
+      browser: {
+        default: true,
+      },
+      'browser.overlay': {
+        default: true,
+      },
+      'browser.log': {
+        default: true,
+      },
       'server.host': {
         type: 'string',
         default: 'localhost',

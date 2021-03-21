@@ -1,4 +1,7 @@
 import Service from './Service'
+import memoizer from 'memoize-fs'
+import serialize from 'serialize-javascript'
+import crypto from 'crypto'
 
 /**
  * ## bud.cache [🏠 Internal]
@@ -7,14 +10,79 @@ import Service from './Service'
  *
  * [🏡 Project home](https://roots.io/bud)
  * [🧑‍💻 roots/bud](#)
- * [📦 @roots/bud-cache](#)
- * [🔗 Documentation](#)
  */
 export class Cache extends Service {
   /**
-   * Service ident
+   * Service name
    */
   public name = 'cache'
+
+  /**
+   * memoize-fs
+   */
+  public memoizer
+
+  /**
+   * serialize js
+   */
+  public get serialize() {
+    return serialize
+  }
+
+  public get config() {
+    const conf = JSON.stringify(
+      this.fs.readFileSync(
+        this.app.disk
+          .get('project')
+          .get(`${this.app.name}.config.js`),
+        'utf8',
+      ),
+    )
+
+    const json = JSON.stringify(
+      this.fs.readFileSync(
+        this.app.disk.get('project').get('package.json'),
+        'utf8',
+      ),
+    )
+
+    return crypto
+      .createHash('md4')
+      .update(`${conf}${json}`)
+      .digest('hex')
+  }
+
+  /**
+   * Framework lifecycle: registered
+   */
+  public registered() {
+    this.memoizer = memoizer({
+      cachePath: this.path.posix.join(
+        this.app.subscribe(
+          'location/project',
+          '@roots/bud-cache/memoize',
+        ),
+        this.app.subscribe(
+          'location/storage',
+          '@roots/bud-cache/memoize',
+        ),
+      ),
+    })
+  }
+
+  /**
+   * Deserialize
+   */
+  public deserialize(serializedStr) {
+    return eval(`(${serializedStr})`)
+  }
+
+  /**
+   * Memoize
+   */
+  public async memoize(fn: CallableFunction, args) {
+    return await this.memoizer.fn(fn, args, {salt: this.config})
+  }
 
   /**
    * ## bud.cache.enabled [🏠 Internal]

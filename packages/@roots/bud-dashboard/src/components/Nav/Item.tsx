@@ -5,7 +5,7 @@ import {
   Box,
 } from '@roots/bud-support'
 
-import {Indicator} from '../Indicator'
+import {Indicator} from '../Assets/Indicator'
 import {useFocus} from '../../hooks/useFocus'
 import {useStyle} from '@roots/ink-use-style'
 

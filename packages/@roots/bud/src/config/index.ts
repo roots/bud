@@ -7,6 +7,11 @@ import {theme} from './theme'
 export const config: Framework.Config = {
   name: 'bud',
   bail: true,
+  browser: {
+    indicator: true,
+    log: true,
+    overlay: true,
+  },
   ci: false,
   entry: {},
   alias: {},
@@ -55,7 +60,6 @@ export const config: Framework.Config = {
     extensions: ['.wasm', '.mjs', '.js', '.css', '.json'],
     modules: [],
   },
-
   server,
   theme,
   location,

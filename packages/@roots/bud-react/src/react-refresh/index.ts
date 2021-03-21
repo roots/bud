@@ -28,6 +28,6 @@ export const when: Module.When = ({isDevelopment}) =>
 /**
  * @pmmmwh/react-refresh-webpack-plugin options
  */
-export const options: () => Options = () => ({
+export const options = () => ({
   overlay: false,
 })

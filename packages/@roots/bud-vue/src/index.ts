@@ -80,7 +80,7 @@ export const boot: Module['boot'] = app => {
   /**
    * Add vue-loader-plugin
    */
-  app.extensions.add('vue-loader-plugin', {
+  app.extensions.add({
     name: 'vue-loader-plugin',
     make: () => new VueLoaderPlugin(),
   })

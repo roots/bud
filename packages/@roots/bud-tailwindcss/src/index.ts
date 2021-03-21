@@ -31,8 +31,6 @@ export const boot: Module['boot'] = (app: Framework) => {
     implementation,
   )
 
-  if (!app.disk.get('project').has('tailwind.config.js')) return
-
   app.tailwind(
     null,
     app.store.get('options.tailwindcss.implementation'),

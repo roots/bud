@@ -1,5 +1,5 @@
 import type {Webpack, Build} from '@roots/bud-typings'
-import Service from './Service'
+import {Service} from '@roots/bud-framework'
 
 /**
  * ## bud.build
@@ -32,18 +32,11 @@ export default class extends Service implements Build {
   }
 
   /**
-   * Make build
-   */
-  public get build() {
-    return this.subscribe('build', '@roots/bud-build/make')
-  }
-
-  /**
    * Make webpack config
    *
    * Produce a final webpack config.
    */
   public make(): Webpack.Configuration {
-    return this.build
+    return this.subscribe('build', '@roots/bud-build/make')
   }
 }

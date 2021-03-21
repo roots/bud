@@ -5,7 +5,7 @@ import type {Extensions} from '@roots/bud-typings'
 export default abstract class
   extends Service
   implements Extensions {
-  public abstract add(name: string, extension): void
+  public abstract add(extension): void
 
   public abstract make(): Webpack.Plugin[]
 

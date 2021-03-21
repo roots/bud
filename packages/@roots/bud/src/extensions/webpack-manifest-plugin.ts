@@ -1,5 +1,6 @@
-import {Framework, Module} from '@roots/bud-typings'
+import {Module} from '@roots/bud-typings'
 import ManifestPlugin from 'webpack-manifest-plugin'
+import {Framework} from '@roots/bud-framework'
 
 export const name = `webpack-manifest-plugin`
 

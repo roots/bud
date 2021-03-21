@@ -1,9 +1,10 @@
 import {CLI} from './CLI'
+import {Command as Contract} from './interface'
 
 /**
  * Command base class
  */
-export default abstract class Command {
+export abstract class Command implements Contract {
   /**
    * Command handle
    */
@@ -27,27 +28,24 @@ export default abstract class Command {
   /**
    * Index of positional arguments
    */
-  public arguments: {[key: string]: string} = {}
+  public arguments?: {[key: string]: string} = {}
 
   /**
    * Index of flags
    */
-  public options: {
-    [key: string]: {
-      [key: string]: any
-    }
-  }
+  public options?: Contract.Options
 
   /**
    * Command signature
+   *
    * @example '[arg] [arg2]'
    */
-  public signature: string = ''
+  public signature?: string = ''
 
   /**
    * Run action handler
    */
-  public abstract action(...args: any[]): void | Promise<void>
+  public action(...args: any[]): void | Promise<void> {}
 
   /**
    * Constructor
@@ -68,6 +66,9 @@ export default abstract class Command {
     )
   }
 
+  /**
+   * Usage
+   */
   public get usage() {
     return this._usage ?? this.signature
   }

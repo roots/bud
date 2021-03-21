@@ -1,16 +1,6 @@
-import {
-  express,
-  isNull,
-  isUndefined,
-  Webpack,
-  webpackDevMiddleware,
-} from '@roots/bud-support'
 import {Server} from '@roots/bud-typings'
-
-export interface DevFactoryOptions {
-  compiler: Webpack.Compiler
-  config: Server.Config
-}
+import DevMiddleware from 'webpack-dev-middleware'
+import {isNull, isUndefined} from 'lodash'
 
 const middlewareConfigKeys = [
   'headers',
@@ -27,11 +17,8 @@ const middlewareConfigKeys = [
 /**
  * Make dev middleware
  */
-const dev = ({
-  compiler,
-  config,
-}: DevFactoryOptions): express.RequestHandler => {
-  return webpackDevMiddleware(compiler, options(config))
+const dev: Server.Middleware.Init = ({compiler, config}) => {
+  return DevMiddleware(compiler, options(config))
 }
 
 /**
@@ -39,7 +26,7 @@ const dev = ({
  */
 const options = (
   config: Server.Config,
-): webpackDevMiddleware.Options => ({
+): DevMiddleware.Options => ({
   logLevel: 'silent',
   ...Object.fromEntries(
     config

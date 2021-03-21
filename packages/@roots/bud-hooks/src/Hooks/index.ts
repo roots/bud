@@ -32,7 +32,7 @@ export class Hooks extends Service implements Contract {
    */
   public on<T = any>(
     id: string | [string, string],
-    callback: Contract.Filter.Fn<T>,
+    callback: (value: T) => T,
   ) {
     const [publisher, name] = isArray(id)
       ? id

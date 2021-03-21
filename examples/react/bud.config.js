@@ -9,5 +9,5 @@ app
     require('@roots/bud-emotion'),
   ])
   .html({enabled: true})
-  .entry({app: 'app.{js,css}'})
+  .entry('app', 'app.{js,css}')
   .run()

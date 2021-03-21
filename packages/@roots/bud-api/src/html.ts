@@ -52,7 +52,7 @@ declare module '@roots/bud-framework' {
 export const html: Framework.Api.Html = function (options?) {
   if (!options) {
     this.store.enable('options.html.enabled')
-    return
+    return this
   }
 
   /**

@@ -1,14 +1,15 @@
 import {useEffect, useState} from '@roots/bud-support'
-import type {Framework, FileContainer} from '@roots/bud-typings'
+import {FileContainer} from '@roots/bud-typings'
+import {Framework} from '@roots/bud-framework'
 
 export type Disk = [FileContainer, React.Dispatch<string>]
 
-export const useDisk = (bud: Framework): Disk => {
+export const useDisk = (app: Framework): Disk => {
   const [target, setTarget] = useState<string>('project')
   const [disk, setDisk] = useState<FileContainer>(null)
 
   useEffect(() => {
-    setDisk(bud.disk.get(target))
+    setDisk(app.disk.get(target))
   }, [target])
 
   return [disk, setTarget]

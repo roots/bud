@@ -1,5 +1,5 @@
 import {formatted} from '../util'
-import Command from '../Command'
+import {Command} from '../Command'
 
 /**
  * Publish

@@ -33,18 +33,18 @@ export default class extends Service {
    */
   public boot(): void {
     this.every((name: string, extension: Module) => {
-      return this.add(name, extension)
+      return this.add(extension)
     })
   }
 
   /**
    * Add an extension
    */
-  public add(name: string, extension: Module): void {
+  public add(extension: Module): void {
     this.log(`Adding extension: %s`, extension.name)
 
     this.set(
-      name,
+      extension.name,
       new Extension(this.app, extension).register().boot(),
     )
   }
@@ -72,7 +72,7 @@ export default class extends Service {
       baseDir: path,
     })
 
-    this.add(pkg, require(path))
+    this.add(require(path))
 
     return this
   }

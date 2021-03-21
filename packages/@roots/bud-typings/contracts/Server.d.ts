@@ -1,67 +1,65 @@
-import {Framework, Service, Express, Webpack} from './'
-import webpackDevMiddleware from 'webpack-dev-middleware'
-import ProxyMiddleware from 'http-proxy-middleware'
-import {chokidar} from '@roots/bud-support'
+import {Service} from './Service'
+import {Container} from './Container'
+import {Compiler as WebpackCompiler} from 'webpack'
+import {Application, Handler} from 'express'
+import DevMiddleware from 'webpack-dev-middleware'
+import Proxy from 'http-proxy-middleware'
+import {WatchOptions} from 'chokidar'
 
-/**
- * ## bud.server
- *
- * [🏡 Project home](https://roots.io/bud)
- * [🧑‍💻 roots/bud/packages/server](https://git.io/JkCQG)
- * [📦 @roots/bud-server](https://www.npmjs.com/package/@roots/bud-build)
- * [🔗 Documentation](#)
- */
-export interface Server extends Service {
-  /**
-   * Server application instance.
-   */
-  instance: Server.Instance
+export abstract class Server extends Service {
+  middleware: Server.Middleware.Inventory
 
-  /**
-   * Server application configuration.
-   */
-  config: Server.Config
-
-  /**
-   * Client bundle assets (for injection)
-   */
   assets: string[]
 
-  /**
-   * Inject HMR service into individual bundles.
-   */
-  inject(): void
+  instance: Server.Instance
 
-  /**
-   * ## bud.server.run [🏠 Internal]
-   *
-   * Run the development server.
-   *
-   * Projects should use `bud.run` unless they want
-   * to supply their own Webpack stats handler.
-   *
-   * ### Usage
-   *
-   * ```js
-   * bud.server.run((err, stats) => {
-   *  // ...
-   * })
-   * ```
-   */
-  run(compiler: any): this
+  config: Server.Config
+
+  watchlist: string[]
+
+  watchable: boolean
+
+  run(compiler: Server.Compiler): this
+
+  inject(): void
 }
 
 export namespace Server {
-  export type Instance = Express.Application
-  /**
-   * @deprecated use Server.Config
-   */
-  export type Config = Container<Options>
+  export type Compiler = WebpackCompiler
+  export type Instance = Application
+  export type Middleware = any
+
+  export namespace Middleware {
+    export interface Inventory {
+      [key: string]: Middleware
+    }
+
+    export interface Options {
+      config: Config
+      compiler: Compiler
+    }
+
+    export type Init = (options: Options) => Middleware
+
+    export type Proxy = Proxy.RequestHandler & Handler
+    export interface Target {
+      host: string
+      port: number
+    }
+  }
 
   /**
-   * Server conf
+   * Configuration container
    */
-  export interface Options {
+  export type Config = Container<Configuration>
+
+  /**
+   * Server configuration
+   */
+  export interface Configuration {
+    /**
+     * If particular middlewares are enabled
+     */
     middleware?: {
       [key: string]: boolean
     }
@@ -96,54 +94,45 @@ export namespace Server {
     }
 
     /**
+     * Files which should reload the browser when changed.
+     */
+    watch?: {
+      files: string[]
+      options: WatchOptions
+    }
+
+    /**
+     * Client features
+     */
+    browser: {
+      log: boolean
+      indicator: true
+    }
+
+    /**
+     * Hot module reloading enabled
+     */
+    hot?: boolean
+
+    /**
      * The index path for web server, defaults to "index.html".
      */
-    index?: webpackDevMiddleware.Options['index']
+    index?: DevMiddleware.Options['index']
 
     /**
      * Set the default file system which will be used by webpack as primary destination of generated files
      */
-    fs?: webpackDevMiddleware.Options['fs']
+    fs?: DevMiddleware.Options['fs']
 
     /**
      * The path that the middleware is bound to.
      */
-    publicPath?: webpackDevMiddleware.Options['publicPath']
-
-    /**
-     * Proxy setting: object passed to  https.createServer
-     */
-    ssl?: ProxyMiddleware.Options['ssl']
-
-    /**
-     * Proxy setting: set to true to verify SSL certificates
-     */
-    secure?: ProxyMiddleware.Options['secure']
-
-    /**
-     * Proxy setting: rewrite the location host/port on (301/302/307/308) redirects based on requested host/port.
-     */
-    autoRewrite?: ProxyMiddleware.Options['autoRewrite']
-
-    /**
-     * Proxy setting: change the origin of the host header to the target URL
-     */
-    changeOrigin?: ProxyMiddleware.Options['changeOrigin']
-
-    /**
-     * Escape hatch for Webpack's host check security feature.
-     */
-    disableHostCheck?: webpackDevMiddleware.Options[]
-
-    /**
-     * Proxy setting: specify whether you want to follow redirects
-     */
-    followRedirects?: ProxyMiddleware.Options['followRedirects']
+    publicPath?: DevMiddleware.Options['publicPath']
 
     /**
      * Filename to serve as index.
      */
-    filename?: webpackDevMiddleware.Options['filename']
+    filename?: DevMiddleware.Options['filename']
 
     /**
      * This property for  passing  custom
@@ -155,12 +144,12 @@ export namespace Server {
      * { "X-Custom-Header": "yes" }
      * ```
      */
-    headers?: webpackDevMiddleware.Options['headers']
+    headers?: DevMiddleware.Options['headers']
 
     /**
      * Defines the level of messages logged by Express/WDS middleware
      */
-    logLevel?: webpackDevMiddleware.Options['logLevel']
+    logLevel?: DevMiddleware.Options['logLevel']
 
     /**
      * This property for  passing  the
@@ -172,34 +161,51 @@ export namespace Server {
      * ['GET', 'HEAD']
      * ```
      */
-    methods?: webpackDevMiddleware.Options['methods']
+    methods?: DevMiddleware.Options['methods']
 
     /**
      * This property for  to register custom
      * mime types or extension mappings
      */
     mimeTypes?:
-      | webpackDevMiddleware.MimeTypeMap
-      | webpackDevMiddleware.OverrideMimeTypeMap
+      | DevMiddleware.MimeTypeMap
+      | DevMiddleware.OverrideMimeTypeMap
       | null
 
     /**
      * Instructs the module to enable or disable the s
      * erver-side rendering mode
      */
-    serverSideRender?: webpackDevMiddleware.Options['serverSideRender']
+    serverSideRender?: DevMiddleware.Options['serverSideRender']
 
     /**
-     * Files which should reload the browser when changed.
+     * Proxy setting: object passed to  https.createServer
      */
-    watch?: {
-      files: string[]
-      options: chokidar.WatchOptions
-    }
+    ssl?: Proxy.Options['ssl']
 
     /**
-     * Hot module reloading enabled
+     * Proxy setting: set to true to verify SSL certificates
      */
-    hot?: boolean
+    secure?: Proxy.Options['secure']
+
+    /**
+     * Proxy setting: rewrite the location host/port on (301/302/307/308) redirects based on requested host/port.
+     */
+    autoRewrite?: Proxy.Options['autoRewrite']
+
+    /**
+     * Proxy setting: change the origin of the host header to the target URL
+     */
+    changeOrigin?: Proxy.Options['changeOrigin']
+
+    /**
+     * Escape hatch for Webpack's host check security feature.
+     */
+    disableHostCheck?: DevMiddleware.Options[]
+
+    /**
+     * Proxy setting: specify whether you want to follow redirects
+     */
+    followRedirects?: Proxy.Options['followRedirects']
   }
 }

@@ -13,7 +13,7 @@ import {Framework, MappedType, Service} from './'
  * [🔗 Documentation](#)
  */
 export declare interface Extensions extends Service {
-  add(name, extension): void
+  add(extension): void
 
   set<Extension>(name: string, extension: Extension): this
 

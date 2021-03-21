@@ -1,5 +1,5 @@
+import {Command} from '../Command'
 import {Error} from '@roots/bud-dashboard'
-import Command from '../Command'
 
 /**
  * Build
@@ -324,13 +324,48 @@ export class Build extends Command {
     },
   }
 
-  public action() {
-    try {
-      this.cli.config.run()
-    } catch (error) {
-      console.log(error)
+  /**
+   * JSON name
+   */
+  public get jsonName() {
+    return `${this.cli.app.name}.config.json`
+  }
 
-      Error(error.toString(), `Error`)
-    }
+  /**
+   * Fluent name
+   */
+  public get fluentName() {
+    return `${this.cli.app.name}.config.js`
+  }
+
+  /**
+   * Preflight check
+   */
+  public async action() {
+    const projectFiles = this.cli.app.disk.get('project')
+    const jsonConfig = this.jsonName
+    const fluentConfig = this.fluentName
+
+    // Guard against multi config
+    projectFiles.has(jsonConfig) &&
+      projectFiles.has(fluentConfig) &&
+      Error(
+        `Project contains both a ${this.jsonName} and ${this.fluentName}. They are mutually exclusive.`,
+        'Multiple config sources found.',
+      )
+
+    // Guard against no config
+    !projectFiles.has(jsonConfig) &&
+      !projectFiles.has(fluentConfig) &&
+      Error(
+        `
+Project doesn't seem to have a config. If you need a starter config run:
+
+$ ${this.cli.app.name} publish @roots/bud-support ${this.fluentName}`,
+        'No config sources found.',
+      )
+
+    const build = require(projectFiles.get(fluentConfig))
+    build(this.cli.app).run()
   }
 }

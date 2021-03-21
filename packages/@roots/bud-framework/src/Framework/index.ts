@@ -1,5 +1,17 @@
 import {
-  Framework as Contract,
+  Build,
+  Cache,
+  Compiler,
+  Dashboard,
+  Dependencies,
+  Discovery,
+  Disk,
+  Env,
+  Extensions,
+  Hooks,
+  Logger,
+  Server,
+  Store,
   MaybeCallable,
   Bootstrapper,
 } from '@roots/bud-typings'
@@ -10,46 +22,44 @@ import {isEqual, isFunction} from 'lodash'
 /**
  * Bud framework base class
  */
-export abstract class Framework implements Contract {
+export abstract class Framework {
+  [key: string]: any
+
   public name = 'bud'
 
   public services: Container
 
-  public abstract build: Contract.Build
+  public abstract build: Build
 
-  public abstract cache: Contract.Cache
+  public abstract cache: Cache
 
-  public abstract cli: Contract.CLI
+  public abstract compiler: Compiler
 
-  public abstract compiler: Contract.Compiler
+  public abstract dashboard: Dashboard
 
-  public abstract dashboard: Contract.Dashboard
+  public abstract dependencies: Dependencies
 
-  public abstract dependencies: Contract.Dependencies
+  public abstract discovery: Discovery
 
-  public abstract discovery: Contract.Discovery
+  public abstract disk: Disk
 
-  public abstract disk: Contract.Disk
+  public abstract env: Env
 
-  public abstract env: Contract.Env
+  public abstract extensions: Extensions
 
-  public abstract extensions: Contract.Extensions
+  public abstract hooks: Hooks
 
-  public abstract hooks: Contract.Hooks
+  public abstract server: Server
 
-  public abstract logger: Contract.Logger
+  public abstract logger: Logger
 
-  public abstract server: Contract.Server
-
-  public abstract store: Contract.Store
+  public abstract store: Store
 
   public abstract get mode(): 'development' | 'production'
 
   public abstract get isProduction(): boolean
 
   public abstract get isDevelopment(): boolean
-
-  public abstract topics(topics: string[], caller?: string)
 
   public abstract subscribe<T = any>(
     name: string,
@@ -265,6 +275,9 @@ export abstract class Framework implements Contract {
     return this
   }
 
+  /**
+   * Log message
+   */
   public log(...args) {
     this.logger.instance.scope(this.name).log(...args)
   }

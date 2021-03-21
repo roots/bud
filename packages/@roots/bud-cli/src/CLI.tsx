@@ -2,23 +2,17 @@ import {Mark} from '@roots/bud-dashboard'
 import {render} from 'ink-testing-library'
 import Commander from 'commander'
 import Output from './Output'
-import {CLIConstructor, Command} from './interface'
-import Config from './Config'
+import {Command} from './interface'
+import {Builder} from './Builder'
+import {commands} from './commands'
 import {Framework} from '@roots/bud-framework'
+import {Container} from '@roots/container'
 
 /**
  * CLI
  */
 export class CLI {
-  /**
-   * Application
-   */
   public app: Framework
-
-  /**
-   * Config source
-   */
-  public config: Config
 
   /**
    * Command invocation
@@ -31,14 +25,19 @@ export class CLI {
   public description: string = 'Bud CLI'
 
   /**
-   * Project URL
+   * Commands
    */
-  public projectUrl: string
+  public commands: Container
 
   /**
-   * Yargs
+   * Commander
    */
   public instance: Commander.Command
+
+  /**
+   * Config source
+   */
+  public builder: Builder
 
   /**
    * Output
@@ -46,61 +45,33 @@ export class CLI {
   public output: Output
 
   /**
-   * Cwd
+   * Register
    */
-  public cwd = process.cwd()
+  public constructor(app: Framework) {
+    this.app = app
+
+    this.commands = app.container(commands)
+    this.instance = new Commander.Command(this.app.name)
+    this.output = new Output(this.app.name, this.instance)
+    this.builder = new Builder()
+  }
 
   /**
-   * Commands
+   * Boot
    */
-  public _commands: Command.Newable[]
-
-  /**
-   * Constructor
-   */
-  public constructor(args?: CLIConstructor) {
-    this.name = args.name
-    this.app = args.app
-    this.projectUrl = args.projectUrl
-    this.commands = args.commands
-
-    this.config = new Config(this)
-    this.instance = new Commander.Command(this.name)
-
-    const output = new Output(this.name, this.instance)
-
+  public boot() {
     this.instance
       .allowUnknownOption()
       .allowExcessArguments()
-      .configureOutput(output.config)
+      .configureOutput(this.output.config)
       .usage('[command]')
       .storeOptionsAsProperties(true)
       .addHelpCommand(
         'help [command]',
         'Get help with a [command]',
       )
-      .action(() => {
-        output.writeOut(this.instance.helpInformation())
-      })
-  }
 
-  public get commands(): Command.Newable[] {
-    return this._commands
-  }
-
-  public set commands(commands: Command.Newable[]) {
-    this._commands = commands
-  }
-
-  public merge(commands: Command.Newable[]) {
-    this.commands = [...this.commands, ...commands]
-  }
-
-  /**
-   * Invoke command line stdout
-   */
-  public invoke(): void {
-    this.commands.map((Sub: Command.Newable) => {
+    this.commands.every((name: string, Sub: Command.Newable) => {
       const sub = new Sub(this)
 
       const command = new Commander.Command()
@@ -112,7 +83,7 @@ export class CLI {
         .usage(sub.usage)
 
       command.configureOutput(
-        new Output(this.name, command).config,
+        new Output(this.app.name, command).config,
       )
 
       sub.has('options') &&
@@ -141,7 +112,7 @@ export class CLI {
    * CLI banner
    */
   public mast(): this {
-    console.log(render(Mark({text: this.name})).lastFrame())
+    console.log(render(Mark({text: this.app.name})).lastFrame())
 
     return this
   }

@@ -1,90 +1,165 @@
-import {React, render, Instance, Text} from '@roots/bud-support'
-import {Service} from '@roots/bud-framework'
-import {Reporter} from './Reporter'
-import {Theme} from './api'
-import {Error} from './../Error'
-import {Screen} from './../components/Screen'
-import {Mark} from './../Mark'
+import {Framework} from '@roots/bud-framework'
+import {Dashboard as IDashboard} from '../interface'
 
-/**
- * Dashboard
- */
-export default class extends Service {
-  /**
-   * Service ident
-   */
-  public name = 'dashboard'
+import React, {
+  FunctionComponent,
+  useEffect,
+  useState,
+} from 'react'
+import {Box, useApp, useInput, Static, Text} from 'ink'
+import {
+  Assets,
+  Console,
+  DevStatus,
+  Time,
+  Git,
+  Main,
+  Screen,
+  Progress,
+  Module,
+} from '../components'
+import {useStyle} from '@roots/ink-use-style'
+import {useCompilation, usePackageJson} from '../hooks'
 
-  /**
-   * Ink CLI instance
-   */
-  public dashboard: Instance
+export const Dashboard: FunctionComponent<{bud: Framework}> = ({
+  bud,
+}) => {
+  const {
+    stats,
+    progress,
+    errors,
+    hasErrors,
+    warnings,
+    hasWarnings,
+  } = useCompilation(bud)
 
-  public get ci() {
-    return this.app.store.isTrue('options.ci')
-  }
+  const app = useApp()
 
-  /**
-   * Register service
-   */
-  public register(): void {
-    Object.assign(this.app, {
-      theme: new Theme(this.app.get()),
-      error: Error,
-    })
-
-    this.kill = this.kill.bind(this)
-    this.run = this.run.bind(this)
-  }
-
-  /**
-   * Mount CLI
-   */
-  public run(): void {
-    if (this.app.store.get('args.ci')) {
-      return
+  useInput(input => {
+    if (input == 'q') {
+      console.clear()
+      app.exit()
+      process.exit()
     }
+  })
 
-    this.info({
-      msg: 'Beginning CLI execution',
-    })
+  const theme = useStyle(bud.store.get('options.theme'))
+  const [themeLoaded, setThemeLoaded] = useState(false)
+  const pkg = usePackageJson(bud)
 
-    if (this.ci) {
-      return
-    }
+  useEffect(() => {
+    if (!bud.isProduction) return
 
-    this.render(<Reporter bud={this.app.get()} />)
+    const isComplete = progress?.decimal >= 1
+    const shouldExit = isComplete || hasErrors
+
+    shouldExit && setTimeout(() => process.exit(), 1000)
+  }, [stats, progress, errors])
+
+  useEffect(() => {
+    theme &&
+      theme.bounds &&
+      theme.col &&
+      theme.colors &&
+      setThemeLoaded(true)
+  }, [theme])
+
+  const appProps: IDashboard.AppProps = {
+    bud,
+    theme,
+    pkg,
+    progress,
+    stats,
+    errors,
+    hasErrors,
+    warnings,
+    hasWarnings,
   }
 
-  /**
-   * Unmount CLI
-   */
-  public kill(): void {
-    this.dashboard.unmount()
-  }
+  return (
+    <Screen>
+      <Main>
+        {themeLoaded && (
+          <Box flexDirection="column">
+            {/** Static: errors */}
+            {appProps.hasErrors && appProps.errors && (
+              <Static
+                items={appProps.errors.map((body, id) => ({
+                  id,
+                  body,
+                }))}>
+                {error => (
+                  <Module
+                    key={error.id}
+                    color={appProps.theme.colors.error}
+                    label="Error">
+                    <Text>{error.body}</Text>
+                  </Module>
+                )}
+              </Static>
+            )}
 
-  /**
-   * Redner
-   */
-  public render(Component: any): Instance {
-    if (this.ci) {
-      return
-    }
+            {/** Static: warnings */}
+            {appProps.hasWarnings && appProps.warnings && (
+              <Static
+                items={appProps.warnings.map((body, id) => ({
+                  id,
+                  body,
+                }))}>
+                {warning => (
+                  <Module
+                    key={warning.id}
+                    color={appProps.theme.colors.warning}
+                    label="Warning">
+                    <Text>{warning.body}</Text>
+                  </Module>
+                )}
+              </Static>
+            )}
 
-    const Output = () =>
-      typeof Component == 'string' ? (
-        <Text>{Component}</Text>
-      ) : Array.isArray(Component) ? (
-        Component.map((c, id) => <Text key={id}>{c}</Text>)
-      ) : (
-        Component
-      )
+            {/** Main  */}
+            <Box marginTop={1} flexDirection="column">
+              {/** Assets */}
+              {appProps.stats?.assets?.length > 0 && (
+                <Module
+                  label="Assets"
+                  marginBottom={1}
+                  color={theme.colors.faded}>
+                  <Assets {...appProps} />
+                </Module>
+              )}
 
-    return (this.dashboard = render(
-      <Screen justifyContent="space-between">
-        <Mark text={this.app.name} />
-        <Output />
-      </Screen>,
-    ))
-  }
+              {/** Server info */}
+              {bud.isDevelopment &&
+                bud.server.config.isTrue('middleware.dev') && (
+                  <Module
+                    label="Dev Server"
+                    marginBottom={1}
+                    color={theme.colors.faded}>
+                    <DevStatus {...appProps} />
+                  </Module>
+                )}
+
+              <Box
+                marginBottom={1}
+                width={appProps.theme.col(12)}>
+                <Console {...appProps} />
+              </Box>
+
+              {/** Progrss Bar */}
+              <Box marginBottom={1}>
+                <Progress {...appProps} />
+              </Box>
+
+              {/** Git Repo */}
+              <Box flexDirection="row" marginBottom={1}>
+                <Time {...appProps} />
+                <Git theme={appProps.theme} />
+              </Box>
+            </Box>
+          </Box>
+        )}
+      </Main>
+    </Screen>
+  )
 }

@@ -25,8 +25,8 @@ export const Bar: React.FunctionComponent<{
     setFill(Math.min(lower, upper))
   }, [maxWidth, percent])
 
-  return fill <= 0 || percent == 1 ? null : (
-    <Text>
+  return fill <= 0 ? null : (
+    <Text wrap="truncate">
       <Gradient colors={colors}>
         {character.repeat(fill)}
       </Gradient>

@@ -1,7 +1,7 @@
 import {Container} from '@roots/container'
 import {Framework} from '../Framework'
 import {fs, globby, lodash} from '@roots/bud-support'
-import {FileContainer} from '@roots/bud-typings'
+import {FileContainer} from '@roots/filesystem'
 import path from 'path'
 
 /**
@@ -53,6 +53,7 @@ export class Service extends Container {
    */
   public constructor(app: Framework['get']) {
     super()
+
     this._app = app
   }
 
@@ -152,13 +153,6 @@ export class Service extends Container {
    */
   public disk<T = FileContainer>(diskName: string | number): T {
     return this.app.disk.get(diskName)
-  }
-
-  /**
-   * Topics
-   */
-  public get topics() {
-    return this.app.topics
   }
 
   /**

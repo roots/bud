@@ -8,6 +8,6 @@ export const name: Module['name'] = '@roots/bud-compress'
 export const boot: Module['boot'] = ({
   extensions,
 }: Framework) => {
-  extensions.add('compression-webpack-plugin-brotli', brotli)
-  extensions.add('compression-webpack-plugin-gzip', gzip)
+  extensions.add(brotli)
+  extensions.add(gzip)
 }

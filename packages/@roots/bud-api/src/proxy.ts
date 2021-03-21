@@ -47,12 +47,12 @@ declare module '@roots/bud-framework' {
       /**
        * Hostname of the proxy target
        */
-      host?: Server.Options['proxy']['host']
+      host?: Server.Configuration['proxy']['host']
 
       /**
        * Port of the proxy target
        */
-      port?: Server.Options['proxy']['port']
+      port?: Server.Configuration['proxy']['port']
     }) => Framework
   }
 }

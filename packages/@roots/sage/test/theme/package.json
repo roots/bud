@@ -5,9 +5,14 @@
     "node": ">=12.14.0"
   },
   "scripts": {
-    "sage": "node ../../../../../node_modules/.bin/sage --location.modules ../../../../../node_modules",
+    "sage": "node ../../../../../node_modules/.bin/sage --location.modules ./../../../../../node_modules",
     "sage:info": "node ../../../../../node_modules/.bin/sage info --location.modules ../../../../../node_modules",
     "sage:dev": "node ../../../../../node_modules/.bin/sage build development --location.modules ../../../../../node_modules",
     "sage:build": "node ../../../../../node_modules/.bin/sage build production --location.modules ../../../../../node_modules"
+  },
+  "bud": {
+    "location": {
+      "storage": "storage/bud"
+    }
   }
 }

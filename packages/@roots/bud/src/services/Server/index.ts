@@ -45,6 +45,21 @@ export class Server extends Base {
       },
 
       /**
+       * Browser
+       */
+      browser: {
+        log: config(['browser.log', 'APP_BROWSER_LOG']),
+        indicator: config([
+          'browser.indicator',
+          'APP_BROWSER_INDICATOR',
+        ]),
+        overlay: config([
+          'browser.overlay',
+          'APP_BROWSER_ERROR_OVERLAY',
+        ]),
+      },
+
+      /**
        * Autorewrite server
        */
       autoRewrite: true,

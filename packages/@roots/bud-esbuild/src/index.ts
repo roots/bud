@@ -95,7 +95,7 @@ export const publish: Module['publish'] = (app: Framework) => ({
 })
 
 export const boot: Module['boot'] = (app: Framework) => {
-  app.extensions.add('esbuild', {
+  app.extensions.add({
     name: 'esbuild-plugin',
     make: () => new ESBuildPlugin(),
     api: {

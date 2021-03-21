@@ -10,13 +10,12 @@ import {Discovery} from './services/Discovery'
 import {Disk} from './services/Disk'
 import {Env} from './services/Env'
 import {Extensions} from './services/Extensions'
+import {Framework} from '@roots/bud-framework'
 import {Hooks} from './services/Hooks'
 import {Logger} from './services/Logger'
-import {Server} from './services/Server'
+import {Server} from '@roots/bud-server'
 import {Store} from './services/Store'
 import {Util} from './services/Util'
-import {Framework} from '@roots/bud-framework'
-import {CLI} from '@roots/bud-typings'
 
 export class Bud extends Framework {
   public api: Api
@@ -24,8 +23,6 @@ export class Bud extends Framework {
   public build: Build
 
   public cache: Cache
-
-  public cli: CLI
 
   public compiler: Compiler
 
@@ -51,10 +48,11 @@ export class Bud extends Framework {
 
   public util: Util
 
+  /**
+   * Constructor
+   */
   public constructor(props) {
     super(props)
-
-    this.topics = this.topics.bind(this)
     this.publish = this.publish.bind(this)
     this.subscribe = this.subscribe.bind(this)
   }
@@ -87,13 +85,6 @@ export class Bud extends Framework {
    */
   public get isDevelopment(): boolean {
     return this.mode === 'development'
-  }
-
-  /**
-   * Topics
-   */
-  public topics(topics: string[], caller?: string) {
-    topics.map(topic => this.hooks.set(topic, [this.util.noop]))
   }
 
   /**

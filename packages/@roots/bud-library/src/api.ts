@@ -1,12 +1,12 @@
-import {Bud} from '@roots/bud'
+import {Framework} from '@roots/bud-framework'
 import AutoDllPlugin from 'autodll-webpack-plugin'
 
-export const library: Bud.Library.Configure = function (
+export const library: Framework.Library.Configure = function (
   modules,
 ) {
-  this.extensions.add('autodll-webpack-plugin', {
+  this.extensions.add({
     name: 'autodll-webpack-plugin',
-    options: (app: Bud) => ({
+    options: (app: Framework) => ({
       debug: false,
       inject: false,
       filename: this.store.isTrue('options.hash')

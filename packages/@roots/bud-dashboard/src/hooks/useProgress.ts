@@ -1,39 +1,7 @@
 import {useState} from '@roots/bud-support'
+import {Dashboard} from '../interface'
 
-export namespace UseProgress {
-  /**
-   * UseProgress
-   */
-  export interface Hook {
-    (): HookInterface
-  }
-
-  export type HookInterface = [Progress, Handler]
-
-  /**
-   * Process webpack progress Return.
-   */
-  export type Handler = (percentage: number, msg: string) => void
-
-  /**
-   * Compiler progress
-   */
-  export type Progress = {
-    percentage: Percentage
-    msg: string
-  }
-
-  /**
-   * Percentage as a nicely formatted display string
-   * and a decimal number for rendering, etc.
-   */
-  export interface Percentage {
-    display: string
-    decimal: number
-  }
-}
-
-const INITIAL_STATE: UseProgress.Progress = {
+const INITIAL_STATE: Dashboard.UseProgress.State = {
   percentage: {
     decimal: 0,
     display: `${0}%`,
@@ -41,10 +9,16 @@ const INITIAL_STATE: UseProgress.Progress = {
   msg: '',
 }
 
-const useProgress: UseProgress.Hook = () => {
-  const [state, setState] = useState(INITIAL_STATE)
+const useProgress: Dashboard.UseProgress = () => {
+  const [
+    state,
+    setState,
+  ] = useState<Dashboard.UseProgress.State>(INITIAL_STATE)
 
-  const handler: UseProgress.Handler = (percentage, msg) => {
+  const handler: Dashboard.UseProgress.Handler = (
+    percentage,
+    msg,
+  ) => {
     if (typeof percentage !== 'number') return
 
     setState({

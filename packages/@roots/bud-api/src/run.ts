@@ -1,3 +1,4 @@
+import {Framework} from '@roots/bud-framework'
 import {ProgressPlugin, chalk} from '@roots/bud-support'
 
 type Run = () => unknown
@@ -25,7 +26,7 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export function run(): void {
+export function run(this: Framework): Promise<void> {
   /**
    * Inject HMR scripts if running in dev.
    *
@@ -42,14 +43,14 @@ export function run(): void {
    */
   if (!this.store.isTrue('options.ci')) {
     this.dashboard.run()
-
     return
   }
 
   /**
    * Builds everything and compiles it with webpack.
    */
-  this.compiler.compile()
+  const build = this.build.make()
+  this.compiler.compile(build)
 
   /**
    * Delegate stats hook to the compilerHook function.
@@ -72,9 +73,7 @@ export function run(): void {
       message,
     }
 
-    this.build.logger.info(
-      `${progress.message} [${progress.percentage}]`,
-    )
+    this.info(`${progress.message} [${progress.percentage}]`)
 
     this.store.set('compilation.progress', progress)
   }).apply(this.compiler.instance)
@@ -95,21 +94,19 @@ export function run(): void {
  */
 function displayCompilation(): void {
   if (this.store.has(`compilation.errors`)) {
-    this.build.logger.error(this.store.get(`compilation.errors`))
+    this.error(this.store.get(`compilation.errors`))
     process.exit()
   }
 
   this.store.has(`compilation.stats.string`) &&
     (() => {
-      this.build.logger.log(
-        this.store.get(`compilation.stats.string`),
-      )
+      this.log(this.store.get(`compilation.stats.string`))
       this.store.delete(`compilation.stats.string`)
     })()
 
   this.store.has('compilation.progress') &&
     (() => {
-      this.build.logger.log(
+      this.log(
         `${chalk.green(
           `[${this.store.get(
             `compilation.progress.percentage`,
@@ -166,7 +163,7 @@ function compilerHook(res): void {
  * Handles stats for production builds.
  */
 function runCallback(err, res): void {
-  this.logger.info({
+  this.info({
     msg: 'Production compilation callback (CI)',
   })
 

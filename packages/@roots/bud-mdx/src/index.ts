@@ -35,18 +35,21 @@ export const boot: Module['boot'] = (app: Framework) => {
   /**
    * Add @mdx-js/loader
    */
-  app.build
-    .set('loaders.mdx', require.resolve('@mdx-js/loader'))
-    .set('items.mdx', (app: Framework) => ({
-      loader: app.build.access('loaders.mdx'),
-      options: app.mdx.options,
-    }))
-    .set('rules.mdx', {
+  app.publish({
+    'loaders/mdx': () => require.resolve('@mdx-js/loader'),
+    'items/mdx': () => ({
+      loader: app.subscribe('items/mdx/loader'),
+      options: app.subscribe('items/mdx/options'),
+    }),
+    'items/mdx/loader': () => app.subscribe('loaders/mdx'),
+    'items/mdx/options': () => app.mdx.options,
+    'rules/mdx': () => ({
       test: ({store}) => store.get('patterns.mdx'),
       exclude: ({store}) => store.get('patterns.modules'),
-      use: ({build}: Framework) => [
-        build.access('items.babel'),
-        build.access('items.mdx'),
+      use: ({subscribe}: Framework) => [
+        subscribe('items/babel'),
+        subscribe('items/mdx'),
       ],
-    })
+    }),
+  })
 }

@@ -3,10 +3,13 @@ import {Instance, Service} from './'
 
 interface Dashboard extends Service {
   /**
-   * Service ident
+   * Service name
    */
   name: any
 
+  /**
+   * Instance
+   */
   dashboard: Instance
 
   /**
@@ -34,7 +37,7 @@ interface Dashboard extends Service {
   kill(): void
 
   /**
-   * Redner
+   * Render
    */
   render: typeof render
 }

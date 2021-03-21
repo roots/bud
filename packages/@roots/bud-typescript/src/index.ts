@@ -9,9 +9,16 @@ const TS_GLOB = ['*.ts', '*.tsx', '**/*.ts', '**/*.tsx']
 const WARN_NO_TS = 'No ts found, skipping.'
 
 /**
- * Extension Name
+ * Extension name
  */
 export const name: Module['name'] = '@roots/bud-typescript'
+
+/**
+ * Registered devDependencies
+ */
+export const devDependencies: Module['devDependencies'] = [
+  'typescript',
+]
 
 /**
  * Extension config api

@@ -23,17 +23,8 @@ export const boot: Module['boot'] = (app: Framework) => {
    */
   if (!app.isDevelopment) return
 
-  /**
-   * Add react-refresh-webpack-plugin
-   */
-  app.extensions.add(
-    '@pmmmwh/react-refresh-webpack-plugin',
-    ReactRefreshWebpackPlugin,
-  )
+  app.extensions.add(ReactRefreshWebpackPlugin)
 
-  /**
-   * Inject react-refresh runtime
-   */
   app.store.mutate('options.entry', entry =>
     Object.entries(entry).reduce(
       (a, [name, assets]: [string, string[]]) => ({

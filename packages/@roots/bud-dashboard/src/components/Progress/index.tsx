@@ -1,40 +1,47 @@
-import {React, FunctionComponent} from '@roots/bud-support'
+import React, {FunctionComponent} from 'react'
+import {Box, Text} from 'ink'
 import {Bar} from './Bar'
+import {Dashboard} from '../../interface'
+import Spinner from 'ink-spinner'
 
-import type {Styles} from '@roots/ink-use-style'
-import type {Compiler} from '@roots/bud-typings'
-
-interface Props {
-  progress: Compiler.Progress
-  bounds: Styles['bounds']
-  col: Styles['col']
-  colors: Styles['colors']
-  hasErrors: boolean
-}
-
-export const Progress: FunctionComponent<Props> = ({
-  progress,
-  bounds,
-  colors,
-  hasErrors,
-}) => {
-  const showProgress =
+export const Progress: FunctionComponent<
+  Partial<Dashboard.AppProps>
+> = ({progress, hasErrors, theme}) => {
+  const guard =
     progress?.decimal &&
-    bounds?.width &&
-    typeof bounds?.width == 'number'
+    theme.bounds.width &&
+    typeof theme.bounds.width == 'number'
 
-  const barGradient = !hasErrors
-    ? [colors.primary, colors.primaryAlt]
-    : [colors.error, colors.error]
+  if (!guard) return null
 
-  const maxWidth = bounds.width - 4
-
-  return showProgress ? (
-    <Bar
-      character={'█'}
-      maxWidth={maxWidth}
-      colors={barGradient}
-      percent={progress?.decimal}
-    />
-  ) : null
+  return (
+    <Box flexDirection="row" justifyContent="space-between">
+      <Box width={7}>
+        <Text wrap="truncate">
+          {progress?.decimal < 1 ? (
+            <>
+              <Spinner /> {progress.percentage}{' '}
+            </>
+          ) : (
+            <>
+              {hasErrors ? 'X ' : '✔ '}
+              {progress.percentage}{' '}
+            </>
+          )}
+        </Text>
+      </Box>
+      <Box width={theme.bounds.width - 7}>
+        <Bar
+          character={'█'}
+          maxWidth={theme.bounds.width - 7}
+          colors={
+            !hasErrors
+              ? [theme.colors.primary, theme.colors.primaryAlt]
+              : [theme.colors.error, theme.colors.error]
+          }
+          percent={progress?.decimal}
+        />
+      </Box>
+    </Box>
+  )
 }

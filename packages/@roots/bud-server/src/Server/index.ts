@@ -1,15 +1,15 @@
-import type {Webpack, Server} from '@roots/bud-typings'
 import {Service} from '@roots/bud-framework'
-import {injectClient} from '../util/injectClient'
-import * as middleware from '../middleware'
+import {Server} from '@roots/bud-typings'
 import {globby, chokidar} from '@roots/bud-support'
-import {resolve} from 'path'
+
 import {FSWatcher} from 'fs-extra'
+import {resolve} from 'path'
+
+import * as middleware from '../middleware'
+import {injectClient} from '../util/injectClient'
 
 /**
- * ## bud.server
- *
- * Development server.
+ * Development Server
  *
  * [🏡 Project home](https://roots.io/bud)
  * [🧑‍💻 roots/bud/packages/bud-server](https://git.io/JkCQG)
@@ -22,7 +22,17 @@ export default class extends Service implements Server {
   public name = '@roots/bud-server'
 
   /**
-   * Application dev server instance.
+   * Middleware
+   */
+  public middleware: Server.Middleware.Inventory = {}
+
+  /**
+   * Watchlist
+   */
+  public _watchlist: string[]
+
+  /**
+   * Server application instance.
    */
   public _instance: Server.Instance
 
@@ -32,19 +42,9 @@ export default class extends Service implements Server {
   public _config: Server.Config
 
   /**
-   * Client bundle assets (for injection)
+   * Assets
    */
   public assets = [resolve(__dirname, '../client/index.js')]
-
-  /**
-   * Middleware
-   */
-  public middleware: {[key: string]: any} = {}
-
-  /**
-   * Watchlist
-   */
-  public _watchlist: string[]
 
   /**
    * Instance getter
@@ -85,32 +85,41 @@ export default class extends Service implements Server {
   /**
    * Run server
    */
-  public run(compiler: Webpack.Compiler): this {
-    if (this.config.enabled('middleware.dev')) {
-      this.info(`Enabling dev middleware`)
+  public run(compiler: Server.Compiler): this {
+    const processMiddlewares = () => {
+      Object.entries(middleware).map(([key, generate]) => {
+        if (this.config.enabled(`middleware.${key}`)) {
+          this.info(`Enabling ${key}`)
 
-      this.middleware.dev = middleware.dev({
-        config: this.config,
-        compiler,
+          this.middleware[key] = generate({
+            config: this.config,
+            compiler,
+          })
+        }
       })
 
-      this.instance.use(this.middleware.dev)
+      Object.values(this.middleware).forEach(middleware =>
+        this.instance.use(middleware),
+      )
     }
 
-    if (this.config.enabled('middleware.hot')) {
-      this.info(`Enabling hot middleware`)
+    processMiddlewares()
 
-      this.middleware.hot = middleware.hot(compiler)
-      this.instance.use(this.middleware.hot)
-    }
+    /**
+     * __roots route
+     */
+    this.instance
+      .route('/__roots/config.json')
+      .get((req, res) => {
+        res.send({
+          ...this.app.store.all(),
+          ...this.config.all(),
+        })
+      })
 
-    if (this.config.enabled('middleware.proxy')) {
-      this.info(`Enabling proxy middleware`)
-
-      this.middleware.proxy = middleware.proxy(this.config)
-      this.instance.use(this.middleware.proxy)
-    }
-
+    /**
+     * Listen
+     */
     this.instance.listen(this.config.get('port'), () => {
       this.info(
         `Server listening on %s`,

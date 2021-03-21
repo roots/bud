@@ -27,7 +27,6 @@
   },
   "files": [
     "lib/",
-    "types/",
     "src/"
   ],
   "main": "./lib/cjs/index.js",
@@ -54,8 +53,6 @@
   },
   "devDependencies": {
     "@roots/container": "^3.0.84-alpha.0",
-    "@roots/bud-framework": "^3.0.84-alpha.0",
-    "@roots/bud-typings": "^3.0.84-alpha.0",
     "@types/json-stringify-safe": "^5.0.0",
     "@types/node": "^14.14.31",
     "@types/webpack": "^4.41.26",
@@ -64,8 +61,11 @@
     "type-fest": "^0.21.2"
   },
   "dependencies": {
+    "@roots/bud-framework": "^3.0.84-alpha.0",
     "@roots/bud-support": "^3.0.84-alpha.0",
+    "@types/http-proxy-middleware": "^1.0.0",
     "@types/webpack-env": "^1.16.0",
+    "http-proxy-middleware": "^1.0.6",
     "json-stringify-safe": "^5.0.1",
     "toastify-js": "^1.9.3",
     "webpack-hot-middleware": "^2.25.0",

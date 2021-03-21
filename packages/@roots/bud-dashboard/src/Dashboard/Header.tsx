@@ -1,7 +1,11 @@
-import {React, Box, Text, Spinner} from '@roots/bud-support'
+import React, {FunctionComponent} from 'react'
+import {Box, Text} from 'ink'
+import Spinner from 'ink-spinner'
 
-export const Header = ({
-  colors,
+import {Dashboard} from '../interface'
+
+export const Header: FunctionComponent<Dashboard.AppProps> = ({
+  theme,
   progress,
   stats,
   hasErrors,
@@ -10,14 +14,14 @@ export const Header = ({
   <Box flexDirection="row">
     <BuildIndicator
       hasErrors={hasErrors}
-      colors={colors}
+      colors={theme.colors}
       progress={progress}
       stats={stats}
       pkg={pkg}
     />
 
     <BuildProgressMessage
-      colors={colors}
+      colors={theme.colors}
       progress={progress}
       stats={stats}
     />

@@ -1,27 +1,24 @@
 import {useEffect, useState} from '@roots/bud-support'
-import {FileContainer} from '@roots/bud-typings'
+import {Framework} from '@roots/bud-framework'
 
 export type PkgFields = {
   [key: string]: any
   name: string
 }
 
-export const usePackageJson = (
-  disk: FileContainer,
-): PkgFields => {
-  const [pkg, setPkg] = useState<PkgFields>({
-    name: '@roots/bud',
-  })
+export const usePackageJson = ({
+  discovery,
+}: Framework): PkgFields => {
+  const [pkg, setPkg] = useState<PkgFields>(null)
 
   useEffect(() => {
-    if (!disk) return
+    if (!discovery) return
 
-    disk.exists('package.json') &&
-      setPkg({
-        ...pkg,
-        ...disk.readJson('package.json'),
-      })
-  }, [disk])
+    setPkg({
+      ...(pkg ?? {}),
+      ...discovery.getProjectInfo,
+    })
+  }, [discovery])
 
   return pkg
 }
