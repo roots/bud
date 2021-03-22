@@ -18,15 +18,25 @@ export class Cache extends Service {
   public name = 'cache'
 
   /**
-   * memoize-fs
-   */
-  public memoizer
-
-  /**
    * serialize js
    */
   public get serialize() {
     return serialize
+  }
+
+  public get memoizer() {
+    return memoizer({
+      cachePath: this.path.posix.join(
+        this.app.subscribe(
+          'location/project',
+          '@roots/bud-cache/memoize',
+        ),
+        this.app.subscribe(
+          'location/storage',
+          '@roots/bud-cache/memoize',
+        ),
+      ),
+    })
   }
 
   public get config() {
@@ -53,24 +63,6 @@ export class Cache extends Service {
   }
 
   /**
-   * Framework lifecycle: registered
-   */
-  public registered() {
-    this.memoizer = memoizer({
-      cachePath: this.path.posix.join(
-        this.app.subscribe(
-          'location/project',
-          '@roots/bud-cache/memoize',
-        ),
-        this.app.subscribe(
-          'location/storage',
-          '@roots/bud-cache/memoize',
-        ),
-      ),
-    })
-  }
-
-  /**
    * Deserialize
    */
   public deserialize(serializedStr) {
@@ -80,8 +72,10 @@ export class Cache extends Service {
   /**
    * Memoize
    */
-  public async memoize(fn: CallableFunction, args) {
-    return await this.memoizer.fn(fn, args, {salt: this.config})
+  public async memoize(fn: CallableFunction, ...args: any[]) {
+    return await this.memoizer.fn(fn(...args), {
+      salt: this.config,
+    })
   }
 
   /**
@@ -119,11 +113,14 @@ export class Cache extends Service {
    */
   public setCache(): void {
     this.enabled() &&
-      this.app.subscribe(
-        'build/cache',
-        this.readJson(
-          this.subscribe('location/records', '@roots/bud-cache'),
-        ),
-      )
+      this.app.publish({
+        'build/cache': () =>
+          this.readJson(
+            this.subscribe(
+              'location/records',
+              '@roots/bud-cache',
+            ),
+          ),
+      })
   }
 }

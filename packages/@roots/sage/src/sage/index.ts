@@ -1,4 +1,5 @@
-import {Sage} from './interface'
+import {Sage, SagePreset} from './interface'
+import {dependencyConditional} from './util'
 
 import * as babel from '@roots/bud-babel'
 import * as esbuild from '@roots/bud-esbuild'
@@ -15,97 +16,44 @@ import * as externals from '@roots/bud-wordpress-externals'
 import * as manifests from '@roots/bud-wordpress-manifests'
 
 /**
- * Receives the normcore bud obj from the sage
- * bin. Preconfigures sage and returns to the
- * CLI.
- */
-declare type SagePreset = (sage: Sage) => Sage
-
-/**
  * @module Sage
  */
-export {sage, Sage, SagePreset}
+export const sage: SagePreset = sage => {
+  /**
+   * Bind utility function to check if a project
+   * is utilizing specific, heavier dependencies
+   */
+  const dependsOn = dependencyConditional.bind(sage)
 
-const sage: SagePreset = (sage: Sage) =>
+  /**
+   * Disk locations
+   */
   sage
-    /**
-     * Artifacts/cache store
-     *
-     * Set to Acorn standard location
-     */
-    .storage('storage/bud')
+    /** Artifacts/cache store */
+    .when(
+      ({env}) => !env.has('APP_STORAGE'),
+      ({storage}) => storage('storage/bud'),
+    )
 
-    /**
-     * Src path
-     */
-    .srcPath('resources')
+    /** Src path */
+    .when(
+      ({env}) => !env.has('APP_SRC'),
+      ({srcPath}) => srcPath('resources'),
+    )
 
-    /**
-     * Dist path
-     */
-    .distPath('public')
+    /** Dist path */
+    .when(
+      ({env}) => !env.isString('APP_DIST'),
+      ({distPath}) => distPath('public'),
+    )
 
-    /**
-     * Public path
-     */
+    /** Public path */
     .when(
       ({env}) => !env.has('APP_PUBLIC_PATH'),
       ({publicPath}) => publicPath('public/'),
     )
 
-    /**
-     * Set CSS urls to be relative
-     */
-    .config({css: {relativeUrls: true}})
-
-    /**
-     * ESBuild doesn't support HMR. it is purely a transpiler.
-     *
-     * - snowpack & vite each have their own HMR solutions.
-     * - snowpack provides their solution as an
-     *   [ESM spec proposal](https://github.com/snowpackjs/esm-hmr)
-     * - [Related](https://medium.com/@dan_abramov/hot-reloading-in-react-1140438583bf)
-     *
-     * Losing hmr in development is not worth the theoretical
-     * lost time in dev, for most users.
-     *
-     * Thus, Sage uses esbuild in production, and babel in development.
-     */
-    .when(
-      ({mode, util}) => util._.isEqual(mode, 'development'),
-      ({use}: Sage) => use([typescript, babel, react]),
-      ({use}: Sage) => use([esbuild]).esbuild.jsx(),
-    )
-
-    /**
-     * General extensions
-     */
-    .use([
-      /**
-       * Style transpilation
-       */
-      postcss,
-      tailwindcss,
-
-      /**
-       * Linting
-       */
-      eslint,
-      stylelint,
-      prettier,
-
-      /**
-       * Manifests
-       */
-      entrypoints,
-      dependencies,
-      externals,
-      manifests,
-    ])
-
-    /**
-     * Sage webpack aliases
-     */
+    /** Webpack aliases */
     .alias({
       '@fonts': 'fonts',
       '@images': 'images',
@@ -113,22 +61,83 @@ const sage: SagePreset = (sage: Sage) =>
       '@styles': 'styles',
     })
 
-    /**
-     * Provide
-     */
+  /**
+   * General config
+   */
+  sage
+    /** Use relative stylesheet URL imports */
+    .config({css: {relativeUrls: true}})
+
+    /** Disable generation of HTML template */
+    .html({enabled: false})
+
+    /** Webpack provide */
     .provide({jquery: ['$', 'jQuery']})
 
+  /**
+   * Transpilation & build extensions
+   */
+  sage
     /**
-     * Additional options
+     * ESBuild doesn't support HMR. it is purely a transpiler.
+     *
+     * - snowpack & vite each have their own HMR solutions.
+     * - snowpack published this [ESM spec proposal](https://github.com/snowpackjs/esm-hmr)
+     * - [Related](https://medium.com/@dan_abramov/hot-reloading-in-react-1140438583bf)
+     *
+     * Losing hmr in development is not worth it, for most users, despite the efficiency.
+     * Thus, Sage uses esbuild in production, and babel in development.
      */
     .when(
-      // Is production?
-      ({isProduction}) => isProduction,
+      // In Development
+      ({isDevelopment}) => isDevelopment,
 
-      // Production
-      sage => sage.minify().hash().vendor().runtime('single'),
+      // Development build extensions
+      ({use}: Sage) => {
+        use([
+          // Conditionally support typescript
+          ...(dependsOn(['typescript'])
+            ? [babel, typescript]
+            : [babel]),
 
-      // Development
-      sage => sage.proxy().devtool('eval'),
+          // Conditionally support react
+          ...(dependsOn(['react']) ? [react] : []),
+        ])
+      },
+
+      // Production uses esbuild
+      ({use}: Sage) => use([esbuild]).esbuild.jsx(),
     )
-    .html({enabled: false})
+    .use([
+      // CSS transpilation
+      postcss,
+      tailwindcss,
+
+      // Linting
+      eslint,
+      stylelint,
+      prettier,
+
+      // Manifest generation
+      entrypoints,
+      dependencies,
+      externals,
+      manifests,
+    ])
+
+  /**
+   * Env specific build config
+   */
+  sage.when(
+    // Is production?
+    ({isProduction}) => isProduction,
+
+    // Apply in production
+    sage => sage.minify().hash().vendor().runtime('single'),
+
+    // Apply in development
+    sage => sage.proxy().devtool('eval'),
+  )
+
+  return sage
+}
