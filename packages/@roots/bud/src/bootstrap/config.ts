@@ -7,13 +7,9 @@ import {env} from './env'
  */
 export const config = (
   key: [string, string?],
-  transform?: (value: any) => any,
+  fallback = undefined,
 ) => {
-  let value
   const [argKey, envKey] = key
 
-  value = get(env, envKey, null)
-  value = get(args, argKey, value)
-
-  return transform ? transform(value) : value
+  return get(args, argKey, get(env, envKey, fallback))
 }

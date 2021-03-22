@@ -1,7 +1,6 @@
 import '@roots/bud-framework'
-
-import {Theme} from '@roots/ink-use-style'
 import {Webpack} from '@roots/bud-support'
+import {Theme} from '@roots/ink-use-style'
 
 /**
  * @fix SWR thinking its in the browser.
@@ -26,35 +25,34 @@ declare module '@roots/bud-framework' {
     }
 
     interface Config {
-      name: string
-      browser: {
-        indicator: true
-        log: true
-        overlay: true
-      }
-      install: boolean
       entry: {
         [key: string]: any
       }
       alias: {
         [key: string]: any
       }
+      define: {
+        [key: string]: any
+      }
       externals: {
         [key: string]: any
       }
+      install: boolean
       bail: boolean
       cache: boolean
       clean: boolean
       ci: boolean
-      define: {
-        [key: string]: any
-      }
+      debug: boolean
       devtool: any
       discover: boolean
       fileFormat: string
       hash: boolean
       hashFormat: string
-      html: boolean
+      html: {
+        enabled: boolean
+        template: string
+        replace: {[key: string]: string}
+      }
       template: string
       log: boolean
       noEmit: boolean
@@ -62,10 +60,19 @@ declare module '@roots/bud-framework' {
       minify: boolean
       mode: 'production' | 'development'
       namedModules: boolean
-      node: Webpack.Configuration['node']
+      node: {
+        module: string
+        dns: string
+        fs: string
+        http2: string
+        net: string
+        tls: string
+        child_process: string
+      }
       parallelism: number
       profile: boolean
-      runtimeChunk: boolean
+      runtimeChunkEnabled: boolean
+      runtimeChunk: Webpack.Configuration['optimization']['runtimeChunk']
       splitChunksEnabled: boolean
       splitChunks: {
         chunks: string
@@ -78,10 +85,17 @@ declare module '@roots/bud-framework' {
       stats: boolean
       target: string
       resolve: {
+        alias: {[key: string]: any}
         extensions: string[]
         modules: string[]
       }
       server: {
+        host: string
+        port: number
+        proxy: {
+          host: string
+          port: number
+        }
         middleware: {
           [key: string]: boolean
         }
@@ -90,6 +104,12 @@ declare module '@roots/bud-framework' {
           options: {
             persistant: boolean
           }
+        }
+        methods: string[]
+        browser: {
+          indicator: boolean
+          log: boolean
+          overlay: boolean
         }
       }
       location: {

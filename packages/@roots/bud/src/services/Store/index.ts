@@ -5,7 +5,6 @@ import {args} from '../../bootstrap/args'
 import {env} from '../../bootstrap/env'
 import {options} from '../../bootstrap/options'
 import * as patterns from '../../bootstrap/patterns'
-import {theme} from '../../bootstrap/theme'
 
 /**
  * Store service.
@@ -22,7 +21,7 @@ export class Store extends Service implements Contract {
   /**
    * Service repository
    */
-  public repository = {args, env, patterns, options, theme}
+  public repository = {args, env, patterns, options}
 
   /**
    * Get

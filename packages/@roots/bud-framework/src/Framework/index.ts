@@ -53,6 +53,11 @@ export abstract class Framework {
 
   public abstract logger: Logger
 
+  /**
+   * ## Store
+   *
+   * Key/value container store
+   */
   public abstract store: Store
 
   public abstract get mode(): 'development' | 'production'

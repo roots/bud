@@ -16,7 +16,7 @@ export class Env extends Service {
   /**
    * Register
    */
-  public register() {
+  public registered() {
     this.setStore(
       dotenv.config({
         path: this.path.posix.join(

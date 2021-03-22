@@ -17,12 +17,8 @@ export function readConfig() {
   const pkgJson = join(process.cwd(), 'package.json')
   const pkg = existsSync(pkgJson) ? readJsonSync(pkgJson) : null
 
-  const cfgFile = join(process.cwd(), 'bud.project.json')
-  const cfgExists = existsSync(cfgFile)
-    ? readJsonSync(cfgFile)
-    : null
+  const cfgFile = join(process.cwd(), 'project.json')
+  const cfg = existsSync(cfgFile) ? readJsonSync(cfgFile) : null
 
-  return cfgExists
-    ? merge(config, pkg?.bud) ?? config
-    : merge(config, pkg?.bud) ?? config
+  return cfg ? merge(config, pkg?.bud) : config
 }

@@ -28,8 +28,8 @@ export const services: {
 } = {
   api: Api,
   logger: Logger,
-  hooks: Hooks,
   store: Store,
+  hooks: Hooks,
   env: Env,
   util: Util,
   build: Build,

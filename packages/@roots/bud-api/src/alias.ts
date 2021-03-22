@@ -29,7 +29,8 @@ declare module '@roots/bud-framework' {
 export type Alias = (alias: {[key: string]: string}) => Framework
 
 export const alias: Framework.Api.Alias = function (alias) {
-  this.store.merge('options.resolve.alias', alias)
+  !this.store.has('args.resolve.alias') &&
+    this.store.merge('options.resolve.alias', alias)
 
   return this
 }

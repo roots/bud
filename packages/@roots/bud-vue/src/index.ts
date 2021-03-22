@@ -9,7 +9,10 @@ export const name: Module['name'] = '@roots/bud-vue'
 /**
  * Dependencies
  */
-export const dependencies = ['vue', 'vue-loader']
+export const dependencies: Module['dependencies'] = ['vue']
+export const devDependencies: Module['devDependencies'] = [
+  'vue-loader',
+]
 
 /**
  * Publish

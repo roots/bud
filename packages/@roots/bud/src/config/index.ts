@@ -1,22 +1,13 @@
 import {Framework} from '@roots/bud-framework'
 
-import {location} from './location'
-import {server} from './server'
-import {theme} from './theme'
-
 export const config: Framework.Config = {
-  name: 'bud',
+  alias: {},
   bail: true,
-  browser: {
-    indicator: true,
-    log: true,
-    overlay: true,
-  },
   ci: false,
   entry: {},
-  alias: {},
   cache: true,
   clean: true,
+  debug: false,
   define: {},
   devtool: false,
   discover: false,
@@ -24,12 +15,15 @@ export const config: Framework.Config = {
   fileFormat: '[name]',
   hash: false,
   hashFormat: `[name].[hash]`,
-  html: true,
+  html: {
+    enabled: true,
+    template: null,
+    replace: {},
+  },
   template: null,
   install: false,
   log: false,
   namedModules: true,
-  noEmit: true,
   node: {
     module: 'empty',
     dns: 'mock',
@@ -39,13 +33,17 @@ export const config: Framework.Config = {
     tls: 'empty',
     child_process: 'empty',
   },
+  noEmit: true,
   stats: false,
   target: 'web',
   manifest: true,
   minify: true,
   mode: 'production',
   profile: false,
-  runtimeChunk: false,
+  runtimeChunkEnabled: false,
+  runtimeChunk: {
+    name: entrypoint => `runtime/${entrypoint.name}`,
+  },
   splitChunksEnabled: false,
   splitChunks: {
     chunks: 'async',
@@ -57,10 +55,70 @@ export const config: Framework.Config = {
   },
   parallelism: 1,
   resolve: {
+    alias: {},
     extensions: ['.wasm', '.mjs', '.js', '.css', '.json'],
     modules: [],
   },
-  server,
-  theme,
-  location,
+  server: {
+    watch: {
+      files: [
+        '**/*.html',
+        '**/*.php',
+        '**/*.ejs',
+        '!node_modules',
+        '!vendor',
+      ],
+      options: {
+        persistant: true,
+      },
+    },
+    middleware: {
+      dev: true,
+      hot: true,
+      proxy: false,
+    },
+    browser: {
+      indicator: true,
+      log: true,
+      overlay: true,
+    },
+    proxy: {
+      host: 'localhost',
+      port: 3000,
+    },
+    host: 'localhost',
+    port: 8000,
+    methods: ['GET', 'HEAD'],
+  },
+  location: {
+    project: process.cwd(),
+    src: 'src',
+    dist: 'dist',
+    modules: 'node_modules',
+    publicPath: '/',
+    records: 'records.json',
+    storage: '.bud',
+  },
+  theme: {
+    spacing: 1,
+    colors: {
+      foreground: '#FFFFFF',
+      faded: '#6C758F',
+      primary: '#545DD7',
+      primaryAlt: '#663399',
+      error: '#dc3545',
+      errorAlt: '#b22222',
+      warning: '#FF611A',
+      success: '#46D46A',
+      accent: '#ff69b4',
+      flavor: '#78C5D7',
+    },
+    screens: [
+      [0, 40],
+      [41, 60],
+      [61, 80],
+      [81, Infinity],
+    ],
+    columns: 12,
+  },
 }

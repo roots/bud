@@ -1,5 +1,4 @@
 import yargs from 'yargs'
-import {readConfig} from './readConfig'
 
 /**
  * Args
@@ -7,41 +6,28 @@ import {readConfig} from './readConfig'
 export const args: any = Object.entries(
   yargs(process.argv.slice(2))
     .parserConfiguration({'camel-case-expansion': false})
-    .config(readConfig())
     .options({
-      name: {
-        type: 'string',
-        default: 'bud',
-      },
       bail: {
         type: 'boolean',
-        default: true,
       },
       cache: {
         type: 'boolean',
-        default: true,
       },
       clean: {
         type: 'boolean',
-        default: true,
       },
       ci: {
         type: 'boolean',
-        default: false,
       },
       debug: {
         type: 'boolean',
-        default: false,
       },
       define: {
         default: {},
       },
-      devtool: {
-        default: {},
-      },
+      devtool: {},
       discover: {
         type: 'boolean',
-        default: false,
       },
       entry: {
         default: {},
@@ -49,218 +35,144 @@ export const args: any = Object.entries(
       externals: {
         default: {},
       },
-      fileFormat: {
+      fileformat: {
         type: 'string',
-        default: '[name].js',
       },
       hash: {
         type: 'boolean',
-        default: false,
       },
       hashFormat: {
         type: 'string',
-        default: `[name].[hash]`,
       },
       html: {
         type: 'boolean',
-        default: true,
       },
       template: {
         type: 'string',
-        default: null,
       },
       install: {
         type: 'boolean',
-        default: false,
       },
       log: {
         type: 'boolean',
-        default: false,
       },
       manifest: {
         type: 'boolean',
-        require: true,
-        default: true,
       },
       minify: {
         type: 'boolean',
-        default: false,
       },
       mode: {
         type: 'string',
-        default: 'production',
       },
-      namedModules: {
+      noEmitOnError: {
         type: 'boolean',
-        default: true,
-      },
-      node: {
-        default: {
-          module: 'empty',
-          dns: 'mock',
-          fs: 'empty',
-          http2: 'empty',
-          net: 'empty',
-          tls: 'empty',
-          child_process: 'empty',
-        },
-      },
-      noEmit: {
-        type: 'boolean',
-        default: true,
       },
       parallelism: {
         type: 'number',
-        default: 1,
       },
       profile: {
         type: 'boolean',
-        default: false,
       },
-      runtimeChunk: {
+      runtimeChunkEnabled: {
         type: 'boolean',
-        default: false,
-      },
-      use: {
-        type: 'array',
-        default: [],
       },
       splitChunksEnabled: {
         type: 'boolean',
-        default: false,
       },
       'splitChunks.chunks': {
         type: 'string',
-        default: 'async',
       },
       'splitChunks.minSize': {
         type: 'number',
-        default: 20000,
       },
       'splitChunks.maxSize': {
         type: 'number',
-        default: 0,
       },
       'splitChunks.minChunks': {
         type: 'number',
-        default: 1,
       },
       'splitChunks.maxAsyncRequests': {
         type: 'number',
-        default: 30,
       },
       'splitChunks.maxInitialRequests': {
         type: 'number',
-        default: 30,
       },
-      alias: {
-        module: {
-          type: 'array',
-        },
-        default: {},
-      },
+      alias: {},
       stats: {
         type: 'boolean',
-        default: false,
       },
       target: {
         type: 'string',
-        default: 'web',
       },
       'resolve.extensions': {
         type: 'array',
-        default: ['.wasm', '.mjs', '.js', '.css', '.json'],
       },
       'resolve.modules': {
         type: 'array',
-        default: [],
       },
-      'location.project': {
+      project: {
         type: 'string',
-        default: process.cwd(),
       },
-      'location.src': {
+      src: {
         type: 'string',
-        default: 'src',
       },
-      'location.dist': {
+      dist: {
         type: 'string',
-        default: 'dist',
       },
-      'location.storage': {
+      storage: {
         type: 'string',
-        default: '.bud',
       },
-      'location.modules': {
+      modules: {
         type: 'string',
-        default: 'node_modules',
       },
-      'location.publicPath': {
+      publicPath: {
         type: 'string',
-        default: '/',
       },
-      'location.records': {
+      records: {
         type: 'string',
-        default: 'records.json',
       },
-      browser: {
-        default: true,
+      'browser.error': {
+        type: 'boolean',
       },
       'browser.overlay': {
-        default: true,
+        type: 'boolean',
       },
       'browser.log': {
-        default: true,
+        type: 'boolean',
       },
       'server.host': {
         type: 'string',
-        default: 'localhost',
       },
       'server.port': {
         type: 'number',
-        default: 3000,
       },
       'server.proxy.host': {
         type: 'string',
-        default: 'localhost',
       },
       'server.proxy.port': {
         type: 'number',
-        default: 8000,
       },
       'server.loglevel': {
         type: 'string',
-        default: 'silent',
       },
       'server.methods': {
         type: 'array',
-        default: ['GET', 'HEAD'],
       },
       'server.middleware.proxy': {
         type: 'boolean',
-        default: false,
       },
       'server.middleware.hot': {
         type: 'boolean',
-        default: true,
       },
       'server.middleware.dev': {
         type: 'boolean',
-        default: true,
       },
       'server.watch.files': {
         type: 'array',
-        default: [
-          '**/*.html',
-          '**/*.php',
-          '**/*.ejs',
-          '!node_modules',
-          '!vendor',
-        ],
       },
       'server.watch.options.persistent': {
         type: 'boolean',
-        default: true,
       },
       'theme.spacing': {
         type: 'string',

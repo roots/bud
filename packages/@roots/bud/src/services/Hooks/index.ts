@@ -1,6 +1,5 @@
 import {Hooks as Base} from '@roots/bud-hooks'
 import {repository} from './repository'
-import {config} from '../../bootstrap/config'
 
 export class Hooks extends Base {
   /**
@@ -18,25 +17,25 @@ export class Hooks extends Base {
    */
   public register() {
     this.set('location/project', [
-      () => config(['location.project', 'APP_PATH']),
+      () => this.app.store.get('options.context'),
     ])
       .set('location/src', [
-        () => config(['location.src', 'APP_SRC']),
+        () => this.app.store.get('options.src'),
       ])
       .set('location/dist', [
-        () => config(['location.dist', 'APP_DIST']),
+        () => this.app.store.get('options.dist'),
       ])
       .set('location/storage', [
-        () => config(['location.storage', 'APP_STORAGE']),
+        () => this.app.store.get('options.storage'),
       ])
       .set('location/modules', [
-        () => config(['location.modules', 'APP_MODULES']),
+        () => this.app.store.get('options.modules'),
       ])
       .set('location/publicPath', [
-        () => config(['location.publicPath', 'APP_PUBLIC_PATH']),
+        () => this.app.store.get('options.publicPath'),
       ])
       .set('location/records', [
-        () => config(['location.records', 'APP_RECORDS']),
+        () => this.app.store.get('options.records'),
       ])
   }
 }

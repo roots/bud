@@ -25,11 +25,6 @@ export interface Cache extends Framework.Service {
   config
 
   /**
-   * Framework lifecycle: registered
-   */
-  registered()
-
-  /**
    * Deserialize
    */
   deserialize(serializedStr)

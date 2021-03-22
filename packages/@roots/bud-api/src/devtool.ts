@@ -25,7 +25,8 @@ declare module '@roots/bud-framework' {
 }
 
 export const devtool: Devtool = function (devtool = false) {
-  this.store.set('options.devtool', devtool)
+  !this.store.has('args.devtool') &&
+    this.store.set('options.devtool', devtool)
 
   return this
 }
