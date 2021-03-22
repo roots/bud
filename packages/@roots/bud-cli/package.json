@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-cli",
   "description": "CLI tools for Bud.",
-  "version": "3.0.84-alpha.0",
+  "version": "3.0.85-alpha.0",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -56,9 +56,9 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "dependencies": {
-    "@roots/bud-dashboard": "^3.0.84-alpha.0",
-    "@roots/bud-framework": "^3.0.84-alpha.0",
-    "@roots/bud-support": "^3.0.84-alpha.0",
+    "@roots/bud-dashboard": "^3.0.85-alpha.0",
+    "@roots/bud-framework": "^3.0.85-alpha.0",
+    "@roots/bud-support": "^3.0.85-alpha.0",
     "commander": "^7.1.0",
     "cross-env": "^7.0.2",
     "get-bin-path": "^5.1.0",
@@ -66,7 +66,7 @@
     "rimraf": "^3.0.2"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^3.0.84-alpha.0",
+    "@roots/bud-typings": "^3.0.85-alpha.0",
     "@types/node": "^14.14.31",
     "@types/webpack": "^4.41.26",
     "type-fest": "^0.21.2"
