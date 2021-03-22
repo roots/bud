@@ -1,11 +1,15 @@
 /**
- * Tailwind configuration example
+ * Sage Theme
  *
- * @typedef {import('@roots/sage').Sage} Sage
+ * @typedef {import('../../lib/types/sage').Sage} Sage
  * @type {(sage: Sage): Sage}
  */
 
 module.exports = (sage) =>
-  sage.entry({
-    app: ['**/app.{(j|t)s(x)?,(s)?css}'],
-  });
+  sage
+    .entry({
+      app: ['**/app.{js,css}'],
+      editor: ['**/editor.{js,css}'],
+      customizer: ['scripts/customizer.js'],
+    })
+    .copy({'assets/': 'resources/{images,fonts}/**/*'});

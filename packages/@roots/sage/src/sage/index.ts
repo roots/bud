@@ -24,7 +24,7 @@ declare type SagePreset = (sage: Sage) => Sage
 /**
  * @module Sage
  */
-export {sage, Sage}
+export {sage, Sage, SagePreset}
 
 const sage: SagePreset = (sage: Sage) =>
   sage
