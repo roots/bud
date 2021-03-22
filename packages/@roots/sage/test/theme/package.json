@@ -9,5 +9,11 @@
     "sage:info": "node ../../../../../node_modules/.bin/sage info --location.modules ../../../../../node_modules",
     "sage:dev": "node ../../../../../node_modules/.bin/sage build development --location.modules ../../../../../node_modules",
     "sage:build": "node ../../../../../node_modules/.bin/sage build production --location.modules ../../../../../node_modules"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.13.10",
+    "postcss": "^8.2.8",
+    "tailwindcss": "^2.0.4",
+    "typescript": "^4.2.3"
   }
 }

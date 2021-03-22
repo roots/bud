@@ -9,7 +9,7 @@ declare module '@roots/bud-framework' {
      *
      * ```js
      * bud.storage('.custom-dir')
-     * ``
+     * ```
      */
     storage: Framework.Api.Storage
   }

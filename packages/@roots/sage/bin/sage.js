@@ -1,5 +1,6 @@
 #!/usr/bin/env
-const {sage} = require('../lib/cjs')
+const {bud} = require('@roots/bud')
 const {CLI} = require('@roots/bud-cli')
+const {sage} = require('../lib/cjs')
 
-new CLI(Object.assign(sage, {name: 'sage'})).boot()
+new CLI(sage(Object.assign(bud, {name: 'sage'}))).boot()
