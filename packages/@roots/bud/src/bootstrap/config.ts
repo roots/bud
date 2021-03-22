@@ -1,4 +1,4 @@
-import {get, has} from 'lodash'
+import {get} from 'lodash'
 import {args} from './args'
 import {env} from './env'
 
@@ -9,13 +9,11 @@ export const config = (
   key: [string, string?],
   transform?: (value: any) => any,
 ) => {
+  let value
   const [argKey, envKey] = key
 
-  const val = has(args, argKey)
-    ? get(args, argKey)
-    : envKey
-    ? get(env, envKey)
-    : null
+  value = get(env, envKey, null)
+  value = get(args, argKey, value)
 
-  return transform ? transform(val) : val
+  return transform ? transform(value) : value
 }

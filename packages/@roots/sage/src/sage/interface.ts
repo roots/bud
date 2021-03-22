@@ -1,4 +1,3 @@
-import '@roots/bud-api'
 import {Bud} from '@roots/bud'
 
 /**

@@ -9,10 +9,5 @@
     "sage:info": "node ../../../../../node_modules/.bin/sage info --location.modules ../../../../../node_modules",
     "sage:dev": "node ../../../../../node_modules/.bin/sage build development --location.modules ../../../../../node_modules",
     "sage:build": "node ../../../../../node_modules/.bin/sage build production --location.modules ../../../../../node_modules"
-  },
-  "bud": {
-    "location": {
-      "storage": "storage/bud"
-    }
   }
 }

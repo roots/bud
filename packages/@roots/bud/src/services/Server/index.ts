@@ -60,31 +60,6 @@ export class Server extends Base {
       },
 
       /**
-       * Autorewrite server
-       */
-      autoRewrite: true,
-
-      /**
-       * Change-origin headers for proxy.
-       */
-      changeOrigin: true,
-
-      /**
-       * Follow redirections when proxied.
-       *
-       * @note for wordpress users: Turning this off will break admin.
-       */
-      followRedirects: true,
-
-      /**
-       * Defines the level of messages logged by server middleware
-       */
-      logLevel: config([
-        'server.loglevel',
-        'APP_SERVER_LOG_LEVEL',
-      ]),
-
-      /**
        * Enabled middlewares
        */
       middleware: {
@@ -129,7 +104,7 @@ export class Server extends Base {
        *
        * @default ['GET','HEAD']
        */
-      methods: config(['server.methods', 'APP_METHODS']),
+      methods: config(['server.methods']),
 
       /**
        * Register custom extension mappings

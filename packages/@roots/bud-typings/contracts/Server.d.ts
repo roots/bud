@@ -104,9 +104,10 @@ export namespace Server {
     /**
      * Client features
      */
-    browser: {
-      log: boolean
-      indicator: true
+    browser?: {
+      log?: boolean
+      indicator?: boolean
+      overlay?: boolean
     }
 
     /**
@@ -147,11 +148,6 @@ export namespace Server {
     headers?: DevMiddleware.Options['headers']
 
     /**
-     * Defines the level of messages logged by Express/WDS middleware
-     */
-    logLevel?: DevMiddleware.Options['logLevel']
-
-    /**
      * This property for  passing  the
      * list of HTTP request methods accepted
      *
@@ -189,23 +185,8 @@ export namespace Server {
     secure?: Proxy.Options['secure']
 
     /**
-     * Proxy setting: rewrite the location host/port on (301/302/307/308) redirects based on requested host/port.
-     */
-    autoRewrite?: Proxy.Options['autoRewrite']
-
-    /**
-     * Proxy setting: change the origin of the host header to the target URL
-     */
-    changeOrigin?: Proxy.Options['changeOrigin']
-
-    /**
      * Escape hatch for Webpack's host check security feature.
      */
     disableHostCheck?: DevMiddleware.Options[]
-
-    /**
-     * Proxy setting: specify whether you want to follow redirects
-     */
-    followRedirects?: Proxy.Options['followRedirects']
   }
 }

@@ -2,6 +2,8 @@
 
 Specify configuration with static JSON. You can put this under the `bud` key in the project's `package.json` or create a new file for it: `bud.project.json`.
 
+All static configuration is entirely optional.
+
 ```json
 {
   "ci": false,

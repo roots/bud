@@ -49,7 +49,7 @@ export const options = {
   },
   splitChunksEnabled: config([
     'splitChunksEnabled',
-    'APP_SPLITCHUNKS_ENABLED',
+    'APP_SPLITCHUNKS',
   ]),
   splitChunks: {
     chunks: config(['splitChunks.chunks']),
@@ -63,5 +63,5 @@ export const options = {
   },
   stats: config(['stats', 'APP_STATS']),
   target: config(['target', 'APP_TARGET']),
-  use: config(['use', 'APP_USE']),
+  use: config(['use']),
 }
