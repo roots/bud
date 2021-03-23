@@ -45,6 +45,7 @@ export const boot: Module['boot'] = ({
       message: WARN_NO_TS,
       suffix: {tsFiles, utilized, TS_GLOB},
     })
+
     return
   }
 

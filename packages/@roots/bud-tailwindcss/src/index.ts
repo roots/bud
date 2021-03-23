@@ -7,7 +7,10 @@ import {tailwind} from './api'
 export const name: Module['name'] = '@roots/bud-tailwindcss'
 
 // Dependencies
-export const devDependencies = ['tailwindcss']
+export const devDependencies = [
+  'tailwindcss',
+  '@tailwindcss/jit',
+]
 
 // Extension config
 export const api: Module['api'] = {tailwind}
