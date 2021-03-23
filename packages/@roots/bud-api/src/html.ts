@@ -50,17 +50,22 @@ declare module '@roots/bud-framework' {
 }
 
 export const html: Framework.Api.Html = function (options?) {
-  if (!options) {
-    this.store.enable('options.html.enabled')
-    return this
-  }
-
   /**
-   * Update the enabled status for the html plugin
+   * Allow html arg to override
    */
-  isBoolean(options.enabled)
-    ? this.store.set('options.html.enabled', options.enabled)
-    : this.store.enable('options.html.enabled')
+  if (!this.store.has('args.html')) {
+    if (!options) {
+      this.store.enable('options.html.enabled')
+      return this
+    }
+
+    /**
+     * Update the enabled status for the html plugin
+     */
+    isBoolean(options.enabled)
+      ? this.store.set('options.html.enabled', options.enabled)
+      : this.store.enable('options.html.enabled')
+  }
 
   /**
    * Apply any replacements in the interpolation plugin
@@ -77,16 +82,21 @@ export const html: Framework.Api.Html = function (options?) {
     )
 
   /**
-   * Set the html-webpack-plugin template
+   * Allow html.template arg to override
    */
-  options.template &&
-    this.publish(
-      {
-        'extension/html-webpack-plugin/options/template': () =>
-          options.template,
-      },
-      'api/html',
-    )
+  if (!this.store.has('html.template')) {
+    /**
+     * Set the html-webpack-plugin template
+     */
+    options.template &&
+      this.publish(
+        {
+          'extension/html-webpack-plugin/options/template': () =>
+            options.template,
+        },
+        'api/html',
+      )
+  }
 
   return this
 }

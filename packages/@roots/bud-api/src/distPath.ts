@@ -27,14 +27,15 @@ declare module '@roots/bud-framework' {
 export const distPath: Framework.Api.DistPath = function (
   segment,
 ) {
-  this.publish(
-    {
-      'location/dist': isEqual(segment.split('').pop(), '/')
-        ? segment
-        : `${segment}/`,
-    },
-    'api/distPath',
-  )
+  !this.store.has('args.dist') &&
+    this.publish(
+      {
+        'location/dist': isEqual(segment.split('').pop(), '/')
+          ? segment
+          : `${segment}/`,
+      },
+      'api/distPath',
+    )
 
   return this
 }

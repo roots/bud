@@ -22,19 +22,13 @@ export const args: any = Object.entries(
       debug: {
         type: 'boolean',
       },
-      define: {
-        default: {},
-      },
+      define: {},
       devtool: {},
       discover: {
         type: 'boolean',
       },
-      entry: {
-        default: {},
-      },
-      externals: {
-        default: {},
-      },
+      entry: {},
+      externals: {},
       fileformat: {
         type: 'string',
       },
@@ -65,7 +59,7 @@ export const args: any = Object.entries(
       mode: {
         type: 'string',
       },
-      noEmitOnError: {
+      noEmitOnErrors: {
         type: 'boolean',
       },
       parallelism: {

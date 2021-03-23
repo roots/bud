@@ -26,7 +26,8 @@ declare module '@roots/bud-framework' {
 }
 
 export const projectPath: ProjectPath = function (path?) {
-  this.publish({'location/project': path}, 'api/projectPath')
+  this.store.has('args.project') &&
+    this.publish({'location/project': path}, 'api/projectPath')
 
   return this
 }

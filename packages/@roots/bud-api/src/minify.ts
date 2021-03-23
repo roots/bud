@@ -34,7 +34,8 @@ declare module '@roots/bud-framework' {
 }
 
 export const minify: Minify = function (enabled = true) {
-  this.store.set('options.minimize', enabled)
+  !this.store.has('args.minify') &&
+    this.store.set('options.minimize', enabled)
 
   return this
 }

@@ -79,7 +79,7 @@ export const options = {
     base.namedModules,
   ),
   noEmitOnErrors: config(
-    ['noEmit', 'APP_NO_EMIT_ON_ERRORS'],
+    ['noEmitOnErrors', 'APP_NO_EMIT_ON_ERRORS'],
     base.noEmitOnErrors,
   ),
   parallelism: config(

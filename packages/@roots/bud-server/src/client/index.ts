@@ -9,8 +9,6 @@ const run = async () => {
   const res = await fetch('/__roots/config.json')
   const server = await res.json()
 
-  console.log(server)
-
   server.browser.log &&
     (() => {
       console.info(`[Bud] Development mode`)
