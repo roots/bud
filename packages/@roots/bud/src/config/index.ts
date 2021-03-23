@@ -87,10 +87,10 @@ export const config: Framework.Config = {
     },
     proxy: {
       host: 'localhost',
-      port: 3000,
+      port: 8000,
     },
     host: 'localhost',
-    port: 8000,
+    port: 3000,
     methods: ['GET', 'HEAD'],
   },
   location: {
