@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-typescript",
-  "version": "3.0.87-alpha.0",
+  "version": "3.0.88-alpha.0",
   "description": "Adds Typescript support to Bud.",
   "repository": {
     "type": "git",
@@ -54,14 +54,14 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
-    "@roots/bud": "^3.0.87-alpha.0",
-    "@roots/bud-framework": "^3.0.87-alpha.0",
-    "@roots/bud-typings": "^3.0.87-alpha.0",
+    "@roots/bud": "^3.0.88-alpha.0",
+    "@roots/bud-framework": "^3.0.88-alpha.0",
+    "@roots/bud-typings": "^3.0.88-alpha.0",
     "@types/node": "^14.14.31",
     "type-fest": "^0.21.2"
   },
   "dependencies": {
-    "@roots/bud-support": "^3.0.87-alpha.0",
+    "@roots/bud-support": "^3.0.88-alpha.0",
     "@typescript-eslint/parser": "^4.14.0",
     "fork-ts-checker-webpack-plugin": "^6.1.1",
     "ts-loader": "^8.0.18"
