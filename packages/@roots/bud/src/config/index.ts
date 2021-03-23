@@ -1,5 +1,8 @@
 import {Framework} from '@roots/bud-framework'
 
+/**
+ * Base config
+ */
 export const config: Framework.Config = {
   alias: {},
   bail: true,

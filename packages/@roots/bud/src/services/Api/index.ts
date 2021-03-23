@@ -9,7 +9,7 @@ import * as api from '@roots/bud-api'
  */
 export class Api extends Service {
   /**
-   * Ident
+   * Name
    */
   public name = 'service/api'
 
