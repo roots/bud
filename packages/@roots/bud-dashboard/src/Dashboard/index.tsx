@@ -1,19 +1,13 @@
 import {Framework} from '@roots/bud-framework'
 import {Dashboard as IDashboard} from '../interface'
 
-import React, {
-  FunctionComponent,
-  useEffect,
-  useState,
-} from 'react'
+import React, {FunctionComponent, useEffect} from 'react'
 import {Box, useApp, useInput, Static, Text} from 'ink'
 import {
   Assets,
-  Console,
   DevStatus,
   Time,
   Git,
-  Main,
   Screen,
   Progress,
   Module,
@@ -44,7 +38,6 @@ export const Dashboard: FunctionComponent<{bud: Framework}> = ({
   })
 
   const theme = useStyle(bud.store.get('options.theme'))
-  const [themeLoaded, setThemeLoaded] = useState(false)
   const pkg = usePackageJson(bud)
 
   useEffect(() => {
@@ -55,14 +48,6 @@ export const Dashboard: FunctionComponent<{bud: Framework}> = ({
 
     shouldExit && setTimeout(() => process.exit(), 1000)
   }, [stats, progress, errors])
-
-  useEffect(() => {
-    theme &&
-      theme.bounds &&
-      theme.col &&
-      theme.colors &&
-      setThemeLoaded(true)
-  }, [theme])
 
   const appProps: IDashboard.AppProps = {
     bud,
@@ -78,88 +63,81 @@ export const Dashboard: FunctionComponent<{bud: Framework}> = ({
 
   return (
     <Screen>
-      <Main>
-        {themeLoaded && (
-          <Box flexDirection="column">
-            {/** Static: errors */}
-            {appProps.hasErrors && appProps.errors && (
-              <Static
-                items={appProps.errors.map((body, id) => ({
-                  id,
-                  body,
-                }))}>
-                {error => (
-                  <Module
-                    key={error.id}
-                    color={appProps.theme.colors.error}
-                    label="Error">
-                    <Text>{error.body}</Text>
-                  </Module>
-                )}
-              </Static>
+      <Box flexDirection="column">
+        {/** Static: errors */}
+        {appProps.hasErrors && appProps.errors && (
+          <Static
+            marginBottom={1}
+            items={appProps.errors.map((body, id) => ({
+              id,
+              body,
+            }))}>
+            {error => (
+              <Module
+                key={error.id}
+                color={appProps.theme.colors.error}
+                label="Error">
+                <Text>{error.body}</Text>
+              </Module>
             )}
-
-            {/** Static: warnings */}
-            {appProps.hasWarnings && appProps.warnings && (
-              <Static
-                items={appProps.warnings.map((body, id) => ({
-                  id,
-                  body,
-                }))}>
-                {warning => (
-                  <Module
-                    key={warning.id}
-                    color={appProps.theme.colors.warning}
-                    label="Warning">
-                    <Text>{warning.body}</Text>
-                  </Module>
-                )}
-              </Static>
-            )}
-
-            {/** Main  */}
-            <Box marginTop={1} flexDirection="column">
-              {/** Assets */}
-              {appProps.stats?.assets?.length > 0 && (
-                <Module
-                  label="Assets"
-                  marginBottom={1}
-                  color={theme.colors.faded}>
-                  <Assets {...appProps} />
-                </Module>
-              )}
-
-              {/** Server info */}
-              {bud.isDevelopment &&
-                bud.server.config.isTrue('middleware.dev') && (
-                  <Module
-                    label="Dev Server"
-                    marginBottom={1}
-                    color={theme.colors.faded}>
-                    <DevStatus {...appProps} />
-                  </Module>
-                )}
-
-              <Box
-                marginBottom={1}
-                width={appProps.theme.col(12)}>
-                <Console {...appProps} />
-              </Box>
-
-              {/** Progrss Bar */}
-              <Box marginBottom={1}>
-                <Progress {...appProps} />
-              </Box>
-
-              {/** Git Repo */}
-              <Box flexDirection="row" marginBottom={1}>
-                <Time {...appProps} />
-                <Git theme={appProps.theme} />
-              </Box>
-            </Box>
-          </Box>
+          </Static>
         )}
-      </Main>
+
+        {/** Static: warnings */}
+        {appProps.hasWarnings && appProps.warnings && (
+          <Static
+            marginBottom={1}
+            items={appProps.warnings.map((body, id) => ({
+              id,
+              body,
+            }))}>
+            {warning => (
+              <Module
+                key={warning.id}
+                color={appProps.theme.colors.warning}
+                label="Warning">
+                <Text>{warning.body}</Text>
+              </Module>
+            )}
+          </Static>
+        )}
+
+        {/** Main  */}
+        <Box flexDirection="column">
+          {/** Assets */}
+          <Module
+            label="Assets"
+            marginBottom={1}
+            color={theme.colors.faded}>
+            <Assets {...appProps} />
+          </Module>
+
+          {/** Server info */}
+          {bud.isDevelopment &&
+            bud.server.config.isTrue('middleware.dev') && (
+              <Module
+                label="Dev Server"
+                marginBottom={1}
+                color={theme.colors.faded}>
+                <DevStatus {...appProps} />
+              </Module>
+            )}
+
+          {/** Progrss Bar */}
+          <Box marginBottom={1}>
+            <Progress {...appProps} />
+          </Box>
+
+          <Box marginBottom={1}>
+            <Git theme={appProps.theme} />
+          </Box>
+
+          {/** Git Repo */}
+          <Box flexDirection="row" marginBottom={1}>
+            <Time {...appProps} />
+          </Box>
+        </Box>
+      </Box>
     </Screen>
   )
 }

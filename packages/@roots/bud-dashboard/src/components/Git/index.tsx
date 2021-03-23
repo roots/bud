@@ -29,7 +29,7 @@ export const Git: FunctionComponent<
   return (
     <Box
       flexDirection="row"
-      justifyContent="flex-end"
+      justifyContent="flex-start"
       flexGrow={1}>
       {gitProps.map(({key, data, color}) => (
         <Text key={key} backgroundColor={color}>

@@ -18,7 +18,7 @@ import * as manifests from '@roots/bud-wordpress-manifests'
 /**
  * @module Sage
  */
-export const sage: SagePreset = sage => {
+export const sage: SagePreset = (sage: Sage): Sage => {
   /**
    * Bind utility function to check if a project
    * is utilizing specific, heavier dependencies

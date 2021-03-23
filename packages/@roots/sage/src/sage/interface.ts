@@ -1,9 +1,11 @@
+import '@roots/bud-api'
+import {Framework} from '@roots/bud-framework'
 import {Bud} from '@roots/bud'
 
 /**
  * Bud preset: @roots/sage
  */
-export type Sage = Bud
+export type Sage = Bud & Framework
 
 /**
  * Receives the normcore bud obj from the sage

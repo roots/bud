@@ -26,11 +26,8 @@ my-project
 Our minimal `bud.config.js` file might look something like this:
 
 ```js
-const {bud} = require('@roots/bud')
-
-bud.entry('app', ['scripts/app.js', 'styles/app.css'])
-
-bud.run()
+module.exports = bud =>
+  bud.entry('app', ['scripts/app.js', 'styles/app.css'])
 ```
 
 Let's break down what is happening.

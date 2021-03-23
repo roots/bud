@@ -7,35 +7,27 @@ description: Compile project assets by running bud.config.js with Node.
 Assets are compiled with the `bud build` command.
 
 ```sh
-bud build
+bud build [environment]
 ```
+
+The environment should be set to either `development` or `production`.
+
+## Defaults
 
 If run without any arguments it is the equivalent of entering:
 
 ```sh
-bud build --mode production --manifest --cache
+bud build production --manifest --cache
 ```
 
 ## Arguments
-
-### Compiling in `production` mode
-
-```sh
-bud build --mode production
-```
-
-### Compiling in `development` mode
-
-```sh
-bud build --mode development
-```
 
 ### Run in CI mode
 
 Simpler output for better compatibility and build artifacts.
 
 ```sh
-bud build --ci
+bud build production --ci
 ```
 
 ### Debugging
@@ -43,7 +35,7 @@ bud build --ci
 Dumps extra information and build objects to disk (`.bud/records`).
 
 ```sh
-bud build --debug
+bud build production --debug
 ```
 
 ### Logging
@@ -51,7 +43,7 @@ bud build --debug
 Log verbose output for debugging
 
 ```sh
-bud build --log
+bud build production --log
 ```
 
 ### Autodiscover
@@ -59,75 +51,75 @@ bud build --log
 Automatically discover and utilize installed packages.
 
 ```sh
-bud build --autodiscover
+bud build production --autodiscover
 ```
 
 ### Minify assets
 
 ```sh
-bud build --minify
+bud build production --minify
 ```
 
 ### Hash compiled asset filenames
 
 ```sh
-bud build --hash
+bud build production --hash
 ```
 
 ### Produce a `vendor` bundle
 
 ```sh
-bud build --vendor
+bud build production --vendor
 ```
 
 ### Produce a `runtime` bundle
 
 ```sh
-bud build --runtime
+bud build production --runtime
 ```
 
 ### Specify a devtool (source-maps)
 
 ```sh
 # Enable source-maps
-bud build --devtool
+bud build production --devtool
 
 # Specify a specific devtool
-bud build --devtool cheap-eval-source-map
+bud build production --devtool cheap-eval-source-map
 ```
 
 ### Specify `src` directory
 
 ```sh
-bud build --src resources
+bud build production --src resources
 ```
 
 ### Specify `dist` directory
 
 ```sh
-bud build --dist distributables
+bud build production --dist distributables
 ```
 
 ### Specify `node_modules` directory
 
 ```sh
-bud build --modules ../path-to-node_modules
+bud build production --modules ../path-to-node_modules
 ```
 
 ### Specify `storage` directory
 
 ```sh
-bud build --storage new/storage/dir
+bud build production --storage new/storage/dir
 ```
 
 ### Produce with an html template
 
 ```sh
-bud build --html
+bud build production --html
 ```
 
 ### Produce a manifest
 
 ```sh
-bud build --manifest
+bud build production --manifest
 ```
