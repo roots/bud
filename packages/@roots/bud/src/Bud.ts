@@ -53,6 +53,7 @@ export class Bud extends Framework {
    */
   public constructor(props) {
     super(props)
+
     this.publish = this.publish.bind(this)
     this.subscribe = this.subscribe.bind(this)
   }

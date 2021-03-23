@@ -126,7 +126,7 @@ export const args: any = Object.entries(
       records: {
         type: 'string',
       },
-      'browser.error': {
+      'browser.indicator': {
         type: 'boolean',
       },
       'browser.overlay': {
@@ -203,10 +203,14 @@ export const args: any = Object.entries(
       },
     })
     .parse(),
-).reduce(
-  (a, [k, v]) => ({
-    ...a,
-    [k]: v == 'true' ? true : v == 'false' ? false : v,
-  }),
-  {},
 )
+  /**
+   * Reduces string bools to literal bools
+   */
+  .reduce(
+    (a, [k, v]) => ({
+      ...a,
+      [k]: v == 'true' ? true : v == 'false' ? false : v,
+    }),
+    {},
+  )

@@ -1,6 +1,7 @@
 import {Service} from '@roots/bud-framework'
 import React from 'react'
 import {render, Instance, Text} from 'ink'
+import {isString} from 'lodash'
 
 import {Dashboard} from './Dashboard'
 import {Theme} from './api'
@@ -60,10 +61,17 @@ export class DashboardService extends Service {
   }
 
   /**
-   * Unmount CLI
+   * Render error
    */
-  public kill(): void {
-    this.dashboard.unmount()
+  public renderError(body: string, title: string): Instance {
+    this.dashboard && this.kill()
+
+    return (this.dashboard = render(
+      <Screen>
+        <Mark text={this.app.name} />
+        <Error body={body} title={title} />
+      </Screen>,
+    ))
   }
 
   /**
@@ -72,8 +80,10 @@ export class DashboardService extends Service {
   public render(Component: any): Instance {
     if (this.ci) return
 
+    this.dashboard && this.kill()
+
     const Output = () =>
-      typeof Component == 'string' ? (
+      isString(Component) ? (
         <Text>{Component}</Text>
       ) : Array.isArray(Component) ? (
         Component.map((c, id) => <Text key={id}>{c}</Text>)
@@ -87,5 +97,12 @@ export class DashboardService extends Service {
         <Output />
       </Screen>,
     ))
+  }
+
+  /**
+   * Unmount CLI
+   */
+  public kill(): void {
+    this.dashboard.unmount()
   }
 }

@@ -16,20 +16,16 @@ interface Dashboard extends Service {
    * Register service
    */
   register(): void
+
   /**
    * Mount CLI
    */
   run(): void
 
   /**
-   * Unmount CLI
+   * Render error
    */
-  kill(): void
-
-  /**
-   * Mount CLI
-   */
-  run(): void
+  renderError(body: string, title: string): Instance
 
   /**
    * Unmount CLI

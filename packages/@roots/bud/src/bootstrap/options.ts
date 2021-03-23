@@ -165,9 +165,17 @@ export const options = {
       },
     },
     browser: {
-      error: config(
-        ['browser.error', 'APP_BROWSER_ERROR'],
-        base.server.browser.error,
+      overlay: config(
+        ['browser.overlay', 'APP_BROWSER_OVERLAY'],
+        base.server.browser.overlay,
+      ),
+      indicator: config(
+        ['browser.indicator', 'APP_BROWSER_INDICATOR'],
+        base.server.browser.indicator,
+      ),
+      log: config(
+        ['browser.log', 'APP_BROWSER_LOG'],
+        base.server.browser.log,
       ),
     },
     middleware: {

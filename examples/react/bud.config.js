@@ -8,6 +8,7 @@ app
     require('@roots/bud-react'),
     require('@roots/bud-emotion'),
   ])
+  .proxy({enabled: 'foo'})
   .html({enabled: true})
   .entry('app', 'app.{js,css}')
   .run()
