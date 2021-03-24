@@ -16,12 +16,12 @@ import * as externals from '@roots/bud-wordpress-externals'
 import * as manifests from '@roots/bud-wordpress-manifests'
 
 /**
- * @module Sage
+ * Sage theme preset
  */
 export const sage: SagePreset = (sage: Sage): Sage => {
   /**
-   * Bind utility function to check if a project
-   * is utilizing specific, heavier dependencies
+   * Bind utility function for checking if a project
+   * is utilizing specific, heavier dependencies.
    */
   const dependsOn = dependencyConditional.bind(sage)
 
@@ -61,10 +61,6 @@ export const sage: SagePreset = (sage: Sage): Sage => {
       '@styles': 'styles',
     })
 
-  /**
-   * General config
-   */
-  sage
     /** Use relative stylesheet URL imports */
     .config({css: {relativeUrls: true}})
 
@@ -73,11 +69,6 @@ export const sage: SagePreset = (sage: Sage): Sage => {
 
     /** Webpack provide */
     .provide({jquery: ['$', 'jQuery']})
-
-  /**
-   * Transpilation & build extensions
-   */
-  sage
 
     /**
      * ESBuild doesn't support HMR. it is purely a transpiler.
@@ -90,10 +81,10 @@ export const sage: SagePreset = (sage: Sage): Sage => {
      * Thus, Sage uses esbuild in production, and babel in development.
      */
     .when(
-      // In Development
+      // Check if building for dev..
       ({isDevelopment}) => isDevelopment,
 
-      // Development build extensions
+      // ..if so, use these extensions
       ({use}: Sage) => {
         use([
           // Conditionally support typescript
@@ -106,9 +97,11 @@ export const sage: SagePreset = (sage: Sage): Sage => {
         ])
       },
 
-      // Production uses esbuild
+      // ..otherwise, just use esbuild
       ({use}: Sage) => use([esbuild]).esbuild.jsx(),
     )
+
+    /** Additional extensions */
     .use([
       // CSS transpilation
       postcss,

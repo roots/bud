@@ -1,2 +1,2 @@
 export {sage} from './sage'
-export {Sage, SagePreset} from './sage/interface'
+export {Sage, SageConfig, SagePreset} from './sage/interface'
