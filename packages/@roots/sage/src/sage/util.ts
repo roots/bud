@@ -1,46 +1,26 @@
 import {Sage} from './interface'
-import {Container} from '@roots/container'
+import {FileContainer} from '@roots/filesystem'
 
 /**
  * Returns a util fn to check if a dep is used in the project package.json
  * and a container holding the project filesystem.
  */
-export const curryConditionalChecks: (
+export const projectInfo: (
   sage: Sage,
-) => [Sage.Deps, Container] = (sage: Sage) => {
-  const {info} = sage.discovery
-  const files = sage.disk.get<Container>('project')
+) => {
+  deps: string[]
+  files: string[]
+} = (sage: Sage) => {
+  const {projectInfo: pkg} = sage.discovery
 
-  /**
-   * Dependency check utility
-   */
-  const checkDeps: Sage.Deps = function (deps) {
-    /**
-     * Get keys from a theme package.json
-     */
-    const pkgObjKeys = (key: string): string[] =>
-      info.hasOwnProperty(key) ? Object.keys(info[key]) : []
+  const fieldKeys = (key: string): string[] =>
+    pkg.hasOwnProperty(key) ? Object.keys(pkg[key]) : []
 
-    /**
-     * Merge dependencies from package.json keys
-     */
-    const mergedDependencies: string[] = [
-      ...pkgObjKeys('dependencies'),
-      ...pkgObjKeys('devDependencies'),
-    ]
-
-    /**
-     * Fitler dependencies passed as an argument
-     * and contained within the merged deps array.
-     *
-     * Return true if there are any results.
-     */
-    return (
-      deps.filter((dep: string): boolean =>
-        mergedDependencies.includes(dep),
-      ).length > 0
-    )
+  return {
+    deps: [
+      ...fieldKeys('dependencies'),
+      ...fieldKeys('devDependencies'),
+    ],
+    files: sage.disk.get<FileContainer>('project').getKeys(),
   }
-
-  return [checkDeps, files]
 }

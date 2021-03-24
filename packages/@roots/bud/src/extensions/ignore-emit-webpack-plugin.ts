@@ -8,13 +8,6 @@ import {Framework} from '@roots/bud-framework/src'
 export const name = 'ignore-emit-webpack-plugin'
 
 /**
- * Topics
- */
-export const topics: Module['topics'] = [
-  'extension/ignore-emit-webpack-plugin/options/ignore',
-]
-
-/**
  * Publish
  */
 export const publish: Module['publish'] = (app: Framework) => ({

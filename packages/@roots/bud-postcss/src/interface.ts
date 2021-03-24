@@ -1,5 +1,11 @@
-import '@roots/bud-framework'
+import {Module} from '@roots/bud-framework'
 import {Signale} from '@roots/bud-support'
+
+export declare const name: Module['name']
+export declare const devDependencies: Module['devDependencies']
+export declare const api: Module['api']
+export declare const publish: Module['publish']
+export declare const boot: Module['boot']
 
 declare module '@roots/bud-framework' {
   interface Framework {

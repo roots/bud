@@ -54,29 +54,21 @@ export interface Extension extends Framework.Service {
 export interface Module {
   name: string
 
-  register?: (app: Framework) => unknown
-
   options?: Module.Options
-
-  boot?: (app: Framework) => unknown
-
-  api?: Module.Api
-
-  setLoaders?: Module.Registrable.Source.Value
-
-  setItems?: Module.Registrable.Source.Value
-
-  setRules?: Module.Registrable.Source.Value
-
-  make?: Module.Make
-
-  when?: Module.When
 
   dependencies?: string[]
 
   devDependencies?: string[]
 
-  topics?: ((app: Framework) => string[]) | string[]
+  register?: (app: Framework) => unknown
+
+  boot?: (app: Framework) => unknown
+
+  api?: Module.Api
+
+  make?: Module.Make
+
+  when?: Module.When
 
   publish?:
     | ((app: Framework) => {[key: string]: any})

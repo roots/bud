@@ -1,4 +1,4 @@
-import {
+import type {
   Build,
   Cache,
   Compiler,
@@ -10,6 +10,7 @@ import {
   Extensions,
   Hooks,
   Logger,
+  Module,
   Server,
   Store,
   MaybeCallable,
@@ -19,10 +20,31 @@ import {Container} from '@roots/container'
 import {Service} from '../Service'
 import {isEqual, isFunction} from 'lodash'
 
+export {Framework}
+
+declare namespace Framework {
+  export {Build}
+  export {Cache}
+  export {Compiler}
+  export {Dashboard}
+  export {Dependencies}
+  export {Discovery}
+  export {Disk}
+  export {Env}
+  export {Extensions}
+  export {Hooks}
+  export {Logger}
+  export {Module}
+  export {Server}
+  export {Store}
+  export {MaybeCallable}
+  export {Bootstrapper}
+}
+
 /**
  * Bud framework base class
  */
-export abstract class Framework {
+abstract class Framework {
   [key: string]: any
 
   public name = 'bud'
@@ -60,17 +82,32 @@ export abstract class Framework {
    */
   public abstract store: Store
 
+  /**
+   * Current mode
+   */
   public abstract get mode(): 'development' | 'production'
 
+  /**
+   * Mode is production
+   */
   public abstract get isProduction(): boolean
 
+  /**
+   * Mode is development
+   */
   public abstract get isDevelopment(): boolean
 
+  /**
+   * Subscribe
+   */
   public abstract subscribe<T = any>(
     name: string,
     caller?: string,
   ): T
 
+  /**
+   * Publish
+   */
   public abstract publish<T = any>(
     name: {[key: string]: any},
     caller?: string,
