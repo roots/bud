@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-build",
   "description": "Bud webpack config build controller",
-  "version": "3.0.94-alpha.0",
+  "version": "3.0.95-alpha.0",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -54,15 +54,15 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
-    "@roots/bud-extensions": "^3.0.94-alpha.0",
-    "@roots/bud-typings": "^3.0.94-alpha.0",
+    "@roots/bud-extensions": "^3.0.95-alpha.0",
+    "@roots/bud-typings": "^3.0.95-alpha.0",
     "@types/node": "^14.14.31",
     "@types/webpack": "^4.41.26",
     "type-fest": "^0.21.2"
   },
   "dependencies": {
-    "@roots/bud-framework": "^3.0.94-alpha.0",
-    "@roots/bud-support": "^3.0.94-alpha.0"
+    "@roots/bud-framework": "^3.0.95-alpha.0",
+    "@roots/bud-support": "^3.0.95-alpha.0"
   },
   "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"
 }
