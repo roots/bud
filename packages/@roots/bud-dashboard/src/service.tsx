@@ -39,8 +39,10 @@ export class DashboardService extends Service {
       error: Error,
     })
 
-    this.kill = this.kill.bind(this)
     this.run = this.run.bind(this)
+    this.kill = this.kill.bind(this)
+    this.render = this.render.bind(this)
+    this.renderError = this.renderError.bind(this)
   }
 
   /**
@@ -64,8 +66,6 @@ export class DashboardService extends Service {
    * Render error
    */
   public renderError(body: string, title: string): Instance {
-    this.dashboard && this.kill()
-
     return (this.dashboard = render(
       <Screen>
         <Mark text={this.app.name} />
@@ -79,8 +79,6 @@ export class DashboardService extends Service {
    */
   public render(Component: any): Instance {
     if (this.ci) return
-
-    this.dashboard && this.kill()
 
     const Output = () =>
       isString(Component) ? (

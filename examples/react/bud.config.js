@@ -1,14 +1,17 @@
-// @ts-check
-const {bud: app} = require('../../packages/@roots/bud')
+/**
+ * React configuration example
+ *
+ * @typedef {import('@roots/bud').Bud} Bud
+ * @type {(bud: Bud): Bud}
+ */
 
-app
-  .use([
-    require('@roots/bud-babel'),
-    require('@roots/bud-postcss'),
-    require('@roots/bud-react'),
-    require('@roots/bud-emotion'),
-  ])
-  .proxy({enabled: 'foo'})
-  .html({enabled: true})
-  .entry('app', 'app.{js,css}')
-  .run()
+module.exports = bud =>
+  bud
+    .use([
+      require('@roots/bud-babel'),
+      require('@roots/bud-postcss'),
+      require('@roots/bud-react'),
+      require('@roots/bud-emotion'),
+    ])
+    .html({enabled: true})
+    .entry('app', 'app.{js,css}')

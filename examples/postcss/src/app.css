@@ -1,14 +1,10 @@
-.h1 {
-  color: blue;
-
-  .test {
-    margin-top: 10px;
-  }
+h1 {
+  color: black;
 }
 
 /**
  * h2
  */
-.h2 {
+h2 {
   color: red;
 }

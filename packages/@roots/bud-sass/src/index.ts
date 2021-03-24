@@ -8,19 +8,6 @@ export const devDependencies: Module['devDependencies'] = [
   'sass',
 ]
 
-export const topics: Module['topics'] = (app: Framework) => [
-  'loader/sass',
-  'item/sass',
-  'item/sass/loader',
-  'item/sass/options',
-  'item/sass/options/implementation',
-  'item/sass/options/sourceMap',
-  'rule/sass',
-  'rule/sass/test',
-  'rule/sass/exclude',
-  'rule/sass/use',
-]
-
 export const publish: Module['publish'] = (app: Framework) => ({
   /**
    * loader/sass
@@ -41,27 +28,36 @@ export const publish: Module['publish'] = (app: Framework) => ({
     ),
     sourceMap: app.subscribe('item/sass/options/sourceMap'),
   }),
+
+  /**
+   * Implementation will try to resolve sass & node-sass, preferring
+   * sass.
+   */
   'item/sass/options/implementation': () => {
     global.navigator = undefined
 
-    try {
-      require('sass')
-    } catch (err) {
-      app.logger.instance.scope('@roots/sass').error(err)
-      process.exit()
-    }
+    const sass = (() =>
+      require(app.project('node_modules/sass')))()
 
     global.navigator = {}
+
+    return sass
   },
   'item/sass/options/sourceMap': () => true,
 
   /**
    * rule/sass
    */
+  rule: (rules: {
+    [key: string]: <T = any>(name: string, caller?: string) => T
+  }) => ({
+    ...rules,
+    'rule/sass': app.subscribe('rule/sass'),
+  }),
   'rule/sass': () => ({
     test: app.subscribe('rule/sass/test'),
     exclude: app.subscribe('rule/sass/exclude'),
-    loader: app.subscribe('rule/sass/loader'),
+    use: app.subscribe('rule/sass/use'),
   }),
   'rule/sass/test': () => app.store.get('patterns.sass'),
   'rule/sass/exclude': () => app.store.get('patterns.modules'),
@@ -71,7 +67,7 @@ export const publish: Module['publish'] = (app: Framework) => ({
       : app.subscribe('item/style'),
     app.subscribe('item/css'),
     app.subscribe('item/postcss'),
-    app.subscribe('item/resolveUrl'),
+    app.subscribe('item/resolve-url'),
     app.subscribe('item/sass'),
   ],
 

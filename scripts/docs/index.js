@@ -62,17 +62,6 @@ glob(['packages/@roots/*/src/docs/README.md']).map(from => {
   })
 })
 
-glob([
-  'packages/@roots/*/src/docs/**.md',
-  '!packages/@roots/*/src/docs/README.md',
-]).map(from => {
-  doc({
-    pkg: pkgNameFromPkgPath(from),
-    from: from,
-    to: from.replace(`src/docs`, `docs`),
-  })
-})
-
 readme({
   pkg: '@roots/bud',
   from: join(

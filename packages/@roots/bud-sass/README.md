@@ -4,8 +4,18 @@
 
 <p align="center">
   <img alt="MIT License" src="https://img.shields.io/github/license/roots/bud?color=%23525ddc&style=flat-square">
+  <a href="https://www.npmjs.com/package/@roots/bud-sass">
+    <img src="https://img.shields.io/npm/v/@roots/bud-sass.svg?color=%23525ddc&style=flat-square" />
+  </a>
+  <a href="https://codeclimate.com/github/roots/bud-support/maintainability">
+    <img src="https://img.shields.io/codeclimate/maintainability/roots/bud-support?color=%23525ddc&style=flat-square" />
+  </a>
+  <img alt="Lerna" src="https://img.shields.io/github/lerna-json/v/roots/bud?color=%23525ddc&style=flat-square">
+  <a href="Typescript" src="https://github.com/roots/bud/tree/stable/typings">
+    <img src="https://img.shields.io/badge/typings-%40roots%2Fbud--typings-%23525ddc" />
+  </a>
   <a href="https://twitter.com/rootswp">
-    <img alt="Follow Roots" src="https://img.shields.io/twitter/follow/rootswp.svg?style=flat-square&color=1da1f2" />
+    <img alt="Follow Roots" src="https://img.shields.io/twitter/follow/rootswp.svg?color=%23525ddc&style=flat-square" />
   </a>
 </p>
 
@@ -15,7 +25,19 @@
 
 ## Overview
 
-Adds sass support to @roots/bud projects.
+> Adds sass support to [@roots/bud](https://github.com/roots/bud/tree/stable/README.md) projects.
+
+- [Requirements](#Requirements)
+- [Installation](#Installation)
+- [Usage](#Usage)
+
+## Requirements
+
+[@roots/bud-sass](https://github.com/roots/bud/tree/stable/packages/@roots/bud-sass) requires sass and `@roots/bud-postcss` to be installed as peer dependencies.
+
+```sh
+yarn add sass @roots/bud-postcss --dev
+```
 
 ## Installation
 
@@ -25,11 +47,12 @@ yarn add @roots/bud-sass --dev
 
 ## Usage
 
-```js
-bud.extend([require('@roots/bud-sass')])
-```
+Make sure that `@roots/bud-postcss` is also included in your configuration.
 
-You should now be good to include `.sass` and `.scss` files in your project.
+```js
+module.exports = (app) =>
+  app.use(["@roots/bud-postcss", "@roots/bud-sass"]).entry("app", ["app.css"]);
+```
 
 ## Contributing
 

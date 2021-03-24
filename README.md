@@ -67,9 +67,7 @@ yarn bud publish @roots/bud-support bud.config.js
 Dead simple `bud.config.js` example:
 
 ```js
-const { bud } = require("@roots/bud");
-
-bud.entry("app", ["app.js"]).run();
+module.exports = (bud) => bud.entry("app", ["app.js"]);
 ```
 
 The framework can do many more things. But, one of Bud's flagpole axioms is that more is not always better for many common use cases. In fact, just using `entry` and `run` you can already compile project files. For many people this may very well be enough.
@@ -77,43 +75,37 @@ The framework can do many more things. But, one of Bud's flagpole axioms is that
 A more advanced configuration might look like this:
 
 ```js
-const { bud } = require("@roots/bud");
+module.exports = (bud) =>
+  bud
+    /**
+     * Extend bud with additional functionality
+     */
+    .use([
+      require("@roots/bud-babel"),
+      require("@roots/bud-postcss"),
+      require("@roots/bud-react"),
+    ])
 
-/**
- * Extend bud with additional functionality
- */
-bud.use([
-  require("@roots/bud-babel"),
-  require("@roots/bud-postcss"),
-  require("@roots/bud-react"),
-]);
+    /**
+     * Create a dynamic link library for fast compilation
+     * of the react runtime.
+     */
+    .library(["react", "react-dom"])
 
-/**
- * Create a dynamic link library for fast compilation
- * of the react runtime.
- */
-bud.library(["react", "react-dom"]);
+    /**
+     * Compile two separate sets of files.
+     */
+    .entry({ app: ["app.{js,css}"] })
 
-/**
- * Compile two separate sets of files.
- */
-bud.entry({ app: ["app.{js,css}"] });
-
-/**
- * When building for production, minify assets.
- * When in development, use verbose source-maps.
- */
-bud.when(
-  bud.isProduction,
-  (bud) => bud.minify(),
-  (bud) => bud.devtool("eval-source-map")
-);
-
-/**
- * Run the build and cache the results for
- * faster rebuilds when modules are unchanged.
- */
-bud.run();
+    /**
+     * When building for production, minify assets.
+     * When in development, use verbose source-maps.
+     */
+    .when(
+      bud.isProduction,
+      (bud) => bud.minify(),
+      (bud) => bud.devtool("eval-source-map")
+    );
 ```
 
 ## Example implementations

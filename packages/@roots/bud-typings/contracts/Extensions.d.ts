@@ -84,38 +84,6 @@ export interface Module {
 }
 
 export namespace Module {
-  export type Registrable = {
-    setItems: Framework.Item.Module
-    setRules: Framework.Rule.Module
-    setLoaders: Framework.Loader.Module | string
-  }
-
-  export namespace Registrable {
-    /**
-     * Base keys
-     */
-    export type Key = 'setItems' | 'setRules' | 'setLoaders'
-
-    /**
-     * Base values
-     */
-    export type Value =
-      | Framework.Item.Module
-      | Framework.Rule.Module
-      | Framework.Loader.Module
-
-    export namespace Source {
-      export type Value =
-        | [string, Registrable.Value]
-        | Array<[string, Registrable.Value]>
-        | {[key: string]: Registrable.Value}
-    }
-
-    export type Tuple = [string, Value]
-
-    export namespace Entries {}
-  }
-
   export type Api =
     | {[key: string]: any}
     | ((app?: Framework) => {[key: string]: any})

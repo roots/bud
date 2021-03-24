@@ -1,15 +1,17 @@
-// @ts-check
-const {
-  app,
-} = require('./../../packages/@roots/bud-preset-recommend')
+/**
+ * PostCSS configuration example
+ *
+ * @typedef {import('@roots/bud').Bud} Bud
+ * @type {(bud: Bud): Bud}
+ */
 
-app
-  .devtool()
-  .html({
-    template: app.project('public/index.html'),
-  })
-  .entry('bud', ['app.css'])
-
-console.log(app.subscribe('rule/css'))
-
-app.run()
+module.exports = app =>
+  app
+    .use([
+      require('@roots/bud-babel'),
+      require('@roots/bud-postcss'),
+    ])
+    .html({
+      template: 'public/index.html',
+    })
+    .entry('app', ['app.css'])
