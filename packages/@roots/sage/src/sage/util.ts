@@ -1,6 +1,10 @@
 import {Sage} from './interface'
 import {Container} from '@roots/container'
 
+/**
+ * Returns a util fn to check if a dep is used in the project package.json
+ * and a container holding the project filesystem.
+ */
 export const curryConditionalChecks: (
   sage: Sage,
 ) => [Sage.Deps, Container] = (sage: Sage) => {
@@ -15,12 +19,10 @@ export const curryConditionalChecks: (
      * Get keys from a theme package.json
      */
     const pkgObjKeys = (key: string): string[] =>
-      info.hasOwnProperty(key)
-        ? Object.keys(info[key])
-        : info[key]
+      info.hasOwnProperty(key) ? Object.keys(info[key]) : []
 
     /**
-     * Merged dependencies from project
+     * Merge dependencies from package.json keys
      */
     const mergedDependencies: string[] = [
       ...pkgObjKeys('dependencies'),
@@ -28,9 +30,10 @@ export const curryConditionalChecks: (
     ]
 
     /**
-     * Fitler the dependency argument from
-     * its presence in the mergedDependencies
-     * array. Return the result.
+     * Fitler dependencies passed as an argument
+     * and contained within the merged deps array.
+     *
+     * Return true if there are any results.
      */
     return (
       deps.filter((dep: string): boolean =>

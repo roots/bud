@@ -15,7 +15,7 @@ export namespace Sage {
    * Function exported from `@roots/sage`.
    * Provides a base configuration to be passed to theme.
    */
-  export type Preset = (bud: Framework) => Sage
+  export type Preset = (sage: Framework) => Sage
 
   /**
    * Sage theme config
