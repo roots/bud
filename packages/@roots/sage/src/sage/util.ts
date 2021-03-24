@@ -4,27 +4,20 @@ import {Container} from '@roots/container'
 export const curryConditionalChecks: (
   sage: Sage,
 ) => [Sage.Deps, Container] = (sage: Sage) => {
-  /**
-   * package.json info
-   */
-  const {projectInfo} = sage.discovery
-
-  /**
-   * Project files container
-   */
-  const projectFiles = sage.disk.get<Container>('project')
+  const {info} = sage.discovery
+  const files = sage.disk.get<Container>('project')
 
   /**
    * Dependency check utility
    */
-  const checkDeps = function (deps) {
+  const checkDeps: Sage.Deps = function (deps) {
     /**
      * Get keys from a theme package.json
      */
     const pkgObjKeys = (key: string): string[] =>
-      projectInfo[key]
-        ? Object.keys(projectInfo[key])
-        : projectInfo[key]
+      info.hasOwnProperty(key)
+        ? Object.keys(info[key])
+        : info[key]
 
     /**
      * Merged dependencies from project
@@ -46,5 +39,5 @@ export const curryConditionalChecks: (
     )
   }
 
-  return [checkDeps, projectFiles]
+  return [checkDeps, files]
 }
