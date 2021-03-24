@@ -78,14 +78,15 @@ export const sage: SagePreset = (sage: Sage): Sage => {
    * Transpilation & build extensions
    */
   sage
+
     /**
      * ESBuild doesn't support HMR. it is purely a transpiler.
      *
      * - snowpack & vite each have their own HMR solutions.
-     * - snowpack published this [ESM spec proposal](https://github.com/snowpackjs/esm-hmr)
+     * - snowpack published [this proposal](https://git.io/JYUVM)
      * - [Related](https://medium.com/@dan_abramov/hot-reloading-in-react-1140438583bf)
      *
-     * Losing hmr in development is not worth it, for most users, despite the efficiency.
+     * Losing HMR in dev is not worth the ESBuild advantages.
      * Thus, Sage uses esbuild in production, and babel in development.
      */
     .when(
