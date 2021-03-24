@@ -26,7 +26,7 @@ export const sage: SagePreset = (sage: Sage): Sage => {
   const dependsOn = dependencyConditional.bind(sage)
 
   /**
-   * Disk locations
+   * @type {Sage} sage
    */
   sage
     /** Artifacts/cache store */
@@ -43,7 +43,7 @@ export const sage: SagePreset = (sage: Sage): Sage => {
 
     /** Dist path */
     .when(
-      ({env}) => !env.isString('APP_DIST'),
+      ({env}) => !env.has('APP_DIST'),
       ({distPath}) => distPath('public'),
     )
 
@@ -81,20 +81,16 @@ export const sage: SagePreset = (sage: Sage): Sage => {
      * Thus, Sage uses esbuild in production, and babel in development.
      */
     .when(
-      // Check if building for dev..
+      // If building for dev..
       ({isDevelopment}) => isDevelopment,
 
-      // ..if so, use these extensions
+      // ...use extensions supporting HMR
       ({use}: Sage) => {
-        use([
-          // Conditionally support typescript
-          ...(dependsOn(['typescript'])
-            ? [babel, typescript]
-            : [babel]),
-
-          // Conditionally support react
-          ...(dependsOn(['react']) ? [react] : []),
-        ])
+        use(babel)
+        // Conditionally support typescript
+        dependsOn(['typescript']) && use(typescript)
+        // Conditionally support react
+        dependsOn(['react']) && use(react)
       },
 
       // ..otherwise, just use esbuild
@@ -105,7 +101,9 @@ export const sage: SagePreset = (sage: Sage): Sage => {
     .use([
       // CSS transpilation
       postcss,
-      tailwindcss,
+
+      // Conditionally support tailwindcss
+      ...(dependsOn(['tailwindcss']) ? [tailwindcss] : []),
 
       // Linting
       eslint,
