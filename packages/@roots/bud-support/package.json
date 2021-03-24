@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-support",
-  "version": "3.0.93-alpha.0",
+  "version": "3.0.94-alpha.0",
   "description": "Internal utilities for the @roots/bud monorepo.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -55,7 +55,7 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "dependencies": {
-    "@roots/container": "^3.0.93-alpha.0",
+    "@roots/container": "^3.0.94-alpha.0",
     "cache-loader": "^4.1.0",
     "chalk": "^4.1.0",
     "chokidar": "^3.5.1",
