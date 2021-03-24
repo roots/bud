@@ -1,25 +1,50 @@
 import {Sage} from './interface'
+import {Container} from '@roots/container'
 
-/**
- * Sage dependency check
- *
- * Merges project devDependencies and dependencies arrays and then checks
- * if they include a specified set of dependencies. Returns true if
- * dependencies are utilized, false if not.
- */
-export function dependencyConditional(
-  this: Sage,
-  deps: string[],
-): boolean {
-  const project = this.discovery.projectInfo
-  const dependencies = [
-    ...(project.dependencies ?? []),
-    ...(project.devDependencies ?? []),
-  ]
+export const curryConditionalChecks: (
+  sage: Sage,
+) => [Sage.Deps, Container] = (sage: Sage) => {
+  /**
+   * package.json info
+   */
+  const {projectInfo} = sage.discovery
 
-  return (
-    deps.filter((dep: string): boolean =>
-      dependencies.includes(dep),
-    ).length > 0
-  )
+  /**
+   * Project files container
+   */
+  const projectFiles = sage.disk.get<Container>('project')
+
+  /**
+   * Dependency check utility
+   */
+  const checkDeps = function (deps) {
+    /**
+     * Get keys from a theme package.json
+     */
+    const pkgObjKeys = (key: string): string[] =>
+      projectInfo[key]
+        ? Object.keys(projectInfo[key])
+        : projectInfo[key]
+
+    /**
+     * Merged dependencies from project
+     */
+    const mergedDependencies: string[] = [
+      ...pkgObjKeys('dependencies'),
+      ...pkgObjKeys('devDependencies'),
+    ]
+
+    /**
+     * Fitler the dependency argument from
+     * its presence in the mergedDependencies
+     * array. Return the result.
+     */
+    return (
+      deps.filter((dep: string): boolean =>
+        mergedDependencies.includes(dep),
+      ).length > 0
+    )
+  }
+
+  return [checkDeps, projectFiles]
 }

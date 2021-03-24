@@ -1,5 +1,5 @@
-import {Sage, SagePreset} from './interface'
-import {dependencyConditional} from './util'
+import {Sage} from './interface'
+import {curryConditionalChecks} from './util'
 
 import * as babel from '@roots/bud-babel'
 import * as esbuild from '@roots/bud-esbuild'
@@ -18,42 +18,59 @@ import * as manifests from '@roots/bud-wordpress-manifests'
 /**
  * Sage theme preset
  */
-export const sage: SagePreset = (sage: Sage): Sage => {
+export const sage: Sage.Preset = sage => {
   /**
-   * Bind utility function for checking if a project
-   * is utilizing specific, heavier dependencies.
+   * Curry utils
    */
-  const dependsOn = dependencyConditional.bind(sage)
+  const [checkDeps, project] = curryConditionalChecks(sage)
 
   /**
-   * @type {Sage} sage
+   * @const {Sage} sage
    */
   sage
-    /** Artifacts/cache store */
+    /**
+     * Artifacts/cache store
+     *
+     * Defer to env setting, if present.
+     */
     .when(
-      ({env}) => !env.has('APP_STORAGE'),
-      ({storage}) => storage('storage/bud'),
+      ({env}: Sage) => !env.has('APP_STORAGE'),
+      ({storage}: Sage) => storage('storage/bud'),
     )
 
-    /** Src path */
+    /**
+     * Src path
+     *
+     * Defer to env setting, if present.
+     */
     .when(
-      ({env}) => !env.has('APP_SRC'),
-      ({srcPath}) => srcPath('resources'),
+      ({env}: Sage) => !env.has('APP_SRC'),
+      ({srcPath}: Sage) => srcPath('resources'),
     )
 
-    /** Dist path */
+    /**
+     * Dist path
+     *
+     * Defer to env setting, if present.
+     */
     .when(
-      ({env}) => !env.has('APP_DIST'),
-      ({distPath}) => distPath('public'),
+      ({env}: Sage) => !env.has('APP_DIST'),
+      ({distPath}: Sage) => distPath('public'),
     )
 
-    /** Public path */
+    /**
+     * Public path
+     *
+     * Defer to env setting, if present.
+     */
     .when(
-      ({env}) => !env.has('APP_PUBLIC_PATH'),
-      ({publicPath}) => publicPath('public/'),
+      ({env}: Sage) => !env.has('APP_PUBLIC_PATH'),
+      ({publicPath}: Sage) => publicPath('public/'),
     )
 
-    /** Webpack aliases */
+    /**
+     * Webpack path Aliases
+     */
     .alias({
       '@fonts': 'fonts',
       '@images': 'images',
@@ -61,13 +78,19 @@ export const sage: SagePreset = (sage: Sage): Sage => {
       '@styles': 'styles',
     })
 
-    /** Use relative stylesheet URL imports */
+    /**
+     * Use relative stylesheet URL imports
+     */
     .config({css: {relativeUrls: true}})
 
-    /** Disable generation of HTML template */
+    /**
+     * Disable generation of HTML template
+     */
     .html({enabled: false})
 
-    /** Webpack provide */
+    /**
+     * Webpack provide
+     */
     .provide({jquery: ['$', 'jQuery']})
 
     /**
@@ -82,54 +105,76 @@ export const sage: SagePreset = (sage: Sage): Sage => {
      */
     .when(
       // If building for dev..
-      ({isDevelopment}) => isDevelopment,
+      ({isDevelopment}: Sage) => isDevelopment,
 
       // ...use extensions supporting HMR
       ({use}: Sage) => {
+        // Always use babel to transpile JS
         use(babel)
+
         // Conditionally support typescript
-        dependsOn(['typescript']) && use(typescript)
+        checkDeps(['typescript']) && use(typescript)
+
         // Conditionally support react
-        dependsOn(['react']) && use(react)
+        checkDeps(['react']) && use(react)
       },
 
       // ..otherwise, just use esbuild
       ({use}: Sage) => use([esbuild]).esbuild.jsx(),
     )
 
-    /** Additional extensions */
-    .use([
-      // CSS transpilation
-      postcss,
+    /**
+     * Conditionally support postcss
+     */
+    .when(checkDeps(['postcss']), ({use}: Sage) => use(postcss))
 
-      // Conditionally support tailwindcss
-      ...(dependsOn(['tailwindcss']) ? [tailwindcss] : []),
+    /**
+     * Conditionally support tailwindcss
+     */
+    .when(checkDeps(['tailwindcss']), ({use}: Sage) =>
+      use(tailwindcss),
+    )
 
-      // Linting
-      eslint,
-      stylelint,
-      prettier,
+    /**
+     * Conditionally support eslint
+     */
+    .when(project.has('.eslintrc.js'), ({use}: Sage) =>
+      use(eslint),
+    )
 
-      // Manifest generation
-      entrypoints,
-      dependencies,
-      externals,
-      manifests,
-    ])
+    /**
+     * Conditionally support stylelint
+     */
+    .when(project.has('.stylelintrc'), ({use}: Sage) =>
+      use(stylelint),
+    )
 
-  /**
-   * Env specific build config
-   */
-  sage.when(
-    // Is production?
-    ({isProduction}) => isProduction,
+    /**
+     * Conditionally support prettier
+     */
+    .when(project.has('.prettierrc'), ({use}: Sage) =>
+      use(prettier),
+    )
 
-    // Apply in production
-    sage => sage.minify().hash().vendor().runtime('single'),
+    /**
+     * Generate asset manifests
+     */
+    .use([entrypoints, dependencies, externals, manifests])
 
-    // Apply in development
-    sage => sage.proxy().devtool('eval'),
-  )
+    /**
+     * Environment specific config & optimization
+     */
+    .when(
+      // Is production?
+      ({isProduction}: Sage) => isProduction,
+
+      // Apply in production
+      (sage: Sage) =>
+        sage.minify().hash().vendor().runtime('single'),
+
+      // Apply in development
+      (sage: Sage) => sage.proxy().devtool('eval'),
+    )
 
   return sage
 }
