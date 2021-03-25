@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-postcss",
-  "version": "3.0.95-alpha.0",
+  "version": "3.0.96-alpha.0",
   "description": "Adds postcss support to @roots/bud projects",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -54,13 +54,13 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
-    "@roots/bud": "^3.0.95-alpha.0",
+    "@roots/bud": "^3.0.96-alpha.0",
     "@types/node": "^14.14.31",
     "@types/webpack": "^4.41.26",
     "type-fest": "^0.21.2"
   },
   "dependencies": {
-    "@roots/bud-support": "^3.0.95-alpha.0",
+    "@roots/bud-support": "^3.0.96-alpha.0",
     "autoprefixer": "^10.2.5",
     "postcss": "^8.2.7",
     "postcss-custom-properties": "^11.0.0",
