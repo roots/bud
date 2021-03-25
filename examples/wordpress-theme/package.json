@@ -1,5 +1,5 @@
 {
-  "name": "bud-example-react",
+  "name": "bud-example-wordpress-theme",
   "private": true,
   "scripts": {
     "bud": "node ../../node_modules/.bin/bud"

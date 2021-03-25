@@ -6,7 +6,8 @@
     "baseUrl": ".",
     "declaration": true,
     "declarationDir": "./lib/types",
-    "declarationMap": true,
+    "declarationMap": false,
+    "sourceMap": false
   },
   "include": ["./src"],
   "exclude": ["./lib"]

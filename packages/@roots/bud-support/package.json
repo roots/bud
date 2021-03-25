@@ -28,9 +28,7 @@
   },
   "files": [
     "lib/",
-    "src/",
-    "publish/",
-    "types/"
+    "publish/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",

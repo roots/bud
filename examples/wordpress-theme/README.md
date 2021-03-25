@@ -44,8 +44,6 @@ composer install
 docker-compose build
 
 docker-compose up -d
-
-yarn dev
 ```
 
 ## Contributing

@@ -26,8 +26,7 @@
     "node": ">=12"
   },
   "files": [
-    "lib/",
-    "src/"
+    "lib/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
