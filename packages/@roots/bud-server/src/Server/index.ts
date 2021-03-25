@@ -80,31 +80,33 @@ export default class extends Service implements Server {
   public boot(): void {
     this.run = this.run.bind(this)
     this.instance = this.instance.bind(this)
+    this.processMiddlewares = this.processMiddlewares.bind(this)
+  }
+
+  /**
+   * Process middlewares
+   */
+  public processMiddlewares(compiler: Server.Compiler) {
+    Object.entries(middleware).map(([key, generate]) => {
+      if (this.config.enabled(`middleware.${key}`)) {
+        this.info(`Enabling ${key}`)
+
+        this.middleware[key] = generate({
+          config: this.config,
+          compiler,
+        })
+      }
+    })
+
+    Object.values(this.middleware).forEach(middleware =>
+      this.instance.use(middleware),
+    )
   }
 
   /**
    * Run server
    */
   public run(compiler: Server.Compiler): this {
-    const processMiddlewares = () => {
-      Object.entries(middleware).map(([key, generate]) => {
-        if (this.config.enabled(`middleware.${key}`)) {
-          this.info(`Enabling ${key}`)
-
-          this.middleware[key] = generate({
-            config: this.config,
-            compiler,
-          })
-        }
-      })
-
-      Object.values(this.middleware).forEach(middleware =>
-        this.instance.use(middleware),
-      )
-    }
-
-    processMiddlewares()
-
     /**
      * __roots route
      */
@@ -115,7 +117,11 @@ export default class extends Service implements Server {
           ...this.app.store.all(),
           ...this.config.all(),
         })
+
+        res.end()
       })
+
+    this.processMiddlewares(compiler)
 
     /**
      * Listen
@@ -126,7 +132,7 @@ export default class extends Service implements Server {
         this.config.get('port'),
       )
 
-      this.debug({
+      this.info({
         ...this.config.all(),
         middleware,
       })

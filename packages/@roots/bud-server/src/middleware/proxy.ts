@@ -76,6 +76,7 @@ export const proxy: Server.Middleware.Init = ({config}) => {
        */
       if (proxyRes.headers['content-encoding'] == 'gzip') {
         res.set({'content-encoding': 'gzip'})
+
         res.send(
           zlib.gzipSync(
             transformBody(zlib.gunzipSync(body).toString()),
