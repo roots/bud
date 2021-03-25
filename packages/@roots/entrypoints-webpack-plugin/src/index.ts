@@ -145,10 +145,14 @@ export class Plugin {
 
               return {
                 ...(a ?? {}),
-                [type]: {
-                  ...(a?.[type] ?? {}),
-                  [name]: `${this.publicPath}${file}`,
-                },
+                [type]: file.includes('hot-update')
+                  ? {
+                      ...(a?.[type] ?? {}),
+                    }
+                  : {
+                      ...(a?.[type] ?? {}),
+                      [name]: `${this.publicPath}${file}`,
+                    },
               }
             },
 
