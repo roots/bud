@@ -13,7 +13,6 @@ declare module NodeJS {
 
 declare module '@roots/bud-framework' {
   namespace Framework {
-
     interface Pkgs {
       [key: string]: Pkg
     }

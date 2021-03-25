@@ -8,11 +8,15 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 export function items(app: Framework): void {
   app.publish(
     {
+      /**
+       * Loaders
+       */
       'loader/css': () => require.resolve('css-loader'),
       'loader/cache': () => require.resolve('cache-loader'),
       'loader/file': () => require.resolve('file-loader'),
       'loader/raw': () => require.resolve('raw-loader'),
       'loader/minicss': () => MiniCssExtractPlugin.loader,
+      'loader/url': () => require.resolve('url-loader'),
       'loader/resolve-url': () =>
         require.resolve('resolve-url-loader'),
       'loader/style': () => require.resolve('style-loader'),
@@ -60,9 +64,10 @@ export function items(app: Framework): void {
         name: app.subscribe('item/file/options/name'),
       }),
       'item/file/options/name': () =>
-        app.store.isTrue('options.hash')
-          ? app.store.get('options.hashFormat').concat('.[ext]')
-          : app.store.get('options.fileFormat').concat('.[ext]'),
+        (app.store.isTrue('options.hash')
+          ? app.store.get('options.hashFormat')
+          : app.store.get('options.fileFormat')
+        ).concat('.[ext]'),
 
       /**
        * item/resolve-url
@@ -105,12 +110,17 @@ export function items(app: Framework): void {
         loader: app.subscribe('item/svg/loader'),
         options: app.subscribe('item/svg/options'),
       }),
-      'item/svg/loader': () =>
-        app.subscribe('loader/resolve-url'),
+      'item/svg/loader': () => app.subscribe('loader/url'),
       'item/svg/options': () => ({
+        name: app.subscribe('item/svg/options/name'),
         generator: (content: unknown) =>
           svgToMiniDataUri(content.toString()),
       }),
+      'item/svg/options/name': () =>
+        (app.store.isTrue('options.hash')
+          ? app.store.get('options.hashFormat')
+          : app.store.get('options.fileFormat')
+        ).concat('.[ext]'),
 
       /**
        * item/thread

@@ -1,7 +1,7 @@
 /**
  * Sage Theme
  *
- * @typedef {import('../../lib/types/sage').Sage} Sage
+ * @typedef {import('../../lib/types').Sage} Sage
  * @type {(sage: Sage): Sage}
  */
 
@@ -12,4 +12,4 @@ module.exports = (sage) =>
       editor: ['**/editor.{js,css}'],
       customizer: ['scripts/customizer.js'],
     })
-    .copy({'assets/': 'resources/{images,fonts}/**/*'});
+    .copy({assets: 'resources/{images,fonts}/**/*'});

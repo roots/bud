@@ -24,6 +24,18 @@ export function rules(app: Bud): void {
   app.publish(
     {
       /**
+       * rule/js
+       */
+      'rule/js': () => ({
+        test: app.subscribe('rule/js/test'),
+        exclude: app.subscribe('rule/js/exclude'),
+        use: app.subscribe('rule/js/use'),
+      }),
+      'rule/js/test': () => app.store.get('patterns.js'),
+      'rule/js/exclude': () => app.store.get('patterns.modules'),
+      'rule/js/use': () => [app.subscribe('item/raw')],
+
+      /**
        * rule/css
        */
       'rule/css': () => ({
@@ -40,6 +52,16 @@ export function rules(app: Bud): void {
           : app.subscribe('item/style'),
         app.subscribe('item/css'),
       ],
+
+      /**
+       * rule/svg
+       */
+      'rule/svg': () => ({
+        test: app.subscribe('rule/svg/test'),
+        use: app.subscribe('rule/svg/use'),
+      }),
+      'rule/svg/test': () => app.store.get('patterns.svg'),
+      'rule/svg/use': () => [app.subscribe('item/svg')],
 
       /**
        * rule/svg
@@ -70,28 +92,6 @@ export function rules(app: Bud): void {
       }),
       'rule/image/test': () => app.store.get('patterns.image'),
       'rule/image/use': () => [app.subscribe('item/file')],
-
-      /**
-       * rule/js
-       */
-      'rule/js': () => ({
-        test: app.subscribe('rule/js/test'),
-        exclude: app.subscribe('rule/js/exclude'),
-        use: app.subscribe('rule/js/use'),
-      }),
-      'rule/js/test': () => app.store.get('patterns.js'),
-      'rule/js/exclude': () => app.store.get('patterns.modules'),
-      'rule/js/use': () => [app.subscribe('item/raw')],
-
-      /**
-       * rule/svg
-       */
-      'rule/svg': () => ({
-        test: app.subscribe('rule/svg/test'),
-        use: app.subscribe('rule/svg/use'),
-      }),
-      'rule/svg/test': () => app.store.get('patterns.svg'),
-      'rule/svg/use': () => [app.subscribe('item/svg')],
     },
     'providers/rule',
   )

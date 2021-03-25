@@ -2,7 +2,7 @@ import {Framework} from '@roots/bud-framework'
 import {Dashboard as IDashboard} from '../interface'
 
 import React, {FunctionComponent, useEffect} from 'react'
-import {Box, useApp, useInput, Static, Text} from 'ink'
+import {Box, useInput, Static, Text} from 'ink'
 import {
   Assets,
   DevStatus,
@@ -14,6 +14,7 @@ import {
 } from '../components'
 import {useStyle} from '@roots/ink-use-style'
 import {useCompilation, usePackageJson} from '../hooks'
+import {isEqual} from 'lodash'
 
 export const Dashboard: FunctionComponent<{bud: Framework}> = ({
   bud,
@@ -27,18 +28,16 @@ export const Dashboard: FunctionComponent<{bud: Framework}> = ({
     hasWarnings,
   } = useCompilation(bud)
 
-  const app = useApp()
-
-  useInput(input => {
-    if (input == 'q') {
-      console.clear()
-      app.exit()
-      process.exit()
-    }
-  })
-
   const theme = useStyle(bud.store.get('options.theme'))
   const pkg = usePackageJson(bud)
+
+  useInput(input => {
+    if (isEqual(input, 'q')) {
+      try {
+        process.exit()
+      } catch (err) {}
+    }
+  })
 
   useEffect(() => {
     if (!bud.isProduction) return
@@ -46,7 +45,7 @@ export const Dashboard: FunctionComponent<{bud: Framework}> = ({
     const isComplete = progress?.decimal >= 1
     const shouldExit = isComplete || hasErrors
 
-    shouldExit && setTimeout(() => process.exit(), 1000)
+    shouldExit && setTimeout(() => process.exit())
   }, [stats, progress, errors])
 
   const appProps: IDashboard.AppProps = {

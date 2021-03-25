@@ -33,11 +33,7 @@ type Copy = (
   options?: {[key: string]: any},
 ) => Framework
 
-const PLUGIN_HANDLE =
-  'extension/webpack-copy-plugin/options/patterns'
-const CALLER_HANDLE = 'api/copy'
-
-export const copy: Copy = function (jobs) {
+export const copy: Copy = function (jobs, options?) {
   Object.entries(jobs).map(([dest, from]: [string, string]) => {
     const fileFormat = this.store.isTrue('options.hash')
       ? this.store.get('options.hashFormat')
@@ -47,20 +43,17 @@ export const copy: Copy = function (jobs) {
       const pattern = {
         from,
         to: parseOutputOption(dest, fileFormat),
-        context: this.subscribe(
-          'location/project',
-          CALLER_HANDLE,
-        ),
+        context: this.subscribe('location/project', 'api/copy'),
       }
 
       this.publish(
         {
-          [PLUGIN_HANDLE]: patterns => [
+          'extension/webpack-copy-plugin/options/patterns': patterns => [
             ...(patterns ?? []),
             pattern,
           ],
         },
-        CALLER_HANDLE,
+        'api/copy',
       )
     })
   })
