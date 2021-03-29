@@ -1,6 +1,13 @@
 import {Build, Module, Framework, Service, Loader} from '.'
-import {Webpack} from '../../bud-support/src'
-import {Configuration} from 'webpack'
+import 'webpack'
+
+declare namespace Webpack.Configuration {
+  interface RuleSetLoader {
+    [key: `cache/location`]: any
+    [key: `cache/name`]: any
+    [key: `watchOptions/${string}`]: any
+  }
+}
 
 /**
  * ## hooks
@@ -108,7 +115,7 @@ export namespace Hooks {
    * bud.publish key/value argument
    */
   type PublishDict = {
-    [K in Hooks.Name as `${K}`]?: Hook
+    [K in Hooks.Name]?: any
   }
 
   /**
@@ -119,19 +126,19 @@ export namespace Hooks {
     type Subject = string
 
     interface Base {
-      css: Subject
-      raw: Subject
-      style: Subject
-      file: Subject
-      cache: Subject
-      url: Subject
-      minicss: Subject
-      ['resolve-url']: Subject
-      thread: Subject
+      css: any
+      raw: any
+      style: any
+      file: any
+      cache: any
+      url: any
+      minicss: any
+      ['resolve-url']: any
+      thread: any
     }
 
     type Key = {
-      [K in keyof Base as `${BaseKey}/${K}`]: Subject
+      [K in keyof Base as `${BaseKey}/${K}`]: any
     }
   }
 
@@ -143,27 +150,25 @@ export namespace Hooks {
     type Subject = Webpack.RuleSetLoader
 
     interface Base {
-      cache: Subject
-      css: Subject
-      file: Subject
-      js: Subject
-      minicss: Subject
-      [`resolve-url`]: Subject
-      raw: Subject
-      style: Subject
-      svg: Subject
-      thread: Subject
+      cache: any
+      css: any
+      file: any
+      js: any
+      minicss: any
+      [`resolve-url`]: any
+      raw: any
+      style: any
+      svg: any
+      thread: any
     }
 
     type Key = {
-      [K in keyof Base as `${BaseKey}/${K}`]: Base[K]
+      [K in keyof Base as
+        | `item`
+        | `item/${K}`
+        | `item/${K}/loader`
+        | `item/${K}/${string}`]: any
     }
-
-    type Property = {
-      [K in keyof Subject as `${keyof Key}/${K}`]: Base[K]
-    }
-
-    type ExtendedKeys = `${keyof Property}/${string}`
   }
 
   /**
@@ -171,23 +176,27 @@ export namespace Hooks {
    */
   namespace Rule {
     type BaseKey = `rule`
-    type Subject = Webpack.RuleSetRule
+
+    /**
+     * Excluding loaders cos confusing to have plural and singular
+     */
+    type Subject = Exclude<keyof Webpack.RuleSetRule, 'loaders'>
 
     interface Base {
-      js: Subject
-      css: Subject
-      html: Subject
-      svg: Subject
-      image: Subject
-      font: Subject
+      js: any
+      css: any
+      html: any
+      svg: any
+      image: any
+      font: any
     }
 
     type Key = {
-      [K in keyof Base as `${BaseKey}/${K}`]: Subject
-    }
-
-    type Property = {
-      [K in keyof Subject as `${keyof Key}/${K}`]: Subject[K]
+      [K in keyof Base as
+        | `${BaseKey}`
+        | `${BaseKey}/${K}`
+        | `${BaseKey}/${K}/${Subject}`
+        | `${BaseKey}/${K}/${Subject}/${string}`]: any
     }
   }
 
@@ -195,21 +204,13 @@ export namespace Hooks {
    * Build
    */
   namespace Build {
-    type BaseKey = `build`
-    type Subject = Webpack.Configuration
-
-    type Value = {
-      [K in keyof Subject as `${K}`]: Webpack.Configuration[K]
-    }
+    type Base = `build`
 
     type Key = {
-      [K in keyof Subject as `${BaseKey}/${K}`]: Value[K]
-    }
-
-    namespace Keys {
-      type Base = 'build'
-      type Config = `${Base}/${keyof Subject}`
-      type Extended = `${Base}/${keyof Subject}/${keyof Value}`
+      [K in keyof Webpack.Configuration as
+        | `${Base}`
+        | `${Base}/${K}`
+        | `${Base}/${K}/${string}`]: any
     }
   }
 
@@ -228,45 +229,49 @@ export namespace Hooks {
       records: Subject
     }
 
-    type Value = {
-      [K in Base]: Base[K]
-    }
-
     type Key = {
-      [K in keyof Base as `${BaseKey}/${K}`]: Value[K]
+      [K in keyof Base as `${BaseKey}/${K}`]: any
     }
   }
 
   namespace Extension {
     type BaseKey = `extension`
-    type Subject = Module
 
-    namespace Keys {
-      type Extension = `${BaseKey}/${string}`
-      type Options = `${Extension}/options`
-      type Extended = `${Options}/${string}`
+    interface Base {
+      'clean-webpack-plugin': any
+      'webpack-config-dump-plugin': any
+      'copy-webpack-plugin': any
+      'define-webpack-plugin': any
+      'hashed-module-ids-plugin': any
+      'webpack-hot-module-replacement-plugin': any
+      'html-webpack-plugin': any
+      'html-hard-disk-plugin': any
+      'interpolate-html-plugin': any
+      'ignore-emit-webpack-plugin': any
+      'webpack-manifest-plugin': any
+      'mini-css-extract-plugin': any
+      'optimize-css-assets-webpack-plugin': any
+      'webpack-provide-plugin': any
+      'write-file-webpack-plugin': any
+    }
+
+    type Key = {
+      [K in keyof Base as
+        | `${BaseKey}`
+        | `${BaseKey}/${K}`
+        | `${BaseKey}/${K}/${keyof Module}`
+        | (string &
+            `${BaseKey}/${K}/${keyof Module}/${string}`)]: any
     }
   }
 
   type Name =
     | keyof Locale.Key
-    | Loader.BaseKey
     | keyof Loader.Key
-    | Rule.BaseKey
     | keyof Rule.Key
-    | keyof Rule.Property
-    | Item.BaseKey
     | keyof Item.Key
-    | keyof Item.Property
-    | Item.ExtendedKeys
-    | Build.Keys.Base
-    | Build.Keys.Config
-    | Build.Keys.Extended
     | keyof Build.Key
-    | Extension.Keys.Base
-    | Extension.Keys.Extension
-    | Extension.Keys.Options
-    | Extension.Keys.Extended
+    | keyof Extension.Key
 
   interface Repository {
     [key: Name]: Hook[]

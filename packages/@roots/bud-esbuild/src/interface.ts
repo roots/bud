@@ -77,20 +77,20 @@ declare module '@roots/bud-framework' {
   namespace Hooks {
     namespace Loader {
       interface Base {
-        esbuild: Subject
+        esbuild: any
       }
     }
 
     namespace Item {
       interface Base {
-        'esbuild-js': Subject
-        'esbuild-ts': Subject
+        'esbuild-js': any
+        'esbuild-ts': any
       }
     }
 
     namespace Rule {
       interface Base {
-        ts: Subject
+        ts: any
       }
     }
   }

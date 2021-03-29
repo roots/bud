@@ -6,4 +6,10 @@ declare module '@roots/bud-framework' {
   interface Framework {
     reactRefresh(options: ReactRefreshPluginOptions): Framework
   }
+
+  namespace Framework.Hooks.Extension {
+    interface Base {
+      '@pmmmwh/react-refresh-webpack-plugin': any
+    }
+  }
 }

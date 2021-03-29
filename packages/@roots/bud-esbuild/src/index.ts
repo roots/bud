@@ -2,11 +2,27 @@ import './interface'
 
 import {Framework} from '@roots/bud-framework'
 import {Module} from '@roots/bud-typings'
-import {ESBuildPlugin, ESBuildMinifyPlugin} from 'esbuild-loader'
-import * as configApi from './api'
+import {ESBuildMinifyPlugin} from 'esbuild-loader'
+import {setOptions, jsx} from './api'
 
+/**
+ * @module name @roots/bud-esbuild
+ */
 export const name: Module['name'] = '@roots/bud-esbuild'
 
+/**
+ * @module name @roots/bud-esbuild
+ */
+export const api: Module['api'] = (app: Framework) => ({
+  esbuild: {
+    setOptions: setOptions.bind(app),
+    jsx: jsx.bind(app),
+  },
+})
+
+/**
+ * @module name @roots/bud-esbuild
+ */
 export const publish: Module['publish'] = (app: Framework) => ({
   /**
    * rule
@@ -65,8 +81,16 @@ export const publish: Module['publish'] = (app: Framework) => ({
     loader: app.subscribe('item/esbuild-ts/loader'),
     options: app.subscribe('item/esbuild-ts/options'),
   }),
+
+  /**
+   * item/esbuild-ts loader
+   */
   'item/esbuild-ts/loader': () =>
     app.subscribe('loader/esbuild'),
+
+  /**
+   * item/esbuild-ts options
+   */
   'item/esbuild-ts/options': () => ({
     loader: app.subscribe('item/esbuild-ts/options/loader'),
     target: app.subscribe('item/esbuild-ts/options/target'),
@@ -91,18 +115,9 @@ export const publish: Module['publish'] = (app: Framework) => ({
       exclude: app.store.get('patterns.modules'),
     }),
   ],
+
+  /**
+   * build/resolve/extensions
+   */
   'build/resolve/extensions': exts => [...exts, '.ts', '.tsx'],
 })
-
-export const boot: Module['boot'] = (app: Framework) => {
-  app.extensions.add({
-    name: 'esbuild-plugin',
-    make: () => new ESBuildPlugin(),
-    api: {
-      esbuild: {
-        setOptions: configApi.setOptions.bind(app),
-        jsx: configApi.jsx.bind(app),
-      },
-    },
-  })
-}

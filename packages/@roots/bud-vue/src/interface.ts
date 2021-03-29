@@ -6,21 +6,27 @@ declare module '@roots/bud-framework' {
   namespace Framework.Hooks {
     namespace Loader {
       interface Base {
-        vue: Subject
-        'vue-style': Subject
+        vue: any
+        'vue-style': any
       }
     }
 
     namespace Item {
       interface Base {
-        vue: Subject
-        'vue-style': Subject
+        vue: any
+        'vue-style': any
       }
     }
 
     namespace Rule {
       interface Base {
-        vue: Subject
+        vue: any
+      }
+    }
+
+    namespace Extension {
+      interface Base {
+        'vue-loader-plugin': any
       }
     }
   }

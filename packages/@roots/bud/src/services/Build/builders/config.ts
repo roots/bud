@@ -88,7 +88,6 @@ export function config(app: Framework) {
         app.store.isFalse('options.cache')
           ? false
           : {
-              type: app.subscribe('build/cache/type', handle),
               name: app.subscribe('build/cache/name', handle),
               cacheLocation: app.subscribe(
                 'build/cache/location',
@@ -102,8 +101,6 @@ export function config(app: Framework) {
                 'build/cache/buildDependencies',
               ),
             },
-      'build/cache/type': () => 'filesystem',
-      'build/cache/name': () => 'application',
       'build/cache/location': () =>
         app.store.path.posix.resolve(
           app.subscribe('location/project', handle),
