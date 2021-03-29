@@ -16,6 +16,7 @@ import type {
   MaybeCallable,
   Bootstrapper,
 } from '@roots/bud-typings'
+
 import {Container} from '@roots/container'
 import {Service} from '../Service'
 import {isEqual, isFunction} from 'lodash'
@@ -69,7 +70,7 @@ abstract class Framework {
 
   public abstract extensions: Extensions
 
-  public abstract hooks: Hooks
+  public abstract hooks: Framework.Hooks
 
   public abstract server: Server
 
@@ -101,17 +102,14 @@ abstract class Framework {
    * Subscribe
    */
   public abstract subscribe<T = any>(
-    name: string,
+    name: `${Hooks.Name}`,
     caller?: string,
   ): T
 
-  /**
-   * Publish
-   */
-  public abstract publish<T = any>(
-    name: {[key: string]: any},
+  public abstract publish(
+    pubs: Hooks.PublishDict,
     caller?: string,
-  )
+  ): Framework
 
   /**
    * Constructor

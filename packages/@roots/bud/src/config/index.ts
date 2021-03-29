@@ -62,6 +62,10 @@ export const config: Framework.Config = {
     extensions: ['.wasm', '.mjs', '.js', '.css', '.json'],
     modules: [],
   },
+
+  /**
+   * Server
+   */
   server: {
     watch: {
       files: [
@@ -93,6 +97,10 @@ export const config: Framework.Config = {
     port: 3000,
     methods: ['GET', 'HEAD'],
   },
+
+  /**
+   * Location
+   */
   location: {
     project: process.cwd(),
     src: 'src',
@@ -102,6 +110,10 @@ export const config: Framework.Config = {
     records: 'records.json',
     storage: '.bud',
   },
+
+  /**
+   * Theme
+   */
   theme: {
     spacing: 1,
     colors: {

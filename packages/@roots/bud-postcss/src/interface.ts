@@ -94,5 +94,19 @@ declare module '@roots/bud-framework' {
         plugins: Registrable,
       ) => Registrable
     }
+
+    namespace Hooks {
+      namespace Loader {
+        interface Base {
+          postcss: Hooks.Loader.Subject
+        }
+      }
+
+      namespace Item {
+        interface Base {
+          postcss: Hooks.Item.Subject
+        }
+      }
+    }
   }
 }

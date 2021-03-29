@@ -59,9 +59,6 @@ declare module '@roots/bud-framework' {
     }
 
     namespace Mdx {
-      type RemarkPlugin = any
-      type RehypePlugin = any
-
       interface RemarkRegistry {
         [key: string]: RemarkPlugin
       }
@@ -69,14 +66,29 @@ declare module '@roots/bud-framework' {
       interface RehypeRegistry {
         [key: string]: RehypePlugin
       }
-
-      type SetRemarkPlugin = (plugins: RemarkRegistry) => Mdx
-
-      type SetRehypePlugin = (plugins: RemarkRegistry) => Mdx
-
       interface Options {
         rehypePlugins: RehypePlugin[]
         remarkPlugins: RemarkPlugin[]
+      }
+
+      type RemarkPlugin = any
+      type RehypePlugin = any
+      type SetRemarkPlugin = (plugins: RemarkRegistry) => Mdx
+      type SetRehypePlugin = (plugins: RemarkRegistry) => Mdx
+    }
+
+    namespace Hooks {
+      namespace Loader {
+        interface Base {
+          mdx: Subject
+        }
+      }
+
+      namespace Item {
+        interface Base {
+          mdx: Subject
+          babel: Subject
+        }
       }
     }
   }

@@ -127,14 +127,11 @@ export default class {
   public get options() {
     this.logger.log(
       `Extension options queried: ${this.module.name}`,
-      this.app.subscribe(
-        `extension/${this.module.name}/options`,
-      ),
     )
 
     return this.app.container(
       this.app.subscribe(
-        `extension/${this.module.name}/options`,
+        `extension/${this.module.name}/options` as Framework.Hooks.Name,
       ),
     )
   }

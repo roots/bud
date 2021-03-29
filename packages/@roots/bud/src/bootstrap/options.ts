@@ -47,15 +47,23 @@ export const options = {
   devtool: config(['devtool', 'APP_DEVTOOL'], base.devtool),
   discover: config(['discover', 'APP_DISCOVER'], base.discover),
   externals: config(['externals'], base.externals),
-  fileFormat: config(
-    ['fileFormat', 'APP_FILE_FORMAT'],
-    base.fileFormat,
-  ),
+
+  /**
+   * File formatting
+   */
   hash: config(['hash', 'APP_HASH'], base.hash),
   hashFormat: config(
     ['hashFormat', 'APP_HASH_FORMAT'],
     base.hashFormat,
   ),
+  fileFormat: config(
+    ['fileFormat', 'APP_FILE_FORMAT'],
+    base.fileFormat,
+  ),
+
+  /**
+   * Hot
+   */
   hot: config(
     ['server.middleware.hot', 'APP_HOT'],
     base.server.middleware.hot,
@@ -142,6 +150,9 @@ export const options = {
   server: {
     host: config(['server.host', 'APP_HOST'], base.server.host),
     port: config(['server.port', 'APP_PORT'], base.server.port),
+    /**
+     * Proxy settings
+     */
     proxy: {
       host: config(
         ['server.proxy.host', 'APP_HOST'],
@@ -164,6 +175,10 @@ export const options = {
         ),
       },
     },
+
+    /**
+     * Client settings
+     */
     browser: {
       overlay: config(
         ['browser.overlay', 'APP_BROWSER_OVERLAY'],
@@ -178,6 +193,10 @@ export const options = {
         base.server.browser.log,
       ),
     },
+
+    /**
+     * Middlewares
+     */
     middleware: {
       dev: config(
         ['server.middleware.dev'],

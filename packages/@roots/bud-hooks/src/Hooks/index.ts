@@ -1,6 +1,9 @@
 import Service from './Service'
+import {Framework} from '@roots/bud-framework'
 import {Hooks as Contract} from '@roots/bud-typings'
 import {isArray, prettyFormat} from '@roots/bud-support'
+import {set} from 'lodash'
+
 /**
  * Hooks
  */
@@ -9,6 +12,22 @@ export class Hooks extends Service implements Contract {
    * Service ident
    */
   public name = '@roots/bud-hooks'
+
+  /**
+   * Get hook
+   */
+  public get<T = any>(path: `${Contract.Name}`) {
+    return this._.get(this.repository, path) as T
+  }
+
+  /**
+   * Set hook
+   */
+  public set(key: `${Contract.Name}`, value: any): this {
+    set(this.repository, key, value)
+
+    return this
+  }
 
   /**
    * ## hooks.on
@@ -30,10 +49,10 @@ export class Hooks extends Service implements Contract {
    * )
    * ```
    */
-  public on<T = any>(
-    id: string | [string, string],
-    callback: (value: T) => T,
-  ) {
+  public on(
+    id: [string, `${Contract.Name}`] | `${Contract.Name}`,
+    callback: Contract.Hook,
+  ): Framework {
     const [publisher, name] = isArray(id)
       ? id
       : ['anonymous', id]
@@ -58,7 +77,9 @@ export class Hooks extends Service implements Contract {
    * any filters are registered on that key they will transform
    * the output before it is returned.
    */
-  public filter<T = any>(id: string | string[]): T {
+  public filter<T = any>(
+    id: `${Contract.Name}` | [string, `${Contract.Name}`],
+  ): T {
     const [subscriber, name] = isArray(id)
       ? id
       : ['anonymous', id]

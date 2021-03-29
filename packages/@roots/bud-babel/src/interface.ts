@@ -11,7 +11,20 @@ declare module '@roots/bud-framework' {
     babel: Babel
   }
 
-  export interface Babel {
+  namespace Framework.Hooks {
+    namespace Loader {
+      interface Base {
+        babel: Subject
+      }
+    }
+
+    namespace Item {
+      interface Base {
+        babel: Subject
+      }
+    }
+  }
+  interface Babel {
     /**
      * ## babel.log
      */
@@ -79,20 +92,17 @@ declare module '@roots/bud-framework' {
     setPresetOptions: (preset: string, options: any) => this
   }
 
-  export namespace Babel {
-    export type Options = {
+  namespace Babel {
+    type Options = {
       plugins?: Plugin[]
       config?: boolean | string
     }
 
-    export type Plugin =
-      | string
-      | [string, any]
-      | CallableFunction
+    type Plugin = string | [string, any] | CallableFunction
 
-    export type Registrable = string | [string, any]
+    type Registrable = string | [string, any]
 
-    export interface Registry {
+    interface Registry {
       [key: string]: [string, any]
     }
   }

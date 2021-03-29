@@ -44,24 +44,32 @@ export const publish: Module['publish'] = (app: Framework) => ({
 
   // options
   'item/postcss/options': () => ({
-    postcssOptions: app.subscribe('item/postcss/postcssOptions'),
-    sourceMap: app.subscribe('item/postcss/sourceMap'),
+    postcssOptions: app.subscribe(
+      'item/postcss/options/postcssOptions',
+    ),
+    sourceMap: app.subscribe('item/postcss/options/sourceMap'),
   }),
 
   // options/sourceMap
-  'item/postcss/sourceMap': () => true,
+  'item/postcss/options/sourceMap': () => true,
 
   // options.postcssOptions
-  'item/postcss/postcssOptions': () => ({
-    config: app.subscribe('item/postcss/config'),
-    plugins: app.subscribe('item/postcss/plugins'),
+  'item/postcss/options/postcssOptions': () => ({
+    config: app.subscribe(
+      'item/postcss/options/postcssOptions/config',
+    ),
+    plugins: app.subscribe(
+      'item/postcss/options/postcssOptions/plugins',
+    ),
   }),
 
   // options.config
-  'item/postcss/config': app.postcss.hasProjectConfig,
+  'item/postcss/options/postcssOptions/config':
+    app.postcss.hasProjectConfig,
 
   // options.plugins
-  'item/postcss/plugins': app.postcss.makeConfig,
+  'item/postcss/options/postcssOptions/plugins':
+    app.postcss.makeConfig,
 
   /**
    * rule/css

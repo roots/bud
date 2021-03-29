@@ -1,4 +1,6 @@
-export const repository = {
+import {Hooks} from '@roots/bud-typings'
+
+export const repository: Hooks.Repository = {
   'loader/css': [],
   'loader/cache': [],
   'loader/file': [],

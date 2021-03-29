@@ -73,4 +73,25 @@ declare module '@roots/bud-framework' {
 
     type JSX = (enabled?: boolean) => Framework
   }
+
+  namespace Hooks {
+    namespace Loader {
+      interface Base {
+        esbuild: Subject
+      }
+    }
+
+    namespace Item {
+      interface Base {
+        'esbuild-js': Subject
+        'esbuild-ts': Subject
+      }
+    }
+
+    namespace Rule {
+      interface Base {
+        ts: Subject
+      }
+    }
+  }
 }

@@ -87,7 +87,7 @@ export const publish: Module['publish'] = (app: Framework) => ({
 
   'build/optimization/minimizer': [
     new ESBuildMinifyPlugin({
-      target: app.subscribe('item/esbuild'),
+      target: app.subscribe('item/esbuild-js'),
       exclude: app.store.get('patterns.modules'),
     }),
   ],

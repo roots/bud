@@ -1,3 +1,4 @@
+import './interface'
 import {VueLoaderPlugin} from 'vue-loader'
 import {Module, Webpack} from '@roots/bud-typings'
 

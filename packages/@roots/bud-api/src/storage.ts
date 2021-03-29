@@ -19,11 +19,11 @@ declare module '@roots/bud-framework' {
   }
 }
 
-type Storage = (path: string) => Framework
+type Storage = (this: Framework, path: string) => Framework
 
 export const storage: Storage = function (path?) {
   if (path) {
-    this.publish({'location/storage': path}, 'api/storage')
+    this.publish({'location/storage': () => path}, 'api/storage')
   }
 
   return this

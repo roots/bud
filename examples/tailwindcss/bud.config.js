@@ -1,10 +1,9 @@
 /**
  * Tailwind configuration example
  *
- * @typedef {import('@roots/bud').Bud} Bud
+ * @typedef {import('@roots/bud').Bud & import('@roots/bud-framework').Framework} Bud
  * @type {(bud: Bud): Bud}
  */
-
 module.exports = bud =>
   bud
     .use([
@@ -15,3 +14,6 @@ module.exports = bud =>
     ])
     .entry('app', ['app.css', 'app.js'])
     .html()
+    .publish({
+      'item/item': () => null,
+    })

@@ -29,10 +29,13 @@ export function items(app: Framework): void {
         loader: app.subscribe('item/css/loader'),
         options: app.subscribe('item/css/options'),
       }),
+
       'item/css/loader': () => app.subscribe('loader/css'),
+
       'item/css/options': () => ({
         sourceMap: app.subscribe('item/css/options/sourceMap'),
       }),
+
       'item/css/options/sourceMap': () =>
         !app.store.isFalse('options.devtool'),
 
@@ -43,12 +46,15 @@ export function items(app: Framework): void {
         loader: app.subscribe('item/cache/loader'),
         options: app.subscribe('item/cache/options'),
       }),
+
       'item/cache/loader': () => app.subscribe('loader/cache'),
+
       'item/cache/options': () => ({
         cacheDirectory: app.subscribe(
           'item/cache/options/cacheDirectory',
         ),
       }),
+
       'item/cache/options/cacheDirectory': () =>
         app.project(app.subscribe('location/storage')),
 
@@ -59,10 +65,13 @@ export function items(app: Framework): void {
         loader: app.subscribe('item/file/loader'),
         options: app.subscribe('item/file/options'),
       }),
+
       'item/file/loader': () => app.subscribe('loader/file'),
+
       'item/file/options': () => ({
         name: app.subscribe('item/file/options/name'),
       }),
+
       'item/file/options/name': () =>
         (app.store.isTrue('options.hash')
           ? app.store.get('options.hashFormat')
@@ -76,14 +85,17 @@ export function items(app: Framework): void {
         loader: app.subscribe('item/resolve-url/loader'),
         options: app.subscribe('item/resolve-url/options'),
       }),
+
       'item/resolve-url/loader': () =>
         app.subscribe('loader/resolve-url'),
+
       'item/resolve-url/options': () => ({
-        root: app.subscribe('location/css') ?? false,
+        root: app.subscribe('location/src') ?? false,
         sourceMap: app.subscribe(
           'item/resolve-url/options/sourceMap',
         ),
       }),
+
       'item/resolve-url/options/sourceMap': () =>
         !app.store.isFalse('options.devtool'),
 
@@ -93,6 +105,7 @@ export function items(app: Framework): void {
       'item/raw': () => ({
         loader: app.subscribe('item/raw/loader'),
       }),
+
       'item/raw/loader': () => app.subscribe('loader/raw'),
 
       /**
@@ -110,12 +123,15 @@ export function items(app: Framework): void {
         loader: app.subscribe('item/svg/loader'),
         options: app.subscribe('item/svg/options'),
       }),
+
       'item/svg/loader': () => app.subscribe('loader/url'),
+
       'item/svg/options': () => ({
         name: app.subscribe('item/svg/options/name'),
         generator: (content: unknown) =>
           svgToMiniDataUri(content.toString()),
       }),
+
       'item/svg/options/name': () =>
         (app.store.isTrue('options.hash')
           ? app.store.get('options.hashFormat')
@@ -136,13 +152,16 @@ export function items(app: Framework): void {
         loader: app.subscribe('item/minicss/loader'),
         options: app.subscribe('item/minicss/options'),
       }),
+
       'item/minicss/loader': () =>
         app.subscribe('loader/minicss'),
+
       'item/minicss/options': () => ({
         publicPath: app.subscribe(
           'item/minicss/options/publicPath',
         ),
       }),
+
       'item/minicss/options/publicPath': () =>
         app.subscribe('location/publicPath'),
     },

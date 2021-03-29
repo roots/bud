@@ -92,7 +92,7 @@ export namespace Module {
     app?: Framework,
   ) => P
 
-  export type When =
-    | ((app: Framework, opt?: Framework.Container) => boolean)
+  export type When<T = any> =
+    | ((app: Framework, opt?: Framework.Container<T>) => boolean)
     | boolean
 }

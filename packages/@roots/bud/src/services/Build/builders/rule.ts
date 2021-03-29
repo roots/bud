@@ -1,3 +1,4 @@
+import {Hooks} from '@roots/bud-typings'
 import {Bud} from '../../../Bud'
 
 /**
@@ -21,19 +22,26 @@ export function rules(app: Bud): void {
     'providers/rule',
   )
 
+  const jsRules: Hooks.PublishDict = {
+    /**
+     * rule/js
+     */
+    'rule/js': () => ({
+      test: app.subscribe('rule/js/test'),
+      exclude: app.subscribe('rule/js/exclude'),
+      use: app.subscribe('rule/js/use'),
+    }),
+
+    'rule/js/test': () => app.store.get('patterns.js'),
+
+    'rule/js/exclude': () => app.store.get('patterns.modules'),
+
+    'rule/js/use': () => [app.subscribe('item/raw')],
+  }
+
   app.publish(
     {
-      /**
-       * rule/js
-       */
-      'rule/js': () => ({
-        test: app.subscribe('rule/js/test'),
-        exclude: app.subscribe('rule/js/exclude'),
-        use: app.subscribe('rule/js/use'),
-      }),
-      'rule/js/test': () => app.store.get('patterns.js'),
-      'rule/js/exclude': () => app.store.get('patterns.modules'),
-      'rule/js/use': () => [app.subscribe('item/raw')],
+      ...jsRules,
 
       /**
        * rule/css
@@ -43,9 +51,12 @@ export function rules(app: Bud): void {
         exclude: app.subscribe('rule/css/exclude'),
         use: app.subscribe('rule/css/use'),
       }),
+
       'rule/css/test': () => app.store.get('patterns.css'),
+
       'rule/css/exclude': () =>
         app.store.get('patterns.modules'),
+
       'rule/css/use': () => [
         app.isProduction
           ? app.subscribe('item/minicss')
@@ -60,17 +71,21 @@ export function rules(app: Bud): void {
         test: app.subscribe('rule/svg/test'),
         use: app.subscribe('rule/svg/use'),
       }),
+
       'rule/svg/test': () => app.store.get('patterns.svg'),
+
       'rule/svg/use': () => [app.subscribe('item/svg')],
 
       /**
-       * rule/svg
+       * rule/font
        */
       'rule/font': () => ({
         test: app.subscribe('rule/font/test'),
         use: app.subscribe('rule/font/use'),
       }),
+
       'rule/font/test': () => app.store.get('patterns.font'),
+
       'rule/font/use': () => [app.subscribe('item/file')],
 
       /**

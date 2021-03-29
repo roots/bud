@@ -11,11 +11,11 @@ import {Disk} from './services/Disk'
 import {Env} from './services/Env'
 import {Extensions} from './services/Extensions'
 import {Framework} from '@roots/bud-framework'
-import {Hooks} from './services/Hooks'
 import {Logger} from './services/Logger'
 import {Server} from '@roots/bud-server'
 import {Store} from './services/Store'
 import {Util} from './services/Util'
+import {Framework as Contract} from '@roots/bud-typings'
 
 export class Bud extends Framework {
   public api: Api
@@ -38,7 +38,7 @@ export class Bud extends Framework {
 
   public extensions: Extensions
 
-  public hooks: Hooks
+  public hooks: Contract.Hooks
 
   public logger: Logger
 
@@ -48,9 +48,6 @@ export class Bud extends Framework {
 
   public util: Util
 
-  /**
-   * Constructor
-   */
   public constructor(props) {
     super(props)
 
@@ -58,11 +55,6 @@ export class Bud extends Framework {
     this.subscribe = this.subscribe.bind(this)
   }
 
-  /**
-   * ## mode
-   *
-   * Return current mode as a string
-   */
   public get mode() {
     return process.argv.includes('development') ||
       process.argv.includes('dev')
@@ -70,40 +62,31 @@ export class Bud extends Framework {
       : 'production'
   }
 
-  /**
-   * ## isProduction
-   *
-   * True if Webpack.Configuration['mode'] is 'production'
-   */
   public get isProduction(): boolean {
     return this.mode === 'production'
   }
 
-  /**
-   * ## app.isDevelopment
-   *
-   * True if Webpack.Configuration['mode'] is 'development'
-   */
   public get isDevelopment(): boolean {
     return this.mode === 'development'
   }
 
-  /**
-   * Subscribe
-   */
-  public subscribe<T = any>(name: string, caller?: string): T {
+  public subscribe<T = any>(
+    name: `${Contract.Hooks.Name}`,
+    caller?: string,
+  ): T {
     return this.hooks.filter<T>(caller ? [caller, name] : name)
   }
 
-  /**
-   * Publish
-   */
-  public publish<T = any>(
-    pubs: {[key: string]: any},
+  public publish(
+    pubs: Contract.Hooks.PublishDict,
     caller?: string,
-  ) {
-    Object.entries(pubs).map(([name, pub]: [string, any]) => {
-      this.hooks.on(caller ? [caller, name] : name, pub)
-    })
+  ): Framework {
+    Object.entries(pubs).map(
+      ([name, pub]: [`${Contract.Hooks.Name}`, any]) => {
+        this.hooks.on(caller ? [caller, name] : name, pub)
+      },
+    )
+
+    return this
   }
 }

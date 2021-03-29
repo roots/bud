@@ -1,4 +1,5 @@
 import type {Framework} from '@roots/bud-framework'
+import {Webpack} from '@roots/bud-support'
 
 const handle = 'providers/build/config'
 
@@ -8,23 +9,44 @@ export function config(app: Framework) {
       /**
        * build
        */
-      build: () => {
+      build: (): Webpack.Configuration => {
         app.build.logger.scope('build/config').wait({
           message: 'Config build requested',
         })
 
         return {
-          bail: app.subscribe('build/bail', handle),
-          cache: app.subscribe('build/cache', handle),
-          context: app.subscribe('build/context', handle),
-          devtool: app.subscribe('build/devtool', handle),
-          entry: app.subscribe('build/entry', handle),
-          externals: app.subscribe('build/externals', handle),
-          infrastructureLogging: app.subscribe(
-            'build/infrastructureLogging',
+          bail: app.subscribe<Webpack.Configuration['bail']>(
+            'build/bail',
             handle,
           ),
-          mode: app.subscribe('build/mode', handle),
+
+          cache: app.subscribe<Webpack.Configuration['cache']>(
+            'build/cache',
+            handle,
+          ),
+
+          context: app.subscribe<
+            Webpack.Configuration['context']
+          >('build/context', handle),
+
+          devtool: app.subscribe<
+            Webpack.Configuration['devtool']
+          >('build/devtool', handle),
+
+          entry: app.subscribe<Webpack.Configuration['entry']>(
+            'build/entry',
+            handle,
+          ),
+
+          externals: app.subscribe<
+            Webpack.Configuration['externals']
+          >('build/externals', handle),
+
+          mode: app.subscribe<Webpack.Configuration['mode']>(
+            'build/mode',
+            handle,
+          ),
+
           module: app.subscribe('build/module', handle),
           name: app.subscribe('build/name', handle),
           node: app.subscribe('build/node', handle),
@@ -123,16 +145,6 @@ export function config(app: Framework) {
        */
       'build/externals': () =>
         app.store.get('options.externals'),
-
-      /**
-       * build/infrastructureLogging
-       */
-      'build/infrastructureLogging': () => ({
-        level: app.subscribe(
-          'build/infrastructureLogging/level',
-        ),
-      }),
-      'build/infrastructureLogging/level': () => 'none',
 
       /**
        * build/mode

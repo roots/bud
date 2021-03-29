@@ -1,31 +1,34 @@
 import './interface'
 import {Framework} from '@roots/bud-framework'
-import {Module} from '@roots/bud-typings'
 import {BabelConfig} from './bud.babel'
 
 /**
  * Extension name
  */
-export const name: Module['name'] = '@roots/bud-babel'
+export const name: Framework.Module['name'] = '@roots/bud-babel'
 
 /**
  * bud.babel configuration interface
  */
-export const api: Module['api'] = (app: Framework) => ({
+export const api: Framework.Module['api'] = (
+  app: Framework,
+) => ({
   babel: new BabelConfig(app),
 })
 
 /**
  * Extension dependencies
  */
-export const devDependencies: Module['devDependencies'] = [
+export const devDependencies: Framework.Module['devDependencies'] = [
   '@babel/core',
 ]
 
 /**
  * Publishes
  */
-export const publish: Module['publish'] = (app: Framework) => ({
+export const publish: Framework.Module['publish'] = (
+  app: Framework,
+) => ({
   /**
    * rule/js/use
    */
@@ -55,8 +58,10 @@ export const publish: Module['publish'] = (app: Framework) => ({
     presets: app.subscribe('item/babel/options/presets'),
     plugins: app.subscribe('item/babel/options/plugins'),
   }),
+
   'item/babel/options/root': () =>
     app.subscribe('location/project'),
+
   'item/babel/options/cacheDirectory': () =>
     app.disk.path.posix.join(
       app.subscribe('location/project'),

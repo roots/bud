@@ -67,3 +67,43 @@ export {
   MaybeCallable,
   Webpack,
 }
+
+export namespace Framework {
+  export {Api}
+  export {Build}
+  export {Bootstrapper}
+  export {Cache}
+  export {CLI}
+  export {Compiler}
+  export {Container}
+  export {Dashboard}
+  export {Discovery}
+  export {Dependencies}
+  export {Disk}
+  export {Env}
+  export {Extensions, Extension}
+  export {Error}
+  export {FileContainer} from '../../filesystem/src'
+  export {Framework}
+  export {Hooks}
+  export {Item}
+  export {Loader}
+  export {Logger}
+  export {Module}
+  export {Rule}
+  export {Server}
+  export {Service}
+  export {ServiceKeys}
+  export {Services}
+  export {Store}
+  export {
+    Constructor,
+    Express,
+    Factory,
+    Fluent,
+    GlobTask,
+    Index,
+    MaybeCallable,
+    Webpack,
+  }
+}
