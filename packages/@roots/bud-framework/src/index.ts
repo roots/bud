@@ -8,7 +8,6 @@ export type {
   Disk,
   Env,
   Extensions,
-  Hooks,
   Logger,
   Module,
   Server,
@@ -17,5 +16,6 @@ export type {
   Bootstrapper,
 } from '@roots/bud-typings'
 
-export {Framework} from './Framework'
+export {Framework, Framework as default} from './Framework'
+
 export {Service} from './Service'

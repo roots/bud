@@ -9,20 +9,10 @@ import StylelintPlugin from 'stylelint-webpack-plugin'
 export const name: Module['name'] = 'stylelint-webpack-plugin'
 
 /**
- * Extension publish
- */
-export const publish: Module['publish'] = (app: Framework) => ({
-  'extension/stylelint-webpack-plugin/options/context': () =>
-    app.src(),
-})
-
-/**
  * Extension options
  */
 export const options: Module['options'] = (app: Framework) => ({
-  context: app.subscribe(
-    'extension/stylelint-webpack-plugin/options/context',
-  ),
+  context: app.subscribe('location/project'),
 })
 
 /**

@@ -2,6 +2,8 @@ import {Framework} from '@roots/bud-framework'
 import {Module} from '@roots/bud-typings'
 import TerserPlugin from 'terser-webpack-plugin'
 
+export const name = 'terser-webpack-plugin'
+
 export const options: Framework.Terser.Options = app => ({
   parallel: true,
   extractComments: false,

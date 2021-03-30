@@ -14,6 +14,4 @@ module.exports = bud =>
     ])
     .entry('app', ['app.css', 'app.js'])
     .html()
-    .publish({
-      'item/item': () => null,
-    })
+    .hooks.on('', () => )

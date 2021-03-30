@@ -22,18 +22,18 @@ export abstract class Bootstrapper {
   public bootstrapped(app: Framework): unknown
 
   /**
-   * Bootstrap
+   * Post registered callback
    */
   public registered(app: Framework): unknown
 
   /**
-   * Bootstrap
+   * Post boot callback
    */
   public booted(app: Framework): unknown
 }
 
 /**
- * Application service base
+ * Application base service
  */
 export abstract class Service extends Bootstrapper {
   /**

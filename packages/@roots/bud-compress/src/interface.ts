@@ -73,4 +73,11 @@ declare module '@roots/bud-framework' {
       export type Config = (options?: any) => Framework
     }
   }
+
+  namespace Framework.Hooks.Extension {
+    interface Definitions {
+      'compression-webpack-plugin-brotli': any
+      'compression-webpack-plugin-gzip': any
+    }
+  }
 }

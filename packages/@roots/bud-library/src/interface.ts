@@ -33,7 +33,7 @@ declare module '@roots/bud-framework' {
   }
 
   export namespace Framework.Hooks.Extension {
-    interface Base {
+    interface Definitions {
       'autodll-webpack-plugin': any
     }
   }

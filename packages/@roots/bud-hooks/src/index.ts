@@ -1,1 +1,2 @@
-export {Hooks} from './Hooks'
+import Hooks from './Hooks'
+export {Hooks}

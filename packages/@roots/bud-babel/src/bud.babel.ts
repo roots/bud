@@ -1,16 +1,16 @@
-import {Babel, Framework} from '@roots/bud-framework'
+import {Framework} from '@roots/bud-framework'
 import {isString} from 'lodash'
 
 /**
  * Babel API
  */
-export class BabelConfig implements Babel {
+export class BabelConfig implements Framework.Babel {
   public _app: Framework['get']
 
   public log: any
 
-  public _plugins: Babel.Registry = {}
-  public _presets: Babel.Registry = {}
+  public _plugins: Framework.Babel.Registry = {}
+  public _presets: Framework.Babel.Registry = {}
   public _enabledPlugins: string[] = []
   public _enabledPresets: string[] = []
 
@@ -42,7 +42,7 @@ export class BabelConfig implements Babel {
     )
   }
 
-  public setPlugin(plugin: Babel.Registrable): this {
+  public setPlugin(plugin: Framework.Babel.Registrable): this {
     this.app.log(`Setting babel plugin: ${plugin}`)
 
     plugin = isString(plugin) ? [plugin, {}] : plugin
@@ -67,7 +67,7 @@ export class BabelConfig implements Babel {
     return this
   }
 
-  public setPreset(preset: Babel.Registrable): this {
+  public setPreset(preset: Framework.Babel.Registrable): this {
     preset = isString(preset) ? [preset, {}] : preset
 
     this.presets = {...this.presets, [preset[0]]: preset}

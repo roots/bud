@@ -2,7 +2,13 @@ import '@roots/bud-framework'
 import {Options as PluginOptions} from 'eslint-webpack-plugin'
 
 declare module '@roots/bud-framework' {
-  export interface Framework {
+  namespace Framework.Hooks.Extensions {
+    interface Definitions {
+      'eslint-webpack-plugin': any
+    }
+  }
+
+  interface Framework {
     /**
      * ## Configure Eslint
      *
@@ -13,12 +19,13 @@ declare module '@roots/bud-framework' {
     eslint: Framework.Eslint.Configure
   }
 
-  export namespace Framework.Eslint {
-    export interface Api {
+  namespace Framework.Eslint {
+    interface Api {
       eslint: Configure
     }
 
-    export type Options = PluginOptions
-    export type Configure = (opts: Options) => Framework
+    type Options = PluginOptions
+
+    type Configure = (opts: Options) => Framework
   }
 }

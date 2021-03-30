@@ -1,14 +1,27 @@
 import './interface'
 import {Framework} from '@roots/bud-framework'
-import {Module} from '@roots/bud-typings'
 
-export const name: Module['name'] = '@roots/bud-sass'
+/**
+ * @module @roots/bud-sass
+ * @description Sass transpilation for @roots/bud projects
+ * @see https://github.com/roots/bud
+ */
 
-export const devDependencies: Module['devDependencies'] = [
+export const name: Framework.Module['name'] = '@roots/bud-sass'
+
+export const devDependencies: Framework.Module['devDependencies'] = [
   'sass',
 ]
 
-export const publish: Module['publish'] = (app: Framework) => ({
+/**
+ * Hook config values
+ *
+ * @see @roots/bud-extensions
+ * @see @roots/bud-hooks
+ */
+export const publish: Framework.Module['publish'] = (
+  app: Framework,
+) => ({
   /**
    * loader/sass
    */
@@ -17,7 +30,7 @@ export const publish: Module['publish'] = (app: Framework) => ({
   /**
    * item/sass
    */
-  'item/sass': () => ({
+  ['item/sass']: () => ({
     loader: app.subscribe('item/sass/loader'),
     options: app.subscribe('item/sass/options'),
   }),
@@ -48,9 +61,7 @@ export const publish: Module['publish'] = (app: Framework) => ({
   /**
    * rule/sass
    */
-  rule: (rules: {
-    [key: string]: <T = any>(name: string, caller?: string) => T
-  }) => ({
+  rule: rules => ({
     ...rules,
     'rule/sass': app.subscribe('rule/sass'),
   }),

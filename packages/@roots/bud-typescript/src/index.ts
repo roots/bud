@@ -1,4 +1,4 @@
-import './interfaces'
+import './interface'
 import {Framework} from '@roots/bud-framework'
 import {Module} from '@roots/bud-typings'
 

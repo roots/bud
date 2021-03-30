@@ -1,16 +1,35 @@
 import '@roots/bud-framework'
+import {Webpack} from '@roots/bud-support'
 
 declare module '@roots/bud-framework' {
+  namespace Framework.Hooks {
+    namespace Loader {
+      interface Definitions {
+        mdx: Webpack.Loader
+      }
+    }
+
+    namespace Item {
+      interface Definitions {
+        mdx: Webpack.RuleSetLoader
+        babel: Webpack.RuleSetLoader
+      }
+    }
+  }
+
   interface Framework {
     /**
      * ## mdx
      *
-     * Configure mdx
+     * Configure mdx to suit your application needs
      */
     mdx: Framework.Mdx
   }
 
   namespace Framework {
+    /**
+     * app.mdx config
+     */
     interface Mdx {
       /**
        * ## mdx.setRemarkPlugin
@@ -57,7 +76,6 @@ declare module '@roots/bud-framework' {
        */
       options: Mdx.Options
     }
-
     namespace Mdx {
       interface RemarkRegistry {
         [key: string]: RemarkPlugin
@@ -75,21 +93,6 @@ declare module '@roots/bud-framework' {
       type RehypePlugin = any
       type SetRemarkPlugin = (plugins: RemarkRegistry) => Mdx
       type SetRehypePlugin = (plugins: RemarkRegistry) => Mdx
-    }
-
-    namespace Hooks {
-      namespace Loader {
-        interface Base {
-          mdx: Subject
-        }
-      }
-
-      namespace Item {
-        interface Base {
-          mdx: Subject
-          babel: Subject
-        }
-      }
     }
   }
 }

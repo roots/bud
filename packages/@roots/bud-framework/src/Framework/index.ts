@@ -1,13 +1,22 @@
+import {Container} from '@roots/container'
+import {isEqual, isFunction} from 'lodash'
+
+import {Service} from '../Service'
 import type {
+  Api,
   Build,
   Cache,
+  CLI,
   Compiler,
   Dashboard,
   Dependencies,
   Discovery,
   Disk,
   Env,
+  Error,
+  Extension,
   Extensions,
+  FileContainer,
   Hooks,
   Logger,
   Module,
@@ -15,31 +24,34 @@ import type {
   Store,
   MaybeCallable,
   Bootstrapper,
+  Webpack,
 } from '@roots/bud-typings'
-
-import {Container} from '@roots/container'
-import {Service} from '../Service'
-import {isEqual, isFunction} from 'lodash'
 
 export {Framework}
 
 declare namespace Framework {
+  export {Api}
   export {Build}
+  export {Bootstrapper}
   export {Cache}
+  export {CLI}
   export {Compiler}
+  export {Container}
   export {Dashboard}
-  export {Dependencies}
   export {Discovery}
+  export {Dependencies}
   export {Disk}
   export {Env}
-  export {Extensions}
+  export {Extensions, Extension}
+  export {Error}
+  export {FileContainer}
   export {Hooks}
   export {Logger}
   export {Module}
   export {Server}
+  export {Service}
   export {Store}
-  export {MaybeCallable}
-  export {Bootstrapper}
+  export {Express, MaybeCallable, Webpack}
 }
 
 /**
@@ -70,16 +82,14 @@ abstract class Framework {
 
   public abstract extensions: Extensions
 
-  public abstract hooks: Framework.Hooks
+  public abstract hooks: Hooks
 
   public abstract server: Server
 
   public abstract logger: Logger
 
   /**
-   * ## Store
-   *
-   * Key/value container store
+   * Store
    */
   public abstract store: Store
 
@@ -99,19 +109,6 @@ abstract class Framework {
   public abstract get isDevelopment(): boolean
 
   /**
-   * Subscribe
-   */
-  public abstract subscribe<T = any>(
-    name: `${Hooks.Name}`,
-    caller?: string,
-  ): T
-
-  public abstract publish(
-    pubs: Hooks.PublishDict,
-    caller?: string,
-  ): Framework
-
-  /**
    * Constructor
    */
   constructor(services: {
@@ -122,11 +119,13 @@ abstract class Framework {
     this.access = this.access.bind(this)
     this.boot = this.boot.bind(this)
     this.bootstrap = this.bootstrap.bind(this)
-    this.get = this.get.bind(this)
     this.container = this.container.bind(this)
+    this.get = this.get.bind(this)
     this.pipe = this.pipe.bind(this)
+    this.publish = this.publish.bind(this)
     this.sequence = this.sequence.bind(this)
     this.register = this.register.bind(this)
+    this.subscribe = this.subscribe.bind(this)
     this.when = this.when.bind(this)
 
     /**
@@ -208,6 +207,32 @@ abstract class Framework {
   }
 
   /**
+   * Subscribe
+   */
+  public subscribe<T = any>(
+    name: `${Framework.Hooks.Name}`,
+    caller?: string,
+  ): T {
+    return this.hooks.filter<T>(caller ? [caller, name] : name)
+  }
+
+  /**
+   * Publish
+   */
+  public publish(
+    pubs: Framework.Hooks.PublishDict,
+    caller?: string,
+  ): this {
+    Object.entries(pubs).map(
+      ([name, pub]: [`${Framework.Hooks.Name}`, any]) => {
+        this.hooks.on(caller ? [caller, name] : name, pub)
+      },
+    )
+
+    return this
+  }
+
+  /**
    * ## access
    *
    * If a value is a function it will call that
@@ -226,7 +251,9 @@ abstract class Framework {
    * // => `option value: true`
    * ```
    */
-  public access<I = unknown>(value: MaybeCallable<I>): I {
+  public access<I = unknown>(
+    value: Framework.MaybeCallable<I>,
+  ): I {
     return isFunction(value) ? value(this) : value
   }
 

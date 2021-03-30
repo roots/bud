@@ -31,8 +31,6 @@ export declare interface Extensions extends Service {
  *
  * [🏡 Project home](https://roots.io/bud)
  * [🧑‍💻 roots/bud](https://git.io/Jkli3)
- * [📦 @roots/bud-extensions](https://github.io/roots/bud-extensions)
- * [🔗 Documentation](#)
  */
 export interface Extension extends Framework.Service {
   readonly app: Framework
@@ -71,7 +69,9 @@ export interface Module {
   when?: Module.When
 
   publish?:
-    | ((app: Framework) => {[key: string]: any})
+    | ((
+        app: Framework,
+      ) => {[key: `${Hooks.Name}`]: (args?: any) => any})
     | {[key: string]: any}
 }
 

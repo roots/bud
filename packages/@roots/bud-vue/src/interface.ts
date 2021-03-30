@@ -3,31 +3,41 @@ import '@roots/bud-api'
 import '@roots/bud-babel'
 
 declare module '@roots/bud-framework' {
-  namespace Framework.Hooks {
-    namespace Loader {
-      interface Base {
-        vue: any
-        'vue-style': any
-      }
+  /**
+   * vue loader
+   */
+  namespace Framework.Hooks.Loader {
+    interface Definitions {
+      vue: any
+      'vue-style': any
     }
+  }
 
-    namespace Item {
-      interface Base {
-        vue: any
-        'vue-style': any
-      }
+  /**
+   * vue item
+   */
+  namespace Framework.Hooks.Item {
+    interface Definitions {
+      vue: any
+      'vue-style': any
     }
+  }
 
-    namespace Rule {
-      interface Base {
-        vue: any
-      }
+  /**
+   * vue rule
+   */
+  namespace Framework.Hooks.Rule {
+    interface Definitions {
+      vue: any
     }
+  }
 
-    namespace Extension {
-      interface Base {
-        'vue-loader-plugin': any
-      }
+  /**
+   * vue-loader extension
+   */
+  namespace Framework.Hooks.Extension {
+    interface Definitions {
+      'vue-loader-plugin': any
     }
   }
 }

@@ -1,4 +1,6 @@
+import '@roots/bud-hooks'
 import '@roots/bud-framework'
+
 import {Webpack} from '@roots/bud-support'
 import {Theme} from '@roots/ink-use-style'
 

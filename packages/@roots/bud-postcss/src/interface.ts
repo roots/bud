@@ -17,7 +17,21 @@ declare module '@roots/bud-framework' {
     postcss: Framework.PostCss
   }
 
-  export namespace Framework {
+  namespace Framework.Hooks {
+    namespace Loader {
+      interface Definitions {
+        postcss: Subject
+      }
+    }
+
+    namespace Item {
+      interface Definitions {
+        postcss: Subject
+      }
+    }
+  }
+
+  namespace Framework {
     interface PostCss {
       /**
        * ## postcss.log
@@ -93,20 +107,6 @@ declare module '@roots/bud-framework' {
       type RegistryMutagen = (
         plugins: Registrable,
       ) => Registrable
-    }
-
-    namespace Hooks {
-      namespace Loader {
-        interface Base {
-          postcss: Hooks.Loader.Subject
-        }
-      }
-
-      namespace Item {
-        interface Base {
-          postcss: Hooks.Item.Subject
-        }
-      }
     }
   }
 }

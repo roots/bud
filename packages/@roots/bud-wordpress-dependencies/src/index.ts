@@ -1,3 +1,4 @@
+import './interface'
 import {Plugin} from '@roots/wordpress-dependencies-webpack-plugin'
 import type {Module} from '@roots/bud-typings'
 

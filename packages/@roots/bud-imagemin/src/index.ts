@@ -1,5 +1,6 @@
 import './interfaces'
-import {Module} from '@roots/bud-typings'
+
+import {Module} from '@roots/bud-framework'
 import * as Plugin from './imagemin'
 
 export const name: Module['name'] = '@roots/bud-imagemin'

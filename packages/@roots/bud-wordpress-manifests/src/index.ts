@@ -1,3 +1,4 @@
+import './interface'
 import MergedManifestPlugin from '@roots/merged-manifest-webpack-plugin'
 import {Module} from '@roots/bud-typings'
 

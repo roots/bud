@@ -1,6 +1,6 @@
-import '@roots/bud-framework'
 import '@roots/bud-api'
 import '@roots/bud-babel'
+import '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -22,26 +22,33 @@ declare module '@roots/bud-framework' {
     /**
      * Make.
      */
-    export type TypeCheck = (enabled?: boolean) => Framework
+    type TypeCheck = (enabled?: boolean) => Framework
   }
 
   namespace Framework.Hooks {
     namespace Loader {
-      interface Base {
+      interface Definitions {
         ts: Subject
+        babel: Subject
       }
     }
 
     namespace Item {
-      interface Base {
-        babel: Subject
+      interface Definitions {
         ts: Subject
+        babel: Subject
       }
     }
 
     namespace Rule {
-      interface Base {
+      interface Definitions {
         ts: Subject
+      }
+    }
+
+    namespace Extension {
+      interface Definitions {
+        'fork-ts-checker-plugin': Subject
       }
     }
   }

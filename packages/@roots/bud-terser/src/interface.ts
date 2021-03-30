@@ -13,11 +13,17 @@ declare module '@roots/bud-framework' {
     terser: Framework.Terser.Configure
   }
 
-  export namespace Framework.Terser {
-    export type Configure = (
+  namespace Framework.Terser {
+    type Configure = (
       options: Framework.Terser.Options,
     ) => Framework
 
-    export type Options = TerserPluginOptions
+    type Options = TerserPluginOptions
+  }
+
+  namespace Framework.Hooks.Extensions {
+    interface Definitions {
+      'terser-webpack-plugin': any
+    }
   }
 }

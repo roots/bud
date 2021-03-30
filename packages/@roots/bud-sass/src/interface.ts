@@ -1,27 +1,23 @@
-import '@roots/bud'
+import '@roots/bud-framework'
 import '@roots/bud-postcss'
 
 declare module '@roots/bud-framework' {
-  export namespace Framework {
-    namespace Hooks {
-      namespace Loader {
-        interface Base {
-          sass: Subject
-        }
-      }
+  namespace Framework.Hooks.Loader {
+    interface Definitions {
+      sass: string
+    }
+  }
 
-      namespace Item {
-        interface Base {
-          sass: Subject
-          postcss: Subject
-        }
-      }
+  namespace Framework.Hooks.Item {
+    interface Definitions {
+      sass: Subject
+      postcss: Subject
+    }
+  }
 
-      namespace Rule {
-        interface Base {
-          sass: Subject
-        }
-      }
+  namespace Framework.Hooks.Rule {
+    interface Definitions {
+      sass: Subject
     }
   }
 }

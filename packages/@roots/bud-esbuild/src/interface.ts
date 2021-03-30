@@ -74,24 +74,22 @@ declare module '@roots/bud-framework' {
     type JSX = (enabled?: boolean) => Framework
   }
 
-  namespace Hooks {
-    namespace Loader {
-      interface Base {
-        esbuild: any
-      }
+  namespace Framework.Hooks.Loader {
+    interface Definitions {
+      esbuild: Subject
     }
+  }
 
-    namespace Item {
-      interface Base {
-        'esbuild-js': any
-        'esbuild-ts': any
-      }
+  namespace Framework.Hooks.Item {
+    interface Definitions {
+      'esbuild-js': Subject
+      'esbuild-ts': Subject
     }
+  }
 
-    namespace Rule {
-      interface Base {
-        ts: any
-      }
+  namespace Framework.Hooks.Rule {
+    interface Definitions {
+      ts: Subject
     }
   }
 }

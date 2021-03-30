@@ -16,10 +16,7 @@ export const options: Module.Options = app => {
   const options: Framework.Eslint.Options = {
     extensions: ['js', 'jsx', 'ts', 'tsx', 'vue'],
     cache: true,
-    cacheLocation: app.disk.path.join(
-      app.subscribe('location/project'),
-      app.subscribe('location/storage'),
-    ),
+    cacheLocation: app.project(app.storage()),
     quiet: true,
     formatter,
     context: app.src('*'),

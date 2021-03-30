@@ -2,7 +2,8 @@ import {Framework} from '@roots/bud-framework'
 import Plugin from 'compression-webpack-plugin'
 import * as api from './api'
 
-export const name = 'compression-webpack-plugin-brotli'
+export const name: Framework.Module['name'] =
+  'compression-webpack-plugin-brotli'
 
 export const options: Framework.Compress.Brotli.Options = {
   filename: '[name].br[query]',

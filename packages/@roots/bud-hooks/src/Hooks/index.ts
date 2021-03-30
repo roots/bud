@@ -1,29 +1,28 @@
-import Service from './Service'
-import {Framework} from '@roots/bud-framework'
-import {Hooks as Contract} from '@roots/bud-typings'
+import {Hooks} from '@roots/bud-typings'
+import {Framework, Service} from '@roots/bud-framework'
 import {isArray, prettyFormat} from '@roots/bud-support'
 import {set} from 'lodash'
 
 /**
  * Hooks
  */
-export class Hooks extends Service implements Contract {
+export default class extends Service implements Hooks {
   /**
-   * Service ident
+   * Service name
    */
   public name = '@roots/bud-hooks'
 
   /**
    * Get hook
    */
-  public get<T = any>(path: `${Contract.Name}`) {
+  public get<T = any>(path: `${Framework.Hooks.Name}`) {
     return this._.get(this.repository, path) as T
   }
 
   /**
    * Set hook
    */
-  public set(key: `${Contract.Name}`, value: any): this {
+  public set(key: `${Framework.Hooks.Name}`, value: any): this {
     set(this.repository, key, value)
 
     return this
@@ -50,8 +49,10 @@ export class Hooks extends Service implements Contract {
    * ```
    */
   public on(
-    id: [string, `${Contract.Name}`] | `${Contract.Name}`,
-    callback: Contract.Hook,
+    id:
+      | [string, `${Framework.Hooks.Name}`]
+      | `${Framework.Hooks.Name}`,
+    callback: Hooks.Hook,
   ): Framework {
     const [publisher, name] = isArray(id)
       ? id
@@ -78,7 +79,9 @@ export class Hooks extends Service implements Contract {
    * the output before it is returned.
    */
   public filter<T = any>(
-    id: `${Contract.Name}` | [string, `${Contract.Name}`],
+    id:
+      | `${Framework.Hooks.Name}`
+      | [string, `${Framework.Hooks.Name}`],
   ): T {
     const [subscriber, name] = isArray(id)
       ? id
