@@ -56,7 +56,7 @@ export default class extends Service {
    */
   public make(): Webpack.Plugin[] {
     const plugins = this.getKeys()
-      .map(name => this.get(name).make())
+      .map(name => this.get(name).make)
       .filter(ext => !isUndefined(ext)) as Webpack.Plugin[]
 
     return plugins

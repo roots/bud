@@ -10,13 +10,13 @@ import * as tailwind from '@roots/bud-tailwindcss'
 import * as typescript from '@roots/bud-typescript'
 import * as prettier from '@roots/bud-prettier'
 import * as stylelint from '@roots/bud-stylelint'
-import * as entrypoints from '@roots/bud-entrypoints'
 import * as dependencies from '@roots/bud-wordpress-dependencies'
 import * as externals from '@roots/bud-wordpress-externals'
 import * as manifests from '@roots/bud-wordpress-manifests'
 
 // default export
 import react from '@roots/bud-react'
+import entrypoints from '@roots/bud-entrypoints'
 
 /**
  * Sage theme preset

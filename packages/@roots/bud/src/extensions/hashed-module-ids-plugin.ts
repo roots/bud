@@ -19,10 +19,7 @@ export const options: Options = {
 export const make: Module.Make<
   HashedModuleIdsPlugin,
   Options
-> = (_options, app) =>
-  new HashedModuleIdsPlugin(
-    app.subscribe('extension/hashed-module-ids-plugin/options'),
-  )
+> = options => new HashedModuleIdsPlugin(options.all())
 
 export const when: Module.When = (app: Framework) =>
   app.store.isTrue('options.hash')

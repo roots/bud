@@ -44,4 +44,13 @@ const extension: Framework.Module = {
   },
 }
 
+/**
+ * @exports default
+ */
 export {extension as default}
+
+/**
+ * @exports module
+ */
+const {name, boot} = extension
+export {name, boot}

@@ -50,15 +50,12 @@ export const copy: Copy = function (jobs, options?) {
         context: this.subscribe('location/project', 'api/copy'),
       }
 
-      this.publish(
-        {
-          'extension/webpack-copy-plugin/options/patterns': patterns => [
-            ...(patterns ?? []),
-            pattern,
-          ],
-        },
-        'api/copy',
-      )
+      this.extensions
+        .get('webpack-copy-plugin')
+        .set('options', copy => ({
+          ...copy,
+          patterns: [...(copy.patterns ?? []), pattern],
+        }))
     })
   })
 

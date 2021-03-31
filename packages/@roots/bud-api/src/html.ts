@@ -71,15 +71,12 @@ export const html: Framework.Api.Html = function (options?) {
    * Apply any replacements in the interpolation plugin
    */
   options.replace &&
-    this.publish(
-      {
-        'extension/interpolate-html-plugin/options': opts => ({
-          ...opts,
-          ...options.replace,
-        }),
-      },
-      'api/html',
-    )
+    this.extensions
+      .get('html-webpack-plugin')
+      .set('options', value => ({
+        ...value,
+        ...options.replace,
+      }))
 
   /**
    * Allow html.template arg to override
@@ -89,13 +86,12 @@ export const html: Framework.Api.Html = function (options?) {
      * Set the html-webpack-plugin template
      */
     options.template &&
-      this.publish(
-        {
-          'extension/html-webpack-plugin/options/template': () =>
-            options.template,
-        },
-        'api/html',
-      )
+      this.extensions
+        .get('html-webpack-plugin')
+        .set('options', value => ({
+          ...value,
+          template: options.template,
+        }))
   }
 
   return this

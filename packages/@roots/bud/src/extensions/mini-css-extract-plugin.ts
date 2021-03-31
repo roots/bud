@@ -12,39 +12,14 @@ export const name: Module['name'] = 'mini-css-extract-plugin'
 /**
  * Options
  */
-export const options: Options = ({subscribe}: Framework) => ({
-  filename: subscribe(
-    'extension/mini-css-extract-plugin/options/filename',
-    name,
-  ),
+export const options: Options = ({store}: Framework) => ({
+  filename: store.isTrue('options.hash')
+    ? `${store.get('options.hashFormat').concat('.css')}`
+    : `${store.get('options.fileFormat').concat('.css')}`,
 
-  chunkFilename: subscribe(
-    'extension/mini-css-extract-plugin/options/chunkFilename',
-    name,
-  ),
-})
-
-/**
- * Published options
- */
-export const publish: Module['publish'] = ({
-  store,
-}: Framework) => ({
-  /**
-   * Filename
-   */
-  'extension/mini-css-extract-plugin/options/filename': () =>
-    store.get('options.hash')
-      ? store.get('options.hashFormat').concat('.css')
-      : store.get('options.fileFormat').concat('.css'),
-
-  /**
-   * Chunk filename
-   */
-  'extension/mini-css-extract-plugin/options/chunkFilename': () =>
-    store.isTrue('options.hash')
-      ? store.get('options.hashFormat').concat('.[id].css')
-      : store.get('options.fileFormat').concat('.[id].css'),
+  chunkFilename: store.isTrue('options.hash')
+    ? `${store.get('options.hashFormat').concat('.[id].css')}`
+    : `${store.get('options.fileFormat').concat('.[id].css')}`,
 })
 
 /**

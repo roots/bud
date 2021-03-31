@@ -6,7 +6,7 @@ import type {
 import type {Plugin} from '@roots/entrypoints-webpack-plugin'
 
 /**
- * @module      `@roots/bud-framework`
+ * @module Framework
  * @description Extended framework definition
  */
 declare module '@roots/bud-framework' {
@@ -18,7 +18,7 @@ declare module '@roots/bud-framework' {
 }
 
 /**
- * @typedef     Options
+ * @interface Options
  * @description Framework extension options
  */
 interface Options {
@@ -27,7 +27,7 @@ interface Options {
 }
 
 /**
- * @typedef     Extension
+ * @interface Extension
  * @description Wrapper for `@roots/entrypoints-webpack-plugin`
  */
 interface Extension extends Module {

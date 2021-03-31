@@ -79,7 +79,7 @@ export interface Module {
 }
 
 export namespace Module {
-  export type Name = `${keyof Framework.Hooks.Extension.Definitions}`
+  export type Name = `${keyof Hooks.Extension.Definitions}`
 
   export type Api =
     | {[key: string]: any}
