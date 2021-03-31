@@ -1,23 +1,32 @@
+import {Options, Extension} from './interface'
 import * as Entrypoints from '@roots/entrypoints-webpack-plugin'
-import {Module} from '@roots/bud-typings'
 
 /**
- * Extension name
+ * @const DEFAULT_OPTIONS
+ * @description default options for entrypoints-webpack-plugin
  */
-export const name: Module['name'] = '@roots/bud-entrypoints'
-
-/**
- * Webpack plugin
- */
-export const make: Module['make'] = options =>
-  new Entrypoints.Plugin(options.all())
-
-/**
- * Webpack plugin options
- */
-export const options: Module['options'] = (
-  options: Entrypoints.Options,
-) => ({
+const DEFAULT_OPTIONS: Options = {
   name: 'entrypoints.json',
   writeToFileEmit: true,
-})
+}
+
+/**
+ * @const extension
+ * @extends Framework
+ */
+const extension: Extension = {
+  name: '@roots/bud-entrypoints',
+  options: () => DEFAULT_OPTIONS,
+  make: options => new Entrypoints.Plugin(options.all()),
+}
+
+/**
+ * @exports default
+ */
+export {extension as default}
+
+/**
+ * @exports module
+ */
+const {name, options, make} = extension
+export {name, options, make}

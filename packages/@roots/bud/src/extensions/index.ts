@@ -1,4 +1,4 @@
-import {Framework} from '@roots/bud-typings'
+import {Framework} from '@roots/bud-framework'
 import * as CleanWebpackPlugin from './clean-webpack-plugin'
 import * as WebpackConfigDumpPlugin from './webpack-config-dump-plugin'
 import * as CopyWebpackPlugin from './copy-webpack-plugin'

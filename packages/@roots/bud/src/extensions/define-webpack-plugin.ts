@@ -1,8 +1,7 @@
 import {DefinePlugin} from 'webpack'
-import type {Framework} from '@roots/bud-framework'
-import type {Module} from '@roots/bud-typings'
+import {Framework, Module} from '@roots/bud-framework'
 
-export const name = `webpack-define-plugin`
+export const name: Module.Name = `webpack-define-plugin`
 
 export const make: Module.Make<
   DefinePlugin,

@@ -1,19 +1,26 @@
 import './interface'
 
-import {Api} from './services/Api'
-import {Build} from './services/Build'
+/**
+ * Framework
+ */
 import {Cache} from '@roots/bud-cache'
 import {Compiler} from '@roots/bud-compiler'
 import {Dashboard} from '@roots/bud-dashboard'
+import {Framework} from '@roots/bud-framework'
+import {Hooks} from '@roots/bud-hooks'
+import {Server} from '@roots/bud-server'
+
+/**
+ * Extended
+ */
+import {Api} from './services/Api'
+import {Build} from './services/Build'
 import {Dependencies} from './services/Dependencies'
 import {Discovery} from './services/Discovery'
 import {Disk} from './services/Disk'
 import {Env} from './services/Env'
 import {Extensions} from './services/Extensions'
-import {Framework} from '@roots/bud-framework'
-import {Hooks} from '@roots/bud-hooks'
 import {Logger} from './services/Logger'
-import {Server} from '@roots/bud-server'
 import {Store} from './services/Store'
 import {Util} from './services/Util'
 

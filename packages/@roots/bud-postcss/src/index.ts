@@ -1,6 +1,6 @@
 import './interface'
-import {Framework} from '@roots/bud-framework'
-import {Module} from '@roots/bud-typings'
+
+import {Framework, Module} from '@roots/bud-framework'
 import {PostCssConfig} from './api'
 
 /**

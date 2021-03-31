@@ -2,6 +2,12 @@ import '@roots/bud-framework'
 import '@roots/bud-postcss'
 
 declare module '@roots/bud-framework' {
+  namespace Framework.Hooks.Extension {
+    interface Definitions {
+      '@roots/bud-purgecss': Framework.Module
+    }
+  }
+
   interface Framework {
     /**
      * ## purge

@@ -9,7 +9,6 @@ import {
   MappedType,
 } from './utility'
 
-import {Api} from './Api'
 import {Build} from './Build'
 import {Cache} from './Cache'
 import {CLI} from './CLI'
@@ -26,8 +25,9 @@ import {Store} from './Store'
 import {Server} from './Server'
 import {Extensions, Extension, Module} from './Extensions'
 
-export namespace Framework {
-  export {Api}
+declare interface Framework {}
+
+declare namespace Framework {
   export {Build}
   export {Bootstrapper}
   export {Cache}

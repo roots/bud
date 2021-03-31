@@ -1,11 +1,11 @@
 import {Sage} from './interface'
 import {projectInfo} from './util'
 
+// module export
 import * as babel from '@roots/bud-babel'
 import * as esbuild from '@roots/bud-esbuild'
 import * as eslint from '@roots/bud-eslint'
 import * as postcss from '@roots/bud-postcss'
-import * as react from '@roots/bud-react'
 import * as tailwind from '@roots/bud-tailwindcss'
 import * as typescript from '@roots/bud-typescript'
 import * as prettier from '@roots/bud-prettier'
@@ -14,6 +14,9 @@ import * as entrypoints from '@roots/bud-entrypoints'
 import * as dependencies from '@roots/bud-wordpress-dependencies'
 import * as externals from '@roots/bud-wordpress-externals'
 import * as manifests from '@roots/bud-wordpress-manifests'
+
+// default export
+import react from '@roots/bud-react'
 
 /**
  * Sage theme preset

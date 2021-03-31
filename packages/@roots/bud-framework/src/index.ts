@@ -1,21 +1,29 @@
 export type {
   Build,
   Cache,
+  CLI,
   Compiler,
+  Container,
   Dashboard,
   Dependencies,
   Discovery,
   Disk,
   Env,
+  Error,
+  Extension,
   Extensions,
+  Express,
+  FileContainer,
+  Hooks,
+  Index,
   Logger,
   Module,
   Server,
   Store,
   MaybeCallable,
   Bootstrapper,
+  Webpack,
 } from '@roots/bud-typings'
 
-export {Framework, Framework as default} from './Framework'
-
+export {Framework} from './Framework'
 export {Service} from './Service'

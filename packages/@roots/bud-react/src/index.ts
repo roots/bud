@@ -1,37 +1,47 @@
-import './interfaces'
+import './interface'
+
 import {Framework} from '@roots/bud-framework'
-import {Module} from '@roots/bud-typings'
+import type {Configuration} from 'webpack'
 import * as ReactRefreshWebpackPlugin from './react-refresh'
 
-/**
- * Extension name
- */
-export const name: Module['name'] = '@roots/bud-react'
+const DEFAULT_PRESETS = [
+  '@babel/preset-env',
+  '@babel/preset-react',
+]
 
 /**
- * Extension register
+ * @module @roots/bud-react
+ * @description Wrapper for react and react-refresh
  */
-export const boot: Module['boot'] = (app: Framework) => {
-  app.babel.setPresets([
-    '@babel/preset-env',
-    '@babel/preset-react',
-  ])
+
+const extension: Framework.Module = {
+  /**
+   * @property name
+   */
+  name: '@roots/bud-react',
 
   /**
-   * The rest only pertains to dev
-   * (exit early if not applicable)
+   * @function boot
    */
-  if (!app.isDevelopment) return
+  boot({babel, isDevelopment, when}: Framework): void {
+    babel.setPresets(DEFAULT_PRESETS)
 
-  app.extensions.add(ReactRefreshWebpackPlugin)
-
-  app.store.mutate('options.entry', entry =>
-    Object.entries(entry).reduce(
-      (a, [name, assets]: [string, string[]]) => ({
-        ...a,
-        [name]: ['react-refresh/runtime', ...assets],
-      }),
-      {},
-    ),
-  )
+    when(isDevelopment, (app: Framework) =>
+      app
+        .use(ReactRefreshWebpackPlugin)
+        .store.mutate(
+          'options.entry',
+          (entry: Configuration['entry']) =>
+            Object.entries(entry).reduce(
+              (a, [name, assets]: [string, string[]]) => ({
+                ...a,
+                [name]: ['react-refresh/runtime', ...assets],
+              }),
+              {},
+            ),
+        ),
+    )
+  },
 }
+
+export {extension as default}

@@ -18,15 +18,20 @@ declare module '@roots/bud-framework' {
   }
 
   namespace Framework.Hooks {
+    namespace Extension {
+      interface Definitions {
+        '@roots/bud-postcss': Framework.Module
+      }
+    }
     namespace Loader {
       interface Definitions {
-        postcss: Subject
+        postcss: Framework.Hooks.Loader.Subject
       }
     }
 
     namespace Item {
       interface Definitions {
-        postcss: Subject
+        postcss: Framework.Hooks.Item.Subject
       }
     }
   }

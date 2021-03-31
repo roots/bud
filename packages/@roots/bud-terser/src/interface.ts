@@ -21,9 +21,10 @@ declare module '@roots/bud-framework' {
     type Options = TerserPluginOptions
   }
 
-  namespace Framework.Hooks.Extensions {
+  namespace Framework.Hooks.Extension {
     interface Definitions {
-      'terser-webpack-plugin': any
+      '@roots/bud-terser': Framework.Module
+      'terser-webpack-plugin': Framework.Module
     }
   }
 }

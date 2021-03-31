@@ -2,6 +2,12 @@ import '@roots/bud'
 import '@roots/bud-postcss'
 
 declare module '@roots/bud-framework' {
+  namespace Framework.Hooks.Extension {
+    interface Definitions {
+      '@roots/bud-tailwindcss': Framework.Module
+    }
+  }
+
   interface Framework {
     /**
      * ## bud.tailwindcss

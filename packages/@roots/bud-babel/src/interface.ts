@@ -2,15 +2,21 @@ import '@roots/bud-api'
 import '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
+  namespace Framework.Hooks.Extension {
+    interface Definitions {
+      '@roots/bud-babel': Framework.Module
+    }
+  }
+
   namespace Framework.Hooks.Loader {
     interface Definitions {
-      babel: Subject
+      babel: Framework.Hooks.Loader.Subject
     }
   }
 
   namespace Framework.Hooks.Item {
     interface Definitions {
-      babel: Subject
+      babel: Framework.Hooks.Item.Subject
     }
   }
 

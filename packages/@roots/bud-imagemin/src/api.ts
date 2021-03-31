@@ -1,9 +1,7 @@
-import {Framework} from '@roots/bud-framework'
+import {Imagemin, Framework} from '@roots/bud-framework'
 
-/**
- * Configure imagemin plugins.
- */
-export const imagemin: Framework.Imagemin.Configure = function (
+export const imagemin: Imagemin.Configure = function (
+  this: Framework,
   options,
 ) {
   this.publish(

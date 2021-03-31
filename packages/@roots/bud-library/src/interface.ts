@@ -1,4 +1,3 @@
-import '@roots/bud-api'
 import '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
@@ -25,16 +24,21 @@ declare module '@roots/bud-framework' {
     library: Framework.Library.Configure
   }
 
-  export namespace Framework.Library {
-    export type Configure = (
-      this: Framework,
-      modules: string[],
-    ) => Framework
-  }
+  namespace Framework {
+    namespace Library {
+      type Configure = (
+        this: Framework,
+        modules: string[],
+      ) => Framework
+    }
 
-  export namespace Framework.Hooks.Extension {
-    interface Definitions {
-      'autodll-webpack-plugin': any
+    namespace Hooks {
+      namespace Extension {
+        interface Definitions {
+          '@roots/bud-library': Framework.Extension
+          'autodll-webpack-plugin': Framework.Extension
+        }
+      }
     }
   }
 }

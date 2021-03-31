@@ -50,6 +50,7 @@ export const publish: Framework.Module['publish'] = (
     loader: app.subscribe('loader/babel'),
     options: app.subscribe('item/babel/options'),
   }),
+
   'item/babel/options': () => ({
     cacheDirectory: app.subscribe(
       'item/babel/options/cacheDirectory',

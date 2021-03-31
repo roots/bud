@@ -1,31 +1,28 @@
 import './interface'
-import {Framework} from '@roots/bud-framework'
-import {Module} from '@roots/bud-typings'
+
+import {Module} from '@roots/bud-framework'
 import Plugin from 'eslint-webpack-plugin'
 import formatter from './formatter'
 
 /**
- * Extension identifier
+ * Extension name
  */
-export const name = 'eslint-webpack-plugin'
+export const name: Module.Name = 'eslint-webpack-plugin'
 
 /**
- * Eslint class options.
+ * Extension options
  */
-export const options: Module.Options = app => {
-  const options: Framework.Eslint.Options = {
-    extensions: ['js', 'jsx', 'ts', 'tsx', 'vue'],
-    cache: true,
-    cacheLocation: app.project(app.storage()),
-    quiet: true,
-    formatter,
-    context: app.src('*'),
-  }
-
-  return options
-}
+export const options: Module['options'] = app => ({
+  extensions: ['js', 'jsx', 'ts', 'tsx', 'vue'],
+  cache: true,
+  cacheLocation: app.project(app.storage()),
+  quiet: true,
+  formatter,
+  context: app.src('*'),
+})
 
 /**
- * Make the plugin from its options.
+ * Extension make
  */
-export const make: Module.Make = opts => new Plugin(opts.all())
+export const make: Module['make'] = opts =>
+  new Plugin(opts.all())

@@ -29,12 +29,16 @@ declare module '@roots/bud-framework' {
 }
 
 type Copy = (
+  this: Framework,
   jobs: {[from: string]: string},
   options?: {[key: string]: any},
 ) => Framework
 
 export const copy: Copy = function (jobs, options?) {
   Object.entries(jobs).map(([dest, from]: [string, string]) => {
+    /**
+     * Filename format (hashed or unhashed)
+     */
     const fileFormat = this.store.isTrue('options.hash')
       ? this.store.get('options.hashFormat')
       : this.store.get('options.fileFormat')

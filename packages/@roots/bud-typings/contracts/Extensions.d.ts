@@ -1,16 +1,14 @@
 import Webpack from 'webpack'
 import {SetOptional, ValueOf} from 'type-fest'
-import {Framework, MappedType, Service} from './'
+import {Framework, Hooks, MappedType, Service} from './'
 
 /**
- * ## bud.extensions
+ * bud.extensions
  *
- * Extensions controller for the Bud framework.
+ * Extensions controller.
  *
  * [🏡 Project home](https://roots.io/bud)
  * [🧑‍💻 roots/bud](https://git.io/Jkli3)
- * [📦 @roots/bud-extensions](https://github.io/roots/bud-extensions)
- * [🔗 Documentation](#)
  */
 export declare interface Extensions extends Service {
   add(extension): void
@@ -25,7 +23,7 @@ export declare interface Extensions extends Service {
 }
 
 /**
- * ## bud.extension
+ * bud.extension
  *
  * Extends framework.
  *
@@ -47,10 +45,15 @@ export interface Extension extends Framework.Service {
 }
 
 /**
- * Extension module (source)
+ * bud.module
+ *
+ * bud.extension implementation
+ *
+ * [🏡 Project home](https://roots.io/bud)
+ * [🧑‍💻 roots/bud](https://git.io/Jkli3)
  */
 export interface Module {
-  name: string
+  name: Module.Name
 
   options?: Module.Options
 
@@ -76,6 +79,8 @@ export interface Module {
 }
 
 export namespace Module {
+  export type Name = `${keyof Framework.Hooks.Extension.Definitions}`
+
   export type Api =
     | {[key: string]: any}
     | ((app?: Framework) => {[key: string]: any})

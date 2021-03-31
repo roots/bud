@@ -18,7 +18,7 @@ export const devDependencies: Module['devDependencies'] = [
 /**
  * Publish
  */
-export const publish = app => ({
+export const publish: Module['publish'] = app => ({
   /**
    * loader/vue
    */

@@ -1,9 +1,6 @@
 import {Container} from '@roots/container'
 import {isEqual, isFunction} from 'lodash'
-
-import {Service} from '../Service'
 import type {
-  Api,
   Build,
   Cache,
   CLI,
@@ -16,11 +13,14 @@ import type {
   Error,
   Extension,
   Extensions,
+  Express,
   FileContainer,
   Hooks,
+  Index,
   Logger,
   Module,
   Server,
+  Service,
   Store,
   MaybeCallable,
   Bootstrapper,
@@ -30,32 +30,37 @@ import type {
 export {Framework}
 
 declare namespace Framework {
-  export {Api}
-  export {Build}
-  export {Bootstrapper}
-  export {Cache}
-  export {CLI}
-  export {Compiler}
-  export {Container}
-  export {Dashboard}
-  export {Discovery}
-  export {Dependencies}
-  export {Disk}
-  export {Env}
-  export {Extensions, Extension}
-  export {Error}
-  export {FileContainer}
-  export {Hooks}
-  export {Logger}
-  export {Module}
-  export {Server}
-  export {Service}
-  export {Store}
-  export {Express, MaybeCallable, Webpack}
+  export {
+    Build,
+    Cache,
+    CLI,
+    Compiler,
+    Container,
+    Dashboard,
+    Dependencies,
+    Discovery,
+    Disk,
+    Env,
+    Error,
+    Extension,
+    Extensions,
+    Express,
+    FileContainer,
+    Hooks,
+    Index,
+    Logger,
+    Module,
+    Server,
+    Service,
+    Store,
+    MaybeCallable,
+    Bootstrapper,
+    Webpack,
+  }
 }
 
 /**
- * Bud framework base class
+ * Framework abstract
  */
 abstract class Framework {
   [key: string]: any
@@ -210,7 +215,7 @@ abstract class Framework {
    * Subscribe
    */
   public subscribe<T = any>(
-    name: `${Framework.Hooks.Name}`,
+    name: `${Hooks.Name}`,
     caller?: string,
   ): T {
     return this.hooks.filter<T>(caller ? [caller, name] : name)
@@ -220,11 +225,11 @@ abstract class Framework {
    * Publish
    */
   public publish(
-    pubs: Framework.Hooks.PublishDict,
+    pubs: Hooks.PublishDict,
     caller?: string,
   ): this {
     Object.entries(pubs).map(
-      ([name, pub]: [`${Framework.Hooks.Name}`, any]) => {
+      ([name, pub]: [`${Hooks.Name}`, any]) => {
         this.hooks.on(caller ? [caller, name] : name, pub)
       },
     )
@@ -251,9 +256,7 @@ abstract class Framework {
    * // => `option value: true`
    * ```
    */
-  public access<I = unknown>(
-    value: Framework.MaybeCallable<I>,
-  ): I {
+  public access<I = unknown>(value: MaybeCallable<I>): I {
     return isFunction(value) ? value(this) : value
   }
 

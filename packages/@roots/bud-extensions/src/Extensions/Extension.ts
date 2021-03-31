@@ -1,6 +1,5 @@
 import {lodash as _} from '@roots/bud-support'
-import {Framework} from '@roots/bud-framework'
-import {Module} from '@roots/bud-typings'
+import {Framework, Module} from '@roots/bud-framework'
 import {isBoolean, isEmpty, isFunction} from 'lodash'
 
 /**
@@ -10,7 +9,6 @@ import {isBoolean, isEmpty, isFunction} from 'lodash'
  *
  * [🏡 Project home](https://roots.io/bud)
  * [🧑‍💻 roots/bud](https://git.io/Jkli3)
- * [📦 @roots/bud-extensions](https://github.io/roots/bud-extensions)
  */
 export default class {
   /**
@@ -31,16 +29,25 @@ export default class {
   }
 
   /**
+   * Get module name
+   */
+  public get name() {
+    return this.app.subscribe(
+      `extension/${this.module.name}` as Framework.Hooks.Name,
+    )
+  }
+
+  /**
    * Constructor.
    */
   public constructor(app: Framework, extension: Module) {
     this.app = app
     this.module = extension
 
-    this.register = this.register.bind(this)
     this.boot = this.boot.bind(this)
-    this.install = this.install.bind(this)
     this.make = this.make.bind(this)
+    this.install = this.install.bind(this)
+    this.register = this.register.bind(this)
 
     this.logger
       .scope(this.module.name)
@@ -131,7 +138,10 @@ export default class {
 
     return this.app.container(
       this.app.subscribe(
-        `extension/${this.module.name}/options` as Framework.Hooks.Name,
+        /**
+         * @todo typings not resolving here
+         */
+        `extension/${this.name}/options` as Framework.Hooks.Name,
       ),
     )
   }

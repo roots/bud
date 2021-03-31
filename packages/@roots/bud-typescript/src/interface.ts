@@ -26,29 +26,29 @@ declare module '@roots/bud-framework' {
   }
 
   namespace Framework.Hooks {
+    namespace Extension {
+      interface Definitions {
+        '@roots/bud-typescript': Hooks.Extension.Subject
+        'fork-ts-checker-plugin': Hooks.Extension.Subject
+      }
+    }
     namespace Loader {
       interface Definitions {
-        ts: Subject
-        babel: Subject
+        ts: Hooks.Loader.Subject
+        babel: Hooks.Loader.Subject
       }
     }
 
     namespace Item {
       interface Definitions {
-        ts: Subject
-        babel: Subject
+        ts: Hooks.Item.Subject
+        babel: Hooks.Item.Subject
       }
     }
 
     namespace Rule {
       interface Definitions {
-        ts: Subject
-      }
-    }
-
-    namespace Extension {
-      interface Definitions {
-        'fork-ts-checker-plugin': Subject
+        ts: Framework.Hooks.Rule.Subject
       }
     }
   }
