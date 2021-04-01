@@ -1,10 +1,10 @@
 import {Hooks} from '@roots/bud-typings'
-import {Bud} from '../../../Bud'
+import {Framework} from '@roots/bud-framework'
 
 /**
  * Item hooks
  */
-export function rules(app: Bud): void {
+export function rules(app: Framework): void {
   app.publish(
     {
       /**
@@ -69,9 +69,7 @@ export function rules(app: Bud): void {
         test: app.subscribe('rule/svg/test'),
         use: app.subscribe('rule/svg/use'),
       }),
-
       'rule/svg/test': () => app.store.get('patterns.svg'),
-
       'rule/svg/use': () => [app.subscribe('item/svg')],
 
       /**
@@ -81,10 +79,8 @@ export function rules(app: Bud): void {
         test: app.subscribe('rule/font/test'),
         use: app.subscribe('rule/font/use'),
       }),
-
       'rule/font/test': () => app.store.get('patterns.font'),
-
-      'rule/font/use': () => [app.subscribe('item/file')],
+      'rule/font/use': () => [app.subscribe('item/font')],
 
       /**
        * rule/html
@@ -104,7 +100,7 @@ export function rules(app: Bud): void {
         use: app.subscribe('rule/image/use'),
       }),
       'rule/image/test': () => app.store.get('patterns.image'),
-      'rule/image/use': () => [app.subscribe('item/file')],
+      'rule/image/use': () => [app.subscribe('item/image')],
     },
     'providers/rule',
   )

@@ -1,3 +1,5 @@
+// @ts-check
+
 /**
  * Sage Theme
  *
@@ -12,4 +14,4 @@ module.exports = (sage) =>
       editor: ['**/editor.{js,css}'],
       customizer: ['scripts/customizer.js'],
     })
-    .copy({assets: 'resources/{images,fonts}/**/*'});
+    .assets(['resources/images', 'resources/fonts']);

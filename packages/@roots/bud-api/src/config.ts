@@ -40,8 +40,8 @@ export const config: Framework.Api.Config = function ({css}) {
  */
 const _cssRelativeUrls = function () {
   const relativePath = this.disk.path.posix.relative(
-    this.subscribe('location/dist', 'api/config'),
-    this.subscribe('location/src', 'api/config'),
+    this.dist(),
+    this.src(),
   )
 
   this.publish(

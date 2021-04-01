@@ -4,8 +4,8 @@ export {alias} from './alias'
 import './config'
 export {config} from './config'
 
-import './copy'
-export {copy} from './copy'
+import './assets'
+export {assets} from './assets'
 
 import './define'
 export {define} from './define'

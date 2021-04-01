@@ -6,6 +6,7 @@ export const name: Module['name'] = 'webpack-copy-plugin'
 
 export const options: Module['options'] = (app: Framework) => ({
   patterns: [],
+  noErrorOnMissing: true,
 })
 
 export const make: Module['make'] = options =>

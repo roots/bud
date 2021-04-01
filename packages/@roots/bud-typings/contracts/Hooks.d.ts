@@ -133,6 +133,8 @@ declare namespace Hooks {
       cache: Subject
       css: Subject
       file: Subject
+      image: Subject
+      font: Subject
       js: Subject
       minicss: Subject
       'resolve-url': Subject

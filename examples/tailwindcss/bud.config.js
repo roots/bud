@@ -4,6 +4,7 @@
  * @typedef {import('@roots/bud').Bud & import('@roots/bud-framework').Framework} Bud
  * @type {(bud: Bud): Bud}
  */
+
 module.exports = bud =>
   bud
     .use([
@@ -12,5 +13,5 @@ module.exports = bud =>
       require('@roots/bud-tailwindcss'),
       require('@roots/bud-react'),
     ])
-    .entry('app', ['app.css', 'app.js'])
+    .entry({app: ['app.css', 'app.js']})
     .html()
