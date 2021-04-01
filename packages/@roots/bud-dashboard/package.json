@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-dashboard",
   "description": "Bud CLI dashboard",
-  "version": "3.0.101-alpha.0",
+  "version": "3.0.102-alpha.0",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -52,16 +52,16 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "dependencies": {
-    "@roots/bud-support": "^3.0.101-alpha.0",
-    "@roots/ink-prettier": "^3.0.101-alpha.0",
-    "@roots/ink-use-style": "^3.0.101-alpha.0",
+    "@roots/bud-support": "^3.0.102-alpha.0",
+    "@roots/ink-prettier": "^3.0.102-alpha.0",
+    "@roots/ink-use-style": "^3.0.102-alpha.0",
     "axios": "^0.21.1"
   },
   "devDependencies": {
-    "@roots/bud-compiler": "^3.0.101-alpha.0",
-    "@roots/bud-framework": "^3.0.101-alpha.0",
-    "@roots/bud-server": "^3.0.101-alpha.0",
-    "@roots/bud-typings": "^3.0.101-alpha.0",
+    "@roots/bud-compiler": "^3.0.102-alpha.0",
+    "@roots/bud-framework": "^3.0.102-alpha.0",
+    "@roots/bud-server": "^3.0.102-alpha.0",
+    "@roots/bud-typings": "^3.0.102-alpha.0",
     "@types/node": "^14.14.31",
     "@types/webpack": "^4.41.26",
     "type-fest": "^0.21.2"
