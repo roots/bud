@@ -4,9 +4,12 @@ import {Framework} from '@roots/bud-framework'
 import type {Configuration} from 'webpack'
 import * as ReactRefreshWebpackPlugin from './react-refresh'
 
+/**
+ * @const DEFAULT_PRESETS
+ */
 const DEFAULT_PRESETS = [
-  '@babel/preset-env',
-  '@babel/preset-react',
+  `@babel/preset-env`,
+  `@babel/preset-react`,
 ]
 
 /**

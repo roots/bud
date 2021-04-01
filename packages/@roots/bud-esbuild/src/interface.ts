@@ -77,12 +77,16 @@ declare module '@roots/bud-framework' {
   namespace Framework.Hooks.Extension {
     interface Definitions {
       '@roots/bud-esbuild': Framework.Module
+      '@roots/bud-esbuild/js': Framework.Module
+      '@roots/bud-esbuild/ts': Framework.Module
+      'esbuild-plugin': Framework.Module
     }
   }
 
   namespace Framework.Hooks.Loader {
     interface Definitions {
-      esbuild: Framework.Hooks.Loader.Subject
+      'esbuild-js': Framework.Hooks.Loader.Subject
+      'esbuild-ts': Framework.Hooks.Loader.Subject
     }
   }
 

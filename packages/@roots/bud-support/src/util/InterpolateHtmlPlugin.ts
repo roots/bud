@@ -1,22 +1,34 @@
-import escapeStringRegexp from 'escape-string-regexp'
+import escapeString from 'escape-string-regexp'
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import type {Compiler, compilation} from 'webpack'
+import type {Tapable} from 'tapable'
 
 /**
- * Interpolate HTML Plugin
+ * @class InterpolateHtmlPlugin
+ * @implements Tapable.Plugin
  */
-export default class InterpolateHtmlPlugin {
+export default class InterpolateHtmlPlugin
+  implements Tapable.Plugin {
   /**
-   * HTML Webpack Plugin
+   * @property name
    */
-  htmlWebpackPlugin: HtmlWebpackPlugin
+  public name: 'interpolate-html-plugin'
 
   /**
-   * Replacements
+   * @property htmlWebpackPlugin
    */
-  replacements: {[key: string]: RegExp}
+  public htmlWebpackPlugin: HtmlWebpackPlugin
 
-  constructor(
+  /**
+   * @property replacements
+   */
+  public replacements: {[key: string]: RegExp}
+
+  /**
+   * @constructor
+   * @constructs Webpack.Plugin
+   */
+  public constructor(
     htmlWebpackPlugin: HtmlWebpackPlugin,
     replacements: {[key: string]: RegExp},
   ) {
@@ -24,7 +36,11 @@ export default class InterpolateHtmlPlugin {
     this.replacements = replacements
   }
 
-  apply(compiler: Compiler): void {
+  /**
+   * @function apply
+   * @see Webpack.Plugin['apply']
+   */
+  public apply(compiler: Compiler): void {
     compiler.hooks.compilation.tap(
       'InterpolateHtmlPlugin',
       (compilation: compilation.Compilation) => {
@@ -36,15 +52,10 @@ export default class InterpolateHtmlPlugin {
           .afterTemplateExecution.tap(
             'InterpolateHtmlPlugin',
             data => {
-              // Run HTML through a series of user-specified string replacements.
               Object.keys(this.replacements).forEach(key => {
-                const value = this.replacements[key]
                 data.html = data.html.replace(
-                  new RegExp(
-                    '%' + escapeStringRegexp(key) + '%',
-                    'g',
-                  ),
-                  value,
+                  new RegExp(`%${escapeString(key)}%`, 'g'),
+                  this.replacements[key],
                 )
               })
             },

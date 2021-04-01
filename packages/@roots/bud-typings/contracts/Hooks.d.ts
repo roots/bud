@@ -111,10 +111,12 @@ declare namespace Hooks {
       thread: Subject
     }
 
-    type Final = keyof {
-      [K in keyof Definitions as `${Base}/${K &
-        string}`]: Definitions[K]
-    }
+    type Final =
+      | `loader`
+      | keyof {
+          [K in keyof Definitions as `${Base}/${K &
+            string}`]: Definitions[K]
+        }
   }
 
   /**
@@ -170,6 +172,13 @@ declare namespace Hooks {
    * Rules
    */
   namespace Rule {
+    type Base = 'rule'
+    type Subject = Webpack.RuleSetRule
+    type WebpackMap = {
+      [K in keyof Subject as `${Base}/${keyof Definitions &
+        string}/${K & string}`]: Subject[K]
+    }
+
     interface Definitions {
       js: Subject
       css: Subject
@@ -195,13 +204,6 @@ declare namespace Hooks {
     type Options = {
       [K in keyof Rule as `${K & string}/${keyof Subject &
         'options'}/${string}`]: any
-    }
-
-    type Base = 'rule'
-    type Subject = Webpack.RuleSetRule
-    type WebpackMap = {
-      [K in keyof Subject as `${Base}/${keyof Definitions &
-        string}/${K & string}`]: Subject[K]
     }
 
     type Final =

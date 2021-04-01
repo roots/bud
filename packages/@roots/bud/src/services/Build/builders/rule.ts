@@ -33,9 +33,7 @@ export function rules(app: Bud): void {
     }),
 
     'rule/js/test': () => app.store.get('patterns.js'),
-
     'rule/js/exclude': () => app.store.get('patterns.modules'),
-
     'rule/js/use': () => [app.subscribe('item/raw')],
   }
 
