@@ -60,10 +60,7 @@
     "@roots/bud-framework": "^3.0.105-alpha.0",
     "@roots/bud-support": "^3.0.105-alpha.0",
     "commander": "^7.1.0",
-    "cross-env": "^7.0.2",
-    "get-bin-path": "^5.1.0",
-    "npm-run-all": "^4.1",
-    "rimraf": "^3.0.2"
+    "cross-env": "^7.0.2"
   },
   "devDependencies": {
     "@roots/bud-typings": "^3.0.105-alpha.0",

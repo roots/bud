@@ -1,142 +1,183 @@
-import {Framework} from '@roots/bud-framework'
-import {Dashboard as IDashboard} from '../interface'
-
-import React, {FunctionComponent, useEffect} from 'react'
-import {Box, useInput, Static, Text} from 'ink'
+import {Framework, Service} from '@roots/bud-framework'
 import {
-  Assets,
-  DevStatus,
-  Time,
-  Git,
-  Screen,
-  Progress,
-  Module,
-} from '../components'
-import {useStyle} from '@roots/ink-use-style'
-import {useCompilation, usePackageJson} from '../hooks'
-import {isEqual} from 'lodash'
+  React,
+  render,
+  Instance,
+  Text,
+  isString,
+} from '@roots/bud-support'
+import {Styles} from '@roots/ink-use-style'
 
-export const Dashboard: FunctionComponent<{bud: Framework}> = ({
-  bud,
-}) => {
-  const {
-    stats,
-    progress,
-    errors,
-    hasErrors,
-    warnings,
-    hasWarnings,
-  } = useCompilation(bud)
+import {Dashboard as DashboardComponent} from './components'
+import {Error} from '../Error'
+import {Write} from '../Write'
+import {Screen} from '../components/Screen'
+import {Mark} from '../Mark'
 
-  const theme = useStyle(bud.store.get('options.theme'))
-  const pkg = usePackageJson(bud)
+export {Dashboard}
 
-  useInput(input => {
-    if (isEqual(input, 'q')) {
-      try {
-        process.exit()
-      } catch (err) {}
-    }
-  })
+/**
+ * Dashboard
+ */
+class Dashboard extends Service {
+  /**
+   * Service ident
+   */
+  public name = 'dashboard'
 
-  useEffect(() => {
-    if (!bud.isProduction) return
+  /**
+   * Ink CLI instance
+   */
+  public dashboard: Instance
 
-    const isComplete = progress?.decimal >= 1
-    const shouldExit = isComplete || hasErrors
-
-    shouldExit && setTimeout(() => process.exit())
-  }, [stats, progress, errors])
-
-  const appProps: IDashboard.AppProps = {
-    bud,
-    theme,
-    pkg,
-    progress,
-    stats,
-    errors,
-    hasErrors,
-    warnings,
-    hasWarnings,
+  /**
+   * CI mode getter
+   */
+  public get ci() {
+    return this.app.store.isTrue('options.ci')
   }
 
-  return (
-    <Screen>
-      <Box flexDirection="column">
-        {/** Static: errors */}
-        {appProps.hasErrors && appProps.errors && (
-          <Static
-            marginBottom={1}
-            items={appProps.errors.map((body, id) => ({
-              id,
-              body,
-            }))}>
-            {error => (
-              <Module
-                key={error.id}
-                color={appProps.theme.colors.error}
-                label="Error">
-                <Text>{error.body}</Text>
-              </Module>
-            )}
-          </Static>
-        )}
+  /**
+   * Register service
+   */
+  public register(): void {
+    Object.assign(this.app, {
+      write: Write,
+      error: Error,
+    })
 
-        {/** Static: warnings */}
-        {appProps.hasWarnings && appProps.warnings && (
-          <Static
-            marginBottom={1}
-            items={appProps.warnings.map((body, id) => ({
-              id,
-              body,
-            }))}>
-            {warning => (
-              <Module
-                key={warning.id}
-                color={appProps.theme.colors.warning}
-                label="Warning">
-                <Text>{warning.body}</Text>
-              </Module>
-            )}
-          </Static>
-        )}
+    this.run = this.run.bind(this)
+    this.kill = this.kill.bind(this)
+    this.render = this.render.bind(this)
+    this.renderError = this.renderError.bind(this)
+  }
 
-        {/** Main  */}
-        <Box flexDirection="column">
-          {/** Assets */}
-          <Module
-            label="Assets"
-            marginBottom={1}
-            color={theme.colors.faded}>
-            <Assets {...appProps} />
-          </Module>
+  /**
+   * Mount CLI
+   */
+  public run(): void {
+    if (this.app.store.get('options.ci')) {
+      return
+    }
 
-          {/** Server info */}
-          {bud.isDevelopment &&
-            bud.server.config.isTrue('middleware.dev') && (
-              <Module
-                label="Dev Server"
-                marginBottom={1}
-                color={theme.colors.faded}>
-                <DevStatus {...appProps} />
-              </Module>
-            )}
+    this.info('Initializing dashboard..')
 
-          {/** Progrss Bar */}
-          <Box marginBottom={1}>
-            <Progress {...appProps} />
-          </Box>
+    if (this.ci) {
+      return
+    }
 
-          <Box marginBottom={1}>
-            <Git theme={appProps.theme} />
-          </Box>
+    this.render(<DashboardComponent bud={this.app} />)
+  }
 
-          {/** Git Repo */}
-          <Box flexDirection="row" marginBottom={1}>
-            <Time {...appProps} />
-          </Box>
-        </Box>
-      </Box>
-    </Screen>
-  )
+  /**
+   * Render error
+   */
+  public renderError(body: string, title: string): Instance {
+    return (this.dashboard = render(
+      <Screen>
+        <Mark text={this.app.name} />
+        <Error body={body} title={title} />
+      </Screen>,
+    ))
+  }
+
+  /**
+   * Render
+   */
+  public render(Component: any): Instance {
+    if (this.ci) return
+
+    const Output = () =>
+      isString(Component) ? (
+        <Text>{Component}</Text>
+      ) : Array.isArray(Component) ? (
+        Component.map((c, id) => <Text key={id}>{c}</Text>)
+      ) : (
+        Component
+      )
+
+    return (this.dashboard = render(
+      <Screen>
+        <Mark text={this.app.name} />
+        <Output />
+      </Screen>,
+    ))
+  }
+
+  /**
+   * Unmount CLI
+   */
+  public kill(): void {
+    this.dashboard.unmount()
+  }
+}
+
+namespace Dashboard {
+  export interface Props {
+    bud: Framework
+  }
+
+  export interface AppProps {
+    bud: Framework
+    pkg: {[key: string]: any}
+    screens?: Array<[number, number]>
+    theme: Styles
+    stats: Framework.Compiler.Stats.Output['json']
+    progress: {
+      percentage: string
+      decimal: number
+      message: string
+    }
+    errors: string[]
+    hasErrors: boolean
+    warnings: string[]
+    hasWarnings: boolean
+  }
+
+  export interface Asset {
+    chunks: Array<number | string>
+    chunkNames: string[]
+    emitted: boolean
+    isOverSizeLimit?: boolean
+    name: string
+    size: number
+    theme: AppProps['theme']
+  }
+
+  export interface UseProgress {
+    (): [UseProgress.State, UseProgress.Handler]
+  }
+
+  export namespace UseProgress {
+    export type State = {
+      percentage: Percentage
+      msg: string
+    }
+
+    export type Handler = (
+      percentage: number,
+      msg: string,
+    ) => void
+
+    export interface Percentage {
+      display: string
+      decimal: number
+    }
+  }
+
+  export interface DevServerStatus {
+    enabled: boolean
+    host: string
+    port: number
+    status: number
+    label: string
+    colors: Styles['colors']
+  }
+
+  export type FetchStatus = (
+    enabled: boolean,
+    host: string,
+    port: number,
+    update: CallableFunction,
+  ) => Promise<void>
 }

@@ -1,16 +1,24 @@
-import {Dashboard} from '../../interface'
-import React, {useState, useEffect} from 'react'
-import {Text, Box} from 'ink'
-import patchConsole from 'patch-console'
-import Spinner from 'ink-spinner'
-
+import {Dashboard} from '../../Dashboard'
+import {
+  Text,
+  Box,
+  patchConsole,
+  React,
+  useState,
+  useEffect,
+  Spinner,
+} from '@roots/bud-support'
 import {Logs} from './Logs'
 
 export type Console = React.FunctionComponent<Dashboard.AppProps>
+
 export type Log = React.FunctionComponent<{
   logs: {id: number; data: string}[]
 }>
 
+/**
+ * Loading
+ */
 const Loading: React.FunctionComponent = () => (
   <Box flexDirection="column">
     <Text>
@@ -19,6 +27,9 @@ const Loading: React.FunctionComponent = () => (
   </Box>
 )
 
+/**
+ * Console
+ */
 export const Console: Console = ({progress, theme}) => {
   const [logs, setLogs] = useState([])
 

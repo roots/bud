@@ -1,4 +1,4 @@
-import {Dashboard} from '../../interface'
+import {Dashboard} from '../../Dashboard'
 import axios from 'axios'
 
 /**

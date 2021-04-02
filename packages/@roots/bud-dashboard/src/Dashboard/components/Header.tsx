@@ -2,7 +2,7 @@ import React, {FunctionComponent} from 'react'
 import {Box, Text} from 'ink'
 import Spinner from 'ink-spinner'
 
-import {Dashboard} from '../interface'
+import {Dashboard} from '../'
 
 export const Header: FunctionComponent<Dashboard.AppProps> = ({
   theme,

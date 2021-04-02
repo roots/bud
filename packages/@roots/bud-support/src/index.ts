@@ -100,10 +100,18 @@ export type {
 /**
  * Ink
  */
-export {Box, Spacer, Text, render, useApp, useInput} from 'ink'
+export {
+  Box,
+  Instance,
+  Spacer,
+  Text,
+  render,
+  useApp,
+  useInput,
+  Static,
+} from 'ink'
 export {render as staticRender} from 'ink-testing-library'
 export type {Props as BoxProps} from 'ink/build/components/Box'
-export type {Instance} from 'ink'
 
 /**
  * Ink extensions

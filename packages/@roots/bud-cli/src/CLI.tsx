@@ -1,11 +1,8 @@
+import {Command} from './Command'
 import {Framework} from '@roots/bud-framework'
-import Commander from 'commander'
 import {Container} from '@roots/container'
-
-import {Mark} from '@roots/bud-dashboard'
-import {render} from 'ink-testing-library'
+import Commander from 'commander'
 import Output from './Output'
-import {Command} from './interface'
 import {commands} from './commands'
 
 /**
@@ -63,7 +60,6 @@ export class CLI {
     this.instance
       .allowUnknownOption()
       .allowExcessArguments()
-      .configureOutput(this.output.config)
       .usage('[command]')
       .storeOptionsAsProperties(true)
       .addHelpCommand(
@@ -76,9 +72,11 @@ export class CLI {
      */
     this.commands.every(
       (name: string, Command: Command.Newable) => {
+        /**
+         * Setup command
+         */
         const command = new Command(this)
-
-        const commandInstance = new Commander.Command()
+        const instance = new Commander.Command()
           .command(`${command.name} ${command.signature}`)
           .allowUnknownOption()
           .allowExcessArguments()
@@ -86,10 +84,9 @@ export class CLI {
           .action(command.action)
           .usage(command.usage)
 
-        commandInstance.configureOutput(
-          new Output(this.app.name, commandInstance).config,
-        )
-
+        /**
+         * Command options
+         */
         command.has('options') &&
           Object.entries(command.options).map(([k, opt]) => {
             const option: Commander.Option = new Commander.Option(
@@ -100,25 +97,17 @@ export class CLI {
               option.description = opt.description ?? ''
 
             opt.default && option.default(opt.default)
-            commandInstance.addOption(option)
+            instance.addOption(option)
           })
 
-        this.instance.addCommand(commandInstance)
+        this.instance.addCommand(instance)
       },
     )
 
     this.instance
+      .configureOutput(new Output(this.app.name, this.instance))
       .allowExcessArguments()
       .allowUnknownOption()
       .parse()
-  }
-
-  /**
-   * CLI banner
-   */
-  public mast(): this {
-    console.log(render(Mark({text: this.app.name})).lastFrame())
-
-    return this
   }
 }

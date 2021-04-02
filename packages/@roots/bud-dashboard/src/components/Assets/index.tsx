@@ -6,7 +6,7 @@ import {
   Text,
 } from '@roots/bud-support'
 import {Asset} from './Asset'
-import {Dashboard} from '../../interface'
+import {Dashboard} from '../../Dashboard'
 
 const Assets: FunctionComponent<Partial<Dashboard.AppProps>> = ({
   stats,

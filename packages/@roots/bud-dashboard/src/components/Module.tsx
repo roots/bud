@@ -1,5 +1,9 @@
-import {React, FunctionComponent} from '@roots/bud-support'
-import {Box, Text} from 'ink'
+import {
+  Box,
+  Text,
+  React,
+  FunctionComponent,
+} from '@roots/bud-support'
 
 declare interface Props {
   children: any

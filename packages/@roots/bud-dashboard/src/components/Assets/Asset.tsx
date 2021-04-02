@@ -4,7 +4,7 @@ import {
   Box,
   Text,
 } from '@roots/bud-support'
-import {Dashboard} from '../../interface'
+import {Dashboard} from '../../Dashboard'
 import {Indicator} from './Indicator'
 
 export const Asset: FunctionComponent<Dashboard.Asset> = ({

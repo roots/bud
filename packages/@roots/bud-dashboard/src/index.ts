@@ -1,10 +1,8 @@
 import './interface'
-import './api'
 
-export {DashboardService as Dashboard} from './service'
-export {Error} from './Error'
-export {Mark} from './Mark'
-export {Publish} from './Publish'
-export {Screen} from './components/Screen'
-export {Theme} from '@roots/ink-use-style'
+export {Dashboard} from './Dashboard'
 export {Write} from './Write'
+export {Mark} from './Mark'
+export {Error} from './Error'
+
+export {Theme} from '@roots/ink-use-style'

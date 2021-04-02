@@ -356,14 +356,12 @@ export class Build extends Command {
     !projectFiles.has(this.jsonName) &&
       !projectFiles.has(this.fluentName) &&
       Error(
-        `
-Project doesn't seem to have a config. If you need a starter config run:
-
-$ ${this.cli.app.name} publish @roots/bud-support ${this.fluentName}`,
+        `Project doesn't seem to have a config. If you need a starter config run:$ ${this.cli.app.name} publish @roots/bud-support ${this.fluentName}`,
         'No config sources found.',
       )
 
     const build = require(projectFiles.get(this.fluentName))
+
     build(this.cli.app).run()
   }
 }

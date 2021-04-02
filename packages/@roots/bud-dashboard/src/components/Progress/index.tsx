@@ -1,8 +1,12 @@
-import React, {FunctionComponent} from 'react'
-import {Box, Text} from 'ink'
+import {
+  Box,
+  Text,
+  React,
+  FunctionComponent,
+  Spinner,
+} from '@roots/bud-support'
 import {Bar} from './Bar'
-import {Dashboard} from '../../interface'
-import Spinner from 'ink-spinner'
+import {Dashboard} from '../../Dashboard'
 
 export const Progress: FunctionComponent<
   Partial<Dashboard.AppProps>

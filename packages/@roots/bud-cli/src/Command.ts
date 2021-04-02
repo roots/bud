@@ -1,10 +1,54 @@
 import {CLI} from './CLI'
-import {Command as Contract} from './interface'
+import {Help} from 'commander'
+
+interface Contract {
+  name: string
+
+  description: string
+
+  cli: CLI
+
+  usage: string
+
+  subcommands?: (new (cli) => Command)[]
+
+  help?: Help
+
+  arguments?: {[key: string]: string}
+
+  options?: {
+    [key: string]: any
+  }
+
+  signature?: string
+
+  action(...args: any[]): void | Promise<void>
+
+  has(query: string | string[]): boolean
+}
+
+export {Command}
+
+namespace Command {
+  export type Options = {
+    [key: string]: any
+  }
+
+  export type Index = {
+    [key: string]: Command
+  }
+
+  export type Newable = new (cli: CLI) => Command
+
+  export type Declaration = {
+    [key: string]: Newable
+  }
+}
 
 /**
  * Command base class
  */
-export abstract class Command implements Contract {
+abstract class Command implements Contract {
   /**
    * Command handle
    */
@@ -33,7 +77,7 @@ export abstract class Command implements Contract {
   /**
    * Index of flags
    */
-  public options?: Contract.Options
+  public options?: Command.Options
 
   /**
    * Command signature

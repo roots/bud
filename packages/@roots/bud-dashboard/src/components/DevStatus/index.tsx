@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import {Box, Text, Spacer} from 'ink'
 import Spinner from 'ink-spinner'
 import {checkStatus} from './checkStatus'
-import {Dashboard} from '../../interface'
+import {Dashboard} from '../../Dashboard'
 
 /**
  * Development server

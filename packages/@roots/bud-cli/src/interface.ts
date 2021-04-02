@@ -1,4 +1,5 @@
 import '@roots/bud-api'
+import '@roots/bud-dashboard'
 import {Framework} from '@roots/bud-framework'
 import Builder, {Help} from 'commander'
 
@@ -18,8 +19,6 @@ export interface CLI {
   instance: Builder.Command
 
   output: Output
-
-  mast(): this
 }
 
 export interface Command {

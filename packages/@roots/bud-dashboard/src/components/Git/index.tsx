@@ -1,10 +1,11 @@
+import type {Dashboard} from '../../Dashboard'
 import {
   React,
   Box,
   FunctionComponent,
   Text,
 } from '@roots/bud-support'
-import {Dashboard} from '../../interface'
+
 import {useGit} from '../../hooks/useGit'
 
 export const Git: FunctionComponent<

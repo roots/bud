@@ -1,6 +1,5 @@
-import {Dashboard} from '../interface'
-import React from 'react'
-import {Text, Box} from 'ink'
+import {Dashboard} from '../Dashboard'
+import {React, Text, Box} from '@roots/bud-support'
 
 export const Time: React.FunctionComponent<Dashboard.AppProps> = ({
   stats,

@@ -1,5 +1,10 @@
-import {React, Box, BigText, Gradient} from '@roots/bud-support'
-import {Static} from 'ink'
+import {
+  React,
+  Box,
+  BigText,
+  Static,
+  Gradient,
+} from '@roots/bud-support'
 
 export const Mark = ({text}) => (
   <Static items={[{id: 0, text}]}>
