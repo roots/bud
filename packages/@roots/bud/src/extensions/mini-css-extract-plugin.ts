@@ -16,13 +16,17 @@ export const options: Options = ({
   store,
   subscribe,
 }: Framework) => ({
-  filename: store.isTrue('options.hash')
-    ? store.get('options.hashFormat').concat('.css')
-    : store.get('options.fileFormat').concat('.css'),
+  filename: `css/${
+    store.isTrue('options.hash')
+      ? store.get('options.hashFormat').concat('.css')
+      : store.get('options.fileFormat').concat('.css')
+  }`,
 
-  chunkFilename: store.isTrue('options.hash')
-    ? store.get('options.hashFormat').concat('.[id].css')
-    : store.get('options.fileFormat').concat('.[id].css'),
+  chunkFilename: `css/${
+    store.isTrue('options.hash')
+      ? store.get('options.hashFormat').concat('.[id].css')
+      : store.get('options.fileFormat').concat('.[id].css')
+  }`,
 })
 
 /**
