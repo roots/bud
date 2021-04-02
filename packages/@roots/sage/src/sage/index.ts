@@ -77,10 +77,10 @@ export const sage: Sage.Preset = sage => {
      * Webpack path Aliases
      */
     .alias({
-      '@fonts': 'fonts',
-      '@images': 'images',
-      '@scripts': 'scripts',
-      '@styles': 'styles',
+      '@fonts': sage.src('fonts'),
+      '@images': sage.src('images'),
+      '@scripts': sage.src('scripts'),
+      '@styles': sage.src('styles'),
     })
 
     /**

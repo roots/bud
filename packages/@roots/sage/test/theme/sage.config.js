@@ -4,7 +4,7 @@
  * Sage Theme
  *
  * @typedef {import('../../lib/types').Sage} Sage
- * @type {(sage: Sage): Sage}
+ * @type {(sage: Sage) => Sage}
  */
 
 module.exports = (sage) =>

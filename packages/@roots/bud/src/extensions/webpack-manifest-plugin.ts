@@ -1,19 +1,19 @@
 import {Module} from '@roots/bud-typings'
-import ManifestPlugin from 'webpack-manifest-plugin'
+import {WebpackManifestPlugin} from 'webpack-manifest-plugin'
 import {Framework} from '@roots/bud-framework'
 
 export const name = `webpack-manifest-plugin`
 
-export const options: ManifestPlugin.Options = {
+export const options: WebpackManifestPlugin.Options = {
   fileName: 'manifest.json',
   writeToFileEmit: true,
 }
 
 export const make: Module.Make<
-  ManifestPlugin,
-  ManifestPlugin.Options
-> = (options: ManifestPlugin.Options, app: Framework) =>
-  new ManifestPlugin({
+  WebpackManifestPlugin,
+  WebpackManifestPlugin.Options
+> = (options: WebpackManifestPlugin.Options, app: Framework) =>
+  new WebpackManifestPlugin({
     publicPath: app.subscribe('location/publicPath'),
     ...options.all(),
   })
