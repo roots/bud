@@ -10,37 +10,12 @@ import {Framework} from './'
  */
 export interface Cache extends Framework.Service {
   /**
-   * memoize-fs
-   */
-  memoizer
-
-  /**
-   * serialize js
-   */
-  serialize
-
-  /**
    * Config
    */
-  config
-
-  /**
-   * Deserialize
-   */
-  deserialize(serializedStr)
-
-  /**
-   * Memoize
-   */
-  memoize(fn: CallableFunction, ...args)
+  version
 
   /**
    * Is cache enabled?
    */
   enabled(): boolean
-
-  /**
-   * Set cache.
-   */
-  setCache(): void
 }

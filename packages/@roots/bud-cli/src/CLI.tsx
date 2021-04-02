@@ -1,17 +1,20 @@
+import {Framework} from '@roots/bud-framework'
+import Commander from 'commander'
+import {Container} from '@roots/container'
+
 import {Mark} from '@roots/bud-dashboard'
 import {render} from 'ink-testing-library'
-import Commander from 'commander'
 import Output from './Output'
 import {Command} from './interface'
-import {Builder} from './Builder'
 import {commands} from './commands'
-import {Framework} from '@roots/bud-framework'
-import {Container} from '@roots/container'
 
 /**
  * CLI
  */
 export class CLI {
+  /**
+   * App
+   */
   public app: Framework
 
   /**
@@ -35,11 +38,6 @@ export class CLI {
   public instance: Commander.Command
 
   /**
-   * Config source
-   */
-  public builder: Builder
-
-  /**
    * Output
    */
   public output: Output
@@ -53,13 +51,15 @@ export class CLI {
     this.commands = app.container(commands)
     this.instance = new Commander.Command(this.app.name)
     this.output = new Output(this.app.name, this.instance)
-    this.builder = new Builder()
   }
 
   /**
    * Boot
    */
   public boot() {
+    /**
+     * Configures commander
+     */
     this.instance
       .allowUnknownOption()
       .allowExcessArguments()
@@ -71,36 +71,41 @@ export class CLI {
         'Get help with a [command]',
       )
 
-    this.commands.every((name: string, Sub: Command.Newable) => {
-      const sub = new Sub(this)
+    /**
+     * Processes registered commands
+     */
+    this.commands.every(
+      (name: string, Command: Command.Newable) => {
+        const command = new Command(this)
 
-      const command = new Commander.Command()
-        .command(`${sub.name} ${sub.signature}`)
-        .allowUnknownOption()
-        .allowExcessArguments()
-        .description(sub.description, sub.arguments)
-        .action(sub.action)
-        .usage(sub.usage)
+        const commandInstance = new Commander.Command()
+          .command(`${command.name} ${command.signature}`)
+          .allowUnknownOption()
+          .allowExcessArguments()
+          .description(command.description, command.arguments)
+          .action(command.action)
+          .usage(command.usage)
 
-      command.configureOutput(
-        new Output(this.app.name, command).config,
-      )
+        commandInstance.configureOutput(
+          new Output(this.app.name, commandInstance).config,
+        )
 
-      sub.has('options') &&
-        Object.entries(sub.options).map(([k, opt]) => {
-          const option: Commander.Option = new Commander.Option(
-            opt.flags ?? `--${k}`,
-          )
+        command.has('options') &&
+          Object.entries(command.options).map(([k, opt]) => {
+            const option: Commander.Option = new Commander.Option(
+              opt.flags ?? `--${k}`,
+            )
 
-          if (opt.description)
-            option.description = opt.description ?? ''
+            if (opt.description)
+              option.description = opt.description ?? ''
 
-          opt.default && option.default(opt.default)
-          command.addOption(option)
-        })
+            opt.default && option.default(opt.default)
+            commandInstance.addOption(option)
+          })
 
-      this.instance.addCommand(command)
-    })
+        this.instance.addCommand(commandInstance)
+      },
+    )
 
     this.instance
       .allowExcessArguments()

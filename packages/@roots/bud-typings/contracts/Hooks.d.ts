@@ -227,6 +227,7 @@ declare namespace Hooks {
       location?: string
       directory?: string
       buildDependencies?: string
+      version?: string
     }
 
     /**

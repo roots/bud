@@ -56,6 +56,7 @@ export function config(app: Framework) {
             config: app.subscribe(
               'build/cache/buildDependencies',
             ),
+            version: app.subscribe('build/cache/version'),
           },
     'build/cache/location': () =>
       app.store.path.posix.resolve(
@@ -77,6 +78,8 @@ export function config(app: Framework) {
         'package.json',
       ),
     ],
+    'build/cache/type': () => 'filesystem',
+    'build/cache/version': () => '',
 
     /**
      * build/context

@@ -1,46 +1,29 @@
 import {Sage} from './interface'
 import {projectInfo} from './util'
 
-// module export
 import * as babel from '@roots/bud-babel'
+import * as dependencies from '@roots/bud-wordpress-dependencies'
+import * as entrypoints from '@roots/bud-entrypoints'
+import * as externals from '@roots/bud-wordpress-externals'
 import * as esbuild from '@roots/bud-esbuild'
 import * as eslint from '@roots/bud-eslint'
+import * as manifests from '@roots/bud-wordpress-manifests'
 import * as postcss from '@roots/bud-postcss'
+import * as prettier from '@roots/bud-prettier'
+import * as react from '@roots/bud-react'
 import * as tailwind from '@roots/bud-tailwindcss'
 import * as typescript from '@roots/bud-typescript'
-import * as prettier from '@roots/bud-prettier'
 import * as stylelint from '@roots/bud-stylelint'
-import * as dependencies from '@roots/bud-wordpress-dependencies'
-import * as externals from '@roots/bud-wordpress-externals'
-import * as manifests from '@roots/bud-wordpress-manifests'
-
-// default export
-import react from '@roots/bud-react'
-import entrypoints from '@roots/bud-entrypoints'
 
 /**
  * Sage theme preset
  */
 export const sage: Sage.Preset = sage => {
-  /**
-   * Pull some fns off Sage
-   */
   const {env, use, isProduction} = sage
-
-  /**
-   * Project utils
-   */
   const {deps, files} = projectInfo(sage)
 
-  /**
-   * Log start message
-   */
-  sage.logger.instance
-    .scope('@roots/sage')
-    .info('Building Sage preset')
-
   // prettier-ignore
-  return sage
+  sage
     /**
      * Artifacts/cache store
      */
@@ -84,11 +67,6 @@ export const sage: Sage.Preset = sage => {
     })
 
     /**
-     * Use relative stylesheet URL imports
-     */
-    .config({css: {relativeUrls: true}})
-
-    /**
      * Disable generation of HTML template
      */
     .html({enabled: false})
@@ -120,10 +98,7 @@ export const sage: Sage.Preset = sage => {
      * Thus, Sage uses esbuild in production, and babel in development.
      */
     .when(
-      /** Check */
       isProduction,
-
-      /** isProduction */
       () => sage
         .use(esbuild).esbuild.jsx()
         .minify()
@@ -131,7 +106,6 @@ export const sage: Sage.Preset = sage => {
         .vendor()
         .runtime('single'),
 
-      /** isDevelopment */
       () => sage
         .use(babel)
         .when(deps.includes('typescript'), () => use(typescript))
@@ -144,4 +118,17 @@ export const sage: Sage.Preset = sage => {
      * Manifests
      */
     .use([entrypoints, dependencies, externals, manifests])
+
+  /**
+   * Relativize url imports
+   */
+  sage.hooks.on('item/minicss/options/publicPath', () =>
+    sage.disk.path.posix.normalize(
+      sage.disk.path.posix.dirname(
+        sage.disk.path.posix.relative(sage.dist(), sage.src()),
+      ),
+    ),
+  )
+
+  return sage
 }

@@ -1,9 +1,6 @@
 import './alias'
 export {alias} from './alias'
 
-import './config'
-export {config} from './config'
-
 import './assets'
 export {assets} from './assets'
 

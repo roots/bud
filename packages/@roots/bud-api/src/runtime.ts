@@ -1,5 +1,5 @@
 import {Framework} from '@roots/bud-framework'
-import {Webpack} from '@roots/bud-support'
+import {isEqual, Webpack} from '@roots/bud-support'
 
 declare module '@roots/bud-framework' {
   export interface Framework {
@@ -21,10 +21,18 @@ declare module '@roots/bud-framework' {
 }
 
 type Runtime = (
-  runtime?: Webpack.Configuration['optimization']['runtimeChunk'],
+  runtime?:
+    | Webpack.Configuration['optimization']['runtimeChunk']
+    | false,
 ) => Framework
 
 export const runtime: Runtime = function (runtime) {
+  if (runtime && isEqual(runtime, false)) {
+    this.store.set('options.runtimeChunk.enabled', false)
+
+    return this
+  }
+
   this.store.set('options.runtimeChunk.enabled', true)
 
   runtime &&

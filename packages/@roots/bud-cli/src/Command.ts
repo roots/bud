@@ -37,8 +37,6 @@ export abstract class Command implements Contract {
 
   /**
    * Command signature
-   *
-   * @example '[arg] [arg2]'
    */
   public signature?: string = ''
 
