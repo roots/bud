@@ -1,6 +1,10 @@
-import React, {FunctionComponent} from 'react'
-import {Box, Text} from 'ink'
-import Spinner from 'ink-spinner'
+import {
+  React,
+  FunctionComponent,
+  Box,
+  Text,
+  Spinner,
+} from '@roots/bud-support'
 
 import {Dashboard} from '../'
 

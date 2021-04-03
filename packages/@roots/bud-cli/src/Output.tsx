@@ -1,17 +1,12 @@
 import {React, Text, render, Gradient} from '@roots/bud-support'
 import Commander from 'commander'
 import {Layout} from './Layout'
-import {formatHelp} from './help'
 
 export default class Output {
   public instance: Commander.Command
   public name: string
 
   public constructor(name: string, instance: Commander.Command) {
-    this.instance = instance.configureHelp({
-      formatHelp,
-    })
-
     this.name = name
   }
 

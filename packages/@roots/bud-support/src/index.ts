@@ -110,7 +110,6 @@ export {
   useInput,
   Static,
 } from 'ink'
-export {render as staticRender} from 'ink-testing-library'
 export type {Props as BoxProps} from 'ink/build/components/Box'
 
 /**

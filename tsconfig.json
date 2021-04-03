@@ -13,7 +13,7 @@
     "moduleResolution": "node",
     "module": "commonjs",
     "noUnusedLocals": true,
-    "noEmitOnError": false,
+    "noEmitOnError": true,
     "sourceMap": true,
     "skipLibCheck": true,
     "target": "ES6",
