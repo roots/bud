@@ -60,6 +60,7 @@
     "@roots/container": "^3.0.110-alpha.0",
     "@types/node": "^14.14.31",
     "@types/webpack": "^4.41.26",
+    "npm-run-all": "^4.1.5",
     "type-fest": "^0.21.2"
   },
   "dependencies": {

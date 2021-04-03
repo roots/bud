@@ -52,9 +52,7 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "dependencies": {
-    "ink-use-stdout-dimensions": "^1.0.5",
-    "react": ">=17.0.1",
-    "swr": ">=0.4.0"
+    "@roots/bud-support": "3.0.110-alpha.0"
   },
   "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684",
   "devDependencies": {

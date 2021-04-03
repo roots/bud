@@ -57,9 +57,8 @@ export {WebpackHotMiddleware, WebpackDevMiddleware}
 /**
  * Lodash
  */
-import lodash from 'lodash'
-export {lodash}
-export {
+import type Lodash from 'lodash'
+import lodash, {
   isArray,
   isArrayLike,
   isObject,
@@ -75,27 +74,50 @@ export {
   has,
   join,
 } from 'lodash'
+export {
+  lodash,
+  isArray,
+  isArrayLike,
+  isObject,
+  isObjectLike,
+  isString,
+  isFunction,
+  isEqual,
+  isNull,
+  isUndefined,
+  merge,
+  get,
+  set,
+  has,
+  join,
+}
 
 // lodash typings
-import type Lodash from 'lodash'
 export type {Lodash}
 
 /**
  * React
  */
-import React from 'react'
-export {React}
-export {
+import React, {
   useEffect,
   useCallback,
   useLayoutEffect,
   useState,
-} from 'react'
-export type {
   ComponentState,
   FunctionComponent,
   ReactElement,
 } from 'react'
+
+export {
+  React,
+  useEffect,
+  useCallback,
+  useLayoutEffect,
+  useState,
+  ComponentState,
+  FunctionComponent,
+  ReactElement,
+}
 
 /**
  * Ink
@@ -120,21 +142,23 @@ import Link from 'ink-link'
 import Spinner from 'ink-spinner'
 import Table from 'ink-table'
 import Gradient from 'ink-gradient'
-export {BigText, Link, Spinner, Table, Gradient}
+import useStdoutDimensions from 'ink-use-stdout-dimensions'
+import patchConsole from 'patch-console'
+export {
+  BigText,
+  Link,
+  Spinner,
+  Table,
+  Gradient,
+  useStdoutDimensions,
+  patchConsole,
+}
 
 /**
  * React hooks/util.
  */
 import useSWR, {mutate} from 'swr'
-import patchConsole from 'patch-console'
-import useStdoutDimensions from 'ink-use-stdout-dimensions'
-export {
-  useSWR,
-  useSWR as useSwr,
-  mutate,
-  patchConsole,
-  useStdoutDimensions,
-}
+export {useSWR, useSWR as useSwr, mutate}
 
 /**
  * Dependencies

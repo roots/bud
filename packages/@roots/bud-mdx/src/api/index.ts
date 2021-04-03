@@ -1,7 +1,7 @@
 import {Mdx, Framework} from '@roots/bud-framework'
 
 /**
- * PostCSSConfig API
+ * MDXConfig
  */
 export class MdxConfig implements Mdx {
   public app: Framework

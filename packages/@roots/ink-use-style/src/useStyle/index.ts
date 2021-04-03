@@ -1,6 +1,10 @@
-import {ComponentState, useState, useEffect} from 'react'
-import useSwr, {mutate} from 'swr'
-import useStdoutDimensions from 'ink-use-stdout-dimensions'
+import {
+  useSwr,
+  mutate,
+  useStdoutDimensions,
+  React,
+} from '@roots/bud-support'
+
 import type {Styles, Theme, UseStyle} from '../typings'
 import {defaultTheme} from '../themes'
 
@@ -27,22 +31,33 @@ export const useStyle: UseStyle = (
   /**
    * Width and height of terminal viewport.
    */
-  const [width, height]: ComponentState = useStdoutDimensions()
+  const [
+    width,
+    height,
+  ]: React.ComponentState = useStdoutDimensions()
 
   /**
    * Active screen size
    */
-  const [screen, setScreen]: ComponentState = useState()
+  const [
+    screen,
+    setScreen,
+  ]: React.ComponentState = React.useState()
 
   /**
    * Width of one column.
    */
-  const [unit, setUnit]: ComponentState = useState(null)
+  const [unit, setUnit]: React.ComponentState = React.useState(
+    null,
+  )
 
   /**
    * Width and height of application.
    */
-  const [bounds, setBounds]: ComponentState = useState({
+  const [
+    bounds,
+    setBounds,
+  ]: React.ComponentState = React.useState({
     width,
     height,
   })
@@ -51,7 +66,7 @@ export const useStyle: UseStyle = (
    * Set application based on viewport size.
    * Applies spacer padding to all four sides of viewport.
    */
-  useEffect(() => {
+  React.useEffect(() => {
     setBounds({
       width,
       height,
@@ -62,14 +77,14 @@ export const useStyle: UseStyle = (
    * Set unit to be the total application width available
    * divided by the column count
    */
-  useEffect(() => {
+  React.useEffect(() => {
     setUnit(bounds.width / theme.columns)
   }, [bounds])
 
   /**
    * Determine which screen size is currently active.
    */
-  useEffect(() => {
+  React.useEffect(() => {
     theme.screens.forEach(([lower, upper], iteration) => {
       bounds.width > lower &&
         bounds.width < upper &&

@@ -14,22 +14,28 @@ export const name: Module['name'] = '@roots/bud-mdx'
  */
 export const boot: Module['boot'] = (app: Framework) => {
   /**
-   * PostCss configurator.
+   * Mdx config
    */
-  const mdx = new MdxConfig({app})
+  Object.assign(app, {
+    mdx: new MdxConfig({app}),
+  })
 
-  Object.assign(app, {mdx})
-
+  /**
+   * RegExp for mdx
+   */
   app.store
     .set('patterns.mdx', /\.mdx$/)
 
     /**
-     * Add @mdx-js/loader
+     * loader/mdx
      */
     .publish({
       'loader/mdx': () => require.resolve('@mdx-js/loader'),
     })
 
+    /**
+     * item/mdx
+     */
     .publish({
       'item/mdx': (mdx = {}) => ({
         ...mdx,
@@ -40,6 +46,9 @@ export const boot: Module['boot'] = (app: Framework) => {
       'item/mdx/options': () => app.mdx.options,
     })
 
+    /**
+     * rule/mdx
+     */
     .publish({
       'rule/mdx': (mdx = {}) => ({
         ...mdx,
@@ -52,7 +61,11 @@ export const boot: Module['boot'] = (app: Framework) => {
       }),
     })
 
-    .publish({
-      'build/resolve/extensions': exts => [...exts, '.mdx'],
-    })
+    /**
+     * .mdx extension
+     */
+    .hooks.on(
+      'build/resolve/extensions',
+      (exts: `.${string}`[]) => [...exts, '.mdx'],
+    )
 }

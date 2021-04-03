@@ -26,8 +26,7 @@
     "node": ">=12"
   },
   "files": [
-    "lib/",
-    "dummy/"
+    "lib/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -40,6 +39,7 @@
     "build": "run-s build:cjs build:esm",
     "build:cjs": "tsc --build tsconfig.json",
     "build:esm": "tsc --build tsconfig-esm.json",
+    "ncc": "ncc build lib/cjs/index.js -o build --license MIT --minify",
     "lint": "run-s lint:*",
     "lint:eslint": "eslint 'src/**/*.{js,ts,tsx}' --fix",
     "lint:prettier": "prettier 'src/**/*'  --write",
