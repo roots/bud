@@ -1,5 +1,4 @@
-import React from 'react'
-import {Text, Box} from 'ink'
+import {React, Text, Box} from '@roots/bud-support'
 
 /**
  * Non-static logs

@@ -141,8 +141,8 @@ The following is a (hopefully) exhaustive list of the utilities designed to make
 | Tool            | Description                  | Documentation                                                                   |
 | --------------- | ---------------------------- | ------------------------------------------------------------------------------- |
 | bud.alias       | Easy module imports          | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-alias.md)       |
+| bud.assets      | Copy static assets           | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-assets.md)      |
 | bud.cache       | Cache                        | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-cache.md)       |
-| bud.copy        | Copy files                   | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-copy.md)        |
 | bud.define      | Define global constants      | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-define.md)      |
 | bud.dev         | Configure dev server         | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-dev.md)         |
 | bud.devtool     | Configure sourcemaps         | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-devtool.md)     |

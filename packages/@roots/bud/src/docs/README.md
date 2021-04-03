@@ -116,8 +116,8 @@ The following is a (hopefully) exhaustive list of the utilities designed to make
 | Tool            | Description                  | Documentation                                   |
 | --------------- | ---------------------------- | ----------------------------------------------- |
 | bud.alias       | Easy module imports          | [README ↗]([[base]]/docs/config-alias.md)       |
+| bud.assets      | Copy static assets           | [README ↗]([[base]]/docs/config-assets.md)      |
 | bud.cache       | Cache                        | [README ↗]([[base]]/docs/config-cache.md)       |
-| bud.copy        | Copy files                   | [README ↗]([[base]]/docs/config-copy.md)        |
 | bud.define      | Define global constants      | [README ↗]([[base]]/docs/config-define.md)      |
 | bud.dev         | Configure dev server         | [README ↗]([[base]]/docs/config-dev.md)         |
 | bud.devtool     | Configure sourcemaps         | [README ↗]([[base]]/docs/config-devtool.md)     |

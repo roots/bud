@@ -1,4 +1,4 @@
-const foo = 'baz'
+const foo: string = 'baz'
 
 console.log(foo)
 

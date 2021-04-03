@@ -55,8 +55,7 @@
     "@roots/bud-support": "^3.0.109-alpha.0",
     "@roots/ink-prettier": "^3.0.109-alpha.0",
     "@roots/ink-use-style": "^3.0.109-alpha.0",
-    "axios": "^0.21.1",
-    "ink-use-stdout-dimensions": "^1.0.5"
+    "axios": "^0.21.1"
   },
   "devDependencies": {
     "@roots/bud-compiler": "^3.0.109-alpha.0",

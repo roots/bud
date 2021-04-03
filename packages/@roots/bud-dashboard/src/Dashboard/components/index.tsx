@@ -1,8 +1,15 @@
 import {Framework} from '@roots/bud-framework'
-import {Dashboard as IDashboard} from '../'
+import {
+  React,
+  FunctionComponent,
+  useEffect,
+  Box,
+  useInput,
+  Static,
+  Text,
+} from '@roots/bud-support'
 
-import React, {FunctionComponent, useEffect} from 'react'
-import {Box, useInput, Static, Text} from 'ink'
+import {Dashboard as IDashboard} from '../'
 import {
   Assets,
   DevStatus,
@@ -122,16 +129,17 @@ export const Dashboard: FunctionComponent<{bud: Framework}> = ({
               </Module>
             )}
 
-          {/** Progrss Bar */}
+          {/** Progress */}
           <Box marginBottom={1}>
             <Progress {...appProps} />
           </Box>
 
+          {/** Git */}
           <Box marginBottom={1}>
             <Git theme={appProps.theme} />
           </Box>
 
-          {/** Git Repo */}
+          {/** Time */}
           <Box flexDirection="row" marginBottom={1}>
             <Time {...appProps} />
           </Box>

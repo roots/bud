@@ -60,7 +60,7 @@ class Dashboard extends Service {
       return
     }
 
-    this.info('Initializing dashboard..')
+    this.info('Initializing dashboard')
 
     if (this.ci) {
       return
