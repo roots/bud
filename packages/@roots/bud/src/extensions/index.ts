@@ -11,7 +11,7 @@ import * as InterpolateHtmlPlugin from './interpolate-html-plugin'
 import * as IgnoreEmitWebpackPlugin from './ignore-emit-webpack-plugin'
 import * as WebpackManifestPlugin from './webpack-manifest-plugin'
 import * as MiniCssExtractPlugin from './mini-css-extract-plugin'
-import * as OptimizeCssAssetsPlugin from './optimize-css-assets-webpack-plugin'
+import * as CssMinimizerWebpackPlugin from './css-minimizer-webpack-plugin'
 import * as WebpackProvidePlugin from './webpack-provide-plugin'
 import * as WriteFileWebpackPlugin from './write-file-webpack-plugin'
 
@@ -21,6 +21,7 @@ export const extensions: Framework.Index<Framework.Module> = {
   [HashedModuleIdsPlugin.name]: HashedModuleIdsPlugin,
   [WebpackConfigDumpPlugin.name]: WebpackConfigDumpPlugin,
   [CopyWebpackPlugin.name]: CopyWebpackPlugin,
+  [CssMinimizerWebpackPlugin.name]: CssMinimizerWebpackPlugin,
   [DefineWebpackPlugin.name]: DefineWebpackPlugin,
   [HotModuleReplacementPlugin.name]: HotModuleReplacementPlugin,
   [HtmlWebpackPlugin.name]: HtmlWebpackPlugin,
@@ -29,6 +30,5 @@ export const extensions: Framework.Index<Framework.Module> = {
   [InterpolateHtmlPlugin.name]: InterpolateHtmlPlugin,
   [WebpackManifestPlugin.name]: WebpackManifestPlugin,
   [MiniCssExtractPlugin.name]: MiniCssExtractPlugin,
-  [OptimizeCssAssetsPlugin.name]: OptimizeCssAssetsPlugin,
   [WriteFileWebpackPlugin.name]: WriteFileWebpackPlugin,
 }
