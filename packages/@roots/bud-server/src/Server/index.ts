@@ -12,17 +12,15 @@ import {injectClient} from '../util/injectClient'
  * Development Server
  *
  * [🏡 Project home](https://roots.io/bud)
- * [🧑‍💻 roots/bud/packages/bud-server](https://git.io/JkCQG)
- * [📦 @roots/bud-server](https://www.npmjs.com/package/@roots/bud-server)
  */
 export default class extends Service implements Server {
   /**
-   * Service ident.
+   * Service name
    */
   public name = '@roots/bud-server'
 
   /**
-   * Middleware
+   * Middlewares
    */
   public middleware: Server.Middleware.Inventory = {}
 
