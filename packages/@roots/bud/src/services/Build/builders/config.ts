@@ -2,10 +2,10 @@ import type {Framework} from '@roots/bud-framework'
 import {Webpack} from '@roots/bud-support'
 
 export function config(app: Framework) {
+  /**
+   * build
+   */
   app.publish({
-    /**
-     * build
-     */
     build: (): Webpack.Configuration => {
       app.build.logger.scope('build/config').wait({
         message: 'Config build requested',
@@ -23,6 +23,7 @@ export function config(app: Framework) {
         name: app.subscribe('build/name'),
         node: app.subscribe('build/node'),
         output: app.subscribe('build/output'),
+        optimization: app.subscribe('build/optimization'),
         parallelism: app.subscribe('build/parallelism'),
         performance: app.subscribe('build/performance'),
         plugins: app.subscribe('build/plugins'),
@@ -35,12 +36,13 @@ export function config(app: Framework) {
         watchOptions: app.subscribe('build/watchOptions'),
       }
     },
+  })
 
-    /**
-     * build/bail
-     */
+  /**
+   * build/bail
+   */
+  app.publish({
     'build/bail': () => app.store.get('options.bail'),
-
     /**
      * build/cache
      */
@@ -58,16 +60,25 @@ export function config(app: Framework) {
             ),
             version: app.subscribe('build/cache/version'),
           },
+
+    /**
+     * build/cache/location
+     */
     'build/cache/location': () =>
       app.store.path.posix.resolve(
         app.subscribe('location/project'),
         app.subscribe('location/storage'),
       ),
+
+    /**
+     * build/cache/directory
+     */
     'build/cache/directory': () =>
       app.store.path.posix.resolve(
         app.subscribe('location/project'),
         app.subscribe('location/storage'),
       ),
+
     'build/cache/buildDependencies': () => [
       app.store.path.posix.resolve(
         app.subscribe('location/project'),
@@ -79,11 +90,14 @@ export function config(app: Framework) {
       ),
     ],
     'build/cache/type': () => 'filesystem',
-    'build/cache/version': () => '',
 
-    /**
-     * build/context
-     */
+    'build/cache/version': () => '',
+  })
+
+  /**
+   * build/context
+   */
+  app.publish({
     'build/context': () => app.subscribe('location/project'),
 
     /**
@@ -146,9 +160,16 @@ export function config(app: Framework) {
       ),
       minimize: app.subscribe('build/optimization/minimize'),
       minimizer: app.subscribe('build/optimization/minimizer'),
-      runtimeChunk: app.subscribe(
-        'build/optimization/runtimeChunk',
-      ),
+      runtimeChunk: app.store.enabled(
+        'options.runtimeChunkEnabled',
+      )
+        ? app.subscribe('build/optimization/runtimeChunk')
+        : false,
+      splitChunks: app.store.enabled(
+        'options.splitChunks.enabled',
+      )
+        ? app.subscribe('build/optimization/splitChunks')
+        : false,
     }),
     'build/optimization/namedModules': () =>
       app.store.get('options.namedModules'),
