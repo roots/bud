@@ -30,15 +30,6 @@ export const publish: Framework.Module['publish'] = (
   app: Framework,
 ) => ({
   /**
-   * rule/js/use
-   */
-  'rule/js/use': () => [
-    app.subscribe('item/cache'),
-    app.subscribe('item/thread'),
-    app.subscribe('item/babel'),
-  ],
-
-  /**
    * loader/babel
    */
   'loader/babel': () => require.resolve('babel-loader'),
@@ -80,9 +71,13 @@ export const publish: Framework.Module['publish'] = (
     ]),
 
   /**
-   * babel/config
+   * rule/js/use
    */
-  'item/babel/config': () => app.babel.hasProjectConfig,
+  'rule/js/use': () => [
+    app.subscribe('item/cache'),
+    app.subscribe('item/thread'),
+    app.subscribe('item/babel'),
+  ],
 })
 
 /**
