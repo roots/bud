@@ -165,16 +165,12 @@ export function config(app: Framework) {
       ),
       minimize: app.subscribe('build/optimization/minimize'),
       minimizer: app.subscribe('build/optimization/minimizer'),
-      runtimeChunk: app.store.enabled(
-        'options.runtimeChunkEnabled',
-      )
-        ? app.subscribe('build/optimization/runtimeChunk')
-        : false,
-      splitChunks: app.store.enabled(
-        'options.splitChunks.enabled',
-      )
-        ? app.subscribe('build/optimization/splitChunks')
-        : false,
+      runtimeChunk: app.subscribe(
+        'build/optimization/runtimeChunk',
+      ),
+      splitChunks: app.subscribe(
+        'build/optimization/splitChunks',
+      ),
     }),
     'build/optimization/noEmitOnErrors': () =>
       app.store.get('options.noEmitOnErrors'),

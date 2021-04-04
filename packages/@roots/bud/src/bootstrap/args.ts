@@ -68,30 +68,6 @@ export const args: any = Object.entries(
       profile: {
         type: 'boolean',
       },
-      runtimeChunkEnabled: {
-        type: 'boolean',
-      },
-      splitChunksEnabled: {
-        type: 'boolean',
-      },
-      'splitChunks.chunks': {
-        type: 'string',
-      },
-      'splitChunks.minSize': {
-        type: 'number',
-      },
-      'splitChunks.maxSize': {
-        type: 'number',
-      },
-      'splitChunks.minChunks': {
-        type: 'number',
-      },
-      'splitChunks.maxAsyncRequests': {
-        type: 'number',
-      },
-      'splitChunks.maxInitialRequests': {
-        type: 'number',
-      },
       stats: {
         type: 'boolean',
       },
