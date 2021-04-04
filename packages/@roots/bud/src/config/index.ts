@@ -1,4 +1,5 @@
 import {Framework} from '@roots/bud-framework'
+import os from 'os'
 
 /**
  * Base config
@@ -38,10 +39,7 @@ export const config: Framework.Config = {
   minify: true,
   mode: 'production',
   profile: false,
-  runtimeChunkEnabled: false,
-  runtimeChunk: {
-    name: entrypoint => `runtime/${entrypoint.name}`,
-  },
+  runtimeChunk: false,
   splitChunks: false,
   parallelism: os.cpus().length - 1,
   resolve: {

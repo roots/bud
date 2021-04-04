@@ -27,17 +27,13 @@ declare module '@roots/bud-framework' {
     }
 
     interface Config {
-      entry:
-        | Webpack.Configuration['entry']
-        | {
-            [key: string]: any
-          }
-      define: {
+      entry: Webpack.Configuration['entry'] & {
         [key: string]: any
       }
-      externals: {
+      externals: Webpack.Configuration['externals'] & {
         [key: string]: any
       }
+      define: Webpack.DefinePlugin['definitions']
       install: boolean
       bail: boolean
       cache: boolean
@@ -59,20 +55,12 @@ declare module '@roots/bud-framework' {
       noEmit: boolean
       manifest: boolean
       minify: boolean
-      mode: 'production' | 'development'
+      mode: ('production' | 'development') &
+        Webpack.Configuration['mode']
       namedModules: boolean
-      node: {
-        module: string
-        dns: string
-        fs: string
-        http2: string
-        net: string
-        tls: string
-        child_process: string
-      }
-      parallelism: number
-      profile: boolean
-      runtimeChunkEnabled: boolean
+      node: Webpack.Configuration['node']
+      parallelism: Webpack.Configuration['parallelism']
+      profile: Webpack.Configuration['profile']
       runtimeChunk: Webpack.Configuration['optimization']['runtimeChunk']
       splitChunks: Webpack.Configuration['optimization']['splitChunks']
       stats: Webpack.Configuration['stats']
