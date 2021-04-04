@@ -13,18 +13,10 @@
 
 ## Installation
 
-There is a recommended preset available to make it as easy as possible
-to get started:
+Install `@roots/bud` to your project:
 
 ```sh
-yarn add @roots/bud-preset-recommend --dev
-```
-
-To get started without the preset you'll want to install both `@roots/bud` and
-`@roots/bud-cli`:
-
-```sh
-yarn add @roots/bud @roots/bud-cli --dev
+yarn add @roots/bud --dev
 ```
 
 ## Getting started
@@ -42,7 +34,8 @@ yarn bud publish @roots/bud-support bud.config.js
 Dead simple `bud.config.js` example:
 
 ```js
-module.exports = bud => bud.entry('app', ['app.js'])
+module.exports = bud =>
+  bud.use('@roots/bud-preset-recommend').entry('app', ['app.js'])
 ```
 
 The framework can do many more things. But, one of Bud's flagpole axioms is that more is not always better for many common use cases. In fact, just using `entry` and `run` you can already compile project files. For many people this may very well be enough.
@@ -137,7 +130,7 @@ The following is a (hopefully) exhaustive list of the utilities designed to make
 | bud.src         | Get the `src` dir            | [README ↗]([[base]]/docs/config-src.md)         |
 | bud.srcPath     | Define the `src` dir         | [README ↗]([[base]]/docs/config-srcPath.md)     |
 | bud.storage     | Define artifacts dir         | [README ↗]([[base]]/docs/config-storage.md)     |
-| bud.vendor      | Extract vendor code          | [README ↗]([[base]]/docs/config-vendor.md)      |
+| bud.splitChunks | Split code (vendor)          | [README ↗]([[base]]/docs/config-vendor.md)      |
 
 This isn't the last word on what is possible with Bud, just a collection of functions intended to simplify common developer needs/wants to as great a degree as possible. There are many valid ways to interact with Bud that utilize none of these functions.
 
