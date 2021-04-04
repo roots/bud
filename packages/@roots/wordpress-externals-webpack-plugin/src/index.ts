@@ -19,9 +19,14 @@ export class Plugin {
 
   /**
    * Class constructor
+   *
+   * @todo less lazy typings (see ./externals)
    */
   constructor() {
-    this.externals = new ExternalsPlugin('window', externals)
+    this.externals = new ExternalsPlugin(
+      'window',
+      externals as any,
+    )
   }
 
   /**

@@ -1,13 +1,12 @@
-import {
-  ExternalsFunctionElement,
-  ExternalsFunctionCallback,
-} from 'webpack'
 import {wpPkgs} from '@roots/bud-support'
 
-export const externals: ExternalsFunctionElement = async (
+/**
+ * @todo less lazy typings
+ */
+export const externals = async (
   _context: any,
   request: any,
-  callback: ExternalsFunctionCallback,
+  callback: CallableFunction,
 ) =>
   wpPkgs.isProvided(request)
     ? callback(null, wpPkgs.transform(request).window)
