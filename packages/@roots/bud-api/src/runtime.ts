@@ -28,12 +28,12 @@ type Runtime = (
 
 export const runtime: Runtime = function (runtime) {
   if (runtime && isEqual(runtime, false)) {
-    this.store.set('options.runtimeChunk.enabled', false)
+    this.store.set('options.runtimeChunkEnabled', false)
 
     return this
   }
 
-  this.store.set('options.runtimeChunk.enabled', true)
+  this.store.set('options.runtimeChunkEnabled', true)
 
   runtime &&
     this.publish({
