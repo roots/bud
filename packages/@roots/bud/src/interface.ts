@@ -27,12 +27,11 @@ declare module '@roots/bud-framework' {
     }
 
     interface Config {
-      entry: {
-        [key: string]: any
-      }
-      alias: {
-        [key: string]: any
-      }
+      entry:
+        | Webpack.Configuration['entry']
+        | {
+            [key: string]: any
+          }
       define: {
         [key: string]: any
       }
@@ -75,22 +74,22 @@ declare module '@roots/bud-framework' {
       profile: boolean
       runtimeChunkEnabled: boolean
       runtimeChunk: Webpack.Configuration['optimization']['runtimeChunk']
-      splitChunksEnabled: boolean
-      splitChunks: {
-        chunks: string
-        minSize: number
-        maxSize: number
-        minChunks: number
-        maxAsyncRequests: number
-        maxInitialRequests: number
-      }
-      stats: boolean
-      target: string
-      resolve: {
-        alias: {[key: string]: any}
-        extensions: string[]
-        modules: string[]
-      }
+      splitChunks: Webpack.Configuration['optimization']['splitChunks']
+      stats: Webpack.Configuration['stats']
+      target: Webpack.Configuration['target']
+      resolve:
+        | Webpack.Configuration['resolve']
+        | {
+            alias:
+              | Webpack.Configuration['resolve']['alias']
+              | {
+                  [key: string]: any
+                }
+            extensions: Webpack.Configuration['resolve']['extensions']
+            modules:
+              | Webpack.Configuration['resolve']['modules']
+              | string[]
+          }
       server: {
         host: string
         port: number
