@@ -60,6 +60,7 @@
     "clean-webpack-plugin": "^3.0.0",
     "copy-webpack-plugin": "8.1.0",
     "css-loader": "^5.2.0",
+    "css-minimizer-webpack-plugin": "^1.3.0",
     "dotenv": "^8.2.0",
     "escape-string-regexp": "^4.0.0",
     "execa": "^5.0.0",
@@ -83,7 +84,6 @@
     "mini-css-extract-plugin": "^1.4.0",
     "mini-svg-data-uri": "^1.2.3",
     "node-notifier": "^9.0.1",
-    "optimize-css-assets-webpack-plugin": "^5.0.4",
     "patch-console": "^1.0.0",
     "pino": "^6.11.2",
     "pino-pretty": "^4.7.1",
@@ -110,5 +110,8 @@
     "yargs": "^16.0.3",
     "zlib": "^1.0.5"
   },
-  "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"
+  "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684",
+  "devDependencies": {
+    "@types/webpack-hot-middleware": "^2.25.4"
+  }
 }
