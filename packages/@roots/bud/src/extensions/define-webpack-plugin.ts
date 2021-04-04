@@ -31,7 +31,5 @@ export const options: Module.Options<Options> = (
 }
 
 interface Options {
-  definitions: {
-    [key: string]: DefinePlugin.CodeValueObject
-  }
+  definitions: DefinePlugin['definitions']
 }

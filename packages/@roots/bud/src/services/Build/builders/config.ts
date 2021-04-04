@@ -51,20 +51,30 @@ export function config(app: Framework) {
         ? false
         : {
             name: app.subscribe('build/cache/name'),
-            cacheLocation: app.subscribe('build/cache/location'),
+            type: app.subscribe('build/cache/type'),
+            cacheLocation: app.subscribe(
+              'build/cache/cacheLocation',
+            ),
             cacheDirectory: app.subscribe(
               'build/cache/directory',
             ),
-            config: app.subscribe(
+            buildDependencies: app.subscribe(
               'build/cache/buildDependencies',
             ),
             version: app.subscribe('build/cache/version'),
           },
 
     /**
+     * build/cache/name
+     */
+    'build/cache/name': () => app.name,
+    'build/cache/type': () => 'filesystem',
+    'build/cache/version': () => '',
+
+    /**
      * build/cache/location
      */
-    'build/cache/location': () =>
+    'build/cache/cacheLocation': () =>
       app.store.path.posix.resolve(
         app.subscribe('location/project'),
         app.subscribe('location/storage'),
@@ -78,19 +88,18 @@ export function config(app: Framework) {
         app.subscribe('location/project'),
         app.subscribe('location/storage'),
       ),
-    'build/cache/buildDependencies': () => [
-      app.store.path.posix.resolve(
-        app.subscribe('location/project'),
-        `${app.name}.config.js`,
-      ),
-      app.store.path.posix.resolve(
-        app.subscribe('location/project'),
-        'package.json',
-      ),
-    ],
-    'build/cache/type': () => 'filesystem',
-
-    'build/cache/version': () => '',
+    'build/cache/buildDependencies': () => ({
+      project: [
+        app.store.path.posix.resolve(
+          app.subscribe('location/project'),
+          `${app.name}.config.js`,
+        ),
+        app.store.path.posix.resolve(
+          app.subscribe('location/project'),
+          'package.json',
+        ),
+      ],
+    }),
   })
 
   /**
@@ -151,9 +160,6 @@ export function config(app: Framework) {
      * build/optimization
      */
     'build/optimization': () => ({
-      namedModules: app.subscribe(
-        'build/optimization/namedModules',
-      ),
       noEmitOnErrors: app.subscribe(
         'build/optimization/noEmitOnErrors',
       ),
@@ -170,8 +176,6 @@ export function config(app: Framework) {
         ? app.subscribe('build/optimization/splitChunks')
         : false,
     }),
-    'build/optimization/namedModules': () =>
-      app.store.get('options.namedModules'),
     'build/optimization/noEmitOnErrors': () =>
       app.store.get('options.noEmitOnErrors'),
     'build/optimization/minimize': () =>
@@ -180,60 +184,7 @@ export function config(app: Framework) {
       app.store.get('options.minimizer'),
     'build/optimization/runtimeChunk': () =>
       app.store.get('options.runtimeChunk'),
-    'build/optimization/splitChunks': () => ({
-      cacheGroups: app.subscribe(
-        'build/optimization/splitChunks/cacheGroups',
-      ),
-    }),
-    'build/optimization/splitChunks/cacheGroups': () => ({
-      vendor: app.subscribe(
-        'build/optimization/splitChunks/cacheGroups/vendor',
-      ),
-    }),
-    'build/optimization/splitChunks/cacheGroups/vendor': () => ({
-      enforce: app.subscribe(
-        'build/optimization/splitChunks/cacheGroups/vendor/priority',
-      ),
-      priority: app.subscribe(
-        'build/optimization/splitChunks/cacheGroups/vendor/priority',
-      ),
-      test: app.subscribe(
-        'build/optimization/splitChunks/cacheGroups/vendor/test',
-      ),
-      chunks: app.subscribe(
-        'build/optimization/splitChunks/cacheGroups/vendor/chunks',
-      ),
-      name: app.subscribe(
-        'build/optimization/splitChunks/cacheGroups/vendor/name',
-      ),
-      reuseExistingChunk: app.subscribe(
-        'build/optimization/splitChunks/cacheGroups/vendor/reuseExistingChunk',
-      ),
-    }),
-    'build/optimization/splitChunks/cacheGroups/vendor/enforce': () =>
-      true,
-    'build/optimization/splitChunks/cacheGroups/vendor/priority': () =>
-      -10,
-    'build/optimization/splitChunks/cacheGroups/vendor/test': () =>
-      /[\\/]node_modules[\\/]/,
-    'build/optimization/splitChunks/cacheGroups/vendor/chunks': () =>
-      'all',
-    'build/optimization/splitChunks/cacheGroups/vendor/name': () =>
-      function (module: any, _chunks: any, cacheGroupKey: any) {
-        const moduleFileNameParts = module
-          .identifier()
-          .split('/')
-          .reduceRight(item => item)
-          .split('.')
-
-        const file = moduleFileNameParts
-          .slice(0, moduleFileNameParts.length - 1)
-          .join('.')
-
-        return `${cacheGroupKey}/${file}`
-      },
-    'build/optimization/splitChunks/cacheGroups/vendor/reuseExistingChunk': () =>
-      true,
+    'build/optimization/splitChunks': () => false,
 
     /**
      * build/output
@@ -332,7 +283,7 @@ export function config(app: Framework) {
      * build/watch-options
      */
     'build/watchOptions': () => ({
-      ignored: [app.store.get('patterns.modules')],
+      ignored: [app.store.get('patterns.modules').toString()],
       poll: 1000,
     }),
   })
