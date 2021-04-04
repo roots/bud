@@ -61,10 +61,7 @@
     "@roots/bud-framework": "^3.0.112-alpha.0",
     "@roots/bud-postcss": "^3.0.112-alpha.0",
     "@tailwindcss/jit": "^0.1.1",
-    "@types/node": "^14.14.31",
-    "@types/webpack": "^4.41.26",
-    "tailwindcss": "^2.0.3",
-    "type-fest": "^0.21.2"
+    "tailwindcss": "^2.0.3"
   },
   "dependencies": {
     "@roots/bud-support": "^3.0.112-alpha.0"

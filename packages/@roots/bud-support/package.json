@@ -70,7 +70,6 @@
     "globby": "^11.0.1",
     "html-webpack-harddisk-plugin": "^2.0.0",
     "html-webpack-plugin": "^5.3.1",
-    "http-proxy-middleware": "^1.1.0",
     "ignore-emit-webpack-plugin": "^2.0.6",
     "ink": "^3.0.8",
     "ink-big-text": "^1.2.0",
@@ -102,16 +101,10 @@
     "url-loader": "^4.1.1",
     "webpack": "^5.30.0",
     "webpack-config-dump-plugin": "^3.0.1",
-    "webpack-dev-middleware": "^4.1.0",
-    "webpack-hot-client": "^4.2.0",
-    "webpack-hot-middleware": "^2.25.0",
     "webpack-manifest-plugin": "^3.1.1",
     "write-file-webpack-plugin": "^4.5.1",
     "yargs": "^16.0.3",
     "zlib": "^1.0.5"
   },
-  "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684",
-  "devDependencies": {
-    "@types/webpack-hot-middleware": "^2.25.4"
-  }
+  "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"
 }

@@ -36,11 +36,7 @@
     "@roots/bud-support": "*"
   },
   "devDependencies": {
-    "@types/node": "^14.14.31",
-    "@types/webpack": "^4.41.26",
-    "child_process": "^1.0.2",
-    "ink": "^3.0.0-6",
-    "type-fest": "^0.21.2"
+    "child_process": "^1.0.2"
   },
   "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"
 }
