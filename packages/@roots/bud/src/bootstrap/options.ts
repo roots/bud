@@ -95,12 +95,9 @@ export const options = {
     base.parallelism,
   ),
   profile: config(['profile', 'APP_PROFILE'], base.profile),
-  runtimeChunk: config(
-    ['runtimeChunkEnabled'],
-    base.runtimeChunk,
-  ),
+  runtimeChunk: config(['runtimeChunk'], base.runtimeChunk),
   runtimeChunkEnabled: config(
-    ['runtimeChunk', 'APP_RUNTIME_CHUNK'],
+    ['runtimeChunkEnabled', 'APP_RUNTIME_CHUNK'],
     base.runtimeChunkEnabled,
   ),
   resolve: {

@@ -10,3 +10,5 @@ module.exports = app =>
     .use(require('@roots/bud-esbuild'))
     .html({enabled: true})
     .entry('scripts/app', 'app.js')
+    .runtime()
+    .vendor()

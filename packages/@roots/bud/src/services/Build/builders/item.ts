@@ -7,7 +7,7 @@ import MiniCssExtractPlugin from 'mini-css-extract-plugin'
  */
 export function items(app: Framework): void {
   /**
-   * Loaders
+   * loaders
    */
   app.publish({
     'loader/css': () => require.resolve('css-loader'),
@@ -23,7 +23,7 @@ export function items(app: Framework): void {
   })
 
   /**
-   * Css
+   * item/css
    */
   app.publish({
     'item/css': () => ({
