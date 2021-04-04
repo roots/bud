@@ -1,6 +1,6 @@
 import {Framework} from '@roots/bud-framework'
 
-type ProjectPath = (this: Framework, path: string) => Framework
+type ProjectPath = (path: string) => Framework
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -26,10 +26,8 @@ declare module '@roots/bud-framework' {
 }
 
 export const projectPath: ProjectPath = function (path?) {
-  this.store.set('locations.project', path)
-
-  this.srcPath(this.src())
-  this.distPath(this.dist())
+  this.store.has('args.project') &&
+    this.publish({'location/project': path}, 'api/projectPath')
 
   return this
 }

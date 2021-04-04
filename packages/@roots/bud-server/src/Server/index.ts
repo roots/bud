@@ -1,19 +1,15 @@
-import type {
-  Webpack,
-  Container,
-  Server,
-} from '@roots/bud-typings'
 import {Service} from '@roots/bud-framework'
-import {injectClient} from '../util/injectClient'
-import * as middleware from '../middleware'
+import {Server} from '@roots/bud-typings'
 import {globby, chokidar} from '@roots/bud-support'
-import {resolve} from 'path'
+
 import {FSWatcher} from 'fs-extra'
+import {resolve} from 'path'
+
+import * as middleware from '../middleware'
+import {injectClient} from '../util/injectClient'
 
 /**
- * ## bud.server
- *
- * Development server.
+ * Development Server
  *
  * [🏡 Project home](https://roots.io/bud)
  * [🧑‍💻 roots/bud/packages/bud-server](https://git.io/JkCQG)
@@ -26,60 +22,121 @@ export default class extends Service implements Server {
   public name = '@roots/bud-server'
 
   /**
-   * Application dev server instance.
+   * Middleware
    */
-  public instance: Server.Instance
+  public middleware: Server.Middleware.Inventory = {}
 
   /**
-   * Client bundle assets (for injection)
+   * Watchlist
+   */
+  public _watchlist: string[]
+
+  /**
+   * Server application instance.
+   */
+  public _instance: Server.Instance
+
+  /**
+   * Config
+   */
+  public _config: Server.Config
+
+  /**
+   * Assets
    */
   public assets = [resolve(__dirname, '../client/index.js')]
 
   /**
-   * Middleware
+   * Instance getter
    */
-  public middleware: {[key: string]: any} = {}
-
-  public _watchlist: string[]
-
-  /**
-   * Service registration
-   */
-  public register(): void {
-    this.run = this.run.bind(this)
-    this.instance = this.instance.bind(this)
+  public get instance() {
+    return this._instance
   }
 
   /**
-   * Server config values
+   * Instance setter
    */
-  public get config(): Container<Server.Options> {
-    return this.app.makeContainer(this.app.store.get('server'))
+  public set instance(instance) {
+    this._instance = instance
+  }
+
+  /**
+   * Config getter
+   */
+  public get config(): Server.Config {
+    return this._config
+  }
+
+  /**
+   * Config setter
+   */
+  public set config(config: Server.Config) {
+    this._config = config
+  }
+
+  /**
+   * Service boot
+   */
+  public boot(): void {
+    this.run = this.run.bind(this)
+    this.instance = this.instance.bind(this)
+    this.processMiddlewares = this.processMiddlewares.bind(this)
+  }
+
+  /**
+   * Process middlewares
+   */
+  public processMiddlewares(compiler: Server.Compiler) {
+    Object.entries(middleware).map(([key, generate]) => {
+      if (this.config.enabled(`middleware.${key}`)) {
+        this.info(`Enabling ${key}`)
+
+        this.middleware[key] = generate({
+          config: this.config,
+          compiler,
+        })
+      }
+    })
+
+    Object.values(this.middleware).forEach(middleware =>
+      this.instance.use(middleware),
+    )
   }
 
   /**
    * Run server
    */
-  public run(compiler: Webpack.Compiler): this {
-    if (this.config.enabled('middleware.dev')) {
-      this.middleware.dev = middleware.dev({
-        config: this.config,
-        compiler,
+  public run(compiler: Server.Compiler): this {
+    /**
+     * __roots route
+     */
+    this.instance
+      .route('/__roots/config.json')
+      .get((req, res) => {
+        res.send({
+          ...this.app.store.all(),
+          ...this.config.all(),
+        })
+
+        res.end()
       })
-      this.instance.use(this.middleware.dev)
-    }
 
-    if (this.config.enabled('middleware.hot')) {
-      this.middleware.hot = middleware.hot(compiler)
-      this.instance.use(this.middleware.hot)
-    }
+    this.processMiddlewares(compiler)
 
-    if (this.config.enabled('middleware.proxy')) {
-      this.middleware.proxy = middleware.proxy(this.config)
-      this.instance.use(this.middleware.proxy)
-    }
+    /**
+     * Listen
+     */
+    this.instance.listen(this.config.get('port'), () => {
+      this.info(
+        `Server listening on %s`,
+        this.config.get('port'),
+      )
 
-    this.instance.listen(this.config.get('port'))
+      this.info({
+        ...this.config.all(),
+        middleware,
+      })
+    })
 
     this.watchable &&
       this.watcher?.on('change', path => {
@@ -109,7 +166,12 @@ export default class extends Service implements Server {
   public get watchlist(): string[] {
     return this.config
       .get('watch.files')
-      .map(f => this.app.get().project(f))
+      .map((file: string) =>
+        this.path.posix.join(
+          this.app.subscribe('location/project', this.name),
+          file,
+        ),
+      )
   }
 
   public get watchable(): boolean {

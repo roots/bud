@@ -10,12 +10,12 @@ import {Framework} from './'
  */
 export interface Cache extends Framework.Service {
   /**
+   * Config
+   */
+  version
+
+  /**
    * Is cache enabled?
    */
   enabled(): boolean
-
-  /**
-   * Set cache.
-   */
-  setCache(): void
 }

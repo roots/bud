@@ -57,9 +57,8 @@ export {WebpackHotMiddleware, WebpackDevMiddleware}
 /**
  * Lodash
  */
-import lodash from 'lodash'
-export {lodash}
-export {
+import type Lodash from 'lodash'
+import lodash, {
   isArray,
   isArrayLike,
   isObject,
@@ -75,35 +74,65 @@ export {
   has,
   join,
 } from 'lodash'
+export {
+  lodash,
+  isArray,
+  isArrayLike,
+  isObject,
+  isObjectLike,
+  isString,
+  isFunction,
+  isEqual,
+  isNull,
+  isUndefined,
+  merge,
+  get,
+  set,
+  has,
+  join,
+}
 
 // lodash typings
-import type Lodash from 'lodash'
 export type {Lodash}
 
 /**
  * React
  */
-import React from 'react'
-export {React}
-export {
+import React, {
   useEffect,
   useCallback,
   useLayoutEffect,
   useState,
-} from 'react'
-export type {
   ComponentState,
   FunctionComponent,
   ReactElement,
 } from 'react'
 
+export {
+  React,
+  useEffect,
+  useCallback,
+  useLayoutEffect,
+  useState,
+  ComponentState,
+  FunctionComponent,
+  ReactElement,
+}
+
 /**
  * Ink
  */
-export {Box, Spacer, Text, render, useApp, useInput} from 'ink'
-export {render as staticRender} from 'ink-testing-library'
+export {
+  Box,
+  Instance,
+  Spacer,
+  Text,
+  render,
+  useApp,
+  useInput,
+  Static,
+} from 'ink'
 export type {Props as BoxProps} from 'ink/build/components/Box'
-export type {Instance} from 'ink'
 
 /**
  * Ink extensions
@@ -113,21 +142,23 @@ import Link from 'ink-link'
 import Spinner from 'ink-spinner'
 import Table from 'ink-table'
 import Gradient from 'ink-gradient'
-export {BigText, Link, Spinner, Table, Gradient}
+import useStdoutDimensions from 'ink-use-stdout-dimensions'
+import patchConsole from 'patch-console'
+export {
+  BigText,
+  Link,
+  Spinner,
+  Table,
+  Gradient,
+  useStdoutDimensions,
+  patchConsole,
+}
 
 /**
  * React hooks/util.
  */
 import useSWR, {mutate} from 'swr'
-import patchConsole from 'patch-console'
-import useStdoutDimensions from 'ink-use-stdout-dimensions'
-export {
-  useSWR,
-  useSWR as useSwr,
-  mutate,
-  patchConsole,
-  useStdoutDimensions,
-}
+export {useSWR, useSWR as useSwr, mutate}
 
 /**
  * Dependencies
@@ -143,6 +174,7 @@ import pino from 'pino'
 import prettier from 'prettier'
 import prettyFormat from 'pretty-format'
 import yargs from 'yargs'
+import {Signale, SignaleConfig, SignaleOptions} from 'signale'
 export {
   chalk,
   chokidar,
@@ -154,7 +186,11 @@ export {
   pino,
   prettier,
   prettyFormat,
+  Signale,
+  SignaleConfig,
+  SignaleOptions,
   yargs,
 }
+
 export type {execa as Execa}
 export type {GlobTask, GlobbyOptions} from 'globby'

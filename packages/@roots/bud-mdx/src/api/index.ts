@@ -1,14 +1,13 @@
-import {Framework} from '@roots/bud-framework'
+import {Mdx, Framework} from '@roots/bud-framework'
 
 /**
- * PostCSSConfig API
+ * MDXConfig
  */
-export class MdxConfig implements Framework.Mdx {
+export class MdxConfig implements Mdx {
   public app: Framework
 
-  public _remarkPlugins: Framework.Mdx.RemarkRegistry = {}
-
-  public _rehypePlugins: Framework.Mdx.RehypeRegistry = {}
+  public _remarkPlugins: Mdx.RemarkRegistry = {}
+  public _rehypePlugins: Mdx.RehypeRegistry = {}
 
   public constructor({app}: {app: Framework}) {
     this.app = app
@@ -19,7 +18,7 @@ export class MdxConfig implements Framework.Mdx {
     this.unsetRemarkPlugin = this.unsetRemarkPlugin.bind(this)
   }
 
-  public setRemarkPlugin(plugin: Framework.Mdx.RemarkRegistry) {
+  public setRemarkPlugin(plugin: Mdx.RemarkRegistry) {
     this.remarkPlugins = {
       ...this.remarkPlugins,
       ...plugin,
@@ -34,7 +33,7 @@ export class MdxConfig implements Framework.Mdx {
     return this
   }
 
-  public setRehypePlugin(plugin: Framework.Mdx.RehypeRegistry) {
+  public setRehypePlugin(plugin: Mdx.RehypeRegistry) {
     this.rehypePlugins = {
       ...this.rehypePlugins,
       ...plugin,

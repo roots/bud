@@ -4,8 +4,18 @@
 
 <p align="center">
   <img alt="MIT License" src="https://img.shields.io/github/license/roots/bud?color=%23525ddc&style=flat-square">
+  <a href="https://www.npmjs.com/package/@roots/bud-imagemin">
+    <img src="https://img.shields.io/npm/v/@roots/bud-imagemin.svg?color=%23525ddc&style=flat-square" />
+  </a>
+  <a href="https://codeclimate.com/github/roots/bud-support/maintainability">
+    <img src="https://img.shields.io/codeclimate/maintainability/roots/bud-support?color=%23525ddc&style=flat-square" />
+  </a>
+  <img alt="Lerna" src="https://img.shields.io/github/lerna-json/v/roots/bud?color=%23525ddc&style=flat-square">
+  <a href="Typescript" src="https://github.com/roots/bud/tree/stable/typings">
+    <img src="https://img.shields.io/badge/typings-%40roots%2Fbud--typings-%23525ddc" />
+  </a>
   <a href="https://twitter.com/rootswp">
-    <img alt="Follow Roots" src="https://img.shields.io/twitter/follow/rootswp.svg?style=flat-square&color=1da1f2" />
+    <img alt="Follow Roots" src="https://img.shields.io/twitter/follow/rootswp.svg?color=%23525ddc&style=flat-square" />
   </a>
 </p>
 
@@ -15,7 +25,7 @@
 
 ## Overview
 
-Minimize image assets in @roots/bud projects.
+> Minimize image assets in @roots/bud projects.
 
 ## Installation
 
@@ -26,16 +36,30 @@ yarn add @roots/bud-imagemin --dev
 ## Usage
 
 ```js
-bud.use(['@roots/bud-imagemin'])
+bud.use(["@roots/bud-imagemin"]);
 ```
 
-## Config
+Out of the box [@roots/bud-imagemin](https://github.com/roots/bud/tree/stable/packages/@roots/bud-imagemin) applies the following configuration:
 
-| Tool                | Description                       | Documentation                                                                                             |
-| ------------------- | --------------------------------- | --------------------------------------------------------------------------------------------------------- |
-| bud.imagemin        | Enable/disable image minification | [docs/index.md](https://github.com/roots/bud/tree/stable/docs/config-imagemin.md)                         |
-| bud.imageminOption  | Set imagemin option               | [docs/config-imageminOption.md](https://github.com/roots/bud/tree/stable/docs/config-imageminOption.md)   |
-| bud.imageminPlugins | Customize imagemin plugins        | [docs/config-imageminPlugins.md](https://github.com/roots/bud/tree/stable/docs/config-imageminPlugins.md) |
+| Plugin   | Options                               |
+| -------- | ------------------------------------- |
+| gifsicle | `{interlaced: true}`                  |
+| jpegtran | `{progressive: true}`                 |
+| optipng  | `{optimizationLevel: 5}`              |
+| svgo     | `{plugins: [{removeViewBox: false}]}` |
+
+## Configuration
+
+Customize imagemin plugins with `bud.imagemin`.
+
+```js
+bud.imagemin([
+  ["gifsicle", { interlaced: true }],
+  ["jpegtran", { progressive: true }],
+  ["optipng", { optimizationLevel: 5 }],
+  ["svgo", { plugins: [{ removeViewBox: false }] }],
+]);
+```
 
 ## Contributing
 

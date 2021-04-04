@@ -1,40 +1,34 @@
 import Webpack from 'webpack'
 import {SetOptional, ValueOf} from 'type-fest'
-import {Framework, MappedType, Service} from './'
+import {Framework, Hooks, MappedType, Service} from './'
 
 /**
- * ## bud.extensions
+ * bud.extensions
  *
- * Extensions controller for the Bud framework.
+ * Extensions controller.
  *
  * [🏡 Project home](https://roots.io/bud)
  * [🧑‍💻 roots/bud](https://git.io/Jkli3)
- * [📦 @roots/bud-extensions](https://github.io/roots/bud-extensions)
- * [🔗 Documentation](#)
  */
 export declare interface Extensions extends Service {
-  add(name, extension): void
+  add(extension): void
 
   set<Extension>(name: string, extension: Extension): this
 
   use(pkg: string): this
 
-  make(plugin: string): Webpack.Plugin
-
-  makeAll(): Webpack.Plugin[]
+  make(): Webpack.Plugin[]
 
   discard(pkg: string): Service['app']
 }
 
 /**
- * ## bud.extension
+ * bud.extension
  *
  * Extends framework.
  *
  * [🏡 Project home](https://roots.io/bud)
  * [🧑‍💻 roots/bud](https://git.io/Jkli3)
- * [📦 @roots/bud-extensions](https://github.io/roots/bud-extensions)
- * [🔗 Documentation](#)
  */
 export interface Extension extends Framework.Service {
   readonly app: Framework
@@ -51,66 +45,41 @@ export interface Extension extends Framework.Service {
 }
 
 /**
- * Extension module (source)
+ * bud.module
+ *
+ * bud.extension implementation
+ *
+ * [🏡 Project home](https://roots.io/bud)
+ * [🧑‍💻 roots/bud](https://git.io/Jkli3)
  */
 export interface Module {
-  name: string
-
-  register?: (app: Framework) => unknown
+  name: Module.Name
 
   options?: Module.Options
+
+  dependencies?: string[]
+
+  devDependencies?: string[]
+
+  register?: (app: Framework) => unknown
 
   boot?: (app: Framework) => unknown
 
   api?: Module.Api
 
-  setLoaders?: Module.Registrable.Source.Value
-
-  setItems?: Module.Registrable.Source.Value
-
-  setRules?: Module.Registrable.Source.Value
-
   make?: Module.Make
 
   when?: Module.When
 
-  dependencies?: string[]
-
-  devDependencies?: string[]
+  publish?:
+    | ((
+        app: Framework,
+      ) => {[key: `${Hooks.Name}`]: (args?: any) => any})
+    | {[key: string]: any}
 }
 
 export namespace Module {
-  export type Registrable = {
-    setItems: Framework.Item.Module
-    setRules: Framework.Rule.Module
-    setLoaders: Framework.Loader.Module | string
-  }
-
-  export namespace Registrable {
-    /**
-     * Base keys
-     */
-    export type Key = 'setItems' | 'setRules' | 'setLoaders'
-
-    /**
-     * Base values
-     */
-    export type Value =
-      | Framework.Item.Module
-      | Framework.Rule.Module
-      | Framework.Loader.Module
-
-    export namespace Source {
-      export type Value =
-        | [string, Registrable.Value]
-        | Array<[string, Registrable.Value]>
-        | {[key: string]: Registrable.Value}
-    }
-
-    export type Tuple = [string, Value]
-
-    export namespace Entries {}
-  }
+  export type Name = `${keyof Hooks.Extension.Definitions}`
 
   export type Api =
     | {[key: string]: any}
@@ -123,12 +92,12 @@ export namespace Module {
     | ((app: Framework) => T)
     | any
 
-  export type Make<P = unknown, T = Options> =
-    | ((options: Framework.Container<T>, app?: Framework) => P)
-    | P
+  export type Make<P = unknown, T = Options> = (
+    options: Framework.Container<T>,
+    app?: Framework,
+  ) => P
 
-  export type When = (
-    app: Framework,
-    opt?: Framework.Container,
-  ) => boolean
+  export type When<T = any> =
+    | ((app: Framework, opt?: Framework.Container<T>) => boolean)
+    | boolean
 }

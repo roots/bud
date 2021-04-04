@@ -1,126 +1,104 @@
+import './interface'
 import {VueLoaderPlugin} from 'vue-loader'
 import {Module, Webpack} from '@roots/bud-typings'
 
-// Extension name
+/**
+ * Name
+ */
 export const name: Module['name'] = '@roots/bud-vue'
 
-// Dependencies
-export const dependencies = ['react']
+/**
+ * Dependencies
+ */
+export const dependencies: Module['dependencies'] = ['vue']
+export const devDependencies: Module['devDependencies'] = [
+  'vue-loader',
+]
 
-// Extension boot
+/**
+ * Publish
+ */
+export const publish: Module['publish'] = app => ({
+  /**
+   * loader/vue
+   */
+  'loader/vue': () => require.resolve('vue-loader'),
+  'loader/vue-style': () => require.resolve('vue-style-loader'),
+
+  /**
+   * item/vue
+   */
+  'item/vue': () => ({
+    loader: app.subscribe('loader/vue'),
+  }),
+  'item/vue-style': () => ({
+    loader: app.subscribe('loader/vue-style'),
+  }),
+
+  /**
+   * rule/vue
+   */
+  'rule/vue': () => ({
+    test: app.subscribe('rule/vue/test'),
+    use: app.subscribe('rule/vue/use'),
+  }),
+  'rule/vue/test': () => app.store.get('patterns.vue'),
+  'rule/vue/use': () => [app.subscribe('item/vue')],
+
+  /**
+   * build/module/rules
+   */
+  'build/module/rules': (
+    rules: Webpack.Configuration['module']['rules'],
+  ) => [app.subscribe('rule/vue'), ...rules],
+
+  'rule/css/use': use => [
+    app.isProduction
+      ? app.subscribe('item/minicss')
+      : app.subscribe('item/vue-style'),
+    ...use.splice(1),
+  ],
+
+  /**
+   * vue alias
+   */
+  'build/resolve/alias': (
+    aliases: Webpack.Configuration['resolve']['alias'],
+  ) => ({
+    ...aliases,
+    vue$: 'vue/dist/vue.esm.js',
+  }),
+
+  /**
+   * vue extension
+   */
+  'build/resolve/extensions': (
+    extensions: Webpack.Configuration['resolve']['extensions'],
+  ) => [...extensions, '.vue'],
+})
+
+/**
+ * Boot extension
+ */
 export const boot: Module['boot'] = app => {
   /**
-   * Returns true if project utilizes vue
+   * Add vue-loader-plugin
    */
-  const usesVue = ({disk, store}) =>
-    disk.glob.sync(['*.vue', '**/*.vue'], {
-      cwd: disk.path.join(
-        disk.get('project').baseDir,
-        store.get('locations.src'),
-      ),
-    }).length > 0
-
-  // Vue stylesheet handling
-  const addStyleSupport = ({build}, rule): boolean => {
-    const useItems = build.access(`rules.${rule}.use`)
-
-    build.set(`rules.${rule}.use`, [
-      build.access('items.vue-style'),
-      ...useItems.splice(1),
-    ])
-
-    return true
-  }
+  app.extensions.add({
+    name: 'vue-loader-plugin',
+    make: () => new VueLoaderPlugin(),
+  })
 
   /**
-   * Register vue if needed
+   * Add sass handling if in use
    */
-  app.when(usesVue, ({sequence}) =>
-    sequence([
-      /**
-       * Config builder
-       */
-      ({build}) =>
-        build
-          /**
-           * Add vue-loader
-           */
-          .set('items.vue', {
-            loader: require.resolve('vue-loader'),
-          })
-
-          /**
-           * Add vue-style-loader
-           */
-          .set('items.vue-style', {
-            loader: 'vue-style-loader',
-          }),
-
-      /**
-       * Hooks
-       */
-      ({hooks}) =>
-        /**
-         * vue-loader-plugin doesn't recognize the rule
-         * as being set if it is set as a `oneOf` rule.
-         *
-         * So, instead of registering the rule through the normal
-         * export function this hook registers the rule in the
-         * outer `webpack.module.rules` key.
-         */
-        hooks
-          .on(
-            'webpack.module.rules',
-            (
-              rules: Webpack.Configuration['module']['rules'],
-            ) => [
-              {
-                test: app.store.get('patterns.vue'),
-                use: [app.build.get('items.vue')],
-              },
-              ...rules,
-            ],
-          )
-
-          /**
-           * Add vue alias
-           */
-          .hooks.on(
-            'webpack.resolve.alias',
-            (
-              aliases: Webpack.Configuration['resolve']['alias'],
-            ) => ({
-              ...aliases,
-              vue$: 'vue/dist/vue.esm.js',
-            }),
-          )
-
-          /**
-           * Resolve .vue filetype
-           */
-          .hooks.on(
-            'webpack.resolve.extensions',
-            (
-              extensions: Webpack.Configuration['resolve']['extensions'],
-            ) => [...extensions, '.vue'],
-          ),
-
-      /**
-       * Add vue-loader-plugin
-       */
-      ({extensions}) =>
-        extensions.add('vue-loader-plugin', {
-          make: () => new VueLoaderPlugin(),
-        }),
-
-      /**
-       * Add vue css handling
-       */
-      () =>
-        // Css support
-        addStyleSupport(app, 'css') &&
-        app.build.has('rules.sass') &&
-        addStyleSupport(app, 'sass'),
-    ]),
-  )
+  app.subscribe('rule/sass') &&
+    app.publish({
+      'rule/sass/use': use => [
+        app.isProduction
+          ? app.subscribe('item/minicss')
+          : app.subscribe('item/vue-style'),
+        ...use.splice(1),
+      ],
+    })
 }

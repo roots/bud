@@ -1,4 +1,5 @@
 import Service from './Service'
+import crypto from 'crypto'
 
 /**
  * ## bud.cache [🏠 Internal]
@@ -7,14 +8,23 @@ import Service from './Service'
  *
  * [🏡 Project home](https://roots.io/bud)
  * [🧑‍💻 roots/bud](#)
- * [📦 @roots/bud-cache](#)
- * [🔗 Documentation](#)
  */
 export class Cache extends Service {
   /**
-   * Service ident
+   * Service name
    */
-  public name = 'cache'
+  public name = '@roots/bud-cache'
+
+  /**
+   * Service booted
+   */
+  public booted() {
+    this.enabled() &&
+      this.app.hooks.on(
+        'build/cache/version',
+        () => this.version,
+      )
+  }
 
   /**
    * ## bud.cache.enabled [🏠 Internal]
@@ -30,25 +40,35 @@ export class Cache extends Service {
    * ```
    */
   public enabled(): boolean {
-    return (
-      this.app.store.get('locations.storage') &&
-      this.disk('project').exists(
-        this.app.store.get('locations.records'),
-      )
-    )
+    return this.app.store.isTrue('options.cache')
   }
 
   /**
-   * ## bud.cache.setCache [🏠 Internal]
+   * Version
    *
-   * Sets the cache object in the webpack configuration.
+   * A hash created from the stringified contents of the project config
+   * and package.json
    */
-  public setCache(): void {
-    this.enabled() &&
-      this.app.hooks.on('webpack.cache', () =>
-        this.disk('project').readJson(
-          this.app.store.get('locations.records'),
-        ),
-      )
+  public get version() {
+    const conf = JSON.stringify(
+      this.fs.readFileSync(
+        this.app.disk
+          .get('project')
+          .get(`${this.app.name}.config.js`),
+        'utf8',
+      ),
+    )
+
+    const json = JSON.stringify(
+      this.fs.readFileSync(
+        this.app.disk.get('project').get('package.json'),
+        'utf8',
+      ),
+    )
+
+    return crypto
+      .createHash('md4')
+      .update(`${conf}${json}`)
+      .digest('hex')
   }
 }

@@ -1,4 +1,8 @@
-import {React, render} from '@roots/bud-support'
+import {
+  React,
+  render,
+  FunctionComponent,
+} from '@roots/bud-support'
 import {Component} from './Component'
 
 export const Error = (body, title) => {
@@ -7,4 +11,11 @@ export const Error = (body, title) => {
   )
 
   process.exit()
+}
+
+declare namespace Error {
+  type Component = FunctionComponent<{
+    title?: string
+    body: string
+  }>
 }

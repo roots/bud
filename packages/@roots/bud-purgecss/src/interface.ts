@@ -1,10 +1,16 @@
-import '@roots/bud'
+import '@roots/bud-framework'
 import '@roots/bud-postcss'
 
-declare module '@roots/bud' {
-  interface Bud {
+declare module '@roots/bud-framework' {
+  namespace Framework.Hooks.Extension {
+    interface Definitions {
+      '@roots/bud-purgecss': Framework.Module
+    }
+  }
+
+  interface Framework {
     /**
-     * ## bud.purge
+     * ## purge
      *
      * Purge unused CSS from compiled stylesheets
      *
@@ -12,21 +18,21 @@ declare module '@roots/bud' {
      * @see https://purgecss.com/configuration.html
      *
      * ```js
-     * bud.purge({
-     *   content: [bud.project('resources/views/**')],
+     * app.purge({
+     *   content: [app.project('resources/views/**')],
      *   allow: require('purgecss-with-wordpress').whitelist,
      *   allowPatterns: require('purgecss-with-wordpress').whitelistPatterns,
      * })
      * ```
      */
-    purge: Bud.PurgeCss.Config
+    purge: Framework.PurgeCss.Config
   }
 
-  export namespace Bud.PurgeCss {
+  export namespace Framework.PurgeCss {
     export type Config = (
-      this: Bud,
-      userOptions: Bud.PurgeCss.UserOptions,
-    ) => Bud
+      this: Framework,
+      userOptions: Framework.PurgeCss.UserOptions,
+    ) => Framework
     export interface UserOptions {
       content?: Array<string | RawContent>
       contentFunction?: (

@@ -1,19 +1,28 @@
-import '@roots/bud'
-
-import type {
-  PluginTarget,
-  PluginOptions,
-  TransformOptions,
-} from '@babel/core'
-
-interface LoaderOptions extends TransformOptions {
-  cacheDirectory: string
-}
+import '@roots/bud-api'
+import '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
+  namespace Framework.Hooks.Extension {
+    interface Definitions {
+      '@roots/bud-babel': Framework.Module
+    }
+  }
+
+  namespace Framework.Hooks.Loader {
+    interface Definitions {
+      babel: Framework.Hooks.Loader.Subject
+    }
+  }
+
+  namespace Framework.Hooks.Item {
+    interface Definitions {
+      babel: Framework.Hooks.Item.Subject
+    }
+  }
+
   interface Framework {
     /**
-     * ## app.babel
+     * ## bud.Babel
      *
      * Configure babel.
      */
@@ -23,99 +32,85 @@ declare module '@roots/bud-framework' {
   namespace Framework {
     interface Babel {
       /**
-       * ## app.babel.addPlugin
+       * ## babel.log
+       */
+      log: any
+
+      /**
+       * ## babel.hasProjectConfig
+       */
+      hasProjectConfig: boolean
+
+      /**
+       * ## babel.plugins
+       */
+      plugins: Babel.Registry
+
+      /**
+       * ## babel.presets
+       */
+      presets: Babel.Registry
+
+      /**
+       * ## babel.setPlugin
        *
        * Add a babel plugin.
        *
        * ### Usage
        *
        * ```js
-       * app.babel.addPlugin(
-       *   '@babel/plugin-transform-runtime',
-       *   {helpers: false,}
-       * )
+       * bud.babel.setPlugin(MyPlugin, {plugin: 'options'})
        * ```
        */
-      addPlugin: Framework.Babel.AddPlugin
+      setPlugin: (plugin: Babel.Registrable) => this
 
       /**
-       * ## app.babel.addPlugin
+       * ## babel.setPlugins
+       */
+      setPlugins(plugins: Array<[string, any?] | string>): this
+
+      /**
+       * ## babel.setPluginOptions
+       */
+      setPluginOptions: (plugin: string, options: any) => this
+
+      /**
+       * ## babel.setPlugin
        *
        * Add a babel plugin.
        *
        * ### Usage
        *
        * ```js
-       * app.babel.addPreset(
-       *   '@babel/react-preset',
-       *   {loose: true}
-       * )
+       * bud.babel.setPlugin(MyPlugin, {plugin: 'options'})
        * ```
        */
-      addPreset: Framework.Babel.AddPreset
+      setPreset: (preset: Babel.Registrable) => this
 
       /**
-       * ## app.babel.setOptions
-       *
-       * Configure babel transform options
-       *
-       * ### Usage
-       *
-       * ```js
-       * app.babel.setOptions({
-       *  configFile: 'babel.config.js',
-       * })
-       * ```
+       * ## babel.setPresets
        */
-      setOptions: Framework.Babel.SetOptions
+      setPresets(presets: Array<[string, any?] | string>): this
 
       /**
-       * ## app.babel.setPlugins
-       *
-       * Set babel plugins (will override existing values)
-       *
-       * ### Usage
-       *
-       * ```js
-       * app.babel.setPlugins([
-       *  ['@babel/react-preset', {loose: true}],
-       * ])
-       * ```
+       * ## babel.setPresetOptions
        */
-      setPlugins: Framework.Babel.SetPlugins
-
-      /**
-       * ## app.babel.setPresets
-       *
-       * Set babel presets (will override existing values)
-       *
-       * ### Usage
-       *
-       * ```js
-       * app.babel.setPresets([
-       *  ['@babel/react-preset', {loose: true}],
-       * ])
-       * ```
-       */
-      setPresets: Framework.Babel.SetPlugins
+      setPresetOptions: (preset: string, options: any) => this
     }
 
     namespace Babel {
-      type AddPlugin = (
-        name: PluginTarget,
-        opts?: PluginOptions,
-      ) => Framework
+      type Options = {
+        plugins?: Plugin[]
+        config?: boolean | string
+      }
 
-      type AddPreset = (
-        name: PluginTarget,
-        opts?: PluginOptions,
-      ) => Framework
+      type Plugin = string | [string, any] | CallableFunction
 
-      type SetPlugins = (
-        plugins: Array<[PluginTarget, PluginOptions]>,
-      ) => Framework
+      type Registrable = string | [string, any]
 
-      type SetOptions = (opts?: LoaderOptions) => Framework
+      interface Registry {
+        [key: string]: [string, any]
+      }
     }
   }
 }

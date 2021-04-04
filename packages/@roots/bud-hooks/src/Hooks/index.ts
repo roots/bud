@@ -1,14 +1,32 @@
-import Service from './Service'
-import {Hooks as Contract} from '@roots/bud-typings'
+import {Hooks} from '@roots/bud-typings'
+import {Framework, Service} from '@roots/bud-framework'
+import {isArray, prettyFormat} from '@roots/bud-support'
+import {set} from 'lodash'
 
 /**
  * Hooks
  */
-export class Hooks extends Service implements Contract {
+export default class extends Service implements Hooks {
   /**
-   * Service ident
+   * Service name
    */
-  public name = 'hooks'
+  public name = '@roots/bud-hooks'
+
+  /**
+   * Get hook
+   */
+  public get<T = any>(path: `${Framework.Hooks.Name}`) {
+    return this._.get(this.repository, path) as T
+  }
+
+  /**
+   * Set hook
+   */
+  public set(key: `${Framework.Hooks.Name}`, value: any): this {
+    set(this.repository, key, value)
+
+    return this
+  }
 
   /**
    * ## hooks.on
@@ -30,19 +48,27 @@ export class Hooks extends Service implements Contract {
    * )
    * ```
    */
-  public on<T = any>(
-    name: string,
-    filter: Contract.Filter.Fn<T>,
-  ) {
-    this.info({name, msg: 'Filter registered'})
-    this.set(
-      `filters.${name}`,
-      this.get(`filters.${name}`)
-        ? [...this.get(`filters.${name}`), filter]
-        : [filter],
-    )
+  public on(
+    id:
+      | [string, `${Framework.Hooks.Name}`]
+      | `${Framework.Hooks.Name}`,
+    callback: Hooks.Hook,
+  ): Framework {
+    const [publisher, name] = isArray(id)
+      ? id
+      : ['anonymous', id]
 
-    return this.app.get()
+    if (!this.isArray(name)) {
+      this.set(name, [() => this._.noop])
+    }
+
+    this.set(name, [...this.get(name), callback])
+
+    this.logger.scope(name, publisher).success({
+      message: `${name} updated`,
+    })
+
+    return this.app
   }
 
   /**
@@ -52,61 +78,33 @@ export class Hooks extends Service implements Contract {
    * any filters are registered on that key they will transform
    * the output before it is returned.
    */
-  public filter<T = any>(name: string, value: T): T {
-    this.info({name, msg: 'Filter called'})
-    return this.has(`filters.${name}`) &&
-      this.isArray(`filters.${name}`)
-      ? this.get(`filters.${name}`).reduce((v, f) => f(v), value)
-      : value
-  }
+  public filter<T = any>(
+    id:
+      | `${Framework.Hooks.Name}`
+      | [string, `${Framework.Hooks.Name}`],
+  ): T {
+    const [subscriber, name] = isArray(id)
+      ? id
+      : ['anonymous', id]
 
-  /**
-   * ## hooks.when
-   *
-   * Register a function to execute during a framework lifecycle event.
-   *
-   * If an action calls for the supplied key, the function will be run.
-   * If more than one action is registered to a key, they will be called
-   * sequentially in the order they were registered.
-   *
-   * ### Usage
-   *
-   * ```js
-   * app.hooks.when(
-   *   'namespace.name.event',
-   *   (app, value) {
-   *     console.log(value)
-   *   },
-   * )
-   * ```
-   */
-  public when<T = any>(
-    name: string,
-    action: Contract.Action.Fn<T>,
-  ) {
-    this.info({name, msg: 'Action registered'})
+    if (!this.has(name)) {
+      this.set(name, [])
+    }
 
-    this.set(
-      `actions.${name}`,
-      this.get(`actions.${name}`)
-        ? [...this.get(`actions.${name}`), action]
-        : [action],
+    const result = this.get(name).reduce(
+      (v: T, cb?: CallableFunction) => {
+        return cb && this._.isFunction(cb) ? cb(v) : cb
+      },
+      null,
     )
 
-    return this.app
-  }
+    this.logger.scope(name, subscriber).success({
+      message: `${name} retrieved`,
+      suffix: prettyFormat(result, {
+        highlight: true,
+      }),
+    })
 
-  /**
-   * ## hooks.action
-   *
-   * The other side of bud.hooks.when. Passes a key and a value. If
-   * any actions are registered on that key they will transform
-   * the output before it is returned.
-   */
-  public action(name: string): void {
-    this.has(`actions.${name}`) &&
-      this.get(`actions.${name}`).reduce((v, f) =>
-        f.bind(this.app)(),
-      )
+    return result
   }
 }

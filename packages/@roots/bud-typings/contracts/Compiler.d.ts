@@ -57,7 +57,7 @@ export interface Compiler extends Framework.Service {
    * })
    * ```
    */
-  compile(): Webpack.Compiler
+  compile(conf): Webpack.Compiler
 
   /**
    * ## bud.compiler.run

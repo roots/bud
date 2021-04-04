@@ -1,16 +1,53 @@
 import {Framework} from '@roots/bud-framework'
+import {Signale} from '@roots/bud-support'
 import {isString} from 'lodash'
 
 /**
- * PostCSSConfig API
+ * PostCSS configuration
  */
 export class PostCssConfig implements Framework.PostCss {
+  /**
+   * Framework
+   */
   public _app: Framework['get']
 
+  /**
+   * Plugins
+   */
   public _plugins: Framework.PostCss.Registry = {}
 
-  public _enabled: string[] = []
+  /**
+   * Plugin order
+   */
+  public _order: string[] = []
 
+  /**
+   * Logger
+   */
+  public logger: Signale
+
+  /**
+   * Constructor
+   */
+  public constructor({app}: {app: Framework}) {
+    this.app = app
+    this.logger = app.logger.instance.scope('@roots/bud-postcss')
+
+    this.set = this.set.bind(this)
+    this.unset = this.unset.bind(this)
+    this.setOptions = this.setOptions.bind(this)
+    this.makeConfig = this.makeConfig.bind(this)
+    this.setOrder = this.setOrder.bind(this)
+  }
+
+  /**
+   * Conditional check for postcss configurations in project
+   *
+   * True if project:
+   *  - has postcss.config.js file in project root
+   *  - has .postcssrc file in project root
+   *  - has a `postcss` field in `package.json`
+   */
   public get hasProjectConfig(): boolean {
     const project = this.app.disk.get('project')
 
@@ -19,107 +56,100 @@ export class PostCssConfig implements Framework.PostCss {
       project
         .readJson('package.json')
         .hasOwnProperty('postcss') ||
-      project.has('postcssrc')
+      project.has('.postcssrc')
     )
   }
 
-  public constructor({app}: {app: Framework}) {
-    this.app = app
-
-    this.setPlugin = this.setPlugin.bind(this)
-    this.unsetPlugin = this.unsetPlugin.bind(this)
-    this.setPluginOptions = this.setPluginOptions.bind(this)
-  }
-
+  /**
+   * Getters/setters
+   */
   public get app(): Framework {
     return this._app()
   }
-
   public set app(app: Framework) {
     this._app = app.get
-  }
-
-  public setPlugin(plugin: Framework.PostCss.Registrable) {
-    this.plugins = {
-      ...this.plugins,
-      ...(isString(plugin)
-        ? {[plugin]: plugin}
-        : {[plugin[0]]: plugin[1]}),
-    }
-
-    return this
-  }
-
-  public unsetPlugin(plugin: string) {
-    delete this.plugins[plugin]
-
-    return this
-  }
-
-  public setPluginOptions(plugin: string, options: any) {
-    this.plugins[plugin] = [this.plugins[plugin][0], options]
-
-    return this
-  }
-
-  public mutatePluginOptions(
-    plugin: string,
-    mutationFn: (options: any) => any,
-  ) {
-    this.plugins[plugin][1] = mutationFn(this.plugins[plugin][1])
-
-    return this
   }
 
   public get plugins() {
     return this._plugins
   }
-
   public set plugins(plugins) {
     this._plugins = plugins
   }
 
-  public get enabled() {
-    return this._enabled
+  public get order() {
+    return this._order
   }
 
-  public set enabled(enabled) {
-    this._enabled = enabled
+  public set order(order: string[]) {
+    this._order = order
   }
 
-  public enable(plugins: string[]): Framework {
-    this.app.logger.info({
-      msg: `enabling postcss plugins`,
-      plugins,
-    })
+  /**
+   * Set plugin
+   */
+  public set(definition: Framework.PostCss.Registrable): this {
+    const [plugin, options] = isString(definition)
+      ? [definition, definition]
+      : definition
 
-    this.enabled = plugins
+    this.logger.log(`Setting plugin: ${plugin}`)
 
-    return this.app
+    // Merge plugin
+    this.plugins = {...this.plugins, [plugin]: options}
+
+    // Update order
+    this.order.push(plugin)
+
+    return this
   }
 
-  public disable(plugins: string[]): Framework {
-    this.app.logger.info({
-      msg: `disabling postcss plugins`,
-      plugins,
-    })
+  /**
+   * Unset plugin
+   */
+  public unset(plugin: string) {
+    this.logger.log(`Removing ${plugin}`)
 
-    this.enabled = this.enabled.filter(
-      plugin => !plugins.includes(plugin),
+    // Remove plugin
+    delete this.plugins[plugin]
+
+    // Update order
+    this.order = this.order.filter(key => key !== plugin)
+
+    return this
+  }
+
+  /**
+   * Override plugin options
+   */
+  public setOptions(plugin: string, options: any): this {
+    this.logger.log(`Setting ${plugin} options`)
+
+    this.plugins[plugin] = options
+
+    return this
+  }
+
+  /**
+   * Order plugins
+   */
+  public setOrder(plugins: string[]): this {
+    this.logger.log(
+      `Ordering postcss plugins: ${plugins.join()}`,
     )
 
-    return this.app
+    this.order = plugins.reduce(
+      (plugins, plugin) => [...plugins, plugin],
+      [],
+    )
+
+    return this
   }
 
-  public get options() {
-    return !this.hasProjectConfig
-      ? {
-          plugins: this.enabled.map(
-            plugin => this.plugins[plugin],
-          ),
-        }
-      : {
-          config: true,
-        }
+  /**
+   * Make final plugins config output
+   */
+  public makeConfig(): any {
+    return this.order.map(key => require(key)(this.plugins[key]))
   }
 }

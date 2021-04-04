@@ -1,5 +1,6 @@
 import {isArray} from 'lodash'
-import {Framework, Webpack} from '@roots/bud-typings'
+import {Framework} from '@roots/bud-framework'
+import {Webpack} from '@roots/bud-typings'
 
 /**
  * Inject webpack entrypoints with
@@ -16,7 +17,7 @@ export declare type InjectClient = (
  * Filters on `webpack.entry`
  */
 export const injectClient: InjectClient = (app, injection) =>
-  app.hooks.on('webpack.entry', (entry: Webpack.Entry) =>
+  app.store.mutate('options.entry', (entry: Webpack.Entry) =>
     Object.entries(entry).reduce(
       (
         entries: Webpack.Entry,

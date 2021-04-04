@@ -1,83 +1,101 @@
 import '@roots/bud-framework'
+import {RuleSetLoader, RuleSetUseItem} from 'webpack'
 
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
      * ## mdx
      *
-     * Configure mdx
+     * Configure mdx to suit your application needs
      */
-    mdx: Framework.Mdx
+    mdx: Mdx
   }
 
-  namespace Framework {
-    interface Mdx {
-      /**
-       * ## mdx.setRemarkPlugin
-       *
-       * Add a remark plugin.
-       *
-       * ### Usage
-       *
-       * ```js
-       * bud.mdx.setRemarkPlugin({emoji})
-       * ```
-       */
-      setRemarkPlugin: Mdx.SetRemarkPlugin
+  /**
+   * app.mdx config
+   */
+  interface Mdx {
+    /**
+     * ## mdx.setRemarkPlugin
+     *
+     * Add a remark plugin.
+     *
+     * ### Usage
+     *
+     * ```js
+     * bud.mdx.setRemarkPlugin({emoji})
+     * ```
+     */
+    setRemarkPlugin: Mdx.SetRemarkPlugin
 
-      /**
-       * ## mdx.remarkPlugins
-       *
-       * Get registered remark plugins.
-       */
-      remarkPlugins: Mdx.RemarkRegistry
+    /**
+     * ## mdx.remarkPlugins
+     *
+     * Get registered remark plugins.
+     */
+    remarkPlugins: Mdx.RemarkRegistry
 
-      /**
-       * ## mdx.setRehypePlugin
-       *
-       * Add a rehype plugin.
-       *
-       * ### Usage
-       *
-       * ```js
-       * bud.mdx.setRehypePlugin({emoji})
-       * ```
-       */
-      setRehypePlugin: Mdx.SetRehypePlugin
+    /**
+     * ## mdx.setRehypePlugin
+     *
+     * Add a rehype plugin.
+     *
+     * ### Usage
+     *
+     * ```js
+     * bud.mdx.setRehypePlugin({emoji})
+     * ```
+     */
+    setRehypePlugin: Mdx.SetRehypePlugin
 
-      /**
-       * ## mdx.rehypePlugins
-       *
-       * Get registered rehype plugins.
-       */
-      rehypePlugins: Mdx.RehypeRegistry
+    /**
+     * ## mdx.rehypePlugins
+     *
+     * Get registered rehype plugins.
+     */
+    rehypePlugins: Mdx.RehypeRegistry
 
-      /**
-       * ## mdx.options
-       */
-      options: Mdx.Options
+    /**
+     * ## mdx.options
+     */
+    options: Mdx.Options
+  }
+
+  namespace Mdx {
+    interface RemarkRegistry {
+      [key: string]: RemarkPlugin
     }
 
-    namespace Mdx {
-      type RemarkPlugin = any
-      type RehypePlugin = any
+    interface RehypeRegistry {
+      [key: string]: RehypePlugin
+    }
+    interface Options {
+      rehypePlugins: RehypePlugin[]
+      remarkPlugins: RemarkPlugin[]
+    }
 
-      interface RemarkRegistry {
-        [key: string]: RemarkPlugin
-      }
+    type RemarkPlugin = any
+    type RehypePlugin = any
+    type SetRemarkPlugin = (plugins: RemarkRegistry) => Mdx
+    type SetRehypePlugin = (plugins: RemarkRegistry) => Mdx
+  }
 
-      interface RehypeRegistry {
-        [key: string]: RehypePlugin
-      }
+  namespace Hooks.Loader {
+    interface Definitions {
+      mdx: string
+    }
+  }
 
-      type SetRemarkPlugin = (plugins: RemarkRegistry) => Mdx
+  namespace Hooks.Item {
+    interface Definitions {
+      mdx: RuleSetLoader
+      babel: RuleSetLoader
+    }
+  }
 
-      type SetRehypePlugin = (plugins: RemarkRegistry) => Mdx
-
-      interface Options {
-        rehypePlugins: RehypePlugin[]
-        remarkPlugins: RemarkPlugin[]
-      }
+  namespace Hooks.Extension {
+    interface Definitions {
+      '@roots/bud-mdx': RuleSetUseItem
     }
   }
 }

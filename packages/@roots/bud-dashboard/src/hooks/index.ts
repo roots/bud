@@ -1,3 +1,6 @@
-export {useGit} from './useGit'
 export {useCompilation} from './useCompilation'
+export {useDisk} from './useDisk'
+export {useGit} from './useGit'
 export {useFocus} from './useFocus'
+export {usePackageJson} from './usePackageJson'
+export {useProgress} from './useProgress'

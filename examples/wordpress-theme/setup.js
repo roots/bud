@@ -7,6 +7,3 @@ console.log('Running docker image')
 execa.commandSync('docker-compose up -d')
 
 console.log('All set.')
-console.log(
-  'Run yarn dev to build the site & start the dev server',
-)

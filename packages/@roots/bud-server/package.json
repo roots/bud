@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-server",
   "description": "Development server for @roots/bud",
-  "version": "3.0.82-alpha.0",
+  "version": "3.0.112-alpha.0",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -26,9 +26,7 @@
     "node": ">=12"
   },
   "files": [
-    "lib/",
-    "types/",
-    "src/"
+    "lib/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -52,28 +50,22 @@
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
-  "peerDependencies": {
-    "@roots/bud-framework": "*",
-    "@roots/bud-support": "*",
-    "@roots/bud-typings": "*",
-    "@roots/container": "*"
-  },
   "devDependencies": {
-    "@roots/bud-typings": "^3.0.82-alpha.0",
+    "@roots/container": "^3.0.112-alpha.0",
+    "@types/http-proxy-middleware": "^1.0.0",
     "@types/json-stringify-safe": "^5.0.0",
     "@types/node": "^14.14.31",
     "@types/webpack": "^4.41.26",
-    "@types/ws": "^7.4.0",
-    "run-s": "^0.0.0",
+    "@types/webpack-env": "^1.16.0",
+    "@types/webpack-hot-middleware": "^2.25.3",
     "type-fest": "^0.21.2"
   },
   "dependencies": {
-    "@roots/bud-framework": "^3.0.82-alpha.0",
-    "@roots/bud-support": "^3.0.82-alpha.0",
-    "@roots/container": "^3.0.82-alpha.0",
+    "@roots/bud-framework": "^3.0.112-alpha.0",
+    "@roots/bud-support": "^3.0.112-alpha.0",
+    "http-proxy-middleware": "^1.0.6",
     "json-stringify-safe": "^5.0.1",
-    "toastify-js": "^1.9.3",
-    "ws": "^7.4.3"
+    "webpack-hot-middleware": "^2.25.0"
   },
   "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"
 }

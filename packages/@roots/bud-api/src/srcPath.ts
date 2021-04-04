@@ -23,13 +23,13 @@ declare module '@roots/bud-framework' {
   }
 }
 
-type SrcPath = (this: Framework, path: string) => Framework
+type SrcPath = (path: string) => Framework
 
 export const srcPath: SrcPath = function (path) {
   this.when(
-    !this.store.has('args.src') &&
+    !this.store.has('args.src') ||
       !this.store.isString('args.src'),
-    () => this.store.set('locations.src', path),
+    () => this.publish({'location/src': path}, 'api/srcPath'),
   )
 
   return this

@@ -1,59 +1,97 @@
-import './interfaces'
+import './interface'
 import {Framework} from '@roots/bud-framework'
-import {Item, Module} from '@roots/bud-typings'
-import * as apiFns from './api'
+import {Module} from '@roots/bud-typings'
 
-// Extension identifier
+/**
+ * Enum
+ */
+const TS_GLOB = ['*.ts', '*.tsx', '**/*.ts', '**/*.tsx']
+const WARN_NO_TS = 'No ts found, skipping.'
+
+/**
+ * Extension name
+ */
 export const name: Module['name'] = '@roots/bud-typescript'
 
-// Extension api
-export const api: Module['api'] = apiFns
+/**
+ * Registered devDependencies
+ */
+export const devDependencies: Module['devDependencies'] = [
+  'typescript',
+]
 
-// Extension boot
+/**
+ * Extension config api
+ */
+export * as api from './api'
+
+/**
+ * Boot
+ */
 export const boot: Module['boot'] = ({
-  build,
   disk,
+  publish,
+  subscribe,
   store,
-  hooks,
-  logger,
-}: Framework): void => {
-  const hasTs =
-    disk.glob.sync(['*.ts', '*.tsx', '**/*.ts', '**/*.tsx'], {
-      cwd: disk.path.join(
-        disk.get('project').baseDir,
-        store.get('locations.src'),
-      ),
-    }).length > 0
+  src,
+}: Framework) => {
+  const tsFiles = disk.glob.sync(TS_GLOB, {cwd: src()})
+  const utilized = tsFiles.length > 0
 
-  if (!hasTs) {
-    logger.warn({hasTs, msg: 'No ts found, skipping.'})
+  // If there is no typescript to compile, bounce early.
+  if (!utilized) {
+    // @warning in case this isn't intended
+    disk.logger.warn({
+      message: WARN_NO_TS,
+      suffix: {tsFiles, utilized, TS_GLOB},
+    })
+
     return
   }
 
   // Set regexp pattern for ts
   store.set('patterns.ts', /\.(ts|tsx)$/)
 
-  // Add tsx? to resolvable extensions
-  hooks.on('webpack.resolve.extensions', extensions => [
-    ...extensions,
-    '.ts',
-    '.tsx',
-  ])
-
-  // Set ts-loader
-  build.set('items.ts', {loader: 'ts-loader'})
-
-  // Set ts rules
-  build.set('rules.ts', {
-    test: ({store}: Framework): RegExp =>
-      store.get('patterns.ts'),
-
-    exclude: ({store}: Framework): RegExp =>
-      store.get('patterns.modules'),
-
-    use: ({build}: Framework): Item[] => [
-      build.access('items.cache'),
-      build.access('items.ts'),
-    ],
-  })
+  // Filterable config
+  publish(
+    {
+      // Resolve ts extensions
+      'build/resolve/extensions': e => [...e, '.ts', '.tsx'],
+      // Rule
+      rule: (rule: {[key: string]: Framework['subscribe']}) => ({
+        'rule/ts': subscribe('rule/ts', name),
+        ...rule,
+      }),
+      'rule/ts': () => ({
+        test: subscribe('rule/ts/test', name),
+        exclude: subscribe('rule/ts/exclude', name),
+        use: subscribe('rule/ts/use', name),
+      }),
+      'rule/ts/test': () => store.get('patterns.ts'),
+      'rule/ts/exclude': () => store.get('patterns.modules'),
+      'rule/ts/use': () => [
+        subscribe('item/babel', name),
+        subscribe('item/ts', name),
+      ],
+      // RuleSetUse item
+      'item/ts': () => ({
+        loader: subscribe('item/ts/loader', name),
+        options: subscribe('item/ts/options', name),
+      }),
+      'item/ts/options': () => ({
+        transpileOnly: subscribe(
+          'item/ts/options/transpileOnly',
+        ),
+        happyPackMode: subscribe(
+          'item/ts/options/happyPackMode',
+        ),
+      }),
+      'item/ts/options/happyPackMode': () => true,
+      'item/ts/options/transpileOnly': () => true,
+      'item/ts/loader': () => subscribe('loader/ts', name),
+      // Loader
+      'loader/ts': () => require.resolve('ts-loader'),
+    },
+    name,
+  )
 }

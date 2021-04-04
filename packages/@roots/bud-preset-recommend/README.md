@@ -33,14 +33,20 @@
 yarn add @roots/bud-preset-recommended --dev
 ```
 
-## What's included
+The preset requires `postcss` to be installed in your project. You can install it automatically by passing the `--install` flag along with your first build.
 
-This preset is intentionally minimal so as to serve the masses well.
+```sh
+yarn bud build production --install
+```
 
-- babel (via [@roots/bud-babel](https://github.com/roots/bud/tree/stable/packages/@roots/bud-babel))
-- postcss (via [@roots/bud-postcss](https://github.com/roots/bud/tree/stable/packages/@roots/bud-postcss))
-- Imagemin (via [@roots/bud-imagemin](https://github.com/roots/bud/tree/stable/packages/@roots/bud-imagemin))
-- Terser (via [@roots/bud-terser](https://github.com/roots/bud/tree/stable/packages/@roots/bud-terser))
+You may need to restart the build after installation. But, hopefully not 🤞.
+
+## Usage
+
+```js
+module.exports = (app) =>
+  app.use(require("@roots/bud-preset")).entry("app", ["app.js", "app.css"]);
+```
 
 ## Contributing
 

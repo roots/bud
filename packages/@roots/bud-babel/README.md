@@ -3,16 +3,19 @@
 </p>
 
 <p align="center">
-  <img
-    alt="MIT License"
-    src="https://img.shields.io/github/license/roots/bud?color=%23525ddc&style=flat-square"
-  />
-
+  <img alt="MIT License" src="https://img.shields.io/github/license/roots/bud?color=%23525ddc&style=flat-square">
+  <a href="https://www.npmjs.com/package/@roots/bud-babel">
+    <img src="https://img.shields.io/npm/v/@roots/bud-babel.svg?color=%23525ddc&style=flat-square" />
+  </a>
+  <a href="https://codeclimate.com/github/roots/bud-support/maintainability">
+    <img src="https://img.shields.io/codeclimate/maintainability/roots/bud-support?color=%23525ddc&style=flat-square" />
+  </a>
+  <img alt="Lerna" src="https://img.shields.io/github/lerna-json/v/roots/bud?color=%23525ddc&style=flat-square">
+  <a href="Typescript" src="https://github.com/roots/bud/tree/stable/typings">
+    <img src="https://img.shields.io/badge/typings-%40roots%2Fbud--typings-%23525ddc" />
+  </a>
   <a href="https://twitter.com/rootswp">
-    <img
-      alt="Follow Roots"
-      src="https://img.shields.io/twitter/follow/rootswp.svg?style=flat-square&color=1da1f2"
-    />
+    <img alt="Follow Roots" src="https://img.shields.io/twitter/follow/rootswp.svg?color=%23525ddc&style=flat-square" />
   </a>
 </p>
 
@@ -22,51 +25,145 @@
 
 ## Overview
 
-Extends Bud with Babel.
+> Adds babel support to [@roots/bud](https://github.com/roots/bud/tree/stable/README.md) projects.
+
+- [Installation](#Installation)
+- [Usage](#usage)
+- [Configuration](#configuration)
+  - [Presets](#presets)
+  - [Plugins](#plugins)
+  - [Configuration example](#configuration-example)
+- [Hooks](#hooks)
+  - [Hooks examples](#Examples)
 
 ## Installation
 
-`yarn add @roots/bud-babel --dev`
+```sh
+yarn add @roots/bud-babel --dev
+```
 
 ## Usage
 
 ```js
-bud.use('@roots/bud-babel')
+bud.use("@roots/bud-babel");
 ```
 
 ## Configuration
 
-Babel can either be configured using the `bud` api or with a standard babel config file.
+Out of the box [@roots/bud-babel](https://github.com/roots/bud/tree/stable/packages/@roots/bud-babel) comes with:
 
-### With `bud`
+- `@babel/preset-env`
+- `@babel/plugin-transform-runtime`
+- `@babel/plugin-proposal-object-rest-spread`
+- `@babel/plugin-syntax-dynamic-import`
 
-Add a babel preset:
+If this works for you, great! No need to keep reading. But, if you need something more specialized, there is a configuration utility registered by [@roots/bud-babel](https://github.com/roots/bud/tree/stable/packages/@roots/bud-babel) designed to help you out.
+
+### Presets
+
+Add babel preset:
 
 ```js
-bud.babel.addPreset('@babel/preset-env')
+bud.babel.setPreset("@babel/preset-env");
 ```
+
+Remove babel preset:
+
+```js
+bud.babel.unsetPreset("@babel/preset-env");
+```
+
+Override any preset options:
+
+```js
+bud.babel.setPresetOptions("@babel/preset-env", {
+  /** custom config */
+});
+```
+
+### Plugins
 
 Add a babel plugin:
 
 ```js
-bud.babel.addPlugin('@babel/plugin-transform-runtime')
+bud.babel.setPlugin("@babel/plugin-transform-runtime");
 ```
 
-Set babel-loader options
+Remove a babel plugin:
 
 ```js
-bud.babel.setOptions({root: bud.project()})
+bud.babel.unsetPlugin("@babel/plugin-transform-runtime");
 ```
 
-### With a config file
+Override any plugin options:
 
-Place a `.babelrc` or `babel.config.js` file in your project rootDir, as normal. This configuration file, if present, will overwrite the defaults.
+```js
+bud.babel.setPluginOptions("@babel/plugin-transform-runtime", {
+  helpers: false,
+});
+```
+
+### Configuration example
+
+The implementation used by [@roots/bud-babel](https://github.com/roots/bud/tree/stable/packages/@roots/bud-babel) internally is identical to the one intended for use in bud config files:
+
+```js
+app.babel
+  .setPreset("@babel/preset-env")
+  .setPlugins([
+    "@babel/plugin-transform-runtime",
+    "@babel/plugin-proposal-object-rest-spread",
+    "@babel/plugin-syntax-dynamic-import",
+  ])
+  .setPluginOptions("@babel/plugin-transform-runtime", {
+    helpers: false,
+  });
+```
+
+## Hooks
+
+You can also customize the babel config using hooks registered by [@roots/bud-babel](https://github.com/roots/bud/tree/stable/packages/@roots/bud-babel):
+
+| Hooks                                 | Description                                                                                  |
+| ------------------------------------- | -------------------------------------------------------------------------------------------- |
+| **loader/babel**                      | Babel loader implementation [default: `require.resolve('babel-loader')`]                     |
+| **item/babel**                        | The full babel RuleSetUse definition                                                         |
+| **item/babel/options**                | `babel-loader` options                                                                       |
+| **item/babel/options/root**           | The root directory supplied to `babel-loader` [default: `app.subscribe('location/project')`] |
+| **item/babel/options/cacheDirectory** | The cache directory supplied to `babel-loader`                                               |
+| **item/babel/options/presets**        | Babel presets                                                                                |
+| **item/babel/options/plugins**        | Babel plugins                                                                                |
+
+### Examples
+
+Get a list of all registered presets and their configurations:
+
+```js
+bud.subscribe("item/babel/options/presets");
+```
+
+Override the cache directory:
+
+```js
+bud.publish({
+  "item/babel/options/cacheDirectory": () => bud.project("tmp"),
+});
+```
+
+Modify the plugins (in this case filter out the `@emotion` babel plugin):
+
+```js
+bud.publish({
+  "item/babel/options/plugins": (plugins) =>
+    plugins.filter(([plugin, options]) => plugin !== "@emotion"),
+});
+```
 
 ## Contributing
 
 Contributions are welcome from everyone.
 
-We have [contributing guidelines](https://git.io/JTfPd) to help you get started.
+We have [contributing guidelines](https://github.com/roots/guidelines/blob/master/CONTRIBUTING.md) to help you get started.
 
 ## Bud sponsors
 

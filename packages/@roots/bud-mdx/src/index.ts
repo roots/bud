@@ -1,6 +1,7 @@
 import './interface'
+
 import {Framework} from '@roots/bud-framework'
-import {Module, Webpack} from '@roots/bud-typings'
+import {Module} from '@roots/bud-typings'
 import {MdxConfig} from './api'
 
 /**
@@ -13,40 +14,58 @@ export const name: Module['name'] = '@roots/bud-mdx'
  */
 export const boot: Module['boot'] = (app: Framework) => {
   /**
-   * PostCss configurator.
+   * Mdx config
    */
-  const mdx = new MdxConfig({app})
-
-  Object.assign(app, {mdx})
-
-  /**
-   * Add mdx regex to patterns store
-   */
-  app.store.set('patterns.mdx', /\.mdx$/)
+  Object.assign(app, {
+    mdx: new MdxConfig({app}),
+  })
 
   /**
-   * Resolve mdx extension
+   * RegExp for mdx
    */
-  app.hooks.on<Webpack.Configuration['resolve']['extensions']>(
-    'webpack.resolve.extensions',
-    exts => [...exts, '.mdx'],
-  )
+  app.store
+    .set('patterns.mdx', /\.mdx$/)
 
-  /**
-   * Add @mdx-js/loader
-   */
-  app.build
-    .set('loaders.mdx', require.resolve('@mdx-js/loader'))
-    .set('items.mdx', (app: Framework) => ({
-      loader: app.build.access('loaders.mdx'),
-      options: app.mdx.options,
-    }))
-    .set('rules.mdx', {
-      test: ({store}) => store.get('patterns.mdx'),
-      exclude: ({store}) => store.get('patterns.modules'),
-      use: ({build}: Framework) => [
-        build.access('items.babel'),
-        build.access('items.mdx'),
-      ],
+    /**
+     * loader/mdx
+     */
+    .publish({
+      'loader/mdx': () => require.resolve('@mdx-js/loader'),
     })
+
+    /**
+     * item/mdx
+     */
+    .publish({
+      'item/mdx': (mdx = {}) => ({
+        ...mdx,
+        loader: app.subscribe('item/mdx/loader'),
+        options: app.subscribe('item/mdx/options'),
+      }),
+      'item/mdx/loader': () => app.subscribe('loader/mdx'),
+      'item/mdx/options': () => app.mdx.options,
+    })
+
+    /**
+     * rule/mdx
+     */
+    .publish({
+      'rule/mdx': (mdx = {}) => ({
+        ...mdx,
+        test: ({store}) => store.get('patterns.mdx'),
+        exclude: ({store}) => store.get('patterns.modules'),
+        use: ({subscribe}: Framework) => [
+          subscribe('item/babel'),
+          subscribe('item/mdx'),
+        ],
+      }),
+    })
+
+    /**
+     * .mdx extension
+     */
+    .hooks.on(
+      'build/resolve/extensions',
+      (exts: `.${string}`[]) => [...exts, '.mdx'],
+    )
 }

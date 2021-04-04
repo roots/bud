@@ -1,4 +1,5 @@
-import {Webpack, isNull} from '@roots/bud-support'
+import {Webpack, isUndefined} from '@roots/bud-support'
+import {Module} from '@roots/bud-typings'
 import Extension from './Extension'
 import Service from './Service'
 
@@ -9,13 +10,12 @@ import Service from './Service'
  *
  * [🏡 Project home](https://roots.io/bud)
  * [🧑‍💻 roots/bud](https://github.com/roots/bud/blob/stable/README.md)
- * [📦 @roots/bud-extensions](https://github.com/roots/bud/blob/stable/packages/bud-extension/readme.md)
  */
 export default class extends Service {
   /**
    * Service ident.
    */
-  public name = 'extensions'
+  public name = '@roots/bud-extensions'
 
   /**
    * Service register.
@@ -25,35 +25,28 @@ export default class extends Service {
     this.add = this.add.bind(this)
     this.use = this.use.bind(this)
     this.make = this.make.bind(this)
-    this.makeAll = this.makeAll.bind(this)
+    this.discard = this.discard.bind(this)
   }
 
   /**
    * Service boot
    */
   public boot(): void {
-    this.every((name, extension) => {
-      return this.add(name, extension)
+    this.every((name: string, extension: Module) => {
+      return this.add(extension)
     })
   }
 
   /**
    * Add an extension
    */
-  public add(name, extension: Extension): void {
-    this.info({msg: 'Adding extension'})
+  public add(extension: Module): void {
+    this.log(`Adding extension: %s`, extension.name)
 
     this.set(
-      name,
-      new Extension(this.app.get, extension)._register()._boot(),
+      extension.name,
+      new Extension(this.app, extension).register().boot(),
     )
-  }
-
-  /**
-   * Make an extension
-   */
-  public make(request: string): Webpack.Plugin | null {
-    return this.get(request).makePlugin()
   }
 
   /**
@@ -61,21 +54,16 @@ export default class extends Service {
    *
    * Returns a webpack-ready array
    */
-  public makeAll(): Webpack.Plugin[] {
+  public make(): Webpack.Plugin[] {
     const plugins = this.getKeys()
-      .map(name =>
-        this.app.hooks.filter<Webpack.Plugin>(
-          `webpack.plugins.${name}`,
-          this.get(name)?.makePlugin ? this.make(name) : null,
-        ),
-      )
-      .filter(ext => !isNull(ext)) as Webpack.Plugin[]
+      .map(name => this.get(name).make)
+      .filter(ext => !isUndefined(ext)) as Webpack.Plugin[]
 
     return plugins
   }
 
   /**
-   * Register an extension from a pkg name (string) [🏠 Internal]
+   * Register an extension from a pkg name
    */
   public use(pkg: string): this {
     const path = require.resolve(pkg)
@@ -84,11 +72,14 @@ export default class extends Service {
       baseDir: path,
     })
 
-    this.add(pkg, require(path))
+    this.add(require(path))
 
     return this
   }
 
+  /**
+   * Discard a registered extension
+   */
   public discard(pkg: string): Service['app'] {
     this.remove(pkg)
     this.app.disk.remove(pkg)

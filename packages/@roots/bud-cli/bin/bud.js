@@ -1,12 +1,6 @@
 #!/usr/bin/env node
 
-const {CLI} = require('../lib/cjs/CLI')
-const {commands} = require('../lib/cjs/commands')
-const {bud: app} = require('@roots/bud')
+const {bud} = require('@roots/bud')
+const {CLI} = require('@roots/bud-cli')
 
-new CLI({
-  name: 'bud',
-  projectUrl: 'https://github.com/roots/bud',
-  app,
-  commands,
-}).invoke()
+new CLI(bud).boot()

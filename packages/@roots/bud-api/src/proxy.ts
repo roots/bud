@@ -1,6 +1,6 @@
 import {Framework} from '@roots/bud-framework'
 import {Server} from '@roots/bud-typings'
-import {isUndefined} from 'lodash'
+import {isBoolean, isUndefined} from 'lodash'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -47,36 +47,72 @@ declare module '@roots/bud-framework' {
       /**
        * Hostname of the proxy target
        */
-      host?: Server.Options['proxy']['host']
+      host?: Server.Configuration['proxy']['host']
 
       /**
        * Port of the proxy target
        */
-      port?: Server.Options['proxy']['port']
+      port?: Server.Configuration['proxy']['port']
     }) => Framework
   }
 }
 
 export const proxy: Framework.Api.Proxy = function (config) {
   /**
-   * In the case of no config enable the default
-   * proxy and return the builder.
+   * Case: no config passed
+   * Response: enable proxy and bounce
    */
   if (isUndefined(config)) {
-    this.store.set('server.middleware.proxy', true)
+    /**
+     * Allow --server.middleware.proxy to override
+     */
+    !this.store.has('args.server.middleware.proxy') &&
+      /**
+       * Enable proxy
+       */
+      this.server.config.set('middleware.proxy', true)
 
+    /** @exit */
     return this
   }
 
+  /**
+   * Case: config.enabled is explicitly set
+   * Response: enable proxy, delete property from config
+   */
   if (!isUndefined(config.enabled)) {
-    this.store.set('server.middleware.proxy', config.enabled)
+    if (!isBoolean(config.enabled)) {
+      this.dashboard.error(
+        'Attempt to set proxy enabled to a non boolean value.',
+      )
+      process.exit()
+    }
+
+    /**
+     * Allow --server.middleware.proxy to override
+     */
+    !this.store.has('args.server.middleware.proxy') &&
+      this.server.config.set('middleware.proxy', config.enabled)
 
     delete config.enabled
+    /**
+     * Case: config.enable is not explicitly set but other config items were
+     * Response: enable proxy
+     */
   } else {
-    this.store.set('server.middleware.proxy', true)
+    /**
+     * Allow --server.middleware.proxy to override
+     */
+    !this.store.has('args.server.middleware.proxy') &&
+      this.server.config.set('middleware.proxy', true)
   }
 
-  this.store.merge(`server.proxy`, config)
+  /**
+   * Fallthrough
+   * Allow --server.proxy to override
+   */
+  !this.store.has('args.server.proxy') &&
+    this.server.config.merge(`proxy`, config)
 
   return this
 }

@@ -1,11 +1,8 @@
 import './alias'
 export {alias} from './alias'
 
-import './config'
-export {config} from './config'
-
-import './copy'
-export {copy} from './copy'
+import './assets'
+export {assets} from './assets'
 
 import './define'
 export {define} from './define'
@@ -49,6 +46,9 @@ export {proxy} from './proxy'
 import './publicPath'
 export {publicPath} from './publicPath'
 
+import './run'
+export {run} from './run'
+
 import './src'
 export {src} from './src'
 
@@ -61,8 +61,8 @@ export {runtime} from './runtime'
 import './storage'
 export {storage} from './storage'
 
-import './string'
-export {string} from './string'
+import './use'
+export {use} from './use'
 
 import './html'
 export {html} from './html'

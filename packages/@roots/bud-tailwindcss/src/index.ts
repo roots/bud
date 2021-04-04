@@ -7,13 +7,35 @@ import {tailwind} from './api'
 export const name: Module['name'] = '@roots/bud-tailwindcss'
 
 // Dependencies
-export const devDependencies = ['tailwindcss']
+export const devDependencies = [
+  'tailwindcss',
+  '@tailwindcss/jit',
+]
 
 // Extension config
 export const api: Module['api'] = {tailwind}
 
 // Boot extension
 export const boot: Module['boot'] = (app: Framework) => {
-  if (app.disk.get('project').has('postcss.config.js')) return
-  app.tailwind()
+  const implementation = require.resolve('@tailwindcss/jit')
+    ? '@tailwindcss/jit'
+    : require.resolve('tailwindcss')
+    ? 'tailwindcss'
+    : null
+
+  if (!implementation) {
+    app.dashboard.error(
+      'You must install tailwindcss or @tailwindcss/jit in order for @roots/bud-tailwindcss to function',
+    )
+  }
+
+  app.store.set(
+    'options.tailwindcss.implementation',
+    implementation,
+  )
+
+  app.tailwind(
+    null,
+    app.store.get('options.tailwindcss.implementation'),
+  )
 }

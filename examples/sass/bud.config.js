@@ -1,9 +1,14 @@
-// @ts-check
-const {
-  app,
-} = require('./../../packages/@roots/bud-preset-recommend')
+/**
+ * Sass configuration example
+ *
+ * @typedef {import('@roots/bud').Bud} Bud
+ * @type {(bud: Bud): Bud}
+ */
 
-app
-  .use(require('@roots/bud-sass'))
-  .entry('app', ['app.scss'])
-  .run()
+module.exports = app =>
+  app
+    .use([
+      require('@roots/bud-postcss'),
+      require('../../node_modules/@roots/bud-sass'),
+    ])
+    .entry('app', ['app.scss'])

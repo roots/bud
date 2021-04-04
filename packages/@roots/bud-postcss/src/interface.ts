@@ -1,4 +1,11 @@
-import '@roots/bud-framework'
+import {Module} from '@roots/bud-framework'
+import {Signale} from '@roots/bud-support'
+
+export declare const name: Module['name']
+export declare const devDependencies: Module['devDependencies']
+export declare const api: Module['api']
+export declare const publish: Module['publish']
+export declare const boot: Module['boot']
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -10,24 +17,36 @@ declare module '@roots/bud-framework' {
     postcss: Framework.PostCss
   }
 
+  namespace Framework.Hooks {
+    namespace Extension {
+      interface Definitions {
+        '@roots/bud-postcss': Framework.Module
+      }
+    }
+    namespace Loader {
+      interface Definitions {
+        postcss: Framework.Hooks.Loader.Subject
+      }
+    }
+
+    namespace Item {
+      interface Definitions {
+        postcss: Framework.Hooks.Item.Subject
+      }
+    }
+  }
+
   namespace Framework {
     interface PostCss {
       /**
-       * ## postcss.enable
+       * ## postcss.log
        */
-      enable: PostCss.Enable
+      logger: Signale
 
       /**
-       * ## postcss.disable
+       * ## postcss.hasProjectConfig
        */
-      disable: PostCss.Disable
-
-      /**
-       * ## postcss.options
-       *
-       * Get the postcss options as set
-       */
-      options: PostCss.Options
+      hasProjectConfig: boolean
 
       /**
        * ## postcss.plugins
@@ -37,11 +56,11 @@ declare module '@roots/bud-framework' {
       plugins: PostCss.Registry
 
       /**
-       * ## postcss.enabled
+       * ## postcss.ordered
        *
-       * Enabled plugins
+       * Specific order of plugins
        */
-      enabled: string[]
+      order: string[]
 
       /**
        * ## postcss.addPlugin
@@ -54,44 +73,45 @@ declare module '@roots/bud-framework' {
        * bud.postcss.addPlugin(MyPlugin, {plugin: 'options'})
        * ```
        */
-      setPlugin: PostCss.SetPlugin
+      set: (plugin: Framework.PostCss.Registrable) => this
 
       /**
        * ## postcss.setPluginOptions
        */
-      setPluginOptions: (plugin: string, options: any) => PostCss
+      setOptions: (plugin: string, options: any) => this
 
       /**
-       * ## postcss.mutatePluginOptions
+       * ## postcss.order
+       *
+       * Provide a specific order to load plugins
        */
-      mutatePluginOptions: (
-        plugin: string,
-        mutationFn: (options: any) => any,
-      ) => PostCss
+      setOrder: (order: string[]) => this
+
+      /**
+       * ## postcss.makePluginsConfig
+       *
+       * Output final plugins config for postcss
+       */
+      makeConfig: () => any
     }
 
     namespace PostCss {
       type SetPlugin = (
         plugin: Framework.PostCss.Registrable,
-      ) => PostCss
+      ) => unknown
 
       type Options = {
         plugins?: Plugin[]
         config?: boolean | string
       }
 
-      type Plugin = string | [string, any] | CallableFunction
+      type Plugin = CallableFunction
 
-      type Enable = (enable: string[]) => Framework
-      type Disable = (plugins: string[]) => Framework
-
-      type Registrable = string | [string, any]
-
-      type RegistryMutagen = (plugins: Registry) => Registry
-
-      interface Registry {
-        [key: string]: Plugin
-      }
+      type Registrable = [string, any] | string
+      type Registry = {[key: string]: any}
+      type RegistryMutagen = (
+        plugins: Registrable,
+      ) => Registrable
     }
   }
 }

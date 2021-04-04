@@ -1,10 +1,17 @@
-// @ts-check
-const {
-  app,
-} = require('./../../packages/@roots/bud-preset-recommend')
+/**
+ * Tailwind configuration example
+ *
+ * @typedef {import('@roots/bud').Bud & import('@roots/bud-framework').Framework} Bud
+ * @type {(bud: Bud): Bud}
+ */
 
-app
-  .devtool()
-  .use(require('@roots/bud-tailwindcss'))
-  .entry('bud-tailwind', ['app.css', 'app.js'])
-  .run()
+module.exports = bud =>
+  bud
+    .use([
+      require('@roots/bud-babel'),
+      require('@roots/bud-postcss'),
+      require('@roots/bud-tailwindcss'),
+      require('@roots/bud-react'),
+    ])
+    .entry({app: ['app.css', 'app.js']})
+    .html()

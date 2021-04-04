@@ -24,13 +24,17 @@ declare module '@roots/bud-framework' {
   }
 }
 
-type Define = (
-  this: Framework,
-  values: Webpack.DefinePlugin.CodeValueObject,
-) => Framework
+type Define = (values: {
+  [key: string]: Webpack.DefinePlugin.CodeValueObject
+}) => Framework
 
 export const define: Define = function (values) {
-  this.extensions.set('webpack-define-plugin.options', values)
+  this.publish({
+    'extension/webpack-define-plugin/options': existant => ({
+      ...existant,
+      ...values,
+    }),
+  })
 
   return this
 }

@@ -20,25 +20,22 @@ declare module '@roots/bud-framework' {
   }
 
   namespace Framework.Api {
-    export type DistPath = (
-      this: Framework,
-      segment: string,
-    ) => Framework
+    export type DistPath = (segment: string) => Framework
   }
 }
 
 export const distPath: Framework.Api.DistPath = function (
   segment,
 ) {
-  /** Bounce early if dist is overwritten from CLI */
-  if (this.store.isString('args.dist')) return this
-
-  this.store.set(
-    'locations.dist',
-    isEqual(segment.split('').pop(), '/')
-      ? segment
-      : `${segment}/`,
-  )
+  !this.store.has('args.dist') &&
+    this.publish(
+      {
+        'location/dist': isEqual(segment.split('').pop(), '/')
+          ? segment
+          : `${segment}/`,
+      },
+      'api/distPath',
+    )
 
   return this
 }

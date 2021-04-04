@@ -1,21 +1,17 @@
-// @ts-check
-const {
-  app,
-} = require('../../packages/@roots/bud-preset-recommend')
+/**
+ * React configuration example
+ *
+ * @typedef {import('@roots/bud').Bud} Bud
+ * @type {(bud: Bud): Bud}
+ */
 
-app
-  .when(
-    app.isDevelopment,
-    ({use}) => use([require('@roots/bud-react')]),
-    ({use}) =>
-      use(require('@roots/bud-esbuild'))
-        .esbuild.jsx()
-        .hash()
-        .minify(),
-  )
-  .use([require('@roots/bud-emotion')])
-  .html({
-    template: 'public/index.html',
-  })
-  .entry({app: 'app.{js,css}'})
-  .run()
+module.exports = bud =>
+  bud
+    .use([
+      require('@roots/bud-babel'),
+      require('@roots/bud-postcss'),
+      require('@roots/bud-react'),
+      require('@roots/bud-emotion'),
+    ])
+    .html({enabled: true})
+    .entry('app', 'app.{js,css}')

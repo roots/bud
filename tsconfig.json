@@ -13,10 +13,10 @@
     "moduleResolution": "node",
     "module": "commonjs",
     "noUnusedLocals": true,
-    "noEmitOnError": false,
+    "noEmitOnError": true,
     "sourceMap": true,
     "skipLibCheck": true,
-    "target": "ES6",
+    "target": "es2015",
     "strict": false
   },
   "base": "packages/@roots",

@@ -4,9 +4,8 @@ import {ValueOf} from 'type-fest'
 /**
  * Indexed container value store.
  */
-export type Repository<I = any> = {
-  [key: string]: I
-  [key: number]: I
+export type Repository = {
+  [key: string]: any
 }
 
 /**
@@ -113,7 +112,9 @@ export class Container<I = any> {
    * ```
    */
   public mutateStore(mutationFn: (value?: I) => I): this {
-    this.setStore(this.transformStore(mutationFn))
+    const transform = this.transformStore(mutationFn)
+
+    this.setStore(transform)
 
     return this
   }
@@ -266,11 +267,17 @@ export class Container<I = any> {
     return this
   }
 
-  public findKey(...searchItem: any): any {
+  /**
+   * Find
+   */
+  public find(...searchItem: any): any {
     return _.findKey(this.repository, ...searchItem)
   }
 
-  public findKeyOf(
+  /**
+   * Find in container item
+   */
+  public findIn(
     key: string | number,
     ...searchItem: any[]
   ): any {
@@ -367,12 +374,10 @@ export class Container<I = any> {
    *
    * ```js
    * container.getMap('item')
-   * // => returns a map of container.repository[item]
    * ```
    *
    * ```js
    * container.getMap()
-   * // => returns a map of container.repository
    * ```
    */
   public getMap(key?: string): Map<string, any> {

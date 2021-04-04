@@ -1,3 +1,6 @@
+import '@roots/bud-api'
+import '@roots/bud-dashboard'
+
 import {Framework} from '@roots/bud-framework'
 import Builder, {Help} from 'commander'
 
@@ -7,13 +10,6 @@ export interface Output {
   config: Builder.OutputConfiguration
 }
 
-export interface CLIConstructor {
-  name?: string
-  projectUrl?: string
-  app?: Framework
-  commands?: Command.Newable[]
-}
-
 export interface CLI {
   app: Framework
 
@@ -21,21 +17,9 @@ export interface CLI {
 
   description: string
 
-  projectUrl: string
-
   instance: Builder.Command
 
   output: Output
-
-  cwd: string
-
-  commands: Command.Newable[]
-
-  merge(commands: Command.Newable[]): void
-
-  invoke(): void
-
-  mast(): this
 }
 
 export interface Command {
@@ -63,17 +47,8 @@ export interface Command {
 }
 
 export namespace Command {
-  export type Option = {
-    flags: string
-    description: string
-    default?: string | boolean
-    choices?: string[]
-    optional?: boolean
-    usage?: string[]
-  }
-
   export type Options = {
-    [key: string]: Option
+    [key: string]: any
   }
 
   export type Index = {

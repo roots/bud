@@ -25,10 +25,13 @@ declare module '@roots/bud-framework' {
   }
 }
 
-type Dev = (config: Server.Options) => Framework
+type Dev = (config?: Server.Configuration) => Framework
 
 export const dev: Dev = function (config) {
-  this.store.merge('server', config)
+  this.server.config.mutateStore(store => ({
+    ...store,
+    ...config,
+  }))
 
   return this
 }

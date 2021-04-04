@@ -3,25 +3,19 @@ import {Instance, Service} from './'
 
 interface Dashboard extends Service {
   /**
-   * Service ident
+   * Service name
    */
   name: any
 
+  /**
+   * Instance
+   */
   dashboard: Instance
 
   /**
    * Register service
    */
   register(): void
-  /**
-   * Mount CLI
-   */
-  run(): void
-
-  /**
-   * Unmount CLI
-   */
-  kill(): void
 
   /**
    * Mount CLI
@@ -29,12 +23,17 @@ interface Dashboard extends Service {
   run(): void
 
   /**
+   * Render error
+   */
+  renderError(body: string, title: string): Instance
+
+  /**
    * Unmount CLI
    */
   kill(): void
 
   /**
-   * Redner
+   * Render
    */
   render: typeof render
 }

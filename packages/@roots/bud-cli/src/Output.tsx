@@ -1,23 +1,12 @@
-import {
-  React,
-  Box,
-  BigText,
-  Text,
-  render,
-  Gradient,
-} from '@roots/bud-support'
+import {React, Text, render, Gradient} from '@roots/bud-support'
 import Commander from 'commander'
-import {formatHelp} from './Help'
+import {Layout} from './Layout'
 
 export default class Output {
   public instance: Commander.Command
   public name: string
 
   public constructor(name: string, instance: Commander.Command) {
-    this.instance = instance.configureHelp({
-      formatHelp,
-    })
-
     this.name = name
   }
 
@@ -33,46 +22,20 @@ export default class Output {
 
   public writeOut(str: string) {
     return render(
-      <Box
-        display="flex"
-        flexDirection="column"
-        justifyContent="flex-start">
-        <Gradient name="teen">
-          <BigText font="tiny" text={this.name} />
-        </Gradient>
-
-        <Box
-          display="flex"
-          flexDirection="column"
-          justifyContent="flex-start"
-          paddingX={1}>
-          <Text>{str}</Text>
-        </Box>
-      </Box>,
+      <Layout name={this.name}>
+        <Text>{str}</Text>
+      </Layout>,
     )
   }
 
   public writeErr(str: string) {
     return render(
-      <Box
-        display="flex"
-        flexDirection="column"
-        justifyContent="flex-start">
-        <Gradient name="teen">
-          <BigText font="tiny" text={this.name} />
+      <Layout name={this.name}>
+        <Gradient name="morning">
+          <Text>{str}</Text>
         </Gradient>
-
-        <Box
-          display="flex"
-          flexDirection="column"
-          justifyContent="flex-start"
-          paddingX={1}>
-          <Gradient name="morning">
-            <Text>{str}</Text>
-          </Gradient>
-          <Text>{this.instance.helpInformation()}</Text>
-        </Box>
-      </Box>,
+        <Text>{str}</Text>
+      </Layout>,
     )
   }
 }

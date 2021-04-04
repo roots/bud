@@ -7,17 +7,9 @@ export interface CLI {
 
   description: string
 
-  projectUrl: string
-
   instance: Builder.Command
 
   output: Output
-
-  cwd: string
-
-  commands: Command.Newable[]
-
-  merge(commands: Command.Newable[])
 
   invoke(): void
 

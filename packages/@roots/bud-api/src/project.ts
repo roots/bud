@@ -26,7 +26,7 @@ declare module '@roots/bud-framework' {
   }
 
   namespace Framework.Api {
-    type Project = (this: Framework, path?: string) => string
+    type Project = (path?: string) => string
   }
 }
 
@@ -35,8 +35,8 @@ export const project: Framework.Api.Project = function (
 ) {
   return segment
     ? this.disk.path.posix.join(
-        this.store.get('locations.project'),
+        this.subscribe('location/project'),
         segment,
       )
-    : this.store.get('locations.project')
+    : this.subscribe('location/project')
 }

@@ -1,18 +1,12 @@
-// @ts-check
-const {
-  app,
-} = require('./../../packages/@roots/bud-preset-recommend')
-
 /**
- * This is specific for the Bud monorepo only.
+ * ESBuild configuration example
  *
- * You do not need to include this hook in your project
- * configuration file.
+ * @typedef {import('@roots/bud').Bud} Bud
+ * @type {(bud: Bud): Bud}
  */
-app.hooks.on('webpack.resolve.modules', modules => {
-  return [...modules, app.project('./../../node_modules')]
-})
 
-app.use([require('@roots/bud-esbuild')])
-app.entry('scripts/app', '*.{js,jsx,ts,tsx}')
-app.run()
+module.exports = app =>
+  app
+    .use(require('@roots/bud-esbuild'))
+    .html({enabled: true})
+    .entry('scripts/app', 'app.js')

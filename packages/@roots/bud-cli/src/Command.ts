@@ -1,9 +1,54 @@
 import {CLI} from './CLI'
+import {Help} from 'commander'
+
+interface Contract {
+  name: string
+
+  description: string
+
+  cli: CLI
+
+  usage: string
+
+  subcommands?: (new (cli) => Command)[]
+
+  help?: Help
+
+  arguments?: {[key: string]: string}
+
+  options?: {
+    [key: string]: any
+  }
+
+  signature?: string
+
+  action(...args: any[]): void | Promise<void>
+
+  has(query: string | string[]): boolean
+}
+
+export {Command}
+
+namespace Command {
+  export type Options = {
+    [key: string]: any
+  }
+
+  export type Index = {
+    [key: string]: Command
+  }
+
+  export type Newable = new (cli: CLI) => Command
+
+  export type Declaration = {
+    [key: string]: Newable
+  }
+}
 
 /**
  * Command base class
  */
-export default abstract class Command {
+abstract class Command implements Contract {
   /**
    * Command handle
    */
@@ -27,27 +72,22 @@ export default abstract class Command {
   /**
    * Index of positional arguments
    */
-  public arguments: {[key: string]: string} = {}
+  public arguments?: {[key: string]: string} = {}
 
   /**
    * Index of flags
    */
-  public options: {
-    [key: string]: {
-      [key: string]: any
-    }
-  }
+  public options?: Command.Options
 
   /**
    * Command signature
-   * @example '[arg] [arg2]'
    */
-  public signature: string = ''
+  public signature?: string = ''
 
   /**
    * Run action handler
    */
-  public abstract action(...args: any[]): void | Promise<void>
+  public action(...args: any[]): void | Promise<void> {}
 
   /**
    * Constructor
@@ -68,6 +108,9 @@ export default abstract class Command {
     )
   }
 
+  /**
+   * Usage
+   */
   public get usage() {
     return this._usage ?? this.signature
   }

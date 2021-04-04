@@ -1,24 +1,15 @@
-// @ts-check
-const {bud} = require('./../../packages/@roots/bud')
-
 /**
- * This is specific for the Bud monorepo only.
+ * Babel configuration example
  *
- * You do not need to include this hook in your project
- * configuration file.
+ * @typedef {import('@roots/bud').Bud} Bud
+ * @type {(bud: Bud): Bud}
  */
-bud.hooks.on('webpack.resolve.modules', modules => {
-  return [...modules, bud.project('./../../node_modules')]
-})
 
-bud.srcPath('src')
-
-bud.use([require('@roots/bud-babel')])
-
-bud
-  .entry({
-    'scripts/app': '*.{js,jsx,ts,tsx}',
-  })
-  .entry('styles/app', '*.{css,scss}')
-
-bud.run()
+module.exports = bud =>
+  bud
+    .use(require('@roots/bud-babel'))
+    .html({enabled: true})
+    .entry({
+      'scripts/app': '*.js',
+      'styles/app': '*.css',
+    })

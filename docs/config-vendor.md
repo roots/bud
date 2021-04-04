@@ -12,16 +12,6 @@ Bundle vendored modules separately from application code.
 bud.vendor()
 ```
 
-## Signature
-
-```ts
-function (): Bud
-```
-
-## Returns
-
-`Bud`: The Bud instance
-
 ## Related
 
 - [bud.runtime](config-runtime.md)

@@ -1,27 +1,47 @@
 import {Framework} from '@roots/bud-framework'
 
 export const tailwind: Framework.Tailwind.Configure = function (
-  config = null,
+  config: Omit<Framework.Tailwind.Config, null> = null,
+  implementation:
+    | 'tailwindcss'
+    | '@tailwindcss/jit' = 'tailwindcss',
 ) {
-  this.postcss.setPlugin([
-    'tailwindcss',
-    require('tailwindcss')(config),
-  ])
+  /**
+   * Lock down our config
+   */
+  config = config ?? this.postcss.plugins[implementation]
 
-  const enabled = this.postcss.enabled
-  const usingPostCssImport = enabled.includes('postcss-import')
+  /**
+   * Set plugin
+   */
+  this.postcss.set([implementation, config])
 
-  this.postcss.enable(
-    usingPostCssImport
-      ? (() => {
-          const i = enabled.indexOf('postcss-import') + 1
-          const pre = enabled.slice(0, i)
-          const post = enabled.slice(i)
-
-          return [...pre, 'tailwindcss', ...post]
-        })()
-      : [...enabled, 'tailwindcss'],
+  /**
+   * Undo auto-ordering
+   */
+  this.postcss.setOrder(
+    this.postcss.order.filter(
+      k => k !== 'tailwindcss' && k !== '@tailwindcss/jit',
+    ),
   )
+
+  /**
+   * Update order
+   */
+  if (this.postcss.order.includes('postcss-import')) {
+    this.postcss.setOrder([
+      ...this.postcss.order.splice(
+        0,
+        this.postcss.order.indexOf('postcss-import') + 1,
+      ),
+      implementation,
+      ...this.postcss.order,
+    ])
+
+    return this
+  }
+
+  this.postcss.setOrder([implementation, ...this.postcss.order])
 
   return this
 }

@@ -1,152 +1,134 @@
-import {bud, Bud} from '@roots/bud'
+import {Sage} from './interface'
+import {projectInfo} from './util'
+
 import * as babel from '@roots/bud-babel'
-import * as esbuild from '@roots/bud-esbuild'
-import * as postcss from '@roots/bud-postcss'
-import * as react from '@roots/bud-react'
-import * as tailwindcss from '@roots/bud-tailwindcss'
-import * as typescript from '@roots/bud-typescript'
-import * as eslint from '@roots/bud-eslint'
-import * as prettier from '@roots/bud-prettier'
-import * as stylelint from '@roots/bud-stylelint'
-import * as entrypoints from '@roots/bud-entrypoints'
 import * as dependencies from '@roots/bud-wordpress-dependencies'
+import * as entrypoints from '@roots/bud-entrypoints'
 import * as externals from '@roots/bud-wordpress-externals'
+import * as esbuild from '@roots/bud-esbuild'
+import * as eslint from '@roots/bud-eslint'
 import * as manifests from '@roots/bud-wordpress-manifests'
+import * as postcss from '@roots/bud-postcss'
+import * as prettier from '@roots/bud-prettier'
+import * as react from '@roots/bud-react'
+import * as tailwind from '@roots/bud-tailwindcss'
+import * as typescript from '@roots/bud-typescript'
+import * as stylelint from '@roots/bud-stylelint'
 
 /**
- * Bud preset: @roots/sage
+ * Sage theme preset
  */
-export type Sage = Bud
-export const sage: Sage = (sage =>
-  sage
+export const sage: Sage.Preset = sage => {
+  const {env, use, isProduction} = sage
+  const {deps, files} = projectInfo(sage)
 
+  // prettier-ignore
+  sage
     /**
      * Artifacts/cache store
-     *
-     * Set to Acorn standard location
      */
-    .storage('storage/bud')
+    .when(
+      !env.has('APP_STORAGE'),
+      () => sage.storage('storage/bud'),
+    )
 
     /**
      * Src path
      */
-    .srcPath('resources')
+    .when(
+      !env.has('APP_SRC'),
+      () => sage.srcPath('resources'),
+    )
 
     /**
      * Dist path
      */
-    .distPath('public')
+    .when(
+      !env.has('APP_DIST'),
+      () => sage.distPath('public'),
+    )
 
     /**
      * Public path
      */
     .when(
-      ({env}: Bud) => env.has('APP_PUBLIC_PATH'),
-      ({publicPath, env}: Bud) =>
-        publicPath(env.get('APP_PUBLIC_PATH')),
+      !env.has('APP_PUBLIC_PATH'),
+      () => sage.publicPath('public/'),
     )
 
     /**
-     * Set CSS urls to be relative
+     * Webpack path Aliases
      */
-    .config({css: {relativeUrls: true}})
+    .alias({
+      '@fonts': sage.src('fonts'),
+      '@images': sage.src('images'),
+      '@scripts': sage.src('scripts'),
+      '@styles': sage.src('styles'),
+    })
 
     /**
+     * Disable generation of HTML template
+     */
+    .html({enabled: false})
+
+    /**
+     * Webpack provide
+     */
+    .provide({jquery: ['$', 'jQuery']})
+
+    /**
+     * Conditionally loaded extensions
+     */
+    .when(deps.includes('postcss'), () => use(postcss))
+    .when(deps.includes('tailwindcss'), () => use(tailwind))
+    .when(files.includes('.eslintrc.js'), () => use(eslint))
+    .when(files.includes('.stylelintrc'), () => use(stylelint))
+    .when(files.includes('.prettierrc'), () => use(prettier))
+
+    /**
+     * Transpiler and extensions
+     *
      * ESBuild doesn't support HMR. it is purely a transpiler.
      *
      * - snowpack & vite each have their own HMR solutions.
-     * - snowpack provides their solution as an
-     *   [ESM spec proposal](https://github.com/snowpackjs/esm-hmr)
-     * - [Related article from Dan Abramov](https://medium.com/@dan_abramov/hot-reloading-in-react-1140438583bf)
+     * - snowpack published [this proposal](https://git.io/JYUVM)
+     * - [Related](https://medium.com/@dan_abramov/hot-reloading-in-react-1140438583bf)
      *
-     * Losing hmr in development is not worth the theoretical
-     * lost time in dev, for most users.
-     *
-     * Thus, Sage uses esbuild in production, and babel/hmr in development.
+     * Losing HMR in dev is not worth the ESBuild advantages.
+     * Thus, Sage uses esbuild in production, and babel in development.
      */
     .when(
-      ({isDevelopment}) => isDevelopment,
-      ({use}: Sage) => use(typescript).use(babel).use(react),
-      ({use}: Sage) => use(esbuild).esbuild.jsx(),
+      isProduction,
+      () => sage
+        .use(esbuild).esbuild.jsx()
+        .minify()
+        .hash()
+        .vendor()
+        .runtime('single'),
+
+      () => sage
+        .use(babel)
+        .when(deps.includes('typescript'), () => use(typescript))
+        .when(deps.includes('react'), () => use(react))
+        .proxy()
+        .devtool('eval')
     )
 
     /**
-     * General extensions
+     * Manifests
      */
-    .use([
-      /**
-       * Style transpilation
-       */
-      postcss,
-      tailwindcss,
+    .use([entrypoints, dependencies, externals, manifests])
 
-      /**
-       * Linting
-       */
-      eslint,
-      prettier,
-      stylelint,
+  /**
+   * Relativize url imports
+   */
+  sage.hooks.on('item/minicss/options/publicPath', () =>
+    sage.disk.path.posix.normalize(
+      sage.disk.path.posix.dirname(
+        sage.disk.path.posix.relative(sage.dist(), sage.src()),
+      ),
+    ),
+  )
 
-      /**
-       * Manifests
-       */
-      entrypoints,
-      dependencies,
-      externals,
-      manifests,
-    ])
-
-    /**
-     * Sage webpack aliases
-     */
-    .alias({
-      '@fonts': 'fonts',
-      '@images': 'images',
-      '@scripts': 'scripts',
-      '@styles': 'styles',
-    })
-
-    /**
-     * Provide
-     */
-    .provide({
-      jquery: ['$', 'jQuery'],
-    })
-
-    /**
-     * Additional options
-     */
-    .when(
-      ({isProduction}) => isProduction,
-
-      /**
-       * Production
-       */
-      (sage: Sage) => {
-        sage.minify().hash().vendor().runtime('single')
-      },
-
-      /**
-       * Development
-       */
-      ({env, proxy, dev, devtool}) => {
-        dev({
-          host: env.has('APP_HOST')
-            ? env.get('APP_HOST')
-            : 'localhost',
-          port: env.has('APP_PORT') ? env.get('APP_PORT') : 3000,
-        })
-
-        proxy({
-          host: env.has('APP_PROXY_HOST')
-            ? env.get('APP_PROXY_HOST')
-            : 'localhost',
-          port: env.has('APP_PROXY_PORT')
-            ? env.get('APP_PROXY_PORT')
-            : 8000,
-        })
-
-        devtool()
-      },
-    )
-    .html(false))(Object.assign(bud, {name: 'sage'}))
+  return sage
+}

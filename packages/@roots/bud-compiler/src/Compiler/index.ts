@@ -59,8 +59,8 @@ export default class extends Service implements Compiler {
   /**
    * Compile
    */
-  public compile(): Webpack.Compiler {
-    return (this.instance = webpack(this.app.build.make()))
+  public compile(conf): Webpack.Compiler {
+    return (this.instance = webpack(conf))
   }
 
   /**

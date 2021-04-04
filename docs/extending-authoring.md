@@ -26,7 +26,9 @@ If your extension is under an npm organizational scope, that is fine. Your exten
 
 ## TypeScript
 
-Bud is a TypeScript project but knowing Typescript is not required to write an extension. But, we think that Typescript does make it easier to write extensions. A Bud extension is a great first TS project.
+Bud is a TypeScript project but knowing Typescript is not required to write an extension. That said, we think that Typescript does make it easier to write extensions and provides value to the user of your extension. A Bud extension is a great first TS project.
+
+You can import the `Module` type from `@roots/bud-framework`.
 
 ## The API
 
@@ -37,7 +39,7 @@ This is used to identify your extension when it is imported or required.
 This is technically the only required element of a bud extension.
 
 ```ts
-export const name = 'my-bud-extension'
+export const name: Module['name'] = 'my-bud-extension'
 ```
 
 ### Register
@@ -70,38 +72,85 @@ export const boot: Bud.Module.Boot = (bud: Bud) => {
 }
 ```
 
-### Register items (loaders)
+### Loader modules
 
-Register a Webpack RuleSetRule item.
-
-```ts
-export const register = ({build}) => {
-  build.set('items.some-loader', {
-    loader: require.resolve('some-loader'),
-  })
-}
-
-// Typed
-export const register: Bud.Module.Register = ({build}: Bud) => {
-  build.set('items.some-loader', {
-    loader: require.resolve('some-loader'),
-  })
-}
-```
-
-### Registering Webpack rules
-
-Register a Webpack RuleSetRule use entry. The only real requirement to be aware of here is with `use`. It should always be defined as an array, even if there is only one loader being applied.
+Register a loader module. All you want to do under the `loader` key is register the path to the loader module itself. You can set loader options when registering the UseSet item (next section).
 
 ```ts
-export const register = ({build}) => {
-  build.set('rules.some-loader', {
-    include: bud => bud.store.get('patterns.js'),
-    exclude: bud => bud.store.get('patterns.modules'),
-    use: bud => [bud.build.get('items.babel')],
-  })
-}
+export const publish: Module['publish'] = (bud: Framework) => ({
+  /**
+   * some-loader module
+   */
+  'loader/some-loader': () => require.resolve('some-loader'),
+})
 ```
+
+### Loader implementation
+
+Register a RuleSetUse item.
+
+```ts
+export const publish: Module['publish'] = (app: Framework) => ({
+  /**
+   * some-loader and associated options.
+   */
+  'item/some-loader': () => ({
+    /**
+     * some-loader module (as set above)
+     */
+    loader: app.subscribe('loader/some-loader'),
+    options: app.subscribe('item/some-loader/options'),
+  }),
+
+  /**
+   * The loader options for some-loader
+   */
+  'item/some-loader/options': () => ({
+    option: 'example',
+  }),
+})
+```
+
+### Webpack rule
+
+Now, to use the RuleSetUse item as part of an actual rule.
+
+```ts
+export const publish: Module['publish'] = (app: Framework) => ({
+  /**
+   * Our rule applies to JS files
+   */
+  'rule/some-loader': () => ({
+    include: () => bud.store.get('patterns.js'),
+    use: () => [
+      app.subscribe('item/babel'),
+      app.subscribe('item/some-loader'),
+    ],
+  }),
+})
+```
+
+The rules that ship with Bud core are all named using their extension. This allows for predictable overrides of rules pertaining to different filetypes.
+
+For example, this is how the `@roots/bud-postcss` extension overrides the handling of `css` rules:
+
+````ts
+export const publish: Module['publish'] = (app: Framework) => ({
+  /**
+   * rule/css
+   */
+  'rule/css/use': use => [
+    /**
+     * Assuming postcss should be the third item
+     * in the ruleset (after minicss/style and css loaders)
+     */
+    ...use.splice(0, 2),
+    // The postcss item registered above
+    app.subscribe('item/postcss'),
+    // The rest of the loaders
+    ...use,
+  ],
+})
 
 ### Registering a webpack plugin
 
@@ -121,11 +170,12 @@ The only required function is `make`:
 
 ```ts
 export const register = ({extensions}) => {
-  extensions.add('plugin-name', {
+  extensions.add({
+    name: 'some-webpack-plugin',
     make: () => new SomePlugin(),
   })
 }
-```
+````
 
 #### When
 
@@ -133,7 +183,8 @@ But let's say we wanted to only apply this plugin if a particular `bud.option` v
 
 ```ts
 export const register = ({extensions}) => {
-  extensions.add('plugin-name', {
+  extensions.add({
+    name: 'some-webpack-plugin',
     make: () => new SomePlugin(),
     when: bud => bud.options.is('some-options-key', 777),
   })
@@ -146,7 +197,8 @@ If there are parts of the plugin which are configurable, we can use `options` in
 
 ```ts
 export const register = ({extensions}) => {
-  extensions.add('plugin-name', {
+  extensions.add({
+    name: 'some-webpack-plugin',
     make: (options, bud) => SomePlugin(options.all()),
     options: () => ({param: 'some-value'}),
     when: (bud, options) =>
@@ -157,42 +209,6 @@ export const register = ({extensions}) => {
 
 Options will be passed to `make` as a [`bud.container`](components-container.md). Note that `options` will also be passed to `when` (as the second param, since far more frequently it is some store value which will wind up controlling whether the function is disabled/enabled). This is also reflected above, but not really used by the `when` function.
 
-You can also define the plugin handlers outside of `register` or `boot` by simply exporting them. Below is the code used by the `mini-css-extract-plugin` used in Bud core:
-
-```ts
-import type {Module} from '@roots/bud-typings'
-import MiniCssExtractPlugin from 'mini-css-extract-plugin'
-
-/**
- * MiniCssExtractPlugin
- */
-export const make: Module.Make = options =>
-  new MiniCssExtractPlugin(options.all())
-
-/**
- * Plugin options
- */
-export const options: Module.Options = {}
-
-/**
- * Run in production
- */
-export const when: Module.When = bud =>
-  bud.options.is('mode', 'production')
-
-/**
- * Register mini-css-extract-plugin ruleset item
- */
-export const boot: Module.Boot = app => {
-  app.build.set('items.minicss', {
-    loader: MiniCssExtractPlugin.loader,
-    options: {},
-  })
-}
-```
-
-You can see that there is also a `boot` method included above. Plugins are really just a type of extension, and so they can include the other api methods detailed in this document without issue.
-
 ### Adding config functions to Bud
 
 Either export an object called `api` or include an `api` extension object containing the functions you wish to surface.
@@ -202,7 +218,7 @@ The syntactic scope of this function is bound to the `bud` object.
 ```ts
 export const api = {
   myFunction: function (param) {
-    this.options.set('foo', param)
+    this.store.set('options.foo', param)
 
     return this
   },
@@ -211,7 +227,7 @@ export const api = {
 // typed
 export const api: Bud.Module.Api = {
   myFunction: function (this: Bud, param: any): Bud {
-    this.options.set('foo', param)
+    this.store.set('options.foo', param)
 
     return this
   },
@@ -274,7 +290,3 @@ export const library: Bud.Library.Configure = function (
   return this
 }
 ```
-
-### Adding publishable templates
-
-Include a directory in the root of your extension called `publish`. Any files added to this directory will available for use with the `bud publish` command.

@@ -1,5 +1,5 @@
+import {Command} from '../Command'
 import {Error} from '@roots/bud-dashboard'
-import Command from '../Command'
 
 /**
  * Build
@@ -39,7 +39,7 @@ export class Build extends Command {
       description: 'Clean stale built assets between each build',
       default: true,
     },
-    ['ci']: {
+    ci: {
       type: 'boolean',
       description:
         'Present compilation summary as a simple webpack table',
@@ -95,12 +95,12 @@ export class Build extends Command {
         'Supply a string indicating how file should be formatted',
       default: `[name].[hash].js`,
     },
-    'html.enable': {
+    html: {
       type: 'boolean',
       description: 'Generate html boilerplate',
       default: true,
     },
-    'html.template': {
+    template: {
       type: 'string',
       description: 'Template location\n',
       default: null,
@@ -111,13 +111,9 @@ export class Build extends Command {
         'Automatically install missing modules as requested by any installed extensions',
       default: false,
     },
-    'log.enable': {
+    log: {
       type: 'boolean',
       default: false,
-    },
-    'log.file': {
-      type: 'string',
-      default: null,
     },
     manifest: {
       type: 'boolean',
@@ -328,13 +324,44 @@ export class Build extends Command {
     },
   }
 
-  public action() {
-    try {
-      this.cli.config.run()
-    } catch (error) {
-      console.log(error)
+  /**
+   * JSON name
+   */
+  public get jsonName() {
+    return `${this.cli.app.name}.config.json`
+  }
 
-      Error(error.toString(), `Error`)
-    }
+  /**
+   * Fluent name
+   */
+  public get fluentName() {
+    return `${this.cli.app.name}.config.js`
+  }
+
+  /**
+   * Preflight check
+   */
+  public async action() {
+    const projectFiles = this.cli.app.disk.get('project')
+
+    // Guard against multi config
+    projectFiles.has(this.jsonName) &&
+      projectFiles.has(this.fluentName) &&
+      Error(
+        `Project contains both a ${this.jsonName} and ${this.fluentName}. They are mutually exclusive.`,
+        'Multiple config sources found.',
+      )
+
+    // Guard against no config
+    !projectFiles.has(this.jsonName) &&
+      !projectFiles.has(this.fluentName) &&
+      Error(
+        `Project doesn't seem to have a config. If you need a starter config run:$ ${this.cli.app.name} publish @roots/bud-support ${this.fluentName}`,
+        'No config sources found.',
+      )
+
+    const build = require(projectFiles.get(this.fluentName))
+
+    build(this.cli.app).run()
   }
 }

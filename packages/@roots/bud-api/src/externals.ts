@@ -13,7 +13,7 @@ declare module '@roots/bud-framework' {
      * ## bud.externals  [💁 Fluent]
      *
      * Specify a non-standard resolution strategy for modules
-     * with a matching name. [🔗 Documentation](#)
+     * with a matching name.
      *
      * ### Usage
      *
@@ -27,10 +27,7 @@ declare module '@roots/bud-framework' {
 }
 
 export const externals: Externals = function (externals) {
-  this.hooks.on('webpack.externals', value => ({
-    ...value,
-    ...externals,
-  }))
+  this.store.merge('options.externals', externals)
 
   return this
 }

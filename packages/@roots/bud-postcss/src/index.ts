@@ -1,6 +1,6 @@
 import './interface'
-import {Framework} from '@roots/bud-framework'
-import {Module} from '@roots/bud-typings'
+
+import {Framework, Module} from '@roots/bud-framework'
 import {PostCssConfig} from './api'
 
 /**
@@ -9,74 +9,106 @@ import {PostCssConfig} from './api'
 export const name: Module['name'] = '@roots/bud-postcss'
 
 /**
- * Extension dependencies
+ * Register devDependencies
  */
 export const devDependencies: Module['devDependencies'] = [
   'postcss',
 ]
 
 /**
- * Extension config
+ * Register app.postcss
  */
 export const api: Module['api'] = (app: Framework) => ({
   postcss: new PostCssConfig({app}),
 })
 
 /**
+ * Publishes
+ */
+export const publish: Module['publish'] = (app: Framework) => ({
+  /**
+   * loader/postcss
+   */
+  'loader/postcss': () => require.resolve('postcss-loader'),
+
+  /**
+   * item/postcss
+   */
+  'item/postcss': () => ({
+    loader: app.subscribe('item/postcss/loader'),
+    options: app.subscribe('item/postcss/options'),
+  }),
+
+  // loader
+  'item/postcss/loader': () => app.subscribe('loader/postcss'),
+
+  // options
+  'item/postcss/options': () => ({
+    postcssOptions: app.subscribe(
+      'item/postcss/options/postcssOptions',
+    ),
+    sourceMap: app.subscribe('item/postcss/options/sourceMap'),
+  }),
+
+  // options/sourceMap
+  'item/postcss/options/sourceMap': () => true,
+
+  // options.postcssOptions
+  'item/postcss/options/postcssOptions': () => ({
+    config: app.subscribe(
+      'item/postcss/options/postcssOptions/config',
+    ),
+    plugins: app.subscribe(
+      'item/postcss/options/postcssOptions/plugins',
+    ),
+  }),
+
+  // options.config
+  'item/postcss/options/postcssOptions/config':
+    app.postcss.hasProjectConfig,
+
+  // options.plugins
+  'item/postcss/options/postcssOptions/plugins':
+    app.postcss.makeConfig,
+
+  /**
+   * rule/css
+   */
+  'rule/css/use': use => [
+    /**
+     * Assuming postcss should be the third item
+     * in the ruleset (after minicss/style and css loaders)
+     */
+    ...use.splice(0, 2),
+    app.subscribe('item/postcss'),
+    // The rest of the loaders
+    ...use,
+  ],
+})
+
+/**
  * Replace default css implementation
  */
 export const boot: Module['boot'] = (app: Framework) => {
-  const postcssModulePaths = () => [
-    app.store.get('locations.modules'),
-    ...app.discovery.getEntries().map(([k, v]) => {
-      return app.discovery.path.posix.join(
-        v.path,
-        'node_modules',
-      )
-    }),
-  ]
-
-  app.build
-    .set('loaders.postcss', (app: Framework) =>
-      require.resolve('postcss-loader'),
-    )
-    .set('items.postcss', (app: Framework) => ({
-      loader: app.build.access('loaders.postcss'),
-      options: {
-        postcssOptions: app.postcss.options,
-        sourceMap: true,
-      },
-    }))
-    .set('rules.css.use', ({build, isProduction}: Framework) => {
-      return [
-        isProduction
-          ? build.access('items.minicss')
-          : build.access('items.style'),
-        build.access('items.css'),
-        build.access('items.postcss'),
-        build.access('items.resolveUrl'),
-      ]
-    })
-
-  /**
-   * Configure defaults
-   */
-  !app.disk.get('project').has('postcss.config.js') &&
+  !app.postcss.hasProjectConfig &&
     app.sequence([
-      app => {
-        app.postcss.plugins = {
-          ['postcss-import']: require('postcss-import')({
-            path: postcssModulePaths(),
-          }),
-          ['postcss-nested']: require('postcss-nested'),
-          ['postcss-custom-properties']: require('postcss-custom-properties'),
-        }
-      },
       app =>
-        app.postcss.enable([
-          'postcss-import',
-          'postcss-nested',
-          'postcss-custom-properties',
-        ]),
+        app.postcss.logger.log(
+          'No project config found. Enabling defaults.',
+        ),
+
+      app =>
+        app.postcss
+          .set('postcss-nested')
+          .set('postcss-custom-properties')
+          .set([
+            'postcss-import',
+            {path: app.subscribe('build/resolve/modules')},
+          ])
+          .setOrder([
+            'postcss-import',
+            'postcss-nested',
+            'postcss-custom-properties',
+          ]),
     ])
 }

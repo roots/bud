@@ -1,13 +1,7 @@
 #!/usr/bin/env node
-const Bud = require('@roots/bud-cli')
-const Sage = require('../lib/cjs')
 
-/**
- * Sage CLI
- */
-new Bud.CLI({
-  name: 'sage',
-  projectUrl: 'https://github.com/roots/sage',
-  app: Sage.sage,
-  commands: [...Bud.commands, ...Sage.commands],
-}).invoke()
+const {bud} = require('@roots/bud')
+const {CLI} = require('@roots/bud-cli')
+const {sage} = require('../lib/cjs')
+
+new CLI(sage(Object.assign(bud, {name: 'sage'}))).boot()

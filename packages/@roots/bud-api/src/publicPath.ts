@@ -24,6 +24,6 @@ declare module '@roots/bud-framework' {
 }
 
 export const publicPath: PublicPath = function (publicPath) {
-  this.store.set('locations.publicPath', publicPath)
+  this.publish({'location/publicPath': publicPath})
   return this
 }

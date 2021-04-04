@@ -55,70 +55,20 @@ declare module '@roots/bud-framework' {
      * })
      * ```
      */
-    entry: Framework.Api.Entry
+    entry:
+      | ((
+          name: string,
+          entrypoint: Framework.Api.Entry.Value,
+        ) => Framework)
+      | ((entrypoints: Framework.Api.Entry.Obj) => Framework)
   }
 
   namespace Framework.Api {
-    /**
-     * An entrypoint expressed as a single name and value.
-     */
-    interface Entry {
-      (
-        /**
-         * Entrypoint name (string)
-         */
-        name: Entry.Key,
-
-        /**
-         * May be a string or array of strings. May use fast-glob syntax.
-         */
-        entrypoint: Entry.Value,
-      ): Framework
-    }
-
-    /**
-     * An entrypoint expressed as a keyed object.
-     */
-    interface Entry {
-      (
-        /**
-         * Entrypoint name as key;
-         * Values may be a string or array of strings.
-         * Values may use fast-glob syntax.
-         */
-        entrypoints: Framework.Api.Entry.Obj,
-      ): Framework
-    }
-
     namespace Entry {
-      /**
-       * Entrypoint name as key;
-       * Values may be either a string or array of strings.
-       * Values may use fast-glob syntax.
-       */
       interface Obj {
         [key: string]: Value
       }
 
-      /**
-       * Entrypoint name
-       */
-      type Key = string
-
-      /**
-       * **Supported patterns**
-       *
-       * - `*` matches any number of characters, but not `/`
-       *
-       * - `?` matches a single character, but not `/`
-       *
-       * - `**` matches any number of characters, including `/`,
-       *   as long as it's the only thing in a path part
-       *
-       * - `{}` allows for a comma-separated list  of "or" expressions
-       *
-       * - `!` at the beginning of a pattern will negate the match
-       */
       type Value =
         | GlobTask['pattern']
         | Array<GlobTask['pattern']>
@@ -126,18 +76,7 @@ declare module '@roots/bud-framework' {
   }
 }
 
-/**
- * Entry fn
- *
- * Depending on if a single entrypoint or a keyed set
- * of entrypoints was passed, the args will be
- * passed to the appropriate handler.
- */
-export const entry: Framework.Api.Entry = function (
-  ...args:
-    | [Framework.Api.Entry.Key, Framework.Api.Entry.Value]
-    | [Framework.Api.Entry.Obj]
-) {
+export const entry: Framework['entry'] = function (...args) {
   /**
    * Ducktype entrypoint to determine if it was called like
    * entry(name, ...assets) or entry({[name]: ...assets})
@@ -148,7 +87,7 @@ export const entry: Framework.Api.Entry = function (
    * Cast single asset calls to keyed obj
    */
   const entrypoints = isSingleEntry
-    ? [{[args[0] as Framework.Api.Entry.Key]: args[1]}]
+    ? [{[args[0]]: args[1]}]
     : args
 
   /**
@@ -163,18 +102,18 @@ export const entry: Framework.Api.Entry = function (
  */
 function makeEntrypoints(
   this: Framework,
-  entrypoints: Framework.Api.Entry.Obj,
+  entry: Framework.Api.Entry.Obj,
 ): Framework {
-  this.hooks.on(`webpack.entry`, entry => ({
-    ...entry,
-    ...Object.entries(entrypoints).reduce(
+  this.store.merge(
+    'options.entry',
+    Object.entries(entry).reduce(
       (a, [name, task]) => ({
         ...a,
         [name]: getAssets.bind(this)(name, task),
       }),
       {},
     ),
-  }))
+  )
 
   return this
 }
@@ -219,9 +158,13 @@ function getAssets(
    * @webpack5 this is no longer necessary
    */
   if (isCssOnlyEntrypoint(assets)) {
-    this.extensions.mutate(
-      'ignore-emit-webpack-plugin.options.ignore',
-      (ignore: string[]) => [...ignore, name.concat('.js')],
+    this.publish(
+      {
+        'extension/ignore-emit-webpack-plugin/options/ignore': ignore => [
+          [...ignore, name.concat('.js')],
+        ],
+      },
+      'api/entry',
     )
   }
 

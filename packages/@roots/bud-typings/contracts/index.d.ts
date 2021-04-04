@@ -1,9 +1,4 @@
-export {
-  express as Express,
-  GlobTask,
-  Webpack,
-  Instance,
-} from '../../bud-support/src'
+import {GlobTask, Instance} from '../../bud-support/src'
 
 import {
   Constructor,
@@ -14,82 +9,85 @@ import {
   MappedType,
 } from './utility'
 
-export {
-  Constructor,
-  Factory,
-  Fluent,
-  Index,
-  MaybeCallable,
-  MappedType,
+import {Build} from './Build'
+import {Cache} from './Cache'
+import {CLI} from './CLI'
+import {Compiler} from './Compiler'
+import {Container} from '../../container/src'
+import {Dashboard, Error} from './Dashboard'
+import {Discovery} from './Discovery'
+import {Dependencies} from './Dependencies'
+import {Env} from './Env'
+import {Hooks} from './Hooks'
+import {Logger} from './Logger'
+import {Bootstrapper, Service, Services} from './Service'
+import {Store} from './Store'
+import {Server} from './Server'
+import {Extensions, Extension, Module} from './Extensions'
+
+declare interface Framework {}
+
+declare namespace Framework {
+  export {Build}
+  export {Bootstrapper}
+  export {Cache}
+  export {CLI}
+  export {Compiler}
+  export {Container}
+  export {Dashboard}
+  export {Discovery}
+  export {Dependencies}
+  export {Disk}
+  export {Env}
+  export {Extensions, Extension}
+  export {Error}
+  export {FileContainer} from '../../filesystem/src'
+  export {Hooks}
+  export {Logger}
+  export {Module}
+  export {Server}
+  export {Service}
+  export {Services}
+  export {Store}
+  export {
+    Express,
+    Factory,
+    Fluent,
+    GlobTask,
+    Index,
+    MaybeCallable,
+    Webpack,
+  }
 }
 
-/**
- * @roots/container
- */
-export {Container} from '../../container/src'
-
-/**
- * @roots/filesystem
- */
+export {Api}
+export {Build}
+export {Bootstrapper}
+export {Cache}
+export {CLI}
+export {Compiler}
+export {Container}
+export {Dashboard}
+export {Discovery}
+export {Dependencies}
+export {Disk}
+export {Env}
+export {Extensions, Extension}
+export {Error}
 export {FileContainer} from '../../filesystem/src'
-
-/**
- * @roots/bud-framework
- */
-export {Disk} from '../../bud-framework/src'
-export {CLI} from './CLI'
-export {Discovery} from './Discovery'
-export {Dependencies} from './Dependencies'
-export {Framework} from './Framework'
-export {Env} from './Env'
-export {Logger} from './Logger'
-export {Providers} from './Providers'
-export {Service} from './Service'
-
-/**
- * @roots/bud-support
- */
-export {Store} from './Store'
-
-/**
- * @roots/bud-api
- */
-export {Api} from './Api'
-
-/**
- * @roots/bud-build
- */
-export {Build} from './Build'
-export {Item} from './Item'
-export {Loader} from './Loader'
-export {Rule} from './Rule'
-
-/**
- * @roots/bud-cache
- */
-export {Cache} from './Cache'
-
-/**
- * @roots/bud-cli
- */
-export {Dashboard, Error} from './Dashboard'
-
-/**
- * @roots/bud-compiler
- */
-export {Compiler} from './Compiler'
-
-/**
- * @roots/bud-extensions
- */
-export {Extensions, Extension, Module} from './Extensions'
-
-/**
- * @roots/bud-hooks
- */
-export {Hooks} from './Hooks'
-
-/**
- * @roots/bud-server
- */
-export {Server} from './Server'
+export {Hooks}
+export {Logger}
+export {Module}
+export {Server}
+export {Service}
+export {Services}
+export {Store}
+export {
+  Express,
+  Factory,
+  Fluent,
+  GlobTask,
+  Index,
+  MaybeCallable,
+  Webpack,
+}

@@ -1,6 +1,7 @@
-import '@roots/bud'
-import {Module} from '@roots/bud-typings'
-import Plugin from 'compression-webpack-plugin'
+import '@roots/bud-api'
+import '@roots/bud-framework'
+
+import CompressionPlugin from 'compression-webpack-plugin'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -39,35 +40,34 @@ declare module '@roots/bud-framework' {
      * })
      * ```
      */
-    brotli: Framework.Compress.Brotli.Config
+    brotli: Framework.Compress.Config
 
     /**
      * ## gzip  [💁 Fluent]
      *
      * Gzip static assets.
      */
-    gzip: Framework.Compress.Gzip.Config
+    gzip: Framework.Compress.Config
   }
 
-  export namespace Framework.Compress {
-    export namespace Brotli {
-      export type Options = Module.Options<any>
-
-      export type Make = Module.Make<Plugin, Options>
-
-      export type When = Module.When
-
-      export type Config = (options?: any) => Framework
+  namespace Framework.Compress {
+    type Config = (options?: any) => Framework
+    interface Extension extends Framework.Module {
+      options: Framework.Module.Options<any>
+      make: Framework.Module.Make<
+        CompressionPlugin,
+        Framework.Module.Options
+      >
+      when: Framework.Module.When
+      config: Config
     }
+  }
 
-    export namespace Gzip {
-      export type Options = Module.Options<any>
-
-      export type Make = Module.Make<Plugin, Options>
-
-      export type When = Module.When
-
-      export type Config = (options?: any) => Framework
+  namespace Framework.Hooks.Extension {
+    interface Definitions {
+      '@roots/bud-compress': Framework.Module
+      'compression-webpack-plugin-brotli': Framework.Compress.Extension
+      'compression-webpack-plugin-gzip': Framework.Compress.Extension
     }
   }
 }

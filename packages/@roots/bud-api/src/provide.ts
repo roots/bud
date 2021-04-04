@@ -1,11 +1,8 @@
 import {Framework} from '@roots/bud-framework'
 
-type Provide = (
-  this: Framework,
-  packages?: {
-    [key: string]: string | string[]
-  },
-) => Framework
+type Provide = (packages?: {
+  [key: string]: string | string[]
+}) => Framework
 
 declare module '@roots/bud-framework' {
   export interface Framework {
@@ -28,32 +25,31 @@ declare module '@roots/bud-framework' {
 }
 
 export const provide: Provide = function (packages) {
-  const op = this.extensions.has(
-    'webpack-provide-plugin.options',
-  )
-    ? 'merge'
-    : 'set'
-
-  this.extensions[op](
-    'webpack-provide-plugin.options',
-    Object.entries(packages).reduce(
-      (a, [k, v]) => ({
-        ...a,
-        ...(!Array.isArray(v)
-          ? {[v]: k}
-          : {
-              ...a,
-              ...v.reduce(
-                (a, pkg) => ({
+  this.publish(
+    {
+      ['extension/webpack-provide-plugin/options']: provided => ({
+        ...provided,
+        ...Object.entries(packages).reduce(
+          (a, [k, v]) => ({
+            ...a,
+            ...(!Array.isArray(v)
+              ? {[v]: k}
+              : {
                   ...a,
-                  [pkg]: k,
+                  ...v.reduce(
+                    (a, pkg) => ({
+                      ...a,
+                      [pkg]: k,
+                    }),
+                    {},
+                  ),
                 }),
-                {},
-              ),
-            }),
+          }),
+          {},
+        ),
       }),
-      {},
-    ),
+    },
+    'api/provide',
   )
 
   return this

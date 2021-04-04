@@ -3,3 +3,4 @@
 **/.bud
 **/composer.lock
 **/yarn.lock
+**/vendor

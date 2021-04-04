@@ -1,55 +1,89 @@
 import './interface'
 import {Framework} from '@roots/bud-framework'
-import {Module} from '@roots/bud-typings'
-import {Webpack} from '@roots/bud-support'
 
-export const name = '@roots/bud-sass'
+/**
+ * @module @roots/bud-sass
+ * @description Sass transpilation for @roots/bud projects
+ * @see https://github.com/roots/bud
+ */
 
-export const devDependencies = ['sass']
+export const name: Framework.Module['name'] = '@roots/bud-sass'
 
-export const boot: Module.Boot = (app: Framework) => {
-  app.hooks.on<Webpack.Configuration['resolve']['extensions']>(
-    'webpack.resolve.extensions',
-    exts => [...exts, '.sass', '.scss'],
-  )
+export const devDependencies: Framework.Module['devDependencies'] = [
+  'sass',
+]
 
-  app.sequence([
-    app => {
-      global.navigator = undefined
+/**
+ * Hook config values
+ *
+ * @see @roots/bud-extensions
+ * @see @roots/bud-hooks
+ */
+export const publish: Framework.Module['publish'] = (
+  app: Framework,
+) => ({
+  /**
+   * loader/sass
+   */
+  'loader/sass': () => require.resolve('sass-loader'),
 
-      try {
-        app.build
-          .set('loaders.sass', require.resolve('sass-loader'))
-          .set(
-            'items.sass.loader',
-            app.build.get('loaders.sass'),
-          )
-          .set('items.sass.options', {
-            implementation: (() => require('sass'))(),
-            sourceMap: true,
-          })
-      } catch (err) {
-        console.error(err)
-        process.exit()
-      }
+  /**
+   * item/sass
+   */
+  ['item/sass']: () => ({
+    loader: app.subscribe('item/sass/loader'),
+    options: app.subscribe('item/sass/options'),
+  }),
+  'item/sass/loader': () => app.subscribe('loader/sass'),
+  'item/sass/options': () => ({
+    implementation: app.subscribe(
+      'item/sass/options/implementation',
+    ),
+    sourceMap: app.subscribe('item/sass/options/sourceMap'),
+  }),
 
-      global.navigator = {}
-    },
-    app =>
-      app.build.set('rules.sass', {
-        test: ({store}) => store.get('patterns.sass'),
-        exclude: ({store}) => store.get('patterns.modules'),
-        use: (app: Framework) => {
-          return [
-            app.isProduction
-              ? app.build.access('items.minicss')
-              : app.build.access('items.style'),
-            app.build.access('items.css'),
-            app.build.access('items.postcss'),
-            app.build.access('items.resolveUrl'),
-            app.build.access('items.sass'),
-          ].filter(Boolean)
-        },
-      }),
-  ])
-}
+  /**
+   * Implementation will try to resolve sass & node-sass, preferring
+   * sass.
+   */
+  'item/sass/options/implementation': () => {
+    global.navigator = undefined
+
+    const sass = (() =>
+      require(app.project('node_modules/sass')))()
+
+    global.navigator = {}
+
+    return sass
+  },
+  'item/sass/options/sourceMap': () => true,
+
+  /**
+   * rule/sass
+   */
+  rule: rules => ({
+    ...rules,
+    'rule/sass': app.subscribe('rule/sass'),
+  }),
+  'rule/sass': () => ({
+    test: app.subscribe('rule/sass/test'),
+    exclude: app.subscribe('rule/sass/exclude'),
+    use: app.subscribe('rule/sass/use'),
+  }),
+  'rule/sass/test': () => app.store.get('patterns.sass'),
+  'rule/sass/exclude': () => app.store.get('patterns.modules'),
+  'rule/sass/use': () => [
+    app.isProduction
+      ? app.subscribe('item/minicss')
+      : app.subscribe('item/style'),
+    app.subscribe('item/css'),
+    app.subscribe('item/postcss'),
+    app.subscribe('item/resolve-url'),
+    app.subscribe('item/sass'),
+  ],
+
+  /**
+   * build/resolve/extensions
+   */
+  'build/resolve/extensions': e => [...e, '.scss'],
+})

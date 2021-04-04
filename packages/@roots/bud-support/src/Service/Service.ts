@@ -3,7 +3,7 @@ import {Container} from '@roots/container'
 /**
  * Application service base
  */
-export abstract class Service<T = any> {
+export abstract class Service<T = any> extends Container {
   [key: string]: any
 
   /**
@@ -14,25 +14,10 @@ export abstract class Service<T = any> {
   /**
    * Constructor
    */
-  public constructor(
-    get: () => T,
-    containers?: {[key: string]: Container['repository']},
-    theRest?: {[key: string]: any},
-  ) {
+  public constructor(get: () => T) {
+    super()
+
     this._app = get
-
-    containers &&
-      Object.entries(containers).forEach(
-        ([name, repo]: [
-          string,
-          {[key: string]: Container['repository']},
-        ]) => (this[name] = new Container(repo)),
-      )
-
-    theRest &&
-      Object.entries(theRest).forEach(([key, value]) => {
-        this[key] = value
-      })
   }
 
   /**

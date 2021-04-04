@@ -3,7 +3,8 @@ import {
   useEffect,
   ProgressPlugin,
 } from '@roots/bud-support'
-import type {Framework, Compiler} from '@roots/bud-typings'
+import {Framework} from '@roots/bud-framework'
+import {Compiler} from '@roots/bud-typings'
 
 export type CompilationAsset = {
   name: string
@@ -35,7 +36,7 @@ export const useCompilation = (bud: Framework) => {
   const [progress, setProgress] = useState(null)
 
   useEffect(() => {
-    bud.compiler.compile()
+    bud.compiler.compile(bud.build.make())
   }, [])
 
   useEffect(() => {

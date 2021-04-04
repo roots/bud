@@ -1,14 +1,11 @@
 import {Framework} from '@roots/bud-framework'
 
-let hash: Framework.Api.Hash
-export {hash}
-
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
      * ## bud.hash  [💁 Fluent]
      *
-     * Enable filename hashing of built assets. [🔗 Documentation](#)
+     * Enable filename hashing of built assets.
      *
      * ### Usage
      *
@@ -24,11 +21,11 @@ declare module '@roots/bud-framework' {
   }
 }
 
-hash = function (enabled) {
-  this.store.set(
-    'options.hash',
-    enabled === false ? false : true,
-  )
+export const hash: Framework.Api.Hash = function (
+  enabled = true,
+) {
+  !this.store.has('args.hash') &&
+    this.store.set('options.hash', enabled)
 
   return this
 }

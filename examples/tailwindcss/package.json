@@ -6,7 +6,12 @@
     "sage": "node ../../node_modules/.bin/sage"
   },
   "devDependencies": {
-    "postcss": "^8.2.7",
-    "tailwindcss": "^2.0.3"
+    "@babel/core": "^7.13.10",
+    "postcss": "^8.2.8",
+    "tailwindcss": "^2.0.4"
+  },
+  "dependencies": {
+    "@roots/bud-tailwindcss": "^3.0.84-alpha.0",
+    "@tailwindcss/jit": "^0.1.3"
   }
 }

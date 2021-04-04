@@ -2,6 +2,12 @@ import '@roots/bud'
 import '@roots/bud-postcss'
 
 declare module '@roots/bud-framework' {
+  namespace Framework.Hooks.Extension {
+    interface Definitions {
+      '@roots/bud-tailwindcss': Framework.Module
+    }
+  }
+
   interface Framework {
     /**
      * ## bud.tailwindcss
@@ -22,15 +28,16 @@ declare module '@roots/bud-framework' {
 
   namespace Framework.Tailwind {
     export type Configure = (
-      params?: Omit<Tailwind.Config, null>,
+      config: Omit<Tailwind.Config, null>,
+      implementation: 'tailwindcss' | '@tailwindcss/jit',
     ) => Framework
 
     export interface Config {
       purge?: string[]
       target?: string
-      prefix?: string
-      important?: boolean
-      separator?: string
+      prefix?: 'tw' | string
+      important?: false | boolean
+      separator?: '-' | string
       presets?: string[]
       theme?: {
         [key: string]: UserDef

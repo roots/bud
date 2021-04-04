@@ -1,3 +1,4 @@
+import './interface'
 import MergedManifestPlugin from '@roots/merged-manifest-webpack-plugin'
 import {Module} from '@roots/bud-typings'
 
@@ -7,7 +8,8 @@ export const name: Module['name'] =
 
 // Extension webpack plugins
 export const boot: Module.Boot = ({extensions}): void => {
-  extensions.add('@roots/merged-manifest-webpack-plugin', {
+  extensions.add({
+    name: '@roots/merged-manifest-webpack-plugin',
     make: () => new MergedManifestPlugin(),
   })
 }

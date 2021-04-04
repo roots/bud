@@ -1,13 +1,11 @@
-import {webpackHotMiddleware} from '@roots/bud-support'
-import type {Webpack, Express} from '@roots/bud-typings'
+import {Server} from '@roots/bud-typings'
+import WebpackHotMiddleware from 'webpack-hot-middleware'
 
-const options: webpackHotMiddleware.MiddlewareOptions = {
+const options: WebpackHotMiddleware.MiddlewareOptions = {
   log: false,
   path: '/__webpack_hmr',
   heartbeat: 10 * 1000,
 }
 
-export const hot = (
-  compiler: Webpack.Compiler,
-): webpackHotMiddleware.EventStream & Express.Handler =>
-  webpackHotMiddleware(compiler, options)
+export const hot: Server.Middleware.Init = ({compiler}) =>
+  WebpackHotMiddleware(compiler, options)

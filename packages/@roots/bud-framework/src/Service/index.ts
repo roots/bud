@@ -1,44 +1,60 @@
+import {Framework} from '../Framework'
 import {Container} from '@roots/container'
-import {
-  FileContainer,
-  Framework,
-  Logger,
-  Service,
-} from '@roots/bud-typings'
 import {fs, globby, lodash} from '@roots/bud-support'
+import {FileContainer} from '@roots/filesystem'
 import path from 'path'
 
 /**
  * Framework service
  */
-export default class extends Container implements Service {
+export class Service extends Container {
+  /**
+   * Loose
+   */
   [key: string]: any
 
+  /**
+   * Name
+   */
   public name: string | number
 
-  protected _app: () => Framework
+  /**
+   * Application
+   */
+  private _app: Framework['get']
 
-  protected _glob: typeof globby = globby
+  /**
+   * Register
+   */
+  public register() {}
 
-  protected _path: typeof path = path
+  /**
+   * Boot
+   */
+  public boot() {}
 
-  protected _fs: typeof fs = fs
+  /**
+   * Framework lifecycle: bootstrapped
+   */
+  public bootstrapped(app: Framework) {}
 
-  protected _lodash: typeof lodash = lodash
+  /**
+   * Framework lifecycle: registered
+   */
+  public registered(app: Framework) {}
 
-  public constructor(
-    app: () => Framework,
-    repository?: Container['repository'],
-    dependencies?: {[key: string]: any},
-  ) {
-    super(repository)
+  /**
+   * Framework lifecycle: booted
+   */
+  public booted(app: Framework) {}
+
+  /**
+   * Constructor
+   */
+  public constructor(app: Framework['get']) {
+    super()
 
     this._app = app
-
-    dependencies &&
-      Object.entries(dependencies).forEach(
-        ([name, item]) => (this[name] = item),
-      )
   }
 
   /**
@@ -54,53 +70,75 @@ export default class extends Container implements Service {
    * @see fs-extra
    */
   public get fs(): typeof fs {
-    return this._fs
+    return fs
   }
 
+  /**
+   * lodash
+   */
   public get _(): typeof lodash {
-    return this._lodash
+    return lodash
   }
 
+  /**
+   * read json
+   */
   public get readJson(): CallableFunction {
-    return this.fs.readJSONSync
+    return fs.readJSONSync
   }
 
   /**
    * Globby library.
    */
   public get glob(): typeof globby {
-    return this._glob
+    return globby
   }
 
   /**
    * cwd
    */
   public get path(): typeof path {
-    return this._path
+    return path
   }
 
+  /**
+   * Dirname
+   */
   public get dirname(): CallableFunction {
-    return this.path.dirname
+    return path.dirname
   }
 
+  /**
+   * Resolve
+   */
   public get resolve(): CallableFunction {
-    return this.path.resolve
-  }
-
-  public filterUnique(value, index, self) {
-    return self.indexOf(value) === index
+    return path.resolve
   }
 
   /**
    * Path to node_modules
    */
   public modulePath(path?: string): string {
-    const base = this.resolve(
-      this.app.store.get('locations.project'),
-      this.app.store.get('locations.modules'),
+    const base = this.path.posix.resolve(
+      this.app.subscribe(
+        'location/project',
+        'framework/service@modulePath',
+      ),
+
+      this.subscribe(
+        'location/modules',
+        'framework/service@modulePath',
+      ),
     )
 
     return path ? this.path.join(base, path) : base
+  }
+
+  /**
+   * Filter unique
+   */
+  public filterUnique(value, index, self) {
+    return self.indexOf(value) === index
   }
 
   /**
@@ -118,32 +156,65 @@ export default class extends Container implements Service {
   }
 
   /**
+   * Subscriptions
+   */
+  public get subscribe() {
+    return this.app.subscribe
+  }
+
+  /**
+   * Publish
+   */
+  public get publish() {
+    return this.app.publish
+  }
+
+  /**
    * Access containerized property (which may or may not be callable.)
    */
-  public access<I = unknown>(key: string | number): I {
-    return this.isFunction(key)
-      ? this.get(key)(this.app)
-      : this.get(key)
+  public get access() {
+    return this.app.access
   }
 
   /**
    * Log info message
    */
-  public info(obj: {[key: string]: any}) {
-    this.app.get<Logger>('logger').info(obj, this.name)
+  public get logger() {
+    return this.app.logger.instance.scope(this.name)
+  }
+
+  /**
+   * Log message
+   */
+  public get log() {
+    return this.app.logger.instance.scope(this.name).log
+  }
+
+  /**
+   * Log info message
+   */
+  public get info() {
+    return this.app.logger.instance.scope(this.name).info
   }
 
   /**
    * Log warning message
    */
-  public warning(obj: {[key: string]: any}) {
-    this.app.get<Logger>('logger').info(obj, this.name)
+  public get warning() {
+    return this.app.logger.instance.scope(this.name).warning
   }
 
   /**
    * Log error message
    */
-  public error(obj: {[key: string]: any}) {
-    this.app.get<Logger>('logger').error(obj, this.name)
+  public get error() {
+    return this.app.logger.instance.scope(this.name).error
+  }
+
+  /**
+   * Log debug message
+   */
+  public get debug() {
+    return this.app.logger.instance.scope(this.name).debug
   }
 }

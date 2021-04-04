@@ -1,29 +1,22 @@
-import ProxyMiddleware, {
+import {
   createProxyMiddleware,
+  Options,
 } from 'http-proxy-middleware'
 import zlib from 'zlib'
-
-import type {Server} from '@roots/bud-typings'
-
-declare type Target = {
-  host: string
-  port: number
-}
+import {Server} from '@roots/bud-typings'
 
 /**
  * Proxy middleware factory
  */
-const proxy = (
-  config: Server.Config,
-): ProxyMiddleware.RequestHandler => {
+export const proxy: Server.Middleware.Init = ({config}) => {
   // Source host & port
-  const source: Target = {
+  const source: Server.Middleware.Target = {
     host: config.get('host'),
     port: config.get('port'),
   }
 
   // Proxy host & port
-  const proxy: Target = {
+  const proxy: Server.Middleware.Target = {
     host: config.get('proxy.host'),
     port: config.get('proxy.port'),
   }
@@ -36,7 +29,7 @@ const proxy = (
   }
 
   // Fabricate URL from provided options.
-  const getUrl = (target: Target): string => {
+  const getUrl = (target: Server.Middleware.Target): string => {
     const protocol = config.enabled('ssl')
       ? 'https://'
       : 'http://'
@@ -83,6 +76,7 @@ const proxy = (
        */
       if (proxyRes.headers['content-encoding'] == 'gzip') {
         res.set({'content-encoding': 'gzip'})
+
         res.send(
           zlib.gzipSync(
             transformBody(zlib.gunzipSync(body).toString()),
@@ -103,9 +97,9 @@ const proxy = (
   /**
    * Proxy middleware configuration
    */
-  const proxyOptions: ProxyMiddleware.Options = {
-    autoRewrite: config.get('autoRewrite'),
-    changeOrigin: config.get('changeOrigin'),
+  const proxyOptions: Options = {
+    autoRewrite: true,
+    changeOrigin: true,
     cookieDomainRewrite: {
       [source.host]: proxy.host,
     },
@@ -122,5 +116,3 @@ const proxy = (
 
   return createProxyMiddleware(proxyOptions)
 }
-
-export {proxy}

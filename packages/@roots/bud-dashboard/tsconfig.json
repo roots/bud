@@ -8,6 +8,6 @@
     "declaration": true,
     "declarationMap": true
   },
-  "include": ["**/*.ts", "**/*.tsx", "**/*.d.ts"],
-  "exclude": ["./lib/**/*", "./node_modules/**/*"],
+  "include": ["./src"],
+  "exclude": ["./lib", "./node_modules"],
 }

@@ -1,14 +1,16 @@
-import {Framework} from '@roots/bud-framework'
+import {Imagemin, Framework} from '@roots/bud-framework'
 
-/**
- * Configure imagemin plugins.
- */
-export const imagemin: Framework.Imagemin.Configure = function (
+export const imagemin: Imagemin.Configure = function (
+  this: Framework,
   options,
 ) {
-  this.extensions
-    .get('image-minimizer-webpack-plugin')
-    .merge('options.minimizerOptions', options)
+  this.publish(
+    {
+      'extension/image-minimizer-webpack-plugin/options': () =>
+        options,
+    },
+    '@roots/bud-imagemin/api',
+  )
 
   return this
 }

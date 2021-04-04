@@ -1,9 +1,18 @@
-import type {Framework} from '@roots/bud-framework'
+import {ESBuild, Framework} from '@roots/bud-framework'
 
-export const setOptions: Framework.ESBuild.SetOptions = function (
+export const setOptions: ESBuild.SetOptions = function (
+  type,
   opts,
-) {
-  this.build.merge('items.esbuild.options', opts)
+): Framework {
+  this.publish(
+    {
+      [`item/esbuild-${type}/options`]: base => ({
+        ...base,
+        ...opts,
+      }),
+    },
+    '@roots/bud-esbuild/setOptions',
+  )
 
   return this
 }

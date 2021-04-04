@@ -1,6 +1,7 @@
 {
   "scripts": {
-    "bud": "node ../../node_modules/.bin/bud"
+    "bud": "node ../../node_modules/.bin/bud",
+    "sage": "node ../../node_modules/.bin/sage"
   },
   "devDependencies": {
     "@emotion/css": "^11.1.3",

@@ -11,10 +11,6 @@ import {Service} from './'
 export interface Dependencies extends Service {
   name: string
 
-  project: {[key: string]: any}
-
-  cwd: string
-
   installDev(dependencies: string[], source: string): void
 
   install(dependencies: string[], source: string): void

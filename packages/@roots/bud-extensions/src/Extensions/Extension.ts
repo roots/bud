@@ -1,6 +1,8 @@
-import {isFunction, lodash as _} from '@roots/bud-support'
-import {Framework, Module} from '@roots/bud-typings'
-import {isEmpty} from 'lodash'
+import {lodash as _} from '@roots/bud-support'
+import {Framework, Hooks, Module} from '@roots/bud-framework'
+import {isEmpty, isFunction} from 'lodash'
+
+type ModuleKey = `${keyof Module & string}`
 
 /**
  * Extensions controller class.
@@ -9,48 +11,111 @@ import {isEmpty} from 'lodash'
  *
  * [🏡 Project home](https://roots.io/bud)
  * [🧑‍💻 roots/bud](https://git.io/Jkli3)
- * [📦 @roots/bud-extensions](https://github.io/roots/bud-extensions)
  */
 export default class {
-  public _app: () => Framework
+  /**
+   * Accessor stores
+   */
+  protected _module: Module
+  protected _app: Framework['get']
 
-  public name: Module['name']
-  public register?: Module['register']
-  public boot?: Module['boot']
-  public options?: Module['options']
-  public api?: Module['api']
-  public make?: Module['make']
-  public when?: Module['when']
-  public dependencies?: Module['dependencies'] = []
-  public devDependencies?: Module['devDependencies'] = []
+  /**
+   * Module
+   */
+  public get module(): Module {
+    return this.app.access(this._module)
+  }
 
-  public get app() {
+  /**
+   * App
+   */
+  public get app(): Framework {
     return this._app()
   }
 
-  public constructor(_app: Framework['get'], extension) {
-    Object.assign(this, {_app, ...extension})
+  /**
+   * Logging
+   */
+  public get logger() {
+    return this.app.extensions.logger
+  }
+
+  /**
+   * Constructor.
+   */
+  public constructor(app: Framework, extension: Module) {
+    this._app = app.get
+    this._module = extension
+
+    this.get = this.get.bind(this)
+    this.set = this.set.bind(this)
+    this.makeKey = this.makeKey.bind(this)
+    this.register = this.register.bind(this)
+    this.boot = this.boot.bind(this)
+    this.install = this.install.bind(this)
+
+    this.logger
+      .scope(this.module.name)
+      .success('Extension instantiated')
   }
 
   /**
    * Register extension
    */
-  public _register(): this {
-    this.register && this.app.access(this.register)
+  public register(): this {
+    if (this.module.register) {
+      this.app.access(this.module.register)
+
+      this.app.extensions.log(`Register method found`)
+    }
+
+    if (this.module.api) {
+      Object.assign(this.app, this.app.access(this.module.api))
+    }
+
+    if (this.module.publish) {
+      this.app.publish(
+        this.app.access<{[key: string]: any}>(
+          this.module.publish,
+        ),
+      )
+    }
+
+    if (this.module.options) {
+      this.set('options', () => this.module.options)
+    }
+
+    if (this.module.dependencies) {
+      this.set('dependencies', () => this.module.dependencies)
+    }
+
+    if (this.module.devDependencies) {
+      this.set(
+        'devDependencies',
+        () => this.module.devDependencies,
+      )
+    }
+
+    if (this.module.when) {
+      this.set('when', () => this.module.when)
+    }
+
+    if (this.module.make) {
+      this.set('make', () => this.module.make)
+    }
 
     this.app.store.enabled('options.install') && this.install()
-
-    this.api &&
-      Object.assign(this.app, this.app.access(this.api))
+    this.logger.scope(this.name).success('Extension registered')
 
     return this
   }
 
   /**
-   * Boot extension
+   * Boot extension.
    */
-  public _boot(): this {
-    this.boot && this.app.access(this.boot)
+  public boot(): this {
+    this.module.boot && this.app.access(this.module.boot)
+    this.logger.scope(this.name).success('Extension booted')
 
     return this
   }
@@ -59,61 +124,153 @@ export default class {
    * Install package dependencies
    */
   public install(): void {
-    this.dependencies && !isEmpty(this.dependencies)
-    this.app.dependencies.install(
-      this.app.access(this.dependencies),
-      this.name,
-    )
+    /**
+     * Production dependencies
+     */
+    this.dependencies &&
+      !isEmpty(this.dependencies) &&
+      this.app.dependencies.install(this.dependencies, this.name)
 
-    this.devDependencies && !isEmpty(this.devDependencies)
-    this.app.dependencies.installDev(
-      this.app.access(this.devDependencies),
-      this.name,
-    )
+    /**
+     * Development dependencies
+     */
+    this.devDependencies &&
+      !isEmpty(this.devDependencies) &&
+      this.app.dependencies.installDev(
+        this.devDependencies,
+        this.name,
+      )
   }
 
   /**
-   * Make plugin.
+   * Make hook key from module property
    */
-  public makePlugin(): Framework.Webpack.Plugin | null {
-    if (!this.isPlugin() || !this.enabled) {
-      return null
-    }
-
-    const options = this.app.access(this.options)
-
-    return isFunction(this.make)
-      ? this.make(
-          options ? this.app.makeContainer(options) : null,
-          this.app,
-        )
-      : this.make
+  public makeKey(key: ModuleKey): Framework.Hooks.Name {
+    return `extension/${this.name}/${key}` as Framework.Hooks.Name
   }
 
   /**
-   * Is this extension a plugin?
+   * Get module properties (hooked)
    */
-  public isPlugin(): boolean {
-    return this.make ? true : false
+  public get(key: ModuleKey) {
+    const hook = this.makeKey(key)
+    const value = this.app.subscribe(hook, this.name)
+
+    this.logger.log({
+      message: `get ${hook}: ${value}`,
+    })
+
+    return value
   }
 
-  public _enabled: boolean
+  /**
+   * Set module properties (hooked)
+   */
+  public set(key: ModuleKey, value: any) {
+    const hook = this.makeKey(key)
 
-  public get enabled() {
-    if (!this.when) return true
+    this.app.publish({[hook]: value}, this.name)
 
-    const options: Framework.Container = this.app.makeContainer(
-      this.app.access(this.options),
-    )
+    this.logger.log({
+      message: `set ${hook}: ${value}`,
+    })
+  }
 
-    if (isFunction(this.when)) {
-      return this.when(this.app, options)
+  /**
+   * Name
+   */
+  public get name(): keyof Hooks.Extension.Definitions {
+    return this.module.name
+  }
+
+  /**
+   * Options
+   */
+  public get options() {
+    return this.app.access(this.get('options'))
+  }
+
+  public set options(options: Module['options']) {
+    this.set('options', options)
+  }
+
+  /**
+   * Dependencies
+   */
+  public get dependencies() {
+    return this.app.access(this.get('dependencies'))
+  }
+
+  public set dependencies(dependencies: Module['dependencies']) {
+    this.set('dependencies', dependencies)
+  }
+
+  /**
+   * Development Dependencies
+   */
+  public get devDependencies() {
+    return this.app.access(this.get('devDependencies'))
+  }
+
+  public set devDependencies(
+    devDependencies: Module['devDependencies'],
+  ) {
+    this.set('devDependencies', devDependencies)
+  }
+
+  /**
+   * When
+   */
+  public get when() {
+    const value = this.get('when')
+
+    if (isFunction(value)) {
+      return value(this.app, this.app.container(this.options))
     }
 
-    return this.when
+    return value
   }
 
-  public set enabled(enabled: boolean) {
-    this.when = () => enabled
+  public set when(when: Module['when']) {
+    this.set('when', when)
+  }
+
+  /**
+   * Make
+   */
+  public get make() {
+    const when = this.when
+
+    if (when == false) {
+      const hook = this.makeKey('make')
+
+      this.logger.log({
+        message: `${hook} not set for inclusion. skipping.`,
+        affix: this.when,
+      })
+
+      return
+    }
+
+    const value = this.get('make')
+
+    if (!value) {
+      return
+    }
+
+    if (isFunction(value)) {
+      return value(
+        this.options
+          ? this.app.container(this.options)
+          : this.app.container({}),
+        this.app,
+      )
+    }
+
+    return value
+  }
+
+  public set make(make: Module['make']) {
+    this.set('make', make)
   }
 }
