@@ -3,7 +3,6 @@ import * as CleanWebpackPlugin from './clean-webpack-plugin'
 import * as WebpackConfigDumpPlugin from './webpack-config-dump-plugin'
 import * as CopyWebpackPlugin from './copy-webpack-plugin'
 import * as DefineWebpackPlugin from './define-webpack-plugin'
-import * as HashedModuleIdsPlugin from './hashed-module-ids-plugin'
 import * as HotModuleReplacementPlugin from './webpack-hot-module-replacement-plugin'
 import * as HtmlWebpackPlugin from './html-webpack-plugin'
 import * as HtmlHardDiskPlugin from './html-hard-disk-plugin'
@@ -18,7 +17,6 @@ import * as WriteFileWebpackPlugin from './write-file-webpack-plugin'
 export const extensions: Framework.Index<Framework.Module> = {
   [WebpackProvidePlugin.name]: WebpackProvidePlugin,
   [CleanWebpackPlugin.name]: CleanWebpackPlugin,
-  [HashedModuleIdsPlugin.name]: HashedModuleIdsPlugin,
   [WebpackConfigDumpPlugin.name]: WebpackConfigDumpPlugin,
   [CopyWebpackPlugin.name]: CopyWebpackPlugin,
   [CssMinimizerWebpackPlugin.name]: CssMinimizerWebpackPlugin,
