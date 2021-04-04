@@ -1,6 +1,7 @@
 import '@roots/bud-framework'
 import '@roots/bud-api'
 import '@roots/bud-babel'
+import {RuleSetRule, RuleSetUseItem} from 'webpack'
 
 declare module '@roots/bud-framework' {
   namespace Framework.Hooks.Extension {
@@ -12,21 +13,21 @@ declare module '@roots/bud-framework' {
 
   namespace Framework.Hooks.Loader {
     interface Definitions {
-      vue: any
-      'vue-style': any
+      vue: string
+      'vue-style': string
     }
   }
 
   namespace Framework.Hooks.Item {
     interface Definitions {
-      vue: any
-      'vue-style': any
+      vue: RuleSetUseItem
+      'vue-style': RuleSetUseItem
     }
   }
 
   namespace Framework.Hooks.Rule {
     interface Definitions {
-      vue: any
+      vue: RuleSetRule
     }
   }
 }

@@ -1,6 +1,6 @@
 import '@roots/bud-postcss'
 import {Module} from '@roots/bud-framework'
-import {RuleSetLoader, RuleSetUseItem} from 'webpack'
+import {RuleSetRule, RuleSetUseItem} from 'webpack'
 
 declare module '@roots/bud-framework' {
   namespace Framework.Hooks.Extension {
@@ -23,7 +23,7 @@ declare module '@roots/bud-framework' {
       /**
        * @roots/bud-sass RuleSetLoader
        */
-      sass: RuleSetLoader
+      sass: RuleSetRule
     }
   }
 
