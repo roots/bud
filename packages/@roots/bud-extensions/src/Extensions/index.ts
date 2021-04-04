@@ -1,5 +1,5 @@
+import {Framework, Module} from '@roots/bud-framework'
 import {Webpack, isUndefined} from '@roots/bud-support'
-import {Module} from '@roots/bud-typings'
 import Extension from './Extension'
 import Service from './Service'
 
@@ -54,10 +54,12 @@ export default class extends Service {
    *
    * Returns a webpack-ready array
    */
-  public make(): Webpack.Plugin[] {
+  public make(): Webpack.WebpackPluginInstance[] {
     const plugins = this.getKeys()
       .map(name => this.get(name).make)
-      .filter(ext => !isUndefined(ext)) as Webpack.Plugin[]
+      .filter(
+        ext => !isUndefined(ext),
+      ) as Webpack.WebpackPluginInstance[]
 
     return plugins
   }
@@ -80,7 +82,7 @@ export default class extends Service {
   /**
    * Discard a registered extension
    */
-  public discard(pkg: string): Service['app'] {
+  public discard(pkg: string): Framework {
     this.remove(pkg)
     this.app.disk.remove(pkg)
 
