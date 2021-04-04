@@ -1,8 +1,8 @@
 import {Framework} from '@roots/bud-framework'
-import {isEqual, Webpack} from '@roots/bud-support'
+import {Webpack} from '@roots/bud-support'
 
 declare module '@roots/bud-framework' {
-  export interface Framework {
+  interface Framework {
     /**
      * ## runtime  [💁 Fluent]
      *
@@ -16,29 +16,29 @@ declare module '@roots/bud-framework' {
      * bud.runtime()
      * ```
      */
-    runtime: Runtime
+    runtime: Framework.Api.Runtime
+  }
+
+  namespace Framework.Api {
+    type Runtime = (
+      this: Framework,
+      runtime?: Webpack.Configuration['optimization']['runtimeChunk'],
+    ) => Framework
   }
 }
 
-type Runtime = (
-  runtime?:
-    | Webpack.Configuration['optimization']['runtimeChunk']
-    | false,
-) => Framework
+const DEFAULT_OPTIONS: Webpack.Configuration['optimization']['runtimeChunk'] = {
+  name: (entrypoint: Webpack.EntryObject) =>
+    `runtime/${entrypoint.name}`,
+}
 
-export const runtime: Runtime = function (runtime) {
-  if (runtime && isEqual(runtime, false)) {
-    this.store.set('options.runtimeChunkEnabled', false)
-
-    return this
-  }
-
-  this.store.set('options.runtimeChunkEnabled', true)
-
-  runtime &&
-    this.publish({
-      'build/optimization/runtimeChunk': () => runtime,
-    })
+export const runtime: Framework.Api.Runtime = function (
+  runtime,
+) {
+  this.publish({
+    'build/optimization/runtimeChunk': () =>
+      runtime ?? DEFAULT_OPTIONS,
+  })
 
   return this
 }
