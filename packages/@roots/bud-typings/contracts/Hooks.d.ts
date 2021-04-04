@@ -220,17 +220,6 @@ declare namespace Hooks {
    */
   namespace Build {
     /**
-     * Extended Cache definition
-     */
-    interface Cache extends Webpack.Cache {
-      name?: string
-      location?: string
-      directory?: string
-      buildDependencies?: string
-      version?: string
-    }
-
-    /**
      * Extended optimization definition
      */
     interface Optimization extends Webpack.Options.Optimization {
@@ -255,61 +244,13 @@ declare namespace Hooks {
         | RegExp
         | RegExp[]
         | ((content: string) => boolean)
-      unknownContextRequest?: string
-      unknownContextRecursive?: boolean
-      unknownContextRegExp?: RegExp
-      unknownContextCritical?: boolean
-      exprContextRequest?: string
-      exprContextRegExp?: RegExp
-      exprContextRecursive?: boolean
-      exprContextCritical?: boolean
-      wrappedContextRegExp?: RegExp
-      wrappedContextRecursive?: boolean
-      wrappedContextCritical?: boolean
-      strictExportPresence?: boolean
       rules: Webpack.RuleSetRule
     }
 
     interface Config extends Webpack.Config {
       mode?: Build.Mode
       module?: Build.Module
-      cache?: Build.Cache
       optimization?: Build.Optimization
-      name?: string
-      context?: string
-      entry?: string | string[] | Webpack.Entry
-      devtool?: Webpack.Options.Devtool
-      output?: Webpack.Output
-      resolve?: Webpack.Resolve
-      resolveLoader?: Webpack.ResolveLoader
-      externals?:
-        | Webpack.ExternalsElement
-        | Webpack.ExternalsElement[]
-      target?:
-        | 'web'
-        | 'webworker'
-        | 'node'
-        | 'async-node'
-        | 'node-webkit'
-        | 'atom'
-        | 'electron'
-        | 'electron-renderer'
-        | 'electron-preload'
-        | 'electron-main'
-        | ((compiler?: any) => void)
-      bail?: boolean
-      profile?: boolean
-      watch?: boolean
-      watchOptions?: Webpack.Options.WatchOptions
-      node?: Webpack.Node | false
-      amd?: {[moduleName: string]: boolean}
-      recordsPath?: string
-      recordsInputPath?: string
-      recordsOutputPath?: string
-      plugins?: Webpack.Plugin[]
-      stats?: Webpack.Options.Stats
-      performance?: Webpack.Options.Performance | false
-      parallelism?: number
     }
 
     type Dive<T, S> = {
