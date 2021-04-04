@@ -43,7 +43,7 @@ export const config: Framework.Config = {
     name: entrypoint => `runtime/${entrypoint.name}`,
   },
   splitChunks: false,
-  parallelism: 1,
+  parallelism: os.cpus().length - 1,
   resolve: {
     alias: {},
     extensions: ['.wasm', '.mjs', '.js', '.css', '.json'],

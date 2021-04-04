@@ -1,5 +1,6 @@
 import Plugin from 'css-minimizer-webpack-plugin'
 import {Module} from '@roots/bud-framework'
+import {Webpack} from '@roots/bud-support'
 
 declare module '@roots/bud-framework' {
   namespace Framework.Hooks.Extension {
@@ -9,9 +10,7 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export const name = 'css-minimizer-webpack-plugin'
-
-export const options = () => ({
+const DEFAULT_OPTIONS = {
   minimizerOptions: {
     preset: [
       'default',
@@ -20,19 +19,37 @@ export const options = () => ({
       },
     ],
   },
-})
+}
 
-export const boot: Module['boot'] = app => {
-  app.hooks.on('build/optimization/minimizer', minimizer => [
-    ...(minimizer ?? []),
-    ...(app.store.enabled('options.minimize')
-      ? [
-          new Plugin(
-            app.subscribe(
-              'extension/css-minimizer-webpack-plugin/options',
-            ),
-          ),
-        ]
-      : []),
-  ])
+export const name: Module['name'] =
+  'css-minimizer-webpack-plugin'
+
+export const boot: Module['boot'] = ({
+  hooks,
+  store,
+  subscribe,
+}) => {
+  hooks
+    .on(
+      'extension/css-minimizer-webpack-plugin/options',
+      () => DEFAULT_OPTIONS,
+    )
+
+    .hooks.on(
+      'build/optimization/minimizer',
+      (
+        minimizer: Webpack.Configuration['optimization']['minimizer'],
+      ) => [
+        ...(minimizer ?? []),
+        ...(store.enabled('options.minimize')
+          ? [
+              new Plugin(
+                subscribe(
+                  'extension/css-minimizer-webpack-plugin/options',
+                ),
+              ),
+            ]
+          : []),
+      ],
+    )
 }
