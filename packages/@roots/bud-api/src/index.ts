@@ -58,6 +58,9 @@ export {srcPath} from './srcPath'
 import './runtime'
 export {runtime} from './runtime'
 
+import './splitChunks'
+export {splitChunks} from './splitChunks'
+
 import './storage'
 export {storage} from './storage'
 
@@ -66,9 +69,6 @@ export {use} from './use'
 
 import './html'
 export {html} from './html'
-
-import './vendor'
-export {vendor} from './vendor'
 
 import './watch'
 export {watch} from './watch'

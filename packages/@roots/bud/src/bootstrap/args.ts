@@ -92,7 +92,6 @@ export const args: any = Object.entries(
       'splitChunks.maxInitialRequests': {
         type: 'number',
       },
-      alias: {},
       stats: {
         type: 'boolean',
       },

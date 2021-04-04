@@ -1,17 +1,13 @@
 import {config} from './config'
 import {readConfig} from './readConfig'
 
-const WIRED = {
-  name: 'bud',
-}
-
 const base = readConfig()
 
 /**
  * Parsed options
  */
 export const options = {
-  ...WIRED,
+  name: 'bud',
 
   /**
    * Locations
@@ -101,7 +97,7 @@ export const options = {
     base.runtimeChunkEnabled,
   ),
   resolve: {
-    alias: config(['alias'], base.resolve.alias),
+    alias: config(['resolve.alias'], base.resolve.alias),
     extensions: config(
       ['resolve.extensions'],
       base.resolve.extensions,

@@ -4,7 +4,6 @@ import {Framework} from '@roots/bud-framework'
  * Base config
  */
 export const config: Framework.Config = {
-  alias: {},
   bail: true,
   ci: false,
   entry: {},
@@ -47,15 +46,7 @@ export const config: Framework.Config = {
   runtimeChunk: {
     name: entrypoint => `runtime/${entrypoint.name}`,
   },
-  splitChunksEnabled: false,
-  splitChunks: {
-    chunks: 'async',
-    minSize: 20000,
-    maxSize: 0,
-    minChunks: 1,
-    maxAsyncRequests: 30,
-    maxInitialRequests: 30,
-  },
+  splitChunks: false,
   parallelism: 1,
   resolve: {
     alias: {},
