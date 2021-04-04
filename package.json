@@ -99,8 +99,13 @@
     "@types/pino": "^6.3.4",
     "@types/react": "^17.0.0",
     "@types/shell-quote": "^1.7.0",
-    "@types/webpack": "^4.41.26",
-    "@types/webpack-hot-middleware": "^2.25.3",
+    "@types/webpack": "^5.28.0",
+    "@types/webpack-hot-middleware": "^2.25.4",
+    "@types/cssnano": "^4.0.0",
+    "@types/mini-css-extract-plugin": "^1.2.2",
+    "@types/optimize-css-assets-webpack-plugin": "^5.0.2",
+    "@types/signale": "^1.4.1",
+    "@types/webpack-dev-middleware": "^4.1.2",
     "commitizen": "^4.2.2",
     "conventional-changelog-cli": "^2.1.1",
     "cz-lerna-changelog": "^2.0.3",
@@ -119,7 +124,6 @@
     "ts-jest": "^26.5.2",
     "ts-node": "^9.1.1",
     "typescript": "^4.1.3",
-    "webpack-hot-middleware": "^2.25.0",
-    "yarn-run-all": "^3.1.1"
+    "type-fest": "^1.0.1"
   }
 }
