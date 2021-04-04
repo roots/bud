@@ -2,7 +2,7 @@ import './interface'
 
 import path from 'path'
 import {RawSource} from 'webpack-sources'
-import Webpack, {ExternalsPlugin} from 'webpack'
+import Webpack from 'webpack'
 import {wpPkgs} from '@roots/bud-support'
 
 export class Plugin {
@@ -10,7 +10,17 @@ export class Plugin {
 
   public stage = Infinity
 
-  public output: WordPressExternals.Output = {
+  public output:
+    | WordPressExternals.Output
+    | {
+        dir: string
+        name: string
+        file: string
+        publicPath:
+          | string
+          | Webpack.Compiler['options']['output']['publicPath']
+        content: {}
+      } = {
     dir: '',
     name: '',
     file: '',
@@ -19,8 +29,6 @@ export class Plugin {
   }
 
   public options: any
-
-  public externalsPlugin: ExternalsPlugin
 
   /**
    * Class constructor
@@ -37,6 +45,10 @@ export class Plugin {
     this.emit = this.emit.bind(this)
   }
 
+  /**
+   * Plugin apply
+   * @see Tapable
+   */
   apply(compiler: Webpack.Compiler): void {
     this.output.dir = compiler.options.output.path
     this.output.publicPath = compiler.options.output.publicPath
@@ -57,8 +69,12 @@ export class Plugin {
     )
   }
 
+  /**
+   * Plugin emit
+   * @see Webpack
+   */
   public async emit(
-    compilation: Webpack.compilation.Compilation,
+    compilation: Webpack.Compilation,
     callback: () => void,
   ): Promise<void> {
     compilation.entrypoints.forEach(entry => {
