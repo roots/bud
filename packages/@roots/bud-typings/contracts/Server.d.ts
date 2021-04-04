@@ -1,10 +1,10 @@
-import {Service} from './Service'
-import {Container} from './Container'
-import {Compiler as WebpackCompiler} from 'webpack'
-import {Application, Handler} from 'express'
-import DevMiddleware from 'webpack-dev-middleware'
-import Proxy from 'http-proxy-middleware'
-import {WatchOptions} from 'chokidar'
+import type {Service} from './Service'
+import type {Container} from './Container'
+import type Webpack from 'webpack'
+import type {Application, Handler} from 'express'
+import type DevMiddleware from 'webpack-dev-middleware'
+import type Proxy from 'http-proxy-middleware'
+import type {WatchOptions} from 'chokidar'
 
 export abstract class Server extends Service {
   middleware: Server.Middleware.Inventory
@@ -25,8 +25,19 @@ export abstract class Server extends Service {
 }
 
 export namespace Server {
-  export type Compiler = WebpackCompiler
+  /**
+   * Server instance
+   */
   export type Instance = Application
+
+  /**
+   * Webpack compiler
+   */
+  export type Compiler = Webpack.Compiler | Webpack.MultiCompiler
+
+  /**
+   * Middleware
+   */
   export type Middleware = any
 
   export namespace Middleware {
