@@ -17,7 +17,7 @@ export declare interface Extensions extends Service {
 
   use(pkg: string): this
 
-  make(): Webpack.Plugin[]
+  make(): Webpack.WebpackPluginInstance[]
 
   discard(pkg: string): Service['app']
 }
@@ -33,7 +33,7 @@ export declare interface Extensions extends Service {
 export interface Extension extends Framework.Service {
   readonly app: Framework
 
-  make(): Webpack.Plugin
+  make(): Webpack.WebpackPluginInstance
 
   isPlugin(): boolean
 
