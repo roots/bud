@@ -273,7 +273,7 @@ export function config(app: Framework) {
     /**
      * build/watch
      */
-    'build/watch': () => app.isDevelopment,
+    'build/watch': () => undefined,
 
     /**
      * build/watch-options
