@@ -103,7 +103,7 @@ export const sage: Sage.Preset = sage => {
         .use(esbuild).esbuild.jsx()
         .minify()
         .hash()
-        .vendor()
+        .splitChunks()
         .runtime('single'),
 
       () => sage
