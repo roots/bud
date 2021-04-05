@@ -73,11 +73,7 @@ export const publish: Framework.Module['publish'] = (
   /**
    * rule/js/use
    */
-  'rule/js/use': () => [
-    app.subscribe('item/cache'),
-    app.subscribe('item/thread'),
-    app.subscribe('item/babel'),
-  ],
+  'rule/js/use': () => [app.subscribe('item/babel')],
 })
 
 /**
