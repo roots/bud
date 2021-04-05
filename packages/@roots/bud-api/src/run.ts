@@ -15,12 +15,6 @@ declare module '@roots/bud-framework' {
      * ```js
      * bud.run()
      * ```
-     *
-     * Disable the custom dashboard (use webpack default output)
-     *
-     * ```js
-     * bud.run(true)
-     * ```
      */
     run: Run
   }
@@ -52,15 +46,14 @@ export function run(this: Framework): Promise<void> {
   const build = this.build.make()
   this.compiler.compile(build)
 
+  const boundHook = compilerHook.bind(this)
+
   /**
    * Delegate stats hook to the compilerHook function.
    * As webpack doesn't really have a node API for running
    * in dev this is our last real chance to get insight on dev builds.
    */
-  this.compiler.instance.hooks.done.tap(
-    'bud',
-    compilerHook.bind(this),
-  )
+  this.compiler.instance.hooks.done.tap('bud', boundHook)
 
   /**
    * Instantiate a new progress plugin and apply it
@@ -92,16 +85,16 @@ export function run(this: Framework): Promise<void> {
 /**
  * Handles display output of compilation / dev server.
  */
-function displayCompilation(): void {
+function displayCompilation(this: Framework): void {
   if (this.store.has(`compilation.errors`)) {
     this.error(this.store.get(`compilation.errors`))
     process.exit()
   }
 
-  this.store.has(`compilation.stats.string`) &&
+  this.store.get(`compilation.stats.string`) &&
     (() => {
       this.log(this.store.get(`compilation.stats.string`))
-      this.store.delete(`compilation.stats.string`)
+      this.store.set(`compilation.stats.string`, null)
     })()
 
   this.store.has('compilation.progress') &&
@@ -113,7 +106,7 @@ function displayCompilation(): void {
           )}]`,
         )} ${this.store.get(`compilation.progress.message`)}\r`,
       )
-      this.store.delete(`compilation.progress`)
+      this.store.set(`compilation.progress`)
     })()
 }
 
