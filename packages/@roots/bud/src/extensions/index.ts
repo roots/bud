@@ -12,7 +12,6 @@ import * as WebpackManifestPlugin from './webpack-manifest-plugin'
 import * as MiniCssExtractPlugin from './mini-css-extract-plugin'
 import * as CssMinimizerWebpackPlugin from './css-minimizer-webpack-plugin'
 import * as WebpackProvidePlugin from './webpack-provide-plugin'
-import * as WriteFileWebpackPlugin from './write-file-webpack-plugin'
 
 export const extensions: Framework.Index<Framework.Module> = {
   [WebpackProvidePlugin.name]: WebpackProvidePlugin,
@@ -28,5 +27,4 @@ export const extensions: Framework.Index<Framework.Module> = {
   [InterpolateHtmlPlugin.name]: InterpolateHtmlPlugin,
   [WebpackManifestPlugin.name]: WebpackManifestPlugin,
   [MiniCssExtractPlugin.name]: MiniCssExtractPlugin,
-  [WriteFileWebpackPlugin.name]: WriteFileWebpackPlugin,
 }

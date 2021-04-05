@@ -1,6 +1,5 @@
 import Plugin from 'ignore-emit-webpack-plugin'
-import {Module} from '@roots/bud-typings'
-import {Framework} from '@roots/bud-framework/src'
+import {Framework, Module} from '@roots/bud-framework'
 
 /**
  * Framework extension ident

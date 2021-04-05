@@ -1,5 +1,5 @@
 import {HotModuleReplacementPlugin} from 'webpack'
-import type {Module} from '@roots/bud-typings'
+import type {Module} from '@roots/bud-framework'
 
 export const name = `webpack-hot-module-replacement-plugin`
 
