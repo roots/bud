@@ -1,13 +1,11 @@
 import escapeString from 'escape-string-regexp'
 import type Webpack from 'webpack'
-import type {Tapable} from 'tapable'
 
 /**
  * @class InterpolateHtmlPlugin
  * @implements Tapable.Plugin
  */
-export default class InterpolateHtmlPlugin
-  implements Tapable.Plugin {
+export default class InterpolateHtmlPlugin {
   /**
    * @property name
    */
