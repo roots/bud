@@ -105,10 +105,7 @@ export class Logger implements Contract, Bootstrapper {
    * Framework lifecycle: registered
    */
   public registered(app: Framework) {
-    if (
-      app.store.enabled('options.log') ||
-      app.store.enabled('options.ci')
-    ) {
+    if (app.store.enabled('options.log')) {
       app.logger.instance.enable()
     }
   }
