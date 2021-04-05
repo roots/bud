@@ -1,5 +1,5 @@
 import '@roots/bud-framework'
-import type Plugin from 'image-minimizer-webpack-plugin'
+import type Plugin from 'image-minimizer-webpack-plugin/types'
 
 declare module '@roots/bud-framework' {
   interface Framework {
