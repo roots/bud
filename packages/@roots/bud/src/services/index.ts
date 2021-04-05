@@ -1,7 +1,6 @@
 import {Bootstrapper} from '@roots/bud-typings'
 
 import {Api} from './Api'
-import {Build} from './Build'
 import {Dependencies} from './Dependencies'
 import {Discovery} from './Discovery'
 import {Disk} from './Disk'
@@ -13,6 +12,7 @@ import {Server} from './Server'
 import {Store} from './Store'
 import {Util} from './Util'
 
+import {Build} from '@roots/bud-build'
 import {Cache} from '@roots/bud-cache'
 import {Compiler} from '@roots/bud-compiler'
 import {Dashboard} from '@roots/bud-dashboard'
