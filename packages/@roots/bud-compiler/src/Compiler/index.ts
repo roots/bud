@@ -1,7 +1,7 @@
 import Service from './Service'
 import options from './options'
-import {webpack, ProgressPlugin} from '@roots/bud-support'
-import type {Compiler, Webpack} from '@roots/bud-typings'
+import Webpack, {ProgressPlugin} from 'webpack'
+import {Compiler} from '@roots/bud-framework'
 
 /**
  * Compiler
@@ -30,7 +30,7 @@ export default class extends Service implements Compiler {
   /**
    * Errors
    */
-  public errors: string[]
+  public errors = []
 
   /**
    * Progress
@@ -57,22 +57,30 @@ export default class extends Service implements Compiler {
   }
 
   /**
-   * Compile
+   * Instantiates compilation
    */
-  public compile(conf): Webpack.Compiler {
-    return (this.instance = webpack(conf))
+  public run(): void {
+    this.instance.run(
+      (err?: Error, stats?: {[key: string]: any}) => {
+        if (err) {
+          this.errors = [...this.errors, err.toString()]
+        }
+
+        this.stats = {
+          string: stats.toString(),
+          json: stats.toJson(),
+        }
+      },
+    )
   }
 
   /**
-   * Run compilation
+   * Compile
    */
-  public run(): void {
-    this.instance.run((_err, stats) => {
-      this.stats = {
-        string: stats.toString(),
-        json: stats.toJson(),
-      }
-    })
+  public compile(
+    config: Webpack.Configuration,
+  ): Webpack.Compiler {
+    return (this.instance = Webpack(config))
   }
 
   /**
