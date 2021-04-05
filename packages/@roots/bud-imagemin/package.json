@@ -52,17 +52,20 @@
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
+  "peerDependencies": {
+    "@roots/bud-framework": "^3.0.112-alpha.0",
+    "@roots/bud-support": "^3.0.112-alpha.0"
+  },
   "devDependencies": {
     "@roots/bud-framework": "^3.0.112-alpha.0"
   },
   "dependencies": {
-    "@roots/bud-support": "^3.0.112-alpha.0",
-    "image-minimizer-webpack-plugin": "^1.0.0",
-    "imagemin": "^6.0.1",
+    "image-minimizer-webpack-plugin": "^2.2.0",
+    "imagemin": "^7.0.1",
     "imagemin-gifsicle": "^7.0.0",
     "imagemin-jpegtran": "^7.0.0",
     "imagemin-optipng": "^8.0.0",
-    "imagemin-svgo": "^8.0.0"
+    "imagemin-svgo": "^9.0.0"
   },
   "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"
 }

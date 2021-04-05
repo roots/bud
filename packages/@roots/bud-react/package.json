@@ -53,20 +53,26 @@
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
+  "peerDependencies": {
+    "@babel/core": "^7.13.14",
+    "@babel/preset-react": "^7.13.13",
+    "@roots/bud-babel": "^3.0.112-alpha.0",
+    "@roots/bud-framework": "^3.0.112-alpha.0",
+    "@roots/bud-support": "^3.0.112-alpha.0"
+  },
   "devDependencies": {
     "@roots/bud-babel": "^3.0.112-alpha.0",
-    "@roots/bud-framework": "^3.0.112-alpha.0"
+    "@roots/bud-framework": "^3.0.112-alpha.0",
+    "@roots/bud-support": "^3.0.112-alpha.0"
   },
   "dependencies": {
-    "@babel/preset-react": "^7.12.10",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
-    "@roots/bud-support": "^3.0.112-alpha.0",
     "@svgr/core": "^5.5.0",
     "@svgr/webpack": "^5.5.0",
-    "react": ">=17.0.1",
-    "react-dom": ">=17.0.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "react-hot-loader": "^4.13.0",
-    "react-refresh": "^0.9.0"
+    "react-refresh": "^0.10.0"
   },
   "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"
 }

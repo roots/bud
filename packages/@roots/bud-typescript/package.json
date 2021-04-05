@@ -52,18 +52,19 @@
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
-  "devDependencies": {
-    "@roots/bud": "^3.0.112-alpha.0",
+  "peerDependencies": {
     "@roots/bud-framework": "^3.0.112-alpha.0",
-    "@roots/bud-typings": "^3.0.112-alpha.0",
-    "@types/node": "^14.14.31",
-    "type-fest": "^0.21.2"
+    "typescript": "^4.2.3"
+  },
+  "devDependencies": {
+    "@roots/bud-framework": "^3.0.112-alpha.0"
   },
   "dependencies": {
     "@roots/bud-support": "^3.0.112-alpha.0",
-    "@typescript-eslint/parser": "^4.14.0",
-    "fork-ts-checker-webpack-plugin": "^6.1.1",
-    "ts-loader": "^8.0.18"
+    "@typescript-eslint/parser": "^4.20.0",
+    "eslint": "^7.23.0",
+    "fork-ts-checker-webpack-plugin": "^6.2.0",
+    "ts-loader": "^8.1.0"
   },
   "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"
 }

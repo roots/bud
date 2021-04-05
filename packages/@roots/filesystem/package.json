@@ -56,7 +56,7 @@
   "dependencies": {
     "@roots/container": "^3.0.112-alpha.0",
     "fs-extra": "^9.0.1",
-    "globby": "^11.0.1",
+    "globby": "^11.0.3",
     "resolve-from": "^5.0.0"
   },
   "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"
