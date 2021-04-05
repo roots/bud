@@ -31,8 +31,11 @@ const dev: Server.Middleware.Init = ({
 /**
  * Make dev middlware options
  */
-const options = (config: Server.Config): DevMiddleware.Options =>
-  Object.fromEntries(
+const options = (
+  config: Server.Config,
+): DevMiddleware.Options => ({
+  writeToDisk: true,
+  ...Object.fromEntries(
     config
       .mutate('headers', headers => ({
         ...headers,
@@ -45,6 +48,7 @@ const options = (config: Server.Config): DevMiddleware.Options =>
           !isUndefined(option) &&
           !isNull(option),
       ),
-  )
+  ),
+})
 
 export {dev}
