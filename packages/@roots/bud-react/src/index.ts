@@ -7,10 +7,7 @@ import * as ReactRefreshWebpackPlugin from './react-refresh'
 /**
  * @const DEFAULT_PRESETS
  */
-const DEFAULT_PRESETS = [
-  `@babel/preset-env`,
-  `@babel/preset-react`,
-]
+const DEFAULT_PRESETS = ['@babel/preset-react']
 
 /**
  * @module @roots/bud-react
@@ -24,10 +21,23 @@ const extension: Framework.Module = {
   name: '@roots/bud-react',
 
   /**
+   * @property {Array} devDependencies
+   */
+  devDependencies: ['@babel/preset-react', 'react-refresh'],
+
+  /**
+   * @property {Array} dependencies
+   */
+  dependencies: ['react', 'react-dom'],
+
+  /**
    * @function boot
    */
   boot({babel, isDevelopment, when}: Framework): void {
-    babel.setPresets(DEFAULT_PRESETS)
+    babel.setPresets([
+      ...Object.values(babel.presets),
+      ...DEFAULT_PRESETS,
+    ])
 
     when(isDevelopment, (app: Framework) =>
       app
@@ -47,13 +57,10 @@ const extension: Framework.Module = {
   },
 }
 
-/**
- * @exports default
- */
-export {extension as default}
+const {name, boot, devDependencies, dependencies} = extension
 
 /**
- * @exports module
+ * @exports
  */
-const {name, boot} = extension
-export {name, boot}
+export {extension as default}
+export {name, boot, devDependencies, dependencies}
