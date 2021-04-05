@@ -1,9 +1,6 @@
 {
-  "name": "bud-example-react",
+  "name": "demoesbuild",
   "scripts": {
     "bud": "node ../../node_modules/.bin/bud"
-  },
-  "devDependencies": {
-    "@roots/bud-preset-recommend": "latest"
   }
 }

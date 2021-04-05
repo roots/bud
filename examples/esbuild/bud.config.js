@@ -11,4 +11,4 @@ module.exports = app =>
     .html({enabled: true})
     .entry('scripts/app', 'app.js')
     .runtime()
-    .vendor()
+    .splitChunks()
