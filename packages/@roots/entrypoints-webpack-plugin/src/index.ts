@@ -20,7 +20,7 @@ export class Plugin {
   /**
    * Hook: webpack compilation output.
    */
-  public hook = ['compilation', 'output']
+  public readonly hook: string[] = ['compilation', 'output']
 
   /**
    * Build hash
@@ -119,7 +119,10 @@ export class Plugin {
 
     this.hash = hash ?? null
 
-    hooks.entrypoints = new SyncWaterfallHook(this.hook)
+    /**
+     * @todo lazy typings @webpack5
+     */
+    hooks.entrypoints = new SyncWaterfallHook(this.hook as any)
     hooks.entrypoints.tap(this.plugin, this.entrypoints)
     hooks.entrypoints.call(entrypoints, this.output)
 
@@ -135,9 +138,7 @@ export class Plugin {
   /**
    * Map entrypoints to output
    */
-  public entrypoints(
-    entrypoints: SyncWaterfallHook['call']['arguments'],
-  ): void {
+  public entrypoints(entrypoints): void {
     try {
       entrypoints.forEach(({name, chunks, ...entry}) => {
         chunks.map(({files}) => {
