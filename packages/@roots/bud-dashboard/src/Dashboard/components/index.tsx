@@ -71,38 +71,34 @@ export const Dashboard: FunctionComponent<{bud: Framework}> = ({
     <Screen>
       <Box flexDirection="column">
         {/** Static: errors */}
-        {appProps.hasErrors && appProps.errors && (
-          <Static
-            marginBottom={1}
-            items={appProps.errors.map((body, id) => ({
-              id,
-              body,
-            }))}>
-            {error => (
+        {appProps.hasErrors && appProps.errors?.length > 0 && (
+          <Static marginBottom={1} items={appProps.errors}>
+            {err => (
               <Module
-                key={error.id}
+                key={err.moduleIdentifier}
                 color={appProps.theme.colors.error}
-                label="Error">
-                <Text>{error.body}</Text>
+                labelColor={theme.colors.foreground}
+                label={`Error: ${err.moduleName}`}>
+                <Box width={theme.bounds.width - 4}>
+                  <Text>{err.message}</Text>
+                </Box>
               </Module>
             )}
           </Static>
         )}
 
         {/** Static: warnings */}
-        {appProps.hasWarnings && appProps.warnings && (
-          <Static
-            marginBottom={1}
-            items={appProps.warnings.map((body, id) => ({
-              id,
-              body,
-            }))}>
+        {appProps.hasWarnings && appProps.warnings?.length > 0 && (
+          <Static marginBottom={1} items={appProps.warnings}>
             {warning => (
               <Module
-                key={warning.id}
+                key={warning.moduleIdentifier}
                 color={appProps.theme.colors.warning}
-                label="Warning">
-                <Text>{warning.body}</Text>
+                labelColor={theme.colors.foreground}
+                label={`Error: ${warning.moduleName}`}>
+                <Box width={theme.bounds.width - 4}>
+                  <Text>{warning.message}</Text>
+                </Box>
               </Module>
             )}
           </Static>

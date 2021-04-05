@@ -11,6 +11,7 @@ declare interface Props {
   when?: boolean
   fallback?: any
   color?: string
+  labelColor?: string
   marginBottom?: number
   borderStyle?: 'single' | 'double' | 'classic' | 'round'
 }
@@ -21,12 +22,13 @@ export const Module: FunctionComponent<Props> = ({
   when = true,
   fallback = null,
   color = 'white',
+  labelColor = color,
   marginBottom = 1,
   borderStyle = 'single',
 }) =>
   when ? (
     <Box flexDirection="column" marginBottom={marginBottom}>
-      <Text color={color}>{label}</Text>
+      <Text color={labelColor}>{label}</Text>
       <Box
         borderStyle={borderStyle}
         borderColor={color}

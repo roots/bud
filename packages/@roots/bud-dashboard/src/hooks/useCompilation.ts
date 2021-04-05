@@ -14,6 +14,12 @@ export type CompilationAsset = {
   info?: string
 }
 
+interface WebpackMessage {
+  moduleIdentifier: string
+  moduleName: string
+  message: string
+}
+
 export interface Compilation {
   progress: {
     percentage: string
@@ -21,7 +27,8 @@ export interface Compilation {
     message: string
   }
   stats: Compiler.Stats.Output['json']
-  errors?: string[]
+  errors?: WebpackMessage[]
+  warnings?: WebpackMessage[]
 }
 
 /**
@@ -29,9 +36,11 @@ export interface Compilation {
  */
 export const useCompilation = (bud: Framework) => {
   const [stats, setStats] = useState(bud?.compiler?.stats?.json)
-  const [errors, setErrors] = useState<string[]>(null)
+  const [errors, setErrors] = useState<WebpackMessage[]>(null)
   const [hasErrors, setHasErrors] = useState<boolean>(false)
-  const [warnings, setWarnings] = useState<string[]>(null)
+  const [warnings, setWarnings] = useState<WebpackMessage[]>(
+    null,
+  )
   const [hasWarnings, setHasWarnings] = useState<boolean>(false)
   const [progress, setProgress] = useState(null)
 
@@ -50,6 +59,7 @@ export const useCompilation = (bud: Framework) => {
       if (!stats?.hasErrors) return
 
       setHasErrors(stats.hasErrors())
+
       stats.hasErrors()
         ? setErrors(stats.toJson('errors-only').errors)
         : setErrors(null)

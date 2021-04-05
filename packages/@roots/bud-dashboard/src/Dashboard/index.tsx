@@ -117,6 +117,12 @@ namespace Dashboard {
     bud: Framework
   }
 
+  declare interface WebpackMessage {
+    moduleIdentifier: string
+    moduleName: string
+    message: string
+  }
+
   export interface AppProps {
     bud: Framework
     pkg: {[key: string]: any}
@@ -128,9 +134,9 @@ namespace Dashboard {
       decimal: number
       message: string
     }
-    errors: string[]
+    errors: Array<WebpackMessage>
     hasErrors: boolean
-    warnings: string[]
+    warnings: Array<WebpackMessage>
     hasWarnings: boolean
   }
 
