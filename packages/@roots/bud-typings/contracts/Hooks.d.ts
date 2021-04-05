@@ -39,7 +39,7 @@ import Webpack from 'webpack'
  * ```
  */
 
-declare interface Hooks extends Service {
+export interface Hooks extends Service {
   /**
    * Hooks repository
    */
@@ -79,39 +79,37 @@ declare interface Hooks extends Service {
   ): T
 }
 
-declare namespace Hooks {
+export namespace Hooks {
   /**
    * Hook definition
    */
-  type Hook<T = any> = (value?: T) => T
+  export type Hook<T = any> = (value?: T) => T
 
   /**
    * bud.publish key/value argument
    */
-  type PublishDict = {
+  export type PublishDict = {
     [K in Hooks.Name as `${K & string}`]?: any
   }
 
   /**
    * Loaders
    */
-  namespace Loader {
-    type Base = `loader`
-    type Subject = string
+  export namespace Loader {
+    export type Base = `loader`
+    export type Subject = string
 
-    interface Definitions {
+    export interface Definitions {
       css: Subject
       raw: Subject
       style: Subject
       file: Subject
-      cache: Subject
       url: Subject
       minicss: Subject
       ['resolve-url']: Subject
-      thread: Subject
     }
 
-    type Final =
+    export type Final =
       | `loader`
       | keyof {
           [K in keyof Definitions as `${Base}/${K &
@@ -122,15 +120,14 @@ declare namespace Hooks {
   /**
    * Items
    */
-  namespace Item {
-    type Base = 'item'
-    type Subject = Webpack.RuleSetLoader
-    type SubjectKeys = 'loader' | 'options'
+  export namespace Item {
+    export type Base = 'item'
+    export type Subject = Webpack.RuleSetLoader
+    export type SubjectKeys = 'loader' | 'options'
 
-    type OptionsKey = `${string}`
+    export type OptionsKey = `${string}`
 
-    interface Definitions {
-      cache: Subject
+    export interface Definitions {
       css: Subject
       file: Subject
       image: Subject
@@ -141,29 +138,28 @@ declare namespace Hooks {
       raw: Subject
       style: Subject
       svg: Subject
-      thread: Subject
     }
 
-    type Root = {
+    export type Root = {
       item: Subject
     }
 
-    type Item = {
+    export type Item = {
       [K in keyof Definitions as `${Base}/${K & string}`]: any
     }
 
-    type Props = {
+    export type Props = {
       [K in keyof Item as `${K & string}/${SubjectKeys}`]: any
     }
 
-    type OptionKey<K> = `${K & string}/${SubjectKeys &
+    export type OptionKey<K> = `${K & string}/${SubjectKeys &
       'options'}/${string}`
 
-    type Options = {
+    export type Options = {
       [K in keyof Item as OptionKey<K>]: any
     }
 
-    type Final =
+    export type Final =
       | keyof Root
       | keyof Item
       | keyof Props
@@ -173,15 +169,15 @@ declare namespace Hooks {
   /**
    * Rules
    */
-  namespace Rule {
-    type Base = 'rule'
-    type Subject = Webpack.RuleSetRule
-    type WebpackMap = {
+  export namespace Rule {
+    export type Base = 'rule'
+    export type Subject = Webpack.RuleSetRule
+    export type WebpackMap = {
       [K in keyof Subject as `${Base}/${keyof Definitions &
         string}/${K & string}`]: Subject[K]
     }
 
-    interface Definitions {
+    export interface Definitions {
       js: Subject
       css: Subject
       html: Subject
@@ -190,25 +186,25 @@ declare namespace Hooks {
       font: Subject
     }
 
-    type Root = {
+    export type Root = {
       rule: Subject
     }
 
-    type Rule = {
+    export type Rule = {
       [K in keyof Definitions as `${Base}/${K & string}`]: any
     }
 
-    type Props = {
+    export type Props = {
       [K in keyof Rule as `${K & string}/${keyof Subject &
         string}`]: any
     }
 
-    type Options = {
+    export type Options = {
       [K in keyof Rule as `${K & string}/${keyof Subject &
         'options'}/${string}`]: any
     }
 
-    type Final =
+    export type Final =
       | keyof Root
       | keyof Rule
       | keyof Props
@@ -218,28 +214,17 @@ declare namespace Hooks {
   /**
    * Build
    */
-  namespace Build {
-    /**
-     * Extended optimization definition
-     */
-    interface Optimization extends Webpack.Options.Optimization {
-      splitChunks?: {
-        cacheGroups?: Webpack.Options.CacheGroupsOptions & {
-          vendor?: Webpack.Options.CacheGroupsOptions
-        }
-      }
-    }
-
+  export namespace Build {
     /**
      * Bud does not support 'none'
      */
-    type Mode = 'development' | 'production'
+    export type Mode = 'development' | 'production'
 
     /**
      * Override rules definition (since we skip the arrayed
      * ruleset for ease of access)
      */
-    interface Module extends Webpack.Module {
+    export interface Module extends Webpack.Module {
       noParse?:
         | RegExp
         | RegExp[]
@@ -247,23 +232,23 @@ declare namespace Hooks {
       rules: Webpack.RuleSetRule
     }
 
-    interface Config extends Webpack.Config {
+    export interface Config extends Webpack.Config {
       mode?: Build.Mode
       module?: Build.Module
       optimization?: Build.Optimization
     }
 
-    type Dive<T, S> = {
+    export type Dive<T, S> = {
       [K in keyof T as `build/${S & string}/${K & string}`]: T[K]
     }
 
-    type Props = {
+    export type Props = {
       [K in keyof Config as `build/${K & string}`]: Config[K]
     }
 
-    type Top = {build: Config}
+    export type Top = {build: Config}
 
-    type Final = keyof {
+    export type Final = keyof {
       [K in
         | keyof Top
         | keyof Props
@@ -298,8 +283,8 @@ declare namespace Hooks {
     }
   }
 
-  namespace Locale {
-    interface Definitions {
+  export namespace Locale {
+    export interface Definitions {
       project: Subject
       src: Subject
       dist: Subject
@@ -309,22 +294,21 @@ declare namespace Hooks {
       records: Subject
     }
 
-    type Base = `location`
-    type Subject = string
-    type Final = keyof {
+    export type Base = `location`
+    export type Subject = string
+    export type Final = keyof {
       [K in keyof Definitions as `${Base}/${K &
         string}`]: Definitions[K]
     }
   }
 
-  namespace Extension {
-    type Base = `extension`
-    type Subject = Module
+  export namespace Extension {
+    export type Base = `extension`
+    export type Subject = Module
 
-    interface Definitions {
+    export interface Definitions {
       'clean-webpack-plugin': Subject
       'webpack-config-dump-plugin': Subject
-      'webpack-copy-plugin': Subject
       'webpack-define-plugin': Subject
       'hashed-module-ids-plugin': Subject
       'webpack-hot-module-replacement-plugin': Subject
@@ -336,10 +320,9 @@ declare namespace Hooks {
       'mini-css-extract-plugin': Subject
       'optimize-css-assets-webpack-plugin': Subject
       'webpack-provide-plugin': Subject
-      'write-file-webpack-plugin': Subject
     }
 
-    type Final = keyof {
+    export type Final = keyof {
       [K in keyof Definitions as
         | `extension`
         | `extension/${K}`
@@ -349,7 +332,7 @@ declare namespace Hooks {
     }
   }
 
-  type Name =
+  export type Name =
     | `${Item.Final}`
     | `${Locale.Final}`
     | `${Loader.Final}`
@@ -357,7 +340,7 @@ declare namespace Hooks {
     | `${Extension.Final}`
     | `${Build.Final}`
 
-  type Repository = {
+  export type Repository = {
     [K in Name as `${K & string}`]?: Hook[]
   }
 }
