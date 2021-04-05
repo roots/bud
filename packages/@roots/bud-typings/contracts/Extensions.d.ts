@@ -13,6 +13,8 @@ import {Framework, Hooks, MappedType, Service} from './'
 export declare interface Extensions extends Service {
   add(extension): void
 
+  get(name: string): Extension
+
   set<Extension>(name: string, extension: Extension): this
 
   use(pkg: string): this
@@ -31,17 +33,70 @@ export declare interface Extensions extends Service {
  * [🧑‍💻 roots/bud](https://git.io/Jkli3)
  */
 export interface Extension extends Framework.Service {
+  /**
+   * Module
+   */
+  readonly module: Module
+
+  /**
+   * App
+   */
   readonly app: Framework
 
-  make(): Webpack.Plugin
+  /**
+   * Logging
+   */
+  readonly logger: Framework['logger']
 
-  isPlugin(): boolean
+  /**
+   * Name
+   */
+  name: Module['name']
 
-  isPluginEnabled(): boolean
+  /**
+   * Options
+   */
+  options: Module['options']
 
-  setOptions(options: Framework.Index<any>): void
+  /**
+   * Development Dependencies
+   */
+  dependencies: Module['dependencies']
 
-  setBuilders(builders: [string, CallableFunction][]): void
+  /**
+   * Development Dependencies
+   */
+  devDependencies: Module['devDependencies']
+
+  /**
+   * When
+   */
+  when: Module['when']
+
+  /**
+   * Make
+   */
+  make: Module['make']
+
+  /**
+   * Install package dependencies
+   */
+  install(): void
+
+  /**
+   * Make hook key from module property
+   */
+  makeKey(key: ModuleKey): Framework.Hooks.Name
+
+  /**
+   * Get module properties (hooked)
+   */
+  get(key: ModuleKey): any
+
+  /**
+   * Set module properties (hooked)
+   */
+  set(key: ModuleKey, value: any): void
 }
 
 /**
