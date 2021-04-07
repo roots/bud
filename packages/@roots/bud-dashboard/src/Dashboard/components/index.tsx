@@ -1,8 +1,6 @@
 import {Dashboard} from '@roots/bud-framework'
 import {
   React,
-  FunctionComponent,
-  useEffect,
   Box,
   useInput,
   Static,
@@ -21,20 +19,16 @@ import {useStyle} from '@roots/ink-use-style'
 import {useCompilation, usePackageJson} from '../../hooks'
 import {isEqual} from 'lodash'
 
+/**
+ * @exports Dashboard
+ */
 export {Dashboard}
 
-const Dashboard: FunctionComponent<Dashboard.Props> = ({
-  bud,
-}) => {
-  const {
-    stats,
-    progress,
-    errors,
-    hasErrors,
-    warnings,
-    hasWarnings,
-  } = useCompilation(bud)
-
+/**
+ * Dashboard CLI interface
+ */
+const Dashboard: Dashboard.Component = ({bud}) => {
+  const compilation = useCompilation(bud)
   const theme = useStyle(bud.store.get('options.theme'))
   const pkg = usePackageJson(bud)
 
@@ -46,25 +40,24 @@ const Dashboard: FunctionComponent<Dashboard.Props> = ({
     }
   })
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!bud.isProduction) return
 
-    const isComplete = progress?.decimal >= 1
-    const shouldExit = isComplete || hasErrors
+    const isComplete = compilation?.progress?.decimal >= 1
+    const shouldExit = isComplete || compilation?.hasErrors
 
     shouldExit && setTimeout(() => process.exit())
-  }, [stats, progress, errors])
+  }, [
+    compilation.stats,
+    compilation.progress,
+    compilation.errors,
+  ])
 
   const appProps: Dashboard.AppProps = {
     bud,
     theme,
     pkg,
-    progress,
-    stats,
-    errors,
-    hasErrors,
-    warnings,
-    hasWarnings,
+    ...compilation,
   }
 
   return (

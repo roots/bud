@@ -5,7 +5,6 @@ import type {
   Cache,
   CLI,
   Compiler,
-  Dashboard,
   Dependencies,
   Discovery,
   Disk,
@@ -36,7 +35,6 @@ declare namespace Framework {
     CLI,
     Compiler,
     Container,
-    Dashboard,
     Dependencies,
     Discovery,
     Disk,
@@ -74,8 +72,6 @@ abstract class Framework {
   public abstract cache: Cache
 
   public abstract compiler: Compiler
-
-  public abstract dashboard: Dashboard
 
   public abstract dependencies: Dependencies
 

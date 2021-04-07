@@ -3,32 +3,13 @@ import {
   useEffect,
   ProgressPlugin,
 } from '@roots/bud-support'
-import {Framework} from '@roots/bud-framework'
-import {Compiler} from '@roots/bud-typings'
-
-export type CompilationAsset = {
-  name: string
-  active: boolean
-  size: number
-  hot: boolean
-  info?: string
-}
-
-export interface Compilation {
-  progress: {
-    percentage: string
-    decimal: number
-    message: string
-  }
-  stats: Compiler.Stats.Output['json']
-  errors?: string[]
-}
+import {Dashboard} from '@roots/bud-framework'
 
 /**
  * Use compilation
  */
-export const useCompilation = (bud: Framework) => {
-  const [stats, setStats] = useState(bud?.compiler?.stats?.json)
+export const useCompilation: Dashboard.Compilation.Hook = app => {
+  const [stats, setStats] = useState(app?.compiler?.stats?.json)
   const [errors, setErrors] = useState<string[]>(null)
   const [hasErrors, setHasErrors] = useState<boolean>(false)
   const [warnings, setWarnings] = useState<string[]>(null)
@@ -36,16 +17,16 @@ export const useCompilation = (bud: Framework) => {
   const [progress, setProgress] = useState(null)
 
   useEffect(() => {
-    bud.compiler.compile(bud.build.make())
+    app.compiler.compile(app.build.make())
   }, [])
 
   useEffect(() => {
-    if (!bud?.compiler?.instance) return
+    if (!app?.compiler?.instance) return
 
-    bud.compiler.instance.hooks.done.tap('bud', stats => {
+    app.compiler.instance.hooks.done.tap('app', stats => {
       if (!stats) return
 
-      setStats(stats.toJson(bud.compiler.statsOptions.json))
+      setStats(stats.toJson(app.compiler.statsOptions.json))
 
       if (!stats?.hasErrors) return
 
@@ -66,12 +47,12 @@ export const useCompilation = (bud: Framework) => {
         percentage: `${Math.floor(decimal * 100)}%`,
         message,
       })
-    }).apply(bud.compiler.instance)
+    }).apply(app.compiler.instance)
 
     const compilerCallback = (err, stats: any) => {
       if (!stats) return
 
-      stats = stats.toJson(bud.compiler.statsOptions.json)
+      stats = stats.toJson(app.compiler.statsOptions.json)
 
       setStats(stats)
 
@@ -87,19 +68,15 @@ export const useCompilation = (bud: Framework) => {
           ? setWarnings(stats.warnings)
           : setWarnings(null)
       }
-
-      bud.compiler.instance.close(
-        closeErr => closeErr && setErrors(closeErr),
-      )
     }
 
     /**
      * Exec
      */
-    !bud.isDevelopment
-      ? bud.compiler.instance.run(compilerCallback)
-      : bud.server.run(bud.compiler.instance)
-  }, [bud])
+    !app.isDevelopment
+      ? app.compiler.instance.run(compilerCallback)
+      : app.server.run(app.compiler.instance)
+  }, [app])
 
   return {
     progress,

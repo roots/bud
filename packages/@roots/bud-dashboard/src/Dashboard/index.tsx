@@ -1,4 +1,4 @@
-import {Service} from '@roots/bud-framework'
+import {Service as Base} from '@roots/bud-framework'
 import {
   React,
   render,
@@ -16,7 +16,7 @@ import {Mark} from '../Mark'
 /**
  * Dashboard
  */
-export class Dashboard extends Service {
+export class Dashboard extends Base {
   /**
    * Service ident
    */

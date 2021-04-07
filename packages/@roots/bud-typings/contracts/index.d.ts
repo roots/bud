@@ -14,7 +14,6 @@ import {Cache} from './Cache'
 import {CLI} from './CLI'
 import {Compiler} from './Compiler'
 import {Container} from '../../container/src'
-import {Dashboard, Error} from './Dashboard'
 import {Discovery} from './Discovery'
 import {Dependencies} from './Dependencies'
 import {Env} from './Env'
@@ -34,7 +33,6 @@ declare namespace Framework {
   export {CLI}
   export {Compiler}
   export {Container}
-  export {Dashboard}
   export {Discovery}
   export {Dependencies}
   export {Disk}
@@ -67,7 +65,6 @@ export {Cache}
 export {CLI}
 export {Compiler}
 export {Container}
-export {Dashboard}
 export {Discovery}
 export {Dependencies}
 export {Disk}

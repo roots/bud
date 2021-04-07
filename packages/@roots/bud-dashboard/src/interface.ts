@@ -1,10 +1,50 @@
 import {Write} from './Write'
-import {React} from '@roots/bud-support'
+import {Compiler, Service} from '@roots/bud-framework'
+import {React, Instance, render} from '@roots/bud-support'
 import {Styles} from '@roots/ink-use-style'
 
 declare module '@roots/bud-framework' {
   interface Framework {
+    dashboard: Dashboard
+
     write: typeof Write
+  }
+
+  interface Dashboard extends Service {
+    /**
+     * Service name
+     */
+    name: any
+
+    /**
+     * Instance
+     */
+    dashboard: Instance
+
+    /**
+     * Register service
+     */
+    register(): void
+
+    /**
+     * Mount CLI
+     */
+    run(): void
+
+    /**
+     * Render
+     */
+    render: typeof render
+
+    /**
+     * Render error
+     */
+    renderError(body: string, title: string): Instance
+
+    /**
+     * Unmount CLI
+     */
+    kill(): void
   }
 
   namespace Dashboard {
@@ -30,6 +70,25 @@ declare module '@roots/bud-framework' {
     }
 
     type Component = React.FunctionComponent<Partial<AppProps>>
+
+    interface Compilation {
+      progress: {
+        percentage: string
+        decimal: number
+        message: string
+      }
+      stats: Compiler.Stats.Output['json']
+      errors?: string[]
+      hasErrors: boolean
+      warnings?: string[]
+      hasWarnings: boolean
+    }
+
+    namespace Compilation {
+      interface Hook {
+        (app: Framework): Compilation
+      }
+    }
 
     interface Asset {
       chunks: Array<number | string>
@@ -111,5 +170,9 @@ declare module '@roots/bud-framework' {
       port: number,
       update: CallableFunction,
     ) => Promise<void>
+
+    interface Error {
+      (body?: string, title?: string): void
+    }
   }
 }
