@@ -87,10 +87,6 @@ export const useCompilation = (bud: Framework) => {
           ? setWarnings(stats.warnings)
           : setWarnings(null)
       }
-
-      bud.compiler.instance.close(
-        closeErr => closeErr && setErrors(closeErr),
-      )
     }
 
     /**
