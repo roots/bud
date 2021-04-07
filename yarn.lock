@@ -11436,14 +11436,6 @@ memfs@^3.1.2:
   dependencies:
     fs-monkey "1.0.1"
 
-memoize-fs@^2.2.0:
-  version "2.2.0"
-  resolved "https://registry.yarnpkg.com/memoize-fs/-/memoize-fs-2.2.0.tgz#257c60b17ef28526cf6dde9e2ed3ae7aa8ff902d"
-  integrity sha512-KgGxQeln/eUqCvq6/VnLreoXz8hIuriYJm80o1GKVjl/9W8xul6b8CAKBm2Mr/tgRqYSYGTN/rMleDEq0JnW1A==
-  dependencies:
-    fs-extra "^8.1.0"
-    meriyah "^1.9.7"
-
 memory-fs@^0.4.1:
   version "0.4.1"
   resolved "https://registry.yarnpkg.com/memory-fs/-/memory-fs-0.4.1.tgz#3a9a20b8462523e447cfbc7e8bb80ed667bfc552"
@@ -11564,11 +11556,6 @@ merge@^1.2.1:
   version "1.2.1"
   resolved "https://registry.yarnpkg.com/merge/-/merge-1.2.1.tgz#38bebf80c3220a8a487b6fcfb3941bb11720c145"
   integrity sha512-VjFo4P5Whtj4vsLzsYBu5ayHhoHJ0UqNm7ibvShmbmoz7tGi0vXaoJbGdB+GmDMLUdg8DpQXEIeVDAe8MaABvQ==
-
-meriyah@^1.9.7:
-  version "1.9.15"
-  resolved "https://registry.yarnpkg.com/meriyah/-/meriyah-1.9.15.tgz#85a8528c52d7a4bb95037fe5a44276a0f030d81e"
-  integrity sha512-D4rT6XIYGqZab0EI/xbihUpwh0WbNRVQ35l2J/5QC2atxaI8h3KvA55DEJLBB/FRdaji7JwkNehfCRjCyjCjqw==
 
 methods@~1.1.2:
   version "1.1.2"
