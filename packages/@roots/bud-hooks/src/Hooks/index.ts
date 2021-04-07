@@ -1,7 +1,11 @@
 import {Hooks} from '@roots/bud-typings'
 import {Framework, Service} from '@roots/bud-framework'
-import {isArray, prettyFormat} from '@roots/bud-support'
-import {set} from 'lodash'
+import {
+  bind,
+  set,
+  isArray,
+  prettyFormat,
+} from '@roots/bud-support'
 
 /**
  * Hooks
@@ -15,6 +19,7 @@ export default class extends Service implements Hooks {
   /**
    * Get hook
    */
+  @bind
   public get<T = any>(path: `${Framework.Hooks.Name}`) {
     return this._.get(this.repository, path) as T
   }
@@ -22,6 +27,7 @@ export default class extends Service implements Hooks {
   /**
    * Set hook
    */
+  @bind
   public set(key: `${Framework.Hooks.Name}`, value: any): this {
     set(this.repository, key, value)
 
@@ -48,6 +54,7 @@ export default class extends Service implements Hooks {
    * )
    * ```
    */
+  @bind
   public on(
     id:
       | [string, `${Framework.Hooks.Name}`]
@@ -78,6 +85,7 @@ export default class extends Service implements Hooks {
    * any filters are registered on that key they will transform
    * the output before it is returned.
    */
+  @bind
   public filter<T = any>(
     id:
       | `${Framework.Hooks.Name}`
