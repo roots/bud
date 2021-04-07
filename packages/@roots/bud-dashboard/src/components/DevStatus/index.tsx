@@ -8,7 +8,7 @@ import {
   Spinner,
 } from '@roots/bud-support'
 import {checkStatus} from './checkStatus'
-import {Dashboard} from '../../Dashboard'
+import {Dashboard} from '@roots/bud-framework'
 
 /**
  * Development server

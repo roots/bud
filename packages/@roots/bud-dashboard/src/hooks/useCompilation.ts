@@ -68,30 +68,36 @@ export const useCompilation = (bud: Framework) => {
       })
     }).apply(bud.compiler.instance)
 
+    const compilerCallback = (err, stats: any) => {
+      if (!stats) return
+
+      stats = stats.toJson(bud.compiler.statsOptions.json)
+
+      setStats(stats)
+
+      if (stats?.hasErrors) {
+        setHasErrors(stats.hasErrors())
+        stats.hasErrors()
+          ? setErrors(stats.errors)
+          : setErrors(null)
+      }
+      if (stats?.hasWarnings) {
+        setHasWarnings(stats.hasWarnings())
+        stats.hasWarnings()
+          ? setWarnings(stats.warnings)
+          : setWarnings(null)
+      }
+
+      bud.compiler.instance.close(
+        closeErr => closeErr && setErrors(closeErr),
+      )
+    }
+
     /**
      * Exec
      */
     !bud.isDevelopment
-      ? bud.compiler.instance.run((err, stats: any) => {
-          if (!stats) return
-
-          stats = stats.toJson(bud.compiler.statsOptions.json)
-
-          setStats(stats)
-
-          if (stats?.hasErrors) {
-            setHasErrors(stats.hasErrors())
-            stats.hasErrors()
-              ? setErrors(stats.errors)
-              : setErrors(null)
-          }
-          if (stats?.hasWarnings) {
-            setHasWarnings(stats.hasWarnings())
-            stats.hasWarnings()
-              ? setWarnings(stats.warnings)
-              : setWarnings(null)
-          }
-        })
+      ? bud.compiler.instance.run(compilerCallback)
       : bud.server.run(bud.compiler.instance)
   }, [bud])
 

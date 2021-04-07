@@ -1,7 +1,7 @@
 import {useEffect, useState} from '@roots/bud-support'
 import {Framework} from '@roots/bud-framework'
 
-export type PkgFields = {
+type PkgFields = {
   [key: string]: any
   name: string
 }

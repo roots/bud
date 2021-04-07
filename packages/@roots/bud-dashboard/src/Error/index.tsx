@@ -1,21 +1,13 @@
-import {
-  React,
-  render,
-  FunctionComponent,
-} from '@roots/bud-support'
+import {React, render} from '@roots/bud-support'
 import {Component} from './Component'
 
-export const Error = (body, title) => {
+export const Error: CallableFunction = (
+  body: string,
+  title: string,
+) => {
   render(
     <Component title={title ?? 'Error'} body={body ?? ''} />,
   )
 
   process.exit()
-}
-
-declare namespace Error {
-  type Component = FunctionComponent<{
-    title?: string
-    body: string
-  }>
 }

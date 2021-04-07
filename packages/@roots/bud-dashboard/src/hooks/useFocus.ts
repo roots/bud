@@ -4,8 +4,9 @@ import {
   useSwr,
   mutate,
 } from '@roots/bud-support'
+import {Dashboard} from '@roots/bud-framework'
 
-const INITIAL: {initialData: UseFocus.Focus} = {
+const INITIAL: {initialData: Dashboard.UseFocus.Focus} = {
   initialData: {
     active: 'assets',
     items: {
@@ -17,9 +18,13 @@ const INITIAL: {initialData: UseFocus.Focus} = {
   },
 }
 
-export const useFocus: UseFocus.Hook = (initial = INITIAL) => {
+export const useFocus: Dashboard.UseFocus.Hook = (
+  initial = INITIAL,
+) => {
   const {data} = useSwr('focus', initial)
-  const [focus, setFocus] = useState<UseFocus.Focus>(data)
+  const [focus, setFocus] = useState<Dashboard.UseFocus.Focus>(
+    data,
+  )
 
   useEffect(() => {
     mutate('focus', {
@@ -35,23 +40,4 @@ export const useFocus: UseFocus.Hook = (initial = INITIAL) => {
   }, [focus])
 
   return [focus, setFocus]
-}
-
-export namespace UseFocus {
-  export interface Hook {
-    (initialData?: {initialData: Focus}): [Focus, Handler]
-  }
-
-  export interface Focus {
-    active: string
-    items: Items
-  }
-
-  export interface Items {
-    [key: string]: boolean
-  }
-
-  export type Handler = React.Dispatch<
-    React.SetStateAction<UseFocus.Focus>
-  >
 }

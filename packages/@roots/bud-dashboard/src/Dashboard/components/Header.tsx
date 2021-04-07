@@ -1,14 +1,7 @@
-import {
-  React,
-  FunctionComponent,
-  Box,
-  Text,
-  Spinner,
-} from '@roots/bud-support'
+import {React, Box, Text, Spinner} from '@roots/bud-support'
+import {Dashboard} from '@roots/bud-framework'
 
-import {Dashboard} from '../'
-
-export const Header: FunctionComponent<Dashboard.AppProps> = ({
+export const Header: Dashboard.Component = ({
   theme,
   progress,
   stats,

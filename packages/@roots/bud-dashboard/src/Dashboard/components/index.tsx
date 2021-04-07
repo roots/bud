@@ -1,4 +1,4 @@
-import {Framework} from '@roots/bud-framework'
+import {Dashboard} from '@roots/bud-framework'
 import {
   React,
   FunctionComponent,
@@ -8,8 +8,6 @@ import {
   Static,
   Text,
 } from '@roots/bud-support'
-
-import {Dashboard as IDashboard} from '../'
 import {
   Assets,
   DevStatus,
@@ -23,7 +21,9 @@ import {useStyle} from '@roots/ink-use-style'
 import {useCompilation, usePackageJson} from '../../hooks'
 import {isEqual} from 'lodash'
 
-export const Dashboard: FunctionComponent<{bud: Framework}> = ({
+export {Dashboard}
+
+const Dashboard: FunctionComponent<Dashboard.Props> = ({
   bud,
 }) => {
   const {
@@ -55,7 +55,7 @@ export const Dashboard: FunctionComponent<{bud: Framework}> = ({
     shouldExit && setTimeout(() => process.exit())
   }, [stats, progress, errors])
 
-  const appProps: IDashboard.AppProps = {
+  const appProps: Dashboard.AppProps = {
     bud,
     theme,
     pkg,

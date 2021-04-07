@@ -1,16 +1,12 @@
-import {
-  Box,
-  Text,
-  React,
-  FunctionComponent,
-  Spinner,
-} from '@roots/bud-support'
+import {Box, Text, React, Spinner} from '@roots/bud-support'
+import {Dashboard} from '@roots/bud-framework'
 import {Bar} from './Bar'
-import {Dashboard} from '../../Dashboard'
 
-export const Progress: FunctionComponent<
-  Partial<Dashboard.AppProps>
-> = ({progress, hasErrors, theme}) => {
+export const Progress: Dashboard.Component = ({
+  progress,
+  hasErrors,
+  theme,
+}) => {
   const guard =
     progress?.decimal &&
     theme.bounds.width &&
