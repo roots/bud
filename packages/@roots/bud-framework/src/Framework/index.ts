@@ -93,25 +93,7 @@ abstract class Framework {
 
   public abstract logger: Logger
 
-  /**
-   * Store
-   */
   public abstract store: Store
-
-  /**
-   * Current mode
-   */
-  public abstract get mode(): 'development' | 'production'
-
-  /**
-   * Mode is production
-   */
-  public abstract get isProduction(): boolean
-
-  /**
-   * Mode is development
-   */
-  public abstract get isDevelopment(): boolean
 
   /**
    * Constructor
@@ -122,6 +104,30 @@ abstract class Framework {
       | Bootstrapper
   }) {
     this.services = this.container(services)
+  }
+
+  /**
+   * Webpack.Configuration['mode'] accessor
+   */
+  public get mode() {
+    return process.argv.includes('development') ||
+      process.argv.includes('dev')
+      ? 'development'
+      : 'production'
+  }
+
+  /**
+   * Production check
+   */
+  public get isProduction(): boolean {
+    return this.mode === 'production'
+  }
+
+  /**
+   * Dev check
+   */
+  public get isDevelopment(): boolean {
+    return this.mode === 'development'
   }
 
   /**
