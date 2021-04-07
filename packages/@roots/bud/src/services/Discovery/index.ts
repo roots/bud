@@ -1,5 +1,6 @@
 import {Framework, Service} from '@roots/bud-framework'
-import {Discovery as Contract} from '@roots/bud-typings'
+import type {Discovery as Contract} from '@roots/bud-typings'
+import {bind} from '@roots/bud-support'
 
 /**
  * Framework/Discovery
@@ -14,13 +15,23 @@ export class Discovery extends Service implements Contract {
   public name = 'framework/discovery'
 
   /**
-   * Service register
+   * Project info: get accessor
    */
-  public register(): void {
-    this.discoverPackages = this.discoverPackages.bind(this)
-    this.setDisks = this.setDisks.bind(this)
-    this.reducePackages = this.reducePackages.bind(this)
-    this.registerDiscovered = this.registerDiscovered.bind(this)
+  public get projectInfo(): {[key: string]: any} {
+    return this.fs.readJsonSync(
+      this.disk('project').get('package.json'),
+    )
+  }
+
+  /**
+   * Package paths: get accessor
+   */
+  public get packagePaths() {
+    return this.glob.sync([
+      this.modulePath('@roots/sage/package.json'),
+      this.modulePath('bud-*/package.json'),
+      this.modulePath('**/bud-*/package.json'),
+    ])
   }
 
   /**
@@ -34,15 +45,10 @@ export class Discovery extends Service implements Contract {
     this.app.sequence(bootSequence)
   }
 
-  public get projectInfo(): {[key: string]: any} {
-    return this.fs.readJsonSync(
-      this.disk('project').get('package.json'),
-    )
-  }
-
   /**
    * Collect packages.
    */
+  @bind
   public discoverPackages(): void {
     this.setStore(
       this.packagePaths
@@ -54,6 +60,7 @@ export class Discovery extends Service implements Contract {
   /**
    * Register package disks
    */
+  @bind
   public setDisks() {
     this.every(
       (name: string, pkg: {name: string; path: string}) => {
@@ -67,6 +74,7 @@ export class Discovery extends Service implements Contract {
   /**
    * Register discovered packages as extensions
    */
+  @bind
   public registerDiscovered() {
     this.app.store.isTrue('options.discover') &&
       this.every((name: string) => {
@@ -76,19 +84,9 @@ export class Discovery extends Service implements Contract {
   }
 
   /**
-   * Get package paths
-   */
-  public get packagePaths() {
-    return this.glob.sync([
-      this.modulePath('@roots/sage/package.json'),
-      this.modulePath('bud-*/package.json'),
-      this.modulePath('**/bud-*/package.json'),
-    ])
-  }
-
-  /**
    * Gather information on packages
    */
+  @bind
   public reducePackages(pkgs: Framework.Pkgs, pkg: string) {
     const json = this.fs.readJsonSync(pkg)
 

@@ -54,19 +54,4 @@ export class Bud extends Framework {
   public store: Store
 
   public util: Util
-
-  public get mode() {
-    return process.argv.includes('development') ||
-      process.argv.includes('dev')
-      ? 'development'
-      : 'production'
-  }
-
-  public get isProduction(): boolean {
-    return this.mode === 'production'
-  }
-
-  public get isDevelopment(): boolean {
-    return this.mode === 'development'
-  }
 }
