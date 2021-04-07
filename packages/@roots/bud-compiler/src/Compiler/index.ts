@@ -1,12 +1,12 @@
-import Service from './Service'
 import options from './options'
-import {webpack, ProgressPlugin} from '@roots/bud-support'
+import {Service as Base} from '@roots/bud-framework'
+import {bind, webpack, ProgressPlugin} from '@roots/bud-support'
 import type {Compiler, Webpack} from '@roots/bud-typings'
 
 /**
  * Compiler
  */
-export default class extends Service implements Compiler {
+export default class extends Base implements Compiler {
   /**
    * Service ident.
    */
@@ -38,27 +38,20 @@ export default class extends Service implements Compiler {
   public progress: Compiler.Progress
 
   /**
-   * Register service.
-   */
-  public register(): void {
-    this.run = this.run.bind(this)
-    this.compile = this.compile.bind(this)
-    this.applyPlugins = this.applyPlugins.bind(this)
-  }
-
-  /**
    * Compiler accessors.
    */
-  public get compiler(): Webpack.Compiler {
+  public get instance(): Webpack.Compiler {
     return this._instance
   }
-  public set compiler(compiler: Webpack.Compiler) {
-    this._instance = compiler
+
+  public set instance(instance: Webpack.Compiler) {
+    this._instance = instance
   }
 
   /**
    * Compile
    */
+  @bind
   public compile(conf): Webpack.Compiler {
     return (this.instance = webpack(conf))
   }
@@ -66,6 +59,7 @@ export default class extends Service implements Compiler {
   /**
    * Run compilation
    */
+  @bind
   public run(): void {
     this.instance.run((_err, stats) => {
       this.stats = {
@@ -78,6 +72,7 @@ export default class extends Service implements Compiler {
   /**
    * Make error
    */
+  @bind
   public makeError(err: string): void {
     this.error({err})
     new Error(err)
@@ -86,6 +81,7 @@ export default class extends Service implements Compiler {
   /**
    * Apply plugins to compilation
    */
+  @bind
   public applyPlugins(handler: Compiler.ProgressHandler): void {
     new ProgressPlugin(handler).apply(this.instance)
   }
