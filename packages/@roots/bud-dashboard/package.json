@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-dashboard",
-  "description": "Bud build status dashboard",
-  "version": "3.0.113-alpha.0",
+  "description": "Bud CLI dashboard",
+  "version": "3.1.0",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -52,9 +52,9 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "dependencies": {
-    "@roots/bud-support": "^3.0.113-alpha.0",
-    "@roots/ink-prettier": "^3.0.113-alpha.0",
-    "@roots/ink-use-style": "^3.0.113-alpha.0",
+    "@roots/bud-support": "^3.1.0",
+    "@roots/ink-prettier": "^3.1.0",
+    "@roots/ink-use-style": "^3.1.0",
     "axios": "^0.21.1"
   },
   "devDependencies": {

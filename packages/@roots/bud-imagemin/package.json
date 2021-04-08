@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-imagemin",
-  "version": "3.0.113-alpha.0",
+  "version": "3.1.0",
   "description": "Adds imagemin support to Bud",
   "repository": {
     "type": "git",
@@ -53,13 +53,13 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
-    "@roots/bud-framework": "^3.0.113-alpha.0",
+    "@roots/bud-framework": "^3.1.0",
     "@types/node": "^14.14.31",
     "@types/webpack": "^4.41.26",
     "type-fest": "^0.21.2"
   },
   "dependencies": {
-    "@roots/bud-support": "^3.0.113-alpha.0",
+    "@roots/bud-support": "^3.1.0",
     "image-minimizer-webpack-plugin": "^1.0.0",
     "imagemin": "^6.0.1",
     "imagemin-gifsicle": "^7.0.0",
