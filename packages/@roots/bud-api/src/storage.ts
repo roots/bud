@@ -23,8 +23,11 @@ type Storage = (this: Framework, path: string) => Framework
 
 export const storage: Storage = function (path?) {
   if (path) {
-    this.publish({'location/storage': () => path}, 'api/storage')
+    this.hooks.on('location/storage', () => path)
+    return this
   }
+
+  return this.hooks.filter('location/storage')
 
   return this
 }

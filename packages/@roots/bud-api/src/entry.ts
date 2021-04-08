@@ -136,7 +136,7 @@ function getAssets(
   const assets = this.disk.glob.sync(
     isArray(task) ? task : [task],
     {
-      cwd: this.src(),
+      cwd: this.path('src'),
       expandDirectories: true,
     },
   )
@@ -154,18 +154,13 @@ function getAssets(
   /**
    * Entrypoints will always generate a JS file even when it is
    * just boilerplate (css only entrypoint)
-   *
-   * @webpack5 this is no longer necessary
    */
   if (isCssOnlyEntrypoint(assets)) {
-    this.publish(
-      {
-        'extension/ignore-emit-webpack-plugin/options/ignore': ignore => [
-          [...ignore, name.concat('.js')],
-        ],
-      },
-      'api/entry',
-    )
+    this.extensions
+      .get('ignore-emit-webpack-plugin')
+      .set('options', options => ({
+        ignore: [...(options.ignore ?? []), name.concat('.js')],
+      }))
   }
 
   return assets

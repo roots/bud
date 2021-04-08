@@ -61,6 +61,7 @@ declare module '@roots/bud-framework' {
       node: Webpack.Configuration['node']
       parallelism: Webpack.Configuration['parallelism']
       profile: Webpack.Configuration['profile']
+      removeEmptyChunks: Webpack.Configuration['optimization']['removeEmptyChunks']
       runtimeChunk: Webpack.Configuration['optimization']['runtimeChunk']
       splitChunks: Webpack.Configuration['optimization']['splitChunks']
       stats: Webpack.Configuration['stats']

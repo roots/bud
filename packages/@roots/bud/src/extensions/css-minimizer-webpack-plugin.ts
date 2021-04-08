@@ -5,51 +5,40 @@ import {Webpack} from '@roots/bud-support'
 declare module '@roots/bud-framework' {
   namespace Framework.Hooks.Extension {
     interface Definitions {
-      'css-minimizer-webpack-plugin': typeof Plugin
+      'css-minimizer-webpack-plugin': Plugin
     }
   }
 }
 
-const DEFAULT_OPTIONS = {
+export const options: Module['options'] = () => ({
   minimizerOptions: {
-    preset: [
-      'default',
-      {
-        discardComments: {removeAll: true},
-      },
-    ],
+    preset: ['default'],
   },
-}
+})
 
 export const name: Module['name'] =
   'css-minimizer-webpack-plugin'
 
-export const boot: Module['boot'] = ({
-  hooks,
-  store,
-  subscribe,
-}) => {
-  hooks
-    .on(
-      'extension/css-minimizer-webpack-plugin/options',
-      () => DEFAULT_OPTIONS,
-    )
+/**
+ * This plugin does not apply to Webpack.Plugins. So,
+ * the boot event is used instead.
+ */
+export const boot: Module['boot'] = ({extensions, hooks}) => {
+  hooks.on(
+    'build/optimization/minimizer',
+    (
+      minimizer: Webpack.Configuration['optimization']['minimizer'],
+    ) => {
+      if (hooks.filter('build/minimizer/minimize')) {
+        return minimizer
+      }
 
-    .hooks.on(
-      'build/optimization/minimizer',
-      (
-        minimizer: Webpack.Configuration['optimization']['minimizer'],
-      ) => [
+      return [
         ...(minimizer ?? []),
-        ...(store.enabled('options.minimize')
-          ? [
-              new Plugin(
-                subscribe(
-                  'extension/css-minimizer-webpack-plugin/options',
-                ),
-              ),
-            ]
-          : []),
-      ],
-    )
+        new Plugin(
+          extensions.get('css-minimizer-webpack-plugin').options,
+        ),
+      ]
+    },
+  )
 }

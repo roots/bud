@@ -19,7 +19,7 @@ declare module '@roots/bud-framework' {
      *
      * ```js
      * app.purge({
-     *   content: [app.project('resources/views/**')],
+     *   content: [app.path('project', 'resources/views/**')],
      *   allow: require('purgecss-with-wordpress').whitelist,
      *   allowPatterns: require('purgecss-with-wordpress').whitelistPatterns,
      * })

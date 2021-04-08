@@ -36,7 +36,7 @@ const extension: Extension = {
           },
           path: 'dll',
           inherit: false,
-          context: app.project(),
+          context: app.path('project'),
         }),
 
         make: options => new AutoDllPlugin(options.all()),

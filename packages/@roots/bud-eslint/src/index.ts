@@ -15,10 +15,10 @@ export const name: Module.Name = 'eslint-webpack-plugin'
 export const options: Module['options'] = app => ({
   extensions: ['js', 'jsx', 'ts', 'tsx', 'vue'],
   cache: true,
-  cacheLocation: app.project(app.storage()),
+  cacheLocation: app.path('storage'),
   quiet: true,
   formatter,
-  context: app.src('*'),
+  context: app.path('src', '*'),
 })
 
 /**

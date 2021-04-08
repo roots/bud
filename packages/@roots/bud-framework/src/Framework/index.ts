@@ -284,7 +284,7 @@ abstract class Framework {
    *
    * ```js
    * app.pipe([
-   *   bud => app.srcPath('resources'),
+   *   bud => app.path('src'),
    *   bud => app.proxy(),
    * ])
    * ```

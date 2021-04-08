@@ -13,7 +13,7 @@ export const when: Module.When = ({store}) =>
 
 export const options: Module.Options<PluginOptions> = app => ({
   name: 'webpack.debug.js',
-  outputPath: app.project(app.subscribe('location/storage')),
+  outputPath: app.path('storage'),
   keepCircularReferences: true,
 })
 

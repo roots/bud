@@ -49,7 +49,7 @@ export class FileSystem extends Container<FileContainer> {
    * ```js
    * fs.set(
    *   'icons',
-   *   bud.project('assets/icons'),
+   *   bud.path('project', 'assets/icons'),
    *   ['*.svg'],
    * )
    * ```

@@ -100,7 +100,7 @@ export class Disk extends Service {
    * ```js
    * disk.make(
    *   'icons',
-   *   bud.project('assets/icons'),
+   *   bud.path('project', 'assets/icons'),
    *   ['*.svg'],
    * )
    * ```

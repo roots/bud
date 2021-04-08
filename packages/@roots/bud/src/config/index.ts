@@ -33,6 +33,7 @@ export const config: Framework.Config = {
     global: false,
   },
   noEmit: true,
+  removeEmptyChunks: true,
   stats: false,
   target: 'web',
   manifest: true,

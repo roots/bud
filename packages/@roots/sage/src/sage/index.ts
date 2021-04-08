@@ -29,7 +29,7 @@ export const sage: Sage.Preset = sage => {
      */
     .when(
       !env.has('APP_STORAGE'),
-      () => sage.storage('storage/bud'),
+      () => sage.setPath('storage', 'storage/bud'),
     )
 
     /**
@@ -37,7 +37,7 @@ export const sage: Sage.Preset = sage => {
      */
     .when(
       !env.has('APP_SRC'),
-      () => sage.srcPath('resources'),
+      () => sage.setPath('src', 'resources'),
     )
 
     /**
@@ -45,7 +45,7 @@ export const sage: Sage.Preset = sage => {
      */
     .when(
       !env.has('APP_DIST'),
-      () => sage.distPath('public'),
+      () => sage.setPath('dist', 'public'),
     )
 
     /**
@@ -60,10 +60,10 @@ export const sage: Sage.Preset = sage => {
      * Webpack path Aliases
      */
     .alias({
-      '@fonts': sage.src('fonts'),
-      '@images': sage.src('images'),
-      '@scripts': sage.src('scripts'),
-      '@styles': sage.src('styles'),
+      '@fonts': sage.path('src', 'fonts'),
+      '@images': sage.path('src', 'images'),
+      '@scripts': sage.path('src', 'scripts'),
+      '@styles': sage.path('src', 'styles'),
     })
 
     /**
@@ -125,7 +125,10 @@ export const sage: Sage.Preset = sage => {
   sage.hooks.on('item/minicss/options/publicPath', () =>
     sage.disk.path.posix.normalize(
       sage.disk.path.posix.dirname(
-        sage.disk.path.posix.relative(sage.dist(), sage.src()),
+        sage.disk.path.posix.relative(
+          sage.path('dist'),
+          sage.path('src'),
+        ),
       ),
     ),
   )

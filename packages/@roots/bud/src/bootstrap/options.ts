@@ -91,6 +91,10 @@ export const options = {
     base.parallelism,
   ),
   profile: config(['profile', 'APP_PROFILE'], base.profile),
+  removeEmptyChunks: config(
+    ['removeEmptyChunks', 'APP_REMOVE_EMPTY_CHUNKS'],
+    base.removeEmptyChunks,
+  ),
   runtimeChunk: config(['runtimeChunk'], base.runtimeChunk),
   runtimeChunkEnabled: config(
     ['runtimeChunkEnabled', 'APP_RUNTIME_CHUNK'],
@@ -104,10 +108,6 @@ export const options = {
     ),
     modules: config(['resolve.modules'], base.resolve.modules),
   },
-  splitChunksEnabled: config(
-    ['splitChunksEnabled', 'APP_SPLITCHUNKS'],
-    base.splitChunksEnabled,
-  ),
   splitChunks: {
     chunks: config(
       ['splitChunks.chunks'],

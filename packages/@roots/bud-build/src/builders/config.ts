@@ -225,10 +225,13 @@ export function config(this: Framework) {
         this.store.get('options.minimize'),
       'build/optimization/minimizer': () =>
         this.store.get('options.minimizer'),
+      'build/optimization/removeEmptyChunks': () =>
+        this.store.get('options.removeEmptyChunks'),
       'build/optimization/runtimeChunk': () =>
         this.store.get('options.runtimeChunk'),
-      'build/optimization/splitChunks': () =>
-        this.store.get('options.runtimeChunk'),
+      'build/optimization/splitChunks': () => ({
+        ...this.store.get('options.splitChunks'),
+      }),
     })
 
     /**
@@ -246,7 +249,7 @@ export function config(this: Framework) {
             ? this.store.get('options.hashFormat')
             : this.store.get('options.fileFormat')
         }.js`,
-      'build/output/path': () => this.dist(),
+      'build/output/path': () => this.path('dist'),
       'build/output/publicPath': () =>
         this.subscribe('location/publicPath'),
     })

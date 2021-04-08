@@ -14,7 +14,7 @@ declare module '@roots/bud-framework' {
      *
      * ```js
      * app.alias({
-     *   '@scripts': app.src('scripts'),
+     *   '@scripts': app.path('src', 'scripts'),
      * })
      * ```
      */
