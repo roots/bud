@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-react",
-  "version": "3.0.112-alpha.0",
+  "version": "3.1.0",
   "description": "A friendly build tool to help manage your project assets.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -54,16 +54,15 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "peerDependencies": {
-    "@babel/core": "^7.13.14",
     "@babel/preset-react": "^7.13.13",
-    "@roots/bud-babel": "^3.0.112-alpha.0",
-    "@roots/bud-framework": "^3.0.112-alpha.0",
-    "@roots/bud-support": "^3.0.112-alpha.0"
+    "@roots/bud-babel": "^3.1.0",
+    "@roots/bud-framework": "^3.1.0",
+    "@roots/bud-support": "^3.1.0"
   },
   "devDependencies": {
-    "@roots/bud-babel": "^3.0.112-alpha.0",
-    "@roots/bud-framework": "^3.0.112-alpha.0",
-    "@roots/bud-support": "^3.0.112-alpha.0"
+    "@roots/bud-babel": "^3.1.0",
+    "@roots/bud-framework": "^3.1.0",
+    "@roots/bud-support": "^3.1.0"
   },
   "dependencies": {
     "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",

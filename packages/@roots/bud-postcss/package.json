@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-postcss",
-  "version": "3.0.112-alpha.0",
+  "version": "3.1.0",
   "description": "Adds postcss support to @roots/bud projects",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -56,11 +56,13 @@
   "resolutions": {
     "postcss": "8.2.9"
   },
+  "peerDependencies": {
+    "@roots/bud-support": "^3.1.0"
+  },
   "devDependencies": {
-    "@roots/bud": "^3.0.112-alpha.0"
+    "@roots/bud": "^3.1.0"
   },
   "dependencies": {
-    "@roots/bud-support": "^3.0.112-alpha.0",
     "autoprefixer": "^10.2.5",
     "postcss": "^8.2.9",
     "postcss-custom-properties": "^11.0.0",

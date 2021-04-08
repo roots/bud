@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-terser",
-  "version": "3.0.112-alpha.0",
+  "version": "3.1.0",
   "description": "Adds terser support to Bud",
   "repository": {
     "type": "git",
@@ -51,13 +51,13 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "peerDependencies": {
-    "@roots/bud-framework": "^3.0.112-alpha.0",
-    "@roots/bud-support": "^3.0.112-alpha.0"
+    "@roots/bud-framework": "^3.1.0",
+    "@roots/bud-support": "^3.1.0"
   },
   "devDependencies": {
-    "@roots/bud-framework": "^3.0.112-alpha.0",
-    "@roots/bud-support": "^3.0.112-alpha.0",
-    "@roots/bud-typings": "^3.0.112-alpha.0"
+    "@roots/bud-typings": "^3.1.0",
+    "@roots/bud-framework": "^3.1.0",
+    "@roots/bud-support": "^3.1.0"
   },
   "dependencies": {
     "terser-webpack-plugin": "^5.1.1"

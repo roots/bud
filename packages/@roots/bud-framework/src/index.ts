@@ -4,7 +4,6 @@ export type {
   CLI,
   Compiler,
   Container,
-  Dashboard,
   Dependencies,
   Discovery,
   Disk,

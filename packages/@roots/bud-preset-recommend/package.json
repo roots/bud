@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-preset-recommend",
-  "version": "3.0.112-alpha.0",
+  "version": "3.1.0",
   "description": "Recommended preset for Bud projects",
   "repository": {
     "type": "git",
@@ -49,15 +49,15 @@
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
-  "dependencies": {
-    "@roots/bud": "^3.0.112-alpha.0",
-    "@roots/bud-babel": "^3.0.112-alpha.0",
-    "@roots/bud-cli": "^3.0.112-alpha.0",
-    "@roots/bud-entrypoints": "^3.0.112-alpha.0",
-    "@roots/bud-postcss": "^3.0.112-alpha.0"
-  },
   "devDependencies": {
-    "@roots/bud-api": "^3.0.112-alpha.0",
-    "@roots/bud-framework": "^3.0.112-alpha.0"
+    "@roots/bud-api": "^3.1.0",
+    "@roots/bud-framework": "^3.1.0"
+  },
+  "dependencies": {
+    "@roots/bud": "^3.1.0",
+    "@roots/bud-babel": "^3.1.0",
+    "@roots/bud-cli": "^3.1.0",
+    "@roots/bud-entrypoints": "^3.1.0",
+    "@roots/bud-postcss": "^3.1.0"
   }
 }

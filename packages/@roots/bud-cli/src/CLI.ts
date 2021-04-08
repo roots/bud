@@ -10,11 +10,6 @@ import {commands} from './commands'
  */
 export class CLI {
   /**
-   * App
-   */
-  public app: Framework
-
-  /**
    * Command invocation
    */
   public name: string = 'bud'
@@ -23,6 +18,11 @@ export class CLI {
    * Command description
    */
   public description: string = 'Bud CLI'
+
+  /**
+   * App
+   */
+  public app: Framework
 
   /**
    * Commands

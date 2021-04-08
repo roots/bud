@@ -1,5 +1,5 @@
-import {Framework, Module} from '@roots/bud-framework'
-import {Webpack, isUndefined} from '@roots/bud-support'
+import {Module} from '@roots/bud-framework'
+import {bind, Webpack, isUndefined} from '@roots/bud-support'
 import Extension from './Extension'
 import Service from './Service'
 
@@ -18,19 +18,9 @@ export default class extends Service {
   public name = '@roots/bud-extensions'
 
   /**
-   * Service register.
-   */
-  public register(): void {
-    this.boot = this.boot.bind(this)
-    this.add = this.add.bind(this)
-    this.use = this.use.bind(this)
-    this.make = this.make.bind(this)
-    this.discard = this.discard.bind(this)
-  }
-
-  /**
    * Service boot
    */
+  @bind
   public boot(): void {
     this.every((name: string, extension: Module) => {
       return this.add(extension)
@@ -40,6 +30,7 @@ export default class extends Service {
   /**
    * Add an extension
    */
+  @bind
   public add(extension: Module): void {
     this.log(`Adding extension: %s`, extension.name)
 
@@ -54,6 +45,7 @@ export default class extends Service {
    *
    * Returns a webpack-ready array
    */
+  @bind
   public make(): Webpack.WebpackPluginInstance[] {
     const plugins = this.getKeys()
       .map(name => this.get(name).make)
@@ -67,6 +59,7 @@ export default class extends Service {
   /**
    * Register an extension from a pkg name
    */
+  @bind
   public use(pkg: string): this {
     const path = require.resolve(pkg)
 
@@ -82,7 +75,8 @@ export default class extends Service {
   /**
    * Discard a registered extension
    */
-  public discard(pkg: string): Framework {
+  @bind
+  public discard(pkg: string): Service['app'] {
     this.remove(pkg)
     this.app.disk.remove(pkg)
 

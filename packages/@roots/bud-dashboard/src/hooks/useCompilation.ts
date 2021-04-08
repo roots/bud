@@ -3,58 +3,34 @@ import {
   useEffect,
   ProgressPlugin,
 } from '@roots/bud-support'
-import {Framework} from '@roots/bud-framework'
-import {Compiler} from '@roots/bud-typings'
-
-export type CompilationAsset = {
-  name: string
-  active: boolean
-  size: number
-  hot: boolean
-  info?: string
-}
-
-interface WebpackMessage {
-  moduleIdentifier: string
-  moduleName: string
-  message: string
-}
-
-export interface Compilation {
-  progress: {
-    percentage: string
-    decimal: number
-    message: string
-  }
-  stats: Compiler.Stats.Output['json']
-  errors?: WebpackMessage[]
-  warnings?: WebpackMessage[]
-}
+import {Dashboard} from '@roots/bud-framework'
 
 /**
  * Use compilation
  */
-export const useCompilation = (bud: Framework) => {
-  const [stats, setStats] = useState(bud?.compiler?.stats?.json)
-  const [errors, setErrors] = useState<WebpackMessage[]>(null)
+export const useCompilation: Dashboard.Compilation.Hook = app => {
+  const [stats, setStats] = useState(app?.compiler?.stats?.json)
+  const [errors, setErrors] = useState<
+    Dashboard.Compilation.WebpackMessage[]
+  >(null)
   const [hasErrors, setHasErrors] = useState<boolean>(false)
-  const [warnings, setWarnings] = useState<WebpackMessage[]>(
-    null,
-  )
+  const [warnings, setWarnings] = useState<
+    Dashboard.Compilation.WebpackMessage[]
+  >(null)
   const [hasWarnings, setHasWarnings] = useState<boolean>(false)
   const [progress, setProgress] = useState(null)
 
   useEffect(() => {
-    bud.compiler.compile(bud.build.make())
+    app.compiler.compile(app.build.make())
   }, [])
 
   useEffect(() => {
-    if (!bud?.compiler?.instance) return
+    if (!app?.compiler?.instance) return
 
-    bud.compiler.instance.hooks.done.tap('bud', stats => {
+    app.compiler.instance.hooks.done.tap('app', stats => {
       if (!stats) return
 
-      setStats(stats.toJson(bud.compiler.statsOptions.json))
+      setStats(stats.toJson(app.compiler.statsOptions.json))
 
       if (!stats?.hasErrors) return
 
@@ -76,34 +52,36 @@ export const useCompilation = (bud: Framework) => {
         percentage: `${Math.floor(decimal * 100)}%`,
         message,
       })
-    }).apply(bud.compiler.instance)
+    }).apply(app.compiler.instance)
+
+    const compilerCallback = (err, stats: any) => {
+      if (!stats) return
+
+      stats = stats.toJson(app.compiler.statsOptions.json)
+
+      setStats(stats)
+
+      if (stats?.hasErrors) {
+        setHasErrors(stats.hasErrors())
+        stats.hasErrors()
+          ? setErrors(stats.errors)
+          : setErrors(null)
+      }
+      if (stats?.hasWarnings) {
+        setHasWarnings(stats.hasWarnings())
+        stats.hasWarnings()
+          ? setWarnings(stats.warnings)
+          : setWarnings(null)
+      }
+    }
 
     /**
      * Exec
      */
-    !bud.isDevelopment
-      ? bud.compiler.instance.run((err, stats: any) => {
-          if (!stats) return
-
-          stats = stats.toJson(bud.compiler.statsOptions.json)
-
-          setStats(stats)
-
-          if (stats?.hasErrors) {
-            setHasErrors(stats.hasErrors())
-            stats.hasErrors()
-              ? setErrors(stats.errors)
-              : setErrors(null)
-          }
-          if (stats?.hasWarnings) {
-            setHasWarnings(stats.hasWarnings())
-            stats.hasWarnings()
-              ? setWarnings(stats.warnings)
-              : setWarnings(null)
-          }
-        })
-      : bud.server.run(bud.compiler.instance)
-  }, [bud])
+    !app.isDevelopment
+      ? app.compiler.instance.run(compilerCallback)
+      : app.server.run(app.compiler.instance)
+  }, [app])
 
   return {
     progress,

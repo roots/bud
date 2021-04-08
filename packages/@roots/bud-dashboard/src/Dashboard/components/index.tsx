@@ -1,15 +1,11 @@
-import {Framework} from '@roots/bud-framework'
+import {Dashboard} from '@roots/bud-framework'
 import {
   React,
-  FunctionComponent,
-  useEffect,
   Box,
   useInput,
   Static,
   Text,
 } from '@roots/bud-support'
-
-import {Dashboard as IDashboard} from '../'
 import {
   Assets,
   DevStatus,
@@ -23,18 +19,16 @@ import {useStyle} from '@roots/ink-use-style'
 import {useCompilation, usePackageJson} from '../../hooks'
 import {isEqual} from 'lodash'
 
-export const Dashboard: FunctionComponent<{bud: Framework}> = ({
-  bud,
-}) => {
-  const {
-    stats,
-    progress,
-    errors,
-    hasErrors,
-    warnings,
-    hasWarnings,
-  } = useCompilation(bud)
+/**
+ * @exports Dashboard
+ */
+export {Dashboard}
 
+/**
+ * Dashboard CLI interface
+ */
+const Dashboard: Dashboard.Component = ({bud}) => {
+  const compilation = useCompilation(bud)
   const theme = useStyle(bud.store.get('options.theme'))
   const pkg = usePackageJson(bud)
 
@@ -46,25 +40,24 @@ export const Dashboard: FunctionComponent<{bud: Framework}> = ({
     }
   })
 
-  useEffect(() => {
+  React.useEffect(() => {
     if (!bud.isProduction) return
 
-    const isComplete = progress?.decimal >= 1
-    const shouldExit = isComplete || hasErrors
+    const isComplete = compilation?.progress?.decimal >= 1
+    const shouldExit = isComplete || compilation?.hasErrors
 
     shouldExit && setTimeout(() => process.exit())
-  }, [stats, progress, errors])
+  }, [
+    compilation.stats,
+    compilation.progress,
+    compilation.errors,
+  ])
 
-  const appProps: IDashboard.AppProps = {
+  const appProps: Dashboard.AppProps = {
     bud,
     theme,
     pkg,
-    progress,
-    stats,
-    errors,
-    hasErrors,
-    warnings,
-    hasWarnings,
+    ...compilation,
   }
 
   return (

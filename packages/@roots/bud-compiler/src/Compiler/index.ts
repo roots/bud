@@ -1,12 +1,16 @@
-import Service from './Service'
 import options from './options'
-import Webpack, {ProgressPlugin} from 'webpack'
-import {Compiler} from '@roots/bud-framework'
+import {Compiler, Service as Base} from '@roots/bud-framework'
+import {
+  bind,
+  webpack,
+  Webpack,
+  ProgressPlugin,
+} from '@roots/bud-support'
 
 /**
  * Compiler
  */
-export default class extends Service implements Compiler {
+export default class extends Base implements Compiler {
   /**
    * Service ident.
    */
@@ -38,54 +42,41 @@ export default class extends Service implements Compiler {
   public progress: Compiler.Progress
 
   /**
-   * Register service.
-   */
-  public register(): void {
-    this.run = this.run.bind(this)
-    this.compile = this.compile.bind(this)
-    this.applyPlugins = this.applyPlugins.bind(this)
-  }
-
-  /**
    * Compiler accessors.
    */
-  public get compiler(): Webpack.Compiler {
+  public get instance(): Webpack.Compiler {
     return this._instance
   }
-  public set compiler(compiler: Webpack.Compiler) {
-    this._instance = compiler
+
+  public set instance(instance: Webpack.Compiler) {
+    this._instance = instance
   }
 
   /**
    * Instantiates compilation
    */
-  public run(): void {
-    this.instance.run(
-      (err?: Error, stats?: {[key: string]: any}) => {
-        if (err) {
-          this.errors = [...this.errors, err.toString()]
-        }
-
-        this.stats = {
-          string: stats.toString(),
-          json: stats.toJson(),
-        }
-      },
-    )
+  @bind
+  public compile(conf): Webpack.Compiler {
+    return (this.instance = webpack(conf))
   }
 
   /**
    * Compile
    */
-  public compile(
-    config: Webpack.Configuration,
-  ): Webpack.Compiler {
-    return (this.instance = Webpack(config))
+  @bind
+  public run(): void {
+    this.instance.run((_err, stats) => {
+      this.stats = {
+        string: stats.toString(),
+        json: stats.toJson(),
+      }
+    })
   }
 
   /**
    * Make error
    */
+  @bind
   public makeError(err: string): void {
     this.error({err})
     new Error(err)
@@ -94,6 +85,7 @@ export default class extends Service implements Compiler {
   /**
    * Apply plugins to compilation
    */
+  @bind
   public applyPlugins(handler: Compiler.ProgressHandler): void {
     new ProgressPlugin(handler).apply(this.instance)
   }

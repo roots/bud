@@ -1,5 +1,7 @@
 exclude_patterns:
-  - 'lab'
+  - 'docs'
+  - 'examples'
+  - '.*'
   - 'node_modules'
-  - 'packages/extension-vue/src/vue-template-compiler'
-  - 'packages/**/publish'
+  - 'packages/@roots/*/publish'
+  - 'packages/@roots/*/src/docs'

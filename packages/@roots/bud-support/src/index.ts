@@ -163,6 +163,7 @@ export {useSWR, useSWR as useSwr, mutate}
 /**
  * Dependencies
  */
+import {boundMethod} from 'autobind-decorator'
 import chalk from 'chalk'
 import chokidar from 'chokidar'
 import dotenv from 'dotenv'
@@ -176,6 +177,7 @@ import prettyFormat from 'pretty-format'
 import yargs from 'yargs'
 import {Signale, SignaleConfig, SignaleOptions} from 'signale'
 export {
+  boundMethod as bind,
   chalk,
   chokidar,
   dotenv,

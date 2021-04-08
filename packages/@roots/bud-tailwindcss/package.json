@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-tailwindcss",
-  "version": "3.0.112-alpha.0",
+  "version": "3.1.0",
   "description": "Adds tailwindcss support to Bud",
   "repository": {
     "type": "git",
@@ -55,18 +55,16 @@
     "postcss": "^8.2.9"
   },
   "peerDependencies": {
-    "@roots/bud-postcss": "^3.0.112-alpha.0",
-    "postcss": "^8.2.9"
+    "@roots/bud-postcss": "^3.1.0",
+    "@roots/bud-support": "^3.1.0"
   },
   "devDependencies": {
-    "@roots/bud": "^3.0.112-alpha.0",
-    "@roots/bud-framework": "^3.0.112-alpha.0",
-    "@roots/bud-postcss": "^3.0.112-alpha.0",
+    "@roots/bud-postcss": "^3.1.0",
     "@tailwindcss/jit": "^0.1.18",
     "tailwindcss": "^2.0.3"
   },
   "dependencies": {
-    "@roots/bud-support": "^3.0.112-alpha.0"
+    "@roots/bud-support": "^3.1.0"
   },
   "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"
 }

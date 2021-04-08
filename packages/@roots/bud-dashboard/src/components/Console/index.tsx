@@ -1,20 +1,13 @@
-import {Dashboard} from '../../Dashboard'
+import {Dashboard} from '@roots/bud-framework'
 import {
   Text,
   Box,
-  patchConsole,
   React,
   useState,
   useEffect,
   Spinner,
 } from '@roots/bud-support'
 import {Logs} from './Logs'
-
-export type Console = React.FunctionComponent<Dashboard.AppProps>
-
-export type Log = React.FunctionComponent<{
-  logs: {id: number; data: string}[]
-}>
 
 /**
  * Loading
@@ -30,10 +23,8 @@ const Loading: React.FunctionComponent = () => (
 /**
  * Console
  */
-export const Console: Console = ({progress, theme}) => {
+export const Console: Dashboard.Component = ({progress}) => {
   const [logs, setLogs] = useState([])
-
-  patchConsole((_, data) => {})
 
   useEffect(() => {
     progress?.message && setLogs([...logs, progress.message])

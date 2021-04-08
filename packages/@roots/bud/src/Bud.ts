@@ -6,7 +6,6 @@ import './interface'
 import {Build} from '@roots/bud-build'
 import {Cache} from '@roots/bud-cache'
 import {Compiler} from '@roots/bud-compiler'
-import {Dashboard} from '@roots/bud-dashboard'
 import {Framework} from '@roots/bud-framework'
 import {Hooks} from '@roots/bud-hooks'
 import {Server} from '@roots/bud-server'
@@ -33,8 +32,6 @@ export class Bud extends Framework {
 
   public compiler: Compiler
 
-  public dashboard: Dashboard
-
   public dependencies: Dependencies
 
   public discovery: Discovery
@@ -54,19 +51,4 @@ export class Bud extends Framework {
   public store: Store
 
   public util: Util
-
-  public get mode() {
-    return process.argv.includes('development') ||
-      process.argv.includes('dev')
-      ? 'development'
-      : 'production'
-  }
-
-  public get isProduction(): boolean {
-    return this.mode === 'production'
-  }
-
-  public get isDevelopment(): boolean {
-    return this.mode === 'development'
-  }
 }

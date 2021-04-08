@@ -1,12 +1,12 @@
 {
   "name": "@roots/bud-esbuild",
-  "version": "3.0.112-alpha.0",
-  "description": "A friendly build tool to help manage your project assets.",
+  "version": "3.1.0",
+  "description": "ESBuild transpilation extension for Bud projects",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
-    "directory": "packages/bud-esbuild"
+    "directory": "packages/@roots/bud-esbuild"
   },
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
@@ -28,9 +28,7 @@
     "node": ">=12"
   },
   "files": [
-    "lib/",
-    "types/",
-    "src/"
+    "lib/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -54,13 +52,16 @@
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
+  "peerDependencies": {
+    "@roots/bud-framework": "^3.1.0"
+  },
   "devDependencies": {
-    "@roots/bud-api": "^3.0.112-alpha.0",
-    "@roots/bud-framework": "^3.0.112-alpha.0",
-    "@roots/bud-typings": "^3.0.112-alpha.0"
+    "@roots/bud-api": "^3.1.0",
+    "@roots/bud-framework": "^3.1.0",
+    "@roots/bud-support": "^3.1.0",
+    "@roots/bud-typings": "^3.1.0"
   },
   "dependencies": {
-    "@roots/bud-support": "^3.0.112-alpha.0",
     "esbuild-loader": "^2.11.0"
   },
   "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"

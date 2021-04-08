@@ -1,5 +1,5 @@
 import {useState} from '@roots/bud-support'
-import {Dashboard} from '../Dashboard'
+import {Dashboard} from '@roots/bud-framework'
 
 const INITIAL_STATE: Dashboard.UseProgress.State = {
   percentage: {

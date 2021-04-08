@@ -1,6 +1,5 @@
-import {lodash as _} from '@roots/bud-support'
+import {lodash as _, bind} from '@roots/bud-support'
 import {Framework, Hooks, Module} from '@roots/bud-framework'
-import {isEmpty, isFunction} from 'lodash'
 
 type ModuleKey = `${keyof Module & string}`
 
@@ -47,13 +46,6 @@ export default class {
     this._app = app.get
     this._module = extension
 
-    this.get = this.get.bind(this)
-    this.set = this.set.bind(this)
-    this.makeKey = this.makeKey.bind(this)
-    this.register = this.register.bind(this)
-    this.boot = this.boot.bind(this)
-    this.install = this.install.bind(this)
-
     this.logger
       .scope(this.module.name)
       .success('Extension instantiated')
@@ -62,6 +54,7 @@ export default class {
   /**
    * Register extension
    */
+  @bind
   public register(): this {
     if (this.module.register) {
       this.app.access(this.module.register)
@@ -113,6 +106,7 @@ export default class {
   /**
    * Boot extension.
    */
+  @bind
   public boot(): this {
     this.module.boot && this.app.access(this.module.boot)
     this.logger.scope(this.name).success('Extension booted')
@@ -123,19 +117,20 @@ export default class {
   /**
    * Install package dependencies
    */
+  @bind
   public install(): void {
     /**
      * Production dependencies
      */
     this.dependencies &&
-      !isEmpty(this.dependencies) &&
+      !_.isEmpty(this.dependencies) &&
       this.app.dependencies.install(this.dependencies, this.name)
 
     /**
      * Development dependencies
      */
     this.devDependencies &&
-      !isEmpty(this.devDependencies) &&
+      !_.isEmpty(this.devDependencies) &&
       this.app.dependencies.installDev(
         this.devDependencies,
         this.name,
@@ -145,6 +140,7 @@ export default class {
   /**
    * Make hook key from module property
    */
+  @bind
   public makeKey(key: ModuleKey): Framework.Hooks.Name {
     return `extension/${this.name}/${key}` as Framework.Hooks.Name
   }
@@ -152,6 +148,7 @@ export default class {
   /**
    * Get module properties (hooked)
    */
+  @bind
   public get(key: ModuleKey) {
     const hook = this.makeKey(key)
     const value = this.app.subscribe(hook, this.name)
@@ -166,6 +163,7 @@ export default class {
   /**
    * Set module properties (hooked)
    */
+  @bind
   public set(key: ModuleKey, value: any) {
     const hook = this.makeKey(key)
 
@@ -224,7 +222,7 @@ export default class {
   public get when() {
     const value = this.get('when')
 
-    if (isFunction(value)) {
+    if (_.isFunction(value)) {
       return value(this.app, this.app.container(this.options))
     }
 
@@ -258,7 +256,7 @@ export default class {
       return
     }
 
-    if (isFunction(value)) {
+    if (_.isFunction(value)) {
       return value(
         this.options
           ? this.app.container(this.options)

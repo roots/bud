@@ -1,4 +1,4 @@
-import {Framework, Service} from '@roots/bud-framework'
+import {Service as Base} from '@roots/bud-framework'
 import {
   React,
   render,
@@ -6,7 +6,6 @@ import {
   Text,
   isString,
 } from '@roots/bud-support'
-import {Styles} from '@roots/ink-use-style'
 
 import {Dashboard as DashboardComponent} from './components'
 import {Error} from '../Error'
@@ -14,12 +13,10 @@ import {Write} from '../Write'
 import {Screen} from '../components/Screen'
 import {Mark} from '../Mark'
 
-export {Dashboard}
-
 /**
  * Dashboard
  */
-class Dashboard extends Service {
+export class Dashboard extends Base {
   /**
    * Service ident
    */
@@ -110,80 +107,4 @@ class Dashboard extends Service {
   public kill(): void {
     this.dashboard.unmount()
   }
-}
-
-namespace Dashboard {
-  export interface Props {
-    bud: Framework
-  }
-
-  declare interface WebpackMessage {
-    moduleIdentifier: string
-    moduleName: string
-    message: string
-  }
-
-  export interface AppProps {
-    bud: Framework
-    pkg: {[key: string]: any}
-    screens?: Array<[number, number]>
-    theme: Styles
-    stats: Framework.Compiler.Stats.Output['json']
-    progress: {
-      percentage: string
-      decimal: number
-      message: string
-    }
-    errors: Array<WebpackMessage>
-    hasErrors: boolean
-    warnings: Array<WebpackMessage>
-    hasWarnings: boolean
-  }
-
-  export interface Asset {
-    chunks: Array<number | string>
-    chunkNames: string[]
-    emitted: boolean
-    isOverSizeLimit?: boolean
-    name: string
-    size: number
-    theme: AppProps['theme']
-  }
-
-  export interface UseProgress {
-    (): [UseProgress.State, UseProgress.Handler]
-  }
-
-  export namespace UseProgress {
-    export type State = {
-      percentage: Percentage
-      msg: string
-    }
-
-    export type Handler = (
-      percentage: number,
-      msg: string,
-    ) => void
-
-    export interface Percentage {
-      display: string
-      decimal: number
-    }
-  }
-
-  export interface DevServerStatus {
-    enabled: boolean
-    host: string
-    port: number
-    status: number
-    label: string
-    colors: Styles['colors']
-  }
-
-  export type FetchStatus = (
-    enabled: boolean,
-    host: string,
-    port: number,
-    update: CallableFunction,
-  ) => Promise<void>
 }
