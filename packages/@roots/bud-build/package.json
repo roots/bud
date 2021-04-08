@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-build",
   "description": "Bud webpack config build controller",
-  "version": "3.0.113-alpha.0",
+  "version": "3.1.0",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
