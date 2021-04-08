@@ -52,41 +52,35 @@ declare module '@roots/bud-framework' {
       bud: Framework
     }
 
-    interface AppProps {
-      bud?: Framework
-      pkg?: {[key: string]: any}
-      screens?: Array<[number, number]>
-      theme?: Styles
-      stats?: Framework.Compiler.Stats.Output['json']
-      progress?: {
-        percentage: string
-        decimal: number
-        message: string
-      }
-      errors?: string[]
-      hasErrors?: boolean
-      warnings?: string[]
-      hasWarnings?: boolean
+    interface AppProps extends Compilation {
+      bud: Framework
+      pkg: {[key: string]: any}
+      theme: Styles
     }
 
     type Component = React.FunctionComponent<Partial<AppProps>>
 
-    interface Compilation {
+    export interface Compilation {
       progress: {
         percentage: string
         decimal: number
         message: string
       }
       stats: Compiler.Stats.Output['json']
-      errors?: string[]
+      errors?: Compilation.WebpackMessage[]
       hasErrors: boolean
-      warnings?: string[]
+      warnings?: Compilation.WebpackMessage[]
       hasWarnings: boolean
     }
-
     namespace Compilation {
       interface Hook {
         (app: Framework): Compilation
+      }
+
+      interface WebpackMessage {
+        moduleIdentifier: string
+        moduleName: string
+        message: string
       }
     }
 
