@@ -1,16 +1,9 @@
-import type {Dashboard} from '../../Dashboard'
-import {
-  React,
-  Box,
-  FunctionComponent,
-  Text,
-} from '@roots/bud-support'
+import {Dashboard} from '@roots/bud-framework'
+import {React, Box, Text} from '@roots/bud-support'
 
 import {useGit} from '../../hooks/useGit'
 
-export const Git: FunctionComponent<
-  Partial<Dashboard.AppProps>
-> = ({theme}) => {
+export const Git: Dashboard.Component = ({theme}) => {
   const {branch, status, head} = useGit()
   const {flavor, warning, accent, success} = theme.colors
 

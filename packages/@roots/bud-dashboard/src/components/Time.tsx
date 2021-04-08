@@ -1,10 +1,7 @@
-import {Dashboard} from '../Dashboard'
+import {Dashboard} from '@roots/bud-framework'
 import {React, Text, Box} from '@roots/bud-support'
 
-export const Time: React.FunctionComponent<Dashboard.AppProps> = ({
-  stats,
-  theme,
-}) =>
+export const Time: Dashboard.Component = ({stats, theme}) =>
   stats?.time ? (
     <Box marginTop={1}>
       <Text>

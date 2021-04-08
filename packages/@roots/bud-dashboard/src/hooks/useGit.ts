@@ -4,20 +4,7 @@ import {
   mutate,
   execa,
 } from '@roots/bud-support'
-
-export interface Res {
-  stdout?: string
-  stderr?: string
-}
-
-export interface GitStatus {
-  head: string
-  branch: string
-  status: number
-  hasError: boolean
-}
-
-export type UseGit = () => GitStatus
+import {Dashboard} from '@roots/bud-framework'
 
 const fetch = async key => {
   const params = {
@@ -29,10 +16,21 @@ const fetch = async key => {
   return await execa('git', params[key.replace('git.', '')])
 }
 
-export const useGit: UseGit = () => {
-  const {data: head} = useSwr<Res>('git.head', fetch)
-  const {data: branch} = useSwr<Res>('git.branch', fetch)
-  const {data: status} = useSwr<Res>('git.status', fetch)
+export const useGit: Dashboard.UseGit.Hook = () => {
+  const {data: head} = useSwr<Dashboard.UseGit.Res>(
+    'git.head',
+    fetch,
+  )
+
+  const {data: branch} = useSwr<Dashboard.UseGit.Res>(
+    'git.branch',
+    fetch,
+  )
+
+  const {data: status} = useSwr<Dashboard.UseGit.Res>(
+    'git.status',
+    fetch,
+  )
 
   useEffect(() => {
     setInterval(() => {

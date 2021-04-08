@@ -1,12 +1,14 @@
 import {React, Text, Box, Static} from '@roots/bud-support'
-import {Log} from './'
+import {Logs} from './Logs'
 
-export const StaticLogs: Log = ({logs}) => (
+export const StaticLogs: typeof Logs = ({logs}) => (
   <Box marginBottom={1} flexDirection="column">
     <Static items={logs}>
-      {log => (
-        <Box key={log.id}>
-          <Text>{log.data}</Text>
+      {(log, id) => (
+        <Box key={id} marginBottom={1} flexDirection="column">
+          <Box>
+            <Text>{log}</Text>
+          </Box>
         </Box>
       )}
     </Static>

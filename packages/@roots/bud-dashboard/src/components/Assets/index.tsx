@@ -1,17 +1,11 @@
-import {
-  React,
-  FunctionComponent,
-  Box,
-  Spinner,
-  Text,
-} from '@roots/bud-support'
+import {React, Box, Spinner, Text} from '@roots/bud-support'
 import {Asset} from './Asset'
-import {Dashboard} from '../../Dashboard'
+import {Dashboard} from '@roots/bud-framework'
 
-const Assets: FunctionComponent<Partial<Dashboard.AppProps>> = ({
-  stats,
-  theme,
-}) => {
+/**
+ * Asset component
+ */
+const Assets: Dashboard.Component = ({stats, theme}) => {
   if (!stats?.assets || !(stats?.assets?.length > 0)) {
     return (
       <Text>
