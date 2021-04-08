@@ -6,6 +6,7 @@ import {
   Signale,
   SignaleConfig,
   SignaleOptions,
+  bind,
 } from '@roots/bud-support'
 import {Framework} from '@roots/bud-framework'
 
@@ -90,8 +91,6 @@ export class Logger implements Contract, Bootstrapper {
    */
   public constructor(app: Framework['get']) {
     this._app = app
-
-    this.makeLogger = this.makeLogger.bind(this)
   }
 
   /**
@@ -113,6 +112,7 @@ export class Logger implements Contract, Bootstrapper {
   /**
    * Make logger
    */
+  @bind
   public makeLogger() {
     const logger = new Signale({
       ...this.options,

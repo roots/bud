@@ -1,43 +1,31 @@
 import './interface'
-import {Framework} from '@roots/bud-framework'
-import {BabelConfig} from './bud.babel'
+
+import {Module, Framework} from '@roots/bud-framework'
+import {Config} from './Config'
 
 /**
  * Extension name
  */
-export const name: Framework.Module['name'] = '@roots/bud-babel'
+export const name: Module['name'] = '@roots/bud-babel'
 
 /**
  * bud.babel configuration interface
  */
-export const api: Framework.Module['api'] = (
-  app: Framework,
-) => ({
-  babel: new BabelConfig(app),
+export const api: Module['api'] = (app: Framework) => ({
+  babel: new Config().init(app),
 })
 
 /**
  * Extension dependencies
  */
-export const devDependencies: Framework.Module['devDependencies'] = [
+export const devDependencies: Module['devDependencies'] = [
   '@babel/core',
 ]
 
 /**
  * Publishes
  */
-export const publish: Framework.Module['publish'] = (
-  app: Framework,
-) => ({
-  /**
-   * rule/js/use
-   */
-  'rule/js/use': () => [
-    app.subscribe('item/cache'),
-    app.subscribe('item/thread'),
-    app.subscribe('item/babel'),
-  ],
-
+export const publish: Module['publish'] = (app: Framework) => ({
   /**
    * loader/babel
    */
@@ -83,15 +71,24 @@ export const publish: Framework.Module['publish'] = (
    * babel/config
    */
   'item/babel/config': () => app.babel.hasProjectConfig,
+
+  /**
+   * rule/js/use
+   */
+  'rule/js/use': () => [
+    app.subscribe('item/cache'),
+    app.subscribe('item/thread'),
+    app.subscribe('item/babel'),
+  ],
 })
 
 /**
  * Boot extension
  */
-export const boot = (app: Framework) => {
-  app.babel.log.info('Configuring babel defaults')
+export const boot: Module['boot'] = ({babel, info}) => {
+  info('Configuring babel defaults')
 
-  app.babel
+  babel
     .setPresets(['@babel/preset-env'])
     .setPlugins([
       '@babel/plugin-transform-runtime',

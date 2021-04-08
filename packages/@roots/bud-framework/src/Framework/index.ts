@@ -1,5 +1,5 @@
 import {Container} from '@roots/container'
-import {isEqual, isFunction} from 'lodash'
+import {bind, isEqual, isFunction} from '@roots/bud-support'
 import type {
   Build,
   Cache,
@@ -89,56 +89,48 @@ abstract class Framework {
 
   public abstract logger: Logger
 
-  /**
-   * Store
-   */
   public abstract store: Store
-
-  /**
-   * Current mode
-   */
-  public abstract get mode(): 'development' | 'production'
-
-  /**
-   * Mode is production
-   */
-  public abstract get isProduction(): boolean
-
-  /**
-   * Mode is development
-   */
-  public abstract get isDevelopment(): boolean
 
   /**
    * Constructor
    */
-  constructor(services: {
+  public constructor(services: {
     [key: string]: new (app: Framework['get']) =>
       | Service
       | Bootstrapper
   }) {
-    this.access = this.access.bind(this)
-    this.boot = this.boot.bind(this)
-    this.bootstrap = this.bootstrap.bind(this)
-    this.container = this.container.bind(this)
-    this.get = this.get.bind(this)
-    this.pipe = this.pipe.bind(this)
-    this.publish = this.publish.bind(this)
-    this.sequence = this.sequence.bind(this)
-    this.register = this.register.bind(this)
-    this.subscribe = this.subscribe.bind(this)
-    this.when = this.when.bind(this)
-
-    /**
-     * Containerize services
-     */
     this.services = this.container(services)
+  }
+
+  /**
+   * Webpack.Configuration['mode'] accessor
+   */
+  public get mode() {
+    return process.argv.includes('development') ||
+      process.argv.includes('dev')
+      ? 'development'
+      : 'production'
+  }
+
+  /**
+   * Production check
+   */
+  public get isProduction(): boolean {
+    return this.mode === 'production'
+  }
+
+  /**
+   * Dev check
+   */
+  public get isDevelopment(): boolean {
+    return this.mode === 'development'
   }
 
   /**
    * Lifecycle: bootstrap
    */
-  bootstrap(): this {
+  @bind
+  public bootstrap(): this {
     /**
      * NODE_ENV & BABEL_ENV
      */
@@ -171,7 +163,8 @@ abstract class Framework {
   /**
    * Lifecycle: registration
    */
-  register(): this {
+  @bind
+  public register(): this {
     this.services.every(service => {
       this.log(`Registering ${service}`)
       this.get<Service>(service).register()
@@ -187,6 +180,7 @@ abstract class Framework {
   /**
    * Lifecycle boot
    */
+  @bind
   public boot(): this {
     this.services.every(service => {
       this.log(`Booting ${service}`)
@@ -203,6 +197,7 @@ abstract class Framework {
   /**
    * Get framework.
    */
+  @bind
   public get<T = this>(service?: string | number): T {
     return service ? this[service] : this
   }
@@ -210,6 +205,7 @@ abstract class Framework {
   /**
    * Subscribe
    */
+  @bind
   public subscribe<T = any>(
     name: `${Hooks.Name}`,
     caller?: string,
@@ -220,6 +216,7 @@ abstract class Framework {
   /**
    * Publish
    */
+  @bind
   public publish(
     pubs: Hooks.PublishDict,
     caller?: string,
@@ -252,6 +249,7 @@ abstract class Framework {
    * // => `option value: true`
    * ```
    */
+  @bind
   public access<I = unknown>(value: MaybeCallable<I>): I {
     return isFunction(value) ? value(this) : value
   }
@@ -268,6 +266,7 @@ abstract class Framework {
    * container.get('data') // => 'stuff'
    * ```
    */
+  @bind
   public container(repository?: any): Container {
     return new Container(repository ?? {})
   }
@@ -290,6 +289,7 @@ abstract class Framework {
    * ])
    * ```
    */
+  @bind
   public pipe<I = any, R = any>(
     fns: CallableFunction[],
     value: I,
@@ -302,6 +302,7 @@ abstract class Framework {
   /**
    * Sequence functions
    */
+  @bind
   public sequence(fns: Array<(app: this) => any>): this {
     fns.reduce((_val, fn) => {
       return fn.bind(this)(this)
@@ -329,6 +330,7 @@ abstract class Framework {
    * app.when(app.mode.is('production'), () => app.vendor())
    * ```
    */
+  @bind
   public when(
     test: ((app: Framework) => boolean) | boolean,
     isTrue: (app: Framework) => any,
@@ -344,6 +346,7 @@ abstract class Framework {
   /**
    * Log message
    */
+  @bind
   public log(...args) {
     this.logger.instance.scope(this.name).log(...args)
   }
@@ -351,6 +354,7 @@ abstract class Framework {
   /**
    * Log info message
    */
+  @bind
   public info(...args) {
     this.logger.instance.scope(this.name).info(...args)
   }
@@ -358,6 +362,7 @@ abstract class Framework {
   /**
    * Log warning message
    */
+  @bind
   public warning(...args) {
     this.logger.instance.scope(this.name).warning(...args)
   }
@@ -365,6 +370,7 @@ abstract class Framework {
   /**
    * Log warning message
    */
+  @bind
   public debug(...args) {
     this.logger.instance.scope(this.name).debug(...args)
   }
@@ -372,6 +378,7 @@ abstract class Framework {
   /**
    * Log error message
    */
+  @bind
   public error(...args) {
     this.logger.instance.scope(this.name).error(...args)
   }

@@ -1,13 +1,11 @@
+import {bind} from '@roots/bud-support'
 import Service from './Service'
 import crypto from 'crypto'
 
 /**
- * ## bud.cache [🏠 Internal]
+ * # bud.cache
  *
  * Cache utlity for Webpack modules.
- *
- * [🏡 Project home](https://roots.io/bud)
- * [🧑‍💻 roots/bud](#)
  */
 export class Cache extends Service {
   /**
@@ -27,7 +25,7 @@ export class Cache extends Service {
   }
 
   /**
-   * ## bud.cache.enabled [🏠 Internal]
+   * ## bud.cache.enabled
    *
    * Returns boolean true if cache is enabled
    *
@@ -39,6 +37,7 @@ export class Cache extends Service {
    * // => true if cache is enabled
    * ```
    */
+  @bind
   public enabled(): boolean {
     return this.app.store.isTrue('options.cache')
   }
