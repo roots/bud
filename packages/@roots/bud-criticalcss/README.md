@@ -10,23 +10,23 @@
 </p>
 
 <h1 align="center">
-  <strong>@roots/bud-terser</strong>
+  <strong>@roots/bud-criticalcss</strong>
 </h1>
 
 ## Overview
 
-Minify script assets with Terser.
+Generate critical css.
 
 ## Installation
 
 ```sh
-yarn add @roots/bud-terser --dev
+yarn add @roots/bud-criticalcss --dev
 ```
 
 ## Usage
 
 ```js
-bud.use(['@roots/bud-terser'])
+bud.use(['@roots/bud-criticalcss'])
 ```
 
 ## Contributing
