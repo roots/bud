@@ -106,31 +106,27 @@ yarn bud build --mode development
 
 The following is a (hopefully) exhaustive list of the utilities designed to make setting up your build as easy as possible.
 
-| Tool            | Description                  | Documentation                                   |
-| --------------- | ---------------------------- | ----------------------------------------------- |
-| bud.alias       | Easy module imports          | [README ↗]([[base]]/docs/config-alias.md)       |
-| bud.assets      | Copy static assets           | [README ↗]([[base]]/docs/config-assets.md)      |
-| bud.cache       | Cache                        | [README ↗]([[base]]/docs/config-cache.md)       |
-| bud.define      | Define global constants      | [README ↗]([[base]]/docs/config-define.md)      |
-| bud.dev         | Configure dev server         | [README ↗]([[base]]/docs/config-dev.md)         |
-| bud.devtool     | Configure sourcemaps         | [README ↗]([[base]]/docs/config-devtool.md)     |
-| bud.dist        | Get the `dist` dir           | [README ↗]([[base]]/docs/config-dist.md)        |
-| bud.distPath    | Define the `dist` dir        | [README ↗]([[base]]/docs/config-distPath.md)    |
-| bud.entry       | Add source files             | [README ↗]([[base]]/docs/config-entry.md)       |
-| bud.glob        | bud.entry but with wildcards | [README ↗]([[base]]/docs/config-glob.md)        |
-| bud.hash        | Add version string to assets | [README ↗]([[base]]/docs/config-hash.md)        |
-| bud.html        | Set an HTML template         | [README ↗]([[base]]/docs/config-html.md)        |
-| bud.minify      | Minify assets                | [README ↗]([[base]]/docs/config-minify.md)      |
-| bud.project     | Get the project root         | [README ↗]([[base]]/docs/config-project.md)     |
-| bud.projectPath | Define the project root dir  | [README ↗]([[base]]/docs/config-projectPath.md) |
-| bud.provide     | Define global vars           | [README ↗]([[base]]/docs/config-provide.md)     |
-| bud.proxy       | Configure proxy server       | [README ↗]([[base]]/docs/config-proxy.md)       |
-| bud.publicPath  | Define the public path       | [README ↗]([[base]]/docs/config-publicPath.md)  |
-| bud.runtime     | Extract boilerplate          | [README ↗]([[base]]/docs/config-runtime.md)     |
-| bud.src         | Get the `src` dir            | [README ↗]([[base]]/docs/config-src.md)         |
-| bud.srcPath     | Define the `src` dir         | [README ↗]([[base]]/docs/config-srcPath.md)     |
-| bud.storage     | Define artifacts dir         | [README ↗]([[base]]/docs/config-storage.md)     |
-| bud.splitChunks | Split code (vendor)          | [README ↗]([[base]]/docs/config-vendor.md)      |
+| Tool            | Description                     | Documentation                                  |
+| --------------- | ------------------------------- | ---------------------------------------------- |
+| bud.alias       | Easy module imports             | [README ↗]([[base]]/docs/config-alias.md)      |
+| bud.assets      | Copy static assets              | [README ↗]([[base]]/docs/config-assets.md)     |
+| bud.cache       | Cache                           | [README ↗]([[base]]/docs/config-cache.md)      |
+| bud.define      | Define global constants         | [README ↗]([[base]]/docs/config-define.md)     |
+| bud.dev         | Configure dev server            | [README ↗]([[base]]/docs/config-dev.md)        |
+| bud.devtool     | Configure sourcemaps            | [README ↗]([[base]]/docs/config-devtool.md)    |
+| bud.entry       | Add source files                | [README ↗]([[base]]/docs/config-entry.md)      |
+| bud.glob        | bud.entry but with wildcards    | [README ↗]([[base]]/docs/config-glob.md)       |
+| bud.hash        | Add version string to assets    | [README ↗]([[base]]/docs/config-hash.md)       |
+| bud.html        | Set an HTML template            | [README ↗]([[base]]/docs/config-html.md)       |
+| bud.minify      | Minify assets                   | [README ↗]([[base]]/docs/config-minify.md)     |
+| bud.path        | Get paths to project files/dirs | [README ↗]([[base]]/docs/config-path.md)       |
+| bud.setPath     | Set paths to project files/dirs | [README ↗]([[base]]/docs/config-setPath.md)    |
+| bud.provide     | Define global vars              | [README ↗]([[base]]/docs/config-provide.md)    |
+| bud.proxy       | Configure proxy server          | [README ↗]([[base]]/docs/config-proxy.md)      |
+| bud.publicPath  | Define the public path          | [README ↗]([[base]]/docs/config-publicPath.md) |
+| bud.runtime     | Extract boilerplate             | [README ↗]([[base]]/docs/config-runtime.md)    |
+| bud.storage     | Define artifacts dir            | [README ↗]([[base]]/docs/config-storage.md)    |
+| bud.splitChunks | Split code (vendor)             | [README ↗]([[base]]/docs/config-vendor.md)     |
 
 This isn't the last word on what is possible with Bud, just a collection of functions intended to simplify common developer needs/wants to as great a degree as possible. There are many valid ways to interact with Bud that utilize none of these functions.
 
