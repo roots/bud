@@ -1,5 +1,6 @@
 import {CopyWebpackPlugin} from './interface'
 import Plugin from 'copy-webpack-plugin'
+import {globby} from '@roots/bud-support'
 
 const CopyWebpackPluginExtension: CopyWebpackPlugin = {
   /**
@@ -36,7 +37,7 @@ const CopyWebpackPluginExtension: CopyWebpackPlugin = {
   api: () => ({
     assets(jobs) {
       jobs.map(from => {
-        this.disk.glob.sync(from).map((from: string) => {
+        globby.sync(from).map((from: string) => {
           const dirName = from.split('/')[
             from.split('/').length - 2
           ]

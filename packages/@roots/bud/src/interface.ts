@@ -1,8 +1,8 @@
 import '@roots/bud-hooks'
 import '@roots/bud-framework'
 
-import {Webpack} from '@roots/bud-support'
-import {Theme} from '@roots/ink-use-style'
+import type Webpack from 'webpack'
+import type {Theme} from '@roots/ink-use-style'
 
 /**
  * @fix SWR thinking its in the browser.

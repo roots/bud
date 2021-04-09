@@ -5,7 +5,6 @@ import './interface'
  */
 import {Build} from '@roots/bud-build'
 import {Cache} from '@roots/bud-cache'
-import {Compiler} from '@roots/bud-compiler'
 import {Framework} from '@roots/bud-framework'
 import {Hooks} from '@roots/bud-hooks'
 import {Server} from '@roots/bud-server'
@@ -29,8 +28,6 @@ export class Bud extends Framework {
   public build: Build
 
   public cache: Cache
-
-  public compiler: Compiler
 
   public dependencies: Dependencies
 

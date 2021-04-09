@@ -1,5 +1,6 @@
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import {Framework} from '@roots/bud-framework'
+import {posix} from 'path'
 
 /**
  * Name
@@ -13,7 +14,7 @@ export const options = (app: Framework) => ({
   alwaysWriteToDisk: true,
   base: app.subscribe('location/project'),
   inject: true,
-  template: app.disk.path.posix.resolve(
+  template: posix.resolve(
     require.resolve('@roots/bud-support'),
     '../../../publish/template.html',
   ),

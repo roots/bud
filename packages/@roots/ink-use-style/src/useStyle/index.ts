@@ -1,9 +1,6 @@
-import {
-  useSwr,
-  mutate,
-  useStdoutDimensions,
-  React,
-} from '@roots/bud-support'
+import React from 'react'
+import useSwr, {mutate} from 'swr'
+import useStdoutDimensions from 'ink-use-stdout-dimensions'
 
 import type {Styles, Theme, UseStyle} from '../typings'
 import {defaultTheme} from '../themes'

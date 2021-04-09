@@ -6,7 +6,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
-    "directory": "packages/bud-cli"
+    "directory": "packages/@roots/bud-cli"
   },
   "bugs": {
     "url": "https://github.com/roots/bud/issues"

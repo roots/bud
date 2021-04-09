@@ -1,8 +1,4 @@
-import {
-  useState,
-  useEffect,
-  ProgressPlugin,
-} from '@roots/bud-support'
+import {useState, useEffect, webpack} from '@roots/bud-support'
 import {Dashboard} from '@roots/bud-framework'
 
 /**
@@ -41,7 +37,7 @@ export const useCompilation: Dashboard.Compilation.Hook = app => {
         : setErrors(null)
     })
 
-    new ProgressPlugin((percentage, message): void => {
+    new webpack.ProgressPlugin((percentage, message): void => {
       const decimal =
         percentage && typeof percentage == 'number'
           ? percentage

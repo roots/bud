@@ -1,16 +1,13 @@
-import {
-  React,
-  FunctionComponent,
-  Box,
-  Text,
-  prettier,
-} from '@roots/bud-support'
+import React from 'react'
+import {Box, Text} from 'ink'
+import prettier from 'prettier'
 
 interface Props extends prettier.Options {
   children: string
+  parser?: prettier.BuiltInParserName
 }
 
-const Prettier: FunctionComponent<Props> = props => (
+const Prettier: React.FunctionComponent<Props> = props => (
   <Box
     marginBottom={1}
     flexDirection="column"

@@ -1,5 +1,6 @@
-import {webpack, Webpack} from '@roots/bud-support'
-import {Framework, Module} from '@roots/bud-framework'
+import type Webpack from 'webpack'
+import type {Framework, Module} from '@roots/bud-framework'
+import {webpack} from '@roots/bud-support'
 
 interface Options {
   definitions: Webpack.DefinePlugin['definitions']

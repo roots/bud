@@ -1,5 +1,5 @@
 import type {Framework} from '@roots/bud-framework'
-import {Webpack} from '@roots/bud-support'
+import type Webpack from 'webpack'
 
 export function config(this: Framework) {
   this

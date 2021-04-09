@@ -12,7 +12,6 @@ import {
 import {Build} from './Build'
 import {Cache} from './Cache'
 import {CLI} from './CLI'
-import {Compiler} from './Compiler'
 import {Container} from '../../container/src'
 import {Discovery} from './Discovery'
 import {Dependencies} from './Dependencies'
@@ -31,7 +30,6 @@ declare namespace Framework {
   export {Bootstrapper}
   export {Cache}
   export {CLI}
-  export {Compiler}
   export {Container}
   export {Discovery}
   export {Dependencies}
@@ -51,7 +49,6 @@ declare namespace Framework {
     Express,
     Factory,
     Fluent,
-    GlobTask,
     Index,
     MaybeCallable,
     Webpack,
@@ -63,7 +60,6 @@ export {Build}
 export {Bootstrapper}
 export {Cache}
 export {CLI}
-export {Compiler}
 export {Container}
 export {Discovery}
 export {Dependencies}
@@ -79,12 +75,4 @@ export {Server}
 export {Service}
 export {Services}
 export {Store}
-export {
-  Express,
-  Factory,
-  Fluent,
-  GlobTask,
-  Index,
-  MaybeCallable,
-  Webpack,
-}
+export {Express, Factory, Fluent, Index, MaybeCallable, Webpack}

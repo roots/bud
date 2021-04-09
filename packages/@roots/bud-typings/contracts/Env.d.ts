@@ -1,5 +1,5 @@
-import {Framework} from './'
-import dotenv from 'dotenv'
+import type {Framework} from './'
+import type dotenv from 'dotenv'
 
 /**
  * ## bud.env

@@ -5,7 +5,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
-    "directory": "packages/bud-entrypoints"
+    "directory": "packages/@roots/bud-entrypoints"
   },
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
@@ -24,9 +24,7 @@
     "node": ">=12"
   },
   "files": [
-    "lib/",
-    "types/",
-    "src/"
+    "lib/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",

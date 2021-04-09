@@ -6,7 +6,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
-    "directory": "packages/ink-prettier"
+    "directory": "packages/@roots/ink-prettier"
   },
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
@@ -27,8 +27,7 @@
     "node": ">=12"
   },
   "files": [
-    "lib/",
-    "types/"
+    "lib/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -53,7 +52,7 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "dependencies": {
-    "@roots/bud-support": "^3.1.0"
+    "ink": "^3.0.8"
   },
   "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"
 }

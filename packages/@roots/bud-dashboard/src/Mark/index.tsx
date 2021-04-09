@@ -4,10 +4,9 @@ import {
   BigText,
   Static,
   Gradient,
-  FunctionComponent,
 } from '@roots/bud-support'
 
-export const Mark: FunctionComponent<{text: string}> = ({
+export const Mark: React.FunctionComponent<{text: string}> = ({
   text,
 }) => (
   <Static items={[{id: 0, text}]}>

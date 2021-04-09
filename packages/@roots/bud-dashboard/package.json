@@ -52,12 +52,14 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "peerDependencies": {
+    "@roots/bud-compiler": "^3.1.0",
+    "@roots/ink-use-style": "^3.1.0",
     "@roots/bud-support": "^3.1.0"
   },
-  "dependencies": {
-    "@roots/ink-prettier": "^3.1.0",
+  "devDependencies": {
+    "@roots/bud-compiler": "^3.1.0",
     "@roots/ink-use-style": "^3.1.0",
-    "axios": "^0.21.1"
+    "@roots/bud-support": "^3.1.0"
   },
   "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"
 }

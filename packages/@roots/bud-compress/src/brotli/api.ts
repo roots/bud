@@ -1,8 +1,6 @@
-import {Framework} from '@roots/bud-framework'
+import {Compress} from '@roots/bud-framework'
 
-export const brotli: Framework.Compress.Config = function (
-  options,
-) {
+export const brotli: Compress.Config = function (options) {
   if (!options) return
 
   this.publish({

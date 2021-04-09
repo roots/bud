@@ -1,10 +1,14 @@
-import {Container} from '@roots/container'
-import {bind, isEqual, isFunction} from '@roots/bud-support'
+import {
+  Container,
+  bind,
+  isEqual,
+  isFunction,
+} from '@roots/bud-support'
+
 import type {
   Build,
   Cache,
   CLI,
-  Compiler,
   Dependencies,
   Discovery,
   Disk,
@@ -33,7 +37,6 @@ declare namespace Framework {
     Build,
     Cache,
     CLI,
-    Compiler,
     Container,
     Dependencies,
     Discovery,
@@ -70,8 +73,6 @@ abstract class Framework {
   public abstract build: Build
 
   public abstract cache: Cache
-
-  public abstract compiler: Compiler
 
   public abstract dependencies: Dependencies
 

@@ -6,7 +6,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
-    "directory": "packages/bud-emotion"
+    "directory": "packages/@roots/bud-emotion"
   },
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
@@ -55,17 +55,12 @@
   "peerDependencies": {
     "@roots/bud": "3.1.0",
     "@roots/bud-react": "3.1.0",
-    "@roots/bud-support": "^3.1.0",
-    "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "@roots/bud-support": "^3.1.0"
   },
   "devDependencies": {
     "@roots/bud-babel": "^3.1.0",
     "@roots/bud-framework": "^3.1.0",
-    "@roots/bud-support": "^3.1.0",
-    "@roots/bud-typings": "^3.1.0",
-    "react": "17.0.2",
-    "react-dom": "17.0.2"
+    "@roots/bud-support": "^3.1.0"
   },
   "dependencies": {
     "@emotion/css": "^11.1.3",

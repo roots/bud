@@ -33,7 +33,7 @@ export namespace Server {
   /**
    * Webpack compiler
    */
-  export type Compiler = Webpack.Compiler | Webpack.MultiCompiler
+  export type Compiler = Webpack.Compiler
 
   /**
    * Middleware

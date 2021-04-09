@@ -1,13 +1,8 @@
-import {
-  React,
-  FunctionComponent,
-  Box,
-  Text,
-} from '@roots/bud-support'
+import {React, Box, Text} from '@roots/bud-support'
 import {Dashboard} from '@roots/bud-framework'
 import {Indicator} from './Indicator'
 
-export const Asset: FunctionComponent<Dashboard.Asset> = ({
+export const Asset: React.FunctionComponent<Dashboard.Asset> = ({
   size,
   name,
   emitted,

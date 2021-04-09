@@ -1,4 +1,5 @@
-import {Framework, Webpack, Service} from './'
+import {Framework, Service} from './'
+import Webpack from 'webpack'
 
 /**
  * ## bud.build

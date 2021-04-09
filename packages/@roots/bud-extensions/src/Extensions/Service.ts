@@ -1,6 +1,8 @@
 import type {Extensions} from '@roots/bud-typings'
-import {Framework, Service} from '@roots/bud-framework'
-import {Webpack} from '@roots/bud-support'
+import type {Framework} from '@roots/bud-framework'
+import type Webpack from 'webpack/types'
+
+import {Service} from '@roots/bud-framework'
 
 export default abstract class
   extends Service

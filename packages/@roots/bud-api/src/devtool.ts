@@ -1,5 +1,5 @@
-import {Framework} from '@roots/bud-framework'
-import {Webpack} from '@roots/bud-support'
+import type {Framework} from '@roots/bud-framework'
+import type Webpack from 'webpack'
 
 type Devtool = (
   this: Framework,
@@ -11,8 +11,8 @@ declare module '@roots/bud-framework' {
     /**
      * ## devtool [💁 Fluent]
      *
-     * Enable and configure sourcemaps using any of Webpack's
-     * [devtool utilities](https://webpack.js.org/configuration/devtool/).
+     * Enable and configure sourcemaps using any of [Webpack's
+     * devtool utilities](https://webpack.js.org/configuration/devtool/).
      *
      * ### Usage
      *

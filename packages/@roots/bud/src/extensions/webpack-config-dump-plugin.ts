@@ -1,23 +1,8 @@
-import {WebpackConfigDumpPlugin} from 'webpack-config-dump-plugin'
 import type {Module} from '@roots/bud-framework'
 
-export const name = `webpack-config-dump-plugin`
+import {WebpackConfigDumpPlugin} from 'webpack-config-dump-plugin'
 
-export const make: Module.Make<
-  WebpackConfigDumpPlugin,
-  PluginOptions
-> = options => new WebpackConfigDumpPlugin(options.all())
-
-export const when: Module.When = ({store}) =>
-  store.isTrue('options.debug')
-
-export const options: Module.Options<PluginOptions> = app => ({
-  name: 'webpack.debug.js',
-  outputPath: app.path('storage'),
-  keepCircularReferences: true,
-})
-
-export type PluginOptions = {
+interface Options {
   outputPath?: string
   name?: string
   depth?: number
@@ -25,3 +10,31 @@ export type PluginOptions = {
   showFunctionNames?: boolean
   includeFalseValues?: boolean
 }
+
+/**
+ * Extension name
+ */
+export const name = `webpack-config-dump-plugin`
+
+/**
+ * Extension make
+ */
+export const make: Module.Make<
+  WebpackConfigDumpPlugin,
+  Options
+> = options => new WebpackConfigDumpPlugin(options.all())
+
+/**
+ * Extension when
+ */
+export const when: Module.When = ({store}) =>
+  store.isTrue('options.debug')
+
+/**
+ * Extension options
+ */
+export const options: Module.Options<Options> = app => ({
+  name: 'webpack.debug.js',
+  outputPath: app.path('storage'),
+  keepCircularReferences: true,
+})

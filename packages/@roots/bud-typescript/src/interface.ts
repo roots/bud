@@ -1,6 +1,6 @@
 import '@roots/bud-babel'
 import '@roots/bud-framework'
-import {Webpack} from '@roots/bud-support'
+import type Webpack from 'webpack'
 
 declare module '@roots/bud-framework' {
   interface Framework {

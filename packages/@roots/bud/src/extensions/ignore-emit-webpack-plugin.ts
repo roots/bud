@@ -1,5 +1,6 @@
+import type {Framework, Module} from '@roots/bud-framework'
+
 import Plugin from 'ignore-emit-webpack-plugin'
-import {Framework, Module} from '@roots/bud-framework'
 
 /**
  * Framework extension ident

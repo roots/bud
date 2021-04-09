@@ -1,6 +1,7 @@
+import type {Module} from '@roots/bud-framework'
+import type Webpack from 'webpack'
+
 import Plugin from 'css-minimizer-webpack-plugin'
-import {Module} from '@roots/bud-framework'
-import {Webpack} from '@roots/bud-support'
 
 declare module '@roots/bud-framework' {
   namespace Framework.Hooks.Extension {

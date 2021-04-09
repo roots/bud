@@ -1,4 +1,5 @@
 import {Bootstrapper} from '@roots/bud-typings'
+import type {Service} from '@roots/bud-framework'
 
 import {Api} from './Api'
 import {Dependencies} from './Dependencies'
@@ -16,7 +17,7 @@ import {Build} from '@roots/bud-build'
 import {Cache} from '@roots/bud-cache'
 import {Compiler} from '@roots/bud-compiler'
 import {Dashboard} from '@roots/bud-dashboard'
-import {Framework, Service} from '@roots/bud-framework'
+import {Framework} from '@roots/bud-framework'
 
 /**
  * Service providers

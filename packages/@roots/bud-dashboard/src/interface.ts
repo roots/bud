@@ -1,10 +1,18 @@
-import {Write} from './Write'
-import {Compiler, Service} from '@roots/bud-framework'
-import {React, Instance, render} from '@roots/bud-support'
-import {Styles} from '@roots/ink-use-style'
+import '@roots/bud-compiler'
+
+import type {Write} from './Write'
+import type {Service} from '@roots/bud-framework'
+import type {Instance, render} from 'ink'
+import type React from 'react'
+import type {Styles} from '@roots/ink-use-style'
 
 declare module '@roots/bud-framework' {
   interface Framework {
+    /**
+     * ## Dashboard
+     *
+     * CLI dashboard interface
+     */
     dashboard: Dashboard
 
     write: typeof Write
@@ -66,7 +74,7 @@ declare module '@roots/bud-framework' {
         decimal: number
         message: string
       }
-      stats: Compiler.Stats.Output['json']
+      stats: Compiler.Stats['json']
       errors?: Compilation.WebpackMessage[]
       hasErrors: boolean
       warnings?: Compilation.WebpackMessage[]
@@ -78,8 +86,8 @@ declare module '@roots/bud-framework' {
       }
 
       interface WebpackMessage {
-        moduleIdentifier: string
-        moduleName: string
+        moduleIdentifier?: string
+        moduleName?: string
         message: string
       }
     }
@@ -126,9 +134,7 @@ declare module '@roots/bud-framework' {
         [key: string]: boolean
       }
 
-      type Handler = React.Dispatch<
-        React.SetStateAction<UseFocus.Focus>
-      >
+      type Handler = React.Dispatch<React.SetStateAction<Focus>>
     }
 
     namespace UseGit {

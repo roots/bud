@@ -1,6 +1,5 @@
 import {Service} from '@roots/bud-framework'
-import {FileContainer} from '@roots/filesystem'
-import {bind} from '@roots/bud-support'
+import {bind, FileContainer} from '@roots/bud-support'
 
 declare interface Definition {
   [key: string]: {

@@ -1,5 +1,5 @@
 import {Framework} from '@roots/bud-framework'
-import {ProgressPlugin, chalk} from '@roots/bud-support'
+import {chalk, webpack} from '@roots/bud-support'
 
 type Run = () => unknown
 
@@ -46,20 +46,21 @@ export function run(this: Framework): Promise<void> {
   const build = this.build.make()
   this.compiler.compile(build)
 
-  const boundHook = compilerHook.bind(this)
-
   /**
    * Delegate stats hook to the compilerHook function.
    * As webpack doesn't really have a node API for running
    * in dev this is our last real chance to get insight on dev builds.
    */
-  this.compiler.instance.hooks.done.tap('bud', boundHook)
+  this.compiler.instance.hooks.done.tap(
+    'bud',
+    compilerHook.bind(this),
+  )
 
   /**
    * Instantiate a new progress plugin and apply it
    * to the compilation instance.
    */
-  new ProgressPlugin((percentage, message) => {
+  new webpack.ProgressPlugin((percentage, message) => {
     const progress = {
       decimal: percentage,
       percentage: `${Math.floor(percentage * 100)}%`,

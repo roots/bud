@@ -1,5 +1,7 @@
-import {Module} from '@roots/bud-framework'
-import {bind, Webpack, isUndefined} from '@roots/bud-support'
+import type {Module} from '@roots/bud-framework'
+import type Webpack from 'webpack/types'
+
+import {bind, isUndefined} from '@roots/bud-support'
 import Extension from './Extension'
 import Service from './Service'
 

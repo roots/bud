@@ -1,15 +1,8 @@
-import {
-  React,
-  FunctionComponent,
-  Text,
-  Box,
-} from '@roots/bud-support'
-
+import {React, Text, Box, useStyle} from '@roots/bud-support'
 import {Indicator} from '../Assets/Indicator'
 import {useFocus} from '../../hooks/useFocus'
-import {useStyle} from '@roots/ink-use-style'
 
-export const Item: FunctionComponent<{
+export const Item: React.FunctionComponent<{
   name: string
   color: string
   display: string

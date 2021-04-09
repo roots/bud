@@ -6,7 +6,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
-    "directory": "packages/bud-api"
+    "directory": "packages/@roots/bud-api"
   },
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
@@ -27,8 +27,7 @@
     "bud"
   ],
   "files": [
-    "lib",
-    "types"
+    "lib/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",

@@ -1,25 +1,20 @@
 import options from './options'
-import {Compiler, Service as Base} from '@roots/bud-framework'
-import {
-  bind,
-  webpack,
-  Webpack,
-  ProgressPlugin,
-} from '@roots/bud-support'
+import {Compiler, Service} from '@roots/bud-framework'
+import {bind, webpack} from '@roots/bud-support'
 
 /**
  * Compiler
  */
-export default class extends Base implements Compiler {
+export default class extends Service implements Compiler {
   /**
    * Service ident.
    */
-  public name = 'compiler'
+  public name = '@roots/bud-compiler'
 
   /**
    * Compiler instance
    */
-  public _instance: Webpack.Compiler
+  public _instance: Compiler.Instance
 
   /**
    * Stats options
@@ -29,7 +24,7 @@ export default class extends Base implements Compiler {
   /**
    * Stats
    */
-  public stats: Compiler.Stats.Output
+  public stats: Compiler.Stats
 
   /**
    * Errors
@@ -44,11 +39,11 @@ export default class extends Base implements Compiler {
   /**
    * Compiler accessors.
    */
-  public get instance(): Webpack.Compiler {
+  public get instance(): Compiler.Instance {
     return this._instance
   }
 
-  public set instance(instance: Webpack.Compiler) {
+  public set instance(instance: Compiler.Instance) {
     this._instance = instance
   }
 
@@ -56,8 +51,10 @@ export default class extends Base implements Compiler {
    * Instantiates compilation
    */
   @bind
-  public compile(conf): Webpack.Compiler {
-    return (this.instance = webpack(conf))
+  public compile(config: Compiler.Config): Compiler.Instance {
+    this.instance = webpack(config)
+
+    return this.instance
   }
 
   /**
@@ -74,19 +71,10 @@ export default class extends Base implements Compiler {
   }
 
   /**
-   * Make error
-   */
-  @bind
-  public makeError(err: string): void {
-    this.error({err})
-    new Error(err)
-  }
-
-  /**
    * Apply plugins to compilation
    */
   @bind
-  public applyPlugins(handler: Compiler.ProgressHandler): void {
-    new ProgressPlugin(handler).apply(this.instance)
+  public applyPlugins(handler: Compiler.Progress.Handler): void {
+    new webpack.ProgressPlugin(handler).apply(this.instance)
   }
 }

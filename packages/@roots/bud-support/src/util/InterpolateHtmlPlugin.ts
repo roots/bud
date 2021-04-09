@@ -41,7 +41,7 @@ export default class InterpolateHtmlPlugin {
   public apply(compiler: Webpack.Compiler): void {
     compiler.hooks.compilation.tap(
       'InterpolateHtmlPlugin',
-      (compilation: Webpack.Compilation) => {
+      (compilation: any) => {
         /**
          * @todo fix hack any
          */

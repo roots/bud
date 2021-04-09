@@ -1,12 +1,18 @@
-import {React, FunctionComponent, Box} from '@roots/bud-support'
-import {useStyle} from '@roots/ink-use-style'
-
+import {React, Box, useStyle} from '@roots/bud-support'
 import {Item} from './Item'
 
-const Nav: FunctionComponent = () => {
+namespace Nav {
+  export interface Item {
+    name: string
+    display: string
+    color: string
+  }
+}
+
+const Nav: React.FunctionComponent = () => {
   const {ctx, colors} = useStyle()
 
-  const items = [
+  const items: Nav.Item[] = [
     {
       name: 'assets',
       display: 'Assets',

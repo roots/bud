@@ -1,4 +1,5 @@
-import type {Webpack, Build} from '@roots/bud-typings'
+import type {Build} from '@roots/bud-typings'
+import type Webpack from 'webpack'
 import {Service} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support'
 import * as builders from '../builders'

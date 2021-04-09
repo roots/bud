@@ -6,7 +6,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
-    "directory": "packages/ink-use-style"
+    "directory": "packages/@roots/ink-use-style"
   },
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
@@ -20,15 +20,13 @@
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
   "keywords": [
-    "webpack",
-    "bud"
+    "ink"
   ],
   "engines": {
     "node": ">=12"
   },
   "files": [
-    "lib/",
-    "types/"
+    "lib/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -52,7 +50,9 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "dependencies": {
-    "@roots/bud-support": "^3.1.0"
+    "ink-use-stdout-dimensions": "^1.0.5",
+    "react": "^17.0.2",
+    "swr": "0.5.5"
   },
   "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"
 }

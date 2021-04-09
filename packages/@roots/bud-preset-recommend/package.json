@@ -24,7 +24,6 @@
   },
   "license": "MIT",
   "files": [
-    "docs/",
     "lib/"
   ],
   "main": "./lib/cjs/index.js",
@@ -33,7 +32,7 @@
     "require": "./lib/cjs/index.js",
     "import": "./lib/esm/index.js"
   },
-  "types": "./types/index.d.ts",
+  "types": "./lib/types/index.d.ts",
   "scripts": {
     "build": "run-s build:cjs build:esm",
     "build:cjs": "tsc --build tsconfig.json",

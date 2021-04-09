@@ -5,7 +5,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
-    "directory": "packages/bud-wordpress-externals"
+    "directory": "packages/@roots/bud-wordpress-externals"
   },
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
@@ -27,9 +27,7 @@
     "node": ">=12"
   },
   "files": [
-    "lib/",
-    "types/",
-    "src/"
+    "lib/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",

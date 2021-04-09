@@ -4,60 +4,69 @@
 import './patch'
 
 /**
- * Application dev util
+ * @roots/container
  */
-import * as build from './build'
+import {Container} from '@roots/container'
+export {Container}
+
+/**
+ * @roots/filesystem
+ */
+import {FileContainer, FileSystem} from '@roots/filesystem'
+export {FileContainer, FileSystem}
+
+/**
+ * @roots/ink-use-styel
+ */
+import {useStyle} from '@roots/ink-use-style'
+export {useStyle}
+
+/**
+ * Util: dump
+ */
 import {dump} from './util/dump'
+export {dump}
+
+/**
+ * Util: killPort
+ */
 import {killPort} from './util/killPort'
-export {build, dump, killPort}
+export {killPort}
+
+import {notify} from './util/notify'
+export {notify}
 
 /**
- * Application services base.
+ * Util: WordPress packages
  */
-export {Service} from './Service'
-
-/**
- * Application util
- */
-export {notify} from './util/notify'
-export {maybeAppend} from './util/maybeAppend'
 export * as wpPkgs from './util/wordpressPkgs'
+
+/**
+ * Util: InterpolateHtmlPlugin
+ */
+import InterpolateHtmlPlugin from './util/InterpolateHtmlPlugin'
+export {InterpolateHtmlPlugin}
 
 /**
  * Webpack
  */
 import webpack from 'webpack'
 export {webpack}
-import type Webpack from 'webpack'
-export type {Webpack}
 
-// Plugins
-export {ProgressPlugin, Stats} from 'webpack'
-
-import InterpolateHtmlPlugin from './util/InterpolateHtmlPlugin'
-export {InterpolateHtmlPlugin}
-
-// Middlewares
 import webpackDevMiddleware from 'webpack-dev-middleware'
+export {webpackDevMiddleware}
+
 import webpackHotMiddleware from 'webpack-hot-middleware'
+export {webpackHotMiddleware}
+
 import ProxyMiddleware, {
   createProxyMiddleware,
 } from 'http-proxy-middleware'
-export {
-  ProxyMiddleware,
-  createProxyMiddleware,
-  webpackHotMiddleware,
-  webpackDevMiddleware,
-}
-// Middlewares types
-import type WebpackHotMiddleware from 'webpack-hot-middleware'
-import type WebpackDevMiddleware from 'webpack-dev-middleware'
-export {WebpackHotMiddleware, WebpackDevMiddleware}
+export {ProxyMiddleware, createProxyMiddleware}
 
 /**
  * Lodash
  */
-import type Lodash from 'lodash'
 import lodash, {
   isArray,
   isArrayLike,
@@ -92,9 +101,6 @@ export {
   join,
 }
 
-// lodash typings
-export type {Lodash}
-
 /**
  * React
  */
@@ -103,28 +109,14 @@ import React, {
   useCallback,
   useLayoutEffect,
   useState,
-  ComponentState,
-  FunctionComponent,
-  ReactElement,
 } from 'react'
-
-export {
-  React,
-  useEffect,
-  useCallback,
-  useLayoutEffect,
-  useState,
-  ComponentState,
-  FunctionComponent,
-  ReactElement,
-}
+export {React, useEffect, useCallback, useLayoutEffect, useState}
 
 /**
  * Ink
  */
 export {
   Box,
-  Instance,
   Spacer,
   Text,
   render,
@@ -132,7 +124,6 @@ export {
   useInput,
   Static,
 } from 'ink'
-export type {Props as BoxProps} from 'ink/build/components/Box'
 
 /**
  * Ink extensions
@@ -161,38 +152,73 @@ import useSWR, {mutate} from 'swr'
 export {useSWR, useSWR as useSwr, mutate}
 
 /**
- * Dependencies
+ * axios
+ */
+import axios from 'axios'
+export {axios}
+
+/**
+ * autobind-decorator
  */
 import {boundMethod} from 'autobind-decorator'
-import chalk from 'chalk'
-import chokidar from 'chokidar'
-import dotenv from 'dotenv'
-import execa from 'execa'
-import express from 'express'
-import fs from 'fs-extra'
-import globby from 'globby'
-import pino from 'pino'
-import prettier from 'prettier'
-import prettyFormat from 'pretty-format'
-import yargs from 'yargs'
-import {Signale, SignaleConfig, SignaleOptions} from 'signale'
-export {
-  boundMethod as bind,
-  chalk,
-  chokidar,
-  dotenv,
-  execa,
-  express,
-  fs,
-  globby,
-  pino,
-  prettier,
-  prettyFormat,
-  Signale,
-  SignaleConfig,
-  SignaleOptions,
-  yargs,
-}
+export {boundMethod as bind}
 
-export type {execa as Execa}
-export type {GlobTask, GlobbyOptions} from 'globby'
+/**
+ * chalk
+ */
+import chalk from 'chalk'
+export {chalk}
+
+/**
+ * chokidar
+ */
+import chokidar from 'chokidar'
+export {chokidar}
+
+/**
+ * dotenv
+ */
+import dotenv from 'dotenv'
+export {dotenv}
+
+/**
+ * execa
+ */
+import execa from 'execa'
+export {execa}
+
+/**
+ * express
+ */
+import express from 'express'
+export {express}
+
+/**
+ * fs
+ */
+import fs from 'fs-extra'
+export {fs}
+
+/**
+ * globby
+ */
+import globby from 'globby'
+export {globby}
+
+/**
+ * prettyFormat
+ */
+import prettyFormat from 'pretty-format'
+export {prettyFormat}
+
+/**
+ * yargs
+ */
+import yargs from 'yargs'
+export {yargs}
+
+/**
+ * Signale
+ */
+import {Signale, SignaleConfig, SignaleOptions} from 'signale'
+export {Signale, SignaleConfig, SignaleOptions}

@@ -1,5 +1,6 @@
-import {Framework} from '@roots/bud-framework'
-import {GlobTask, isArray, isString} from '@roots/bud-support'
+import type {GlobTask} from 'globby'
+import type {Framework} from '@roots/bud-framework'
+import {isArray, isString} from '@roots/bud-support'
 import {Error} from '@roots/bud-dashboard'
 
 declare module '@roots/bud-framework' {
@@ -119,6 +120,11 @@ function makeEntrypoints(
 }
 
 /**
+ * Normalize Task
+ */
+const normalize = task => (isArray(task) ? task : [task])
+
+/**
  * Get entrypoint assets
  */
 function getAssets(
@@ -128,18 +134,15 @@ function getAssets(
   /**
    * Cast the entrypoint as an array
    */
-  const files = isArray(task) ? task : [task]
+  const files = normalize(task)
 
   /**
    * Find all the matching assets on disk
    */
-  const assets = this.disk.glob.sync(
-    isArray(task) ? task : [task],
-    {
-      cwd: this.path('src'),
-      expandDirectories: true,
-    },
-  )
+  const assets = this.disk.glob.sync(files, {
+    cwd: this.path('src'),
+    expandDirectories: true,
+  })
 
   /**
    * Found nothing for specified glob
