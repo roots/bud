@@ -22,39 +22,16 @@ export const sage: Sage.Preset = sage => {
   const {env, use, isProduction} = sage
   const {deps, files} = projectInfo(sage)
 
-  // prettier-ignore
   sage
     /**
-     * Artifacts/cache store
+     * Locations
      */
-    .when(
-      !env.has('APP_STORAGE'),
-      () => sage.setPath('storage', 'storage/bud'),
-    )
-
-    /**
-     * Src path
-     */
-    .when(
-      !env.has('APP_SRC'),
-      () => sage.setPath('src', 'resources'),
-    )
-
-    /**
-     * Dist path
-     */
-    .when(
-      !env.has('APP_DIST'),
-      () => sage.setPath('dist', 'public'),
-    )
-
-    /**
-     * Public path
-     */
-    .when(
-      !env.has('APP_PUBLIC_PATH'),
-      () => sage.publicPath('public/'),
-    )
+    .setPath({
+      storage: env.get('APP_STORAGE') ?? 'storage/bud',
+      src: env.get('APP_SRC') ?? 'resources',
+      dist: env.get('APP_DIST') ?? 'public',
+      publicPath: env.get('APP_PUBLIC_PATH') ?? 'public/',
+    })
 
     /**
      * Webpack path Aliases
@@ -96,22 +73,28 @@ export const sage: Sage.Preset = sage => {
      *
      * Losing HMR in dev is not worth the ESBuild advantages.
      * Thus, Sage uses esbuild in production, and babel in development.
+     *
      */
     .when(
       isProduction,
-      () => sage
-        .use(esbuild).esbuild.jsx()
-        .minify()
-        .hash()
-        .splitChunks()
-        .runtime('single'),
+      () =>
+        sage
+          .use(esbuild)
+          .esbuild.jsx()
+          .minify()
+          .hash()
+          .splitChunks()
+          .runtime('single'),
 
-      () => sage
-        .use(babel)
-        .when(deps.includes('typescript'), () => use(typescript))
-        .when(deps.includes('react'), () => use(react))
-        .proxy()
-        .devtool('eval')
+      () =>
+        sage
+          .use(babel)
+          .when(deps.includes('typescript'), () =>
+            use(typescript),
+          )
+          .when(deps.includes('react'), () => use(react))
+          .proxy()
+          .devtool(),
     )
 
     /**

@@ -16,16 +16,23 @@ declare module '@roots/bud-framework' {
   }
 
   namespace Api {
-    type SetPath =
-      | ((
-          this: Framework,
-          name: keyof Hooks.Locale.Definitions,
-          path?: string,
-        ) => Framework)
-      | ((
-          this: Framework,
-          paths: Hooks.Locale.Definitions,
-        ) => Framework)
+    interface SetPath {
+      (
+        this: Framework,
+        name: keyof Hooks.Locale.Definitions,
+        path?: string,
+      ): Framework
+    }
+
+    interface SetPath {
+      (
+        this: Framework,
+        paths: {
+          [K in keyof Hooks.Locale.Definitions as `${K &
+            string}`]?: string
+        },
+      ): Framework
+    }
   }
 }
 
@@ -37,7 +44,7 @@ export const setPath: Api.SetPath = function (...args) {
 
   if (Object.entries(args[0]).length === 0) {
     this.error(
-      `${args[0].toString()} cannot be empty. It should be an object with keys set to registered locations: ['src', 'dist', 'storage', 'publicPath', 'project']`,
+      `${args[0].toString()} cannot be empty. It should be an object with keys set to registered locations: ['src', 'dist', 'storage', 'publicPath', 'project', 'records]`,
       `Type error`,
     )
   }
