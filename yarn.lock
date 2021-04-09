@@ -5730,6 +5730,11 @@ create-require@^1.1.0:
   resolved "https://registry.yarnpkg.com/create-require/-/create-require-1.1.1.tgz#c1d7e8f1e5f6cfc9ff65f9cd352d37348756c333"
   integrity sha512-dcKFX3jn0MpIaXjisoRvexIJVEKzaq7z2rZKxf+MSr9TkdmHmsU4m2lcLojrj/FHl8mk5VxMmYA+ftRkP/3oKQ==
 
+critical-css-webpack-plugin@^2.0:
+  version "2.0.1"
+  resolved "https://registry.yarnpkg.com/critical-css-webpack-plugin/-/critical-css-webpack-plugin-2.0.1.tgz#bcd10218ecb9d65f63652ee9c4c4fb81974ed60b"
+  integrity sha512-Yx2p7sCS5epLZhI6PiiGvksPF/sAioIMhtgJoSqVMoj2Ot8AyLVeFM6rzrsehfRn4Immu3VFwafcyjdxxctdjA==
+
 cross-env@^7.0.2:
   version "7.0.3"
   resolved "https://registry.yarnpkg.com/cross-env/-/cross-env-7.0.3.tgz#865264b29677dc015ba8418918965dd232fc54cf"

@@ -28,6 +28,7 @@
     {"@roots/bud-cli": "bud-cli"},
     {"@roots/bud-compiler": "bud-compiler"},
     {"@roots/bud-compress": "bud-compress"},
+    {"@roots/bud-criticalcss": "bud-criticalcss"},
     {"@roots/bud-dashboard": "bud-dashboard"},
     {"@roots/bud-extensions": "bud-extensions"},
     {"@roots/bud-framework": "bud-framework"},
