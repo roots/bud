@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-support",
-  "version": "3.1.0",
+  "version": "3.2.0-next.0",
   "description": "Internal utilities for the @roots/bud monorepo.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -53,9 +53,9 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "dependencies": {
-    "@roots/container": "^3.1.0",
-    "@roots/ink-use-style": "^3.1.0",
-    "@roots/filesystem": "^3.1.0",
+    "@roots/container": "^3.2.0-next.0",
+    "@roots/filesystem": "^3.2.0-next.0",
+    "@roots/ink-use-style": "^3.2.0-next.0",
     "autobind-decorator": "^2.4.0",
     "axios": "^0.21.1",
     "chalk": "^4.1.0",

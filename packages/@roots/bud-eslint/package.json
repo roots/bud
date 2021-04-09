@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-eslint",
-  "version": "3.1.0",
+  "version": "3.2.0-next.0",
   "description": "Adds eslint support to Bud",
   "repository": {
     "type": "git",
@@ -54,8 +54,8 @@
     "@roots/bud-framework": "^3.1.0"
   },
   "devDependencies": {
-    "@roots/bud-framework": "^3.1.0",
-    "@roots/bud-typings": "^3.1.0"
+    "@roots/bud-framework": "^3.2.0-next.0",
+    "@roots/bud-typings": "^3.2.0-next.0"
   },
   "dependencies": {
     "babel-eslint": "^10.1.0",
