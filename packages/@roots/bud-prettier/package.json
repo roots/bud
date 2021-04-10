@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-prettier",
-  "version": "3.2.0-next.0",
+  "version": "3.2.0-next.1",
   "description": "Adds prettier support to Bud",
   "repository": {
     "type": "git",
@@ -54,7 +54,7 @@
     "prettier": "^2.2.1"
   },
   "devDependencies": {
-    "@roots/bud-framework": "^3.2.0-next.0",
+    "@roots/bud-framework": "^3.2.0-next.1",
     "@roots/bud-typings": "^3.2.0-next.0"
   },
   "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"

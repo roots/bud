@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-mdx",
-  "version": "3.2.0-next.0",
+  "version": "3.2.0-next.1",
   "description": "Adds mdx support to @roots/bud projects",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -56,7 +56,7 @@
     "@roots/bud-framework": "^3.1.0"
   },
   "devDependencies": {
-    "@roots/bud-framework": "^3.2.0-next.0",
+    "@roots/bud-framework": "^3.2.0-next.1",
     "@roots/bud-typings": "^3.2.0-next.0"
   },
   "dependencies": {

@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-sass",
-  "version": "3.2.0-next.0",
+  "version": "3.2.0-next.1",
   "description": "Sass support",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -62,9 +62,9 @@
     "sass": "^1.32.8"
   },
   "devDependencies": {
-    "@roots/bud-framework": "^3.2.0-next.0",
-    "@roots/bud-postcss": "^3.2.0-next.0",
-    "@roots/bud-support": "^3.2.0-next.0",
+    "@roots/bud-framework": "^3.2.0-next.1",
+    "@roots/bud-postcss": "^3.2.0-next.1",
+    "@roots/bud-support": "^3.2.0-next.1",
     "@roots/bud-typings": "^3.2.0-next.0",
     "sass": "^1.32.8"
   },

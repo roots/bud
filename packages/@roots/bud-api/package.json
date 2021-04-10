@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-api",
-  "version": "3.2.0-next.0",
+  "version": "3.2.0-next.1",
   "description": "Bud configuration API",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -57,8 +57,8 @@
     "@roots/bud-support": "^3.1.0"
   },
   "devDependencies": {
-    "@roots/bud-dashboard": "^3.2.0-next.0",
-    "@roots/bud-framework": "^3.2.0-next.0",
+    "@roots/bud-dashboard": "^3.2.0-next.1",
+    "@roots/bud-framework": "^3.2.0-next.1",
     "@roots/bud-typings": "^3.2.0-next.0"
   },
   "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"
