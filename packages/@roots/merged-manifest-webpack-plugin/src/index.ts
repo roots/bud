@@ -2,7 +2,6 @@ import Webpack from 'webpack'
 import fs from 'fs-extra'
 import path from 'path'
 import {format} from 'prettier'
-import type {EntrySchema} from '@roots/entrypoints-webpack-plugin'
 
 class MergedManifestWebpackPlugin {
   /**
@@ -163,9 +162,7 @@ class MergedManifestWebpackPlugin {
   /**
    * Return manifest contents as an object.
    */
-  public async manifestContent(
-    file: string,
-  ): Promise<EntrySchema> {
+  public async manifestContent(file: string): Promise<any> {
     return await fs.readJson(this.manifestPath(file))
   }
 }

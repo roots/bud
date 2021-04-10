@@ -17,7 +17,7 @@ export const config: Framework.Config = {
   externals: {},
   fileFormat: '[name]',
   hash: false,
-  hashFormat: `[name].[hash]`,
+  hashFormat: `[name].[contenthash]`,
   html: {
     enabled: true,
     template: null,
