@@ -6,9 +6,10 @@ import Webpack from 'webpack'
 import {wpPkgs} from '@roots/bud-support'
 
 export class Plugin {
-  public name = 'WordPressDependenciesWebpackPlugin'
-
-  public stage = Infinity
+  public plugin = {
+    name: 'WordPressDependenciesWebpackPlugin',
+    stage: Infinity,
+  }
 
   public output:
     | WordPressExternals.Output
@@ -22,7 +23,7 @@ export class Plugin {
         content: {}
       } = {
     dir: '',
-    name: '',
+    name: 'wordpress.json',
     file: '',
     publicPath: '',
     content: {},
@@ -31,72 +32,53 @@ export class Plugin {
   public options: any
 
   /**
-   * Class constructor
-   */
-  constructor(
-    options = {
-      name: 'wordpress.json',
-    },
-  ) {
-    this.options = options
-
-    this.output.name = this.options.name
-
-    this.emit = this.emit.bind(this)
-  }
-
-  /**
    * Plugin apply
    * @see Tapable
    */
   apply(compiler: Webpack.Compiler): void {
-    this.output.dir = compiler.options.output.path
     this.output.publicPath = compiler.options.output.publicPath
 
     this.output.file = path.resolve(
-      this.output.dir,
+      compiler.options.output.path,
       this.output.name,
     )
 
     this.output.name = path.relative(
-      this.output.dir,
+      compiler.options.output.path,
       this.output.file,
     )
 
-    compiler.hooks.emit.tapAsync(
-      this.constructor.name,
-      this.emit.bind(this),
+    compiler.hooks.thisCompilation.tap(
+      this.plugin,
+      (compilation: Webpack.Compilation): void => {
+        compilation.hooks.processAssets.tap(
+          this.plugin,
+          (): void => {
+            compilation.entrypoints.forEach(entry => {
+              entry.chunks.forEach(chunk => {
+                this.output.content[
+                  entry.name
+                ] = compilation.chunkGraph
+                  .getChunkModules(chunk)
+                  .reduce((acc: any, module: any) => {
+                    return module?.userRequest &&
+                      wpPkgs.isProvided(module.userRequest)
+                      ? [
+                          ...acc,
+                          wpPkgs.transform(module.userRequest)
+                            .enqueue,
+                        ]
+                      : acc
+                  }, [])
+              })
+            })
+
+            compilation.assets[this.output.name] = new RawSource(
+              JSON.stringify(this.output.content),
+            )
+          },
+        )
+      },
     )
-  }
-
-  /**
-   * Plugin emit
-   * @see Webpack
-   */
-  public async emit(
-    compilation: Webpack.Compilation,
-    callback: () => void,
-  ): Promise<void> {
-    compilation.entrypoints.forEach(entry => {
-      entry.chunks.forEach(chunk => {
-        this.output.content[entry.name] = Array.from(
-          chunk.modulesIterable,
-        ).reduce((acc: any, module: any) => {
-          return module?.userRequest &&
-            wpPkgs.isProvided(module.userRequest)
-            ? [
-                ...acc,
-                wpPkgs.transform(module.userRequest).enqueue,
-              ]
-            : acc
-        }, [])
-      })
-    })
-
-    compilation.assets[this.output.name] = new RawSource(
-      JSON.stringify(this.output.content),
-    )
-
-    callback()
   }
 }
