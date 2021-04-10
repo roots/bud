@@ -1,4 +1,4 @@
-import React, {useState} from 'react'
+import React from 'react'
 import useStdoutDimensions from 'ink-use-stdout-dimensions'
 
 import type {Styles, Theme, UseStyle} from '../typings'
@@ -13,7 +13,7 @@ export const useStyle: UseStyle = (
   /**
    * Theme values
    */
-  const [theme, setTheme] = useState<Theme>(initialData)
+  const [theme, setTheme] = React.useState<Theme>(initialData)
 
   /**
    * Width and height of terminal viewport.
