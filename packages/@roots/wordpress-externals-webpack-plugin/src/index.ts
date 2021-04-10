@@ -8,8 +8,14 @@ export * from './interfaces'
  * Externals plugin
  */
 export class Plugin {
+  /**
+   * Name
+   */
   public name = 'WordPressExternalsWebpackPlugin'
 
+  /**
+   * Stage
+   */
   public stage = Infinity
 
   /**
@@ -19,14 +25,14 @@ export class Plugin {
 
   /**
    * Class constructor
-   *
-   * @todo less lazy typings (see ./externals)
    */
   constructor() {
-    this.externals = new ExternalsPlugin(
-      'window',
-      externals as any,
-    )
+    try {
+      this.externals = new ExternalsPlugin('window', externals)
+    } catch (err) {
+      console.error(this.name, err)
+      process.exit()
+    }
   }
 
   /**

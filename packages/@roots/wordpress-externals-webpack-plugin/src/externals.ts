@@ -3,9 +3,8 @@ import {wpPkgs} from '@roots/bud-support'
 /**
  * @todo less lazy typings
  */
-export const externals = async (
-  _context: any,
-  request: any,
+export const externals = (
+  {_context, request},
   callback: CallableFunction,
 ) =>
   wpPkgs.isProvided(request)
