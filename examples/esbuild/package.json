@@ -1,5 +1,5 @@
 {
-  "name": "demoesbuild",
+  "name": "esbuild",
   "scripts": {
     "bud": "node ../../node_modules/.bin/bud"
   }
