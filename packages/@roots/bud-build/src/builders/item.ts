@@ -90,7 +90,7 @@ export function items(this: Framework): void {
     'item/resolve-url/loader': () =>
       this.subscribe('loader/resolve-url'),
     'item/resolve-url/options': () => ({
-      root: this.subscribe('location/dist'),
+      root: this.path('dist'),
       sourceMap: this.subscribe(
         'item/resolve-url/options/sourceMap',
       ),

@@ -2,6 +2,13 @@ import '@roots/bud-postcss'
 import {Module} from '@roots/bud-framework'
 import {RuleSetRule, RuleSetUseItem} from 'webpack'
 
+/**
+ * Let sass know it isnt in the browser.
+ */
+declare global {
+  interface navigator {}
+}
+
 declare module '@roots/bud-framework' {
   namespace Framework.Hooks.Extension {
     interface Definitions {

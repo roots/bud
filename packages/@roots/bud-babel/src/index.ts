@@ -51,11 +51,7 @@ export const publish: Module['publish'] = (app: Framework) => ({
   'item/babel/options/root': () =>
     app.subscribe('location/project'),
 
-  'item/babel/options/cacheDirectory': () =>
-    app.disk.path.posix.join(
-      app.subscribe('location/project'),
-      app.subscribe('location/storage'),
-    ),
+  'item/babel/options/cacheDirectory': () => app.path('storage'),
   'item/babel/options/presets': () =>
     Object.values(app.babel.presets).map(([preset, options]) => [
       preset,

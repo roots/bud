@@ -52,8 +52,6 @@ export const publish: Framework.Module['publish'] = (
     const sass = (() =>
       require(app.path('project', 'node_modules/sass')))()
 
-    global.navigator = {}
-
     return sass
   },
   'item/sass/options/sourceMap': () => true,

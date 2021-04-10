@@ -51,8 +51,7 @@
   },
   "dependencies": {
     "ink-use-stdout-dimensions": "^1.0.5",
-    "react": "^17.0.2",
-    "swr": "0.5.5"
+    "react": "^17.0.2"
   },
   "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"
 }

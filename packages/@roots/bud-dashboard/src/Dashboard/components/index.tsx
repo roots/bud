@@ -1,10 +1,11 @@
-import {Dashboard} from '@roots/bud-framework'
 import {
   React,
   Box,
   useInput,
   Static,
   Text,
+  useStyle,
+  isEqual,
 } from '@roots/bud-support'
 import {
   Assets,
@@ -15,13 +16,9 @@ import {
   Progress,
   Module,
 } from '../../components'
-import {useStyle} from '@roots/ink-use-style'
 import {useCompilation, usePackageJson} from '../../hooks'
-import {isEqual} from 'lodash'
+import {Dashboard} from '@roots/bud-framework'
 
-/**
- * @exports Dashboard
- */
 export {Dashboard}
 
 /**
@@ -66,7 +63,7 @@ const Dashboard: Dashboard.Component = ({bud}) => {
         {/** Static: errors */}
         {appProps.hasErrors && appProps.errors?.length > 0 && (
           <Static marginBottom={1} items={appProps.errors}>
-            {err => (
+            {(err: Dashboard.Compilation.WebpackMessage) => (
               <Module
                 key={err.moduleIdentifier}
                 color={appProps.theme.colors.error}
@@ -83,7 +80,7 @@ const Dashboard: Dashboard.Component = ({bud}) => {
         {/** Static: warnings */}
         {appProps.hasWarnings && appProps.warnings?.length > 0 && (
           <Static marginBottom={1} items={appProps.warnings}>
-            {warning => (
+            {(warning: Dashboard.Compilation.WebpackMessage) => (
               <Module
                 key={warning.moduleIdentifier}
                 color={appProps.theme.colors.warning}

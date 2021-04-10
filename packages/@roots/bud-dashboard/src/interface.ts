@@ -1,5 +1,4 @@
 import '@roots/bud-compiler'
-
 import type {Write} from './Write'
 import type {Service} from '@roots/bud-framework'
 import type {Instance, render} from 'ink'
@@ -120,37 +119,11 @@ declare module '@roots/bud-framework' {
       }
     }
 
-    namespace UseFocus {
-      interface Hook {
-        (initialData?: {initialData: Focus}): [Focus, Handler]
-      }
-
-      interface Focus {
-        active: string
-        items: Items
-      }
-
-      interface Items {
-        [key: string]: boolean
-      }
-
-      type Handler = React.Dispatch<React.SetStateAction<Focus>>
-    }
-
     namespace UseGit {
-      interface Hook {
-        (): Status
-      }
-
-      interface Res {
-        stdout?: string
-        stderr?: string
-      }
-
       interface Status {
         head: string
         branch: string
-        status: number
+        status: string
         hasError: boolean
       }
     }

@@ -1,9 +1,4 @@
 /**
- * Patch globals
- */
-import './patch'
-
-/**
  * @roots/container
  */
 import {Container} from '@roots/container'
@@ -33,6 +28,9 @@ export {dump}
 import {killPort} from './util/killPort'
 export {killPort}
 
+/**
+ * Util: notify
+ */
 import {notify} from './util/notify'
 export {notify}
 
@@ -144,12 +142,6 @@ export {
   useStdoutDimensions,
   patchConsole,
 }
-
-/**
- * React hooks/util.
- */
-import useSWR, {mutate} from 'swr'
-export {useSWR, useSWR as useSwr, mutate}
 
 /**
  * axios

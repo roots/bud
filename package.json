@@ -84,9 +84,6 @@
     "test": "jest --verbose"
   },
   "devDependencies": {
-    "@roots/bud-framework": "^3.1.0",
-    "@roots/container": "^3.1.0",
-    "@roots/filesystem": "^3.1.0",
     "@skypack/package-check": "^0.2.2",
     "@types/autoprefixer": "^10.2.0",
     "@types/compression-webpack-plugin": "^6.0.5",

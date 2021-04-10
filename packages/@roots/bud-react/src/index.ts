@@ -5,11 +5,6 @@ import type {Configuration} from 'webpack'
 import * as ReactRefreshWebpackPlugin from './react-refresh'
 
 /**
- * @const DEFAULT_PRESETS
- */
-const DEFAULT_PRESETS = ['@babel/preset-react']
-
-/**
  * @module @roots/bud-react
  * @description Wrapper for react and react-refresh
  */
@@ -34,10 +29,7 @@ const extension: Framework.Module = {
    * @function boot
    */
   boot({babel, isDevelopment, when}: Framework): void {
-    babel.setPresets([
-      ...Object.values(babel.presets),
-      ...DEFAULT_PRESETS,
-    ])
+    babel.setPresets(['@babel/preset-react'])
 
     when(isDevelopment, (app: Framework) =>
       app

@@ -14,6 +14,6 @@ module.exports = bud =>
     ])
     .html({
       enabled: true,
-      template: bud.project('public/index.html'),
+      template: bud.path('project', 'public/index.html'),
     })
     .entry('app', 'app.{js,css}')
