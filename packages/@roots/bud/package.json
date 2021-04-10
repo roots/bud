@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud",
-  "version": "3.2.0-next.1",
+  "version": "3.2.0-next.2",
   "description": "A friendly build tool to help manage your project assets.",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -54,17 +54,17 @@
     "@roots/bud-typings": "^3.2.0-next.0"
   },
   "dependencies": {
-    "@roots/bud-api": "^3.2.0-next.1",
-    "@roots/bud-build": "^3.2.0-next.1",
-    "@roots/bud-cache": "^3.2.0-next.1",
-    "@roots/bud-cli": "^3.2.0-next.1",
-    "@roots/bud-compiler": "^3.2.0-next.1",
-    "@roots/bud-dashboard": "^3.2.0-next.1",
-    "@roots/bud-extensions": "^3.2.0-next.1",
-    "@roots/bud-framework": "^3.2.0-next.1",
-    "@roots/bud-hooks": "^3.2.0-next.1",
-    "@roots/bud-server": "^3.2.0-next.1",
-    "@roots/bud-support": "^3.2.0-next.1",
+    "@roots/bud-api": "^3.2.0-next.2",
+    "@roots/bud-build": "^3.2.0-next.2",
+    "@roots/bud-cache": "^3.2.0-next.2",
+    "@roots/bud-cli": "^3.2.0-next.2",
+    "@roots/bud-compiler": "^3.2.0-next.2",
+    "@roots/bud-dashboard": "^3.2.0-next.2",
+    "@roots/bud-extensions": "^3.2.0-next.2",
+    "@roots/bud-framework": "^3.2.0-next.2",
+    "@roots/bud-hooks": "^3.2.0-next.2",
+    "@roots/bud-server": "^3.2.0-next.2",
+    "@roots/bud-support": "^3.2.0-next.2",
     "@roots/dependencies": "^3.2.0-next.0"
   },
   "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"

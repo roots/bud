@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-esbuild",
-  "version": "3.2.0-next.1",
+  "version": "3.2.0-next.2",
   "description": "ESBuild transpilation extension for Bud projects",
   "homepage": "https://roots.io/bud",
   "repository": {
@@ -56,9 +56,9 @@
     "@roots/bud-framework": "^3.1.0"
   },
   "devDependencies": {
-    "@roots/bud-api": "^3.2.0-next.1",
-    "@roots/bud-framework": "^3.2.0-next.1",
-    "@roots/bud-support": "^3.2.0-next.1",
+    "@roots/bud-api": "^3.2.0-next.2",
+    "@roots/bud-framework": "^3.2.0-next.2",
+    "@roots/bud-support": "^3.2.0-next.2",
     "@roots/bud-typings": "^3.2.0-next.0"
   },
   "dependencies": {
