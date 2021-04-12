@@ -27,12 +27,7 @@ export class Plugin {
    * Class constructor
    */
   constructor() {
-    try {
-      this.externals = new ExternalsPlugin('window', externals)
-    } catch (err) {
-      console.error(this.name, err)
-      process.exit()
-    }
+    this.externals = new ExternalsPlugin('window', externals)
   }
 
   /**
