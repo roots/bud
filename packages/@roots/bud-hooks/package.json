@@ -37,7 +37,7 @@
     "import": "./lib/esm/index.js"
   },
   "scripts": {
-    "build": "run-s build:cjs build:esm",
+    "build": "run-p build:cjs build:esm",
     "build:cjs": "tsc --build tsconfig.json",
     "build:esm": "tsc --build tsconfig-esm.json",
     "lint": "run-s lint:*",
@@ -51,16 +51,14 @@
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
-  "peerDependencies": {
-    "@roots/bud-framework": "^3.1.0",
-    "@roots/bud-support": "^3.1.0",
-    "@roots/container": "^3.1.0"
-  },
   "devDependencies": {
     "@roots/bud-framework": "^3.2.0-next.2",
     "@roots/bud-support": "^3.2.0-next.2",
     "@roots/bud-typings": "^3.2.0-next.0",
     "@roots/container": "^3.2.0-next.0"
+  },
+  "dependencies": {
+    "@roots/bud-support": "^3.2.0-next.2"
   },
   "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"
 }

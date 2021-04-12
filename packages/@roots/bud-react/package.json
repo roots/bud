@@ -38,7 +38,7 @@
   },
   "types": "./lib/types/index.d.ts",
   "scripts": {
-    "build": "run-s build:cjs build:esm",
+    "build": "run-p build:cjs build:esm",
     "build:cjs": "tsc --build tsconfig.json",
     "build:esm": "tsc --build tsconfig-esm.json",
     "lint": "run-s lint:*",
@@ -52,19 +52,16 @@
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
-  "peerDependencies": {
-    "@babel/preset-react": "^7.13.13",
-    "@roots/bud-babel": "^3.1.0",
-    "@roots/bud-framework": "^3.1.0",
-    "@roots/bud-support": "^3.1.0"
-  },
   "devDependencies": {
     "@roots/bud-babel": "^3.2.0-next.2",
     "@roots/bud-framework": "^3.2.0-next.2",
-    "@roots/bud-support": "^3.2.0-next.2"
+    "@roots/bud-support": "^3.2.0-next.2",
+    "webpack": "^5.31.2"
   },
   "dependencies": {
+    "@babel/preset-react": "^7.13.13",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
+    "@roots/bud-support": "^3.2.0-next.2",
     "@svgr/core": "^5.5.0",
     "@svgr/webpack": "^5.5.0",
     "react": "^17.0.2",

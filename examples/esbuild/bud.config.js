@@ -7,13 +7,7 @@
 
 module.exports = app =>
   app
-    .use([
-      require('@roots/bud-esbuild'),
-      require('@roots/bud-entrypoints'),
-      require('@roots/bud-wordpress-dependencies'),
-      require('@roots/bud-wordpress-externals'),
-      require('@roots/bud-wordpress-manifests'),
-    ])
+    .use([require('@roots/bud-esbuild')])
     .html({enabled: true})
     .entry('scripts/app', 'app.js')
     .runtime()

@@ -1,10 +1,6 @@
 import {Module, Service} from './'
 import Webpack from 'webpack'
 
-{
-  Hooks
-}
-
 /**
  * ## hooks
  *

@@ -1,4 +1,4 @@
-import {Bootstrapper} from '@roots/bud-typings'
+import type {Bootstrapper} from '@roots/bud-typings'
 import type {Service} from '@roots/bud-framework'
 
 import {Api} from './Api'

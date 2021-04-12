@@ -36,7 +36,7 @@
     "import": "./lib/esm/index.js"
   },
   "scripts": {
-    "build": "run-s build:cjs build:esm",
+    "build": "run-p build:cjs build:esm",
     "build:cjs": "tsc --build tsconfig.json",
     "build:esm": "tsc --build tsconfig-esm.json",
     "lint": "run-s lint:*",

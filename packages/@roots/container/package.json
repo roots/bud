@@ -37,7 +37,7 @@
   },
   "types": "./lib/types/index.d.ts",
   "scripts": {
-    "build": "run-s build:cjs build:esm",
+    "build": "run-p build:cjs build:esm",
     "build:cjs": "tsc --build tsconfig.json",
     "build:esm": "tsc --build tsconfig-esm.json",
     "lint": "run-s lint:*",
@@ -54,5 +54,8 @@
   "dependencies": {
     "lodash": "^4.17.19"
   },
-  "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"
+  "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684",
+  "devDependencies": {
+    "type-fest": "^1.0.1"
+  }
 }

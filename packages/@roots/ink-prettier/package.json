@@ -37,7 +37,7 @@
   },
   "types": "./lib/types/index.d.ts",
   "scripts": {
-    "build": "run-s build:cjs build:esm",
+    "build": "run-p build:cjs build:esm",
     "build:cjs": "tsc --build tsconfig.json",
     "build:esm": "tsc --build tsconfig-esm.json",
     "lint": "run-s lint:*",
@@ -52,7 +52,12 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "dependencies": {
-    "ink": "^3.0.8"
+    "ink": "^3.0.8",
+    "prettier": "^2.2.1"
   },
-  "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"
+  "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684",
+  "devDependencies": {
+    "@types/prettier": "^2",
+    "react": "^17.0.2"
+  }
 }

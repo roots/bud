@@ -68,7 +68,9 @@
       "packages/@roots/merged-manifest-webpack-plugin",
       "packages/@roots/sage",
       "packages/@roots/wordpress-dependencies-webpack-plugin",
-      "packages/@roots/wordpress-externals-webpack-plugin"
+      "packages/@roots/wordpress-externals-webpack-plugin",
+      "examples/esbuild",
+      "examples/wordpress-theme"
     ]
   },
   "scripts": {

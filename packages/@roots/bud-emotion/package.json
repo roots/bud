@@ -38,7 +38,7 @@
   },
   "types": "./lib/types/index.d.ts",
   "scripts": {
-    "build": "run-s build:cjs build:esm",
+    "build": "run-p build:cjs build:esm",
     "build:cjs": "tsc --build tsconfig.json",
     "build:esm": "tsc --build tsconfig-esm.json",
     "lint": "run-s lint:*",
@@ -52,20 +52,19 @@
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
-  "peerDependencies": {
-    "@roots/bud": "3.1.0",
-    "@roots/bud-react": "3.1.0",
-    "@roots/bud-support": "^3.1.0"
-  },
   "devDependencies": {
-    "@roots/bud-babel": "^3.2.0-next.2",
+    "@babel/core": "^7.13.15",
+    "@babel/preset-react": "^7.13.13",
     "@roots/bud-framework": "^3.2.0-next.2",
-    "@roots/bud-support": "^3.2.0-next.2"
+    "@roots/bud-react": "^3.2.0-next.2",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   },
   "dependencies": {
     "@emotion/css": "^11.1.3",
     "@emotion/react": "^11.1.5",
-    "@emotion/styled": "^11.1.5"
+    "@emotion/styled": "^11.1.5",
+    "@roots/bud-support": "^3.2.0-next.2"
   },
   "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"
 }

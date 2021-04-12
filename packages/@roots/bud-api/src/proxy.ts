@@ -1,6 +1,5 @@
-import {Framework} from '@roots/bud-framework'
+import {Api} from '@roots/bud-framework'
 import {Server} from '@roots/bud-typings'
-import {isBoolean, isUndefined} from 'lodash'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -34,35 +33,38 @@ declare module '@roots/bud-framework' {
      * })
      * ```
      */
-    proxy: Framework.Api.Proxy
+    proxy: Api.Proxy
   }
 
-  namespace Framework.Api {
-    type Proxy = (config?: {
-      /**
-       * Explicity enable or disable proxy service
-       */
-      enabled?: boolean
+  namespace Api {
+    type Proxy = (
+      this: Framework,
+      config?: {
+        /**
+         * Explicity enable or disable proxy service
+         */
+        enabled?: boolean
 
-      /**
-       * Hostname of the proxy target
-       */
-      host?: Server.Configuration['proxy']['host']
+        /**
+         * Hostname of the proxy target
+         */
+        host?: Server.Configuration['proxy']['host']
 
-      /**
-       * Port of the proxy target
-       */
-      port?: Server.Configuration['proxy']['port']
-    }) => Framework
+        /**
+         * Port of the proxy target
+         */
+        port?: Server.Configuration['proxy']['port']
+      },
+    ) => Framework
   }
 }
 
-export const proxy: Framework.Api.Proxy = function (config) {
+export const proxy: Api.Proxy = function (config) {
   /**
    * Case: no config passed
    * Response: enable proxy and bounce
    */
-  if (isUndefined(config)) {
+  if (this.util._.isUndefined(config)) {
     /**
      * Allow --server.middleware.proxy to override
      */
@@ -80,11 +82,12 @@ export const proxy: Framework.Api.Proxy = function (config) {
    * Case: config.enabled is explicitly set
    * Response: enable proxy, delete property from config
    */
-  if (!isUndefined(config.enabled)) {
-    if (!isBoolean(config.enabled)) {
+  if (!this.util._.isUndefined(config.enabled)) {
+    if (!this.util._.isBoolean(config.enabled)) {
       this.dashboard.error(
         'Attempt to set proxy enabled to a non boolean value.',
       )
+
       process.exit()
     }
 

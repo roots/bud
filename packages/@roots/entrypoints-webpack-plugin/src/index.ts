@@ -72,9 +72,9 @@ export class Plugin {
           assets => {
             const raw = {}
 
-            compilation.entrypoints.forEach(({name, chunks}) => {
-              chunks.map(({files}) => {
-                raw[name] = Array.from(files).reduce(
+            compilation.entrypoints.forEach(entry => {
+              entry.chunks.map(({files}) => {
+                raw[entry.name] = Array.from(files).reduce(
                   (a, file) => {
                     const type = file.split('.').pop()
 
@@ -86,11 +86,24 @@ export class Plugin {
                           }
                         : {
                             ...(a?.[type] ?? {}),
-                            [name]: `${this.publicPath}${file}`,
+                            [entry.name]: `${this.publicPath}${file}`,
                           },
                     }
                   },
-                  {},
+                  Array.from(
+                    entry.getRuntimeChunk()?.files,
+                  ).reduce((a, file) => {
+                    const type = file.split('.').pop()
+
+                    return {
+                      ...(a ?? {}),
+                      [type]: {
+                        ...(a[type] ?? {}),
+                        [entry.getRuntimeChunk()
+                          .name]: `${this.publicPath}${file}`,
+                      },
+                    }
+                  }, {}),
                 )
 
                 this.output = Object.fromEntries(

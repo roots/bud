@@ -1,6 +1,6 @@
 import type {Babel, Framework} from '@roots/bud-framework'
 import {BaseConfig} from './BaseConfig'
-import {bind, isString} from '@roots/bud-support'
+import {bind} from '@roots/bud-support'
 
 /**
  * Babel API
@@ -24,7 +24,9 @@ export class Config extends BaseConfig implements Babel {
   public normalizeEntry(
     c: Babel.Registrable,
   ): Babel.NormalizedPlugin {
-    return isString(c) ? [c, {}] : c
+    return this.app.util._.isString(c)
+      ? ([c, {}] as Babel.NormalizedPlugin)
+      : (c as Babel.NormalizedPlugin)
   }
 
   /**

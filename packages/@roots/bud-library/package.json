@@ -36,7 +36,7 @@
   },
   "types": "./lib/types/index.d.ts",
   "scripts": {
-    "build": "run-s build:cjs build:esm",
+    "build": "run-p build:cjs build:esm",
     "build:cjs": "tsc --build tsconfig.json",
     "build:esm": "tsc --build tsconfig-esm.json",
     "lint": "run-s lint:*",
@@ -51,7 +51,8 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
-    "@roots/bud": "^3.2.0-next.2"
+    "@roots/bud": "^3.2.0-next.2",
+    "webpack": "^5.31.2"
   },
   "dependencies": {
     "@roots/bud-support": "^3.2.0-next.2",

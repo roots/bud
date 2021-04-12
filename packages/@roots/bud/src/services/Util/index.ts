@@ -1,8 +1,8 @@
 import {Service} from '@roots/bud-framework'
-import {noop} from 'lodash'
+import {lodash} from '@roots/bud-support'
 
 export class Util extends Service {
   public name = 'service/util'
 
-  public noop = noop
+  public noop = lodash.noop
 }

@@ -37,7 +37,7 @@
   },
   "types": "./lib/types/index.d.ts",
   "scripts": {
-    "build": "run-s build:cjs build:esm",
+    "build": "run-p build:cjs build:esm",
     "build:cjs": "tsc --build tsconfig.json",
     "build:esm": "tsc --build tsconfig-esm.json",
     "lint": "run-s lint:*",
@@ -54,7 +54,8 @@
   "devDependencies": {
     "@roots/bud": "^3.2.0-next.2",
     "@roots/bud-framework": "^3.2.0-next.2",
-    "@roots/bud-typings": "^3.2.0-next.0"
+    "@roots/bud-typings": "^3.2.0-next.0",
+    "webpack": "^5.31.2"
   },
   "dependencies": {
     "stylelint": "^13.12.0",

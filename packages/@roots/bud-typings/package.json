@@ -32,10 +32,8 @@
     "lint": "echo \"\"",
     "pkg": "echo \"\""
   },
-  "peerDependencies": {
-    "@roots/bud-support": "*"
-  },
   "devDependencies": {
+    "@roots/bud-support": "^3.2.0-next.2",
     "child_process": "^1.0.2"
   },
   "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"

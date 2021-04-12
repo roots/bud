@@ -1,9 +1,4 @@
-import {
-  Container,
-  bind,
-  isEqual,
-  isFunction,
-} from '@roots/bud-support'
+import {Container, bind, lodash} from '@roots/bud-support'
 
 import type {
   Build,
@@ -251,8 +246,10 @@ abstract class Framework {
    * ```
    */
   @bind
-  public access<I = unknown>(value: MaybeCallable<I>): I {
-    return isFunction(value) ? value(this) : value
+  public access<I = any>(value: ((app: this) => I) | I): I {
+    return lodash.isFunction(value)
+      ? (value as CallableFunction)(this)
+      : value
   }
 
   /**
@@ -337,9 +334,9 @@ abstract class Framework {
     isTrue: (app: Framework) => any,
     isFalse?: (app: Framework) => any,
   ): Framework {
-    isEqual(this.access(test), true)
-      ? isFunction(isTrue) && isTrue.bind(this)(this)
-      : isFunction(isFalse) && isFalse.bind(this)(this)
+    lodash.isEqual(this.access(test), true)
+      ? lodash.isFunction(isTrue) && isTrue.bind(this)(this)
+      : lodash.isFunction(isFalse) && isFalse.bind(this)(this)
 
     return this
   }

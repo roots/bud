@@ -38,7 +38,7 @@
   },
   "types": "./lib/types/index.d.ts",
   "scripts": {
-    "build": "run-s build:cjs build:esm",
+    "build": "run-p build:cjs build:esm",
     "build:cjs": "tsc --build tsconfig.json",
     "build:esm": "tsc --build tsconfig-esm.json",
     "lint": "run-s lint:*",
@@ -54,16 +54,17 @@
   },
   "dependencies": {
     "@roots/container": "^3.2.0-next.0",
+    "@roots/dependencies": "^3.2.0-next.0",
     "@roots/filesystem": "^3.2.0-next.0",
-    "@roots/ink-use-style": "^3.2.0-next.2",
+    "@roots/ink-use-style": "^3.2.0-next.0",
     "autobind-decorator": "^2.4.0",
     "axios": "^0.21.1",
     "chalk": "^4.1.0",
     "chokidar": "^3.5.1",
     "clean-webpack-plugin": "^3.0.0",
-    "copy-webpack-plugin": "8.1.0",
+    "copy-webpack-plugin": "^8.1.1",
     "css-loader": "^5.2.0",
-    "css-minimizer-webpack-plugin": "^1.3.0",
+    "css-minimizer-webpack-plugin": "^2.0.0",
     "dotenv": "^8.2.0",
     "escape-string-regexp": "^4.0.0",
     "execa": "^5.0.0",
@@ -73,6 +74,7 @@
     "globby": "^11.0.3",
     "html-webpack-harddisk-plugin": "^2.0.0",
     "html-webpack-plugin": "^5.3.1",
+    "http-proxy-middleware": "^1.1.1",
     "ignore-emit-webpack-plugin": "^2.0.6",
     "ink": "^3.0.8",
     "ink-big-text": "^1.2.0",
@@ -98,9 +100,15 @@
     "url-loader": "^4.1.1",
     "webpack": "^5.31.2",
     "webpack-config-dump-plugin": "^3.0.1",
+    "webpack-dev-middleware": "^4.1.0",
+    "webpack-hot-middleware": "^2.25.0",
     "webpack-manifest-plugin": "^3.1.1",
-    "yargs": "^16.0.3",
+    "yargs": "^16.2.0",
     "zlib": "^1.0.5"
   },
-  "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"
+  "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684",
+  "devDependencies": {
+    "@types/webpack-dev-middleware": "^4",
+    "@types/webpack-hot-middleware": "^2"
+  }
 }
