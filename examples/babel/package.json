@@ -1,11 +1,12 @@
 {
-  "name": "bud-example-react",
+  "name": "example-babel",
+  "private": true,
   "scripts": {
     "bud": "node ../../node_modules/.bin/bud"
   },
   "devDependencies": {
-    "@roots/bud": "^2.1.2",
-    "@roots/bud-babel": "^2.1.2"
+    "@roots/bud": "^3.2.0-next.2",
+    "@roots/bud-babel": "^3.2.0-next.2"
   },
   "dependencies": {
     "jquery": "^3.5.1"
