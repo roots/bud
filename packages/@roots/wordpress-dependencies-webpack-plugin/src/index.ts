@@ -1,83 +1,194 @@
 import './interface'
 
-import path from 'path'
-import {RawSource} from 'webpack-sources'
-import Webpack from 'webpack'
-import {wpPkgs} from '@roots/bud-support'
+import {resolve, relative} from 'path'
+import Webpack, {sources} from 'webpack'
+import {bind, wpPkgs} from '@roots/bud-support'
 
+interface Manifest {
+  name: string
+  path: string
+  publicPath: string
+  modules: {[key: string]: string[]}
+  entrypoints: {[key: string]: string[]}
+}
+
+interface Options {
+  fileName: string
+  publicPath: string
+}
+
+/**
+ * Dependencies Webpack Plugin
+ *
+ * Aggregates the Acorn parser's AST for wordpress modules
+ * and aggregates enqueue handles in `wordpress.json`.
+ */
 export class Plugin {
+  /**
+   * Plugin ident
+   */
   public plugin = {
     name: 'WordPressDependenciesWebpackPlugin',
     stage: Infinity,
   }
 
-  public output:
-    | WordPressExternals.Output
-    | {
-        dir: string
-        name: string
-        file: string
-        publicPath:
-          | string
-          | Webpack.Compiler['options']['output']['publicPath']
-        content: {}
-      } = {
-    dir: '',
-    name: 'wordpress.json',
-    file: '',
-    publicPath: '',
-    content: {},
-  }
-
-  public options: any
+  /**
+   * Webpack compiler
+   */
+  public compiler: Webpack.Compiler
+  public compilation: Webpack.Compilation
 
   /**
-   * Plugin apply
-   * @see Tapable
+   * Plugin manifest
    */
+  public manifest: Manifest = {
+    name: null,
+    path: null,
+    publicPath: null,
+    modules: {},
+    entrypoints: {},
+  }
+
+  /**
+   * Plugin options
+   */
+  public options: Options = {
+    fileName: null,
+    publicPath: null,
+  }
+
+  /**
+   * Constructor
+   */
+  constructor(
+    options = {fileName: 'wordpress.json', publicPath: null},
+  ) {
+    Object.assign(this.options, options)
+  }
+
+  /**
+   * Apply
+   *
+   * @see Webpack.Plugin['apply']
+   */
+  @bind
   apply(compiler: Webpack.Compiler): void {
-    this.output.publicPath = compiler.options.output.publicPath
+    this.compiler = compiler
 
-    this.output.file = path.resolve(
-      compiler.options.output.path,
-      this.output.name,
+    this.manifest.path = resolve(
+      this.compiler.options.output.path,
+      this.options.fileName,
     )
 
-    this.output.name = path.relative(
-      compiler.options.output.path,
-      this.output.file,
+    this.manifest.name = relative(
+      this.compiler.options.output.path,
+      this.manifest.path,
     )
 
-    compiler.hooks.thisCompilation.tap(
+    this.compiler.hooks.normalModuleFactory.tap(
+      this.plugin.name,
+      this.normalModuleFactory,
+    )
+
+    this.compiler.hooks.thisCompilation.tap(
       this.plugin,
-      (compilation: Webpack.Compilation): void => {
-        compilation.hooks.processAssets.tap(
-          this.plugin,
-          (): void => {
-            compilation.entrypoints.forEach(entry => {
-              entry.chunks.forEach(chunk => {
-                this.output.content[
-                  entry.name
-                ] = compilation.chunkGraph
-                  .getChunkModules(chunk)
-                  .reduce((acc: any, module: any) => {
-                    return module?.userRequest &&
-                      wpPkgs.isProvided(module.userRequest)
-                      ? [
-                          ...acc,
-                          wpPkgs.transform(module.userRequest)
-                            .enqueue,
-                        ]
-                      : acc
-                  }, [])
-              })
-            })
+      this.compile,
+    )
+  }
 
-            compilation.assets[this.output.name] = new RawSource(
-              JSON.stringify(this.output.content),
-            )
-          },
-        )
+  /**
+   * compilation
+   */
+  @bind
+  public compile(compilation) {
+    this.compilation = compilation
+
+    this.compilation.hooks.processAssets.tap(
+      this.plugin,
+      this.processAssets,
+    )
+  }
+
+  /**
+   * compilation => processAssets
+   */
+  @bind
+  public processAssets(assets: Webpack.Compilation['assets']) {
+    for (const [
+      name,
+      entry,
+    ] of this.compilation.entrypoints.entries()) {
+      this.compilation.chunkGraph
+        .getChunkModules(entry.getEntrypointChunk())
+        .forEach(module => {
+          this.setManifestEntrypoint(name, module)
+        })
+    }
+
+    assets[this.manifest.name] = new sources.RawSource(
+      JSON.stringify(this.manifest.entrypoints),
+    )
+  }
+
+  /**
+   * Get module ident
+   */
+  @bind
+  public getModuleId(module: Webpack.Module) {
+    return module.identifier().split('|')[0]
+  }
+
+  /**
+   * Set manifest entrypoint
+   */
+  @bind
+  public setManifestEntrypoint(
+    name: string,
+    module: Webpack.Module,
+  ) {
+    this.manifest.entrypoints[name] = [
+      ...this.getModuleDependencies(module),
+      ...this.getEntrypointDependencies(name),
+    ].filter(Boolean)
+  }
+
+  @bind
+  public getEntrypointDependencies(name: string) {
+    return this.manifest.entrypoints[name] ?? []
+  }
+
+  @bind
+  public getModuleDependencies(module: Webpack.Module) {
+    return this.manifest.modules[this.getModuleId(module)] ?? []
+  }
+
+  /**
+   * compiler => normalModuleFactory
+   */
+  @bind
+  public normalModuleFactory(factory) {
+    factory.hooks.parser
+      .for('javascript/auto')
+      .tap(this.plugin.name, this.parseImports)
+  }
+
+  /**
+   * Parse import
+   */
+  @bind
+  public parseImports(parser, options) {
+    parser.hooks.importSpecifier.tap(
+      this.plugin.name,
+      (statement, source, exportName, identifierName) => {
+        if (!wpPkgs.isProvided(source)) return
+
+        const id = this.getModuleId(parser.state.current)
+        const enqueue = wpPkgs.transform(source).enqueue
+
+        this.manifest.modules[id] = [
+          ...(this.manifest.modules[id] ?? []),
+          enqueue,
+        ]
       },
     )
   }
