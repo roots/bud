@@ -8,8 +8,14 @@ export * from './interfaces'
  * Externals plugin
  */
 export class Plugin {
+  /**
+   * Name
+   */
   public name = 'WordPressExternalsWebpackPlugin'
 
+  /**
+   * Stage
+   */
   public stage = Infinity
 
   /**

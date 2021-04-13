@@ -3,7 +3,14 @@ import {
   Dependencies as DependenciesManager,
   IDependencyManager,
 } from '@roots/dependencies'
-import {React, Box, Text, Spinner} from '@roots/bud-support'
+import {
+  bind,
+  fs,
+  React,
+  Box,
+  Text,
+  Spinner,
+} from '@roots/bud-support'
 
 /**
  * Framework/Dependencies
@@ -26,7 +33,9 @@ export class Dependencies extends Service {
    * Project package.json
    */
   public get pkg() {
-    return this.app.disk.get('project').readJson('package.json')
+    return fs.readJsonSync(
+      this.app.path('project', 'package.json'),
+    )
   }
 
   /**
@@ -55,6 +64,7 @@ export class Dependencies extends Service {
   /**
    * Install development dependency
    */
+  @bind
   public installDev(deps: string[], source: string): void {
     deps.forEach(dep => {
       if (
@@ -70,6 +80,7 @@ export class Dependencies extends Service {
   /**
    * Install dependency
    */
+  @bind
   public install(deps: string[], source: string): void {
     deps.forEach(dep => {
       if (
@@ -85,8 +96,9 @@ export class Dependencies extends Service {
   /**
    * Display information to console
    */
+  @bind
   public notify(dep: string, source: string) {
-    this.app.dashboard.render(
+    this.app.dashboard.write(
       <Box flexDirection="row">
         <Text>
           <Text color="green">

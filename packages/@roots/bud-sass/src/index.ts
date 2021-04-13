@@ -50,9 +50,7 @@ export const publish: Framework.Module['publish'] = (
     global.navigator = undefined
 
     const sass = (() =>
-      require(app.project('node_modules/sass')))()
-
-    global.navigator = {}
+      require(app.path('project', 'node_modules/sass')))()
 
     return sass
   },

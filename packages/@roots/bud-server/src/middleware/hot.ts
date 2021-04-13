@@ -1,4 +1,5 @@
-import {Server} from '@roots/bud-typings'
+import type {Server} from '@roots/bud-framework'
+import type Webpack from 'webpack'
 import WebpackHotMiddleware from 'webpack-hot-middleware'
 
 const options: WebpackHotMiddleware.MiddlewareOptions = {
@@ -7,5 +8,8 @@ const options: WebpackHotMiddleware.MiddlewareOptions = {
   heartbeat: 10 * 1000,
 }
 
-export const hot: Server.Middleware.Init = ({compiler}) =>
-  WebpackHotMiddleware(compiler, options)
+export const hot: Server.Middleware.Init = ({
+  compiler,
+}: {
+  compiler: Webpack.Compiler | Webpack.MultiCompiler
+}) => WebpackHotMiddleware(compiler, options)

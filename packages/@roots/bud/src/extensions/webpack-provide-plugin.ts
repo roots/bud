@@ -1,5 +1,5 @@
 import {ProvidePlugin as Plugin} from 'webpack'
-import type {Index, Module} from '@roots/bud-typings'
+import type {Index, Module} from '@roots/bud-framework'
 
 export const name = 'webpack-provide-plugin'
 

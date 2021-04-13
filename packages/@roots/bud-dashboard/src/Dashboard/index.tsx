@@ -1,11 +1,6 @@
+import type {Instance} from 'ink'
 import {Service as Base} from '@roots/bud-framework'
-import {
-  React,
-  render,
-  Instance,
-  Text,
-  isString,
-} from '@roots/bud-support'
+import {React, render, Text, isString} from '@roots/bud-support'
 
 import {Dashboard as DashboardComponent} from './components'
 import {Error} from '../Error'

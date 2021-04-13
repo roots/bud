@@ -1,10 +1,10 @@
 import {Framework} from '@roots/bud-framework'
+import os from 'os'
 
 /**
  * Base config
  */
 export const config: Framework.Config = {
-  alias: {},
   bail: true,
   ci: false,
   entry: {},
@@ -17,7 +17,7 @@ export const config: Framework.Config = {
   externals: {},
   fileFormat: '[name]',
   hash: false,
-  hashFormat: `[name].[hash]`,
+  hashFormat: `[name].[contenthash]`,
   html: {
     enabled: true,
     template: null,
@@ -28,35 +28,21 @@ export const config: Framework.Config = {
   log: false,
   namedModules: true,
   node: {
-    module: 'empty',
-    dns: 'mock',
-    fs: 'empty',
-    http2: 'empty',
-    net: 'empty',
-    tls: 'empty',
-    child_process: 'empty',
+    __dirname: false,
+    __filename: false,
+    global: false,
   },
   noEmit: true,
+  removeEmptyChunks: true,
   stats: false,
   target: 'web',
   manifest: true,
   minify: true,
   mode: 'production',
   profile: false,
-  runtimeChunkEnabled: false,
-  runtimeChunk: {
-    name: entrypoint => `runtime/${entrypoint.name}`,
-  },
-  splitChunksEnabled: false,
-  splitChunks: {
-    chunks: 'async',
-    minSize: 20000,
-    maxSize: 0,
-    minChunks: 1,
-    maxAsyncRequests: 30,
-    maxInitialRequests: 30,
-  },
-  parallelism: 1,
+  runtimeChunk: false,
+  splitChunks: false,
+  parallelism: os.cpus().length - 1,
   resolve: {
     alias: {},
     extensions: ['.wasm', '.mjs', '.js', '.css', '.json'],

@@ -22,48 +22,25 @@ export const sage: Sage.Preset = sage => {
   const {env, use, isProduction} = sage
   const {deps, files} = projectInfo(sage)
 
-  // prettier-ignore
   sage
     /**
-     * Artifacts/cache store
+     * Locations
      */
-    .when(
-      !env.has('APP_STORAGE'),
-      () => sage.storage('storage/bud'),
-    )
-
-    /**
-     * Src path
-     */
-    .when(
-      !env.has('APP_SRC'),
-      () => sage.srcPath('resources'),
-    )
-
-    /**
-     * Dist path
-     */
-    .when(
-      !env.has('APP_DIST'),
-      () => sage.distPath('public'),
-    )
-
-    /**
-     * Public path
-     */
-    .when(
-      !env.has('APP_PUBLIC_PATH'),
-      () => sage.publicPath('public/'),
-    )
+    .setPath({
+      storage: env.get('APP_STORAGE') ?? 'storage/bud',
+      src: env.get('APP_SRC') ?? 'resources',
+      dist: env.get('APP_DIST') ?? 'public',
+      publicPath: env.get('APP_PUBLIC_PATH') ?? 'public/',
+    })
 
     /**
      * Webpack path Aliases
      */
     .alias({
-      '@fonts': sage.src('fonts'),
-      '@images': sage.src('images'),
-      '@scripts': sage.src('scripts'),
-      '@styles': sage.src('styles'),
+      '@fonts': sage.path('src', 'fonts'),
+      '@images': sage.path('src', 'images'),
+      '@scripts': sage.path('src', 'scripts'),
+      '@styles': sage.path('src', 'styles'),
     })
 
     /**
@@ -96,22 +73,28 @@ export const sage: Sage.Preset = sage => {
      *
      * Losing HMR in dev is not worth the ESBuild advantages.
      * Thus, Sage uses esbuild in production, and babel in development.
+     *
      */
     .when(
       isProduction,
-      () => sage
-        .use(esbuild).esbuild.jsx()
-        .minify()
-        .hash()
-        .vendor()
-        .runtime('single'),
+      () =>
+        sage
+          .use(esbuild)
+          .esbuild.jsx()
+          .minify()
+          .hash()
+          .splitChunks()
+          .runtime('single'),
 
-      () => sage
-        .use(babel)
-        .when(deps.includes('typescript'), () => use(typescript))
-        .when(deps.includes('react'), () => use(react))
-        .proxy()
-        .devtool('eval')
+      () =>
+        sage
+          .use(babel)
+          .when(deps.includes('typescript'), () =>
+            use(typescript),
+          )
+          .when(deps.includes('react'), () => use(react))
+          .proxy()
+          .devtool(),
     )
 
     /**
@@ -125,7 +108,10 @@ export const sage: Sage.Preset = sage => {
   sage.hooks.on('item/minicss/options/publicPath', () =>
     sage.disk.path.posix.normalize(
       sage.disk.path.posix.dirname(
-        sage.disk.path.posix.relative(sage.dist(), sage.src()),
+        sage.disk.path.posix.relative(
+          sage.path('dist'),
+          sage.path('src'),
+        ),
       ),
     ),
   )

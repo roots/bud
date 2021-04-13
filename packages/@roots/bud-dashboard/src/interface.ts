@@ -1,10 +1,17 @@
-import {Write} from './Write'
-import {Compiler, Service} from '@roots/bud-framework'
-import {React, Instance, render} from '@roots/bud-support'
-import {Styles} from '@roots/ink-use-style'
+import '@roots/bud-compiler'
+import type {Write} from './Write'
+import type {Service} from '@roots/bud-framework'
+import type {Instance, render} from 'ink'
+import type React from 'react'
+import type {Styles} from '@roots/ink-use-style'
 
 declare module '@roots/bud-framework' {
   interface Framework {
+    /**
+     * ## Dashboard
+     *
+     * CLI dashboard interface
+     */
     dashboard: Dashboard
 
     write: typeof Write
@@ -52,41 +59,35 @@ declare module '@roots/bud-framework' {
       bud: Framework
     }
 
-    interface AppProps {
-      bud?: Framework
-      pkg?: {[key: string]: any}
-      screens?: Array<[number, number]>
-      theme?: Styles
-      stats?: Framework.Compiler.Stats.Output['json']
-      progress?: {
-        percentage: string
-        decimal: number
-        message: string
-      }
-      errors?: string[]
-      hasErrors?: boolean
-      warnings?: string[]
-      hasWarnings?: boolean
+    interface AppProps extends Compilation {
+      bud: Framework
+      pkg: {[key: string]: any}
+      theme: Styles
     }
 
     type Component = React.FunctionComponent<Partial<AppProps>>
 
-    interface Compilation {
+    export interface Compilation {
       progress: {
         percentage: string
         decimal: number
         message: string
       }
-      stats: Compiler.Stats.Output['json']
-      errors?: string[]
+      stats: Compiler.Stats['json']
+      errors?: Compilation.WebpackMessage[]
       hasErrors: boolean
-      warnings?: string[]
+      warnings?: Compilation.WebpackMessage[]
       hasWarnings: boolean
     }
-
     namespace Compilation {
       interface Hook {
         (app: Framework): Compilation
+      }
+
+      interface WebpackMessage {
+        moduleIdentifier?: string
+        moduleName?: string
+        message: string
       }
     }
 
@@ -118,39 +119,11 @@ declare module '@roots/bud-framework' {
       }
     }
 
-    namespace UseFocus {
-      interface Hook {
-        (initialData?: {initialData: Focus}): [Focus, Handler]
-      }
-
-      interface Focus {
-        active: string
-        items: Items
-      }
-
-      interface Items {
-        [key: string]: boolean
-      }
-
-      type Handler = React.Dispatch<
-        React.SetStateAction<UseFocus.Focus>
-      >
-    }
-
     namespace UseGit {
-      interface Hook {
-        (): Status
-      }
-
-      interface Res {
-        stdout?: string
-        stderr?: string
-      }
-
       interface Status {
         head: string
         branch: string
-        status: number
+        status: string
         hasError: boolean
       }
     }

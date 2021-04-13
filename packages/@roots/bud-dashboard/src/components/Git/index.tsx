@@ -1,9 +1,7 @@
-import {Dashboard} from '@roots/bud-framework'
 import {React, Box, Text} from '@roots/bud-support'
-
 import {useGit} from '../../hooks/useGit'
 
-export const Git: Dashboard.Component = ({theme}) => {
+export const Git = ({theme}) => {
   const {branch, status, head} = useGit()
   const {flavor, warning, accent, success} = theme.colors
 

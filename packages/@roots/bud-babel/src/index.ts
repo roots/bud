@@ -51,11 +51,7 @@ export const publish: Module['publish'] = (app: Framework) => ({
   'item/babel/options/root': () =>
     app.subscribe('location/project'),
 
-  'item/babel/options/cacheDirectory': () =>
-    app.disk.path.posix.join(
-      app.subscribe('location/project'),
-      app.subscribe('location/storage'),
-    ),
+  'item/babel/options/cacheDirectory': () => app.path('storage'),
   'item/babel/options/presets': () =>
     Object.values(app.babel.presets).map(([preset, options]) => [
       preset,
@@ -68,18 +64,14 @@ export const publish: Module['publish'] = (app: Framework) => ({
     ]),
 
   /**
-   * babel/config
+   * rule/js/use
    */
   'item/babel/config': () => app.babel.hasProjectConfig,
 
   /**
    * rule/js/use
    */
-  'rule/js/use': () => [
-    app.subscribe('item/cache'),
-    app.subscribe('item/thread'),
-    app.subscribe('item/babel'),
-  ],
+  'rule/js/use': () => [app.subscribe('item/babel')],
 })
 
 /**

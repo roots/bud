@@ -12,5 +12,8 @@ module.exports = bud =>
       require('@roots/bud-postcss'),
       require('@roots/bud-react'),
     ])
-    .html({enabled: true})
+    .html({
+      enabled: true,
+      template: bud.path('project', 'public/index.html'),
+    })
     .entry('app', 'app.{js,css}')

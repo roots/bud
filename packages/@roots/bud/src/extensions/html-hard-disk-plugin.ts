@@ -1,5 +1,6 @@
+import type {Module} from '@roots/bud-framework'
+
 import HtmlHardDiskPlugin from 'html-webpack-harddisk-plugin'
-import {Module} from '@roots/bud-typings'
 
 interface Options {
   /**

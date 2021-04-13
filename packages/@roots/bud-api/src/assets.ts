@@ -42,7 +42,7 @@ export const assets: Assets = function (jobs) {
       }
 
       this.extensions
-        .get('webpack-copy-plugin')
+        .get('copy-webpack-plugin')
         .set('options', copy => ({
           ...copy,
           patterns: [...(copy.patterns ?? []), pattern],

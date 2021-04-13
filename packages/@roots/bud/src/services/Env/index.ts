@@ -14,16 +14,19 @@ export class Env extends Service {
   public name = 'service/env'
 
   /**
-   * Register
+   * Lifecycle: all services registered
    */
   public registered() {
-    this.setStore(
-      dotenv.config({
-        path: this.path.posix.join(
-          this.app.subscribe('location/project'),
-          '.env',
-        ),
-      }).parsed,
+    this.setStore(dotenv.config({path: this.envPath}).parsed)
+  }
+
+  /**
+   * Get the .env path
+   */
+  public get envPath(): string {
+    return this.path.posix.join(
+      this.app.subscribe('location/project'),
+      '.env',
     )
   }
 }

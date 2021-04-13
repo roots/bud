@@ -1,5 +1,5 @@
 import {Dashboard} from '@roots/bud-framework'
-import axios from 'axios'
+import {axios} from '@roots/bud-support'
 
 /**
  * Request server/proxy resources

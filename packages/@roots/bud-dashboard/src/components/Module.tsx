@@ -1,9 +1,4 @@
-import {
-  Box,
-  Text,
-  React,
-  FunctionComponent,
-} from '@roots/bud-support'
+import {Box, Text, React} from '@roots/bud-support'
 
 declare interface Props {
   children: any
@@ -11,22 +6,24 @@ declare interface Props {
   when?: boolean
   fallback?: any
   color?: string
+  labelColor?: string
   marginBottom?: number
   borderStyle?: 'single' | 'double' | 'classic' | 'round'
 }
 
-export const Module: FunctionComponent<Props> = ({
+export const Module: React.FunctionComponent<Props> = ({
   children,
   label,
   when = true,
   fallback = null,
   color = 'white',
+  labelColor = color,
   marginBottom = 1,
   borderStyle = 'single',
 }) =>
   when ? (
     <Box flexDirection="column" marginBottom={marginBottom}>
-      <Text color={color}>{label}</Text>
+      <Text color={labelColor}>{label}</Text>
       <Box
         borderStyle={borderStyle}
         borderColor={color}

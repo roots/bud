@@ -1,8 +1,10 @@
 import {RawSource} from 'webpack-sources'
 import Webpack from 'webpack'
 import {resolve, relative} from 'path'
-import {SyncWaterfallHook} from 'tapable'
 
+/**
+ * Entrypoints Webpack Plugin
+ */
 export class Plugin {
   /**
    * Plugin ident
@@ -15,22 +17,22 @@ export class Plugin {
   /**
    * Compilation context.
    */
-  public context: Webpack.compilation.Compilation['context']
+  public context: Webpack.Compiler['context']
 
   /**
    * Hook: webpack compilation output.
    */
-  public hook = ['compilation', 'output']
+  public readonly hook: string[] = ['compilation', 'output']
 
   /**
    * Build hash
    */
-  public hash: Webpack.compilation.Compilation['hash']
+  public hash: Webpack.Compilation['hash']
 
   /**
    * Emitted filename
    */
-  public name: string
+  public name: string = 'entrypoints.json'
 
   /**
    * Emitted file path
@@ -45,141 +47,83 @@ export class Plugin {
   /**
    * Public path of emitted assets
    */
-  public publicPath: string
-
-  /**
-   * Where should the entrypoints manifest be emitted?
-   */
-  public outputPath: string
+  public publicPath:
+    | string
+    | Webpack.Compiler['options']['output']['publicPath']
 
   /**
    * Emitted contents
    */
-  public output: EntrySchema = {}
-
-  /**
-   * Should manifest be emitted
-   */
-  public writeToFileEmit: boolean
-
-  /**
-   * Class constructor
-   */
-  constructor(
-    options: Options = {
-      name: 'entrypoints.json',
-      writeToFileEmit: true,
-      publicPath: null,
-      outputPath: null,
-    },
-  ) {
-    Object.assign(this, options)
-
-    this.emit = this.emit.bind(this)
-    this.apply = this.apply.bind(this)
-    this.entrypoints = this.entrypoints.bind(this)
-  }
+  public output = {}
 
   /**
    * Webpack apply plugin
    */
   apply(compiler: Webpack.Compiler): void {
-    this.publicPath =
-      this.publicPath ?? compiler.options.output.publicPath
+    this.publicPath = compiler.options.output.publicPath
+    this.path = resolve(compiler.options.output.path, this.name)
+    this.file = relative(compiler.options.output.path, this.path)
 
-    this.outputPath =
-      this.outputPath ?? compiler.options.output.path
+    compiler.hooks.thisCompilation.tap(
+      this.plugin,
+      (compilation: Webpack.Compilation): void => {
+        compilation.hooks.processAssets.tap(
+          this.plugin,
+          assets => {
+            const raw = {}
 
-    this.path = resolve(this.outputPath, this.name)
-    this.file = relative(this.outputPath, this.path)
+            compilation.entrypoints.forEach(entry => {
+              entry.chunks.map(({files}) => {
+                raw[entry.name] = Array.from(files).reduce(
+                  (a, file) => {
+                    const type = file.split('.').pop()
 
-    compiler.hooks.emit.tapAsync(this.plugin, this.emit)
-  }
-
-  /**
-   * Emit manifest
-   */
-  async emit(
-    compilation: Webpack.compilation.Compilation,
-    callback: () => void,
-  ): Promise<void> {
-    const {
-      assets,
-      entrypoints,
-      hooks,
-      hash,
-    }: {
-      assets: Webpack.compilation.Compilation['assets']
-      entrypoints: Webpack.compilation.Compilation['entrypoints']
-      hooks: any // Webpack.compilation.Compilation['hooks']
-      hash?: Webpack.compilation.Compilation['hash']
-    } = compilation
-
-    this.hash = hash ?? null
-
-    hooks.entrypoints = new SyncWaterfallHook(this.hook)
-    hooks.entrypoints.tap(this.plugin, this.entrypoints)
-    hooks.entrypoints.call(entrypoints, this.output)
-
-    if (this.writeToFileEmit) {
-      assets[this.file] = new RawSource(
-        JSON.stringify(this.output),
-      )
-    }
-
-    callback()
-  }
-
-  /**
-   * Map entrypoints to output
-   */
-  public entrypoints(
-    entrypoints: SyncWaterfallHook['call']['arguments'],
-  ): void {
-    try {
-      entrypoints.forEach(({name, chunks, ...entry}) => {
-        chunks.map(({files}) => {
-          this.output[name] = files.reduce(
-            (a, file) => {
-              const type = file.split('.').pop()
-
-              return {
-                ...(a ?? {}),
-                [type]: file.includes('hot-update')
-                  ? {
-                      ...(a?.[type] ?? {}),
+                    return {
+                      ...(a ?? {}),
+                      [type]: file.includes('hot-update')
+                        ? {
+                            ...(a?.[type] ?? {}),
+                          }
+                        : {
+                            ...(a?.[type] ?? {}),
+                            [entry.name]: `${this.publicPath}${file}`,
+                          },
                     }
-                  : {
-                      ...(a?.[type] ?? {}),
-                      [name]: `${this.publicPath}${file}`,
-                    },
-              }
-            },
-
-            entry.runtimeChunk?.files.reduce(
-              (
-                a: {[key: string]: any},
-                file: {[key: string]: any},
-              ) => {
-                const type = file.split('.').pop()
-
-                return {
-                  ...(a ?? {}),
-                  [type]: {
-                    ...(a[type] ?? {}),
-                    [entry.runtimeChunk
-                      .name]: `${this.publicPath}${file}`,
                   },
-                }
-              },
-              {},
-            ),
-          )
-        })
-      })
-    } catch (err) {
-      console.error(err)
-    }
+                  Array.from(
+                    entry.getRuntimeChunk()?.files,
+                  ).reduce((a, file) => {
+                    const type = file.split('.').pop()
+
+                    return {
+                      ...(a ?? {}),
+                      [type]: {
+                        ...(a[type] ?? {}),
+                        [entry.getRuntimeChunk()
+                          .name]: `${this.publicPath}${file}`,
+                      },
+                    }
+                  }, {}),
+                )
+
+                this.output = Object.fromEntries(
+                  Object.entries(raw).filter(item => item),
+                )
+              })
+            })
+          },
+        )
+
+        compilation.hooks.afterProcessAssets.tap(
+          this.plugin,
+          assets => {
+            assets[this.name] = new RawSource(
+              JSON.stringify(this.output),
+            )
+          },
+        )
+      },
+    )
   }
 }
 

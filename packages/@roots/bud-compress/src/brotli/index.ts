@@ -1,11 +1,11 @@
-import {Framework} from '@roots/bud-framework'
+import {Module} from '@roots/bud-framework'
 import Plugin from 'compression-webpack-plugin'
 import * as api from './api'
 
-export const name: Framework.Module['name'] =
+export const name: Module['name'] =
   'compression-webpack-plugin-brotli'
 
-export const options: Framework.Module['options'] = {
+export const options: Module['options'] = {
   filename: '[name].br[query]',
   algorithm: 'brotliCompress',
   test: /\.js$|\.css$|\.html$|\.htm$/,
@@ -17,10 +17,10 @@ export const options: Framework.Module['options'] = {
   deleteOriginalAssets: false,
 }
 
-export const make: Framework.Module.Make = options =>
+export const make: Module.Make = options =>
   new Plugin(options.all())
 
-export const when: Framework.Module.Make = ({store}) =>
+export const when: Module.Make = ({store}) =>
   store.enabled('options.brotli')
 
 export {api}

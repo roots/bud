@@ -1,8 +1,4 @@
-import {
-  useState,
-  useEffect,
-  ProgressPlugin,
-} from '@roots/bud-support'
+import {useState, useEffect, webpack} from '@roots/bud-support'
 import {Dashboard} from '@roots/bud-framework'
 
 /**
@@ -10,9 +6,13 @@ import {Dashboard} from '@roots/bud-framework'
  */
 export const useCompilation: Dashboard.Compilation.Hook = app => {
   const [stats, setStats] = useState(app?.compiler?.stats?.json)
-  const [errors, setErrors] = useState<string[]>(null)
+  const [errors, setErrors] = useState<
+    Dashboard.Compilation.WebpackMessage[]
+  >(null)
   const [hasErrors, setHasErrors] = useState<boolean>(false)
-  const [warnings, setWarnings] = useState<string[]>(null)
+  const [warnings, setWarnings] = useState<
+    Dashboard.Compilation.WebpackMessage[]
+  >(null)
   const [hasWarnings, setHasWarnings] = useState<boolean>(false)
   const [progress, setProgress] = useState(null)
 
@@ -31,12 +31,13 @@ export const useCompilation: Dashboard.Compilation.Hook = app => {
       if (!stats?.hasErrors) return
 
       setHasErrors(stats.hasErrors())
+
       stats.hasErrors()
         ? setErrors(stats.toJson('errors-only').errors)
         : setErrors(null)
     })
 
-    new ProgressPlugin((percentage, message): void => {
+    new webpack.ProgressPlugin((percentage, message): void => {
       const decimal =
         percentage && typeof percentage == 'number'
           ? percentage

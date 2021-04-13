@@ -2,7 +2,6 @@ export type {
   Build,
   Cache,
   CLI,
-  Compiler,
   Container,
   Dependencies,
   Discovery,

@@ -62,7 +62,7 @@ bud.tailwind(config, implementation)
 Specify a custom path to your tailwind config:
 
 ```js
-bud.tailwind(bud.project('path/to/config.js'))
+bud.tailwind(budpath('project', 'path/to/config.js'))
 ```
 
 You can also provide your tailwind config as an object, should you prefer.

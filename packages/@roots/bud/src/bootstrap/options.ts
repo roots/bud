@@ -1,17 +1,13 @@
 import {config} from './config'
 import {readConfig} from './readConfig'
 
-const WIRED = {
-  name: 'bud',
-}
-
 const base = readConfig()
 
 /**
  * Parsed options
  */
 export const options = {
-  ...WIRED,
+  name: 'bud',
 
   /**
    * Locations
@@ -95,23 +91,23 @@ export const options = {
     base.parallelism,
   ),
   profile: config(['profile', 'APP_PROFILE'], base.profile),
+  removeEmptyChunks: config(
+    ['removeEmptyChunks', 'APP_REMOVE_EMPTY_CHUNKS'],
+    base.removeEmptyChunks,
+  ),
   runtimeChunk: config(['runtimeChunk'], base.runtimeChunk),
   runtimeChunkEnabled: config(
     ['runtimeChunkEnabled', 'APP_RUNTIME_CHUNK'],
     base.runtimeChunkEnabled,
   ),
   resolve: {
-    alias: config(['alias'], base.resolve.alias),
+    alias: config(['resolve.alias'], base.resolve.alias),
     extensions: config(
       ['resolve.extensions'],
       base.resolve.extensions,
     ),
     modules: config(['resolve.modules'], base.resolve.modules),
   },
-  splitChunksEnabled: config(
-    ['splitChunksEnabled', 'APP_SPLITCHUNKS'],
-    base.splitChunksEnabled,
-  ),
   splitChunks: {
     chunks: config(
       ['splitChunks.chunks'],

@@ -25,8 +25,13 @@
 </p>
 
 <h1 align="center">
-  <strong>Example: Babel</strong>
+  <strong>Example: ESBuild</strong>
 </h1>
+
+## Requirements
+
+- @roots/bud
+- @roots/bud-esbuild
 
 ## Contributing
 

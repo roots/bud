@@ -19,7 +19,7 @@ export declare interface Extensions extends Service {
 
   use(pkg: string): this
 
-  make(): Webpack.Plugin[]
+  make(): Webpack.WebpackPluginInstance[]
 
   discard(pkg: string): Service['app']
 }

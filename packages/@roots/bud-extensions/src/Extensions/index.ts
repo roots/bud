@@ -1,5 +1,7 @@
-import {Webpack, isUndefined, bind} from '@roots/bud-support'
-import {Module} from '@roots/bud-typings'
+import type {Module} from '@roots/bud-framework'
+import type Webpack from 'webpack/types'
+
+import {bind, isUndefined} from '@roots/bud-support'
 import Extension from './Extension'
 import Service from './Service'
 
@@ -46,10 +48,12 @@ export default class extends Service {
    * Returns a webpack-ready array
    */
   @bind
-  public make(): Webpack.Plugin[] {
+  public make(): Webpack.WebpackPluginInstance[] {
     const plugins = this.getKeys()
       .map(name => this.get(name).make)
-      .filter(ext => !isUndefined(ext)) as Webpack.Plugin[]
+      .filter(
+        ext => !isUndefined(ext),
+      ) as Webpack.WebpackPluginInstance[]
 
     return plugins
   }

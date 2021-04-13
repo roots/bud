@@ -17,7 +17,7 @@ const DEFAULT_OPTIONS: Options = {
 const extension: Extension = {
   name: '@roots/bud-entrypoints',
   options: () => DEFAULT_OPTIONS,
-  make: options => new Entrypoints.Plugin(options.all()),
+  make: options => new Entrypoints.Plugin(),
 }
 
 /**

@@ -4,11 +4,6 @@ import {services} from './services'
 import {Bud as BudConstructor} from './Bud'
 
 /**
- * This fixes issues with SWR thinking its in the browser.
- */
-global.navigator = {}
-
-/**
  * This "fixes" resize emitter warnings
  * @todo actually fix this
  */

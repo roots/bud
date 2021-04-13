@@ -1,4 +1,5 @@
 import './interface'
+
 import {Framework, Module} from '@roots/bud-framework'
 
 /**

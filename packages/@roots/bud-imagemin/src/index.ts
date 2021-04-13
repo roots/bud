@@ -1,7 +1,5 @@
 import './interface'
-
 import {Framework} from '@roots/bud-framework'
-
 import * as Plugin from './imagemin'
 
 export const name: Framework.Module['name'] =

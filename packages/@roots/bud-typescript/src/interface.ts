@@ -1,6 +1,6 @@
 import '@roots/bud-babel'
 import '@roots/bud-framework'
-import {Webpack} from '@roots/bud-support'
+import type Webpack from 'webpack'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -12,7 +12,7 @@ declare module '@roots/bud-framework' {
      * ### Usage
      *
      * ```js
-     * bud.checkTs()
+     * bud.typecheck()
      * ```
      */
     typecheck: Framework.Typescript.TypeCheck
@@ -31,6 +31,7 @@ declare module '@roots/bud-framework' {
       'fork-ts-checker-plugin': Hooks.Extension.Subject
     }
   }
+
   namespace Framework.Hooks.Loader {
     interface Definitions {
       ts: Hooks.Loader.Subject

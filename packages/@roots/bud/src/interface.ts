@@ -1,8 +1,8 @@
 import '@roots/bud-hooks'
 import '@roots/bud-framework'
 
-import {Webpack} from '@roots/bud-support'
-import {Theme} from '@roots/ink-use-style'
+import type Webpack from 'webpack'
+import type {Theme} from '@roots/ink-use-style'
 
 /**
  * @fix SWR thinking its in the browser.
@@ -27,18 +27,13 @@ declare module '@roots/bud-framework' {
     }
 
     interface Config {
-      entry: {
+      entry: Webpack.Configuration['entry'] & {
         [key: string]: any
       }
-      alias: {
+      externals: Webpack.Configuration['externals'] & {
         [key: string]: any
       }
-      define: {
-        [key: string]: any
-      }
-      externals: {
-        [key: string]: any
-      }
+      define: Webpack.DefinePlugin['definitions']
       install: boolean
       bail: boolean
       cache: boolean
@@ -60,37 +55,30 @@ declare module '@roots/bud-framework' {
       noEmit: boolean
       manifest: boolean
       minify: boolean
-      mode: 'production' | 'development'
+      mode: ('production' | 'development') &
+        Webpack.Configuration['mode']
       namedModules: boolean
-      node: {
-        module: string
-        dns: string
-        fs: string
-        http2: string
-        net: string
-        tls: string
-        child_process: string
-      }
-      parallelism: number
-      profile: boolean
-      runtimeChunkEnabled: boolean
+      node: Webpack.Configuration['node']
+      parallelism: Webpack.Configuration['parallelism']
+      profile: Webpack.Configuration['profile']
+      removeEmptyChunks: Webpack.Configuration['optimization']['removeEmptyChunks']
       runtimeChunk: Webpack.Configuration['optimization']['runtimeChunk']
-      splitChunksEnabled: boolean
-      splitChunks: {
-        chunks: string
-        minSize: number
-        maxSize: number
-        minChunks: number
-        maxAsyncRequests: number
-        maxInitialRequests: number
-      }
-      stats: boolean
-      target: string
-      resolve: {
-        alias: {[key: string]: any}
-        extensions: string[]
-        modules: string[]
-      }
+      splitChunks: Webpack.Configuration['optimization']['splitChunks']
+      stats: Webpack.Configuration['stats']
+      target: Webpack.Configuration['target']
+      resolve:
+        | Webpack.Configuration['resolve']
+        | {
+            alias:
+              | Webpack.Configuration['resolve']['alias']
+              | {
+                  [key: string]: any
+                }
+            extensions: Webpack.Configuration['resolve']['extensions']
+            modules:
+              | Webpack.Configuration['resolve']['modules']
+              | string[]
+          }
       server: {
         host: string
         port: number

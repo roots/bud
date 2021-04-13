@@ -1,6 +1,5 @@
-import {Framework} from '../Framework'
-import {Container} from '@roots/container'
-import {fs, globby, lodash} from '@roots/bud-support'
+import type {Framework} from '../Framework'
+import {fs, globby, lodash, Container} from '@roots/bud-support'
 import {FileContainer} from '@roots/filesystem'
 import path from 'path'
 

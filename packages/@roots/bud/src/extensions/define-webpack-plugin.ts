@@ -1,12 +1,17 @@
-import {DefinePlugin} from 'webpack'
-import {Framework, Module} from '@roots/bud-framework'
+import type Webpack from 'webpack'
+import type {Framework, Module} from '@roots/bud-framework'
+import {webpack} from '@roots/bud-support'
+
+interface Options {
+  definitions: Webpack.DefinePlugin['definitions']
+}
 
 export const name: Module.Name = `webpack-define-plugin`
 
 export const make: Module.Make<
-  DefinePlugin,
+  Webpack.DefinePlugin,
   Options
-> = options => new DefinePlugin(options.all())
+> = options => new webpack.DefinePlugin(options.all())
 
 export const when: Module.When = (_bud, opts) =>
   opts.getEntries()?.length > 0
@@ -27,11 +32,5 @@ export const options: Module.Options<Options> = (
   return {
     ...fromEnv,
     ...fromStore,
-  }
-}
-
-interface Options {
-  definitions: {
-    [key: string]: DefinePlugin.CodeValueObject
   }
 }

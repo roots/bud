@@ -1,5 +1,4 @@
 import {Framework} from '@roots/bud-framework'
-import {isBoolean} from 'lodash'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -62,7 +61,7 @@ export const html: Framework.Api.Html = function (options?) {
     /**
      * Update the enabled status for the html plugin
      */
-    isBoolean(options.enabled)
+    this.util._.isBoolean(options.enabled)
       ? this.store.set('options.html.enabled', options.enabled)
       : this.store.enable('options.html.enabled')
   }

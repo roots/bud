@@ -1,4 +1,4 @@
-import {React, FunctionComponent, Text} from '@roots/bud-support'
+import {React, Text} from '@roots/bud-support'
 
 interface IndicatorProps {
   active: boolean
@@ -6,7 +6,7 @@ interface IndicatorProps {
   secondary?: string
 }
 
-const Indicator: FunctionComponent<IndicatorProps> = ({
+const Indicator: React.FunctionComponent<IndicatorProps> = ({
   active,
   primary,
   secondary,

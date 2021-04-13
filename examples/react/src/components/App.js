@@ -1,5 +1,4 @@
 import React from 'react'
-import styled from '@emotion/styled'
 import logo from './logo.svg'
 
 export const App = () => {

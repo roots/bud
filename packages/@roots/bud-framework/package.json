@@ -1,12 +1,12 @@
 {
   "name": "@roots/bud-framework",
-  "version": "3.1.0",
+  "version": "3.2.0-next.2",
   "description": "A friendly build tool to help manage your project assets.",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
-    "directory": "packages/bud"
+    "directory": "packages/@roots/bud-framework"
   },
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
@@ -37,7 +37,7 @@
   },
   "types": "./lib/types/index.d.ts",
   "scripts": {
-    "build": "run-s build:cjs build:esm",
+    "build": "run-p build:cjs build:esm",
     "build:cjs": "tsc --build tsconfig.json",
     "build:esm": "tsc --build tsconfig-esm.json",
     "lint": "run-s lint:*",
@@ -52,16 +52,14 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^3.1.0",
-    "@types/node": "^14.14.31",
-    "@types/webpack": "^4.41.26",
-    "type-fest": "^0.21.2"
+    "@roots/bud-typings": "^3.2.0-next.0",
+    "npm-run-all": "^4.1.5"
   },
   "dependencies": {
-    "@roots/bud-support": "^3.1.0",
-    "@roots/container": "^3.1.0",
-    "@roots/dependencies": "^3.1.0",
-    "@roots/filesystem": "^3.1.0"
+    "@roots/bud-support": "^3.2.0-next.2",
+    "@roots/container": "^3.2.0-next.0",
+    "@roots/dependencies": "^3.2.0-next.0",
+    "@roots/filesystem": "^3.2.0-next.0"
   },
   "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"
 }

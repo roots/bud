@@ -1,12 +1,12 @@
 {
   "name": "@roots/bud-babel",
-  "version": "3.1.0",
+  "version": "3.2.0-next.2",
   "description": "A friendly build tool to help manage your project assets.",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
-    "directory": "packages/bud-babel"
+    "directory": "packages/@roots/bud-babel"
   },
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
@@ -38,7 +38,7 @@
   },
   "types": "./lib/types/index.d.ts",
   "scripts": {
-    "build": "run-s build:cjs build:esm",
+    "build": "run-p build:cjs build:esm",
     "build:cjs": "tsc --build tsconfig.json",
     "build:esm": "tsc --build tsconfig-esm.json",
     "lint": "run-s lint:*",
@@ -53,20 +53,16 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
-    "@roots/bud": "^3.1.0",
-    "@roots/bud-framework": "^3.1.0",
-    "@roots/bud-typings": "^3.1.0",
-    "@types/node": "^14.14.31",
-    "@types/webpack": "^4.41.26",
-    "type-fest": "^0.21.2"
+    "@roots/bud-framework": "^3.2.0-next.2",
+    "webpack": "^5.31.2"
   },
   "dependencies": {
-    "@babel/core": "^7.12.10",
-    "@babel/plugin-proposal-object-rest-spread": "^7.12.1",
+    "@babel/core": "^7.13.15",
+    "@babel/plugin-proposal-object-rest-spread": "^7.13.8",
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
-    "@babel/plugin-transform-runtime": "^7.12.10",
-    "@babel/preset-env": "^7.12.11",
-    "@roots/bud-support": "^3.1.0",
+    "@babel/plugin-transform-runtime": "^7.13.15",
+    "@babel/preset-env": "^7.13.15",
+    "@roots/bud-support": "^3.2.0-next.2",
     "babel-loader": "^8.2.2",
     "babel-plugin-add-module-exports": "^1.0.4"
   },

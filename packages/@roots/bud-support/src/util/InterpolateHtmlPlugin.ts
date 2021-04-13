@@ -1,14 +1,11 @@
 import escapeString from 'escape-string-regexp'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
-import type {Compiler, compilation} from 'webpack'
-import type {Tapable} from 'tapable'
+import type Webpack from 'webpack'
 
 /**
  * @class InterpolateHtmlPlugin
  * @implements Tapable.Plugin
  */
-export default class InterpolateHtmlPlugin
-  implements Tapable.Plugin {
+export default class InterpolateHtmlPlugin {
   /**
    * @property name
    */
@@ -16,8 +13,9 @@ export default class InterpolateHtmlPlugin
 
   /**
    * @property htmlWebpackPlugin
+   * @todo fix this type definition @webpack5
    */
-  public htmlWebpackPlugin: HtmlWebpackPlugin
+  public htmlWebpackPlugin: any
 
   /**
    * @property replacements
@@ -29,7 +27,7 @@ export default class InterpolateHtmlPlugin
    * @constructs Webpack.Plugin
    */
   public constructor(
-    htmlWebpackPlugin: HtmlWebpackPlugin,
+    htmlWebpackPlugin: any,
     replacements: {[key: string]: RegExp},
   ) {
     this.htmlWebpackPlugin = htmlWebpackPlugin
@@ -40,10 +38,10 @@ export default class InterpolateHtmlPlugin
    * @function apply
    * @see Webpack.Plugin['apply']
    */
-  public apply(compiler: Compiler): void {
+  public apply(compiler: Webpack.Compiler): void {
     compiler.hooks.compilation.tap(
       'InterpolateHtmlPlugin',
-      (compilation: compilation.Compilation) => {
+      (compilation: any) => {
         /**
          * @todo fix hack any
          */

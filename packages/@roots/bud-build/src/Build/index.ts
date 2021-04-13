@@ -1,6 +1,8 @@
-import type {Webpack, Build} from '@roots/bud-typings'
+import type {Build} from '@roots/bud-typings'
+import type Webpack from 'webpack'
 import {Service} from '@roots/bud-framework'
 import {bind} from '@roots/bud-support'
+import * as builders from '../builders'
 
 /**
  * ## bud.build
@@ -21,9 +23,9 @@ export default class extends Service implements Build {
    */
   @bind
   public registered(): void {
-    this.get('rules')(this.app)
-    this.get('items')(this.app)
-    this.get('config')(this.app)
+    Object.values(builders).forEach(builder => {
+      builder.bind(this.app)()
+    })
   }
 
   /**

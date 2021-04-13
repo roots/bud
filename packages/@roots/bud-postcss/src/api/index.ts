@@ -1,6 +1,5 @@
 import {Framework} from '@roots/bud-framework'
 import {Signale} from '@roots/bud-support'
-import {isString} from 'lodash'
 
 /**
  * PostCSS configuration
@@ -89,7 +88,9 @@ export class PostCssConfig implements Framework.PostCss {
    * Set plugin
    */
   public set(definition: Framework.PostCss.Registrable): this {
-    const [plugin, options] = isString(definition)
+    const [plugin, options] = this.app.util._.isString(
+      definition,
+    )
       ? [definition, definition]
       : definition
 

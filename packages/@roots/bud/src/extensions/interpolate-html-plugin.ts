@@ -1,7 +1,8 @@
+import type {Container} from '@roots/bud-support'
+import {Framework, Module} from '@roots/bud-framework'
+
 import HtmlWebpackPlugin from 'html-webpack-plugin'
 import {InterpolateHtmlPlugin} from '@roots/bud-support'
-import {Container, Module} from '@roots/bud-typings'
-import {Framework} from '@roots/bud-framework'
 
 /**
  * Interpolate HTML Plugin options

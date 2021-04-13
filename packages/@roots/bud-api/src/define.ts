@@ -1,5 +1,5 @@
 import {Framework} from '@roots/bud-framework'
-import {Webpack} from '@roots/bud-support'
+import type Webpack from 'webpack'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -20,21 +20,20 @@ declare module '@roots/bud-framework' {
   }
 
   namespace Framework.Api {
-    export {Define}
+    type Define = (values: {
+      [key: string]: Webpack.DefinePlugin['definitions']
+    }) => Framework
   }
 }
 
-type Define = (values: {
-  [key: string]: Webpack.DefinePlugin.CodeValueObject
-}) => Framework
-
-export const define: Define = function (values) {
-  this.publish({
-    'extension/webpack-define-plugin/options': existant => ({
-      ...existant,
+export const define: Framework.Api.Define = function (values) {
+  this.hooks.on(
+    'extension/webpack-define-plugin/options',
+    (existantValues: Webpack.DefinePlugin['definitions']) => ({
+      ...existantValues,
       ...values,
     }),
-  })
+  )
 
   return this
 }

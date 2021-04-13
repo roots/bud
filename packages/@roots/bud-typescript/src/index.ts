@@ -1,6 +1,5 @@
 import './interface'
-import {Framework} from '@roots/bud-framework'
-import {Module} from '@roots/bud-typings'
+import {Module, Framework} from '@roots/bud-framework'
 
 /**
  * Enum

@@ -2,7 +2,7 @@ import {
   Options,
   CleanWebpackPlugin as Plugin,
 } from 'clean-webpack-plugin'
-import {Module} from '@roots/bud-typings'
+import {Module} from '@roots/bud-framework'
 
 export const name = 'clean-webpack-plugin'
 

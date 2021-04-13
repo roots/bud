@@ -58,7 +58,6 @@ export default class {
   public register(): this {
     if (this.module.register) {
       this.app.access(this.module.register)
-
       this.app.extensions.log(`Register method found`)
     }
 

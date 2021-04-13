@@ -17,12 +17,12 @@ import {injectClient} from '../util/injectClient'
  */
 export default class extends Service implements Server {
   /**
-   * Service ident.
+   * Service name
    */
   public name = '@roots/bud-server'
 
   /**
-   * Middleware
+   * Middlewares
    */
   public middleware: Server.Middleware.Inventory = {}
 

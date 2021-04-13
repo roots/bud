@@ -7,8 +7,9 @@
 
 module.exports = app =>
   app
-    .use(require('@roots/bud-esbuild'))
+    .use([require('@roots/bud-esbuild')])
     .html({enabled: true})
     .entry('scripts/app', 'app.js')
     .runtime()
-    .vendor()
+    .splitChunks()
+    .hash()

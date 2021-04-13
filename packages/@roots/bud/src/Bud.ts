@@ -3,8 +3,8 @@ import './interface'
 /**
  * Framework
  */
+import {Build} from '@roots/bud-build'
 import {Cache} from '@roots/bud-cache'
-import {Compiler} from '@roots/bud-compiler'
 import {Framework} from '@roots/bud-framework'
 import {Hooks} from '@roots/bud-hooks'
 import {Server} from '@roots/bud-server'
@@ -13,7 +13,6 @@ import {Server} from '@roots/bud-server'
  * Extended
  */
 import {Api} from './services/Api'
-import {Build} from './services/Build'
 import {Dependencies} from './services/Dependencies'
 import {Discovery} from './services/Discovery'
 import {Disk} from './services/Disk'
@@ -29,8 +28,6 @@ export class Bud extends Framework {
   public build: Build
 
   public cache: Cache
-
-  public compiler: Compiler
 
   public dependencies: Dependencies
 

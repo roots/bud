@@ -1,12 +1,12 @@
 {
   "name": "@roots/bud-purgecss",
-  "version": "3.1.0",
+  "version": "3.2.0-next.2",
   "description": "Adds purgecss support to Bud",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
-    "directory": "packages/bud-purgecss"
+    "directory": "packages/@roots/bud-purgecss"
   },
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
@@ -28,9 +28,7 @@
     "node": ">=12"
   },
   "files": [
-    "lib/",
-    "types/",
-    "src/"
+    "lib/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -40,7 +38,7 @@
   },
   "types": "./lib/types/index.d.ts",
   "scripts": {
-    "build": "run-s build:cjs build:esm",
+    "build": "run-p build:cjs build:esm",
     "build:cjs": "tsc --build tsconfig.json",
     "build:esm": "tsc --build tsconfig-esm.json",
     "lint": "run-s lint:*",
@@ -55,13 +53,14 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
-    "@roots/bud": "^3.1.0",
-    "@roots/bud-postcss": "^3.1.0",
-    "@types/node": "^14.14.31",
-    "@types/webpack": "^4.41.26"
+    "@roots/bud": "^3.2.0-next.2",
+    "@roots/bud-postcss": "^3.2.0-next.2",
+    "@types/node": "^14.14.37",
+    "postcss": "^8.2.9"
   },
   "dependencies": {
-    "@fullhuman/postcss-purgecss": "^2.3.0"
+    "@fullhuman/postcss-purgecss": "^4.0.3",
+    "@roots/bud-support": "^3.2.0-next.2"
   },
   "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"
 }

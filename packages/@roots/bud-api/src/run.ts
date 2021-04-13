@@ -1,5 +1,5 @@
 import {Framework} from '@roots/bud-framework'
-import {ProgressPlugin, chalk} from '@roots/bud-support'
+import {chalk, webpack} from '@roots/bud-support'
 
 type Run = () => unknown
 
@@ -14,12 +14,6 @@ declare module '@roots/bud-framework' {
      *
      * ```js
      * bud.run()
-     * ```
-     *
-     * Disable the custom dashboard (use webpack default output)
-     *
-     * ```js
-     * bud.run(true)
      * ```
      */
     run: Run
@@ -66,7 +60,7 @@ export function run(this: Framework): Promise<void> {
    * Instantiate a new progress plugin and apply it
    * to the compilation instance.
    */
-  new ProgressPlugin((percentage, message) => {
+  new webpack.ProgressPlugin((percentage, message) => {
     const progress = {
       decimal: percentage,
       percentage: `${Math.floor(percentage * 100)}%`,
@@ -92,16 +86,16 @@ export function run(this: Framework): Promise<void> {
 /**
  * Handles display output of compilation / dev server.
  */
-function displayCompilation(): void {
+function displayCompilation(this: Framework): void {
   if (this.store.has(`compilation.errors`)) {
     this.error(this.store.get(`compilation.errors`))
     process.exit()
   }
 
-  this.store.has(`compilation.stats.string`) &&
+  this.store.get(`compilation.stats.string`) &&
     (() => {
       this.log(this.store.get(`compilation.stats.string`))
-      this.store.delete(`compilation.stats.string`)
+      this.store.set(`compilation.stats.string`, null)
     })()
 
   this.store.has('compilation.progress') &&
@@ -113,7 +107,7 @@ function displayCompilation(): void {
           )}]`,
         )} ${this.store.get(`compilation.progress.message`)}\r`,
       )
-      this.store.delete(`compilation.progress`)
+      this.store.set(`compilation.progress`)
     })()
 }
 
