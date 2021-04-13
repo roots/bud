@@ -7,6 +7,7 @@
 module.exports = bud =>
   bud
     .use([
+      require('@roots/bud-entrypoints'),
       require('@roots/bud-criticalcss'),
       require('@roots/bud-postcss'),
       require('@roots/bud-tailwindcss'),
@@ -18,5 +19,6 @@ module.exports = bud =>
       src: 'public/index.html',
       hash: true,
     })
+    .hash()
     .entry('app', 'app.css')
     .splitChunks()

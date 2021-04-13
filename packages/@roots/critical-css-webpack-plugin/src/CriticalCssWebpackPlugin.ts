@@ -101,27 +101,38 @@ export class CriticalCssWebpackPlugin {
     assets: Webpack.Compilation['assets'],
     callback: () => any,
   ) {
-    this.mapConcatenatedStyles()
-
-    await Promise.all(
-      Object.entries(this.entrypointCss).map(
-        async ([name, entry]) => {
-          const {css, uncritical} = await this.generateCritical(
-            name,
-            entry,
+    for (const [name, entry] of this.webpack.compilation
+      .entrypoints) {
+      entry.chunks.map(chunk => {
+        this.webpack.compilation.chunkGraph
+          .getChunkModules(chunk)
+          .filter(
+            module =>
+              module?.type.includes('css') &&
+              (module as any).content,
           )
+          .map(async module => {
+            const outputName = this.maybeHashName(module, name)
+            const content = (module as any).content.toString()
 
-          Object.assign(assets, {
-            [`critical/${name}.css`]: new Webpack.sources.RawSource(
-              uncritical,
-            ),
-            [`critical/${name}.critical.css`]: new Webpack.sources.RawSource(
+            const {
               css,
-            ),
+              uncritical,
+            } = await this.generateCritical(name, content)
+
+            Object.assign(assets, {
+              [`critical/${outputName}.css`]: new Webpack.sources.RawSource(
+                uncritical,
+              ),
+              [`critical/${outputName}.critical.css`]: new Webpack.sources.RawSource(
+                css,
+              ),
+            })
+
+            return module
           })
-        },
-      ),
-    )
+      })
+    }
 
     callback()
   }
@@ -167,10 +178,10 @@ export class CriticalCssWebpackPlugin {
     for (const runtime of this.webpack.compilation.chunkGraph.getModuleRuntimes(
       module,
     )) {
-      name = this.webpack.compilation.chunkGraph.getRenderedModuleHash(
+      name = `${name}.${this.webpack.compilation.chunkGraph.getRenderedModuleHash(
         module,
         runtime,
-      )
+      )}`
     }
 
     return name
