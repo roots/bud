@@ -1,13 +1,44 @@
 import './interface'
-
 import {Framework} from '@roots/bud-framework'
+import {CriticalCssWebpackPlugin} from '@roots/critical-css-webpack-plugin'
 
-import * as Plugin from './criticalcss'
+const criticalCssWebpackPlugin = {
+  /**
+   * Name
+   */
+  name: '@roots/bud-criticalcss',
 
-export const name: Framework.Module['name'] =
-  '@roots/bud-criticalcss'
+  /**
+   * Options
+   */
+  options: (): Framework.CriticalCss.Options => ({}),
 
-export * as api from './api'
+  /**
+   * Make
+   */
+  make: options => new CriticalCssWebpackPlugin(options.all()),
 
-export const boot: Framework.Module['boot'] = ({extensions}) =>
-  extensions.add(Plugin)
+  /**
+   * Is Production
+   */
+  when: ({isProduction}) => isProduction,
+
+  /**
+   * Config
+   */
+  api: {
+    critical: function (options) {
+      this.hooks.on(
+        'extension/@roots/bud-criticalcss/options',
+        () => options,
+      )
+
+      return this
+    },
+  },
+}
+
+const {name, options, make, when, api} = criticalCssWebpackPlugin
+
+export default criticalCssWebpackPlugin
+export {name, options, make, when, api}

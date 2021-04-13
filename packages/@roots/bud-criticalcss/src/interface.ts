@@ -1,5 +1,5 @@
 import '@roots/bud-framework'
-import type Plugin from 'critical-css-webpack-plugin'
+import {CriticalCssWebpackPlugin} from '@roots/critical-css-webpack-plugin'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -23,25 +23,27 @@ declare module '@roots/bud-framework' {
     /**
      * app.critical fn
      */
-    type Configure = (options: CriticalCss.Options) => Framework
+    type Configure = (
+      options: CriticalCssWebpackPlugin['options'],
+    ) => Framework
 
     /**
      * Options
      */
-    type Options = {
-      [key: string]: any
-    }
+    type Options = CriticalCssWebpackPlugin['options']
 
     /**
      * Make
      */
-    type Make = Framework.Module.Make<Plugin, Options>
+    type Make = Framework.Module.Make<
+      CriticalCssWebpackPlugin,
+      Options
+    >
   }
 
   namespace Framework.Hooks.Extension {
     interface Definitions {
-      '@roots/bud-criticalcss': Framework.Hooks.Extension.Subject
-      'html-critical-webpack-plugin': Framework.Hooks.Extension.Subject
+      '@roots/bud-criticalcss': Framework.Extension
     }
   }
 }

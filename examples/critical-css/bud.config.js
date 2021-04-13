@@ -2,14 +2,23 @@
  * ESBuild configuration example
  *
  * @typedef {import('@roots/bud').Bud} Bud
- * @type {(bud: Bud): Bud}
+ * @type {(app: Bud): Bud}
  */
 
-module.exports = app =>
-  app
-    .use(require('@roots/bud-criticalcss'))
-    .html({enabled: true})
+module.exports = bud =>
+  bud
+    .use([
+      require('@roots/bud-criticalcss'),
+      require('@roots/bud-postcss'),
+      require('@roots/bud-tailwindcss'),
+    ])
+    .html({
+      template: 'public/index.html',
+    })
+    .critical({
+      src: 'public/index.html',
+      target: 'app.css',
+    })
     .entry('app', 'app.css')
-    .runtime()
     .splitChunks()
     .hash()

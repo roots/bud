@@ -6,6 +6,7 @@
   },
   "devDependencies": {
     "@roots/bud": "^3.2.0-next.2",
+    "@roots/bud-criticalcss": "^3.2.0-next.2",
     "@roots/bud-postcss": "^3.2.0-next.2",
     "@roots/bud-tailwindcss": "^3.2.0-next.2",
     "@tailwindcss/jit": "^0.1.18",

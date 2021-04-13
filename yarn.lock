@@ -3142,7 +3142,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud-criticalcss@workspace:packages/@roots/bud-criticalcss":
+"@roots/bud-criticalcss@^3.2.0-next.2, @roots/bud-criticalcss@workspace:packages/@roots/bud-criticalcss":
   version: 0.0.0-use.local
   resolution: "@roots/bud-criticalcss@workspace:packages/@roots/bud-criticalcss"
   dependencies:
@@ -3629,8 +3629,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/critical-css-webpack-plugin@workspace:packages/@roots/critical-css-webpack-plugin"
   dependencies:
+    "@types/vinyl": ^2
     autobind-decorator: ^2.4.0
     critical: ^3.0.0
+    vinyl: ^2.2.1
   languageName: unknown
   linkType: soft
 
@@ -4290,6 +4292,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/expect@npm:^1.20.4":
+  version: 1.20.4
+  resolution: "@types/expect@npm:1.20.4"
+  checksum: c09a9abec2c1776dd8948920dc3bad87b1206c843509d3d3002040983b1769b2e3914202a6c20b72e5c3fb5738a1ab87cb7be9d3fe9efabf2a324173b222a224
+  languageName: node
+  linkType: hard
+
 "@types/express-serve-static-core@npm:^4.17.18":
   version: 4.17.19
   resolution: "@types/express-serve-static-core@npm:4.17.19"
@@ -4682,6 +4691,16 @@ __metadata:
   version: 2.0.3
   resolution: "@types/unist@npm:2.0.3"
   checksum: 4427306b094561da28164e7e5250c4e6b382cb8eac40bf7e6bb0ff1e6e00c13e47aaf32e4a08fc8ba54602d07f79a39fb9ba304cc9dc886b1e3caf824649edbd
+  languageName: node
+  linkType: hard
+
+"@types/vinyl@npm:^2":
+  version: 2.0.4
+  resolution: "@types/vinyl@npm:2.0.4"
+  dependencies:
+    "@types/expect": ^1.20.4
+    "@types/node": "*"
+  checksum: 4fb0ea747cbe11b5b0ef74647b19a93b630c0fda424dd40774c696f10cf7a7b8c4867d74940964ebd5194b2f374330ecab8e9720000ecc362d94e5faf53738b7
   languageName: node
   linkType: hard
 
@@ -9699,6 +9718,7 @@ __metadata:
   resolution: "example-critical-css@workspace:examples/critical-css"
   dependencies:
     "@roots/bud": ^3.2.0-next.2
+    "@roots/bud-criticalcss": ^3.2.0-next.2
     "@roots/bud-postcss": ^3.2.0-next.2
     "@roots/bud-tailwindcss": ^3.2.0-next.2
     "@tailwindcss/jit": ^0.1.18
