@@ -2,9 +2,8 @@
  * ESBuild configuration example
  *
  * @typedef {import('@roots/bud').Bud} Bud
- * @type {(app: Bud): Bud}
+ * @type {(bud: Bud): Bud}
  */
-
 module.exports = bud =>
   bud
     .use([
@@ -17,8 +16,7 @@ module.exports = bud =>
     })
     .critical({
       src: 'public/index.html',
-      target: 'app.css',
+      hash: true,
     })
     .entry('app', 'app.css')
     .splitChunks()
-    .hash()

@@ -4,19 +4,16 @@ import critical from 'critical'
 import {boundMethod as bind} from 'autobind-decorator'
 import vinyl from 'vinyl'
 
-export {CriticalCssWebpackPlugin}
-
-declare namespace CriticalCssWebpackPlugin {
-  export {Options}
-}
-
-class CriticalCssWebpackPlugin {
+/**
+ * CriticalCSSWebpackPlugin
+ */
+export class CriticalCssWebpackPlugin {
   /**
    * Plugin ident
    */
   public plugin = {
     name: 'CriticalCssWebpackPlugin',
-    stage: Webpack.Compilation.PROCESS_ASSETS_STAGE_ADDITIONS,
+    stage: Webpack.Compilation.PROCESS_ASSETS_STAGE_OPTIMIZE,
   }
 
   /**
@@ -35,15 +32,16 @@ class CriticalCssWebpackPlugin {
    */
   public _options: Options = {
     minify: true,
-    extract: true,
     width: 375,
     height: 565,
   }
 
   /**
-   * Generated assets
+   * Entrypoint css mapping
    */
-  public assets: Webpack.Compilation['assets'] = {}
+  public entrypointCss: {
+    [key: string]: string
+  } = {}
 
   /**
    * Constructor
@@ -76,7 +74,7 @@ class CriticalCssWebpackPlugin {
   public apply(compiler: Webpack.Compiler): void {
     this.webpack.compiler = compiler
 
-    this.webpack.compiler.hooks.compilation.tap(
+    this.webpack.compiler.hooks.thisCompilation.tap(
       this.plugin,
       this.compilation,
     )
@@ -103,49 +101,96 @@ class CriticalCssWebpackPlugin {
     assets: Webpack.Compilation['assets'],
     callback: () => any,
   ) {
+    this.mapConcatenatedStyles()
+
     await Promise.all(
-      Object.entries(assets)
-        .filter(([file]) => /\.css$/.test(file))
-        .map(async ([file, contents]) => {
+      Object.entries(this.entrypointCss).map(
+        async ([name, entry]) => {
           const {css, uncritical} = await this.generateCritical(
-            file,
-            contents,
+            name,
+            entry,
           )
 
-          Object.assign(this.assets, {
-            ...(this.options.extract
-              ? {[file]: uncritical}
-              : {}),
-            [file.replace('.css', '.critical.css')]: css,
+          Object.assign(assets, {
+            [`critical/${name}.css`]: new Webpack.sources.RawSource(
+              uncritical,
+            ),
+            [`critical/${name}.critical.css`]: new Webpack.sources.RawSource(
+              css,
+            ),
           })
-        }),
+        },
+      ),
     )
-
-    Object.entries(this.assets).forEach(([file, asset]) => {
-      assets[file] = new Webpack.sources.RawSource(
-        asset.toString(),
-      )
-    })
 
     callback()
   }
 
+  /**
+   * Key concatenated styles by entrypoint name
+   */
   @bind
-  public async generateCritical(file, contents) {
-    return await critical.generate(
-      this.getAssetConfig(file, contents),
-    )
+  public mapConcatenatedStyles() {
+    for (const [name, entry] of this.webpack.compilation
+      .entrypoints) {
+      entry.chunks.map(chunk => {
+        this.webpack.compilation.chunkGraph
+          .getChunkModules(chunk)
+          .filter(
+            module =>
+              module?.type.includes('css') &&
+              (module as any).content,
+          )
+          .map(module => {
+            const outputName = this.maybeHashName(module, name)
+
+            Object.assign(this.entrypointCss, {
+              [outputName]: (module as any).content.toString(),
+            })
+          })
+      })
+    }
   }
 
+  /**
+   * Returns either the entrypoint name or the entrypoint name with a hash
+   */
   @bind
-  public getAssetConfig(file, contents) {
-    return {
-      ...this.options,
+  public maybeHashName(
+    module: Webpack.Module,
+    name: string,
+  ): string {
+    if (!this.options.hash) {
+      return name
+    }
+
+    for (const runtime of this.webpack.compilation.chunkGraph.getModuleRuntimes(
+      module,
+    )) {
+      name = this.webpack.compilation.chunkGraph.getRenderedModuleHash(
+        module,
+        runtime,
+      )
+    }
+
+    return name
+  }
+
+  /**
+   * Generates critical css
+   */
+  @bind
+  public async generateCritical(file: string, contents: string) {
+    const options = this.options
+    delete options.hash
+
+    return await critical.generate({
+      ...options,
       base:
         this.options.base ??
         this.webpack.compilation.outputOptions.path,
-      css: [this.vfile(file, contents.source())],
-    }
+      css: [this.vfile(file, contents)],
+    })
   }
 
   /**

@@ -1,53 +1,45 @@
-export type Options = Options.Src | Options.Html
+export interface Options {
+  /**
+   * Html source string
+   */
+  src?: string
 
-export namespace Options {
-  export interface Base {
-    /**
-     * Base directory
-     */
-    base?: string
+  /**
+   * Html source string
+   */
+  html?: string
 
-    /**
-     * Viewport width
-     */
-    width?: number
+  /**
+   * Base directory
+   */
+  base?: string
 
-    /**
-     * Viewport height
-     */
-    height?: number
+  /**
+   * Viewport width
+   */
+  width?: number
 
-    /**
-     * Minify critical-path CSS when inlining
-     */
-    minify?: boolean
+  /**
+   * Viewport height
+   */
+  height?: number
 
-    /**
-     * Extract inlined styles from referenced stylesheets
-     */
-    extract?: boolean
+  /**
+   * Minify critical-path CSS when inlining
+   */
+  minify?: boolean
 
-    /**
-     * Ignore CSS rules
-     */
-    ignore?: {
-      atrule: string[]
-      rule: RegExp[]
-      decl: (node: any, value: any) => boolean
-    }
-  }
+  /**
+   * Extract inlined styles from referenced stylesheets
+   */
+  hash?: boolean
 
-  export interface Src extends Base {
-    /**
-     * Html source string
-     */
-    src?: string
-  }
-
-  export interface Html extends Base {
-    /**
-     * Html file
-     */
-    html?: string
+  /**
+   * Ignore CSS rules
+   */
+  ignore?: {
+    atrule: string[]
+    rule: RegExp[]
+    decl: (node: any, value: any) => boolean
   }
 }
