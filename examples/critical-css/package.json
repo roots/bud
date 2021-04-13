@@ -1,11 +1,14 @@
 {
-  "name": "example-esbuild",
+  "name": "example-critical-css",
   "private": true,
   "scripts": {
     "bud": "node ../../node_modules/.bin/bud"
   },
   "devDependencies": {
     "@roots/bud": "^3.2.0-next.2",
-    "@roots/bud-esbuild": "^3.2.0-next.2"
+    "@roots/bud-postcss": "^3.2.0-next.2",
+    "@roots/bud-tailwindcss": "^3.2.0-next.2",
+    "@tailwindcss/jit": "^0.1.18",
+    "tailwindcss": "^2.1.1"
   }
 }

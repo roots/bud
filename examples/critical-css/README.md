@@ -25,13 +25,13 @@
 </p>
 
 <h1 align="center">
-  <strong>Example: ESBuild</strong>
+  <strong>Example: Critical CSS</strong>
 </h1>
 
 ## Requirements
 
 - @roots/bud
-- @roots/bud-esbuild
+- @roots/bud-criticalcss
 
 ## Contributing
 

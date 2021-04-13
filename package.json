@@ -72,6 +72,7 @@
       "packages/@roots/wordpress-dependencies-webpack-plugin",
       "packages/@roots/wordpress-externals-webpack-plugin",
       "examples/babel",
+      "examples/critical-css",
       "examples/esbuild",
       "examples/postcss",
       "examples/react",

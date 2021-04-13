@@ -9694,6 +9694,18 @@ __metadata:
   languageName: unknown
   linkType: soft
 
+"example-critical-css@workspace:examples/critical-css":
+  version: 0.0.0-use.local
+  resolution: "example-critical-css@workspace:examples/critical-css"
+  dependencies:
+    "@roots/bud": ^3.2.0-next.2
+    "@roots/bud-postcss": ^3.2.0-next.2
+    "@roots/bud-tailwindcss": ^3.2.0-next.2
+    "@tailwindcss/jit": ^0.1.18
+    tailwindcss: ^2.1.1
+  languageName: unknown
+  linkType: soft
+
 "example-esbuild@workspace:examples/esbuild":
   version: 0.0.0-use.local
   resolution: "example-esbuild@workspace:examples/esbuild"

@@ -9,7 +9,7 @@ module.exports = app =>
   app
     .use(require('@roots/bud-criticalcss'))
     .html({enabled: true})
-    .entry('scripts/app', 'app.css')
+    .entry('app', 'app.css')
     .runtime()
     .splitChunks()
     .hash()
