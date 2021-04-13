@@ -1,7 +1,7 @@
 /**
  * Tailwind configuration example
  *
- * @typedef {import('@roots/bud').Bud & import('@roots/bud-framework').Framework} Bud
+ * @typedef {import('@roots/bud').Bud} Bud
  * @type {(bud: Bud): Bud}
  */
 

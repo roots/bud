@@ -52,11 +52,11 @@
   },
   "devDependencies": {
     "@roots/bud-framework": "^3.2.0-next.2",
-    "webpack": "^5.31.2"
+    "webpack": "^5.32.0"
   },
   "dependencies": {
     "@roots/bud-support": "^3.2.0-next.2",
-    "http-proxy-middleware": "^1.1.0",
+    "http-proxy-middleware": "^1.1.1",
     "json-stringify-safe": "^5.0.1",
     "webpack-dev-middleware": "^4.1.0",
     "webpack-hot-client": "^4.2.0",

@@ -60,7 +60,7 @@
     {"@roots/bud-wordpress-dependencies": "bud-wordpress-dependencies"},
     {"@roots/bud-wordpress-manifests": "bud-wordpress-manifests"},
     {"@roots/container": "container"},
-    {"@roots/criticalcss-webpack-plugin": "criticalcss-webpack-plugin"},
+    {"@roots/critical-css-webpack-plugin": "critical-css-webpack-plugin"},
     {"@roots/dependencies": "dependencies"},
     {"@roots/filesystem": "filesystem"},
     {"@roots/ink-use-style": "ink-use-style"},

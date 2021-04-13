@@ -63,7 +63,7 @@
   "dependencies": {
     "@emotion/css": "^11.1.3",
     "@emotion/react": "^11.1.5",
-    "@emotion/styled": "^11.1.5",
+    "@emotion/styled": "^11.3.0",
     "@roots/bud-support": "^3.2.0-next.2"
   },
   "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"

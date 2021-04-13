@@ -55,12 +55,12 @@
     "@roots/bud": "^3.2.0-next.2",
     "@roots/bud-framework": "^3.2.0-next.2",
     "@roots/bud-typings": "^3.2.0-next.0",
-    "webpack": "^5.31.2"
+    "webpack": "^5.32.0"
   },
   "dependencies": {
     "stylelint": "^13.12.0",
     "stylelint-config-standard": "^21.0.0",
-    "stylelint-webpack-plugin": "^2.1.0"
+    "stylelint-webpack-plugin": "^2.1.1"
   },
   "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"
 }

@@ -39,7 +39,7 @@
     "packages/@roots/bud-wordpress-externals",
     "packages/@roots/bud-wordpress-manifests",
     "packages/@roots/container",
-    "packages/@roots/criticalcss-webpack-plugin",
+    "packages/@roots/critical-css-webpack-plugin",
     "packages/@roots/dependencies",
     "packages/@roots/entrypoints-webpack-plugin",
     "packages/@roots/filesystem",

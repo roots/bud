@@ -1,15 +1,11 @@
 {
-  "name": "bud-example-tailwindcss",
+  "name": "example-postcss",
   "private": true,
-  "scripts": {
-    "bud": "node ../../node_modules/.bin/bud"
-  },
-  "dependencies": {
-    "@roots/bud-preset-recommend": "latest",
-    "@roots/bud-tailwindcss": "latest"
-  },
   "devDependencies": {
     "@babel/core": "^7.13.10",
+    "@roots/bud": "^3.2.0-next.2",
+    "@roots/bud-babel": "^3.2.0-next.2",
+    "@roots/bud-postcss": "^3.2.0-next.2",
     "postcss": "^8.2.8"
   }
 }

@@ -57,7 +57,7 @@
   },
   "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684",
   "devDependencies": {
-    "@types/prettier": "^2",
+    "@types/prettier": "^2.2.3",
     "react": "^17.0.2"
   }
 }

@@ -60,10 +60,10 @@
     "@roots/bud-support": "^3.2.0-next.2",
     "@roots/bud-typings": "^3.2.0-next.0",
     "css-loader": "^5.2.1",
-    "webpack": "^5.31.2"
+    "webpack": "^5.32.0"
   },
   "dependencies": {
-    "babel-helper-vue-jsx-merge-props": "^2.0.0",
+    "babel-helper-vue-jsx-merge-props": "^2.0.3",
     "babel-plugin-transform-vue-jsx": "^3.7.0",
     "de-indent": "^1.0.2",
     "he": "^1.1.0",

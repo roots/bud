@@ -1,10 +1,14 @@
 // @ts-check
-const {
-  app,
-} = require('./../../packages/@roots/bud-preset-recommend')
+/**
+ * Tailwind configuration example
+ *
+ * @typedef {import('@roots/bud').Bud} Bud
+ * @type {(bud: Bud) => Bud}
+ */
 
-app
-  .use(require('@roots/bud-vue'))
-  .entry('app', ['app.vue'])
-  .minify(false)
-  .run()
+module.exports = app =>
+  app
+    .use(require('@roots/bud-vue'))
+    .entry('app', ['app.vue'])
+    .minify(false)
+    .run()

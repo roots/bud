@@ -56,7 +56,7 @@
     "@roots/bud-babel": "^3.2.0-next.2",
     "@roots/bud-framework": "^3.2.0-next.2",
     "@roots/bud-support": "^3.2.0-next.2",
-    "webpack": "^5.31.2"
+    "webpack": "^5.32.0"
   },
   "dependencies": {
     "@babel/preset-react": "^7.13.13",

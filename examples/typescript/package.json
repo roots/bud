@@ -1,5 +1,6 @@
 {
-  "name": "bud-example-typescript",
+  "name": "example-typescript",
+  "private": true,
   "scripts": {
     "bud": "node ../../node_modules/.bin/bud"
   }

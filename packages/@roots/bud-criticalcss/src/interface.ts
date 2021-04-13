@@ -23,9 +23,7 @@ declare module '@roots/bud-framework' {
     /**
      * app.critical fn
      */
-    type Configure = (
-      options: CriticalCss.Options,
-    ) => Framework
+    type Configure = (options: CriticalCss.Options) => Framework
 
     /**
      * Options

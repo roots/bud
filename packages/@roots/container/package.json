@@ -52,7 +52,7 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "dependencies": {
-    "lodash": "^4.17.19"
+    "lodash": "^4.17.21"
   },
   "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684",
   "devDependencies": {
