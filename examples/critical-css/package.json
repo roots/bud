@@ -1,9 +1,6 @@
 {
   "name": "example-critical-css",
   "private": true,
-  "scripts": {
-    "bud": "node ../../node_modules/.bin/bud"
-  },
   "devDependencies": {
     "@roots/bud": "^3.2.0-next.2",
     "@roots/bud-criticalcss": "^3.2.0-next.2",

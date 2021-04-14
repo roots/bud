@@ -1,0 +1,9 @@
+version: '3'
+services:
+  node:
+    build: ./scripts
+    user: 'node'
+    working_dir: /home/node/app
+    volumes:
+      - ./:/home/node/app
+    command: bash -c /home/node/app/scripts/init.sh
