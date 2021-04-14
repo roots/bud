@@ -16,9 +16,14 @@ module.exports = bud =>
       template: 'public/index.html',
     })
     .critical({
-      src: 'public/index.html',
       hash: true,
+      replace: '%INLINE_CSS%',
+      criticalOptions: {
+        src: 'public/index.html',
+      },
     })
     .hash()
-    .entry('app', 'app.css')
+    .entry('app', ['app.css'])
+    .entry('app2', ['app2.css'])
     .splitChunks()
+    .runtime()

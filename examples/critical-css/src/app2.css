@@ -4,7 +4,3 @@
 @import 'tailwindcss/utilities';
 
 @import 'common/global';
-
-.hundred {
-  font-weight: bold;
-}

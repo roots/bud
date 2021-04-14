@@ -1,8 +1,11 @@
 import type {Options} from './interface'
-import Webpack from 'webpack'
+import Webpack, {Module} from 'webpack'
 import critical from 'critical'
 import {boundMethod as bind} from 'autobind-decorator'
 import vinyl from 'vinyl'
+import safeRequire from 'safe-require'
+
+const HtmlWebpackPlugin = safeRequire('html-webpack-plugin')
 
 /**
  * CriticalCSSWebpackPlugin
@@ -13,7 +16,7 @@ export class CriticalCssWebpackPlugin {
    */
   public plugin = {
     name: 'CriticalCssWebpackPlugin',
-    stage: Webpack.Compilation.PROCESS_ASSETS_STAGE_OPTIMIZE,
+    stage: Webpack.Compilation.PROCESS_ASSETS_STAGE_DERIVED,
   }
 
   /**
@@ -31,16 +34,19 @@ export class CriticalCssWebpackPlugin {
    * Options
    */
   public _options: Options = {
-    minify: true,
-    width: 375,
-    height: 565,
+    criticalOptions: {
+      minify: true,
+      extract: true,
+      width: 375,
+      height: 565,
+    },
   }
 
   /**
    * Entrypoint css mapping
    */
-  public entrypointCss: {
-    [key: string]: string
+  public entrypoints: {
+    [key: string]: any
   } = {}
 
   /**
@@ -71,7 +77,7 @@ export class CriticalCssWebpackPlugin {
    * Webpack apply plugin
    */
   @bind
-  public apply(compiler: Webpack.Compiler): void {
+  public async apply(compiler: Webpack.Compiler): Promise<void> {
     this.webpack.compiler = compiler
 
     this.webpack.compiler.hooks.thisCompilation.tap(
@@ -101,66 +107,65 @@ export class CriticalCssWebpackPlugin {
     assets: Webpack.Compilation['assets'],
     callback: () => any,
   ) {
-    for (const [name, entry] of this.webpack.compilation
+    for (const [entryName, entry] of this.webpack.compilation
       .entrypoints) {
-      entry.chunks.map(chunk => {
-        this.webpack.compilation.chunkGraph
-          .getChunkModules(chunk)
-          .filter(
-            module =>
-              module?.type.includes('css') &&
-              (module as any).content,
+      await Promise.all(
+        entry.chunks.map(async chunk => {
+          await Promise.all(
+            this.getMergedCssModules(chunk).map(async module => {
+              entry.getFiles().map(file => {
+                if (file.includes('.css')) {
+                  delete this.webpack.compilation.assets[file]
+                }
+              })
+
+              await this.criticalEntry(entryName, module)
+            }),
           )
-          .map(async module => {
-            const outputName = this.maybeHashName(module, name)
-            const content = (module as any).content.toString()
-
-            const {
-              css,
-              uncritical,
-            } = await this.generateCritical(name, content)
-
-            Object.assign(assets, {
-              [`critical/${outputName}.css`]: new Webpack.sources.RawSource(
-                uncritical,
-              ),
-              [`critical/${outputName}.critical.css`]: new Webpack.sources.RawSource(
-                css,
-              ),
-            })
-
-            return module
-          })
-      })
+        }),
+      )
     }
 
     callback()
   }
 
+  @bind
+  public async criticalEntry(entry: string, module: Module) {
+    const name = this.maybeHashName(module, entry)
+
+    const {css, uncritical} = await this.generateCritical(
+      entry,
+      name,
+      (module as any).content.toString(),
+    )
+
+    this.webpack.compilation.emitAsset(
+      `${name}.css`,
+      new Webpack.sources.RawSource(uncritical),
+    )
+
+    this.webpack.compilation.emitAsset(
+      `critical/${name}.css`,
+      new Webpack.sources.RawSource(css),
+    )
+
+    HtmlWebpackPlugin.getHooks(
+      this.webpack.compilation,
+    ).beforeEmit.tapAsync(this.plugin.name, this.htmlInject(css))
+  }
+
   /**
-   * Key concatenated styles by entrypoint name
+   * Get merged css modules
    */
   @bind
-  public mapConcatenatedStyles() {
-    for (const [name, entry] of this.webpack.compilation
-      .entrypoints) {
-      entry.chunks.map(chunk => {
-        this.webpack.compilation.chunkGraph
-          .getChunkModules(chunk)
-          .filter(
-            module =>
-              module?.type.includes('css') &&
-              (module as any).content,
-          )
-          .map(module => {
-            const outputName = this.maybeHashName(module, name)
-
-            Object.assign(this.entrypointCss, {
-              [outputName]: (module as any).content.toString(),
-            })
-          })
+  public getMergedCssModules(chunk) {
+    return this.webpack.compilation.chunkGraph
+      .getChunkModules(chunk)
+      .filter(module => {
+        return (
+          module?.type.includes('css') && (module as any).content
+        )
       })
-    }
   }
 
   /**
@@ -178,10 +183,12 @@ export class CriticalCssWebpackPlugin {
     for (const runtime of this.webpack.compilation.chunkGraph.getModuleRuntimes(
       module,
     )) {
-      name = `${name}.${this.webpack.compilation.chunkGraph.getRenderedModuleHash(
+      const hash = this.webpack.compilation.chunkGraph.getRenderedModuleHash(
         module,
         runtime,
-      )}`
+      )
+
+      name = `${name}.${hash}`
     }
 
     return name
@@ -191,14 +198,15 @@ export class CriticalCssWebpackPlugin {
    * Generates critical css
    */
   @bind
-  public async generateCritical(file: string, contents: string) {
-    const options = this.options
-    delete options.hash
-
+  public async generateCritical(
+    entry: string,
+    file: string,
+    contents: string,
+  ) {
     return await critical.generate({
-      ...options,
+      ...this.options.criticalOptions,
       base:
-        this.options.base ??
+        this.options.criticalOptions.base ??
         this.webpack.compilation.outputOptions.path,
       css: [this.vfile(file, contents)],
     })
@@ -214,5 +222,23 @@ export class CriticalCssWebpackPlugin {
       path,
       contents: Buffer.from(contents),
     })
+  }
+
+  /**
+   * Inline HTML webpack plugin
+   */
+  @bind
+  public htmlInject(css: string) {
+    return async (
+      data: {html: string},
+      cb: (...args: any) => any,
+    ) => {
+      data.html = data.html.replace(
+        this.options.replace,
+        `<style>${css}</style>`,
+      )
+
+      cb(null, data)
+    }
   }
 }

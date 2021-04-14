@@ -53,9 +53,12 @@
   "dependencies": {
     "autobind-decorator": "^2.4.0",
     "critical": "^3.0.0",
+    "lodash": "^4.17.21",
+    "safe-require": "^1.0.4",
     "vinyl": "^2.2.1"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.168",
     "@types/vinyl": "^2"
   }
 }

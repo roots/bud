@@ -1,33 +1,49 @@
 export interface Options {
-  /**
-   * Html source string
-   */
-  src?: string
+  criticalOptions: {
+    /**
+     * Html source string
+     */
+    src?: string
 
-  /**
-   * Html source string
-   */
-  html?: string
+    /**
+     * Html source string
+     */
+    html?: string
 
-  /**
-   * Base directory
-   */
-  base?: string
+    /**
+     * Base directory
+     */
+    base?: string
 
-  /**
-   * Viewport width
-   */
-  width?: number
+    /**
+     * Viewport width
+     */
+    width?: number
 
-  /**
-   * Viewport height
-   */
-  height?: number
+    /**
+     * Viewport height
+     */
+    height?: number
 
-  /**
-   * Minify critical-path CSS when inlining
-   */
-  minify?: boolean
+    /**
+     * Minify critical-path CSS when inlining
+     */
+    minify?: boolean
+
+    /**
+     * Extract critical
+     */
+    extract?: boolean
+
+    /**
+     * Ignore CSS rules
+     */
+    ignore?: {
+      atrule: string[]
+      rule: RegExp[]
+      decl: (node: any, value: any) => boolean
+    }
+  }
 
   /**
    * Extract inlined styles from referenced stylesheets
@@ -35,11 +51,7 @@ export interface Options {
   hash?: boolean
 
   /**
-   * Ignore CSS rules
+   * Replace var with inlined CSS
    */
-  ignore?: {
-    atrule: string[]
-    rule: RegExp[]
-    decl: (node: any, value: any) => boolean
-  }
+  replace?: string
 }

@@ -3629,9 +3629,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/critical-css-webpack-plugin@workspace:packages/@roots/critical-css-webpack-plugin"
   dependencies:
+    "@types/lodash": ^4.14.168
     "@types/vinyl": ^2
     autobind-decorator: ^2.4.0
     critical: ^3.0.0
+    lodash: ^4.17.21
+    safe-require: ^1.0.4
     vinyl: ^2.2.1
   languageName: unknown
   linkType: soft
@@ -19287,6 +19290,13 @@ resolve@^2.0.0-next.3:
   dependencies:
     ret: ~0.1.10
   checksum: 9a8bba57c87a841f7997b3b951e8e403b1128c1a4fd1182f40cc1a20e2d490593d7c2a21030fadfea320c8e859219019e136f678c6689ed5960b391b822f01d5
+  languageName: node
+  linkType: hard
+
+"safe-require@npm:^1.0.4":
+  version: 1.0.4
+  resolution: "safe-require@npm:1.0.4"
+  checksum: 78c1b96671f3bb05f40c962fe7b9cc55f3a4053b665b2a01e9356d065b7b9934b26d5c93f70bbccb9dde0c9b5b20e23cac5c45a69459e78a965d6b5c3fee1777
   languageName: node
   linkType: hard
 

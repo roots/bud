@@ -1,6 +1,5 @@
-import {RawSource} from 'webpack-sources'
-import Webpack from 'webpack'
-import {resolve, relative} from 'path'
+import Webpack, {Chunk, Module} from 'webpack'
+import {boundMethod as bind} from 'autobind-decorator'
 
 /**
  * Entrypoints Webpack Plugin
@@ -15,115 +14,119 @@ export class Plugin {
   }
 
   /**
-   * Compilation context.
-   */
-  public context: Webpack.Compiler['context']
-
-  /**
-   * Hook: webpack compilation output.
-   */
-  public readonly hook: string[] = ['compilation', 'output']
-
-  /**
-   * Build hash
-   */
-  public hash: Webpack.Compilation['hash']
-
-  /**
    * Emitted filename
    */
   public name: string = 'entrypoints.json'
 
   /**
-   * Emitted file path
+   * Webpack references
    */
-  public path: string
+  public webpack: {
+    compiler: Webpack.Compiler
+    compilation: Webpack.Compilation
+  } = {
+    compiler: null,
+    compilation: null,
+  }
+
+  public assets: {[key: string]: {[key: string]: string[]}}
 
   /**
-   * Emitted file
+   * Apply
    */
-  public file: string
-
-  /**
-   * Public path of emitted assets
-   */
-  public publicPath:
-    | string
-    | Webpack.Compiler['options']['output']['publicPath']
-
-  /**
-   * Emitted contents
-   */
-  public output = {}
-
-  /**
-   * Webpack apply plugin
-   */
+  @bind
   apply(compiler: Webpack.Compiler): void {
-    this.publicPath = compiler.options.output.publicPath
-    this.path = resolve(compiler.options.output.path, this.name)
-    this.file = relative(compiler.options.output.path, this.path)
+    this.assets = {}
 
-    compiler.hooks.thisCompilation.tap(
+    this.webpack.compiler = compiler
+
+    this.webpack.compiler.hooks.thisCompilation.tap(
       this.plugin,
-      (compilation: Webpack.Compilation): void => {
-        compilation.hooks.processAssets.tap(
-          this.plugin,
-          assets => {
-            const raw = {}
-
-            compilation.entrypoints.forEach(entry => {
-              entry.chunks.map(({files}) => {
-                raw[entry.name] = Array.from(files).reduce(
-                  (a, file) => {
-                    const type = file.split('.').pop()
-
-                    return {
-                      ...(a ?? {}),
-                      [type]: file.includes('hot-update')
-                        ? {
-                            ...(a?.[type] ?? {}),
-                          }
-                        : {
-                            ...(a?.[type] ?? {}),
-                            [entry.name]: `${this.publicPath}${file}`,
-                          },
-                    }
-                  },
-                  Array.from(
-                    entry.getRuntimeChunk()?.files,
-                  ).reduce((a, file) => {
-                    const type = file.split('.').pop()
-
-                    return {
-                      ...(a ?? {}),
-                      [type]: {
-                        ...(a[type] ?? {}),
-                        [entry.getRuntimeChunk()
-                          .name]: `${this.publicPath}${file}`,
-                      },
-                    }
-                  }, {}),
-                )
-
-                this.output = Object.fromEntries(
-                  Object.entries(raw).filter(item => item),
-                )
-              })
-            })
-          },
-        )
-
-        compilation.hooks.afterProcessAssets.tap(
-          this.plugin,
-          assets => {
-            assets[this.name] = new RawSource(
-              JSON.stringify(this.output),
-            )
-          },
-        )
-      },
+      this.compilation,
     )
+  }
+
+  /**
+   * Compilation
+   */
+  @bind
+  public compilation(compilation: Webpack.Compilation) {
+    this.webpack.compilation = compilation
+
+    this.webpack.compilation.hooks.processAssets.tap(
+      {...this.plugin, additionalAssets: true},
+      this.processAssets,
+    )
+  }
+
+  /**
+   * After process assets
+   */
+  @bind
+  public processAssets() {
+    this.webpack.compilation.entrypoints.forEach(entry => {
+      this.getEntrypointFiles(entry).map(file => {
+        !file.includes('hot-update') &&
+          this.addToManifest(entry.name, file)
+      })
+    })
+
+    this.webpack.compilation.assets[
+      this.name
+    ] = new Webpack.sources.RawSource(
+      JSON.stringify({...this.assets}),
+      true,
+    )
+  }
+
+  /**
+   * Add to manifest
+   */
+  @bind
+  public addToManifest(entry, file) {
+    const type = file.split('.').pop()
+
+    this.assets[entry] = {
+      ...(this.assets[entry] ?? {}),
+      [type]:
+        this.assets[entry] &&
+        this.assets[entry][type] &&
+        !this.assets[entry][type].includes(file)
+          ? [...this.assets[entry][type], file]
+          : [file],
+    }
+  }
+
+  /**
+   * Return publicPath from a dist relative path
+   */
+  @bind
+  public publicPath(path: string) {
+    return `${this.webpack.compiler.options.output.publicPath}${path}`
+  }
+
+  /**
+   * Get merged css modules
+   */
+  @bind
+  public getEntrypointFiles(entry: {
+    chunks: Webpack.Chunk[]
+    origins: any[]
+  }): string[] {
+    const files = entry.chunks.reduce(
+      (acc: Module[], chunk: Chunk) => {
+        const files = []
+
+        for (const file of chunk.files) {
+          files.push(file)
+        }
+
+        return [...acc, ...files]
+      },
+      [],
+    )
+
+    return files
   }
 }
 
