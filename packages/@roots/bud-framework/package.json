@@ -43,7 +43,7 @@
     "lint": "run-s lint:*",
     "lint:eslint": "eslint 'src/**/*.{js,ts,tsx}' --fix",
     "lint:prettier": "prettier 'src/**/*'  --write",
-    "clean": "run-s clean:*",
+    "clean": "run-s clean:lib clean:modules clean:types",
     "clean:lib": "rimraf ./lib",
     "clean:modules": "rimraf ./node_modules",
     "clean:types": "rimraf ./types",
@@ -52,11 +52,15 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
+    "@roots/bud-framework": "^3.1.0",
     "@roots/bud-typings": "^3.2.0-next.0",
-    "npm-run-all": "^4.1.5"
+    "@types/node": "^14.14.39",
+    "@types/rimraf": "^3.0.0",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2"
   },
   "dependencies": {
-    "@roots/bud-support": "^3.2.0-next.2",
+    "@roots/bud-support": "workspace:packages/@roots/bud-support",
     "@roots/container": "^3.2.0-next.0",
     "@roots/dependencies": "^3.2.0-next.0",
     "@roots/filesystem": "^3.2.0-next.0"

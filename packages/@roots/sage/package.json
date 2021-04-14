@@ -48,7 +48,7 @@
     "lint": "run-s lint:*",
     "lint:eslint": "eslint 'src/**/*.{js,ts,tsx}' --fix",
     "lint:prettier": "prettier 'src/**/*'  --write",
-    "clean": "run-s clean:*",
+    "clean": "run-s clean:lib clean:modules clean:types",
     "clean:lib": "rimraf ./lib",
     "clean:modules": "rimraf ./node_modules",
     "clean:types": "rimraf ./types",
@@ -57,29 +57,34 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
-    "@roots/bud-typings": "^3.2.0-next.0"
+    "@roots/bud-typings": "^3.2.0-next.0",
+    "@types/node": "^14.14.39",
+    "@types/rimraf": "^3.0.0",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2"
   },
   "dependencies": {
     "@roots/bud": "^3.2.0-next.2",
-    "@roots/bud-api": "^3.2.0-next.2",
+    "@roots/bud-api": "workspace:packages/@roots/bud-api",
     "@roots/bud-babel": "^3.2.0-next.2",
     "@roots/bud-cli": "^3.2.0-next.2",
     "@roots/bud-entrypoints": "^3.2.0-next.2",
     "@roots/bud-esbuild": "^3.2.0-next.2",
     "@roots/bud-eslint": "^3.2.0-next.2",
-    "@roots/bud-framework": "^3.2.0-next.2",
-    "@roots/bud-postcss": "^3.2.0-next.2",
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
+    "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
     "@roots/bud-preset-recommend": "^3.2.0-next.2",
     "@roots/bud-prettier": "^3.2.0-next.2",
     "@roots/bud-react": "^3.2.0-next.2",
     "@roots/bud-stylelint": "^3.2.0-next.2",
-    "@roots/bud-support": "^3.2.0-next.2",
+    "@roots/bud-support": "workspace:packages/@roots/bud-support",
     "@roots/bud-tailwindcss": "^3.2.0-next.2",
     "@roots/bud-typescript": "^3.2.0-next.2",
     "@roots/bud-wordpress-dependencies": "^3.2.0-next.2",
     "@roots/bud-wordpress-externals": "^3.2.0-next.2",
     "@roots/bud-wordpress-manifests": "^3.2.0-next.2",
-    "@roots/container": "^3.2.0-next.0"
+    "@roots/container": "^3.2.0-next.0",
+    "@roots/filesystem": "workspace:packages/@roots/filesystem"
   },
   "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"
 }

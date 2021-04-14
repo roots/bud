@@ -43,7 +43,7 @@
     "lint": "run-s lint:*",
     "lint:eslint": "eslint 'src/**/*.{js,ts,tsx}' --fix",
     "lint:prettier": "prettier 'src/**/*'  --write",
-    "clean": "run-s clean:*",
+    "clean": "run-s clean:lib clean:modules clean:types",
     "clean:lib": "rimraf ./lib",
     "clean:modules": "rimraf ./node_modules",
     "clean:types": "rimraf ./types",
@@ -56,20 +56,27 @@
     "@roots/bud-support": "^3.1.0"
   },
   "devDependencies": {
-    "@roots/bud-framework": "^3.2.0-next.2",
-    "@roots/bud-support": "^3.2.0-next.2",
+    "@roots/bud-api": "workspace:packages/@roots/bud-api",
+    "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
+    "@roots/bud-support": "workspace:packages/@roots/bud-support",
     "@roots/bud-typings": "^3.2.0-next.0",
+    "@types/node": "^14.14.39",
+    "@types/rimraf": "^3.0.0",
     "css-loader": "^5.2.1",
-    "webpack": "^5.32.0"
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2",
+    "webpack": "^5.33.2"
   },
   "dependencies": {
     "babel-helper-vue-jsx-merge-props": "^2.0.3",
     "babel-plugin-transform-vue-jsx": "^3.7.0",
     "de-indent": "^1.0.2",
-    "he": "^1.1.0",
+    "he": "^1.2.0",
     "vue": "^2.6.12",
     "vue-hot-reload-api": "^2.3.4",
     "vue-loader": "^15.9.6",
+    "vue-style-loader": "^4.1.3",
     "vue-template-compiler": "^2.6.12"
   },
   "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"

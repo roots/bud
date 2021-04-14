@@ -44,7 +44,7 @@
     "lint": "run-s lint:*",
     "lint:eslint": "eslint 'src/**/*.{js,ts,tsx}' --fix",
     "lint:prettier": "prettier 'src/**/*'  --write",
-    "clean": "run-s clean:*",
+    "clean": "run-s clean:lib clean:modules clean:types",
     "clean:lib": "rimraf ./lib",
     "clean:modules": "rimraf ./node_modules",
     "clean:types": "rimraf ./types",
@@ -54,14 +54,19 @@
   },
   "devDependencies": {
     "@roots/bud-babel": "^3.2.0-next.2",
-    "@roots/bud-framework": "^3.2.0-next.2",
-    "@roots/bud-support": "^3.2.0-next.2",
-    "webpack": "^5.32.0"
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
+    "@roots/bud-support": "workspace:packages/@roots/bud-support",
+    "@roots/bud-typings": "workspace:packages/@roots/bud-typings",
+    "@types/node": "^14.14.39",
+    "@types/rimraf": "^3.0.0",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2",
+    "webpack": "^5.33.2"
   },
   "dependencies": {
     "@babel/preset-react": "^7.13.13",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
-    "@roots/bud-support": "^3.2.0-next.2",
+    "@roots/bud-support": "workspace:packages/@roots/bud-support",
     "@svgr/core": "^5.5.0",
     "@svgr/webpack": "^5.5.0",
     "react": "^17.0.2",

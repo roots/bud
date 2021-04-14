@@ -1,5 +1,5 @@
 import '@roots/bud-api'
-import '@roots/framework'
+import '@roots/bud-framework'
 import type {Bud} from '@roots/bud'
 import type {Framework} from '@roots/bud-framework'
 

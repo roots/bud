@@ -19,7 +19,7 @@
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
   "engines": {
-    "node": ">=12.0"
+    "node": ">=15.0"
   },
   "workspaces": {
     "packages": [
@@ -84,11 +84,11 @@
     ]
   },
   "scripts": {
-    "build": "lerna run build",
+    "build": "yarn workspaces foreach -p -i -v --topological run build",
     "dev": "node ./scripts/dev",
     "ci": "run-s build lint:eslint lint:prettier test pkg",
-    "clean": "lerna exec -- rm -rf node_modules tsconfig.tsbuildinfo lib types && rm -rf node_modules",
-    "pkg": "lerna exec -- yarn run pkg",
+    "clean": "yarn workspaces foreach run rimraf node_modules tsconfig.tsbuildinfo lib types node_modules",
+    "pkg": "yarn workspaces foreach yarn run pkg",
     "lint": "run-s lint:eslint lint:prettier",
     "lint:eslint": "eslint 'packages/**/*.{js,ts,tsx}' --fix",
     "lint:prettier": "prettier 'packages/**/src/**/*'  --write",
@@ -109,7 +109,7 @@
     "@types/json-stringify-safe": "^5.0.0",
     "@types/lodash": "^4.14.168",
     "@types/mini-css-extract-plugin": "^1.4.1",
-    "@types/node": "^14.14.37",
+    "@types/node": "^14.14.39",
     "@types/node-notifier": "^8.0.0",
     "@types/react": "^17.0.3",
     "@types/shell-quote": "^1.7.0",
@@ -124,14 +124,13 @@
     "commitizen": "^4.2.3",
     "conventional-changelog-cli": "^2.1.1",
     "copy-webpack-plugin": "^8.1.1",
-    "critical": "^2.0.0",
+    "critical": "^2.0.6",
     "css-loader": "^5.2.1",
     "css-minimizer-webpack-plugin": "^2.0.0",
-    "cz-lerna-changelog": "^2.0.3",
     "dotenv": "^8.2.0",
     "escape-string-regexp": "^4.0.0",
     "eslint": "^7.24.0",
-    "eslint-config-prettier": "^8.1.0",
+    "eslint-config-prettier": "^8.2.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-prettier": "^3.3.1",
     "eslint-plugin-react": "^7.23.2",
@@ -140,19 +139,19 @@
     "express": "^4.17.1",
     "file-loader": "^6.2.0",
     "fs-extra": "^9.1.0",
-    "http-proxy-middleware": "^1.1.1",
+    "http-proxy-middleware": "^1.1.2",
     "husky": "^6.0.0",
     "ink": "^3.0.8",
     "ink-big-text": "^1.2.0",
     "ink-gradient": "^2.0.0",
     "jest": "^26.6.3",
-    "lerna": "^4.0.0",
     "lodash": "^4.17.21",
     "mini-css-extract-plugin": "^1.4.1",
     "mini-svg-data-uri": "^1.2.3",
     "node-notifier": "^9.0.1",
     "npm-run-all": "^4.1.5",
     "patch-console": "^1.0.0",
+    "postcss": "^8.2.10",
     "prettier": "^2.2.1",
     "pretty-format": "^26.6.2",
     "raw-loader": "^4.0.2",
@@ -165,9 +164,9 @@
     "signale": "^1.4.0",
     "ts-jest": "^26.5.4",
     "ts-node": "^9.1.1",
-    "type-fest": "^1.0.1",
+    "type-fest": "^1.0.2",
     "typescript": "^4.2.4",
-    "webpack": "^5.32.0",
+    "webpack": "^5.33.2",
     "webpack-dev-middleware": "^4.1.0",
     "webpack-hot-middleware": "^2.25.0"
   }

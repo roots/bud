@@ -42,7 +42,7 @@
     "lint": "run-s lint:*",
     "lint:eslint": "eslint 'src/**/*.{js,ts,tsx}' --fix",
     "lint:prettier": "prettier 'src/**/*'  --write",
-    "clean": "run-s clean:*",
+    "clean": "run-s clean:lib clean:modules clean:types",
     "clean:lib": "rimraf ./lib",
     "clean:modules": "rimraf ./node_modules",
     "clean:types": "rimraf ./types",
@@ -51,19 +51,25 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
-    "@roots/bud-framework": "^3.2.0-next.2",
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@roots/bud-typings": "^3.2.0-next.0",
-    "webpack": "^5.32.0"
+    "@types/node": "^14.14.39",
+    "@types/rimraf": "^3.0.0",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2",
+    "webpack": "^5.33.2"
   },
   "dependencies": {
     "babel-eslint": "^10.1.0",
+    "chalk": "^4.1.0",
     "eslint": "^7.24.0",
-    "eslint-config-prettier": "^8.1.0",
+    "eslint-config-prettier": "^8.2.0",
     "eslint-plugin-import": "^2.22.1",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-react": "^7.23.2",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-webpack-plugin": "^2.5.3",
+    "strip-ansi": "^6.0.0",
     "text-table": "^0.2.0"
   },
   "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"

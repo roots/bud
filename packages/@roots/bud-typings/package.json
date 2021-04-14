@@ -33,8 +33,22 @@
     "pkg": "echo \"\""
   },
   "devDependencies": {
-    "@roots/bud-support": "^3.2.0-next.2",
-    "child_process": "^1.0.2"
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
+    "@roots/bud-support": "workspace:packages/@roots/bud-support",
+    "@types/express": "^4.17.11",
+    "@types/node": "^14.14.39",
+    "@types/rimraf": "^3.0.0",
+    "@types/webpack-dev-middleware": "^4.1.2",
+    "child_process": "^1.0.2",
+    "chokidar": "^3.5.1",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "http-proxy-middleware": "^1.1.2",
+    "npm-run-all": "^4.1.5",
+    "rimraf": "^3.0.2",
+    "type-fest": "^1.0.2",
+    "webpack": "^5.33.2",
+    "webpack-dev-middleware": "^4.1.0"
   },
   "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"
 }
