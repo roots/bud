@@ -22,6 +22,9 @@ import {Logger} from './services/Logger'
 import {Store} from './services/Store'
 import {Util} from './services/Util'
 
+/**
+ * Bud
+ */
 export class Bud extends Framework {
   public api: Api
 

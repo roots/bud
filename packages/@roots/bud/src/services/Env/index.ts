@@ -1,5 +1,5 @@
-import dotenv from 'dotenv'
 import {Service} from '@roots/bud-framework'
+import dotenv from 'dotenv'
 
 /**
  * Framework/Env

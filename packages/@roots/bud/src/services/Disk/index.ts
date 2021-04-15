@@ -1,5 +1,6 @@
 import {Service} from '@roots/bud-framework'
-import {bind, FileContainer} from '@roots/bud-support'
+import {FileContainer} from '@roots/filesystem'
+import {boundMethod as bind} from 'autobind-decorator'
 
 declare interface Definition {
   [key: string]: {

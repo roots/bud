@@ -1,6 +1,6 @@
 import type {Babel, Framework} from '@roots/bud-framework'
+import {boundMethod as bind} from 'autobind-decorator'
 import {BaseConfig} from './BaseConfig'
-import {bind} from '@roots/bud-support'
 
 /**
  * Babel API

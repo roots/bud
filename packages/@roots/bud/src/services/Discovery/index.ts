@@ -1,6 +1,6 @@
 import {Framework, Service} from '@roots/bud-framework'
 import type {Discovery as Contract} from '@roots/bud-typings'
-import {bind} from '@roots/bud-support'
+import {boundMethod as bind} from 'autobind-decorator'
 
 /**
  * Framework/Discovery

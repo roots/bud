@@ -11,3 +11,5 @@ require('events').EventEmitter.defaultMaxListeners = 20
 
 export declare type Bud = Framework
 export const bud: Bud = new BudConstructor(services).bootstrap()
+
+export {Framework} from '@roots/bud-framework'

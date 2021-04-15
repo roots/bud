@@ -4,15 +4,6 @@ import '@roots/bud-framework'
 import type Webpack from 'webpack'
 import type {Theme} from '@roots/ink-use-style'
 
-/**
- * @fix SWR thinking its in the browser.
- */
-declare module NodeJS {
-  interface Global {
-    navigator: any
-  }
-}
-
 declare module '@roots/bud-framework' {
   namespace Framework {
     interface Pkgs {

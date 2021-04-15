@@ -3,14 +3,11 @@ import {
   Dependencies as DependenciesManager,
   IDependencyManager,
 } from '@roots/dependencies'
-import {
-  bind,
-  fs,
-  React,
-  Box,
-  Text,
-  Spinner,
-} from '@roots/bud-support'
+import {boundMethod as bind} from 'autobind-decorator'
+import fs from 'fs-extra'
+import React from 'react'
+import {Box, Text} from 'ink'
+import Spinner from 'ink-spinner'
 
 /**
  * Framework/Dependencies
