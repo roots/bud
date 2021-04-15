@@ -19,7 +19,7 @@ import * as stylelint from '@roots/bud-stylelint'
  * Sage theme preset
  */
 export const sage: Sage.Preset = sage => {
-  const {env, use, isProduction} = sage
+  const {env, isProduction} = sage
   const {deps, files} = projectInfo(sage)
 
   sage
@@ -56,11 +56,15 @@ export const sage: Sage.Preset = sage => {
     /**
      * Conditionally loaded extensions
      */
-    .when(deps.includes('postcss'), () => use(postcss))
-    .when(deps.includes('tailwindcss'), () => use(tailwind))
-    .when(files.includes('.eslintrc.js'), () => use(eslint))
-    .when(files.includes('.stylelintrc'), () => use(stylelint))
-    .when(files.includes('.prettierrc'), () => use(prettier))
+    .when(deps.includes('postcss'), ({use}) => use(postcss))
+    .when(deps.includes('tailwindcss'), ({use}) => use(tailwind))
+    .when(files.includes('.eslintrc.js'), ({use}) => use(eslint))
+    .when(files.includes('.stylelintrc'), ({use}) =>
+      use(stylelint),
+    )
+    .when(files.includes('.prettierrc'), ({use}) =>
+      use(prettier),
+    )
 
     /**
      * Transpiler and extensions
@@ -77,7 +81,7 @@ export const sage: Sage.Preset = sage => {
      */
     .when(
       isProduction,
-      () =>
+      sage =>
         sage
           .use(esbuild)
           .esbuild.jsx()
@@ -86,13 +90,13 @@ export const sage: Sage.Preset = sage => {
           .splitChunks()
           .runtime('single'),
 
-      () =>
+      sage =>
         sage
           .use(babel)
-          .when(deps.includes('typescript'), () =>
+          .when(deps.includes('typescript'), ({use}) =>
             use(typescript),
           )
-          .when(deps.includes('react'), () => use(react))
+          .when(deps.includes('react'), ({use}) => use(react))
           .proxy()
           .devtool(),
     )

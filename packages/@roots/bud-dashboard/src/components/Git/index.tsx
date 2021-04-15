@@ -1,4 +1,5 @@
-import {React, Box, Text} from '@roots/bud-support'
+import React from 'react'
+import {Box, Text} from 'ink'
 import {useGit} from '../../hooks/useGit'
 
 export const Git = ({theme}) => {

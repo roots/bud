@@ -1,11 +1,6 @@
 import {Framework} from '@roots/bud-framework'
 
-type Externals = (
-  this: Framework,
-  externals: {
-    [key: string]: any
-  },
-) => Framework
+type Externals = (externals: {[key: string]: any}) => Framework
 
 declare module '@roots/bud-framework' {
   interface Framework {

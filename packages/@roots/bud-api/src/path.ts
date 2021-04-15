@@ -26,7 +26,6 @@ declare module '@roots/bud-framework' {
 
   namespace Api {
     type Path = (
-      this: Framework,
       locale: keyof Hooks.Locale.Definitions,
       path?: string,
     ) => string

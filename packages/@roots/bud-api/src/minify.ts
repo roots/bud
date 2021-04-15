@@ -1,7 +1,5 @@
 import {Framework} from '@roots/bud-framework'
 
-type Minify = (this: Framework, enabled?: boolean) => Framework
-
 declare module '@roots/bud-framework' {
   export interface Framework {
     /**
@@ -32,6 +30,8 @@ declare module '@roots/bud-framework' {
     minify: Minify
   }
 }
+
+type Minify = (enabled?: boolean) => Framework
 
 export const minify: Minify = function (enabled = true) {
   !this.store.has('args.minify') &&

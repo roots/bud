@@ -1,4 +1,5 @@
-import {Box, React} from '@roots/bud-support'
+import React from 'react'
+import {Box} from 'ink'
 
 export const Screen = ({children}) => (
   <Box

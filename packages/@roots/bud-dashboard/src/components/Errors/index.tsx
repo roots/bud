@@ -1,4 +1,6 @@
-import {React, Box, Text, isArray} from '@roots/bud-support'
+import React from 'react'
+import {Box, Text} from 'ink'
+import {isArray} from 'lodash'
 
 export const Errors = ({errors, color}) => {
   const guard = errors && isArray(errors) && errors.length > 0

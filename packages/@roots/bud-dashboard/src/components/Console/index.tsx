@@ -1,12 +1,7 @@
 import {Dashboard} from '@roots/bud-framework'
-import {
-  Text,
-  Box,
-  React,
-  useState,
-  useEffect,
-  Spinner,
-} from '@roots/bud-support'
+import React, {useState, useEffect} from 'react'
+import {Text, Box} from 'ink'
+import Spinner from 'ink-spinner'
 import {Logs} from './Logs'
 
 /**

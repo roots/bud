@@ -37,25 +37,22 @@ declare module '@roots/bud-framework' {
   }
 
   namespace Api {
-    type Proxy = (
-      this: Framework,
-      config?: {
-        /**
-         * Explicity enable or disable proxy service
-         */
-        enabled?: boolean
+    type Proxy = (config?: {
+      /**
+       * Explicity enable or disable proxy service
+       */
+      enabled?: boolean
 
-        /**
-         * Hostname of the proxy target
-         */
-        host?: Server.Configuration['proxy']['host']
+      /**
+       * Hostname of the proxy target
+       */
+      host?: Server.Configuration['proxy']['host']
 
-        /**
-         * Port of the proxy target
-         */
-        port?: Server.Configuration['proxy']['port']
-      },
-    ) => Framework
+      /**
+       * Port of the proxy target
+       */
+      port?: Server.Configuration['proxy']['port']
+    }) => Framework
   }
 }
 

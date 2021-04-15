@@ -1,4 +1,5 @@
-import {Box, Text, React} from '@roots/bud-support'
+import React, {FunctionComponent} from 'react'
+import {Box, Text} from 'ink'
 
 declare interface Props {
   children: any
@@ -11,7 +12,7 @@ declare interface Props {
   borderStyle?: 'single' | 'double' | 'classic' | 'round'
 }
 
-export const Module: React.FunctionComponent<Props> = ({
+export const Module: FunctionComponent<Props> = ({
   children,
   label,
   when = true,

@@ -1,4 +1,4 @@
-import {get} from '@roots/bud-support'
+import {get} from 'lodash'
 import {args} from './args'
 import {env} from './env'
 

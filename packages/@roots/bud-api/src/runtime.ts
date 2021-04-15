@@ -1,4 +1,4 @@
-import {Framework} from '@roots/bud-framework'
+import type {Framework} from '@roots/bud-framework'
 import type Webpack from 'webpack'
 
 declare module '@roots/bud-framework' {
@@ -21,7 +21,6 @@ declare module '@roots/bud-framework' {
 
   namespace Framework.Api {
     type Runtime = (
-      this: Framework,
       runtime?: Webpack.Configuration['optimization']['runtimeChunk'],
     ) => Framework
   }

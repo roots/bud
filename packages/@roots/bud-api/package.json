@@ -53,6 +53,7 @@
   },
   "devDependencies": {
     "@roots/bud-typings": "workspace:packages/@roots/bud-typings",
+    "@types/lodash": "^4.14.168",
     "@types/node": "^14.14.39",
     "@types/rimraf": "^3.0.0",
     "globby": "^11.0.3",
@@ -64,6 +65,8 @@
   "dependencies": {
     "@roots/bud-dashboard": "workspace:packages/@roots/bud-dashboard",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@roots/bud-support": "workspace:packages/@roots/bud-support"
+    "@roots/bud-support": "workspace:packages/@roots/bud-support",
+    "chalk": "^4.1.0",
+    "lodash": "^4.17.21"
   }
 }

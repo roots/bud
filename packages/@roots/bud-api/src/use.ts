@@ -1,8 +1,5 @@
 import {Framework} from '@roots/bud-framework'
-import {Module} from '@roots/bud-typings'
-import {isArray} from '@roots/bud-support'
-
-type Use = (source: Module | Array<Module>) => Framework
+import {isArray} from 'lodash'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -28,37 +25,20 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export const use = function (source: Module | Array<Module>) {
+type Use = (
+  source: Framework.Module | Array<Framework.Module>,
+) => Framework
+
+export const use: Use = function (source) {
   if (!isArray(source)) {
-    /**
-     * Require/import
-     */
-    if (source.name) {
-      this.extensions.add(source)
-
-      return this
-    }
-
-    /**
-     * {key: extension}
-     */
-    Object.entries(source).forEach(extension => {
-      this.extensions.add(extension)
-    })
+    this.extensions.add(source)
 
     return this
   }
 
-  /**
-   * [string, extension]
-   */
-  if (isArray(source)) {
-    source.forEach(extension => {
-      this.extensions.add(extension)
-    })
-
-    return this
-  }
+  source.forEach((extension: Framework.Module) => {
+    this.extensions.add(extension)
+  })
 
   return this
 }

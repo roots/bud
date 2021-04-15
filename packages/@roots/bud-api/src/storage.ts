@@ -1,4 +1,4 @@
-import {Framework} from '@roots/bud-framework'
+import type {Framework} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   export interface Framework {
@@ -19,7 +19,7 @@ declare module '@roots/bud-framework' {
   }
 }
 
-type Storage = (this: Framework, path: string) => Framework
+type Storage = (path: string) => Framework
 
 export const storage: Storage = function (path?) {
   if (path) {
@@ -28,6 +28,4 @@ export const storage: Storage = function (path?) {
   }
 
   return this.hooks.filter('location/storage')
-
-  return this
 }

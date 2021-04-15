@@ -246,7 +246,10 @@ abstract class Framework {
    * ```
    */
   @bind
-  public access<I = any>(value: ((app: this) => I) | I): I {
+  public access<I = any>(
+    this: Framework,
+    value: ((app: this) => I) | I,
+  ): I {
     return lodash.isFunction(value)
       ? (value as CallableFunction)(this)
       : value
@@ -334,9 +337,13 @@ abstract class Framework {
     isTrue: (app: Framework) => any,
     isFalse?: (app: Framework) => any,
   ): Framework {
-    lodash.isEqual(this.access(test), true)
-      ? lodash.isFunction(isTrue) && isTrue.bind(this)(this)
-      : lodash.isFunction(isFalse) && isFalse.bind(this)(this)
+    const testFn = lodash.isFunction(test)
+      ? test.bind(this)
+      : test
+
+    lodash.isEqual(this.access(testFn), true)
+      ? isTrue(this)
+      : isFalse(this)
 
     return this
   }

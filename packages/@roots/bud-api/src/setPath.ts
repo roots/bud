@@ -18,7 +18,6 @@ declare module '@roots/bud-framework' {
   namespace Api {
     interface SetPath {
       (
-        this: Framework,
         name: keyof Hooks.Locale.Definitions,
         path?: string,
       ): Framework
@@ -26,7 +25,6 @@ declare module '@roots/bud-framework' {
 
     interface SetPath {
       (
-        this: Framework,
         paths: {
           [K in keyof Hooks.Locale.Definitions as `${K &
             string}`]?: string

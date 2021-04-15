@@ -1,7 +1,5 @@
 import {Framework} from '@roots/bud-framework'
 
-type PublicPath = (publicPath: string) => Framework
-
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
@@ -22,6 +20,8 @@ declare module '@roots/bud-framework' {
     publicPath: PublicPath
   }
 }
+
+type PublicPath = (publicPath: string) => Framework
 
 export const publicPath: PublicPath = function (publicPath) {
   this.hooks.on('location/publicPath', () => publicPath)

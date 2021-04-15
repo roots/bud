@@ -1,7 +1,6 @@
 import {Framework} from '@roots/bud-framework'
-import {chalk, webpack} from '@roots/bud-support'
-
-type Run = () => unknown
+import webpack from 'webpack'
+import chalk from 'chalk'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -19,6 +18,8 @@ declare module '@roots/bud-framework' {
     run: Run
   }
 }
+
+type Run = (this: Framework) => unknown
 
 export function run(this: Framework): Promise<void> {
   /**
@@ -61,14 +62,15 @@ export function run(this: Framework): Promise<void> {
    * to the compilation instance.
    */
   new webpack.ProgressPlugin((percentage, message) => {
+    const current = Math.floor(percentage * 100)
+
     const progress = {
       decimal: percentage,
-      percentage: `${Math.floor(percentage * 100)}%`,
+      percentage: `${current}%`,
       message,
     }
 
     this.info(`${progress.message} [${progress.percentage}]`)
-
     this.store.set('compilation.progress', progress)
   }).apply(this.compiler.instance)
 
@@ -89,6 +91,7 @@ export function run(this: Framework): Promise<void> {
 function displayCompilation(this: Framework): void {
   if (this.store.has(`compilation.errors`)) {
     this.error(this.store.get(`compilation.errors`))
+
     process.exit()
   }
 

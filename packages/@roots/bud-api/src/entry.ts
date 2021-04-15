@@ -1,7 +1,6 @@
-import type {GlobTask} from 'globby'
 import type {Framework} from '@roots/bud-framework'
-import {isArray, isString} from '@roots/bud-support'
-import {Error} from '@roots/bud-dashboard'
+import type {GlobTask} from 'globby'
+import {isArray, isString} from 'lodash'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -56,25 +55,26 @@ declare module '@roots/bud-framework' {
      * })
      * ```
      */
-    entry:
-      | ((
-          name: string,
-          entrypoint: Framework.Api.Entry.Value,
-        ) => Framework)
-      | ((entrypoints: Framework.Api.Entry.Obj) => Framework)
+    entry: Framework.Api.Entry
   }
 
   namespace Framework.Api {
-    namespace Entry {
-      interface Obj {
-        [key: string]: Value
-      }
-
-      type Value =
-        | GlobTask['pattern']
-        | Array<GlobTask['pattern']>
-    }
+    export {Entry}
   }
+}
+
+type Entry =
+  | ((name: string, entrypoint: Entry.Value) => Framework)
+  | ((entrypoints: Entry.Obj) => Framework)
+
+namespace Entry {
+  export interface Obj {
+    [key: string]: Value
+  }
+
+  export type Value =
+    | GlobTask['pattern']
+    | Array<GlobTask['pattern']>
 }
 
 export const entry: Framework['entry'] = function (...args) {
@@ -148,7 +148,7 @@ function getAssets(
    * Found nothing for specified glob
    */
   if (!(assets.length > 0)) {
-    Error(
+    this.dashboard.error(
       `${files.toString()} did not return any results. Make sure these assets are available on disk.`,
       'Assets not found',
     )

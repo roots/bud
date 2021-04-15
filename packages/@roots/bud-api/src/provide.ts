@@ -1,9 +1,5 @@
 import {Framework} from '@roots/bud-framework'
 
-type Provide = (packages?: {
-  [key: string]: string | string[]
-}) => Framework
-
 declare module '@roots/bud-framework' {
   export interface Framework {
     /**
@@ -22,34 +18,45 @@ declare module '@roots/bud-framework' {
      */
     provide: Provide
   }
+
+  namespace Framework.Api {
+    export {Provide}
+    export {Provided}
+  }
 }
 
-export const provide: Provide = function (packages) {
-  this.publish(
-    {
-      ['extension/webpack-provide-plugin/options']: provided => ({
-        ...provided,
-        ...Object.entries(packages).reduce(
-          (a, [k, v]) => ({
-            ...a,
-            ...(!Array.isArray(v)
-              ? {[v]: k}
-              : {
-                  ...a,
-                  ...v.reduce(
-                    (a, pkg) => ({
-                      ...a,
-                      [pkg]: k,
-                    }),
-                    {},
-                  ),
-                }),
-          }),
-          {},
-        ),
-      }),
-    },
-    'api/provide',
+export type Provide = (packages?: Provided) => Framework
+
+export interface Provided {
+  [key: string]: string | string[]
+}
+
+export const provide: Framework.Api.Provide = function (
+  packages,
+) {
+  this.hooks.on(
+    'extension/webpack-provide-plugin/options',
+    (provided: Framework.Api.Provided) => ({
+      ...provided,
+      ...Object.entries(packages).reduce(
+        (a, [k, v]) => ({
+          ...a,
+          ...(!Array.isArray(v)
+            ? {[v]: k}
+            : {
+                ...a,
+                ...v.reduce(
+                  (a, pkg) => ({
+                    ...a,
+                    [pkg]: k,
+                  }),
+                  {},
+                ),
+              }),
+        }),
+        {},
+      ),
+    }),
   )
 
   return this

@@ -1,10 +1,12 @@
 import type {Framework} from '@roots/bud-framework'
 import type Webpack from 'webpack'
 
-type Devtool = (
-  this: Framework,
-  devtool?: Webpack.Configuration['devtool'],
-) => Framework
+type Devtool =
+  | ((
+      this: Framework,
+      devtool?: Webpack.Configuration['devtool'],
+    ) => Framework)
+  | ((devtool?: Webpack.Configuration['devtool']) => Framework)
 
 declare module '@roots/bud-framework' {
   interface Framework {

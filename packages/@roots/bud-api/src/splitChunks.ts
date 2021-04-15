@@ -1,6 +1,6 @@
 import {Framework} from '@roots/bud-framework'
-import {merge} from '@roots/bud-support'
 import type Webpack from 'webpack'
+import {merge} from 'lodash'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -21,14 +21,14 @@ declare module '@roots/bud-framework' {
   }
 
   namespace Framework.Api {
-    type SplitChunks = (
-      options?: SplitChunks.Options,
-    ) => Framework
-
-    namespace SplitChunks {
-      export type Options = Webpack.Configuration['optimization']['splitChunks']
-    }
+    export {SplitChunks}
   }
+}
+
+type SplitChunks = (options?: SplitChunks.Options) => Framework
+
+namespace SplitChunks {
+  export type Options = Webpack.Configuration['optimization']['splitChunks']
 }
 
 const DEFAULT_OPTIONS: Framework.Api.SplitChunks.Options = {

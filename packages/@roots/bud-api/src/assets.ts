@@ -25,7 +25,7 @@ declare module '@roots/bud-framework' {
   }
 }
 
-type Assets = (this: Framework, from: string[]) => Framework
+type Assets = (from: string[]) => Framework
 
 export const assets: Assets = function (jobs) {
   jobs.map(from => {
