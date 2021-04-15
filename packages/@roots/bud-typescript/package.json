@@ -53,24 +53,23 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "peerDependencies": {
-    "@roots/bud-framework": "^3.1.0",
     "eslint": "^7.23.0",
     "typescript": "^4.2.3"
   },
   "devDependencies": {
-    "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
-    "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
+    "@roots/bud-babel": "workspace:*",
     "@types/node": "^14.14.39",
     "@types/rimraf": "^3.0.0",
     "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.2",
+    "typescript": "^4.2.4",
     "webpack": "^5.33.2"
   },
   "dependencies": {
-    "@roots/bud-support": "workspace:packages/@roots/bud-support",
+    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-support": "workspace:*",
     "@typescript-eslint/parser": "^4.22.0",
     "fork-ts-checker-webpack-plugin": "^6.2.1",
     "ts-loader": "^8.1.0"
-  },
-  "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"
+  }
 }

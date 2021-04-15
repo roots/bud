@@ -1,5 +1,5 @@
 import '@roots/bud-framework'
-import {Options as PluginOptions} from 'eslint-webpack-plugin'
+import type {Options as PluginOptions} from 'eslint-webpack-plugin'
 
 declare module '@roots/bud-framework' {
   namespace Framework {

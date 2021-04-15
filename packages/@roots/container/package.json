@@ -54,13 +54,12 @@
   "dependencies": {
     "lodash": "^4.17.21"
   },
-  "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684",
   "devDependencies": {
-    "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/node": "^14.14.39",
     "@types/rimraf": "^3.0.0",
     "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.2",
-    "type-fest": "^1.0.2"
+    "type-fest": "^1.0.2",
+    "typescript": "^4.2.4"
   }
 }

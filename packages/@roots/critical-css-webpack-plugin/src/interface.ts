@@ -1,5 +1,5 @@
 export interface Options {
-  criticalOptions: {
+  criticalOptions?: {
     /**
      * Html source string
      */

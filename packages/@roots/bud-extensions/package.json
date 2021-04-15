@@ -51,18 +51,18 @@
     "pkg:check": "package-check --verbose",
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
-  "peerDependencies": {
-    "@roots/bud-support": "^3.1.0"
-  },
   "devDependencies": {
-    "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@roots/bud-hooks": "workspace:packages/@roots/bud-hooks",
-    "@roots/bud-typings": "^3.2.0-next.0",
+    "@roots/bud-hooks": "workspace:*",
+    "@roots/bud-typings": "workspace:*",
     "@types/node": "^14.14.39",
     "@types/rimraf": "^3.0.0",
     "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.2",
+    "typescript": "^4.2.4",
     "webpack": "^5.33.2"
   },
-  "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"
+  "dependencies": {
+    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-support": "workspace:*"
+  }
 }

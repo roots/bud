@@ -113,12 +113,6 @@ export class CriticalCssWebpackPlugin {
         entry.chunks.map(async chunk => {
           await Promise.all(
             this.getMergedCssModules(chunk).map(async module => {
-              entry.getFiles().map(file => {
-                if (file.includes('.css')) {
-                  delete this.webpack.compilation.assets[file]
-                }
-              })
-
               await this.criticalEntry(entryName, module)
             }),
           )
@@ -129,6 +123,9 @@ export class CriticalCssWebpackPlugin {
     callback()
   }
 
+  /**
+   * Critical css from aggregated entrypoint css sources
+   */
   @bind
   public async criticalEntry(entry: string, module: Module) {
     const name = this.maybeHashName(module, entry)

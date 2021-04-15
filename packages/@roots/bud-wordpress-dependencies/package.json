@@ -52,16 +52,16 @@
   },
   "devDependencies": {
     "@roots/bud": "^3.2.0-next.2",
-    "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@roots/bud-typings": "^3.2.0-next.0",
+    "@roots/bud-typings": "workspace:*",
     "@types/node": "^14.14.39",
     "@types/rimraf": "^3.0.0",
     "npm-run-all": "^4.1.5",
-    "rimraf": "^3.0.2"
+    "rimraf": "^3.0.2",
+    "typescript": "^4.2.4"
   },
   "dependencies": {
-    "@roots/bud-support": "workspace:packages/@roots/bud-support",
-    "@roots/wordpress-dependencies-webpack-plugin": "^3.2.0-next.2"
-  },
-  "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"
+    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-support": "workspace:*",
+    "@roots/wordpress-dependencies-webpack-plugin": "workspace:*"
+  }
 }

@@ -47,8 +47,8 @@
     "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.2",
     "type-fest": "^1.0.2",
+    "typescript": "^4.2.4",
     "webpack": "^5.33.2",
     "webpack-dev-middleware": "^4.1.0"
-  },
-  "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"
+  }
 }
