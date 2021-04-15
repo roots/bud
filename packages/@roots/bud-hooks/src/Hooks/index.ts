@@ -1,11 +1,10 @@
-import {Hooks} from '@roots/bud-typings'
-import {Framework, Service} from '@roots/bud-framework'
-import {
-  bind,
-  set,
-  isArray,
-  prettyFormat,
-} from '@roots/bud-support'
+import type {Hooks} from '@roots/bud-typings'
+import type {Framework} from '@roots/bud-framework'
+import {Service} from '@roots/bud-framework'
+
+import {isArray, set} from 'lodash'
+import prettyFormat from 'pretty-format'
+import {boundMethod as bind} from 'autobind-decorator'
 
 /**
  * Hooks
@@ -57,8 +56,8 @@ export default class extends Service implements Hooks {
   @bind
   public on(
     id:
-      | [string, `${Framework.Hooks.Name}`]
-      | `${Framework.Hooks.Name}`,
+      | [string, `${Framework.Hooks.Name & string} & string`]
+      | (`${Framework.Hooks.Name}` & string),
     callback: Hooks.Hook,
   ): Framework {
     const [publisher, name] = isArray(id)
