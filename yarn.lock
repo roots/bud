@@ -2791,6 +2791,7 @@ __metadata:
     "@types/text-table": ^0.2.1
     "@types/webpack-dev-middleware": ^4.1.2
     "@types/webpack-hot-middleware": ^2.25.4
+    "@types/yargs": ^16.0.1
     autobind-decorator: ^2.4.0
     axios: ^0.21.1
     chalk: ^4.1.0
@@ -3104,6 +3105,7 @@ __metadata:
     "@roots/container": "workspace:*"
     "@types/node": ^14.14.39
     "@types/rimraf": ^3.0.0
+    "@types/yargs": ^16.0.1
     fs-extra: ^9.1.0
     globby: ^11.0.3
     lodash: ^4.17.21
@@ -4258,6 +4260,15 @@ __metadata:
   dependencies:
     "@types/yargs-parser": "*"
   checksum: a6ebb0ec63f168280e02370fcf24ff29c3eb0335e1c46e3b34e04d32eb7c818446e0b7de8badb339b07c0ddba322827ce13ccb604d14a0de422335ae56b2120d
+  languageName: node
+  linkType: hard
+
+"@types/yargs@npm:^16.0.1":
+  version: 16.0.1
+  resolution: "@types/yargs@npm:16.0.1"
+  dependencies:
+    "@types/yargs-parser": "*"
+  checksum: 84fc52b3389a56668d014c8f5fe7cf79d7005eafe0493aa961011bb0fb42c7ea0baf4bf480d758fe59435d6f5b816262b4e052231b88259903a9dbefa8856799
   languageName: node
   linkType: hard
 
