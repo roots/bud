@@ -32,12 +32,18 @@
     "dev": "node ./scripts/dev",
     "ci": "run-s build lint:eslint lint:prettier test pkg",
     "clean": "rimraf node_modules 'packages/@roots/*/{lib,types,node_modules}'",
-    "pkg": "yarn workspaces foreach yarn run pkg",
     "lint": "run-s lint:eslint lint:prettier",
     "lint:eslint": "eslint 'packages/**/*.{js,ts,tsx}' --fix",
     "lint:prettier": "prettier 'packages/**/src/**/*'  --write",
     "changelog": "conventional-changelog -i CHANGELOG.md -s -u",
-    "test": "jest --verbose"
+    "test": "jest --verbose",
+    "pkg": "yarn workspaces foreach yarn run pkg",
+    "pkg:local": "run-p pkg:npm:local pkg:yarn:local",
+    "pkg:remote": "run-p pkg:npm:remote pkg:yarn:remote",
+    "pkg:npm:local": "npm config set registry https://localhost:4873",
+    "pkg:npm:remote": "npm config set registry https://registry.npmjs.org/",
+    "pkg:yarn:local": "yarn config set npmRegistryServer https://localhost:4873",
+    "pkg:yarn:remote": "yarn config set npmRegistryServer https://registry.npmjs.org/"
   },
   "devDependencies": {
     "@roots/bud-framework": "workspace:*",
