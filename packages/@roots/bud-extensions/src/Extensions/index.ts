@@ -1,7 +1,7 @@
 import type {Module} from '@roots/bud-framework'
 import type Webpack from 'webpack/types'
-
-import {bind, isUndefined} from '@roots/bud-support'
+import {boundMethod as bind} from 'autobind-decorator'
+import {isUndefined} from 'lodash'
 import Extension from './Extension'
 import Service from './Service'
 

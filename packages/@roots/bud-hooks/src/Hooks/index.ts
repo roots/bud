@@ -1,7 +1,5 @@
-import type {Hooks} from '@roots/bud-typings'
-import type {Framework} from '@roots/bud-framework'
-import {Service} from '@roots/bud-framework'
-
+import {Hooks} from '@roots/bud-typings'
+import {Framework, Service} from '@roots/bud-framework'
 import {isArray, set} from 'lodash'
 import prettyFormat from 'pretty-format'
 import {boundMethod as bind} from 'autobind-decorator'

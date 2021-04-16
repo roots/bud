@@ -1,5 +1,6 @@
 import {Hooks as Base} from '@roots/bud-hooks'
 import {repository} from './repository'
+import {boundMethod as bind} from 'autobind-decorator'
 
 export class Hooks extends Base {
   /**
@@ -15,6 +16,7 @@ export class Hooks extends Base {
   /**
    * Service register
    */
+  @bind
   public register() {
     this.set('location/project', [
       () => this.app.store.get('options.context'),

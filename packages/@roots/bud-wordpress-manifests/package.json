@@ -61,6 +61,7 @@
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:*",
-    "@roots/merged-manifest-webpack-plugin": "workspace:*"
+    "@roots/merged-manifest-webpack-plugin": "workspace:*",
+    "autobind-decorator": "^2.4.0"
   }
 }

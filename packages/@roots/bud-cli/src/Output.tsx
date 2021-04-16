@@ -1,6 +1,7 @@
 import {React, Text, render, Gradient} from '@roots/bud-support'
 import Commander from 'commander'
 import {Layout} from './Layout'
+import {boundMethod as bind} from 'autobind-decorator'
 
 export default class Output {
   public instance: Commander.Command
@@ -20,6 +21,7 @@ export default class Output {
     }
   }
 
+  @bind
   public writeOut(str: string) {
     return render(
       <Layout name={this.name}>
@@ -28,6 +30,7 @@ export default class Output {
     )
   }
 
+  @bind
   public writeErr(str: string) {
     return render(
       <Layout name={this.name}>

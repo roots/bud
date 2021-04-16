@@ -6,7 +6,6 @@ import {boundMethod as bind} from 'autobind-decorator'
  * Framework/Discovery
  *
  * [🏡 Project home](https://roots.io/bud)
- * [🧑‍💻 roots/bud](https://git.io/Jkli3)
  */
 export class Discovery extends Service implements Contract {
   /**
@@ -37,12 +36,13 @@ export class Discovery extends Service implements Contract {
   /**
    * Service boot.
    */
-  public boot(bootSequence = []): void {
-    bootSequence.push(this.discoverPackages)
-    bootSequence.push(this.setDisks)
-    bootSequence.push(this.registerDiscovered)
-
-    this.app.sequence(bootSequence)
+  @bind
+  public boot(app: Framework): void {
+    app.sequence([
+      this.discoverPackages,
+      this.setDisks,
+      this.registerDiscovered,
+    ])
   }
 
   /**

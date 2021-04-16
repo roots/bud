@@ -1,4 +1,6 @@
-import {React, Box, Spinner, Text} from '@roots/bud-support'
+import React from 'react'
+import {Box, Text} from 'ink'
+import Spinner from 'ink-spinner'
 import {Asset} from './Asset'
 import {Dashboard} from '@roots/bud-framework'
 

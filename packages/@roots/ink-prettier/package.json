@@ -62,6 +62,7 @@
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:*",
+    "autobind-decorator": "^2.4.0",
     "ink": "^3.0.8",
     "prettier": "^2.2.1"
   }

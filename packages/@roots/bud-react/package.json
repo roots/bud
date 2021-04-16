@@ -69,6 +69,7 @@
     "@roots/bud-support": "workspace:*",
     "@svgr/core": "^5.5.0",
     "@svgr/webpack": "^5.5.0",
+    "autobind-decorator": "^2.4.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-hot-loader": "^4.13.0",

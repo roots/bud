@@ -1,12 +1,13 @@
-import {React, execa} from '@roots/bud-support'
+import {useState, useEffect} from 'react'
+import execa from 'execa'
 import {Dashboard} from '@roots/bud-framework'
 
 export const useGit = (): Dashboard.UseGit.Status => {
-  const [head, setHead] = React.useState(null)
-  const [branch, setBranch] = React.useState(null)
-  const [status, setStatus] = React.useState(null)
+  const [head, setHead] = useState(null)
+  const [branch, setBranch] = useState(null)
+  const [status, setStatus] = useState(null)
 
-  React.useEffect(() => {
+  useEffect(() => {
     setInterval(async () => {
       const update = await execa('git', ['status', '--short'])
 
@@ -16,7 +17,7 @@ export const useGit = (): Dashboard.UseGit.Status => {
     }, 1000)
   }, [])
 
-  React.useEffect(() => {
+  useEffect(() => {
     setInterval(async () => {
       const revision = await execa('git', [
         'rev-parse',
@@ -29,7 +30,7 @@ export const useGit = (): Dashboard.UseGit.Status => {
     })
   }, [])
 
-  React.useEffect(() => {
+  useEffect(() => {
     setInterval(async () => {
       const branch = await execa('git', [
         'branch',

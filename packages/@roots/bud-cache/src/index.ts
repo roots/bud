@@ -16,6 +16,7 @@ export class Cache extends Service {
   /**
    * Service booted
    */
+  @bind
   public booted() {
     this.enabled() &&
       this.app.hooks.on(
@@ -58,16 +59,21 @@ export class Cache extends Service {
       ),
     )
 
-    const json = JSON.stringify(
+    return crypto
+      .createHash('md4')
+      .update(`${conf}${this.json}`)
+      .digest('hex')
+  }
+
+  /**
+   * Source as json
+   */
+  public get json() {
+    return JSON.stringify(
       this.fs.readFileSync(
         this.app.disk.get('project').get('package.json'),
         'utf8',
       ),
     )
-
-    return crypto
-      .createHash('md4')
-      .update(`${conf}${json}`)
-      .digest('hex')
   }
 }

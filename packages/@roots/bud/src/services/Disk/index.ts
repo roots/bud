@@ -54,39 +54,37 @@ export class Disk extends Service {
   /**
    * Service register
    */
+  @bind
   public register(): void {
-    this.setStore(this.initialDisks())
+    this.setStore({
+      ['@roots']: {
+        baseDir: this.modulePath('@roots'),
+        glob: this.pattern,
+      },
+      ['project']: {
+        baseDir: this.app.path('project'),
+        glob: this.pattern,
+      },
+    })
 
     this.every((name, disk) => {
-      this.make(name, disk)
+      this.set(name, this.make(name, disk))
     })
   }
 
   /**
    * Service boot
    */
-  public boot(): void {
-    this.app.store.set(
-      'project',
-      this.get('project').readJson('package.json'),
-    )
-  }
-
-  /**
-   * Initial disks
-   */
   @bind
-  public initialDisks(): Definition {
-    return {
-      ['@roots']: {
-        baseDir: this.modulePath('@roots'),
-        glob: ['**/*', '*', '!node_modules', '*.map'],
-      },
-      ['project']: {
-        baseDir: this.app.subscribe('location/project'),
-        glob: ['**/*', '*', '!node_modules', '!vendor'],
-      },
-    }
+  public boot(): void {
+    this.get('project').has('package.json')
+      ? this.app.store.set(
+          'project',
+          this.get('project').readJson('package.json'),
+        )
+      : this.logger
+          .scope("@roots/bud-disk couldn't find a package.json")
+          .log(this.get('project'))
   }
 
   /**

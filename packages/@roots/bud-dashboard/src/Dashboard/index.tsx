@@ -1,12 +1,13 @@
-import type {Instance} from 'ink'
 import {Service as Base} from '@roots/bud-framework'
-import {React, render, Text, isString} from '@roots/bud-support'
-
+import React from 'react'
+import {render, Text, Instance} from 'ink'
+import {isString} from 'lodash'
 import {Dashboard as DashboardComponent} from './components'
 import {Error} from '../Error'
 import {Write} from '../Write'
 import {Screen} from '../components/Screen'
 import {Mark} from '../Mark'
+import {boundMethod as bind} from 'autobind-decorator'
 
 /**
  * Dashboard
@@ -32,6 +33,7 @@ export class Dashboard extends Base {
   /**
    * Register service
    */
+  @bind
   public register(): void {
     Object.assign(this.app, {
       write: Write,
@@ -47,6 +49,7 @@ export class Dashboard extends Base {
   /**
    * Mount CLI
    */
+  @bind
   public run(): void {
     if (this.app.store.get('options.ci')) {
       return
@@ -64,6 +67,7 @@ export class Dashboard extends Base {
   /**
    * Render error
    */
+  @bind
   public renderError(body: string, title: string): Instance {
     return (this.dashboard = render(
       <Screen>
@@ -76,6 +80,7 @@ export class Dashboard extends Base {
   /**
    * Render
    */
+  @bind
   public render(Component: any): Instance {
     if (this.ci) return
 
@@ -99,6 +104,7 @@ export class Dashboard extends Base {
   /**
    * Unmount CLI
    */
+  @bind
   public kill(): void {
     this.dashboard.unmount()
   }

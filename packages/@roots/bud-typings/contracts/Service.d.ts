@@ -7,29 +7,34 @@ export abstract class Bootstrapper {
   [key: string]: any
 
   /**
-   * Register
+   * Bootstrap
    */
-  public register(): unknown
-
-  /**
-   * Boot
-   */
-  public boot(): unknown
+  public bootstrap?(app: Framework): unknown
 
   /**
    * Bootstrap
    */
-  public bootstrapped(app: Framework): unknown
+  public bootstrapped?(app: Framework): unknown
+
+  /**
+   * Register
+   */
+  public register?(app: Framework): unknown
 
   /**
    * Post registered callback
    */
-  public registered(app: Framework): unknown
+  public registered?(app: Framework): unknown
+
+  /**
+   * Boot
+   */
+  public boot?(ap: Framework): unknown
 
   /**
    * Post boot callback
    */
-  public booted(app: Framework): unknown
+  public booted?(app: Framework): unknown
 }
 
 /**
@@ -73,7 +78,7 @@ export namespace Service {
   }
 
   export interface Constructor {
-    new (app: Framework['get']):
+    new (app: Framework):
       | Framework.Bootstrapper
       | Framework.Service
   }

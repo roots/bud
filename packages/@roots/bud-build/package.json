@@ -65,6 +65,7 @@
   "dependencies": {
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
+    "autobind-decorator": "^2.4.0",
     "css-loader": "^5.2.1",
     "file-loader": "^6.2.0",
     "mini-css-extract-plugin": "^1.4.1",

@@ -1,4 +1,5 @@
 import {Service} from '@roots/bud-framework'
+import {boundMethod as bind} from 'autobind-decorator'
 import dotenv from 'dotenv'
 
 /**
@@ -16,6 +17,7 @@ export class Env extends Service {
   /**
    * Lifecycle: all services registered
    */
+  @bind
   public registered() {
     this.setStore(dotenv.config({path: this.envPath}).parsed)
   }

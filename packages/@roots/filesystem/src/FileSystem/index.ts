@@ -4,6 +4,7 @@ import path from 'path'
 import {FileContainer} from '..'
 import {Container} from '@roots/container'
 import globby from 'globby'
+import {boundMethod as bind} from 'autobind-decorator'
 
 export class FileSystem extends Container<FileContainer> {
   /**
@@ -34,6 +35,7 @@ export class FileSystem extends Container<FileContainer> {
    * Call without a key to get all disks.
    * Pass a key to get a specific disk.
    */
+  @bind
   public get<T = FileContainer>(key?: string): T {
     return (_.get(this.repository, key) as unknown) as T
   }
@@ -54,6 +56,7 @@ export class FileSystem extends Container<FileContainer> {
    * )
    * ```
    */
+  @bind
   public make(
     key: string,
     options?: {baseDir?: string; glob?: string[]},

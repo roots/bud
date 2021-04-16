@@ -85,6 +85,7 @@
     "@roots/bud-wordpress-externals": "workspace:*",
     "@roots/bud-wordpress-manifests": "workspace:*",
     "@roots/container": "workspace:*",
-    "@roots/filesystem": "workspace:*"
+    "@roots/filesystem": "workspace:*",
+    "autobind-decorator": "^2.4.0"
   }
 }

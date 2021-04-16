@@ -1,7 +1,11 @@
-import type {Framework} from '../Framework'
-import {fs, globby, lodash, Container} from '@roots/bud-support'
-import {FileContainer} from '@roots/filesystem'
+import {Framework} from '../Framework'
 import path from 'path'
+import fs from 'fs-extra'
+import globby from 'globby'
+import {Container} from '@roots/container'
+import {FileContainer} from '@roots/filesystem'
+import _ from 'lodash'
+import {boundMethod as bind} from 'autobind-decorator'
 
 /**
  * Framework service
@@ -23,36 +27,10 @@ export class Service extends Container {
   private _app: Framework['get']
 
   /**
-   * Register
-   */
-  public register() {}
-
-  /**
-   * Boot
-   */
-  public boot() {}
-
-  /**
-   * Framework lifecycle: bootstrapped
-   */
-  public bootstrapped(app: Framework) {}
-
-  /**
-   * Framework lifecycle: registered
-   */
-  public registered(app: Framework) {}
-
-  /**
-   * Framework lifecycle: booted
-   */
-  public booted(app: Framework) {}
-
-  /**
    * Constructor
    */
   public constructor(app: Framework['get']) {
     super()
-
     this._app = app
   }
 
@@ -75,8 +53,8 @@ export class Service extends Container {
   /**
    * lodash
    */
-  public get _(): typeof lodash {
-    return lodash
+  public get _(): typeof _ {
+    return _
   }
 
   /**
@@ -117,17 +95,12 @@ export class Service extends Container {
   /**
    * Path to node_modules
    */
+  @bind
   public modulePath(path?: string): string {
     const base = this.path.posix.resolve(
-      this.app.subscribe(
-        'location/project',
-        'framework/service@modulePath',
-      ),
+      this.subscribe('location/project'),
 
-      this.subscribe(
-        'location/modules',
-        'framework/service@modulePath',
-      ),
+      this.subscribe('location/modules'),
     )
 
     return path ? this.path.join(base, path) : base
@@ -136,6 +109,7 @@ export class Service extends Container {
   /**
    * Filter unique
    */
+  @bind
   public filterUnique(value, index, self) {
     return self.indexOf(value) === index
   }
@@ -143,13 +117,15 @@ export class Service extends Container {
   /**
    * Application service
    */
+  @bind
   public service<T = any>(serviceName: string | number): T {
-    return this.app.get<T>(serviceName)
+    return this.app.services.get<T>(serviceName)
   }
 
   /**
    * Access disk
    */
+  @bind
   public disk<T = FileContainer>(diskName: string | number): T {
     return this.app.disk.get(diskName)
   }
@@ -186,34 +162,34 @@ export class Service extends Container {
    * Log message
    */
   public get log() {
-    return this.app.logger.instance.scope(this.name).log
+    return this.logger.log
   }
 
   /**
    * Log info message
    */
   public get info() {
-    return this.app.logger.instance.scope(this.name).info
+    return this.logger.info
   }
 
   /**
    * Log warning message
    */
   public get warning() {
-    return this.app.logger.instance.scope(this.name).warning
+    return this.logger.warning
   }
 
   /**
    * Log error message
    */
   public get error() {
-    return this.app.logger.instance.scope(this.name).error
+    return this.logger.error
   }
 
   /**
    * Log debug message
    */
   public get debug() {
-    return this.app.logger.instance.scope(this.name).debug
+    return this.logger.debug
   }
 }

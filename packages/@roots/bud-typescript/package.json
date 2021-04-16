@@ -69,6 +69,7 @@
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
     "@typescript-eslint/parser": "^4.22.0",
+    "autobind-decorator": "^2.4.0",
     "fork-ts-checker-webpack-plugin": "^6.2.1",
     "ts-loader": "^8.1.0"
   }

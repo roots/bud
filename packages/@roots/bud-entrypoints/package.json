@@ -50,7 +50,8 @@
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:*",
-    "@roots/entrypoints-webpack-plugin": "workspace:*"
+    "@roots/entrypoints-webpack-plugin": "workspace:*",
+    "autobind-decorator": "^2.4.0"
   },
   "devDependencies": {
     "@types/node": "^14.14.39",

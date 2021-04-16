@@ -64,6 +64,7 @@
   "dependencies": {
     "@fullhuman/postcss-purgecss": "^4.0.3",
     "@roots/bud-framework": "workspace:*",
-    "@roots/bud-support": "workspace:*"
+    "@roots/bud-support": "workspace:*",
+    "autobind-decorator": "^2.4.0"
   }
 }

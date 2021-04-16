@@ -62,6 +62,7 @@
   "dependencies": {
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
+    "autobind-decorator": "^2.4.0",
     "terser-webpack-plugin": "^5.1.1"
   }
 }

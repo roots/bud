@@ -1,6 +1,7 @@
-import options from './options'
 import {Compiler, Service} from '@roots/bud-framework'
-import {bind, webpack} from '@roots/bud-support'
+import {boundMethod as bind} from 'autobind-decorator'
+import webpack from 'webpack'
+import options from './options'
 
 /**
  * Compiler

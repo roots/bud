@@ -1,4 +1,5 @@
-import {React, Text} from '@roots/bud-support'
+import React from 'react'
+import {Text} from 'ink'
 
 interface IndicatorProps {
   active: boolean

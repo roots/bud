@@ -1,4 +1,5 @@
-import {useState, useEffect, webpack} from '@roots/bud-support'
+import {useState, useEffect} from 'react'
+import webpack from 'webpack'
 import {Dashboard} from '@roots/bud-framework'
 
 /**

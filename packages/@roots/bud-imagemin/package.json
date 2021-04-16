@@ -61,6 +61,7 @@
   "dependencies": {
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
+    "autobind-decorator": "^2.4.0",
     "image-minimizer-webpack-plugin": "^2.2.0",
     "imagemin": "^7.0.1",
     "imagemin-gifsicle": "^7.0.0",

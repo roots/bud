@@ -70,6 +70,7 @@
     "@emotion/react": "^11.1.5",
     "@emotion/styled": "^11.3.0",
     "@roots/bud-framework": "workspace:*",
-    "@roots/bud-support": "workspace:*"
+    "@roots/bud-support": "workspace:*",
+    "autobind-decorator": "^2.4.0"
   }
 }

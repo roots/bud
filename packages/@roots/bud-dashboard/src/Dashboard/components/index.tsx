@@ -1,12 +1,8 @@
-import {
-  React,
-  Box,
-  useInput,
-  Static,
-  Text,
-  useStyle,
-  isEqual,
-} from '@roots/bud-support'
+import React from 'react'
+import {Text, Static, Box, useInput} from 'ink'
+import {useStyle} from '@roots/ink-use-style'
+import {isEqual} from 'lodash'
+
 import {
   Assets,
   DevStatus,

@@ -67,6 +67,7 @@
   "dependencies": {
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
+    "autobind-decorator": "^2.4.0",
     "postcss-scss": "^3.0.5",
     "sass-loader": "^11.0.1"
   }

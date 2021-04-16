@@ -1,4 +1,7 @@
-import {Container, bind, lodash} from '@roots/bud-support'
+import {Core} from './Core'
+import {Container} from '@roots/container'
+import _ from 'lodash'
+import {boundMethod as bind} from 'autobind-decorator'
 
 import type {
   Build,
@@ -24,6 +27,7 @@ import type {
   Bootstrapper,
   Webpack,
 } from '@roots/bud-typings'
+import {Services} from './Services'
 
 export {Framework}
 
@@ -58,12 +62,10 @@ declare namespace Framework {
 /**
  * Framework abstract
  */
-abstract class Framework {
+abstract class Framework extends Core {
   [key: string]: any
 
   public name = 'bud'
-
-  public services: Container
 
   public abstract build: Build
 
@@ -88,14 +90,53 @@ abstract class Framework {
   public abstract store: Store
 
   /**
-   * Constructor
+   * Lifecycle: bootstrap
    */
-  public constructor(services: {
-    [key: string]: new (app: Framework['get']) =>
-      | Service
-      | Bootstrapper
-  }) {
-    this.services = this.container(services)
+  @bind
+  public bootstrap(
+    providerDefinitions: Index<Service.Constructor>,
+  ) {
+    /**
+     * Instantiate services
+     */
+    this.services = new Services(providerDefinitions, this)
+
+    this.services.getKeys().map(key => {
+      Object.defineProperty(this, key, {
+        enumerable: true,
+        get() {
+          return this.services.get(key)
+        },
+      })
+    })
+
+    /**
+     * Assign to process
+     */
+    Object.assign(process.env, {
+      NODE_ENV: this.mode,
+      BABEL_ENV: this.mode,
+    })
+
+    /**
+     * Lifecycle
+     */
+    ;[
+      'bootstrap',
+      'bootstrapped',
+      'register',
+      'registered',
+      'boot',
+      'booted',
+    ].forEach(event =>
+      this.services.getKeys().map(key =>
+        this.when(this.services.get(key)[event], function () {
+          this.services.get(key)[event](this)
+        }),
+      ),
+    )
+
+    return this
   }
 
   /**
@@ -123,82 +164,6 @@ abstract class Framework {
   }
 
   /**
-   * Lifecycle: bootstrap
-   */
-  @bind
-  public bootstrap(): this {
-    /**
-     * NODE_ENV & BABEL_ENV
-     */
-    process.env.NODE_ENV = this.mode
-    process.env.BABEL_ENV = this.mode
-
-    /**
-     * Instantiate services
-     */
-    this.services.mutateStoreEntries(
-      (name: string, Instance) =>
-        (this[name] = new Instance(this.get)),
-    )
-
-    /**
-     * Call end of lifecycle method
-     */
-    this.services.every((service: string | number) =>
-      this.get<Service>(service).bootstrapped(this),
-    )
-
-    /**
-     * Boot
-     */
-    this.register().boot()
-
-    return this
-  }
-
-  /**
-   * Lifecycle: registration
-   */
-  @bind
-  public register(): this {
-    this.services.every(service => {
-      this.log(`Registering ${service}`)
-      this.get<Service>(service).register()
-    })
-
-    this.services.every(service => {
-      this.get<Service>(service).registered(this)
-    })
-
-    return this
-  }
-
-  /**
-   * Lifecycle boot
-   */
-  @bind
-  public boot(): this {
-    this.services.every(service => {
-      this.log(`Booting ${service}`)
-      this.get<Service>(service).boot()
-    })
-
-    this.services.every(service => {
-      this.get<Service>(service).booted(this)
-    })
-
-    return this
-  }
-
-  /**
-   * Get framework.
-   */
-  @bind
-  public get<T = this>(service?: string | number): T {
-    return service ? this[service] : this
-  }
-
-  /**
    * Subscribe
    */
   @bind
@@ -216,7 +181,7 @@ abstract class Framework {
   public publish(
     pubs: Hooks.PublishDict,
     caller?: string,
-  ): this {
+  ): Framework {
     Object.entries(pubs).map(
       ([name, pub]: [`${Hooks.Name}`, any]) => {
         this.hooks.on(caller ? [caller, name] : name, pub)
@@ -248,28 +213,11 @@ abstract class Framework {
   @bind
   public access<I = any>(
     this: Framework,
-    value: ((app: this) => I) | I,
+    value: ((app: Framework) => I) | I,
   ): I {
-    return lodash.isFunction(value)
+    return _.isFunction(value)
       ? (value as CallableFunction)(this)
       : value
-  }
-
-  /**
-   * ## container
-   *
-   * Make a new container
-   *
-   * ### Usage
-   *
-   * ```js
-   * const container = app.container({data: 'stuff'})
-   * container.get('data') // => 'stuff'
-   * ```
-   */
-  @bind
-  public container(repository?: any): Container {
-    return new Container(repository ?? {})
   }
 
   /**
@@ -304,7 +252,9 @@ abstract class Framework {
    * Sequence functions
    */
   @bind
-  public sequence(fns: Array<(app: this) => any>): this {
+  public sequence(
+    fns: Array<(app: Framework) => any>,
+  ): Framework {
     fns.reduce((_val, fn) => {
       return fn.bind(this)(this)
     }, this)
@@ -337,13 +287,9 @@ abstract class Framework {
     isTrue: (app: Framework) => any,
     isFalse?: (app: Framework) => any,
   ): Framework {
-    const testFn = lodash.isFunction(test)
-      ? test.bind(this)
-      : test
-
-    lodash.isEqual(this.access(testFn), true)
-      ? isTrue(this)
-      : isFalse(this)
+    _.isEqual(this.access(test), true)
+      ? _.isFunction(isFalse) && isTrue(this).bind(this)
+      : _.isFunction(isFalse) && isFalse(this).bind(this)
 
     return this
   }

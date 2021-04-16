@@ -1,4 +1,4 @@
-import {useEffect, useState} from '@roots/bud-support'
+import {useEffect, useState} from 'react'
 import {Framework} from '@roots/bud-framework'
 
 type PkgFields = {

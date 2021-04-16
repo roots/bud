@@ -1,6 +1,7 @@
 import {Service} from '@roots/bud-framework'
 import {Server} from '@roots/bud-typings'
-import {bind, globby, chokidar} from '@roots/bud-support'
+import chokidar from 'chokidar'
+import {boundMethod as bind} from 'autobind-decorator'
 
 import {FSWatcher} from 'fs-extra'
 import {resolve} from 'path'
@@ -9,11 +10,11 @@ import * as middleware from '../middleware'
 import {injectClient} from '../util/injectClient'
 
 /**
- * Development Server
+ * Dev server
  *
  * [🏡 Project home](https://roots.io/bud)
- * [🧑‍💻 roots/bud/packages/bud-server](https://github.com/roots/bud/tree/stable/packages/@roots/bud-server)
- * [📦 @roots/bud-server](https://www.npmjs.com/package/@roots/bud-server)
+ * [🐙 git](https://www.github.com/tree/stable/packages/@roots/bud-server)
+ * [📦 npm](https://www.npmjs.com/package/@roots/bud-server)
  */
 export default class extends Service implements Server {
   /**
@@ -107,9 +108,10 @@ export default class extends Service implements Server {
   /**
    * Lifecycle: booted
    */
+  @bind
   public booted() {
     this.watcher = chokidar.watch(
-      globby.sync(this.watchlist),
+      this.app.util.globby.sync(this.watchlist),
       this.config.get('watch.options'),
     )
   }

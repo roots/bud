@@ -1,5 +1,6 @@
 import {CLI} from './CLI'
 import {Help} from 'commander'
+import {boundMethod as bind} from 'autobind-decorator'
 
 interface Contract {
   name: string
@@ -100,6 +101,7 @@ abstract class Command implements Contract {
   /**
    * Ensure a command property is defined
    */
+  @bind
   public has(query: string | string[]): boolean {
     return (Array.isArray(query) ? query : [query]).reduce(
       (res, prop) =>

@@ -4,6 +4,7 @@ import globby from 'globby'
 import resolveFrom from 'resolve-from'
 import _ from 'lodash'
 import {Container} from '@roots/container'
+import {boundMethod as bind} from 'autobind-decorator'
 
 /**
  * FileContainer
@@ -47,9 +48,7 @@ export class FileContainer extends Container {
    */
   constructor(baseDir?: string) {
     super()
-
     this._baseDir = baseDir
-    this.setDisk = this.setDisk.bind(this)
   }
 
   /**
@@ -93,7 +92,8 @@ export class FileContainer extends Container {
    * fsInstance.setDisk(['*.js', '!*.css.js'])
    * ```
    */
-  public setDisk = function (glob: string[]): void {
+  @bind
+  public setDisk(glob: string[]): this {
     this.glob
       .sync(glob ?? ['*', '**/*', '!vendor', '!node_modules'], {
         onlyFiles: false,
@@ -115,7 +115,8 @@ export class FileContainer extends Container {
    * ### Usage
    *
    */
-  public ls = function (key?: string): any {
+  @bind
+  public ls(key?: string): any {
     return key ? _.get(this.repository, key) : this.repository
   }
 
@@ -130,7 +131,8 @@ export class FileContainer extends Container {
    * fsInstance.has('some/file.js')
    * ```
    */
-  public has = function (key: string): boolean {
+  @bind
+  public has(key: string): boolean {
     return _.has(this.repository, key)
   }
 
@@ -145,6 +147,7 @@ export class FileContainer extends Container {
    * fsInstance.set('some/file.js', '/absolute/path/to/some/file.js')
    * ```
    */
+  @bind
   public set(key: string, value: any): this {
     _.set(this.repository, [`${key}`], value)
 
@@ -163,7 +166,8 @@ export class FileContainer extends Container {
    * fsInstance.exists('some/file.js')
    * ```
    */
-  public exists = function (key: string): boolean {
+  @bind
+  public exists(key: string): boolean {
     return this.fs.existsSync(this.get(key))
   }
 
@@ -179,7 +183,8 @@ export class FileContainer extends Container {
    * fsInstance.ensure('some/file.js')
    * ```
    */
-  public ensure = function (key: string): void {
+  @bind
+  public ensure(key: string): void {
     const file = this.has(key)
       ? this.get(key)
       : this.path.resolve(this.baseDir, key)
@@ -200,7 +205,8 @@ export class FileContainer extends Container {
    * fsInstance.ensureDir('some/file.js')
    * ```
    */
-  public ensureDir = function (key: string): void {
+  @bind
+  public ensureDir(key: string): void {
     const dir = this.has(key)
       ? this.get(key)
       : this.path.resolve(this.baseDir, key)
@@ -221,7 +227,8 @@ export class FileContainer extends Container {
    * fsInstance.read('some/file.md')
    * ```
    */
-  public read = function (key: string): string {
+  @bind
+  public read(key: string): string {
     return this.fs.readFileSync(this.get(key), 'utf8')
   }
 
@@ -237,9 +244,8 @@ export class FileContainer extends Container {
    * // => {json: 'contents', as: 'an object'}
    * ```
    */
-  public readJson = function (
-    key: string,
-  ): {[key: string]: any} {
+  @bind
+  public readJson(key: string): {[key: string]: any} {
     return this.fs.readJsonSync(this.get(key))
   }
 
@@ -254,7 +260,8 @@ export class FileContainer extends Container {
    * fsInstance.write('some/file.md', 'string contens')
    * ```
    */
-  public write = function (key: string, content: string): void {
+  @bind
+  public write(key: string, content: string): void {
     const file = this.has(key)
       ? this.get(key)
       : this.path.resolve(this.baseDir, key)
@@ -278,10 +285,8 @@ export class FileContainer extends Container {
    * )
    * ```
    */
-  public writeJson = function (
-    key: string,
-    content: string,
-  ): void {
+  @bind
+  public writeJson(key: string, content: string): void {
     const file = this.has(key)
       ? this.get(key)
       : this.path.resolve(this.baseDir, key)
@@ -301,7 +306,8 @@ export class FileContainer extends Container {
    * fsInstance.require('path/to/module.js')
    * ```
    */
-  public require = function (key: string): NodeModule {
+  @bind
+  public require(key: string): NodeModule {
     return require(this.get(key))
   }
 }

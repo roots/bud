@@ -63,6 +63,7 @@
   "dependencies": {
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
+    "autobind-decorator": "^2.4.0",
     "esbuild-loader": "^2.11.1"
   }
 }

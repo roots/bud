@@ -55,13 +55,6 @@ export class Logger implements Contract, Bootstrapper {
   }
 
   /**
-   * Service contract fulfillment
-   */
-  public register() {}
-  public boot() {}
-  public booted() {}
-
-  /**
    * Get logger instance
    */
   public get instance() {
@@ -92,6 +85,7 @@ export class Logger implements Contract, Bootstrapper {
   /**
    * Framework lifecycle: bootstrapped
    */
+  @bind
   public bootstrapped(app: Framework) {
     this.instance = this.makeLogger()
   }
@@ -99,6 +93,7 @@ export class Logger implements Contract, Bootstrapper {
   /**
    * Framework lifecycle: registered
    */
+  @bind
   public registered(app: Framework) {
     if (app.store.enabled('options.log')) {
       app.logger.instance.enable()

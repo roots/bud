@@ -13,7 +13,6 @@ import Spinner from 'ink-spinner'
  * Framework/Dependencies
  *
  * [🏡 Project home](https://roots.io/bud)
- * [🧑‍💻 roots/bud](https://git.io/Jkli3)
  */
 export class Dependencies extends Service {
   /**
@@ -52,6 +51,7 @@ export class Dependencies extends Service {
   /**
    * Boot
    */
+  @bind
   public boot() {
     this.manager = new DependenciesManager(
       this.app.subscribe('location/project'),

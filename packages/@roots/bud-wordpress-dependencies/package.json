@@ -62,6 +62,7 @@
   "dependencies": {
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
-    "@roots/wordpress-dependencies-webpack-plugin": "workspace:*"
+    "@roots/wordpress-dependencies-webpack-plugin": "workspace:*",
+    "autobind-decorator": "^2.4.0"
   }
 }

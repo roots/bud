@@ -53,7 +53,8 @@
   },
   "dependencies": {
     "@roots/bud-support": "workspace:*",
-    "@roots/wordpress-externals-webpack-plugin": "workspace:*"
+    "@roots/wordpress-externals-webpack-plugin": "workspace:*",
+    "autobind-decorator": "^2.4.0"
   },
   "devDependencies": {
     "@roots/bud": "workspace:*",

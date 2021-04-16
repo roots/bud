@@ -1,4 +1,6 @@
-import {React, Box, Text, Spinner} from '@roots/bud-support'
+import React from 'react'
+import {Box, Text} from 'ink'
+import Spinner from 'ink-spinner'
 import {Dashboard} from '@roots/bud-framework'
 
 export const Header: Dashboard.Component = ({

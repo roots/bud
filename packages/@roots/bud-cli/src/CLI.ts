@@ -4,6 +4,7 @@ import {Container} from '@roots/container'
 import Commander from 'commander'
 import Output from './Output'
 import {commands} from './commands'
+import {boundMethod as bind} from 'autobind-decorator'
 
 /**
  * CLI
@@ -53,6 +54,7 @@ export class CLI {
   /**
    * Boot
    */
+  @bind
   public boot() {
     /**
      * Configures commander

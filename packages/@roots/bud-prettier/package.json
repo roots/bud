@@ -51,6 +51,7 @@
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:*",
+    "autobind-decorator": "^2.4.0",
     "eslint-plugin-prettier": "^3.3.1",
     "prettier": "^2.2.1"
   },

@@ -1,11 +1,11 @@
-import {Service} from '@roots/bud-framework'
+import {Framework, Service} from '@roots/bud-framework'
 import * as api from '@roots/bud-api'
+import {boundMethod as bind} from 'autobind-decorator'
 
 /**
  * Framework/Api
  *
  * [🏡 Project home](https://roots.io/bud)
- * [🧑‍💻 roots/bud](https://git.io/Jkli3)
  */
 export class Api extends Service {
   /**
@@ -21,13 +21,14 @@ export class Api extends Service {
   /**
    * Register
    */
-  public register() {
+  @bind
+  public register(app: Framework) {
     Object.assign(
-      this.app,
+      app,
       this.getEntries().reduce(
         (entries, [name, fn]) => ({
           ...entries,
-          [name]: fn.bind(this.app),
+          [name]: fn.bind(app),
         }),
         {},
       ),

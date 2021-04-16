@@ -1,4 +1,5 @@
-import {lodash as _, bind} from '@roots/bud-support'
+import _ from 'lodash'
+import {boundMethod as bind} from 'autobind-decorator'
 import {Framework, Hooks, Module} from '@roots/bud-framework'
 
 type ModuleKey = `${keyof Module & string}`
@@ -9,7 +10,6 @@ type ModuleKey = `${keyof Module & string}`
  * Extensions controller for the Bud framework.
  *
  * [🏡 Project home](https://roots.io/bud)
- * [🧑‍💻 roots/bud](https://git.io/Jkli3)
  */
 export default class {
   /**
@@ -73,30 +73,23 @@ export default class {
       )
     }
 
-    if (this.module.options) {
+    this.module.options &&
       this.set('options', () => this.module.options)
-    }
 
-    if (this.module.dependencies) {
+    this.module.dependencies &&
       this.set('dependencies', () => this.module.dependencies)
-    }
 
-    if (this.module.devDependencies) {
+    this.module.devDependencies &&
       this.set(
         'devDependencies',
         () => this.module.devDependencies,
       )
-    }
 
-    if (this.module.when) {
-      this.set('when', () => this.module.when)
-    }
-
-    if (this.module.make) {
-      this.set('make', () => this.module.make)
-    }
+    this.module.when && this.set('when', () => this.module.when)
+    this.module.make && this.set('make', () => this.module.make)
 
     this.app.store.enabled('options.install') && this.install()
+
     this.logger.scope(this.name).success('Extension registered')
 
     return this

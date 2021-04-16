@@ -1,5 +1,6 @@
 import {Command} from '../Command'
 import {Error} from '@roots/bud-dashboard'
+import {boundMethod as bind} from 'autobind-decorator'
 
 /**
  * Build
@@ -341,6 +342,7 @@ export class Build extends Command {
   /**
    * Preflight check
    */
+  @bind
   public async action() {
     const projectFiles = this.cli.app.disk.get('project')
 

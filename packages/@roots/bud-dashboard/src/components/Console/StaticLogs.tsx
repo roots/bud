@@ -1,4 +1,5 @@
-import {React, Text, Box, Static} from '@roots/bud-support'
+import React from 'react'
+import {Box, Text, Static} from 'ink'
 import {Logs} from './Logs'
 
 export const StaticLogs: typeof Logs = ({logs}) => (
