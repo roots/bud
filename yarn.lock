@@ -2563,11 +2563,13 @@ __metadata:
     "@roots/container": "workspace:packages/@roots/container"
     "@roots/dependencies": "workspace:*"
     "@roots/filesystem": "workspace:packages/@roots/filesystem"
+    "@types/fs-extra": ^9.0.11
     "@types/lodash": ^4.14.168
     "@types/node": ^14.14.39
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     fs: ^0.0.1-security
+    fs-extra: ^9.1.0
     globby: ^11.0.3
     lodash: ^4.17.21
     npm-run-all: ^4.1.5
