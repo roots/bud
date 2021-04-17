@@ -10,7 +10,6 @@ import {
   Service,
   Bootstrapper,
 } from '@roots/bud-framework'
-
 import {Dependencies} from './services/Dependencies'
 import {Discovery} from './services/Discovery'
 import {Disk} from './services/Disk'

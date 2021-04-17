@@ -23,20 +23,20 @@
   },
   "workspaces": {
     "packages": [
+      "packages/*",
       "packages/@roots/*",
       "examples/*"
     ]
   },
   "scripts": {
     "build": "yarn workspaces foreach --parallel --interlaced --verbose --topological run build",
-    "dev": "node ./scripts/dev",
+    "dev": "run node ./scripts/dev",
     "ci": "run-s build lint:eslint lint:prettier test pkg",
     "clean": "rimraf node_modules 'packages/@roots/*/{lib,types,node_modules}'",
     "lint": "run-s lint:eslint lint:prettier",
     "lint:eslint": "eslint 'packages/**/*.{js,ts,tsx}' --fix",
     "lint:prettier": "prettier 'packages/**/src/**/*'  --write",
-    "test": "jest --verbose",
-    "pkg": "yarn workspaces foreach yarn run pkg"
+    "test": "jest --verbose"
   },
   "devDependencies": {
     "@roots/bud-framework": "workspace:*",

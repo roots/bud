@@ -1,4 +1,5 @@
 import {Framework} from '@roots/bud-framework'
+import Webpack from 'webpack'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -18,17 +19,19 @@ declare module '@roots/bud-framework' {
      * })
      * ```
      */
-    alias: Framework.Api.Alias
+    alias: Api.Alias
   }
 
-  namespace Framework.Api {
+  namespace Api {
     export type {Alias}
   }
 }
 
-export type Alias = (alias: {[key: string]: string}) => Framework
+export type Alias = (
+  alias: Webpack.Configuration['resolve']['alias'],
+) => Framework
 
-export const alias: Framework.Api.Alias = function (alias) {
+export const alias: Alias = function (alias) {
   !this.store.has('args.resolve.alias') &&
     this.store.merge('options.resolve.alias', alias)
 

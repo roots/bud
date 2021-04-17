@@ -77,7 +77,7 @@ namespace Entry {
     | Array<GlobTask['pattern']>
 }
 
-export const entry: Framework['entry'] = function (...args) {
+export const entry: Entry = function (...args) {
   /**
    * Ducktype entrypoint to determine if it was called like
    * entry(name, ...assets) or entry({[name]: ...assets})

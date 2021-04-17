@@ -2278,9 +2278,6 @@ __metadata:
     chalk: ^4.1.0
     globby: ^11.0.3
     lodash: ^4.17.21
-    npm-run-all: ^4.1.5
-    rimraf: ^3.0.2
-    typescript: ^4.2.4
     webpack: ^5.33.2
   languageName: unknown
   linkType: soft
@@ -3033,6 +3030,7 @@ __metadata:
     "@roots/bud-hooks": "workspace:*"
     "@roots/bud-server": "workspace:*"
     "@roots/bud-support": "workspace:*"
+    "@roots/container": "workspace:*"
     "@roots/dependencies": "workspace:*"
     "@roots/filesystem": "workspace:packages/@roots/filesystem"
     "@roots/ink-use-style": "workspace:packages/@roots/ink-use-style"
@@ -8960,15 +8958,14 @@ __metadata:
     "@roots/bud": "workspace:*"
     "@roots/bud-cli": "workspace:*"
     "@roots/bud-criticalcss": "workspace:*"
+    "@roots/bud-entrypoints": "workspace:*"
     "@roots/bud-postcss": "workspace:*"
     "@roots/bud-tailwindcss": "workspace:*"
     "@tailwindcss/jit": ^0.1.18
     "@types/fs-extra": ^9.0.11
     "@types/node": ^14.14.39
     "@types/rimraf": ^3.0.0
-    autobind-decorator: ^2.4.0
     autoprefixer: ^10.2.5
-    fs-extra: ^9.1.0
     npm-run-all: ^4.1.5
     postcss: ^8.2.10
     rimraf: ^3.0.2
@@ -9970,6 +9967,28 @@ __metadata:
   checksum: ca6c170f37640e2d94297da8bb4bf27a1d12bea3e00e6a3e007fd7aa32e37e000f5772acf941b4e4f3cf1c95c3752033d0c509af157ad8f526e7f00723b9eb9f
   languageName: node
   linkType: hard
+
+"g@workspace:packages/base":
+  version: 0.0.0-use.local
+  resolution: "g@workspace:packages/base"
+  dependencies:
+    "@roots/bud-typings": "workspace:*"
+    "@skypack/package-check": ^0.2.2
+    "@types/lodash": ^4.14.168
+    "@types/node": ^14.14.39
+    "@types/prettier": ^2.2.3
+    "@types/rimraf": ^3.0.0
+    autobind-decorator: ^2.4.0
+    chalk: ^4.1.0
+    globby: ^11.0.3
+    lodash: ^4.17.21
+    npm-run-all: ^4.1.5
+    prettier: ^2.2.1
+    rimraf: ^3.0.2
+    typescript: ^4.2.4
+    webpack: ^5.33.2
+  languageName: unknown
+  linkType: soft
 
 "gauge@npm:~2.7.3":
   version: 2.7.4

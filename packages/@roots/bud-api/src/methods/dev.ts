@@ -1,5 +1,4 @@
-import {Framework} from '@roots/bud-framework'
-import {Server} from '@roots/bud-typings'
+import {Framework, Server} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -17,10 +16,10 @@ declare module '@roots/bud-framework' {
      * })
      * ```
      */
-    dev: Framework.Api.Dev
+    dev: Api.Dev
   }
 
-  namespace Framework.Api {
+  namespace Api {
     export {Dev}
   }
 }
@@ -28,10 +27,12 @@ declare module '@roots/bud-framework' {
 type Dev = (config?: Server.Configuration) => Framework
 
 export const dev: Dev = function (config) {
-  this.server.config.mutateStore(store => ({
-    ...store,
-    ...config,
-  }))
+  this.server.config.mutateStore(
+    (store: Server.Configuration) => ({
+      ...store,
+      ...config,
+    }),
+  )
 
   return this
 }

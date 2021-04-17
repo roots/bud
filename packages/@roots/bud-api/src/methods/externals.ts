@@ -1,6 +1,5 @@
 import {Framework} from '@roots/bud-framework'
-
-type Externals = (externals: {[key: string]: any}) => Framework
+import Webpack from 'webpack'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -17,12 +16,20 @@ declare module '@roots/bud-framework' {
      *   'jQuery': 'window.jquery',
      * })
      */
-    externals: Externals
+    externals: Api.Externals
+  }
+
+  namespace Api {
+    export {Externals}
   }
 }
 
+type Externals = (
+  externals: Webpack.Configuration['externals'],
+) => Framework
+
 export const externals: Externals = function (externals) {
-  this.store.merge('options.externals', externals)
+  this.hooks.on('build/externals', () => externals)
 
   return this
 }
