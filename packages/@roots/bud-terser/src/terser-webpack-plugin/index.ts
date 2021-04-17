@@ -1,10 +1,9 @@
-import {Framework} from '@roots/bud-framework'
-import {Module} from '@roots/bud-typings'
+import {Terser, Module} from '@roots/bud-framework'
 import TerserPlugin from 'terser-webpack-plugin'
 
 export const name = 'terser-webpack-plugin'
 
-export const options: Framework.Terser.Options = app => ({
+export const options: Module.Options<Terser.Options> = app => ({
   parallel: true,
   extractComments: false,
   terserOptions: {
@@ -23,11 +22,9 @@ export const options: Framework.Terser.Options = app => ({
   },
 })
 
-export const make: Module.Make<
-  TerserPlugin,
-  Framework.Terser.Options
-> = (options: Framework.Terser.Options) =>
-  new TerserPlugin(options.all())
+export const make: Module.Make<TerserPlugin, Terser.Options> = (
+  options: Terser.Options,
+) => new TerserPlugin(options.all())
 
 export const when: Module.When = ({store, isProduction}) =>
   store.get('options.minify') && isProduction

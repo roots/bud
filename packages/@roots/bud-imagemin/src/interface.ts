@@ -1,5 +1,5 @@
-import '@roots/bud-framework'
-import type Plugin from 'image-minimizer-webpack-plugin/types'
+import {Module} from '@roots/bud-framework'
+import Plugin from 'image-minimizer-webpack-plugin/types'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -41,13 +41,13 @@ declare module '@roots/bud-framework' {
     /**
      * Make
      */
-    type Make = Framework.Module.Make<Plugin, Options>
+    type Make = Module.Make<Plugin, Options>
   }
 
-  namespace Framework.Hooks.Extension {
+  namespace Hooks.Extension {
     interface Definitions {
-      '@roots/bud-imagemin': Framework.Hooks.Extension.Subject
-      'image-minimizer-webpack-plugin': Framework.Hooks.Extension.Subject
+      '@roots/bud-imagemin': Module
+      'image-minimizer-webpack-plugin': Module
     }
   }
 }

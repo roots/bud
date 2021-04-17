@@ -1,5 +1,6 @@
 import {Command} from '../Command'
-import {chalk, globby} from '@roots/bud-support'
+import chalk from 'chalk'
+import globby from 'globby'
 import {dirname} from 'path'
 
 /**

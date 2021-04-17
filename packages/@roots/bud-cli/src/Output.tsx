@@ -1,4 +1,6 @@
-import {React, Text, render, Gradient} from '@roots/bud-support'
+import React from 'react'
+import {Text, render} from 'ink'
+import {Gradient} from 'ink-gradient'
 import Commander from 'commander'
 import {Layout} from './Layout'
 import {boundMethod as bind} from 'autobind-decorator'

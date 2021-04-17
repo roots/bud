@@ -1,4 +1,4 @@
-import {Framework} from '@roots/bud-framework'
+import {Framework, Module} from '@roots/bud-framework'
 import {isArray} from 'lodash'
 
 declare module '@roots/bud-framework' {
@@ -20,14 +20,12 @@ declare module '@roots/bud-framework' {
     use: Use
   }
 
-  namespace Framework.Api {
+  namespace Api {
     export {Use}
   }
 }
 
-type Use = (
-  source: Framework.Module | Array<Framework.Module>,
-) => Framework
+type Use = (source: Module | Array<Module>) => Framework
 
 export const use: Use = function (source) {
   if (!isArray(source)) {
@@ -36,7 +34,7 @@ export const use: Use = function (source) {
     return this
   }
 
-  source.forEach((extension: Framework.Module) => {
+  source.forEach((extension: Module) => {
     this.extensions.add(extension)
   })
 

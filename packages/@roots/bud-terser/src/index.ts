@@ -1,7 +1,7 @@
 import './interface'
+import {Framework, Module} from '@roots/bud-framework'
+
 import * as terserWebpackPlugin from './terser-webpack-plugin'
-import {Framework} from '@roots/bud-framework'
-import {Module} from '@roots/bud-typings'
 
 // Extension name
 export const name: Module['name'] = '@roots/bud-terser'

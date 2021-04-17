@@ -65,13 +65,12 @@ export default class {
       Object.assign(this.app, this.app.access(this.module.api))
     }
 
-    if (this.module.publish) {
+    this.module.publish &&
       this.app.publish(
         this.app.access<{[key: string]: any}>(
           this.module.publish,
         ),
       )
-    }
 
     this.module.options &&
       this.set('options', () => this.module.options)
@@ -133,8 +132,8 @@ export default class {
    * Make hook key from module property
    */
   @bind
-  public makeKey(key: ModuleKey): Framework.Hooks.Name {
-    return `extension/${this.name}/${key}` as Framework.Hooks.Name
+  public makeKey(key: ModuleKey): Hooks.Name {
+    return `extension/${this.name}/${key}` as Hooks.Name
   }
 
   /**

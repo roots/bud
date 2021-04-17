@@ -59,7 +59,7 @@ declare module '@roots/bud-framework' {
     }
   }
 
-  namespace Framework.Hooks.Extension {
+  namespace Hooks.Extension {
     interface Definitions {
       '@roots/bud-compress': Module
       'compression-webpack-plugin-brotli': Compress.Extension

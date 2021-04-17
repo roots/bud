@@ -1,13 +1,11 @@
-import {Framework} from '@roots/bud-framework'
+import {Framework, Terser} from '@roots/bud-framework'
 
-export const terser: Framework.Terser.Configure = function (
-  options,
-) {
+export const terser: Terser.Configure = function (
+  options: Terser.Options,
+): Framework {
   this.store.enable('options.minify')
 
-  this.publish({
-    'extension/terser/options': () => options,
-  })
+  this.hooks.on('extension/terser/options', () => options)
 
   return this
 }

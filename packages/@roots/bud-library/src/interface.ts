@@ -1,4 +1,4 @@
-import '@roots/bud-framework'
+import {Module} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -21,23 +21,18 @@ declare module '@roots/bud-framework' {
      * app.library(['react', 'react-dom'])
      * ```
      */
-    library: Framework.Library.Configure
+    library: Library.Configure
   }
 
-  namespace Framework {
-    namespace Library {
-      type Configure = (
-        this: Framework,
-        modules: string[],
-      ) => Framework
-    }
+  namespace Library {
+    type Configure = (modules: string[]) => Framework
+  }
 
-    namespace Hooks {
-      namespace Extension {
-        interface Definitions {
-          '@roots/bud-library': Framework.Extension
-          'autodll-webpack-plugin': Framework.Extension
-        }
+  namespace Hooks {
+    namespace Extension {
+      interface Definitions {
+        '@roots/bud-library': Module
+        'autodll-webpack-plugin': Module
       }
     }
   }

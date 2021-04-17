@@ -1,5 +1,4 @@
 import './interface'
-
 import {Module} from '@roots/bud-framework'
 import Plugin from 'eslint-webpack-plugin'
 import formatter from './formatter'
@@ -7,7 +6,7 @@ import formatter from './formatter'
 /**
  * Extension name
  */
-export const name: Module.Name = 'eslint-webpack-plugin'
+export const name: Module['name'] = 'eslint-webpack-plugin'
 
 /**
  * Extension options

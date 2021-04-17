@@ -1,4 +1,7 @@
-import {React, Gradient, BigText, Box} from '@roots/bud-support'
+import React from 'react'
+import {Box} from 'ink'
+import Gradient from 'ink-gradient'
+import BigText from 'ink-big-text'
 
 export const Layout = ({name, children}) => (
   <Box

@@ -1,19 +1,19 @@
 import {Module} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
-  namespace Framework.Hooks.Extension {
+  namespace Hooks.Extension {
     interface Definitions {
       '@roots/bud-babel': Module
     }
   }
 
-  namespace Framework.Hooks.Loader {
+  namespace Hooks.Loader {
     interface Definitions {
       babel: string
     }
   }
 
-  namespace Framework.Hooks.Item {
+  namespace Hooks.Item {
     interface Definitions {
       babel: any
     }

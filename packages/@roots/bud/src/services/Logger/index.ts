@@ -1,9 +1,9 @@
 import {
   Logger as Contract,
   Bootstrapper,
-} from '@roots/bud-typings'
+  Framework,
+} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
-import {Framework} from '@roots/bud-framework'
 import {Signale, SignaleConfig, SignaleOptions} from 'signale'
 
 /**

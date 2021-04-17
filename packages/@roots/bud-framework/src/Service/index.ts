@@ -1,8 +1,8 @@
-import {Framework} from '../Framework'
-import {posix, join} from 'path'
+import {Framework} from '../'
 import {Container} from '@roots/container'
 import {FileContainer} from '@roots/filesystem'
 import {boundMethod as bind} from 'autobind-decorator'
+import {posix, join} from 'path'
 
 /**
  * Framework service
@@ -78,21 +78,21 @@ export class Service extends Container {
   /**
    * Subscriptions
    */
-  public get subscribe() {
+  public get subscribe(): Framework['subscribe'] {
     return this.app.subscribe
   }
 
   /**
    * Publish
    */
-  public get publish() {
+  public get publish(): Framework['publish'] {
     return this.app.publish
   }
 
   /**
    * Access containerized property (which may or may not be callable.)
    */
-  public get access() {
+  public get access(): Framework['access'] {
     return this.app.access
   }
 

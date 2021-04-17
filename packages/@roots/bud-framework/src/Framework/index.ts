@@ -1,68 +1,28 @@
-import {Core} from './Core'
-import {Container} from '@roots/container'
-import _ from 'lodash'
-import {boundMethod as bind} from 'autobind-decorator'
-
-import type {
+import {
   Build,
   Cache,
-  CLI,
   Dependencies,
   Discovery,
   Disk,
   Env,
-  Error,
-  Extension,
   Extensions,
-  Express,
-  FileContainer,
   Hooks,
   Index,
   Logger,
-  Module,
   Server,
   Service,
   Store,
-  MaybeCallable,
-  Bootstrapper,
-  Webpack,
 } from '@roots/bud-typings'
+
+import {Core} from './Core'
 import {Services} from './Services'
-
-export {Framework}
-
-declare namespace Framework {
-  export {
-    Build,
-    Cache,
-    CLI,
-    Container,
-    Dependencies,
-    Discovery,
-    Disk,
-    Env,
-    Error,
-    Extension,
-    Extensions,
-    Express,
-    FileContainer,
-    Hooks,
-    Index,
-    Logger,
-    Module,
-    Server,
-    Service,
-    Store,
-    MaybeCallable,
-    Bootstrapper,
-    Webpack,
-  }
-}
+import _ from 'lodash'
+import {boundMethod as bind} from 'autobind-decorator'
 
 /**
  * Framework abstract
  */
-abstract class Framework extends Core {
+export abstract class Framework extends Core {
   [key: string]: any
 
   public name = 'bud'
@@ -211,10 +171,7 @@ abstract class Framework extends Core {
    * ```
    */
   @bind
-  public access<I = any>(
-    this: Framework,
-    value: ((app: Framework) => I) | I,
-  ): I {
+  public access<I = any>(value: ((app: Framework) => I) | I): I {
     return _.isFunction(value)
       ? (value as CallableFunction)(this)
       : value

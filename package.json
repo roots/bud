@@ -35,15 +35,8 @@
     "lint": "run-s lint:eslint lint:prettier",
     "lint:eslint": "eslint 'packages/**/*.{js,ts,tsx}' --fix",
     "lint:prettier": "prettier 'packages/**/src/**/*'  --write",
-    "changelog": "conventional-changelog -i CHANGELOG.md -s -u",
     "test": "jest --verbose",
-    "pkg": "yarn workspaces foreach yarn run pkg",
-    "pkg:local": "run-p pkg:npm:local pkg:yarn:local",
-    "pkg:remote": "run-p pkg:npm:remote pkg:yarn:remote",
-    "pkg:npm:local": "npm config set registry https://localhost:4873",
-    "pkg:npm:remote": "npm config set registry https://registry.npmjs.org/",
-    "pkg:yarn:local": "yarn config set npmRegistryServer https://localhost:4873",
-    "pkg:yarn:remote": "yarn config set npmRegistryServer https://registry.npmjs.org/"
+    "pkg": "yarn workspaces foreach yarn run pkg"
   },
   "devDependencies": {
     "@roots/bud-framework": "workspace:*",
@@ -73,7 +66,6 @@
     "chokidar": "^3.5.1",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
     "commitizen": "^4.2.3",
-    "conventional-changelog-cli": "^2.1.1",
     "copy-webpack-plugin": "^8.1.1",
     "critical": "^2.0.6",
     "css-loader": "^5.2.1",

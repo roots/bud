@@ -10,13 +10,13 @@ declare global {
 }
 
 declare module '@roots/bud-framework' {
-  namespace Framework.Hooks.Extension {
+  namespace Hooks.Extension {
     interface Definitions {
       '@roots/bud-sass': Module
     }
   }
 
-  namespace Framework.Hooks.Loader {
+  namespace Hooks.Loader {
     interface Definitions {
       /**
        * @roots/bud-sass Loader
@@ -25,7 +25,7 @@ declare module '@roots/bud-framework' {
     }
   }
 
-  namespace Framework.Hooks.Item {
+  namespace Hooks.Item {
     interface Definitions {
       /**
        * @roots/bud-sass RuleSetLoader
@@ -34,7 +34,7 @@ declare module '@roots/bud-framework' {
     }
   }
 
-  namespace Framework.Hooks.Rule {
+  namespace Hooks.Rule {
     interface Definitions {
       /**
        * @roots/bud-sass RuleSetRule

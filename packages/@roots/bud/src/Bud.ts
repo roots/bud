@@ -5,7 +5,11 @@ import {Build} from '@roots/bud-build'
 import {Cache} from '@roots/bud-cache'
 import {Compiler} from '@roots/bud-compiler'
 import {Dashboard} from '@roots/bud-dashboard'
-import {Framework} from '@roots/bud-framework'
+import {
+  Framework,
+  Service,
+  Bootstrapper,
+} from '@roots/bud-framework'
 
 import {Dependencies} from './services/Dependencies'
 import {Discovery} from './services/Discovery'
@@ -56,8 +60,8 @@ export class Bud extends Framework {
  */
 export const services: {
   [key: string]: new (app: Framework['get']) =>
-    | Framework.Service
-    | Framework.Bootstrapper
+    | Service
+    | Bootstrapper
 } = {
   util: Util,
   api: Api,

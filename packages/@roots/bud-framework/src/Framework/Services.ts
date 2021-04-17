@@ -1,6 +1,6 @@
-import {Service} from '@roots/bud-typings'
 import {Container} from '@roots/container'
-import {Framework} from './'
+import {Service} from '@roots/bud-typings'
+import {Framework} from '../'
 
 export class Services extends Container {
   constructor(

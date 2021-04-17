@@ -1,4 +1,4 @@
-import '@roots/bud-framework'
+import {Module} from '@roots/bud-framework'
 
 interface LoaderOptions {
   target?:
@@ -74,32 +74,32 @@ declare module '@roots/bud-framework' {
     type JSX = (enabled?: boolean) => Framework
   }
 
-  namespace Framework.Hooks.Extension {
+  namespace Hooks.Extension {
     interface Definitions {
-      '@roots/bud-esbuild': Framework.Module
-      '@roots/bud-esbuild/js': Framework.Module
-      '@roots/bud-esbuild/ts': Framework.Module
-      'esbuild-plugin': Framework.Module
+      '@roots/bud-esbuild': Module
+      '@roots/bud-esbuild/js': Module
+      '@roots/bud-esbuild/ts': Module
+      'esbuild-plugin': Module
     }
   }
 
-  namespace Framework.Hooks.Loader {
+  namespace Hooks.Loader {
     interface Definitions {
-      'esbuild-js': Framework.Hooks.Loader.Subject
-      'esbuild-ts': Framework.Hooks.Loader.Subject
+      'esbuild-js': string
+      'esbuild-ts': string
     }
   }
 
-  namespace Framework.Hooks.Item {
+  namespace Hooks.Item {
     interface Definitions {
-      'esbuild-js': Framework.Hooks.Item.Subject
-      'esbuild-ts': Framework.Hooks.Item.Subject
+      'esbuild-js': any
+      'esbuild-ts': any
     }
   }
 
-  namespace Framework.Hooks.Rule {
+  namespace Hooks.Rule {
     interface Definitions {
-      ts: Framework.Hooks.Rule.Subject
+      ts: any
     }
   }
 }

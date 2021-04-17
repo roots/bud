@@ -1,5 +1,4 @@
-import {Hooks} from '@roots/bud-typings'
-import {Framework, Service} from '@roots/bud-framework'
+import {Framework, Hooks, Service} from '@roots/bud-framework'
 import prettyFormat from 'pretty-format'
 import _ from 'lodash'
 import {boundMethod as bind} from 'autobind-decorator'
@@ -21,7 +20,7 @@ export default class extends Service implements Hooks {
    * Get hook
    */
   @bind
-  public get<T = any>(path: `${Framework.Hooks.Name & string}`) {
+  public get<T = any>(path: `${Hooks.Name & string}`) {
     return _.get(this.repository, path) as T
   }
 
@@ -29,10 +28,7 @@ export default class extends Service implements Hooks {
    * Set hook
    */
   @bind
-  public set(
-    key: `${Framework.Hooks.Name & string}`,
-    value: any,
-  ): this {
+  public set(key: `${Hooks.Name & string}`, value: any): this {
     _.set(this.repository, key, value)
 
     return this
@@ -61,8 +57,8 @@ export default class extends Service implements Hooks {
   @bind
   public on(
     id:
-      | [string, `${Framework.Hooks.Name & string} & string`]
-      | (`${Framework.Hooks.Name}` & string),
+      | [string, `${Hooks.Name & string} & string`]
+      | (`${Hooks.Name}` & string),
     callback: Hooks.Hook,
   ): Framework {
     const [publisher, name] = _.isArray(id)
@@ -94,8 +90,8 @@ export default class extends Service implements Hooks {
   @bind
   public filter<T = any>(
     id:
-      | `${Framework.Hooks.Name & string}`
-      | [string, `${Framework.Hooks.Name & string}`],
+      | `${Hooks.Name & string}`
+      | [string, `${Hooks.Name & string}`],
   ): T {
     const [subscriber, name] = _.isArray(id)
       ? id

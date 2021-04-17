@@ -1,5 +1,4 @@
-import {Service} from '@roots/bud-framework'
-import {Store as Contract} from '@roots/bud-typings'
+import {Service, Store as Contract} from '@roots/bud-framework'
 import _ from 'lodash'
 import {args} from '../../bootstrap/args'
 import {env} from '../../bootstrap/env'

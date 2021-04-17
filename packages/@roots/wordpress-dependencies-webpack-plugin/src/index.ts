@@ -1,8 +1,9 @@
 import './interface'
-
 import {resolve, relative} from 'path'
 import Webpack, {sources} from 'webpack'
-import {bind, wpPkgs} from '@roots/bud-support'
+import {boundMethod as bind} from 'autobind-decorator'
+
+import {wpPkgs} from '@roots/bud-support'
 
 interface Manifest {
   name: string

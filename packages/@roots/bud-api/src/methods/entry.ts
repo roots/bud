@@ -1,4 +1,4 @@
-import type {Framework} from '@roots/bud-framework'
+import {Api, Framework} from '@roots/bud-framework'
 import globby, {GlobTask} from 'globby'
 import {isArray, isString} from 'lodash'
 
@@ -55,10 +55,10 @@ declare module '@roots/bud-framework' {
      * })
      * ```
      */
-    entry: Framework.Api.Entry
+    entry: Api.Entry
   }
 
-  namespace Framework.Api {
+  namespace Api {
     export {Entry}
   }
 }
@@ -103,7 +103,7 @@ export const entry: Framework['entry'] = function (...args) {
  */
 function makeEntrypoints(
   this: Framework,
-  entry: Framework.Api.Entry.Obj,
+  entry: Api.Entry.Obj,
 ): Framework {
   this.store.merge(
     'options.entry',

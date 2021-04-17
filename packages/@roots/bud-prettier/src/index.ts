@@ -1,7 +1,7 @@
 import {Module} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
-  namespace Framework.Hooks.Extension {
+  namespace Hooks.Extension {
     interface Definitions {
       '@roots/bud-prettier': Module
     }

@@ -1,6 +1,6 @@
 import './interface'
 
-import {Framework} from '@roots/bud-framework'
+import {Framework, Module} from '@roots/bud-framework'
 import type {Configuration} from 'webpack'
 import * as ReactRefreshWebpackPlugin from './react-refresh'
 
@@ -9,7 +9,7 @@ import * as ReactRefreshWebpackPlugin from './react-refresh'
  * @description Wrapper for react and react-refresh
  */
 
-const extension: Framework.Module = {
+const extension: Module = {
   /**
    * @property name
    */
@@ -28,7 +28,7 @@ const extension: Framework.Module = {
   /**
    * @function boot
    */
-  boot({babel, isDevelopment, when}: Framework): void {
+  boot({babel, isDevelopment, when}): void {
     babel.setPresets(['@babel/preset-react'])
 
     when(isDevelopment, (app: Framework) =>

@@ -1,12 +1,9 @@
-import '@roots/bud-api'
-import '@roots/bud-framework'
 import type {Bud} from '@roots/bud'
-import type {Framework} from '@roots/bud-framework'
 
 /**
  * Sage theme preset
  */
-export type Sage = Bud & Framework
+export interface Sage extends Bud {}
 
 export namespace Sage {
   /**

@@ -1,19 +1,22 @@
-import {Framework} from '@roots/bud-framework'
+import {Framework, Typescript} from '@roots/bud-framework'
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 
-export const typecheck: Framework.Typescript.TypeCheck = function (
-  this: Framework,
+export const typecheck: Typescript.TypeCheck = function (
   enabled = true,
 ) {
-  if (
-    !enabled &&
-    this.extensions.has('fork-ts-checker-plugin')
-  ) {
+  !enabled &&
+    this.extensions.has('fork-ts-checker-plugin') &&
     this.extensions.remove('fork-ts-checker-plugin')
-  }
 
   const extension: Framework['module'] = {
+    /**
+     * @property name
+     */
     name: 'fork-ts-checker-plugin',
+
+    /**
+     * @property options
+     */
     options: ({isProduction}: Framework) =>
       isProduction
         ? {

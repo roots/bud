@@ -1,10 +1,10 @@
-import '@roots/bud-framework'
+import {Module} from '@roots/bud-framework'
 import '@roots/bud-postcss'
 
 declare module '@roots/bud-framework' {
-  namespace Framework.Hooks.Extension {
+  namespace Hooks.Extension {
     interface Definitions {
-      '@roots/bud-purgecss': Framework.Module
+      '@roots/bud-purgecss': Module
     }
   }
 
@@ -14,7 +14,6 @@ declare module '@roots/bud-framework' {
      *
      * Purge unused CSS from compiled stylesheets
      *
-     * @see https://purgecss.com/guides/wordpress.html
      * @see https://purgecss.com/configuration.html
      *
      * ```js
@@ -25,14 +24,14 @@ declare module '@roots/bud-framework' {
      * })
      * ```
      */
-    purge: Framework.PurgeCss.Config
+    purge: PurgeCss.Config
   }
 
-  export namespace Framework.PurgeCss {
+  export namespace PurgeCss {
     export type Config = (
-      this: Framework,
-      userOptions: Framework.PurgeCss.UserOptions,
+      userOptions: PurgeCss.UserOptions,
     ) => Framework
+
     export interface UserOptions {
       content?: Array<string | RawContent>
       contentFunction?: (
@@ -65,6 +64,7 @@ declare module '@roots/bud-framework' {
     export type ExtractorFunction<T = string> = (
       content: T,
     ) => string[]
+
     export interface Extractors {
       extensions: string[]
       extractor: ExtractorFunction

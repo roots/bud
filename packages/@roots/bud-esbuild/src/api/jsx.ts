@@ -1,5 +1,5 @@
 import {ESBuild, Framework} from '@roots/bud-framework'
-import {isEqual} from '@roots/bud-support'
+import {isEqual} from 'lodash'
 
 export const jsx: ESBuild.JSX = function (enabled): Framework {
   this.publish({

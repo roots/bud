@@ -10,7 +10,7 @@ import type {Plugin} from '@roots/entrypoints-webpack-plugin'
  * @description Extended framework definition
  */
 declare module '@roots/bud-framework' {
-  namespace Framework.Hooks.Extension {
+  namespace Hooks.Extension {
     interface Definitions {
       '@roots/bud-entrypoints': Extension
     }
@@ -31,7 +31,7 @@ interface Options {
  * @description Wrapper for `@roots/entrypoints-webpack-plugin`
  */
 interface Extension extends Module {
-  name: '@roots/bud-entrypoints'
+  name: Module['name'] | '@roots/bud-entrypoints'
   make: (options: Container<Options>) => Plugin
   options: (app: Framework) => Options
 }

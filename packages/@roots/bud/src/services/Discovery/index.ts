@@ -1,5 +1,8 @@
-import {Framework, Service} from '@roots/bud-framework'
-import type {Discovery as Contract} from '@roots/bud-typings'
+import {
+  Discovery as Contract,
+  Framework,
+  Service,
+} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
 import fs from 'fs-extra'
 import globby from 'globby'

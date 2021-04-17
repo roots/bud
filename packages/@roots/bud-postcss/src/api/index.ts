@@ -1,10 +1,11 @@
-import {Framework} from '@roots/bud-framework'
-import {Signale} from '@roots/bud-support'
+import {Framework, PostCss} from '@roots/bud-framework'
+import {Signale} from 'signale'
+import {boundMethod as bind} from 'autobind-decorator'
 
 /**
  * PostCSS configuration
  */
-export class PostCssConfig implements Framework.PostCss {
+export class PostCssConfig implements PostCss {
   /**
    * Framework
    */
@@ -13,7 +14,7 @@ export class PostCssConfig implements Framework.PostCss {
   /**
    * Plugins
    */
-  public _plugins: Framework.PostCss.Registry = {}
+  public _plugins: PostCss.Registry = {}
 
   /**
    * Plugin order
@@ -65,6 +66,7 @@ export class PostCssConfig implements Framework.PostCss {
   public get app(): Framework {
     return this._app()
   }
+
   public set app(app: Framework) {
     this._app = app.get
   }
@@ -72,6 +74,7 @@ export class PostCssConfig implements Framework.PostCss {
   public get plugins() {
     return this._plugins
   }
+
   public set plugins(plugins) {
     this._plugins = plugins
   }
@@ -87,7 +90,8 @@ export class PostCssConfig implements Framework.PostCss {
   /**
    * Set plugin
    */
-  public set(definition: Framework.PostCss.Registrable): this {
+  @bind
+  public set(definition: PostCss.Registrable): this {
     const [plugin, options] = this.app.util._.isString(
       definition,
     )
@@ -108,6 +112,7 @@ export class PostCssConfig implements Framework.PostCss {
   /**
    * Unset plugin
    */
+  @bind
   public unset(plugin: string) {
     this.logger.log(`Removing ${plugin}`)
 
@@ -123,6 +128,7 @@ export class PostCssConfig implements Framework.PostCss {
   /**
    * Override plugin options
    */
+  @bind
   public setOptions(plugin: string, options: any): this {
     this.logger.log(`Setting ${plugin} options`)
 
@@ -134,6 +140,7 @@ export class PostCssConfig implements Framework.PostCss {
   /**
    * Order plugins
    */
+  @bind
   public setOrder(plugins: string[]): this {
     this.logger.log(
       `Ordering postcss plugins: ${plugins.join()}`,
@@ -150,6 +157,7 @@ export class PostCssConfig implements Framework.PostCss {
   /**
    * Make final plugins config output
    */
+  @bind
   public makeConfig(): any {
     return this.order.map(key => require(key)(this.plugins[key]))
   }

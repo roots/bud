@@ -1,20 +1,47 @@
 import {join} from 'lodash'
 
-export type Pkgs =
-  | `@wordpress/${string}`
+export type WordPressScopePkg = `@wordpress/${string}`
+
+export type PkgName =
+  | WordPressScopePkg
   | 'lodash'
   | 'react'
   | 'react-dom'
   | 'jquery'
 
-export type Transform = 'window' | 'enqueue'
-
-export type TransformFn = (pkg: Pkgs) => string
-
-export interface Transforms {
-  window: TransformFn
-  enqueue: TransformFn
-}
+/**
+ * Pkg map
+ */
+const pkgMap = new Map([
+  [
+    'jquery',
+    {
+      window: join(['jQuery'], '.'),
+      enqueue: 'jquery',
+    },
+  ],
+  [
+    'lodash',
+    {
+      window: join(['lodash'], '.'),
+      enqueue: 'lodash',
+    },
+  ],
+  [
+    'react',
+    {
+      window: join(['React'], '.'),
+      enqueue: 'react',
+    },
+  ],
+  [
+    'react-dom',
+    {
+      window: join(['ReactDOM'], '.'),
+      enqueue: 'react-dom',
+    },
+  ],
+])
 
 /**
  * Camelize @wordpress pkg names
@@ -33,39 +60,19 @@ const transformPkgName = pkg =>
 /**
  * Is pkg string a wordpress window var match
  */
-export const isProvided: (pkg: string) => boolean = pkg =>
+const isProvided: (pkg: string) => boolean = pkg =>
   pkg.startsWith('@wordpress/') ||
   ['jquery', 'react', 'react-dom', 'lodash'].includes(pkg)
 
 /**
  * Transform pkg string request
  */
-export const transform = (pkg: Pkgs) => {
-  switch (pkg) {
-    case 'jquery':
-      return {
-        window: join(['jQuery'], '.'),
-        enqueue: 'jquery',
-      }
-    case 'lodash':
-      return {
-        window: join(['lodash'], '.'),
-        enqueue: 'lodash',
-      }
-    case 'react':
-      return {
-        window: join(['React'], '.'),
-        enqueue: 'react',
-      }
-    case 'react-dom':
-      return {
-        window: join(['ReactDOM'], '.'),
-        enqueue: 'react-dom',
-      }
-    default:
-      return {
+const transform = (pkg: PkgName) =>
+  pkgMap.has(pkg)
+    ? pkgMap.get(pkg)
+    : {
         window: ['wp', camelize(transformPkgName(pkg))],
         enqueue: join(['wp', transformPkgName(pkg)], '-'),
       }
-  }
-}
+
+export {isProvided, transform}

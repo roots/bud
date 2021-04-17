@@ -1,22 +1,21 @@
-import '@roots/bud'
-import '@roots/bud-framework'
+import {Module} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   interface Framework {
     /***
      * Configure stylelint
      */
-    stylelint: Framework.Stylelint.Config
+    stylelint: Stylelint.Config
   }
 
-  namespace Framework.Stylelint {
+  namespace Stylelint {
     type Options = any
     type Config = (options: Stylelint.Options) => Framework
   }
 
-  namespace Framework.Hooks.Extension {
+  namespace Hooks.Extension {
     interface Definitions {
-      'stylelint-webpack-plugin': Framework.Module
+      'stylelint-webpack-plugin': Module
     }
   }
 }

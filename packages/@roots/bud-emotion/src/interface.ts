@@ -1,16 +1,16 @@
 import '@roots/bud-babel'
-import '@roots/bud-framework'
+import {Module} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
-  namespace Framework.Hooks.Extension {
+  namespace Hooks.Extension {
     interface Definitions {
-      '@roots/bud-emotion': Framework.Module
+      '@roots/bud-emotion': Module
     }
   }
 
-  namespace Framework.Hooks.Item {
+  namespace Hooks.Item {
     interface Definitions {
-      babel: Framework.Hooks.Item.Subject
+      babel: any
     }
   }
 }

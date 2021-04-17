@@ -1,6 +1,6 @@
 import '@roots/bud-babel'
-import '@roots/bud-framework'
-import type Webpack from 'webpack'
+import {Module} from '@roots/bud-framework'
+import Webpack from 'webpack'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -15,38 +15,38 @@ declare module '@roots/bud-framework' {
      * bud.typecheck()
      * ```
      */
-    typecheck: Framework.Typescript.TypeCheck
+    typecheck: Typescript.TypeCheck
   }
 
-  namespace Framework.Typescript {
+  namespace Typescript {
     /**
      * Make.
      */
     type TypeCheck = (enabled?: boolean) => Framework
   }
 
-  namespace Framework.Hooks.Extension {
+  namespace Hooks.Extension {
     interface Definitions {
-      '@roots/bud-typescript': Hooks.Extension.Subject
-      'fork-ts-checker-plugin': Hooks.Extension.Subject
+      '@roots/bud-typescript': Module
+      'fork-ts-checker-plugin': Module
     }
   }
 
-  namespace Framework.Hooks.Loader {
+  namespace Hooks.Loader {
     interface Definitions {
-      ts: Hooks.Loader.Subject
-      babel: Hooks.Loader.Subject
+      ts: string
+      babel: string
     }
   }
 
-  namespace Framework.Hooks.Item {
+  namespace Hooks.Item {
     interface Definitions {
-      ts: Hooks.Item.Subject
-      babel: Hooks.Item.Subject
+      ts: any
+      babel: any
     }
   }
 
-  namespace Framework.Hooks.Rule {
+  namespace Hooks.Rule {
     interface Definitions {
       ts: Webpack.RuleSetRule
     }

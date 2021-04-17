@@ -1,5 +1,4 @@
 import {Hooks as Base} from '@roots/bud-hooks'
-import {repository} from './repository'
 import {boundMethod as bind} from 'autobind-decorator'
 
 export class Hooks extends Base {
@@ -7,11 +6,6 @@ export class Hooks extends Base {
    * Service name
    */
   public name = 'service/hooks'
-
-  /**
-   * Service repository
-   */
-  public repository = repository
 
   /**
    * Service register

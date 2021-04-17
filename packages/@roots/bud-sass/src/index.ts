@@ -1,5 +1,5 @@
 import './interface'
-import {Framework} from '@roots/bud-framework'
+import {Framework, Module} from '@roots/bud-framework'
 
 /**
  * @module @roots/bud-sass
@@ -7,9 +7,9 @@ import {Framework} from '@roots/bud-framework'
  * @see https://github.com/roots/bud
  */
 
-export const name: Framework.Module['name'] = '@roots/bud-sass'
+export const name: Module['name'] = '@roots/bud-sass'
 
-export const devDependencies: Framework.Module['devDependencies'] = [
+export const devDependencies: Module['devDependencies'] = [
   'sass',
 ]
 
@@ -19,9 +19,7 @@ export const devDependencies: Framework.Module['devDependencies'] = [
  * @see @roots/bud-extensions
  * @see @roots/bud-hooks
  */
-export const publish: Framework.Module['publish'] = (
-  app: Framework,
-) => ({
+export const publish: Module['publish'] = (app: Framework) => ({
   /**
    * loader/sass
    */

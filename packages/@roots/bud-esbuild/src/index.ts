@@ -1,27 +1,23 @@
 import './interface'
-import type {Module} from '@roots/bud-framework'
+import {Framework, Module} from '@roots/bud-framework'
 
 import {features} from './features'
 import {setOptions, jsx} from './api'
 import {ESBuildMinifyPlugin} from 'esbuild-loader'
 
 /**
- * @interface EsbuildModule
- * @extends Module
- */
-declare interface EsbuildModule extends Module {
-  name: '@roots/bud-esbuild'
-  boot: Module['boot']
-  api: Module['api']
-}
-
-/**
  * @exports esbuild
  * @implements {EsbuildModule}
  */
-export const esbuild: EsbuildModule = {
+export const esbuild: Module = {
+  /**
+   * @property name
+   */
   name: '@roots/bud-esbuild',
 
+  /**
+   * @property boot
+   */
   boot: ({use, hooks, subscribe, store}) => {
     use(features)
 
@@ -33,7 +29,10 @@ export const esbuild: EsbuildModule = {
     ])
   },
 
-  api: app => ({
+  /**
+   * @property api
+   */
+  api: (app: Framework) => ({
     esbuild: {
       setOptions: setOptions.bind(app),
       jsx: jsx.bind(app),

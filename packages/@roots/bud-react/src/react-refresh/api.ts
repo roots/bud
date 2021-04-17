@@ -1,7 +1,6 @@
 import {Framework} from '@roots/bud-framework'
 
 export const reactRefresh: Framework['reactRefresh'] = function (
-  this: Framework,
   options,
 ) {
   this.publish({

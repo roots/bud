@@ -8,8 +8,8 @@ declare module '@roots/bud-framework' {
     reactRefresh(options: ReactRefreshPluginOptions): Framework
   }
 
-  export namespace Framework.Hooks.Extension {
-    export interface Definitions {
+  namespace Hooks.Extension {
+    interface Definitions {
       '@roots/bud-react': Module
       '@pmmmwh/react-refresh-webpack-plugin': Module
     }

@@ -1,4 +1,5 @@
-import {Framework} from '@roots/bud-framework'
+import {Index, Module} from '@roots/bud-framework'
+
 import * as CleanWebpackPlugin from './clean-webpack-plugin'
 import * as WebpackConfigDumpPlugin from './webpack-config-dump-plugin'
 import * as CopyWebpackPlugin from './copy-webpack-plugin'
@@ -13,7 +14,7 @@ import * as MiniCssExtractPlugin from './mini-css-extract-plugin'
 import * as CssMinimizerWebpackPlugin from './css-minimizer-webpack-plugin'
 import * as WebpackProvidePlugin from './webpack-provide-plugin'
 
-export const extensions: Framework.Index<Framework.Module> = {
+export const extensions: Index<Module> = {
   [WebpackProvidePlugin.name]: WebpackProvidePlugin,
   [CleanWebpackPlugin.name]: CleanWebpackPlugin,
   [WebpackConfigDumpPlugin.name]: WebpackConfigDumpPlugin,

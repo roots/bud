@@ -1,7 +1,7 @@
-import {bind} from '@roots/bud-support'
 import Service from './Service'
 import crypto from 'crypto'
 import {readFileSync} from 'fs-extra'
+import {boundMethod as bind} from 'autobind-decorator'
 
 /**
  * # bud.cache

@@ -1,10 +1,10 @@
-import '@roots/bud-framework'
+import {Module} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
-  namespace Framework.Hooks.Extension {
+  namespace Hooks.Extension {
     interface Definitions {
-      '@roots/bud-wordpress-manifests': any
-      '@roots/merged-manifest-webpack-plugin': any
+      '@roots/bud-wordpress-manifests': Module
+      '@roots/merged-manifest-webpack-plugin': Module
     }
   }
 }

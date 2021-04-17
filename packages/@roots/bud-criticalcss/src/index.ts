@@ -1,5 +1,5 @@
 import './interface'
-import {Framework} from '@roots/bud-framework'
+import {CriticalCss} from '@roots/bud-framework'
 import {CriticalCssWebpackPlugin} from '@roots/critical-css-webpack-plugin'
 
 const criticalCssWebpackPlugin = {
@@ -11,7 +11,7 @@ const criticalCssWebpackPlugin = {
   /**
    * Options
    */
-  options: (): Framework.CriticalCss.Options => ({}),
+  options: (): CriticalCss.Options => ({}),
 
   /**
    * Make

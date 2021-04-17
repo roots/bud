@@ -1,5 +1,4 @@
-import {Service} from '@roots/bud-framework'
-import {Build} from '@roots/bud-typings'
+import {Build, Service} from '@roots/bud-framework'
 import Webpack from 'webpack'
 import {boundMethod as bind} from 'autobind-decorator'
 import * as builders from '../builders'

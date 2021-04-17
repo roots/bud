@@ -1,7 +1,7 @@
-import {Framework} from '@roots/bud-framework'
+import {Tailwind} from '@roots/bud-framework'
 
-export const tailwind: Framework.Tailwind.Configure = function (
-  config: Omit<Framework.Tailwind.Config, null> = null,
+export const tailwind: Tailwind.Configure = function (
+  config: Omit<Tailwind.Config, null> = null,
   implementation:
     | 'tailwindcss'
     | '@tailwindcss/jit' = 'tailwindcss',

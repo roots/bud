@@ -1,4 +1,4 @@
-import {fs} from '@roots/bud-support'
+import fs from 'fs-extra'
 import {join, dirname} from 'path'
 import {Command} from '../Command'
 
