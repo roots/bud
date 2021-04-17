@@ -1,4 +1,9 @@
-import {Container, Framework, Module} from '@roots/bud-framework'
+import {
+  Container,
+  Framework,
+  Hooks,
+  Module,
+} from '@roots/bud-framework'
 import {CopyPluginOptions} from './typings'
 import {WebpackPluginInstance} from 'webpack/types'
 
@@ -6,11 +11,9 @@ import {WebpackPluginInstance} from 'webpack/types'
  * @extends @roots/bud-framework
  */
 declare module '@roots/bud-framework' {
-  namespace Framework.Hooks {
-    namespace Extension {
-      interface Definitions {
-        'copy-webpack-plugin': CopyWebpackPlugin
-      }
+  namespace Hooks.Extension {
+    interface Definitions {
+      'copy-webpack-plugin': CopyWebpackPlugin
     }
   }
 
@@ -30,13 +33,15 @@ declare module '@roots/bud-framework' {
      * app.assets(['src/images'])
      * ```
      */
-    assets: Framework.Api.Assets
+    assets: Api.Assets
   }
 
-  namespace Framework.Api {
-    type Assets = (this: Framework, from: string[]) => Framework
+  namespace Api {
+    export {Assets}
   }
 }
+
+type Assets = (from: string[]) => Framework
 
 /**
  * @interface CopyWebpackPlugin
@@ -47,9 +52,7 @@ export interface CopyWebpackPlugin extends Module {
    * @property {string} name
    * @description the name of the module
    */
-  name: 'copy-webpack-plugin' &
-    Module.Name &
-    keyof Framework.Hooks.Extension.Definitions
+  name: 'copy-webpack-plugin' & keyof Hooks.Extension.Definitions
 
   /**
    * @function options
@@ -62,7 +65,7 @@ export interface CopyWebpackPlugin extends Module {
    * @description Function returning object to be bound to bud.assets
    */
   api: () => {
-    assets: Framework.Api.Assets
+    assets: Assets
   }
 
   /**

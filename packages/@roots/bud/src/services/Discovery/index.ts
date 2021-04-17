@@ -1,6 +1,9 @@
 import {Framework, Service} from '@roots/bud-framework'
 import type {Discovery as Contract} from '@roots/bud-typings'
 import {boundMethod as bind} from 'autobind-decorator'
+import fs from 'fs-extra'
+import globby from 'globby'
+import {dirname} from 'path'
 
 /**
  * Framework/Discovery
@@ -17,8 +20,8 @@ export class Discovery extends Service implements Contract {
    * Project info: get accessor
    */
   public get projectInfo(): {[key: string]: any} {
-    return this.fs.readJsonSync(
-      this.disk('project').get('package.json'),
+    return fs.readJsonSync(
+      this.app.path('project', 'package.json'),
     )
   }
 
@@ -26,7 +29,7 @@ export class Discovery extends Service implements Contract {
    * Package paths: get accessor
    */
   public get packagePaths() {
-    return this.glob.sync([
+    return globby.sync([
       this.modulePath('@roots/sage/package.json'),
       this.modulePath('bud-*/package.json'),
       this.modulePath('**/bud-*/package.json'),
@@ -40,7 +43,6 @@ export class Discovery extends Service implements Contract {
   public boot(app: Framework): void {
     app.sequence([
       this.discoverPackages,
-      this.setDisks,
       this.registerDiscovered,
     ])
   }
@@ -54,20 +56,6 @@ export class Discovery extends Service implements Contract {
       this.packagePaths
         .filter(this.filterUnique)
         .reduce(this.reducePackages, {}),
-    )
-  }
-
-  /**
-   * Register package disks
-   */
-  @bind
-  public setDisks() {
-    this.every(
-      (name: string, pkg: {name: string; path: string}) => {
-        this.app.disk.make(name, {
-          baseDir: pkg.path,
-        })
-      },
     )
   }
 
@@ -88,7 +76,7 @@ export class Discovery extends Service implements Contract {
    */
   @bind
   public reducePackages(pkgs: Framework.Pkgs, pkg: string) {
-    const json = this.fs.readJsonSync(pkg)
+    const json = fs.readJsonSync(pkg)
 
     Object.assign(json, {
       isCore: json.name?.includes('@roots/'),
@@ -102,7 +90,7 @@ export class Discovery extends Service implements Contract {
       ...pkgs,
       [json.name]: {
         ...json,
-        path: this.dirname(pkg),
+        path: dirname(pkg),
         type: 'extension',
         core: json.isCore,
       },

@@ -1,11 +1,15 @@
 import {Hooks} from '@roots/bud-typings'
 import {Framework, Service} from '@roots/bud-framework'
-import {isArray, set} from 'lodash'
 import prettyFormat from 'pretty-format'
+import _ from 'lodash'
 import {boundMethod as bind} from 'autobind-decorator'
 
 /**
  * Hooks
+ *
+ * [🏡 web](https://roots.io/bud)
+ * [🐙 git](https://www.github.com/tree/stable/packages/@roots/bud-hooks)
+ * [📦 npm](https://www.npmjs.com/package/@roots/bud-hooks)
  */
 export default class extends Service implements Hooks {
   /**
@@ -17,16 +21,19 @@ export default class extends Service implements Hooks {
    * Get hook
    */
   @bind
-  public get<T = any>(path: `${Framework.Hooks.Name}`) {
-    return this._.get(this.repository, path) as T
+  public get<T = any>(path: `${Framework.Hooks.Name & string}`) {
+    return _.get(this.repository, path) as T
   }
 
   /**
    * Set hook
    */
   @bind
-  public set(key: `${Framework.Hooks.Name}`, value: any): this {
-    set(this.repository, key, value)
+  public set(
+    key: `${Framework.Hooks.Name & string}`,
+    value: any,
+  ): this {
+    _.set(this.repository, key, value)
 
     return this
   }
@@ -58,15 +65,17 @@ export default class extends Service implements Hooks {
       | (`${Framework.Hooks.Name}` & string),
     callback: Hooks.Hook,
   ): Framework {
-    const [publisher, name] = isArray(id)
+    const [publisher, name] = _.isArray(id)
       ? id
       : ['anonymous', id]
 
-    if (!this.isArray(name)) {
-      this.set(name, [() => this._.noop])
-    }
+    const current = this.get(name)
 
-    this.set(name, [...this.get(name), callback])
+    if (!_.isArray(current)) {
+      this.set(name, [callback])
+    } else {
+      this.set(name, [...current, callback])
+    }
 
     this.logger.scope(name, publisher).success({
       message: `${name} updated`,
@@ -85,10 +94,10 @@ export default class extends Service implements Hooks {
   @bind
   public filter<T = any>(
     id:
-      | `${Framework.Hooks.Name}`
-      | [string, `${Framework.Hooks.Name}`],
+      | `${Framework.Hooks.Name & string}`
+      | [string, `${Framework.Hooks.Name & string}`],
   ): T {
-    const [subscriber, name] = isArray(id)
+    const [subscriber, name] = _.isArray(id)
       ? id
       : ['anonymous', id]
 
@@ -98,7 +107,7 @@ export default class extends Service implements Hooks {
 
     const result = this.get(name).reduce(
       (v: T, cb?: CallableFunction) => {
-        return cb && this._.isFunction(cb) ? cb(v) : cb
+        return cb && _.isFunction(cb) ? cb(v) : cb
       },
       null,
     )

@@ -1,5 +1,6 @@
 import type {Framework} from '@roots/bud-framework'
 import type Webpack from 'webpack'
+import {posix} from 'path'
 
 export function config(this: Framework) {
   this
@@ -55,10 +56,7 @@ export function config(this: Framework) {
         this.subscribe('location/modules'),
         ...this.store.get('options.resolve.modules'),
         ...this.discovery.getEntries().map(([k, v]) => {
-          return this.disk.path.posix.join(
-            v.path,
-            'node_modules',
-          )
+          return posix.join(v.path, 'node_modules')
         }),
       ],
     })
@@ -103,7 +101,7 @@ export function config(this: Framework) {
        * build/cache/location
        */
       'build/cache/cacheLocation': () =>
-        this.store.path.posix.resolve(
+        posix.resolve(
           this.subscribe('location/project'),
           this.subscribe('location/storage'),
         ),
@@ -112,17 +110,17 @@ export function config(this: Framework) {
        * build/cache/directory
        */
       'build/cache/directory': () =>
-        this.store.path.posix.resolve(
+        posix.resolve(
           this.subscribe('location/project'),
           this.subscribe('location/storage'),
         ),
       'build/cache/buildDependencies': () => ({
         project: [
-          this.store.path.posix.resolve(
+          posix.resolve(
             this.subscribe('location/project'),
             `${this.name}.config.js`,
           ),
-          this.store.path.posix.resolve(
+          posix.resolve(
             this.subscribe('location/project'),
             'package.json',
           ),
@@ -286,7 +284,7 @@ export function config(this: Framework) {
        * build/recordsPath
        */
       'build/recordsPath': () =>
-        this.store.path.posix.join(
+        posix.join(
           this.subscribe('location/project'),
           this.subscribe('location/storage'),
           'records.json',

@@ -1,16 +1,9 @@
 import './interface'
 import {Framework} from '@roots/bud-framework'
-import {services} from './services'
-import {Bud as App} from './Bud'
+import {Bud as App, services} from './Bud'
 
-/**
- * This "fixes" resize emitter warnings
- * @todo actually fix this
- */
-require('events').EventEmitter.defaultMaxListeners = 20
+declare type Bud = Framework
+const bud: Bud = new App().bootstrap(services)
 
-export declare type Bud = Framework
-export const bud: Bud = new App().bootstrap(services)
-export {services}
-
-export {Framework} from '@roots/bud-framework'
+export {bud, services}
+export {Bud, Framework}

@@ -65,7 +65,6 @@
   "dependencies": {
     "@roots/bud-dashboard": "workspace:packages/@roots/bud-dashboard",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@roots/bud-support": "workspace:packages/@roots/bud-support",
     "autobind-decorator": "^2.4.0",
     "chalk": "^4.1.0",
     "lodash": "^4.17.21"

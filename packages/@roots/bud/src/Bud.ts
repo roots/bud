@@ -1,24 +1,20 @@
 import './interface'
 
-/**
- * Framework
- */
+import {Api} from '@roots/bud-api'
 import {Build} from '@roots/bud-build'
 import {Cache} from '@roots/bud-cache'
+import {Compiler} from '@roots/bud-compiler'
+import {Dashboard} from '@roots/bud-dashboard'
 import {Framework} from '@roots/bud-framework'
-import {Hooks} from '@roots/bud-hooks'
-import {Server} from '@roots/bud-server'
 
-/**
- * Extended
- */
-import {Api} from './services/Api'
 import {Dependencies} from './services/Dependencies'
 import {Discovery} from './services/Discovery'
 import {Disk} from './services/Disk'
 import {Env} from './services/Env'
 import {Extensions} from './services/Extensions'
+import {Hooks} from './services/Hooks'
 import {Logger} from './services/Logger'
+import {Server} from './services/Server'
 import {Store} from './services/Store'
 import {Util} from './services/Util'
 
@@ -31,6 +27,8 @@ export class Bud extends Framework {
   public build: Build
 
   public cache: Cache
+
+  public compiler: Compiler
 
   public dependencies: Dependencies
 
@@ -51,4 +49,29 @@ export class Bud extends Framework {
   public store: Store
 
   public util: Util
+}
+
+/**
+ * Service providers
+ */
+export const services: {
+  [key: string]: new (app: Framework['get']) =>
+    | Framework.Service
+    | Framework.Bootstrapper
+} = {
+  util: Util,
+  api: Api,
+  logger: Logger,
+  store: Store,
+  hooks: Hooks,
+  env: Env,
+  build: Build,
+  discovery: Discovery,
+  dependencies: Dependencies,
+  disk: Disk,
+  extensions: Extensions,
+  cache: Cache,
+  server: Server,
+  dashboard: Dashboard,
+  compiler: Compiler,
 }

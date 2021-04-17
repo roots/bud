@@ -1,10 +1,7 @@
 import {Framework} from '../Framework'
-import path from 'path'
-import fs from 'fs-extra'
-import globby from 'globby'
+import {posix, join} from 'path'
 import {Container} from '@roots/container'
 import {FileContainer} from '@roots/filesystem'
-import _ from 'lodash'
 import {boundMethod as bind} from 'autobind-decorator'
 
 /**
@@ -27,6 +24,13 @@ export class Service extends Container {
   private _app: Framework['get']
 
   /**
+   * Application instance
+   */
+  public get app(): Framework {
+    return this._app()
+  }
+
+  /**
    * Constructor
    */
   public constructor(app: Framework['get']) {
@@ -35,75 +39,16 @@ export class Service extends Container {
   }
 
   /**
-   * Application instance
-   */
-  public get app(): Framework {
-    return this._app()
-  }
-
-  /**
-   * fs util
-   *
-   * @see fs-extra
-   */
-  public get fs(): typeof fs {
-    return fs
-  }
-
-  /**
-   * lodash
-   */
-  public get _(): typeof _ {
-    return _
-  }
-
-  /**
-   * read json
-   */
-  public get readJson(): CallableFunction {
-    return fs.readJSONSync
-  }
-
-  /**
-   * Globby library.
-   */
-  public get glob(): typeof globby {
-    return globby
-  }
-
-  /**
-   * cwd
-   */
-  public get path(): typeof path {
-    return path
-  }
-
-  /**
-   * Dirname
-   */
-  public get dirname(): CallableFunction {
-    return path.dirname
-  }
-
-  /**
-   * Resolve
-   */
-  public get resolve(): CallableFunction {
-    return path.resolve
-  }
-
-  /**
    * Path to node_modules
    */
   @bind
   public modulePath(path?: string): string {
-    const base = this.path.posix.resolve(
+    const base = posix.resolve(
       this.subscribe('location/project'),
-
       this.subscribe('location/modules'),
     )
 
-    return path ? this.path.join(base, path) : base
+    return path ? join(base, path) : base
   }
 
   /**

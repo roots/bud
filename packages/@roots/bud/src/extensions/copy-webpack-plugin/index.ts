@@ -23,7 +23,7 @@ const CopyWebpackPluginExtension: CopyWebpackPlugin = {
   /**
    * @property when
    */
-  when: (_app, options) => {
+  when(_app, options) {
     return (
       options.has('patterns') &&
       options.get('patterns')?.length > 0

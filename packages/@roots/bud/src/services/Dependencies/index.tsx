@@ -1,4 +1,9 @@
-import {Service} from '@roots/bud-framework'
+import {
+  Api,
+  Dashboard,
+  Framework,
+  Service,
+} from '@roots/bud-framework'
 import {
   Dependencies as DependenciesManager,
   IDependencyManager,
@@ -26,12 +31,20 @@ export class Dependencies extends Service {
   public manager: DependenciesManager
 
   /**
+   * Path
+   */
+  public path: Api.Path
+
+  /**
+   * Dashboard
+   */
+  public dashboard: Dashboard
+
+  /**
    * Project package.json
    */
   public get pkg() {
-    return fs.readJsonSync(
-      this.app.path('project', 'package.json'),
-    )
+    return fs.readJsonSync(this.path('project', 'package.json'))
   }
 
   /**
@@ -52,9 +65,24 @@ export class Dependencies extends Service {
    * Boot
    */
   @bind
-  public boot() {
-    this.manager = new DependenciesManager(
-      this.app.subscribe('location/project'),
+  public boot(app: Framework) {
+    this.path = app.path
+    this.dashboard = app.dashboard
+
+    this.manager = new DependenciesManager(this.path('project'))
+  }
+
+  /**
+   * Should install dependency
+   */
+  @bind
+  public shouldInstall(
+    dep: string,
+    type: 'dependencies' | 'devDependencies',
+  ) {
+    return (
+      !this.pkg[type] ||
+      !Object.keys(this.pkg[type]).includes(dep)
     )
   }
 
@@ -63,15 +91,12 @@ export class Dependencies extends Service {
    */
   @bind
   public installDev(deps: string[], source: string): void {
-    deps.forEach(dep => {
-      if (
-        !this.pkg.devDependencies ||
-        !Object.keys(this.pkg.devDependencies).includes(dep)
-      ) {
+    deps
+      .filter(dep => this.shouldInstall(dep, 'devDependencies'))
+      .forEach(dep => {
         this.notify(dep, source)
         this.client.install(true, dep)
-      }
-    })
+      })
   }
 
   /**
@@ -79,15 +104,12 @@ export class Dependencies extends Service {
    */
   @bind
   public install(deps: string[], source: string): void {
-    deps.forEach(dep => {
-      if (
-        !this.pkg.dependencies ||
-        !Object.keys(this.pkg.dependencies).includes(dep)
-      ) {
+    deps
+      .filter(dep => this.shouldInstall(dep, 'dependencies'))
+      .forEach(dep => {
         this.notify(dep, source)
         this.client.install(false, dep)
-      }
-    })
+      })
   }
 
   /**
@@ -95,7 +117,7 @@ export class Dependencies extends Service {
    */
   @bind
   public notify(dep: string, source: string) {
-    this.app.dashboard.write(
+    this.dashboard.write(
       <Box flexDirection="row">
         <Text>
           <Text color="green">

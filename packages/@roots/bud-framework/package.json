@@ -63,9 +63,9 @@
   },
   "dependencies": {
     "@roots/bud-support": "workspace:*",
-    "@roots/container": "workspace:packages/@roots/container",
+    "@roots/container": "workspace:*",
     "@roots/dependencies": "workspace:*",
-    "@roots/filesystem": "workspace:packages/@roots/filesystem",
+    "@roots/filesystem": "workspace:*",
     "autobind-decorator": "^2.4.0",
     "fs-extra": "^9.1.0",
     "globby": "^11.0.3",

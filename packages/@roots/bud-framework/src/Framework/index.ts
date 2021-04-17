@@ -130,7 +130,7 @@ abstract class Framework extends Core {
       'booted',
     ].forEach(event =>
       this.services.getKeys().map(key =>
-        this.when(this.services.get(key)[event], function () {
+        this.when(this.services.get(key)[event], () => {
           this.services.get(key)[event](this)
         }),
       ),

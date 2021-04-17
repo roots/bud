@@ -1,6 +1,7 @@
 import {bind} from '@roots/bud-support'
 import Service from './Service'
 import crypto from 'crypto'
+import {readFileSync} from 'fs-extra'
 
 /**
  * # bud.cache
@@ -51,7 +52,7 @@ export class Cache extends Service {
    */
   public get version() {
     const conf = JSON.stringify(
-      this.fs.readFileSync(
+      readFileSync(
         this.app.disk
           .get('project')
           .get(`${this.app.name}.config.js`),
@@ -70,7 +71,7 @@ export class Cache extends Service {
    */
   public get json() {
     return JSON.stringify(
-      this.fs.readFileSync(
+      readFileSync(
         this.app.disk.get('project').get('package.json'),
         'utf8',
       ),

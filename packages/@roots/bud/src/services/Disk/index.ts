@@ -62,7 +62,7 @@ export class Disk extends Service {
         glob: this.pattern,
       },
       ['project']: {
-        baseDir: this.app.path('project'),
+        baseDir: this.subscribe('location/project'),
         glob: this.pattern,
       },
     })

@@ -74,16 +74,18 @@ export const publish: Module['publish'] = (app: Framework) => ({
   /**
    * rule/css
    */
-  'rule/css/use': use => [
-    /**
-     * Assuming postcss should be the third item
-     * in the ruleset (after minicss/style and css loaders)
-     */
-    ...use.splice(0, 2),
-    app.subscribe('item/postcss'),
-    // The rest of the loaders
-    ...use,
-  ],
+  'rule/css/use': use => {
+    return [
+      /**
+       * Assuming postcss should be the third item
+       * in the ruleset (after minicss/style and css loaders)
+       */
+      ...use.splice(0, 2),
+      app.subscribe('item/postcss'),
+      // The rest of the loaders
+      ...use,
+    ]
+  },
 })
 
 /**

@@ -1,4 +1,4 @@
-import {Framework} from '@roots/bud-framework'
+import {Api} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -21,10 +21,10 @@ declare module '@roots/bud-framework' {
      * })
      * ```
      */
-    html: Framework.Api.Html
+    html: Api.Html
   }
 
-  namespace Framework.Api {
+  namespace Api {
     export type Html = (options?: {
       /**
        * Enable HTML generation
@@ -48,7 +48,7 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export const html: Framework.Api.Html = function (options?) {
+export const html: Api.Html = function (options?) {
   /**
    * Allow html arg to override
    */

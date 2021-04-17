@@ -2270,7 +2270,6 @@ __metadata:
   dependencies:
     "@roots/bud-dashboard": "workspace:packages/@roots/bud-dashboard"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
-    "@roots/bud-support": "workspace:packages/@roots/bud-support"
     "@roots/bud-typings": "workspace:packages/@roots/bud-typings"
     "@types/lodash": ^4.14.168
     "@types/node": ^14.14.39
@@ -9178,10 +9177,12 @@ __metadata:
     "@roots/bud-postcss": "workspace:*"
     "@roots/bud-tailwindcss": "workspace:*"
     "@tailwindcss/jit": ^0.1.18
+    "@types/fs-extra": ^9.0.11
     "@types/node": ^14.14.39
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     autoprefixer: ^10.2.5
+    fs-extra: ^9.1.0
     npm-run-all: ^4.1.5
     postcss: ^8.2.10
     rimraf: ^3.0.2
