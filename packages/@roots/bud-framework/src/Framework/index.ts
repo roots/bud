@@ -15,7 +15,6 @@ import {
 } from '@roots/bud-typings'
 
 import {Core} from './Core'
-import {Services} from './Services'
 import _ from 'lodash'
 import {boundMethod as bind} from 'autobind-decorator'
 
@@ -59,15 +58,10 @@ export abstract class Framework extends Core {
     /**
      * Instantiate services
      */
-    this.services = new Services(providerDefinitions, this)
+    this.services = this.container(providerDefinitions)
 
-    this.services.getKeys().map(key => {
-      Object.defineProperty(this, key, {
-        enumerable: true,
-        get() {
-          return this.services.get(key)
-        },
-      })
+    this.services.getEntries().map(([key, Instance]) => {
+      this[key] = new Instance(this.get)
     })
 
     /**
@@ -89,11 +83,14 @@ export abstract class Framework extends Core {
       'boot',
       'booted',
     ].forEach(event =>
-      this.services.getKeys().map(key =>
-        this.when(this.services.get(key)[event], () => {
-          this.services.get(key)[event](this)
-        }),
-      ),
+      this.services
+        .getKeys()
+        .map(
+          key =>
+            this[key] &&
+            this[key][event] &&
+            this[key][event](this),
+        ),
     )
 
     return this

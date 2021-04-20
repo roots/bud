@@ -26,7 +26,9 @@ export const options: Module.Options<Options> = (
     .filter(([k]: [string, string]) => k.includes('APP_PUBLIC'))
     .reduce((a, [k, v]) => ({...a, [k]: JSON.stringify(v)}), {})
 
-  const fromStore = bud.store.get('options.define')
+  const fromStore = bud.store.get(
+    'extension.webpack-define-plugin',
+  )
 
   return {
     ...fromEnv,

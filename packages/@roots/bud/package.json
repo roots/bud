@@ -71,7 +71,6 @@
     "@roots/bud-api": "workspace:*",
     "@roots/bud-build": "workspace:*",
     "@roots/bud-cache": "workspace:*",
-    "@roots/bud-cli": "workspace:*",
     "@roots/bud-compiler": "workspace:*",
     "@roots/bud-dashboard": "workspace:*",
     "@roots/bud-extensions": "workspace:*",

@@ -28,8 +28,7 @@ type Devtool =
   | ((devtool?: Webpack.Configuration['devtool']) => Framework)
 
 export const devtool: Devtool = function (devtool = false) {
-  !this.store.has('args.devtool') &&
-    this.store.set('options.devtool', devtool)
+  this.hooks.on('build/devtool', () => devtool)
 
   return this
 }

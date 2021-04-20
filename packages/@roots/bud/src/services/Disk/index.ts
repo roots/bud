@@ -2,13 +2,6 @@ import {Service} from '@roots/bud-framework'
 import {FileContainer} from '@roots/filesystem'
 import {boundMethod as bind} from 'autobind-decorator'
 
-declare interface Definition {
-  [key: string]: {
-    baseDir: string
-    glob: string[]
-  }
-}
-
 /**
  * Framework/Disk
  *
@@ -58,11 +51,11 @@ export class Disk extends Service {
   public register(): void {
     this.setStore({
       ['@roots']: {
-        baseDir: this.modulePath('@roots'),
+        baseDir: this.app.path('modules', '@roots'),
         glob: this.pattern,
       },
-      ['project']: {
-        baseDir: this.subscribe('location/project'),
+      project: {
+        baseDir: this.app.path('project'),
         glob: this.pattern,
       },
     })
@@ -111,13 +104,7 @@ export class Disk extends Service {
       glob: this.pattern,
     },
   ): FileContainer {
-    const container = this.makeFileContainer(options)
-
-    this.logger
-      .scope('@roots/bud-disk', key)
-      .log(`Setting disk: ${container.baseDir}`)
-
-    this.set(key, container)
+    this.set(key, this.makeFileContainer(options))
 
     return this.get(key)
   }

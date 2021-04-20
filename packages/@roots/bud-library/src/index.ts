@@ -37,9 +37,9 @@ const extension: Extension = {
         options: (app: Framework) => ({
           debug: false,
           inject: false,
-          filename: this.store.isTrue('options.hash')
-            ? this.store.get('options.hashFormat')
-            : this.store.get('options.fileFormat'),
+          filename: this.store.isTrue('hash')
+            ? this.store.get('hashFormat')
+            : this.store.get('fileFormat'),
           entry: {
             library:
               typeof modules == 'string' ? [modules] : modules,

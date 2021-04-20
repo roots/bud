@@ -18,7 +18,7 @@ export function items(this: Framework): void {
       sourceMap: this.subscribe('item/css/options/sourceMap'),
     }),
     'item/css/options/sourceMap': () =>
-      !this.store.isFalse('options.devtool'),
+      !this.subscribe('build/devtool'),
   })
 
   /**
@@ -35,9 +35,9 @@ export function items(this: Framework): void {
     }),
     'item/file/options/name': () =>
       `${
-        this.store.isTrue('options.hash')
-          ? this.store.get('options.hashFormat')
-          : this.store.get('options.fileFormat')
+        this.store.isTrue('hash')
+          ? this.store.get('hashFormat')
+          : this.store.get('fileFormat')
       }.[ext]`,
   })
 
@@ -54,9 +54,9 @@ export function items(this: Framework): void {
     }),
     'item/image/options/name': () =>
       `images/${
-        this.store.isTrue('options.hash')
-          ? this.store.get('options.hashFormat')
-          : this.store.get('options.fileFormat')
+        this.store.isTrue('hash')
+          ? this.store.get('hashFormat')
+          : this.store.get('fileFormat')
       }.[ext]`,
   })
 
@@ -73,9 +73,9 @@ export function items(this: Framework): void {
     }),
     'item/font/options/name': () =>
       `fonts/${
-        this.store.isTrue('options.hash')
-          ? this.store.get('options.hashFormat')
-          : this.store.get('options.fileFormat')
+        this.store.isTrue('hash')
+          ? this.store.get('hashFormat')
+          : this.store.get('fileFormat')
       }.[ext]`,
   })
 
@@ -96,7 +96,7 @@ export function items(this: Framework): void {
       ),
     }),
     'item/resolve-url/options/sourceMap': () =>
-      !this.store.isFalse('options.devtool'),
+      !this.store.isFalse('devtool'),
   })
 
   /**
@@ -134,9 +134,9 @@ export function items(this: Framework): void {
         svgToMiniDataUri(content.toString()),
     }),
     'item/svg/options/name': () =>
-      (this.store.isTrue('options.hash')
-        ? this.store.get('options.hashFormat')
-        : this.store.get('options.fileFormat')
+      (this.store.isTrue('hash')
+        ? this.store.get('hashFormat')
+        : this.store.get('fileFormat')
       ).concat('.[ext]'),
   })
 

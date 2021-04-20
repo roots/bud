@@ -20,4 +20,4 @@ export const make: Module.Make<
 > = options => new HtmlHardDiskPlugin(options.all())
 
 export const when: Module.When = ({store}) =>
-  store.isTrue('options.html.enabled')
+  store.isTrue('html.enabled')

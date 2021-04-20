@@ -60,6 +60,7 @@ export abstract class Core {
   /**
    * Instance getter
    */
+  @bind
   public getInstance(key: string): Framework {
     return this._instance.get('key')
   }
@@ -67,6 +68,7 @@ export abstract class Core {
   /**
    * Instance setter
    */
+  @bind
   public setInstance(key: string, app: Framework) {
     Object.assign(this, {
       _instance: {

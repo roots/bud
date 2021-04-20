@@ -28,7 +28,7 @@ export const make: Module.Make<
  * Extension when
  */
 export const when: Module.When = ({store}) =>
-  store.isTrue('options.debug')
+  store.isTrue('debug')
 
 /**
  * Extension options

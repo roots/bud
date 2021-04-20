@@ -33,7 +33,7 @@ export class CLI {
   /**
    * Commander
    */
-  public instance: Commander.Command
+  public program: Commander.Command
 
   /**
    * Output
@@ -47,19 +47,7 @@ export class CLI {
     this.app = app
 
     this.commands = app.container(commands)
-    this.instance = new Commander.Command(this.app.name)
-    this.output = new Output(this.app.name, this.instance)
-  }
-
-  /**
-   * Boot
-   */
-  @bind
-  public boot() {
-    /**
-     * Configures commander
-     */
-    this.instance
+    this.program = new Commander.Command(this.app.name)
       .allowUnknownOption()
       .allowExcessArguments()
       .usage('[command]')
@@ -69,47 +57,68 @@ export class CLI {
         'Get help with a [command]',
       )
 
-    /**
-     * Processes registered commands
-     */
-    this.commands.every(
-      (name: string, Command: Command.Newable) => {
-        /**
-         * Setup command
-         */
-        const command = new Command(this)
-        const instance = new Commander.Command()
-          .command(`${command.name} ${command.signature}`)
-          .allowUnknownOption()
-          .allowExcessArguments()
-          .description(command.description, command.arguments)
-          .action(command.action)
-          .usage(command.usage)
+    this.output = new Output(this.app.name, this.program)
+  }
 
-        /**
-         * Command options
-         */
-        command.has('options') &&
-          Object.entries(command.options).map(([k, opt]) => {
-            const option: Commander.Option = new Commander.Option(
-              opt.flags ?? `--${k}`,
-            )
+  /**
+   * Set command name
+   */
+  @bind
+  public setName(name: string) {
+    this.name = name
+  }
 
-            if (opt.description)
-              option.description = opt.description ?? ''
+  /**
+   * Boot
+   */
+  @bind
+  public boot() {
+    this.commands.every(this.initializeCommand)
 
-            opt.default && option.default(opt.default)
-            instance.addOption(option)
-          })
-
-        this.instance.addCommand(instance)
-      },
-    )
-
-    this.instance
-      .configureOutput(new Output(this.app.name, this.instance))
+    this.program
+      .configureOutput(new Output(this.app.name, this.program))
       .allowExcessArguments()
       .allowUnknownOption()
-      .parse()
+      .parse(process.argv)
+  }
+
+  /**
+   * Initialize new command
+   */
+  @bind
+  public initializeCommand(
+    _name: string,
+    Command: Command.Newable,
+  ) {
+    /**
+     * Setup command
+     */
+    const command = new Command(this)
+
+    const instance = new Commander.Command()
+      .command(`${command.name} ${command.signature}`)
+      .allowUnknownOption()
+      .allowExcessArguments()
+      .description(command.description, command.arguments)
+      .action(command.action)
+      .usage(command.usage)
+
+    /**
+     * Command options
+     */
+    command.has('options') &&
+      Object.entries(command.options).map(([k, opt]) => {
+        const option: Commander.Option = new Commander.Option(
+          opt.flags ?? `--${k}`,
+        )
+
+        if (opt.description)
+          option.description = opt.description ?? ''
+
+        opt.default && option.default(opt.default)
+        instance.addOption(option)
+      })
+
+    this.program.addCommand(instance)
   }
 }

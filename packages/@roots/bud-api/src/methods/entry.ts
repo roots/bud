@@ -105,16 +105,16 @@ function makeEntrypoints(
   this: Framework,
   entry: Api.Entry.Obj,
 ): Framework {
-  this.store.merge(
-    'options.entry',
-    Object.entries(entry).reduce(
+  this.hooks.on('build/entry', existant => ({
+    ...existant,
+    ...Object.entries(entry).reduce(
       (a, [name, task]) => ({
         ...a,
         [name]: getAssets.bind(this)(name, task),
       }),
       {},
     ),
-  )
+  }))
 
   return this
 }

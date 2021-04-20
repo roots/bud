@@ -31,7 +31,7 @@ export interface Command {
 
   usage: string
 
-  subcommands?: (new (cli) => Command)[]
+  subcommands?: (new (cli: CLI) => Command)[]
 
   help?: Help
 

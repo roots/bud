@@ -15,18 +15,6 @@ export class Cache extends Service {
   public name = '@roots/bud-cache'
 
   /**
-   * Service booted
-   */
-  @bind
-  public booted() {
-    this.enabled() &&
-      this.app.hooks.on(
-        'build/cache/version',
-        () => this.version,
-      )
-  }
-
-  /**
    * ## bud.cache.enabled
    *
    * Returns boolean true if cache is enabled
@@ -41,7 +29,7 @@ export class Cache extends Service {
    */
   @bind
   public enabled(): boolean {
-    return this.app.store.isTrue('options.cache')
+    return this.app.store.isTrue('cache')
   }
 
   /**

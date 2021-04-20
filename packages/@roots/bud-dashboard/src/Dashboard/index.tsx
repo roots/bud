@@ -27,7 +27,7 @@ export class Dashboard extends Base {
    * CI mode getter
    */
   public get ci() {
-    return this.app.store.isTrue('options.ci')
+    return this.app.store.isTrue('ci')
   }
 
   /**
@@ -51,7 +51,7 @@ export class Dashboard extends Base {
    */
   @bind
   public run(): void {
-    if (this.app.store.get('options.ci')) {
+    if (this.app.store.get('ci')) {
       return
     }
 

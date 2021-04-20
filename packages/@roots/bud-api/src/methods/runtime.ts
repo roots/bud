@@ -34,10 +34,10 @@ const DEFAULT_OPTIONS: Webpack.Configuration['optimization']['runtimeChunk'] = {
 export const runtime: Framework.Api.Runtime = function (
   runtime,
 ) {
-  this.publish({
-    'build/optimization/runtimeChunk': () =>
-      runtime ?? DEFAULT_OPTIONS,
-  })
+  this.hooks.on(
+    'build/optimization/runtimeChunk',
+    () => runtime ?? DEFAULT_OPTIONS,
+  )
 
   return this
 }

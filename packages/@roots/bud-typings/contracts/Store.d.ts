@@ -14,13 +14,29 @@ declare namespace Store {
     | `server`
     | `env`
     | `env.${string}`
-    | `locations`
-    | `locations.${string}`
+    | `location`
+    | `location.${string}`
     | `patterns`
     | `patterns.${string}`
     | `project`
     | `project.${string}`
-    | `options`
-    | `options.${string}`
     | `compilation.${string}`
+    | `build`
+    | `build.resolve`
+    | `build.${string}`
+    | `hash`
+    | `hashFormat`
+    | `fileFormat`
+    | `ci`
+    | `clean`
+    | `define`
+    | `debug`
+    | `discover`
+    | `html`
+    | `html.replace`
+    | `html.enabled`
+    | `html.template`
+    | `manifest`
+    | `extension`
+    | `extension.${string}`
 }

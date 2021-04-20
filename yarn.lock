@@ -1584,6 +1584,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@endemolshinegroup/cosmiconfig-typescript-loader@npm:^3.0.2":
+  version: 3.0.2
+  resolution: "@endemolshinegroup/cosmiconfig-typescript-loader@npm:3.0.2"
+  dependencies:
+    lodash.get: ^4
+    make-error: ^1
+    ts-node: ^9
+    tslib: ^2
+  peerDependencies:
+    cosmiconfig: ">=6"
+  checksum: 7fe0198622b1063c40572034df7e8ba867865a1b4815afe230795929abcf785758b34d7806a8e2100ba8ab4e92c5a1c3e11a980c466c4406df6e7ec6e50df8b6
+  languageName: node
+  linkType: hard
+
 "@eslint/eslintrc@npm:^0.4.0":
   version: 0.4.0
   resolution: "@eslint/eslintrc@npm:0.4.0"
@@ -2349,6 +2363,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-cli@workspace:packages/@roots/bud-cli"
   dependencies:
+    "@endemolshinegroup/cosmiconfig-typescript-loader": ^3.0.2
+    "@roots/bud": "workspace:*"
     "@roots/bud-dashboard": "workspace:*"
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-typings": "workspace:*"
@@ -2360,6 +2376,7 @@ __metadata:
     autobind-decorator: ^2.4.0
     chalk: ^4.1.0
     commander: ^7.2.0
+    cosmiconfig: ^7.0.0
     fs-extra: ^9.1.0
     globby: ^11.0.3
     ink: ^3.0.8
@@ -2874,8 +2891,6 @@ __metadata:
   resolution: "@roots/bud-terser@workspace:packages/@roots/bud-terser"
   dependencies:
     "@roots/bud-framework": "workspace:*"
-    "@roots/bud-support": "workspace:*"
-    "@roots/bud-typings": "workspace:*"
     "@types/node": ^14.14.39
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
@@ -3022,7 +3037,6 @@ __metadata:
     "@roots/bud-api": "workspace:*"
     "@roots/bud-build": "workspace:*"
     "@roots/bud-cache": "workspace:*"
-    "@roots/bud-cli": "workspace:*"
     "@roots/bud-compiler": "workspace:*"
     "@roots/bud-dashboard": "workspace:*"
     "@roots/bud-extensions": "workspace:*"
@@ -8966,9 +8980,7 @@ __metadata:
     "@types/node": ^14.14.39
     "@types/rimraf": ^3.0.0
     autoprefixer: ^10.2.5
-    npm-run-all: ^4.1.5
     postcss: ^8.2.10
-    rimraf: ^3.0.2
     tailwindcss: ^2.1.1
     typescript: ^4.2.4
   languageName: unknown
@@ -9013,11 +9025,11 @@ __metadata:
   resolution: "example-react@workspace:examples/react"
   dependencies:
     "@babel/core": ^7.13.15
-    "@roots/bud": ^3.2.0-next.2
-    "@roots/bud-babel": ^3.2.0-next.2
-    "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
+    "@roots/bud": "workspace:*"
+    "@roots/bud-babel": "workspace:*"
+    "@roots/bud-cli": "workspace:*"
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
-    "@roots/bud-react": ^3.2.0-next.2
+    "@roots/bud-react": "workspace:*"
     "@types/node": ^14.14.39
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
@@ -13422,6 +13434,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"lodash.get@npm:^4":
+  version: 4.4.2
+  resolution: "lodash.get@npm:4.4.2"
+  checksum: e403047ddb03181c9d0e92df9556570e2b67e0f0a930fcbbbd779370972368f5568e914f913e93f3b08f6d492abc71e14d4e9b7a18916c31fa04bd2306efe545
+  languageName: node
+  linkType: hard
+
 "lodash.isfunction@npm:^3.0.9":
   version: 3.0.9
   resolution: "lodash.isfunction@npm:3.0.9"
@@ -13717,7 +13736,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"make-error@npm:1.x, make-error@npm:^1.1.1":
+"make-error@npm:1.x, make-error@npm:^1, make-error@npm:^1.1.1":
   version: 1.3.6
   resolution: "make-error@npm:1.3.6"
   checksum: b86e5e0e25f7f777b77fabd8e2cbf15737972869d852a22b7e73c17623928fccb826d8e46b9951501d3f20e51ad74ba8c59ed584f610526a48f8ccf88aaec402
@@ -19841,7 +19860,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"ts-node@npm:^9.1.1":
+"ts-node@npm:^9, ts-node@npm:^9.1.1":
   version: 9.1.1
   resolution: "ts-node@npm:9.1.1"
   dependencies:
@@ -19881,7 +19900,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"tslib@npm:^2.0.3":
+"tslib@npm:^2, tslib@npm:^2.0.3":
   version: 2.2.0
   resolution: "tslib@npm:2.2.0"
   checksum: a48c9639f7496fa701ea8ffe0561070fcb44c104a59632f7f845c0af00825c99b6373575ec59b2b5cdbfd7505875086dbe5dc83312304d8979f22ce571218ca3

@@ -36,7 +36,7 @@ export function run(this: Framework): Promise<void> {
    * When using the Bud dashboard we can just call the CLI
    * and bounce early.
    */
-  if (!this.store.isTrue('options.ci')) {
+  if (!this.store.isTrue('ci')) {
     this.dashboard.run()
     return
   }

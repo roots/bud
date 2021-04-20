@@ -6,8 +6,7 @@ export const name: Module['name'] =
 
 export * as api from './api'
 
-export const when: Module.When = app =>
-  app.store.enabled('options.gzip')
+export const when: Module.When = app => app.store.enabled('gzip')
 
 export const options: Module.Options = {
   algorithm: 'gzip',

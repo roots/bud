@@ -34,16 +34,14 @@ const extension: Module = {
     when(isDevelopment, (app: Framework) =>
       app
         .use(ReactRefreshWebpackPlugin)
-        .store.mutate(
-          'options.entry',
-          (entry: Configuration['entry']) =>
-            Object.entries(entry).reduce(
-              (a, [name, assets]: [string, string[]]) => ({
-                ...a,
-                [name]: ['react-refresh/runtime', ...assets],
-              }),
-              {},
-            ),
+        .hooks.on('entry', (entry: Configuration['entry']) =>
+          Object.entries(entry).reduce(
+            (a, [name, assets]: [string, string[]]) => ({
+              ...a,
+              [name]: ['react-refresh/runtime', ...assets],
+            }),
+            {},
+          ),
         ),
     )
   },

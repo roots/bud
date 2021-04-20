@@ -30,4 +30,4 @@ export const make = options =>
  * Conditions
  */
 export const when = ({store, subscribe}) =>
-  store.isTrue('options.html.enabled')
+  store.isTrue('html.enabled')

@@ -25,4 +25,4 @@ export const make: Module.Make<
 }
 
 export const when: Module.When<Framework> = (app: Framework) =>
-  app.store.enabled('options.manifest')
+  app.store.enabled('manifest')

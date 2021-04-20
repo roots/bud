@@ -87,7 +87,7 @@ export default class {
     this.module.when && this.set('when', () => this.module.when)
     this.module.make && this.set('make', () => this.module.make)
 
-    this.app.store.enabled('options.install') && this.install()
+    this.app.store.enabled('install') && this.install()
 
     this.logger.scope(this.name).success('Extension registered')
 
@@ -211,13 +211,14 @@ export default class {
    * When
    */
   public get when() {
-    const value = this.get('when')
-
-    if (_.isFunction(value)) {
-      return value(this.app, this.app.container(this.options))
+    if (_.isFunction(this.get('when'))) {
+      return this.get('when')(
+        this.app,
+        this.app.container(this.options),
+      )
     }
 
-    return value
+    return this.get('when')
   }
 
   public set when(when: Module['when']) {
@@ -228,27 +229,21 @@ export default class {
    * Make
    */
   public get make() {
-    const when = this.when
-
-    if (when == false) {
-      const hook = this.makeKey('make')
-
+    if (this.when == false) {
       this.logger.log({
-        message: `${hook} not set for inclusion. skipping.`,
+        message: `not set for inclusion. skipping.`,
         affix: this.when,
       })
 
       return
     }
 
-    const value = this.get('make')
-
-    if (!value) {
+    if (!this.get('make')) {
       return
     }
 
-    if (_.isFunction(value)) {
-      return value(
+    if (_.isFunction(this.get('make'))) {
+      return this.get('make')(
         this.options
           ? this.app.container(this.options)
           : this.app.container({}),
@@ -256,7 +251,7 @@ export default class {
       )
     }
 
-    return value
+    return this.get('make')
   }
 
   public set make(make: Module['make']) {

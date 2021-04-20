@@ -13,15 +13,15 @@ export const name: Module.Name = 'mini-css-extract-plugin'
  */
 export const options: Options = ({store}: Framework) => ({
   filename: `css/${
-    store.isTrue('options.hash')
-      ? store.get('options.hashFormat').concat('.css')
-      : store.get('options.fileFormat').concat('.css')
+    store.isTrue('hash')
+      ? store.get('hashFormat').concat('.css')
+      : store.get('fileFormat').concat('.css')
   }`,
 
   chunkFilename: `css/${
-    store.isTrue('options.hash')
-      ? store.get('options.hashFormat').concat('.[id].css')
-      : store.get('options.fileFormat').concat('.[id].css')
+    store.isTrue('hash')
+      ? store.get('hashFormat').concat('.[id].css')
+      : store.get('fileFormat').concat('.[id].css')
   }`,
 })
 

@@ -13,9 +13,7 @@ export const name = 'ignore-emit-webpack-plugin'
 export const options: Module.Options<{ignore: string[]}> = (
   app: Framework,
 ) => ({
-  ignore: app.store.isFalse('options.devtool')
-    ? []
-    : [/.?.map$/],
+  ignore: app.store.isFalse('devtool') ? [] : [/.?.map$/],
 })
 
 /**

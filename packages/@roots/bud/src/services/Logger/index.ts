@@ -28,13 +28,15 @@ export class Logger implements Contract, Bootstrapper {
   /**
    * Logger options
    */
-  public options: SignaleOptions<'remind'> = {
-    disabled: true,
-    interactive: false,
-    scope: 'framework',
-    secrets: [process.cwd()],
-    stream: process.stdout,
-    logLevel: 'all',
+  public get options(): SignaleOptions<'remind'> {
+    return {
+      disabled: true,
+      interactive: false,
+      scope: 'framework',
+      secrets: [process.cwd()],
+      stream: process.stdout,
+      logLevel: 'all',
+    }
   }
 
   /**
@@ -86,7 +88,7 @@ export class Logger implements Contract, Bootstrapper {
    * Framework lifecycle: bootstrapped
    */
   @bind
-  public bootstrapped(app: Framework) {
+  public bootstrapped() {
     this.instance = this.makeLogger()
   }
 
@@ -95,7 +97,7 @@ export class Logger implements Contract, Bootstrapper {
    */
   @bind
   public registered(app: Framework) {
-    if (app.store.enabled('options.log')) {
+    if (app.store.enabled('log')) {
       app.logger.instance.enable()
     }
   }

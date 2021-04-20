@@ -24,8 +24,6 @@ declare module '@roots/bud-framework' {
 export const hash: Framework.Api.Hash = function (
   enabled = true,
 ) {
-  !this.store.has('args.hash') &&
-    this.store.set('options.hash', enabled)
-
+  this.store.set('hash', enabled)
   return this
 }

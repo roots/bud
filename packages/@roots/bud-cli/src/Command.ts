@@ -95,7 +95,6 @@ abstract class Command implements Contract {
    */
   public constructor(cli: CLI) {
     this.cli = cli
-    this.action = this.action.bind(this)
   }
 
   /**

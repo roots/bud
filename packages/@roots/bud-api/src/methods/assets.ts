@@ -32,9 +32,9 @@ export const assets: Assets = function (jobs) {
     this.disk.glob.sync(from).map((from: string) => {
       const dirName = from.split('/')[from.split('/').length - 2]
 
-      const format = this.store.isTrue('options.hash')
-        ? this.store.get('options.hashFormat')
-        : this.store.get('options.fileFormat')
+      const format = this.store.isTrue('hash')
+        ? this.store.get('hashFormat')
+        : this.store.get('fileFormat')
 
       const pattern = {
         from,

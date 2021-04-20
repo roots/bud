@@ -2,7 +2,6 @@ import {Framework} from '../'
 import {Container} from '@roots/container'
 import {FileContainer} from '@roots/filesystem'
 import {boundMethod as bind} from 'autobind-decorator'
-import {posix, join} from 'path'
 
 /**
  * Framework service
@@ -35,20 +34,8 @@ export class Service extends Container {
    */
   public constructor(app: Framework['get']) {
     super()
+
     this._app = app
-  }
-
-  /**
-   * Path to node_modules
-   */
-  @bind
-  public modulePath(path?: string): string {
-    const base = posix.resolve(
-      this.subscribe('location/project'),
-      this.subscribe('location/modules'),
-    )
-
-    return path ? join(base, path) : base
   }
 
   /**

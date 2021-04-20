@@ -34,8 +34,7 @@ declare module '@roots/bud-framework' {
 type Minify = (enabled?: boolean) => Framework
 
 export const minify: Minify = function (enabled = true) {
-  !this.store.has('args.minify') &&
-    this.hooks.on('build/optimization/minimize', () => enabled)
+  this.hooks.on('build/optimization/minimize', () => enabled)
 
   return this
 }

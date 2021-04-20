@@ -11,6 +11,7 @@ module.exports = bud =>
       require('@roots/bud-criticalcss'),
       require('@roots/bud-postcss'),
       require('@roots/bud-tailwindcss'),
+      require('@roots/bud-terser'),
     ])
     .html({
       template: 'public/index.html',
@@ -26,4 +27,4 @@ module.exports = bud =>
     .entry('app', ['app.css'])
     .entry('app2', ['app2.css'])
     .splitChunks()
-    .runtime()
+    .minify()

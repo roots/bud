@@ -15,9 +15,9 @@ export abstract class Server extends Service {
 
   config: Server.Config
 
-  watchlist: string[]
+  getWatchedFilesArray(): string[]
 
-  watchable: boolean
+  isWatchable: boolean
 
   run(compiler: Server.Compiler): this
 

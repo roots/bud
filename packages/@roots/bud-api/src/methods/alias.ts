@@ -32,8 +32,10 @@ export type Alias = (
 ) => Framework
 
 export const alias: Alias = function (alias) {
-  !this.store.has('args.resolve.alias') &&
-    this.store.merge('options.resolve.alias', alias)
+  this.hooks.on('build/resolve/alias', existant => ({
+    ...existant,
+    ...alias,
+  }))
 
   return this
 }

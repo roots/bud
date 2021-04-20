@@ -117,4 +117,25 @@ export default class extends Service implements Hooks {
 
     return result
   }
+
+  /**
+   * hooks.link
+   */
+  @bind
+  public link(
+    target: `${Hooks.Name}`,
+    links: string[],
+  ): Framework {
+    this.on(target, () =>
+      links.reduce(
+        (a, link) => ({
+          ...a,
+          [link]: this.filter(`${target}/${link}`),
+        }),
+        {},
+      ),
+    )
+
+    return this.app
+  }
 }

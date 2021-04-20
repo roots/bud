@@ -1,15 +1,49 @@
 import './interface'
-import {Framework, Module} from '@roots/bud-framework'
+import {Framework, Terser, Module} from '@roots/bud-framework'
+import TerserPlugin from 'terser-webpack-plugin'
+import Webpack from 'webpack'
 
-import * as terserWebpackPlugin from './terser-webpack-plugin'
+export const name: Module['name'] = 'terser-webpack-plugin'
 
-// Extension name
-export const name: Module['name'] = '@roots/bud-terser'
+export const options: Module.Options<TerserPlugin.Options> = app => ({
+  parallel: app.subscribe('build/parallelism'),
+  include: app.store.get('patterns.js'),
+  extractComments: false,
+  terserOptions: {
+    parse: {
+      ecma: 2018,
+    },
+    compress: false,
+    mangle: {
+      safari10: true,
+    },
+    output: {
+      ecma: 5,
+      comments: false,
+      ascii_only: true,
+    },
+  },
+})
 
-// Extension config api
-export * as api from './api'
+export const boot: Module.Boot = ({extensions, hooks}) => {
+  hooks.on(
+    'build/optimization/minimizer',
+    (
+      minimizer: Webpack.Configuration['optimization']['minimizer'],
+    ) => {
+      return [
+        new TerserPlugin(
+          extensions.get('terser-webpack-plugin').options,
+        ),
+        ...(minimizer ?? []),
+      ]
+    },
+  )
+}
 
-// Extension boot
-export const boot: Module.Boot = ({extensions}: Framework) => {
-  extensions.add(terserWebpackPlugin)
+export const api = {
+  terser: function (options: Terser.Options): Framework {
+    this.hooks.on('extension/terser/options', () => options)
+    return this
+  },
 }

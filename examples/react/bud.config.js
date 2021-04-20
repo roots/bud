@@ -17,3 +17,6 @@ module.exports = bud =>
       template: bud.path('project', 'public/index.html'),
     })
     .entry('app', 'app.{js,css}')
+    .runtime()
+    .splitChunks()
+    .minify()

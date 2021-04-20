@@ -41,9 +41,9 @@ const CopyWebpackPluginExtension: CopyWebpackPlugin = {
             from.split('/').length - 2
           ]
 
-          const format = this.store.isTrue('options.hash')
-            ? this.store.get('options.hashFormat')
-            : this.store.get('options.fileFormat')
+          const format = this.store.isTrue('hash')
+            ? this.store.get('hashFormat')
+            : this.store.get('fileFormat')
 
           const pattern = {
             from,

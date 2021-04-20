@@ -33,9 +33,9 @@ export class Discovery extends Service implements Contract {
    */
   public get packagePaths() {
     return globby.sync([
-      this.modulePath('@roots/sage/package.json'),
-      this.modulePath('bud-*/package.json'),
-      this.modulePath('**/bud-*/package.json'),
+      this.app.path('modules', '@roots/sage/package.json'),
+      this.app.path('modules', 'bud-*/package.json'),
+      this.app.path('modules', '**/bud-*/package.json'),
     ])
   }
 
@@ -67,9 +67,10 @@ export class Discovery extends Service implements Contract {
    */
   @bind
   public registerDiscovered() {
-    this.app.store.isTrue('options.discover') &&
+    this.app.store.isTrue('discover') &&
       this.every((name: string) => {
         const extension = require(name)
+
         this.app.extensions.add(extension)
       })
   }

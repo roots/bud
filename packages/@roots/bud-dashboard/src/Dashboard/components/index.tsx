@@ -22,7 +22,7 @@ export {Dashboard}
  */
 const Dashboard: Dashboard.Component = ({bud}) => {
   const compilation = useCompilation(bud)
-  const theme = useStyle(bud.store.get('options.theme'))
+  const theme = useStyle(bud.store.get('theme'))
   const pkg = usePackageJson(bud)
 
   useInput(input => {

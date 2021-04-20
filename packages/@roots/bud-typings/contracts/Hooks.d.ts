@@ -73,9 +73,23 @@ export interface Hooks extends Service {
   filter<T = any>(
     id: `${Hooks.Name}` | [string, `${Hooks.Name}`],
   ): T
+
+  /**
+   * ## hooks.link
+   *
+   * Link one key to the value of another
+   */
+  link(
+    target: `${Hooks.Name & string}`,
+    links: string[],
+  ): Framework
 }
 
 export namespace Hooks {
+  declare type LinkedObj<T> = {
+    [K in keyof T as `${K & string}`]: `${Hooks.Name & string}`
+  }
+
   /**
    * Hook definition
    */

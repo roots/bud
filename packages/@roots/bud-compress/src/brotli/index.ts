@@ -21,6 +21,6 @@ export const make: Module.Make = options =>
   new Plugin(options.all())
 
 export const when: Module.Make = ({store}) =>
-  store.enabled('options.brotli')
+  store.isTrue('brotli')
 
 export {api}

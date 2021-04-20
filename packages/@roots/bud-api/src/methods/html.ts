@@ -52,19 +52,17 @@ export const html: Api.Html = function (options?) {
   /**
    * Allow html arg to override
    */
-  if (!this.store.has('args.html')) {
-    if (!options) {
-      this.store.enable('options.html.enabled')
-      return this
-    }
-
-    /**
-     * Update the enabled status for the html plugin
-     */
-    this.util._.isBoolean(options.enabled)
-      ? this.store.set('options.html.enabled', options.enabled)
-      : this.store.enable('options.html.enabled')
+  if (!options) {
+    this.store.enable('html.enabled')
+    return this
   }
+
+  /**
+   * Update the enabled status for the html plugin
+   */
+  this.util._.isBoolean(options.enabled)
+    ? this.store.set('html.enabled', options.enabled)
+    : this.store.enable('html.enabled')
 
   /**
    * Apply any replacements in the interpolation plugin

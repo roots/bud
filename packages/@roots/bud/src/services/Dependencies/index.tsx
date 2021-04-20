@@ -17,7 +17,7 @@ import Spinner from 'ink-spinner'
 /**
  * Framework/Dependencies
  *
- * [🏡 Project home](https://roots.io/bud)
+ * [🏡 Project](https://roots.io/bud)
  */
 export class Dependencies extends Service {
   /**

@@ -29,13 +29,5 @@ export const boot: Module['boot'] = (app: Framework) => {
     )
   }
 
-  app.store.set(
-    'options.tailwindcss.implementation',
-    implementation,
-  )
-
-  app.tailwind(
-    null,
-    app.store.get('options.tailwindcss.implementation'),
-  )
+  app.tailwind(null, implementation)
 }

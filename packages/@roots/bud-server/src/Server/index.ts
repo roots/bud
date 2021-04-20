@@ -1,4 +1,4 @@
-import {Service} from '@roots/bud-framework'
+import {Container, Service} from '@roots/bud-framework'
 import {Server} from '@roots/bud-typings'
 import chokidar from 'chokidar'
 import {boundMethod as bind} from 'autobind-decorator'
@@ -27,6 +27,8 @@ export default class extends Service implements Server {
    */
   public middleware: Server.Middleware.Inventory = {}
 
+  public config: Container<Server.Config>
+
   /**
    * Watcher
    */
@@ -54,33 +56,6 @@ export default class extends Service implements Server {
   }
 
   /**
-   * Config
-   */
-  public _config: Server.Config
-
-  public get config(): Server.Config {
-    return this._config
-  }
-
-  public set config(config: Server.Config) {
-    this._config = config
-  }
-
-  /**
-   * Watchlist
-   */
-  public readonly _watchlist: string[]
-
-  /**
-   * Watchlist: get accessor
-   */
-  public get watchlist(): string[] {
-    return this.config
-      .get('watch.files')
-      .map((file: string) => this.app.path('project', file))
-  }
-
-  /**
    * Assets
    */
   public readonly _assets = [
@@ -94,10 +69,21 @@ export default class extends Service implements Server {
   /**
    * Watchable: get accessor
    */
-  public get watchable(): boolean {
+  public get isWatchable(): boolean {
     return (
-      Array.isArray(this.watchlist) && this.watchlist.length > 0
+      Array.isArray(this.getWatchedFilesArray()) &&
+      this.getWatchedFilesArray().length > 0
     )
+  }
+
+  /**
+   * Get watched files array
+   */
+  @bind
+  public getWatchedFilesArray(): string[] {
+    return this.config
+      .get('watch.files')
+      .map((file: string) => this.app.path('project', file))
   }
 
   /**
@@ -106,7 +92,7 @@ export default class extends Service implements Server {
   @bind
   public booted() {
     this.watcher = chokidar.watch(
-      this.app.util.globby.sync(this.watchlist),
+      this.app.util.globby.sync(this.config.get('watch.files')),
       this.config.get('watch.options'),
     )
   }
@@ -142,7 +128,7 @@ export default class extends Service implements Server {
      */
     this.instance
       .route('/__roots/config.json')
-      .get((req, res) => {
+      .get((_req, res) => {
         res.send({
           ...this.app.store.all(),
           ...this.config.all(),
@@ -168,7 +154,7 @@ export default class extends Service implements Server {
       })
     })
 
-    this.watchable &&
+    this.isWatchable &&
       this.watcher?.on('change', path => {
         this.middleware.hot.publish({
           action: 'reload',
