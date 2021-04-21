@@ -106,8 +106,8 @@ export default class extends Service implements Compiler {
     if (!stats) return
 
     stats.hasErrors() &&
-      console.error(stats.errors.toString(this.statsOptions))
+      console.error(stats?.errors?.toString(this.statsOptions))
 
-    console.log(stats.toString(this.statsOptions))
+    console.log(stats?.toString(this.statsOptions))
   }
 }

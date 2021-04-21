@@ -33,28 +33,33 @@ export const useCompilation: Dashboard.Compilation.Hook = app => {
 
     app.when(err, () => {
       app.error(err, 'Webpack error (pre-compile)')
+
       process.exit()
     })
 
-    if (!stats) return
+    const json = stats?.toJson(app.compiler.statsOptions)
 
-    const json = stats.toJson(app.compiler.statsOptions)
+    if (!json) return
 
     setStats(json)
 
-    if (json?.hasErrors) {
-      setHasErrors(json.hasErrors())
-      setErrors(json.errors)
-    } else {
-      setErrors(null)
-    }
-
-    if (json?.hasWarnings) {
-      setHasWarnings(json.hasWarnings())
-      setWarnings(json.warnings)
-    } else {
-      setWarnings(null)
-    }
+    app
+      .when(
+        json?.hasErrors,
+        () => {
+          setHasErrors(json.hasErrors())
+          setErrors(json.errors)
+        },
+        () => setErrors(null),
+      )
+      .when(
+        json?.hasWarnings,
+        () => {
+          setHasWarnings(json.hasWarnings())
+          setWarnings(json.warnings)
+        },
+        () => setWarnings(null),
+      )
   }
 
   /**

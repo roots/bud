@@ -4,6 +4,17 @@ import TypeScriptLoader from '@endemolshinegroup/cosmiconfig-typescript-loader'
 export const config = moduleName =>
   cosmiconfigSync(moduleName, {
     searchPlaces: [
+      `${moduleName}.config.ts`,
+      `${moduleName}.config.js`,
+    ],
+    loaders: {
+      '.ts': TypeScriptLoader,
+    },
+  }).search().config
+
+export const staticConfig = moduleName =>
+  cosmiconfigSync(moduleName, {
+    searchPlaces: [
       'package.json',
       `.${moduleName}rc`,
       `.${moduleName}rc.json`,
@@ -11,10 +22,5 @@ export const config = moduleName =>
       `.${moduleName}rc.yml`,
       `.${moduleName}rc.ts`,
       `.${moduleName}rc.js`,
-      `${moduleName}.config.ts`,
-      `${moduleName}.config.js`,
     ],
-    loaders: {
-      '.ts': TypeScriptLoader,
-    },
   }).search().config
