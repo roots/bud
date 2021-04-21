@@ -10,24 +10,24 @@ export const Git = ({theme}) => {
   if (!guard) return null
 
   const gitProps = [
-    {key: 'branch', data: branch, color: flavor},
+    {key: 'Branch', data: branch, color: flavor},
     {
-      key: 'head',
+      key: 'Head',
       data: head,
       color: status ? warning : success,
     },
-    {key: 'status', data: status, color: accent},
+    {key: 'Changed', data: status, color: accent},
   ]
 
   return (
     <Box
-      flexDirection="row"
-      justifyContent="flex-start"
-      flexGrow={1}>
+      flexDirection="column"
+      paddingX={1}
+      borderStyle="single"
+      borderColor={theme.colors.faded}>
       {gitProps.map(({key, data, color}) => (
-        <Text key={key} backgroundColor={color}>
-          {' '}
-          {data}{' '}
+        <Text key={key}>
+          {key}: <Text color={color}>{data}</Text>
         </Text>
       ))}
     </Box>

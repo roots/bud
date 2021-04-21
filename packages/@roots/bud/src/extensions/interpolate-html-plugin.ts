@@ -33,7 +33,6 @@ export const name = 'interpolate-html-plugin'
  * Options
  */
 export const options: Options = app => ({
-  ...app.store.get('html.replace'),
   ...Object.fromEntries(
     app.env
       .getEntries()
@@ -41,6 +40,8 @@ export const options: Options = app => ({
       [string, RegExp]
     >,
   ),
+  ...(app.store.get('extension.interpolateHtmlPlugin.replace') ??
+    {}),
 })
 
 /**
@@ -55,5 +56,4 @@ export const make: Make = options =>
 export const when: Module.When = (
   {store}: Framework,
   options: Module.Options,
-) =>
-  store.isTrue('html.enabled') && options.getEntries().length > 0
+) => store.isTrue('html') && options.getEntries().length > 0

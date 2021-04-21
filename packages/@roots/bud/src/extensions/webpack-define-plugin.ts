@@ -5,7 +5,7 @@ interface Options {
   definitions: DefinePlugin['definitions']
 }
 
-export const name: Module.Name = `webpack-define-plugin`
+export const name: Module.Name = 'webpack-define-plugin'
 
 export const make: Module.Make<
   DefinePlugin,
@@ -27,7 +27,7 @@ export const options: Module.Options<Options> = (
     .reduce((a, [k, v]) => ({...a, [k]: JSON.stringify(v)}), {})
 
   const fromStore = bud.store.get(
-    'extension.webpack-define-plugin',
+    'extension.webpackDefinePlugin',
   )
 
   return {

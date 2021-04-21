@@ -71,7 +71,7 @@ module.exports = bud =>
      */
     .when(
       bud.isProduction,
-      bud => bud.minify(),
+      bud => bud.minimize(),
       bud => bud.devtool('eval-source-map'),
     )
 ```
@@ -118,7 +118,7 @@ The following is a (hopefully) exhaustive list of the utilities designed to make
 | bud.glob        | bud.entry but with wildcards    | [README ↗]([[base]]/docs/config-glob.md)       |
 | bud.hash        | Add version string to assets    | [README ↗]([[base]]/docs/config-hash.md)       |
 | bud.html        | Set an HTML template            | [README ↗]([[base]]/docs/config-html.md)       |
-| bud.minify      | Minify assets                   | [README ↗]([[base]]/docs/config-minify.md)     |
+| bud.minimize    | Minify assets                   | [README ↗]([[base]]/docs/config-minimize.md)   |
 | bud.path        | Get paths to project files/dirs | [README ↗]([[base]]/docs/config-path.md)       |
 | bud.setPath     | Set paths to project files/dirs | [README ↗]([[base]]/docs/config-setPath.md)    |
 | bud.provide     | Define global vars              | [README ↗]([[base]]/docs/config-provide.md)    |

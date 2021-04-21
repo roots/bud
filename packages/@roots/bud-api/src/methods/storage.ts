@@ -24,6 +24,7 @@ type Storage = (path: string) => Framework
 export const storage: Storage = function (path?) {
   if (path) {
     this.hooks.on('location/storage', () => path)
+
     return this
   }
 

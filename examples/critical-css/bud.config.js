@@ -28,3 +28,4 @@ module.exports = bud =>
     .entry('app2', ['app2.css'])
     .splitChunks()
     .minify()
+    .persist(false)

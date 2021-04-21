@@ -36,7 +36,7 @@ const CopyWebpackPluginExtension: CopyWebpackPlugin = {
   api: () => ({
     assets(jobs) {
       jobs.map(from => {
-        this.app.util.globby.sync(from).map((from: string) => {
+        this.disk.glob.sync(from).map((from: string) => {
           const dirName = from.split('/')[
             from.split('/').length - 2
           ]

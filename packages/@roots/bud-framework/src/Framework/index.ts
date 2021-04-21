@@ -65,14 +65,6 @@ export abstract class Framework extends Core {
     })
 
     /**
-     * Assign to process
-     */
-    Object.assign(process.env, {
-      NODE_ENV: this.mode,
-      BABEL_ENV: this.mode,
-    })
-
-    /**
      * Lifecycle
      */
     ;[
@@ -100,10 +92,7 @@ export abstract class Framework extends Core {
    * Webpack.Configuration['mode'] accessor
    */
   public get mode() {
-    return process.argv.includes('development') ||
-      process.argv.includes('dev')
-      ? 'development'
-      : 'production'
+    return process.env.NODE_ENV as 'development' | 'production'
   }
 
   /**
@@ -242,8 +231,8 @@ export abstract class Framework extends Core {
     isFalse?: (app: Framework) => any,
   ): Framework {
     _.isEqual(this.access(test), true)
-      ? _.isFunction(isFalse) && isTrue(this).bind(this)
-      : _.isFunction(isFalse) && isFalse(this).bind(this)
+      ? isTrue && _.isFunction(isFalse) && isTrue(this)
+      : isFalse && _.isFunction(isFalse) && isFalse(this)
 
     return this
   }

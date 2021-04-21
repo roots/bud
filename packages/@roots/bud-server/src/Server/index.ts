@@ -8,6 +8,7 @@ import {resolve} from 'path'
 
 import * as middleware from '../middleware'
 import {injectClient} from '../util/injectClient'
+import Webpack from 'webpack'
 
 /**
  * Dev server
@@ -122,7 +123,7 @@ export default class extends Service implements Server {
    * Run server
    */
   @bind
-  public run(compiler: Server.Compiler): this {
+  public run(compiler: Webpack.Compiler): this {
     /**
      * __roots route
      */

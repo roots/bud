@@ -17,68 +17,86 @@ export const useCompilation: Dashboard.Compilation.Hook = app => {
   const [hasWarnings, setHasWarnings] = useState<boolean>(false)
   const [progress, setProgress] = useState(null)
 
-  useEffect(() => {
-    app.compiler.compile(app.build.make())
-  }, [])
+  /**
+   * Compilation callback
+   */
+  const callback = (...args: any[]) => {
+    /**
+     * production mode callback takes two parameters (webpack err and stats)
+     * however, the done hook used in development just takes one (stats)
+     *
+     * here we parse the callback args so that we dont have to
+     * duplicate the callback.
+     */
+    const [err, stats] =
+      args.length > 1 ? args : [null, args.pop()]
 
-  useEffect(() => {
-    if (!app?.compiler?.instance) return
-
-    app.compiler.instance.hooks.done.tap('app', stats => {
-      if (!stats) return
-
-      setStats(stats.toJson(app.compiler.statsOptions.json))
-
-      if (!stats?.hasErrors) return
-
-      setHasErrors(stats.hasErrors())
-
-      stats.hasErrors()
-        ? setErrors(stats.toJson('errors-only').errors)
-        : setErrors(null)
+    app.when(err, () => {
+      app.error(err, 'Webpack error (pre-compile)')
+      process.exit()
     })
 
-    new webpack.ProgressPlugin((percentage, message): void => {
-      const decimal =
-        percentage && typeof percentage == 'number'
-          ? percentage
-          : 0
+    if (!stats) return
 
-      setProgress({
-        decimal,
-        percentage: `${Math.floor(decimal * 100)}%`,
-        message,
-      })
-    }).apply(app.compiler.instance)
+    const jsonStats = stats.toJson(
+      app.compiler.statsOptions.json,
+    )
 
-    const compilerCallback = (err, stats: any) => {
-      if (!stats) return
+    setStats(jsonStats)
 
-      stats = stats.toJson(app.compiler.statsOptions.json)
-
-      setStats(stats)
-
-      if (stats?.hasErrors) {
-        setHasErrors(stats.hasErrors())
-        stats.hasErrors()
-          ? setErrors(stats.errors)
-          : setErrors(null)
-      }
-      if (stats?.hasWarnings) {
-        setHasWarnings(stats.hasWarnings())
-        stats.hasWarnings()
-          ? setWarnings(stats.warnings)
-          : setWarnings(null)
-      }
+    if (jsonStats?.hasErrors) {
+      setHasErrors(jsonStats.hasErrors())
+      setErrors(jsonStats.errors)
+    } else {
+      setErrors(null)
     }
 
-    /**
-     * Exec
-     */
-    !app.isDevelopment
-      ? app.compiler.instance.run(compilerCallback)
-      : app.server.run(app.compiler.instance)
-  }, [app])
+    if (jsonStats?.hasWarnings) {
+      setHasWarnings(jsonStats.hasWarnings())
+      setWarnings(jsonStats.warnings)
+    } else {
+      setWarnings(null)
+    }
+  }
+
+  /**
+   * Update data when app.compiler diffs
+   */
+  useEffect(() => {
+    if (app.compiler.instance) return
+
+    app.when(
+      !app.isDevelopment,
+      ({compiler}) =>
+        compiler.compile(app.build.make()).run(callback),
+      ({server}) => {
+        // Compile
+        const instance = app.compiler.compile(app.build.make())
+
+        // Callback
+        instance.hooks.done.tap(`${app.name}`, callback)
+
+        // Progress
+        new webpack.ProgressPlugin(
+          (percentage, message): void => {
+            const decimal =
+              percentage && typeof percentage == 'number'
+                ? percentage
+                : 0
+
+            setProgress({
+              decimal,
+              percentage: `${Math.floor(decimal * 100)}%`,
+              message,
+            })
+          },
+        ).apply(instance)
+
+        // Run dev server
+        server.run(instance)
+      },
+    )
+  }, [app.compiler])
 
   return {
     progress,

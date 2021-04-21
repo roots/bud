@@ -1,4 +1,4 @@
-import React from 'react'
+import React, {useEffect} from 'react'
 import {Text, Static, Box, useInput} from 'ink'
 import {useStyle} from '@roots/ink-use-style'
 import {isEqual} from 'lodash'
@@ -8,13 +8,15 @@ import {
   DevStatus,
   Time,
   Git,
-  Screen,
   Progress,
   Module,
 } from '../../components'
 import {useCompilation, usePackageJson} from '../../hooks'
 import {Dashboard} from '@roots/bud-framework'
 
+/**
+ * @exports Dashboard
+ */
 export {Dashboard}
 
 /**
@@ -33,7 +35,7 @@ const Dashboard: Dashboard.Component = ({bud}) => {
     }
   })
 
-  React.useEffect(() => {
+  useEffect(() => {
     if (!bud.isProduction) return
 
     const isComplete = compilation?.progress?.decimal >= 1
@@ -54,79 +56,96 @@ const Dashboard: Dashboard.Component = ({bud}) => {
   }
 
   return (
-    <Screen>
+    <Box flexDirection="column">
+      {appProps.hasErrors && appProps.errors?.length > 0 && (
+        <Static marginBottom={1} items={appProps.errors}>
+          {(err: Dashboard.Compilation.WebpackMessage) => (
+            <Module
+              key={err.moduleIdentifier}
+              color={appProps.theme.colors.error}
+              labelColor={theme.colors.foreground}
+              label={`Error: ${err.moduleName}`}>
+              <Box width={theme.bounds.width - 4}>
+                <Text>{err.message}</Text>
+              </Box>
+            </Module>
+          )}
+        </Static>
+      )}
+
+      {appProps.hasWarnings && appProps.warnings?.length > 0 && (
+        <Static marginBottom={1} items={appProps.warnings}>
+          {(warning: Dashboard.Compilation.WebpackMessage) => (
+            <Module
+              key={warning.moduleIdentifier}
+              color={appProps.theme.colors.warning}
+              labelColor={theme.colors.foreground}
+              label={`Error: ${warning.moduleName}`}>
+              <Box width={theme.bounds.width - 4}>
+                <Text>{warning.message}</Text>
+              </Box>
+            </Module>
+          )}
+        </Static>
+      )}
+
       <Box flexDirection="column">
-        {/** Static: errors */}
-        {appProps.hasErrors && appProps.errors?.length > 0 && (
-          <Static marginBottom={1} items={appProps.errors}>
-            {(err: Dashboard.Compilation.WebpackMessage) => (
-              <Module
-                key={err.moduleIdentifier}
-                color={appProps.theme.colors.error}
-                labelColor={theme.colors.foreground}
-                label={`Error: ${err.moduleName}`}>
-                <Box width={theme.bounds.width - 4}>
-                  <Text>{err.message}</Text>
-                </Box>
-              </Module>
-            )}
-          </Static>
-        )}
-
-        {/** Static: warnings */}
-        {appProps.hasWarnings && appProps.warnings?.length > 0 && (
-          <Static marginBottom={1} items={appProps.warnings}>
-            {(warning: Dashboard.Compilation.WebpackMessage) => (
-              <Module
-                key={warning.moduleIdentifier}
-                color={appProps.theme.colors.warning}
-                labelColor={theme.colors.foreground}
-                label={`Error: ${warning.moduleName}`}>
-                <Box width={theme.bounds.width - 4}>
-                  <Text>{warning.message}</Text>
-                </Box>
-              </Module>
-            )}
-          </Static>
-        )}
-
-        {/** Main  */}
-        <Box flexDirection="column">
-          {/** Assets */}
-          <Module
-            label="Assets"
-            marginBottom={1}
-            color={theme.colors.faded}>
+        {appProps.stats?.assets && (
+          <Box
+            flexDirection="column"
+            paddingX={1}
+            borderStyle="single"
+            borderColor={appProps.theme.colors.faded}>
             <Assets {...appProps} />
-          </Module>
-
-          {/** Server info */}
-          {bud.isDevelopment &&
-            bud.server.config.isTrue('middleware.dev') && (
-              <Module
-                label="Dev Server"
-                marginBottom={1}
-                color={theme.colors.faded}>
-                <DevStatus {...appProps} />
-              </Module>
-            )}
-
-          {/** Progress */}
-          <Box marginBottom={1}>
-            <Progress {...appProps} />
           </Box>
+        )}
 
-          {/** Git */}
-          <Box marginBottom={1}>
-            <Git theme={appProps.theme} />
-          </Box>
+        <Box flexDirection="row">
+          <Box
+            flexDirection="column"
+            paddingX={1}
+            borderStyle="single"
+            borderColor={appProps.theme.colors.faded}>
+            <Text>
+              Mode: <Text color="green">{bud.mode}</Text>
+            </Text>
 
-          {/** Time */}
-          <Box flexDirection="row" marginBottom={1}>
+            <Text>
+              Entry:{' '}
+              <Text color="green">
+                {Object.keys(
+                  bud.hooks.filter('build/entry'),
+                ).reduce((a, k) => `${a} ${k}`)}
+              </Text>
+            </Text>
+
             <Time {...appProps} />
           </Box>
+
+          {bud.isDevelopment &&
+            bud.server.config.isTrue('middleware.dev') && (
+              <Box
+                flexDirection="column"
+                paddingX={1}
+                borderStyle="single"
+                borderColor={appProps.theme.colors.faded}>
+                <DevStatus {...appProps} />
+              </Box>
+            )}
+
+          <Box flexDirection="column">
+            <Git theme={appProps.theme} />
+          </Box>
+        </Box>
+
+        <Box flexDirection="column">
+          {appProps.progress?.decimal < 1 && (
+            <Box marginBottom={1}>
+              <Progress {...appProps} />
+            </Box>
+          )}
         </Box>
       </Box>
-    </Screen>
+    </Box>
   )
 }

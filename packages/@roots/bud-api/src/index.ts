@@ -1,4 +1,9 @@
 /**
+ * Interface
+ */
+import './interface'
+
+/**
  * Service: Framework API
  */
 import {Api} from './Api'

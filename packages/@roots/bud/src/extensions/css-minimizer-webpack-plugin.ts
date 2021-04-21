@@ -10,11 +10,8 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export const options: Module['options'] = () => ({
-  minimizerOptions: {
-    preset: ['default'],
-  },
-})
+export const options: Module['options'] = app =>
+  app.store.get('extension.cssMinimizerWebpackPlugin')
 
 export const name: Module['name'] =
   'css-minimizer-webpack-plugin'

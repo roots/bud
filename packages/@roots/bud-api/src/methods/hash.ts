@@ -13,17 +13,17 @@ declare module '@roots/bud-framework' {
      * bud.hash()
      * ```
      */
-    hash: Framework.Api.Hash
+    hash: Api.Hash
   }
 
-  namespace Framework.Api {
-    type Hash = (enabled?: boolean) => Framework
+  namespace Api {
+    export {Hash}
   }
 }
 
-export const hash: Framework.Api.Hash = function (
-  enabled = true,
-) {
+type Hash = (enabled?: boolean) => Framework
+
+export const hash: Hash = function (enabled = true) {
   this.store.set('hash', enabled)
   return this
 }

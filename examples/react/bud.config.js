@@ -5,8 +5,8 @@
  * @type {(bud: Bud): Bud}
  */
 
-module.exports = bud =>
-  bud
+module.exports = bud => {
+  return bud
     .use([
       require('@roots/bud-babel'),
       require('@roots/bud-postcss'),
@@ -17,6 +17,10 @@ module.exports = bud =>
       template: bud.path('project', 'public/index.html'),
     })
     .entry('app', 'app.{js,css}')
-    .runtime()
-    .splitChunks()
-    .minify()
+    .when(bud.isProduction, bud =>
+      bud.runtime().splitChunks().minimize(),
+    )
+    .persist({
+      type: 'memory',
+    })
+}

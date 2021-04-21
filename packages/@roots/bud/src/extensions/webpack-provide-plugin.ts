@@ -3,7 +3,8 @@ import type {Index, Module} from '@roots/bud-framework'
 
 export const name = 'webpack-provide-plugin'
 
-export const options = () => ({})
+export const options = app =>
+  app.store.get('extension.webpackProvidePlugin')
 
 export const make: Module.Make<
   Plugin,

@@ -19,23 +19,20 @@ declare module '@roots/bud-framework' {
      * })
      * ```
      */
-    alias: Alias
+    persist: Api.Persist
   }
 
   namespace Api {
-    export type {Alias}
+    export type {Persist}
   }
 }
 
-export type Alias = (
-  alias: Webpack.Configuration['resolve']['alias'],
+export type Persist = (
+  cache: Webpack.Configuration['cache'],
 ) => Framework
 
-export const alias: Alias = function (alias) {
-  this.hooks.on('build/resolve/alias', existant => ({
-    ...existant,
-    ...alias,
-  }))
+export const persist: Persist = function (cache) {
+  this.hooks.on('build/cache', () => cache)
 
   return this
 }

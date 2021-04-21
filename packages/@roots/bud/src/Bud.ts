@@ -25,8 +25,6 @@ import {Util} from './services/Util'
  * Bud
  */
 export class Bud extends Framework {
-  public api: Api
-
   public build: Build
 
   public cache: Cache

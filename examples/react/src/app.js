@@ -12,8 +12,6 @@ ReactDOM.render(<App />, document.getElementById('root'))
  *
  * @see https://webpack.js.org/api/hot-module-replacement
  */
-if (module) {
-  module.hot.accept(err => {
-    console.error(err)
-  })
-}
+module?.hot?.accept(err => {
+  console.error(err)
+})

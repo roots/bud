@@ -19,7 +19,7 @@ declare module '@roots/bud-framework' {
     provide: Provide
   }
 
-  namespace Framework.Api {
+  namespace Api {
     export {Provide}
     export {Provided}
   }
@@ -31,12 +31,10 @@ export interface Provided {
   [key: string]: string | string[]
 }
 
-export const provide: Framework.Api.Provide = function (
-  packages,
-) {
+export const provide: Provide = function (packages) {
   this.hooks.on(
     'extension/webpack-provide-plugin/options',
-    (provided: Framework.Api.Provided) => ({
+    (provided: Provided) => ({
       ...provided,
       ...Object.entries(packages).reduce(
         (a, [k, v]) => ({

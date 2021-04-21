@@ -18,10 +18,15 @@ export class Build extends Command {
   }
 
   public options = {
-    name: {
-      type: 'string',
-      description: 'Name of project',
-      default: 'bud',
+    ci: {
+      type: 'boolean',
+      description: 'Run in CI',
+      default: false,
+    },
+    hot: {
+      type: 'boolean',
+      description: 'Hot middleware',
+      default: true,
     },
   }
 
@@ -45,7 +50,28 @@ export class Build extends Command {
    * Preflight check
    */
   @bind
-  public async action(...args: any[]) {
-    config(this.cli.name)(this.cli.app).run()
+  public async action(
+    mode: unknown,
+    options: {
+      ci: boolean
+      hot: boolean
+    },
+  ) {
+    /**
+     * Assign to process
+     */
+    Object.assign(process.env, {
+      NODE_ENV: mode,
+      BABEL_ENV: mode,
+    })
+
+    const instance = config(this.cli.name)(this.cli.app)
+
+    options.ci && instance.store.set('ci', true)
+
+    !options.hot &&
+      instance.server.config.set('middleware.hot', options.hot)
+
+    instance.run()
   }
 }

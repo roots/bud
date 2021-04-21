@@ -22,12 +22,14 @@ declare module '@roots/bud-framework' {
     /**
      * Compiler stats output
      */
-    stats: Compiler.Stats
+    stats: any
 
     /**
      * Webpack stats configuration
      */
-    statsOptions: Compiler.Stats.Options
+    statsOptions: {
+      [key: string]: string | boolean
+    }
 
     /**
      * Formatted progress plugin
@@ -59,34 +61,19 @@ declare module '@roots/bud-framework' {
     compile: Compiler.Compile
 
     /**
-     * ## bud.compiler.run
-     *
-     * Run the stored instance.
-     *
-     * ### Usage
-     *
-     * ```js
-     * bud.compiler.run((err, stats) => {...})
-     * ```
+     * Compilation callback
      */
-    run(): void
-
-    /**
-     * ## bud.compiler.applyPlugins
-     *
-     * Applies the progress plugin.
-     *
-     * ### Usage
-     *
-     * ```js
-     * bud.compiler.applyPlugin((progressArgs) => progressHandler())
-     * ```
-     */
-    applyPlugins(handler: Compiler.Progress.Handler): void
+    callback(
+      err: Webpack.StatsError,
+      stats: Webpack.StatsCompilation,
+    ): void
   }
 
   namespace Compiler {
-    type Compile = (config: Compiler.Config) => Webpack.Compiler
+    type Compile = (
+      config?: Compiler.Config,
+      cb?: CallableFunction,
+    ) => Webpack.Compiler
 
     type Config = Webpack.Configuration
     type Instance = Webpack.Compiler
@@ -99,18 +86,6 @@ declare module '@roots/bud-framework' {
 
     namespace Progress {
       type Handler = ProgressPlugin['handler']
-    }
-
-    interface Stats {
-      string: any
-      json: any
-    }
-
-    namespace Stats {
-      type Options = {
-        json: any
-        string: any
-      }
     }
   }
 }

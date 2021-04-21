@@ -16,24 +16,24 @@ declare module '@roots/bud-framework' {
      * bud.runtime()
      * ```
      */
-    runtime: Framework.Api.Runtime
+    runtime: Api.Runtime
   }
 
-  namespace Framework.Api {
-    type Runtime = (
-      runtime?: Webpack.Configuration['optimization']['runtimeChunk'],
-    ) => Framework
+  namespace Api {
+    export {Runtime}
   }
 }
+
+type Runtime = (
+  runtime?: Webpack.Configuration['optimization']['runtimeChunk'],
+) => Framework
 
 const DEFAULT_OPTIONS: Webpack.Configuration['optimization']['runtimeChunk'] = {
   name: (entrypoint: Webpack.EntryObject) =>
     `runtime/${entrypoint.name}`,
 }
 
-export const runtime: Framework.Api.Runtime = function (
-  runtime,
-) {
+export const runtime: Runtime = function (runtime) {
   this.hooks.on(
     'build/optimization/runtimeChunk',
     () => runtime ?? DEFAULT_OPTIONS,

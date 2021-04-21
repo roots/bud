@@ -10,14 +10,17 @@ export const name = `html-webpack-plugin`
 /**
  * Options
  */
-export const options = (app: Framework) => ({
+export const options = (
+  app: Framework,
+): HtmlWebpackPlugin.Options => ({
   alwaysWriteToDisk: true,
-  base: app.subscribe('location/project'),
   inject: true,
+  publicPath: app.publicPath(),
   template: posix.resolve(
     require.resolve('@roots/bud-support'),
     '../../../publish/template.html',
   ),
+  ...(app.store.get('extension.htmlWebpackPlugin') ?? {}),
 })
 
 /**
@@ -29,5 +32,4 @@ export const make = options =>
 /**
  * Conditions
  */
-export const when = ({store, subscribe}) =>
-  store.isTrue('html.enabled')
+export const when = ({store, subscribe}) => store.isTrue('html')

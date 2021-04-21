@@ -1,7 +1,7 @@
 import {Compiler, Service} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
 import webpack from 'webpack'
-import options from './options'
+import {isNull} from 'lodash'
 
 /**
  * Compiler
@@ -18,14 +18,31 @@ export default class extends Service implements Compiler {
   public _instance: Compiler.Instance
 
   /**
-   * Stats options
+   * Is already compiled
    */
-  public statsOptions: Compiler.Stats.Options = options
+  public isCompiled: boolean = false
 
   /**
    * Stats
    */
-  public stats: Compiler.Stats
+  public stats: any
+
+  /**
+   * Stats options
+   */
+  public statsOptions = {
+    all: false,
+    version: true,
+    hash: true,
+    timings: true,
+    builtAt: false,
+    assets: true,
+    chunks: false,
+    children: false,
+    errors: true,
+    entrypoints: true,
+    colors: true,
+  }
 
   /**
    * Errors
@@ -49,33 +66,48 @@ export default class extends Service implements Compiler {
   }
 
   /**
-   * Instantiates compilation
+   * Run compiler
    */
   @bind
-  public compile(config: Compiler.Config): Compiler.Instance {
-    this.instance = webpack(config)
+  public compile(
+    config?: Compiler.Config,
+    cb?: (err?: Error, stats?: any) => void,
+  ): Compiler.Instance {
+    if (this.isCompiled) {
+      return this.instance
+    }
+
+    this.instance = webpack(config, cb ?? null)
+    this.isCompiled = true
 
     return this.instance
   }
 
   /**
-   * Compile
+   * Compiler callback
    */
   @bind
-  public run(): void {
-    this.instance.run((_err, stats) => {
-      this.stats = {
-        string: stats.toString(),
-        json: stats.toJson(),
-      }
-    })
-  }
+  public callback(...args: any[]) {
+    /**
+     * production mode callback takes two parameters (webpack err and stats)
+     * however, the done hook used in development just takes one (stats)
+     *
+     * here we parse the callback args so that we dont have to
+     * duplicate the callback.
+     */
+    const [err, stats] =
+      args.length > 1 ? args : [null, args.pop()]
 
-  /**
-   * Apply plugins to compilation
-   */
-  @bind
-  public applyPlugins(handler: Compiler.Progress.Handler): void {
-    new webpack.ProgressPlugin(handler).apply(this.instance)
+    this.app.when(!isNull(err), () => {
+      this.app.error(err, 'Webpack error (pre-compile)')
+      process.exit()
+    })
+
+    if (!stats) return
+
+    stats.hasErrors() &&
+      console.error(stats.errors.toString(this.statsOptions))
+
+    console.log(stats.toString(this.statsOptions))
   }
 }

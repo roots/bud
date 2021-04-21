@@ -1,4 +1,4 @@
-import {Api, Hooks} from '@roots/bud-framework'
+import {Framework, Hooks} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   export interface Framework {
@@ -16,25 +16,27 @@ declare module '@roots/bud-framework' {
   }
 
   namespace Api {
-    interface SetPath {
-      (
-        name: keyof Hooks.Locale.Definitions,
-        path?: string,
-      ): Framework
-    }
-
-    interface SetPath {
-      (
-        paths: {
-          [K in keyof Hooks.Locale.Definitions as `${K &
-            string}`]?: string
-        },
-      ): Framework
-    }
+    export {SetPath}
   }
 }
 
-export const setPath: Api.SetPath = function (...args) {
+interface SetPath {
+  (
+    name: keyof Hooks.Locale.Definitions,
+    path?: string,
+  ): Framework
+}
+
+interface SetPath {
+  (
+    paths: {
+      [K in keyof Hooks.Locale.Definitions as `${K &
+        string}`]?: string
+    },
+  ): Framework
+}
+
+export const setPath: SetPath = function (...args) {
   if (typeof args[0] == 'string') {
     this.hooks.on(`location/${args[0]}`, () => args[1])
     return this
@@ -48,23 +50,24 @@ export const setPath: Api.SetPath = function (...args) {
   }
 
   Object.entries(args[0]).map(([k, v]: [string, string]) => {
-    if (k == 'project' && !v.startsWith('/')) {
+    this.when(k == 'project' && !v.startsWith('/'), () => {
       this.error(
         'The project path must be absolute',
         'Type error',
       )
-    }
+    })
 
-    if (
+    this.when(
       !['project', 'publicPath'].includes(k) &&
-      v.startsWith('/')
-    ) {
-      this.warn(
-        `Path: ${k} was defined as ${v}. This path should be relative to the project root. You should fix this.`,
-      )
+        v.startsWith('/'),
+      () => {
+        this.warn(
+          `Path: ${k} was defined as ${v}. This path should be relative to the project root. You should fix this.`,
+        )
 
-      v = v.replace(this.hooks.filter('location/project'), '')
-    }
+        v = v.replace(this.hooks.filter('location/project'), '')
+      },
+    )
 
     this.hooks.on(`location/${k}`, () => v)
   })

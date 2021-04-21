@@ -16,10 +16,10 @@ declare module '@roots/bud-framework' {
      * })
      * ```
      */
-    define: Framework.Api.Define
+    define: Api.Define
   }
 
-  namespace Framework.Api {
+  namespace Api {
     export {Define}
   }
 }
@@ -28,7 +28,7 @@ type Define = (values: {
   [key: string]: Webpack.DefinePlugin['definitions']
 }) => Framework
 
-export const define: Framework.Api.Define = function (values) {
+export const define: Define = function (values) {
   this.hooks.on(
     'extension/webpack-define-plugin/options',
     (existantValues: Webpack.DefinePlugin['definitions']) => ({

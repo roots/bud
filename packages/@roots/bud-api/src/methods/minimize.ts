@@ -3,37 +3,37 @@ import {Framework} from '@roots/bud-framework'
 declare module '@roots/bud-framework' {
   export interface Framework {
     /**
-     * ## bud.minify  [💁 Fluent]
+     * ## bud.minimize  [💁 Fluent]
      *
-     * `bud.minify` enables minification of built assets.
+     * `bud.minimize` enables minification of built assets.
      *
      * ### Usage
      *
      * Enable:
      *
      * ```js
-     * bud.minify()
+     * bud.minimize()
      * ```
      *
      * Explicitly disable:
      *
      * ```js
-     * bud.minify(false)
+     * bud.minimize(false)
      * ```
      *
      * Explicitly enable:
      *
      * ```js
-     * bud.minify(true)
+     * bud.minimize(true)
      * ```
      */
-    minify: Minify
+    minimize: Minimize
   }
 }
 
-type Minify = (enabled?: boolean) => Framework
+type Minimize = (enabled?: boolean) => Framework
 
-export const minify: Minify = function (enabled = true) {
+export const minimize: Minimize = function (enabled = true) {
   this.hooks.on('build/optimization/minimize', () => enabled)
 
   return this

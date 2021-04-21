@@ -23,6 +23,7 @@ code {
   display: flex;
   justify-content: center;
   align-content: center;
+  background-color: rgb(4, 1, 17);
 
   .logo {
     height: 30vmin;
@@ -39,7 +40,6 @@ code {
   .header {
     min-height: 80vh;
     width: 100%;
-    background-color: rgb(4, 1, 17);
     display: flex;
     flex-direction: column;
     align-items: center;

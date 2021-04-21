@@ -11,7 +11,7 @@ interface Options {
 export const name = `html-hard-disk-plugin`
 
 export const options: Module.Options<Options> = app => ({
-  outputPath: app.subscribe('location/dist'),
+  outputPath: app.hooks.filter('location/dist'),
 })
 
 export const make: Module.Make<
@@ -20,4 +20,4 @@ export const make: Module.Make<
 > = options => new HtmlHardDiskPlugin(options.all())
 
 export const when: Module.When = ({store}) =>
-  store.isTrue('html.enabled')
+  store.isTrue('html')

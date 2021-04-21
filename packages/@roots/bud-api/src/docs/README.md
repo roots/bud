@@ -14,7 +14,7 @@
 | bud.entry       | Add source files                | [README ↗]([[base]]/docs/config-entry.md)      |
 | bud.hash        | Add version string to assets    | [README ↗]([[base]]/docs/config-hash.md)       |
 | bud.html        | Set an HTML template            | [README ↗]([[base]]/docs/config-html.md)       |
-| bud.minify      | Minify assets                   | [README ↗]([[base]]/docs/config-minify.md)     |
+| bud.minimize    | Minize assets                   | [README ↗]([[base]]/docs/config-minimize.md)   |
 | bud.path        | Get paths to project files/dirs | [README ↗]([[base]]/docs/config-path.md)       |
 | bud.provide     | Define global vars              | [README ↗]([[base]]/docs/config-provide.md)    |
 | bud.proxy       | Configure proxy server          | [README ↗]([[base]]/docs/config-proxy.md)      |

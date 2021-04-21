@@ -19,7 +19,7 @@ export abstract class Server extends Service {
 
   isWatchable: boolean
 
-  run(compiler: Server.Compiler): this
+  run(compiler: Webpack.Compiler): this
 
   inject(): void
 }

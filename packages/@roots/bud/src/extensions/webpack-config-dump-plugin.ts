@@ -34,7 +34,6 @@ export const when: Module.When = ({store}) =>
  * Extension options
  */
 export const options: Module.Options<Options> = app => ({
-  name: 'webpack.debug.js',
   outputPath: app.path('storage'),
-  keepCircularReferences: true,
+  ...(app.store.get('extension.webpackConfigDumpPlugin') ?? {}),
 })

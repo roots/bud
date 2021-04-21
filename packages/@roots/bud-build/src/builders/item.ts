@@ -8,11 +8,7 @@ export function items(this: Framework): void {
   /**
    * item/css
    */
-  this.publish({
-    'item/css': () => ({
-      loader: this.subscribe('item/css/loader'),
-      options: this.subscribe('item/css/options'),
-    }),
+  this.hooks.link('item/css', ['loader', 'options']).publish({
     'item/css/loader': () => this.subscribe('loader/css'),
     'item/css/options': () => ({
       sourceMap: this.subscribe('item/css/options/sourceMap'),
@@ -21,14 +17,7 @@ export function items(this: Framework): void {
       !this.subscribe('build/devtool'),
   })
 
-  /**
-   * item/file
-   */
-  this.publish({
-    'item/file': () => ({
-      loader: this.subscribe('item/file/loader'),
-      options: this.subscribe('item/file/options'),
-    }),
+  this.hooks.link('item/file', ['loader', 'options']).publish({
     'item/file/loader': () => this.subscribe('loader/file'),
     'item/file/options': () => ({
       name: this.subscribe('item/file/options/name'),
@@ -155,7 +144,6 @@ export function items(this: Framework): void {
         'item/minicss/options/publicPath',
       ),
     }),
-    'item/minicss/options/publicPath': () =>
-      this.subscribe('location/publicPath'),
+    'item/minicss/options/publicPath': () => this.publicPath(),
   })
 }

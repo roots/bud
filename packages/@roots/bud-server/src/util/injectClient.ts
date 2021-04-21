@@ -18,7 +18,7 @@ export declare type InjectClient = (
  */
 export const injectClient: InjectClient = (app, injection) =>
   app.hooks.on(
-    'entry',
+    'build/entry',
     (entry: Webpack.Entry): Webpack.Entry =>
       Object.entries(entry).reduce(
         (entries, [name, assets]) => ({

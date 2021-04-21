@@ -1,4 +1,4 @@
-import {Api} from '@roots/bud-framework'
+import {Framework} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -25,30 +25,32 @@ declare module '@roots/bud-framework' {
   }
 
   namespace Api {
-    export type Html = (options?: {
-      /**
-       * Enable HTML generation
-       */
-      enabled?: boolean
-
-      /**
-       * An HTML template to use. If none is supplied the
-       * default from @roots/bud-support will be used.
-       */
-      template?: string
-
-      /**
-       * ### Replacements
-       *
-       * Template variable names are used as keys.
-       * Each key is associated with a replacement value.
-       */
-      replace?: {[key: string]: any}
-    }) => Framework
+    export {Html}
   }
 }
 
-export const html: Api.Html = function (options?) {
+type Html = (options?: {
+  /**
+   * Enable HTML generation
+   */
+  enabled?: boolean
+
+  /**
+   * An HTML template to use. If none is supplied the
+   * default from @roots/bud-support will be used.
+   */
+  template?: string
+
+  /**
+   * ### Replacements
+   *
+   * Template variable names are used as keys.
+   * Each key is associated with a replacement value.
+   */
+  replace?: {[key: string]: any}
+}) => Framework
+
+export const html: Html = function (options?) {
   /**
    * Allow html arg to override
    */

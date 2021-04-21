@@ -1,9 +1,6 @@
 import './alias'
 export {alias} from './alias'
 
-import './assets'
-export {assets} from './assets'
-
 import './define'
 export {define} from './define'
 
@@ -28,8 +25,11 @@ export {path} from './path'
 import './setPath'
 export {setPath} from './setPath'
 
-import './minify'
-export {minify} from './minify'
+import './minimize'
+export {minimize} from './minimize'
+
+import './persist'
+export {persist} from './persist'
 
 import './provide'
 export {provide} from './provide'
@@ -45,6 +45,9 @@ export {run} from './run'
 
 import './runtime'
 export {runtime} from './runtime'
+
+import './setPublicPath'
+export {setPublicPath} from './setPublicPath'
 
 import './splitChunks'
 export {splitChunks} from './splitChunks'

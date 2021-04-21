@@ -20,15 +20,6 @@ export class Discovery extends Service implements Contract {
   public name = 'framework/discovery'
 
   /**
-   * Project info: get accessor
-   */
-  public get projectInfo(): {[key: string]: any} {
-    return fs.readJsonSync(
-      this.app.path('project', 'package.json'),
-    )
-  }
-
-  /**
    * Package paths: get accessor
    */
   public get packagePaths() {
