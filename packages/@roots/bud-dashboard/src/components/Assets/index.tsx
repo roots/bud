@@ -5,12 +5,16 @@ import {Dashboard} from '@roots/bud-framework'
 /**
  * Asset component
  */
-const Assets: Dashboard.Component = ({stats, theme}) => {
-  return (
-    stats?.assets?.map((asset, id) => (
-      <Asset theme={theme} key={id} {...asset} />
-    )) || []
-  )
-}
+const Assets: Dashboard.Component = ({stats, theme}) => (
+  <>
+    {stats?.assets?.map((asset, id) =>
+      asset ? (
+        <Asset theme={theme} key={id} {...asset} />
+      ) : (
+        <></>
+      ),
+    )}
+  </>
+)
 
 export {Assets}

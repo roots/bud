@@ -62,8 +62,8 @@ export const services: {
 } = {
   util: Util,
   api: Api,
-  logger: Logger,
   store: Store,
+  logger: Logger,
   hooks: Hooks,
   env: Env,
   disk: Disk,

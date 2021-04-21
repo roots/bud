@@ -38,22 +38,20 @@ export const useCompilation: Dashboard.Compilation.Hook = app => {
 
     if (!stats) return
 
-    const jsonStats = stats.toJson(
-      app.compiler.statsOptions.json,
-    )
+    const json = stats.toJson(app.compiler.statsOptions)
 
-    setStats(jsonStats)
+    setStats(json)
 
-    if (jsonStats?.hasErrors) {
-      setHasErrors(jsonStats.hasErrors())
-      setErrors(jsonStats.errors)
+    if (json?.hasErrors) {
+      setHasErrors(json.hasErrors())
+      setErrors(json.errors)
     } else {
       setErrors(null)
     }
 
-    if (jsonStats?.hasWarnings) {
-      setHasWarnings(jsonStats.hasWarnings())
-      setWarnings(jsonStats.warnings)
+    if (json?.hasWarnings) {
+      setHasWarnings(json.hasWarnings())
+      setWarnings(json.warnings)
     } else {
       setWarnings(null)
     }
@@ -65,36 +63,27 @@ export const useCompilation: Dashboard.Compilation.Hook = app => {
   useEffect(() => {
     if (app.compiler.instance) return
 
+    const instance = app.compiler.compile(app.build.make())
+    instance.hooks.done.tap(`${app.name}`, callback)
+
+    // Progress
+    new webpack.ProgressPlugin((percentage, message): void => {
+      const decimal =
+        percentage && typeof percentage == 'number'
+          ? percentage
+          : 0
+
+      setProgress({
+        decimal,
+        percentage: `${Math.floor(decimal * 100)}%`,
+        message,
+      })
+    }).apply(instance)
+
     app.when(
       !app.isDevelopment,
-      ({compiler}) =>
-        compiler.compile(app.build.make()).run(callback),
-      ({server}) => {
-        // Compile
-        const instance = app.compiler.compile(app.build.make())
-
-        // Callback
-        instance.hooks.done.tap(`${app.name}`, callback)
-
-        // Progress
-        new webpack.ProgressPlugin(
-          (percentage, message): void => {
-            const decimal =
-              percentage && typeof percentage == 'number'
-                ? percentage
-                : 0
-
-            setProgress({
-              decimal,
-              percentage: `${Math.floor(decimal * 100)}%`,
-              message,
-            })
-          },
-        ).apply(instance)
-
-        // Run dev server
-        server.run(instance)
-      },
+      ({compiler}) => compiler.instance.run(callback),
+      ({compiler, server}) => server.run(compiler.instance),
     )
   }, [app.compiler])
 

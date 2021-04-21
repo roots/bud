@@ -9188,13 +9188,8 @@ __metadata:
   dependencies:
     "@roots/bud": "workspace:*"
     "@roots/bud-babel": "workspace:*"
+    "@roots/bud-cli": "workspace:*"
     "@types/node": ^14.14.39
-    "@types/rimraf": ^3.0.0
-    autobind-decorator: ^2.4.0
-    jquery: ^3.6.0
-    npm-run-all: ^4.1.5
-    rimraf: ^3.0.2
-    typescript: ^4.2.4
   languageName: unknown
   linkType: soft
 
@@ -9223,15 +9218,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "example-esbuild@workspace:examples/esbuild"
   dependencies:
-    "@roots/bud": "workspace:packages/@roots/bud"
-    "@roots/bud-esbuild": "workspace:packages/@roots/bud-esbuild"
-    "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
+    "@roots/bud": "workspace:*"
+    "@roots/bud-cli": "workspace:*"
+    "@roots/bud-esbuild": "workspace:*"
     "@types/node": ^14.14.39
-    "@types/rimraf": ^3.0.0
-    autobind-decorator: ^2.4.0
-    npm-run-all: ^4.1.5
-    rimraf: ^3.0.2
-    typescript: ^4.2.4
   languageName: unknown
   linkType: soft
 
@@ -9240,16 +9230,12 @@ __metadata:
   resolution: "example-postcss@workspace:examples/postcss"
   dependencies:
     "@babel/core": ^7.13.15
-    "@roots/bud": "workspace:packages/@roots/bud"
-    "@roots/bud-babel": "workspace:packages/@roots/bud-babel"
-    "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
+    "@roots/bud": "workspace:*"
+    "@roots/bud-babel": "workspace:*"
+    "@roots/bud-cli": "workspace:*"
+    "@roots/bud-postcss": "workspace:*"
     "@types/node": ^14.14.39
-    "@types/rimraf": ^3.0.0
-    autobind-decorator: ^2.4.0
-    npm-run-all: ^4.1.5
     postcss: ^8.2.10
-    rimraf: ^3.0.2
-    typescript: ^4.2.4
   languageName: unknown
   linkType: soft
 
@@ -13003,13 +12989,6 @@ __metadata:
   bin:
     jpegtran: cli.js
   checksum: a770f7cf076c52c06fd8d499d957b68cb2ac036c014de331d328f19976ac5c302455ff0eb5e9be709fe40fbff71d28ece7229620e66a7002e30ae9ab380c549e
-  languageName: node
-  linkType: hard
-
-"jquery@npm:^3.6.0":
-  version: 3.6.0
-  resolution: "jquery@npm:3.6.0"
-  checksum: 8fd5fef4aa48fd374ec716dd1c1df1af407814a228e15c1260ca140de3a697c2a77c30c54ff1d238b6a3ab4ddc445ddeef9adce6c6d28e4869d85eb9d3951c0e
   languageName: node
   linkType: hard
 

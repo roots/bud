@@ -26,20 +26,6 @@ export class Logger implements Contract, Bootstrapper {
   public _instance: Signale
 
   /**
-   * Logger options
-   */
-  public get options(): SignaleOptions<'remind'> {
-    return {
-      disabled: true,
-      interactive: false,
-      scope: 'framework',
-      secrets: [process.cwd()],
-      stream: process.stdout,
-      logLevel: 'all',
-    }
-  }
-
-  /**
    * Logger config
    */
   public config: SignaleConfig = {
@@ -57,6 +43,18 @@ export class Logger implements Contract, Bootstrapper {
   }
 
   /**
+   * Options
+   */
+  public _options = {
+    disabled: true,
+    interactive: false,
+    scope: 'framework',
+    secrets: [process.cwd()],
+    stream: process.stdout,
+    logLevel: 'all',
+  }
+
+  /**
    * Get logger instance
    */
   public get instance() {
@@ -68,6 +66,13 @@ export class Logger implements Contract, Bootstrapper {
    */
   public set instance(instance) {
     this._instance = instance
+  }
+
+  /**
+   * Logger options
+   */
+  public get options(): SignaleOptions<'remind'> {
+    return this._options
   }
 
   /**

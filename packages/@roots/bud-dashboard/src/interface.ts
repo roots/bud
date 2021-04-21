@@ -1,9 +1,10 @@
 import '@roots/bud-compiler'
-import type {Write} from './Write'
 import type {Service} from '@roots/bud-framework'
+import type {Styles} from '@roots/ink-use-style'
 import type {Instance, render} from 'ink'
 import type React from 'react'
-import type {Styles} from '@roots/ink-use-style'
+import type {StatsCompilation} from 'webpack'
+import type {Write} from './Write'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -73,12 +74,13 @@ declare module '@roots/bud-framework' {
         decimal: number
         message: string
       }
-      stats: Compiler.Stats['json']
+      stats: StatsCompilation
       errors?: Compilation.WebpackMessage[]
       hasErrors: boolean
       warnings?: Compilation.WebpackMessage[]
       hasWarnings: boolean
     }
+
     namespace Compilation {
       interface Hook {
         (app: Framework): Compilation
@@ -92,13 +94,13 @@ declare module '@roots/bud-framework' {
     }
 
     interface Asset {
-      chunks: Array<number | string>
-      chunkNames: string[]
-      emitted: boolean
+      chunks?: (number | string)[]
+      chunkNames?: (number | string)[]
+      emitted?: boolean
       isOverSizeLimit?: boolean
-      name: string
-      size: number
-      theme: AppProps['theme']
+      name?: string
+      size?: number
+      theme?: AppProps['theme']
     }
 
     interface UseProgress {
