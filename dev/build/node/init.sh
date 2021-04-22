@@ -4,4 +4,4 @@ yarn clean
 yarn
 yarn build
 cd examples/react
-yarn bud build production --ci
+yarn bud build:production --ci --debug --log

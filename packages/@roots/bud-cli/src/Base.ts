@@ -1,5 +1,4 @@
-import Command from '@oclif/command'
-export {flags} from '@oclif/command'
+import Command, {flags} from '@oclif/command'
 import {App, Bud, services} from '@roots/bud'
 import {mergeWith} from 'lodash'
 import {cosmiconfigSync} from 'cosmiconfig'
@@ -53,3 +52,5 @@ export abstract class Base extends Command {
     this.app = new App().bootstrap(services).lifecycle()
   }
 }
+
+export {flags}

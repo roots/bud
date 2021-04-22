@@ -2177,7 +2177,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@oclif/errors@npm:^1.2.1, @oclif/errors@npm:^1.2.2, @oclif/errors@npm:^1.3.3":
+"@oclif/errors@npm:^1.2.1, @oclif/errors@npm:^1.2.2, @oclif/errors@npm:^1.3.3, @oclif/errors@npm:^1.3.4":
   version: 1.3.4
   resolution: "@oclif/errors@npm:1.3.4"
   dependencies:
@@ -2267,19 +2267,6 @@ __metadata:
     widest-line: ^3.1.0
     wrap-ansi: ^4.0.0
   checksum: 0899bb81584953c90fc5ba75f6059b86f77c58d4c78f7721529e75992447e97d11c86da9a7008b89e568f3ae5e01ddc341ad37a7463dc5d4413084fe6f681e0f
-  languageName: node
-  linkType: hard
-
-"@oclif/plugin-not-found@npm:^1.2.4":
-  version: 1.2.4
-  resolution: "@oclif/plugin-not-found@npm:1.2.4"
-  dependencies:
-    "@oclif/color": ^0.x
-    "@oclif/command": ^1.6.0
-    cli-ux: ^4.9.0
-    fast-levenshtein: ^2.0.6
-    lodash: ^4.17.13
-  checksum: 80889ca33e5ff47ea1cbe30829a2dac96db7fc4b4313c139b7d5b40fcd5042856500389f774a39fd76bed73ba5109fe1f9979a116874c771b63dbea5b1be3a4c
   languageName: node
   linkType: hard
 
@@ -2629,10 +2616,10 @@ __metadata:
     "@oclif/command": ^1.8.0
     "@oclif/config": ^1.17.0
     "@oclif/dev-cli": ^1.26.0
+    "@oclif/errors": ^1.3.4
     "@oclif/plugin-autocomplete": ^0.3.0
     "@oclif/plugin-commands": ^1.3.0
     "@oclif/plugin-help": ^3.2.2
-    "@oclif/plugin-not-found": ^1.2.4
     "@oclif/plugin-plugins": ^1.10.0
     "@oclif/plugin-update": ^1.3.10
     "@oclif/plugin-warn-if-update-available": ^1.7.0
@@ -2643,17 +2630,18 @@ __metadata:
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-typings": "workspace:*"
     "@roots/container": "workspace:*"
+    "@roots/ink-use-style": "workspace:*"
     "@types/fs-extra": ^9.0.11
+    "@types/lodash": ^4.14.168
     "@types/node": ^14.14.39
     "@types/react": ^17.0.3
     "@types/rimraf": ^3.0.0
+    conf: ^10.0.1
     conf-cli: ^0.1.9
     cosmiconfig: ^7.0.0
     fs-extra: ^9.1.0
     globby: ^11.0.3
-    ink: ^3.0.8
-    ink-big-text: ^1.2.0
-    ink-gradient: ^2.0.0
+    lodash: ^4.17.21
     npm-run-all: ^4.1.5
     rimraf: ^3.0.2
     tslib: ^2.2.0
@@ -5096,6 +5084,20 @@ __metadata:
   languageName: node
   linkType: hard
 
+"ajv-formats@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "ajv-formats@npm:2.0.2"
+  dependencies:
+    ajv: ^8.0.0
+  peerDependencies:
+    ajv: ^8.0.0
+  peerDependenciesMeta:
+    ajv:
+      optional: true
+  checksum: 1db638917c2da3cb3cf65ea8908bcdf478cadc4d2b6d48529a1bd2a857f03c0fc80995b27be657d29fd24119f3ffde96a15dde55bc51bd68a1ea2e01ef1a4280
+  languageName: node
+  linkType: hard
+
 "ajv-keywords@npm:^3.1.0, ajv-keywords@npm:^3.4.1, ajv-keywords@npm:^3.5.2":
   version: 3.5.2
   resolution: "ajv-keywords@npm:3.5.2"
@@ -5117,7 +5119,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ajv@npm:^8.0.1":
+"ajv@npm:^8.0.0, ajv@npm:^8.0.1, ajv@npm:^8.1.0":
   version: 8.1.0
   resolution: "ajv@npm:8.1.0"
   dependencies:
@@ -5574,6 +5576,13 @@ __metadata:
   bin:
     atob: bin/atob.js
   checksum: dfeeeb70090c5ebea7be4b9f787f866686c645d9f39a0d184c817252d0cf08455ed25267d79c03254d3be1f03ac399992a792edcd5ffb9c91e097ab5ef42833a
+  languageName: node
+  linkType: hard
+
+"atomically@npm:^1.7.0":
+  version: 1.7.0
+  resolution: "atomically@npm:1.7.0"
+  checksum: 991153b17334597f93b58e831bea9851e57ed9cd41d8f33991be063f170b5cc8ec7ff8605f3eb95c1d389c2ad651039e9eb8f2b795e24833c2ceb944f347373a
   languageName: node
   linkType: hard
 
@@ -6918,7 +6927,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"cli-ux@npm:^4.9.0, cli-ux@npm:^4.9.1, cli-ux@npm:^4.9.3":
+"cli-ux@npm:^4.9.1, cli-ux@npm:^4.9.3":
   version: 4.9.3
   resolution: "cli-ux@npm:4.9.3"
   dependencies:
@@ -7377,6 +7386,24 @@ __metadata:
   bin:
     conf: ./bin/run
   checksum: d95c9812876e8222c80c29d596b561855c070bfef04baf346c266dc5c5a559e3b9f1d5e36436611922c2c121dd2be998fa2716df7dd4cfe17360fced2ab11119
+  languageName: node
+  linkType: hard
+
+"conf@npm:^10.0.1":
+  version: 10.0.1
+  resolution: "conf@npm:10.0.1"
+  dependencies:
+    ajv: ^8.1.0
+    ajv-formats: ^2.0.2
+    atomically: ^1.7.0
+    debounce-fn: ^4.0.0
+    dot-prop: ^6.0.1
+    env-paths: ^2.2.1
+    json-schema-typed: ^7.0.3
+    onetime: ^5.1.2
+    pkg-up: ^3.1.0
+    semver: ^7.3.5
+  checksum: f2ee0535fecaf744e9a2a84e92b9e0d64ddbcd548b2825ee8693d7658f73425642d975b5206bf08b6886785ba96ef83b63c4faf3b92f4f3d1b831268f55ffa35
   languageName: node
   linkType: hard
 
@@ -8160,6 +8187,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"debounce-fn@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "debounce-fn@npm:4.0.0"
+  dependencies:
+    mimic-fn: ^3.0.0
+  checksum: 7bf8d142b46a88453bbd6eda083f303049b4c8554af5114bdadfc2da56031030664360e81211ae08b708775e6904db7e6d72a421c4ff473344f4521c2c5e4a22
+  languageName: node
+  linkType: hard
+
 "debug@npm:2.6.9, debug@npm:^2.2.0, debug@npm:^2.3.3, debug@npm:^2.6.0, debug@npm:^2.6.9":
   version: 2.6.9
   resolution: "debug@npm:2.6.9"
@@ -8744,6 +8780,15 @@ __metadata:
   languageName: node
   linkType: hard
 
+"dot-prop@npm:^6.0.1":
+  version: 6.0.1
+  resolution: "dot-prop@npm:6.0.1"
+  dependencies:
+    is-obj: ^2.0.0
+  checksum: 0f47600a4b93e1dc37261da4e6909652c008832a5d3684b5bf9a9a0d3f4c67ea949a86dceed9b72f5733ed8e8e6383cc5958df3bbd0799ee317fd181f2ece700
+  languageName: node
+  linkType: hard
+
 "dotenv@npm:^8.2.0":
   version: 8.2.0
   resolution: "dotenv@npm:8.2.0"
@@ -8965,7 +9010,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"env-paths@npm:^2.2.0":
+"env-paths@npm:^2.2.0, env-paths@npm:^2.2.1":
   version: 2.2.1
   resolution: "env-paths@npm:2.2.1"
   checksum: 65b5df55a8bab92229ab2b40dad3b387fad24613263d103a97f91c9fe43ceb21965cd3392b1ccb5d77088021e525c4e0481adb309625d0cb94ade1d1fb8dc17e
@@ -13521,7 +13566,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"json-schema-typed@npm:^7.0.0":
+"json-schema-typed@npm:^7.0.0, json-schema-typed@npm:^7.0.3":
   version: 7.0.3
   resolution: "json-schema-typed@npm:7.0.3"
   checksum: e861b19e97e3cc2b29a429147890157827eeda16ab639a0765b935cf3e22aeb6abbba108e23aef442da806bb1f402bdff21da9c5cb30015f8007594565e110b5
@@ -14939,7 +14984,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mimic-fn@npm:^3.1.0":
+"mimic-fn@npm:^3.0.0, mimic-fn@npm:^3.1.0":
   version: 3.1.0
   resolution: "mimic-fn@npm:3.1.0"
   checksum: f7b167f9115b8bbdf2c3ee55dce9149d14be9e54b237259c4bc1d8d0512ea60f25a1b323f814eb1fe8f5a541662804bcfcfff3202ca58df143edb986849d58db
@@ -16720,7 +16765,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"pkg-up@npm:3.1.0, pkg-up@npm:^3.0.1":
+"pkg-up@npm:3.1.0, pkg-up@npm:^3.0.1, pkg-up@npm:^3.1.0":
   version: 3.1.0
   resolution: "pkg-up@npm:3.1.0"
   dependencies:
