@@ -13,8 +13,6 @@ export const name = `html-webpack-plugin`
 export const options = (
   app: Framework,
 ): HtmlWebpackPlugin.Options => ({
-  alwaysWriteToDisk: true,
-  inject: true,
   publicPath: app.publicPath(),
   template: posix.resolve(
     require.resolve('@roots/bud-support'),
@@ -32,4 +30,4 @@ export const make = options =>
 /**
  * Conditions
  */
-export const when = ({store, subscribe}) => store.isTrue('html')
+export const when = ({store}) => store.isTrue('html')

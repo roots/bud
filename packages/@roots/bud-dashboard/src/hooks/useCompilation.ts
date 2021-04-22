@@ -19,15 +19,13 @@ export const useCompilation: Dashboard.Compilation.Hook = app => {
 
   /**
    * Compilation callback
+   * production mode callback takes two parameters (webpack err and stats)
+   * however, the done hook used in development just takes one (stats)
+   *
+   * here we parse the callback args so that we dont have to
+   * duplicate the callback.
    */
   const callback = (...args: any[]) => {
-    /**
-     * production mode callback takes two parameters (webpack err and stats)
-     * however, the done hook used in development just takes one (stats)
-     *
-     * here we parse the callback args so that we dont have to
-     * duplicate the callback.
-     */
     const [err, stats] =
       args.length > 1 ? args : [null, args.pop()]
 
@@ -68,10 +66,13 @@ export const useCompilation: Dashboard.Compilation.Hook = app => {
   useEffect(() => {
     if (app.compiler.instance) return
 
-    const instance = app.compiler.compile(app.build.make())
+    const instance = app.compiler.compile(app.build.config)
+
     instance.hooks.done.tap(`${app.name}`, callback)
 
-    // Progress
+    /**
+     * Apply progress plugin
+     */
     new webpack.ProgressPlugin((percentage, message): void => {
       const decimal =
         percentage && typeof percentage == 'number'
@@ -85,6 +86,9 @@ export const useCompilation: Dashboard.Compilation.Hook = app => {
       })
     }).apply(instance)
 
+    /**
+     * Either run prod or dev build
+     */
     app.when(
       !app.isDevelopment,
       ({compiler}) => compiler.instance.run(callback),

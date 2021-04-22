@@ -73,7 +73,7 @@ abstract class Command implements Contract {
   /**
    * Index of positional arguments
    */
-  public arguments?: {[key: string]: string} = {}
+  public _arguments?: {[key: string]: string} = {}
 
   /**
    * Index of flags
@@ -83,7 +83,7 @@ abstract class Command implements Contract {
   /**
    * Command signature
    */
-  public signature?: string = ''
+  public _signature?: string = ''
 
   /**
    * Run action handler
@@ -107,6 +107,14 @@ abstract class Command implements Contract {
         res !== false ? res : typeof this[prop] !== 'undefined',
       false,
     )
+  }
+
+  public get signature() {
+    return this._signature
+  }
+
+  public get arguments() {
+    return this._arguments
   }
 
   /**

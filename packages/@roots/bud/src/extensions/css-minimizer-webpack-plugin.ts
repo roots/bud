@@ -27,10 +27,6 @@ export const boot: Module['boot'] = ({extensions, hooks}) => {
     (
       minimizer: Webpack.Configuration['optimization']['minimizer'],
     ) => {
-      if (hooks.filter('build/minimizer/minimize')) {
-        return minimizer
-      }
-
       return [
         ...(minimizer ?? []),
         new Plugin(

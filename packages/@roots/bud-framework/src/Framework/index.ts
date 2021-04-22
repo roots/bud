@@ -7,10 +7,8 @@ import {
   Env,
   Extensions,
   Hooks,
-  Index,
   Logger,
   Server,
-  Service,
   Store,
 } from '@roots/bud-typings'
 
@@ -49,50 +47,10 @@ export abstract class Framework extends Core {
   public abstract store: Store
 
   /**
-   * Lifecycle: bootstrap
-   */
-  @bind
-  public bootstrap(
-    providerDefinitions: Index<Service.Constructor>,
-  ) {
-    /**
-     * Instantiate services
-     */
-    this.services = this.container(providerDefinitions)
-
-    this.services.getEntries().map(([key, Instance]) => {
-      this[key] = new Instance(this.get)
-    })
-
-    /**
-     * Lifecycle
-     */
-    ;[
-      'bootstrap',
-      'bootstrapped',
-      'register',
-      'registered',
-      'boot',
-      'booted',
-    ].forEach(event =>
-      this.services
-        .getKeys()
-        .map(
-          key =>
-            this[key] &&
-            this[key][event] &&
-            this[key][event](this),
-        ),
-    )
-
-    return this
-  }
-
-  /**
    * Webpack.Configuration['mode'] accessor
    */
   public get mode() {
-    return process.env.NODE_ENV as 'development' | 'production'
+    return this._mode
   }
 
   /**

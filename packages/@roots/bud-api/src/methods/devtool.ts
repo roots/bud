@@ -23,9 +23,9 @@ declare module '@roots/bud-framework' {
   }
 }
 
-type Devtool =
-  | ((devtool?: Webpack.Configuration['devtool']) => Framework)
-  | ((devtool?: Webpack.Configuration['devtool']) => Framework)
+type Devtool = (
+  devtool?: Webpack.Configuration['devtool'],
+) => Framework
 
 export const devtool: Devtool = function (devtool = false) {
   this.hooks.on('build/devtool', () => devtool)

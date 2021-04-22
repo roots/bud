@@ -14,7 +14,9 @@ export class Publish extends Command {
   /**
    * Signature
    */
-  public signature = `<pkg> <scaffold> [dir]`
+  public get signature() {
+    return `<pkg> <scaffold> [dir]`
+  }
 
   /**
    * Description
@@ -24,10 +26,12 @@ export class Publish extends Command {
   /**
    * Arguments
    */
-  public arguments = {
-    pkg: 'Source package',
-    scaffold: 'File to publish',
-    dir: 'Path to publish to',
+  public get arguments() {
+    return {
+      pkg: 'Source package',
+      scaffold: 'File to publish',
+      dir: 'Path to publish to',
+    }
   }
 
   /**
@@ -53,12 +57,9 @@ export class Publish extends Command {
         await fs.ensureDir(dirname(dest))
         await fs.copyFile(src, dest)
 
-        this.cli.app.write(scaffold, 'Result')
+        console.log(scaffold)
       } catch (err) {
-        this.cli.app.error(
-          err,
-          `The requested file can't be published.`,
-        )
+        console.error(err)
       }
     })()
   }

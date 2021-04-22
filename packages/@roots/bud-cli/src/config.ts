@@ -1,6 +1,9 @@
 import {cosmiconfigSync} from 'cosmiconfig'
 import TypeScriptLoader from '@endemolshinegroup/cosmiconfig-typescript-loader'
 
+/**
+ * Config (fn)
+ */
 export const config = moduleName =>
   cosmiconfigSync(moduleName, {
     searchPlaces: [
@@ -12,6 +15,9 @@ export const config = moduleName =>
     },
   }).search().config
 
+/**
+ * Not really doing much right now
+ */
 export const staticConfig = moduleName =>
   cosmiconfigSync(moduleName, {
     searchPlaces: [

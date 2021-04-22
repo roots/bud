@@ -18,6 +18,13 @@ export default class extends Service implements Build {
   public name = '@roots/bud-build'
 
   /**
+   * Webpack config
+   */
+  public get config(): Webpack.Configuration {
+    return this.subscribe<Webpack.Configuration>('build')
+  }
+
+  /**
    * Framework lifecycle
    */
   @bind
@@ -25,15 +32,5 @@ export default class extends Service implements Build {
     Object.values(builders).forEach(builder => {
       builder.bind(this.app)()
     })
-  }
-
-  /**
-   * Make webpack config
-   *
-   * Produce a final webpack config.
-   */
-  @bind
-  public make(): Webpack.Configuration {
-    return this.subscribe('build')
   }
 }

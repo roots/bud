@@ -52,8 +52,10 @@ export const config = {
   /**
    * Extensions
    */
-  extensions: {
+  extension: {
     cleanWebpackPlugin: {
+      cleanStaleWebpackAssets: true,
+      protectWebpackAssets: true,
       cleanOnceBeforeBuildPatterns: ['**/*', '!dll'],
     },
     cssMinimizerWebpackPlugin: {
@@ -69,6 +71,7 @@ export const config = {
     interpolateHtmlPlugin: {
       replace: {},
     },
+    miniCssExtractPlugin: {},
     webpackConfigDumpPlugin: {
       name: 'webpack.debug.js',
       keepCircularReferences: true,

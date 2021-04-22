@@ -98,12 +98,14 @@ export default class extends Service implements Hooks {
       : ['anonymous', id]
 
     if (!this.has(name)) {
-      this.set(name, [])
+      this.set(name, [_.noop])
     }
 
     const result = this.get(name).reduce(
       (v: T, cb?: CallableFunction) => {
-        return cb && _.isFunction(cb) ? cb(v) : cb
+        return !_.isUndefined(cb) && _.isFunction(cb)
+          ? cb(v)
+          : cb
       },
       null,
     )

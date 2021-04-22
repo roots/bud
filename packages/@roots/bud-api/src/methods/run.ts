@@ -42,7 +42,7 @@ function ci(this: Framework) {
  * Run in development
  */
 function dev(this: Framework) {
-  const instance = this.compiler.compile(this.build.make())
+  const instance = this.compiler.compile(this.build.config)
 
   instance.hooks.done.tap(this.name, this.compiler.callback)
 
@@ -53,7 +53,7 @@ function dev(this: Framework) {
  * Run in production
  */
 function prod(this: Framework) {
-  const instance = this.compiler.compile(this.build.make())
+  const instance = this.compiler.compile(this.build.config)
 
   instance.hooks.done.tap(this.name, () =>
     setTimeout(process.exit, 2000),

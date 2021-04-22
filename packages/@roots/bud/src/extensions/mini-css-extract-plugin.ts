@@ -23,6 +23,8 @@ export const options: Options = ({store}: Framework) => ({
       ? store.get('hashFormat').concat('.[id].css')
       : store.get('fileFormat').concat('.[id].css')
   }`,
+
+  ...(store.get('extension.miniCssExtractPlugin') ?? {}),
 })
 
 /**

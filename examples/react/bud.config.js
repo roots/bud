@@ -2,11 +2,11 @@
  * React configuration example
  *
  * @typedef {import('@roots/bud').Bud} Bud
- * @type {(bud: Bud): Bud}
+ * @type {(app: Bud): Bud}
  */
 
-module.exports = bud => {
-  return bud
+module.exports = app => {
+  return app
     .use([
       require('@roots/bud-babel'),
       require('@roots/bud-postcss'),
@@ -14,11 +14,11 @@ module.exports = bud => {
     ])
     .html({
       enabled: true,
-      template: bud.path('project', 'public/index.html'),
+      template: 'public/index.html',
     })
     .entry('app', 'app.{js,css}')
-    .when(bud.isProduction, bud =>
-      bud.runtime().splitChunks().minimize(),
+    .when(app.isProduction, () =>
+      app.runtime().splitChunks().minimize(),
     )
     .persist({
       type: 'memory',

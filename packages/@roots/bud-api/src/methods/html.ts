@@ -1,4 +1,5 @@
 import {Framework} from '@roots/bud-framework'
+import {isBoolean} from 'lodash'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -55,16 +56,16 @@ export const html: Html = function (options?) {
    * Allow html arg to override
    */
   if (!options) {
-    this.store.enable('html.enabled')
+    this.store.enable('html')
     return this
   }
 
   /**
    * Update the enabled status for the html plugin
    */
-  this.util._.isBoolean(options.enabled)
-    ? this.store.set('html.enabled', options.enabled)
-    : this.store.enable('html.enabled')
+  isBoolean(options.enabled)
+    ? this.store.set('html', options.enabled)
+    : this.store.enable('html')
 
   /**
    * Apply any replacements in the interpolation plugin
@@ -78,20 +79,15 @@ export const html: Html = function (options?) {
       }))
 
   /**
-   * Allow html.template arg to override
+   * Set the html-webpack-plugin template
    */
-  if (!this.store.has('html.template')) {
-    /**
-     * Set the html-webpack-plugin template
-     */
-    options.template &&
-      this.extensions
-        .get('html-webpack-plugin')
-        .set('options', value => ({
-          ...value,
-          template: options.template,
-        }))
-  }
+  options.template &&
+    this.extensions
+      .get('html-webpack-plugin')
+      .set('options', value => ({
+        ...value,
+        template: options.template,
+      }))
 
   return this
 }

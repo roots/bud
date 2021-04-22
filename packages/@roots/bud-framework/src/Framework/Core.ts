@@ -1,6 +1,10 @@
 import {boundMethod as bind} from 'autobind-decorator'
 import {Container} from '@roots/container'
-import type {Service} from '@roots/bud-typings'
+import type {
+  Bootstrapper,
+  Index,
+  Service,
+} from '@roots/bud-typings'
 import type {Framework} from '.'
 
 export abstract class Core {
@@ -9,6 +13,8 @@ export abstract class Core {
   protected _services: Container<Service>
 
   protected _instance: Container<Framework>
+
+  protected _mode: 'production' | 'development'
 
   public abstract mode: 'development' | 'production'
 
@@ -26,6 +32,56 @@ export abstract class Core {
    */
   public set services(services: Container<Service>) {
     this._services = services
+  }
+
+  /**
+   * Bootstrap
+   */
+  @bind
+  public bootstrap(
+    services: Index<
+      new (app: Framework['get']) => Service | Bootstrapper
+    >,
+    mode: 'production' | 'development',
+  ) {
+    this._mode = mode
+
+    process.env.NODE_ENV = mode
+    process.env.BABEL_ENV = mode
+
+    this.services = this.container(services)
+
+    this.services.getEntries().map(([key, Instance]) => {
+      this[key] = new Instance(this.get)
+    })
+
+    return this
+  }
+
+  /**
+   * Lifecycle
+   */
+  @bind
+  public lifecycle() {
+    ;[
+      'bootstrap',
+      'bootstrapped',
+      'register',
+      'registered',
+      'boot',
+      'booted',
+    ].forEach(event =>
+      this.services
+        .getKeys()
+        .map(
+          key =>
+            this[key] &&
+            this[key][event] &&
+            this[key][event](this),
+        ),
+    )
+
+    return this
   }
 
   /**
@@ -62,7 +118,7 @@ export abstract class Core {
    */
   @bind
   public getInstance(key: string): Framework {
-    return this._instance.get('key')
+    return this._instance.get(key)
   }
 
   /**

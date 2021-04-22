@@ -17,5 +17,5 @@ export interface Build extends Service {
    *
    * Produce a final webpack config.
    */
-  make(): Webpack.Configuration
+  config: Webpack.Configuration
 }

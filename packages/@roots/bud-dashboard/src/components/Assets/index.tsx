@@ -7,13 +7,9 @@ import {Dashboard} from '@roots/bud-framework'
  */
 const Assets: Dashboard.Component = ({stats, theme}) => (
   <>
-    {stats?.assets?.map((asset, id) =>
-      asset ? (
-        <Asset theme={theme} key={id} {...asset} />
-      ) : (
-        <></>
-      ),
-    )}
+    {stats?.assets?.map((asset, id) => (
+      <Asset theme={theme} key={id} {...asset} />
+    ))}
   </>
 )
 

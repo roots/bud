@@ -1,10 +1,11 @@
-import {Command} from './Command'
-import {Framework} from '@roots/bud-framework'
+import {Bud, BudFactory, services} from '@roots/bud'
 import {Container} from '@roots/container'
 import Commander from 'commander'
-import Output from './Output'
-import {commands} from './commands'
 import {boundMethod as bind} from 'autobind-decorator'
+
+import {Command} from './Command'
+import {config} from './config'
+import {commands} from './commands'
 
 /**
  * CLI
@@ -13,7 +14,7 @@ export class CLI {
   /**
    * Command invocation
    */
-  public name: string = 'bud'
+  public _name: string = 'bud'
 
   /**
    * Command description
@@ -23,7 +24,12 @@ export class CLI {
   /**
    * App
    */
-  public app: Framework
+  public _app: BudFactory
+
+  /**
+   * Base config
+   */
+  public _baseConfig: (app: Bud) => Bud
 
   /**
    * Commands
@@ -36,18 +42,47 @@ export class CLI {
   public program: Commander.Command
 
   /**
-   * Output
-   */
-  public output: Output
-
-  /**
    * Register
    */
-  public constructor(app: Framework) {
-    this.app = app
+  public constructor(
+    budFactory: BudFactory,
+    baseConfig?: (app: Bud) => Bud,
+  ) {
+    this.app = budFactory
+    this.baseConfig = baseConfig ?? null
+    this.commands = new Container(commands)
+  }
 
-    this.commands = app.container(commands)
-    this.program = new Commander.Command(this.app.name)
+  public get app() {
+    return this._app
+  }
+
+  public set app(app: BudFactory) {
+    this._app = app
+  }
+
+  public get baseConfig() {
+    return this._baseConfig
+  }
+
+  public set baseConfig(baseConfig: (app: Bud) => Bud) {
+    this._baseConfig = baseConfig
+  }
+
+  public get name() {
+    return this._name
+  }
+
+  public set name(name: string) {
+    this._name = name
+  }
+
+  /**
+   * Boot CLI
+   */
+  @bind
+  public boot() {
+    this.program = new Commander.Command(this.name)
       .allowUnknownOption()
       .allowExcessArguments()
       .usage('[command]')
@@ -57,26 +92,9 @@ export class CLI {
         'Get help with a [command]',
       )
 
-    this.output = new Output(this.app.name, this.program)
-  }
-
-  /**
-   * Set command name
-   */
-  @bind
-  public setName(name: string) {
-    this.name = name
-  }
-
-  /**
-   * Boot
-   */
-  @bind
-  public boot() {
     this.commands.every(this.initializeCommand)
 
     this.program
-      .configureOutput(new Output(this.app.name, this.program))
       .allowExcessArguments()
       .allowUnknownOption()
       .parse(process.argv)
@@ -120,5 +138,25 @@ export class CLI {
       })
 
     this.program.addCommand(instance)
+  }
+
+  /**
+   * Make app instance
+   */
+  @bind
+  public makeApp(mode: 'production' | 'development'): Bud {
+    return this.app(services, mode)
+  }
+
+  @bind
+  public runAppBuild(app: Bud, cb?: (app: Bud) => Bud) {
+    const override = cb ? cb : app => app
+    const projectConfig = config(this.name)
+
+    override(
+      this.baseConfig
+        ? projectConfig(this.baseConfig(app.lifecycle()))
+        : projectConfig(app.lifecycle()),
+    ).run()
   }
 }

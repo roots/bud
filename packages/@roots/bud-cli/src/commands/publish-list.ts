@@ -15,11 +15,11 @@ export class PublishList extends Command {
     const publishables = this.format(this.publishables)
 
     if (publishables == '') {
-      this.cli.app.error('Nothing found')
+      console.error('Nothing found')
       process.exit(1)
     }
 
-    this.cli.app.write(publishables, 'Available templates')
+    console.log(publishables)
   }
 
   public format(items: string[]) {

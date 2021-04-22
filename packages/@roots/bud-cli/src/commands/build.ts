@@ -1,6 +1,5 @@
 import {Command} from '../Command'
 import {boundMethod as bind} from 'autobind-decorator'
-import {config} from '../config'
 
 /**
  * Build
@@ -8,13 +7,18 @@ import {config} from '../config'
 export class Build extends Command {
   public name = `build`
 
-  public signature = '<mode>'
+  public get signature() {
+    return '<mode>'
+  }
 
-  public description =
-    'Compile assets and/or initialize development server'
+  public get description() {
+    return 'Compile assets and/or initialize development server'
+  }
 
-  public arguments = {
-    mode: '[choices: "development" or "production"]',
+  public get arguments() {
+    return {
+      mode: '[choices: "development" or "production"]',
+    }
   }
 
   public options = {
@@ -23,27 +27,26 @@ export class Build extends Command {
       description: 'Run in CI',
       default: false,
     },
+    debug: {
+      type: 'boolean',
+      description: 'Produce debug artifact',
+      default: false,
+    },
+    log: {
+      type: 'boolean',
+      description: 'Enable logging',
+      default: false,
+    },
     hot: {
       type: 'boolean',
       description: 'Hot middleware',
       default: true,
     },
-  }
-
-  /**
-   * JSON name
-   */
-  @bind
-  public jsonName() {
-    return `${this.cli.app.name}.config.json`
-  }
-
-  /**
-   * Fluent name
-   */
-  @bind
-  public fluentName() {
-    return `${this.cli.app.name}.config.js`
+    cache: {
+      type: 'boolean',
+      description: 'Enable build cache',
+      default: true,
+    },
   }
 
   /**
@@ -51,27 +54,26 @@ export class Build extends Command {
    */
   @bind
   public async action(
-    mode: unknown,
+    mode: 'development' | 'production',
     options: {
       ci: boolean
       hot: boolean
+      log: boolean
+      debug: boolean
+      cache: boolean
     },
   ) {
-    /**
-     * Assign to process
-     */
-    Object.assign(process.env, {
-      NODE_ENV: mode,
-      BABEL_ENV: mode,
+    const app = this.cli.makeApp(mode)
+    app.store.set('log', options.log)
+
+    this.cli.runAppBuild(app, app => {
+      app.store.set('debug', options.debug)
+      app.store.set('ci', options.ci)
+      app.server.config.set('middleware.hot', options.hot)
+
+      !options.cache && app.hooks.on('build/cache', () => false)
+
+      return app
     })
-
-    const instance = config(this.cli.name)(this.cli.app)
-
-    options.ci && instance.store.set('ci', true)
-
-    !options.hot &&
-      instance.server.config.set('middleware.hot', options.hot)
-
-    instance.run()
   }
 }
