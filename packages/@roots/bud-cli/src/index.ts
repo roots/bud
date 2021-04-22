@@ -1,3 +1,2 @@
-export {Command} from './Command'
-export {CLI} from './CLI'
-export {commands} from './commands'
+export {Base} from './Base'
+export {run} from '@oclif/command'

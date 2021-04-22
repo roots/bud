@@ -21,7 +21,7 @@ export default class extends Service implements Build {
    * Webpack config
    */
   public get config(): Webpack.Configuration {
-    return this.subscribe<Webpack.Configuration>('build')
+    return this.app.hooks.filter<Webpack.Configuration>('build')
   }
 
   /**

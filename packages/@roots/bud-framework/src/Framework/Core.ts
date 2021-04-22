@@ -16,8 +16,6 @@ export abstract class Core {
 
   protected _mode: 'production' | 'development'
 
-  public abstract mode: 'development' | 'production'
-
   public abstract log(args: any): unknown
 
   /**
@@ -34,6 +32,28 @@ export abstract class Core {
     this._services = services
   }
 
+  public get mode(): 'production' | 'development' {
+    return this._mode
+  }
+
+  public set mode(mode: 'production' | 'development') {
+    this._mode = mode
+  }
+
+  /**
+   * Production check
+   */
+  public get isProduction(): boolean {
+    return this.mode === 'production'
+  }
+
+  /**
+   * Dev check
+   */
+  public get isDevelopment(): boolean {
+    return this.mode === 'development'
+  }
+
   /**
    * Bootstrap
    */
@@ -42,13 +62,7 @@ export abstract class Core {
     services: Index<
       new (app: Framework['get']) => Service | Bootstrapper
     >,
-    mode: 'production' | 'development',
   ) {
-    this._mode = mode
-
-    process.env.NODE_ENV = mode
-    process.env.BABEL_ENV = mode
-
     this.services = this.container(services)
 
     this.services.getEntries().map(([key, Instance]) => {

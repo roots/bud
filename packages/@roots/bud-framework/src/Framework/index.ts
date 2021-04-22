@@ -47,27 +47,6 @@ export abstract class Framework extends Core {
   public abstract store: Store
 
   /**
-   * Webpack.Configuration['mode'] accessor
-   */
-  public get mode() {
-    return this._mode
-  }
-
-  /**
-   * Production check
-   */
-  public get isProduction(): boolean {
-    return this.mode === 'production'
-  }
-
-  /**
-   * Dev check
-   */
-  public get isDevelopment(): boolean {
-    return this.mode === 'development'
-  }
-
-  /**
    * Subscribe
    */
   @bind
@@ -185,12 +164,12 @@ export abstract class Framework extends Core {
   @bind
   public when(
     test: ((app: Framework) => boolean) | boolean,
-    isTrue: (app: Framework) => any,
-    isFalse?: (app: Framework) => any,
+    trueCase: (app: Framework) => any,
+    falseCase?: (app: Framework) => any,
   ): Framework {
-    _.isEqual(this.access(test), true)
-      ? isTrue && _.isFunction(isFalse) && isTrue(this)
-      : isFalse && _.isFunction(isFalse) && isFalse(this)
+    this.access(test)
+      ? trueCase && _.isFunction(trueCase) && trueCase(this)
+      : falseCase && _.isFunction(falseCase) && falseCase(this)
 
     return this
   }

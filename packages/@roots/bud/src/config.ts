@@ -38,7 +38,7 @@ export const config = {
   debug: false,
   discover: false,
   hash: false,
-  html: true,
+  html: false,
   install: false,
   log: false,
   manifest: true,
@@ -66,7 +66,6 @@ export const config = {
     htmlWebpackPlugin: {
       alwaysWriteToDisk: true,
       inject: true,
-      template: null,
     },
     interpolateHtmlPlugin: {
       replace: {},

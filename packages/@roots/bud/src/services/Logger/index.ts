@@ -102,7 +102,7 @@ export class Logger implements Contract, Bootstrapper {
    */
   @bind
   public registered(app: Framework) {
-    if (app.store.enabled('log')) {
+    if (process.argv.includes('--log')) {
       app.logger.instance.enable()
     }
   }

@@ -93,7 +93,7 @@ export namespace Hooks {
   /**
    * Hook definition
    */
-  export type Hook<T = any> = (value?: T) => T
+  export type Hook<T = any> = ((value?: T) => T) | T
 
   /**
    * bud.publish key/value argument

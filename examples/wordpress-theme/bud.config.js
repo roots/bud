@@ -1,19 +1,18 @@
 module.exports = app =>
   app
-    .when(
-      app.isDevelopment,
-      () =>
-        app.use([
-          require('@roots/bud-babel'),
-          require('@roots/bud-react'),
-        ]),
-      () =>
-        app
-          .use(require('@roots/bud-esbuild'))
-          .esbuild.jsx()
-          .hash()
-          .splitChunks()
-          .runtime(),
+    .when(app.isDevelopment, app =>
+      app.use([
+        require('@roots/bud-babel'),
+        require('@roots/bud-react'),
+      ]),
+    )
+    .when(app.isProduction, app =>
+      app
+        .use(require('@roots/bud-esbuild'))
+        .esbuild.jsx()
+        .hash()
+        .splitChunks()
+        .runtime('single'),
     )
     .use([
       require('@roots/bud-postcss'),
@@ -22,7 +21,11 @@ module.exports = app =>
       require('@roots/bud-wordpress-manifests'),
       require('@roots/bud-entrypoints'),
     ])
-
     .proxy()
-    .entry('app', ['app.js', 'app.css'])
-    .entry('editor', ['editor.js'])
+    .entry({
+      app: ['app.js', 'app.css'],
+      editor: ['editor.js'],
+    })
+    .persist({
+      type: 'memory',
+    })

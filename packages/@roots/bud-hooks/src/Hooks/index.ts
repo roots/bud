@@ -103,9 +103,7 @@ export default class extends Service implements Hooks {
 
     const result = this.get(name).reduce(
       (v: T, cb?: CallableFunction) => {
-        return !_.isUndefined(cb) && _.isFunction(cb)
-          ? cb(v)
-          : cb
+        return _.isFunction(cb) ? cb(v) : cb
       },
       null,
     )
@@ -132,7 +130,7 @@ export default class extends Service implements Hooks {
       links.reduce(
         (a, link) => ({
           ...a,
-          [link]: this.filter(`${target}/${link}`),
+          [link]: (() => this.filter(`${target}/${link}`))(),
         }),
         {},
       ),

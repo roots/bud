@@ -11,15 +11,20 @@ module.exports = app => {
       require('@roots/bud-babel'),
       require('@roots/bud-postcss'),
       require('@roots/bud-react'),
+      require('@roots/bud-terser'),
     ])
     .html({
-      enabled: true,
       template: 'public/index.html',
     })
-    .entry('app', 'app.{js,css}')
-    .when(app.isProduction, () =>
-      app.runtime().splitChunks().minimize(),
-    )
+    .entry({
+      app: {
+        import: 'app.{js,css}',
+        dependOn: ['react'],
+      },
+    })
+    .when(app.isProduction, () => {
+      app.runtime().splitChunks()
+    })
     .persist({
       type: 'memory',
     })

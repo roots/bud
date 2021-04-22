@@ -33,11 +33,9 @@ const DEFAULT_OPTIONS: Webpack.Configuration['optimization']['runtimeChunk'] = {
     `runtime/${entrypoint.name}`,
 }
 
-export const runtime: Runtime = function (runtime) {
-  this.hooks.on(
-    'build/optimization/runtimeChunk',
-    () => runtime ?? DEFAULT_OPTIONS,
-  )
+export const runtime: Runtime = function (runtime?) {
+  const value = runtime ? runtime : DEFAULT_OPTIONS
+  this.hooks.on('build/optimization/runtimeChunk', () => value)
 
   return this
 }

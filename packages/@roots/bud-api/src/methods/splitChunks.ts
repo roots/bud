@@ -1,6 +1,5 @@
 import {Framework} from '@roots/bud-framework'
 import type Webpack from 'webpack'
-import {merge} from 'lodash'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -32,15 +31,9 @@ namespace SplitChunks {
 }
 
 const DEFAULT_OPTIONS: Framework.Api.SplitChunks.Options = {
-  hidePathInfo: true,
-  chunks: 'async',
-  minSize: 30000,
-  minChunks: 1,
-  maxAsyncRequests: 5,
-  automaticNameDelimiter: '~',
-  maxInitialRequests: 3,
   cacheGroups: {
-    vendor: {
+    chunks: 'all',
+    vendors: {
       chunks: 'all',
       enforce: true,
       test: /[\\/]node_modules[\\/]/,
@@ -74,13 +67,9 @@ const DEFAULT_OPTIONS: Framework.Api.SplitChunks.Options = {
 export const splitChunks: Framework.Api.SplitChunks = function (
   options,
 ) {
-  options = merge(DEFAULT_OPTIONS, options)
+  options = options ? options : DEFAULT_OPTIONS
 
-  this.hooks.on(
-    'build/optimization/splitChunks',
-    (): Webpack.Configuration['optimization']['splitChunks'] =>
-      options,
-  )
+  this.hooks.on('build/optimization/splitChunks', () => options)
 
   return this
 }

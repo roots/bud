@@ -29,9 +29,7 @@ export const boot: Module.Boot = ({
   hooks,
   isProduction,
 }) => {
-  isProduction &&
-    hooks.on('build/optimization/minimize', () => true)
-
+  hooks.on('build/optimization/minimize', isProduction)
   hooks.on('build/optimization/minimizer', minimizer => {
     return [
       new TerserPlugin(

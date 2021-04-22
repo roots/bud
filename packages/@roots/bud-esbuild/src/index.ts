@@ -18,8 +18,10 @@ export const esbuild: Module = {
   /**
    * @property boot
    */
-  boot: ({use, hooks, subscribe, store}) => {
+  boot: ({use, hooks, isProduction, subscribe, store}) => {
     use(features)
+
+    hooks.on('build/optimization/minimize', isProduction)
 
     hooks.on('build/optimization/minimizer', () => [
       new ESBuildMinifyPlugin({

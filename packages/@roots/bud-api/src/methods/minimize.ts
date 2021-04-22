@@ -1,5 +1,4 @@
 import {Framework} from '@roots/bud-framework'
-import {isBoolean} from 'lodash'
 
 declare module '@roots/bud-framework' {
   export interface Framework {
@@ -32,12 +31,10 @@ declare module '@roots/bud-framework' {
   }
 }
 
-type Minimize = (enabled?: boolean) => Framework
+type Minimize = () => Framework
 
-export const minimize: Minimize = function (enabled?: boolean) {
-  const value = isBoolean(enabled) ? enabled : true
-
-  this.hooks.on('build/optimization/minimize', () => value)
+export const minimize: Minimize = function () {
+  this.hooks.on('build/optimization/minimize', () => true)
 
   return this
 }
