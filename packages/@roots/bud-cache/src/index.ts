@@ -2,6 +2,7 @@ import Service from './Service'
 import crypto from 'crypto'
 import {readFileSync} from 'fs-extra'
 import {boundMethod as bind} from 'autobind-decorator'
+import {sync} from 'globby'
 
 /**
  * # bud.cache
@@ -39,14 +40,16 @@ export class Cache extends Service {
    * and package.json
    */
   public get version() {
-    const conf = JSON.stringify(
-      readFileSync(
-        this.app.disk
-          .get('project')
-          .get(`${this.app.name}.config.js`),
-        'utf8',
-      ),
-    )
+    const conf =
+      JSON.stringify(
+        sync(
+          this.app.path('project', `${this.app.name}*`),
+        ).reduce(
+          (a: string, c: string) =>
+            `${a}${readFileSync(c, 'utf8')}`,
+          '',
+        ),
+      ) ?? ''
 
     return crypto
       .createHash('md4')
@@ -62,7 +65,7 @@ export class Cache extends Service {
       readFileSync(
         this.app.disk.get('project').get('package.json'),
         'utf8',
-      ),
+      ) ?? '',
     )
   }
 }

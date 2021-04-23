@@ -18,25 +18,34 @@ export const Progress: Dashboard.Component = ({
   if (!guard) return null
 
   return (
-    <Box flexDirection="row" justifyContent="space-between">
-      <Box width={7}>
+    <Box flexDirection="row">
+      <Box width={13}>
         <Text wrap="truncate">
           {progress?.decimal < 1 ? (
             <>
-              <Spinner /> {progress.percentage}{' '}
+              <Text color={theme.colors.primary}>
+                <Spinner />
+              </Text>{' '}
+              Compiling{' '}
             </>
           ) : (
             <>
-              {hasErrors ? 'X ' : '✔ '}
-              {progress.percentage}{' '}
+              {hasErrors ? (
+                <Text color={theme.colors.error}>X Error</Text>
+              ) : (
+                <Text color={theme.colors.success}>
+                  ✔ Complete
+                </Text>
+              )}
             </>
           )}
         </Text>
       </Box>
-      <Box width={theme.bounds.width - 7}>
+
+      <Box>
         <Bar
-          character={'█'}
-          maxWidth={theme.bounds.width - 7}
+          character={'='}
+          maxWidth={theme.bounds.width - 22}
           colors={
             !hasErrors
               ? [theme.colors.primary, theme.colors.primaryAlt]
@@ -44,6 +53,7 @@ export const Progress: Dashboard.Component = ({
           }
           percent={progress?.decimal}
         />
+        <Text> {progress.percentage}</Text>
       </Box>
     </Box>
   )

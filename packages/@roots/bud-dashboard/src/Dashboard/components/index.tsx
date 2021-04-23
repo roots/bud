@@ -89,63 +89,21 @@ const Dashboard: Dashboard.Component = ({bud}) => {
         </Static>
       )}
 
-      <Box flexDirection="column">
-        {appProps.stats?.assets && (
-          <Box
-            flexDirection="column"
-            paddingX={1}
-            borderStyle="single"
-            borderColor={appProps.theme.colors.faded}>
-            <Assets {...appProps} />
-          </Box>
+      {appProps.stats?.assets && (
+        <>
+          <Assets {...appProps} />
+          <Time {...appProps} />
+        </>
+      )}
+
+      <Progress {...appProps} />
+
+      {bud.isDevelopment &&
+        bud.server.config.isTrue('middleware.dev') && (
+          <DevStatus {...appProps} />
         )}
 
-        <Box flexDirection="row">
-          <Box
-            flexDirection="column"
-            paddingX={1}
-            borderStyle="single"
-            borderColor={appProps.theme.colors.faded}>
-            <Text>
-              Mode: <Text color="green">{bud.mode}</Text>
-            </Text>
-
-            <Text>
-              Entry:{' '}
-              <Text color="green">
-                {Object.keys(
-                  bud.hooks.filter('build/entry'),
-                ).reduce((a, k) => `${a} ${k}`)}
-              </Text>
-            </Text>
-
-            <Time {...appProps} />
-          </Box>
-
-          {bud.isDevelopment &&
-            bud.server.config.isTrue('middleware.dev') && (
-              <Box
-                flexDirection="column"
-                paddingX={1}
-                borderStyle="single"
-                borderColor={appProps.theme.colors.faded}>
-                <DevStatus {...appProps} />
-              </Box>
-            )}
-
-          <Box flexDirection="column">
-            <Git theme={appProps.theme} />
-          </Box>
-        </Box>
-
-        <Box flexDirection="column">
-          {appProps.progress?.decimal < 1 && (
-            <Box marginBottom={1}>
-              <Progress {...appProps} />
-            </Box>
-          )}
-        </Box>
-      </Box>
+      <Git theme={appProps.theme} />
     </Box>
   )
 }

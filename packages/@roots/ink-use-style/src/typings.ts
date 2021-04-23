@@ -19,6 +19,8 @@ export interface Theme {
   colors: Theme.Colors
   screens: ScreenTuple[]
   columns: number
+  maxWidth: number
+  maxHeight: number
 }
 
 export namespace Theme {

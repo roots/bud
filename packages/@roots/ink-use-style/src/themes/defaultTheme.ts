@@ -23,3 +23,6 @@ export const screens: Theme['screens'] = [
 ]
 
 export const columns: Theme['columns'] = 12
+
+export const maxWidth = 100
+export const maxHeight = 999

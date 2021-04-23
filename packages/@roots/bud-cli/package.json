@@ -108,8 +108,6 @@
     "@roots/bud": "workspace:*",
     "@roots/bud-dashboard": "workspace:*",
     "@roots/bud-framework": "workspace:*",
-    "@roots/container": "workspace:*",
-    "@roots/ink-use-style": "workspace:*",
     "conf": "^10.0.1",
     "conf-cli": "^0.1.9",
     "cosmiconfig": "^7.0.0",

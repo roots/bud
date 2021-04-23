@@ -51,12 +51,12 @@ export const useStyle: UseStyle = (
 
   /**
    * Set application based on viewport size.
-   * Applies spacer padding to all four sides of viewport.
    */
   React.useEffect(() => {
     setBounds({
-      width,
-      height,
+      width: width > theme.maxWidth ? theme.maxWidth : width,
+      height:
+        height > theme.maxHeight ? theme.maxHeight : height,
     })
   }, [width, height])
 

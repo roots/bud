@@ -1,7 +1,7 @@
 import Command, {flags} from '@oclif/command'
 import {App, Bud, services} from '@roots/bud'
 import {mergeWith} from 'lodash'
-import {cosmiconfigSync} from 'cosmiconfig'
+import {cosmiconfig} from 'cosmiconfig'
 import TypeScriptLoader from '@endemolshinegroup/cosmiconfig-typescript-loader'
 
 const Conf = require('conf')
@@ -10,16 +10,18 @@ const conf = new Conf({default: {}})
 export abstract class Base extends Command {
   public app: Bud
 
-  public staticConfig() {
-    return mergeWith(conf.store ?? {}, this.appConfig())
+  public async staticConfig() {
+    const config = await this.appConfig()
+    return mergeWith(conf.store ?? {}, config)
   }
 
-  public mergedConfig(runtimeConfig) {
-    return mergeWith(this.staticConfig(), runtimeConfig)
+  public async mergedConfig(runtimeConfig) {
+    const buildConfig = await this.staticConfig()
+    return mergeWith(buildConfig, runtimeConfig)
   }
 
-  public build() {
-    return cosmiconfigSync(this.app.name, {
+  public async build() {
+    const res = await cosmiconfig(this.app.name, {
       searchPlaces: [
         `${this.app.name}.config.ts`,
         `${this.app.name}.config.js`,
@@ -29,23 +31,23 @@ export abstract class Base extends Command {
       loaders: {
         '.ts': TypeScriptLoader,
       },
-    })
-      .search()
-      ?.config(this.app)
+    }).search()
+
+    this.app = res?.config(this.app)
   }
 
-  public appConfig() {
-    return (
-      cosmiconfigSync(this.app.name, {
-        searchPlaces: [
-          'package.json',
-          `.${this.app.name}rc`,
-          `.${this.app.name}rc.json`,
-          `.${this.app.name}rc.yaml`,
-          `.${this.app.name}rc.yml`,
-        ],
-      }).search()?.config ?? {}
-    )
+  public async appConfig() {
+    const res = await cosmiconfig(this.app.name, {
+      searchPlaces: [
+        'package.json',
+        `.${this.app.name}rc`,
+        `.${this.app.name}rc.json`,
+        `.${this.app.name}rc.yaml`,
+        `.${this.app.name}rc.yml`,
+      ],
+    }).search()
+
+    return res?.config
   }
 
   public async init() {

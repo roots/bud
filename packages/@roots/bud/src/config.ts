@@ -141,5 +141,7 @@ export const config = {
       [81, Infinity],
     ],
     columns: 12,
+    maxWidth: 80,
+    maxHeight: 999,
   },
 }

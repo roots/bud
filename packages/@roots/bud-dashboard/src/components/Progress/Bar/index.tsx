@@ -23,9 +23,11 @@ export const Bar: React.FunctionComponent<{
 
   return fill <= 0 ? null : (
     <Text wrap="truncate">
+      |{' '}
       <Gradient colors={colors}>
         {character.repeat(fill)}
       </Gradient>
+      {'-'.repeat(maxWidth - fill)} |
     </Text>
   )
 }

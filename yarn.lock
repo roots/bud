@@ -2629,8 +2629,6 @@ __metadata:
     "@roots/bud-dashboard": "workspace:*"
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-typings": "workspace:*"
-    "@roots/container": "workspace:*"
-    "@roots/ink-use-style": "workspace:*"
     "@types/fs-extra": ^9.0.11
     "@types/lodash": ^4.14.168
     "@types/node": ^14.14.39
