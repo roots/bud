@@ -1,11 +1,5 @@
 import './interface'
 import {Module, Framework} from '@roots/bud-framework'
-import {sync} from 'globby'
-/**
- * Enum
- */
-const TS_GLOB = ['*.ts', '*.tsx', '**/*.ts', '**/*.tsx']
-const WARN_NO_TS = 'No ts found, skipping.'
 
 /**
  * Extension name
@@ -28,26 +22,10 @@ export * as api from './api'
  * Boot
  */
 export const boot: Module['boot'] = ({
-  disk,
   publish,
   subscribe,
   store,
-  src,
 }: Framework) => {
-  const tsFiles = sync(TS_GLOB, {cwd: src()})
-  const utilized = tsFiles.length > 0
-
-  // If there is no typescript to compile, bounce early.
-  if (!utilized) {
-    // @warning in case this isn't intended
-    disk.logger.warn({
-      message: WARN_NO_TS,
-      suffix: {tsFiles, utilized, TS_GLOB},
-    })
-
-    return
-  }
-
   // Set regexp pattern for ts
   store.set('patterns.ts', /\.(ts|tsx)$/)
 
@@ -58,24 +36,23 @@ export const boot: Module['boot'] = ({
       'build/resolve/extensions': e => [...e, '.ts', '.tsx'],
       // Rule
       rule: (rule: {[key: string]: Framework['subscribe']}) => ({
-        'rule/ts': subscribe('rule/ts', name),
+        'rule/ts': subscribe('rule/ts'),
         ...rule,
       }),
       'rule/ts': () => ({
-        test: subscribe('rule/ts/test', name),
-        exclude: subscribe('rule/ts/exclude', name),
-        use: subscribe('rule/ts/use', name),
+        test: subscribe('rule/ts/test'),
+        exclude: subscribe('rule/ts/exclude'),
+        use: subscribe('rule/ts/use'),
       }),
       'rule/ts/test': () => store.get('patterns.ts'),
       'rule/ts/exclude': () => store.get('patterns.modules'),
       'rule/ts/use': () => [
-        subscribe('item/babel', name),
-        subscribe('item/ts', name),
+        subscribe('item/babel'),
+        subscribe('item/ts'),
       ],
-      // RuleSetUse item
       'item/ts': () => ({
-        loader: subscribe('item/ts/loader', name),
-        options: subscribe('item/ts/options', name),
+        loader: subscribe('item/ts/loader'),
+        options: subscribe('item/ts/options'),
       }),
       'item/ts/options': () => ({
         transpileOnly: subscribe(
@@ -87,8 +64,7 @@ export const boot: Module['boot'] = ({
       }),
       'item/ts/options/happyPackMode': () => true,
       'item/ts/options/transpileOnly': () => true,
-      'item/ts/loader': () => subscribe('loader/ts', name),
-      // Loader
+      'item/ts/loader': () => subscribe('loader/ts'),
       'loader/ts': () => require.resolve('ts-loader'),
     },
     name,

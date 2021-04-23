@@ -5,7 +5,6 @@ import {isEqual} from 'lodash'
 
 import {
   Assets,
-  DevStatus,
   Time,
   Git,
   Progress,
@@ -97,11 +96,6 @@ const Dashboard: Dashboard.Component = ({bud}) => {
       )}
 
       <Progress {...appProps} />
-
-      {bud.isDevelopment &&
-        bud.server.config.isTrue('middleware.dev') && (
-          <DevStatus {...appProps} />
-        )}
 
       <Git theme={appProps.theme} />
     </Box>
