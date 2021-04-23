@@ -15,6 +15,4 @@ init();
  *
  * @see https://webpack.js.org/api/hot-module-replacement
  */
-if (module) {
-  module.hot?.accept('./components/main.js', init);
-}
+module?.hot?.accept('./components/main.js', init);

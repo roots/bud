@@ -19,8 +19,6 @@ domReady(() => {
  *
  * @see https://webpack.js.org/api/hot-module-replacement
  */
-if (module) {
-  module.hot?.accept((err) => {
-    console.err(err);
-  });
-}
+module?.hot?.accept((err) => {
+  console.err(err);
+});
