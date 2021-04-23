@@ -15,15 +15,13 @@ export const jsFeature: Module = {
    * @property jsFeature.boot
    * @description code to be run on extension boot event
    */
-  boot: ({publish, subscribe}: Framework) => {
-    publish({
-      'loader/esbuild-js': () =>
-        require.resolve('esbuild-loader'),
-    })
+  boot: ({hooks, publish, subscribe}: Framework) => {
+    hooks.on(
+      'loader/esbuild-js',
+      require.resolve('esbuild-loader'),
+    )
 
-    publish({
-      'rule/js/use': () => [subscribe('item/esbuild-js')],
-    })
+    hooks.on('rule/js/use', subscribe('item/esbuild-js'))
 
     publish({
       'item/esbuild-js': () => ({

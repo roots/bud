@@ -1,5 +1,5 @@
 import {Api, Framework} from '@roots/bud-framework'
-import globby, {GlobTask} from 'globby'
+import {sync, GlobTask} from 'globby'
 import {isArray, isString} from 'lodash'
 
 declare module '@roots/bud-framework' {
@@ -139,7 +139,7 @@ function getAssets(
   /**
    * Find all the matching assets on disk
    */
-  const assets = globby.sync(files, {
+  const assets = sync(files, {
     cwd: this.path('src'),
     expandDirectories: true,
   })

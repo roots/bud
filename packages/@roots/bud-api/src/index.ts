@@ -1,16 +1,5 @@
-/**
- * Interface
- */
 import './interface'
-
-/**
- * Service: Framework API
- */
 import {Api} from './Api'
-
-/**
- * Framework API methods
- */
 import * as methods from './methods'
 
 /**

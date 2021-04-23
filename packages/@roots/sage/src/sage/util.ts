@@ -1,5 +1,6 @@
 import {Sage} from './interface'
 import {FileContainer} from '@roots/filesystem'
+import {readJsonSync} from 'fs-extra'
 
 /**
  * Returns a util fn to check if a dep is used in the project package.json
@@ -11,7 +12,9 @@ export const projectInfo: (
   deps: string[]
   files: string[]
 } = (sage: Sage) => {
-  const {projectInfo: pkg} = sage.discovery
+  const pkg = readJsonSync(
+    `${sage.path('project')}/package.json`,
+  )
 
   const fieldKeys = (key: string): string[] =>
     pkg.hasOwnProperty(key) ? Object.keys(pkg[key]) : []

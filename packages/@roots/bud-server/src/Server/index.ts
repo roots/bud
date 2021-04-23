@@ -1,14 +1,15 @@
 import {Container, Service} from '@roots/bud-framework'
 import {Server} from '@roots/bud-typings'
-import chokidar from 'chokidar'
-import {boundMethod as bind} from 'autobind-decorator'
 
+import Webpack from 'webpack'
+import chokidar from 'chokidar'
+import {sync} from 'globby'
 import {FSWatcher} from 'fs-extra'
 import {resolve} from 'path'
+import {boundMethod as bind} from 'autobind-decorator'
 
 import * as middleware from '../middleware'
 import {injectClient} from '../util/injectClient'
-import Webpack from 'webpack'
 
 /**
  * Dev server
@@ -93,7 +94,7 @@ export default class extends Service implements Server {
   @bind
   public booted() {
     this.watcher = chokidar.watch(
-      this.app.util.globby.sync(this.config.get('watch.files')),
+      sync(this.config.get('watch.files')),
       this.config.get('watch.options'),
     )
   }

@@ -10,30 +10,18 @@ import * as api from './methods'
  * [📦 npm](https://www.npmjs.com/package/@roots/bud-api)
  */
 export class Api extends Service {
-  /**
-   * @property {Service['name']} name
-   */
   public name = '@roots/bud-api'
 
-  /**
-   * @method register
-   */
   @bind
   public register() {
     Object.assign(
       this.app,
-      {
-        ...Object.entries(api).reduce(this.bindMethod),
-      },
-      {},
+      Object.entries(api).reduce(this.bindMethod, {}),
     )
   }
 
-  /**
-   * @method bindMethod
-   */
   @bind
-  public bindMethod(
+  private bindMethod(
     acc,
     [name, fn]: [string, (this: Framework) => any],
   ) {

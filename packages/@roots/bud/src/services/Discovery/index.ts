@@ -5,7 +5,7 @@ import {
 } from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
 import fs from 'fs-extra'
-import globby from 'globby'
+import {sync} from 'globby'
 import {dirname} from 'path'
 
 /**
@@ -23,7 +23,7 @@ export class Discovery extends Service implements Contract {
    * Package paths: get accessor
    */
   public get packagePaths() {
-    return globby.sync([
+    return sync([
       this.app.path('modules', '@roots/sage/package.json'),
       this.app.path('modules', 'bud-*/package.json'),
       this.app.path('modules', '**/bud-*/package.json'),

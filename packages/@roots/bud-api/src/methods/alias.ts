@@ -31,7 +31,7 @@ export type Alias = (
   alias: Webpack.Configuration['resolve']['alias'],
 ) => Framework
 
-export const alias: Alias = function (alias) {
+export const alias: Alias = function (alias): Framework {
   this.hooks.on('build/resolve/alias', existant => ({
     ...existant,
     ...alias,

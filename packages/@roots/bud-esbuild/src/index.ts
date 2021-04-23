@@ -18,17 +18,25 @@ export const esbuild: Module = {
   /**
    * @property boot
    */
-  boot: ({use, hooks, isProduction, subscribe, store}) => {
+  boot: ({
+    extensions,
+    use,
+    hooks,
+    isProduction,
+    subscribe,
+    store,
+  }: Framework) => {
     use(features)
-
     hooks.on('build/optimization/minimize', isProduction)
-
     hooks.on('build/optimization/minimizer', () => [
       new ESBuildMinifyPlugin({
         target: subscribe('item/esbuild-js/options/target'),
         exclude: store.get('patterns.modules'),
+        css: true,
       }),
     ])
+
+    extensions.discard('optimize-css-assets-webpack-plugin')
   },
 
   /**

@@ -19,14 +19,14 @@ export {externals} from './externals'
 import './hash'
 export {hash} from './hash'
 
-import './path'
-export {path} from './path'
-
-import './setPath'
-export {setPath} from './setPath'
+import './html'
+export {html} from './html'
 
 import './minimize'
 export {minimize} from './minimize'
+
+import './path'
+export {path} from './path'
 
 import './persist'
 export {persist} from './persist'
@@ -46,17 +46,20 @@ export {run} from './run'
 import './runtime'
 export {runtime} from './runtime'
 
+import './setPath'
+export {setPath} from './setPath'
+
 import './setPublicPath'
 export {setPublicPath} from './setPublicPath'
 
 import './splitChunks'
 export {splitChunks} from './splitChunks'
 
+import './storage'
+export {storage} from './storage'
+
 import './use'
 export {use} from './use'
-
-import './html'
-export {html} from './html'
 
 import './watch'
 export {watch} from './watch'

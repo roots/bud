@@ -38,7 +38,8 @@ interface SetPath {
 
 export const setPath: SetPath = function (...args) {
   if (typeof args[0] == 'string') {
-    this.hooks.on(`location/${args[0]}`, () => args[1])
+    this.hooks.on(`location/${args[0]}`, args[1])
+
     return this
   }
 
@@ -69,7 +70,7 @@ export const setPath: SetPath = function (...args) {
       },
     )
 
-    this.hooks.on(`location/${k}`, () => v)
+    this.hooks.on(`location/${k}`, v)
   })
 
   return this

@@ -1,5 +1,6 @@
 import {Sage} from './interface'
 import {projectInfo} from './util'
+import {posix} from 'path'
 
 import * as babel from '@roots/bud-babel'
 import * as dependencies from '@roots/bud-wordpress-dependencies'
@@ -19,23 +20,16 @@ import * as stylelint from '@roots/bud-stylelint'
  * Sage theme preset
  */
 export const sage: Sage.Preset = sage => {
-  const {env, isProduction} = sage
   const {deps, files} = projectInfo(sage)
 
-  sage
-    /**
-     * Locations
-     */
-    .setPath({
-      storage: env.get('APP_STORAGE') ?? 'storage/bud',
-      src: env.get('APP_SRC') ?? 'resources',
-      dist: env.get('APP_DIST') ?? 'public',
-      publicPath: env.get('APP_PUBLIC_PATH') ?? 'public/',
-    })
+  sage.setPath({
+    storage: sage.env.get('APP_STORAGE') ?? 'storage/bud',
+    src: sage.env.get('APP_SRC') ?? 'resources',
+    dist: sage.env.get('APP_DIST') ?? 'public',
+    publicPath: sage.env.get('APP_PUBLIC_PATH') ?? 'public/',
+  })
 
-    /**
-     * Webpack path Aliases
-     */
+  sage
     .alias({
       '@fonts': sage.path('src', 'fonts'),
       '@images': sage.path('src', 'images'),
@@ -43,19 +37,10 @@ export const sage: Sage.Preset = sage => {
       '@styles': sage.path('src', 'styles'),
     })
 
-    /**
-     * Disable generation of HTML template
-     */
     .html({enabled: false})
 
-    /**
-     * Webpack provide
-     */
     .provide({jquery: ['$', 'jQuery']})
 
-    /**
-     * Conditionally loaded extensions
-     */
     .when(deps.includes('postcss'), ({use}) => use(postcss))
     .when(deps.includes('tailwindcss'), ({use}) => use(tailwind))
     .when(files.includes('.eslintrc.js'), ({use}) => use(eslint))
@@ -77,10 +62,9 @@ export const sage: Sage.Preset = sage => {
      *
      * Losing HMR in dev is not worth the ESBuild advantages.
      * Thus, Sage uses esbuild in production, and babel in development.
-     *
      */
     .when(
-      isProduction,
+      sage.isProduction,
       sage =>
         sage
           .use(esbuild)
@@ -101,21 +85,12 @@ export const sage: Sage.Preset = sage => {
           .devtool(),
     )
 
-    /**
-     * Manifests
-     */
     .use([entrypoints, dependencies, externals, manifests])
 
-  /**
-   * Relativize url imports
-   */
   sage.hooks.on('item/minicss/options/publicPath', () =>
-    sage.disk.path.posix.normalize(
-      sage.disk.path.posix.dirname(
-        sage.disk.path.posix.relative(
-          sage.path('dist'),
-          sage.path('src'),
-        ),
+    posix.normalize(
+      posix.dirname(
+        posix.relative(sage.path('dist'), sage.path('src')),
       ),
     ),
   )

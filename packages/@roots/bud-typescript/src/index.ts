@@ -1,6 +1,6 @@
 import './interface'
 import {Module, Framework} from '@roots/bud-framework'
-
+import {sync} from 'globby'
 /**
  * Enum
  */
@@ -34,7 +34,7 @@ export const boot: Module['boot'] = ({
   store,
   src,
 }: Framework) => {
-  const tsFiles = disk.glob.sync(TS_GLOB, {cwd: src()})
+  const tsFiles = sync(TS_GLOB, {cwd: src()})
   const utilized = tsFiles.length > 0
 
   // If there is no typescript to compile, bounce early.

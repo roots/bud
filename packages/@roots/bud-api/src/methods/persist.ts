@@ -4,18 +4,17 @@ import Webpack from 'webpack'
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## alias  [💁 Fluent]
+     * ## persist  [💁 Fluent]
      *
-     * Register shorthand for resolving modules
-     * using webpack aliases. Useful for
+     * Cache webpack builds. Useful for
      * situations that may otherwise require
      * brittle relative paths.
      *
      * ### Usage
      *
      * ```js
-     * app.alias({
-     *   '@scripts': app.path('src', 'scripts'),
+     * app.persist({
+     *   type: 'memory',
      * })
      * ```
      */
