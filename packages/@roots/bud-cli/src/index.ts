@@ -1,2 +1,4 @@
-export {Base} from './Base'
-export {run} from '@oclif/command'
+import {run} from '@oclif/command'
+import * as flags from './flags'
+
+export {run, flags}

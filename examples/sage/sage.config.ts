@@ -8,4 +8,4 @@ export default (sage: Sage) =>
       customizer: ['**/customizer.{js,css}'],
     })
     .assets(['assets/images'])
-    .persist(false)
+    .persist(false);

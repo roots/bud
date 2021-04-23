@@ -1,7 +1,12 @@
-import {BaseBuild} from '../../Build'
+import {Build} from '../../Build'
 
-export default class Build extends BaseBuild {
+export default class Production extends Build {
   public static description = 'Compile production assets'
   public static examples = [`$ bud build:production`]
+  public static aliases = [
+    'build',
+    'build:production',
+    'production',
+  ]
   public mode: 'development' | 'production' = 'production'
 }

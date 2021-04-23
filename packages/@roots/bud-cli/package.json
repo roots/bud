@@ -43,8 +43,7 @@
       "@oclif/plugin-which",
       "@oclif/plugin-commands",
       "@oclif/plugin-autocomplete",
-      "@oclif/plugin-help",
-      "conf-cli"
+      "@oclif/plugin-help"
     ],
     "topics": {
       "build": {
@@ -56,6 +55,9 @@
       "build:production": {
         "description": "compile project assets"
       }
+    },
+    "hooks": {
+      "app": "./lib/cjs/hooks/app"
     }
   },
   "main": "./lib/cjs/index.js",
