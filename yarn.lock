@@ -2602,6 +2602,7 @@ __metadata:
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     fs-extra: ^9.1.0
+    globby: ^11.0.3
     npm-run-all: ^4.1.5
     rimraf: ^3.0.2
     typescript: ^4.2.4
@@ -3493,6 +3494,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/sage@workspace:packages/@roots/sage"
   dependencies:
+    "@endemolshinegroup/cosmiconfig-typescript-loader": ^3.0.2
     "@oclif/command": ^1.8.0
     "@oclif/config": ^1.17.0
     "@oclif/dev-cli": ^1.26.0
@@ -3526,11 +3528,15 @@ __metadata:
     "@roots/bud-wordpress-manifests": "workspace:*"
     "@roots/container": "workspace:*"
     "@roots/filesystem": "workspace:*"
+    "@types/fs-extra": ^9.0.11
+    "@types/lodash": ^4.14.168
     "@types/node": ^14.14.39
     "@types/rimraf": ^3.0.0
     conf: ^10.0.1
     conf-cli: ^0.1.9
     cosmiconfig: ^7.0.0
+    fs-extra: ^9.1.0
+    lodash: ^4.17.21
     npm-run-all: ^4.1.5
     rimraf: ^3.0.2
     typescript: ^4.2.4
