@@ -1,4 +1,4 @@
-import Webpack, {Chunk, Module} from 'webpack'
+import Webpack from 'webpack'
 import {boundMethod as bind} from 'autobind-decorator'
 
 /**
@@ -113,18 +113,12 @@ export class Plugin {
     chunks: Webpack.Chunk[]
     origins: any[]
   }): string[] {
-    const files = entry.chunks.reduce(
-      (acc: Module[], chunk: Chunk) => {
-        const files = []
-
-        for (const file of chunk.files) {
-          files.push(file)
-        }
-
-        return [...acc, ...files]
-      },
-      [],
-    )
+    const files = []
+    for (const chunk of entry.chunks) {
+      Array.from(chunk.files).map(file => {
+        files.push(file)
+      })
+    }
 
     return files
   }

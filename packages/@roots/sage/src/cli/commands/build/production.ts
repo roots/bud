@@ -1,7 +1,0 @@
-import {BaseBuild} from '../../Build'
-
-export default class Build extends BaseBuild {
-  public static description = 'Compile production assets'
-  public static examples = [`$ sage build:production`]
-  public mode: 'development' | 'production' = 'production'
-}

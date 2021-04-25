@@ -1,4 +1,4 @@
-import {Build} from '../../Build'
+import Build from '../../Build'
 
 export default class Dev extends Build {
   public static description = 'Compile dev assets'

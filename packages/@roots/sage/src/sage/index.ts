@@ -1,6 +1,5 @@
-import {Sage} from './interface'
-import {projectInfo} from './util'
-import {posix} from 'path'
+import {Bud} from '@roots/bud'
+import {Module} from '@roots/bud-framework'
 
 import * as babel from '@roots/bud-babel'
 import * as dependencies from '@roots/bud-wordpress-dependencies'
@@ -16,25 +15,27 @@ import * as tailwind from '@roots/bud-tailwindcss'
 import * as typescript from '@roots/bud-typescript'
 import * as stylelint from '@roots/bud-stylelint'
 
-/**
- * Sage theme preset
- */
-export const sage: Sage.Preset = sage => {
-  const {deps, files} = projectInfo(sage)
+import {projectInfo} from './util'
+import {posix} from 'path'
 
-  sage.setPath({
-    storage: sage.env.get('APP_STORAGE') ?? 'storage/bud',
-    src: sage.env.get('APP_SRC') ?? 'resources',
-    dist: sage.env.get('APP_DIST') ?? 'public',
-    publicPath: sage.env.get('APP_PUBLIC_PATH') ?? 'public/',
+export const name: Module['name'] = '@roots/sage'
+
+export const boot: Module['boot'] = (app: Bud) => {
+  const {deps, files} = projectInfo(app)
+
+  app.setPath({
+    storage: app.env.get('APP_STORAGE') ?? 'storage/bud',
+    src: app.env.get('APP_SRC') ?? 'resources',
+    dist: app.env.get('APP_DIST') ?? 'public',
+    publicPath: app.env.get('APP_PUBLIC_PATH') ?? 'public/',
   })
 
-  sage
+  app
     .alias({
-      '@fonts': sage.path('src', 'fonts'),
-      '@images': sage.path('src', 'images'),
-      '@scripts': sage.path('src', 'scripts'),
-      '@styles': sage.path('src', 'styles'),
+      '@fonts': app.path('src', 'fonts'),
+      '@images': app.path('src', 'images'),
+      '@scripts': app.path('src', 'scripts'),
+      '@styles': app.path('src', 'styles'),
     })
 
     .html({enabled: false})
@@ -61,12 +62,12 @@ export const sage: Sage.Preset = sage => {
      * - [Related](https://medium.com/@dan_abramov/hot-reloading-in-react-1140438583bf)
      *
      * Losing HMR in dev is not worth the ESBuild advantages.
-     * Thus, Sage uses esbuild in production, and babel in development.
+     * Thus, app uses esbuild in production, and babel in development.
      */
     .when(
-      sage.isProduction,
-      sage =>
-        sage
+      app.isProduction,
+      app =>
+        app
           .use(esbuild)
           .esbuild.jsx()
           .minimize()
@@ -74,8 +75,8 @@ export const sage: Sage.Preset = sage => {
           .splitChunks()
           .runtime('single'),
 
-      sage =>
-        sage
+      app =>
+        app
           .use(babel)
           .when(deps.includes('typescript'), ({use}) =>
             use(typescript),
@@ -87,13 +88,11 @@ export const sage: Sage.Preset = sage => {
 
     .use([entrypoints, dependencies, externals, manifests])
 
-  sage.hooks.on('item/minicss/options/publicPath', () =>
+  app.hooks.on('item/minicss/options/publicPath', () =>
     posix.normalize(
       posix.dirname(
-        posix.relative(sage.path('dist'), sage.path('src')),
+        posix.relative(app.path('dist'), app.path('src')),
       ),
     ),
   )
-
-  return sage
 }

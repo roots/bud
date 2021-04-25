@@ -60,19 +60,21 @@ const transformPkgName = pkg =>
 /**
  * Is pkg string a wordpress window var match
  */
-const isProvided: (pkg: string) => boolean = pkg =>
-  pkg.startsWith('@wordpress/') ||
-  ['jquery', 'react', 'react-dom', 'lodash'].includes(pkg)
-
+const isProvided: (pkg: string) => boolean = pkg => {
+  return (
+    pkg.startsWith('@wordpress/') ||
+    ['jquery', 'react', 'react-dom', 'lodash'].includes(pkg)
+  )
+}
 /**
  * Transform pkg string request
  */
-const transform = (pkg: PkgName) =>
-  pkgMap.has(pkg)
+const transform = (pkg: PkgName) => {
+  return pkgMap.has(pkg)
     ? pkgMap.get(pkg)
     : {
         window: ['wp', camelize(transformPkgName(pkg))],
         enqueue: join(['wp', transformPkgName(pkg)], '-'),
       }
-
+}
 export {isProvided, transform}

@@ -1,2 +1,4 @@
-export {sage} from './sage'
-export {Sage} from './sage/interface'
+import './sage/interface'
+import {name, boot} from './sage'
+
+export {name, boot}

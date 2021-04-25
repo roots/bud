@@ -1,8 +1,3 @@
-import OclifCommand from '@oclif/command'
-import {mergeWith} from 'lodash'
+import Base from '@oclif/command'
 
-export abstract class Command extends OclifCommand {
-  public configMerge(...configs: {[key: string]: any}[]) {
-    return configs.reduce((a, c) => mergeWith(a, c), {})
-  }
-}
+export abstract class Command extends Base {}

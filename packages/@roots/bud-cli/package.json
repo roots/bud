@@ -55,9 +55,6 @@
       "build:production": {
         "description": "compile project assets"
       }
-    },
-    "hooks": {
-      "app": "./lib/cjs/hooks/app"
     }
   },
   "main": "./lib/cjs/index.js",
@@ -85,7 +82,6 @@
   "devDependencies": {
     "@oclif/dev-cli": "^1.26.0",
     "@oclif/test": "^1.2.8",
-    "@roots/bud-typings": "workspace:*",
     "@types/fs-extra": "^9.0.11",
     "@types/lodash": "^4.14.168",
     "@types/node": "^14.14.39",
@@ -108,7 +104,6 @@
     "@oclif/plugin-warn-if-update-available": "^1.7.0",
     "@oclif/plugin-which": "^1.0.3",
     "@roots/bud": "workspace:*",
-    "@roots/bud-dashboard": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "conf": "^10.0.1",
     "conf-cli": "^0.1.9",

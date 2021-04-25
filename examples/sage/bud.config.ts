@@ -1,7 +1,6 @@
-import {Sage} from '@roots/sage';
-
-export default (sage: Sage) =>
-  sage
+export default (app) =>
+  app
+    .use(require('@roots/sage'))
     .entry({
       app: ['**/app.{js,css}'],
       editor: ['**/editor.{js,css}'],

@@ -1,18 +1,19 @@
 import {Command} from './Command'
 import * as flags from './flags'
+import {mergeWith} from 'lodash'
+import {App, Bud, services} from '@roots/bud'
 import {cosmiconfig as conf} from 'cosmiconfig'
 import TypeScriptLoader from '@endemolshinegroup/cosmiconfig-typescript-loader'
-import {Bud} from '@roots/bud'
 
-export abstract class Build extends Command {
-  public static app: Bud
+export default class Build extends Command {
+  public app: Bud
 
   public static flags = {
     help: flags.help({char: 'h'}),
-    cache: flags.cache(),
-    ci: flags.ci(),
-    debug: flags.debug(),
-    log: flags.log(),
+    cache: flags.boolean(),
+    ci: flags.boolean(),
+    debug: flags.boolean(),
+    log: flags.boolean(),
     hash: flags.boolean(),
     install: flags.boolean(),
     'locations.project': flags.string(),
@@ -26,15 +27,19 @@ export abstract class Build extends Command {
     'server.proxy.port': flags.string(),
   }
 
-  public abstract mode: 'development' | 'production'
+  public mode: 'development' | 'production'
+
+  public configMerge(...configs: {[key: string]: any}[]) {
+    return configs.reduce((a, c) => mergeWith(a, c), {})
+  }
 
   public async conf() {
-    const res = await conf(Build.app.name, {
+    const res = await conf(this.app.name, {
       searchPlaces: [
-        `.${Build.app.name}rc`,
-        `.${Build.app.name}rc.json`,
-        `.${Build.app.name}rc.yaml`,
-        `.${Build.app.name}rc.yml`,
+        `.${this.app.name}rc`,
+        `.${this.app.name}rc.json`,
+        `.${this.app.name}rc.yaml`,
+        `.${this.app.name}rc.yml`,
       ],
       loaders: {
         '.ts': TypeScriptLoader,
@@ -45,38 +50,36 @@ export abstract class Build extends Command {
   }
 
   public async build() {
-    const res = await conf(Build.app.name, {
+    const res = await conf(this.app.name, {
       searchPlaces: [
-        `${Build.app.name}.config.ts`,
-        `${Build.app.name}.config.js`,
-        `.${Build.app.name}rc.ts`,
-        `.${Build.app.name}rc.js`,
+        `${this.app.name}.config.ts`,
+        `${this.app.name}.config.js`,
+        `.${this.app.name}rc.ts`,
+        `.${this.app.name}rc.js`,
       ],
       loaders: {
         '.ts': TypeScriptLoader,
       },
     }).search()
 
-    return res?.config(Build.app)
+    this.app = res?.config(this.app)
   }
 
   public async run() {
-    this.config.runHook('app', {})
+    const flags = this.parse(Build).flags
+    this.app = new App().bootstrap(services).lifecycle()
 
-    const config = await this.conf()
-    const merged = await this.configMerge(
-      config,
-      this.parse(Build).flags ?? {},
-    )
+    let config = await this.conf()
 
-    Build.app.mode = this.mode
-
+    this.app.mode = this.mode
     await this.build()
 
-    Object.entries(merged).forEach(([k, v]) => {
-      Build.app.store.set(k, v)
-    })
+    Object.entries(this.configMerge(config, flags)).forEach(
+      ([k, v]) => {
+        this.app.store.set(k, v)
+      },
+    )
 
-    Build.app.run()
+    this.app.run()
   }
 }

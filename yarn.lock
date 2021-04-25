@@ -2626,9 +2626,7 @@ __metadata:
     "@oclif/plugin-which": ^1.0.3
     "@oclif/test": ^1.2.8
     "@roots/bud": "workspace:*"
-    "@roots/bud-dashboard": "workspace:*"
     "@roots/bud-framework": "workspace:*"
-    "@roots/bud-typings": "workspace:*"
     "@types/fs-extra": ^9.0.11
     "@types/lodash": ^4.14.168
     "@types/node": ^14.14.39
@@ -3493,18 +3491,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/sage@workspace:packages/@roots/sage"
   dependencies:
-    "@oclif/command": ^1.8.0
-    "@oclif/config": ^1.17.0
-    "@oclif/dev-cli": ^1.26.0
-    "@oclif/errors": ^1.3.4
-    "@oclif/plugin-autocomplete": ^0.3.0
-    "@oclif/plugin-commands": ^1.3.0
-    "@oclif/plugin-help": ^3.2.2
-    "@oclif/plugin-plugins": ^1.10.0
-    "@oclif/plugin-update": ^1.3.10
-    "@oclif/plugin-warn-if-update-available": ^1.7.0
-    "@oclif/plugin-which": ^1.0.3
-    "@oclif/test": ^1.2.8
     "@roots/bud": "workspace:*"
     "@roots/bud-api": "workspace:*"
     "@roots/bud-babel": "workspace:*"
@@ -3526,11 +3512,10 @@ __metadata:
     "@roots/bud-wordpress-manifests": "workspace:*"
     "@roots/container": "workspace:*"
     "@roots/filesystem": "workspace:*"
+    "@types/fs-extra": ^9.0.11
     "@types/node": ^14.14.39
     "@types/rimraf": ^3.0.0
-    conf: ^10.0.1
-    conf-cli: ^0.1.9
-    cosmiconfig: ^7.0.0
+    fs-extra: ^9.1.0
     npm-run-all: ^4.1.5
     rimraf: ^3.0.2
     typescript: ^4.2.4
@@ -9622,6 +9607,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "example-sage@workspace:examples/sage"
   dependencies:
+    "@roots/bud": "workspace:*"
+    "@roots/bud-cli": "workspace:*"
     "@roots/sage": "workspace:*"
     "@tailwindcss/jit": ^0.1.5
     "@tailwindcss/typography": ^0.4.0

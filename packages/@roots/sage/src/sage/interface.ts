@@ -1,4 +1,5 @@
-import type {Bud} from '@roots/bud'
+import {Bud} from '@roots/bud'
+import {Module} from '@roots/bud-framework'
 
 /**
  * Sage theme preset
@@ -32,4 +33,12 @@ export namespace Sage {
    * Returns true if utilized, false if not.
    */
   export type Deps = (deps: string[]) => boolean
+}
+
+declare module '@roots/bud-framework' {
+  namespace Hooks.Extension {
+    interface Definitions {
+      '@roots/sage': Module
+    }
+  }
 }
