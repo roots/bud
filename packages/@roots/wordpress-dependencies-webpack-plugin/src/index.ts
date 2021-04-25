@@ -1,20 +1,19 @@
 import './interface'
 import {resolve, relative} from 'path'
-import Webpack, {sources} from 'webpack'
+import Webpack from 'webpack'
 import {boundMethod as bind} from 'autobind-decorator'
 import {wpPkgs} from '@roots/bud-support'
+import {union} from 'lodash'
 
 interface Manifest {
   name: string
   path: string
-  publicPath: string
   modules: {[key: string]: string[]}
   entrypoints: {[key: string]: string[]}
 }
 
 interface Options {
   fileName: string
-  publicPath: string
 }
 
 /**
@@ -44,7 +43,6 @@ export class Plugin {
   public manifest: Manifest = {
     name: null,
     path: null,
-    publicPath: null,
     modules: {},
     entrypoints: {},
   }
@@ -54,15 +52,12 @@ export class Plugin {
    */
   public options: Options = {
     fileName: null,
-    publicPath: null,
   }
 
   /**
    * Constructor
    */
-  constructor(
-    options = {fileName: 'wordpress.json', publicPath: null},
-  ) {
+  constructor(options = {fileName: 'wordpress.json'}) {
     Object.assign(this.options, options)
   }
 
@@ -104,7 +99,7 @@ export class Plugin {
     this.compilation = compilation
 
     this.compilation.hooks.processAssets.tap(
-      this.plugin,
+      {...this.plugin, additionalAssets: true},
       this.processAssets,
     )
   }
@@ -113,20 +108,19 @@ export class Plugin {
    * compilation => processAssets
    */
   @bind
-  public processAssets(assets: Webpack.Compilation['assets']) {
-    for (const [
-      name,
-      entry,
-    ] of this.compilation.entrypoints.entries()) {
-      this.compilation.chunkGraph
-        .getChunkModules(entry.getEntrypointChunk())
-        .forEach(module => {
-          this.setManifestEntrypoint(name, module)
-        })
-    }
+  public processAssets() {
+    this.compilation.entrypoints.forEach(entry => {
+      this.getEntrypointDeps(entry).map(dep => {
+        this.manifest.entrypoints[entry.name] =
+          union(this.manifest.entrypoints[entry.name], dep) ?? []
+      })
+    })
 
-    assets[this.manifest.name] = new sources.RawSource(
-      JSON.stringify(this.manifest.entrypoints),
+    this.compilation.assets[
+      this.manifest.name
+    ] = new Webpack.sources.RawSource(
+      JSON.stringify({...this.manifest.entrypoints}),
+      true,
     )
   }
 
@@ -139,27 +133,26 @@ export class Plugin {
   }
 
   /**
-   * Set manifest entrypoint
+   * Get merged css modules
    */
   @bind
-  public setManifestEntrypoint(
-    name: string,
-    module: Webpack.Module,
-  ) {
-    this.manifest.entrypoints[name] = [
-      ...this.getModuleDependencies(module),
-      ...this.getEntrypointDependencies(name),
-    ].filter(Boolean)
-  }
+  public getEntrypointDeps(entry: {
+    chunks: Webpack.Chunk[]
+    origins: any[]
+  }): string[] {
+    const deps = []
 
-  @bind
-  public getEntrypointDependencies(name: string) {
-    return this.manifest.entrypoints[name] ?? []
-  }
+    for (const chunk of entry.chunks) {
+      this.compilation.chunkGraph
+        .getChunkModules(chunk)
+        .forEach(module => {
+          deps.push(
+            this.manifest.modules[this.getModuleId(module)],
+          )
+        })
+    }
 
-  @bind
-  public getModuleDependencies(module: Webpack.Module) {
-    return this.manifest.modules[this.getModuleId(module)] ?? []
+    return deps.filter(Boolean)
   }
 
   /**

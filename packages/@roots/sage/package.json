@@ -81,6 +81,8 @@
     "@roots/bud-wordpress-manifests": "workspace:*",
     "@roots/container": "workspace:*",
     "@roots/filesystem": "workspace:*",
-    "fs-extra": "^9.1.0"
+    "cosmiconfig": "^7.0.0",
+    "fs-extra": "^9.1.0",
+    "lodash": "^4.17.21"
   }
 }

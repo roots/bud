@@ -52,11 +52,13 @@
   "dependencies": {
     "@roots/bud-support": "workspace:*",
     "autobind-decorator": "^2.4.0",
+    "lodash": "^4.17.21",
     "node-fetch": "^2.6.1",
     "webpack": "^5.33.2"
   },
   "devDependencies": {
     "@roots/bud-framework": "workspace:*",
+    "@types/lodash": "^4.14.168",
     "@types/node": "^14.14.39",
     "@types/rimraf": "^3.0.0",
     "npm-run-all": "^4.1.5",

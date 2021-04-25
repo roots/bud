@@ -2602,6 +2602,7 @@ __metadata:
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     fs-extra: ^9.1.0
+    globby: ^11.0.3
     npm-run-all: ^4.1.5
     rimraf: ^3.0.2
     typescript: ^4.2.4
@@ -3248,12 +3249,12 @@ __metadata:
   dependencies:
     "@roots/bud": ^3.2.0-next.2
     "@roots/bud-framework": "workspace:*"
-    "@roots/bud-support": "workspace:*"
-    "@roots/bud-typings": "workspace:*"
     "@roots/wordpress-dependencies-webpack-plugin": "workspace:*"
+    "@types/lodash": ^4.14.168
     "@types/node": ^14.14.39
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
+    lodash: ^4.17.21
     npm-run-all: ^4.1.5
     rimraf: ^3.0.2
     typescript: ^4.2.4
@@ -3515,7 +3516,9 @@ __metadata:
     "@types/fs-extra": ^9.0.11
     "@types/node": ^14.14.39
     "@types/rimraf": ^3.0.0
+    cosmiconfig: ^7.0.0
     fs-extra: ^9.1.0
+    lodash: ^4.17.21
     npm-run-all: ^4.1.5
     rimraf: ^3.0.2
     typescript: ^4.2.4
@@ -3530,10 +3533,11 @@ __metadata:
   dependencies:
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-support": "workspace:*"
-    "@roots/bud-typings": "workspace:*"
+    "@types/lodash": ^4.14.168
     "@types/node": ^14.14.39
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
+    lodash: ^4.17.21
     node-fetch: ^2.6.1
     npm-run-all: ^4.1.5
     rimraf: ^3.0.2
@@ -9614,8 +9618,8 @@ __metadata:
     "@tailwindcss/typography": ^0.4.0
     "@wordpress/browserslist-config": ^2.7.0
     postcss: ^8.2.8
-    react: 17.0.1
-    react-dom: 17.0.1
+    react: 17.0.2
+    react-dom: 17.0.2
     tailwindcss: ^2.0.4
     typescript: ^4.2.3
   languageName: unknown
@@ -17997,20 +18001,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react-dom@npm:17.0.1":
-  version: 17.0.1
-  resolution: "react-dom@npm:17.0.1"
-  dependencies:
-    loose-envify: ^1.1.0
-    object-assign: ^4.1.1
-    scheduler: ^0.20.1
-  peerDependencies:
-    react: 17.0.1
-  checksum: df2af300dd4f49a5daaccc38f5a307def2a9ae2b7ebffa3dce8fb9986129057696b86a2c94e5ae36133057c69428c500e4ee3bf5884eb44e5632ace8b7ace41f
-  languageName: node
-  linkType: hard
-
-"react-dom@npm:^17.0.2":
+"react-dom@npm:17.0.2, react-dom@npm:^17.0.2":
   version: 17.0.2
   resolution: "react-dom@npm:17.0.2"
   dependencies:
@@ -18095,17 +18086,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"react@npm:17.0.1":
-  version: 17.0.1
-  resolution: "react@npm:17.0.1"
-  dependencies:
-    loose-envify: ^1.1.0
-    object-assign: ^4.1.1
-  checksum: 83b9df9529a2b489f00a4eaa608fc7d55518b258e046c100344ae068713e43ae64e477a140f87e38cfe75489bcfd26d27fce5818f89f4ec41bdbda7ead4bb426
-  languageName: node
-  linkType: hard
-
-"react@npm:^17.0.2":
+"react@npm:17.0.2, react@npm:^17.0.2":
   version: 17.0.2
   resolution: "react@npm:17.0.2"
   dependencies:
@@ -19053,7 +19034,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"scheduler@npm:^0.20.1, scheduler@npm:^0.20.2":
+"scheduler@npm:^0.20.2":
   version: 0.20.2
   resolution: "scheduler@npm:0.20.2"
   dependencies:

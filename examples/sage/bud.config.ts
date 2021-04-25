@@ -1,4 +1,4 @@
-export default (app) =>
+export default (app) => {
   app
     .use(require('@roots/sage'))
     .entry({
@@ -8,3 +8,6 @@ export default (app) =>
     })
     .assets(['assets/images'])
     .persist(false);
+
+  return app;
+};
