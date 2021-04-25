@@ -49,6 +49,15 @@ export const config = {
   fileFormat: '[name]',
   hashFormat: '[name].[contenthash]',
 
+  build: {
+    optimization: {
+      emitOnErrors: false,
+    },
+    resolve: {
+      extensions: ['.wasm', '.mjs', '.js', '.css', '.json'],
+    },
+  },
+
   /**
    * Extensions
    */

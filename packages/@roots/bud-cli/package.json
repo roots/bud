@@ -105,6 +105,7 @@
     "@oclif/plugin-which": "^1.0.3",
     "@roots/bud": "workspace:*",
     "@roots/bud-framework": "workspace:*",
+    "autobind-decorator": "^2.4.0",
     "conf": "^10.0.1",
     "conf-cli": "^0.1.9",
     "cosmiconfig": "^7.0.0",

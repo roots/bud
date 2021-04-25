@@ -100,7 +100,9 @@ export function config(this: Framework): void {
       Object.values(this.hooks.filter('rule')),
 
     'build/name': () => this.name,
-    'build/optimization/emitOnErrors': false,
+    'build/optimization/emitOnErrors': this.store.get(
+      'build.optimization.emitOnErrors',
+    ),
     'build/optimization/minimize': () => this.isProduction,
     'build/optimization/minimizer': ['...'],
     'build/optimization/moduleIds': 'deterministic',
@@ -120,13 +122,9 @@ export function config(this: Framework): void {
     'build/recordsPath': () =>
       this.path('storage', 'records.json'),
     'build/resolve/alias': {},
-    'build/resolve/extensions': [
-      '.wasm',
-      '.mjs',
-      '.js',
-      '.css',
-      '.json',
-    ],
+    'build/resolve/extensions': this.store.get(
+      'build.resolve.extensions',
+    ),
     'build/resolve/modules': () => [
       this.hooks.filter('location/src'),
       this.hooks.filter('location/modules'),

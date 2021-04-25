@@ -2633,6 +2633,7 @@ __metadata:
     "@types/node": ^14.14.39
     "@types/react": ^17.0.3
     "@types/rimraf": ^3.0.0
+    autobind-decorator: ^2.4.0
     conf: ^10.0.1
     conf-cli: ^0.1.9
     cosmiconfig: ^7.0.0
