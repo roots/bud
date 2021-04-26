@@ -78,12 +78,8 @@ export abstract class Core {
 
     events.forEach(event => {
       this.services.getKeys().forEach(serviceName => {
-        console.log(serviceName, event)
-
         const service = this[serviceName]
-        const guard = service && service[event]
-
-        guard && service[event](this)
+        service && service[event] && service[event](this)
       })
     })
 

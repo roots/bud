@@ -24,9 +24,8 @@ export const Progress: Dashboard.Component = ({
           {progress?.decimal < 1 ? (
             <>
               <Text color={theme.colors.primary}>
-                <Spinner />
-              </Text>{' '}
-              Compiling{' '}
+                <Spinner /> {progress.message ?? ''}
+              </Text>
             </>
           ) : (
             <>
