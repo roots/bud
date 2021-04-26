@@ -35,7 +35,7 @@ const CopyWebpackPluginExtension: CopyWebpackPlugin = {
    * @property api
    */
   api: () => ({
-    assets(jobs) {
+    assets: function (jobs) {
       jobs.map(from => {
         sync(from).map((from: string) => {
           const dirName = from.split('/')[

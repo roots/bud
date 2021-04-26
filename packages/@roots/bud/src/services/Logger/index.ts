@@ -47,11 +47,11 @@ export class Logger implements Contract, Bootstrapper {
    */
   public _options = {
     disabled: true,
-    interactive: false,
-    scope: 'framework',
+    interactive: true,
+    scope: 'bud',
     secrets: [process.cwd()],
     stream: process.stdout,
-    logLevel: 'all',
+    logLevel: 'info',
   }
 
   /**
@@ -101,9 +101,9 @@ export class Logger implements Contract, Bootstrapper {
    * Framework lifecycle: registered
    */
   @bind
-  public registered(app: Framework) {
+  public registered() {
     if (process.argv.includes('--log')) {
-      app.logger.instance.enable()
+      this.app.logger.instance.enable()
     }
   }
 
@@ -112,12 +112,10 @@ export class Logger implements Contract, Bootstrapper {
    */
   @bind
   public makeLogger() {
-    const logger = new Signale({
-      ...this.options,
-    })
-
+    const logger = new Signale(this.options)
     logger.config(this.config)
+    logger.scope('framework')
 
-    return logger.scope('framework')
+    return logger
   }
 }

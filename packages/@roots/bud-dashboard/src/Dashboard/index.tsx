@@ -24,13 +24,6 @@ export class Dashboard extends Base {
   public dashboard: Instance
 
   /**
-   * CI mode getter
-   */
-  public get ci() {
-    return this.app.store.isTrue('ci')
-  }
-
-  /**
    * Register service
    */
   @bind
@@ -57,7 +50,7 @@ export class Dashboard extends Base {
 
     this.info('Initializing dashboard')
 
-    if (this.ci) {
+    if (this.app.store.isTrue('ci')) {
       return
     }
 
@@ -82,7 +75,7 @@ export class Dashboard extends Base {
    */
   @bind
   public render(Component: any): Instance {
-    if (this.ci) return
+    if (this.app.store.isTrue('ci')) return
 
     const Output = () =>
       isString(Component) ? (
