@@ -13,14 +13,6 @@ import {
 import {useCompilation, usePackageJson} from '../../hooks'
 import {Dashboard} from '@roots/bud-framework'
 
-/**
- * @exports Dashboard
- */
-export {Dashboard}
-
-/**
- * Dashboard CLI interface
- */
 const Dashboard: Dashboard.Component = ({bud}) => {
   const compilation = useCompilation(bud)
   const theme = useStyle(bud.store.get('theme'))
@@ -101,3 +93,5 @@ const Dashboard: Dashboard.Component = ({bud}) => {
     </Box>
   )
 }
+
+export {Dashboard}

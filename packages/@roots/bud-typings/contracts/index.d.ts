@@ -7,7 +7,6 @@ import {
   MappedType,
 } from './utility'
 
-import {Build} from './Build'
 import {Cache} from './Cache'
 import {CLI} from './CLI'
 import {Container} from '../../container/src'
@@ -24,7 +23,6 @@ import {Extensions, Extension, Module} from './Extensions'
 declare interface Framework {}
 
 declare namespace Framework {
-  export {Build}
   export {Bootstrapper}
   export {Cache}
   export {CLI}
@@ -54,7 +52,6 @@ declare namespace Framework {
 }
 
 export {Api}
-export {Build}
 export {Bootstrapper}
 export {Cache}
 export {CLI}

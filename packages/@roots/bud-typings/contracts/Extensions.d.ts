@@ -11,13 +11,9 @@ import {Framework, Hooks, MappedType, Service} from './'
  * [🧑‍💻 roots/bud](https://git.io/Jkli3)
  */
 export declare interface Extensions extends Service {
-  add(extension): void
+  add(extension: Module): void
 
   get(name: string): Extension
-
-  set<Extension>(name: string, extension: Extension): this
-
-  use(pkg: string): this
 
   make(): Webpack.WebpackPluginInstance[]
 
@@ -32,7 +28,7 @@ export declare interface Extensions extends Service {
  * [🏡 Project home](https://roots.io/bud)
  * [🧑‍💻 roots/bud](https://git.io/Jkli3)
  */
-export interface Extension extends Framework.Service {
+export interface Extension extends Service {
   /**
    * Module
    */

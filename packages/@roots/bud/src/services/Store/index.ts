@@ -9,19 +9,10 @@ import {config} from '../../config'
  * [🧑‍💻 roots/bud](https://git.io/Jkli3)
  */
 export class Store extends Service implements Contract {
-  /**
-   * Service name
-   */
   public name = 'service/store'
 
-  /**
-   * Service repository
-   */
   public repository = config
 
-  /**
-   * Get
-   */
   public get<T = any>(path: Contract.Keys) {
     return _.get(this.repository, path) as T
   }

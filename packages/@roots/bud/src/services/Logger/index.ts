@@ -84,15 +84,9 @@ export class Logger implements Contract, Bootstrapper {
    * Framework lifecycle: bootstrapped
    */
   @bind
-  public bootstrapped() {
+  public bootstrap() {
     this.instance = this.makeLogger()
-  }
 
-  /**
-   * Framework lifecycle: registered
-   */
-  @bind
-  public registered() {
     if (process.argv.includes('--log')) {
       this.app.logger.instance.enable()
     }

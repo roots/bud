@@ -1,4 +1,4 @@
-import {Module} from '@roots/bud-framework'
+import {Framework, Module} from '@roots/bud-framework'
 import Plugin from 'css-minimizer-webpack-plugin'
 
 declare module '@roots/bud-framework' {
@@ -20,7 +20,10 @@ export const name: Module['name'] =
  *
  * So, the boot event is used instead.
  */
-export const boot: Module['boot'] = ({extensions, hooks}) => {
+export const boot: Module['boot'] = ({
+  extensions,
+  hooks,
+}: Framework) => {
   hooks.on('build/optimization/minimizer', minimizer => {
     return [
       ...(minimizer ?? []),

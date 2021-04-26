@@ -1,5 +1,6 @@
 import type {Babel, Framework} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
+import {isString} from 'lodash'
 import {BaseConfig} from './BaseConfig'
 
 /**
@@ -24,7 +25,7 @@ export class Config extends BaseConfig implements Babel {
   public normalizeEntry(
     c: Babel.Registrable,
   ): Babel.NormalizedPlugin {
-    return this.app.util._.isString(c)
+    return isString(c)
       ? ([c, {}] as Babel.NormalizedPlugin)
       : (c as Babel.NormalizedPlugin)
   }

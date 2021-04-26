@@ -11,7 +11,7 @@ type ModuleKey = `${keyof Module & string}`
  *
  * [🏡 Project home](https://roots.io/bud)
  */
-export default class {
+export default class implements Module {
   /**
    * Accessor stores
    */
@@ -55,7 +55,7 @@ export default class {
    * Register extension
    */
   @bind
-  public register(): this {
+  public register(app: Framework): this {
     if (this.module.register) {
       this.app.access(this.module.register)
       this.app.extensions.log(`Register method found`)
@@ -98,7 +98,7 @@ export default class {
    * Boot extension.
    */
   @bind
-  public boot(): this {
+  public boot(app: Framework): this {
     this.module.boot && this.app.access(this.module.boot)
     this.logger.scope(this.name).success('Extension booted')
 

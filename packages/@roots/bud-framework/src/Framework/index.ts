@@ -1,5 +1,4 @@
 import {
-  Build,
   Cache,
   Dependencies,
   Discovery,
@@ -23,8 +22,6 @@ export abstract class Framework extends Core {
   [key: string]: any
 
   public name = 'bud'
-
-  public abstract build: Build
 
   public abstract cache: Cache
 

@@ -1,6 +1,7 @@
 import {Framework, PostCss} from '@roots/bud-framework'
 import {Signale} from 'signale'
 import {boundMethod as bind} from 'autobind-decorator'
+import {isString} from 'lodash'
 
 /**
  * PostCSS configuration
@@ -92,9 +93,7 @@ export class PostCssConfig implements PostCss {
    */
   @bind
   public set(definition: PostCss.Registrable): this {
-    const [plugin, options] = this.app.util._.isString(
-      definition,
-    )
+    const [plugin, options] = isString(definition)
       ? [definition, definition]
       : definition
 

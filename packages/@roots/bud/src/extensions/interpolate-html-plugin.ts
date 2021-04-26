@@ -1,20 +1,14 @@
 import {Container} from '@roots/container'
 import {Framework, Module} from '@roots/bud-framework'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
+import {HtmlWebpackPlugin} from './html-webpack-plugin'
 import {InterpolateHtmlPlugin} from '@roots/bud-support'
 
-/**
- * Interpolate HTML Plugin options
- */
 declare type Options = (
   app: Framework,
 ) => Module.Options<{
   [key: string]: RegExp
 }>
 
-/**
- * Interpolate HTML Plugin factory
- */
 declare type Make = Module.Make<
   InterpolateHtmlPlugin,
   Container<
@@ -32,17 +26,26 @@ export const name = 'interpolate-html-plugin'
 /**
  * Options
  */
-export const options: Options = app => ({
-  ...Object.fromEntries(
+export const options: Options = app => {
+  const env = Object.fromEntries(
     app.env
       .getEntries()
       .filter(([k]) => k.includes('APP_')) as Array<
       [string, RegExp]
     >,
-  ),
-  ...(app.store.get('extension.interpolateHtmlPlugin.replace') ??
-    {}),
-})
+  )
+
+  const store =
+    app.store.get('extension.interpolateHtmlPlugin.replace') ??
+    {}
+
+  console.log(app.env.all(), env, store)
+
+  return {
+    ...env,
+    ...store,
+  }
+}
 
 /**
  * Make
@@ -54,6 +57,6 @@ export const make: Make = options =>
  * When
  */
 export const when: Module.When = (
-  {store}: Framework,
+  _app: Framework,
   options: Module.Options,
-) => store.isTrue('html') && options.getEntries().length > 0
+) => options.getEntries().length > 0

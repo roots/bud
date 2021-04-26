@@ -59,7 +59,7 @@ export function config(this: Framework): void {
     ])
 
   this.hooks
-    .on('build/bail', false)
+    .on('build/bail', true)
     .hooks.on(
       'build/cache/name',
       () => `${this.name}-${this.cache.version}`,
@@ -84,7 +84,7 @@ export function config(this: Framework): void {
     .hooks.on('build/devtool', false)
     // .hooks.on('build/entry', {})
     // .hooks.on('build/externals', {})
-    .hooks.on('build/mode', this.mode)
+    .hooks.on('build/mode', () => this.mode)
     .hooks.on('build/module/rules', () => [
       {
         parser: this.hooks.filter('build/module/rules/parser'),

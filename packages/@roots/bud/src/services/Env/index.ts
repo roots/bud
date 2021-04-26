@@ -33,7 +33,7 @@ export class Env extends Service {
    * Lifecycle: all services registered
    */
   @bind
-  public registered() {
+  public bootstrap() {
     this.setStore(this.getParsedEnv())
   }
 }

@@ -1,2 +1,2 @@
-import Build from './Build'
-export {Build}
+import './interface'
+export {Build} from './Build'

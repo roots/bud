@@ -13,7 +13,7 @@ export class Api extends Service {
   public name = '@roots/bud-api'
 
   @bind
-  public register() {
+  public bootstrap() {
     Object.assign(
       this.app,
       Object.entries(api).reduce(this.bindMethod, {}),

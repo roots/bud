@@ -19,14 +19,11 @@ import {Hooks} from './services/Hooks'
 import {Logger} from './services/Logger'
 import {Server} from './services/Server'
 import {Store} from './services/Store'
-import {Util} from './services/Util'
 
 /**
  * Bud
  */
 export class Bud extends Framework {
-  public build: Build
-
   public cache: Cache
 
   public compiler: Compiler
@@ -48,8 +45,6 @@ export class Bud extends Framework {
   public server: Server
 
   public store: Store
-
-  public util: Util
 }
 
 /**
@@ -60,7 +55,6 @@ export const services: {
     | Service
     | Bootstrapper
 } = {
-  util: Util,
   api: Api,
   store: Store,
   logger: Logger,

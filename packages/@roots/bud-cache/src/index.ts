@@ -1,6 +1,6 @@
 import Service from './Service'
 import crypto from 'crypto'
-import {readFileSync} from 'fs-extra'
+import {readFileSync, mkdirSync, pathExistsSync} from 'fs-extra'
 import {boundMethod as bind} from 'autobind-decorator'
 import {sync} from 'globby'
 
@@ -10,10 +10,13 @@ import {sync} from 'globby'
  * Cache utlity for Webpack modules.
  */
 export class Cache extends Service {
-  /**
-   * Service name
-   */
   public name = '@roots/bud-cache'
+
+  public booted() {
+    this.enabled() &&
+      !pathExistsSync(this.app.storage()) &&
+      mkdirSync(this.app.storage())
+  }
 
   /**
    * ## bud.cache.enabled
@@ -30,7 +33,10 @@ export class Cache extends Service {
    */
   @bind
   public enabled(): boolean {
-    return this.app.store.isTrue('cache')
+    return (
+      this.app.store.isTrue('cache') &&
+      this.app.hooks.filter('build/cache/type') === 'filesystem'
+    )
   }
 
   /**

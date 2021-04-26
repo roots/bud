@@ -31,3 +31,8 @@ export const make = options =>
  * Conditions
  */
 export const when = ({store}) => store.isTrue('html')
+
+/**
+ * For interpolate-html-webpack-plugin
+ */
+export {HtmlWebpackPlugin}

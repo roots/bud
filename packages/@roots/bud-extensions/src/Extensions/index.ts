@@ -13,7 +13,7 @@ import Service from './Service'
  * [🏡 Project home](https://roots.io/bud)
  * [🧑‍💻 roots/bud](https://github.com/roots/bud/blob/stable/README.md)
  */
-export default class extends Service {
+export class Extensions extends Service {
   /**
    * Service ident.
    */
@@ -23,10 +23,38 @@ export default class extends Service {
    * Service boot
    */
   @bind
+  public register(): void {
+    this.every((name: string, extension: Module) => {
+      return this.registerExtension(extension)
+    })
+  }
+
+  /**
+   * Service boot
+   */
+  @bind
   public boot(): void {
     this.every((name: string, extension: Module) => {
-      return this.add(extension)
+      return this.bootExtension(extension)
     })
+  }
+
+  @bind
+  public registerExtension(extension: Module): void {
+    this.log(`Registering extension: %s`, extension.name)
+    this.set(
+      extension.name,
+      new Extension(this.app, extension).register(this.app),
+    )
+  }
+
+  @bind
+  public bootExtension(extension: Module): void {
+    this.log(`Booting extension: %s`, extension.name)
+    this.set(
+      extension.name,
+      this.get(extension.name).boot(this.app),
+    )
   }
 
   /**
@@ -35,11 +63,8 @@ export default class extends Service {
   @bind
   public add(extension: Module): void {
     this.log(`Adding extension: %s`, extension.name)
-
-    this.set(
-      extension.name,
-      new Extension(this.app, extension).register().boot(),
-    )
+    this.registerExtension(extension)
+    this.bootExtension(extension)
   }
 
   /**
@@ -49,6 +74,8 @@ export default class extends Service {
    */
   @bind
   public make(): Webpack.WebpackPluginInstance[] {
+    this.log(`Building extensions: %s`, this.getKeys())
+
     const plugins = this.getKeys()
       .map(name => this.get(name).make)
       .filter(
@@ -56,22 +83,6 @@ export default class extends Service {
       ) as Webpack.WebpackPluginInstance[]
 
     return plugins
-  }
-
-  /**
-   * Register an extension from a pkg name
-   */
-  @bind
-  public use(pkg: string): this {
-    const path = require.resolve(pkg)
-
-    this.app.disk.make(pkg, {
-      baseDir: path,
-    })
-
-    this.add(require(path))
-
-    return this
   }
 
   /**
