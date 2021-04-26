@@ -26,7 +26,6 @@ export default class Build extends Command {
     this.app.mode = this.mode
 
     await new Config(this.app, [
-      `.${this.app.name}`,
       `.${this.app.name}.json`,
       `.${this.app.name}.yaml`,
       `.${this.app.name}.yml`,

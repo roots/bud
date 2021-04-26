@@ -34,7 +34,6 @@ export class Service extends Container {
    */
   public constructor(app: Framework['get']) {
     super()
-
     this._app = app
   }
 

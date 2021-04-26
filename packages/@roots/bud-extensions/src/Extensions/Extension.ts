@@ -230,7 +230,7 @@ export default class {
    */
   public get make() {
     if (this.when == false) {
-      this.logger.log({
+      this.logger.debug({
         message: `not set for inclusion. skipping.`,
         affix: this.when,
       })

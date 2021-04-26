@@ -3,8 +3,8 @@ import {
   Bootstrapper,
   Framework,
 } from '@roots/bud-framework'
+import {Signale, SignaleConfig} from 'signale'
 import {boundMethod as bind} from 'autobind-decorator'
-import {Signale, SignaleConfig, SignaleOptions} from 'signale'
 
 /**
  * Logger service
@@ -45,13 +45,11 @@ export class Logger implements Contract, Bootstrapper {
   /**
    * Options
    */
-  public _options = {
+  public options = {
     disabled: true,
-    interactive: true,
-    scope: 'bud',
+    interactive: false,
     secrets: [process.cwd()],
     stream: process.stdout,
-    logLevel: 'info',
   }
 
   /**
@@ -66,13 +64,6 @@ export class Logger implements Contract, Bootstrapper {
    */
   public set instance(instance) {
     this._instance = instance
-  }
-
-  /**
-   * Logger options
-   */
-  public get options(): SignaleOptions<'remind'> {
-    return this._options
   }
 
   /**

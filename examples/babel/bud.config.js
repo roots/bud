@@ -10,6 +10,7 @@ module.exports = bud =>
     .use(require('@roots/bud-babel'))
     .html({enabled: true})
     .entry({
-      'scripts/app': '*.js',
-      'styles/app': '*.css',
+      scripts: '*.js',
+      styles: '*.css',
     })
+    .persist({type: 'memory'})

@@ -27,7 +27,7 @@ export const config = {
     modules: 'node_modules',
     publicPath: '/',
     records: 'records.json',
-    storage: '.bud',
+    storage: '.budfiles',
   },
 
   /**

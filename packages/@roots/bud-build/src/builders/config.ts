@@ -79,20 +79,20 @@ export function config(this: Framework): void {
       ],
     }))
     .hooks.on('build/node', false)
-
-  this.publish({
-    'build/context': () => this.path('project'),
-    'build/devServer': undefined,
-    'build/devtool': false,
-    'build/entry': {},
-    'build/externals': {},
-    'build/mode': () => this.mode,
-    'build/module/rules': () => [
+    .hooks.on('build/context', () => this.path('project'))
+    .hooks.on('build/devServer', undefined)
+    .hooks.on('build/devtool', false)
+    // .hooks.on('build/entry', {})
+    // .hooks.on('build/externals', {})
+    .hooks.on('build/mode', this.mode)
+    .hooks.on('build/module/rules', () => [
       {
         parser: this.hooks.filter('build/module/rules/parser'),
         oneOf: this.hooks.filter('build/module/rules/oneOf'),
       },
-    ],
+    ])
+
+  this.publish({
     'build/module/rules/parser': {
       requireEnsure: false,
     },

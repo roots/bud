@@ -43,7 +43,7 @@ export class Cache extends Service {
     const conf =
       JSON.stringify(
         sync(
-          this.app.path('project', `${this.app.name}*`),
+          this.app.path('project', `\.?${this.app.name}*`),
         ).reduce(
           (a: string, c: string) =>
             `${a}${readFileSync(c, 'utf8')}`,

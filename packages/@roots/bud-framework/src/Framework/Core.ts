@@ -16,18 +16,10 @@ export abstract class Core {
 
   protected _mode: 'production' | 'development'
 
-  public abstract log(args: any): unknown
-
-  /**
-   * Get services
-   */
   public get services(): Container<Service> {
     return this._services
   }
 
-  /**
-   * Set services
-   */
   public set services(services: Container<Service>) {
     this._services = services
   }
@@ -40,22 +32,18 @@ export abstract class Core {
     this._mode = mode
   }
 
-  /**
-   * Production check
-   */
   public get isProduction(): boolean {
     return this.mode === 'production'
   }
 
-  /**
-   * Dev check
-   */
   public get isDevelopment(): boolean {
     return this.mode === 'development'
   }
 
   /**
    * Bootstrap
+   *
+   * Bind services to the Framework
    */
   @bind
   public bootstrap(
@@ -74,26 +62,30 @@ export abstract class Core {
 
   /**
    * Lifecycle
+   *
+   * Run lifecycle events across all containers.
    */
   @bind
   public lifecycle() {
-    ;[
+    const events = [
       'bootstrap',
       'bootstrapped',
       'register',
       'registered',
       'boot',
       'booted',
-    ].forEach(event =>
-      this.services
-        .getKeys()
-        .map(
-          key =>
-            this[key] &&
-            this[key][event] &&
-            this[key][event](this),
-        ),
-    )
+    ]
+
+    events.forEach(event => {
+      this.services.getKeys().forEach(serviceName => {
+        console.log(serviceName, event)
+
+        const service = this[serviceName]
+        const guard = service && service[event]
+
+        guard && service[event](this)
+      })
+    })
 
     return this
   }
@@ -110,7 +102,6 @@ export abstract class Core {
    * container.get('data') // => 'stuff'
    * ```
    */
-  @bind
   public container(
     repository?: Container['repository'],
   ): Container {
@@ -118,7 +109,7 @@ export abstract class Core {
   }
 
   /**
-   * Get framework.
+   * Get framework or a service
    */
   @bind
   public get<I = Service>(
@@ -128,7 +119,7 @@ export abstract class Core {
   }
 
   /**
-   * Instance getter
+   * Get framework instance.
    */
   @bind
   public getInstance(key: string): Framework {
@@ -136,7 +127,7 @@ export abstract class Core {
   }
 
   /**
-   * Instance setter
+   * Set framework instance.
    */
   @bind
   public setInstance(key: string, app: Framework) {
