@@ -16,8 +16,8 @@
     "noEmitOnError": true,
     "sourceMap": true,
     "skipLibCheck": true,
-    "target": "es2015",
-    "strict": false
+    "strict": false,
+    "target": "ES2015",
   },
   "base": "packages",
   "references": [

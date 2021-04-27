@@ -1,3 +1,5 @@
+import {cpus} from 'os'
+
 export const config = {
   /**
    * RegExp
@@ -53,6 +55,7 @@ export const config = {
     optimization: {
       emitOnErrors: false,
     },
+    parallelism: cpus().length - 1,
     resolve: {
       extensions: ['.wasm', '.mjs', '.js', '.css', '.json'],
     },

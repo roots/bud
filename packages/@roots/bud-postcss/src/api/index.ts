@@ -32,7 +32,9 @@ export class PostCssConfig implements PostCss {
    */
   public constructor({app}: {app: Framework}) {
     this.app = app
-    this.logger = app.logger.instance.scope('@roots/bud-postcss')
+    this.logger = this.app.logger.instance.scope(
+      '@roots/bud-postcss',
+    )
 
     this.set = this.set.bind(this)
     this.unset = this.unset.bind(this)
@@ -94,10 +96,10 @@ export class PostCssConfig implements PostCss {
   @bind
   public set(definition: PostCss.Registrable): this {
     const [plugin, options] = isString(definition)
-      ? [definition, definition]
+      ? [definition, undefined]
       : definition
 
-    this.logger.log(`Setting plugin: ${plugin}`)
+    this.logger.debug(`Setting plugin: ${plugin}`)
 
     // Merge plugin
     this.plugins = {...this.plugins, [plugin]: options}
@@ -113,7 +115,7 @@ export class PostCssConfig implements PostCss {
    */
   @bind
   public unset(plugin: string) {
-    this.logger.log(`Removing ${plugin}`)
+    this.logger.debug(`Removing ${plugin}`)
 
     // Remove plugin
     delete this.plugins[plugin]
@@ -129,8 +131,7 @@ export class PostCssConfig implements PostCss {
    */
   @bind
   public setOptions(plugin: string, options: any): this {
-    this.logger.log(`Setting ${plugin} options`)
-
+    this.logger.debug(`Setting ${plugin} options`)
     this.plugins[plugin] = options
 
     return this
@@ -141,7 +142,7 @@ export class PostCssConfig implements PostCss {
    */
   @bind
   public setOrder(plugins: string[]): this {
-    this.logger.log(
+    this.logger.debug(
       `Ordering postcss plugins: ${plugins.join()}`,
     )
 
@@ -158,6 +159,16 @@ export class PostCssConfig implements PostCss {
    */
   @bind
   public makeConfig(): any {
-    return this.order.map(key => require(key)(this.plugins[key]))
+    return this.order.map(key => {
+      const pkg = require.resolve(key)
+      pkg
+        ? this.logger.debug(`Resolved ${key} to ${pkg}`)
+        : this.app.dashboard.error(
+            `Can't resolve ${key}`,
+            '@roots/bud-postcss',
+          )
+
+      return require(pkg)(this.plugins[key])
+    })
   }
 }

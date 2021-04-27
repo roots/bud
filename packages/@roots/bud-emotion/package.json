@@ -53,11 +53,11 @@
     "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
   },
   "devDependencies": {
-    "@babel/core": "^7.13.15",
+    "@babel/core": "^7.13.16",
     "@babel/preset-react": "^7.13.13",
     "@roots/bud-babel": "workspace:*",
     "@roots/bud-react": "^3.2.0-next.2",
-    "@types/node": "^14.14.39",
+    "@types/node": "^15.0.0",
     "@types/rimraf": "^3.0.0",
     "npm-run-all": "^4.1.5",
     "react": "^17.0.2",
@@ -70,6 +70,7 @@
     "@emotion/react": "^11.1.5",
     "@emotion/styled": "^11.3.0",
     "@roots/bud-framework": "workspace:*",
+    "@skypack/package-check": "^0.2.2",
     "autobind-decorator": "^2.4.0"
   }
 }

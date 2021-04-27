@@ -54,7 +54,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@babel/core@npm:7.13.15, @babel/core@npm:>=7.9.0, @babel/core@npm:^7.1.0, @babel/core@npm:^7.12.3, @babel/core@npm:^7.13.15, @babel/core@npm:^7.7.5":
+"@babel/core@npm:7.13.15, @babel/core@npm:>=7.9.0, @babel/core@npm:^7.1.0, @babel/core@npm:^7.12.3, @babel/core@npm:^7.7.5":
   version: 7.13.15
   resolution: "@babel/core@npm:7.13.15"
   dependencies:
@@ -77,6 +77,29 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/core@npm:7.13.16, @babel/core@npm:^7.13.16":
+  version: 7.13.16
+  resolution: "@babel/core@npm:7.13.16"
+  dependencies:
+    "@babel/code-frame": ^7.12.13
+    "@babel/generator": ^7.13.16
+    "@babel/helper-compilation-targets": ^7.13.16
+    "@babel/helper-module-transforms": ^7.13.14
+    "@babel/helpers": ^7.13.16
+    "@babel/parser": ^7.13.16
+    "@babel/template": ^7.12.13
+    "@babel/traverse": ^7.13.15
+    "@babel/types": ^7.13.16
+    convert-source-map: ^1.7.0
+    debug: ^4.1.0
+    gensync: ^1.0.0-beta.2
+    json5: ^2.1.2
+    semver: ^6.3.0
+    source-map: ^0.5.0
+  checksum: bb311e7acb4cfd9c4b0acceaf084824f895cd32124143147ca5a7febf597f5205dd7574e6ee19cc3de90b0b92b953dc50f5c344d4c7b2013ca33a68893841248
+  languageName: node
+  linkType: hard
+
 "@babel/generator@npm:^7.12.5, @babel/generator@npm:^7.13.9":
   version: 7.13.9
   resolution: "@babel/generator@npm:7.13.9"
@@ -85,6 +108,17 @@ __metadata:
     jsesc: ^2.5.1
     source-map: ^0.5.0
   checksum: 1b0e9fa1b5ea6656f0abeeedc99ff7bffa455d7bf118f4d17a75d80c439206b4ba3e1071c104b486b7447689512969286cbde505e6169ab38cf437e13ca54225
+  languageName: node
+  linkType: hard
+
+"@babel/generator@npm:^7.13.16":
+  version: 7.13.16
+  resolution: "@babel/generator@npm:7.13.16"
+  dependencies:
+    "@babel/types": ^7.13.16
+    jsesc: ^2.5.1
+    source-map: ^0.5.0
+  checksum: 6aa65912b9efd8e867b91f35edd75789228995f298c2501ff6e844e38c894995861c9746bc6b9e3fd184bf3b74ec5c6b4e753135ad793a4b04cb1f8dc33e2122
   languageName: node
   linkType: hard
 
@@ -118,6 +152,20 @@ __metadata:
   peerDependencies:
     "@babel/core": ^7.0.0
   checksum: 5448567b1170827a4d16f362f506a1b44321d2fe7cf7f69285ab22c45289bd0e9d3e277b009b270457217d745df8734236016affcaff18d0c832048c45f6377a
+  languageName: node
+  linkType: hard
+
+"@babel/helper-compilation-targets@npm:^7.13.16":
+  version: 7.13.16
+  resolution: "@babel/helper-compilation-targets@npm:7.13.16"
+  dependencies:
+    "@babel/compat-data": ^7.13.15
+    "@babel/helper-validator-option": ^7.12.17
+    browserslist: ^4.14.5
+    semver: ^6.3.0
+  peerDependencies:
+    "@babel/core": ^7.0.0
+  checksum: 08c8fcd99808c07a357910ab0933a60a5269ee628f24e5fbfad6394646e5d38294e33835659b8556cde09a2a3afecf1235d9381cff4b433ad77cca7230502ce3
   languageName: node
   linkType: hard
 
@@ -349,6 +397,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/helpers@npm:^7.13.16":
+  version: 7.13.17
+  resolution: "@babel/helpers@npm:7.13.17"
+  dependencies:
+    "@babel/template": ^7.12.13
+    "@babel/traverse": ^7.13.17
+    "@babel/types": ^7.13.17
+  checksum: 825fee47344a08b83b25c167bbd5cc4b1b87068a61ab013c7f091f78394c41095981af424cb6c5d22f7ea7fc4f4c11c3137a8602ef9f8bb76da74f15aa22235c
+  languageName: node
+  linkType: hard
+
 "@babel/highlight@npm:^7.10.4, @babel/highlight@npm:^7.12.13":
   version: 7.13.10
   resolution: "@babel/highlight@npm:7.13.10"
@@ -366,6 +425,15 @@ __metadata:
   bin:
     parser: ./bin/babel-parser.js
   checksum: 3e97fb0e3e7a007d96b0245d6b7da7c38fd041a502f8127d78acc4939f1fa0243eb76f2263c7ccad7a0f909e53216fe71b846c8ed791b5dea6416d174013e2ad
+  languageName: node
+  linkType: hard
+
+"@babel/parser@npm:^7.13.16":
+  version: 7.13.16
+  resolution: "@babel/parser@npm:7.13.16"
+  bin:
+    parser: ./bin/babel-parser.js
+  checksum: 5dd35906ab96073535e56ddc17354e383bff0a3dd7676d8ce7a2e9200f787f0dc7ebb5404bc59d84aa77bc9c1f138518c63cb82414193c43b81df51bf4fefb83
   languageName: node
   linkType: hard
 
@@ -1340,6 +1408,22 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@babel/traverse@npm:^7.13.17":
+  version: 7.13.17
+  resolution: "@babel/traverse@npm:7.13.17"
+  dependencies:
+    "@babel/code-frame": ^7.12.13
+    "@babel/generator": ^7.13.16
+    "@babel/helper-function-name": ^7.12.13
+    "@babel/helper-split-export-declaration": ^7.12.13
+    "@babel/parser": ^7.13.16
+    "@babel/types": ^7.13.17
+    debug: ^4.1.0
+    globals: ^11.1.0
+  checksum: beed02a48bb674484c63e3eda1b487943ef738773d13627781b5d729fe72747a9cc45400a052a0371b5c89b70829fe535d99cdc0f201a100c7e6e4286a861e5e
+  languageName: node
+  linkType: hard
+
 "@babel/types@npm:^7.0.0, @babel/types@npm:^7.12.1, @babel/types@npm:^7.12.13, @babel/types@npm:^7.12.6, @babel/types@npm:^7.12.7, @babel/types@npm:^7.13.0, @babel/types@npm:^7.13.12, @babel/types@npm:^7.13.14, @babel/types@npm:^7.3.0, @babel/types@npm:^7.3.3, @babel/types@npm:^7.4.4, @babel/types@npm:^7.7.0, @babel/types@npm:^7.8.3":
   version: 7.13.14
   resolution: "@babel/types@npm:7.13.14"
@@ -1348,6 +1432,16 @@ __metadata:
     lodash: ^4.17.19
     to-fast-properties: ^2.0.0
   checksum: ba3d0415572de602e7cfdfb64cd541c1391cefccdcbdb226eb5a4c2d06a9cdb86defc7789bc19d45cae38580b04a5ddef6a9db67284c398af30217fe489fe802
+  languageName: node
+  linkType: hard
+
+"@babel/types@npm:^7.13.16, @babel/types@npm:^7.13.17":
+  version: 7.13.17
+  resolution: "@babel/types@npm:7.13.17"
+  dependencies:
+    "@babel/helper-validator-identifier": ^7.12.11
+    to-fast-properties: ^2.0.0
+  checksum: 985ea4639aae263c12837c79f86866a7ac35a2e355fe7dd9d1a16f0492ffa7705acd5cbf8b881feca7f17816b8cff5cb3964f064077e8e8b939c4478fc78d896
   languageName: node
   linkType: hard
 
@@ -2327,6 +2421,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@popperjs/core@npm:2.6.0":
+  version: 2.6.0
+  resolution: "@popperjs/core@npm:2.6.0"
+  checksum: 87a12a57892412f40476dcf2eb158a17ba267266a6f04e7b8cc1bcfd3ea1e2e8e4c6b6d9a991b62c1075454b2800decd380a39e401f9db89ef5f0c19e5ab354d
+  languageName: node
+  linkType: hard
+
 "@roots/bud-api@workspace:*, @roots/bud-api@workspace:packages/@roots/bud-api":
   version: 0.0.0-use.local
   resolution: "@roots/bud-api@workspace:packages/@roots/bud-api"
@@ -2335,14 +2436,15 @@ __metadata:
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-terser": "workspace:*"
     "@roots/bud-typings": "workspace:packages/@roots/bud-typings"
+    "@skypack/package-check": ^0.2.2
     "@types/lodash": ^4.14.168
-    "@types/node": ^14.14.39
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
-    chalk: ^4.1.0
+    chalk: ^4.1.1
     globby: ^11.0.3
     lodash: ^4.17.21
-    webpack: ^5.33.2
+    webpack: ^5.36.0
   languageName: unknown
   linkType: soft
 
@@ -2350,15 +2452,16 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-babel@workspace:packages/@roots/bud-babel"
   dependencies:
-    "@babel/core": ^7.13.15
+    "@babel/core": ^7.13.16
     "@babel/plugin-proposal-object-rest-spread": ^7.13.8
     "@babel/plugin-syntax-dynamic-import": ^7.8.3
     "@babel/plugin-transform-runtime": ^7.13.15
     "@babel/preset-env": ^7.13.15
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-support": "workspace:*"
+    "@skypack/package-check": ^0.2.2
     "@types/lodash": ^4.14.168
-    "@types/node": ^14.14.39
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     babel-loader: ^8.2.2
@@ -2367,7 +2470,7 @@ __metadata:
     npm-run-all: ^4.1.5
     rimraf: ^3.0.2
     typescript: ^4.2.4
-    webpack: ^5.33.2
+    webpack: ^5.36.0
   languageName: unknown
   linkType: soft
 
@@ -2376,13 +2479,14 @@ __metadata:
   resolution: "@roots/bud-build@workspace:packages/@roots/bud-build"
   dependencies:
     "@roots/bud-framework": "workspace:*"
-    "@types/mini-css-extract-plugin": ^1.4.1
-    "@types/node": ^14.14.39
+    "@skypack/package-check": ^0.2.2
+    "@types/mini-css-extract-plugin": ^1.4.2
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
-    css-loader: ^5.2.1
+    css-loader: ^5.2.4
     file-loader: ^6.2.0
-    mini-css-extract-plugin: ^1.4.1
+    mini-css-extract-plugin: ^1.5.0
     mini-svg-data-uri: ^1.2.3
     npm-run-all: ^4.1.5
     raw-loader: ^4.0.2
@@ -2391,7 +2495,7 @@ __metadata:
     style-loader: ^2.0.0
     typescript: ^4.2.4
     url-loader: ^4.1.1
-    webpack: ^5.33.2
+    webpack: ^5.36.0
   languageName: unknown
   linkType: soft
 
@@ -2400,8 +2504,9 @@ __metadata:
   resolution: "@roots/bud-cache@workspace:packages/@roots/bud-cache"
   dependencies:
     "@roots/bud-framework": "workspace:*"
+    "@skypack/package-check": ^0.2.2
     "@types/fs-extra": ^9.0.11
-    "@types/node": ^14.14.39
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     fs-extra: ^9.1.0
@@ -2430,11 +2535,11 @@ __metadata:
     "@oclif/plugin-which": ^1.0.3
     "@oclif/test": ^1.2.8
     "@roots/bud": "workspace:*"
-    "@roots/bud-framework": "workspace:*"
+    "@skypack/package-check": ^0.2.2
     "@types/fs-extra": ^9.0.11
     "@types/lodash": ^4.14.168
-    "@types/node": ^14.14.39
-    "@types/react": ^17.0.3
+    "@types/node": ^15.0.0
+    "@types/react": ^17.0.4
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     conf: ^10.0.1
@@ -2458,15 +2563,16 @@ __metadata:
   dependencies:
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-support": "workspace:*"
+    "@skypack/package-check": ^0.2.2
     "@types/lodash": ^4.14.168
-    "@types/node": ^14.14.39
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     lodash: ^4.17.21
     npm-run-all: ^4.1.5
     rimraf: ^3.0.2
     typescript: ^4.2.4
-    webpack: ^5.33.2
+    webpack: ^5.36.0
   languageName: unknown
   linkType: soft
 
@@ -2476,14 +2582,15 @@ __metadata:
   dependencies:
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-typings": "workspace:*"
-    "@types/node": ^14.14.39
+    "@skypack/package-check": ^0.2.2
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     compression-webpack-plugin: 7.1.2
     npm-run-all: ^4.1.5
     rimraf: ^3.0.2
     typescript: ^4.2.4
-    webpack: ^5.33.2
+    webpack: ^5.36.0
   languageName: unknown
   linkType: soft
 
@@ -2495,7 +2602,8 @@ __metadata:
     "@roots/bud-support": "workspace:*"
     "@roots/bud-typings": "workspace:*"
     "@roots/critical-css-webpack-plugin": "workspace:*"
-    "@types/node": ^14.14.39
+    "@skypack/package-check": ^0.2.2
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     npm-run-all: ^4.1.5
@@ -2512,9 +2620,10 @@ __metadata:
     "@roots/bud-framework": "workspace:*"
     "@roots/filesystem": "workspace:*"
     "@roots/ink-use-style": "workspace:*"
+    "@skypack/package-check": ^0.2.2
     "@types/lodash": ^4.14.168
-    "@types/node": ^14.14.39
-    "@types/react": ^17.0.3
+    "@types/node": ^15.0.0
+    "@types/react": ^17.0.4
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     axios: ^0.21.1
@@ -2528,7 +2637,7 @@ __metadata:
     react: ^17.0.2
     rimraf: ^3.0.2
     typescript: ^4.2.4
-    webpack: ^5.33.2
+    webpack: ^5.36.0
   languageName: unknown
   linkType: soft
 
@@ -2536,7 +2645,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-emotion@workspace:packages/@roots/bud-emotion"
   dependencies:
-    "@babel/core": ^7.13.15
+    "@babel/core": ^7.13.16
     "@babel/preset-react": ^7.13.13
     "@emotion/css": ^11.1.3
     "@emotion/react": ^11.1.5
@@ -2544,7 +2653,8 @@ __metadata:
     "@roots/bud-babel": "workspace:*"
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-react": ^3.2.0-next.2
-    "@types/node": ^14.14.39
+    "@skypack/package-check": ^0.2.2
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     npm-run-all: ^4.1.5
@@ -2561,7 +2671,8 @@ __metadata:
   dependencies:
     "@roots/bud-framework": "workspace:*"
     "@roots/entrypoints-webpack-plugin": "workspace:*"
-    "@types/node": ^14.14.39
+    "@skypack/package-check": ^0.2.2
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     npm-run-all: ^4.1.5
@@ -2575,16 +2686,17 @@ __metadata:
   resolution: "@roots/bud-esbuild@workspace:packages/@roots/bud-esbuild"
   dependencies:
     "@roots/bud-framework": "workspace:*"
+    "@skypack/package-check": ^0.2.2
     "@types/lodash": ^4.14.168
-    "@types/node": ^14.14.39
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
-    esbuild-loader: ^2.11.1
+    esbuild-loader: ^2.12.0
     lodash: ^4.17.21
     npm-run-all: ^4.1.5
     rimraf: ^3.0.2
     typescript: ^4.2.4
-    webpack: ^5.33.2
+    webpack: ^5.36.0
   languageName: unknown
   linkType: soft
 
@@ -2593,24 +2705,22 @@ __metadata:
   resolution: "@roots/bud-eslint@workspace:packages/@roots/bud-eslint"
   dependencies:
     "@roots/bud-framework": "workspace:*"
-    "@types/node": ^14.14.39
+    "@skypack/package-check": ^0.2.2
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     babel-eslint: ^10.1.0
-    chalk: ^4.1.0
-    eslint: ^7.24.0
-    eslint-config-prettier: ^8.2.0
+    eslint: ^7.25.0
+    eslint-config-prettier: ^8.3.0
     eslint-plugin-import: ^2.22.1
     eslint-plugin-jsx-a11y: ^6.4.1
     eslint-plugin-react: ^7.23.2
     eslint-plugin-react-hooks: ^4.2.0
-    eslint-webpack-plugin: ^2.5.3
+    eslint-webpack-plugin: ^2.5.4
     npm-run-all: ^4.1.5
     rimraf: ^3.0.2
-    strip-ansi: ^6.0.0
-    text-table: ^0.2.0
     typescript: ^4.2.4
-    webpack: ^5.33.2
+    webpack: ^5.36.0
   languageName: unknown
   linkType: soft
 
@@ -2622,15 +2732,16 @@ __metadata:
     "@roots/bud-hooks": "workspace:*"
     "@roots/bud-support": "workspace:*"
     "@roots/bud-typings": "workspace:*"
+    "@skypack/package-check": ^0.2.2
     "@types/lodash": ^4.14.168
-    "@types/node": ^14.14.39
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     lodash: ^4.17.21
     npm-run-all: ^4.1.5
     rimraf: ^3.0.2
     typescript: ^4.2.4
-    webpack: ^5.33.2
+    webpack: ^5.36.0
   languageName: unknown
   linkType: soft
 
@@ -2643,9 +2754,10 @@ __metadata:
     "@roots/container": "workspace:*"
     "@roots/dependencies": "workspace:*"
     "@roots/filesystem": "workspace:*"
+    "@skypack/package-check": ^0.2.2
     "@types/fs-extra": ^9.0.11
     "@types/lodash": ^4.14.168
-    "@types/node": ^14.14.39
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     fs-extra: ^9.1.0
@@ -2663,8 +2775,9 @@ __metadata:
   dependencies:
     "@roots/bud-framework": "workspace:*"
     "@roots/container": "workspace:*"
+    "@skypack/package-check": ^0.2.2
     "@types/lodash": ^4.14.168
-    "@types/node": ^14.14.39
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     lodash: ^4.17.21
@@ -2681,11 +2794,12 @@ __metadata:
   dependencies:
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-support": "workspace:*"
-    "@types/node": ^14.14.39
+    "@skypack/package-check": ^0.2.2
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     image-minimizer-webpack-plugin: ^2.2.0
-    imagemin: ^7.0.1
+    imagemin: ^8.0.0
     imagemin-gifsicle: ^7.0.0
     imagemin-jpegtran: ^7.0.0
     imagemin-optipng: ^8.0.0
@@ -2693,7 +2807,7 @@ __metadata:
     npm-run-all: ^4.1.5
     rimraf: ^3.0.2
     typescript: ^4.2.4
-    webpack: ^5.33.2
+    webpack: ^5.36.0
   languageName: unknown
   linkType: soft
 
@@ -2703,14 +2817,15 @@ __metadata:
   dependencies:
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-support": "workspace:*"
-    "@types/node": ^14.14.39
+    "@skypack/package-check": ^0.2.2
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     autodll-webpack-plugin: 0.4.2
     npm-run-all: ^4.1.5
     rimraf: ^3.0.2
     typescript: ^4.2.4
-    webpack: ^5.33.2
+    webpack: ^5.36.0
   languageName: unknown
   linkType: soft
 
@@ -2721,7 +2836,8 @@ __metadata:
     "@mdx-js/loader": ^1.6.22
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-typings": "workspace:*"
-    "@types/node": ^14.14.39
+    "@skypack/package-check": ^0.2.2
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     npm-run-all: ^4.1.5
@@ -2729,7 +2845,7 @@ __metadata:
     react-dom: ^17.0.2
     rimraf: ^3.0.2
     typescript: ^4.2.4
-    webpack: ^5.33.2
+    webpack: ^5.36.0
   languageName: unknown
   linkType: soft
 
@@ -2738,13 +2854,14 @@ __metadata:
   resolution: "@roots/bud-postcss@workspace:packages/@roots/bud-postcss"
   dependencies:
     "@roots/bud-framework": "workspace:*"
-    "@types/node": ^14.14.39
+    "@skypack/package-check": ^0.2.2
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     "@types/signale": ^1.4.1
     autobind-decorator: ^2.4.0
     autoprefixer: ^10.2.5
     npm-run-all: ^4.1.5
-    postcss: ^8.2.10
+    postcss: ^8.2.13
     postcss-custom-properties: ^11.0.0
     postcss-import: ^14.0.1
     postcss-loader: ^5.2.0
@@ -2752,7 +2869,7 @@ __metadata:
     rimraf: ^3.0.2
     signale: ^1.4.0
     typescript: ^4.2.4
-    webpack: ^5.33.2
+    webpack: ^5.36.0
   languageName: unknown
   linkType: soft
 
@@ -2766,7 +2883,8 @@ __metadata:
     "@roots/bud-entrypoints": "workspace:*"
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-postcss": "workspace:*"
-    "@types/node": ^14.14.39
+    "@skypack/package-check": ^0.2.2
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     npm-run-all: ^4.1.5
@@ -2781,11 +2899,12 @@ __metadata:
   dependencies:
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-typings": "workspace:*"
-    "@types/node": ^14.14.39
+    "@skypack/package-check": ^0.2.2
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
-    eslint: ^7.24.0
-    eslint-plugin-prettier: ^3.3.1
+    eslint: ^7.25.0
+    eslint-plugin-prettier: ^3.4.0
     npm-run-all: ^4.1.5
     prettier: ^2.2.1
     rimraf: ^3.0.2
@@ -2801,11 +2920,12 @@ __metadata:
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-postcss": "workspace:*"
     "@roots/bud-support": "workspace:*"
-    "@types/node": ^14.14.39
+    "@skypack/package-check": ^0.2.2
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     npm-run-all: ^4.1.5
-    postcss: ^8.2.10
+    postcss: ^8.2.13
     rimraf: ^3.0.2
     typescript: ^4.2.4
   languageName: unknown
@@ -2820,10 +2940,10 @@ __metadata:
     "@roots/bud-babel": "workspace:*"
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-support": "workspace:*"
-    "@roots/bud-typings": "workspace:*"
+    "@skypack/package-check": ^0.2.2
     "@svgr/core": ^5.5.0
     "@svgr/webpack": ^5.5.0
-    "@types/node": ^14.14.39
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     npm-run-all: ^4.1.5
@@ -2833,7 +2953,9 @@ __metadata:
     react-refresh: ^0.10.0
     rimraf: ^3.0.2
     typescript: ^4.2.4
-    webpack: ^5.33.2
+    webpack: ^5.36.0
+  peerDependencies:
+    react: ">=17"
   languageName: unknown
   linkType: soft
 
@@ -2845,17 +2967,18 @@ __metadata:
     "@roots/bud-postcss": "workspace:*"
     "@roots/bud-support": "workspace:*"
     "@roots/bud-typings": "workspace:*"
-    "@types/node": ^14.14.39
+    "@skypack/package-check": ^0.2.2
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     npm-run-all: ^4.1.5
-    postcss: ^8.2.10
+    postcss: ^8.2.13
     postcss-scss: ^3.0.5
     rimraf: ^3.0.2
-    sass: ^1.32.8
+    sass: ^1.32.11
     sass-loader: ^11.0.1
     typescript: ^4.2.4
-    webpack: ^5.33.2
+    webpack: ^5.36.0
   languageName: unknown
   linkType: soft
 
@@ -2866,21 +2989,22 @@ __metadata:
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-support": "workspace:*"
     "@roots/bud-typings": "workspace:*"
+    "@skypack/package-check": ^0.2.2
     "@types/fs-extra": ^9.0.11
     "@types/lodash": ^4.14.168
-    "@types/node": ^14.14.39
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     chokidar: ^3.5.1
     fs-extra: ^9.1.0
     globby: ^11.0.3
-    http-proxy-middleware: ^1.1.2
+    http-proxy-middleware: ^1.3.0
     json-stringify-safe: ^5.0.1
     lodash: ^4.17.21
     npm-run-all: ^4.1.5
     rimraf: ^3.0.2
     typescript: ^4.2.4
-    webpack: ^5.33.2
+    webpack: ^5.36.0
     webpack-dev-middleware: ^4.1.0
     webpack-hot-client: ^4.2.0
     webpack-hot-middleware: ^2.25.0
@@ -2893,16 +3017,17 @@ __metadata:
   resolution: "@roots/bud-stylelint@workspace:packages/@roots/bud-stylelint"
   dependencies:
     "@roots/bud-framework": "workspace:*"
-    "@types/node": ^14.14.39
+    "@skypack/package-check": ^0.2.2
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     npm-run-all: ^4.1.5
     rimraf: ^3.0.2
-    stylelint: ^13.12.0
-    stylelint-config-standard: ^21.0.0
+    stylelint: ^13.13.0
+    stylelint-config-standard: ^22.0.0
     stylelint-webpack-plugin: ^2.1.1
     typescript: ^4.2.4
-    webpack: ^5.33.2
+    webpack: ^5.36.0
   languageName: unknown
   linkType: soft
 
@@ -2910,13 +3035,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-support@workspace:packages/@roots/bud-support"
   dependencies:
-    "@types/node": ^14.14.39
+    "@skypack/package-check": ^0.2.2
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
-    "@types/text-table": ^0.2.1
-    "@types/webpack-dev-middleware": ^4.1.2
-    "@types/webpack-hot-middleware": ^2.25.4
-    "@types/yargs": ^16.0.1
-    chalk: ^4.1.0
+    chalk: ^4.1.1
     escape-string-regexp: ^4.0.0
     fs-extra: ^9.1.0
     lodash: ^4.17.21
@@ -2925,7 +3047,7 @@ __metadata:
     pretty-format: ^26.6.2
     rimraf: ^3.0.2
     typescript: ^4.2.4
-    webpack: ^5.33.2
+    webpack: ^5.36.0
   languageName: unknown
   linkType: soft
 
@@ -2936,16 +3058,16 @@ __metadata:
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-postcss": "workspace:*"
     "@roots/bud-support": "workspace:*"
-    "@roots/bud-typings": "workspace:*"
+    "@skypack/package-check": ^0.2.2
     "@tailwindcss/jit": ^0.1.18
-    "@types/node": ^14.14.39
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     autoprefixer: ^10.2.5
     npm-run-all: ^4.1.5
-    postcss: ^8.2.10
+    postcss: ^8.2.13
     rimraf: ^3.0.2
-    tailwindcss: ^2.1.1
+    tailwindcss: ^2.1.2
     typescript: ^4.2.4
   languageName: unknown
   linkType: soft
@@ -2955,14 +3077,15 @@ __metadata:
   resolution: "@roots/bud-terser@workspace:packages/@roots/bud-terser"
   dependencies:
     "@roots/bud-framework": "workspace:*"
-    "@types/node": ^14.14.39
+    "@skypack/package-check": ^0.2.2
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     npm-run-all: ^4.1.5
     rimraf: ^3.0.2
     terser-webpack-plugin: ^5.1.1
     typescript: ^4.2.4
-    webpack: ^5.33.2
+    webpack: ^5.36.0
   languageName: unknown
   linkType: soft
 
@@ -2973,17 +3096,18 @@ __metadata:
     "@roots/bud-babel": "workspace:*"
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-support": "workspace:*"
-    "@types/node": ^14.14.39
+    "@skypack/package-check": ^0.2.2
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     "@typescript-eslint/parser": ^4.22.0
     autobind-decorator: ^2.4.0
-    fork-ts-checker-webpack-plugin: ^6.2.1
+    fork-ts-checker-webpack-plugin: ^6.2.5
     globby: ^11.0.3
     npm-run-all: ^4.1.5
     rimraf: ^3.0.2
-    ts-loader: ^8.1.0
+    ts-loader: ^9.1.1
     typescript: ^4.2.4
-    webpack: ^5.33.2
+    webpack: ^5.36.0
   peerDependencies:
     eslint: ^7.23.0
     typescript: ^4.2.3
@@ -2996,8 +3120,9 @@ __metadata:
   dependencies:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@roots/bud-support": "workspace:packages/@roots/bud-support"
+    "@skypack/package-check": ^0.2.2
     "@types/express": ^4.17.11
-    "@types/node": ^14.14.39
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     "@types/webpack-dev-middleware": ^4.1.2
     autobind-decorator: ^2.4.0
@@ -3005,12 +3130,12 @@ __metadata:
     chokidar: ^3.5.1
     dotenv: ^8.2.0
     express: ^4.17.1
-    http-proxy-middleware: ^1.1.2
+    http-proxy-middleware: ^1.3.0
     npm-run-all: ^4.1.5
     rimraf: ^3.0.2
     type-fest: ^1.0.2
     typescript: ^4.2.4
-    webpack: ^5.33.2
+    webpack: ^5.36.0
     webpack-dev-middleware: ^4.1.0
   languageName: unknown
   linkType: soft
@@ -3024,12 +3149,13 @@ __metadata:
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-support": "workspace:*"
     "@roots/bud-typings": "workspace:*"
-    "@types/node": ^14.14.39
+    "@skypack/package-check": ^0.2.2
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     babel-helper-vue-jsx-merge-props: ^2.0.3
     babel-plugin-transform-vue-jsx: ^3.7.0
-    css-loader: ^5.2.1
+    css-loader: ^5.2.4
     de-indent: ^1.0.2
     he: ^1.2.0
     npm-run-all: ^4.1.5
@@ -3040,7 +3166,7 @@ __metadata:
     vue-loader: ^15.9.6
     vue-style-loader: ^4.1.3
     vue-template-compiler: ^2.6.12
-    webpack: ^5.33.2
+    webpack: ^5.36.0
   peerDependencies:
     "@roots/bud-framework": ^3.1.0
     "@roots/bud-support": ^3.1.0
@@ -3054,8 +3180,9 @@ __metadata:
     "@roots/bud": ^3.2.0-next.2
     "@roots/bud-framework": "workspace:*"
     "@roots/wordpress-dependencies-webpack-plugin": "workspace:*"
+    "@skypack/package-check": ^0.2.2
     "@types/lodash": ^4.14.168
-    "@types/node": ^14.14.39
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     lodash: ^4.17.21
@@ -3071,7 +3198,8 @@ __metadata:
   dependencies:
     "@roots/bud-framework": "workspace:*"
     "@roots/wordpress-externals-webpack-plugin": "workspace:*"
-    "@types/node": ^14.14.39
+    "@skypack/package-check": ^0.2.2
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     npm-run-all: ^4.1.5
@@ -3086,7 +3214,8 @@ __metadata:
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-typings": "workspace:*"
     "@roots/merged-manifest-webpack-plugin": "workspace:*"
-    "@types/node": ^14.14.39
+    "@skypack/package-check": ^0.2.2
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     npm-run-all: ^4.1.5
@@ -3113,17 +3242,18 @@ __metadata:
     "@roots/dependencies": "workspace:*"
     "@roots/filesystem": "workspace:*"
     "@roots/ink-use-style": "workspace:*"
-    "@types/copy-webpack-plugin": ^6.4.1
-    "@types/css-minimizer-webpack-plugin": ^1.1.3
+    "@skypack/package-check": ^0.2.2
+    "@types/copy-webpack-plugin": ^8.0.0
+    "@types/css-minimizer-webpack-plugin": ^1.3.0
     "@types/express": ^4.17.11
     "@types/fs-extra": ^9.0.11
     "@types/lodash": ^4.14.168
-    "@types/mini-css-extract-plugin": ^1.4.1
-    "@types/node": ^14.14.39
-    "@types/react": ^17.0.3
+    "@types/mini-css-extract-plugin": ^1.4.2
+    "@types/node": ^15.0.0
+    "@types/react": ^17.0.4
     "@types/rimraf": ^3.0.0
     "@types/signale": ^1.4.1
-    "@types/webpack-manifest-plugin": ^3
+    "@types/webpack-manifest-plugin": ^3.0.4
     "@types/yargs": ^16.0.1
     autobind-decorator: ^2.4.0
     clean-webpack-plugin: ^4.0.0-alpha.0
@@ -3139,13 +3269,13 @@ __metadata:
     ink: ^3.0.8
     ink-spinner: ^4.0.1
     lodash: ^4.17.21
-    mini-css-extract-plugin: ^1.4.1
+    mini-css-extract-plugin: ^1.5.0
     npm-run-all: ^4.1.5
     react: ^17.0.2
     rimraf: ^3.0.2
     signale: ^1.4.0
     typescript: ^4.2.4
-    webpack: ^5.33.2
+    webpack: ^5.36.0
     webpack-config-dump-plugin: ^3.0.1
     webpack-manifest-plugin: ^3.1.1
     yargs: ^16.2.0
@@ -3156,7 +3286,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/container@workspace:packages/@roots/container"
   dependencies:
-    "@types/node": ^14.14.39
+    "@skypack/package-check": ^0.2.2
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     lodash: ^4.17.21
@@ -3172,19 +3303,20 @@ __metadata:
   resolution: "@roots/critical-css-webpack-plugin@workspace:packages/@roots/critical-css-webpack-plugin"
   dependencies:
     "@roots/bud-framework": "workspace:*"
+    "@skypack/package-check": ^0.2.2
     "@types/lodash": ^4.14.168
-    "@types/node": ^14.14.39
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     "@types/vinyl": ^2.0.4
     autobind-decorator: ^2.4.0
-    critical: ^3.0.0
+    critical: ^3.0.1
     lodash: ^4.17.21
     npm-run-all: ^4.1.5
     rimraf: ^3.0.2
     safe-require: ^1.0.4
     typescript: ^4.2.4
     vinyl: ^2.2.1
-    webpack: ^5.33.2
+    webpack: ^5.36.0
   languageName: unknown
   linkType: soft
 
@@ -3192,7 +3324,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/dependencies@workspace:packages/@roots/dependencies"
   dependencies:
-    "@types/node": ^14.14.39
+    "@skypack/package-check": ^0.2.2
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     npm-run-all: ^4.1.5
@@ -3205,14 +3338,15 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/entrypoints-webpack-plugin@workspace:packages/@roots/entrypoints-webpack-plugin"
   dependencies:
-    "@types/node": ^14.14.39
+    "@skypack/package-check": ^0.2.2
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     "@types/webpack-sources": ^2.1.0
     autobind-decorator: ^2.4.0
     npm-run-all: ^4.1.5
     rimraf: ^3.0.2
     typescript: ^4.2.4
-    webpack: ^5.33.2
+    webpack: ^5.36.0
     webpack-sources: ^2.2.0
   languageName: unknown
   linkType: soft
@@ -3222,7 +3356,8 @@ __metadata:
   resolution: "@roots/filesystem@workspace:packages/@roots/filesystem"
   dependencies:
     "@roots/container": "workspace:*"
-    "@types/node": ^14.14.39
+    "@skypack/package-check": ^0.2.2
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     "@types/yargs": ^16.0.1
     autobind-decorator: ^2.4.0
@@ -3241,7 +3376,8 @@ __metadata:
   resolution: "@roots/ink-prettier@workspace:packages/@roots/ink-prettier"
   dependencies:
     "@roots/bud-framework": "workspace:*"
-    "@types/node": ^14.14.39
+    "@skypack/package-check": ^0.2.2
+    "@types/node": ^15.0.0
     "@types/prettier": ^2.2.3
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
@@ -3259,7 +3395,8 @@ __metadata:
   resolution: "@roots/ink-use-style@workspace:packages/@roots/ink-use-style"
   dependencies:
     "@roots/bud-framework": "workspace:*"
-    "@types/node": ^14.14.39
+    "@skypack/package-check": ^0.2.2
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     ink: ^3.0.8
@@ -3278,8 +3415,9 @@ __metadata:
   dependencies:
     "@roots/bud-framework": "workspace:*"
     "@roots/entrypoints-webpack-plugin": "workspace:*"
+    "@skypack/package-check": ^0.2.2
     "@types/fs-extra": ^9.0.11
-    "@types/node": ^14.14.39
+    "@types/node": ^15.0.0
     "@types/prettier": ^2.2.3
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
@@ -3288,7 +3426,7 @@ __metadata:
     prettier: ^2.2.1
     rimraf: ^3.0.2
     typescript: ^4.2.4
-    webpack: ^5.33.2
+    webpack: ^5.36.0
   languageName: unknown
   linkType: soft
 
@@ -3317,14 +3455,17 @@ __metadata:
     "@roots/bud-wordpress-manifests": "workspace:*"
     "@roots/container": "workspace:*"
     "@roots/filesystem": "workspace:*"
+    "@skypack/package-check": ^0.2.2
+    "@tailwindcss/jit": ^0.1.18
     "@types/fs-extra": ^9.0.11
-    "@types/node": ^14.14.39
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
-    cosmiconfig: ^7.0.0
+    "@types/tailwindcss": ^2.0.2
     fs-extra: ^9.1.0
     lodash: ^4.17.21
     npm-run-all: ^4.1.5
     rimraf: ^3.0.2
+    tailwindcss: ^2.1.2
     typescript: ^4.2.4
   bin:
     sage: bin/sage
@@ -3337,8 +3478,9 @@ __metadata:
   dependencies:
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-support": "workspace:*"
+    "@skypack/package-check": ^0.2.2
     "@types/lodash": ^4.14.168
-    "@types/node": ^14.14.39
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     lodash: ^4.17.21
@@ -3346,7 +3488,7 @@ __metadata:
     npm-run-all: ^4.1.5
     rimraf: ^3.0.2
     typescript: ^4.2.4
-    webpack: ^5.33.2
+    webpack: ^5.36.0
   languageName: unknown
   linkType: soft
 
@@ -3356,14 +3498,15 @@ __metadata:
   dependencies:
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-support": "workspace:*"
-    "@types/node": ^14.14.39
+    "@skypack/package-check": ^0.2.2
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     node-fetch: ^2.6.1
     npm-run-all: ^4.1.5
     rimraf: ^3.0.2
     typescript: ^4.2.4
-    webpack: ^5.33.2
+    webpack: ^5.36.0
   languageName: unknown
   linkType: soft
 
@@ -3624,7 +3767,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tailwindcss/jit@npm:^0.1.18, @tailwindcss/jit@npm:^0.1.5":
+"@tailwindcss/jit@npm:^0.1.18":
   version: 0.1.18
   resolution: "@tailwindcss/jit@npm:0.1.18"
   dependencies:
@@ -3655,6 +3798,13 @@ __metadata:
   peerDependencies:
     tailwindcss: 2.0.0-alpha.24 || ^2.0.0
   checksum: bdb221d48909eaf4e61cacfdb78670157a4289309125549b1c78c382585679c2faef33f332d9e4d445d2f469f7810fc78bf715607e0a435277310d49fba056d1
+  languageName: node
+  linkType: hard
+
+"@tokenizer/token@npm:^0.1.1":
+  version: 0.1.1
+  resolution: "@tokenizer/token@npm:0.1.1"
+  checksum: f8a912a44382af9d8724227ad6fdf6b2a0cf790602009507e85c66f9493f1ea6b699f4f442c66477a9fc01812f7ce60149fcad1b5d87cfa875f8bae3c68f6e76
   languageName: node
   linkType: hard
 
@@ -3730,13 +3880,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/bootstrap@npm:^4":
-  version: 4.6.0
-  resolution: "@types/bootstrap@npm:4.6.0"
+"@types/bootstrap@npm:^5.0.12":
+  version: 5.0.12
+  resolution: "@types/bootstrap@npm:5.0.12"
   dependencies:
+    "@popperjs/core": 2.6.0
     "@types/jquery": "*"
-    popper.js: ^1.14.1
-  checksum: c6e59607a10c36898806d5bd1519c5e8f4bfb1a95e63191f49b9bac743f217a6e08cbcd959127b30250da78adc1dd241b2be93943527232813afefca9c56ea6e
+  checksum: 986422d66426ac8a13b2f05f0ada62cb5e563ab725e10ffec3abe0f6f4261a76d7511d1a3c8fb4d1060af9817dd37354cb31b5c901fee0b9e059ff25a84319e9
   languageName: node
   linkType: hard
 
@@ -3768,23 +3918,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/copy-webpack-plugin@npm:^6.4.1":
-  version: 6.4.1
-  resolution: "@types/copy-webpack-plugin@npm:6.4.1"
+"@types/copy-webpack-plugin@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "@types/copy-webpack-plugin@npm:8.0.0"
   dependencies:
-    "@types/webpack": ^4
-  checksum: 0933c8458516395aa427a3114de8685714647eb7d87b0403473de2e0228813e6ec3e6bc1ecd79b8fe1c872bf4e07fd39e0f8284ff662f80881dca4919aafd79c
+    "@types/node": "*"
+    tapable: ^2.0.0
+    webpack: ^5.1.0
+  checksum: ec10d078c9cc1fa36d1fb13418cec4d19cc3d3e5c8cbfcd19fd14cdac0bcf302feb7ff0a4c948f10e08841859c66a8e8e95cf106e7841db5bc6a6e52f717a987
   languageName: node
   linkType: hard
 
-"@types/css-minimizer-webpack-plugin@npm:^1.1.3":
-  version: 1.1.3
-  resolution: "@types/css-minimizer-webpack-plugin@npm:1.1.3"
+"@types/css-minimizer-webpack-plugin@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "@types/css-minimizer-webpack-plugin@npm:1.3.0"
   dependencies:
     "@types/cssnano": "*"
-    "@types/webpack": ^4
     postcss: ^7.0.32
-  checksum: 111b6b31a24534bd9b83a79088916bc6de76951ad06b4194912683685c70605d4ddd2780ed8aa39ce639cc2ec0555283ff9ed2ded1a14afdfd60c3ca85f01670
+    tapable: ^2.2.0
+    webpack: ^5.25.0
+  checksum: 1166b66df3b384377d5f5633f4dea0789899d7bec1f6409a02c69f31d196d714dacd22662e6eeba76aa9c081b43b4a57a369c625be90120b773c665ce7d93d20
   languageName: node
   linkType: hard
 
@@ -3794,6 +3947,13 @@ __metadata:
   dependencies:
     postcss: 5 - 7
   checksum: 94f1e42fd6dbe7413b7feb58024a563819e4e868d6e0d6810160b61b2483201ede05ba944f9d6e72ba6a760d43f925e8feda01501eb3a6a789666dc6bd7d8ddb
+  languageName: node
+  linkType: hard
+
+"@types/debug@npm:^4.1.5":
+  version: 4.1.5
+  resolution: "@types/debug@npm:4.1.5"
+  checksum: 36bdb74909be193aeeb8c9bb64ef45d691f35181dcf75285728ec1e07103cb91042be2e8294f0624fc5922d9b4f68482faf5ea3068288577ebdccee76cd7870c
   languageName: node
   linkType: hard
 
@@ -3817,7 +3977,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/estree@npm:*":
+"@types/estree@npm:*, @types/estree@npm:^0.0.47":
   version: 0.0.47
   resolution: "@types/estree@npm:0.0.47"
   checksum: aed5c940436250c25c5e140aa19e7199ba3452e72e1aecc515621507df9e5ed5076ddba84a1684c36d62be841ff3e2bafce8793f16fe6f69d10884449d4461e7
@@ -3946,13 +4106,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/jest@npm:^26.0.22":
-  version: 26.0.22
-  resolution: "@types/jest@npm:26.0.22"
+"@types/jest@npm:^26.0.23":
+  version: 26.0.23
+  resolution: "@types/jest@npm:26.0.23"
   dependencies:
     jest-diff: ^26.0.0
     pretty-format: ^26.0.0
-  checksum: 8dee3e6778db4c1d4b89f6ecdaa7264fd24b445e567db3eef0efe271b724523827585547baa24f8bedcc8a431e4dffd63555996599f2556ba637e67bae7578cc
+  checksum: 69db26061e6be34de2a440c8a470b651c53ba6ee0057614a278c4f756ff00281f46cc075b24e5bd761f399f175f49d0a5758b50dd921342a8592461548dea29a
   languageName: node
   linkType: hard
 
@@ -4018,14 +4178,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/mini-css-extract-plugin@npm:^1.4.1":
-  version: 1.4.1
-  resolution: "@types/mini-css-extract-plugin@npm:1.4.1"
+"@types/mini-css-extract-plugin@npm:^1.4.2":
+  version: 1.4.2
+  resolution: "@types/mini-css-extract-plugin@npm:1.4.2"
   dependencies:
     "@types/node": "*"
     tapable: ^2.2.0
     webpack: ^5
-  checksum: ec9b4fd120f5dced4538e93dd84b7468d864e86512257589b6e23fbe4da838c4ad13edc374de1168140d080625b5743005db0e7951f7211d8ae4006621f0a9ce
+  checksum: 0979a6984ce4c1f2f8adbc05991f220e6e0da0abf3e6e18904b0d9fc5bf4f18076ea7f3c83f580a305f4af29bde888b09dc49e5fab71dff5585061843ad99de7
   languageName: node
   linkType: hard
 
@@ -4050,17 +4210,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/node@npm:14.14.41":
-  version: 14.14.41
-  resolution: "@types/node@npm:14.14.41"
-  checksum: 8fc205d411742fba8f12bf255423427481bdb371035b2c32db7167642fc1cff2bdfc2007ffc5ddbfe2c09f0df851d2df9f2199fac1f2b0046c1d6ccb2894cffd
-  languageName: node
-  linkType: hard
-
-"@types/node@npm:^14.14.39":
-  version: 14.14.39
-  resolution: "@types/node@npm:14.14.39"
-  checksum: 57e56ceb7b8747cb8c2d83dad04f3435c8286063f58f6ebaa531e3f5dfb3c3ed6d1abbb31ec2e9d268047a68a7c45eb6d692664e059af7ebeb03519ce99f07e4
+"@types/node@npm:15.0.0, @types/node@npm:^15.0.0":
+  version: 15.0.0
+  resolution: "@types/node@npm:15.0.0"
+  checksum: 8f52c0984526be30b53bfeba57292d4313ade54be50920bbc439e0939d5efe6ac67edd91f5041f547bb45c5bc8c0512c6239cfd4c60a1e932d9ea6c1bea28f0b
   languageName: node
   linkType: hard
 
@@ -4120,14 +4273,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/react@npm:^17.0.3":
-  version: 17.0.3
-  resolution: "@types/react@npm:17.0.3"
+"@types/react@npm:^17.0.4":
+  version: 17.0.4
+  resolution: "@types/react@npm:17.0.4"
   dependencies:
     "@types/prop-types": "*"
     "@types/scheduler": "*"
     csstype: ^3.0.2
-  checksum: d29f2a33ed69fae9d9f42f8b39b40352e3209eb821f827d566330adfdffb48d2dc730982356cd50a7fda6171e6bc7deca793f7b105c95fce615a45ab313ecf41
+  checksum: aad210a65712e3ffe6ee0896d1033d812e64da710810e03bd5643fec0b6a15acd66790120b96ca41f7413cccff062ccca8505135dc95bf5bcd0cbdec80101fa5
   languageName: node
   linkType: hard
 
@@ -4213,17 +4366,17 @@ __metadata:
   languageName: node
   linkType: hard
 
+"@types/tailwindcss@npm:^2.0.2":
+  version: 2.0.2
+  resolution: "@types/tailwindcss@npm:2.0.2"
+  checksum: fc79050900ac5b2e1be314be2c767b844d6af8c98c0207673348306e539973e83ee231ca39ace5b5cf58abf7bcca4e361e0d2dced6f7c450bcc7b9589235c89e
+  languageName: node
+  linkType: hard
+
 "@types/tapable@npm:^1":
   version: 1.0.7
   resolution: "@types/tapable@npm:1.0.7"
   checksum: efae5c6cd184cbd768f98c0777c829e30045d57664731f36fcc7e32a372fd01c0f50283375e8cd6e325d321d7962906d2bdb82ee4595f7b9f53cefd3011bfa82
-  languageName: node
-  linkType: hard
-
-"@types/text-table@npm:^0.2.1":
-  version: 0.2.1
-  resolution: "@types/text-table@npm:0.2.1"
-  checksum: 1ac142739916f00140c6e70ad87e27cefae26c1dfa63e55708b88fb66aa485ef202249fbfd09e4a65a0d3d260bbe76e79432a67a00c1fb4456e7d9c20456d660
   languageName: node
   linkType: hard
 
@@ -4270,17 +4423,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/webpack-hot-middleware@npm:^2.25.4":
-  version: 2.25.4
-  resolution: "@types/webpack-hot-middleware@npm:2.25.4"
-  dependencies:
-    "@types/connect": "*"
-    "@types/webpack": ^4
-  checksum: 486027794a3a5d8dd5e559b42b8e4bffeb8c7961025e6de2e865bc17400bdaf8d258f6bd9ddadbd3d55a75e886c78a618900323f470ecaae806f6653b123a09c
-  languageName: node
-  linkType: hard
-
-"@types/webpack-manifest-plugin@npm:^3":
+"@types/webpack-manifest-plugin@npm:^3.0.4":
   version: 3.0.4
   resolution: "@types/webpack-manifest-plugin@npm:3.0.4"
   dependencies:
@@ -4596,10 +4739,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@wordpress/browserslist-config@npm:^2.7.0":
-  version: 2.7.0
-  resolution: "@wordpress/browserslist-config@npm:2.7.0"
-  checksum: fe03eaba82feeeba6fb9682e34cbcafbc6cb02015d1949ef3524fec0d6874c0aa4b591937b5d957cdace839e5e284b4514dc47a263fe4e63cc9a82efc5de8e06
+"@wordpress/browserslist-config@npm:^3.0.3":
+  version: 3.0.3
+  resolution: "@wordpress/browserslist-config@npm:3.0.3"
+  checksum: b4c9aa6a8f51ea7cacd57849b9e156cc814dab44807db431fca55fc2b03bac2811b04fbf2f6c7a19c276127a922246316df8e77c21a883d8b0b55756d86c025e
   languageName: node
   linkType: hard
 
@@ -4693,6 +4836,15 @@ __metadata:
   bin:
     acorn: bin/acorn
   checksum: 8e33848192989aec641e1d8945372791da093ccc60a4fa985ef18a1561dda2bb5e063791aa2ca26ae31e3efcf47da007717b19998ebac7f20670c8af859b4d82
+  languageName: node
+  linkType: hard
+
+"acorn@npm:^8.2.1":
+  version: 8.2.1
+  resolution: "acorn@npm:8.2.1"
+  bin:
+    acorn: bin/acorn
+  checksum: e88cedaa86863f7a71ad0a26b67f8dfeffe2ca6d534f2f9ee31df0a2ca9243ae07039f67ffe012c5ccf8e162f56a94da2eefa7df2ce98c9c2c11e8b81c7d7fcd
   languageName: node
   linkType: hard
 
@@ -5551,6 +5703,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"balanced-match@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "balanced-match@npm:2.0.0"
+  checksum: 9a5caad6a292c5df164cc6d0c38e0eedf9a1413f42e5fece733640949d74d0052cfa9587c1a1681f772147fb79be495121325a649526957fd75b3a216d1fbc68
+  languageName: node
+  linkType: hard
+
 "base64-js@npm:^1.3.1":
   version: 1.5.1
   resolution: "base64-js@npm:1.5.1"
@@ -5822,7 +5981,8 @@ __metadata:
   resolution: "bud-example-sass@workspace:examples/vue"
   dependencies:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
-    "@types/node": ^14.14.39
+    "@skypack/package-check": ^0.2.2
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autobind-decorator: ^2.4.0
     npm-run-all: ^4.1.5
@@ -5837,13 +5997,13 @@ __metadata:
   dependencies:
     "@skypack/package-check": ^0.2.2
     "@types/fs-extra": ^9.0.11
-    "@types/jest": ^26.0.22
-    "@types/node": ^14.14.39
+    "@types/jest": ^26.0.23
+    "@types/node": ^15.0.0
     chokidar: ^3.5.1
-    eslint: ^7.24.0
-    eslint-config-prettier: ^8.2.0
+    eslint: ^7.25.0
+    eslint-config-prettier: ^8.3.0
     eslint-plugin-import: ^2.22.1
-    eslint-plugin-prettier: ^3.3.1
+    eslint-plugin-prettier: ^3.4.0
     eslint-plugin-react: ^7.23.2
     eslint-plugin-react-hooks: ^4.2.0
     execa: ^5.0.0
@@ -5855,7 +6015,7 @@ __metadata:
     release-it: ^14.6.1
     release-it-yarn-workspaces: ^2.0.1
     rimraf: ^3.0.2
-    ts-jest: ^26.5.4
+    ts-jest: ^26.5.5
     ts-node: ^9.1.1
     type-fest: ^1.0.2
     typescript: ^4.2.4
@@ -6216,6 +6376,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"chalk@npm:^4.1.1":
+  version: 4.1.1
+  resolution: "chalk@npm:4.1.1"
+  dependencies:
+    ansi-styles: ^4.1.0
+    supports-color: ^7.1.0
+  checksum: 036e973e665ba1a32c975e291d5f3d549bceeb7b1b983320d4598fb75d70fe20c5db5d62971ec0fe76cdbce83985a00ee42372416abfc3a5584465005a7855ed
+  languageName: node
+  linkType: hard
+
 "char-regex@npm:^1.0.2":
   version: 1.0.2
   resolution: "char-regex@npm:1.0.2"
@@ -6282,7 +6452,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"chokidar@npm:>=2.0.0 <4.0.0, chokidar@npm:^3.4.2, chokidar@npm:^3.5.1":
+"chokidar@npm:>=3.0.0 <4.0.0, chokidar@npm:^3.4.2, chokidar@npm:^3.5.1":
   version: 3.5.1
   resolution: "chokidar@npm:3.5.1"
   dependencies:
@@ -6364,7 +6534,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"clean-css@npm:^5.1.0":
+"clean-css@npm:^5.1.2":
   version: 5.1.2
   resolution: "clean-css@npm:5.1.2"
   dependencies:
@@ -7057,19 +7227,19 @@ __metadata:
   languageName: node
   linkType: hard
 
-"critical@npm:^3.0.0":
-  version: 3.0.0
-  resolution: "critical@npm:3.0.0"
+"critical@npm:^3.0.1":
+  version: 3.0.1
+  resolution: "critical@npm:3.0.1"
   dependencies:
     chalk: ^4.1.0
-    clean-css: ^5.1.0
+    clean-css: ^5.1.2
     common-tags: ^1.8.0
     css-url-parser: ^1.1.3
     debug: ^4.3.1
     find-up: ^5.0.0
     get-stdin: ^8.0.0
-    globby: ^11.0.2
-    got: ^11.8.1
+    globby: ^11.0.3
+    got: ^11.8.2
     group-args: ^0.1.0
     indent-string: ^4.0.0
     inline-critical: ^6.0.3
@@ -7078,23 +7248,23 @@ __metadata:
     lodash: ^4.17.21
     make-dir: ^3.1.0
     meow: ^9.0.0
-    oust: ^1.0.4
+    oust: ^1.0.5
     p-all: ^3.0.0
     penthouse: ^2.3.2
     plugin-error: ^1.0.1
-    postcss: ^8.2.6
+    postcss: ^8.2.10
     postcss-discard: ^1.0.1
     postcss-image-inliner: ^4.0.4
-    postcss-url: ^10.1.1
+    postcss-url: ^10.1.3
     prettier: ^2.2.1
     replace-ext: ^2.0.0
     slash: ^3.0.0
-    tempy: ^1.0.0
+    tempy: ^1.0.1
     through2: ^4.0.2
     vinyl: ^2.2.1
   bin:
     critical: cli.js
-  checksum: 7f28297160f41f20dd782f96625b523f942b2bc30e750f7ad43c2fd7e981d599ca32e89b97db70abd2e4d93d4de62cc2208b1101b3bac5e585ed6795a9c1854b
+  checksum: 1445c0ba67573b72645e13f638e01c1756ebd1afeb35043fba5a4c2069bd84ebbfe59c29a7c3a59602571fa924d8787dacb216499032ceede341da0bcb1fd005
   languageName: node
   linkType: hard
 
@@ -7165,25 +7335,24 @@ __metadata:
   languageName: node
   linkType: hard
 
-"css-loader@npm:^5.2.1":
-  version: 5.2.1
-  resolution: "css-loader@npm:5.2.1"
+"css-loader@npm:^5.2.4":
+  version: 5.2.4
+  resolution: "css-loader@npm:5.2.4"
   dependencies:
     camelcase: ^6.2.0
-    cssesc: ^3.0.0
     icss-utils: ^5.1.0
     loader-utils: ^2.0.0
-    postcss: ^8.2.8
+    postcss: ^8.2.10
     postcss-modules-extract-imports: ^3.0.0
     postcss-modules-local-by-default: ^4.0.0
     postcss-modules-scope: ^3.0.0
     postcss-modules-values: ^4.0.0
     postcss-value-parser: ^4.1.0
     schema-utils: ^3.0.0
-    semver: ^7.3.4
+    semver: ^7.3.5
   peerDependencies:
     webpack: ^4.27.0 || ^5.0.0
-  checksum: 6ed997078ba5131e08494dbec3512848bae287e65d44d895db4c96e6fc04e8943645f13034b778ccaad976155370be5658b9b1ad9fe7ffaa0afc0e5f075bc5e2
+  checksum: b5b158597ccdd8889ba1ea7aa1f5544c8a0725e13cad97af29fd4f954045803985080532f60ef206e7578fac5cff5f912ac6176a84c00a199c1697c2c94d8f95
   languageName: node
   linkType: hard
 
@@ -8249,14 +8418,13 @@ __metadata:
   languageName: node
   linkType: hard
 
-"enhanced-resolve@npm:^4.0.0":
-  version: 4.5.0
-  resolution: "enhanced-resolve@npm:4.5.0"
+"enhanced-resolve@npm:^5.0.0, enhanced-resolve@npm:^5.8.0":
+  version: 5.8.0
+  resolution: "enhanced-resolve@npm:5.8.0"
   dependencies:
-    graceful-fs: ^4.1.2
-    memory-fs: ^0.5.0
-    tapable: ^1.0.0
-  checksum: 4d87488584c4d67d356ef4ba04978af4b2d4d18190cb859efac8e8475a34d5d6c069df33faa5a0a22920b0586dbf330f6a08d52bb15a8771a9ce4d70a2da74ba
+    graceful-fs: ^4.2.4
+    tapable: ^2.2.0
+  checksum: a5eb6bf942821bd1614ea509e73cc5e3bd98717692882ce5ee39fecaa7da69ff49ae7e4d1b668247962e7ab5c90609d98582955d5072ff64e02880e014e851f0
   languageName: node
   linkType: hard
 
@@ -8417,9 +8585,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"esbuild-loader@npm:^2.11.1":
-  version: 2.11.1
-  resolution: "esbuild-loader@npm:2.11.1"
+"esbuild-loader@npm:^2.12.0":
+  version: 2.12.0
+  resolution: "esbuild-loader@npm:2.12.0"
   dependencies:
     esbuild: ^0.10.2
     joycon: ^3.0.1
@@ -8429,7 +8597,7 @@ __metadata:
     webpack-sources: ^2.2.0
   peerDependencies:
     webpack: ^4.40.0 || ^5.0.0
-  checksum: d916bd359c8047821b3d9920223bebc9b077c22a0ab71c4533e98dc7c70d2a50d456124e8a7bccde5bd3e871297c1dc3fa19c637bb94f2eb19c6ebf2d5a789f9
+  checksum: 3895b07e62e5fb3937a7415bdf8843107624d818886375fb9a81eee430896069a28efdc956550c95e970158e3eb8423923f2893cdd33faa8c8121f24e2aac974
   languageName: node
   linkType: hard
 
@@ -8503,14 +8671,14 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-config-prettier@npm:^8.2.0":
-  version: 8.2.0
-  resolution: "eslint-config-prettier@npm:8.2.0"
+"eslint-config-prettier@npm:^8.3.0":
+  version: 8.3.0
+  resolution: "eslint-config-prettier@npm:8.3.0"
   peerDependencies:
     eslint: ">=7.0.0"
   bin:
     eslint-config-prettier: bin/cli.js
-  checksum: 47f17ef33d9750563ee66d435e8d603c628561eea80140712188c96e5d22b0a51df778edb2f5aebb27c744e2fd415f11d577f828bf53b9aeb62dcc2766826004
+  checksum: df4cea3032671995bb5ab07e016169072f7fa59f44a53251664d9ca60951b66cdc872683b5c6a3729c91497c11490ca44a79654b395dd6756beb0c3903a37196
   languageName: node
   linkType: hard
 
@@ -8578,9 +8746,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-plugin-prettier@npm:^3.3.1":
-  version: 3.3.1
-  resolution: "eslint-plugin-prettier@npm:3.3.1"
+"eslint-plugin-prettier@npm:^3.4.0":
+  version: 3.4.0
+  resolution: "eslint-plugin-prettier@npm:3.4.0"
   dependencies:
     prettier-linter-helpers: ^1.0.0
   peerDependencies:
@@ -8589,7 +8757,7 @@ __metadata:
   peerDependenciesMeta:
     eslint-config-prettier:
       optional: true
-  checksum: 217253dd2dea0c1aee6a7bf82e729236874807bc160c9481be38453c1f5b6f38050c8f1d4db8495c87c1edcbcbed70ce289b80c65fe3ad992df748e56fc5f44d
+  checksum: 30a07e8d12637d2988e371f6a20ff4c86fd7fdc3596d1d18d62c0367804f38e06a65052d0281234aeb2552e4d1908dcb2de20543413e038251a2717a46400a9d
   languageName: node
   linkType: hard
 
@@ -8657,25 +8825,26 @@ __metadata:
   languageName: node
   linkType: hard
 
-"eslint-webpack-plugin@npm:^2.5.3":
-  version: 2.5.3
-  resolution: "eslint-webpack-plugin@npm:2.5.3"
+"eslint-webpack-plugin@npm:^2.5.4":
+  version: 2.5.4
+  resolution: "eslint-webpack-plugin@npm:2.5.4"
   dependencies:
     "@types/eslint": ^7.2.6
     arrify: ^2.0.1
     jest-worker: ^26.6.2
     micromatch: ^4.0.2
+    normalize-path: ^3.0.0
     schema-utils: ^3.0.0
   peerDependencies:
     eslint: ^7.0.0
     webpack: ^4.0.0 || ^5.0.0
-  checksum: 23b80c5e1fb4daf53d4dd2e2b5806077bd3987975a0ca828312ecc0a9feb8f75fd781370ff2449728beaeab5653c7ce5c1c53105e1ec9c971be7b9126372f946
+  checksum: df663e5f656c84e135db144d77b82874d158955451969890d454a76ec355c309a84a186e3aaf4fa53d7529ac01a43c2943a49768fd0493fd32df3e5ba8c5210a
   languageName: node
   linkType: hard
 
-"eslint@npm:^7.24.0":
-  version: 7.24.0
-  resolution: "eslint@npm:7.24.0"
+"eslint@npm:^7.25.0":
+  version: 7.25.0
+  resolution: "eslint@npm:7.25.0"
   dependencies:
     "@babel/code-frame": 7.12.11
     "@eslint/eslintrc": ^0.4.0
@@ -8716,7 +8885,7 @@ __metadata:
     v8-compile-cache: ^2.0.3
   bin:
     eslint: bin/eslint.js
-  checksum: 60558618c68d17573b82d1ecd28ef4ec011d36fb58b05346cee4e56f4fc8ef2f6b9c102c02cdcc02e8ec5f390e4791a02fa2db9fc212e344450e5ca2920b040f
+  checksum: 8d418fccd017608f6d04551c85fb2b3f12f722933f79e5c71a6c9f27ec989c4cf24727f5b05344d5851c91cd676e6776607f3d1a4e337353ade5e7f62602fb91
   languageName: node
   linkType: hard
 
@@ -8808,7 +8977,7 @@ __metadata:
     "@roots/bud": "workspace:*"
     "@roots/bud-babel": "workspace:*"
     "@roots/bud-cli": "workspace:*"
-    "@types/node": ^14.14.39
+    "@types/node": ^15.0.0
   languageName: unknown
   linkType: soft
 
@@ -8822,13 +8991,14 @@ __metadata:
     "@roots/bud-entrypoints": "workspace:*"
     "@roots/bud-postcss": "workspace:*"
     "@roots/bud-tailwindcss": "workspace:*"
+    "@skypack/package-check": ^0.2.2
     "@tailwindcss/jit": ^0.1.18
     "@types/fs-extra": ^9.0.11
-    "@types/node": ^14.14.39
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
     autoprefixer: ^10.2.5
-    postcss: ^8.2.10
-    tailwindcss: ^2.1.1
+    postcss: ^8.2.13
+    tailwindcss: ^2.1.2
     typescript: ^4.2.4
   languageName: unknown
   linkType: soft
@@ -8840,7 +9010,8 @@ __metadata:
     "@roots/bud": "workspace:*"
     "@roots/bud-cli": "workspace:*"
     "@roots/bud-esbuild": "workspace:*"
-    "@types/node": ^14.14.39
+    "@skypack/package-check": ^0.2.2
+    "@types/node": ^15.0.0
   languageName: unknown
   linkType: soft
 
@@ -8848,13 +9019,13 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "example-postcss@workspace:examples/postcss"
   dependencies:
-    "@babel/core": ^7.13.15
+    "@babel/core": ^7.13.16
     "@roots/bud": "workspace:*"
     "@roots/bud-babel": "workspace:*"
     "@roots/bud-cli": "workspace:*"
     "@roots/bud-postcss": "workspace:*"
-    "@types/node": ^14.14.39
-    postcss: ^8.2.10
+    "@types/node": ^15.0.0
+    postcss: ^8.2.13
   languageName: unknown
   linkType: soft
 
@@ -8862,7 +9033,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "example-react@workspace:examples/react"
   dependencies:
-    "@babel/core": ^7.13.15
+    "@babel/core": ^7.13.16
     "@babel/plugin-proposal-object-rest-spread": ^7.13.8
     "@babel/plugin-syntax-dynamic-import": ^7.8.3
     "@babel/plugin-transform-runtime": ^7.13.15
@@ -8874,6 +9045,7 @@ __metadata:
     "@roots/bud-postcss": "workspace:*"
     "@roots/bud-react": "workspace:*"
     "@roots/bud-terser": "workspace:*"
+    "@skypack/package-check": ^0.2.2
     react: ^17.0.2
     react-dom: ^17.0.2
     react-refresh: ^0.10.0
@@ -8884,17 +9056,19 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "example-sage@workspace:examples/sage"
   dependencies:
+    "@pmmmwh/react-refresh-webpack-plugin": ^0.4.3
     "@roots/bud": "workspace:*"
     "@roots/bud-cli": "workspace:*"
     "@roots/sage": "workspace:*"
-    "@tailwindcss/jit": ^0.1.5
+    "@tailwindcss/jit": ^0.1.18
     "@tailwindcss/typography": ^0.4.0
-    "@wordpress/browserslist-config": ^2.7.0
-    postcss: ^8.2.8
+    "@wordpress/browserslist-config": ^3.0.3
+    postcss: ^8.2.13
     react: 17.0.2
     react-dom: 17.0.2
-    tailwindcss: ^2.0.4
-    typescript: ^4.2.3
+    react-refresh: ^0.10.0
+    tailwindcss: ^2.1.2
+    typescript: ^4.2.4
   languageName: unknown
   linkType: soft
 
@@ -8909,8 +9083,8 @@ __metadata:
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-postcss": "workspace:*"
     "@roots/bud-sass": "workspace:*"
-    postcss: ^8.2.10
-    sass: ^1.32.8
+    postcss: ^8.2.13
+    sass: ^1.32.11
   languageName: unknown
   linkType: soft
 
@@ -8924,13 +9098,12 @@ __metadata:
     "@roots/bud-react": ^3.2.0-next.2
     "@roots/bud-tailwindcss": ^3.2.0-next.2
     "@tailwindcss/jit": ^0.1.18
-    "@types/node": ^14.14.39
+    "@types/node": ^15.0.0
     "@types/rimraf": ^3.0.0
-    autobind-decorator: ^2.4.0
     npm-run-all: ^4.1.5
-    postcss: ^8.2.10
+    postcss: ^8.2.13
     rimraf: ^3.0.2
-    tailwindcss: ^2.1.1
+    tailwindcss: ^2.1.2
     typescript: ^4.2.4
   languageName: unknown
   linkType: soft
@@ -8940,10 +9113,8 @@ __metadata:
   resolution: "example-typescript@workspace:examples/typescript"
   dependencies:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
-    "@types/node": ^14.14.39
-    "@types/rimraf": ^3.0.0
-    autobind-decorator: ^2.4.0
-    npm-run-all: ^4.1.5
+    "@skypack/package-check": ^0.2.2
+    "@types/node": ^15.0.0
     rimraf: ^3.0.2
     typescript: ^4.2.4
   languageName: unknown
@@ -8953,7 +9124,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "example-wordpress@workspace:examples/wordpress-theme"
   dependencies:
-    "@babel/core": ^7.13.15
+    "@babel/core": ^7.13.16
     "@babel/plugin-proposal-object-rest-spread": ^7.13.8
     "@babel/plugin-syntax-dynamic-import": ^7.8.3
     "@babel/plugin-transform-runtime": ^7.13.15
@@ -8970,8 +9141,9 @@ __metadata:
     "@roots/bud-wordpress-dependencies": "workspace:*"
     "@roots/bud-wordpress-externals": "workspace:*"
     "@roots/bud-wordpress-manifests": "workspace:*"
-    "@types/bootstrap": ^4
-    "@types/node": 14.14.41
+    "@skypack/package-check": ^0.2.2
+    "@types/bootstrap": ^5.0.12
+    "@types/node": 15.0.0
     bootstrap: ^4.6.0
     react-refresh: ^0.10.0
   languageName: unknown
@@ -9469,6 +9641,18 @@ __metadata:
   languageName: node
   linkType: hard
 
+"file-type@npm:^14.6.0":
+  version: 14.7.1
+  resolution: "file-type@npm:14.7.1"
+  dependencies:
+    readable-web-to-node-stream: ^2.0.0
+    strtok3: ^6.0.3
+    token-types: ^2.0.0
+    typedarray-to-buffer: ^3.1.5
+  checksum: 76e729fb83458fec25494540afb03c54020edc26e61370acdc9736b388d96ad9c8613f116eb943a4bd41259e8e4be77f325f4be036e4a07b9de8d752e97f4725
+  languageName: node
+  linkType: hard
+
 "file-type@npm:^3.8.0":
   version: 3.9.0
   resolution: "file-type@npm:3.9.0"
@@ -9717,9 +9901,9 @@ __metadata:
   languageName: node
   linkType: hard
 
-"fork-ts-checker-webpack-plugin@npm:^6.2.1":
-  version: 6.2.1
-  resolution: "fork-ts-checker-webpack-plugin@npm:6.2.1"
+"fork-ts-checker-webpack-plugin@npm:^6.2.5":
+  version: 6.2.5
+  resolution: "fork-ts-checker-webpack-plugin@npm:6.2.5"
   dependencies:
     "@babel/code-frame": ^7.8.3
     "@types/json-schema": ^7.0.5
@@ -9733,7 +9917,7 @@ __metadata:
     schema-utils: 2.7.0
     semver: ^7.3.2
     tapable: ^1.0.0
-  checksum: f4bc24577f615df2c1bc747118bb78bee04bcb8a2bda5ea2bf201f30a7d5308a2d9e386eb35daec82b2899d851b6df96122d44085ad3647c7a456451ecb6a391
+  checksum: 4f37bc36880552e0f156470dad611567e7c881274ac437de23d99cafdf942bd41abf27a6d9f616d929e5170ef35360c9282bc3ad5f302c58508970c10ed54cec
   languageName: node
   linkType: hard
 
@@ -9913,18 +10097,15 @@ __metadata:
     "@roots/bud-typings": "workspace:*"
     "@skypack/package-check": ^0.2.2
     "@types/lodash": ^4.14.168
-    "@types/node": ^14.14.39
+    "@types/node": ^15.0.0
     "@types/prettier": ^2.2.3
     "@types/rimraf": ^3.0.0
-    autobind-decorator: ^2.4.0
-    chalk: ^4.1.0
     globby: ^11.0.3
-    lodash: ^4.17.21
     npm-run-all: ^4.1.5
     prettier: ^2.2.1
     rimraf: ^3.0.2
     typescript: ^4.2.4
-    webpack: ^5.33.2
+    webpack: ^5.36.0
   languageName: unknown
   linkType: soft
 
@@ -10212,7 +10393,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"globby@npm:11.0.3, globby@npm:^11.0.1, globby@npm:^11.0.2, globby@npm:^11.0.3":
+"globby@npm:11.0.3, globby@npm:^11.0.1, globby@npm:^11.0.3":
   version: 11.0.3
   resolution: "globby@npm:11.0.3"
   dependencies:
@@ -10273,7 +10454,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"got@npm:11.8.2, got@npm:^11.8.1":
+"got@npm:11.8.2, got@npm:^11.8.1, got@npm:^11.8.2":
   version: 11.8.2
   resolution: "got@npm:11.8.2"
   dependencies:
@@ -10838,16 +11019,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"http-proxy-middleware@npm:^1.1.2":
-  version: 1.1.2
-  resolution: "http-proxy-middleware@npm:1.1.2"
+"http-proxy-middleware@npm:^1.3.0":
+  version: 1.3.0
+  resolution: "http-proxy-middleware@npm:1.3.0"
   dependencies:
     "@types/http-proxy": ^1.17.5
     http-proxy: ^1.18.1
     is-glob: ^4.0.1
     is-plain-obj: ^3.0.0
     micromatch: ^4.0.2
-  checksum: 919de2881ae94353fbc06dab219fd413e6ecd9d52a6ecad0d4aa2855f0c0691dd3d14c0c1ca5f558d3eabfa6168911e5093d480eeffe52b1cdb2259ded962c78
+  checksum: d05549a9b485470719cf17722c9ce5e83402c957efa4b7a86ee683fad1169685360f1b81819f474eb813d9d53ab40e3858c7369abae5367efee260f23e85312a
   languageName: node
   linkType: hard
 
@@ -10960,7 +11141,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ieee754@npm:^1.1.13":
+"ieee754@npm:^1.1.13, ieee754@npm:^1.2.1":
   version: 1.2.1
   resolution: "ieee754@npm:1.2.1"
   checksum: 5144c0c9815e54ada181d80a0b810221a253562422e7c6c3a60b1901154184f49326ec239d618c416c1c5945a2e197107aee8d986a3dd836b53dffefd99b5e7e
@@ -11058,6 +11239,20 @@ __metadata:
     p-pipe: ^3.0.0
     replace-ext: ^1.0.0
   checksum: 66af34cb1ec91df94bb7ce9420625d1e6545ed22fb41182bf4e3516d6d494a45005a242d217e6c5b63ca4599fb19cda4bec5737bba248fb703a9dc1533798317
+  languageName: node
+  linkType: hard
+
+"imagemin@npm:^8.0.0":
+  version: 8.0.0
+  resolution: "imagemin@npm:8.0.0"
+  dependencies:
+    file-type: ^14.6.0
+    globby: ^11.0.3
+    graceful-fs: ^4.2.6
+    junk: ^3.1.0
+    p-pipe: ^4.0.0
+    replace-ext: ^2.0.0
+  checksum: a3ecec907e26c4aea144acd5f48b580f24186dddeac5f2ad4e5b3534f46cbdd647d0dbc0ef3644336018768204dfc3b956f08f3a949b6ca3fd89a974d6960aa8
   languageName: node
   linkType: hard
 
@@ -13389,7 +13584,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"log-symbols@npm:^4.0.0, log-symbols@npm:^4.1.0":
+"log-symbols@npm:^4.1.0":
   version: 4.1.0
   resolution: "log-symbols@npm:4.1.0"
   dependencies:
@@ -13783,16 +13978,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"memory-fs@npm:^0.5.0":
-  version: 0.5.0
-  resolution: "memory-fs@npm:0.5.0"
-  dependencies:
-    errno: ^0.1.3
-    readable-stream: ^2.0.1
-  checksum: a9f25b0a8ecfb7324277393f19ef68e6ba53b9e6e4b526bbf2ba23055c5440fbf61acc7bf66bfd980e9eb4951a4790f6f777a9a3abd36603f22c87e8a64d3d6b
-  languageName: node
-  linkType: hard
-
 "memorystream@npm:^0.3.1":
   version: 0.3.1
   resolution: "memorystream@npm:0.3.1"
@@ -13953,7 +14138,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"micromatch@npm:^4.0.0, micromatch@npm:^4.0.2":
+"micromatch@npm:^4.0.0, micromatch@npm:^4.0.2, micromatch@npm:^4.0.4":
   version: 4.0.4
   resolution: "micromatch@npm:4.0.4"
   dependencies:
@@ -14041,16 +14226,16 @@ __metadata:
   languageName: node
   linkType: hard
 
-"mini-css-extract-plugin@npm:^1.4.1":
-  version: 1.4.1
-  resolution: "mini-css-extract-plugin@npm:1.4.1"
+"mini-css-extract-plugin@npm:^1.5.0":
+  version: 1.5.0
+  resolution: "mini-css-extract-plugin@npm:1.5.0"
   dependencies:
     loader-utils: ^2.0.0
     schema-utils: ^3.0.0
     webpack-sources: ^1.1.0
   peerDependencies:
     webpack: ^4.4.0 || ^5.0.0
-  checksum: 976d099f0919ffda604d998023c9e3d2a441ac347c29fec61f6b188b5b1c999e45d78db8106c9322e1f9080a3e6c5c655dd6c350750bfea4e930670542e2c23f
+  checksum: 20f14faee08f187ae93c7aebec58bc7464ea57f9f8e9eab0eddf52b0162d56020746ff264a21254ac9dda212eb96e5460ea51ca04cf0fa1778796ac8241bedc5
   languageName: node
   linkType: hard
 
@@ -14891,15 +15076,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"oust@npm:^1.0.4":
-  version: 1.0.5
-  resolution: "oust@npm:1.0.5"
+"oust@npm:^1.0.5":
+  version: 1.1.0
+  resolution: "oust@npm:1.1.0"
   dependencies:
     cheerio: ^0.22.0
     minimist: ^1.2.5
   bin:
     oust: cli.js
-  checksum: c8444ae9589cca9a7268caae0018cdac72ee5cd1f1354d6d8130478749b0ca49454add6dec6198584296b961fc3b6750f53437e222a85c0d1427a288f7c1c094
+  checksum: 86d82a42c7a9c2e796f0128bdf05cfcd8864609caea5582d790aa6cc27007370b5223e5e0c96e269e0826ded1281c83e45b830043c4f7265797314d480fb01ca
   languageName: node
   linkType: hard
 
@@ -15085,6 +15270,13 @@ __metadata:
   version: 3.1.0
   resolution: "p-pipe@npm:3.1.0"
   checksum: ee9a2609685f742c6ceb3122281ec4453bbbcc80179b13e66fd139dcf19b1c327cf6c2fdfc815b548d6667e7eaefe5396323f6d49c4f7933e4cef47939e3d65c
+  languageName: node
+  linkType: hard
+
+"p-pipe@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "p-pipe@npm:4.0.0"
+  checksum: d2638c08e15e049e37835f3d999f0063ecd063ccac45a90925701c604f342ca376c8373ecf945e322f5112cc630644ef99ec55084e4eeb70c90cff9237b89296
   languageName: node
   linkType: hard
 
@@ -15404,6 +15596,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"peek-readable@npm:^3.1.3":
+  version: 3.1.3
+  resolution: "peek-readable@npm:3.1.3"
+  checksum: c37ca828014419dadccc38fd1715d1e670144b48a4aee0ed17fd162f3faa5e5321589b56a7b503413d0669dd53f2d621e0a929ab9ed9719a61dd5af1416e6f67
+  languageName: node
+  linkType: hard
+
 "pend@npm:~1.2.0":
   version: 1.2.0
   resolution: "pend@npm:1.2.0"
@@ -15539,13 +15738,6 @@ __metadata:
     arr-union: ^3.1.0
     extend-shallow: ^3.0.2
   checksum: 5cacd34372b909f07125829c2876707f4add64dcdf0dd8bd23d7ceac70eeb961c038a9707a998cc498bf8d478cc81f8d85b82584313926fe61a8fa294f79f3e4
-  languageName: node
-  linkType: hard
-
-"popper.js@npm:^1.14.1":
-  version: 1.16.1
-  resolution: "popper.js@npm:1.16.1"
-  checksum: c56ae5001ec50a77ee297a8061a0221d99d25c7348d2e6bcd3e45a0d0f32a1fd81bca29d46cb0d4bdf13efb77685bd6a0ce93f9eb3c608311a461f945fffedbe
   languageName: node
   linkType: hard
 
@@ -16082,6 +16274,16 @@ __metadata:
   languageName: node
   linkType: hard
 
+"postcss-selector-parser@npm:^6.0.5":
+  version: 6.0.5
+  resolution: "postcss-selector-parser@npm:6.0.5"
+  dependencies:
+    cssesc: ^3.0.0
+    util-deprecate: ^1.0.2
+  checksum: 51aedc1b84491065844d6db3b7e9a6a152a98af5fdd2c34697479c659b1504cb667454a4776567bb8f06978df38042d67e5f695054cca0c49e549e97ef54a43d
+  languageName: node
+  linkType: hard
+
 "postcss-svgo@npm:^5.0.0":
   version: 5.0.0
   resolution: "postcss-svgo@npm:5.0.0"
@@ -16116,7 +16318,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss-url@npm:^10.1.1":
+"postcss-url@npm:^10.1.3":
   version: 10.1.3
   resolution: "postcss-url@npm:10.1.3"
   dependencies:
@@ -16188,7 +16390,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.1.6, postcss@npm:^8.2.1, postcss@npm:^8.2.10, postcss@npm:^8.2.6, postcss@npm:^8.2.7, postcss@npm:^8.2.8, postcss@npm:^8.2.9":
+"postcss@npm:^8.1.6, postcss@npm:^8.2.1, postcss@npm:^8.2.10, postcss@npm:^8.2.7, postcss@npm:^8.2.9":
   version: 8.2.10
   resolution: "postcss@npm:8.2.10"
   dependencies:
@@ -16196,6 +16398,17 @@ __metadata:
     nanoid: ^3.1.22
     source-map: ^0.6.1
   checksum: 1c42c592255092fa04bb6050d9ee39a62867934a4f1512a60fa0b96e4557cc00b69298c036092b006709d0ead9c5943eaabd11e0e635f2c652b2dd3231836448
+  languageName: node
+  linkType: hard
+
+"postcss@npm:^8.2.13":
+  version: 8.2.13
+  resolution: "postcss@npm:8.2.13"
+  dependencies:
+    colorette: ^1.2.2
+    nanoid: ^3.1.22
+    source-map: ^0.6.1
+  checksum: 1f4a4d85c220d90d11486d0a21a0549dff91e52b8857957c797feb408b31f929b142d0b7ab029ec81bb5a48b0e8605ba716d674571fa98962737c90164d64648
   languageName: node
   linkType: hard
 
@@ -16854,6 +17067,13 @@ __metadata:
     string_decoder: ~1.1.1
     util-deprecate: ~1.0.1
   checksum: e4920cf7549a60f8aaf694d483a0e61b2a878b969d224f89b3bc788b8d920075132c4b55a7494ee944c7b6a9a0eada28a7f6220d80b0312ece70bbf08eeca755
+  languageName: node
+  linkType: hard
+
+"readable-web-to-node-stream@npm:^2.0.0":
+  version: 2.0.0
+  resolution: "readable-web-to-node-stream@npm:2.0.0"
+  checksum: ba7e6931c188fd81b9738dada8df0a6f392be6fd1da5ab0470d202b2ab8f9b85869eb01b47dd03a2b23a10430eabe117ee32ab8e2c0dc46ef6b80eac1933a362
   languageName: node
   linkType: hard
 
@@ -17641,14 +17861,14 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"sass@npm:^1.32.8":
-  version: 1.32.8
-  resolution: "sass@npm:1.32.8"
+"sass@npm:^1.32.11":
+  version: 1.32.11
+  resolution: "sass@npm:1.32.11"
   dependencies:
-    chokidar: ">=2.0.0 <4.0.0"
+    chokidar: ">=3.0.0 <4.0.0"
   bin:
     sass: sass.js
-  checksum: a4d67e6be7b3c479d44065b1dd63fc76b90cfb5f5c9684a5d93fb9721c283bae4ec3f4dab478125ee21f3618dd408a9ba65bd3ba6482ab5a422fc86e1ca18b17
+  checksum: 72a58f1159b0849d731a9cadbec20f68d0dc9a6bcb90a1861a16bf3f7ae5fdc96e4160e0ae1d224beecdd8410504200b1ba847b6b8608e8221a2c9039276a04b
   languageName: node
   linkType: hard
 
@@ -18616,6 +18836,17 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
+"strtok3@npm:^6.0.3":
+  version: 6.0.8
+  resolution: "strtok3@npm:6.0.8"
+  dependencies:
+    "@tokenizer/token": ^0.1.1
+    "@types/debug": ^4.1.5
+    peek-readable: ^3.1.3
+  checksum: c732686a2d220e3f9a8dfc09a3311861781934e63256cd52f9b3f15e8fb02812c121b14428528b276eb0be5026824192cbbfb551607a222e6dd800debbf53657
+  languageName: node
+  linkType: hard
+
 "style-loader@npm:^2.0.0":
   version: 2.0.0
   resolution: "style-loader@npm:2.0.0"
@@ -18656,23 +18887,23 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"stylelint-config-recommended@npm:^4.0.0":
-  version: 4.0.0
-  resolution: "stylelint-config-recommended@npm:4.0.0"
+"stylelint-config-recommended@npm:^5.0.0":
+  version: 5.0.0
+  resolution: "stylelint-config-recommended@npm:5.0.0"
   peerDependencies:
-    stylelint: ^13.12.0
-  checksum: 5cbf1e776d3a4f6635a22d54403e5703f26ecada605c23c5ce7f986a8bb24541947d06973281cb4b089ec5b57cd4251654a9ae23b4022b41264f8516696be7a3
+    stylelint: ^13.13.0
+  checksum: 574468542e9f143838feff91771a5901454d6ed89c671bc561373e0509d1414d4a856e5e251c22630c18eb02819c94137eb7a091959dc225f0d91a3eb49538c4
   languageName: node
   linkType: hard
 
-"stylelint-config-standard@npm:^21.0.0":
-  version: 21.0.0
-  resolution: "stylelint-config-standard@npm:21.0.0"
+"stylelint-config-standard@npm:^22.0.0":
+  version: 22.0.0
+  resolution: "stylelint-config-standard@npm:22.0.0"
   dependencies:
-    stylelint-config-recommended: ^4.0.0
+    stylelint-config-recommended: ^5.0.0
   peerDependencies:
-    stylelint: ^13.12.0
-  checksum: 71577e8a017bf698f778d9c60bd94c653b013657ab2495ec56d8ac0a5f4e3c3c54f8af2d00f98384bad49c42ee7a457daf0be669384042ffe3408c3f7d017f3b
+    stylelint: ^13.13.0
+  checksum: 57497397c56f19f8f1387d461d06089b6b6c187dcdc5bf85006b2b94f88be021afa77545d6938543ffb82be10a200a58d160ee672f1379d4af1adcb723e5f9f8
   languageName: node
   linkType: hard
 
@@ -18690,14 +18921,14 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"stylelint@npm:^13.12.0":
-  version: 13.12.0
-  resolution: "stylelint@npm:13.12.0"
+"stylelint@npm:^13.13.0":
+  version: 13.13.0
+  resolution: "stylelint@npm:13.13.0"
   dependencies:
     "@stylelint/postcss-css-in-js": ^0.37.2
     "@stylelint/postcss-markdown": ^0.36.2
     autoprefixer: ^9.8.6
-    balanced-match: ^1.0.0
+    balanced-match: ^2.0.0
     chalk: ^4.1.0
     cosmiconfig: ^7.0.0
     debug: ^4.3.1
@@ -18707,7 +18938,7 @@ resolve@^2.0.0-next.3:
     file-entry-cache: ^6.0.1
     get-stdin: ^8.0.0
     global-modules: ^2.0.0
-    globby: ^11.0.2
+    globby: ^11.0.3
     globjoin: ^0.1.4
     html-tags: ^3.1.0
     ignore: ^5.1.8
@@ -18715,10 +18946,10 @@ resolve@^2.0.0-next.3:
     imurmurhash: ^0.1.4
     known-css-properties: ^0.21.0
     lodash: ^4.17.21
-    log-symbols: ^4.0.0
+    log-symbols: ^4.1.0
     mathml-tag-names: ^2.1.3
     meow: ^9.0.0
-    micromatch: ^4.0.2
+    micromatch: ^4.0.4
     normalize-selector: ^0.2.0
     postcss: ^7.0.35
     postcss-html: ^0.36.0
@@ -18728,7 +18959,7 @@ resolve@^2.0.0-next.3:
     postcss-safe-parser: ^4.0.2
     postcss-sass: ^0.4.4
     postcss-scss: ^2.1.1
-    postcss-selector-parser: ^6.0.4
+    postcss-selector-parser: ^6.0.5
     postcss-syntax: ^0.36.2
     postcss-value-parser: ^4.1.0
     resolve-from: ^5.0.0
@@ -18739,12 +18970,12 @@ resolve@^2.0.0-next.3:
     style-search: ^0.1.0
     sugarss: ^2.0.0
     svg-tags: ^1.0.0
-    table: ^6.0.7
-    v8-compile-cache: ^2.2.0
+    table: ^6.5.1
+    v8-compile-cache: ^2.3.0
     write-file-atomic: ^3.0.3
   bin:
     stylelint: bin/stylelint.js
-  checksum: 0fbe629b585c29029d68bd648f2ce62dbf828d09c8eed1ef04328bb617bd62769a2ff4324e44b44e6350b0a0266bfa6bb7a82f241144a41aa5719d2e4cefcdac
+  checksum: 86b2c4e28ffc5379cde35ba1cad2e4d5229bb700240b4aef9c5e858bef40c354986b93a377e6b2700d9e96ccf2aa47e005fd8ccb47a772dd8f127a015cb41d0d
   languageName: node
   linkType: hard
 
@@ -18879,7 +19110,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"table@npm:^6.0.4, table@npm:^6.0.7":
+"table@npm:^6.0.4":
   version: 6.0.9
   resolution: "table@npm:6.0.9"
   dependencies:
@@ -18896,9 +19127,24 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"tailwindcss@npm:^2.0.4, tailwindcss@npm:^2.1.1":
-  version: 2.1.1
-  resolution: "tailwindcss@npm:2.1.1"
+"table@npm:^6.5.1":
+  version: 6.6.0
+  resolution: "table@npm:6.6.0"
+  dependencies:
+    ajv: ^8.0.1
+    lodash.clonedeep: ^4.5.0
+    lodash.flatten: ^4.4.0
+    lodash.truncate: ^4.4.2
+    slice-ansi: ^4.0.0
+    string-width: ^4.2.0
+    strip-ansi: ^6.0.0
+  checksum: 5a757517a1b3787711c7088837822a6302c89343c5c224b318f1c25351041e798dc90dad9fde2d8b5dfefe13ee25d8ea45235c79934dd2290d1452304993dffb
+  languageName: node
+  linkType: hard
+
+"tailwindcss@npm:^2.1.2":
+  version: 2.1.2
+  resolution: "tailwindcss@npm:2.1.2"
   dependencies:
     "@fullhuman/postcss-purgecss": ^3.1.3
     bytes: ^3.0.0
@@ -18933,7 +19179,7 @@ resolve@^2.0.0-next.3:
   bin:
     tailwind: lib/cli.js
     tailwindcss: lib/cli.js
-  checksum: 96bf66b978d657565f798d9ff622804c15d06daab2e282ef5701553d2f8f6a4591bb9995b797df30ea1d1c443733affe48e819d21cc60349dade3fa51332bdd7
+  checksum: 5018c2cfed5809c0159b28f5639b3199f98c4b3ecdf806f6fa31c1f223552933466cd0b6788f274ab0f530f35577de5f3c3069de8c07d24c5ff758583c545232
   languageName: node
   linkType: hard
 
@@ -19041,7 +19287,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"tempy@npm:^1.0.0":
+"tempy@npm:^1.0.1":
   version: 1.0.1
   resolution: "tempy@npm:1.0.1"
   dependencies:
@@ -19271,6 +19517,16 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
+"token-types@npm:^2.0.0":
+  version: 2.1.1
+  resolution: "token-types@npm:2.1.1"
+  dependencies:
+    "@tokenizer/token": ^0.1.1
+    ieee754: ^1.2.1
+  checksum: e5874d0a5055e10f292585aabaf76a4c4c2833d9f252d0317c33256121b3bbcf9ae2d951e08f85484fb6485070a37edd14c750ba7d4255664c9962c7f6205265
+  languageName: node
+  linkType: hard
+
 "tough-cookie@npm:^2.3.3, tough-cookie@npm:~2.5.0":
   version: 2.5.0
   resolution: "tough-cookie@npm:2.5.0"
@@ -19352,9 +19608,9 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"ts-jest@npm:^26.5.4":
-  version: 26.5.4
-  resolution: "ts-jest@npm:26.5.4"
+"ts-jest@npm:^26.5.5":
+  version: 26.5.5
+  resolution: "ts-jest@npm:26.5.5"
   dependencies:
     bs-logger: 0.x
     buffer-from: 1.x
@@ -19371,23 +19627,22 @@ resolve@^2.0.0-next.3:
     typescript: ">=3.8 <5.0"
   bin:
     ts-jest: cli.js
-  checksum: 908ddfeb89bd2aca13814736b611b4cd825444a6a5c1f60e5e0f7e32a858ca349a4722ede4a394ab595fc692592d55b50d165dd723cb729575a472daf26b12ed
+  checksum: 135bd444a49c73d70c05a471c8a17342c1bb5842df9a70155c0a6f1edfea4772fd67b691635bd98e1ad37aa30a33a2878e8821e00570723ded5ce0ff69c803fc
   languageName: node
   linkType: hard
 
-"ts-loader@npm:^8.1.0":
-  version: 8.1.0
-  resolution: "ts-loader@npm:8.1.0"
+"ts-loader@npm:^9.1.1":
+  version: 9.1.1
+  resolution: "ts-loader@npm:9.1.1"
   dependencies:
     chalk: ^4.1.0
-    enhanced-resolve: ^4.0.0
-    loader-utils: ^2.0.0
+    enhanced-resolve: ^5.0.0
     micromatch: ^4.0.0
     semver: ^7.3.4
   peerDependencies:
     typescript: "*"
     webpack: "*"
-  checksum: fd021e2027c541dc4f69ad7b438c001b1aaefd20344e2190e5b971e240ffffb20a4378013e412965e43abaa7eb4e0fb33a66d1afae0cd175e8db90ac30565470
+  checksum: b962247231925a85399f5929dde5a5cca7ba65981db4123c0a8ac5862a6880c7070d225be7ff97733e33bd6485feef534f28a271581b4e6a0d98f42181882b9b
   languageName: node
   linkType: hard
 
@@ -19607,7 +19862,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"typescript@^4.2.3, typescript@^4.2.4":
+typescript@^4.2.4:
   version: 4.2.4
   resolution: "typescript@npm:4.2.4"
   bin:
@@ -19617,7 +19872,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@^4.2.3#~builtin<compat/typescript>, typescript@patch:typescript@^4.2.4#~builtin<compat/typescript>":
+"typescript@patch:typescript@^4.2.4#~builtin<compat/typescript>":
   version: 4.2.4
   resolution: "typescript@patch:typescript@npm%3A4.2.4#~builtin<compat/typescript>::version=4.2.4&hash=34ad7d"
   bin:
@@ -20055,7 +20310,7 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"v8-compile-cache@npm:^2.0.3, v8-compile-cache@npm:^2.2.0":
+"v8-compile-cache@npm:^2.0.3, v8-compile-cache@npm:^2.3.0":
   version: 2.3.0
   resolution: "v8-compile-cache@npm:2.3.0"
   checksum: adb0a271eaa2297f2f4c536acbfee872d0dd26ec2d76f66921aa7fc437319132773483344207bdbeee169225f4739016d8d2dbf0553913a52bb34da6d0334f8e
@@ -20458,19 +20713,19 @@ resolve@^2.0.0-next.3:
   languageName: node
   linkType: hard
 
-"webpack@npm:^5.33.2":
-  version: 5.33.2
-  resolution: "webpack@npm:5.33.2"
+"webpack@npm:^5.1.0, webpack@npm:^5.25.0":
+  version: 5.35.1
+  resolution: "webpack@npm:5.35.1"
   dependencies:
     "@types/eslint-scope": ^3.7.0
-    "@types/estree": ^0.0.46
+    "@types/estree": ^0.0.47
     "@webassemblyjs/ast": 1.11.0
     "@webassemblyjs/wasm-edit": 1.11.0
     "@webassemblyjs/wasm-parser": 1.11.0
     acorn: ^8.0.4
     browserslist: ^4.14.5
     chrome-trace-event: ^1.0.2
-    enhanced-resolve: ^5.7.0
+    enhanced-resolve: ^5.8.0
     es-module-lexer: ^0.4.0
     eslint-scope: ^5.1.1
     events: ^3.2.0
@@ -20490,7 +20745,43 @@ resolve@^2.0.0-next.3:
       optional: true
   bin:
     webpack: bin/webpack.js
-  checksum: 8cfd5992688f4f57d6d1596ca96452323d667e80bafd0d27ee391859bb8965a01a58471297b39a395d976799886932750648c6e75ef53eda47051864b382cd31
+  checksum: bb73e559dde58fa1dc7d48dd22d9c1f05aaef461be5e2d48009845bb1bb96db0c967d5dcb623cd7d00c683c3021b3c9187a930654d9ca3e1d22050e3432fa049
+  languageName: node
+  linkType: hard
+
+"webpack@npm:^5.36.0":
+  version: 5.36.0
+  resolution: "webpack@npm:5.36.0"
+  dependencies:
+    "@types/eslint-scope": ^3.7.0
+    "@types/estree": ^0.0.47
+    "@webassemblyjs/ast": 1.11.0
+    "@webassemblyjs/wasm-edit": 1.11.0
+    "@webassemblyjs/wasm-parser": 1.11.0
+    acorn: ^8.2.1
+    browserslist: ^4.14.5
+    chrome-trace-event: ^1.0.2
+    enhanced-resolve: ^5.8.0
+    es-module-lexer: ^0.4.0
+    eslint-scope: ^5.1.1
+    events: ^3.2.0
+    glob-to-regexp: ^0.4.1
+    graceful-fs: ^4.2.4
+    json-parse-better-errors: ^1.0.2
+    loader-runner: ^4.2.0
+    mime-types: ^2.1.27
+    neo-async: ^2.6.2
+    schema-utils: ^3.0.0
+    tapable: ^2.1.1
+    terser-webpack-plugin: ^5.1.1
+    watchpack: ^2.0.0
+    webpack-sources: ^2.1.1
+  peerDependenciesMeta:
+    webpack-cli:
+      optional: true
+  bin:
+    webpack: bin/webpack.js
+  checksum: e3e38b87e01bbf50a5688e13a5ee8a5aa6aa8861a05e2f5df8ccac9ea4101701771ad276b9fa2d0b6b093550bd177870a417d2e2229fc4667d97327a1cac4d33
   languageName: node
   linkType: hard
 

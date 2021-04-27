@@ -1,5 +1,5 @@
-import escapeString from 'escape-string-regexp'
 import Webpack from 'webpack'
+import escapeString from 'escape-string-regexp'
 
 /**
  * @class InterpolateHtmlPlugin
@@ -45,7 +45,7 @@ export default class InterpolateHtmlPlugin {
         /**
          * @todo fix hack any
          */
-        ;(this.htmlWebpackPlugin as any)
+        this.htmlWebpackPlugin
           .getHooks(compilation)
           .afterTemplateExecution.tap(
             'InterpolateHtmlPlugin',

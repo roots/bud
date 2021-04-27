@@ -32,12 +32,6 @@ export default class Build extends Command {
       `${this.app.name}.config.json`,
       `${this.app.name}.config.yaml`,
       `${this.app.name}.config.yml`,
-      `.${this.app.name}.json`,
-      `.${this.app.name}.yaml`,
-      `.${this.app.name}.yml`,
-      `.${this.app.name}.config.json`,
-      `.${this.app.name}.config.yaml`,
-      `.${this.app.name}.config.yml`,
     ]).apply()
 
     await new Config(this.app, [
@@ -47,12 +41,6 @@ export default class Build extends Command {
       `${this.app.name}.${this.app.mode}.config.json`,
       `${this.app.name}.${this.app.mode}.config.yaml`,
       `${this.app.name}.${this.app.mode}.config.yml`,
-      `.${this.app.name}.${this.app.mode}.json`,
-      `.${this.app.name}.${this.app.mode}.yaml`,
-      `.${this.app.name}.${this.app.mode}.yml`,
-      `.${this.app.name}.${this.app.mode}.config.json`,
-      `.${this.app.name}.${this.app.mode}.config.yaml`,
-      `.${this.app.name}.${this.app.mode}.config.yml`,
     ]).apply()
 
     await this.builder([
@@ -60,10 +48,6 @@ export default class Build extends Command {
       `${this.app.name}.js`,
       `${this.app.name}.config.ts`,
       `${this.app.name}.config.js`,
-      `.${this.app.name}.ts`,
-      `.${this.app.name}.js`,
-      `.${this.app.name}.config.ts`,
-      `.${this.app.name}.config.js`,
     ])
 
     await this.builder([
@@ -71,10 +55,6 @@ export default class Build extends Command {
       `${this.app.name}.${this.app.mode}.js`,
       `${this.app.name}.${this.app.mode}.config.ts`,
       `${this.app.name}.${this.app.mode}.config.js`,
-      `.${this.app.name}.${this.app.mode}.ts`,
-      `.${this.app.name}.${this.app.mode}.js`,
-      `.${this.app.name}.${this.app.mode}.config.ts`,
-      `.${this.app.name}.${this.app.mode}.config.js`,
     ])
 
     const flags = this.parse(Build).flags

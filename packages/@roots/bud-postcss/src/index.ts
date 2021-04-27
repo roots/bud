@@ -101,16 +101,8 @@ export const boot: Module['boot'] = (app: Framework) => {
 
       app =>
         app.postcss
+          .set('postcss-import')
           .set('postcss-nested')
-          .set('postcss-custom-properties')
-          .set([
-            'postcss-import',
-            {path: app.subscribe('build/resolve/modules')},
-          ])
-          .setOrder([
-            'postcss-import',
-            'postcss-nested',
-            'postcss-custom-properties',
-          ]),
+          .set('postcss-custom-properties'),
     ])
 }

@@ -1,6 +1,5 @@
 import type {Framework} from '@roots/bud-framework'
 import {posix} from 'path'
-import os from 'os'
 
 export function config(this: Framework): void {
   this.hooks
@@ -115,7 +114,8 @@ export function config(this: Framework): void {
       }.js`,
     'build/output/path': () => this.path('dist'),
     'build/output/publicPath': () => this.publicPath(),
-    'build/parallelism': os.cpus().length - 1,
+    'build/parallelism': () =>
+      this.store.get('build.parallelism'),
     'build/performance': () => ({}),
     'build/plugins': () => this.extensions.make(),
     'build/profile': false,

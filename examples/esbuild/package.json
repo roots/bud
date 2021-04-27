@@ -5,6 +5,9 @@
     "@roots/bud": "workspace:*",
     "@roots/bud-cli": "workspace:*",
     "@roots/bud-esbuild": "workspace:*",
-    "@types/node": "^14.14.39"
+    "@types/node": "^15.0.0"
+  },
+  "dependencies": {
+    "@skypack/package-check": "^0.2.2"
   }
 }

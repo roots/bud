@@ -58,7 +58,8 @@
   },
   "devDependencies": {
     "@roots/bud-framework": "workspace:*",
-    "@types/node": "^14.14.39",
+    "@skypack/package-check": "^0.2.2",
+    "@types/node": "^15.0.0",
     "@types/rimraf": "^3.0.0",
     "npm-run-all": "^4.1.5",
     "rimraf": "^3.0.2",

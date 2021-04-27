@@ -39,8 +39,6 @@ export const options: Options = app => {
     app.store.get('extension.interpolateHtmlPlugin.replace') ??
     {}
 
-  console.log(app.env.all(), env, store)
-
   return {
     ...env,
     ...store,

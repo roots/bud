@@ -1,8 +1,8 @@
 import {CopyWebpackPlugin} from './interface'
-import Plugin from 'copy-webpack-plugin'
+import Plugin, {CopyPluginOptions} from 'copy-webpack-plugin'
 import {sync} from 'globby'
 
-const CopyWebpackPluginExtension: CopyWebpackPlugin = {
+const CopyExtension: CopyWebpackPlugin = {
   /**
    * @property name
    */
@@ -53,7 +53,7 @@ const CopyWebpackPluginExtension: CopyWebpackPlugin = {
 
           this.extensions
             .get('copy-webpack-plugin')
-            .set('options', copy => ({
+            .set('options', (copy: CopyPluginOptions) => ({
               ...copy,
               patterns: [...(copy.patterns ?? []), pattern],
             }))
@@ -66,10 +66,10 @@ const CopyWebpackPluginExtension: CopyWebpackPlugin = {
 }
 
 // prettier-ignore
-const {name, options, make, when, api} = CopyWebpackPluginExtension
+const {name, options, make, when, api} = CopyExtension
 
 /**
  * @exports
  */
-export default CopyWebpackPluginExtension
+export default CopyExtension
 export {name, options, make, when, api}

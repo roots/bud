@@ -4,8 +4,7 @@ import {
   Hooks,
   Module,
 } from '@roots/bud-framework'
-import {CopyPluginOptions} from './typings'
-import {WebpackPluginInstance} from 'webpack/types'
+import CopyPlugin, {CopyPluginOptions} from 'copy-webpack-plugin'
 
 /**
  * @extends @roots/bud-framework
@@ -72,9 +71,7 @@ export interface CopyWebpackPlugin extends Module {
    * @function make
    * @description Function returning instantiated webpack plugin
    */
-  make: (
-    options: Container<CopyPluginOptions>,
-  ) => WebpackPluginInstance
+  make: (options: Container<CopyPluginOptions>) => CopyPlugin
 
   /**
    * @function when

@@ -29,19 +29,20 @@ export class Config {
 
   @bind
   public async apply() {
-    const raw = await this.get()
-    const config = this.app.container(raw)
+    const config = await this.get()
 
-    config.has('extensions') &&
-      config.get('extensions').forEach(ext => {
-        this.app.use(require(ext))
-      })
+    if (config.extensions) {
+      await Promise.all(
+        config.extensions.map(moduleImport => {
+          this.app.extensions.add(require(moduleImport))
+        }),
+      )
+    }
 
-    config
-      .getKeys()
+    Object.keys(config)
       .filter(key => key !== 'extensions')
       .forEach(key => {
-        this.app[key] && this.app[key](config.get(key))
+        this.app[key] && this.app[key](config[key])
       })
   }
 }

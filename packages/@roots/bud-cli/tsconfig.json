@@ -7,8 +7,6 @@
     "declaration": true,
     "declarationDir": "./lib/types",
     "declarationMap": true,
-    "allowJs": true,
-    "moduleResolution": "Node"
   },
   "include": ["**/*.ts", "**/*.tsx"],
   "exclude": ["lib", "node_modules", "bin", "**/*.d.ts"]

@@ -38,7 +38,7 @@ const extension: Module = {
           Object.entries(entry).reduce(
             (a, [name, assets]: [string, string[]]) => ({
               ...a,
-              [name]: ['react-refresh/runtime', ...assets],
+              [name]: [`react-refresh/runtime`, ...assets],
             }),
             {},
           ),

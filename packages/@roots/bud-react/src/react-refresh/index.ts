@@ -1,5 +1,5 @@
 import Plugin from '@pmmmwh/react-refresh-webpack-plugin'
-import type {Module} from '@roots/bud-typings'
+import type {Module} from '@roots/bud-framework'
 import {ReactRefreshPluginOptions as Options} from '@pmmmwh/react-refresh-webpack-plugin/types/types'
 
 /**

@@ -5,6 +5,6 @@
     "@roots/bud": "workspace:*",
     "@roots/bud-babel": "workspace:*",
     "@roots/bud-cli": "workspace:*",
-    "@types/node": "^14.14.39"
+    "@types/node": "^15.0.0"
   }
 }

@@ -1,18 +1,11 @@
 {
   "name": "example-typescript",
   "private": true,
-  "scripts": {
-    "bud": "node ../../node_modules/.bin/bud"
-  },
   "devDependencies": {
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/node": "^14.14.39",
-    "@types/rimraf": "^3.0.0",
-    "npm-run-all": "^4.1.5",
+    "@skypack/package-check": "^0.2.2",
+    "@types/node": "^15.0.0",
     "rimraf": "^3.0.2",
     "typescript": "^4.2.4"
-  },
-  "dependencies": {
-    "autobind-decorator": "^2.4.0"
   }
 }

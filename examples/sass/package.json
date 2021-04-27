@@ -9,7 +9,7 @@
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-postcss": "workspace:*",
     "@roots/bud-sass": "workspace:*",
-    "postcss": "^8.2.10",
-    "sass": "^1.32.8"
+    "postcss": "^8.2.13",
+    "sass": "^1.32.11"
   }
 }
