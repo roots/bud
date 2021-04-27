@@ -1,0 +1,9 @@
+{
+  "git": {
+    "requireCleanWorkingDir": true,
+    "commitMessage": "Release ${version}"
+  },
+  "npm": {
+    "publish": true
+  }
+}

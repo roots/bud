@@ -8,7 +8,7 @@ const rebuild = async () => {
 }
 
 const watcher = pkg => {
-  return async (event, file) => {
+  return async () => {
     console.log(
       `Changes detected. Rebuilding: ${getPackageDir(pkg.name)}`,
     )

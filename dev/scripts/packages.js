@@ -25,7 +25,12 @@ const packages = function () {
         const files = await globby([join(path, 'src/**/*')])
         const pkg = await readJson(join(path, `package.json`))
 
-        this.set(path, {name: pkg.name, pkg, files, path})
+        this.set(path, {
+          name: pkg.name,
+          pkg,
+          files,
+          path,
+        })
       }),
     )
 
