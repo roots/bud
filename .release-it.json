@@ -5,5 +5,8 @@
   },
   "npm": {
     "publish": true
+  },
+  "plugins": {
+    "release-it-yarn-workspaces": true
   }
 }
