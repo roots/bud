@@ -7,6 +7,8 @@
     "publish": true
   },
   "plugins": {
-    "release-it-yarn-workspaces": true
+    "release-it-yarn-workspaces": {
+      "workspaces": ["packages/@roots/*"]
+    }
   }
 }
