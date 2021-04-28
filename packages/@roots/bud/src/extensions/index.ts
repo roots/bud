@@ -2,7 +2,7 @@ import {Index, Module} from '@roots/bud-framework'
 
 import * as CleanWebpackPlugin from './clean-webpack-plugin'
 import * as WebpackConfigDumpPlugin from './webpack-config-dump-plugin'
-import * as CopyWebpackPlugin from './copy-webpack-plugin'
+import * as CopyWebpackPlugin from './copy-webpack-plugin/index'
 import * as DefineWebpackPlugin from './webpack-define-plugin'
 import * as HotModuleReplacementPlugin from './webpack-hot-module-replacement-plugin'
 import * as HtmlWebpackPlugin from './html-webpack-plugin'

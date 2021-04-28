@@ -8,6 +8,15 @@
     "url": "https://github.com/roots/bud.git",
     "directory": "packages/@roots/bud-api"
   },
+  "contributors": [
+    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
@@ -15,27 +24,24 @@
     "type": "github sponsors",
     "url": "https://github.com/sponsors/roots"
   },
-  "license": "MIT",
-  "contributors": [
-    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
-  ],
   "engines": {
-    "node": ">=12"
+    "node": ">=14"
   },
   "keywords": [
     "webpack",
     "bud"
   ],
   "files": [
-    "lib/"
+    "lib/",
+    "types/"
   ],
   "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
+  "module": "./lib/esm/index.mjs",
+  "types": "./types/index.d.ts",
   "exports": {
     "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    "import": "./lib/esm/index.mjs"
   },
-  "types": "./lib/types/index.d.ts",
   "scripts": {
     "build": "yarn g:build",
     "build:cjs": "yarn g:build:cjs",
@@ -54,7 +60,6 @@
     "@roots/bud-typings": "workspace:packages/@roots/bud-typings",
     "@types/lodash": "^4.14.168",
     "@types/node": "^15.0.0",
-    "@types/rimraf": "^3.0.0",
     "globby": "^11.0.3",
     "webpack": "^5.36.0"
   },
@@ -62,7 +67,6 @@
     "@roots/bud-dashboard": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-terser": "workspace:*",
-    "@skypack/package-check": "^0.2.2",
     "autobind-decorator": "^2.4.0",
     "chalk": "^4.1.1",
     "lodash": "^4.17.21"

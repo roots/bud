@@ -1,43 +1,25 @@
 import './interface'
 import {Framework, Module} from '@roots/bud-framework'
 
-/**
- * @module @roots/bud-sass
- * @description Sass transpilation for @roots/bud projects
- * @see https://github.com/roots/bud
- */
-
 export const name: Module['name'] = '@roots/bud-sass'
 
 export const devDependencies: Module['devDependencies'] = [
   'sass',
 ]
 
-/**
- * Hook config values
- *
- * @see @roots/bud-extensions
- * @see @roots/bud-hooks
- */
 export const publish: Module['publish'] = (app: Framework) => ({
-  /**
-   * loader/sass
-   */
   'loader/sass': () => require.resolve('sass-loader'),
 
-  /**
-   * item/sass
-   */
-  ['item/sass']: () => ({
-    loader: app.subscribe('item/sass/loader'),
-    options: app.subscribe('item/sass/options'),
+  'item/sass': () => ({
+    loader: app.hooks.filter('item/sass/loader'),
+    options: app.hooks.filter('item/sass/options'),
   }),
-  'item/sass/loader': () => app.subscribe('loader/sass'),
+  'item/sass/loader': () => app.hooks.filter('loader/sass'),
   'item/sass/options': () => ({
-    implementation: app.subscribe(
+    implementation: app.hooks.filter(
       'item/sass/options/implementation',
     ),
-    sourceMap: app.subscribe('item/sass/options/sourceMap'),
+    sourceMap: app.hooks.filter('item/sass/options/sourceMap'),
   }),
 
   /**
@@ -54,32 +36,29 @@ export const publish: Module['publish'] = (app: Framework) => ({
   },
   'item/sass/options/sourceMap': () => true,
 
-  /**
-   * rule/sass
-   */
   rule: rules => ({
     ...rules,
-    'rule/sass': app.subscribe('rule/sass'),
+    'rule/sass': app.hooks.filter('rule/sass'),
   }),
   'rule/sass': () => ({
-    test: app.subscribe('rule/sass/test'),
-    exclude: app.subscribe('rule/sass/exclude'),
-    use: app.subscribe('rule/sass/use'),
+    test: app.hooks.filter('rule/sass/test'),
+    exclude: app.hooks.filter('rule/sass/exclude'),
+    use: app.hooks.filter('rule/sass/use'),
   }),
   'rule/sass/test': () => app.store.get('patterns.sass'),
   'rule/sass/exclude': () => app.store.get('patterns.modules'),
   'rule/sass/use': () => [
     app.isProduction
-      ? app.subscribe('item/minicss')
-      : app.subscribe('item/style'),
-    app.subscribe('item/css'),
-    app.subscribe('item/postcss'),
-    app.subscribe('item/resolve-url'),
-    app.subscribe('item/sass'),
+      ? app.hooks.filter('item/minicss')
+      : app.hooks.filter('item/style'),
+    app.hooks.filter('item/css'),
+    app.hooks.filter('item/postcss'),
+    app.hooks.filter('item/resolve-url'),
+    app.hooks.filter('item/sass'),
   ],
 
   /**
    * build/resolve/extensions
    */
-  'build/resolve/extensions': e => [...e, '.scss'],
+  'build/resolve/extensions': exts => [...exts, '.scss'],
 })

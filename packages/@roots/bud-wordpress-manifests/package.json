@@ -19,15 +19,15 @@
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
   "keywords": [
-    "webpack",
     "bud",
     "bud-extension"
   ],
   "engines": {
-    "node": ">=12"
+    "node": ">=14"
   },
   "files": [
-    "lib/"
+    "lib/",
+    "types/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -51,13 +51,7 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@roots/bud-typings": "workspace:*",
-    "@skypack/package-check": "^0.2.2",
-    "@types/node": "^15.0.0",
-    "@types/rimraf": "^3.0.0",
-    "npm-run-all": "^4.1.5",
-    "rimraf": "^3.0.2",
-    "typescript": "^4.2.4"
+    "@types/node": "^15.0.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:*",

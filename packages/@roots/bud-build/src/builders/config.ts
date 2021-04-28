@@ -1,5 +1,4 @@
 import type {Framework} from '@roots/bud-framework'
-import {posix} from 'path'
 
 export function config(this: Framework): void {
   this.hooks
@@ -128,9 +127,7 @@ export function config(this: Framework): void {
     'build/resolve/modules': () => [
       this.hooks.filter('location/src'),
       this.hooks.filter('location/modules'),
-      ...this.discovery.getEntries().map(([k, v]) => {
-        return posix.join(v.path)
-      }),
+      ...this.discovery.getValues(),
     ],
     'build/stats': false,
     'build/target': 'web',

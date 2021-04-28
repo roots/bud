@@ -8,6 +8,15 @@
     "url": "https://github.com/roots/bud.git",
     "directory": "packages/@roots/bud"
   },
+  "contributors": [
+    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
@@ -15,25 +24,23 @@
     "type": "github sponsors",
     "url": "https://github.com/sponsors/roots"
   },
-  "license": "MIT",
-  "contributors": [
-    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
-  ],
   "keywords": [
+    "bud",
     "webpack"
   ],
   "engines": {
-    "node": ">=12"
+    "node": ">=14"
   },
   "files": [
-    "lib/"
+    "lib/",
+    "types/"
   ],
   "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
-  "types": "./lib/types/index.d.ts",
+  "module": "./lib/esm/index.mjs",
+  "types": "./types/index.d.ts",
   "exports": {
     "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    "import": "./lib/esm/index.mjs"
   },
   "scripts": {
     "build": "yarn g:build",
@@ -50,7 +57,6 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@skypack/package-check": "^0.2.2",
     "@types/copy-webpack-plugin": "^8.0.0",
     "@types/css-minimizer-webpack-plugin": "^1.3.0",
     "@types/express": "^4.17.11",
@@ -58,14 +64,8 @@
     "@types/lodash": "^4.14.168",
     "@types/mini-css-extract-plugin": "^1.4.2",
     "@types/node": "^15.0.0",
-    "@types/react": "^17.0.4",
-    "@types/rimraf": "^3.0.0",
     "@types/signale": "^1.4.1",
     "@types/webpack-manifest-plugin": "^3.0.4",
-    "@types/yargs": "^16.0.1",
-    "npm-run-all": "^4.1.5",
-    "rimraf": "^3.0.2",
-    "typescript": "^4.2.4",
     "webpack": "^5.36.0"
   },
   "dependencies": {
@@ -98,10 +98,8 @@
     "ink-spinner": "^4.0.1",
     "lodash": "^4.17.21",
     "mini-css-extract-plugin": "^1.5.0",
-    "react": "^17.0.2",
     "signale": "^1.4.0",
     "webpack-config-dump-plugin": "^3.0.1",
-    "webpack-manifest-plugin": "^3.1.1",
-    "yargs": "^16.2.0"
+    "webpack-manifest-plugin": "^3.1.1"
   }
 }

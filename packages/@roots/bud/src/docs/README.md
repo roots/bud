@@ -1,8 +1,7 @@
 - [Overview](#overview)
 - [Installation](#installation)
 - [Getting started](#getting-started)
-  - [Running a build](#running-a-build)
-  - [Configuration API](#configuration-api)
+- [Running a build](#running-a-build)
 - [Extensions](#extending-core)
 - [Documentation](#details)
 
@@ -129,34 +128,6 @@ yarn bud build:development
 
 There are [example implementations available for reference in `/examples`]([[base]]/examples).
 
-## Configuration API
-
-The following is a list of the utilities designed to make setting up your build as easy as possible.
-
-| Tool            | Description                     | Documentation                                   |
-| --------------- | ------------------------------- | ----------------------------------------------- |
-| bud.alias       | Easy module imports             | [README ↗]([[base]]/docs/config-alias.md)       |
-| bud.assets      | Copy static assets              | [README ↗]([[base]]/docs/config-assets.md)      |
-| bud.define      | Define global constants         | [README ↗]([[base]]/docs/config-define.md)      |
-| bud.dev         | Configure dev server            | [README ↗]([[base]]/docs/config-dev.md)         |
-| bud.devtool     | Configure sourcemaps            | [README ↗]([[base]]/docs/config-devtool.md)     |
-| bud.entry       | Add source files                | [README ↗]([[base]]/docs/config-entry.md)       |
-| bud.externals   | Define webpack externals        | [README ↗]([[base]]/docs/config-externals.md)   |
-| bud.glob        | bud.entry but with wildcards    | [README ↗]([[base]]/docs/config-glob.md)        |
-| bud.hash        | Add version string to assets    | [README ↗]([[base]]/docs/config-hash.md)        |
-| bud.html        | Set an HTML template            | [README ↗]([[base]]/docs/config-html.md)        |
-| bud.minimize    | Minify assets                   | [README ↗]([[base]]/docs/config-minimize.md)    |
-| bud.path        | Get paths to project files/dirs | [README ↗]([[base]]/docs/config-path.md)        |
-| bud.setPath     | Set paths to project files/dirs | [README ↗]([[base]]/docs/config-setPath.md)     |
-| bud.persist     | Configure build caching         | [README ↗]([[base]]/docs/config-persist.md)     |
-| bud.provide     | Define global vars              | [README ↗]([[base]]/docs/config-provide.md)     |
-| bud.proxy       | Configure proxy server          | [README ↗]([[base]]/docs/config-proxy.md)       |
-| bud.publicPath  | Define the public path          | [README ↗]([[base]]/docs/config-publicPath.md)  |
-| bud.runtime     | Extract boilerplate             | [README ↗]([[base]]/docs/config-runtime.md)     |
-| bud.storage     | Define artifacts dir            | [README ↗]([[base]]/docs/config-storage.md)     |
-| bud.splitChunks | Split code (vendor)             | [README ↗]([[base]]/docs/config-splitChunks.md) |
-| bud.storage     | Set the storage directory       | [README ↗]([[base]]/docs/config-storage.md)     |
-
 ## Extending
 
 Bud, by itself, provides an intentionally sparse set of out-of-the-box features.
@@ -213,16 +184,6 @@ Have you produced a Bud extension and want to share it here? Please, create an i
 
 ## Documentation and details
 
-- [Documentation index]([[base]]/docs/README.md)
-- [Configuration guide]([[base]]/docs/config.md)
-- [Setting the compilation mode]([[base]]/docs/components-mode.md)
-- [Working with containers]([[base]]/docs/components-container.md)
-- [Working with env values]([[base]]/docs/components-env.md)
-- [Toggling feature flags]([[base]]/docs/components-features.md)
-- [Working with the filesystem]([[base]]/docs/components-filesystem.md)
-- [Using hooks]([[base]]/docs/components-hooks.md)
-- [Bud CLI]([[base]]/docs/cli.md)
-
-## Typescript
-
-Bud is written in TypeScript but supports JS and TS projects. For TS users most project typings can be sourced from [@roots/bud-typings](packages/typings).
+- [Documentation]([[base]]/docs/README.md)
+- [Getting started]([[base]]/docs/getting-started.md)
+- [CLI]([[base]]/docs/cli.md)

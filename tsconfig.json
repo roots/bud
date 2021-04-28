@@ -8,6 +8,7 @@
     "removeComments": false,
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
+    "importHelpers": true,
     "lib": ["DOM", "ES2019"],
     "jsx": "react",
     "moduleResolution": "node",

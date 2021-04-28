@@ -14,14 +14,8 @@ import Service from './Service'
  * [🧑‍💻 roots/bud](https://github.com/roots/bud/blob/stable/README.md)
  */
 export class Extensions extends Service {
-  /**
-   * Service ident.
-   */
   public name = '@roots/bud-extensions'
 
-  /**
-   * Service boot
-   */
   @bind
   public register(): void {
     this.every((name: string, extension: Module) => {
@@ -29,9 +23,6 @@ export class Extensions extends Service {
     })
   }
 
-  /**
-   * Service boot
-   */
   @bind
   public boot(): void {
     this.every((name: string, extension: Module) => {
@@ -57,9 +48,6 @@ export class Extensions extends Service {
     )
   }
 
-  /**
-   * Add an extension
-   */
   @bind
   public add(extension: Module): void {
     this.log(`Adding extension: %s`, extension.name)
@@ -67,11 +55,6 @@ export class Extensions extends Service {
     this.bootExtension(extension)
   }
 
-  /**
-   * Make all extensions.
-   *
-   * Returns a webpack-ready array
-   */
   @bind
   public make(): Webpack.WebpackPluginInstance[] {
     this.log(`Building extensions: %s`, this.getKeys())
@@ -85,9 +68,6 @@ export class Extensions extends Service {
     return plugins
   }
 
-  /**
-   * Discard a registered extension
-   */
   @bind
   public discard(pkg: string): Service['app'] {
     this.remove(pkg)

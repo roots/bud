@@ -8,6 +8,15 @@
     "url": "https://github.com/roots/bud.git",
     "directory": "packages/@roots/bud-react"
   },
+  "contributors": [
+    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
@@ -15,28 +24,25 @@
     "type": "github sponsors",
     "url": "https://github.com/sponsors/roots"
   },
-  "license": "MIT",
-  "contributors": [
-    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
-  ],
   "keywords": [
-    "webpack",
     "bud",
-    "bud-extension"
+    "bud-extension",
+    "react"
   ],
   "engines": {
-    "node": ">=12"
+    "node": ">=14"
   },
   "files": [
-    "lib/"
+    "lib/",
+    "types/"
   ],
   "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
+  "module": "./lib/esm/index.mjs",
+  "types": "./types/index.d.ts",
   "exports": {
     "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    "import": "./lib/esm/index.mjs"
   },
-  "types": "./lib/types/index.d.ts",
   "scripts": {
     "build": "yarn g:build",
     "build:cjs": "yarn g:build:cjs",
@@ -57,18 +63,12 @@
   "devDependencies": {
     "@roots/bud-babel": "workspace:*",
     "@types/node": "^15.0.0",
-    "@types/rimraf": "^3.0.0",
-    "npm-run-all": "^4.1.5",
-    "rimraf": "^3.0.2",
-    "typescript": "^4.2.4",
     "webpack": "^5.36.0"
   },
   "dependencies": {
     "@babel/preset-react": "^7.13.13",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
     "@roots/bud-framework": "workspace:*",
-    "@roots/bud-support": "workspace:*",
-    "@skypack/package-check": "^0.2.2",
     "@svgr/core": "^5.5.0",
     "@svgr/webpack": "^5.5.0",
     "autobind-decorator": "^2.4.0",

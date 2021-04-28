@@ -4,8 +4,18 @@
 
 <p align="center">
   <img alt="MIT License" src="https://img.shields.io/github/license/roots/bud?color=%23525ddc&style=flat-square">
+  <a href="https://www.npmjs.com/package/@roots/bud-library">
+    <img src="https://img.shields.io/npm/v/@roots/bud-library.svg?color=%23525ddc&style=flat-square" />
+  </a>
+  <a href="https://codeclimate.com/github/roots/bud-support/maintainability">
+    <img src="https://img.shields.io/codeclimate/maintainability/roots/bud-support?color=%23525ddc&style=flat-square" />
+  </a>
+  <img alt="Lerna" src="https://img.shields.io/github/lerna-json/v/roots/bud?color=%23525ddc&style=flat-square">
+  <a href="Typescript" src="https://github.com/roots/bud/tree/stable/typings">
+    <img src="https://img.shields.io/badge/typings-%40roots%2Fbud--typings-%23525ddc" />
+  </a>
   <a href="https://twitter.com/rootswp">
-    <img alt="Follow Roots" src="https://img.shields.io/twitter/follow/rootswp.svg?style=flat-square&color=1da1f2" />
+    <img alt="Follow Roots" src="https://img.shields.io/twitter/follow/rootswp.svg?color=%23525ddc&style=flat-square" />
   </a>
 </p>
 
@@ -15,7 +25,14 @@
 
 ## Overview
 
-Fast compilation using a dynamic link library.
+> Adds DLL caching support to [@roots/bud](https://github.com/roots/bud/tree/stable/README.md) projects. This can significantly improve build times for vendored dependencies which do not frequently change.
+
+`app.library` differs from `app.vendor` in that it doesn't just separate the vendored code from the application code, but actually stops the vendored assets from needing to be rebuilt at all.
+
+The first build will likely take longer as the DLL will need to be compiled, but subsequent builds should see a noticeable reduction in build time.
+
+- [Installation](#Installation)
+- [Usage](#Usage)
 
 ## Installation
 
@@ -25,19 +42,22 @@ yarn add @roots/bud-library --dev
 
 ## Usage
 
-Include the extension
-
 ```js
-bud.use(['@roots/bud-library'])
+module.exports = (app) =>
+  app.use("@roots/bud-library").library(["react", "react-dom", "react-forms"]);
 ```
 
-Specify the packages you would like to include in the DLL
+Pass `app.library` the module you would like to add to the DLL cache:
 
 ```js
-bud.library(['react', 'react-dom'])
+app.library("jquery");
 ```
 
-The first build with a DLL will take longer to compile. Subsequent builds should be much faster.
+Multiple modules can be added using an array:
+
+```js
+app.library(["jquery", "bootstrap"]);
+```
 
 ## Contributing
 
@@ -58,7 +78,3 @@ Keep track of development and community news.
 - Read and subscribe to the [Roots Blog](https://roots.io/blog/)
 - Subscribe to the [Roots Newsletter](https://roots.io/subscribe/)
 - Listen to the [Roots Radio podcast](https://roots.io/podcast/)
-
-```
-
-```

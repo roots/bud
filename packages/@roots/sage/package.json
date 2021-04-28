@@ -17,25 +17,25 @@
     "url": "https://github.com/roots/bud/issues"
   },
   "keywords": [
-    "bud-preset",
+    "bud",
     "sage"
   ],
   "engines": {
-    "node": ">=12"
+    "node": ">=14"
   },
   "license": "MIT",
   "files": [
     "lib/",
-    "bin/"
+    "bin/",
+    "types/"
   ],
-  "bin": "bin/sage",
   "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
+  "module": "./lib/esm/index.mjs",
   "exports": {
     "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    "import": "./lib/esm/index.mjs"
   },
-  "types": "./lib/types/index.d.ts",
+  "types": "./types/index.d.ts",
   "scripts": {
     "build": "yarn g:build",
     "build:cjs": "yarn g:build:cjs",
@@ -51,14 +51,9 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@skypack/package-check": "^0.2.2",
     "@types/fs-extra": "^9.0.11",
     "@types/node": "^15.0.0",
-    "@types/rimraf": "^3.0.0",
-    "@types/tailwindcss": "^2.0.2",
-    "npm-run-all": "^4.1.5",
-    "rimraf": "^3.0.2",
-    "typescript": "^4.2.4"
+    "@types/tailwindcss": "^2"
   },
   "dependencies": {
     "@roots/bud": "workspace:*",
@@ -82,7 +77,9 @@
     "@roots/bud-wordpress-manifests": "workspace:*",
     "@roots/container": "workspace:*",
     "@roots/filesystem": "workspace:*",
+    "@tailwindcss/jit": "^0.1.18",
     "fs-extra": "^9.1.0",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "tailwindcss": "^2.1.2"
   }
 }

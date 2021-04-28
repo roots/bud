@@ -6,6 +6,15 @@
     "url": "https://github.com/roots/bud.git",
     "directory": "packages/@roots/bud-wordpress-manifests"
   },
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
+  "contributors": [
+    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
+  ],
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
@@ -13,27 +22,24 @@
     "type": "github sponsors",
     "url": "https://github.com/sponsors/roots"
   },
-  "license": "MIT",
-  "contributors": [
-    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
-  ],
   "keywords": [
-    "webpack",
-    "bud"
+    "critical-css",
+    "webpack"
   ],
   "engines": {
-    "node": ">=12"
+    "node": ">=14"
   },
   "files": [
-    "lib/"
+    "lib/",
+    "types/"
   ],
   "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
+  "module": "./lib/esm/index.mjs",
+  "types": "./types/index.d.ts",
   "exports": {
     "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    "import": "./lib/esm/index.mjs"
   },
-  "types": "./lib/types/index.d.ts",
   "scripts": {
     "build": "yarn g:build",
     "build:cjs": "yarn g:build:cjs",
@@ -58,13 +64,8 @@
   },
   "devDependencies": {
     "@roots/bud-framework": "workspace:*",
-    "@skypack/package-check": "^0.2.2",
     "@types/lodash": "^4.14.168",
     "@types/node": "^15.0.0",
-    "@types/rimraf": "^3.0.0",
-    "@types/vinyl": "^2.0.4",
-    "npm-run-all": "^4.1.5",
-    "rimraf": "^3.0.2",
-    "typescript": "^4.2.4"
+    "@types/vinyl": "^2.0.4"
   }
 }

@@ -7,29 +7,14 @@ import {isString} from 'lodash'
  * PostCSS configuration
  */
 export class PostCssConfig implements PostCss {
-  /**
-   * Framework
-   */
   public _app: Framework['get']
 
-  /**
-   * Plugins
-   */
   public _plugins: PostCss.Registry = {}
 
-  /**
-   * Plugin order
-   */
   public _order: string[] = []
 
-  /**
-   * Logger
-   */
   public logger: Signale
 
-  /**
-   * Constructor
-   */
   public constructor({app}: {app: Framework}) {
     this.app = app
     this.logger = this.app.logger.instance.scope(
@@ -63,9 +48,6 @@ export class PostCssConfig implements PostCss {
     )
   }
 
-  /**
-   * Getters/setters
-   */
   public get app(): Framework {
     return this._app()
   }
@@ -90,9 +72,6 @@ export class PostCssConfig implements PostCss {
     this._order = order
   }
 
-  /**
-   * Set plugin
-   */
   @bind
   public set(definition: PostCss.Registrable): this {
     const [plugin, options] = isString(definition)
@@ -110,9 +89,6 @@ export class PostCssConfig implements PostCss {
     return this
   }
 
-  /**
-   * Unset plugin
-   */
   @bind
   public unset(plugin: string) {
     this.logger.debug(`Removing ${plugin}`)
@@ -126,9 +102,6 @@ export class PostCssConfig implements PostCss {
     return this
   }
 
-  /**
-   * Override plugin options
-   */
   @bind
   public setOptions(plugin: string, options: any): this {
     this.logger.debug(`Setting ${plugin} options`)
@@ -137,9 +110,6 @@ export class PostCssConfig implements PostCss {
     return this
   }
 
-  /**
-   * Order plugins
-   */
   @bind
   public setOrder(plugins: string[]): this {
     this.logger.debug(
@@ -154,9 +124,6 @@ export class PostCssConfig implements PostCss {
     return this
   }
 
-  /**
-   * Make final plugins config output
-   */
   @bind
   public makeConfig(): any {
     return this.order.map(key => {

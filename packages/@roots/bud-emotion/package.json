@@ -8,6 +8,15 @@
     "url": "https://github.com/roots/bud.git",
     "directory": "packages/@roots/bud-emotion"
   },
+  "contributors": [
+    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
@@ -15,62 +24,51 @@
     "type": "github sponsors",
     "url": "https://github.com/sponsors/roots"
   },
-  "license": "MIT",
-  "contributors": [
-    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
-  ],
   "keywords": [
     "bud",
     "bud-extension",
     "emotion"
   ],
   "engines": {
-    "node": ">=12"
+    "node": ">=14"
   },
   "files": [
-    "lib/"
+    "lib/",
+    "types/"
   ],
   "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
+  "module": "./lib/esm/index.mjs",
+  "types": "./types/index.d.ts",
   "exports": {
     "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    "import": "./lib/esm/index.mjs"
   },
-  "types": "./lib/types/index.d.ts",
   "scripts": {
-    "build": "run-p build:cjs build:esm",
-    "build:cjs": "tsc --build tsconfig.json",
-    "build:esm": "tsc --build tsconfig-esm.json",
-    "lint": "run-s lint:*",
-    "lint:eslint": "eslint 'src/**/*.{js,ts,tsx}' --fix",
-    "lint:prettier": "prettier 'src/**/*'  --write",
-    "clean": "run-s clean:lib clean:modules clean:types",
-    "clean:lib": "rimraf ./lib",
-    "clean:modules": "rimraf ./node_modules",
-    "clean:types": "rimraf ./types",
-    "pkg": "run-s pkg:*",
-    "pkg:check": "package-check --verbose",
-    "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
+    "build": "yarn g:build",
+    "build:cjs": "yarn g:build:cjs",
+    "build:esm": "yarn g:build:esm",
+    "lint": "yarn g:lint",
+    "lint:eslint": "yarn g:lint:eslint",
+    "lint:prettier": "yarn g:lint:prettier",
+    "clean": "yarn g:clean",
+    "clean:lib": "yarn g:clean:lib",
+    "clean:modules": "yarn g:clean:modules",
+    "clean:types": "yarn g:clean:types",
+    "pkg:check": "yarn g:pkg:check",
+    "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
     "@babel/core": "^7.13.16",
     "@babel/preset-react": "^7.13.13",
     "@roots/bud-babel": "workspace:*",
-    "@roots/bud-react": "^3.2.0-next.2",
-    "@types/node": "^15.0.0",
-    "@types/rimraf": "^3.0.0",
-    "npm-run-all": "^4.1.5",
-    "react": "^17.0.2",
-    "react-dom": "^17.0.2",
-    "rimraf": "^3.0.2",
-    "typescript": "^4.2.4"
+    "@roots/bud-react": "workspace:*",
+    "@types/node": "^15.0.0"
   },
   "dependencies": {
     "@emotion/css": "^11.1.3",
     "@emotion/react": "^11.1.5",
     "@emotion/styled": "^11.3.0",
     "@roots/bud-framework": "workspace:*",
-    "@skypack/package-check": "^0.2.2",
     "autobind-decorator": "^2.4.0"
   }
 }

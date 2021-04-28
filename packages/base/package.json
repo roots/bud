@@ -2,10 +2,13 @@
   "name": "g",
   "private": true,
   "license": "MIT",
+  "type": "module",
   "scripts": {
-    "g:build": "cd $INIT_CWD && run-p build:cjs build:esm",
+    "g:build": "cd $INIT_CWD && run-p clean:lib build:cjs build:esm && yarn g:build:format",
     "g:build:cjs": "cd $INIT_CWD && tsc --build tsconfig.json",
-    "g:build:esm": "cd $INIT_CWD && tsc --build tsconfig-esm.json",
+    "g:build:esm": "cd $INIT_CWD && tsc --build tsconfig-esm.json && yarn g:build:esm:post",
+    "g:build:esm:post": "yarn node ./scripts/esm-post.js $INIT_CWD",
+    "g:build:format": "cd $INIT_CWD && prettier './lib/**/*.{mjs,js}' --write && prettier './types/**/*.d.ts' --write",
     "g:lint": "cd $INIT_CWD && run-s lint:eslint lint:prettier",
     "g:lint:eslint": "cd $INIT_CWD && eslint 'src/**/*.{js,ts,tsx}' --fix",
     "g:lint:prettier": "cd $INIT_CWD && prettier 'src/**/*'  --write",
@@ -14,20 +17,16 @@
     "g:clean:modules": "cd $INIT_CWD && rimraf ./node_modules",
     "g:clean:types": "cd $INIT_CWD && rimraf ./types",
     "g:pkg:check": "cd $INIT_CWD && package-check --verbose",
-    "g:pkg:format": "cd $INIT_CWD && prettier './lib/**/*.{js,ts}' --write"
+    "g:pkg:format": "cd $INIT_CWD && prettier './lib/**/*.{js,mjs}' --write"
   },
   "devDependencies": {
-    "@roots/bud-typings": "workspace:*",
     "@skypack/package-check": "^0.2.2",
-    "@types/lodash": "^4.14.168",
-    "@types/node": "^15.0.0",
-    "@types/prettier": "^2.2.3",
-    "@types/rimraf": "^3.0.0",
+    "@types/replacestream": "^4",
     "globby": "^11.0.3",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.2.1",
+    "replacestream": "^4.0.3",
     "rimraf": "^3.0.2",
-    "typescript": "^4.2.4",
-    "webpack": "^5.36.0"
+    "typescript": "^4.2.4"
   }
 }

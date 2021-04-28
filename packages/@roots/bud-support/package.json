@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud-support",
   "version": "3.2.0-next.2",
-  "description": "Internal utilities for the @roots/bud monorepo.",
+  "description": "👨🏽‍🍳 Internal packages for @roots/bud",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
@@ -20,23 +20,23 @@
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
   "keywords": [
-    "bud",
-    "webpack"
+    "bud"
   ],
   "engines": {
-    "node": ">=12"
+    "node": ">=14"
   },
   "files": [
     "lib/",
-    "publish/"
+    "publish/",
+    "types/"
   ],
   "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
+  "module": "./lib/esm/index.mjs",
+  "types": "./types/index.d.ts",
   "exports": {
     "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    "import": "./lib/esm/index.mjs"
   },
-  "types": "./lib/types/index.d.ts",
   "scripts": {
     "build": "yarn g:build",
     "build:cjs": "yarn g:build:cjs",
@@ -52,20 +52,10 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "dependencies": {
-    "@skypack/package-check": "^0.2.2",
-    "chalk": "^4.1.1",
     "escape-string-regexp": "^4.0.0",
-    "fs-extra": "^9.1.0",
     "lodash": "^4.17.21",
     "node-notifier": "^9.0.1",
     "pretty-format": "^26.6.2",
     "webpack": "^5.36.0"
-  },
-  "devDependencies": {
-    "@types/node": "^15.0.0",
-    "@types/rimraf": "^3.0.0",
-    "npm-run-all": "^4.1.5",
-    "rimraf": "^3.0.2",
-    "typescript": "^4.2.4"
   }
 }

@@ -18,22 +18,23 @@
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
   "keywords": [
-    "webpack",
-    "bud"
+    "wordpress",
+    "webpack"
   ],
   "engines": {
-    "node": ">=12"
+    "node": ">=14"
   },
   "files": [
-    "lib/"
+    "lib/",
+    "types/"
   ],
   "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.js",
+  "module": "./lib/esm/index.mjs",
   "exports": {
     "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.js"
+    "import": "./lib/esm/index.mjs"
   },
-  "types": "./lib/types/index.d.ts",
+  "types": "./types/index.d.ts",
   "scripts": {
     "build": "yarn g:build",
     "build:cjs": "yarn g:build:cjs",
@@ -48,19 +49,14 @@
     "pkg:check": "yarn g:pkg:check",
     "pkg:format": "yarn g:pkg:format"
   },
+  "devDependencies": {
+    "@roots/bud-framework": "workspace:*",
+    "@types/node": "^15.0.0"
+  },
   "dependencies": {
     "@roots/bud-support": "workspace:*",
     "autobind-decorator": "^2.4.0",
     "node-fetch": "^2.6.1",
     "webpack": "^5.36.0"
-  },
-  "devDependencies": {
-    "@roots/bud-framework": "workspace:*",
-    "@skypack/package-check": "^0.2.2",
-    "@types/node": "^15.0.0",
-    "@types/rimraf": "^3.0.0",
-    "npm-run-all": "^4.1.5",
-    "rimraf": "^3.0.2",
-    "typescript": "^4.2.4"
   }
 }

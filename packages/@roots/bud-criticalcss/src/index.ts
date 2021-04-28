@@ -3,29 +3,14 @@ import {CriticalCss} from '@roots/bud-framework'
 import {CriticalCssWebpackPlugin} from '@roots/critical-css-webpack-plugin'
 
 const criticalCssWebpackPlugin = {
-  /**
-   * Name
-   */
   name: '@roots/bud-criticalcss',
 
-  /**
-   * Options
-   */
   options: (): CriticalCss.Options => ({}),
 
-  /**
-   * Make
-   */
   make: options => new CriticalCssWebpackPlugin(options.all()),
 
-  /**
-   * Is Production
-   */
   when: ({isProduction}) => isProduction,
 
-  /**
-   * Config
-   */
   api: {
     critical: function (options) {
       this.hooks.on(
