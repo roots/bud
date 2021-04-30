@@ -10,13 +10,7 @@ import {extensions} from '../../extensions'
  * [🧑‍💻 roots/bud](https://git.io/Jkli3)
  */
 export class Extensions extends Base {
-  /**
-   * Service name
-   */
   public name = 'service/extensions'
 
-  /**
-   * Service container
-   */
   public repository = extensions
 }

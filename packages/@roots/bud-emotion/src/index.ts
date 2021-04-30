@@ -26,3 +26,6 @@ export const boot: Module['boot'] = (app: Framework) => {
       ...app.subscribe('item/babel/options/plugins'),
     ])
 }
+
+const extension: Module = {name, devDependencies, boot}
+export default extension

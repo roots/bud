@@ -1,5 +1,5 @@
 import {Bud} from '@roots/bud'
-import {Module} from '@roots/bud-framework'
+import '@roots/bud-extensions'
 
 /**
  * Sage theme preset

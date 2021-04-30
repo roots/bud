@@ -1,7 +1,7 @@
-import React from 'react'
-import {Asset} from './Asset'
 import {Dashboard} from '@roots/bud-framework'
+import React from 'react'
 import {Box} from 'ink'
+import {Asset} from './Asset'
 
 /**
  * Asset component

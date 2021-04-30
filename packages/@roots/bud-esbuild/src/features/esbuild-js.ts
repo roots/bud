@@ -1,4 +1,4 @@
-import type {Module, Framework} from '@roots/bud-framework'
+import type {Module} from '@roots/bud-framework'
 
 /**
  * @const jsFeature
@@ -15,20 +15,22 @@ export const jsFeature: Module = {
    * @property jsFeature.boot
    * @description code to be run on extension boot event
    */
-  boot: ({hooks, publish, subscribe}: Framework) => {
+  boot: ({hooks, publish}) => {
     hooks.on(
       'loader/esbuild-js',
       require.resolve('esbuild-loader'),
     )
 
-    hooks.on('rule/js/use', subscribe('item/esbuild-js'))
+    hooks.on('rule/js/use', () =>
+      hooks.filter('item/esbuild-js'),
+    )
 
     publish({
       'item/esbuild-js': () => ({
-        loader: subscribe('loader/esbuild-js'),
+        loader: hooks.filter('loader/esbuild-js'),
         options: {
-          loader: subscribe('item/esbuild-js/options/loader'),
-          target: subscribe('item/esbuild-js/options/target'),
+          loader: hooks.filter('item/esbuild-js/options/loader'),
+          target: hooks.filter('item/esbuild-js/options/target'),
         },
       }),
       'item/esbuild-js/options/loader': () => 'jsx',

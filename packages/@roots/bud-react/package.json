@@ -58,16 +58,18 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "peerDependencies": {
-    "react": ">=17"
+    "react": ">=17",
+    "react-dom": ">=17"
   },
   "devDependencies": {
-    "@roots/bud-babel": "workspace:*",
     "@types/node": "^15.0.0",
     "webpack": "^5.36.0"
   },
   "dependencies": {
     "@babel/preset-react": "^7.13.13",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
+    "@roots/bud-babel": "workspace:*",
+    "@roots/bud-extensions": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@svgr/core": "^5.5.0",
     "@svgr/webpack": "^5.5.0",

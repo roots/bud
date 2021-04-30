@@ -1,9 +1,9 @@
 import {Command} from './Command'
-import * as flags from './flags'
-import {App, Bud, services} from '@roots/bud'
-import {Config} from './Config'
+import {Bud, services, config} from '@roots/bud'
 import {boundMethod as bind} from 'autobind-decorator'
 import {isFunction} from 'lodash'
+import {Config} from './Config'
+import * as flags from './flags/index'
 
 export default class Build extends Command {
   public app: Bud
@@ -22,7 +22,8 @@ export default class Build extends Command {
   public mode: 'development' | 'production'
 
   public async run() {
-    this.app = new App().bootstrap(services).lifecycle()
+    this.app = new Bud(config).bootstrap(services).lifecycle()
+
     this.app.mode = this.mode
 
     await new Config(this.app, [

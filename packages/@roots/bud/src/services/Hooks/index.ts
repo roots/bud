@@ -2,14 +2,8 @@ import {Hooks as Base} from '@roots/bud-hooks'
 import {boundMethod as bind} from 'autobind-decorator'
 
 export class Hooks extends Base {
-  /**
-   * Service name
-   */
   public name = 'service/hooks'
 
-  /**
-   * Service register
-   */
   @bind
   public register() {
     this.on('location/project', () =>

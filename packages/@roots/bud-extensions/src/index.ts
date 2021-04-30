@@ -1,6 +1,7 @@
-import './interface'
+import './interface/Module'
+import './interface/Extension'
+import './interface/Extensions'
 
-import Extension from './Extensions/Extension'
-import {Extensions} from './Extensions'
-
-export {Extensions, Extension}
+export {Module} from './Module/index'
+export {Extension} from './Extension/index'
+export {Extensions} from './Extensions/index'

@@ -3,7 +3,7 @@ import type {Dashboard} from '@roots/bud-framework'
 import React from 'react'
 import {Box, Text} from 'ink'
 import Spinner from 'ink-spinner'
-import {Bar} from './Bar'
+import {Bar} from './Bar/index'
 
 export const Progress: Dashboard.Component = ({
   progress,

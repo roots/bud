@@ -1,27 +1,4 @@
-import {Module} from '@roots/bud-framework'
-
-interface LoaderOptions {
-  target?:
-    | 'es2015'
-    | 'es2020'
-    | 'chrome58'
-    | 'firefox57'
-    | 'safari11'
-    | 'edge16'
-    | 'node12.19.0'
-  loader?:
-    | 'tsx'
-    | 'ts'
-    | 'js'
-    | 'json'
-    | 'text'
-    | 'base64'
-    | 'file'
-    | 'dataurl'
-    | 'binary'
-  jsxFactory?: string
-  jsxFragment?: string
-}
+import '@roots/bud-extensions'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -72,6 +49,29 @@ declare module '@roots/bud-framework' {
     ) => Framework
 
     type JSX = (enabled?: boolean) => Framework
+
+    interface LoaderOptions {
+      target?:
+        | 'es2015'
+        | 'es2020'
+        | 'chrome58'
+        | 'firefox57'
+        | 'safari11'
+        | 'edge16'
+        | 'node12.19.0'
+      loader?:
+        | 'tsx'
+        | 'ts'
+        | 'js'
+        | 'json'
+        | 'text'
+        | 'base64'
+        | 'file'
+        | 'dataurl'
+        | 'binary'
+      jsxFactory?: string
+      jsxFragment?: string
+    }
   }
 
   namespace Hooks.Extension {

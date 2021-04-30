@@ -1,6 +1,6 @@
-import {Module} from '@roots/bud-framework'
+import '@roots/bud-extensions'
 
-import CompressionPlugin from 'compression-webpack-plugin'
+import Plugin from 'compression-webpack-plugin'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -39,23 +39,39 @@ declare module '@roots/bud-framework' {
      * })
      * ```
      */
-    brotli: Compress.Config
+    brotli: Compress.ConfigFn
 
     /**
      * ## gzip  [💁 Fluent]
      *
      * Gzip static assets.
      */
-    gzip: Compress.Config
+    gzip: Compress.ConfigFn
   }
 
   namespace Compress {
-    type Config = (options?: any) => Framework
-    interface Extension extends Module {
-      options: Module.Options<any>
-      make: Module.Make<CompressionPlugin, Module.Options>
+    type ConfigFn = (options?: Options) => Framework
+
+    interface Extension extends Module<Plugin, Options> {
+      name: keyof Hooks.Extension.Definitions
+      options: Module.Options<Options>
+      make: Module.Make<Plugin, Module.Options>
       when: Module.When
-      config: Config
+      api: {
+        [key: string]: Compress.ConfigFn
+      }
+    }
+
+    interface Options {
+      filename: string
+      algorithm: string
+      test: RegExp
+      compressionOptions: {
+        [key: string]: any
+      }
+      threshold: number
+      minRatio: number
+      deleteOriginalAssets: boolean
     }
   }
 

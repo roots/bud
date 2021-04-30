@@ -1,0 +1,13 @@
+name: '@roots/bud-react'
+type: 'extension'
+
+devDependencies:
+  - '@babel/preset-react'
+  - 'react-refresh'
+
+dependencies:
+  - 'react'
+  - 'react-dom'
+
+docs:
+  usage: 'docs/usage.md'

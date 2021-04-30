@@ -9,5 +9,5 @@ description: Generate a long-life DLL cache
 ## Usage
 
 ```js
-bud.minify()
+bud.minimize()
 ```

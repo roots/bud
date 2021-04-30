@@ -1,4 +1,4 @@
-import {Module} from '@roots/bud-framework'
+import type {Module} from '@roots/bud-extensions'
 import {tsFeature} from './esbuild-ts'
 import {jsFeature} from './esbuild-js'
 

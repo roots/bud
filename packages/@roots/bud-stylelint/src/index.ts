@@ -1,12 +1,13 @@
 import './interface'
-import {Framework, Module} from '@roots/bud-framework'
-import StylelintPlugin from 'stylelint-webpack-plugin'
+import type {Module} from '@roots/bud-extensions'
+import Plugin from 'stylelint-webpack-plugin'
 
-export const name: Module['name'] = 'stylelint-webpack-plugin'
+const extension: Module<Plugin, any> = {
+  name: 'stylelint-webpack-plugin',
+  options: app => ({
+    context: app.path('project'),
+  }),
+  make: opts => new Plugin(opts.all()),
+}
 
-export const options: Module['options'] = (app: Framework) => ({
-  context: app.subscribe('location/project'),
-})
-
-export const make: Module['make'] = options =>
-  new StylelintPlugin(options.all())
+export const {name, options, make} = extension

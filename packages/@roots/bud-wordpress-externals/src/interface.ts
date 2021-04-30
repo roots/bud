@@ -1,4 +1,4 @@
-import type {Module} from '@roots/bud-framework'
+import '@roots/bud-extensions'
 
 declare module '@roots/bud-framework' {
   namespace Hooks.Extension {

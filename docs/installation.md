@@ -1,5 +1,5 @@
 ---
-description: Installing Bud requires node 12.
+description: Installing Bud requires node v14.
 ---
 
 # Installation

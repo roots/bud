@@ -4,11 +4,10 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "g:build": "cd $INIT_CWD && run-p clean:lib build:cjs build:esm && yarn g:build:format",
+    "g:build": "cd $INIT_CWD && run-p clean:lib build:cjs build:esm",
     "g:build:cjs": "cd $INIT_CWD && tsc --build tsconfig.json",
     "g:build:esm": "cd $INIT_CWD && tsc --build tsconfig-esm.json && yarn g:build:esm:post",
     "g:build:esm:post": "yarn node ./scripts/esm-post.js $INIT_CWD",
-    "g:build:format": "cd $INIT_CWD && prettier './lib/**/*.{mjs,js}' --write && prettier './types/**/*.d.ts' --write",
     "g:lint": "cd $INIT_CWD && run-s lint:eslint lint:prettier",
     "g:lint:eslint": "cd $INIT_CWD && eslint 'src/**/*.{js,ts,tsx}' --fix",
     "g:lint:prettier": "cd $INIT_CWD && prettier 'src/**/*'  --write",
@@ -17,7 +16,7 @@
     "g:clean:modules": "cd $INIT_CWD && rimraf ./node_modules",
     "g:clean:types": "cd $INIT_CWD && rimraf ./types",
     "g:pkg:check": "cd $INIT_CWD && package-check --verbose",
-    "g:pkg:format": "cd $INIT_CWD && prettier './lib/**/*.{js,mjs}' --write"
+    "g:pkg:format": "cd $INIT_CWD && prettier './lib/**/*.{mjs,js}' --write && prettier './types/**/*.d.ts' --write"
   },
   "devDependencies": {
     "@skypack/package-check": "^0.2.2",

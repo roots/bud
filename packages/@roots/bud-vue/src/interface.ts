@@ -1,4 +1,4 @@
-import {Module} from '@roots/bud-framework'
+import '@roots/bud-extensions'
 import '@roots/bud-api'
 import '@roots/bud-babel'
 import {RuleSetRule, RuleSetUseItem} from 'webpack'

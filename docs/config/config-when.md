@@ -28,16 +28,12 @@ bud.when(
 )
 ```
 
-## Signature
+For clarity, here is a very verbose version of the same thing
 
-```ts
-function (
-  testCase: boolean,
-  trueCase: CallableFunction,
-  falseCase?: CallableFunction | undefined,
-): Bud
+```js
+const test = bud.mode.is('development')
+const inProduction = () => bud.devtool('eval')
+const inDevelopment = () => bud.devtool('hidden-source-map')
+
+bud.when(test, inProduction, inDevelopment)
 ```
-
-## Returns
-
-`Bud`: The Bud instance

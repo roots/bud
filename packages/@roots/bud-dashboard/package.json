@@ -61,7 +61,7 @@
     "@roots/bud-compiler": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/filesystem": "workspace:*",
-    "@roots/ink-use-style": "workspace:*",
+    "@roots/ink-use-style": "workspace:packages/@roots/ink-use-style",
     "autobind-decorator": "^2.4.0",
     "axios": "^0.21.1",
     "execa": "^5.0.0",

@@ -1,4 +1,4 @@
-import {Module} from '@roots/bud-framework'
+import '@roots/bud-extensions'
 import {CriticalCssWebpackPlugin} from '@roots/critical-css-webpack-plugin'
 
 declare module '@roots/bud-framework' {

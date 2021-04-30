@@ -1,13 +1,14 @@
+import {Module} from '@roots/bud-framework'
 import {
   Options,
   CleanWebpackPlugin as Plugin,
 } from 'clean-webpack-plugin'
-import {Module} from '@roots/bud-framework'
 
-export const name = 'clean-webpack-plugin'
+const extension: Module<Plugin, Options> = {
+  name: 'clean-webpack-plugin',
+  options: ({store}) =>
+    store.get('extension.cleanWebpackPlugin'),
+  make: opts => new Plugin(opts.all()),
+}
 
-export const options: Module.Options<Options> = app =>
-  app.store.get('extension.cleanWebpackPlugin')
-
-export const make: Module.Make<Plugin, Options> = options =>
-  new Plugin(options.all())
+export {extension as default}

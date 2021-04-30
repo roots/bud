@@ -24,7 +24,6 @@
     "url": "https://github.com/sponsors/roots"
   },
   "keywords": [
-    "webpack",
     "bud-extension",
     "bud"
   ],
@@ -61,6 +60,7 @@
     "@types/node": "^15.0.0"
   },
   "dependencies": {
+    "@roots/bud-extensions": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/entrypoints-webpack-plugin": "workspace:*",
     "autobind-decorator": "^2.4.0"

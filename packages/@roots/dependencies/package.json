@@ -8,14 +8,14 @@
     "url": "https://github.com/roots/bud.git",
     "directory": "packages/@roots/dependencies"
   },
+  "contributors": [
+    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
+  ],
   "licenses": [
     {
       "type": "MIT",
       "url": "http://opensource.org/licenses/MIT"
     }
-  ],
-  "contributors": [
-    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
   "bugs": {
     "url": "https://github.com/roots/bud/issues"

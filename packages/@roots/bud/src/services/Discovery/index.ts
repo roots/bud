@@ -1,27 +1,11 @@
-import {
-  Discovery as Contract,
-  Framework,
-  Service,
-} from '@roots/bud-framework'
+import {Framework} from '@roots/bud-framework'
+import {Base} from './Base'
 import {boundMethod as bind} from 'autobind-decorator'
 import fs from 'fs-extra'
 import {sync} from 'globby'
 import {dirname} from 'path'
 
-/**
- * Framework/Discovery
- *
- * [🏡 Project home](https://roots.io/bud)
- */
-export class Discovery extends Service implements Contract {
-  /**
-   * Service name
-   */
-  public name = 'framework/discovery'
-
-  /**
-   * Package paths: get accessor
-   */
+export class Discovery extends Base {
   public get packagePaths() {
     return sync([
       this.app.path('modules', '@roots/sage/package.json'),
@@ -30,20 +14,11 @@ export class Discovery extends Service implements Contract {
     ])
   }
 
-  /**
-   * Service boot.
-   */
   @bind
-  public boot(app: Framework): void {
-    app.sequence([
-      this.discoverPackages,
-      this.registerDiscovered,
-    ])
+  public boot({sequence}: Framework): void {
+    sequence([this.discoverPackages, this.registerDiscovered])
   }
 
-  /**
-   * Collect packages.
-   */
   @bind
   public discoverPackages(): void {
     this.setStore(
@@ -53,9 +28,6 @@ export class Discovery extends Service implements Contract {
     )
   }
 
-  /**
-   * Register discovered packages as extensions
-   */
   @bind
   public registerDiscovered() {
     this.app.store.isTrue('discover') &&
@@ -66,9 +38,6 @@ export class Discovery extends Service implements Contract {
       })
   }
 
-  /**
-   * Gather information on packages
-   */
   @bind
   public reducePackages(pkgs: Framework.Pkgs, pkg: string) {
     const json = fs.readJsonSync(pkg)

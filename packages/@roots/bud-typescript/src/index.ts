@@ -1,72 +1,56 @@
 import './interface'
-import {Module, Framework} from '@roots/bud-framework'
+import {Module} from '@roots/bud-extensions'
 
-/**
- * Extension name
- */
-export const name: Module['name'] = '@roots/bud-typescript'
+import * as api from './api'
 
-/**
- * Registered devDependencies
- */
-export const devDependencies: Module['devDependencies'] = [
-  'typescript',
-]
+const name: Module['name'] = '@roots/bud-typescript'
 
-/**
- * Extension config api
- */
-export * as api from './api'
-
-/**
- * Boot
- */
-export const boot: Module['boot'] = ({
-  publish,
-  subscribe,
-  store,
-}: Framework) => {
-  // Set regexp pattern for ts
+const boot: Module['boot'] = ({publish, hooks, store}) => {
   store.set('patterns.ts', /\.(ts|tsx)$/)
 
-  // Filterable config
   publish(
     {
-      // Resolve ts extensions
       'build/resolve/extensions': e => [...e, '.ts', '.tsx'],
-      // Rule
-      rule: (rule: {[key: string]: Framework['subscribe']}) => ({
-        'rule/ts': subscribe('rule/ts'),
+
+      rule: rule => ({
+        'rule/ts': hooks.filter('rule/ts'),
         ...rule,
       }),
+
       'rule/ts': () => ({
-        test: subscribe('rule/ts/test'),
-        exclude: subscribe('rule/ts/exclude'),
-        use: subscribe('rule/ts/use'),
+        test: hooks.filter('rule/ts/test'),
+        exclude: hooks.filter('rule/ts/exclude'),
+        use: hooks.filter('rule/ts/use'),
       }),
+
       'rule/ts/test': () => store.get('patterns.ts'),
       'rule/ts/exclude': () => store.get('patterns.modules'),
       'rule/ts/use': () => [
-        subscribe('item/babel'),
-        subscribe('item/ts'),
+        hooks.filter('item/babel'),
+        hooks.filter('item/ts'),
       ],
+
       'item/ts': () => ({
-        loader: subscribe('item/ts/loader'),
-        options: subscribe('item/ts/options'),
+        loader: hooks.filter('item/ts/loader'),
+        options: hooks.filter('item/ts/options'),
       }),
       'item/ts/options': () => ({
-        transpileOnly: subscribe(
+        transpileOnly: hooks.filter(
           'item/ts/options/transpileOnly',
         ),
-        happyPackMode: subscribe(
+        happyPackMode: hooks.filter(
           'item/ts/options/happyPackMode',
         ),
       }),
       'item/ts/options/happyPackMode': () => true,
       'item/ts/options/transpileOnly': () => true,
-      'item/ts/loader': () => subscribe('loader/ts'),
+      'item/ts/loader': () => hooks.filter('loader/ts'),
+
       'loader/ts': () => require.resolve('ts-loader'),
     },
     name,
   )
 }
+
+const extension = {name, boot, api}
+export {extension as default, name, boot, api}

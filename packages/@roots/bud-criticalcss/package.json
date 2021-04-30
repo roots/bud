@@ -56,6 +56,7 @@
     "@types/node": "^15.0.0"
   },
   "dependencies": {
+    "@roots/bud-extensions": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/critical-css-webpack-plugin": "workspace:*",
     "autobind-decorator": "^2.4.0"

@@ -49,3 +49,6 @@ export const api = {
     return this
   },
 }
+
+const extension: Module = {name, options, api, boot}
+export default extension

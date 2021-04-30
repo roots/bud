@@ -1,3 +1,5 @@
+import {Dashboard} from '@roots/bud-framework'
+
 import React, {useEffect} from 'react'
 import {Text, Static, Box, useInput} from 'ink'
 import {useStyle} from '@roots/ink-use-style'
@@ -9,9 +11,8 @@ import {
   Git,
   Progress,
   Module,
-} from '../../components'
-import {useCompilation, usePackageJson} from '../../hooks'
-import {Dashboard} from '@roots/bud-framework'
+} from '../components/index'
+import {useCompilation, usePackageJson} from '../hooks/index'
 
 const Dashboard: Dashboard.Component = ({bud}) => {
   const compilation = useCompilation(bud)

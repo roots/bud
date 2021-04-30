@@ -7,54 +7,58 @@ export const devDependencies: Module['devDependencies'] = [
   'sass',
 ]
 
-export const publish: Module['publish'] = (app: Framework) => ({
+export const publish: Module['publish'] = ({
+  hooks,
+  path,
+  store,
+  isProduction,
+}: Framework) => ({
   'loader/sass': () => require.resolve('sass-loader'),
 
   'item/sass': () => ({
-    loader: app.hooks.filter('item/sass/loader'),
-    options: app.hooks.filter('item/sass/options'),
-  }),
-  'item/sass/loader': () => app.hooks.filter('loader/sass'),
-  'item/sass/options': () => ({
-    implementation: app.hooks.filter(
-      'item/sass/options/implementation',
-    ),
-    sourceMap: app.hooks.filter('item/sass/options/sourceMap'),
+    loader: hooks.filter('item/sass/loader'),
+    options: hooks.filter('item/sass/options'),
   }),
 
-  /**
-   * Implementation will try to resolve sass & node-sass, preferring
-   * sass.
-   */
+  'item/sass/loader': () => hooks.filter('loader/sass'),
+
+  'item/sass/options': () => ({
+    implementation: hooks.filter(
+      'item/sass/options/implementation',
+    ),
+    sourceMap: hooks.filter('item/sass/options/sourceMap'),
+  }),
+
   'item/sass/options/implementation': () => {
     global.navigator = undefined
 
     const sass = (() =>
-      require(app.path('project', 'node_modules/sass')))()
+      require(path('project', 'node_modules/sass')))()
 
     return sass
   },
+
   'item/sass/options/sourceMap': () => true,
 
   rule: rules => ({
     ...rules,
-    'rule/sass': app.hooks.filter('rule/sass'),
+    'rule/sass': hooks.filter('rule/sass'),
   }),
   'rule/sass': () => ({
-    test: app.hooks.filter('rule/sass/test'),
-    exclude: app.hooks.filter('rule/sass/exclude'),
-    use: app.hooks.filter('rule/sass/use'),
+    test: hooks.filter('rule/sass/test'),
+    exclude: hooks.filter('rule/sass/exclude'),
+    use: hooks.filter('rule/sass/use'),
   }),
-  'rule/sass/test': () => app.store.get('patterns.sass'),
-  'rule/sass/exclude': () => app.store.get('patterns.modules'),
+  'rule/sass/test': () => store.get('patterns.sass'),
+  'rule/sass/exclude': () => store.get('patterns.modules'),
   'rule/sass/use': () => [
-    app.isProduction
-      ? app.hooks.filter('item/minicss')
-      : app.hooks.filter('item/style'),
-    app.hooks.filter('item/css'),
-    app.hooks.filter('item/postcss'),
-    app.hooks.filter('item/resolve-url'),
-    app.hooks.filter('item/sass'),
+    isProduction
+      ? hooks.filter('item/minicss')
+      : hooks.filter('item/style'),
+    hooks.filter('item/css'),
+    hooks.filter('item/postcss'),
+    hooks.filter('item/resolve-url'),
+    hooks.filter('item/sass'),
   ],
 
   /**

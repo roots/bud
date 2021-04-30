@@ -1,6 +1,7 @@
 import './interface'
 import {VueLoaderPlugin} from 'vue-loader'
-import {Module, Webpack} from '@roots/bud-typings'
+import Webpack from 'webpack'
+import {Module} from '@roots/bud-extensions'
 
 /**
  * Name
@@ -31,23 +32,19 @@ export const publish: Module['publish'] = app => ({
   'item/vue': () => ({
     loader: app.subscribe('loader/vue'),
   }),
+
   'item/vue-style': () => ({
     loader: app.subscribe('loader/vue-style'),
   }),
 
-  /**
-   * rule/vue
-   */
   'rule/vue': () => ({
     test: app.subscribe('rule/vue/test'),
     use: app.subscribe('rule/vue/use'),
   }),
+
   'rule/vue/test': () => app.store.get('patterns.vue'),
   'rule/vue/use': () => [app.subscribe('item/vue')],
 
-  /**
-   * build/module/rules
-   */
   'build/module/rules': (
     rules: Webpack.Configuration['module']['rules'],
   ) => [app.subscribe('rule/vue'), ...rules],
@@ -59,9 +56,6 @@ export const publish: Module['publish'] = app => ({
     ...use.splice(1),
   ],
 
-  /**
-   * vue alias
-   */
   'build/resolve/alias': (
     aliases: Webpack.Configuration['resolve']['alias'],
   ) => ({
@@ -69,29 +63,17 @@ export const publish: Module['publish'] = app => ({
     vue$: 'vue/dist/vue.esm.js',
   }),
 
-  /**
-   * vue extension
-   */
   'build/resolve/extensions': (
     extensions: Webpack.Configuration['resolve']['extensions'],
   ) => [...extensions, '.vue'],
 })
 
-/**
- * Boot extension
- */
 export const boot: Module['boot'] = app => {
-  /**
-   * Add vue-loader-plugin
-   */
   app.extensions.add({
     name: 'vue-loader-plugin',
     make: () => new VueLoaderPlugin(),
   })
 
-  /**
-   * Add sass handling if in use
-   */
   app.subscribe('rule/sass') &&
     app.publish({
       'rule/sass/use': use => [
@@ -102,3 +84,12 @@ export const boot: Module['boot'] = app => {
       ],
     })
 }
+
+const extension: Module = {
+  name,
+  boot,
+  dependencies,
+  devDependencies,
+}
+
+export default extension

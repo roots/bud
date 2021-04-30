@@ -1,23 +1,35 @@
-import {Module} from '@roots/bud-framework'
+import type {Compress} from '@roots/bud-framework'
 import Plugin from 'compression-webpack-plugin'
 
-export const name: Module['name'] =
-  'compression-webpack-plugin-gzip'
-
-export * as api from './api'
-
-export const when: Module.When = app => app.store.enabled('gzip')
-
-export const options: Module.Options = {
-  algorithm: 'gzip',
-  filename: '[name][ext].gz[query]',
-  test: /\.js$|\.css$|\.html$/,
-  compressionOptions: {
-    level: 9,
+const extension: Compress.Extension = {
+  name: 'compression-webpack-plugin-gzip',
+  options: {
+    algorithm: 'gzip',
+    filename: '[name].gz[query]',
+    test: /\.js$|\.css$|\.html$/,
+    compressionOptions: {
+      level: 9,
+    },
+    threshold: 10240,
+    minRatio: 0.8,
+    deleteOriginalAssets: false,
   },
-  threshold: 10240,
-  minRatio: 0.8,
+  make: options => new Plugin(options.all()),
+  when: ({store}) => store.isTrue('gzip'),
+  api: {
+    gzip: function (options) {
+      this.store.set('gzip', true)
+
+      options &&
+        this.hooks.on(
+          'extension/compression-webpack-plugin-gzip/options',
+          () => options,
+        )
+
+      return this
+    },
+  },
 }
 
-export const make: Module.Make = options =>
-  new Plugin(options.all())
+export default extension
+export const {name, options, make, api} = extension

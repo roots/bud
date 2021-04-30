@@ -6,6 +6,15 @@
     "url": "https://github.com/roots/bud.git",
     "directory": "packages/@roots/webpack-wordpress-externals-plugin"
   },
+  "contributors": [
+    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
@@ -13,10 +22,6 @@
     "type": "github sponsors",
     "url": "https://github.com/sponsors/roots"
   },
-  "license": "MIT",
-  "contributors": [
-    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
-  ],
   "keywords": [
     "wordpress",
     "webpack"
@@ -30,11 +35,11 @@
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.mjs",
+  "types": "./types/index.d.ts",
   "exports": {
     "require": "./lib/cjs/index.js",
     "import": "./lib/esm/index.mjs"
   },
-  "types": "./types/index.d.ts",
   "scripts": {
     "build": "yarn g:build",
     "build:cjs": "yarn g:build:cjs",
@@ -50,7 +55,6 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@roots/bud-framework": "workspace:*",
     "@types/node": "^15.0.0"
   },
   "dependencies": {

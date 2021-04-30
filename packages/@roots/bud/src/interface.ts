@@ -1,6 +1,7 @@
+import '@roots/bud-api'
 import '@roots/bud-hooks'
-import {Server} from '@roots/bud-framework'
-import type {Theme} from '@roots/ink-use-style'
+import '@roots/bud-extensions'
+import '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   namespace Framework {
@@ -13,11 +14,6 @@ declare module '@roots/bud-framework' {
       type: 'preset' | 'extension'
       core: boolean
       [key: string]: any
-    }
-
-    interface Config {
-      server: Server['config']
-      theme: Theme
     }
   }
 }

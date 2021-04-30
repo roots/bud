@@ -1,10 +1,25 @@
 import './interface'
-import {Module} from '@roots/bud-framework'
+
+import {Imagemin, Module} from '@roots/bud-framework'
 import * as Plugin from './imagemin'
 
-export const name: Module['name'] = '@roots/bud-imagemin'
+const name: Module['name'] = '@roots/bud-imagemin'
 
-export * as api from './api'
+const imagemin: Imagemin.Config = function (options) {
+  this.hooks.on(
+    'extension/image-minimizer-webpack-plugin/options',
+    () => options,
+  )
 
-export const boot: Module['boot'] = ({extensions}) =>
-  extensions.add(Plugin)
+  return this
+}
+
+const extension: Module = {
+  name,
+  api: {
+    imagemin,
+  },
+  boot: ({extensions}) => extensions.add(Plugin),
+}
+
+export {extension as default}

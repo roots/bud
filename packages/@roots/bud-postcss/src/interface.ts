@@ -1,3 +1,4 @@
+import '@roots/bud-extensions'
 import {Module} from '@roots/bud-framework'
 import {Signale} from 'signale'
 

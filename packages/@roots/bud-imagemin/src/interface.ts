@@ -1,4 +1,4 @@
-import {Module} from '@roots/bud-framework'
+import '@roots/bud-extensions'
 import Plugin from 'image-minimizer-webpack-plugin/types'
 
 declare module '@roots/bud-framework' {
@@ -13,20 +13,20 @@ declare module '@roots/bud-framework' {
      * ```js
      * app.imagemin({
      *   plugins: [
-     *    // ...
+     *     // ...
      *   ]
      * })
      * ```
      */
-    imagemin: Imagemin.Configure
+    imagemin: Imagemin.Config
   }
 
   namespace Imagemin {
     /**
      * app.imagemin fn
      */
-    type Configure = (
-      options: Imagemin.Options['minimizerOptions'],
+    type Config = (
+      options: Options['minimizerOptions'],
     ) => Framework
 
     /**

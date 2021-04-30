@@ -7,6 +7,15 @@
     "url": "https://github.com/roots/bud.git",
     "directory": "packages/@roots/bud-wordpress-dependencies"
   },
+  "contributors": [
+    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
@@ -14,10 +23,6 @@
     "type": "github sponsors",
     "url": "https://github.com/sponsors/roots"
   },
-  "license": "MIT",
-  "contributors": [
-    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
-  ],
   "keywords": [
     "bud",
     "bud-extension"
@@ -51,6 +56,7 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
+    "@roots/bud-extensions": "workspace:*",
     "@types/lodash": "^4.14.168",
     "@types/node": "^15.0.0"
   },

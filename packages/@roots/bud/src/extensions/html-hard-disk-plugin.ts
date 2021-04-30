@@ -1,23 +1,17 @@
-import type {Module} from '@roots/bud-framework'
+import {Module} from '@roots/bud-framework'
 import HtmlHardDiskPlugin from 'html-webpack-harddisk-plugin'
 
+type Plugin = typeof HtmlHardDiskPlugin
+
 interface Options {
-  /**
-   * Where to save compiled assets
-   */
   outputPath?: string
 }
 
-export const name = `html-hard-disk-plugin`
+const extension: Module<Plugin, Options> = {
+  name: 'html-hard-disk-plugin',
+  options: ({path}) => ({outputPath: path('dist')}),
+  make: options => new HtmlHardDiskPlugin(options.all()),
+  when: ({store}) => store.isTrue('html'),
+}
 
-export const options: Module.Options<Options> = app => ({
-  outputPath: app.hooks.filter('location/dist'),
-})
-
-export const make: Module.Make<
-  typeof HtmlHardDiskPlugin,
-  Options
-> = options => new HtmlHardDiskPlugin(options.all())
-
-export const when: Module.When = ({store}) =>
-  store.isTrue('html')
+export {extension as default}

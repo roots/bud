@@ -1,4 +1,3 @@
 import './sage/interface'
-import {name, boot} from './sage'
 
-export {name, boot}
+export {name, boot} from './sage/index'

@@ -58,14 +58,15 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@roots/bud-postcss": "workspace:*",
     "@types/node": "^15.0.0",
     "postcss": "^8.2.13",
     "sass": "^1.32.11",
     "webpack": "^5.36.0"
   },
   "dependencies": {
+    "@roots/bud-extensions": "workspace:*",
     "@roots/bud-framework": "workspace:*",
+    "@roots/bud-postcss": "workspace:*",
     "autobind-decorator": "^2.4.0",
     "postcss-scss": "^3.0.5",
     "sass-loader": "^11.0.1"

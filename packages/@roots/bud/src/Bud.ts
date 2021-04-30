@@ -1,29 +1,16 @@
-import './interface'
-
-import {Api} from '@roots/bud-api'
-import {Build} from '@roots/bud-build'
+import {Framework} from '@roots/bud-framework'
 import {Cache} from '@roots/bud-cache'
 import {Compiler} from '@roots/bud-compiler'
-import {Dashboard} from '@roots/bud-dashboard'
-import {
-  Framework,
-  Service,
-  Bootstrapper,
-} from '@roots/bud-framework'
-import {Dependencies} from './services/Dependencies'
-import {Discovery} from './services/Discovery'
-import {Disk} from './services/Disk'
-import {Env} from './services/Env'
-import {Extensions} from './services/Extensions'
-import {Hooks} from './services/Hooks'
-import {Logger} from './services/Logger'
-import {Server} from './services/Server'
-import {Store} from './services/Store'
+import {Dependencies} from './services/Dependencies/index'
+import {Discovery} from './services/Discovery/index'
+import {Disk} from './services/Disk/index'
+import {Env} from './services/Env/index'
+import {Extensions} from './services/Extensions/index'
+import {Hooks} from './services/Hooks/index'
+import {Logger} from './services/Logger/index'
+import {Server} from './services/Server/index'
 
-/**
- * Bud
- */
-export class Bud extends Framework {
+class Bud extends Framework {
   public cache: Cache
 
   public compiler: Compiler
@@ -43,30 +30,10 @@ export class Bud extends Framework {
   public logger: Logger
 
   public server: Server
-
-  public store: Store
 }
 
 /**
- * Service providers
+ * @exports Bud      Class definition
+ * @exports services Default services
  */
-export const services: {
-  [key: string]: new (app: Framework['get']) =>
-    | Service
-    | Bootstrapper
-} = {
-  api: Api,
-  store: Store,
-  logger: Logger,
-  hooks: Hooks,
-  env: Env,
-  disk: Disk,
-  build: Build,
-  discovery: Discovery,
-  dependencies: Dependencies,
-  extensions: Extensions,
-  cache: Cache,
-  server: Server,
-  dashboard: Dashboard,
-  compiler: Compiler,
-}
+export {Bud}

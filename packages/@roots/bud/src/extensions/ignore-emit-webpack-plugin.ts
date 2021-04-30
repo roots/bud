@@ -1,31 +1,17 @@
-import type {Framework, Module} from '@roots/bud-framework'
-
+import {Module} from '@roots/bud-framework'
 import Plugin from 'ignore-emit-webpack-plugin'
 
-/**
- * Framework extension ident
- */
-export const name = 'ignore-emit-webpack-plugin'
+declare interface Options {
+  ignore: RegExp[]
+}
 
-/**
- * Options
- */
-export const options: Module.Options<{ignore: string[]}> = (
-  app: Framework,
-) => ({
-  ignore: app.store.isFalse('devtool') ? [] : [/.?.map$/],
-})
+const plugin: Module<Plugin, Options> = {
+  name: 'ignore-emit-webpack-plugin',
+  options: ({store}) => ({
+    ignore: store.isFalse('devtool') ? [] : [/.?.map$/],
+  }),
+  make: options => new Plugin(options.get('ignore')),
+  when: (_app, options) => options?.get('ignore')?.length > 0,
+}
 
-/**
- * Plugin
- */
-export const make: Module.Make<
-  Plugin,
-  {ignore: string[]}
-> = options => new Plugin(options.get('ignore'))
-
-/**
- * Conditionally load plugin
- */
-export const when: Module.When = (app, options) =>
-  options?.get('ignore')?.length > 0
+export {plugin as default}

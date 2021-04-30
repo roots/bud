@@ -58,6 +58,7 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
+    "@roots/bud-extensions": "workspace:*",
     "@roots/bud-postcss": "workspace:*",
     "@types/node": "^15.0.0",
     "postcss": "^8.2.13"

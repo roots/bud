@@ -8,14 +8,14 @@
     "url": "https://github.com/roots/bud.git",
     "directory": "packages/@roots/ink-use-style"
   },
+  "contributors": [
+    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
+  ],
   "licenses": [
     {
       "type": "MIT",
       "url": "http://opensource.org/licenses/MIT"
     }
-  ],
-  "contributors": [
-    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
@@ -57,11 +57,7 @@
   },
   "devDependencies": {
     "@roots/bud-framework": "workspace:*",
-    "@types/node": "^15.0.0",
-    "@types/rimraf": "^3.0.0",
-    "npm-run-all": "^4.1.5",
-    "rimraf": "^3.0.2",
-    "typescript": "^4.2.4"
+    "@types/node": "^15.0.0"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",

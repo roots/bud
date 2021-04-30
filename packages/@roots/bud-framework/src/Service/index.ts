@@ -1,37 +1,22 @@
-import {Framework} from '../'
 import {Container} from '@roots/container'
 import {FileContainer} from '@roots/filesystem'
 import {boundMethod as bind} from 'autobind-decorator'
+import {Framework} from '../Framework/index'
 
 /**
  * Framework service
  */
 export class Service extends Container {
-  /**
-   * Loose
-   */
   [key: string]: any
 
-  /**
-   * Name
-   */
   public name: string | number
 
-  /**
-   * Application
-   */
   private _app: Framework['get']
 
-  /**
-   * Application instance
-   */
   public get app(): Framework {
     return this._app()
   }
 
-  /**
-   * Constructor
-   */
   public constructor(app: Framework['get']) {
     super()
     this._app = app

@@ -19,34 +19,12 @@ import {injectClient} from '../util/injectClient'
  * [📦 npm](https://www.npmjs.com/package/@roots/bud-server)
  */
 export default class extends Service implements Server {
-  /**
-   * Service name
-   */
   public name = '@roots/bud-server'
 
-  /**
-   * Middlewares
-   */
   public middleware: Server.Middleware.Inventory = {}
 
   public config: Container<Server.Config>
 
-  /**
-   * Watcher
-   */
-  public _watcher: FSWatcher
-
-  public get watcher() {
-    return this._watcher
-  }
-
-  public set watcher(watcher: FSWatcher) {
-    this._watcher = watcher
-  }
-
-  /**
-   * Server application instance.
-   */
   public _instance: Server.Instance
 
   public get instance() {
@@ -57,9 +35,16 @@ export default class extends Service implements Server {
     this._instance = instance
   }
 
-  /**
-   * Assets
-   */
+  public _watcher: FSWatcher
+
+  public get watcher() {
+    return this._watcher
+  }
+
+  public set watcher(watcher: FSWatcher) {
+    this._watcher = watcher
+  }
+
   public readonly _assets = [
     resolve(__dirname, '../client/index.js'),
   ]
@@ -68,9 +53,6 @@ export default class extends Service implements Server {
     return this._assets
   }
 
-  /**
-   * Watchable: get accessor
-   */
   public get isWatchable(): boolean {
     return (
       Array.isArray(this.getWatchedFilesArray()) &&
@@ -78,9 +60,6 @@ export default class extends Service implements Server {
     )
   }
 
-  /**
-   * Get watched files array
-   */
   @bind
   public getWatchedFilesArray(): string[] {
     return this.config
@@ -88,9 +67,6 @@ export default class extends Service implements Server {
       .map((file: string) => this.app.path('project', file))
   }
 
-  /**
-   * Lifecycle: booted
-   */
   @bind
   public booted() {
     this.watcher = chokidar.watch(
@@ -99,9 +75,6 @@ export default class extends Service implements Server {
     )
   }
 
-  /**
-   * Process middlewares
-   */
   @bind
   public processMiddlewares(compiler: Server.Compiler) {
     Object.entries(middleware).map(([key, generate]) => {
@@ -120,9 +93,6 @@ export default class extends Service implements Server {
     )
   }
 
-  /**
-   * Run server
-   */
   @bind
   public run(compiler: Webpack.Compiler): this {
     /**
@@ -167,9 +137,6 @@ export default class extends Service implements Server {
     return this
   }
 
-  /**
-   * Inject HMR
-   */
   @bind
   public inject(): void {
     injectClient(this.app, this.assets)

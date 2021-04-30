@@ -13,16 +13,11 @@ Useful for code splitting and dynamic imports.
 bud.runtime()
 ```
 
-## Signature
+By default `bud` generates a runtime per chunk. You may want to generate a single runtime for your application.
+You can override the `runtimeChunk` setting using this function, in that case.
 
-```ts
-;() => Bud
+```js
+bud.runtime('single')
 ```
 
-## Returns
-
-The Bud instance
-
-## Related
-
-- [bud.vendor](config-vendor.md)
+The function will accept anything that webpack would.

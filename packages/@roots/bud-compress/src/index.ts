@@ -1,11 +1,14 @@
 import './interface'
-import {Module} from '@roots/bud-framework'
+import type {Module} from '@roots/bud-extensions'
 
-import * as brotli from './brotli'
-import * as gzip from './gzip'
+import brotli from './brotli/index'
+import gzip from './gzip/index'
 
-export const name: Module['name'] = '@roots/bud-compress'
-export const boot: Module['boot'] = ({extensions}) => {
-  extensions.add(brotli)
-  extensions.add(gzip)
+const extension: Module = {
+  name: '@roots/bud-compress',
+  boot: ({extensions}) =>
+    [brotli, gzip].forEach(plugin => extensions.add(plugin)),
 }
+
+export default extension
+export const {name, boot} = extension

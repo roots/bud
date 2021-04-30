@@ -3,30 +3,14 @@ import prettyFormat from 'pretty-format'
 import _ from 'lodash'
 import {boundMethod as bind} from 'autobind-decorator'
 
-/**
- * Hooks
- *
- * [🏡 web](https://roots.io/bud)
- * [🐙 git](https://www.github.com/tree/stable/packages/@roots/bud-hooks)
- * [📦 npm](https://www.npmjs.com/package/@roots/bud-hooks)
- */
 export default class extends Service implements Hooks {
-  /**
-   * Service name
-   */
   public name = '@roots/bud-hooks'
 
-  /**
-   * Get hook
-   */
   @bind
   public get<T = any>(path: `${Hooks.Name & string}`) {
     return _.get(this.repository, path) as T
   }
 
-  /**
-   * Set hook
-   */
   @bind
   public set(key: `${Hooks.Name & string}`, value: any): this {
     _.set(this.repository, key, value)
@@ -34,26 +18,6 @@ export default class extends Service implements Hooks {
     return this
   }
 
-  /**
-   * ## hooks.on
-   *
-   * Register a function to filter a value.
-   *
-   * If a filter calls for this name the function is then run,
-   * passing whatever data along for modification. If more than one
-   * hook is registered to a name, they will be called sequentially
-   * in the order they were registered, with each hook's output used
-   * as the input for the next.
-   *
-   * ### Usage
-   *
-   * ```js
-   * app.hooks.on(
-   *   'namespace.name.value',
-   *   value => 'replaced by this string',
-   * )
-   * ```
-   */
   @bind
   public on(
     id:
@@ -80,13 +44,6 @@ export default class extends Service implements Hooks {
     return this.app
   }
 
-  /**
-   * ## hooks.filter
-   *
-   * The other side of bud.hooks.on. Passes a key and a value. If
-   * any filters are registered on that key they will transform
-   * the output before it is returned.
-   */
   @bind
   public filter<T = any>(
     id:
@@ -118,9 +75,6 @@ export default class extends Service implements Hooks {
     return result
   }
 
-  /**
-   * hooks.link
-   */
   @bind
   public link(
     target: `${Hooks.Name}`,

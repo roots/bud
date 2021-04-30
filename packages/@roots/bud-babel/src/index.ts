@@ -1,31 +1,18 @@
 import './interface'
-
-import {Module, Framework} from '@roots/bud-framework'
+import type {Module} from '@roots/bud-framework'
 import {Config} from './Config'
 
-/**
- * Extension name
- */
 export const name: Module['name'] = '@roots/bud-babel'
 
-/**
- * bud.babel configuration interface
- */
-export const api: Module['api'] = (app: Framework) => ({
+export const api: Module['api'] = app => ({
   babel: new Config().init(app),
 })
 
-/**
- * Extension dependencies
- */
 export const devDependencies: Module['devDependencies'] = [
   '@babel/core',
 ]
 
-/**
- * Publishes
- */
-export const publish: Module['publish'] = (app: Framework) => ({
+export const publish: Module['publish'] = app => ({
   /**
    * loader/babel
    */
@@ -74,9 +61,6 @@ export const publish: Module['publish'] = (app: Framework) => ({
   'rule/js/use': () => [app.subscribe('item/babel')],
 })
 
-/**
- * Boot extension
- */
 export const boot: Module['boot'] = ({babel, info}) => {
   info('Configuring babel defaults')
 

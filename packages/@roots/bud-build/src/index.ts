@@ -1,2 +1,2 @@
 import './interface'
-export {Build} from './Build'
+export {Build} from './Build/index'

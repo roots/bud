@@ -1,4 +1,4 @@
 import {run} from '@oclif/command'
-import * as flags from './flags'
+import * as flags from './flags/index'
 
 export {run, flags}

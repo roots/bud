@@ -13,9 +13,3 @@ Set the default public path for a [@roots/sage project](https://github.com/roots
 ```js
 bud.publicPath('/app/themes/sage/dist')
 ```
-
-## Arguments
-
-| Name   | Type   |
-| ------ | ------ |
-| `path` | string |

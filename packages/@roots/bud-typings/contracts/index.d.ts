@@ -1,4 +1,4 @@
-import {
+export {
   Constructor,
   Factory,
   Fluent,
@@ -7,67 +7,13 @@ import {
   MappedType,
 } from './utility'
 
-import {Cache} from './Cache'
-import {CLI} from './CLI'
-import {Container} from '../../container/src'
-import {Discovery} from './Discovery'
-import {Dependencies} from './Dependencies'
-import {Env} from './Env'
-import {Hooks} from './Hooks'
-import {Logger} from './Logger'
-import {Bootstrapper, Service, Services} from './Service'
-import {Store} from './Store'
-import {Server} from './Server'
-import {Extensions, Extension, Module} from './Extensions'
-
-declare interface Framework {}
-
-declare namespace Framework {
-  export {Bootstrapper}
-  export {Cache}
-  export {CLI}
-  export {Container}
-  export {Discovery}
-  export {Dependencies}
-  export {Disk}
-  export {Env}
-  export {Extensions, Extension}
-  export {Error}
-  export {FileContainer} from '../../filesystem/src'
-  export {Hooks}
-  export {Logger}
-  export {Module}
-  export {Server}
-  export {Service}
-  export {Services}
-  export {Store}
-  export {
-    Express,
-    Factory,
-    Fluent,
-    Index,
-    MaybeCallable,
-    Webpack,
-  }
-}
-
-export {Api}
-export {Bootstrapper}
-export {Cache}
-export {CLI}
-export {Container}
-export {Discovery}
-export {Dependencies}
-export {Disk}
-export {Env}
-export {Extensions, Extension}
-export {Error}
-export {FileContainer} from '../../filesystem/src'
-export {Hooks}
-export {Logger}
-export {Module}
-export {Server}
-export {Service}
-export {Services}
-export {Store}
-export {Express, Factory, Fluent, Index, MaybeCallable, Webpack}
+export {Cache} from './Cache'
+export {Container} from '../../container/src'
+export {Discovery} from './Discovery'
+export {Dependencies} from './Dependencies'
+export {Env} from './Env'
+export {FileContainer} from '../../filesystem/src/index'
+export {Hooks} from './Hooks'
+export {Logger} from './Logger'
+export {Bootstrapper, Service, Services} from './Service'
+export {Server} from './Server'

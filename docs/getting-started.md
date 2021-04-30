@@ -2,8 +2,7 @@
 description: A simple example.
 ---
 
-> In this guide we'll look at a
-> hypothetical project and walk through the basics of how it works.
+> In this guide we'll look at a hypothetical project and walk through the basics of how it works.
 
 Let's take as an example this simple project structure:
 
@@ -42,17 +41,19 @@ yarn bud build
 
 As a next step, let's presume we want to add Babel to our project.
 
-Babel support is optional and is provided by the `@roots/bud-babel` extension, so we will need to install it:
+Babel support is optional and is provided by the `@roots/bud-babel` extension, so we will first need to install it.
 
 ```sh
 yarn add @roots/bud-babel --dev
 ```
 
-And then add the extension to our config:
+And then add the extension to our config.
 
 ```js
+const babel = require('@roots/bud-babel')
+
 module.exports = bud =>
-  bud.use([require('@roots/bud-babel')]).entry({
+  bud.use(babel).entry({
     app: ['scripts/app.js', 'styles/app.css'],
   })
 ```
@@ -65,7 +66,7 @@ We can use `bud.minimize` and `bud.splitChunks` to handle these two needs.
 
 ```js
 bud
-  .use([require('@roots/bud-babel')])
+  .use(babel)
   .entry({
     app: ['scripts/app.js', 'styles/app.css'],
   })
@@ -73,13 +74,13 @@ bud
   .splitChunks()
 ```
 
-One negative effect of this improvement is that we are applying these optimizations when running the build in development. There is probably no need for this at all. It would be ideal to instead only apply optimizations like these for production builds.
+One negative effect of this improvement is that we are applying these optimizations when running the build in development. There is probably no need for this at all.
 
-The `bud.when` utility function is well suited for this.
+It would be ideal to instead only apply optimizations like these for production builds. The `bud.when` utility function is well suited for this.
 
 ```js
 bud
-  .use([require('@roots/bud-babel')])
+  .use(babel)
   .entry({
     app: ['scripts/app.js', 'styles/app.css'],
   })
@@ -88,7 +89,7 @@ bud
 
 You could do the same thing but specifically targeting dev builds by pairing `bud.when` with `bud.isDevelopment`.
 
-They are roughly equivalent to
+These expressions are roughly equivalent to
 
 ```ts
 if (bud.mode === 'development') {
@@ -96,7 +97,7 @@ if (bud.mode === 'development') {
 }
 ```
 
-but just a little easier to read and write, since we don't need to break our chain of functions to use them.
+In the end, they are arguably just a little more natural to read and write, since we don't need to break our chain of functions to use them.
 
 ## Including static assets
 
@@ -104,7 +105,7 @@ If we have some images we would like to include in our bundle, but we aren't goi
 
 ```js
 bud
-  .use([require('@roots/bud-babel')])
+  .use(babel)
   .entry({
     app: ['scripts/app.js', 'styles/app.css'],
   })

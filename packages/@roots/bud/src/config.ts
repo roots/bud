@@ -1,6 +1,88 @@
+import {Config} from '@roots/bud-framework'
+import {Server} from '@roots/bud-server'
+import {Index} from '@roots/bud-typings'
+import {Theme} from '@roots/ink-use-style'
+import CleanWebpackPlugin from 'clean-webpack-plugin'
+import Webpack from 'webpack'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import HtmlWebpackPlugin from 'html-webpack-plugin'
 import {cpus} from 'os'
 
-export const config = {
+declare module '@roots/bud-framework' {
+  interface Config {
+    /**
+     * RegExp
+     */
+    patterns: Index<RegExp>
+
+    /**
+     * Location
+     */
+    location: Hooks.Locale.Definitions
+
+    /**
+     * Features
+     */
+    ci: boolean
+    clean: boolean
+    debug: boolean
+    discover: boolean
+    hash: boolean
+    html: boolean
+    install: boolean
+    log: boolean
+    manifest: boolean
+
+    /**
+     * Derived values
+     */
+    fileFormat: string
+    hashFormat: string
+
+    /**
+     * Build
+     */
+    build: Webpack.Configuration
+
+    /**
+     * Extensions
+     */
+    extension: {
+      cleanWebpackPlugin: CleanWebpackPlugin.Options
+      cssMinimizerWebpackPlugin: {
+        minimizerOptions: {
+          preset: ['default']
+        }
+      }
+      htmlWebpackPlugin: HtmlWebpackPlugin.Options
+      interpolateHtmlPlugin: {
+        replace: Index<{[key: string]: string}>
+      }
+      miniCssExtractPlugin: MiniCssExtractPlugin.PluginOptions
+      webpackConfigDumpPlugin: {
+        name: 'webpack.debug.js'
+        keepCircularReferences: boolean
+      }
+      webpackDefinePlugin: {[key: string]: any}
+      webpackManifestPlugin: {
+        fileName: 'manifest.json'
+        writeToFileEmit: boolean
+      }
+    }
+
+    /**
+     * Server config
+     */
+    server: Server['config']['repository']
+
+    /**
+     * Theme config
+     */
+    theme: Theme
+  }
+}
+
+export const config: Config = {
   /**
    * RegExp
    */

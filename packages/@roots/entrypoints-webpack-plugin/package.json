@@ -4,8 +4,17 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
-    "directory": "packages/@roots/bud-wordpress-manifests"
+    "directory": "packages/@roots/entrypoints-webpack-plugin"
   },
+  "contributors": [
+    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
@@ -13,13 +22,9 @@
     "type": "github sponsors",
     "url": "https://github.com/sponsors/roots"
   },
-  "license": "MIT",
-  "contributors": [
-    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
-  ],
   "keywords": [
     "webpack",
-    "manifest"
+    "asset-manifest"
   ],
   "engines": {
     "node": ">=14"

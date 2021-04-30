@@ -17,10 +17,7 @@ bud.provide({
 })
 ```
 
-Now, in any module in our application, we can just use `$`
-whenever we want to use `jQuery`.
-
-There is no need to `import` anything from `'jquery'`.
+Now, in any module in our application, we can invoke jQuery with `$`. There is no need to import it.
 
 ```js
 $('#modal') // it just works
@@ -29,18 +26,10 @@ $('#modal') // it just works
 However, it is common to have parts of your application using `jQuery`
 in addition to `$`.
 
-Handily, you can use an array to provide a module in multiple variables.
+Handily, you can use an array to handle this.
 
 ```js
 bud.provide({
   jquery: ['jQuery', '$'],
 })
-```
-
-## Signature
-
-```ts
-function ({
-  [key: string]: string | string[]
-}): Bud
 ```

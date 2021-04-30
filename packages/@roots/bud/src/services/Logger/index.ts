@@ -10,19 +10,10 @@ import {boundMethod as bind} from 'autobind-decorator'
  * Logger service
  */
 export class Logger implements Contract, Bootstrapper {
-  /**
-   * Service ident
-   */
   public name = 'service/logger'
 
-  /**
-   * Framework
-   */
   public _app: Framework['get']
 
-  /**
-   * Logger instance
-   */
   public _instance: Signale
 
   /**
@@ -43,7 +34,7 @@ export class Logger implements Contract, Bootstrapper {
   }
 
   /**
-   * Options
+   * Logger options
    */
   public options = {
     disabled: true,

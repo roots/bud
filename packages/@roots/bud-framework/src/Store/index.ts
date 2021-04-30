@@ -1,9 +1,12 @@
-import {RequireExactlyOne, ValueOf} from 'type-fest'
-import {Container, Framework, Webpack, Service} from './'
+import {Service} from '../Service/index'
+import {get} from 'lodash'
 
-export interface Store extends Service {
-  app: Framework
-  get<T = any>(path: Store.Keys): T
+class Store extends Service {
+  public name = 'service/store'
+
+  public get<T = any>(path: Store.Keys) {
+    return get(this.repository, path) as T
+  }
 }
 
 declare namespace Store {
@@ -40,3 +43,5 @@ declare namespace Store {
     | `extension`
     | `extension.${string}`
 }
+
+export {Store}

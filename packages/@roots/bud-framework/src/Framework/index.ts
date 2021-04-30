@@ -1,23 +1,15 @@
-import {
+import type {
   Cache,
-  Dependencies,
   Discovery,
-  Disk,
   Env,
-  Extensions,
   Hooks,
   Logger,
   Server,
-  Store,
 } from '@roots/bud-typings'
-
 import {Core} from './Core'
 import _ from 'lodash'
 import {boundMethod as bind} from 'autobind-decorator'
 
-/**
- * Framework abstract
- */
 export abstract class Framework extends Core {
   [key: string]: any
 
@@ -25,23 +17,15 @@ export abstract class Framework extends Core {
 
   public abstract cache: Cache
 
-  public abstract dependencies: Dependencies
-
   public abstract discovery: Discovery
 
-  public abstract disk: Disk
-
   public abstract env: Env
-
-  public abstract extensions: Extensions
 
   public abstract hooks: Hooks
 
   public abstract server: Server
 
   public abstract logger: Logger
-
-  public abstract store: Store
 
   /**
    * Subscribe
@@ -171,41 +155,26 @@ export abstract class Framework extends Core {
     return this
   }
 
-  /**
-   * Log message
-   */
   @bind
   public log(...args) {
     this.logger.instance.scope(this.name).log(...args)
   }
 
-  /**
-   * Log info message
-   */
   @bind
   public info(...args) {
     this.logger.instance.scope(this.name).info(...args)
   }
 
-  /**
-   * Log warning message
-   */
   @bind
   public warning(...args) {
     this.logger.instance.scope(this.name).warning(...args)
   }
 
-  /**
-   * Log warning message
-   */
   @bind
   public debug(...args) {
     this.logger.instance.scope(this.name).debug(...args)
   }
 
-  /**
-   * Log error message
-   */
   @bind
   public error(...args) {
     this.logger.instance.scope(this.name).error(...args)

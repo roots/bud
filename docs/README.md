@@ -17,3 +17,6 @@
 
 - [CLI](cli.md)
 - [Getting started](getting-started.md)
+- [Configuring](config/README.md)
+- [CLI](cli.md)
+- [Env](env.md)

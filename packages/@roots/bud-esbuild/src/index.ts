@@ -1,48 +1,30 @@
 import './interface'
-import {Framework, Module} from '@roots/bud-framework'
-
-import {features} from './features'
-import {setOptions, jsx} from './api'
+import type {Module} from '@roots/bud-framework'
 import {ESBuildMinifyPlugin} from 'esbuild-loader'
+import {features} from './features/index'
+import {setOptions, jsx} from './api/index'
 
-/**
- * @exports esbuild
- * @implements {EsbuildModule}
- */
-export const esbuild: Module = {
-  /**
-   * @property name
-   */
+const esbuild: Module = {
   name: '@roots/bud-esbuild',
 
-  /**
-   * @property boot
-   */
-  boot: ({
-    extensions,
-    use,
-    hooks,
-    isProduction,
-    subscribe,
-    store,
-  }: Framework) => {
-    use(features)
-    hooks.on('build/optimization/minimize', isProduction)
+  boot: ({extensions, hooks, store, isProduction}) => {
+    features.forEach(feature => extensions.add(feature))
+
     hooks.on('build/optimization/minimizer', () => [
       new ESBuildMinifyPlugin({
-        target: subscribe('item/esbuild-js/options/target'),
+        target: hooks.filter('item/esbuild-js/options/target'),
         exclude: store.get('patterns.modules'),
         css: true,
       }),
     ])
 
-    extensions.discard('optimize-css-assets-webpack-plugin')
+    extensions.has('optimize-css-assets-webpack-plugin') &&
+      extensions.discard('optimize-css-assets-webpack-plugin')
+
+    hooks.on('build/optimization/minimize', () => isProduction)
   },
 
-  /**
-   * @property api
-   */
-  api: (app: Framework) => ({
+  api: app => ({
     esbuild: {
       setOptions: setOptions.bind(app),
       jsx: jsx.bind(app),
@@ -50,13 +32,5 @@ export const esbuild: Module = {
   }),
 }
 
-/**
- * @exports default
- */
-export {esbuild as default}
-
-/**
- * Support for import * syntax
- */
 const {name, boot, api} = esbuild
 export {name, boot, api}

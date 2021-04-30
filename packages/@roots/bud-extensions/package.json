@@ -59,6 +59,7 @@
   "dependencies": {
     "@roots/bud-framework": "workspace:*",
     "autobind-decorator": "^2.4.0",
-    "lodash": "^4.17.21"
+    "lodash": "^4.17.21",
+    "webpack": "^5.36.1"
   }
 }

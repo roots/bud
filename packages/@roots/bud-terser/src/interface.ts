@@ -1,4 +1,4 @@
-import {Module} from '@roots/bud-framework'
+import '@roots/bud-extensions'
 import {TerserPluginOptions} from 'terser-webpack-plugin'
 
 declare module '@roots/bud-framework' {

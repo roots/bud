@@ -1,5 +1,5 @@
 import '@roots/bud-babel'
-import {Module} from '@roots/bud-framework'
+import '@roots/bud-extensions'
 import Webpack from 'webpack'
 
 declare module '@roots/bud-framework' {

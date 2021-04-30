@@ -1,6 +1,5 @@
 import '@roots/bud-babel'
-import {Module} from '@roots/bud-framework'
-
+import '@roots/bud-extensions'
 import type {ReactRefreshPluginOptions} from '@pmmmwh/react-refresh-webpack-plugin/types/types'
 
 declare module '@roots/bud-framework' {

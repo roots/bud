@@ -1,5 +1,26 @@
-import {Framework, Typescript} from '@roots/bud-framework'
+import {
+  Framework,
+  Module,
+  Typescript,
+} from '@roots/bud-framework'
 import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
+
+const PRODUCTION_CONFIG = {
+  async: false,
+  useTypescriptIncrementalApi: true,
+  memoryLimit: 4096,
+  diagnosticOptions: {
+    semantic: true,
+    syntactic: true,
+  },
+}
+
+const DEVELOPMENT_CONFIG = {
+  diagnosticOptions: {
+    semantic: true,
+    syntactic: true,
+  },
+}
 
 export const typecheck: Typescript.TypeCheck = function (
   enabled = true,
@@ -8,32 +29,13 @@ export const typecheck: Typescript.TypeCheck = function (
     this.extensions.has('fork-ts-checker-plugin') &&
     this.extensions.remove('fork-ts-checker-plugin')
 
-  const extension: Framework['module'] = {
-    /**
-     * @property name
-     */
+  const extension: Module = {
     name: 'fork-ts-checker-plugin',
-
-    /**
-     * @property options
-     */
-    options: ({isProduction}: Framework) =>
-      isProduction
-        ? {
-            async: false,
-            useTypescriptIncrementalApi: true,
-            memoryLimit: 4096,
-            diagnosticOptions: {
-              semantic: true,
-              syntactic: true,
-            },
-          }
-        : {
-            diagnosticOptions: {
-              semantic: true,
-              syntactic: true,
-            },
-          },
+    options: ({isProduction}: Framework) => {
+      return isProduction
+        ? PRODUCTION_CONFIG
+        : DEVELOPMENT_CONFIG
+    },
     make: () => new ForkTsCheckerWebpackPlugin(),
   }
 

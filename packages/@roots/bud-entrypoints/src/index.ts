@@ -1,19 +1,11 @@
 import './interface'
-import {Module} from '@roots/bud-framework'
-import * as EntrypointsPlugin from '@roots/entrypoints-webpack-plugin'
+import {Module} from '@roots/bud-extensions'
+import {Plugin} from '@roots/entrypoints-webpack-plugin'
 
-/**
- * @const extension
- * @extends Framework
- */
-const extension: Module = {
+const extension: Module<Plugin, null> = {
   name: '@roots/bud-entrypoints',
-  make: () => new EntrypointsPlugin.Plugin(),
+  make: () => new Plugin(),
 }
 
-const {name, make} = extension
-
-/**
- * @exports
- */
-export {extension as default, name, make}
+export default extension
+export const {name, make} = extension

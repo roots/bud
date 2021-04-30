@@ -32,27 +32,4 @@ bud.proxy({enabled: true})
 
 To configure SSL, you will need to use `bud.proxy` in conjunction with [`bud.dev`](/docs/config-dev.md).
 
-## Example implementations
-
-- [/docs/examples/wordpress-theme](/docs/examples/wordpress-theme).
-
-## Signature
-
-```ts
-function (options: {
-  host?: string
-  port?: number
-}): Bud
-```
-
-## Parameters
-
-| Name              | Type         |
-| ----------------- | ------------ |
-| `options.enabled` | Toggle proxy |
-| `options.host`    | Host host    |
-| `options.port`    | Port         |
-
-## Returns
-
-`Bud`: The Bud instance
+Note that SSL support is still considered experimental.

@@ -1,39 +1,26 @@
-import {Framework, Module} from '@roots/bud-framework'
-import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import {Module} from '@roots/bud-extensions'
+import MiniCssExtractPlugin, {
+  PluginOptions,
+} from 'mini-css-extract-plugin'
 
-declare type Options = Module.Options<MiniCssExtractPlugin.PluginOptions>
+const extension: Module<MiniCssExtractPlugin, PluginOptions> = {
+  name: 'mini-css-extract-plugin',
+  options: ({store}) => ({
+    filename: `css/${
+      store.isTrue('hash')
+        ? `${store.get('hashFormat')}.css`
+        : `${store.get('fileFormat')}.css`
+    }`,
+    chunkFilename: `css/${
+      store.isTrue('hash')
+        ? `${store.get('hashFormat')}.[id].css`
+        : `${store.get('fileFormat')}.[id].css`
+    }`,
 
-/**
- * Plugin name
- */
-export const name: Module.Name = 'mini-css-extract-plugin'
+    ...(store.get('extension.miniCssExtractPlugin') ?? {}),
+  }),
+  make: options => new MiniCssExtractPlugin(options.all()),
+  when: ({isProduction}) => isProduction,
+}
 
-/**
- * Options
- */
-export const options: Options = ({store}: Framework) => ({
-  filename: `css/${
-    store.isTrue('hash')
-      ? `${store.get('hashFormat')}.css`
-      : `${store.get('fileFormat')}.css`
-  }`,
-
-  chunkFilename: `css/${
-    store.isTrue('hash')
-      ? `${store.get('hashFormat')}.[id].css`
-      : `${store.get('fileFormat')}.[id].css`
-  }`,
-
-  ...(store.get('extension.miniCssExtractPlugin') ?? {}),
-})
-
-/**
- * Make
- */
-export const make: Module['make'] = (options: Options) =>
-  new MiniCssExtractPlugin(options.all())
-
-/**
- * Load in production
- */
-export const when: Module.When = ({isProduction}) => isProduction
+export {extension as default}

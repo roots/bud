@@ -25,7 +25,9 @@
   },
   "keywords": [
     "bud",
-    "bud-core"
+    "bud-extensions",
+    "gzip",
+    "brotli"
   ],
   "engines": {
     "node": ">=14"
@@ -56,13 +58,13 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@roots/bud-typings": "workspace:*",
     "@types/node": "^15.0.0",
     "webpack": "^5.36.0"
   },
   "dependencies": {
+    "@roots/bud-extensions": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "autobind-decorator": "^2.4.0",
-    "compression-webpack-plugin": "7.1.2"
+    "compression-webpack-plugin": "^7.1.2"
   }
 }

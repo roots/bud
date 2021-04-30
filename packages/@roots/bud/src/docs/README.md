@@ -107,7 +107,7 @@ devtool: 'eval-source-map'
 Once you've set up your configuration file the following command will run the build:
 
 ```sh
-yarn bud build:production
+yarn bud build
 ```
 
 You should see your built assets in the `dist` directory of your project.
@@ -130,23 +130,13 @@ There are [example implementations available for reference in `/examples`]([[bas
 
 ## Extending
 
-Bud, by itself, provides an intentionally sparse set of out-of-the-box features.
+Bud provides an intentionally sparse set of out-of-the-box features.
 
-In fact, much of the core of Bud is actually made up of extensions. This is to make it easy for developers and extension authors to swap out parts of the framework as needed.
+In fact, much of the core of Bud is actually made up of extensions. This is to make it easy for devs to swap out parts of the framework as needed.
 
-Suffice to say, extensibility is a fundamental design tenet of Bud as software. You will likely want to utilize extensions in your project.
+That said, you will likely want to utilize extensions in your project.
 
-You can add an extension in a couple ways:
-
-```ts
-import * as babel from '@roots/bud-babel'
-
-// bud.use
-bud.use(babel)
-
-// bud.extensions.add
-bud.extensions.add(babel)
-```
+If you're unsure where to start or what you need you can try the `@roots/bud-preset-recommend` preset. But, all of our first-party extensions are designed with ease-of-use in mind. Most require zero configuration.
 
 ### First-party extensions
 
@@ -163,7 +153,7 @@ There are a number of Roots maintained extensions available to kickstart your pr
 | @roots/bud-eslint                 | Adds eslint support.    | [README ↗]([[base]]/packages/@roots/bud-eslint)                 | ![npm](https://img.shields.io/npm/v/@roots/bud-eslint.svg?color=%23525ddc&style=flat-square)                 |
 | @roots/bud-imagemin               | Compress image assets   | [README ↗]([[base]]/packages/@roots/bud-imagemin)               | ![npm](https://img.shields.io/npm/v/@roots/bud-imagemin.svg?color=%23525ddc&style=flat-square)               |
 | @roots/bud-library                | DLL support             | [README ↗]([[base]]/packages/@roots/bud-library)                | ![npm](https://img.shields.io/npm/v/@roots/bud-library.svg?color=%23525ddc&style=flat-square)                |
-| @roots/bud-mdx                    | DLL support             | [README ↗]([[base]]/packages/@roots/bud-mdx)                    | ![npm](https://img.shields.io/npm/v/@roots/bud-mdx.svg?color=%23525ddc&style=flat-square)                    |
+| @roots/bud-mdx                    | MDX support             | [README ↗]([[base]]/packages/@roots/bud-mdx)                    | ![npm](https://img.shields.io/npm/v/@roots/bud-mdx.svg?color=%23525ddc&style=flat-square)                    |
 | @roots/bud-postcss                | PostCss support.        | [README ↗]([[base]]/packages/@roots/bud-postcss)                | ![npm](https://img.shields.io/npm/v/@roots/bud-postcss.svg?color=%23525ddc&style=flat-square)                |
 | @roots/bud-prettier               | Prettier support.       | [README ↗]([[base]]/packages/@roots/bud-prettier)               | ![npm](https://img.shields.io/npm/v/@roots/bud-prettier.svg?color=%23525ddc&style=flat-square)               |
 | @roots/bud-purgecss               | PurgeCss support.       | [README ↗]([[base]]/packages/@roots/bud-purgecss)               | ![npm](https://img.shields.io/npm/v/@roots/bud-purgecss.svg?color=%23525ddc&style=flat-square)               |

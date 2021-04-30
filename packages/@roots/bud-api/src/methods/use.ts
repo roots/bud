@@ -1,4 +1,5 @@
-import {Framework, Module} from '@roots/bud-framework'
+import {Api} from '@roots/bud-framework'
+import {Module} from '@roots/bud-extensions'
 import {isArray} from 'lodash'
 
 declare module '@roots/bud-framework' {
@@ -17,20 +18,17 @@ declare module '@roots/bud-framework' {
      * ])
      * ```
      */
-    use: Use
+    use: Api.Use
   }
 
   namespace Api {
-    export {Use}
+    type Use = (source: Module | Array<Module>) => Framework
   }
 }
 
-type Use = (source: Module | Array<Module>) => Framework
-
-export const use: Use = function (source) {
+export const use: Api.Use = function (source) {
   if (!isArray(source)) {
     this.extensions.add(source)
-
     return this
   }
 

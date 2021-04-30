@@ -7,6 +7,10 @@
     "url": "git://github.com/roots/bud.git",
     "directory": "packages/@roots/sage"
   },
+  "contributors": [
+    "Kelly Mears <kelly@roots.io> (https://kellymears.me)",
+    "qwp6t"
+  ],
   "licenses": [
     {
       "type": "MIT",
@@ -16,6 +20,10 @@
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
   "keywords": [
     "bud",
     "sage"
@@ -23,19 +31,17 @@
   "engines": {
     "node": ">=14"
   },
-  "license": "MIT",
   "files": [
-    "lib/",
     "bin/",
     "types/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.mjs",
+  "types": "./types/index.d.ts",
   "exports": {
     "require": "./lib/cjs/index.js",
     "import": "./lib/esm/index.mjs"
   },
-  "types": "./types/index.d.ts",
   "scripts": {
     "build": "yarn g:build",
     "build:cjs": "yarn g:build:cjs",
@@ -51,6 +57,8 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
+    "@roots/bud-extensions": "workspace:*",
+    "@roots/bud-framework": "workspace:*",
     "@types/fs-extra": "^9.0.11",
     "@types/node": "^15.0.0",
     "@types/tailwindcss": "^2"
@@ -63,7 +71,6 @@
     "@roots/bud-entrypoints": "workspace:*",
     "@roots/bud-esbuild": "workspace:*",
     "@roots/bud-eslint": "workspace:*",
-    "@roots/bud-framework": "workspace:*",
     "@roots/bud-postcss": "workspace:*",
     "@roots/bud-preset-recommend": "workspace:*",
     "@roots/bud-prettier": "workspace:*",

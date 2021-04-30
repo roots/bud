@@ -8,6 +8,15 @@
     "url": "https://github.com/roots/bud.git",
     "directory": "packages/@roots/bud-framework"
   },
+  "contributors": [
+    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
+  ],
+  "licenses": [
+    {
+      "type": "MIT",
+      "url": "http://opensource.org/licenses/MIT"
+    }
+  ],
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
@@ -15,10 +24,6 @@
     "type": "github sponsors",
     "url": "https://github.com/sponsors/roots"
   },
-  "license": "MIT",
-  "contributors": [
-    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
-  ],
   "keywords": [
     "bud",
     "bud-framework"
@@ -52,14 +57,13 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@roots/bud-typings": "workspace:*",
     "@types/fs-extra": "^9.0.11",
     "@types/lodash": "^4.14.168",
     "@types/node": "^15.0.0"
   },
   "dependencies": {
-    "@roots/bud-support": "workspace:*",
-    "@roots/container": "workspace:*",
+    "@roots/bud-typings": "workspace:*",
+    "@roots/container": "workspace:packages/@roots/container",
     "@roots/dependencies": "workspace:*",
     "@roots/filesystem": "workspace:*",
     "autobind-decorator": "^2.4.0",

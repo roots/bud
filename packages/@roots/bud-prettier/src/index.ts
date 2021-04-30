@@ -1,3 +1,4 @@
+import '@roots/bud-extensions'
 import {Module} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
@@ -8,4 +9,8 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export const name: Module['name'] = '@roots/bud-prettier'
+const extension: Module = {
+  name: '@roots/bud-prettier',
+}
+
+export const {name} = extension

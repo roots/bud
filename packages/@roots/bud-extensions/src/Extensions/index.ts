@@ -2,30 +2,23 @@ import type {Module} from '@roots/bud-framework'
 import type Webpack from 'webpack/types'
 import {boundMethod as bind} from 'autobind-decorator'
 import {isUndefined} from 'lodash'
-import Extension from './Extension'
+
+import {Extension} from '../index'
 import Service from './Service'
 
-/**
- * ## bud.extensions
- *
- * Extensions controller for the Bud framework.
- *
- * [🏡 Project home](https://roots.io/bud)
- * [🧑‍💻 roots/bud](https://github.com/roots/bud/blob/stable/README.md)
- */
 export class Extensions extends Service {
   public name = '@roots/bud-extensions'
 
   @bind
   public register(): void {
-    this.every((name: string, extension: Module) => {
+    this.every((_name: string, extension: Module) => {
       return this.registerExtension(extension)
     })
   }
 
   @bind
   public boot(): void {
-    this.every((name: string, extension: Module) => {
+    this.every((_name: string, extension: Module) => {
       return this.bootExtension(extension)
     })
   }

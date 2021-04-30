@@ -1,52 +1,8 @@
-import {Service} from '@roots/bud-framework'
+import Base from './Base'
 import {FileContainer} from '@roots/filesystem'
 import {boundMethod as bind} from 'autobind-decorator'
 
-/**
- * Framework/Disk
- *
- * [🏡 Project home](https://roots.io/bud)
- */
-export class Disk extends Service {
-  /**
-   * Service name
-   */
-  public name = 'disk'
-
-  /**
-   * Base directory
-   */
-  protected _baseDir: string = process.cwd()
-
-  public get baseDir(): string {
-    return this._baseDir
-  }
-
-  public set baseDir(baseDir: string) {
-    this._baseDir = baseDir
-  }
-
-  /**
-   * Fallback pattern
-   */
-  protected _pattern: string[] = [
-    '**/*',
-    '*',
-    '!vendor',
-    '!node_modules',
-  ]
-
-  public get pattern(): string[] {
-    return this._pattern
-  }
-
-  public set pattern(glob: string[]) {
-    this._pattern = glob
-  }
-
-  /**
-   * Service register
-   */
+export class Disk extends Base {
   @bind
   public register(): void {
     this.setStore({
@@ -65,9 +21,6 @@ export class Disk extends Service {
     })
   }
 
-  /**
-   * Service boot
-   */
   @bind
   public boot(): void {
     this.get('project').has('package.json')
@@ -80,22 +33,6 @@ export class Disk extends Service {
           .log(this.get('project'))
   }
 
-  /**
-   * Make
-   *
-   * Create a new disk. Provide a name, root directory, and -- optionally --
-   * a custom glob array.
-   *
-   * ### Usage
-   *
-   * ```js
-   * disk.make(
-   *   'icons',
-   *   bud.path('project', 'assets/icons'),
-   *   ['*.svg'],
-   * )
-   * ```
-   */
   @bind
   public make(
     key: string | number,
@@ -109,11 +46,8 @@ export class Disk extends Service {
     return this.get(key)
   }
 
-  /**
-   * Make file container
-   */
   @bind
-  public makeFileContainer(options: {
+  protected makeFileContainer(options: {
     baseDir?: string
     glob?: string[]
   }): FileContainer {

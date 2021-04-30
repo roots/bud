@@ -1,7 +1,7 @@
 import {Build as Contract, Service} from '@roots/bud-framework'
 import Webpack from 'webpack'
 import {boundMethod as bind} from 'autobind-decorator'
-import * as builders from '../builders'
+import * as builders from '../builders/index'
 
 export class Build extends Service implements Contract {
   public name = '@roots/bud-build'

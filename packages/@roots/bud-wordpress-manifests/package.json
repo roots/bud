@@ -31,11 +31,11 @@
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
+  "types": "./types/index.d.ts",
   "exports": {
     "require": "./lib/cjs/index.js",
     "import": "./lib/esm/index.js"
   },
-  "types": "./lib/types/index.d.ts",
   "scripts": {
     "build": "yarn g:build",
     "build:cjs": "yarn g:build:cjs",
@@ -51,6 +51,7 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
+    "@roots/bud-extensions": "workspace:*",
     "@types/node": "^15.0.0"
   },
   "dependencies": {

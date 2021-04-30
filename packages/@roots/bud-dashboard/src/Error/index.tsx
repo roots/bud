@@ -1,8 +1,8 @@
 import React from 'react'
 import {render} from 'ink'
-import {Component} from './Component'
+import {Component} from './Error'
 
-export const Error: CallableFunction = (
+const Error: CallableFunction = (
   body: string,
   title: string,
 ) => {
@@ -12,3 +12,5 @@ export const Error: CallableFunction = (
 
   process.exit()
 }
+
+export {Error}

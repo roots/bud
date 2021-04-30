@@ -1,4 +1,4 @@
-import '@roots/bud-framework'
+import '@roots/bud-extensions'
 import {Api as ApiInterface} from './index'
 
 declare module '@roots/bud-framework' {

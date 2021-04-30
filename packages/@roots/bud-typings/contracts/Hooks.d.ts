@@ -2,13 +2,12 @@ import {Module, Service} from './'
 import Webpack from 'webpack'
 
 /**
- * ## hooks
+/**
+ * Hooks
  *
- * Bud provides a system of 'hooks' to
- * expose deeply nested values for easy
- * and (hopefully) safe modification
- *
- * [🏡 Project home](https://roots.io/bud)
+ * [🏡 web](https://roots.io/bud)
+ * [🐙 git](https://www.github.com/tree/stable/packages/@roots/bud-hooks)
+ * [📦 npm](https://www.npmjs.com/package/@roots/bud-hooks)
  *
  * ### Usage
  *
@@ -44,10 +43,18 @@ export interface Hooks extends Service {
   /**
    * ## hooks.on
    *
+   * Register a function to filter a value.
+   *
+   * If a filter calls for this name the function is then run,
+   * passing whatever data along for modification. If more than one
+   * hook is registered to a name, they will be called sequentially
+   * in the order they were registered, with each hook's output used
+   * as the input for the next.
+   *
    * ### Usage
    *
    * ```js
-   * hooks.on(
+   * app.hooks.on(
    *   'namespace.name.value',
    *   value => 'replaced by this string',
    * )
@@ -61,7 +68,9 @@ export interface Hooks extends Service {
   /**
    * ## hooks.filter
    *
-   * ### Usage
+   * The other side of bud.hooks.on. Passes a key and a value. If
+   * any filters are registered on that key they will transform
+   * the output before it is returned.
    *
    * ```js
    * bud.hooks.filter(
@@ -246,6 +255,7 @@ export namespace Hooks {
       mode?: Build.Mode
       module?: Build.Module
       optimization?: Build.Optimization
+      parallelism?: Webpack.Config['parallelism']
     }
 
     export type Dive<T, S> = {
