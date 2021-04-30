@@ -28,8 +28,8 @@
 - [Getting started](#getting-started)
   - [Running a build](#running-a-build)
   - [Configuration API](#configuration-api)
-- [Extensions](#extending-core)
-- [Documentation](#details)
+- [Extensions](#extending)
+- [Documentation](#documentation-and-details)
 
 ## Overview
 
