@@ -4,8 +4,8 @@
 
 <p align="center">
   <img alt="MIT License" src="https://img.shields.io/github/license/roots/bud?color=%23525ddc&style=flat-square">
-  <a href="https://www.npmjs.com/package/roots/bud-postcss">
-    <img src="https://img.shields.io/npm/v/roots/bud-postcss.svg?color=%23525ddc&style=flat-square" />
+  <a href="https://www.npmjs.com/package/@roots/bud-postcss">
+    <img src="https://img.shields.io/npm/v/@roots/bud-postcss.svg?color=%23525ddc&style=flat-square" />
   </a>
   <a href="https://codeclimate.com/github/roots/bud-support/maintainability">
     <img src="https://img.shields.io/codeclimate/maintainability/roots/bud-support?color=%23525ddc&style=flat-square" />
@@ -124,13 +124,13 @@ bud.postcss
 
 You may also customize the postcss config using hooks registered by [@roots/bud-postcss]([[base]]/packages/@roots/bud-postcss):
 
-| Hooks                      | Description                                                                                                                                                                                                                         |
-| -------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **loader/postcss**         | postcss loader implementation \[default: `require.resolve('postcss-loader')`]                                                                                                                                                       |
-| **item/postcss/options**   | `postcss-loader` options                                                                                                                                                                                                            |
-| **item/postcss/sourceMap** | Should sourcemaps be enabled \[default: `true`, mandatory for `url-resolve`]                                                                                                                                                        |
-| **item/postcss/config**    | Should a configuration file take precdedence over `postcss`/`@roots/bud-postcss` config? \[default: `true` if `postcss.config.js`/`.postcssrc` file is present in project directory, or a `postcss` field is set in `package.json`] |
-| **item/postcss/plugins**   | postcss plugins                                                                                                                                                                                                                     |
+| Hooks                      | Description                                                                                                                                                                                                                                                                                                   |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **loader/postcss**         | postcss loader implementation \[default: `require.resolve('postcss-loader')`]                                                                                                                                                                                                                                 |
+| **item/postcss/options**   | `postcss-loader` options                                                                                                                                                                                                                                                                                      |
+| **item/postcss/sourceMap** | Should sourcemaps be enabled \[default: `true`, mandatory for `url-resolve`]                                                                                                                                                                                                                                  |
+| **item/postcss/config**    | Should a configuration file take precdedence over `postcss`/[**@roots/bud-postcss**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-postcss) config? \[default: `true` if `postcss.config.js`/`.postcssrc` file is present in project directory, or a `postcss` field is set in `package.json`] |
+| **item/postcss/plugins**   | postcss plugins                                                                                                                                                                                                                                                                                               |
 
 ### Examples
 

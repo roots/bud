@@ -2,7 +2,7 @@
 
 > A webpack framework combining the best parts of Laravel Mix and Symfony Encore.
 
-# Table of Contents
+## Table of Contents
 
 ## Installation
 
@@ -97,6 +97,8 @@ minimize: true
 devtool: 'eval-source-map'
 ```
 
+For more on configuring @roots/bud check out the [dedicated documentation](docs:config/README).
+
 ## Running a build
 
 Once you've set up your configuration file the following command will run the build:
@@ -105,7 +107,7 @@ Once you've set up your configuration file the following command will run the bu
 yarn bud build
 ```
 
-You should see your built assets in the `dist` directory of your project.
+You should see your built assets in the `dist` urlectory of your project.
 
 ### Running in `production` mode
 
@@ -121,7 +123,7 @@ yarn bud build:development
 
 ## Example implementations
 
-There are [example implementations available](https://github.com/roots/bud/tree/stable/examples).
+There are [example implementations available](url:examples).
 
 ## Extending
 
@@ -131,37 +133,37 @@ In fact, much of the core of Bud is actually made up of extensions. This is to m
 
 That said, you will likely want to utilize extensions in your project.
 
-If you're unsure where to start or what you need you can try the `@roots/bud-preset-recommend` preset. But, all of our first-party extensions are designed with ease-of-use in mind. Most require zero configuration.
+If you're unsure where to start or what you need you can try the @roots/bud-preset-recommend preset. But, all of our first-party extensions are designed with ease-of-use in mind. Most require zero configuration.
 
 ### First-party extensions
 
-There are a number of Roots maintained extensions available to kickstart your projects.
+There are a number of Roots maintained extensions available to kickstart your projects :fire:
 
-| Name                              | Description             | Usage                                | Package                           |
+| Name                              | Project home             | Extension docs                                | Latest                          |
 | --------------------------------- | ----------------------- | ------------------------------------ | --------------------------------- |
-| [dir](bud-babel)                  | Babel support.          | [readme](bud-babel)                  | [pkg](bud-babel)                  |
-| [dir](bud-compress)               | Gzip/Brotli compression | [readme](bud-compress)               | [pkg](bud-compress)               |
-| [dir](bud-criticalcss)            | Adds criticalcss.       | [readme](bud-criticalcss)            | [pkg](bud-criticalcss)            |
-| [dir](bud-emotion)                | Adds emotion.           | [readme](bud-emotion)                | [pkg](bud-emotion)                |
-| [dir](bud-entrypoints)            | Asset manifest.         | [readme](bud-entrypoints)            | [pkg](bud-entrypoints)            |
-| [dir](bud-esbuild)                | Adds esbuild.           | [readme](bud-esbuild)                | [pkg](bud-esbuild)                |
-| [dir](bud-eslint)                 | Adds eslint support.    | [readme](bud-eslint)                 | [pkg](bud-eslint)                 |
-| [dir](bud-imagemin)               | Compress image assets   | [readme](bud-imagemin)               | [pkg](bud-imagemin)               |
-| [dir](bud-library)                | DLL support             | [readme](bud-library)                | [pkg](bud-library)                |
-| [dir](bud-mdx)                    | MDX support             | [readme](bud-mdx)                    | [pkg](bud-mdx)                    |
-| [dir](bud-postcss)                | PostCss support.        | [readme](bud-postcss)                | [pkg](bud-postcss)                |
-| [dir](bud-prettier)               | Prettier support.       | [readme](bud-prettier)               | [pkg](bud-prettier)               |
-| [dir](bud-purgecss)               | PurgeCss support.       | [readme](bud-purgecss)               | [pkg](bud-purgecss)               |
-| [dir](bud-react)                  | React support.          | [readme](bud-react)                  | [pkg](bud-react)                  |
-| [dir](bud-sass)                   | Sass support.           | [readme](bud-sass)                   | [pkg](bud-sass)                   |
-| [dir](bud-stylelint)              | Stylelint support.      | [readme](bud-stylelint)              | [pkg](bud-stylelint)              |
-| [dir](bud-tailwindcss)            | Tailwindcss support.    | [readme](bud-tailwindcss)            | [pkg](bud-tailwindcss)            |
-| [dir](bud-terser)                 | Terser support.         | [readme](bud-terser)                 | [pkg](bud-terser)                 |
-| [dir](bud-typescript)             | TypeScript support.     | [readme](bud-typescript)             | [pkg](bud-typescript)             |
-| [dir](bud-vue)                    | Vue framework support.  | [readme](bud-vue)                    | [pkg](bud-vue)                    |
-| [dir](bud-wordpress-dependencies) | WP dependencies.        | [readme](bud-wordpress-dependencies) | [pkg](bud-wordpress-dependencies) |
-| [dir](bud-wordpress-externals)    | WP externals.           | [readme](bud-wordpress-externals)    | [pkg](bud-wordpress-externals)    |
-| [dir](bud-wordpress-manifests)    | WP asset manifest.      | [readme](bud-wordpress-manifests)    | [pkg](bud-wordpress-manifests)    |
+| `@roots/bud-babel`              | @babel/babel    | readme`@roots/bud-babel`              | npm`@roots/bud-babel`
+| `@roots/bud-compress`               | @webpack-contrib/compression-webpack-plugin | readme`@roots/bud-compress`              | npm`@roots/bud-compress`               |
+| `@roots/bud-criticalcss`            | @addyosmani/critical       | readme`@roots/bud-criticalcss`            | npm`@roots/bud-criticalcss`            |
+| `@roots/bud-emotion`                | @emotion/emotion-css          | readme`@roots/bud-emotion`                | npm`@roots/bud-emotion`                |
+| `@roots/bud-entrypoints`           | `@roots/entrypoints-webpack-plugin`         | readme`@roots/bud-entrypoints`            | npm`@roots/bud-entrypoints`            |
+| `@roots/bud-esbuild`               | @roots/esbuild-loader          | readme`@roots/bud-esbuild`                | npm`@roots/bud-esbuild`                |
+| `@roots/bud-eslint`                 | @webpack-contrib/eslint-webpack-plugin   | readme`@roots/bud-eslint`                 | npm`@roots/bud-eslint`                 |
+| `@roots/bud-imagemin`               | @webpack-contrib/image-minimizer-webpack-plugin   | readme`@roots/bud-imagemin`               | npm`@roots/bud-imagemin`               |
+| `@roots/bud-library`                | @asfktz/autodll-webpack-plugin           | readme`@roots/bud-library`                | npm`@roots/bud-library`                |
+| `@roots/bud-mdx`                    | @mdx-js/mdx           | readme`@roots/bud-mdx`                   | npm`@roots/bud-mdx`                    |
+| `@roots/bud-postcss`                | @postcss/postcss        | readme`@roots/bud-postcss`                | npm`@roots/bud-postcss`                |
+| `@roots/bud-prettier`               | adds prettier       | readme`@roots/bud-prettier`               | npm`@roots/bud-prettier`               |
+| `@roots/bud-purgecss`               | removes unused styles       | readme`@roots/bud-purgecss`              | npm`@roots/bud-purgecss`               |
+| `@roots/bud-react`                 | adds react/jsx         | readme`@roots/bud-react`                | npm`@roots/bud-react`                  |
+| `@roots/bud-sass`                   | adds sass          | readme`@roots/bud-sass`                 | npm`@roots/bud-sass`                   |
+| `@roots/bud-stylelint`              | lint stylesheets      | readme`@roots/bud-stylelint`              | npm`@roots/bud-stylelint`              |
+| `@roots/bud-tailwindcss`            | Tailwindcss support.    | readme`@roots/bud-tailwindcss`           | npm`@roots/bud-tailwindcss`            |
+| `@roots/bud-terser`                 | Terser support.         | readme`@roots/bud-terser`                 | npm`@roots/bud-terser`                 |
+| `@roots/bud-typescript`             | TypeScript support.     | readme`@roots/bud-typescript`             | npm`@roots/bud-typescript`             |
+| `@roots/bud-vue`                    | Vue framework support.  | readme`@roots/bud-vue`                | npm`@roots/bud-vue`                    |
+| `@roots/bud-wordpress-dependencies` | WP dependencies.        | readme`@roots/bud-wordpress-dependencies` | npm`@roots/bud-wordpress-dependencies` |
+| `@roots/bud-wordpress-externals`    | WP externals.           | readme`@roots/bud-wordpress-externals`   | npm`@roots/bud-wordpress-externals`    |
+| `@roots/bud-wordpress-manifests`    | WP asset manifest.      | readme`@roots/bud-wordpress-manifests`    | npm`@roots/bud-wordpress-manifests`    |
 
 ### Third-party extensions
 
@@ -169,6 +171,7 @@ Have you produced a Bud extension and want to share it here? Please, create an i
 
 ## Documentation and details
 
-- [Documentation]([[base]]/README.md)
-- [Getting started]([[base]]/getting-started.md)
-- [CLI]([[base]]/cli.md)
+- [Documentation](docs`README`)
+- [Getting started](docs`getting-started`)
+- [Configuration](docs`config/README`)
+- [CLI](docs`cli`)

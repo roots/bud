@@ -4,8 +4,8 @@
 
 <p align="center">
   <img alt="MIT License" src="https://img.shields.io/github/license/roots/bud?color=%23525ddc&style=flat-square">
-  <a href="https://www.npmjs.com/package/roots/sage">
-    <img src="https://img.shields.io/npm/v/roots/sage.svg?color=%23525ddc&style=flat-square" />
+  <a href="https://www.npmjs.com/package/@roots/sage">
+    <img src="https://img.shields.io/npm/v/@roots/sage.svg?color=%23525ddc&style=flat-square" />
   </a>
   <a href="https://codeclimate.com/github/roots/bud-support/maintainability">
     <img src="https://img.shields.io/codeclimate/maintainability/roots/bud-support?color=%23525ddc&style=flat-square" />

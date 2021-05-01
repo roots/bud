@@ -25,7 +25,7 @@ module.exports = bud =>
   })
 ```
 
-[bud.entry](config-entry.md) is used to concatenate your source assets
+[bud.entry](docs`config/entry.md`) is used to concatenate your source assets
 into distinct distributable entrypoints. It takes two arguments, indicating:
 
 1. the entrypoint name; and
@@ -62,7 +62,7 @@ module.exports = bud =>
 
 As our application grows in scale we'll probably want to put in some work to keep our bundled code lean and optimize how it loaded.
 
-We can use `bud.minimize` and `bud.splitChunks` to handle these two needs.
+We can use [`bud.minimize`](docs`config/minimize.md`) and [`bud.splitChunks`](docs`config/splitChunks.md`) to handle these two needs.
 
 ```js
 bud
@@ -76,7 +76,7 @@ bud
 
 One negative effect of this improvement is that we are applying these optimizations when running the build in development. There is probably no need for this at all.
 
-It would be ideal to instead only apply optimizations like these for production builds. The `bud.when` utility function is well suited for this.
+It would be ideal to instead only apply optimizations like these for production builds. The [bud.when](docs`config/when.md`) utility function is well suited for this.
 
 ```js
 bud
@@ -87,7 +87,7 @@ bud
   .when(bud.isProduction, () => bud.minimize().splitChunks())
 ```
 
-You could do the same thing but specifically targeting dev builds by pairing `bud.when` with `bud.isDevelopment`.
+You could do the same thing but specifically targeting dev builds by pairing [bud.when](docs`config/when.md`) with `bud.isDevelopment`.
 
 These expressions are roughly equivalent to
 
@@ -101,7 +101,7 @@ In the end, they are arguably just a little more natural to read and write, sinc
 
 ## Including static assets
 
-If we have some images we would like to include in our bundle, but we aren't going to import them directly into a JS file (very common with projects that utilize a server-side framework like WordPress or Laravel), we can use `bud.assets` to move them from our `src` dir to `dist`.
+If we have some images we would like to include in our bundle, but we aren't going to import them directly into a JS file (very common with projects that utilize a server-side framework like WordPress or Laravel), we can use [`bud.assets`](docs`config/assets.md`) to move them from our `src` dir to `dist`.
 
 ```js
 bud

@@ -6,22 +6,22 @@
 
 | Tool            | Description                     | Documentation                                                                  |
 | --------------- | ------------------------------- | ------------------------------------------------------------------------------ |
-| bud.alias       | Easy module imports             | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-alias.md)      |
-| bud.assets      | Copy static assets              | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-assets.md)     |
-| bud.define      | Define global constants         | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-define.md)     |
-| bud.dev         | Configure dev server            | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-dev.md)        |
-| bud.devtool     | Configure sourcemaps            | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-devtool.md)    |
-| bud.entry       | Add source files                | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-entry.md)      |
-| bud.hash        | Add version string to assets    | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-hash.md)       |
-| bud.html        | Set an HTML template            | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-html.md)       |
-| bud.minimize    | Minize assets                   | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-minimize.md)   |
-| bud.path        | Get paths to project files/dirs | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-path.md)       |
-| bud.provide     | Define global vars              | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-provide.md)    |
-| bud.proxy       | Configure proxy server          | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-proxy.md)      |
-| bud.publicPath  | Define the public path          | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-publicPath.md) |
-| bud.runtime     | Extract boilerplate             | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-runtime.md)    |
-| bud.setPath     | Set paths to project files/dirs | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-setPath.md)    |
-| bud.splitChunks | Split code (vendor)             | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-vendor.md)     |
-| bud.storage     | Define artifacts dir            | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-storage.md)    |
-| bud.use         | Extend Bud with modules         | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-use.md)        |
-| bud.watch       | Configure watch mode            | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-watch.md)      |
+| bud.alias       | Easy module imports             | docs`config/alias.md`      |
+| bud.assets      | Copy static assets              | docs`config/assets.md`     |
+| bud.define      | Define global constants         | docs`config/define.md`     |
+| bud.dev         | Configure dev server            | docs`config/dev.md`        |
+| bud.devtool     | Configure sourcemaps            | docs`config/devtool.md`    |
+| bud.entry       | Add source files                | docs`config/entry.md`      |
+| bud.hash        | Add version string to assets    | docs`config/hash.md`       |
+| bud.html        | Set an HTML template            | docs`config/html.md`       |
+| bud.minimize    | Minize assets                   | docs`config/minimize.md`   |
+| bud.path        | Get paths to project files/dirs | docs`config/path.md`       |
+| bud.provide     | Define global vars              | docs`config/provide.md`    |
+| bud.proxy       | Configure proxy server          | docs`config/proxy.md`      |
+| bud.publicPath  | Define the public path          | docs`config/publicPath.md` |
+| bud.runtime     | Extract boilerplate             | docs`config/runtime.md`    |
+| bud.setPath     | Set paths to project files/dirs | docs`config/setPath.md`    |
+| bud.splitChunks | Split code (vendor)             | docs`config/vendor.md`     |
+| bud.storage     | Define artifacts dir            | docs`config/storage.md`    |
+| bud.use         | Extend Bud with modules         | docs`config/use.md`        |
+| bud.watch       | Configure watch mode            | docs`config/watch.md`      |

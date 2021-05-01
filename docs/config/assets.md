@@ -18,4 +18,4 @@ bud.assets(['images/**/*'])
 
 You don't need to import assets which are utilized by your bundled code. For instance, if you are referencing a font file from your stylesheet, the font will already be included in `dist`.
 
-`assets` is specifically for compiling files which are not already included elsewhere.
+`bud.assets` is specifically for compiling files which are not already included elsewhere.

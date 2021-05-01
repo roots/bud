@@ -3,16 +3,19 @@
 </p>
 
 <p align="center">
-  <img
-    alt="MIT License"
-    src="https://img.shields.io/github/license/roots/bud?color=%23525ddc&style=flat-square"
-  />
-
+  <img alt="MIT License" src="https://img.shields.io/github/license/roots/bud?color=%23525ddc&style=flat-square">
+  <a href="https://www.npmjs.com/package/@roots/bud-react">
+    <img src="https://img.shields.io/npm/v/@roots/bud-react.svg?color=%23525ddc&style=flat-square" />
+  </a>
+  <a href="https://codeclimate.com/github/roots/bud-support/maintainability">
+    <img src="https://img.shields.io/codeclimate/maintainability/roots/bud-support?color=%23525ddc&style=flat-square" />
+  </a>
+  <img alt="Lerna" src="https://img.shields.io/github/lerna-json/v/roots/bud?color=%23525ddc&style=flat-square">
+  <a href="Typescript" src="https://github.com/roots/bud/tree/stable/typings">
+    <img src="https://img.shields.io/badge/typings-%40roots%2Fbud--typings-%23525ddc" />
+  </a>
   <a href="https://twitter.com/rootswp">
-    <img
-      alt="Follow Roots"
-      src="https://img.shields.io/twitter/follow/rootswp.svg?style=flat-square&color=1da1f2"
-    />
+    <img alt="Follow Roots" src="https://img.shields.io/twitter/follow/rootswp.svg?color=%23525ddc&style=flat-square" />
   </a>
 </p>
 
@@ -22,39 +25,46 @@
 
 ## Overview
 
-Extends Bud with React support.
+> Adds react support to [@roots/bud]([[base]]/README.md) projects.
 
-When run in development mode `@pmmmwh/react-refresh-webpack-plugin` provides hot module reloading.
+- [Requirements](#Requirements)
+- [Installation](#Installation)
+- [Usage](#Usage)
+
+## Requirements
+
+[@roots/bud-react]([[base]]/packages/@roots/bud-react) requires [**@roots/bud-babel**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-babel) to be installed as a peer dev dependency.
+
+```sh
+yarn add @roots/bud-babel --dev
+```
+
+You should also install `react` and `react-dom` explicitly:
+
+```sh
+yarn add react react-dom
+```
 
 ## Installation
 
-`yarn add @roots/bud-react --dev`
+```sh
+yarn add @roots/bud-react --dev
+```
 
 ## Usage
 
-```js
-bud.use(require('@roots/bud-react'))
-```
-
-## Configuration
-
-You may configure `@pmmmwh/react-refresh-webpack-plugin` by passing plugin options to `bud.reactRefresh`, which is registered by this package.
-
-Default configuration:
+Include [**@roots/bud-react**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-react) in your config.
 
 ```js
-bud.reactRefresh({
-  overlay: {
-    sockIntegration: 'whm',
-  },
-})
+module.exports = (app) =>
+  app.use(["@roots/bud-babel", "@roots/bud-react"]).entry("app", ["app.css"]);
 ```
 
 ## Contributing
 
 Contributions are welcome from everyone.
 
-We have [contributing guidelines](https://git.io/JTfPd) to help you get started.
+We have [contributing guidelines](https://github.com/roots/guidelines/blob/master/CONTRIBUTING.md) to help you get started.
 
 ## Bud sponsors
 

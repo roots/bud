@@ -1,6 +1,8 @@
----
-description: CLI utilities.
----
+## Overview
+
+> CLI utilities for [dir](bud) projects.
+
+## Table of contents
 
 ## Installation
 
@@ -40,9 +42,9 @@ bud build:dev
 
 ## Running the build in CI
 
-Depending on your environment, Bud's CLI output causes issues. In particular, it's usage of tty `raw mode` can cause issues with CI tools.
+It is possible, depending on your environment, that Bud's CLI output causes issues. In particular, it's usage of tty `raw mode` can cause issues with CI tools.
 
-To run the build but not use the `@roots/bud-cli` renderer, there is a `--ci` flag which indicates you want to run the build for these environments.
+To run the build but not use the `bud-cli` renderer, there is a `--ci` flag which indicates you want to run the build for these environments.
 
 ## Exiting the CLI from `dev` mode
 

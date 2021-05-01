@@ -10,7 +10,7 @@ This file should be located in the project root.
 
 Values defined in the application `.env` file are available via `bud.env`.
 
-The `bud.env` object is a [@roots/container](#) instance.
+The `bud.env` object is a `@roots/container` instance.
 
 Most commonly you'll probably find yourself using these methods:
 
@@ -24,7 +24,7 @@ bud.env.is('APP_ENV', 'production')
 
 ## Accessing env values from within a template
 
-Values defined in the application `.env` file are available within HTML templates ([see `bud.template` for more information on HTML templating](config-template.md)).
+Values defined in the application `.env` file are available within HTML templates ([see `bud.template` for more information on HTML templating](docs`config/template.md`)).
 
 ## Accessing env values from within the application
 

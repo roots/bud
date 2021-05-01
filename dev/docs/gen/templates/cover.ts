@@ -1,8 +1,4 @@
-const noScope = pkgString => pkgString.replace('@', '')
-
-export const banner = ({name}) => {
-  const uri = name.replace('@', '')
-
+const banner = ({name}) => {
   return `
 <p align="center">
   <img alt="Bud" src="https://cdn.roots.io/app/uploads/logo-bud.svg" height="100">
@@ -10,8 +6,8 @@ export const banner = ({name}) => {
 
 <p align="center">
   <img alt="MIT License" src="https://img.shields.io/github/license/roots/bud?color=%23525ddc&style=flat-square">
-  <a href="https://www.npmjs.com/package/${uri}">
-    <img src="https://img.shields.io/npm/v/${uri}.svg?color=%23525ddc&style=flat-square" />
+  <a href="https://www.npmjs.com/package/${name}">
+    <img src="https://img.shields.io/npm/v/${name}.svg?color=%23525ddc&style=flat-square" />
   </a>
   <a href="https://codeclimate.com/github/roots/bud-support/maintainability">
     <img src="https://img.shields.io/codeclimate/maintainability/roots/bud-support?color=%23525ddc&style=flat-square" />
@@ -31,7 +27,7 @@ export const banner = ({name}) => {
 `
 }
 
-export const footer = pkg => `
+const footer = pkg => `
 ## Contributing
 
 Contributions are welcome from everyone.
@@ -52,3 +48,5 @@ Keep track of development and community news.
 - Subscribe to the [Roots Newsletter](https://roots.io/subscribe/)
 - Listen to the [Roots Radio podcast](https://roots.io/podcast/)
 `
+
+export {banner, footer}

@@ -31,7 +31,7 @@ bud.dev({
 
 Users building on top of an existing backend framework like WordPress, Laravel, RoR, etc. will likely want to proxy their established development server.
 
-Bud has a function specfically for configuring a proxy server: [`bud.proxy`](/docs/config-proxy.md). But you may also configure the proxy from `bud.dev` if desired.
+Bud has a function specfically for configuring a proxy server: [`bud.proxy`](docs`config/proxy.md`). But you may also configure the proxy from `bud.dev` if desired.
 
 ```js
 bud.dev({

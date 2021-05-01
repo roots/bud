@@ -4,8 +4,8 @@
 
 <p align="center">
   <img alt="MIT License" src="https://img.shields.io/github/license/roots/bud?color=%23525ddc&style=flat-square">
-  <a href="https://www.npmjs.com/package/roots/bud-react">
-    <img src="https://img.shields.io/npm/v/roots/bud-react.svg?color=%23525ddc&style=flat-square" />
+  <a href="https://www.npmjs.com/package/@roots/bud-react">
+    <img src="https://img.shields.io/npm/v/@roots/bud-react.svg?color=%23525ddc&style=flat-square" />
   </a>
   <a href="https://codeclimate.com/github/roots/bud-support/maintainability">
     <img src="https://img.shields.io/codeclimate/maintainability/roots/bud-support?color=%23525ddc&style=flat-square" />
@@ -33,7 +33,7 @@
 
 ## Requirements
 
-[@roots/bud-react]([[base]]/packages/@roots/bud-react) requires `@roots/bud-babel` to be installed as a peer dev dependency.
+[@roots/bud-react]([[base]]/packages/@roots/bud-react) requires [**@roots/bud-babel**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-babel) to be installed as a peer dev dependency.
 
 ```sh
 yarn add @roots/bud-babel --dev
@@ -53,7 +53,7 @@ yarn add @roots/bud-react --dev
 
 ## Usage
 
-Include `@roots/bud-react` in your config.
+Include [**@roots/bud-react**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-react) in your config.
 
 ```js
 module.exports = (app) =>

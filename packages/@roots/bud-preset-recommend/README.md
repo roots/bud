@@ -25,7 +25,7 @@
 
 ## Overview
 
-@roots/bud-preset-recommended is an ideal starting point for all kinds of projects.
+[**@roots/bud-preset-recommended**](https://github.com/roots/bud-preset-recommended) is an ideal starting point for all kinds of projects.
 
 ## Installation
 

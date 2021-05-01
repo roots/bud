@@ -25,7 +25,7 @@
 
 ## Overview
 
-> Adds sass support to [@roots/bud](https://github.com/roots/bud/tree/stable/README.md) projects.
+> Adds sass support to [@roots/bud]([[base]]/README.md) projects.
 
 - [Requirements](#Requirements)
 - [Installation](#Installation)
@@ -33,7 +33,7 @@
 
 ## Requirements
 
-[@roots/bud-sass](https://github.com/roots/bud/tree/stable/packages/@roots/bud-sass) requires sass and `@roots/bud-postcss` to be installed as peer dependencies.
+[@roots/bud-sass]([[base]]/packages/@roots/bud-sass) requires sass and [**@roots/bud-postcss**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-postcss) to be installed as peer dependencies.
 
 ```sh
 yarn add sass @roots/bud-postcss --dev
@@ -47,7 +47,7 @@ yarn add @roots/bud-sass --dev
 
 ## Usage
 
-Make sure that `@roots/bud-postcss` is also included in your configuration.
+Make sure that [**@roots/bud-postcss**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-postcss) is also included in your configuration.
 
 ```js
 module.exports = (app) =>

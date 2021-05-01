@@ -37,7 +37,7 @@
 
 ## Requirements
 
-If you haven't already [installed @roots/bud-postcss](https://github.com/roots/bud/tree/stable/packages/@roots/bud-postcss/README.md) you'll need to do that first.
+If you haven't already [installed @roots/bud-postcss]([[base]]/packages/@roots/bud-postcss/README.md) you'll need to do that first.
 
 ```sh
 yarn add @roots/bud-postcss postcss --dev
@@ -59,7 +59,7 @@ Add the extension to your config:
 bud.use(["@roots/bud-postcss", "@roots/bud-tailwindcss"]);
 ```
 
-Again, take note that [@roots/bud-postcss](https://github.com/roots/bud/tree/stable/packages/@roots/bud-postcss/README.md) is required to utilize [@roots/bud-tailwindcss](https://github.com/roots/bud/tree/stable/packages/@roots/bud-tailwindcss/README.md).
+Again, take note that [@roots/bud-postcss]([[base]]/packages/@roots/bud-postcss/README.md) is required to utilize [@roots/bud-tailwindcss]([[base]]/packages/@roots/bud-tailwindcss/README.md).
 
 You should now be good to utilize tailwind in your [@roots/bud](https://github.com/roots/bud/tree/stable/README.md) project. You may use it with scss or postcss.
 

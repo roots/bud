@@ -26,9 +26,9 @@ bud.hooks.on('build/externals', externals => ({
 })
 ```
 
-## bud.hooks.filter: register a new hookable value
+## bud.hooks.filter
 
-Filter functions are registered with `bud.hooks.filter`.
+Filters are registered with `bud.hooks.filter`.
 
 `bud.hooks.filter` takes two parameters:
 

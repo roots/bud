@@ -4,8 +4,8 @@
 
 <p align="center">
   <img alt="MIT License" src="https://img.shields.io/github/license/roots/bud?color=%23525ddc&style=flat-square">
-  <a href="https://www.npmjs.com/package/roots/bud-sass">
-    <img src="https://img.shields.io/npm/v/roots/bud-sass.svg?color=%23525ddc&style=flat-square" />
+  <a href="https://www.npmjs.com/package/@roots/bud-sass">
+    <img src="https://img.shields.io/npm/v/@roots/bud-sass.svg?color=%23525ddc&style=flat-square" />
   </a>
   <a href="https://codeclimate.com/github/roots/bud-support/maintainability">
     <img src="https://img.shields.io/codeclimate/maintainability/roots/bud-support?color=%23525ddc&style=flat-square" />
@@ -33,7 +33,7 @@
 
 ## Requirements
 
-[@roots/bud-sass]([[base]]/packages/@roots/bud-sass) requires sass and `@roots/bud-postcss` to be installed as peer dependencies.
+[@roots/bud-sass]([[base]]/packages/@roots/bud-sass) requires sass and [**@roots/bud-postcss**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-postcss) to be installed as peer dependencies.
 
 ```sh
 yarn add sass @roots/bud-postcss --dev
@@ -47,7 +47,7 @@ yarn add @roots/bud-sass --dev
 
 ## Usage
 
-Make sure that `@roots/bud-postcss` is also included in your configuration.
+Make sure that [**@roots/bud-postcss**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-postcss) is also included in your configuration.
 
 ```js
 module.exports = (app) =>

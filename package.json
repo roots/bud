@@ -21,7 +21,6 @@
       "examples/*"
     ]
   },
-  "type": "module",
   "scripts": {
     "build": "yarn workspaces foreach --parallel --interlaced --verbose --topological run build",
     "clean": "yarn workspaces foreach --parallel --interlaced --verbose run clean",
@@ -69,6 +68,7 @@
     "to-vfile": "^6.1.0",
     "ts-jest": "^26.5.5",
     "ts-node": "^9.1.1",
+    "tsconfig-paths": "^3.9.0",
     "type-fest": "^1.0.2",
     "typescript": "^4.2.4"
   }

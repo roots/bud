@@ -4,8 +4,8 @@
 
 <p align="center">
   <img alt="MIT License" src="https://img.shields.io/github/license/roots/bud?color=%23525ddc&style=flat-square">
-  <a href="https://www.npmjs.com/package/roots/bud-babel">
-    <img src="https://img.shields.io/npm/v/roots/bud-babel.svg?color=%23525ddc&style=flat-square" />
+  <a href="https://www.npmjs.com/package/@roots/bud-babel">
+    <img src="https://img.shields.io/npm/v/@roots/bud-babel.svg?color=%23525ddc&style=flat-square" />
   </a>
   <a href="https://codeclimate.com/github/roots/bud-support/maintainability">
     <img src="https://img.shields.io/codeclimate/maintainability/roots/bud-support?color=%23525ddc&style=flat-square" />
@@ -25,16 +25,23 @@
 
 ## Overview
 
-> Adds babel support to [@roots/bud]([[base]]/README.md) projects.
+> Adds babel support to [**@roots/bud**](https://github.com/roots/bud/tree/stable/packages/@roots/bud) projects.
 
-- [Installation](#Installation)
+## Table of contents
+
+- [Installation](#installation)
+
 - [Usage](#usage)
+
 - [Configuration](#configuration)
+
   - [Presets](#presets)
   - [Plugins](#plugins)
   - [Configuration example](#configuration-example)
+
 - [Hooks](#hooks)
-  - [Hooks examples](#Examples)
+
+  - [Examples](#examples)
 
 ## Installation
 
@@ -50,14 +57,14 @@ bud.use("@roots/bud-babel");
 
 ## Configuration
 
-Out of the box [@roots/bud-babel]([[base]]/packages/@roots/bud-babel) comes with:
+Out of the box [**@roots/bud-babel**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-babel) comes with:
 
 - `@babel/preset-env`
 - `@babel/plugin-transform-runtime`
 - `@babel/plugin-proposal-object-rest-spread`
 - `@babel/plugin-syntax-dynamic-import`
 
-If this works for you, great! No need to keep reading. But, if you need something more specialized, there is a configuration utility registered by [@roots/bud-babel]([[base]]/packages/@roots/bud-babel) designed to help you out.
+If this works for you, great! No need to keep reading. But, if you need something more specialized, there is a configuration utility registered by [**@roots/bud-babel**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-babel) designed to help you out.
 
 ### Presets
 
@@ -105,7 +112,7 @@ bud.babel.setPluginOptions("@babel/plugin-transform-runtime", {
 
 ### Configuration example
 
-The implementation used by [@roots/bud-babel]([[base]]/packages/@roots/bud-babel) internally is identical to the one intended for use in bud config files:
+The implementation used by [**@roots/bud-babel**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-babel) internally is identical to the one intended for use in bud config files:
 
 ```js
 app.babel
@@ -122,7 +129,7 @@ app.babel
 
 ## Hooks
 
-You can also customize the babel config using hooks registered by [@roots/bud-babel]([[base]]/packages/@roots/bud-babel):
+You can also customize the babel config using hooks registered by [**@roots/bud-babel**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-babel):
 
 | Hooks                                 | Description                                                                                   |
 | ------------------------------------- | --------------------------------------------------------------------------------------------- |

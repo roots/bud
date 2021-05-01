@@ -16,4 +16,4 @@ Install using [npm](https://npmjs.com).
 npm install @roots/bud @roots/bud-cli --save-dev
 ```
 
-Technically, `@roots/bud-cli` is optional but most users will probably find it useful.
+Technically, the `@roots/bud-cli` package is optional but most users will probably find it useful.
