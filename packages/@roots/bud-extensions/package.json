@@ -21,12 +21,13 @@
   ],
   "keywords": [
     "bud",
-    "webpack"
+    "bud-framework"
   ],
   "engines": {
-    "node": ">=12"
+    "node": ">=14"
   },
   "files": [
+    "docs/",
     "lib/",
     "types/"
   ],
@@ -48,6 +49,7 @@
     "clean:lib": "yarn g:clean:lib",
     "clean:modules": "yarn g:clean:modules",
     "clean:types": "yarn g:clean:types",
+    "pkg": "yarn g:pkg",
     "pkg:check": "yarn g:pkg:check",
     "pkg:format": "yarn g:pkg:format"
   },

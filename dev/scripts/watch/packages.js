@@ -2,16 +2,11 @@ const {readJson} = require('fs-extra')
 const globby = require('globby')
 const {join} = require('path')
 
-/**
- * Packages
- */
-const packages = function () {
+const packages = function (baseDir) {
   this.repo = {}
 
-  this.baseDir = process.cwd()
-
   this.glob = [
-    join(this.baseDir, 'packages/@roots/*'),
+    join(baseDir, 'packages/@roots/*'),
     {
       onlyDirectories: true,
     },
@@ -32,10 +27,6 @@ const packages = function () {
           path,
         })
       }),
-    )
-
-    Object.keys(this.repo).map(repo =>
-      console.log(`Watching ${repo}`),
     )
 
     return this

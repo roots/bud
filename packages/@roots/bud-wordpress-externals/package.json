@@ -26,7 +26,9 @@
     "node": ">=14"
   },
   "files": [
+    "docs/",
     "lib/",
+    "manifest.yml",
     "types/"
   ],
   "main": "./lib/cjs/index.js",
@@ -47,6 +49,7 @@
     "clean:lib": "yarn g:clean:lib",
     "clean:modules": "yarn g:clean:modules",
     "clean:types": "yarn g:clean:types",
+    "pkg": "yarn g:pkg",
     "pkg:check": "yarn g:pkg:check",
     "pkg:format": "yarn g:pkg:format"
   },

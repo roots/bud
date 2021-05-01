@@ -11,12 +11,7 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://opensource.org/licenses/MIT"
-    }
-  ],
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
@@ -32,8 +27,10 @@
     "node": ">=14"
   },
   "files": [
+    "docs/",
     "lib/",
-    "types/"
+    "types/",
+    "manifest.yml"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.mjs",
@@ -53,6 +50,7 @@
     "clean:lib": "yarn g:clean:lib",
     "clean:modules": "yarn g:clean:modules",
     "clean:types": "yarn g:clean:types",
+    "pkg": "yarn g:pkg",
     "pkg:check": "yarn g:pkg:check",
     "pkg:format": "yarn g:pkg:format"
   },

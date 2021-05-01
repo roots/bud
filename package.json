@@ -1,18 +1,11 @@
 {
-  "name": "bud-monorepo",
+  "name": "bud",
   "private": true,
   "description": "A friendly build tool to help manage your project assets.",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git"
-  },
-  "bugs": {
-    "url": "https://github.com/roots/bud/issues"
-  },
-  "funding": {
-    "type": "github sponsors",
-    "url": "https://github.com/sponsors/roots"
   },
   "license": "MIT",
   "contributors": [
@@ -28,22 +21,25 @@
       "examples/*"
     ]
   },
+  "type": "module",
   "scripts": {
     "build": "yarn workspaces foreach --parallel --interlaced --verbose --topological run build",
-    "dev": "run node ./scripts/dev",
-    "ci": "run-s build lint:eslint lint:prettier test pkg",
-    "clean": "rimraf node_modules 'packages/@roots/*/{lib,types,node_modules}'",
-    "lint": "run-s lint:eslint lint:prettier",
-    "lint:eslint": "eslint 'packages/**/*.{js,ts,tsx}' --fix",
-    "lint:prettier": "prettier 'packages/**/src/**/*'  --write",
+    "clean": "yarn workspaces foreach --parallel --interlaced --verbose run clean",
+    "lint": "yarn workspaces foreach --parallel --interlaced --verbose --topological run lint",
+    "pkg": "yarn workspaces foreach --parallel --interlaced --verbose --topological run pkg",
     "test": "jest --verbose",
     "release": "release-it"
   },
   "devDependencies": {
     "@skypack/package-check": "^0.2.2",
+    "@types/babel__core": "^7",
     "@types/fs-extra": "^9.0.11",
     "@types/jest": "^26.0.23",
+    "@types/marked": "^2",
+    "@types/mdx-js__react": "^1",
     "@types/node": "^15.0.0",
+    "@types/react": "^17.0.4",
+    "@types/react-dom": "^17",
     "chokidar": "^3.5.1",
     "eslint": "^7.25.0",
     "eslint-config-prettier": "^8.3.0",
@@ -55,11 +51,22 @@
     "fs-extra": "^9.1.0",
     "globby": "^11.0.3",
     "jest": "^26.6.3",
+    "marked": "^2.0.3",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.2.1",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
     "release-it": "^14.6.1",
     "release-it-yarn-workspaces": "^2.0.1",
+    "remark": "^13.0.0",
+    "remark-autolink-headings": "^6.0.1",
+    "remark-bookmarks": "^3.0.0",
+    "remark-emoji": "^2.2.0",
+    "remark-github": "^10.0.1",
+    "remark-slug": "^6.0.0",
+    "remark-toc": "^7.2.0",
     "rimraf": "^3.0.2",
+    "to-vfile": "^6.1.0",
     "ts-jest": "^26.5.5",
     "ts-node": "^9.1.1",
     "type-fest": "^1.0.2",

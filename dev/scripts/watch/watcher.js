@@ -7,16 +7,14 @@ const rebuild = async () => {
   execa('yarn', ['make']).stdout.pipe(process.stdout)
 }
 
-const watcher = pkg => {
+const watcher = ({name}) => {
+  const cwd = getPackageDir(name)
+
   return async () => {
-    console.log(
-      `Changes detected. Rebuilding: ${getPackageDir(pkg.name)}`,
-    )
+    console.log(`Changes detected. Rebuilding: ${cwd}`)
 
     try {
-      execa('yarn', ['build'], {
-        cwd: getPackageDir(pkg.name),
-      }).stdout.pipe(process.stdout)
+      execa('yarn', ['build'], {cwd}).stdout.pipe(process.stdout)
     } catch (err) {
       try {
         console.log(err)

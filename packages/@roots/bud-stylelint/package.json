@@ -10,12 +10,7 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://opensource.org/licenses/MIT"
-    }
-  ],
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
@@ -25,14 +20,18 @@
   },
   "keywords": [
     "bud",
-    "bud-extension"
+    "bud-extension",
+    "stylelint"
   ],
   "engines": {
     "node": ">=14"
   },
   "files": [
+    "docs/",
     "lib/",
-    "types/"
+    "manifest.yml",
+    "types/",
+    "publish/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.mjs",
@@ -52,15 +51,16 @@
     "clean:lib": "yarn g:clean:lib",
     "clean:modules": "yarn g:clean:modules",
     "clean:types": "yarn g:clean:types",
+    "pkg": "yarn g:pkg",
     "pkg:check": "yarn g:pkg:check",
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@roots/bud-extensions": "workspace:*",
     "@types/node": "^15.0.0",
     "webpack": "^5.36.0"
   },
   "dependencies": {
+    "@roots/bud-extensions": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "autobind-decorator": "^2.4.0",
     "stylelint": "^13.13.0",

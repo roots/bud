@@ -4,7 +4,7 @@
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
-    "directory": "packages/@roots/webpack-wordpress-externals-plugin"
+    "directory": "packages/@roots/wordpress-dependencies-webpack-plugin"
   },
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
@@ -19,14 +19,16 @@
   ],
   "keywords": [
     "webpack",
-    "bud"
+    "wordpress"
   ],
   "engines": {
     "node": ">=14"
   },
   "files": [
+    "docs/",
     "lib/",
-    "types/"
+    "types/",
+    "manifest.yml"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.mjs",
@@ -46,15 +48,16 @@
     "clean:lib": "yarn g:clean:lib",
     "clean:modules": "yarn g:clean:modules",
     "clean:types": "yarn g:clean:types",
+    "pkg": "yarn g:pkg",
     "pkg:check": "yarn g:pkg:check",
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@roots/bud-framework": "workspace:*",
     "@types/lodash": "^4.14.168",
     "@types/node": "^15.0.0"
   },
   "dependencies": {
+    "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
     "autobind-decorator": "^2.4.0",
     "lodash": "^4.17.21",

@@ -1,13 +1,8 @@
-- [Overview](#overview)
-- [Installation](#installation)
-- [Getting started](#getting-started)
-- [Running a build](#running-a-build)
-- [Extensions](#extending-core)
-- [Documentation](#details)
-
 ## Overview
 
 > A webpack framework combining the best parts of Laravel Mix and Symfony Encore.
+
+# Table of Contents
 
 ## Installation
 
@@ -126,7 +121,7 @@ yarn bud build:development
 
 ## Example implementations
 
-There are [example implementations available for reference in `/examples`]([[base]]/examples).
+There are [example implementations available](https://github.com/roots/bud/tree/stable/examples).
 
 ## Extending
 
@@ -140,33 +135,33 @@ If you're unsure where to start or what you need you can try the `@roots/bud-pre
 
 ### First-party extensions
 
-There are a number of Roots maintained extensions available to kickstart your projects. For more information on using them refer to the extension's documentation.
+There are a number of Roots maintained extensions available to kickstart your projects.
 
-| Name                              | Description             | Usage                                                           | Package                                                                                                      |
-| --------------------------------- | ----------------------- | --------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| @roots/bud-babel                  | Babel support.          | [README ↗]([[base]]/packages/@roots/bud-babel)                  | ![npm](https://img.shields.io/npm/v/@roots/bud-babel.svg?color=%23525ddc&style=flat-square)                  |
-| @roots/bud-compress               | Gzip/Brotli compression | [README ↗]([[base]]/packages/@roots/bud-compress)               | ![npm](https://img.shields.io/npm/v/@roots/bud-compress.svg?color=%23525ddc&style=flat-square)               |
-| @roots/bud-criticalcss            | Adds criticalcss.       | [README ↗]([[base]]/packages/@roots/bud-criticalcss)            | ![npm](https://img.shields.io/npm/v/@roots/bud-criticalcss.svg?color=%23525ddc&style=flat-square)            |
-| @roots/bud-emotion                | Adds emotion.           | [README ↗]([[base]]/packages/@roots/bud-emotion)                | ![npm](https://img.shields.io/npm/v/@roots/bud-emotion.svg?color=%23525ddc&style=flat-square)                |
-| @roots/bud-entrypoints            | Asset manifest.         | [README ↗]([[base]]/packages/@roots/bud-entrypoints)            | ![npm](https://img.shields.io/npm/v/@roots/bud-entrypoints.svg?color=%23525ddc&style=flat-square)            |
-| @roots/bud-esbuild                | Adds esbuild.           | [README ↗]([[base]]/packages/@roots/bud-esbuild)                | ![npm](https://img.shields.io/npm/v/@roots/bud-esbuild.svg?color=%23525ddc&style=flat-square)                |
-| @roots/bud-eslint                 | Adds eslint support.    | [README ↗]([[base]]/packages/@roots/bud-eslint)                 | ![npm](https://img.shields.io/npm/v/@roots/bud-eslint.svg?color=%23525ddc&style=flat-square)                 |
-| @roots/bud-imagemin               | Compress image assets   | [README ↗]([[base]]/packages/@roots/bud-imagemin)               | ![npm](https://img.shields.io/npm/v/@roots/bud-imagemin.svg?color=%23525ddc&style=flat-square)               |
-| @roots/bud-library                | DLL support             | [README ↗]([[base]]/packages/@roots/bud-library)                | ![npm](https://img.shields.io/npm/v/@roots/bud-library.svg?color=%23525ddc&style=flat-square)                |
-| @roots/bud-mdx                    | MDX support             | [README ↗]([[base]]/packages/@roots/bud-mdx)                    | ![npm](https://img.shields.io/npm/v/@roots/bud-mdx.svg?color=%23525ddc&style=flat-square)                    |
-| @roots/bud-postcss                | PostCss support.        | [README ↗]([[base]]/packages/@roots/bud-postcss)                | ![npm](https://img.shields.io/npm/v/@roots/bud-postcss.svg?color=%23525ddc&style=flat-square)                |
-| @roots/bud-prettier               | Prettier support.       | [README ↗]([[base]]/packages/@roots/bud-prettier)               | ![npm](https://img.shields.io/npm/v/@roots/bud-prettier.svg?color=%23525ddc&style=flat-square)               |
-| @roots/bud-purgecss               | PurgeCss support.       | [README ↗]([[base]]/packages/@roots/bud-purgecss)               | ![npm](https://img.shields.io/npm/v/@roots/bud-purgecss.svg?color=%23525ddc&style=flat-square)               |
-| @roots/bud-react                  | React support.          | [README ↗]([[base]]/packages/@roots/bud-react)                  | ![npm](https://img.shields.io/npm/v/@roots/bud-react.svg?color=%23525ddc&style=flat-square)                  |
-| @roots/bud-sass                   | Sass support.           | [README ↗]([[base]]/packages/@roots/bud-sass)                   | ![npm](https://img.shields.io/npm/v/@roots/bud-sass.svg?color=%23525ddc&style=flat-square)                   |
-| @roots/bud-stylelint              | Stylelint support.      | [README ↗]([[base]]/packages/@roots/bud-stylelint)              | ![npm](https://img.shields.io/npm/v/@roots/bud-stylelint.svg?color=%23525ddc&style=flat-square)              |
-| @roots/bud-tailwindcss            | Tailwindcss support.    | [README ↗]([[base]]/packages/@roots/bud-tailwindcss)            | ![npm](https://img.shields.io/npm/v/@roots/bud-tailwindcss.svg?color=%23525ddc&style=flat-square)            |
-| @roots/bud-terser                 | Terser support.         | [README ↗]([[base]]/packages/@roots/bud-terser)                 | ![npm](https://img.shields.io/npm/v/@roots/bud-terser.svg?color=%23525ddc&style=flat-square)                 |
-| @roots/bud-typescript             | TypeScript support.     | [README ↗]([[base]]/packages/@roots/bud-typescript)             | ![npm](https://img.shields.io/npm/v/@roots/bud-typescript.svg?color=%23525ddc&style=flat-square)             |
-| @roots/bud-vue                    | Vue framework support.  | [README ↗]([[base]]/packages/@roots/bud-vue)                    | ![npm](https://img.shields.io/npm/v/@roots/bud-vue.svg?color=%23525ddc&style=flat-square)                    |
-| @roots/bud-wordpress-dependencies | WP dependencies.        | [README ↗]([[base]]/packages/@roots/bud-wordpress-dependencies) | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-dependencies.svg?color=%23525ddc&style=flat-square) |
-| @roots/bud-wordpress-externals    | WP externals.           | [README ↗]([[base]]/packages/@roots/bud-wordpress-externals)    | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-externals.svg?color=%23525ddc&style=flat-square)    |
-| @roots/bud-wordpress-manifests    | WP asset manifest.      | [README ↗]([[base]]/packages/@roots/bud-wordpress-manifests)    | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-manifests.svg?color=%23525ddc&style=flat-square)    |
+| Name                              | Description             | Usage                                | Package                           |
+| --------------------------------- | ----------------------- | ------------------------------------ | --------------------------------- |
+| [dir](bud-babel)                  | Babel support.          | [readme](bud-babel)                  | [pkg](bud-babel)                  |
+| [dir](bud-compress)               | Gzip/Brotli compression | [readme](bud-compress)               | [pkg](bud-compress)               |
+| [dir](bud-criticalcss)            | Adds criticalcss.       | [readme](bud-criticalcss)            | [pkg](bud-criticalcss)            |
+| [dir](bud-emotion)                | Adds emotion.           | [readme](bud-emotion)                | [pkg](bud-emotion)                |
+| [dir](bud-entrypoints)            | Asset manifest.         | [readme](bud-entrypoints)            | [pkg](bud-entrypoints)            |
+| [dir](bud-esbuild)                | Adds esbuild.           | [readme](bud-esbuild)                | [pkg](bud-esbuild)                |
+| [dir](bud-eslint)                 | Adds eslint support.    | [readme](bud-eslint)                 | [pkg](bud-eslint)                 |
+| [dir](bud-imagemin)               | Compress image assets   | [readme](bud-imagemin)               | [pkg](bud-imagemin)               |
+| [dir](bud-library)                | DLL support             | [readme](bud-library)                | [pkg](bud-library)                |
+| [dir](bud-mdx)                    | MDX support             | [readme](bud-mdx)                    | [pkg](bud-mdx)                    |
+| [dir](bud-postcss)                | PostCss support.        | [readme](bud-postcss)                | [pkg](bud-postcss)                |
+| [dir](bud-prettier)               | Prettier support.       | [readme](bud-prettier)               | [pkg](bud-prettier)               |
+| [dir](bud-purgecss)               | PurgeCss support.       | [readme](bud-purgecss)               | [pkg](bud-purgecss)               |
+| [dir](bud-react)                  | React support.          | [readme](bud-react)                  | [pkg](bud-react)                  |
+| [dir](bud-sass)                   | Sass support.           | [readme](bud-sass)                   | [pkg](bud-sass)                   |
+| [dir](bud-stylelint)              | Stylelint support.      | [readme](bud-stylelint)              | [pkg](bud-stylelint)              |
+| [dir](bud-tailwindcss)            | Tailwindcss support.    | [readme](bud-tailwindcss)            | [pkg](bud-tailwindcss)            |
+| [dir](bud-terser)                 | Terser support.         | [readme](bud-terser)                 | [pkg](bud-terser)                 |
+| [dir](bud-typescript)             | TypeScript support.     | [readme](bud-typescript)             | [pkg](bud-typescript)             |
+| [dir](bud-vue)                    | Vue framework support.  | [readme](bud-vue)                    | [pkg](bud-vue)                    |
+| [dir](bud-wordpress-dependencies) | WP dependencies.        | [readme](bud-wordpress-dependencies) | [pkg](bud-wordpress-dependencies) |
+| [dir](bud-wordpress-externals)    | WP externals.           | [readme](bud-wordpress-externals)    | [pkg](bud-wordpress-externals)    |
+| [dir](bud-wordpress-manifests)    | WP asset manifest.      | [readme](bud-wordpress-manifests)    | [pkg](bud-wordpress-manifests)    |
 
 ### Third-party extensions
 
@@ -174,6 +169,6 @@ Have you produced a Bud extension and want to share it here? Please, create an i
 
 ## Documentation and details
 
-- [Documentation]([[base]]/docs/README.md)
-- [Getting started]([[base]]/docs/getting-started.md)
-- [CLI]([[base]]/docs/cli.md)
+- [Documentation]([[base]]/README.md)
+- [Getting started]([[base]]/getting-started.md)
+- [CLI]([[base]]/cli.md)

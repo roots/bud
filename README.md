@@ -49,20 +49,20 @@ Bud can either be configured with a static config file (`json`/`yml`) or a build
 Dead simple `bud.config.js` example:
 
 ```js
-module.exports = (bud) => bud.entry("app", ["app.js"]);
+module.exports = bud => bud.entry('app', ['app.js'])
 ```
 
 Or, as `bud.config.yml`:
 
 ```yml
 entry:
-  app: "app.js"
+  app: 'app.js'
 ```
 
 A more advanced configuration might look like this:
 
 ```ts
-import { Bud } from "@roots/bud";
+import {Bud} from '@roots/bud'
 
 /**
  * This config is written in typescript, which is the recommended
@@ -75,21 +75,21 @@ export default (bud: Bud) =>
      * You could also use imports.
      */
     .use([
-      require("@roots/bud-babel"),
-      require("@roots/bud-postcss"),
-      require("@roots/bud-react"),
+      require('@roots/bud-babel'),
+      require('@roots/bud-postcss'),
+      require('@roots/bud-react'),
     ])
 
     /**
      * Create a dynamic link library for fast compilation
      * of the react runtime.
      */
-    .library(["react", "react-dom"])
+    .library(['react', 'react-dom'])
 
     /**
      * Compile two separate sets of files.
      */
-    .entry({ app: ["app.{js,css}"] })
+    .entry({app: ['app.{js,css}']})
 
     /**
      * When building for production, minify assets.
@@ -97,9 +97,9 @@ export default (bud: Bud) =>
      */
     .when(
       bud.isProduction,
-      ({ minimize }) => minimize(),
-      ({ devtool }) => devtool("eval-source-map")
-    );
+      ({minimize}) => minimize(),
+      ({devtool}) => devtool('eval-source-map'),
+    )
 ```
 
 Which could also be expressed in a set of `yml` files:
@@ -107,14 +107,14 @@ Which could also be expressed in a set of `yml` files:
 ```yml
 # bud.config.yml
 extensions:
-  - "@roots/bud-babel"
-  - "@roots/bud-postcss"
-  - "@roots/bud-react"
+  - '@roots/bud-babel'
+  - '@roots/bud-postcss'
+  - '@roots/bud-react'
 library:
-  - "react"
-  - "react-dom"
+  - 'react'
+  - 'react-dom'
 entry:
-  app: "app.{js,css}"
+  app: 'app.{js,css}'
 ```
 
 ```yml
@@ -124,7 +124,7 @@ minimize: true
 
 ```yml
 # bud.development.config.yml
-devtool: "eval-source-map"
+devtool: 'eval-source-map'
 ```
 
 ## Running a build
@@ -164,13 +164,13 @@ Suffice to say, extensibility is a fundamental design tenet of Bud as software. 
 You can add an extension in a couple ways:
 
 ```ts
-import * as babel from "@roots/bud-babel";
+import * as babel from '@roots/bud-babel'
 
 // bud.use
-bud.use(babel);
+bud.use(babel)
 
 // bud.extensions.add
-bud.extensions.add(babel);
+bud.extensions.add(babel)
 ```
 
 ### First-party extensions

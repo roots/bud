@@ -10,12 +10,7 @@
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://opensource.org/licenses/MIT"
-    }
-  ],
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
@@ -27,7 +22,9 @@
     "node": ">=14"
   },
   "files": [
+    "docs/",
     "lib/",
+    "manifest.yml",
     "types/"
   ],
   "main": "./lib/cjs/index.js",
@@ -48,19 +45,19 @@
     "clean:lib": "yarn g:clean:lib",
     "clean:modules": "yarn g:clean:modules",
     "clean:types": "yarn g:clean:types",
+    "pkg": "yarn g:pkg",
     "pkg:check": "yarn g:pkg:check",
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@roots/bud-api": "workspace:*",
-    "@roots/bud-babel": "workspace:*",
-    "@roots/bud-extensions": "workspace:*",
-    "@roots/bud-support": "workspace:*",
     "@types/node": "^15.0.0",
     "css-loader": "^5.2.4",
     "webpack": "^5.36.0"
   },
   "dependencies": {
+    "@roots/bud-api": "workspace:*",
+    "@roots/bud-babel": "workspace:*",
+    "@roots/bud-extensions": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "autobind-decorator": "^2.4.0",
     "babel-helper-vue-jsx-merge-props": "^2.0.3",

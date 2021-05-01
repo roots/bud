@@ -6,12 +6,7 @@
     "url": "https://github.com/roots/bud.git",
     "directory": "packages/@roots/webpack-merged-manifest-plugin"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://opensource.org/licenses/MIT"
-    }
-  ],
+  "license": "MIT",
   "contributors": [
     "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
   ],
@@ -30,7 +25,9 @@
     "node": ">=14"
   },
   "files": [
+    "docs/",
     "lib/",
+    "manifest.yml",
     "types/"
   ],
   "main": "./lib/cjs/index.js",
@@ -51,6 +48,7 @@
     "clean:lib": "yarn g:clean:lib",
     "clean:modules": "yarn g:clean:modules",
     "clean:types": "yarn g:clean:types",
+    "pkg": "yarn g:pkg",
     "pkg:check": "yarn g:pkg:check",
     "pkg:format": "yarn g:pkg:format"
   },

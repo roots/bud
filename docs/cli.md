@@ -38,14 +38,12 @@ Compile assets for development:
 bud build:dev
 ```
 
-## Exiting the CLI from `dev` mode
-
-Type `q` to gracefully exit the interface when running in development mode.
-
 ## Running the build in CI
 
 It is possible, depending on your environment, that Bud's CLI output causes issues. In particular, it's usage of tty `raw mode` can cause issues with CI tools.
 
 To run the build but not use the `bud-cli` renderer, there is a `--ci` flag which indicates you want to run the build for these environments.
 
-In safe mode Bud will pass the build off to webpack to compile, rather than using the Bud CLI module.
+## Exiting the CLI from `dev` mode
+
+Type `q` to gracefully exit the interface when running in development mode.
