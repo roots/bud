@@ -25,15 +25,15 @@
 
 ## Overview
 
-> Adds react support to [@roots/bud]([[base]]/README.md) projects.
+> Adds react support to [**@roots/bud**](https://github.com/roots/bud/tree/stable/packages/@roots/bud) projects.
 
-- [Requirements](#Requirements)
-- [Installation](#Installation)
-- [Usage](#Usage)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Usage](#usage)
 
 ## Requirements
 
-[@roots/bud-react]([[base]]/packages/@roots/bud-react) requires [**@roots/bud-babel**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-babel) to be installed as a peer dev dependency.
+[**@roots/bud-react**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-react) requires [**@roots/bud-babel**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-babel) to be installed as a peer dev dependency.
 
 ```sh
 yarn add @roots/bud-babel --dev

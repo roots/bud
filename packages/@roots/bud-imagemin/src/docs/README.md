@@ -2,6 +2,8 @@
 
 > Minimize image assets in @roots/bud projects.
 
+## toc
+
 ## Installation
 
 ```sh
@@ -14,7 +16,7 @@ yarn add @roots/bud-imagemin --dev
 bud.use(['@roots/bud-imagemin'])
 ```
 
-Out of the box [@roots/bud-imagemin]([[base]]/packages/@roots/bud-imagemin) applies the following configuration:
+Out of the box `@roots/bud-imagemin` applies the following configuration:
 
 | Plugin   | Options                               |
 | -------- | ------------------------------------- |

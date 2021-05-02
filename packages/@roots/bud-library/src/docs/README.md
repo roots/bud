@@ -1,13 +1,14 @@
 ## Overview
 
-> Adds DLL caching support to [@roots/bud]([[base]]/README.md) projects. This can significantly improve build times for vendored dependencies which do not frequently change.
+> Adds DLL caching support to `@roots/bud` projects. This can significantly improve build times for vendored dependencies which do not frequently change.
+
+## toc
+
+## Summary
 
 `app.library` differs from `app.vendor` in that it doesn't just separate the vendored code from the application code, but actually stops the vendored assets from needing to be rebuilt at all.
 
 The first build will likely take longer as the DLL will need to be compiled, but subsequent builds should see a noticeable reduction in build time.
-
-- [Installation](#Installation)
-- [Usage](#Usage)
 
 ## Installation
 

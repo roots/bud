@@ -11,28 +11,32 @@ const parseFile = filePath => vfile.readSync(filePath)
 const fromFile = (srcFile, pkg) => {
   let res
 
-
   const replacements = [
     [
-      /docs`(.*?)`/g,
-      `https://github.com/roots/bud/tree/stable/docs/$1.md`
+      /\(url:(.*?)\)/g,
+      `(https://github.com/roots/bud/tree/stable/$1)`,
     ],
     [
-      /github`(.*?)`/g,
-      'https://github.com/$1'
+      /\(docs:(.*?)\)/g,
+      `(https://github.com/roots/bud/tree/stable/docs/$1.md)`
     ],
     [
-      /npm`(.*?)`/g,
+      /\[badge\]\(npm:(.*?)\)/g,
       '![npm](https://img.shields.io/npm/v/$1.svg?color=%23525ddc&style=flat-square)',
     ],
     [
-      /readme`(.*?)`/g,
+      /\[readme\]\((.*?)\)/g,
       `[📚 README](https://github.com/roots/bud/tree/stable/packages/$1/README.md)`,
+    ],
+    [
+      /\[(\@roots\/.*?)\]\((.*?)\)/g,
+      `[**$1 $2**](https://github.com/roots/bud/tree/stable/packages/$1/$2)`,
     ],
     [
       /`(\@roots\/.*?)`/g,
       `[**$1**](https://github.com/roots/bud/tree/stable/packages/$1)`,
     ],
+
   ]
 
   const mdv = parseFile(srcFile)
@@ -46,13 +50,15 @@ const fromFile = (srcFile, pkg) => {
   mdv.contents = Buffer.from(mdv.contents)
 
   remark()
-    .use(toc)
+    .use(toc, {tight: true})
     .use(git, { repo: 'git@github.com:roots/bud' })
     .use(emoji)
     .process(mdv, (err, file) => {
       err && console.error(err)
       res = file.contents
     })
+
+  res = res.replace(`## toc`, '')
 
   return transform(
     pkg,

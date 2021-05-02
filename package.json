@@ -25,6 +25,8 @@
     "build": "yarn workspaces foreach --parallel --interlaced --verbose --topological run build",
     "clean": "yarn workspaces foreach --parallel --interlaced --verbose run clean",
     "lint": "yarn workspaces foreach --parallel --interlaced --verbose --topological run lint",
+    "prep": "yarn run-s clean build docs lint pkg",
+    "docs": "yarn node ./dev/docs/gen/cli.js",
     "pkg": "yarn workspaces foreach --parallel --interlaced --verbose --topological run pkg",
     "test": "jest --verbose",
     "release": "release-it"

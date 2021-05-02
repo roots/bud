@@ -25,7 +25,14 @@
 
 ## Overview
 
-Bud preset for [@roots/sage](https://github.com/roots/sage).
+> Bud preset for [**@roots/sage**](https://github.com/roots/bud/tree/stable/packages/@roots/sage).
+
+Includes support for:
+
+- typescript ([**@roots/bud-typescript**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-typescript))
+- postcss ([**@roots/bud-postcss**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-postcss))
+- tailwindcss ([**@roots/bud-tailwindcss**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-tailwindcss))
+- react ([**@roots/bud-react**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-react))
 
 ## Contributing
 

@@ -30,17 +30,12 @@
 ## Table of contents
 
 - [Installation](#installation)
-
 - [Usage](#usage)
-
 - [Configuration](#configuration)
-
   - [Presets](#presets)
   - [Plugins](#plugins)
   - [Configuration example](#configuration-example)
-
 - [Hooks](#hooks)
-
   - [Examples](#examples)
 
 ## Installation

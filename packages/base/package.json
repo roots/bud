@@ -9,7 +9,7 @@
     "g:build:esm": "cd $INIT_CWD && tsc --build tsconfig-esm.json && yarn g:build:esm:post",
     "g:build:esm:post": "yarn node ./scripts/esm-post.js $INIT_CWD",
     "g:lint": "cd $INIT_CWD && run-s lint:eslint lint:prettier",
-    "g:lint:eslint": "cd $INIT_CWD && eslint 'src/**/*.{js,ts,tsx}' --fix",
+    "g:lint:eslint": "cd $INIT_CWD && eslint 'src/**/*.{js,ts,tsx,md,json}' --fix",
     "g:lint:prettier": "cd $INIT_CWD && prettier 'src/**/*'  --write",
     "g:clean": "cd $INIT_CWD && run-s clean:lib clean:modules clean:types",
     "g:clean:lib": "cd $INIT_CWD && rimraf ./lib",

@@ -25,20 +25,22 @@
 
 ## Overview
 
-> Adds postcss support to [@roots/bud]([[base]]/README.md) projects.
+> Adds postcss support to [**@roots/bud**](https://github.com/roots/bud/tree/stable/packages/@roots/bud) projects.
 
-- [Installation](#Installation)
+- [Installation](#installation)
 - [Usage](#usage)
 - [Configuration](#configuration)
-  - [Presets](#presets)
-  - [Plugins](#plugins)
-  - [Configuration example](#configuration-example)
+- [API](#api)
+  - [postcss.set](#postcssset)
+  - [postcss.unset](#postcssunset)
+  - [postcss.setOptions](#postcsssetoptions)
+  - [postcss.setOrder](#postcsssetorder)
 - [Hooks](#hooks)
-  - [Hooks examples](#Examples)
+  - [Examples](#examples)
 
 ## Installation
 
-Due to changes in PostCss 8 regarding peer dependencies, you should explicitly install `postcss` alongside [@roots/bud-postcss]([[base]]/packages/@roots/bud-postcss)
+Due to changes in PostCss 8 regarding peer dependencies, you should explicitly install `postcss` alongside [**@roots/bud-postcss**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-postcss)
 
 ```sh
 yarn add @roots/bud-postcss postcss --dev
@@ -52,7 +54,7 @@ bud.use("@roots/bud-postcss");
 
 ## Configuration
 
-Out of the box [@roots/bud-postcss]([[base]]/packages/@roots/bud-postcss) comes with:
+Out of the box [**@roots/bud-postcss**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-postcss) comes with:
 
 - `postcss-import`
 - `postcss-nested`
@@ -66,9 +68,19 @@ Valid config locations:
 - `.postcssrc` file
 - `postcss` field in your project's `package.json`
 
+The implementation used by [**@roots/bud-postcss**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-postcss) internally is the same one intended for use in the project config:
+
+```js
+bud.postcss
+  .set("postcss-nested")
+  .set("postcss-custom-properties")
+  .set(["postcss-import", { path: bud.subscribe("build/resolve/modules") }])
+  .setOrder(["postcss-import", "postcss-nested", "postcss-custom-properties"]);
+```
+
 ## API
 
-A configuration API is registered by [@roots/bud-postcss]([[base]]/packages/@roots/bud-postcss) for your convenience.
+A configuration API is registered by [**@roots/bud-postcss**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-postcss) for your convenience.
 
 All methods return `bud.postcss` for further chaining.
 
@@ -108,21 +120,9 @@ bud.postcss.setOrder(["postcss-import", "postcss-nested"]);
 
 Note that when using `postcss.set`, each plugin is implicitly added to the end of the order.
 
-### Configuration example
-
-The implementation used by [@roots/bud-postcss]([[base]]/packages/@roots/bud-postcss) internally is the same one intended for use in the project config:
-
-```js
-bud.postcss
-  .set("postcss-nested")
-  .set("postcss-custom-properties")
-  .set(["postcss-import", { path: bud.subscribe("build/resolve/modules") }])
-  .setOrder(["postcss-import", "postcss-nested", "postcss-custom-properties"]);
-```
-
 ## Hooks
 
-You may also customize the postcss config using hooks registered by [@roots/bud-postcss]([[base]]/packages/@roots/bud-postcss):
+You may also customize the postcss config using [docs](hooks) registered by [**@roots/bud-postcss**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-postcss):
 
 | Hooks                      | Description                                                                                                                                                                                                                                                                                                   |
 | -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -148,7 +148,7 @@ bud.publish({
 });
 ```
 
-Modify the plugins (in this case filter out `postcss-import`):
+Modify plugins:
 
 ```js
 bud.publish({
