@@ -4,5 +4,5 @@ exclude_patterns:
   - 'examples'
   - '.*'
   - 'node_modules'
-  - 'packages/@roots/*/publish'
+  - 'packages/@roots/*/templates'
   - 'packages/@roots/*/src/docs'

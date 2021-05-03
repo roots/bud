@@ -5,3 +5,9 @@ dependencies:
   dev:
     typescript: ^4.2.4
     '@types/node': ^15.0.0
+
+templates:
+  tsconfig:
+    name: tsconfig
+    description: starter tsconfig file
+    path: template/tsconfig.json

@@ -79,7 +79,11 @@ const fromFile = (srcFile, pkg) => {
 
   const mdv = parseFile(srcFile)
 
-  mdv.contents = mdv.contents.toString() as string
+  mdv.contents = _.join([
+    banner(pkg),
+    mdv.contents.toString(),
+    footer(pkg)
+  ], '\n')
 
   replacements.forEach(([f, r]) => {
     mdv.contents = mdv.contents.replace(f, r)
@@ -93,12 +97,10 @@ const fromFile = (srcFile, pkg) => {
     .use(emoji)
     .process(mdv, (err, file) => {
       err && console.error(err)
-      result = String(file.contents)
+      result = String(file.contents).replace(`## toc`, '')
     })
 
-  result = result.replace(`## toc`, '')
-
-  return _.join([banner(pkg),  result,  footer(pkg)], '\n')
+  return result
 }
 
 export {parseFile, fromFile}

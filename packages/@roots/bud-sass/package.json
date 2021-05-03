@@ -9,7 +9,10 @@
     "directory": "packages/@roots/bud-sass"
   },
   "contributors": [
-    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
+    {
+      "name": "Kelly Mears",
+      "url": "https://github.com/kellymears"
+    }
   ],
   "license": "MIT",
   "bugs": {

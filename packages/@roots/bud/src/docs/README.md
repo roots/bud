@@ -2,7 +2,7 @@
 
 ## Installation
 
-Install `@roots/bud` and `@roots/bud-cli` to your project:
+Install `@roots/bud` and `@roots/bud-cli` to your project
 
 ```sh
 yarn add @roots/bud @roots/bud-cli --dev
@@ -12,20 +12,20 @@ yarn add @roots/bud @roots/bud-cli --dev
 
 Bud can either be configured with a static config file (`json`/`yml`) or a builder module (`js`/`ts`).
 
-Dead simple `bud.config.js` example:
+Dead simple `bud.config.js` example
 
 ```js
 module.exports = bud => bud.entry('app', ['app.js'])
 ```
 
-Or, as `bud.config.yml`:
+Or, as `bud.config.yml`
 
 ```yml
 entry:
   app: 'app.js'
 ```
 
-A more advanced configuration might look like this:
+A more advanced configuration might look like
 
 ```ts
 import {Bud} from '@roots/bud'
@@ -49,7 +49,7 @@ export default (bud: Bud) =>
     )
 ```
 
-Which could also be expressed in a set of `yml` files:
+Which could also be expressed in a set of `yml` files
 
 ```yml
 # bud.config.yml
@@ -114,33 +114,33 @@ If you're unsure where to start or what you need you can try the `@roots/bud-pre
 
 ### First-party extensions
 
-There are a number of Roots maintained extensions available to kickstart your projects :fire:
+There are a number of Roots maintained extensions available to kickstart your project
 
-| Name | Project home | Extension docs | Latest |
-| ---- | --------- | --------------------- | ----------------- |
-| `@roots/bud-babel` | @babel/babel | [@roots/bud-babel](docs)              | [badge](npm:@roots/bud-babel)
-| `@roots/bud-compress`              | @webpack-contrib/compression-webpack-plugin | [@roots/bud-compress](docs)             | [badge](npm:@roots/bud-compress)               |
-| `@roots/bud-criticalcss`            | @addyosmani/critical       | [readme](@roots/bud-criticalcss)        | [badge](npm:@roots/bud-criticalcss)           |
-| `@roots/bud-emotion`                | @emotion/emotion-css          | [readme](@roots/bud-emotion)                | [badge](npm:@roots/bud-emotion)             |
-| `@roots/bud-entrypoints`           | `@roots/entrypoints-webpack-plugin`         | [readme](@roots/bud-entrypoints)           | [badge](npm:@roots/bud-entrypoints)           |
-| `@roots/bud-esbuild`               | @roots/esbuild-loader          | [readme](@roots/bud-esbuild)             | [badge](npm:@roots/bud-esbuild)          |
-| `@roots/bud-eslint`                 | @webpack-contrib/eslint-webpack-plugin   | [readme](@roots/bud-eslint)                 | [badge](npm:@roots/bud-eslint)            |
-| `@roots/bud-imagemin`               | @webpack-contrib/image-minimizer-webpack-plugin   | [readme](@roots/bud-imagemin)               | [badge](npm:@roots/bud-imagemin)               |
-| `@roots/bud-library`                | @asfktz/autodll-webpack-plugin           | [readme](@roots/bud-library)                | [badge](npm:@roots/bud-library)                |
-| `@roots/bud-mdx`                    | @mdx-js/mdx           | [readme](@roots/bud-mdx)                 | [badge](npm:@roots/bud-mdx)                    |
-| `@roots/bud-postcss`                | @postcss/postcss        | [readme](@roots/bud-postcss)                | [badge](npm:@roots/bud-postcss)               |
-| `@roots/bud-prettier`               | @prettier/prettier       | [readme](@roots/bud-prettier)               | [badge](npm:@roots/bud-prettier)               |
-| `@roots/bud-purgecss`               | @FullHuman/purgecss       | [readme](@roots/bud-purgecss)              | [badge](npm:@roots/bud-purgecss)               |
-| `@roots/bud-react`                  | @facebook/react         | [readme](@roots/bud-react)               | [badge](npm:@roots/bud-react)                 |
-| `@roots/bud-sass`                   | @sass/sass          | [readme](@roots/bud-sass)                 | [badge](npm:@roots/bud-sass)                   |
-| `@roots/bud-stylelint`              | @stylelint/stylelint      | [readme](@roots/bud-stylelint)              | [badge](npm:@roots/bud-stylelint)              |
-| `@roots/bud-tailwindcss`            | @tailwindlabs/tailwindcss    | [readme](@roots/bud-tailwindcss)           | [badge](npm:@roots/bud-tailwindcss)           |
-| `@roots/bud-terser`                 | @terser/terser         | [readme](@roots/bud-terser)                | [badge](npm:@roots/bud-terser)               |
-| `@roots/bud-typescript`             | @TypeStrong/ts-loader     | [readme](@roots/bud-typescript)            | [badge](npm:@roots/bud-typescript)             |
-| `@roots/bud-vue`                    | @vue/vue  | [readme](@roots/bud-vue)                | [badge](npm:@roots/bud-vue)                 |
-| `@roots/bud-wordpress-dependencies` | `@roots/wordpress-dependencies-webpack-plugin`        | [readme](@roots/bud-wordpress-dependencies) | [badge](npm:@roots/bud-wordpress-dependencies) |
-| `@roots/bud-wordpress-externals`    | `@roots/wordpress-externals-webpack-plugin`           | [readme](@roots/bud-wordpress-externals)  | [badge](npm:@roots/bud-wordpress-externals)    |
-| `@roots/bud-wordpress-manifests`    | `@roots/merged-manifest-webpack-plugin`      | [readme](@roots/bud-wordpress-manifests)    | [badge](npm:@roots/bud-wordpress-manifests)    |
+| Name                                | Project home                                    | Extension docs                              | Latest                                         |
+| ----------------------------------- | ----------------------------------------------- | ------------------------------------------- | ---------------------------------------------- |
+| `@roots/bud-babel`                  | @babel/babel                                    | [readme](@roots/bud-babel)                  | [badge](npm:@roots/bud-babel)                  |
+| `@roots/bud-compress`               | @webpack-contrib/compression-webpack-plugin     | [readme](@roots/bud-compress)               | [badge](npm:@roots/bud-compress)               |
+| `@roots/bud-criticalcss`            | @addyosmani/critical                            | [readme](@roots/bud-criticalcss)            | [badge](npm:@roots/bud-criticalcss)            |
+| `@roots/bud-emotion`                | @emotion/emotion-css                            | [readme](@roots/bud-emotion)                | [badge](npm:@roots/bud-emotion)                |
+| `@roots/bud-entrypoints`            | `@roots/entrypoints-webpack-plugin`             | [readme](@roots/bud-entrypoints)            | [badge](npm:@roots/bud-entrypoints)            |
+| `@roots/bud-esbuild`                | @roots/esbuild-loader                           | [readme](@roots/bud-esbuild)                | [badge](npm:@roots/bud-esbuild)                |
+| `@roots/bud-eslint`                 | @webpack-contrib/eslint-webpack-plugin          | [readme](@roots/bud-eslint)                 | [badge](npm:@roots/bud-eslint)                 |
+| `@roots/bud-imagemin`               | @webpack-contrib/image-minimizer-webpack-plugin | [readme](@roots/bud-imagemin)               | [badge](npm:@roots/bud-imagemin)               |
+| `@roots/bud-library`                | @asfktz/autodll-webpack-plugin                  | [readme](@roots/bud-library)                | [badge](npm:@roots/bud-library)                |
+| `@roots/bud-mdx`                    | @mdx-js/mdx                                     | [readme](@roots/bud-mdx)                    | [badge](npm:@roots/bud-mdx)                    |
+| `@roots/bud-postcss`                | @postcss/postcss                                | [readme](@roots/bud-postcss)                | [badge](npm:@roots/bud-postcss)                |
+| `@roots/bud-prettier`               | @prettier/prettier                              | [readme](@roots/bud-prettier)               | [badge](npm:@roots/bud-prettier)               |
+| `@roots/bud-purgecss`               | @FullHuman/purgecss                             | [readme](@roots/bud-purgecss)               | [badge](npm:@roots/bud-purgecss)               |
+| `@roots/bud-react`                  | @facebook/react                                 | [readme](@roots/bud-react)                  | [badge](npm:@roots/bud-react)                  |
+| `@roots/bud-sass`                   | @sass/sass                                      | [readme](@roots/bud-sass)                   | [badge](npm:@roots/bud-sass)                   |
+| `@roots/bud-stylelint`              | @stylelint/stylelint                            | [readme](@roots/bud-stylelint)              | [badge](npm:@roots/bud-stylelint)              |
+| `@roots/bud-tailwindcss`            | @tailwindlabs/tailwindcss                       | [readme](@roots/bud-tailwindcss)            | [badge](npm:@roots/bud-tailwindcss)            |
+| `@roots/bud-terser`                 | @terser/terser                                  | [readme](@roots/bud-terser)                 | [badge](npm:@roots/bud-terser)                 |
+| `@roots/bud-typescript`             | @TypeStrong/ts-loader                           | [readme](@roots/bud-typescript)             | [badge](npm:@roots/bud-typescript)             |
+| `@roots/bud-vue`                    | @vue/vue                                        | [readme](@roots/bud-vue)                    | [badge](npm:@roots/bud-vue)                    |
+| `@roots/bud-wordpress-dependencies` | `@roots/wordpress-dependencies-webpack-plugin`  | [readme](@roots/bud-wordpress-dependencies) | [badge](npm:@roots/bud-wordpress-dependencies) |
+| `@roots/bud-wordpress-externals`    | `@roots/wordpress-externals-webpack-plugin`     | [readme](@roots/bud-wordpress-externals)    | [badge](npm:@roots/bud-wordpress-externals)    |
+| `@roots/bud-wordpress-manifests`    | `@roots/merged-manifest-webpack-plugin`         | [readme](@roots/bud-wordpress-manifests)    | [badge](npm:@roots/bud-wordpress-manifests)    |
 
 ### Third-party extensions
 

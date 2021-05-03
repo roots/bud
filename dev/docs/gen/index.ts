@@ -8,25 +8,43 @@ import * as remark from './remark'
 const doc = ({pkg, basePath}) => {
   glob
     .sync([`${basePath}/src/docs/**/*.md`])
+
+    /**
+     * Make destination path
+     */
     .map(source => ({
       source,
       destination: source.replace('/src/docs/', '/docs/'),
     }))
+
+    /**
+     * Docs transforms / fs
+     */
     .map(doc => {
-      fs.ensureDirSync(path.dirname(doc.destination))
+      /**
+       * Process md
+       */
       const md = remark.fromFile(doc.source, pkg)
 
+      /**
+       * Write to /docs
+       */
+      fs.ensureDirSync(path.dirname(doc.destination))
       fs.writeFileSync(
         doc.destination,
         prettier.format(md, {parser: 'markdown'}),
         'utf8',
       )
 
-      fs.writeFileSync(
-        doc.destination.replace('/docs/', '/'),
-        prettier.format(md, {parser: 'markdown'}),
-        'utf8',
-      )
+      /**
+       * Copy README.md to top-level
+       */
+      doc.destination.includes('README.md') &&
+        fs.writeFileSync(
+          doc.destination.replace('/docs/', '/'),
+          prettier.format(md, {parser: 'markdown'}),
+          'utf8',
+        )
     })
 }
 

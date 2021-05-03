@@ -35,11 +35,13 @@ type PathKey = `${keyof Hooks.Locale.Definitions & string}`
 type Path = (key: PathKey, path?: string) => string
 
 export const path: Path = function (key, path?) {
-    return join(
-      ...[
-        key !== 'project' ? this.hooks.filter('location/project') : false,
-        this.hooks.filter(`location/${key}`),
-        path ?? false,
-      ].filter(Boolean),
-    )
+  return join(
+    ...[
+      key !== 'project'
+        ? this.hooks.filter('location/project')
+        : false,
+      this.hooks.filter(`location/${key}`),
+      path ?? false,
+    ].filter(Boolean),
+  )
 }

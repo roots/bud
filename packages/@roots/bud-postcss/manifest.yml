@@ -1,4 +1,5 @@
 name: '@roots/bud-eslint'
+type: extension
 
 dependencies:
   dev:

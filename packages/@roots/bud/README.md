@@ -34,10 +34,13 @@
   - [First-party extensions](#first-party-extensions)
   - [Third-party extensions](#third-party-extensions)
 - [Documentation and details](#documentation-and-details)
+- [Contributing](#contributing)
+- [Bud sponsors](#bud-sponsors)
+- [Community](#community)
 
 ## Installation
 
-Install [**@roots/bud**](https://github.com/roots/bud/tree/stable/packages/@roots/bud) and [**@roots/bud-cli**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-cli) to your project:
+Install [**@roots/bud**](https://github.com/roots/bud/tree/stable/packages/@roots/bud) and [**@roots/bud-cli**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-cli) to your project
 
 ```sh
 yarn add @roots/bud @roots/bud-cli --dev
@@ -47,20 +50,20 @@ yarn add @roots/bud @roots/bud-cli --dev
 
 Bud can either be configured with a static config file (`json`/`yml`) or a builder module (`js`/`ts`).
 
-Dead simple `bud.config.js` example:
+Dead simple `bud.config.js` example
 
 ```js
 module.exports = (bud) => bud.entry("app", ["app.js"]);
 ```
 
-Or, as `bud.config.yml`:
+Or, as `bud.config.yml`
 
 ```yml
 entry:
   app: "app.js"
 ```
 
-A more advanced configuration might look like this:
+A more advanced configuration might look like
 
 ```ts
 import { Bud } from "@roots/bud";
@@ -84,7 +87,7 @@ export default (bud: Bud) =>
     );
 ```
 
-Which could also be expressed in a set of `yml` files:
+Which could also be expressed in a set of `yml` files
 
 ```yml
 # bud.config.yml
@@ -149,12 +152,12 @@ If you're unsure where to start or what you need you can try the [**@roots/bud-p
 
 ### First-party extensions
 
-There are a number of Roots maintained extensions available to kickstart your projects 🔥
+There are a number of Roots maintained extensions available to kickstart your project
 
 | Name                                                                                                                         | Project home                                                                                                                                       | Extension docs                                                                                             | Latest                                                                                                       |
 | ---------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| [**@roots/bud-babel**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-babel)                                   | [**@babel/babel**](https://github.com/babel/babel)                                                                                                 | [**@roots/bud-babel docs**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-babel/docs)       | ![npm](https://img.shields.io/npm/v/@roots/bud-babel.svg?color=%23525ddc&style=flat-square)                  |
-| [**@roots/bud-compress**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-compress)                             | [**@webpack-contrib/compression-webpack-plugin**](https://github.com/webpack-contrib/compression-webpack-plugin)                                   | [**@roots/bud-compress docs**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-compress/docs) | ![npm](https://img.shields.io/npm/v/@roots/bud-compress.svg?color=%23525ddc&style=flat-square)               |
+| [**@roots/bud-babel**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-babel)                                   | [**@babel/babel**](https://github.com/babel/babel)                                                                                                 | [📚 README](https://github.com/roots/bud/tree/stable/packages/@roots/bud-babel/README.md)                  | ![npm](https://img.shields.io/npm/v/@roots/bud-babel.svg?color=%23525ddc&style=flat-square)                  |
+| [**@roots/bud-compress**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-compress)                             | [**@webpack-contrib/compression-webpack-plugin**](https://github.com/webpack-contrib/compression-webpack-plugin)                                   | [📚 README](https://github.com/roots/bud/tree/stable/packages/@roots/bud-compress/README.md)               | ![npm](https://img.shields.io/npm/v/@roots/bud-compress.svg?color=%23525ddc&style=flat-square)               |
 | [**@roots/bud-criticalcss**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-criticalcss)                       | [**@addyosmani/critical**](https://github.com/addyosmani/critical)                                                                                 | [📚 README](https://github.com/roots/bud/tree/stable/packages/@roots/bud-criticalcss/README.md)            | ![npm](https://img.shields.io/npm/v/@roots/bud-criticalcss.svg?color=%23525ddc&style=flat-square)            |
 | [**@roots/bud-emotion**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-emotion)                               | [**@emotion/emotion-css**](https://github.com/emotion/emotion-css)                                                                                 | [📚 README](https://github.com/roots/bud/tree/stable/packages/@roots/bud-emotion/README.md)                | ![npm](https://img.shields.io/npm/v/@roots/bud-emotion.svg?color=%23525ddc&style=flat-square)                |
 | [**@roots/bud-entrypoints**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-entrypoints)                       | [**@roots/entrypoints-webpack-plugin**](https://github.com/roots/bud/tree/stable/packages/@roots/entrypoints-webpack-plugin)                       | [📚 README](https://github.com/roots/bud/tree/stable/packages/@roots/bud-entrypoints/README.md)            | ![npm](https://img.shields.io/npm/v/@roots/bud-entrypoints.svg?color=%23525ddc&style=flat-square)            |
@@ -193,27 +196,6 @@ Have you produced a Bud extension and want to share it here? Please, create an i
 Contributions are welcome from everyone.
 
 We have [contributing guidelines](https://github.com/roots/guidelines/blob/master/CONTRIBUTING.md) to help you get started.
-
-<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
-
-<!-- prettier-ignore-start -->
-
-<!-- markdownlint-disable -->
-
-<table>
-  <tr>
-    <td align="center"><a href="https://kellymears.me/"><img src="https://avatars.githubusercontent.com/u/397606?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Kelly Mears</b></sub></a><br /><a href="#maintenance-kellymears" title="Maintenance">🚧</a> <a href="https://github.com/roots/bud/commits?author=kellymears" title="Code">💻</a> <a href="https://github.com/roots/bud/commits?author=kellymears" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/clayrisser"><img src="https://avatars.githubusercontent.com/u/6234038?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Clay Risser</b></sub></a><br /><a href="https://github.com/roots/bud/commits?author=clayrisser" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/QWp6t"><img src="https://avatars.githubusercontent.com/u/2104321?v=4?s=100" width="100px;" alt=""/><br /><sub><b>qwp6t</b></sub></a><br /><a href="#maintenance-QWp6t" title="Maintenance">🚧</a> <a href="https://github.com/roots/bud/commits?author=QWp6t" title="Code">💻</a> <a href="https://github.com/roots/bud/commits?author=QWp6t" title="Documentation">📖</a></td>
-    <td align="center"><a href="https://github.com/swalkinshaw"><img src="https://avatars.githubusercontent.com/u/295605?v=4?s=100" width="100px;" alt=""/><br /><sub><b>Scott Walkinshaw</b></sub></a><br /><a href="https://github.com/roots/bud/commits?author=swalkinshaw" title="Documentation">📖</a></td>
-  </tr>
-</table>
-
-<!-- markdownlint-restore -->
-
-<!-- prettier-ignore-end -->
-
-<!-- ALL-CONTRIBUTORS-LIST:END -->
 
 ## Bud sponsors
 

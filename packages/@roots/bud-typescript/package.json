@@ -16,7 +16,10 @@
   },
   "license": "MIT",
   "contributors": [
-    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
+    {
+      "name": "Kelly Mears",
+      "url": "https://github.com/kellymears"
+    }
   ],
   "keywords": [
     "bud",
@@ -27,7 +30,7 @@
   },
   "files": [
     "lib/",
-    "publish/",
+    "template/",
     "types/",
     "manifest.yml"
   ],

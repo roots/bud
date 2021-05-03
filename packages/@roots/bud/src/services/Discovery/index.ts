@@ -8,7 +8,9 @@ import {readJsonSync} from 'fs-extra'
 export class Discovery extends Base {
   @bind
   public register(): void {
-    this.pkgJson = readJsonSync(this.app.path('project', 'package.json'))
+    this.pkgJson = readJsonSync(
+      this.app.path('project', 'package.json'),
+    )
 
     this.discoverPackages()
     this.registerDiscovered()
@@ -18,7 +20,7 @@ export class Discovery extends Base {
   public discoverPackages(): void {
     const manifests = sync([
       `${__dirname}/../../../../../../@roots/*/manifest.yml`,
-      `${__dirname}/../../../../../../{!@roots}/bud-*/manifest.yml`
+      `${__dirname}/../../../../../../{!@roots}/bud-*/manifest.yml`,
     ])
 
     console.log(manifests)
@@ -49,15 +51,15 @@ export class Discovery extends Base {
       ...(this.pkgJson?.devDependencies ?? {}),
     })
 
-    cosmi && !cosmi.isEmpty && cosmi?.config?.name && deps?.includes(cosmi.config.name) &&
-      this.set(
-        cosmi.config.name,
-        {
-          ...cosmi.config,
-          modulePath: dirname(cosmi.filepath),
-          configPath: cosmi.filepath,
-        }
-      )
+    cosmi &&
+      !cosmi.isEmpty &&
+      cosmi?.config?.name &&
+      deps?.includes(cosmi.config.name) &&
+      this.set(cosmi.config.name, {
+        ...cosmi.config,
+        modulePath: dirname(cosmi.filepath),
+        configPath: cosmi.filepath,
+      })
   }
 
   @bind
@@ -66,13 +68,13 @@ export class Discovery extends Base {
       pkg?.dependencies?.production &&
         this.app.dependencies.install(
           pkg.dependencies.production,
-          pkg.name
+          pkg.name,
         )
 
       pkg?.dependencies?.dev &&
         this.app.dependencies.installDev(
           pkg.dependencies.dev,
-          pkg.name
+          pkg.name,
         )
     })
   }

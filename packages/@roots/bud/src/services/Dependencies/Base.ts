@@ -1,7 +1,5 @@
 import {Service} from '@roots/bud-framework'
-import {
-  Dependencies as DependenciesManager,
-} from '@roots/dependencies'
+import {Dependencies as DependenciesManager} from '@roots/dependencies'
 
 export abstract class Base extends Service {
   public name = 'service/dependencies'
@@ -18,15 +16,23 @@ export abstract class Base extends Service {
   /**
    * Install dependency
    */
-  public abstract installDev(deps: {[key: string]: string}, src: string): void
+  public abstract installDev(
+    deps: {[key: string]: string},
+    src: string,
+  ): void
 
   /**
    * Install dependency
    */
-  public abstract install(deps: {[key: string]: string}, src: string): void
+  public abstract install(
+    deps: {[key: string]: string},
+    src: string,
+  ): void
 
   /**
    * Display information to console
    */
-  public abstract notify(notices: {msg: string, src: string}[]): void
+  public abstract notify(
+    notices: {msg: string; src: string}[],
+  ): void
 }

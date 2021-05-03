@@ -1,4 +1,4 @@
-name: '@roots/bud-tailwindcss'
+name: '@roots/bud-react'
 type: extension
 
 dependencies:

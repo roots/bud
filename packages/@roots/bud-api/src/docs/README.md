@@ -4,8 +4,8 @@
 
 ## Methods
 
-| Tool            | Description                     | Documentation              |
-| --------------- | ------------------------------- | -------------------------- |
+| Tool            | Description                     | Documentation             |
+| --------------- | ------------------------------- | ------------------------- |
 | bud.alias       | Easy module imports             | [docs](config/alias)      |
 | bud.assets      | Copy static assets              | [docs](config/assets)     |
 | bud.define      | Define global constants         | [docs](config/define)     |

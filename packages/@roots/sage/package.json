@@ -1,7 +1,7 @@
 {
   "name": "@roots/sage",
   "version": "3.2.0-next.2",
-  "description": "Sage starter theme build tooling",
+  "description": "@roots/sage preset for @roots/bud",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud",

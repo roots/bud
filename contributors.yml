@@ -1,20 +1,10 @@
 {
-  "projectName": "bud",
-  "projectOwner": "roots",
-  "repoType": "github",
-  "repoHost": "https://github.com",
-  "files": [
-    "./dev/docs/gen/templates/banner.md",
-    "./dev/docs/gen/templates/footer.md"
-  ],
-  "badgeTemplate": "<img src=\"https://img.shields.io/badge/typings-<%= contributors.length %>-%23525ddc\" />",
-  "imageSize": 100,
   "contributors": [
     {
       "login": "kellymears",
       "name": "Kelly Mears",
       "avatar_url": "https://avatars.githubusercontent.com/u/397606?v=4",
-      "profile": "https://kellymears.me/",
+      "profile": "https://github.com/kellymears",
       "contributions": [
         "maintenance",
         "code",
@@ -51,6 +41,4 @@
       ]
     },
   ],
-  "contributorsPerLine": 7,
-  "commitConvention": "none"
 }

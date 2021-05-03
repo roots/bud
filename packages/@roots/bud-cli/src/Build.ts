@@ -30,32 +30,35 @@ export default class Build extends Command {
     this.app.discovery.every((name, cfg) => {
       if (!(cfg.type === 'preset')) return
 
-      Object.entries(cfg?.build?.all).forEach(([fnName, fnArgs]) => {
-        if (fnName == 'extensions') {
-          (fnArgs as string[]).forEach(ext => {
-            this.app.use(require(ext))
-            console.log(`Registering ${ext}`);
-          })
-        } else {
-          console.log(`Calling app.${fnName}(${fnArgs})`)
-          this.app[fnName] && this.app[fnName](fnArgs)
-        }
-      })
+      Object.entries(cfg?.build?.all).forEach(
+        ([fnName, fnArgs]) => {
+          if (fnName == 'extensions') {
+            ;(fnArgs as string[]).forEach(ext => {
+              this.app.use(require(ext))
+              console.log(`Registering ${ext}`)
+            })
+          } else {
+            console.log(`Calling app.${fnName}(${fnArgs})`)
+            this.app[fnName] && this.app[fnName](fnArgs)
+          }
+        },
+      )
 
       cfg?.build[this.app.mode] &&
         Object.entries(cfg?.build[this.app.mode]).forEach(
           ([fnName, fnArgs]) => {
             if (fnName == 'extensions') {
-              (fnArgs as string[]).forEach(ext => {
+              ;(fnArgs as string[]).forEach(ext => {
                 this.app.use(require(ext))
-                console.log(`Registering ${ext}`);
+                console.log(`Registering ${ext}`)
               })
             } else {
               console.log(`Calling app.${fnName}(${fnArgs})`)
               this.app[fnName] && this.app[fnName](fnArgs)
             }
-          })
-        })
+          },
+        )
+    })
 
     await new Config(this.app, [
       `${this.app.name}.json`,

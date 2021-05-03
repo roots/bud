@@ -1,9 +1,3 @@
-## Overview
-
-> Adds @tailwindlabs/tailwindcss support to `@roots/bud` projects.
-
-## toc
-
 ## Requirements
 
 If you haven't already installed `@roots/bud-postcss` you'll need to do that first.
@@ -31,8 +25,6 @@ bud.use(['@roots/bud-postcss', '@roots/bud-tailwindcss'])
 Again, take note that `@roots/bud-postcss` is required to utilize `@roots/bud-tailwindcss`.
 
 You should now be good to utilize tailwind in your `@roots/bud-tailwindcss` project. You may use it with scss or postcss.
-
-If you need a tailwindcss config file to get started with you may also pull one into your project with the [`bud publish` command](docs:cli).
 
 ```sh
 yarn bud publish @roots/bud-tailwindcss tailwind.config.js
@@ -71,8 +63,5 @@ bud.tailwind({
 Additionally, you may use the second parameter to specify if you prefer to use `tailwindcss` or `@tailwindcss/jit` (in case you have both installed in your modules directory):
 
 ```js
-bud.tailwind(
-  config,
-  '@tailwindcss/jit',
-)
+bud.tailwind(config, '@tailwindcss/jit')
 ```

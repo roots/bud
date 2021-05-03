@@ -19,10 +19,7 @@ export const boot: Module.Boot = (app: Bud) => {
       '@styles': app.path('src', 'styles'),
     })
 
-    .when(
-      app.isProduction,
-      () => app.esbuild.jsx(),
-    )
+    .when(app.isProduction, () => app.esbuild.jsx())
 
   app.hooks.on('item/minicss/options/publicPath', () =>
     posix.normalize(

@@ -8,7 +8,10 @@
     "directory": "packages/@roots/bud-eslint"
   },
   "contributors": [
-    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
+    {
+      "name": "Kelly Mears",
+      "url": "https://github.com/kellymears"
+    }
   ],
   "license": "MIT",
   "bugs": {

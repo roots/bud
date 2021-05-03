@@ -1,10 +1,8 @@
-## Overview
+## Features
 
-> Bud preset for `@roots/sage`.
-
-Includes support for:
-
-- typescript (`@roots/bud-typescript`)
-- postcss (`@roots/bud-postcss`)
-- tailwindcss (`@roots/bud-tailwindcss`)
-- react (`@roots/bud-react`)
+- typescript (via `@roots/bud-typescript`)
+- postcss (via `@roots/bud-postcss`)
+- tailwindcss (via `@roots/bud-tailwindcss`)
+- react (via `@roots/bud-react`)
+- prettier (via `@roots/bud-prettier`)
+- stylelint (via `@roots/stylelint`)
