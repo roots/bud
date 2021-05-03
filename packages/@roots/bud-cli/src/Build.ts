@@ -1,5 +1,5 @@
 import Command from './Command'
-import {Bud, services, config} from '@roots/bud'
+import {Bud} from '@roots/bud'
 import {Config} from './Config'
 import * as flags from './flags/index'
 import {boundMethod as bind} from 'autobind-decorator'
@@ -22,11 +22,35 @@ export default class Build extends Command {
   public mode: 'development' | 'production'
 
   public async run() {
-    const flags = this.parse(Build).flags
-
-    this.app = new Bud(config).bootstrap(services).lifecycle()
     this.app.mode = this.mode
 
+    await this.doPresets()
+    await this.doStatics()
+
+    await this.builder([
+      `${this.app.name}.ts`,
+      `${this.app.name}.js`,
+      `${this.app.name}.config.ts`,
+      `${this.app.name}.config.js`,
+    ])
+
+    await this.builder([
+      `${this.app.name}.${this.app.mode}.ts`,
+      `${this.app.name}.${this.app.mode}.js`,
+      `${this.app.name}.${this.app.mode}.config.ts`,
+      `${this.app.name}.${this.app.mode}.config.js`,
+    ])
+
+    const flags = this.parse(Build).flags
+    Object.entries(flags).forEach(([k, v]) => {
+      this.app.store.set(k, v)
+    })
+
+    this.app.run()
+  }
+
+  @bind
+  public async doPresets() {
     this.app.discovery.every((name, cfg) => {
       if (!(cfg.type === 'preset')) return
 
@@ -35,10 +59,8 @@ export default class Build extends Command {
           if (fnName == 'extensions') {
             ;(fnArgs as string[]).forEach(ext => {
               this.app.use(require(ext))
-              console.log(`Registering ${ext}`)
             })
           } else {
-            console.log(`Calling app.${fnName}(${fnArgs})`)
             this.app[fnName] && this.app[fnName](fnArgs)
           }
         },
@@ -50,16 +72,17 @@ export default class Build extends Command {
             if (fnName == 'extensions') {
               ;(fnArgs as string[]).forEach(ext => {
                 this.app.use(require(ext))
-                console.log(`Registering ${ext}`)
               })
             } else {
-              console.log(`Calling app.${fnName}(${fnArgs})`)
               this.app[fnName] && this.app[fnName](fnArgs)
             }
           },
         )
     })
+  }
 
+  @bind
+  public async doStatics() {
     await new Config(this.app, [
       `${this.app.name}.json`,
       `${this.app.name}.yaml`,
@@ -86,26 +109,6 @@ export default class Build extends Command {
       `${this.app.name}.${this.app.mode}.config.yaml`,
       `${this.app.name}.${this.app.mode}.config.yml`,
     ]).apply()
-
-    await this.builder([
-      `${this.app.name}.ts`,
-      `${this.app.name}.js`,
-      `${this.app.name}.config.ts`,
-      `${this.app.name}.config.js`,
-    ])
-
-    await this.builder([
-      `${this.app.name}.${this.app.mode}.ts`,
-      `${this.app.name}.${this.app.mode}.js`,
-      `${this.app.name}.${this.app.mode}.config.ts`,
-      `${this.app.name}.${this.app.mode}.config.js`,
-    ])
-
-    Object.entries(flags).forEach(([k, v]) => {
-      this.app.store.set(k, v)
-    })
-
-    this.app.run()
   }
 
   @bind

@@ -3,9 +3,9 @@ version: '3.2'
 services:
   verdaccio:
     image: verdaccio/verdaccio
-    container_name: 'verdaccio'
+    container_name: verdaccio
     networks:
-      - 'node-network'
+      - node-network
     environment:
       - VERDACCIO_PORT=4873
     ports:
@@ -17,10 +17,10 @@ services:
 
   bud:
     build: ./dev/build/node
-    container_name: 'bud'
+    container_name: bud
     networks:
-      - 'node-network'
-    user: 'node'
+      - node-network
+    user: node
     working_dir: /bud
     volumes:
       - type: bind

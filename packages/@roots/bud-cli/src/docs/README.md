@@ -26,7 +26,7 @@ The CLI includes detailed usage instructions:
 yarn bud --help
 ```
 
-## bud build:[env]
+## bud build
 
 Compile assets for production:
 
@@ -38,6 +38,20 @@ Compile assets for development:
 
 ```sh
 bud build:dev
+```
+
+## bud extensions
+
+List installed extensions:
+
+```sh
+bud extensions:list
+```
+
+Install extension dependencies:
+
+```sh
+bud extensions:install
 ```
 
 ## Running the build in CI

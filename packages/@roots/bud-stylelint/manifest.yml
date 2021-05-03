@@ -1,1 +1,3 @@
 name: '@roots/bud-stylelint'
+type: extension
+description: Adds stylelint support to Bud

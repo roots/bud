@@ -5,6 +5,6 @@ entry:
   editor: '**/editor.{js,css}'
   customizer: '**/customizer.{js,css}'
 assets:
-  - 'assets/images'
+  - assets/images
 persist:
-  type: 'memory'
+  type: memory

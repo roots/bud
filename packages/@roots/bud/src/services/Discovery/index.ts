@@ -21,9 +21,8 @@ export class Discovery extends Base {
     const manifests = sync([
       `${__dirname}/../../../../../../@roots/*/manifest.yml`,
       `${__dirname}/../../../../../../{!@roots}/bud-*/manifest.yml`,
-    ])
+    ]).map(manifest => require.resolve(manifest))
 
-    console.log(manifests)
     manifests.map(this.mapConfig)
   }
 

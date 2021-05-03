@@ -19,9 +19,6 @@
     "@roots/bud-wordpress-dependencies": "workspace:*",
     "@roots/bud-wordpress-externals": "workspace:*",
     "@roots/bud-wordpress-manifests": "workspace:*",
-    "@skypack/package-check": "^0.2.2",
-    "@types/bootstrap": "^5.0.12",
-    "@types/node": "15.0.0",
     "react-refresh": "^0.10.0"
   },
   "dependencies": {

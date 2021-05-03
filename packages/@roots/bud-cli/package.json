@@ -75,6 +75,15 @@
       },
       "build:production": {
         "description": "compile assets for production"
+      },
+      "extensions": {
+        "description": "get information on installed extensions"
+      },
+      "extensions:list": {
+        "description": "list installed extensions"
+      },
+      "extensions:install": {
+        "description": "install extension dependencies"
       }
     }
   },

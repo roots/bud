@@ -51,7 +51,7 @@ declare module '@roots/bud-framework' {
       cleanWebpackPlugin: CleanWebpackPlugin.Options
       cssMinimizerWebpackPlugin: {
         minimizerOptions: {
-          preset: ['default']
+          preset: string[]
         }
       }
       htmlWebpackPlugin: HtmlWebpackPlugin.Options
@@ -60,12 +60,12 @@ declare module '@roots/bud-framework' {
       }
       miniCssExtractPlugin: MiniCssExtractPlugin.PluginOptions
       webpackConfigDumpPlugin: {
-        name: 'webpack.debug.js'
+        name: string
         keepCircularReferences: boolean
       }
       webpackDefinePlugin: {[key: string]: any}
       webpackManifestPlugin: {
-        fileName: 'manifest.json'
+        fileName: string
         writeToFileEmit: boolean
       }
       webpackProvidePlugin: {[key: string]: any}
@@ -84,9 +84,6 @@ declare module '@roots/bud-framework' {
 }
 
 export const config: Config = {
-  /**
-   * RegExp
-   */
   patterns: {
     css: /\.css$/,
     cssModule: /\.module\.css$/,
@@ -101,10 +98,6 @@ export const config: Config = {
     ts: /\.(ts|tsx)$/,
     vue: /\.vue$/,
   },
-
-  /**
-   * Location
-   */
   location: {
     project: process.cwd(),
     src: 'src',
@@ -114,10 +107,6 @@ export const config: Config = {
     records: 'records.json',
     storage: '.budfiles',
   },
-
-  /**
-   * Features
-   */
   ci: false,
   clean: true,
   debug: false,
@@ -127,13 +116,8 @@ export const config: Config = {
   install: false,
   log: false,
   manifest: true,
-
-  /**
-   * Derived values
-   */
   fileFormat: '[name]',
   hashFormat: '[name].[contenthash]',
-
   build: {
     optimization: {
       emitOnErrors: false,
@@ -143,10 +127,6 @@ export const config: Config = {
       extensions: ['.wasm', '.mjs', '.js', '.css', '.json'],
     },
   },
-
-  /**
-   * Extensions
-   */
   extension: {
     cleanWebpackPlugin: {
       cleanStaleWebpackAssets: true,
@@ -177,10 +157,6 @@ export const config: Config = {
     },
     webpackProvidePlugin: {},
   },
-
-  /**
-   * Server
-   */
   server: {
     watch: {
       files: [
@@ -212,10 +188,6 @@ export const config: Config = {
     port: 3000,
     methods: ['GET', 'HEAD'],
   },
-
-  /**
-   * Theme
-   */
   theme: {
     spacing: 1,
     colors: {

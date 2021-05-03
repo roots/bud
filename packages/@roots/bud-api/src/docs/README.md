@@ -1,7 +1,3 @@
-## Overview
-
-> `@roots/bud-api` contains DX focused utilities intended for project-level config files.
-
 ## Methods
 
 | Tool            | Description                     | Documentation             |
