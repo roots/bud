@@ -4,7 +4,7 @@
   "description": "Adds terser support to Bud",
   "repository": {
     "type": "git",
-    "url": "git://github.com/roots/bud.git",
+    "url": "https://github.com/roots/bud",
     "directory": "packages/@roots/bud-terser"
   },
   "contributors": [

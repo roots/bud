@@ -26,24 +26,13 @@ export default abstract class {
   @bind
   public get(key: ModuleKey) {
     const hook = this.makeKey(key)
-    const value = this.app.subscribe(hook, this.name)
-
-    this.logger.log({
-      message: `get ${hook}: ${value}`,
-    })
-
+    const value = this.app.hooks.filter(hook)
     return value
   }
 
   @bind
   public set(key: ModuleKey, value: any) {
-    const hook = this.makeKey(key)
-
-    this.app.publish({[hook]: value}, this.name)
-
-    this.logger.log({
-      message: `set ${hook}: ${value}`,
-    })
+    this.app.hooks.on(this.makeKey(key), value)
   }
 
   public get module(): Module {
@@ -107,7 +96,6 @@ export default abstract class {
     if (this.when == false) {
       this.logger.debug({
         message: `not set for inclusion. skipping.`,
-        affix: this.when,
       })
 
       return

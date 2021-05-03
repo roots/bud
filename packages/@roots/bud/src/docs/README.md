@@ -1,7 +1,3 @@
-## Overview
-
-> A webpack framework combining the best parts of Laravel Mix and Symfony Encore.
-
 ## toc
 
 ## Installation
@@ -34,37 +30,18 @@ A more advanced configuration might look like this:
 ```ts
 import {Bud} from '@roots/bud'
 
-/**
- * This config is written in typescript, which is the recommended
- * approach for builder fn configurations.
- */
 export default (bud: Bud) =>
   bud
-    /**
-     * Extend bud with additional functionality.
-     * You could also use imports.
-     */
     .use([
       require('@roots/bud-babel'),
       require('@roots/bud-postcss'),
       require('@roots/bud-react'),
     ])
 
-    /**
-     * Create a dynamic link library for fast compilation
-     * of the react runtime.
-     */
     .library(['react', 'react-dom'])
 
-    /**
-     * Compile two separate sets of files.
-     */
     .entry({app: ['app.{js,css}']})
 
-    /**
-     * When building for production, minify assets.
-     * When in development, use source-maps.
-     */
     .when(
       bud.isProduction,
       ({minimize}) => minimize(),

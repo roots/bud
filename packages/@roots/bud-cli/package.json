@@ -9,7 +9,18 @@
     "directory": "packages/@roots/bud-cli"
   },
   "contributors": [
-    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
+    {
+      "name": "Kelly Mears",
+      "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "Clay Risser",
+      "url": "https://github.com/clayrisser"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
+    }
   ],
   "license": "MIT",
   "bugs": {

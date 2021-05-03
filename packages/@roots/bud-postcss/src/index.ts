@@ -5,7 +5,6 @@ import {PostCssConfig} from './api'
 
 const extension: Module = {
   name: '@roots/bud-postcss',
-  devDependencies: ['postcss'],
   api: app => ({
     postcss: new PostCssConfig({app}),
   }),

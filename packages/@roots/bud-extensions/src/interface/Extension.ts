@@ -43,11 +43,6 @@ declare module '@roots/bud-framework' {
     make: Module['make']
 
     /**
-     * Install package dependencies
-     */
-    install(): void
-
-    /**
      * Make hook key from module property
      */
     makeKey(key: keyof Hooks.Extension.Definitions): Hooks.Name

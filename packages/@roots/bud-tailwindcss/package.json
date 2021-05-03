@@ -28,7 +28,8 @@
   "files": [
     "lib/",
     "publish/",
-    "types/"
+    "types/",
+    "manifest/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.mjs",

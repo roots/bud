@@ -4,7 +4,7 @@
   "description": "Adds imagemin support to Bud",
   "repository": {
     "type": "git",
-    "url": "git://github.com/roots/bud.git",
+    "url": "https://github.com/roots/bud",
     "directory": "packages/@roots/bud-imagemin"
   },
   "license": "MIT",
@@ -22,8 +22,8 @@
   "files": [
     "docs/",
     "lib/",
-    "manifest.yml",
-    "types/"
+    "types/",
+    "manifest.yml"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.mjs",

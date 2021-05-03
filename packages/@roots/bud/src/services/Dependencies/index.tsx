@@ -1,78 +1,93 @@
-import {Framework} from '@roots/bud-framework'
 import {
   Dependencies as DependenciesManager,
-  IDependencyManager,
 } from '@roots/dependencies'
 import {boundMethod as bind} from 'autobind-decorator'
 import {readJsonSync} from 'fs-extra'
 import React from 'react'
-import {Box, Text} from 'ink'
-import Spinner from 'ink-spinner'
+import {Text, Static} from 'ink'
 import {Base} from './Base'
 
 export class Dependencies extends Base {
-  public get pkg() {
-    return readJsonSync(this.path('project', 'package.json'))
-  }
-
-  public get isYarn() {
-    return this.manager.isYarn()
-  }
-
-  public get client(): IDependencyManager {
-    return this.manager.client
+  @bind
+  public pkg() {
+    return readJsonSync(this.app.path('project', 'package.json'))
   }
 
   @bind
-  public boot(app: Framework) {
-    this.path = app.path
-    this.dashboard = app.dashboard
-
-    this.manager = new DependenciesManager(this.path('project'))
+  public register() {
+    this.manager = new DependenciesManager(this.app.path('project'))
   }
 
   @bind
   public shouldInstall(
     dep: string,
-    type: 'dependencies' | 'devDependencies',
+    source: string,
   ) {
-    return (
-      !this.pkg[type] ||
-      !Object.keys(this.pkg[type]).includes(dep)
+    const pkgJson = this.pkg()
+
+    const shouldInstall = (
+      !pkgJson ||
+      !Object.keys({
+        ...(pkgJson['dependencies'] ?? {}),
+        ...(pkgJson['devDependencies'] ?? {}),
+      }).includes(dep)
     )
+
+    if (!shouldInstall) {
+      this.app.dashboard.render(
+        <Static items={[{ dep }]}>
+          {({ dep }) => (
+            <Text key={dep}>
+              {source}: {dep} is already installed
+            </Text>
+          )}
+        </Static>
+      )
+    }
+
+    return shouldInstall
   }
 
   @bind
-  public installDev(deps: string[], source: string): void {
-    deps
-      .filter(dep => this.shouldInstall(dep, 'devDependencies'))
-      .forEach(dep => {
-        this.notify(dep, source)
-        this.client.install(true, dep)
+  public installDev(deps: {[key: string]: string}, src: string): void {
+    Object.entries(deps)
+      .filter(([dep]) => this.shouldInstall(dep, src))
+      .forEach(([dep, ver]) => {
+        this.notify([
+          { msg: `Installing dev dependency: ${dep}@${ver}`, src },
+          {
+            msg: this.manager.client.install(true, `${dep}@${ver}`).output.toString(),
+            src
+          }
+        ])
       })
   }
 
   @bind
-  public install(deps: string[], source: string): void {
-    deps
-      .filter(dep => this.shouldInstall(dep, 'dependencies'))
-      .forEach(dep => {
-        this.notify(dep, source)
-        this.client.install(false, dep)
+  public install(deps: {[key: string]: string}, src: string): void {
+    Object.entries(deps)
+      .filter(([dep]) => this.shouldInstall(dep, src))
+      .forEach(([dep, ver]) => {
+        this.notify([
+          { msg: `Installing dependency: ${dep}@${ver}`, src },
+          {
+            msg: this.manager.client.install(false, `${dep}@${ver}`).output.toString(),
+            src
+          }
+        ])
       })
   }
 
   @bind
-  public notify(dep: string, source: string) {
-    this.dashboard.write(
-      <Box flexDirection="row">
-        <Text>
-          <Text color="green">
-            <Spinner /> {source}{' '}
+  public notify(notices: {msg: string, src: string}[]) {
+    this.app.dashboard.render(
+      <Static items={notices}>
+        {({ msg, src }) => (
+          <Text key={`${msg}${src}`}>
+            <Text color="blue">{src}</Text>: {msg}
           </Text>
-          Adding <Text color="green">{dep}</Text> to project.
-        </Text>
-      </Box>,
+        )}
+      </Static>
     )
   }
 }

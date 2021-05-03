@@ -1,11 +1,11 @@
 {
   "name": "@roots/bud-react",
   "version": "3.2.0-next.2",
-  "description": "A friendly build tool to help manage your project assets.",
+  "description": "React support for @roots/bud projects.",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
-    "url": "https://github.com/roots/bud.git",
+    "url": "https://github.com/roots/bud",
     "directory": "packages/@roots/bud-react"
   },
   "contributors": [
@@ -30,8 +30,8 @@
   "files": [
     "docs/",
     "lib/",
-    "manifest.yml",
-    "types/"
+    "types/",
+    "manifest.yml"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.mjs",

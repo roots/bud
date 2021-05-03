@@ -1,3 +1,6 @@
 import Base from '@oclif/command'
+import {Bud} from '@roots/bud'
 
-export abstract class Command extends Base {}
+export default abstract class Command extends Base {
+  public abstract app: Bud
+}

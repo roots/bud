@@ -1,31 +1,28 @@
-import {Framework} from '@roots/bud-framework'
 import {Base} from './Base'
 import {boundMethod as bind} from 'autobind-decorator'
-import fs from 'fs-extra'
 import {sync} from 'globby'
+import {cosmiconfigSync} from 'cosmiconfig'
 import {dirname} from 'path'
+import {readJsonSync} from 'fs-extra'
 
 export class Discovery extends Base {
-  public get packagePaths() {
-    return sync([
-      this.app.path('modules', '@roots/sage/package.json'),
-      this.app.path('modules', 'bud-*/package.json'),
-      this.app.path('modules', '**/bud-*/package.json'),
-    ])
-  }
-
   @bind
-  public boot({sequence}: Framework): void {
-    sequence([this.discoverPackages, this.registerDiscovered])
+  public register(): void {
+    this.pkgJson = readJsonSync(this.app.path('project', 'package.json'))
+
+    this.discoverPackages()
+    this.registerDiscovered()
   }
 
   @bind
   public discoverPackages(): void {
-    this.setStore(
-      this.packagePaths
-        .filter(this.filterUnique)
-        .reduce(this.reducePackages, {}),
-    )
+    const manifests = sync([
+      `${__dirname}/../../../../../../@roots/*/manifest.yml`,
+      `${__dirname}/../../../../../../{!@roots}/bud-*/manifest.yml`
+    ])
+
+    console.log(manifests)
+    manifests.map(this.mapConfig)
   }
 
   @bind
@@ -33,31 +30,50 @@ export class Discovery extends Base {
     this.app.store.isTrue('discover') &&
       this.every((name: string) => {
         const extension = require(name)
-
         this.app.extensions.add(extension)
       })
   }
 
   @bind
-  public reducePackages(pkgs: Framework.Pkgs, pkg: string) {
-    const json = fs.readJsonSync(pkg)
+  public mapConfig(pkg: string) {
+    if (!pkg) return
 
-    Object.assign(json, {
-      isCore: json.name?.includes('@roots/'),
-      isPreset: json.keywords?.includes('bud-preset'),
-      isExtension: json.keywords?.includes('bud-extension'),
+    const pkgDir = dirname(pkg.replace('/manifest.yml', ''))
+
+    const cosmi = cosmiconfigSync(pkgDir, {
+      searchPlaces: ['manifest.yml'],
+    }).search(dirname(pkg))
+
+    const deps = Object.keys({
+      ...(this.pkgJson?.dependencies ?? {}),
+      ...(this.pkgJson?.devDependencies ?? {}),
     })
 
-    if (!json.isExtension) return pkgs
+    cosmi && !cosmi.isEmpty && cosmi?.config?.name && deps?.includes(cosmi.config.name) &&
+      this.set(
+        cosmi.config.name,
+        {
+          ...cosmi.config,
+          modulePath: dirname(cosmi.filepath),
+          configPath: cosmi.filepath,
+        }
+      )
+  }
 
-    return {
-      ...pkgs,
-      [json.name]: {
-        ...json,
-        path: dirname(pkg),
-        type: 'extension',
-        core: json.isCore,
-      },
-    }
+  @bind
+  public install(): void {
+    this.every((_name, pkg) => {
+      pkg?.dependencies?.production &&
+        this.app.dependencies.install(
+          pkg.dependencies.production,
+          pkg.name
+        )
+
+      pkg?.dependencies?.dev &&
+        this.app.dependencies.installDev(
+          pkg.dependencies.dev,
+          pkg.name
+        )
+    })
   }
 }

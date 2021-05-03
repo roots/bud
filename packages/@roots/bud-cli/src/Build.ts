@@ -1,9 +1,9 @@
-import {Command} from './Command'
+import Command from './Command'
 import {Bud, services, config} from '@roots/bud'
-import {boundMethod as bind} from 'autobind-decorator'
-import {isFunction} from 'lodash'
 import {Config} from './Config'
 import * as flags from './flags/index'
+import {boundMethod as bind} from 'autobind-decorator'
+import {isFunction} from 'lodash'
 
 export default class Build extends Command {
   public app: Bud
@@ -22,9 +22,40 @@ export default class Build extends Command {
   public mode: 'development' | 'production'
 
   public async run() {
-    this.app = new Bud(config).bootstrap(services).lifecycle()
+    const flags = this.parse(Build).flags
 
+    this.app = new Bud(config).bootstrap(services).lifecycle()
     this.app.mode = this.mode
+
+    this.app.discovery.every((name, cfg) => {
+      if (!(cfg.type === 'preset')) return
+
+      Object.entries(cfg?.build?.all).forEach(([fnName, fnArgs]) => {
+        if (fnName == 'extensions') {
+          (fnArgs as string[]).forEach(ext => {
+            this.app.use(require(ext))
+            console.log(`Registering ${ext}`);
+          })
+        } else {
+          console.log(`Calling app.${fnName}(${fnArgs})`)
+          this.app[fnName] && this.app[fnName](fnArgs)
+        }
+      })
+
+      cfg?.build[this.app.mode] &&
+        Object.entries(cfg?.build[this.app.mode]).forEach(
+          ([fnName, fnArgs]) => {
+            if (fnName == 'extensions') {
+              (fnArgs as string[]).forEach(ext => {
+                this.app.use(require(ext))
+                console.log(`Registering ${ext}`);
+              })
+            } else {
+              console.log(`Calling app.${fnName}(${fnArgs})`)
+              this.app[fnName] && this.app[fnName](fnArgs)
+            }
+          })
+        })
 
     await new Config(this.app, [
       `${this.app.name}.json`,
@@ -33,6 +64,15 @@ export default class Build extends Command {
       `${this.app.name}.config.json`,
       `${this.app.name}.config.yaml`,
       `${this.app.name}.config.yml`,
+    ]).apply()
+
+    await new Config(this.app, [
+      `${this.app.name}.${this.app.mode}.json`,
+      `${this.app.name}.${this.app.mode}.yaml`,
+      `${this.app.name}.${this.app.mode}.yml`,
+      `${this.app.name}.${this.app.mode}.config.json`,
+      `${this.app.name}.${this.app.mode}.config.yaml`,
+      `${this.app.name}.${this.app.mode}.config.yml`,
     ]).apply()
 
     await new Config(this.app, [
@@ -57,8 +97,6 @@ export default class Build extends Command {
       `${this.app.name}.${this.app.mode}.config.ts`,
       `${this.app.name}.${this.app.mode}.config.js`,
     ])
-
-    const flags = this.parse(Build).flags
 
     Object.entries(flags).forEach(([k, v]) => {
       this.app.store.set(k, v)

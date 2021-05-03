@@ -4,11 +4,18 @@
   "description": "Adds critical.css support to Bud",
   "repository": {
     "type": "git",
-    "url": "git://github.com/roots/bud.git",
-    "directory": "packages/bud-criticalcss"
+    "url": "https://github.com/roots/bud",
+    "directory": "packages/@roots/bud-criticalcss"
   },
   "contributors": [
-    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
+    },
+    {
+      "name": "Kelly Mears",
+      "url": "https://github.com/kellymears"
+    }
   ],
   "license": "MIT",
   "bugs": {

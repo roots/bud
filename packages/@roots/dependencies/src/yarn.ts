@@ -12,16 +12,11 @@ export class Yarn implements IDependencyManager {
     dev: boolean,
     dependency: string,
   ): SpawnSyncReturns<string> {
-    const args = ['add'].concat(dependency, [
-      '--cwd',
-      this.path,
-      '--production=false',
-    ])
-    if (dev) {
-      args.push('--dev')
-    }
-
-    return spawnSync('yarn', args)
+    return spawnSync('yarn', [
+      'add',
+      dependency,
+      dev ? '--dev' : null,
+    ].filter(Boolean))
   }
 
   uninstall(dependency: string): SpawnSyncReturns<string> {

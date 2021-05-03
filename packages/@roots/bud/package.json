@@ -9,7 +9,10 @@
     "directory": "packages/@roots/bud"
   },
   "contributors": [
-    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
+    {
+      "name": "Kelly Mears",
+      "url": "https://github.com/kellymears"
+    }
   ],
   "license": "MIT",
   "bugs": {
@@ -84,6 +87,7 @@
     "autobind-decorator": "^2.4.0",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
     "copy-webpack-plugin": "^8.1.1",
+    "cosmiconfig": "^7.0.0",
     "css-minimizer-webpack-plugin": "^2.0.0",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",

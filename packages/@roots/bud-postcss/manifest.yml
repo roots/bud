@@ -1,0 +1,5 @@
+name: '@roots/bud-eslint'
+
+dependencies:
+  dev:
+    postcss: ^11.0.0

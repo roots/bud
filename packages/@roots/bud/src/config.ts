@@ -68,6 +68,7 @@ declare module '@roots/bud-framework' {
         fileName: 'manifest.json'
         writeToFileEmit: boolean
       }
+      webpackProvidePlugin: {[key: string]: any}
     }
 
     /**
@@ -174,6 +175,7 @@ export const config: Config = {
       fileName: 'manifest.json',
       writeToFileEmit: true,
     },
+    webpackProvidePlugin: {},
   },
 
   /**

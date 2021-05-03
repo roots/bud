@@ -8,7 +8,6 @@ export class Extension extends Base implements Module {
   public register({when}): this {
     when(this.module.register, () => {
       this.app.access(this.module.register)
-      this.app.extensions.log(`Register method found`)
     })
 
     when(this.module.api, () =>
@@ -27,20 +26,8 @@ export class Extension extends Base implements Module {
       this.set('options', () => this.module.options),
     )
 
-    when(this.module.dependencies, () =>
-      this.set('dependencies', () => this.module.dependencies),
-    )
-
-    this.module.devDependencies &&
-      this.set(
-        'devDependencies',
-        () => this.module.devDependencies,
-      )
-
-    this.module.when && this.set('when', () => this.module.when)
-    this.module.make && this.set('make', () => this.module.make)
-
-    this.app.store.enabled('install') && this.install()
+    this.set('when', () => this.module.when)
+    this.set('make', () => this.module.make)
 
     this.logger.scope(this.name).success('Extension registered')
 
@@ -53,19 +40,5 @@ export class Extension extends Base implements Module {
     this.logger.scope(this.name).success('Extension booted')
 
     return this
-  }
-
-  @bind
-  public install(): void {
-    this.dependencies &&
-      !_.isEmpty(this.dependencies) &&
-      this.app.dependencies.install(this.dependencies, this.name)
-
-    this.devDependencies &&
-      !_.isEmpty(this.devDependencies) &&
-      this.app.dependencies.installDev(
-        this.devDependencies,
-        this.name,
-      )
   }
 }

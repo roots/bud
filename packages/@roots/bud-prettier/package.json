@@ -5,7 +5,7 @@
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
-    "url": "git://github.com/roots/bud.git",
+    "url": "https://github.com/roots/bud",
     "directory": "packages/@roots/bud-prettier"
   },
   "contributors": [
@@ -30,8 +30,8 @@
   "files": [
     "docs/",
     "lib/",
-    "manifest.yml",
-    "types/"
+    "types/",
+    "manifest.yml"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.mjs",
@@ -56,14 +56,13 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@types/node": "^15.0.0"
+    "@types/node": "^15.0.0",
+    "eslint": "^7.25.0"
   },
   "dependencies": {
     "@roots/bud-extensions": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "autobind-decorator": "^2.4.0",
-    "eslint": "^7.25.0",
-    "eslint-plugin-prettier": "^3.4.0",
     "prettier": "^2.2.1"
   }
 }

@@ -127,7 +127,7 @@ export function config(this: Framework): void {
     'build/resolve/modules': () => [
       this.hooks.filter('location/src'),
       this.hooks.filter('location/modules'),
-      ...this.discovery.getValues(),
+      ...this.discovery.getValues().map(({modulePath}) => modulePath),
     ],
     'build/stats': false,
     'build/target': 'web',

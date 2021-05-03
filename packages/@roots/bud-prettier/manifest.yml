@@ -1,0 +1,5 @@
+name: '@roots/bud-prettier'
+
+dependencies:
+  dev:
+    prettier: ^2.2.1

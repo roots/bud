@@ -4,12 +4,18 @@
   "description": "Sage starter theme build tooling",
   "repository": {
     "type": "git",
-    "url": "git://github.com/roots/bud.git",
+    "url": "https://github.com/roots/bud",
     "directory": "packages/@roots/sage"
   },
   "contributors": [
-    "Kelly Mears <kelly@roots.io> (https://kellymears.me)",
-    "qwp6t"
+    {
+      "name": "Kelly Mears",
+      "url": "https://github.com/kellymears"
+    },
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
+    }
   ],
   "license": "MIT",
   "bugs": {
@@ -28,7 +34,9 @@
   },
   "files": [
     "bin/",
-    "types/"
+    "types/",
+    "lib/",
+    "manifest.yml"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.mjs",
