@@ -1,7 +1,3 @@
----
-description: Installing Bud requires node v14.
----
-
 # Installation
 
 Install using [yarn](https://classic.yarnpkg.com).
@@ -16,4 +12,4 @@ Install using [npm](https://npmjs.com).
 npm install @roots/bud @roots/bud-cli --save-dev
 ```
 
-Technically, the `@roots/bud-cli` package is optional but most users will probably find it useful.
+Technically, the [**@roots/bud-cli**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-cli) package is optional but most users will probably find it useful.

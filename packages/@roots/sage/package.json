@@ -69,7 +69,6 @@
   },
   "dependencies": {
     "@roots/bud": "workspace:*",
-    "@roots/bud-api": "workspace:*",
     "@roots/bud-babel": "workspace:*",
     "@roots/bud-cli": "workspace:*",
     "@roots/bud-entrypoints": "workspace:*",
@@ -80,7 +79,6 @@
     "@roots/bud-prettier": "workspace:*",
     "@roots/bud-react": "workspace:*",
     "@roots/bud-stylelint": "workspace:*",
-    "@roots/bud-support": "workspace:*",
     "@roots/bud-tailwindcss": "workspace:*",
     "@roots/bud-typescript": "workspace:*",
     "@roots/bud-wordpress-dependencies": "workspace:*",

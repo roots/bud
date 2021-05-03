@@ -5,30 +5,13 @@ import path from 'path'
 
 import * as remark from './remark'
 
-const doc = ({pkg, basePath}) => {
-  glob
-    .sync([`${basePath}/src/docs/**/*.md`])
+const doc = (set) => {
+  /**
+   * Docs transforms / fs
+   */
+  set.map(doc => {
+      const md = remark.fromFile(doc.source, doc.pkg)
 
-    /**
-     * Make destination path
-     */
-    .map(source => ({
-      source,
-      destination: source.replace('/src/docs/', '/docs/'),
-    }))
-
-    /**
-     * Docs transforms / fs
-     */
-    .map(doc => {
-      /**
-       * Process md
-       */
-      const md = remark.fromFile(doc.source, pkg)
-
-      /**
-       * Write to /docs
-       */
       fs.ensureDirSync(path.dirname(doc.destination))
       fs.writeFileSync(
         doc.destination,
@@ -36,10 +19,7 @@ const doc = ({pkg, basePath}) => {
         'utf8',
       )
 
-      /**
-       * Copy README.md to top-level
-       */
-      doc.destination.includes('README.md') &&
+      doc.pkg && doc.destination.includes('README.md') &&
         fs.writeFileSync(
           doc.destination.replace('/docs/', '/'),
           prettier.format(md, {parser: 'markdown'}),
@@ -49,14 +29,32 @@ const doc = ({pkg, basePath}) => {
 }
 
 const docs = () => {
-  glob
+  const pkgs = glob
     .sync([`${process.cwd()}/packages/@roots/*/package.json`])
-    .map(from =>
-      doc({
-        pkg: fs.readJsonSync(from),
-        basePath: from.replace('/package.json', ''),
-      }),
-    )
+
+    glob.sync(pkgs)
+    .map(source => ({
+      pkg: fs.readJsonSync(source),
+      source: source.replace('/package.json', '/src/docs/**/*.md'),
+    })).forEach(origin => {
+      doc(
+        glob.sync([origin.source])
+          .map(source => ({
+            pkg: origin.pkg,
+            destination: source.replace('src/docs', 'docs'),
+            source,
+          }))
+      )
+    })
+
+  doc(
+    glob.sync([`${process.cwd()}/dev/docs/src/pages/**/*.md`])
+      .map(source => ({
+        pkg: null,
+        source,
+        destination: source.replace('/dev/docs/src/pages/', '/docs/'),
+      }))
+  )
 
   fs.copyFile(
     `${process.cwd()}/packages/@roots/bud/README.md`,

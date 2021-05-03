@@ -24,10 +24,6 @@
 
 > Bud configuration API
 
-## Overview
-
-> [**@roots/bud-api**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-api) contains DX focused utilities intended for project-level config files.
-
 ## Methods
 
 | Tool            | Description                     | Documentation             |

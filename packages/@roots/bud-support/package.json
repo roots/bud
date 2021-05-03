@@ -30,7 +30,8 @@
   },
   "files": [
     "lib/",
-    "publish/",
+    "templates/",
+    "docs/",
     "types/"
   ],
   "main": "./lib/cjs/index.js",

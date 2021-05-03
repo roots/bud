@@ -30,12 +30,9 @@
   ],
   "types": "./contracts/index.d.ts",
   "devDependencies": {
-    "@roots/bud-framework": "workspace:*",
-    "@roots/bud-support": "workspace*",
     "@types/express": "^4.17.11",
     "@types/node": "^15.0.0",
     "@types/webpack-dev-middleware": "^4.1.2",
-    "child_process": "^1.0.2",
     "chokidar": "^3.5.1",
     "dotenv": "^8.2.0",
     "express": "^4.17.1",

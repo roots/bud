@@ -9,6 +9,7 @@
   },
   "devDependencies": {
     "@roots/bud": "workspace:*",
+    "@roots/bud-cli": "workspace:packages/@roots/bud-cli",
     "@roots/sage": "workspace:*",
     "@tailwindcss/jit": "^0.1.18",
     "@tailwindcss/typography": "^0.4.0",

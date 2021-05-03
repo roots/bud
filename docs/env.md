@@ -1,6 +1,6 @@
 ---
-description: Read environmental variables using the bud.env container
----
+
+## description: Read environmental variables using the bud.env container
 
 Bud includes support for utilizing dotenv values (in your config, templates and the client).
 
@@ -10,16 +10,16 @@ This file should be located in the project root.
 
 Values defined in the application `.env` file are available via `bud.env`.
 
-The `bud.env` object is a `@roots/container` instance.
+The `bud.env` object is a [**@roots/container**](https://github.com/roots/bud/tree/stable/packages/@roots/container) instance.
 
 Most commonly you'll probably find yourself using these methods:
 
 ```js
-bud.env.get('APP_NAME')
+bud.env.get("APP_NAME");
 ```
 
 ```js
-bud.env.is('APP_ENV', 'production')
+bud.env.is("APP_ENV", "production");
 ```
 
 ## Accessing env values from within a template
@@ -33,5 +33,5 @@ Values defined in the application `.env` file are made available to bundled modu
 This is to prevent accidental sharing of sensitive data.
 
 ```js
-const {PUBLIC_APP_NAME} = window
+const { PUBLIC_APP_NAME } = window;
 ```

@@ -4,6 +4,7 @@ import toc from 'remark-toc'
 import emoji from 'remark-emoji'
 import git from 'remark-github'
 import _ from 'lodash'
+import fs from 'fs-extra'
 
 const replacements = [
   [
@@ -12,7 +13,7 @@ const replacements = [
   ],
   [
     /\(docs:(.*?)\)/g,
-    `(https://github.com/roots/bud/tree/stable/docs/$1.md)`
+    `(https://github.com/roots/bud/tree/stable/docs/$1.md)`,
   ],
   [
     /\[badge\]\(npm:(.*?)\)/g,
@@ -32,42 +33,46 @@ const replacements = [
   ],
 ]
 
-const banner = (pkg) => {
+const banner = pkg => {
   let res: string
 
-  let banner = parseFile(require.resolve('./templates/banner.md'))
-
-  banner.contents = Buffer.from(
-    banner.contents.toString()
-      .replaceAll(`__name__`, pkg.name)
-      .replaceAll(`__description__`, pkg.description)
+  let banner = parseFile(
+    require.resolve('../src/templates/banner.md'),
   )
 
-  remark()
-    .process(banner, (err, file) => {
-      err && console.error(err)
-      res = String(file.contents)
-    })
+  banner.contents = Buffer.from(
+    banner.contents
+      .toString()
+      .replaceAll(`__name__`, pkg.name)
+      .replaceAll(`__description__`, pkg.description),
+  )
+
+  remark().process(banner, (err, file) => {
+    err && console.error(err)
+    res = String(file.contents)
+  })
 
   return res
 }
 
-const footer = (pkg) => {
+const footer = pkg => {
   let result: string
 
-  let footer = parseFile(require.resolve('./templates/footer.md'))
-
-  footer.contents = Buffer.from(
-    footer.contents.toString()
-      .replaceAll(/{{name}}/g, pkg.name)
-      .replaceAll(/{{description}}/g, pkg.description)
+  let footer = parseFile(
+    require.resolve('../src/templates/footer.md'),
   )
 
-  remark()
-    .process(footer, (err, file) => {
-      err && console.error(err)
-      result = String(file.contents)
-    })
+  footer.contents = Buffer.from(
+    footer.contents
+      .toString()
+      .replaceAll(/{{name}}/g, pkg.name)
+      .replaceAll(/{{description}}/g, pkg.description),
+  )
+
+  remark().process(footer, (err, file) => {
+    err && console.error(err)
+    result = String(file.contents)
+  })
 
   return result
 }
@@ -79,11 +84,19 @@ const fromFile = (srcFile, pkg) => {
 
   const mdv = parseFile(srcFile)
 
-  mdv.contents = _.join([
-    banner(pkg),
-    mdv.contents.toString(),
-    footer(pkg)
-  ], '\n')
+  mdv.contents = pkg && srcFile.includes('README.md') ? _.join(
+    [banner(pkg), mdv.contents.toString(), footer(pkg)],
+    '\n',
+  ) : mdv.contents.toString()
+
+  /**
+   * Includes
+   */
+  const includeMd = (match) => {
+    match = match.replace(/\[include\]\((.*?)\)/g, '$1')
+    return fs.readFileSync(`${process.cwd()}/${match}`)
+  }
+  mdv.contents = (mdv as any).contents.replace(/\[include\]\(.*?\)/g, includeMd)
 
   replacements.forEach(([f, r]) => {
     mdv.contents = mdv.contents.replace(f, r)
@@ -93,7 +106,7 @@ const fromFile = (srcFile, pkg) => {
 
   remark()
     .use(toc, {tight: true})
-    .use(git, { repo: 'git@github.com:roots/bud' })
+    .use(git, {repo: 'git@github.com:roots/bud'})
     .use(emoji)
     .process(mdv, (err, file) => {
       err && console.error(err)

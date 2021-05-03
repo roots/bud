@@ -1,7 +1,3 @@
----
-description: Expose and manipulate exposed values during config and compilation.
----
-
 # Hooks
 
 Bud provides a system of 'hooks' to expose values for modification.
@@ -40,11 +36,11 @@ Filters are registered with `bud.hooks.filter`.
 A `value` is passed through the `my.filter.key` filter.
 
 ```js
-const filteredValue = bud.hooks.filter('my.filter.key', value)
+const filteredValue = bud.hooks.filter("my.filter.key", value);
 ```
 
 Now, the user and other extensions have access to this value and can modify it.
 
 ```js
-bud.hooks.on('my.filter.key', value => value.shift())
+bud.hooks.on("my.filter.key", (value) => value.shift());
 ```

@@ -1,6 +1,6 @@
 ---
-description: CLI utilities.
----
+
+## description: CLI utilities.
 
 ## Installation
 
@@ -24,7 +24,7 @@ The CLI includes detailed usage instructions:
 yarn bud --help
 ```
 
-## bud build:[env]
+## bud build:\[env]
 
 Compile assets for production:
 
@@ -42,7 +42,7 @@ bud build:dev
 
 Depending on your environment, Bud's CLI output causes issues. In particular, it's usage of tty `raw mode` can cause issues with CI tools.
 
-To run the build but not use the `@roots/bud-cli` renderer, there is a `--ci` flag which indicates you want to run the build for these environments.
+To run the build but not use the [**@roots/bud-cli**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-cli) renderer, there is a `--ci` flag which indicates you want to run the build for these environments.
 
 ## Exiting the CLI from `dev` mode
 
