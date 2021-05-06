@@ -9,10 +9,14 @@ export abstract class Base extends Service implements Contract {
    */
   public name = 'framework/discovery'
 
+  public resolveFrom: string[] = []
+
   /**
    * Collect packages.
    */
-  abstract discoverPackages(): void
+  abstract discover(
+    type: 'dependencies' | 'devDependencies',
+  ): void
 
   /**
    * Register discovered packages as extensions
@@ -22,7 +26,7 @@ export abstract class Base extends Service implements Contract {
   /**
    * Gather information on packages
    */
-  abstract mapConfig(pkg: string): void
+  abstract mapConfig(pkg: {name: string; dir: string}): void
 
   /**
    * Install packages

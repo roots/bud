@@ -66,12 +66,10 @@
     "@roots/bud-extensions": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "autobind-decorator": "^2.4.0",
-    "autoprefixer": "^10.2.5",
     "postcss": "^8.2.13",
-    "postcss-custom-properties": "^11.0.0",
     "postcss-import": "^14.0.1",
     "postcss-loader": "^5.2.0",
-    "postcss-nested": "^5.0.5",
+    "postcss-preset-env": "^6.7.0",
     "signale": "^1.4.0"
   }
 }

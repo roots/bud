@@ -1,6 +1,5 @@
 import '@roots/bud-extensions'
 import {Module} from '@roots/bud-framework'
-import {Signale} from 'signale'
 
 export declare const name: Module['name']
 export declare const devDependencies: Module['devDependencies']
@@ -40,74 +39,60 @@ declare module '@roots/bud-framework' {
 
   interface PostCss {
     /**
-     * ## postcss.log
+     * ## PostCss.log
      */
-    logger: Signale
+    log: any
 
     /**
-     * ## postcss.hasProjectConfig
+     * ## PostCss.hasProjectConfig
      */
     hasProjectConfig: boolean
 
     /**
-     * ## postcss.plugins
-     *
-     * Get the postcss plugins as set.
+     * ## PostCss.plugins
      */
     plugins: PostCss.Registry
 
     /**
-     * ## postcss.ordered
+     * ## PostCss.setPlugin
      *
-     * Specific order of plugins
-     */
-    order: string[]
-
-    /**
-     * ## postcss.addPlugin
-     *
-     * Add a postcss plugin.
+     * Add a PostCss plugin.
      *
      * ### Usage
      *
      * ```js
-     * bud.postcss.addPlugin(MyPlugin, {plugin: 'options'})
+     * bud.PostCss.setPlugin(MyPlugin, {plugin: 'options'})
      * ```
      */
-    set: (plugin: PostCss.Registrable) => this
+    setPlugin: (plugin: PostCss.Registrable) => this
 
     /**
-     * ## postcss.setPluginOptions
+     * ## PostCss.setPlugins
      */
-    setOptions: (plugin: string, options: any) => this
+    setPlugins(
+      plugins: Array<PostCss.NormalizedPlugin | string>,
+    ): this
 
     /**
-     * ## postcss.order
-     *
-     * Provide a specific order to load plugins
+     * ## PostCss.setPluginOptions
      */
-    setOrder: (order: string[]) => this
-
-    /**
-     * ## postcss.makePluginsConfig
-     *
-     * Output final plugins config for postcss
-     */
-    makeConfig: () => any
+    setPluginOptions: (plugin: string, options: any) => this
   }
 
   namespace PostCss {
-    type SetPlugin = (plugin: PostCss.Registrable) => unknown
-
     type Options = {
       plugins?: Plugin[]
       config?: boolean | string
     }
 
-    type Plugin = CallableFunction
+    type NormalizedPlugin = [string, any]
 
-    type Registrable = [string, any] | string
-    type Registry = {[key: string]: any}
-    type RegistryMutagen = (plugins: Registrable) => Registrable
+    type Plugin = string | NormalizedPlugin | CallableFunction
+
+    type Registrable = string | NormalizedPlugin
+
+    interface Registry {
+      [key: string]: [string, any]
+    }
   }
 }

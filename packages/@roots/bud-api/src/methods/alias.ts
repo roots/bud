@@ -1,5 +1,6 @@
 import {Framework} from '@roots/bud-framework'
 import Webpack from 'webpack'
+import {resolve} from 'path'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -34,7 +35,13 @@ export type Alias = (
 export const alias: Alias = function (alias): Framework {
   this.hooks.on('build/resolve/alias', existant => ({
     ...existant,
-    ...alias,
+    ...Object.entries(alias).reduce(
+      (a, [k, v]) => ({
+        ...a,
+        [k]: resolve(v),
+      }),
+      {},
+    ),
   }))
 
   return this

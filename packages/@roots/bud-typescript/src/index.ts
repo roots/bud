@@ -5,8 +5,15 @@ import * as api from './api'
 
 const name: Module['name'] = '@roots/bud-typescript'
 
-const boot: Module['boot'] = ({publish, hooks, store}) => {
+const boot: Module['boot'] = ({
+  build,
+  publish,
+  hooks,
+  store,
+}) => {
   store.set('patterns.ts', /\.(ts|tsx)$/)
+
+  build.loader.set('ts', require.resolve('ts-loader'))
 
   publish(
     {
@@ -44,9 +51,7 @@ const boot: Module['boot'] = ({publish, hooks, store}) => {
       }),
       'item/ts/options/happyPackMode': () => true,
       'item/ts/options/transpileOnly': () => true,
-      'item/ts/loader': () => hooks.filter('loader/ts'),
-
-      'loader/ts': () => require.resolve('ts-loader'),
+      'item/ts/loader': build.loader.get('ts'),
     },
     name,
   )

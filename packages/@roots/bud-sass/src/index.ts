@@ -1,56 +1,43 @@
 import './interface'
 import {Module} from '@roots/bud-framework'
+import {Loader, Item, Rule} from '@roots/bud-build'
 
 const extension: Module = {
   name: '@roots/bud-sass',
-  publish: ({hooks, store, isProduction}) => ({
-    'loader/sass': () => require.resolve('sass-loader'),
-    'item/sass': () => ({
-      loader: hooks.filter('item/sass/loader'),
-      options: hooks.filter('item/sass/options'),
-    }),
+  boot: ({hooks, build}) => {
+    build.loaders['sass'] = new Loader(app =>
+      require.resolve('sass-loader'),
+    )
 
-    'item/sass/loader': () => hooks.filter('loader/sass'),
+    build.items['sass'] = new Item({
+      loader: app => app.build.loaders['sass'],
+      options: app => ({
+        implementation: (() =>
+          require(require.resolve('sass')))(),
+        sourceMap: true,
+      }),
+    })
 
-    'item/sass/options': () => ({
-      implementation: hooks.filter(
-        'item/sass/options/implementation',
-      ),
-      sourceMap: hooks.filter('item/sass/options/sourceMap'),
-    }),
+    build.rules['sass'] = new Rule({
+      test: app => app.store.get('patterns.sass'),
+      exclude: app => app.store.get('patterns.modules'),
+      use: app => [
+        app.isProduction
+          ? app.build.items['minicss']
+          : app.build.items['style'],
+        app.build.items['css'],
+        app.build.items['postcss'],
+        app.build.items['sass'],
+        app.build.items['resolve-url'],
+      ],
+    })
 
-    'item/sass/options/implementation': () =>
-      (() => require(require.resolve('sass')))(),
-
-    'item/sass/options/sourceMap': () => true,
-
-    rule: rules => ({
-      ...rules,
-      'rule/sass': hooks.filter('rule/sass'),
-    }),
-    'rule/sass': () => ({
-      test: hooks.filter('rule/sass/test'),
-      exclude: hooks.filter('rule/sass/exclude'),
-      use: hooks.filter('rule/sass/use'),
-    }),
-    'rule/sass/test': () => store.get('patterns.sass'),
-    'rule/sass/exclude': () => store.get('patterns.modules'),
-    'rule/sass/use': () => [
-      isProduction
-        ? hooks.filter('item/minicss')
-        : hooks.filter('item/style'),
-      hooks.filter('item/css'),
-      hooks.filter('item/postcss'),
-      hooks.filter('item/resolve-url'),
-      hooks.filter('item/sass'),
-    ],
-
-    'build/resolve/extensions': (exts: string[]) => [
+    hooks.on('build/resolve/extensions', (exts: string[]) => [
       ...exts,
       '.scss',
-    ],
-  }),
+    ])
+  },
 }
 
 export default extension
-export const {name, publish} = extension
+export const {name, boot} = extension

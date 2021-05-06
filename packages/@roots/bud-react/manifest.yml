@@ -1,5 +1,7 @@
 name: '@roots/bud-react'
 type: extension
+peers:
+  - '@roots/bud-babel'
 
 dependencies:
   production:

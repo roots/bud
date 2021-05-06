@@ -3,15 +3,6 @@ import '@roots/bud-extensions'
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## bud.esbuild
-     *
-     * Configure ESBuild.
-     */
-    esbuild: ESBuild
-  }
-
-  interface ESBuild {
-    /**
      * ## bud.esbuild.setOptions
      *
      * Configure esbuild-loader options
@@ -24,22 +15,7 @@ declare module '@roots/bud-framework' {
      * })
      * ```
      */
-    setOptions: ESBuild.SetOptions
-
-    /**
-     * ## bud.esbuild.jsx
-     *
-     * Toggle esbuild jsx/tsx parsing
-     *
-     * ### Usage
-     *
-     * Disable:
-     *
-     * ```js
-     * bud.esbuild.jsx(false)
-     * ```
-     */
-    jsx: ESBuild.JSX
+    esbuild: ESBuild.SetOptions
   }
 
   namespace ESBuild {

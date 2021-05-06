@@ -1,4 +1,5 @@
 name: '@roots/bud-prettier'
+type: extension
 
 dependencies:
   dev:

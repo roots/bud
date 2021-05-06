@@ -2,7 +2,7 @@ import './interface'
 import type {Module} from '@roots/bud-framework'
 import {ESBuildMinifyPlugin} from 'esbuild-loader'
 import {features} from './features/index'
-import {setOptions, jsx} from './api/index'
+import {setOptions} from './api/index'
 
 const esbuild: Module = {
   name: '@roots/bud-esbuild',
@@ -25,10 +25,7 @@ const esbuild: Module = {
   },
 
   api: app => ({
-    esbuild: {
-      setOptions: setOptions.bind(app),
-      jsx: jsx.bind(app),
-    },
+    esbuild: setOptions.bind(app),
   }),
 }
 

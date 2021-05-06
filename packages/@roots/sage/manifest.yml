@@ -1,38 +1,15 @@
 name: '@roots/sage'
 type: preset
-
-build:
-  all:
-    extensions:
-      - '@roots/bud-wordpress-externals'
-      - '@roots/bud-wordpress-manifests'
-      - '@roots/bud-wordpress-dependencies'
-      - '@roots/bud-entrypoints'
-      - '@roots/bud-eslint'
-      - '@roots/bud-postcss'
-      - '@roots/bud-prettier'
-      - '@roots/bud-stylelint'
-      - '@roots/bud-tailwindcss'
-    html:
-      enabled: false
-    provide:
-      jquery:
-        - '$'
-        - 'jQuery'
-
-  development:
-    extensions:
-      - '@roots/bud-babel'
-      - '@roots/bud-typescript'
-      - '@roots/bud-react'
-    proxy: true
-    devtool: cheap-source-map
-
-  production:
-    extensions:
-      - '@roots/bud-esbuild'
-
-    minimize: true
-    hash: true
-    splitChunks:
-    runtime: single
+peers:
+  - '@roots/bud-wordpress-externals'
+  - '@roots/bud-wordpress-manifests'
+  - '@roots/bud-wordpress-dependencies'
+  - '@roots/bud-entrypoints'
+  - '@roots/bud-eslint'
+  - '@roots/bud-postcss'
+  - '@roots/bud-prettier'
+  - '@roots/bud-stylelint'
+  - '@roots/bud-tailwindcss'
+  - '@roots/bud-babel'
+  - '@roots/bud-typescript'
+  - '@roots/bud-react'

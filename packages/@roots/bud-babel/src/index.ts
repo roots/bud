@@ -1,77 +1,54 @@
 import './interface'
 import type {Module} from '@roots/bud-framework'
+import {Item, Loader} from '@roots/bud-build'
 import {Config} from './Config'
+import {existsSync} from 'fs-extra'
 
-export const name: Module['name'] = '@roots/bud-babel'
+const babel: Module = {
+  name: '@roots/bud-babel',
 
-export const api: Module['api'] = app => ({
-  babel: new Config().init(app),
-})
-
-export const devDependencies: Module['devDependencies'] = [
-  '@babel/core',
-]
-
-export const publish: Module['publish'] = app => ({
-  /**
-   * loader/babel
-   */
-  'loader/babel': () => require.resolve('babel-loader'),
-
-  /**
-   * item/babel
-   */
-  'item/babel': () => ({
-    loader: app.subscribe('loader/babel'),
-    options: app.subscribe('item/babel/options'),
+  api: app => ({
+    babel: new Config().init(app),
   }),
 
-  'item/babel/options': () => ({
-    cacheDirectory: app.subscribe(
-      'item/babel/options/cacheDirectory',
-    ),
-    root: app.subscribe('item/babel/options/root'),
-    presets: app.subscribe('item/babel/options/presets'),
-    plugins: app.subscribe('item/babel/options/plugins'),
-  }),
+  register: ({build}) => {
+    build.loaders.babel = new Loader(app =>
+      require.resolve('babel-loader'),
+    )
 
-  'item/babel/options/root': () =>
-    app.subscribe('location/project'),
-
-  'item/babel/options/cacheDirectory': () => app.path('storage'),
-  'item/babel/options/presets': () =>
-    Object.values(app.babel.presets).map(([preset, options]) => [
-      preset,
-      options,
-    ]),
-  'item/babel/options/plugins': () =>
-    Object.values(app.babel.plugins).map(([plugin, options]) => [
-      plugin,
-      options,
-    ]),
-
-  /**
-   * rule/js/use
-   */
-  'item/babel/config': () => app.babel.hasProjectConfig,
-
-  /**
-   * rule/js/use
-   */
-  'rule/js/use': () => [app.subscribe('item/babel')],
-})
-
-export const boot: Module['boot'] = ({babel, info}) => {
-  info('Configuring babel defaults')
-
-  babel
-    .setPresets(['@babel/preset-env'])
-    .setPlugins([
-      '@babel/plugin-transform-runtime',
-      '@babel/plugin-proposal-object-rest-spread',
-      '@babel/plugin-syntax-dynamic-import',
-    ])
-    .setPluginOptions('@babel/plugin-transform-runtime', {
-      helpers: false,
+    build.items.babel = new Item({
+      loader: app => app.build.loaders.babel,
+      options: app => ({
+        cacheDirectory: app.path('storage'),
+        root: app.path('project'),
+        presets: Object.values(app.babel.presets),
+        plugins: Object.values(app.babel.plugins),
+      }),
     })
+
+    build.rules.js.setUse(app => [app.build.items.babel])
+  },
+
+  boot: ({babel, info, path}) => {
+    const customConfig = existsSync(
+      path('project', 'babel.config.js'),
+    )
+
+    info('Configuring babel defaults')
+
+    !customConfig &&
+      babel
+        .setPresets(['@babel/preset-env'])
+        .setPlugins([
+          '@babel/plugin-transform-runtime',
+          '@babel/plugin-proposal-object-rest-spread',
+          '@babel/plugin-syntax-dynamic-import',
+        ])
+        .setPluginOptions('@babel/plugin-transform-runtime', {
+          helpers: false,
+        })
+  },
 }
+
+export default babel
+export const {name, api, register, boot} = babel

@@ -5,10 +5,12 @@
  * @type {(bud: Bud): Bud}
  */
 
-module.exports = app =>
+module.exports = app => {
   app
     .use([
       require('@roots/bud-postcss'),
-      require('../../node_modules/@roots/bud-sass'),
+      require('@roots/bud-sass'),
     ])
     .entry('app', ['app.scss'])
+    .persist({type: 'memory'})
+}

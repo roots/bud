@@ -1,5 +1,7 @@
 name: '@roots/bud-sass'
 type: extension
+peers:
+  - '@roots/bud-postcss'
 
 dependencies:
   dev:

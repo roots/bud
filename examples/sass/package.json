@@ -3,10 +3,11 @@
   "private": true,
   "devDependencies": {
     "@roots/bud": "workspace:*",
-    "@roots/bud-criticalcss": "workspace:*",
-    "@roots/bud-entrypoints": "workspace:*",
-    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-cli": "workspace:*",
     "@roots/bud-postcss": "workspace:*",
-    "@roots/bud-sass": "workspace:*"
+    "@roots/bud-sass": "workspace:*",
+    "@types/sass": "^1",
+    "postcss": "^8.2.13",
+    "sass": "^1.32.11"
   }
 }

@@ -6,42 +6,22 @@ export const tailwind: Tailwind.Configure = function (
     | 'tailwindcss'
     | '@tailwindcss/jit' = 'tailwindcss',
 ) {
-  /**
-   * Lock down our config
-   */
   config = config ?? this.postcss.plugins[implementation]
 
-  /**
-   * Set plugin
-   */
-  this.postcss.set([implementation, config])
+  if (this.postcss.plugins['postcss-import']) {
+    delete this.postcss.plugins['postcss-import']
 
-  /**
-   * Undo auto-ordering
-   */
-  this.postcss.setOrder(
-    this.postcss.order.filter(
-      k => k !== 'tailwindcss' && k !== '@tailwindcss/jit',
-    ),
-  )
-
-  /**
-   * Update order
-   */
-  if (this.postcss.order.includes('postcss-import')) {
-    this.postcss.setOrder([
-      ...this.postcss.order.splice(
-        0,
-        this.postcss.order.indexOf('postcss-import') + 1,
-      ),
-      implementation,
-      ...this.postcss.order,
+    this.postcss.setPlugins([
+      'postcss-import',
+      [implementation, config],
+      ...Object.values(this.postcss.plugins),
     ])
-
-    return this
+  } else {
+    this.postcss.setPlugins([
+      implementation,
+      ...Object.values(this.postcss.plugins),
+    ])
   }
-
-  this.postcss.setOrder([implementation, ...this.postcss.order])
 
   return this
 }

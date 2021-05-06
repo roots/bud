@@ -65,6 +65,8 @@
     "@types/lodash": "^4.14.168",
     "@types/mini-css-extract-plugin": "^1.4.2",
     "@types/node": "^15.0.0",
+    "@types/pkg-up": "^3",
+    "@types/resolve-pkg": "^2",
     "@types/signale": "^1.4.1",
     "@types/webpack-manifest-plugin": "^3.0.4",
     "webpack": "^5.36.0"
@@ -100,6 +102,8 @@
     "ink-spinner": "^4.0.1",
     "lodash": "^4.17.21",
     "mini-css-extract-plugin": "^1.5.0",
+    "pkg-up": "^3.1.0",
+    "resolve-pkg": "^2.0.0",
     "signale": "^1.4.0",
     "webpack-config-dump-plugin": "^3.0.1",
     "webpack-manifest-plugin": "^3.1.1"

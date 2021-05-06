@@ -1,5 +1,8 @@
 import {Service} from '@roots/bud-framework'
 import Webpack from 'webpack'
+import {Item} from './Item'
+import {Loader} from './Loader'
+import {Rule} from './Rule'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -22,5 +25,20 @@ declare module '@roots/bud-framework' {
      * Produce a final webpack config.
      */
     config: Webpack.Configuration
+
+    /**
+     * Loaders
+     */
+    loaders: {[key: string]: Loader}
+
+    /**
+     * Items
+     */
+    items: {[key: string]: Item}
+
+    /**
+     * Rules
+     */
+    rules: {[key: string]: Rule}
   }
 }

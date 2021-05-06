@@ -24,7 +24,6 @@ export default class Build extends Command {
   public async run() {
     this.app.mode = this.mode
 
-    await this.doPresets()
     await this.doStatics()
 
     await this.builder([
@@ -47,38 +46,6 @@ export default class Build extends Command {
     })
 
     this.app.run()
-  }
-
-  @bind
-  public async doPresets() {
-    this.app.discovery.every((name, cfg) => {
-      if (!(cfg.type === 'preset')) return
-
-      Object.entries(cfg?.build?.all).forEach(
-        ([fnName, fnArgs]) => {
-          if (fnName == 'extensions') {
-            ;(fnArgs as string[]).forEach(ext => {
-              this.app.use(require(ext))
-            })
-          } else {
-            this.app[fnName] && this.app[fnName](fnArgs)
-          }
-        },
-      )
-
-      cfg?.build[this.app.mode] &&
-        Object.entries(cfg?.build[this.app.mode]).forEach(
-          ([fnName, fnArgs]) => {
-            if (fnName == 'extensions') {
-              ;(fnArgs as string[]).forEach(ext => {
-                this.app.use(require(ext))
-              })
-            } else {
-              this.app[fnName] && this.app[fnName](fnArgs)
-            }
-          },
-        )
-    })
   }
 
   @bind

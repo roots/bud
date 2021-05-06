@@ -6,12 +6,12 @@ export default class Install extends Command {
 
   public static description = 'List installed extensions.'
 
-  public static examples = [`$ bud extensions:list`]
+  public static examples = ['$ bud extensions:list']
 
   public async run() {
-    console.log(`Installed extensions`)
+    console.log('Installed extensions')
 
-    this.app.discovery.getValues().forEach(item => {
+    this.app.discovery.getValues('peers').forEach(item => {
       console.log(`- ${item.name}`)
     })
   }

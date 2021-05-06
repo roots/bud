@@ -7,12 +7,7 @@
 
 module.exports = app => {
   return app
-    .use([
-      require('@roots/bud-babel'),
-      require('@roots/bud-postcss'),
-      require('@roots/bud-react'),
-      require('@roots/bud-terser'),
-    ])
+    .use([require('@roots/bud-terser')])
     .html({
       template: 'public/index.html',
     })
