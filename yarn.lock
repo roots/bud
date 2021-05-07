@@ -2725,6 +2725,7 @@ __metadata:
   resolution: "@roots/bud-mdx@workspace:packages/@roots/bud-mdx"
   dependencies:
     "@mdx-js/loader": ^1.6.22
+    "@roots/bud-build": "workspace:*"
     "@roots/bud-extensions": "workspace:*"
     "@roots/bud-framework": "workspace:*"
     "@types/node": ^15.0.0
@@ -2739,6 +2740,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-postcss@workspace:packages/@roots/bud-postcss"
   dependencies:
+    "@roots/bud-build": "workspace:*"
     "@roots/bud-extensions": "workspace:*"
     "@roots/bud-framework": "workspace:*"
     "@types/node": ^15.0.0
@@ -2822,6 +2824,7 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-sass@workspace:packages/@roots/bud-sass"
   dependencies:
+    "@roots/bud-build": "workspace:*"
     "@roots/bud-extensions": "workspace:*"
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-postcss": "workspace:*"
@@ -2921,6 +2924,7 @@ __metadata:
   resolution: "@roots/bud-typescript@workspace:packages/@roots/bud-typescript"
   dependencies:
     "@roots/bud-babel": "workspace:*"
+    "@roots/bud-build": "workspace:*"
     "@roots/bud-extensions": "workspace:*"
     "@roots/bud-framework": "workspace:*"
     "@roots/bud-support": "workspace:*"
@@ -2962,6 +2966,7 @@ __metadata:
   dependencies:
     "@roots/bud-api": "workspace:*"
     "@roots/bud-babel": "workspace:*"
+    "@roots/bud-build": "workspace:*"
     "@roots/bud-extensions": "workspace:*"
     "@roots/bud-framework": "workspace:*"
     "@types/node": ^15.0.0

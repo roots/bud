@@ -60,6 +60,7 @@
   "dependencies": {
     "@roots/bud-api": "workspace:*",
     "@roots/bud-babel": "workspace:*",
+    "@roots/bud-build": "workspace:*",
     "@roots/bud-extensions": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "autobind-decorator": "^2.4.0",

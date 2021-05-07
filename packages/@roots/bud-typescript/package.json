@@ -68,6 +68,7 @@
     "webpack": "^5.36.0"
   },
   "dependencies": {
+    "@roots/bud-build": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-support": "workspace:*",
     "@typescript-eslint/parser": "^4.22.0",

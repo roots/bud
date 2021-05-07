@@ -63,6 +63,7 @@
     "@types/signale": "^1.4.1"
   },
   "dependencies": {
+    "@roots/bud-build": "workspace:*",
     "@roots/bud-extensions": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "autobind-decorator": "^2.4.0",

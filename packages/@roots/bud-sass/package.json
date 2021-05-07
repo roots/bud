@@ -65,6 +65,7 @@
     "webpack": "^5.36.0"
   },
   "dependencies": {
+    "@roots/bud-build": "workspace:*",
     "@roots/bud-extensions": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-postcss": "workspace:*",

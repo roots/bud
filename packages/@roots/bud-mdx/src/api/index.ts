@@ -1,51 +1,17 @@
 import {Mdx, Framework} from '@roots/bud-framework'
+import {boundMethod as bind} from 'autobind-decorator'
 
-/**
- * MDXConfig
- */
 export class MdxConfig implements Mdx {
-  public app: Framework
+  protected _app: Framework['get']
+  protected _remarkPlugins: Mdx.RemarkRegistry = {}
+  protected _rehypePlugins: Mdx.RehypeRegistry = {}
 
-  public _remarkPlugins: Mdx.RemarkRegistry = {}
-  public _rehypePlugins: Mdx.RehypeRegistry = {}
-
-  public constructor({app}: {app: Framework}) {
-    this.app = app
-
-    this.setRehypePlugin = this.setRehypePlugin.bind(this)
-    this.unsetRehypePlugin = this.unsetRehypePlugin.bind(this)
-    this.setRemarkPlugin = this.setRemarkPlugin.bind(this)
-    this.unsetRemarkPlugin = this.unsetRemarkPlugin.bind(this)
+  public constructor(app: Framework) {
+    this._app = app.get
   }
 
-  public setRemarkPlugin(plugin: Mdx.RemarkRegistry) {
-    this.remarkPlugins = {
-      ...this.remarkPlugins,
-      ...plugin,
-    }
-
-    return this
-  }
-
-  public unsetRemarkPlugin(plugin: string) {
-    delete this.remarkPlugins[plugin]
-
-    return this
-  }
-
-  public setRehypePlugin(plugin: Mdx.RehypeRegistry) {
-    this.rehypePlugins = {
-      ...this.rehypePlugins,
-      ...plugin,
-    }
-
-    return this
-  }
-
-  public unsetRehypePlugin(plugin: string) {
-    delete this.rehypePlugins[plugin]
-
-    return this
+  public get app() {
+    return this._app()
   }
 
   public get remarkPlugins() {
@@ -64,10 +30,49 @@ export class MdxConfig implements Mdx {
     this._rehypePlugins = plugins
   }
 
-  public get options() {
+  public get options(): Mdx.Options {
     return {
       remarkPlugins: Object.values(this.remarkPlugins),
       rehypePlugins: Object.values(this.rehypePlugins),
     }
+  }
+
+  public set options(options: Mdx.Options) {
+    this._remarkPlugins = options.remarkPlugins
+    this._rehypePlugins = options.rehypePlugins
+  }
+
+  @bind
+  public setRemarkPlugin(plugin: Mdx.RemarkRegistry) {
+    this.remarkPlugins = {
+      ...this.remarkPlugins,
+      ...plugin,
+    }
+
+    return this
+  }
+
+  @bind
+  public unsetRemarkPlugin(plugin: string) {
+    delete this.remarkPlugins[plugin]
+
+    return this
+  }
+
+  @bind
+  public setRehypePlugin(plugin: Mdx.RehypeRegistry) {
+    this.rehypePlugins = {
+      ...this.rehypePlugins,
+      ...plugin,
+    }
+
+    return this
+  }
+
+  @bind
+  public unsetRehypePlugin(plugin: string) {
+    delete this.rehypePlugins[plugin]
+
+    return this
   }
 }
