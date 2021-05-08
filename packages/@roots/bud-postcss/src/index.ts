@@ -2,7 +2,7 @@ import './interface'
 
 import {Item, Loader} from '@roots/bud-build'
 import {Framework, Module} from '@roots/bud-framework'
-import {Config} from './api'
+import {Config} from './Config'
 
 const extension: Module = {
   name: '@roots/bud-postcss',

@@ -7,19 +7,11 @@ import {BaseConfig} from './BaseConfig'
  * PostCss API
  */
 export class Config extends BaseConfig implements PostCss {
-  /**
-   * Initialize
-   */
   public constructor(app: Framework) {
     super()
-
     this.app = app
-    this.log = app.logger.instance.scope(this.name)
   }
 
-  /**
-   * Normalize entry
-   */
   @bind
   public normalizeEntry(
     c: PostCss.Registrable,
@@ -29,13 +21,8 @@ export class Config extends BaseConfig implements PostCss {
       : (c as PostCss.NormalizedPlugin)
   }
 
-  /**
-   * Set a PostCss plugin
-   */
   @bind
   public setPlugin(plugin: PostCss.Registrable): this {
-    this.app.log(`Setting PostCss plugin: ${plugin}`)
-
     plugin = this.normalizeEntry(plugin)
 
     this.plugins = {...this.plugins, [plugin[0]]: plugin}
@@ -43,27 +30,18 @@ export class Config extends BaseConfig implements PostCss {
     return this
   }
 
-  /**
-   * Set PostCss plugins
-   */
   @bind
   public setPlugins(
     plugins: Array<PostCss.NormalizedPlugin | string>,
   ): this {
-    this.plugins = plugins.reduce((a, plugin) => {
+    this.plugins = plugins.reduce((plugins, plugin) => {
       plugin = this.normalizeEntry(plugin)
-      return {
-        ...a,
-        [plugin[0]]: plugin,
-      }
+      return {...plugins, [plugin[0]]: plugin}
     }, {})
 
     return this
   }
 
-  /**
-   * Unset a PostCss plugin
-   */
   @bind
   public unsetPlugin(plugin: string) {
     !this.plugins[plugin]
@@ -73,9 +51,6 @@ export class Config extends BaseConfig implements PostCss {
     return this
   }
 
-  /**
-   * Set a PostCss plugin's options
-   */
   @bind
   public setPluginOptions(plugin: string, options: any): this {
     this.plugins[plugin] = [this.plugins[plugin][0], options]

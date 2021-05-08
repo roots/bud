@@ -4,9 +4,6 @@ import {
 } from '@roots/bud-framework'
 
 export abstract class Base extends Service implements Contract {
-  /**
-   * Service name
-   */
   public name = 'framework/discovery'
 
   public resolveFrom: string[] = []

@@ -1,8 +1,6 @@
 import {Bud} from '@roots/bud'
 import {Module} from '@roots/bud-framework'
 
-import {projectInfo} from './util'
-
 import * as babel from '@roots/bud-babel'
 import * as dependencies from '@roots/bud-wordpress-dependencies'
 import * as entrypoints from '@roots/bud-entrypoints'
@@ -17,8 +15,6 @@ import * as typescript from '@roots/bud-typescript'
 export const name: Module.Name = '@roots/sage'
 
 export const boot: Module.Boot = (app: Bud) => {
-  const {deps} = projectInfo(app)
-
   app
     .setPath({
       storage: app.env.get('APP_STORAGE') ?? 'storage/bud',
@@ -71,13 +67,6 @@ export const boot: Module.Boot = (app: Bud) => {
           .runtime('single'),
 
       () =>
-        app
-          .use(babel)
-          .when(deps.includes('typescript'), ({use}) =>
-            use(typescript),
-          )
-          .when(deps.includes('react'), ({use}) => use(react))
-          .proxy()
-          .devtool(),
+        app.use([babel, react, typescript]).proxy().devtool(),
     )
 }

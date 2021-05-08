@@ -9,7 +9,7 @@
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
     "importHelpers": true,
-    "lib": ["DOM", "ES2019"],
+    "lib": ["dom", "es2019"],
     "jsx": "react",
     "moduleResolution": "node",
     "module": "commonjs",
@@ -18,7 +18,7 @@
     "sourceMap": true,
     "skipLibCheck": true,
     "strict": false,
-    "target": "ES2015",
+    "target": "es2015",
   },
   "base": "packages",
   "references": [

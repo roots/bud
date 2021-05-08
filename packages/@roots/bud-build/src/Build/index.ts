@@ -10,11 +10,8 @@ import {posix} from 'path'
 
 export class Build extends Service implements Contract {
   public name = '@roots/bud-build'
-
   public loaders: {[key: string]: Loader} = {}
-
   public rules: {[key: string]: Rule} = {}
-
   public items: {[key: string]: Item} = {}
 
   public get config(): Webpack.Configuration {
@@ -24,13 +21,13 @@ export class Build extends Service implements Contract {
   @bind
   public register(): void {
     this.loaders = {
-      css: new Loader(app => require.resolve('css-loader')),
-      style: new Loader(app => require.resolve('style-loader')),
-      minicss: new Loader(app => MiniCssExtractPlugin.loader),
-      file: new Loader(app => require.resolve('file-loader')),
-      raw: new Loader(app => require.resolve('raw-loader')),
-      url: new Loader(app => require.resolve('url-loader')),
-      'resolve-url': new Loader(app =>
+      css: new Loader(require.resolve('css-loader')),
+      style: new Loader(require.resolve('style-loader')),
+      minicss: new Loader(MiniCssExtractPlugin.loader),
+      file: new Loader(require.resolve('file-loader')),
+      raw: new Loader(require.resolve('raw-loader')),
+      url: new Loader(require.resolve('url-loader')),
+      'resolve-url': new Loader(
         require.resolve('resolve-url-loader'),
       ),
     }
@@ -41,7 +38,6 @@ export class Build extends Service implements Contract {
         options: app => ({
           sourceMap: app.hooks.filter('build/devtool') ?? false,
           importLoaders: 1,
-          // url: false,
         }),
       }),
       style: new Item({
@@ -60,10 +56,10 @@ export class Build extends Service implements Contract {
           ),
         }),
       }),
-      raw: new Item({
+      ['raw']: new Item({
         loader: app => app.build.loaders.raw,
       }),
-      file: new Item({
+      ['file']: new Item({
         loader: app => app.build.loaders.file,
         options: app => ({
           name: `${
@@ -73,7 +69,7 @@ export class Build extends Service implements Contract {
           }.[ext]`,
         }),
       }),
-      asset: new Item({
+      ['asset']: new Item({
         loader: app => app.build.loaders.file,
         options: app => ({
           name: `assets/${
@@ -117,7 +113,7 @@ export class Build extends Service implements Contract {
       }),
       svg: new Rule({
         test: app => app.store.get('patterns.svg'),
-        type: app => 'asset/resource',
+        type: 'asset/resource',
       }),
       html: new Rule({
         test: app => app.store.get('patterns.html'),
@@ -127,6 +123,4 @@ export class Build extends Service implements Contract {
 
     config.bind(this.app)()
   }
-
-  public boot(): void {}
 }

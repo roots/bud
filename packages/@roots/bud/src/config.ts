@@ -87,9 +87,9 @@ export const config: Config = {
   patterns: {
     css: /\.css$/,
     cssModule: /\.module\.css$/,
-    font: /\.(ttf|otf|eot|woff2?|png|jpe?g|gif|ico)$/,
+    font: /\.(ttf|otf|eot|woff2?|ico)$/,
     html: /\.(html?)$/,
-    image: /\.(png|jpg|jpeg|gif)$/,
+    image: /\.(png|jpe?g|gif)$/,
     js: /\.(js|jsx)$/,
     modules: /(node_modules|bower_components)/,
     sass: /\.(scss|sass)$/,
