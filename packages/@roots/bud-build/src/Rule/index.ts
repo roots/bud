@@ -1,6 +1,6 @@
 import {Framework} from '@roots/bud-framework'
 import {Item} from '../Item/index'
-import {BaseComponent} from '../shared/Base'
+import {Base} from '../shared/Base'
 import {boundMethod as bind} from 'autobind-decorator'
 
 export {Rule}
@@ -10,7 +10,7 @@ interface Rule {
   setTest(test: RegExp | ((app: Framework) => RegExp)): void
 }
 
-class Rule extends BaseComponent {
+class Rule extends Base {
   protected test: (app: Framework) => RegExp
   protected use: (app: Framework) => Item[]
   protected exclude: (app: Framework) => RegExp

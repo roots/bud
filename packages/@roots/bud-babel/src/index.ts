@@ -1,53 +1,43 @@
 import './interface'
-import type {Module} from '@roots/bud-framework'
+import type {Framework, Module} from '@roots/bud-framework'
 import {Item, Loader} from '@roots/bud-build'
 import {Config} from './Config'
 import {existsSync} from 'fs-extra'
 
 const babel: Module = {
   name: '@roots/bud-babel',
-
-  api: app => ({
+  api: (app: Framework) => ({
     babel: new Config().init(app),
   }),
-
   register: ({build}) => {
-    build.loaders.babel = new Loader(app =>
+    build.loaders.babel = new Loader(
       require.resolve('babel-loader'),
     )
 
     build.items.babel = new Item({
-      loader: app => app.build.loaders.babel,
-      options: app => ({
-        cacheDirectory: app.path('storage'),
-        root: app.path('project'),
-        presets: Object.values(app.babel.presets),
-        plugins: Object.values(app.babel.plugins),
+      loader: ({build}) => build.loaders.babel,
+      options: ({path, babel}) => ({
+        cacheDirectory: path('storage'),
+        root: path('project'),
+        presets: Object.values(babel.presets),
+        plugins: Object.values(babel.plugins),
       }),
     })
 
-    build.rules.js.setUse(app => [app.build.items.babel])
+    build.rules.js.setUse(({build}) => [build.items.babel])
   },
-
-  boot: ({babel, info, path}) => {
-    const customConfig = existsSync(
-      path('project', 'babel.config.js'),
-    )
-
-    info('Configuring babel defaults')
-
-    !customConfig &&
-      babel
-        .setPresets(['@babel/preset-env'])
-        .setPlugins([
-          '@babel/plugin-transform-runtime',
-          '@babel/plugin-proposal-object-rest-spread',
-          '@babel/plugin-syntax-dynamic-import',
-        ])
-        .setPluginOptions('@babel/plugin-transform-runtime', {
-          helpers: false,
-        })
-  },
+  boot: ({babel, path}) =>
+    !existsSync(path('project', 'babel.config.js')) &&
+    babel
+      .setPresets(['@babel/preset-env'])
+      .setPlugins([
+        '@babel/plugin-transform-runtime',
+        '@babel/plugin-proposal-object-rest-spread',
+        '@babel/plugin-syntax-dynamic-import',
+      ])
+      .setPluginOptions('@babel/plugin-transform-runtime', {
+        helpers: false,
+      }),
 }
 
 export default babel

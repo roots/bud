@@ -11,21 +11,21 @@ const extension: Module = {
   boot: ({build, hooks, store}) => {
     store.set('patterns.ts', /\.(ts|tsx)$/)
 
-    build.loaders['ts'] = new Loader(app =>
+    build.loaders['ts'] = new Loader(
       require.resolve('ts-loader'),
     )
 
     build.items['ts'] = new Item({
-      loader: ({build}) => build.loaders['ts'],
-      options: app => ({
+      loader: build.loaders['ts'],
+      options: {
         transpileOnly: true,
         happyPackMode: true,
-      }),
+      },
     })
 
     build.rules['ts'] = new Rule({
-      test: ({store}) => store.get('patterns.ts'),
-      exclude: ({store}) => store.get('patterns.modules'),
+      test: store.get('patterns.ts'),
+      exclude: store.get('patterns.modules'),
       use: ({build}) => [
         build.items['babel'],
         build.items['ts'],

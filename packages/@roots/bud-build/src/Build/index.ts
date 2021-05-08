@@ -34,17 +34,17 @@ export class Build extends Service implements Contract {
 
     this.items = {
       css: new Item({
-        loader: app => app.build.loaders.css,
-        options: app => ({
-          sourceMap: app.hooks.filter('build/devtool') ?? false,
+        loader: ({build}) => build.loaders.css,
+        options: ({hooks}) => ({
+          sourceMap: hooks.filter('build/devtool') ?? false,
           importLoaders: 1,
         }),
       }),
       style: new Item({
-        loader: app => app.build.loaders.style,
+        loader: ({build}) => build.loaders.style,
       }),
       minicss: new Item({
-        loader: app => app.build.loaders.minicss,
+        loader: ({build}) => build.loaders.minicss,
         options: app => ({
           publicPath: posix.normalize(
             posix.dirname(
@@ -57,67 +57,65 @@ export class Build extends Service implements Contract {
         }),
       }),
       ['raw']: new Item({
-        loader: app => app.build.loaders.raw,
+        loader: ({build}) => build.loaders.raw,
       }),
       ['file']: new Item({
-        loader: app => app.build.loaders.file,
-        options: app => ({
+        loader: ({build}) => build.loaders.file,
+        options: ({store}) => ({
           name: `${
-            app.store.isTrue('hash')
-              ? app.store.get('hashFormat')
-              : app.store.get('fileFormat')
+            store.isTrue('hash')
+              ? store.get('hashFormat')
+              : store.get('fileFormat')
           }.[ext]`,
         }),
       }),
       ['asset']: new Item({
-        loader: app => app.build.loaders.file,
-        options: app => ({
+        loader: ({build}) => build.loaders.file,
+        options: ({store}) => ({
           name: `assets/${
-            app.store.isTrue('hash')
-              ? app.store.get('hashFormat')
-              : app.store.get('fileFormat')
+            store.isTrue('hash')
+              ? store.get('hashFormat')
+              : store.get('fileFormat')
           }.[ext]`,
         }),
       }),
       ['resolve-url']: new Item({
-        loader: app => app.build.loaders['resolve-url'],
-        options: app => ({
-          root: app.path('src'),
-          sourceMap: app.hooks.filter('build/devtool') ?? false,
+        loader: ({build}) => build.loaders['resolve-url'],
+        options: ({path, hooks}) => ({
+          root: path('src'),
+          sourceMap: hooks.filter('build/devtool') ?? false,
         }),
       }),
     }
 
     this.rules = {
       css: new Rule({
-        test: app => app.store.get('patterns.css'),
-        use: app => [
-          app.isProduction
-            ? app.build.items.minicss
-            : app.build.items.style,
-          app.build.items.css,
+        test: ({store}) => store.get('patterns.css'),
+        use: ({isProduction, build}) => [
+          isProduction ? build.items.minicss : build.items.style,
+          build.items.css,
         ],
       }),
       js: new Rule({
-        test: app => app.store.get('patterns.js'),
-        exclude: app => app.store.get('patterns.modules'),
-        use: app => [app.build.items['raw']],
+        test: ({store}) => store.get('patterns.js'),
+        exclude: ({store}) => store.get('patterns.modules'),
+        use: ({build}) => [build.items['raw']],
       }),
       image: new Rule({
-        test: app => app.store.get('patterns.image'),
-        use: app => [app.build.items['asset']],
+        test: ({store}) => store.get('patterns.image'),
+        use: ({build}) => [build.items['asset']],
       }),
       font: new Rule({
-        test: app => app.store.get('patterns.font'),
-        use: app => [app.build.items['resolve-url']],
+        test: ({store}) => store.get('patterns.font'),
+        use: ({build}) => [build.items['resolve-url']],
       }),
       svg: new Rule({
-        test: app => app.store.get('patterns.svg'),
+        test: ({store}) => store.get('patterns.svg'),
         type: 'asset/resource',
       }),
       html: new Rule({
-        test: app => app.store.get('patterns.html'),
-        use: app => [app.build.items['raw']],
+        test: ({store}) => store.get('patterns.html'),
+        use: ({build}) => [build.items['raw']],
       }),
     }
 

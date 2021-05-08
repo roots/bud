@@ -1,20 +1,25 @@
 import {Framework} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
-import {BaseComponent} from '../shared/Base'
+import {Base} from '../shared/Base'
 
-export class Loader extends BaseComponent {
-  protected src: (app: Framework) => string
+export {Loader}
 
-  public constructor(
-    src: ((app: Framework) => string) | string,
-  ) {
+namespace Loader {
+  export type Output = string
+  export type Input = Src | Output
+  export type Src = (app: Framework) => Output
+}
+
+class Loader extends Base {
+  protected src: Loader.Src
+
+  public constructor(src: Loader.Input) {
     super()
-
-    this.src = this.normalizeInput<string>(src)
+    this.src = this.normalizeInput<Loader.Output>(src)
   }
 
   @bind
-  public make(app: Framework) {
+  public make(app: Framework): Loader.Output {
     return this.src(app)
   }
 }
