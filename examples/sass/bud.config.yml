@@ -1,0 +1,9 @@
+extensions: 
+  - '@roots/bud-postcss'
+  - '@roots/bud-sass'
+
+entry:
+  app: app.scss
+
+persist:
+  type: 'memory'

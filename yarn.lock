@@ -4056,15 +4056,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/sass@npm:^1":
-  version: 1.16.0
-  resolution: "@types/sass@npm:1.16.0"
-  dependencies:
-    "@types/node": "*"
-  checksum: b09be13879d345a3ae5c8e4598278377c80a3d553bc01c012e7530a9f3c6f421cc19ef73c4afdaf905996fd5be7b202ec99e6ef3d5e61501f9e53ebd82c542ec
-  languageName: node
-  linkType: hard
-
 "@types/scheduler@npm:*":
   version: 0.16.1
   resolution: "@types/scheduler@npm:0.16.1"
@@ -8518,10 +8509,7 @@ __metadata:
   dependencies:
     "@roots/bud": "workspace:*"
     "@roots/bud-cli": "workspace:*"
-    "@roots/bud-postcss": "workspace:*"
     "@roots/bud-sass": "workspace:*"
-    "@types/sass": ^1
-    postcss: ^8.2.13
     sass: ^1.32.11
   languageName: unknown
   linkType: soft
