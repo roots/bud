@@ -30,8 +30,7 @@
   - [Presets](#presets)
   - [Plugins](#plugins)
   - [Configuration example](#configuration-example)
-- [Hooks](#hooks)
-  - [Examples](#examples)
+  - [Configuring babel-loader](#configuring-babel-loader)
 - [Contributing](#contributing)
 - [Bud sponsors](#bud-sponsors)
 - [Community](#community)
@@ -61,35 +60,71 @@ If this works for you, great! No need to keep reading. But, if you need somethin
 
 ### Presets
 
-Add babel preset:
+See what presets are registered:
+
+```js
+console.log(bud.babel.presets);
+```
+
+Add preset:
 
 ```js
 bud.babel.setPreset("@babel/preset-env");
 ```
 
-Remove babel preset:
+Remove preset:
 
 ```js
 bud.babel.unsetPreset("@babel/preset-env");
+```
+
+Fully override presets:
+
+```js
+bud.babel.setPresets(["@babel/preset-env"]);
 ```
 
 Override any preset options:
 
 ```js
 bud.babel.setPresetOptions("@babel/preset-env", {
-  /** custom config */
+  useBuiltIns: "entry",
 });
 ```
 
 ### Plugins
 
-Add a babel plugin:
+Plugins has nearly the exact same API already demonstrated by the `presets` docs above.
+
+See what plugins are registered:
+
+```js
+console.log(bud.babel.plugins);
+```
+
+Add a plugin:
 
 ```js
 bud.babel.setPlugin("@babel/plugin-transform-runtime");
 ```
 
-Remove a babel plugin:
+Add a pluginw with options:
+
+```js
+bud.babel.setPlugin(["@babel/plugin-transform-runtime", { helpers: false }]);
+```
+
+Fully override plugins:
+
+```js
+bud.babel.setPlugins([
+  "@babel/plugin-transform-runtime",
+  "@babel/plugin-proposal-object-rest-spread",
+  ["@babel/plugin-syntax-dynamic-import", { helpers: false }],
+]);
+```
+
+Remove a plugin:
 
 ```js
 bud.babel.unsetPlugin("@babel/plugin-transform-runtime");
@@ -105,7 +140,7 @@ bud.babel.setPluginOptions("@babel/plugin-transform-runtime", {
 
 ### Configuration example
 
-The implementation used by [**@roots/bud-babel**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-babel) internally is identical to the one intended for use in bud config files:
+This is the default implementation (as provided by this plugin):
 
 ```js
 app.babel
@@ -120,42 +155,42 @@ app.babel
   });
 ```
 
-## Hooks
+### Configuring babel-loader
 
-You can also customize the babel config using hooks registered by [**@roots/bud-babel**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-babel):
-
-| Hooks                                 | Description                                                                                   |
-| ------------------------------------- | --------------------------------------------------------------------------------------------- |
-| **loader/babel**                      | Babel loader implementation \[default: `require.resolve('babel-loader')`]                     |
-| **item/babel**                        | The full babel RuleSetUse definition                                                          |
-| **item/babel/options**                | `babel-loader` options                                                                        |
-| **item/babel/options/root**           | The root directory supplied to `babel-loader` \[default: `app.subscribe('location/project')`] |
-| **item/babel/options/cacheDirectory** | The cache directory supplied to `babel-loader`                                                |
-| **item/babel/options/presets**        | Babel presets                                                                                 |
-| **item/babel/options/plugins**        | Babel plugins                                                                                 |
-
-### Examples
-
-Get a list of all registered presets and their configurations:
+Merge options with existing options by passing the options to merge along with the framework instance:
 
 ```js
-bud.subscribe("item/babel/options/presets");
+bud.build.items["babel"].mergeOptions(
+  {
+    cacheDirectory: ({ path }) => path("project", "tmp"),
+  },
+  bud
+);
 ```
 
-Override the cache directory:
+Override loader options directly:
 
 ```js
-bud.publish({
-  "item/babel/options/cacheDirectory": () => bud.project("tmp"),
+bud.build.items["babel"].setOptions({
+  cacheDirectory: ({ path }) => path("project", "tmp"),
+  presets: Object.values(babel.presets),
+  plugins: Object.values(babel.plugins),
 });
 ```
 
-Modify the plugins (in this case filter out the `@emotion` babel plugin):
+When using `setOptions`, you must include the plugins and presets (as demonstrated above) if you want bud to continue managing these options. Using `setOptions` completely overrides the framework's callbacks.
+
+If you intend to override those callbacks, you need to pass those options along yourself (or use `mergeOptions`):
 
 ```js
-bud.publish({
-  "item/babel/options/plugins": (plugins) =>
-    plugins.filter(([plugin, options]) => plugin !== "@emotion"),
+bud.build.items["babel"].setOptions({
+  cacheDirectory: ({ path }) => path("project", "tmp"),
+  presets: ["@babel/preset-env"],
+  plugins: [
+    "@babel/plugin-transform-runtime",
+    "@babel/plugin-proposal-object-rest-spread",
+    "@babel/plugin-syntax-dynamic-import",
+  ],
 });
 ```
 

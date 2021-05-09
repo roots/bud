@@ -29,11 +29,29 @@ class Item extends Base {
   }) {
     super()
 
-    this.loader = this.normalizeInput<Loader>(loader)
+    this.setLoader(loader)
+    options && this.setOptions(options)
+  }
 
-    if (options) {
-      this.options = this.normalizeInput<Item.Options>(options)
-    }
+  @bind
+  public setLoader(loader: Item.LoaderFn | Loader) {
+    this.loader = this.normalizeInput<Loader>(loader)
+  }
+
+  @bind
+  public setOptions(options: Item.OptionsFn | Item.Options) {
+    this.options = this.normalizeInput<Item.Options>(options)
+  }
+
+  @bind
+  public mergeOptions(
+    options: Item.OptionsFn | Item.Options,
+    app: Framework,
+  ) {
+    this.setOptions({
+      ...this.options(app),
+      ...this.normalizeInput<Item.Options>(options),
+    })
   }
 
   @bind
