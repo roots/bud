@@ -1,9 +1,3 @@
-## Overview
-
-> Adds babel support to `@roots/bud` projects.
-
-## Table of contents
-
 ## Installation
 
 ```sh

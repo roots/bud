@@ -6,26 +6,26 @@ import path from 'path'
 import * as remark from './remark'
 
 const doc = (set) => {
-  /**
-   * Docs transforms / fs
-   */
   set.map(doc => {
-      const md = remark.fromFile(doc.source, doc.pkg)
+    console.log(doc)
 
-      fs.ensureDirSync(path.dirname(doc.destination))
+    const md = remark.fromFile(doc.source, doc.pkg)
+
+    fs.ensureDirSync(path.dirname(doc.destination))
+    
+    fs.writeFileSync(
+      doc.destination,
+      prettier.format(md, {parser: 'markdown'}),
+      'utf8',
+    )
+
+    doc.pkg && doc.destination.includes('README.md') &&
       fs.writeFileSync(
-        doc.destination,
+        doc.destination.replace('/docs/', '/'),
         prettier.format(md, {parser: 'markdown'}),
         'utf8',
       )
-
-      doc.pkg && doc.destination.includes('README.md') &&
-        fs.writeFileSync(
-          doc.destination.replace('/docs/', '/'),
-          prettier.format(md, {parser: 'markdown'}),
-          'utf8',
-        )
-    })
+  })
 }
 
 const docs = () => {

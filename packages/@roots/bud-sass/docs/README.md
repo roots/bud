@@ -24,16 +24,20 @@
 
 > Sass support
 
-## Overview
-
-> Adds sass support to [**@roots/bud**](https://github.com/roots/bud/tree/stable/packages/@roots/bud) projects.
-
+- [Overview](#overview)
+- [toc](#toc-1)
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [Bud sponsors](#bud-sponsors)
 - [Community](#community)
+
+## Overview
+
+> Adds sass support to [**@roots/bud**](https://github.com/roots/bud/tree/stable/packages/@roots/bud) projects.
+
+## toc
 
 ## Requirements
 

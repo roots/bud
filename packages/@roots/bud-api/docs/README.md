@@ -24,6 +24,11 @@
 
 > Bud configuration API
 
+- [Methods](#methods)
+- [Contributing](#contributing)
+- [Bud sponsors](#bud-sponsors)
+- [Community](#community)
+
 ## Methods
 
 | Tool            | Description                     | Documentation             |

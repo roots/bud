@@ -24,12 +24,6 @@
 
 > A friendly build tool to help manage your project assets.
 
-## Overview
-
-> Adds babel support to [**@roots/bud**](https://github.com/roots/bud/tree/stable/packages/@roots/bud) projects.
-
-## Table of contents
-
 - [Installation](#installation)
 - [Usage](#usage)
 - [Configuration](#configuration)

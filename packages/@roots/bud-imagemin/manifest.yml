@@ -1,2 +1,9 @@
 name: '@roots/bud-imagemin'
 type: extension
+
+dependencies:
+  dev:
+    'imagemin-gifsicle': ^7.0.0
+    'imagemin-jpegtran': ^7.0.0
+    'imagemin-optipng': ^8.0.0
+    'imagemin-svgo': ^9.0.0

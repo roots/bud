@@ -22,11 +22,7 @@
   <strong>@roots/bud-imagemin</strong>
 </h1>
 
-> Adds imagemin support to Bud
-
-## Overview
-
-> Minimize image assets in [**@roots/bud**](https://github.com/roots/bud) projects.
+> Image minification for [**@roots/bud**](https://github.com/roots/bud/tree/stable/packages/@roots/bud) projects
 
 - [Installation](#installation)
 - [Usage](#usage)
@@ -39,6 +35,18 @@
 
 ```sh
 yarn add @roots/bud-imagemin --dev
+```
+
+You will also need to install whatever minimizer plugins you want to use:
+
+```sh
+yarn add imagemin-gifsicle imagemin-jpegtran imagemin-optipng imagemin-svgo --dev
+```
+
+Or, you can install them using the bud-cli:
+
+```sh
+yarn bud extensions:install
 ```
 
 ## Usage
@@ -58,7 +66,7 @@ Out of the box [**@roots/bud-imagemin**](https://github.com/roots/bud/tree/stabl
 
 ## Configuration
 
-Customize imagemin plugins with `bud.imagemin`.
+Configure with `bud.imagemin`
 
 ```js
 bud.imagemin([

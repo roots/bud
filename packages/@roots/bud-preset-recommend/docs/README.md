@@ -24,9 +24,30 @@
 
 > Recommended preset for Bud projects
 
+- [Overview](#overview)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [Bud sponsors](#bud-sponsors)
+- [Community](#community)
+
 ## Overview
 
-[**@roots/bud-preset-recommended**](https://github.com/roots/bud-preset-recommended) is an ideal starting point for all kinds of projects.
+Includes support for:
+
+- postcss (with postcss-preset-env)
+- babel
+- entrypoints.json (for easier enqueues when not [generating html with bud](https://github.com/roots/bud/tree/stable/docs/config/template.md))
+- code automatically minified in production
+
+## Requirements
+
+If you haven't already, you will need to install [**@roots/bud**](https://github.com/roots/bud/tree/stable/packages/@roots/bud). It is likely that you want [**@roots/bud-cli**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-cli) tools as well.
+
+```sh
+yarn add @roots/bud @roots/bud-cli --dev
+```
 
 ## Installation
 
@@ -34,20 +55,38 @@
 yarn add @roots/bud-preset-recommended --dev
 ```
 
-The preset requires `postcss` to be installed in your project. You can install it automatically by passing the `--install` flag along with your first build.
+The preset requires `postcss` to be installed in your project. You can install it automatically using [**@roots/bud-cli**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-cli).
 
 ```sh
-yarn bud build production --install
+yarn bud extensions:install
 ```
 
 You may need to restart the build after installation. But, hopefully not 🤞.
 
 ## Usage
 
-```js
-module.exports = (app) =>
-  app.use(require("@roots/bud-preset")).entry("app", ["app.js", "app.css"]);
+`bud.config.yml`:
+
+```yml
+extensions:
+  - "@roots/bud-preset-recommend"
 ```
+
+`bud.config.json`:
+
+```json
+{
+  "extensions": ["@roots/bud-preset-recommend"]
+}
+```
+
+`bud.config.js`:
+
+```js
+app.use(require("@roots/bud-preset-recommend"));
+```
+
+If you're unsure what to do from here, consult the [getting started guide](https://github.com/roots/bud/tree/stable/docs/getting-started.md).
 
 ## Contributing
 

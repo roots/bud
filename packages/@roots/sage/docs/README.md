@@ -24,6 +24,11 @@
 
 > [**@roots/sage**](https://github.com/roots/sage) preset for [**@roots/bud**](https://github.com/roots/bud)
 
+- [Features](#features)
+- [Contributing](#contributing)
+- [Bud sponsors](#bud-sponsors)
+- [Community](#community)
+
 ## Features
 
 - typescript (via [**@roots/bud-typescript**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-typescript))

@@ -24,16 +24,20 @@
 
 > Adds dynamic link library support to Bud
 
-## Overview
-
-> Adds DLL caching support to [**@roots/bud**](https://github.com/roots/bud/tree/stable/packages/@roots/bud) projects. This can significantly improve build times for vendored dependencies which do not frequently change.
-
+- [Overview](#overview)
+- [toc](#toc-1)
 - [Summary](#summary)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [Bud sponsors](#bud-sponsors)
 - [Community](#community)
+
+## Overview
+
+> Adds DLL caching support to [**@roots/bud**](https://github.com/roots/bud/tree/stable/packages/@roots/bud) projects. This can significantly improve build times for vendored dependencies which do not frequently change.
+
+## toc
 
 ## Summary
 

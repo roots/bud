@@ -24,10 +24,8 @@
 
 > Adds postcss support to [**@roots/bud**](https://github.com/roots/bud) projects
 
-## Overview
-
-> Adds postcss support to [**@roots/bud**](https://github.com/roots/bud/tree/stable/packages/@roots/bud) projects.
-
+- [Overview](#overview)
+- [toc](#toc-1)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Configuration](#configuration)
@@ -41,6 +39,12 @@
 - [Contributing](#contributing)
 - [Bud sponsors](#bud-sponsors)
 - [Community](#community)
+
+## Overview
+
+> Adds postcss support to [**@roots/bud**](https://github.com/roots/bud/tree/stable/packages/@roots/bud) projects.
+
+## toc
 
 ## Installation
 

@@ -24,6 +24,17 @@
 
 > Adds tailwindcss support to Bud
 
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Configuration](#configuration)
+  - [Parameters](#parameters)
+    - [tailwindConfig](#tailwindconfig)
+    - [implementation](#implementation)
+- [Contributing](#contributing)
+- [Bud sponsors](#bud-sponsors)
+- [Community](#community)
+
 ## Requirements
 
 If you haven't already installed [**@roots/bud-postcss**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-postcss) you'll need to do that first.

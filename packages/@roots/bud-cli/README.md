@@ -24,12 +24,6 @@
 
 > 👩‍💻 The [**@roots/bud**](https://github.com/roots/bud) CLI runner utility
 
-## Overview
-
-> CLI utilities for [**@roots/bud**](https://github.com/roots/bud/tree/stable/packages/@roots/bud) projects.
-
-## Table of contents
-
 - [Installation](#installation)
 - [Getting started](#getting-started)
 - [bud build](#bud-build)
@@ -67,7 +61,7 @@ yarn bud --help
 Compile assets for production:
 
 ```sh
-bud build:production
+bud build
 ```
 
 Compile assets for development:

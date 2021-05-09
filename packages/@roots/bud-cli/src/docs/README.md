@@ -1,9 +1,3 @@
-## Overview
-
-> CLI utilities for `@roots/bud` projects.
-
-## Table of contents
-
 ## Installation
 
 With [yarn](https://classic.yarnpkg.com).
@@ -31,7 +25,7 @@ yarn bud --help
 Compile assets for production:
 
 ```sh
-bud build:production
+bud build
 ```
 
 Compile assets for development:

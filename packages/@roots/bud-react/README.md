@@ -24,10 +24,6 @@
 
 > React support for [**@roots/bud**](https://github.com/roots/bud) projects.
 
-## Overview
-
-> Adds react support to [**@roots/bud**](https://github.com/roots/bud/tree/stable/packages/@roots/bud) projects.
-
 - [Requirements](#requirements)
 - [Installation](#installation)
 - [Usage](#usage)
@@ -37,7 +33,7 @@
 
 ## Requirements
 
-[**@roots/bud-react**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-react) requires [**@roots/bud-babel**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-babel) to be installed as a peer dev dependency.
+[**@roots/bud-react**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-react) requires [**@roots/bud-babel**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-babel) to be installed as a peer dev dependencies.
 
 ```sh
 yarn add @roots/bud-babel --dev
@@ -57,11 +53,13 @@ yarn add @roots/bud-react --dev
 
 ## Usage
 
-Include [**@roots/bud-react**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-react) in your config.
+Include [**@roots/bud-react**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-react) in your config. Make sure it is included after [**@roots/bud-babel**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-babel).
 
 ```js
 module.exports = (app) =>
-  app.use(["@roots/bud-babel", "@roots/bud-react"]).entry("app", ["app.css"]);
+  app
+    .use([require("@roots/bud-babel"), require("@roots/bud-react")])
+    .entry("app", ["app.css"]);
 ```
 
 ## Contributing

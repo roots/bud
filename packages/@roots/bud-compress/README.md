@@ -24,6 +24,13 @@
 
 > Adds gzip and brotli compression to Bud
 
+- [Overview](#overview)
+- [Installation](#installation)
+- [Usage](#usage)
+- [Contributing](#contributing)
+- [Bud sponsors](#bud-sponsors)
+- [Community](#community)
+
 ## Overview
 
 Compress assets with gzip, brotli.

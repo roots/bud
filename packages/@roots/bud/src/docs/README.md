@@ -1,5 +1,3 @@
-## toc
-
 ## Installation
 
 Install `@roots/bud` and `@roots/bud-cli` to your project
