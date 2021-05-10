@@ -147,8 +147,7 @@ const extension: Module = {
 };
 ```
 
-Note that `options` will also be passed to `when` (as the second param, since far more frequently it is some store value which 
-will wind up controlling whether the function is disabled/enabled).
+Note that `options` will also be passed to `when` (as the second param, since far more frequently it is some store value which will wind up controlling whether the function is disabled/enabled).
 
 ### Adding config functions
 
@@ -173,13 +172,11 @@ const extension: Module = {
 
 ## TypeScript
 
-Bud is a TypeScript project but knowing Typescript is not required to write an extension. That said, we think that Typescript does make 
-it easier to write extensions and provides value to the user of your extension. A Bud extension is a great first TS project.
+Bud is a TypeScript project but knowing Typescript is not required to write an extension. That said, we think that Typescript does make it easier to write extensions and provides value to the user of your extension. A Bud extension is a great first TS project.
 
 ### Declaring an extension type
 
-In order to provide intellisense feedback to the user of `bud` and your extension, you'll need to augment the 
-framework typings with your extension typings.
+In order to provide intellisense feedback to the user of `bud` and your extension, you'll need to augment the framework typings with your extension typings.
 
 The extensions in this repository do this in a file called `src/interface.ts`, but that is a totally non-enforced convention.
 

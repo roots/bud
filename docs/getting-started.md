@@ -6,13 +6,14 @@ Let's take as an example this simple project structure:
 
 ```sh
 project-dir
-├── bud.config.js
 ├── dist
 ├── package.json
 └── src
     ├── scripts
     └── styles
 ```
+
+There are [a number of ways to configure bud](docs/config/README). For this guide, we'll utilize a JS file.
 
 Our minimal `bud.config.js` file might look something like this:
 
@@ -23,13 +24,13 @@ module.exports = (bud) =>
   });
 ```
 
-[bud.entry](docs`config/entry.md`) is used to concatenate your source assets
+[bud.entry](https://github.com/roots/bud/tree/stable/docs/config/entry.md) is used to concatenate your source assets
 into distinct distributable entrypoints. It takes two arguments, indicating:
 
 1.  the entrypoint name; and
 2.  the source files to include.
 
-To run this build we can use the bud CLI.
+To run this build we can use the CLI ([documentation](https://github.com/roots/bud/tree/stable/docs/cli.md)).
 
 ```sh
 yarn bud build
@@ -37,7 +38,7 @@ yarn bud build
 
 ## Adding Babel
 
-As a next step, let's presume we want to add Babel to our project.
+As a next step, let's presume we want to add [**@babel/babel**](https://github.com/babel/babel) to our project.
 
 Babel support is optional and is provided by the [**@roots/bud-babel**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-babel) extension, so we will first need to install it.
 
@@ -54,6 +55,32 @@ module.exports = (bud) =>
   bud.use(babel).entry({
     app: ["scripts/app.js", "styles/app.css"],
   });
+```
+
+We can verify the extension is being picked up using the `bud extensions:list` terminal command
+
+```sh
+yarn bud extensions:list
+```
+
+Which should show:
+
+```sh
+Installed
+---
+- @roots/bud
+- @roots/bud-babel
+- @roots/bud-cli
+```
+
+If the extension registers any further dependencies, we can also run `bud extensions:install` to install them. In this case, [**@roots/bud-babel**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-babel) does not register any additional dependencies.
+
+## Running the build
+
+WIth our config file in place and [**@roots/bud-babel**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-babel) installed, we can run our build:
+
+```sh
+yarn bud build
 ```
 
 ## Splitting and minifying code
@@ -99,7 +126,7 @@ In the end, they are arguably just a little more natural to read and write, sinc
 
 ## Including static assets
 
-If we have some images we would like to include in our bundle, but we aren't going to import them directly into a JS file (very common with projects that utilize a server-side framework like WordPress or Laravel), we can use [`bud.assets`](docs`config/assets.md`) to move them from our `src` dir to `dist`.
+If you have images to include in the bundle, but aren't importing them directly into a JS file (very common with projects that utilize a server-side framework like [**@wordpress/wordpress**](https://github.com/wordpress/wordpress) or [**@laravel/laravel**](https://github.com/laravel/laravel)), you can utilize [`bud.assets`](https://github.com/roots/bud/tree/stable/docs/config/assets.md) to process them.
 
 ```js
 bud

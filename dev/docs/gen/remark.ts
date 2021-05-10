@@ -98,6 +98,7 @@ const fromFile = (srcFile, pkg) => {
     match = match.replace(/\[include\]\((.*?)\)/g, '$1')
     return fs.readFileSync(`${process.cwd()}/${match}`)
   }
+  
   mdv.contents = (mdv as any).contents.replace(/\[include\]\(.*?\)/g, includeMd)
 
   replacements.forEach(([f, r]) => {

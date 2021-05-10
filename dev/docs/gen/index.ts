@@ -5,55 +5,70 @@ import path from 'path'
 
 import * as remark from './remark'
 
-const doc = (set) => {
+const doc = set => {
   set.map(doc => {
-    console.log(doc)
-
     const md = remark.fromFile(doc.source, doc.pkg)
+    const output = prettier.format(md, {parser: 'markdown'})
 
     fs.ensureDirSync(path.dirname(doc.destination))
-    
-    fs.writeFileSync(
-      doc.destination,
-      prettier.format(md, {parser: 'markdown'}),
-      'utf8',
-    )
 
-    doc.pkg && doc.destination.includes('README.md') &&
+    fs.writeFileSync(doc.destination, output, 'utf8')
+
+    doc.pkg &&
+      doc.destination.includes('README.md') &&
       fs.writeFileSync(
         doc.destination.replace('/docs/', '/'),
-        prettier.format(md, {parser: 'markdown'}),
+        output,
         'utf8',
       )
   })
 }
 
 const docs = () => {
-  const pkgs = glob
-    .sync([`${process.cwd()}/packages/@roots/*/package.json`])
+  const pkgs = glob.sync([
+    `${process.cwd()}/packages/@roots/*/package.json`,
+  ])
 
-    glob.sync(pkgs)
+  glob
+    .sync(pkgs)
     .map(source => ({
       pkg: fs.readJsonSync(source),
-      source: source.replace('/package.json', '/src/docs/**/*.md'),
-    })).forEach(origin => {
+      source: source.replace(
+        '/package.json',
+        '/src/docs/**/*.md',
+      ),
+    }))
+    .forEach(origin => {
       doc(
-        glob.sync([origin.source])
-          .map(source => ({
-            pkg: origin.pkg,
-            destination: source.replace('src/docs', 'docs'),
-            source,
-          }))
+        glob.sync([origin.source]).map(source => ({
+          pkg: origin.pkg,
+          destination: source.replace('src/docs', 'docs'),
+          source,
+        })),
       )
     })
 
   doc(
-    glob.sync([`${process.cwd()}/dev/docs/src/pages/**/*.md`])
+    glob
+      .sync([`${process.cwd()}/dev/docs/src/pages/**/*.md`])
       .map(source => ({
         pkg: null,
         source,
-        destination: source.replace('/dev/docs/src/pages/', '/docs/'),
-      }))
+        destination: source.replace(
+          '/dev/docs/src/pages/',
+          '/docs/',
+        ),
+      })),
+  )
+
+  doc(
+    glob
+      .sync([`${process.cwd()}/packages/bud-cli/src/README.md`])
+      .map(source => ({
+        pkg: null,
+        source,
+        destination: `${process.cwd()}/docs/cli.md`,
+      })),
   )
 
   fs.copyFile(

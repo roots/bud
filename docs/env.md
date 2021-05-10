@@ -1,7 +1,3 @@
----
-
-## description: Read environmental variables using the bud.env container
-
 Bud includes support for utilizing dotenv values (in your config, templates and the client).
 
 This file should be located in the project root.

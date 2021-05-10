@@ -8412,6 +8412,7 @@ __metadata:
   dependencies:
     "@roots/bud": "workspace:*"
     "@roots/bud-babel": "workspace:*"
+    "@roots/bud-cli": "workspace:packages/@roots/bud-cli"
   languageName: unknown
   linkType: soft
 

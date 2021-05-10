@@ -9,14 +9,11 @@
   </a>
 </p>
 
-<h1 align="center">
-  <strong>Documentation</strong>
-</h1>
+# Documentation
 
-## Contents
-
-- [CLI](cli.md)
-- [Getting started](getting-started.md)
-- [Configuring](config/README.md)
-- [CLI](cli.md)
-- [Env](env.md)
+- [Getting started](https://github.com/roots/bud/tree/stable/docs/getting-started.md.md)
+- [Configuring](https://github.com/roots/bud/tree/stable/docs/config/README.md.md)
+- [Working with the CLI](https://github.com/roots/bud/tree/stable/docs/cli.md.md)
+- [Handling envvars](https://github.com/roots/bud/tree/stable/docs/env.md.md)
+- [Using hooks](https://github.com/roots/bud/tree/stable/docs/hooks.md.md)
+- [Authoring extensions](https://github.com/roots/bud/tree/stable/docs/extending.md.md)

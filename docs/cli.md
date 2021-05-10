@@ -1,7 +1,3 @@
----
-
-## description: CLI utilities.
-
 ## Installation
 
 With [yarn](https://classic.yarnpkg.com).

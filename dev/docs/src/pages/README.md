@@ -9,14 +9,11 @@
   </a>
 </p>
 
-<h1 align="center">
-  <strong>Documentation</strong>
-</h1>
+# Documentation
 
-## Contents
-
-- [CLI](cli.md)
-- [Getting started](getting-started.md)
-- [Configuring](config/README.md)
-- [CLI](cli.md)
-- [Env](env.md)
+- [Getting started](docs:getting-started.md)
+- [Configuring](docs:config/README.md)
+- [Working with the CLI](docs:cli.md)
+- [Handling envvars](docs:env.md)
+- [Using hooks](docs:hooks.md)
+- [Authoring extensions](docs:extending.md)
