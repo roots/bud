@@ -1,4 +1,4 @@
-import {Framework} from '@roots/bud-framework'
+import {Api} from '@roots/bud-framework'
 import Webpack from 'webpack'
 import {resolve} from 'path'
 
@@ -20,19 +20,17 @@ declare module '@roots/bud-framework' {
      * })
      * ```
      */
-    alias: Alias
+    alias: Api.Alias
   }
 
   namespace Api {
-    export type {Alias}
+    type Alias = (
+      alias: Webpack.Configuration['resolve']['alias'],
+    ) => Framework
   }
 }
 
-export type Alias = (
-  alias: Webpack.Configuration['resolve']['alias'],
-) => Framework
-
-export const alias: Alias = function (alias): Framework {
+export const alias: Api.Alias = function (alias) {
   this.hooks.on('build/resolve/alias', existant => ({
     ...existant,
     ...Object.entries(alias).reduce(

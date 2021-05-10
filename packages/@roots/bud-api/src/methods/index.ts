@@ -1,5 +1,5 @@
-import './alias'
-export {alias} from './alias'
+import './alias/index'
+export {alias} from './alias/index'
 
 import './config'
 export {config} from './config'
@@ -19,8 +19,8 @@ export {entry} from './entry'
 import './externals'
 export {externals} from './externals'
 
-import './hash'
-export {hash} from './hash'
+import './hash/index'
+export {hash} from './hash/index'
 
 import './html'
 export {html} from './html'

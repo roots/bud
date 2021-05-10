@@ -5,5 +5,6 @@ module.exports = {
     '/node_modules/',
     '/examples/',
     '/docs/',
+    '/dev/',
   ],
 }
