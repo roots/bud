@@ -1,3 +1,2 @@
 name: '@roots/bud-esbuild'
 type: extension
-description: ESBuild transpilation extension for Bud projects

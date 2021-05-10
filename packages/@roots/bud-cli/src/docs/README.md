@@ -48,6 +48,14 @@ Install extension dependencies:
 bud extensions:install
 ```
 
+## Running the build with logging
+
+Use the `--log` flag to run the build with logging enabled.
+
+## Installing dependencies automatically
+
+Try the `--install` flag to install packages flagged as required by various extensions.
+
 ## Running the build in CI
 
 It is possible, depending on your environment, that Bud's CLI output causes issues. In particular, it's usage of tty `raw mode` can cause issues with CI tools.

@@ -3,7 +3,6 @@
   "private": true,
   "devDependencies": {
     "@roots/bud": "workspace:*",
-    "@roots/bud-babel": "workspace:*",
-    "@types/node": "^15.0.0"
+    "@roots/bud-babel": "workspace:*"
   }
 }

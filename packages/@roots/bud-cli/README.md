@@ -28,6 +28,8 @@
 - [Getting started](#getting-started)
 - [bud build](#bud-build)
 - [bud extensions](#bud-extensions)
+- [Running the build with logging](#running-the-build-with-logging)
+- [Installing dependencies automatically](#installing-dependencies-automatically)
 - [Running the build in CI](#running-the-build-in-ci)
 - [Exiting the CLI from `dev` mode](#exiting-the-cli-from-dev-mode)
 - [Contributing](#contributing)
@@ -83,6 +85,14 @@ Install extension dependencies:
 ```sh
 bud extensions:install
 ```
+
+## Running the build with logging
+
+Use the `--log` flag to run the build with logging enabled.
+
+## Installing dependencies automatically
+
+Try the `--install` flag to install packages flagged as required by various extensions.
 
 ## Running the build in CI
 

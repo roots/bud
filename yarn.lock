@@ -8412,7 +8412,6 @@ __metadata:
   dependencies:
     "@roots/bud": "workspace:*"
     "@roots/bud-babel": "workspace:*"
-    "@types/node": ^15.0.0
   languageName: unknown
   linkType: soft
 

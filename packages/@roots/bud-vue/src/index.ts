@@ -9,12 +9,14 @@ const extension: Module = {
   boot: app => {
     const {build, extensions, hooks} = app
 
-    build.loaders['vue'] = new Loader(app =>
+    build.loaders['vue'] = new Loader(
       require.resolve('vue-loader'),
     )
-    build.loaders['vue-style'] = new Loader(app =>
+
+    build.loaders['vue-style'] = new Loader(
       require.resolve('vue-style-loader'),
     )
+
     extensions.add({
       name: 'vue-loader-plugin',
       make: () => new VueLoaderPlugin(),
@@ -23,6 +25,7 @@ const extension: Module = {
     build.items['vue'] = new Item({
       loader: ({build}) => build.loaders['vue'],
     })
+
     build.items['vue-style'] = new Item({
       loader: ({build}) => build.loaders['vue-style'],
     })
@@ -40,9 +43,8 @@ const extension: Module = {
       ...cssItems.splice(1),
     ])
 
-    const sass = app.build.rules['sass']
-    if (sass) {
-      const sassItems = sass.getUse(app)
+    if (app.build.rules['sass']) {
+      const sassItems = app.build.rules['sass'].getUse(app)
       build.rules['css'].setUse(({isProduction, build}) => [
         isProduction
           ? build.items['minicss']
