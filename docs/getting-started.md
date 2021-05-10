@@ -87,7 +87,7 @@ yarn bud build
 
 As our application grows in scale we'll probably want to put in some work to keep our bundled code lean and optimize how it loaded.
 
-We can use [`bud.minimize`](docs`config/minimize.md`) and [`bud.splitChunks`](docs`config/splitChunks.md`) to handle these two needs.
+We can use [`bud.minimize`](https://github.com/roots/bud/tree/stable/docs/config/minimize.md) and [`bud.splitChunks`](https://github.com/roots/bud/tree/stable/docs/config/splitChunks.md) to handle these two needs.
 
 ```js
 bud
@@ -101,7 +101,7 @@ bud
 
 One negative effect of this improvement is that we are applying these optimizations when running the build in development. There is probably no need for this at all.
 
-It would be ideal to instead only apply optimizations like these for production builds. The [bud.when](docs`config/when.md`) utility function is well suited for this.
+It would be ideal to instead only apply optimizations like these for production builds. The [bud.when](https://github.com/roots/bud/tree/stable/docs/config/when.md) utility function is well suited for this.
 
 ```js
 bud
