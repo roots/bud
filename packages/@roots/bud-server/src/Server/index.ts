@@ -11,20 +11,10 @@ import {boundMethod as bind} from 'autobind-decorator'
 import * as middleware from '../middleware'
 import {injectClient} from '../util/injectClient'
 
-/**
- * Dev server
- *
- * [🏡 Project home](https://roots.io/bud)
- * [🐙 git](https://www.github.com/tree/stable/packages/@roots/bud-server)
- * [📦 npm](https://www.npmjs.com/package/@roots/bud-server)
- */
 export default class extends Service implements Server {
   public name = '@roots/bud-server'
-
   public middleware: Server.Middleware.Inventory = {}
-
   public config: Container<Server.Config>
-
   public _instance: Server.Instance
 
   public get instance() {

@@ -38,7 +38,7 @@ Includes support for:
 
 - postcss (with postcss-preset-env)
 - babel
-- entrypoints.json (for easier enqueues when not [generating html with bud](https://github.com/roots/bud/tree/stable/docs/config/template.md))
+- `entrypoints.json` (for easier enqueues when not [generating html with bud](https://github.com/roots/bud/tree/stable/docs/config/template.md))
 - code automatically minified in production
 
 ## Requirements

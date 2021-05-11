@@ -14,8 +14,8 @@ export class Cache extends Service {
 
   public booted() {
     this.enabled() &&
-      !pathExistsSync(this.app.storage()) &&
-      mkdirSync(this.app.storage())
+      !pathExistsSync(this.app.path('storage')) &&
+      mkdirSync(this.app.path('storage'))
   }
 
   /**

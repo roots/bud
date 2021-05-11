@@ -5,22 +5,13 @@ import {boundMethod as bind} from 'autobind-decorator'
  * Entrypoints Webpack Plugin
  */
 export class Plugin {
-  /**
-   * Plugin ident
-   */
   public plugin = {
     name: 'EntrypointsManifestPlugin',
     stage: Infinity,
   }
 
-  /**
-   * Emitted filename
-   */
   public name: string = 'entrypoints.json'
 
-  /**
-   * Webpack references
-   */
   public webpack: {
     compiler: Webpack.Compiler
     compilation: Webpack.Compilation
@@ -31,9 +22,6 @@ export class Plugin {
 
   public assets: {[key: string]: {[key: string]: string[]}}
 
-  /**
-   * Apply
-   */
   @bind
   apply(compiler: Webpack.Compiler): void {
     this.assets = {}
@@ -46,9 +34,6 @@ export class Plugin {
     )
   }
 
-  /**
-   * Compilation
-   */
   @bind
   public compilation(compilation: Webpack.Compilation) {
     this.webpack.compilation = compilation
@@ -59,9 +44,6 @@ export class Plugin {
     )
   }
 
-  /**
-   * After process assets
-   */
   @bind
   public processAssets() {
     this.webpack.compilation.entrypoints.forEach(entry => {
@@ -79,9 +61,6 @@ export class Plugin {
     )
   }
 
-  /**
-   * Add to manifest
-   */
   @bind
   public addToManifest(entry, file) {
     const type = file.split('.').pop()
@@ -97,17 +76,11 @@ export class Plugin {
     }
   }
 
-  /**
-   * Return publicPath from a dist relative path
-   */
   @bind
   public publicPath(path: string) {
     return `${this.webpack.compiler.options.output.publicPath}${path}`
   }
 
-  /**
-   * Get merged css modules
-   */
   @bind
   public getEntrypointFiles(entry: {
     chunks: Webpack.Chunk[]
@@ -134,13 +107,6 @@ export type EntrySchema = {
     }
   }
 }
-
-/**
- * Literally the same
- * @todo transition to EntrySchema
- * @deprecated
- */
-export type Output = EntrySchema
 
 /**
  * Constructor params

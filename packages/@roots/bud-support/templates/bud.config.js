@@ -1,4 +1,1 @@
-// @ts-check
-const {app} = require('@roots/bud-preset-recommend')
-
-app.entry('app', ['index.js']).run()
+module.exports = app => app.entry('app', ['index.js'])

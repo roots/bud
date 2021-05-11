@@ -58,9 +58,6 @@ export {setPublicPath} from './setPublicPath'
 import './splitChunks'
 export {splitChunks} from './splitChunks'
 
-import './storage'
-export {storage} from './storage'
-
 import './use'
 export {use} from './use'
 

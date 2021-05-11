@@ -30,11 +30,6 @@ export const boot: Module.Boot = (app: Bud) => {
     })
     .html({enabled: false})
     .provide({jquery: ['$', 'jQuery']})
-
-  /**
-   * Conditionals
-   */
-  app
     .use([
       postcss,
       tailwind,
@@ -44,29 +39,24 @@ export const boot: Module.Boot = (app: Bud) => {
       manifests,
     ])
 
-    /**
-     * Transpiler and extensions
-     *
-     * ESBuild doesn't support HMR. It is purely a transpiler.
-     *
-     * - snowpack & vite each have their own HMR solutions.
-     * - snowpack published [this proposal](https://git.io/JYUVM)
-     * - [Related](https://medium.com/@dan_abramov/hot-reloading-in-react-1140438583bf)
-     *
-     * Losing HMR in dev is not worth the ESBuild advantages.
-     * Thus, app uses esbuild in production, and babel in development.
-     */
-    .when(
-      app.isProduction,
-      () =>
-        app
-          .use(esbuild)
-          .minimize()
-          .hash()
-          .splitChunks()
-          .runtime('single'),
-
-      () =>
-        app.use([babel, react, typescript]).proxy().devtool(),
-    )
+  /**
+   * Transpiler and extensions
+   *
+   * ESBuild doesn't support HMR. It is purely a transpiler.
+   *
+   * - snowpack & vite each have their own HMR solutions.
+   * - snowpack published [this proposal](https://git.io/JYUVM)
+   * - [Related](https://medium.com/@dan_abramov/hot-reloading-in-react-1140438583bf)
+   *
+   * Losing HMR in dev is not worth the ESBuild advantages.
+   * Thus, app uses esbuild in production, and babel in development.
+   */
+  app.isProduction
+    ? app
+        .use(esbuild)
+        .minimize()
+        .hash()
+        .splitChunks()
+        .runtime('single')
+    : app.use([babel, react, typescript]).proxy().devtool()
 }
