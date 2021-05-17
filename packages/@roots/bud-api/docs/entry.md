@@ -1,7 +1,3 @@
----
-
-## description: Specify source assets to be compiled.
-
 # bud.entry
 
 `bud.entry` is used to define source assets to be compiled.
@@ -29,9 +25,25 @@ bud.entry({
 });
 ```
 
+## Specifying dependencies
+
+Bud supports the new Webpack 5 `dependOn` syntax for explicitly defining entrypoint dependencies.
+
+Example react application:
+
+```ts
+bud.entry({
+  react: ["react", "react-dom"],
+  app: {
+    import: ["app.js", "app.css"],
+    dependOn: ["react"],
+  },
+});
+```
+
 ## Hooks
 
-You could do the same thing with the `build/entry` hook.
+You may also specify entrypoints using the `build/entry` hook.
 
 ```js
 bud.hooks.on("build/entry", {

@@ -11,7 +11,7 @@ module.exports = app =>
       template: 'public/index.html',
     })
     .entry({
-      react: ['react', 'react-dom', 'foo'],
+      react: ['react', 'react-dom'],
       app: {
         import: ['app.{js,css}'],
         dependOn: ['react'],

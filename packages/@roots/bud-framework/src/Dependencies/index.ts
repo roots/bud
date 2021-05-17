@@ -1,13 +1,13 @@
 import {Service} from '../Service'
 
 export interface Dependencies extends Service {
-  installDev(
-    dependencies: {[key: string]: string},
-    source: string,
-  ): void
+  /**
+   * Install development dependencies
+   */
+  installDev(dependencies: {[key: string]: string}): void
 
-  install(
-    dependencies: {[key: string]: string},
-    source: string,
-  ): void
+  /**
+   * Install production dependencies
+   */
+  install(dependencies: {[key: string]: string}): void
 }

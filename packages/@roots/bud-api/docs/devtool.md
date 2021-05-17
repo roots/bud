@@ -1,7 +1,3 @@
----
-
-## description: Configure sourcemaps.
-
 # bud.devtool
 
 Configure sourcemaps using [`webpack.devtool`](https://webpack.js.org/configuration/devtool/).

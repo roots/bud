@@ -1,7 +1,3 @@
----
-
-## description: Develop client assets on top of an existing application.
-
 # bud.proxy
 
 Users building on top of an existing backend framework like WordPress, Laravel, RoR, etc.
@@ -30,6 +26,6 @@ You may explicitly enable or disable the proxy:
 bud.proxy({ enabled: true });
 ```
 
-To configure SSL, you will need to use `bud.proxy` in conjunction with [`bud.dev`](/docs/config-dev.md).
+To configure SSL, you will need to use `bud.proxy` in conjunction with [`bud.dev`](https://github.com/roots/bud/tree/stable/docs/config/dev.md).
 
 Note that SSL support is still considered experimental.

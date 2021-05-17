@@ -1,7 +1,3 @@
----
-
-## description: Make a module available globally.
-
 # bud.provide
 
 This function makes a variable/module available throughout the entire application

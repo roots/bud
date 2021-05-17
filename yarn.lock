@@ -3507,20 +3507,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@tailwindcss/typography@npm:^0.4.0":
-  version: 0.4.0
-  resolution: "@tailwindcss/typography@npm:0.4.0"
-  dependencies:
-    lodash.castarray: ^4.4.0
-    lodash.isplainobject: ^4.0.6
-    lodash.merge: ^4.6.2
-    lodash.uniq: ^4.5.0
-  peerDependencies:
-    tailwindcss: 2.0.0-alpha.24 || ^2.0.0
-  checksum: bdb221d48909eaf4e61cacfdb78670157a4289309125549b1c78c382585679c2faef33f332d9e4d445d2f469f7810fc78bf715607e0a435277310d49fba056d1
-  languageName: node
-  linkType: hard
-
 "@tokenizer/token@npm:^0.1.1":
   version: 0.1.1
   resolution: "@tokenizer/token@npm:0.1.1"
@@ -4482,13 +4468,6 @@ __metadata:
   peerDependencies:
     webpack: ^3.0.0 || ^4.0.0
   checksum: 8f09bdfaccbde24c1684daf4df79611e0addf744f5fe9ce4e856989cb2666e196e7073809b111b26a369738ffb82b8c1c653d9c7bcc72b6e455fe627913fc2a1
-  languageName: node
-  linkType: hard
-
-"@wordpress/browserslist-config@npm:^3.0.3":
-  version: 3.0.3
-  resolution: "@wordpress/browserslist-config@npm:3.0.3"
-  checksum: b4c9aa6a8f51ea7cacd57849b9e156cc814dab44807db431fca55fc2b03bac2811b04fbf2f6c7a19c276127a922246316df8e77c21a883d8b0b55756d86c025e
   languageName: node
   linkType: hard
 
@@ -8478,10 +8457,9 @@ __metadata:
     "@roots/bud-cli": "workspace:packages/@roots/bud-cli"
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
     "@roots/bud-react": "workspace:packages/@roots/bud-react"
-    "@roots/bud-terser": "workspace:packages/@roots/bud-terser"
+    postcss: ^8.2.13
     react: ^17.0.2
     react-dom: ^17.0.2
-    react-refresh: ^0.10.0
   languageName: unknown
   linkType: soft
 
@@ -8493,14 +8471,11 @@ __metadata:
     "@roots/bud-cli": "workspace:packages/@roots/bud-cli"
     "@roots/sage": "workspace:packages/@roots/sage"
     "@tailwindcss/jit": ^0.1.18
-    "@tailwindcss/typography": ^0.4.0
     "@types/node": ^15.0.0
-    "@types/prettier": ^2.2.3
     "@types/react": ^17.0.4
     "@types/react-dom": ^17
-    "@wordpress/browserslist-config": ^3.0.3
+    "@types/tailwindcss": ^2
     postcss: ^8.2.13
-    prettier: ^2.2.1
     react: ^17.0.2
     react-dom: ^17.0.2
     tailwindcss: ^2.1.2
@@ -12327,13 +12302,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash.castarray@npm:^4.4.0":
-  version: 4.4.0
-  resolution: "lodash.castarray@npm:4.4.0"
-  checksum: fca8c7047e0ae2738b0b2503fb00157ae0ff6d8a1b716f87ed715b22560e09de438c75b65e01a7e44ceb41c5b31dce2eb576e46db04beb9c699c498e03cbd00f
-  languageName: node
-  linkType: hard
-
 "lodash.clonedeep@npm:^4.5.0":
   version: 4.5.0
   resolution: "lodash.clonedeep@npm:4.5.0"
@@ -12397,13 +12365,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash.isplainobject@npm:^4.0.6":
-  version: 4.0.6
-  resolution: "lodash.isplainobject@npm:4.0.6"
-  checksum: 29c6351f281e0d9a1d58f1a4c8f4400924b4c79f18dfc4613624d7d54784df07efaff97c1ff2659f3e085ecf4fff493300adc4837553104cef2634110b0d5337
-  languageName: node
-  linkType: hard
-
 "lodash.isregexp@npm:^4.0.1":
   version: 4.0.1
   resolution: "lodash.isregexp@npm:4.0.1"
@@ -12432,7 +12393,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"lodash.merge@npm:^4.4.0, lodash.merge@npm:^4.6.2":
+"lodash.merge@npm:^4.4.0":
   version: 4.6.2
   resolution: "lodash.merge@npm:4.6.2"
   checksum: ad580b4bdbb7ca1f7abf7e1bce63a9a0b98e370cf40194b03380a46b4ed799c9573029599caebc1b14e3f24b111aef72b96674a56cfa105e0f5ac70546cdc005

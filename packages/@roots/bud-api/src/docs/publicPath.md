@@ -1,15 +1,31 @@
----
-description: Specify the URI where assets are served from.
----
-
 # bud.publicPath
 
-By default it is assumed that assets are served from webroot (`/`). For projects where assets are served from a subdirectory there is the `bud.publicPath` method.
+Get the application publicPath.
+
+By default it is assumed that assets are served from webroot (`/`).
+
+To set the path itself you may use [setPublicPath](docs:config/setPublicPath).
 
 ## Usage
 
-Set the default public path for a [@roots/sage project](https://github.com/roots/sage)
+Get the public path:
 
 ```js
-bud.publicPath('/app/themes/sage/dist')
+bud.publicPath()
+```
+
+## Hooks
+
+You may also get at this value using the `build/output/publicPath` hook:
+
+```ts
+bud.hooks.on('build/output/publicPath', '/dist/')
+```
+
+You can modify an existant value using a function:
+
+```ts
+bud.hooks.on('build/output/publicPath', path => {
+  return path.replace('segment/', 'new-segment/')
+})
 ```

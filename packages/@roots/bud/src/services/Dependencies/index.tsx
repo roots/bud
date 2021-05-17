@@ -19,7 +19,7 @@ export class Dependencies extends Base {
   }
 
   @bind
-  public shouldInstall(dep: string, source: string) {
+  public shouldInstall(dep: string) {
     const pkgJson = this.pkg()
 
     const shouldInstall =
@@ -33,9 +33,7 @@ export class Dependencies extends Base {
       this.app.dashboard.render(
         <Static items={[{dep}]}>
           {({dep}) => (
-            <Text key={dep}>
-              {source}: {dep} is already installed
-            </Text>
+            <Text key={dep}>{dep} is already installed</Text>
           )}
         </Static>,
       )
@@ -45,54 +43,42 @@ export class Dependencies extends Base {
   }
 
   @bind
-  public installDev(
-    deps: {[key: string]: string},
-    src: string,
-  ): void {
+  public installDev(deps: {[key: string]: string}): void {
     Object.entries(deps)
-      .filter(([dep]) => this.shouldInstall(dep, src))
+      .filter(([dep]) => this.shouldInstall(dep))
       .forEach(([dep, ver]) => {
         this.notify([
-          {msg: `Installing dev dependency: ${dep}@${ver}`, src},
+          {msg: `Installing dev dependency: ${dep}@${ver}`},
           {
             msg: this.manager.client
               .install(true, `${dep}@${ver}`)
               .output.toString(),
-            src,
           },
         ])
       })
   }
 
   @bind
-  public install(
-    deps: {[key: string]: string},
-    src: string,
-  ): void {
+  public install(deps: {[key: string]: string}): void {
     Object.entries(deps)
-      .filter(([dep]) => this.shouldInstall(dep, src))
+      .filter(([dep]) => this.shouldInstall(dep))
       .forEach(([dep, ver]) => {
         this.notify([
-          {msg: `Installing dependency: ${dep}@${ver}`, src},
+          {msg: `Installing dependency: ${dep}@${ver}`},
           {
             msg: this.manager.client
               .install(false, `${dep}@${ver}`)
               .output.toString(),
-            src,
           },
         ])
       })
   }
 
   @bind
-  public notify(notices: {msg: string; src: string}[]) {
+  public notify(notices: {msg: string}[]) {
     this.app.dashboard.render(
       <Static items={notices}>
-        {({msg, src}) => (
-          <Text key={`${msg}${src}`}>
-            <Text color="blue">{src}</Text>: {msg}
-          </Text>
-        )}
+        {({msg}) => <Text key={`${msg}`}>{msg}</Text>}
       </Static>,
     )
   }

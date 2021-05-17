@@ -84,10 +84,6 @@ export class Discovery extends Base {
       if (pkg?.type === 'extension' || pkg?.type === 'preset') {
         this.app.extensions.add(require(pkg.name))
       }
-    }).each('peers', (_name, pkg) => {
-      if (pkg?.type === 'extension' || pkg?.type === 'preset') {
-        this.app.extensions.add(require(pkg.name))
-      }
     })
   }
 
@@ -114,14 +110,10 @@ export class Discovery extends Base {
       peer?.dependencies?.production &&
         this.app.dependencies.install(
           peer.dependencies.production,
-          name,
         )
 
       peer?.dependencies?.dev &&
-        this.app.dependencies.installDev(
-          peer.dependencies.dev,
-          name,
-        )
+        this.app.dependencies.installDev(peer.dependencies.dev)
     })
   }
 

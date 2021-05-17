@@ -6,7 +6,8 @@
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
     "@roots/bud-cli": "workspace:packages/@roots/bud-cli",
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
-    "@roots/bud-react": "workspace:packages/@roots/bud-react"
+    "@roots/bud-react": "workspace:packages/@roots/bud-react",
+    "postcss": "^8.2.13"
   },
   "dependencies": {
     "react": "^17.0.2",
