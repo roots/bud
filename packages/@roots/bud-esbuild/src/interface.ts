@@ -1,4 +1,4 @@
-import '@roots/bud-extensions'
+import {Module} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -50,8 +50,8 @@ declare module '@roots/bud-framework' {
     }
   }
 
-  namespace Hooks.Extension {
-    interface Definitions {
+  namespace Framework {
+    interface Extensions {
       '@roots/bud-esbuild': Module
       '@roots/bud-esbuild/js': Module
       '@roots/bud-esbuild/ts': Module

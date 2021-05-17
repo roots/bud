@@ -1,4 +1,4 @@
-import Base from './Base'
+import {Disk as Base} from '@roots/bud-framework'
 import {FileContainer} from '@roots/filesystem'
 import {boundMethod as bind} from 'autobind-decorator'
 

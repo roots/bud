@@ -1,58 +1,12 @@
 import '@roots/bud-compiler'
-import type {Service} from '@roots/bud-framework'
 import type {Styles} from '@roots/ink-use-style'
-import type {Instance, render} from 'ink'
 import type React from 'react'
 import type {StatsCompilation} from 'webpack'
 import type {Write} from './Write'
 
 declare module '@roots/bud-framework' {
   interface Framework {
-    /**
-     * ## Dashboard
-     *
-     * CLI dashboard interface
-     */
-    dashboard: Dashboard
-
     write: typeof Write
-  }
-
-  interface Dashboard extends Service {
-    /**
-     * Service name
-     */
-    name: any
-
-    /**
-     * Instance
-     */
-    dashboard: Instance
-
-    /**
-     * Register service
-     */
-    register(): void
-
-    /**
-     * Mount CLI
-     */
-    run(): void
-
-    /**
-     * Render
-     */
-    render: typeof render
-
-    /**
-     * Render error
-     */
-    renderError(body: string, title: string): Instance
-
-    /**
-     * Unmount CLI
-     */
-    kill(): void
   }
 
   namespace Dashboard {

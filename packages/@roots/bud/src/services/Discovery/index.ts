@@ -1,4 +1,4 @@
-import {Base} from './Base'
+import {Discovery as Base} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
 import {cosmiconfigSync} from 'cosmiconfig'
 import {readJsonSync} from 'fs-extra'
@@ -6,6 +6,8 @@ import resolvePkg from 'pkg-up'
 import {dirname} from 'path'
 
 export class Discovery extends Base {
+  public name = 'service/discovery'
+
   @bind
   public register(): void {
     this.setStore(
@@ -25,7 +27,7 @@ export class Discovery extends Base {
   ): void {
     this.has(type) &&
       this.getEntries(type).map(([name, ver]) => {
-        if (!name.includes('bud') && !name.includes('sage'))
+        if (!name?.includes('bud') && !name?.includes('sage'))
           return
 
         const dir = dirname(
@@ -40,7 +42,7 @@ export class Discovery extends Base {
           ...this.mapConfig({name, dir}),
         })
 
-        !this.resolveFrom.includes(dir) &&
+        !this.resolveFrom?.includes(dir) &&
           this.resolveFrom.push(dir)
       })
   }
@@ -121,5 +123,10 @@ export class Discovery extends Base {
           name,
         )
     })
+  }
+
+  @bind
+  public getProjectInfo(): {[key: string]: any} {
+    return this.all()
   }
 }

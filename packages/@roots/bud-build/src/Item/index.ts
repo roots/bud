@@ -1,31 +1,19 @@
-import {Framework} from '@roots/bud-framework'
-import {Loader} from '../Loader/index'
+import {Framework, Loader} from '@roots/bud-framework'
+import type {Item as Contract} from './interface'
 import {boundMethod as bind} from 'autobind-decorator'
+import {isFunction} from 'lodash'
 import {Base} from '../shared/Base'
 
-export {Item}
-
-namespace Item {
-  export type LoaderFn = (app: Framework) => Loader
-  export type OptionsFn = (app: Framework) => Options
-  export type Options = {[key: string]: any}
-
-  export interface Output {
-    loader: string
-    options?: {[key: string]: any}
-  }
-}
-
-class Item extends Base {
-  protected loader: Item.LoaderFn
-  protected options: Item.OptionsFn
+export class Item extends Base implements Contract {
+  protected loader: Contract.LoaderFn
+  protected options: Contract.OptionsFn
 
   public constructor({
     loader,
     options,
   }: {
-    loader: Item.LoaderFn | Loader
-    options?: Item.OptionsFn | Item.Options
+    loader: Loader | Contract.LoaderFn
+    options?: Contract.OptionsFn | Contract.Options
   }) {
     super()
 
@@ -34,29 +22,38 @@ class Item extends Base {
   }
 
   @bind
-  public setLoader(loader: Item.LoaderFn | Loader) {
-    this.loader = this.normalizeInput<Loader>(loader)
+  public getLoader(app: Framework) {
+    return this.loader(app)
   }
 
   @bind
-  public setOptions(options: Item.OptionsFn | Item.Options) {
-    this.options = this.normalizeInput<Item.Options>(options)
+  public setLoader(loader: Loader | Contract.LoaderFn) {
+    this.loader = isFunction(loader) ? loader : () => loader
+  }
+
+  @bind
+  public setOptions(
+    options: Contract.OptionsFn | Contract.Options,
+  ) {
+    this.options = isFunction(options) ? options : () => options
   }
 
   @bind
   public mergeOptions(
-    options: Item.OptionsFn | Item.Options,
+    options: Contract.Options,
     app: Framework,
   ) {
-    this.setOptions({
+    options = {
       ...this.options(app),
-      ...this.normalizeInput<Item.Options>(options),
-    })
+      ...options,
+    }
+
+    this.setOptions((app: Framework) => options)
   }
 
   @bind
-  public make(app: Framework): Item.Output {
-    const output: Item.Output = {
+  public make(app: Framework): Contract.Output {
+    const output: Contract.Output = {
       loader: this.loader(app).make(app),
     }
 

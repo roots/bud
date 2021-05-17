@@ -6,11 +6,8 @@ export class Server extends Base {
   public name = 'service/server'
 
   @bind
-  public register(): void {
+  public register({container, store}): void {
     this.instance = express()
-
-    this.config = this.app.container(
-      this.app.store.get('server'),
-    )
+    this.config = container(store.get('server'))
   }
 }

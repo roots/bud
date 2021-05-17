@@ -1,4 +1,4 @@
-import '@roots/bud-extensions'
+import {Module} from '@roots/bud-framework'
 import {TerserPluginOptions} from 'terser-webpack-plugin'
 
 declare module '@roots/bud-framework' {
@@ -19,8 +19,8 @@ declare module '@roots/bud-framework' {
     type Options = TerserPluginOptions
   }
 
-  namespace Hooks.Extension {
-    interface Definitions {
+  namespace Framework {
+    interface Extensions {
       'terser-webpack-plugin': Module
     }
   }

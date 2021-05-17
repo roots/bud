@@ -1,6 +1,5 @@
-import '@roots/bud-extensions'
-
-import Plugin from 'compression-webpack-plugin'
+import {Plugin, Module} from '@roots/bud-framework'
+import CompressionPlugin from 'compression-webpack-plugin'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -52,16 +51,6 @@ declare module '@roots/bud-framework' {
   namespace Compress {
     type ConfigFn = (options?: Options) => Framework
 
-    interface Extension extends Module<Plugin, Options> {
-      name: keyof Hooks.Extension.Definitions
-      options: Module.Options<Options>
-      make: Module.Make<Plugin, Module.Options>
-      when: Module.When
-      api: {
-        [key: string]: Compress.ConfigFn
-      }
-    }
-
     interface Options {
       filename: string
       algorithm: string
@@ -73,10 +62,12 @@ declare module '@roots/bud-framework' {
       minRatio: number
       deleteOriginalAssets: boolean
     }
+
+    type Extension = Plugin<CompressionPlugin, Options>
   }
 
-  namespace Hooks.Extension {
-    interface Definitions {
+  namespace Framework {
+    interface Extensions {
       '@roots/bud-compress': Module
       'compression-webpack-plugin-brotli': Compress.Extension
       'compression-webpack-plugin-gzip': Compress.Extension

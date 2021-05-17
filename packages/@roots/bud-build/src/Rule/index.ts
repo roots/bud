@@ -1,20 +1,14 @@
-import {Framework} from '@roots/bud-framework'
-import {Item} from '../Item/index'
-import {Base} from '../shared/Base'
+import type {Framework} from '@roots/bud-framework'
+import type {Rule as Contract} from './interface'
+import type {Item} from '../Item/interface'
 import {boundMethod as bind} from 'autobind-decorator'
+import {isFunction} from 'lodash'
 
-export {Rule}
-
-interface Rule {
-  getTest(app: Framework): RegExp
-  setTest(test: RegExp | ((app: Framework) => RegExp)): void
-}
-
-class Rule extends Base {
-  protected test: (app: Framework) => RegExp
-  protected use: (app: Framework) => Item[]
-  protected exclude: (app: Framework) => RegExp
-  protected type: (app: Framework) => string
+class Rule implements Contract {
+  protected test: Contract.TestFn
+  protected use: Contract.UseFn
+  protected exclude: Contract.ExcludeFn
+  protected type: Contract.TypeFn
 
   public constructor({
     test,
@@ -22,25 +16,25 @@ class Rule extends Base {
     exclude = null,
     type = null,
   }: {
-    test: RegExp | ((app: Framework) => RegExp)
-    use?: Item[] | ((app: Framework) => Item[])
-    exclude?: RegExp | ((app: Framework) => RegExp)
-    type?: string | ((app: Framework) => string)
+    test: RegExp | Contract.TestFn
+    use?: Item[] | Contract.UseFn
+    exclude?: RegExp | Contract.ExcludeFn
+    type?: string | Contract.TypeFn
   }) {
-    super()
-
-    this.test = this.normalizeInput<RegExp>(test)
+    this.test = isFunction(test) ? test : () => test
 
     if (use) {
-      this.use = this.normalizeInput<Item[]>(use)
+      this.use = isFunction(use) ? use : () => use
     }
 
     if (exclude) {
-      this.exclude = this.normalizeInput<RegExp>(exclude)
+      this.exclude = isFunction(exclude)
+        ? exclude
+        : () => exclude
     }
 
     if (type) {
-      this.type = this.normalizeInput<string>(type)
+      this.type = isFunction(type) ? type : () => type
     }
   }
 
@@ -50,18 +44,20 @@ class Rule extends Base {
   }
 
   @bind
-  public setTest(test: RegExp | ((app: Framework) => RegExp)) {
-    this.test = this.normalizeInput(test)
+  public setTest(
+    test: RegExp | ((app: Framework) => RegExp),
+  ): void {
+    this.test = isFunction(test) ? test : () => test
   }
 
   @bind
-  public getUse(app: Framework) {
+  public getUse(app: Framework): Item[] {
     return this.use ? this.use(app) : null
   }
 
   @bind
-  public setUse(use: (app: Framework) => Item[]) {
-    this.use = use
+  public setUse(use: Contract.UseFn | Item[]): void {
+    this.use = isFunction(use) ? use : () => use
   }
 
   @bind
@@ -81,7 +77,7 @@ class Rule extends Base {
 
   @bind
   public setType(type) {
-    this.type = type
+    this.type = isFunction(type) ? type : () => type
   }
 
   @bind
@@ -99,7 +95,7 @@ class Rule extends Base {
     }
 
     if (this.use) {
-      output.use = this.use(app).map(Item => Item.make(app))
+      output.use = this.use(app).map(item => item.make(app))
     }
 
     if (this.exclude) {
@@ -113,3 +109,5 @@ class Rule extends Base {
     return output
   }
 }
+
+export {Rule}

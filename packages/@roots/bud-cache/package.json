@@ -57,11 +57,12 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
+    "@roots/bud-typings": "workspace:packages/@roots/bud-typings",
     "@types/fs-extra": "^9.0.11",
     "@types/node": "^15.0.0"
   },
   "dependencies": {
-    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "autobind-decorator": "^2.4.0",
     "fs-extra": "^9.1.0",
     "globby": "^11.0.3"

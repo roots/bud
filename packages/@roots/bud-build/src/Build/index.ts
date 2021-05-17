@@ -1,4 +1,4 @@
-import {Build as Contract, Service} from '@roots/bud-framework'
+import {Framework, Service} from '@roots/bud-framework'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
 import Webpack from 'webpack'
 import {Loader} from '../Loader'
@@ -8,10 +8,13 @@ import {config} from './config'
 import {boundMethod as bind} from 'autobind-decorator'
 import {posix} from 'path'
 
-export class Build extends Service implements Contract {
+class Build extends Service {
   public name = '@roots/bud-build'
+
   public loaders: {[key: string]: Loader} = {}
+
   public rules: {[key: string]: Rule} = {}
+
   public items: {[key: string]: Item} = {}
 
   public get config(): Webpack.Configuration {
@@ -45,7 +48,7 @@ export class Build extends Service implements Contract {
       }),
       minicss: new Item({
         loader: ({build}) => build.loaders.minicss,
-        options: app => ({
+        options: (app: Framework) => ({
           publicPath: posix.normalize(
             posix.dirname(
               posix.relative(
@@ -122,3 +125,5 @@ export class Build extends Service implements Contract {
     config.bind(this.app)()
   }
 }
+
+export {Build}

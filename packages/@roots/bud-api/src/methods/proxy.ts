@@ -1,10 +1,10 @@
-import {Framework, Server} from '@roots/bud-framework'
+import {Api, Server} from '@roots/bud-framework'
 import {isUndefined, isBoolean} from 'lodash'
 
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## proxy  [💁 Fluent]
+     * ## proxy
      *
      * Set proxy settings for the development server.
      *
@@ -37,28 +37,26 @@ declare module '@roots/bud-framework' {
   }
 
   namespace Api {
-    export type {Proxy}
+    type Proxy = (config?: {
+      /**
+       * Explicity enable or disable proxy service
+       */
+      enabled?: boolean
+
+      /**
+       * Hostname of the proxy target
+       */
+      host?: Server.Configuration['proxy']['host']
+
+      /**
+       * Port of the proxy target
+       */
+      port?: Server.Configuration['proxy']['port']
+    }) => Framework
   }
 }
 
-type Proxy = (config?: {
-  /**
-   * Explicity enable or disable proxy service
-   */
-  enabled?: boolean
-
-  /**
-   * Hostname of the proxy target
-   */
-  host?: Server.Configuration['proxy']['host']
-
-  /**
-   * Port of the proxy target
-   */
-  port?: Server.Configuration['proxy']['port']
-}) => Framework
-
-export const proxy: Proxy = function (config) {
+const proxy: Api.Proxy = function (config) {
   /**
    * Case: no config passed
    * Response: enable proxy and bounce
@@ -94,3 +92,5 @@ export const proxy: Proxy = function (config) {
 
   return this
 }
+
+export {proxy}

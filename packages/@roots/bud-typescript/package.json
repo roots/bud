@@ -30,15 +30,15 @@
   },
   "files": [
     "lib/",
-    "template/",
+    "templates/",
     "types/",
     "manifest.yml"
   ],
   "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.mjs",
+  "module": "./lib/esm/index.js",
   "exports": {
     "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.mjs"
+    "import": "./lib/esm/index.js"
   },
   "types": "./types/index.d.ts",
   "scripts": {

@@ -6,9 +6,11 @@ import {existsSync} from 'fs-extra'
 
 const babel: Module = {
   name: '@roots/bud-babel',
+
   api: (app: Framework) => ({
     babel: new Config().init(app),
   }),
+
   register: ({build}) => {
     build.loaders.babel = new Loader(
       require.resolve('babel-loader'),
@@ -17,8 +19,8 @@ const babel: Module = {
     build.items.babel = new Item({
       loader: ({build}) => build.loaders.babel,
       options: ({path, babel}) => ({
-        cacheDirectory: path('storage'),
-        root: path('project'),
+        cacheDirectory: path('storage', 'babel'),
+        root: path('src'),
         presets: Object.values(babel.presets),
         plugins: Object.values(babel.plugins),
       }),
@@ -26,9 +28,10 @@ const babel: Module = {
 
     build.rules.js.setUse(({build}) => [build.items.babel])
   },
-  boot: ({babel, path}) =>
-    !existsSync(path('project', 'babel.config.js')) &&
-    babel
+
+  boot: app =>
+    !existsSync(app.path('project', 'babel.config.js')) &&
+    app.babel
       .setPresets(['@babel/preset-env'])
       .setPlugins([
         '@babel/plugin-transform-runtime',

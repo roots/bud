@@ -3,17 +3,9 @@ import {Babel, Framework} from '@roots/bud-framework'
 export abstract class BaseConfig {
   public name = '@roots/bud-babel'
 
-  public _app: Framework['get']
-
-  public get app(): Framework {
-    return this._app()
-  }
-
-  public set app(app: Framework) {
-    this._app = app.get
-  }
-
   public log: any
+
+  public app: Framework
 
   public _plugins: Babel.Registry = {}
 
@@ -71,13 +63,5 @@ export abstract class BaseConfig {
 
   public set enabledPresets(presets: string[]) {
     this._enabledPresets = presets
-  }
-
-  public get hasProjectConfig(): boolean {
-    const project = this.app.disk.get('project')
-
-    return (
-      project.has('babel.config.js') || project.has('.babelrc')
-    )
   }
 }

@@ -13,10 +13,7 @@ describe('webpack.resolve.alias', () => {
     const instance = new Bud(config)
       .bootstrap(services)
       .lifecycle()
-
-    instance.alias({'@foo': 'bar'})
-
-    const alias = instance.build.config.resolve.alias
+      .alias({'@foo': 'bar'})
 
     expect(instance.build.config.resolve.alias).toEqual({
       '@foo': instance.path('project', 'bar'),

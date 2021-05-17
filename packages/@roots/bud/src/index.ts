@@ -1,6 +1,6 @@
-import './interface'
+import {Framework} from '@roots/bud-framework'
+import {Bud} from './Bud'
+import {config} from './config'
+import {services} from './services'
 
-export {Framework} from '@roots/bud-framework'
-export {Bud} from './Bud'
-export {config} from './config'
-export {services} from './services/index'
+export {Framework, Bud, config, services}

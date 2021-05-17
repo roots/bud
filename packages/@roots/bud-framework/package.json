@@ -35,11 +35,11 @@
     "types/"
   ],
   "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.mjs",
+  "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.mjs"
+    "import": "./lib/esm/index.js"
   },
   "scripts": {
     "build": "yarn g:build",
@@ -62,8 +62,7 @@
     "@types/node": "^15.0.0"
   },
   "dependencies": {
-    "@roots/bud-typings": "workspace:*",
-    "@roots/container": "workspace:packages/@roots/container",
+    "@roots/container": "workspace:*",
     "@roots/dependencies": "workspace:*",
     "@roots/filesystem": "workspace:*",
     "autobind-decorator": "^2.4.0",

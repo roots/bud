@@ -5,33 +5,28 @@ export class Hooks extends Base {
   public name = 'service/hooks'
 
   @bind
-  public register() {
+  public register({store}) {
     this.on('location/project', () =>
-      this.app.store.get('location.project'),
+      store.get('location.project'),
     )
 
-    this.on('location/src', () =>
-      this.app.store.get('location.src'),
-    )
-
-    this.on('location/dist', () =>
-      this.app.store.get('location.dist'),
-    )
+    this.on('location/src', () => store.get('location.src'))
+    this.on('location/dist', () => store.get('location.dist'))
 
     this.on('location/storage', () =>
-      this.app.store.get('location.storage'),
+      store.get('location.storage'),
     )
 
     this.on('location/modules', () =>
-      this.app.store.get('location.modules'),
+      store.get('location.modules'),
     )
 
     this.on('location/publicPath', () =>
-      this.app.store.get('location.publicPath'),
+      store.get('location.publicPath'),
     )
 
     this.on('location/records', () =>
-      this.app.store.get('location.records'),
+      store.get('location.records'),
     )
   }
 }

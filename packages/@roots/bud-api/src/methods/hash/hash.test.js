@@ -14,10 +14,10 @@ describe('hashed filenames', () => {
     const instance = new Bud(config)
       .bootstrap(services)
       .lifecycle()
+      .hash()
 
-    instance.hash()
-
-    const filename = instance.build.config.output.filename
-    expect(filename).toEqual('[name].[contenthash].js')
+    expect(instance.build.config.output.filename).toEqual(
+      '[name].[contenthash].js',
+    )
   })
 })

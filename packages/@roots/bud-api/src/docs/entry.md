@@ -1,7 +1,3 @@
----
-description: Specify source assets to be compiled.
----
-
 # bud.entry
 
 `bud.entry` is used to define source assets to be compiled.

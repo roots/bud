@@ -36,11 +36,11 @@
     "types/"
   ],
   "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.mjs",
+  "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.mjs"
+    "import": "./lib/esm/index.js"
   },
   "scripts": {
     "build": "yarn g:build",
@@ -72,20 +72,20 @@
     "webpack": "^5.36.0"
   },
   "dependencies": {
-    "@roots/bud-api": "workspace:*",
-    "@roots/bud-build": "workspace:*",
-    "@roots/bud-cache": "workspace:*",
-    "@roots/bud-compiler": "workspace:*",
-    "@roots/bud-dashboard": "workspace:*",
-    "@roots/bud-extensions": "workspace:*",
-    "@roots/bud-framework": "workspace:*",
-    "@roots/bud-hooks": "workspace:*",
-    "@roots/bud-server": "workspace:*",
-    "@roots/bud-support": "workspace:*",
-    "@roots/container": "workspace:*",
-    "@roots/dependencies": "workspace:*",
-    "@roots/filesystem": "workspace:*",
-    "@roots/ink-use-style": "workspace:*",
+    "@roots/bud-api": "workspace:packages/@roots/bud-api",
+    "@roots/bud-build": "workspace:packages/@roots/bud-build",
+    "@roots/bud-cache": "workspace:packages/@roots/bud-cache",
+    "@roots/bud-compiler": "workspace:packages/@roots/bud-compiler",
+    "@roots/bud-dashboard": "workspace:packages/@roots/bud-dashboard",
+    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
+    "@roots/bud-hooks": "workspace:packages/@roots/bud-hooks",
+    "@roots/bud-server": "workspace:packages/@roots/bud-server",
+    "@roots/bud-support": "workspace:packages/@roots/bud-support",
+    "@roots/container": "workspace:packages/@roots/container",
+    "@roots/dependencies": "workspace:packages/@roots/dependencies",
+    "@roots/filesystem": "workspace:packages/@roots/filesystem",
+    "@roots/ink-use-style": "workspace:packages/@roots/ink-use-style",
     "autobind-decorator": "^2.4.0",
     "clean-webpack-plugin": "^4.0.0-alpha.0",
     "copy-webpack-plugin": "^8.1.1",

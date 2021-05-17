@@ -2,7 +2,10 @@
   "name": "example-typescript",
   "private": true,
   "devDependencies": {
-    "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
+    "@roots/bud": "workspace:*",
+    "@roots/bud-babel": "workspace:*",
+    "@roots/bud-cli": "workspace:*",
+    "@roots/bud-typescript": "workspace:*",
     "@skypack/package-check": "^0.2.2",
     "@types/node": "^15.0.0",
     "@types/webpack": "^5.28.0",

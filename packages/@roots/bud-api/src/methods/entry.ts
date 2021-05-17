@@ -16,14 +16,10 @@ declare module '@roots/bud-framework' {
      * **Supported patterns**
      *
      * - `*` matches any number of characters, but not `/`
-     *
      * - `?` matches a single character, but not `/`
-     *
      * - `**` matches any number of characters, including `/`,
      *   as long as it's the only thing in a path part
-     *
      * - `{}` allows for a comma-separated list  of "or" expressions
-     *
      * - `!` at the beginning of a pattern will negate the match
      *
      * ### Usage
@@ -54,30 +50,50 @@ declare module '@roots/bud-framework' {
      *   styles: ['*.css', '*.scss'],
      * })
      * ```
+     *
+     * Declare entrypoint dependencies:
+     *
+     * ```js
+     * app.entry({
+     *  react: {
+     *    import: ['react', 'react-dom']
+     *  },
+     *  app: {
+     *    import: ['app.js'],
+     *    dependOn: ['react'],
+     *  },
+     * })
      */
     entry: Api.Entry
   }
 
   namespace Api {
-    export {Entry}
+    interface Entry {
+      (name: string, entrypoint: Entry.Value): Framework
+    }
+
+    interface Entry {
+      (entrypoints: Entry.Input): Framework
+    }
+
+    namespace Entry {
+      interface Object {
+        import?: string[]
+        dependsOn?: string[]
+      }
+
+      interface Input {
+        [k: string]: Object | Object['import'] | string
+      }
+
+      type Value =
+        | GlobTask['pattern']
+        | Array<GlobTask['pattern']>
+    }
   }
 }
 
-type Entry =
-  | ((name: string, entrypoint: Entry.Value) => Framework)
-  | ((entrypoints: Entry.Obj) => Framework)
-
-namespace Entry {
-  export interface Obj {
-    [key: string]: Value
-  }
-
-  export type Value =
-    | GlobTask['pattern']
-    | Array<GlobTask['pattern']>
-}
-
-export const entry: Entry = function (...args) {
+export const entry: Api.Entry = function (...args) {
   /**
    * Ducktype entrypoint to determine if it was called like
    * entry(name, ...assets) or entry({[name]: ...assets})
@@ -101,20 +117,36 @@ export const entry: Entry = function (...args) {
 /**
  * Make entrypoints
  */
-function makeEntrypoints(
-  this: Framework,
-  entry: Api.Entry.Obj,
-): Framework {
-  this.hooks.on('build/entry', existant => ({
-    ...existant,
-    ...Object.entries(entry).reduce(
-      (a, [name, task]) => ({
-        ...a,
-        [name]: getAssets.bind(this)(name, task),
-      }),
-      {},
-    ),
-  }))
+function makeEntrypoints(entry: Api.Entry.Object): Framework {
+  this.hooks.on('build/entry', (existant: Api.Entry.Object) => {
+    return {
+      ...existant,
+      ...Object.entries(entry).reduce(
+        (
+          entrypoints,
+          [name, entry]: [
+            string,
+            Api.Entry.Object | Api.Entry.Object['import'],
+          ],
+        ) => {
+          /**
+           * Normalize entrypoint
+           */
+          entry = isString(entry) ? {import: [entry]} : entry
+          entry = isArray(entry) ? {import: entry} : entry
+
+          return {
+            ...entrypoints,
+            [name]: {
+              ...(entrypoints[name] ?? {}),
+              ...getAssets.bind(this)(name, entry),
+            },
+          }
+        },
+        {},
+      ),
+    }
+  })
 
   return this
 }
@@ -122,43 +154,57 @@ function makeEntrypoints(
 /**
  * Normalize Task
  */
-const normalize = task => (isArray(task) ? task : [task])
+const normalize = (
+  assets: string | string[],
+): Api.Entry.Object['import'] =>
+  isArray(assets) ? assets : [assets]
 
 /**
  * Get entrypoint assets
  */
 function getAssets(
   name: string,
-  task: string | string[],
-): string[] {
+  entry: Api.Entry.Object,
+): Api.Entry.Object {
   /**
-   * Cast the entrypoint as an array
+   * If the supplied strings are ALL directly resolvable, use them.
+   * Otherwise, treat as glob.
    */
-  const files = normalize(task)
+  entry.import = normalize(entry.import).reduce(
+    (resolvable: boolean, asset: string): boolean => {
+      if (!resolvable) return false
+
+      try {
+        require.resolve(asset)
+        return true
+      } catch {
+        return false
+      }
+    },
+    true,
+  )
+    ? entry.import
+    : sync(entry.import, {
+        cwd: this.path('src'),
+        expandDirectories: true,
+      })
 
   /**
-   * Find all the matching assets on disk
+   * Invalid entrypoint
    */
-  const assets = sync(files, {
-    cwd: this.path('src'),
-    expandDirectories: true,
-  })
-
-  /**
-   * Found nothing for specified glob
-   */
-  if (!(assets.length > 0)) {
-    this.dashboard.error(
-      `${files.toString()} did not return any results. Make sure these assets are available on disk.`,
-      'Assets not found',
+  if (!(entry.import.length > 0)) {
+    console.error('Assets not found')
+    console.error(
+      `entrypoint ${name} did not return any results. Make sure these assets are available on disk.\n`,
     )
+    process.exit()
   }
 
   /**
    * Entrypoints will always generate a JS file even when it is
    * just boilerplate (css only entrypoint)
    */
-  if (isCssOnlyEntrypoint(assets)) {
+  if (isCssOnlyEntrypoint(entry.import)) {
     this.extensions
       .get('ignore-emit-webpack-plugin')
       .set('options', options => ({
@@ -166,7 +212,7 @@ function getAssets(
       }))
   }
 
-  return assets
+  return entry
 }
 
 /**

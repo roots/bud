@@ -1,4 +1,4 @@
-import '@roots/bud-extensions'
+import {Module} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -28,12 +28,10 @@ declare module '@roots/bud-framework' {
     type Configure = (modules: string[]) => Framework
   }
 
-  namespace Hooks {
-    namespace Extension {
-      interface Definitions {
-        '@roots/bud-library': Module
-        'autodll-webpack-plugin': Module
-      }
+  namespace Framework {
+    interface Extensions {
+      '@roots/bud-library': Module
+      'autodll-webpack-plugin': Module
     }
   }
 }

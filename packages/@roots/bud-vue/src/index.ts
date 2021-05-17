@@ -1,7 +1,7 @@
 import './interface'
 import {VueLoaderPlugin} from 'vue-loader'
-import Webpack from 'webpack'
-import {Module} from '@roots/bud-extensions'
+import {Configuration} from 'webpack'
+import {Module} from '@roots/bud-framework'
 import {Loader, Item, Rule} from '@roots/bud-build'
 
 const extension: Module = {
@@ -16,11 +16,6 @@ const extension: Module = {
     build.loaders['vue-style'] = new Loader(
       require.resolve('vue-style-loader'),
     )
-
-    extensions.add({
-      name: 'vue-loader-plugin',
-      make: () => new VueLoaderPlugin(),
-    })
 
     build.items['vue'] = new Item({
       loader: ({build}) => build.loaders['vue'],
@@ -53,9 +48,14 @@ const extension: Module = {
       ])
     }
 
+    extensions.add({
+      name: 'vue-loader-plugin',
+      make: () => new VueLoaderPlugin(),
+    })
+
     hooks.on(
       'build/resolve/alias',
-      (aliases: Webpack.Configuration['resolve']['alias']) => ({
+      (aliases: Configuration['resolve']['alias']) => ({
         ...aliases,
         vue$: 'vue/dist/vue.esm.js',
       }),
@@ -63,9 +63,10 @@ const extension: Module = {
 
     hooks.on(
       'build/resolve/extensions',
-      (
-        extensions: Webpack.Configuration['resolve']['extensions'],
-      ) => [...extensions, '.vue'],
+      (extensions: Configuration['resolve']['extensions']) => [
+        ...extensions,
+        '.vue',
+      ],
     )
   },
 }

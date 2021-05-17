@@ -14,17 +14,11 @@ export default class extends Service implements Hooks {
   @bind
   public set(key: `${Hooks.Name & string}`, value: any): this {
     _.set(this.repository, key, value)
-
     return this
   }
 
   @bind
-  public on(
-    id:
-      | [string, `${Hooks.Name & string} & string`]
-      | (`${Hooks.Name}` & string),
-    callback: Hooks.Hook,
-  ): Framework {
+  public on(id: Hooks.Name, callback: Hooks.Hook): Framework {
     const [publisher, name] = _.isArray(id)
       ? id
       : ['anonymous', id]
@@ -45,18 +39,12 @@ export default class extends Service implements Hooks {
   }
 
   @bind
-  public filter<T = any>(
-    id:
-      | `${Hooks.Name & string}`
-      | [string, `${Hooks.Name & string}`],
-  ): T {
+  public filter<T = any>(id: `${Hooks.Name & string}`): T {
     const [subscriber, name] = _.isArray(id)
       ? id
       : ['anonymous', id]
 
-    if (!this.has(name)) {
-      this.set(name, [_.noop])
-    }
+    !this.has(name) && this.set(name, [_.noop])
 
     const result = this.get(name).reduce(
       (v: T, cb?: CallableFunction) => {
@@ -84,7 +72,8 @@ export default class extends Service implements Hooks {
       links.reduce(
         (a, link) => ({
           ...a,
-          [link]: (() => this.filter(`${target}/${link}`))(),
+          [link]: (() =>
+            this.filter(`${target}/${link}` as Hooks.Name))(),
         }),
         {},
       ),

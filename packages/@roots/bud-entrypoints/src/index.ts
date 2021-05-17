@@ -1,8 +1,7 @@
-import './interface'
-import {Module} from '@roots/bud-extensions'
+import {Extension} from './interface'
 import {Plugin} from '@roots/entrypoints-webpack-plugin'
 
-const extension: Module<Plugin, null> = {
+const extension: Extension = {
   name: '@roots/bud-entrypoints',
   make: () => new Plugin(),
 }

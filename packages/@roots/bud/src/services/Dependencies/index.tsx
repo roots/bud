@@ -27,7 +27,7 @@ export class Dependencies extends Base {
       !Object.keys({
         ...(pkgJson['dependencies'] ?? {}),
         ...(pkgJson['devDependencies'] ?? {}),
-      }).includes(dep)
+      })?.includes(dep)
 
     if (!shouldInstall) {
       this.app.dashboard.render(

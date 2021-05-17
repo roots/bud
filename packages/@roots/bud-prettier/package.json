@@ -37,11 +37,11 @@
     "manifest.yml"
   ],
   "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.mjs",
+  "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.mjs"
+    "import": "./lib/esm/index.js"
   },
   "scripts": {
     "build": "yarn g:build",
@@ -63,7 +63,6 @@
     "eslint": "^7.25.0"
   },
   "dependencies": {
-    "@roots/bud-extensions": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "autobind-decorator": "^2.4.0",
     "prettier": "^2.2.1"

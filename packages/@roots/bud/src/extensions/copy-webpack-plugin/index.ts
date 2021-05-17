@@ -1,29 +1,40 @@
-import {CopyWebpackPlugin} from './interface'
-import Plugin, {CopyPluginOptions} from 'copy-webpack-plugin'
+import {Framework, Module} from '@roots/bud-framework'
+import CopyPlugin, {CopyPluginOptions} from 'copy-webpack-plugin'
 import {sync} from 'globby'
 
-const CopyExtension: CopyWebpackPlugin = {
-  /**
-   * @property name
-   */
+declare module '@roots/bud-framework' {
+  interface Framework {
+    /**
+     * ## assets  [💁 Fluent]
+     *
+     * Copy static assets during compilation.
+     *
+     * You may specify paths with a string literal or glob pattern.
+     *
+     * ### Usage
+     *
+     * **Copy src/images to dist/images**
+     *
+     * ```js
+     * app.assets(['src/images'])
+     * ```
+     */
+    assets: Assets
+  }
+}
+
+type Assets = (from: string[]) => Framework
+
+const extension: Module<CopyPlugin, CopyPluginOptions> = {
   name: 'copy-webpack-plugin',
 
-  /**
-   * @property options
-   */
   options: () => ({
     patterns: [],
     noErrorOnMissing: true,
   }),
 
-  /**
-   * @property make
-   */
-  make: options => new Plugin(options.all()),
+  make: options => new CopyPlugin(options.all()),
 
-  /**
-   * @property when
-   */
   when(_app, options) {
     return (
       options.has('patterns') &&
@@ -31,9 +42,6 @@ const CopyExtension: CopyWebpackPlugin = {
     )
   },
 
-  /**
-   * @property api
-   */
   api: () => ({
     assets: function (jobs) {
       jobs.map(from => {
@@ -65,11 +73,4 @@ const CopyExtension: CopyWebpackPlugin = {
   }),
 }
 
-// prettier-ignore
-const {name, options, make, when, api} = CopyExtension
-
-/**
- * @exports
- */
-export default CopyExtension
-export {name, options, make, when, api}
+export const {name, options, make, when, api} = extension

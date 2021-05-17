@@ -1,4 +1,4 @@
-import {Framework} from '@roots/bud-framework'
+import type {Api} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -13,13 +13,15 @@ declare module '@roots/bud-framework' {
      * bud.run()
      * ```
      */
-    run: Run
+    run: Api.Run
+  }
+
+  namespace Api {
+    type Run = () => void
   }
 }
 
-type Run = (this: Framework) => void
-
-export const run: Run = function (this: Framework): void {
+export const run: Api.Run = function (): void {
   this.when(
     this.isDevelopment &&
       this.server.config.isTrue('middleware.hot'),
@@ -34,14 +36,14 @@ export const run: Run = function (this: Framework): void {
 /**
  * Run CI Mode
  */
-function ci(this: Framework) {
+function ci() {
   this.when(this.isDevelopment, dev.bind(this), prod.bind(this))
 }
 
 /**
  * Run in development
  */
-function dev(this: Framework) {
+function dev() {
   const instance = this.compiler.compile(this.build.config)
 
   instance.hooks.done.tap(this.name, this.compiler.callback)
@@ -52,7 +54,7 @@ function dev(this: Framework) {
 /**
  * Run in production
  */
-function prod(this: Framework) {
+function prod() {
   const instance = this.compiler.compile(this.build.config)
 
   instance.hooks.done.tap(this.name, () =>

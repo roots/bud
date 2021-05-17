@@ -23,7 +23,7 @@ const dev: Server.Middleware.Init = ({
   config,
 }: {
   compiler: Webpack.Compiler | Webpack.MultiCompiler
-  config: DevMiddleware.Options
+  config: Server.Config
 }) => {
   return DevMiddleware(compiler, options(config))
 }

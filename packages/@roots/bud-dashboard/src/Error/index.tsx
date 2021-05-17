@@ -9,8 +9,6 @@ const Error: CallableFunction = (
   render(
     <Component title={title ?? 'Error'} body={body ?? ''} />,
   )
-
-  process.exit()
 }
 
 export {Error}

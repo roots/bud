@@ -3,10 +3,7 @@ import {boundMethod as bind} from 'autobind-decorator'
 import {isString} from 'lodash'
 import {BaseConfig} from './BaseConfig'
 
-/**
- * PostCss API
- */
-export class Config extends BaseConfig implements PostCss {
+class Config extends BaseConfig implements PostCss {
   public constructor(app: Framework) {
     super()
     this.app = app
@@ -58,3 +55,5 @@ export class Config extends BaseConfig implements PostCss {
     return this
   }
 }
+
+export {Config}

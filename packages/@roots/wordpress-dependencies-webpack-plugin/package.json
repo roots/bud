@@ -34,11 +34,11 @@
     "manifest.yml"
   ],
   "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.mjs",
+  "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.mjs"
+    "import": "./lib/esm/index.js"
   },
   "scripts": {
     "build": "yarn g:build",
@@ -60,8 +60,8 @@
     "@types/node": "^15.0.0"
   },
   "dependencies": {
-    "@roots/bud-framework": "workspace:*",
-    "@roots/bud-support": "workspace:*",
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
+    "@roots/bud-support": "workspace:packages/@roots/bud-support",
     "autobind-decorator": "^2.4.0",
     "lodash": "^4.17.21",
     "node-fetch": "^2.6.1",

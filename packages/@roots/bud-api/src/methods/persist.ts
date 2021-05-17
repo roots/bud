@@ -1,4 +1,4 @@
-import {Framework} from '@roots/bud-framework'
+import {Api} from '@roots/bud-framework'
 import Webpack from 'webpack'
 
 declare module '@roots/bud-framework' {
@@ -22,16 +22,16 @@ declare module '@roots/bud-framework' {
   }
 
   namespace Api {
-    export type {Persist}
+    type Persist = (
+      cache: Webpack.Configuration['cache'],
+    ) => Framework
   }
 }
 
-export type Persist = (
-  cache: Webpack.Configuration['cache'],
-) => Framework
-
-export const persist: Persist = function (cache) {
+const persist: Api.Persist = function (cache) {
   this.hooks.on('build/cache', () => cache)
 
   return this
 }
+
+export {persist}

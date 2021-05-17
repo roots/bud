@@ -1,22 +1,24 @@
-import {Framework, Service} from '@roots/bud-framework'
+import {Api as Contract, Service} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
 import * as api from './methods'
 
-export class Api extends Service {
+export class Api extends Service implements Contract {
   public name = '@roots/bud-api'
 
+  public repository = api
+
   @bind
-  public bootstrap() {
+  public bootstrap(app) {
     Object.assign(
-      this.app,
-      Object.entries(api).reduce(this.bindMethod, {}),
+      app,
+      this.getEntries().reduce(this.bindMethod, {}),
     )
   }
 
   @bind
-  private bindMethod(
-    acc: {[key: string]: (this: Framework) => any},
-    [name, fn]: [string, (this: Framework) => any],
+  public bindMethod(
+    acc,
+    [name, fn]: [string, CallableFunction],
   ) {
     return {
       ...acc,

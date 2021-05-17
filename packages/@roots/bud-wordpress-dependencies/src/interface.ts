@@ -1,8 +1,8 @@
-import '@roots/bud-extensions'
+import {Module} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
-  namespace Hooks.Extension {
-    interface Definitions {
+  namespace Framework {
+    interface Extensions {
       '@roots/wordpress-dependencies-webpack-plugin': Module
     }
   }

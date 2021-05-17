@@ -1,7 +1,8 @@
 import './interface'
-import {Module} from '@roots/bud-extensions'
+import {Module} from '@roots/bud-framework'
 import {typecheck} from './api'
 import {Loader, Item, Rule} from '@roots/bud-build'
+import {Configuration} from 'webpack/types'
 
 const extension: Module = {
   name: '@roots/bud-typescript',
@@ -32,11 +33,14 @@ const extension: Module = {
       ],
     })
 
-    hooks.on('build/resolve/extensions', e => [
-      ...e,
-      '.ts',
-      '.tsx',
-    ])
+    hooks.on(
+      'build/resolve/extensions',
+      (e: Configuration['resolve']['extensions']) => [
+        ...e,
+        '.ts',
+        '.tsx',
+      ],
+    )
   },
 }
 

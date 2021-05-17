@@ -57,12 +57,12 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@roots/bud-hooks": "workspace:*",
     "@types/lodash": "^4.14.168",
     "@types/node": "^15.0.0"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:*",
+    "@roots/bud-hooks": "workspace:*",
     "autobind-decorator": "^2.4.0",
     "lodash": "^4.17.21",
     "webpack": "^5.36.1"

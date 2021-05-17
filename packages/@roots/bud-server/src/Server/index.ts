@@ -1,6 +1,4 @@
-import {Container, Service} from '@roots/bud-framework'
-import {Server} from '@roots/bud-typings'
-
+import {Service, Server as Contract} from '@roots/bud-framework'
 import Webpack from 'webpack'
 import chokidar from 'chokidar'
 import {sync} from 'globby'
@@ -11,11 +9,16 @@ import {boundMethod as bind} from 'autobind-decorator'
 import * as middleware from '../middleware'
 import {injectClient} from '../util/injectClient'
 
-export default class extends Service implements Server {
+export class Server extends Service implements Contract {
   public name = '@roots/bud-server'
-  public middleware: Server.Middleware.Inventory = {}
-  public config: Container<Server.Config>
-  public _instance: Server.Instance
+
+  public middleware: Contract.Middleware.Inventory = {}
+
+  public config: Contract.Config
+
+  public _instance: Contract.Instance
+
+  public _watcher: FSWatcher
 
   public get instance() {
     return this._instance
@@ -24,8 +27,6 @@ export default class extends Service implements Server {
   public set instance(instance) {
     this._instance = instance
   }
-
-  public _watcher: FSWatcher
 
   public get watcher() {
     return this._watcher
@@ -66,7 +67,7 @@ export default class extends Service implements Server {
   }
 
   @bind
-  public processMiddlewares(compiler: Server.Compiler) {
+  public processMiddlewares(compiler: Contract.Compiler) {
     Object.entries(middleware).map(([key, generate]) => {
       if (this.config.enabled(`middleware.${key}`)) {
         this.info(`Enabling ${key}`)

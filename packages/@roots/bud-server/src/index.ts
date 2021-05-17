@@ -1,2 +1,1 @@
-import Server from './Server'
-export {Server}
+export {Server} from './Server'

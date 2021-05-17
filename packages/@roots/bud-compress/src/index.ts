@@ -1,5 +1,5 @@
 import './interface'
-import type {Module} from '@roots/bud-extensions'
+import type {Module} from '@roots/bud-framework'
 
 import brotli from './brotli/index'
 import gzip from './gzip/index'

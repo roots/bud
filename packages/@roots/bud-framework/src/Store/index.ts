@@ -1,4 +1,4 @@
-import {Service} from '../Service/index'
+import {Service} from '../Service'
 import {get} from 'lodash'
 
 class Store extends Service {
@@ -9,8 +9,8 @@ class Store extends Service {
   }
 }
 
-declare namespace Store {
-  type Keys =
+namespace Store {
+  export type Keys =
     | `theme`
     | `theme.${string}`
     | `server.${string}`

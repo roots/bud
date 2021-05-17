@@ -1,11 +1,8 @@
-import './interface'
-import {CriticalCss, Module} from '@roots/bud-framework'
+import {Extension} from './interface'
+import {CriticalCss} from '@roots/bud-framework'
 import {CriticalCssWebpackPlugin} from '@roots/critical-css-webpack-plugin'
 
-const extension: Module<
-  CriticalCssWebpackPlugin,
-  CriticalCss.Options
-> = {
+const extension: Extension = {
   name: '@roots/bud-criticalcss',
   options: (): CriticalCss.Options => ({}),
   make: options => new CriticalCssWebpackPlugin(options.all()),

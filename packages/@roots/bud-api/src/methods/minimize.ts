@@ -1,7 +1,7 @@
-import {Framework} from '@roots/bud-framework'
+import {Api} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
-  export interface Framework {
+  interface Framework {
     /**
      * ## bud.minimize  [💁 Fluent]
      *
@@ -27,13 +27,15 @@ declare module '@roots/bud-framework' {
      * bud.minimize(true)
      * ```
      */
-    minimize: Minimize
+    minimize: Api.Minimize
+  }
+
+  namespace Api {
+    type Minimize = () => Framework
   }
 }
 
-type Minimize = () => Framework
-
-export const minimize: Minimize = function () {
+export const minimize: Api.Minimize = function () {
   this.hooks.on('build/optimization/minimize', () => true)
 
   return this

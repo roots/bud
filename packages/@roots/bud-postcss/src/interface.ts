@@ -1,12 +1,6 @@
 import '@roots/bud-extensions'
 import {Module} from '@roots/bud-framework'
 
-export declare const name: Module['name']
-export declare const devDependencies: Module['devDependencies']
-export declare const api: Module['api']
-export declare const publish: Module['publish']
-export declare const boot: Module['boot']
-
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
@@ -17,22 +11,22 @@ declare module '@roots/bud-framework' {
     postcss: PostCss
   }
 
-  namespace Hooks {
-    namespace Extension {
-      interface Definitions {
-        '@roots/bud-postcss': Module
-      }
+  namespace Framework {
+    interface Extensions {
+      '@roots/bud-postcss': Module
     }
 
-    namespace Loader {
-      interface Definitions {
-        postcss: string
+    namespace Hooks {
+      namespace Loader {
+        interface Definitions {
+          postcss: string
+        }
       }
-    }
 
-    namespace Item {
-      interface Definitions {
-        postcss: any
+      namespace Item {
+        interface Definitions {
+          postcss: any
+        }
       }
     }
   }
@@ -42,11 +36,6 @@ declare module '@roots/bud-framework' {
      * ## PostCss.log
      */
     log: any
-
-    /**
-     * ## PostCss.hasProjectConfig
-     */
-    hasProjectConfig: boolean
 
     /**
      * ## PostCss.plugins

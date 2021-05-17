@@ -1,11 +1,11 @@
-import '@roots/bud-extensions'
 import '@roots/bud-api'
 import '@roots/bud-babel'
+import {Module} from '@roots/bud-framework'
 import {RuleSetRule, RuleSetUseItem} from 'webpack'
 
 declare module '@roots/bud-framework' {
-  namespace Hooks.Extension {
-    interface Definitions {
+  namespace Framework {
+    interface Extensions {
       '@roots/bud-vue': Module
       'vue-loader-plugin': Module
     }

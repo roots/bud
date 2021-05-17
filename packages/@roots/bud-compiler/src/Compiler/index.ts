@@ -1,35 +1,17 @@
 import {Compiler, Service} from '@roots/bud-framework'
-import {boundMethod as bind} from 'autobind-decorator'
 import webpack from 'webpack'
 import {isNull} from 'lodash'
+import {boundMethod as bind} from 'autobind-decorator'
 
-/**
- * Compiler
- */
 export default class extends Service implements Compiler {
-  /**
-   * Service ident.
-   */
   public name = '@roots/bud-compiler'
 
-  /**
-   * Compiler instance
-   */
   public _instance: Compiler.Instance
 
-  /**
-   * Is already compiled
-   */
   public isCompiled: boolean = false
 
-  /**
-   * Stats
-   */
   public stats: any
 
-  /**
-   * Stats options
-   */
   public statsOptions = {
     all: false,
     version: true,
@@ -44,19 +26,10 @@ export default class extends Service implements Compiler {
     colors: true,
   }
 
-  /**
-   * Errors
-   */
   public errors = []
 
-  /**
-   * Progress
-   */
   public progress: Compiler.Progress
 
-  /**
-   * Compiler accessors.
-   */
   public get instance(): Compiler.Instance {
     return this._instance
   }
@@ -65,9 +38,6 @@ export default class extends Service implements Compiler {
     this._instance = instance
   }
 
-  /**
-   * Run compiler
-   */
   @bind
   public compile(
     config?: Compiler.Config,
@@ -83,9 +53,6 @@ export default class extends Service implements Compiler {
     return this.instance
   }
 
-  /**
-   * Compiler callback
-   */
   @bind
   public callback(...args: any[]) {
     /**

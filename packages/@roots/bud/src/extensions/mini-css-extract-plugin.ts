@@ -1,4 +1,4 @@
-import {Module} from '@roots/bud-extensions'
+import {Module} from '@roots/bud-framework'
 import MiniCssExtractPlugin, {
   PluginOptions,
 } from 'mini-css-extract-plugin'
@@ -19,3 +19,4 @@ const extension: Module<MiniCssExtractPlugin, PluginOptions> = {
 }
 
 export {extension as default}
+export const {name, options, make, when} = extension

@@ -8,20 +8,18 @@
     "removeComments": false,
     "forceConsistentCasingInFileNames": true,
     "esModuleInterop": true,
-    "importHelpers": false,
-    "lib": ["dom", "es2019"],
+    "importHelpers": true,
+    "lib": ["dom", "es2020"],
     "jsx": "react",
     "moduleResolution": "node",
     "module": "commonjs",
     "noUnusedLocals": true,
-    "noEmitOnError": true,
     "sourceMap": true,
     "skipLibCheck": true,
     "strict": false,
     "target": "es2015",
   },
-  "base": "packages",
   "references": [
-    {"@roots/*": "@roots/*"},
+    {"@roots/*": "./packages/@roots/*"},
   ]
 }

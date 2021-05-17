@@ -30,6 +30,7 @@
   ],
   "types": "./contracts/index.d.ts",
   "devDependencies": {
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/express": "^4.17.11",
     "@types/node": "^15.0.0",
     "@types/webpack-dev-middleware": "^4.1.2",

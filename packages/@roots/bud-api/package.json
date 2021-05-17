@@ -35,11 +35,11 @@
     "types/"
   ],
   "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.mjs",
+  "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.mjs"
+    "import": "./lib/esm/index.js"
   },
   "scripts": {
     "build": "yarn g:build",
@@ -57,17 +57,14 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
+    "@roots/bud-typings": "workspace:packages/@roots/bud-typings",
     "@types/lodash": "^4.14.168",
     "@types/node": "^15.0.0",
     "globby": "^11.0.3",
     "webpack": "^5.36.0"
   },
   "dependencies": {
-    "@roots/bud-dashboard": "workspace:*",
-    "@roots/bud-extensions": "workspace:*",
-    "@roots/bud-framework": "workspace:*",
-    "@roots/bud-terser": "workspace:*",
-    "@roots/bud-typings": "workspace:*",
     "autobind-decorator": "^2.4.0",
     "chalk": "^4.1.1",
     "lodash": "^4.17.21"

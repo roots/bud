@@ -1,25 +1,18 @@
-import {Framework} from '@roots/bud-framework'
+import type {Framework} from '@roots/bud-framework'
+import {Loader as Contract} from './interface'
 import {boundMethod as bind} from 'autobind-decorator'
 import {Base} from '../shared/Base'
 
-export {Loader}
+export class Loader extends Base {
+  protected src: Contract.Src
 
-namespace Loader {
-  export type Output = string
-  export type Input = Src | Output
-  export type Src = (app: Framework) => Output
-}
-
-class Loader extends Base {
-  protected src: Loader.Src
-
-  public constructor(src: Loader.Input) {
+  public constructor(src: Contract.Input) {
     super()
-    this.src = this.normalizeInput<Loader.Output>(src)
+    this.src = this.normalizeInput<string>(src)
   }
 
   @bind
-  public make(app: Framework): Loader.Output {
+  public make(app: Framework): string {
     return this.src(app)
   }
 }

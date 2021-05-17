@@ -1,3 +1,7 @@
 name: '@roots/bud-stylelint'
 type: extension
-description: Adds stylelint support to Bud
+
+templates:
+  - name: stylelint
+    description: stylelint config
+    path: templates/stylelint.config.json

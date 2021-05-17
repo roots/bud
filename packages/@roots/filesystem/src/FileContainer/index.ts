@@ -6,17 +6,6 @@ import {sync} from 'globby'
 import {Container} from '@roots/container'
 import {boundMethod as bind} from 'autobind-decorator'
 
-/**
- * FileContainer
- *
- * FS abstraction library conceptually similar to
- * FlySystem for PHP (but much more basic).
- *
- * [🏡 Project home](https://roots.io/bud)
- * [🧑‍💻 roots/bud/packages/filesystem](#)
- * [📦 @roots/filesystem](https://www.npmjs.com/package/@roots/filesystem)
- * [🔗 Documentation](#)
- */
 export class FileContainer extends Container {
   /**
    * FS-Extra library

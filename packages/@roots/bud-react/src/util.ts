@@ -1,14 +1,22 @@
 import type {Configuration} from 'webpack'
 
-function addRefresh(a, [name, assets]) {
+function addRefresh(entries, [name, assets]) {
   return {
-    ...a,
-    [name]: ['react-refresh/runtime', ...assets],
+    'react-dev': {
+      import: ['react-refresh/runtime'],
+    },
+    ...(entries ?? {}),
+    [name]: {
+      ...assets,
+      dependOn: ['react-dev', ...(assets.dependOn ?? [])],
+    },
   }
 }
 
 function reducer(entry: Configuration['entry']) {
-  return Object.entries(entry).reduce(addRefresh, entry)
+  return entry
+    ? Object.entries(entry).reduce(addRefresh, entry)
+    : {}
 }
 
 export default reducer

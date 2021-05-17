@@ -35,11 +35,11 @@
     "types/"
   ],
   "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.mjs",
+  "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.mjs"
+    "import": "./lib/esm/index.js"
   },
   "scripts": {
     "build": "yarn g:build",
@@ -57,13 +57,13 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@roots/bud-extensions": "workspace:*",
+    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@types/lodash": "^4.14.168",
     "@types/node": "^15.0.0"
   },
   "dependencies": {
-    "@roots/bud-framework": "workspace:*",
-    "@roots/wordpress-dependencies-webpack-plugin": "workspace:*",
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
+    "@roots/wordpress-dependencies-webpack-plugin": "workspace:packages/@roots/wordpress-dependencies-webpack-plugin",
     "autobind-decorator": "^2.4.0",
     "lodash": "^4.17.21"
   }

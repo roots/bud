@@ -3,7 +3,7 @@ import {Framework} from '@roots/bud-framework'
 
 type PkgFields = {
   [key: string]: any
-  name: string
+  name?: string
 }
 
 export const usePackageJson = ({
@@ -16,7 +16,7 @@ export const usePackageJson = ({
 
     setPkg({
       ...(pkg ?? {}),
-      ...discovery.getProjectInfo,
+      ...discovery.getProjectInfo(),
     })
   }, [discovery])
 

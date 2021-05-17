@@ -2,9 +2,9 @@
   "name": "example-sass",
   "private": true,
   "devDependencies": {
-    "@roots/bud": "workspace:*",
-    "@roots/bud-cli": "workspace:*",
-    "@roots/bud-sass": "workspace:*",
+    "@roots/bud": "workspace:packages/@roots/bud",
+    "@roots/bud-cli": "workspace:packages/@roots/bud-cli",
+    "@roots/bud-sass": "workspace:packages/@roots/bud-sass",
     "sass": "^1.32.11"
   }
 }

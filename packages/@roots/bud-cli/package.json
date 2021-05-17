@@ -48,11 +48,11 @@
     "types/"
   ],
   "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.mjs",
+  "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.mjs"
+    "import": "./lib/esm/index.js"
   },
   "oclif": {
     "commands": "./lib/cjs/commands",
@@ -119,7 +119,7 @@
     "@oclif/plugin-update": "^1.3.10",
     "@oclif/plugin-warn-if-update-available": "^1.7.0",
     "@oclif/plugin-which": "^1.0.3",
-    "@roots/bud": "workspace:*",
+    "@roots/bud": "workspace:packages/@roots/bud",
     "autobind-decorator": "^2.4.0",
     "cosmiconfig": "^7.0.0",
     "globby": "^11.0.3",

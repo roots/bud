@@ -13,25 +13,16 @@ export abstract class Base extends Service {
     type: 'dependencies' | 'devDependencies',
   ): boolean
 
-  /**
-   * Install dependency
-   */
   public abstract installDev(
     deps: {[key: string]: string},
     src: string,
   ): void
 
-  /**
-   * Install dependency
-   */
   public abstract install(
     deps: {[key: string]: string},
     src: string,
   ): void
 
-  /**
-   * Display information to console
-   */
   public abstract notify(
     notices: {msg: string; src: string}[],
   ): void

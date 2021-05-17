@@ -1,36 +1,19 @@
-import Service from './Service'
+import {Service} from '@roots/bud-framework'
 import crypto from 'crypto'
 import {readFileSync, mkdirSync, pathExistsSync} from 'fs-extra'
 import {boundMethod as bind} from 'autobind-decorator'
 import {sync} from 'globby'
 
-/**
- * # bud.cache
- *
- * Cache utlity for Webpack modules.
- */
-export class Cache extends Service {
+class Cache extends Service {
   public name = '@roots/bud-cache'
 
+  @bind
   public booted() {
     this.enabled() &&
       !pathExistsSync(this.app.path('storage')) &&
       mkdirSync(this.app.path('storage'))
   }
 
-  /**
-   * ## bud.cache.enabled
-   *
-   * Returns boolean true if cache is enabled
-   *
-   * Cache is enabled when there is a cache record to read on disk and
-   * the buildCache feature is enabled.
-   *
-   * ```js
-   * bud.cache.enabled()
-   * // => true if cache is enabled
-   * ```
-   */
   @bind
   public enabled(): boolean {
     return (
@@ -39,12 +22,6 @@ export class Cache extends Service {
     )
   }
 
-  /**
-   * Version
-   *
-   * A hash created from the stringified contents of the project config
-   * and package.json
-   */
   public get version() {
     const conf =
       JSON.stringify(
@@ -63,15 +40,18 @@ export class Cache extends Service {
       .digest('hex')
   }
 
-  /**
-   * Source as json
-   */
   public get json() {
-    return JSON.stringify(
-      readFileSync(
-        this.app.disk.get('project').get('package.json'),
-        'utf8',
-      ) ?? '',
+    return pathExistsSync(
+      this.app.path('project', 'package.json'),
     )
+      ? JSON.stringify(
+          readFileSync(
+            this.app.path('project', 'package.json'),
+            'utf8',
+          ) ?? '',
+        )
+      : `{}`
   }
 }
+
+export {Cache}

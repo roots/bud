@@ -37,11 +37,11 @@
     "manifest.yml"
   ],
   "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.mjs",
+  "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.mjs"
+    "import": "./lib/esm/index.js"
   },
   "scripts": {
     "build": "yarn g:build",
@@ -69,8 +69,8 @@
   "dependencies": {
     "@babel/preset-react": "^7.13.13",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.4.3",
+    "@roots/bud-api": "workspace:*",
     "@roots/bud-babel": "workspace:*",
-    "@roots/bud-extensions": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@svgr/core": "^5.5.0",
     "@svgr/webpack": "^5.5.0",

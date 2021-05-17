@@ -3,13 +3,7 @@ import {boundMethod as bind} from 'autobind-decorator'
 import {isString} from 'lodash'
 import {BaseConfig} from './BaseConfig'
 
-/**
- * Babel API
- */
 export class Config extends BaseConfig implements Babel {
-  /**
-   * Initialize
-   */
   @bind
   public init(app: Framework): this {
     this.app = app
@@ -18,9 +12,6 @@ export class Config extends BaseConfig implements Babel {
     return this
   }
 
-  /**
-   * Normalize entry
-   */
   @bind
   public normalizeEntry(
     c: Babel.Registrable,
@@ -30,9 +21,6 @@ export class Config extends BaseConfig implements Babel {
       : (c as Babel.NormalizedPlugin)
   }
 
-  /**
-   * Set a babel plugin
-   */
   @bind
   public setPlugin(plugin: Babel.Registrable): this {
     this.app.log(`Setting babel plugin: ${plugin}`)
@@ -44,9 +32,6 @@ export class Config extends BaseConfig implements Babel {
     return this
   }
 
-  /**
-   * Set babel plugins
-   */
   @bind
   public setPlugins(
     plugins: Array<Babel.NormalizedPlugin | string>,
@@ -56,9 +41,6 @@ export class Config extends BaseConfig implements Babel {
     return this
   }
 
-  /**
-   * Set a babel preset
-   */
   @bind
   public setPreset(preset: Babel.Registrable): this {
     this.app.log(`Setting babel preset: ${preset}`)
@@ -70,9 +52,6 @@ export class Config extends BaseConfig implements Babel {
     return this
   }
 
-  /**
-   * Set babel presets
-   */
   @bind
   public setPresets(
     presets: Array<Babel.NormalizedPlugin | string>,
@@ -82,9 +61,6 @@ export class Config extends BaseConfig implements Babel {
     return this
   }
 
-  /**
-   * Unset a babel preset
-   */
   @bind
   public unsetPreset(preset: string) {
     !this.presets[preset]
@@ -94,9 +70,6 @@ export class Config extends BaseConfig implements Babel {
     return this
   }
 
-  /**
-   * Unset a babel plugin
-   */
   @bind
   public unsetPlugin(plugin: string) {
     !this.plugins[plugin]
@@ -106,9 +79,6 @@ export class Config extends BaseConfig implements Babel {
     return this
   }
 
-  /**
-   * Set a babel plugin's options
-   */
   @bind
   public setPluginOptions(plugin: string, options: any): this {
     this.plugins[plugin] = [this.plugins[plugin][0], options]
@@ -116,9 +86,6 @@ export class Config extends BaseConfig implements Babel {
     return this
   }
 
-  /**
-   * Set a babel preset's options
-   */
   @bind
   public setPresetOptions(preset: string, options: any): this {
     this.presets[preset] = [this.presets[preset][0], options]

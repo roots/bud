@@ -1,11 +1,11 @@
 import {Api} from '@roots/bud-framework'
-import Webpack from 'webpack'
 import {resolve} from 'path'
+import Webpack from 'webpack'
 
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## alias  [💁 Fluent]
+     * ## alias
      *
      * Register shorthand for resolving modules
      * using webpack aliases. Useful for
@@ -24,23 +24,29 @@ declare module '@roots/bud-framework' {
   }
 
   namespace Api {
-    type Alias = (
-      alias: Webpack.Configuration['resolve']['alias'],
-    ) => Framework
+    type Alias = (alias: Alias.Schema) => Framework
+    namespace Alias {
+      type Schema = Webpack.Configuration['resolve']['alias']
+    }
   }
 }
 
-export const alias: Api.Alias = function (alias) {
-  this.hooks.on('build/resolve/alias', existant => ({
-    ...existant,
-    ...Object.entries(alias).reduce(
-      (a, [k, v]) => ({
-        ...a,
-        [k]: resolve(v),
-      }),
-      {},
-    ),
-  }))
+const alias: Api.Alias = function (alias) {
+  this.hooks.on(
+    'build/resolve/alias',
+    (aliases: Api.Alias.Schema) => ({
+      ...aliases,
+      ...Object.entries(alias).reduce(
+        (a, [k, v]) => ({
+          ...a,
+          [k]: resolve(v),
+        }),
+        {},
+      ),
+    }),
+  )
 
   return this
 }
+
+export {alias}

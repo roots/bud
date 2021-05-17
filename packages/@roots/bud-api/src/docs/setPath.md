@@ -1,7 +1,3 @@
----
-description: Define the paths of various locations on disk.
----
-
 # bud.setPath
 
 Sets a project location.
@@ -14,7 +10,7 @@ It accepts two strings:
 
 Alternatively, this function may also accept a key-value object, so that multiple locations can be redefined at once.
 
-Once set, this directory may be utilitized using [bud.path](config-path.md).
+Once set, this directory may be utilitized using [bud.path](docs:config/path).
 
 ## Usage
 

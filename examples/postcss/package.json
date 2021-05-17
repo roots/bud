@@ -2,12 +2,9 @@
   "name": "example-postcss",
   "private": true,
   "devDependencies": {
-    "@babel/core": "^7.13.16",
-    "@roots/bud": "workspace:*",
-    "@roots/bud-babel": "workspace:*",
-    "@roots/bud-cli": "workspace:*",
-    "@roots/bud-postcss": "workspace:*",
-    "@types/node": "^15.0.0",
-    "postcss": "^8.2.13"
+    "@roots/bud": "workspace:packages/@roots/bud",
+    "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
+    "@roots/bud-cli": "workspace:packages/@roots/bud-cli",
+    "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
   }
 }

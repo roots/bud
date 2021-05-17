@@ -1,5 +1,6 @@
 import {ProvidePlugin as Plugin} from 'webpack'
-import type {Index, Module} from '@roots/bud-framework'
+import type {Module} from '@roots/bud-framework'
+import type {Index} from '@roots/bud-typings'
 
 const extension: Module<Plugin, Index<{[key: string]: any}>> = {
   name: 'webpack-provide-plugin',
@@ -10,4 +11,4 @@ const extension: Module<Plugin, Index<{[key: string]: any}>> = {
     options && options.getEntries().length > 0,
 }
 
-export {extension as default}
+export const {name, options, make, when} = extension

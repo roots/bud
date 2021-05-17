@@ -1,14 +1,8 @@
 import './interface'
-import {Framework} from '@roots/bud-framework'
-import {Module} from '@roots/bud-extensions'
+import {Framework, Module} from '@roots/bud-framework'
 import {tailwind} from './api'
 
 export const name: Module['name'] = '@roots/bud-tailwindcss'
-
-export const devDependencies = [
-  'tailwindcss',
-  '@tailwindcss/jit',
-]
 
 export const api: Module['api'] = {tailwind}
 

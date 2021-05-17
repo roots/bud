@@ -1,12 +1,13 @@
-import type {Module} from '@roots/bud-framework'
-import type Webpack from 'webpack/types'
+import {
+  Module,
+  Extensions as Contract,
+  Service,
+} from '@roots/bud-framework'
 import {boundMethod as bind} from 'autobind-decorator'
 import {isUndefined} from 'lodash'
+import {Extension} from '../Extension/index'
 
-import {Extension} from '../index'
-import Service from './Service'
-
-export class Extensions extends Service {
+export class Extensions extends Service implements Contract {
   public name = '@roots/bud-extensions'
 
   @bind
@@ -28,8 +29,9 @@ export class Extensions extends Service {
     this.log(`Registering extension: %s`, extension.name)
     this.set(
       extension.name,
-      new Extension(this.app, extension).register(this.app),
+      new Extension(this.app, extension).register(),
     )
+    this.log(`Extension registered: %s`, extension.name)
   }
 
   @bind
@@ -49,14 +51,14 @@ export class Extensions extends Service {
   }
 
   @bind
-  public make(): Webpack.WebpackPluginInstance[] {
+  public make(): Contract.PluginOutput[] {
     this.log(`Building extensions: %s`, this.getKeys())
 
     const plugins = this.getKeys()
       .map(name => this.get(name).make)
       .filter(
         ext => !isUndefined(ext),
-      ) as Webpack.WebpackPluginInstance[]
+      ) as Contract.PluginOutput[]
 
     return plugins
   }
@@ -64,8 +66,6 @@ export class Extensions extends Service {
   @bind
   public discard(pkg: string): Service['app'] {
     this.remove(pkg)
-    this.app.disk.remove(pkg)
-
     return this.app
   }
 }

@@ -2,13 +2,11 @@
   "name": "example-react",
   "private": true,
   "devDependencies": {
-    "@roots/bud": "workspace:*",
-    "@roots/bud-babel": "workspace:*",
+    "@roots/bud": "workspace:packages/@roots/bud",
+    "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
     "@roots/bud-cli": "workspace:packages/@roots/bud-cli",
-    "@roots/bud-postcss": "workspace:*",
-    "@roots/bud-react": "workspace:*",
-    "@roots/bud-terser": "workspace:*",
-    "react-refresh": "^0.10.0"
+    "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
+    "@roots/bud-react": "workspace:packages/@roots/bud-react"
   },
   "dependencies": {
     "react": "^17.0.2",

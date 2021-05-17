@@ -1,5 +1,10 @@
-import '@roots/bud-extensions'
+import type {Plugin} from '@roots/bud-framework'
 import {CriticalCssWebpackPlugin} from '@roots/critical-css-webpack-plugin'
+
+export type Extension = Plugin<
+  CriticalCssWebpackPlugin,
+  CriticalCssWebpackPlugin['options']
+>
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -31,16 +36,11 @@ declare module '@roots/bud-framework' {
      * Options
      */
     type Options = CriticalCssWebpackPlugin['options']
-
-    /**
-     * Make
-     */
-    type Make = Module.Make<CriticalCssWebpackPlugin, Options>
   }
 
-  namespace Hooks.Extension {
-    interface Definitions {
-      '@roots/bud-criticalcss': Module
+  namespace Framework {
+    interface Extensions {
+      '@roots/bud-criticalcss': Extension
     }
   }
 }

@@ -1,5 +1,5 @@
 import {Bud} from '@roots/bud'
-import '@roots/bud-extensions'
+import {Module} from '@roots/bud-framework'
 
 /**
  * Sage theme preset
@@ -36,8 +36,8 @@ export namespace Sage {
 }
 
 declare module '@roots/bud-framework' {
-  namespace Hooks.Extension {
-    interface Definitions {
+  namespace Framework {
+    interface Extensions {
       '@roots/sage': Module
     }
   }

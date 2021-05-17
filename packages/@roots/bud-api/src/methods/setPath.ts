@@ -1,7 +1,7 @@
-import {Framework, Hooks} from '@roots/bud-framework'
+import {Framework} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
-  export interface Framework {
+  interface Framework {
     /**
      * ## bud.setPath [💁 Fluent]
      *
@@ -21,19 +21,11 @@ declare module '@roots/bud-framework' {
 }
 
 interface SetPath {
-  (
-    name: keyof Hooks.Locale.Definitions,
-    path?: string,
-  ): Framework
+  (name: any, path?: string): Framework
 }
 
 interface SetPath {
-  (
-    paths: {
-      [K in keyof Hooks.Locale.Definitions as `${K &
-        string}`]?: string
-    },
-  ): Framework
+  (paths: any): Framework
 }
 
 export const setPath: SetPath = function (...args) {

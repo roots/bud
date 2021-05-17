@@ -17,17 +17,17 @@
   "workspaces": {
     "packages": [
       "examples/*",
-      "packages/base",
-      "packages/@roots/*"
+      "packages/@roots/*",
+      "packages/base"
     ]
   },
   "scripts": {
-    "build": "yarn workspaces foreach --interlaced --verbose --topological run build",
-    "clean": "yarn workspaces foreach --parallel --interlaced --verbose run clean",
-    "lint": "yarn workspaces foreach --parallel --interlaced --verbose --topological run lint",
+    "build": "yarn workspaces foreach --topological --topological-dev --verbose run build",
+    "clean": "yarn workspaces foreach --all --topological --topological-dev --parallel --verbose run clean",
+    "lint": "yarn workspaces foreach --all --topological --topological-dev --parallel --verbose run lint",
+    "pkg": "yarn workspaces foreach --all --topolgical-dev --parallel --interlaced --verbose run pkg",
     "prep": "yarn run-s clean build docs lint pkg",
     "docs": "yarn node ./dev/docs/gen/cli.js",
-    "pkg": "yarn workspaces foreach --parallel --interlaced --verbose --topological run pkg",
     "test": "jest --verbose",
     "release": "release-it"
   },

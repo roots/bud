@@ -1,8 +1,8 @@
-import '@roots/bud-extensions'
 import '@roots/bud-postcss'
+import {Module} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
-  namespace Hooks.Extension {
+  namespace Framework {
     interface Definitions {
       '@roots/bud-purgecss': Module
     }

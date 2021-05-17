@@ -1,4 +1,4 @@
-import {Framework} from '@roots/bud-framework'
+import {Api} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -17,13 +17,13 @@ declare module '@roots/bud-framework' {
   }
 
   namespace Api {
-    export {Hash}
+    type Hash = (enabled?: boolean) => Framework
   }
 }
 
-type Hash = (enabled?: boolean) => Framework
-
-export const hash: Hash = function (enabled = true) {
+const hash: Api.Hash = function (enabled = true) {
   this.store.set('hash', enabled)
   return this
 }
+
+export {hash}

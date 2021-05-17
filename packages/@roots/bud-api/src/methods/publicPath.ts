@@ -1,3 +1,5 @@
+import type {Api} from '@roots/bud-framework'
+
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
@@ -15,14 +17,16 @@ declare module '@roots/bud-framework' {
      * bud.publicPath('/app/themes/sage/dist')
      * ```
      */
-    publicPath: PublicPath
+    publicPath: Api.PublicPath
+  }
+
+  namespace Api {
+    type PublicPath = (path?: string) => string
   }
 }
 
-type PublicPath = (path?: string) => string
-
-export const publicPath: PublicPath = function (path?: string) {
-  return `${this.hooks.subscribe('location/publicPath')}${
+export const publicPath: Api.PublicPath = function (path) {
+  return `${this.hooks.filter('location/publicPath')}${
     path ?? ''
   }`
 }

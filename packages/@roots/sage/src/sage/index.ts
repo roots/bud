@@ -1,3 +1,5 @@
+import './interface'
+
 import {Bud} from '@roots/bud'
 import {Module} from '@roots/bud-framework'
 
@@ -28,7 +30,7 @@ export const boot: Module.Boot = (app: Bud) => {
       '@scripts': app.path('src', 'scripts'),
       '@styles': app.path('src', 'styles'),
     })
-    .html({enabled: false})
+    .template({enabled: false})
     .provide({jquery: ['$', 'jQuery']})
     .use([
       postcss,

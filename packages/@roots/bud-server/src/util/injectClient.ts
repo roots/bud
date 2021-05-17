@@ -1,6 +1,5 @@
 import {Framework} from '@roots/bud-framework'
 import Webpack from 'webpack'
-import {isArray} from 'lodash'
 
 /**
  * Inject webpack entrypoints with
@@ -16,20 +15,21 @@ export declare type InjectClient = (
  *
  * Filters on `webpack.entry`
  */
-export const injectClient: InjectClient = (app, injection) =>
+export const injectClient: InjectClient = (app, injection) => {
   app.hooks.on(
     'build/entry',
-    (entry: Webpack.Entry): Webpack.Entry =>
-      Object.entries(entry).reduce(
+    (entry: Webpack.Entry): Webpack.Entry => ({
+      'bud-dev': injection,
+      ...Object.entries(entry).reduce(
         (entries, [name, assets]) => ({
           ...entries,
-          [name]: [
-            ...injection,
-            ...(isArray(app.access(assets))
-              ? app.access(assets)
-              : [app.access(assets)]),
-          ],
+          [name]: {
+            ...assets,
+            dependOn: ['bud-dev', ...(assets.dependOn ?? [])],
+          },
         }),
         {},
       ),
+    }),
   )
+}

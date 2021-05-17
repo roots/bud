@@ -35,11 +35,11 @@
     "manifest/"
   ],
   "main": "./lib/cjs/index.js",
-  "module": "./lib/esm/index.mjs",
+  "module": "./lib/esm/index.js",
   "types": "./types/index.d.ts",
   "exports": {
     "require": "./lib/cjs/index.js",
-    "import": "./lib/esm/index.mjs"
+    "import": "./lib/esm/index.js"
   },
   "scripts": {
     "build": "yarn g:build",
@@ -62,6 +62,7 @@
     "postcss": "^8.2.13"
   },
   "dependencies": {
+    "@roots/bud-dashboard": "workspace:*",
     "@roots/bud-extensions": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-postcss": "workspace:*",

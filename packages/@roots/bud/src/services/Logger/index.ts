@@ -3,22 +3,22 @@ import {
   Bootstrapper,
   Framework,
 } from '@roots/bud-framework'
+import {Container} from '@roots/container'
 import {Signale, SignaleConfig} from 'signale'
 import {boundMethod as bind} from 'autobind-decorator'
 
 /**
  * Logger service
  */
-export class Logger implements Contract, Bootstrapper {
+export class Logger
+  extends Container
+  implements Contract, Bootstrapper {
   public name = 'service/logger'
 
   public _app: Framework['get']
 
   public _instance: Signale
 
-  /**
-   * Logger config
-   */
   public config: SignaleConfig = {
     displayScope: true,
     displayBadge: false,
@@ -33,9 +33,6 @@ export class Logger implements Contract, Bootstrapper {
     uppercaseLabel: false,
   }
 
-  /**
-   * Logger options
-   */
   public options = {
     disabled: true,
     interactive: false,
@@ -43,49 +40,32 @@ export class Logger implements Contract, Bootstrapper {
     stream: process.stdout,
   }
 
-  /**
-   * Get logger instance
-   */
   public get instance() {
     return this._instance
   }
 
-  /**
-   * Set logger instance
-   */
   public set instance(instance) {
     this._instance = instance
   }
 
-  /**
-   * Get Framework
-   */
   public get app(): Framework {
     return this._app()
   }
 
-  /**
-   * Constructor
-   */
   public constructor(app: Framework['get']) {
+    super()
     this._app = app
   }
 
-  /**
-   * Framework lifecycle: bootstrapped
-   */
   @bind
   public bootstrap() {
     this.instance = this.makeLogger()
 
     if (process.argv.includes('--log')) {
-      this.app.logger.instance.enable()
+      this.instance.enable()
     }
   }
 
-  /**
-   * Make logger
-   */
   @bind
   public makeLogger() {
     const logger = new Signale(this.options)

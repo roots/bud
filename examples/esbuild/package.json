@@ -2,12 +2,9 @@
   "name": "example-esbuild",
   "private": true,
   "devDependencies": {
-    "@roots/bud": "workspace:*",
-    "@roots/bud-cli": "workspace:*",
-    "@roots/bud-esbuild": "workspace:*",
+    "@roots/bud": "workspace:packages/@roots/bud",
+    "@roots/bud-cli": "workspace:packages/@roots/bud-cli",
+    "@roots/bud-esbuild": "workspace:packages/@roots/bud-esbuild",
     "@types/node": "^15.0.0"
-  },
-  "dependencies": {
-    "@skypack/package-check": "^0.2.2"
   }
 }

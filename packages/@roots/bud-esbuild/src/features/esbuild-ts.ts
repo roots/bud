@@ -1,5 +1,6 @@
 import type {Module, Framework} from '@roots/bud-framework'
 import {Item, Loader, Rule} from '@roots/bud-build'
+import {pathExistsSync, readJson} from 'fs-extra'
 
 export const tsFeature: Module = {
   name: '@roots/bud-esbuild/ts',
@@ -14,8 +15,10 @@ export const tsFeature: Module = {
       options: app => ({
         loader: 'tsx',
         target: 'es2015',
-        tsconfigRaw: app.disk.get('project').has('tsconfig.json')
-          ? app.disk.get('project').readJson('tsconfig.json')
+        tsconfigRaw: pathExistsSync(
+          app.path('project', 'tsconfig.json'),
+        )
+          ? readJson(app.path('project', 'tsconfig.json'))
           : {
               compilerOptions: {
                 importsNotUsedAsValues: 'remove',

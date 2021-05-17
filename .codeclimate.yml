@@ -3,6 +3,5 @@ exclude_patterns:
   - 'docs'
   - 'examples'
   - '.*'
-  - 'node_modules'
   - 'packages/@roots/*/templates'
   - 'packages/@roots/*/src/docs'

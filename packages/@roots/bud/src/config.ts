@@ -1,89 +1,132 @@
-import {Config} from '@roots/bud-framework'
-import {Server} from '@roots/bud-server'
-import {Index} from '@roots/bud-typings'
+import {Hooks, Server} from '@roots/bud-typings'
 import {Theme} from '@roots/ink-use-style'
-import CleanWebpackPlugin from 'clean-webpack-plugin'
-import Webpack from 'webpack'
-import MiniCssExtractPlugin from 'mini-css-extract-plugin'
-import HtmlWebpackPlugin from 'html-webpack-plugin'
+import Webpack from 'webpack/types'
 import {cpus} from 'os'
 
-declare module '@roots/bud-framework' {
-  interface Config {
-    /**
-     * RegExp
-     */
-    patterns: Index<RegExp>
+interface Configuration {
+  /**
+   * Regular expression library
+   *
+   * @example
+   *
+   * ```js
+   * app.patterns.get('js')
+   * ```
+   */
+  patterns: {[key: string]: RegExp}
 
-    /**
-     * Location
-     */
-    location: Hooks.Locale.Definitions
+  /**
+   * Location
+   */
+  location: Hooks.Locale.Definitions
 
-    /**
-     * Features
-     */
-    ci: boolean
-    clean: boolean
-    debug: boolean
-    discover: boolean
-    hash: boolean
-    html: boolean
-    install: boolean
-    log: boolean
-    manifest: boolean
+  /**
+   * Feature: CI mode
+   * @default false
+   */
+  ci: boolean
 
-    /**
-     * Derived values
-     */
-    fileFormat: string
-    hashFormat: string
+  /**
+   * Feature: Clean dist before compilation
+   *
+   * When enabled stale assets will be removed from
+   * the `location/dist` directory prior to the next
+   * compilation.
+   *
+   * @default true
+   */
+  clean: boolean
 
-    /**
-     * Build
-     */
-    build: Webpack.Configuration
+  /**
+   * Feature: produce webpack.debug.js artifact
+   *
+   * When enabled a `webpack.debug.js` artifact will be
+   * emitted to the `location/storage` directory.
+   *
+   * @default false
+   */
+  debug: boolean
 
-    /**
-     * Extensions
-     */
-    extension: {
-      cleanWebpackPlugin: CleanWebpackPlugin.Options
-      cssMinimizerWebpackPlugin: {
-        minimizerOptions: {
-          preset: string[]
-        }
-      }
-      htmlWebpackPlugin: HtmlWebpackPlugin.Options
-      interpolateHtmlPlugin: {
-        replace: Index<{[key: string]: string}>
-      }
-      miniCssExtractPlugin: MiniCssExtractPlugin.PluginOptions
-      webpackConfigDumpPlugin: {
-        name: string
-        keepCircularReferences: boolean
-      }
-      webpackDefinePlugin: {[key: string]: any}
-      webpackManifestPlugin: {
-        fileName: string
-        writeToFileEmit: boolean
-      }
-      webpackProvidePlugin: {[key: string]: any}
-    }
+  /**
+   * Discover: automatically register locatable extensions
+   *
+   * When enabled, any discovered extensions will be automatically
+   * initialized.
+   *
+   * @default false
+   */
+  discover: boolean
 
-    /**
-     * Server config
-     */
-    server: Server['config']['repository']
+  /**
+   * Feature: enable filename hashing
+   * @default false
+   */
+  hash: boolean
 
-    /**
-     * Theme config
-     */
-    theme: Theme
+  /**
+   * Feature: emit html template
+   * @default true
+   */
+  html: boolean
+
+  /**
+   * Feature: automatically install extension dependencies
+   * @default false
+   */
+  install: boolean
+
+  /**
+   * Feature: log to console
+   * @default false
+   */
+  log: boolean
+
+  /**
+   * Feature: produce asset manifest
+   * @default true
+   */
+  manifest: boolean
+
+  /**
+   * File format
+   *
+   * @note do not include extension
+   * @default '[name]'
+   */
+  fileFormat: string
+
+  /**
+   * File format (when hashing is enabled)
+   *
+   * @note do not include extension
+   * @default '[name].[contenthash]'
+   */
+  hashFormat: string
+
+  /**
+   * Seed values for webpack config
+   */
+  build: Webpack.Configuration
+
+  /**
+   * Seed values for extension options
+   */
+  extension: {
+    [key: string]: any
   }
+
+  /**
+   * Server config
+   */
+  server: Server['config']['repository']
+
+  /**
+   * Theme configuration
+   */
+  theme: Theme
 }
 
-export const config: Config = {
+export const config: Configuration = {
   patterns: {
     css: /\.css$/,
     cssModule: /\.module\.css$/,

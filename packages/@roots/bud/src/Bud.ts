@@ -1,39 +1,41 @@
-import {Framework} from '@roots/bud-framework'
+import {Api} from '@roots/bud-api'
 import {Cache} from '@roots/bud-cache'
 import {Compiler} from '@roots/bud-compiler'
-import {Dependencies} from './services/Dependencies/index'
-import {Discovery} from './services/Discovery/index'
-import {Disk} from './services/Disk/index'
-import {Env} from './services/Env/index'
-import {Extensions} from './services/Extensions/index'
-import {Hooks} from './services/Hooks/index'
-import {Logger} from './services/Logger/index'
-import {Server} from './services/Server/index'
+import {Dependencies} from './services/Dependencies'
+import {Discovery} from './services/Discovery'
+import {Disk} from './services/Disk'
+import {Env} from './services/Env'
+import {Extensions} from './services/Extensions'
+import {Hooks} from './services/Hooks'
+import {Logger} from './services/Logger'
+import {Server} from './services/Server'
+import {Build} from '@roots/bud-build'
+import {Framework} from '@roots/bud-framework'
 
 class Bud extends Framework {
-  public cache: Cache
+  api: Api
 
-  public compiler: Compiler
+  build: Build
 
-  public dependencies: Dependencies
+  cache: Cache
 
-  public discovery: Discovery
+  compiler: Compiler
 
-  public disk: Disk
+  dependencies: Dependencies
 
-  public env: Env
+  discovery: Discovery
 
-  public extensions: Extensions
+  disk: Disk
 
-  public hooks: Hooks
+  env: Env
 
-  public logger: Logger
+  extensions: Extensions
 
-  public server: Server
+  hooks: Hooks
+
+  logger: Logger
+
+  server: Server
 }
 
-/**
- * @exports Bud      Class definition
- * @exports services Default services
- */
 export {Bud}

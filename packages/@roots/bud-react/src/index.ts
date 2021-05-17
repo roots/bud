@@ -1,5 +1,5 @@
 import './interface'
-import type {Module} from '@roots/bud-extensions'
+import {Module} from '@roots/bud-framework'
 
 import RefreshExtension from './react-refresh'
 import devScriptReducer from './util'
@@ -8,11 +8,13 @@ const extension: Module = {
   name: '@roots/bud-react',
   boot: app => {
     app.babel.setPresets(['@babel/preset-react'])
-    app.when(app.isDevelopment, () =>
-      app
-        .use(RefreshExtension)
-        .hooks.on('entry', devScriptReducer),
-    )
+
+    app.when(app.isDevelopment, () => {
+      app.extensions.add(RefreshExtension)
+
+      app.isDevelopment &&
+        app.hooks.on('build/entry', devScriptReducer)
+    })
   },
 }
 

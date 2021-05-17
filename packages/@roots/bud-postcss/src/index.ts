@@ -1,43 +1,44 @@
 import './interface'
-
 import {Item, Loader} from '@roots/bud-build'
-import {Framework, Module} from '@roots/bud-framework'
+import {Module} from '@roots/bud-framework'
+import {pathExistsSync} from 'fs-extra'
 import {Config} from './Config'
 
 const extension: Module = {
   name: '@roots/bud-postcss',
+
   api: app => ({
     postcss: new Config(app),
   }),
 
-  boot: (app: Framework) => {
-    app.build.loaders.postcss = new Loader(app =>
+  boot: ({build, path, postcss}) => {
+    build.loaders.postcss = new Loader(
       require.resolve('postcss-loader'),
     )
 
-    app.build.items.postcss = new Item({
-      loader: app => app.build.loaders.postcss,
-      options: app => ({
+    build.items.postcss = new Item({
+      loader: ({build}) => build.loaders.postcss,
+      options: ({path, postcss}) => ({
         postcssOptions: {
-          config: app.postcss.hasProjectConfig,
+          config: pathExistsSync(
+            path('project', 'postcss.config.js'),
+          ),
           plugins: Object.values(
-            app.postcss.plugins,
-          ).map(plugin => require(plugin[0])(plugin[1])),
+            postcss.plugins,
+          ).map(([plugin, options]) => require(plugin)(options)),
         },
         sourceMap: true,
       }),
     })
 
-    app.build.rules.css.setUse(app => [
-      app.isProduction
-        ? app.build.items.minicss
-        : app.build.items.style,
-      app.build.items.css,
-      app.build.items.postcss,
+    build.rules.css.setUse(({isProduction, build}) => [
+      isProduction ? build.items.minicss : build.items.style,
+      build.items.css,
+      build.items.postcss,
     ])
 
-    !app.postcss.hasProjectConfig &&
-      app.postcss.setPlugins([
+    !pathExistsSync(path('project', 'postcss.config.js')) &&
+      postcss.setPlugins([
         'postcss-import',
         ['postcss-preset-env', {stage: 1}],
       ])
