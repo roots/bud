@@ -1,7 +1,3 @@
----
-
-## description: Generate a runtime chunk.
-
 # bud.runtime
 
 Generate a runtime chunk intended to be inlined on the page.

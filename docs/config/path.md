@@ -1,7 +1,3 @@
----
-
-## description: Get the absolute path to a project file or directory.
-
 # bud.path
 
 `bud.path` accepts up to two strings as parameters:

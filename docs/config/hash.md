@@ -1,7 +1,3 @@
----
-
-## description: Enable filename hashing of built assets.
-
 # bud.hash
 
 Enable filename hashing of built assets.

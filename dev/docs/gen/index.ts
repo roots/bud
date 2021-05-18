@@ -71,6 +71,19 @@ const docs = () => {
       })),
   )
 
+  doc(
+    glob
+      .sync([`${process.cwd()}/packages/@roots/bud-api/src/docs/*.md`])
+      .map(source => ({
+        pkg: null,
+        source,
+        destination: source.replace(
+          '/packages/@roots/bud-api/src/docs/',
+          '/docs/config/',
+        ),
+      })),
+  )  
+
   fs.copyFile(
     `${process.cwd()}/packages/@roots/bud/README.md`,
     `${process.cwd()}/README.md`,
