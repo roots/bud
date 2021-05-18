@@ -22,7 +22,7 @@
     ]
   },
   "scripts": {
-    "build": "yarn workspaces foreach --topological --topological-dev --verbose run build",
+    "build": "yarn workspaces foreach --parallel --topological --topological-dev --verbose run build",
     "clean": "yarn workspaces foreach --all --topological --topological-dev --parallel --verbose run clean",
     "lint": "yarn workspaces foreach --all --topological --topological-dev --parallel --verbose run lint",
     "pkg": "yarn workspaces foreach --all --topolgical-dev --parallel --interlaced --verbose run pkg",

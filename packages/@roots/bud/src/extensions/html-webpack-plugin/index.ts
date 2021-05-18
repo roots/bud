@@ -12,15 +12,18 @@ interface Extension extends Module {
 
 const extension: Extension = {
   name: 'html-webpack-plugin',
-  options: app => ({
-    publicPath: app.store.get('location.publicPath'),
+
+  options: ({publicPath, store}) => ({
+    publicPath: publicPath(),
     template: posix.resolve(
       require.resolve('@roots/bud-support'),
       '../../../publish/template.html',
     ),
-    ...(app.store.get('extension.htmlWebpackPlugin') ?? {}),
+    ...(store.get('extension.htmlWebpackPlugin') ?? {}),
   }),
+
   make: options => new PluginConstructor(options.all()),
+
   when: ({store}) => store.isTrue('html'),
 }
 

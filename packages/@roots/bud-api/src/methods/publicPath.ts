@@ -21,12 +21,12 @@ declare module '@roots/bud-framework' {
   }
 
   namespace Api {
-    type PublicPath = (path?: string) => string
+    type PublicPath = () => string
   }
 }
 
-export const publicPath: Api.PublicPath = function (path) {
-  return `${this.hooks.filter('location/publicPath')}${
-    path ?? ''
-  }`
+const publicPath: Api.PublicPath = function () {
+  return this.hooks.filter('location/publicPath')
 }
+
+export {publicPath}

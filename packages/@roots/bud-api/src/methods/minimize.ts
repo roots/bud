@@ -31,12 +31,14 @@ declare module '@roots/bud-framework' {
   }
 
   namespace Api {
-    type Minimize = () => Framework
+    type Minimize = (enabled?: boolean) => Framework
   }
 }
 
-export const minimize: Api.Minimize = function () {
-  this.hooks.on('build/optimization/minimize', () => true)
+const minimize: Api.Minimize = function (enabled = true) {
+  this.hooks.on('build/optimization/minimize', () => enabled)
 
   return this
 }
+
+export {minimize}

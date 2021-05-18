@@ -1,6 +1,6 @@
 repo:
   - ./*
-  
+
 @roots/bud:
   - packages/@roots/bud/*
   - packages/@roots/bud/**/*

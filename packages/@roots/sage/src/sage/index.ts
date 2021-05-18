@@ -22,8 +22,8 @@ export const boot: Module.Boot = (app: Bud) => {
       storage: app.env.get('APP_STORAGE') ?? 'storage/bud',
       src: app.env.get('APP_SRC') ?? 'resources',
       dist: app.env.get('APP_DIST') ?? 'public',
-      publicPath: app.env.get('APP_PUBLIC_PATH') ?? 'public/',
     })
+    .setPublicPath(app.env.get('APP_PUBLIC_PATH') ?? 'public/')
     .alias({
       '@fonts': app.path('src', 'fonts'),
       '@images': app.path('src', 'images'),

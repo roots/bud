@@ -100,9 +100,12 @@ export function config(this: Framework): void {
       'build/optimization/minimize',
       () => this.isProduction,
     )
-    .hooks.on('build/optimization/minimizer', ['...'])
-    .hooks.on('build/optimization/moduleIds', 'deterministic')
-    .hooks.on('build/optimization/removeEmptyChunks', true)
+    .hooks.on('build/optimization/minimizer', () => ['...'])
+    .hooks.on(
+      'build/optimization/moduleIds',
+      () => 'deterministic',
+    )
+    .hooks.on('build/optimization/removeEmptyChunks', () => true)
     .hooks.on(
       'build/output/filename',
       () =>

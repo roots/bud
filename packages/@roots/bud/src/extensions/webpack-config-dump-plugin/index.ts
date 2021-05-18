@@ -20,7 +20,10 @@ export const make: Module.Make<
 export const when: Module.When = ({store}) =>
   store.isTrue('debug')
 
-export const options: Module.Options<Options> = ({store, path}) => ({
+export const options: Module.Options<Options> = ({
+  store,
+  path,
+}) => ({
   outputPath: path('storage'),
   ...(store.get('extension.webpackConfigDumpPlugin') ?? {}),
 })

@@ -7,21 +7,20 @@ import {setOptions} from './api/index'
 const esbuild: Module = {
   name: '@roots/bud-esbuild',
 
-  boot: ({extensions, hooks, store, isProduction}) => {
+  options: ({hooks, store}) => ({
+    target: store.get('patterns.js'),
+    exclude: store.get('patterns.modules'),
+  }),
+
+  boot: ({extensions, hooks, store}) => {
     features.forEach(feature => extensions.add(feature))
 
-    hooks.on('build/optimization/minimizer', () => [
-      new ESBuildMinifyPlugin({
-        target: hooks.filter('item/esbuild-js/options/target'),
-        exclude: store.get('patterns.modules'),
-        css: true,
-      }),
+    hooks.on('build/optimization/minimizer', minimizer => [
+      ...(minimizer ?? []),
+      new ESBuildMinifyPlugin(
+        hooks.filter('extension/@roots/bud-esbuild/options'),
+      ),
     ])
-
-    extensions.has('optimize-css-assets-webpack-plugin') &&
-      extensions.discard('optimize-css-assets-webpack-plugin')
-
-    hooks.on('build/optimization/minimize', () => isProduction)
   },
 
   api: app => ({
@@ -29,5 +28,5 @@ const esbuild: Module = {
   }),
 }
 
-const {name, boot, api} = esbuild
-export {name, boot, api}
+export default esbuild
+export const {name, boot, api} = esbuild

@@ -21,7 +21,7 @@ declare module '@roots/bud-framework' {
   }
 }
 
-type SetPublicPath = (setPublicPath: string) => Framework
+type SetPublicPath = (publicPath: string) => Framework
 
 export const setPublicPath: SetPublicPath = function (
   publicPath,

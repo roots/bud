@@ -178,7 +178,14 @@ export const config: Configuration = {
     },
     cssMinimizerWebpackPlugin: {
       minimizerOptions: {
-        preset: ['default'],
+        preset: [
+          'default',
+          {
+            discardComments: {
+              removeAll: true,
+            },
+          },
+        ],
       },
     },
     htmlWebpackPlugin: {

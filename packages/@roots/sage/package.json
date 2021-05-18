@@ -87,8 +87,7 @@
     "@roots/container": "workspace:packages/@roots/container",
     "@roots/filesystem": "workspace:packages/@roots/filesystem",
     "@tailwindcss/jit": "^0.1.18",
-    "fs-extra": "^9.1.0",
-    "lodash": "^4.17.21",
+    "@tailwindcss/typography": "^0.4.0",
     "tailwindcss": "^2.1.2"
   }
 }
