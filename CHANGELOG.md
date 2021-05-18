@@ -1,4 +1,30 @@
-## (2021-04-03)
+## v4.0.0
+
+This release features breaking changes across all packages.
+
+- Using css-minimizer-webpack-plugin instead of optimize-css-assets-webpack-plugin. 
+  - `optimize-css-assets-webpack-plugin` throws warnings. Docs say to use `css-minimizer-webpack-plugin` instead.
+  -  Commits: 5255c68, 578833c, 361a732. 
+- Removed `bud.vendor` method from `@roots/bud-api`. Replaced with `bud.splitChunks`. 
+- Removed keys from hooks/config: 
+  - `build/optimization/splitChunks/cacheGroups/vendor/...` (everything from here on is gone)
+  - This means that users who wish to modify the `vendor` chunk either need to include the config keys between `splitChunks` 
+  and `vendor` in the config param of `bud.splitChunks`, or overwrite the config in total using `bud.hooks.on('build/optimization/splitChunks')`. 
+- `build/parallelism` value of `os.cpus().length - 1` (previously set to `1`)
+- Removes `src`, `srcPath`, `dist`, `distPath`, `project` api fns in favor of a consolidated approach: `bud.path` and `bud.setPath`. 
+- Types are no longer exported explicitly from `@roots/bud-support` or `@roots/bud-typings`. Core interfaces/types can be exported from `@roots/bud-framework`.
+- `@roots/bud-compiler` no longer derives its type definition from `@roots/bud-typings`. See: #48.
+- `@roots/bud-build` no longer derives its type definition from `@roots/bud-typings`. See #48.
+- updates all asset manifest plugins to use the `processAssets` hook. webpack 5 no longer allows assets to be modified during the compiler `emit` phase.
+- Adds support for static config files (`yml` and `json`)
+- Adds support for env specific config files (`bud.production.config.js`, `bud.development.config.yml`, etc.)
+- Adds support for ts config files (ts is not required in the project to take advantage of this)
+- Enhances docs generation/maintenance scripts
+- Overhauls loader, rule interfaces
+
+Authored by: 
+  - kellymears <kelly@roots.io> 
+  - QWp6t <hi@qwp6t.me>
 
 ## v2.0.7
 
