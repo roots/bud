@@ -1,37 +1,35 @@
 import '@roots/bud-postcss'
 import {Module} from '@roots/bud-framework'
-import {RuleSetLoader, RuleSetUseItem} from 'webpack'
+import {RuleSetRule, RuleSetUseItem} from 'webpack'
+
+/**
+ * Let sass know it isnt in the browser.
+ */
+declare global {
+  interface navigator {}
+}
 
 declare module '@roots/bud-framework' {
-  namespace Framework.Hooks.Extension {
-    interface Definitions {
+  namespace Framework {
+    interface Extensions {
       '@roots/bud-sass': Module
     }
   }
 
-  namespace Framework.Hooks.Loader {
+  namespace Hooks.Loader {
     interface Definitions {
-      /**
-       * @roots/bud-sass Loader
-       */
       sass: string
     }
   }
 
-  namespace Framework.Hooks.Item {
+  namespace Hooks.Item {
     interface Definitions {
-      /**
-       * @roots/bud-sass RuleSetLoader
-       */
-      sass: RuleSetLoader
+      sass: RuleSetRule
     }
   }
 
-  namespace Framework.Hooks.Rule {
+  namespace Hooks.Rule {
     interface Definitions {
-      /**
-       * @roots/bud-sass RuleSetRule
-       */
       sass: RuleSetUseItem
     }
   }

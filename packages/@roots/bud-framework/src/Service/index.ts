@@ -1,220 +1,97 @@
-import {Framework} from '../Framework'
 import {Container} from '@roots/container'
-import {fs, globby, lodash} from '@roots/bud-support'
-import {FileContainer} from '@roots/filesystem'
-import path from 'path'
+import {boundMethod as bind} from 'autobind-decorator'
+import {Framework} from '../Framework'
 
-/**
- * Framework service
- */
-export class Service extends Container {
+abstract class Bootstrapper extends Container {
   /**
    * Loose
    */
   [key: string]: any
 
   /**
-   * Name
+   * Bootstrap
    */
-  public name: string | number
+  bootstrap?(app: Framework): any
 
   /**
-   * Application
+   * Bootstrapped
    */
-  private _app: Framework['get']
+  bootstrapped?(app: Framework): any
 
   /**
    * Register
    */
-  public register() {}
+  register?(app: Framework): any
+
+  /**
+   * Post registered callback
+   */
+  registered?(app: Framework): any
 
   /**
    * Boot
    */
-  public boot() {}
+  boot?(ap: Framework): any
 
   /**
-   * Framework lifecycle: bootstrapped
+   * Post boot callback
    */
-  public bootstrapped(app: Framework) {}
+  booted?(app: Framework): any
+}
 
-  /**
-   * Framework lifecycle: registered
-   */
-  public registered(app: Framework) {}
+abstract class Service extends Bootstrapper {
+  [key: string]: any
 
-  /**
-   * Framework lifecycle: booted
-   */
-  public booted(app: Framework) {}
+  public name: string
 
-  /**
-   * Constructor
-   */
-  public constructor(app: Framework['get']) {
-    super()
+  private _app: Framework['get']
 
-    this._app = app
-  }
-
-  /**
-   * Application instance
-   */
   public get app(): Framework {
     return this._app()
   }
 
-  /**
-   * fs util
-   *
-   * @see fs-extra
-   */
-  public get fs(): typeof fs {
-    return fs
+  public constructor(app: Framework['get']) {
+    super()
+    this._app = app
   }
 
-  /**
-   * lodash
-   */
-  public get _(): typeof lodash {
-    return lodash
+  public get access(): Framework['access'] {
+    return this.app.access
   }
 
-  /**
-   * read json
-   */
-  public get readJson(): CallableFunction {
-    return fs.readJSONSync
+  public get logger() {
+    return this.app.logger.instance.scope(this.name as string)
   }
 
-  /**
-   * Globby library.
-   */
-  public get glob(): typeof globby {
-    return globby
+  public get log() {
+    return this.logger.log
   }
 
-  /**
-   * cwd
-   */
-  public get path(): typeof path {
-    return path
+  public get info() {
+    return this.logger.info
   }
 
-  /**
-   * Dirname
-   */
-  public get dirname(): CallableFunction {
-    return path.dirname
+  public get warn() {
+    return this.logger.warn
   }
 
-  /**
-   * Resolve
-   */
-  public get resolve(): CallableFunction {
-    return path.resolve
+  public get error() {
+    return this.logger.error
   }
 
-  /**
-   * Path to node_modules
-   */
-  public modulePath(path?: string): string {
-    const base = this.path.posix.resolve(
-      this.app.subscribe(
-        'location/project',
-        'framework/service@modulePath',
-      ),
-
-      this.subscribe(
-        'location/modules',
-        'framework/service@modulePath',
-      ),
-    )
-
-    return path ? this.path.join(base, path) : base
+  public get debug() {
+    return this.logger.debug
   }
 
-  /**
-   * Filter unique
-   */
+  @bind
   public filterUnique(value, index, self) {
     return self.indexOf(value) === index
   }
 
-  /**
-   * Application service
-   */
+  @bind
   public service<T = any>(serviceName: string | number): T {
-    return this.app.get<T>(serviceName)
-  }
-
-  /**
-   * Access disk
-   */
-  public disk<T = FileContainer>(diskName: string | number): T {
-    return this.app.disk.get(diskName)
-  }
-
-  /**
-   * Subscriptions
-   */
-  public get subscribe() {
-    return this.app.subscribe
-  }
-
-  /**
-   * Publish
-   */
-  public get publish() {
-    return this.app.publish
-  }
-
-  /**
-   * Access containerized property (which may or may not be callable.)
-   */
-  public get access() {
-    return this.app.access
-  }
-
-  /**
-   * Log info message
-   */
-  public get logger() {
-    return this.app.logger.instance.scope(this.name)
-  }
-
-  /**
-   * Log message
-   */
-  public get log() {
-    return this.app.logger.instance.scope(this.name).log
-  }
-
-  /**
-   * Log info message
-   */
-  public get info() {
-    return this.app.logger.instance.scope(this.name).info
-  }
-
-  /**
-   * Log warning message
-   */
-  public get warning() {
-    return this.app.logger.instance.scope(this.name).warning
-  }
-
-  /**
-   * Log error message
-   */
-  public get error() {
-    return this.app.logger.instance.scope(this.name).error
-  }
-
-  /**
-   * Log debug message
-   */
-  public get debug() {
-    return this.app.logger.instance.scope(this.name).debug
+    return this.app.services.get<T>(serviceName)
   }
 }
+
+export {Bootstrapper, Service}

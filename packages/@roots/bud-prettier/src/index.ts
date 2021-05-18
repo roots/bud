@@ -1,11 +1,15 @@
 import {Module} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
-  namespace Framework.Hooks.Extension {
-    interface Definitions {
+  namespace Framework {
+    interface Extensions {
       '@roots/bud-prettier': Module
     }
   }
 }
 
-export const name: Module['name'] = '@roots/bud-prettier'
+const extension: Module = {
+  name: '@roots/bud-prettier',
+}
+
+export const {name} = extension

@@ -1,83 +1,71 @@
-import {Webpack, isUndefined, bind} from '@roots/bud-support'
-import {Module} from '@roots/bud-typings'
-import Extension from './Extension'
-import Service from './Service'
+import {
+  Module,
+  Extensions as Contract,
+  Service,
+} from '@roots/bud-framework'
+import {boundMethod as bind} from 'autobind-decorator'
+import {isUndefined} from 'lodash'
+import {Extension} from '../Extension/index'
 
-/**
- * ## bud.extensions
- *
- * Extensions controller for the Bud framework.
- *
- * [🏡 Project home](https://roots.io/bud)
- * [🧑‍💻 roots/bud](https://github.com/roots/bud/blob/stable/README.md)
- */
-export default class extends Service {
-  /**
-   * Service ident.
-   */
+export class Extensions extends Service implements Contract {
   public name = '@roots/bud-extensions'
 
-  /**
-   * Service boot
-   */
   @bind
-  public boot(): void {
-    this.every((name: string, extension: Module) => {
-      return this.add(extension)
+  public register(): void {
+    this.every((_name: string, extension: Module) => {
+      return this.registerExtension(extension)
     })
   }
 
-  /**
-   * Add an extension
-   */
   @bind
-  public add(extension: Module): void {
-    this.log(`Adding extension: %s`, extension.name)
+  public boot(): void {
+    this.every((_name: string, extension: Module) => {
+      return this.bootExtension(extension)
+    })
+  }
 
+  @bind
+  public registerExtension(extension: Module): void {
+    this.log(`Registering extension: %s`, extension.name)
     this.set(
       extension.name,
-      new Extension(this.app, extension).register().boot(),
+      new Extension(this.app, extension).register(),
+    )
+    this.log(`Extension registered: %s`, extension.name)
+  }
+
+  @bind
+  public bootExtension(extension: Module): void {
+    this.log(`Booting extension: %s`, extension.name)
+    this.set(
+      extension.name,
+      this.get(extension.name).boot(this.app),
     )
   }
 
-  /**
-   * Make all extensions.
-   *
-   * Returns a webpack-ready array
-   */
   @bind
-  public make(): Webpack.Plugin[] {
+  public add(extension: Module): void {
+    this.log(`Adding extension: %s`, extension.name)
+    this.registerExtension(extension)
+    this.bootExtension(extension)
+  }
+
+  @bind
+  public make(): Contract.PluginOutput[] {
+    this.log(`Building extensions: %s`, this.getKeys())
+
     const plugins = this.getKeys()
       .map(name => this.get(name).make)
-      .filter(ext => !isUndefined(ext)) as Webpack.Plugin[]
+      .filter(
+        ext => !isUndefined(ext),
+      ) as Contract.PluginOutput[]
 
     return plugins
   }
 
-  /**
-   * Register an extension from a pkg name
-   */
-  @bind
-  public use(pkg: string): this {
-    const path = require.resolve(pkg)
-
-    this.app.disk.make(pkg, {
-      baseDir: path,
-    })
-
-    this.add(require(path))
-
-    return this
-  }
-
-  /**
-   * Discard a registered extension
-   */
   @bind
   public discard(pkg: string): Service['app'] {
     this.remove(pkg)
-    this.app.disk.remove(pkg)
-
     return this.app
   }
 }

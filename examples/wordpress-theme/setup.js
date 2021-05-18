@@ -1,4 +1,4 @@
-const {execa} = require('@roots/bud-support')
+const {execa} = require('execa')
 
 console.log('Installing composer dependencies.')
 execa.commandSync('composer install')

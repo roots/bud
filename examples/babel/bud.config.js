@@ -1,15 +1,9 @@
-/**
- * Babel configuration example
- *
- * @typedef {import('@roots/bud').Bud} Bud
- * @type {(bud: Bud): Bud}
- */
-
-module.exports = bud =>
-  bud
+module.exports = app =>
+  app
     .use(require('@roots/bud-babel'))
-    .html({enabled: true})
+    .html()
     .entry({
-      'scripts/app': '*.js',
-      'styles/app': '*.css',
+      scripts: '*.js',
+      styles: '*.css',
     })
+    .persist({type: 'memory'})

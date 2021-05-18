@@ -1,237 +1,114 @@
+import {Api} from '../Api'
+import {Build} from '../Build'
+import {Cache} from '../Cache'
+import {Compiler} from '../Compiler'
 import {Container} from '@roots/container'
-import {bind, isEqual, isFunction} from '@roots/bud-support'
-import type {
-  Build,
-  Cache,
-  CLI,
-  Compiler,
-  Dependencies,
-  Discovery,
-  Disk,
-  Env,
-  Error,
-  Extension,
-  Extensions,
-  Express,
-  FileContainer,
-  Hooks,
-  Index,
-  Logger,
-  Module,
-  Server,
-  Service,
-  Store,
-  MaybeCallable,
-  Bootstrapper,
-  Webpack,
-} from '@roots/bud-typings'
+import {Dashboard} from '../Dashboard'
+import {Dependencies} from '../Dependencies'
+import {Discovery} from '../Discovery'
+import {Disk} from '../Disk'
+import {Env} from '../Env'
+import {Extensions} from '../Extensions'
+import {Hooks} from '../Hooks'
+import {Item} from '../Build/Item'
+import {Loader} from '../Build/Loader'
+import {Logger} from '../Logger'
+import {Mode} from '../Mode'
+import {Module} from '../Extensions/Module'
+import {Rule} from '../Build/Rule'
+import {Server} from '../Server'
+import {Service, Bootstrapper} from '../Service'
+import {Store} from '../Store'
 
-export {Framework}
+import {isFunction} from 'lodash'
+import {join} from 'path'
+import {boundMethod as bind} from 'autobind-decorator'
 
-declare namespace Framework {
-  export {
-    Build,
-    Cache,
-    CLI,
-    Compiler,
-    Container,
-    Dependencies,
-    Discovery,
-    Disk,
-    Env,
-    Error,
-    Extension,
-    Extensions,
-    Express,
-    FileContainer,
-    Hooks,
-    Index,
-    Logger,
-    Module,
-    Server,
-    Service,
-    Store,
-    MaybeCallable,
-    Bootstrapper,
-    Webpack,
-  }
-}
-
-/**
- * Framework abstract
- */
-abstract class Framework {
-  [key: string]: any
-
-  public name = 'bud'
-
-  public services: Container
-
-  public abstract build: Build
-
-  public abstract cache: Cache
-
-  public abstract compiler: Compiler
-
-  public abstract dependencies: Dependencies
-
-  public abstract discovery: Discovery
-
-  public abstract disk: Disk
-
-  public abstract env: Env
-
-  public abstract extensions: Extensions
-
-  public abstract hooks: Hooks
-
-  public abstract server: Server
-
-  public abstract logger: Logger
-
-  public abstract store: Store
-
+interface Framework {
   /**
-   * Constructor
+   * Application name
+   * @default 'bud'
    */
-  public constructor(services: {
-    [key: string]: new (app: Framework['get']) =>
-      | Service
-      | Bootstrapper
-  }) {
-    this.services = this.container(services)
-  }
+  name: string
 
   /**
-   * Webpack.Configuration['mode'] accessor
+   * Multi-compiler instances
+   * @note multi-compiler api is experimental
    */
-  public get mode() {
-    return process.argv.includes('development') ||
-      process.argv.includes('dev')
-      ? 'development'
-      : 'production'
-  }
+  instance: Container<Framework>
 
   /**
-   * Production check
+   * API service
    */
-  public get isProduction(): boolean {
-    return this.mode === 'production'
-  }
+  api: Api
 
   /**
-   * Dev check
+   * Build service
    */
-  public get isDevelopment(): boolean {
-    return this.mode === 'development'
-  }
+  build: Build
 
   /**
-   * Lifecycle: bootstrap
+   * Cache service
    */
-  @bind
-  public bootstrap(): this {
-    /**
-     * NODE_ENV & BABEL_ENV
-     */
-    process.env.NODE_ENV = this.mode
-    process.env.BABEL_ENV = this.mode
-
-    /**
-     * Instantiate services
-     */
-    this.services.mutateStoreEntries(
-      (name: string, Instance) =>
-        (this[name] = new Instance(this.get)),
-    )
-
-    /**
-     * Call end of lifecycle method
-     */
-    this.services.every((service: string | number) =>
-      this.get<Service>(service).bootstrapped(this),
-    )
-
-    /**
-     * Boot
-     */
-    this.register().boot()
-
-    return this
-  }
+  cache: Cache
 
   /**
-   * Lifecycle: registration
+   * Compiler service
    */
-  @bind
-  public register(): this {
-    this.services.every(service => {
-      this.log(`Registering ${service}`)
-      this.get<Service>(service).register()
-    })
-
-    this.services.every(service => {
-      this.get<Service>(service).registered(this)
-    })
-
-    return this
-  }
+  compiler: Compiler
 
   /**
-   * Lifecycle boot
+   * Dashboard service
    */
-  @bind
-  public boot(): this {
-    this.services.every(service => {
-      this.log(`Booting ${service}`)
-      this.get<Service>(service).boot()
-    })
-
-    this.services.every(service => {
-      this.get<Service>(service).booted(this)
-    })
-
-    return this
-  }
+  dashboard: Dashboard
 
   /**
-   * Get framework.
+   * Dependencies service
    */
-  @bind
-  public get<T = this>(service?: string | number): T {
-    return service ? this[service] : this
-  }
+  dependencies: Dependencies
 
   /**
-   * Subscribe
+   * Discovery service
    */
-  @bind
-  public subscribe<T = any>(
-    name: `${Hooks.Name}`,
-    caller?: string,
-  ): T {
-    return this.hooks.filter<T>(caller ? [caller, name] : name)
-  }
+  discovery: Discovery
 
   /**
-   * Publish
+   * Disk service
    */
-  @bind
-  public publish(
-    pubs: Hooks.PublishDict,
-    caller?: string,
-  ): this {
-    Object.entries(pubs).map(
-      ([name, pub]: [`${Hooks.Name}`, any]) => {
-        this.hooks.on(caller ? [caller, name] : name, pub)
-      },
-    )
-
-    return this
-  }
+  disk: Disk
 
   /**
-   * ## access
+   * Envvar service
+   */
+  env: Env
+
+  /**
+   * Extensions service
+   */
+  extensions: Extensions
+
+  /**
+   * Hooks service
+   */
+  hooks: Hooks
+
+  /**
+   * Logger service
+   */
+  logger: Logger
+
+  /**
+   * Dev server service
+   */
+  server: Server
+
+  /**
+   * Key Value store service
+   */
+  store: Store
+
+  /**
+   * app.access
    *
    * If a value is a function it will call that
    * function and return the result.
@@ -249,46 +126,259 @@ abstract class Framework {
    * // => `option value: true`
    * ```
    */
-  @bind
-  public access<I = unknown>(value: MaybeCallable<I>): I {
-    return isFunction(value) ? value(this) : value
-  }
+  access<I = any>(value: ((app: this) => I) | I): I
 
   /**
-   * ## container
-   *
-   * Make a new container
-   *
-   * ### Usage
-   *
-   * ```js
-   * const container = app.container({data: 'stuff'})
-   * container.get('data') // => 'stuff'
-   * ```
+   * app.container
    */
-  @bind
-  public container(repository?: any): Container {
+  container(repository?: Container['repository']): Container
+
+  /**
+   * app.get
+   */
+  get(): Framework
+
+  /**
+   * app.getInstance
+   * @note multi-compiler api is experimental
+   */
+  getInstance(key: string): Framework
+
+  /**
+   * app.setInstance
+   * @note multi-compiler api is experimental
+   */
+  setInstance(key: string, framework: Framework): void
+
+  /**
+   * app.bootstrap
+   */
+  bootstrap(services: {
+    [key: string]: new (app: any) => Service | Bootstrapper
+  }): Framework
+
+  /**
+   * app.lifecycle
+   */
+  lifecycle(): Framework
+
+  /**
+   * app.path
+   */
+  path(
+    key: `${keyof Hooks.Locale.Definitions & string}`,
+    path?: string,
+  ): string
+
+  /**
+   * app.pipe
+   */
+  pipe<I = any, R = any>(fns: CallableFunction[], value: I): R
+
+  /**
+   * app.sequence
+   */
+  sequence(fns: Array<(app: Framework) => any>): Framework
+
+  /**
+   * app.when
+   */
+  when(
+    test: ((app: Framework) => boolean) | boolean,
+    trueCase: (app: Framework) => any,
+    falseCase?: (app: Framework) => any,
+  ): Framework
+
+  /**
+   * log a message
+   */
+  log(message?: any, ...optionalArgs: any[]): void
+
+  /**
+   * log (log level: warn)
+   */
+  warn(message?: any, ...optionalArgs: any[]): void
+
+  /**
+   * log (log level: info)
+   */
+  info(message?: any, ...optionalArgs: any[]): void
+
+  /**
+   * log (log level: debug)
+   */
+  debug(message?: any, ...optionalArgs: any[]): void
+
+  /**
+   * log (log level: error)
+   */
+  error(message: any, title: string): void
+}
+
+namespace Framework {
+  export interface Extensions {
+    [key: string]: Module
+  }
+
+  export interface Rules {
+    [key: string]: Rule
+  }
+
+  export interface Items {
+    [key: string]: Item
+  }
+
+  export interface Loaders {
+    [key: string]: Loader
+  }
+}
+
+abstract class Framework {
+  public name = 'bud'
+
+  protected _services: Container<Service>
+
+  protected _instance: Container<this>
+
+  protected _mode: Mode
+
+  public api: Api
+
+  public build: Build
+
+  public cache: Cache
+
+  public compiler: Compiler
+
+  public dashboard: Dashboard
+
+  public dependencies: Dependencies
+
+  public discovery: Discovery
+
+  public disk: Disk
+
+  public env: Env
+
+  public extensions: Extensions
+
+  public hooks: Hooks
+
+  public logger: Logger
+
+  public server: Server
+
+  public store: Store
+
+  public get services(): Container<Service> {
+    return this._services
+  }
+
+  public set services(services: Container<Service>) {
+    this._services = services
+  }
+
+  public get mode(): Mode {
+    return this._mode
+  }
+
+  public set mode(mode: Mode) {
+    this._mode = mode
+  }
+
+  public get isProduction(): boolean {
+    return this.mode === 'production'
+  }
+
+  public get isDevelopment(): boolean {
+    return this.mode === 'development'
+  }
+
+  public constructor(config?: Store['repository']) {
+    this.store = new Store(this.get).setStore(config ?? {})
+  }
+
+  public access<I = any>(value: ((app: this) => I) | I): I {
+    return isFunction(value)
+      ? (value as CallableFunction)(this)
+      : value
+  }
+
+  public container(
+    repository?: Container['repository'],
+  ): Container {
     return new Container(repository ?? {})
   }
 
-  /**
-   * ## pipe [💁 Fluent]
-   *
-   * Execute an array of functions. The first is passed the
-   * bud object Each will be the result of
-   * the one preceeding it.
-   *
-   * Returns the final result.
-   *
-   * ### Usage
-   *
-   * ```js
-   * app.pipe([
-   *   bud => app.srcPath('resources'),
-   *   bud => app.proxy(),
-   * ])
-   * ```
-   */
+  @bind
+  public get(): this {
+    return this
+  }
+
+  @bind
+  public getInstance(key: string): Framework {
+    return this._instance.get(key)
+  }
+
+  @bind
+  public setInstance(key: string, app: Framework) {
+    Object.assign(this, {
+      _instance: {
+        [key]: app,
+      },
+    })
+  }
+
+  @bind
+  public bootstrap(services: {
+    [key: string]: new (app: any) => Service | Bootstrapper
+  }): Framework {
+    this.services = this.container(services)
+
+    this.services.getEntries().map(([key, Instance]) => {
+      this[key] = new Instance(this.get)
+    })
+
+    return this
+  }
+
+  @bind
+  public lifecycle(): Framework {
+    const events = [
+      'bootstrap',
+      'bootstrapped',
+      'register',
+      'registered',
+      'boot',
+      'booted',
+    ]
+
+    events.forEach(event => {
+      this.services.getKeys().forEach(serviceName => {
+        const service = this[serviceName]
+        service && service[event] && service[event](this)
+      })
+    })
+
+    return this
+  }
+
+  @bind
+  public path(
+    key: `${keyof Hooks.Locale.Definitions & string}`,
+    path?: string,
+  ): string {
+    return join(
+      ...[
+        key !== 'project'
+          ? this.hooks.filter('location/project')
+          : false,
+        this.hooks.filter(`location/${key}` as Hooks.Name),
+        path ?? false,
+      ].filter(Boolean),
+    )
+  }
+
   @bind
   public pipe<I = any, R = any>(
     fns: CallableFunction[],
@@ -299,11 +389,8 @@ abstract class Framework {
     }, value))
   }
 
-  /**
-   * Sequence functions
-   */
   @bind
-  public sequence(fns: Array<(app: this) => any>): this {
+  public sequence(fns: Array<(app: this) => any>): Framework {
     fns.reduce((_val, fn) => {
       return fn.bind(this)(this)
     }, this)
@@ -311,75 +398,52 @@ abstract class Framework {
     return this
   }
 
-  /**
-   * ## when  [💁 Fluent]
-   *
-   * Executes a function if a given test is `true`.
-   *
-   * - The first parameter is the conditional check.
-   *     - It can be a boolean statement (app.inDevelopment)
-   *     - It can be a fn, which is passed the app and returns the boolean
-   *
-   * - The second parameter is the function to be run if `true`.
-   *
-   * - The third paramter is optional; ran if not `true`.
-   *
-   * ### Usage
-   *
-   * ```js
-   * app.when(app.mode.is('production'), () => app.vendor())
-   * ```
-   */
   @bind
   public when(
     test: ((app: Framework) => boolean) | boolean,
-    isTrue: (app: Framework) => any,
-    isFalse?: (app: Framework) => any,
+    trueCase: (app: Framework) => any,
+    falseCase?: (app: Framework) => any,
   ): Framework {
-    isEqual(this.access(test), true)
-      ? isFunction(isTrue) && isTrue.bind(this)(this)
-      : isFunction(isFalse) && isFalse.bind(this)(this)
+    this.access(test)
+      ? trueCase && isFunction(trueCase) && trueCase(this)
+      : falseCase && isFunction(falseCase) && falseCase(this)
 
     return this
   }
 
-  /**
-   * Log message
-   */
   @bind
-  public log(...args) {
-    this.logger.instance.scope(this.name).log(...args)
+  public log(message?: any, ...optionalArgs: any[]) {
+    this.logger.instance
+      .scope(this.name)
+      .log(message, optionalArgs)
   }
 
-  /**
-   * Log info message
-   */
   @bind
-  public info(...args) {
-    this.logger.instance.scope(this.name).info(...args)
+  public info(message?: any, ...optionalArgs: any[]) {
+    this.logger.instance
+      .scope(this.name)
+      .info(message, optionalArgs)
   }
 
-  /**
-   * Log warning message
-   */
   @bind
-  public warning(...args) {
-    this.logger.instance.scope(this.name).warning(...args)
+  public warn(message?: any, ...optionalArgs: any[]) {
+    this.logger.instance
+      .scope(this.name)
+      .warn(message, optionalArgs)
   }
 
-  /**
-   * Log warning message
-   */
   @bind
-  public debug(...args) {
-    this.logger.instance.scope(this.name).debug(...args)
+  public debug(message?: any, ...optionalArgs: any[]) {
+    this.logger.instance
+      .scope(this.name)
+      .debug(message, optionalArgs)
   }
 
-  /**
-   * Log error message
-   */
   @bind
-  public error(...args) {
-    this.logger.instance.scope(this.name).error(...args)
+  public error(message: string, title: string) {
+    const instance = this.dashboard.renderError(message, title)
+    setTimeout(instance.quit, 2000)
   }
 }
+
+export {Framework}

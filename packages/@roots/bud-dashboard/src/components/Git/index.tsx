@@ -1,9 +1,8 @@
-import {Dashboard} from '@roots/bud-framework'
-import {React, Box, Text} from '@roots/bud-support'
-
+import React from 'react'
+import {Box, Text} from 'ink'
 import {useGit} from '../../hooks/useGit'
 
-export const Git: Dashboard.Component = ({theme}) => {
+export const Git = ({theme}) => {
   const {branch, status, head} = useGit()
   const {flavor, warning, accent, success} = theme.colors
 
@@ -11,24 +10,23 @@ export const Git: Dashboard.Component = ({theme}) => {
   if (!guard) return null
 
   const gitProps = [
-    {key: 'branch', data: branch, color: flavor},
+    {key: 'Branch', data: `${branch}`, color: flavor},
     {
-      key: 'head',
-      data: head,
+      key: 'Head',
+      data: `${head}`,
       color: status ? warning : success,
     },
-    {key: 'status', data: status, color: accent},
+    {key: '+', data: `+${status}`, color: accent},
   ]
 
   return (
     <Box
       flexDirection="row"
-      justifyContent="flex-start"
-      flexGrow={1}>
+      marginY={1}
+      width={theme.bounds.width}>
       {gitProps.map(({key, data, color}) => (
-        <Text key={key} backgroundColor={color}>
-          {' '}
-          {data}{' '}
+        <Text key={key}>
+          <Text color={color}>{data} </Text>
         </Text>
       ))}
     </Box>

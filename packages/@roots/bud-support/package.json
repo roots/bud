@@ -1,13 +1,20 @@
 {
   "name": "@roots/bud-support",
-  "version": "3.1.0",
-  "description": "Internal utilities for the @roots/bud monorepo.",
+  "version": "3.2.0-next.2",
+  "description": "👨🏽‍🍳 Internal packages for @roots/bud",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
     "url": "https://github.com/roots/bud.git",
-    "directory": "packages/bud-support"
+    "directory": "packages/@roots/bud-support"
   },
+  "contributors": [
+    {
+      "name": "Kelly Mears",
+      "url": "https://github.com/kellymears"
+    }
+  ],
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
@@ -15,111 +22,45 @@
     "type": "github sponsors",
     "url": "https://github.com/sponsors/roots"
   },
-  "license": "MIT",
-  "contributors": [
-    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
-  ],
   "keywords": [
-    "bud",
-    "webpack"
+    "bud"
   ],
   "engines": {
-    "node": ">=12"
+    "node": ">=14"
   },
   "files": [
     "lib/",
-    "publish/"
+    "templates/",
+    "docs/",
+    "types/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
+  "types": "./types/index.d.ts",
   "exports": {
     "require": "./lib/cjs/index.js",
     "import": "./lib/esm/index.js"
   },
-  "types": "./lib/types/index.d.ts",
   "scripts": {
-    "build": "run-s build:cjs build:esm",
-    "build:cjs": "tsc --build tsconfig.json",
-    "build:esm": "tsc --build tsconfig-esm.json",
-    "lint": "run-s lint:*",
-    "lint:eslint": "eslint 'src/**/*.{js,ts,tsx}' --fix",
-    "lint:prettier": "prettier 'src/**/*'  --write",
-    "clean": "run-s clean:*",
-    "clean:lib": "rimraf ./lib",
-    "clean:types": "rimraf ./types",
-    "clean:modules": "rimraf ./node_modules",
-    "pkg": "run-s pkg:*",
-    "pkg:check": "package-check --verbose",
-    "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
+    "build": "yarn g:build",
+    "build:cjs": "yarn g:build:cjs",
+    "build:esm": "yarn g:build:esm",
+    "lint": "yarn g:lint",
+    "lint:eslint": "yarn g:lint:eslint",
+    "lint:prettier": "yarn g:lint:prettier",
+    "clean": "yarn g:clean",
+    "clean:lib": "yarn g:clean:lib",
+    "clean:modules": "yarn g:clean:modules",
+    "clean:types": "yarn g:clean:types",
+    "pkg": "yarn g:pkg",
+    "pkg:check": "yarn g:pkg:check",
+    "pkg:format": "yarn g:pkg:format"
   },
   "dependencies": {
-    "@roots/container": "^3.1.0",
-    "autobind-decorator": "^2.4.0",
-    "cache-loader": "^4.1.0",
-    "chalk": "^4.1.0",
-    "chokidar": "^3.5.1",
-    "clean-webpack-plugin": "^3.0.0",
-    "copy-webpack-plugin": "^6.2.0",
-    "css-loader": "^3.6.0",
-    "dotenv": "^8.2.0",
     "escape-string-regexp": "^4.0.0",
-    "execa": "^5.0.0",
-    "express": "^4.17.1",
-    "file-loader": "^6.0.0",
-    "fs-extra": "^9.0.1",
-    "globby": "^11.0.1",
-    "html-webpack-harddisk-plugin": "^1.0.2",
-    "html-webpack-plugin": "^4.5.1",
-    "http-proxy-middleware": "^1.0.6",
-    "ignore-emit-webpack-plugin": "^1.0.2",
-    "ink": "^3.0.0-6",
-    "ink-big-text": "^1.2.0",
-    "ink-gradient": "^2.0.0",
-    "ink-link": "^2.0.0",
-    "ink-spinner": "^4.0.0-0",
-    "ink-table": "^3.0.0",
-    "ink-testing-library": "^2.1.0",
-    "ink-use-stdout-dimensions": "^1.0.5",
-    "lodash": "^4.17.20",
-    "mini-css-extract-plugin": "^0.11.3",
-    "mini-svg-data-uri": "^1.2.3",
-    "node-notifier": "^9.0.0",
-    "optimize-css-assets-webpack-plugin": "^5.0.4",
-    "patch-console": "^1.0.0",
-    "pino": "^6.8.0",
-    "pino-pretty": "^4.3.0",
-    "prettier": "^2.2.1",
+    "lodash": "^4.17.21",
+    "node-notifier": "^9.0.1",
     "pretty-format": "^26.6.2",
-    "raw-loader": "^4.0.1",
-    "react": ">=16.8.2",
-    "react-dev-utils": "^11.0.1",
-    "react-dom": ">=16.8.2",
-    "resolve-url-loader": "^3.1.1",
-    "signale": "^1.4.0",
-    "source-map-loader": "^1.0.1",
-    "style-loader": "^2.0.0",
-    "swr": ">=0.5.5",
-    "thread-loader": "^3.0.1",
-    "url-loader": "^4.1.0",
-    "webpack": "^4.44.1",
-    "webpack-config-dump-plugin": "^3.0.1",
-    "webpack-dev-middleware": "^3.7.2",
-    "webpack-hot-client": "^4.1.3",
-    "webpack-hot-middleware": "^2.25.0",
-    "webpack-manifest-plugin": "^3.1.1",
-    "write-file-webpack-plugin": "^4.5.1",
-    "yargs": "^16.0.3",
-    "zlib": "^1.0.5"
-  },
-  "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684",
-  "devDependencies": {
-    "@types/cssnano": "^4.0.0",
-    "@types/mini-css-extract-plugin": "^1.2.2",
-    "@types/node": "^14.14.31",
-    "@types/optimize-css-assets-webpack-plugin": "^5.0.2",
-    "@types/signale": "^1.4.1",
-    "@types/webpack": "^4.41.26",
-    "@types/webpack-dev-middleware": "^3.7.2",
-    "type-fest": "^0.21.2"
+    "webpack": "^5.36.0"
   }
 }

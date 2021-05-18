@@ -1,13 +1,14 @@
-import {React, render} from '@roots/bud-support'
-import {Component} from './Component'
+import React from 'react'
+import {render} from 'ink'
+import {Component} from './Error'
 
-export const Error: CallableFunction = (
+const Error: CallableFunction = (
   body: string,
   title: string,
 ) => {
   render(
     <Component title={title ?? 'Error'} body={body ?? ''} />,
   )
-
-  process.exit()
 }
+
+export {Error}

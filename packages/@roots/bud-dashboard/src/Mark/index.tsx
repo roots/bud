@@ -1,13 +1,9 @@
-import {
-  React,
-  Box,
-  BigText,
-  Static,
-  Gradient,
-  FunctionComponent,
-} from '@roots/bud-support'
+import React from 'react'
+import BigText from 'ink-big-text'
+import Gradient from 'ink-gradient'
+import {Box, Static} from 'ink'
 
-export const Mark: FunctionComponent<{text: string}> = ({
+export const Mark: React.FunctionComponent<{text: string}> = ({
   text,
 }) => (
   <Static items={[{id: 0, text}]}>

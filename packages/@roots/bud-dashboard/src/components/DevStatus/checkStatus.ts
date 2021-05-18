@@ -1,4 +1,4 @@
-import {Dashboard} from '@roots/bud-framework'
+import type {Dashboard} from '@roots/bud-framework'
 import axios from 'axios'
 
 /**

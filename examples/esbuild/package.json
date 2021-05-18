@@ -1,9 +1,10 @@
 {
-  "name": "bud-example-react",
-  "scripts": {
-    "bud": "node ../../node_modules/.bin/bud"
-  },
+  "name": "example-esbuild",
+  "private": true,
   "devDependencies": {
-    "@roots/bud-preset-recommend": "latest"
+    "@roots/bud": "workspace:packages/@roots/bud",
+    "@roots/bud-cli": "workspace:packages/@roots/bud-cli",
+    "@roots/bud-esbuild": "workspace:packages/@roots/bud-esbuild",
+    "@types/node": "^15.0.0"
   }
 }

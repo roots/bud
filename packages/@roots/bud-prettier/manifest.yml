@@ -1,0 +1,6 @@
+name: '@roots/bud-prettier'
+type: extension
+
+dependencies:
+  dev:
+    prettier: ^2.2.1

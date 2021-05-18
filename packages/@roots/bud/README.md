@@ -10,7 +10,6 @@
   <a href="https://codeclimate.com/github/roots/bud-support/maintainability">
     <img src="https://img.shields.io/codeclimate/maintainability/roots/bud-support?color=%23525ddc&style=flat-square" />
   </a>
-  <img alt="Lerna" src="https://img.shields.io/github/lerna-json/v/roots/bud?color=%23525ddc&style=flat-square">
   <a href="Typescript" src="https://github.com/roots/bud/tree/stable/typings">
     <img src="https://img.shields.io/badge/typings-%40roots%2Fbud--typings-%23525ddc" />
   </a>
@@ -23,30 +22,25 @@
   <strong>@roots/bud</strong>
 </h1>
 
-- [Overview](#overview)
+> A friendly build tool to help manage your project assets.
+
 - [Installation](#installation)
 - [Getting started](#getting-started)
-  - [Running a build](#running-a-build)
-  - [Configuration API](#configuration-api)
-- [Extensions](#extending-core)
-- [Documentation](#details)
-
-## Overview
-
-> A webpack framework combining the best parts of Laravel Mix and
-> Symfony Encore.
+- [Running a build](#running-a-build)
+  - [Running in `production` mode](#running-in-production-mode)
+  - [Running in `development` mode](#running-in-development-mode)
+- [Example implementations](#example-implementations)
+- [Extending](#extending)
+  - [First-party extensions](#first-party-extensions)
+  - [Third-party extensions](#third-party-extensions)
+- [Documentation and details](#documentation-and-details)
+- [Contributing](#contributing)
+- [Bud sponsors](#bud-sponsors)
+- [Community](#community)
 
 ## Installation
 
-There is a recommended preset available to make it as easy as possible
-to get started:
-
-```sh
-yarn add @roots/bud-preset-recommend --dev
-```
-
-To get started without the preset you'll want to install both `@roots/bud` and
-`@roots/bud-cli`:
+Install [**@roots/bud**](https://github.com/roots/bud/tree/stable/packages/@roots/bud) and [**@roots/bud-cli**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-cli) to your project
 
 ```sh
 yarn add @roots/bud @roots/bud-cli --dev
@@ -54,63 +48,71 @@ yarn add @roots/bud @roots/bud-cli --dev
 
 ## Getting started
 
-Bud centers around a configuration file situated in the root of the project.
-By default this file should be named `bud.config.js`.
+Bud can either be configured with a static config file (`json`/`yml`) or a builder module (`js`/`ts`).
 
-You can use the CLI to generate a starter configuration file, if you need
-a jumping off point:
-
-```sh
-yarn bud publish @roots/bud-support bud.config.js
-```
-
-Dead simple `bud.config.js` example:
+Dead simple `bud.config.js` example
 
 ```js
 module.exports = (bud) => bud.entry("app", ["app.js"]);
 ```
 
-The framework can do many more things. But, one of Bud's flagpole axioms is that more is not always better for many common use cases. In fact, just using `entry` and `run` you can already compile project files. For many people this may very well be enough.
+Or, as `bud.config.yml`
 
-A more advanced configuration might look like this:
+```yml
+entry:
+  app: "app.js"
+```
 
-```js
-module.exports = (bud) =>
+A more advanced configuration might look like
+
+```ts
+import { Bud } from "@roots/bud";
+
+export default (bud: Bud) =>
   bud
-    /**
-     * Extend bud with additional functionality
-     */
     .use([
       require("@roots/bud-babel"),
       require("@roots/bud-postcss"),
       require("@roots/bud-react"),
     ])
 
-    /**
-     * Create a dynamic link library for fast compilation
-     * of the react runtime.
-     */
     .library(["react", "react-dom"])
 
-    /**
-     * Compile two separate sets of files.
-     */
     .entry({ app: ["app.{js,css}"] })
 
-    /**
-     * When building for production, minify assets.
-     * When in development, use verbose source-maps.
-     */
     .when(
       bud.isProduction,
-      (bud) => bud.minify(),
-      (bud) => bud.devtool("eval-source-map")
+      ({ minimize }) => minimize(),
+      ({ devtool }) => devtool("eval-source-map")
     );
 ```
 
-## Example implementations
+Which could also be expressed in a set of `yml` files
 
-There are [example implementations available for reference in `/examples`](https://github.com/roots/bud/tree/stable/examples).
+```yml
+# bud.config.yml
+extensions:
+  - "@roots/bud-babel"
+  - "@roots/bud-postcss"
+  - "@roots/bud-react"
+library:
+  - "react"
+  - "react-dom"
+entry:
+  app: "app.{js,css}"
+```
+
+```yml
+# bud.production.config.yml
+minimize: true
+```
+
+```yml
+# bud.development.config.yml
+devtool: "eval-source-map"
+```
+
+For more on configuring [**@roots/bud**](https://github.com/roots/bud) check out the [dedicated documentation](https://github.com/roots/bud/tree/stable/docs/config/README.md).
 
 ## Running a build
 
@@ -120,88 +122,63 @@ Once you've set up your configuration file the following command will run the bu
 yarn bud build
 ```
 
-You should see your built assets in the `dist` directory of your project.
+You should see your built assets in the `dist` urlectory of your project.
 
 ### Running in `production` mode
 
 ```sh
-yarn bud build --mode production
+yarn bud build:production
 ```
 
 ### Running in `development` mode
 
 ```sh
-yarn bud build --mode development
+yarn bud build:development
 ```
 
-## Configuration API
+## Example implementations
 
-The following is a (hopefully) exhaustive list of the utilities designed to make setting up your build as easy as possible.
-
-| Tool            | Description                  | Documentation                                                                   |
-| --------------- | ---------------------------- | ------------------------------------------------------------------------------- |
-| bud.alias       | Easy module imports          | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-alias.md)       |
-| bud.assets      | Copy static assets           | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-assets.md)      |
-| bud.cache       | Cache                        | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-cache.md)       |
-| bud.define      | Define global constants      | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-define.md)      |
-| bud.dev         | Configure dev server         | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-dev.md)         |
-| bud.devtool     | Configure sourcemaps         | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-devtool.md)     |
-| bud.dist        | Get the `dist` dir           | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-dist.md)        |
-| bud.distPath    | Define the `dist` dir        | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-distPath.md)    |
-| bud.entry       | Add source files             | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-entry.md)       |
-| bud.glob        | bud.entry but with wildcards | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-glob.md)        |
-| bud.hash        | Add version string to assets | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-hash.md)        |
-| bud.html        | Set an HTML template         | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-html.md)        |
-| bud.minify      | Minify assets                | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-minify.md)      |
-| bud.project     | Get the project root         | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-project.md)     |
-| bud.projectPath | Define the project root dir  | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-projectPath.md) |
-| bud.provide     | Define global vars           | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-provide.md)     |
-| bud.proxy       | Configure proxy server       | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-proxy.md)       |
-| bud.publicPath  | Define the public path       | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-publicPath.md)  |
-| bud.runtime     | Extract boilerplate          | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-runtime.md)     |
-| bud.src         | Get the `src` dir            | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-src.md)         |
-| bud.srcPath     | Define the `src` dir         | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-srcPath.md)     |
-| bud.storage     | Define artifacts dir         | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-storage.md)     |
-| bud.vendor      | Extract vendor code          | [README ↗](https://github.com/roots/bud/tree/stable/docs/config-vendor.md)      |
-
-This isn't the last word on what is possible with Bud, just a collection of functions intended to simplify common developer needs/wants to as great a degree as possible. There are many valid ways to interact with Bud that utilize none of these functions.
+There are [example implementations available](https://github.com/roots/bud/tree/stable/examples).
 
 ## Extending
 
-Bud, by itself, provides an intentionally sparse set of features.
+Bud provides an intentionally sparse set of out-of-the-box features.
 
-In fact, much of the core of Bud is actually made up of extensions. This is to make it easy for developers and extension authors to swap out parts of the framework as needed.
+In fact, much of the core of Bud is actually made up of extensions. This is to make it easy for devs to swap out parts of the framework as needed.
 
-Suffice to say, extensibility is a fundamental design tenet of Bud as software. You will likely want to utilize extensions in your project.
+That said, you will likely want to utilize extensions in your project.
+
+If you're unsure where to start or what you need you can try the [**@roots/bud-preset-recommend**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-preset-recommend) preset. Most require zero configuration.
 
 ### First-party extensions
 
-There are a number of Roots maintained extensions available to kickstart your projects. For more information on using them refer to the extension's documentation.
+There are a number of Roots maintained extensions available to kickstart your project
 
-| Name                              | Description               | Usage                                                                                           | Package                                                                                                      |
-| --------------------------------- | ------------------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
-| @roots/bud-babel                  | Babel support.            | [README ↗](https://github.com/roots/bud/tree/stable/packages/@roots/bud-babel)                  | ![npm](https://img.shields.io/npm/v/@roots/bud-babel.svg?color=%23525ddc&style=flat-square)                  |
-| @roots/bud-compress               | Gzip/Brotli compression.. | [README ↗](https://github.com/roots/bud/tree/stable/packages/@roots/bud-compress)               | ![npm](https://img.shields.io/npm/v/@roots/bud-compress.svg?color=%23525ddc&style=flat-square)               |
-| @roots/bud-emotion                | Adds emotion.             | [README ↗](https://github.com/roots/bud/tree/stable/packages/@roots/bud-emotion)                | ![npm](https://img.shields.io/npm/v/@roots/bud-emotion.svg?color=%23525ddc&style=flat-square)                |
-| @roots/bud-entrypoints            | Asset manifest.           | [README ↗](https://github.com/roots/bud/tree/stable/packages/@roots/bud-entrypoints)            | ![npm](https://img.shields.io/npm/v/@roots/bud-entrypoints.svg?color=%23525ddc&style=flat-square)            |
-| @roots/bud-esbuild                | Adds esbuild.             | [README ↗](https://github.com/roots/bud/tree/stable/packages/@roots/bud-esbuild)                | ![npm](https://img.shields.io/npm/v/@roots/bud-esbuild.svg?color=%23525ddc&style=flat-square)                |
-| @roots/bud-eslint                 | Adds eslint support.      | [README ↗](https://github.com/roots/bud/tree/stable/packages/@roots/bud-eslint)                 | ![npm](https://img.shields.io/npm/v/@roots/bud-eslint.svg?color=%23525ddc&style=flat-square)                 |
-| @roots/bud-imagemin               | Compress image assets     | [README ↗](https://github.com/roots/bud/tree/stable/packages/@roots/bud-imagemin)               | ![npm](https://img.shields.io/npm/v/@roots/bud-imagemin.svg?color=%23525ddc&style=flat-square)               |
-| @roots/bud-library                | DLL support               | [README ↗](https://github.com/roots/bud/tree/stable/packages/@roots/bud-library)                | ![npm](https://img.shields.io/npm/v/@roots/bud-library.svg?color=%23525ddc&style=flat-square)                |
-| @roots/bud-mdx                    | DLL support               | [README ↗](https://github.com/roots/bud/tree/stable/packages/@roots/bud-mdx)                    | ![npm](https://img.shields.io/npm/v/@roots/bud-mdx.svg?color=%23525ddc&style=flat-square)                    |
-| @roots/bud-postcss                | PostCss support.          | [README ↗](https://github.com/roots/bud/tree/stable/packages/@roots/bud-postcss)                | ![npm](https://img.shields.io/npm/v/@roots/bud-postcss.svg?color=%23525ddc&style=flat-square)                |
-| @roots/bud-prettier               | Prettier support.         | [README ↗](https://github.com/roots/bud/tree/stable/packages/@roots/bud-prettier)               | ![npm](https://img.shields.io/npm/v/@roots/bud-prettier.svg?color=%23525ddc&style=flat-square)               |
-| @roots/bud-purgecss               | PurgeCss support.         | [README ↗](https://github.com/roots/bud/tree/stable/packages/@roots/bud-purgecss)               | ![npm](https://img.shields.io/npm/v/@roots/bud-purgecss.svg?color=%23525ddc&style=flat-square)               |
-| @roots/bud-react                  | React support.            | [README ↗](https://github.com/roots/bud/tree/stable/packages/@roots/bud-react)                  | ![npm](https://img.shields.io/npm/v/@roots/bud-react.svg?color=%23525ddc&style=flat-square)                  |
-| @roots/bud-sass                   | Sass support.             | [README ↗](https://github.com/roots/bud/tree/stable/packages/@roots/bud-sass)                   | ![npm](https://img.shields.io/npm/v/@roots/bud-sass.svg?color=%23525ddc&style=flat-square)                   |
-| @roots/bud-stylelint              | Stylelint support.        | [README ↗](https://github.com/roots/bud/tree/stable/packages/@roots/bud-stylelint)              | ![npm](https://img.shields.io/npm/v/@roots/bud-stylelint.svg?color=%23525ddc&style=flat-square)              |
-| @roots/bud-tailwindcss            | Tailwindcss support.      | [README ↗](https://github.com/roots/bud/tree/stable/packages/@roots/bud-tailwindcss)            | ![npm](https://img.shields.io/npm/v/@roots/bud-tailwindcss.svg?color=%23525ddc&style=flat-square)            |
-| @roots/bud-terser                 | Terser support.           | [README ↗](https://github.com/roots/bud/tree/stable/packages/@roots/bud-terser)                 | ![npm](https://img.shields.io/npm/v/@roots/bud-terser.svg?color=%23525ddc&style=flat-square)                 |
-| @roots/bud-typescript             | TypeScript support.       | [README ↗](https://github.com/roots/bud/tree/stable/packages/@roots/bud-typescript)             | ![npm](https://img.shields.io/npm/v/@roots/bud-typescript.svg?color=%23525ddc&style=flat-square)             |
-| @roots/bud-vue                    | Vue framework support.    | [README ↗](https://github.com/roots/bud/tree/stable/packages/@roots/bud-vue)                    | ![npm](https://img.shields.io/npm/v/@roots/bud-vue.svg?color=%23525ddc&style=flat-square)                    |
-| @roots/bud-wordpress-dependencies | WP dependencies.          | [README ↗](https://github.com/roots/bud/tree/stable/packages/@roots/bud-wordpress-dependencies) | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-dependencies.svg?color=%23525ddc&style=flat-square) |
-| @roots/bud-wordpress-externals    | WP externals.             | [README ↗](https://github.com/roots/bud/tree/stable/packages/@roots/bud-wordpress-externals)    | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-externals.svg?color=%23525ddc&style=flat-square)    |
-| @roots/bud-wordpress-manifests    | WP asset manifest.        | [README ↗](https://github.com/roots/bud/tree/stable/packages/@roots/bud-wordpress-manifests)    | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-manifests.svg?color=%23525ddc&style=flat-square)    |
+| Name                                                                                                                         | Project home                                                                                                                                       | Extension docs                                                                                             | Latest                                                                                                       |
+| ---------------------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ |
+| [**@roots/bud-babel**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-babel)                                   | [**@babel/babel**](https://github.com/babel/babel)                                                                                                 | [📚 README](https://github.com/roots/bud/tree/stable/packages/@roots/bud-babel/README.md)                  | ![npm](https://img.shields.io/npm/v/@roots/bud-babel.svg?color=%23525ddc&style=flat-square)                  |
+| [**@roots/bud-compress**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-compress)                             | [**@webpack-contrib/compression-webpack-plugin**](https://github.com/webpack-contrib/compression-webpack-plugin)                                   | [📚 README](https://github.com/roots/bud/tree/stable/packages/@roots/bud-compress/README.md)               | ![npm](https://img.shields.io/npm/v/@roots/bud-compress.svg?color=%23525ddc&style=flat-square)               |
+| [**@roots/bud-criticalcss**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-criticalcss)                       | [**@addyosmani/critical**](https://github.com/addyosmani/critical)                                                                                 | [📚 README](https://github.com/roots/bud/tree/stable/packages/@roots/bud-criticalcss/README.md)            | ![npm](https://img.shields.io/npm/v/@roots/bud-criticalcss.svg?color=%23525ddc&style=flat-square)            |
+| [**@roots/bud-emotion**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-emotion)                               | [**@emotion/emotion-css**](https://github.com/emotion/emotion-css)                                                                                 | [📚 README](https://github.com/roots/bud/tree/stable/packages/@roots/bud-emotion/README.md)                | ![npm](https://img.shields.io/npm/v/@roots/bud-emotion.svg?color=%23525ddc&style=flat-square)                |
+| [**@roots/bud-entrypoints**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-entrypoints)                       | [**@roots/entrypoints-webpack-plugin**](https://github.com/roots/bud/tree/stable/packages/@roots/entrypoints-webpack-plugin)                       | [📚 README](https://github.com/roots/bud/tree/stable/packages/@roots/bud-entrypoints/README.md)            | ![npm](https://img.shields.io/npm/v/@roots/bud-entrypoints.svg?color=%23525ddc&style=flat-square)            |
+| [**@roots/bud-esbuild**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-esbuild)                               | [**@roots/esbuild-loader**](https://github.com/roots/esbuild-loader)                                                                               | [📚 README](https://github.com/roots/bud/tree/stable/packages/@roots/bud-esbuild/README.md)                | ![npm](https://img.shields.io/npm/v/@roots/bud-esbuild.svg?color=%23525ddc&style=flat-square)                |
+| [**@roots/bud-eslint**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-eslint)                                 | [**@webpack-contrib/eslint-webpack-plugin**](https://github.com/webpack-contrib/eslint-webpack-plugin)                                             | [📚 README](https://github.com/roots/bud/tree/stable/packages/@roots/bud-eslint/README.md)                 | ![npm](https://img.shields.io/npm/v/@roots/bud-eslint.svg?color=%23525ddc&style=flat-square)                 |
+| [**@roots/bud-imagemin**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-imagemin)                             | [**@webpack-contrib/image-minimizer-webpack-plugin**](https://github.com/webpack-contrib/image-minimizer-webpack-plugin)                           | [📚 README](https://github.com/roots/bud/tree/stable/packages/@roots/bud-imagemin/README.md)               | ![npm](https://img.shields.io/npm/v/@roots/bud-imagemin.svg?color=%23525ddc&style=flat-square)               |
+| [**@roots/bud-library**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-library)                               | [**@asfktz/autodll-webpack-plugin**](https://github.com/asfktz/autodll-webpack-plugin)                                                             | [📚 README](https://github.com/roots/bud/tree/stable/packages/@roots/bud-library/README.md)                | ![npm](https://img.shields.io/npm/v/@roots/bud-library.svg?color=%23525ddc&style=flat-square)                |
+| [**@roots/bud-mdx**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-mdx)                                       | [**@mdx-js/mdx**](https://github.com/mdx-js/mdx)                                                                                                   | [📚 README](https://github.com/roots/bud/tree/stable/packages/@roots/bud-mdx/README.md)                    | ![npm](https://img.shields.io/npm/v/@roots/bud-mdx.svg?color=%23525ddc&style=flat-square)                    |
+| [**@roots/bud-postcss**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-postcss)                               | [**@postcss/postcss**](https://github.com/postcss/postcss)                                                                                         | [📚 README](https://github.com/roots/bud/tree/stable/packages/@roots/bud-postcss/README.md)                | ![npm](https://img.shields.io/npm/v/@roots/bud-postcss.svg?color=%23525ddc&style=flat-square)                |
+| [**@roots/bud-prettier**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-prettier)                             | [**@prettier/prettier**](https://github.com/prettier/prettier)                                                                                     | [📚 README](https://github.com/roots/bud/tree/stable/packages/@roots/bud-prettier/README.md)               | ![npm](https://img.shields.io/npm/v/@roots/bud-prettier.svg?color=%23525ddc&style=flat-square)               |
+| [**@roots/bud-purgecss**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-purgecss)                             | [**@FullHuman/purgecss**](https://github.com/FullHuman/purgecss)                                                                                   | [📚 README](https://github.com/roots/bud/tree/stable/packages/@roots/bud-purgecss/README.md)               | ![npm](https://img.shields.io/npm/v/@roots/bud-purgecss.svg?color=%23525ddc&style=flat-square)               |
+| [**@roots/bud-react**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-react)                                   | [**@facebook/react**](https://github.com/facebook/react)                                                                                           | [📚 README](https://github.com/roots/bud/tree/stable/packages/@roots/bud-react/README.md)                  | ![npm](https://img.shields.io/npm/v/@roots/bud-react.svg?color=%23525ddc&style=flat-square)                  |
+| [**@roots/bud-sass**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-sass)                                     | [**@sass/sass**](https://github.com/sass/sass)                                                                                                     | [📚 README](https://github.com/roots/bud/tree/stable/packages/@roots/bud-sass/README.md)                   | ![npm](https://img.shields.io/npm/v/@roots/bud-sass.svg?color=%23525ddc&style=flat-square)                   |
+| [**@roots/bud-stylelint**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-stylelint)                           | [**@stylelint/stylelint**](https://github.com/stylelint/stylelint)                                                                                 | [📚 README](https://github.com/roots/bud/tree/stable/packages/@roots/bud-stylelint/README.md)              | ![npm](https://img.shields.io/npm/v/@roots/bud-stylelint.svg?color=%23525ddc&style=flat-square)              |
+| [**@roots/bud-tailwindcss**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-tailwindcss)                       | [**@tailwindlabs/tailwindcss**](https://github.com/tailwindlabs/tailwindcss)                                                                       | [📚 README](https://github.com/roots/bud/tree/stable/packages/@roots/bud-tailwindcss/README.md)            | ![npm](https://img.shields.io/npm/v/@roots/bud-tailwindcss.svg?color=%23525ddc&style=flat-square)            |
+| [**@roots/bud-terser**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-terser)                                 | [**@terser/terser**](https://github.com/terser/terser)                                                                                             | [📚 README](https://github.com/roots/bud/tree/stable/packages/@roots/bud-terser/README.md)                 | ![npm](https://img.shields.io/npm/v/@roots/bud-terser.svg?color=%23525ddc&style=flat-square)                 |
+| [**@roots/bud-typescript**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-typescript)                         | [**@TypeStrong/ts-loader**](https://github.com/TypeStrong/ts-loader)                                                                               | [📚 README](https://github.com/roots/bud/tree/stable/packages/@roots/bud-typescript/README.md)             | ![npm](https://img.shields.io/npm/v/@roots/bud-typescript.svg?color=%23525ddc&style=flat-square)             |
+| [**@roots/bud-vue**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-vue)                                       | [**@vue/vue**](https://github.com/vue/vue)                                                                                                         | [📚 README](https://github.com/roots/bud/tree/stable/packages/@roots/bud-vue/README.md)                    | ![npm](https://img.shields.io/npm/v/@roots/bud-vue.svg?color=%23525ddc&style=flat-square)                    |
+| [**@roots/bud-wordpress-dependencies**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-wordpress-dependencies) | [**@roots/wordpress-dependencies-webpack-plugin**](https://github.com/roots/bud/tree/stable/packages/@roots/wordpress-dependencies-webpack-plugin) | [📚 README](https://github.com/roots/bud/tree/stable/packages/@roots/bud-wordpress-dependencies/README.md) | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-dependencies.svg?color=%23525ddc&style=flat-square) |
+| [**@roots/bud-wordpress-externals**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-wordpress-externals)       | [**@roots/wordpress-externals-webpack-plugin**](https://github.com/roots/bud/tree/stable/packages/@roots/wordpress-externals-webpack-plugin)       | [📚 README](https://github.com/roots/bud/tree/stable/packages/@roots/bud-wordpress-externals/README.md)    | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-externals.svg?color=%23525ddc&style=flat-square)    |
+| [**@roots/bud-wordpress-manifests**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-wordpress-manifests)       | [**@roots/merged-manifest-webpack-plugin**](https://github.com/roots/bud/tree/stable/packages/@roots/merged-manifest-webpack-plugin)               | [📚 README](https://github.com/roots/bud/tree/stable/packages/@roots/bud-wordpress-manifests/README.md)    | ![npm](https://img.shields.io/npm/v/@roots/bud-wordpress-manifests.svg?color=%23525ddc&style=flat-square)    |
 
 ### Third-party extensions
 
@@ -209,19 +186,10 @@ Have you produced a Bud extension and want to share it here? Please, create an i
 
 ## Documentation and details
 
-- [Documentation index](https://github.com/roots/bud/tree/stable/docs/README.md)
-- [Configuration guide](https://github.com/roots/bud/tree/stable/docs/config.md)
-- [Setting the compilation mode](https://github.com/roots/bud/tree/stable/docs/components-mode.md)
-- [Working with containers](https://github.com/roots/bud/tree/stable/docs/components-container.md)
-- [Working with env values](https://github.com/roots/bud/tree/stable/docs/components-env.md)
-- [Toggling feature flags](https://github.com/roots/bud/tree/stable/docs/components-features.md)
-- [Working with the filesystem](https://github.com/roots/bud/tree/stable/docs/components-filesystem.md)
-- [Using hooks](https://github.com/roots/bud/tree/stable/docs/components-hooks.md)
-- [Bud CLI](https://github.com/roots/bud/tree/stable/docs/cli.md)
-
-## Typescript
-
-Bud is written in TypeScript but supports JS and TS projects. For TS users most project typings can be sourced from [@roots/bud-typings](packages/typings).
+- [Documentation](https://github.com/roots/bud/tree/stable/docs/README.md)
+- [Getting started](https://github.com/roots/bud/tree/stable/docs/getting-started.md)
+- [Configuration](https://github.com/roots/bud/tree/stable/docs/config/README.md)
+- [CLI](https://github.com/roots/bud/tree/stable/docs/cli.md)
 
 ## Contributing
 
@@ -232,6 +200,37 @@ We have [contributing guidelines](https://github.com/roots/guidelines/blob/maste
 ## Bud sponsors
 
 Help support our open-source development efforts by [becoming a patron](https://www.patreon.com/rootsdev).
+
+<a href="https://kinsta.com/?kaid=OFDHAJIXUDIV">
+  <img src="https://cdn.roots.io/app/uploads/kinsta.svg" alt="Kinsta" width="200" height="150">
+</a>
+<a href="https://k-m.com/">
+  <img src="https://cdn.roots.io/app/uploads/km-digital.svg" alt="KM Digital" width="200" height="150">
+</a>
+<a href="https://carrot.com/">
+  <img src="https://cdn.roots.io/app/uploads/carrot.svg" alt="Carrot" width="200" height="150">
+</a>
+<a href="https://www.c21redwood.com/">
+  <img src="https://cdn.roots.io/app/uploads/c21redwood.svg" alt="C21 Redwood Realty" width="200" height="150">
+</a>
+<a href="https://wordpress.com/">
+  <img src="https://cdn.roots.io/app/uploads/wordpress.svg" alt="WordPress.com" width="200" height="150">
+</a>
+<a href="https://icons8.com/">
+  <img src="https://cdn.roots.io/app/uploads/icons8.svg" alt="Icons8" width="200" height="150">
+</a>
+<a href="https://www.harnessup.com/">
+  <img src="https://cdn.roots.io/app/uploads/harness-software.svg" alt="Harness Software" width="200" height="150">
+</a>
+<a href="https://www.codersclan.com/">
+  <img src="https://cdn.roots.io/app/uploads/coders-clan.svg" alt="Coders Clan" width="200" height="150">
+</a>
+<a href="https://generodigital.com/">
+  <img src="https://cdn.roots.io/app/uploads/genero.svg" alt="Genero" width="200" height="150">
+</a>
+<a href="https://motto.ca/roots">
+  <img src="https://cdn.roots.io/app/uploads/motto.svg" alt="Motto" width="200" height="150">
+</a>
 
 ## Community
 

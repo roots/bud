@@ -1,0 +1,14 @@
+{
+  "git": {
+    "requireCleanWorkingDir": true,
+    "commitMessage": "Release ${version}"
+  },
+  "npm": {
+    "publish": true
+  },
+  "plugins": {
+    "release-it-yarn-workspaces": {
+      "workspaces": ["packages/@roots/*"]
+    }
+  }
+}

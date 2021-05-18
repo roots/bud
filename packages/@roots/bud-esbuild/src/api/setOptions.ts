@@ -4,15 +4,10 @@ export const setOptions: ESBuild.SetOptions = function (
   type,
   opts,
 ): Framework {
-  this.publish(
-    {
-      [`item/esbuild-${type}/options`]: base => ({
-        ...base,
-        ...opts,
-      }),
-    },
-    '@roots/bud-esbuild/setOptions',
-  )
+  this.items[`item/esbuild-${type}`].setOptions(app => ({
+    ...app.build.items[`item/esbuild-${type}`].options,
+    ...opts,
+  }))
 
   return this
 }

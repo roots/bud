@@ -1,18 +1,6 @@
-import './interface'
 import {Framework} from '@roots/bud-framework'
+import {Bud} from './Bud'
+import {config} from './config'
 import {services} from './services'
-import {Bud as BudConstructor} from './Bud'
 
-/**
- * This fixes issues with SWR thinking its in the browser.
- */
-global.navigator = {}
-
-/**
- * This "fixes" resize emitter warnings
- * @todo actually fix this
- */
-require('events').EventEmitter.defaultMaxListeners = 20
-
-export declare type Bud = Framework
-export const bud: Bud = new BudConstructor(services).bootstrap()
+export {Framework, Bud, config, services}

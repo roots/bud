@@ -1,0 +1,14 @@
+name: '@roots/sage'
+type: preset
+
+peers:
+  - '@roots/bud-babel'
+  - '@roots/bud-wordpress-dependencies'
+  - '@roots/bud-entrypoints'
+  - '@roots/bud-esbuild'
+  - '@roots/bud-wordpress-externals'
+  - '@roots/bud-wordpress-manifests'
+  - '@roots/bud-postcss'
+  - '@roots/bud-react'
+  - '@roots/bud-tailwindcss'
+  - '@roots/bud-typescript'

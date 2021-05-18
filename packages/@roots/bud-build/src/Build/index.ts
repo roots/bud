@@ -1,38 +1,129 @@
-import type {Webpack, Build} from '@roots/bud-typings'
-import {Service} from '@roots/bud-framework'
-import {bind} from '@roots/bud-support'
+import {Framework, Service} from '@roots/bud-framework'
+import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import Webpack from 'webpack'
+import {Loader} from '../Loader'
+import {Rule} from '../Rule'
+import {Item} from '../Item'
+import {config} from './config'
+import {boundMethod as bind} from 'autobind-decorator'
+import {posix} from 'path'
 
-/**
- * ## bud.build
- *
- * Webpack configuration builder for the @roots/bud framework
- *
- * [🏡 Project home](https://roots.io/bud)
- * [📦 @roots/bud-build](https://www.npmjs.com/package/@roots/bud-build)
- */
-export default class extends Service implements Build {
-  /**
-   * Service ident
-   */
+class Build extends Service {
   public name = '@roots/bud-build'
 
-  /**
-   * Framework lifecycle
-   */
-  @bind
-  public registered(): void {
-    this.get('rules')(this.app)
-    this.get('items')(this.app)
-    this.get('config')(this.app)
+  public loaders: {[key: string]: Loader} = {}
+
+  public rules: {[key: string]: Rule} = {}
+
+  public items: {[key: string]: Item} = {}
+
+  public get config(): Webpack.Configuration {
+    return this.app.hooks.filter<Webpack.Configuration>('build')
   }
 
-  /**
-   * Make webpack config
-   *
-   * Produce a final webpack config.
-   */
   @bind
-  public make(): Webpack.Configuration {
-    return this.subscribe('build')
+  public register(): void {
+    this.loaders = {
+      css: new Loader(require.resolve('css-loader')),
+      style: new Loader(require.resolve('style-loader')),
+      minicss: new Loader(MiniCssExtractPlugin.loader),
+      file: new Loader(require.resolve('file-loader')),
+      raw: new Loader(require.resolve('raw-loader')),
+      url: new Loader(require.resolve('url-loader')),
+      'resolve-url': new Loader(
+        require.resolve('resolve-url-loader'),
+      ),
+    }
+
+    this.items = {
+      css: new Item({
+        loader: ({build}) => build.loaders.css,
+        options: ({hooks}) => ({
+          sourceMap: hooks.filter('build/devtool') ?? false,
+          importLoaders: 1,
+        }),
+      }),
+      style: new Item({
+        loader: ({build}) => build.loaders.style,
+      }),
+      minicss: new Item({
+        loader: ({build}) => build.loaders.minicss,
+        options: (app: Framework) => ({
+          publicPath: posix.normalize(
+            posix.dirname(
+              posix.relative(
+                app.path('project'),
+                app.path('src'),
+              ),
+            ),
+          ),
+        }),
+      }),
+      ['raw']: new Item({
+        loader: ({build}) => build.loaders.raw,
+      }),
+      ['file']: new Item({
+        loader: ({build}) => build.loaders.file,
+        options: ({store}) => ({
+          name: `${
+            store.isTrue('hash')
+              ? store.get('hashFormat')
+              : store.get('fileFormat')
+          }.[ext]`,
+        }),
+      }),
+      ['asset']: new Item({
+        loader: ({build}) => build.loaders.file,
+        options: ({store}) => ({
+          name: `assets/${
+            store.isTrue('hash')
+              ? store.get('hashFormat')
+              : store.get('fileFormat')
+          }.[ext]`,
+        }),
+      }),
+      ['resolve-url']: new Item({
+        loader: ({build}) => build.loaders['resolve-url'],
+        options: ({path, hooks}) => ({
+          root: path('src'),
+          sourceMap: hooks.filter('build/devtool') ?? false,
+        }),
+      }),
+    }
+
+    this.rules = {
+      css: new Rule({
+        test: ({store}) => store.get('patterns.css'),
+        use: ({isProduction, build}) => [
+          isProduction ? build.items.minicss : build.items.style,
+          build.items.css,
+        ],
+      }),
+      js: new Rule({
+        test: ({store}) => store.get('patterns.js'),
+        exclude: ({store}) => store.get('patterns.modules'),
+        use: ({build}) => [build.items['raw']],
+      }),
+      image: new Rule({
+        test: ({store}) => store.get('patterns.image'),
+        use: ({build}) => [build.items['asset']],
+      }),
+      font: new Rule({
+        test: ({store}) => store.get('patterns.font'),
+        use: ({build}) => [build.items['resolve-url']],
+      }),
+      svg: new Rule({
+        test: ({store}) => store.get('patterns.svg'),
+        type: 'asset/resource',
+      }),
+      html: new Rule({
+        test: ({store}) => store.get('patterns.html'),
+        use: ({build}) => [build.items['raw']],
+      }),
+    }
+
+    config.bind(this.app)()
   }
 }
+
+export {Build}

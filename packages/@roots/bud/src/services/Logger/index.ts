@@ -1,49 +1,24 @@
 import {
   Logger as Contract,
   Bootstrapper,
-} from '@roots/bud-typings'
-import {
-  Signale,
-  SignaleConfig,
-  SignaleOptions,
-  bind,
-} from '@roots/bud-support'
-import {Framework} from '@roots/bud-framework'
+  Framework,
+} from '@roots/bud-framework'
+import {Container} from '@roots/container'
+import {Signale, SignaleConfig} from 'signale'
+import {boundMethod as bind} from 'autobind-decorator'
 
 /**
  * Logger service
  */
-export class Logger implements Contract, Bootstrapper {
-  /**
-   * Service ident
-   */
+export class Logger
+  extends Container
+  implements Contract, Bootstrapper {
   public name = 'service/logger'
 
-  /**
-   * Framework
-   */
   public _app: Framework['get']
 
-  /**
-   * Logger instance
-   */
   public _instance: Signale
 
-  /**
-   * Logger options
-   */
-  public options: SignaleOptions<'remind'> = {
-    disabled: true,
-    interactive: false,
-    scope: 'framework',
-    secrets: [process.cwd()],
-    stream: process.stdout,
-    logLevel: 'all',
-  }
-
-  /**
-   * Logger config
-   */
   public config: SignaleConfig = {
     displayScope: true,
     displayBadge: false,
@@ -58,68 +33,45 @@ export class Logger implements Contract, Bootstrapper {
     uppercaseLabel: false,
   }
 
-  /**
-   * Service contract fulfillment
-   */
-  public register() {}
-  public boot() {}
-  public booted() {}
+  public options = {
+    disabled: true,
+    interactive: false,
+    secrets: [process.cwd()],
+    stream: process.stdout,
+  }
 
-  /**
-   * Get logger instance
-   */
   public get instance() {
     return this._instance
   }
 
-  /**
-   * Set logger instance
-   */
   public set instance(instance) {
     this._instance = instance
   }
 
-  /**
-   * Get Framework
-   */
   public get app(): Framework {
     return this._app()
   }
 
-  /**
-   * Constructor
-   */
   public constructor(app: Framework['get']) {
+    super()
     this._app = app
   }
 
-  /**
-   * Framework lifecycle: bootstrapped
-   */
-  public bootstrapped(app: Framework) {
+  @bind
+  public bootstrap() {
     this.instance = this.makeLogger()
-  }
 
-  /**
-   * Framework lifecycle: registered
-   */
-  public registered(app: Framework) {
-    if (app.store.enabled('options.log')) {
-      app.logger.instance.enable()
+    if (process.argv.includes('--log')) {
+      this.instance.enable()
     }
   }
 
-  /**
-   * Make logger
-   */
   @bind
   public makeLogger() {
-    const logger = new Signale({
-      ...this.options,
-    })
-
+    const logger = new Signale(this.options)
     logger.config(this.config)
+    logger.scope('framework')
 
-    return logger.scope('framework')
+    return logger
   }
 }

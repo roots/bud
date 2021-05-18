@@ -3,7 +3,6 @@ declare namespace WordPressExternals {
     dir: string
     name: string
     file: string
-    publicPath: string
     content: Content
   }
 

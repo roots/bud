@@ -1,110 +1,38 @@
-import {Service} from '@roots/bud-framework'
+import {Disk as Base} from '@roots/bud-framework'
 import {FileContainer} from '@roots/filesystem'
-import {bind} from '@roots/bud-support'
+import {boundMethod as bind} from 'autobind-decorator'
 
-declare interface Definition {
-  [key: string]: {
-    baseDir: string
-    glob: string[]
-  }
-}
-
-/**
- * Framework/Disk
- *
- * [🏡 Project home](https://roots.io/bud)
- */
-export class Disk extends Service {
-  /**
-   * Service name
-   */
-  public name = 'disk'
-
-  /**
-   * Base directory
-   */
-  protected _baseDir: string = process.cwd()
-
-  public get baseDir(): string {
-    return this._baseDir
-  }
-
-  public set baseDir(baseDir: string) {
-    this._baseDir = baseDir
-  }
-
-  /**
-   * Fallback pattern
-   */
-  protected _pattern: string[] = [
-    '**/*',
-    '*',
-    '!vendor',
-    '!node_modules',
-  ]
-
-  public get pattern(): string[] {
-    return this._pattern
-  }
-
-  public set pattern(glob: string[]) {
-    this._pattern = glob
-  }
-
-  /**
-   * Service register
-   */
+export class Disk extends Base {
+  @bind
   public register(): void {
-    this.setStore(this.initialDisks())
+    this.setStore({
+      ['@roots']: {
+        baseDir: this.app.path('modules', '@roots'),
+        glob: this.pattern,
+      },
+      project: {
+        baseDir: this.app.path('project'),
+        glob: this.pattern,
+      },
+    })
 
     this.every((name, disk) => {
-      this.make(name, disk)
+      this.set(name, this.make(name, disk))
     })
   }
 
-  /**
-   * Service boot
-   */
-  public boot(): void {
-    this.app.store.set(
-      'project',
-      this.get('project').readJson('package.json'),
-    )
-  }
-
-  /**
-   * Initial disks
-   */
   @bind
-  public initialDisks(): Definition {
-    return {
-      ['@roots']: {
-        baseDir: this.modulePath('@roots'),
-        glob: ['**/*', '*', '!node_modules', '*.map'],
-      },
-      ['project']: {
-        baseDir: this.app.subscribe('location/project'),
-        glob: ['**/*', '*', '!node_modules', '!vendor'],
-      },
-    }
+  public boot(): void {
+    this.get('project').has('package.json')
+      ? this.app.store.set(
+          'project',
+          this.get('project').readJson('package.json'),
+        )
+      : this.logger
+          .scope("@roots/bud-disk couldn't find a package.json")
+          .log(this.get('project'))
   }
 
-  /**
-   * Make
-   *
-   * Create a new disk. Provide a name, root directory, and -- optionally --
-   * a custom glob array.
-   *
-   * ### Usage
-   *
-   * ```js
-   * disk.make(
-   *   'icons',
-   *   bud.project('assets/icons'),
-   *   ['*.svg'],
-   * )
-   * ```
-   */
   @bind
   public make(
     key: string | number,
@@ -113,22 +41,13 @@ export class Disk extends Service {
       glob: this.pattern,
     },
   ): FileContainer {
-    const container = this.makeFileContainer(options)
-
-    this.logger
-      .scope('@roots/bud-disk', key)
-      .log(`Setting disk: ${container.baseDir}`)
-
-    this.set(key, container)
+    this.set(key, this.makeFileContainer(options))
 
     return this.get(key)
   }
 
-  /**
-   * Make file container
-   */
   @bind
-  public makeFileContainer(options: {
+  protected makeFileContainer(options: {
     baseDir?: string
     glob?: string[]
   }): FileContainer {

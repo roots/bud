@@ -1,8 +1,5 @@
-import {
-  useState,
-  useEffect,
-  ProgressPlugin,
-} from '@roots/bud-support'
+import {useState, useEffect} from 'react'
+import webpack from 'webpack'
 import {Dashboard} from '@roots/bud-framework'
 
 /**
@@ -10,33 +7,73 @@ import {Dashboard} from '@roots/bud-framework'
  */
 export const useCompilation: Dashboard.Compilation.Hook = app => {
   const [stats, setStats] = useState(app?.compiler?.stats?.json)
-  const [errors, setErrors] = useState<string[]>(null)
+  const [errors, setErrors] = useState<
+    Dashboard.Compilation.WebpackMessage[]
+  >(null)
   const [hasErrors, setHasErrors] = useState<boolean>(false)
-  const [warnings, setWarnings] = useState<string[]>(null)
+  const [warnings, setWarnings] = useState<
+    Dashboard.Compilation.WebpackMessage[]
+  >(null)
   const [hasWarnings, setHasWarnings] = useState<boolean>(false)
   const [progress, setProgress] = useState(null)
 
-  useEffect(() => {
-    app.compiler.compile(app.build.make())
-  }, [])
+  /**
+   * Compilation callback
+   * production mode callback takes two parameters (webpack err and stats)
+   * however, the done hook used in development just takes one (stats)
+   *
+   * here we parse the callback args so that we dont have to
+   * duplicate the callback.
+   */
+  const callback = (...args: any[]) => {
+    const [err, stats] =
+      args.length > 1 ? args : [null, args.pop()]
 
-  useEffect(() => {
-    if (!app?.compiler?.instance) return
+    app.when(err, () => {
+      app.error(err, 'Webpack error (pre-compile)')
 
-    app.compiler.instance.hooks.done.tap('app', stats => {
-      if (!stats) return
-
-      setStats(stats.toJson(app.compiler.statsOptions.json))
-
-      if (!stats?.hasErrors) return
-
-      setHasErrors(stats.hasErrors())
-      stats.hasErrors()
-        ? setErrors(stats.toJson('errors-only').errors)
-        : setErrors(null)
+      process.exit()
     })
 
-    new ProgressPlugin((percentage, message): void => {
+    const json = stats?.toJson(app.compiler.statsOptions)
+
+    if (!json) return
+
+    setStats(json)
+
+    app
+      .when(
+        json?.hasErrors,
+        () => {
+          setHasErrors(json.hasErrors())
+          setErrors(json.errors)
+        },
+        () => setErrors(null),
+      )
+      .when(
+        json?.hasWarnings,
+        () => {
+          setHasWarnings(json.hasWarnings())
+          setWarnings(json.warnings)
+        },
+        () => setWarnings(null),
+      )
+  }
+
+  /**
+   * Update data when app.compiler diffs
+   */
+  useEffect(() => {
+    if (app.compiler.instance) return
+
+    const instance = app.compiler.compile(app.build.config)
+
+    instance.hooks.done.tap(`${app.name}`, callback)
+
+    /**
+     * Apply progress plugin
+     */
+    new webpack.ProgressPlugin((percentage, message): void => {
       const decimal =
         percentage && typeof percentage == 'number'
           ? percentage
@@ -47,36 +84,17 @@ export const useCompilation: Dashboard.Compilation.Hook = app => {
         percentage: `${Math.floor(decimal * 100)}%`,
         message,
       })
-    }).apply(app.compiler.instance)
-
-    const compilerCallback = (err, stats: any) => {
-      if (!stats) return
-
-      stats = stats.toJson(app.compiler.statsOptions.json)
-
-      setStats(stats)
-
-      if (stats?.hasErrors) {
-        setHasErrors(stats.hasErrors())
-        stats.hasErrors()
-          ? setErrors(stats.errors)
-          : setErrors(null)
-      }
-      if (stats?.hasWarnings) {
-        setHasWarnings(stats.hasWarnings())
-        stats.hasWarnings()
-          ? setWarnings(stats.warnings)
-          : setWarnings(null)
-      }
-    }
+    }).apply(instance)
 
     /**
-     * Exec
+     * Either run prod or dev build
      */
-    !app.isDevelopment
-      ? app.compiler.instance.run(compilerCallback)
-      : app.server.run(app.compiler.instance)
-  }, [app])
+    app.when(
+      !app.isDevelopment,
+      ({compiler}) => compiler.instance.run(callback),
+      ({compiler, server}) => server.run(compiler.instance),
+    )
+  }, [app.compiler])
 
   return {
     progress,

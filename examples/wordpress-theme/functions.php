@@ -22,14 +22,15 @@ use \Illuminate\Support\Collection;
  * @param  {string} $partial
  * @return {void}
  */
-function partial(string $partial): void {
-  $templateFile = realpath(
-    get_theme_file_path(
-      "src/partials/{$partial}.php"
-    )
-  );
+function partial(string $partial): void
+{
+    $templateFile = realpath(
+        get_theme_file_path(
+            "src/partials/{$partial}.php"
+        )
+    );
 
-  $templateFile &&
+    $templateFile &&
     require_once $templateFile;
 }
 
@@ -39,7 +40,8 @@ function partial(string $partial): void {
  *
  * @return {Collection}
  */
-function getManifest(): Collection {
+function getManifest(): Collection
+{
     $path = realpath(get_theme_file_path('dist/entrypoints.json'));
     if (!$path) {
         throw new \WP_Error('Run yarn build');
@@ -82,8 +84,7 @@ function entrypoint(
     );
 
     return $entrypoint->modules->map(
-        function ($module, $index)
-            use ($type, $name, $entrypoint) {
+        function ($module, $index) use ($type, $name, $entrypoint) {
             $name = "{$type}.{$name}.{$index}";
 
             $dependencies = $entrypoint->dependencies->all();
@@ -105,7 +106,8 @@ function entrypoint(
  * @param  {string} bundleName
  * @return void
  */
-function bundle (string $bundleName): void {
+function bundle(string $bundleName): void
+{
     /**
      * Filter specified bundle
      */
@@ -149,8 +151,7 @@ function bundle (string $bundleName): void {
         /**
          * Enqueue scripts
          */
-        ->each(function ($entrypoint)
-            use ($filterHot): void {
+        ->each(function ($entrypoint) use ($filterHot): void {
             $entrypoint
                 ->js
                 ->filter($filterHot)
@@ -193,5 +194,5 @@ add_action('wp_enqueue_scripts', function () {
  * @return void
  */
 add_action('enqueue_block_editor_assets', function () {
-   bundle('bud-editor');
+    bundle('bud-editor');
 }, 100);

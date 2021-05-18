@@ -1,10 +1,11 @@
-import '@roots/bud'
+import '@roots/bud-dashboard'
 import '@roots/bud-postcss'
+import {Module} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
-  namespace Framework.Hooks.Extension {
-    interface Definitions {
-      '@roots/bud-tailwindcss': Framework.Module
+  namespace Framework {
+    interface Extensions {
+      '@roots/bud-tailwindcss': Module
     }
   }
 
@@ -23,10 +24,10 @@ declare module '@roots/bud-framework' {
      *   }
      * })
      */
-    tailwind: Framework.Tailwind.Configure
+    tailwind: Tailwind.Configure
   }
 
-  namespace Framework.Tailwind {
+  namespace Tailwind {
     export type Configure = (
       config: Omit<Tailwind.Config, null>,
       implementation: 'tailwindcss' | '@tailwindcss/jit',

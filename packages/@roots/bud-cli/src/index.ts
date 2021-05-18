@@ -1,3 +1,4 @@
-export {Command} from './Command'
-export {CLI} from './CLI'
-export {commands} from './commands'
+import {run} from '@oclif/command'
+import * as flags from './flags/index'
+
+export {run, flags}

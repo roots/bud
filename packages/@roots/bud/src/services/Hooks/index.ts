@@ -1,41 +1,32 @@
 import {Hooks as Base} from '@roots/bud-hooks'
-import {repository} from './repository'
+import {boundMethod as bind} from 'autobind-decorator'
 
 export class Hooks extends Base {
-  /**
-   * Service name
-   */
   public name = 'service/hooks'
 
-  /**
-   * Service repository
-   */
-  public repository = repository
+  @bind
+  public register({store}) {
+    this.on('location/project', () =>
+      store.get('location.project'),
+    )
 
-  /**
-   * Service register
-   */
-  public register() {
-    this.set('location/project', [
-      () => this.app.store.get('options.context'),
-    ])
-      .set('location/src', [
-        () => this.app.store.get('options.src'),
-      ])
-      .set('location/dist', [
-        () => this.app.store.get('options.dist'),
-      ])
-      .set('location/storage', [
-        () => this.app.store.get('options.storage'),
-      ])
-      .set('location/modules', [
-        () => this.app.store.get('options.modules'),
-      ])
-      .set('location/publicPath', [
-        () => this.app.store.get('options.publicPath'),
-      ])
-      .set('location/records', [
-        () => this.app.store.get('options.records'),
-      ])
+    this.on('location/src', () => store.get('location.src'))
+    this.on('location/dist', () => store.get('location.dist'))
+
+    this.on('location/storage', () =>
+      store.get('location.storage'),
+    )
+
+    this.on('location/modules', () =>
+      store.get('location.modules'),
+    )
+
+    this.on('location/publicPath', () =>
+      store.get('location.publicPath'),
+    )
+
+    this.on('location/records', () =>
+      store.get('location.records'),
+    )
   }
 }

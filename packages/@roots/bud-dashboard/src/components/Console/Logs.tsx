@@ -1,12 +1,16 @@
-import {React, Text, Box} from '@roots/bud-support'
+import React from 'react'
+import {Box, Text, Static} from 'ink'
 
-/**
- * Non-static logs
- */
 export const Logs = ({logs}) => (
   <Box marginBottom={1} flexDirection="column">
-    <Box>
-      <Text>{logs.pop()}</Text>
-    </Box>
+    <Static items={logs}>
+      {(log, id) => (
+        <Box key={id} marginBottom={1} flexDirection="column">
+          <Box>
+            <Text>{log}</Text>
+          </Box>
+        </Box>
+      )}
+    </Static>
   </Box>
 )

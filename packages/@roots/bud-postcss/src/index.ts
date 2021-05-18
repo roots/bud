@@ -1,114 +1,49 @@
 import './interface'
+import {Item, Loader} from '@roots/bud-build'
+import {Module} from '@roots/bud-framework'
+import {pathExistsSync} from 'fs-extra'
+import {Config} from './Config'
 
-import {Framework, Module} from '@roots/bud-framework'
-import {PostCssConfig} from './api'
+const extension: Module = {
+  name: '@roots/bud-postcss',
 
-/**
- * Extension name
- */
-export const name: Module['name'] = '@roots/bud-postcss'
-
-/**
- * Register devDependencies
- */
-export const devDependencies: Module['devDependencies'] = [
-  'postcss',
-]
-
-/**
- * Register app.postcss
- */
-export const api: Module['api'] = (app: Framework) => ({
-  postcss: new PostCssConfig({app}),
-})
-
-/**
- * Publishes
- */
-export const publish: Module['publish'] = (app: Framework) => ({
-  /**
-   * loader/postcss
-   */
-  'loader/postcss': () => require.resolve('postcss-loader'),
-
-  /**
-   * item/postcss
-   */
-  'item/postcss': () => ({
-    loader: app.subscribe('item/postcss/loader'),
-    options: app.subscribe('item/postcss/options'),
+  api: app => ({
+    postcss: new Config(app),
   }),
 
-  // loader
-  'item/postcss/loader': () => app.subscribe('loader/postcss'),
+  boot: ({build, path, postcss}) => {
+    build.loaders.postcss = new Loader(
+      require.resolve('postcss-loader'),
+    )
 
-  // options
-  'item/postcss/options': () => ({
-    postcssOptions: app.subscribe(
-      'item/postcss/options/postcssOptions',
-    ),
-    sourceMap: app.subscribe('item/postcss/options/sourceMap'),
-  }),
+    build.items.postcss = new Item({
+      loader: ({build}) => build.loaders.postcss,
+      options: ({path, postcss}) => ({
+        postcssOptions: {
+          config: pathExistsSync(
+            path('project', 'postcss.config.js'),
+          ),
+          plugins: Object.values(
+            postcss.plugins,
+          ).map(([plugin, options]) => require(plugin)(options)),
+        },
+        sourceMap: true,
+      }),
+    })
 
-  // options/sourceMap
-  'item/postcss/options/sourceMap': () => true,
-
-  // options.postcssOptions
-  'item/postcss/options/postcssOptions': () => ({
-    config: app.subscribe(
-      'item/postcss/options/postcssOptions/config',
-    ),
-    plugins: app.subscribe(
-      'item/postcss/options/postcssOptions/plugins',
-    ),
-  }),
-
-  // options.config
-  'item/postcss/options/postcssOptions/config':
-    app.postcss.hasProjectConfig,
-
-  // options.plugins
-  'item/postcss/options/postcssOptions/plugins':
-    app.postcss.makeConfig,
-
-  /**
-   * rule/css
-   */
-  'rule/css/use': use => [
-    /**
-     * Assuming postcss should be the third item
-     * in the ruleset (after minicss/style and css loaders)
-     */
-    ...use.splice(0, 2),
-    app.subscribe('item/postcss'),
-    // The rest of the loaders
-    ...use,
-  ],
-})
-
-/**
- * Replace default css implementation
- */
-export const boot: Module['boot'] = (app: Framework) => {
-  !app.postcss.hasProjectConfig &&
-    app.sequence([
-      app =>
-        app.postcss.logger.log(
-          'No project config found. Enabling defaults.',
-        ),
-
-      app =>
-        app.postcss
-          .set('postcss-nested')
-          .set('postcss-custom-properties')
-          .set([
-            'postcss-import',
-            {path: app.subscribe('build/resolve/modules')},
-          ])
-          .setOrder([
-            'postcss-import',
-            'postcss-nested',
-            'postcss-custom-properties',
-          ]),
+    build.rules.css.setUse(({isProduction, build}) => [
+      isProduction ? build.items.minicss : build.items.style,
+      build.items.css,
+      build.items.postcss,
     ])
+
+    !pathExistsSync(path('project', 'postcss.config.js')) &&
+      postcss.setPlugins([
+        'postcss-import',
+        ['postcss-preset-env', {stage: 1}],
+      ])
+  },
 }
+
+export default extension
+export const {name, boot, api} = extension

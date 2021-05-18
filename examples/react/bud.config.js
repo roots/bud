@@ -1,16 +1,25 @@
-/**
- * React configuration example
- *
- * @typedef {import('@roots/bud').Bud} Bud
- * @type {(bud: Bud): Bud}
- */
+const babel = require('@roots/bud-babel')
+const postcss = require('@roots/bud-postcss')
+const react = require('@roots/bud-react')
 
-module.exports = bud =>
-  bud
-    .use([
-      require('@roots/bud-babel'),
-      require('@roots/bud-postcss'),
-      require('@roots/bud-react'),
-    ])
-    .html({enabled: true})
-    .entry('app', 'app.{js,css}')
+const extensions = [babel, postcss, react]
+
+module.exports = app =>
+  app
+    .use(extensions)
+    .template({
+      template: 'public/index.html',
+    })
+    .entry({
+      react: ['react', 'react-dom'],
+      app: {
+        import: ['app.{js,css}'],
+        dependOn: ['react'],
+      },
+    })
+    .when(app.isProduction, () => {
+      app.runtime().splitChunks()
+    })
+    .persist({
+      type: 'memory',
+    })

@@ -1,6 +1,9 @@
 import React from 'react'
 import {render} from 'react-dom'
 import {App} from './components/App'
+import bootstrap from 'bootstrap'
+
+console.log(bootstrap)
 
 render(<App />, document.getElementById('root'))
 

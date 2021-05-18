@@ -1,0 +1,72 @@
+{
+  "name": "@roots/critical-css-webpack-plugin",
+  "version": "3.2.0-next.2",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud.git",
+    "directory": "packages/@roots/bud-wordpress-manifests"
+  },
+  "license": "MIT",
+  "contributors": [
+    {
+      "name": "Kelly Mears",
+      "url": "https://github.com/kellymears"
+    }
+  ],
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
+  "keywords": [
+    "critical-css",
+    "webpack"
+  ],
+  "engines": {
+    "node": ">=14"
+  },
+  "files": [
+    "docs/",
+    "lib/",
+    "types/",
+    "manifest.yml"
+  ],
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    "require": "./lib/cjs/index.js",
+    "import": "./lib/esm/index.js"
+  },
+  "scripts": {
+    "build": "yarn g:build",
+    "build:cjs": "yarn g:build:cjs",
+    "build:esm": "yarn g:build:esm",
+    "lint": "yarn g:lint",
+    "lint:eslint": "yarn g:lint:eslint",
+    "lint:prettier": "yarn g:lint:prettier",
+    "clean": "yarn g:clean",
+    "clean:lib": "yarn g:clean:lib",
+    "clean:modules": "yarn g:clean:modules",
+    "clean:types": "yarn g:clean:types",
+    "pkg": "yarn g:pkg",
+    "pkg:check": "yarn g:pkg:check",
+    "pkg:format": "yarn g:pkg:format"
+  },
+  "dependencies": {
+    "autobind-decorator": "^2.4.0",
+    "critical": "^3.0.1",
+    "lodash": "^4.17.21",
+    "safe-require": "^1.0.4",
+    "vinyl": "^2.2.1",
+    "webpack": "^5.36.0"
+  },
+  "devDependencies": {
+    "@roots/bud-framework": "workspace:*",
+    "@types/lodash": "^4.14.168",
+    "@types/node": "^15.0.0",
+    "@types/vinyl": "^2.0.4"
+  }
+}

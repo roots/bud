@@ -28,7 +28,8 @@
   <strong>Example configurations</strong>
 </h1>
 
-- [Babel app](https://github.com/roots/bud/tree/stable/examples/babel)
+- [Babel](https://github.com/roots/bud/tree/stable/examples/babel)
+- [Critical CSS](https://github.com/roots/bud/tree/stable/examples/critical-css)
 - [ESBuild](https://github.com/roots/bud/tree/stable/examples/esbuild)
 - [Sass support](https://github.com/roots/bud/tree/stable/examples/sass)
 - [React single page application](https://github.com/roots/bud/tree/stable/examples/react)

@@ -1,0 +1,9 @@
+extensions:
+  - '@roots/sage'
+entry:
+  app: '**/app.{ts,css}'
+  editor: '**/editor.{ts,css}'
+  customizer: '**/customizer.{ts,css}'
+assets:
+  - assets/images
+persist: false

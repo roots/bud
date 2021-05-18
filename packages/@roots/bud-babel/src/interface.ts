@@ -1,22 +1,21 @@
-import '@roots/bud-api'
-import '@roots/bud-framework'
+import {Module} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
-  namespace Framework.Hooks.Extension {
-    interface Definitions {
-      '@roots/bud-babel': Framework.Module
+  namespace Framework {
+    interface Extensions {
+      '@roots/bud-babel': Module
     }
   }
 
-  namespace Framework.Hooks.Loader {
+  namespace Hooks.Loader {
     interface Definitions {
-      babel: Framework.Hooks.Loader.Subject
+      babel: string
     }
   }
 
-  namespace Framework.Hooks.Item {
+  namespace Hooks.Item {
     interface Definitions {
-      babel: Framework.Hooks.Item.Subject
+      babel: any
     }
   }
 
@@ -34,11 +33,6 @@ declare module '@roots/bud-framework' {
      * ## babel.log
      */
     log: any
-
-    /**
-     * ## babel.hasProjectConfig
-     */
-    hasProjectConfig: boolean
 
     /**
      * ## babel.plugins
@@ -118,7 +112,7 @@ declare module '@roots/bud-framework' {
 
     type Plugin = string | NormalizedPlugin | CallableFunction
 
-    type Registrable = string | [string, any]
+    type Registrable = string | NormalizedPlugin
 
     interface Registry {
       [key: string]: [string, any]

@@ -1,0 +1,7 @@
+name: '@roots/bud-stylelint'
+type: extension
+
+templates:
+  - name: stylelint
+    description: stylelint config
+    path: templates/stylelint.config.json

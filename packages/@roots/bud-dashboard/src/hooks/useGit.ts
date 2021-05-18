@@ -1,56 +1,59 @@
-import {
-  useEffect,
-  useSwr,
-  mutate,
-  execa,
-} from '@roots/bud-support'
+import {useState, useEffect} from 'react'
+import execa from 'execa'
 import {Dashboard} from '@roots/bud-framework'
 
-const fetch = async key => {
-  const params = {
-    head: ['rev-parse', '--short', 'HEAD', '--no-color'],
-    branch: ['branch', '--show-current', '--no-color'],
-    status: ['status', '--short'],
-  }
-
-  return await execa('git', params[key.replace('git.', '')])
-}
-
-export const useGit: Dashboard.UseGit.Hook = () => {
-  const {data: head} = useSwr<Dashboard.UseGit.Res>(
-    'git.head',
-    fetch,
-  )
-
-  const {data: branch} = useSwr<Dashboard.UseGit.Res>(
-    'git.branch',
-    fetch,
-  )
-
-  const {data: status} = useSwr<Dashboard.UseGit.Res>(
-    'git.status',
-    fetch,
-  )
+export const useGit = (): Dashboard.UseGit.Status => {
+  const [head, setHead] = useState(null)
+  const [branch, setBranch] = useState(null)
+  const [status, setStatus] = useState(null)
 
   useEffect(() => {
-    setInterval(() => {
-      mutate('git.head')
-      mutate('git.branch')
-      mutate('git.status')
+    setInterval(async () => {
+      const update = await execa('git', ['status', '--short'])
+
+      if (update !== status) {
+        setStatus(update)
+      }
     }, 1000)
   }, [])
 
-  const changed = status?.stdout
-    ?.split('\n')
-    .filter(item => item !== '').length
+  useEffect(() => {
+    setInterval(async () => {
+      const revision = await execa('git', [
+        'rev-parse',
+        '--short',
+        'HEAD',
+        '--no-color',
+      ])
 
-  const hasError =
+      setHead(revision)
+    })
+  }, [])
+
+  useEffect(() => {
+    setInterval(async () => {
+      const branch = await execa('git', [
+        'branch',
+        '--show-current',
+        '--no-color',
+      ])
+
+      setBranch(branch)
+    })
+  }, [])
+
+  const hasError: boolean =
     [head, branch, status].filter(res => res?.stderr)?.length > 0
 
   return {
-    head: head?.stdout.toString(),
-    branch: branch?.stdout.toString(),
-    status: changed > 0 ? changed : null,
+    head: head?.stdout?.toString() ?? null,
+    branch: branch?.stdout?.toString() ?? null,
+    status: !status?.stdout?.toString()
+      ? '0'
+      : status.stdout
+          .toString()
+          .split('\n')
+          .filter(item => item !== '').length,
     hasError,
   }
 }

@@ -1,48 +1,24 @@
-import {Service} from '@roots/bud-framework'
-import {Server} from '@roots/bud-typings'
-import {bind, globby, chokidar} from '@roots/bud-support'
-
+import {Service, Server as Contract} from '@roots/bud-framework'
+import Webpack from 'webpack'
+import chokidar from 'chokidar'
+import {sync} from 'globby'
 import {FSWatcher} from 'fs-extra'
 import {resolve} from 'path'
+import {boundMethod as bind} from 'autobind-decorator'
 
 import * as middleware from '../middleware'
 import {injectClient} from '../util/injectClient'
 
-/**
- * Development Server
- *
- * [🏡 Project home](https://roots.io/bud)
- * [🧑‍💻 roots/bud/packages/bud-server](https://github.com/roots/bud/tree/stable/packages/@roots/bud-server)
- * [📦 @roots/bud-server](https://www.npmjs.com/package/@roots/bud-server)
- */
-export default class extends Service implements Server {
-  /**
-   * Service ident.
-   */
+export class Server extends Service implements Contract {
   public name = '@roots/bud-server'
 
-  /**
-   * Middleware
-   */
-  public middleware: Server.Middleware.Inventory = {}
+  public middleware: Contract.Middleware.Inventory = {}
 
-  /**
-   * Watcher
-   */
+  public config: Contract.Config
+
+  public _instance: Contract.Instance
+
   public _watcher: FSWatcher
-
-  public get watcher() {
-    return this._watcher
-  }
-
-  public set watcher(watcher: FSWatcher) {
-    this._watcher = watcher
-  }
-
-  /**
-   * Server application instance.
-   */
-  public _instance: Server.Instance
 
   public get instance() {
     return this._instance
@@ -52,41 +28,14 @@ export default class extends Service implements Server {
     this._instance = instance
   }
 
-  /**
-   * Config
-   */
-  public _config: Server.Config
-
-  public get config(): Server.Config {
-    return this._config
+  public get watcher() {
+    return this._watcher
   }
 
-  public set config(config: Server.Config) {
-    this._config = config
+  public set watcher(watcher: FSWatcher) {
+    this._watcher = watcher
   }
 
-  /**
-   * Watchlist
-   */
-  public readonly _watchlist: string[]
-
-  /**
-   * Watchlist: get accessor
-   */
-  public get watchlist(): string[] {
-    return this.config
-      .get('watch.files')
-      .map((file: string) =>
-        this.path.posix.join(
-          this.app.subscribe('location/project', this.name),
-          file,
-        ),
-      )
-  }
-
-  /**
-   * Assets
-   */
   public readonly _assets = [
     resolve(__dirname, '../client/index.js'),
   ]
@@ -95,30 +44,30 @@ export default class extends Service implements Server {
     return this._assets
   }
 
-  /**
-   * Watchable: get accessor
-   */
-  public get watchable(): boolean {
+  public get isWatchable(): boolean {
     return (
-      Array.isArray(this.watchlist) && this.watchlist.length > 0
+      Array.isArray(this.getWatchedFilesArray()) &&
+      this.getWatchedFilesArray().length > 0
     )
   }
 
-  /**
-   * Lifecycle: booted
-   */
+  @bind
+  public getWatchedFilesArray(): string[] {
+    return this.config
+      .get('watch.files')
+      .map((file: string) => this.app.path('project', file))
+  }
+
+  @bind
   public booted() {
     this.watcher = chokidar.watch(
-      globby.sync(this.watchlist),
+      sync(this.config.get('watch.files')),
       this.config.get('watch.options'),
     )
   }
 
-  /**
-   * Process middlewares
-   */
   @bind
-  public processMiddlewares(compiler: Server.Compiler) {
+  public processMiddlewares(compiler: Contract.Compiler) {
     Object.entries(middleware).map(([key, generate]) => {
       if (this.config.enabled(`middleware.${key}`)) {
         this.info(`Enabling ${key}`)
@@ -135,17 +84,14 @@ export default class extends Service implements Server {
     )
   }
 
-  /**
-   * Run server
-   */
   @bind
-  public run(compiler: Server.Compiler): this {
+  public run(compiler: Webpack.Compiler): this {
     /**
      * __roots route
      */
     this.instance
       .route('/__roots/config.json')
-      .get((req, res) => {
+      .get((_req, res) => {
         res.send({
           ...this.app.store.all(),
           ...this.config.all(),
@@ -171,7 +117,7 @@ export default class extends Service implements Server {
       })
     })
 
-    this.watchable &&
+    this.isWatchable &&
       this.watcher?.on('change', path => {
         this.middleware.hot.publish({
           action: 'reload',
@@ -182,9 +128,6 @@ export default class extends Service implements Server {
     return this
   }
 
-  /**
-   * Inject HMR
-   */
   @bind
   public inject(): void {
     injectClient(this.app, this.assets)

@@ -1,10 +1,10 @@
 {
-  "name": "bud-example-sass",
-  "scripts": {
-    "bud": "node ../../node_modules/.bin/bud"
-  },
+  "name": "example-sass",
+  "private": true,
   "devDependencies": {
-    "postcss": "^8.2.8",
-    "sass": "^1.32.8"
+    "@roots/bud": "workspace:packages/@roots/bud",
+    "@roots/bud-cli": "workspace:packages/@roots/bud-cli",
+    "@roots/bud-sass": "workspace:packages/@roots/bud-sass",
+    "sass": "^1.32.11"
   }
 }

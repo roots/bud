@@ -1,100 +1,85 @@
-import {Service} from '@roots/bud-framework'
-import {
-  Dependencies as DependenciesManager,
-  IDependencyManager,
-} from '@roots/dependencies'
-import {React, Box, Text, Spinner} from '@roots/bud-support'
+import {Dependencies as DependenciesManager} from '@roots/dependencies'
+import {boundMethod as bind} from 'autobind-decorator'
+import {readJsonSync} from 'fs-extra'
+import React from 'react'
+import {Text, Static} from 'ink'
+import {Base} from './Base'
 
-/**
- * Framework/Dependencies
- *
- * [🏡 Project home](https://roots.io/bud)
- * [🧑‍💻 roots/bud](https://git.io/Jkli3)
- */
-export class Dependencies extends Service {
-  /**
-   * Service name
-   */
-  public name = 'service/dependencies'
-
-  /**
-   * Dependencies manager
-   */
-  public manager: DependenciesManager
-
-  /**
-   * Project package.json
-   */
-  public get pkg() {
-    return this.app.disk.get('project').readJson('package.json')
+export class Dependencies extends Base {
+  @bind
+  public pkg() {
+    return readJsonSync(this.app.path('project', 'package.json'))
   }
 
-  /**
-   * Is framework being run with yarn
-   */
-  public get isYarn() {
-    return this.manager.isYarn()
-  }
-
-  /**
-   * Get client
-   */
-  public get client(): IDependencyManager {
-    return this.manager.client
-  }
-
-  /**
-   * Boot
-   */
-  public boot() {
+  @bind
+  public register() {
     this.manager = new DependenciesManager(
-      this.app.subscribe('location/project'),
+      this.app.path('project'),
     )
   }
 
-  /**
-   * Install development dependency
-   */
-  public installDev(deps: string[], source: string): void {
-    deps.forEach(dep => {
-      if (
-        !this.pkg.devDependencies ||
-        !Object.keys(this.pkg.devDependencies).includes(dep)
-      ) {
-        this.notify(dep, source)
-        this.client.install(true, dep)
-      }
-    })
+  @bind
+  public shouldInstall(dep: string) {
+    const pkgJson = this.pkg()
+
+    const shouldInstall =
+      !pkgJson ||
+      !Object.keys({
+        ...(pkgJson['dependencies'] ?? {}),
+        ...(pkgJson['devDependencies'] ?? {}),
+      })?.includes(dep)
+
+    if (!shouldInstall) {
+      this.app.dashboard.render(
+        <Static items={[{dep}]}>
+          {({dep}) => (
+            <Text key={dep}>{dep} is already installed</Text>
+          )}
+        </Static>,
+      )
+    }
+
+    return shouldInstall
   }
 
-  /**
-   * Install dependency
-   */
-  public install(deps: string[], source: string): void {
-    deps.forEach(dep => {
-      if (
-        !this.pkg.dependencies ||
-        !Object.keys(this.pkg.dependencies).includes(dep)
-      ) {
-        this.notify(dep, source)
-        this.client.install(false, dep)
-      }
-    })
+  @bind
+  public installDev(deps: {[key: string]: string}): void {
+    Object.entries(deps)
+      .filter(([dep]) => this.shouldInstall(dep))
+      .forEach(([dep, ver]) => {
+        this.notify([
+          {msg: `Installing dev dependency: ${dep}@${ver}`},
+          {
+            msg: this.manager.client
+              .install(true, `${dep}@${ver}`)
+              .output.toString(),
+          },
+        ])
+      })
   }
 
-  /**
-   * Display information to console
-   */
-  public notify(dep: string, source: string) {
+  @bind
+  public install(deps: {[key: string]: string}): void {
+    Object.entries(deps)
+      .filter(([dep]) => this.shouldInstall(dep))
+      .forEach(([dep, ver]) => {
+        this.notify([
+          {msg: `Installing dependency: ${dep}@${ver}`},
+          {
+            msg: this.manager.client
+              .install(false, `${dep}@${ver}`)
+              .output.toString(),
+          },
+        ])
+      })
+  }
+
+  @bind
+  public notify(notices: {msg: string}[]) {
     this.app.dashboard.render(
-      <Box flexDirection="row">
-        <Text>
-          <Text color="green">
-            <Spinner /> {source}{' '}
-          </Text>
-          Adding <Text color="green">{dep}</Text> to project.
-        </Text>
-      </Box>,
+      <Static items={notices}>
+        {({msg}) => <Text key={`${msg}`}>{msg}</Text>}
+      </Static>,
     )
   }
 }

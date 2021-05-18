@@ -3,7 +3,7 @@ import {
   Options,
 } from 'http-proxy-middleware'
 import zlib from 'zlib'
-import {Server} from '@roots/bud-typings'
+import {Server} from '@roots/bud-framework'
 
 /**
  * Proxy middleware factory

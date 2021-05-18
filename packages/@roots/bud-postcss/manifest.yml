@@ -1,0 +1,6 @@
+name: '@roots/bud-postcss'
+type: extension
+
+dependencies:
+  dev:
+    postcss: ^8.2.13

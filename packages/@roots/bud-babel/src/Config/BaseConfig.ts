@@ -1,35 +1,12 @@
 import {Babel, Framework} from '@roots/bud-framework'
 
-/**
- * Babel API
- */
 export abstract class BaseConfig {
-  /**
-   * Name
-   */
   public name = '@roots/bud-babel'
 
-  /**
-   * App
-   */
-  public _app: Framework['get']
-
-  public get app(): Framework {
-    return this._app()
-  }
-
-  public set app(app: Framework) {
-    this._app = app.get
-  }
-
-  /**
-   * Log
-   */
   public log: any
 
-  /**
-   * Accessor: plugins
-   */
+  public app: Framework
+
   public _plugins: Babel.Registry = {}
 
   public get plugins() {
@@ -46,9 +23,6 @@ export abstract class BaseConfig {
     this._plugins = plugins
   }
 
-  /**
-   * Accessor: presets
-   */
   public _presets: Babel.Registry = {}
 
   public get presets() {
@@ -89,16 +63,5 @@ export abstract class BaseConfig {
 
   public set enabledPresets(presets: string[]) {
     this._enabledPresets = presets
-  }
-
-  /**
-   * Accessor: hasProjectConfig
-   */
-  public get hasProjectConfig(): boolean {
-    const project = this.app.disk.get('project')
-
-    return (
-      project.has('babel.config.js') || project.has('.babelrc')
-    )
   }
 }

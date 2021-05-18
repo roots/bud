@@ -1,6 +1,7 @@
-import {Server} from '@roots/bud-typings'
+import {Server} from '@roots/bud-framework'
 import DevMiddleware from 'webpack-dev-middleware'
 import {isNull, isUndefined} from 'lodash'
+import {Compiler, MultiCompiler} from 'webpack/types'
 
 const middlewareConfigKeys = [
   'headers',
@@ -17,8 +18,14 @@ const middlewareConfigKeys = [
 /**
  * Make dev middleware
  */
-const dev: Server.Middleware.Init = ({compiler, config}) => {
-  return DevMiddleware(compiler, options(config))
+const dev: Server.Middleware.Init = ({
+  compiler,
+  config,
+}: {
+  compiler: Compiler | MultiCompiler
+  config: Server.Config
+}) => {
+  return DevMiddleware(compiler as any, options(config))
 }
 
 /**
@@ -27,7 +34,7 @@ const dev: Server.Middleware.Init = ({compiler, config}) => {
 const options = (
   config: Server.Config,
 ): DevMiddleware.Options => ({
-  logLevel: 'silent',
+  writeToDisk: true,
   ...Object.fromEntries(
     config
       .mutate('headers', headers => ({

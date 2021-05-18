@@ -1,6 +1,16 @@
----
-description: Bud CLI
----
+## Installation
+
+With [yarn](https://classic.yarnpkg.com).
+
+```sh
+yarn add @roots/bud-cli --dev
+```
+
+With npm:
+
+```sh
+npm install @roots/bud-cli --save-dev
+```
 
 ## Getting started
 
@@ -10,7 +20,26 @@ The CLI includes detailed usage instructions:
 yarn bud --help
 ```
 
-## Commands
+## bud build:\[env]
 
-- [bud build](cli-build.md)
-- [bud publish](cli-publish.md)
+Compile assets for production:
+
+```sh
+bud build:production
+```
+
+Compile assets for development:
+
+```sh
+bud build:dev
+```
+
+## Running the build in CI
+
+Depending on your environment, Bud's CLI output causes issues. In particular, it's usage of tty `raw mode` can cause issues with CI tools.
+
+To run the build but not use the [**@roots/bud-cli**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-cli) renderer, there is a `--ci` flag which indicates you want to run the build for these environments.
+
+## Exiting the CLI from `dev` mode
+
+Type `q` to gracefully exit the interface when running in development mode.

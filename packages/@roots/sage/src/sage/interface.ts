@@ -1,12 +1,10 @@
-import '@roots/bud-api'
-import '@roots/framework'
-import type {Bud} from '@roots/bud'
-import type {Framework} from '@roots/bud-framework'
+import {Bud} from '@roots/bud'
+import {Module} from '@roots/bud-framework'
 
 /**
  * Sage theme preset
  */
-export type Sage = Bud & Framework
+export interface Sage extends Bud {}
 
 export namespace Sage {
   /**
@@ -35,4 +33,12 @@ export namespace Sage {
    * Returns true if utilized, false if not.
    */
   export type Deps = (deps: string[]) => boolean
+}
+
+declare module '@roots/bud-framework' {
+  namespace Framework {
+    interface Extensions {
+      '@roots/sage': Module
+    }
+  }
 }

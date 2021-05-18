@@ -1,5 +1,4 @@
-import '@roots/bud-framework'
-import {RuleSetLoader, RuleSetUseItem} from 'webpack'
+import {Module, Loader} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -12,7 +11,7 @@ declare module '@roots/bud-framework' {
   }
 
   /**
-   * app.mdx config
+   * ## MDX Configuration
    */
   interface Mdx {
     /**
@@ -82,20 +81,20 @@ declare module '@roots/bud-framework' {
 
   namespace Hooks.Loader {
     interface Definitions {
-      mdx: string
+      mdx: Loader
     }
   }
 
   namespace Hooks.Item {
     interface Definitions {
-      mdx: RuleSetLoader
-      babel: RuleSetLoader
+      mdx: any
+      babel: any
     }
   }
 
-  namespace Hooks.Extension {
-    interface Definitions {
-      '@roots/bud-mdx': RuleSetUseItem
+  namespace Framework {
+    interface Extensions {
+      '@roots/bud-mdx': Module
     }
   }
 }

@@ -1,26 +1,34 @@
-import {Framework} from '@roots/bud-framework'
+import type {Compress} from '@roots/bud-framework'
 import Plugin from 'compression-webpack-plugin'
-import * as api from './api'
 
-export const name: Framework.Module['name'] =
-  'compression-webpack-plugin-brotli'
-
-export const options: Framework.Module['options'] = {
-  filename: '[name].br[query]',
-  algorithm: 'brotliCompress',
-  test: /\.js$|\.css$|\.html$|\.htm$/,
-  compressionOptions: {
-    level: 11,
+const extension: Compress.Extension = {
+  name: 'compression-webpack-plugin-brotli',
+  options: {
+    algorithm: 'brotliCompress',
+    filename: '[name].br[query]',
+    test: /\.js$|\.css$|\.html$|\.htm$/,
+    compressionOptions: {
+      level: 11,
+    },
+    threshold: 10240,
+    minRatio: 0.8,
+    deleteOriginalAssets: false,
   },
-  threshold: 10240,
-  minRatio: 0.8,
-  deleteOriginalAssets: false,
+  make: options => new Plugin(options.all()),
+  when: ({store}) => store.isTrue('brotli'),
+  api: {
+    brotli: function (options) {
+      this.store.set('brotli', true)
+      options &&
+        this.hooks.on(
+          'extension/compression-webpack-plugin-brotli/options',
+          () => options,
+        )
+
+      return this
+    },
+  },
 }
 
-export const make: Framework.Module.Make = options =>
-  new Plugin(options.all())
-
-export const when: Framework.Module.Make = ({store}) =>
-  store.enabled('options.brotli')
-
-export {api}
+export default extension
+export const {name, options, make, api} = extension

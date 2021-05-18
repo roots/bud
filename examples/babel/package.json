@@ -1,13 +1,9 @@
 {
-  "name": "bud-example-react",
-  "scripts": {
-    "bud": "node ../../node_modules/.bin/bud"
-  },
+  "name": "example-babel",
+  "private": true,
   "devDependencies": {
-    "@roots/bud": "^2.1.2",
-    "@roots/bud-babel": "^2.1.2"
-  },
-  "dependencies": {
-    "jquery": "^3.5.1"
+    "@roots/bud": "workspace:*",
+    "@roots/bud-babel": "workspace:*",
+    "@roots/bud-cli": "workspace:packages/@roots/bud-cli"
   }
 }

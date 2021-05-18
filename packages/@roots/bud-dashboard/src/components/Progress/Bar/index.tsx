@@ -1,10 +1,6 @@
-import {
-  React,
-  Text,
-  Gradient,
-  useState,
-  useEffect,
-} from '@roots/bud-support'
+import React, {useState, useEffect} from 'react'
+import {Text} from 'ink'
+import Gradient from 'ink-gradient'
 
 export const Bar: React.FunctionComponent<{
   colors?: string[]
@@ -27,9 +23,11 @@ export const Bar: React.FunctionComponent<{
 
   return fill <= 0 ? null : (
     <Text wrap="truncate">
+      |{' '}
       <Gradient colors={colors}>
         {character.repeat(fill)}
       </Gradient>
+      {'-'.repeat(maxWidth - fill)} |
     </Text>
   )
 }

@@ -1,14 +1,8 @@
-import {
-  React,
-  useEffect,
-  useState,
-  Box,
-  Text,
-  Spacer,
-  Spinner,
-} from '@roots/bud-support'
-import {checkStatus} from './checkStatus'
 import {Dashboard} from '@roots/bud-framework'
+import React, {useEffect, useState} from 'react'
+import {Box, Text, Spacer} from 'ink'
+import Spinner from 'ink-spinner'
+import {checkStatus} from './checkStatus'
 
 /**
  * Development server

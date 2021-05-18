@@ -1,111 +1,124 @@
-import {Framework, Service} from '@roots/bud-framework'
-import type {Discovery as Contract} from '@roots/bud-typings'
-import {bind} from '@roots/bud-support'
+import {Discovery as Base} from '@roots/bud-framework'
+import {boundMethod as bind} from 'autobind-decorator'
+import {cosmiconfigSync} from 'cosmiconfig'
+import {readJsonSync} from 'fs-extra'
+import resolvePkg from 'pkg-up'
+import {dirname} from 'path'
 
-/**
- * Framework/Discovery
- *
- * [🏡 Project home](https://roots.io/bud)
- * [🧑‍💻 roots/bud](https://git.io/Jkli3)
- */
-export class Discovery extends Service implements Contract {
-  /**
-   * Service name
-   */
-  public name = 'framework/discovery'
+export class Discovery extends Base {
+  public name = 'service/discovery'
 
-  /**
-   * Project info: get accessor
-   */
-  public get projectInfo(): {[key: string]: any} {
-    return this.fs.readJsonSync(
-      this.disk('project').get('package.json'),
-    )
-  }
-
-  /**
-   * Package paths: get accessor
-   */
-  public get packagePaths() {
-    return this.glob.sync([
-      this.modulePath('@roots/sage/package.json'),
-      this.modulePath('bud-*/package.json'),
-      this.modulePath('**/bud-*/package.json'),
-    ])
-  }
-
-  /**
-   * Service boot.
-   */
-  public boot(bootSequence = []): void {
-    bootSequence.push(this.discoverPackages)
-    bootSequence.push(this.setDisks)
-    bootSequence.push(this.registerDiscovered)
-
-    this.app.sequence(bootSequence)
-  }
-
-  /**
-   * Collect packages.
-   */
   @bind
-  public discoverPackages(): void {
+  public register(): void {
     this.setStore(
-      this.packagePaths
-        .filter(this.filterUnique)
-        .reduce(this.reducePackages, {}),
+      readJsonSync(this.app.path('project', 'package.json')),
     )
+    this.discover('dependencies')
+    this.discover('devDependencies')
+    this.registerDiscovered()
+
+    this.has('peers') &&
+      this.getValues('peers').forEach(this.resolvePeers)
   }
 
-  /**
-   * Register package disks
-   */
   @bind
-  public setDisks() {
-    this.every(
-      (name: string, pkg: {name: string; path: string}) => {
-        this.app.disk.make(name, {
-          baseDir: pkg.path,
+  public discover(
+    type: 'dependencies' | 'devDependencies',
+  ): void {
+    this.has(type) &&
+      this.getEntries(type).map(([name, ver]) => {
+        if (!name?.includes('bud') && !name?.includes('sage'))
+          return
+
+        const dir = dirname(
+          resolvePkg.sync({cwd: dirname(require.resolve(name))}),
+        )
+        if (!dir) return
+
+        this.set(`peers.${name}`, {
+          name,
+          ver,
+          dir,
+          ...this.mapConfig({name, dir}),
         })
-      },
-    )
-  }
 
-  /**
-   * Register discovered packages as extensions
-   */
-  @bind
-  public registerDiscovered() {
-    this.app.store.isTrue('options.discover') &&
-      this.every((name: string) => {
-        const extension = require(name)
-        this.app.extensions.add(extension)
+        !this.resolveFrom?.includes(dir) &&
+          this.resolveFrom.push(dir)
       })
   }
 
-  /**
-   * Gather information on packages
-   */
   @bind
-  public reducePackages(pkgs: Framework.Pkgs, pkg: string) {
-    const json = this.fs.readJsonSync(pkg)
-
-    Object.assign(json, {
-      isCore: json.name?.includes('@roots/'),
-      isPreset: json.keywords?.includes('bud-preset'),
-      isExtension: json.keywords?.includes('bud-extension'),
-    })
-
-    if (!json.isExtension) return pkgs
-
-    return {
-      ...pkgs,
-      [json.name]: {
-        ...json,
-        path: this.dirname(pkg),
-        type: 'extension',
-        core: json.isCore,
-      },
+  public resolvePeers(pkg): void {
+    if (!pkg.peers) {
+      return
     }
+
+    pkg.peers.forEach(peer => {
+      const dir = dirname(
+        resolvePkg.sync({
+          cwd: dirname(require.resolve(peer)),
+        }),
+      )
+      if (!dir) return
+
+      this.set(`peers.${peer}`, {
+        name: peer,
+        dir,
+        ...this.mapConfig({name: peer, dir}),
+      })
+
+      !this.resolveFrom.includes(dir) &&
+        this.resolveFrom.push(dir)
+    })
+  }
+
+  @bind
+  public registerDiscovered() {
+    if (!this.app.store.isTrue('discover')) {
+      return
+    }
+
+    this.each('peers', (_name, pkg) => {
+      if (!pkg) return
+
+      if (pkg?.type === 'extension' || pkg?.type === 'preset') {
+        this.app.extensions.add(require(pkg.name))
+      }
+    })
+  }
+
+  @bind
+  public mapConfig(pkg: {name: string; dir: string}) {
+    if (!pkg) return {}
+
+    const cosmi = cosmiconfigSync(pkg.name, {
+      searchPlaces: ['manifest.yml'],
+    }).search(pkg.dir)
+
+    return cosmi?.config
+      ? {
+          ...cosmi.config,
+          type: cosmi.config.type ?? 'external',
+          manifestPath: cosmi.filepath,
+        }
+      : {}
+  }
+
+  @bind
+  public install(): void {
+    this.each('peers', (name, peer) => {
+      peer?.dependencies?.production &&
+        this.app.dependencies.install(
+          peer.dependencies.production,
+        )
+
+      peer?.dependencies?.dev &&
+        this.app.dependencies.installDev(peer.dependencies.dev)
+    })
+  }
+
+  @bind
+  public getProjectInfo(): {[key: string]: any} {
+    return this.all()
   }
 }

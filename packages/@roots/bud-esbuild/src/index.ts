@@ -1,53 +1,32 @@
 import './interface'
 import type {Module} from '@roots/bud-framework'
-
-import {features} from './features'
-import {setOptions, jsx} from './api'
 import {ESBuildMinifyPlugin} from 'esbuild-loader'
+import {features} from './features/index'
+import {setOptions} from './api/index'
 
-/**
- * @interface EsbuildModule
- * @extends Module
- */
-declare interface EsbuildModule extends Module {
-  name: '@roots/bud-esbuild'
-  boot: Module['boot']
-  api: Module['api']
-}
-
-/**
- * @exports esbuild
- * @implements {EsbuildModule}
- */
-export const esbuild: EsbuildModule = {
+const esbuild: Module = {
   name: '@roots/bud-esbuild',
 
-  boot: ({use, hooks, subscribe, store}) => {
-    use(features)
+  options: ({hooks, store}) => ({
+    target: store.get('patterns.js'),
+    exclude: store.get('patterns.modules'),
+  }),
 
-    hooks.on('build/optimization/minimizer', () => [
-      new ESBuildMinifyPlugin({
-        target: subscribe('item/esbuild-js/options/target'),
-        exclude: store.get('patterns.modules'),
-      }),
+  boot: ({extensions, hooks, store}) => {
+    features.forEach(feature => extensions.add(feature))
+
+    hooks.on('build/optimization/minimizer', minimizer => [
+      ...(minimizer ?? []),
+      new ESBuildMinifyPlugin(
+        hooks.filter('extension/@roots/bud-esbuild/options'),
+      ),
     ])
   },
 
   api: app => ({
-    esbuild: {
-      setOptions: setOptions.bind(app),
-      jsx: jsx.bind(app),
-    },
+    esbuild: setOptions.bind(app),
   }),
 }
 
-/**
- * @exports default
- */
-export {esbuild as default}
-
-/**
- * Support for import * syntax
- */
-const {name, boot, api} = esbuild
-export {name, boot, api}
+export default esbuild
+export const {name, boot, api} = esbuild

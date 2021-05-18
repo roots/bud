@@ -1,54 +1,41 @@
-import './interface'
-
-/**
- * Framework
- */
+import {Api} from '@roots/bud-api'
 import {Cache} from '@roots/bud-cache'
 import {Compiler} from '@roots/bud-compiler'
-import {Framework} from '@roots/bud-framework'
-import {Hooks} from '@roots/bud-hooks'
-import {Server} from '@roots/bud-server'
-
-/**
- * Extended
- */
-import {Api} from './services/Api'
-import {Build} from './services/Build'
 import {Dependencies} from './services/Dependencies'
 import {Discovery} from './services/Discovery'
 import {Disk} from './services/Disk'
 import {Env} from './services/Env'
 import {Extensions} from './services/Extensions'
+import {Hooks} from './services/Hooks'
 import {Logger} from './services/Logger'
-import {Store} from './services/Store'
-import {Util} from './services/Util'
+import {Server} from './services/Server'
+import {Build} from '@roots/bud-build'
+import {Framework} from '@roots/bud-framework'
 
-export class Bud extends Framework {
-  public api: Api
+class Bud extends Framework {
+  api: Api
 
-  public build: Build
+  build: Build
 
-  public cache: Cache
+  cache: Cache
 
-  public compiler: Compiler
+  compiler: Compiler
 
-  public dependencies: Dependencies
+  dependencies: Dependencies
 
-  public discovery: Discovery
+  discovery: Discovery
 
-  public disk: Disk
+  disk: Disk
 
-  public env: Env
+  env: Env
 
-  public extensions: Extensions
+  extensions: Extensions
 
-  public hooks: Hooks
+  hooks: Hooks
 
-  public logger: Logger
+  logger: Logger
 
-  public server: Server
-
-  public store: Store
-
-  public util: Util
+  server: Server
 }
+
+export {Bud}

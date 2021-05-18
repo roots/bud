@@ -1,5 +1,6 @@
 **/node_modules
 **/dist
+**/.budfiles
 **/.bud
 **/composer.lock
 **/yarn.lock

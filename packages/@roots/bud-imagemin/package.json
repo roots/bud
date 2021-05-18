@@ -1,71 +1,61 @@
 {
   "name": "@roots/bud-imagemin",
-  "version": "3.1.0",
-  "description": "Adds imagemin support to Bud",
+  "version": "3.2.0-next.2",
+  "description": "Image minification for `@roots/bud` projects",
   "repository": {
     "type": "git",
-    "url": "git://github.com/roots/bud.git",
-    "directory": "packages/bud-imagemin"
+    "url": "https://github.com/roots/bud",
+    "directory": "packages/@roots/bud-imagemin"
   },
-  "licenses": [
-    {
-      "type": "MIT",
-      "url": "http://opensource.org/licenses/MIT"
-    }
-  ],
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
-  "license": "MIT",
   "keywords": [
     "bud",
     "bud-extension",
     "imagemin"
   ],
   "engines": {
-    "node": ">=12"
+    "node": ">=14"
   },
   "files": [
+    "docs/",
     "lib/",
     "types/",
-    "src/"
+    "manifest.yml"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
+  "types": "./types/index.d.ts",
   "exports": {
     "require": "./lib/cjs/index.js",
     "import": "./lib/esm/index.js"
   },
-  "types": "./lib/types/index.d.ts",
   "scripts": {
-    "build": "run-s build:cjs build:esm",
-    "build:cjs": "tsc --build tsconfig.json",
-    "build:esm": "tsc --build tsconfig-esm.json",
-    "lint": "run-s lint:*",
-    "lint:eslint": "eslint 'src/**/*.{js,ts,tsx}' --fix",
-    "lint:prettier": "prettier 'src/**/*'  --write",
-    "clean": "run-s clean:*",
-    "clean:lib": "rimraf ./lib",
-    "clean:modules": "rimraf ./node_modules",
-    "clean:types": "rimraf ./types",
-    "pkg": "run-s pkg:*",
-    "pkg:check": "package-check --verbose",
-    "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
+    "build": "yarn g:build",
+    "build:cjs": "yarn g:build:cjs",
+    "build:esm": "yarn g:build:esm",
+    "lint": "yarn g:lint",
+    "lint:eslint": "yarn g:lint:eslint",
+    "lint:prettier": "yarn g:lint:prettier",
+    "clean": "yarn g:clean",
+    "clean:lib": "yarn g:clean:lib",
+    "clean:modules": "yarn g:clean:modules",
+    "clean:types": "yarn g:clean:types",
+    "pkg": "yarn g:pkg",
+    "pkg:check": "yarn g:pkg:check",
+    "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@roots/bud-framework": "^3.1.0",
-    "@types/node": "^14.14.31",
-    "@types/webpack": "^4.41.26",
-    "type-fest": "^0.21.2"
+    "@types/node": "^15.0.0",
+    "webpack": "^5.36.0"
   },
   "dependencies": {
-    "@roots/bud-support": "^3.1.0",
-    "image-minimizer-webpack-plugin": "^1.0.0",
-    "imagemin": "^6.0.1",
-    "imagemin-gifsicle": "^7.0.0",
-    "imagemin-jpegtran": "^7.0.0",
-    "imagemin-optipng": "^8.0.0",
-    "imagemin-svgo": "^8.0.0"
-  },
-  "gitHead": "2895cea534566264c5a908ad52b26a2eab1e5684"
+    "@roots/bud-extensions": "workspace:*",
+    "@roots/bud-framework": "workspace:*",
+    "autobind-decorator": "^2.4.0",
+    "image-minimizer-webpack-plugin": "^2.2.0",
+    "imagemin": "^8.0.0"
+  }
 }

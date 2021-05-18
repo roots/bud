@@ -1,6 +1,9 @@
-import {Box, Text, React, Spinner} from '@roots/bud-support'
-import {Dashboard} from '@roots/bud-framework'
-import {Bar} from './Bar'
+import type {Dashboard} from '@roots/bud-framework'
+
+import React from 'react'
+import {Box, Text} from 'ink'
+import Spinner from 'ink-spinner'
+import {Bar} from './Bar/index'
 
 export const Progress: Dashboard.Component = ({
   progress,
@@ -15,25 +18,33 @@ export const Progress: Dashboard.Component = ({
   if (!guard) return null
 
   return (
-    <Box flexDirection="row" justifyContent="space-between">
-      <Box width={7}>
+    <Box flexDirection="row">
+      <Box width={13}>
         <Text wrap="truncate">
           {progress?.decimal < 1 ? (
             <>
-              <Spinner /> {progress.percentage}{' '}
+              <Text color={theme.colors.primary}>
+                <Spinner /> {progress.message ?? ''}
+              </Text>
             </>
           ) : (
             <>
-              {hasErrors ? 'X ' : '✔ '}
-              {progress.percentage}{' '}
+              {hasErrors ? (
+                <Text color={theme.colors.error}>X Error</Text>
+              ) : (
+                <Text color={theme.colors.success}>
+                  ✔ Complete
+                </Text>
+              )}
             </>
           )}
         </Text>
       </Box>
-      <Box width={theme.bounds.width - 7}>
+
+      <Box>
         <Bar
-          character={'█'}
-          maxWidth={theme.bounds.width - 7}
+          character={'='}
+          maxWidth={theme.bounds.width - 22}
           colors={
             !hasErrors
               ? [theme.colors.primary, theme.colors.primaryAlt]
@@ -41,6 +52,7 @@ export const Progress: Dashboard.Component = ({
           }
           percent={progress?.decimal}
         />
+        <Text> {progress.percentage}</Text>
       </Box>
     </Box>
   )

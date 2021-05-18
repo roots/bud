@@ -1,7 +1,7 @@
 exclude_patterns:
+  - 'dev'
   - 'docs'
   - 'examples'
   - '.*'
-  - 'node_modules'
-  - 'packages/@roots/*/publish'
+  - 'packages/@roots/*/templates'
   - 'packages/@roots/*/src/docs'

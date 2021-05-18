@@ -1,66 +1,71 @@
 {
   "name": "@roots/bud-preset-recommend",
-  "version": "3.1.0",
+  "version": "3.2.0-next.2",
   "description": "Recommended preset for Bud projects",
   "repository": {
     "type": "git",
-    "url": "git://github.com/roots/bud.git",
+    "url": "https://github.com/roots/bud",
     "directory": "packages/@roots/bud-preset-recommend"
   },
-  "licenses": [
+  "contributors": [
     {
-      "type": "MIT",
-      "url": "http://opensource.org/licenses/MIT"
+      "name": "Kelly Mears",
+      "url": "https://github.com/kellymears"
     }
   ],
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/roots/bud/issues"
   },
+  "funding": {
+    "type": "github sponsors",
+    "url": "https://github.com/sponsors/roots"
+  },
   "keywords": [
+    "bud",
     "bud-preset"
   ],
   "engines": {
-    "node": ">=12"
+    "node": ">=14"
   },
-  "license": "MIT",
   "files": [
     "docs/",
-    "lib/"
+    "lib/",
+    "manifest.yml",
+    "types/"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
+  "types": "./types/index.d.ts",
   "exports": {
     "require": "./lib/cjs/index.js",
     "import": "./lib/esm/index.js"
   },
-  "types": "./types/index.d.ts",
   "scripts": {
-    "build": "run-s build:cjs build:esm",
-    "build:cjs": "tsc --build tsconfig.json",
-    "build:esm": "tsc --build tsconfig-esm.json",
-    "lint": "run-s lint:*",
-    "lint:eslint": "eslint 'src/**/*.{js,ts,tsx}' --fix",
-    "lint:prettier": "prettier 'src/**/*'  --write",
-    "clean": "run-s clean:*",
-    "clean:lib": "rimraf ./lib",
-    "clean:modules": "rimraf ./node_modules",
-    "clean:types": "rimraf ./types",
-    "pkg": "run-s pkg:*",
-    "pkg:check": "package-check --verbose",
-    "pkg:format": "prettier './lib/**/*.{js,ts}' --write"
-  },
-  "dependencies": {
-    "@roots/bud": "^3.1.0",
-    "@roots/bud-babel": "^3.1.0",
-    "@roots/bud-cli": "^3.1.0",
-    "@roots/bud-entrypoints": "^3.1.0",
-    "@roots/bud-postcss": "^3.1.0"
+    "build": "yarn g:build",
+    "build:cjs": "yarn g:build:cjs",
+    "build:esm": "yarn g:build:esm",
+    "lint": "yarn g:lint",
+    "lint:eslint": "yarn g:lint:eslint",
+    "lint:prettier": "yarn g:lint:prettier",
+    "clean": "yarn g:clean",
+    "clean:lib": "yarn g:clean:lib",
+    "clean:modules": "yarn g:clean:modules",
+    "clean:types": "yarn g:clean:types",
+    "pkg": "yarn g:pkg",
+    "pkg:check": "yarn g:pkg:check",
+    "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@roots/bud-api": "^3.1.0",
-    "@roots/bud-framework": "^3.1.0",
-    "@types/node": "^14.14.31",
-    "@types/webpack": "^4.41.26",
-    "type-fest": "^0.21.2"
+    "@roots/bud-api": "workspace:*",
+    "@types/node": "^15.0.0"
+  },
+  "dependencies": {
+    "@roots/bud-babel": "workspace:*",
+    "@roots/bud-cli": "workspace:*",
+    "@roots/bud-entrypoints": "workspace:*",
+    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-postcss": "workspace:*",
+    "autobind-decorator": "^2.4.0"
   }
 }

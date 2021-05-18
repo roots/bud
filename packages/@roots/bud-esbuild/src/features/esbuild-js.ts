@@ -1,40 +1,26 @@
-import type {Module, Framework} from '@roots/bud-framework'
+import type {Module} from '@roots/bud-framework'
+import {Item, Loader} from '@roots/bud-build'
 
 /**
  * @const jsFeature
  * @description Use ESBuild for JS compilation
  */
 export const jsFeature: Module = {
-  /**
-   * @property jsFeature.name
-   * @description extension identifier
-   */
   name: '@roots/bud-esbuild/js',
-
-  /**
-   * @property jsFeature.boot
-   * @description code to be run on extension boot event
-   */
-  boot: ({publish, subscribe}: Framework) => {
-    publish({
-      'loader/esbuild-js': () =>
-        require.resolve('esbuild-loader'),
-    })
-
-    publish({
-      'rule/js/use': () => [subscribe('item/esbuild-js')],
-    })
-
-    publish({
-      'item/esbuild-js': () => ({
-        loader: subscribe('loader/esbuild-js'),
-        options: {
-          loader: subscribe('item/esbuild-js/options/loader'),
-          target: subscribe('item/esbuild-js/options/target'),
-        },
+  boot: app => {
+    app.build.loaders.esbuild = new Loader(app =>
+      require.resolve('esbuild-loader'),
+    )
+    app.build.items['esbuild-js'] = new Item({
+      loader: app => app.build.loaders.esbuild,
+      options: () => ({
+        loader: 'jsx',
+        target: 'es2015',
       }),
-      'item/esbuild-js/options/loader': () => 'jsx',
-      'item/esbuild-js/options/target': () => 'es2015',
     })
+
+    app.build.rules.js.setUse(app => [
+      app.build.items['esbuild-js'],
+    ])
   },
 }

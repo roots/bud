@@ -1,71 +1,42 @@
 import './interface'
 
-import {Framework} from '@roots/bud-framework'
-import {Module} from '@roots/bud-typings'
+import {Framework, Module} from '@roots/bud-framework'
+import {Loader, Item, Rule} from '@roots/bud-build'
 import {MdxConfig} from './api'
 
-/**
- * Extension name
- */
-export const name: Module['name'] = '@roots/bud-mdx'
-
-/**
- * Extension boot
- */
-export const boot: Module['boot'] = (app: Framework) => {
-  /**
-   * Mdx config
-   */
-  Object.assign(app, {
-    mdx: new MdxConfig({app}),
-  })
-
-  /**
-   * RegExp for mdx
-   */
-  app.store
-    .set('patterns.mdx', /\.mdx$/)
-
-    /**
-     * loader/mdx
-     */
-    .publish({
-      'loader/mdx': () => require.resolve('@mdx-js/loader'),
+const extension: Module = {
+  name: '@roots/bud-mdx',
+  boot: (app: Framework) => {
+    Object.assign(app, {
+      mdx: new MdxConfig(app),
     })
 
-    /**
-     * item/mdx
-     */
-    .publish({
-      'item/mdx': (mdx = {}) => ({
-        ...mdx,
-        loader: app.subscribe('item/mdx/loader'),
-        options: app.subscribe('item/mdx/options'),
-      }),
-      'item/mdx/loader': () => app.subscribe('loader/mdx'),
-      'item/mdx/options': () => app.mdx.options,
+    app.store.set('patterns.mdx', /\.mdx$/)
+
+    app.build.loaders.mdx = new Loader(app =>
+      require.resolve('@mdx-js/loader'),
+    )
+
+    app.build.items.mdx = new Item({
+      loader: ({build}) => build.loader.get('mdx'),
+      options: ({mdx}) => mdx.options,
     })
 
-    /**
-     * rule/mdx
-     */
-    .publish({
-      'rule/mdx': (mdx = {}) => ({
-        ...mdx,
-        test: ({store}) => store.get('patterns.mdx'),
-        exclude: ({store}) => store.get('patterns.modules'),
-        use: ({subscribe}: Framework) => [
-          subscribe('item/babel'),
-          subscribe('item/mdx'),
-        ],
-      }),
+    app.build.rules.mdx = new Rule({
+      test: ({store}) => store.get('patterns.mdx'),
+      exclude: ({store}) => store.get('patterns.modules'),
+      use: ({build}) => [build.items.babel, build.items.mdx],
     })
 
     /**
      * .mdx extension
      */
-    .hooks.on(
+    app.hooks.on(
       'build/resolve/extensions',
       (exts: `.${string}`[]) => [...exts, '.mdx'],
     )
+  },
 }
+
+export default extension
+export const {name, boot} = extension

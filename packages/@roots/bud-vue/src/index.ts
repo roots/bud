@@ -1,104 +1,75 @@
 import './interface'
 import {VueLoaderPlugin} from 'vue-loader'
-import {Module, Webpack} from '@roots/bud-typings'
+import {Configuration} from 'webpack'
+import {Module} from '@roots/bud-framework'
+import {Loader, Item, Rule} from '@roots/bud-build'
 
-/**
- * Name
- */
-export const name: Module['name'] = '@roots/bud-vue'
+const extension: Module = {
+  name: '@roots/bud-vue',
+  boot: app => {
+    const {build, extensions, hooks} = app
 
-/**
- * Dependencies
- */
-export const dependencies: Module['dependencies'] = ['vue']
-export const devDependencies: Module['devDependencies'] = [
-  'vue-loader',
-]
+    build.loaders['vue'] = new Loader(
+      require.resolve('vue-loader'),
+    )
 
-/**
- * Publish
- */
-export const publish: Module['publish'] = app => ({
-  /**
-   * loader/vue
-   */
-  'loader/vue': () => require.resolve('vue-loader'),
-  'loader/vue-style': () => require.resolve('vue-style-loader'),
+    build.loaders['vue-style'] = new Loader(
+      require.resolve('vue-style-loader'),
+    )
 
-  /**
-   * item/vue
-   */
-  'item/vue': () => ({
-    loader: app.subscribe('loader/vue'),
-  }),
-  'item/vue-style': () => ({
-    loader: app.subscribe('loader/vue-style'),
-  }),
-
-  /**
-   * rule/vue
-   */
-  'rule/vue': () => ({
-    test: app.subscribe('rule/vue/test'),
-    use: app.subscribe('rule/vue/use'),
-  }),
-  'rule/vue/test': () => app.store.get('patterns.vue'),
-  'rule/vue/use': () => [app.subscribe('item/vue')],
-
-  /**
-   * build/module/rules
-   */
-  'build/module/rules': (
-    rules: Webpack.Configuration['module']['rules'],
-  ) => [app.subscribe('rule/vue'), ...rules],
-
-  'rule/css/use': use => [
-    app.isProduction
-      ? app.subscribe('item/minicss')
-      : app.subscribe('item/vue-style'),
-    ...use.splice(1),
-  ],
-
-  /**
-   * vue alias
-   */
-  'build/resolve/alias': (
-    aliases: Webpack.Configuration['resolve']['alias'],
-  ) => ({
-    ...aliases,
-    vue$: 'vue/dist/vue.esm.js',
-  }),
-
-  /**
-   * vue extension
-   */
-  'build/resolve/extensions': (
-    extensions: Webpack.Configuration['resolve']['extensions'],
-  ) => [...extensions, '.vue'],
-})
-
-/**
- * Boot extension
- */
-export const boot: Module['boot'] = app => {
-  /**
-   * Add vue-loader-plugin
-   */
-  app.extensions.add({
-    name: 'vue-loader-plugin',
-    make: () => new VueLoaderPlugin(),
-  })
-
-  /**
-   * Add sass handling if in use
-   */
-  app.subscribe('rule/sass') &&
-    app.publish({
-      'rule/sass/use': use => [
-        app.isProduction
-          ? app.subscribe('item/minicss')
-          : app.subscribe('item/vue-style'),
-        ...use.splice(1),
-      ],
+    build.items['vue'] = new Item({
+      loader: ({build}) => build.loaders['vue'],
     })
+
+    build.items['vue-style'] = new Item({
+      loader: ({build}) => build.loaders['vue-style'],
+    })
+
+    build.rules['vue'] = new Rule({
+      test: ({store}) => store.get('patterns.vue'),
+      use: ({build}) => [build.items['vue']],
+    })
+
+    const cssItems = build.rules['css'].getUse(app)
+    build.rules['css'].setUse(({isProduction, build}) => [
+      isProduction
+        ? build.items['minicss']
+        : build.items['vue-style'],
+      ...cssItems.splice(1),
+    ])
+
+    if (app.build.rules['sass']) {
+      const sassItems = app.build.rules['sass'].getUse(app)
+      build.rules['css'].setUse(({isProduction, build}) => [
+        isProduction
+          ? build.items['minicss']
+          : build.items['vue-style'],
+        ...sassItems.splice(1),
+      ])
+    }
+
+    extensions.add({
+      name: 'vue-loader-plugin',
+      make: () => new VueLoaderPlugin(),
+    })
+
+    hooks.on(
+      'build/resolve/alias',
+      (aliases: Configuration['resolve']['alias']) => ({
+        ...aliases,
+        vue$: 'vue/dist/vue.esm.js',
+      }),
+    )
+
+    hooks.on(
+      'build/resolve/extensions',
+      (extensions: Configuration['resolve']['extensions']) => [
+        ...extensions,
+        '.vue',
+      ],
+    )
+  },
 }
+
+export default extension
+export const {name, boot} = extension

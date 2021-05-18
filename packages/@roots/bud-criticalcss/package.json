@@ -1,0 +1,69 @@
+{
+  "name": "@roots/bud-criticalcss",
+  "version": "3.2.0-next.2",
+  "description": "Adds critical.css support to Bud",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/roots/bud",
+    "directory": "packages/@roots/bud-criticalcss"
+  },
+  "contributors": [
+    {
+      "name": "QWp6t",
+      "url": "https://github.com/QWp6t"
+    },
+    {
+      "name": "Kelly Mears",
+      "url": "https://github.com/kellymears"
+    }
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/roots/bud/issues"
+  },
+  "keywords": [
+    "bud",
+    "bud-extension",
+    "imagemin"
+  ],
+  "engines": {
+    "node": ">=14"
+  },
+  "files": [
+    "docs/",
+    "lib/",
+    "manifest.yml",
+    "types/"
+  ],
+  "main": "./lib/cjs/index.js",
+  "module": "./lib/esm/index.js",
+  "types": "./types/index.d.ts",
+  "exports": {
+    "require": "./lib/cjs/index.js",
+    "import": "./lib/esm/index.js"
+  },
+  "scripts": {
+    "build": "yarn g:build",
+    "build:cjs": "yarn g:build:cjs",
+    "build:esm": "yarn g:build:esm",
+    "lint": "yarn g:lint",
+    "lint:eslint": "yarn g:lint:eslint",
+    "lint:prettier": "yarn g:lint:prettier",
+    "clean": "yarn g:clean",
+    "clean:lib": "yarn g:clean:lib",
+    "clean:modules": "yarn g:clean:modules",
+    "clean:types": "yarn g:clean:types",
+    "pkg": "yarn g:pkg",
+    "pkg:check": "yarn g:pkg:check",
+    "pkg:format": "yarn g:pkg:format"
+  },
+  "devDependencies": {
+    "@types/node": "^15.0.0"
+  },
+  "dependencies": {
+    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
+    "@roots/critical-css-webpack-plugin": "workspace:packages/@roots/critical-css-webpack-plugin",
+    "autobind-decorator": "^2.4.0"
+  }
+}

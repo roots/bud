@@ -1,7 +1,21 @@
 {
-  "name": "bud-example-wordpress-theme",
+  "name": "example-wordpress",
   "private": true,
-  "scripts": {
-    "bud": "node ../../node_modules/.bin/bud"
+  "devDependencies": {
+    "@roots/bud": "workspace:*",
+    "@roots/bud-babel": "workspace:*",
+    "@roots/bud-cli": "workspace:*",
+    "@roots/bud-entrypoints": "workspace:*",
+    "@roots/bud-esbuild": "workspace:*",
+    "@roots/bud-postcss": "workspace:*",
+    "@roots/bud-react": "workspace:*",
+    "@roots/bud-terser": "workspace:*",
+    "@roots/bud-wordpress-dependencies": "workspace:*",
+    "@roots/bud-wordpress-externals": "workspace:*",
+    "@roots/bud-wordpress-manifests": "workspace:*",
+    "react-refresh": "^0.10.0"
+  },
+  "dependencies": {
+    "bootstrap": "^4.6.0"
   }
 }

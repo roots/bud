@@ -1,74 +1,48 @@
 import {Service as Base} from '@roots/bud-framework'
-import {
-  React,
-  render,
-  Instance,
-  Text,
-  isString,
-} from '@roots/bud-support'
+import React from 'react'
+import {render, Text, Instance} from 'ink'
+import {isString} from 'lodash'
 
-import {Dashboard as DashboardComponent} from './components'
-import {Error} from '../Error'
-import {Write} from '../Write'
+import {boundMethod as bind} from 'autobind-decorator'
+
+import {Dashboard as DashboardComponent} from './Dashboard'
+import {Error} from '../Error/index'
+import {Write} from '../Write/index'
 import {Screen} from '../components/Screen'
-import {Mark} from '../Mark'
+import {Mark} from '../Mark/index'
 
 /**
  * Dashboard
  */
 export class Dashboard extends Base {
-  /**
-   * Service ident
-   */
   public name = 'dashboard'
 
-  /**
-   * Ink CLI instance
-   */
   public dashboard: Instance
 
-  /**
-   * CI mode getter
-   */
-  public get ci() {
-    return this.app.store.isTrue('options.ci')
-  }
-
-  /**
-   * Register service
-   */
+  @bind
   public register(): void {
     Object.assign(this.app, {
       write: Write,
       error: Error,
     })
-
-    this.run = this.run.bind(this)
-    this.kill = this.kill.bind(this)
-    this.render = this.render.bind(this)
-    this.renderError = this.renderError.bind(this)
   }
 
-  /**
-   * Mount CLI
-   */
+  @bind
   public run(): void {
-    if (this.app.store.get('options.ci')) {
+    if (this.app.store.get('ci')) {
       return
     }
 
     this.info('Initializing dashboard')
 
-    if (this.ci) {
+    if (this.app.store.isTrue('ci')) {
       return
     }
 
     this.render(<DashboardComponent bud={this.app} />)
   }
 
-  /**
-   * Render error
-   */
+  @bind
   public renderError(body: string, title: string): Instance {
     return (this.dashboard = render(
       <Screen>
@@ -78,11 +52,9 @@ export class Dashboard extends Base {
     ))
   }
 
-  /**
-   * Render
-   */
+  @bind
   public render(Component: any): Instance {
-    if (this.ci) return
+    if (this.app.store.isTrue('ci')) return
 
     const Output = () =>
       isString(Component) ? (
@@ -101,9 +73,7 @@ export class Dashboard extends Base {
     ))
   }
 
-  /**
-   * Unmount CLI
-   */
+  @bind
   public kill(): void {
     this.dashboard.unmount()
   }

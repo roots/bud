@@ -1,18 +1,6 @@
-## Overview
-
-> Adds tailwindcss support to [@roots/bud](https://github.com/roots/bud/tree/stable/README.md) projects.
-
-- [Requirements](#Requirements)
-- [Installation](#Installation)
-- [Usage](#usage)
-- [Configuration](#configuration)
-  - [Parameters](#parameters)
-  - [config](#config)
-  - [implementation](#implementation)
-
 ## Requirements
 
-If you haven't already [installed @roots/bud-postcss]([[base]]/packages/@roots/bud-postcss/README.md) you'll need to do that first.
+If you haven't already installed `@roots/bud-postcss` you'll need to do that first.
 
 ```sh
 yarn add @roots/bud-postcss postcss --dev
@@ -34,11 +22,9 @@ Add the extension to your config:
 bud.use(['@roots/bud-postcss', '@roots/bud-tailwindcss'])
 ```
 
-Again, take note that [@roots/bud-postcss]([[base]]/packages/@roots/bud-postcss/README.md) is required to utilize [@roots/bud-tailwindcss]([[base]]/packages/@roots/bud-tailwindcss/README.md).
+Again, take note that `@roots/bud-postcss` is required to utilize `@roots/bud-tailwindcss`.
 
-You should now be good to utilize tailwind in your [@roots/bud](https://github.com/roots/bud/tree/stable/README.md) project. You may use it with scss or postcss.
-
-If you need a tailwindcss config file to get started with you may also pull one into your project with the `bud publish` command:
+You should now be good to utilize tailwind in your `@roots/bud-tailwindcss` project. You may use it with scss or postcss.
 
 ```sh
 yarn bud publish @roots/bud-tailwindcss tailwind.config.js
@@ -54,15 +40,12 @@ bud.tailwind(config, implementation)
 
 ### Parameters
 
-- [**config**](#config): a path to your config file, or a config object.
-- [**implementation**](#implementation): either `'tailwindcss'` or `'@tailwindcss/jit'`
-
-#### config
+#### tailwindConfig
 
 Specify a custom path to your tailwind config:
 
 ```js
-bud.tailwind(bud.project('path/to/config.js'))
+bud.tailwind(budpath('project', 'path/to/config.js'))
 ```
 
 You can also provide your tailwind config as an object, should you prefer.
@@ -71,7 +54,6 @@ You can also provide your tailwind config as an object, should you prefer.
 bud.tailwind({
   theme: ({theme}) => ({
     colors: {},
-    // ...
   }),
 })
 ```
@@ -81,8 +63,5 @@ bud.tailwind({
 Additionally, you may use the second parameter to specify if you prefer to use `tailwindcss` or `@tailwindcss/jit` (in case you have both installed in your modules directory):
 
 ```js
-bud.tailwind(
-  config,
-  '@tailwindcss/jit', // or 'tailwindcss',
-)
+bud.tailwind(config, '@tailwindcss/jit')
 ```

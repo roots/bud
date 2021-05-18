@@ -1,21 +1,11 @@
 import './interface'
-import {Framework} from '@roots/bud-framework'
-import {Module} from '@roots/bud-typings'
+import {Framework, Module} from '@roots/bud-framework'
 import {tailwind} from './api'
 
-// Extension ident
 export const name: Module['name'] = '@roots/bud-tailwindcss'
 
-// Dependencies
-export const devDependencies = [
-  'tailwindcss',
-  '@tailwindcss/jit',
-]
-
-// Extension config
 export const api: Module['api'] = {tailwind}
 
-// Boot extension
 export const boot: Module['boot'] = (app: Framework) => {
   const implementation = require.resolve('@tailwindcss/jit')
     ? '@tailwindcss/jit'
@@ -29,13 +19,5 @@ export const boot: Module['boot'] = (app: Framework) => {
     )
   }
 
-  app.store.set(
-    'options.tailwindcss.implementation',
-    implementation,
-  )
-
-  app.tailwind(
-    null,
-    app.store.get('options.tailwindcss.implementation'),
-  )
+  app.tailwind(null, implementation)
 }

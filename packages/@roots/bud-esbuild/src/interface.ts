@@ -1,39 +1,7 @@
-import '@roots/bud-framework'
-
-interface LoaderOptions {
-  target?:
-    | 'es2015'
-    | 'es2020'
-    | 'chrome58'
-    | 'firefox57'
-    | 'safari11'
-    | 'edge16'
-    | 'node12.19.0'
-  loader?:
-    | 'tsx'
-    | 'ts'
-    | 'js'
-    | 'json'
-    | 'text'
-    | 'base64'
-    | 'file'
-    | 'dataurl'
-    | 'binary'
-  jsxFactory?: string
-  jsxFragment?: string
-}
+import {Module} from '@roots/bud-framework'
 
 declare module '@roots/bud-framework' {
   interface Framework {
-    /**
-     * ## bud.esbuild
-     *
-     * Configure ESBuild.
-     */
-    esbuild: ESBuild
-  }
-
-  interface ESBuild {
     /**
      * ## bud.esbuild.setOptions
      *
@@ -47,22 +15,7 @@ declare module '@roots/bud-framework' {
      * })
      * ```
      */
-    setOptions: ESBuild.SetOptions
-
-    /**
-     * ## bud.esbuild.jsx
-     *
-     * Toggle esbuild jsx/tsx parsing
-     *
-     * ### Usage
-     *
-     * Disable:
-     *
-     * ```js
-     * bud.esbuild.jsx(false)
-     * ```
-     */
-    jsx: ESBuild.JSX
+    esbuild: ESBuild.SetOptions
   }
 
   namespace ESBuild {
@@ -72,34 +25,57 @@ declare module '@roots/bud-framework' {
     ) => Framework
 
     type JSX = (enabled?: boolean) => Framework
-  }
 
-  namespace Framework.Hooks.Extension {
-    interface Definitions {
-      '@roots/bud-esbuild': Framework.Module
-      '@roots/bud-esbuild/js': Framework.Module
-      '@roots/bud-esbuild/ts': Framework.Module
-      'esbuild-plugin': Framework.Module
+    interface LoaderOptions {
+      target?:
+        | 'es2015'
+        | 'es2020'
+        | 'chrome58'
+        | 'firefox57'
+        | 'safari11'
+        | 'edge16'
+        | 'node12.19.0'
+      loader?:
+        | 'tsx'
+        | 'ts'
+        | 'js'
+        | 'json'
+        | 'text'
+        | 'base64'
+        | 'file'
+        | 'dataurl'
+        | 'binary'
+      jsxFactory?: string
+      jsxFragment?: string
     }
   }
 
-  namespace Framework.Hooks.Loader {
-    interface Definitions {
-      'esbuild-js': Framework.Hooks.Loader.Subject
-      'esbuild-ts': Framework.Hooks.Loader.Subject
+  namespace Framework {
+    interface Extensions {
+      '@roots/bud-esbuild': Module
+      '@roots/bud-esbuild/js': Module
+      '@roots/bud-esbuild/ts': Module
+      'esbuild-plugin': Module
     }
   }
 
-  namespace Framework.Hooks.Item {
+  namespace Hooks.Loader {
     interface Definitions {
-      'esbuild-js': Framework.Hooks.Item.Subject
-      'esbuild-ts': Framework.Hooks.Item.Subject
+      'esbuild-js': string
+      'esbuild-ts': string
     }
   }
 
-  namespace Framework.Hooks.Rule {
+  namespace Hooks.Item {
     interface Definitions {
-      ts: Framework.Hooks.Rule.Subject
+      'esbuild-js': any
+      'esbuild-ts': any
+    }
+  }
+
+  namespace Hooks.Rule {
+    interface Definitions {
+      ts: any
     }
   }
 }

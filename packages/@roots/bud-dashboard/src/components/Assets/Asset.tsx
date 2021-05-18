@@ -1,9 +1,5 @@
-import {
-  React,
-  FunctionComponent,
-  Box,
-  Text,
-} from '@roots/bud-support'
+import React, {FunctionComponent} from 'react'
+import {Box, Text} from 'ink'
 import {Dashboard} from '@roots/bud-framework'
 import {Indicator} from './Indicator'
 
@@ -14,7 +10,7 @@ export const Asset: FunctionComponent<Dashboard.Asset> = ({
   chunkNames,
   theme,
 }) =>
-  !name.includes('.json') ? (
+  name && !name?.includes('.json') ? (
     <Box flexDirection={'row'} justifyContent={'space-between'}>
       <Box width={theme.col(7)}>
         <Text
@@ -29,14 +25,16 @@ export const Asset: FunctionComponent<Dashboard.Asset> = ({
         </Text>
       </Box>
 
-      <Box
-        width={theme.col(3)}
-        alignItems="flex-end"
-        justifyContent="flex-end">
-        <Text wrap="truncate" color={theme.colors.accent}>
-          {chunkNames.toString()}
-        </Text>
-      </Box>
+      {chunkNames && (
+        <Box
+          width={theme.col(3)}
+          alignItems="flex-end"
+          justifyContent="flex-end">
+          <Text wrap="truncate" color={theme.colors.accent}>
+            {chunkNames.toString()}
+          </Text>
+        </Box>
+      )}
 
       <Box
         width={theme.col(2)}

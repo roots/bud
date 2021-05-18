@@ -1,89 +1,43 @@
 import './interface'
-import {Framework} from '@roots/bud-framework'
+import {Module} from '@roots/bud-framework'
+import {Loader, Item, Rule} from '@roots/bud-build'
 
-/**
- * @module @roots/bud-sass
- * @description Sass transpilation for @roots/bud projects
- * @see https://github.com/roots/bud
- */
+const extension: Module = {
+  name: '@roots/bud-sass',
+  boot: ({hooks, build}) => {
+    build.loaders['sass'] = new Loader(app =>
+      require.resolve('sass-loader'),
+    )
 
-export const name: Framework.Module['name'] = '@roots/bud-sass'
+    build.items['sass'] = new Item({
+      loader: app => app.build.loaders['sass'],
+      options: app => ({
+        implementation: (() =>
+          require(require.resolve('sass')))(),
+        sourceMap: true,
+      }),
+    })
 
-export const devDependencies: Framework.Module['devDependencies'] = [
-  'sass',
-]
+    build.rules['sass'] = new Rule({
+      test: app => app.store.get('patterns.sass'),
+      exclude: app => app.store.get('patterns.modules'),
+      use: app => [
+        app.isProduction
+          ? app.build.items['minicss']
+          : app.build.items['style'],
+        app.build.items['css'],
+        app.build.items['postcss'],
+        app.build.items['sass'],
+        app.build.items['resolve-url'],
+      ],
+    })
 
-/**
- * Hook config values
- *
- * @see @roots/bud-extensions
- * @see @roots/bud-hooks
- */
-export const publish: Framework.Module['publish'] = (
-  app: Framework,
-) => ({
-  /**
-   * loader/sass
-   */
-  'loader/sass': () => require.resolve('sass-loader'),
-
-  /**
-   * item/sass
-   */
-  ['item/sass']: () => ({
-    loader: app.subscribe('item/sass/loader'),
-    options: app.subscribe('item/sass/options'),
-  }),
-  'item/sass/loader': () => app.subscribe('loader/sass'),
-  'item/sass/options': () => ({
-    implementation: app.subscribe(
-      'item/sass/options/implementation',
-    ),
-    sourceMap: app.subscribe('item/sass/options/sourceMap'),
-  }),
-
-  /**
-   * Implementation will try to resolve sass & node-sass, preferring
-   * sass.
-   */
-  'item/sass/options/implementation': () => {
-    global.navigator = undefined
-
-    const sass = (() =>
-      require(app.project('node_modules/sass')))()
-
-    global.navigator = {}
-
-    return sass
+    hooks.on('build/resolve/extensions', (exts: string[]) => [
+      ...exts,
+      '.scss',
+    ])
   },
-  'item/sass/options/sourceMap': () => true,
+}
 
-  /**
-   * rule/sass
-   */
-  rule: rules => ({
-    ...rules,
-    'rule/sass': app.subscribe('rule/sass'),
-  }),
-  'rule/sass': () => ({
-    test: app.subscribe('rule/sass/test'),
-    exclude: app.subscribe('rule/sass/exclude'),
-    use: app.subscribe('rule/sass/use'),
-  }),
-  'rule/sass/test': () => app.store.get('patterns.sass'),
-  'rule/sass/exclude': () => app.store.get('patterns.modules'),
-  'rule/sass/use': () => [
-    app.isProduction
-      ? app.subscribe('item/minicss')
-      : app.subscribe('item/style'),
-    app.subscribe('item/css'),
-    app.subscribe('item/postcss'),
-    app.subscribe('item/resolve-url'),
-    app.subscribe('item/sass'),
-  ],
-
-  /**
-   * build/resolve/extensions
-   */
-  'build/resolve/extensions': e => [...e, '.scss'],
-})
+export default extension
+export const {name, boot} = extension

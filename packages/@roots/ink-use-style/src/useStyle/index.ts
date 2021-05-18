@@ -1,12 +1,8 @@
-import {
-  useSwr,
-  mutate,
-  useStdoutDimensions,
-  React,
-} from '@roots/bud-support'
+import React from 'react'
+import useStdoutDimensions from 'ink-use-stdout-dimensions'
 
 import type {Styles, Theme, UseStyle} from '../typings'
-import {defaultTheme} from '../themes'
+import {defaultTheme} from '../themes/index'
 
 /**
  * Use style.
@@ -17,16 +13,7 @@ export const useStyle: UseStyle = (
   /**
    * Theme values
    */
-  const {data: theme} = useSwr('theme', {
-    initialData,
-    revalidateOnFocus: false,
-    isOnline() {
-      return true
-    },
-    isDocumentVisible() {
-      return true
-    },
-  })
+  const [theme, setTheme] = React.useState<Theme>(initialData)
 
   /**
    * Width and height of terminal viewport.
@@ -64,12 +51,12 @@ export const useStyle: UseStyle = (
 
   /**
    * Set application based on viewport size.
-   * Applies spacer padding to all four sides of viewport.
    */
   React.useEffect(() => {
     setBounds({
-      width,
-      height,
+      width: width > theme.maxWidth ? theme.maxWidth : width,
+      height:
+        height > theme.maxHeight ? theme.maxHeight : height,
     })
   }, [width, height])
 
@@ -117,7 +104,7 @@ export const useStyle: UseStyle = (
    * Merges colors onto theme.
    */
   const setColors = (colors: Theme['colors']) => {
-    mutate('theme', {
+    setTheme({
       ...theme,
       colors: {
         ...theme.colors,
@@ -132,7 +119,7 @@ export const useStyle: UseStyle = (
    * Merges colors onto theme.
    */
   const setScreens = (screens: Theme['screens']) => {
-    mutate('theme', {
+    setTheme({
       ...theme,
       screens: [...theme.screens, ...screens],
     })

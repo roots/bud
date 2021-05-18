@@ -1,6 +1,9 @@
 {
-  "name": "bud-example-sass",
-  "scripts": {
-    "bud": "node ../../node_modules/.bin/bud"
+  "name": "example-vue",
+  "private": true,
+  "devDependencies": {
+    "@roots/bud": "workspace:*",
+    "@roots/bud-cli": "workspace:*",
+    "@roots/bud-vue": "workspace:*"
   }
 }

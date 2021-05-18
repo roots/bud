@@ -1,32 +1,33 @@
-import '@roots/bud-framework'
 import '@roots/bud-api'
 import '@roots/bud-babel'
+import {Module} from '@roots/bud-framework'
+import {RuleSetRule, RuleSetUseItem} from 'webpack'
 
 declare module '@roots/bud-framework' {
-  namespace Framework.Hooks.Extension {
-    interface Definitions {
-      '@roots/bud-vue': any
-      'vue-loader-plugin': any
+  namespace Framework {
+    interface Extensions {
+      '@roots/bud-vue': Module
+      'vue-loader-plugin': Module
     }
   }
 
-  namespace Framework.Hooks.Loader {
+  namespace Hooks.Loader {
     interface Definitions {
-      vue: any
-      'vue-style': any
+      vue: string
+      'vue-style': string
     }
   }
 
-  namespace Framework.Hooks.Item {
+  namespace Hooks.Item {
     interface Definitions {
-      vue: any
-      'vue-style': any
+      vue: RuleSetUseItem
+      'vue-style': RuleSetUseItem
     }
   }
 
-  namespace Framework.Hooks.Rule {
+  namespace Hooks.Rule {
     interface Definitions {
-      vue: any
+      vue: RuleSetRule
     }
   }
 }

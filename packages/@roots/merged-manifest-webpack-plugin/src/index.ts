@@ -2,44 +2,23 @@ import Webpack from 'webpack'
 import fs from 'fs-extra'
 import path from 'path'
 import {format} from 'prettier'
-import type {EntrySchema} from '@roots/entrypoints-webpack-plugin'
+import {boundMethod as bind} from 'autobind-decorator'
 
 class MergedManifestWebpackPlugin {
-  /**
-   * Plugin ident.
-   */
   public plugin = {
     name: 'MergedManifestPlugin',
   }
 
-  /**
-   * Output dir
-   */
   public dir: string
 
-  /**
-   * Output filepath
-   */
   public path: string
 
-  /**
-   * Output filename
-   */
   public file = 'entrypoints.json'
 
-  /**
-   * Entrypoints filename
-   */
   public entrypointsName = 'entrypoints.json'
 
-  /**
-   * Externals filename
-   */
   public wordpressName = 'wordpress.json'
 
-  /**
-   * Class constructor
-   */
   public constructor(options?: {
     entrypointsName?: string
     wordpressName?: string
@@ -49,19 +28,9 @@ class MergedManifestWebpackPlugin {
       Object.keys(options).map(prop => {
         Object.assign(this, {[prop]: options[prop]})
       })
-
-    this.done = this.done.bind(this)
-    this.format = this.format.bind(this)
-    this.isBuildable = this.isBuildable.bind(this)
-
-    this.manifestPath = this.manifestPath.bind(this)
-    this.manifestExists = this.manifestExists.bind(this)
-    this.manifestContent = this.manifestContent.bind(this)
   }
 
-  /**
-   * Webpack apply plugin
-   */
+  @bind
   public apply(compiler: Webpack.Compiler): void {
     this.dir = compiler.options.output.path
     this.path = path.resolve(this.dir, this.file)
@@ -69,10 +38,8 @@ class MergedManifestWebpackPlugin {
     compiler.hooks.done.tapAsync(this.plugin, this.done)
   }
 
-  /**
-   * Webpack.Compilation.CompilerHooks['done']['tapAsync']
-   */
-  public done = async function (
+  @bind
+  public async done(
     _compilation,
     callback,
   ): Promise<CallableFunction> {
@@ -122,9 +89,7 @@ class MergedManifestWebpackPlugin {
     return callback()
   }
 
-  /**
-   * Format manifest.
-   */
+  @bind
   public format(object: {
     [key: string]: {
       [key: string]: string[]
@@ -136,9 +101,7 @@ class MergedManifestWebpackPlugin {
     })
   }
 
-  /**
-   * Return true if all manifests are present.
-   */
+  @bind
   public isBuildable(): boolean {
     return (
       this.manifestExists(this.entrypointsName) &&
@@ -146,26 +109,18 @@ class MergedManifestWebpackPlugin {
     )
   }
 
-  /**
-   * Return full path of manifest.
-   */
+  @bind
   public manifestPath(file: string): string {
     return path.resolve(this.dir, file)
   }
 
-  /**
-   * Return true if manifest is present.
-   */
+  @bind
   public manifestExists(file: string): boolean {
     return fs.existsSync(this.manifestPath(file))
   }
 
-  /**
-   * Return manifest contents as an object.
-   */
-  public async manifestContent(
-    file: string,
-  ): Promise<EntrySchema> {
+  @bind
+  public async manifestContent(file: string): Promise<any> {
     return await fs.readJson(this.manifestPath(file))
   }
 }

@@ -1,51 +1,50 @@
 import '@roots/bud-babel'
-import '@roots/bud-framework'
-import {Webpack} from '@roots/bud-support'
+import {Module, Plugin} from '@roots/bud-framework'
+import Webpack from 'webpack'
+import ForkTsCheckerWebpackPlugin from 'fork-ts-checker-webpack-plugin'
 
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## bud.checkTs
+     * ## bud.typecheck
      *
      * Enable typescript type checking
      *
      * ### Usage
      *
      * ```js
-     * bud.checkTs()
+     * bud.typecheck()
      * ```
      */
-    typecheck: Framework.Typescript.TypeCheck
+    typecheck: Typescript.TypeCheck
   }
 
-  namespace Framework.Typescript {
-    /**
-     * Make.
-     */
+  namespace Typescript {
     type TypeCheck = (enabled?: boolean) => Framework
   }
 
-  namespace Framework.Hooks.Extension {
-    interface Definitions {
-      '@roots/bud-typescript': Hooks.Extension.Subject
-      'fork-ts-checker-plugin': Hooks.Extension.Subject
-    }
-  }
-  namespace Framework.Hooks.Loader {
-    interface Definitions {
-      ts: Hooks.Loader.Subject
-      babel: Hooks.Loader.Subject
+  namespace Framework {
+    interface Extensions {
+      '@roots/bud-typescript': Module
+      'fork-ts-checker-plugin': Plugin<ForkTsCheckerWebpackPlugin>
     }
   }
 
-  namespace Framework.Hooks.Item {
+  namespace Hooks.Loader {
     interface Definitions {
-      ts: Hooks.Item.Subject
-      babel: Hooks.Item.Subject
+      ts: string
+      babel: string
     }
   }
 
-  namespace Framework.Hooks.Rule {
+  namespace Hooks.Item {
+    interface Definitions {
+      ts: any
+      babel: any
+    }
+  }
+
+  namespace Hooks.Rule {
     interface Definitions {
       ts: Webpack.RuleSetRule
     }

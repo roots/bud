@@ -1,16 +1,14 @@
-import '@roots/bud-framework'
-import {Options as PluginOptions} from 'eslint-webpack-plugin'
+import {Plugin} from '@roots/bud-framework'
+import EslintPlugin, {Options} from 'eslint-webpack-plugin'
+
+type Extension = Plugin<EslintPlugin, Options>
 
 declare module '@roots/bud-framework' {
   namespace Framework {
-    namespace Hooks.Extension {
-      interface Definitions {
-        'eslint-webpack-plugin': Framework.Module
-      }
-    }
-
-    namespace Eslint {
-      type Options = PluginOptions
+    interface Extensions {
+      'eslint-webpack-plugin': Extension
     }
   }
 }
+
+export type {Extension}
