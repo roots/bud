@@ -1,6 +1,6 @@
 {
   "name": "@roots/sage",
-  "version": "3.2.0-next.2",
+  "version": "4.0.0",
   "description": "@roots/sage preset for @roots/bud",
   "repository": {
     "type": "git",
