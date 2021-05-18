@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-wordpress-manifests",
-  "version": "4.0.0",
+  "version": "4.0.1",
   "description": "Webpack tools",
   "repository": {
     "type": "git",
