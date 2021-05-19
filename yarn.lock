@@ -2916,6 +2916,7 @@ __metadata:
     cosmiconfig: ^7.0.0
     css-minimizer-webpack-plugin: ^2.0.0
     dotenv: ^8.2.0
+    dotenv-expand: ^5.1.0
     express: ^4.17.1
     fs-extra: ^9.1.0
     globby: ^11.0.3
@@ -7417,6 +7418,13 @@ __metadata:
   dependencies:
     is-obj: ^2.0.0
   checksum: d5775790093c234ef4bfd5fbe40884ff7e6c87573e5339432870616331189f7f5d86575c5b5af2dcf0f61172990f4f734d07844b1f23482fff09e3c4bead05ea
+  languageName: node
+  linkType: hard
+
+"dotenv-expand@npm:^5.1.0":
+  version: 5.1.0
+  resolution: "dotenv-expand@npm:5.1.0"
+  checksum: 8017675b7f254384915d55f9eb6388e577cf0a1231a28d54b0ca03b782be9501b0ac90ac57338636d395fa59051e6209e9b44b8ddf169ce6076dffb5dea227d3
   languageName: node
   linkType: hard
 
