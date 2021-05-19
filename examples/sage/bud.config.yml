@@ -6,3 +6,4 @@ entry:
   customizer: '**/customizer.{ts,css}'
 assets:
   - assets/images
+persist: true

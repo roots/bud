@@ -27,48 +27,51 @@ export const useCompilation: Dashboard.Compilation.Hook = app => {
    * duplicate the callback.
    */
   const callback = (...args: any[]) => {
+    console.log('callback called')
+
     const [err, stats] =
       args.length > 1 ? args : [null, args.pop()]
 
-    app.when(err, () => {
-      app.error(err, 'Webpack error (pre-compile)')
-      process.exit()
-    })
+    app.when(err, () => console.error(err))
 
     const json = stats?.toJson(app.compiler.statsOptions)
 
-    if (!json) return
+    if (json) {
+      setStats(json)
 
-    setStats(json)
-
-    app
-      .when(
-        json?.hasErrors,
-        () => {
-          setHasErrors(json.hasErrors())
-          setErrors(json.errors)
-        },
-        () => setErrors(null),
-      )
-      .when(
-        json?.hasWarnings,
-        () => {
-          setHasWarnings(json.hasWarnings())
-          setWarnings(json.warnings)
-        },
-        () => setWarnings(null),
-      )
-
-    app.compiler.instance.close(err => {
-      err && setErrors([err])
-      setClosed(true)
-    })
+      app
+        .when(
+          json?.hasErrors,
+          () => {
+            setHasErrors(json.hasErrors())
+            setErrors(json.errors)
+          },
+          () => setErrors(null),
+        )
+        .when(
+          json?.hasWarnings,
+          () => {
+            setHasWarnings(json.hasWarnings())
+            setWarnings(json.warnings)
+          },
+          () => setWarnings(null),
+        )
+    }
   }
 
   useEffect(() => {
     if (app.compiler.isCompiled) return
 
     app.compiler.compile(app.build.config)
+
+    app.isProduction &&
+      app.compiler.instance.hooks.done.tap(app.name, () =>
+        app.compiler.instance.close(err => {
+          err && setErrors([err])
+          setClosed(true)
+          setTimeout(process.exit, 2000)
+        }),
+      )
 
     new webpack.ProgressPlugin((percentage, message): void => {
       const decimal =
@@ -92,7 +95,7 @@ export const useCompilation: Dashboard.Compilation.Hook = app => {
         server.run(app.compiler.instance)
       },
     )
-  }, [app])
+  })
 
   return {
     closed,
