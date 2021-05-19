@@ -1,211 +1,154 @@
-repo:
-  - ./*
-
-@roots/bud:
+'@roots/bud':
   - packages/@roots/bud/*
-  - packages/@roots/bud/**/*
-
-@roots/bud-api:
+  - packages/@roots/bud/**
+'@roots/bud-api':
   - packages/@roots/bud-api/*
-  - packages/@roots/bud-api/**
-
-@roots/bud-babel:
+  - packages/@roots/bud-api/*
+'@roots/bud-babel':
   - packages/@roots/bud-babel/*
   - packages/@roots/bud-babel/**
-
-@roots/bud-build:
+'@roots/bud-build':
   - packages/@roots/bud-build/*
   - packages/@roots/bud-build/**
-
-@roots/bud-cache:
+'@roots/bud-cache':
   - packages/@roots/bud-cache/*
   - packages/@roots/bud-cache/**
-
-@roots/bud-cli:
+'@roots/bud-cli':
   - packages/@roots/bud-cli/*
   - packages/@roots/bud-cli/**
-
-@roots/bud-compiler:
+'@roots/bud-compiler':
   - packages/@roots/bud-compiler/*
   - packages/@roots/bud-compiler/**
-
-@roots/bud-criticalcss:
+'@roots/bud-criticalcss':
   - packages/@roots/bud-criticalcss/*
   - packages/@roots/bud-criticalcss/**
-
-@roots/bud-dashboard:
+'@roots/bud-dashboard':
   - packages/@roots/bud-dashboard/*
   - packages/@roots/bud-dashboard/**
-
-@roots/bud-emotion:
+'@roots/bud-emotion':
   - packages/@roots/bud-emotion/*
   - packages/@roots/bud-emotion/**
-
-@roots/bud-entrypoints:
+'@roots/bud-entrypoints':
   - packages/@roots/bud-entrypoints/*
   - packages/@roots/bud-entrypoints/**
-
-@roots/bud-esbuild:
+'@roots/bud-esbuild':
   - packages/@roots/bud-esbuild/*
   - packages/@roots/bud-esbuild/**
-
-@roots/bud-eslint:
+'@roots/bud-eslint':
   - packages/@roots/bud-eslint/*
   - packages/@roots/bud-eslint/**
-
-@roots/bud-extensions:
+'@roots/bud-extensions':
   - packages/@roots/bud-extensions/*
   - packages/@roots/bud-extensions/**
-
-@roots/bud-framework:
+'@roots/bud-framework':
   - packages/@roots/bud-framework/*
   - packages/@roots/bud-framework/**
-
-@roots/bud-hooks:
+'@roots/bud-hooks':
   - packages/@roots/bud-hooks/*
   - packages/@roots/bud-hooks/**
-
-@roots/bud-imagemin:
+'@roots/bud-imagemin':
   - packages/@roots/bud-imagemin/*
   - packages/@roots/bud-imagemin/**
-
-@roots/bud-library:
+'@roots/bud-library':
   - packages/@roots/bud-library/*
   - packages/@roots/bud-library/**
-
-@roots/bud-mdx:
+'@roots/bud-mdx':
   - packages/@roots/bud-mdx/*
   - packages/@roots/bud-mdx/**
-
-@roots/bud-postcss:
+'@roots/bud-postcss':
   - packages/@roots/bud-postcss/*
   - packages/@roots/bud-postcss/**
-
-@roots/bud-preset-recommend:
+'@roots/bud-preset-recommend':
   - packages/@roots/bud-preset-recommend/*
   - packages/@roots/bud-preset-recommend/**
-
-@roots/bud-prettier:
+'@roots/bud-prettier':
   - packages/@roots/bud-prettier/*
   - packages/@roots/bud-prettier/**
-
-@roots/bud-purgecss:
+'@roots/bud-purgecss':
   - packages/@roots/bud-purgecss/*
   - packages/@roots/bud-purgecss/**
-
-@roots/bud-react:
+'@roots/bud-react':
   - packages/@roots/bud-react/*
   - packages/@roots/bud-react/**
-
-@roots/bud-sass:
+'@roots/bud-sass':
   - packages/@roots/bud-sass/*
   - packages/@roots/bud-sass/**
-
-@roots/bud-server:
+'@roots/bud-server':
   - packages/@roots/bud-server/*
   - packages/@roots/bud-server/**
-
-@roots/bud-stylelint:
+'@roots/bud-stylelint':
   - packages/@roots/bud-stylelint/*
   - packages/@roots/bud-stylelint/**
-
-@roots/bud-support:
+'@roots/bud-support':
   - packages/@roots/bud-support/*
   - packages/@roots/bud-support/**
-
-@roots/bud-tailwindcss:
+'@roots/bud-tailwindcss':
   - packages/@roots/bud-tailwindcss/*
   - packages/@roots/bud-tailwindcss/**
-
-@roots/bud-terser:
+'@roots/bud-terser':
   - packages/@roots/bud-terser/*
   - packages/@roots/bud-terser/**
-
-@roots/bud-typescript:
+'@roots/bud-typescript':
   - packages/@roots/bud-typescript/*
   - packages/@roots/bud-typescript/**
-
-@roots/bud-typings:
+'@roots/bud-typings':
   - packages/@roots/bud-typings/*
   - packages/@roots/bud-typings/**
-
-@roots/bud-vue:
+'@roots/bud-vue':
   - packages/@roots/bud-vue/*
   - packages/@roots/bud-vue/**
-
-@roots/bud-wordpress-dependencies:
+'@roots/bud-wordpress-dependencies':
   - packages/@roots/bud-wordpress-dependencies/*
   - packages/@roots/bud-wordpress-dependencies/**
-
-@roots/bud-wordpress-externals:
+'@roots/bud-wordpress-externals':
   - packages/@roots/bud-wordpress-externals/*
   - packages/@roots/bud-wordpress-externals/**
-
-@roots/bud-wordpress-manifests:
+'@roots/bud-wordpress-manifests':
   - packages/@roots/bud-wordpress-manifests/*
   - packages/@roots/bud-wordpress-manifests/**
-
-@roots/container:
+'@roots/container':
   - packages/@roots/container/*
   - packages/@roots/container/**
-
-@roots/critical-css-webpack-plugin:
+'@roots/critical-css-webpack-plugin':
   - packages/@roots/critical-css-webpack-plugin/*
   - packages/@roots/critical-css-webpack-plugin/**
-
-@roots/dependencies:
+'@roots/dependencies':
   - packages/@roots/dependencies/*
   - packages/@roots/dependencies/**
-
-@roots/entrypoints-webpack-plugin:
+'@roots/entrypoints-webpack-plugin':
   - packages/@roots/entrypoints-webpack-plugin/*
   - packages/@roots/entrypoints-webpack-plugin/**
-
-@roots/filesystem:
+'@roots/filesystem':
   - packages/@roots/filesystem/*
   - packages/@roots/filesystem/**
-
-@roots/ink-prettier:
+'@roots/ink-prettier':
   - packages/@roots/ink-prettier/*
   - packages/@roots/ink-prettier/**
-
-@roots/ink-use-style:
+'@roots/ink-use-style':
   - packages/@roots/ink-use-style/*
   - packages/@roots/ink-use-style/**
-
-@roots/merged-manifest-webpack-plugin:
+'@roots/merged-manifest-webpack-plugin':
   - packages/@roots/merged-manifest-webpack-plugin/*
   - packages/@roots/merged-manifest-webpack-plugin/**
-
-@roots/sage:
+'@roots/sage':
   - packages/@roots/sage/*
   - packages/@roots/sage/**
-
-@roots/wordpress-dependencies-webpack-plugin:
+'@roots/wordpress-dependencies-webpack-plugin':
   - packages/@roots/wordpress-dependencies-webpack-plugin/*
   - packages/@roots/wordpress-dependencies-webpack-plugin/**
-
-@roots/wordpress-externals-webpack-plugin:
+'@roots/wordpress-externals-webpack-plugin':
   - packages/@roots/wordpress-externals-webpack-plugin/*
   - packages/@roots/wordpress-externals-webpack-plugin/**
-
-examples:
+'examples':
   - examples/*
   - examples/**
-
-docs:
+'docs':
   - docs/*
   - docs/**
   - packages/**/docs/*
   - packages/**/docs/**/*
-
-dev:
-- any: ['dev/**/*']
-  all: ['!dev/docs/src/**/*', '!dev/docs/src/*']
-
-dependencies:
+'dependencies':
   - package.lock
-
-test:
+'test':
   - src/**/*.spec.js
 
