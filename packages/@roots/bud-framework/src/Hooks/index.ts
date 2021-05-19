@@ -275,11 +275,13 @@ namespace Hooks {
             'module/rules/oneOf'
           >
         | 'build/module/rules/parser'
+        | 'build/module/unsafeCache'
         | keyof Dive<Config['resolve'], 'resolve'>
         | keyof Dive<Config['resolveLoader'], 'resolveLoader'>
         | 'build/cache/name'
         | 'build/cache/cacheLocation'
-        | 'build/cache/directory'
+        | 'build/cache/cacheDirectory'
+        | 'build/cache/hashAlgorithm'
         | 'build/cache/version'
         | 'build/cache/type'
         | 'build/cache/buildDependencies'

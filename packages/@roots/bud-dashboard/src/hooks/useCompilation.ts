@@ -16,6 +16,7 @@ export const useCompilation: Dashboard.Compilation.Hook = app => {
   >(null)
   const [hasWarnings, setHasWarnings] = useState<boolean>(false)
   const [progress, setProgress] = useState(null)
+  const [closed, setClosed] = useState(false)
 
   /**
    * Compilation callback
@@ -31,7 +32,6 @@ export const useCompilation: Dashboard.Compilation.Hook = app => {
 
     app.when(err, () => {
       app.error(err, 'Webpack error (pre-compile)')
-
       process.exit()
     })
 
@@ -58,21 +58,18 @@ export const useCompilation: Dashboard.Compilation.Hook = app => {
         },
         () => setWarnings(null),
       )
+
+    app.compiler.instance.close(err => {
+      err && setErrors([err])
+      setClosed(true)
+    })
   }
 
-  /**
-   * Update data when app.compiler diffs
-   */
   useEffect(() => {
-    if (app.compiler.instance) return
+    if (app.compiler.isCompiled) return
 
-    const instance = app.compiler.compile(app.build.config)
+    app.compiler.compile(app.build.config)
 
-    instance.hooks.done.tap(`${app.name}`, callback)
-
-    /**
-     * Apply progress plugin
-     */
     new webpack.ProgressPlugin((percentage, message): void => {
       const decimal =
         percentage && typeof percentage == 'number'
@@ -84,19 +81,21 @@ export const useCompilation: Dashboard.Compilation.Hook = app => {
         percentage: `${Math.floor(decimal * 100)}%`,
         message,
       })
-    }).apply(instance)
+    }).apply(app.compiler.instance)
 
-    /**
-     * Either run prod or dev build
-     */
     app.when(
       !app.isDevelopment,
-      ({compiler}) => compiler.instance.run(callback),
-      ({compiler, server}) => server.run(compiler.instance),
+      () => {
+        app.compiler.instance.run(callback)
+      },
+      ({server}) => {
+        server.run(app.compiler.instance)
+      },
     )
-  }, [app.compiler])
+  }, [app])
 
   return {
+    closed,
     progress,
     stats,
     errors,

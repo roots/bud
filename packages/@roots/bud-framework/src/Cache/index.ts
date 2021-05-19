@@ -1,11 +1,11 @@
 import {Service} from '../Service'
 
-export declare interface Cache extends Service {
+declare interface Cache extends Service {
   /**
    * ## cache.version
    *
-   * A hash created from the stringified contents of the project config
-   * and package.json
+   * A hash created from the stringified contents of the project config files
+   * and its dependencies.
    */
   version: string
 
@@ -24,3 +24,5 @@ export declare interface Cache extends Service {
    */
   enabled(): boolean
 }
+
+export {Cache}

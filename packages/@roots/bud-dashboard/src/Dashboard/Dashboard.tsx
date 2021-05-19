@@ -5,14 +5,8 @@ import {Text, Static, Box, useInput} from 'ink'
 import {useStyle} from '@roots/ink-use-style'
 import {isEqual} from 'lodash'
 
-import {
-  Assets,
-  Time,
-  Git,
-  Progress,
-  Module,
-} from '../components/index'
-import {useCompilation, usePackageJson} from '../hooks/index'
+import {Assets, Time, Git, Progress, Module} from '../components'
+import {useCompilation, usePackageJson} from '../hooks'
 
 const Dashboard: Dashboard.Component = ({bud}) => {
   const compilation = useCompilation(bud)
@@ -28,17 +22,8 @@ const Dashboard: Dashboard.Component = ({bud}) => {
   })
 
   useEffect(() => {
-    if (!bud.isProduction) return
-
-    const isComplete = compilation?.progress?.decimal >= 1
-    const shouldExit = isComplete || compilation?.hasErrors
-
-    shouldExit && setTimeout(() => process.exit())
-  }, [
-    compilation.stats,
-    compilation.progress,
-    compilation.errors,
-  ])
+    compilation.closed && process.exit()
+  }, [compilation])
 
   const appProps: Dashboard.AppProps = {
     bud,

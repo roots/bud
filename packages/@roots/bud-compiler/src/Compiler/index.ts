@@ -41,7 +41,7 @@ export default class extends Service implements Compiler {
   @bind
   public compile(
     config?: Compiler.Config,
-    cb?: (err?: Error, stats?: any) => void,
+    cb?: (err?: Error, stats?: any) => undefined,
   ): Compiler.Instance {
     if (this.isCompiled) {
       return this.instance
