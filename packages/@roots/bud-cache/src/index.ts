@@ -32,7 +32,14 @@ class Cache extends Service implements Base {
   public get projectHash(): string {
     return JSON.stringify(
       sync([
-        this.app.path('project', `${this.app.name}.*`),
+        this.app.path(
+          'project',
+          `${this.app.name}.{js,ts,yml,json}`,
+        ),
+        this.app.path(
+          'project',
+          `${this.app.name}.${this.app.mode}.{js,ts.yml,json}`,
+        ),
         this.app.path('project', 'package.json'),
       ]).reduce(
         (all, file) => all.concat(readFileSync(file, 'utf8')),

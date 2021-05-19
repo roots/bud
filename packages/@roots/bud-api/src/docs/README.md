@@ -13,8 +13,10 @@
 | bud.path        | Get paths to project files/dirs | [docs](docs:config/path)       |
 | bud.provide     | Define global vars              | [docs](docs:config/provide)    |
 | bud.proxy       | Configure proxy server          | [docs](docs:config/proxy)      |
+| bud.publicPath  | Get public path                 | [docs](docs:config/publicPath) |
 | bud.runtime     | Extract boilerplate             | [docs](docs:config/runtime)    |
 | bud.setPath     | Set paths to project files/dirs | [docs](docs:config/setPath)    |
+| bud.setPublicPath | Set public path               | [docs](docs:config/setPublicPath) |
 | bud.splitChunks | Split code (vendor)             | [docs](docs:config/vendor)     |
 | bud.storage     | Define artifacts dir            | [docs](docs:config/storage)    |
 | bud.template    | Set an HTML template            | [docs](docs:config/template)   |

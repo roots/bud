@@ -23,7 +23,7 @@ const Dashboard: Dashboard.Component = ({bud}) => {
 
   useEffect(() => {
     compilation.closed && process.exit()
-  }, [compilation])
+  }, [compilation.closed])
 
   const appProps: Dashboard.AppProps = {
     bud,

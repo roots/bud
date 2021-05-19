@@ -94,6 +94,7 @@ class Build extends Service {
     this.rules = {
       css: new Rule({
         test: ({store}) => store.get('patterns.css'),
+        exclude: ({store}) => store.get('patterns.modules'),
         use: ({isProduction, build}) => [
           isProduction ? build.items.minicss : build.items.style,
           build.items.css,
@@ -106,18 +107,22 @@ class Build extends Service {
       }),
       image: new Rule({
         test: ({store}) => store.get('patterns.image'),
+        exclude: ({store}) => store.get('patterns.modules'),
         use: ({build}) => [build.items['asset']],
       }),
       font: new Rule({
         test: ({store}) => store.get('patterns.font'),
+        exclude: ({store}) => store.get('patterns.modules'),
         use: ({build}) => [build.items['resolve-url']],
       }),
       svg: new Rule({
         test: ({store}) => store.get('patterns.svg'),
+        exclude: ({store}) => store.get('patterns.modules'),
         type: 'asset/resource',
       }),
       html: new Rule({
         test: ({store}) => store.get('patterns.html'),
+        exclude: ({store}) => store.get('patterns.modules'),
         use: ({build}) => [build.items['raw']],
       }),
     }

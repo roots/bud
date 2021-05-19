@@ -268,6 +268,7 @@ namespace Hooks {
         | keyof Top
         | keyof Props
         | keyof Dive<Config['output'], 'output'>
+        | 'build/output/pathInfo'
         | keyof Dive<Config['module'], 'module'>
         | keyof Dive<Config['module']['rules'], 'module/rules'>
         | keyof Dive<
@@ -282,6 +283,7 @@ namespace Hooks {
         | 'build/cache/cacheLocation'
         | 'build/cache/cacheDirectory'
         | 'build/cache/hashAlgorithm'
+        | 'build/cache/managedPaths'
         | 'build/cache/version'
         | 'build/cache/type'
         | 'build/cache/buildDependencies'

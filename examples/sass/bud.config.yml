@@ -4,6 +4,3 @@ extensions:
 
 entry:
   app: app.scss
-
-persist:
-  type: 'memory'
