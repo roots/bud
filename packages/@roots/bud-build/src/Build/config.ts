@@ -1,4 +1,5 @@
 import type {Framework} from '@roots/bud-framework'
+import {resolve} from 'path'
 
 export function config(this: Framework): void {
   this.hooks
@@ -40,15 +41,13 @@ export function config(this: Framework): void {
       'extensions',
       'modules',
     ])
-    .hooks.link('build/module', ['rules'])
+    .hooks.link('build/module', ['rules', 'unsafeCache'])
     .hooks.link('build/cache', [
       'name',
       'type',
-      'directory',
+      'cacheDirectory',
       'cacheLocation',
-      'buildDependencies',
       'version',
-      'type',
     ])
     .hooks.link('build/output', [
       'path',
@@ -60,22 +59,16 @@ export function config(this: Framework): void {
     .on('build/bail', true)
     .hooks.on(
       'build/cache/name',
-      () => `${this.name}-${this.cache.version}`,
+      () => `${this.name}-${this.mode}`,
     )
-    .hooks.on('build/cache/type', 'filesystem')
     .hooks.on('build/cache/version', () => this.cache.version)
+    .hooks.on('build/cache/type', () => 'filesystem')
+    .hooks.on('build/cache/cacheDirectory', () =>
+      this.path('storage'),
+    )
     .hooks.on('build/cache/cacheLocation', () =>
-      this.path('storage'),
+      resolve(this.path('storage'), 'pack'),
     )
-    .hooks.on('build/cache/directory', () =>
-      this.path('storage'),
-    )
-    .hooks.on('build/cache/buildDependencies', () => ({
-      project: [
-        this.path('project', `${this.name}.config.js`),
-        this.path('project', 'package.json'),
-      ],
-    }))
     .hooks.on('build/node', false)
     .hooks.on('build/context', () => this.path('project'))
     .hooks.on('build/devtool', false)
@@ -124,7 +117,7 @@ export function config(this: Framework): void {
     )
     .hooks.on('build/performance', () => ({}))
     .hooks.on('build/plugins', () => this.extensions.make())
-    .hooks.on('build/profile', false)
+    .hooks.on('build/profile', () => true)
     .hooks.on('build/recordsPath', () =>
       this.path('storage', 'records.json'),
     )
@@ -138,9 +131,9 @@ export function config(this: Framework): void {
       this.hooks.filter('location/modules'),
       ...this.discovery.resolveFrom,
     ])
-    .hooks.on('build/stats', false)
-    .hooks.on('build/target', 'web')
-    .hooks.on('build/watch', false)
+    .hooks.on('build/stats', () => ({}))
+    .hooks.on('build/target', () => 'web')
+    .hooks.on('build/watch', () => false)
     .hooks.on('build/watchOptions', () => ({
       ignored: [this.store.get('patterns.modules').toString()],
       poll: 1000,

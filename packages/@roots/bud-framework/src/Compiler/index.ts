@@ -8,6 +8,11 @@ export interface Compiler extends Service {
   instance: Compiler.Instance
 
   /**
+   * Has already been ran
+   */
+  isCompiled: boolean
+
+  /**
    * Compiler stats output
    */
   stats: any

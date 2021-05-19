@@ -29,10 +29,6 @@ export class Dashboard extends Base {
 
   @bind
   public run(): void {
-    if (this.app.store.get('ci')) {
-      return
-    }
-
     this.info('Initializing dashboard')
 
     if (this.app.store.isTrue('ci')) {

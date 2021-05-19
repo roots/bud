@@ -1,4 +1,3 @@
-import '@roots/bud-compiler'
 import type {Styles} from '@roots/ink-use-style'
 import type React from 'react'
 import type {StatsCompilation} from 'webpack'
@@ -33,6 +32,7 @@ declare module '@roots/bud-framework' {
       hasErrors: boolean
       warnings?: Compilation.WebpackMessage[]
       hasWarnings: boolean
+      closed: boolean
     }
 
     namespace Compilation {
