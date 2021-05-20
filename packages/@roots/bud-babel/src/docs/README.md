@@ -51,13 +51,13 @@ Override any preset options:
 
 ```js
 bud.babel.setPresetOptions('@babel/preset-env', {
-  "useBuiltIns": "entry"
+  useBuiltIns: 'entry',
 })
 ```
 
 ### Plugins
 
-Plugins has nearly the exact same API already demonstrated by the `presets` docs above. 
+Plugins has nearly the exact same API already demonstrated by the `presets` docs above.
 
 See what plugins are registered:
 
@@ -74,7 +74,10 @@ bud.babel.setPlugin('@babel/plugin-transform-runtime')
 Add a pluginw with options:
 
 ```js
-bud.babel.setPlugin(['@babel/plugin-transform-runtime', {helpers: false}])
+bud.babel.setPlugin([
+  '@babel/plugin-transform-runtime',
+  {helpers: false},
+])
 ```
 
 Fully override plugins:
@@ -116,16 +119,19 @@ app.babel
   .setPluginOptions('@babel/plugin-transform-runtime', {
     helpers: false,
   })
-```                                                                         
+```
 
 ### Configuring babel-loader
 
 Merge options with existing options by passing the options to merge along with the framework instance:
 
 ```js
-bud.build.items['babel'].mergeOptions({
-  cacheDirectory: ({path}) => path('project', 'tmp'),
-}, bud)
+bud.build.items['babel'].mergeOptions(
+  {
+    cacheDirectory: ({path}) => path('project', 'tmp'),
+  },
+  bud,
+)
 ```
 
 Override loader options directly:
@@ -138,7 +144,7 @@ bud.build.items['babel'].setOptions({
 })
 ```
 
-When using `setOptions`, you must include the plugins and presets (as demonstrated above) if you want bud to continue managing these options. Using `setOptions` completely overrides the framework's callbacks. 
+When using `setOptions`, you must include the plugins and presets (as demonstrated above) if you want bud to continue managing these options. Using `setOptions` completely overrides the framework's callbacks.
 
 If you intend to override those callbacks, you need to pass those options along yourself (or use `mergeOptions`):
 
@@ -150,6 +156,6 @@ bud.build.items['babel'].setOptions({
     '@babel/plugin-transform-runtime',
     '@babel/plugin-proposal-object-rest-spread',
     '@babel/plugin-syntax-dynamic-import',
-  ]
+  ],
 })
 ```

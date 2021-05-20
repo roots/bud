@@ -6,7 +6,7 @@
 
 - The second is an optional string which will be joined on the path returned from the first param.
 
-Paths can be redefined using [bud.setPath](config-setPath.md).
+Paths can be redefined using [bud.setPath](https://github.com/roots/bud/tree/stable/docs/config/setPath.md).
 
 ## Usage
 

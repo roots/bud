@@ -24,6 +24,10 @@
   "engines": {
     "node": ">=14"
   },
+  "keywords": [
+    "bud",
+    "vue"
+  ],
   "files": [
     "docs/",
     "lib/",

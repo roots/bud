@@ -35,6 +35,22 @@ const options = (
   config: Server.Config,
 ): DevMiddleware.Options => ({
   writeToDisk: true,
+  stats: {
+    all: false,
+    version: true,
+    hash: true,
+    timings: true,
+    modules: false,
+    moduleAssets: false,
+    builtAt: false,
+    assets: true,
+    chunks: false,
+    children: false,
+    errors: true,
+    env: true,
+    entrypoints: true,
+    colors: true,
+  },
   ...Object.fromEntries(
     config
       .mutate('headers', headers => ({

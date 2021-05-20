@@ -11,9 +11,6 @@ import {Write} from '../Write/index'
 import {Screen} from '../components/Screen'
 import {Mark} from '../Mark/index'
 
-/**
- * Dashboard
- */
 export class Dashboard extends Base {
   public name = 'dashboard'
 

@@ -17,8 +17,6 @@ yarn add @roots/wordpress-externals-webpack-plugin --dev
 ```js
 // webpack.config.js
 module.exports = {
-  plugins: [
-    new WordPressExternalsPlugin(),
-  ],
+  plugins: [new WordPressExternalsPlugin()],
 }
 ```

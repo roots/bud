@@ -10,15 +10,19 @@ yarn add @roots/bud @roots/bud-cli --dev
 
 Bud can either be configured with a static config file (`json`/`yml`) or a builder module (`js`/`ts`).
 
-Dead simple `bud.config.js` example
+Dead simple example
 
 ```js
+/**
+ * bud.config.js
+ */
 module.exports = bud => bud.entry('app', ['app.js'])
 ```
 
-Or, as `bud.config.yml`
+Or, as yml
 
 ```yml
+# bud.config.yml
 entry:
   app: 'app.js'
 ```
@@ -26,9 +30,12 @@ entry:
 A more advanced configuration might look like
 
 ```ts
-import {Bud} from '@roots/bud'
+/**
+ * bud.config.ts
+ */
+import {Framework} from '@roots/bud'
 
-export default (bud: Bud) =>
+export default (bud: Framework) =>
   bud
     .use([
       require('@roots/bud-babel'),
@@ -82,7 +89,7 @@ Once you've set up your configuration file the following command will run the bu
 yarn bud build
 ```
 
-You should see your built assets in the `dist` urlectory of your project.
+You should see your built assets in the `dist` directory of your project.
 
 ### Running in `production` mode
 

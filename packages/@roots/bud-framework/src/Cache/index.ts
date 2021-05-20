@@ -10,6 +10,19 @@ declare interface Cache extends Service {
   version: string
 
   /**
+   * ## cache.buildDependencies
+   *
+   * Dependencies which should be checked to determine cache
+   * validity.
+   */
+  buildDependencies: string[]
+
+  /**
+   * ## cache.cacheName
+   */
+  cacheName: string
+
+  /**
    * ## cache.enabled
    *
    * Returns boolean true if cache is enabled

@@ -11,15 +11,9 @@ module.exports = app =>
       template: 'public/index.html',
     })
     .entry({
-      react: ['react', 'react-dom'],
-      app: {
-        import: ['app.{js,css}'],
-        dependOn: ['react'],
-      },
+      app: ['app.{js,css}'],
     })
     .when(app.isProduction, () => {
-      app.runtime().splitChunks()
+      app.runtime('single').splitChunks()
     })
-    .persist({
-      type: 'memory',
-    })
+    .persist(true)

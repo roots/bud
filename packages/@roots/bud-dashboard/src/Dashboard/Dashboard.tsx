@@ -1,6 +1,6 @@
 import {Dashboard} from '@roots/bud-framework'
 
-import React, {useEffect} from 'react'
+import React from 'react'
 import {Text, Static, Box, useInput} from 'ink'
 import {useStyle} from '@roots/ink-use-style'
 import {isEqual} from 'lodash'
@@ -20,10 +20,6 @@ const Dashboard: Dashboard.Component = ({bud}) => {
       } catch (err) {}
     }
   })
-
-  useEffect(() => {
-    compilation.closed && process.exit()
-  }, [compilation])
 
   const appProps: Dashboard.AppProps = {
     bud,

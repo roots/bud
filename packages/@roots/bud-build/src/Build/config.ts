@@ -1,5 +1,4 @@
 import type {Framework} from '@roots/bud-framework'
-import {resolve} from 'path'
 
 export function config(this: Framework): void {
   this.hooks
@@ -10,7 +9,9 @@ export function config(this: Framework): void {
       'devServer',
       'devtool',
       'entry',
+      'experiments',
       'externals',
+      'infrastructureLogging',
       'mode',
       'module',
       'name',
@@ -42,33 +43,28 @@ export function config(this: Framework): void {
       'modules',
     ])
     .hooks.link('build/module', ['rules', 'unsafeCache'])
-    .hooks.link('build/cache', [
-      'name',
-      'type',
-      'cacheDirectory',
-      'cacheLocation',
-      'version',
-    ])
     .hooks.link('build/output', [
       'path',
+      'pathinfo',
       'publicPath',
       'filename',
     ])
 
   this.hooks
     .on('build/bail', true)
-    .hooks.on(
-      'build/cache/name',
-      () => `${this.name}-${this.mode}`,
-    )
-    .hooks.on('build/cache/version', () => this.cache.version)
-    .hooks.on('build/cache/type', () => 'filesystem')
-    .hooks.on('build/cache/cacheDirectory', () =>
-      this.path('storage'),
-    )
-    .hooks.on('build/cache/cacheLocation', () =>
-      resolve(this.path('storage'), 'pack'),
-    )
+    .hooks.on('build/cache/name', () => undefined)
+    .hooks.on('build/cache/version', () => undefined)
+    .hooks.on('build/cache/type', () => 'memory')
+    .hooks.on('build/cache/cacheDirectory', () => undefined)
+    .hooks.on('build/cache/cacheLocation', () => undefined)
+    .hooks.on('build/cache/buildDependencies', undefined)
+    .hooks.on('build/cache/managedPaths', () => undefined)
+    .hooks.on('build/experiments', () => ({
+      lazyCompilation: false,
+    }))
+    .hooks.on('build/infrastructureLogging', () => ({
+      level: 'none',
+    }))
     .hooks.on('build/node', false)
     .hooks.on('build/context', () => this.path('project'))
     .hooks.on('build/devtool', false)
@@ -109,6 +105,7 @@ export function config(this: Framework): void {
         }.js`,
     )
     .hooks.on('build/output/path', () => this.path('dist'))
+    .hooks.on('build/output/pathinfo', () => false)
     .hooks.on('build/output/publicPath', () =>
       this.store.get('location.publicPath'),
     )
@@ -133,9 +130,5 @@ export function config(this: Framework): void {
     ])
     .hooks.on('build/stats', () => ({}))
     .hooks.on('build/target', () => 'web')
-    .hooks.on('build/watch', () => false)
-    .hooks.on('build/watchOptions', () => ({
-      ignored: [this.store.get('patterns.modules').toString()],
-      poll: 1000,
-    }))
+    .hooks.on('build/watch', false)
 }

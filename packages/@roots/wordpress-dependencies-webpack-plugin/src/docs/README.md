@@ -9,8 +9,6 @@ You likely want to use this alongside `@roots/wordpress-externals-webpack-plugin
 ```js
 // webpack.config.js
 module.exports = {
-  plugins: [
-    new WordPressExternalsPlugin(),
-  ],
+  plugins: [new WordPressExternalsPlugin()],
 }
 ```

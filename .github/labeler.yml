@@ -151,4 +151,3 @@
   - package.lock
 'test':
   - src/**/*.spec.js
-

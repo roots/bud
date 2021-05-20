@@ -1,15 +1,9 @@
 ## Type of change
 
-- [] MAJOR: breaking change
-- [] MINOR: feature
-- [] PATCH: bugfix
-
-## Affected packages
-
 <!--
-- @roots/bud
-- @roots/container
-- @roots/bud-babel
+- MAJOR: breaking change
+- MINOR: feature
+- PATCH: bugfix
 -->
 
 ## Dependencies added
@@ -28,4 +22,6 @@
 
 ## Details
 
-<!-- Describe your changes in as much detail as possible -->
+<!-- 
+Describe your changes in as much detail as possible 
+-->

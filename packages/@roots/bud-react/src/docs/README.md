@@ -25,6 +25,9 @@ Include `@roots/bud-react` in your config. Make sure it is included after `@root
 ```js
 module.exports = app =>
   app
-    .use([require('@roots/bud-babel'), require('@roots/bud-react')])
+    .use([
+      require('@roots/bud-babel'),
+      require('@roots/bud-react'),
+    ])
     .entry('app', ['app.css'])
 ```
