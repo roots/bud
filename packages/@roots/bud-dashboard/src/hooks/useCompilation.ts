@@ -27,8 +27,6 @@ export const useCompilation: Dashboard.Compilation.Hook = app => {
    * duplicate the callback.
    */
   const callback = (...args: any[]) => {
-    console.log('callback called')
-
     const [err, stats] =
       args.length > 1 ? args : [null, args.pop()]
 

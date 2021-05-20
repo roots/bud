@@ -45,12 +45,15 @@ const persist: Api.Persist = function (enabled = true) {
           managedPaths: this.hooks.filter(
             'build/cache/managedPaths',
           ),
+          buildDependencies: this.hooks.filter(
+            'build/cache/buildDependencies',
+          ),
         }))
 
         /**
          * Individual settings
          */
-        .hooks.on('build/cache/name', () => `${this.name}`)
+        .hooks.on('build/cache/name', () => this.cache.cacheName)
         .hooks.on(
           'build/cache/version',
           () => this.cache.version,
@@ -60,12 +63,11 @@ const persist: Api.Persist = function (enabled = true) {
           this.path('storage'),
         )
         .hooks.on('build/cache/cacheLocation', () =>
-          resolve(this.path('storage'), 'pack'),
+          resolve(this.path('storage'), this.cache.cacheName),
         )
-        .hooks.on(
-          'build/cache/buildDependencies',
-          () => this.cache.buildDependencies,
-        )
+        .hooks.on('build/cache/buildDependencies', () => ({
+          bud: this.cache.buildDependencies,
+        }))
         .hooks.on('build/cache/managedPaths', () => {
           return [this.path('modules')]
         })
