@@ -15,9 +15,8 @@
     "g:clean:lib": "cd $INIT_CWD && rimraf ./lib",
     "g:clean:modules": "cd $INIT_CWD && rimraf ./node_modules",
     "g:clean:types": "cd $INIT_CWD && rimraf ./types",
-    "g:pkg": "cd $INIT_CWD && run-p pkg:check pkg:format",
-    "g:pkg:check": "cd $INIT_CWD && package-check --verbose",
-    "g:pkg:format": "cd $INIT_CWD && run-p clean:lib build lint pkg:check"
+    "g:pkg": "cd $INIT_CWD && run-p pkg:check",
+    "g:pkg:check": "cd $INIT_CWD && package-check --verbose"
   },
   "devDependencies": {
     "@skypack/package-check": "^0.2.2",

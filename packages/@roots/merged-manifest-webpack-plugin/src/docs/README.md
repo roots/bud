@@ -37,8 +37,8 @@ module.exports = {
 
 ## Options
 
-| Option | type | Description |
-| ------ | ---- | ----------- |
+| Option          | type   | Description                                 |
+| --------------- | ------ | ------------------------------------------- |
 | entrypointsName | string | `entrypoints.json` filename (if customized) |
-| wordpressName | string | `wordpress.json` filename (if customized) |
-| file | string | filename for final entrypoints manifest |
+| wordpressName   | string | `wordpress.json` filename (if customized)   |
+| file            | string | filename for final entrypoints manifest     |

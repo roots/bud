@@ -9,7 +9,10 @@
   },
   "license": "MIT",
   "contributors": [
-    "Kelly Mears <kelly@roots.io> (https://kellymears.me)"
+    {
+      "name": "Kelly Mears",
+      "url": "https://github.com/kellymears"
+    }
   ],
   "engines": {
     "node": ">=15.0"
@@ -22,14 +25,12 @@
     ]
   },
   "scripts": {
-    "build": "yarn workspaces foreach --parallel --topological --topological-dev --verbose run build",
+    "build": "yarn workspaces foreach --parallel --topological --topological-dev --interlaced --verbose run build",
     "clean": "yarn workspaces foreach --all --topological --topological-dev --parallel --verbose run clean",
-    "lint": "yarn workspaces foreach --all --topological --topological-dev --parallel --verbose run lint",
-    "pkg": "yarn workspaces foreach --all --topolgical-dev --parallel --interlaced --verbose run pkg",
-    "prep": "yarn run-s clean build docs lint pkg",
+    "lint": "yarn prettier 'packages/@roots/*/{src,lib}/**/*.{ts,js,md,json,yml}' --write",
+    "pkg": "yarn workspaces foreach --parallel --topological --topological-dev --interlaced --verbose run pkg",
     "docs": "yarn node ./dev/docs/gen/cli.js",
-    "test": "jest --verbose",
-    "release": "release-it"
+    "test": "jest --verbose"
   },
   "devDependencies": {
     "@skypack/package-check": "^0.2.2",

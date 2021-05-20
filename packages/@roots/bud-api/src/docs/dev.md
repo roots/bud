@@ -52,7 +52,7 @@ bud.dev({
     dev: false,
     hot: false,
     proxy: false,
-  }
+  },
 })
 ```
 
@@ -75,4 +75,3 @@ bud.dev({
 - `log` will enable/disable the logger.
 - `indicator` will enable/disable the live reload indicator.
 - `overlay` will enable/disable the error overlay.
-

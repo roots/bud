@@ -1,10 +1,11 @@
 ## Overview
 
 Includes support for:
-  - postcss (with postcss-preset-env) 
-  - babel
-  - `entrypoints.json` (for easier enqueues when not [generating html with bud](docs:config/template))
-  - code automatically minified in production
+
+- postcss (with postcss-preset-env)
+- babel
+- `entrypoints.json` (for easier enqueues when not [generating html with bud](docs:config/template))
+- code automatically minified in production
 
 ## Requirements
 
@@ -41,9 +42,7 @@ extensions:
 
 ```json
 {
-  "extensions": [
-    "@roots/bud-preset-recommend"
-  ]
+  "extensions": ["@roots/bud-preset-recommend"]
 }
 ```
 

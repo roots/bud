@@ -2,32 +2,23 @@ name: build
 
 on:
   push:
-    branches:
-      - next
-
-    tags:
-      - '!*' # Do not execute on tags
-
     paths:
       - packages/*/src/*
       - packages/*/src/**/*
-      - test/*
-      - '*.json'
       - yarn.lock
-
   pull_request:
     paths:
       - '!*.MD'
       - '!*.md'
 
-  workflow_dispatch:
-
 jobs:
   test:
     strategy:
       matrix:
-        platform: [ubuntu-latest]
-        node: ['14.9.0']
+        platform:
+          - ubuntu-latest
+        node: 
+          - 14.9.0
     name: test ${{matrix.node}}/${{matrix.platform}}
     runs-on: ${{matrix.platform}}
     steps:
@@ -37,3 +28,6 @@ jobs:
           node-version: ${{matrix.node}}
       - run: yarn
       - run: yarn build
+      - run: yarn test
+      - run: yarn prettier
+      -

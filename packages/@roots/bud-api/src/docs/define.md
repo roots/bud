@@ -8,14 +8,14 @@ Define a value:
 
 ```ts
 bud.define({
-  APP_NAME: "My Application",
-});
+  APP_NAME: 'My Application',
+})
 ```
 
 Use them in application code:
 
 ```ts
-const { APP_NAME } = window;
+const {APP_NAME} = window
 ```
 
 Use them in [templates](docs:config/template):
