@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-criticalcss",
-  "version": "4.0.1",
+  "version": "4.1.0",
   "description": "Adds critical.css support to Bud",
   "repository": {
     "type": "git",
