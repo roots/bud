@@ -28,6 +28,7 @@ jobs:
           node-version: ${{matrix.node}}
       - run: yarn
       - run: yarn build
-      - run: yarn test
       - run: yarn docs
       - run: yarn lint
+      - run: yarn pkg
+

@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud",
-  "version": "4.0.1",
+  "version": "4.1.0",
   "description": "A friendly build tool to help manage your project assets.",
   "homepage": "https://roots.io/bud",
   "repository": {
