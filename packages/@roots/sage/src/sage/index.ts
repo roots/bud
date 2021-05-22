@@ -7,6 +7,7 @@ import * as babel from '@roots/bud-babel'
 import * as dependencies from '@roots/bud-wordpress-dependencies'
 import * as entrypoints from '@roots/bud-entrypoints'
 import * as esbuild from '@roots/bud-esbuild'
+import * as eslint from '@roots/bud-eslint'
 import * as externals from '@roots/bud-wordpress-externals'
 import * as manifests from '@roots/bud-wordpress-manifests'
 import * as postcss from '@roots/bud-postcss'
@@ -39,6 +40,7 @@ export const boot: Module.Boot = (app: Bud) => {
       dependencies,
       externals,
       manifests,
+      eslint,
     ])
 
   /**
