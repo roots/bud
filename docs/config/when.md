@@ -1,7 +1,3 @@
----
-
-## description: Do things when certain conditions are met.
-
 # bud.when
 
 Executes a function if a given test is `true`.

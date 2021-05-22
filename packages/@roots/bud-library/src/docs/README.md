@@ -1,9 +1,3 @@
-## Overview
-
-> Adds DLL caching support to `@roots/bud` projects. This can significantly improve build times for vendored dependencies which do not frequently change.
-
-## toc
-
 ## Summary
 
 `app.library` differs from `app.vendor` in that it doesn't just separate the vendored code from the application code, but actually stops the vendored assets from needing to be rebuilt at all.

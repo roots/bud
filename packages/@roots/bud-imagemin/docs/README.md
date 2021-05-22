@@ -24,12 +24,17 @@
 
 > Image minification for [**@roots/bud**](https://github.com/roots/bud/tree/stable/packages/@roots/bud) projects
 
+- [Summary](#summary)
 - [Installation](#installation)
 - [Usage](#usage)
 - [Configuration](#configuration)
 - [Contributing](#contributing)
 - [Bud sponsors](#bud-sponsors)
 - [Community](#community)
+
+## Summary
+
+Minimize bundled image assets.
 
 ## Installation
 
