@@ -77,6 +77,7 @@ declare module '@roots/bud-framework' {
 
     namespace UseGit {
       interface Status {
+        isRepo: boolean
         head: string
         branch: string
         status: string
