@@ -11,9 +11,9 @@
 
 # Documentation
 
-- [Getting started](docs:getting-started.md)
-- [Configuring](docs:config/README.md)
-- [Working with the CLI](docs:cli.md)
-- [Handling envvars](docs:env.md)
-- [Using hooks](docs:hooks.md)
-- [Authoring extensions](docs:extending.md)
+- [Getting started](docs:getting-started)
+- [Configuring](docs:config/README)
+- [Working with the CLI](docs:cli)
+- [Handling envvars](docs:env)
+- [Using hooks](docs:hooks)
+- [Authoring extensions](docs:extending)
