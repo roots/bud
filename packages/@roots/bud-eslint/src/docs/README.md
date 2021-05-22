@@ -14,12 +14,25 @@ bud.use(require('@roots/bud-eslint'))
 
 Default config:
 
-| key           | value                             |
-| ------------- | --------------------------------- |
-| extensions    | ['js', 'jsx', 'ts', 'tsx', 'vue'] |
-| cache         | true                              |
-| cacheLocation | storage directory                 |
-| context       | src directory                     |
+| key           | value                              |
+| ------------- | ---------------------------------- |
+| cache         | true                               |
+| cacheLocation | storage directory                  |
+| context       | src directory                      |
+| cwd           | project directory                  |
+| exclude       | node_modules                       |
+| extensions    | `['js', 'jsx', 'ts', 'tsx', 'vue'] |
+| failOnError   | true                               |
+
+## Configure using bud.eslint
+
+```js
+bud.eslint.config({
+  cache: false,
+})
+```
+
+## Configure using the extensions api
 
 Configure eslint options using the extensions api
 
