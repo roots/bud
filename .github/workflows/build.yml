@@ -17,8 +17,8 @@ jobs:
       matrix:
         platform:
           - ubuntu-latest
-        node: 
-          - 14.9.0
+        node:
+          - 15.11.0
     name: test ${{matrix.node}}/${{matrix.platform}}
     runs-on: ${{matrix.platform}}
     steps:
@@ -31,4 +31,3 @@ jobs:
       - run: yarn docs
       - run: yarn lint
       - run: yarn pkg
-
