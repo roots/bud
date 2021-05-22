@@ -3,8 +3,8 @@ name: build
 on:
   push:
     paths:
-      - packages/*/src/*
-      - packages/*/src/**/*
+      - packages/**/*/src/*
+      - packages/**/*/src/**/*
       - yarn.lock
   pull_request:
     paths:
