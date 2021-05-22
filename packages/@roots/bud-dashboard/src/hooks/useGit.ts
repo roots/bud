@@ -34,14 +34,14 @@ export const useGit = (): Dashboard.UseGit.Status => {
             '--short',
           ])
 
-          const status = stdout.toString()
+          const statusRes = stdout.toString()
             ? '0'
             : stdout
                 .toString()
                 .split('\n')
                 .filter(item => item !== '').length
 
-          !isEqual(status, status) && setStatus(status)
+          !isEqual(status, statusRes) && setStatus(statusRes)
         } catch (err) {
           return
         }
