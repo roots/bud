@@ -1,3 +1,7 @@
+## Summary
+
+Minimize bundled image assets.
+
 ## Installation
 
 ```sh
