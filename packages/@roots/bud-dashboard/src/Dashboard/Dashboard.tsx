@@ -30,11 +30,11 @@ const Dashboard: Dashboard.Component = ({bud}) => {
 
   return (
     <Box flexDirection="column">
-      {appProps.hasErrors && appProps.errors?.length > 0 && (
+      {appProps.errors?.length > 0 && (
         <Static marginBottom={1} items={appProps.errors}>
-          {(err: Dashboard.Compilation.WebpackMessage) => (
+          {(err: Dashboard.Compilation.WebpackMessage, id) => (
             <Module
-              key={err.moduleIdentifier}
+              key={`${id}-webpack-error`}
               color={appProps.theme.colors.error}
               labelColor={theme.colors.foreground}
               label={`Error: ${err.moduleName}`}>
