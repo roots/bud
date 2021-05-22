@@ -2,12 +2,14 @@ import {Service} from '../Service'
 
 declare interface Cache extends Service {
   /**
-   * ## cache.version
+   * ## cache.cacheFiles
    *
-   * A hash created from the stringified contents of the project config files
-   * and its dependencies.
+   * Additional files to use for webpack cache vaidation.
+   *
+   * Intended for extensions to register cache stores
+   * (babel cache, eslint cache, etc.)
    */
-  version: string
+  cacheFiles: string[]
 
   /**
    * ## cache.buildDependencies
@@ -15,27 +17,25 @@ declare interface Cache extends Service {
    * Dependencies which should be checked to determine cache
    * validity.
    */
-  buildDependencies: string[]
+  buildDependencies(): string[]
 
   /**
-   * ## cache.cacheName
+   * ## cache.cacheLocation
    */
-  cacheName: string
+  directory(): string
 
   /**
-   * ## cache.enabled
-   *
-   * Returns boolean true if cache is enabled
-   *
-   * Cache is enabled when there is a cache record to read on disk and
-   * the buildCache feature is enabled.
-   *
-   * ```js
-   * app.cache.enabled()
-   * // => true if cache is enabled
-   * ```
+   * ## cache.hash
    */
-  enabled(): boolean
+  hash(): string
+
+  /**
+   * ## cache.version
+   *
+   * A hash created from the stringified contents of the project config files
+   * and its dependencies.
+   */
+  version(): string
 }
 
 export {Cache}

@@ -52,18 +52,11 @@ export function config(this: Framework): void {
 
   this.hooks
     .on('build/bail', true)
-    .hooks.on('build/cache/name', () => undefined)
-    .hooks.on('build/cache/version', () => undefined)
-    .hooks.on('build/cache/type', () => 'memory')
-    .hooks.on('build/cache/cacheDirectory', () => undefined)
-    .hooks.on('build/cache/cacheLocation', () => undefined)
-    .hooks.on('build/cache/buildDependencies', undefined)
-    .hooks.on('build/cache/managedPaths', () => undefined)
     .hooks.on('build/experiments', () => ({
       lazyCompilation: false,
     }))
     .hooks.on('build/infrastructureLogging', () => ({
-      level: 'none',
+      console: this.logger.instance,
     }))
     .hooks.on('build/node', false)
     .hooks.on('build/context', () => this.path('project'))
