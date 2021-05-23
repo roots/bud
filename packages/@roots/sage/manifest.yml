@@ -6,6 +6,7 @@ peers:
   - '@roots/bud-wordpress-dependencies'
   - '@roots/bud-entrypoints'
   - '@roots/bud-esbuild'
+  - '@roots/bud-eslint'
   - '@roots/bud-wordpress-externals'
   - '@roots/bud-wordpress-manifests'
   - '@roots/bud-postcss'

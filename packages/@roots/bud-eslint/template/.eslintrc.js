@@ -20,7 +20,7 @@ module.exports = {
     ecmaVersion: 2017,
     sourceType: 'module',
   },
-  plugins: ['import'],
+  plugins: ['import', 'plugin:prettier/recommended'],
   settings: {
     'import/core-modules': [],
     'import/ignore': [

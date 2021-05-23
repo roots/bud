@@ -1,9 +1,19 @@
-import {Plugin} from '@roots/bud-framework'
+import {Framework, Plugin} from '@roots/bud-framework'
 import EslintPlugin, {Options} from 'eslint-webpack-plugin'
 
-type Extension = Plugin<EslintPlugin, Options>
+interface Extension extends Plugin<EslintPlugin, Options> {
+  api: (app: Framework) => {eslint: EslintConfig}
+}
+
+interface EslintConfig {
+  config(userOptions: Options): Framework
+}
 
 declare module '@roots/bud-framework' {
+  interface Framework {
+    eslint: EslintConfig
+  }
+
   namespace Framework {
     interface Extensions {
       'eslint-webpack-plugin': Extension
@@ -11,4 +21,4 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export type {Extension}
+export type {Extension, EslintConfig}

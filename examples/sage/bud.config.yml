@@ -1,9 +1,9 @@
 extensions:
   - '@roots/sage'
 entry:
-  app: '**/app.{ts,css}'
-  editor: '**/editor.{ts,css}'
-  customizer: '**/customizer.{ts,css}'
+  app: '**/app.{js,css}'
+  editor: '**/editor.{js,css}'
+  customizer: '**/customizer.{js,css}'
 assets:
   - assets/images
 persist: true

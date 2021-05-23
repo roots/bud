@@ -29,5 +29,5 @@ jobs:
         with:
           node-version: ${{matrix.node}}
       - run: yarn --immutable
-      - run: yarn build
+      - run: yarn build:ci
       - run: yarn pkg

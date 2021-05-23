@@ -1,2 +1,13 @@
 name: '@roots/bud-eslint'
 type: extension
+
+templates:
+  - name: recommended preset
+    description: eslint recommended config
+    path: templates/.eslintrc.js
+    to: .eslintrc.js
+
+  - name: typescript preset
+    description: typescript-ready config
+    path: templates/ts.eslintrc.js
+    to: .eslintrc.js

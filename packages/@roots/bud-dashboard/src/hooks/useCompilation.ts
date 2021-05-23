@@ -36,22 +36,18 @@ export const useCompilation: Dashboard.Compilation.Hook = app => {
 
     if (json) {
       setStats(json)
+      setErrors(json.errors)
+      setWarnings(json.errors)
 
       app
         .when(
           json?.hasErrors,
-          () => {
-            setHasErrors(json.hasErrors())
-            setErrors(json.errors)
-          },
+          () => setHasErrors(true),
           () => setErrors(null),
         )
         .when(
           json?.hasWarnings,
-          () => {
-            setHasWarnings(json.hasWarnings())
-            setWarnings(json.warnings)
-          },
+          () => setHasWarnings(true),
           () => setWarnings(null),
         )
     }
@@ -62,14 +58,13 @@ export const useCompilation: Dashboard.Compilation.Hook = app => {
 
     app.compiler.compile(app.build.config)
 
-    app.isProduction &&
-      app.compiler.instance.hooks.done.tap(app.name, () =>
-        app.compiler.instance.close(err => {
-          err && setErrors([err])
-          setClosed(true)
-          setTimeout(process.exit, 2000)
-        }),
-      )
+    app.compiler.instance.hooks.done.tap(app.name, () =>
+      app.compiler.instance.close(err => {
+        err && setErrors([...(errors ?? []), err])
+        setClosed(true)
+        app.isProduction && setTimeout(process.exit, 2000)
+      }),
+    )
 
     new webpack.ProgressPlugin((percentage, message): void => {
       const decimal =

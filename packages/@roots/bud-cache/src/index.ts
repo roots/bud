@@ -3,43 +3,46 @@ import crypto from 'crypto'
 import {mkdirSync, pathExistsSync, readFileSync} from 'fs-extra'
 import {boundMethod as bind} from 'autobind-decorator'
 import {sync} from 'globby'
-import filenamify from 'filenamify'
 
 class Cache extends Service implements Base {
   public name = '@roots/bud-cache'
 
+  public cacheFiles: string[] = []
+
   @bind
-  public booted() {
-    this.enabled() &&
+  public register(): void {
+    this.app.hooks
+      .on('build/cache/name', () => undefined)
+      .hooks.on('build/cache/version', () => undefined)
+      .hooks.on('build/cache/type', () => 'memory')
+      .hooks.on('build/cache/cacheDirectory', () => undefined)
+      .hooks.on('build/cache/cacheLocation', () => undefined)
+      .hooks.on('build/cache/buildDependencies', undefined)
+      .hooks.on('build/cache/managedPaths', () => undefined)
+  }
+
+  @bind
+  public booted(): void {
+    this.app.hooks.filter('build/cache/type') === 'filesystem' &&
       !pathExistsSync(this.app.path('storage')) &&
       mkdirSync(this.app.path('storage'))
   }
 
   @bind
-  public enabled(): boolean {
-    return (
-      this.app.store.isTrue('cache') &&
-      this.app.hooks.filter('build/cache/type') === 'filesystem'
-    )
-  }
-
-  public get version(): string {
+  public version(): string {
     return crypto
       .createHash('md4')
-      .update(this.projectHash)
+      .update(this.hash())
       .digest('hex')
   }
 
-  public get cacheName(): string {
-    return filenamify(
-      `${this.app.name}-${this.app.mode}-${process.argv
-        .slice(3)
-        .join('')}`,
-      {replacement: '⁓'},
-    )
+  @bind
+  public directory(): string {
+    return this.app.path('storage', 'cache')
   }
 
-  public get buildDependencies(): string[] {
+  @bind
+  public buildDependencies(): string[] {
     return sync([
       this.app.path(
         'project',
@@ -53,14 +56,20 @@ class Cache extends Service implements Base {
       ...this.app.discovery.resolveFrom.map(
         dep => `${dep}/lib/cjs/index.js`,
       ),
+      ...this.app.discovery.resolveFrom.map(
+        dep => `${dep}/package.json`,
+      ),
+      ...this.cacheFiles,
+      this.app.path('storage', 'cache/*'),
     ])
   }
 
-  public get projectHash(): string {
+  @bind
+  public hash(): string {
     return JSON.stringify(
-      this.buildDependencies.reduce(
+      this.buildDependencies().reduce(
         (all, file) => all.concat(readFileSync(file, 'utf8')),
-        '',
+        process.argv.slice(3).join(''),
       ) ?? '{}',
     )
   }
