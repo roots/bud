@@ -1,7 +1,7 @@
 {
   "name": "@roots/bud",
   "version": "4.1.0",
-  "description": "A friendly build tool to help manage your project assets.",
+  "description": "A frontend build tooling framework combining the best parts of Symfony Encore and Laravel Mix",
   "homepage": "https://roots.io/bud",
   "repository": {
     "type": "git",
