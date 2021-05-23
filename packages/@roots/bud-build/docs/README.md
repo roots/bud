@@ -10,6 +10,9 @@
   <a href="https://codeclimate.com/github/roots/bud-support/maintainability">
     <img src="https://img.shields.io/codeclimate/maintainability/roots/bud-support?color=%23525ddc&style=flat-square" />
   </a>
+  <a href="https://github.com/roots/bud/actions/workflows/build">
+    <img src="https://github.com/roots/bud/actions/workflows/build.yml/badge.svg" />
+  </a>
   <a href="Typescript" src="https://github.com/roots/bud/tree/stable/typings">
     <img src="https://img.shields.io/badge/typings-%40roots%2Fbud--typings-%23525ddc" />
   </a>
@@ -22,7 +25,7 @@
   <strong>@roots/bud-build</strong>
 </h1>
 
-> Bud webpack config build controller
+> **description**
 
 - [Installation](#installation)
 - [Contributing](#contributing)
