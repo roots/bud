@@ -86,20 +86,26 @@ const fromFile = (srcFile, pkg) => {
 
   const mdv = parseFile(srcFile)
 
-  mdv.contents = pkg && srcFile.includes('README.md') ? _.join(
-    [banner(pkg), mdv.contents.toString(), footer(pkg)],
-    '\n',
-  ) : mdv.contents.toString()
+  mdv.contents =
+    pkg && srcFile.includes('README.md')
+      ? _.join(
+          [banner(pkg), mdv.contents.toString(), footer(pkg)],
+          '\n',
+        )
+      : mdv.contents.toString()
 
   /**
    * Includes
    */
-  const includeMd = (match) => {
+  const includeMd = match => {
     match = match.replace(/\[include\]\((.*?)\)/g, '$1')
     return fs.readFileSync(`${process.cwd()}/${match}`)
   }
-  
-  mdv.contents = (mdv as any).contents.replace(/\[include\]\(.*?\)/g, includeMd)
+
+  mdv.contents = (mdv as any).contents.replace(
+    /\[include\]\(.*?\)/g,
+    includeMd,
+  )
 
   replacements.forEach(([f, r]) => {
     mdv.contents = mdv.contents.replace(f, r)
