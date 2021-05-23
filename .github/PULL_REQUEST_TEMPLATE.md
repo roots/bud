@@ -13,15 +13,8 @@
 - ...
 -->
 
-## Issues fixed
-
-<!--
-- Fixes #1
-- ...
--->
-
 ## Details
 
-<!-- 
-Describe your changes in as much detail as possible 
+<!--
+Describe your changes in as much detail as possible
 -->
