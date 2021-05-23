@@ -339,6 +339,8 @@ namespace Hooks {
   }
 
   export type Name =
+    | `before`
+    | `after`
     | `${Item.Final}`
     | `${Locale.Final}`
     | `${Loader.Final}`

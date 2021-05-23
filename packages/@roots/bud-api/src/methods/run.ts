@@ -3,7 +3,7 @@ import type {Api} from '@roots/bud-framework'
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## bud.run  [💁 Fluent]
+     * ## bud.run
      *
      * Run the build
      *
@@ -22,27 +22,27 @@ declare module '@roots/bud-framework' {
 }
 
 export const run: Api.Run = function (): void {
+  this.hooks.on('before', this)
+
   this.when(
     this.isDevelopment &&
       this.server.config.isTrue('middleware.hot'),
     this.server.inject,
-  ).when(
+  )
+
+  this.hooks.on('after', this.build.config)
+
+  this.when(
     !this.store.isTrue('ci'),
     this.dashboard.run,
     ci.bind(this),
   )
 }
 
-/**
- * Run CI Mode
- */
 function ci() {
   this.when(this.isDevelopment, dev.bind(this), prod.bind(this))
 }
 
-/**
- * Run in development
- */
 function dev() {
   const instance = this.compiler.compile(this.build.config)
 
@@ -51,9 +51,6 @@ function dev() {
   this.server.run(instance)
 }
 
-/**
- * Run in production
- */
 function prod() {
   const instance = this.compiler.compile(this.build.config)
 

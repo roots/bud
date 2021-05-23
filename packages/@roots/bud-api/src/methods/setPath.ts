@@ -3,7 +3,7 @@ import {Framework} from '@roots/bud-framework'
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## bud.setPath [💁 Fluent]
+     * ## bud.setPath
      *
      * Set a directory. The project directory should be an absolute path.
      * All other directories should be relative (src, dist, etc.)

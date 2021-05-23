@@ -3,7 +3,7 @@ import {Api} from '@roots/bud-framework'
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## bud.minimize  [💁 Fluent]
+     * ## bud.minimize
      *
      * `bud.minimize` enables minification of built assets.
      *

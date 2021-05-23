@@ -3,7 +3,7 @@ import {Api} from '@roots/bud-framework'
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## bud.hash  [💁 Fluent]
+     * ## bud.hash
      *
      * Enable filename hashing of built assets.
      *
