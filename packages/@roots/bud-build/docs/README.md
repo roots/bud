@@ -25,7 +25,7 @@
   <strong>@roots/bud-build</strong>
 </h1>
 
-> **description**
+> Bud webpack config build controller
 
 - [Installation](#installation)
 - [Contributing](#contributing)

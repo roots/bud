@@ -25,7 +25,7 @@
   <strong>@roots/bud-babel</strong>
 </h1>
 
-> **description**
+> A friendly build tool to help manage your project assets.
 
 - [Installation](#installation)
 - [Usage](#usage)

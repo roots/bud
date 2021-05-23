@@ -25,7 +25,7 @@
   <strong>@roots/wordpress-dependencies-webpack-plugin</strong>
 </h1>
 
-> **description**
+> undefined
 
 - [Overview](#overview)
 - [Usage](#usage)

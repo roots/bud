@@ -25,7 +25,7 @@
   <strong>@roots/bud-postcss</strong>
 </h1>
 
-> **description**
+> Adds postcss support to [**@roots/bud**](https://github.com/roots/bud) projects
 
 - [Overview](#overview)
 - [toc](#toc-1)

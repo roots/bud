@@ -25,7 +25,7 @@
   <strong>@roots/bud-compress</strong>
 </h1>
 
-> **description**
+> Adds gzip and brotli compression to Bud
 
 - [Overview](#overview)
 - [Installation](#installation)

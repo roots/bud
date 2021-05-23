@@ -25,7 +25,7 @@
   <strong>@roots/bud-react</strong>
 </h1>
 
-> **description**
+> React support for [**@roots/bud**](https://github.com/roots/bud) projects.
 
 - [Requirements](#requirements)
 - [Installation](#installation)

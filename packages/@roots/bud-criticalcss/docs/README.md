@@ -25,7 +25,7 @@
   <strong>@roots/bud-criticalcss</strong>
 </h1>
 
-> **description**
+> Adds critical.css support to Bud
 
 - [Installation](#installation)
 - [Usage](#usage)

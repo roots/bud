@@ -25,6 +25,6 @@
   <strong>__name__</strong>
 </h1>
 
-> **description**
+> __description__
 
 ## toc

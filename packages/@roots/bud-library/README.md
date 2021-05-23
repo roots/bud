@@ -25,7 +25,7 @@
   <strong>@roots/bud-library</strong>
 </h1>
 
-> **description**
+> Adds dynamic link library support to Bud
 
 - [Summary](#summary)
 - [Installation](#installation)

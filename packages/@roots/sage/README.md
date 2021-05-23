@@ -25,7 +25,7 @@
   <strong>@roots/sage</strong>
 </h1>
 
-> **description**
+> [**@roots/sage**](https://github.com/roots/sage) preset for [**@roots/bud**](https://github.com/roots/bud)
 
 - [Features](#features)
 - [Contributing](#contributing)

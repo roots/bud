@@ -25,7 +25,7 @@
   <strong>@roots/bud-imagemin</strong>
 </h1>
 
-> **description**
+> Image minification for [**@roots/bud**](https://github.com/roots/bud/tree/stable/packages/@roots/bud) projects
 
 - [Summary](#summary)
 - [Installation](#installation)

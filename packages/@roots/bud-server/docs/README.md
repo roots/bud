@@ -25,7 +25,7 @@
   <strong>@roots/bud-server</strong>
 </h1>
 
-> **description**
+> Development server for [**@roots/bud**](https://github.com/roots/bud)
 
 - [Installation](#installation)
 - [Overview](#overview)

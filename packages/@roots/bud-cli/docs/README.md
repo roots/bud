@@ -25,7 +25,7 @@
   <strong>@roots/bud-cli</strong>
 </h1>
 
-> **description**
+> 👩‍💻 The [**@roots/bud**](https://github.com/roots/bud) CLI runner utility
 
 - [Installation](#installation)
 - [Getting started](#getting-started)

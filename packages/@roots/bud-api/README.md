@@ -25,7 +25,7 @@
   <strong>@roots/bud-api</strong>
 </h1>
 
-> **description**
+> Bud configuration API
 
 - [Methods](#methods)
 - [Contributing](#contributing)

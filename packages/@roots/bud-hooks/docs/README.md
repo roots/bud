@@ -25,7 +25,7 @@
   <strong>@roots/bud-hooks</strong>
 </h1>
 
-> **description**
+> Hooks controller for Bud
 
 - [Installation](#installation)
 - [bud.hooks.on](#budhookson)

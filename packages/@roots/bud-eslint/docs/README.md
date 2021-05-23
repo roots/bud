@@ -25,7 +25,7 @@
   <strong>@roots/bud-eslint</strong>
 </h1>
 
-> **description**
+> Adds eslint support to Bud
 
 - [Installation](#installation)
 - [Usage](#usage)

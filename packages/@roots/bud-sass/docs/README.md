@@ -25,7 +25,7 @@
   <strong>@roots/bud-sass</strong>
 </h1>
 
-> **description**
+> Sass support
 
 - [Overview](#overview)
 - [toc](#toc-1)

@@ -25,7 +25,7 @@
   <strong>@roots/entrypoints-webpack-plugin</strong>
 </h1>
 
-> **description**
+> undefined
 
 - [Overview](#overview)
 - [Installation](#installation)

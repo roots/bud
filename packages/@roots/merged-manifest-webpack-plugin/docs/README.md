@@ -25,7 +25,7 @@
   <strong>@roots/merged-manifest-webpack-plugin</strong>
 </h1>
 
-> **description**
+> undefined
 
 - [Overview](#overview)
 - [Really, three plugins?](#really-three-plugins)

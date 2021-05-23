@@ -25,7 +25,7 @@
   <strong>@roots/bud-preset-recommend</strong>
 </h1>
 
-> **description**
+> Recommended preset for Bud projects
 
 - [Overview](#overview)
 - [Requirements](#requirements)

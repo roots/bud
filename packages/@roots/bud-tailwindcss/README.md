@@ -25,7 +25,7 @@
   <strong>@roots/bud-tailwindcss</strong>
 </h1>
 
-> **description**
+> Adds tailwindcss support to Bud
 
 - [Requirements](#requirements)
 - [Installation](#installation)
