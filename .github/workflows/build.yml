@@ -3,32 +3,31 @@ name: build
 on:
   push:
     paths:
-      - packages/*/src/*
-      - packages/*/src/**/*
+      - packages/**/*/package.json
+      - packages/**/*/src/*
+      - packages/**/*/src/**/*
       - yarn.lock
-  pull_request:
-    paths:
-      - '!*.MD'
-      - '!*.md'
+    pull_request:
+      branches:
+        - stable
 
 jobs:
-  test:
+  build:
     strategy:
       matrix:
         platform:
           - ubuntu-latest
-        node: 
-          - 14.9.0
+        node:
+          - 15.11.0
     name: test ${{matrix.node}}/${{matrix.platform}}
     runs-on: ${{matrix.platform}}
     steps:
-      - uses: actions/checkout@master
-      - uses: actions/setup-node@master
+      - uses: actions/checkout@v2
+        with:
+          fetch-depth: 0
+      - uses: actions/setup-node@v1
         with:
           node-version: ${{matrix.node}}
-      - run: yarn
+      - run: yarn --immutable
       - run: yarn build
-      - run: yarn docs
-      - run: yarn lint
       - run: yarn pkg
-

@@ -21,28 +21,8 @@ Templates applied to monorepo packages will pull the name and description of the
 
 ### Reserved md tags
 
-There are markdown tags to make linking a little less of a chore:
+There are markdown tags to make linking a little less of a chore.
 
-Link to doc page:
-
-```md
-Link to [documentation](https://github.com/roots/bud/tree/stable/docs/config/entry.md)
-```
-
-Link to a repo package by surrounding a roots package name with backticks:
-
-```md
-Link to [**@roots/bud**](https://github.com/roots/bud/tree/stable/packages/@roots/bud)
-```
-
-Link anywhere in the repo:
-
-```md
-Link to [bud package src directory](https://github.com/roots/bud/tree/stable/packages/@roots/bud/src)
-```
-
-Link to a github project:
-
-```md
-Link to @roots/sage
-```
+- Link to a doc page with `docs:config/entry` as an md url
+- Link to a repo path using `url:packages/@roots/bud/src` as an md link url
+- Link to a roots package by surrounding a package name with backticks: (like '[**@roots/bud**](https://github.com/roots/bud)', but using backticks)

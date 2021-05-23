@@ -5,7 +5,7 @@ import path from 'path'
 
 import * as remark from './remark'
 
-const doc = set => {
+const doc = (set, rootReadme = false) => {
   set.map(doc => {
     const md = remark.fromFile(doc.source, doc.pkg)
     const output = prettier.format(md, {parser: 'markdown'})
@@ -14,7 +14,7 @@ const doc = set => {
 
     fs.writeFileSync(doc.destination, output, 'utf8')
 
-    doc.pkg &&
+    rootReadme &&
       doc.destination.includes('README.md') &&
       fs.writeFileSync(
         doc.destination.replace('/docs/', '/'),
@@ -45,6 +45,7 @@ const docs = () => {
           destination: source.replace('src/docs', 'docs'),
           source,
         })),
+        true,
       )
     })
 
@@ -73,7 +74,9 @@ const docs = () => {
 
   doc(
     glob
-      .sync([`${process.cwd()}/packages/@roots/bud-api/src/docs/*.md`])
+      .sync([
+        `${process.cwd()}/packages/@roots/bud-api/src/docs/*.md`,
+      ])
       .map(source => ({
         pkg: null,
         source,
@@ -82,7 +85,7 @@ const docs = () => {
           '/docs/config/',
         ),
       })),
-  )  
+  )
 
   fs.copyFile(
     `${process.cwd()}/packages/@roots/bud/README.md`,

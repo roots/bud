@@ -1,7 +1,3 @@
----
-description: Generate HTML boilerplate.
----
-
 # bud.template
 
 This enables and/or configures boilerplate HTML generated for your project. This HTML includes the path to your built assets automatically.
