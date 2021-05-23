@@ -26,6 +26,7 @@
   },
   "scripts": {
     "build": "yarn workspaces foreach --parallel --topological --topological-dev --interlaced --verbose run build",
+    "build:ci": "yarn workspaces foreach --topological --topological-dev --recursive --verbose run build",
     "clean": "yarn workspaces foreach --all --topological --topological-dev --parallel --verbose run clean",
     "lint": "yarn prettier 'packages/@roots/*/{src,lib}/**/*.{ts,js,md,json,yml}' --write",
     "pkg": "yarn workspaces foreach --parallel --topological --topological-dev --interlaced --verbose run pkg",
