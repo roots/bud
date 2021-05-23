@@ -25,11 +25,11 @@
     ]
   },
   "scripts": {
-    "build": "yarn workspaces foreach --parallel --topological --topological-dev --interlaced --verbose run build",
-    "build:ci": "yarn workspaces foreach --topological --topological-dev --recursive --verbose run build",
-    "clean": "yarn workspaces foreach --all --topological --topological-dev --parallel --verbose run clean",
+    "build": "yarn workspaces foreach --exclude bud --topological --topological-dev --interlaced --parallel --verbose run build",
+    "build:ci": "yarn workspaces foreach --exclude bud --topological --topological-dev --interlaced --verbose run build",
+    "clean": "yarn workspaces foreach --exclude bud --topological --topological-dev --verbose run clean",
     "lint": "yarn prettier 'packages/@roots/*/{src,lib}/**/*.{ts,js,md,json,yml}' --write",
-    "pkg": "yarn workspaces foreach --parallel --topological --topological-dev --interlaced --verbose run pkg",
+    "pkg": "yarn workspaces foreach --interlaced --verbose run pkg",
     "docs": "yarn node ./dev/docs/gen/cli.js",
     "test": "jest --verbose"
   },

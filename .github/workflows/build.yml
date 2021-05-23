@@ -19,7 +19,7 @@ jobs:
           - ubuntu-latest
         node:
           - 15.11.0
-    name: test ${{matrix.node}}/${{matrix.platform}}
+    name: test node@${{matrix.node}}/${{matrix.platform}}
     runs-on: ${{matrix.platform}}
     steps:
       - uses: actions/checkout@v2
