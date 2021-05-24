@@ -1,0 +1,20 @@
+version: 2
+
+updates:
+  - package-ecosystem: "npm"
+    target-branch: "stable"
+    directory: "/"
+    schedule:
+      interval: "daily"
+    labels:
+      - dependencies
+
+  - package-ecosystem: "npm"
+    target-branch: "stable"
+    directory: "/packages/@roots/*"
+    schedule:
+      interval: "daily"
+    ignore:
+      - dependency-name: "@roots/*"
+    labels:
+      - dependencies
