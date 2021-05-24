@@ -2279,7 +2279,6 @@ __metadata:
   resolution: "@roots/bud-api@workspace:packages/@roots/bud-api"
   dependencies:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
-    "@roots/bud-typings": "workspace:packages/@roots/bud-typings"
     "@types/lodash": ^4.14.168
     "@types/node": ^15.0.0
     autobind-decorator: ^2.4.0
@@ -2340,7 +2339,6 @@ __metadata:
   resolution: "@roots/bud-cache@workspace:packages/@roots/bud-cache"
   dependencies:
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
-    "@roots/bud-typings": "workspace:packages/@roots/bud-typings"
     "@types/fs-extra": ^9.0.11
     "@types/node": ^15.0.0
     autobind-decorator: ^2.4.0
@@ -2398,7 +2396,6 @@ __metadata:
   dependencies:
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
-    "@roots/bud-typings": "workspace:packages/@roots/bud-typings"
     "@types/node": ^15.0.0
     autobind-decorator: ^2.4.0
     compression-webpack-plugin: ^7.1.2

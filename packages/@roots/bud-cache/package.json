@@ -57,7 +57,6 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@roots/bud-typings": "workspace:packages/@roots/bud-typings",
     "@types/fs-extra": "^9.0.11",
     "@types/node": "^15.0.0"
   },
