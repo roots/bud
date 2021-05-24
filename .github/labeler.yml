@@ -3,7 +3,7 @@
   - packages/@roots/bud/**
 '@roots/bud-api':
   - packages/@roots/bud-api/*
-  - packages/@roots/bud-api/*
+  - packages/@roots/bud-api/**
 '@roots/bud-babel':
   - packages/@roots/bud-babel/*
   - packages/@roots/bud-babel/**
@@ -150,4 +150,6 @@
 'dependencies':
   - package.lock
 'test':
-  - src/**/*.spec.js
+  - src/**/*.test.js
+  - tests/*
+  - tests/**/*
