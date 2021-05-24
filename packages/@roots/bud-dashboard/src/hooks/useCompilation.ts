@@ -56,19 +56,19 @@ export const useCompilation: Dashboard.Compilation.Hook = app => {
   useEffect(() => {
     if (app.compiler.isCompiled) return
 
-    app.compiler.compile(app.build.config)
+    app.compiler.compile(app.hooks.filter('after'))
 
     app.compiler.instance.hooks.done.tap(app.name, () =>
       app.compiler.instance.close(err => {
         err && setErrors([...(errors ?? []), err])
         setClosed(true)
-        app.isProduction && setTimeout(process.exit, 2000)
+        app.isProduction && setTimeout(process.exit, 1000)
       }),
     )
 
     new webpack.ProgressPlugin((percentage, message): void => {
       const decimal =
-        percentage && typeof percentage == 'number'
+        percentage && typeof percentage === 'number'
           ? percentage
           : 0
 

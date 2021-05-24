@@ -50,6 +50,8 @@ export default class extends Service implements Compiler {
       return this.instance
     }
 
+    this.app.hooks.filter('before')
+
     this.instance = webpack(config, cb ?? null)
     this.isCompiled = true
 

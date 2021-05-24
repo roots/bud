@@ -30,8 +30,6 @@ export const run: Api.Run = function (): void {
     this.server.inject,
   )
 
-  this.hooks.on('after', this.build.config)
-
   this.when(
     !this.store.isTrue('ci'),
     this.dashboard.run,
@@ -44,7 +42,9 @@ function ci() {
 }
 
 function dev() {
-  const instance = this.compiler.compile(this.build.config)
+  const instance = this.compiler.compile(
+    this.hooks.filter('after'),
+  )
 
   instance.hooks.done.tap(this.name, this.compiler.callback)
 
@@ -52,10 +52,12 @@ function dev() {
 }
 
 function prod() {
-  const instance = this.compiler.compile(this.build.config)
+  const instance = this.compiler.compile(
+    this.hooks.filter('after'),
+  )
 
   instance.hooks.done.tap(this.name, () =>
-    setTimeout(process.exit, 2000),
+    setTimeout(process.exit, 1000),
   )
 
   instance.run(this.compiler.callback)
