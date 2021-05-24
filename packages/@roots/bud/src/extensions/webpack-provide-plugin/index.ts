@@ -1,6 +1,9 @@
 import {ProvidePlugin as Plugin} from 'webpack'
 import type {Module} from '@roots/bud-framework'
-import type {Index} from '@roots/bud-typings'
+
+interface Index<T> {
+  [key: string]: T
+}
 
 const extension: Module<Plugin, Index<{[key: string]: any}>> = {
   name: 'webpack-provide-plugin',

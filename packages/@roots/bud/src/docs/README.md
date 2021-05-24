@@ -79,7 +79,7 @@ minimize: true
 devtool: 'eval-source-map'
 ```
 
-For more on configuring @roots/bud check out the [dedicated documentation](docs:config/README).
+For more on configuring `@roots/bud` check out the [dedicated documentation](docs:config/README).
 
 ## Running a build
 

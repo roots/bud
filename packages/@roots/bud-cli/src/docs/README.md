@@ -58,7 +58,7 @@ Try the `--install` flag to install packages flagged as required by various exte
 
 ## Running the build in CI
 
-It is possible, depending on your environment, that Bud's CLI output causes issues. In particular, it's usage of tty `raw mode` can cause issues with CI tools.
+It is possible, depending on your environment, that Bud's CLI output causes issues. In particular, it's usage of tty `raw mode` can cause issues in CI.
 
 To run the build but not use the `@roots/bud-cli` renderer, there is a `--ci` flag which indicates you want to run the build for these environments.
 

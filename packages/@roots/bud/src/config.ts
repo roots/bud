@@ -1,11 +1,11 @@
-import {Hooks, Server} from '@roots/bud-typings'
+import {Hooks, Server} from '@roots/bud-framework'
 import {Theme} from '@roots/ink-use-style'
 import Webpack from 'webpack/types'
 import {cpus} from 'os'
 
 interface Configuration {
   /**
-   * Regular expression library
+   * Regular expressions for convenience when doing pattern matching.
    *
    * @example
    *
@@ -22,6 +22,7 @@ interface Configuration {
 
   /**
    * Feature: CI mode
+   *
    * @default false
    */
   ci: boolean

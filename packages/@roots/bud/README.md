@@ -122,7 +122,7 @@ minimize: true
 devtool: "eval-source-map"
 ```
 
-For more on configuring [**@roots/bud**](https://github.com/roots/bud) check out the [dedicated documentation](https://github.com/roots/bud/tree/stable/docs/config/README.md).
+For more on configuring [**@roots/bud**](https://github.com/roots/bud/tree/stable/packages/@roots/bud) check out the [dedicated documentation](https://github.com/roots/bud/tree/stable/docs/config/README.md).
 
 ## Running a build
 

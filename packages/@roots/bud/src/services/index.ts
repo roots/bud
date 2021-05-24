@@ -3,7 +3,6 @@ import {
   Service,
   Bootstrapper,
 } from '@roots/bud-framework'
-import {Index} from '@roots/bud-typings'
 import {Api} from '@roots/bud-api'
 import {Build} from '@roots/bud-build'
 import {Cache} from '@roots/bud-cache'
@@ -18,9 +17,11 @@ import {Hooks} from './Hooks/index'
 import {Logger} from './Logger/index'
 import {Server} from './Server/index'
 
-type Services = Index<
-  new (app: Framework['get']) => Service | Bootstrapper
->
+interface Services {
+  [key: string]: new (app: Framework['get']) =>
+    | Service
+    | Bootstrapper
+}
 
 export const services: Services = {
   api: Api,

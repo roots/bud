@@ -15,12 +15,13 @@
 
 ## Overview
 
-This package contains typescript deifnitions for the core Framework packages.
+This package contains typings for the core Framework packages.
 
 ## Details
 
-These types are included separately to allow framework packages and the core
-framework to reference types bi-directionally without producing cyclical dependency issues.
+This package is not currently used by the framework (since v4.0.0).
+
+You can import types from the packages directly. Core interfaces are exported from `@roots/bud-framework`.
 
 ## Contributing
 
