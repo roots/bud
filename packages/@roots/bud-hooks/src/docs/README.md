@@ -70,3 +70,7 @@ now have access to this value and can modify it.
 ```js
 bud.hooks.on('some-key', value => value.shift())
 ```
+
+## Hooks reference
+
+There is a compiled list of hooks used by @roots/bud core [available here](url:packages/@roots/bud-hooks/docs/hooks.md).

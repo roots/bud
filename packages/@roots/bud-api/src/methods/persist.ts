@@ -19,7 +19,7 @@ declare module '@roots/bud-framework' {
   }
 
   namespace Api {
-    type Persist = (enabled: boolean) => Framework
+    type Persist = (enabled?: boolean) => Framework
   }
 }
 
