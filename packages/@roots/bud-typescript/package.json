@@ -75,6 +75,6 @@
     "autobind-decorator": "^2.4.0",
     "fork-ts-checker-webpack-plugin": "^6.2.5",
     "globby": "^11.0.3",
-    "ts-loader": "^9.1.1"
+    "ts-loader": "^9.2.2"
   }
 }
