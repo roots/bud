@@ -1,4 +1,4 @@
-const {Bud, config, services} = require('@roots/bud')
+import {Bud, config, services} from '@roots/bud'
 
 describe('hashed filenames', () => {
   it('is not applied by default', () => {
@@ -21,3 +21,5 @@ describe('hashed filenames', () => {
     )
   })
 })
+
+export {}
