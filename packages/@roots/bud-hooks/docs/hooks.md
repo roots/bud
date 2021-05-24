@@ -1,6 +1,6 @@
 # Hooks
 
-This is a work-in-progress index of all hooks registered by [**@roots/bud**](https://github.com/roots/bud/tree/stable/packages/@roots/bud) core packages.
+Below is a work-in-progress index of all hooks registered by [**@roots/bud**](https://github.com/roots/bud/tree/stable/packages/@roots/bud) core packages.
 
 Most `build` related hooks can be found in [**@roots/bud-build**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-build).
 

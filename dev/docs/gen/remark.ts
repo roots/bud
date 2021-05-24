@@ -40,8 +40,6 @@ const banner = pkg => {
     require.resolve('../src/templates/banner.md'),
   )
 
-  console.log(banner.contents.toString())
-
   banner.contents = Buffer.from(
     banner.contents
       .toString()
