@@ -28,10 +28,8 @@ declare module '@roots/bud-framework' {
 }
 
 const lazy: Api.Lazy = function (enabled = true) {
-  this.hooks.on(
-    'build/experiments/lazyCompilation',
-    () => enabled,
-  )
+  this.hooks.on('build/experiments/lazyCompilation', enabled)
+
   return this
 }
 

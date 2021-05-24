@@ -18,11 +18,14 @@ class Build extends Service {
   public items: {[key: string]: Item} = {}
 
   public get config(): Webpack.Configuration {
-    return this.app.hooks.filter<Webpack.Configuration>('build')
+    return this.app.hooks.filter('build')
   }
 
   @bind
   public register(): void {
+    this.app.hooks.on('before', () => this.app)
+    this.app.hooks.on('after', () => this.config)
+
     this.loaders = {
       css: new Loader(require.resolve('css-loader')),
       style: new Loader(require.resolve('style-loader')),

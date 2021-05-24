@@ -5,7 +5,7 @@ import {isArray, isString} from 'lodash'
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## entry [💁 Fluent]
+     * ## entry
      *
      * Generate application entrypoints from source asset paths.
      *

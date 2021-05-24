@@ -4,7 +4,7 @@ import Webpack from 'webpack'
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## bud.externals  [💁 Fluent]
+     * ## externals
      *
      * Specify a non-standard resolution strategy for modules
      * with a matching name.
@@ -26,7 +26,7 @@ declare module '@roots/bud-framework' {
   }
 }
 
-export const externals: Api.Externals = function (externals) {
+const externals: Api.Externals = function (externals) {
   this.hooks.on(
     'build/externals',
     (existant: Webpack.Configuration['externals']) =>
@@ -38,3 +38,5 @@ export const externals: Api.Externals = function (externals) {
 
   return this
 }
+
+export {externals}

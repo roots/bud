@@ -6,8 +6,16 @@ To utilize the path set here you may use [publicPath](docs:config/publicPath)
 
 ## Usage
 
-Set the public path:
+Set the public path using a string
 
 ```js
 bud.setPublicPath('/app/themes/sage/dist')
+```
+
+Set the public path using a function
+
+```js
+bud.setPublicPath(publicPath => {
+  return `https://cdn.com/${publicPath}`
+})
 ```

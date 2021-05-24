@@ -1,5 +1,4 @@
 import {Api} from '@roots/bud-framework'
-import {isEqual} from 'lodash'
 
 declare module '@roots/bud-framework' {
   interface Framework {
@@ -20,39 +19,47 @@ declare module '@roots/bud-framework' {
   }
 
   namespace Api {
-    type Persist = () => Framework
+    type Persist = (enabled: boolean) => Framework
   }
 }
 
 const persist: Api.Persist = function (enabled = true) {
-  isEqual(enabled, true) &&
-    this.hooks
-      .on('build/cache', () => ({
-        type: this.hooks.filter('build/cache/type'),
-        version: this.hooks.filter('build/cache/version'),
-        cacheDirectory: this.hooks.filter(
-          'build/cache/cacheDirectory',
-        ),
-        managedPaths: this.hooks.filter(
-          'build/cache/managedPaths',
-        ),
-        buildDependencies: this.hooks.filter(
-          'build/cache/buildDependencies',
-        ),
-      }))
-
-      .hooks.on('build/cache/version', this.cache.version)
-      .hooks.on('build/cache/type', () => 'filesystem')
-      .hooks.on(
+  this.hooks
+    .on('build/cache', () => ({
+      type: this.hooks.filter('build/cache/type'),
+      version: this.hooks.filter('build/cache/version'),
+      cacheDirectory: this.hooks.filter(
         'build/cache/cacheDirectory',
-        this.cache.directory,
-      )
-      .hooks.on('build/cache/buildDependencies', () => ({
-        bud: this.cache.buildDependencies(),
-      }))
-      .hooks.on('build/cache/managedPaths', () => {
-        return [this.path('modules')]
-      })
+      ),
+      managedPaths: this.hooks.filter(
+        'build/cache/managedPaths',
+      ),
+      buildDependencies: this.hooks.filter(
+        'build/cache/buildDependencies',
+      ),
+    }))
+
+    .hooks.on(
+      'build/cache/version',
+      enabled ? this.cache.version : undefined,
+    )
+    .hooks.on('build/cache/type', () =>
+      enabled ? 'filesystem' : 'memory',
+    )
+    .hooks.on(
+      'build/cache/cacheDirectory',
+      enabled ? this.cache.directory : undefined,
+    )
+    .hooks.on('build/cache/buildDependencies', () =>
+      enabled
+        ? {
+            bud: this.cache.buildDependencies(),
+          }
+        : undefined,
+    )
+    .hooks.on('build/cache/managedPaths', () =>
+      enabled ? [this.path('modules')] : undefined,
+    )
 
   return this
 }

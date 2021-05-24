@@ -3,7 +3,7 @@ import {Framework} from '@roots/bud-framework'
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## bud.provide  [💁 Fluent]
+     * ## provide
      *
      * Makes a variable/module available throughout the entire
      * application without needing to import it explicitly.

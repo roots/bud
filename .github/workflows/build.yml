@@ -30,4 +30,6 @@ jobs:
           node-version: ${{matrix.node}}
       - run: yarn --immutable
       - run: yarn build:ci
+        env:
+          NODE_OPTIONS: '--max-old-space-size=2048'
       - run: yarn pkg

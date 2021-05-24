@@ -4,7 +4,7 @@ import type Webpack from 'webpack'
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## runtime  [💁 Fluent]
+     * ## runtime
      *
      * Generate a runtime chunk intended to be inlined on the page.
      *

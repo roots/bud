@@ -1,32 +1,49 @@
-import {Framework} from '@roots/bud-framework'
+import {Api} from '@roots/bud-framework'
+import {isFunction, isString} from 'lodash'
 
 declare module '@roots/bud-framework' {
   interface Framework {
     /**
-     * ## bud.setPublicPath  [💁 Fluent]
+     * ## setPublicPath
      *
      * By default it is assumed that assets are served from webroot (`/`).
-     * You can use this method to replace this value for apps  served from
+     * You can use this method to replace this value for apps served from
      * a subdirectory.
      *
      * ### Usage
      *
-     * Set the default path for a [@roots/sage project](https://github.com/roots/sage):
+     * Set the default path using a string
      *
      * ```js
-     * bud.setPublicPath('/app/themes/sage/dist')
+     * app.setPublicPath('/app/themes/sage/dist')
+     * ```
+     *
+     * Set the publicPath using a function.
+     *
+     * ```js
+     * app.setPublicPath(publicPath => {
+     *   return `web/assets/${publicPath}`
+     * })
      * ```
      */
-    setPublicPath: SetPublicPath
+    setPublicPath: Api.SetPublicPath
+  }
+
+  namespace Api {
+    type SetPublicPath = (
+      publicPath: string | ((publicPath: string) => string),
+    ) => Framework
   }
 }
 
-type SetPublicPath = (publicPath: string) => Framework
+const setPublicPath: Api.SetPublicPath = function (publicPath) {
+  isString(publicPath) &&
+    this.hooks.on('location/publicPath', () => publicPath)
 
-export const setPublicPath: SetPublicPath = function (
-  publicPath,
-) {
-  this.hooks.on('location/publicPath', () => publicPath)
+  isFunction(publicPath) &&
+    this.hooks.on('location/publicPath', publicPath)
 
   return this
 }
+
+export {setPublicPath}
