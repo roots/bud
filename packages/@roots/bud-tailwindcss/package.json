@@ -62,11 +62,9 @@
     "postcss": "^8.2.13"
   },
   "dependencies": {
-    "@roots/bud-dashboard": "workspace:*",
-    "@roots/bud-extensions": "workspace:*",
-    "@roots/bud-framework": "workspace:*",
-    "@roots/bud-postcss": "workspace:*",
-    "@roots/bud-support": "workspace:*",
+    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
+    "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
     "@tailwindcss/jit": "^0.1.18",
     "autobind-decorator": "^2.4.0",
     "tailwindcss": "^2.1.2"

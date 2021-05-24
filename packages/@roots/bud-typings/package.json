@@ -28,8 +28,5 @@
   "files": [
     "./contracts"
   ],
-  "types": "./contracts/index.d.ts",
-  "devDependencies": {
-    "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
-  }
+  "types": "./contracts/index.d.ts"
 }

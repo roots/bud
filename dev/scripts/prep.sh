@@ -15,7 +15,7 @@ rm -rf node_modules
 
 yarn cache clean
 
-yarn --immutable
+yarn
 yarn build
 
 yarn lint

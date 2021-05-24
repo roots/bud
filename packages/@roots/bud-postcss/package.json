@@ -59,13 +59,13 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
+    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/node": "^15.0.0",
     "@types/signale": "^1.4.1"
   },
   "dependencies": {
-    "@roots/bud-build": "workspace:*",
-    "@roots/bud-extensions": "workspace:*",
-    "@roots/bud-framework": "workspace:*",
+    "@roots/bud-build": "workspace:packages/@roots/bud-build",
     "autobind-decorator": "^2.4.0",
     "postcss": "^8.2.13",
     "postcss-import": "^14.0.1",

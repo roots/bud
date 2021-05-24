@@ -2274,7 +2274,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@roots/bud-api@workspace:*, @roots/bud-api@workspace:packages/@roots/bud-api":
+"@roots/bud-api@workspace:packages/@roots/bud-api":
   version: 0.0.0-use.local
   resolution: "@roots/bud-api@workspace:packages/@roots/bud-api"
   dependencies:
@@ -2377,7 +2377,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud-compiler@workspace:*, @roots/bud-compiler@workspace:packages/@roots/bud-compiler":
+"@roots/bud-compiler@workspace:packages/@roots/bud-compiler":
   version: 0.0.0-use.local
   resolution: "@roots/bud-compiler@workspace:packages/@roots/bud-compiler"
   dependencies:
@@ -2415,13 +2415,13 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud-dashboard@workspace:*, @roots/bud-dashboard@workspace:packages/@roots/bud-dashboard":
+"@roots/bud-dashboard@workspace:packages/@roots/bud-dashboard":
   version: 0.0.0-use.local
   resolution: "@roots/bud-dashboard@workspace:packages/@roots/bud-dashboard"
   dependencies:
-    "@roots/bud-compiler": "workspace:*"
-    "@roots/bud-framework": "workspace:*"
-    "@roots/filesystem": "workspace:*"
+    "@roots/bud-compiler": "workspace:packages/@roots/bud-compiler"
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
+    "@roots/filesystem": "workspace:packages/@roots/filesystem"
     "@roots/ink-use-style": "workspace:packages/@roots/ink-use-style"
     "@types/lodash": ^4.14.168
     "@types/node": ^15.0.0
@@ -2448,10 +2448,10 @@ __metadata:
     "@emotion/css": ^11.1.3
     "@emotion/react": ^11.1.5
     "@emotion/styled": ^11.3.0
-    "@roots/bud-babel": "workspace:*"
-    "@roots/bud-extensions": "workspace:*"
-    "@roots/bud-framework": "workspace:*"
-    "@roots/bud-react": "workspace:*"
+    "@roots/bud-babel": "workspace:packages/@roots/bud-babel"
+    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
+    "@roots/bud-react": "workspace:packages/@roots/bud-react"
     "@types/node": ^15.0.0
     autobind-decorator: ^2.4.0
   languageName: unknown
@@ -2473,8 +2473,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-esbuild@workspace:packages/@roots/bud-esbuild"
   dependencies:
-    "@roots/bud-extensions": "workspace:*"
-    "@roots/bud-framework": "workspace:*"
+    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/lodash": ^4.14.168
     "@types/node": ^15.0.0
     autobind-decorator: ^2.4.0
@@ -2488,8 +2488,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-eslint@workspace:packages/@roots/bud-eslint"
   dependencies:
-    "@roots/bud-extensions": "workspace:*"
-    "@roots/bud-framework": "workspace:*"
+    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/node": ^15.0.0
     autobind-decorator: ^2.4.0
     babel-eslint: ^10.1.0
@@ -2509,8 +2509,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-extensions@workspace:packages/@roots/bud-extensions"
   dependencies:
-    "@roots/bud-framework": "workspace:*"
-    "@roots/bud-hooks": "workspace:*"
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
+    "@roots/bud-hooks": "workspace:packages/@roots/bud-hooks"
     "@types/lodash": ^4.14.168
     "@types/node": ^15.0.0
     autobind-decorator: ^2.4.0
@@ -2523,9 +2523,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-framework@workspace:packages/@roots/bud-framework"
   dependencies:
-    "@roots/container": "workspace:*"
-    "@roots/dependencies": "workspace:*"
-    "@roots/filesystem": "workspace:*"
+    "@roots/container": "workspace:packages/@roots/container"
+    "@roots/dependencies": "workspace:packages/@roots/dependencies"
+    "@roots/filesystem": "workspace:packages/@roots/filesystem"
     "@types/fs-extra": ^9.0.11
     "@types/lodash": ^4.14.168
     "@types/node": ^15.0.0
@@ -2536,12 +2536,12 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud-hooks@workspace:*, @roots/bud-hooks@workspace:packages/@roots/bud-hooks":
+"@roots/bud-hooks@workspace:packages/@roots/bud-hooks":
   version: 0.0.0-use.local
   resolution: "@roots/bud-hooks@workspace:packages/@roots/bud-hooks"
   dependencies:
-    "@roots/bud-framework": "workspace:*"
-    "@roots/container": "workspace:*"
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
+    "@roots/container": "workspace:packages/@roots/container"
     "@types/lodash": ^4.14.168
     "@types/node": ^15.0.0
     autobind-decorator: ^2.4.0
@@ -2554,8 +2554,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-imagemin@workspace:packages/@roots/bud-imagemin"
   dependencies:
-    "@roots/bud-extensions": "workspace:*"
-    "@roots/bud-framework": "workspace:*"
+    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/node": ^15.0.0
     autobind-decorator: ^2.4.0
     image-minimizer-webpack-plugin: ^2.2.0
@@ -2568,8 +2568,8 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-library@workspace:packages/@roots/bud-library"
   dependencies:
-    "@roots/bud-extensions": "workspace:*"
-    "@roots/bud-framework": "workspace:*"
+    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/node": ^15.0.0
     autobind-decorator: ^2.4.0
     autodll-webpack-plugin: ^0.4.2
@@ -2582,9 +2582,9 @@ __metadata:
   resolution: "@roots/bud-mdx@workspace:packages/@roots/bud-mdx"
   dependencies:
     "@mdx-js/loader": ^1.6.22
-    "@roots/bud-build": "workspace:*"
-    "@roots/bud-extensions": "workspace:*"
-    "@roots/bud-framework": "workspace:*"
+    "@roots/bud-build": "workspace:packages/@roots/bud-build"
+    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/node": ^15.0.0
     autobind-decorator: ^2.4.0
     react: ^17.0.2
@@ -2615,12 +2615,12 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-preset-recommend@workspace:packages/@roots/bud-preset-recommend"
   dependencies:
-    "@roots/bud-api": "workspace:*"
-    "@roots/bud-babel": "workspace:*"
-    "@roots/bud-cli": "workspace:*"
-    "@roots/bud-entrypoints": "workspace:*"
-    "@roots/bud-framework": "workspace:*"
-    "@roots/bud-postcss": "workspace:*"
+    "@roots/bud-api": "workspace:packages/@roots/bud-api"
+    "@roots/bud-babel": "workspace:packages/@roots/bud-babel"
+    "@roots/bud-cli": "workspace:packages/@roots/bud-cli"
+    "@roots/bud-entrypoints": "workspace:packages/@roots/bud-entrypoints"
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
+    "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
     "@types/node": ^15.0.0
     autobind-decorator: ^2.4.0
   languageName: unknown
@@ -2643,9 +2643,9 @@ __metadata:
   resolution: "@roots/bud-purgecss@workspace:packages/@roots/bud-purgecss"
   dependencies:
     "@fullhuman/postcss-purgecss": ^4.0.3
-    "@roots/bud-extensions": "workspace:*"
-    "@roots/bud-framework": "workspace:*"
-    "@roots/bud-postcss": "workspace:*"
+    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
+    "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
     "@types/node": ^15.0.0
     autobind-decorator: ^2.4.0
     postcss: ^8.2.13
@@ -2658,9 +2658,9 @@ __metadata:
   dependencies:
     "@babel/preset-react": ^7.13.13
     "@pmmmwh/react-refresh-webpack-plugin": ^0.4.3
-    "@roots/bud-api": "workspace:*"
-    "@roots/bud-babel": "workspace:*"
-    "@roots/bud-framework": "workspace:*"
+    "@roots/bud-api": "workspace:packages/@roots/bud-api"
+    "@roots/bud-babel": "workspace:packages/@roots/bud-babel"
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@svgr/core": ^5.5.0
     "@svgr/webpack": ^5.5.0
     "@types/node": ^15.0.0
@@ -2680,10 +2680,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-sass@workspace:packages/@roots/bud-sass"
   dependencies:
-    "@roots/bud-build": "workspace:*"
-    "@roots/bud-extensions": "workspace:*"
-    "@roots/bud-framework": "workspace:*"
-    "@roots/bud-postcss": "workspace:*"
+    "@roots/bud-build": "workspace:packages/@roots/bud-build"
+    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
+    "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
     "@types/node": ^15.0.0
     autobind-decorator: ^2.4.0
     postcss: ^8.2.13
@@ -2748,11 +2748,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-tailwindcss@workspace:packages/@roots/bud-tailwindcss"
   dependencies:
-    "@roots/bud-dashboard": "workspace:*"
-    "@roots/bud-extensions": "workspace:*"
-    "@roots/bud-framework": "workspace:*"
-    "@roots/bud-postcss": "workspace:*"
-    "@roots/bud-support": "workspace:*"
+    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
+    "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
     "@tailwindcss/jit": ^0.1.18
     "@types/node": ^15.0.0
     autobind-decorator: ^2.4.0
@@ -2779,11 +2777,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-typescript@workspace:packages/@roots/bud-typescript"
   dependencies:
-    "@roots/bud-babel": "workspace:*"
-    "@roots/bud-build": "workspace:*"
-    "@roots/bud-extensions": "workspace:*"
-    "@roots/bud-framework": "workspace:*"
-    "@roots/bud-support": "workspace:*"
+    "@roots/bud-babel": "workspace:packages/@roots/bud-babel"
+    "@roots/bud-build": "workspace:packages/@roots/bud-build"
+    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/node": ^15.0.0
     "@typescript-eslint/parser": ^4.22.0
     autobind-decorator: ^2.4.0
@@ -2801,8 +2798,6 @@ __metadata:
 "@roots/bud-typings@workspace:packages/@roots/bud-typings":
   version: 0.0.0-use.local
   resolution: "@roots/bud-typings@workspace:packages/@roots/bud-typings"
-  dependencies:
-    "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
   languageName: unknown
   linkType: soft
 
@@ -2810,11 +2805,11 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-vue@workspace:packages/@roots/bud-vue"
   dependencies:
-    "@roots/bud-api": "workspace:*"
-    "@roots/bud-babel": "workspace:*"
-    "@roots/bud-build": "workspace:*"
-    "@roots/bud-extensions": "workspace:*"
-    "@roots/bud-framework": "workspace:*"
+    "@roots/bud-api": "workspace:packages/@roots/bud-api"
+    "@roots/bud-babel": "workspace:packages/@roots/bud-babel"
+    "@roots/bud-build": "workspace:packages/@roots/bud-build"
+    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
     "@types/node": ^15.0.0
     autobind-decorator: ^2.4.0
     babel-helper-vue-jsx-merge-props: ^2.0.3
@@ -2849,9 +2844,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-wordpress-externals@workspace:packages/@roots/bud-wordpress-externals"
   dependencies:
-    "@roots/bud-extensions": "workspace:*"
-    "@roots/bud-framework": "workspace:*"
-    "@roots/wordpress-externals-webpack-plugin": "workspace:*"
+    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
+    "@roots/wordpress-externals-webpack-plugin": "workspace:packages/@roots/wordpress-externals-webpack-plugin"
     "@types/node": ^15.0.0
     autobind-decorator: ^2.4.0
   languageName: unknown
@@ -2861,9 +2856,9 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "@roots/bud-wordpress-manifests@workspace:packages/@roots/bud-wordpress-manifests"
   dependencies:
-    "@roots/bud-extensions": "workspace:*"
-    "@roots/bud-framework": "workspace:*"
-    "@roots/merged-manifest-webpack-plugin": "workspace:*"
+    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
+    "@roots/merged-manifest-webpack-plugin": "workspace:packages/@roots/merged-manifest-webpack-plugin"
     "@types/node": ^15.0.0
     autobind-decorator: ^2.4.0
   languageName: unknown
@@ -2952,7 +2947,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/dependencies@workspace:*, @roots/dependencies@workspace:packages/@roots/dependencies":
+"@roots/dependencies@workspace:packages/@roots/dependencies":
   version: 0.0.0-use.local
   resolution: "@roots/dependencies@workspace:packages/@roots/dependencies"
   dependencies:
@@ -2971,7 +2966,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/filesystem@workspace:*, @roots/filesystem@workspace:packages/@roots/filesystem":
+"@roots/filesystem@workspace:packages/@roots/filesystem":
   version: 0.0.0-use.local
   resolution: "@roots/filesystem@workspace:packages/@roots/filesystem"
   dependencies:
@@ -3012,7 +3007,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/merged-manifest-webpack-plugin@workspace:*, @roots/merged-manifest-webpack-plugin@workspace:packages/@roots/merged-manifest-webpack-plugin":
+"@roots/merged-manifest-webpack-plugin@workspace:packages/@roots/merged-manifest-webpack-plugin":
   version: 0.0.0-use.local
   resolution: "@roots/merged-manifest-webpack-plugin@workspace:packages/@roots/merged-manifest-webpack-plugin"
   dependencies:
@@ -3075,7 +3070,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/wordpress-externals-webpack-plugin@workspace:*, @roots/wordpress-externals-webpack-plugin@workspace:packages/@roots/wordpress-externals-webpack-plugin":
+"@roots/wordpress-externals-webpack-plugin@workspace:packages/@roots/wordpress-externals-webpack-plugin":
   version: 0.0.0-use.local
   resolution: "@roots/wordpress-externals-webpack-plugin@workspace:packages/@roots/wordpress-externals-webpack-plugin"
   dependencies:
@@ -3383,7 +3378,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@types/babel__core@npm:^7, @types/babel__core@npm:^7.0.0, @types/babel__core@npm:^7.1.7":
+"@types/babel__core@npm:^7.0.0, @types/babel__core@npm:^7.1.7":
   version: 7.1.14
   resolution: "@types/babel__core@npm:7.1.14"
   dependencies:
@@ -3687,13 +3682,6 @@ __metadata:
   version: 4.14.168
   resolution: "@types/lodash@npm:4.14.168"
   checksum: 3326966ee089debde7a7d819e13b64991756e879945852c3357df14a7be837130f697c2cb451be9dd599eb7213fed0975bc9ca0f8f56b46fa73c46a83815b79c
-  languageName: node
-  linkType: hard
-
-"@types/marked@npm:^2":
-  version: 2.0.2
-  resolution: "@types/marked@npm:2.0.2"
-  checksum: 6e5a210d59c986758b1f4221a986cb5fff1618311092b2a795f590f4476f4e2bab4dae2ad6cb3bfd16909b01c4945259637fb11f10196b94f2b5e5912855df74
   languageName: node
   linkType: hard
 
@@ -5416,10 +5404,8 @@ __metadata:
   resolution: "bud@workspace:."
   dependencies:
     "@skypack/package-check": ^0.2.2
-    "@types/babel__core": ^7
     "@types/fs-extra": ^9.0.11
     "@types/jest": ^26.0.23
-    "@types/marked": ^2
     "@types/mdx-js__react": ^1
     "@types/node": ^15.0.0
     "@types/react": ^17.0.4

@@ -59,12 +59,12 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
+    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/node": "^15.0.0",
     "webpack": "^5.36.0"
   },
   "dependencies": {
-    "@roots/bud-extensions": "workspace:*",
-    "@roots/bud-framework": "workspace:*",
     "autobind-decorator": "^2.4.0",
     "stylelint": "^13.13.0",
     "stylelint-config-standard": "^22.0.0",

@@ -57,12 +57,12 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@roots/bud-extensions": "workspace:*",
+    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/node": "^15.0.0"
   },
   "dependencies": {
-    "@roots/bud-framework": "workspace:*",
-    "@roots/merged-manifest-webpack-plugin": "workspace:*",
+    "@roots/merged-manifest-webpack-plugin": "workspace:packages/@roots/merged-manifest-webpack-plugin",
     "autobind-decorator": "^2.4.0"
   }
 }

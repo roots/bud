@@ -1,4 +1,3 @@
-import '@roots/bud-dashboard'
 import '@roots/bud-postcss'
 import {Module} from '@roots/bud-framework'
 

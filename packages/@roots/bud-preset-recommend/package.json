@@ -57,15 +57,15 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@roots/bud-api": "workspace:*",
+    "@roots/bud-api": "workspace:packages/@roots/bud-api",
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/node": "^15.0.0"
   },
   "dependencies": {
-    "@roots/bud-babel": "workspace:*",
-    "@roots/bud-cli": "workspace:*",
-    "@roots/bud-entrypoints": "workspace:*",
-    "@roots/bud-framework": "workspace:*",
-    "@roots/bud-postcss": "workspace:*",
+    "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
+    "@roots/bud-cli": "workspace:packages/@roots/bud-cli",
+    "@roots/bud-entrypoints": "workspace:packages/@roots/bud-entrypoints",
+    "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
     "autobind-decorator": "^2.4.0"
   }
 }
