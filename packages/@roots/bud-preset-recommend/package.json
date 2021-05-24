@@ -1,6 +1,6 @@
 {
   "name": "@roots/bud-preset-recommend",
-  "version": "4.1.0",
+  "version": "4.2.0",
   "description": "Recommended preset for Bud projects",
   "repository": {
     "type": "git",
