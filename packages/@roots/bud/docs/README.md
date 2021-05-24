@@ -25,7 +25,7 @@
   <strong>@roots/bud</strong>
 </h1>
 
-> A friendly build tool to help manage your project assets.
+> A frontend build tooling framework combining the best parts of Symfony Encore and Laravel Mix
 
 - [Installation](#installation)
 - [Getting started](#getting-started)

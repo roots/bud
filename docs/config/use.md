@@ -4,7 +4,7 @@ Registers an extension.
 
 ## Usage
 
-Add support for [sass](https://sass-lang.com) using the [**@roots/bud-sass**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-sass) extension.
+Add support for [**@sass/sass**](https://github.com/sass/sass) using the [**@roots/bud-sass**](https://github.com/roots/bud/tree/stable/packages/@roots/bud-sass) extension.
 
 ```js
 bud.use(require("@roots/bud-sass"));
