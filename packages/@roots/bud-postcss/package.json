@@ -68,7 +68,7 @@
     "@roots/bud-framework": "workspace:*",
     "autobind-decorator": "^2.4.0",
     "postcss": "^8.2.13",
-    "postcss-import": "^14.0.1",
+    "postcss-import": "^14.0.2",
     "postcss-loader": "^5.2.0",
     "postcss-preset-env": "^6.7.0",
     "signale": "^1.4.0"
