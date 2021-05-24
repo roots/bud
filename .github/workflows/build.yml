@@ -24,20 +24,22 @@ jobs:
     name: test node@${{matrix.node}}/${{matrix.platform}}
     runs-on: ${{matrix.platform}}
     steps:
-      - uses: actions/checkout@v2
+      - name: Checkout
+        uses: actions/checkout@v2
         with:
           fetch-depth: 0
 
-      - name: Setup node
+      - name: Setup
         uses: actions/setup-node@v1
         with:
           node-version: ${{matrix.node}}
 
-      - name: Tap cache
+      - name: Cache
         id: yarn-cache-dir-path
         run: echo "::set-output name=dir::$(yarn config get cacheFolder)"
 
-      - uses: actions/cache@v2
+      - name: Restore
+        uses: actions/cache@v2
         id: yarn-cache
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -45,10 +47,10 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-yarn-
 
-      - name: Install dependenies
-        run: yarn --immutable
+      - name: Install
+        run: yarn
 
-      - name: Build project
+      - name: Build
         run: yarn build:ci
         env:
           NODE_OPTIONS: '--max-old-space-size=2048'
