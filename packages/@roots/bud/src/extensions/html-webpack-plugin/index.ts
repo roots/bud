@@ -17,7 +17,7 @@ const extension: Extension = {
     publicPath: publicPath(),
     template: posix.resolve(
       require.resolve('@roots/bud-support'),
-      '../../../publish/template.html',
+      '../../../templates/template.html',
     ),
     ...(store.get('extension.htmlWebpackPlugin') ?? {}),
   }),

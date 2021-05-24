@@ -1,17 +1,52 @@
+## v4.2.0
+
+v4.2.0 adds the [override](https://github.com/roots/bud/blob/stable/docs/config/override.md) method. Relatedly, there are two new hooks: `before` and `after`, which are called directly before and after the config is generated. Override is just a wrapper around `after`.
+
+You can now specify publicPath using a callback. See the [setPublicPath docs](https://github.com/roots/bud/blob/stable/docs/config/setPublicPath.md).
+
+By default, bud now uses a memory based cache implementation. Filesystem caching is still superior, but it is no longer the default implementation because of its inherent complexity (it may not work for all configs). We recommend that you try calling `bud.persist()` in your config file to see if filesystem caching works for your project. In the future, hopefully persistent caching can be made the default again.
+
+### Details
+
+- Add: `override` method (parity with mix api)
+- Add: `before` hook (parity with mix api, used by `override`)
+- Add: `after` hook (parity with mix api)
+- Improve: Allow for setting `publicPath` with a function callback
+- Improve: Allow for freely disabling/enabling `persist`
+- Improve: error display in the cli
+- Improve: `cache` interface
+- Remove: the last imports of definitions from `@roots/bud-typings`.
+- Fix: fatal errors for non git repos and git repos without commits
+- Fix: eslint extension caching when using `persist`
+- @roots/sage: add @roots/bud-eslint plugin
+
+## v4.1.0
+
+This release changes the default cache strategy to `memory`, which is slower but more broadly compatible. If your setup is compatible with `filesystem` caching it is much faster and worth trying.
+
+You can enable it by calling `bud.persist()` in your config or adding `persist: true` to your config yml/json, if configuring bud with a static config.
+
+### Details
+
+- allows variable expansion within `.env`
+- utilizes memory strategy by default. filesystem can be enabled by calling `bud.persist()` in config.
+- improved reliability of filesystem cache
+- improved validation of filesystem cache
+
 ## v4.0.0
 
 This release features breaking changes across all packages.
 
-- Using css-minimizer-webpack-plugin instead of optimize-css-assets-webpack-plugin. 
+- Using css-minimizer-webpack-plugin instead of optimize-css-assets-webpack-plugin.
   - `optimize-css-assets-webpack-plugin` throws warnings. Docs say to use `css-minimizer-webpack-plugin` instead.
-  -  Commits: 5255c68, 578833c, 361a732. 
-- Removed `bud.vendor` method from `@roots/bud-api`. Replaced with `bud.splitChunks`. 
-- Removed keys from hooks/config: 
+  - Commits: 5255c68, 578833c, 361a732.
+- Removed `bud.vendor` method from `@roots/bud-api`. Replaced with `bud.splitChunks`.
+- Removed keys from hooks/config:
   - `build/optimization/splitChunks/cacheGroups/vendor/...` (everything from here on is gone)
-  - This means that users who wish to modify the `vendor` chunk either need to include the config keys between `splitChunks` 
-  and `vendor` in the config param of `bud.splitChunks`, or overwrite the config in total using `bud.hooks.on('build/optimization/splitChunks')`. 
+  - This means that users who wish to modify the `vendor` chunk either need to include the config keys between `splitChunks`
+    and `vendor` in the config param of `bud.splitChunks`, or overwrite the config in total using `bud.hooks.on('build/optimization/splitChunks')`.
 - `build/parallelism` value of `os.cpus().length - 1` (previously set to `1`)
-- Removes `src`, `srcPath`, `dist`, `distPath`, `project` api fns in favor of a consolidated approach: `bud.path` and `bud.setPath`. 
+- Removes `src`, `srcPath`, `dist`, `distPath`, `project` api fns in favor of a consolidated approach: `bud.path` and `bud.setPath`.
 - Types are no longer exported explicitly from `@roots/bud-support` or `@roots/bud-typings`. Core interfaces/types can be exported from `@roots/bud-framework`.
 - `@roots/bud-compiler` no longer derives its type definition from `@roots/bud-typings`. See: #48.
 - `@roots/bud-build` no longer derives its type definition from `@roots/bud-typings`. See #48.
@@ -22,9 +57,10 @@ This release features breaking changes across all packages.
 - Enhances docs generation/maintenance scripts
 - Overhauls loader, rule interfaces
 
-Authored by: 
-  - kellymears <kelly@roots.io> 
-  - QWp6t <hi@qwp6t.me>
+Contributors:
+
+- kellymears <kelly@roots.io>
+- QWp6t <hi@qwp6t.me>
 
 ## v2.0.7
 

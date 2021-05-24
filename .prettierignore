@@ -2,3 +2,4 @@ node_modules
 dist
 **/*.map
 tsconfig.json
+dev/docs/src/templates/*

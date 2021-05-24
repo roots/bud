@@ -32,6 +32,7 @@
   - [hook usage](#hook-usage)
 - [bud.hooks.filter](#budhooksfilter)
   - [filter usage](#filter-usage)
+- [Hooks reference](#hooks-reference)
 - [Contributing](#contributing)
 - [Bud sponsors](#bud-sponsors)
 - [Community](#community)
@@ -108,6 +109,10 @@ now have access to this value and can modify it.
 ```js
 bud.hooks.on("some-key", (value) => value.shift());
 ```
+
+## Hooks reference
+
+There is a compiled list of hooks used by [**@roots/bud**](https://github.com/roots/bud) core [available here](https://github.com/roots/bud/tree/stable/packages/@roots/bud-hooks/docs/hooks.md).
 
 ## Contributing
 

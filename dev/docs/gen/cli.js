@@ -3,4 +3,5 @@
 require('ts-node').register({
   project: require.resolve('../../../tsconfig.dev.json'),
 })
+
 require('./')
