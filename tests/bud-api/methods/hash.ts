@@ -1,22 +1,14 @@
 import {Bud, config, services} from '@roots/bud'
 
-describe('hashed filenames', () => {
-  it('is not applied by default', () => {
-    const instance = new Bud(config)
-      .bootstrap(services)
-      .lifecycle()
-
-    const filename = instance.build.config.output.filename
-    expect(filename).toEqual('[name].js')
+describe('bud.hash', function () {
+  beforeEach(() => {
+    this.bud = new Bud(config).bootstrap(services).lifecycle()
   })
 
-  it('is configurable by bud.hash', () => {
-    const instance = new Bud(config)
-      .bootstrap(services)
-      .lifecycle()
-      .hash()
+  it('enables hashing when called', () => {
+    this.bud.hash()
 
-    expect(instance.build.config.output.filename).toEqual(
+    expect(this.bud.build.config.output.filename).toEqual(
       '[name].[contenthash].js',
     )
   })
