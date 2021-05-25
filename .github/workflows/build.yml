@@ -3,9 +3,10 @@ name: build
 on:
   push:
     paths:
-      - packages/**/*/package.json
-      - packages/**/*/src/*
-      - packages/**/*/src/**/*
+      - packages/*/package.json
+      - packages/*/*/package.json
+      - packages/*/*/src/*
+      - packages/*/*/src/**/*
       - yarn.lock
     pull_request:
       branches:
@@ -48,9 +49,7 @@ jobs:
             ${{ runner.os }}-yarn-
 
       - name: Install
-        run: yarn
+        run: yarn install
 
       - name: Build
         run: yarn build:ci
-        env:
-          NODE_OPTIONS: '--max-old-space-size=2048'

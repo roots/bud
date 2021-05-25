@@ -61,7 +61,6 @@
   "dependencies": {
     "@roots/bud-support": "workspace:packages/@roots/bud-support",
     "autobind-decorator": "^2.4.0",
-    "node-fetch": "^2.6.1",
     "webpack": "^5.36.0"
   }
 }

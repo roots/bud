@@ -6,4 +6,4 @@ module.exports = app =>
       scripts: '*.js',
       styles: '*.css',
     })
-    .persist({type: 'memory'})
+    .persist()

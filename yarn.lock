@@ -2301,7 +2301,6 @@ __metadata:
     "@roots/bud-build": "workspace:packages/@roots/bud-build"
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions"
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework"
-    "@roots/bud-support": "workspace:packages/@roots/bud-support"
     "@types/lodash": ^4.14.168
     "@types/node": ^15.0.0
     autobind-decorator: ^2.4.0
@@ -3077,7 +3076,6 @@ __metadata:
     "@roots/bud-support": "workspace:packages/@roots/bud-support"
     "@types/node": ^15.0.0
     autobind-decorator: ^2.4.0
-    node-fetch: ^2.6.1
     webpack: ^5.36.0
   languageName: unknown
   linkType: soft
@@ -8049,6 +8047,15 @@ __metadata:
     "@roots/bud": "workspace:*"
     "@roots/bud-babel": "workspace:*"
     "@roots/bud-cli": "workspace:packages/@roots/bud-cli"
+  languageName: unknown
+  linkType: soft
+
+"example-basic@workspace:examples/basic":
+  version: 0.0.0-use.local
+  resolution: "example-basic@workspace:examples/basic"
+  dependencies:
+    "@roots/bud": "workspace:*"
+    "@roots/bud-cli": "workspace:*"
   languageName: unknown
   linkType: soft
 

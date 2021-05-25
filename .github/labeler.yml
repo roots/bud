@@ -146,10 +146,10 @@
   - docs/*
   - docs/**
   - packages/**/docs/*
-  - packages/**/docs/**/*
+  - packages/**/docs/**
 'dependencies':
   - package.lock
 'test':
   - src/**/*.test.js
   - tests/*
-  - tests/**/*
+  - tests/**

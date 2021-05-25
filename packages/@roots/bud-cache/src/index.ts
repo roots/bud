@@ -44,6 +44,7 @@ class Cache extends Service implements Base {
   @bind
   public buildDependencies(): string[] {
     return sync([
+      this.app.path('project', 'package.json'),
       this.app.path(
         'project',
         `${this.app.name}.{js,ts,yml,json}`,
@@ -52,7 +53,6 @@ class Cache extends Service implements Base {
         'project',
         `${this.app.name}.${this.app.mode}.{js,ts.yml,json}`,
       ),
-      this.app.path('project', 'package.json'),
       ...this.app.discovery.resolveFrom.map(
         dep => `${dep}/lib/cjs/index.js`,
       ),

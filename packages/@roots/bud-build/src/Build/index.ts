@@ -31,7 +31,6 @@ class Build extends Service {
       style: new Loader(require.resolve('style-loader')),
       minicss: new Loader(MiniCssExtractPlugin.loader),
       file: new Loader(require.resolve('file-loader')),
-      raw: new Loader(require.resolve('raw-loader')),
       url: new Loader(require.resolve('url-loader')),
       'resolve-url': new Loader(
         require.resolve('resolve-url-loader'),
@@ -106,7 +105,7 @@ class Build extends Service {
       js: new Rule({
         test: ({store}) => store.get('patterns.js'),
         exclude: ({store}) => store.get('patterns.modules'),
-        use: ({build}) => [build.items['raw']],
+        use: [],
       }),
       image: new Rule({
         test: ({store}) => store.get('patterns.image'),
@@ -126,7 +125,7 @@ class Build extends Service {
       html: new Rule({
         test: ({store}) => store.get('patterns.html'),
         exclude: ({store}) => store.get('patterns.modules'),
-        use: ({build}) => [build.items['raw']],
+        use: ({build}) => [build.items['file']],
       }),
     }
 
