@@ -55,7 +55,8 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y smemstat
-          smemstat -l 5 120 &
+          smemstat -l 5 &
           yarn build:ci
+          kill -SIGINT %1
         env:
           NODE_OPTIONS: '--max-old-space-size=2048'
