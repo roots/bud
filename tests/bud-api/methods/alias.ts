@@ -1,4 +1,4 @@
-const {Bud, config, services} = require('@roots/bud')
+import {Bud, config, services} from '@roots/bud'
 
 describe('webpack.resolve.alias', () => {
   it('defaults to {}', () => {
@@ -20,3 +20,5 @@ describe('webpack.resolve.alias', () => {
     })
   })
 })
+
+export {}
