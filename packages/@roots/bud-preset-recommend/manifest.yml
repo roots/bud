@@ -1,12 +1,7 @@
 name: '@roots/bud-preset-recommend'
 type: preset
 
-config:
-  all:
-    extensions:
-      - '@roots/bud-babel'
-      - '@roots/bud-postcss'
-      - '@roots/bud-entrypoints'
-
-  production:
-    - minimize
+peers:
+  - '@roots/bud-babel'
+  - '@roots/bud-postcss'
+  - '@roots/bud-entrypoints'

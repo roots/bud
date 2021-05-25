@@ -1,0 +1,9 @@
+{
+  "name": "example-preset-recommend",
+  "private": true,
+  "devDependencies": {
+    "@roots/bud": "workspace:packages/@roots/bud",
+    "@roots/bud-cli": "workspace:packages/@roots/bud-cli",
+    "@roots/bud-preset-recommend": "workspace:packages/@roots/bud-preset-recommend"
+  }
+}
