@@ -55,7 +55,7 @@ jobs:
         run: |
           sudo apt-get update
           sudo apt-get install -y smemstat
-          sudo smemstat -l 1 &
+          sudo smemstat -l -t 1 &
           yarn build:ci
           sudo kill -SIGINT %1
         env:
