@@ -52,6 +52,9 @@ jobs:
         run: yarn
 
       - name: Build
-        run: yarn build:ci
+        run: |
+          sudo apt-get install -y smem dstat
+          dstat --top-mem &
+          yarn build:ci
         env:
           NODE_OPTIONS: '--max-old-space-size=2048'
