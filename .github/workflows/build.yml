@@ -3,6 +3,7 @@ name: build
 on:
   push:
     paths:
+      - .github/workflows/build.yml
       - packages/**/*/package.json
       - packages/**/*/src/*
       - packages/**/*/src/**/*
