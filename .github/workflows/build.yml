@@ -3,10 +3,10 @@ name: build
 on:
   push:
     paths:
-      - packages/*/package.json
-      - packages/*/*/package.json
-      - packages/*/*/src/*
-      - packages/*/*/src/**/*
+      - .github/workflows/build.yml
+      - packages/**/*/package.json
+      - packages/**/*/src/*
+      - packages/**/*/src/**/*
       - yarn.lock
     pull_request:
       branches:
@@ -52,4 +52,10 @@ jobs:
         run: yarn install
 
       - name: Build
-        run: yarn build:ci
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y smemstat
+          smemstat -l 5 120 &
+          yarn build:ci
+        env:
+          NODE_OPTIONS: '--max-old-space-size=2048'
