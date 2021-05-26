@@ -295,6 +295,11 @@ abstract class Framework {
   }
 
   public constructor(config?: Store['repository']) {
+    this.mode = (process.env.NODE_ENV &&
+    process.env.NODE_ENV !== 'test'
+      ? process.env.NODE_ENV
+      : 'production') as 'production' | 'development'
+
     this.store = new Store(this.get).setStore(config ?? {})
   }
 
