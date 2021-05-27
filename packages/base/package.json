@@ -4,7 +4,7 @@
   "license": "MIT",
   "type": "module",
   "scripts": {
-    "g:build": "cd $INIT_CWD && tsc --build tsconfig.json && tsc --build tsconfig-esm.json",
+    "g:build": "cat /proc/meminfo && cd $INIT_CWD && tsc --build tsconfig.json && tsc --build tsconfig-esm.json",
     "g:build:cjs": "cd $INIT_CWD && tsc --build tsconfig.json",
     "g:build:esm": "cd $INIT_CWD && tsc --build tsconfig-esm.json",
     "g:build:esm:post": "yarn node ./scripts/esm-post.js $INIT_CWD",

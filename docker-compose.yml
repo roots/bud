@@ -27,6 +27,13 @@ services:
         source: ./
         target: /bud
     command: bash -c /bud/dev/build/node/init.sh
+    deploy:
+      resources:
+          limits:
+            cpus: 2.00
+            memory: 2G
+          reservations:
+            memory: 1G
 
 volumes:
   verdaccio:
