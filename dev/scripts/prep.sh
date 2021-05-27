@@ -1,22 +1,51 @@
 #!/bin/bash
 
+set -e
+
+trap 'last_command=$current_command; current_command=$BASH_COMMAND' DEBUG
+trap 'echo "\"${last_command}\" command completed with exit code $?."' EXIT
+
+echo "Cleaning examples"
 rm -rf examples/*/.budfiles
 rm -rf examples/*/node_modules
 rm -rf examples/*/dist
+rm -rf examples/sage/storage/bud/*
 
+echo "Cleaning modules"
+rm -rf node_modules
 rm -rf packages/*/*/node_modules
+
+echo "Cleaning lib"
 rm -rf packages/*/*/lib
-rm -rf packages/*/*/types
+
+echo "Cleaning docs"
+rm -rf docs
 rm -rf packages/*/*/docs
 
-rm -rf docs/*
-rm -rf node_modules
+echo "Clearing yarn cache"
+yarn cache clean > /dev/null
 
-yarn cache clean
-
+echo "Installing"
 yarn install
+
+echo "Building cjs"
 yarn build:cjs
+
+echo "Building esm"
 yarn build:esm
+
+echo "Linting packages"
 yarn lint
+
+echo "Linting shrinkwrap"
 yarn pkg
+
+echo "Running tests"
+yarn test
+
+echo "Generating docs"
 yarn docs
+
+echo "Publish prep"
+
+exit

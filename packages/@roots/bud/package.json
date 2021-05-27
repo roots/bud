@@ -95,7 +95,7 @@
     "dotenv": "^10.0.0",
     "dotenv-expand": "^5.1.0",
     "express": "^4.17.1",
-    "fs-extra": "^9.1.0",
+    "fs-extra": "^10.0.0",
     "globby": "^11.0.3",
     "html-webpack-harddisk-plugin": "^2.0.0",
     "html-webpack-plugin": "^5.3.1",

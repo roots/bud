@@ -1,24 +1,26 @@
-import {Bud, config, services} from '@roots/bud'
+import {Bud, Framework, config, services} from '@roots/bud'
 
 describe('bud.dev', function () {
+  let bud: Framework
+
   beforeEach(() => {
-    this.bud = new Bud(config).bootstrap(services).lifecycle()
+    bud = new Bud(config).bootstrap(services).lifecycle()
   })
 
   it('sets host', () => {
-    this.bud.dev({host: 'bar.com'})
-    expect(this.bud.server.config.get('host')).toEqual('bar.com')
+    bud.dev({host: 'bar.com'})
+    expect(bud.server.config.get('host')).toEqual('bar.com')
   })
 
   it('sets proxy', () => {
-    this.bud.dev({
+    bud.dev({
       proxy: {
         host: 'bar.com',
         port: 9000,
       },
     })
 
-    expect(this.bud.server.config.get('proxy')).toEqual({
+    expect(bud.server.config.get('proxy')).toEqual({
       host: 'bar.com',
       port: 9000,
     })

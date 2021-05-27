@@ -1,14 +1,16 @@
-import {Bud, config, services} from '@roots/bud'
+import {Bud, Framework, config, services} from '@roots/bud'
 
 describe('bud.hash', function () {
+  let bud: Framework
+
   beforeEach(() => {
-    this.bud = new Bud(config).bootstrap(services).lifecycle()
+    bud = new Bud(config).bootstrap(services).lifecycle()
   })
 
   it('enables hashing when called', () => {
-    this.bud.hash()
+    bud.hash()
 
-    expect(this.bud.build.config.output.filename).toEqual(
+    expect(bud.build.config.output.filename).toEqual(
       '[name].[contenthash].js',
     )
   })

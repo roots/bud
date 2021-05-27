@@ -60,7 +60,7 @@
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/node": "^15.0.0",
+    "@types/node": "^15.6.1",
     "typescript": "^4.3.2",
     "webpack": "^5.37.1"
   },
@@ -75,8 +75,8 @@
   "peerDependencies": {
     "@roots/bud": "*",
     "@roots/bud-babel": "*",
-    "eslint": "^7.23.0",
-    "typescript": "^4.2.3"
+    "eslint": "^7",
+    "typescript": "^4"
   },
   "peerDependenciesMeta": {
     "eslint": {

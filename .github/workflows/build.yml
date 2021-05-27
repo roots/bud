@@ -20,7 +20,7 @@ jobs:
         platform:
           - ubuntu-latest
         node:
-          - 15.11.0
+          - 15.x
 
     name: test node@${{matrix.node}}/${{matrix.platform}}
     runs-on: ${{matrix.platform}}
@@ -51,11 +51,8 @@ jobs:
       - name: Install
         run: yarn install
 
-      - name: Build
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y smemstat
-          smemstat -l 5 120 &
-          yarn build:ci:cjs
-          memstat -l 5 120 &
-          yarn build:ci:esm
+      - name: Build CJS
+        run: yarn build:ci:cjs
+
+      - name: Build ESM
+        run: yarn build:ci:esm

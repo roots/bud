@@ -1,15 +1,17 @@
-import {Bud, config, services} from '@roots/bud'
+import {Bud, Framework, config, services} from '@roots/bud'
 
 describe('webpack.resolve.alias', function () {
+  let bud: Framework
+
   beforeEach(() => {
-    this.bud = new Bud(config).bootstrap(services).lifecycle()
+    bud = new Bud(config).bootstrap(services).lifecycle()
   })
 
   it('is configurable by bud.alias', () => {
-    this.bud.alias({'@foo': 'bar'})
+    bud.alias({'@foo': 'bar'})
 
-    expect(this.bud.build.config.resolve.alias).toEqual({
-      '@foo': this.bud.path('project', 'bar'),
+    expect(bud.build.config.resolve.alias).toEqual({
+      '@foo': bud.path('project', 'bar'),
     })
   })
 })
