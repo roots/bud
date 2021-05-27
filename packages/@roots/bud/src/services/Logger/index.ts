@@ -12,7 +12,8 @@ import {boundMethod as bind} from 'autobind-decorator'
  */
 export class Logger
   extends Container
-  implements Contract, Bootstrapper {
+  implements Contract, Bootstrapper
+{
   public name = 'service/logger'
 
   public _app: Framework['get']

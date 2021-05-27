@@ -25,7 +25,7 @@
   <strong>@roots/entrypoints-webpack-plugin</strong>
 </h1>
 
-> undefined
+> Manifest with assets grouped by entrypoint
 
 - [Overview](#overview)
 - [Installation](#installation)

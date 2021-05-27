@@ -1,11 +1,14 @@
 name: '@roots/bud-tailwindcss'
 type: extension
 
+peers:
+  - '@roots/bud'
+  - '@roots/bud-postcss'
+
 dependencies:
   dev:
-    "@tailwindcss/jit": ^0.1.18
+    '@tailwindcss/jit': ^0.1.18
     tailwindcss: ^2.1.2
-    postcss: ^8.2.13
 
 templates:
   - name: tailwind.config.js

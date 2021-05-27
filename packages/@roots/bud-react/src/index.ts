@@ -7,6 +7,16 @@ import devScriptReducer from './util'
 const extension: Module = {
   name: '@roots/bud-react',
   boot: app => {
+    /**
+     * If requirements are not met bounce early
+     */
+    if (
+      !app.discovery.has('devDependencies.react') &&
+      !app.discovery.has('dependencies.react')
+    ) {
+      return
+    }
+
     app.babel.setPresets(['@babel/preset-react'])
 
     app.when(app.isDevelopment, () => {

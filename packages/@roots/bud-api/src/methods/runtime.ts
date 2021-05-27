@@ -28,10 +28,11 @@ type Runtime = (
   runtime?: Webpack.Configuration['optimization']['runtimeChunk'],
 ) => Framework
 
-const DEFAULT_OPTIONS: Webpack.Configuration['optimization']['runtimeChunk'] = {
-  name: (entrypoint: Webpack.EntryObject) =>
-    `runtime/${entrypoint.name}`,
-}
+const DEFAULT_OPTIONS: Webpack.Configuration['optimization']['runtimeChunk'] =
+  {
+    name: (entrypoint: Webpack.EntryObject) =>
+      `runtime/${entrypoint.name}`,
+  }
 
 export const runtime: Runtime = function (runtime?) {
   const value = runtime ? runtime : DEFAULT_OPTIONS

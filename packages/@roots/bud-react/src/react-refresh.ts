@@ -1,16 +1,17 @@
 import RefreshPlugin from '@pmmmwh/react-refresh-webpack-plugin'
+import {ReactRefreshPluginOptions} from '@pmmmwh/react-refresh-webpack-plugin/types/lib/types'
 import {Module} from '@roots/bud-extensions'
-import {ReactRefreshPluginOptions as Options} from '@pmmmwh/react-refresh-webpack-plugin/types/types'
 
-type ReactRefreshExtension = Module<RefreshPlugin, Options>
-
-const extension: ReactRefreshExtension = {
+const extension: Module<
+  RefreshPlugin,
+  ReactRefreshPluginOptions
+> = {
   name: '@pmmmwh/react-refresh-webpack-plugin',
   options: () => ({overlay: false}),
   make: opt => new RefreshPlugin(opt.all()),
   when: ({isDevelopment}) => isDevelopment,
   api: {
-    reactRefresh: function (options) {
+    reactRefresh: function (options: ReactRefreshPluginOptions) {
       this.hooks.on(
         'extension/@pmmmwh/react-refresh-webpack-plugin/options',
         () => options,

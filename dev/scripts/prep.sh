@@ -10,14 +10,13 @@ rm -rf packages/*/*/types
 rm -rf packages/*/*/docs
 
 rm -rf docs/*
-
 rm -rf node_modules
 
 yarn cache clean
 
-yarn
-yarn build
-
+yarn install
+yarn build:cjs
+yarn build:esm
 yarn lint
 yarn pkg
 yarn docs

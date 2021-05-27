@@ -33,8 +33,8 @@
   "files": [
     "docs/",
     "lib/",
-    "manifest.yml",
-    "types/"
+    "types/",
+    "manifest.yml"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -59,9 +59,11 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@babel/core": "^7.13.16",
+    "@babel/core": "^7.14.3",
     "@babel/preset-react": "^7.13.13",
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
+    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@roots/bud-react": "workspace:packages/@roots/bud-react",
     "@types/node": "^15.0.0"
   },
@@ -69,8 +71,13 @@
     "@emotion/css": "^11.1.3",
     "@emotion/react": "^11.1.5",
     "@emotion/styled": "^11.3.0",
-    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
-    "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "autobind-decorator": "^2.4.0"
+  },
+  "peerDependencies": {
+    "@roots/bud": "*",
+    "@roots/bud-babel": "*",
+    "@roots/bud-react": "*",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   }
 }

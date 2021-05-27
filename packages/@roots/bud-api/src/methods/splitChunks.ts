@@ -27,7 +27,8 @@ declare module '@roots/bud-framework' {
 type SplitChunks = (options?: SplitChunks.Options) => Framework
 
 namespace SplitChunks {
-  export type Options = Webpack.Configuration['optimization']['splitChunks']
+  export type Options =
+    Webpack.Configuration['optimization']['splitChunks']
 }
 
 const DEFAULT_OPTIONS: Framework.Api.SplitChunks.Options = {

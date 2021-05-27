@@ -2,6 +2,7 @@ name: '@roots/sage'
 type: preset
 
 peers:
+  - '@roots/bud'
   - '@roots/bud-babel'
   - '@roots/bud-wordpress-dependencies'
   - '@roots/bud-entrypoints'
@@ -13,3 +14,17 @@ peers:
   - '@roots/bud-react'
   - '@roots/bud-tailwindcss'
   - '@roots/bud-typescript'
+
+dependencies:
+  dev:
+    '@tailwindcss/jit': ^0
+    '@types/eslint': ^7.2.11
+    '@types/node': ^15
+    '@types/tailwindcss': ^2
+    autoprefixer: ^10.2.5
+    eslint: ^7.27.0
+    postcss: ^8.3.0
+    react: ^17.0.2
+    react-dom: ^17.0.2
+    tailwindcss: ^2
+    typescript: ^4

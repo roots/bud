@@ -57,16 +57,21 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@types/node": "^15.0.0",
-    "autoprefixer": "^10.2.5",
-    "postcss": "^8.2.13"
-  },
-  "dependencies": {
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
-    "@tailwindcss/jit": "^0.1.18",
+    "@types/node": "^15.0.0",
+    "postcss": "^8.2.13"
+  },
+  "dependencies": {
     "autobind-decorator": "^2.4.0",
+    "autoprefixer": "^10.2.5"
+  },
+  "peerDependencies": {
+    "@roots/bud": "*",
+    "@roots/bud-postcss": "*",
+    "@tailwindcss/jit": "^0.1.18",
+    "autoprefixer": "^10.2.5",
     "tailwindcss": "^2.1.2"
   }
 }

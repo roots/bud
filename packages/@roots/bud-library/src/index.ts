@@ -10,9 +10,7 @@ import AutoDllPlugin from 'autodll-webpack-plugin'
 interface Extension {
   name: Module.Name
   api: Module.Api &
-    ((
-      app: Framework,
-    ) => {
+    ((app: Framework) => {
       library: Library.Configure
     })
 }

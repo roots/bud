@@ -64,11 +64,18 @@
     "@types/node": "^15.0.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
-    "webpack": "^5.36.0"
+    "webpack": "^5.37.1"
   },
   "dependencies": {
     "@mdx-js/loader": "^1.6.22",
     "@roots/bud-build": "workspace:packages/@roots/bud-build",
     "autobind-decorator": "^2.4.0"
+  },
+  "peerDependencies": {
+    "@roots/bud": "*",
+    "@roots/bud-babel": "*",
+    "@roots/bud-react": "*",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2"
   }
 }

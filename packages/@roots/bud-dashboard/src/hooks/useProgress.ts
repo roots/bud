@@ -10,10 +10,8 @@ const INITIAL_STATE: Dashboard.UseProgress.State = {
 }
 
 const useProgress: Dashboard.UseProgress = () => {
-  const [
-    state,
-    setState,
-  ] = useState<Dashboard.UseProgress.State>(INITIAL_STATE)
+  const [state, setState] =
+    useState<Dashboard.UseProgress.State>(INITIAL_STATE)
 
   const handler: Dashboard.UseProgress.Handler = (
     percentage,

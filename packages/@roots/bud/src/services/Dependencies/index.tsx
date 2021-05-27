@@ -4,6 +4,7 @@ import {readJsonSync} from 'fs-extra'
 import React from 'react'
 import {Text, Static} from 'ink'
 import {Base} from './Base'
+import {isEqual} from 'lodash'
 
 export class Dependencies extends Base {
   @bind
@@ -19,7 +20,7 @@ export class Dependencies extends Base {
   }
 
   @bind
-  public shouldInstall(dep: string) {
+  public shouldInstall(source: string, dep: string) {
     const pkgJson = this.pkg()
 
     const shouldInstall =
@@ -33,7 +34,9 @@ export class Dependencies extends Base {
       this.app.dashboard.render(
         <Static items={[{dep}]}>
           {({dep}) => (
-            <Text key={dep}>{dep} is already installed</Text>
+            <Text key={dep}>
+              [{source}] {dep} is already installed
+            </Text>
           )}
         </Static>,
       )
@@ -43,34 +46,38 @@ export class Dependencies extends Base {
   }
 
   @bind
-  public installDev(deps: {[key: string]: string}): void {
-    Object.entries(deps)
-      .filter(([dep]) => this.shouldInstall(dep))
-      .forEach(([dep, ver]) => {
-        this.notify([
-          {msg: `Installing dev dependency: ${dep}@${ver}`},
-          {
-            msg: this.manager.client
-              .install(true, `${dep}@${ver}`)
-              .output.toString(),
-          },
-        ])
+  public install(
+    deps: {
+      name: string
+      ver: string
+      source: string
+      type: 'devDependencies' | 'dependencies'
+    }[],
+  ): void {
+    deps
+      .filter(({source, name}) => {
+        return this.shouldInstall(source, name)
       })
-  }
-
-  @bind
-  public install(deps: {[key: string]: string}): void {
-    Object.entries(deps)
-      .filter(([dep]) => this.shouldInstall(dep))
-      .forEach(([dep, ver]) => {
-        this.notify([
-          {msg: `Installing dependency: ${dep}@${ver}`},
-          {
-            msg: this.manager.client
-              .install(false, `${dep}@${ver}`)
-              .output.toString(),
-          },
-        ])
+      .forEach(dep => {
+        try {
+          this.notify([
+            {
+              msg: `[${dep.source}] Installing ${dep.type} ${dep.name}@${dep.ver}`,
+            },
+            {
+              msg: this.manager.client
+                .install(
+                  isEqual(dep.type, 'devDependencies'),
+                  `${dep.name}@${dep.ver}`,
+                )
+                .output.toString(),
+            },
+          ])
+        } catch (err) {
+          console.error(
+            `Error installing ${dep.name}. Requested by ${dep.source} ${err}`,
+          )
+        }
       })
   }
 

@@ -180,10 +180,11 @@ export class CriticalCssWebpackPlugin {
     for (const runtime of this.webpack.compilation.chunkGraph.getModuleRuntimes(
       module,
     )) {
-      const hash = this.webpack.compilation.chunkGraph.getRenderedModuleHash(
-        module,
-        runtime,
-      )
+      const hash =
+        this.webpack.compilation.chunkGraph.getRenderedModuleHash(
+          module,
+          runtime,
+        )
 
       name = `${name}.${hash}`
     }

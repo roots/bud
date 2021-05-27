@@ -50,7 +50,7 @@ declare module '@roots/bud-framework' {
     }
 
     export type UserDef<
-      T = UserDef<{[key: string]: UserDef<string>}>
+      T = UserDef<{[key: string]: UserDef<string>}>,
     > = T | Rule<T> | RuleSet<T> | ThemeFn<T>
 
     export interface RuleSet<T> {

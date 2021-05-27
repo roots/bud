@@ -11,7 +11,14 @@ const extension: Module = {
     postcss: new Config(app),
   }),
 
-  boot: ({build, path, postcss}) => {
+  boot: ({build, discovery, path, postcss}) => {
+    /**
+     * Exit early if requirements not met
+     */
+    if (!discovery.has('devDependencies.postcss')) {
+      return
+    }
+
     build.loaders.postcss = new Loader(
       require.resolve('postcss-loader'),
     )
@@ -23,9 +30,9 @@ const extension: Module = {
           config: pathExistsSync(
             path('project', 'postcss.config.js'),
           ),
-          plugins: Object.values(
-            postcss.plugins,
-          ).map(([plugin, options]) => require(plugin)(options)),
+          plugins: Object.values(postcss.plugins).map(
+            ([plugin, options]) => require(plugin)(options),
+          ),
         },
         sourceMap: true,
       }),
@@ -37,11 +44,16 @@ const extension: Module = {
       build.items.postcss,
     ])
 
+    const plugins = []
+    require.resolve('postcss-import') &&
+      plugins.push('postcss-import')
+
+    require.resolve('postcss-preset-env') &&
+      plugins.push(['postcss-preset-env', {stage: 1}])
+
     !pathExistsSync(path('project', 'postcss.config.js')) &&
-      postcss.setPlugins([
-        'postcss-import',
-        ['postcss-preset-env', {stage: 1}],
-      ])
+      plugins.length > 0 &&
+      postcss.setPlugins(plugins)
   },
 }
 

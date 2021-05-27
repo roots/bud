@@ -18,36 +18,29 @@ export const useStyle: UseStyle = (
   /**
    * Width and height of terminal viewport.
    */
-  const [
-    width,
-    height,
-  ]: React.ComponentState = useStdoutDimensions()
+  const [width, height]: React.ComponentState =
+    useStdoutDimensions()
 
   /**
    * Active screen size
    */
-  const [
-    screen,
-    setScreen,
-  ]: React.ComponentState = React.useState()
+  const [screen, setScreen]: React.ComponentState =
+    React.useState()
 
   /**
    * Width of one column.
    */
-  const [unit, setUnit]: React.ComponentState = React.useState(
-    null,
-  )
+  const [unit, setUnit]: React.ComponentState =
+    React.useState(null)
 
   /**
    * Width and height of application.
    */
-  const [
-    bounds,
-    setBounds,
-  ]: React.ComponentState = React.useState({
-    width,
-    height,
-  })
+  const [bounds, setBounds]: React.ComponentState =
+    React.useState({
+      width,
+      height,
+    })
 
   /**
    * Set application based on viewport size.
