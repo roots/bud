@@ -5,8 +5,8 @@
   "type": "module",
   "scripts": {
     "g:build": "cat /proc/meminfo && cd $INIT_CWD && tsc --build tsconfig.json && tsc --build tsconfig-esm.json",
-    "g:build:cjs": "cd $INIT_CWD && tsc --build tsconfig.json",
-    "g:build:esm": "cd $INIT_CWD && tsc --build tsconfig-esm.json",
+    "g:build:cjs": "cat /proc/meminfo && cd $INIT_CWD && tsc --build tsconfig.json",
+    "g:build:esm": "cat /proc/meminfo && cd $INIT_CWD && tsc --build tsconfig-esm.json",
     "g:build:esm:post": "yarn node ./scripts/esm-post.js $INIT_CWD",
     "g:lint": "cd $INIT_CWD && run-s lint:eslint lint:prettier",
     "g:lint:eslint": "cd $INIT_CWD && eslint 'src/**/*.{js,ts,tsx,md,json}' --fix",
