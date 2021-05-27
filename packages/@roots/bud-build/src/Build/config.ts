@@ -55,6 +55,32 @@ export function config(this: Framework): void {
     .hooks.on('build/experiments', () => ({
       lazyCompilation: false,
     }))
+
+    /**
+     * cache
+     * @see @roots/bud-cache
+     */
+    .hooks.on('build/cache', () => ({
+      name: this.hooks.filter('build/cache/name'),
+      version: this.hooks.filter('build/cache/version'),
+      type: this.hooks.filter('build/cache/type'),
+      cacheDirectory: this.hooks.filter(
+        'build/cache/cacheDirectory',
+      ),
+      cacheLocation: this.hooks.filter(
+        'build/cache/cacheLocation',
+      ),
+      buildDependencies: this.hooks.filter(
+        'build/cache/buildDependencies',
+      ),
+      managedPaths: this.hooks.filter(
+        'build/cache/managedPaths',
+      ),
+    }))
+
+    /**
+     * infrastructureLogging
+     */
     .hooks.on('build/infrastructureLogging', () => ({
       console: this.logger.instance,
     }))

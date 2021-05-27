@@ -1,22 +1,15 @@
 import {Bud, config, services} from '@roots/bud'
 
-describe('webpack.resolve.alias', () => {
-  it('defaults to {}', () => {
-    const instance = new Bud(config)
-      .bootstrap(services)
-      .lifecycle()
-
-    expect(instance.build.config.resolve.alias).toEqual({})
+describe('webpack.resolve.alias', function () {
+  beforeEach(() => {
+    this.bud = new Bud(config).bootstrap(services).lifecycle()
   })
 
   it('is configurable by bud.alias', () => {
-    const instance = new Bud(config)
-      .bootstrap(services)
-      .lifecycle()
-      .alias({'@foo': 'bar'})
+    this.bud.alias({'@foo': 'bar'})
 
-    expect(instance.build.config.resolve.alias).toEqual({
-      '@foo': instance.path('project', 'bar'),
+    expect(this.bud.build.config.resolve.alias).toEqual({
+      '@foo': this.bud.path('project', 'bar'),
     })
   })
 })
