@@ -21,7 +21,6 @@ Most extensions related hooks can be found in `@roots/bud`.
 | build/bail                      | webpack.bail                                                      |
 | build/cache                     | webpack.cache                                                     |
 | build/context                   | webpack.context                                                   |
-| build/devServer                 | webpack.devServer                                                 |
 | build/devtool                   | webpack.devtool                                                   |
 | build/entry                     | webpack.entry                                                     |
 | build/experiments               | webpack.experiments                                               |

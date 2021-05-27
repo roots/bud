@@ -1,91 +1,99 @@
-import {Bud, config, services} from '@roots/bud'
+import {
+  Bud,
+  Framework,
+  config as frameworkConfig,
+  services,
+} from '@roots/bud'
+import {Build} from '@roots/bud-build'
 import RemarkHTML from 'remark-html'
 
 describe('bud.build.config', function () {
+  let bud: Framework,
+    config: Build['config'],
+    path: Framework['path']
+
   beforeAll(() => {
-    this.bud = new Bud(config).bootstrap(services).lifecycle()
-    this.config = this.bud.build.config
-    this.path = this.bud.path
+    bud = new Bud(frameworkConfig)
+      .bootstrap(services)
+      .lifecycle()
+
+    config = bud.build.config
+    path = bud.path
+  })
+
+  it(`doesn't include deprecated properties`, () => {
+    expect(config.hasOwnProperty('devServer')).toBe(false)
+    expect(config.hasOwnProperty('unsafeCache')).toBe(false)
   })
 
   it('has expected bail default', () => {
-    expect(this.config.bail).toEqual(true)
+    expect(config.bail).toEqual(true)
   })
 
   it('has expected cache default', () => {
-    expect(this.config.cache).toEqual({
+    expect(config.cache).toEqual({
       type: 'memory',
     })
   })
 
   it('has expected context default', () => {
-    expect(this.config.context).toEqual(this.path('project'))
+    expect(config.context).toEqual(path('project'))
   })
 
   it('has expected devtool default', () => {
-    expect(this.config.devtool).toEqual(false)
-  })
-
-  it('has expected devServer default', () => {
-    expect(this.config.devServer).toEqual(undefined)
+    expect(config.devtool).toEqual(false)
   })
 
   it('has expected entry default', () => {
-    expect(this.config.entry).toEqual(undefined)
+    expect(config.entry).toEqual(undefined)
   })
 
   it('has expected experiments default', () => {
-    expect(this.config.experiments).toEqual({
+    expect(config.experiments).toEqual({
       lazyCompilation: false,
     })
   })
 
   it('has expected infrastructureLogging default', () => {
-    expect(this.config.infrastructureLogging).toEqual({
-      console: this.bud.logger.instance,
+    expect(config.infrastructureLogging).toEqual({
+      console: bud.logger.instance,
     })
   })
 
   it('has expected mode default', () => {
-    expect(this.config.mode).toEqual('production')
-  })
-
-  it('has expected unsafeCache default', () => {
-    expect(this.config.unsafeCache).toEqual(undefined)
+    expect(config.mode).toEqual('production')
   })
 
   it('has expected name default', () => {
-    expect(this.config.name).toEqual('bud')
+    expect(config.name).toEqual('bud')
   })
 
   it('has expected node default', () => {
-    expect(this.config.node).toEqual(false)
+    expect(config.node).toEqual(false)
   })
 
   it('has expected optimization.minimize default', () => {
-    expect(this.config.optimization.minimize).toEqual(true)
+    expect(config.optimization.minimize).toEqual(true)
   })
 
   it('has expected optimization.emitOnErrors default', () => {
-    expect(this.config.optimization.emitOnErrors).toEqual(false)
+    expect(config.optimization.emitOnErrors).toEqual(false)
   })
 
   it('has expected optimization.runtimeChunk default', () => {
-    expect(this.config.optimization.runtimeChunk).toEqual(
-      undefined,
-    )
+    expect(config.optimization.runtimeChunk).toEqual(undefined)
   })
 
   it('has expected profile default', () => {
-    expect(this.config.profile).toEqual(true)
+    expect(config.profile).toEqual(true)
   })
 
   it('has expected resolve.alias default', () => {
-    expect(this.config.resolve.alias).toEqual({})
+    expect(config.resolve.alias).toEqual({})
   })
 
   it('has expected resolve.extensions default', () => {
-    expect(this.config.resolve.extensions).toEqual([
+    expect(config.resolve.extensions).toEqual([
       '.wasm',
       '.mjs',
       '.js',
@@ -95,40 +103,40 @@ describe('bud.build.config', function () {
   })
 
   it('has expected resolve.modules default', () => {
-    expect(this.config.resolve.modules).toEqual([
+    expect(config.resolve.modules).toEqual([
       'src',
       'node_modules',
     ])
   })
 
   it('has expected stats default', () => {
-    expect(this.config.stats).toEqual({})
+    expect(config.stats).toEqual({})
   })
 
   it('has expected target default', () => {
-    expect(this.config.target).toEqual('web')
+    expect(config.target).toEqual('web')
   })
 
   it('has expected watch default', () => {
-    expect(this.config.watch).toEqual(false)
+    expect(config.watch).toEqual(false)
   })
 
   it('has expected watchOptions default', () => {
-    expect(this.config.watchOptions).toEqual(undefined)
+    expect(config.watchOptions).toEqual(undefined)
   })
 
   it('has expected number of plugins', () => {
-    expect(this.config.plugins.length).toBe(4)
+    expect(config.plugins.length).toBe(4)
   })
 
   it('has valid plugins', () => {
-    this.config.plugins.filter(plugin => {
+    config.plugins.filter(plugin => {
       expect(plugin).toHaveProperty('apply')
     })
   })
 
   it('has expected module.rules default', () => {
-    expect(this.config.module).toEqual({
+    expect(config.module).toEqual({
       rules: [
         {
           oneOf: [
@@ -137,7 +145,7 @@ describe('bud.build.config', function () {
               test: /\.css$/,
               use: [
                 {
-                  loader: this.path(
+                  loader: path(
                     'project',
                     '/node_modules/mini-css-extract-plugin/dist/loader.js',
                   ),
@@ -146,7 +154,7 @@ describe('bud.build.config', function () {
                   },
                 },
                 {
-                  loader: this.path(
+                  loader: path(
                     'project',
                     'node_modules/css-loader/dist/cjs.js',
                   ),
@@ -167,7 +175,7 @@ describe('bud.build.config', function () {
               test: /\.(png|jpe?g|gif)$/,
               use: [
                 {
-                  loader: this.path(
+                  loader: path(
                     'project',
                     'node_modules/file-loader/dist/cjs.js',
                   ),
@@ -180,12 +188,12 @@ describe('bud.build.config', function () {
               test: /\.(ttf|otf|eot|woff2?|ico)$/,
               use: [
                 {
-                  loader: this.path(
+                  loader: path(
                     'project',
                     'node_modules/resolve-url-loader/index.js',
                   ),
                   options: {
-                    root: this.path('project', 'src'),
+                    root: path('project', 'src'),
                     sourceMap: false,
                   },
                 },
@@ -196,13 +204,13 @@ describe('bud.build.config', function () {
               test: /\.md$/,
               use: [
                 {
-                  loader: this.path(
+                  loader: path(
                     'project',
                     'node_modules/html-loader/dist/cjs.js',
                   ),
                 },
                 {
-                  loader: this.path(
+                  loader: path(
                     'project',
                     'node_modules/remark-loader/dist/cjs.js',
                   ),
@@ -223,7 +231,7 @@ describe('bud.build.config', function () {
               test: /\.(html?)$/,
               use: [
                 {
-                  loader: this.path(
+                  loader: path(
                     'project',
                     'node_modules/html-loader/dist/cjs.js',
                   ),

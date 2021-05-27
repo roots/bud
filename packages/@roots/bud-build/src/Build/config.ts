@@ -6,7 +6,6 @@ export function config(this: Framework): void {
       'bail',
       'cache',
       'context',
-      'devServer',
       'devtool',
       'entry',
       'experiments',
@@ -78,16 +77,18 @@ export function config(this: Framework): void {
       ),
     }))
 
-    /**
-     * infrastructureLogging
-     */
     .hooks.on('build/infrastructureLogging', () => ({
       console: this.logger.instance,
     }))
+
     .hooks.on('build/node', false)
+
     .hooks.on('build/context', () => this.path('project'))
+
     .hooks.on('build/devtool', false)
+
     .hooks.on('build/mode', () => this.mode)
+
     .hooks.on('build/module/rules', () => [
       {
         parser: {requireEnsure: false},
@@ -99,7 +100,9 @@ export function config(this: Framework): void {
         rule.make(this),
       ),
     )
+
     .hooks.on('build/name', () => this.name)
+
     .hooks.on(
       'build/optimization/emitOnErrors',
       this.store.get('build.optimization.emitOnErrors'),

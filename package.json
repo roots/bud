@@ -28,12 +28,12 @@
     "build": "yarn workspaces foreach --topological-dev --no-private --exclude @roots/bud-typings -i -p -v run build",
     "build:cjs": "yarn workspaces foreach --no-private --exclude @roots/bud-typings --topological-dev -i -p -v run build:cjs",
     "build:esm": "yarn workspaces foreach --no-private --exclude @roots/bud-typings --topological-dev -i -p -v run build:esm",
-    "build:ci": "yarn workspaces foreach --no-private --exclude @roots/bud-typings --topological-dev -i -v run build",
-    "build:ci:cjs": "yarn workspaces foreach --no-private --exclude @roots/bud-typings --topological-dev -i -v run build:cjs",
-    "build:ci:esm": "yarn workspaces foreach --no-private --exclude @roots/bud-typings --topological-dev -i -v run build:esm",
-    "clean": "yarn workspaces foreach --no-private --exclude @roots/bud-typings -p -i -v run clean",
-    "lint": "yarn prettier 'packages/@roots/*/{src,lib}/**/*.{ts,js,md,json,yml}' --write",
-    "pkg": "yarn workspaces foreach -i -p -v run pkg",
+    "build:ci": "yarn workspaces foreach --no-private --exclude @roots/bud-typings --topological-dev run build",
+    "build:ci:cjs": "yarn workspaces foreach --no-private --exclude @roots/bud-typings --topological-dev run build:cjs",
+    "build:ci:esm": "yarn workspaces foreach --no-private --exclude @roots/bud-typings --topological-dev run build:esm",
+    "clean": "yarn workspaces foreach --no-private --exclude @roots/bud-typings -p -v run clean",
+    "lint": "yarn workspaces foreach --no-private --exclude @roots/bud-typings -p -v run lint",
+    "pkg": "yarn workspaces foreach --no-private -p -v run pkg",
     "docs": "yarn node ./dev/docs/gen/cli.js",
     "test": "jest --verbose"
   },
@@ -53,7 +53,7 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "remark": "^13.0.0",
-    "typescript": "^4.2.4",
+    "typescript": "^4.3.2",
     "webpack": "^5.37.1",
     "webpack-dev-middleware": "^4.3.0",
     "webpack-hot-client": "^4.2.0",
@@ -77,7 +77,7 @@
     "execa": "^5.0.0",
     "fs-extra": "^10.0.0",
     "globby": "^11.0.3",
-    "jest": "^26.6.3",
+    "jest": "^27.0.1",
     "npm-run-all": "^4.1.5",
     "prettier": "^2.3.0",
     "react": "^17.0.2",
@@ -92,6 +92,6 @@
     "ts-node": "^10.0.0",
     "tsconfig-paths": "^3.9.0",
     "type-fest": "^1.1.3",
-    "typescript": "^4.2.4"
+    "typescript": "^4.3.2"
   }
 }

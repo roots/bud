@@ -1,12 +1,14 @@
-import {Bud, config, services} from '@roots/bud'
+import {Bud, Framework, config, services} from '@roots/bud'
 
 describe('server config', function () {
+  let bud: Framework
+
   beforeEach(() => {
-    this.bud = new Bud(config).bootstrap(services).lifecycle()
+    bud = new Bud(config).bootstrap(services).lifecycle()
   })
 
   it('has expected defaults', () => {
-    expect(this.bud.server.config.all()).toEqual({
+    expect(bud.server.config.all()).toEqual({
       browser: {indicator: true, log: true, overlay: true},
       host: 'localhost',
       methods: ['GET', 'HEAD'],
