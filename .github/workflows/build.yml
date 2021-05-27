@@ -55,6 +55,5 @@ jobs:
 
       - name: Build
         run: |
-          sudo apt-get update
           yarn build:ci:cjs
           yarn build:ci:esm
