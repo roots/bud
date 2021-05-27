@@ -18,9 +18,7 @@ jobs:
     strategy:
       matrix:
         platform:
-          - ubuntu-latest
           - macOS-latest
-          - windows-latest
         node:
           - 15.x
 
