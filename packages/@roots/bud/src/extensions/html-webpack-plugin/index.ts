@@ -13,14 +13,32 @@ interface Extension extends Module {
 const extension: Extension = {
   name: 'html-webpack-plugin',
 
-  options: ({publicPath, store}) => ({
-    publicPath: publicPath(),
-    template: posix.resolve(
-      require.resolve('@roots/bud-support'),
-      '../../../templates/template.html',
-    ),
-    ...(store.get('extension.htmlWebpackPlugin') ?? {}),
-  }),
+  options: ({env, publicPath, store}) => {
+    const fromEnv = env
+      .getEntries()
+      .filter(([k]: [string, string]) => k.includes('PUBLIC'))
+      .reduce(
+        (a, [k, v]) => ({...a, [k]: JSON.stringify(v)}),
+        {},
+      )
+
+    const fromStore = store.get('extension.webpackDefinePlugin')
+
+    return {
+      publicPath: publicPath(),
+      template: posix.resolve(
+        require.resolve('@roots/bud-support'),
+        '../../../templates/template.html',
+      ),
+      window: {
+        env: {
+          ...fromEnv,
+          ...fromStore,
+        },
+      },
+      ...(store.get('extension.htmlWebpackPlugin') ?? {}),
+    }
+  },
 
   make: options => new PluginConstructor(options.all()),
 

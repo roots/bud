@@ -56,7 +56,7 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@roots/entrypoints-webpack-plugin": "workspace:*",
+    "@roots/entrypoints-webpack-plugin": "workspace:packages/@roots/entrypoints-webpack-plugin",
     "@types/fs-extra": "^9.0.11",
     "@types/node": "^15.0.0",
     "@types/prettier": "^2.2.3",

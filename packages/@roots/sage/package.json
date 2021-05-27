@@ -63,6 +63,7 @@
   "devDependencies": {
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
+    "@types/eslint": "^7",
     "@types/fs-extra": "^9.0.11",
     "@types/node": "^15.0.0",
     "@types/tailwindcss": "^2"
@@ -70,12 +71,10 @@
   "dependencies": {
     "@roots/bud": "workspace:packages/@roots/bud",
     "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
-    "@roots/bud-cli": "workspace:packages/@roots/bud-cli",
     "@roots/bud-entrypoints": "workspace:packages/@roots/bud-entrypoints",
     "@roots/bud-esbuild": "workspace:packages/@roots/bud-esbuild",
     "@roots/bud-eslint": "workspace:packages/@roots/bud-eslint",
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss",
-    "@roots/bud-preset-recommend": "workspace:packages/@roots/bud-preset-recommend",
     "@roots/bud-prettier": "workspace:packages/@roots/bud-prettier",
     "@roots/bud-react": "workspace:packages/@roots/bud-react",
     "@roots/bud-stylelint": "workspace:packages/@roots/bud-stylelint",
@@ -85,9 +84,52 @@
     "@roots/bud-wordpress-externals": "workspace:packages/@roots/bud-wordpress-externals",
     "@roots/bud-wordpress-manifests": "workspace:packages/@roots/bud-wordpress-manifests",
     "@roots/container": "workspace:packages/@roots/container",
-    "@roots/filesystem": "workspace:packages/@roots/filesystem",
-    "@tailwindcss/jit": "^0.1.18",
-    "@tailwindcss/typography": "^0.4.0",
-    "tailwindcss": "^2.1.2"
+    "@roots/filesystem": "workspace:packages/@roots/filesystem"
+  },
+  "peerDependencies": {
+    "@roots/bud": "*",
+    "@roots/bud-cli": "*",
+    "@tailwindcss/jit": "^0",
+    "@types/eslint": "^7.2.11",
+    "@types/node": "^15",
+    "@types/tailwindcss": "^2",
+    "eslint": "^7.27.0",
+    "postcss": "^8.3.0",
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "tailwindcss": "^2",
+    "typescript": "^4"
+  },
+  "peerDependenciesMeta": {
+    "@tailwindcss/jit": {
+      "optional": true
+    },
+    "@types/eslint": {
+      "optional": true
+    },
+    "@types/node": {
+      "optional": true
+    },
+    "@types/tailwindcss": {
+      "optional": true
+    },
+    "eslint": {
+      "optional": true
+    },
+    "postcss": {
+      "optional": true
+    },
+    "react": {
+      "optional": true
+    },
+    "react-dom": {
+      "optional": true
+    },
+    "tailwindcss": {
+      "optional": true
+    },
+    "typescript": {
+      "optional": true
+    }
   }
 }

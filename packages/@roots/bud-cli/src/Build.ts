@@ -1,12 +1,12 @@
 import Command from './Command'
-import {Bud} from '@roots/bud'
+import {Framework} from '@roots/bud'
 import {Config} from './Config'
 import * as flags from './flags/index'
 import {boundMethod as bind} from 'autobind-decorator'
 import {isFunction} from 'lodash'
 
 export default class Build extends Command {
-  public app: Bud
+  public app: Framework
 
   public static flags = {
     help: flags.help({char: 'h'}),

@@ -4,25 +4,26 @@ import TerserPlugin from 'terser-webpack-plugin'
 
 export const name: Module['name'] = 'terser-webpack-plugin'
 
-export const options: Module.Options<TerserPlugin.Options> = app => ({
-  parallel: app.hooks.filter('build/parallelism'),
-  include: app.store.get('patterns.js'),
-  extractComments: false,
-  terserOptions: {
-    parse: {
-      ecma: 2018,
+export const options: Module.Options<TerserPlugin.Options> =
+  app => ({
+    parallel: app.hooks.filter('build/parallelism'),
+    include: app.store.get('patterns.js'),
+    extractComments: false,
+    terserOptions: {
+      parse: {
+        ecma: 2018,
+      },
+      compress: false,
+      mangle: {
+        safari10: true,
+      },
+      output: {
+        ecma: 5,
+        comments: false,
+        ascii_only: true,
+      },
     },
-    compress: false,
-    mangle: {
-      safari10: true,
-    },
-    output: {
-      ecma: 5,
-      comments: false,
-      ascii_only: true,
-    },
-  },
-})
+  })
 
 export const boot: Module.Boot = ({
   extensions,

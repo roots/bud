@@ -56,25 +56,31 @@
     "pkg:check": "yarn g:pkg:check",
     "pkg:format": "yarn g:pkg:format"
   },
+  "devDependencies": {
+    "@roots/bud-babel": "workspace:packages/@roots/bud-babel",
+    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
+    "@types/node": "^15.0.0",
+    "typescript": "^4.3.2",
+    "webpack": "^5.37.1"
+  },
+  "dependencies": {
+    "@roots/bud-build": "workspace:packages/@roots/bud-build",
+    "@typescript-eslint/parser": "^4.22.0",
+    "autobind-decorator": "^2.4.0",
+    "fork-ts-checker-webpack-plugin": "^6.2.10",
+    "globby": "^11.0.3",
+    "ts-loader": "^9.2.2"
+  },
   "peerDependencies": {
+    "@roots/bud": "*",
+    "@roots/bud-babel": "*",
     "eslint": "^7.23.0",
     "typescript": "^4.2.3"
   },
-  "devDependencies": {
-    "@roots/bud-babel": "workspace:*",
-    "@roots/bud-extensions": "workspace:*",
-    "@types/node": "^15.0.0",
-    "typescript": "^4.2.4",
-    "webpack": "^5.36.0"
-  },
-  "dependencies": {
-    "@roots/bud-build": "workspace:*",
-    "@roots/bud-framework": "workspace:*",
-    "@roots/bud-support": "workspace:*",
-    "@typescript-eslint/parser": "^4.22.0",
-    "autobind-decorator": "^2.4.0",
-    "fork-ts-checker-webpack-plugin": "^6.2.5",
-    "globby": "^11.0.3",
-    "ts-loader": "^9.1.1"
+  "peerDependenciesMeta": {
+    "eslint": {
+      "optional": true
+    }
   }
 }

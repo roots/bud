@@ -57,7 +57,7 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "dependencies": {
-    "@roots/container": "workspace:*",
+    "@roots/container": "workspace:packages/@roots/container",
     "autobind-decorator": "^2.4.0",
     "fs-extra": "^9.1.0",
     "globby": "^11.0.3",

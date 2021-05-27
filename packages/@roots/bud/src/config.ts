@@ -141,6 +141,7 @@ export const config: Configuration = {
     svg: /\.svg$/,
     ts: /\.(ts|tsx)$/,
     vue: /\.vue$/,
+    md: /\.md$/,
   },
   location: {
     project: process.cwd(),
@@ -192,6 +193,15 @@ export const config: Configuration = {
     htmlWebpackPlugin: {
       alwaysWriteToDisk: true,
       inject: true,
+      minify: {
+        collapseWhitespace: false,
+        keepClosingSlash: true,
+        removeComments: true,
+        removeRedundantAttributes: true,
+        removeScriptTypeAttributes: true,
+        removeStyleLinkTypeAttributes: true,
+        useShortDoctype: true,
+      },
     },
     interpolateHtmlPlugin: {
       replace: {},

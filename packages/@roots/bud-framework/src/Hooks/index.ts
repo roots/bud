@@ -232,7 +232,8 @@ namespace Hooks {
       oneOf: Webpack.RuleSetRule
     }
 
-    export type Optimization = Webpack.Configuration['optimization']
+    export type Optimization =
+      Webpack.Configuration['optimization']
     export interface OptimizationOverride extends Optimization {
       splitChunks: {
         cacheGroups: any

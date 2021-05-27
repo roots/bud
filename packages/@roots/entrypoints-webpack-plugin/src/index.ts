@@ -53,12 +53,11 @@ export class Plugin {
       })
     })
 
-    this.webpack.compilation.assets[
-      this.name
-    ] = new Webpack.sources.RawSource(
-      JSON.stringify({...this.assets}),
-      true,
-    )
+    this.webpack.compilation.assets[this.name] =
+      new Webpack.sources.RawSource(
+        JSON.stringify({...this.assets}),
+        true,
+      )
   }
 
   @bind

@@ -59,15 +59,15 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
+    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/lodash": "^4.14.168",
     "@types/node": "^15.0.0",
-    "webpack": "^5.36.0"
+    "webpack": "^5.37.1"
   },
   "dependencies": {
-    "@roots/bud-extensions": "workspace:*",
-    "@roots/bud-framework": "workspace:*",
     "autobind-decorator": "^2.4.0",
-    "esbuild-loader": "^2.12.0",
+    "esbuild-loader": "^2.13.1",
     "lodash": "^4.17.21"
   }
 }

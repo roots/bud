@@ -7,17 +7,21 @@ export const name: Module['name'] = '@roots/bud-tailwindcss'
 export const api: Module['api'] = {tailwind}
 
 export const boot: Module['boot'] = (app: Framework) => {
-  const implementation = require.resolve('@tailwindcss/jit')
-    ? '@tailwindcss/jit'
-    : require.resolve('tailwindcss')
-    ? 'tailwindcss'
-    : null
-
-  if (!implementation) {
-    app.dashboard.error(
-      'You must install tailwindcss or @tailwindcss/jit in order for @roots/bud-tailwindcss to function',
-    )
+  /**
+   * Exit early if requirements not met
+   */
+  if (
+    !app.discovery.has('devDependencies.postcss') ||
+    !app.discovery.has('devDependencies.tailwindcss')
+  ) {
+    return
   }
+
+  const implementation = app.discovery.has(
+    'devDependencies.@tailwindcss/jit',
+  )
+    ? '@tailwindcss/jit'
+    : 'tailwindcss'
 
   app.tailwind(null, implementation)
 }

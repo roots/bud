@@ -8,14 +8,42 @@ import {dirname} from 'path'
 export class Discovery extends Base {
   public name = 'service/discovery'
 
+  public repository: {
+    name: string
+    peers: {}
+    dependencies: {
+      [key: string]: string
+    }
+    devDependencies: {
+      [key: string]: string
+    }
+    required: {
+      [key: string]: {
+        source: string
+        name: string
+        ver: string
+        type: 'dependencies' | 'devDependencies'
+      }
+    }
+  } = {
+    name: null,
+    peers: {},
+    dependencies: {},
+    devDependencies: {},
+    required: {},
+  }
+
   @bind
   public register(): void {
     this.setStore(
       readJsonSync(this.app.path('project', 'package.json')),
     )
     this.discover('dependencies')
-    this.discover('devDependencies')
-    this.registerDiscovered()
+      .discover('devDependencies')
+      .setRequired()
+
+    this.app.store.isTrue('discover') &&
+      this.registerDiscovered()
 
     this.has('peers') &&
       this.getValues('peers').forEach(this.resolvePeers)
@@ -24,7 +52,7 @@ export class Discovery extends Base {
   @bind
   public discover(
     type: 'dependencies' | 'devDependencies',
-  ): void {
+  ): Discovery {
     this.has(type) &&
       this.getEntries(type).map(([name, ver]) => {
         if (!name?.includes('bud') && !name?.includes('sage'))
@@ -45,6 +73,8 @@ export class Discovery extends Base {
         !this.resolveFrom?.includes(dir) &&
           this.resolveFrom.push(dir)
       })
+
+    return this
   }
 
   @bind
@@ -59,6 +89,7 @@ export class Discovery extends Base {
           cwd: dirname(require.resolve(peer)),
         }),
       )
+
       if (!dir) return
 
       this.set(`peers.${peer}`, {
@@ -73,11 +104,40 @@ export class Discovery extends Base {
   }
 
   @bind
-  public registerDiscovered() {
-    if (!this.app.store.isTrue('discover')) {
-      return
-    }
+  private setRequired() {
+    this.each('peers', (source, pkg) => {
+      if (!pkg) return
 
+      if (pkg.dependencies?.dev) {
+        Object.entries(pkg.dependencies.dev).forEach(
+          ([name, ver]) => {
+            this.set(`required.${name}`, {
+              source,
+              name,
+              ver,
+              type: 'devDependencies',
+            })
+          },
+        )
+      }
+
+      if (pkg.dependencies?.production) {
+        Object.entries(pkg.dependencies.production).forEach(
+          ([name, ver]) => {
+            this.set(`required.${name}`, {
+              source,
+              name,
+              ver,
+              type: 'dependencies',
+            })
+          },
+        )
+      }
+    })
+  }
+
+  @bind
+  public registerDiscovered() {
     this.each('peers', (_name, pkg) => {
       if (!pkg) return
 
@@ -89,7 +149,7 @@ export class Discovery extends Base {
 
   @bind
   public mapConfig(pkg: {name: string; dir: string}) {
-    if (!pkg) return {}
+    if (!pkg) return
 
     const cosmi = cosmiconfigSync(pkg.name, {
       searchPlaces: ['manifest.yml'],
@@ -106,15 +166,18 @@ export class Discovery extends Base {
 
   @bind
   public install(): void {
-    this.each('peers', (name, peer) => {
-      peer?.dependencies?.production &&
-        this.app.dependencies.install(
-          peer.dependencies.production,
-        )
-
-      peer?.dependencies?.dev &&
-        this.app.dependencies.installDev(peer.dependencies.dev)
-    })
+    this.app.dependencies.install(
+      Object.values(
+        this.get<{
+          [key: string]: {
+            source: string
+            name: string
+            ver: string
+            type: 'dependencies' | 'devDependencies'
+          }
+        }>('required'),
+      ),
+    )
   }
 
   @bind

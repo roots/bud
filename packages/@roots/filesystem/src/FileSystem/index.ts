@@ -37,7 +37,7 @@ export class FileSystem extends Container<FileContainer> {
    */
   @bind
   public get<T = FileContainer>(key?: string): T {
-    return (_.get(this.repository, key) as unknown) as T
+    return _.get(this.repository, key) as unknown as T
   }
 
   /**

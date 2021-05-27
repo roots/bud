@@ -58,6 +58,7 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.168",
+    "@types/marked": "^2",
     "@types/mini-css-extract-plugin": "^1.4.2",
     "@types/node": "^15.0.0",
     "webpack": "^5.36.0"
@@ -67,10 +68,13 @@
     "autobind-decorator": "^2.4.0",
     "css-loader": "^5.2.4",
     "file-loader": "^6.2.0",
+    "html-loader": "^2.1.2",
     "lodash": "^4.17.21",
     "mini-css-extract-plugin": "^1.5.0",
     "mini-svg-data-uri": "^1.2.3",
-    "raw-loader": "^4.0.2",
+    "remark": "^13.0.0",
+    "remark-html": "^13.0.1",
+    "remark-loader": "^4.0.0",
     "resolve-url-loader": "^3.1.2",
     "style-loader": "^2.0.0",
     "url-loader": "^4.1.1"

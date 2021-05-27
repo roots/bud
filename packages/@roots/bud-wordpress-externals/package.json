@@ -31,8 +31,8 @@
   "files": [
     "docs/",
     "lib/",
-    "manifest.yml",
-    "types/"
+    "types/",
+    "manifest.yml"
   ],
   "main": "./lib/cjs/index.js",
   "module": "./lib/esm/index.js",
@@ -57,12 +57,12 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@roots/bud-extensions": "workspace:*",
+    "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
+    "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/node": "^15.0.0"
   },
   "dependencies": {
-    "@roots/bud-framework": "workspace:*",
-    "@roots/wordpress-externals-webpack-plugin": "workspace:*",
+    "@roots/wordpress-externals-webpack-plugin": "workspace:packages/@roots/wordpress-externals-webpack-plugin",
     "autobind-decorator": "^2.4.0"
   }
 }

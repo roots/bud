@@ -18,6 +18,34 @@ import * as typescript from '@roots/bud-typescript'
 export const name: Module.Name = '@roots/sage'
 
 export const boot: Module.Boot = (app: Bud) => {
+  const [features, devFeatures]: Module[][] = [
+    [entrypoints, dependencies, externals, manifests],
+    [babel],
+  ]
+
+  // optional: postcss
+  app.discovery.has('devDependencies.postcss') &&
+    features.push(postcss)
+
+  // optional: tailwindcss
+  app.discovery.has('devDependencies.tailwindcss') &&
+    features.push(tailwind)
+
+  // optional: eslint
+  app.discovery.has('devDependencies.eslint') &&
+    features.push(eslint)
+
+  // optional: ts
+  app.discovery.has('devDependencies.typescript') &&
+    devFeatures.push(typescript)
+
+  // optional: react
+  ;(app.discovery.has('devDependencies.react') &&
+    app.discovery.has('devDependencies.react-dom')) ||
+    (app.discovery.has('dependencies.react') &&
+      app.discovery.has('dependencies.react-dom') &&
+      devFeatures.push(react))
+
   app
     .setPath({
       storage: app.env.get('APP_STORAGE') ?? 'storage/bud',
@@ -33,15 +61,7 @@ export const boot: Module.Boot = (app: Bud) => {
     })
     .template({enabled: false})
     .provide({jquery: ['$', 'jQuery']})
-    .use([
-      postcss,
-      tailwind,
-      entrypoints,
-      dependencies,
-      externals,
-      manifests,
-      eslint,
-    ])
+    .use(features)
 
   /**
    * Transpiler and extensions
@@ -62,5 +82,5 @@ export const boot: Module.Boot = (app: Bud) => {
         .hash()
         .splitChunks()
         .runtime('single')
-    : app.use([babel, react, typescript]).proxy().devtool()
+    : app.use(devFeatures).proxy().devtool()
 }

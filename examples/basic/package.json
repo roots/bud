@@ -1,0 +1,8 @@
+{
+  "name": "example-basic",
+  "private": true,
+  "devDependencies": {
+    "@roots/bud": "workspace:*",
+    "@roots/bud-cli": "workspace:*"
+  }
+}

@@ -1,10 +1,10 @@
 import {cosmiconfig, Options} from 'cosmiconfig'
 import TypeScriptLoader from '@endemolshinegroup/cosmiconfig-typescript-loader'
 import {boundMethod as bind} from 'autobind-decorator'
-import {Bud} from '@roots/bud'
+import {Framework} from '@roots/bud'
 
 export class Config {
-  public app: Bud
+  public app: Framework
 
   public searchPlaces: Options['searchPlaces']
 
@@ -12,7 +12,7 @@ export class Config {
     '.ts': TypeScriptLoader,
   }
 
-  public constructor(app: Bud, searchPlaces) {
+  public constructor(app: Framework, searchPlaces) {
     this.app = app
     this.searchPlaces = searchPlaces
   }

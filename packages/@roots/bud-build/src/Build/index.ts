@@ -1,5 +1,6 @@
 import {Framework, Service} from '@roots/bud-framework'
 import MiniCssExtractPlugin from 'mini-css-extract-plugin'
+import RemarkHTML from 'remark-html'
 import Webpack from 'webpack'
 import {Loader} from '../Loader'
 import {Rule} from '../Rule'
@@ -28,10 +29,11 @@ class Build extends Service {
 
     this.loaders = {
       css: new Loader(require.resolve('css-loader')),
+      html: new Loader(require.resolve('html-loader')),
+      md: new Loader(require.resolve('remark-loader')),
       style: new Loader(require.resolve('style-loader')),
       minicss: new Loader(MiniCssExtractPlugin.loader),
       file: new Loader(require.resolve('file-loader')),
-      raw: new Loader(require.resolve('raw-loader')),
       url: new Loader(require.resolve('url-loader')),
       'resolve-url': new Loader(
         require.resolve('resolve-url-loader'),
@@ -46,8 +48,19 @@ class Build extends Service {
           importLoaders: 1,
         }),
       }),
+      html: new Item({
+        loader: ({build}) => build.loaders.html,
+      }),
       style: new Item({
         loader: ({build}) => build.loaders.style,
+      }),
+      md: new Item({
+        loader: ({build}) => build.loaders.md,
+        options: {
+          remarkOptions: {
+            plugins: [RemarkHTML],
+          },
+        },
       }),
       minicss: new Item({
         loader: ({build}) => build.loaders.minicss,
@@ -62,10 +75,10 @@ class Build extends Service {
           ),
         }),
       }),
-      ['raw']: new Item({
+      raw: new Item({
         loader: ({build}) => build.loaders.raw,
       }),
-      ['file']: new Item({
+      file: new Item({
         loader: ({build}) => build.loaders.file,
         options: ({store}) => ({
           name: `${
@@ -75,7 +88,7 @@ class Build extends Service {
           }.[ext]`,
         }),
       }),
-      ['asset']: new Item({
+      asset: new Item({
         loader: ({build}) => build.loaders.file,
         options: ({store}) => ({
           name: `assets/${
@@ -106,7 +119,7 @@ class Build extends Service {
       js: new Rule({
         test: ({store}) => store.get('patterns.js'),
         exclude: ({store}) => store.get('patterns.modules'),
-        use: ({build}) => [build.items['raw']],
+        use: [],
       }),
       image: new Rule({
         test: ({store}) => store.get('patterns.image'),
@@ -118,6 +131,14 @@ class Build extends Service {
         exclude: ({store}) => store.get('patterns.modules'),
         use: ({build}) => [build.items['resolve-url']],
       }),
+      md: new Rule({
+        test: ({store}) => store.get('patterns.md'),
+        exclude: ({store}) => store.get('patterns.modules'),
+        use: ({build}) => [
+          build.items['html'],
+          build.items['md'],
+        ],
+      }),
       svg: new Rule({
         test: ({store}) => store.get('patterns.svg'),
         exclude: ({store}) => store.get('patterns.modules'),
@@ -125,8 +146,7 @@ class Build extends Service {
       }),
       html: new Rule({
         test: ({store}) => store.get('patterns.html'),
-        exclude: ({store}) => store.get('patterns.modules'),
-        use: ({build}) => [build.items['raw']],
+        use: ({build}) => [build.items['html']],
       }),
     }
 

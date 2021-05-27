@@ -31,16 +31,17 @@ const babel: Module = {
 
   boot: app =>
     !existsSync(app.path('project', 'babel.config.js')) &&
-    app.babel
-      .setPresets(['@babel/preset-env'])
-      .setPlugins([
+    app.babel.setPresets(['@babel/preset-env']).setPlugins([
+      [
         '@babel/plugin-transform-runtime',
-        '@babel/plugin-proposal-object-rest-spread',
-        '@babel/plugin-syntax-dynamic-import',
-      ])
-      .setPluginOptions('@babel/plugin-transform-runtime', {
-        helpers: false,
-      }),
+        {
+          helpers: false,
+        },
+      ],
+      '@babel/plugin-proposal-object-rest-spread',
+      '@babel/plugin-syntax-dynamic-import',
+      '@babel/plugin-proposal-class-properties',
+    ]),
 }
 
 export default babel

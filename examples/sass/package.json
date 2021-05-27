@@ -5,6 +5,6 @@
     "@roots/bud": "workspace:packages/@roots/bud",
     "@roots/bud-cli": "workspace:packages/@roots/bud-cli",
     "@roots/bud-sass": "workspace:packages/@roots/bud-sass",
-    "sass": "^1.32.11"
+    "sass": "^1.34.0"
   }
 }

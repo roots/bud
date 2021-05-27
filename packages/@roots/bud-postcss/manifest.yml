@@ -4,3 +4,5 @@ type: extension
 dependencies:
   dev:
     postcss: ^8.2.13
+    postcss-import: ^14.0.2
+    postcss-preset-env: ^6.7.0

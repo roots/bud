@@ -116,12 +116,11 @@ export class Plugin {
       })
     })
 
-    this.compilation.assets[
-      this.manifest.name
-    ] = new Webpack.sources.RawSource(
-      JSON.stringify({...this.manifest.entrypoints}),
-      true,
-    )
+    this.compilation.assets[this.manifest.name] =
+      new Webpack.sources.RawSource(
+        JSON.stringify({...this.manifest.entrypoints}),
+        true,
+      )
   }
 
   /**

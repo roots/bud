@@ -56,11 +56,13 @@
     "pkg:check": "yarn g:pkg:check",
     "pkg:format": "yarn g:pkg:format"
   },
+  "devDependencies": {
+    "webpack": "^5.37.1"
+  },
   "dependencies": {
     "escape-string-regexp": "^4.0.0",
     "lodash": "^4.17.21",
     "node-notifier": "^9.0.1",
-    "pretty-format": "^26.6.2",
-    "webpack": "^5.36.0"
+    "pretty-format": "^26.6.2"
   }
 }
