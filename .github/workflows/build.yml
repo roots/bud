@@ -53,7 +53,8 @@ jobs:
       - name: Install
         run: yarn install
 
-      - name: Build
-        run: |
-          yarn build:ci:cjs
-          yarn build:ci:esm
+      - name: Build CJS
+        run: yarn build:ci:cjs
+
+      - name: Build ESM
+        run: yarn build:ci:esm
