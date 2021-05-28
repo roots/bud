@@ -270,14 +270,14 @@ export class Container<I = any> {
   /**
    * Find
    */
-  public find(...searchItem: any): any {
+  public findKey(...searchItem: any): any {
     return _.findKey(this.repository, ...searchItem)
   }
 
   /**
    * Find in container item
    */
-  public findIn(
+  public findKeyIn(
     key: string | number,
     ...searchItem: any[]
   ): any {
@@ -515,7 +515,7 @@ export class Container<I = any> {
    * ```
    */
   public has(key: string | number | number): boolean {
-    return _.has(this.repository, key) ? true : false
+    return _.has(this.repository, key)
   }
 
   /**
@@ -549,7 +549,7 @@ export class Container<I = any> {
    * ```
    */
   public is(key: string | number, value: any): boolean {
-    return this.get(key) === value
+    return _.isEqual(this.get(key), value)
   }
 
   /**
