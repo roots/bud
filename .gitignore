@@ -16,3 +16,5 @@ dist
 !.yarn/sdks
 !.yarn/versions
 .pnp.*
+
+/profiles
