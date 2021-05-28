@@ -5519,6 +5519,7 @@ __metadata:
     "@types/node": ^15.6.1
     "@types/react": ^17.0.8
     "@types/react-dom": ^17.0.5
+    "@types/signale": ^1.4.1
     chokidar: ^3.5.1
     eslint: ^7.27.0
     eslint-config-prettier: ^8.3.0
@@ -5539,6 +5540,7 @@ __metadata:
     remark-github: ^10.0.1
     remark-toc: ^7.2.0
     rimraf: ^3.0.2
+    signale: ^1.4.0
     to-vfile: ^6.1.0
     ts-jest: ^27.0.1
     ts-node: ^10.0.0
