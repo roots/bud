@@ -190,6 +190,49 @@ describe('container', function () {
       ),
     ).toEqual('ergo')
   })
+
+  it('getKeys: returns array of keys', () => {
+    const repo = {
+      key: 'value',
+      anotherKey: 'value',
+    }
+    const container = new Container(repo)
+
+    expect(container.getKeys()).toEqual(Object.keys(repo))
+  })
+
+  it('getValues: returns array of values', () => {
+    const repo = {
+      key: 'value',
+      anotherKey: 'value2',
+    }
+    const container = new Container(repo)
+
+    expect(container.getValues()).toEqual(Object.values(repo))
+  })
+
+  it('getMap: returns an instance of Map', () => {
+    const repo = {
+      key: 'value',
+      anotherKey: 'value2',
+    }
+    const container = new Container(repo)
+
+    expect(container.getMap()).toBeInstanceOf(Map)
+  })
+
+  it('getMap: returns Map with expected structure', () => {
+    const repo = {
+      key: 'value',
+      anotherKey: 'value2',
+    }
+    const container = new Container(repo)
+
+    expect(Array.from(container.getMap())).toEqual([
+      ['key', 'value'],
+      ['anotherKey', 'value2'],
+    ])
+  })
 })
 
 export {}
