@@ -11,10 +11,10 @@ echo "Installing"
 yarn install
 
 echo "Building cjs"
-yarn build:ci:cjs
+yarn build:cjs
 
 echo "Building esm"
-yarn build:ci:esm
+yarn build:esm
 
 echo "Linting packages"
 yarn lint
