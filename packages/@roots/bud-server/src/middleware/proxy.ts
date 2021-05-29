@@ -25,12 +25,12 @@ export const proxy: Server.Middleware.Init = ({config}) => {
   const headers = {
     'X-Powered-By': '@roots/bud',
     'X-Bud-Proxy-From': source.host,
-    'X-Bud-Proxy-Secure': `${config.enabled('ssl')}`,
+    'X-Bud-Proxy-Secure': `${config.isTrue('ssl')}`,
   }
 
   // Fabricate URL from provided options.
   const getUrl = (target: Server.Middleware.Target): string => {
-    const protocol = config.enabled('ssl')
+    const protocol = config.isTrue('ssl')
       ? 'https://'
       : 'http://'
 
@@ -109,9 +109,9 @@ export const proxy: Server.Middleware.Init = ({config}) => {
     headers,
     hostRewrite: `${source.host}:${source.port}`,
     logLevel: 'silent',
-    ssl: config.enabled('ssl'),
-    secure: config.enabled('ssl'),
-    ws: config.enabled('ws'),
+    ssl: config.isTrue('ssl'),
+    secure: config.isTrue('ssl'),
+    ws: config.isTrue('ws'),
   }
 
   return createProxyMiddleware(proxyOptions)
