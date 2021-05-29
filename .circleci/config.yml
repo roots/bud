@@ -1,0 +1,21 @@
+version: 2.1
+
+orbs:
+  node: circleci/node@2.0.2
+
+workflows:
+  version: 2
+  build:
+    jobs:
+      - build
+
+jobs:
+  build:
+    working_directory: ~/bud
+    docker:
+      - image: circleci/node:15.11
+    steps:
+      - checkout
+      - run:
+          name: install
+          command: ./dev/scripts/ci.sh

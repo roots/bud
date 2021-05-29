@@ -63,6 +63,7 @@
   "devDependencies": {
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
+    "@types/fs-extra": "^9.0.11",
     "@types/lodash": "^4.14.168",
     "@types/node": "^15.0.0",
     "webpack": "^5.37.1"
@@ -78,6 +79,7 @@
     "autobind-decorator": "^2.4.0",
     "babel-loader": "^8.2.2",
     "babel-plugin-add-module-exports": "^1.0.4",
+    "fs-extra": "^10.0.0",
     "lodash": "^4.17.21"
   }
 }
