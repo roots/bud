@@ -1,5 +1,6 @@
 require('./jest.types')
-const {Signale} = require('Signale')
+const {Signale} = require('signale')
+
 const signale = new Signale({
   types: {
     log: {
