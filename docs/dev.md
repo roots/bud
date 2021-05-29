@@ -5,6 +5,18 @@ Below are instructions for setting up editor support in VSCode (for MacOS). If y
 - Install [ZipFS extension for VSCode](https://marketplace.visualstudio.com/items?itemName=arcanis.vscode-zipfs)
 - Use `cmd`+`shift`+`p` (mac) in a TypeScript file. Choose 'Select TypeScript Version'. Pick 'Use Workspace Version'
 
+## Testing
+
+Run `yarn test` to run the test suite.
+
+There are a few logging globals defined for your convenience:
+
+- `log`
+- `error`
+- `success`
+
+Logger docs: [Signale](https://github.com/klaussinani/signale).
+
 ## Documentation
 
 Docs are built with `yarn docs` (ran from monorepo root).
