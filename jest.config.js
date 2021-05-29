@@ -14,12 +14,12 @@ module.exports = {
     '/docs/',
     '/dev/',
   ],
-  verbose: true,
   globals: {
     'ts-jest': {
       tsconfig: 'tsconfig.dev.json',
     },
   },
+  verbose: true,
 
   setupFiles: ['./jest.setup.js'],
 

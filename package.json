@@ -38,7 +38,7 @@
     "lint": "yarn workspaces foreach --no-private --exclude @roots/bud-typings -p -v run lint",
     "pkg": "yarn workspaces foreach --no-private -p -v run pkg",
     "docs": "yarn node ./dev/docs/gen/cli.js",
-    "test": "jest --verbose --detectOpenHandles"
+    "test": "jest"
   },
   "resolutions": {
     "@babel/core": "^7.14.3",
