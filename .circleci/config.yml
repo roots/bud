@@ -18,4 +18,13 @@ jobs:
       - checkout
       - run:
           name: install
-          command: ./dev/scripts/ci.sh
+          command: yarn install
+      - run:
+          name: build cjs
+          command: yarn build:ci:cjs
+      - run:
+          name: build esm
+          command: yarn build:ci:esm
+      - run:
+          name: jest
+          command: yarn test
