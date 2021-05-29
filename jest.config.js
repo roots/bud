@@ -14,12 +14,14 @@ module.exports = {
     '/docs/',
     '/dev/',
   ],
-
+  verbose: true,
   globals: {
     'ts-jest': {
       tsconfig: 'tsconfig.dev.json',
     },
   },
+
+  setupFiles: ['./jest.setup.js'],
 
   moduleNameMapper: globby
     .sync('packages/@roots/*/package.json', {absolute: true})

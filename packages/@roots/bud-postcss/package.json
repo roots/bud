@@ -64,6 +64,8 @@
   "devDependencies": {
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
+    "@types/fs-extra": "^9.0.11",
+    "@types/lodash": "^4.14.168",
     "@types/node": "^15.0.0",
     "@types/signale": "^1.4.1",
     "postcss": "^8.3.0",
@@ -72,6 +74,8 @@
   "dependencies": {
     "@roots/bud-build": "workspace:packages/@roots/bud-build",
     "autobind-decorator": "^2.4.0",
+    "fs-extra": "^10.0.0",
+    "lodash": "^4.17.21",
     "postcss-loader": "^5.2.0"
   },
   "peerDependencies": {

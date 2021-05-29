@@ -77,7 +77,8 @@ const footer = pkg => {
   return result
 }
 
-const parseFile = filePath => vfile.readSync(filePath)
+const parseFile = (filePath: string): any =>
+  vfile.readSync(filePath)
 
 const fromFile = (srcFile, pkg) => {
   let result: string
@@ -113,7 +114,7 @@ const fromFile = (srcFile, pkg) => {
 
   remark()
     .use(toc, {tight: true})
-    .use(git, {repo: 'git@github.com:roots/bud'})
+    .use(git, {repository: 'roots/bud'})
     .use(emoji)
     .process(mdv, (err, file) => {
       err && console.error(err)

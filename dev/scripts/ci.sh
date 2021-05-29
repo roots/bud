@@ -1,17 +1,18 @@
 #!/bin/bash
 
-set -e
-trap 'last_command=$current_command; current_command=$BASH_COMMAND' DEBUG
-trap 'echo "\"${last_command}\" command filed with exit code $?."' EXIT
+source './handler.sh'
+
+echo "Yarn version"
+yarn set version from sources
 
 echo "Installing"
 yarn install
 
 echo "Building cjs"
-yarn build:cjs:ci
+yarn build:cjs
 
 echo "Building esm"
-yarn build:esm:ci
+yarn build:esm
 
 echo "Linting packages"
 yarn lint

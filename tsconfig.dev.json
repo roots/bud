@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "allowSyntheticDefaultImports": true,
-    "composite": true,
+    "composite": false,
     "declaration": true,
     "declarationMap": true,
     "experimentalDecorators": true,
@@ -18,6 +18,6 @@
     "sourceMap": true,
     "skipLibCheck": true,
     "strict": false,
-    "target": "ES2015",
-  },
+    "target": "ES2015"
+  }
 }
