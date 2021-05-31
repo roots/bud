@@ -27,13 +27,13 @@ yarn bud build --debug --ci
 cp package.json.bak package.json
 rm package.json.bak
 
-echo -e "\nBuilding critical-css"
-cd ../critical-css
-cp package.json package.json.bak
-yarn bud init
-yarn bud build --debug --ci
-cp package.json.bak package.json
-rm package.json.bak
+# echo -e "\nBuilding critical-css"
+# cd ../critical-css
+# cp package.json package.json.bak
+# yarn bud init
+# yarn bud build --debug --ci
+# cp package.json.bak package.json
+# rm package.json.bak
 
 echo -e "\nBuilding: esbuild"
 cd ../esbuild
