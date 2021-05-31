@@ -8,6 +8,7 @@ import {Item} from '../Item'
 import {config} from './config'
 import {boundMethod as bind} from 'autobind-decorator'
 import {posix} from 'path'
+import {isEqual} from 'lodash'
 
 class Build extends Service {
   public name = '@roots/bud-build'
@@ -19,7 +20,15 @@ class Build extends Service {
   public items: {[key: string]: Item} = {}
 
   public get config(): Webpack.Configuration {
-    return this.app.hooks.filter('build')
+    const config = this.app.hooks.filter('build')
+
+    if (isEqual(config.cache.type, 'memory')) {
+      config.cache = {
+        type: 'memory',
+      }
+    }
+
+    return config
   }
 
   @bind
