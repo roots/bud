@@ -98,6 +98,8 @@
     "@types/tailwindcss": "^2",
     "eslint": "^7.27.0",
     "postcss": "^8.3.0",
+    "postcss-import": "^14.0.2",
+    "postcss-preset-env": "^6.7.0",
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "tailwindcss": "^2",
@@ -120,6 +122,12 @@
       "optional": true
     },
     "postcss": {
+      "optional": true
+    },
+    "postcss-import": {
+      "optional": true
+    },
+    "postcss-preset-env": {
       "optional": true
     },
     "react": {

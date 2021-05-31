@@ -19,7 +19,8 @@ class Build extends Service {
   public items: {[key: string]: Item} = {}
 
   public get config(): Webpack.Configuration {
-    return this.app.hooks.filter('build')
+    const config = this.app.hooks.filter('build')
+    return config
   }
 
   @bind

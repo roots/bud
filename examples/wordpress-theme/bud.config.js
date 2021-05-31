@@ -9,9 +9,7 @@ module.exports = app =>
     .when(app.isProduction, app =>
       app
         .use(require('@roots/bud-esbuild'))
-        .esbuild.jsx()
         .hash()
-        .splitChunks()
         .runtime('single'),
     )
     .use([
@@ -25,7 +23,4 @@ module.exports = app =>
     .entry({
       app: ['app.js', 'app.css'],
       editor: ['editor.js'],
-    })
-    .persist({
-      type: 'memory',
     })

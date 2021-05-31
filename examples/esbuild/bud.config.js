@@ -1,7 +1,7 @@
 module.exports = app =>
   app
     .use([require('@roots/bud-esbuild')])
-    .html()
+    .template()
     .entry('scripts/app', 'app.js')
     .runtime()
     .splitChunks()
