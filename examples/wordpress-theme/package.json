@@ -16,7 +16,7 @@
     "react-refresh": "^0.10.0"
   },
   "dependencies": {
-    "bootstrap": "^4.6.0",
+    "bootstrap": "^5.0.1",
     "jquery": "^3.6.0",
     "popper.js": "^1.16.1"
   }

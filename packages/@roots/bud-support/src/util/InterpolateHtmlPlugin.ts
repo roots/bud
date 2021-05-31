@@ -1,5 +1,4 @@
 import Webpack from 'webpack'
-import escapeString from 'escape-string-regexp'
 
 export default class InterpolateHtmlPlugin {
   public name = 'interpolate-html-plugin'
@@ -16,6 +15,12 @@ export default class InterpolateHtmlPlugin {
     this.replacements = replacements
   }
 
+  private escapeRegExp(string: String) {
+    return string
+      .replace(/[|\\{}()[\]^$+*?.]/g, '\\$&')
+      .replace(/-/g, '\\x2d')
+  }
+
   public apply(compiler: Webpack.Compiler): void {
     compiler.hooks.compilation.tap(
       'InterpolateHtmlPlugin',
@@ -28,7 +33,10 @@ export default class InterpolateHtmlPlugin {
               Object.entries(this.replacements).forEach(
                 ([key, value]) => {
                   data.html = data.html.replace(
-                    new RegExp(`%${escapeString(key)}%`, 'g'),
+                    new RegExp(
+                      `%${this.escapeRegExp(key)}%`,
+                      'g',
+                    ),
                     value,
                   )
                 },

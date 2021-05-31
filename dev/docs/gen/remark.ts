@@ -1,4 +1,4 @@
-import vfile from 'to-vfile'
+import toVFile from 'to-vfile'
 import remark from 'remark'
 import toc from 'remark-toc'
 import emoji from 'remark-emoji'
@@ -78,7 +78,7 @@ const footer = pkg => {
 }
 
 const parseFile = (filePath: string): any =>
-  vfile.readSync(filePath)
+  toVFile.readSync(filePath)
 
 const fromFile = (srcFile, pkg) => {
   let result: string
