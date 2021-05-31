@@ -5,7 +5,7 @@ import {Loader, Item, Rule} from '@roots/bud-build'
 const extension: Module = {
   name: '@roots/bud-sass',
   boot: ({hooks, build}) => {
-    build.loaders['sass'] = new Loader(app =>
+    build.loaders['sass'] = new Loader(
       require.resolve('sass-loader'),
     )
 

@@ -26,6 +26,3 @@ module.exports = app =>
       app: ['app.js', 'app.css'],
       editor: ['editor.js'],
     })
-    .persist({
-      type: 'memory',
-    })

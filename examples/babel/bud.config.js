@@ -1,7 +1,7 @@
 module.exports = app =>
   app
     .use(require('@roots/bud-babel'))
-    .html()
+    .template()
     .entry({
       scripts: '*.js',
       styles: '*.css',

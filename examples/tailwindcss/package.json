@@ -9,11 +9,6 @@
     "@roots/bud-postcss": "workspace:*",
     "@roots/bud-tailwindcss": "workspace:*",
     "@tailwindcss/jit": "^0.1.18",
-    "@types/tailwindcss": "^2.0.3",
-    "autoprefixer": "^10.2.6",
-    "postcss": "^8.2.13",
-    "postcss-import": "^14.0.2",
-    "postcss-preset-env": "^6.7.0",
     "tailwindcss": "^2.1.2"
   }
 }

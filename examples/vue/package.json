@@ -2,8 +2,8 @@
   "name": "example-vue",
   "private": true,
   "devDependencies": {
-    "@roots/bud": "workspace:*",
-    "@roots/bud-cli": "workspace:*",
-    "@roots/bud-vue": "workspace:*"
+    "@roots/bud": "workspace:packages/@roots/bud",
+    "@roots/bud-cli": "workspace:packages/@roots/bud-cli",
+    "@roots/bud-vue": "workspace:packages/@roots/bud-vue"
   }
 }
