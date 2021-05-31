@@ -123,8 +123,4 @@ yarn bud build --debug --ci
 cp package.json.bak package.json
 rm package.json.bak
 
-echo -e "\nPost build install (restore yarn.lock)"
-cd ../../
-yarn install
-
 exit
