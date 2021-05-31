@@ -61,7 +61,7 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.11",
-    "@types/node": "^15.0.0"
+    "@types/node": "^15.6.1"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",

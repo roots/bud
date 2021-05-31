@@ -65,11 +65,11 @@
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/node": "^15.6.1",
     "typescript": "^4.3.2",
-    "webpack": "^5.37.1"
+    "webpack": "^5.38.1"
   },
   "dependencies": {
     "@roots/bud-build": "workspace:packages/@roots/bud-build",
-    "@typescript-eslint/parser": "^4.22.0",
+    "@typescript-eslint/parser": "^4.25.0",
     "autobind-decorator": "^2.4.0",
     "fork-ts-checker-webpack-plugin": "^6.2.10",
     "globby": "^11.0.3",

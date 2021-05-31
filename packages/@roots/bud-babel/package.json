@@ -64,17 +64,17 @@
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "@types/fs-extra": "^9.0.11",
-    "@types/lodash": "^4.14.168",
-    "@types/node": "^15.0.0",
-    "webpack": "^5.37.1"
+    "@types/lodash": "^4.14.170",
+    "@types/node": "^15.6.1",
+    "webpack": "^5.38.1"
   },
   "dependencies": {
     "@babel/core": "^7.14.3",
     "@babel/plugin-proposal-class-properties": "^7.13.0",
-    "@babel/plugin-proposal-object-rest-spread": "^7.14.2",
+    "@babel/plugin-proposal-object-rest-spread": "^7.14.4",
     "@babel/plugin-syntax-dynamic-import": "^7.8.3",
     "@babel/plugin-transform-runtime": "^7.14.3",
-    "@babel/preset-env": "^7.14.2",
+    "@babel/preset-env": "^7.14.4",
     "@roots/bud-build": "workspace:packages/@roots/bud-build",
     "autobind-decorator": "^2.4.0",
     "babel-loader": "^8.2.2",

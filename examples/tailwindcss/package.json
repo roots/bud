@@ -7,8 +7,6 @@
     "@roots/bud-cli": "workspace:*",
     "@roots/bud-framework": "workspace:*",
     "@roots/bud-postcss": "workspace:*",
-    "@roots/bud-tailwindcss": "workspace:*",
-    "@tailwindcss/jit": "^0.1.18",
-    "tailwindcss": "^2.1.2"
+    "@roots/bud-tailwindcss": "workspace:*"
   }
 }
