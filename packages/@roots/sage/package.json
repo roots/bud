@@ -66,10 +66,10 @@
   "devDependencies": {
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/eslint": "^7",
+    "@types/eslint": "^7.2.12",
     "@types/fs-extra": "^9.0.11",
-    "@types/node": "^15.0.0",
-    "@types/tailwindcss": "^2"
+    "@types/node": "^15.6.1",
+    "@types/tailwindcss": "^2.0.3"
   },
   "dependencies": {
     "@roots/bud": "workspace:packages/@roots/bud",

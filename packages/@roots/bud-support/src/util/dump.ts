@@ -1,4 +1,4 @@
-import prettyFormat from 'pretty-format'
+import prettyFormat, {OptionsReceived} from 'pretty-format'
 
 export const dump: Dump = (
   obj,
@@ -13,5 +13,5 @@ export const dump: Dump = (
 
 declare type Dump = (
   obj: unknown,
-  options?: prettyFormat.OptionsReceived,
+  options?: OptionsReceived,
 ) => void

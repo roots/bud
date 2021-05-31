@@ -59,8 +59,8 @@
     "pkg:format": "yarn g:pkg:format"
   },
   "devDependencies": {
-    "@types/lodash": "^4.14.168",
-    "@types/node": "^15.0.0"
+    "@types/lodash": "^4.14.170",
+    "@types/node": "^15.6.1"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
@@ -68,6 +68,6 @@
     "autobind-decorator": "^2.4.0",
     "lodash": "^4.17.21",
     "node-fetch": "^2.6.1",
-    "webpack": "^5.36.0"
+    "webpack": "^5.38.1"
   }
 }
