@@ -4,15 +4,14 @@
 SCRIPTS_DIR="$(cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P)"
 source "${SCRIPTS_DIR}/handler.sh"
 
-echo "Cleaning examples"
+echo -e "\nCleaning examples"
 rm -rf examples/*/dist
 rm -rf examples/*/node_modules
 rm -rf examples/*/.budfiles
 rm -rf examples/sage/public
 rm -rf examples/sage/storage/bud
 
-echo ""
-echo "Building: basic"
+echo -e "\nBuilding: basic"
 cd examples/basic
 cp package.json package.json.bak
 yarn bud init
@@ -20,8 +19,7 @@ yarn bud build --debug --ci
 cp package.json.bak package.json
 rm package.json.bak
 
-echo ""
-echo "Building: babel"
+echo -e "\nBuilding: babel"
 cd ../babel
 cp package.json package.json.bak
 yarn bud init
@@ -29,8 +27,7 @@ yarn bud build --debug --ci
 cp package.json.bak package.json
 rm package.json.bak
 
-echo ""
-echo "Building critical-css"
+echo -e "\nBuilding critical-css"
 cd ../critical-css
 cp package.json package.json.bak
 yarn bud init
@@ -38,8 +35,7 @@ yarn bud build --debug --ci
 cp package.json.bak package.json
 rm package.json.bak
 
-echo ""
-echo "Building: esbuild"
+echo -e "\nBuilding: esbuild"
 cd ../esbuild
 cp package.json package.json.bak
 yarn bud init
@@ -47,8 +43,7 @@ yarn bud build --debug --ci
 cp package.json.bak package.json
 rm package.json.bak
 
-echo ""
-echo "Building: md"
+echo -e "\nBuilding: md"
 cd ../md
 cp package.json package.json.bak
 yarn bud init
@@ -56,8 +51,7 @@ yarn bud build --debug --ci
 cp package.json.bak package.json
 rm package.json.bak
 
-echo ""
-echo "Building: postcss"
+echo -e "\nBuilding: postcss"
 cd ../postcss
 cp package.json package.json.bak
 yarn bud init
@@ -65,8 +59,7 @@ yarn bud build --debug --ci
 cp package.json.bak package.json
 rm package.json.bak
 
-echo ""
-echo "Building: preset-recommend"
+echo -e "\nBuilding: preset-recommend"
 cd ../preset-recommend
 cp package.json package.json.bak
 yarn bud init
@@ -74,8 +67,7 @@ yarn bud build --debug --ci
 cp package.json.bak package.json
 rm package.json.bak
 
-echo ""
-echo "Building: react"
+echo -e "\nBuilding: react"
 cd ../react
 cp package.json package.json.bak
 yarn bud init
@@ -83,8 +75,7 @@ yarn bud build --debug --ci
 cp package.json.bak package.json
 rm package.json.bak
 
-echo ""
-echo "Building: sage"
+echo -e "\nBuilding: sage"
 cd ../sage
 cp package.json package.json.bak
 yarn bud init
@@ -92,8 +83,7 @@ yarn bud build --debug --ci
 cp package.json.bak package.json
 rm package.json.bak
 
-echo ""
-echo "Building: sass"
+echo -e "\nBuilding: sass"
 cd ../sass
 cp package.json package.json.bak
 yarn bud init
@@ -101,8 +91,7 @@ yarn bud build --debug --ci
 cp package.json.bak package.json
 rm package.json.bak
 
-echo ""
-echo "Building: tailwindcss"
+echo -e "\nBuilding: tailwindcss"
 cd ../tailwindcss
 cp package.json package.json.bak
 yarn bud init
@@ -110,8 +99,7 @@ yarn bud build --debug --ci
 cp package.json.bak package.json
 rm package.json.bak
 
-echo ""
-echo "Building: typescript"
+echo -e "\nBuilding: typescript"
 cd ../typescript
 cp package.json package.json.bak
 yarn bud init
@@ -119,8 +107,7 @@ yarn bud build --debug --ci
 cp package.json.bak package.json
 rm package.json.bak
 
-echo ""
-echo "Building: vue"
+echo -e "\nBuilding: vue"
 cd ../vue
 cp package.json package.json.bak
 yarn bud init
@@ -128,13 +115,16 @@ yarn bud build --debug --ci
 cp package.json.bak package.json
 rm package.json.bak
 
-echo ""
-echo "Building: wordpress-theme"
+echo -e "\nBuilding: wordpress-theme"
 cd ../wordpress-theme
 cp package.json package.json.bak
 yarn bud init
 yarn bud build --debug --ci
 cp package.json.bak package.json
 rm package.json.bak
+
+echo -e "\nPost build install (restore yarn.lock)"
+cd ../../
+yarn install
 
 exit

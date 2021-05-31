@@ -12,19 +12,29 @@ workflows:
 jobs:
   build:
     working_directory: ~/bud
+
     docker:
       - image: circleci/node:15.11
+
     steps:
       - checkout
+
       - run:
           name: install
           command: yarn install
+
       - run:
           name: build cjs
           command: yarn build:ci:cjs
+
       - run:
           name: build esm
           command: yarn build:ci:esm
+
       - run:
           name: jest
           command: yarn test
+
+      - run:
+          name: example builds
+          command: ./dev/scripts/build-examples.sh
