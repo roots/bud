@@ -2,33 +2,32 @@ import './interface'
 import {VueLoaderPlugin} from 'vue-loader'
 import {Configuration} from 'webpack'
 import {Module} from '@roots/bud-framework'
-import {Loader, Item, Rule} from '@roots/bud-build'
+import {Loader, Item} from '@roots/bud-build'
 
 const extension: Module = {
   name: '@roots/bud-vue',
   boot: app => {
-    const {build, extensions, hooks} = app
-
-    build.loaders['vue'] = new Loader(
-      require.resolve('vue-loader'),
-    )
+    const {build, extensions, store, hooks} = app
 
     build.loaders['vue-style'] = new Loader(
       require.resolve('vue-style-loader'),
     )
 
-    build.items['vue'] = new Item({
-      loader: ({build}) => build.loaders['vue'],
-    })
-
     build.items['vue-style'] = new Item({
       loader: ({build}) => build.loaders['vue-style'],
     })
 
-    build.rules['vue'] = new Rule({
-      test: ({store}) => store.get('patterns.vue'),
-      use: ({build}) => [build.items['vue']],
-    })
+    hooks.on('build/module/rules', rules => [
+      {
+        test: store.get('patterns.vue'),
+        use: [
+          {
+            loader: require.resolve('vue-loader'),
+          },
+        ],
+      },
+      ...rules,
+    ])
 
     const cssItems = build.rules['css'].getUse(app)
     build.rules['css'].setUse(({isProduction, build}) => [
