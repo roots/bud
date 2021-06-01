@@ -21,10 +21,6 @@ export class Hooks extends Base {
       store.get('location.modules'),
     )
 
-    this.on('location/publicPath', () =>
-      store.get('location.publicPath'),
-    )
-
     this.on('location/records', () =>
       store.get('location.records'),
     )
