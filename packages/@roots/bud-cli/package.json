@@ -108,8 +108,8 @@
   "devDependencies": {
     "@oclif/dev-cli": "^1.26.0",
     "@oclif/test": "^1.2.8",
-    "@types/lodash": "^4.14.168",
-    "@types/node": "^15.0.0"
+    "@types/lodash": "^4.14.170",
+    "@types/node": "^15.6.1"
   },
   "dependencies": {
     "@endemolshinegroup/cosmiconfig-typescript-loader": "^3.0.2",

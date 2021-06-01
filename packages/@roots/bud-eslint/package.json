@@ -60,18 +60,18 @@
   "devDependencies": {
     "@roots/bud-extensions": "workspace:packages/@roots/bud-extensions",
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
-    "@types/node": "^15.0.0",
+    "@types/node": "^15.6.1",
     "eslint": "^7.27.0",
-    "webpack": "^5.37.1"
+    "webpack": "^5.38.1"
   },
   "dependencies": {
     "autobind-decorator": "^2.4.0",
     "babel-eslint": "^10.1.0",
     "eslint-config-prettier": "^8.3.0",
-    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-import": "^2.23.4",
     "eslint-plugin-jsx-a11y": "^6.4.1",
     "eslint-plugin-prettier": "^3.4.0",
-    "eslint-plugin-react": "^7.23.2",
+    "eslint-plugin-react": "^7.24.0",
     "eslint-plugin-react-hooks": "^4.2.0",
     "eslint-webpack-plugin": "^2.5.4"
   },

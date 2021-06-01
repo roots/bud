@@ -9,14 +9,13 @@
     "@roots/bud-esbuild": "workspace:*",
     "@roots/bud-postcss": "workspace:*",
     "@roots/bud-react": "workspace:*",
-    "@roots/bud-terser": "workspace:*",
     "@roots/bud-wordpress-dependencies": "workspace:*",
     "@roots/bud-wordpress-externals": "workspace:*",
-    "@roots/bud-wordpress-manifests": "workspace:*",
-    "react-refresh": "^0.10.0"
+    "@roots/bud-wordpress-manifests": "workspace:*"
   },
   "dependencies": {
-    "bootstrap": "^4.6.0",
+    "@popperjs/core": "^2.9.2",
+    "bootstrap": "^5.0.1",
     "jquery": "^3.6.0",
     "popper.js": "^1.16.1"
   }

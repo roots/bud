@@ -166,18 +166,30 @@ export class Discovery extends Base {
 
   @bind
   public install(): void {
-    this.app.dependencies.install(
-      Object.values(
-        this.get<{
-          [key: string]: {
-            source: string
-            name: string
-            ver: string
-            type: 'dependencies' | 'devDependencies'
-          }
-        }>('required'),
-      ),
-    )
+    const required =
+      this.get<{
+        [key: string]: {
+          source: string
+          name: string
+          ver: string
+          type: 'dependencies' | 'devDependencies'
+        }
+      }>('required')
+
+    required
+      ? this.app.dependencies.install(
+          Object.values(
+            this.get<{
+              [key: string]: {
+                source: string
+                name: string
+                ver: string
+                type: 'dependencies' | 'devDependencies'
+              }
+            }>('required'),
+          ),
+        )
+      : console.log('Nothing to install')
   }
 
   @bind

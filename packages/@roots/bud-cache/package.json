@@ -61,13 +61,14 @@
   },
   "devDependencies": {
     "@types/fs-extra": "^9.0.11",
-    "@types/node": "^15.0.0"
+    "@types/node": "^15.6.1"
   },
   "dependencies": {
     "@roots/bud-framework": "workspace:packages/@roots/bud-framework",
     "autobind-decorator": "^2.4.0",
     "filenamify": "^4.3.0",
     "fs-extra": "^10.0.0",
-    "globby": "^11.0.3"
+    "globby": "^11.0.3",
+    "lodash": "^4.17.21"
   }
 }

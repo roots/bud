@@ -3,6 +3,7 @@ import crypto from 'crypto'
 import {mkdirSync, pathExistsSync, readFileSync} from 'fs-extra'
 import {boundMethod as bind} from 'autobind-decorator'
 import {sync} from 'globby'
+import {isEqual} from 'lodash'
 
 class Cache extends Service implements Base {
   public name = '@roots/bud-cache'
@@ -11,6 +12,16 @@ class Cache extends Service implements Base {
 
   @bind
   public register(): void {
+    this.app.hooks.on('build', config => {
+      if (isEqual(config.cache.type, 'memory')) {
+        config.cache = {
+          type: 'memory',
+        }
+      }
+
+      return config
+    })
+
     this.app.hooks
       .on('build/cache/name', () => undefined)
       .hooks.on('build/cache/version', () => undefined)
