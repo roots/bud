@@ -68,6 +68,6 @@ export class Dashboard extends Base {
 
   @bind
   public kill(): void {
-    this.dashboard.unmount()
+    this.dashboard && this.dashboard.unmount()
   }
 }

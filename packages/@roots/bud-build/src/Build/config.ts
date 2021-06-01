@@ -52,8 +52,11 @@ export function config(this: Framework): void {
   this.hooks
     .on('build/bail', true)
     .hooks.on('build/experiments', () => ({
-      lazyCompilation: false,
+      lazyCompilation: this.hooks.filter(
+        'build/experiments/lazyCompilation',
+      ),
     }))
+    .hooks.on('build/experiments/lazyCompilation', () => false)
 
     /**
      * cache

@@ -1,6 +1,6 @@
 import {Framework, setupBud, teardownBud} from '../../util'
 
-describe('bud.hash', function () {
+describe('bud.config', function () {
   let bud: Framework
 
   beforeEach(() => {
@@ -12,15 +12,13 @@ describe('bud.hash', function () {
   })
 
   it('is a function', () => {
-    expect(bud.hash).toBeInstanceOf(Function)
+    expect(bud.config).toBeInstanceOf(Function)
   })
 
-  it('enables hashing when called', () => {
-    bud.hash()
+  it('modifies bud.store', () => {
+    bud.config({clean: false})
 
-    expect(bud.build.config.output.filename).toEqual(
-      '[name].[contenthash].js',
-    )
+    expect(bud.store.isTrue('clean')).toEqual(false)
   })
 })
 

@@ -288,6 +288,7 @@ namespace Hooks {
         | 'build/cache/version'
         | 'build/cache/type'
         | 'build/cache/buildDependencies'
+        | keyof Dive<Config['experiments'], 'experiments'>
         | keyof Dive<Config['watchOptions'], 'watchOptions'>
         | keyof Dive<Config['performance'], 'performance'>
         | keyof Dive<Config['optimization'], 'optimization'>

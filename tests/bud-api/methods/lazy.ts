@@ -1,6 +1,6 @@
 import {Framework, setupBud, teardownBud} from '../../util'
 
-describe('bud.hash', function () {
+describe('bud.lazy', function () {
   let bud: Framework
 
   beforeEach(() => {
@@ -12,14 +12,14 @@ describe('bud.hash', function () {
   })
 
   it('is a function', () => {
-    expect(bud.hash).toBeInstanceOf(Function)
+    expect(bud.lazy).toBeInstanceOf(Function)
   })
 
-  it('enables hashing when called', () => {
-    bud.hash()
+  it('enables build.config.experiments.lazyCompilation', () => {
+    bud.lazy()
 
-    expect(bud.build.config.output.filename).toEqual(
-      '[name].[contenthash].js',
+    expect(bud.build.config.experiments.lazyCompilation).toEqual(
+      true,
     )
   })
 })

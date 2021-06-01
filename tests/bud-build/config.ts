@@ -1,9 +1,4 @@
-import {
-  Bud,
-  Framework,
-  config as frameworkConfig,
-  services,
-} from '@roots/bud'
+import {Framework, setupBud, teardownBud} from '../util'
 import {Build} from '@roots/bud-build'
 import RemarkHTML from 'remark-html'
 
@@ -13,16 +8,13 @@ describe('bud.build.config', function () {
     path: Framework['path']
 
   beforeAll(() => {
-    bud = new Bud(frameworkConfig)
-      .bootstrap(services)
-      .lifecycle()
-
+    bud = setupBud()
     config = bud.build.config
     path = bud.path
   })
 
   afterAll(() => {
-    bud.server.watcher.close()
+    teardownBud(bud)
   })
 
   it(`doesn't include deprecated properties`, () => {
