@@ -33,7 +33,7 @@ jobs:
 
       - run:
           name: jest
-          command: yarn test
+          command: yarn test --coverage
 
       - run:
           name: example builds

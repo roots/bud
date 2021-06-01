@@ -7,6 +7,10 @@ describe('server config', function () {
     bud = new Bud(config).bootstrap(services).lifecycle()
   })
 
+  afterEach(() => {
+    bud.server.watcher.close()
+  })
+
   it('has expected defaults', () => {
     expect(bud.server.config.all()).toEqual({
       browser: {indicator: true, log: true, overlay: true},

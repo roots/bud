@@ -141,6 +141,22 @@ describe('container', function () {
     })
   })
 
+  describe('isDefined', function () {
+    it('returns true if value is set', () => {
+      const repo = {foo: ['bar', 'whiz']}
+      const container = new Container(repo)
+
+      expect(container.isDefined('foo')).toEqual(true)
+    })
+
+    it('returns false if value is not set', () => {
+      const repo = {foo: ['bar', 'whiz']}
+      const container = new Container(repo)
+
+      expect(container.isDefined('bar')).toEqual(false)
+    })
+  })
+
   describe('isNotArray', function () {
     it('returns true if value is not an array', () => {
       const repo = {foo: 'bar'}
@@ -343,8 +359,10 @@ describe('container', function () {
         crash: 'bandicoot',
       })
     })
+  })
 
-    it('getEntries: retrieves repo as entries', () => {
+  describe('getEntries', () => {
+    it('retrieves repo as entries', () => {
       const repo = {foo: 'bar', ergo: 'dox'}
       const container = new Container(repo)
 
@@ -353,8 +371,10 @@ describe('container', function () {
         ['ergo', 'dox'],
       ])
     })
+  })
 
-    it('fromEntries: sets repo from entries', () => {
+  describe('fromEntries', () => {
+    it('sets repo from entries', () => {
       const repo = {foo: 'bar', ergo: 'dox'}
       const container = new Container().fromEntries(
         Object.entries(repo),
@@ -362,8 +382,10 @@ describe('container', function () {
 
       expect(container.all()).toEqual(repo)
     })
+  })
 
-    it('findKey: finds matching items', () => {
+  describe('findKey', () => {
+    it('finds matching items', () => {
       const repo = {
         bud: {
           name: 'bud',
@@ -380,8 +402,10 @@ describe('container', function () {
         container.findKey(({type}) => type == 'theme'),
       ).toEqual('sage')
     })
+  })
 
-    it('findKeyIn: finds matching nested items', () => {
+  describe('findKeyIn', () => {
+    it('finds matching nested items', () => {
       const repo = {
         deep: {
           name: 'bud',
@@ -408,15 +432,19 @@ describe('container', function () {
         ),
       ).toEqual('ergo')
     })
+  })
 
-    it('getKeys: returns array of keys', () => {
+  describe('getKeys', () => {
+    it('returns array of keys', () => {
       const repo = {key: 'value', anotherKey: 'value'}
       const container = new Container(repo)
 
       expect(container.getKeys()).toEqual(Object.keys(repo))
     })
+  })
 
-    it('getValues: returns array of values', () => {
+  describe('getValues', () => {
+    it('returns array of values', () => {
       const repo = {key: 'value', anotherKey: 'value2'}
       const container = new Container(repo)
 

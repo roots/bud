@@ -270,31 +270,6 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.mutateEntries
-   *
-   * Mutate each value via a supplied mutagen.
-   *
-   * ### Usage
-   *
-   * ```js
-   * container.mutateEntries('key', (key, value) => value + 1)
-   * ```
-   */
-  public mutateEntries(
-    key: string | number,
-    mutateFn: (key: string | number, value: any) => any,
-  ): this {
-    this.fromEntries(
-      this.getEntries(key).map(([key, value]: [string, any]) => [
-        key,
-        mutateFn(key, value),
-      ]),
-    )
-
-    return this
-  }
-
-  /**
    * ## container.getValues
    *
    * Get an item value.
