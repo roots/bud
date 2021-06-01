@@ -69,7 +69,7 @@ export class Server extends Service implements Contract {
   @bind
   public processMiddlewares(compiler: Contract.Compiler) {
     Object.entries(middleware).map(([key, generate]) => {
-      if (this.config.enabled(`middleware.${key}`)) {
+      if (this.config.isTrue(`middleware.${key}`)) {
         this.info(`Enabling ${key}`)
 
         this.middleware[key] = generate({

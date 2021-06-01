@@ -8,6 +8,10 @@ describe('bud.build.config', function () {
     bud.mode = 'development'
   })
 
+  afterEach(() => {
+    bud.server.watcher.close()
+  })
+
   it('has expected mode default', () => {
     expect(bud.build.config.mode).toEqual('development')
   })

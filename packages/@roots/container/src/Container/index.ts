@@ -120,30 +120,6 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.mutateStore
-   *
-   * Mutate the container store.
-   *
-   * ### Usage
-   *
-   * ```js
-   * container.mutateStoreEntries((key, value) => value + 1)
-   * ```
-   */
-  public mutateStoreEntries(
-    mutateFn: (key: string | number, value: I) => I,
-  ): this {
-    this.fromEntries(
-      this.getEntries().map(([key, value]: [string, I]) => [
-        key,
-        mutateFn(key, value),
-      ]),
-    )
-
-    return this
-  }
-
-  /**
    * ## container.get
    *
    * Get a value from the container.
@@ -270,14 +246,14 @@ export class Container<I = any> {
   /**
    * Find
    */
-  public find(...searchItem: any): any {
+  public findKey(...searchItem: any): any {
     return _.findKey(this.repository, ...searchItem)
   }
 
   /**
    * Find in container item
    */
-  public findIn(
+  public findKeyIn(
     key: string | number,
     ...searchItem: any[]
   ): any {
@@ -291,31 +267,6 @@ export class Container<I = any> {
       )
 
     return _.findKey(parseInner(this.get(key)), ...searchItem)
-  }
-
-  /**
-   * ## container.mutateEntries
-   *
-   * Mutate each value via a supplied mutagen.
-   *
-   * ### Usage
-   *
-   * ```js
-   * container.mutateEntries('key', (key, value) => value + 1)
-   * ```
-   */
-  public mutateEntries(
-    key: string | number,
-    mutateFn: (key: string | number, value: any) => any,
-  ): this {
-    this.fromEntries(
-      this.getEntries(key).map(([key, value]: [string, any]) => [
-        key,
-        mutateFn(key, value),
-      ]),
-    )
-
-    return this
   }
 
   /**
@@ -416,36 +367,6 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.push
-   *
-   * Push an item or entry onto the container
-   *
-   * ```js
-   * container.unique('containerKey') // unique values of containerKey
-   * ```
-   *
-   * ```js
-   * container.unique() // unique values of container
-   * ```
-   */
-  public push(value: any, key?: any) {
-    if (key) {
-      this.mutate(key, k => k.push(value))
-      return this
-    }
-
-    if (!_.isArray(this.all())) {
-      throw new Error(
-        'Type mismatch: Attempted to push onto object container as if it were an array.',
-      )
-    }
-
-    this.setStore(this.all().push(value))
-
-    return this
-  }
-
-  /**
    * ## container.transform
    *
    * Retrieve a container item, running it through the supplied fn.
@@ -515,7 +436,7 @@ export class Container<I = any> {
    * ```
    */
   public has(key: string | number | number): boolean {
-    return _.has(this.repository, key) ? true : false
+    return _.has(this.repository, key)
   }
 
   /**
@@ -549,7 +470,7 @@ export class Container<I = any> {
    * ```
    */
   public is(key: string | number, value: any): boolean {
-    return this.get(key) === value
+    return _.isEqual(this.get(key), value)
   }
 
   /**
@@ -565,25 +486,7 @@ export class Container<I = any> {
    * ```
    */
   public isTrue(key: string | number): boolean {
-    return this.is(key, true || 'true')
-  }
-
-  /**
-   * ## container.enabled
-   *
-   * Same as container.isTrue.
-   *
-   * Return a boolean indicating if the given key's value is true
-   *
-   * ### Usage
-   *
-   * ```js
-   * container.isTrue('my-key')
-   * // True if container.repository['my-key'] === true
-   * ```
-   */
-  public enabled(key: string | number): boolean {
-    return this.is(key, true || 'true')
+    return this.is(key, true)
   }
 
   /**
@@ -599,57 +502,7 @@ export class Container<I = any> {
    * ```
    */
   public isFalse(key: string | number): boolean {
-    return this.is(key, false || 'false')
-  }
-
-  /**
-   * ## container.disabled
-   *
-   * Same as container.isFalse
-   *
-   * Return a boolean indicating if the given key's value is `false`
-   *
-   * ### Usage
-   *
-   * ```js
-   * container.isFalse('my-key')
-   * // True if container.repository['my-key'] === false
-   * ```
-   */
-  public disabled(key: string | number): boolean {
-    return this.isFalse(key || 'false')
-  }
-
-  /**
-   * ## container.enable
-   *
-   * Set the value of the given key to `true`.
-   *
-   * ### Usage
-   *
-   * ```js
-   * container.enable('my-key')
-   * // => container.repository['my-key'] === false
-   * ```
-   */
-  public enable(key: string | number): void {
-    this.set(key, true)
-  }
-
-  /**
-   * ## container.disable
-   *
-   * Set the value of the given key to `false`.
-   *
-   * ### Usage
-   *
-   * ```js
-   * container.disable('my-key')
-   * // => container.repository['my-key'] === false
-   * ```
-   */
-  public disable(key: string | number): void {
-    this.set(key, false)
+    return this.is(key, false)
   }
 
   /**
@@ -847,6 +700,6 @@ export class Container<I = any> {
    * ````
    */
   public isFunction(key: string | number): boolean {
-    return _.isFunction(this.get(key))
+    return this.has(key) && _.isFunction(this.get(key))
   }
 }

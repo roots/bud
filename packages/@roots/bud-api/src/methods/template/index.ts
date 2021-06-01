@@ -51,22 +51,25 @@ declare module '@roots/bud-framework' {
 
 const template: Api.Template = function (options?) {
   /**
-   * Allow html arg to override
+   * No options? enable
+   * this functionality and return early.
    */
   if (!options) {
-    this.store.enable('html')
+    this.store.set('html', true)
     return this
   }
 
   /**
-   * Update the enabled status for the html plugin
+   * Update the enabled status
+   * for the html plugin
    */
   isBoolean(options.enabled)
     ? this.store.set('html', options.enabled)
-    : this.store.enable('html')
+    : this.store.set('html', true)
 
   /**
-   * Apply any replacements in the interpolation plugin
+   * Apply any replacements
+   * with the interpolation plugin
    */
   options.replace &&
     this.extensions
@@ -77,7 +80,7 @@ const template: Api.Template = function (options?) {
       }))
 
   /**
-   * Set the html-webpack-plugin template
+   * Set the template
    */
   options.template &&
     this.extensions

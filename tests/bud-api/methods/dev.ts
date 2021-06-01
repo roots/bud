@@ -7,6 +7,10 @@ describe('bud.dev', function () {
     bud = new Bud(config).bootstrap(services).lifecycle()
   })
 
+  afterEach(() => {
+    bud.server.watcher.close()
+  })
+
   it('sets host', () => {
     bud.dev({host: 'bar.com'})
     expect(bud.server.config.get('host')).toEqual('bar.com')

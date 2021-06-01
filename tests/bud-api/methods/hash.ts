@@ -7,6 +7,10 @@ describe('bud.hash', function () {
     bud = new Bud(config).bootstrap(services).lifecycle()
   })
 
+  afterEach(() => {
+    bud.server.watcher.close()
+  })
+
   it('enables hashing when called', () => {
     bud.hash()
 

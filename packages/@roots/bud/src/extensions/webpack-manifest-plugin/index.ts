@@ -21,7 +21,7 @@ const extension: Module = {
     return plugin
   },
 
-  when: app => app.store.enabled('manifest'),
+  when: app => app.store.isTrue('manifest'),
 }
 
 export default extension
