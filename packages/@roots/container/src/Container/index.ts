@@ -120,30 +120,6 @@ export class Container<I = any> {
   }
 
   /**
-   * ## container.mutateStore
-   *
-   * Mutate the container store.
-   *
-   * ### Usage
-   *
-   * ```js
-   * container.mutateStoreEntries((key, value) => value + 1)
-   * ```
-   */
-  public mutateStoreEntries(
-    mutateFn: (key: string | number, value: I) => I,
-  ): this {
-    this.fromEntries(
-      this.getEntries().map(([key, value]: [string, I]) => [
-        key,
-        mutateFn(key, value),
-      ]),
-    )
-
-    return this
-  }
-
-  /**
    * ## container.get
    *
    * Get a value from the container.

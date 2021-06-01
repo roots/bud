@@ -36,9 +36,6 @@ namespace Store {
     | `debug`
     | `discover`
     | `html`
-    | `html.replace`
-    | `html.enabled`
-    | `html.template`
     | `manifest`
     | `extension`
     | `extension.${string}`

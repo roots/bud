@@ -142,7 +142,7 @@ describe('container', function () {
   })
 
   describe('isNotArray', function () {
-    it('returns true if value is an array', () => {
+    it('returns true if value is not an array', () => {
       const repo = {foo: 'bar'}
       const container = new Container(repo)
 
@@ -169,7 +169,7 @@ describe('container', function () {
   })
 
   describe('isNumber', function () {
-    it('returns true if value is a String', () => {
+    it('returns true if value is not a String', () => {
       const repo = {foo: 100}
       const container = new Container(repo)
 
@@ -178,7 +178,7 @@ describe('container', function () {
   })
 
   describe('isNotNumber', function () {
-    it('returns true if value is a Number', () => {
+    it('returns true if value is not a Number', () => {
       const repo = {foo: ['bar', 'whiz']}
       const container = new Container(repo)
 
@@ -186,22 +186,34 @@ describe('container', function () {
     })
   })
 
+  describe('isNull', function () {
+    it('returns true if value is null', () => {
+      const repo = {foo: null}
+      const container = new Container(repo)
+
+      expect(container.isNull('foo')).toEqual(true)
+    })
+  })
+
+  describe('isNotNull', function () {
+    it('returns true if value is not null', () => {
+      const repo = {foo: ['bar', 'whiz']}
+      const container = new Container(repo)
+
+      expect(container.isNotNull('foo')).toEqual(true)
+    })
+  })
+
   describe('getMap', function () {
     it('returns an instance of Map', () => {
-      const repo = {
-        key: 'value',
-        anotherKey: 'value2',
-      }
+      const repo = {key: 'value', anotherKey: 'value2'}
       const container = new Container(repo)
 
       expect(container.getMap()).toBeInstanceOf(Map)
     })
 
     it('returns Map with expected structure', () => {
-      const repo = {
-        key: 'value',
-        anotherKey: 'value2',
-      }
+      const repo = {key: 'value', anotherKey: 'value2'}
       const container = new Container(repo)
 
       expect(Array.from(container.getMap())).toEqual([
@@ -211,12 +223,9 @@ describe('container', function () {
     })
   })
 
-  describe('the rest', () => {
-    it('remove: removes a value', () => {
-      const repo = {
-        foo: 'bar',
-        ergo: 'dox',
-      }
+  describe('remove', () => {
+    it('removes a value', () => {
+      const repo = {foo: 'bar', ergo: 'dox'}
       const container = new Container(repo)
 
       container.remove('foo')
@@ -225,28 +234,106 @@ describe('container', function () {
         ergo: 'dox',
       })
     })
+  })
 
-    it('setStore: sets the repo value', () => {
-      const repo = {
-        foo: 'bar',
-        ergo: 'dox',
-      }
+  describe('setStore', () => {
+    it('sets the value of the repository property', () => {
+      const repo = {foo: 'bar', ergo: 'dox'}
       const container = new Container(repo)
 
-      const replacement = {
-        oof: 'yea',
-        ben: 'word',
-      }
+      const replacement = {oof: 'yea', ben: 'word'}
       container.setStore(replacement)
 
       expect(container.all()).toEqual(replacement)
     })
+  })
 
-    it('mergeStore: merges a value', () => {
-      const repo = {
-        foo: 'bar',
+  describe('mutateStore', () => {
+    it('callback receives the store value', () => {
+      const repo = {foo: 'bar', ergo: 'dox'}
+      const container = new Container(repo)
+
+      container.mutateStore(store => {
+        expect(store).toBe(repo)
+        return store
+      })
+    })
+
+    it('mutates the store using the provided callback', () => {
+      const repo = {foo: 'bar', ergo: 'dox'}
+      const container = new Container(repo)
+
+      const mutagen = store => Object.assign(store, {foo: 'nea'})
+      container.mutateStore(mutagen)
+
+      expect(container.all()).toEqual({
+        foo: 'nea',
         ergo: 'dox',
+      })
+    })
+  })
+
+  describe('each', () => {
+    it('executes callback for each match', () => {
+      const repo = {
+        foo: {
+          test: 'bar',
+          ergo: 'dox',
+        },
       }
+      const container: Container = new Container(repo)
+
+      const callback = jest.fn()
+      container.each('foo', callback)
+
+      expect(callback).toBeCalledTimes(2)
+    })
+  })
+
+  describe('every', () => {
+    it('executes callback for every top level key', () => {
+      const repo = {
+        foo: {
+          test: 'bar',
+          ergo: 'dox',
+        },
+      }
+      const container: Container = new Container(repo)
+
+      const callback = jest.fn()
+      container.every(callback)
+
+      expect(callback).toBeCalledTimes(1)
+    })
+  })
+
+  describe('transform', () => {
+    it('transforms a value using a callback', () => {
+      const repo = {foo: 10}
+      const container = new Container(repo)
+      const result = container.transform('foo', v => {
+        return v + 10
+      })
+
+      expect(result).toEqual(20)
+    })
+  })
+
+  describe('mutate', () => {
+    it('mutate a value using a callback', () => {
+      const repo = {foo: 10}
+      const container = new Container(repo)
+      container.mutate('foo', v => {
+        return v + 10
+      })
+
+      expect(container.get('foo')).toEqual(20)
+    })
+  })
+
+  describe('mergeStore', () => {
+    it('merges a value with the repository property', () => {
+      const repo = {foo: 'bar', ergo: 'dox'}
       const container = new Container(repo)
 
       expect(
@@ -258,10 +345,7 @@ describe('container', function () {
     })
 
     it('getEntries: retrieves repo as entries', () => {
-      const repo = {
-        foo: 'bar',
-        ergo: 'dox',
-      }
+      const repo = {foo: 'bar', ergo: 'dox'}
       const container = new Container(repo)
 
       expect(container.getEntries()).toEqual([
@@ -271,10 +355,7 @@ describe('container', function () {
     })
 
     it('fromEntries: sets repo from entries', () => {
-      const repo = {
-        foo: 'bar',
-        ergo: 'dox',
-      }
+      const repo = {foo: 'bar', ergo: 'dox'}
       const container = new Container().fromEntries(
         Object.entries(repo),
       )
@@ -329,20 +410,14 @@ describe('container', function () {
     })
 
     it('getKeys: returns array of keys', () => {
-      const repo = {
-        key: 'value',
-        anotherKey: 'value',
-      }
+      const repo = {key: 'value', anotherKey: 'value'}
       const container = new Container(repo)
 
       expect(container.getKeys()).toEqual(Object.keys(repo))
     })
 
     it('getValues: returns array of values', () => {
-      const repo = {
-        key: 'value',
-        anotherKey: 'value2',
-      }
+      const repo = {key: 'value', anotherKey: 'value2'}
       const container = new Container(repo)
 
       expect(container.getValues()).toEqual(Object.values(repo))

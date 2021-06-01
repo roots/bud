@@ -68,12 +68,16 @@ const proxy: Api.Proxy = function (config) {
   }
 
   /**
-   * Case: config.enabled is explicitly set
-   * Response: enable proxy, delete property from config
+   * Case: config.enabled isn't explicitly set
+   * Response: enable proxy
    */
   if (isUndefined(config.enabled)) {
     this.server.config.set('middleware.proxy', true)
   } else {
+    /**
+     * Case: config.enabled isn't boolean
+     * Throw error
+     */
     this.when(!isBoolean(config.enabled), () => {
       this.dashboard.error(
         'Attempt to set proxy enabled to a non boolean value.',
@@ -82,6 +86,10 @@ const proxy: Api.Proxy = function (config) {
       process.exit()
     })
 
+    /**
+     * Case: config.enabled is explicitly set and boolean
+     * Use supplied boolean
+     */
     this.server.config.set('middleware.proxy', config.enabled)
   }
 
