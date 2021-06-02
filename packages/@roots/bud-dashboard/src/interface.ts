@@ -15,7 +15,6 @@ declare module '@roots/bud-framework' {
 
     interface AppProps extends Compilation {
       bud: Framework
-      pkg: {[key: string]: any}
       theme: Styles
     }
 
@@ -80,7 +79,8 @@ declare module '@roots/bud-framework' {
         isRepo: boolean
         head: string
         branch: string
-        status: string
+        status: string[]
+        untracked: string[]
         hasError: boolean
       }
     }

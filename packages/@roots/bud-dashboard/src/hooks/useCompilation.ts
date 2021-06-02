@@ -2,9 +2,6 @@ import {useState, useEffect} from 'react'
 import webpack from 'webpack'
 import {Dashboard} from '@roots/bud-framework'
 
-/**
- * Use compilation
- */
 export const useCompilation: Dashboard.Compilation.Hook =
   app => {
     const [stats, setStats] = useState(

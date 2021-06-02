@@ -19,7 +19,7 @@ describe('bud.hash', function () {
     bud.hash()
 
     expect(bud.build.config.output.filename).toEqual(
-      '[name].[contenthash].js',
+      '[name].[contenthash:6].js',
     )
   })
 })
