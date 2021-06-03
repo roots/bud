@@ -1,14 +1,22 @@
-import type {Dashboard} from '@roots/bud-framework'
+import {Styles} from '@roots/ink-use-style'
 
 import React from 'react'
 import {Box, Text} from 'ink'
 import Spinner from 'ink-spinner'
 import {Bar} from './Bar/index'
 
-export const Progress: Dashboard.Component = ({
-  progress,
+export const Progress = ({
   hasErrors,
+  hasWarnings,
+  progress,
   theme,
+  development,
+}: {
+  development: boolean
+  hasWarnings: boolean
+  hasErrors: boolean
+  progress
+  theme: Styles
 }) => {
   const guard =
     progress?.decimal &&
@@ -30,10 +38,17 @@ export const Progress: Dashboard.Component = ({
           ) : (
             <>
               {hasErrors ? (
-                <Text color={theme.colors.error}>X Error</Text>
+                <Text color={theme.colors.error}>
+                  X {development ? 'Watching' : 'Error'}
+                </Text>
               ) : (
-                <Text color={theme.colors.success}>
-                  ✔ Complete
+                <Text
+                  color={
+                    hasWarnings
+                      ? theme.colors.warning
+                      : theme.colors.success
+                  }>
+                  ✔ {development ? 'Watching' : 'Complete'}
                 </Text>
               )}
             </>

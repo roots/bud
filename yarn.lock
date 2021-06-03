@@ -2564,12 +2564,14 @@ __metadata:
     autobind-decorator: ^2.4.0
     axios: ^0.21.1
     execa: ^5.0.1
+    human-format: ^0.11.0
     ink: ^3.0.8
     ink-big-text: ^1.2.0
     ink-gradient: ^2.0.0
     ink-spinner: ^4.0.2
+    ink-table: ^3.0.0
     lodash: ^4.17.21
-    ps-list: ^7.2.0
+    patch-console: ^1.0.0
     react: ^17.0.2
     webpack: ^5.38.1
   languageName: unknown
@@ -9665,6 +9667,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"human-format@npm:^0.11.0":
+  version: 0.11.0
+  resolution: "human-format@npm:0.11.0"
+  checksum: 177bfa53febb3e686eb78933fb5826b230b0cd4f10d0e087d7b47d9b0a51a7c59ea0bb32974c49b192a5726196a9796b558a49540d51883e15c3953374c6277f
+  languageName: node
+  linkType: hard
+
 "human-signals@npm:^2.1.0":
   version: 2.1.0
   resolution: "human-signals@npm:2.1.0"
@@ -9918,6 +9927,18 @@ __metadata:
     ink: ">=3.0.5"
     react: ">=16.8.2"
   checksum: 0158aa2ea5770ace923c33c88d62eef735f83f32c3d139d5bfe608f41b67280d6738291fbf05543632b13de470daf1b7618e31941608896a763b4924754bcde4
+  languageName: node
+  linkType: hard
+
+"ink-table@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "ink-table@npm:3.0.0"
+  dependencies:
+    object-hash: ^2.0.3
+  peerDependencies:
+    ink: ">=3.0.0"
+    react: ">=16.8.0"
+  checksum: 281ec6295251435a268d3ad3f9382f63eab0548234b3ee6daef07663ac5f24f76f59d5f6ab527f0407b0def05ab6e7ddd8e52c69ce52db251fac40fd0d2c10a1
   languageName: node
   linkType: hard
 
@@ -12960,6 +12981,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"object-hash@npm:^2.0.3":
+  version: 2.2.0
+  resolution: "object-hash@npm:2.2.0"
+  checksum: 55ba841e3adce9c4f1b9b46b41983eda40f854e0d01af2802d3ae18a7085a17168d6b81731d43fdf1d6bcbb3c9f9c56d22c8fea992203ad90a38d7d919bc28f1
+  languageName: node
+  linkType: hard
+
 "object-inspect@npm:^1.10.3":
   version: 1.10.3
   resolution: "object-inspect@npm:1.10.3"
@@ -14703,13 +14731,6 @@ __metadata:
   version: 1.0.1
   resolution: "prr@npm:1.0.1"
   checksum: 3bca2db0479fd38f8c4c9439139b0c42dcaadcc2fbb7bb8e0e6afaa1383457f1d19aea9e5f961d5b080f1cfc05bfa1fe9e45c97a1d3fd6d421950a73d3108381
-  languageName: node
-  linkType: hard
-
-"ps-list@npm:^7.2.0":
-  version: 7.2.0
-  resolution: "ps-list@npm:7.2.0"
-  checksum: 38969f4fb86e2b88bac4b033ff63dcf98e9490d4fa40d94feb369d79f9aa6a04efccbc3338c49eeeb2f0890cada80d74daee28584f0902c4cba0928f6e394c37
   languageName: node
   linkType: hard
 
