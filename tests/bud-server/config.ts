@@ -27,7 +27,7 @@ describe('server config', function () {
           '!node_modules',
           '!vendor',
         ],
-        options: {persistant: true},
+        options: {persistant: false},
       },
     })
   })

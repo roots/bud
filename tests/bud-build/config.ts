@@ -52,7 +52,9 @@ describe('bud.build.config', function () {
 
   it('has expected infrastructureLogging default', () => {
     expect(config.infrastructureLogging).toEqual({
-      console: bud.logger.instance,
+      appendOnly: true,
+      console: false,
+      level: 'error',
     })
   })
 
@@ -106,7 +108,23 @@ describe('bud.build.config', function () {
   })
 
   it('has expected stats default', () => {
-    expect(config.stats).toEqual({})
+    expect(config.stats).toEqual({
+      all: false,
+      assets: true,
+      builtAt: false,
+      children: false,
+      chunks: false,
+      colors: true,
+      entrypoints: true,
+      env: true,
+      errors: true,
+      hash: true,
+      logging: true,
+      moduleAssets: false,
+      modules: false,
+      timings: true,
+      version: true,
+    })
   })
 
   it('has expected target default', () => {

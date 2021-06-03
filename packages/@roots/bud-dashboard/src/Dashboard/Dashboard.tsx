@@ -6,8 +6,28 @@ import {useStyle} from '@roots/ink-use-style'
 import {isEqual} from 'lodash'
 import Table from 'ink-table'
 import humanFormat from 'human-format'
-
 import {Progress} from './Progress'
+
+const formatAssetsData = assets =>
+  assets.reduce(
+    (a, {cached, name, size, emitted, info}) => [
+      ...a,
+      ...(emitted && !cached
+        ? [
+            {
+              name,
+              immutable: info.immutable ? '✔' : '',
+              minimized: info.minimized ? '✔' : '',
+              size: humanFormat(size, {
+                prefix: 'k',
+                decimals: 2,
+              }),
+            },
+          ]
+        : []),
+    ],
+    [],
+  )
 
 const Dashboard = ({bud}: {bud: Framework}) => {
   const app = useRef(bud)
@@ -15,7 +35,6 @@ const Dashboard = ({bud}: {bud: Framework}) => {
   const [pkg] = useState<{[key: string]: string}>(
     app.current.discovery.getProjectInfo(),
   )
-
   const [progress, setProgress] =
     useState<{
       message: string
@@ -37,10 +56,8 @@ const Dashboard = ({bud}: {bud: Framework}) => {
     setAssets(app.current.compiler.stats?.assets)
     setProgress(app.current.compiler.progress)
     setTime(app.current.compiler.stats?.time)
-
     setErrors(app.current.compiler.errors)
     setWarnings(app.current.compiler.warnings)
-
     setHasWarnings(app.current.compiler.hasWarnings)
     setHasErrors(app.current.compiler.hasErrors)
   }, 50)
@@ -81,29 +98,7 @@ const Dashboard = ({bud}: {bud: Framework}) => {
           <Table
             data={
               assets?.length > 0
-                ? assets.reduce(
-                    (a, {cached, name, size, emitted, info}) => [
-                      ...a,
-                      ...(emitted && !cached
-                        ? [
-                            {
-                              name,
-                              immutable: info.immutable
-                                ? '✔'
-                                : '',
-                              minimized: info.minimized
-                                ? '✔'
-                                : '',
-                              size: humanFormat(size, {
-                                prefix: 'k',
-                                decimals: 2,
-                              }),
-                            },
-                          ]
-                        : []),
-                    ],
-                    [],
-                  )
+                ? formatAssetsData(assets)
                 : [
                     {
                       name: '',

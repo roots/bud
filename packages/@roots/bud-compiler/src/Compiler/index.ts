@@ -24,24 +24,6 @@ export default class extends Service implements Compiler {
     message: string
   }[] = []
 
-  public statsOptions = {
-    all: false,
-    logging: false,
-    version: true,
-    hash: true,
-    timings: true,
-    modules: false,
-    moduleAssets: false,
-    builtAt: false,
-    assets: true,
-    chunks: false,
-    children: false,
-    errors: true,
-    env: true,
-    entrypoints: true,
-    colors: true,
-  }
-
   public isCompiled: boolean = false
 
   public get stats(): StatsCompilation {

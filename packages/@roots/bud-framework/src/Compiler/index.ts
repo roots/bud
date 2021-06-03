@@ -18,13 +18,6 @@ export interface Compiler extends Service {
   stats: any
 
   /**
-   * Webpack stats configuration
-   */
-  statsOptions: {
-    [key: string]: string | boolean
-  }
-
-  /**
    * Formatted progress plugin
    */
   progress: Compiler.Progress
