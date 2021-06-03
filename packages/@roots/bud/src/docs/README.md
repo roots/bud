@@ -83,6 +83,8 @@ For more on configuring `@roots/bud` check out the [dedicated documentation](doc
 
 ## Running a build
 
+![Terminal usage](/roots/bud/tree/test-api/dev/assets/cli.svg)
+
 Once you've set up your configuration file the following command will run the build:
 
 ```sh

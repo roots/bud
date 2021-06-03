@@ -8,7 +8,5 @@ module.exports = app => {
     })
     .persist()
 
-  console.log(app.store.get('ci'))
-
   return app
 }
