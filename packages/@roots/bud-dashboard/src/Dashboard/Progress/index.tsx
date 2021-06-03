@@ -3,24 +3,20 @@ import {Styles} from '@roots/ink-use-style'
 import React from 'react'
 import {Box, Text} from 'ink'
 import Spinner from 'ink-spinner'
-import {Bar} from './Bar/index'
+import {Bar} from './Bar'
 
 export const Progress = ({
-  hasErrors,
-  hasWarnings,
   progress,
   theme,
-  development,
+  mode,
 }: {
-  development: boolean
-  hasWarnings: boolean
-  hasErrors: boolean
-  progress
+  mode: string
+  progress: any
   theme: Styles
 }) => {
   const guard =
     progress?.decimal &&
-    theme.bounds.width &&
+    theme?.bounds.width &&
     typeof theme.bounds.width == 'number'
 
   if (!guard) return null
@@ -32,25 +28,15 @@ export const Progress = ({
           {progress?.decimal < 1 ? (
             <>
               <Text color={theme.colors.primary}>
-                <Spinner /> {progress.message ?? ''}
+                <Spinner />{' '}
+                {JSON.stringify(progress?.message) ?? ''}
               </Text>
             </>
           ) : (
             <>
-              {hasErrors ? (
-                <Text color={theme.colors.error}>
-                  X {development ? 'Watching' : 'Error'}
-                </Text>
-              ) : (
-                <Text
-                  color={
-                    hasWarnings
-                      ? theme.colors.warning
-                      : theme.colors.success
-                  }>
-                  ✔ {development ? 'Watching' : 'Complete'}
-                </Text>
-              )}
+              <Text color={theme.colors.success}>
+                ✔ {'Complete'}
+              </Text>
             </>
           )}
         </Text>
@@ -60,11 +46,10 @@ export const Progress = ({
         <Bar
           character={'='}
           maxWidth={theme.bounds.width - 22}
-          colors={
-            !hasErrors
-              ? [theme.colors.primary, theme.colors.primaryAlt]
-              : [theme.colors.error, theme.colors.error]
-          }
+          colors={[
+            theme.colors.primary,
+            theme.colors.primaryAlt,
+          ]}
           percent={progress?.decimal}
         />
         <Text> {progress.percentage}</Text>

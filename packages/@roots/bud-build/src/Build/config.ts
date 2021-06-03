@@ -81,11 +81,7 @@ export function config(this: Framework): void {
       ),
     }))
 
-    .hooks.on('build/infrastructureLogging', () => ({
-      appendOnly: true,
-      console: false,
-      level: 'error',
-    }))
+    .hooks.on('build/infrastructureLogging', () => ({}))
 
     .hooks.on('build/node', false)
 
@@ -156,28 +152,23 @@ export function config(this: Framework): void {
       this.hooks.filter('location/modules'),
       ...this.discovery.resolveFrom,
     ])
-    .hooks.on(
-      'build/stats',
-      (
-        stats: Configuration['stats'],
-      ): Configuration['stats'] => ({
-        all: false,
-        logging: this.store.isTrue('ci'),
-        version: true,
-        hash: true,
-        timings: true,
-        modules: false,
-        moduleAssets: false,
-        builtAt: false,
-        assets: true,
-        chunks: false,
-        children: false,
-        errors: true,
-        env: true,
-        entrypoints: true,
-        colors: true,
-      }),
-    )
+    .hooks.on('build/stats', (): Configuration['stats'] => ({
+      all: false,
+      assets: true,
+      builtAt: false,
+      children: false,
+      chunks: false,
+      colors: true,
+      entrypoints: true,
+      env: true,
+      errors: true,
+      hash: true,
+      logging: true,
+      moduleAssets: false,
+      modules: false,
+      timings: true,
+      version: true,
+    }))
     .hooks.on('build/target', () => 'web')
     .hooks.on('build/watch', false)
 }

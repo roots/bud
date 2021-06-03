@@ -35,7 +35,6 @@ const options = (
   config: Server.Config,
 ): DevMiddleware.Options => ({
   writeToDisk: true,
-  stats: false,
   ...Object.fromEntries(
     config
       .mutate('headers', headers => ({

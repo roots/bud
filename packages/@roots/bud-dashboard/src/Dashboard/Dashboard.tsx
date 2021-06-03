@@ -1,66 +1,72 @@
 import {Dashboard, Framework} from '@roots/bud-framework'
 
 import React, {useState, useRef} from 'react'
-import {Box, Text, useInput, Static} from 'ink'
+import {Box, Text, useInput} from 'ink'
 import {useStyle} from '@roots/ink-use-style'
 import {isEqual} from 'lodash'
 import Table from 'ink-table'
 import humanFormat from 'human-format'
 import {Progress} from './Progress'
+import {StatsCompilation} from 'webpack/types'
+import patchConsole from 'patch-console'
 
 const formatAssetsData = assets =>
-  assets.reduce(
-    (a, {cached, name, size, emitted, info}) => [
-      ...a,
-      ...(emitted && !cached
-        ? [
-            {
-              name,
-              immutable: info.immutable ? '✔' : '',
-              minimized: info.minimized ? '✔' : '',
+  assets
+    .map(a => {
+      console.log(a)
+      return a
+    })
+    .filter(Boolean)
+    .reduce(
+      (a, {name, children, size, emitted, info}) => [
+        ...a,
+        ...(children
+          ? children.map(({name, size, emitted, info}) => ({
+              name: `${emitted ? '❇ ' : ''}${name}`,
+              immutable: info?.immutable ? '✔' : '',
+              minimized: info?.minimized ? '✔' : '',
               size: humanFormat(size, {
                 prefix: 'k',
                 decimals: 2,
               }),
-            },
-          ]
-        : []),
-    ],
-    [],
-  )
+            }))
+          : [
+              {
+                name: `${emitted ? '❇ ' : ''}${name}`,
+                immutable: info?.immutable ? '✔' : '',
+                minimized: info?.minimized ? '✔' : '',
+                size: humanFormat(size, {
+                  prefix: 'k',
+                  decimals: 2,
+                }),
+              },
+            ]),
+      ],
+      [],
+    )
 
 const Dashboard = ({bud}: {bud: Framework}) => {
   const app = useRef(bud)
+
   const theme = useStyle(app.current.store.get('theme'))
   const [pkg] = useState<{[key: string]: string}>(
     app.current.discovery.getProjectInfo(),
   )
+
   const [progress, setProgress] =
     useState<{
       message: string
       decimal: number
       percentage: string
     }>(null)
-  const [assets, setAssets] = useState([])
-  const [development, setDevelopment] = useState(null)
-  const [time, setTime] = useState(null)
-  const [warnings, setWarnings] = useState([])
-  const [errors, setErrors] = useState([])
-  const [hasErrors, setHasErrors] = useState(false)
-  const [hasWarnings, setHasWarnings] = useState(false)
-  const [hash, setHash] = useState(null)
+  const [stats, setStats] = useState<StatsCompilation>(null)
 
   setInterval(() => {
-    setDevelopment(app.current.mode == 'development')
-    setHash(app.current.compiler.stats?.hash)
-    setAssets(app.current.compiler.stats?.assets)
+    setStats(app.current.compiler.stats)
     setProgress(app.current.compiler.progress)
-    setTime(app.current.compiler.stats?.time)
-    setErrors(app.current.compiler.errors)
-    setWarnings(app.current.compiler.warnings)
-    setHasWarnings(app.current.compiler.hasWarnings)
-    setHasErrors(app.current.compiler.hasErrors)
   }, 50)
+
+  patchConsole((stream, data) => {})
 
   useInput(input => {
     if (isEqual(input, 'q')) {
@@ -71,66 +77,50 @@ const Dashboard = ({bud}: {bud: Framework}) => {
   })
 
   return (
-    <>
+    <Box flexDirection="column">
       <Text backgroundColor={theme.colors.primary}>
         {' '}
-        {pkg?.name ?? '   '} ≫ {hash ?? ''}{' '}
+        {pkg?.name ?? '   '} ≫ {stats?.hash ?? ''}{' '}
       </Text>
 
-      {warnings?.length > 1 && (
-        <Static items={warnings}>
-          {(warning, id) => (
-            <Text key={`warning-${id}`}>{warning.message}</Text>
+      {stats?.errors?.length > 1 ? (
+        <Box marginY={1}>
+          {stats.errors.map((err, k) =>
+            err.message ? (
+              <Text color={theme.colors.error} key={`err-${k}`}>
+                {err.message ?? err ?? ''}
+              </Text>
+            ) : (
+              []
+            ),
           )}
-        </Static>
-      )}
-
-      {errors?.length > 1 && (
-        <Static items={errors}>
-          {(error, id) => (
-            <Text key={`error-${id}`}>{error.message}</Text>
-          )}
-        </Static>
-      )}
-
-      {assets && (
-        <Box width={theme.bounds.width}>
-          <Table
-            data={
-              assets?.length > 0
-                ? formatAssetsData(assets)
-                : [
-                    {
-                      name: '',
-                      immutable: '',
-                      minimized: '',
-                      size: '',
-                    },
-                  ]
-            }
-          />
         </Box>
-      )}
+      ) : null}
 
-      {time && (
+      {stats?.assets?.length > 1 &&
+        !(stats?.errors?.length > 1) && (
+          <Table data={formatAssetsData(stats?.assets)} />
+        )}
+
+      {stats?.time && (
         <Box>
-          <Text color={theme.colors.faded}>
+          <Text color={theme?.colors?.faded}>
             {' '}
-            Compiled in {time / 1000}s
+            Compiled in {stats?.time / 1000}s
           </Text>
         </Box>
       )}
 
-      <Box marginTop={1}>
-        <Progress
-          progress={progress}
-          theme={theme}
-          hasErrors={hasErrors}
-          hasWarnings={hasWarnings}
-          development={development}
-        />
-      </Box>
-    </>
+      {stats?.errors?.length <= 1 && (
+        <Box marginTop={1}>
+          <Progress
+            progress={progress}
+            theme={theme}
+            mode={stats?.mode}
+          />
+        </Box>
+      )}
+    </Box>
   )
 }
 

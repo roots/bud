@@ -2798,7 +2798,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud-preset-recommend@workspace:packages/@roots/bud-preset-recommend":
+"@roots/bud-preset-recommend@workspace:*, @roots/bud-preset-recommend@workspace:packages/@roots/bud-preset-recommend":
   version: 0.0.0-use.local
   resolution: "@roots/bud-preset-recommend@workspace:packages/@roots/bud-preset-recommend"
   dependencies:
@@ -7999,6 +7999,17 @@ __metadata:
     "@roots/bud": "workspace:packages/@roots/bud"
     "@roots/bud-cli": "workspace:packages/@roots/bud-cli"
     "@roots/bud-esbuild": "workspace:packages/@roots/bud-esbuild"
+  languageName: unknown
+  linkType: soft
+
+"example-eslint@workspace:examples/eslint":
+  version: 0.0.0-use.local
+  resolution: "example-eslint@workspace:examples/eslint"
+  dependencies:
+    "@roots/bud": "workspace:packages/@roots/bud"
+    "@roots/bud-cli": "workspace:packages/@roots/bud-cli"
+    "@roots/bud-eslint": "workspace:packages/@roots/bud-eslint"
+    "@roots/bud-preset-recommend": "workspace:*"
   languageName: unknown
   linkType: soft
 

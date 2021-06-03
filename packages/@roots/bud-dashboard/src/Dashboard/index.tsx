@@ -2,7 +2,6 @@ import {Service as Base} from '@roots/bud-framework'
 import React from 'react'
 import {render, Text, Instance} from 'ink'
 import {isString} from 'lodash'
-import patchConsole from 'patch-console'
 
 import {boundMethod as bind} from 'autobind-decorator'
 
@@ -33,15 +32,12 @@ export class Dashboard extends Base {
       write: Write,
       error: Error,
     })
-
-    patchConsole((stream, data) => {
-      this.data = data as unknown as string[]
-    })
   }
 
   @bind
   public run(): void {
     if (this.app.store.isTrue('ci')) {
+      console.log('ci mode')
       return
     }
 
@@ -65,8 +61,6 @@ export class Dashboard extends Base {
 
   @bind
   public render(Component: any): Instance {
-    if (this.app.store.isTrue('ci')) return
-
     const Output = () =>
       isString(Component) ? (
         <Text>{Component}</Text>

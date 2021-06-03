@@ -51,11 +51,7 @@ describe('bud.build.config', function () {
   })
 
   it('has expected infrastructureLogging default', () => {
-    expect(config.infrastructureLogging).toEqual({
-      appendOnly: true,
-      console: false,
-      level: 'error',
-    })
+    expect(config.infrastructureLogging).toEqual({})
   })
 
   it('has expected mode default', () => {
@@ -257,6 +253,35 @@ describe('bud.build.config', function () {
         },
       ],
     })
+  })
+
+  it('config accessor produces obj with expected keys', () => {
+    expect(Object.keys(bud.build.config)).toEqual([
+      'bail',
+      'cache',
+      'context',
+      'devtool',
+      'entry',
+      'experiments',
+      'externals',
+      'infrastructureLogging',
+      'mode',
+      'module',
+      'name',
+      'node',
+      'output',
+      'optimization',
+      'parallelism',
+      'performance',
+      'plugins',
+      'profile',
+      'recordsPath',
+      'resolve',
+      'stats',
+      'target',
+      'watch',
+      'watchOptions',
+    ])
   })
 })
 

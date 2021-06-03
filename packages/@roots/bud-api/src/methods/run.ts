@@ -22,8 +22,6 @@ declare module '@roots/bud-framework' {
 }
 
 export const run: Api.Run = function (): void {
-  this.hooks.on('before', this)
-
   this.when(
     this.isDevelopment &&
       this.server.config.isTrue('middleware.hot'),
@@ -36,6 +34,4 @@ export const run: Api.Run = function (): void {
     this.compiler.compile()
     this.compiler.instance.run(this.compiler.callback)
   }
-
-  !this.store.isTrue('ci') && this.dashboard.run()
 }

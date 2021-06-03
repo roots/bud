@@ -1,6 +1,6 @@
 import {Compiler, Service} from '@roots/bud-framework'
 import webpack, {ProgressPlugin, StatsCompilation} from 'webpack'
-import {isNull, noop} from 'lodash'
+import {noop} from 'lodash'
 import {boundMethod as bind} from 'autobind-decorator'
 
 export default class extends Service implements Compiler {
@@ -8,21 +8,13 @@ export default class extends Service implements Compiler {
 
   public _instance: Compiler.Instance
 
-  public _stats: StatsCompilation
+  public _stats: StatsCompilation = {
+    assets: [],
+    errors: [],
+    warnings: [],
+  }
 
   public _progress: Compiler.Progress
-
-  public _errors: {
-    moduleIdentifier?: string
-    moduleName?: string
-    message: string
-  }[] = []
-
-  public _warnings: {
-    moduleIdentifier?: string
-    moduleName?: string
-    message: string
-  }[] = []
 
   public isCompiled: boolean = false
 
@@ -32,22 +24,6 @@ export default class extends Service implements Compiler {
 
   public set stats(stats: StatsCompilation) {
     this._stats = stats
-  }
-
-  public get errors(): Compiler['errors'] {
-    return this._errors
-  }
-
-  public set errors(errors: Compiler['errors']) {
-    this._errors = errors
-  }
-
-  public get warnings(): Compiler['warnings'] {
-    return this._warnings
-  }
-
-  public set warnings(warnings: Compiler['warnings']) {
-    this._warnings = warnings
   }
 
   public get progress(): Compiler['progress'] {
@@ -78,12 +54,12 @@ export default class extends Service implements Compiler {
 
     this.instance.hooks.done.tap(this.app.name, stats => {
       if (stats) {
-        this.stats = stats.toJson(this.statsOptions)
+        this.stats = stats.toJson()
       }
 
       this.instance.close(err => {
         if (err) {
-          this.errors = [...(this.errors ?? []), err]
+          this.stats.errors.push(err)
         }
 
         if (this.app.mode == 'production') {
@@ -122,22 +98,14 @@ export default class extends Service implements Compiler {
     const [err, stats] =
       args.length > 1 ? args : [null, args.pop()]
 
-    this.app.when(!isNull(err), () => {
-      this.app.error(err, 'Webpack error (pre-compile)')
+    this.app.when(stats, () => {
+      this.stats = stats.toJson({all: true})
     })
 
-    if (!stats) return
+    this.app.when(err, () => {
+      this.stats.errors.push(err)
+    })
 
-    const options = this.app.build.config.stats
-
-    this.errors = stats.toJson
-      ? stats.toJson(options).errors
-      : stats.errors
-
-    this.warnings = stats.toJson
-      ? stats.toJson(options).warnings
-      : stats.warnings
-
-    this.stats = stats.toJson(options)
+    console.log(stats.toString())
   }
 }

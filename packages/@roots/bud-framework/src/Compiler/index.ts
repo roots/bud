@@ -23,24 +23,6 @@ export interface Compiler extends Service {
   progress: Compiler.Progress
 
   /**
-   * Compiler errors
-   */
-  errors: {
-    moduleIdentifier?: string
-    moduleName?: string
-    message: string
-  }[]
-
-  /**
-   * Compiler warnings
-   */
-  warnings: {
-    moduleIdentifier?: string
-    moduleName?: string
-    message: string
-  }[]
-
-  /**
    * ## bud.compiler.compile
    *
    * Return a compiler instance for a webpack configuration.
