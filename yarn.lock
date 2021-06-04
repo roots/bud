@@ -7986,7 +7986,6 @@ __metadata:
     "@roots/bud": "workspace:packages/@roots/bud"
     "@roots/bud-cli": "workspace:packages/@roots/bud-cli"
     "@roots/bud-criticalcss": "workspace:packages/@roots/bud-criticalcss"
-    "@roots/bud-entrypoints": "workspace:packages/@roots/bud-entrypoints"
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
     "@roots/bud-tailwindcss": "workspace:packages/@roots/bud-tailwindcss"
   languageName: unknown
