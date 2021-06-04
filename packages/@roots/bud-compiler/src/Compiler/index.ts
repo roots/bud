@@ -1,6 +1,6 @@
 import {Compiler, Service} from '@roots/bud-framework'
-import webpack from 'webpack'
-import {isNull} from 'lodash'
+import webpack, {ProgressPlugin, StatsCompilation} from 'webpack'
+import {noop} from 'lodash'
 import {boundMethod as bind} from 'autobind-decorator'
 
 export default class extends Service implements Compiler {
@@ -8,30 +8,31 @@ export default class extends Service implements Compiler {
 
   public _instance: Compiler.Instance
 
-  public isCompiled: boolean = false
-
-  public stats: any
-
-  public statsOptions = {
-    all: false,
-    version: true,
-    hash: true,
-    timings: true,
-    modules: false,
-    moduleAssets: false,
-    builtAt: false,
-    assets: true,
-    chunks: false,
-    children: false,
-    errors: true,
-    env: true,
-    entrypoints: true,
-    colors: true,
+  public _stats: StatsCompilation = {
+    assets: [],
+    errors: [],
+    warnings: [],
   }
 
-  public errors = []
+  public _progress: Compiler.Progress
 
-  public progress: Compiler.Progress
+  public isCompiled: boolean = false
+
+  public get stats(): StatsCompilation {
+    return this._stats
+  }
+
+  public set stats(stats: StatsCompilation) {
+    this._stats = stats
+  }
+
+  public get progress(): Compiler['progress'] {
+    return this._progress
+  }
+
+  public set progress(progress: Compiler['progress']) {
+    this._progress = progress
+  }
 
   public get instance(): Compiler.Instance {
     return this._instance
@@ -42,17 +43,44 @@ export default class extends Service implements Compiler {
   }
 
   @bind
-  public compile(
-    config?: Compiler.Config,
-    cb?: (err?: Error, stats?: any) => undefined,
-  ): Compiler.Instance {
+  public compile(): Compiler.Instance {
     if (this.isCompiled) {
-      return this.instance
+      this.instance.close(noop)
     }
 
     this.app.hooks.filter('before')
 
-    this.instance = webpack(config, cb ?? null)
+    this.instance = webpack(this.app.hooks.filter('after'))
+
+    this.instance.hooks.done.tap(this.app.name, stats => {
+      if (stats) {
+        this.stats = stats.toJson()
+      }
+
+      this.instance.close(err => {
+        if (err) {
+          this.stats.errors.push(err)
+        }
+
+        if (this.app.mode == 'production') {
+          setTimeout(() => process.exit(), 1000)
+        }
+      })
+    })
+
+    new ProgressPlugin((percentage, message): void => {
+      const decimal =
+        percentage && typeof percentage === 'number'
+          ? percentage
+          : 0
+
+      this.progress = {
+        decimal,
+        percentage: `${Math.floor(decimal * 100)}%`,
+        message,
+      }
+    }).apply(this.instance)
+
     this.isCompiled = true
 
     return this.instance
@@ -70,16 +98,14 @@ export default class extends Service implements Compiler {
     const [err, stats] =
       args.length > 1 ? args : [null, args.pop()]
 
-    this.app.when(!isNull(err), () => {
-      this.app.error(err, 'Webpack error (pre-compile)')
-      process.exit()
+    this.app.when(stats, () => {
+      this.stats = stats.toJson({all: true})
     })
 
-    if (!stats) return
+    this.app.when(err, () => {
+      this.stats.errors.push(err)
+    })
 
-    stats.hasErrors() &&
-      console.error(stats?.errors?.toString(this.statsOptions))
-
-    console.log(stats?.toString(this.statsOptions))
+    console.log(stats.toString())
   }
 }

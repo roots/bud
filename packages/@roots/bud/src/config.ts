@@ -162,7 +162,7 @@ export const config: Configuration = {
   log: false,
   manifest: true,
   fileFormat: '[name]',
-  hashFormat: '[name].[contenthash]',
+  hashFormat: '[name].[contenthash:6]',
   build: {
     optimization: {
       emitOnErrors: false,
@@ -228,7 +228,7 @@ export const config: Configuration = {
         '!vendor',
       ],
       options: {
-        persistant: true,
+        persistant: false,
       },
     },
     middleware: {

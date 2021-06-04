@@ -1,10 +1,8 @@
 module.exports = bud =>
   bud
     .use([
-      require('@roots/bud-entrypoints'),
       require('@roots/bud-postcss'),
       require('@roots/bud-tailwindcss'),
-      require('@roots/bud-terser'),
       require('@roots/bud-criticalcss'),
     ])
     .template({

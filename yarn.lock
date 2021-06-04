@@ -2395,13 +2395,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@popperjs/core@npm:^2.9.2":
-  version: 2.9.2
-  resolution: "@popperjs/core@npm:2.9.2"
-  checksum: a5916302e706b7dfbbbcd8728bafc1682b450d5ec70dd10da84a07c89a419fa72f83cbf990798589e6e69e1b520d6768176ea4bd360d7450d08a2fbc25a14e1c
-  languageName: node
-  linkType: hard
-
 "@roots/bud-api@workspace:packages/@roots/bud-api":
   version: 0.0.0-use.local
   resolution: "@roots/bud-api@workspace:packages/@roots/bud-api"
@@ -2564,11 +2557,14 @@ __metadata:
     autobind-decorator: ^2.4.0
     axios: ^0.21.1
     execa: ^5.0.1
+    human-format: ^0.11.0
     ink: ^3.0.8
     ink-big-text: ^1.2.0
     ink-gradient: ^2.0.0
     ink-spinner: ^4.0.2
+    ink-table: ^3.0.0
     lodash: ^4.17.21
+    patch-console: ^1.0.0
     react: ^17.0.2
     webpack: ^5.38.1
   languageName: unknown
@@ -2685,6 +2681,7 @@ __metadata:
     fs-extra: ^10.0.0
     globby: ^11.0.3
     http-proxy-middleware: ^2.0.0
+    ink: ^3.0.8
     lodash: ^4.17.21
     signale: ^1.4.0
     webpack: ^5.38.1
@@ -2801,7 +2798,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud-preset-recommend@workspace:packages/@roots/bud-preset-recommend":
+"@roots/bud-preset-recommend@workspace:*, @roots/bud-preset-recommend@workspace:packages/@roots/bud-preset-recommend":
   version: 0.0.0-use.local
   resolution: "@roots/bud-preset-recommend@workspace:packages/@roots/bud-preset-recommend"
   dependencies:
@@ -2889,7 +2886,7 @@ __metadata:
   languageName: unknown
   linkType: soft
 
-"@roots/bud-sass@workspace:packages/@roots/bud-sass":
+"@roots/bud-sass@workspace:*, @roots/bud-sass@workspace:packages/@roots/bud-sass":
   version: 0.0.0-use.local
   resolution: "@roots/bud-sass@workspace:packages/@roots/bud-sass"
   dependencies:
@@ -5396,15 +5393,6 @@ __metadata:
   version: 1.0.0
   resolution: "boolbase@npm:1.0.0"
   checksum: 3e25c80ef626c3a3487c73dbfc70ac322ec830666c9ad915d11b701142fab25ec1e63eff2c450c74347acfd2de854ccde865cd79ef4db1683f7c7b046ea43bb0
-  languageName: node
-  linkType: hard
-
-"bootstrap@npm:^5.0.1":
-  version: 5.0.1
-  resolution: "bootstrap@npm:5.0.1"
-  peerDependencies:
-    "@popperjs/core": ^2.9.2
-  checksum: 1889c64f71d935ff98632b959dc7f411c7d7b5ea59f9cc91063403c3ec5a880af3275348495f6cc5b04acf87bf6284cbc992f6b41df249d5b5e16a42b81fae2b
   languageName: node
   linkType: hard
 
@@ -7998,7 +7986,6 @@ __metadata:
     "@roots/bud": "workspace:packages/@roots/bud"
     "@roots/bud-cli": "workspace:packages/@roots/bud-cli"
     "@roots/bud-criticalcss": "workspace:packages/@roots/bud-criticalcss"
-    "@roots/bud-entrypoints": "workspace:packages/@roots/bud-entrypoints"
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
     "@roots/bud-tailwindcss": "workspace:packages/@roots/bud-tailwindcss"
   languageName: unknown
@@ -8011,7 +7998,17 @@ __metadata:
     "@roots/bud": "workspace:packages/@roots/bud"
     "@roots/bud-cli": "workspace:packages/@roots/bud-cli"
     "@roots/bud-esbuild": "workspace:packages/@roots/bud-esbuild"
-    "@types/node": ^15.6.1
+  languageName: unknown
+  linkType: soft
+
+"example-eslint@workspace:examples/eslint":
+  version: 0.0.0-use.local
+  resolution: "example-eslint@workspace:examples/eslint"
+  dependencies:
+    "@roots/bud": "workspace:packages/@roots/bud"
+    "@roots/bud-cli": "workspace:packages/@roots/bud-cli"
+    "@roots/bud-eslint": "workspace:packages/@roots/bud-eslint"
+    "@roots/bud-preset-recommend": "workspace:*"
   languageName: unknown
   linkType: soft
 
@@ -8054,6 +8051,8 @@ __metadata:
     "@roots/bud-cli": "workspace:packages/@roots/bud-cli"
     "@roots/bud-postcss": "workspace:packages/@roots/bud-postcss"
     "@roots/bud-react": "workspace:packages/@roots/bud-react"
+    react: ^17.0.2
+    react-dom: ^17.0.2
   languageName: unknown
   linkType: soft
 
@@ -8072,11 +8071,10 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "example-sass@workspace:examples/sass"
   dependencies:
-    "@roots/bud": "workspace:packages/@roots/bud"
-    "@roots/bud-cli": "workspace:packages/@roots/bud-cli"
-    "@roots/bud-sass": "workspace:packages/@roots/bud-sass"
-    postcss: ^8.2.13
-    sass: ^1.34.0
+    "@roots/bud": "workspace:*"
+    "@roots/bud-cli": "workspace:*"
+    "@roots/bud-postcss": "workspace:*"
+    "@roots/bud-sass": "workspace:*"
   languageName: unknown
   linkType: soft
 
@@ -8118,7 +8116,6 @@ __metadata:
   version: 0.0.0-use.local
   resolution: "example-wordpress-theme@workspace:examples/wordpress-theme"
   dependencies:
-    "@popperjs/core": ^2.9.2
     "@roots/bud": "workspace:*"
     "@roots/bud-babel": "workspace:*"
     "@roots/bud-cli": "workspace:*"
@@ -8129,9 +8126,6 @@ __metadata:
     "@roots/bud-wordpress-dependencies": "workspace:*"
     "@roots/bud-wordpress-externals": "workspace:*"
     "@roots/bud-wordpress-manifests": "workspace:*"
-    bootstrap: ^5.0.1
-    jquery: ^3.6.0
-    popper.js: ^1.16.1
   languageName: unknown
   linkType: soft
 
@@ -9606,6 +9600,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"human-format@npm:^0.11.0":
+  version: 0.11.0
+  resolution: "human-format@npm:0.11.0"
+  checksum: 177bfa53febb3e686eb78933fb5826b230b0cd4f10d0e087d7b47d9b0a51a7c59ea0bb32974c49b192a5726196a9796b558a49540d51883e15c3953374c6277f
+  languageName: node
+  linkType: hard
+
 "human-signals@npm:^2.1.0":
   version: 2.1.0
   resolution: "human-signals@npm:2.1.0"
@@ -9859,6 +9860,18 @@ __metadata:
     ink: ">=3.0.5"
     react: ">=16.8.2"
   checksum: 0158aa2ea5770ace923c33c88d62eef735f83f32c3d139d5bfe608f41b67280d6738291fbf05543632b13de470daf1b7618e31941608896a763b4924754bcde4
+  languageName: node
+  linkType: hard
+
+"ink-table@npm:^3.0.0":
+  version: 3.0.0
+  resolution: "ink-table@npm:3.0.0"
+  dependencies:
+    object-hash: ^2.0.3
+  peerDependencies:
+    ink: ">=3.0.0"
+    react: ">=16.8.0"
+  checksum: 281ec6295251435a268d3ad3f9382f63eab0548234b3ee6daef07663ac5f24f76f59d5f6ab527f0407b0def05ab6e7ddd8e52c69ce52db251fac40fd0d2c10a1
   languageName: node
   linkType: hard
 
@@ -11126,13 +11139,6 @@ __metadata:
   version: 3.0.1
   resolution: "joycon@npm:3.0.1"
   checksum: 1fb67a921e468e1c8f665fe6cf6758194edd19a41fcdb05b2e2a480ddf1ab6418042b9e989b4057fce46e4eddf4c284972c19aef791cda501410bf4dc4ec2b71
-  languageName: node
-  linkType: hard
-
-"jquery@npm:^3.6.0":
-  version: 3.6.0
-  resolution: "jquery@npm:3.6.0"
-  checksum: 8fd5fef4aa48fd374ec716dd1c1df1af407814a228e15c1260ca140de3a697c2a77c30c54ff1d238b6a3ab4ddc445ddeef9adce6c6d28e4869d85eb9d3951c0e
   languageName: node
   linkType: hard
 
@@ -12908,6 +12914,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"object-hash@npm:^2.0.3":
+  version: 2.2.0
+  resolution: "object-hash@npm:2.2.0"
+  checksum: 55ba841e3adce9c4f1b9b46b41983eda40f854e0d01af2802d3ae18a7085a17168d6b81731d43fdf1d6bcbb3c9f9c56d22c8fea992203ad90a38d7d919bc28f1
+  languageName: node
+  linkType: hard
+
 "object-inspect@npm:^1.10.3":
   version: 1.10.3
   resolution: "object-inspect@npm:1.10.3"
@@ -13572,13 +13585,6 @@ __metadata:
   languageName: node
   linkType: hard
 
-"popper.js@npm:^1.16.1":
-  version: 1.16.1
-  resolution: "popper.js@npm:1.16.1"
-  checksum: c56ae5001ec50a77ee297a8061a0221d99d25c7348d2e6bcd3e45a0d0f32a1fd81bca29d46cb0d4bdf13efb77685bd6a0ce93f9eb3c608311a461f945fffedbe
-  languageName: node
-  linkType: hard
-
 "postcss-calc@npm:^8.0.0":
   version: 8.0.0
   resolution: "postcss-calc@npm:8.0.0"
@@ -14124,7 +14130,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"postcss@npm:^8.2.1, postcss@npm:^8.2.10, postcss@npm:^8.2.13, postcss@npm:^8.2.15, postcss@npm:^8.2.7, postcss@npm:^8.2.9, postcss@npm:^8.3.0":
+"postcss@npm:^8.2.1, postcss@npm:^8.2.10, postcss@npm:^8.2.15, postcss@npm:^8.2.7, postcss@npm:^8.2.9, postcss@npm:^8.3.0":
   version: 8.3.0
   resolution: "postcss@npm:8.3.0"
   dependencies:

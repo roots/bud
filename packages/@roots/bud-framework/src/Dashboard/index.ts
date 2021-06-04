@@ -1,4 +1,5 @@
 import {Service} from '../Service'
+import {Instance} from 'ink'
 
 export interface Dashboard extends Service {
   /**
@@ -9,7 +10,7 @@ export interface Dashboard extends Service {
   /**
    * Instance
    */
-  dashboard: any
+  instance: Instance
 
   /**
    * Register service
@@ -29,10 +30,7 @@ export interface Dashboard extends Service {
   /**
    * Render error
    */
-  renderError(
-    body: string,
-    title: string,
-  ): Dashboard['dashboard']
+  renderError(body: string, title: string): Dashboard['instance']
 
   /**
    * Unmount CLI

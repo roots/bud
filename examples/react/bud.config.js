@@ -4,8 +4,8 @@ const react = require('@roots/bud-react')
 
 const extensions = [babel, postcss, react]
 
-module.exports = app =>
-  app
+module.exports = app => {
+  return app
     .use(extensions)
     .template({
       template: 'public/index.html',
@@ -16,4 +16,5 @@ module.exports = app =>
     .when(app.isProduction, () => {
       app.runtime('single').splitChunks()
     })
-    .persist(true)
+    .persist()
+}

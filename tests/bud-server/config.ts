@@ -1,14 +1,14 @@
-import {Bud, Framework, config, services} from '@roots/bud'
+import {Framework, setupBud, teardownBud} from '../util'
 
 describe('server config', function () {
   let bud: Framework
 
   beforeEach(() => {
-    bud = new Bud(config).bootstrap(services).lifecycle()
+    bud = setupBud()
   })
 
   afterEach(() => {
-    bud.server.watcher.close()
+    teardownBud(bud)
   })
 
   it('has expected defaults', () => {
@@ -27,7 +27,7 @@ describe('server config', function () {
           '!node_modules',
           '!vendor',
         ],
-        options: {persistant: true},
+        options: {persistant: false},
       },
     })
   })

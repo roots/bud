@@ -18,21 +18,9 @@ export interface Compiler extends Service {
   stats: any
 
   /**
-   * Webpack stats configuration
-   */
-  statsOptions: {
-    [key: string]: string | boolean
-  }
-
-  /**
    * Formatted progress plugin
    */
   progress: Compiler.Progress
-
-  /**
-   * Compiler errors
-   */
-  errors: string[]
 
   /**
    * ## bud.compiler.compile
@@ -63,10 +51,7 @@ export interface Compiler extends Service {
 }
 
 export namespace Compiler {
-  export type Compile = (
-    config?: Compiler.Config,
-    cb?: CallableFunction,
-  ) => Webpack.Compiler
+  export type Compile = () => Webpack.Compiler
 
   export type Config = Webpack.Configuration
   export type Instance = Webpack.Compiler

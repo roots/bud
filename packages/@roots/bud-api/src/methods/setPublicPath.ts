@@ -38,10 +38,10 @@ declare module '@roots/bud-framework' {
 
 const setPublicPath: Api.SetPublicPath = function (publicPath) {
   isString(publicPath) &&
-    this.hooks.on('location/publicPath', () => publicPath)
+    this.hooks.on('build/output/publicPath', () => publicPath)
 
   isFunction(publicPath) &&
-    this.hooks.on('location/publicPath', publicPath)
+    this.hooks.on('build/output/publicPath', publicPath)
 
   return this
 }

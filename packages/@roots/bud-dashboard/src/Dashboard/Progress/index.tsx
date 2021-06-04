@@ -1,18 +1,22 @@
-import type {Dashboard} from '@roots/bud-framework'
+import {Styles} from '@roots/ink-use-style'
 
 import React from 'react'
 import {Box, Text} from 'ink'
 import Spinner from 'ink-spinner'
-import {Bar} from './Bar/index'
+import {Bar} from './Bar'
 
-export const Progress: Dashboard.Component = ({
+export const Progress = ({
   progress,
-  hasErrors,
   theme,
+  mode,
+}: {
+  mode: string
+  progress: any
+  theme: Styles
 }) => {
   const guard =
     progress?.decimal &&
-    theme.bounds.width &&
+    theme?.bounds.width &&
     typeof theme.bounds.width == 'number'
 
   if (!guard) return null
@@ -24,18 +28,15 @@ export const Progress: Dashboard.Component = ({
           {progress?.decimal < 1 ? (
             <>
               <Text color={theme.colors.primary}>
-                <Spinner /> {progress.message ?? ''}
+                <Spinner />{' '}
+                {JSON.stringify(progress?.message) ?? ''}
               </Text>
             </>
           ) : (
             <>
-              {hasErrors ? (
-                <Text color={theme.colors.error}>X Error</Text>
-              ) : (
-                <Text color={theme.colors.success}>
-                  ✔ Complete
-                </Text>
-              )}
+              <Text color={theme.colors.success}>
+                ✔ {'Complete'}
+              </Text>
             </>
           )}
         </Text>
@@ -45,11 +46,10 @@ export const Progress: Dashboard.Component = ({
         <Bar
           character={'='}
           maxWidth={theme.bounds.width - 22}
-          colors={
-            !hasErrors
-              ? [theme.colors.primary, theme.colors.primaryAlt]
-              : [theme.colors.error, theme.colors.error]
-          }
+          colors={[
+            theme.colors.primary,
+            theme.colors.primaryAlt,
+          ]}
           percent={progress?.decimal}
         />
         <Text> {progress.percentage}</Text>

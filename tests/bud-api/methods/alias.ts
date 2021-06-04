@@ -1,14 +1,14 @@
-import {Bud, Framework, config, services} from '@roots/bud'
+import {Framework, setupBud, teardownBud} from '../../util'
 
 describe('webpack.resolve.alias', function () {
   let bud: Framework
 
   beforeEach(() => {
-    bud = new Bud(config).bootstrap(services).lifecycle()
+    bud = setupBud()
   })
 
   afterEach(() => {
-    bud.server.watcher.close()
+    teardownBud(bud)
   })
 
   it('is configurable by bud.alias', () => {

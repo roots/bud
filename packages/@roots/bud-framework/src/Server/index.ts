@@ -40,7 +40,7 @@ export interface Server extends Service {
   /**
    * Run the server instance
    */
-  run(compiler: Webpack.Compiler): this
+  run(): this
 
   /**
    * Inject client scripts innto compilation (HMR, dev experience)

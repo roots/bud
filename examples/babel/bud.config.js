@@ -1,4 +1,4 @@
-module.exports = app =>
+module.exports = app => {
   app
     .use(require('@roots/bud-babel'))
     .template()
@@ -7,3 +7,6 @@ module.exports = app =>
       styles: '*.css',
     })
     .persist()
+
+  return app
+}

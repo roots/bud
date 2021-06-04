@@ -6,6 +6,7 @@ module.exports = {
     'packages/@roots/src/**/*.{ts,tsx}',
     'packages/@roots/src/*.{ts,tsx}',
     '!**/node_modules/**',
+    '!tests/util.ts',
   ]),
   globals: {
     'ts-jest': {
@@ -26,7 +27,7 @@ module.exports = {
       {},
     ),
   preset: 'ts-jest',
-  // setupFiles: ['./jest.setup.js'],
+  setupFiles: ['./jest.setup.ts'],
   testMatch: [
     '**/tests/**/*.[jt]s?(x)',
     '**/?(*.)+(spec|test).[jt]s?(x)',
@@ -37,6 +38,7 @@ module.exports = {
     '/examples/',
     '/docs/',
     '/dev/',
+    '/tests/util',
   ],
 
   verbose: true,

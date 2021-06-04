@@ -1,5 +1,14 @@
-require('./jest.types')
-const {Signale} = require('signale')
+import {Signale} from 'signale'
+
+declare global {
+  namespace NodeJS {
+    interface Global {
+      log: Signale['log']
+      error: Signale['error']
+      success: Signale['success']
+    }
+  }
+}
 
 const signale = new Signale({
   types: {
@@ -25,9 +34,8 @@ signale.config({
   displayFilename: true,
   displayTimestamp: false,
   displayDate: false,
-  underline: false,
 })
 
 global.log = signale.log
 global.error = signale.error
-global.success = signale.succeess
+global.success = signale.success
