@@ -1,3 +1,46 @@
+## v4.3.0
+
+v4.3.0 adds the `bud extensions` cli command. This is the recommended way to ensure peer dependencies are met when installing new extensions. After installing a bud extension, please run `bud extensions:install` (or its alias: `bud init`).
+
+To see what all is being utilized in a project you can run `bud extensions:list`.
+
+There are changes to the cli interface which wil be immediately noticable, but no changes to public-facing APIs.
+
+This release also bumps dependencies to their most recent versions and includes numerous bug fixes.
+
+### Added
+
+- `bud extensions` command
+
+### Improved
+
+- `@roots/bud-typescript` only booted if peer dependencies are met
+- `@roots/bud-postcss` only booted if peer dependencies are met
+- `@roots/bud-react` only booted if peer dependencies are met
+- `@roots/sage` loads extensions conditionally based on peer dependencies
+- `--ci` should be much more reliable
+- Builds should be significantly faster
+
+### Fixed
+
+- Hanging processes with cli commands
+- plain js compilation (without transpilation) now works correctly (see [#82](https://github.com/roots/bud/issues/82))
+- `@roots/bud-vue` fixed (loader incompatible with webpack's `oneOf`)
+- Fixes errors when using memory based caching
+- Fixes errors when using fs based caching
+
+### Internals
+
+- We are now using Jest for tests (h/t @QWp6t)
+- Test: suite for `@roots/container`
+- Test: suite for `@roots/bud-build`
+- Test: several methods from `@roots/bud-api`
+
+### Contributors
+
+- kellymears <kelly@roots.io>
+- QWp6t <hi@qwp6t.me>
+
 ## v4.2.0
 
 v4.2.0 adds the [override](https://github.com/roots/bud/blob/stable/docs/config/override.md) method. Relatedly, there are two new hooks: `before` and `after`, which are called directly before and after the config is generated. Override is just a wrapper around `after`.
@@ -6,18 +49,26 @@ You can now specify publicPath using a callback. See the [setPublicPath docs](ht
 
 By default, bud now uses a memory based cache implementation. Filesystem caching is still superior, but it is no longer the default implementation because of its inherent complexity (it may not work for all configs). We recommend that you try calling `bud.persist()` in your config file to see if filesystem caching works for your project. In the future, hopefully persistent caching can be made the default again.
 
-### Details
+### Added
 
-- Add: `override` method (parity with mix api)
-- Add: `before` hook (parity with mix api, used by `override`)
-- Add: `after` hook (parity with mix api)
-- Improve: Allow for setting `publicPath` with a function callback
-- Improve: Allow for freely disabling/enabling `persist`
-- Improve: error display in the cli
-- Improve: `cache` interface
-- Remove: the last imports of definitions from `@roots/bud-typings`.
-- Fix: fatal errors for non git repos and git repos without commits
-- Fix: eslint extension caching when using `persist`
+- `override` method (parity with mix api)
+- `before` hook (parity with mix api, used by `override`)
+- `after` hook (parity with mix api)
+
+### Improved
+
+- `publicPath` may now be set with a function callback
+- `persist` may be disabled/enabled at any point prior to compilation, as many times as wanted.
+- Improved error display in the cli
+
+### Removed
+
+- Types: remaining definitions from `@roots/bud-typings` are no longer utilized
+
+### Fixed
+
+- Fatal errors for non git repos and git repos without commits
+- Eslint extension caching when using `persist`
 - @roots/sage: add @roots/bud-eslint plugin
 
 ## v4.1.0
