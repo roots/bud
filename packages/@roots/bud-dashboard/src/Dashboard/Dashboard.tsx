@@ -1,7 +1,7 @@
 import {Dashboard, Framework} from '@roots/bud-framework'
 
 import React, {useState, useRef} from 'react'
-import {Box, Text, useInput} from 'ink'
+import {Box, Newline, Text, useInput} from 'ink'
 import {useStyle} from '@roots/ink-use-style'
 import {isEqual} from 'lodash'
 import Table from 'ink-table'
@@ -49,9 +49,6 @@ const Dashboard = ({bud}: {bud: Framework}) => {
   const app = useRef(bud)
 
   const theme = useStyle(app.current.store.get('theme'))
-  const [pkg] = useState<{[key: string]: string}>(
-    app.current.discovery.getProjectInfo(),
-  )
 
   const [progress, setProgress] =
     useState<{
@@ -80,15 +77,19 @@ const Dashboard = ({bud}: {bud: Framework}) => {
     <Box flexDirection="column">
       <Text backgroundColor={theme.colors.primary}>
         {' '}
-        {pkg?.name ?? '   '} ≫ {stats?.hash ?? ''}{' '}
+        {app.current.mode
+          ? `${app.current.name}@${app.current.mode} `
+          : ''}
+        {stats?.hash ? `#${stats.hash} ` : ''}
       </Text>
 
       {stats?.errors?.length > 1 ? (
-        <Box marginY={1}>
+        <Box marginY={1} flexDirection="column">
           {stats.errors.map((err, k) =>
             err.message ? (
               <Text color={theme.colors.error} key={`err-${k}`}>
                 {err.message ?? err ?? ''}
+                <Newline />
               </Text>
             ) : (
               []
@@ -111,7 +112,7 @@ const Dashboard = ({bud}: {bud: Framework}) => {
         </Box>
       )}
 
-      {stats?.errors?.length <= 1 && (
+      {stats?.errors?.length <= 1 && progress?.decimal < 1 && (
         <Box marginTop={1}>
           <Progress
             progress={progress}

@@ -3,18 +3,19 @@
 </p>
 
 <h1 align="center">
-  <strong>Example: ESBuild</strong>
+  <strong>Example: Basic</strong>
 </h1>
+
+This project does not require any configuration files at all. If there is no config provided bud will try to buil from `src/index.js`.
 
 ## Requirements
 
 - @roots/bud
 - @roots/bud-cli
-- @roots/bud-esbuild
 
 ## Installation
 
 ```sh
-yarn add @roots/bud @roots/bud-cli @roots/bud-esbuild --dev
+yarn add @roots/bud @roots/bud-cli --dev
 yarn bud extensions:install
 ```
