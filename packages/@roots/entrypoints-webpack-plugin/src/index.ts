@@ -49,7 +49,11 @@ export class Plugin {
     this.webpack.compilation.entrypoints.forEach(entry => {
       this.getEntrypointFiles(entry).map(file => {
         !file.includes('hot-update') &&
-          this.addToManifest(entry.name, file)
+          this.addToManifest({
+            entry: entry.name,
+            file,
+            info: this.webpack.compilation.getAsset(file).info,
+          })
       })
     })
 
@@ -61,17 +65,24 @@ export class Plugin {
   }
 
   @bind
-  public addToManifest(entry, file) {
+  public addToManifest({entry, file, info}) {
     const type = file.split('.').pop()
+    const source = file
+      .replace(`.${info.hash}.`, '.')
+      .replace(`.${info.contenthash}.`, '.')
+
+    if (!this.assets[entry]) {
+      this.assets[entry] = {
+        [type]: null,
+      }
+    }
 
     this.assets[entry] = {
-      ...(this.assets[entry] ?? {}),
-      [type]:
-        this.assets[entry] &&
-        this.assets[entry][type] &&
-        !this.assets[entry][type].includes(file)
-          ? [...this.assets[entry][type], file]
-          : [file],
+      ...this.assets[entry],
+      [type]: {
+        ...(this.assets[entry][type] ?? {}),
+        [source]: file,
+      },
     }
   }
 
@@ -100,9 +111,9 @@ export class Plugin {
  * Schema for manifest entry
  */
 export type EntrySchema = {
-  [key: string]: {
+  [entry: string]: {
     [type: string]: {
-      [handle: string]: string
+      [source: string]: string
     }
   }
 }

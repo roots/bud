@@ -18,15 +18,37 @@ describe('entrypoints.json', () => {
 
     entrypoints.assets = {}
 
-    entrypoints.addToManifest('app', 'runtime.js')
-    entrypoints.addToManifest('app', 'app.js')
-    entrypoints.addToManifest('app', 'app.css')
-    entrypoints.addToManifest('app', 'vendor/foobar.js')
+    entrypoints.addToManifest({
+      entry: 'app',
+      file: 'runtime.js',
+      info: {contenthash: '', hash: ''},
+    })
+    entrypoints.addToManifest({
+      entry: 'app',
+      file: 'app.js',
+      info: {contenthash: '', hash: ''},
+    })
+    entrypoints.addToManifest({
+      entry: 'app',
+      file: 'app.css',
+      info: {contenthash: '', hash: ''},
+    })
+    entrypoints.addToManifest({
+      entry: 'app',
+      file: 'vendor/foobar.js',
+      info: {contenthash: '', hash: ''},
+    })
 
     expect(entrypoints.assets).toEqual({
       app: {
-        js: ['runtime.js', 'app.js', 'vendor/foobar.js'],
-        css: ['app.css'],
+        js: {
+          'runtime.js': 'runtime.js',
+          'app.js': 'app.js',
+          'vendor/foobar.js': 'vendor/foobar.js',
+        },
+        css: {
+          'app.css': 'app.css',
+        },
       },
     })
   })
