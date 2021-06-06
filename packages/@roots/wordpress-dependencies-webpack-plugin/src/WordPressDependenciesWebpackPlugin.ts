@@ -1,4 +1,3 @@
-import {resolve, relative} from 'path'
 import Webpack, {Compiler, Compilation} from 'webpack'
 import {boundMethod as bind} from 'autobind-decorator'
 import {wpPkgs} from '@roots/bud-support'
@@ -13,8 +12,6 @@ class WordPressDependenciesWebpackPlugin {
 
   public fileName: string
 
-  public filePath: string
-
   public manifest: WordPressDependencies.Manifest = {}
 
   public usedDependencies = {}
@@ -25,16 +22,6 @@ class WordPressDependenciesWebpackPlugin {
 
   @bind
   apply(compiler: Compiler): void {
-    this.filePath = resolve(
-      compiler.options.output.path,
-      this.fileName,
-    )
-
-    this.filePath = relative(
-      compiler.options.output.path,
-      this.filePath,
-    )
-
     compiler.hooks.normalModuleFactory.tap(
       this.plugin.name,
       this.normalModuleFactory,
