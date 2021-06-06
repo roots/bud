@@ -13,29 +13,29 @@ import {Build} from '@roots/bud-build'
 import {Framework} from '@roots/bud-framework'
 
 class Bud extends Framework {
-  api: Api
+  public api: Api
 
-  build: Build
+  public build: Build
 
-  cache: Cache
+  public cache: Cache
 
-  compiler: Compiler
+  public compiler: Compiler
 
-  dependencies: Dependencies
+  public dependencies: Dependencies
 
-  discovery: Discovery
+  public discovery: Discovery
 
-  disk: Disk
+  public disk: Disk
 
-  env: Env
+  public env: Env
 
-  extensions: Extensions
+  public extensions: Extensions
 
-  hooks: Hooks
+  public hooks: Hooks
 
-  logger: Logger
+  public logger: Logger
 
-  server: Server
+  public server: Server
 }
 
 export {Bud}

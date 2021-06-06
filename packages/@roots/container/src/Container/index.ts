@@ -15,17 +15,17 @@ export class Container<I = any> {
   /**
    * Identify
    */
-  ident: '@roots/container'
+  public ident: '@roots/container'
 
   /**
    * The container store
    */
-  repository: any
+  public repository: any
 
   /**
    * Class constructor
    */
-  constructor(repository?: I) {
+  public constructor(repository?: I) {
     this.setStore(repository ?? {})
   }
 

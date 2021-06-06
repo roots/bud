@@ -11,32 +11,32 @@ abstract class Bootstrapper extends Container {
   /**
    * Bootstrap
    */
-  bootstrap?(app: Framework): any
+  public bootstrap?(app: Framework): any
 
   /**
    * Bootstrapped
    */
-  bootstrapped?(app: Framework): any
+  public bootstrapped?(app: Framework): any
 
   /**
    * Register
    */
-  register?(app: Framework): any
+  public register?(app: Framework): any
 
   /**
    * Post registered callback
    */
-  registered?(app: Framework): any
+  public registered?(app: Framework): any
 
   /**
    * Boot
    */
-  boot?(ap: Framework): any
+  public boot?(ap: Framework): any
 
   /**
    * Post boot callback
    */
-  booted?(app: Framework): any
+  public booted?(app: Framework): any
 }
 
 abstract class Service extends Bootstrapper {

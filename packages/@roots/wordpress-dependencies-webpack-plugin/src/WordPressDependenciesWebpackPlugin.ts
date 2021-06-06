@@ -16,12 +16,12 @@ class WordPressDependenciesWebpackPlugin {
 
   public usedDependencies = {}
 
-  constructor(options?: {fileName: string}) {
+  public constructor(options?: {fileName: string}) {
     this.fileName = options?.fileName ?? 'wordpress.json'
   }
 
   @bind
-  apply(compiler: Compiler): void {
+  public apply(compiler: Compiler): void {
     compiler.hooks.normalModuleFactory.tap(
       this.plugin.name,
       this.normalModuleFactory,
