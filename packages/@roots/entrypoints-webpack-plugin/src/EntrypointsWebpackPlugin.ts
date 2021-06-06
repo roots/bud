@@ -26,12 +26,13 @@ class EntrypointsWebpackPlugin implements Entrypoints.Plugin {
   }
 
   @bind
-  apply(compiler: Compiler): void {
+  public apply(compiler: Compiler): void {
     this.assets = {}
 
     this.compiler = compiler
-    this.publicPath = this.compiler.options.output
-      .publicPath as string
+    this.publicPath =
+      this.publicPath ||
+      (this.compiler.options.output.publicPath as string)
 
     this.compiler.hooks.thisCompilation.tap(
       this.plugin,
@@ -47,7 +48,7 @@ class EntrypointsWebpackPlugin implements Entrypoints.Plugin {
   }
 
   @bind
-  protected processAssets() {
+  public processAssets() {
     this.compilation.entrypoints.forEach(entry => {
       this.getEntrypointFiles(entry).map(file => {
         !file.includes('hot-update') &&
@@ -66,7 +67,7 @@ class EntrypointsWebpackPlugin implements Entrypoints.Plugin {
   }
 
   @bind
-  protected addToManifest({entry, file}) {
+  public addToManifest({entry, file}) {
     const type = file.split('.').pop()
 
     if (!this.assets[entry]) {
@@ -85,7 +86,7 @@ class EntrypointsWebpackPlugin implements Entrypoints.Plugin {
   }
 
   @bind
-  protected getEntrypointFiles(entry: {
+  public getEntrypointFiles(entry: {
     chunks: Chunk[]
     origins: any[]
   }): string[] {

@@ -1,9 +1,11 @@
-import {Plugin} from '@roots/entrypoints-webpack-plugin'
+import {EntrypointsWebpackPlugin} from '@roots/entrypoints-webpack-plugin'
 import {Chunk} from 'webpack'
 
 describe('entrypoints.json', () => {
   it('should get chunk file list', () => {
-    const entrypoints = new Plugin()
+    const entrypoints = new EntrypointsWebpackPlugin({
+      publicPath: '/public/',
+    })
     const chonk = new Chunk()
     chonk.files = new Set(['foo.js', 'bar.js'])
     const files = entrypoints.getEntrypointFiles({
@@ -15,7 +17,9 @@ describe('entrypoints.json', () => {
   })
 
   it('should create manifest object', () => {
-    const entrypoints = new Plugin()
+    const entrypoints = new EntrypointsWebpackPlugin({
+      publicPath: '/public/',
+    })
 
     entrypoints.assets = {}
 
@@ -38,14 +42,12 @@ describe('entrypoints.json', () => {
 
     expect(entrypoints.assets).toEqual({
       app: {
-        js: {
-          runtime: 'runtime.js',
-          app: 'app.js',
-          'vendor/foobar': 'vendor/foobar.js',
-        },
-        css: {
-          app: 'app.css',
-        },
+        js: [
+          '/public/runtime.js',
+          '/public/app.js',
+          '/public/vendor/foobar.js'
+        ],
+        css: ['/public/app.css'],
       },
     })
   })
