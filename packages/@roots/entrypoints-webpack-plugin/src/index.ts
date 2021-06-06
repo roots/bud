@@ -22,6 +22,13 @@ export class Plugin {
 
   public assets: {[key: string]: {[key: string]: string[]}}
 
+  public constructor(options?: Options) {
+    options &&
+      Object.keys(options).map(prop => {
+        Object.assign(this, {[prop]: options[prop]})
+      })
+  }
+
   @bind
   apply(compiler: Webpack.Compiler): void {
     this.assets = {}
@@ -52,7 +59,6 @@ export class Plugin {
           this.addToManifest({
             entry: entry.name,
             file,
-            info: this.webpack.compilation.getAsset(file).info,
           })
       })
     })
@@ -65,11 +71,9 @@ export class Plugin {
   }
 
   @bind
-  public addToManifest({entry, file, info}) {
+  public addToManifest({entry, file}) {
     const type = file.split('.').pop()
-    const source = file
-      .replace(`.${info.hash}.`, '.')
-      .replace(`.${info.contenthash}.`, '.')
+    const id = file.split('.').shift()
 
     if (!this.assets[entry]) {
       this.assets[entry] = {
@@ -81,7 +85,7 @@ export class Plugin {
       ...this.assets[entry],
       [type]: {
         ...(this.assets[entry][type] ?? {}),
-        [source]: file,
+        [id]: file,
       },
     }
   }
