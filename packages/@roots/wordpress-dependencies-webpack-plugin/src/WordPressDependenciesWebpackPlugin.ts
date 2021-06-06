@@ -16,7 +16,7 @@ class WordPressDependenciesWebpackPlugin {
 
   public usedDependencies = {}
 
-  constructor(options: {fileName?: string}) {
+  constructor(options?: {fileName: string}) {
     this.fileName = options?.fileName ?? 'wordpress.json'
   }
 
