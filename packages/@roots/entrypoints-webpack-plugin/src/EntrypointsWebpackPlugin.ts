@@ -10,11 +10,11 @@ class EntrypointsWebpackPlugin implements Entrypoints.Plugin {
 
   public name: string = 'entrypoints.json'
 
-  protected compiler: Compiler
+  public compiler: Compiler
 
-  protected compilation: Compilation
+  public compilation: Compilation
 
-  protected publicPath: string
+  public publicPath: string
 
   public assets: Entrypoints.Entry
 

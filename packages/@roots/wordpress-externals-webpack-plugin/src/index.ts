@@ -9,11 +9,11 @@ export class Plugin {
 
   public externals: ExternalsPlugin
 
-  constructor() {
+  public constructor() {
     this.externals = new ExternalsPlugin('window', externals)
   }
 
-  apply(compiler: Webpack.Compiler): void {
+  public apply(compiler: Webpack.Compiler): void {
     this.externals.apply(compiler)
   }
 }

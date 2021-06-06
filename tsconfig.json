@@ -17,9 +17,6 @@
     "sourceMap": true,
     "skipLibCheck": true,
     "strict": false,
-    "target": "es2015"
-  },
-  "references": [
-    {"@roots/*": "./packages/@roots/*"}
-  ]
+    "target": "es2015",
+  }
 }
