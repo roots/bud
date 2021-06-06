@@ -4,9 +4,6 @@
 SCRIPTS_DIR="$(cd "$(dirname "$0")" >/dev/null 2>&1 ; pwd -P)"
 source "${SCRIPTS_DIR}/handler.sh"
 
-echo "Yarn version"
-yarn set version from sources
-
 echo "Installing"
 yarn install
 
