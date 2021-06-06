@@ -25,6 +25,7 @@
 > undefined
 
 - [Overview](#overview)
+- [Installation](#installation)
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [Bud sponsors](#bud-sponsors)
@@ -34,14 +35,24 @@
 
 Webpack plugin which parses imports and creates a manifest of scripts which are provided by [**@wordpress/wordpress**](https://github.com/wordpress/wordpress) (broken down by entrypoint).
 
-You likely want to use this alongside [**@roots/wordpress-externals-webpack-plugin**](https://github.com/roots/bud/tree/stable/packages/@roots/wordpress-externals-webpack-plugin).
+You likely want to use this alongside [**@roots/wordpress-externals-webpack-plugin**](https://github.com/roots/bud/tree/stable/packages/@roots/wordpress-externals-webpack-plugin) which will externalize wordpress dependencies in your bundled code.
+
+## Installation
+
+```sh
+yarn add @roots/wordpress-dependencies-webpack-plugin --dev
+```
 
 ## Usage
 
 ```js
+const {
+  WordPressDependenciesWebpackPlugin,
+} = require("@roots/wordpress-dependencies-webpack-plugin");
+
 // webpack.config.js
 module.exports = {
-  plugins: [new WordPressExternalsPlugin()],
+  plugins: [new WordPressDependenciesWebpackPlugin()],
 };
 ```
 

@@ -1,3 +1,28 @@
+## v4.4.0
+
+v4.4.0 is primarily focused on improvements in `@roots/entrypoints-webpack-plugin` and `@roots/bud-dashboard`. It also includes fixes in `@roots/wordpress-dependencies-webpack-plugin` which could have resulted in incomplete asset processing.
+
+### Breaking
+
+- `@roots/entrypoints-webpack-plugin` should now be imported using the named export `EntrypointsWebpackPlugin`
+- `@roots/wordpress-dependencies-webpack-plugin` should now be imported using the named export `WordPressDependenciesWebpackPlugin`
+
+These import changes only effect users who are using the plugins independently of the framework.
+
+### Fixed
+
+- `@roots/wordpress-dependencies-webpack-plugin` fixes issues related to wordpress assets in child modules not being processed properly.
+
+### Improved
+
+- `@roots/entrypoints-webpack-plugin`: improved internals
+- `@roots/bud-dashboard`: improved reporting
+
+### Contributors
+
+- kellymears <kelly@roots.io>
+- QWp6t <hi@qwp6t.me>
+
 ## v4.3.0
 
 v4.3.0 adds the `bud extensions` cli command. This is the recommended way to ensure peer dependencies are met when installing new extensions. After installing a bud extension, please run `bud extensions:install` (or its alias: `bud init`).
