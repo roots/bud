@@ -1,5 +1,6 @@
 module.exports = {
   parser: '@typescript-eslint/parser',
+  plugins: ['@typescript-eslint'],
   parserOptions: {
     ecmaVersion: 2020,
     sourceType: 'module',
@@ -27,6 +28,10 @@ module.exports = {
     'react/react-in-jsx-scope': 0,
     'no-extra-semi': 0,
     'markdownlint/no-inline-html': 0,
+    '@typescript-eslint/explicit-member-accessibility': [
+      'error',
+      {accessibility: 'explicit'},
+    ],
     quotes: [
       'error',
       'single',
