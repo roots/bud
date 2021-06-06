@@ -6,9 +6,14 @@ namespace Entrypoints {
 
   interface Entry {
     [entry: string]: {
-      [type: string]: {
-        [source: string]: string
-      }
+      [type: string]: string[]
     }
+  }
+
+  interface Options {
+    name?: string
+    writeToFileEmit?: boolean
+    publicPath?: string
+    outputPath?: string
   }
 }

@@ -1,5 +1,6 @@
 import Webpack, {Chunk, Compiler, Compilation} from 'webpack'
 import {boundMethod as bind} from 'autobind-decorator'
+import {uniq} from 'lodash'
 
 class EntrypointsWebpackPlugin implements Entrypoints.Plugin {
   protected plugin = {
@@ -16,6 +17,13 @@ class EntrypointsWebpackPlugin implements Entrypoints.Plugin {
   protected publicPath: string
 
   public assets: Entrypoints.Entry
+
+  public constructor(options?: Entrypoints.Options) {
+    options &&
+      Object.keys(options).map(prop => {
+        Object.assign(this, {[prop]: options[prop]})
+      })
+  }
 
   @bind
   apply(compiler: Compiler): void {
@@ -46,7 +54,6 @@ class EntrypointsWebpackPlugin implements Entrypoints.Plugin {
           this.addToManifest({
             entry: entry.name,
             file,
-            info: this.compilation.getAsset(file).info,
           })
       })
     })
@@ -59,20 +66,21 @@ class EntrypointsWebpackPlugin implements Entrypoints.Plugin {
   }
 
   @bind
-  protected addToManifest({entry, file, info}) {
-    const ext = file.split('.').pop()
-    const source = file
-      .replace(`.${info.hash}.`, '.')
-      .replace(`.${info.contenthash}.`, '.')
+  protected addToManifest({entry, file}) {
+    const type = file.split('.').pop()
+
+    if (!this.assets[entry]) {
+      this.assets[entry] = {
+        [type]: null,
+      }
+    }
 
     this.assets[entry] = {
-      ...(this.assets[entry] ?? {}),
-      [ext]: {
-        ...(this.assets[entry] && this.assets[entry][ext]
-          ? this.assets[entry][ext]
-          : {}),
-        [source]: `${this.publicPath}${file}`,
-      },
+      ...this.assets[entry],
+      [type]: uniq([
+        ...(this.assets[entry][type] ?? []),
+        this.publicPath.concat(file),
+      ]),
     }
   }
 

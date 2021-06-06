@@ -1,15 +1,16 @@
-const {Plugin} = require('@roots/entrypoints-webpack-plugin')
+import {Plugin} from '@roots/entrypoints-webpack-plugin'
+import {Chunk} from 'webpack'
 
 describe('entrypoints.json', () => {
   it('should get chunk file list', () => {
     const entrypoints = new Plugin()
+    const chonk = new Chunk()
+    chonk.files = new Set(['foo.js', 'bar.js'])
     const files = entrypoints.getEntrypointFiles({
-      chunks: [
-        {
-          files: ['foo.js', 'bar.js'],
-        },
-      ],
+      chunks: [chonk],
+      origins: [],
     })
+
     expect(files).toEqual(['foo.js', 'bar.js'])
   })
 
@@ -21,33 +22,29 @@ describe('entrypoints.json', () => {
     entrypoints.addToManifest({
       entry: 'app',
       file: 'runtime.js',
-      info: {contenthash: '', hash: ''},
     })
     entrypoints.addToManifest({
       entry: 'app',
       file: 'app.js',
-      info: {contenthash: '', hash: ''},
     })
     entrypoints.addToManifest({
       entry: 'app',
       file: 'app.css',
-      info: {contenthash: '', hash: ''},
     })
     entrypoints.addToManifest({
       entry: 'app',
       file: 'vendor/foobar.js',
-      info: {contenthash: '', hash: ''},
     })
 
     expect(entrypoints.assets).toEqual({
       app: {
         js: {
-          'runtime.js': 'runtime.js',
-          'app.js': 'app.js',
-          'vendor/foobar.js': 'vendor/foobar.js',
+          runtime: 'runtime.js',
+          app: 'app.js',
+          'vendor/foobar': 'vendor/foobar.js',
         },
         css: {
-          'app.css': 'app.css',
+          app: 'app.css',
         },
       },
     })

@@ -3188,6 +3188,7 @@ __metadata:
   dependencies:
     "@types/node": ^15.6.1
     autobind-decorator: ^2.4.0
+    lodash: ^4.17.21
     webpack: ^5.38.1
   languageName: unknown
   linkType: soft
