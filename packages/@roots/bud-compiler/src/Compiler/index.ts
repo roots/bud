@@ -99,13 +99,16 @@ export default class extends Service implements Compiler {
       args.length > 1 ? args : [null, args.pop()]
 
     this.app.when(stats, () => {
-      this.stats = stats.toJson({all: true})
+      this.stats = stats.toJson(this.app.build.config.stats)
     })
 
     this.app.when(err, () => {
       this.stats.errors.push(err)
     })
 
-    console.log(stats.toString())
+    this.app.when(this.app.store.get('ci'), () => {
+      stats && console.log(stats.toString())
+      err && console.error(err)
+    })
   }
 }

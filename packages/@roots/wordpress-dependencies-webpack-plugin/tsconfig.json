@@ -5,6 +5,8 @@
     "rootDir": "./src",
     "outDir": "./lib/cjs",
     "declarationDir": "./types",
+    "typeRoots": ["./src/types"],
+    "types": ["node"],
   },
   "include": ["src"],
   "exclude": ["lib", "types", "node_modules"]

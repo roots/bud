@@ -1,5 +1,5 @@
 import './interface'
-import {Plugin} from '@roots/wordpress-dependencies-webpack-plugin'
+import {WordPressDependenciesWebpackPlugin as Plugin} from '@roots/wordpress-dependencies-webpack-plugin'
 import {Module} from '@roots/bud-framework'
 
 export const name: Module['name'] =

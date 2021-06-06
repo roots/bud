@@ -4,16 +4,17 @@ import {Bud} from '@roots/bud'
 import {Module} from '@roots/bud-framework'
 
 import * as babel from '@roots/bud-babel'
-import * as dependencies from '@roots/bud-wordpress-dependencies'
 import * as entrypoints from '@roots/bud-entrypoints'
 import * as esbuild from '@roots/bud-esbuild'
 import * as eslint from '@roots/bud-eslint'
-import * as externals from '@roots/bud-wordpress-externals'
-import * as manifests from '@roots/bud-wordpress-manifests'
 import * as postcss from '@roots/bud-postcss'
 import * as react from '@roots/bud-react'
 import * as tailwind from '@roots/bud-tailwindcss'
 import * as typescript from '@roots/bud-typescript'
+
+import * as externals from '@roots/bud-wordpress-externals'
+import * as manifests from '@roots/bud-wordpress-manifests'
+import * as dependencies from '@roots/bud-wordpress-dependencies'
 
 export const name: Module.Name = '@roots/sage'
 
