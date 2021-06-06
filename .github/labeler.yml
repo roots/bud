@@ -198,12 +198,15 @@
   - dev/docs/**/*
 
 'dependencies':
-  - package.lock
+  - packages/**/package.json
+  - examples/**/package.json
+  - package.json
+  - yarn.lock
 
 'test':
   - packages/**/*.test.js
   - tests/*
   - tests/**
-  - jest.config.js
-  - jest.setup.js
+  - jest.config.ts
+  - jest.setup.ts
   - jest.types.ts
