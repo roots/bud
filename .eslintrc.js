@@ -28,10 +28,7 @@ module.exports = {
     'react/react-in-jsx-scope': 0,
     'no-extra-semi': 0,
     'markdownlint/no-inline-html': 0,
-    '@typescript-eslint/explicit-member-accessibility': [
-      'error',
-      {accessibility: 'explicit'},
-    ],
+    '@typescript-eslint/explicit-member-accessibility': 2,
     quotes: [
       'error',
       'single',
