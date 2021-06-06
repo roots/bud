@@ -30,7 +30,7 @@ export class FileContainer extends Container {
   /**
    * Class constructor.
    */
-  constructor(baseDir?: string) {
+  public constructor(baseDir?: string) {
     super()
     this._baseDir = baseDir
   }

@@ -1,7 +1,7 @@
 export class Component extends HTMLElement {
   public rendered: boolean
 
-  static get observedAttributes() {
+  public static get observedAttributes() {
     return ['type']
   }
 

@@ -4,13 +4,13 @@ import {Yarn} from './yarn'
 import {Npm} from './npm'
 
 export class Dependencies {
-  protected path: string
+  public path: string
 
-  constructor(path: string = process.cwd()) {
+  public constructor(path: string = process.cwd()) {
     this.path = path
   }
 
-  get client(): IDependencyManager {
+  public get client(): IDependencyManager {
     if (this.isYarn()) {
       return new Yarn(this.path)
     }
