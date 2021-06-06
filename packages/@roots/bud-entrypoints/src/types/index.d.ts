@@ -1,7 +1,7 @@
 import {Plugin} from '@roots/bud-framework'
-import {Plugin as EntrypointsPlugin} from '@roots/entrypoints-webpack-plugin'
+import {EntrypointsWebpackPlugin} from '@roots/entrypoints-webpack-plugin'
 
-export type Extension = Plugin<EntrypointsPlugin>
+type Extension = Plugin<EntrypointsWebpackPlugin>
 
 declare module '@roots/bud-framework' {
   namespace Framework {
