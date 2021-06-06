@@ -45,7 +45,7 @@ describe('entrypoints.json', () => {
         js: [
           '/public/runtime.js',
           '/public/app.js',
-          '/public/vendor/foobar.js'
+          '/public/vendor/foobar.js',
         ],
         css: ['/public/app.css'],
       },
