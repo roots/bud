@@ -104,23 +104,7 @@ describe('bud.build.config', function () {
   })
 
   it('has expected stats default', () => {
-    expect(config.stats).toEqual({
-      all: false,
-      assets: true,
-      builtAt: false,
-      children: false,
-      chunks: false,
-      colors: true,
-      entrypoints: true,
-      env: true,
-      errors: true,
-      hash: true,
-      logging: true,
-      moduleAssets: false,
-      modules: false,
-      timings: true,
-      version: true,
-    })
+    expect(config.stats).toEqual({})
   })
 
   it('has expected target default', () => {
