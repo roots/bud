@@ -52,7 +52,14 @@ class MergedManifestWebpackPlugin {
      */
     try {
       const entrypointsManifest: {
-        [key: string]: {js: string; css: string}
+        [entry: string]: {
+          js: {
+            [key: string]: string
+          }
+          css: {
+            [key: string]: string
+          }
+        }
       } = await this.manifestContent(this.entrypointsName)
 
       const wordpressManifest: {

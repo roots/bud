@@ -42,7 +42,7 @@ You likely want to use this alongside [**@roots/wordpress-externals-webpack-plug
 // webpack.config.js
 module.exports = {
   plugins: [new WordPressExternalsPlugin()],
-};
+}
 ```
 
 ## Contributing

@@ -11,39 +11,21 @@ import {StatsCompilation} from 'webpack/types'
 import patchConsole from 'patch-console'
 
 const formatAssetsData = assets =>
-  assets
-    .map(a => {
-      console.log(a)
-      return a
-    })
-    .filter(Boolean)
-    .reduce(
-      (a, {name, children, size, emitted, info}) => [
-        ...a,
-        ...(children
-          ? children.map(({name, size, emitted, info}) => ({
-              name: `${emitted ? '❇ ' : ''}${name}`,
-              immutable: info?.immutable ? '✔' : '',
-              minimized: info?.minimized ? '✔' : '',
-              size: humanFormat(size, {
-                prefix: 'k',
-                decimals: 2,
-              }),
-            }))
-          : [
-              {
-                name: `${emitted ? '❇ ' : ''}${name}`,
-                immutable: info?.immutable ? '✔' : '',
-                minimized: info?.minimized ? '✔' : '',
-                size: humanFormat(size, {
-                  prefix: 'k',
-                  decimals: 2,
-                }),
-              },
-            ]),
-      ],
-      [],
-    )
+  assets.reduce(
+    (a, {name, size, emitted, info}) => [
+      ...a,
+      {
+        name: `${emitted ? '❇ ' : ''}${name}`,
+        immutable: info?.immutable ? '✔' : '',
+        minimized: info?.minimized ? '✔' : '',
+        size: humanFormat(size, {
+          prefix: 'k',
+          decimals: 2,
+        }),
+      },
+    ],
+    [],
+  )
 
 const Dashboard = ({bud}: {bud: Framework}) => {
   const app = useRef(bud)

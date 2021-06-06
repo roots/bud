@@ -42,7 +42,7 @@ export function config(this: Framework): void {
       'extensions',
       'modules',
     ])
-    .hooks.link('build/module', ['rules', 'unsafeCache'])
+    .hooks.link('build/module', ['rules'])
     .hooks.link('build/output', [
       'path',
       'pathinfo',
@@ -152,23 +152,7 @@ export function config(this: Framework): void {
       this.hooks.filter('location/modules'),
       ...this.discovery.resolveFrom,
     ])
-    .hooks.on('build/stats', (): Configuration['stats'] => ({
-      all: false,
-      assets: true,
-      builtAt: false,
-      children: false,
-      chunks: false,
-      colors: true,
-      entrypoints: true,
-      env: true,
-      errors: true,
-      hash: true,
-      logging: true,
-      moduleAssets: false,
-      modules: false,
-      timings: true,
-      version: true,
-    }))
+    .hooks.on('build/stats', (): Configuration['stats'] => ({}))
     .hooks.on('build/target', () => 'web')
     .hooks.on('build/watch', false)
 }

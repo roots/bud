@@ -3327,7 +3327,6 @@ __metadata:
     "@types/node": ^15.6.1
     autobind-decorator: ^2.4.0
     lodash: ^4.17.21
-    node-fetch: ^2.6.1
     webpack: ^5.38.1
   languageName: unknown
   linkType: soft
@@ -12646,13 +12645,6 @@ __metadata:
   dependencies:
     lodash.toarray: ^4.4.0
   checksum: e2514e34591c58d907f17ab6a21bcd0f9d7ae311187fc490fb52704389a66f48f0ce84cc34e5baf593c1d96e7796e9350dc1bebe7db4d9379a114fb9e5b0011b
-  languageName: node
-  linkType: hard
-
-"node-fetch@npm:^2.6.1":
-  version: 2.6.1
-  resolution: "node-fetch@npm:2.6.1"
-  checksum: 91075bedd57879117e310fbcc36983ad5d699e522edb1ebcdc4ee5294c982843982652925c3532729fdc86b2d64a8a827797a745f332040d91823c8752ee4d7c
   languageName: node
   linkType: hard
 

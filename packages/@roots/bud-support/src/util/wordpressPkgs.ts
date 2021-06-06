@@ -61,8 +61,10 @@ const transformPkgName = pkg =>
  * Is pkg string a wordpress window var match
  */
 const isProvided: (pkg: string) => boolean = pkg => {
+  if (!pkg) return false
+
   return (
-    pkg.startsWith('@wordpress/') ||
+    pkg.includes('@wordpress') ||
     ['jquery', 'react', 'react-dom', 'lodash'].includes(pkg)
   )
 }
